@@ -1,0 +1,266 @@
+DIGEST 5bd33cb638a1c58631a664a22e114993
+FThieleMachine.Impossibility
+R15:31 Coq.QArith.QArith <> <> lib
+R49:64 Coq.QArith.Qring <> <> lib
+R82:95 Coq.Lists.List <> <> lib
+R113:125 Coq.Bool.Bool <> <> lib
+R143:145 Coq.micromega.Lia <> <> lib
+R155:167 Coq.Lists.List ListNotations <> mod
+R207:208 ThieleUniversal.TM <> <> lib
+R245:258 ThieleMachine.BellInequality <> <> lib
+def 594:599 <> Lambda
+R604:611 ThieleMachine.BellInequality <> Strategy def
+rec 622:636 <> ProbabilisticTM
+proj 645:655 <> ptm_machine
+proj 665:682 <> ptm_response_table
+R659:660 ThieleUniversal.TM <> TM rec
+R692:695 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R686:691 ThieleMachine.Impossibility <> Lambda def
+R696:703 ThieleMachine.BellInequality <> Response rec
+rec 716:730 <> PTMArchitecture
+proj 739:747 <> ptm_alice
+proj 770:776 <> ptm_bob
+proj 799:815 <> ptm_lambda_weight
+proj 834:850 <> ptm_lambda_nonneg
+proj 898:912 <> ptm_lambda_sum1
+proj 958:976 <> ptm_lambda_realizes
+R751:765 ThieleMachine.Impossibility <> ProbabilisticTM rec
+R780:794 ThieleMachine.Impossibility <> ProbabilisticTM rec
+R825:828 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R819:824 ThieleMachine.Impossibility <> Lambda def
+R829:829 Coq.QArith.QArith_base <> Q rec
+binder 861:863 <> lam:8
+R869:872 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R867:867 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R873:889 ThieleMachine.Impossibility <> ptm_lambda_weight:7 meth
+R891:893 ThieleMachine.Impossibility <> lam:8 var
+R948:950 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R916:929 ThieleMachine.BellInequality <> sum_strategies def
+R931:947 ThieleMachine.Impossibility <> ptm_lambda_weight:7 meth
+R952:952 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+binder 991:993 <> lam:11
+R1068:1070 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1002:1002 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1035:1036 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1067:1067 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1003:1020 ThieleMachine.Impossibility <> ptm_response_table proj
+R1022:1030 ThieleMachine.Impossibility <> ptm_alice:5 meth
+R1032:1034 ThieleMachine.Impossibility <> lam:11 var
+R1037:1054 ThieleMachine.Impossibility <> ptm_response_table proj
+R1056:1062 ThieleMachine.Impossibility <> ptm_bob:6 meth
+R1064:1066 ThieleMachine.Impossibility <> lam:11 var
+R1071:1073 ThieleMachine.Impossibility <> lam:11 var
+def 1090:1101 <> PTM_strategy
+R1111:1125 ThieleMachine.Impossibility <> PTMArchitecture rec
+binder 1104:1107 <> arch:13
+R1135:1140 ThieleMachine.Impossibility <> Lambda def
+binder 1129:1131 <> lam:14
+R1145:1152 ThieleMachine.BellInequality <> Strategy def
+R1159:1159 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1199:1203 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1241:1241 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1160:1177 ThieleMachine.Impossibility <> ptm_response_table proj
+R1180:1188 ThieleMachine.Impossibility <> ptm_alice proj
+R1190:1193 ThieleMachine.Impossibility <> arch:13 var
+R1196:1198 ThieleMachine.Impossibility <> lam:14 var
+R1204:1221 ThieleMachine.Impossibility <> ptm_response_table proj
+R1224:1230 ThieleMachine.Impossibility <> ptm_bob proj
+R1232:1235 ThieleMachine.Impossibility <> arch:13 var
+R1238:1240 ThieleMachine.Impossibility <> lam:14 var
+prf 1251:1271 <> PTM_strategy_realizes
+binder 1284:1287 <> arch:15
+binder 1289:1291 <> lam:16
+R1315:1317 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1294:1305 ThieleMachine.Impossibility <> PTM_strategy def
+R1307:1310 ThieleMachine.Impossibility <> arch:15 var
+R1312:1314 ThieleMachine.Impossibility <> lam:16 var
+R1318:1320 ThieleMachine.Impossibility <> lam:16 var
+R1358:1369 ThieleMachine.Impossibility <> PTM_strategy def
+R1380:1398 ThieleMachine.Impossibility <> ptm_lambda_realizes proj
+R1380:1398 ThieleMachine.Impossibility <> ptm_lambda_realizes proj
+def 1418:1437 <> PTM_CHSH_expectation
+R1447:1461 ThieleMachine.Impossibility <> PTMArchitecture rec
+binder 1440:1443 <> arch:17
+R1466:1466 Coq.QArith.QArith_base <> Q rec
+R1473:1486 ThieleMachine.BellInequality <> sum_strategies def
+binder 1493:1495 <> lam:18
+R1530:1532 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R1504:1520 ThieleMachine.Impossibility <> ptm_lambda_weight proj
+R1522:1525 ThieleMachine.Impossibility <> arch:17 var
+R1527:1529 ThieleMachine.Impossibility <> lam:18 var
+R1533:1542 ThieleMachine.BellInequality <> strategy_S def
+R1545:1556 ThieleMachine.Impossibility <> PTM_strategy def
+R1558:1561 ThieleMachine.Impossibility <> arch:17 var
+R1563:1565 ThieleMachine.Impossibility <> lam:18 var
+prf 1577:1603 <> PTM_CHSH_expectation_unfold
+binder 1616:1619 <> arch:19
+R1651:1660 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R1626:1645 ThieleMachine.Impossibility <> PTM_CHSH_expectation def
+R1647:1650 ThieleMachine.Impossibility <> arch:19 var
+R1661:1674 ThieleMachine.BellInequality <> sum_strategies def
+binder 1681:1683 <> lam:20
+R1714:1716 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R1688:1704 ThieleMachine.Impossibility <> ptm_lambda_weight proj
+R1706:1709 ThieleMachine.Impossibility <> arch:19 var
+R1711:1713 ThieleMachine.Impossibility <> lam:20 var
+R1717:1726 ThieleMachine.BellInequality <> strategy_S def
+R1728:1730 ThieleMachine.Impossibility <> lam:20 var
+R1765:1784 ThieleMachine.Impossibility <> PTM_CHSH_expectation def
+R1795:1812 ThieleMachine.BellInequality <> sum_strategies_ext thm
+R1795:1812 ThieleMachine.BellInequality <> sum_strategies_ext thm
+R1843:1863 ThieleMachine.Impossibility <> PTM_strategy_realizes thm
+R1843:1863 ThieleMachine.Impossibility <> PTM_strategy_realizes thm
+R1843:1863 ThieleMachine.Impossibility <> PTM_strategy_realizes thm
+prf 1895:1922 <> impossibility_of_re_encoding
+R1943:1957 ThieleMachine.Impossibility <> PTMArchitecture rec
+binder 1936:1939 <> arch:21
+R1997:2000 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R1965:1968 ThieleMachine.BellInequality <> Qabs def
+R1971:1990 ThieleMachine.Impossibility <> PTM_CHSH_expectation def
+R1992:1995 ThieleMachine.Impossibility <> arch:21 var
+R2002:2002 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R2042:2068 ThieleMachine.Impossibility <> PTM_CHSH_expectation_unfold thm
+R2042:2068 ThieleMachine.Impossibility <> PTM_CHSH_expectation_unfold thm
+R2102:2118 ThieleMachine.BellInequality <> Qabs_proper_local thm
+R2102:2118 ThieleMachine.BellInequality <> Qabs_proper_local thm
+R2162:2165 ThieleMachine.BellInequality <> Qabs def
+R2168:2187 ThieleMachine.Impossibility <> PTM_CHSH_expectation def
+R2206:2209 ThieleMachine.BellInequality <> Qabs def
+R2212:2225 ThieleMachine.BellInequality <> sum_strategies def
+binder 2232:2234 <> lam:22
+R2265:2267 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R2239:2255 ThieleMachine.Impossibility <> ptm_lambda_weight proj
+R2262:2264 ThieleMachine.Impossibility <> lam:22 var
+R2268:2277 ThieleMachine.BellInequality <> strategy_S def
+R2279:2281 ThieleMachine.Impossibility <> lam:22 var
+R2162:2165 ThieleMachine.BellInequality <> Qabs def
+R2168:2187 ThieleMachine.Impossibility <> PTM_CHSH_expectation def
+R2206:2209 ThieleMachine.BellInequality <> Qabs def
+R2212:2225 ThieleMachine.BellInequality <> sum_strategies def
+binder 2232:2234 <> lam:23
+R2265:2267 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R2239:2255 ThieleMachine.Impossibility <> ptm_lambda_weight proj
+R2262:2264 ThieleMachine.Impossibility <> lam:23 var
+R2268:2277 ThieleMachine.BellInequality <> strategy_S def
+R2279:2281 ThieleMachine.Impossibility <> lam:23 var
+R2321:2337 ThieleMachine.Impossibility <> ptm_lambda_weight proj
+R2321:2337 ThieleMachine.Impossibility <> ptm_lambda_weight proj
+binder 2371:2373 <> lam:24
+R2379:2382 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R2377:2377 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R2385:2387 ThieleMachine.Impossibility <> lam:24 var
+R2399:2415 ThieleMachine.Impossibility <> ptm_lambda_nonneg proj
+binder 2371:2373 <> lam:25
+R2379:2382 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R2377:2377 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R2385:2387 ThieleMachine.Impossibility <> lam:25 var
+R2399:2415 ThieleMachine.Impossibility <> ptm_lambda_nonneg proj
+R2451:2453 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2435:2448 ThieleMachine.BellInequality <> sum_strategies def
+R2455:2455 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R2468:2482 ThieleMachine.Impossibility <> ptm_lambda_sum1 proj
+R2451:2453 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2435:2448 ThieleMachine.BellInequality <> sum_strategies def
+R2455:2455 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R2468:2482 ThieleMachine.Impossibility <> ptm_lambda_sum1 proj
+binder 2501:2503 <> lam:26
+R2508:2517 ThieleMachine.BellInequality <> strategy_S def
+R2519:2521 ThieleMachine.Impossibility <> lam:26 var
+binder 2501:2503 <> lam:27
+R2508:2517 ThieleMachine.BellInequality <> strategy_S def
+R2519:2521 ThieleMachine.Impossibility <> lam:27 var
+R2539:2567 ThieleMachine.BellInequality <> sum_strategies_weighted_lower thm
+R2574:2576 Coq.QArith.QArith_base <> ::Q_scope:'-'_x not
+R2580:2580 Coq.QArith.QArith_base <> ::Q_scope:'-'_x not
+R2578:2578 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+binder 2610:2612 <> lam:28
+R2619:2640 ThieleMachine.BellInequality <> strategy_S_lower_bound thm
+R2642:2644 ThieleMachine.Impossibility <> lam:28 var
+R2539:2567 ThieleMachine.BellInequality <> sum_strategies_weighted_lower thm
+R2574:2576 Coq.QArith.QArith_base <> ::Q_scope:'-'_x not
+R2580:2580 Coq.QArith.QArith_base <> ::Q_scope:'-'_x not
+R2578:2578 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+binder 2610:2612 <> lam:29
+R2619:2640 ThieleMachine.BellInequality <> strategy_S_lower_bound thm
+R2642:2644 ThieleMachine.Impossibility <> lam:29 var
+R2673:2701 ThieleMachine.BellInequality <> sum_strategies_weighted_upper thm
+R2709:2709 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+binder 2740:2742 <> lam:30
+R2749:2770 ThieleMachine.BellInequality <> strategy_S_upper_bound thm
+R2772:2774 ThieleMachine.Impossibility <> lam:30 var
+R2673:2701 ThieleMachine.BellInequality <> sum_strategies_weighted_upper thm
+R2709:2709 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+binder 2740:2742 <> lam:31
+R2749:2770 ThieleMachine.BellInequality <> strategy_S_upper_bound thm
+R2772:2774 ThieleMachine.Impossibility <> lam:31 var
+R2821:2824 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R2814:2816 Coq.QArith.QArith_base <> ::Q_scope:'-'_x not
+R2820:2820 Coq.QArith.QArith_base <> ::Q_scope:'-'_x not
+R2818:2818 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R2825:2838 ThieleMachine.BellInequality <> sum_strategies def
+binder 2845:2847 <> lam:32
+R2857:2859 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R2854:2856 ThieleMachine.Impossibility <> lam:32 var
+R2862:2864 ThieleMachine.Impossibility <> lam:32 var
+R2821:2824 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R2814:2816 Coq.QArith.QArith_base <> ::Q_scope:'-'_x not
+R2820:2820 Coq.QArith.QArith_base <> ::Q_scope:'-'_x not
+R2818:2818 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R2825:2838 ThieleMachine.BellInequality <> sum_strategies def
+binder 2845:2847 <> lam:33
+R2857:2859 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R2854:2856 ThieleMachine.Impossibility <> lam:33 var
+R2862:2864 ThieleMachine.Impossibility <> lam:33 var
+R2880:2888 Coq.QArith.QArith_base <> Qle_trans thm
+R2893:2893 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R2901:2904 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R2894:2896 Coq.QArith.QArith_base <> ::Q_scope:'-'_x not
+R2900:2900 Coq.QArith.QArith_base <> ::Q_scope:'-'_x not
+R2898:2898 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R2905:2918 ThieleMachine.BellInequality <> sum_strategies def
+R2880:2888 Coq.QArith.QArith_base <> Qle_trans thm
+R2893:2893 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R2901:2904 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R2894:2896 Coq.QArith.QArith_base <> ::Q_scope:'-'_x not
+R2900:2900 Coq.QArith.QArith_base <> ::Q_scope:'-'_x not
+R2898:2898 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R2905:2918 ThieleMachine.BellInequality <> sum_strategies def
+R2960:2968 Coq.QArith.QArith_base <> Qmult_1_r thm
+R2960:2968 Coq.QArith.QArith_base <> Qmult_1_r thm
+R2960:2968 Coq.QArith.QArith_base <> Qmult_1_r thm
+R2977:2984 Coq.QArith.QArith_base <> Qle_refl thm
+R2977:2984 Coq.QArith.QArith_base <> Qle_refl thm
+R3077:3080 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R3036:3049 ThieleMachine.BellInequality <> sum_strategies def
+binder 3056:3058 <> lam:34
+R3068:3070 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R3065:3067 ThieleMachine.Impossibility <> lam:34 var
+R3073:3075 ThieleMachine.Impossibility <> lam:34 var
+R3082:3082 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R3077:3080 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R3036:3049 ThieleMachine.BellInequality <> sum_strategies def
+binder 3056:3058 <> lam:35
+R3068:3070 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R3065:3067 ThieleMachine.Impossibility <> lam:35 var
+R3073:3075 ThieleMachine.Impossibility <> lam:35 var
+R3082:3082 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R3098:3106 Coq.QArith.QArith_base <> Qle_trans thm
+R3111:3111 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R3115:3118 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R3113:3113 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R3119:3132 ThieleMachine.BellInequality <> sum_strategies def
+R3098:3106 Coq.QArith.QArith_base <> Qle_trans thm
+R3111:3111 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R3115:3118 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R3113:3113 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R3119:3132 ThieleMachine.BellInequality <> sum_strategies def
+R3194:3202 Coq.QArith.QArith_base <> Qmult_1_r thm
+R3194:3202 Coq.QArith.QArith_base <> Qmult_1_r thm
+R3194:3202 Coq.QArith.QArith_base <> Qmult_1_r thm
+R3211:3218 Coq.QArith.QArith_base <> Qle_refl thm
+R3211:3218 Coq.QArith.QArith_base <> Qle_refl thm
+R3259:3259 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R3233:3245 ThieleMachine.BellInequality <> Qabs_le_bound thm
+R3259:3259 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R3233:3245 ThieleMachine.BellInequality <> Qabs_le_bound thm
+R3275:3277 Coq.QArith.QArith_base <> Qle def

@@ -1,0 +1,184 @@
+DIGEST b0b2910e763adfa29f5caba56e32130c
+FTheory.CostIsComplexity
+R138:141 Coq.Lists.List <> <> lib
+R168:176 Coq.Bool.Bool <> <> lib
+R203:216 Coq.Arith.PeanoNat <> <> lib
+R243:255 Coq.micromega.Lia <> <> lib
+R266:278 Coq.Lists.List ListNotations <> mod
+def 536:538 <> bit
+R543:546 Coq.Init.Datatypes <> bool ind
+def 560:563 <> tape
+R568:571 Coq.Init.Datatypes <> list ind
+R573:575 Theory.CostIsComplexity <> bit def
+def 589:595 <> program
+R600:603 Coq.Init.Datatypes <> list ind
+R605:607 Theory.CostIsComplexity <> bit def
+def 868:870 <> run
+R877:883 Theory.CostIsComplexity <> program def
+binder 873:873 <> p:1
+R888:893 Coq.Init.Datatypes <> option ind
+R895:898 Theory.CostIsComplexity <> tape def
+R911:913 Coq.Lists.List <> rev def
+R915:915 Theory.CostIsComplexity <> p:1 var
+R930:933 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R926:929 Coq.Init.Datatypes <> true constr
+R946:949 Coq.Init.Datatypes <> Some constr
+R952:954 Coq.Lists.List <> rev def
+R975:978 Coq.Init.Datatypes <> None constr
+def 999:1006 <> produces
+R1013:1019 Theory.CostIsComplexity <> program def
+binder 1009:1009 <> p:2
+R1029:1032 Theory.CostIsComplexity <> tape def
+binder 1023:1025 <> out:3
+R1050:1052 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1045:1047 Theory.CostIsComplexity <> run def
+R1049:1049 Theory.CostIsComplexity <> p:2 var
+R1053:1056 Coq.Init.Datatypes <> Some constr
+R1058:1060 Theory.CostIsComplexity <> out:3 var
+def 1075:1082 <> compiler
+R1092:1095 Theory.CostIsComplexity <> tape def
+binder 1085:1088 <> spec:4
+R1100:1106 Theory.CostIsComplexity <> program def
+R1115:1118 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R1111:1114 Theory.CostIsComplexity <> spec:4 var
+R1119:1119 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1124:1124 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1120:1123 Coq.Init.Datatypes <> true constr
+prf 1134:1145 <> run_compiler
+binder 1156:1159 <> spec:5
+R1181:1183 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1162:1164 Theory.CostIsComplexity <> run def
+R1167:1174 Theory.CostIsComplexity <> compiler def
+R1176:1179 Theory.CostIsComplexity <> spec:5 var
+R1184:1187 Coq.Init.Datatypes <> Some constr
+R1189:1192 Theory.CostIsComplexity <> spec:5 var
+R1224:1226 Theory.CostIsComplexity <> run def
+R1229:1236 Theory.CostIsComplexity <> compiler def
+R1249:1261 Coq.Lists.List <> rev_app_distr thm
+R1249:1261 Coq.Lists.List <> rev_app_distr thm
+R1249:1261 Coq.Lists.List <> rev_app_distr thm
+R1283:1296 Coq.Lists.List <> rev_involutive thm
+R1283:1296 Coq.Lists.List <> rev_involutive thm
+R1283:1296 Coq.Lists.List <> rev_involutive thm
+prf 1311:1324 <> produces_shape
+binder 1337:1337 <> p:6
+binder 1339:1342 <> spec:7
+R1360:1363 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1345:1352 Theory.CostIsComplexity <> produces def
+R1356:1359 Theory.CostIsComplexity <> spec:7 var
+R1354:1354 Theory.CostIsComplexity <> p:6 var
+R1365:1367 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1364:1364 Theory.CostIsComplexity <> p:6 var
+R1372:1375 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R1368:1371 Theory.CostIsComplexity <> spec:7 var
+R1376:1376 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1381:1381 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1377:1380 Coq.Init.Datatypes <> true constr
+R1419:1426 Theory.CostIsComplexity <> produces def
+R1429:1431 Theory.CostIsComplexity <> run def
+R1451:1453 Coq.Lists.List <> rev def
+R1451:1453 Coq.Lists.List <> rev def
+R1567:1580 Coq.Lists.List <> rev_involutive thm
+R1567:1580 Coq.Lists.List <> rev_involutive thm
+R1567:1580 Coq.Lists.List <> rev_involutive thm
+prf 1651:1665 <> produces_length
+binder 1678:1678 <> p:8
+binder 1680:1683 <> spec:9
+R1701:1704 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1686:1693 Theory.CostIsComplexity <> produces def
+R1697:1700 Theory.CostIsComplexity <> spec:9 var
+R1695:1695 Theory.CostIsComplexity <> p:8 var
+R1713:1715 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1705:1710 Coq.Init.Datatypes <> length def
+R1712:1712 Theory.CostIsComplexity <> p:8 var
+R1727:1729 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1716:1721 Coq.Init.Datatypes <> length def
+R1723:1726 Theory.CostIsComplexity <> spec:9 var
+R1780:1782 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1787:1790 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R1791:1791 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1796:1796 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1792:1795 Coq.Init.Datatypes <> true constr
+R1780:1782 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1787:1790 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R1791:1791 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1796:1796 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1792:1795 Coq.Init.Datatypes <> true constr
+R1810:1823 Theory.CostIsComplexity <> produces_shape thm
+R1810:1823 Theory.CostIsComplexity <> produces_shape thm
+R1866:1875 Coq.Lists.List <> app_length thm
+R1866:1875 Coq.Lists.List <> app_length thm
+R1866:1875 Coq.Lists.List <> app_length thm
+def 2151:2157 <> mu_bits
+R2167:2170 Theory.CostIsComplexity <> tape def
+binder 2160:2163 <> spec:10
+R2175:2177 Coq.Init.Datatypes <> nat ind
+R2193:2195 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2182:2187 Coq.Init.Datatypes <> length def
+R2189:2192 Theory.CostIsComplexity <> spec:10 var
+def 2211:2232 <> prefix_free_complexity
+R2242:2245 Theory.CostIsComplexity <> tape def
+binder 2235:2238 <> spec:11
+R2250:2252 Coq.Init.Datatypes <> nat ind
+R2268:2270 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2257:2262 Coq.Init.Datatypes <> length def
+R2264:2267 Theory.CostIsComplexity <> spec:11 var
+prf 2281:2299 <> complexity_realised
+binder 2312:2315 <> spec:12
+R2351:2358 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2322:2329 Theory.CostIsComplexity <> produces def
+R2347:2350 Theory.CostIsComplexity <> spec:12 var
+R2332:2339 Theory.CostIsComplexity <> compiler def
+R2341:2344 Theory.CostIsComplexity <> spec:12 var
+R2381:2383 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2359:2364 Coq.Init.Datatypes <> length def
+R2367:2374 Theory.CostIsComplexity <> compiler def
+R2376:2379 Theory.CostIsComplexity <> spec:12 var
+R2384:2405 Theory.CostIsComplexity <> prefix_free_complexity def
+R2407:2410 Theory.CostIsComplexity <> spec:12 var
+R2452:2463 Theory.CostIsComplexity <> run_compiler thm
+R2452:2463 Theory.CostIsComplexity <> run_compiler thm
+R2477:2484 Theory.CostIsComplexity <> compiler def
+R2487:2508 Theory.CostIsComplexity <> prefix_free_complexity def
+R2527:2536 Coq.Lists.List <> app_length thm
+R2527:2536 Coq.Lists.List <> app_length thm
+R2527:2536 Coq.Lists.List <> app_length thm
+prf 2551:2571 <> complexity_is_minimal
+binder 2584:2584 <> p:13
+binder 2586:2589 <> spec:14
+R2611:2614 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2596:2603 Theory.CostIsComplexity <> produces def
+R2607:2610 Theory.CostIsComplexity <> spec:14 var
+R2605:2605 Theory.CostIsComplexity <> p:13 var
+R2642:2645 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2615:2636 Theory.CostIsComplexity <> prefix_free_complexity def
+R2638:2641 Theory.CostIsComplexity <> spec:14 var
+R2646:2651 Coq.Init.Datatypes <> length def
+R2653:2653 Theory.CostIsComplexity <> p:13 var
+R2692:2713 Theory.CostIsComplexity <> prefix_free_complexity def
+R2741:2743 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2733:2738 Coq.Init.Datatypes <> length def
+R2755:2757 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2744:2749 Coq.Init.Datatypes <> length def
+R2741:2743 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2733:2738 Coq.Init.Datatypes <> length def
+R2755:2757 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2744:2749 Coq.Init.Datatypes <> length def
+R2772:2786 Theory.CostIsComplexity <> produces_length thm
+R2772:2786 Theory.CostIsComplexity <> produces_length thm
+prf 2838:2867 <> mu_bits_upper_bound_complexity
+R2873:2879 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2887:2892 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2884:2886 Coq.Init.Datatypes <> nat ind
+binder 2880:2880 <> c:15
+R2907:2910 Theory.CostIsComplexity <> tape def
+binder 2900:2903 <> spec:16
+R2931:2934 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R2919:2925 Theory.CostIsComplexity <> mu_bits def
+R2927:2930 Theory.CostIsComplexity <> spec:16 var
+R2962:2964 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2935:2956 Theory.CostIsComplexity <> prefix_free_complexity def
+R2958:2961 Theory.CostIsComplexity <> spec:16 var
+R2965:2965 Theory.CostIsComplexity <> c:15 var
+R3009:3015 Theory.CostIsComplexity <> mu_bits def
+R3018:3039 Theory.CostIsComplexity <> prefix_free_complexity def

@@ -1,0 +1,232 @@
+DIGEST b354f43739e491a6ad0487d79c819275
+FKernel.TsirelsonDerivation
+R228:233 Coq.QArith.QArith <> <> lib
+R235:238 Coq.QArith.Qabs <> <> lib
+R240:242 Coq.micromega.Lia <> <> lib
+R244:247 Coq.Lists.List <> <> lib
+R249:253 Coq.Reals.Reals <> <> lib
+R263:275 Coq.Lists.List ListNotations <> mod
+R332:338 Kernel.VMState <> <> lib
+R340:345 Kernel.VMStep <> <> lib
+R347:360 Kernel.CHSHExtraction <> <> lib
+R362:372 Kernel.MuCostModel <> <> lib
+R402:419 Kernel.AlgebraicCoherence <> <> lib
+R449:463 Kernel.HardAssumptions <> <> lib
+def 522:540 <> correlation_mu_cost
+R547:557 Kernel.AlgebraicCoherence <> Correlators rec
+binder 543:543 <> c:1
+R562:562 Coq.QArith.QArith_base <> Q rec
+R572:579 Coq.QArith.QArith_base <> Qle_bool def
+R582:585 Coq.QArith.Qabs <> Qabs def
+R588:605 Kernel.AlgebraicCoherence <> S_from_correlators def
+R607:607 Kernel.TsirelsonDerivation <> c:1 var
+R611:625 Kernel.HardAssumptions <> tsirelson_bound def
+R670:672 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R643:646 Coq.QArith.Qabs <> Qabs def
+R649:666 Kernel.AlgebraicCoherence <> S_from_correlators def
+R668:668 Kernel.TsirelsonDerivation <> c:1 var
+R673:687 Kernel.HardAssumptions <> tsirelson_bound def
+mod 698:722 <> TsirelsonFromMuAccounting
+prf 810:841 TsirelsonFromMuAccounting nonzero_mu_implies_exceeds_bound
+R858:868 Kernel.AlgebraicCoherence <> Correlators rec
+binder 854:854 <> c:2
+R904:911 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R875:876 Coq.Init.Logic <> ::type_scope:'~'_x not
+R903:903 Coq.Init.Logic <> ::type_scope:'~'_x not
+R898:901 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R877:895 Kernel.TsirelsonDerivation <> correlation_mu_cost def
+R897:897 Kernel.TsirelsonDerivation <> c:2 var
+R912:913 Coq.Init.Logic <> ::type_scope:'~'_x not
+R960:960 Coq.Init.Logic <> ::type_scope:'~'_x not
+R941:944 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R914:917 Coq.QArith.Qabs <> Qabs def
+R920:937 Kernel.AlgebraicCoherence <> S_from_correlators def
+R939:939 Kernel.TsirelsonDerivation <> c:2 var
+R945:959 Kernel.HardAssumptions <> tsirelson_bound def
+R1022:1040 Kernel.TsirelsonDerivation <> correlation_mu_cost def
+R1055:1062 Coq.QArith.QArith_base <> Qle_bool def
+R1065:1068 Coq.QArith.Qabs <> Qabs def
+R1071:1088 Kernel.AlgebraicCoherence <> S_from_correlators def
+R1094:1108 Kernel.HardAssumptions <> tsirelson_bound def
+R1055:1062 Coq.QArith.QArith_base <> Qle_bool def
+R1065:1068 Coq.QArith.Qabs <> Qabs def
+R1071:1088 Kernel.AlgebraicCoherence <> S_from_correlators def
+R1094:1108 Kernel.HardAssumptions <> tsirelson_bound def
+R1226:1228 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1172:1179 Coq.QArith.QArith_base <> Qle_bool def
+R1182:1185 Coq.QArith.Qabs <> Qabs def
+R1188:1205 Kernel.AlgebraicCoherence <> S_from_correlators def
+R1211:1225 Kernel.HardAssumptions <> tsirelson_bound def
+R1229:1232 Coq.Init.Datatypes <> true constr
+R1226:1228 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1172:1179 Coq.QArith.QArith_base <> Qle_bool def
+R1182:1185 Coq.QArith.Qabs <> Qabs def
+R1188:1205 Kernel.AlgebraicCoherence <> S_from_correlators def
+R1211:1225 Kernel.HardAssumptions <> tsirelson_bound def
+R1229:1232 Coq.Init.Datatypes <> true constr
+R1248:1259 Coq.QArith.QArith_base <> Qle_bool_iff thm
+R1248:1259 Coq.QArith.QArith_base <> Qle_bool_iff thm
+def 1375:1387 TsirelsonFromMuAccounting total_mu_cost
+R1400:1402 Coq.Init.Datatypes <> nat ind
+binder 1393:1396 <> fuel:3
+R1414:1417 Coq.Init.Datatypes <> list ind
+R1419:1432 Kernel.VMStep VMStep vm_instruction ind
+binder 1406:1410 <> trace:4
+R1440:1450 Kernel.AlgebraicCoherence <> Correlators rec
+binder 1436:1436 <> c:5
+R1455:1455 Coq.QArith.QArith_base <> Q rec
+R1513:1515 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R1462:1469 Coq.QArith.QArith_base <> inject_Z def
+R1472:1479 Coq.ZArith.BinInt Z of_nat def
+R1482:1497 Kernel.MuCostModel <> mu_cost_of_trace def
+R1499:1502 Kernel.TsirelsonDerivation <> fuel:3 var
+R1504:1508 Kernel.TsirelsonDerivation <> trace:4 var
+R1516:1534 Kernel.TsirelsonDerivation <> correlation_mu_cost def
+R1536:1536 Kernel.TsirelsonDerivation <> c:5 var
+def 1582:1594 TsirelsonFromMuAccounting total_mu_zero
+R1607:1609 Coq.Init.Datatypes <> nat ind
+binder 1600:1603 <> fuel:6
+R1621:1624 Coq.Init.Datatypes <> list ind
+R1626:1639 Kernel.VMStep VMStep vm_instruction ind
+binder 1613:1617 <> trace:7
+R1647:1657 Kernel.AlgebraicCoherence <> Correlators rec
+binder 1643:1643 <> c:8
+R1698:1701 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1672:1686 Kernel.MuCostModel <> mu_zero_program def
+R1688:1691 Kernel.TsirelsonDerivation <> fuel:6 var
+R1693:1697 Kernel.TsirelsonDerivation <> trace:7 var
+R1723:1726 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R1702:1720 Kernel.TsirelsonDerivation <> correlation_mu_cost def
+R1722:1722 Kernel.TsirelsonDerivation <> c:8 var
+prf 1799:1811 TsirelsonFromMuAccounting Qgt_minus_pos
+R1828:1828 Coq.QArith.QArith_base <> Q rec
+binder 1822:1822 <> x:9
+binder 1824:1824 <> y:10
+R1836:1839 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1832:1834 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
+R1831:1831 Kernel.TsirelsonDerivation <> y:10 var
+R1835:1835 Kernel.TsirelsonDerivation <> x:9 var
+R1841:1843 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
+R1845:1847 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R1844:1844 Kernel.TsirelsonDerivation <> x:9 var
+R1848:1848 Kernel.TsirelsonDerivation <> y:10 var
+R1883:1885 Coq.QArith.QArith_base <> Qlt def
+R1888:1893 Coq.QArith.QArith_base <> Qminus def
+prf 1936:1969 TsirelsonFromMuAccounting tsirelson_from_correlation_mu_zero
+R1986:1996 Kernel.AlgebraicCoherence <> Correlators rec
+binder 1982:1982 <> c:11
+R2029:2036 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2024:2027 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R2003:2021 Kernel.TsirelsonDerivation <> correlation_mu_cost def
+R2023:2023 Kernel.TsirelsonDerivation <> c:11 var
+R2064:2067 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R2037:2040 Coq.QArith.Qabs <> Qabs def
+R2043:2060 Kernel.AlgebraicCoherence <> S_from_correlators def
+R2062:2062 Kernel.TsirelsonDerivation <> c:11 var
+R2068:2082 Kernel.HardAssumptions <> tsirelson_bound def
+R2119:2137 Kernel.TsirelsonDerivation <> correlation_mu_cost def
+R2161:2168 Coq.QArith.QArith_base <> Qle_bool def
+R2171:2174 Coq.QArith.Qabs <> Qabs def
+R2177:2194 Kernel.AlgebraicCoherence <> S_from_correlators def
+R2200:2214 Kernel.HardAssumptions <> tsirelson_bound def
+R2161:2168 Coq.QArith.QArith_base <> Qle_bool def
+R2171:2174 Coq.QArith.Qabs <> Qabs def
+R2177:2194 Kernel.AlgebraicCoherence <> S_from_correlators def
+R2200:2214 Kernel.HardAssumptions <> tsirelson_bound def
+R2236:2247 Coq.QArith.QArith_base <> Qle_bool_iff thm
+R2236:2247 Coq.QArith.QArith_base <> Qle_bool_iff thm
+R2299:2300 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2347:2347 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2328:2331 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R2301:2304 Coq.QArith.Qabs <> Qabs def
+R2307:2324 Kernel.AlgebraicCoherence <> S_from_correlators def
+R2332:2346 Kernel.HardAssumptions <> tsirelson_bound def
+R2299:2300 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2347:2347 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2328:2331 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R2301:2304 Coq.QArith.Qabs <> Qabs def
+R2307:2324 Kernel.AlgebraicCoherence <> S_from_correlators def
+R2332:2346 Kernel.HardAssumptions <> tsirelson_bound def
+R2449:2451 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2395:2402 Coq.QArith.QArith_base <> Qle_bool def
+R2405:2408 Coq.QArith.Qabs <> Qabs def
+R2411:2428 Kernel.AlgebraicCoherence <> S_from_correlators def
+R2434:2448 Kernel.HardAssumptions <> tsirelson_bound def
+R2452:2455 Coq.Init.Datatypes <> true constr
+R2449:2451 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2395:2402 Coq.QArith.QArith_base <> Qle_bool def
+R2405:2408 Coq.QArith.Qabs <> Qabs def
+R2411:2428 Kernel.AlgebraicCoherence <> S_from_correlators def
+R2434:2448 Kernel.HardAssumptions <> tsirelson_bound def
+R2452:2455 Coq.Init.Datatypes <> true constr
+R2473:2484 Coq.QArith.QArith_base <> Qle_bool_iff thm
+R2473:2484 Coq.QArith.QArith_base <> Qle_bool_iff thm
+R2558:2567 Coq.QArith.QArith_base <> Qnot_le_lt thm
+R2558:2567 Coq.QArith.QArith_base <> Qnot_le_lt thm
+R2597:2599 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
+R2627:2629 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R2600:2603 Coq.QArith.Qabs <> Qabs def
+R2606:2623 Kernel.AlgebraicCoherence <> S_from_correlators def
+R2630:2644 Kernel.HardAssumptions <> tsirelson_bound def
+R2597:2599 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
+R2627:2629 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R2600:2603 Coq.QArith.Qabs <> Qabs def
+R2606:2623 Kernel.AlgebraicCoherence <> S_from_correlators def
+R2630:2644 Kernel.HardAssumptions <> tsirelson_bound def
+R2660:2672 Kernel.TsirelsonDerivation TsirelsonFromMuAccounting Qgt_minus_pos thm
+R2660:2672 Kernel.TsirelsonDerivation TsirelsonFromMuAccounting Qgt_minus_pos thm
+R2725:2734 Coq.QArith.QArith_base <> Qlt_irrefl thm
+R2725:2734 Coq.QArith.QArith_base <> Qlt_irrefl thm
+prf 2773:2800 TsirelsonFromMuAccounting tsirelson_from_total_mu_zero
+binder 2813:2816 <> fuel:12
+binder 2818:2822 <> trace:13
+binder 2824:2824 <> c:14
+R2857:2864 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2831:2843 Kernel.TsirelsonDerivation TsirelsonFromMuAccounting total_mu_zero def
+R2845:2848 Kernel.TsirelsonDerivation <> fuel:12 var
+R2850:2854 Kernel.TsirelsonDerivation <> trace:13 var
+R2856:2856 Kernel.TsirelsonDerivation <> c:14 var
+R2892:2895 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R2865:2868 Coq.QArith.Qabs <> Qabs def
+R2871:2888 Kernel.AlgebraicCoherence <> S_from_correlators def
+R2890:2890 Kernel.TsirelsonDerivation <> c:14 var
+R2896:2910 Kernel.HardAssumptions <> tsirelson_bound def
+R2966:2999 Kernel.TsirelsonDerivation TsirelsonFromMuAccounting tsirelson_from_correlation_mu_zero thm
+R2966:2999 Kernel.TsirelsonDerivation TsirelsonFromMuAccounting tsirelson_from_correlation_mu_zero thm
+prf 3029:3058 TsirelsonFromMuAccounting tsirelson_from_pure_accounting
+binder 3071:3074 <> fuel:15
+binder 3076:3080 <> trace:16
+binder 3082:3082 <> c:17
+R3106:3109 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3101:3104 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R3089:3092 Coq.QArith.Qabs <> Qabs def
+R3095:3097 Kernel.AlgebraicCoherence <> E00 proj
+R3099:3099 Kernel.TsirelsonDerivation <> c:17 var
+R3127:3134 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3122:3125 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R3110:3113 Coq.QArith.Qabs <> Qabs def
+R3116:3118 Kernel.AlgebraicCoherence <> E01 proj
+R3120:3120 Kernel.TsirelsonDerivation <> c:17 var
+R3152:3155 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3147:3150 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R3135:3138 Coq.QArith.Qabs <> Qabs def
+R3141:3143 Kernel.AlgebraicCoherence <> E10 proj
+R3145:3145 Kernel.TsirelsonDerivation <> c:17 var
+R3173:3180 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3168:3171 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R3156:3159 Coq.QArith.Qabs <> Qabs def
+R3162:3164 Kernel.AlgebraicCoherence <> E11 proj
+R3166:3166 Kernel.TsirelsonDerivation <> c:17 var
+R3207:3214 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3181:3193 Kernel.TsirelsonDerivation TsirelsonFromMuAccounting total_mu_zero def
+R3195:3198 Kernel.TsirelsonDerivation <> fuel:15 var
+R3200:3204 Kernel.TsirelsonDerivation <> trace:16 var
+R3206:3206 Kernel.TsirelsonDerivation <> c:17 var
+R3242:3245 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R3215:3218 Coq.QArith.Qabs <> Qabs def
+R3221:3238 Kernel.AlgebraicCoherence <> S_from_correlators def
+R3240:3240 Kernel.TsirelsonDerivation <> c:17 var
+R3246:3260 Kernel.HardAssumptions <> tsirelson_bound def
+R3328:3355 Kernel.TsirelsonDerivation TsirelsonFromMuAccounting tsirelson_from_total_mu_zero thm
+R3328:3355 Kernel.TsirelsonDerivation TsirelsonFromMuAccounting tsirelson_from_total_mu_zero thm
+R3421:3445 Kernel.TsirelsonDerivation TsirelsonFromMuAccounting <> mod

@@ -1,0 +1,312 @@
+DIGEST f79b3fd7dc119329b052e4c55ebbf224
+FThieleMachine.EfficientDiscovery
+R669:673 Coq.Arith.Arith <> <> lib
+R675:680 Coq.ZArith.ZArith <> <> lib
+R682:684 Coq.micromega.Lia <> <> lib
+R686:689 Coq.Lists.List <> <> lib
+R699:711 Coq.Lists.List ListNotations <> mod
+rec 1025:1031 <> Problem
+proj 1040:1051 <> problem_size
+proj 1062:1080 <> interaction_density
+R1055:1057 Coq.Init.Datatypes <> nat ind
+R1084:1086 Coq.Init.Datatypes <> nat ind
+def 1221:1229 <> Partition
+R1234:1237 Coq.Init.Datatypes <> list ind
+R1240:1243 Coq.Init.Datatypes <> list ind
+R1245:1247 Coq.Init.Datatypes <> nat ind
+rec 1338:1355 <> PartitionCandidate
+proj 1364:1370 <> modules
+proj 1387:1394 <> mdl_cost
+proj 1428:1441 <> discovery_cost
+R1374:1382 ThieleMachine.EfficientDiscovery <> Partition def
+R1398:1400 Coq.Init.Datatypes <> nat ind
+R1445:1447 Coq.Init.Datatypes <> nat ind
+def 1588:1599 <> covers_range
+R1606:1614 ThieleMachine.EfficientDiscovery <> Partition def
+binder 1602:1602 <> p:8
+R1628:1631 Coq.Init.Datatypes <> list ind
+R1633:1635 Coq.Init.Datatypes <> nat ind
+binder 1618:1624 <> covered:9
+R1640:1643 Coq.Init.Datatypes <> list ind
+R1645:1647 Coq.Init.Datatypes <> nat ind
+R1660:1660 ThieleMachine.EfficientDiscovery <> p:8 var
+R1671:1672 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1677:1683 ThieleMachine.EfficientDiscovery <> covered:9 var
+R1690:1693 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1702:1713 ThieleMachine.EfficientDiscovery <> covers_range:10 def
+R1722:1725 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R1726:1732 ThieleMachine.EfficientDiscovery <> covered:9 var
+def 1754:1771 <> is_valid_partition
+R1778:1786 ThieleMachine.EfficientDiscovery <> Partition def
+binder 1774:1774 <> p:12
+R1794:1796 Coq.Init.Datatypes <> nat ind
+binder 1790:1790 <> n:13
+R1826:1837 ThieleMachine.EfficientDiscovery <> covers_range def
+R1839:1839 ThieleMachine.EfficientDiscovery <> p:12 var
+R1841:1842 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+binder 1815:1821 <> covered:14
+R1867:1870 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1863:1865 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1849:1854 Coq.Init.Datatypes <> length def
+R1856:1862 ThieleMachine.EfficientDiscovery <> covered:14 var
+R1866:1866 ThieleMachine.EfficientDiscovery <> n:13 var
+R1871:1875 Coq.Lists.List <> NoDup ind
+R1877:1883 ThieleMachine.EfficientDiscovery <> covered:14 var
+def 2274:2296 <> trivial_range_partition
+R2303:2305 Coq.Init.Datatypes <> nat ind
+binder 2299:2299 <> n:15
+R2310:2318 ThieleMachine.EfficientDiscovery <> Partition def
+R2331:2331 ThieleMachine.EfficientDiscovery <> n:15 var
+R2347:2348 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2354:2354 Coq.Init.Datatypes <> S constr
+R2361:2361 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2374:2374 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2362:2369 Coq.Lists.List <> seq def
+R2373:2373 ThieleMachine.EfficientDiscovery <> n:15 var
+def 2395:2412 <> discover_partition
+R2422:2428 ThieleMachine.EfficientDiscovery <> Problem rec
+binder 2415:2418 <> prob:17
+R2433:2450 ThieleMachine.EfficientDiscovery <> PartitionCandidate rec
+R2466:2477 ThieleMachine.EfficientDiscovery <> problem_size proj
+R2479:2482 ThieleMachine.EfficientDiscovery <> prob:17 var
+binder 2461:2461 <> n:18
+R2492:2498 ThieleMachine.EfficientDiscovery <> modules proj
+R2492:2498 ThieleMachine.EfficientDiscovery <> modules proj
+R2492:2498 ThieleMachine.EfficientDiscovery <> modules proj
+R2535:2542 ThieleMachine.EfficientDiscovery <> mdl_cost proj
+R2535:2542 ThieleMachine.EfficientDiscovery <> mdl_cost proj
+R2592:2605 ThieleMachine.EfficientDiscovery <> discovery_cost proj
+R2592:2605 ThieleMachine.EfficientDiscovery <> discovery_cost proj
+R2503:2525 ThieleMachine.EfficientDiscovery <> trivial_range_partition def
+R2527:2527 ThieleMachine.EfficientDiscovery <> n:18 var
+prf 2685:2720 <> covers_range_trivial_range_partition
+R2737:2739 Coq.Init.Datatypes <> nat ind
+binder 2733:2733 <> n:19
+R2789:2791 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2746:2757 ThieleMachine.EfficientDiscovery <> covers_range def
+R2760:2782 ThieleMachine.EfficientDiscovery <> trivial_range_partition def
+R2784:2784 ThieleMachine.EfficientDiscovery <> n:19 var
+R2787:2788 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2792:2799 Coq.Lists.List <> seq def
+R2803:2803 ThieleMachine.EfficientDiscovery <> n:19 var
+R2949:2957 Coq.Lists.List <> app_nil_r thm
+R2949:2957 Coq.Lists.List <> app_nil_r thm
+R2949:2957 Coq.Lists.List <> app_nil_r thm
+def 3271:3275 <> cubic
+R3282:3284 Coq.Init.Datatypes <> nat ind
+binder 3278:3278 <> n:20
+R3289:3291 Coq.Init.Datatypes <> nat ind
+R3301:3303 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3297:3299 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3296:3296 ThieleMachine.EfficientDiscovery <> n:20 var
+R3300:3300 ThieleMachine.EfficientDiscovery <> n:20 var
+R3304:3304 ThieleMachine.EfficientDiscovery <> n:20 var
+prf 4171:4195 <> discovery_polynomial_time
+R4215:4221 ThieleMachine.EfficientDiscovery <> Problem rec
+binder 4208:4211 <> prob:21
+R4226:4232 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4240:4245 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4237:4239 Coq.Init.Datatypes <> nat ind
+binder 4233:4233 <> c:22
+R4247:4249 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R4246:4246 ThieleMachine.EfficientDiscovery <> c:22 var
+prf 4871:4909 <> discovery_produces_valid_partition_spec
+R4929:4935 ThieleMachine.EfficientDiscovery <> Problem rec
+binder 4922:4925 <> prob:23
+R4963:4970 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4959:4961 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R4942:4953 ThieleMachine.EfficientDiscovery <> problem_size proj
+R4955:4958 ThieleMachine.EfficientDiscovery <> prob:23 var
+R4988:5005 ThieleMachine.EfficientDiscovery <> discover_partition def
+R5007:5010 ThieleMachine.EfficientDiscovery <> prob:23 var
+binder 4975:4983 <> candidate:24
+R5019:5036 ThieleMachine.EfficientDiscovery <> is_valid_partition def
+R5039:5045 ThieleMachine.EfficientDiscovery <> modules proj
+R5047:5055 ThieleMachine.EfficientDiscovery <> candidate:24 var
+R5059:5070 ThieleMachine.EfficientDiscovery <> problem_size proj
+R5072:5075 ThieleMachine.EfficientDiscovery <> prob:23 var
+R5145:5162 ThieleMachine.EfficientDiscovery <> discover_partition def
+R5174:5191 ThieleMachine.EfficientDiscovery <> is_valid_partition def
+R5213:5248 ThieleMachine.EfficientDiscovery <> covers_range_trivial_range_partition thm
+R5213:5248 ThieleMachine.EfficientDiscovery <> covers_range_trivial_range_partition thm
+R5213:5248 ThieleMachine.EfficientDiscovery <> covers_range_trivial_range_partition thm
+R5270:5284 Coq.Lists.List <> seq_length thm
+R5270:5284 Coq.Lists.List <> seq_length thm
+R5297:5310 Coq.Lists.List <> seq_NoDup thm
+R5297:5310 Coq.Lists.List <> seq_NoDup thm
+prf 5475:5499 <> discovery_valid_zero_spec
+R5519:5525 ThieleMachine.EfficientDiscovery <> Problem rec
+binder 5512:5515 <> prob:25
+R5553:5560 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5549:5551 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5532:5543 ThieleMachine.EfficientDiscovery <> problem_size proj
+R5545:5548 ThieleMachine.EfficientDiscovery <> prob:25 var
+R5561:5578 ThieleMachine.EfficientDiscovery <> is_valid_partition def
+R5581:5587 ThieleMachine.EfficientDiscovery <> modules proj
+R5590:5607 ThieleMachine.EfficientDiscovery <> discover_partition def
+R5609:5612 ThieleMachine.EfficientDiscovery <> prob:25 var
+R5653:5670 ThieleMachine.EfficientDiscovery <> discover_partition def
+R5696:5713 ThieleMachine.EfficientDiscovery <> is_valid_partition def
+prf 5946:5966 <> mdl_cost_well_defined
+R5986:5992 ThieleMachine.EfficientDiscovery <> Problem rec
+binder 5979:5982 <> prob:26
+R6016:6033 ThieleMachine.EfficientDiscovery <> discover_partition def
+R6035:6038 ThieleMachine.EfficientDiscovery <> prob:26 var
+binder 6003:6011 <> candidate:27
+R6065:6068 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6047:6054 ThieleMachine.EfficientDiscovery <> mdl_cost proj
+R6056:6064 ThieleMachine.EfficientDiscovery <> candidate:27 var
+R6267:6274 ThieleMachine.EfficientDiscovery <> mdl_cost proj
+prf 6481:6502 <> discovery_cost_bounded
+R6522:6528 ThieleMachine.EfficientDiscovery <> Problem rec
+binder 6515:6518 <> prob:28
+R6552:6569 ThieleMachine.EfficientDiscovery <> discover_partition def
+R6571:6574 ThieleMachine.EfficientDiscovery <> prob:28 var
+binder 6539:6547 <> candidate:29
+R6607:6610 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6583:6596 ThieleMachine.EfficientDiscovery <> discovery_cost proj
+R6598:6606 ThieleMachine.EfficientDiscovery <> candidate:29 var
+R6628:6630 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R6611:6622 ThieleMachine.EfficientDiscovery <> problem_size proj
+R6624:6627 ThieleMachine.EfficientDiscovery <> prob:28 var
+R6665:6682 ThieleMachine.EfficientDiscovery <> discover_partition def
+def 7160:7177 <> sighted_solve_cost
+R7184:7192 ThieleMachine.EfficientDiscovery <> Partition def
+binder 7180:7180 <> p:30
+R7197:7199 Coq.Init.Datatypes <> nat ind
+R7212:7212 ThieleMachine.EfficientDiscovery <> p:30 var
+R7223:7224 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7236:7239 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7271:7273 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7248:7248 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R7257:7261 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R7270:7270 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R7249:7254 Coq.Init.Datatypes <> length def
+R7262:7267 Coq.Init.Datatypes <> length def
+R7274:7291 ThieleMachine.EfficientDiscovery <> sighted_solve_cost:31 def
+def 7348:7363 <> blind_solve_cost
+R7370:7372 Coq.Init.Datatypes <> nat ind
+binder 7366:7366 <> n:33
+R7377:7379 Coq.Init.Datatypes <> nat ind
+R7385:7387 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R7384:7384 ThieleMachine.EfficientDiscovery <> n:33 var
+R7388:7388 ThieleMachine.EfficientDiscovery <> n:33 var
+prf 7602:7621 <> discovery_profitable
+R7641:7647 ThieleMachine.EfficientDiscovery <> Problem rec
+binder 7634:7637 <> prob:34
+R7749:7756 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7744:7746 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R7720:7738 ThieleMachine.EfficientDiscovery <> interaction_density proj
+R7740:7743 ThieleMachine.EfficientDiscovery <> prob:34 var
+R7774:7791 ThieleMachine.EfficientDiscovery <> discover_partition def
+R7793:7796 ThieleMachine.EfficientDiscovery <> prob:34 var
+binder 7761:7769 <> candidate:35
+R7820:7837 ThieleMachine.EfficientDiscovery <> sighted_solve_cost def
+R7840:7846 ThieleMachine.EfficientDiscovery <> modules proj
+R7848:7856 ThieleMachine.EfficientDiscovery <> candidate:35 var
+binder 7809:7815 <> sighted:36
+R7879:7894 ThieleMachine.EfficientDiscovery <> blind_solve_cost def
+R7897:7908 ThieleMachine.EfficientDiscovery <> problem_size proj
+R7910:7913 ThieleMachine.EfficientDiscovery <> prob:34 var
+binder 7870:7874 <> blind:37
+R7957:7960 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7947:7949 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7923:7936 ThieleMachine.EfficientDiscovery <> discovery_cost proj
+R7938:7946 ThieleMachine.EfficientDiscovery <> candidate:35 var
+R7950:7956 ThieleMachine.EfficientDiscovery <> sighted:36 var
+R7961:7965 ThieleMachine.EfficientDiscovery <> blind:37 var
+R8061:8078 ThieleMachine.EfficientDiscovery <> discover_partition def
+R8099:8114 ThieleMachine.EfficientDiscovery <> blind_solve_cost def
+R8129:8140 ThieleMachine.EfficientDiscovery <> problem_size proj
+R8129:8140 ThieleMachine.EfficientDiscovery <> problem_size proj
+R8230:8244 Coq.Lists.List <> seq_length thm
+R8230:8244 Coq.Lists.List <> seq_length thm
+R8230:8244 Coq.Lists.List <> seq_length thm
+prf 8430:8454 <> efficient_discovery_sound
+R8474:8480 ThieleMachine.EfficientDiscovery <> Problem rec
+binder 8467:8470 <> prob:38
+R8531:8531 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8547:8617 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8532:8538 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8540:8541 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 8539:8539 <> c:39
+R8543:8545 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R8542:8542 ThieleMachine.EfficientDiscovery <> c:39 var
+R8618:8618 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8718:8763 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8640:8643 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8636:8638 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R8619:8630 ThieleMachine.EfficientDiscovery <> problem_size proj
+R8632:8635 ThieleMachine.EfficientDiscovery <> prob:38 var
+R8644:8661 ThieleMachine.EfficientDiscovery <> is_valid_partition def
+R8664:8670 ThieleMachine.EfficientDiscovery <> modules proj
+R8673:8690 ThieleMachine.EfficientDiscovery <> discover_partition def
+R8692:8695 ThieleMachine.EfficientDiscovery <> prob:38 var
+R8700:8711 ThieleMachine.EfficientDiscovery <> problem_size proj
+R8713:8716 ThieleMachine.EfficientDiscovery <> prob:38 var
+R8798:8801 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8764:8771 ThieleMachine.EfficientDiscovery <> mdl_cost proj
+R8774:8791 ThieleMachine.EfficientDiscovery <> discover_partition def
+R8793:8796 ThieleMachine.EfficientDiscovery <> prob:38 var
+R8835:8838 Coq.Init.Logic <> conj constr
+R8889:8892 Coq.Init.Logic <> conj constr
+R8962:8982 ThieleMachine.EfficientDiscovery <> mdl_cost_well_defined thm
+R8895:8933 ThieleMachine.EfficientDiscovery <> discovery_produces_valid_partition_spec thm
+R8841:8865 ThieleMachine.EfficientDiscovery <> discovery_polynomial_time thm
+R8835:8838 Coq.Init.Logic <> conj constr
+R8889:8892 Coq.Init.Logic <> conj constr
+R8962:8982 ThieleMachine.EfficientDiscovery <> mdl_cost_well_defined thm
+R8895:8933 ThieleMachine.EfficientDiscovery <> discovery_produces_valid_partition_spec thm
+R8841:8865 ThieleMachine.EfficientDiscovery <> discovery_polynomial_time thm
+rec 9222:9229 <> MuLedger
+proj 9238:9251 <> mu_operational
+proj 9262:9275 <> mu_information
+R9255:9257 Coq.Init.Datatypes <> nat ind
+R9279:9281 Coq.Init.Datatypes <> nat ind
+def 9299:9306 <> mu_total
+R9313:9320 ThieleMachine.EfficientDiscovery <> MuLedger rec
+binder 9309:9309 <> m:43
+R9325:9327 Coq.Init.Datatypes <> nat ind
+R9350:9352 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9334:9347 ThieleMachine.EfficientDiscovery <> mu_operational proj
+R9349:9349 ThieleMachine.EfficientDiscovery <> m:43 var
+R9353:9366 ThieleMachine.EfficientDiscovery <> mu_information proj
+R9368:9368 ThieleMachine.EfficientDiscovery <> m:43 var
+def 9422:9437 <> charge_discovery
+R9444:9451 ThieleMachine.EfficientDiscovery <> MuLedger rec
+binder 9440:9440 <> m:44
+R9462:9464 Coq.Init.Datatypes <> nat ind
+binder 9455:9458 <> cost:45
+R9469:9476 ThieleMachine.EfficientDiscovery <> MuLedger rec
+R9486:9499 ThieleMachine.EfficientDiscovery <> mu_operational proj
+R9486:9499 ThieleMachine.EfficientDiscovery <> mu_operational proj
+R9486:9499 ThieleMachine.EfficientDiscovery <> mu_operational proj
+R9534:9547 ThieleMachine.EfficientDiscovery <> mu_information proj
+R9534:9547 ThieleMachine.EfficientDiscovery <> mu_information proj
+R9520:9522 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9504:9517 ThieleMachine.EfficientDiscovery <> mu_operational proj
+R9519:9519 ThieleMachine.EfficientDiscovery <> m:44 var
+R9523:9526 ThieleMachine.EfficientDiscovery <> cost:45 var
+R9552:9565 ThieleMachine.EfficientDiscovery <> mu_information proj
+R9567:9567 ThieleMachine.EfficientDiscovery <> m:44 var
+prf 9642:9672 <> mu_conservation_after_discovery
+binder 9685:9688 <> prob:46
+binder 9690:9690 <> m:47
+R9714:9731 ThieleMachine.EfficientDiscovery <> discover_partition def
+R9733:9736 ThieleMachine.EfficientDiscovery <> prob:46 var
+binder 9701:9709 <> candidate:48
+R9755:9770 ThieleMachine.EfficientDiscovery <> charge_discovery def
+R9772:9772 ThieleMachine.EfficientDiscovery <> m:47 var
+R9775:9788 ThieleMachine.EfficientDiscovery <> discovery_cost proj
+R9790:9798 ThieleMachine.EfficientDiscovery <> candidate:48 var
+binder 9749:9750 <> m':49
+R9819:9821 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9808:9815 ThieleMachine.EfficientDiscovery <> mu_total def
+R9817:9818 ThieleMachine.EfficientDiscovery <> m':49 var
+R9832:9834 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9822:9829 ThieleMachine.EfficientDiscovery <> mu_total def
+R9831:9831 ThieleMachine.EfficientDiscovery <> m:47 var
+R9835:9848 ThieleMachine.EfficientDiscovery <> discovery_cost proj
+R9850:9858 ThieleMachine.EfficientDiscovery <> candidate:48 var
+R9894:9909 ThieleMachine.EfficientDiscovery <> charge_discovery def
+R9912:9919 ThieleMachine.EfficientDiscovery <> mu_total def

@@ -1,0 +1,720 @@
+DIGEST 3ae589981b55e2901bf79d2cfc424596
+FThieleMachine.PartitionLogic
+R97:100 Coq.Lists.List <> <> lib
+R102:106 Coq.Arith.Arith <> <> lib
+R108:111 Coq.Bool.Bool <> <> lib
+R113:120 Coq.Arith.PeanoNat <> <> lib
+R138:140 Coq.micromega.Lia <> <> lib
+R158:168 Coq.Sorting.Permutation <> <> lib
+R178:190 Coq.Lists.List ListNotations <> mod
+prf 200:220 <> Permutation_length_eq
+binder 231:231 <> A:1
+R242:245 Coq.Init.Datatypes <> list ind
+R247:247 ThieleMachine.PartitionLogic <> A:1 var
+binder 234:235 <> l1:2
+binder 237:238 <> l2:3
+R268:271 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R251:261 Coq.Sorting.Permutation <> Permutation ind
+R266:267 ThieleMachine.PartitionLogic <> l2:3 var
+R263:264 ThieleMachine.PartitionLogic <> l1:2 var
+R281:283 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R272:277 Coq.Init.Datatypes <> length def
+R279:280 ThieleMachine.PartitionLogic <> l1:2 var
+R284:289 Coq.Init.Datatypes <> length def
+R291:292 ThieleMachine.PartitionLogic <> l2:3 var
+def 509:512 <> Hash
+R517:520 Coq.Init.Datatypes <> list ind
+R522:525 Coq.Init.Datatypes <> bool ind
+def 539:541 <> CNF
+R546:549 Coq.Init.Datatypes <> list ind
+R552:555 Coq.Init.Datatypes <> list ind
+R561:563 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R558:560 Coq.Init.Datatypes <> nat ind
+R564:567 Coq.Init.Datatypes <> bool ind
+def 583:587 <> Model
+R595:598 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R592:594 Coq.Init.Datatypes <> nat ind
+R599:602 Coq.Init.Datatypes <> bool ind
+rec 664:672 <> Partition
+proj 681:687 <> modules
+proj 745:754 <> interfaces
+R691:694 Coq.Init.Datatypes <> list ind
+R697:700 Coq.Init.Datatypes <> list ind
+R702:704 Coq.Init.Datatypes <> nat ind
+R758:761 Coq.Init.Datatypes <> list ind
+R764:767 Coq.Init.Datatypes <> list ind
+R769:771 Coq.Init.Datatypes <> nat ind
+rec 825:836 <> LocalWitness
+proj 845:853 <> module_id
+proj 864:875 <> witness_data
+proj 891:906 <> interface_proofs
+R857:859 Coq.Init.Datatypes <> nat ind
+R879:882 Coq.Init.Datatypes <> list ind
+R884:886 Coq.Init.Datatypes <> nat ind
+R910:913 Coq.Init.Datatypes <> list ind
+R915:918 Coq.Init.Datatypes <> bool ind
+rec 972:984 <> GlobalWitness
+proj 993:1007 <> local_witnesses
+proj 1032:1048 <> composition_proof
+R1011:1014 Coq.Init.Datatypes <> list ind
+R1016:1027 ThieleMachine.PartitionLogic <> LocalWitness rec
+R1052:1055 Coq.Init.Datatypes <> bool ind
+def 1168:1176 <> CoreState
+R1181:1183 Coq.Init.Datatypes <> nat ind
+def 1236:1239 <> Cert
+R1244:1246 Coq.Init.Datatypes <> nat ind
+def 1300:1311 <> is_poly_time
+R1334:1337 Coq.Init.Logic <> True ind
+def 1390:1404 <> instance_family
+R1409:1411 Coq.Init.Datatypes <> nat ind
+def 1459:1465 <> Receipt
+R1470:1472 Coq.Init.Datatypes <> nat ind
+def 1519:1535 <> mu_discovery_cost
+R1549:1551 Coq.Init.Datatypes <> nat ind
+R1559:1567 ThieleMachine.PartitionLogic <> Partition rec
+def 1606:1624 <> mu_operational_cost
+R1638:1640 Coq.Init.Datatypes <> nat ind
+R1648:1656 ThieleMachine.PartitionLogic <> Partition rec
+def 1695:1712 <> structure_detector
+R1726:1728 Coq.Init.Datatypes <> nat ind
+R1737:1743 ThieleMachine.PartitionLogic <> modules proj
+R1737:1743 ThieleMachine.PartitionLogic <> modules proj
+R1737:1743 ThieleMachine.PartitionLogic <> modules proj
+R1760:1769 ThieleMachine.PartitionLogic <> interfaces proj
+R1760:1769 ThieleMachine.PartitionLogic <> interfaces proj
+R1748:1748 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1752:1753 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1757:1757 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1749:1749 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1751:1751 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1754:1754 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1756:1756 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1774:1774 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1778:1778 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1775:1775 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1777:1777 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+def 1814:1820 <> size_of
+R1834:1836 Coq.Init.Datatypes <> nat ind
+def 1875:1877 <> log
+R1891:1893 Coq.Init.Datatypes <> nat ind
+def 1932:1942 <> Cert_eq_dec
+R1947:1956 Coq.Arith.PeanoNat Nat eq_dec thm
+def 1998:2006 <> count_occ
+R2023:2026 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2020:2022 Coq.Init.Datatypes <> nat ind
+R2030:2033 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2027:2029 Coq.Init.Datatypes <> nat ind
+R2034:2037 Coq.Init.Datatypes <> bool ind
+R2045:2048 Coq.Init.Datatypes <> list ind
+R2050:2052 Coq.Init.Datatypes <> nat ind
+R2060:2062 Coq.Init.Datatypes <> nat ind
+def 2101:2121 <> Permutation_count_occ
+binder 2130:2130 <> A:14
+binder 2132:2137 <> eq_dec:15
+R2143:2175 Coq.Sorting.Permutation <> Permutation_count_occ thm
+R2177:2177 ThieleMachine.PartitionLogic <> A:14 var
+R2179:2184 ThieleMachine.PartitionLogic <> eq_dec:15 var
+def 2226:2233 <> run_from
+R2240:2242 Coq.Init.Datatypes <> nat ind
+binder 2236:2236 <> s:16
+R2254:2257 Coq.Init.Datatypes <> list ind
+R2259:2261 Coq.Init.Datatypes <> nat ind
+binder 2246:2250 <> certs:17
+R2270:2272 Coq.Init.Datatypes <> nat ind
+binder 2265:2266 <> s':18
+R2280:2282 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2278:2279 ThieleMachine.PartitionLogic <> s':18 var
+R2284:2286 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2283:2283 ThieleMachine.PartitionLogic <> s:16 var
+R2287:2292 Coq.Init.Datatypes <> length def
+R2294:2298 ThieleMachine.PartitionLogic <> certs:17 var
+def 2312:2316 <> mu_of
+R2323:2325 Coq.Init.Datatypes <> nat ind
+binder 2319:2319 <> s:19
+R2331:2331 ThieleMachine.PartitionLogic <> s:19 var
+def 2345:2347 <> sum
+R2354:2357 Coq.Init.Datatypes <> list ind
+R2359:2361 Coq.Init.Datatypes <> nat ind
+binder 2350:2350 <> l:20
+R2367:2375 Coq.Lists.List <> fold_left def
+R2385:2385 ThieleMachine.PartitionLogic <> l:20 var
+R2377:2383 Coq.Arith.PeanoNat Nat add def
+def 2401:2406 <> sum_mu
+R2417:2420 Coq.Init.Datatypes <> list ind
+R2422:2424 Coq.Init.Datatypes <> nat ind
+binder 2409:2413 <> certs:21
+R2430:2435 Coq.Init.Datatypes <> length def
+R2437:2441 ThieleMachine.PartitionLogic <> certs:21 var
+def 2455:2465 <> receipts_ok
+R2481:2483 Coq.Init.Datatypes <> nat ind
+R2489:2492 Coq.Init.Logic <> True ind
+prf 2549:2567 <> fold_left_add_zeros
+R2583:2586 Coq.Init.Datatypes <> list ind
+R2588:2590 Coq.Init.Datatypes <> nat ind
+binder 2579:2579 <> l:22
+R2600:2602 Coq.Init.Datatypes <> nat ind
+binder 2594:2596 <> acc:23
+R2650:2652 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2608:2616 Coq.Lists.List <> fold_left def
+R2647:2649 ThieleMachine.PartitionLogic <> acc:23 var
+R2627:2629 Coq.Lists.List <> map def
+R2644:2644 ThieleMachine.PartitionLogic <> l:22 var
+R2618:2624 Coq.Arith.PeanoNat Nat add def
+R2653:2655 ThieleMachine.PartitionLogic <> acc:23 var
+prf 2746:2759 <> sum_const_zero
+R2775:2778 Coq.Init.Datatypes <> list ind
+R2780:2782 Coq.Init.Datatypes <> nat ind
+binder 2771:2771 <> l:24
+R2813:2815 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2789:2791 ThieleMachine.PartitionLogic <> sum def
+R2794:2796 Coq.Lists.List <> map def
+R2811:2811 ThieleMachine.PartitionLogic <> l:24 var
+R2843:2845 ThieleMachine.PartitionLogic <> sum def
+R2854:2872 ThieleMachine.PartitionLogic <> fold_left_add_zeros thm
+R2854:2872 ThieleMachine.PartitionLogic <> fold_left_add_zeros thm
+def 2890:2895 <> nat_in
+R2902:2904 Coq.Init.Datatypes <> nat ind
+binder 2898:2898 <> n:25
+R2912:2915 Coq.Init.Datatypes <> list ind
+R2917:2919 Coq.Init.Datatypes <> nat ind
+binder 2908:2908 <> l:26
+R2924:2927 Coq.Init.Datatypes <> bool ind
+R2940:2940 ThieleMachine.PartitionLogic <> l:26 var
+R2951:2952 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2957:2961 Coq.Init.Datatypes <> false constr
+R2968:2971 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2981:2987 Coq.Arith.PeanoNat Nat eqb def
+R2989:2989 ThieleMachine.PartitionLogic <> n:25 var
+R3008:3013 ThieleMachine.PartitionLogic <> nat_in:27 def
+R3015:3015 ThieleMachine.PartitionLogic <> n:25 var
+R2998:3001 Coq.Init.Datatypes <> true constr
+def 3037:3055 <> coarsen_modules_aux
+R3074:3077 Coq.Init.Datatypes <> list ind
+R3080:3083 Coq.Init.Datatypes <> list ind
+R3085:3087 Coq.Init.Datatypes <> nat ind
+binder 3067:3070 <> mods:29
+R3111:3114 Coq.Init.Datatypes <> list ind
+R3116:3118 Coq.Init.Datatypes <> nat ind
+binder 3101:3107 <> indices:30
+R3135:3137 Coq.Init.Datatypes <> nat ind
+binder 3131:3131 <> i:31
+R3159:3161 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3144:3147 Coq.Init.Datatypes <> list ind
+R3150:3153 Coq.Init.Datatypes <> list ind
+R3155:3157 Coq.Init.Datatypes <> nat ind
+R3162:3165 Coq.Init.Datatypes <> list ind
+R3167:3169 Coq.Init.Datatypes <> nat ind
+R3182:3185 ThieleMachine.PartitionLogic <> mods:29 var
+R3196:3197 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3202:3202 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3205:3206 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3209:3209 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3203:3204 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3207:3208 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3216:3219 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3265:3283 ThieleMachine.PartitionLogic <> coarsen_modules_aux:32 def
+R3297:3297 Coq.Init.Datatypes <> S constr
+R3299:3299 ThieleMachine.PartitionLogic <> i:31 var
+R3288:3294 ThieleMachine.PartitionLogic <> indices:30 var
+R3237:3237 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3247:3248 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3260:3260 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3314:3319 ThieleMachine.PartitionLogic <> nat_in def
+R3321:3321 ThieleMachine.PartitionLogic <> i:31 var
+R3323:3329 ThieleMachine.PartitionLogic <> indices:30 var
+R3393:3393 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3408:3409 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3421:3421 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3395:3398 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3344:3344 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3354:3355 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3372:3372 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3357:3360 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+def 3442:3461 <> partition_total_size
+R3468:3476 ThieleMachine.PartitionLogic <> Partition rec
+binder 3464:3464 <> P:34
+R3481:3483 Coq.Init.Datatypes <> nat ind
+R3490:3492 ThieleMachine.PartitionLogic <> sum def
+R3495:3497 Coq.Lists.List <> map def
+R3514:3520 ThieleMachine.PartitionLogic <> modules proj
+R3522:3522 ThieleMachine.PartitionLogic <> P:34 var
+R3501:3506 Coq.Init.Datatypes <> length def
+R3508:3510 Coq.Init.Datatypes <> nat ind
+def 3601:3619 <> interface_satisfied
+R3630:3641 ThieleMachine.PartitionLogic <> LocalWitness rec
+binder 3622:3623 <> w1:35
+binder 3625:3626 <> w2:36
+R3653:3656 Coq.Init.Datatypes <> list ind
+R3658:3660 Coq.Init.Datatypes <> nat ind
+binder 3645:3649 <> axiom:37
+R3665:3668 Coq.Init.Datatypes <> bool ind
+R3747:3751 ThieleMachine.PartitionLogic <> axiom:37 var
+R3762:3763 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3768:3771 Coq.Init.Datatypes <> true constr
+R3817:3820 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3908:3914 Coq.Lists.List <> forallb def
+R3984:3988 ThieleMachine.PartitionLogic <> axiom:37 var
+binder 3921:3921 <> a:39
+R3926:3932 Coq.Lists.List <> existsb def
+R3962:3965 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R3947:3958 ThieleMachine.PartitionLogic <> witness_data proj
+R3960:3961 ThieleMachine.PartitionLogic <> w1:35 var
+R3966:3977 ThieleMachine.PartitionLogic <> witness_data proj
+R3979:3980 ThieleMachine.PartitionLogic <> w2:36 var
+R3935:3941 Coq.Arith.PeanoNat Nat eqb def
+R3943:3943 ThieleMachine.PartitionLogic <> a:39 var
+prf 4147:4165 <> witness_composition
+R4183:4191 ThieleMachine.PartitionLogic <> Partition rec
+binder 4179:4179 <> P:40
+R4206:4209 Coq.Init.Datatypes <> list ind
+R4211:4222 ThieleMachine.PartitionLogic <> LocalWitness rec
+binder 4195:4202 <> local_ws:41
+R4237:4249 ThieleMachine.PartitionLogic <> GlobalWitness rec
+binder 4226:4233 <> global_w:42
+R4317:4317 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4519:4587 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 4325:4325 <> i:43
+binder 4327:4327 <> j:44
+binder 4329:4333 <> axiom:45
+binder 4335:4336 <> w1:46
+binder 4338:4339 <> w2:47
+R4388:4398 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4375:4377 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4349:4357 Coq.Lists.List <> nth_error def
+R4374:4374 ThieleMachine.PartitionLogic <> i:43 var
+R4360:4369 ThieleMachine.PartitionLogic <> interfaces proj
+R4371:4371 ThieleMachine.PartitionLogic <> P:40 var
+R4378:4381 Coq.Init.Datatypes <> Some constr
+R4383:4387 ThieleMachine.PartitionLogic <> axiom:45 var
+R4429:4439 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4419:4421 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4399:4407 Coq.Lists.List <> nth_error def
+R4418:4418 ThieleMachine.PartitionLogic <> i:43 var
+R4409:4416 ThieleMachine.PartitionLogic <> local_ws:41 var
+R4422:4425 Coq.Init.Datatypes <> Some constr
+R4427:4428 ThieleMachine.PartitionLogic <> w1:46 var
+R4470:4480 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4460:4462 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4440:4448 Coq.Lists.List <> nth_error def
+R4459:4459 ThieleMachine.PartitionLogic <> j:44 var
+R4450:4457 ThieleMachine.PartitionLogic <> local_ws:41 var
+R4463:4466 Coq.Init.Datatypes <> Some constr
+R4468:4469 ThieleMachine.PartitionLogic <> w2:47 var
+R4512:4514 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4481:4499 ThieleMachine.PartitionLogic <> interface_satisfied def
+R4501:4502 ThieleMachine.PartitionLogic <> w1:46 var
+R4504:4505 ThieleMachine.PartitionLogic <> w2:47 var
+R4507:4511 ThieleMachine.PartitionLogic <> axiom:45 var
+R4515:4518 Coq.Init.Datatypes <> true constr
+R4588:4588 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4643:4717 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 4596:4596 <> w:48
+R4612:4615 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4599:4600 Coq.Lists.List <> In def
+R4604:4611 ThieleMachine.PartitionLogic <> local_ws:41 var
+R4602:4602 ThieleMachine.PartitionLogic <> w:48 var
+R4639:4641 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R4616:4621 Coq.Init.Datatypes <> length def
+R4624:4635 ThieleMachine.PartitionLogic <> witness_data proj
+R4637:4637 ThieleMachine.PartitionLogic <> w:48 var
+R4751:4758 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4744:4746 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4718:4734 ThieleMachine.PartitionLogic <> composition_proof proj
+R4736:4743 ThieleMachine.PartitionLogic <> global_w:42 var
+R4747:4750 Coq.Init.Datatypes <> true constr
+R4759:4765 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4768:4769 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4766:4767 <> gw:49
+R4790:4792 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4770:4786 ThieleMachine.PartitionLogic <> composition_proof proj
+R4788:4789 ThieleMachine.PartitionLogic <> gw:49 var
+R4793:4796 Coq.Init.Datatypes <> true constr
+def 5019:5034 <> refine_partition
+R5041:5049 ThieleMachine.PartitionLogic <> Partition rec
+binder 5037:5037 <> P:50
+R5066:5068 Coq.Init.Datatypes <> nat ind
+binder 5053:5062 <> module_idx:51
+R5085:5088 Coq.Init.Datatypes <> list ind
+R5091:5094 Coq.Init.Datatypes <> list ind
+R5096:5098 Coq.Init.Datatypes <> nat ind
+binder 5072:5081 <> submodules:52
+R5104:5112 ThieleMachine.PartitionLogic <> Partition rec
+R5175:5181 ThieleMachine.PartitionLogic <> modules proj
+R5175:5181 ThieleMachine.PartitionLogic <> modules proj
+R5175:5181 ThieleMachine.PartitionLogic <> modules proj
+R5272:5281 ThieleMachine.PartitionLogic <> interfaces proj
+R5272:5281 ThieleMachine.PartitionLogic <> interfaces proj
+R5215:5218 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R5186:5191 Coq.Lists.List <> firstn def
+R5205:5211 ThieleMachine.PartitionLogic <> modules proj
+R5213:5213 ThieleMachine.PartitionLogic <> P:50 var
+R5193:5202 ThieleMachine.PartitionLogic <> module_idx:51 var
+R5229:5232 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R5219:5228 ThieleMachine.PartitionLogic <> submodules:52 var
+R5233:5237 Coq.Lists.List <> skipn def
+R5255:5261 ThieleMachine.PartitionLogic <> modules proj
+R5263:5263 ThieleMachine.PartitionLogic <> P:50 var
+R5240:5240 Coq.Init.Datatypes <> S constr
+R5242:5251 ThieleMachine.PartitionLogic <> module_idx:51 var
+R5286:5295 ThieleMachine.PartitionLogic <> interfaces proj
+R5297:5297 ThieleMachine.PartitionLogic <> P:50 var
+def 5399:5415 <> coarsen_partition
+R5422:5430 ThieleMachine.PartitionLogic <> Partition rec
+binder 5418:5418 <> P:53
+R5451:5454 Coq.Init.Datatypes <> list ind
+R5456:5458 Coq.Init.Datatypes <> nat ind
+binder 5434:5447 <> module_indices:54
+R5463:5471 ThieleMachine.PartitionLogic <> Partition rec
+R5490:5496 ThieleMachine.PartitionLogic <> modules proj
+R5498:5498 ThieleMachine.PartitionLogic <> P:53 var
+binder 5482:5485 <> mods:55
+R5528:5546 ThieleMachine.PartitionLogic <> coarsen_modules_aux def
+R5548:5551 ThieleMachine.PartitionLogic <> mods:55 var
+R5553:5566 ThieleMachine.PartitionLogic <> module_indices:54 var
+R5510:5510 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5515:5516 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5523:5523 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5629:5630 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5657:5660 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R5661:5661 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5668:5668 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+binder 5579:5592 <> merged_modules:57
+R5688:5694 ThieleMachine.PartitionLogic <> modules proj
+R5688:5694 ThieleMachine.PartitionLogic <> modules proj
+R5688:5694 ThieleMachine.PartitionLogic <> modules proj
+R5720:5729 ThieleMachine.PartitionLogic <> interfaces proj
+R5720:5729 ThieleMachine.PartitionLogic <> interfaces proj
+R5699:5712 ThieleMachine.PartitionLogic <> merged_modules:57 var
+R5734:5743 ThieleMachine.PartitionLogic <> interfaces proj
+R5745:5745 ThieleMachine.PartitionLogic <> P:53 var
+def 5794:5814 <> partition_change_cost
+R5831:5839 ThieleMachine.PartitionLogic <> Partition rec
+binder 5817:5821 <> old_P:58
+binder 5823:5827 <> new_P:59
+R5844:5846 Coq.Init.Datatypes <> nat ind
+R5869:5888 ThieleMachine.PartitionLogic <> partition_total_size def
+R5890:5894 ThieleMachine.PartitionLogic <> old_P:58 var
+binder 5857:5864 <> old_size:60
+R5917:5936 ThieleMachine.PartitionLogic <> partition_total_size def
+R5938:5942 ThieleMachine.PartitionLogic <> new_P:59 var
+binder 5905:5912 <> new_size:61
+R5960:5964 Coq.Arith.PeanoNat <> ::nat_scope:x_'<=?'_x not
+R5952:5959 ThieleMachine.PartitionLogic <> old_size:60 var
+R5965:5972 ThieleMachine.PartitionLogic <> new_size:61 var
+R6022:6024 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R6014:6021 ThieleMachine.PartitionLogic <> old_size:60 var
+R6025:6032 ThieleMachine.PartitionLogic <> new_size:61 var
+R5991:5993 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R5983:5990 ThieleMachine.PartitionLogic <> new_size:61 var
+R5994:6001 ThieleMachine.PartitionLogic <> old_size:60 var
+prf 6086:6106 <> refinement_admissible
+R6124:6132 ThieleMachine.PartitionLogic <> Partition rec
+binder 6120:6120 <> P:62
+R6149:6151 Coq.Init.Datatypes <> nat ind
+binder 6136:6145 <> module_idx:63
+R6168:6171 Coq.Init.Datatypes <> list ind
+R6174:6177 Coq.Init.Datatypes <> list ind
+R6179:6181 Coq.Init.Datatypes <> nat ind
+binder 6155:6164 <> submodules:64
+R6200:6215 ThieleMachine.PartitionLogic <> refine_partition def
+R6217:6217 ThieleMachine.PartitionLogic <> P:62 var
+R6219:6228 ThieleMachine.PartitionLogic <> module_idx:63 var
+R6230:6239 ThieleMachine.PartitionLogic <> submodules:64 var
+binder 6194:6195 <> P':65
+R6334:6336 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R6316:6321 Coq.Init.Datatypes <> length def
+R6324:6330 ThieleMachine.PartitionLogic <> modules proj
+R6332:6332 ThieleMachine.PartitionLogic <> P:62 var
+R6337:6342 Coq.Init.Datatypes <> length def
+R6345:6351 ThieleMachine.PartitionLogic <> modules proj
+R6353:6354 ThieleMachine.PartitionLogic <> P':65 var
+binder 6300:6311 <> time_savings:66
+R6415:6435 ThieleMachine.PartitionLogic <> partition_change_cost def
+R6437:6437 ThieleMachine.PartitionLogic <> P:62 var
+R6439:6440 ThieleMachine.PartitionLogic <> P':65 var
+binder 6404:6410 <> mu_cost:67
+R6524:6578 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6513:6516 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6501:6512 ThieleMachine.PartitionLogic <> time_savings:66 var
+R6517:6523 ThieleMachine.PartitionLogic <> mu_cost:67 var
+R6586:6589 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6579:6585 ThieleMachine.PartitionLogic <> mu_cost:67 var
+R6590:6601 ThieleMachine.PartitionLogic <> time_savings:66 var
+prf 6769:6787 <> refinement_progress
+R6805:6813 ThieleMachine.PartitionLogic <> Partition rec
+binder 6801:6801 <> P:68
+R6898:6904 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6920:6927 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6917:6919 Coq.Init.Datatypes <> nat ind
+binder 6905:6913 <> potential:69
+R6941:6950 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6937:6939 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R6928:6936 ThieleMachine.PartitionLogic <> potential:69 var
+R6951:6958 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7023:7033 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6964:6972 ThieleMachine.PartitionLogic <> Partition rec
+binder 6959:6960 <> P':70
+R6989:6991 Coq.Init.Datatypes <> nat ind
+binder 6976:6985 <> module_idx:71
+R7008:7011 Coq.Init.Datatypes <> list ind
+R7014:7017 Coq.Init.Datatypes <> list ind
+R7019:7021 Coq.Init.Datatypes <> nat ind
+binder 6995:7004 <> submodules:72
+R7074:7077 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R7052:7054 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R7034:7039 Coq.Init.Datatypes <> length def
+R7042:7048 ThieleMachine.PartitionLogic <> modules proj
+R7050:7050 ThieleMachine.PartitionLogic <> P:68 var
+R7055:7060 Coq.Init.Datatypes <> length def
+R7063:7069 ThieleMachine.PartitionLogic <> modules proj
+R7071:7072 ThieleMachine.PartitionLogic <> P':70 var
+R7078:7098 ThieleMachine.PartitionLogic <> partition_change_cost def
+R7100:7100 ThieleMachine.PartitionLogic <> P:68 var
+R7102:7103 ThieleMachine.PartitionLogic <> P':70 var
+R7222:7225 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R7204:7209 Coq.Init.Datatypes <> length def
+R7212:7218 ThieleMachine.PartitionLogic <> modules proj
+R7222:7225 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R7204:7209 Coq.Init.Datatypes <> length def
+R7212:7218 ThieleMachine.PartitionLogic <> modules proj
+R7329:7335 ThieleMachine.PartitionLogic <> modules proj
+R7329:7335 ThieleMachine.PartitionLogic <> modules proj
+R7578:7593 ThieleMachine.PartitionLogic <> refine_partition def
+R7599:7599 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7601:7601 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7578:7593 ThieleMachine.PartitionLogic <> refine_partition def
+R7599:7599 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7601:7601 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7630:7630 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7632:7632 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7630:7630 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7632:7632 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7780:7782 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7746:7752 ThieleMachine.PartitionLogic <> modules proj
+R7755:7770 ThieleMachine.PartitionLogic <> refine_partition def
+R7776:7776 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7778:7778 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7783:7789 ThieleMachine.PartitionLogic <> modules proj
+R7780:7782 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7746:7752 ThieleMachine.PartitionLogic <> modules proj
+R7755:7770 ThieleMachine.PartitionLogic <> refine_partition def
+R7776:7776 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7778:7778 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7783:7789 ThieleMachine.PartitionLogic <> modules proj
+R7826:7841 ThieleMachine.PartitionLogic <> refine_partition def
+R7940:7942 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7897:7902 Coq.Init.Datatypes <> length def
+R7905:7911 ThieleMachine.PartitionLogic <> modules proj
+R7914:7929 ThieleMachine.PartitionLogic <> refine_partition def
+R7935:7935 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7937:7937 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7943:7948 Coq.Init.Datatypes <> length def
+R7951:7957 ThieleMachine.PartitionLogic <> modules proj
+R7940:7942 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7897:7902 Coq.Init.Datatypes <> length def
+R7905:7911 ThieleMachine.PartitionLogic <> modules proj
+R7914:7929 ThieleMachine.PartitionLogic <> refine_partition def
+R7935:7935 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7937:7937 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7943:7948 Coq.Init.Datatypes <> length def
+R7951:7957 ThieleMachine.PartitionLogic <> modules proj
+R8029:8030 Coq.Init.Peano <> ge def
+R8114:8116 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8064:8084 ThieleMachine.PartitionLogic <> partition_change_cost def
+R8089:8104 ThieleMachine.PartitionLogic <> refine_partition def
+R8110:8110 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8112:8112 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8114:8116 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8064:8084 ThieleMachine.PartitionLogic <> partition_change_cost def
+R8089:8104 ThieleMachine.PartitionLogic <> refine_partition def
+R8110:8110 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8112:8112 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8144:8164 ThieleMachine.PartitionLogic <> partition_change_cost def
+R8228:8230 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8181:8200 ThieleMachine.PartitionLogic <> partition_total_size def
+R8203:8218 ThieleMachine.PartitionLogic <> refine_partition def
+R8224:8224 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8226:8226 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8231:8250 ThieleMachine.PartitionLogic <> partition_total_size def
+R8228:8230 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8181:8200 ThieleMachine.PartitionLogic <> partition_total_size def
+R8203:8218 ThieleMachine.PartitionLogic <> refine_partition def
+R8224:8224 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8226:8226 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8231:8250 ThieleMachine.PartitionLogic <> partition_total_size def
+R8281:8300 ThieleMachine.PartitionLogic <> partition_total_size def
+R8378:8389 Coq.Arith.PeanoNat Nat leb_refl thm
+R8378:8389 Coq.Arith.PeanoNat Nat leb_refl thm
+R8378:8389 Coq.Arith.PeanoNat Nat leb_refl thm
+R8423:8434 Coq.Arith.PeanoNat Nat sub_diag thm
+R8423:8434 Coq.Arith.PeanoNat Nat sub_diag thm
+R8423:8434 Coq.Arith.PeanoNat Nat sub_diag thm
+prf 8598:8624 <> order_invariance_with_costs
+R8642:8650 ThieleMachine.PartitionLogic <> CoreState def
+binder 8638:8638 <> s:73
+R8670:8673 Coq.Init.Datatypes <> list ind
+R8675:8678 ThieleMachine.PartitionLogic <> Cert def
+binder 8654:8659 <> certs1:74
+binder 8661:8666 <> certs2:75
+R8690:8698 ThieleMachine.PartitionLogic <> CoreState def
+binder 8682:8683 <> s1:76
+binder 8685:8686 <> s2:77
+R8778:8831 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8753:8763 Coq.Sorting.Permutation <> Permutation ind
+R8772:8777 ThieleMachine.PartitionLogic <> certs2:75 var
+R8765:8770 ThieleMachine.PartitionLogic <> certs1:74 var
+R8852:8859 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8832:8839 ThieleMachine.PartitionLogic <> run_from def
+R8841:8841 ThieleMachine.PartitionLogic <> s:73 var
+R8843:8848 ThieleMachine.PartitionLogic <> certs1:74 var
+R8850:8851 ThieleMachine.PartitionLogic <> s1:76 var
+R8880:8929 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8860:8867 ThieleMachine.PartitionLogic <> run_from def
+R8869:8869 ThieleMachine.PartitionLogic <> s:73 var
+R8871:8876 ThieleMachine.PartitionLogic <> certs2:75 var
+R8878:8879 ThieleMachine.PartitionLogic <> s2:77 var
+R8937:8940 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8932:8934 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8930:8931 ThieleMachine.PartitionLogic <> s1:76 var
+R8935:8936 ThieleMachine.PartitionLogic <> s2:77 var
+R8949:8951 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8941:8945 ThieleMachine.PartitionLogic <> mu_of def
+R8947:8948 ThieleMachine.PartitionLogic <> s1:76 var
+R8952:8956 ThieleMachine.PartitionLogic <> mu_of def
+R8958:8959 ThieleMachine.PartitionLogic <> s2:77 var
+R9121:9128 ThieleMachine.PartitionLogic <> run_from def
+R9204:9224 ThieleMachine.PartitionLogic <> Permutation_length_eq thm
+R9204:9224 ThieleMachine.PartitionLogic <> Permutation_length_eq thm
+R9252:9256 ThieleMachine.PartitionLogic <> mu_of def
+R9275:9295 ThieleMachine.PartitionLogic <> Permutation_length_eq thm
+R9275:9295 ThieleMachine.PartitionLogic <> Permutation_length_eq thm
+prf 9414:9440 <> structured_instance_speedup
+binder 9454:9468 <> instance_family:78
+R9515:9518 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9500:9514 ThieleMachine.PartitionLogic <> instance_family:78 var
+R9519:9527 ThieleMachine.PartitionLogic <> Partition rec
+binder 9479:9496 <> structure_detector:79
+R9580:9580 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9657:9730 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 9588:9591 <> inst:80
+R9594:9600 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9602:9603 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 9601:9601 <> P:81
+R9631:9634 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9627:9629 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9604:9621 ThieleMachine.PartitionLogic <> structure_detector:79 var
+R9623:9626 ThieleMachine.PartitionLogic <> inst:80 var
+R9630:9630 ThieleMachine.PartitionLogic <> P:81 var
+R9653:9655 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R9635:9640 Coq.Init.Datatypes <> length def
+R9643:9649 ThieleMachine.PartitionLogic <> modules proj
+R9651:9651 ThieleMachine.PartitionLogic <> P:81 var
+R9731:9737 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9779:9784 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9772:9775 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9757:9771 ThieleMachine.PartitionLogic <> instance_family:78 var
+R9776:9778 Coq.Init.Datatypes <> nat ind
+binder 9738:9753 <> poly_time_solver:82
+R9785:9791 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9830:9885 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9823:9826 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9808:9822 ThieleMachine.PartitionLogic <> instance_family:78 var
+R9827:9829 Coq.Init.Datatypes <> nat ind
+binder 9792:9804 <> mu_cost_bound:83
+R9886:9886 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9923:9970 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 9894:9897 <> inst:84
+R9918:9921 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R9900:9912 ThieleMachine.PartitionLogic <> mu_cost_bound:83 var
+R9914:9917 ThieleMachine.PartitionLogic <> inst:84 var
+R9971:9974 Coq.Init.Logic <> True ind
+binder 10128:10131 <> inst:85
+R10196:10199 ThieleMachine.PartitionLogic <> inst:85 var
+binder 10172:10172 <> P:86
+R10275:10280 Coq.Init.Datatypes <> length def
+R10283:10289 ThieleMachine.PartitionLogic <> modules proj
+R10291:10291 ThieleMachine.PartitionLogic <> P:86 var
+binder 10128:10131 <> inst:87
+R10196:10199 ThieleMachine.PartitionLogic <> inst:87 var
+binder 10172:10172 <> P:88
+R10275:10280 Coq.Init.Datatypes <> length def
+R10283:10289 ThieleMachine.PartitionLogic <> modules proj
+R10291:10291 ThieleMachine.PartitionLogic <> P:88 var
+binder 10399:10402 <> inst:89
+R10467:10470 ThieleMachine.PartitionLogic <> inst:89 var
+binder 10443:10443 <> P:90
+R10552:10554 ThieleMachine.PartitionLogic <> log def
+R10557:10562 Coq.Init.Datatypes <> length def
+R10565:10571 ThieleMachine.PartitionLogic <> modules proj
+R10573:10573 ThieleMachine.PartitionLogic <> P:90 var
+binder 10399:10402 <> inst:91
+R10467:10470 ThieleMachine.PartitionLogic <> inst:91 var
+binder 10443:10443 <> P:92
+R10552:10554 ThieleMachine.PartitionLogic <> log def
+R10557:10562 Coq.Init.Datatypes <> length def
+R10565:10571 ThieleMachine.PartitionLogic <> modules proj
+R10573:10573 ThieleMachine.PartitionLogic <> P:92 var
+prf 11018:11036 <> amortized_discovery
+R11054:11057 Coq.Init.Datatypes <> list ind
+R11059:11073 ThieleMachine.PartitionLogic <> instance_family def
+binder 11050:11050 <> I:93
+R11081:11089 ThieleMachine.PartitionLogic <> Partition rec
+binder 11077:11077 <> P:94
+R11146:11146 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11200:11240 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 11154:11157 <> inst:95
+R11169:11172 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11160:11161 Coq.Lists.List <> In def
+R11168:11168 ThieleMachine.PartitionLogic <> I:93 var
+R11163:11166 ThieleMachine.PartitionLogic <> inst:95 var
+R11196:11198 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11173:11190 ThieleMachine.PartitionLogic <> structure_detector def
+R11192:11195 ThieleMachine.PartitionLogic <> inst:95 var
+R11199:11199 ThieleMachine.PartitionLogic <> P:94 var
+R11267:11269 ThieleMachine.PartitionLogic <> sum def
+R11272:11274 Coq.Lists.List <> map def
+R11309:11309 ThieleMachine.PartitionLogic <> I:93 var
+binder 11281:11281 <> i:96
+R11286:11302 ThieleMachine.PartitionLogic <> mu_discovery_cost def
+R11304:11304 ThieleMachine.PartitionLogic <> i:96 var
+R11306:11306 ThieleMachine.PartitionLogic <> P:94 var
+binder 11245:11262 <> total_mu_discovery:97
+R11347:11349 ThieleMachine.PartitionLogic <> sum def
+R11352:11354 Coq.Lists.List <> map def
+R11391:11391 ThieleMachine.PartitionLogic <> I:93 var
+binder 11361:11361 <> i:98
+R11366:11384 ThieleMachine.PartitionLogic <> mu_operational_cost def
+R11386:11386 ThieleMachine.PartitionLogic <> i:98 var
+R11388:11388 ThieleMachine.PartitionLogic <> P:94 var
+binder 11323:11342 <> total_mu_operational:99
+R11410:11415 Coq.Init.Datatypes <> length def
+R11417:11417 ThieleMachine.PartitionLogic <> I:93 var
+binder 11405:11405 <> T:100
+R11522:11529 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11475:11475 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R11517:11520 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R11494:11496 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R11476:11493 ThieleMachine.PartitionLogic <> total_mu_discovery:97 var
+R11497:11516 ThieleMachine.PartitionLogic <> total_mu_operational:99 var
+R11521:11521 ThieleMachine.PartitionLogic <> T:100 var
+R11594:11596 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R11530:11548 ThieleMachine.PartitionLogic <> mu_operational_cost def
+R11557:11557 ThieleMachine.PartitionLogic <> I:93 var
+R11566:11567 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R11577:11580 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R11593:11593 ThieleMachine.PartitionLogic <> P:94 var
+R11597:11613 ThieleMachine.PartitionLogic <> mu_discovery_cost def
+R11622:11622 ThieleMachine.PartitionLogic <> I:93 var
+R11631:11632 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R11642:11645 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R11658:11658 ThieleMachine.PartitionLogic <> P:94 var
+R11708:11724 ThieleMachine.PartitionLogic <> mu_discovery_cost def
+R11727:11745 ThieleMachine.PartitionLogic <> mu_operational_cost def
+R11888:11898 Coq.Arith.PeanoNat Nat le_refl thm
+R11888:11898 Coq.Arith.PeanoNat Nat le_refl thm
+R11976:11989 ThieleMachine.PartitionLogic <> sum_const_zero thm
+R11976:11989 ThieleMachine.PartitionLogic <> sum_const_zero thm
+R11976:11989 ThieleMachine.PartitionLogic <> sum_const_zero thm
+R11976:11989 ThieleMachine.PartitionLogic <> sum_const_zero thm
+R12009:12019 Coq.Arith.PeanoNat Nat le_refl thm
+R12009:12019 Coq.Arith.PeanoNat Nat le_refl thm

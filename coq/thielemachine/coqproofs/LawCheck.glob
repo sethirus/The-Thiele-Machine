@@ -1,0 +1,430 @@
+DIGEST c44b3d26fb419a97540e921eee1bb785
+FThieleMachine.LawCheck
+R15:31 Coq.QArith.QArith <> <> lib
+R49:65 Coq.ZArith.ZArith <> <> lib
+R83:98 Coq.ZArith.Zbool <> <> lib
+R116:129 Coq.Lists.List <> <> lib
+R140:152 Coq.Lists.List ListNotations <> mod
+rec 216:233 <> UpdateCoefficients
+proj 242:247 <> uc_tp1
+proj 256:259 <> uc_t
+proj 268:273 <> uc_tm1
+proj 282:286 <> uc_sp
+proj 295:299 <> uc_sm
+R251:251 Coq.QArith.QArith_base <> Q rec
+R263:263 Coq.QArith.QArith_base <> Q rec
+R277:277 Coq.QArith.QArith_base <> Q rec
+R290:290 Coq.QArith.QArith_base <> Q rec
+R303:303 Coq.QArith.QArith_base <> Q rec
+rec 316:337 <> LagrangianCoefficients
+proj 346:356 <> lag_kinetic
+proj 365:377 <> lag_potential
+R360:360 Coq.QArith.QArith_base <> Q rec
+R381:381 Coq.QArith.QArith_base <> Q rec
+def 398:409 <> scale_update
+R420:420 Coq.QArith.QArith_base <> Q rec
+binder 412:416 <> scale:10
+R433:450 ThieleMachine.LawCheck <> UpdateCoefficients rec
+binder 424:429 <> coeffs:11
+R455:472 ThieleMachine.LawCheck <> UpdateCoefficients rec
+R482:487 ThieleMachine.LawCheck <> uc_tp1 proj
+R482:487 ThieleMachine.LawCheck <> uc_tp1 proj
+R482:487 ThieleMachine.LawCheck <> uc_tp1 proj
+R522:525 ThieleMachine.LawCheck <> uc_t proj
+R522:525 ThieleMachine.LawCheck <> uc_t proj
+R558:563 ThieleMachine.LawCheck <> uc_tm1 proj
+R558:563 ThieleMachine.LawCheck <> uc_tm1 proj
+R598:602 ThieleMachine.LawCheck <> uc_sp proj
+R598:602 ThieleMachine.LawCheck <> uc_sp proj
+R636:640 ThieleMachine.LawCheck <> uc_sm proj
+R636:640 ThieleMachine.LawCheck <> uc_sm proj
+R497:499 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R492:496 ThieleMachine.LawCheck <> scale:10 var
+R508:513 ThieleMachine.LawCheck <> uc_tp1 proj
+R500:505 ThieleMachine.LawCheck <> coeffs:11 var
+R535:537 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R530:534 ThieleMachine.LawCheck <> scale:10 var
+R546:549 ThieleMachine.LawCheck <> uc_t proj
+R538:543 ThieleMachine.LawCheck <> coeffs:11 var
+R573:575 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R568:572 ThieleMachine.LawCheck <> scale:10 var
+R584:589 ThieleMachine.LawCheck <> uc_tm1 proj
+R576:581 ThieleMachine.LawCheck <> coeffs:11 var
+R612:614 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R607:611 ThieleMachine.LawCheck <> scale:10 var
+R623:627 ThieleMachine.LawCheck <> uc_sp proj
+R615:620 ThieleMachine.LawCheck <> coeffs:11 var
+R650:652 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R645:649 ThieleMachine.LawCheck <> scale:10 var
+R661:665 ThieleMachine.LawCheck <> uc_sm proj
+R653:658 ThieleMachine.LawCheck <> coeffs:11 var
+def 684:706 <> derived_from_lagrangian
+R715:736 ThieleMachine.LawCheck <> LagrangianCoefficients rec
+binder 709:711 <> lag:12
+R741:758 ThieleMachine.LawCheck <> UpdateCoefficients rec
+R768:773 ThieleMachine.LawCheck <> uc_tp1 proj
+R768:773 ThieleMachine.LawCheck <> uc_tp1 proj
+R768:773 ThieleMachine.LawCheck <> uc_tp1 proj
+R802:805 ThieleMachine.LawCheck <> uc_t proj
+R802:805 ThieleMachine.LawCheck <> uc_t proj
+R818:823 ThieleMachine.LawCheck <> uc_tm1 proj
+R818:823 ThieleMachine.LawCheck <> uc_tm1 proj
+R852:856 ThieleMachine.LawCheck <> uc_sp proj
+R852:856 ThieleMachine.LawCheck <> uc_sp proj
+R889:893 ThieleMachine.LawCheck <> uc_sm proj
+R889:893 ThieleMachine.LawCheck <> uc_sm proj
+R783:793 ThieleMachine.LawCheck <> lag_kinetic proj
+R778:780 ThieleMachine.LawCheck <> lag:12 var
+R833:843 ThieleMachine.LawCheck <> lag_kinetic proj
+R828:830 ThieleMachine.LawCheck <> lag:12 var
+R861:862 Coq.QArith.QArith_base <> ::Q_scope:'-'_x not
+R868:880 ThieleMachine.LawCheck <> lag_potential proj
+R863:865 ThieleMachine.LawCheck <> lag:12 var
+R898:899 Coq.QArith.QArith_base <> ::Q_scope:'-'_x not
+R905:917 ThieleMachine.LawCheck <> lag_potential proj
+R900:902 ThieleMachine.LawCheck <> lag:12 var
+def 936:947 <> update_equal
+R956:973 ThieleMachine.LawCheck <> UpdateCoefficients rec
+binder 950:950 <> u:13
+binder 952:952 <> v:14
+R1008:1013 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R996:999 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R988:993 ThieleMachine.LawCheck <> uc_tp1 proj
+R995:995 ThieleMachine.LawCheck <> u:13 var
+R1000:1005 ThieleMachine.LawCheck <> uc_tp1 proj
+R1007:1007 ThieleMachine.LawCheck <> v:14 var
+R1030:1035 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1020:1023 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R1014:1017 ThieleMachine.LawCheck <> uc_t proj
+R1019:1019 ThieleMachine.LawCheck <> u:13 var
+R1024:1027 ThieleMachine.LawCheck <> uc_t proj
+R1029:1029 ThieleMachine.LawCheck <> v:14 var
+R1056:1061 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1044:1047 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R1036:1041 ThieleMachine.LawCheck <> uc_tm1 proj
+R1043:1043 ThieleMachine.LawCheck <> u:13 var
+R1048:1053 ThieleMachine.LawCheck <> uc_tm1 proj
+R1055:1055 ThieleMachine.LawCheck <> v:14 var
+R1080:1085 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1069:1072 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R1062:1066 ThieleMachine.LawCheck <> uc_sp proj
+R1068:1068 ThieleMachine.LawCheck <> u:13 var
+R1073:1077 ThieleMachine.LawCheck <> uc_sp proj
+R1079:1079 ThieleMachine.LawCheck <> v:14 var
+R1093:1096 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R1086:1090 ThieleMachine.LawCheck <> uc_sm proj
+R1092:1092 ThieleMachine.LawCheck <> u:13 var
+R1097:1101 ThieleMachine.LawCheck <> uc_sm proj
+R1103:1103 ThieleMachine.LawCheck <> v:14 var
+def 1116:1138 <> difference_constant_aux
+R1149:1152 Coq.Init.Datatypes <> list ind
+R1154:1154 Coq.QArith.QArith_base <> Q rec
+binder 1141:1142 <> xs:15
+binder 1144:1145 <> ys:16
+R1162:1162 Coq.QArith.QArith_base <> Q rec
+binder 1158:1158 <> d:17
+R1187:1188 ThieleMachine.LawCheck <> ys:16 var
+R1183:1184 ThieleMachine.LawCheck <> xs:15 var
+R1199:1200 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1203:1204 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1209:1212 Coq.Init.Logic <> True ind
+R1219:1222 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1229:1232 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1252:1255 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1240:1240 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R1246:1250 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R1242:1244 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R1251:1251 ThieleMachine.LawCheck <> d:17 var
+R1256:1278 ThieleMachine.LawCheck <> difference_constant_aux:18 def
+R1288:1288 ThieleMachine.LawCheck <> d:17 var
+R1302:1306 Coq.Init.Logic <> False ind
+def 1327:1345 <> difference_constant
+R1356:1359 Coq.Init.Datatypes <> list ind
+R1361:1361 Coq.QArith.QArith_base <> Q rec
+binder 1348:1349 <> xs:21
+binder 1351:1352 <> ys:22
+R1386:1387 ThieleMachine.LawCheck <> ys:22 var
+R1382:1383 ThieleMachine.LawCheck <> xs:21 var
+R1398:1399 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1402:1403 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1408:1411 Coq.Init.Logic <> True ind
+R1418:1421 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1428:1431 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1439:1461 ThieleMachine.LawCheck <> difference_constant_aux def
+R1473:1475 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R1491:1495 Coq.Init.Logic <> False ind
+def 1514:1530 <> recursion_matches
+R1539:1539 Coq.QArith.QArith_base <> Q rec
+binder 1533:1533 <> a:25
+binder 1535:1535 <> b:26
+R1569:1572 Coq.Init.Datatypes <> list ind
+R1574:1574 Coq.QArith.QArith_base <> Q rec
+binder 1543:1550 <> energies:27
+binder 1552:1558 <> momenta:28
+binder 1560:1565 <> fluxes:29
+R1614:1619 ThieleMachine.LawCheck <> fluxes:29 var
+R1605:1611 ThieleMachine.LawCheck <> momenta:28 var
+R1595:1602 ThieleMachine.LawCheck <> energies:27 var
+R1630:1631 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1634:1635 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1638:1639 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1644:1647 Coq.Init.Logic <> True ind
+R1654:1657 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1663:1666 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1672:1675 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1706:1709 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1689:1692 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R1698:1700 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R1694:1696 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R1693:1693 ThieleMachine.LawCheck <> a:25 var
+R1702:1704 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R1701:1701 ThieleMachine.LawCheck <> b:26 var
+R1710:1726 ThieleMachine.LawCheck <> recursion_matches:30 def
+R1730:1730 ThieleMachine.LawCheck <> b:26 var
+R1728:1728 ThieleMachine.LawCheck <> a:25 var
+R1756:1760 Coq.Init.Logic <> False ind
+def 1781:1788 <> StepTerm
+R1799:1801 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1795:1797 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1794:1794 Coq.Numbers.BinNums <> Z ind
+R1798:1798 Coq.Numbers.BinNums <> Z ind
+R1802:1802 Coq.QArith.QArith_base <> Q rec
+def 1821:1832 <> coeff_lookup
+R1843:1843 Coq.Numbers.BinNums <> Z ind
+binder 1835:1836 <> dt:34
+binder 1838:1839 <> dx:35
+R1854:1857 Coq.Init.Datatypes <> list ind
+R1859:1866 ThieleMachine.LawCheck <> StepTerm def
+binder 1847:1850 <> poly:36
+R1871:1871 Coq.QArith.QArith_base <> Q rec
+R1884:1887 ThieleMachine.LawCheck <> poly:36 var
+R1898:1899 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1927:1930 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1910:1910 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1914:1915 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1919:1920 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1926:1926 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1960:1963 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R1948:1952 Coq.ZArith.BinInt Z eqb def
+R1954:1955 ThieleMachine.LawCheck <> dt:34 var
+R1964:1968 Coq.ZArith.BinInt Z eqb def
+R1970:1971 ThieleMachine.LawCheck <> dx:35 var
+R2031:2042 ThieleMachine.LawCheck <> coeff_lookup:37 def
+R2047:2048 ThieleMachine.LawCheck <> dx:35 var
+R2044:2045 ThieleMachine.LawCheck <> dt:34 var
+R1993:1995 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R1996:2007 ThieleMachine.LawCheck <> coeff_lookup:37 def
+R2012:2013 ThieleMachine.LawCheck <> dx:35 var
+R2009:2010 ThieleMachine.LawCheck <> dt:34 var
+def 2074:2081 <> pair_eqb
+R2091:2093 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2090:2090 Coq.Numbers.BinNums <> Z ind
+R2094:2094 Coq.Numbers.BinNums <> Z ind
+binder 2084:2084 <> p:39
+binder 2086:2086 <> q:40
+R2099:2102 Coq.Init.Datatypes <> bool ind
+R2130:2133 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R2109:2113 Coq.ZArith.BinInt Z eqb def
+R2116:2118 Coq.Init.Datatypes <> fst def
+R2120:2120 ThieleMachine.LawCheck <> p:39 var
+R2124:2126 Coq.Init.Datatypes <> fst def
+R2128:2128 ThieleMachine.LawCheck <> q:40 var
+R2134:2138 Coq.ZArith.BinInt Z eqb def
+R2141:2143 Coq.Init.Datatypes <> snd def
+R2145:2145 ThieleMachine.LawCheck <> p:39 var
+R2149:2151 Coq.Init.Datatypes <> snd def
+R2153:2153 ThieleMachine.LawCheck <> q:40 var
+def 2167:2177 <> add_support
+R2188:2190 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2187:2187 Coq.Numbers.BinNums <> Z ind
+R2191:2191 Coq.Numbers.BinNums <> Z ind
+binder 2180:2183 <> pair:41
+R2205:2208 Coq.Init.Datatypes <> list ind
+R2212:2214 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2211:2211 Coq.Numbers.BinNums <> Z ind
+R2215:2215 Coq.Numbers.BinNums <> Z ind
+binder 2195:2201 <> support:42
+R2221:2224 Coq.Init.Datatypes <> list ind
+R2228:2230 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2227:2227 Coq.Numbers.BinNums <> Z ind
+R2231:2231 Coq.Numbers.BinNums <> Z ind
+R2245:2251 ThieleMachine.LawCheck <> support:42 var
+R2262:2263 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2268:2268 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2273:2273 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2269:2272 ThieleMachine.LawCheck <> pair:41 var
+R2283:2286 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2304:2311 ThieleMachine.LawCheck <> pair_eqb def
+R2313:2316 ThieleMachine.LawCheck <> pair:41 var
+R2362:2365 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2366:2376 ThieleMachine.LawCheck <> add_support:43 def
+R2378:2381 ThieleMachine.LawCheck <> pair:41 var
+R2338:2341 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+def 2405:2414 <> support_of
+R2424:2427 Coq.Init.Datatypes <> list ind
+R2429:2436 ThieleMachine.LawCheck <> StepTerm def
+binder 2417:2420 <> poly:45
+R2441:2444 Coq.Init.Datatypes <> list ind
+R2448:2450 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2447:2447 Coq.Numbers.BinNums <> Z ind
+R2451:2451 Coq.Numbers.BinNums <> Z ind
+R2465:2468 ThieleMachine.LawCheck <> poly:45 var
+R2479:2480 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2485:2486 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2503:2506 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2492:2492 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2495:2496 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2499:2500 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2502:2502 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2515:2525 ThieleMachine.LawCheck <> add_support def
+R2527:2527 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2530:2531 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2534:2534 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2537:2546 ThieleMachine.LawCheck <> support_of:46 def
+def 2571:2583 <> support_union
+R2594:2597 Coq.Init.Datatypes <> list ind
+R2600:2603 Coq.Init.Datatypes <> list ind
+R2605:2612 ThieleMachine.LawCheck <> StepTerm def
+binder 2586:2590 <> polys:48
+R2618:2621 Coq.Init.Datatypes <> list ind
+R2625:2627 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2624:2624 Coq.Numbers.BinNums <> Z ind
+R2628:2628 Coq.Numbers.BinNums <> Z ind
+R2642:2646 ThieleMachine.LawCheck <> polys:48 var
+R2657:2658 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2663:2664 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2671:2674 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2681:2690 Coq.Lists.List <> fold_right def
+R2724:2733 ThieleMachine.LawCheck <> support_of def
+R2705:2717 ThieleMachine.LawCheck <> support_union:49 def
+R2692:2702 ThieleMachine.LawCheck <> add_support def
+def 2755:2766 <> coeffs_match
+R2788:2791 Coq.Init.Datatypes <> list ind
+R2793:2800 ThieleMachine.LawCheck <> StepTerm def
+binder 2769:2774 <> update:51
+binder 2776:2779 <> laxL:52
+binder 2781:2784 <> laxM:53
+R2812:2815 Coq.Init.Datatypes <> list ind
+R2819:2821 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2818:2818 Coq.Numbers.BinNums <> Z ind
+R2822:2822 Coq.Numbers.BinNums <> Z ind
+binder 2804:2808 <> pairs:54
+R2844:2848 ThieleMachine.LawCheck <> pairs:54 var
+R2859:2860 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2865:2868 Coq.Init.Logic <> True ind
+R2882:2885 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2874:2874 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2877:2878 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2881:2881 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2978:2987 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2925:2928 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R2900:2911 ThieleMachine.LawCheck <> coeff_lookup def
+R2919:2924 ThieleMachine.LawCheck <> update:51 var
+R2952:2954 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R2929:2940 ThieleMachine.LawCheck <> coeff_lookup def
+R2948:2951 ThieleMachine.LawCheck <> laxL:52 var
+R2955:2966 ThieleMachine.LawCheck <> coeff_lookup def
+R2974:2977 ThieleMachine.LawCheck <> laxM:53 var
+R2988:2999 ThieleMachine.LawCheck <> coeffs_match:55 def
+R3013:3016 ThieleMachine.LawCheck <> laxM:53 var
+R3008:3011 ThieleMachine.LawCheck <> laxL:52 var
+R3001:3006 ThieleMachine.LawCheck <> update:51 var
+rec 3038:3047 <> LawSummary
+proj 3056:3069 <> summary_update
+proj 3095:3112 <> summary_lagrangian
+proj 3142:3154 <> summary_scale
+proj 3163:3176 <> summary_energy
+proj 3190:3205 <> summary_momentum
+proj 3219:3230 <> summary_flux
+proj 3244:3260 <> summary_recursion
+proj 3273:3291 <> summary_update_poly
+proj 3312:3324 <> summary_lax_L
+proj 3345:3357 <> summary_lax_M
+R3073:3090 ThieleMachine.LawCheck <> UpdateCoefficients rec
+R3116:3137 ThieleMachine.LawCheck <> LagrangianCoefficients rec
+R3158:3158 Coq.QArith.QArith_base <> Q rec
+R3180:3183 Coq.Init.Datatypes <> list ind
+R3185:3185 Coq.QArith.QArith_base <> Q rec
+R3209:3212 Coq.Init.Datatypes <> list ind
+R3214:3214 Coq.QArith.QArith_base <> Q rec
+R3234:3237 Coq.Init.Datatypes <> list ind
+R3239:3239 Coq.QArith.QArith_base <> Q rec
+R3265:3267 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3264:3264 Coq.QArith.QArith_base <> Q rec
+R3268:3268 Coq.QArith.QArith_base <> Q rec
+R3295:3298 Coq.Init.Datatypes <> list ind
+R3300:3307 ThieleMachine.LawCheck <> StepTerm def
+R3328:3331 Coq.Init.Datatypes <> list ind
+R3333:3340 ThieleMachine.LawCheck <> StepTerm def
+R3361:3364 Coq.Init.Datatypes <> list ind
+R3366:3373 ThieleMachine.LawCheck <> StepTerm def
+def 3390:3405 <> scale_consistent
+R3418:3427 ThieleMachine.LawCheck <> LawSummary rec
+binder 3408:3414 <> summary:68
+R3442:3453 ThieleMachine.LawCheck <> update_equal def
+R3468:3481 ThieleMachine.LawCheck <> summary_update proj
+R3459:3465 ThieleMachine.LawCheck <> summary:68 var
+R3489:3500 ThieleMachine.LawCheck <> scale_update def
+R3511:3523 ThieleMachine.LawCheck <> summary_scale proj
+R3502:3508 ThieleMachine.LawCheck <> summary:68 var
+R3533:3555 ThieleMachine.LawCheck <> derived_from_lagrangian def
+R3566:3583 ThieleMachine.LawCheck <> summary_lagrangian proj
+R3557:3563 ThieleMachine.LawCheck <> summary:68 var
+def 3601:3635 <> energy_momentum_difference_constant
+R3648:3657 ThieleMachine.LawCheck <> LawSummary rec
+binder 3638:3644 <> summary:69
+R3672:3690 ThieleMachine.LawCheck <> difference_constant def
+R3701:3714 ThieleMachine.LawCheck <> summary_energy proj
+R3692:3698 ThieleMachine.LawCheck <> summary:69 var
+R3726:3741 ThieleMachine.LawCheck <> summary_momentum proj
+R3717:3723 ThieleMachine.LawCheck <> summary:69 var
+def 3757:3773 <> recursion_witness
+R3786:3795 ThieleMachine.LawCheck <> LawSummary rec
+binder 3776:3782 <> summary:70
+R3834:3850 ThieleMachine.LawCheck <> summary_recursion proj
+R3825:3831 ThieleMachine.LawCheck <> summary:70 var
+R3815:3815 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3817:3818 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3820:3820 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3858:3874 ThieleMachine.LawCheck <> recursion_matches def
+R3893:3906 ThieleMachine.LawCheck <> summary_energy proj
+R3884:3890 ThieleMachine.LawCheck <> summary:70 var
+R3922:3937 ThieleMachine.LawCheck <> summary_momentum proj
+R3913:3919 ThieleMachine.LawCheck <> summary:70 var
+R3953:3964 ThieleMachine.LawCheck <> summary_flux proj
+R3944:3950 ThieleMachine.LawCheck <> summary:70 var
+def 3980:3997 <> update_matches_lax
+R4010:4019 ThieleMachine.LawCheck <> LawSummary rec
+binder 4000:4006 <> summary:71
+R4034:4045 ThieleMachine.LawCheck <> coeffs_match def
+R4060:4078 ThieleMachine.LawCheck <> summary_update_poly proj
+R4051:4057 ThieleMachine.LawCheck <> summary:71 var
+R4094:4106 ThieleMachine.LawCheck <> summary_lax_L proj
+R4085:4091 ThieleMachine.LawCheck <> summary:71 var
+R4122:4134 ThieleMachine.LawCheck <> summary_lax_M proj
+R4113:4119 ThieleMachine.LawCheck <> summary:71 var
+R4142:4154 ThieleMachine.LawCheck <> support_union def
+R4163:4163 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4193:4202 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4226:4235 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4259:4259 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4173:4191 ThieleMachine.LawCheck <> summary_update_poly proj
+R4164:4170 ThieleMachine.LawCheck <> summary:71 var
+R4212:4224 ThieleMachine.LawCheck <> summary_lax_L proj
+R4203:4209 ThieleMachine.LawCheck <> summary:71 var
+R4245:4257 ThieleMachine.LawCheck <> summary_lax_M proj
+R4236:4242 ThieleMachine.LawCheck <> summary:71 var
+def 4275:4294 <> law_summary_verified
+R4307:4316 ThieleMachine.LawCheck <> LawSummary rec
+binder 4297:4303 <> summary:72
+R4355:4360 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4331:4346 ThieleMachine.LawCheck <> scale_consistent def
+R4348:4354 ThieleMachine.LawCheck <> summary:72 var
+R4404:4409 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4361:4395 ThieleMachine.LawCheck <> energy_momentum_difference_constant def
+R4397:4403 ThieleMachine.LawCheck <> summary:72 var
+R4435:4440 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4410:4426 ThieleMachine.LawCheck <> recursion_witness def
+R4428:4434 ThieleMachine.LawCheck <> summary:72 var
+R4441:4458 ThieleMachine.LawCheck <> update_matches_lax def
+R4460:4466 ThieleMachine.LawCheck <> summary:72 var

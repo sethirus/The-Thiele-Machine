@@ -1,0 +1,238 @@
+DIGEST 78d0251f46564a6bd5fa0893d9b01761
+FQuantumDerivation.ObservationIrreversibility
+R969:972 Coq.Lists.List <> <> lib
+R974:979 Coq.ZArith.ZArith <> <> lib
+R981:983 Coq.micromega.Lia <> <> lib
+R985:988 Coq.Bool.Bool <> <> lib
+R990:992 Coq.Init.Nat <> <> lib
+R994:998 Coq.Reals.Reals <> <> lib
+R1000:1005 Coq.QArith.QArith <> <> lib
+R1023:1046 Coq.Logic.Classical_Prop <> <> lib
+R1064:1080 Coq.micromega.Lra <> <> lib
+R1090:1102 Coq.Lists.List ListNotations <> mod
+R1173:1199 ThieleMachine.CoreSemantics <> <> lib
+R1217:1253 QuantumDerivation.CompositePartitions <> <> lib
+R1271:1303 QuantumDerivation.TensorNecessity <> <> lib
+def 1393:1407 <> revelation_cost
+R1417:1419 Coq.Init.Datatypes <> nat ind
+binder 1410:1413 <> bits:1
+R1424:1424 Coq.Numbers.BinNums <> Z ind
+R1485:1492 Coq.ZArith.BinInt Z shiftl def
+R1495:1502 Coq.ZArith.BinInt Z of_nat def
+R1504:1507 QuantumDerivation.ObservationIrreversibility <> bits:1 var
+def 1566:1588 <> reveal_instruction_cost
+R1592:1592 Coq.Numbers.BinNums <> Z ind
+def 1667:1683 <> total_reveal_cost
+R1693:1695 Coq.Init.Datatypes <> nat ind
+binder 1686:1689 <> bits:2
+R1700:1700 Coq.Numbers.BinNums <> Z ind
+R1730:1732 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R1707:1729 QuantumDerivation.ObservationIrreversibility <> reveal_instruction_cost def
+R1733:1747 QuantumDerivation.ObservationIrreversibility <> revelation_cost def
+R1749:1752 QuantumDerivation.ObservationIrreversibility <> bits:2 var
+def 2163:2167 <> vm_mu
+R2175:2179 ThieleMachine.CoreSemantics <> State rec
+binder 2170:2171 <> vm:3
+R2184:2184 Coq.Numbers.BinNums <> Z ind
+R2189:2199 ThieleMachine.CoreSemantics <> mu_of_state def
+R2201:2202 QuantumDerivation.ObservationIrreversibility <> vm:3 var
+def 2216:2233 <> vm_partition_count
+R2241:2245 ThieleMachine.CoreSemantics <> State rec
+binder 2236:2237 <> vm:4
+R2250:2252 Coq.Init.Datatypes <> nat ind
+R2257:2267 Coq.Lists.List <> length abbrev
+R2270:2276 ThieleMachine.CoreSemantics <> modules proj
+R2279:2287 ThieleMachine.CoreSemantics <> partition proj
+R2289:2290 QuantumDerivation.ObservationIrreversibility <> vm:4 var
+def 2306:2320 <> vm_module_table
+R2328:2332 ThieleMachine.CoreSemantics <> State rec
+binder 2323:2324 <> vm:5
+R2337:2340 Coq.Init.Datatypes <> list ind
+R2351:2353 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2343:2350 ThieleMachine.CoreSemantics <> ModuleId def
+R2354:2359 ThieleMachine.CoreSemantics <> Region def
+R2365:2371 ThieleMachine.CoreSemantics <> modules proj
+R2374:2382 ThieleMachine.CoreSemantics <> partition proj
+R2384:2385 QuantumDerivation.ObservationIrreversibility <> vm:5 var
+def 2442:2457 <> vm_state_with_mu
+R2465:2469 ThieleMachine.CoreSemantics <> State rec
+binder 2460:2461 <> vm:6
+R2482:2482 Coq.Numbers.BinNums <> Z ind
+binder 2473:2478 <> new_mu:7
+R2487:2491 ThieleMachine.CoreSemantics <> State rec
+R2513:2530 ThieleMachine.CoreSemantics <> add_mu_operational def
+R2533:2541 ThieleMachine.CoreSemantics <> mu_ledger proj
+R2543:2544 QuantumDerivation.ObservationIrreversibility <> vm:6 var
+R2554:2556 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R2548:2553 QuantumDerivation.ObservationIrreversibility <> new_mu:7 var
+R2557:2567 ThieleMachine.CoreSemantics <> mu_of_state def
+R2569:2570 QuantumDerivation.ObservationIrreversibility <> vm:6 var
+binder 2502:2508 <> ledger':8
+R2581:2589 ThieleMachine.CoreSemantics <> partition proj
+R2581:2589 ThieleMachine.CoreSemantics <> partition proj
+R2581:2589 ThieleMachine.CoreSemantics <> partition proj
+R2613:2621 ThieleMachine.CoreSemantics <> mu_ledger proj
+R2613:2621 ThieleMachine.CoreSemantics <> mu_ledger proj
+R2640:2641 ThieleMachine.CoreSemantics <> pc proj
+R2640:2641 ThieleMachine.CoreSemantics <> pc proj
+R2658:2663 ThieleMachine.CoreSemantics <> halted proj
+R2658:2663 ThieleMachine.CoreSemantics <> halted proj
+R2684:2689 ThieleMachine.CoreSemantics <> result proj
+R2684:2689 ThieleMachine.CoreSemantics <> result proj
+R2710:2716 ThieleMachine.CoreSemantics <> program proj
+R2710:2716 ThieleMachine.CoreSemantics <> program proj
+R2594:2602 ThieleMachine.CoreSemantics <> partition proj
+R2604:2605 QuantumDerivation.ObservationIrreversibility <> vm:6 var
+R2626:2632 QuantumDerivation.ObservationIrreversibility <> ledger':8 var
+R2646:2647 ThieleMachine.CoreSemantics <> pc proj
+R2649:2650 QuantumDerivation.ObservationIrreversibility <> vm:6 var
+R2668:2673 ThieleMachine.CoreSemantics <> halted proj
+R2675:2676 QuantumDerivation.ObservationIrreversibility <> vm:6 var
+R2694:2699 ThieleMachine.CoreSemantics <> result proj
+R2701:2702 QuantumDerivation.ObservationIrreversibility <> vm:6 var
+R2721:2727 ThieleMachine.CoreSemantics <> program proj
+R2729:2730 QuantumDerivation.ObservationIrreversibility <> vm:6 var
+def 2825:2840 <> reveal_operation
+R2848:2852 ThieleMachine.CoreSemantics <> State rec
+binder 2843:2844 <> vm:9
+R2863:2865 Coq.Init.Datatypes <> nat ind
+binder 2856:2859 <> bits:10
+R2880:2882 Coq.Init.Datatypes <> nat ind
+binder 2869:2876 <> cert_ref:11
+R2887:2891 ThieleMachine.CoreSemantics <> State rec
+R3040:3042 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R3032:3036 QuantumDerivation.ObservationIrreversibility <> vm_mu def
+R3038:3039 QuantumDerivation.ObservationIrreversibility <> vm:9 var
+R3043:3057 QuantumDerivation.ObservationIrreversibility <> revelation_cost def
+R3059:3062 QuantumDerivation.ObservationIrreversibility <> bits:10 var
+binder 3021:3027 <> mu_cost:12
+R3069:3084 QuantumDerivation.ObservationIrreversibility <> vm_state_with_mu def
+R3086:3087 QuantumDerivation.ObservationIrreversibility <> vm:9 var
+R3089:3095 QuantumDerivation.ObservationIrreversibility <> mu_cost:12 var
+prf 3522:3556 <> revelation_entails_entropy_decrease
+R3575:3579 ThieleMachine.CoreSemantics <> State rec
+binder 3570:3571 <> vm:13
+R3590:3592 Coq.Init.Datatypes <> nat ind
+binder 3583:3586 <> bits:14
+R3607:3609 Coq.Init.Datatypes <> nat ind
+binder 3596:3603 <> cert_ref:15
+R3631:3638 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3622:3624 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R3618:3621 QuantumDerivation.ObservationIrreversibility <> bits:14 var
+R3680:3682 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3639:3643 QuantumDerivation.ObservationIrreversibility <> vm_mu def
+R3646:3661 QuantumDerivation.ObservationIrreversibility <> reveal_operation def
+R3663:3664 QuantumDerivation.ObservationIrreversibility <> vm:13 var
+R3666:3669 QuantumDerivation.ObservationIrreversibility <> bits:14 var
+R3671:3678 QuantumDerivation.ObservationIrreversibility <> cert_ref:15 var
+R3691:3693 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R3683:3687 QuantumDerivation.ObservationIrreversibility <> vm_mu def
+R3689:3690 QuantumDerivation.ObservationIrreversibility <> vm:13 var
+R3694:3708 QuantumDerivation.ObservationIrreversibility <> revelation_cost def
+R3710:3713 QuantumDerivation.ObservationIrreversibility <> bits:14 var
+R3765:3780 QuantumDerivation.ObservationIrreversibility <> reveal_operation def
+R3783:3798 QuantumDerivation.ObservationIrreversibility <> vm_state_with_mu def
+R3801:3805 QuantumDerivation.ObservationIrreversibility <> vm_mu def
+R3808:3818 ThieleMachine.CoreSemantics <> mu_of_state def
+prf 3903:3934 <> reveal_increases_mu_irreversibly
+R3953:3957 ThieleMachine.CoreSemantics <> State rec
+binder 3948:3949 <> vm:16
+R3968:3970 Coq.Init.Datatypes <> nat ind
+binder 3961:3964 <> bits:17
+R3985:3987 Coq.Init.Datatypes <> nat ind
+binder 3974:3981 <> cert_ref:18
+R4009:4016 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4000:4002 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R3996:3999 QuantumDerivation.ObservationIrreversibility <> bits:17 var
+R4058:4060 Coq.ZArith.BinInt <> ::Z_scope:x_'>'_x not
+R4017:4021 QuantumDerivation.ObservationIrreversibility <> vm_mu def
+R4024:4039 QuantumDerivation.ObservationIrreversibility <> reveal_operation def
+R4041:4042 QuantumDerivation.ObservationIrreversibility <> vm:16 var
+R4044:4047 QuantumDerivation.ObservationIrreversibility <> bits:17 var
+R4049:4056 QuantumDerivation.ObservationIrreversibility <> cert_ref:18 var
+R4061:4065 QuantumDerivation.ObservationIrreversibility <> vm_mu def
+R4067:4068 QuantumDerivation.ObservationIrreversibility <> vm:16 var
+R4168:4170 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4127:4131 QuantumDerivation.ObservationIrreversibility <> vm_mu def
+R4134:4149 QuantumDerivation.ObservationIrreversibility <> reveal_operation def
+R4179:4181 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R4171:4175 QuantumDerivation.ObservationIrreversibility <> vm_mu def
+R4182:4196 QuantumDerivation.ObservationIrreversibility <> revelation_cost def
+R4168:4170 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4127:4131 QuantumDerivation.ObservationIrreversibility <> vm_mu def
+R4134:4149 QuantumDerivation.ObservationIrreversibility <> reveal_operation def
+R4179:4181 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R4171:4175 QuantumDerivation.ObservationIrreversibility <> vm_mu def
+R4182:4196 QuantumDerivation.ObservationIrreversibility <> revelation_cost def
+R4215:4249 QuantumDerivation.ObservationIrreversibility <> revelation_entails_entropy_decrease thm
+R4215:4249 QuantumDerivation.ObservationIrreversibility <> revelation_entails_entropy_decrease thm
+R4318:4320 Coq.ZArith.BinInt <> ::Z_scope:x_'>'_x not
+R4298:4312 QuantumDerivation.ObservationIrreversibility <> revelation_cost def
+R4318:4320 Coq.ZArith.BinInt <> ::Z_scope:x_'>'_x not
+R4298:4312 QuantumDerivation.ObservationIrreversibility <> revelation_cost def
+R4336:4350 QuantumDerivation.ObservationIrreversibility <> revelation_cost def
+R4405:4421 Coq.ZArith.BinInt Z shiftl_mul_pow2 thm
+R4405:4421 Coq.ZArith.BinInt Z shiftl_mul_pow2 thm
+R4405:4421 Coq.ZArith.BinInt Z shiftl_mul_pow2 thm
+R4455:4457 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4453:4453 Coq.ZArith.BinInt <> ::Z_scope:x_'^'_x not
+R4455:4457 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4453:4453 Coq.ZArith.BinInt <> ::Z_scope:x_'^'_x not
+prf 4593:4615 <> revelation_irreversible
+R4641:4645 ThieleMachine.CoreSemantics <> State rec
+binder 4629:4637 <> vm_before:19
+R4660:4664 ThieleMachine.CoreSemantics <> State rec
+binder 4649:4656 <> vm_after:20
+R4675:4677 Coq.Init.Datatypes <> nat ind
+binder 4668:4671 <> bits:21
+R4692:4694 Coq.Init.Datatypes <> nat ind
+binder 4681:4688 <> cert_ref:22
+R4753:4760 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4710:4712 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4702:4709 QuantumDerivation.ObservationIrreversibility <> vm_after:20 var
+R4713:4728 QuantumDerivation.ObservationIrreversibility <> reveal_operation def
+R4730:4738 QuantumDerivation.ObservationIrreversibility <> vm_before:19 var
+R4740:4743 QuantumDerivation.ObservationIrreversibility <> bits:21 var
+R4745:4752 QuantumDerivation.ObservationIrreversibility <> cert_ref:22 var
+R4775:4844 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4766:4768 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R4762:4765 QuantumDerivation.ObservationIrreversibility <> bits:21 var
+R4853:4856 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4845:4852 QuantumDerivation.ObservationIrreversibility <> vm_after:20 var
+R4857:4865 QuantumDerivation.ObservationIrreversibility <> vm_before:19 var
+R5035:5037 Coq.ZArith.BinInt <> ::Z_scope:x_'>'_x not
+R4987:4991 QuantumDerivation.ObservationIrreversibility <> vm_mu def
+R4994:5009 QuantumDerivation.ObservationIrreversibility <> reveal_operation def
+R5038:5042 QuantumDerivation.ObservationIrreversibility <> vm_mu def
+R5035:5037 Coq.ZArith.BinInt <> ::Z_scope:x_'>'_x not
+R4987:4991 QuantumDerivation.ObservationIrreversibility <> vm_mu def
+R4994:5009 QuantumDerivation.ObservationIrreversibility <> reveal_operation def
+R5038:5042 QuantumDerivation.ObservationIrreversibility <> vm_mu def
+R5066:5097 QuantumDerivation.ObservationIrreversibility <> reveal_increases_mu_irreversibly thm
+R5066:5097 QuantumDerivation.ObservationIrreversibility <> reveal_increases_mu_irreversibly thm
+prf 5912:5954 <> observation_prevents_superposition_recovery
+R5980:5984 ThieleMachine.CoreSemantics <> State rec
+binder 5968:5976 <> vm_before:23
+R5999:6003 ThieleMachine.CoreSemantics <> State rec
+binder 5988:5995 <> vm_after:24
+R6014:6016 Coq.Init.Datatypes <> nat ind
+binder 6007:6010 <> bits:25
+R6031:6033 Coq.Init.Datatypes <> nat ind
+binder 6020:6027 <> cert_ref:26
+R6092:6099 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6049:6051 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6041:6048 QuantumDerivation.ObservationIrreversibility <> vm_after:24 var
+R6052:6067 QuantumDerivation.ObservationIrreversibility <> reveal_operation def
+R6069:6077 QuantumDerivation.ObservationIrreversibility <> vm_before:23 var
+R6079:6082 QuantumDerivation.ObservationIrreversibility <> bits:25 var
+R6084:6091 QuantumDerivation.ObservationIrreversibility <> cert_ref:26 var
+R6114:6312 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6105:6107 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R6101:6104 QuantumDerivation.ObservationIrreversibility <> bits:25 var
+R6327:6329 Coq.ZArith.BinInt <> ::Z_scope:x_'>'_x not
+R6313:6317 QuantumDerivation.ObservationIrreversibility <> vm_mu def
+R6319:6326 QuantumDerivation.ObservationIrreversibility <> vm_after:24 var
+R6330:6334 QuantumDerivation.ObservationIrreversibility <> vm_mu def
+R6336:6344 QuantumDerivation.ObservationIrreversibility <> vm_before:23 var
+R6430:6461 QuantumDerivation.ObservationIrreversibility <> reveal_increases_mu_irreversibly thm
+R6430:6461 QuantumDerivation.ObservationIrreversibility <> reveal_increases_mu_irreversibly thm

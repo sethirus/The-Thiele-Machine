@@ -1,0 +1,303 @@
+DIGEST 90abc964a9b8963be2e0f0a6e701556b
+FKernel.ModularObservation
+R1872:1875 Coq.Lists.List <> <> lib
+R1877:1890 Coq.Arith.PeanoNat <> <> lib
+R1892:1894 Coq.micromega.Lia <> <> lib
+R1896:1899 Coq.Bool.Bool <> <> lib
+R1926:1955 Coq.Logic.FunctionalExtensionality <> <> lib
+R1965:1977 Coq.Lists.List ListNotations <> mod
+R1996:2002 Kernel.VMState <> <> lib
+R2020:2025 Kernel.VMStep <> <> lib
+sec 2237:2246 <> ModularObs
+var 2317:2324 ModularObs LocalObs
+var 2343:2358 ModularObs local_obs_eq_dec
+R2377:2384 Kernel.ModularObservation <> ModularObs.LocalObs var
+binder 2369:2370 <> o1:2
+binder 2372:2373 <> o2:3
+R2387:2387 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R2395:2399 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R2408:2408 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R2390:2392 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2388:2389 Kernel.ModularObservation <> o1:2 var
+R2393:2394 Kernel.ModularObservation <> o2:3 var
+R2402:2405 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R2400:2401 Kernel.ModularObservation <> o1:2 var
+R2406:2407 Kernel.ModularObservation <> o2:3 var
+var 2500:2512 ModularObs local_observe
+R2523:2526 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2516:2522 Kernel.VMState <> VMState rec
+R2535:2538 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2527:2534 Kernel.VMState <> ModuleID def
+R2539:2546 Kernel.ModularObservation <> ModularObs.LocalObs var
+def 2829:2837 <> agrees_on
+R2847:2853 Kernel.VMState <> VMState rec
+binder 2840:2840 <> s:6
+binder 2842:2843 <> s':7
+R2863:2870 Kernel.VMState <> ModuleID def
+binder 2857:2859 <> mid:8
+R2904:2906 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2885:2897 Kernel.ModularObservation <> ModularObs.local_observe var
+R2899:2899 Kernel.ModularObservation <> s:6 var
+R2901:2903 Kernel.ModularObservation <> mid:8 var
+R2907:2919 Kernel.ModularObservation <> ModularObs.local_observe var
+R2921:2922 Kernel.ModularObservation <> s':7 var
+R2924:2926 Kernel.ModularObservation <> mid:8 var
+def 2999:3011 <> agrees_except
+R3021:3027 Kernel.VMState <> VMState rec
+binder 3014:3014 <> s:9
+binder 3016:3017 <> s':10
+R3041:3044 Coq.Init.Datatypes <> list ind
+R3046:3053 Kernel.VMState <> ModuleID def
+binder 3031:3037 <> targets:11
+binder 3075:3077 <> mid:12
+R3096:3099 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3080:3081 Coq.Init.Logic <> ::type_scope:'~'_x not
+R3082:3083 Coq.Lists.List <> In def
+R3089:3095 Kernel.ModularObservation <> targets:11 var
+R3085:3087 Kernel.ModularObservation <> mid:12 var
+R3100:3108 Kernel.ModularObservation <> agrees_on def
+R3110:3110 Kernel.ModularObservation <> s:9 var
+R3112:3113 Kernel.ModularObservation <> s':10 var
+R3115:3117 Kernel.ModularObservation <> mid:12 var
+var 3205:3217 ModularObs instr_targets
+R3235:3238 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3221:3234 Kernel.VMStep VMStep vm_instruction ind
+R3239:3242 Coq.Init.Datatypes <> list ind
+R3244:3251 Kernel.VMState <> ModuleID def
+def 3339:3351 <> step_is_local
+R3358:3364 Kernel.VMState <> VMState rec
+binder 3354:3354 <> s:14
+R3372:3385 Kernel.VMStep VMStep vm_instruction ind
+binder 3368:3368 <> i:15
+R3394:3400 Kernel.VMState <> VMState rec
+binder 3389:3390 <> s':16
+R3429:3432 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3415:3421 Kernel.VMStep VMStep vm_step ind
+R3423:3423 Kernel.ModularObservation <> s:14 var
+R3425:3425 Kernel.ModularObservation <> i:15 var
+R3427:3428 Kernel.ModularObservation <> s':16 var
+R3433:3445 Kernel.ModularObservation <> agrees_except def
+R3447:3447 Kernel.ModularObservation <> s:14 var
+R3449:3450 Kernel.ModularObservation <> s':16 var
+R3453:3465 Kernel.ModularObservation <> ModularObs.instr_targets var
+R3467:3467 Kernel.ModularObservation <> i:15 var
+def 3768:3779 <> full_observe
+R3786:3792 Kernel.VMState <> VMState rec
+binder 3782:3782 <> s:17
+R3803:3806 Coq.Init.Datatypes <> list ind
+R3808:3815 Kernel.VMState <> ModuleID def
+binder 3796:3799 <> mids:18
+R3820:3823 Coq.Init.Datatypes <> list ind
+R3825:3832 Kernel.ModularObservation <> ModularObs.LocalObs var
+R3839:3841 Coq.Lists.List <> map def
+R3861:3864 Kernel.ModularObservation <> mids:18 var
+R3844:3856 Kernel.ModularObservation <> ModularObs.local_observe var
+R3858:3858 Kernel.ModularObservation <> s:17 var
+prf 3957:3986 <> full_observe_eq_implies_agrees
+binder 3999:3999 <> s:19
+binder 4001:4002 <> s':20
+binder 4004:4007 <> mids:21
+R4056:4063 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4033:4035 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4014:4025 Kernel.ModularObservation <> full_observe def
+R4027:4027 Kernel.ModularObservation <> s:19 var
+R4029:4032 Kernel.ModularObservation <> mids:21 var
+R4036:4047 Kernel.ModularObservation <> full_observe def
+R4049:4050 Kernel.ModularObservation <> s':20 var
+R4052:4055 Kernel.ModularObservation <> mids:21 var
+binder 4071:4073 <> mid:22
+R4087:4090 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4076:4077 Coq.Lists.List <> In def
+R4083:4086 Kernel.ModularObservation <> mids:21 var
+R4079:4081 Kernel.ModularObservation <> mid:22 var
+R4091:4099 Kernel.ModularObservation <> agrees_on def
+R4101:4101 Kernel.ModularObservation <> s:19 var
+R4103:4104 Kernel.ModularObservation <> s':20 var
+R4106:4108 Kernel.ModularObservation <> mid:22 var
+R4159:4167 Kernel.ModularObservation <> agrees_on def
+R4179:4190 Kernel.ModularObservation <> full_observe def
+def 4621:4631 <> nodup_local
+R4638:4641 Coq.Init.Datatypes <> list ind
+R4643:4650 Kernel.ModularObservation <> ModularObs.LocalObs var
+binder 4634:4634 <> l:23
+R4655:4658 Coq.Init.Datatypes <> list ind
+R4660:4667 Kernel.ModularObservation <> ModularObs.LocalObs var
+R4680:4680 Kernel.ModularObservation <> l:23 var
+R4691:4692 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4697:4698 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4705:4708 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4724:4730 Coq.Lists.List <> existsb def
+R4791:4801 Kernel.ModularObservation <> nodup_local:24 def
+binder 4737:4738 <> a':26
+R4746:4761 Kernel.ModularObservation <> ModularObs.local_obs_eq_dec var
+R4765:4766 Kernel.ModularObservation <> a':26 var
+R4783:4787 Coq.Init.Datatypes <> false constr
+R4773:4776 Coq.Init.Datatypes <> true constr
+R4845:4848 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4849:4859 Kernel.ModularObservation <> nodup_local:24 def
+R4818:4828 Kernel.ModularObservation <> nodup_local:24 def
+prf 4880:4896 <> nodup_local_NoDup
+binder 4907:4907 <> l:27
+R4910:4914 Coq.Lists.List <> NoDup ind
+R4917:4927 Kernel.ModularObservation <> nodup_local def
+R4929:4929 Kernel.ModularObservation <> l:27 var
+R5020:5026 Coq.Lists.List <> existsb def
+R5020:5026 Coq.Lists.List <> existsb def
+R5232:5234 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5117:5123 Coq.Lists.List <> existsb def
+R5215:5225 Kernel.ModularObservation <> nodup_local def
+binder 5130:5131 <> a':28
+R5139:5154 Kernel.ModularObservation <> ModularObs.local_obs_eq_dec var
+R5158:5159 Kernel.ModularObservation <> a':28 var
+R5176:5180 Coq.Init.Datatypes <> false constr
+R5166:5169 Coq.Init.Datatypes <> true constr
+R5235:5238 Coq.Init.Datatypes <> true constr
+R5232:5234 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5117:5123 Coq.Lists.List <> existsb def
+R5215:5225 Kernel.ModularObservation <> nodup_local def
+binder 5130:5131 <> a':29
+R5139:5154 Kernel.ModularObservation <> ModularObs.local_obs_eq_dec var
+R5158:5159 Kernel.ModularObservation <> a':29 var
+R5176:5180 Coq.Init.Datatypes <> false constr
+R5166:5169 Coq.Init.Datatypes <> true constr
+R5235:5238 Coq.Init.Datatypes <> true constr
+R5258:5271 Coq.Lists.List <> existsb_exists thm
+R5258:5271 Coq.Lists.List <> existsb_exists thm
+R5336:5351 Kernel.ModularObservation <> ModularObs.local_obs_eq_dec var
+R5336:5351 Kernel.ModularObservation <> ModularObs.local_obs_eq_dec var
+prf 5462:5475 <> in_nodup_local
+binder 5486:5486 <> l:30
+binder 5488:5488 <> a:31
+R5511:5515 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R5491:5492 Coq.Lists.List <> In def
+R5497:5507 Kernel.ModularObservation <> nodup_local def
+R5509:5509 Kernel.ModularObservation <> l:30 var
+R5494:5494 Kernel.ModularObservation <> a:31 var
+R5516:5517 Coq.Lists.List <> In def
+R5521:5521 Kernel.ModularObservation <> l:30 var
+R5519:5519 Kernel.ModularObservation <> a:31 var
+R5638:5644 Coq.Lists.List <> existsb def
+R5638:5644 Coq.Lists.List <> existsb def
+R5773:5786 Coq.Lists.List <> existsb_exists thm
+R5773:5786 Coq.Lists.List <> existsb_exists thm
+R5859:5874 Kernel.ModularObservation <> ModularObs.local_obs_eq_dec var
+R5859:5874 Kernel.ModularObservation <> ModularObs.local_obs_eq_dec var
+def 6399:6416 <> local_distinct_obs
+R6428:6431 Coq.Init.Datatypes <> list ind
+R6433:6439 Kernel.VMState <> VMState rec
+binder 6419:6424 <> states:32
+R6450:6453 Coq.Init.Datatypes <> list ind
+R6455:6462 Kernel.VMState <> ModuleID def
+binder 6443:6446 <> mids:33
+R6467:6470 Coq.Init.Datatypes <> list ind
+R6472:6479 Kernel.ModularObservation <> ModularObs.LocalObs var
+R6486:6496 Kernel.ModularObservation <> nodup_local def
+R6499:6506 Coq.Lists.List <> flat_map def
+R6539:6544 Kernel.ModularObservation <> states:32 var
+binder 6513:6513 <> s:34
+R6518:6529 Kernel.ModularObservation <> full_observe def
+R6531:6531 Kernel.ModularObservation <> s:34 var
+R6533:6536 Kernel.ModularObservation <> mids:33 var
+def 6630:6639 <> local_info
+R6651:6654 Coq.Init.Datatypes <> list ind
+R6656:6662 Kernel.VMState <> VMState rec
+binder 6642:6647 <> states:35
+R6673:6676 Coq.Init.Datatypes <> list ind
+R6678:6685 Kernel.VMState <> ModuleID def
+binder 6666:6669 <> mids:36
+R6690:6692 Coq.Init.Datatypes <> nat ind
+R6699:6704 Coq.Init.Datatypes <> length def
+R6707:6724 Kernel.ModularObservation <> local_distinct_obs def
+R6726:6731 Kernel.ModularObservation <> states:35 var
+R6733:6736 Kernel.ModularObservation <> mids:36 var
+prf 7017:7040 <> non_target_obs_invariant
+binder 7053:7053 <> s:37
+binder 7055:7056 <> s':38
+binder 7058:7058 <> i:39
+binder 7060:7070 <> non_targets:40
+R7091:7098 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7077:7083 Kernel.VMStep VMStep vm_step ind
+R7085:7085 Kernel.ModularObservation <> s:37 var
+R7087:7087 Kernel.ModularObservation <> i:39 var
+R7089:7090 Kernel.ModularObservation <> s':38 var
+R7119:7126 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7099:7111 Kernel.ModularObservation <> step_is_local def
+R7113:7113 Kernel.ModularObservation <> s:37 var
+R7115:7115 Kernel.ModularObservation <> i:39 var
+R7117:7118 Kernel.ModularObservation <> s':38 var
+R7127:7127 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7188:7196 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 7135:7137 <> mid:41
+R7158:7161 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7140:7141 Coq.Lists.List <> In def
+R7147:7157 Kernel.ModularObservation <> non_targets:40 var
+R7143:7145 Kernel.ModularObservation <> mid:41 var
+R7162:7163 Coq.Init.Logic <> ::type_scope:'~'_x not
+R7164:7165 Coq.Lists.List <> In def
+R7172:7184 Kernel.ModularObservation <> ModularObs.instr_targets var
+R7186:7186 Kernel.ModularObservation <> i:39 var
+R7167:7169 Kernel.ModularObservation <> mid:41 var
+R7223:7225 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7197:7208 Kernel.ModularObservation <> full_observe def
+R7210:7210 Kernel.ModularObservation <> s:37 var
+R7212:7222 Kernel.ModularObservation <> non_targets:40 var
+R7226:7237 Kernel.ModularObservation <> full_observe def
+R7239:7240 Kernel.ModularObservation <> s':38 var
+R7242:7252 Kernel.ModularObservation <> non_targets:40 var
+R7323:7334 Kernel.ModularObservation <> full_observe def
+R7345:7354 Coq.Lists.List <> map_ext_in thm
+R7345:7354 Coq.Lists.List <> map_ext_in thm
+R7384:7396 Kernel.ModularObservation <> step_is_local def
+R7447:7459 Kernel.ModularObservation <> agrees_except def
+R7481:7489 Kernel.ModularObservation <> agrees_on def
+R9053:9062 Kernel.ModularObservation ModularObs <> sec
+def 9324:9343 <> kernel_instr_targets
+R9350:9363 Kernel.VMStep VMStep vm_instruction ind
+binder 9346:9346 <> i:42
+R9368:9371 Coq.Init.Datatypes <> list ind
+R9373:9380 Kernel.VMState <> ModuleID def
+R9393:9393 Kernel.ModularObservation <> i:42 var
+R9404:9413 Kernel.VMStep VMStep instr_pnew constr
+R9422:9423 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R9480:9491 Kernel.VMStep VMStep instr_psplit constr
+R9506:9506 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9510:9510 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9516:9527 Kernel.VMStep VMStep instr_pmerge constr
+R9540:9540 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9543:9544 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9547:9547 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9553:9565 Kernel.VMStep VMStep instr_lassert constr
+R9580:9580 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9584:9584 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9590:9600 Kernel.VMStep VMStep instr_ljoin constr
+R9611:9612 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R9642:9653 Kernel.VMStep VMStep instr_mdlacc constr
+R9664:9664 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9668:9668 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9674:9688 Kernel.VMStep VMStep instr_pdiscover constr
+R9701:9701 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9705:9705 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9711:9720 Kernel.VMStep VMStep instr_xfer constr
+R9731:9732 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R9775:9786 Kernel.VMStep VMStep instr_pyexec constr
+R9795:9796 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R9841:9856 Kernel.VMStep VMStep instr_chsh_trial constr
+R9871:9872 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R9910:9923 Kernel.VMStep VMStep instr_xor_load constr
+R9934:9935 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R9941:9953 Kernel.VMStep VMStep instr_xor_add constr
+R9964:9965 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R9971:9984 Kernel.VMStep VMStep instr_xor_swap constr
+R9995:9996 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R10002:10015 Kernel.VMStep VMStep instr_xor_rank constr
+R10026:10027 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R10033:10042 Kernel.VMStep VMStep instr_emit constr
+R10055:10055 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R10059:10059 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R10065:10076 Kernel.VMStep VMStep instr_reveal constr
+R10091:10091 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R10095:10095 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R10101:10118 Kernel.VMStep VMStep instr_oracle_halts constr
+R10127:10128 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R10134:10143 Kernel.VMStep VMStep instr_halt constr
+R10150:10151 Coq.Lists.List ListNotations ::list_scope:'['_']' not

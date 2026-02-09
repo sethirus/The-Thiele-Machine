@@ -1,0 +1,1188 @@
+DIGEST df4e1b21b91617edd5bd1347982e24f4
+FKernel.CertCheck
+R24:27 Coq.Lists.List <> <> lib
+R29:32 Coq.Bool.Bool <> <> lib
+R34:47 Coq.Arith.PeanoNat <> <> lib
+R49:54 Coq.ZArith.ZArith <> <> lib
+R81:94 Coq.Strings.String <> <> lib
+R96:108 Coq.Strings.Ascii <> <> lib
+R118:130 Coq.Lists.List ListNotations <> mod
+mod 1980:1988 <> CertCheck
+def 2760:2773 CertCheck string_to_list
+R2780:2785 Coq.Strings.String <> string ind
+binder 2776:2776 <> s:1
+R2790:2793 Coq.Init.Datatypes <> list ind
+R2795:2799 Coq.Strings.Ascii <> ascii ind
+R2814:2814 Kernel.CertCheck <> s:1 var
+R2827:2837 Coq.Strings.String <> EmptyString constr
+R2842:2843 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2851:2856 Coq.Strings.String <> String constr
+R2867:2870 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2871:2884 Kernel.CertCheck <> string_to_list:2 def
+def 2910:2923 CertCheck list_to_string
+R2930:2933 Coq.Init.Datatypes <> list ind
+R2935:2939 Coq.Strings.Ascii <> ascii ind
+binder 2926:2926 <> l:4
+R2944:2949 Coq.Strings.String <> string ind
+R2964:2964 Kernel.CertCheck <> l:4 var
+R2977:2978 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2983:2993 Coq.Strings.String <> EmptyString constr
+R3002:3005 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3012:3017 Coq.Strings.String <> String constr
+R3022:3035 Kernel.CertCheck <> list_to_string:5 def
+def 3064:3072 CertCheck ascii_nat
+R3079:3083 Coq.Strings.Ascii <> ascii ind
+binder 3075:3075 <> c:7
+R3088:3090 Coq.Init.Datatypes <> nat ind
+R3095:3106 Coq.Strings.Ascii <> nat_of_ascii def
+R3108:3108 Kernel.CertCheck <> c:7 var
+def 3125:3132 CertCheck is_space
+R3139:3143 Coq.Strings.Ascii <> ascii ind
+binder 3135:3135 <> c:8
+R3148:3151 Coq.Init.Datatypes <> bool ind
+R3166:3174 Kernel.CertCheck CertCheck ascii_nat def
+R3176:3176 Kernel.CertCheck <> c:8 var
+R3207:3210 Coq.Init.Datatypes <> true constr
+R3237:3240 Coq.Init.Datatypes <> true constr
+R3267:3270 Coq.Init.Datatypes <> true constr
+R3300:3303 Coq.Init.Datatypes <> true constr
+R3316:3320 Coq.Init.Datatypes <> false constr
+def 3343:3356 CertCheck trim_left_list
+R3363:3366 Coq.Init.Datatypes <> list ind
+R3368:3372 Coq.Strings.Ascii <> ascii ind
+binder 3359:3359 <> l:9
+R3377:3380 Coq.Init.Datatypes <> list ind
+R3382:3386 Coq.Strings.Ascii <> ascii ind
+R3401:3401 Kernel.CertCheck <> l:9 var
+R3414:3415 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3420:3421 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3430:3433 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3443:3450 Kernel.CertCheck CertCheck is_space def
+R3482:3482 Kernel.CertCheck <> l:9 var
+R3459:3472 Kernel.CertCheck <> trim_left_list:10 def
+def 3507:3515 CertCheck trim_left
+R3522:3527 Coq.Strings.String <> string ind
+binder 3518:3518 <> s:12
+R3532:3537 Coq.Strings.String <> string ind
+R3546:3559 Kernel.CertCheck CertCheck list_to_string def
+R3562:3575 Kernel.CertCheck CertCheck trim_left_list def
+R3578:3591 Kernel.CertCheck CertCheck string_to_list def
+R3593:3593 Kernel.CertCheck <> s:12 var
+def 3610:3624 CertCheck split_lines_aux
+R3631:3634 Coq.Init.Datatypes <> list ind
+R3636:3640 Coq.Strings.Ascii <> ascii ind
+binder 3627:3627 <> l:13
+R3650:3653 Coq.Init.Datatypes <> list ind
+R3655:3659 Coq.Strings.Ascii <> ascii ind
+binder 3644:3646 <> cur:14
+R3664:3667 Coq.Init.Datatypes <> list ind
+R3670:3673 Coq.Init.Datatypes <> list ind
+R3675:3679 Coq.Strings.Ascii <> ascii ind
+R3695:3695 Kernel.CertCheck <> l:13 var
+R3708:3709 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3714:3714 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3722:3722 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3715:3717 Coq.Lists.List <> rev def
+R3719:3721 Kernel.CertCheck <> cur:14 var
+R3731:3734 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3752:3758 Coq.Arith.PeanoNat Nat eqb def
+R3761:3769 Kernel.CertCheck CertCheck ascii_nat def
+R3861:3875 Kernel.CertCheck <> split_lines_aux:15 def
+R3882:3885 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3886:3888 Kernel.CertCheck <> cur:14 var
+R3812:3815 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3805:3807 Coq.Lists.List <> rev def
+R3809:3811 Kernel.CertCheck <> cur:14 var
+R3816:3830 Kernel.CertCheck <> split_lines_aux:15 def
+R3835:3836 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+def 3914:3924 CertCheck split_lines
+R3931:3936 Coq.Strings.String <> string ind
+binder 3927:3927 <> s:17
+R3941:3944 Coq.Init.Datatypes <> list ind
+R3946:3951 Coq.Strings.String <> string ind
+R3960:3962 Coq.Lists.List <> map def
+R3980:3994 Kernel.CertCheck CertCheck split_lines_aux def
+R3997:4010 Kernel.CertCheck CertCheck string_to_list def
+R4012:4012 Kernel.CertCheck <> s:17 var
+R4015:4016 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3964:3977 Kernel.CertCheck CertCheck list_to_string def
+def 4032:4043 CertCheck split_ws_aux
+R4050:4053 Coq.Init.Datatypes <> list ind
+R4055:4059 Coq.Strings.Ascii <> ascii ind
+binder 4046:4046 <> l:18
+R4069:4072 Coq.Init.Datatypes <> list ind
+R4074:4078 Coq.Strings.Ascii <> ascii ind
+binder 4063:4065 <> cur:19
+R4083:4086 Coq.Init.Datatypes <> list ind
+R4089:4092 Coq.Init.Datatypes <> list ind
+R4094:4098 Coq.Strings.Ascii <> ascii ind
+R4114:4114 Kernel.CertCheck <> l:18 var
+R4127:4128 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4147:4149 Coq.Lists.List <> rev def
+R4151:4153 Kernel.CertCheck <> cur:19 var
+R4170:4171 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4176:4177 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4196:4196 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4200:4200 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4221:4224 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4242:4249 Kernel.CertCheck CertCheck is_space def
+R4406:4417 Kernel.CertCheck <> split_ws_aux:20 def
+R4424:4427 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4428:4430 Kernel.CertCheck <> cur:19 var
+R4274:4276 Coq.Lists.List <> rev def
+R4278:4280 Kernel.CertCheck <> cur:19 var
+R4299:4300 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4305:4316 Kernel.CertCheck <> split_ws_aux:20 def
+R4321:4322 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4346:4349 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4350:4361 Kernel.CertCheck <> split_ws_aux:20 def
+R4366:4367 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+def 4456:4463 CertCheck split_ws
+R4470:4475 Coq.Strings.String <> string ind
+binder 4466:4466 <> s:22
+R4480:4483 Coq.Init.Datatypes <> list ind
+R4485:4490 Coq.Strings.String <> string ind
+R4499:4501 Coq.Lists.List <> map def
+R4519:4530 Kernel.CertCheck CertCheck split_ws_aux def
+R4533:4546 Kernel.CertCheck CertCheck string_to_list def
+R4548:4548 Kernel.CertCheck <> s:22 var
+R4551:4552 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4503:4516 Kernel.CertCheck CertCheck list_to_string def
+def 4570:4585 CertCheck starts_with_char
+R4593:4597 Coq.Strings.Ascii <> ascii ind
+binder 4588:4589 <> ch:23
+R4605:4610 Coq.Strings.String <> string ind
+binder 4601:4601 <> s:24
+R4615:4618 Coq.Init.Datatypes <> bool ind
+R4633:4641 Kernel.CertCheck CertCheck trim_left def
+R4643:4643 Kernel.CertCheck <> s:24 var
+R4656:4666 Coq.Strings.String <> EmptyString constr
+R4671:4675 Coq.Init.Datatypes <> false constr
+R4683:4688 Coq.Strings.String <> String constr
+R4697:4705 Coq.Strings.Ascii <> eqb def
+R4709:4710 Kernel.CertCheck <> ch:23 var
+def 5544:5551 CertCheck is_digit
+R5558:5562 Coq.Strings.Ascii <> ascii ind
+binder 5554:5554 <> c:25
+R5567:5570 Coq.Init.Datatypes <> bool ind
+R5588:5596 Kernel.CertCheck CertCheck ascii_nat def
+R5598:5598 Kernel.CertCheck <> c:25 var
+binder 5583:5583 <> n:26
+R5619:5622 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R5607:5613 Coq.Arith.PeanoNat Nat leb def
+R5618:5618 Kernel.CertCheck <> n:26 var
+R5623:5629 Coq.Arith.PeanoNat Nat leb def
+R5631:5631 Kernel.CertCheck <> n:26 var
+def 5649:5664 CertCheck parse_nat_digits
+R5671:5674 Coq.Init.Datatypes <> list ind
+R5676:5680 Coq.Strings.Ascii <> ascii ind
+binder 5667:5667 <> l:27
+R5690:5692 Coq.Init.Datatypes <> nat ind
+binder 5684:5686 <> acc:28
+R5697:5702 Coq.Init.Datatypes <> option ind
+R5704:5706 Coq.Init.Datatypes <> nat ind
+R5721:5721 Kernel.CertCheck <> l:27 var
+R5734:5735 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5740:5743 Coq.Init.Datatypes <> Some constr
+R5745:5747 Kernel.CertCheck <> acc:28 var
+R5756:5759 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5777:5784 Kernel.CertCheck CertCheck is_digit def
+R5912:5915 Coq.Init.Datatypes <> None constr
+R5812:5818 Coq.Arith.PeanoNat Nat sub def
+R5821:5829 Kernel.CertCheck CertCheck ascii_nat def
+binder 5807:5807 <> d:31
+R5850:5865 Kernel.CertCheck <> parse_nat_digits:29 def
+R5871:5877 Coq.Arith.PeanoNat Nat add def
+R5880:5886 Coq.Arith.PeanoNat Nat mul def
+R5891:5893 Kernel.CertCheck <> acc:28 var
+R5896:5896 Kernel.CertCheck <> d:31 var
+def 5940:5948 CertCheck parse_int
+R5955:5960 Coq.Strings.String <> string ind
+binder 5951:5951 <> s:32
+R5965:5970 Coq.Init.Datatypes <> option ind
+R5972:5972 Coq.Numbers.BinNums <> Z ind
+R5990:6003 Kernel.CertCheck CertCheck string_to_list def
+R6006:6014 Kernel.CertCheck CertCheck trim_left def
+R6016:6016 Kernel.CertCheck <> s:32 var
+binder 5985:5985 <> l:33
+R6032:6032 Kernel.CertCheck <> l:33 var
+R6045:6046 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6051:6054 Coq.Init.Datatypes <> None constr
+R6063:6066 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6086:6094 Coq.Strings.Ascii <> eqb def
+R6099:6116 Coq.Strings.Ascii <> ascii_of_nat def
+R6281:6289 Coq.Strings.Ascii <> eqb def
+R6294:6311 Coq.Strings.Ascii <> ascii_of_nat def
+R6485:6500 Kernel.CertCheck CertCheck parse_nat_digits def
+R6502:6502 Kernel.CertCheck <> l:33 var
+R6523:6526 Coq.Init.Datatypes <> Some constr
+R6533:6536 Coq.Init.Datatypes <> Some constr
+R6539:6546 Coq.ZArith.BinInt Z of_nat def
+R6563:6566 Coq.Init.Datatypes <> None constr
+R6571:6574 Coq.Init.Datatypes <> None constr
+R6348:6363 Kernel.CertCheck CertCheck parse_nat_digits def
+R6389:6392 Coq.Init.Datatypes <> Some constr
+R6399:6402 Coq.Init.Datatypes <> Some constr
+R6405:6412 Coq.ZArith.BinInt Z of_nat def
+R6429:6432 Coq.Init.Datatypes <> None constr
+R6437:6440 Coq.Init.Datatypes <> None constr
+R6153:6168 Kernel.CertCheck CertCheck parse_nat_digits def
+R6194:6197 Coq.Init.Datatypes <> Some constr
+R6204:6207 Coq.Init.Datatypes <> Some constr
+R6210:6212 Coq.ZArith.BinInt <> ::Z_scope:'-'_x not
+R6223:6223 Coq.ZArith.BinInt <> ::Z_scope:'-'_x not
+R6213:6220 Coq.ZArith.BinInt Z of_nat def
+R6238:6241 Coq.Init.Datatypes <> None constr
+R6246:6249 Coq.Init.Datatypes <> None constr
+def 6613:6621 CertCheck parse_nat
+R6628:6633 Coq.Strings.String <> string ind
+binder 6624:6624 <> s:35
+R6638:6643 Coq.Init.Datatypes <> option ind
+R6645:6647 Coq.Init.Datatypes <> nat ind
+R6662:6670 Kernel.CertCheck CertCheck parse_int def
+R6672:6672 Kernel.CertCheck <> s:35 var
+R6685:6688 Coq.Init.Datatypes <> Some constr
+R6772:6775 Coq.ZArith.BinInt <> ::Z_scope:x_'<?'_x not
+R6796:6799 Coq.Init.Datatypes <> Some constr
+R6802:6809 Coq.ZArith.BinInt Z to_nat def
+R6786:6789 Coq.Init.Datatypes <> None constr
+R6820:6823 Coq.Init.Datatypes <> None constr
+R6828:6831 Coq.Init.Datatypes <> None constr
+rec 8523:8532 CertCheck dimacs_cnf
+proj 8543:8554 CertCheck cnf_num_vars
+proj 8569:8579 CertCheck cnf_clauses
+R8558:8560 Coq.Init.Datatypes <> nat ind
+R8583:8586 Coq.Init.Datatypes <> list ind
+R8589:8592 Coq.Init.Datatypes <> list ind
+R8594:8594 Coq.Numbers.BinNums <> Z ind
+def 8614:8628 CertCheck take_until_zero
+R8636:8639 Coq.Init.Datatypes <> list ind
+R8641:8641 Coq.Numbers.BinNums <> Z ind
+binder 8631:8632 <> zs:39
+R8646:8649 Coq.Init.Datatypes <> list ind
+R8651:8651 Coq.Numbers.BinNums <> Z ind
+R8676:8679 Coq.Init.Datatypes <> list ind
+R8681:8681 Coq.Numbers.BinNums <> Z ind
+binder 8672:8672 <> l:40
+R8691:8694 Coq.Init.Datatypes <> list ind
+R8696:8696 Coq.Numbers.BinNums <> Z ind
+binder 8685:8687 <> acc:41
+R8714:8714 Kernel.CertCheck <> l:40 var
+R8729:8730 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8735:8737 Coq.Lists.List <> rev def
+R8739:8741 Kernel.CertCheck <> acc:41 var
+R8752:8755 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8765:8769 Coq.ZArith.BinInt Z eqb def
+R8793:8794 Kernel.CertCheck <> go:42 var
+R8801:8804 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8805:8807 Kernel.CertCheck <> acc:41 var
+R8780:8782 Coq.Lists.List <> rev def
+R8784:8786 Kernel.CertCheck <> acc:41 var
+binder 8668:8669 <> go:44
+R8827:8828 Kernel.CertCheck <> go:44 var
+R8833:8834 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8830:8831 Kernel.CertCheck <> zs:39 var
+def 8851:8869 CertCheck parse_clause_tokens
+R8879:8882 Coq.Init.Datatypes <> list ind
+R8884:8889 Coq.Strings.String <> string ind
+binder 8872:8875 <> toks:45
+R8894:8899 Coq.Init.Datatypes <> option ind
+R8902:8905 Coq.Init.Datatypes <> list ind
+R8907:8907 Coq.Numbers.BinNums <> Z ind
+R8952:8955 Coq.Init.Datatypes <> list ind
+R8957:8962 Coq.Strings.String <> string ind
+binder 8947:8948 <> ts:46
+R8972:8975 Coq.Init.Datatypes <> list ind
+R8977:8977 Coq.Numbers.BinNums <> Z ind
+binder 8966:8968 <> acc:47
+R8997:8998 Kernel.CertCheck <> ts:46 var
+R9015:9016 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R9021:9024 Coq.Init.Datatypes <> Some constr
+R9027:9029 Coq.Lists.List <> rev def
+R9031:9033 Kernel.CertCheck <> acc:47 var
+R9047:9050 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R9076:9084 Kernel.CertCheck CertCheck parse_int def
+R9107:9110 Coq.Init.Datatypes <> Some constr
+R9117:9118 Kernel.CertCheck <> go:48 var
+R9126:9129 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R9130:9132 Kernel.CertCheck <> acc:47 var
+R9149:9152 Coq.Init.Datatypes <> None constr
+R9157:9160 Coq.Init.Datatypes <> None constr
+binder 8943:8944 <> go:50
+R9199:9200 Kernel.CertCheck <> go:50 var
+R9207:9208 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R9202:9205 Kernel.CertCheck <> toks:45 var
+binder 8921:8924 <> ints:51
+R9227:9230 Kernel.CertCheck <> ints:51 var
+R9243:9246 Coq.Init.Datatypes <> Some constr
+R9254:9257 Coq.Init.Datatypes <> Some constr
+R9260:9274 Kernel.CertCheck CertCheck take_until_zero def
+R9286:9289 Coq.Init.Datatypes <> None constr
+R9294:9297 Coq.Init.Datatypes <> None constr
+def 9322:9333 CertCheck parse_dimacs
+R9343:9348 Coq.Strings.String <> string ind
+binder 9336:9339 <> text:53
+R9353:9358 Coq.Init.Datatypes <> option ind
+R9360:9369 Kernel.CertCheck CertCheck dimacs_cnf rec
+R9391:9401 Kernel.CertCheck CertCheck split_lines def
+R9403:9406 Kernel.CertCheck <> text:53 var
+binder 9382:9386 <> lines:54
+R9432:9435 Coq.Init.Datatypes <> list ind
+R9437:9442 Coq.Strings.String <> string ind
+binder 9427:9428 <> ls:55
+R9457:9462 Coq.Init.Datatypes <> option ind
+R9464:9466 Coq.Init.Datatypes <> nat ind
+binder 9446:9453 <> num_vars:56
+R9480:9483 Coq.Init.Datatypes <> list ind
+R9486:9489 Coq.Init.Datatypes <> list ind
+R9491:9491 Coq.Numbers.BinNums <> Z ind
+binder 9470:9476 <> clauses:57
+R9510:9511 Kernel.CertCheck <> ls:55 var
+R9526:9527 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R9548:9555 Kernel.CertCheck <> num_vars:56 var
+R9574:9577 Coq.Init.Datatypes <> Some constr
+R9585:9588 Coq.Init.Datatypes <> Some constr
+R9593:9604 Kernel.CertCheck CertCheck cnf_num_vars proj
+R9593:9604 Kernel.CertCheck CertCheck cnf_num_vars proj
+R9593:9604 Kernel.CertCheck CertCheck cnf_num_vars proj
+R9613:9623 Kernel.CertCheck CertCheck cnf_clauses proj
+R9613:9623 Kernel.CertCheck CertCheck cnf_clauses proj
+R9628:9630 Coq.Lists.List <> rev def
+R9632:9638 Kernel.CertCheck <> clauses:57 var
+R9655:9658 Coq.Init.Datatypes <> None constr
+R9663:9666 Coq.Init.Datatypes <> None constr
+R9694:9697 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R9728:9736 Kernel.CertCheck CertCheck trim_left def
+binder 9719:9723 <> line':61
+R9762:9766 Kernel.CertCheck <> line':61 var
+R9785:9795 Coq.Strings.String <> EmptyString constr
+R9800:9801 Kernel.CertCheck <> go:58 var
+R9816:9822 Kernel.CertCheck <> clauses:57 var
+R9807:9814 Kernel.CertCheck <> num_vars:56 var
+R9836:9841 Coq.Strings.String <> String constr
+R9867:9875 Coq.Strings.Ascii <> eqb def
+R9880:9897 Coq.Strings.Ascii <> ascii_of_nat def
+R9980:9988 Coq.Strings.Ascii <> eqb def
+R9993:10010 Coq.Strings.Ascii <> ascii_of_nat def
+R10412:10430 Kernel.CertCheck CertCheck parse_clause_tokens def
+R10433:10440 Kernel.CertCheck CertCheck split_ws def
+R10442:10446 Kernel.CertCheck <> line':61 var
+R10472:10475 Coq.Init.Datatypes <> Some constr
+R10483:10484 Kernel.CertCheck <> go:58 var
+R10502:10505 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R10506:10512 Kernel.CertCheck <> clauses:57 var
+R10490:10497 Kernel.CertCheck <> num_vars:56 var
+R10533:10536 Coq.Init.Datatypes <> None constr
+R10541:10544 Coq.Init.Datatypes <> None constr
+R10060:10067 Kernel.CertCheck CertCheck split_ws def
+R10069:10073 Kernel.CertCheck <> line':61 var
+binder 10052:10055 <> toks:63
+R10100:10103 Kernel.CertCheck <> toks:63 var
+R10130:10133 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R10138:10141 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R10144:10147 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R10151:10154 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R10186:10194 Kernel.CertCheck CertCheck parse_nat def
+R10226:10229 Coq.Init.Datatypes <> Some constr
+R10238:10239 Kernel.CertCheck <> go:58 var
+R10256:10262 Kernel.CertCheck <> clauses:57 var
+R10246:10249 Coq.Init.Datatypes <> Some constr
+R10286:10289 Coq.Init.Datatypes <> None constr
+R10294:10297 Coq.Init.Datatypes <> None constr
+R10346:10349 Coq.Init.Datatypes <> None constr
+R9934:9935 Kernel.CertCheck <> go:58 var
+R9950:9956 Kernel.CertCheck <> clauses:57 var
+R9941:9948 Kernel.CertCheck <> num_vars:56 var
+binder 9423:9424 <> go:65
+R10597:10598 Kernel.CertCheck <> go:65 var
+R10611:10612 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R10606:10609 Coq.Init.Datatypes <> None constr
+R10600:10604 Kernel.CertCheck <> lines:54 var
+def 11907:11917 CertCheck lookup_bool
+R11924:11926 Coq.Init.Datatypes <> nat ind
+binder 11920:11920 <> x:66
+R11934:11937 Coq.Init.Datatypes <> list ind
+R11943:11945 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R11940:11942 Coq.Init.Datatypes <> nat ind
+R11946:11949 Coq.Init.Datatypes <> bool ind
+binder 11930:11930 <> m:67
+R11955:11960 Coq.Init.Datatypes <> option ind
+R11962:11965 Coq.Init.Datatypes <> bool ind
+R11980:11980 Kernel.CertCheck <> m:67 var
+R11993:11994 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R11999:12002 Coq.Init.Datatypes <> None constr
+R12016:12019 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R12010:12010 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12012:12013 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12015:12015 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12029:12035 Coq.Arith.PeanoNat Nat eqb def
+R12039:12039 Kernel.CertCheck <> x:66 var
+R12058:12068 Kernel.CertCheck <> lookup_bool:68 def
+R12070:12070 Kernel.CertCheck <> x:66 var
+R12046:12049 Coq.Init.Datatypes <> Some constr
+def 12098:12108 CertCheck insert_bool
+R12115:12117 Coq.Init.Datatypes <> nat ind
+binder 12111:12111 <> x:70
+R12125:12128 Coq.Init.Datatypes <> bool ind
+binder 12121:12121 <> v:71
+R12136:12139 Coq.Init.Datatypes <> list ind
+R12145:12147 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R12142:12144 Coq.Init.Datatypes <> nat ind
+R12148:12151 Coq.Init.Datatypes <> bool ind
+binder 12132:12132 <> m:72
+R12157:12160 Coq.Init.Datatypes <> list ind
+R12166:12168 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R12163:12165 Coq.Init.Datatypes <> nat ind
+R12169:12172 Coq.Init.Datatypes <> bool ind
+R12188:12191 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R12182:12182 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12184:12185 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12187:12187 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12183:12183 Kernel.CertCheck <> x:70 var
+R12186:12186 Kernel.CertCheck <> v:71 var
+R12192:12192 Kernel.CertCheck <> m:72 var
+def 12209:12223 CertCheck remove_prefix_v
+R12230:12235 Coq.Strings.String <> string ind
+binder 12226:12226 <> s:73
+R12240:12245 Coq.Strings.String <> string ind
+R12260:12260 Kernel.CertCheck <> s:73 var
+R12273:12278 Coq.Strings.String <> String constr
+R12301:12303 Coq.Init.Datatypes <> orb def
+R12370:12378 Coq.Strings.Ascii <> eqb def
+R12383:12400 Coq.Strings.Ascii <> ascii_of_nat def
+R12306:12314 Coq.Strings.Ascii <> eqb def
+R12319:12336 Coq.Strings.Ascii <> ascii_of_nat def
+R12440:12440 Kernel.CertCheck <> s:73 var
+R12453:12453 Kernel.CertCheck <> s:73 var
+def 12476:12490 CertCheck split_on_eq_aux
+R12497:12500 Coq.Init.Datatypes <> list ind
+R12502:12506 Coq.Strings.Ascii <> ascii ind
+binder 12493:12493 <> l:75
+R12516:12519 Coq.Init.Datatypes <> list ind
+R12521:12525 Coq.Strings.Ascii <> ascii ind
+binder 12510:12512 <> acc:76
+R12530:12535 Coq.Init.Datatypes <> option ind
+R12548:12550 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R12538:12541 Coq.Init.Datatypes <> list ind
+R12543:12547 Coq.Strings.Ascii <> ascii ind
+R12551:12554 Coq.Init.Datatypes <> list ind
+R12556:12560 Coq.Strings.Ascii <> ascii ind
+R12576:12576 Kernel.CertCheck <> l:75 var
+R12589:12590 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R12595:12598 Coq.Init.Datatypes <> None constr
+R12607:12610 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R12628:12634 Coq.Arith.PeanoNat Nat eqb def
+R12637:12645 Kernel.CertCheck CertCheck ascii_nat def
+R12724:12738 Kernel.CertCheck <> split_on_eq_aux:77 def
+R12745:12748 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R12749:12751 Kernel.CertCheck <> acc:76 var
+R12682:12685 Coq.Init.Datatypes <> Some constr
+R12687:12687 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12695:12696 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12699:12699 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12688:12690 Coq.Lists.List <> rev def
+R12692:12694 Kernel.CertCheck <> acc:76 var
+def 12777:12787 CertCheck split_on_eq
+R12794:12799 Coq.Strings.String <> string ind
+binder 12790:12790 <> s:79
+R12804:12809 Coq.Init.Datatypes <> option ind
+R12818:12820 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R12812:12817 Coq.Strings.String <> string ind
+R12821:12826 Coq.Strings.String <> string ind
+R12842:12856 Kernel.CertCheck CertCheck split_on_eq_aux def
+R12859:12872 Kernel.CertCheck CertCheck string_to_list def
+R12874:12874 Kernel.CertCheck <> s:79 var
+R12877:12878 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R12891:12894 Coq.Init.Datatypes <> Some constr
+R12896:12896 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12899:12900 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12903:12903 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12908:12911 Coq.Init.Datatypes <> Some constr
+R12913:12913 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12931:12932 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12950:12950 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12914:12927 Kernel.CertCheck CertCheck list_to_string def
+R12933:12946 Kernel.CertCheck CertCheck list_to_string def
+R12958:12961 Coq.Init.Datatypes <> None constr
+R12966:12969 Coq.Init.Datatypes <> None constr
+def 12994:13007 CertCheck value_is_false
+R13014:13019 Coq.Strings.String <> string ind
+binder 13010:13010 <> s:80
+R13024:13027 Coq.Init.Datatypes <> bool ind
+R13127:13135 Kernel.CertCheck CertCheck trim_left def
+R13137:13137 Kernel.CertCheck <> s:80 var
+binder 13122:13122 <> t:81
+R13146:13148 Coq.Init.Datatypes <> orb def
+R13170:13172 Coq.Init.Datatypes <> orb def
+R13198:13207 Coq.Strings.String <> eqb def
+R13209:13209 Kernel.CertCheck <> t:81 var
+R13175:13184 Coq.Strings.String <> eqb def
+R13186:13186 Kernel.CertCheck <> t:81 var
+R13151:13160 Coq.Strings.String <> eqb def
+R13162:13162 Kernel.CertCheck <> t:81 var
+def 13232:13253 CertCheck parse_assignment_token
+R13262:13267 Coq.Strings.String <> string ind
+binder 13256:13258 <> tok:82
+R13272:13277 Coq.Init.Datatypes <> option ind
+R13283:13285 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R13280:13282 Coq.Init.Datatypes <> nat ind
+R13286:13289 Coq.Init.Datatypes <> bool ind
+R13302:13311 Coq.Strings.String <> eqb def
+R13313:13315 Kernel.CertCheck <> tok:82 var
+R13352:13362 Kernel.CertCheck CertCheck split_on_eq def
+R13364:13366 Kernel.CertCheck <> tok:82 var
+R13381:13384 Coq.Init.Datatypes <> Some constr
+R13386:13386 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13390:13391 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13395:13395 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13416:13424 Kernel.CertCheck CertCheck parse_nat def
+R13427:13441 Kernel.CertCheck CertCheck remove_prefix_v def
+R13465:13468 Coq.Init.Datatypes <> Some constr
+R13477:13480 Coq.Init.Datatypes <> Some constr
+R13482:13482 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13486:13487 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13513:13513 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13488:13491 Coq.Init.Datatypes <> negb def
+R13494:13507 Kernel.CertCheck CertCheck value_is_false def
+R13527:13530 Coq.Init.Datatypes <> None constr
+R13535:13538 Coq.Init.Datatypes <> None constr
+R13562:13565 Coq.Init.Datatypes <> None constr
+R13586:13594 Kernel.CertCheck CertCheck parse_int def
+R13596:13598 Kernel.CertCheck <> tok:82 var
+R13617:13620 Coq.Init.Datatypes <> Some constr
+R13646:13650 Coq.ZArith.BinInt Z eqb def
+R13778:13785 Coq.ZArith.BinInt Z to_nat def
+R13788:13792 Coq.ZArith.BinInt Z abs def
+binder 13771:13773 <> var:83
+R13818:13821 Coq.Init.Datatypes <> Some constr
+R13823:13823 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13827:13828 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13841:13841 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13824:13826 Kernel.CertCheck <> var:83 var
+R13833:13836 Coq.ZArith.BinInt <> ::Z_scope:x_'>?'_x not
+R13663:13666 Coq.Init.Datatypes <> None constr
+R13855:13858 Coq.Init.Datatypes <> None constr
+R13863:13866 Coq.Init.Datatypes <> None constr
+R13326:13329 Coq.Init.Datatypes <> None constr
+def 13907:13922 CertCheck parse_assignment
+R13932:13937 Coq.Strings.String <> string ind
+binder 13925:13928 <> text:84
+R13942:13947 Coq.Init.Datatypes <> option ind
+R13950:13953 Coq.Init.Datatypes <> list ind
+R13959:13961 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R13956:13958 Coq.Init.Datatypes <> nat ind
+R13962:13965 Coq.Init.Datatypes <> bool ind
+R13988:13995 Kernel.CertCheck CertCheck split_ws def
+R13997:14000 Kernel.CertCheck <> text:84 var
+binder 13980:13983 <> toks:85
+R14026:14029 Coq.Init.Datatypes <> list ind
+R14031:14036 Coq.Strings.String <> string ind
+binder 14021:14022 <> ts:86
+R14046:14049 Coq.Init.Datatypes <> list ind
+R14055:14057 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R14052:14054 Coq.Init.Datatypes <> nat ind
+R14058:14061 Coq.Init.Datatypes <> bool ind
+binder 14040:14042 <> acc:87
+R14080:14081 Kernel.CertCheck <> ts:86 var
+R14096:14097 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R14102:14105 Coq.Init.Datatypes <> Some constr
+R14107:14109 Kernel.CertCheck <> acc:87 var
+R14120:14123 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R14147:14168 Kernel.CertCheck CertCheck parse_assignment_token def
+R14189:14192 Coq.Init.Datatypes <> Some constr
+R14194:14194 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14198:14199 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14201:14201 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14206:14207 Kernel.CertCheck <> go:88 var
+R14214:14224 Kernel.CertCheck CertCheck insert_bool def
+R14232:14234 Kernel.CertCheck <> acc:87 var
+R14249:14252 Coq.Init.Datatypes <> None constr
+R14257:14258 Kernel.CertCheck <> go:88 var
+R14264:14266 Kernel.CertCheck <> acc:87 var
+binder 14017:14018 <> go:90
+R14299:14300 Kernel.CertCheck <> go:90 var
+R14307:14308 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R14302:14305 Kernel.CertCheck <> toks:85 var
+def 15176:15191 CertCheck clause_satisfied
+R15201:15204 Coq.Init.Datatypes <> list ind
+R15210:15212 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R15207:15209 Coq.Init.Datatypes <> nat ind
+R15213:15216 Coq.Init.Datatypes <> bool ind
+binder 15194:15197 <> asgn:91
+R15226:15229 Coq.Init.Datatypes <> list ind
+R15231:15231 Coq.Numbers.BinNums <> Z ind
+binder 15221:15222 <> cl:92
+R15236:15239 Coq.Init.Datatypes <> bool ind
+R15267:15270 Coq.Init.Datatypes <> list ind
+R15272:15272 Coq.Numbers.BinNums <> Z ind
+binder 15260:15263 <> lits:93
+R15277:15280 Coq.Init.Datatypes <> bool ind
+R15297:15300 Kernel.CertCheck <> lits:93 var
+R15379:15380 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R15385:15389 Coq.Init.Datatypes <> false constr
+R15402:15405 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R15504:15511 Coq.ZArith.BinInt Z to_nat def
+R15514:15518 Coq.ZArith.BinInt Z abs def
+binder 15497:15499 <> var:96
+R15544:15554 Kernel.CertCheck CertCheck lookup_bool def
+R15556:15558 Kernel.CertCheck <> var:96 var
+R15560:15563 Kernel.CertCheck <> asgn:91 var
+R15582:15585 Coq.Init.Datatypes <> Some constr
+R15595:15602 Coq.Bool.Bool <> eqb def
+R15610:15613 Coq.ZArith.BinInt <> ::Z_scope:x_'>?'_x not
+R15634:15635 Kernel.CertCheck <> go:94 var
+R15624:15627 Coq.Init.Datatypes <> true constr
+R15655:15658 Coq.Init.Datatypes <> None constr
+R15663:15667 Coq.Init.Datatypes <> false constr
+binder 15256:15257 <> go:97
+R15700:15701 Kernel.CertCheck <> go:97 var
+R15703:15704 Kernel.CertCheck <> cl:92 var
+def 16924:16934 CertCheck check_model
+R16948:16953 Coq.Strings.String <> string ind
+binder 16937:16944 <> cnf_text:98
+R16975:16980 Coq.Strings.String <> string ind
+binder 16957:16971 <> assignment_text:99
+R16985:16988 Coq.Init.Datatypes <> bool ind
+R17026:17041 Kernel.CertCheck CertCheck parse_assignment def
+R17043:17057 Kernel.CertCheck <> assignment_text:99 var
+R17003:17014 Kernel.CertCheck CertCheck parse_dimacs def
+R17016:17023 Kernel.CertCheck <> cnf_text:98 var
+R17070:17073 Coq.Init.Datatypes <> Some constr
+R17080:17083 Coq.Init.Datatypes <> Some constr
+R17105:17111 Coq.Arith.PeanoNat Nat ltb def
+R17114:17124 Coq.Lists.List <> length abbrev
+R17137:17148 Kernel.CertCheck CertCheck cnf_num_vars proj
+R17186:17192 Coq.Lists.List <> forallb def
+R17223:17233 Kernel.CertCheck CertCheck cnf_clauses proj
+R17195:17210 Kernel.CertCheck CertCheck clause_satisfied def
+R17157:17161 Coq.Init.Datatypes <> false constr
+R17250:17254 Coq.Init.Datatypes <> false constr
+def 19086:19097 CertCheck assoc_remove
+R19104:19106 Coq.Init.Datatypes <> nat ind
+binder 19100:19100 <> k:100
+R19115:19118 Coq.Init.Datatypes <> list ind
+R19124:19126 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R19121:19123 Coq.Init.Datatypes <> nat ind
+R19127:19130 Coq.Init.Datatypes <> list ind
+R19132:19132 Coq.Numbers.BinNums <> Z ind
+binder 19110:19111 <> db:101
+R19138:19141 Coq.Init.Datatypes <> list ind
+R19147:19149 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R19144:19146 Coq.Init.Datatypes <> nat ind
+R19150:19153 Coq.Init.Datatypes <> list ind
+R19155:19155 Coq.Numbers.BinNums <> Z ind
+R19165:19170 Coq.Lists.List <> filter def
+R19210:19211 Kernel.CertCheck <> db:101 var
+binder 19177:19178 <> kv:102
+R19183:19186 Coq.Init.Datatypes <> negb def
+R19189:19195 Coq.Arith.PeanoNat Nat eqb def
+R19198:19200 Coq.Init.Datatypes <> fst def
+R19202:19203 Kernel.CertCheck <> kv:102 var
+R19206:19206 Kernel.CertCheck <> k:100 var
+def 19228:19237 CertCheck db_clauses
+R19245:19248 Coq.Init.Datatypes <> list ind
+R19254:19256 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R19251:19253 Coq.Init.Datatypes <> nat ind
+R19257:19260 Coq.Init.Datatypes <> list ind
+R19262:19262 Coq.Numbers.BinNums <> Z ind
+binder 19240:19241 <> db:103
+R19268:19271 Coq.Init.Datatypes <> list ind
+R19274:19277 Coq.Init.Datatypes <> list ind
+R19279:19279 Coq.Numbers.BinNums <> Z ind
+R19289:19291 Coq.Lists.List <> map def
+R19297:19298 Kernel.CertCheck <> db:103 var
+R19293:19295 Coq.Init.Datatypes <> snd def
+def 19315:19325 CertCheck eval_clause
+R19335:19338 Coq.Init.Datatypes <> list ind
+R19344:19346 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R19341:19343 Coq.Init.Datatypes <> nat ind
+R19347:19350 Coq.Init.Datatypes <> bool ind
+binder 19328:19331 <> asgn:104
+R19360:19363 Coq.Init.Datatypes <> list ind
+R19365:19365 Coq.Numbers.BinNums <> Z ind
+binder 19355:19356 <> cl:105
+R19375:19377 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R19371:19374 Coq.Init.Datatypes <> bool ind
+R19378:19381 Coq.Init.Datatypes <> list ind
+R19383:19383 Coq.Numbers.BinNums <> Z ind
+R19412:19415 Coq.Init.Datatypes <> list ind
+R19417:19417 Coq.Numbers.BinNums <> Z ind
+binder 19405:19408 <> lits:106
+R19429:19432 Coq.Init.Datatypes <> list ind
+R19434:19434 Coq.Numbers.BinNums <> Z ind
+binder 19421:19425 <> undec:107
+R19444:19446 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R19440:19443 Coq.Init.Datatypes <> bool ind
+R19447:19450 Coq.Init.Datatypes <> list ind
+R19452:19452 Coq.Numbers.BinNums <> Z ind
+R19534:19537 Kernel.CertCheck <> lits:106 var
+R19552:19553 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R19558:19558 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19564:19565 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19575:19575 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19559:19563 Coq.Init.Datatypes <> false constr
+R19566:19568 Coq.Lists.List <> rev def
+R19570:19574 Kernel.CertCheck <> undec:107 var
+R19588:19591 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R19690:19697 Coq.ZArith.BinInt Z to_nat def
+R19700:19704 Coq.ZArith.BinInt Z abs def
+binder 19683:19685 <> var:110
+R19730:19740 Kernel.CertCheck CertCheck lookup_bool def
+R19742:19744 Kernel.CertCheck <> var:110 var
+R19746:19749 Kernel.CertCheck <> asgn:104 var
+R19768:19771 Coq.Init.Datatypes <> Some constr
+R19795:19802 Coq.Bool.Bool <> eqb def
+R19810:19813 Coq.ZArith.BinInt <> ::Z_scope:x_'>?'_x not
+R19840:19841 Kernel.CertCheck <> go:108 var
+R19849:19853 Kernel.CertCheck <> undec:107 var
+R19824:19824 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19829:19830 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19833:19833 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19825:19828 Coq.Init.Datatypes <> true constr
+R19831:19832 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R19867:19870 Coq.Init.Datatypes <> None constr
+R19875:19876 Kernel.CertCheck <> go:108 var
+R19888:19891 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R19892:19896 Kernel.CertCheck <> undec:107 var
+binder 19401:19402 <> go:111
+R19930:19931 Kernel.CertCheck <> go:111 var
+R19936:19937 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R19933:19934 Kernel.CertCheck <> cl:105 var
+def 21188:21205 CertCheck unit_conflict_fuel
+R21219:21221 Coq.Init.Datatypes <> nat ind
+binder 21212:21215 <> fuel:112
+R21240:21242 Coq.Init.Datatypes <> nat ind
+binder 21229:21236 <> num_vars:113
+R21260:21263 Coq.Init.Datatypes <> list ind
+R21266:21269 Coq.Init.Datatypes <> list ind
+R21271:21271 Coq.Numbers.BinNums <> Z ind
+binder 21250:21256 <> clauses:114
+R21287:21290 Coq.Init.Datatypes <> list ind
+R21296:21298 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R21293:21295 Coq.Init.Datatypes <> nat ind
+R21299:21302 Coq.Init.Datatypes <> bool ind
+binder 21280:21283 <> asgn:115
+R21319:21322 Coq.Init.Datatypes <> list ind
+R21324:21324 Coq.Numbers.BinNums <> Z ind
+binder 21311:21315 <> queue:116
+R21333:21336 Coq.Init.Datatypes <> bool ind
+R21351:21354 Kernel.CertCheck <> fuel:112 var
+R21376:21380 Coq.Init.Datatypes <> false constr
+R21452:21452 Coq.Init.Datatypes <> S constr
+R21477:21481 Kernel.CertCheck <> queue:116 var
+R21498:21499 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R21504:21508 Coq.Init.Datatypes <> false constr
+R21523:21526 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R21628:21635 Coq.ZArith.BinInt Z to_nat def
+R21638:21642 Coq.ZArith.BinInt Z abs def
+binder 21621:21623 <> var:120
+R21681:21684 Coq.ZArith.BinInt <> ::Z_scope:x_'>?'_x not
+binder 21668:21672 <> value:121
+R21711:21721 Kernel.CertCheck CertCheck lookup_bool def
+R21723:21725 Kernel.CertCheck <> var:120 var
+R21727:21730 Kernel.CertCheck <> asgn:115 var
+R21751:21754 Coq.Init.Datatypes <> Some constr
+R21780:21787 Coq.Bool.Bool <> eqb def
+R21791:21795 Kernel.CertCheck <> value:121 var
+R21895:21898 Coq.Init.Datatypes <> true constr
+R21820:21837 Kernel.CertCheck <> unit_conflict_fuel:117 def
+R21862:21865 Kernel.CertCheck <> asgn:115 var
+R21854:21860 Kernel.CertCheck <> clauses:114 var
+R21845:21852 Kernel.CertCheck <> num_vars:113 var
+R21914:21917 Coq.Init.Datatypes <> None constr
+R21951:21961 Kernel.CertCheck CertCheck insert_bool def
+R21963:21965 Kernel.CertCheck <> var:120 var
+R21967:21971 Kernel.CertCheck <> value:121 var
+R21973:21976 Kernel.CertCheck <> asgn:115 var
+binder 21942:21946 <> asgn':122
+R22085:22088 Coq.Init.Datatypes <> list ind
+R22091:22094 Coq.Init.Datatypes <> list ind
+R22096:22096 Coq.Numbers.BinNums <> Z ind
+binder 22079:22081 <> cls:123
+R22105:22108 Coq.Init.Datatypes <> list ind
+R22110:22110 Coq.Numbers.BinNums <> Z ind
+binder 22101:22101 <> q:124
+R22115:22120 Coq.Init.Datatypes <> option ind
+R22123:22126 Coq.Init.Datatypes <> list ind
+R22128:22128 Coq.Numbers.BinNums <> Z ind
+R22158:22160 Kernel.CertCheck <> cls:123 var
+R22187:22188 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R22193:22196 Coq.Init.Datatypes <> Some constr
+R22198:22198 Kernel.CertCheck <> q:124 var
+R22222:22225 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R22277:22287 Kernel.CertCheck CertCheck eval_clause def
+R22289:22293 Kernel.CertCheck <> asgn':122 var
+R22261:22261 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R22265:22266 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R22272:22272 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R22441:22442 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R22447:22450 Coq.Init.Datatypes <> None constr
+R22478:22478 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R22480:22480 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R22485:22488 Kernel.CertCheck <> scan:125 var
+R22497:22500 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R22501:22501 Kernel.CertCheck <> q:124 var
+R22535:22538 Kernel.CertCheck <> scan:125 var
+R22545:22545 Kernel.CertCheck <> q:124 var
+R22335:22338 Kernel.CertCheck <> scan:125 var
+R22345:22345 Kernel.CertCheck <> q:124 var
+binder 22073:22076 <> scan:128
+R22638:22641 Kernel.CertCheck <> scan:128 var
+R22643:22649 Kernel.CertCheck <> clauses:114 var
+R22681:22684 Coq.Init.Datatypes <> None constr
+R22689:22692 Coq.Init.Datatypes <> true constr
+R22712:22715 Coq.Init.Datatypes <> Some constr
+R22723:22740 Kernel.CertCheck <> unit_conflict_fuel:117 def
+R22765:22769 Kernel.CertCheck <> asgn':122 var
+R22757:22763 Kernel.CertCheck <> clauses:114 var
+R22748:22755 Kernel.CertCheck <> num_vars:113 var
+def 23538:23550 CertCheck unit_conflict
+R23568:23570 Coq.Init.Datatypes <> nat ind
+binder 23557:23564 <> num_vars:129
+R23588:23591 Coq.Init.Datatypes <> list ind
+R23594:23597 Coq.Init.Datatypes <> list ind
+R23599:23599 Coq.Numbers.BinNums <> Z ind
+binder 23578:23584 <> clauses:130
+R23622:23625 Coq.Init.Datatypes <> list ind
+R23627:23627 Coq.Numbers.BinNums <> Z ind
+binder 23608:23618 <> assumptions:131
+R23636:23639 Coq.Init.Datatypes <> bool ind
+R23671:23680 Coq.Lists.List <> fold_right def
+R23772:23778 Kernel.CertCheck <> clauses:130 var
+R23761:23762 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+binder 23695:23696 <> cl:132
+binder 23698:23700 <> acc:133
+R23711:23712 Kernel.CertCheck <> cl:132 var
+R23721:23721 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R23723:23723 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R23729:23732 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R23733:23735 Kernel.CertCheck <> acc:133 var
+R23744:23746 Kernel.CertCheck <> acc:133 var
+binder 23652:23660 <> unit_lits:135
+R23816:23819 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R23805:23815 Kernel.CertCheck <> assumptions:131 var
+R23820:23828 Kernel.CertCheck <> unit_lits:135 var
+binder 23795:23799 <> queue:136
+R23884:23886 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R23864:23866 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R23856:23863 Kernel.CertCheck <> num_vars:129 var
+R23867:23877 Coq.Lists.List <> length abbrev
+R23879:23883 Kernel.CertCheck <> queue:136 var
+binder 23847:23850 <> fuel:137
+R23902:23919 Kernel.CertCheck CertCheck unit_conflict_fuel def
+R23921:23924 Kernel.CertCheck <> fuel:137 var
+R23926:23933 Kernel.CertCheck <> num_vars:129 var
+R23935:23941 Kernel.CertCheck <> clauses:130 var
+R23943:23944 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R23946:23950 Kernel.CertCheck <> queue:136 var
+def 24886:24902 CertCheck verify_rup_clause
+R24920:24922 Coq.Init.Datatypes <> nat ind
+binder 24909:24916 <> num_vars:138
+R24935:24938 Coq.Init.Datatypes <> list ind
+R24944:24946 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R24941:24943 Coq.Init.Datatypes <> nat ind
+R24947:24950 Coq.Init.Datatypes <> list ind
+R24952:24952 Coq.Numbers.BinNums <> Z ind
+binder 24930:24931 <> db:139
+R24970:24973 Coq.Init.Datatypes <> list ind
+R24975:24975 Coq.Numbers.BinNums <> Z ind
+binder 24961:24966 <> clause:140
+R24984:24987 Coq.Init.Datatypes <> bool ind
+R24996:25008 Kernel.CertCheck CertCheck unit_conflict def
+R25010:25017 Kernel.CertCheck <> num_vars:138 var
+R25020:25029 Kernel.CertCheck CertCheck db_clauses def
+R25031:25032 Kernel.CertCheck <> db:139 var
+R25036:25038 Coq.Lists.List <> map def
+R25046:25051 Kernel.CertCheck <> clause:140 var
+R25040:25044 Coq.ZArith.BinInt Z opp def
+rec 26009:26017 CertCheck lrat_step
+proj 26028:26034 CertCheck lrat_id
+proj 26049:26059 CertCheck lrat_clause
+proj 26077:26090 CertCheck lrat_deletions
+proj 26110:26123 CertCheck lrat_is_delete
+R26038:26040 Coq.Init.Datatypes <> nat ind
+R26063:26066 Coq.Init.Datatypes <> list ind
+R26068:26068 Coq.Numbers.BinNums <> Z ind
+R26094:26097 Coq.Init.Datatypes <> list ind
+R26099:26101 Coq.Init.Datatypes <> nat ind
+R26127:26130 Coq.Init.Datatypes <> bool ind
+def 26149:26162 CertCheck parse_nat_list
+R26172:26175 Coq.Init.Datatypes <> list ind
+R26177:26182 Coq.Strings.String <> string ind
+binder 26165:26168 <> toks:146
+R26187:26192 Coq.Init.Datatypes <> option ind
+R26195:26198 Coq.Init.Datatypes <> list ind
+R26200:26202 Coq.Init.Datatypes <> nat ind
+R26229:26232 Coq.Init.Datatypes <> list ind
+R26234:26239 Coq.Strings.String <> string ind
+binder 26224:26225 <> ts:147
+R26249:26252 Coq.Init.Datatypes <> list ind
+R26254:26256 Coq.Init.Datatypes <> nat ind
+binder 26243:26245 <> acc:148
+R26274:26275 Kernel.CertCheck <> ts:147 var
+R26290:26291 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R26296:26299 Coq.Init.Datatypes <> Some constr
+R26302:26304 Coq.Lists.List <> rev def
+R26306:26308 Kernel.CertCheck <> acc:148 var
+R26320:26323 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R26347:26355 Kernel.CertCheck CertCheck parse_nat def
+R26376:26379 Coq.Init.Datatypes <> Some constr
+R26389:26395 Coq.Arith.PeanoNat Nat eqb def
+R26430:26431 Kernel.CertCheck <> go:149 var
+R26439:26442 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R26443:26445 Kernel.CertCheck <> acc:148 var
+R26410:26413 Coq.Init.Datatypes <> Some constr
+R26416:26418 Coq.Lists.List <> rev def
+R26420:26422 Kernel.CertCheck <> acc:148 var
+R26460:26463 Coq.Init.Datatypes <> None constr
+R26468:26471 Coq.Init.Datatypes <> None constr
+binder 26220:26221 <> go:151
+R26504:26505 Kernel.CertCheck <> go:151 var
+R26512:26513 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R26507:26510 Kernel.CertCheck <> toks:146 var
+def 26530:26541 CertCheck parse_z_list
+R26551:26554 Coq.Init.Datatypes <> list ind
+R26556:26561 Coq.Strings.String <> string ind
+binder 26544:26547 <> toks:152
+R26566:26571 Coq.Init.Datatypes <> option ind
+R26574:26577 Coq.Init.Datatypes <> list ind
+R26579:26579 Coq.Numbers.BinNums <> Z ind
+R26606:26609 Coq.Init.Datatypes <> list ind
+R26611:26616 Coq.Strings.String <> string ind
+binder 26601:26602 <> ts:153
+R26626:26629 Coq.Init.Datatypes <> list ind
+R26631:26631 Coq.Numbers.BinNums <> Z ind
+binder 26620:26622 <> acc:154
+R26649:26650 Kernel.CertCheck <> ts:153 var
+R26665:26666 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R26671:26674 Coq.Init.Datatypes <> Some constr
+R26677:26679 Coq.Lists.List <> rev def
+R26681:26683 Kernel.CertCheck <> acc:154 var
+R26695:26698 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R26722:26730 Kernel.CertCheck CertCheck parse_int def
+R26751:26754 Coq.Init.Datatypes <> Some constr
+R26764:26768 Coq.ZArith.BinInt Z eqb def
+R26799:26800 Kernel.CertCheck <> go:155 var
+R26808:26811 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R26812:26814 Kernel.CertCheck <> acc:154 var
+R26779:26782 Coq.Init.Datatypes <> Some constr
+R26785:26787 Coq.Lists.List <> rev def
+R26789:26791 Kernel.CertCheck <> acc:154 var
+R26829:26832 Coq.Init.Datatypes <> None constr
+R26837:26840 Coq.Init.Datatypes <> None constr
+binder 26597:26598 <> go:157
+R26873:26874 Kernel.CertCheck <> go:157 var
+R26881:26882 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R26876:26879 Kernel.CertCheck <> toks:152 var
+def 26899:26913 CertCheck drop_until_zero
+R26923:26926 Coq.Init.Datatypes <> list ind
+R26928:26933 Coq.Strings.String <> string ind
+binder 26916:26919 <> toks:158
+R26938:26941 Coq.Init.Datatypes <> list ind
+R26943:26948 Coq.Strings.String <> string ind
+R26974:26977 Coq.Init.Datatypes <> list ind
+R26979:26984 Coq.Strings.String <> string ind
+binder 26969:26970 <> ts:159
+R27002:27003 Kernel.CertCheck <> ts:159 var
+R27018:27019 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R27024:27025 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R27036:27039 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R27060:27069 Coq.Strings.String <> eqb def
+R27091:27092 Kernel.CertCheck <> go:160 var
+binder 26965:26966 <> go:162
+R27115:27116 Kernel.CertCheck <> go:162 var
+R27118:27121 Kernel.CertCheck <> toks:158 var
+def 27138:27152 CertCheck parse_lrat_line
+R27162:27167 Coq.Strings.String <> string ind
+binder 27155:27158 <> line:163
+R27172:27177 Coq.Init.Datatypes <> option ind
+R27179:27187 Kernel.CertCheck CertCheck lrat_step rec
+R27205:27213 Kernel.CertCheck CertCheck trim_left def
+R27215:27218 Kernel.CertCheck <> line:163 var
+binder 27200:27200 <> t:164
+R27230:27239 Coq.Strings.String <> eqb def
+R27241:27241 Kernel.CertCheck <> t:164 var
+R27268:27283 Kernel.CertCheck CertCheck starts_with_char def
+R27286:27303 Coq.Strings.Ascii <> ascii_of_nat def
+R27309:27309 Kernel.CertCheck <> t:164 var
+R27358:27365 Kernel.CertCheck CertCheck split_ws def
+R27367:27367 Kernel.CertCheck <> t:164 var
+binder 27350:27353 <> toks:165
+R27384:27387 Kernel.CertCheck <> toks:165 var
+R27402:27403 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R27408:27411 Coq.Init.Datatypes <> None constr
+R27426:27429 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R27451:27460 Coq.Strings.String <> eqb def
+R27806:27814 Kernel.CertCheck CertCheck parse_nat def
+R27841:27844 Coq.Init.Datatypes <> Some constr
+R27875:27886 Kernel.CertCheck CertCheck parse_z_list def
+R27916:27919 Coq.Init.Datatypes <> Some constr
+R27971:27985 Kernel.CertCheck CertCheck drop_until_zero def
+binder 27955:27966 <> after_clause:167
+R28034:28048 Kernel.CertCheck CertCheck drop_until_zero def
+R28050:28061 Kernel.CertCheck <> after_clause:167 var
+binder 28019:28029 <> after_hints:168
+R28092:28105 Kernel.CertCheck CertCheck parse_nat_list def
+R28107:28117 Kernel.CertCheck <> after_hints:168 var
+R28146:28149 Coq.Init.Datatypes <> Some constr
+R28183:28186 Coq.Init.Datatypes <> Some constr
+R28191:28197 Kernel.CertCheck CertCheck lrat_id proj
+R28191:28197 Kernel.CertCheck CertCheck lrat_id proj
+R28191:28197 Kernel.CertCheck CertCheck lrat_id proj
+R28239:28249 Kernel.CertCheck CertCheck lrat_clause proj
+R28239:28249 Kernel.CertCheck CertCheck lrat_clause proj
+R28294:28307 Kernel.CertCheck CertCheck lrat_deletions proj
+R28294:28307 Kernel.CertCheck CertCheck lrat_deletions proj
+R28350:28363 Kernel.CertCheck CertCheck lrat_is_delete proj
+R28350:28363 Kernel.CertCheck CertCheck lrat_is_delete proj
+R28368:28372 Coq.Init.Datatypes <> false constr
+R28399:28402 Coq.Init.Datatypes <> None constr
+R28407:28410 Coq.Init.Datatypes <> None constr
+R28454:28457 Coq.Init.Datatypes <> None constr
+R28462:28465 Coq.Init.Datatypes <> None constr
+R28501:28504 Coq.Init.Datatypes <> None constr
+R28509:28512 Coq.Init.Datatypes <> None constr
+R27495:27508 Kernel.CertCheck CertCheck parse_nat_list def
+R27534:27537 Coq.Init.Datatypes <> Some constr
+R27563:27566 Coq.Init.Datatypes <> Some constr
+R27571:27577 Kernel.CertCheck CertCheck lrat_id proj
+R27571:27577 Kernel.CertCheck CertCheck lrat_id proj
+R27571:27577 Kernel.CertCheck CertCheck lrat_id proj
+R27613:27623 Kernel.CertCheck CertCheck lrat_clause proj
+R27613:27623 Kernel.CertCheck CertCheck lrat_clause proj
+R27656:27669 Kernel.CertCheck CertCheck lrat_deletions proj
+R27656:27669 Kernel.CertCheck CertCheck lrat_deletions proj
+R27704:27717 Kernel.CertCheck CertCheck lrat_is_delete proj
+R27704:27717 Kernel.CertCheck CertCheck lrat_is_delete proj
+R27628:27629 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R27722:27725 Coq.Init.Datatypes <> true constr
+R27744:27747 Coq.Init.Datatypes <> None constr
+R27752:27755 Coq.Init.Datatypes <> None constr
+R27326:27329 Coq.Init.Datatypes <> None constr
+R27251:27254 Coq.Init.Datatypes <> None constr
+def 28553:28568 CertCheck build_initial_db
+R28581:28584 Coq.Init.Datatypes <> list ind
+R28587:28590 Coq.Init.Datatypes <> list ind
+R28592:28592 Coq.Numbers.BinNums <> Z ind
+binder 28571:28577 <> clauses:169
+R28603:28605 Coq.Init.Datatypes <> nat ind
+binder 28597:28599 <> idx:170
+R28610:28613 Coq.Init.Datatypes <> list ind
+R28619:28621 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R28616:28618 Coq.Init.Datatypes <> nat ind
+R28622:28625 Coq.Init.Datatypes <> list ind
+R28627:28627 Coq.Numbers.BinNums <> Z ind
+R28643:28649 Kernel.CertCheck <> clauses:169 var
+R28662:28663 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R28668:28669 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R28679:28682 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R28699:28702 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R28690:28690 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R28694:28695 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R28698:28698 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R28691:28693 Kernel.CertCheck <> idx:170 var
+R28703:28718 Kernel.CertCheck <> build_initial_db:171 def
+R28725:28725 Coq.Init.Datatypes <> S constr
+R28727:28729 Kernel.CertCheck <> idx:170 var
+def 28753:28767 CertCheck apply_deletions
+R28775:28778 Coq.Init.Datatypes <> list ind
+R28784:28786 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R28781:28783 Coq.Init.Datatypes <> nat ind
+R28787:28790 Coq.Init.Datatypes <> list ind
+R28792:28792 Coq.Numbers.BinNums <> Z ind
+binder 28770:28771 <> db:173
+R28804:28807 Coq.Init.Datatypes <> list ind
+R28809:28811 Coq.Init.Datatypes <> nat ind
+binder 28797:28800 <> dels:174
+R28816:28819 Coq.Init.Datatypes <> list ind
+R28825:28827 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R28822:28824 Coq.Init.Datatypes <> nat ind
+R28828:28831 Coq.Init.Datatypes <> list ind
+R28833:28833 Coq.Numbers.BinNums <> Z ind
+R28849:28852 Kernel.CertCheck <> dels:174 var
+R28865:28866 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R28871:28872 Kernel.CertCheck <> db:173 var
+R28881:28884 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R28891:28905 Kernel.CertCheck <> apply_deletions:175 def
+R28908:28919 Kernel.CertCheck CertCheck assoc_remove def
+R28923:28924 Kernel.CertCheck <> db:173 var
+def 30196:30211 CertCheck check_lrat_lines
+R30229:30231 Coq.Init.Datatypes <> nat ind
+binder 30218:30225 <> num_vars:177
+R30247:30250 Coq.Init.Datatypes <> list ind
+R30252:30257 Coq.Strings.String <> string ind
+binder 30239:30243 <> lines:178
+R30270:30273 Coq.Init.Datatypes <> list ind
+R30279:30281 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R30276:30278 Coq.Init.Datatypes <> nat ind
+R30282:30285 Coq.Init.Datatypes <> list ind
+R30287:30287 Coq.Numbers.BinNums <> Z ind
+binder 30265:30266 <> db:179
+R30312:30315 Coq.Init.Datatypes <> bool ind
+binder 30296:30308 <> derived_empty:180
+R30324:30327 Coq.Init.Datatypes <> bool ind
+R30342:30346 Kernel.CertCheck <> lines:178 var
+R30359:30360 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R30365:30377 Kernel.CertCheck <> derived_empty:180 var
+R30389:30392 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R30417:30431 Kernel.CertCheck CertCheck parse_lrat_line def
+R30453:30456 Coq.Init.Datatypes <> None constr
+R30461:30476 Kernel.CertCheck <> check_lrat_lines:181 def
+R30497:30509 Kernel.CertCheck <> derived_empty:180 var
+R30494:30495 Kernel.CertCheck <> db:179 var
+R30478:30485 Kernel.CertCheck <> num_vars:177 var
+R30521:30524 Coq.Init.Datatypes <> Some constr
+R30551:30564 Kernel.CertCheck CertCheck lrat_is_delete proj
+R30708:30724 Kernel.CertCheck CertCheck verify_rup_clause def
+R30726:30733 Kernel.CertCheck <> num_vars:177 var
+R30735:30736 Kernel.CertCheck <> db:179 var
+R30742:30752 Kernel.CertCheck CertCheck lrat_clause proj
+R31058:31062 Coq.Init.Datatypes <> false constr
+R30819:30822 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R30787:30787 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R30800:30801 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R30818:30818 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R30792:30798 Kernel.CertCheck CertCheck lrat_id proj
+R30806:30816 Kernel.CertCheck CertCheck lrat_clause proj
+R30823:30837 Kernel.CertCheck CertCheck apply_deletions def
+R30839:30840 Kernel.CertCheck <> db:179 var
+R30846:30859 Kernel.CertCheck CertCheck lrat_deletions proj
+binder 30780:30782 <> db':183
+R30903:30905 Coq.Init.Datatypes <> orb def
+R30922:30928 Coq.Arith.PeanoNat Nat eqb def
+R30931:30941 Coq.Lists.List <> length abbrev
+R30947:30957 Kernel.CertCheck CertCheck lrat_clause proj
+R30907:30919 Kernel.CertCheck <> derived_empty:180 var
+binder 30885:30898 <> derived_empty':184
+R30987:31002 Kernel.CertCheck <> check_lrat_lines:181 def
+R31024:31037 Kernel.CertCheck <> derived_empty':184 var
+R31020:31022 Kernel.CertCheck <> db':183 var
+R31004:31011 Kernel.CertCheck <> num_vars:177 var
+R30586:30601 Kernel.CertCheck <> check_lrat_lines:181 def
+R30660:30672 Kernel.CertCheck <> derived_empty:180 var
+R30620:30634 Kernel.CertCheck CertCheck apply_deletions def
+R30636:30637 Kernel.CertCheck <> db:179 var
+R30643:30656 Kernel.CertCheck CertCheck lrat_deletions proj
+R30603:30610 Kernel.CertCheck <> num_vars:177 var
+def 32725:32734 CertCheck check_lrat
+R32748:32753 Coq.Strings.String <> string ind
+binder 32737:32744 <> cnf_text:185
+R32770:32775 Coq.Strings.String <> string ind
+binder 32757:32766 <> proof_text:186
+R32780:32783 Coq.Init.Datatypes <> bool ind
+R32798:32809 Kernel.CertCheck CertCheck parse_dimacs def
+R32811:32818 Kernel.CertCheck <> cnf_text:185 var
+R32831:32834 Coq.Init.Datatypes <> None constr
+R32839:32843 Coq.Init.Datatypes <> false constr
+R32851:32854 Coq.Init.Datatypes <> Some constr
+R32881:32896 Kernel.CertCheck CertCheck build_initial_db def
+R32903:32913 Kernel.CertCheck CertCheck cnf_clauses proj
+binder 32875:32876 <> db:187
+R32933:32948 Kernel.CertCheck CertCheck check_lrat_lines def
+R32955:32966 Kernel.CertCheck CertCheck cnf_num_vars proj
+R32970:32980 Kernel.CertCheck CertCheck split_lines def
+R32982:32991 Kernel.CertCheck <> proof_text:186 var
+R32994:32995 Kernel.CertCheck <> db:187 var
+R32997:33001 Coq.Init.Datatypes <> false constr
+R33017:33025 Kernel.CertCheck CertCheck <> mod
+R33036:33044 Kernel.CertCheck CertCheck <> mod

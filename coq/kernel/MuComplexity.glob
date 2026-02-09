@@ -1,0 +1,209 @@
+DIGEST 68460aec5d1e337d39a83826a1af36d6
+FKernel.MuComplexity
+R1872:1876 Coq.Arith.Arith <> <> lib
+R1878:1880 Coq.micromega.Lia <> <> lib
+R1907:1916 Coq.Lists.List <> <> lib
+R1926:1938 Coq.Lists.List ListNotations <> mod
+def 2511:2516 <> MuCost
+R2521:2523 Coq.Init.Datatypes <> nat ind
+ind 3413:3417 <> Trace
+constr 3433:3437 <> Empty
+constr 3451:3458 <> Discover
+constr 3491:3496 <> Verify
+constr 3529:3535 <> Compose
+R3441:3445 Kernel.MuComplexity <> Trace:1 ind
+R3468:3471 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3462:3467 Kernel.MuComplexity <> MuCost def
+R3477:3480 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3472:3476 Kernel.MuComplexity <> Trace:1 ind
+R3481:3485 Kernel.MuComplexity <> Trace:1 ind
+R3506:3509 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3500:3505 Kernel.MuComplexity <> MuCost def
+R3515:3518 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3510:3514 Kernel.MuComplexity <> Trace:1 ind
+R3519:3523 Kernel.MuComplexity <> Trace:1 ind
+R3544:3547 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3539:3543 Kernel.MuComplexity <> Trace:1 ind
+R3553:3556 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3548:3552 Kernel.MuComplexity <> Trace:1 ind
+R3557:3561 Kernel.MuComplexity <> Trace:1 ind
+scheme 3413:3417 <> Trace_rect
+scheme 3413:3417 <> Trace_ind
+scheme 3413:3417 <> Trace_rec
+scheme 3413:3417 <> Trace_sind
+def 4368:4375 <> mu_total
+R4382:4386 Kernel.MuComplexity <> Trace ind
+binder 4378:4378 <> t:3
+R4391:4396 Kernel.MuComplexity <> MuCost def
+R4409:4409 Kernel.MuComplexity <> t:3 var
+R4420:4424 Kernel.MuComplexity <> Empty constr
+R4435:4442 Kernel.MuComplexity <> Discover constr
+R4453:4455 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4456:4463 Kernel.MuComplexity <> mu_total:4 def
+R4472:4477 Kernel.MuComplexity <> Verify constr
+R4488:4490 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4491:4498 Kernel.MuComplexity <> mu_total:4 def
+R4507:4513 Kernel.MuComplexity <> Compose constr
+R4535:4537 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4524:4531 Kernel.MuComplexity <> mu_total:4 def
+R4538:4545 Kernel.MuComplexity <> mu_total:4 def
+prf 5359:5374 <> mu_compositional
+binder 5385:5386 <> t1:6
+binder 5388:5389 <> t2:7
+R5418:5420 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5394:5401 Kernel.MuComplexity <> mu_total def
+R5404:5410 Kernel.MuComplexity <> Compose constr
+R5412:5413 Kernel.MuComplexity <> t1:6 var
+R5415:5416 Kernel.MuComplexity <> t2:7 var
+R5432:5434 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5421:5428 Kernel.MuComplexity <> mu_total def
+R5430:5431 Kernel.MuComplexity <> t1:6 var
+R5435:5442 Kernel.MuComplexity <> mu_total def
+R5444:5445 Kernel.MuComplexity <> t2:7 var
+prf 6208:6219 <> mu_monotonic
+binder 6230:6230 <> t:8
+binder 6232:6233 <> t':9
+R6248:6251 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6238:6245 Kernel.MuComplexity <> mu_total def
+R6247:6247 Kernel.MuComplexity <> t:8 var
+R6252:6259 Kernel.MuComplexity <> mu_total def
+R6262:6268 Kernel.MuComplexity <> Compose constr
+R6270:6270 Kernel.MuComplexity <> t:8 var
+R6272:6273 Kernel.MuComplexity <> t':9 var
+prf 6954:6967 <> mu_subadditive
+binder 6978:6979 <> t1:10
+binder 6981:6982 <> t2:11
+R7011:7014 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6987:6994 Kernel.MuComplexity <> mu_total def
+R6997:7003 Kernel.MuComplexity <> Compose constr
+R7005:7006 Kernel.MuComplexity <> t1:10 var
+R7008:7009 Kernel.MuComplexity <> t2:11 var
+R7026:7028 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7015:7022 Kernel.MuComplexity <> mu_total def
+R7024:7025 Kernel.MuComplexity <> t1:10 var
+R7029:7036 Kernel.MuComplexity <> mu_total def
+R7038:7039 Kernel.MuComplexity <> t2:11 var
+def 7996:8009 <> inversions_nat
+R8016:8019 Coq.Init.Datatypes <> list ind
+R8021:8023 Coq.Init.Datatypes <> nat ind
+binder 8012:8012 <> l:12
+R8028:8030 Coq.Init.Datatypes <> nat ind
+R8043:8043 Kernel.MuComplexity <> l:12 var
+R8054:8055 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8067:8070 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8083:8083 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8120:8123 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8084:8089 Coq.Init.Datatypes <> length def
+R8092:8097 Coq.Lists.List <> filter def
+binder 8104:8104 <> y:15
+R8110:8113 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R8109:8109 Kernel.MuComplexity <> y:15 var
+R8124:8137 Kernel.MuComplexity <> inversions_nat:13 def
+def 8750:8764 <> sorting_mu_cost
+R8771:8774 Coq.Init.Datatypes <> list ind
+R8776:8778 Coq.Init.Datatypes <> nat ind
+binder 8767:8767 <> l:16
+R8783:8788 Kernel.MuComplexity <> MuCost def
+R8795:8808 Kernel.MuComplexity <> inversions_nat def
+R8810:8810 Kernel.MuComplexity <> l:16 var
+def 9511:9521 <> sort_sorted
+R9553:9555 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9525:9539 Kernel.MuComplexity <> sorting_mu_cost def
+R9541:9541 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9543:9544 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9546:9547 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9549:9550 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9552:9552 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+def 10212:10224 <> sort_reversed
+R10256:10258 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10228:10242 Kernel.MuComplexity <> sorting_mu_cost def
+R10244:10244 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10246:10247 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10249:10250 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10252:10253 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10255:10255 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+def 10841:10852 <> sort_partial
+R10884:10886 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10856:10870 Kernel.MuComplexity <> sorting_mu_cost def
+R10872:10872 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10874:10875 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10877:10878 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10880:10881 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10883:10883 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+def 12926:12933 <> sorted_0
+R12955:12957 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12937:12951 Kernel.MuComplexity <> sorting_mu_cost def
+R12953:12954 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+def 12995:13002 <> sorted_1
+R13025:13027 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13006:13020 Kernel.MuComplexity <> sorting_mu_cost def
+R13022:13022 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R13024:13024 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+def 13065:13072 <> sorted_2
+R13098:13100 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13076:13090 Kernel.MuComplexity <> sorting_mu_cost def
+R13092:13092 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13094:13095 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13097:13097 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+def 13138:13145 <> sorted_5
+R13180:13182 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13149:13163 Kernel.MuComplexity <> sorting_mu_cost def
+R13165:13165 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13167:13168 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13170:13171 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13173:13174 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13176:13177 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13179:13179 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+def 13220:13228 <> sorted_10
+R13279:13281 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13232:13246 Kernel.MuComplexity <> sorting_mu_cost def
+R13248:13248 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13250:13251 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13253:13254 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13256:13257 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13259:13260 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13262:13263 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13265:13266 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13268:13269 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13271:13272 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13274:13275 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13278:13278 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+def 13625:13634 <> reversed_3
+R13663:13665 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13638:13652 Kernel.MuComplexity <> sorting_mu_cost def
+R13654:13654 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13656:13657 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13659:13660 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13662:13662 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+def 13720:13729 <> reversed_4
+R13761:13763 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13733:13747 Kernel.MuComplexity <> sorting_mu_cost def
+R13749:13749 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13751:13752 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13754:13755 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13757:13758 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13760:13760 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+prf 14151:14161 <> mu_composes
+binder 14172:14173 <> t1:17
+binder 14175:14176 <> t2:18
+R14205:14207 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14181:14188 Kernel.MuComplexity <> mu_total def
+R14191:14197 Kernel.MuComplexity <> Compose constr
+R14199:14200 Kernel.MuComplexity <> t1:17 var
+R14202:14203 Kernel.MuComplexity <> t2:18 var
+R14219:14221 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14208:14215 Kernel.MuComplexity <> mu_total def
+R14217:14218 Kernel.MuComplexity <> t1:17 var
+R14222:14229 Kernel.MuComplexity <> mu_total def
+R14231:14232 Kernel.MuComplexity <> t2:18 var
+prf 14563:14580 <> mu_never_decreases
+binder 14591:14592 <> t1:19
+binder 14594:14595 <> t2:20
+R14611:14614 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R14600:14607 Kernel.MuComplexity <> mu_total def
+R14609:14610 Kernel.MuComplexity <> t1:19 var
+R14615:14622 Kernel.MuComplexity <> mu_total def
+R14625:14631 Kernel.MuComplexity <> Compose constr
+R14633:14634 Kernel.MuComplexity <> t1:19 var
+R14636:14637 Kernel.MuComplexity <> t2:20 var
+R15338:15347 Coq.extraction.Extraction <> <> lib

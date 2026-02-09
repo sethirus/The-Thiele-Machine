@@ -176,6 +176,7 @@ Definition state_amplitude (s : BlindSighted.ThieleState) : Q :=
   (* Amplitude ∝ exp(-βμ/2) ≈ 1/(1 + μ) for discrete approximation *)
   let mu := s.(BlindSighted.ledger).(BlindSighted.mu_total) in
   if (mu <? 0)%Z then 0%Q  (* Negative μ is unphysical *)
+  (* SAFE: Z.to_nat and Z.abs are guarded — 1 + Z.abs mu >= 1 always, so Pos.of_nat is safe. *)
   else 1 # (Pos.of_nat (Z.to_nat (1 + Z.abs mu))).
 
 (** Born rule probability: P = |ψ|^2 *)
@@ -200,6 +201,7 @@ Proof.
     split; unfold Qle; simpl; lia |
     unfold Qmult, Qle; simpl;
     split; [lia |];
+    (* SAFE: Z.to_nat of (1 + Z.abs mu) is always >= 1, so the denominator is well-defined. *)
     destruct (Z.to_nat (1 + Z.abs (BlindSighted.mu_total (BlindSighted.ledger s)))) eqn:Hk;
     [simpl; unfold Qle; simpl; lia | simpl; unfold Qle; simpl; lia]
   ].

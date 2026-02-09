@@ -89,6 +89,7 @@ Module OracleImpossibility.
         This section demonstrates WHY classical logic CANNOT solve the halting problem.
         The import is scoped to this Section and does not leak to kernel theorems.
         This is a TUTORIAL explaining impossibility, not a reliance on classical axioms. *)
+    (* SAFE: Classical import is scoped to this pedagogical Section — does not leak. *)
     Require Import Classical.
     
     (* We can state this as a proposition: *)

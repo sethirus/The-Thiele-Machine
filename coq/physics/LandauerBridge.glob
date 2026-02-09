@@ -1,0 +1,421 @@
+DIGEST 46766aa06a3ee3021624ad94b59d0752
+FPhysics.LandauerBridge
+R1648:1650 Coq.micromega.Lia <> <> lib
+R1677:1680 Coq.Lists.List <> <> lib
+R1682:1685 Coq.Bool.Bool <> <> lib
+R1687:1700 Coq.Arith.PeanoNat <> <> lib
+R1710:1722 Coq.Lists.List ListNotations <> mod
+sec 2086:2105 <> LogicalReversibility
+var 2119:2123 LogicalReversibility State
+var 2144:2147 LogicalReversibility step
+R2156:2159 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2151:2155 Physics.LandauerBridge <> LogicalReversibility.State var
+R2160:2164 Physics.LandauerBridge <> LogicalReversibility.State var
+def 2183:2202 <> logically_reversible
+R2218:2225 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2249:2257 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2240:2243 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2235:2239 Physics.LandauerBridge <> LogicalReversibility.State var
+R2244:2248 Physics.LandauerBridge <> LogicalReversibility.State var
+binder 2226:2231 <> unstep:3
+binder 2265:2265 <> s:4
+R2283:2285 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2268:2273 Physics.LandauerBridge <> unstep:3 var
+R2276:2279 Physics.LandauerBridge <> LogicalReversibility.step var
+R2281:2281 Physics.LandauerBridge <> s:4 var
+R2286:2286 Physics.LandauerBridge <> s:4 var
+def 2305:2326 <> logically_irreversible
+R2342:2343 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2344:2363 Physics.LandauerBridge <> logically_reversible def
+def 2457:2469 <> has_collision
+R2485:2491 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2497:2498 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2492:2493 <> s1:5
+binder 2495:2496 <> s2:6
+R2507:2510 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2501:2504 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R2499:2500 Physics.LandauerBridge <> s1:5 var
+R2505:2506 Physics.LandauerBridge <> s2:6 var
+R2518:2520 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2511:2514 Physics.LandauerBridge <> LogicalReversibility.step var
+R2516:2517 Physics.LandauerBridge <> s1:5 var
+R2521:2524 Physics.LandauerBridge <> LogicalReversibility.step var
+R2526:2527 Physics.LandauerBridge <> s2:6 var
+prf 2601:2630 <> collision_implies_irreversible
+R2651:2654 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2638:2650 Physics.LandauerBridge <> has_collision def
+R2655:2676 Physics.LandauerBridge <> logically_irreversible def
+R2983:2986 Physics.LandauerBridge <> LogicalReversibility.step var
+R2983:2986 Physics.LandauerBridge <> LogicalReversibility.step var
+R3066:3085 Physics.LandauerBridge LogicalReversibility <> sec
+def 3359:3370 <> entropy_bits
+R3380:3383 Coq.Init.Datatypes <> list ind
+R3385:3388 Coq.Init.Datatypes <> bool ind
+binder 3373:3376 <> data:7
+R3393:3395 Coq.Init.Datatypes <> nat ind
+R3400:3405 Coq.Init.Datatypes <> length def
+R3407:3410 Physics.LandauerBridge <> data:7 var
+def 3504:3522 <> landauer_heat_units
+R3539:3541 Coq.Init.Datatypes <> nat ind
+binder 3525:3535 <> bits_erased:8
+R3546:3548 Coq.Init.Datatypes <> nat ind
+R3553:3563 Physics.LandauerBridge <> bits_erased:8 var
+rec 3817:3824 <> VMConfig
+proj 3833:3839 <> vm_data
+proj 3879:3883 <> vm_mu
+R3843:3846 Coq.Init.Datatypes <> list ind
+R3848:3851 Coq.Init.Datatypes <> bool ind
+R3887:3889 Coq.Init.Datatypes <> nat ind
+ind 3967:3979 <> VMInstruction
+constr 3988:3994 <> Compute
+constr 4047:4051 <> Erase
+constr 4111:4116 <> Reveal
+constr 4174:4180 <> Observe
+R4058:4060 Coq.Init.Datatypes <> nat ind
+binder 4054:4054 <> n:14
+R4123:4125 Coq.Init.Datatypes <> nat ind
+binder 4119:4119 <> n:15
+R4187:4189 Coq.Init.Datatypes <> nat ind
+binder 4183:4183 <> n:16
+scheme 3967:3979 <> VMInstruction_rect
+scheme 3967:3979 <> VMInstruction_ind
+scheme 3967:3979 <> VMInstruction_rec
+scheme 3967:3979 <> VMInstruction_sind
+def 4466:4472 <> mu_cost
+R4479:4491 Physics.LandauerBridge <> VMInstruction ind
+binder 4475:4475 <> i:17
+R4496:4498 Coq.Init.Datatypes <> nat ind
+R4511:4511 Physics.LandauerBridge <> i:17 var
+R4522:4528 Physics.LandauerBridge <> Compute constr
+R4575:4579 Physics.LandauerBridge <> Erase constr
+R4630:4635 Physics.LandauerBridge <> Reveal constr
+R4687:4693 Physics.LandauerBridge <> Observe constr
+def 4790:4796 <> vm_step
+R4805:4812 Physics.LandauerBridge <> VMConfig rec
+binder 4799:4801 <> cfg:19
+R4820:4832 Physics.LandauerBridge <> VMInstruction ind
+binder 4816:4816 <> i:20
+R4837:4844 Physics.LandauerBridge <> VMConfig rec
+R4854:4860 Physics.LandauerBridge <> vm_data proj
+R4854:4860 Physics.LandauerBridge <> vm_data proj
+R4854:4860 Physics.LandauerBridge <> vm_data proj
+R5166:5170 Physics.LandauerBridge <> vm_mu proj
+R5166:5170 Physics.LandauerBridge <> vm_mu proj
+R4879:4879 Physics.LandauerBridge <> i:20 var
+R4895:4901 Physics.LandauerBridge <> Compute constr
+R4911:4917 Physics.LandauerBridge <> vm_data proj
+R4906:4908 Physics.LandauerBridge <> cfg:19 var
+R4957:4961 Physics.LandauerBridge <> Erase constr
+R4968:4972 Coq.Lists.List <> skipn def
+R4981:4987 Physics.LandauerBridge <> vm_data proj
+R4976:4978 Physics.LandauerBridge <> cfg:19 var
+R5018:5023 Physics.LandauerBridge <> Reveal constr
+R5035:5041 Physics.LandauerBridge <> vm_data proj
+R5030:5032 Physics.LandauerBridge <> cfg:19 var
+R5080:5086 Physics.LandauerBridge <> Observe constr
+R5098:5104 Physics.LandauerBridge <> vm_data proj
+R5093:5095 Physics.LandauerBridge <> cfg:19 var
+R5186:5188 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5180:5184 Physics.LandauerBridge <> vm_mu proj
+R5175:5177 Physics.LandauerBridge <> cfg:19 var
+R5189:5195 Physics.LandauerBridge <> mu_cost def
+R5197:5197 Physics.LandauerBridge <> i:20 var
+prf 5454:5471 <> compute_reversible
+binder 5484:5486 <> cfg:22
+R5493:5499 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5506:5507 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5500:5505 <> unstep:23
+R5536:5538 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5508:5513 Physics.LandauerBridge <> unstep:23 var
+R5516:5522 Physics.LandauerBridge <> vm_step def
+R5524:5526 Physics.LandauerBridge <> cfg:22 var
+R5528:5534 Physics.LandauerBridge <> Compute constr
+R5539:5541 Physics.LandauerBridge <> cfg:22 var
+binder 5579:5579 <> c:24
+R5587:5593 Physics.LandauerBridge <> vm_data proj
+R5587:5593 Physics.LandauerBridge <> vm_data proj
+R5587:5593 Physics.LandauerBridge <> vm_data proj
+R5609:5613 Physics.LandauerBridge <> vm_mu proj
+R5609:5613 Physics.LandauerBridge <> vm_mu proj
+R5598:5604 Physics.LandauerBridge <> vm_data proj
+R5606:5606 Physics.LandauerBridge <> c:24 var
+R5625:5627 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R5618:5622 Physics.LandauerBridge <> vm_mu proj
+R5624:5624 Physics.LandauerBridge <> c:24 var
+binder 5579:5579 <> c:25
+R5587:5593 Physics.LandauerBridge <> vm_data proj
+R5587:5593 Physics.LandauerBridge <> vm_data proj
+R5587:5593 Physics.LandauerBridge <> vm_data proj
+R5609:5613 Physics.LandauerBridge <> vm_mu proj
+R5609:5613 Physics.LandauerBridge <> vm_mu proj
+R5598:5604 Physics.LandauerBridge <> vm_data proj
+R5606:5606 Physics.LandauerBridge <> c:25 var
+R5625:5627 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R5618:5622 Physics.LandauerBridge <> vm_mu proj
+R5624:5624 Physics.LandauerBridge <> c:25 var
+R5644:5650 Physics.LandauerBridge <> vm_step def
+prf 5795:5813 <> erase_has_collision
+binder 5826:5826 <> n:26
+R5834:5841 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5830:5832 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R5829:5829 Physics.LandauerBridge <> n:26 var
+R5842:5848 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5858:5865 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5849:5852 <> cfg1:27
+binder 5854:5857 <> cfg2:28
+R5878:5887 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5870:5873 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5866:5869 Physics.LandauerBridge <> cfg1:27 var
+R5874:5877 Physics.LandauerBridge <> cfg2:28 var
+R5910:5912 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5888:5894 Physics.LandauerBridge <> vm_step def
+R5896:5899 Physics.LandauerBridge <> cfg1:27 var
+R5902:5906 Physics.LandauerBridge <> Erase constr
+R5908:5908 Physics.LandauerBridge <> n:26 var
+R5913:5919 Physics.LandauerBridge <> vm_step def
+R5921:5924 Physics.LandauerBridge <> cfg2:28 var
+R5927:5931 Physics.LandauerBridge <> Erase constr
+R5933:5933 Physics.LandauerBridge <> n:26 var
+R6036:6042 Physics.LandauerBridge <> vm_data proj
+R6036:6042 Physics.LandauerBridge <> vm_data proj
+R6036:6042 Physics.LandauerBridge <> vm_data proj
+R6062:6066 Physics.LandauerBridge <> vm_mu proj
+R6062:6066 Physics.LandauerBridge <> vm_mu proj
+R6047:6052 Coq.Lists.List <> repeat def
+R6054:6057 Coq.Init.Datatypes <> true constr
+R6036:6042 Physics.LandauerBridge <> vm_data proj
+R6036:6042 Physics.LandauerBridge <> vm_data proj
+R6036:6042 Physics.LandauerBridge <> vm_data proj
+R6062:6066 Physics.LandauerBridge <> vm_mu proj
+R6062:6066 Physics.LandauerBridge <> vm_mu proj
+R6047:6052 Coq.Lists.List <> repeat def
+R6054:6057 Coq.Init.Datatypes <> true constr
+R6089:6095 Physics.LandauerBridge <> vm_data proj
+R6089:6095 Physics.LandauerBridge <> vm_data proj
+R6089:6095 Physics.LandauerBridge <> vm_data proj
+R6116:6120 Physics.LandauerBridge <> vm_mu proj
+R6116:6120 Physics.LandauerBridge <> vm_mu proj
+R6100:6105 Coq.Lists.List <> repeat def
+R6107:6111 Coq.Init.Datatypes <> false constr
+R6089:6095 Physics.LandauerBridge <> vm_data proj
+R6089:6095 Physics.LandauerBridge <> vm_data proj
+R6089:6095 Physics.LandauerBridge <> vm_data proj
+R6116:6120 Physics.LandauerBridge <> vm_mu proj
+R6116:6120 Physics.LandauerBridge <> vm_mu proj
+R6100:6105 Coq.Lists.List <> repeat def
+R6107:6111 Coq.Init.Datatypes <> false constr
+R6298:6304 Physics.LandauerBridge <> vm_step def
+R6328:6337 Coq.Lists.List <> skipn_all2 thm
+R6353:6365 Coq.Lists.List <> repeat_length thm
+R6328:6337 Coq.Lists.List <> skipn_all2 thm
+R6328:6337 Coq.Lists.List <> skipn_all2 thm
+R6328:6337 Coq.Lists.List <> skipn_all2 thm
+R6328:6337 Coq.Lists.List <> skipn_all2 thm
+R6328:6337 Coq.Lists.List <> skipn_all2 thm
+R6353:6365 Coq.Lists.List <> repeat_length thm
+R6353:6365 Coq.Lists.List <> repeat_length thm
+R6353:6365 Coq.Lists.List <> repeat_length thm
+R6353:6365 Coq.Lists.List <> repeat_length thm
+R6353:6365 Coq.Lists.List <> repeat_length thm
+prf 6457:6474 <> erase_irreversible
+binder 6487:6487 <> n:29
+R6495:6502 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6491:6493 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R6490:6490 Physics.LandauerBridge <> n:29 var
+R6504:6525 Physics.LandauerBridge <> logically_irreversible def
+R6527:6534 Physics.LandauerBridge <> VMConfig rec
+binder 6541:6543 <> cfg:30
+R6548:6554 Physics.LandauerBridge <> vm_step def
+R6556:6558 Physics.LandauerBridge <> cfg:30 var
+R6561:6565 Physics.LandauerBridge <> Erase constr
+R6567:6567 Physics.LandauerBridge <> n:29 var
+R6602:6631 Physics.LandauerBridge <> collision_implies_irreversible thm
+R6602:6631 Physics.LandauerBridge <> collision_implies_irreversible thm
+R6642:6660 Physics.LandauerBridge <> erase_has_collision thm
+R6642:6660 Physics.LandauerBridge <> erase_has_collision thm
+prf 6826:6847 <> mu_positive_nontrivial
+binder 6860:6860 <> i:31
+binder 6862:6862 <> n:32
+R6865:6865 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6910:6919 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6877:6880 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R6867:6869 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6866:6866 Physics.LandauerBridge <> i:31 var
+R6870:6874 Physics.LandauerBridge <> Erase constr
+R6876:6876 Physics.LandauerBridge <> n:32 var
+R6893:6896 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R6882:6884 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6881:6881 Physics.LandauerBridge <> i:31 var
+R6885:6890 Physics.LandauerBridge <> Reveal constr
+R6892:6892 Physics.LandauerBridge <> n:32 var
+R6898:6900 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6897:6897 Physics.LandauerBridge <> i:31 var
+R6901:6907 Physics.LandauerBridge <> Observe constr
+R6909:6909 Physics.LandauerBridge <> n:32 var
+R6925:6928 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6921:6923 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R6920:6920 Physics.LandauerBridge <> n:32 var
+R6938:6940 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R6929:6935 Physics.LandauerBridge <> mu_cost def
+R6937:6937 Physics.LandauerBridge <> i:31 var
+def 7502:7511 <> vm_entropy
+R7520:7527 Physics.LandauerBridge <> VMConfig rec
+binder 7514:7516 <> cfg:33
+R7532:7534 Coq.Init.Datatypes <> nat ind
+R7539:7544 Coq.Init.Datatypes <> length def
+R7547:7553 Physics.LandauerBridge <> vm_data proj
+R7555:7557 Physics.LandauerBridge <> cfg:33 var
+prf 7570:7592 <> landauer_bridge_entropy
+binder 7605:7607 <> cfg:34
+binder 7609:7609 <> i:35
+R7628:7634 Physics.LandauerBridge <> vm_step def
+R7636:7638 Physics.LandauerBridge <> cfg:34 var
+R7640:7640 Physics.LandauerBridge <> i:35 var
+binder 7620:7623 <> cfg':36
+R7682:7689 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7663:7666 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R7649:7658 Physics.LandauerBridge <> vm_entropy def
+R7660:7662 Physics.LandauerBridge <> cfg:34 var
+R7667:7676 Physics.LandauerBridge <> vm_entropy def
+R7678:7681 Physics.LandauerBridge <> cfg':36 var
+R7699:7702 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R7690:7696 Physics.LandauerBridge <> mu_cost def
+R7698:7698 Physics.LandauerBridge <> i:35 var
+R7717:7719 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R7703:7712 Physics.LandauerBridge <> vm_entropy def
+R7714:7716 Physics.LandauerBridge <> cfg:34 var
+R7720:7729 Physics.LandauerBridge <> vm_entropy def
+R7731:7734 Physics.LandauerBridge <> cfg':36 var
+R7783:7789 Physics.LandauerBridge <> mu_cost def
+R7792:7801 Physics.LandauerBridge <> vm_entropy def
+R7810:7816 Physics.LandauerBridge <> vm_step def
+R7986:7997 Coq.Lists.List <> skipn_length thm
+R7986:7997 Coq.Lists.List <> skipn_length thm
+R7986:7997 Coq.Lists.List <> skipn_length thm
+prf 8192:8219 <> erase_mu_equals_entropy_loss
+binder 8232:8234 <> cfg:37
+binder 8236:8236 <> n:38
+R8268:8275 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8244:8247 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8243:8243 Physics.LandauerBridge <> n:38 var
+R8248:8253 Coq.Init.Datatypes <> length def
+R8256:8262 Physics.LandauerBridge <> vm_data proj
+R8264:8266 Physics.LandauerBridge <> cfg:37 var
+R8293:8295 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8276:8282 Physics.LandauerBridge <> mu_cost def
+R8285:8289 Physics.LandauerBridge <> Erase constr
+R8291:8291 Physics.LandauerBridge <> n:38 var
+R8310:8312 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R8296:8305 Physics.LandauerBridge <> vm_entropy def
+R8307:8309 Physics.LandauerBridge <> cfg:37 var
+R8313:8322 Physics.LandauerBridge <> vm_entropy def
+R8325:8331 Physics.LandauerBridge <> vm_step def
+R8333:8335 Physics.LandauerBridge <> cfg:37 var
+R8338:8342 Physics.LandauerBridge <> Erase constr
+R8344:8344 Physics.LandauerBridge <> n:38 var
+R8385:8391 Physics.LandauerBridge <> mu_cost def
+R8394:8403 Physics.LandauerBridge <> vm_entropy def
+R8406:8412 Physics.LandauerBridge <> vm_step def
+R8432:8443 Coq.Lists.List <> skipn_length thm
+R8432:8443 Coq.Lists.List <> skipn_length thm
+R8432:8443 Coq.Lists.List <> skipn_length thm
+def 9094:9120 <> computational_falsification
+R9134:9140 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9142:9143 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 9141:9141 <> i:39
+R9157:9165 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9153:9155 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R9144:9150 Physics.LandauerBridge <> mu_cost def
+R9152:9152 Physics.LandauerBridge <> i:39 var
+R9166:9173 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9203:9211 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9191:9194 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9183:9190 Physics.LandauerBridge <> VMConfig rec
+R9195:9202 Physics.LandauerBridge <> VMConfig rec
+binder 9174:9179 <> unstep:40
+binder 9219:9221 <> cfg:41
+R9246:9248 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9224:9229 Physics.LandauerBridge <> unstep:40 var
+R9232:9238 Physics.LandauerBridge <> vm_step def
+R9240:9242 Physics.LandauerBridge <> cfg:41 var
+R9244:9244 Physics.LandauerBridge <> i:39 var
+R9249:9251 Physics.LandauerBridge <> cfg:41 var
+prf 9571:9592 <> no_erase_falsification
+binder 9605:9605 <> n:42
+R9613:9620 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9609:9611 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R9608:9608 Physics.LandauerBridge <> n:42 var
+R9621:9623 Coq.Init.Logic <> ::type_scope:'~'_x not
+R9720:9720 Coq.Init.Logic <> ::type_scope:'~'_x not
+R9624:9631 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9661:9671 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9649:9652 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9641:9648 Physics.LandauerBridge <> VMConfig rec
+R9653:9660 Physics.LandauerBridge <> VMConfig rec
+binder 9632:9637 <> unstep:43
+binder 9679:9681 <> cfg:44
+R9714:9716 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9684:9689 Physics.LandauerBridge <> unstep:43 var
+R9692:9698 Physics.LandauerBridge <> vm_step def
+R9700:9702 Physics.LandauerBridge <> cfg:44 var
+R9705:9709 Physics.LandauerBridge <> Erase constr
+R9711:9711 Physics.LandauerBridge <> n:42 var
+R9717:9719 Physics.LandauerBridge <> cfg:44 var
+R9844:9862 Physics.LandauerBridge <> erase_has_collision thm
+R9844:9862 Physics.LandauerBridge <> erase_has_collision thm
+prf 10475:10503 <> no_irreversible_falsification
+binder 10516:10516 <> i:45
+R10532:10539 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10528:10530 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R10519:10525 Physics.LandauerBridge <> mu_cost def
+R10527:10527 Physics.LandauerBridge <> i:45 var
+R10590:10597 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10541:10553 Physics.LandauerBridge <> has_collision def
+R10555:10562 Physics.LandauerBridge <> VMConfig rec
+binder 10569:10571 <> cfg:46
+R10576:10582 Physics.LandauerBridge <> vm_step def
+R10584:10586 Physics.LandauerBridge <> cfg:46 var
+R10588:10588 Physics.LandauerBridge <> i:45 var
+R10598:10600 Coq.Init.Logic <> ::type_scope:'~'_x not
+R10689:10689 Coq.Init.Logic <> ::type_scope:'~'_x not
+R10601:10608 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10638:10648 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10626:10629 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10618:10625 Physics.LandauerBridge <> VMConfig rec
+R10630:10637 Physics.LandauerBridge <> VMConfig rec
+binder 10609:10614 <> unstep:47
+binder 10656:10658 <> cfg:48
+R10683:10685 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10661:10666 Physics.LandauerBridge <> unstep:47 var
+R10669:10675 Physics.LandauerBridge <> vm_step def
+R10677:10679 Physics.LandauerBridge <> cfg:48 var
+R10681:10681 Physics.LandauerBridge <> i:45 var
+R10686:10688 Physics.LandauerBridge <> cfg:48 var
+prf 10998:11037 <> erase_not_in_computational_falsification
+binder 11050:11050 <> n:49
+R11058:11066 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11054:11056 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R11053:11053 Physics.LandauerBridge <> n:49 var
+R11067:11069 Coq.Init.Logic <> ::type_scope:'~'_x not
+R11200:11200 Coq.Init.Logic <> ::type_scope:'~'_x not
+R11091:11102 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11087:11089 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R11070:11076 Physics.LandauerBridge <> mu_cost def
+R11079:11083 Physics.LandauerBridge <> Erase constr
+R11085:11085 Physics.LandauerBridge <> n:49 var
+R11103:11110 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11140:11151 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11128:11131 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11120:11127 Physics.LandauerBridge <> VMConfig rec
+R11132:11139 Physics.LandauerBridge <> VMConfig rec
+binder 11111:11116 <> unstep:50
+binder 11159:11161 <> cfg:51
+R11194:11196 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11164:11169 Physics.LandauerBridge <> unstep:50 var
+R11172:11178 Physics.LandauerBridge <> vm_step def
+R11180:11182 Physics.LandauerBridge <> cfg:51 var
+R11185:11189 Physics.LandauerBridge <> Erase constr
+R11191:11191 Physics.LandauerBridge <> n:49 var
+R11197:11199 Physics.LandauerBridge <> cfg:51 var
+R11246:11267 Physics.LandauerBridge <> no_erase_falsification thm
+R11246:11267 Physics.LandauerBridge <> no_erase_falsification thm

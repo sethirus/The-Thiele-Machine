@@ -140,8 +140,7 @@ Qed.
 (** But PDISCOVER is still admissible (information gain is physical) *)
 Theorem pdiscover_admissible : forall (s : ThieleState) (m : ModuleId * Region) (cost : Z),
   spatial_locality s.(partition) ->
-  (* TRUNCATION SAFETY: Z.to_nat safe - cost derived from spectral_compute_cost
-     which returns non-negative Z by construction (see spectral postcondition) *)
+  (* SAFE: Z.to_nat safe — cost from spectral_compute_cost is non-negative by postcondition. *)
   trace_admissible s [PDISCOVER (fst m) (Z.to_nat cost)].
 Proof.
   intros s m cost Hloc.
@@ -150,6 +149,7 @@ Proof.
   - exact Hloc.
   - right.
     unfold trace_has_discover.
+    (* SAFE: Z.to_nat safe — see TRUNCATION SAFETY note above. *)
     exists (fst m), (Z.to_nat cost).
     simpl. left. reflexivity.
 Qed.

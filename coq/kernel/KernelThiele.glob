@@ -1,0 +1,127 @@
+DIGEST c80e9504f37f5392ab7dc3055ea6e481
+FKernel.KernelThiele
+R1504:1507 Coq.Lists.List <> <> lib
+R1509:1512 Coq.Bool.Bool <> <> lib
+R1522:1534 Coq.Lists.List ListNotations <> mod
+R1553:1558 Kernel.Kernel <> <> lib
+R1576:1583 Kernel.KernelTM <> <> lib
+def 4095:4105 <> step_thiele
+R4115:4121 Kernel.Kernel <> program def
+binder 4108:4111 <> prog:1
+R4130:4134 Kernel.Kernel <> state rec
+binder 4125:4126 <> st:2
+R4139:4143 Kernel.Kernel <> state rec
+R4156:4160 Kernel.KernelTM <> fetch def
+R4162:4165 Kernel.KernelThiele <> prog:1 var
+R4167:4168 Kernel.KernelThiele <> st:2 var
+R4179:4184 Kernel.Kernel <> T_Halt constr
+R4189:4190 Kernel.KernelThiele <> st:2 var
+R4196:4202 Kernel.Kernel <> T_Write constr
+R4225:4234 Kernel.Kernel <> write_cell def
+R4240:4243 Kernel.Kernel <> tape proj
+R4236:4237 Kernel.KernelThiele <> st:2 var
+R4250:4253 Kernel.Kernel <> head proj
+R4246:4247 Kernel.KernelThiele <> st:2 var
+binder 4219:4220 <> t':3
+R4267:4278 Kernel.Kernel <> update_state def
+R4280:4281 Kernel.KernelThiele <> st:2 var
+R4283:4284 Kernel.KernelThiele <> t':3 var
+R4290:4293 Kernel.Kernel <> head proj
+R4286:4287 Kernel.KernelThiele <> st:2 var
+R4297:4297 Coq.Init.Datatypes <> S constr
+R4303:4310 Kernel.Kernel <> tm_state proj
+R4299:4300 Kernel.KernelThiele <> st:2 var
+R4318:4324 Kernel.Kernel <> mu_cost proj
+R4314:4315 Kernel.KernelThiele <> st:2 var
+R4331:4336 Kernel.Kernel <> T_Move constr
+R4338:4342 Kernel.Kernel <> DLeft constr
+R4370:4378 Kernel.Kernel <> move_left def
+R4384:4387 Kernel.Kernel <> tape proj
+R4380:4381 Kernel.KernelThiele <> st:2 var
+R4394:4397 Kernel.Kernel <> head proj
+R4390:4391 Kernel.KernelThiele <> st:2 var
+R4358:4358 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4361:4362 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4365:4365 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4409:4420 Kernel.Kernel <> update_state def
+R4422:4423 Kernel.KernelThiele <> st:2 var
+R4432:4432 Coq.Init.Datatypes <> S constr
+R4438:4445 Kernel.Kernel <> tm_state proj
+R4434:4435 Kernel.KernelThiele <> st:2 var
+R4453:4459 Kernel.Kernel <> mu_cost proj
+R4449:4450 Kernel.KernelThiele <> st:2 var
+R4466:4471 Kernel.Kernel <> T_Move constr
+R4473:4478 Kernel.Kernel <> DRight constr
+R4506:4515 Kernel.Kernel <> move_right def
+R4521:4524 Kernel.Kernel <> tape proj
+R4517:4518 Kernel.KernelThiele <> st:2 var
+R4531:4534 Kernel.Kernel <> head proj
+R4527:4528 Kernel.KernelThiele <> st:2 var
+R4494:4494 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4497:4498 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4501:4501 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4546:4557 Kernel.Kernel <> update_state def
+R4559:4560 Kernel.KernelThiele <> st:2 var
+R4569:4569 Coq.Init.Datatypes <> S constr
+R4575:4582 Kernel.Kernel <> tm_state proj
+R4571:4572 Kernel.KernelThiele <> st:2 var
+R4590:4596 Kernel.Kernel <> mu_cost proj
+R4586:4587 Kernel.KernelThiele <> st:2 var
+R4603:4610 Kernel.Kernel <> T_Branch constr
+R4640:4648 Kernel.Kernel <> read_cell def
+R4654:4657 Kernel.Kernel <> tape proj
+R4650:4651 Kernel.KernelThiele <> st:2 var
+R4664:4667 Kernel.Kernel <> head proj
+R4660:4661 Kernel.KernelThiele <> st:2 var
+binder 4632:4635 <> cell:4
+R4694:4697 Kernel.KernelThiele <> cell:4 var
+R4716:4716 Coq.Init.Datatypes <> S constr
+R4722:4729 Kernel.Kernel <> tm_state proj
+R4718:4719 Kernel.KernelThiele <> st:2 var
+binder 4683:4686 <> next:5
+R4741:4752 Kernel.Kernel <> update_state def
+R4754:4755 Kernel.KernelThiele <> st:2 var
+R4761:4764 Kernel.Kernel <> tape proj
+R4757:4758 Kernel.KernelThiele <> st:2 var
+R4771:4774 Kernel.Kernel <> head proj
+R4767:4768 Kernel.KernelThiele <> st:2 var
+R4777:4780 Kernel.KernelThiele <> next:5 var
+R4786:4792 Kernel.Kernel <> mu_cost proj
+R4782:4783 Kernel.KernelThiele <> st:2 var
+R4799:4815 Kernel.Kernel <> H_ClaimTapeIsZero constr
+R4842:4856 Kernel.Kernel <> claim_tape_zero def
+R4862:4865 Kernel.Kernel <> tape proj
+R4858:4859 Kernel.KernelThiele <> st:2 var
+binder 4836:4837 <> t':6
+R4877:4888 Kernel.Kernel <> update_state def
+R4890:4891 Kernel.KernelThiele <> st:2 var
+R4893:4894 Kernel.KernelThiele <> t':6 var
+R4900:4903 Kernel.Kernel <> head proj
+R4896:4897 Kernel.KernelThiele <> st:2 var
+R4907:4907 Coq.Init.Datatypes <> S constr
+R4913:4920 Kernel.Kernel <> tm_state proj
+R4909:4910 Kernel.KernelThiele <> st:2 var
+R4937:4939 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4929:4935 Kernel.Kernel <> mu_cost proj
+R4925:4926 Kernel.KernelThiele <> st:2 var
+def 7096:7105 <> run_thiele
+R7115:7117 Coq.Init.Datatypes <> nat ind
+binder 7108:7111 <> fuel:7
+R7128:7134 Kernel.Kernel <> program def
+binder 7121:7124 <> prog:8
+R7143:7147 Kernel.Kernel <> state rec
+binder 7138:7139 <> st:9
+R7152:7156 Kernel.Kernel <> state rec
+R7169:7172 Kernel.KernelThiele <> fuel:7 var
+R7188:7189 Kernel.KernelThiele <> st:9 var
+R7195:7195 Coq.Init.Datatypes <> S constr
+R7218:7222 Kernel.KernelTM <> fetch def
+R7224:7227 Kernel.KernelThiele <> prog:8 var
+R7229:7230 Kernel.KernelThiele <> st:9 var
+R7245:7250 Kernel.Kernel <> T_Halt constr
+R7255:7256 Kernel.KernelThiele <> st:9 var
+R7271:7280 Kernel.KernelThiele <> run_thiele:10 def
+R7294:7304 Kernel.KernelThiele <> step_thiele def
+R7306:7309 Kernel.KernelThiele <> prog:8 var
+R7311:7312 Kernel.KernelThiele <> st:9 var
+R7288:7291 Kernel.KernelThiele <> prog:8 var

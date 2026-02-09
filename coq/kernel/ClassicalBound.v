@@ -71,6 +71,7 @@ Definition classical_chsh_value : Q := 2%Q.
     Bob's output b(y, shared) are DETERMINISTIC functions. No entanglement,
     no spooky action. Pure classical correlation.
 *)
+(* SAFE: shared_random_bit is intentionally zero for the deterministic classical scenario. *)
 Definition shared_random_bit : nat := 0%nat.
 
 (** alice_classical_output: Alice's deterministic strategy.

@@ -1,0 +1,221 @@
+DIGEST c7a42ad3146c74ff6d58577e8cc01dd6
+FKernel.Kernel
+R1903:1906 Coq.Lists.List <> <> lib
+R1908:1911 Coq.Bool.Bool <> <> lib
+R1913:1926 Coq.Arith.PeanoNat <> <> lib
+R1936:1948 Coq.Lists.List ListNotations <> mod
+rec 1959:1963 <> state
+proj 1972:1975 <> tape
+proj 1992:1995 <> head
+proj 2006:2013 <> tm_state
+proj 2024:2030 <> mu_cost
+R1979:1982 Coq.Init.Datatypes <> list ind
+R1984:1987 Coq.Init.Datatypes <> bool ind
+R1999:2001 Coq.Init.Datatypes <> nat ind
+R2017:2019 Coq.Init.Datatypes <> nat ind
+R2034:2036 Coq.Init.Datatypes <> nat ind
+ind 2052:2060 <> direction
+constr 2067:2071 <> DLeft
+constr 2075:2080 <> DRight
+scheme 2052:2060 <> direction_rect
+scheme 2052:2060 <> direction_ind
+scheme 2052:2060 <> direction_rec
+scheme 2052:2060 <> direction_sind
+ind 2094:2104 <> instruction
+constr 2111:2116 <> T_Halt
+constr 2120:2126 <> T_Write
+constr 2141:2146 <> T_Move
+constr 2166:2173 <> T_Branch
+constr 2192:2208 <> H_ClaimTapeIsZero
+R2133:2136 Coq.Init.Datatypes <> bool ind
+binder 2129:2129 <> b:10
+R2153:2161 Kernel.Kernel <> direction ind
+binder 2149:2149 <> d:11
+R2185:2187 Coq.Init.Datatypes <> nat ind
+binder 2176:2181 <> target:12
+R2219:2221 Coq.Init.Datatypes <> nat ind
+binder 2211:2215 <> delta:13
+scheme 2094:2104 <> instruction_rect
+scheme 2094:2104 <> instruction_ind
+scheme 2094:2104 <> instruction_rec
+scheme 2094:2104 <> instruction_sind
+def 2237:2243 <> program
+R2248:2251 Coq.Init.Datatypes <> list ind
+R2253:2263 Kernel.Kernel <> instruction ind
+def 2278:2286 <> read_cell
+R2293:2296 Coq.Init.Datatypes <> list ind
+R2298:2301 Coq.Init.Datatypes <> bool ind
+binder 2289:2289 <> t:14
+R2311:2313 Coq.Init.Datatypes <> nat ind
+binder 2305:2307 <> idx:15
+R2318:2321 Coq.Init.Datatypes <> bool ind
+R2328:2330 Coq.Lists.List <> nth def
+R2338:2342 Coq.Init.Datatypes <> false constr
+R2336:2336 Kernel.Kernel <> t:14 var
+R2332:2334 Kernel.Kernel <> idx:15 var
+def 2355:2361 <> set_nth
+R2368:2370 Coq.Init.Datatypes <> nat ind
+binder 2364:2364 <> n:16
+R2378:2381 Coq.Init.Datatypes <> bool ind
+binder 2374:2374 <> b:17
+R2389:2392 Coq.Init.Datatypes <> list ind
+R2394:2397 Coq.Init.Datatypes <> bool ind
+binder 2385:2385 <> t:18
+R2402:2405 Coq.Init.Datatypes <> list ind
+R2407:2410 Coq.Init.Datatypes <> bool ind
+R2426:2426 Kernel.Kernel <> t:18 var
+R2423:2423 Kernel.Kernel <> n:16 var
+R2440:2441 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2446:2446 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2448:2448 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2447:2447 Kernel.Kernel <> b:17 var
+R2458:2461 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2469:2472 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2468:2468 Kernel.Kernel <> b:17 var
+R2480:2480 Coq.Init.Datatypes <> S constr
+R2486:2487 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2497:2500 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2492:2496 Coq.Init.Datatypes <> false constr
+R2501:2507 Kernel.Kernel <> set_nth:19 def
+R2514:2515 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2512:2512 Kernel.Kernel <> b:17 var
+R2521:2521 Coq.Init.Datatypes <> S constr
+R2528:2531 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2539:2542 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2543:2549 Kernel.Kernel <> set_nth:19 def
+R2554:2554 Kernel.Kernel <> b:17 var
+def 2578:2587 <> write_cell
+R2594:2597 Coq.Init.Datatypes <> list ind
+R2599:2602 Coq.Init.Datatypes <> bool ind
+binder 2590:2590 <> t:22
+R2612:2614 Coq.Init.Datatypes <> nat ind
+binder 2606:2608 <> idx:23
+R2622:2625 Coq.Init.Datatypes <> bool ind
+binder 2618:2618 <> b:24
+R2630:2633 Coq.Init.Datatypes <> list ind
+R2635:2638 Coq.Init.Datatypes <> bool ind
+R2645:2651 Kernel.Kernel <> set_nth def
+R2653:2655 Kernel.Kernel <> idx:23 var
+R2657:2657 Kernel.Kernel <> b:24 var
+R2659:2659 Kernel.Kernel <> t:22 var
+def 2674:2686 <> ensure_length
+R2693:2696 Coq.Init.Datatypes <> list ind
+R2698:2701 Coq.Init.Datatypes <> bool ind
+binder 2689:2689 <> t:25
+R2711:2713 Coq.Init.Datatypes <> nat ind
+binder 2705:2707 <> idx:26
+R2718:2721 Coq.Init.Datatypes <> list ind
+R2723:2726 Coq.Init.Datatypes <> bool ind
+R2736:2742 Coq.Arith.PeanoNat Nat leb def
+R2745:2745 Coq.Init.Datatypes <> S constr
+R2747:2749 Kernel.Kernel <> idx:26 var
+R2753:2758 Coq.Init.Datatypes <> length def
+R2760:2760 Kernel.Kernel <> t:25 var
+R2778:2781 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R2777:2777 Kernel.Kernel <> t:25 var
+R2782:2787 Coq.Lists.List <> repeat def
+R2796:2802 Coq.Arith.PeanoNat Nat sub def
+R2805:2805 Coq.Init.Datatypes <> S constr
+R2807:2809 Kernel.Kernel <> idx:26 var
+R2813:2818 Coq.Init.Datatypes <> length def
+R2820:2820 Kernel.Kernel <> t:25 var
+R2789:2793 Coq.Init.Datatypes <> false constr
+R2768:2768 Kernel.Kernel <> t:25 var
+def 2837:2845 <> move_left
+R2852:2855 Coq.Init.Datatypes <> list ind
+R2857:2860 Coq.Init.Datatypes <> bool ind
+binder 2848:2848 <> t:27
+R2868:2870 Coq.Init.Datatypes <> nat ind
+binder 2864:2864 <> h:28
+R2885:2887 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2876:2879 Coq.Init.Datatypes <> list ind
+R2881:2884 Coq.Init.Datatypes <> bool ind
+R2888:2890 Coq.Init.Datatypes <> nat ind
+R2904:2904 Kernel.Kernel <> h:28 var
+R2920:2920 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2931:2932 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2934:2934 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2926:2929 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2921:2925 Coq.Init.Datatypes <> false constr
+R2930:2930 Kernel.Kernel <> t:27 var
+R2940:2940 Coq.Init.Datatypes <> S constr
+R2948:2948 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2950:2951 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2954:2954 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2949:2949 Kernel.Kernel <> t:27 var
+def 2975:2984 <> move_right
+R2991:2994 Coq.Init.Datatypes <> list ind
+R2996:2999 Coq.Init.Datatypes <> bool ind
+binder 2987:2987 <> t:30
+R3007:3009 Coq.Init.Datatypes <> nat ind
+binder 3003:3003 <> h:31
+R3024:3026 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3015:3018 Coq.Init.Datatypes <> list ind
+R3020:3023 Coq.Init.Datatypes <> bool ind
+R3027:3029 Coq.Init.Datatypes <> nat ind
+R3047:3047 Coq.Init.Datatypes <> S constr
+R3049:3049 Kernel.Kernel <> h:31 var
+binder 3041:3042 <> h':32
+R3066:3078 Kernel.Kernel <> ensure_length def
+R3080:3080 Kernel.Kernel <> t:30 var
+R3082:3083 Kernel.Kernel <> h':32 var
+binder 3060:3061 <> t':33
+R3090:3090 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3093:3094 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3097:3097 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3091:3092 Kernel.Kernel <> t':33 var
+R3095:3096 Kernel.Kernel <> h':32 var
+def 3112:3126 <> claim_tape_zero
+R3133:3136 Coq.Init.Datatypes <> list ind
+R3138:3141 Coq.Init.Datatypes <> bool ind
+binder 3129:3129 <> t:34
+R3146:3149 Coq.Init.Datatypes <> list ind
+R3151:3154 Coq.Init.Datatypes <> bool ind
+R3161:3166 Coq.Lists.List <> repeat def
+R3175:3180 Coq.Init.Datatypes <> length def
+R3182:3182 Kernel.Kernel <> t:34 var
+R3168:3172 Coq.Init.Datatypes <> false constr
+def 3198:3209 <> update_state
+R3217:3221 Kernel.Kernel <> state rec
+binder 3212:3213 <> st:35
+R3230:3233 Coq.Init.Datatypes <> list ind
+R3235:3238 Coq.Init.Datatypes <> bool ind
+binder 3225:3226 <> t':36
+R3247:3249 Coq.Init.Datatypes <> nat ind
+binder 3242:3243 <> h':37
+R3258:3260 Coq.Init.Datatypes <> nat ind
+binder 3253:3254 <> s':38
+R3270:3272 Coq.Init.Datatypes <> nat ind
+binder 3264:3266 <> mu':39
+R3277:3281 Kernel.Kernel <> state rec
+R3291:3294 Kernel.Kernel <> tape proj
+R3291:3294 Kernel.Kernel <> tape proj
+R3291:3294 Kernel.Kernel <> tape proj
+R3303:3306 Kernel.Kernel <> head proj
+R3303:3306 Kernel.Kernel <> head proj
+R3315:3322 Kernel.Kernel <> tm_state proj
+R3315:3322 Kernel.Kernel <> tm_state proj
+R3331:3337 Kernel.Kernel <> mu_cost proj
+R3331:3337 Kernel.Kernel <> mu_cost proj
+R3299:3300 Kernel.Kernel <> t':36 var
+R3311:3312 Kernel.Kernel <> h':37 var
+R3327:3328 Kernel.Kernel <> s':38 var
+R3342:3344 Kernel.Kernel <> mu':39 var
+def 3362:3379 <> turing_instruction
+R3390:3400 Kernel.Kernel <> instruction ind
+binder 3382:3386 <> instr:40
+R3405:3408 Coq.Init.Datatypes <> bool ind
+R3421:3425 Kernel.Kernel <> instr:40 var
+R3436:3452 Kernel.Kernel <> H_ClaimTapeIsZero constr
+R3459:3463 Coq.Init.Datatypes <> false constr
+R3474:3477 Coq.Init.Datatypes <> true constr
+def 3498:3514 <> program_is_turing
+R3521:3527 Kernel.Kernel <> program def
+binder 3517:3517 <> p:42
+R3542:3547 Coq.Lists.List <> Forall ind
+R3596:3596 Kernel.Kernel <> p:42 var
+binder 3554:3558 <> instr:43
+R3587:3589 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3563:3580 Kernel.Kernel <> turing_instruction def
+R3582:3586 Kernel.Kernel <> instr:43 var
+R3590:3593 Coq.Init.Datatypes <> true constr

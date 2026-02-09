@@ -1,0 +1,17 @@
+# YOSYS_LITE synthesis script for Thiele CPU
+# Uses reduced parameters: NUM_MODULES=4, REGION_SIZE=16
+# Same logic paths, smaller arrays. ~1.5 GB RAM.
+read_verilog -sv -DSYNTHESIS -DYOSYS_LITE thiele_cpu_unified.v
+hierarchy -top thiele_cpu -check
+proc
+flatten
+opt -full
+fsm
+opt -full
+memory
+opt -full
+techmap
+opt -full
+clean -purge
+stat
+write_verilog -noattr synth_lite_out.v

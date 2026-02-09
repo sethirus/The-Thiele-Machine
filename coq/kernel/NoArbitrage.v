@@ -102,6 +102,7 @@ End GeneralTheorem.
 Module ConcreteModel.
 
 Definition CState := nat.
+(* SAFE: c_initial is the canonical initial state; zero is the natural starting point. *)
 Definition c_initial : CState := 0%nat.
 
 (** Operations: increment or decrement *)

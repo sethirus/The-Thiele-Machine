@@ -1,0 +1,94 @@
+DIGEST fddd9064311f2a5007a0b6fa831cbc0b
+FShorPrimitives.PeriodFinding
+R5530:5534 Coq.Arith.Arith <> <> lib
+R5561:5563 Coq.micromega.Lia <> <> lib
+R5602:5608 ShorPrimitives.Modular <> <> lib
+R5646:5654 ShorPrimitives.Euclidean <> <> lib
+sec 5666:5672 <> Periods
+var 5686:5686 Periods N
+var 5688:5688 Periods a
+R5692:5694 Coq.Init.Datatypes <> nat ind
+def 5754:5760 <> pow_mod
+R5767:5769 Coq.Init.Datatypes <> nat ind
+binder 5763:5763 <> x:3
+R5774:5776 Coq.Init.Datatypes <> nat ind
+R5781:5787 ShorPrimitives.Modular <> mod_pow def
+R5791:5791 ShorPrimitives.PeriodFinding <> Periods.a var
+R5793:5793 ShorPrimitives.PeriodFinding <> x:3 var
+R5789:5789 ShorPrimitives.PeriodFinding <> Periods.N var
+def 5986:5994 <> is_period
+R6001:6003 Coq.Init.Datatypes <> nat ind
+binder 5997:5997 <> r:4
+R6025:6028 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6021:6023 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R6020:6020 ShorPrimitives.PeriodFinding <> r:4 var
+binder 6036:6036 <> k:5
+R6054:6056 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6039:6045 ShorPrimitives.PeriodFinding <> pow_mod def
+R6049:6051 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R6048:6048 ShorPrimitives.PeriodFinding <> k:5 var
+R6052:6052 ShorPrimitives.PeriodFinding <> r:4 var
+R6057:6063 ShorPrimitives.PeriodFinding <> pow_mod def
+R6065:6065 ShorPrimitives.PeriodFinding <> k:5 var
+def 6191:6204 <> minimal_period
+R6211:6213 Coq.Init.Datatypes <> nat ind
+binder 6207:6207 <> r:6
+R6241:6244 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6230:6238 ShorPrimitives.PeriodFinding <> is_period def
+R6240:6240 ShorPrimitives.PeriodFinding <> r:6 var
+binder 6252:6253 <> r':7
+R6268:6271 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6256:6264 ShorPrimitives.PeriodFinding <> is_period def
+R6266:6267 ShorPrimitives.PeriodFinding <> r':7 var
+R6274:6277 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6272:6273 ShorPrimitives.PeriodFinding <> r':7 var
+R6278:6278 ShorPrimitives.PeriodFinding <> r:6 var
+def 6436:6449 <> shor_candidate
+R6456:6458 Coq.Init.Datatypes <> nat ind
+binder 6452:6452 <> r:8
+R6463:6465 Coq.Init.Datatypes <> nat ind
+R6487:6489 Coq.Init.Nat <> ::nat_scope:x_'/'_x not
+R6486:6486 ShorPrimitives.PeriodFinding <> r:8 var
+binder 6478:6481 <> half:9
+R6511:6517 Coq.Arith.PeanoNat Nat pow def
+R6519:6519 ShorPrimitives.PeriodFinding <> Periods.a var
+R6521:6524 ShorPrimitives.PeriodFinding <> half:9 var
+binder 6503:6506 <> term:10
+R6533:6542 ShorPrimitives.Euclidean <> gcd_euclid def
+R6549:6551 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R6545:6548 ShorPrimitives.PeriodFinding <> term:10 var
+R6555:6555 ShorPrimitives.PeriodFinding <> Periods.N var
+prf 6945:6958 <> shor_reduction
+binder 6973:6973 <> r:11
+R6998:7007 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6982:6995 ShorPrimitives.PeriodFinding <> minimal_period def
+R6997:6997 ShorPrimitives.PeriodFinding <> r:11 var
+R7018:7027 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7008:7015 Coq.Arith.PeanoNat Nat Even def
+R7017:7017 ShorPrimitives.PeriodFinding <> r:11 var
+R7037:7050 ShorPrimitives.PeriodFinding <> shor_candidate def
+R7052:7052 ShorPrimitives.PeriodFinding <> r:11 var
+binder 7032:7032 <> g:12
+R7072:7081 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7064:7066 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<'_x not
+R7068:7070 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<'_x not
+R7067:7067 ShorPrimitives.PeriodFinding <> g:12 var
+R7067:7067 ShorPrimitives.PeriodFinding <> g:12 var
+R7071:7071 ShorPrimitives.PeriodFinding <> Periods.N var
+R7096:7099 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7082:7091 Coq.Arith.PeanoNat Nat divide def
+R7093:7093 ShorPrimitives.PeriodFinding <> g:12 var
+R7095:7095 ShorPrimitives.PeriodFinding <> Periods.N var
+R7100:7109 Coq.Arith.PeanoNat Nat divide def
+R7111:7111 ShorPrimitives.PeriodFinding <> g:12 var
+R7131:7133 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R7114:7120 Coq.Arith.PeanoNat Nat pow def
+R7122:7122 ShorPrimitives.PeriodFinding <> Periods.a var
+R7126:7128 Coq.Init.Nat <> ::nat_scope:x_'/'_x not
+R7125:7125 ShorPrimitives.PeriodFinding <> r:11 var
+R7184:7197 ShorPrimitives.PeriodFinding <> shor_candidate def
+R7223:7246 ShorPrimitives.Euclidean <> gcd_euclid_divides_right thm
+R7223:7246 ShorPrimitives.Euclidean <> gcd_euclid_divides_right thm
+R7261:7283 ShorPrimitives.Euclidean <> gcd_euclid_divides_left thm
+R7261:7283 ShorPrimitives.Euclidean <> gcd_euclid_divides_left thm
+R7438:7444 ShorPrimitives.PeriodFinding Periods <> sec

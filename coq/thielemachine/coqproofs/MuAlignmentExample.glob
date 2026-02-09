@@ -1,0 +1,56 @@
+DIGEST 66a46983a428fa9e5bb407a33f214dce
+FThieleMachine.MuAlignmentExample
+R321:326 Coq.Strings.String <> <> lib
+R328:333 Coq.ZArith.ZArith <> <> lib
+R335:337 Coq.micromega.Lia <> <> lib
+def 459:466 <> str_size
+R473:478 Coq.Strings.String <> string ind
+binder 469:469 <> s:1
+R483:485 Coq.Init.Datatypes <> nat ind
+R498:498 ThieleMachine.MuAlignmentExample <> s:1 var
+R509:519 Coq.Strings.String <> EmptyString constr
+R534:539 Coq.Strings.String <> String constr
+R551:551 Coq.Init.Datatypes <> S constr
+R554:561 ThieleMachine.MuAlignmentExample <> str_size:2 def
+def 650:664 <> lassert_mu_cost
+R675:680 Coq.Strings.String <> string ind
+binder 667:671 <> query:4
+R685:685 Coq.Numbers.BinNums <> Z ind
+R717:719 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R692:699 Coq.ZArith.BinInt Z of_nat def
+R702:709 ThieleMachine.MuAlignmentExample <> str_size def
+R711:715 ThieleMachine.MuAlignmentExample <> query:4 var
+def 789:799 <> test_clause
+R803:808 Coq.Strings.String <> string ind
+prf 861:876 <> test_clause_size
+R900:902 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R880:887 ThieleMachine.MuAlignmentExample <> str_size def
+R889:899 ThieleMachine.MuAlignmentExample <> test_clause def
+prf 992:1010 <> lassert_xor_mu_cost
+R1043:1045 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1016:1030 ThieleMachine.MuAlignmentExample <> lassert_mu_cost def
+R1032:1042 ThieleMachine.MuAlignmentExample <> test_clause def
+R1066:1080 ThieleMachine.MuAlignmentExample <> lassert_mu_cost def
+R1083:1093 ThieleMachine.MuAlignmentExample <> test_clause def
+prf 1245:1267 <> lassert_mu_cost_formula
+R1288:1293 Coq.Strings.String <> string ind
+binder 1280:1284 <> query:5
+R1321:1323 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1300:1314 ThieleMachine.MuAlignmentExample <> lassert_mu_cost def
+R1316:1320 ThieleMachine.MuAlignmentExample <> query:5 var
+R1349:1351 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R1324:1331 Coq.ZArith.BinInt Z of_nat def
+R1334:1341 ThieleMachine.MuAlignmentExample <> str_size def
+R1343:1347 ThieleMachine.MuAlignmentExample <> query:5 var
+R1385:1399 ThieleMachine.MuAlignmentExample <> lassert_mu_cost def
+prf 1471:1492 <> lassert_mu_cost_nonneg
+R1513:1518 Coq.Strings.String <> string ind
+binder 1505:1509 <> query:6
+R1526:1529 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R1530:1544 ThieleMachine.MuAlignmentExample <> lassert_mu_cost def
+R1546:1550 ThieleMachine.MuAlignmentExample <> query:6 var
+R1583:1597 ThieleMachine.MuAlignmentExample <> lassert_mu_cost def
+R1608:1626 Coq.ZArith.BinInt Z mul_nonneg_nonneg thm
+R1608:1626 Coq.ZArith.BinInt Z mul_nonneg_nonneg thm
+R1639:1653 Coq.ZArith.Znat Nat2Z is_nonneg thm
+R1639:1653 Coq.ZArith.Znat Nat2Z is_nonneg thm

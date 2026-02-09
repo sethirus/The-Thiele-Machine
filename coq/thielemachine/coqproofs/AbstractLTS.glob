@@ -1,0 +1,1241 @@
+DIGEST 4d388641941c60a0559448d24fb80896
+FThieleMachine.AbstractLTS
+R877:880 Coq.Lists.List <> <> lib
+R882:885 Coq.Bool.Bool <> <> lib
+R887:892 Coq.ZArith.ZArith <> <> lib
+R894:896 Coq.micromega.Lia <> <> lib
+R898:903 Coq.QArith.QArith <> <> lib
+R940:948 ThieleMachine.Spaceland <> <> lib
+R958:970 Coq.Lists.List ListNotations <> mod
+mod 1215:1225 <> AbstractLTS
+rec 1616:1623 AbstractLTS StateRec
+proj 1641:1648 AbstractLTS state_id
+proj 1661:1675 AbstractLTS partition_label
+proj 1754:1767 AbstractLTS mu_accumulated
+R1652:1654 Coq.Init.Datatypes <> nat ind
+R1679:1682 Coq.Init.Datatypes <> list ind
+R1685:1688 Coq.Init.Datatypes <> list ind
+R1690:1692 Coq.Init.Datatypes <> nat ind
+R1771:1771 Coq.Numbers.BinNums <> Z ind
+def 1795:1799 AbstractLTS State
+R1804:1811 ThieleMachine.AbstractLTS AbstractLTS StateRec rec
+def 1884:1892 AbstractLTS Partition
+R1897:1900 Coq.Init.Datatypes <> list ind
+R1903:1906 Coq.Init.Datatypes <> list ind
+R1908:1910 Coq.Init.Datatypes <> nat ind
+def 1927:1934 AbstractLTS ModuleId
+R1939:1941 Coq.Init.Datatypes <> nat ind
+def 1992:2004 AbstractLTS get_partition
+R2011:2015 ThieleMachine.AbstractLTS AbstractLTS State def
+binder 2007:2007 <> s:5
+R2020:2028 ThieleMachine.AbstractLTS AbstractLTS Partition def
+R2037:2051 ThieleMachine.AbstractLTS AbstractLTS partition_label proj
+R2053:2053 ThieleMachine.AbstractLTS <> s:5 var
+def 2132:2146 AbstractLTS find_var_module
+R2153:2161 ThieleMachine.AbstractLTS AbstractLTS Partition def
+binder 2149:2149 <> p:6
+R2169:2171 Coq.Init.Datatypes <> nat ind
+binder 2165:2165 <> v:7
+R2181:2183 Coq.Init.Datatypes <> nat ind
+binder 2175:2177 <> idx:8
+R2188:2195 ThieleMachine.AbstractLTS AbstractLTS ModuleId def
+R2210:2210 ThieleMachine.AbstractLTS <> p:6 var
+R2223:2224 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2261:2264 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2284:2290 Coq.Lists.List <> existsb def
+R2293:2299 Coq.Arith.PeanoNat Nat eqb def
+R2301:2301 ThieleMachine.AbstractLTS <> v:7 var
+R2341:2355 ThieleMachine.AbstractLTS <> find_var_module:9 def
+R2365:2365 Coq.Init.Datatypes <> S constr
+R2367:2369 ThieleMachine.AbstractLTS <> idx:8 var
+R2362:2362 ThieleMachine.AbstractLTS <> v:7 var
+R2324:2326 ThieleMachine.AbstractLTS <> idx:8 var
+def 2397:2405 AbstractLTS module_of
+R2412:2416 ThieleMachine.AbstractLTS AbstractLTS State def
+binder 2408:2408 <> s:11
+R2424:2426 Coq.Init.Datatypes <> nat ind
+binder 2420:2420 <> v:12
+R2431:2438 ThieleMachine.AbstractLTS AbstractLTS ModuleId def
+R2447:2461 ThieleMachine.AbstractLTS AbstractLTS find_var_module def
+R2464:2476 ThieleMachine.AbstractLTS AbstractLTS get_partition def
+R2478:2478 ThieleMachine.AbstractLTS <> s:11 var
+R2481:2481 ThieleMachine.AbstractLTS <> v:12 var
+def 2506:2519 AbstractLTS same_partition
+R2530:2534 ThieleMachine.AbstractLTS AbstractLTS State def
+binder 2522:2523 <> s1:13
+binder 2525:2526 <> s2:14
+R2569:2571 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2551:2565 ThieleMachine.AbstractLTS AbstractLTS partition_label proj
+R2567:2568 ThieleMachine.AbstractLTS <> s1:13 var
+R2572:2586 ThieleMachine.AbstractLTS AbstractLTS partition_label proj
+R2588:2589 ThieleMachine.AbstractLTS <> s2:14 var
+prf 2638:2657 AbstractLTS partition_wellformed
+R2673:2677 ThieleMachine.AbstractLTS AbstractLTS State def
+binder 2669:2669 <> s:15
+R2685:2692 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2716:2724 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2703:2706 Coq.Init.Datatypes <> list ind
+R2708:2715 ThieleMachine.AbstractLTS AbstractLTS ModuleId def
+binder 2693:2699 <> modules:16
+R2740:2742 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R2726:2731 Coq.Init.Datatypes <> length def
+R2733:2739 ThieleMachine.AbstractLTS <> modules:16 var
+R2838:2838 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2844:2844 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2838:2838 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2844:2844 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+def 3363:3372 AbstractLTS list_split
+binder 3375:3375 <> A:17
+R3390:3393 Coq.Init.Datatypes <> list ind
+R3395:3395 ThieleMachine.AbstractLTS <> A:17 var
+binder 3386:3386 <> l:18
+R3403:3405 Coq.Init.Datatypes <> nat ind
+binder 3399:3399 <> n:19
+R3416:3418 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3410:3413 Coq.Init.Datatypes <> list ind
+R3415:3415 ThieleMachine.AbstractLTS <> A:17 var
+R3419:3422 Coq.Init.Datatypes <> list ind
+R3424:3424 ThieleMachine.AbstractLTS <> A:17 var
+R3442:3442 ThieleMachine.AbstractLTS <> l:18 var
+R3439:3439 ThieleMachine.AbstractLTS <> n:19 var
+R3467:3467 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3470:3471 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3473:3473 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3468:3469 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3472:3472 ThieleMachine.AbstractLTS <> l:18 var
+R3484:3485 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3490:3490 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3493:3494 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3497:3497 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3491:3492 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3495:3496 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3505:3505 Coq.Init.Datatypes <> S constr
+R3512:3515 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3551:3560 ThieleMachine.AbstractLTS <> list_split:20 def
+binder 3535:3538 <> left:23
+binder 3541:3545 <> right:24
+R3579:3579 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3589:3590 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3596:3596 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3581:3584 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3585:3588 ThieleMachine.AbstractLTS <> left:23 var
+R3591:3595 ThieleMachine.AbstractLTS <> right:24 var
+def 3666:3677 AbstractLTS split_module
+R3684:3692 ThieleMachine.AbstractLTS AbstractLTS Partition def
+binder 3680:3680 <> p:25
+R3702:3709 ThieleMachine.AbstractLTS AbstractLTS ModuleId def
+binder 3696:3698 <> mid:26
+R3714:3722 ThieleMachine.AbstractLTS AbstractLTS Partition def
+R3737:3737 ThieleMachine.AbstractLTS <> p:25 var
+R3750:3751 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3756:3757 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3771:3774 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3794:3800 Coq.Arith.PeanoNat Nat eqb def
+R3802:3804 ThieleMachine.AbstractLTS <> mid:26 var
+R4074:4077 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4078:4089 ThieleMachine.AbstractLTS <> split_module:27 def
+R4100:4102 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R4097:4099 ThieleMachine.AbstractLTS <> mid:26 var
+R3896:3901 Coq.Init.Datatypes <> length def
+binder 3889:3891 <> len:29
+R3935:3941 Coq.Arith.PeanoNat Nat div def
+R3943:3945 ThieleMachine.AbstractLTS <> len:29 var
+binder 3927:3930 <> half:30
+R3985:3994 ThieleMachine.AbstractLTS AbstractLTS list_split def
+R4003:4006 ThieleMachine.AbstractLTS <> half:30 var
+binder 3967:3971 <> first:31
+binder 3974:3979 <> second:32
+R4026:4029 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4021:4025 ThieleMachine.AbstractLTS <> first:31 var
+R4036:4039 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4030:4035 ThieleMachine.AbstractLTS <> second:32 var
+def 4168:4180 AbstractLTS merge_modules
+R4187:4195 ThieleMachine.AbstractLTS AbstractLTS Partition def
+binder 4183:4183 <> p:33
+R4207:4214 ThieleMachine.AbstractLTS AbstractLTS ModuleId def
+binder 4199:4200 <> m1:34
+binder 4202:4203 <> m2:35
+R4219:4227 ThieleMachine.AbstractLTS AbstractLTS Partition def
+R4300:4300 ThieleMachine.AbstractLTS <> p:33 var
+R4313:4314 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4319:4320 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4333:4333 ThieleMachine.AbstractLTS <> p:33 var
+ind 4476:4490 AbstractLTS InstructionType
+constr 4508:4515 AbstractLTS ICompute
+constr 4541:4546 AbstractLTS ISplit
+constr 4584:4589 AbstractLTS IMerge
+constr 4639:4646 AbstractLTS IObserve
+R4519:4533 ThieleMachine.AbstractLTS <> InstructionType:38 ind
+R4558:4561 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4550:4557 ThieleMachine.AbstractLTS AbstractLTS ModuleId def
+R4562:4576 ThieleMachine.AbstractLTS <> InstructionType:38 ind
+R4601:4604 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4593:4600 ThieleMachine.AbstractLTS AbstractLTS ModuleId def
+R4613:4616 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4605:4612 ThieleMachine.AbstractLTS AbstractLTS ModuleId def
+R4617:4631 ThieleMachine.AbstractLTS <> InstructionType:38 ind
+R4658:4661 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4650:4657 ThieleMachine.AbstractLTS AbstractLTS ModuleId def
+R4662:4676 ThieleMachine.AbstractLTS <> InstructionType:38 ind
+scheme 4476:4490 AbstractLTS InstructionType_rect
+scheme 4476:4490 AbstractLTS InstructionType_ind
+scheme 4476:4490 AbstractLTS InstructionType_rec
+scheme 4476:4490 AbstractLTS InstructionType_sind
+def 4693:4703 AbstractLTS Instruction
+R4708:4722 ThieleMachine.AbstractLTS AbstractLTS InstructionType ind
+def 4739:4745 AbstractLTS program
+R4752:4756 ThieleMachine.AbstractLTS AbstractLTS State def
+binder 4748:4748 <> s:40
+R4761:4764 Coq.Init.Datatypes <> list ind
+R4766:4776 ThieleMachine.AbstractLTS AbstractLTS Instruction def
+R4781:4783 Coq.Init.Datatypes <> nil constr
+def 4800:4801 AbstractLTS pc
+R4808:4812 ThieleMachine.AbstractLTS AbstractLTS State def
+binder 4804:4804 <> s:41
+R4817:4819 Coq.Init.Datatypes <> nat ind
+R4824:4831 ThieleMachine.AbstractLTS AbstractLTS state_id proj
+R4833:4833 ThieleMachine.AbstractLTS <> s:41 var
+def 4850:4864 AbstractLTS is_in_footprint
+R4871:4881 ThieleMachine.AbstractLTS AbstractLTS Instruction def
+binder 4867:4867 <> i:42
+R4889:4891 Coq.Init.Datatypes <> nat ind
+binder 4885:4885 <> v:43
+R4896:4899 Coq.Init.Datatypes <> bool ind
+R4904:4908 Coq.Init.Datatypes <> false constr
+def 4969:4972 AbstractLTS step
+R4979:4983 ThieleMachine.AbstractLTS AbstractLTS State def
+binder 4975:4975 <> s:44
+R4991:4995 ThieleMachine.Spaceland <> Label ind
+R4997:5004 ThieleMachine.AbstractLTS AbstractLTS ModuleId def
+binder 4987:4987 <> l:45
+R5013:5017 ThieleMachine.AbstractLTS AbstractLTS State def
+binder 5008:5009 <> s':46
+R5040:5040 ThieleMachine.AbstractLTS <> l:45 var
+R5053:5060 ThieleMachine.Spaceland <> LCompute constr
+R5178:5189 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5158:5160 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5140:5154 ThieleMachine.AbstractLTS AbstractLTS partition_label proj
+R5156:5157 ThieleMachine.AbstractLTS <> s':46 var
+R5161:5175 ThieleMachine.AbstractLTS AbstractLTS partition_label proj
+R5177:5177 ThieleMachine.AbstractLTS <> s:44 var
+R5226:5237 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5207:5209 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5190:5203 ThieleMachine.AbstractLTS AbstractLTS mu_accumulated proj
+R5205:5206 ThieleMachine.AbstractLTS <> s':46 var
+R5210:5223 ThieleMachine.AbstractLTS AbstractLTS mu_accumulated proj
+R5225:5225 ThieleMachine.AbstractLTS <> s:44 var
+R5249:5251 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5238:5245 ThieleMachine.AbstractLTS AbstractLTS state_id proj
+R5247:5248 ThieleMachine.AbstractLTS <> s':46 var
+R5252:5252 Coq.Init.Datatypes <> S constr
+R5255:5262 ThieleMachine.AbstractLTS AbstractLTS state_id proj
+R5264:5264 ThieleMachine.AbstractLTS <> s:44 var
+R5278:5283 ThieleMachine.Spaceland <> LSplit constr
+R5417:5428 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5378:5380 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5360:5374 ThieleMachine.AbstractLTS AbstractLTS partition_label proj
+R5376:5377 ThieleMachine.AbstractLTS <> s':46 var
+R5381:5392 ThieleMachine.AbstractLTS AbstractLTS split_module def
+R5395:5409 ThieleMachine.AbstractLTS AbstractLTS partition_label proj
+R5411:5411 ThieleMachine.AbstractLTS <> s:44 var
+R5469:5499 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5446:5448 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5429:5442 ThieleMachine.AbstractLTS AbstractLTS mu_accumulated proj
+R5444:5445 ThieleMachine.AbstractLTS <> s':46 var
+R5465:5467 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R5449:5462 ThieleMachine.AbstractLTS AbstractLTS mu_accumulated proj
+R5464:5464 ThieleMachine.AbstractLTS <> s:44 var
+R5511:5513 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5500:5507 ThieleMachine.AbstractLTS AbstractLTS state_id proj
+R5509:5510 ThieleMachine.AbstractLTS <> s':46 var
+R5514:5514 Coq.Init.Datatypes <> S constr
+R5517:5524 ThieleMachine.AbstractLTS AbstractLTS state_id proj
+R5526:5526 ThieleMachine.AbstractLTS <> s:44 var
+R5540:5545 ThieleMachine.Spaceland <> LMerge constr
+R5708:5719 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5666:5668 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5648:5662 ThieleMachine.AbstractLTS AbstractLTS partition_label proj
+R5664:5665 ThieleMachine.AbstractLTS <> s':46 var
+R5669:5681 ThieleMachine.AbstractLTS AbstractLTS merge_modules def
+R5684:5698 ThieleMachine.AbstractLTS AbstractLTS partition_label proj
+R5700:5700 ThieleMachine.AbstractLTS <> s:44 var
+R5756:5767 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5737:5739 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5720:5733 ThieleMachine.AbstractLTS AbstractLTS mu_accumulated proj
+R5735:5736 ThieleMachine.AbstractLTS <> s':46 var
+R5740:5753 ThieleMachine.AbstractLTS AbstractLTS mu_accumulated proj
+R5755:5755 ThieleMachine.AbstractLTS <> s:44 var
+R5779:5781 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5768:5775 ThieleMachine.AbstractLTS AbstractLTS state_id proj
+R5777:5778 ThieleMachine.AbstractLTS <> s':46 var
+R5782:5782 Coq.Init.Datatypes <> S constr
+R5785:5792 ThieleMachine.AbstractLTS AbstractLTS state_id proj
+R5794:5794 ThieleMachine.AbstractLTS <> s:44 var
+R5808:5815 ThieleMachine.Spaceland <> LObserve constr
+R5956:5967 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5936:5938 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5918:5932 ThieleMachine.AbstractLTS AbstractLTS partition_label proj
+R5934:5935 ThieleMachine.AbstractLTS <> s':46 var
+R5939:5953 ThieleMachine.AbstractLTS AbstractLTS partition_label proj
+R5955:5955 ThieleMachine.AbstractLTS <> s:44 var
+R6008:6039 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5985:5987 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5968:5981 ThieleMachine.AbstractLTS AbstractLTS mu_accumulated proj
+R5983:5984 ThieleMachine.AbstractLTS <> s':46 var
+R6004:6006 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R5988:6001 ThieleMachine.AbstractLTS AbstractLTS mu_accumulated proj
+R6003:6003 ThieleMachine.AbstractLTS <> s:44 var
+R6051:6053 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6040:6047 ThieleMachine.AbstractLTS AbstractLTS state_id proj
+R6049:6050 ThieleMachine.AbstractLTS <> s':46 var
+R6054:6054 Coq.Init.Datatypes <> S constr
+R6057:6064 ThieleMachine.AbstractLTS AbstractLTS state_id proj
+R6066:6066 ThieleMachine.AbstractLTS <> s:44 var
+prf 6157:6174 AbstractLTS step_deterministic
+binder 6185:6185 <> s:48
+binder 6187:6187 <> l:49
+binder 6189:6190 <> s1:50
+binder 6192:6193 <> s2:51
+R6211:6214 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6200:6203 ThieleMachine.AbstractLTS AbstractLTS step def
+R6205:6205 ThieleMachine.AbstractLTS <> s:48 var
+R6207:6207 ThieleMachine.AbstractLTS <> l:49 var
+R6209:6210 ThieleMachine.AbstractLTS <> s1:50 var
+R6226:6229 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6215:6218 ThieleMachine.AbstractLTS AbstractLTS step def
+R6220:6220 ThieleMachine.AbstractLTS <> s:48 var
+R6222:6222 ThieleMachine.AbstractLTS <> l:49 var
+R6224:6225 ThieleMachine.AbstractLTS <> s2:51 var
+R6232:6234 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6230:6231 ThieleMachine.AbstractLTS <> s1:50 var
+R6235:6236 ThieleMachine.AbstractLTS <> s2:51 var
+R6287:6290 ThieleMachine.AbstractLTS AbstractLTS step def
+prf 6604:6622 AbstractLTS module_independence
+binder 6633:6633 <> s:52
+binder 6635:6636 <> s':53
+binder 6638:6638 <> i:54
+R6663:6670 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6645:6648 ThieleMachine.AbstractLTS AbstractLTS step def
+R6650:6650 ThieleMachine.AbstractLTS <> s:52 var
+R6652:6659 ThieleMachine.Spaceland <> LCompute constr
+R6661:6662 ThieleMachine.AbstractLTS <> s':53 var
+R6708:6716 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6792:6792 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6699:6701 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6671:6679 Coq.Lists.List <> nth_error def
+R6694:6695 ThieleMachine.AbstractLTS AbstractLTS pc def
+R6697:6697 ThieleMachine.AbstractLTS <> s:52 var
+R6682:6688 ThieleMachine.AbstractLTS AbstractLTS program def
+R6690:6690 ThieleMachine.AbstractLTS <> s:52 var
+R6702:6705 Coq.Init.Datatypes <> Some constr
+R6707:6707 ThieleMachine.AbstractLTS <> i:54 var
+binder 6724:6725 <> m':55
+R6756:6759 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6748:6750 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6728:6742 ThieleMachine.AbstractLTS AbstractLTS is_in_footprint def
+R6744:6744 ThieleMachine.AbstractLTS <> i:54 var
+R6746:6747 ThieleMachine.AbstractLTS <> m':55 var
+R6751:6755 Coq.Init.Datatypes <> false constr
+R6774:6776 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6760:6768 ThieleMachine.AbstractLTS AbstractLTS module_of def
+R6770:6770 ThieleMachine.AbstractLTS <> s:52 var
+R6772:6773 ThieleMachine.AbstractLTS <> m':55 var
+R6777:6785 ThieleMachine.AbstractLTS AbstractLTS module_of def
+R6787:6788 ThieleMachine.AbstractLTS <> s':53 var
+R6790:6791 ThieleMachine.AbstractLTS <> m':55 var
+R6860:6863 ThieleMachine.AbstractLTS AbstractLTS step def
+R6989:6997 ThieleMachine.AbstractLTS AbstractLTS module_of def
+R7000:7012 ThieleMachine.AbstractLTS AbstractLTS get_partition def
+def 7322:7323 AbstractLTS mu
+R7330:7334 ThieleMachine.AbstractLTS AbstractLTS State def
+binder 7326:7326 <> s:56
+R7342:7346 ThieleMachine.Spaceland <> Label ind
+R7348:7355 ThieleMachine.AbstractLTS AbstractLTS ModuleId def
+binder 7338:7338 <> l:57
+R7364:7368 ThieleMachine.AbstractLTS AbstractLTS State def
+binder 7359:7360 <> s':58
+R7373:7373 Coq.Numbers.BinNums <> Z ind
+R7401:7403 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R7384:7397 ThieleMachine.AbstractLTS AbstractLTS mu_accumulated proj
+R7399:7400 ThieleMachine.AbstractLTS <> s':58 var
+R7404:7417 ThieleMachine.AbstractLTS AbstractLTS mu_accumulated proj
+R7419:7419 ThieleMachine.AbstractLTS <> s:56 var
+prf 7457:7465 AbstractLTS mu_nonneg
+binder 7476:7476 <> s:59
+binder 7478:7478 <> l:60
+binder 7480:7481 <> s':61
+R7499:7502 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7488:7491 ThieleMachine.AbstractLTS AbstractLTS step def
+R7493:7493 ThieleMachine.AbstractLTS <> s:59 var
+R7495:7495 ThieleMachine.AbstractLTS <> l:60 var
+R7497:7498 ThieleMachine.AbstractLTS <> s':61 var
+R7512:7515 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
+R7503:7504 ThieleMachine.AbstractLTS AbstractLTS mu def
+R7506:7506 ThieleMachine.AbstractLTS <> s:59 var
+R7508:7508 ThieleMachine.AbstractLTS <> l:60 var
+R7510:7511 ThieleMachine.AbstractLTS <> s':61 var
+R7564:7565 ThieleMachine.AbstractLTS AbstractLTS mu def
+R7568:7571 ThieleMachine.AbstractLTS AbstractLTS step def
+ind 7681:7685 AbstractLTS Trace
+constr 7703:7706 AbstractLTS TNil
+constr 7731:7735 AbstractLTS TCons
+R7715:7718 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7710:7714 ThieleMachine.AbstractLTS AbstractLTS State def
+R7719:7723 ThieleMachine.AbstractLTS <> Trace:62 ind
+R7744:7747 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7739:7743 ThieleMachine.AbstractLTS AbstractLTS State def
+R7762:7765 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7748:7752 ThieleMachine.Spaceland <> Label ind
+R7754:7761 ThieleMachine.AbstractLTS AbstractLTS ModuleId def
+R7771:7774 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7766:7770 ThieleMachine.AbstractLTS <> Trace:62 ind
+R7775:7779 ThieleMachine.AbstractLTS <> Trace:62 ind
+scheme 7681:7685 AbstractLTS Trace_rect
+scheme 7681:7685 AbstractLTS Trace_ind
+scheme 7681:7685 AbstractLTS Trace_rec
+scheme 7681:7685 AbstractLTS Trace_sind
+def 7840:7849 AbstractLTS trace_init
+R7856:7860 ThieleMachine.AbstractLTS AbstractLTS Trace ind
+binder 7852:7852 <> t:64
+R7865:7869 ThieleMachine.AbstractLTS AbstractLTS State def
+R7884:7884 ThieleMachine.AbstractLTS <> t:64 var
+R7897:7900 ThieleMachine.AbstractLTS AbstractLTS TNil constr
+R7915:7919 ThieleMachine.AbstractLTS AbstractLTS TCons constr
+def 7995:8005 AbstractLTS trace_final
+R8012:8016 ThieleMachine.AbstractLTS AbstractLTS Trace ind
+binder 8008:8008 <> t:66
+R8021:8025 ThieleMachine.AbstractLTS AbstractLTS State def
+R8040:8040 ThieleMachine.AbstractLTS <> t:66 var
+R8053:8056 ThieleMachine.AbstractLTS AbstractLTS TNil constr
+R8071:8075 ThieleMachine.AbstractLTS AbstractLTS TCons constr
+R8089:8099 ThieleMachine.AbstractLTS <> trace_final:67 def
+def 8193:8203 AbstractLTS valid_trace
+R8210:8214 ThieleMachine.AbstractLTS AbstractLTS Trace ind
+binder 8206:8206 <> t:69
+R8237:8237 ThieleMachine.AbstractLTS <> t:69 var
+R8250:8253 ThieleMachine.AbstractLTS AbstractLTS TNil constr
+R8260:8263 Coq.Init.Logic <> True ind
+R8271:8275 ThieleMachine.AbstractLTS AbstractLTS TCons constr
+R8324:8327 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8298:8301 ThieleMachine.AbstractLTS AbstractLTS step def
+R8308:8317 ThieleMachine.AbstractLTS AbstractLTS trace_init def
+R8328:8338 ThieleMachine.AbstractLTS <> valid_trace:70 def
+def 8368:8375 AbstractLTS trace_mu
+R8382:8386 ThieleMachine.AbstractLTS AbstractLTS Trace ind
+binder 8378:8378 <> t:72
+R8391:8391 Coq.Numbers.BinNums <> Z ind
+R8406:8406 ThieleMachine.AbstractLTS <> t:72 var
+R8419:8422 ThieleMachine.AbstractLTS AbstractLTS TNil constr
+R8437:8441 ThieleMachine.AbstractLTS AbstractLTS TCons constr
+R8489:8492 ThieleMachine.AbstractLTS AbstractLTS TNil constr
+R8500:8501 ThieleMachine.AbstractLTS AbstractLTS mu def
+R8520:8524 ThieleMachine.AbstractLTS AbstractLTS TCons constr
+R8545:8547 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R8536:8537 ThieleMachine.AbstractLTS AbstractLTS mu def
+R8548:8555 ThieleMachine.AbstractLTS <> trace_mu:73 def
+prf 8653:8663 AbstractLTS mu_monotone
+binder 8674:8675 <> t1:76
+binder 8677:8677 <> s:77
+binder 8679:8679 <> l:78
+R8712:8719 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8686:8696 ThieleMachine.AbstractLTS AbstractLTS valid_trace def
+R8699:8703 ThieleMachine.AbstractLTS AbstractLTS TCons constr
+R8705:8705 ThieleMachine.AbstractLTS <> s:77 var
+R8707:8707 ThieleMachine.AbstractLTS <> l:78 var
+R8709:8710 ThieleMachine.AbstractLTS <> t1:76 var
+R8743:8746 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
+R8720:8727 ThieleMachine.AbstractLTS AbstractLTS trace_mu def
+R8730:8734 ThieleMachine.AbstractLTS AbstractLTS TCons constr
+R8736:8736 ThieleMachine.AbstractLTS <> s:77 var
+R8738:8738 ThieleMachine.AbstractLTS <> l:78 var
+R8740:8741 ThieleMachine.AbstractLTS <> t1:76 var
+R8747:8754 ThieleMachine.AbstractLTS AbstractLTS trace_mu def
+R8756:8757 ThieleMachine.AbstractLTS <> t1:76 var
+R9076:9084 ThieleMachine.AbstractLTS AbstractLTS mu_nonneg thm
+R9076:9084 ThieleMachine.AbstractLTS AbstractLTS mu_nonneg thm
+R9450:9453 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
+R9441:9442 ThieleMachine.AbstractLTS AbstractLTS mu def
+R9467:9475 ThieleMachine.AbstractLTS AbstractLTS mu_nonneg thm
+R9450:9453 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
+R9441:9442 ThieleMachine.AbstractLTS AbstractLTS mu def
+R9467:9475 ThieleMachine.AbstractLTS AbstractLTS mu_nonneg thm
+def 9706:9717 AbstractLTS trace_concat
+R9728:9732 ThieleMachine.AbstractLTS AbstractLTS Trace ind
+binder 9720:9721 <> t1:79
+binder 9723:9724 <> t2:80
+R9737:9741 ThieleMachine.AbstractLTS AbstractLTS Trace ind
+R9756:9757 ThieleMachine.AbstractLTS <> t1:79 var
+R9770:9773 ThieleMachine.AbstractLTS AbstractLTS TNil constr
+R9979:9980 ThieleMachine.AbstractLTS <> t2:80 var
+R9988:9992 ThieleMachine.AbstractLTS AbstractLTS TCons constr
+R10006:10010 ThieleMachine.AbstractLTS AbstractLTS TCons constr
+R10017:10028 ThieleMachine.AbstractLTS <> trace_concat:81 def
+R10035:10036 ThieleMachine.AbstractLTS <> t2:80 var
+prf 10209:10219 AbstractLTS mu_additive
+binder 10230:10231 <> t1:83
+binder 10233:10234 <> t2:84
+R10271:10278 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10255:10257 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10241:10251 ThieleMachine.AbstractLTS AbstractLTS trace_final def
+R10253:10254 ThieleMachine.AbstractLTS <> t1:83 var
+R10258:10267 ThieleMachine.AbstractLTS AbstractLTS trace_init def
+R10269:10270 ThieleMachine.AbstractLTS <> t2:84 var
+R10308:10310 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10279:10286 ThieleMachine.AbstractLTS AbstractLTS trace_mu def
+R10289:10300 ThieleMachine.AbstractLTS AbstractLTS trace_concat def
+R10302:10303 ThieleMachine.AbstractLTS <> t1:83 var
+R10305:10306 ThieleMachine.AbstractLTS <> t2:84 var
+R10322:10324 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R10311:10318 ThieleMachine.AbstractLTS AbstractLTS trace_mu def
+R10320:10321 ThieleMachine.AbstractLTS <> t1:83 var
+R10325:10332 ThieleMachine.AbstractLTS AbstractLTS trace_mu def
+R10334:10335 ThieleMachine.AbstractLTS <> t2:84 var
+R11065:11072 ThieleMachine.AbstractLTS AbstractLTS trace_mu def
+R11125:11126 ThieleMachine.AbstractLTS AbstractLTS mu def
+R11575:11577 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11543:11553 ThieleMachine.AbstractLTS AbstractLTS trace_final def
+R11556:11560 ThieleMachine.AbstractLTS AbstractLTS TCons constr
+R11578:11587 ThieleMachine.AbstractLTS AbstractLTS trace_init def
+R11575:11577 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11543:11553 ThieleMachine.AbstractLTS AbstractLTS trace_final def
+R11556:11560 ThieleMachine.AbstractLTS AbstractLTS TCons constr
+R11578:11587 ThieleMachine.AbstractLTS AbstractLTS trace_init def
+prf 12207:12219 AbstractLTS mu_blind_free
+binder 12230:12230 <> s:85
+binder 12232:12233 <> s':86
+R12258:12265 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12240:12243 ThieleMachine.AbstractLTS AbstractLTS step def
+R12245:12245 ThieleMachine.AbstractLTS <> s:85 var
+R12247:12254 ThieleMachine.Spaceland <> LCompute constr
+R12256:12257 ThieleMachine.AbstractLTS <> s':86 var
+R12285:12292 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12266:12279 ThieleMachine.AbstractLTS AbstractLTS same_partition def
+R12281:12281 ThieleMachine.AbstractLTS <> s:85 var
+R12283:12284 ThieleMachine.AbstractLTS <> s':86 var
+R12309:12312 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
+R12293:12294 ThieleMachine.AbstractLTS AbstractLTS mu def
+R12296:12296 ThieleMachine.AbstractLTS <> s:85 var
+R12298:12305 ThieleMachine.Spaceland <> LCompute constr
+R12307:12308 ThieleMachine.AbstractLTS <> s':86 var
+R12365:12366 ThieleMachine.AbstractLTS AbstractLTS mu def
+R12369:12372 ThieleMachine.AbstractLTS AbstractLTS step def
+prf 12566:12584 AbstractLTS mu_observe_positive
+binder 12595:12595 <> s:87
+binder 12597:12597 <> m:88
+binder 12599:12600 <> s':89
+R12629:12636 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12607:12610 ThieleMachine.AbstractLTS AbstractLTS step def
+R12612:12612 ThieleMachine.AbstractLTS <> s:87 var
+R12615:12622 ThieleMachine.Spaceland <> LObserve constr
+R12624:12624 ThieleMachine.AbstractLTS <> m:88 var
+R12627:12628 ThieleMachine.AbstractLTS <> s':89 var
+R12657:12659 Coq.ZArith.BinInt <> ::Z_scope:x_'>'_x not
+R12637:12638 ThieleMachine.AbstractLTS AbstractLTS mu def
+R12640:12640 ThieleMachine.AbstractLTS <> s:87 var
+R12643:12650 ThieleMachine.Spaceland <> LObserve constr
+R12652:12652 ThieleMachine.AbstractLTS <> m:88 var
+R12655:12656 ThieleMachine.AbstractLTS <> s':89 var
+R12708:12709 ThieleMachine.AbstractLTS AbstractLTS mu def
+R12712:12715 ThieleMachine.AbstractLTS AbstractLTS step def
+prf 12826:12842 AbstractLTS mu_split_positive
+binder 12853:12853 <> s:90
+binder 12855:12855 <> m:91
+binder 12857:12858 <> s':92
+R12885:12892 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12865:12868 ThieleMachine.AbstractLTS AbstractLTS step def
+R12870:12870 ThieleMachine.AbstractLTS <> s:90 var
+R12873:12878 ThieleMachine.Spaceland <> LSplit constr
+R12880:12880 ThieleMachine.AbstractLTS <> m:91 var
+R12883:12884 ThieleMachine.AbstractLTS <> s':92 var
+R12911:12913 Coq.ZArith.BinInt <> ::Z_scope:x_'>'_x not
+R12893:12894 ThieleMachine.AbstractLTS AbstractLTS mu def
+R12896:12896 ThieleMachine.AbstractLTS <> s:90 var
+R12899:12904 ThieleMachine.Spaceland <> LSplit constr
+R12906:12906 ThieleMachine.AbstractLTS <> m:91 var
+R12909:12910 ThieleMachine.AbstractLTS <> s':92 var
+R12962:12963 ThieleMachine.AbstractLTS AbstractLTS mu def
+R12966:12969 ThieleMachine.AbstractLTS AbstractLTS step def
+prf 13078:13090 AbstractLTS mu_merge_free
+binder 13101:13101 <> s:93
+binder 13103:13104 <> m1:94
+binder 13106:13107 <> m2:95
+binder 13109:13110 <> s':96
+R13141:13148 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13117:13120 ThieleMachine.AbstractLTS AbstractLTS step def
+R13122:13122 ThieleMachine.AbstractLTS <> s:93 var
+R13125:13130 ThieleMachine.Spaceland <> LMerge constr
+R13135:13136 ThieleMachine.AbstractLTS <> m2:95 var
+R13132:13133 ThieleMachine.AbstractLTS <> m1:94 var
+R13139:13140 ThieleMachine.AbstractLTS <> s':96 var
+R13171:13174 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
+R13149:13150 ThieleMachine.AbstractLTS AbstractLTS mu def
+R13152:13152 ThieleMachine.AbstractLTS <> s:93 var
+R13155:13160 ThieleMachine.Spaceland <> LMerge constr
+R13165:13166 ThieleMachine.AbstractLTS <> m2:95 var
+R13162:13163 ThieleMachine.AbstractLTS <> m1:94 var
+R13169:13170 ThieleMachine.AbstractLTS <> s':96 var
+R13227:13228 ThieleMachine.AbstractLTS AbstractLTS mu def
+R13231:13234 ThieleMachine.AbstractLTS AbstractLTS step def
+def 13509:13522 AbstractLTS PartitionTrace
+R13527:13530 Coq.Init.Datatypes <> list ind
+R13532:13540 ThieleMachine.AbstractLTS AbstractLTS Partition def
+def 13556:13562 AbstractLTS MuTrace
+R13567:13570 Coq.Init.Datatypes <> list ind
+R13572:13572 Coq.Numbers.BinNums <> Z ind
+def 13589:13603 AbstractLTS partition_trace
+R13610:13614 ThieleMachine.AbstractLTS AbstractLTS Trace ind
+binder 13606:13606 <> t:97
+R13619:13632 ThieleMachine.AbstractLTS AbstractLTS PartitionTrace def
+R13647:13647 ThieleMachine.AbstractLTS <> t:97 var
+R13660:13663 ThieleMachine.AbstractLTS AbstractLTS TNil constr
+R13670:13670 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R13686:13686 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R13671:13683 ThieleMachine.AbstractLTS AbstractLTS get_partition def
+R13694:13698 ThieleMachine.AbstractLTS AbstractLTS TCons constr
+R13727:13730 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R13712:13724 ThieleMachine.AbstractLTS AbstractLTS get_partition def
+R13731:13745 ThieleMachine.AbstractLTS <> partition_trace:98 def
+def 13775:13782 AbstractLTS mu_trace
+R13789:13793 ThieleMachine.AbstractLTS AbstractLTS Trace ind
+binder 13785:13785 <> t:100
+R13798:13804 ThieleMachine.AbstractLTS AbstractLTS MuTrace def
+R13819:13819 ThieleMachine.AbstractLTS <> t:100 var
+R13832:13835 ThieleMachine.AbstractLTS AbstractLTS TNil constr
+R13842:13842 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R13844:13844 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R13852:13856 ThieleMachine.AbstractLTS AbstractLTS TCons constr
+R13904:13907 ThieleMachine.AbstractLTS AbstractLTS TNil constr
+R13915:13915 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R13925:13925 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R13916:13917 ThieleMachine.AbstractLTS AbstractLTS mu def
+R13937:13941 ThieleMachine.AbstractLTS AbstractLTS TCons constr
+R13985:13986 ThieleMachine.AbstractLTS AbstractLTS mu def
+binder 13974:13980 <> mu_here:104
+R14025:14032 ThieleMachine.AbstractLTS <> mu_trace:101 def
+binder 14014:14020 <> mu_rest:105
+R14061:14064 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R14054:14060 ThieleMachine.AbstractLTS <> mu_here:104 var
+R14065:14067 Coq.Lists.List <> map def
+R14085:14091 ThieleMachine.AbstractLTS <> mu_rest:105 var
+R14070:14074 Coq.ZArith.BinInt Z add def
+R14076:14082 ThieleMachine.AbstractLTS <> mu_here:104 var
+def 14130:14136 AbstractLTS project
+R14143:14147 ThieleMachine.AbstractLTS AbstractLTS Trace ind
+binder 14139:14139 <> t:106
+R14166:14168 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R14152:14165 ThieleMachine.AbstractLTS AbstractLTS PartitionTrace def
+R14169:14175 ThieleMachine.AbstractLTS AbstractLTS MuTrace def
+R14184:14184 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14202:14203 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14214:14214 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14185:14199 ThieleMachine.AbstractLTS AbstractLTS partition_trace def
+R14201:14201 ThieleMachine.AbstractLTS <> t:106 var
+R14204:14211 ThieleMachine.AbstractLTS AbstractLTS mu_trace def
+R14213:14213 ThieleMachine.AbstractLTS <> t:106 var
+rec 14427:14433 AbstractLTS Receipt
+proj 14451:14467 AbstractLTS initial_partition
+proj 14486:14499 AbstractLTS label_sequence
+proj 14530:14544 AbstractLTS final_partition
+proj 14563:14570 AbstractLTS total_mu
+R14471:14479 ThieleMachine.AbstractLTS AbstractLTS Partition def
+R14503:14506 Coq.Init.Datatypes <> list ind
+R14509:14513 ThieleMachine.Spaceland <> Label ind
+R14515:14522 ThieleMachine.AbstractLTS AbstractLTS ModuleId def
+R14548:14556 ThieleMachine.AbstractLTS AbstractLTS Partition def
+R14574:14574 Coq.Numbers.BinNums <> Z ind
+def 14596:14607 AbstractLTS trace_labels
+R14614:14618 ThieleMachine.AbstractLTS AbstractLTS Trace ind
+binder 14610:14610 <> t:112
+R14623:14626 Coq.Init.Datatypes <> list ind
+R14629:14633 ThieleMachine.Spaceland <> Label ind
+R14635:14642 ThieleMachine.AbstractLTS AbstractLTS ModuleId def
+R14658:14658 ThieleMachine.AbstractLTS <> t:112 var
+R14671:14674 ThieleMachine.AbstractLTS AbstractLTS TNil constr
+R14681:14682 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R14690:14694 ThieleMachine.AbstractLTS AbstractLTS TCons constr
+R14709:14712 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R14713:14724 ThieleMachine.AbstractLTS <> trace_labels:113 def
+def 14756:14768 AbstractLTS trace_initial
+R14775:14779 ThieleMachine.AbstractLTS AbstractLTS Trace ind
+binder 14771:14771 <> t:115
+R14784:14788 ThieleMachine.AbstractLTS AbstractLTS State def
+R14803:14803 ThieleMachine.AbstractLTS <> t:115 var
+R14816:14819 ThieleMachine.AbstractLTS AbstractLTS TNil constr
+R14834:14838 ThieleMachine.AbstractLTS AbstractLTS TCons constr
+def 14876:14887 AbstractLTS make_receipt
+R14894:14898 ThieleMachine.AbstractLTS AbstractLTS Trace ind
+binder 14890:14890 <> t:117
+R14903:14909 ThieleMachine.AbstractLTS AbstractLTS Receipt rec
+R14921:14937 ThieleMachine.AbstractLTS AbstractLTS initial_partition proj
+R14921:14937 ThieleMachine.AbstractLTS AbstractLTS initial_partition proj
+R14921:14937 ThieleMachine.AbstractLTS AbstractLTS initial_partition proj
+R14982:14995 ThieleMachine.AbstractLTS AbstractLTS label_sequence proj
+R14982:14995 ThieleMachine.AbstractLTS AbstractLTS label_sequence proj
+R15023:15037 ThieleMachine.AbstractLTS AbstractLTS final_partition proj
+R15023:15037 ThieleMachine.AbstractLTS AbstractLTS final_partition proj
+R15080:15087 ThieleMachine.AbstractLTS AbstractLTS total_mu proj
+R15080:15087 ThieleMachine.AbstractLTS AbstractLTS total_mu proj
+R14942:14954 ThieleMachine.AbstractLTS AbstractLTS get_partition def
+R14957:14969 ThieleMachine.AbstractLTS AbstractLTS trace_initial def
+R14971:14971 ThieleMachine.AbstractLTS <> t:117 var
+R15000:15011 ThieleMachine.AbstractLTS AbstractLTS trace_labels def
+R15013:15013 ThieleMachine.AbstractLTS <> t:117 var
+R15042:15054 ThieleMachine.AbstractLTS AbstractLTS get_partition def
+R15057:15067 ThieleMachine.AbstractLTS AbstractLTS trace_final def
+R15069:15069 ThieleMachine.AbstractLTS <> t:117 var
+R15092:15099 ThieleMachine.AbstractLTS AbstractLTS trace_mu def
+R15101:15101 ThieleMachine.AbstractLTS <> t:117 var
+def 15119:15130 AbstractLTS list_nat_eqb
+R15141:15144 Coq.Init.Datatypes <> list ind
+R15146:15148 Coq.Init.Datatypes <> nat ind
+binder 15133:15134 <> xs:118
+binder 15136:15137 <> ys:119
+R15153:15156 Coq.Init.Datatypes <> bool ind
+R15175:15176 ThieleMachine.AbstractLTS <> ys:119 var
+R15171:15172 ThieleMachine.AbstractLTS <> xs:118 var
+R15189:15190 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R15193:15194 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R15199:15202 Coq.Init.Datatypes <> true constr
+R15211:15214 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R15221:15224 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R15243:15246 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R15232:15238 Coq.Arith.PeanoNat Nat eqb def
+R15247:15258 ThieleMachine.AbstractLTS <> list_nat_eqb:120 def
+R15282:15286 Coq.Init.Datatypes <> false constr
+def 15309:15321 AbstractLTS partition_eqb
+R15330:15338 ThieleMachine.AbstractLTS AbstractLTS Partition def
+binder 15324:15324 <> p:123
+binder 15326:15326 <> q:124
+R15343:15346 Coq.Init.Datatypes <> bool ind
+R15364:15364 ThieleMachine.AbstractLTS <> q:124 var
+R15361:15361 ThieleMachine.AbstractLTS <> p:123 var
+R15377:15378 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R15381:15382 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R15387:15390 Coq.Init.Datatypes <> true constr
+R15399:15402 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R15408:15411 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R15434:15437 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R15418:15429 ThieleMachine.AbstractLTS AbstractLTS list_nat_eqb def
+R15438:15450 ThieleMachine.AbstractLTS <> partition_eqb:125 def
+R15472:15476 Coq.Init.Datatypes <> false constr
+prf 15496:15512 AbstractLTS list_nat_eqb_refl
+binder 15523:15524 <> xs:128
+R15545:15547 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15527:15538 ThieleMachine.AbstractLTS AbstractLTS list_nat_eqb def
+R15540:15541 ThieleMachine.AbstractLTS <> xs:128 var
+R15543:15544 ThieleMachine.AbstractLTS <> xs:128 var
+R15548:15551 Coq.Init.Datatypes <> true constr
+R15636:15647 Coq.Arith.PeanoNat Nat eqb_refl thm
+R15636:15647 Coq.Arith.PeanoNat Nat eqb_refl thm
+R15636:15647 Coq.Arith.PeanoNat Nat eqb_refl thm
+prf 15682:15699 AbstractLTS partition_eqb_refl
+binder 15710:15710 <> p:129
+R15730:15732 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15713:15725 ThieleMachine.AbstractLTS AbstractLTS partition_eqb def
+R15727:15727 ThieleMachine.AbstractLTS <> p:129 var
+R15729:15729 ThieleMachine.AbstractLTS <> p:129 var
+R15733:15736 Coq.Init.Datatypes <> true constr
+R15819:15835 ThieleMachine.AbstractLTS AbstractLTS list_nat_eqb_refl thm
+R15819:15835 ThieleMachine.AbstractLTS AbstractLTS list_nat_eqb_refl thm
+R15819:15835 ThieleMachine.AbstractLTS AbstractLTS list_nat_eqb_refl thm
+prf 15870:15884 AbstractLTS list_nat_eqb_eq
+binder 15895:15896 <> xs:130
+binder 15898:15899 <> ys:131
+R15927:15930 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15920:15922 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15902:15913 ThieleMachine.AbstractLTS AbstractLTS list_nat_eqb def
+R15915:15916 ThieleMachine.AbstractLTS <> xs:130 var
+R15918:15919 ThieleMachine.AbstractLTS <> ys:131 var
+R15923:15926 Coq.Init.Datatypes <> true constr
+R15933:15935 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15931:15932 ThieleMachine.AbstractLTS <> xs:130 var
+R15936:15937 ThieleMachine.AbstractLTS <> ys:131 var
+R16073:16085 Coq.Bool.Bool <> andb_true_iff thm
+R16073:16085 Coq.Bool.Bool <> andb_true_iff thm
+R16120:16129 Coq.Arith.PeanoNat Nat eqb_eq thm
+R16120:16129 Coq.Arith.PeanoNat Nat eqb_eq thm
+prf 16202:16217 AbstractLTS partition_eqb_eq
+binder 16228:16228 <> p:132
+binder 16230:16230 <> q:133
+R16257:16260 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16250:16252 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16233:16245 ThieleMachine.AbstractLTS AbstractLTS partition_eqb def
+R16247:16247 ThieleMachine.AbstractLTS <> p:132 var
+R16249:16249 ThieleMachine.AbstractLTS <> q:133 var
+R16253:16256 Coq.Init.Datatypes <> true constr
+R16262:16264 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16261:16261 ThieleMachine.AbstractLTS <> p:132 var
+R16265:16265 ThieleMachine.AbstractLTS <> q:133 var
+R16397:16409 Coq.Bool.Bool <> andb_true_iff thm
+R16397:16409 Coq.Bool.Bool <> andb_true_iff thm
+R16444:16458 ThieleMachine.AbstractLTS AbstractLTS list_nat_eqb_eq thm
+R16444:16458 ThieleMachine.AbstractLTS AbstractLTS list_nat_eqb_eq thm
+def 16827:16840 AbstractLTS verify_receipt
+R16847:16853 ThieleMachine.AbstractLTS AbstractLTS Receipt rec
+binder 16843:16843 <> r:134
+R16858:16861 Coq.Init.Datatypes <> bool ind
+R16876:16889 ThieleMachine.AbstractLTS AbstractLTS label_sequence proj
+R16891:16891 ThieleMachine.AbstractLTS <> r:134 var
+R16904:16905 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R16910:16913 Coq.Init.Datatypes <> andb def
+R16991:16995 Coq.ZArith.BinInt Z eqb def
+R16998:17005 ThieleMachine.AbstractLTS AbstractLTS total_mu proj
+R17007:17007 ThieleMachine.AbstractLTS <> r:134 var
+R16916:16928 ThieleMachine.AbstractLTS AbstractLTS partition_eqb def
+R16931:16947 ThieleMachine.AbstractLTS AbstractLTS initial_partition proj
+R16949:16949 ThieleMachine.AbstractLTS <> r:134 var
+R16953:16967 ThieleMachine.AbstractLTS AbstractLTS final_partition proj
+R16969:16969 ThieleMachine.AbstractLTS <> r:134 var
+R17020:17023 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R17029:17032 Coq.Init.Datatypes <> true constr
+def 17057:17064 AbstractLTS mk_state
+R17072:17074 Coq.Init.Datatypes <> nat ind
+binder 17067:17068 <> id:135
+R17082:17090 ThieleMachine.AbstractLTS AbstractLTS Partition def
+binder 17078:17078 <> p:136
+R17100:17100 Coq.Numbers.BinNums <> Z ind
+binder 17094:17096 <> mu0:137
+R17105:17109 ThieleMachine.AbstractLTS AbstractLTS State def
+R17121:17128 ThieleMachine.AbstractLTS AbstractLTS state_id proj
+R17121:17128 ThieleMachine.AbstractLTS AbstractLTS state_id proj
+R17121:17128 ThieleMachine.AbstractLTS AbstractLTS state_id proj
+R17137:17151 ThieleMachine.AbstractLTS AbstractLTS partition_label proj
+R17137:17151 ThieleMachine.AbstractLTS AbstractLTS partition_label proj
+R17159:17172 ThieleMachine.AbstractLTS AbstractLTS mu_accumulated proj
+R17159:17172 ThieleMachine.AbstractLTS AbstractLTS mu_accumulated proj
+R17133:17134 ThieleMachine.AbstractLTS <> id:135 var
+R17156:17156 ThieleMachine.AbstractLTS <> p:136 var
+R17177:17179 ThieleMachine.AbstractLTS <> mu0:137 var
+def 17197:17215 AbstractLTS build_receipt_trace
+R17235:17243 ThieleMachine.AbstractLTS AbstractLTS Partition def
+binder 17218:17223 <> init_p:138
+binder 17225:17231 <> final_p:139
+R17256:17256 Coq.Numbers.BinNums <> Z ind
+binder 17247:17252 <> tot_mu:140
+R17265:17268 Coq.Init.Datatypes <> list ind
+R17271:17275 ThieleMachine.Spaceland <> Label ind
+R17277:17284 ThieleMachine.AbstractLTS AbstractLTS ModuleId def
+binder 17260:17261 <> ls:141
+R17294:17296 Coq.Init.Datatypes <> nat ind
+binder 17289:17290 <> id:142
+R17301:17305 ThieleMachine.AbstractLTS AbstractLTS Trace ind
+R17320:17321 ThieleMachine.AbstractLTS <> ls:141 var
+R17334:17335 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R17340:17343 ThieleMachine.AbstractLTS AbstractLTS TNil constr
+R17346:17353 ThieleMachine.AbstractLTS AbstractLTS mk_state def
+R17355:17356 ThieleMachine.AbstractLTS <> id:142 var
+R17358:17364 ThieleMachine.AbstractLTS <> final_p:139 var
+R17366:17371 ThieleMachine.AbstractLTS <> tot_mu:140 var
+R17381:17384 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R17385:17386 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R17399:17403 ThieleMachine.AbstractLTS AbstractLTS TCons constr
+R17406:17413 ThieleMachine.AbstractLTS AbstractLTS mk_state def
+R17415:17416 ThieleMachine.AbstractLTS <> id:142 var
+R17418:17423 ThieleMachine.AbstractLTS <> init_p:138 var
+R17431:17434 ThieleMachine.AbstractLTS AbstractLTS TNil constr
+R17437:17444 ThieleMachine.AbstractLTS AbstractLTS mk_state def
+R17447:17447 Coq.Init.Datatypes <> S constr
+R17449:17450 ThieleMachine.AbstractLTS <> id:142 var
+R17453:17459 ThieleMachine.AbstractLTS <> final_p:139 var
+R17461:17466 ThieleMachine.AbstractLTS <> tot_mu:140 var
+R17477:17480 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R17496:17500 ThieleMachine.AbstractLTS AbstractLTS TCons constr
+R17503:17510 ThieleMachine.AbstractLTS AbstractLTS mk_state def
+R17512:17513 ThieleMachine.AbstractLTS <> id:142 var
+R17515:17520 ThieleMachine.AbstractLTS <> init_p:138 var
+R17528:17546 ThieleMachine.AbstractLTS <> build_receipt_trace:143 def
+R17575:17575 Coq.Init.Datatypes <> S constr
+R17577:17578 ThieleMachine.AbstractLTS <> id:142 var
+R17563:17568 ThieleMachine.AbstractLTS <> tot_mu:140 var
+R17555:17561 ThieleMachine.AbstractLTS <> final_p:139 var
+R17548:17553 ThieleMachine.AbstractLTS <> init_p:138 var
+prf 17600:17631 AbstractLTS trace_labels_build_receipt_trace
+binder 17642:17647 <> init_p:145
+binder 17649:17655 <> final_p:146
+binder 17657:17662 <> tot_mu:147
+binder 17664:17665 <> ls:148
+binder 17667:17668 <> id:149
+R17737:17739 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17675:17686 ThieleMachine.AbstractLTS AbstractLTS trace_labels def
+R17689:17707 ThieleMachine.AbstractLTS AbstractLTS build_receipt_trace def
+R17709:17714 ThieleMachine.AbstractLTS <> init_p:145 var
+R17716:17722 ThieleMachine.AbstractLTS <> final_p:146 var
+R17724:17729 ThieleMachine.AbstractLTS <> tot_mu:147 var
+R17731:17732 ThieleMachine.AbstractLTS <> ls:148 var
+R17734:17735 ThieleMachine.AbstractLTS <> id:149 var
+R17740:17741 ThieleMachine.AbstractLTS <> ls:148 var
+R17808:17826 ThieleMachine.AbstractLTS AbstractLTS build_receipt_trace def
+R17828:17839 ThieleMachine.AbstractLTS AbstractLTS trace_labels def
+R17902:17920 ThieleMachine.AbstractLTS AbstractLTS build_receipt_trace def
+R17922:17933 ThieleMachine.AbstractLTS AbstractLTS trace_labels def
+R17963:17981 ThieleMachine.AbstractLTS AbstractLTS build_receipt_trace def
+R17998:18009 ThieleMachine.AbstractLTS AbstractLTS trace_labels def
+R18049:18049 Coq.Init.Datatypes <> S constr
+R18049:18049 Coq.Init.Datatypes <> S constr
+prf 18073:18128 AbstractLTS get_partition_trace_initial_build_receipt_trace_nonempty
+binder 18139:18144 <> init_p:150
+binder 18146:18152 <> final_p:151
+binder 18154:18159 <> tot_mu:152
+binder 18161:18162 <> ls:153
+binder 18164:18165 <> id:154
+R18180:18187 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18174:18177 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R18172:18173 ThieleMachine.AbstractLTS <> ls:153 var
+R18178:18179 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R18267:18269 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18188:18200 ThieleMachine.AbstractLTS AbstractLTS get_partition def
+R18203:18215 ThieleMachine.AbstractLTS AbstractLTS trace_initial def
+R18218:18236 ThieleMachine.AbstractLTS AbstractLTS build_receipt_trace def
+R18238:18243 ThieleMachine.AbstractLTS <> init_p:150 var
+R18245:18251 ThieleMachine.AbstractLTS <> final_p:151 var
+R18253:18258 ThieleMachine.AbstractLTS <> tot_mu:152 var
+R18260:18261 ThieleMachine.AbstractLTS <> ls:153 var
+R18263:18264 ThieleMachine.AbstractLTS <> id:154 var
+R18270:18275 ThieleMachine.AbstractLTS <> init_p:150 var
+R18427:18445 ThieleMachine.AbstractLTS AbstractLTS build_receipt_trace def
+R18447:18459 ThieleMachine.AbstractLTS AbstractLTS trace_initial def
+R18461:18473 ThieleMachine.AbstractLTS AbstractLTS get_partition def
+R18475:18482 ThieleMachine.AbstractLTS AbstractLTS mk_state def
+R18512:18530 ThieleMachine.AbstractLTS AbstractLTS build_receipt_trace def
+R18532:18544 ThieleMachine.AbstractLTS AbstractLTS trace_initial def
+R18546:18558 ThieleMachine.AbstractLTS AbstractLTS get_partition def
+R18560:18567 ThieleMachine.AbstractLTS AbstractLTS mk_state def
+prf 18600:18653 AbstractLTS get_partition_trace_final_build_receipt_trace_nonempty
+binder 18664:18669 <> init_p:155
+binder 18671:18677 <> final_p:156
+binder 18679:18684 <> tot_mu:157
+binder 18686:18687 <> ls:158
+binder 18689:18690 <> id:159
+R18705:18712 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18699:18702 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R18697:18698 ThieleMachine.AbstractLTS <> ls:158 var
+R18703:18704 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R18790:18792 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18713:18725 ThieleMachine.AbstractLTS AbstractLTS get_partition def
+R18728:18738 ThieleMachine.AbstractLTS AbstractLTS trace_final def
+R18741:18759 ThieleMachine.AbstractLTS AbstractLTS build_receipt_trace def
+R18761:18766 ThieleMachine.AbstractLTS <> init_p:155 var
+R18768:18774 ThieleMachine.AbstractLTS <> final_p:156 var
+R18776:18781 ThieleMachine.AbstractLTS <> tot_mu:157 var
+R18783:18784 ThieleMachine.AbstractLTS <> ls:158 var
+R18786:18787 ThieleMachine.AbstractLTS <> id:159 var
+R18793:18799 ThieleMachine.AbstractLTS <> final_p:156 var
+R18926:18944 ThieleMachine.AbstractLTS AbstractLTS build_receipt_trace def
+R18946:18956 ThieleMachine.AbstractLTS AbstractLTS trace_final def
+R18958:18970 ThieleMachine.AbstractLTS AbstractLTS get_partition def
+R18972:18979 ThieleMachine.AbstractLTS AbstractLTS mk_state def
+R19009:19027 ThieleMachine.AbstractLTS AbstractLTS build_receipt_trace def
+R19044:19054 ThieleMachine.AbstractLTS AbstractLTS trace_final def
+R19077:19077 Coq.Init.Datatypes <> S constr
+R19077:19077 Coq.Init.Datatypes <> S constr
+prf 19123:19159 AbstractLTS trace_mu_build_receipt_trace_nonempty
+binder 19170:19175 <> init_p:160
+binder 19177:19183 <> final_p:161
+binder 19185:19190 <> tot_mu:162
+binder 19192:19193 <> ls:163
+binder 19195:19196 <> id:164
+R19211:19218 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19205:19208 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R19203:19204 ThieleMachine.AbstractLTS <> ls:163 var
+R19209:19210 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R19277:19279 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19219:19226 ThieleMachine.AbstractLTS AbstractLTS trace_mu def
+R19229:19247 ThieleMachine.AbstractLTS AbstractLTS build_receipt_trace def
+R19249:19254 ThieleMachine.AbstractLTS <> init_p:160 var
+R19256:19262 ThieleMachine.AbstractLTS <> final_p:161 var
+R19264:19269 ThieleMachine.AbstractLTS <> tot_mu:162 var
+R19271:19272 ThieleMachine.AbstractLTS <> ls:163 var
+R19274:19275 ThieleMachine.AbstractLTS <> id:164 var
+R19280:19285 ThieleMachine.AbstractLTS <> tot_mu:162 var
+R19447:19465 ThieleMachine.AbstractLTS AbstractLTS build_receipt_trace def
+R19467:19474 ThieleMachine.AbstractLTS AbstractLTS trace_mu def
+R19485:19486 ThieleMachine.AbstractLTS AbstractLTS mu def
+R19611:19629 ThieleMachine.AbstractLTS AbstractLTS build_receipt_trace def
+R19631:19638 ThieleMachine.AbstractLTS AbstractLTS trace_mu def
+R19649:19650 ThieleMachine.AbstractLTS AbstractLTS mu def
+R19715:19733 ThieleMachine.AbstractLTS AbstractLTS build_receipt_trace def
+R19752:19759 ThieleMachine.AbstractLTS AbstractLTS trace_mu def
+R19778:19796 ThieleMachine.AbstractLTS AbstractLTS build_receipt_trace def
+R19817:19818 ThieleMachine.AbstractLTS AbstractLTS mu def
+R19847:19847 Coq.Init.Datatypes <> S constr
+R19847:19847 Coq.Init.Datatypes <> S constr
+prf 19895:19907 AbstractLTS receipt_sound
+R19923:19929 ThieleMachine.AbstractLTS AbstractLTS Receipt rec
+binder 19919:19919 <> r:165
+R19960:19967 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19953:19955 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19937:19950 ThieleMachine.AbstractLTS AbstractLTS verify_receipt def
+R19952:19952 ThieleMachine.AbstractLTS <> r:165 var
+R19956:19959 Coq.Init.Datatypes <> true constr
+R19968:19975 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R19985:19993 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R19980:19984 ThieleMachine.AbstractLTS AbstractLTS Trace ind
+binder 19976:19976 <> t:166
+R20008:20010 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19994:20005 ThieleMachine.AbstractLTS AbstractLTS make_receipt def
+R20007:20007 ThieleMachine.AbstractLTS <> t:166 var
+R20011:20011 ThieleMachine.AbstractLTS <> r:165 var
+R20085:20098 ThieleMachine.AbstractLTS AbstractLTS verify_receipt def
+R20261:20273 Coq.Bool.Bool <> andb_true_iff thm
+R20261:20273 Coq.Bool.Bool <> andb_true_iff thm
+R20310:20325 ThieleMachine.AbstractLTS AbstractLTS partition_eqb_eq thm
+R20310:20325 ThieleMachine.AbstractLTS AbstractLTS partition_eqb_eq thm
+R20340:20347 Coq.ZArith.BinInt Z eqb_eq thm
+R20340:20347 Coq.ZArith.BinInt Z eqb_eq thm
+R20398:20401 ThieleMachine.AbstractLTS AbstractLTS TNil constr
+R20404:20411 ThieleMachine.AbstractLTS AbstractLTS mk_state def
+R20398:20401 ThieleMachine.AbstractLTS AbstractLTS TNil constr
+R20404:20411 ThieleMachine.AbstractLTS AbstractLTS mk_state def
+R20440:20451 ThieleMachine.AbstractLTS AbstractLTS make_receipt def
+R20474:20486 ThieleMachine.AbstractLTS AbstractLTS get_partition def
+R20489:20501 ThieleMachine.AbstractLTS AbstractLTS trace_initial def
+R20504:20514 ThieleMachine.AbstractLTS AbstractLTS trace_final def
+R20517:20528 ThieleMachine.AbstractLTS AbstractLTS trace_labels def
+R20531:20538 ThieleMachine.AbstractLTS AbstractLTS trace_mu def
+R20659:20677 ThieleMachine.AbstractLTS AbstractLTS build_receipt_trace def
+R20703:20706 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R20659:20677 ThieleMachine.AbstractLTS AbstractLTS build_receipt_trace def
+R20703:20706 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R20732:20743 ThieleMachine.AbstractLTS AbstractLTS make_receipt def
+R20761:20816 ThieleMachine.AbstractLTS AbstractLTS get_partition_trace_initial_build_receipt_trace_nonempty thm
+R20842:20845 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R20761:20816 ThieleMachine.AbstractLTS AbstractLTS get_partition_trace_initial_build_receipt_trace_nonempty thm
+R20842:20845 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R20761:20816 ThieleMachine.AbstractLTS AbstractLTS get_partition_trace_initial_build_receipt_trace_nonempty thm
+R20842:20845 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R20894:20925 ThieleMachine.AbstractLTS AbstractLTS trace_labels_build_receipt_trace thm
+R20894:20925 ThieleMachine.AbstractLTS AbstractLTS trace_labels_build_receipt_trace thm
+R20894:20925 ThieleMachine.AbstractLTS AbstractLTS trace_labels_build_receipt_trace thm
+R20943:20996 ThieleMachine.AbstractLTS AbstractLTS get_partition_trace_final_build_receipt_trace_nonempty thm
+R21022:21025 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R20943:20996 ThieleMachine.AbstractLTS AbstractLTS get_partition_trace_final_build_receipt_trace_nonempty thm
+R21022:21025 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R20943:20996 ThieleMachine.AbstractLTS AbstractLTS get_partition_trace_final_build_receipt_trace_nonempty thm
+R21022:21025 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R21075:21111 ThieleMachine.AbstractLTS AbstractLTS trace_mu_build_receipt_trace_nonempty thm
+R21137:21140 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R21075:21111 ThieleMachine.AbstractLTS AbstractLTS trace_mu_build_receipt_trace_nonempty thm
+R21137:21140 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R21075:21111 ThieleMachine.AbstractLTS AbstractLTS trace_mu_build_receipt_trace_nonempty thm
+R21137:21140 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+prf 21212:21227 AbstractLTS receipt_complete
+R21243:21247 ThieleMachine.AbstractLTS AbstractLTS Trace ind
+binder 21239:21239 <> t:167
+R21286:21288 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21255:21268 ThieleMachine.AbstractLTS AbstractLTS verify_receipt def
+R21271:21282 ThieleMachine.AbstractLTS AbstractLTS make_receipt def
+R21284:21284 ThieleMachine.AbstractLTS <> t:167 var
+R21289:21292 Coq.Init.Datatypes <> true constr
+R21441:21454 ThieleMachine.AbstractLTS AbstractLTS verify_receipt def
+R21478:21495 ThieleMachine.AbstractLTS AbstractLTS partition_eqb_refl thm
+R21478:21495 ThieleMachine.AbstractLTS AbstractLTS partition_eqb_refl thm
+R21478:21495 ThieleMachine.AbstractLTS AbstractLTS partition_eqb_refl thm
+R21583:21596 ThieleMachine.AbstractLTS AbstractLTS verify_receipt def
+def 21833:21838 AbstractLTS kT_ln2
+R21842:21842 Coq.QArith.QArith_base <> Q rec
+R21848:21850 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+def 21870:21883 AbstractLTS landauer_bound
+R21897:21897 Coq.Numbers.BinNums <> Z ind
+binder 21886:21893 <> delta_mu:168
+R21902:21902 Coq.QArith.QArith_base <> Q rec
+R21917:21920 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R21938:21938 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R21911:21916 ThieleMachine.AbstractLTS AbstractLTS kT_ln2 def
+R21921:21928 Coq.QArith.QArith_base <> inject_Z def
+R21930:21937 ThieleMachine.AbstractLTS <> delta_mu:168 var
+prf 21952:21967 AbstractLTS mu_thermodynamic
+binder 21978:21978 <> s:169
+binder 21980:21980 <> l:170
+binder 21982:21983 <> s':171
+R22001:22008 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21990:21993 ThieleMachine.AbstractLTS AbstractLTS step def
+R21995:21995 ThieleMachine.AbstractLTS <> s:169 var
+R21997:21997 ThieleMachine.AbstractLTS <> l:170 var
+R21999:22000 ThieleMachine.AbstractLTS <> s':171 var
+R22009:22015 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R22022:22023 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R22021:22021 Coq.QArith.QArith_base <> Q rec
+binder 22016:22017 <> W0:172
+R22024:22026 Coq.QArith.QArith_base <> Qle def
+R22029:22042 ThieleMachine.AbstractLTS AbstractLTS landauer_bound def
+R22045:22046 ThieleMachine.AbstractLTS AbstractLTS mu def
+R22048:22048 ThieleMachine.AbstractLTS <> s:169 var
+R22050:22050 ThieleMachine.AbstractLTS <> l:170 var
+R22052:22053 ThieleMachine.AbstractLTS <> s':171 var
+R22057:22058 ThieleMachine.AbstractLTS <> W0:172 var
+R22103:22116 ThieleMachine.AbstractLTS AbstractLTS landauer_bound def
+R22119:22120 ThieleMachine.AbstractLTS AbstractLTS mu def
+R22103:22116 ThieleMachine.AbstractLTS AbstractLTS landauer_bound def
+R22119:22120 ThieleMachine.AbstractLTS AbstractLTS mu def
+R22142:22149 Coq.QArith.QArith_base <> Qle_refl thm
+R22142:22149 Coq.QArith.QArith_base <> Qle_refl thm
+prf 22170:22185 AbstractLTS blind_reversible
+binder 22196:22196 <> s:173
+binder 22198:22199 <> s':174
+R22236:22243 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22206:22209 ThieleMachine.AbstractLTS AbstractLTS step def
+R22211:22211 ThieleMachine.AbstractLTS <> s:173 var
+R22215:22222 ThieleMachine.Spaceland <> LCompute constr
+R22224:22231 ThieleMachine.AbstractLTS AbstractLTS ModuleId def
+R22234:22235 ThieleMachine.AbstractLTS <> s':174 var
+R22276:22283 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22272:22274 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22244:22245 ThieleMachine.AbstractLTS AbstractLTS mu def
+R22247:22247 ThieleMachine.AbstractLTS <> s:173 var
+R22251:22258 ThieleMachine.Spaceland <> LCompute constr
+R22260:22267 ThieleMachine.AbstractLTS AbstractLTS ModuleId def
+R22270:22271 ThieleMachine.AbstractLTS <> s':174 var
+R22329:22332 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R22284:22297 ThieleMachine.AbstractLTS AbstractLTS landauer_bound def
+R22300:22301 ThieleMachine.AbstractLTS AbstractLTS mu def
+R22303:22303 ThieleMachine.AbstractLTS <> s:173 var
+R22307:22314 ThieleMachine.Spaceland <> LCompute constr
+R22316:22323 ThieleMachine.AbstractLTS AbstractLTS ModuleId def
+R22326:22327 ThieleMachine.AbstractLTS <> s':174 var
+R22398:22411 ThieleMachine.AbstractLTS AbstractLTS landauer_bound def
+R22414:22419 ThieleMachine.AbstractLTS AbstractLTS kT_ln2 def
+R22474:22482 Coq.QArith.QArith_base <> Qmult_0_r thm
+R22474:22482 Coq.QArith.QArith_base <> Qmult_0_r thm
+R22474:22482 Coq.QArith.QArith_base <> Qmult_0_r thm
+def 22576:22584 AbstractLTS spaceland
+R22588:22596 ThieleMachine.Spaceland <> Spaceland rec
+R22609:22623 ThieleMachine.Spaceland <> State proj
+R22609:22623 ThieleMachine.Spaceland <> State proj
+R22609:22623 ThieleMachine.Spaceland <> State proj
+R22642:22660 ThieleMachine.Spaceland <> Partition proj
+R22642:22660 ThieleMachine.Spaceland <> Partition proj
+R22683:22700 ThieleMachine.Spaceland <> ModuleId proj
+R22683:22700 ThieleMachine.Spaceland <> ModuleId proj
+R22722:22744 ThieleMachine.Spaceland <> get_partition proj
+R22722:22744 ThieleMachine.Spaceland <> get_partition proj
+R22771:22789 ThieleMachine.Spaceland <> module_of proj
+R22771:22789 ThieleMachine.Spaceland <> module_of proj
+R22812:22835 ThieleMachine.Spaceland <> same_partition proj
+R22812:22835 ThieleMachine.Spaceland <> same_partition proj
+R22863:22892 ThieleMachine.Spaceland <> partition_wellformed proj
+R22863:22892 ThieleMachine.Spaceland <> partition_wellformed proj
+R22926:22946 ThieleMachine.Spaceland <> Instruction proj
+R22926:22946 ThieleMachine.Spaceland <> Instruction proj
+R22971:22987 ThieleMachine.Spaceland <> program proj
+R22971:22987 ThieleMachine.Spaceland <> program proj
+R23008:23019 ThieleMachine.Spaceland <> pc proj
+R23008:23019 ThieleMachine.Spaceland <> pc proj
+R23035:23059 ThieleMachine.Spaceland <> is_in_footprint proj
+R23035:23059 ThieleMachine.Spaceland <> is_in_footprint proj
+R23088:23101 ThieleMachine.Spaceland <> step proj
+R23088:23101 ThieleMachine.Spaceland <> step proj
+R23119:23146 ThieleMachine.Spaceland <> step_deterministic proj
+R23119:23146 ThieleMachine.Spaceland <> step_deterministic proj
+R23178:23206 ThieleMachine.Spaceland <> module_independence proj
+R23178:23206 ThieleMachine.Spaceland <> module_independence proj
+R23239:23250 ThieleMachine.Spaceland <> mu proj
+R23239:23250 ThieleMachine.Spaceland <> mu proj
+R23266:23284 ThieleMachine.Spaceland <> mu_nonneg proj
+R23266:23284 ThieleMachine.Spaceland <> mu_nonneg proj
+R23307:23321 ThieleMachine.Spaceland <> Trace proj
+R23307:23321 ThieleMachine.Spaceland <> Trace proj
+R23340:23353 ThieleMachine.Spaceland <> TNil proj
+R23340:23353 ThieleMachine.Spaceland <> TNil proj
+R23371:23385 ThieleMachine.Spaceland <> TCons proj
+R23371:23385 ThieleMachine.Spaceland <> TCons proj
+R23404:23423 ThieleMachine.Spaceland <> trace_init proj
+R23404:23423 ThieleMachine.Spaceland <> trace_init proj
+R23447:23467 ThieleMachine.Spaceland <> trace_final proj
+R23447:23467 ThieleMachine.Spaceland <> trace_final proj
+R23492:23512 ThieleMachine.Spaceland <> valid_trace proj
+R23492:23512 ThieleMachine.Spaceland <> valid_trace proj
+R23537:23554 ThieleMachine.Spaceland <> trace_mu proj
+R23537:23554 ThieleMachine.Spaceland <> trace_mu proj
+R23576:23596 ThieleMachine.Spaceland <> mu_monotone proj
+R23576:23596 ThieleMachine.Spaceland <> mu_monotone proj
+R23621:23642 ThieleMachine.Spaceland <> trace_concat proj
+R23621:23642 ThieleMachine.Spaceland <> trace_concat proj
+R23668:23688 ThieleMachine.Spaceland <> mu_additive proj
+R23668:23688 ThieleMachine.Spaceland <> mu_additive proj
+R23713:23735 ThieleMachine.Spaceland <> mu_blind_free proj
+R23713:23735 ThieleMachine.Spaceland <> mu_blind_free proj
+R23762:23790 ThieleMachine.Spaceland <> mu_observe_positive proj
+R23762:23790 ThieleMachine.Spaceland <> mu_observe_positive proj
+R23823:23849 ThieleMachine.Spaceland <> mu_split_positive proj
+R23823:23849 ThieleMachine.Spaceland <> mu_split_positive proj
+R23880:23902 ThieleMachine.Spaceland <> mu_merge_free proj
+R23880:23902 ThieleMachine.Spaceland <> mu_merge_free proj
+R23929:23952 ThieleMachine.Spaceland <> PartitionTrace proj
+R23929:23952 ThieleMachine.Spaceland <> PartitionTrace proj
+R23980:23996 ThieleMachine.Spaceland <> MuTrace proj
+R23980:23996 ThieleMachine.Spaceland <> MuTrace proj
+R24017:24041 ThieleMachine.Spaceland <> partition_trace proj
+R24017:24041 ThieleMachine.Spaceland <> partition_trace proj
+R24070:24087 ThieleMachine.Spaceland <> mu_trace proj
+R24070:24087 ThieleMachine.Spaceland <> mu_trace proj
+R24109:24125 ThieleMachine.Spaceland <> project proj
+R24109:24125 ThieleMachine.Spaceland <> project proj
+R24146:24162 ThieleMachine.Spaceland <> Receipt proj
+R24146:24162 ThieleMachine.Spaceland <> Receipt proj
+R24183:24204 ThieleMachine.Spaceland <> trace_labels proj
+R24183:24204 ThieleMachine.Spaceland <> trace_labels proj
+R24230:24252 ThieleMachine.Spaceland <> trace_initial proj
+R24230:24252 ThieleMachine.Spaceland <> trace_initial proj
+R24279:24300 ThieleMachine.Spaceland <> make_receipt proj
+R24279:24300 ThieleMachine.Spaceland <> make_receipt proj
+R24326:24349 ThieleMachine.Spaceland <> verify_receipt proj
+R24326:24349 ThieleMachine.Spaceland <> verify_receipt proj
+R24377:24399 ThieleMachine.Spaceland <> receipt_sound proj
+R24377:24399 ThieleMachine.Spaceland <> receipt_sound proj
+R24426:24451 ThieleMachine.Spaceland <> receipt_complete proj
+R24426:24451 ThieleMachine.Spaceland <> receipt_complete proj
+R24481:24496 ThieleMachine.Spaceland <> kT_ln2 proj
+R24481:24496 ThieleMachine.Spaceland <> kT_ln2 proj
+R24516:24539 ThieleMachine.Spaceland <> landauer_bound proj
+R24516:24539 ThieleMachine.Spaceland <> landauer_bound proj
+R24567:24592 ThieleMachine.Spaceland <> mu_thermodynamic proj
+R24567:24592 ThieleMachine.Spaceland <> mu_thermodynamic proj
+R24622:24647 ThieleMachine.Spaceland <> blind_reversible proj
+R24622:24647 ThieleMachine.Spaceland <> blind_reversible proj
+R22628:22632 ThieleMachine.AbstractLTS AbstractLTS State def
+R22665:22673 ThieleMachine.AbstractLTS AbstractLTS Partition def
+R22705:22712 ThieleMachine.AbstractLTS AbstractLTS ModuleId def
+R22749:22761 ThieleMachine.AbstractLTS AbstractLTS get_partition def
+R22794:22802 ThieleMachine.AbstractLTS AbstractLTS module_of def
+R22840:22853 ThieleMachine.AbstractLTS AbstractLTS same_partition def
+R22897:22916 ThieleMachine.AbstractLTS AbstractLTS partition_wellformed thm
+R22951:22961 ThieleMachine.AbstractLTS AbstractLTS Instruction def
+R22992:22998 ThieleMachine.AbstractLTS AbstractLTS program def
+R23024:23025 ThieleMachine.AbstractLTS AbstractLTS pc def
+R23064:23078 ThieleMachine.AbstractLTS AbstractLTS is_in_footprint def
+R23106:23109 ThieleMachine.AbstractLTS AbstractLTS step def
+R23151:23168 ThieleMachine.AbstractLTS AbstractLTS step_deterministic thm
+R23211:23229 ThieleMachine.AbstractLTS AbstractLTS module_independence thm
+R23255:23256 ThieleMachine.AbstractLTS AbstractLTS mu def
+R23289:23297 ThieleMachine.AbstractLTS AbstractLTS mu_nonneg thm
+R23326:23330 ThieleMachine.AbstractLTS AbstractLTS Trace ind
+R23358:23361 ThieleMachine.AbstractLTS AbstractLTS TNil constr
+R23390:23394 ThieleMachine.AbstractLTS AbstractLTS TCons constr
+R23428:23437 ThieleMachine.AbstractLTS AbstractLTS trace_init def
+R23472:23482 ThieleMachine.AbstractLTS AbstractLTS trace_final def
+R23517:23527 ThieleMachine.AbstractLTS AbstractLTS valid_trace def
+R23559:23566 ThieleMachine.AbstractLTS AbstractLTS trace_mu def
+R23601:23611 ThieleMachine.AbstractLTS AbstractLTS mu_monotone thm
+R23647:23658 ThieleMachine.AbstractLTS AbstractLTS trace_concat def
+R23693:23703 ThieleMachine.AbstractLTS AbstractLTS mu_additive thm
+R23740:23752 ThieleMachine.AbstractLTS AbstractLTS mu_blind_free thm
+R23795:23813 ThieleMachine.AbstractLTS AbstractLTS mu_observe_positive thm
+R23854:23870 ThieleMachine.AbstractLTS AbstractLTS mu_split_positive thm
+R23907:23919 ThieleMachine.AbstractLTS AbstractLTS mu_merge_free thm
+R23957:23970 ThieleMachine.AbstractLTS AbstractLTS PartitionTrace def
+R24001:24007 ThieleMachine.AbstractLTS AbstractLTS MuTrace def
+R24046:24060 ThieleMachine.AbstractLTS AbstractLTS partition_trace def
+R24092:24099 ThieleMachine.AbstractLTS AbstractLTS mu_trace def
+R24130:24136 ThieleMachine.AbstractLTS AbstractLTS project def
+R24167:24173 ThieleMachine.AbstractLTS AbstractLTS Receipt rec
+R24209:24220 ThieleMachine.AbstractLTS AbstractLTS trace_labels def
+R24257:24269 ThieleMachine.AbstractLTS AbstractLTS trace_initial def
+R24305:24316 ThieleMachine.AbstractLTS AbstractLTS make_receipt def
+R24354:24367 ThieleMachine.AbstractLTS AbstractLTS verify_receipt def
+R24404:24416 ThieleMachine.AbstractLTS AbstractLTS receipt_sound thm
+R24456:24471 ThieleMachine.AbstractLTS AbstractLTS receipt_complete thm
+R24501:24506 ThieleMachine.AbstractLTS AbstractLTS kT_ln2 def
+R24544:24557 ThieleMachine.AbstractLTS AbstractLTS landauer_bound def
+R24597:24612 ThieleMachine.AbstractLTS AbstractLTS mu_thermodynamic thm
+R24652:24667 ThieleMachine.AbstractLTS AbstractLTS blind_reversible thm
+R24678:24688 ThieleMachine.AbstractLTS AbstractLTS <> mod

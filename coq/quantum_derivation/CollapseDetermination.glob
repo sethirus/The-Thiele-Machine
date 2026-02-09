@@ -1,0 +1,172 @@
+DIGEST 4e87d269c4344fb10ab9addb34c96c5b
+FQuantumDerivation.CollapseDetermination
+R520:523 Coq.Lists.List <> <> lib
+R525:530 Coq.ZArith.ZArith <> <> lib
+R532:534 Coq.micromega.Lia <> <> lib
+R536:539 Coq.Bool.Bool <> <> lib
+R541:543 Coq.Init.Nat <> <> lib
+R545:549 Coq.Reals.Reals <> <> lib
+R551:556 Coq.QArith.QArith <> <> lib
+R574:597 Coq.Logic.Classical_Prop <> <> lib
+R615:631 Coq.micromega.Lra <> <> lib
+R641:653 Coq.Lists.List ListNotations <> mod
+R724:738 Coq.Reals.Reals <> <> lib
+R756:775 Coq.Reals.Rfunctions <> <> lib
+R794:820 ThieleMachine.CoreSemantics <> <> lib
+R838:874 QuantumDerivation.CompositePartitions <> <> lib
+R892:935 QuantumDerivation.ObservationIrreversibility <> <> lib
+def 1280:1296 <> partition_entropy
+R1303:1311 ThieleMachine.CoreSemantics <> Partition rec
+binder 1299:1299 <> p:1
+R1316:1316 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R1332:1350 QuantumDerivation.CompositePartitions <> partition_state_dim def
+R1352:1352 QuantumDerivation.CollapseDetermination <> p:1 var
+binder 1327:1327 <> d:2
+R1370:1372 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R1360:1361 Coq.Reals.Rpower <> ln def
+R1364:1366 Coq.Reals.Raxioms <> INR def
+R1368:1368 QuantumDerivation.CollapseDetermination <> d:2 var
+R1373:1374 Coq.Reals.Rpower <> ln def
+prf 1445:1470 <> certain_state_zero_entropy
+R1488:1496 ThieleMachine.CoreSemantics <> Partition rec
+binder 1484:1484 <> p:3
+R1533:1540 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1525:1527 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1504:1522 QuantumDerivation.CompositePartitions <> partition_state_dim def
+R1524:1524 QuantumDerivation.CollapseDetermination <> p:3 var
+R1560:1562 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1541:1557 QuantumDerivation.CollapseDetermination <> partition_entropy def
+R1559:1559 QuantumDerivation.CollapseDetermination <> p:3 var
+R1601:1617 QuantumDerivation.CollapseDetermination <> partition_entropy def
+R1672:1675 Coq.Reals.Rpower <> ln_1 thm
+R1672:1675 Coq.Reals.Rpower <> ln_1 thm
+R1672:1675 Coq.Reals.Rpower <> ln_1 thm
+def 1968:1983 <> information_gain
+R1993:1995 Coq.Init.Datatypes <> nat ind
+binder 1986:1989 <> bits:4
+R2000:2000 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2007:2009 Coq.Reals.Raxioms <> INR def
+R2011:2014 QuantumDerivation.CollapseDetermination <> bits:4 var
+def 2344:2366 <> measurement_consistency
+R2388:2396 ThieleMachine.CoreSemantics <> Partition rec
+binder 2369:2376 <> p_before:5
+binder 2378:2384 <> p_after:6
+R2407:2409 Coq.Init.Datatypes <> nat ind
+binder 2400:2403 <> bits:7
+R2449:2451 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2424:2440 QuantumDerivation.CollapseDetermination <> partition_entropy def
+R2442:2448 QuantumDerivation.CollapseDetermination <> p_after:6 var
+R2479:2481 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R2453:2469 QuantumDerivation.CollapseDetermination <> partition_entropy def
+R2471:2478 QuantumDerivation.CollapseDetermination <> p_before:5 var
+R2482:2497 QuantumDerivation.CollapseDetermination <> information_gain def
+R2499:2502 QuantumDerivation.CollapseDetermination <> bits:7 var
+prf 2708:2743 <> maximum_info_determines_unique_state
+R2776:2784 ThieleMachine.CoreSemantics <> Partition rec
+binder 2757:2764 <> p_before:8
+binder 2766:2772 <> p_after:9
+R2795:2797 Coq.Init.Datatypes <> nat ind
+binder 2788:2791 <> bits:10
+R2850:2857 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2805:2827 QuantumDerivation.CollapseDetermination <> measurement_consistency def
+R2829:2836 QuantumDerivation.CollapseDetermination <> p_before:8 var
+R2838:2844 QuantumDerivation.CollapseDetermination <> p_after:9 var
+R2846:2849 QuantumDerivation.CollapseDetermination <> bits:10 var
+R2908:2915 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2879:2881 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2858:2873 QuantumDerivation.CollapseDetermination <> information_gain def
+R2875:2878 QuantumDerivation.CollapseDetermination <> bits:10 var
+R2882:2898 QuantumDerivation.CollapseDetermination <> partition_entropy def
+R2900:2907 QuantumDerivation.CollapseDetermination <> p_before:8 var
+R2943:2945 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2916:2934 QuantumDerivation.CompositePartitions <> partition_state_dim def
+R2936:2942 QuantumDerivation.CollapseDetermination <> p_after:9 var
+R3014:3036 QuantumDerivation.CollapseDetermination <> measurement_consistency def
+R3150:3152 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R3124:3140 QuantumDerivation.CollapseDetermination <> partition_entropy def
+R3153:3169 QuantumDerivation.CollapseDetermination <> partition_entropy def
+R3150:3152 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R3124:3140 QuantumDerivation.CollapseDetermination <> partition_entropy def
+R3153:3169 QuantumDerivation.CollapseDetermination <> partition_entropy def
+R3218:3234 QuantumDerivation.CollapseDetermination <> partition_entropy def
+R3409:3411 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3371:3372 Coq.Reals.Rpower <> ln def
+R3375:3377 Coq.Reals.Raxioms <> INR def
+R3380:3398 QuantumDerivation.CompositePartitions <> partition_state_dim def
+R3409:3411 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3371:3372 Coq.Reals.Rpower <> ln def
+R3375:3377 Coq.Reals.Raxioms <> INR def
+R3380:3398 QuantumDerivation.CompositePartitions <> partition_state_dim def
+R3446:3448 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R3449:3450 Coq.Reals.Rpower <> ln def
+R3446:3448 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R3449:3450 Coq.Reals.Rpower <> ln def
+R3476:3479 Coq.Reals.Rpower <> ln_1 thm
+R3476:3479 Coq.Reals.Rpower <> ln_1 thm
+R3476:3479 Coq.Reals.Rpower <> ln_1 thm
+R3494:3506 Coq.Reals.Rpower <> ln_increasing thm
+R3494:3506 Coq.Reals.Rpower <> ln_increasing thm
+R3543:3546 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3539:3540 Coq.Reals.Rpower <> ln def
+R3543:3546 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3539:3540 Coq.Reals.Rpower <> ln def
+R3571:3584 Coq.Reals.RIneq <> Rmult_eq_reg_r thm
+R3587:3588 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R3589:3590 Coq.Reals.Rpower <> ln def
+R3571:3584 Coq.Reals.RIneq <> Rmult_eq_reg_r thm
+R3587:3588 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R3589:3590 Coq.Reals.Rpower <> ln def
+R3611:3619 Coq.Reals.RIneq <> Rmult_0_l thm
+R3611:3619 Coq.Reals.RIneq <> Rmult_0_l thm
+R3611:3619 Coq.Reals.RIneq <> Rmult_0_l thm
+R3647:3663 Coq.Reals.RIneq <> Rinv_neq_0_compat thm
+R3647:3663 Coq.Reals.RIneq <> Rinv_neq_0_compat thm
+R3774:3776 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3741:3743 Coq.Reals.Raxioms <> INR def
+R3746:3764 QuantumDerivation.CompositePartitions <> partition_state_dim def
+R3774:3776 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3741:3743 Coq.Reals.Raxioms <> INR def
+R3746:3764 QuantumDerivation.CompositePartitions <> partition_state_dim def
+R3798:3803 Coq.Reals.Rpower <> ln_inv thm
+R3806:3808 Coq.Reals.Raxioms <> INR def
+R3811:3829 QuantumDerivation.CompositePartitions <> partition_state_dim def
+R3798:3803 Coq.Reals.Rpower <> ln_inv thm
+R3806:3808 Coq.Reals.Raxioms <> INR def
+R3811:3829 QuantumDerivation.CompositePartitions <> partition_state_dim def
+R3859:3866 Coq.Reals.RIneq <> lt_0_INR thm
+R3859:3866 Coq.Reals.RIneq <> lt_0_INR thm
+R3875:3902 QuantumDerivation.CompositePartitions <> partition_state_dim_positive thm
+R3875:3902 QuantumDerivation.CompositePartitions <> partition_state_dim_positive thm
+R3943:3946 Coq.Reals.Rpower <> ln_1 thm
+R3943:3946 Coq.Reals.Rpower <> ln_1 thm
+R3943:3946 Coq.Reals.Rpower <> ln_1 thm
+R4010:4015 Coq.Reals.RIneq <> INR_eq thm
+R4018:4036 QuantumDerivation.CompositePartitions <> partition_state_dim def
+R4010:4015 Coq.Reals.RIneq <> INR_eq thm
+R4018:4036 QuantumDerivation.CompositePartitions <> partition_state_dim def
+prf 4459:4498 <> projection_from_information_minimization
+R4531:4539 ThieleMachine.CoreSemantics <> Partition rec
+binder 4512:4519 <> p_before:11
+binder 4521:4527 <> p_after:12
+R4550:4552 Coq.Init.Datatypes <> nat ind
+binder 4543:4546 <> bits:13
+R4598:4605 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4589:4591 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R4561:4579 QuantumDerivation.CompositePartitions <> partition_state_dim def
+R4581:4588 QuantumDerivation.CollapseDetermination <> p_before:11 var
+R4651:4658 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4606:4628 QuantumDerivation.CollapseDetermination <> measurement_consistency def
+R4630:4637 QuantumDerivation.CollapseDetermination <> p_before:11 var
+R4639:4645 QuantumDerivation.CollapseDetermination <> p_after:12 var
+R4647:4650 QuantumDerivation.CollapseDetermination <> bits:13 var
+R4709:4798 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4680:4682 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4659:4674 QuantumDerivation.CollapseDetermination <> information_gain def
+R4676:4679 QuantumDerivation.CollapseDetermination <> bits:13 var
+R4683:4699 QuantumDerivation.CollapseDetermination <> partition_entropy def
+R4701:4708 QuantumDerivation.CollapseDetermination <> p_before:11 var
+R4826:4828 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4799:4817 QuantumDerivation.CompositePartitions <> partition_state_dim def
+R4819:4825 QuantumDerivation.CollapseDetermination <> p_after:12 var
+R4983:5018 QuantumDerivation.CollapseDetermination <> maximum_info_determines_unique_state thm
+R4983:5018 QuantumDerivation.CollapseDetermination <> maximum_info_determines_unique_state thm

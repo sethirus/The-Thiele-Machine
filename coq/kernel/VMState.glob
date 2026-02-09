@@ -1,0 +1,1970 @@
+DIGEST 357a0d9b2fa31529fa902bace944de05
+FKernel.VMState
+R24:27 Coq.Lists.List <> <> lib
+R29:35 Coq.Lists.ListDec <> <> lib
+R37:40 Coq.Bool.Bool <> <> lib
+R42:55 Coq.Arith.PeanoNat <> <> lib
+R82:87 Coq.NArith.NArith <> <> lib
+R114:127 Coq.Strings.String <> <> lib
+R129:141 Coq.Strings.Ascii <> <> lib
+R168:180 Coq.micromega.Lia <> <> lib
+R190:202 Coq.Lists.List ListNotations <> mod
+def 1559:1566 <> ModuleID
+R1571:1573 Coq.Init.Datatypes <> nat ind
+def 1587:1593 <> VMAxiom
+R1598:1603 Coq.Strings.String <> string ind
+def 1617:1624 <> AxiomSet
+R1629:1632 Coq.Init.Datatypes <> list ind
+R1634:1640 Kernel.VMState <> VMAxiom def
+def 1728:1739 <> nat_list_mem
+R1746:1748 Coq.Init.Datatypes <> nat ind
+binder 1742:1742 <> x:1
+R1757:1760 Coq.Init.Datatypes <> list ind
+R1762:1764 Coq.Init.Datatypes <> nat ind
+binder 1752:1753 <> xs:2
+R1769:1772 Coq.Init.Datatypes <> bool ind
+R1785:1786 Kernel.VMState <> xs:2 var
+R1797:1798 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1803:1807 Coq.Init.Datatypes <> false constr
+R1814:1817 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1827:1833 Coq.Arith.PeanoNat Nat eqb def
+R1835:1835 Kernel.VMState <> x:1 var
+R1854:1865 Kernel.VMState <> nat_list_mem:3 def
+R1867:1867 Kernel.VMState <> x:1 var
+R1844:1847 Coq.Init.Datatypes <> true constr
+def 1891:1902 <> nat_list_add
+R1910:1913 Coq.Init.Datatypes <> list ind
+R1915:1917 Coq.Init.Datatypes <> nat ind
+binder 1905:1906 <> xs:5
+R1925:1927 Coq.Init.Datatypes <> nat ind
+binder 1921:1921 <> x:6
+R1932:1935 Coq.Init.Datatypes <> list ind
+R1937:1939 Coq.Init.Datatypes <> nat ind
+R1949:1960 Kernel.VMState <> nat_list_mem def
+R1962:1962 Kernel.VMState <> x:6 var
+R1964:1965 Kernel.VMState <> xs:5 var
+R1982:1985 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R1980:1981 Kernel.VMState <> xs:5 var
+R1986:1986 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1988:1988 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1987:1987 Kernel.VMState <> x:6 var
+R1972:1973 Kernel.VMState <> xs:5 var
+def 3121:3136 <> normalize_region
+R3148:3151 Coq.Init.Datatypes <> list ind
+R3153:3155 Coq.Init.Datatypes <> nat ind
+binder 3139:3144 <> region:7
+R3160:3163 Coq.Init.Datatypes <> list ind
+R3165:3167 Coq.Init.Datatypes <> nat ind
+R3174:3178 Coq.Lists.List <> nodup def
+R3191:3196 Kernel.VMState <> region:7 var
+R3180:3189 Coq.Arith.PeanoNat Nat eq_dec thm
+prf 3206:3227 <> normalize_region_nodup
+binder 3238:3243 <> region:8
+R3246:3250 Coq.Lists.List <> NoDup ind
+R3253:3268 Kernel.VMState <> normalize_region def
+R3270:3275 Kernel.VMState <> region:8 var
+R3309:3324 Kernel.VMState <> normalize_region def
+R3335:3345 Coq.Lists.List <> NoDup_nodup thm
+R3335:3345 Coq.Lists.List <> NoDup_nodup thm
+prf 3360:3386 <> normalize_region_idempotent
+binder 3397:3402 <> region:9
+R3449:3451 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3407:3422 Kernel.VMState <> normalize_region def
+R3425:3440 Kernel.VMState <> normalize_region def
+R3442:3447 Kernel.VMState <> region:9 var
+R3452:3467 Kernel.VMState <> normalize_region def
+R3469:3474 Kernel.VMState <> region:9 var
+R3509:3524 Kernel.VMState <> normalize_region def
+R3535:3551 Coq.Lists.List <> nodup_fixed_point thm
+R3535:3551 Coq.Lists.List <> nodup_fixed_point thm
+R3562:3572 Coq.Lists.List <> NoDup_nodup thm
+R3562:3572 Coq.Lists.List <> NoDup_nodup thm
+def 3592:3606 <> nat_list_subset
+R3617:3620 Coq.Init.Datatypes <> list ind
+R3622:3624 Coq.Init.Datatypes <> nat ind
+binder 3609:3610 <> xs:10
+binder 3612:3613 <> ys:11
+R3629:3632 Coq.Init.Datatypes <> bool ind
+R3639:3645 Coq.Lists.List <> forallb def
+R3676:3677 Kernel.VMState <> xs:10 var
+binder 3652:3652 <> x:12
+R3657:3668 Kernel.VMState <> nat_list_mem def
+R3670:3670 Kernel.VMState <> x:12 var
+R3672:3673 Kernel.VMState <> ys:11 var
+def 3692:3708 <> nat_list_disjoint
+R3719:3722 Coq.Init.Datatypes <> list ind
+R3724:3726 Coq.Init.Datatypes <> nat ind
+binder 3711:3712 <> xs:13
+binder 3714:3715 <> ys:14
+R3731:3734 Coq.Init.Datatypes <> bool ind
+R3741:3747 Coq.Lists.List <> forallb def
+R3785:3786 Kernel.VMState <> xs:13 var
+binder 3754:3754 <> x:15
+R3759:3762 Coq.Init.Datatypes <> negb def
+R3765:3776 Kernel.VMState <> nat_list_mem def
+R3778:3778 Kernel.VMState <> x:15 var
+R3780:3781 Kernel.VMState <> ys:14 var
+def 3801:3814 <> nat_list_union
+R3825:3828 Coq.Init.Datatypes <> list ind
+R3830:3832 Coq.Init.Datatypes <> nat ind
+binder 3817:3818 <> xs:16
+binder 3820:3821 <> ys:17
+R3837:3840 Coq.Init.Datatypes <> list ind
+R3842:3844 Coq.Init.Datatypes <> nat ind
+R3851:3866 Kernel.VMState <> normalize_region def
+R3871:3874 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R3869:3870 Kernel.VMState <> xs:16 var
+R3875:3876 Kernel.VMState <> ys:17 var
+def 3892:3902 <> nat_list_eq
+R3913:3916 Coq.Init.Datatypes <> list ind
+R3918:3920 Coq.Init.Datatypes <> nat ind
+binder 3905:3906 <> xs:18
+binder 3908:3909 <> ys:19
+R3925:3928 Coq.Init.Datatypes <> bool ind
+R3956:3959 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R3935:3949 Kernel.VMState <> nat_list_subset def
+R3951:3952 Kernel.VMState <> xs:18 var
+R3954:3955 Kernel.VMState <> ys:19 var
+R3960:3974 Kernel.VMState <> nat_list_subset def
+R3976:3977 Kernel.VMState <> ys:19 var
+R3979:3980 Kernel.VMState <> xs:18 var
+rec 3991:4001 <> ModuleState
+proj 4010:4022 <> module_region
+proj 4038:4050 <> module_axioms
+R4026:4029 Coq.Init.Datatypes <> list ind
+R4031:4033 Coq.Init.Datatypes <> nat ind
+R4054:4061 Kernel.VMState <> AxiomSet def
+def 4078:4093 <> normalize_module
+R4100:4110 Kernel.VMState <> ModuleState rec
+binder 4096:4096 <> m:23
+R4115:4125 Kernel.VMState <> ModuleState rec
+R4135:4147 Kernel.VMState <> module_region proj
+R4135:4147 Kernel.VMState <> module_region proj
+R4135:4147 Kernel.VMState <> module_region proj
+R4193:4205 Kernel.VMState <> module_axioms proj
+R4193:4205 Kernel.VMState <> module_axioms proj
+R4152:4167 Kernel.VMState <> normalize_region def
+R4172:4184 Kernel.VMState <> module_region proj
+R4169:4169 Kernel.VMState <> m:23 var
+R4213:4225 Kernel.VMState <> module_axioms proj
+R4210:4210 Kernel.VMState <> m:23 var
+rec 4240:4253 <> PartitionGraph
+proj 4262:4271 <> pg_next_id
+proj 4287:4296 <> pg_modules
+R4275:4282 Kernel.VMState <> ModuleID def
+R4300:4303 Coq.Init.Datatypes <> list ind
+R4314:4316 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R4306:4313 Kernel.VMState <> ModuleID def
+R4317:4327 Kernel.VMState <> ModuleState rec
+def 4669:4681 <> all_ids_below
+R4694:4697 Coq.Init.Datatypes <> list ind
+R4708:4710 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R4700:4707 Kernel.VMState <> ModuleID def
+R4711:4721 Kernel.VMState <> ModuleState rec
+binder 4684:4690 <> modules:27
+R4734:4736 Coq.Init.Datatypes <> nat ind
+binder 4726:4730 <> bound:28
+R4757:4763 Kernel.VMState <> modules:27 var
+R4774:4775 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4780:4783 Coq.Init.Logic <> True ind
+R4796:4799 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4789:4789 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4792:4793 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4795:4795 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4808:4808 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4819:4823 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4811:4813 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4814:4818 Kernel.VMState <> bound:28 var
+R4824:4836 Kernel.VMState <> all_ids_below:29 def
+R4843:4847 Kernel.VMState <> bound:28 var
+def 4868:4884 <> well_formed_graph
+R4891:4904 Kernel.VMState <> PartitionGraph rec
+binder 4887:4887 <> g:31
+R4919:4931 Kernel.VMState <> all_ids_below def
+R4936:4945 Kernel.VMState <> pg_modules proj
+R4933:4933 Kernel.VMState <> g:31 var
+R4951:4960 Kernel.VMState <> pg_next_id proj
+R4948:4948 Kernel.VMState <> g:31 var
+def 4976:4986 <> empty_graph
+R4990:5003 Kernel.VMState <> PartitionGraph rec
+R5013:5022 Kernel.VMState <> pg_next_id proj
+R5013:5022 Kernel.VMState <> pg_next_id proj
+R5013:5022 Kernel.VMState <> pg_next_id proj
+R5035:5044 Kernel.VMState <> pg_modules proj
+R5035:5044 Kernel.VMState <> pg_modules proj
+R5049:5050 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+prf 5101:5123 <> empty_graph_well_formed
+R5127:5143 Kernel.VMState <> well_formed_graph def
+R5145:5155 Kernel.VMState <> empty_graph def
+R5174:5190 Kernel.VMState <> well_formed_graph def
+R5193:5203 Kernel.VMState <> empty_graph def
+R5221:5221 Coq.Init.Logic <> I constr
+R5221:5221 Coq.Init.Logic <> I constr
+def 5272:5291 <> graph_lookup_modules
+R5306:5309 Coq.Init.Datatypes <> list ind
+R5320:5322 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R5312:5319 Kernel.VMState <> ModuleID def
+R5323:5333 Kernel.VMState <> ModuleState rec
+binder 5296:5302 <> modules:32
+R5344:5351 Kernel.VMState <> ModuleID def
+binder 5338:5340 <> mid:33
+R5358:5363 Coq.Init.Datatypes <> option ind
+R5365:5375 Kernel.VMState <> ModuleState rec
+R5388:5394 Kernel.VMState <> modules:32 var
+R5405:5406 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5411:5414 Coq.Init.Datatypes <> None constr
+R5427:5430 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5420:5420 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5423:5424 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5426:5426 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5448:5454 Coq.Arith.PeanoNat Nat eqb def
+R5459:5461 Kernel.VMState <> mid:33 var
+R5480:5499 Kernel.VMState <> graph_lookup_modules:34 def
+R5506:5508 Kernel.VMState <> mid:33 var
+R5468:5471 Coq.Init.Datatypes <> Some constr
+def 5529:5540 <> graph_lookup
+R5547:5560 Kernel.VMState <> PartitionGraph rec
+binder 5543:5543 <> g:36
+R5570:5577 Kernel.VMState <> ModuleID def
+binder 5564:5566 <> mid:37
+R5584:5589 Coq.Init.Datatypes <> option ind
+R5591:5601 Kernel.VMState <> ModuleState rec
+R5608:5627 Kernel.VMState <> graph_lookup_modules def
+R5632:5641 Kernel.VMState <> pg_modules proj
+R5629:5629 Kernel.VMState <> g:36 var
+R5644:5646 Kernel.VMState <> mid:37 var
+def 5659:5678 <> graph_insert_modules
+R5693:5696 Coq.Init.Datatypes <> list ind
+R5707:5709 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R5699:5706 Kernel.VMState <> ModuleID def
+R5710:5720 Kernel.VMState <> ModuleState rec
+binder 5683:5689 <> modules:38
+R5731:5738 Kernel.VMState <> ModuleID def
+binder 5725:5727 <> mid:39
+R5746:5756 Kernel.VMState <> ModuleState rec
+binder 5742:5742 <> m:40
+R5763:5766 Coq.Init.Datatypes <> list ind
+R5777:5779 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R5769:5776 Kernel.VMState <> ModuleID def
+R5780:5790 Kernel.VMState <> ModuleState rec
+R5804:5810 Kernel.VMState <> modules:38 var
+R5821:5822 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5827:5827 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5836:5836 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5828:5828 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5832:5833 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5835:5835 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5829:5831 Kernel.VMState <> mid:39 var
+R5834:5834 Kernel.VMState <> m:40 var
+R5856:5859 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5842:5842 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5845:5846 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5855:5855 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5877:5883 Coq.Arith.PeanoNat Nat eqb def
+R5888:5890 Kernel.VMState <> mid:39 var
+R5945:5948 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5931:5931 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5934:5935 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5944:5944 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5949:5968 Kernel.VMState <> graph_insert_modules:41 def
+R5979:5979 Kernel.VMState <> m:40 var
+R5975:5977 Kernel.VMState <> mid:39 var
+R5911:5914 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5903:5903 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5907:5908 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5910:5910 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5904:5906 Kernel.VMState <> mid:39 var
+R5909:5909 Kernel.VMState <> m:40 var
+def 6000:6011 <> graph_update
+R6018:6031 Kernel.VMState <> PartitionGraph rec
+binder 6014:6014 <> g:43
+R6041:6048 Kernel.VMState <> ModuleID def
+binder 6035:6037 <> mid:44
+R6056:6066 Kernel.VMState <> ModuleState rec
+binder 6052:6052 <> m:45
+R6073:6086 Kernel.VMState <> PartitionGraph rec
+R6096:6105 Kernel.VMState <> pg_next_id proj
+R6096:6105 Kernel.VMState <> pg_next_id proj
+R6096:6105 Kernel.VMState <> pg_next_id proj
+R6131:6140 Kernel.VMState <> pg_modules proj
+R6131:6140 Kernel.VMState <> pg_modules proj
+R6113:6122 Kernel.VMState <> pg_next_id proj
+R6110:6110 Kernel.VMState <> g:43 var
+R6145:6164 Kernel.VMState <> graph_insert_modules def
+R6169:6178 Kernel.VMState <> pg_modules proj
+R6166:6166 Kernel.VMState <> g:43 var
+R6181:6183 Kernel.VMState <> mid:44 var
+R6186:6201 Kernel.VMState <> normalize_module def
+R6203:6203 Kernel.VMState <> m:45 var
+def 6220:6239 <> graph_remove_modules
+R6254:6257 Coq.Init.Datatypes <> list ind
+R6268:6270 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R6260:6267 Kernel.VMState <> ModuleID def
+R6271:6281 Kernel.VMState <> ModuleState rec
+binder 6244:6250 <> modules:46
+R6292:6299 Kernel.VMState <> ModuleID def
+binder 6286:6288 <> mid:47
+R6306:6311 Coq.Init.Datatypes <> option ind
+R6343:6345 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R6314:6317 Coq.Init.Datatypes <> list ind
+R6328:6330 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R6320:6327 Kernel.VMState <> ModuleID def
+R6331:6341 Kernel.VMState <> ModuleState rec
+R6346:6356 Kernel.VMState <> ModuleState rec
+R6370:6376 Kernel.VMState <> modules:46 var
+R6387:6388 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6393:6396 Coq.Init.Datatypes <> None constr
+R6409:6412 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6402:6402 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6405:6406 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6408:6408 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6430:6436 Coq.Arith.PeanoNat Nat eqb def
+R6441:6443 Kernel.VMState <> mid:47 var
+R6496:6515 Kernel.VMState <> graph_remove_modules:48 def
+R6522:6524 Kernel.VMState <> mid:47 var
+R6541:6544 Coq.Init.Datatypes <> None constr
+R6549:6552 Coq.Init.Datatypes <> None constr
+R6564:6567 Coq.Init.Datatypes <> Some constr
+R6569:6569 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6575:6576 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6584:6584 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6589:6592 Coq.Init.Datatypes <> Some constr
+R6594:6594 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6611:6612 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6620:6620 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6602:6605 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6595:6595 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6598:6599 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6601:6601 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6456:6459 Coq.Init.Datatypes <> Some constr
+R6461:6461 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6466:6467 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6469:6469 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+def 6653:6664 <> graph_remove
+R6671:6684 Kernel.VMState <> PartitionGraph rec
+binder 6667:6667 <> g:50
+R6694:6701 Kernel.VMState <> ModuleID def
+binder 6688:6690 <> mid:51
+R6708:6713 Coq.Init.Datatypes <> option ind
+R6730:6732 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R6716:6729 Kernel.VMState <> PartitionGraph rec
+R6733:6743 Kernel.VMState <> ModuleState rec
+R6757:6776 Kernel.VMState <> graph_remove_modules def
+R6781:6790 Kernel.VMState <> pg_modules proj
+R6778:6778 Kernel.VMState <> g:50 var
+R6793:6795 Kernel.VMState <> mid:51 var
+R6806:6809 Coq.Init.Datatypes <> None constr
+R6814:6817 Coq.Init.Datatypes <> None constr
+R6823:6826 Coq.Init.Datatypes <> Some constr
+R6828:6828 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6837:6838 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6846:6846 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6857:6860 Coq.Init.Datatypes <> Some constr
+R6862:6865 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6918:6922 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6930:6930 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6866:6875 Kernel.VMState <> pg_next_id proj
+R6866:6875 Kernel.VMState <> pg_next_id proj
+R6866:6875 Kernel.VMState <> pg_next_id proj
+R6896:6905 Kernel.VMState <> pg_modules proj
+R6896:6905 Kernel.VMState <> pg_modules proj
+R6883:6892 Kernel.VMState <> pg_next_id proj
+R6880:6880 Kernel.VMState <> g:50 var
+def 6951:6966 <> graph_add_module
+R6973:6986 Kernel.VMState <> PartitionGraph rec
+binder 6969:6969 <> g:52
+R7001:7004 Coq.Init.Datatypes <> list ind
+R7006:7008 Coq.Init.Datatypes <> nat ind
+binder 6992:6997 <> region:53
+R7021:7028 Kernel.VMState <> AxiomSet def
+binder 7012:7017 <> axioms:54
+R7049:7051 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R7035:7048 Kernel.VMState <> PartitionGraph rec
+R7052:7059 Kernel.VMState <> ModuleID def
+R7080:7095 Kernel.VMState <> normalize_module def
+R7100:7112 Kernel.VMState <> module_region proj
+R7100:7112 Kernel.VMState <> module_region proj
+R7100:7112 Kernel.VMState <> module_region proj
+R7125:7137 Kernel.VMState <> module_axioms proj
+R7125:7137 Kernel.VMState <> module_axioms proj
+R7117:7122 Kernel.VMState <> region:53 var
+R7142:7147 Kernel.VMState <> axioms:54 var
+binder 7070:7075 <> module:55
+R7171:7180 Kernel.VMState <> pg_next_id proj
+R7168:7168 Kernel.VMState <> g:52 var
+binder 7161:7163 <> mid:56
+R7188:7191 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7264:7268 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7272:7272 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7192:7201 Kernel.VMState <> pg_next_id proj
+R7192:7201 Kernel.VMState <> pg_next_id proj
+R7192:7201 Kernel.VMState <> pg_next_id proj
+R7219:7228 Kernel.VMState <> pg_modules proj
+R7219:7228 Kernel.VMState <> pg_modules proj
+R7206:7206 Coq.Init.Datatypes <> S constr
+R7208:7210 Kernel.VMState <> mid:56 var
+R7246:7249 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7233:7233 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7237:7238 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7245:7245 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7234:7236 Kernel.VMState <> mid:56 var
+R7239:7244 Kernel.VMState <> module:55 var
+R7253:7262 Kernel.VMState <> pg_modules proj
+R7250:7250 Kernel.VMState <> g:52 var
+R7269:7271 Kernel.VMState <> mid:56 var
+prf 7348:7376 <> graph_add_module_lookup_other
+binder 7387:7387 <> g:57
+binder 7389:7394 <> region:58
+binder 7396:7401 <> axioms:59
+binder 7403:7405 <> mid:60
+R7430:7435 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7413:7415 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R7410:7412 Kernel.VMState <> mid:60 var
+R7419:7428 Kernel.VMState <> pg_next_id proj
+R7416:7416 Kernel.VMState <> g:57 var
+R7493:7495 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7436:7447 Kernel.VMState <> graph_lookup def
+R7450:7452 Coq.Init.Datatypes <> fst def
+R7455:7470 Kernel.VMState <> graph_add_module def
+R7472:7472 Kernel.VMState <> g:57 var
+R7474:7479 Kernel.VMState <> region:58 var
+R7481:7486 Kernel.VMState <> axioms:59 var
+R7490:7492 Kernel.VMState <> mid:60 var
+R7496:7507 Kernel.VMState <> graph_lookup def
+R7509:7509 Kernel.VMState <> g:57 var
+R7511:7513 Kernel.VMState <> mid:60 var
+R7566:7581 Kernel.VMState <> graph_add_module def
+R7584:7595 Kernel.VMState <> graph_lookup def
+R7617:7623 Coq.Arith.PeanoNat Nat eqb def
+R7626:7635 Kernel.VMState <> pg_next_id proj
+R7617:7623 Coq.Arith.PeanoNat Nat eqb def
+R7626:7635 Kernel.VMState <> pg_next_id proj
+R7732:7741 Coq.Arith.PeanoNat Nat eqb_eq thm
+R7732:7741 Coq.Arith.PeanoNat Nat eqb_eq thm
+def 7851:7875 <> graph_find_region_modules
+R7890:7893 Coq.Init.Datatypes <> list ind
+R7904:7906 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R7896:7903 Kernel.VMState <> ModuleID def
+R7907:7917 Kernel.VMState <> ModuleState rec
+binder 7880:7886 <> modules:61
+R7931:7934 Coq.Init.Datatypes <> list ind
+R7936:7938 Coq.Init.Datatypes <> nat ind
+binder 7922:7927 <> region:62
+R7945:7950 Coq.Init.Datatypes <> option ind
+R7952:7959 Kernel.VMState <> ModuleID def
+R7972:7978 Kernel.VMState <> modules:61 var
+R7989:7990 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7995:7998 Coq.Init.Datatypes <> None constr
+R8011:8014 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8004:8004 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8007:8008 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8010:8010 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8032:8042 Kernel.VMState <> nat_list_eq def
+R8047:8059 Kernel.VMState <> module_region proj
+R8062:8067 Kernel.VMState <> region:62 var
+R8099:8123 Kernel.VMState <> graph_find_region_modules:63 def
+R8130:8135 Kernel.VMState <> region:62 var
+R8080:8083 Coq.Init.Datatypes <> Some constr
+def 8156:8172 <> graph_find_region
+R8179:8192 Kernel.VMState <> PartitionGraph rec
+binder 8175:8175 <> g:65
+R8205:8208 Coq.Init.Datatypes <> list ind
+R8210:8212 Coq.Init.Datatypes <> nat ind
+binder 8196:8201 <> region:66
+R8219:8224 Coq.Init.Datatypes <> option ind
+R8226:8233 Kernel.VMState <> ModuleID def
+R8240:8264 Kernel.VMState <> graph_find_region_modules def
+R8269:8278 Kernel.VMState <> pg_modules proj
+R8266:8266 Kernel.VMState <> g:65 var
+R8282:8297 Kernel.VMState <> normalize_region def
+R8299:8304 Kernel.VMState <> region:66 var
+def 8320:8334 <> graph_add_axiom
+R8341:8354 Kernel.VMState <> PartitionGraph rec
+binder 8337:8337 <> g:67
+R8364:8371 Kernel.VMState <> ModuleID def
+binder 8358:8360 <> mid:68
+R8380:8386 Kernel.VMState <> VMAxiom def
+binder 8375:8376 <> ax:69
+R8393:8406 Kernel.VMState <> PartitionGraph rec
+R8419:8430 Kernel.VMState <> graph_lookup def
+R8432:8432 Kernel.VMState <> g:67 var
+R8434:8436 Kernel.VMState <> mid:68 var
+R8447:8450 Coq.Init.Datatypes <> None constr
+R8455:8455 Kernel.VMState <> g:67 var
+R8461:8464 Coq.Init.Datatypes <> Some constr
+R8495:8507 Kernel.VMState <> module_region proj
+R8495:8507 Kernel.VMState <> module_region proj
+R8495:8507 Kernel.VMState <> module_region proj
+R8555:8567 Kernel.VMState <> module_axioms proj
+R8555:8567 Kernel.VMState <> module_axioms proj
+R8515:8527 Kernel.VMState <> module_region proj
+R8589:8592 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R8575:8587 Kernel.VMState <> module_axioms proj
+R8593:8593 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8596:8596 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8594:8595 Kernel.VMState <> ax:69 var
+binder 8481:8487 <> updated:70
+R8610:8621 Kernel.VMState <> graph_update def
+R8623:8623 Kernel.VMState <> g:67 var
+R8625:8627 Kernel.VMState <> mid:68 var
+R8629:8635 Kernel.VMState <> updated:70 var
+def 8656:8671 <> graph_add_axioms
+R8678:8691 Kernel.VMState <> PartitionGraph rec
+binder 8674:8674 <> g:71
+R8701:8708 Kernel.VMState <> ModuleID def
+binder 8695:8697 <> mid:72
+R8720:8723 Coq.Init.Datatypes <> list ind
+R8725:8731 Kernel.VMState <> VMAxiom def
+binder 8714:8716 <> axs:73
+R8736:8749 Kernel.VMState <> PartitionGraph rec
+R8756:8764 Coq.Lists.List <> fold_left def
+R8813:8813 Kernel.VMState <> g:71 var
+R8809:8811 Kernel.VMState <> axs:73 var
+binder 8771:8773 <> acc:74
+binder 8775:8776 <> ax:75
+R8781:8795 Kernel.VMState <> graph_add_axiom def
+R8797:8799 Kernel.VMState <> acc:74 var
+R8801:8803 Kernel.VMState <> mid:72 var
+R8805:8806 Kernel.VMState <> ax:75 var
+def 8828:8849 <> graph_record_discovery
+R8856:8869 Kernel.VMState <> PartitionGraph rec
+binder 8852:8852 <> g:76
+R8879:8886 Kernel.VMState <> ModuleID def
+binder 8873:8875 <> mid:77
+R8903:8906 Coq.Init.Datatypes <> list ind
+R8908:8914 Kernel.VMState <> VMAxiom def
+binder 8892:8899 <> evidence:78
+R8919:8932 Kernel.VMState <> PartitionGraph rec
+R8939:8954 Kernel.VMState <> graph_add_axioms def
+R8956:8956 Kernel.VMState <> g:76 var
+R8958:8960 Kernel.VMState <> mid:77 var
+R8962:8969 Kernel.VMState <> evidence:78 var
+prf 9105:9124 <> all_ids_below_weaken
+binder 9135:9141 <> modules:79
+binder 9143:9143 <> n:80
+R9171:9176 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9148:9160 Kernel.VMState <> all_ids_below def
+R9162:9168 Kernel.VMState <> modules:79 var
+R9170:9170 Kernel.VMState <> n:80 var
+R9177:9189 Kernel.VMState <> all_ids_below def
+R9191:9197 Kernel.VMState <> modules:79 var
+R9200:9200 Coq.Init.Datatypes <> S constr
+R9202:9202 Kernel.VMState <> n:80 var
+R9280:9280 Coq.Init.Logic <> I constr
+R9280:9280 Coq.Init.Logic <> I constr
+prf 9442:9470 <> graph_add_module_preserves_wf
+binder 9481:9481 <> g:81
+binder 9483:9488 <> region:82
+binder 9490:9495 <> axioms:83
+R9519:9524 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9500:9516 Kernel.VMState <> well_formed_graph def
+R9518:9518 Kernel.VMState <> g:81 var
+R9525:9541 Kernel.VMState <> well_formed_graph def
+R9544:9546 Coq.Init.Datatypes <> fst def
+R9549:9564 Kernel.VMState <> graph_add_module def
+R9566:9566 Kernel.VMState <> g:81 var
+R9568:9573 Kernel.VMState <> region:82 var
+R9575:9580 Kernel.VMState <> axioms:83 var
+R9631:9646 Kernel.VMState <> graph_add_module def
+R9665:9681 Kernel.VMState <> well_formed_graph def
+R9752:9771 Kernel.VMState <> all_ids_below_weaken thm
+R9752:9771 Kernel.VMState <> all_ids_below_weaken thm
+prf 9856:9899 <> graph_remove_modules_preserves_all_ids_below
+binder 9910:9916 <> modules:84
+binder 9918:9920 <> mid:85
+binder 9922:9929 <> modules':86
+binder 9931:9931 <> m:87
+binder 9933:9937 <> bound:88
+R9969:9974 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9942:9954 Kernel.VMState <> all_ids_below def
+R9956:9962 Kernel.VMState <> modules:84 var
+R9964:9968 Kernel.VMState <> bound:88 var
+R10028:10033 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10007:10009 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9975:9994 Kernel.VMState <> graph_remove_modules def
+R9996:10002 Kernel.VMState <> modules:84 var
+R10004:10006 Kernel.VMState <> mid:85 var
+R10010:10013 Coq.Init.Datatypes <> Some constr
+R10015:10015 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10024:10025 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10027:10027 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10016:10023 Kernel.VMState <> modules':86 var
+R10026:10026 Kernel.VMState <> m:87 var
+R10034:10046 Kernel.VMState <> all_ids_below def
+R10048:10055 Kernel.VMState <> modules':86 var
+R10057:10061 Kernel.VMState <> bound:88 var
+R10264:10270 Coq.Arith.PeanoNat Nat eqb def
+R10264:10270 Coq.Arith.PeanoNat Nat eqb def
+R10393:10412 Kernel.VMState <> graph_remove_modules def
+R10393:10412 Kernel.VMState <> graph_remove_modules def
+prf 10730:10754 <> graph_remove_preserves_wf
+binder 10765:10765 <> g:89
+binder 10767:10769 <> mid:90
+binder 10771:10772 <> g':91
+binder 10774:10774 <> m:92
+R10798:10803 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10779:10795 Kernel.VMState <> well_formed_graph def
+R10797:10797 Kernel.VMState <> g:89 var
+R10837:10842 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10822:10824 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10804:10815 Kernel.VMState <> graph_remove def
+R10817:10817 Kernel.VMState <> g:89 var
+R10819:10821 Kernel.VMState <> mid:90 var
+R10825:10828 Coq.Init.Datatypes <> Some constr
+R10830:10830 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10833:10834 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10836:10836 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10831:10832 Kernel.VMState <> g':91 var
+R10835:10835 Kernel.VMState <> m:92 var
+R10843:10859 Kernel.VMState <> well_formed_graph def
+R10861:10862 Kernel.VMState <> g':91 var
+R10911:10922 Kernel.VMState <> graph_remove def
+R10945:10964 Kernel.VMState <> graph_remove_modules def
+R10967:10976 Kernel.VMState <> pg_modules proj
+R10945:10964 Kernel.VMState <> graph_remove_modules def
+R10967:10976 Kernel.VMState <> pg_modules proj
+R11092:11108 Kernel.VMState <> well_formed_graph def
+R11129:11172 Kernel.VMState <> graph_remove_modules_preserves_all_ids_below thm
+R11129:11172 Kernel.VMState <> graph_remove_modules_preserves_all_ids_below thm
+prf 11319:11341 <> graph_add_module_length
+binder 11352:11352 <> g:93
+binder 11354:11359 <> region:94
+binder 11361:11366 <> axioms:95
+R11436:11440 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11371:11381 Coq.Lists.List <> length abbrev
+R11384:11393 Kernel.VMState <> pg_modules proj
+R11396:11398 Coq.Init.Datatypes <> fst def
+R11401:11416 Kernel.VMState <> graph_add_module def
+R11418:11418 Kernel.VMState <> g:93 var
+R11420:11425 Kernel.VMState <> region:94 var
+R11427:11432 Kernel.VMState <> axioms:95 var
+R11441:11441 Coq.Init.Datatypes <> S constr
+R11444:11454 Coq.Lists.List <> length abbrev
+R11457:11466 Kernel.VMState <> pg_modules proj
+R11468:11468 Kernel.VMState <> g:93 var
+R11515:11530 Kernel.VMState <> graph_add_module def
+prf 11639:11665 <> graph_remove_modules_length
+binder 11676:11682 <> modules:96
+binder 11684:11686 <> mid:97
+binder 11688:11695 <> modules':98
+binder 11697:11697 <> m:99
+R11755:11760 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11734:11736 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11702:11721 Kernel.VMState <> graph_remove_modules def
+R11723:11729 Kernel.VMState <> modules:96 var
+R11731:11733 Kernel.VMState <> mid:97 var
+R11737:11740 Coq.Init.Datatypes <> Some constr
+R11742:11742 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11751:11752 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11754:11754 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11743:11750 Kernel.VMState <> modules':98 var
+R11753:11753 Kernel.VMState <> m:99 var
+R11780:11782 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11761:11771 Coq.Lists.List <> length abbrev
+R11773:11779 Kernel.VMState <> modules:96 var
+R11783:11783 Coq.Init.Datatypes <> S constr
+R11786:11796 Coq.Lists.List <> length abbrev
+R11798:11805 Kernel.VMState <> modules':98 var
+R11953:11959 Coq.Arith.PeanoNat Nat eqb def
+R11953:11959 Coq.Arith.PeanoNat Nat eqb def
+R12062:12081 Kernel.VMState <> graph_remove_modules def
+R12062:12081 Kernel.VMState <> graph_remove_modules def
+prf 12334:12352 <> graph_remove_length
+binder 12363:12363 <> g:100
+binder 12365:12367 <> mid:101
+binder 12369:12370 <> g':102
+binder 12372:12372 <> m:103
+R12410:12415 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12395:12397 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12377:12388 Kernel.VMState <> graph_remove def
+R12390:12390 Kernel.VMState <> g:100 var
+R12392:12394 Kernel.VMState <> mid:101 var
+R12398:12401 Coq.Init.Datatypes <> Some constr
+R12403:12403 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12406:12407 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12409:12409 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12404:12405 Kernel.VMState <> g':102 var
+R12408:12408 Kernel.VMState <> m:103 var
+R12442:12444 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12416:12426 Coq.Lists.List <> length abbrev
+R12429:12438 Kernel.VMState <> pg_modules proj
+R12440:12440 Kernel.VMState <> g:100 var
+R12445:12445 Coq.Init.Datatypes <> S constr
+R12448:12458 Coq.Lists.List <> length abbrev
+R12461:12470 Kernel.VMState <> pg_modules proj
+R12472:12473 Kernel.VMState <> g':102 var
+R12520:12531 Kernel.VMState <> graph_remove def
+R12554:12573 Kernel.VMState <> graph_remove_modules def
+R12576:12585 Kernel.VMState <> pg_modules proj
+R12554:12573 Kernel.VMState <> graph_remove_modules def
+R12576:12585 Kernel.VMState <> pg_modules proj
+R12701:12727 Kernel.VMState <> graph_remove_modules_length thm
+R12701:12727 Kernel.VMState <> graph_remove_modules_length thm
+prf 12836:12862 <> graph_insert_modules_length
+binder 12873:12879 <> modules:104
+binder 12881:12883 <> mid:105
+binder 12885:12885 <> m:106
+R12938:12941 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R12890:12900 Coq.Lists.List <> length abbrev
+R12903:12922 Kernel.VMState <> graph_insert_modules def
+R12924:12930 Kernel.VMState <> modules:104 var
+R12932:12934 Kernel.VMState <> mid:105 var
+R12936:12936 Kernel.VMState <> m:106 var
+R12942:12952 Coq.Lists.List <> length abbrev
+R12954:12960 Kernel.VMState <> modules:104 var
+R13057:13063 Coq.Arith.PeanoNat Nat eqb def
+R13057:13063 Coq.Arith.PeanoNat Nat eqb def
+prf 13206:13241 <> graph_insert_modules_existing_length
+binder 13252:13258 <> modules:107
+binder 13260:13262 <> mid:108
+binder 13264:13264 <> m:109
+R13298:13303 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13269:13270 Coq.Lists.List <> In def
+R13277:13284 Coq.Lists.List <> map def
+R13290:13296 Kernel.VMState <> modules:107 var
+R13286:13288 Coq.Init.Datatypes <> fst def
+R13272:13274 Kernel.VMState <> mid:108 var
+R13352:13354 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13304:13314 Coq.Lists.List <> length abbrev
+R13317:13336 Kernel.VMState <> graph_insert_modules def
+R13338:13344 Kernel.VMState <> modules:107 var
+R13346:13348 Kernel.VMState <> mid:108 var
+R13350:13350 Kernel.VMState <> m:109 var
+R13355:13365 Coq.Lists.List <> length abbrev
+R13367:13373 Kernel.VMState <> modules:107 var
+R13558:13564 Coq.Arith.PeanoNat Nat eqb def
+R13558:13564 Coq.Arith.PeanoNat Nat eqb def
+R13624:13634 Coq.Arith.PeanoNat Nat eqb_neq thm
+R13624:13634 Coq.Arith.PeanoNat Nat eqb_neq thm
+R13665:13671 Coq.Arith.PeanoNat Nat eqb def
+R13665:13671 Coq.Arith.PeanoNat Nat eqb def
+prf 13826:13844 <> graph_update_length
+binder 13855:13855 <> g:110
+binder 13857:13859 <> mid:111
+binder 13861:13861 <> m:112
+R13913:13916 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R13866:13876 Coq.Lists.List <> length abbrev
+R13879:13888 Kernel.VMState <> pg_modules proj
+R13891:13902 Kernel.VMState <> graph_update def
+R13904:13904 Kernel.VMState <> g:110 var
+R13906:13908 Kernel.VMState <> mid:111 var
+R13910:13910 Kernel.VMState <> m:112 var
+R13917:13927 Coq.Lists.List <> length abbrev
+R13930:13939 Kernel.VMState <> pg_modules proj
+R13941:13941 Kernel.VMState <> g:110 var
+R13979:13990 Kernel.VMState <> graph_update def
+R14008:14034 Kernel.VMState <> graph_insert_modules_length thm
+R14008:14034 Kernel.VMState <> graph_insert_modules_length thm
+prf 14102:14123 <> graph_add_axiom_length
+binder 14134:14134 <> g:113
+binder 14136:14138 <> mid:114
+binder 14140:14141 <> ax:115
+R14197:14200 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R14146:14156 Coq.Lists.List <> length abbrev
+R14159:14168 Kernel.VMState <> pg_modules proj
+R14171:14185 Kernel.VMState <> graph_add_axiom def
+R14187:14187 Kernel.VMState <> g:113 var
+R14189:14191 Kernel.VMState <> mid:114 var
+R14193:14194 Kernel.VMState <> ax:115 var
+R14201:14211 Coq.Lists.List <> length abbrev
+R14214:14223 Kernel.VMState <> pg_modules proj
+R14225:14225 Kernel.VMState <> g:113 var
+R14264:14278 Kernel.VMState <> graph_add_axiom def
+R14293:14304 Kernel.VMState <> graph_lookup def
+R14293:14304 Kernel.VMState <> graph_lookup def
+R14332:14350 Kernel.VMState <> graph_update_length thm
+R14332:14350 Kernel.VMState <> graph_update_length thm
+prf 14449:14471 <> graph_lookup_modules_in
+binder 14482:14488 <> modules:116
+binder 14490:14492 <> mid:117
+binder 14494:14494 <> m:118
+R14540:14545 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14531:14533 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14499:14518 Kernel.VMState <> graph_lookup_modules def
+R14520:14526 Kernel.VMState <> modules:116 var
+R14528:14530 Kernel.VMState <> mid:117 var
+R14534:14537 Coq.Init.Datatypes <> Some constr
+R14539:14539 Kernel.VMState <> m:118 var
+R14546:14547 Coq.Lists.List <> In def
+R14554:14561 Coq.Lists.List <> map def
+R14567:14573 Kernel.VMState <> modules:116 var
+R14563:14565 Coq.Init.Datatypes <> fst def
+R14549:14551 Kernel.VMState <> mid:117 var
+R14712:14718 Coq.Arith.PeanoNat Nat eqb def
+R14712:14718 Coq.Arith.PeanoNat Nat eqb def
+R14755:14764 Coq.Arith.PeanoNat Nat eqb_eq thm
+R14755:14764 Coq.Arith.PeanoNat Nat eqb_eq thm
+prf 14885:14916 <> graph_add_axiom_preserves_length
+binder 14927:14927 <> g:119
+binder 14929:14931 <> mid:120
+binder 14933:14934 <> ax:121
+R14990:14992 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14939:14949 Coq.Lists.List <> length abbrev
+R14952:14961 Kernel.VMState <> pg_modules proj
+R14964:14978 Kernel.VMState <> graph_add_axiom def
+R14980:14980 Kernel.VMState <> g:119 var
+R14982:14984 Kernel.VMState <> mid:120 var
+R14986:14987 Kernel.VMState <> ax:121 var
+R14993:15003 Coq.Lists.List <> length abbrev
+R15006:15015 Kernel.VMState <> pg_modules proj
+R15017:15017 Kernel.VMState <> g:119 var
+R15056:15070 Kernel.VMState <> graph_add_axiom def
+R15085:15096 Kernel.VMState <> graph_lookup def
+R15085:15096 Kernel.VMState <> graph_lookup def
+R15195:15206 Kernel.VMState <> graph_update def
+R15226:15261 Kernel.VMState <> graph_insert_modules_existing_length thm
+R15226:15261 Kernel.VMState <> graph_insert_modules_existing_length thm
+R15275:15286 Kernel.VMState <> graph_lookup def
+R15307:15329 Kernel.VMState <> graph_lookup_modules_in thm
+R15307:15329 Kernel.VMState <> graph_lookup_modules_in thm
+prf 15462:15494 <> graph_add_axioms_preserves_length
+binder 15505:15505 <> g:122
+binder 15507:15509 <> mid:123
+binder 15511:15513 <> axs:124
+R15571:15573 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15518:15528 Coq.Lists.List <> length abbrev
+R15531:15540 Kernel.VMState <> pg_modules proj
+R15543:15558 Kernel.VMState <> graph_add_axioms def
+R15560:15560 Kernel.VMState <> g:122 var
+R15562:15564 Kernel.VMState <> mid:123 var
+R15566:15568 Kernel.VMState <> axs:124 var
+R15574:15584 Coq.Lists.List <> length abbrev
+R15587:15596 Kernel.VMState <> pg_modules proj
+R15598:15598 Kernel.VMState <> g:122 var
+R15638:15653 Kernel.VMState <> graph_add_axioms def
+R15756:15787 Kernel.VMState <> graph_add_axiom_preserves_length thm
+R15756:15787 Kernel.VMState <> graph_add_axiom_preserves_length thm
+prf 15857:15895 <> graph_record_discovery_preserves_length
+binder 15906:15906 <> g:125
+binder 15908:15910 <> mid:126
+binder 15912:15919 <> evidence:127
+R15988:15990 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15924:15934 Coq.Lists.List <> length abbrev
+R15937:15946 Kernel.VMState <> pg_modules proj
+R15949:15970 Kernel.VMState <> graph_record_discovery def
+R15972:15972 Kernel.VMState <> g:125 var
+R15974:15976 Kernel.VMState <> mid:126 var
+R15978:15985 Kernel.VMState <> evidence:127 var
+R15991:16001 Coq.Lists.List <> length abbrev
+R16004:16013 Kernel.VMState <> pg_modules proj
+R16015:16015 Kernel.VMState <> g:125 var
+R16060:16081 Kernel.VMState <> graph_record_discovery def
+R16092:16124 Kernel.VMState <> graph_add_axioms_preserves_length thm
+R16092:16124 Kernel.VMState <> graph_add_axioms_preserves_length thm
+prf 16199:16226 <> graph_update_existing_length
+binder 16237:16237 <> g:128
+binder 16239:16241 <> mid:129
+binder 16243:16243 <> m:130
+R16274:16279 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16266:16269 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R16248:16259 Kernel.VMState <> graph_lookup def
+R16261:16261 Kernel.VMState <> g:128 var
+R16263:16265 Kernel.VMState <> mid:129 var
+R16270:16273 Coq.Init.Datatypes <> None constr
+R16327:16329 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16280:16290 Coq.Lists.List <> length abbrev
+R16293:16302 Kernel.VMState <> pg_modules proj
+R16305:16316 Kernel.VMState <> graph_update def
+R16318:16318 Kernel.VMState <> g:128 var
+R16320:16322 Kernel.VMState <> mid:129 var
+R16324:16324 Kernel.VMState <> m:130 var
+R16330:16340 Coq.Lists.List <> length abbrev
+R16343:16352 Kernel.VMState <> pg_modules proj
+R16354:16354 Kernel.VMState <> g:128 var
+R16396:16407 Kernel.VMState <> graph_update def
+R16425:16460 Kernel.VMState <> graph_insert_modules_existing_length thm
+R16425:16460 Kernel.VMState <> graph_insert_modules_existing_length thm
+R16472:16483 Kernel.VMState <> graph_lookup def
+R16505:16524 Kernel.VMState <> graph_lookup_modules def
+R16527:16536 Kernel.VMState <> pg_modules proj
+R16505:16524 Kernel.VMState <> graph_lookup_modules def
+R16527:16536 Kernel.VMState <> pg_modules proj
+R16576:16598 Kernel.VMState <> graph_lookup_modules_in thm
+R16576:16598 Kernel.VMState <> graph_lookup_modules_in thm
+prf 16696:16727 <> graph_insert_modules_lookup_same
+binder 16738:16744 <> modules:131
+binder 16746:16748 <> mid:132
+binder 16750:16750 <> m:133
+R16784:16789 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16755:16756 Coq.Lists.List <> In def
+R16763:16770 Coq.Lists.List <> map def
+R16776:16782 Kernel.VMState <> modules:131 var
+R16772:16774 Coq.Init.Datatypes <> fst def
+R16758:16760 Kernel.VMState <> mid:132 var
+R16851:16853 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16790:16809 Kernel.VMState <> graph_lookup_modules def
+R16812:16831 Kernel.VMState <> graph_insert_modules def
+R16833:16839 Kernel.VMState <> modules:131 var
+R16841:16843 Kernel.VMState <> mid:132 var
+R16845:16845 Kernel.VMState <> m:133 var
+R16848:16850 Kernel.VMState <> mid:132 var
+R16854:16857 Coq.Init.Datatypes <> Some constr
+R16859:16859 Kernel.VMState <> m:133 var
+R17122:17133 Coq.Arith.PeanoNat Nat eqb_refl thm
+R17122:17133 Coq.Arith.PeanoNat Nat eqb_refl thm
+R17122:17133 Coq.Arith.PeanoNat Nat eqb_refl thm
+R17151:17162 Coq.Arith.PeanoNat Nat eqb_refl thm
+R17151:17162 Coq.Arith.PeanoNat Nat eqb_refl thm
+R17151:17162 Coq.Arith.PeanoNat Nat eqb_refl thm
+R17225:17231 Coq.Arith.PeanoNat Nat eqb def
+R17225:17231 Coq.Arith.PeanoNat Nat eqb def
+R17321:17332 Coq.Arith.PeanoNat Nat eqb_refl thm
+R17321:17332 Coq.Arith.PeanoNat Nat eqb_refl thm
+R17321:17332 Coq.Arith.PeanoNat Nat eqb_refl thm
+prf 17491:17514 <> graph_update_lookup_same
+binder 17525:17525 <> g:134
+binder 17527:17529 <> mid:135
+binder 17531:17531 <> m:136
+R17562:17567 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17554:17557 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R17536:17547 Kernel.VMState <> graph_lookup def
+R17549:17549 Kernel.VMState <> g:134 var
+R17551:17553 Kernel.VMState <> mid:135 var
+R17558:17561 Coq.Init.Datatypes <> None constr
+R17607:17609 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17568:17579 Kernel.VMState <> graph_lookup def
+R17582:17593 Kernel.VMState <> graph_update def
+R17595:17595 Kernel.VMState <> g:134 var
+R17597:17599 Kernel.VMState <> mid:135 var
+R17601:17601 Kernel.VMState <> m:136 var
+R17604:17606 Kernel.VMState <> mid:135 var
+R17610:17613 Coq.Init.Datatypes <> Some constr
+R17616:17631 Kernel.VMState <> normalize_module def
+R17633:17633 Kernel.VMState <> m:136 var
+R17675:17686 Kernel.VMState <> graph_update def
+R17689:17700 Kernel.VMState <> graph_lookup def
+R17718:17749 Kernel.VMState <> graph_insert_modules_lookup_same thm
+R17718:17749 Kernel.VMState <> graph_insert_modules_lookup_same thm
+R17761:17772 Kernel.VMState <> graph_lookup def
+R17794:17813 Kernel.VMState <> graph_lookup_modules def
+R17816:17825 Kernel.VMState <> pg_modules proj
+R17794:17813 Kernel.VMState <> graph_lookup_modules def
+R17816:17825 Kernel.VMState <> pg_modules proj
+R17865:17887 Kernel.VMState <> graph_lookup_modules_in thm
+R17865:17887 Kernel.VMState <> graph_lookup_modules_in thm
+prf 17996:18035 <> graph_insert_modules_preserves_unrelated
+binder 18046:18052 <> modules:137
+binder 18054:18063 <> mid_update:138
+binder 18065:18073 <> mid_other:139
+binder 18075:18075 <> m:140
+R18103:18108 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18089:18092 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R18080:18088 Kernel.VMState <> mid_other:139 var
+R18093:18102 Kernel.VMState <> mid_update:138 var
+R18183:18187 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18109:18128 Kernel.VMState <> graph_lookup_modules def
+R18131:18150 Kernel.VMState <> graph_insert_modules def
+R18152:18158 Kernel.VMState <> modules:137 var
+R18160:18169 Kernel.VMState <> mid_update:138 var
+R18171:18171 Kernel.VMState <> m:140 var
+R18174:18182 Kernel.VMState <> mid_other:139 var
+R18188:18207 Kernel.VMState <> graph_lookup_modules def
+R18209:18215 Kernel.VMState <> modules:137 var
+R18217:18225 Kernel.VMState <> mid_other:139 var
+R18487:18493 Coq.Arith.PeanoNat Nat eqb def
+R18487:18493 Coq.Arith.PeanoNat Nat eqb def
+R18599:18608 Coq.Arith.PeanoNat Nat eqb_eq thm
+R18599:18608 Coq.Arith.PeanoNat Nat eqb_eq thm
+R18763:18769 Coq.Arith.PeanoNat Nat eqb def
+R18763:18769 Coq.Arith.PeanoNat Nat eqb def
+R18902:18911 Coq.Arith.PeanoNat Nat eqb_eq thm
+R18902:18911 Coq.Arith.PeanoNat Nat eqb_eq thm
+R18967:18973 Coq.Arith.PeanoNat Nat eqb def
+R18967:18973 Coq.Arith.PeanoNat Nat eqb def
+R19073:19082 Coq.Arith.PeanoNat Nat eqb_eq thm
+R19073:19082 Coq.Arith.PeanoNat Nat eqb_eq thm
+R19245:19251 Coq.Arith.PeanoNat Nat eqb def
+R19245:19251 Coq.Arith.PeanoNat Nat eqb def
+prf 19474:19505 <> graph_update_preserves_unrelated
+binder 19516:19516 <> g:141
+binder 19518:19527 <> mid_update:142
+binder 19529:19537 <> mid_other:143
+binder 19539:19539 <> m:144
+R19567:19572 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19553:19556 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R19544:19552 Kernel.VMState <> mid_other:143 var
+R19557:19566 Kernel.VMState <> mid_update:142 var
+R19625:19627 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19573:19584 Kernel.VMState <> graph_lookup def
+R19587:19598 Kernel.VMState <> graph_update def
+R19600:19600 Kernel.VMState <> g:141 var
+R19602:19611 Kernel.VMState <> mid_update:142 var
+R19613:19613 Kernel.VMState <> m:144 var
+R19616:19624 Kernel.VMState <> mid_other:143 var
+R19628:19639 Kernel.VMState <> graph_lookup def
+R19641:19641 Kernel.VMState <> g:141 var
+R19643:19651 Kernel.VMState <> mid_other:143 var
+R19710:19721 Kernel.VMState <> graph_update def
+R19724:19735 Kernel.VMState <> graph_lookup def
+R19753:19792 Kernel.VMState <> graph_insert_modules_preserves_unrelated thm
+R19753:19792 Kernel.VMState <> graph_insert_modules_preserves_unrelated thm
+prf 19989:20021 <> all_ids_below_implies_lookup_none
+binder 20032:20038 <> modules:145
+binder 20040:20042 <> mid:146
+binder 20044:20048 <> bound:147
+R20080:20085 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20053:20065 Kernel.VMState <> all_ids_below def
+R20067:20073 Kernel.VMState <> modules:145 var
+R20075:20079 Kernel.VMState <> bound:147 var
+R20098:20103 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20089:20092 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R20086:20088 Kernel.VMState <> mid:146 var
+R20093:20097 Kernel.VMState <> bound:147 var
+R20136:20138 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20104:20123 Kernel.VMState <> graph_lookup_modules def
+R20125:20131 Kernel.VMState <> modules:145 var
+R20133:20135 Kernel.VMState <> mid:146 var
+R20139:20142 Coq.Init.Datatypes <> None constr
+R20343:20349 Coq.Arith.PeanoNat Nat eqb def
+R20343:20349 Coq.Arith.PeanoNat Nat eqb def
+R20439:20448 Coq.Arith.PeanoNat Nat eqb_eq thm
+R20439:20448 Coq.Arith.PeanoNat Nat eqb_eq thm
+prf 20596:20625 <> graph_remove_preserves_next_id
+binder 20636:20636 <> g:148
+binder 20638:20640 <> mid:149
+binder 20642:20643 <> g':150
+binder 20645:20645 <> m:151
+R20683:20688 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20668:20670 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20650:20661 Kernel.VMState <> graph_remove def
+R20663:20663 Kernel.VMState <> g:148 var
+R20665:20667 Kernel.VMState <> mid:149 var
+R20671:20674 Coq.Init.Datatypes <> Some constr
+R20676:20676 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20679:20680 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20682:20682 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20677:20678 Kernel.VMState <> g':150 var
+R20681:20681 Kernel.VMState <> m:151 var
+R20704:20706 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20693:20702 Kernel.VMState <> pg_next_id proj
+R20689:20690 Kernel.VMState <> g':150 var
+R20710:20719 Kernel.VMState <> pg_next_id proj
+R20707:20707 Kernel.VMState <> g:148 var
+R20768:20779 Kernel.VMState <> graph_remove def
+R20805:20824 Kernel.VMState <> graph_remove_modules def
+R20827:20836 Kernel.VMState <> pg_modules proj
+R20805:20824 Kernel.VMState <> graph_remove_modules def
+R20827:20836 Kernel.VMState <> pg_modules proj
+prf 21016:21047 <> graph_remove_preserves_unrelated
+binder 21058:21058 <> g:152
+binder 21060:21062 <> mid:153
+binder 21064:21067 <> mid':154
+binder 21069:21070 <> g':155
+binder 21072:21073 <> m':156
+R21089:21094 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21081:21084 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R21078:21080 Kernel.VMState <> mid:153 var
+R21085:21088 Kernel.VMState <> mid':154 var
+R21130:21135 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21114:21116 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21095:21106 Kernel.VMState <> graph_remove def
+R21108:21108 Kernel.VMState <> g:152 var
+R21110:21113 Kernel.VMState <> mid':154 var
+R21117:21120 Coq.Init.Datatypes <> Some constr
+R21122:21122 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21125:21126 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21129:21129 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21123:21124 Kernel.VMState <> g':155 var
+R21127:21128 Kernel.VMState <> m':156 var
+R21155:21157 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21136:21147 Kernel.VMState <> graph_lookup def
+R21149:21150 Kernel.VMState <> g':155 var
+R21152:21154 Kernel.VMState <> mid:153 var
+R21158:21169 Kernel.VMState <> graph_lookup def
+R21171:21171 Kernel.VMState <> g:152 var
+R21173:21175 Kernel.VMState <> mid:153 var
+R21234:21245 Kernel.VMState <> graph_remove def
+R21271:21290 Kernel.VMState <> graph_remove_modules def
+R21293:21302 Kernel.VMState <> pg_modules proj
+R21271:21290 Kernel.VMState <> graph_remove_modules def
+R21293:21302 Kernel.VMState <> pg_modules proj
+R21436:21447 Kernel.VMState <> graph_lookup def
+R21541:21550 Kernel.VMState <> pg_modules proj
+R21541:21550 Kernel.VMState <> pg_modules proj
+R21795:21801 Coq.Arith.PeanoNat Nat eqb def
+R21795:21801 Coq.Arith.PeanoNat Nat eqb def
+R21984:21993 Coq.Arith.PeanoNat Nat eqb_eq thm
+R21984:21993 Coq.Arith.PeanoNat Nat eqb_eq thm
+R22061:22064 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R22061:22064 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R22118:22128 Coq.Arith.PeanoNat Nat eqb_neq thm
+R22118:22128 Coq.Arith.PeanoNat Nat eqb_neq thm
+R22239:22258 Kernel.VMState <> graph_remove_modules def
+R22239:22258 Kernel.VMState <> graph_remove_modules def
+R22465:22471 Coq.Arith.PeanoNat Nat eqb def
+R22465:22471 Coq.Arith.PeanoNat Nat eqb def
+R22560:22566 Coq.Init.Logic <> eq_refl constr
+R22560:22566 Coq.Init.Logic <> eq_refl constr
+prf 23834:23863 <> wf_graph_lookup_beyond_next_id
+binder 23874:23874 <> g:157
+binder 23876:23878 <> mid:158
+R23902:23907 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23883:23899 Kernel.VMState <> well_formed_graph def
+R23901:23901 Kernel.VMState <> g:157 var
+R23929:23934 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23911:23914 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R23908:23910 Kernel.VMState <> mid:158 var
+R23918:23927 Kernel.VMState <> pg_next_id proj
+R23915:23915 Kernel.VMState <> g:157 var
+R23953:23955 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23935:23946 Kernel.VMState <> graph_lookup def
+R23948:23948 Kernel.VMState <> g:157 var
+R23950:23952 Kernel.VMState <> mid:158 var
+R23956:23959 Coq.Init.Datatypes <> None constr
+R24002:24013 Kernel.VMState <> graph_lookup def
+R24025:24057 Kernel.VMState <> all_ids_below_implies_lookup_none thm
+R24025:24057 Kernel.VMState <> all_ids_below_implies_lookup_none thm
+def 24092:24101 <> graph_pnew
+R24108:24121 Kernel.VMState <> PartitionGraph rec
+binder 24104:24104 <> g:159
+R24134:24137 Coq.Init.Datatypes <> list ind
+R24139:24141 Coq.Init.Datatypes <> nat ind
+binder 24125:24130 <> region:160
+R24162:24164 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R24148:24161 Kernel.VMState <> PartitionGraph rec
+R24165:24172 Kernel.VMState <> ModuleID def
+R24197:24212 Kernel.VMState <> normalize_region def
+R24214:24219 Kernel.VMState <> region:160 var
+binder 24183:24192 <> normalized:161
+R24232:24248 Kernel.VMState <> graph_find_region def
+R24250:24250 Kernel.VMState <> g:159 var
+R24252:24261 Kernel.VMState <> normalized:161 var
+R24272:24275 Coq.Init.Datatypes <> Some constr
+R24289:24289 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R24291:24292 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R24301:24301 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R24290:24290 Kernel.VMState <> g:159 var
+R24307:24310 Coq.Init.Datatypes <> None constr
+R24315:24330 Kernel.VMState <> graph_add_module def
+R24332:24332 Kernel.VMState <> g:159 var
+R24334:24343 Kernel.VMState <> normalized:161 var
+R24345:24346 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+def 24367:24381 <> partition_valid
+R24408:24411 Coq.Init.Datatypes <> list ind
+R24413:24415 Coq.Init.Datatypes <> nat ind
+binder 24386:24393 <> original:162
+binder 24395:24398 <> left:163
+binder 24400:24404 <> right:164
+R24420:24423 Coq.Init.Datatypes <> bool ind
+R24529:24534 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R24495:24500 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R24459:24464 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R24430:24444 Kernel.VMState <> nat_list_subset def
+R24446:24449 Kernel.VMState <> left:163 var
+R24451:24458 Kernel.VMState <> original:162 var
+R24465:24479 Kernel.VMState <> nat_list_subset def
+R24481:24485 Kernel.VMState <> right:164 var
+R24487:24494 Kernel.VMState <> original:162 var
+R24501:24517 Kernel.VMState <> nat_list_disjoint def
+R24519:24522 Kernel.VMState <> left:163 var
+R24524:24528 Kernel.VMState <> right:164 var
+R24535:24549 Kernel.VMState <> nat_list_subset def
+R24551:24558 Kernel.VMState <> original:162 var
+R24561:24574 Kernel.VMState <> nat_list_union def
+R24576:24579 Kernel.VMState <> left:163 var
+R24581:24585 Kernel.VMState <> right:164 var
+def 24601:24612 <> graph_psplit
+R24619:24632 Kernel.VMState <> PartitionGraph rec
+binder 24615:24615 <> g:165
+R24642:24649 Kernel.VMState <> ModuleID def
+binder 24636:24638 <> mid:166
+R24668:24671 Coq.Init.Datatypes <> list ind
+R24673:24675 Coq.Init.Datatypes <> nat ind
+binder 24655:24658 <> left:167
+binder 24660:24664 <> right:168
+R24682:24687 Coq.Init.Datatypes <> option ind
+R24715:24717 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R24704:24706 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R24690:24703 Kernel.VMState <> PartitionGraph rec
+R24707:24714 Kernel.VMState <> ModuleID def
+R24718:24725 Kernel.VMState <> ModuleID def
+R24739:24750 Kernel.VMState <> graph_lookup def
+R24752:24752 Kernel.VMState <> g:165 var
+R24754:24756 Kernel.VMState <> mid:166 var
+R24767:24770 Coq.Init.Datatypes <> None constr
+R24775:24778 Coq.Init.Datatypes <> None constr
+R24784:24787 Coq.Init.Datatypes <> Some constr
+R24817:24829 Kernel.VMState <> module_axioms proj
+binder 24804:24809 <> axioms:169
+R24860:24872 Kernel.VMState <> module_region proj
+binder 24845:24852 <> original:170
+R24901:24916 Kernel.VMState <> normalize_region def
+R24918:24921 Kernel.VMState <> left:167 var
+binder 24888:24896 <> left_norm:171
+R24950:24965 Kernel.VMState <> normalize_region def
+R24967:24971 Kernel.VMState <> right:168 var
+binder 24936:24945 <> right_norm:172
+R24985:24987 Coq.Init.Datatypes <> orb def
+R25039:25045 Coq.Arith.PeanoNat Nat eqb def
+R25048:25058 Coq.Lists.List <> length abbrev
+R25060:25069 Kernel.VMState <> right_norm:172 var
+R24990:24996 Coq.Arith.PeanoNat Nat eqb def
+R24999:25009 Coq.Lists.List <> length abbrev
+R25011:25019 Kernel.VMState <> left_norm:171 var
+R25192:25206 Kernel.VMState <> partition_valid def
+R25208:25215 Kernel.VMState <> original:170 var
+R25217:25225 Kernel.VMState <> left_norm:171 var
+R25227:25236 Kernel.VMState <> right_norm:172 var
+R25576:25579 Coq.Init.Datatypes <> None constr
+R25257:25268 Kernel.VMState <> graph_remove def
+R25270:25270 Kernel.VMState <> g:165 var
+R25272:25274 Kernel.VMState <> mid:166 var
+R25291:25294 Coq.Init.Datatypes <> None constr
+R25299:25302 Coq.Init.Datatypes <> None constr
+R25314:25317 Coq.Init.Datatypes <> Some constr
+R25319:25319 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R25329:25330 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R25332:25332 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R25375:25390 Kernel.VMState <> graph_add_module def
+R25402:25410 Kernel.VMState <> left_norm:171 var
+R25412:25417 Kernel.VMState <> axioms:169 var
+R25354:25354 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R25361:25362 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R25370:25370 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R25462:25477 Kernel.VMState <> graph_add_module def
+R25486:25495 Kernel.VMState <> right_norm:172 var
+R25497:25502 Kernel.VMState <> axioms:169 var
+R25439:25439 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R25447:25448 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R25457:25457 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R25519:25522 Coq.Init.Datatypes <> Some constr
+R25524:25524 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R25532:25533 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R25541:25542 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R25551:25551 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R25117:25132 Kernel.VMState <> graph_add_module def
+R25134:25134 Kernel.VMState <> g:165 var
+R25136:25137 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R25139:25140 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R25099:25099 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R25102:25103 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R25112:25112 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R25153:25156 Coq.Init.Datatypes <> Some constr
+R25158:25158 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R25161:25162 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R25166:25167 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R25176:25176 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R25163:25165 Kernel.VMState <> mid:166 var
+def 25600:25611 <> graph_pmerge
+R25618:25631 Kernel.VMState <> PartitionGraph rec
+binder 25614:25614 <> g:173
+R25643:25650 Kernel.VMState <> ModuleID def
+binder 25635:25636 <> m1:174
+binder 25638:25639 <> m2:175
+R25657:25662 Coq.Init.Datatypes <> option ind
+R25679:25681 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R25665:25678 Kernel.VMState <> PartitionGraph rec
+R25682:25689 Kernel.VMState <> ModuleID def
+R25700:25706 Coq.Arith.PeanoNat Nat eqb def
+R25708:25709 Kernel.VMState <> m1:174 var
+R25711:25712 Kernel.VMState <> m2:175 var
+R25737:25748 Kernel.VMState <> graph_remove def
+R25750:25750 Kernel.VMState <> g:173 var
+R25752:25753 Kernel.VMState <> m1:174 var
+R25764:25767 Coq.Init.Datatypes <> None constr
+R25772:25775 Coq.Init.Datatypes <> None constr
+R25781:25784 Coq.Init.Datatypes <> Some constr
+R25786:25786 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R25799:25800 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R25805:25805 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R25822:25833 Kernel.VMState <> graph_remove def
+R25848:25849 Kernel.VMState <> m2:175 var
+R25864:25867 Coq.Init.Datatypes <> None constr
+R25872:25875 Coq.Init.Datatypes <> None constr
+R25885:25888 Coq.Init.Datatypes <> Some constr
+R25890:25890 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R25905:25906 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R25911:25911 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R25929:25932 Coq.Init.Datatypes <> negb def
+R25935:25951 Kernel.VMState <> nat_list_disjoint def
+R25959:25971 Kernel.VMState <> module_region proj
+R25980:25992 Kernel.VMState <> module_region proj
+R26056:26069 Kernel.VMState <> nat_list_union def
+R26077:26089 Kernel.VMState <> module_region proj
+R26098:26110 Kernel.VMState <> module_region proj
+binder 26047:26051 <> union:176
+R26171:26174 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R26157:26169 Kernel.VMState <> module_axioms proj
+R26181:26193 Kernel.VMState <> module_axioms proj
+binder 26132:26146 <> combined_axioms:177
+R26217:26233 Kernel.VMState <> graph_find_region def
+R26250:26254 Kernel.VMState <> union:176 var
+R26275:26278 Coq.Init.Datatypes <> Some constr
+R26314:26325 Kernel.VMState <> graph_lookup def
+R26374:26377 Coq.Init.Datatypes <> None constr
+R26382:26385 Coq.Init.Datatypes <> None constr
+R26405:26408 Coq.Init.Datatypes <> Some constr
+R26464:26476 Kernel.VMState <> module_region proj
+R26464:26476 Kernel.VMState <> module_region proj
+R26464:26476 Kernel.VMState <> module_region proj
+R26549:26561 Kernel.VMState <> module_axioms proj
+R26549:26561 Kernel.VMState <> module_axioms proj
+R26495:26507 Kernel.VMState <> module_region proj
+R26594:26651 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R26580:26592 Kernel.VMState <> module_axioms proj
+R26652:26666 Kernel.VMState <> combined_axioms:177 var
+binder 26450:26456 <> updated:178
+R26694:26697 Coq.Init.Datatypes <> Some constr
+R26699:26699 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R26744:26745 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R26754:26754 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R26700:26711 Kernel.VMState <> graph_update def
+R26737:26743 Kernel.VMState <> updated:178 var
+R26790:26793 Coq.Init.Datatypes <> None constr
+R26856:26871 Kernel.VMState <> graph_add_module def
+R26888:26892 Kernel.VMState <> union:176 var
+R26894:26908 Kernel.VMState <> combined_axioms:177 var
+R26819:26819 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R26822:26823 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R26833:26833 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R26929:26932 Coq.Init.Datatypes <> Some constr
+R26934:26934 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R26937:26938 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R26948:26948 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R26011:26014 Coq.Init.Datatypes <> None constr
+R25719:25722 Coq.Init.Datatypes <> None constr
+rec 26991:26998 <> CSRState
+proj 27007:27019 <> csr_cert_addr
+proj 27030:27039 <> csr_status
+proj 27050:27056 <> csr_err
+R27023:27025 Coq.Init.Datatypes <> nat ind
+R27043:27045 Coq.Init.Datatypes <> nat ind
+R27060:27062 Coq.Init.Datatypes <> nat ind
+def 27079:27092 <> csr_set_status
+R27102:27109 Kernel.VMState <> CSRState rec
+binder 27095:27098 <> csrs:183
+R27122:27124 Coq.Init.Datatypes <> nat ind
+binder 27113:27118 <> status:184
+R27129:27136 Kernel.VMState <> CSRState rec
+R27146:27158 Kernel.VMState <> csr_cert_addr proj
+R27146:27158 Kernel.VMState <> csr_cert_addr proj
+R27146:27158 Kernel.VMState <> csr_cert_addr proj
+R27190:27199 Kernel.VMState <> csr_status proj
+R27190:27199 Kernel.VMState <> csr_status proj
+R27217:27223 Kernel.VMState <> csr_err proj
+R27217:27223 Kernel.VMState <> csr_err proj
+R27169:27181 Kernel.VMState <> csr_cert_addr proj
+R27163:27166 Kernel.VMState <> csrs:183 var
+R27204:27209 Kernel.VMState <> status:184 var
+R27234:27240 Kernel.VMState <> csr_err proj
+R27228:27231 Kernel.VMState <> csrs:183 var
+def 27259:27269 <> csr_set_err
+R27279:27286 Kernel.VMState <> CSRState rec
+binder 27272:27275 <> csrs:185
+R27296:27298 Coq.Init.Datatypes <> nat ind
+binder 27290:27292 <> err:186
+R27303:27310 Kernel.VMState <> CSRState rec
+R27320:27332 Kernel.VMState <> csr_cert_addr proj
+R27320:27332 Kernel.VMState <> csr_cert_addr proj
+R27320:27332 Kernel.VMState <> csr_cert_addr proj
+R27364:27373 Kernel.VMState <> csr_status proj
+R27364:27373 Kernel.VMState <> csr_status proj
+R27402:27408 Kernel.VMState <> csr_err proj
+R27402:27408 Kernel.VMState <> csr_err proj
+R27343:27355 Kernel.VMState <> csr_cert_addr proj
+R27337:27340 Kernel.VMState <> csrs:185 var
+R27384:27393 Kernel.VMState <> csr_status proj
+R27378:27381 Kernel.VMState <> csrs:185 var
+R27413:27415 Kernel.VMState <> err:186 var
+def 27433:27449 <> csr_set_cert_addr
+R27459:27466 Kernel.VMState <> CSRState rec
+binder 27452:27455 <> csrs:187
+R27477:27479 Coq.Init.Datatypes <> nat ind
+binder 27470:27473 <> addr:188
+R27484:27491 Kernel.VMState <> CSRState rec
+R27501:27513 Kernel.VMState <> csr_cert_addr proj
+R27501:27513 Kernel.VMState <> csr_cert_addr proj
+R27501:27513 Kernel.VMState <> csr_cert_addr proj
+R27529:27538 Kernel.VMState <> csr_status proj
+R27529:27538 Kernel.VMState <> csr_status proj
+R27567:27573 Kernel.VMState <> csr_err proj
+R27567:27573 Kernel.VMState <> csr_err proj
+R27518:27521 Kernel.VMState <> addr:188 var
+R27549:27558 Kernel.VMState <> csr_status proj
+R27543:27546 Kernel.VMState <> csrs:187 var
+R27584:27590 Kernel.VMState <> csr_err proj
+R27578:27581 Kernel.VMState <> csrs:187 var
+rec 29323:29329 <> VMState
+proj 29338:29345 <> vm_graph
+proj 29367:29373 <> vm_csrs
+proj 29389:29395 <> vm_regs
+proj 29411:29416 <> vm_mem
+proj 29432:29436 <> vm_pc
+proj 29447:29451 <> vm_mu
+proj 29462:29467 <> vm_err
+R29349:29362 Kernel.VMState <> PartitionGraph rec
+R29377:29384 Kernel.VMState <> CSRState rec
+R29399:29402 Coq.Init.Datatypes <> list ind
+R29404:29406 Coq.Init.Datatypes <> nat ind
+R29420:29423 Coq.Init.Datatypes <> list ind
+R29425:29427 Coq.Init.Datatypes <> nat ind
+R29440:29442 Coq.Init.Datatypes <> nat ind
+R29455:29457 Coq.Init.Datatypes <> nat ind
+R29471:29474 Coq.Init.Datatypes <> bool ind
+def 29491:29499 <> REG_COUNT
+R29503:29505 Coq.Init.Datatypes <> nat ind
+def 29525:29532 <> MEM_SIZE
+R29536:29538 Coq.Init.Datatypes <> nat ind
+def 30163:30173 <> word32_mask
+R30177:30177 Coq.Numbers.BinNums <> N ind
+R30182:30187 Coq.NArith.BinNat N ones def
+def 30918:30923 <> word32
+R30930:30932 Coq.Init.Datatypes <> nat ind
+binder 30926:30926 <> x:197
+R30937:30939 Coq.Init.Datatypes <> nat ind
+R30946:30953 Coq.NArith.BinNat N to_nat def
+R30956:30961 Coq.NArith.BinNat N land def
+R30964:30971 Coq.NArith.BinNat N of_nat def
+R30973:30973 Kernel.VMState <> x:197 var
+R30976:30986 Kernel.VMState <> word32_mask def
+def 31002:31011 <> word32_xor
+R31020:31022 Coq.Init.Datatypes <> nat ind
+binder 31014:31014 <> a:198
+binder 31016:31016 <> b:199
+R31027:31029 Coq.Init.Datatypes <> nat ind
+R31036:31041 Kernel.VMState <> word32 def
+R31044:31051 Coq.NArith.BinNat N to_nat def
+R31054:31059 Coq.NArith.BinNat N lxor def
+R31062:31069 Coq.NArith.BinNat N of_nat def
+R31071:31071 Kernel.VMState <> a:198 var
+R31075:31082 Coq.NArith.BinNat N of_nat def
+R31084:31084 Kernel.VMState <> b:199 var
+def 31100:31112 <> popcount_upto
+R31122:31124 Coq.Init.Datatypes <> nat ind
+binder 31115:31118 <> bits:200
+R31132:31132 Coq.Numbers.BinNums <> N ind
+binder 31128:31128 <> x:201
+R31137:31139 Coq.Init.Datatypes <> nat ind
+R31152:31155 Kernel.VMState <> bits:200 var
+R31177:31177 Coq.Init.Datatypes <> S constr
+R31194:31194 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R31240:31243 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R31198:31206 Coq.NArith.BinNat N testbit def
+R31208:31208 Kernel.VMState <> x:201 var
+R31211:31218 Coq.NArith.BinNat N of_nat def
+R31244:31256 Kernel.VMState <> popcount_upto:202 def
+R31264:31264 Kernel.VMState <> x:201 var
+def 31285:31299 <> word32_popcount
+R31306:31308 Coq.Init.Datatypes <> nat ind
+binder 31302:31302 <> x:204
+R31313:31315 Coq.Init.Datatypes <> nat ind
+R31322:31334 Kernel.VMState <> popcount_upto def
+R31340:31345 Coq.NArith.BinNat N land def
+R31348:31355 Coq.NArith.BinNat N of_nat def
+R31357:31357 Kernel.VMState <> x:204 var
+R31360:31370 Kernel.VMState <> word32_mask def
+def 31386:31394 <> reg_index
+R31401:31403 Coq.Init.Datatypes <> nat ind
+binder 31397:31397 <> r:205
+R31408:31410 Coq.Init.Datatypes <> nat ind
+R31416:31420 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R31415:31415 Kernel.VMState <> r:205 var
+R31421:31429 Kernel.VMState <> REG_COUNT def
+def 31443:31451 <> mem_index
+R31458:31460 Coq.Init.Datatypes <> nat ind
+binder 31454:31454 <> a:206
+R31465:31467 Coq.Init.Datatypes <> nat ind
+R31473:31477 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R31472:31472 Kernel.VMState <> a:206 var
+R31478:31485 Kernel.VMState <> MEM_SIZE def
+def 31500:31507 <> read_reg
+R31514:31520 Kernel.VMState <> VMState rec
+binder 31510:31510 <> s:207
+R31528:31530 Coq.Init.Datatypes <> nat ind
+binder 31524:31524 <> r:208
+R31535:31537 Coq.Init.Datatypes <> nat ind
+R31544:31546 Coq.Lists.List <> nth def
+R31565:31571 Kernel.VMState <> vm_regs proj
+R31562:31562 Kernel.VMState <> s:207 var
+R31549:31557 Kernel.VMState <> reg_index def
+R31559:31559 Kernel.VMState <> r:208 var
+def 31589:31597 <> write_reg
+R31604:31610 Kernel.VMState <> VMState rec
+binder 31600:31600 <> s:209
+R31620:31622 Coq.Init.Datatypes <> nat ind
+binder 31614:31614 <> r:210
+binder 31616:31616 <> v:211
+R31627:31630 Coq.Init.Datatypes <> list ind
+R31632:31634 Coq.Init.Datatypes <> nat ind
+R31652:31660 Kernel.VMState <> reg_index def
+R31662:31662 Kernel.VMState <> r:210 var
+binder 31645:31647 <> idx:212
+R31691:31694 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R31669:31674 Coq.Lists.List <> firstn def
+R31683:31689 Kernel.VMState <> vm_regs proj
+R31680:31680 Kernel.VMState <> s:209 var
+R31676:31678 Kernel.VMState <> idx:212 var
+R31705:31708 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R31695:31695 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R31704:31704 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R31696:31701 Kernel.VMState <> word32 def
+R31703:31703 Kernel.VMState <> v:211 var
+R31709:31713 Coq.Lists.List <> skipn def
+R31726:31732 Kernel.VMState <> vm_regs proj
+R31723:31723 Kernel.VMState <> s:209 var
+R31716:31716 Coq.Init.Datatypes <> S constr
+R31718:31720 Kernel.VMState <> idx:212 var
+def 31748:31755 <> read_mem
+R31762:31768 Kernel.VMState <> VMState rec
+binder 31758:31758 <> s:213
+R31776:31778 Coq.Init.Datatypes <> nat ind
+binder 31772:31772 <> a:214
+R31783:31785 Coq.Init.Datatypes <> nat ind
+R31792:31794 Coq.Lists.List <> nth def
+R31813:31818 Kernel.VMState <> vm_mem proj
+R31810:31810 Kernel.VMState <> s:213 var
+R31797:31805 Kernel.VMState <> mem_index def
+R31807:31807 Kernel.VMState <> a:214 var
+def 31836:31844 <> write_mem
+R31851:31857 Kernel.VMState <> VMState rec
+binder 31847:31847 <> s:215
+R31867:31869 Coq.Init.Datatypes <> nat ind
+binder 31861:31861 <> a:216
+binder 31863:31863 <> v:217
+R31874:31877 Coq.Init.Datatypes <> list ind
+R31879:31881 Coq.Init.Datatypes <> nat ind
+R31899:31907 Kernel.VMState <> mem_index def
+R31909:31909 Kernel.VMState <> a:216 var
+binder 31892:31894 <> idx:218
+R31937:31940 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R31916:31921 Coq.Lists.List <> firstn def
+R31930:31935 Kernel.VMState <> vm_mem proj
+R31927:31927 Kernel.VMState <> s:215 var
+R31923:31925 Kernel.VMState <> idx:218 var
+R31951:31954 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R31941:31941 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R31950:31950 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R31942:31947 Kernel.VMState <> word32 def
+R31949:31949 Kernel.VMState <> v:217 var
+R31955:31959 Coq.Lists.List <> skipn def
+R31972:31977 Kernel.VMState <> vm_mem proj
+R31969:31969 Kernel.VMState <> s:215 var
+R31962:31962 Coq.Init.Datatypes <> S constr
+R31964:31966 Kernel.VMState <> idx:218 var
+def 31993:32001 <> swap_regs
+R32011:32014 Coq.Init.Datatypes <> list ind
+R32016:32018 Coq.Init.Datatypes <> nat ind
+binder 32004:32007 <> regs:219
+R32028:32030 Coq.Init.Datatypes <> nat ind
+binder 32022:32022 <> a:220
+binder 32024:32024 <> b:221
+R32035:32038 Coq.Init.Datatypes <> list ind
+R32040:32042 Coq.Init.Datatypes <> nat ind
+R32063:32067 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R32062:32062 Kernel.VMState <> a:220 var
+R32068:32076 Kernel.VMState <> REG_COUNT def
+binder 32053:32057 <> a_idx:222
+R32097:32101 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R32096:32096 Kernel.VMState <> b:221 var
+R32102:32110 Kernel.VMState <> REG_COUNT def
+binder 32087:32091 <> b_idx:223
+R32127:32129 Coq.Lists.List <> nth def
+R32137:32140 Kernel.VMState <> regs:219 var
+R32131:32135 Kernel.VMState <> a_idx:222 var
+binder 32121:32122 <> va:224
+R32159:32161 Coq.Lists.List <> nth def
+R32169:32172 Kernel.VMState <> regs:219 var
+R32163:32167 Kernel.VMState <> b_idx:223 var
+binder 32153:32154 <> vb:225
+R32211:32214 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R32194:32199 Coq.Lists.List <> firstn def
+R32207:32210 Kernel.VMState <> regs:219 var
+R32201:32205 Kernel.VMState <> a_idx:222 var
+R32219:32222 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R32215:32215 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R32218:32218 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R32216:32217 Kernel.VMState <> vb:225 var
+R32223:32227 Coq.Lists.List <> skipn def
+R32239:32242 Kernel.VMState <> regs:219 var
+R32230:32230 Coq.Init.Datatypes <> S constr
+R32232:32236 Kernel.VMState <> a_idx:222 var
+binder 32185:32189 <> regs':226
+R32267:32270 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R32249:32254 Coq.Lists.List <> firstn def
+R32262:32266 Kernel.VMState <> regs':226 var
+R32256:32260 Kernel.VMState <> b_idx:223 var
+R32275:32278 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R32271:32271 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R32274:32274 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R32272:32273 Kernel.VMState <> va:224 var
+R32279:32283 Coq.Lists.List <> skipn def
+R32295:32299 Kernel.VMState <> regs':226 var
+R32286:32286 Coq.Init.Datatypes <> S constr
+R32288:32292 Kernel.VMState <> b_idx:223 var
+def 32314:32323 <> advance_pc
+R32330:32336 Kernel.VMState <> VMState rec
+binder 32326:32326 <> s:227
+R32341:32343 Coq.Init.Datatypes <> nat ind
+R32348:32348 Coq.Init.Datatypes <> S constr
+R32353:32357 Kernel.VMState <> vm_pc proj
+R32350:32350 Kernel.VMState <> s:227 var
+def 32373:32386 <> ascii_checksum
+R32393:32398 Coq.Strings.String <> string ind
+binder 32389:32389 <> s:228
+R32403:32405 Coq.Init.Datatypes <> nat ind
+R32412:32421 Coq.Lists.List <> fold_right def
+R32464:32483 Coq.Strings.String <> list_ascii_of_string def
+R32485:32485 Kernel.VMState <> s:228 var
+binder 32428:32429 <> ch:229
+binder 32431:32433 <> acc:230
+R32453:32455 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R32438:32449 Coq.Strings.Ascii <> nat_of_ascii def
+R32451:32452 Kernel.VMState <> ch:229 var
+R32456:32458 Kernel.VMState <> acc:230 var
+def 32501:32512 <> update_state
+R32521:32527 Kernel.VMState <> VMState rec
+binder 32517:32517 <> s:231
+R32539:32552 Kernel.VMState <> PartitionGraph rec
+binder 32531:32535 <> graph:232
+R32563:32570 Kernel.VMState <> CSRState rec
+binder 32556:32559 <> csrs:233
+R32581:32583 Coq.Init.Datatypes <> nat ind
+binder 32576:32577 <> mu:234
+R32593:32596 Coq.Init.Datatypes <> bool ind
+binder 32587:32589 <> err:235
+R32603:32609 Kernel.VMState <> VMState rec
+R32619:32626 Kernel.VMState <> vm_graph proj
+R32619:32626 Kernel.VMState <> vm_graph proj
+R32619:32626 Kernel.VMState <> vm_graph proj
+R32643:32649 Kernel.VMState <> vm_csrs proj
+R32643:32649 Kernel.VMState <> vm_csrs proj
+R32662:32668 Kernel.VMState <> vm_regs proj
+R32662:32668 Kernel.VMState <> vm_regs proj
+R32688:32693 Kernel.VMState <> vm_mem proj
+R32688:32693 Kernel.VMState <> vm_mem proj
+R32715:32719 Kernel.VMState <> vm_pc proj
+R32715:32719 Kernel.VMState <> vm_pc proj
+R32743:32747 Kernel.VMState <> vm_mu proj
+R32743:32747 Kernel.VMState <> vm_mu proj
+R32761:32766 Kernel.VMState <> vm_err proj
+R32761:32766 Kernel.VMState <> vm_err proj
+R32631:32635 Kernel.VMState <> graph:232 var
+R32654:32657 Kernel.VMState <> csrs:233 var
+R32676:32682 Kernel.VMState <> vm_regs proj
+R32673:32673 Kernel.VMState <> s:231 var
+R32701:32706 Kernel.VMState <> vm_mem proj
+R32698:32698 Kernel.VMState <> s:231 var
+R32724:32733 Kernel.VMState <> advance_pc def
+R32735:32735 Kernel.VMState <> s:231 var
+R32752:32753 Kernel.VMState <> mu:234 var
+R32771:32773 Kernel.VMState <> err:235 var
+prf 32889:32917 <> graph_psplit_increases_length
+binder 32928:32928 <> g:236
+binder 32930:32932 <> mid:237
+binder 32934:32937 <> left:238
+binder 32939:32943 <> right:239
+binder 32945:32946 <> g':240
+binder 32948:32950 <> lid:241
+binder 32952:32954 <> rid:242
+R33010:33015 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R32988:32990 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R32959:32970 Kernel.VMState <> graph_psplit def
+R32972:32972 Kernel.VMState <> g:236 var
+R32974:32976 Kernel.VMState <> mid:237 var
+R32978:32981 Kernel.VMState <> left:238 var
+R32983:32987 Kernel.VMState <> right:239 var
+R32991:32994 Coq.Init.Datatypes <> Some constr
+R32996:32996 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R32999:33000 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R33004:33005 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R33009:33009 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R32997:32998 Kernel.VMState <> g':240 var
+R33001:33003 Kernel.VMState <> lid:241 var
+R33006:33008 Kernel.VMState <> rid:242 var
+R33043:33046 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R33016:33026 Coq.Lists.List <> length abbrev
+R33029:33038 Kernel.VMState <> pg_modules proj
+R33040:33041 Kernel.VMState <> g':240 var
+R33047:33057 Coq.Lists.List <> length abbrev
+R33060:33069 Kernel.VMState <> pg_modules proj
+R33071:33071 Kernel.VMState <> g:236 var
+R33136:33147 Kernel.VMState <> graph_psplit def
+R33172:33183 Kernel.VMState <> graph_lookup def
+R33172:33183 Kernel.VMState <> graph_lookup def
+R33238:33240 Coq.Init.Datatypes <> orb def
+R33238:33240 Coq.Init.Datatypes <> orb def
+R33326:33341 Kernel.VMState <> graph_add_module def
+R33479:33493 Kernel.VMState <> partition_valid def
+R33479:33493 Kernel.VMState <> partition_valid def
+R33545:33556 Kernel.VMState <> graph_remove def
+R33545:33556 Kernel.VMState <> graph_remove def
+R33629:33644 Kernel.VMState <> graph_add_module def
+R33744:33762 Kernel.VMState <> graph_remove_length thm
+R33744:33762 Kernel.VMState <> graph_remove_length thm
+prf 33876:33904 <> graph_pmerge_decreases_length
+binder 33915:33915 <> g:243
+binder 33917:33918 <> m1:244
+binder 33920:33921 <> m2:245
+binder 33923:33924 <> g':246
+binder 33926:33931 <> merged:247
+R33976:33981 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R33956:33958 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R33936:33947 Kernel.VMState <> graph_pmerge def
+R33949:33949 Kernel.VMState <> g:243 var
+R33951:33952 Kernel.VMState <> m1:244 var
+R33954:33955 Kernel.VMState <> m2:245 var
+R33959:33962 Coq.Init.Datatypes <> Some constr
+R33964:33964 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R33967:33968 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R33975:33975 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R33965:33966 Kernel.VMState <> g':246 var
+R33969:33974 Kernel.VMState <> merged:247 var
+R34009:34012 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R33982:33992 Coq.Lists.List <> length abbrev
+R33995:34004 Kernel.VMState <> pg_modules proj
+R34006:34007 Kernel.VMState <> g':246 var
+R34013:34023 Coq.Lists.List <> length abbrev
+R34026:34035 Kernel.VMState <> pg_modules proj
+R34037:34037 Kernel.VMState <> g:243 var
+R34092:34103 Kernel.VMState <> graph_pmerge def
+R34128:34134 Coq.Arith.PeanoNat Nat eqb def
+R34128:34134 Coq.Arith.PeanoNat Nat eqb def
+R34173:34184 Kernel.VMState <> graph_remove def
+R34173:34184 Kernel.VMState <> graph_remove def
+R34248:34259 Kernel.VMState <> graph_remove def
+R34248:34259 Kernel.VMState <> graph_remove def
+R34324:34327 Coq.Init.Datatypes <> negb def
+R34324:34327 Coq.Init.Datatypes <> negb def
+R34375:34391 Kernel.VMState <> graph_find_region def
+R34375:34391 Kernel.VMState <> graph_find_region def
+R34502:34513 Kernel.VMState <> graph_lookup def
+R34502:34513 Kernel.VMState <> graph_lookup def
+R34732:34735 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R34708:34719 Kernel.VMState <> graph_lookup def
+R34736:34739 Coq.Init.Datatypes <> None constr
+R34732:34735 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R34708:34719 Kernel.VMState <> graph_lookup def
+R34736:34739 Coq.Init.Datatypes <> None constr
+R34794:34821 Kernel.VMState <> graph_update_existing_length thm
+R34857:34869 Kernel.VMState <> module_region proj
+R34857:34869 Kernel.VMState <> module_region proj
+R34857:34869 Kernel.VMState <> module_region proj
+R34923:34935 Kernel.VMState <> module_axioms proj
+R34923:34935 Kernel.VMState <> module_axioms proj
+R34874:34886 Kernel.VMState <> module_region proj
+R34966:34969 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R34940:34952 Kernel.VMState <> module_axioms proj
+R34988:34991 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R34970:34982 Kernel.VMState <> module_axioms proj
+R34992:35004 Kernel.VMState <> module_axioms proj
+R34794:34821 Kernel.VMState <> graph_update_existing_length thm
+R34857:34869 Kernel.VMState <> module_region proj
+R34857:34869 Kernel.VMState <> module_region proj
+R34857:34869 Kernel.VMState <> module_region proj
+R34923:34935 Kernel.VMState <> module_axioms proj
+R34923:34935 Kernel.VMState <> module_axioms proj
+R34874:34886 Kernel.VMState <> module_region proj
+R34966:34969 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R34940:34952 Kernel.VMState <> module_axioms proj
+R34988:34991 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R34970:34982 Kernel.VMState <> module_axioms proj
+R34992:35004 Kernel.VMState <> module_axioms proj
+R35065:35083 Kernel.VMState <> graph_remove_length thm
+R35065:35083 Kernel.VMState <> graph_remove_length thm
+R35135:35153 Kernel.VMState <> graph_remove_length thm
+R35135:35153 Kernel.VMState <> graph_remove_length thm
+R35264:35279 Kernel.VMState <> graph_add_module def
+R35377:35395 Kernel.VMState <> graph_remove_length thm
+R35377:35395 Kernel.VMState <> graph_remove_length thm
+R35447:35465 Kernel.VMState <> graph_remove_length thm
+R35447:35465 Kernel.VMState <> graph_remove_length thm
+prf 35573:35597 <> graph_pmerge_length_bound
+binder 35608:35608 <> g:248
+binder 35610:35611 <> m1:249
+binder 35613:35614 <> m2:250
+binder 35616:35617 <> g':251
+binder 35619:35624 <> merged:252
+R35669:35674 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R35649:35651 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R35629:35640 Kernel.VMState <> graph_pmerge def
+R35642:35642 Kernel.VMState <> g:248 var
+R35644:35645 Kernel.VMState <> m1:249 var
+R35647:35648 Kernel.VMState <> m2:250 var
+R35652:35655 Coq.Init.Datatypes <> Some constr
+R35657:35657 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R35660:35661 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R35668:35668 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R35658:35659 Kernel.VMState <> g':251 var
+R35662:35667 Kernel.VMState <> merged:252 var
+R35701:35704 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R35675:35685 Coq.Lists.List <> length abbrev
+R35688:35697 Kernel.VMState <> pg_modules proj
+R35699:35699 Kernel.VMState <> g:248 var
+R35732:35734 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R35705:35715 Coq.Lists.List <> length abbrev
+R35718:35727 Kernel.VMState <> pg_modules proj
+R35729:35730 Kernel.VMState <> g':251 var
+R35789:35800 Kernel.VMState <> graph_pmerge def
+R35825:35831 Coq.Arith.PeanoNat Nat eqb def
+R35825:35831 Coq.Arith.PeanoNat Nat eqb def
+R35870:35881 Kernel.VMState <> graph_remove def
+R35870:35881 Kernel.VMState <> graph_remove def
+R35945:35956 Kernel.VMState <> graph_remove def
+R35945:35956 Kernel.VMState <> graph_remove def
+R36021:36024 Coq.Init.Datatypes <> negb def
+R36021:36024 Coq.Init.Datatypes <> negb def
+R36072:36088 Kernel.VMState <> graph_find_region def
+R36072:36088 Kernel.VMState <> graph_find_region def
+R36207:36218 Kernel.VMState <> graph_lookup def
+R36207:36218 Kernel.VMState <> graph_lookup def
+R36364:36367 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R36340:36351 Kernel.VMState <> graph_lookup def
+R36368:36371 Coq.Init.Datatypes <> None constr
+R36364:36367 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R36340:36351 Kernel.VMState <> graph_lookup def
+R36368:36371 Coq.Init.Datatypes <> None constr
+R36426:36453 Kernel.VMState <> graph_update_existing_length thm
+R36489:36501 Kernel.VMState <> module_region proj
+R36489:36501 Kernel.VMState <> module_region proj
+R36489:36501 Kernel.VMState <> module_region proj
+R36555:36567 Kernel.VMState <> module_axioms proj
+R36555:36567 Kernel.VMState <> module_axioms proj
+R36506:36518 Kernel.VMState <> module_region proj
+R36598:36601 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R36572:36584 Kernel.VMState <> module_axioms proj
+R36620:36623 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R36602:36614 Kernel.VMState <> module_axioms proj
+R36624:36636 Kernel.VMState <> module_axioms proj
+R36426:36453 Kernel.VMState <> graph_update_existing_length thm
+R36489:36501 Kernel.VMState <> module_region proj
+R36489:36501 Kernel.VMState <> module_region proj
+R36489:36501 Kernel.VMState <> module_region proj
+R36555:36567 Kernel.VMState <> module_axioms proj
+R36555:36567 Kernel.VMState <> module_axioms proj
+R36506:36518 Kernel.VMState <> module_region proj
+R36598:36601 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R36572:36584 Kernel.VMState <> module_axioms proj
+R36620:36623 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R36602:36614 Kernel.VMState <> module_axioms proj
+R36624:36636 Kernel.VMState <> module_axioms proj
+R36697:36715 Kernel.VMState <> graph_remove_length thm
+R36697:36715 Kernel.VMState <> graph_remove_length thm
+R36767:36785 Kernel.VMState <> graph_remove_length thm
+R36767:36785 Kernel.VMState <> graph_remove_length thm
+R36899:36914 Kernel.VMState <> graph_add_module def
+R37012:37030 Kernel.VMState <> graph_remove_length thm
+R37012:37030 Kernel.VMState <> graph_remove_length thm
+R37082:37100 Kernel.VMState <> graph_remove_length thm
+R37082:37100 Kernel.VMState <> graph_remove_length thm
+prf 37385:37417 <> graph_pmerge_preserves_region_obs
+binder 37428:37428 <> g:253
+binder 37430:37431 <> m1:254
+binder 37433:37434 <> m2:255
+binder 37436:37437 <> g':256
+binder 37439:37447 <> merged_id:257
+binder 37449:37451 <> mid:258
+R37465:37470 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R37459:37462 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R37456:37458 Kernel.VMState <> mid:258 var
+R37463:37464 Kernel.VMState <> m1:254 var
+R37480:37485 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R37474:37477 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R37471:37473 Kernel.VMState <> mid:258 var
+R37478:37479 Kernel.VMState <> m2:255 var
+R37506:37511 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R37489:37491 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R37486:37488 Kernel.VMState <> mid:258 var
+R37495:37504 Kernel.VMState <> pg_next_id proj
+R37492:37492 Kernel.VMState <> g:253 var
+R37555:37560 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R37532:37534 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R37512:37523 Kernel.VMState <> graph_pmerge def
+R37525:37525 Kernel.VMState <> g:253 var
+R37527:37528 Kernel.VMState <> m1:254 var
+R37530:37531 Kernel.VMState <> m2:255 var
+R37535:37538 Coq.Init.Datatypes <> Some constr
+R37540:37540 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R37543:37544 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R37554:37554 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R37541:37542 Kernel.VMState <> g':256 var
+R37545:37553 Kernel.VMState <> merged_id:257 var
+R37674:37678 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R37567:37578 Kernel.VMState <> graph_lookup def
+R37580:37581 Kernel.VMState <> g':256 var
+R37583:37585 Kernel.VMState <> mid:258 var
+R37596:37599 Coq.Init.Datatypes <> Some constr
+R37607:37610 Coq.Init.Datatypes <> Some constr
+R37613:37628 Kernel.VMState <> normalize_region def
+R37635:37647 Kernel.VMState <> module_region proj
+R37656:37659 Coq.Init.Datatypes <> None constr
+R37664:37667 Coq.Init.Datatypes <> None constr
+R37685:37696 Kernel.VMState <> graph_lookup def
+R37698:37698 Kernel.VMState <> g:253 var
+R37700:37702 Kernel.VMState <> mid:258 var
+R37713:37716 Coq.Init.Datatypes <> Some constr
+R37723:37726 Coq.Init.Datatypes <> Some constr
+R37729:37744 Kernel.VMState <> normalize_region def
+R37750:37762 Kernel.VMState <> module_region proj
+R37771:37774 Coq.Init.Datatypes <> None constr
+R37779:37782 Coq.Init.Datatypes <> None constr
+R37866:37877 Kernel.VMState <> graph_pmerge def
+R37903:37909 Coq.Arith.PeanoNat Nat eqb def
+R37903:37909 Coq.Arith.PeanoNat Nat eqb def
+R37962:37973 Kernel.VMState <> graph_remove def
+R37962:37973 Kernel.VMState <> graph_remove def
+R38037:38048 Kernel.VMState <> graph_remove def
+R38037:38048 Kernel.VMState <> graph_remove def
+R38113:38116 Coq.Init.Datatypes <> negb def
+R38113:38116 Coq.Init.Datatypes <> negb def
+R38165:38181 Kernel.VMState <> graph_find_region def
+R38165:38181 Kernel.VMState <> graph_find_region def
+R38261:38272 Kernel.VMState <> graph_lookup def
+R38261:38272 Kernel.VMState <> graph_lookup def
+R38387:38396 Coq.Arith.PeanoNat Nat eq_dec thm
+R38387:38396 Coq.Arith.PeanoNat Nat eq_dec thm
+R38568:38571 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R38544:38555 Kernel.VMState <> graph_lookup def
+R38572:38575 Coq.Init.Datatypes <> None constr
+R38568:38571 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R38544:38555 Kernel.VMState <> graph_lookup def
+R38572:38575 Coq.Init.Datatypes <> None constr
+R38629:38652 Kernel.VMState <> graph_update_lookup_same thm
+R38629:38652 Kernel.VMState <> graph_update_lookup_same thm
+R38629:38652 Kernel.VMState <> graph_update_lookup_same thm
+R38694:38725 Kernel.VMState <> graph_remove_preserves_unrelated thm
+R38694:38725 Kernel.VMState <> graph_remove_preserves_unrelated thm
+R38694:38725 Kernel.VMState <> graph_remove_preserves_unrelated thm
+R38781:38812 Kernel.VMState <> graph_remove_preserves_unrelated thm
+R38781:38812 Kernel.VMState <> graph_remove_preserves_unrelated thm
+R38781:38812 Kernel.VMState <> graph_remove_preserves_unrelated thm
+R38958:38984 Kernel.VMState <> normalize_region_idempotent thm
+R38958:38984 Kernel.VMState <> normalize_region_idempotent thm
+R38958:38984 Kernel.VMState <> normalize_region_idempotent thm
+R39065:39096 Kernel.VMState <> graph_update_preserves_unrelated thm
+R39065:39096 Kernel.VMState <> graph_update_preserves_unrelated thm
+R39065:39096 Kernel.VMState <> graph_update_preserves_unrelated thm
+R39128:39159 Kernel.VMState <> graph_remove_preserves_unrelated thm
+R39128:39159 Kernel.VMState <> graph_remove_preserves_unrelated thm
+R39128:39159 Kernel.VMState <> graph_remove_preserves_unrelated thm
+R39210:39241 Kernel.VMState <> graph_remove_preserves_unrelated thm
+R39210:39241 Kernel.VMState <> graph_remove_preserves_unrelated thm
+R39210:39241 Kernel.VMState <> graph_remove_preserves_unrelated thm
+R39351:39366 Kernel.VMState <> graph_add_module def
+R39537:39566 Kernel.VMState <> graph_remove_preserves_next_id thm
+R39537:39566 Kernel.VMState <> graph_remove_preserves_next_id thm
+R39615:39644 Kernel.VMState <> graph_remove_preserves_next_id thm
+R39615:39644 Kernel.VMState <> graph_remove_preserves_next_id thm
+R39703:39705 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R39710:39719 Kernel.VMState <> pg_next_id proj
+R39703:39705 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R39710:39719 Kernel.VMState <> pg_next_id proj
+R39822:39824 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R39803:39814 Kernel.VMState <> graph_lookup def
+R39825:39836 Kernel.VMState <> graph_lookup def
+R39822:39824 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R39803:39814 Kernel.VMState <> graph_lookup def
+R39825:39836 Kernel.VMState <> graph_lookup def
+R39861:39892 Kernel.VMState <> graph_remove_preserves_unrelated thm
+R39861:39892 Kernel.VMState <> graph_remove_preserves_unrelated thm
+R39861:39892 Kernel.VMState <> graph_remove_preserves_unrelated thm
+R39943:39974 Kernel.VMState <> graph_remove_preserves_unrelated thm
+R39943:39974 Kernel.VMState <> graph_remove_preserves_unrelated thm
+R39943:39974 Kernel.VMState <> graph_remove_preserves_unrelated thm
+R40099:40110 Kernel.VMState <> graph_lookup def
+R40133:40144 Kernel.VMState <> graph_lookup def
+R40168:40174 Coq.Arith.PeanoNat Nat eqb def
+R40177:40186 Kernel.VMState <> pg_next_id proj
+R40168:40174 Coq.Arith.PeanoNat Nat eqb def
+R40177:40186 Kernel.VMState <> pg_next_id proj
+R40265:40274 Coq.Arith.PeanoNat Nat eqb_eq thm
+R40265:40274 Coq.Arith.PeanoNat Nat eqb_eq thm

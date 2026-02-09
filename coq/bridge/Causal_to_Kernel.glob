@@ -1,0 +1,28 @@
+DIGEST 81fc26042700b004911299e91d1a9303
+FBridge.Causal_to_Kernel
+R24:27 Coq.Lists.List <> <> lib
+R29:36 Coq.Arith.PeanoNat <> <> lib
+R46:58 Coq.Lists.List ListNotations <> mod
+R89:99 Kernel.ReceiptCore <> <> lib
+mod 110:125 <> Causal_to_Kernel
+def 140:154 Causal_to_Kernel CAUSAL_QUERY_OP
+R158:160 Coq.Init.Datatypes <> nat ind
+def 183:195 Causal_to_Kernel CausalChannel
+R202:220 Kernel.ReceiptCore ReceiptCore Receipt rec
+binder 198:198 <> r:1
+R225:228 Coq.Init.Datatypes <> bool ind
+R235:241 Coq.Arith.PeanoNat Nat eqb def
+R244:259 Kernel.ReceiptCore ReceiptCore r_op proj
+R261:261 Bridge.Causal_to_Kernel <> r:1 var
+R264:278 Bridge.Causal_to_Kernel Causal_to_Kernel CAUSAL_QUERY_OP def
+prf 288:302 Causal_to_Kernel decodes_to_self
+binder 315:316 <> tr:2
+R323:344 Kernel.ReceiptCore ReceiptCore decodes_to def
+R346:358 Bridge.Causal_to_Kernel Causal_to_Kernel CausalChannel def
+R360:361 Bridge.Causal_to_Kernel <> tr:2 var
+R364:381 Kernel.ReceiptCore ReceiptCore decode def
+R383:395 Bridge.Causal_to_Kernel Causal_to_Kernel CausalChannel def
+R397:398 Bridge.Causal_to_Kernel <> tr:2 var
+R425:451 Kernel.ReceiptCore ReceiptCore decodes_to_refl thm
+R425:451 Kernel.ReceiptCore ReceiptCore decodes_to_refl thm
+R464:479 Bridge.Causal_to_Kernel Causal_to_Kernel <> mod

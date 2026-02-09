@@ -1,0 +1,796 @@
+DIGEST fde2f4960e5c4dd75a14a8ec92145f55
+FTheory.EvolutionaryForge
+R140:143 Coq.Lists.List <> <> lib
+R161:165 Coq.Arith.Arith <> <> lib
+R183:185 Coq.micromega.Lia <> <> lib
+R203:206 Coq.Bool.Bool <> <> lib
+R216:228 Coq.Lists.List ListNotations <> mod
+R246:253 Coq.Arith.PeanoNat <> <> lib
+R317:330 Coq.Lists.List <> <> lib
+R339:351 Coq.Lists.List <> firstn_length thm
+R360:371 Coq.Lists.List <> skipn_length thm
+R380:389 Coq.Lists.List <> app_length thm
+prf 494:509 <> crossover_length
+binder 521:521 <> A:1
+R540:543 Coq.Init.Datatypes <> list ind
+R545:545 Theory.EvolutionaryForge <> A:1 var
+binder 532:533 <> l1:2
+binder 535:536 <> l2:3
+R553:555 Coq.Init.Datatypes <> nat ind
+binder 549:549 <> n:4
+R575:580 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R562:565 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R561:561 Theory.EvolutionaryForge <> n:4 var
+R566:571 Coq.Init.Datatypes <> length def
+R573:574 Theory.EvolutionaryForge <> l1:2 var
+R595:600 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R582:585 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R581:581 Theory.EvolutionaryForge <> n:4 var
+R586:591 Coq.Init.Datatypes <> length def
+R593:594 Theory.EvolutionaryForge <> l2:3 var
+R635:637 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R601:606 Coq.Init.Datatypes <> length def
+R620:623 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R609:614 Coq.Lists.List <> firstn def
+R618:619 Theory.EvolutionaryForge <> l1:2 var
+R616:616 Theory.EvolutionaryForge <> n:4 var
+R624:628 Coq.Lists.List <> skipn def
+R632:633 Theory.EvolutionaryForge <> l2:3 var
+R630:630 Theory.EvolutionaryForge <> n:4 var
+R638:643 Coq.Init.Datatypes <> length def
+R645:646 Theory.EvolutionaryForge <> l2:3 var
+R694:703 Coq.Lists.List <> app_length thm
+R694:703 Coq.Lists.List <> app_length thm
+R694:703 Coq.Lists.List <> app_length thm
+R716:728 Coq.Lists.List <> firstn_length thm
+R716:728 Coq.Lists.List <> firstn_length thm
+R716:728 Coq.Lists.List <> firstn_length thm
+R741:752 Coq.Lists.List <> skipn_length thm
+R741:752 Coq.Lists.List <> skipn_length thm
+R741:752 Coq.Lists.List <> skipn_length thm
+R765:773 Coq.Arith.PeanoNat Nat min_l thm
+R765:773 Coq.Arith.PeanoNat Nat min_l thm
+R765:773 Coq.Arith.PeanoNat Nat min_l thm
+ind 1053:1061 <> Primitive
+constr 1077:1084 <> GetNodes
+constr 1102:1109 <> GetEdges
+constr 1127:1136 <> NodeDegree
+constr 1154:1162 <> AdjMatrix
+constr 1180:1188 <> Laplacian
+constr 1206:1216 <> EigenDecomp
+constr 1234:1239 <> KMeans
+constr 1257:1274 <> ThresholdPartition
+constr 1292:1309 <> CommunityDetection
+constr 1327:1341 <> ModularityScore
+R1088:1096 Theory.EvolutionaryForge <> Primitive:5 ind
+R1113:1121 Theory.EvolutionaryForge <> Primitive:5 ind
+R1140:1148 Theory.EvolutionaryForge <> Primitive:5 ind
+R1166:1174 Theory.EvolutionaryForge <> Primitive:5 ind
+R1192:1200 Theory.EvolutionaryForge <> Primitive:5 ind
+R1220:1228 Theory.EvolutionaryForge <> Primitive:5 ind
+R1243:1251 Theory.EvolutionaryForge <> Primitive:5 ind
+R1278:1286 Theory.EvolutionaryForge <> Primitive:5 ind
+R1313:1321 Theory.EvolutionaryForge <> Primitive:5 ind
+R1345:1353 Theory.EvolutionaryForge <> Primitive:5 ind
+scheme 1053:1061 <> Primitive_rect
+scheme 1053:1061 <> Primitive_ind
+scheme 1053:1061 <> Primitive_rec
+scheme 1053:1061 <> Primitive_sind
+def 1425:1432 <> Strategy
+R1437:1440 Coq.Init.Datatypes <> list ind
+R1442:1450 Theory.EvolutionaryForge <> Primitive ind
+rec 1488:1492 <> Graph
+proj 1501:1509 <> num_nodes
+proj 1520:1524 <> edges
+R1513:1515 Coq.Init.Datatypes <> nat ind
+R1528:1531 Coq.Init.Datatypes <> list ind
+R1537:1539 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1534:1536 Coq.Init.Datatypes <> nat ind
+R1540:1542 Coq.Init.Datatypes <> nat ind
+def 1591:1599 <> Partition
+R1604:1607 Coq.Init.Datatypes <> list ind
+R1609:1611 Coq.Init.Datatypes <> nat ind
+def 1857:1865 <> crossover
+R1876:1883 Theory.EvolutionaryForge <> Strategy def
+binder 1868:1869 <> s1:10
+binder 1871:1872 <> s2:11
+R1899:1901 Coq.Init.Datatypes <> nat ind
+binder 1887:1895 <> cut_point:12
+R1906:1913 Theory.EvolutionaryForge <> Strategy def
+R1939:1942 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R1920:1925 Coq.Lists.List <> firstn def
+R1937:1938 Theory.EvolutionaryForge <> s1:10 var
+R1927:1935 Theory.EvolutionaryForge <> cut_point:12 var
+R1943:1947 Coq.Lists.List <> skipn def
+R1959:1960 Theory.EvolutionaryForge <> s2:11 var
+R1949:1957 Theory.EvolutionaryForge <> cut_point:12 var
+def 2028:2036 <> mutate_at
+R2043:2050 Theory.EvolutionaryForge <> Strategy def
+binder 2039:2039 <> s:14
+R2060:2062 Coq.Init.Datatypes <> nat ind
+binder 2054:2056 <> pos:15
+R2077:2085 Theory.EvolutionaryForge <> Primitive ind
+binder 2066:2073 <> new_prim:16
+R2090:2097 Theory.EvolutionaryForge <> Strategy def
+R2113:2115 Theory.EvolutionaryForge <> pos:15 var
+R2110:2110 Theory.EvolutionaryForge <> s:14 var
+R2126:2127 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2135:2136 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2143:2146 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2166:2169 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2158:2165 Theory.EvolutionaryForge <> new_prim:16 var
+R2180:2183 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2190:2190 Coq.Init.Datatypes <> S constr
+R2198:2201 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2202:2210 Theory.EvolutionaryForge <> mutate_at:17 def
+R2219:2226 Theory.EvolutionaryForge <> new_prim:16 var
+def 2280:2288 <> insert_at
+R2295:2302 Theory.EvolutionaryForge <> Strategy def
+binder 2291:2291 <> s:20
+R2312:2314 Coq.Init.Datatypes <> nat ind
+binder 2306:2308 <> pos:21
+R2325:2333 Theory.EvolutionaryForge <> Primitive ind
+binder 2318:2321 <> prim:22
+R2338:2345 Theory.EvolutionaryForge <> Strategy def
+R2361:2363 Theory.EvolutionaryForge <> pos:21 var
+R2358:2358 Theory.EvolutionaryForge <> s:20 var
+R2374:2375 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2383:2383 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2388:2388 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2384:2387 Theory.EvolutionaryForge <> prim:22 var
+R2406:2409 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2402:2405 Theory.EvolutionaryForge <> prim:22 var
+R2410:2410 Theory.EvolutionaryForge <> s:20 var
+R2417:2420 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2427:2427 Coq.Init.Datatypes <> S constr
+R2435:2438 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2439:2447 Theory.EvolutionaryForge <> insert_at:23 def
+R2456:2459 Theory.EvolutionaryForge <> prim:22 var
+def 2513:2521 <> delete_at
+R2528:2535 Theory.EvolutionaryForge <> Strategy def
+binder 2524:2524 <> s:26
+R2545:2547 Coq.Init.Datatypes <> nat ind
+binder 2539:2541 <> pos:27
+R2552:2559 Theory.EvolutionaryForge <> Strategy def
+R2575:2577 Theory.EvolutionaryForge <> pos:27 var
+R2572:2572 Theory.EvolutionaryForge <> s:26 var
+R2588:2589 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2597:2598 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2605:2608 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2630:2633 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2640:2640 Coq.Init.Datatypes <> S constr
+R2648:2651 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2652:2660 Theory.EvolutionaryForge <> delete_at:28 def
+def 2941:2949 <> is_viable
+R2956:2963 Theory.EvolutionaryForge <> Strategy def
+binder 2952:2952 <> s:31
+R2990:2993 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2986:2988 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R2978:2983 Coq.Init.Datatypes <> length def
+R2985:2985 Theory.EvolutionaryForge <> s:31 var
+R3002:3005 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2994:2999 Coq.Init.Datatypes <> length def
+R3001:3001 Theory.EvolutionaryForge <> s:31 var
+def 3081:3104 <> produces_valid_partition
+R3111:3118 Theory.EvolutionaryForge <> Strategy def
+binder 3107:3107 <> s:32
+R3126:3130 Theory.EvolutionaryForge <> Graph rec
+binder 3122:3122 <> g:33
+R3138:3146 Theory.EvolutionaryForge <> Partition def
+binder 3134:3134 <> p:34
+R3183:3189 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3169:3171 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3161:3166 Coq.Init.Datatypes <> length def
+R3168:3168 Theory.EvolutionaryForge <> p:34 var
+R3172:3180 Theory.EvolutionaryForge <> num_nodes proj
+R3182:3182 Theory.EvolutionaryForge <> g:33 var
+binder 3197:3197 <> n:35
+R3215:3218 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3201:3203 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3200:3200 Theory.EvolutionaryForge <> n:35 var
+R3204:3212 Theory.EvolutionaryForge <> num_nodes proj
+R3214:3214 Theory.EvolutionaryForge <> g:33 var
+R3228:3230 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3219:3221 Coq.Lists.List <> nth def
+R3225:3225 Theory.EvolutionaryForge <> p:34 var
+R3223:3223 Theory.EvolutionaryForge <> n:35 var
+R3231:3239 Theory.EvolutionaryForge <> num_nodes proj
+R3241:3241 Theory.EvolutionaryForge <> g:33 var
+def 3315:3325 <> performance
+R3332:3339 Theory.EvolutionaryForge <> Strategy def
+binder 3328:3328 <> s:36
+R3348:3352 Theory.EvolutionaryForge <> Graph rec
+binder 3343:3344 <> _g:37
+R3360:3362 Coq.Init.Datatypes <> nat ind
+binder 3356:3356 <> n:38
+R3378:3380 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3377:3377 Theory.EvolutionaryForge <> n:38 var
+prf 3393:3417 <> performance_deterministic
+binder 3428:3428 <> s:39
+binder 3430:3430 <> g:40
+binder 3432:3433 <> n1:41
+binder 3435:3436 <> n2:42
+R3459:3462 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3441:3451 Theory.EvolutionaryForge <> performance def
+R3453:3453 Theory.EvolutionaryForge <> s:39 var
+R3455:3455 Theory.EvolutionaryForge <> g:40 var
+R3457:3458 Theory.EvolutionaryForge <> n1:41 var
+R3481:3484 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3463:3473 Theory.EvolutionaryForge <> performance def
+R3475:3475 Theory.EvolutionaryForge <> s:39 var
+R3477:3477 Theory.EvolutionaryForge <> g:40 var
+R3479:3480 Theory.EvolutionaryForge <> n2:42 var
+R3487:3489 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3485:3486 Theory.EvolutionaryForge <> n1:41 var
+R3490:3491 Theory.EvolutionaryForge <> n2:42 var
+R3536:3546 Theory.EvolutionaryForge <> performance def
+def 3809:3824 <> louvain_strategy
+R3828:3835 Theory.EvolutionaryForge <> Strategy def
+R3840:3840 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3859:3860 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3876:3876 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3841:3858 Theory.EvolutionaryForge <> CommunityDetection constr
+R3861:3875 Theory.EvolutionaryForge <> ModularityScore constr
+def 3890:3906 <> spectral_strategy
+R3910:3917 Theory.EvolutionaryForge <> Strategy def
+R3925:3925 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3935:3936 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3948:3949 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3968:3968 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3926:3934 Theory.EvolutionaryForge <> Laplacian constr
+R3937:3947 Theory.EvolutionaryForge <> EigenDecomp constr
+R3950:3967 Theory.EvolutionaryForge <> ThresholdPartition constr
+def 3982:3996 <> degree_strategy
+R4000:4007 Theory.EvolutionaryForge <> Strategy def
+R4015:4015 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4026:4027 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4046:4046 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4016:4025 Theory.EvolutionaryForge <> NodeDegree constr
+R4028:4045 Theory.EvolutionaryForge <> ThresholdPartition constr
+def 4060:4076 <> balanced_strategy
+R4080:4087 Theory.EvolutionaryForge <> Strategy def
+R4095:4095 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4104:4105 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4124:4124 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4096:4103 Theory.EvolutionaryForge <> GetNodes constr
+R4106:4123 Theory.EvolutionaryForge <> ThresholdPartition constr
+def 4139:4153 <> optimal_quartet
+R4157:4160 Coq.Init.Datatypes <> list ind
+R4162:4169 Theory.EvolutionaryForge <> Strategy def
+R4177:4177 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4194:4195 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4213:4214 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4230:4231 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4249:4249 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4178:4193 Theory.EvolutionaryForge <> louvain_strategy def
+R4196:4212 Theory.EvolutionaryForge <> spectral_strategy def
+R4215:4229 Theory.EvolutionaryForge <> degree_strategy def
+R4232:4248 Theory.EvolutionaryForge <> balanced_strategy def
+prf 4312:4333 <> optimal_quartet_viable
+binder 4347:4347 <> s:43
+R4370:4373 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4350:4351 Coq.Lists.List <> In def
+R4355:4369 Theory.EvolutionaryForge <> optimal_quartet def
+R4353:4353 Theory.EvolutionaryForge <> s:43 var
+R4374:4382 Theory.EvolutionaryForge <> is_viable def
+R4384:4384 Theory.EvolutionaryForge <> s:43 var
+R4417:4431 Theory.EvolutionaryForge <> optimal_quartet def
+R4448:4456 Theory.EvolutionaryForge <> is_viable def
+prf 4798:4826 <> crossover_preserves_viability
+binder 4839:4840 <> s1:44
+binder 4842:4843 <> s2:45
+binder 4845:4847 <> cut:46
+R4864:4867 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4852:4860 Theory.EvolutionaryForge <> is_viable def
+R4862:4863 Theory.EvolutionaryForge <> s1:44 var
+R4880:4885 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4868:4876 Theory.EvolutionaryForge <> is_viable def
+R4878:4879 Theory.EvolutionaryForge <> s2:45 var
+R4902:4905 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4889:4892 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4886:4888 Theory.EvolutionaryForge <> cut:46 var
+R4893:4898 Coq.Init.Datatypes <> length def
+R4900:4901 Theory.EvolutionaryForge <> s1:44 var
+R4922:4927 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4909:4912 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4906:4908 Theory.EvolutionaryForge <> cut:46 var
+R4913:4918 Coq.Init.Datatypes <> length def
+R4920:4921 Theory.EvolutionaryForge <> s2:45 var
+R4928:4936 Theory.EvolutionaryForge <> is_viable def
+R4939:4947 Theory.EvolutionaryForge <> crossover def
+R4949:4950 Theory.EvolutionaryForge <> s1:44 var
+R4952:4953 Theory.EvolutionaryForge <> s2:45 var
+R4955:4957 Theory.EvolutionaryForge <> cut:46 var
+R5041:5049 Theory.EvolutionaryForge <> is_viable def
+R5151:5153 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5123:5128 Coq.Init.Datatypes <> length def
+R5131:5139 Theory.EvolutionaryForge <> crossover def
+R5154:5159 Coq.Init.Datatypes <> length def
+R5151:5153 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5123:5128 Coq.Init.Datatypes <> length def
+R5131:5139 Theory.EvolutionaryForge <> crossover def
+R5154:5159 Coq.Init.Datatypes <> length def
+R5246:5261 Theory.EvolutionaryForge <> crossover_length thm
+R5246:5261 Theory.EvolutionaryForge <> crossover_length thm
+R5246:5261 Theory.EvolutionaryForge <> crossover_length thm
+prf 5373:5388 <> mutate_at_length
+R5404:5411 Theory.EvolutionaryForge <> Strategy def
+binder 5400:5400 <> l:47
+R5421:5423 Coq.Init.Datatypes <> nat ind
+binder 5415:5417 <> pos:48
+R5431:5439 Theory.EvolutionaryForge <> Primitive ind
+binder 5427:5427 <> x:49
+R5471:5473 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5445:5450 Coq.Init.Datatypes <> length def
+R5453:5461 Theory.EvolutionaryForge <> mutate_at def
+R5463:5463 Theory.EvolutionaryForge <> l:47 var
+R5465:5467 Theory.EvolutionaryForge <> pos:48 var
+R5469:5469 Theory.EvolutionaryForge <> x:49 var
+R5474:5479 Coq.Init.Datatypes <> length def
+R5481:5481 Theory.EvolutionaryForge <> l:47 var
+prf 5788:5815 <> mutation_preserves_viability
+binder 5828:5828 <> s:50
+binder 5830:5832 <> pos:51
+binder 5834:5841 <> new_prim:52
+R5857:5862 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5846:5854 Theory.EvolutionaryForge <> is_viable def
+R5856:5856 Theory.EvolutionaryForge <> s:50 var
+R5863:5871 Theory.EvolutionaryForge <> is_viable def
+R5874:5882 Theory.EvolutionaryForge <> mutate_at def
+R5884:5884 Theory.EvolutionaryForge <> s:50 var
+R5886:5888 Theory.EvolutionaryForge <> pos:51 var
+R5890:5897 Theory.EvolutionaryForge <> new_prim:52 var
+R5952:5960 Theory.EvolutionaryForge <> is_viable def
+R5973:5988 Theory.EvolutionaryForge <> mutate_at_length thm
+R5973:5988 Theory.EvolutionaryForge <> mutate_at_length thm
+R5973:5988 Theory.EvolutionaryForge <> mutate_at_length thm
+prf 6088:6108 <> evolution_can_improve
+binder 6119:6124 <> parent:53
+binder 6126:6130 <> child:54
+binder 6132:6132 <> g:55
+R6153:6158 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6137:6145 Theory.EvolutionaryForge <> is_viable def
+R6147:6152 Theory.EvolutionaryForge <> parent:53 var
+R6174:6179 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6159:6167 Theory.EvolutionaryForge <> is_viable def
+R6169:6173 Theory.EvolutionaryForge <> child:54 var
+R6180:6186 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6203:6208 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 6187:6194 <> n_parent:56
+binder 6196:6202 <> n_child:57
+R6238:6245 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6209:6219 Theory.EvolutionaryForge <> performance def
+R6221:6226 Theory.EvolutionaryForge <> parent:53 var
+R6228:6228 Theory.EvolutionaryForge <> g:55 var
+R6230:6237 Theory.EvolutionaryForge <> n_parent:56 var
+R6273:6280 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6246:6256 Theory.EvolutionaryForge <> performance def
+R6258:6262 Theory.EvolutionaryForge <> child:54 var
+R6264:6264 Theory.EvolutionaryForge <> g:55 var
+R6266:6272 Theory.EvolutionaryForge <> n_child:57 var
+R6288:6291 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6281:6287 Theory.EvolutionaryForge <> n_child:57 var
+R6292:6299 Theory.EvolutionaryForge <> n_parent:56 var
+R6391:6401 Theory.EvolutionaryForge <> performance def
+prf 6498:6533 <> crossover_midpoint_empirical_success
+binder 6546:6552 <> parent1:58
+binder 6554:6560 <> parent2:59
+R6593:6600 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6567:6568 Coq.Lists.List <> In def
+R6578:6592 Theory.EvolutionaryForge <> optimal_quartet def
+R6570:6576 Theory.EvolutionaryForge <> parent1:58 var
+R6627:6634 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6601:6602 Coq.Lists.List <> In def
+R6612:6626 Theory.EvolutionaryForge <> optimal_quartet def
+R6604:6610 Theory.EvolutionaryForge <> parent2:59 var
+R6635:6641 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6653:6660 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 6642:6642 <> g:60
+binder 6644:6652 <> n_evolved:61
+R6733:6742 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6661:6671 Theory.EvolutionaryForge <> performance def
+R6674:6682 Theory.EvolutionaryForge <> crossover def
+R6684:6690 Theory.EvolutionaryForge <> parent1:58 var
+R6692:6698 Theory.EvolutionaryForge <> parent2:59 var
+R6715:6717 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R6701:6706 Coq.Init.Datatypes <> length def
+R6708:6714 Theory.EvolutionaryForge <> parent1:58 var
+R6722:6722 Theory.EvolutionaryForge <> g:60 var
+R6724:6732 Theory.EvolutionaryForge <> n_evolved:61 var
+R6752:6755 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6743:6751 Theory.EvolutionaryForge <> n_evolved:61 var
+R6809:6819 Theory.EvolutionaryForge <> Build_Graph constr
+R6823:6824 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6809:6819 Theory.EvolutionaryForge <> Build_Graph constr
+R6823:6824 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+prf 6943:6962 <> evolution_terminates
+binder 6975:6976 <> s1:62
+binder 6978:6979 <> s2:63
+R6996:6999 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6984:6992 Theory.EvolutionaryForge <> is_viable def
+R6994:6995 Theory.EvolutionaryForge <> s1:62 var
+R7012:7017 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7000:7008 Theory.EvolutionaryForge <> is_viable def
+R7010:7011 Theory.EvolutionaryForge <> s2:63 var
+R7018:7024 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7034:7039 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 7025:7033 <> offspring:64
+R7040:7048 Theory.EvolutionaryForge <> is_viable def
+R7050:7058 Theory.EvolutionaryForge <> offspring:64 var
+R7336:7344 Theory.EvolutionaryForge <> crossover def
+R7384:7386 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R7353:7359 Coq.Arith.PeanoNat Nat min def
+R7362:7367 Coq.Init.Datatypes <> length def
+R7374:7379 Coq.Init.Datatypes <> length def
+R7336:7344 Theory.EvolutionaryForge <> crossover def
+R7384:7386 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R7353:7359 Coq.Arith.PeanoNat Nat min def
+R7362:7367 Coq.Init.Datatypes <> length def
+R7374:7379 Coq.Init.Datatypes <> length def
+R7400:7428 Theory.EvolutionaryForge <> crossover_preserves_viability thm
+R7400:7428 Theory.EvolutionaryForge <> crossover_preserves_viability thm
+R7626:7628 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R7595:7601 Coq.Arith.PeanoNat Nat min def
+R7604:7609 Coq.Init.Datatypes <> length def
+R7616:7621 Coq.Init.Datatypes <> length def
+R7626:7628 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R7595:7601 Coq.Arith.PeanoNat Nat min def
+R7604:7609 Coq.Init.Datatypes <> length def
+R7616:7621 Coq.Init.Datatypes <> length def
+R7690:7693 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7686:7688 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R7655:7661 Coq.Arith.PeanoNat Nat min def
+R7664:7669 Coq.Init.Datatypes <> length def
+R7676:7681 Coq.Init.Datatypes <> length def
+R7694:7700 Coq.Arith.PeanoNat Nat min def
+R7703:7708 Coq.Init.Datatypes <> length def
+R7715:7720 Coq.Init.Datatypes <> length def
+R7690:7693 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7686:7688 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R7655:7661 Coq.Arith.PeanoNat Nat min def
+R7664:7669 Coq.Init.Datatypes <> length def
+R7676:7681 Coq.Init.Datatypes <> length def
+R7694:7700 Coq.Arith.PeanoNat Nat min def
+R7703:7708 Coq.Init.Datatypes <> length def
+R7715:7720 Coq.Init.Datatypes <> length def
+R7740:7761 Coq.Arith.PeanoNat Nat div_le_upper_bound abbrev
+R7740:7761 Coq.Arith.PeanoNat Nat div_le_upper_bound abbrev
+R7782:7793 Coq.Arith.PeanoNat Nat le_trans thm
+R7813:7824 Coq.Arith.PeanoNat Nat le_min_l thm
+R7782:7793 Coq.Arith.PeanoNat Nat le_trans thm
+R7813:7824 Coq.Arith.PeanoNat Nat le_min_l thm
+R7977:7979 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R7946:7952 Coq.Arith.PeanoNat Nat min def
+R7955:7960 Coq.Init.Datatypes <> length def
+R7967:7972 Coq.Init.Datatypes <> length def
+R7977:7979 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R7946:7952 Coq.Arith.PeanoNat Nat min def
+R7955:7960 Coq.Init.Datatypes <> length def
+R7967:7972 Coq.Init.Datatypes <> length def
+R8041:8044 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8037:8039 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R8006:8012 Coq.Arith.PeanoNat Nat min def
+R8015:8020 Coq.Init.Datatypes <> length def
+R8027:8032 Coq.Init.Datatypes <> length def
+R8045:8051 Coq.Arith.PeanoNat Nat min def
+R8054:8059 Coq.Init.Datatypes <> length def
+R8066:8071 Coq.Init.Datatypes <> length def
+R8041:8044 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8037:8039 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R8006:8012 Coq.Arith.PeanoNat Nat min def
+R8015:8020 Coq.Init.Datatypes <> length def
+R8027:8032 Coq.Init.Datatypes <> length def
+R8045:8051 Coq.Arith.PeanoNat Nat min def
+R8054:8059 Coq.Init.Datatypes <> length def
+R8066:8071 Coq.Init.Datatypes <> length def
+R8091:8112 Coq.Arith.PeanoNat Nat div_le_upper_bound abbrev
+R8091:8112 Coq.Arith.PeanoNat Nat div_le_upper_bound abbrev
+R8133:8144 Coq.Arith.PeanoNat Nat le_trans thm
+R8164:8175 Coq.Arith.PeanoNat Nat le_min_r thm
+R8133:8144 Coq.Arith.PeanoNat Nat le_trans thm
+R8164:8175 Coq.Arith.PeanoNat Nat le_min_r thm
+prf 8263:8289 <> evolved_inherits_properties
+binder 8302:8303 <> s1:65
+binder 8305:8306 <> s2:66
+binder 8308:8310 <> cut:67
+R8327:8330 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8315:8323 Theory.EvolutionaryForge <> is_viable def
+R8325:8326 Theory.EvolutionaryForge <> s1:65 var
+R8343:8348 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8331:8339 Theory.EvolutionaryForge <> is_viable def
+R8341:8342 Theory.EvolutionaryForge <> s2:66 var
+R8365:8368 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8352:8355 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8349:8351 Theory.EvolutionaryForge <> cut:67 var
+R8356:8361 Coq.Init.Datatypes <> length def
+R8363:8364 Theory.EvolutionaryForge <> s1:65 var
+R8385:8390 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8372:8375 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8369:8371 Theory.EvolutionaryForge <> cut:67 var
+R8376:8381 Coq.Init.Datatypes <> length def
+R8383:8384 Theory.EvolutionaryForge <> s2:66 var
+R8408:8416 Theory.EvolutionaryForge <> crossover def
+R8418:8419 Theory.EvolutionaryForge <> s1:65 var
+R8421:8422 Theory.EvolutionaryForge <> s2:66 var
+R8424:8426 Theory.EvolutionaryForge <> cut:67 var
+binder 8395:8403 <> offspring:68
+R8452:8457 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8433:8441 Theory.EvolutionaryForge <> is_viable def
+R8443:8451 Theory.EvolutionaryForge <> offspring:68 var
+R8458:8464 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8492:8497 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 8465:8477 <> parts_from_s1:69
+binder 8479:8491 <> parts_from_s2:70
+R8540:8547 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8507:8509 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8498:8506 Theory.EvolutionaryForge <> offspring:68 var
+R8523:8526 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R8510:8522 Theory.EvolutionaryForge <> parts_from_s1:69 var
+R8527:8539 Theory.EvolutionaryForge <> parts_from_s2:70 var
+R8577:8584 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8561:8563 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8548:8560 Theory.EvolutionaryForge <> parts_from_s1:69 var
+R8564:8569 Coq.Lists.List <> firstn def
+R8575:8576 Theory.EvolutionaryForge <> s1:65 var
+R8571:8573 Theory.EvolutionaryForge <> cut:67 var
+R8598:8600 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8585:8597 Theory.EvolutionaryForge <> parts_from_s2:70 var
+R8601:8605 Coq.Lists.List <> skipn def
+R8611:8612 Theory.EvolutionaryForge <> s2:66 var
+R8607:8609 Theory.EvolutionaryForge <> cut:67 var
+R8711:8739 Theory.EvolutionaryForge <> crossover_preserves_viability thm
+R8711:8739 Theory.EvolutionaryForge <> crossover_preserves_viability thm
+R8809:8814 Coq.Lists.List <> firstn def
+R8826:8830 Coq.Lists.List <> skipn def
+R8809:8814 Coq.Lists.List <> firstn def
+R8826:8830 Coq.Lists.List <> skipn def
+R8876:8884 Theory.EvolutionaryForge <> crossover def
+prf 9246:9261 <> empyrean_theorem
+R9292:9299 Theory.EvolutionaryForge <> Strategy def
+binder 9274:9280 <> parent1:71
+binder 9282:9288 <> parent2:72
+R9330:9335 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9304:9305 Coq.Lists.List <> In def
+R9315:9329 Theory.EvolutionaryForge <> optimal_quartet def
+R9307:9313 Theory.EvolutionaryForge <> parent1:71 var
+R9362:9367 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9336:9337 Coq.Lists.List <> In def
+R9347:9361 Theory.EvolutionaryForge <> optimal_quartet def
+R9339:9345 Theory.EvolutionaryForge <> parent2:72 var
+R9368:9374 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9393:9398 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9385:9392 Theory.EvolutionaryForge <> Strategy def
+binder 9375:9381 <> evolved:73
+R9416:9424 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9507:9507 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9399:9407 Theory.EvolutionaryForge <> is_viable def
+R9409:9415 Theory.EvolutionaryForge <> evolved:73 var
+R9425:9431 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9443:9450 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 9432:9432 <> g:74
+binder 9434:9442 <> n_evolved:75
+R9482:9491 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9451:9461 Theory.EvolutionaryForge <> performance def
+R9463:9469 Theory.EvolutionaryForge <> evolved:73 var
+R9471:9471 Theory.EvolutionaryForge <> g:74 var
+R9473:9481 Theory.EvolutionaryForge <> n_evolved:75 var
+R9501:9504 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R9492:9500 Theory.EvolutionaryForge <> n_evolved:75 var
+R9602:9623 Theory.EvolutionaryForge <> optimal_quartet_viable thm
+R9602:9623 Theory.EvolutionaryForge <> optimal_quartet_viable thm
+R9661:9682 Theory.EvolutionaryForge <> optimal_quartet_viable thm
+R9661:9682 Theory.EvolutionaryForge <> optimal_quartet_viable thm
+R9791:9810 Theory.EvolutionaryForge <> evolution_terminates thm
+R9791:9810 Theory.EvolutionaryForge <> evolution_terminates thm
+R9979:9989 Theory.EvolutionaryForge <> Build_Graph constr
+R9993:9994 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R9979:9989 Theory.EvolutionaryForge <> Build_Graph constr
+R9993:9994 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+prf 10128:10146 <> perpetual_evolution
+R10172:10175 Coq.Init.Datatypes <> list ind
+R10177:10184 Theory.EvolutionaryForge <> Strategy def
+binder 10159:10168 <> generation:76
+R10189:10189 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10230:10236 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 10197:10197 <> s:77
+R10215:10218 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10200:10201 Coq.Lists.List <> In def
+R10205:10214 Theory.EvolutionaryForge <> generation:76 var
+R10203:10203 Theory.EvolutionaryForge <> s:77 var
+R10219:10227 Theory.EvolutionaryForge <> is_viable def
+R10229:10229 Theory.EvolutionaryForge <> s:77 var
+R10237:10243 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10275:10280 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10262:10265 Coq.Init.Datatypes <> list ind
+R10267:10274 Theory.EvolutionaryForge <> Strategy def
+binder 10244:10258 <> next_generation:78
+R10307:10315 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10364:10364 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10303:10305 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R10281:10286 Coq.Init.Datatypes <> length def
+R10288:10302 Theory.EvolutionaryForge <> next_generation:78 var
+binder 10323:10324 <> s':79
+R10348:10351 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10327:10328 Coq.Lists.List <> In def
+R10333:10347 Theory.EvolutionaryForge <> next_generation:78 var
+R10330:10331 Theory.EvolutionaryForge <> s':79 var
+R10352:10360 Theory.EvolutionaryForge <> is_viable def
+R10362:10363 Theory.EvolutionaryForge <> s':79 var
+R10555:10569 Theory.EvolutionaryForge <> optimal_quartet def
+R10555:10569 Theory.EvolutionaryForge <> optimal_quartet def
+R10596:10610 Theory.EvolutionaryForge <> optimal_quartet def
+R10637:10658 Theory.EvolutionaryForge <> optimal_quartet_viable thm
+R10637:10658 Theory.EvolutionaryForge <> optimal_quartet_viable thm
+R10798:10798 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R10830:10830 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R10799:10807 Theory.EvolutionaryForge <> crossover def
+R10825:10827 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R10816:10821 Coq.Init.Datatypes <> length def
+R10798:10798 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R10830:10830 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R10799:10807 Theory.EvolutionaryForge <> crossover def
+R10825:10827 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R10816:10821 Coq.Init.Datatypes <> length def
+R10946:10974 Theory.EvolutionaryForge <> crossover_preserves_viability thm
+R10946:10974 Theory.EvolutionaryForge <> crossover_preserves_viability thm
+R11146:11154 Coq.Init.Logic <> or_introl constr
+R11156:11162 Coq.Init.Logic <> eq_refl constr
+R11146:11154 Coq.Init.Logic <> or_introl constr
+R11156:11162 Coq.Init.Logic <> eq_refl constr
+R11197:11218 Coq.Arith.PeanoNat Nat div_le_upper_bound abbrev
+R11197:11218 Coq.Arith.PeanoNat Nat div_le_upper_bound abbrev
+R11305:11313 Coq.Init.Logic <> or_introl constr
+R11315:11321 Coq.Init.Logic <> eq_refl constr
+R11305:11313 Coq.Init.Logic <> or_introl constr
+R11315:11321 Coq.Init.Logic <> eq_refl constr
+R11356:11377 Coq.Arith.PeanoNat Nat div_le_upper_bound abbrev
+R11356:11377 Coq.Arith.PeanoNat Nat div_le_upper_bound abbrev
+R11484:11492 Theory.EvolutionaryForge <> is_viable def
+R11484:11492 Theory.EvolutionaryForge <> is_viable def
+R11556:11564 Theory.EvolutionaryForge <> is_viable def
+R11556:11564 Theory.EvolutionaryForge <> is_viable def
+R11804:11804 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11858:11858 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11805:11813 Theory.EvolutionaryForge <> crossover def
+R11853:11855 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R11822:11828 Coq.Arith.PeanoNat Nat min def
+R11831:11836 Coq.Init.Datatypes <> length def
+R11843:11848 Coq.Init.Datatypes <> length def
+R11804:11804 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11858:11858 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11805:11813 Theory.EvolutionaryForge <> crossover def
+R11853:11855 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R11822:11828 Coq.Arith.PeanoNat Nat min def
+R11831:11836 Coq.Init.Datatypes <> length def
+R11843:11848 Coq.Init.Datatypes <> length def
+R11974:12002 Theory.EvolutionaryForge <> crossover_preserves_viability thm
+R11974:12002 Theory.EvolutionaryForge <> crossover_preserves_viability thm
+R12269:12271 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R12238:12244 Coq.Arith.PeanoNat Nat min def
+R12247:12252 Coq.Init.Datatypes <> length def
+R12259:12264 Coq.Init.Datatypes <> length def
+R12269:12271 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R12238:12244 Coq.Arith.PeanoNat Nat min def
+R12247:12252 Coq.Init.Datatypes <> length def
+R12259:12264 Coq.Init.Datatypes <> length def
+R12340:12343 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R12336:12338 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R12305:12311 Coq.Arith.PeanoNat Nat min def
+R12314:12319 Coq.Init.Datatypes <> length def
+R12326:12331 Coq.Init.Datatypes <> length def
+R12344:12350 Coq.Arith.PeanoNat Nat min def
+R12353:12358 Coq.Init.Datatypes <> length def
+R12365:12370 Coq.Init.Datatypes <> length def
+R12340:12343 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R12336:12338 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R12305:12311 Coq.Arith.PeanoNat Nat min def
+R12314:12319 Coq.Init.Datatypes <> length def
+R12326:12331 Coq.Init.Datatypes <> length def
+R12344:12350 Coq.Arith.PeanoNat Nat min def
+R12353:12358 Coq.Init.Datatypes <> length def
+R12365:12370 Coq.Init.Datatypes <> length def
+R12397:12418 Coq.Arith.PeanoNat Nat div_le_upper_bound abbrev
+R12397:12418 Coq.Arith.PeanoNat Nat div_le_upper_bound abbrev
+R12446:12457 Coq.Arith.PeanoNat Nat le_trans thm
+R12477:12488 Coq.Arith.PeanoNat Nat le_min_l thm
+R12446:12457 Coq.Arith.PeanoNat Nat le_trans thm
+R12477:12488 Coq.Arith.PeanoNat Nat le_min_l thm
+R12659:12661 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R12628:12634 Coq.Arith.PeanoNat Nat min def
+R12637:12642 Coq.Init.Datatypes <> length def
+R12649:12654 Coq.Init.Datatypes <> length def
+R12659:12661 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R12628:12634 Coq.Arith.PeanoNat Nat min def
+R12637:12642 Coq.Init.Datatypes <> length def
+R12649:12654 Coq.Init.Datatypes <> length def
+R12730:12733 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R12726:12728 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R12695:12701 Coq.Arith.PeanoNat Nat min def
+R12704:12709 Coq.Init.Datatypes <> length def
+R12716:12721 Coq.Init.Datatypes <> length def
+R12734:12740 Coq.Arith.PeanoNat Nat min def
+R12743:12748 Coq.Init.Datatypes <> length def
+R12755:12760 Coq.Init.Datatypes <> length def
+R12730:12733 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R12726:12728 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R12695:12701 Coq.Arith.PeanoNat Nat min def
+R12704:12709 Coq.Init.Datatypes <> length def
+R12716:12721 Coq.Init.Datatypes <> length def
+R12734:12740 Coq.Arith.PeanoNat Nat min def
+R12743:12748 Coq.Init.Datatypes <> length def
+R12755:12760 Coq.Init.Datatypes <> length def
+R12787:12808 Coq.Arith.PeanoNat Nat div_le_upper_bound abbrev
+R12787:12808 Coq.Arith.PeanoNat Nat div_le_upper_bound abbrev
+R12836:12847 Coq.Arith.PeanoNat Nat le_trans thm
+R12867:12878 Coq.Arith.PeanoNat Nat le_min_r thm
+R12836:12847 Coq.Arith.PeanoNat Nat le_trans thm
+R12867:12878 Coq.Arith.PeanoNat Nat le_min_r thm
+prf 13253:13279 <> empirical_evolution_process
+R13285:13291 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R13332:13337 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R13315:13318 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13312:13314 Coq.Init.Datatypes <> nat ind
+R13319:13322 Coq.Init.Datatypes <> list ind
+R13324:13331 Theory.EvolutionaryForge <> Strategy def
+binder 13292:13308 <> evolution_process:80
+R13375:13382 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13357:13359 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13338:13354 Theory.EvolutionaryForge <> evolution_process:80 var
+R13360:13374 Theory.EvolutionaryForge <> optimal_quartet def
+R13383:13383 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13445:13454 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13501:13501 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 13391:13391 <> n:81
+binder 13401:13401 <> s:82
+R13430:13433 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13404:13405 Coq.Lists.List <> In def
+R13410:13426 Theory.EvolutionaryForge <> evolution_process:80 var
+R13428:13428 Theory.EvolutionaryForge <> n:81 var
+R13407:13407 Theory.EvolutionaryForge <> s:82 var
+R13434:13442 Theory.EvolutionaryForge <> is_viable def
+R13444:13444 Theory.EvolutionaryForge <> s:82 var
+binder 13462:13462 <> n:83
+R13497:13499 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R13465:13470 Coq.Init.Datatypes <> length def
+R13473:13489 Theory.EvolutionaryForge <> evolution_process:80 var
+R13492:13492 Coq.Init.Datatypes <> S constr
+R13494:13494 Theory.EvolutionaryForge <> n:83 var
+binder 13609:13609 <> n:84
+R13614:13628 Theory.EvolutionaryForge <> optimal_quartet def
+binder 13609:13609 <> n:85
+R13614:13628 Theory.EvolutionaryForge <> optimal_quartet def
+R13735:13756 Theory.EvolutionaryForge <> optimal_quartet_viable thm
+R13735:13756 Theory.EvolutionaryForge <> optimal_quartet_viable thm
+R13842:13856 Theory.EvolutionaryForge <> optimal_quartet def
+prf 13885:13915 <> machine_achieves_self_evolution
+R13921:13927 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R13968:13973 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R13951:13954 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13948:13950 Coq.Init.Datatypes <> nat ind
+R13955:13958 Coq.Init.Datatypes <> list ind
+R13960:13967 Theory.EvolutionaryForge <> Strategy def
+binder 13928:13944 <> evolution_process:86
+R14011:14018 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13993:13995 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13974:13990 Theory.EvolutionaryForge <> evolution_process:86 var
+R13996:14010 Theory.EvolutionaryForge <> optimal_quartet def
+R14019:14019 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R14081:14090 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R14137:14137 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 14027:14027 <> n:87
+binder 14037:14037 <> s:88
+R14066:14069 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14040:14041 Coq.Lists.List <> In def
+R14046:14062 Theory.EvolutionaryForge <> evolution_process:86 var
+R14064:14064 Theory.EvolutionaryForge <> n:87 var
+R14043:14043 Theory.EvolutionaryForge <> s:88 var
+R14070:14078 Theory.EvolutionaryForge <> is_viable def
+R14080:14080 Theory.EvolutionaryForge <> s:88 var
+binder 14098:14098 <> n:89
+R14133:14135 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R14101:14106 Coq.Init.Datatypes <> length def
+R14109:14125 Theory.EvolutionaryForge <> evolution_process:86 var
+R14128:14128 Coq.Init.Datatypes <> S constr
+R14130:14130 Theory.EvolutionaryForge <> n:89 var
+R14155:14181 Theory.EvolutionaryForge <> empirical_evolution_process thm
+R14155:14181 Theory.EvolutionaryForge <> empirical_evolution_process thm

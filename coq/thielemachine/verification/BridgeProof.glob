@@ -1,0 +1,75 @@
+DIGEST 56aa9280deeb5794236127e776f2bea1
+FThieleMachineVerification.BridgeProof
+R24:26 Coq.micromega.Lia <> <> lib
+R65:66 ThieleUniversal.TM <> <> lib
+R68:78 ThieleUniversal.UTM_Program <> <> lib
+R80:89 ThieleUniversal.UTM_Encode <> <> lib
+R138:154 ThieleMachineVerification.BridgeDefinitions <> <> lib
+R203:219 ThieleMachineVerification.BridgeCheckpoints <> <> lib
+prf 487:503 <> prove_segment_0_3
+R552:554 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R508:523 ThieleMachineVerification.BridgeDefinitions <> check_transition def
+R525:536 ThieleMachineVerification.BridgeCheckpoints <> checkpoint_0 def
+R538:549 ThieleMachineVerification.BridgeCheckpoints <> checkpoint_3 def
+R555:558 Coq.Init.Datatypes <> true constr
+prf 613:629 <> prove_segment_3_9
+R678:680 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R634:649 ThieleMachineVerification.BridgeDefinitions <> check_transition def
+R651:662 ThieleMachineVerification.BridgeCheckpoints <> checkpoint_3 def
+R664:675 ThieleMachineVerification.BridgeCheckpoints <> checkpoint_9 def
+R681:684 Coq.Init.Datatypes <> true constr
+prf 739:756 <> prove_segment_9_15
+R806:808 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R761:776 ThieleMachineVerification.BridgeDefinitions <> check_transition def
+R778:789 ThieleMachineVerification.BridgeCheckpoints <> checkpoint_9 def
+R791:803 ThieleMachineVerification.BridgeCheckpoints <> checkpoint_15 def
+R809:812 Coq.Init.Datatypes <> true constr
+prf 867:885 <> prove_segment_15_19
+R936:938 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R890:905 ThieleMachineVerification.BridgeDefinitions <> check_transition def
+R907:919 ThieleMachineVerification.BridgeCheckpoints <> checkpoint_15 def
+R921:933 ThieleMachineVerification.BridgeCheckpoints <> checkpoint_19 def
+R939:942 Coq.Init.Datatypes <> true constr
+prf 1080:1105 <> cpu_tm_general_isomorphism
+binder 1116:1117 <> tm:1
+binder 1119:1122 <> conf:2
+R1173:1178 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1141:1144 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1127:1132 Coq.Init.Datatypes <> length def
+R1134:1140 ThieleMachineVerification.BridgeDefinitions <> program def
+R1145:1172 ThieleUniversal.UTM_Program UTM_Program RULES_START_ADDR def
+R1291:1296 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1225:1232 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1179:1184 Coq.Init.Datatypes <> length def
+R1187:1209 ThieleUniversal.UTM_Encode UTM_Encode encode_rules def
+R1215:1222 ThieleUniversal.TM <> tm_rules proj
+R1211:1212 ThieleMachineVerification.BridgeProof <> tm:1 var
+R1260:1262 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R1233:1259 ThieleUniversal.UTM_Program UTM_Program TAPE_START_ADDR def
+R1263:1290 ThieleUniversal.UTM_Program UTM_Program RULES_START_ADDR def
+R1307:1317 ThieleMachineVerification.BridgeDefinitions <> setup_state def
+R1319:1320 ThieleMachineVerification.BridgeProof <> tm:1 var
+R1322:1325 ThieleMachineVerification.BridgeProof <> conf:2 var
+binder 1301:1302 <> st:3
+R1374:1379 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1357:1359 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1332:1343 ThieleUniversal.CPU <> read_reg def
+R1345:1353 ThieleUniversal.CPU <> REG_Q def
+R1355:1356 ThieleMachineVerification.BridgeProof <> st:3 var
+R1360:1362 Coq.Init.Datatypes <> fst def
+R1365:1367 Coq.Init.Datatypes <> fst def
+R1369:1372 ThieleMachineVerification.BridgeProof <> conf:2 var
+R1419:1424 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1408:1410 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1380:1391 ThieleUniversal.CPU <> read_reg def
+R1393:1404 ThieleUniversal.CPU <> REG_HEAD def
+R1406:1407 ThieleMachineVerification.BridgeProof <> st:3 var
+R1411:1413 Coq.Init.Datatypes <> snd def
+R1415:1418 ThieleMachineVerification.BridgeProof <> conf:2 var
+R1425:1438 ThieleMachineVerification.BridgeDefinitions <> tape_window_ok def
+R1440:1441 ThieleMachineVerification.BridgeProof <> st:3 var
+R1444:1446 Coq.Init.Datatypes <> snd def
+R1449:1451 Coq.Init.Datatypes <> fst def
+R1453:1456 ThieleMachineVerification.BridgeProof <> conf:2 var
+R1476:1493 ThieleMachineVerification.BridgeDefinitions <> cpu_tm_isomorphism thm
+R1476:1493 ThieleMachineVerification.BridgeDefinitions <> cpu_tm_isomorphism thm

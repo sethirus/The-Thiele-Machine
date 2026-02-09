@@ -1,0 +1,1338 @@
+DIGEST b419d5d44ff95090d5a1710f162a7dc5
+FThieleMachine.DiscoveryProof
+R627:631 Coq.Arith.Arith <> <> lib
+R633:638 Coq.ZArith.ZArith <> <> lib
+R640:642 Coq.micromega.Lia <> <> lib
+R644:647 Coq.Lists.List <> <> lib
+R649:651 Coq.Init.Nat <> <> lib
+R653:656 Coq.Bool.Bool <> <> lib
+R683:701 Coq.Sorting.Permutation <> <> lib
+R711:723 Coq.Lists.List ListNotations <> mod
+mod 1202:1217 <> MatrixPrimitives
+def 1423:1428 MatrixPrimitives Matrix
+R1436:1438 Coq.Init.Datatypes <> nat ind
+binder 1431:1432 <> _n:1
+R1451:1454 Coq.Init.Datatypes <> list ind
+R1457:1460 Coq.Init.Datatypes <> list ind
+R1462:1464 Coq.Init.Datatypes <> nat ind
+def 1482:1486 MatrixPrimitives edgeb
+R1495:1497 Coq.Init.Datatypes <> nat ind
+binder 1489:1489 <> a:2
+binder 1491:1491 <> b:3
+R1508:1510 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1505:1507 Coq.Init.Datatypes <> nat ind
+R1511:1513 Coq.Init.Datatypes <> nat ind
+binder 1501:1501 <> e:4
+R1518:1521 Coq.Init.Datatypes <> bool ind
+R1547:1550 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R1530:1536 Coq.Arith.PeanoNat Nat eqb def
+R1539:1541 Coq.Init.Datatypes <> fst def
+R1543:1543 ThieleMachine.DiscoveryProof <> e:4 var
+R1546:1546 ThieleMachine.DiscoveryProof <> a:2 var
+R1551:1557 Coq.Arith.PeanoNat Nat eqb def
+R1560:1562 Coq.Init.Datatypes <> snd def
+R1564:1564 ThieleMachine.DiscoveryProof <> e:4 var
+R1567:1567 ThieleMachine.DiscoveryProof <> b:3 var
+def 1584:1591 MatrixPrimitives has_edge
+R1600:1602 Coq.Init.Datatypes <> nat ind
+binder 1594:1594 <> a:5
+binder 1596:1596 <> b:6
+R1614:1617 Coq.Init.Datatypes <> list ind
+R1623:1625 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1620:1622 Coq.Init.Datatypes <> nat ind
+R1626:1628 Coq.Init.Datatypes <> nat ind
+binder 1606:1610 <> edges:7
+R1634:1637 Coq.Init.Datatypes <> bool ind
+R1646:1652 Coq.Lists.List <> existsb def
+R1666:1670 ThieleMachine.DiscoveryProof <> edges:7 var
+R1655:1659 ThieleMachine.DiscoveryProof MatrixPrimitives edgeb def
+R1661:1661 ThieleMachine.DiscoveryProof <> a:5 var
+R1663:1663 ThieleMachine.DiscoveryProof <> b:6 var
+def 1687:1695 MatrixPrimitives build_row
+R1702:1704 Coq.Init.Datatypes <> nat ind
+binder 1698:1698 <> n:8
+R1716:1719 Coq.Init.Datatypes <> list ind
+R1725:1727 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1722:1724 Coq.Init.Datatypes <> nat ind
+R1728:1730 Coq.Init.Datatypes <> nat ind
+binder 1708:1712 <> edges:9
+R1739:1741 Coq.Init.Datatypes <> nat ind
+binder 1735:1735 <> i:10
+R1746:1749 Coq.Init.Datatypes <> list ind
+R1751:1753 Coq.Init.Datatypes <> nat ind
+R1762:1764 Coq.Lists.List <> map def
+R1814:1816 Coq.Lists.List <> seq def
+R1820:1820 ThieleMachine.DiscoveryProof <> n:8 var
+binder 1771:1771 <> j:11
+R1779:1786 ThieleMachine.DiscoveryProof MatrixPrimitives has_edge def
+R1788:1788 ThieleMachine.DiscoveryProof <> i:10 var
+R1790:1790 ThieleMachine.DiscoveryProof <> j:11 var
+R1792:1796 ThieleMachine.DiscoveryProof <> edges:9 var
+def 1885:1899 MatrixPrimitives build_adjacency
+R1906:1908 Coq.Init.Datatypes <> nat ind
+binder 1902:1902 <> n:12
+R1920:1923 Coq.Init.Datatypes <> list ind
+R1929:1931 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1926:1928 Coq.Init.Datatypes <> nat ind
+R1932:1934 Coq.Init.Datatypes <> nat ind
+binder 1912:1916 <> edges:13
+R1940:1945 ThieleMachine.DiscoveryProof MatrixPrimitives Matrix def
+R1947:1947 ThieleMachine.DiscoveryProof <> n:12 var
+R1956:1958 Coq.Lists.List <> map def
+R1981:1983 Coq.Lists.List <> seq def
+R1987:1987 ThieleMachine.DiscoveryProof <> n:12 var
+R1961:1969 ThieleMachine.DiscoveryProof MatrixPrimitives build_row def
+R1971:1971 ThieleMachine.DiscoveryProof <> n:12 var
+R1973:1977 ThieleMachine.DiscoveryProof <> edges:13 var
+def 2251:2267 MatrixPrimitives compute_laplacian
+R2274:2276 Coq.Init.Datatypes <> nat ind
+binder 2270:2270 <> n:14
+R2284:2289 ThieleMachine.DiscoveryProof MatrixPrimitives Matrix def
+R2291:2291 ThieleMachine.DiscoveryProof <> n:14 var
+binder 2280:2280 <> m:15
+R2296:2301 ThieleMachine.DiscoveryProof MatrixPrimitives Matrix def
+R2303:2303 ThieleMachine.DiscoveryProof <> n:14 var
+R2308:2308 ThieleMachine.DiscoveryProof <> m:15 var
+def 2325:2339 MatrixPrimitives identity_matrix
+R2346:2348 Coq.Init.Datatypes <> nat ind
+binder 2342:2342 <> n:16
+R2353:2358 ThieleMachine.DiscoveryProof MatrixPrimitives Matrix def
+R2360:2360 ThieleMachine.DiscoveryProof <> n:16 var
+R2369:2371 Coq.Lists.List <> map def
+R2450:2452 Coq.Lists.List <> seq def
+R2456:2456 ThieleMachine.DiscoveryProof <> n:16 var
+binder 2378:2378 <> i:17
+R2389:2391 Coq.Lists.List <> map def
+R2434:2436 Coq.Lists.List <> seq def
+R2440:2440 ThieleMachine.DiscoveryProof <> n:16 var
+binder 2398:2398 <> j:18
+R2406:2412 Coq.Arith.PeanoNat Nat eqb def
+R2414:2414 ThieleMachine.DiscoveryProof <> i:17 var
+R2416:2416 ThieleMachine.DiscoveryProof <> j:18 var
+def 2693:2710 MatrixPrimitives eigendecomposition
+R2717:2719 Coq.Init.Datatypes <> nat ind
+binder 2713:2713 <> n:19
+R2728:2733 ThieleMachine.DiscoveryProof MatrixPrimitives Matrix def
+R2735:2735 ThieleMachine.DiscoveryProof <> n:19 var
+binder 2723:2724 <> _M:20
+R2748:2750 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2740:2743 Coq.Init.Datatypes <> list ind
+R2745:2747 Coq.Init.Datatypes <> nat ind
+R2751:2756 ThieleMachine.DiscoveryProof MatrixPrimitives Matrix def
+R2758:2758 ThieleMachine.DiscoveryProof <> n:19 var
+R2767:2767 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2778:2779 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2797:2797 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2768:2773 Coq.Lists.List <> repeat def
+R2777:2777 ThieleMachine.DiscoveryProof <> n:19 var
+R2780:2794 ThieleMachine.DiscoveryProof MatrixPrimitives identity_matrix def
+R2796:2796 ThieleMachine.DiscoveryProof <> n:19 var
+prf 2874:2889 MatrixPrimitives eigen_complexity
+R2909:2911 Coq.Init.Datatypes <> nat ind
+binder 2905:2905 <> n:21
+R2919:2924 ThieleMachine.DiscoveryProof MatrixPrimitives Matrix def
+R2926:2926 ThieleMachine.DiscoveryProof <> n:21 var
+binder 2915:2915 <> M:22
+R2936:2942 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2954:2963 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2951:2953 Coq.Init.Datatypes <> nat ind
+binder 2943:2947 <> steps:23
+R2986:2997 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2969:2972 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2964:2968 ThieleMachine.DiscoveryProof <> steps:23 var
+R2982:2984 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R2978:2980 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R2974:2976 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R2973:2973 ThieleMachine.DiscoveryProof <> n:21 var
+R2977:2977 ThieleMachine.DiscoveryProof <> n:21 var
+R2981:2981 ThieleMachine.DiscoveryProof <> n:21 var
+R3003:3005 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R2998:3002 ThieleMachine.DiscoveryProof <> steps:23 var
+R3055:3057 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R3051:3053 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R3047:3049 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R3055:3057 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R3051:3053 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R3047:3049 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R3402:3417 ThieleMachine.DiscoveryProof MatrixPrimitives <> mod
+R3428:3443 ThieleMachine.DiscoveryProof MatrixPrimitives <> mod
+rec 3499:3505 <> Problem
+proj 3514:3525 <> problem_size
+proj 3536:3547 <> interactions
+R3529:3531 Coq.Init.Datatypes <> nat ind
+R3551:3554 Coq.Init.Datatypes <> list ind
+R3560:3562 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3557:3559 Coq.Init.Datatypes <> nat ind
+R3563:3565 Coq.Init.Datatypes <> nat ind
+def 3584:3592 <> Partition
+R3597:3600 Coq.Init.Datatypes <> list ind
+R3603:3606 Coq.Init.Datatypes <> list ind
+R3608:3610 Coq.Init.Datatypes <> nat ind
+rec 3622:3639 <> PartitionCandidate
+proj 3648:3654 <> modules
+proj 3671:3678 <> mdl_cost
+proj 3689:3702 <> discovery_cost
+R3658:3666 ThieleMachine.DiscoveryProof <> Partition def
+R3682:3684 Coq.Init.Datatypes <> nat ind
+R3706:3708 Coq.Init.Datatypes <> nat ind
+def 3775:3781 <> flatten
+R3788:3796 ThieleMachine.DiscoveryProof <> Partition def
+binder 3784:3784 <> p:31
+R3801:3804 Coq.Init.Datatypes <> list ind
+R3806:3808 Coq.Init.Datatypes <> nat ind
+R3821:3821 ThieleMachine.DiscoveryProof <> p:31 var
+R3832:3833 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3838:3839 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3846:3849 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3859:3862 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R3863:3869 ThieleMachine.DiscoveryProof <> flatten:32 def
+def 3895:3912 <> is_valid_partition
+R3919:3927 ThieleMachine.DiscoveryProof <> Partition def
+binder 3915:3915 <> p:34
+R3935:3937 Coq.Init.Datatypes <> nat ind
+binder 3931:3931 <> n:35
+R3964:3970 ThieleMachine.DiscoveryProof <> flatten def
+R3972:3972 ThieleMachine.DiscoveryProof <> p:34 var
+binder 3956:3959 <> vars:36
+R3979:3989 Coq.Sorting.Permutation <> Permutation ind
+R3997:3999 Coq.Lists.List <> seq def
+R4003:4003 ThieleMachine.DiscoveryProof <> n:35 var
+R3991:3994 ThieleMachine.DiscoveryProof <> vars:36 var
+def 4074:4086 <> count_occ_nat
+R4093:4095 Coq.Init.Datatypes <> nat ind
+binder 4089:4089 <> a:37
+R4103:4106 Coq.Init.Datatypes <> list ind
+R4108:4110 Coq.Init.Datatypes <> nat ind
+binder 4099:4099 <> l:38
+R4115:4117 Coq.Init.Datatypes <> nat ind
+R4130:4130 ThieleMachine.DiscoveryProof <> l:38 var
+R4141:4142 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4154:4157 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4169:4175 Coq.Arith.PeanoNat Nat eqb def
+R4179:4179 ThieleMachine.DiscoveryProof <> a:37 var
+R4216:4228 ThieleMachine.DiscoveryProof <> count_occ_nat:39 def
+R4230:4230 ThieleMachine.DiscoveryProof <> a:37 var
+R4186:4186 Coq.Init.Datatypes <> S constr
+R4189:4201 ThieleMachine.DiscoveryProof <> count_occ_nat:39 def
+R4203:4203 ThieleMachine.DiscoveryProof <> a:37 var
+def 4325:4335 <> range_check
+R4342:4345 Coq.Init.Datatypes <> list ind
+R4347:4349 Coq.Init.Datatypes <> nat ind
+binder 4338:4338 <> l:41
+R4365:4367 Coq.Init.Datatypes <> nat ind
+binder 4353:4357 <> start:42
+binder 4359:4361 <> len:43
+R4372:4375 Coq.Init.Datatypes <> bool ind
+R4388:4390 ThieleMachine.DiscoveryProof <> len:43 var
+R4406:4409 Coq.Init.Datatypes <> true constr
+R4415:4415 Coq.Init.Datatypes <> S constr
+R4458:4461 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4425:4431 Coq.Arith.PeanoNat Nat eqb def
+R4434:4446 ThieleMachine.DiscoveryProof <> count_occ_nat def
+R4448:4452 ThieleMachine.DiscoveryProof <> start:42 var
+R4454:4454 ThieleMachine.DiscoveryProof <> l:41 var
+R4462:4472 ThieleMachine.DiscoveryProof <> range_check:44 def
+R4477:4477 Coq.Init.Datatypes <> S constr
+R4479:4483 ThieleMachine.DiscoveryProof <> start:42 var
+R4474:4474 ThieleMachine.DiscoveryProof <> l:41 var
+def 4558:4574 <> perm_of_seq_check
+R4581:4584 Coq.Init.Datatypes <> list ind
+R4586:4588 Coq.Init.Datatypes <> nat ind
+binder 4577:4577 <> l:46
+R4596:4598 Coq.Init.Datatypes <> nat ind
+binder 4592:4592 <> n:47
+R4603:4606 Coq.Init.Datatypes <> bool ind
+R4633:4636 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4613:4619 Coq.Arith.PeanoNat Nat eqb def
+R4622:4627 Coq.Init.Datatypes <> length def
+R4629:4629 ThieleMachine.DiscoveryProof <> l:46 var
+R4632:4632 ThieleMachine.DiscoveryProof <> n:47 var
+R4637:4647 ThieleMachine.DiscoveryProof <> range_check def
+R4649:4649 ThieleMachine.DiscoveryProof <> l:46 var
+R4653:4653 ThieleMachine.DiscoveryProof <> n:47 var
+prf 4726:4741 <> count_occ_nat_eq
+binder 4752:4752 <> a:48
+binder 4754:4754 <> l:49
+R4776:4778 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4759:4771 ThieleMachine.DiscoveryProof <> count_occ_nat def
+R4773:4773 ThieleMachine.DiscoveryProof <> a:48 var
+R4775:4775 ThieleMachine.DiscoveryProof <> l:49 var
+R4779:4787 Coq.Lists.List <> count_occ def
+R4802:4802 ThieleMachine.DiscoveryProof <> a:48 var
+R4800:4800 ThieleMachine.DiscoveryProof <> l:49 var
+R4789:4798 Coq.Arith.PeanoNat Nat eq_dec thm
+R4900:4909 Coq.Arith.PeanoNat Nat eq_dec thm
+R4900:4909 Coq.Arith.PeanoNat Nat eq_dec thm
+R4958:4969 Coq.Arith.PeanoNat Nat eqb_refl thm
+R4958:4969 Coq.Arith.PeanoNat Nat eqb_refl thm
+R4958:4969 Coq.Arith.PeanoNat Nat eqb_refl thm
+R5009:5019 Coq.Arith.PeanoNat Nat eqb_neq thm
+R5009:5019 Coq.Arith.PeanoNat Nat eqb_neq thm
+prf 5146:5167 <> count_occ_seq_in_range
+binder 5178:5178 <> a:50
+binder 5180:5184 <> start:51
+binder 5186:5188 <> len:52
+R5213:5218 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5193:5194 Coq.Lists.List <> In def
+R5199:5201 Coq.Lists.List <> seq def
+R5209:5211 ThieleMachine.DiscoveryProof <> len:52 var
+R5203:5207 ThieleMachine.DiscoveryProof <> start:51 var
+R5196:5196 ThieleMachine.DiscoveryProof <> a:50 var
+R5257:5259 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5219:5227 Coq.Lists.List <> count_occ def
+R5256:5256 ThieleMachine.DiscoveryProof <> a:50 var
+R5241:5243 Coq.Lists.List <> seq def
+R5251:5253 ThieleMachine.DiscoveryProof <> len:52 var
+R5245:5249 ThieleMachine.DiscoveryProof <> start:51 var
+R5229:5238 Coq.Arith.PeanoNat Nat eq_dec thm
+R5478:5486 Coq.Lists.List <> seq_NoDup thm
+R5478:5486 Coq.Lists.List <> seq_NoDup thm
+R5521:5525 Coq.Init.Logic <> proj1 thm
+R5528:5542 Coq.Lists.List <> NoDup_count_occ thm
+R5556:5558 Coq.Lists.List <> seq def
+R5544:5553 Coq.Arith.PeanoNat Nat eq_dec thm
+R5521:5525 Coq.Init.Logic <> proj1 thm
+R5528:5542 Coq.Lists.List <> NoDup_count_occ thm
+R5556:5558 Coq.Lists.List <> seq def
+R5544:5553 Coq.Arith.PeanoNat Nat eq_dec thm
+R5601:5605 Coq.Init.Logic <> proj1 thm
+R5608:5619 Coq.Lists.List <> count_occ_In thm
+R5633:5635 Coq.Lists.List <> seq def
+R5621:5630 Coq.Arith.PeanoNat Nat eq_dec thm
+R5601:5605 Coq.Init.Logic <> proj1 thm
+R5608:5619 Coq.Lists.List <> count_occ_In thm
+R5633:5635 Coq.Lists.List <> seq def
+R5621:5630 Coq.Arith.PeanoNat Nat eq_dec thm
+prf 5683:5708 <> count_occ_seq_not_in_range
+binder 5719:5719 <> a:53
+binder 5721:5725 <> start:54
+binder 5727:5729 <> len:55
+R5756:5761 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5734:5735 Coq.Init.Logic <> ::type_scope:'~'_x not
+R5736:5737 Coq.Lists.List <> In def
+R5742:5744 Coq.Lists.List <> seq def
+R5752:5754 ThieleMachine.DiscoveryProof <> len:55 var
+R5746:5750 ThieleMachine.DiscoveryProof <> start:54 var
+R5739:5739 ThieleMachine.DiscoveryProof <> a:53 var
+R5800:5802 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5762:5770 Coq.Lists.List <> count_occ def
+R5799:5799 ThieleMachine.DiscoveryProof <> a:53 var
+R5784:5786 Coq.Lists.List <> seq def
+R5794:5796 ThieleMachine.DiscoveryProof <> len:55 var
+R5788:5792 ThieleMachine.DiscoveryProof <> start:54 var
+R5772:5781 Coq.Arith.PeanoNat Nat eq_dec thm
+R5848:5863 Coq.Lists.List <> count_occ_not_In thm
+R5848:5863 Coq.Lists.List <> count_occ_not_In thm
+prf 6167:6183 <> range_check_count
+binder 6194:6194 <> l:56
+binder 6196:6200 <> start:57
+binder 6202:6204 <> len:58
+binder 6206:6206 <> i:59
+R6241:6246 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6234:6236 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6211:6221 ThieleMachine.DiscoveryProof <> range_check def
+R6223:6223 ThieleMachine.DiscoveryProof <> l:56 var
+R6225:6229 ThieleMachine.DiscoveryProof <> start:57 var
+R6231:6233 ThieleMachine.DiscoveryProof <> len:58 var
+R6237:6240 Coq.Init.Datatypes <> true constr
+R6271:6276 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6252:6255 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<'_x not
+R6257:6259 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<'_x not
+R6247:6251 ThieleMachine.DiscoveryProof <> start:57 var
+R6256:6256 ThieleMachine.DiscoveryProof <> i:59 var
+R6256:6256 ThieleMachine.DiscoveryProof <> i:59 var
+R6265:6267 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R6260:6264 ThieleMachine.DiscoveryProof <> start:57 var
+R6268:6270 ThieleMachine.DiscoveryProof <> len:58 var
+R6294:6296 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6277:6289 ThieleMachine.DiscoveryProof <> count_occ_nat def
+R6291:6291 ThieleMachine.DiscoveryProof <> i:59 var
+R6293:6293 ThieleMachine.DiscoveryProof <> l:56 var
+R6450:6467 Coq.Bool.Bool <> andb_true_iff thm
+R6450:6467 Coq.Bool.Bool <> andb_true_iff thm
+R6522:6531 Coq.Arith.PeanoNat Nat eqb_eq thm
+R6522:6531 Coq.Arith.PeanoNat Nat eqb_eq thm
+R6558:6567 Coq.Arith.PeanoNat Nat eq_dec thm
+R6558:6567 Coq.Arith.PeanoNat Nat eq_dec thm
+R6656:6656 Coq.Init.Datatypes <> S constr
+R6656:6656 Coq.Init.Datatypes <> S constr
+prf 7068:7099 <> range_check_in_range_with_length
+binder 7110:7110 <> l:60
+binder 7112:7116 <> start:61
+binder 7118:7120 <> len:62
+binder 7122:7122 <> x:63
+R7141:7146 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7135:7137 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7127:7132 Coq.Init.Datatypes <> length def
+R7134:7134 ThieleMachine.DiscoveryProof <> l:60 var
+R7138:7140 ThieleMachine.DiscoveryProof <> len:62 var
+R7177:7182 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7170:7172 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7147:7157 ThieleMachine.DiscoveryProof <> range_check def
+R7159:7159 ThieleMachine.DiscoveryProof <> l:60 var
+R7161:7165 ThieleMachine.DiscoveryProof <> start:61 var
+R7167:7169 ThieleMachine.DiscoveryProof <> len:62 var
+R7173:7176 Coq.Init.Datatypes <> true constr
+R7189:7194 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7183:7184 Coq.Lists.List <> In def
+R7188:7188 ThieleMachine.DiscoveryProof <> l:60 var
+R7186:7186 ThieleMachine.DiscoveryProof <> x:63 var
+R7200:7203 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<'_x not
+R7205:7207 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<'_x not
+R7195:7199 ThieleMachine.DiscoveryProof <> start:61 var
+R7204:7204 ThieleMachine.DiscoveryProof <> x:63 var
+R7204:7204 ThieleMachine.DiscoveryProof <> x:63 var
+R7213:7215 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R7208:7212 ThieleMachine.DiscoveryProof <> start:61 var
+R7216:7218 ThieleMachine.DiscoveryProof <> len:62 var
+binder 7294:7294 <> i:64
+R7321:7324 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7302:7305 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<'_x not
+R7307:7309 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<'_x not
+R7306:7306 ThieleMachine.DiscoveryProof <> i:64 var
+R7306:7306 ThieleMachine.DiscoveryProof <> i:64 var
+R7315:7317 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R7325:7326 Coq.Lists.List <> In def
+R7328:7328 ThieleMachine.DiscoveryProof <> i:64 var
+binder 7294:7294 <> i:65
+R7321:7324 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7302:7305 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<'_x not
+R7307:7309 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<'_x not
+R7306:7306 ThieleMachine.DiscoveryProof <> i:65 var
+R7306:7306 ThieleMachine.DiscoveryProof <> i:65 var
+R7315:7317 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R7325:7326 Coq.Lists.List <> In def
+R7328:7328 ThieleMachine.DiscoveryProof <> i:65 var
+R7367:7383 ThieleMachine.DiscoveryProof <> range_check_count thm
+R7367:7383 ThieleMachine.DiscoveryProof <> range_check_count thm
+R7430:7445 ThieleMachine.DiscoveryProof <> count_occ_nat_eq thm
+R7430:7445 ThieleMachine.DiscoveryProof <> count_occ_nat_eq thm
+R7430:7445 ThieleMachine.DiscoveryProof <> count_occ_nat_eq thm
+R7469:7473 Coq.Init.Logic <> proj2 thm
+R7476:7487 Coq.Lists.List <> count_occ_In thm
+R7489:7498 Coq.Arith.PeanoNat Nat eq_dec thm
+R7469:7473 Coq.Init.Logic <> proj2 thm
+R7476:7487 Coq.Lists.List <> count_occ_In thm
+R7489:7498 Coq.Arith.PeanoNat Nat eq_dec thm
+R7532:7537 Coq.Lists.List <> in_dec thm
+R7553:7555 Coq.Lists.List <> seq def
+R7539:7548 Coq.Arith.PeanoNat Nat eq_dec thm
+R7532:7537 Coq.Lists.List <> in_dec thm
+R7553:7555 Coq.Lists.List <> seq def
+R7539:7548 Coq.Arith.PeanoNat Nat eq_dec thm
+R7600:7605 Coq.Lists.List <> in_seq thm
+R7600:7605 Coq.Lists.List <> in_seq thm
+R7659:7662 Coq.Lists.List <> incl def
+R7665:7667 Coq.Lists.List <> seq def
+R7659:7662 Coq.Lists.List <> incl def
+R7665:7667 Coq.Lists.List <> seq def
+R7726:7731 Coq.Lists.List <> in_seq thm
+R7726:7731 Coq.Lists.List <> in_seq thm
+R7772:7776 Coq.Lists.List <> NoDup ind
+R7779:7781 Coq.Lists.List <> seq def
+R7804:7812 Coq.Lists.List <> seq_NoDup thm
+R7772:7776 Coq.Lists.List <> NoDup ind
+R7779:7781 Coq.Lists.List <> seq def
+R7804:7812 Coq.Lists.List <> seq_NoDup thm
+R7835:7838 Coq.Lists.List <> incl def
+R7842:7845 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7846:7848 Coq.Lists.List <> seq def
+R7835:7838 Coq.Lists.List <> incl def
+R7842:7845 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7846:7848 Coq.Lists.List <> seq def
+R7998:8002 Coq.Lists.List <> NoDup ind
+R8006:8009 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8010:8012 Coq.Lists.List <> seq def
+R7998:8002 Coq.Lists.List <> NoDup ind
+R8006:8009 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8010:8012 Coq.Lists.List <> seq def
+R8128:8131 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8101:8106 Coq.Init.Datatypes <> length def
+R8110:8113 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8114:8116 Coq.Lists.List <> seq def
+R8132:8137 Coq.Init.Datatypes <> length def
+R8128:8131 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8101:8106 Coq.Init.Datatypes <> length def
+R8110:8113 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8114:8116 Coq.Lists.List <> seq def
+R8132:8137 Coq.Init.Datatypes <> length def
+R8156:8172 Coq.Lists.List <> NoDup_incl_length thm
+R8156:8172 Coq.Lists.List <> NoDup_incl_length thm
+R8214:8223 Coq.Lists.List <> seq_length thm
+R8214:8223 Coq.Lists.List <> seq_length thm
+R8214:8223 Coq.Lists.List <> seq_length thm
+prf 8254:8276 <> perm_of_seq_check_sound
+binder 8287:8287 <> l:66
+binder 8289:8289 <> n:67
+R8322:8325 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8315:8317 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8294:8310 ThieleMachine.DiscoveryProof <> perm_of_seq_check def
+R8312:8312 ThieleMachine.DiscoveryProof <> l:66 var
+R8314:8314 ThieleMachine.DiscoveryProof <> n:67 var
+R8318:8321 Coq.Init.Datatypes <> true constr
+R8326:8336 Coq.Sorting.Permutation <> Permutation ind
+R8341:8343 Coq.Lists.List <> seq def
+R8347:8347 ThieleMachine.DiscoveryProof <> n:67 var
+R8338:8338 ThieleMachine.DiscoveryProof <> l:66 var
+R8383:8399 ThieleMachine.DiscoveryProof <> perm_of_seq_check def
+R8415:8432 Coq.Bool.Bool <> andb_true_iff thm
+R8415:8432 Coq.Bool.Bool <> andb_true_iff thm
+R8479:8488 Coq.Arith.PeanoNat Nat eqb_eq thm
+R8479:8488 Coq.Arith.PeanoNat Nat eqb_eq thm
+R8551:8555 Coq.Init.Logic <> proj2 thm
+R8558:8578 Coq.Sorting.Permutation <> Permutation_count_occ thm
+R8594:8596 Coq.Lists.List <> seq def
+R8580:8589 Coq.Arith.PeanoNat Nat eq_dec thm
+R8551:8555 Coq.Init.Logic <> proj2 thm
+R8558:8578 Coq.Sorting.Permutation <> Permutation_count_occ thm
+R8594:8596 Coq.Lists.List <> seq def
+R8580:8589 Coq.Arith.PeanoNat Nat eq_dec thm
+R8629:8634 Coq.Lists.List <> in_dec thm
+R8650:8652 Coq.Lists.List <> seq def
+R8636:8645 Coq.Arith.PeanoNat Nat eq_dec thm
+R8629:8634 Coq.Lists.List <> in_dec thm
+R8650:8652 Coq.Lists.List <> seq def
+R8636:8645 Coq.Arith.PeanoNat Nat eq_dec thm
+R8727:8732 Coq.Lists.List <> in_seq thm
+R8727:8732 Coq.Lists.List <> in_seq thm
+R8754:8775 ThieleMachine.DiscoveryProof <> count_occ_seq_in_range thm
+R8754:8775 ThieleMachine.DiscoveryProof <> count_occ_seq_in_range thm
+R8754:8775 ThieleMachine.DiscoveryProof <> count_occ_seq_in_range thm
+R8754:8775 ThieleMachine.DiscoveryProof <> count_occ_seq_in_range thm
+R8795:8810 ThieleMachine.DiscoveryProof <> count_occ_nat_eq thm
+R8795:8810 ThieleMachine.DiscoveryProof <> count_occ_nat_eq thm
+R8795:8810 ThieleMachine.DiscoveryProof <> count_occ_nat_eq thm
+R8825:8841 ThieleMachine.DiscoveryProof <> range_check_count thm
+R8825:8841 ThieleMachine.DiscoveryProof <> range_check_count thm
+R8920:8925 Coq.Lists.List <> in_seq thm
+R8920:8925 Coq.Lists.List <> in_seq thm
+R8972:8997 ThieleMachine.DiscoveryProof <> count_occ_seq_not_in_range thm
+R8972:8997 ThieleMachine.DiscoveryProof <> count_occ_seq_not_in_range thm
+R8972:8997 ThieleMachine.DiscoveryProof <> count_occ_seq_not_in_range thm
+R9062:9077 ThieleMachine.DiscoveryProof <> count_occ_nat_eq thm
+R9062:9077 ThieleMachine.DiscoveryProof <> count_occ_nat_eq thm
+R9062:9077 ThieleMachine.DiscoveryProof <> count_occ_nat_eq thm
+R9094:9106 ThieleMachine.DiscoveryProof <> count_occ_nat def
+R9094:9106 ThieleMachine.DiscoveryProof <> count_occ_nat def
+R9253:9254 Coq.Lists.List <> In def
+R9253:9254 Coq.Lists.List <> In def
+R9278:9293 ThieleMachine.DiscoveryProof <> count_occ_nat_eq thm
+R9278:9293 ThieleMachine.DiscoveryProof <> count_occ_nat_eq thm
+R9278:9293 ThieleMachine.DiscoveryProof <> count_occ_nat_eq thm
+R9318:9322 Coq.Init.Logic <> proj2 thm
+R9325:9336 Coq.Lists.List <> count_occ_In thm
+R9338:9347 Coq.Arith.PeanoNat Nat eq_dec thm
+R9318:9322 Coq.Init.Logic <> proj2 thm
+R9325:9336 Coq.Lists.List <> count_occ_In thm
+R9338:9347 Coq.Arith.PeanoNat Nat eq_dec thm
+R9443:9446 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<'_x not
+R9448:9450 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<'_x not
+R9452:9454 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R9443:9446 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<'_x not
+R9448:9450 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<'_x not
+R9452:9454 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R9473:9504 ThieleMachine.DiscoveryProof <> range_check_in_range_with_length thm
+R9473:9504 ThieleMachine.DiscoveryProof <> range_check_in_range_with_length thm
+R9600:9605 Coq.Lists.List <> in_seq thm
+R9600:9605 Coq.Lists.List <> in_seq thm
+prf 9699:9720 <> range_check_from_count
+binder 9731:9731 <> l:68
+binder 9733:9733 <> s:69
+binder 9735:9735 <> m:70
+R9740:9740 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9790:9796 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 9748:9748 <> i:71
+R9765:9768 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9752:9755 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<'_x not
+R9757:9759 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<'_x not
+R9751:9751 ThieleMachine.DiscoveryProof <> s:69 var
+R9756:9756 ThieleMachine.DiscoveryProof <> i:71 var
+R9756:9756 ThieleMachine.DiscoveryProof <> i:71 var
+R9761:9763 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R9760:9760 ThieleMachine.DiscoveryProof <> s:69 var
+R9764:9764 ThieleMachine.DiscoveryProof <> m:70 var
+R9786:9788 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9769:9781 ThieleMachine.DiscoveryProof <> count_occ_nat def
+R9783:9783 ThieleMachine.DiscoveryProof <> i:71 var
+R9785:9785 ThieleMachine.DiscoveryProof <> l:68 var
+R9814:9816 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9797:9807 ThieleMachine.DiscoveryProof <> range_check def
+R9809:9809 ThieleMachine.DiscoveryProof <> l:68 var
+R9811:9811 ThieleMachine.DiscoveryProof <> s:69 var
+R9813:9813 ThieleMachine.DiscoveryProof <> m:70 var
+R9817:9820 Coq.Init.Datatypes <> true constr
+R9941:9958 Coq.Bool.Bool <> andb_true_iff thm
+R9941:9958 Coq.Bool.Bool <> andb_true_iff thm
+R9980:9989 Coq.Arith.PeanoNat Nat eqb_eq thm
+R9980:9989 Coq.Arith.PeanoNat Nat eqb_eq thm
+prf 10067:10092 <> perm_of_seq_check_complete
+binder 10103:10103 <> l:72
+binder 10105:10105 <> n:73
+R10133:10136 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10110:10120 Coq.Sorting.Permutation <> Permutation ind
+R10125:10127 Coq.Lists.List <> seq def
+R10131:10131 ThieleMachine.DiscoveryProof <> n:73 var
+R10122:10122 ThieleMachine.DiscoveryProof <> l:72 var
+R10158:10160 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10137:10153 ThieleMachine.DiscoveryProof <> perm_of_seq_check def
+R10155:10155 ThieleMachine.DiscoveryProof <> l:72 var
+R10157:10157 ThieleMachine.DiscoveryProof <> n:73 var
+R10161:10164 Coq.Init.Datatypes <> true constr
+R10203:10219 ThieleMachine.DiscoveryProof <> perm_of_seq_check def
+R10230:10247 Coq.Bool.Bool <> andb_true_iff thm
+R10230:10247 Coq.Bool.Bool <> andb_true_iff thm
+R10292:10301 Coq.Arith.PeanoNat Nat eqb_eq thm
+R10292:10301 Coq.Arith.PeanoNat Nat eqb_eq thm
+R10314:10331 Coq.Sorting.Permutation <> Permutation_length thm
+R10314:10331 Coq.Sorting.Permutation <> Permutation_length thm
+R10355:10364 Coq.Lists.List <> seq_length thm
+R10355:10364 Coq.Lists.List <> seq_length thm
+R10355:10364 Coq.Lists.List <> seq_length thm
+R10438:10459 ThieleMachine.DiscoveryProof <> range_check_from_count thm
+R10438:10459 ThieleMachine.DiscoveryProof <> range_check_from_count thm
+R10491:10506 ThieleMachine.DiscoveryProof <> count_occ_nat_eq thm
+R10491:10506 ThieleMachine.DiscoveryProof <> count_occ_nat_eq thm
+R10491:10506 ThieleMachine.DiscoveryProof <> count_occ_nat_eq thm
+R10522:10526 Coq.Init.Logic <> proj1 thm
+R10529:10549 Coq.Sorting.Permutation <> Permutation_count_occ thm
+R10565:10567 Coq.Lists.List <> seq def
+R10551:10560 Coq.Arith.PeanoNat Nat eq_dec thm
+R10522:10526 Coq.Init.Logic <> proj1 thm
+R10529:10549 Coq.Sorting.Permutation <> Permutation_count_occ thm
+R10565:10567 Coq.Lists.List <> seq def
+R10551:10560 Coq.Arith.PeanoNat Nat eq_dec thm
+R10522:10526 Coq.Init.Logic <> proj1 thm
+R10529:10549 Coq.Sorting.Permutation <> Permutation_count_occ thm
+R10565:10567 Coq.Lists.List <> seq def
+R10551:10560 Coq.Arith.PeanoNat Nat eq_dec thm
+R10595:10616 ThieleMachine.DiscoveryProof <> count_occ_seq_in_range thm
+R10595:10616 ThieleMachine.DiscoveryProof <> count_occ_seq_in_range thm
+R10629:10634 Coq.Lists.List <> in_seq thm
+R10629:10634 Coq.Lists.List <> in_seq thm
+prf 10705:10729 <> valid_partition_decidable
+binder 10740:10740 <> p:74
+binder 10742:10742 <> n:75
+R10747:10747 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R10770:10774 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R10798:10798 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R10748:10765 ThieleMachine.DiscoveryProof <> is_valid_partition def
+R10767:10767 ThieleMachine.DiscoveryProof <> p:74 var
+R10769:10769 ThieleMachine.DiscoveryProof <> n:75 var
+R10775:10775 Coq.Init.Logic <> ::type_scope:'~'_x not
+R10776:10793 ThieleMachine.DiscoveryProof <> is_valid_partition def
+R10795:10795 ThieleMachine.DiscoveryProof <> p:74 var
+R10797:10797 ThieleMachine.DiscoveryProof <> n:75 var
+R10831:10848 ThieleMachine.DiscoveryProof <> is_valid_partition def
+R10863:10879 ThieleMachine.DiscoveryProof <> perm_of_seq_check def
+R10882:10888 ThieleMachine.DiscoveryProof <> flatten def
+R10863:10879 ThieleMachine.DiscoveryProof <> perm_of_seq_check def
+R10882:10888 ThieleMachine.DiscoveryProof <> flatten def
+R10924:10946 ThieleMachine.DiscoveryProof <> perm_of_seq_check_sound thm
+R10924:10946 ThieleMachine.DiscoveryProof <> perm_of_seq_check_sound thm
+R10997:11022 ThieleMachine.DiscoveryProof <> perm_of_seq_check_complete thm
+R10997:11022 ThieleMachine.DiscoveryProof <> perm_of_seq_check_complete thm
+def 11182:11193 <> kmeans_steps
+R11212:11214 Coq.Init.Datatypes <> nat ind
+binder 11196:11196 <> n:76
+binder 11198:11198 <> k:77
+binder 11200:11208 <> max_iters:78
+R11219:11221 Coq.Init.Datatypes <> nat ind
+R11234:11242 ThieleMachine.DiscoveryProof <> max_iters:78 var
+R11264:11264 Coq.Init.Datatypes <> S constr
+R11281:11283 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R11277:11279 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R11276:11276 ThieleMachine.DiscoveryProof <> n:76 var
+R11280:11280 ThieleMachine.DiscoveryProof <> k:77 var
+R11284:11295 ThieleMachine.DiscoveryProof <> kmeans_steps:79 def
+R11299:11299 ThieleMachine.DiscoveryProof <> k:77 var
+R11297:11297 ThieleMachine.DiscoveryProof <> n:76 var
+prf 11322:11339 <> kmeans_steps_bound
+binder 11350:11350 <> n:81
+binder 11352:11352 <> k:82
+binder 11354:11362 <> max_iters:83
+R11393:11396 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11367:11378 ThieleMachine.DiscoveryProof <> kmeans_steps def
+R11380:11380 ThieleMachine.DiscoveryProof <> n:81 var
+R11382:11382 ThieleMachine.DiscoveryProof <> k:82 var
+R11384:11392 ThieleMachine.DiscoveryProof <> max_iters:83 var
+R11410:11412 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R11406:11408 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R11397:11405 ThieleMachine.DiscoveryProof <> max_iters:83 var
+R11409:11409 ThieleMachine.DiscoveryProof <> n:81 var
+R11413:11413 ThieleMachine.DiscoveryProof <> k:82 var
+prf 11527:11543 <> kmeans_polynomial
+binder 11554:11554 <> n:84
+binder 11556:11556 <> k:85
+binder 11558:11566 <> max_iters:86
+R11577:11582 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11572:11575 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11571:11571 ThieleMachine.DiscoveryProof <> k:85 var
+R11576:11576 ThieleMachine.DiscoveryProof <> n:84 var
+R11599:11604 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11592:11595 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11583:11591 ThieleMachine.DiscoveryProof <> max_iters:86 var
+R11631:11634 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11605:11616 ThieleMachine.DiscoveryProof <> kmeans_steps def
+R11618:11618 ThieleMachine.DiscoveryProof <> n:84 var
+R11620:11620 ThieleMachine.DiscoveryProof <> k:85 var
+R11622:11630 ThieleMachine.DiscoveryProof <> max_iters:86 var
+R11642:11644 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R11638:11640 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R11641:11641 ThieleMachine.DiscoveryProof <> n:84 var
+R11645:11645 ThieleMachine.DiscoveryProof <> n:84 var
+R11703:11720 ThieleMachine.DiscoveryProof <> kmeans_steps_bound thm
+R11703:11720 ThieleMachine.DiscoveryProof <> kmeans_steps_bound thm
+R11775:11778 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11771:11773 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R11767:11769 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R11786:11788 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R11782:11784 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R11775:11778 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11771:11773 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R11767:11769 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R11786:11788 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R11782:11784 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R11834:11837 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11830:11832 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R11841:11843 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R11834:11837 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11830:11832 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R11841:11843 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R11866:11882 Coq.Arith.PeanoNat Nat mul_le_mono_r thm
+R11866:11882 Coq.Arith.PeanoNat Nat mul_le_mono_r thm
+R11920:11923 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11916:11918 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R11927:11929 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R11920:11923 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11916:11918 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R11927:11929 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R11952:11968 Coq.Arith.PeanoNat Nat mul_le_mono_l thm
+R11952:11968 Coq.Arith.PeanoNat Nat mul_le_mono_l thm
+R12008:12011 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R12004:12006 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12015:12017 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12008:12011 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R12004:12006 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12015:12017 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12064:12066 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12060:12062 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12056:12058 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12068:12071 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12085:12085 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12081:12083 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12064:12066 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12060:12062 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12056:12058 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12068:12071 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12085:12085 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12081:12083 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12126:12128 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12122:12124 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12118:12120 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12130:12133 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12141:12141 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12137:12139 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12126:12128 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12122:12124 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12118:12120 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12130:12133 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12141:12141 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12137:12139 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12189:12205 Coq.Arith.PeanoNat Nat mul_le_mono_l thm
+R12189:12205 Coq.Arith.PeanoNat Nat mul_le_mono_l thm
+def 12351:12366 <> refinement_steps
+R12394:12396 Coq.Init.Datatypes <> nat ind
+binder 12369:12369 <> n:87
+binder 12371:12379 <> num_edges:88
+binder 12381:12390 <> iterations:89
+R12401:12403 Coq.Init.Datatypes <> nat ind
+R12416:12425 ThieleMachine.DiscoveryProof <> iterations:89 var
+R12447:12447 Coq.Init.Datatypes <> S constr
+R12469:12471 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R12457:12459 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12456:12456 ThieleMachine.DiscoveryProof <> n:87 var
+R12460:12468 ThieleMachine.DiscoveryProof <> num_edges:88 var
+R12472:12487 ThieleMachine.DiscoveryProof <> refinement_steps:90 def
+R12491:12499 ThieleMachine.DiscoveryProof <> num_edges:88 var
+R12489:12489 ThieleMachine.DiscoveryProof <> n:87 var
+prf 12519:12540 <> refinement_steps_bound
+binder 12551:12551 <> n:92
+binder 12553:12553 <> e:93
+binder 12555:12564 <> iterations:94
+R12600:12603 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R12569:12584 ThieleMachine.DiscoveryProof <> refinement_steps def
+R12586:12586 ThieleMachine.DiscoveryProof <> n:92 var
+R12588:12588 ThieleMachine.DiscoveryProof <> e:93 var
+R12590:12599 ThieleMachine.DiscoveryProof <> iterations:94 var
+R12618:12620 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12614:12616 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12604:12613 ThieleMachine.DiscoveryProof <> iterations:94 var
+R12617:12617 ThieleMachine.DiscoveryProof <> n:92 var
+R12621:12621 ThieleMachine.DiscoveryProof <> e:93 var
+prf 12737:12757 <> refinement_polynomial
+binder 12768:12768 <> n:95
+binder 12770:12770 <> e:96
+binder 12772:12781 <> iterations:97
+R12802:12807 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12796:12799 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R12786:12795 ThieleMachine.DiscoveryProof <> iterations:97 var
+R12818:12823 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12809:12812 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R12808:12808 ThieleMachine.DiscoveryProof <> e:96 var
+R12814:12816 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12813:12813 ThieleMachine.DiscoveryProof <> n:95 var
+R12817:12817 ThieleMachine.DiscoveryProof <> n:95 var
+R12855:12858 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R12824:12839 ThieleMachine.DiscoveryProof <> refinement_steps def
+R12841:12841 ThieleMachine.DiscoveryProof <> n:95 var
+R12843:12843 ThieleMachine.DiscoveryProof <> e:96 var
+R12845:12854 ThieleMachine.DiscoveryProof <> iterations:97 var
+R12869:12871 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12865:12867 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12861:12863 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12864:12864 ThieleMachine.DiscoveryProof <> n:95 var
+R12868:12868 ThieleMachine.DiscoveryProof <> n:95 var
+R12872:12872 ThieleMachine.DiscoveryProof <> n:95 var
+R12931:12952 ThieleMachine.DiscoveryProof <> refinement_steps_bound thm
+R12931:12952 ThieleMachine.DiscoveryProof <> refinement_steps_bound thm
+R13009:13012 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R13005:13007 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13001:13003 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13023:13025 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13019:13021 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13015:13017 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13009:13012 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R13005:13007 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13001:13003 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13023:13025 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13019:13021 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13015:13017 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13071:13074 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R13067:13069 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13077:13079 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13071:13074 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R13067:13069 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13077:13079 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13102:13118 Coq.Arith.PeanoNat Nat mul_le_mono_r thm
+R13102:13118 Coq.Arith.PeanoNat Nat mul_le_mono_r thm
+R13155:13158 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R13151:13153 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13161:13164 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13170:13170 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13166:13168 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13155:13158 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R13151:13153 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13161:13164 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13170:13170 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13166:13168 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13192:13208 Coq.Arith.PeanoNat Nat mul_le_mono_l thm
+R13192:13208 Coq.Arith.PeanoNat Nat mul_le_mono_l thm
+R13249:13252 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R13245:13247 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13259:13261 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13255:13257 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13249:13252 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R13245:13247 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13259:13261 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13255:13257 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13309:13311 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13305:13307 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13301:13303 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13313:13316 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13331:13331 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13327:13329 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13309:13311 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13305:13307 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13301:13303 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13313:13316 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13331:13331 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13327:13329 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13375:13377 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13371:13373 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13367:13369 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13363:13365 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13379:13382 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13393:13393 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13389:13391 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13385:13387 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13375:13377 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13371:13373 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13367:13369 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13363:13365 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13379:13382 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13393:13393 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13389:13391 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13385:13387 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13441:13457 Coq.Arith.PeanoNat Nat mul_le_mono_l thm
+R13441:13457 Coq.Arith.PeanoNat Nat mul_le_mono_l thm
+def 13839:13876 <> spectral_discovery_complexity_constant
+R13880:13882 Coq.Init.Datatypes <> nat ind
+def 13904:13926 <> spectral_discover_steps
+R13933:13935 Coq.Init.Datatypes <> nat ind
+binder 13929:13929 <> n:98
+R13940:13942 Coq.Init.Datatypes <> nat ind
+R13973:13975 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R13972:13972 ThieleMachine.DiscoveryProof <> n:98 var
+R13976:13976 ThieleMachine.DiscoveryProof <> n:98 var
+binder 13953:13967 <> adjacency_build:99
+R14009:14011 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14008:14008 ThieleMachine.DiscoveryProof <> n:98 var
+R14012:14012 ThieleMachine.DiscoveryProof <> n:98 var
+binder 13987:14003 <> laplacian_compute:100
+R14043:14045 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14039:14041 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14038:14038 ThieleMachine.DiscoveryProof <> n:98 var
+R14042:14042 ThieleMachine.DiscoveryProof <> n:98 var
+R14046:14046 ThieleMachine.DiscoveryProof <> n:98 var
+binder 14023:14033 <> eigendecomp:101
+R14096:14098 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14092:14094 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14095:14095 ThieleMachine.DiscoveryProof <> n:98 var
+R14099:14099 ThieleMachine.DiscoveryProof <> n:98 var
+binder 14079:14084 <> kmeans:102
+R14157:14159 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14153:14155 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14149:14151 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14152:14152 ThieleMachine.DiscoveryProof <> n:98 var
+R14156:14156 ThieleMachine.DiscoveryProof <> n:98 var
+R14160:14160 ThieleMachine.DiscoveryProof <> n:98 var
+binder 14133:14142 <> refinement:103
+R14244:14246 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R14235:14237 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R14221:14223 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R14201:14203 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R14186:14200 ThieleMachine.DiscoveryProof <> adjacency_build:99 var
+R14204:14220 ThieleMachine.DiscoveryProof <> laplacian_compute:100 var
+R14224:14234 ThieleMachine.DiscoveryProof <> eigendecomp:101 var
+R14238:14243 ThieleMachine.DiscoveryProof <> kmeans:102 var
+R14247:14256 ThieleMachine.DiscoveryProof <> refinement:103 var
+prf 14268:14295 <> spectral_discover_polynomial
+binder 14306:14306 <> n:104
+R14316:14321 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14312:14314 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R14311:14311 ThieleMachine.DiscoveryProof <> n:104 var
+R14347:14350 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R14322:14344 ThieleMachine.DiscoveryProof <> spectral_discover_steps def
+R14346:14346 ThieleMachine.DiscoveryProof <> n:104 var
+R14397:14399 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14393:14395 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14389:14391 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14351:14388 ThieleMachine.DiscoveryProof <> spectral_discovery_complexity_constant def
+R14392:14392 ThieleMachine.DiscoveryProof <> n:104 var
+R14396:14396 ThieleMachine.DiscoveryProof <> n:104 var
+R14400:14400 ThieleMachine.DiscoveryProof <> n:104 var
+R14434:14456 ThieleMachine.DiscoveryProof <> spectral_discover_steps def
+R14459:14496 ThieleMachine.DiscoveryProof <> spectral_discovery_complexity_constant def
+R14587:14590 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R14583:14585 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14596:14598 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14592:14594 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14587:14590 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R14583:14585 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14596:14598 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14592:14594 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14637:14640 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R14633:14635 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14629:14631 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14646:14648 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14642:14644 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14637:14640 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R14633:14635 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14629:14631 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14646:14648 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14642:14644 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14670:14686 Coq.Arith.PeanoNat Nat mul_le_mono_l thm
+R14670:14686 Coq.Arith.PeanoNat Nat mul_le_mono_l thm
+prf 14777:14783 <> pow3_eq
+binder 14794:14794 <> n:105
+R14802:14804 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14798:14800 Coq.Init.Nat <> ::nat_scope:x_'^'_x not
+R14797:14797 ThieleMachine.DiscoveryProof <> n:105 var
+R14810:14812 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14806:14808 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14805:14805 ThieleMachine.DiscoveryProof <> n:105 var
+R14809:14809 ThieleMachine.DiscoveryProof <> n:105 var
+R14813:14813 ThieleMachine.DiscoveryProof <> n:105 var
+prf 14857:14875 <> mul_assoc_for_const
+binder 14886:14886 <> c:106
+binder 14888:14888 <> n:107
+R14904:14906 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14900:14902 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14896:14898 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14892:14894 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14891:14891 ThieleMachine.DiscoveryProof <> c:106 var
+R14895:14895 ThieleMachine.DiscoveryProof <> n:107 var
+R14899:14899 ThieleMachine.DiscoveryProof <> n:107 var
+R14903:14903 ThieleMachine.DiscoveryProof <> n:107 var
+R14908:14911 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14921:14921 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14907:14907 ThieleMachine.DiscoveryProof <> c:106 var
+R14917:14919 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14913:14915 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R14912:14912 ThieleMachine.DiscoveryProof <> n:107 var
+R14916:14916 ThieleMachine.DiscoveryProof <> n:107 var
+R14920:14920 ThieleMachine.DiscoveryProof <> n:107 var
+prf 15019:15050 <> discovery_polynomial_time_PROVEN
+R15071:15077 ThieleMachine.DiscoveryProof <> Problem rec
+binder 15064:15067 <> prob:108
+R15085:15091 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R15099:15106 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R15096:15098 Coq.Init.Datatypes <> nat ind
+binder 15092:15092 <> c:109
+R15112:15121 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15108:15110 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R15107:15107 ThieleMachine.DiscoveryProof <> c:109 var
+R15165:15168 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R15122:15144 ThieleMachine.DiscoveryProof <> spectral_discover_steps def
+R15147:15158 ThieleMachine.DiscoveryProof <> problem_size proj
+R15160:15163 ThieleMachine.DiscoveryProof <> prob:108 var
+R15170:15172 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R15169:15169 ThieleMachine.DiscoveryProof <> c:109 var
+R15173:15173 Coq.Init.Nat <> ::nat_scope:x_'^'_x not
+R15191:15192 Coq.Init.Nat <> ::nat_scope:x_'^'_x not
+R15174:15185 ThieleMachine.DiscoveryProof <> problem_size proj
+R15187:15190 ThieleMachine.DiscoveryProof <> prob:108 var
+R15227:15264 ThieleMachine.DiscoveryProof <> spectral_discovery_complexity_constant def
+R15227:15264 ThieleMachine.DiscoveryProof <> spectral_discovery_complexity_constant def
+R15287:15324 ThieleMachine.DiscoveryProof <> spectral_discovery_complexity_constant def
+R15346:15355 Coq.Arith.PeanoNat Nat eq_dec thm
+R15358:15369 ThieleMachine.DiscoveryProof <> problem_size proj
+R15346:15355 Coq.Arith.PeanoNat Nat eq_dec thm
+R15358:15369 ThieleMachine.DiscoveryProof <> problem_size proj
+R15441:15463 ThieleMachine.DiscoveryProof <> spectral_discover_steps def
+R15532:15534 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R15515:15526 ThieleMachine.DiscoveryProof <> problem_size proj
+R15532:15534 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R15515:15526 ThieleMachine.DiscoveryProof <> problem_size proj
+R15572:15599 ThieleMachine.DiscoveryProof <> spectral_discover_polynomial thm
+R15602:15613 ThieleMachine.DiscoveryProof <> problem_size proj
+R15572:15599 ThieleMachine.DiscoveryProof <> spectral_discover_polynomial thm
+R15602:15613 ThieleMachine.DiscoveryProof <> problem_size proj
+R15646:15683 ThieleMachine.DiscoveryProof <> spectral_discovery_complexity_constant def
+R15705:15711 ThieleMachine.DiscoveryProof <> pow3_eq thm
+R15705:15711 ThieleMachine.DiscoveryProof <> pow3_eq thm
+R15705:15711 ThieleMachine.DiscoveryProof <> pow3_eq thm
+R15731:15749 ThieleMachine.DiscoveryProof <> mul_assoc_for_const thm
+R15731:15749 ThieleMachine.DiscoveryProof <> mul_assoc_for_const thm
+R15731:15749 ThieleMachine.DiscoveryProof <> mul_assoc_for_const thm
+def 16207:16224 <> assign_to_clusters
+R16231:16233 Coq.Init.Datatypes <> nat ind
+binder 16227:16227 <> n:110
+R16246:16249 Coq.Init.Datatypes <> list ind
+R16251:16253 Coq.Init.Datatypes <> nat ind
+binder 16237:16242 <> labels:111
+R16258:16266 ThieleMachine.DiscoveryProof <> Partition def
+R16279:16279 ThieleMachine.DiscoveryProof <> n:110 var
+R16295:16296 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R16302:16302 Coq.Init.Datatypes <> S constr
+R16316:16319 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R16310:16310 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R16315:16315 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R16311:16311 Coq.Init.Datatypes <> S constr
+R16320:16337 ThieleMachine.DiscoveryProof <> assign_to_clusters:112 def
+R16342:16347 ThieleMachine.DiscoveryProof <> labels:111 var
+prf 16424:16449 <> assign_to_clusters_flatten
+binder 16460:16460 <> n:114
+binder 16462:16467 <> labels:115
+R16472:16482 Coq.Sorting.Permutation <> Permutation ind
+R16525:16527 Coq.Lists.List <> seq def
+R16531:16531 ThieleMachine.DiscoveryProof <> n:114 var
+R16485:16491 ThieleMachine.DiscoveryProof <> flatten def
+R16494:16511 ThieleMachine.DiscoveryProof <> assign_to_clusters def
+R16513:16513 ThieleMachine.DiscoveryProof <> n:114 var
+R16515:16520 ThieleMachine.DiscoveryProof <> labels:115 var
+R16601:16616 Coq.Sorting.Permutation <> Permutation_refl thm
+R16601:16616 Coq.Sorting.Permutation <> Permutation_refl thm
+R16719:16729 Coq.Sorting.Permutation <> Permutation ind
+R16781:16783 Coq.Lists.List <> seq def
+R16788:16788 Coq.Init.Datatypes <> S constr
+R16736:16739 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R16732:16732 Coq.Init.Datatypes <> S constr
+R16740:16746 ThieleMachine.DiscoveryProof <> flatten def
+R16749:16766 ThieleMachine.DiscoveryProof <> assign_to_clusters def
+R16719:16729 Coq.Sorting.Permutation <> Permutation ind
+R16781:16783 Coq.Lists.List <> seq def
+R16788:16788 Coq.Init.Datatypes <> S constr
+R16736:16739 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R16732:16732 Coq.Init.Datatypes <> S constr
+R16740:16746 ThieleMachine.DiscoveryProof <> flatten def
+R16749:16766 ThieleMachine.DiscoveryProof <> assign_to_clusters def
+R16864:16868 Coq.Lists.List <> seq_S thm
+R16864:16868 Coq.Lists.List <> seq_S thm
+R16864:16868 Coq.Lists.List <> seq_S thm
+R16885:16887 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R16898:16898 Coq.Init.Datatypes <> S constr
+R16885:16887 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R16898:16898 Coq.Init.Datatypes <> S constr
+R17025:17028 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R17017:17019 Coq.Lists.List <> seq def
+R17029:17029 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R17034:17034 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R17030:17030 Coq.Init.Datatypes <> S constr
+R16993:17009 Coq.Sorting.Permutation <> Permutation_trans thm
+R17025:17028 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R17017:17019 Coq.Lists.List <> seq def
+R17029:17029 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R17034:17034 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R17030:17030 Coq.Init.Datatypes <> S constr
+R16993:17009 Coq.Sorting.Permutation <> Permutation_trans thm
+R17166:17169 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R17128:17134 ThieleMachine.DiscoveryProof <> flatten def
+R17137:17154 ThieleMachine.DiscoveryProof <> assign_to_clusters def
+R17170:17170 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R17175:17175 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R17171:17171 Coq.Init.Datatypes <> S constr
+R17104:17120 Coq.Sorting.Permutation <> Permutation_trans thm
+R17166:17169 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R17128:17134 ThieleMachine.DiscoveryProof <> flatten def
+R17137:17154 ThieleMachine.DiscoveryProof <> assign_to_clusters def
+R17170:17170 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R17175:17175 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R17171:17171 Coq.Init.Datatypes <> S constr
+R17104:17120 Coq.Sorting.Permutation <> Permutation_trans thm
+R17231:17253 Coq.Sorting.Permutation <> Permutation_cons_append thm
+R17231:17253 Coq.Sorting.Permutation <> Permutation_cons_append thm
+R17336:17355 Coq.Sorting.Permutation <> Permutation_app_tail thm
+R17336:17355 Coq.Sorting.Permutation <> Permutation_app_tail thm
+R17389:17404 Coq.Sorting.Permutation <> Permutation_refl thm
+R17389:17404 Coq.Sorting.Permutation <> Permutation_refl thm
+prf 17499:17525 <> spectral_produces_partition
+binder 17536:17536 <> n:116
+binder 17538:17543 <> labels:117
+binder 17545:17545 <> k:118
+R17567:17572 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17563:17565 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17550:17555 Coq.Init.Datatypes <> length def
+R17557:17562 ThieleMachine.DiscoveryProof <> labels:117 var
+R17566:17566 ThieleMachine.DiscoveryProof <> n:116 var
+R17578:17583 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17574:17576 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R17573:17573 ThieleMachine.DiscoveryProof <> k:118 var
+R17584:17584 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17627:17633 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 17592:17596 <> label:119
+R17614:17617 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17599:17600 Coq.Lists.List <> In def
+R17608:17613 ThieleMachine.DiscoveryProof <> labels:117 var
+R17602:17606 ThieleMachine.DiscoveryProof <> label:119 var
+R17623:17625 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R17618:17622 ThieleMachine.DiscoveryProof <> label:119 var
+R17626:17626 ThieleMachine.DiscoveryProof <> k:118 var
+R17634:17651 ThieleMachine.DiscoveryProof <> is_valid_partition def
+R17654:17671 ThieleMachine.DiscoveryProof <> assign_to_clusters def
+R17673:17673 ThieleMachine.DiscoveryProof <> n:116 var
+R17675:17680 ThieleMachine.DiscoveryProof <> labels:117 var
+R17683:17683 ThieleMachine.DiscoveryProof <> n:116 var
+R17739:17756 ThieleMachine.DiscoveryProof <> is_valid_partition def
+R17767:17792 ThieleMachine.DiscoveryProof <> assign_to_clusters_flatten thm
+R17767:17792 ThieleMachine.DiscoveryProof <> assign_to_clusters_flatten thm
+def 17907:17933 <> trivial_valid_partition_asc
+R17946:17948 Coq.Init.Datatypes <> nat ind
+binder 17936:17940 <> start:120
+binder 17942:17942 <> n:121
+R17953:17961 ThieleMachine.DiscoveryProof <> Partition def
+R17974:17974 ThieleMachine.DiscoveryProof <> n:121 var
+R17990:17991 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R17997:17997 Coq.Init.Datatypes <> S constr
+R18012:18015 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R18005:18005 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R18011:18011 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R18006:18010 ThieleMachine.DiscoveryProof <> start:120 var
+R18016:18042 ThieleMachine.DiscoveryProof <> trivial_valid_partition_asc:122 def
+R18045:18045 Coq.Init.Datatypes <> S constr
+R18047:18051 ThieleMachine.DiscoveryProof <> start:120 var
+prf 18071:18105 <> trivial_valid_partition_asc_flatten
+binder 18116:18116 <> n:124
+binder 18118:18122 <> start:125
+R18172:18174 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18127:18133 ThieleMachine.DiscoveryProof <> flatten def
+R18136:18162 ThieleMachine.DiscoveryProof <> trivial_valid_partition_asc def
+R18164:18168 ThieleMachine.DiscoveryProof <> start:125 var
+R18170:18170 ThieleMachine.DiscoveryProof <> n:124 var
+R18175:18177 Coq.Lists.List <> seq def
+R18185:18185 ThieleMachine.DiscoveryProof <> n:124 var
+R18179:18183 ThieleMachine.DiscoveryProof <> start:125 var
+prf 18302:18329 <> trivial_valid_partition_perm
+binder 18340:18340 <> n:126
+R18345:18355 Coq.Sorting.Permutation <> Permutation ind
+R18402:18404 Coq.Lists.List <> seq def
+R18408:18408 ThieleMachine.DiscoveryProof <> n:126 var
+R18358:18364 ThieleMachine.DiscoveryProof <> flatten def
+R18367:18393 ThieleMachine.DiscoveryProof <> trivial_valid_partition_asc def
+R18397:18397 ThieleMachine.DiscoveryProof <> n:126 var
+R18441:18475 ThieleMachine.DiscoveryProof <> trivial_valid_partition_asc_flatten thm
+R18441:18475 ThieleMachine.DiscoveryProof <> trivial_valid_partition_asc_flatten thm
+R18441:18475 ThieleMachine.DiscoveryProof <> trivial_valid_partition_asc_flatten thm
+R18486:18501 Coq.Sorting.Permutation <> Permutation_refl thm
+R18486:18501 Coq.Sorting.Permutation <> Permutation_refl thm
+prf 18518:18558 <> discovery_produces_valid_partition_PROVEN
+R18579:18585 ThieleMachine.DiscoveryProof <> Problem rec
+binder 18572:18575 <> prob:127
+R18614:18621 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18610:18612 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R18593:18604 ThieleMachine.DiscoveryProof <> problem_size proj
+R18606:18609 ThieleMachine.DiscoveryProof <> prob:127 var
+R18622:18628 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R18651:18658 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R18633:18650 ThieleMachine.DiscoveryProof <> PartitionCandidate rec
+binder 18629:18629 <> p:128
+R18659:18676 ThieleMachine.DiscoveryProof <> is_valid_partition def
+R18679:18685 ThieleMachine.DiscoveryProof <> modules proj
+R18687:18687 ThieleMachine.DiscoveryProof <> p:128 var
+R18691:18702 ThieleMachine.DiscoveryProof <> problem_size proj
+R18704:18707 ThieleMachine.DiscoveryProof <> prob:127 var
+R18748:18754 ThieleMachine.DiscoveryProof <> modules proj
+R18748:18754 ThieleMachine.DiscoveryProof <> modules proj
+R18748:18754 ThieleMachine.DiscoveryProof <> modules proj
+R18821:18828 ThieleMachine.DiscoveryProof <> mdl_cost proj
+R18821:18828 ThieleMachine.DiscoveryProof <> mdl_cost proj
+R18847:18860 ThieleMachine.DiscoveryProof <> discovery_cost proj
+R18847:18860 ThieleMachine.DiscoveryProof <> discovery_cost proj
+R18759:18785 ThieleMachine.DiscoveryProof <> trivial_valid_partition_asc def
+R18790:18801 ThieleMachine.DiscoveryProof <> problem_size proj
+R18748:18754 ThieleMachine.DiscoveryProof <> modules proj
+R18748:18754 ThieleMachine.DiscoveryProof <> modules proj
+R18748:18754 ThieleMachine.DiscoveryProof <> modules proj
+R18821:18828 ThieleMachine.DiscoveryProof <> mdl_cost proj
+R18821:18828 ThieleMachine.DiscoveryProof <> mdl_cost proj
+R18847:18860 ThieleMachine.DiscoveryProof <> discovery_cost proj
+R18847:18860 ThieleMachine.DiscoveryProof <> discovery_cost proj
+R18759:18785 ThieleMachine.DiscoveryProof <> trivial_valid_partition_asc def
+R18790:18801 ThieleMachine.DiscoveryProof <> problem_size proj
+R18889:18906 ThieleMachine.DiscoveryProof <> is_valid_partition def
+R18917:18944 ThieleMachine.DiscoveryProof <> trivial_valid_partition_perm thm
+R18917:18944 ThieleMachine.DiscoveryProof <> trivial_valid_partition_perm thm
+def 19020:19030 <> compute_mdl
+R19040:19046 ThieleMachine.DiscoveryProof <> Problem rec
+binder 19033:19036 <> prob:129
+R19054:19062 ThieleMachine.DiscoveryProof <> Partition def
+binder 19050:19050 <> p:130
+R19067:19069 Coq.Init.Datatypes <> nat ind
+R19100:19105 Coq.Init.Datatypes <> length def
+R19107:19107 ThieleMachine.DiscoveryProof <> p:130 var
+binder 19080:19095 <> description_cost:131
+binder 19118:19135 <> communication_cost:132
+R19181:19183 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R19165:19180 ThieleMachine.DiscoveryProof <> description_cost:131 var
+R19184:19201 ThieleMachine.DiscoveryProof <> communication_cost:132 var
+prf 19213:19240 <> mdl_cost_well_defined_PROVEN
+R19261:19267 ThieleMachine.DiscoveryProof <> Problem rec
+binder 19254:19257 <> prob:133
+R19275:19283 ThieleMachine.DiscoveryProof <> Partition def
+binder 19271:19271 <> p:134
+R19309:19312 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R19291:19301 ThieleMachine.DiscoveryProof <> compute_mdl def
+R19303:19306 ThieleMachine.DiscoveryProof <> prob:133 var
+R19308:19308 ThieleMachine.DiscoveryProof <> p:134 var
+R19349:19359 ThieleMachine.DiscoveryProof <> compute_mdl def
+def 19440:19461 <> compute_discovery_cost
+R19471:19477 ThieleMachine.DiscoveryProof <> Problem rec
+binder 19464:19467 <> prob:135
+R19482:19484 Coq.Init.Datatypes <> nat ind
+R19508:19510 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R19491:19502 ThieleMachine.DiscoveryProof <> problem_size proj
+R19504:19507 ThieleMachine.DiscoveryProof <> prob:135 var
+prf 19524:19552 <> discovery_cost_bounded_PROVEN
+R19573:19579 ThieleMachine.DiscoveryProof <> Problem rec
+binder 19566:19569 <> prob:136
+R19614:19617 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R19587:19608 ThieleMachine.DiscoveryProof <> compute_discovery_cost def
+R19610:19613 ThieleMachine.DiscoveryProof <> prob:136 var
+R19635:19637 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R19618:19629 ThieleMachine.DiscoveryProof <> problem_size proj
+R19631:19634 ThieleMachine.DiscoveryProof <> prob:136 var
+R19673:19694 ThieleMachine.DiscoveryProof <> compute_discovery_cost def
+def 19775:19788 <> sum_of_squares
+R19795:19803 ThieleMachine.DiscoveryProof <> Partition def
+binder 19791:19791 <> p:137
+R19808:19810 Coq.Init.Datatypes <> nat ind
+R19823:19823 ThieleMachine.DiscoveryProof <> p:137 var
+R19834:19835 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R19847:19850 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R19882:19884 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R19859:19859 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R19868:19872 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R19881:19881 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R19860:19865 Coq.Init.Datatypes <> length def
+R19873:19878 Coq.Init.Datatypes <> length def
+R19885:19898 ThieleMachine.DiscoveryProof <> sum_of_squares:138 def
+prf 20082:20107 <> equal_partition_profitable
+binder 20118:20118 <> n:140
+binder 20120:20120 <> k:141
+R20130:20135 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20126:20128 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R20125:20125 ThieleMachine.DiscoveryProof <> k:141 var
+R20141:20146 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20137:20139 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R20136:20136 ThieleMachine.DiscoveryProof <> n:140 var
+R20153:20158 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20148:20151 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R20147:20147 ThieleMachine.DiscoveryProof <> k:141 var
+R20152:20152 ThieleMachine.DiscoveryProof <> n:140 var
+R20179:20181 Coq.Init.Nat <> ::nat_scope:x_'/'_x not
+R20178:20178 ThieleMachine.DiscoveryProof <> n:140 var
+R20182:20182 ThieleMachine.DiscoveryProof <> k:141 var
+binder 20163:20173 <> module_size:142
+R20224:20226 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R20210:20212 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R20209:20209 ThieleMachine.DiscoveryProof <> k:141 var
+R20213:20223 ThieleMachine.DiscoveryProof <> module_size:142 var
+R20227:20237 ThieleMachine.DiscoveryProof <> module_size:142 var
+binder 20193:20204 <> sighted_cost:143
+R20263:20265 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R20262:20262 ThieleMachine.DiscoveryProof <> n:140 var
+R20266:20266 ThieleMachine.DiscoveryProof <> n:140 var
+binder 20248:20257 <> blind_cost:144
+R20285:20287 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R20273:20284 ThieleMachine.DiscoveryProof <> sighted_cost:143 var
+R20288:20297 ThieleMachine.DiscoveryProof <> blind_cost:144 var
+R20466:20468 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R20462:20464 Coq.Init.Nat <> ::nat_scope:x_'/'_x not
+R20466:20468 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R20462:20464 Coq.Init.Nat <> ::nat_scope:x_'/'_x not
+R20494:20503 Coq.Arith.PeanoNat Nat div_lt def
+R20494:20503 Coq.Arith.PeanoNat Nat div_lt def
+R20552:20555 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R20542:20545 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R20551:20551 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R20547:20549 Coq.Init.Nat <> ::nat_scope:x_'/'_x not
+R20552:20555 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R20542:20545 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R20551:20551 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R20547:20549 Coq.Init.Nat <> ::nat_scope:x_'/'_x not
+R20579:20592 Coq.Arith.PeanoNat Nat mul_div_le abbrev
+R20579:20592 Coq.Arith.PeanoNat Nat mul_div_le abbrev
+R20697:20700 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R20687:20690 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R20696:20696 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R20677:20680 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R20686:20686 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R20682:20684 Coq.Init.Nat <> ::nat_scope:x_'/'_x not
+R20692:20694 Coq.Init.Nat <> ::nat_scope:x_'/'_x not
+R20702:20705 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R20711:20711 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R20707:20709 Coq.Init.Nat <> ::nat_scope:x_'/'_x not
+R20697:20700 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R20687:20690 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R20696:20696 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R20677:20680 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R20686:20686 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R20682:20684 Coq.Init.Nat <> ::nat_scope:x_'/'_x not
+R20692:20694 Coq.Init.Nat <> ::nat_scope:x_'/'_x not
+R20702:20705 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R20711:20711 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R20707:20709 Coq.Init.Nat <> ::nat_scope:x_'/'_x not
+R20733:20749 Coq.Arith.PeanoNat Nat mul_le_mono_r thm
+R20733:20749 Coq.Arith.PeanoNat Nat mul_le_mono_r thm
+R20830:20832 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R20820:20823 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R20829:20829 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R20825:20827 Coq.Init.Nat <> ::nat_scope:x_'/'_x not
+R20834:20836 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R20830:20832 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R20820:20823 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R20829:20829 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R20825:20827 Coq.Init.Nat <> ::nat_scope:x_'/'_x not
+R20834:20836 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R20861:20881 Coq.Arith.PeanoNat Nat mul_lt_mono_pos_l thm
+R20861:20881 Coq.Arith.PeanoNat Nat mul_lt_mono_pos_l thm

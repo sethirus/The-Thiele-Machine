@@ -30,7 +30,6 @@ def test_python_vm_mu_cost():
     assert breakdown.total == EXPECTED_MU_COST
     
     print(f"✓ Python VM: μ-cost({TEST_CLAUSE!r}) = {mu_cost} bits")
-    return mu_cost
 
 
 def test_coq_mu_formula():
@@ -46,7 +45,6 @@ def test_coq_mu_formula():
         f"Coq formula mismatch: {coq_formula_result} != {EXPECTED_MU_COST}"
     
     print(f"✓ Coq formula: len({TEST_CLAUSE!r}) * 8 = {coq_formula_result} bits")
-    return coq_formula_result
 
 
 def test_verilog_opcode_match():
@@ -69,7 +67,6 @@ def test_verilog_opcode_match():
         f"Opcode mismatch: Python={python_opcode}, Coq={coq_opcode}, Verilog={verilog_opcode}"
     
     print(f"✓ Opcode alignment: Python=0x{python_opcode:02X}, Coq={coq_opcode}, Verilog=0x{verilog_opcode:02X}")
-    return python_opcode
 
 
 def test_coq_conservation_theorem_compiles():
@@ -89,7 +86,6 @@ def test_coq_conservation_theorem_compiles():
         "Missing corollary: run_vm_mu_conservation"
     
     print(f"✓ Coq theorem exists: bounded_model_mu_ledger_conservation")
-    return True
 
 
 def test_coq_concrete_lassert_definition():
@@ -109,7 +105,6 @@ def test_coq_concrete_lassert_definition():
         "Missing len*8 formula in LASSERT"
     
     print(f"✓ Coq LASSERT definition: mu := len(query) * 8")
-    return True
 
 
 def test_hardware_bridge_opcode():
@@ -124,7 +119,6 @@ def test_hardware_bridge_opcode():
     assert "3%N" in content or ":= 3" in content, "opcode_LASSERT should be 3"
     
     print(f"✓ Coq HardwareBridge: opcode_LASSERT = 3")
-    return True
 
 
 def run_full_alignment_check():

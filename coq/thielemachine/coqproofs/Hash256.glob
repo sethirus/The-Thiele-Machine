@@ -1,0 +1,75 @@
+DIGEST 4b367551d2055259472a24ceb5337db2
+FThieleMachine.Hash256
+R361:364 Coq.Lists.List <> <> lib
+R366:371 Coq.ZArith.ZArith <> <> lib
+R373:376 Coq.Bool.Bool <> <> lib
+R386:398 Coq.Lists.List ListNotations <> mod
+mod 429:435 <> Hash256
+def 452:458 Hash256 modulus
+R462:462 Coq.Numbers.BinNums <> Z ind
+R468:470 Coq.ZArith.BinInt <> ::Z_scope:x_'^'_x not
+def 490:492 Hash256 mix
+R503:503 Coq.Numbers.BinNums <> Z ind
+binder 495:497 <> acc:1
+binder 499:499 <> x:2
+R508:508 Coq.Numbers.BinNums <> Z ind
+R581:588 Coq.ZArith.BinInt Z modulo def
+R611:613 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R607:609 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R594:596 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R591:593 ThieleMachine.Hash256 <> acc:1 var
+R610:610 ThieleMachine.Hash256 <> x:2 var
+R626:632 ThieleMachine.Hash256 Hash256 modulus def
+def 647:654 Hash256 fold_mix
+R662:665 Coq.Init.Datatypes <> list ind
+R667:667 Coq.Numbers.BinNums <> Z ind
+binder 657:658 <> xs:3
+R677:677 Coq.Numbers.BinNums <> Z ind
+binder 671:673 <> acc:4
+R682:682 Coq.Numbers.BinNums <> Z ind
+R697:698 ThieleMachine.Hash256 <> xs:3 var
+R711:712 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R717:719 ThieleMachine.Hash256 <> acc:4 var
+R728:731 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R739:746 ThieleMachine.Hash256 <> fold_mix:5 def
+R753:755 ThieleMachine.Hash256 Hash256 mix def
+R757:759 ThieleMachine.Hash256 <> acc:4 var
+def 787:797 Hash256 testbit_nat
+R804:804 Coq.Numbers.BinNums <> Z ind
+binder 800:800 <> z:7
+R812:814 Coq.Init.Datatypes <> nat ind
+binder 808:808 <> i:8
+R819:822 Coq.Init.Datatypes <> bool ind
+R831:839 Coq.ZArith.BinInt Z testbit def
+R841:841 ThieleMachine.Hash256 <> z:7 var
+R844:851 Coq.ZArith.BinInt Z of_nat def
+R853:853 ThieleMachine.Hash256 <> i:8 var
+def 869:875 Hash256 bits_be
+R882:884 Coq.Init.Datatypes <> nat ind
+binder 878:878 <> k:9
+R892:892 Coq.Numbers.BinNums <> Z ind
+binder 888:888 <> z:10
+R897:900 Coq.Init.Datatypes <> list ind
+R902:905 Coq.Init.Datatypes <> bool ind
+R920:920 ThieleMachine.Hash256 <> k:9 var
+R942:943 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R951:951 Coq.Init.Datatypes <> S constr
+R971:974 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R959:965 ThieleMachine.Hash256 <> bits_be:11 def
+R970:970 ThieleMachine.Hash256 <> z:10 var
+R975:975 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R992:992 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R976:986 ThieleMachine.Hash256 Hash256 testbit_nat def
+R988:988 ThieleMachine.Hash256 <> z:10 var
+def 1017:1023 Hash256 hash256
+R1031:1034 Coq.Init.Datatypes <> list ind
+R1036:1036 Coq.Numbers.BinNums <> Z ind
+binder 1026:1027 <> xs:13
+R1041:1044 Coq.Init.Datatypes <> list ind
+R1046:1049 Coq.Init.Datatypes <> bool ind
+R1069:1076 ThieleMachine.Hash256 Hash256 fold_mix def
+R1078:1079 ThieleMachine.Hash256 <> xs:13 var
+binder 1062:1064 <> acc:14
+R1090:1096 ThieleMachine.Hash256 Hash256 bits_be def
+R1106:1108 ThieleMachine.Hash256 <> acc:14 var
+R1116:1122 ThieleMachine.Hash256 Hash256 <> mod

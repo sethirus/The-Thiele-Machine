@@ -1,0 +1,792 @@
+DIGEST bacc3df752f3bbb8149a8b0133ae641a
+FKernel.CHSHExtraction
+R1524:1527 Coq.Lists.List <> <> lib
+R1529:1534 Coq.QArith.QArith <> <> lib
+R1536:1539 Coq.QArith.Qabs <> <> lib
+R1541:1543 Coq.micromega.Lia <> <> lib
+R1545:1550 Coq.QArith.Qround <> <> lib
+R1552:1558 Coq.QArith.Qminmax <> <> lib
+R1560:1562 Coq.micromega.Lra <> <> lib
+R1572:1584 Coq.Lists.List ListNotations <> mod
+R1615:1621 Kernel.VMState <> <> lib
+R1623:1628 Kernel.VMStep <> <> lib
+rec 2637:2645 <> CHSHTrial
+proj 2654:2660 <> trial_x
+proj 2700:2706 <> trial_y
+proj 2744:2750 <> trial_a
+proj 2791:2797 <> trial_b
+R2664:2666 Coq.Init.Datatypes <> nat ind
+R2710:2712 Coq.Init.Datatypes <> nat ind
+R2754:2756 Coq.Init.Datatypes <> nat ind
+R2801:2803 Coq.Init.Datatypes <> nat ind
+def 4241:4270 <> extract_chsh_trials_from_trace
+R4282:4284 Coq.Init.Datatypes <> nat ind
+binder 4275:4278 <> fuel:6
+R4296:4299 Coq.Init.Datatypes <> list ind
+R4301:4314 Kernel.VMStep VMStep vm_instruction ind
+binder 4288:4292 <> trace:7
+R4322:4328 Kernel.VMState <> VMState rec
+binder 4318:4318 <> s:8
+R4333:4336 Coq.Init.Datatypes <> list ind
+R4338:4346 Kernel.CHSHExtraction <> CHSHTrial rec
+R4359:4362 Kernel.CHSHExtraction <> fuel:6 var
+R4373:4373 Coq.Init.Datatypes <> O constr
+R4378:4379 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4385:4385 Coq.Init.Datatypes <> S constr
+R4408:4416 Coq.Lists.List <> nth_error def
+R4428:4432 Kernel.VMState <> vm_pc proj
+R4425:4425 Kernel.CHSHExtraction <> s:8 var
+R4418:4422 Kernel.CHSHExtraction <> trace:7 var
+R4449:4452 Coq.Init.Datatypes <> None constr
+R4457:4458 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4468:4471 Coq.Init.Datatypes <> Some constr
+R4521:4536 Kernel.VMStep VMStep instr_chsh_trial constr
+R4649:4655 Kernel.CHSHExtraction <> trial_x proj
+R4649:4655 Kernel.CHSHExtraction <> trial_x proj
+R4649:4655 Kernel.CHSHExtraction <> trial_x proj
+R4692:4698 Kernel.CHSHExtraction <> trial_y proj
+R4692:4698 Kernel.CHSHExtraction <> trial_y proj
+R4735:4741 Kernel.CHSHExtraction <> trial_a proj
+R4735:4741 Kernel.CHSHExtraction <> trial_a proj
+R4778:4784 Kernel.CHSHExtraction <> trial_b proj
+R4778:4784 Kernel.CHSHExtraction <> trial_b proj
+binder 4637:4641 <> trial:12
+R4816:4819 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4811:4815 Kernel.CHSHExtraction <> trial:12 var
+R4820:4849 Kernel.CHSHExtraction <> extract_chsh_trials_from_trace:9 def
+R4883:4890 Kernel.VMState <> vm_graph proj
+R4883:4890 Kernel.VMState <> vm_graph proj
+R4883:4890 Kernel.VMState <> vm_graph proj
+R4928:4934 Kernel.VMState <> vm_csrs proj
+R4928:4934 Kernel.VMState <> vm_csrs proj
+R4971:4977 Kernel.VMState <> vm_regs proj
+R4971:4977 Kernel.VMState <> vm_regs proj
+R5014:5019 Kernel.VMState <> vm_mem proj
+R5014:5019 Kernel.VMState <> vm_mem proj
+R5055:5059 Kernel.VMState <> vm_pc proj
+R5055:5059 Kernel.VMState <> vm_pc proj
+R5096:5100 Kernel.VMState <> vm_mu proj
+R5096:5100 Kernel.VMState <> vm_mu proj
+R5146:5151 Kernel.VMState <> vm_err proj
+R5146:5151 Kernel.VMState <> vm_err proj
+R4898:4905 Kernel.VMState <> vm_graph proj
+R4895:4895 Kernel.CHSHExtraction <> s:8 var
+R4942:4948 Kernel.VMState <> vm_csrs proj
+R4939:4939 Kernel.CHSHExtraction <> s:8 var
+R4985:4991 Kernel.VMState <> vm_regs proj
+R4982:4982 Kernel.CHSHExtraction <> s:8 var
+R5027:5032 Kernel.VMState <> vm_mem proj
+R5024:5024 Kernel.CHSHExtraction <> s:8 var
+R5064:5064 Coq.Init.Datatypes <> S constr
+R5069:5073 Kernel.VMState <> vm_pc proj
+R5066:5066 Kernel.CHSHExtraction <> s:8 var
+R5114:5116 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5108:5112 Kernel.VMState <> vm_mu proj
+R5105:5105 Kernel.CHSHExtraction <> s:8 var
+R5159:5164 Kernel.VMState <> vm_err proj
+R5156:5156 Kernel.CHSHExtraction <> s:8 var
+R4857:4861 Kernel.CHSHExtraction <> trace:7 var
+R5260:5289 Kernel.CHSHExtraction <> extract_chsh_trials_from_trace:9 def
+R5323:5330 Kernel.VMState <> vm_graph proj
+R5323:5330 Kernel.VMState <> vm_graph proj
+R5323:5330 Kernel.VMState <> vm_graph proj
+R5368:5374 Kernel.VMState <> vm_csrs proj
+R5368:5374 Kernel.VMState <> vm_csrs proj
+R5411:5417 Kernel.VMState <> vm_regs proj
+R5411:5417 Kernel.VMState <> vm_regs proj
+R5454:5459 Kernel.VMState <> vm_mem proj
+R5454:5459 Kernel.VMState <> vm_mem proj
+R5495:5499 Kernel.VMState <> vm_pc proj
+R5495:5499 Kernel.VMState <> vm_pc proj
+R5536:5540 Kernel.VMState <> vm_mu proj
+R5536:5540 Kernel.VMState <> vm_mu proj
+R5575:5580 Kernel.VMState <> vm_err proj
+R5575:5580 Kernel.VMState <> vm_err proj
+R5338:5345 Kernel.VMState <> vm_graph proj
+R5335:5335 Kernel.CHSHExtraction <> s:8 var
+R5382:5388 Kernel.VMState <> vm_csrs proj
+R5379:5379 Kernel.CHSHExtraction <> s:8 var
+R5425:5431 Kernel.VMState <> vm_regs proj
+R5422:5422 Kernel.CHSHExtraction <> s:8 var
+R5467:5472 Kernel.VMState <> vm_mem proj
+R5464:5464 Kernel.CHSHExtraction <> s:8 var
+R5504:5504 Coq.Init.Datatypes <> S constr
+R5509:5513 Kernel.VMState <> vm_pc proj
+R5506:5506 Kernel.CHSHExtraction <> s:8 var
+R5548:5552 Kernel.VMState <> vm_mu proj
+R5545:5545 Kernel.CHSHExtraction <> s:8 var
+R5588:5593 Kernel.VMState <> vm_err proj
+R5585:5585 Kernel.CHSHExtraction <> s:8 var
+R5297:5301 Kernel.CHSHExtraction <> trace:7 var
+def 5988:6000 <> filter_trials
+R6012:6015 Coq.Init.Datatypes <> list ind
+R6017:6025 Kernel.CHSHExtraction <> CHSHTrial rec
+binder 6003:6008 <> trials:13
+R6035:6037 Coq.Init.Datatypes <> nat ind
+binder 6029:6029 <> x:14
+binder 6031:6031 <> y:15
+R6042:6045 Coq.Init.Datatypes <> list ind
+R6047:6055 Kernel.CHSHExtraction <> CHSHTrial rec
+R6062:6067 Coq.Lists.List <> filter def
+R6127:6132 Kernel.CHSHExtraction <> trials:13 var
+binder 6074:6074 <> t:16
+R6100:6103 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R6079:6085 Coq.Arith.PeanoNat Nat eqb def
+R6090:6096 Kernel.CHSHExtraction <> trial_x proj
+R6087:6087 Kernel.CHSHExtraction <> t:16 var
+R6099:6099 Kernel.CHSHExtraction <> x:14 var
+R6104:6110 Coq.Arith.PeanoNat Nat eqb def
+R6115:6121 Kernel.CHSHExtraction <> trial_y proj
+R6112:6112 Kernel.CHSHExtraction <> t:16 var
+R6124:6124 Kernel.CHSHExtraction <> y:15 var
+def 7313:7331 <> compute_correlation
+R7343:7346 Coq.Init.Datatypes <> list ind
+R7348:7356 Kernel.CHSHExtraction <> CHSHTrial rec
+binder 7334:7339 <> trials:17
+R7361:7361 Coq.QArith.QArith_base <> Q rec
+R7374:7379 Kernel.CHSHExtraction <> trials:17 var
+R7390:7391 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7433:7438 Coq.Init.Datatypes <> length def
+R7441:7446 Coq.Lists.List <> filter def
+R7491:7496 Kernel.CHSHExtraction <> trials:17 var
+binder 7453:7453 <> t:19
+R7458:7464 Coq.Arith.PeanoNat Nat eqb def
+R7469:7475 Kernel.CHSHExtraction <> trial_a proj
+R7466:7466 Kernel.CHSHExtraction <> t:19 var
+R7481:7487 Kernel.CHSHExtraction <> trial_b proj
+R7478:7478 Kernel.CHSHExtraction <> t:19 var
+binder 7419:7428 <> same_count:20
+R7526:7531 Coq.Init.Datatypes <> length def
+R7534:7539 Coq.Lists.List <> filter def
+R7591:7596 Kernel.CHSHExtraction <> trials:17 var
+binder 7546:7546 <> t:21
+R7551:7554 Coq.Init.Datatypes <> negb def
+R7557:7563 Coq.Arith.PeanoNat Nat eqb def
+R7568:7574 Kernel.CHSHExtraction <> trial_a proj
+R7565:7565 Kernel.CHSHExtraction <> t:21 var
+R7580:7586 Kernel.CHSHExtraction <> trial_b proj
+R7577:7577 Kernel.CHSHExtraction <> t:21 var
+binder 7512:7521 <> diff_count:22
+R7621:7626 Coq.Init.Datatypes <> length def
+R7628:7633 Kernel.CHSHExtraction <> trials:17 var
+binder 7612:7616 <> total:23
+R7645:7645 Coq.QArith.QArith_base <> ::Q_scope:x_'/'_x not
+R7699:7703 Coq.QArith.QArith_base <> ::Q_scope:x_'/'_x not
+R7722:7722 Coq.QArith.QArith_base <> ::Q_scope:x_'/'_x not
+R7646:7646 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R7670:7674 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R7698:7698 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R7666:7668 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R7647:7654 Coq.ZArith.BinInt Z of_nat def
+R7656:7665 Kernel.CHSHExtraction <> same_count:20 var
+R7694:7696 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R7675:7682 Coq.ZArith.BinInt Z of_nat def
+R7684:7693 Kernel.CHSHExtraction <> diff_count:22 var
+R7718:7720 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R7704:7711 Coq.ZArith.BinInt Z of_nat def
+R7713:7717 Kernel.CHSHExtraction <> total:23 var
+def 8875:8890 <> chsh_from_trials
+R8902:8905 Coq.Init.Datatypes <> list ind
+R8907:8915 Kernel.CHSHExtraction <> CHSHTrial rec
+binder 8893:8898 <> trials:24
+R8920:8920 Coq.QArith.QArith_base <> Q rec
+R8938:8956 Kernel.CHSHExtraction <> compute_correlation def
+R8959:8971 Kernel.CHSHExtraction <> filter_trials def
+R8973:8978 Kernel.CHSHExtraction <> trials:24 var
+binder 8931:8933 <> e00:25
+R9001:9019 Kernel.CHSHExtraction <> compute_correlation def
+R9022:9034 Kernel.CHSHExtraction <> filter_trials def
+R9036:9041 Kernel.CHSHExtraction <> trials:24 var
+binder 8994:8996 <> e01:26
+R9064:9082 Kernel.CHSHExtraction <> compute_correlation def
+R9085:9097 Kernel.CHSHExtraction <> filter_trials def
+R9099:9104 Kernel.CHSHExtraction <> trials:24 var
+binder 9057:9059 <> e10:27
+R9127:9145 Kernel.CHSHExtraction <> compute_correlation def
+R9148:9160 Kernel.CHSHExtraction <> filter_trials def
+R9162:9167 Kernel.CHSHExtraction <> trials:24 var
+binder 9120:9122 <> e11:28
+R9195:9197 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R9189:9191 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R9183:9185 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R9180:9182 Kernel.CHSHExtraction <> e00:25 var
+R9186:9188 Kernel.CHSHExtraction <> e01:26 var
+R9192:9194 Kernel.CHSHExtraction <> e10:27 var
+R9198:9200 Kernel.CHSHExtraction <> e11:28 var
+def 9750:9767 <> chsh_from_vm_trace
+R9779:9781 Coq.Init.Datatypes <> nat ind
+binder 9772:9775 <> fuel:29
+R9793:9796 Coq.Init.Datatypes <> list ind
+R9798:9811 Kernel.VMStep VMStep vm_instruction ind
+binder 9785:9789 <> trace:30
+R9824:9830 Kernel.VMState <> VMState rec
+binder 9815:9820 <> s_init:31
+R9835:9835 Coq.QArith.QArith_base <> Q rec
+R9856:9885 Kernel.CHSHExtraction <> extract_chsh_trials_from_trace def
+R9887:9890 Kernel.CHSHExtraction <> fuel:29 var
+R9892:9896 Kernel.CHSHExtraction <> trace:30 var
+R9898:9903 Kernel.CHSHExtraction <> s_init:31 var
+binder 9846:9851 <> trials:32
+R9910:9925 Kernel.CHSHExtraction <> chsh_from_trials def
+R9927:9932 Kernel.CHSHExtraction <> trials:32 var
+prf 10964:10978 <> trial_partition
+binder 10991:10996 <> trials:33
+R11147:11153 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11068:11074 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R11003:11008 Coq.Init.Datatypes <> length def
+R11011:11016 Coq.Lists.List <> filter def
+R11061:11066 Kernel.CHSHExtraction <> trials:33 var
+binder 11023:11023 <> t:34
+R11028:11034 Coq.Arith.PeanoNat Nat eqb def
+R11039:11045 Kernel.CHSHExtraction <> trial_a proj
+R11036:11036 Kernel.CHSHExtraction <> t:34 var
+R11051:11057 Kernel.CHSHExtraction <> trial_b proj
+R11048:11048 Kernel.CHSHExtraction <> t:34 var
+R11075:11080 Coq.Init.Datatypes <> length def
+R11083:11088 Coq.Lists.List <> filter def
+R11140:11145 Kernel.CHSHExtraction <> trials:33 var
+binder 11095:11095 <> t:35
+R11100:11103 Coq.Init.Datatypes <> negb def
+R11106:11112 Coq.Arith.PeanoNat Nat eqb def
+R11117:11123 Kernel.CHSHExtraction <> trial_a proj
+R11114:11114 Kernel.CHSHExtraction <> t:35 var
+R11129:11135 Kernel.CHSHExtraction <> trial_b proj
+R11126:11126 Kernel.CHSHExtraction <> t:35 var
+R11154:11159 Coq.Init.Datatypes <> length def
+R11161:11166 Kernel.CHSHExtraction <> trials:33 var
+R11264:11270 Coq.Arith.PeanoNat Nat eqb def
+R11273:11279 Kernel.CHSHExtraction <> trial_a proj
+R11285:11291 Kernel.CHSHExtraction <> trial_b proj
+R11264:11270 Coq.Arith.PeanoNat Nat eqb def
+R11273:11279 Kernel.CHSHExtraction <> trial_a proj
+R11285:11291 Kernel.CHSHExtraction <> trial_b proj
+prf 11969:11984 <> filter_length_le
+binder 11998:11998 <> A:36
+R12014:12017 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12013:12013 Kernel.CHSHExtraction <> A:36 var
+R12018:12021 Coq.Init.Datatypes <> bool ind
+binder 12009:12009 <> f:37
+R12029:12032 Coq.Init.Datatypes <> list ind
+R12034:12034 Kernel.CHSHExtraction <> A:36 var
+binder 12025:12025 <> l:38
+R12061:12064 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R12042:12047 Coq.Init.Datatypes <> length def
+R12050:12055 Coq.Lists.List <> filter def
+R12059:12059 Kernel.CHSHExtraction <> l:38 var
+R12057:12057 Kernel.CHSHExtraction <> f:37 var
+R12065:12070 Coq.Init.Datatypes <> length def
+R12072:12072 Kernel.CHSHExtraction <> l:38 var
+prf 13128:13142 <> Qabs_4_triangle
+R13165:13165 Coq.QArith.QArith_base <> Q rec
+binder 13155:13155 <> a:39
+binder 13157:13157 <> b:40
+binder 13159:13159 <> c:41
+binder 13161:13161 <> d:42
+R13192:13195 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R13172:13175 Coq.QArith.Qabs <> Qabs def
+R13187:13189 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R13183:13185 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13179:13181 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13178:13178 Kernel.CHSHExtraction <> a:39 var
+R13182:13182 Kernel.CHSHExtraction <> b:40 var
+R13186:13186 Kernel.CHSHExtraction <> c:41 var
+R13190:13190 Kernel.CHSHExtraction <> d:42 var
+R13220:13222 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13211:13213 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13202:13204 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13196:13199 Coq.QArith.Qabs <> Qabs def
+R13201:13201 Kernel.CHSHExtraction <> a:39 var
+R13205:13208 Coq.QArith.Qabs <> Qabs def
+R13210:13210 Kernel.CHSHExtraction <> b:40 var
+R13214:13217 Coq.QArith.Qabs <> Qabs def
+R13219:13219 Kernel.CHSHExtraction <> c:41 var
+R13223:13226 Coq.QArith.Qabs <> Qabs def
+R13228:13228 Kernel.CHSHExtraction <> d:42 var
+R13336:13339 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R13315:13318 Coq.QArith.Qabs <> Qabs def
+R13330:13332 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13326:13328 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13322:13324 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13333:13333 Coq.QArith.QArith_base <> ::Q_scope:'-'_x not
+R13356:13358 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13340:13343 Coq.QArith.Qabs <> Qabs def
+R13351:13353 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13347:13349 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13359:13362 Coq.QArith.Qabs <> Qabs def
+R13365:13365 Coq.QArith.QArith_base <> ::Q_scope:'-'_x not
+R13336:13339 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R13315:13318 Coq.QArith.Qabs <> Qabs def
+R13330:13332 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13326:13328 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13322:13324 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13333:13333 Coq.QArith.QArith_base <> ::Q_scope:'-'_x not
+R13356:13358 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13340:13343 Coq.QArith.Qabs <> Qabs def
+R13351:13353 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13347:13349 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13359:13362 Coq.QArith.Qabs <> Qabs def
+R13365:13365 Coq.QArith.QArith_base <> ::Q_scope:'-'_x not
+R13381:13393 Coq.QArith.Qabs <> Qabs_triangle thm
+R13381:13393 Coq.QArith.Qabs <> Qabs_triangle thm
+R13431:13434 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R13415:13418 Coq.QArith.Qabs <> Qabs def
+R13426:13428 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13422:13424 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13447:13449 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13435:13438 Coq.QArith.Qabs <> Qabs def
+R13442:13444 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13450:13453 Coq.QArith.Qabs <> Qabs def
+R13431:13434 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R13415:13418 Coq.QArith.Qabs <> Qabs def
+R13426:13428 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13422:13424 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13447:13449 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13435:13438 Coq.QArith.Qabs <> Qabs def
+R13442:13444 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13450:13453 Coq.QArith.Qabs <> Qabs def
+R13469:13481 Coq.QArith.Qabs <> Qabs_triangle thm
+R13469:13481 Coq.QArith.Qabs <> Qabs_triangle thm
+R13514:13517 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R13502:13505 Coq.QArith.Qabs <> Qabs def
+R13509:13511 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13524:13526 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13518:13521 Coq.QArith.Qabs <> Qabs def
+R13527:13530 Coq.QArith.Qabs <> Qabs def
+R13514:13517 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R13502:13505 Coq.QArith.Qabs <> Qabs def
+R13509:13511 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13524:13526 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13518:13521 Coq.QArith.Qabs <> Qabs def
+R13527:13530 Coq.QArith.Qabs <> Qabs def
+R13546:13558 Coq.QArith.Qabs <> Qabs_triangle thm
+R13546:13558 Coq.QArith.Qabs <> Qabs_triangle thm
+R13636:13639 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R13632:13634 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R13628:13630 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13624:13626 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13649:13651 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13645:13647 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13641:13643 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13652:13652 Coq.QArith.QArith_base <> ::Q_scope:'-'_x not
+R13636:13639 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R13632:13634 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R13628:13630 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13624:13626 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13649:13651 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13645:13647 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13641:13643 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13652:13652 Coq.QArith.QArith_base <> ::Q_scope:'-'_x not
+R13668:13670 Coq.QArith.QArith_base <> Qeq def
+R13752:13755 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R13732:13735 Coq.QArith.Qabs <> Qabs def
+R13747:13749 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R13743:13745 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13739:13741 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13756:13759 Coq.QArith.Qabs <> Qabs def
+R13771:13773 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13767:13769 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13763:13765 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13774:13774 Coq.QArith.QArith_base <> ::Q_scope:'-'_x not
+R13752:13755 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R13732:13735 Coq.QArith.Qabs <> Qabs def
+R13747:13749 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R13743:13745 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13739:13741 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13756:13759 Coq.QArith.Qabs <> Qabs def
+R13771:13773 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13767:13769 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13763:13765 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R13774:13774 Coq.QArith.QArith_base <> ::Q_scope:'-'_x not
+R13790:13796 Coq.QArith.Qabs <> Qabs_wd def
+R13790:13796 Coq.QArith.Qabs <> Qabs_wd def
+R13846:13853 Coq.QArith.Qabs <> Qabs_opp thm
+R13846:13853 Coq.QArith.Qabs <> Qabs_opp thm
+R13846:13853 Coq.QArith.Qabs <> Qabs_opp thm
+R13940:13948 Coq.QArith.QArith_base <> Qle_trans thm
+R13940:13948 Coq.QArith.QArith_base <> Qle_trans thm
+R14051:14065 Coq.QArith.QArith_base <> Qplus_le_compat thm
+R14051:14065 Coq.QArith.QArith_base <> Qplus_le_compat thm
+R14077:14084 Coq.QArith.QArith_base <> Qle_refl thm
+R14077:14084 Coq.QArith.QArith_base <> Qle_refl thm
+R14096:14104 Coq.QArith.QArith_base <> Qle_trans thm
+R14096:14104 Coq.QArith.QArith_base <> Qle_trans thm
+R14128:14142 Coq.QArith.QArith_base <> Qplus_le_compat thm
+R14128:14142 Coq.QArith.QArith_base <> Qplus_le_compat thm
+R14154:14161 Coq.QArith.QArith_base <> Qle_refl thm
+R14154:14161 Coq.QArith.QArith_base <> Qle_refl thm
+prf 15749:15767 <> correlation_bound_1
+binder 15780:15785 <> trials:43
+R15825:15828 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R15792:15795 Coq.QArith.Qabs <> Qabs def
+R15798:15816 Kernel.CHSHExtraction <> compute_correlation def
+R15818:15823 Kernel.CHSHExtraction <> trials:43 var
+R15866:15884 Kernel.CHSHExtraction <> compute_correlation def
+R15981:15984 Coq.QArith.Qabs <> Qabs def
+R15987:15989 Coq.QArith.QArith_base <> Qle def
+R16005:16012 Coq.ZArith.BinInt Z leb_le thm
+R16005:16012 Coq.ZArith.BinInt Z leb_le thm
+R16104:16109 Coq.Lists.List <> filter def
+R16171:16174 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R16121:16129 Kernel.CHSHExtraction <> CHSHTrial rec
+binder 16116:16117 <> tr:44
+R16134:16140 Coq.Arith.PeanoNat Nat eqb def
+R16143:16149 Kernel.CHSHExtraction <> trial_a proj
+R16151:16152 Kernel.CHSHExtraction <> tr:44 var
+R16156:16162 Kernel.CHSHExtraction <> trial_b proj
+R16164:16165 Kernel.CHSHExtraction <> tr:44 var
+R16104:16109 Coq.Lists.List <> filter def
+R16171:16174 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R16121:16129 Kernel.CHSHExtraction <> CHSHTrial rec
+binder 16116:16117 <> tr:45
+R16134:16140 Coq.Arith.PeanoNat Nat eqb def
+R16143:16149 Kernel.CHSHExtraction <> trial_a proj
+R16151:16152 Kernel.CHSHExtraction <> tr:45 var
+R16156:16162 Kernel.CHSHExtraction <> trial_b proj
+R16164:16165 Kernel.CHSHExtraction <> tr:45 var
+R16196:16201 Coq.Lists.List <> filter def
+R16270:16273 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R16213:16221 Kernel.CHSHExtraction <> CHSHTrial rec
+binder 16208:16209 <> tr:46
+R16226:16229 Coq.Init.Datatypes <> negb def
+R16232:16238 Coq.Arith.PeanoNat Nat eqb def
+R16241:16247 Kernel.CHSHExtraction <> trial_a proj
+R16249:16250 Kernel.CHSHExtraction <> tr:46 var
+R16254:16260 Kernel.CHSHExtraction <> trial_b proj
+R16262:16263 Kernel.CHSHExtraction <> tr:46 var
+R16196:16201 Coq.Lists.List <> filter def
+R16270:16273 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R16213:16221 Kernel.CHSHExtraction <> CHSHTrial rec
+binder 16208:16209 <> tr:47
+R16226:16229 Coq.Init.Datatypes <> negb def
+R16232:16238 Coq.Arith.PeanoNat Nat eqb def
+R16241:16247 Kernel.CHSHExtraction <> trial_a proj
+R16249:16250 Kernel.CHSHExtraction <> tr:47 var
+R16254:16260 Kernel.CHSHExtraction <> trial_b proj
+R16262:16263 Kernel.CHSHExtraction <> tr:47 var
+R16297:16304 Coq.ZArith.BinInt Z of_nat def
+R16307:16312 Coq.Init.Datatypes <> length def
+R16297:16304 Coq.ZArith.BinInt Z of_nat def
+R16307:16312 Coq.Init.Datatypes <> length def
+R16337:16344 Coq.ZArith.BinInt Z of_nat def
+R16347:16352 Coq.Init.Datatypes <> length def
+R16337:16344 Coq.ZArith.BinInt Z of_nat def
+R16347:16352 Coq.Init.Datatypes <> length def
+R16378:16385 Coq.ZArith.BinInt Z of_nat def
+R16388:16388 Coq.Init.Datatypes <> S constr
+R16391:16396 Coq.Init.Datatypes <> length def
+R16378:16385 Coq.ZArith.BinInt Z of_nat def
+R16388:16388 Coq.Init.Datatypes <> S constr
+R16391:16396 Coq.Init.Datatypes <> length def
+R16486:16488 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16474:16476 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R16465:16470 Coq.Init.Datatypes <> length def
+R16477:16482 Coq.Init.Datatypes <> length def
+R16489:16489 Coq.Init.Datatypes <> S constr
+R16492:16497 Coq.Init.Datatypes <> length def
+R16486:16488 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16474:16476 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R16465:16470 Coq.Init.Datatypes <> length def
+R16477:16482 Coq.Init.Datatypes <> length def
+R16489:16489 Coq.Init.Datatypes <> S constr
+R16492:16497 Coq.Init.Datatypes <> length def
+R16537:16551 Kernel.CHSHExtraction <> trial_partition thm
+R16537:16551 Kernel.CHSHExtraction <> trial_partition thm
+R16586:16588 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16579:16581 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R16586:16588 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16579:16581 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R16684:16686 Coq.ZArith.BinInt <> ::Z_scope:x_'<'_x not
+R16684:16686 Coq.ZArith.BinInt <> ::Z_scope:x_'<'_x not
+R16982:16985 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R16963:16967 Coq.ZArith.BinInt Z abs def
+R16974:16976 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R17032:17039 Coq.ZArith.BinInt Z abs_le thm
+R16982:16985 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R16963:16967 Coq.ZArith.BinInt Z abs def
+R16974:16976 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R17032:17039 Coq.ZArith.BinInt Z abs_le thm
+R17107:17110 Coq.QArith.QArith_base <> Qdiv def
+R17113:17116 Coq.QArith.Qabs <> Qabs def
+R17119:17121 Coq.QArith.QArith_base <> Qle def
+R17124:17128 Coq.QArith.QArith_base <> Qmult def
+R17131:17134 Coq.QArith.QArith_base <> Qinv def
+R17137:17144 Coq.QArith.QArith_base <> inject_Z def
+R17288:17293 Coq.Init.Datatypes <> length def
+R17309:17312 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R17300:17306 Kernel.CHSHExtraction <> trial_a proj
+R17313:17319 Kernel.CHSHExtraction <> trial_b proj
+R17436:17441 Coq.Lists.List <> filter def
+binder 17448:17448 <> t:48
+R17463:17466 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R17454:17460 Kernel.CHSHExtraction <> trial_a proj
+R17462:17462 Kernel.CHSHExtraction <> t:48 var
+R17467:17473 Kernel.CHSHExtraction <> trial_b proj
+R17475:17475 Kernel.CHSHExtraction <> t:48 var
+R17356:17359 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R17360:17365 Coq.Lists.List <> filter def
+binder 17372:17372 <> t:49
+R17387:17390 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R17378:17384 Kernel.CHSHExtraction <> trial_a proj
+R17386:17386 Kernel.CHSHExtraction <> t:49 var
+R17391:17397 Kernel.CHSHExtraction <> trial_b proj
+R17399:17399 Kernel.CHSHExtraction <> t:49 var
+R17500:17505 Coq.Init.Datatypes <> length def
+R17288:17293 Coq.Init.Datatypes <> length def
+R17309:17312 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R17300:17306 Kernel.CHSHExtraction <> trial_a proj
+R17313:17319 Kernel.CHSHExtraction <> trial_b proj
+R17436:17441 Coq.Lists.List <> filter def
+binder 17448:17448 <> t:50
+R17463:17466 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R17454:17460 Kernel.CHSHExtraction <> trial_a proj
+R17462:17462 Kernel.CHSHExtraction <> t:50 var
+R17467:17473 Kernel.CHSHExtraction <> trial_b proj
+R17475:17475 Kernel.CHSHExtraction <> t:50 var
+R17356:17359 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R17360:17365 Coq.Lists.List <> filter def
+binder 17372:17372 <> t:51
+R17387:17390 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R17378:17384 Kernel.CHSHExtraction <> trial_a proj
+R17386:17386 Kernel.CHSHExtraction <> t:51 var
+R17391:17397 Kernel.CHSHExtraction <> trial_b proj
+R17399:17399 Kernel.CHSHExtraction <> t:51 var
+R17500:17505 Coq.Init.Datatypes <> length def
+R17553:17558 Coq.Init.Datatypes <> length def
+R17564:17567 Coq.Init.Datatypes <> negb def
+R17579:17582 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R17570:17576 Kernel.CHSHExtraction <> trial_a proj
+R17583:17589 Kernel.CHSHExtraction <> trial_b proj
+R17710:17715 Coq.Lists.List <> filter def
+binder 17722:17722 <> t:52
+R17727:17730 Coq.Init.Datatypes <> negb def
+R17742:17745 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R17733:17739 Kernel.CHSHExtraction <> trial_a proj
+R17741:17741 Kernel.CHSHExtraction <> t:52 var
+R17746:17752 Kernel.CHSHExtraction <> trial_b proj
+R17754:17754 Kernel.CHSHExtraction <> t:52 var
+R17625:17628 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R17629:17634 Coq.Lists.List <> filter def
+binder 17641:17641 <> t:53
+R17646:17649 Coq.Init.Datatypes <> negb def
+R17661:17664 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R17652:17658 Kernel.CHSHExtraction <> trial_a proj
+R17660:17660 Kernel.CHSHExtraction <> t:53 var
+R17665:17671 Kernel.CHSHExtraction <> trial_b proj
+R17673:17673 Kernel.CHSHExtraction <> t:53 var
+R17779:17784 Coq.Init.Datatypes <> length def
+R17553:17558 Coq.Init.Datatypes <> length def
+R17564:17567 Coq.Init.Datatypes <> negb def
+R17579:17582 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R17570:17576 Kernel.CHSHExtraction <> trial_a proj
+R17583:17589 Kernel.CHSHExtraction <> trial_b proj
+R17710:17715 Coq.Lists.List <> filter def
+binder 17722:17722 <> t:54
+R17727:17730 Coq.Init.Datatypes <> negb def
+R17742:17745 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R17733:17739 Kernel.CHSHExtraction <> trial_a proj
+R17741:17741 Kernel.CHSHExtraction <> t:54 var
+R17746:17752 Kernel.CHSHExtraction <> trial_b proj
+R17754:17754 Kernel.CHSHExtraction <> t:54 var
+R17625:17628 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R17629:17634 Coq.Lists.List <> filter def
+binder 17641:17641 <> t:55
+R17646:17649 Coq.Init.Datatypes <> negb def
+R17661:17664 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R17652:17658 Kernel.CHSHExtraction <> trial_a proj
+R17660:17660 Kernel.CHSHExtraction <> t:55 var
+R17665:17671 Kernel.CHSHExtraction <> trial_b proj
+R17673:17673 Kernel.CHSHExtraction <> t:55 var
+R17779:17784 Coq.Init.Datatypes <> length def
+R17879:17886 Coq.ZArith.BinInt Z of_nat def
+R17889:17894 Coq.Init.Datatypes <> length def
+R17879:17886 Coq.ZArith.BinInt Z of_nat def
+R17889:17894 Coq.Init.Datatypes <> length def
+R17940:17947 Coq.ZArith.BinInt Z of_nat def
+R17950:17955 Coq.Init.Datatypes <> length def
+R17940:17947 Coq.ZArith.BinInt Z of_nat def
+R17950:17955 Coq.Init.Datatypes <> length def
+R18001:18005 Coq.ZArith.BinInt Z pos abbrev
+R18008:18022 Coq.PArith.BinPos Pos of_succ_nat def
+R18025:18030 Coq.Init.Datatypes <> length def
+R18001:18005 Coq.ZArith.BinInt Z pos abbrev
+R18008:18022 Coq.PArith.BinPos Pos of_succ_nat def
+R18025:18030 Coq.Init.Datatypes <> length def
+R18134:18134 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R18156:18159 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R18143:18145 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R18139:18141 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R18152:18154 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R18146:18147 Coq.ZArith.BinInt <> ::Z_scope:'-'_x not
+R18175:18177 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R18134:18134 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R18156:18159 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R18143:18145 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R18139:18141 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R18152:18154 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R18146:18147 Coq.ZArith.BinInt <> ::Z_scope:'-'_x not
+R18175:18177 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R18286:18288 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R18282:18284 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R18263:18267 Coq.ZArith.BinInt Z abs def
+R18274:18276 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R18319:18321 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R18300:18304 Coq.ZArith.BinInt Z abs def
+R18311:18313 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R18286:18288 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R18282:18284 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R18263:18267 Coq.ZArith.BinInt Z abs def
+R18274:18276 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R18319:18321 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R18300:18304 Coq.ZArith.BinInt Z abs def
+R18311:18313 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R18390:18398 Coq.ZArith.BinInt Z mul_1_r thm
+R18390:18398 Coq.ZArith.BinInt Z mul_1_r thm
+R18390:18398 Coq.ZArith.BinInt Z mul_1_r thm
+R18459:18462 Coq.ZArith.BinInt Z le def
+R18484:18487 Coq.ZArith.BinInt Z le def
+prf 20205:20224 <> chsh_algebraic_bound
+binder 20237:20242 <> trials:56
+R20279:20282 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R20249:20252 Coq.QArith.Qabs <> Qabs def
+R20255:20270 Kernel.CHSHExtraction <> chsh_from_trials def
+R20272:20277 Kernel.CHSHExtraction <> trials:56 var
+R20318:20333 Kernel.CHSHExtraction <> chsh_from_trials def
+R20351:20369 Kernel.CHSHExtraction <> compute_correlation def
+R20372:20384 Kernel.CHSHExtraction <> filter_trials def
+R20351:20369 Kernel.CHSHExtraction <> compute_correlation def
+R20372:20384 Kernel.CHSHExtraction <> filter_trials def
+R20415:20433 Kernel.CHSHExtraction <> compute_correlation def
+R20436:20448 Kernel.CHSHExtraction <> filter_trials def
+R20415:20433 Kernel.CHSHExtraction <> compute_correlation def
+R20436:20448 Kernel.CHSHExtraction <> filter_trials def
+R20479:20497 Kernel.CHSHExtraction <> compute_correlation def
+R20500:20512 Kernel.CHSHExtraction <> filter_trials def
+R20479:20497 Kernel.CHSHExtraction <> compute_correlation def
+R20500:20512 Kernel.CHSHExtraction <> filter_trials def
+R20543:20561 Kernel.CHSHExtraction <> compute_correlation def
+R20564:20576 Kernel.CHSHExtraction <> filter_trials def
+R20543:20561 Kernel.CHSHExtraction <> compute_correlation def
+R20564:20576 Kernel.CHSHExtraction <> filter_trials def
+R20635:20643 Coq.QArith.QArith_base <> Qle_trans thm
+R20635:20643 Coq.QArith.QArith_base <> Qle_trans thm
+R20683:20697 Kernel.CHSHExtraction <> Qabs_4_triangle thm
+R20683:20697 Kernel.CHSHExtraction <> Qabs_4_triangle thm
+R20767:20769 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R20763:20765 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R20759:20761 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R20767:20769 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R20763:20765 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R20759:20761 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R20886:20889 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R20833:20836 Coq.QArith.Qabs <> Qabs def
+R20839:20857 Kernel.CHSHExtraction <> compute_correlation def
+R20860:20872 Kernel.CHSHExtraction <> filter_trials def
+R20902:20920 Kernel.CHSHExtraction <> correlation_bound_1 thm
+R20886:20889 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R20833:20836 Coq.QArith.Qabs <> Qabs def
+R20839:20857 Kernel.CHSHExtraction <> compute_correlation def
+R20860:20872 Kernel.CHSHExtraction <> filter_trials def
+R20902:20920 Kernel.CHSHExtraction <> correlation_bound_1 thm
+R20991:20994 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R20938:20941 Coq.QArith.Qabs <> Qabs def
+R20944:20962 Kernel.CHSHExtraction <> compute_correlation def
+R20965:20977 Kernel.CHSHExtraction <> filter_trials def
+R21007:21025 Kernel.CHSHExtraction <> correlation_bound_1 thm
+R20991:20994 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R20938:20941 Coq.QArith.Qabs <> Qabs def
+R20944:20962 Kernel.CHSHExtraction <> compute_correlation def
+R20965:20977 Kernel.CHSHExtraction <> filter_trials def
+R21007:21025 Kernel.CHSHExtraction <> correlation_bound_1 thm
+R21096:21099 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R21043:21046 Coq.QArith.Qabs <> Qabs def
+R21049:21067 Kernel.CHSHExtraction <> compute_correlation def
+R21070:21082 Kernel.CHSHExtraction <> filter_trials def
+R21112:21130 Kernel.CHSHExtraction <> correlation_bound_1 thm
+R21096:21099 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R21043:21046 Coq.QArith.Qabs <> Qabs def
+R21049:21067 Kernel.CHSHExtraction <> compute_correlation def
+R21070:21082 Kernel.CHSHExtraction <> filter_trials def
+R21112:21130 Kernel.CHSHExtraction <> correlation_bound_1 thm
+R21201:21204 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R21148:21151 Coq.QArith.Qabs <> Qabs def
+R21154:21172 Kernel.CHSHExtraction <> compute_correlation def
+R21175:21187 Kernel.CHSHExtraction <> filter_trials def
+R21217:21235 Kernel.CHSHExtraction <> correlation_bound_1 thm
+R21201:21204 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R21148:21151 Coq.QArith.Qabs <> Qabs def
+R21154:21172 Kernel.CHSHExtraction <> compute_correlation def
+R21175:21187 Kernel.CHSHExtraction <> filter_trials def
+R21217:21235 Kernel.CHSHExtraction <> correlation_bound_1 thm
+R21322:21336 Coq.QArith.QArith_base <> Qplus_le_compat thm
+R21322:21336 Coq.QArith.QArith_base <> Qplus_le_compat thm
+R21347:21361 Coq.QArith.QArith_base <> Qplus_le_compat thm
+R21347:21361 Coq.QArith.QArith_base <> Qplus_le_compat thm
+R21372:21386 Coq.QArith.QArith_base <> Qplus_le_compat thm
+R21372:21386 Coq.QArith.QArith_base <> Qplus_le_compat thm
+def 23519:23548 <> locally_deterministic_strategy
+R23570:23573 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23567:23569 Coq.Init.Datatypes <> nat ind
+R23577:23580 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23574:23576 Coq.Init.Datatypes <> nat ind
+R23581:23583 Coq.Init.Datatypes <> nat ind
+binder 23551:23556 <> a_func:57
+binder 23558:23563 <> b_func:58
+R23698:23698 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R23740:23747 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R23789:23789 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 23706:23706 <> x:59
+binder 23708:23709 <> y1:60
+binder 23711:23712 <> y2:61
+R23726:23728 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23715:23720 Kernel.CHSHExtraction <> a_func:57 var
+R23724:23725 Kernel.CHSHExtraction <> y1:60 var
+R23722:23722 Kernel.CHSHExtraction <> x:59 var
+R23729:23734 Kernel.CHSHExtraction <> a_func:57 var
+R23738:23739 Kernel.CHSHExtraction <> y2:61 var
+R23736:23736 Kernel.CHSHExtraction <> x:59 var
+binder 23755:23756 <> x1:62
+binder 23758:23759 <> x2:63
+binder 23761:23761 <> y:64
+R23775:23777 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23764:23769 Kernel.CHSHExtraction <> b_func:58 var
+R23774:23774 Kernel.CHSHExtraction <> y:64 var
+R23771:23772 Kernel.CHSHExtraction <> x1:62 var
+R23778:23783 Kernel.CHSHExtraction <> b_func:58 var
+R23788:23788 Kernel.CHSHExtraction <> y:64 var
+R23785:23786 Kernel.CHSHExtraction <> x2:63 var
+prf 26174:26189 <> chsh_local_bound
+binder 26202:26207 <> trials:65
+binder 26209:26214 <> a_func:66
+binder 26216:26221 <> b_func:67
+R26272:26324 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26228:26257 Kernel.CHSHExtraction <> locally_deterministic_strategy def
+R26259:26264 Kernel.CHSHExtraction <> a_func:66 var
+R26266:26271 Kernel.CHSHExtraction <> b_func:67 var
+R26325:26325 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26437:26445 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 26333:26333 <> t:68
+R26347:26357 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26336:26337 Coq.Lists.List <> In def
+R26341:26346 Kernel.CHSHExtraction <> trials:65 var
+R26339:26339 Kernel.CHSHExtraction <> t:68 var
+R26392:26402 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R26369:26371 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26361:26367 Kernel.CHSHExtraction <> trial_a proj
+R26358:26358 Kernel.CHSHExtraction <> t:68 var
+R26372:26377 Kernel.CHSHExtraction <> a_func:66 var
+R26382:26388 Kernel.CHSHExtraction <> trial_x proj
+R26379:26379 Kernel.CHSHExtraction <> t:68 var
+R26391:26391 Coq.Init.Datatypes <> O constr
+R26414:26416 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26406:26412 Kernel.CHSHExtraction <> trial_b proj
+R26403:26403 Kernel.CHSHExtraction <> t:68 var
+R26417:26422 Kernel.CHSHExtraction <> b_func:67 var
+R26424:26424 Coq.Init.Datatypes <> O constr
+R26429:26435 Kernel.CHSHExtraction <> trial_y proj
+R26426:26426 Kernel.CHSHExtraction <> t:68 var
+R26476:26479 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R26446:26449 Coq.QArith.Qabs <> Qabs def
+R26452:26467 Kernel.CHSHExtraction <> chsh_from_trials def
+R26469:26474 Kernel.CHSHExtraction <> trials:65 var
+R26878:26897 Kernel.CHSHExtraction <> chsh_algebraic_bound thm
+R26878:26897 Kernel.CHSHExtraction <> chsh_algebraic_bound thm

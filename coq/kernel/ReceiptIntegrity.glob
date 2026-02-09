@@ -1,0 +1,756 @@
+DIGEST 5659c83645d092f104952eb7b82f2579
+FKernel.ReceiptIntegrity
+R24:27 Coq.Lists.List <> <> lib
+R29:32 Coq.Bool.Bool <> <> lib
+R34:47 Coq.Arith.PeanoNat <> <> lib
+R49:51 Coq.micromega.Lia <> <> lib
+R53:56 Coq.setoid_ring.Ring <> <> lib
+R66:78 Coq.Lists.List ListNotations <> mod
+R97:110 Kernel.VMState <> <> lib
+R128:140 Kernel.VMStep <> <> lib
+mod 731:746 <> ReceiptIntegrity
+def 1171:1180 ReceiptIntegrity state_hash
+R1185:1187 Coq.Init.Datatypes <> nat ind
+def 1727:1732 ReceiptIntegrity mu_max
+R1736:1738 Coq.Init.Datatypes <> nat ind
+R1755:1757 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R1743:1749 Coq.Arith.PeanoNat Nat pow def
+def 1841:1851 ReceiptIntegrity mu_in_range
+R1859:1861 Coq.Init.Datatypes <> nat ind
+binder 1854:1855 <> mu:1
+R1876:1879 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1874:1875 Kernel.ReceiptIntegrity <> mu:1 var
+R1880:1885 Kernel.ReceiptIntegrity ReceiptIntegrity mu_max def
+def 1900:1912 ReceiptIntegrity mu_in_range_b
+R1920:1922 Coq.Init.Datatypes <> nat ind
+binder 1915:1916 <> mu:2
+R1927:1930 Coq.Init.Datatypes <> bool ind
+R1935:1941 Coq.Arith.PeanoNat Nat leb def
+R1943:1944 Kernel.ReceiptIntegrity <> mu:2 var
+R1946:1951 Kernel.ReceiptIntegrity ReceiptIntegrity mu_max def
+prf 1961:1981 ReceiptIntegrity mu_in_range_b_correct
+binder 1994:1995 <> mu:3
+R2021:2025 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R2014:2016 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1998:2010 Kernel.ReceiptIntegrity ReceiptIntegrity mu_in_range_b def
+R2012:2013 Kernel.ReceiptIntegrity <> mu:3 var
+R2017:2020 Coq.Init.Datatypes <> true constr
+R2026:2036 Kernel.ReceiptIntegrity ReceiptIntegrity mu_in_range def
+R2038:2039 Kernel.ReceiptIntegrity <> mu:3 var
+R2071:2083 Kernel.ReceiptIntegrity ReceiptIntegrity mu_in_range_b def
+R2086:2096 Kernel.ReceiptIntegrity ReceiptIntegrity mu_in_range def
+R2109:2118 Coq.Arith.PeanoNat Nat leb_le thm
+R2109:2118 Coq.Arith.PeanoNat Nat leb_le thm
+R2109:2118 Coq.Arith.PeanoNat Nat leb_le thm
+rec 2149:2155 ReceiptIntegrity Receipt
+proj 2164:2175 ReceiptIntegrity receipt_step
+proj 2186:2204 ReceiptIntegrity receipt_instruction
+proj 2226:2239 ReceiptIntegrity receipt_pre_mu
+proj 2250:2264 ReceiptIntegrity receipt_post_mu
+proj 2275:2296 ReceiptIntegrity receipt_pre_state_hash
+proj 2314:2336 ReceiptIntegrity receipt_post_state_hash
+R2179:2181 Coq.Init.Datatypes <> nat ind
+R2208:2221 Kernel.VMStep VMStep vm_instruction ind
+R2243:2245 Coq.Init.Datatypes <> nat ind
+R2268:2270 Coq.Init.Datatypes <> nat ind
+R2300:2309 Kernel.ReceiptIntegrity ReceiptIntegrity state_hash def
+R2340:2349 Kernel.ReceiptIntegrity ReceiptIntegrity state_hash def
+def 2669:2688 ReceiptIntegrity instruction_mu_delta
+R2699:2712 Kernel.VMStep VMStep vm_instruction ind
+binder 2691:2695 <> instr:11
+R2717:2719 Coq.Init.Datatypes <> nat ind
+R2726:2741 Kernel.VMStep VMStep instruction_cost def
+R2743:2747 Kernel.ReceiptIntegrity <> instr:11 var
+def 3016:3036 ReceiptIntegrity receipt_mu_consistent
+R3043:3049 Kernel.ReceiptIntegrity ReceiptIntegrity Receipt rec
+binder 3039:3039 <> r:12
+R3083:3085 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3067:3081 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_post_mu proj
+R3064:3064 Kernel.ReceiptIntegrity <> r:12 var
+R3104:3106 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3089:3102 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_pre_mu proj
+R3086:3086 Kernel.ReceiptIntegrity <> r:12 var
+R3107:3126 Kernel.ReceiptIntegrity ReceiptIntegrity instruction_mu_delta def
+R3131:3149 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_instruction proj
+R3128:3128 Kernel.ReceiptIntegrity <> r:12 var
+def 3211:3233 ReceiptIntegrity receipt_mu_consistent_b
+R3240:3246 Kernel.ReceiptIntegrity ReceiptIntegrity Receipt rec
+binder 3236:3236 <> r:13
+R3251:3254 Coq.Init.Datatypes <> bool ind
+R3261:3267 Coq.Arith.PeanoNat Nat eqb def
+R3272:3286 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_post_mu proj
+R3269:3269 Kernel.ReceiptIntegrity <> r:13 var
+R3308:3310 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3293:3306 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_pre_mu proj
+R3290:3290 Kernel.ReceiptIntegrity <> r:13 var
+R3311:3330 Kernel.ReceiptIntegrity ReceiptIntegrity instruction_mu_delta def
+R3335:3353 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_instruction proj
+R3332:3332 Kernel.ReceiptIntegrity <> r:13 var
+prf 3365:3395 ReceiptIntegrity receipt_mu_consistent_b_correct
+binder 3408:3408 <> r:14
+R3443:3447 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R3436:3438 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3411:3433 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_mu_consistent_b def
+R3435:3435 Kernel.ReceiptIntegrity <> r:14 var
+R3439:3442 Coq.Init.Datatypes <> true constr
+R3448:3468 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_mu_consistent def
+R3470:3470 Kernel.ReceiptIntegrity <> r:14 var
+R3501:3523 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_mu_consistent_b def
+R3526:3546 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_mu_consistent def
+R3559:3568 Coq.Arith.PeanoNat Nat eqb_eq thm
+R3559:3568 Coq.Arith.PeanoNat Nat eqb_eq thm
+R3559:3568 Coq.Arith.PeanoNat Nat eqb_eq thm
+def 3808:3826 ReceiptIntegrity receipt_mu_in_range
+R3833:3839 Kernel.ReceiptIntegrity ReceiptIntegrity Receipt rec
+binder 3829:3829 <> r:15
+R3884:3887 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3854:3864 Kernel.ReceiptIntegrity ReceiptIntegrity mu_in_range def
+R3869:3882 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_pre_mu proj
+R3866:3866 Kernel.ReceiptIntegrity <> r:15 var
+R3888:3898 Kernel.ReceiptIntegrity ReceiptIntegrity mu_in_range def
+R3903:3917 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_post_mu proj
+R3900:3900 Kernel.ReceiptIntegrity <> r:15 var
+def 3933:3953 ReceiptIntegrity receipt_mu_in_range_b
+R3960:3966 Kernel.ReceiptIntegrity ReceiptIntegrity Receipt rec
+binder 3956:3956 <> r:16
+R3971:3974 Coq.Init.Datatypes <> bool ind
+R4013:4016 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R3981:3993 Kernel.ReceiptIntegrity ReceiptIntegrity mu_in_range_b def
+R3998:4011 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_pre_mu proj
+R3995:3995 Kernel.ReceiptIntegrity <> r:16 var
+R4017:4029 Kernel.ReceiptIntegrity ReceiptIntegrity mu_in_range_b def
+R4034:4048 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_post_mu proj
+R4031:4031 Kernel.ReceiptIntegrity <> r:16 var
+prf 4059:4087 ReceiptIntegrity receipt_mu_in_range_b_correct
+binder 4100:4100 <> r:17
+R4133:4137 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R4126:4128 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4103:4123 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_mu_in_range_b def
+R4125:4125 Kernel.ReceiptIntegrity <> r:17 var
+R4129:4132 Coq.Init.Datatypes <> true constr
+R4138:4156 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_mu_in_range def
+R4158:4158 Kernel.ReceiptIntegrity <> r:17 var
+R4189:4209 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_mu_in_range_b def
+R4212:4230 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_mu_in_range def
+R4243:4260 Coq.Bool.Bool <> andb_true_iff thm
+R4243:4260 Coq.Bool.Bool <> andb_true_iff thm
+R4243:4260 Coq.Bool.Bool <> andb_true_iff thm
+R4273:4293 Kernel.ReceiptIntegrity ReceiptIntegrity mu_in_range_b_correct thm
+R4273:4293 Kernel.ReceiptIntegrity ReceiptIntegrity mu_in_range_b_correct thm
+R4273:4293 Kernel.ReceiptIntegrity ReceiptIntegrity mu_in_range_b_correct thm
+R4306:4326 Kernel.ReceiptIntegrity ReceiptIntegrity mu_in_range_b_correct thm
+R4306:4326 Kernel.ReceiptIntegrity ReceiptIntegrity mu_in_range_b_correct thm
+R4306:4326 Kernel.ReceiptIntegrity ReceiptIntegrity mu_in_range_b_correct thm
+def 4570:4588 ReceiptIntegrity receipt_fully_valid
+R4595:4601 Kernel.ReceiptIntegrity ReceiptIntegrity Receipt rec
+binder 4591:4591 <> r:18
+R4639:4642 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4616:4636 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_mu_consistent def
+R4638:4638 Kernel.ReceiptIntegrity <> r:18 var
+R4643:4661 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_mu_in_range def
+R4663:4663 Kernel.ReceiptIntegrity <> r:18 var
+def 4678:4698 ReceiptIntegrity receipt_fully_valid_b
+R4705:4711 Kernel.ReceiptIntegrity ReceiptIntegrity Receipt rec
+binder 4701:4701 <> r:19
+R4716:4719 Coq.Init.Datatypes <> bool ind
+R4751:4754 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4726:4748 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_mu_consistent_b def
+R4750:4750 Kernel.ReceiptIntegrity <> r:19 var
+R4755:4775 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_mu_in_range_b def
+R4777:4777 Kernel.ReceiptIntegrity <> r:19 var
+prf 4787:4815 ReceiptIntegrity receipt_fully_valid_b_correct
+binder 4828:4828 <> r:20
+R4861:4865 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R4854:4856 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4831:4851 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_fully_valid_b def
+R4853:4853 Kernel.ReceiptIntegrity <> r:20 var
+R4857:4860 Coq.Init.Datatypes <> true constr
+R4866:4884 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_fully_valid def
+R4886:4886 Kernel.ReceiptIntegrity <> r:20 var
+R4917:4937 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_fully_valid_b def
+R4940:4958 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_fully_valid def
+R4971:4988 Coq.Bool.Bool <> andb_true_iff thm
+R4971:4988 Coq.Bool.Bool <> andb_true_iff thm
+R4971:4988 Coq.Bool.Bool <> andb_true_iff thm
+R5001:5031 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_mu_consistent_b_correct thm
+R5001:5031 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_mu_consistent_b_correct thm
+R5001:5031 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_mu_consistent_b_correct thm
+R5044:5072 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_mu_in_range_b_correct thm
+R5044:5072 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_mu_in_range_b_correct thm
+R5044:5072 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_mu_in_range_b_correct thm
+def 5376:5397 ReceiptIntegrity receipt_valid_for_step
+R5404:5410 Kernel.ReceiptIntegrity ReceiptIntegrity Receipt rec
+binder 5400:5400 <> r:21
+R5429:5435 Kernel.VMState <> VMState rec
+binder 5414:5418 <> s_pre:22
+binder 5420:5425 <> s_post:23
+R5473:5478 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5450:5470 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_mu_consistent def
+R5472:5472 Kernel.ReceiptIntegrity <> r:21 var
+R5513:5518 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5492:5494 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5486:5490 Kernel.VMState <> vm_mu proj
+R5479:5483 Kernel.ReceiptIntegrity <> s_pre:22 var
+R5498:5511 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_pre_mu proj
+R5495:5495 Kernel.ReceiptIntegrity <> r:21 var
+R5555:5560 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5533:5535 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5527:5531 Kernel.VMState <> vm_mu proj
+R5519:5524 Kernel.ReceiptIntegrity <> s_post:23 var
+R5539:5553 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_post_mu proj
+R5536:5536 Kernel.ReceiptIntegrity <> r:21 var
+R5561:5567 Kernel.VMStep VMStep vm_step ind
+R5569:5573 Kernel.ReceiptIntegrity <> s_pre:22 var
+R5578:5596 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_instruction proj
+R5575:5575 Kernel.ReceiptIntegrity <> r:21 var
+R5599:5604 Kernel.ReceiptIntegrity <> s_post:23 var
+def 6009:6022 ReceiptIntegrity chain_links_mu
+R6030:6033 Coq.Init.Datatypes <> list ind
+R6035:6041 Kernel.ReceiptIntegrity ReceiptIntegrity Receipt rec
+binder 6025:6026 <> rs:24
+binder 6063:6063 <> i:25
+binder 6065:6066 <> r1:26
+binder 6068:6069 <> r2:27
+R6100:6107 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6090:6092 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6076:6084 Coq.Lists.List <> nth_error def
+R6089:6089 Kernel.ReceiptIntegrity <> i:25 var
+R6086:6087 Kernel.ReceiptIntegrity <> rs:24 var
+R6093:6096 Coq.Init.Datatypes <> Some constr
+R6098:6099 Kernel.ReceiptIntegrity <> r1:26 var
+R6136:6143 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6126:6128 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6108:6116 Coq.Lists.List <> nth_error def
+R6122:6122 Coq.Init.Datatypes <> S constr
+R6124:6124 Kernel.ReceiptIntegrity <> i:25 var
+R6118:6119 Kernel.ReceiptIntegrity <> rs:24 var
+R6129:6132 Coq.Init.Datatypes <> Some constr
+R6134:6135 Kernel.ReceiptIntegrity <> r2:27 var
+R6164:6166 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6148:6162 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_post_mu proj
+R6144:6145 Kernel.ReceiptIntegrity <> r1:26 var
+R6171:6184 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_pre_mu proj
+R6167:6168 Kernel.ReceiptIntegrity <> r2:27 var
+def 6388:6403 ReceiptIntegrity chain_links_hash
+R6411:6414 Coq.Init.Datatypes <> list ind
+R6416:6422 Kernel.ReceiptIntegrity ReceiptIntegrity Receipt rec
+binder 6406:6407 <> rs:28
+binder 6444:6444 <> i:29
+binder 6446:6447 <> r1:30
+binder 6449:6450 <> r2:31
+R6481:6488 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6471:6473 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6457:6465 Coq.Lists.List <> nth_error def
+R6470:6470 Kernel.ReceiptIntegrity <> i:29 var
+R6467:6468 Kernel.ReceiptIntegrity <> rs:28 var
+R6474:6477 Coq.Init.Datatypes <> Some constr
+R6479:6480 Kernel.ReceiptIntegrity <> r1:30 var
+R6517:6524 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6507:6509 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6489:6497 Coq.Lists.List <> nth_error def
+R6503:6503 Coq.Init.Datatypes <> S constr
+R6505:6505 Kernel.ReceiptIntegrity <> i:29 var
+R6499:6500 Kernel.ReceiptIntegrity <> rs:28 var
+R6510:6513 Coq.Init.Datatypes <> Some constr
+R6515:6516 Kernel.ReceiptIntegrity <> r2:31 var
+R6553:6555 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6529:6551 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_post_state_hash proj
+R6525:6526 Kernel.ReceiptIntegrity <> r1:30 var
+R6560:6581 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_pre_state_hash proj
+R6556:6557 Kernel.ReceiptIntegrity <> r2:31 var
+def 6654:6664 ReceiptIntegrity chain_links
+R6672:6675 Coq.Init.Datatypes <> list ind
+R6677:6683 Kernel.ReceiptIntegrity ReceiptIntegrity Receipt rec
+binder 6667:6668 <> rs:32
+R6715:6718 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6698:6711 Kernel.ReceiptIntegrity ReceiptIntegrity chain_links_mu def
+R6713:6714 Kernel.ReceiptIntegrity <> rs:32 var
+R6719:6734 Kernel.ReceiptIntegrity ReceiptIntegrity chain_links_hash def
+R6736:6737 Kernel.ReceiptIntegrity <> rs:32 var
+def 6750:6762 ReceiptIntegrity chain_links_b
+R6770:6773 Coq.Init.Datatypes <> list ind
+R6775:6781 Kernel.ReceiptIntegrity ReceiptIntegrity Receipt rec
+binder 6765:6766 <> rs:33
+R6786:6789 Coq.Init.Datatypes <> bool ind
+R6802:6803 Kernel.ReceiptIntegrity <> rs:33 var
+R6814:6815 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6820:6823 Coq.Init.Datatypes <> true constr
+R6829:6829 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R6831:6831 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R6836:6839 Coq.Init.Datatypes <> true constr
+R6847:6851 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6870:6870 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6854:6857 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7003:7012 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R6929:6938 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R6881:6887 Coq.Arith.PeanoNat Nat eqb def
+R6893:6907 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_post_mu proj
+R6914:6927 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_pre_mu proj
+R6939:6945 Coq.Arith.PeanoNat Nat eqb def
+R6951:6973 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_post_state_hash proj
+R6980:7001 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_pre_state_hash proj
+R7013:7025 Kernel.ReceiptIntegrity <> chain_links_b:34 def
+def 7051:7070 ReceiptIntegrity chain_all_consistent
+R7078:7081 Coq.Init.Datatypes <> list ind
+R7083:7089 Kernel.ReceiptIntegrity ReceiptIntegrity Receipt rec
+binder 7073:7074 <> rs:36
+R7104:7109 Coq.Lists.List <> Forall ind
+R7133:7134 Kernel.ReceiptIntegrity <> rs:36 var
+R7111:7131 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_mu_consistent def
+def 7199:7216 ReceiptIntegrity chain_all_in_range
+R7224:7227 Coq.Init.Datatypes <> list ind
+R7229:7235 Kernel.ReceiptIntegrity ReceiptIntegrity Receipt rec
+binder 7219:7220 <> rs:37
+R7250:7255 Coq.Lists.List <> Forall ind
+R7277:7278 Kernel.ReceiptIntegrity <> rs:37 var
+R7257:7275 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_mu_in_range def
+def 7291:7312 ReceiptIntegrity chain_all_consistent_b
+R7320:7323 Coq.Init.Datatypes <> list ind
+R7325:7331 Kernel.ReceiptIntegrity ReceiptIntegrity Receipt rec
+binder 7315:7316 <> rs:38
+R7336:7339 Coq.Init.Datatypes <> bool ind
+R7352:7353 Kernel.ReceiptIntegrity <> rs:38 var
+R7364:7365 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7370:7373 Coq.Init.Datatypes <> true constr
+R7380:7383 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7417:7420 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R7392:7414 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_mu_consistent_b def
+R7421:7442 Kernel.ReceiptIntegrity <> chain_all_consistent_b:39 def
+def 7466:7485 ReceiptIntegrity chain_all_in_range_b
+R7493:7496 Coq.Init.Datatypes <> list ind
+R7498:7504 Kernel.ReceiptIntegrity ReceiptIntegrity Receipt rec
+binder 7488:7489 <> rs:41
+R7509:7512 Coq.Init.Datatypes <> bool ind
+R7525:7526 Kernel.ReceiptIntegrity <> rs:41 var
+R7537:7538 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7543:7546 Coq.Init.Datatypes <> true constr
+R7553:7556 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7588:7591 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R7565:7585 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_mu_in_range_b def
+R7592:7611 Kernel.ReceiptIntegrity <> chain_all_in_range_b:42 def
+def 7694:7708 ReceiptIntegrity chain_all_valid
+R7716:7719 Coq.Init.Datatypes <> list ind
+R7721:7727 Kernel.ReceiptIntegrity ReceiptIntegrity Receipt rec
+binder 7711:7712 <> rs:44
+R7765:7768 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7742:7761 Kernel.ReceiptIntegrity ReceiptIntegrity chain_all_consistent def
+R7763:7764 Kernel.ReceiptIntegrity <> rs:44 var
+R7769:7786 Kernel.ReceiptIntegrity ReceiptIntegrity chain_all_in_range def
+R7788:7789 Kernel.ReceiptIntegrity <> rs:44 var
+def 7802:7818 ReceiptIntegrity chain_all_valid_b
+R7826:7829 Coq.Init.Datatypes <> list ind
+R7831:7837 Kernel.ReceiptIntegrity ReceiptIntegrity Receipt rec
+binder 7821:7822 <> rs:45
+R7842:7845 Coq.Init.Datatypes <> bool ind
+R7858:7859 Kernel.ReceiptIntegrity <> rs:45 var
+R7870:7871 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7876:7879 Coq.Init.Datatypes <> true constr
+R7886:7889 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7921:7924 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R7898:7918 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_fully_valid_b def
+R7925:7941 Kernel.ReceiptIntegrity <> chain_all_valid_b:46 def
+def 7967:7985 ReceiptIntegrity receipt_chain_valid
+R7993:7996 Coq.Init.Datatypes <> list ind
+R7998:8004 Kernel.ReceiptIntegrity ReceiptIntegrity Receipt rec
+binder 7988:7989 <> rs:48
+R8021:8023 Coq.Init.Datatypes <> nat ind
+binder 8008:8017 <> initial_mu:49
+R8061:8066 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8038:8057 Kernel.ReceiptIntegrity ReceiptIntegrity chain_all_consistent def
+R8059:8060 Kernel.ReceiptIntegrity <> rs:48 var
+R8088:8093 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8067:8084 Kernel.ReceiptIntegrity ReceiptIntegrity chain_all_in_range def
+R8086:8087 Kernel.ReceiptIntegrity <> rs:48 var
+R8108:8114 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8198:8198 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8094:8104 Kernel.ReceiptIntegrity ReceiptIntegrity chain_links def
+R8106:8107 Kernel.ReceiptIntegrity <> rs:48 var
+R8121:8122 Kernel.ReceiptIntegrity <> rs:48 var
+R8134:8135 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8140:8143 Coq.Init.Logic <> True ind
+R8151:8154 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8178:8180 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8163:8176 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_pre_mu proj
+R8181:8190 Kernel.ReceiptIntegrity <> initial_mu:49 var
+def 8257:8277 ReceiptIntegrity receipt_chain_valid_b
+R8285:8288 Coq.Init.Datatypes <> list ind
+R8290:8296 Kernel.ReceiptIntegrity ReceiptIntegrity Receipt rec
+binder 8280:8281 <> rs:51
+R8313:8315 Coq.Init.Datatypes <> nat ind
+binder 8300:8309 <> initial_mu:52
+R8320:8323 Coq.Init.Datatypes <> bool ind
+R8372:8377 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R8350:8355 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R8330:8346 Kernel.ReceiptIntegrity ReceiptIntegrity chain_all_valid_b def
+R8348:8349 Kernel.ReceiptIntegrity <> rs:51 var
+R8356:8368 Kernel.ReceiptIntegrity ReceiptIntegrity chain_links_b def
+R8370:8371 Kernel.ReceiptIntegrity <> rs:51 var
+R8384:8385 Kernel.ReceiptIntegrity <> rs:51 var
+R8396:8397 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8402:8405 Coq.Init.Datatypes <> true constr
+R8412:8415 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8421:8427 Coq.Arith.PeanoNat Nat eqb def
+R8432:8445 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_pre_mu proj
+R8448:8457 Kernel.ReceiptIntegrity <> initial_mu:52 var
+def 8730:8745 ReceiptIntegrity chain_total_cost
+R8753:8756 Coq.Init.Datatypes <> list ind
+R8758:8764 Kernel.ReceiptIntegrity ReceiptIntegrity Receipt rec
+binder 8748:8749 <> rs:54
+R8769:8771 Coq.Init.Datatypes <> nat ind
+R8784:8785 Kernel.ReceiptIntegrity <> rs:54 var
+R8796:8797 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8809:8812 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8865:8867 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8821:8840 Kernel.ReceiptIntegrity ReceiptIntegrity instruction_mu_delta def
+R8845:8863 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_instruction proj
+R8868:8883 Kernel.ReceiptIntegrity <> chain_total_cost:55 def
+def 8909:8922 ReceiptIntegrity chain_final_mu
+R8930:8933 Coq.Init.Datatypes <> list ind
+R8935:8941 Kernel.ReceiptIntegrity ReceiptIntegrity Receipt rec
+binder 8925:8926 <> rs:57
+R8958:8960 Coq.Init.Datatypes <> nat ind
+binder 8945:8954 <> initial_mu:58
+R8965:8967 Coq.Init.Datatypes <> nat ind
+R8984:8986 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8974:8983 Kernel.ReceiptIntegrity <> initial_mu:58 var
+R8987:9002 Kernel.ReceiptIntegrity ReceiptIntegrity chain_total_cost def
+R9004:9005 Kernel.ReceiptIntegrity <> rs:57 var
+prf 9015:9033 ReceiptIntegrity chain_links_mu_head
+binder 9046:9047 <> r1:59
+binder 9049:9050 <> r2:60
+binder 9052:9055 <> rest:61
+R9095:9102 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9062:9075 Kernel.ReceiptIntegrity ReceiptIntegrity chain_links_mu def
+R9080:9083 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R9078:9079 Kernel.ReceiptIntegrity <> r1:59 var
+R9086:9089 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R9084:9085 Kernel.ReceiptIntegrity <> r2:60 var
+R9090:9093 Kernel.ReceiptIntegrity <> rest:61 var
+R9123:9125 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9107:9121 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_post_mu proj
+R9103:9104 Kernel.ReceiptIntegrity <> r1:59 var
+R9130:9143 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_pre_mu proj
+R9126:9127 Kernel.ReceiptIntegrity <> r2:60 var
+R9191:9204 Kernel.ReceiptIntegrity ReceiptIntegrity chain_links_mu def
+prf 9308:9328 ReceiptIntegrity chain_links_hash_head
+binder 9341:9342 <> r1:62
+binder 9344:9345 <> r2:63
+binder 9347:9350 <> rest:64
+R9392:9399 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9357:9372 Kernel.ReceiptIntegrity ReceiptIntegrity chain_links_hash def
+R9377:9380 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R9375:9376 Kernel.ReceiptIntegrity <> r1:62 var
+R9383:9386 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R9381:9382 Kernel.ReceiptIntegrity <> r2:63 var
+R9387:9390 Kernel.ReceiptIntegrity <> rest:64 var
+R9428:9430 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9404:9426 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_post_state_hash proj
+R9400:9401 Kernel.ReceiptIntegrity <> r1:62 var
+R9435:9456 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_pre_state_hash proj
+R9431:9432 Kernel.ReceiptIntegrity <> r2:63 var
+R9504:9519 Kernel.ReceiptIntegrity ReceiptIntegrity chain_links_hash def
+prf 9623:9638 ReceiptIntegrity chain_links_head
+binder 9651:9652 <> r1:65
+binder 9654:9655 <> r2:66
+binder 9657:9660 <> rest:67
+R9697:9704 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9667:9677 Kernel.ReceiptIntegrity ReceiptIntegrity chain_links def
+R9682:9685 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R9680:9681 Kernel.ReceiptIntegrity <> r1:65 var
+R9688:9691 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R9686:9687 Kernel.ReceiptIntegrity <> r2:66 var
+R9692:9695 Kernel.ReceiptIntegrity <> rest:67 var
+R9725:9727 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9709:9723 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_post_mu proj
+R9705:9706 Kernel.ReceiptIntegrity <> r1:65 var
+R9732:9745 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_pre_mu proj
+R9728:9729 Kernel.ReceiptIntegrity <> r2:66 var
+R9794:9812 Kernel.ReceiptIntegrity ReceiptIntegrity chain_links_mu_head thm
+R9794:9812 Kernel.ReceiptIntegrity ReceiptIntegrity chain_links_mu_head thm
+prf 9850:9868 ReceiptIntegrity chain_links_mu_tail
+binder 9881:9881 <> r:68
+binder 9883:9886 <> rest:69
+R9919:9926 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9893:9906 Kernel.ReceiptIntegrity ReceiptIntegrity chain_links_mu def
+R9910:9913 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R9909:9909 Kernel.ReceiptIntegrity <> r:68 var
+R9914:9917 Kernel.ReceiptIntegrity <> rest:69 var
+R9927:9940 Kernel.ReceiptIntegrity ReceiptIntegrity chain_links_mu def
+R9942:9945 Kernel.ReceiptIntegrity <> rest:69 var
+R9988:10001 Kernel.ReceiptIntegrity ReceiptIntegrity chain_links_mu def
+R10050:10050 Coq.Init.Datatypes <> S constr
+R10050:10050 Coq.Init.Datatypes <> S constr
+prf 10087:10107 ReceiptIntegrity chain_links_hash_tail
+binder 10120:10120 <> r:70
+binder 10122:10125 <> rest:71
+R10160:10167 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10132:10147 Kernel.ReceiptIntegrity ReceiptIntegrity chain_links_hash def
+R10151:10154 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R10150:10150 Kernel.ReceiptIntegrity <> r:70 var
+R10155:10158 Kernel.ReceiptIntegrity <> rest:71 var
+R10168:10183 Kernel.ReceiptIntegrity ReceiptIntegrity chain_links_hash def
+R10185:10188 Kernel.ReceiptIntegrity <> rest:71 var
+R10231:10246 Kernel.ReceiptIntegrity ReceiptIntegrity chain_links_hash def
+R10295:10295 Coq.Init.Datatypes <> S constr
+R10295:10295 Coq.Init.Datatypes <> S constr
+prf 10332:10347 ReceiptIntegrity chain_links_tail
+binder 10360:10360 <> r:72
+binder 10362:10365 <> rest:73
+R10395:10402 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10372:10382 Kernel.ReceiptIntegrity ReceiptIntegrity chain_links def
+R10386:10389 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R10385:10385 Kernel.ReceiptIntegrity <> r:72 var
+R10390:10393 Kernel.ReceiptIntegrity <> rest:73 var
+R10403:10413 Kernel.ReceiptIntegrity ReceiptIntegrity chain_links def
+R10415:10418 Kernel.ReceiptIntegrity <> rest:73 var
+R10477:10495 Kernel.ReceiptIntegrity ReceiptIntegrity chain_links_mu_tail thm
+R10477:10495 Kernel.ReceiptIntegrity ReceiptIntegrity chain_links_mu_tail thm
+R10528:10548 Kernel.ReceiptIntegrity ReceiptIntegrity chain_links_hash_tail thm
+R10528:10548 Kernel.ReceiptIntegrity ReceiptIntegrity chain_links_hash_tail thm
+prf 10584:10608 ReceiptIntegrity chain_all_consistent_head
+binder 10621:10621 <> r:74
+binder 10623:10626 <> rest:75
+R10665:10672 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10633:10652 Kernel.ReceiptIntegrity ReceiptIntegrity chain_all_consistent def
+R10656:10659 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R10655:10655 Kernel.ReceiptIntegrity <> r:74 var
+R10660:10663 Kernel.ReceiptIntegrity <> rest:75 var
+R10673:10693 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_mu_consistent def
+R10695:10695 Kernel.ReceiptIntegrity <> r:74 var
+R10743:10762 Kernel.ReceiptIntegrity ReceiptIntegrity chain_all_consistent def
+prf 10829:10853 ReceiptIntegrity chain_all_consistent_tail
+binder 10866:10866 <> r:76
+binder 10868:10871 <> rest:77
+R10910:10917 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10878:10897 Kernel.ReceiptIntegrity ReceiptIntegrity chain_all_consistent def
+R10901:10904 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R10900:10900 Kernel.ReceiptIntegrity <> r:76 var
+R10905:10908 Kernel.ReceiptIntegrity <> rest:77 var
+R10918:10937 Kernel.ReceiptIntegrity ReceiptIntegrity chain_all_consistent def
+R10939:10942 Kernel.ReceiptIntegrity <> rest:77 var
+R10990:11009 Kernel.ReceiptIntegrity ReceiptIntegrity chain_all_consistent def
+prf 11066:11087 ReceiptIntegrity chain_final_mu_correct
+binder 11100:11101 <> rs:78
+binder 11103:11112 <> initial_mu:79
+R11152:11159 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11119:11137 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_chain_valid def
+R11139:11140 Kernel.ReceiptIntegrity <> rs:78 var
+R11142:11151 Kernel.ReceiptIntegrity <> initial_mu:79 var
+R11166:11167 Kernel.ReceiptIntegrity <> rs:78 var
+R11180:11181 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R11186:11189 Coq.Init.Logic <> True ind
+R11225:11227 Coq.Lists.List <> nth def
+R11251:11262 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_step proj
+R11251:11262 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_step proj
+R11251:11262 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_step proj
+R11320:11338 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_instruction proj
+R11320:11338 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_instruction proj
+R11406:11419 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_pre_mu proj
+R11406:11419 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_pre_mu proj
+R11476:11490 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_post_mu proj
+R11476:11490 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_post_mu proj
+R11547:11568 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_pre_state_hash proj
+R11547:11568 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_pre_state_hash proj
+R11625:11647 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_post_state_hash proj
+R11625:11647 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_post_state_hash proj
+R11343:11352 Kernel.VMStep VMStep instr_halt constr
+R11245:11246 Kernel.ReceiptIntegrity <> rs:78 var
+R11239:11241 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R11230:11235 Coq.Init.Datatypes <> length def
+R11237:11238 Kernel.ReceiptIntegrity <> rs:78 var
+binder 11215:11220 <> last_r:81
+R11692:11694 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11676:11690 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_post_mu proj
+R11668:11673 Kernel.ReceiptIntegrity <> last_r:81 var
+R11695:11708 Kernel.ReceiptIntegrity ReceiptIntegrity chain_final_mu def
+R11710:11711 Kernel.ReceiptIntegrity <> rs:78 var
+R11713:11722 Kernel.ReceiptIntegrity <> initial_mu:79 var
+R11820:11838 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_chain_valid def
+R12343:12356 Kernel.ReceiptIntegrity ReceiptIntegrity chain_final_mu def
+R12382:12406 Kernel.ReceiptIntegrity ReceiptIntegrity chain_all_consistent_head thm
+R12410:12411 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R12382:12406 Kernel.ReceiptIntegrity ReceiptIntegrity chain_all_consistent_head thm
+R12410:12411 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R12445:12465 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_mu_consistent def
+R12726:12739 Kernel.ReceiptIntegrity ReceiptIntegrity chain_final_mu def
+R12765:12789 Kernel.ReceiptIntegrity ReceiptIntegrity chain_all_consistent_head thm
+R12796:12799 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R12765:12789 Kernel.ReceiptIntegrity ReceiptIntegrity chain_all_consistent_head thm
+R12796:12799 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R12839:12859 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_mu_consistent def
+R12980:12998 Kernel.ReceiptIntegrity ReceiptIntegrity chain_links_mu_head thm
+R12980:12998 Kernel.ReceiptIntegrity ReceiptIntegrity chain_links_mu_head thm
+R13050:13074 Kernel.ReceiptIntegrity ReceiptIntegrity chain_all_consistent_tail thm
+R13081:13084 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R13050:13074 Kernel.ReceiptIntegrity ReceiptIntegrity chain_all_consistent_tail thm
+R13081:13084 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R13192:13209 Kernel.ReceiptIntegrity ReceiptIntegrity chain_all_in_range def
+R13214:13217 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R13192:13209 Kernel.ReceiptIntegrity ReceiptIntegrity chain_all_in_range def
+R13214:13217 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R13240:13257 Kernel.ReceiptIntegrity ReceiptIntegrity chain_all_in_range def
+R13364:13374 Kernel.ReceiptIntegrity ReceiptIntegrity chain_links def
+R13379:13382 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R13364:13374 Kernel.ReceiptIntegrity ReceiptIntegrity chain_links def
+R13379:13382 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R13420:13438 Kernel.ReceiptIntegrity ReceiptIntegrity chain_links_mu_tail thm
+R13445:13448 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R13420:13438 Kernel.ReceiptIntegrity ReceiptIntegrity chain_links_mu_tail thm
+R13445:13448 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R13490:13510 Kernel.ReceiptIntegrity ReceiptIntegrity chain_links_hash_tail thm
+R13517:13520 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R13490:13510 Kernel.ReceiptIntegrity ReceiptIntegrity chain_links_hash_tail thm
+R13517:13520 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R13594:13596 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13577:13590 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_pre_mu proj
+R13597:13611 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_post_mu proj
+R13594:13596 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13577:13590 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_pre_mu proj
+R13597:13611 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_post_mu proj
+R13675:13689 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_post_mu proj
+R13675:13689 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_post_mu proj
+R13781:13794 Kernel.ReceiptIntegrity ReceiptIntegrity chain_final_mu def
+R13895:13897 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13891:13893 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R13879:13884 Coq.Init.Datatypes <> length def
+R13898:13903 Coq.Init.Datatypes <> length def
+R13895:13897 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13891:13893 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R13879:13884 Coq.Init.Datatypes <> length def
+R13898:13903 Coq.Init.Datatypes <> length def
+R14056:14058 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14039:14053 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_post_mu proj
+R14069:14071 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14072:14091 Kernel.ReceiptIntegrity ReceiptIntegrity instruction_mu_delta def
+R14094:14112 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_instruction proj
+R14056:14058 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14039:14053 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_post_mu proj
+R14069:14071 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14072:14091 Kernel.ReceiptIntegrity ReceiptIntegrity instruction_mu_delta def
+R14094:14112 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_instruction proj
+R14420:14432 Coq.Arith.PeanoNat Nat add_assoc thm
+R14420:14432 Coq.Arith.PeanoNat Nat add_assoc thm
+R14420:14432 Coq.Arith.PeanoNat Nat add_assoc thm
+prf 14855:14887 ReceiptIntegrity valid_chain_mu_equals_computation
+binder 14900:14901 <> rs:82
+binder 14903:14912 <> initial_mu:83
+R14952:14959 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14919:14937 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_chain_valid def
+R14939:14940 Kernel.ReceiptIntegrity <> rs:82 var
+R14942:14951 Kernel.ReceiptIntegrity <> initial_mu:83 var
+binder 14967:14982 <> claimed_final_mu:84
+R15030:15030 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15645:15699 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15037:15038 Kernel.ReceiptIntegrity <> rs:82 var
+R15054:15055 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R15076:15078 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15060:15075 Kernel.ReceiptIntegrity <> claimed_final_mu:84 var
+R15079:15088 Kernel.ReceiptIntegrity <> initial_mu:83 var
+R15130:15132 Coq.Lists.List <> nth def
+R15156:15167 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_step proj
+R15156:15167 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_step proj
+R15156:15167 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_step proj
+R15228:15246 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_instruction proj
+R15228:15246 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_instruction proj
+R15317:15330 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_pre_mu proj
+R15317:15330 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_pre_mu proj
+R15390:15404 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_post_mu proj
+R15390:15404 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_post_mu proj
+R15464:15485 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_pre_state_hash proj
+R15464:15485 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_pre_state_hash proj
+R15545:15567 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_post_state_hash proj
+R15545:15567 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_post_state_hash proj
+R15251:15260 Kernel.VMStep VMStep instr_halt constr
+R15150:15151 Kernel.ReceiptIntegrity <> rs:82 var
+R15144:15146 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R15135:15140 Coq.Init.Datatypes <> length def
+R15142:15143 Kernel.ReceiptIntegrity <> rs:82 var
+binder 15120:15125 <> last_r:86
+R15607:15609 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15591:15606 Kernel.ReceiptIntegrity <> claimed_final_mu:84 var
+R15618:15632 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_post_mu proj
+R15610:15615 Kernel.ReceiptIntegrity <> last_r:86 var
+R15716:15718 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15700:15715 Kernel.ReceiptIntegrity <> claimed_final_mu:84 var
+R15719:15732 Kernel.ReceiptIntegrity ReceiptIntegrity chain_final_mu def
+R15734:15735 Kernel.ReceiptIntegrity <> rs:82 var
+R15737:15746 Kernel.ReceiptIntegrity <> initial_mu:83 var
+R15893:15906 Kernel.ReceiptIntegrity ReceiptIntegrity chain_final_mu def
+R15928:15938 Coq.Arith.PeanoNat Nat add_0_r thm
+R15928:15938 Coq.Arith.PeanoNat Nat add_0_r thm
+R15928:15938 Coq.Arith.PeanoNat Nat add_0_r thm
+R16030:16051 Kernel.ReceiptIntegrity ReceiptIntegrity chain_final_mu_correct thm
+R16055:16058 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R16030:16051 Kernel.ReceiptIntegrity ReceiptIntegrity chain_final_mu_correct thm
+R16055:16058 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+def 16445:16461 ReceiptIntegrity is_forged_receipt
+R16468:16474 Kernel.ReceiptIntegrity ReceiptIntegrity Receipt rec
+binder 16464:16464 <> r:87
+R16497:16499 Coq.Init.Datatypes <> nat ind
+binder 16478:16493 <> claimed_mu_delta:88
+R16530:16533 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R16514:16529 Kernel.ReceiptIntegrity <> claimed_mu_delta:88 var
+R16534:16553 Kernel.ReceiptIntegrity ReceiptIntegrity instruction_mu_delta def
+R16558:16576 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_instruction proj
+R16555:16555 Kernel.ReceiptIntegrity <> r:87 var
+prf 16589:16619 ReceiptIntegrity forged_receipt_fails_validation
+binder 16632:16632 <> r:89
+binder 16634:16649 <> claimed_mu_delta:90
+R16692:16755 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16656:16672 Kernel.ReceiptIntegrity ReceiptIntegrity is_forged_receipt def
+R16674:16674 Kernel.ReceiptIntegrity <> r:89 var
+R16676:16691 Kernel.ReceiptIntegrity <> claimed_mu_delta:90 var
+R16815:16822 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16775:16777 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16759:16773 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_post_mu proj
+R16756:16756 Kernel.ReceiptIntegrity <> r:89 var
+R16796:16798 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R16781:16794 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_pre_mu proj
+R16778:16778 Kernel.ReceiptIntegrity <> r:89 var
+R16799:16814 Kernel.ReceiptIntegrity <> claimed_mu_delta:90 var
+R16887:16940 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16839:16842 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R16823:16838 Kernel.ReceiptIntegrity <> claimed_mu_delta:90 var
+R16843:16862 Kernel.ReceiptIntegrity ReceiptIntegrity instruction_mu_delta def
+R16867:16885 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_instruction proj
+R16864:16864 Kernel.ReceiptIntegrity <> r:89 var
+R16941:16942 Coq.Init.Logic <> ::type_scope:'~'_x not
+R16943:16963 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_mu_consistent def
+R16965:16965 Kernel.ReceiptIntegrity <> r:89 var
+R17032:17052 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_mu_consistent def
+R17116:17131 Coq.Arith.PeanoNat Nat add_cancel_l thm
+R17116:17131 Coq.Arith.PeanoNat Nat add_cancel_l thm
+def 17429:17447 ReceiptIntegrity is_overflow_receipt
+R17454:17460 Kernel.ReceiptIntegrity ReceiptIntegrity Receipt rec
+binder 17450:17450 <> r:91
+R17502:17505 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R17493:17495 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R17478:17491 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_pre_mu proj
+R17475:17475 Kernel.ReceiptIntegrity <> r:91 var
+R17496:17501 Kernel.ReceiptIntegrity ReceiptIntegrity mu_max def
+R17525:17527 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R17509:17523 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_post_mu proj
+R17506:17506 Kernel.ReceiptIntegrity <> r:91 var
+R17528:17533 Kernel.ReceiptIntegrity ReceiptIntegrity mu_max def
+prf 17545:17578 ReceiptIntegrity overflow_receipt_fails_range_check
+binder 17591:17591 <> r:92
+R17619:17626 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17598:17616 Kernel.ReceiptIntegrity ReceiptIntegrity is_overflow_receipt def
+R17618:17618 Kernel.ReceiptIntegrity <> r:92 var
+R17627:17628 Coq.Init.Logic <> ::type_scope:'~'_x not
+R17629:17647 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_mu_in_range def
+R17649:17649 Kernel.ReceiptIntegrity <> r:92 var
+R17690:17708 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_mu_in_range def
+R17711:17721 Kernel.ReceiptIntegrity ReceiptIntegrity mu_in_range def
+prf 17844:17881 ReceiptIntegrity overflow_receipt_fails_full_validation
+binder 17894:17894 <> r:93
+R17922:17929 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17901:17919 Kernel.ReceiptIntegrity ReceiptIntegrity is_overflow_receipt def
+R17921:17921 Kernel.ReceiptIntegrity <> r:93 var
+R17930:17931 Coq.Init.Logic <> ::type_scope:'~'_x not
+R17932:17950 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_fully_valid def
+R17952:17952 Kernel.ReceiptIntegrity <> r:93 var
+R17993:18011 Kernel.ReceiptIntegrity ReceiptIntegrity receipt_fully_valid def
+R18072:18105 Kernel.ReceiptIntegrity ReceiptIntegrity overflow_receipt_fails_range_check thm
+R18072:18105 Kernel.ReceiptIntegrity ReceiptIntegrity overflow_receipt_fails_range_check thm
+R18798:18813 Kernel.ReceiptIntegrity ReceiptIntegrity <> mod

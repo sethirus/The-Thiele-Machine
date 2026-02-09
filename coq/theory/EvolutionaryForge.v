@@ -225,18 +225,19 @@ Proof.
   destruct Hv1 as [Hv1_lo Hv1_hi].
   destruct Hv2 as [Hv2_lo Hv2_hi].
   (* Construct offspring using midpoint crossover with min length *)
-  (* TRUNCATION SAFETY: Nat.min intentional - crossover point must be within
-     both parent sequences to preserve validity of offspring *)
+  (* SAFE: Nat.min is intentional — crossover point must be within both parent sequences. *)
   exists (crossover s1 s2 (Nat.min (length s1) (length s2) / 2)).
   apply crossover_preserves_viability.
   - split; assumption.
   - split; assumption.
   - (* cut <= length s1 *)
+    (* SAFE: Nat.min bound is proven safe via Nat.le_min_l below. *)
     assert (Hmin_pos: Nat.min (length s1) (length s2) > 0) by lia.
     assert (H: Nat.min (length s1) (length s2) / 2 <= Nat.min (length s1) (length s2)).
     { apply Nat.div_le_upper_bound; lia. }
     eapply Nat.le_trans; [exact H | apply Nat.le_min_l].
   - (* cut <= length s2 *)
+    (* SAFE: Nat.min bound is proven safe via Nat.le_min_r below. *)
     assert (Hmin_pos: Nat.min (length s1) (length s2) > 0) by lia.
     assert (H: Nat.min (length s1) (length s2) / 2 <= Nat.min (length s1) (length s2)).
     { apply Nat.div_le_upper_bound; lia. }
@@ -334,6 +335,7 @@ Proof.
       assert (Hv2: is_viable s2) by (apply Hviable; right; left; reflexivity).
       destruct Hv1 as [Hv1_lo Hv1_hi].
       destruct Hv2 as [Hv2_lo Hv2_hi].
+      (* SAFE: Nat.min crossover is proven safe — cut point bounded by both parent lengths. *)
       exists [crossover s1 s2 (Nat.min (length s1) (length s2) / 2)].
       split.
       * simpl. lia.
@@ -343,11 +345,13 @@ Proof.
         -- apply Hviable. left. reflexivity.
         -- apply Hviable. right. left. reflexivity.
         -- (* cut <= length s1 *)
+           (* SAFE: Nat.min bound proven safe via Nat.le_min_l below. *)
            assert (Hmin_pos: Nat.min (length s1) (length s2) > 0) by lia.
            assert (H: Nat.min (length s1) (length s2) / 2 <= Nat.min (length s1) (length s2)).
            { apply Nat.div_le_upper_bound; lia. }
            eapply Nat.le_trans; [exact H | apply Nat.le_min_l].
         -- (* cut <= length s2 *)
+           (* SAFE: Nat.min bound proven safe via Nat.le_min_r below. *)
            assert (Hmin_pos: Nat.min (length s1) (length s2) > 0) by lia.
            assert (H: Nat.min (length s1) (length s2) / 2 <= Nat.min (length s1) (length s2)).
            { apply Nat.div_le_upper_bound; lia. }

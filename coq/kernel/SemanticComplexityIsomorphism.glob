@@ -1,0 +1,313 @@
+DIGEST 11ba9f2e92a3e9d88cb57c1495128f76
+FKernel.SemanticComplexityIsomorphism
+R740:743 Coq.Lists.List <> <> lib
+R745:758 Coq.Arith.PeanoNat <> <> lib
+R760:762 Coq.micromega.Lia <> <> lib
+R764:767 Coq.Bool.Bool <> <> lib
+R769:774 Coq.Strings.String <> <> lib
+R801:803 Coq.Init.Nat <> <> lib
+R813:825 Coq.Lists.List ListNotations <> mod
+R856:862 Kernel.VMState <> <> lib
+R864:869 Kernel.VMStep <> <> lib
+R871:884 Kernel.SemanticMuCost <> <> lib
+R886:903 Kernel.PythonBisimulation <> <> lib
+def 1266:1280 <> python_log2_nat
+R1287:1289 Coq.Init.Datatypes <> nat ind
+binder 1283:1283 <> n:1
+R1294:1296 Coq.Init.Datatypes <> nat ind
+R1309:1309 Kernel.SemanticComplexityIsomorphism <> n:1 var
+R1331:1331 Coq.Init.Datatypes <> S constr
+R1348:1351 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R1396:1396 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R1338:1345 Coq.Arith.PeanoNat Nat log2 def
+R1347:1347 Kernel.SemanticComplexityIsomorphism <> n:1 var
+R1377:1380 Coq.Init.Nat <> ::nat_scope:x_'=?'_x not
+R1355:1361 Coq.Arith.PeanoNat Nat pow def
+R1366:1373 Coq.Arith.PeanoNat Nat log2 def
+R1375:1375 Kernel.SemanticComplexityIsomorphism <> n:1 var
+R1381:1381 Kernel.SemanticComplexityIsomorphism <> n:1 var
+def 1507:1537 <> python_semantic_complexity_bits
+R1561:1563 Coq.Init.Datatypes <> nat ind
+binder 1544:1548 <> atoms:3
+binder 1550:1553 <> vars:4
+binder 1555:1557 <> ops:5
+R1568:1570 Coq.Init.Datatypes <> nat ind
+R1578:1581 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R1674:1674 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R1641:1650 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R1607:1616 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R1582:1596 Kernel.SemanticComplexityIsomorphism <> python_log2_nat def
+R1599:1599 Coq.Init.Datatypes <> S constr
+R1601:1605 Kernel.SemanticComplexityIsomorphism <> atoms:3 var
+R1617:1631 Kernel.SemanticComplexityIsomorphism <> python_log2_nat def
+R1634:1634 Coq.Init.Datatypes <> S constr
+R1636:1639 Kernel.SemanticComplexityIsomorphism <> vars:4 var
+R1651:1665 Kernel.SemanticComplexityIsomorphism <> python_log2_nat def
+R1668:1668 Coq.Init.Datatypes <> S constr
+R1670:1672 Kernel.SemanticComplexityIsomorphism <> ops:5 var
+prf 1953:1975 <> python_log2_matches_coq
+R1992:1994 Coq.Init.Datatypes <> nat ind
+binder 1988:1988 <> n:6
+R2018:2020 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2001:2015 Kernel.SemanticComplexityIsomorphism <> python_log2_nat def
+R2017:2017 Kernel.SemanticComplexityIsomorphism <> n:6 var
+R2021:2028 Kernel.SemanticMuCost <> log2_nat def
+R2030:2030 Kernel.SemanticComplexityIsomorphism <> n:6 var
+R2060:2074 Kernel.SemanticComplexityIsomorphism <> python_log2_nat def
+R2077:2084 Kernel.SemanticMuCost <> log2_nat def
+prf 2199:2236 <> python_semantic_complexity_matches_coq
+R2254:2263 Kernel.SemanticMuCost <> Constraint ind
+binder 2250:2250 <> c:7
+R2359:2365 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2271:2301 Kernel.SemanticComplexityIsomorphism <> python_semantic_complexity_bits def
+R2310:2320 Kernel.SemanticMuCost <> count_atoms def
+R2322:2322 Kernel.SemanticComplexityIsomorphism <> c:7 var
+R2326:2335 Kernel.SemanticMuCost <> count_vars def
+R2337:2337 Kernel.SemanticComplexityIsomorphism <> c:7 var
+R2341:2355 Kernel.SemanticMuCost <> count_operators def
+R2357:2357 Kernel.SemanticComplexityIsomorphism <> c:7 var
+R2366:2389 Kernel.SemanticMuCost <> semantic_complexity_bits def
+R2391:2391 Kernel.SemanticComplexityIsomorphism <> c:7 var
+R2421:2451 Kernel.SemanticComplexityIsomorphism <> python_semantic_complexity_bits def
+R2454:2477 Kernel.SemanticMuCost <> semantic_complexity_bits def
+R2646:2668 Kernel.SemanticComplexityIsomorphism <> python_log2_matches_coq thm
+R2646:2668 Kernel.SemanticComplexityIsomorphism <> python_log2_matches_coq thm
+prf 2773:2809 <> python_coq_isomorphism_for_constraint
+R2827:2836 Kernel.SemanticMuCost <> Constraint ind
+binder 2823:2823 <> c:8
+R2844:2851 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2867:2875 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2864:2866 Coq.Init.Datatypes <> nat ind
+binder 2852:2860 <> py_result:9
+R2914:2923 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2885:2887 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2876:2884 Kernel.SemanticComplexityIsomorphism <> py_result:9 var
+R2888:2911 Kernel.SemanticMuCost <> semantic_complexity_bits def
+R2913:2913 Kernel.SemanticComplexityIsomorphism <> c:8 var
+R2933:2935 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2924:2932 Kernel.SemanticComplexityIsomorphism <> py_result:9 var
+R2936:2966 Kernel.SemanticComplexityIsomorphism <> python_semantic_complexity_bits def
+R2989:2999 Kernel.SemanticMuCost <> count_atoms def
+R3001:3001 Kernel.SemanticComplexityIsomorphism <> c:8 var
+R3005:3014 Kernel.SemanticMuCost <> count_vars def
+R3016:3016 Kernel.SemanticComplexityIsomorphism <> c:8 var
+R3020:3034 Kernel.SemanticMuCost <> count_operators def
+R3036:3036 Kernel.SemanticComplexityIsomorphism <> c:8 var
+R3068:3091 Kernel.SemanticMuCost <> semantic_complexity_bits def
+R3068:3091 Kernel.SemanticMuCost <> semantic_complexity_bits def
+R3135:3172 Kernel.SemanticComplexityIsomorphism <> python_semantic_complexity_matches_coq thm
+R3135:3172 Kernel.SemanticComplexityIsomorphism <> python_semantic_complexity_matches_coq thm
+R3135:3172 Kernel.SemanticComplexityIsomorphism <> python_semantic_complexity_matches_coq thm
+def 3836:3850 <> verilog_mu_step
+R3880:3882 Coq.Init.Datatypes <> nat ind
+binder 3853:3862 <> current_mu:10
+binder 3864:3876 <> proposed_cost:11
+R3887:3889 Coq.Init.Datatypes <> nat ind
+R3909:3913 Coq.Init.Nat <> ::nat_scope:x_'<=?'_x not
+R3899:3908 Kernel.SemanticComplexityIsomorphism <> current_mu:10 var
+R3914:3926 Kernel.SemanticComplexityIsomorphism <> proposed_cost:11 var
+R3969:3978 Kernel.SemanticComplexityIsomorphism <> current_mu:10 var
+R3945:3947 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R3935:3944 Kernel.SemanticComplexityIsomorphism <> current_mu:10 var
+R3948:3960 Kernel.SemanticComplexityIsomorphism <> proposed_cost:11 var
+prf 4079:4107 <> verilog_enforces_monotonicity
+binder 4120:4129 <> current_mu:12
+binder 4131:4143 <> proposed_cost:13
+R4190:4193 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4150:4164 Kernel.SemanticComplexityIsomorphism <> verilog_mu_step def
+R4166:4175 Kernel.SemanticComplexityIsomorphism <> current_mu:12 var
+R4177:4189 Kernel.SemanticComplexityIsomorphism <> proposed_cost:13 var
+R4194:4203 Kernel.SemanticComplexityIsomorphism <> current_mu:12 var
+R4257:4271 Kernel.SemanticComplexityIsomorphism <> verilog_mu_step def
+R4296:4300 Coq.Init.Nat <> ::nat_scope:x_'<=?'_x not
+R4296:4300 Coq.Init.Nat <> ::nat_scope:x_'<=?'_x not
+R4336:4345 Coq.Arith.PeanoNat Nat leb_le thm
+R4336:4345 Coq.Arith.PeanoNat Nat leb_le thm
+R4371:4381 Coq.Arith.PeanoNat Nat leb_nle thm
+R4371:4381 Coq.Arith.PeanoNat Nat leb_nle thm
+prf 5086:5117 <> three_layer_semantic_isomorphism
+R5135:5144 Kernel.SemanticMuCost <> Constraint ind
+binder 5131:5131 <> c:14
+R5174:5197 Kernel.SemanticMuCost <> semantic_complexity_bits def
+R5199:5199 Kernel.SemanticComplexityIsomorphism <> c:14 var
+binder 5156:5169 <> coq_complexity:15
+R5229:5259 Kernel.SemanticComplexityIsomorphism <> python_semantic_complexity_bits def
+R5288:5298 Kernel.SemanticMuCost <> count_atoms def
+R5300:5300 Kernel.SemanticComplexityIsomorphism <> c:14 var
+R5304:5313 Kernel.SemanticMuCost <> count_vars def
+R5315:5315 Kernel.SemanticComplexityIsomorphism <> c:14 var
+R5319:5333 Kernel.SemanticMuCost <> count_operators def
+R5335:5335 Kernel.SemanticComplexityIsomorphism <> c:14 var
+binder 5212:5224 <> py_complexity:16
+R5359:5361 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5345:5358 Kernel.SemanticComplexityIsomorphism <> coq_complexity:15 var
+R5362:5374 Kernel.SemanticComplexityIsomorphism <> py_complexity:16 var
+R5412:5449 Kernel.SemanticComplexityIsomorphism <> python_semantic_complexity_matches_coq thm
+R5412:5449 Kernel.SemanticComplexityIsomorphism <> python_semantic_complexity_matches_coq thm
+prf 5530:5555 <> verilog_receives_coq_value
+R5573:5582 Kernel.SemanticMuCost <> Constraint ind
+binder 5569:5569 <> c:17
+R5601:5603 Coq.Init.Datatypes <> nat ind
+binder 5586:5597 <> verilog_cost:18
+R5652:5659 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5623:5625 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5611:5622 Kernel.SemanticComplexityIsomorphism <> verilog_cost:18 var
+R5626:5649 Kernel.SemanticMuCost <> semantic_complexity_bits def
+R5651:5651 Kernel.SemanticComplexityIsomorphism <> c:17 var
+R5672:5674 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5660:5671 Kernel.SemanticComplexityIsomorphism <> verilog_cost:18 var
+R5675:5705 Kernel.SemanticComplexityIsomorphism <> python_semantic_complexity_bits def
+R5729:5739 Kernel.SemanticMuCost <> count_atoms def
+R5741:5741 Kernel.SemanticComplexityIsomorphism <> c:17 var
+R5745:5754 Kernel.SemanticMuCost <> count_vars def
+R5756:5756 Kernel.SemanticComplexityIsomorphism <> c:17 var
+R5760:5774 Kernel.SemanticMuCost <> count_operators def
+R5776:5776 Kernel.SemanticComplexityIsomorphism <> c:17 var
+R5839:5876 Kernel.SemanticComplexityIsomorphism <> python_semantic_complexity_matches_coq thm
+R5839:5876 Kernel.SemanticComplexityIsomorphism <> python_semantic_complexity_matches_coq thm
+def 6228:6246 <> python_lassert_cost
+R6270:6272 Coq.Init.Datatypes <> nat ind
+binder 6249:6266 <> formula_complexity:19
+R6277:6279 Coq.Init.Datatypes <> nat ind
+R6287:6289 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R6290:6307 Kernel.SemanticComplexityIsomorphism <> formula_complexity:19 var
+def 6416:6431 <> coq_lassert_cost
+R6446:6448 Coq.Init.Datatypes <> nat ind
+binder 6434:6442 <> desc_bits:20
+R6453:6455 Coq.Init.Datatypes <> nat ind
+R6463:6465 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R6466:6474 Kernel.SemanticComplexityIsomorphism <> desc_bits:20 var
+prf 6544:6567 <> lassert_cost_isomorphism
+R6585:6594 Kernel.SemanticMuCost <> Constraint ind
+binder 6581:6581 <> c:21
+R6618:6633 Kernel.SemanticComplexityIsomorphism <> coq_lassert_cost def
+R6636:6659 Kernel.SemanticMuCost <> semantic_complexity_bits def
+R6661:6661 Kernel.SemanticComplexityIsomorphism <> c:21 var
+binder 6606:6613 <> coq_cost:22
+R6686:6704 Kernel.SemanticComplexityIsomorphism <> python_lassert_cost def
+R6728:6758 Kernel.SemanticComplexityIsomorphism <> python_semantic_complexity_bits def
+R6785:6795 Kernel.SemanticMuCost <> count_atoms def
+R6797:6797 Kernel.SemanticComplexityIsomorphism <> c:21 var
+R6801:6810 Kernel.SemanticMuCost <> count_vars def
+R6812:6812 Kernel.SemanticComplexityIsomorphism <> c:21 var
+R6816:6830 Kernel.SemanticMuCost <> count_operators def
+R6832:6832 Kernel.SemanticComplexityIsomorphism <> c:21 var
+binder 6675:6681 <> py_cost:23
+R6851:6853 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6843:6850 Kernel.SemanticComplexityIsomorphism <> coq_cost:22 var
+R6854:6860 Kernel.SemanticComplexityIsomorphism <> py_cost:23 var
+R6890:6905 Kernel.SemanticComplexityIsomorphism <> coq_lassert_cost def
+R6908:6926 Kernel.SemanticComplexityIsomorphism <> python_lassert_cost def
+R6939:6976 Kernel.SemanticComplexityIsomorphism <> python_semantic_complexity_matches_coq thm
+R6939:6976 Kernel.SemanticComplexityIsomorphism <> python_semantic_complexity_matches_coq thm
+R6939:6976 Kernel.SemanticComplexityIsomorphism <> python_semantic_complexity_matches_coq thm
+prf 7276:7302 <> syntax_invariance_preserved
+R7324:7333 Kernel.SemanticMuCost <> Constraint ind
+binder 7316:7317 <> c1:24
+binder 7319:7320 <> c2:25
+R7446:7453 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7429:7431 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7415:7425 Kernel.SemanticMuCost <> count_atoms def
+R7427:7428 Kernel.SemanticComplexityIsomorphism <> c1:24 var
+R7432:7442 Kernel.SemanticMuCost <> count_atoms def
+R7444:7445 Kernel.SemanticComplexityIsomorphism <> c2:25 var
+R7483:7490 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7467:7469 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7454:7463 Kernel.SemanticMuCost <> count_vars def
+R7465:7466 Kernel.SemanticComplexityIsomorphism <> c1:24 var
+R7470:7479 Kernel.SemanticMuCost <> count_vars def
+R7481:7482 Kernel.SemanticComplexityIsomorphism <> c2:25 var
+R7530:7593 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7509:7511 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7491:7505 Kernel.SemanticMuCost <> count_operators def
+R7507:7508 Kernel.SemanticComplexityIsomorphism <> c1:24 var
+R7512:7526 Kernel.SemanticMuCost <> count_operators def
+R7528:7529 Kernel.SemanticComplexityIsomorphism <> c2:25 var
+R7651:7658 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7621:7623 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7594:7617 Kernel.SemanticMuCost <> semantic_complexity_bits def
+R7619:7620 Kernel.SemanticComplexityIsomorphism <> c1:24 var
+R7624:7647 Kernel.SemanticMuCost <> semantic_complexity_bits def
+R7649:7650 Kernel.SemanticComplexityIsomorphism <> c2:25 var
+R7750:7756 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7659:7689 Kernel.SemanticComplexityIsomorphism <> python_semantic_complexity_bits def
+R7698:7708 Kernel.SemanticMuCost <> count_atoms def
+R7710:7711 Kernel.SemanticComplexityIsomorphism <> c1:24 var
+R7715:7724 Kernel.SemanticMuCost <> count_vars def
+R7726:7727 Kernel.SemanticComplexityIsomorphism <> c1:24 var
+R7731:7745 Kernel.SemanticMuCost <> count_operators def
+R7747:7748 Kernel.SemanticComplexityIsomorphism <> c1:24 var
+R7757:7787 Kernel.SemanticComplexityIsomorphism <> python_semantic_complexity_bits def
+R7796:7806 Kernel.SemanticMuCost <> count_atoms def
+R7808:7809 Kernel.SemanticComplexityIsomorphism <> c2:25 var
+R7813:7822 Kernel.SemanticMuCost <> count_vars def
+R7824:7825 Kernel.SemanticComplexityIsomorphism <> c2:25 var
+R7829:7843 Kernel.SemanticMuCost <> count_operators def
+R7845:7846 Kernel.SemanticComplexityIsomorphism <> c2:25 var
+R7911:7934 Kernel.SemanticMuCost <> semantic_complexity_bits def
+prf 8111:8145 <> hardware_preserves_coq_monotonicity
+binder 8158:8158 <> s:26
+binder 8160:8161 <> s':27
+binder 8163:8167 <> instr:28
+R8192:8199 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8174:8180 Kernel.VMStep VMStep vm_step ind
+R8182:8182 Kernel.SemanticComplexityIsomorphism <> s:26 var
+R8184:8188 Kernel.SemanticComplexityIsomorphism <> instr:28 var
+R8190:8191 Kernel.SemanticComplexityIsomorphism <> s':27 var
+R8210:8213 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8204:8208 Kernel.VMState <> vm_mu proj
+R8200:8201 Kernel.SemanticComplexityIsomorphism <> s':27 var
+R8217:8221 Kernel.VMState <> vm_mu proj
+R8214:8214 Kernel.SemanticComplexityIsomorphism <> s:26 var
+R8299:8308 Kernel.VMStep VMStep apply_cost def
+prf 8611:8641 <> perfect_three_layer_isomorphism
+R8659:8668 Kernel.SemanticMuCost <> Constraint ind
+binder 8655:8655 <> c:29
+R8722:8745 Kernel.SemanticMuCost <> semantic_complexity_bits def
+R8747:8747 Kernel.SemanticComplexityIsomorphism <> c:29 var
+binder 8709:8717 <> coq_value:30
+R8808:8838 Kernel.SemanticComplexityIsomorphism <> python_semantic_complexity_bits def
+R8867:8877 Kernel.SemanticMuCost <> count_atoms def
+R8879:8879 Kernel.SemanticComplexityIsomorphism <> c:29 var
+R8883:8892 Kernel.SemanticMuCost <> count_vars def
+R8894:8894 Kernel.SemanticComplexityIsomorphism <> c:29 var
+R8898:8912 Kernel.SemanticMuCost <> count_operators def
+R8914:8914 Kernel.SemanticComplexityIsomorphism <> c:29 var
+binder 8792:8803 <> python_value:31
+R8967:8969 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8958:8966 Kernel.SemanticComplexityIsomorphism <> coq_value:30 var
+R8970:8981 Kernel.SemanticComplexityIsomorphism <> python_value:31 var
+R9019:9050 Kernel.SemanticComplexityIsomorphism <> three_layer_semantic_isomorphism thm
+R9019:9050 Kernel.SemanticComplexityIsomorphism <> three_layer_semantic_isomorphism thm
+prf 9119:9151 <> no_exceptions_perfect_isomorphism
+R9169:9178 Kernel.SemanticMuCost <> Constraint ind
+binder 9165:9165 <> c:32
+R9212:9218 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9186:9209 Kernel.SemanticMuCost <> semantic_complexity_bits def
+R9211:9211 Kernel.SemanticComplexityIsomorphism <> c:32 var
+R9219:9249 Kernel.SemanticComplexityIsomorphism <> python_semantic_complexity_bits def
+R9260:9270 Kernel.SemanticMuCost <> count_atoms def
+R9272:9272 Kernel.SemanticComplexityIsomorphism <> c:32 var
+R9276:9285 Kernel.SemanticMuCost <> count_vars def
+R9287:9287 Kernel.SemanticComplexityIsomorphism <> c:32 var
+R9291:9305 Kernel.SemanticMuCost <> count_operators def
+R9307:9307 Kernel.SemanticComplexityIsomorphism <> c:32 var
+R9337:9367 Kernel.SemanticComplexityIsomorphism <> perfect_three_layer_isomorphism thm
+R9337:9367 Kernel.SemanticComplexityIsomorphism <> perfect_three_layer_isomorphism thm
+def 10083:10102 <> isomorphism_verified
+binder 10123:10123 <> c:33
+R10152:10164 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10126:10149 Kernel.SemanticMuCost <> semantic_complexity_bits def
+R10151:10151 Kernel.SemanticComplexityIsomorphism <> c:33 var
+R10165:10195 Kernel.SemanticComplexityIsomorphism <> python_semantic_complexity_bits def
+R10212:10222 Kernel.SemanticMuCost <> count_atoms def
+R10224:10224 Kernel.SemanticComplexityIsomorphism <> c:33 var
+R10228:10237 Kernel.SemanticMuCost <> count_vars def
+R10239:10239 Kernel.SemanticComplexityIsomorphism <> c:33 var
+R10243:10257 Kernel.SemanticMuCost <> count_operators def
+R10259:10259 Kernel.SemanticComplexityIsomorphism <> c:33 var
+prf 10272:10297 <> isomorphism_verified_holds
+R10301:10320 Kernel.SemanticComplexityIsomorphism <> isomorphism_verified def
+R10339:10358 Kernel.SemanticComplexityIsomorphism <> isomorphism_verified def
+R10380:10410 Kernel.SemanticComplexityIsomorphism <> perfect_three_layer_isomorphism thm
+R10380:10410 Kernel.SemanticComplexityIsomorphism <> perfect_three_layer_isomorphism thm

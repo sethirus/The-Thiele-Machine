@@ -1,0 +1,118 @@
+DIGEST 101cfc272b18835162a56d5f8ce08f76
+FThieleMachine.HyperThiele_Oracle
+R24:27 Coq.Lists.List <> <> lib
+R29:33 Coq.Arith.Arith <> <> lib
+R35:38 Coq.Bool.Bool <> <> lib
+R40:42 Coq.Init.Nat <> <> lib
+R52:64 Coq.Lists.List ListNotations <> mod
+R421:433 ThieleMachine.ThieleMachine <> <> lib
+R443:469 ThieleMachine.ThieleMachine <> <> mod
+mod 480:503 <> HyperThieleOracleMinimal
+def 520:525 HyperThieleOracleMinimal Oracle
+R533:536 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R530:532 Coq.Init.Datatypes <> nat ind
+R537:540 Coq.Init.Datatypes <> bool ind
+ind 556:558 HyperThieleOracleMinimal Cmd
+constr 563:569 HyperThieleOracleMinimal Compute
+constr 583:585 HyperThieleOracleMinimal Ask
+R576:578 Coq.Init.Datatypes <> nat ind
+binder 572:572 <> n:3
+R592:594 Coq.Init.Datatypes <> nat ind
+binder 588:588 <> q:4
+scheme 556:558 HyperThieleOracleMinimal Cmd_rect
+scheme 556:558 HyperThieleOracleMinimal Cmd_ind
+scheme 556:558 HyperThieleOracleMinimal Cmd_rec
+scheme 556:558 HyperThieleOracleMinimal Cmd_sind
+def 611:617 HyperThieleOracleMinimal Program
+R622:625 Coq.Init.Datatypes <> list ind
+R627:629 ThieleMachine.HyperThiele_Oracle HyperThieleOracleMinimal Cmd ind
+def 644:654 HyperThieleOracleMinimal run_program
+R661:666 ThieleMachine.HyperThiele_Oracle HyperThieleOracleMinimal Oracle def
+binder 657:657 <> O:5
+R674:680 ThieleMachine.HyperThiele_Oracle HyperThieleOracleMinimal Program def
+binder 670:670 <> p:6
+R685:688 Coq.Init.Datatypes <> list ind
+R690:693 Coq.Init.Datatypes <> bool ind
+R708:708 ThieleMachine.HyperThiele_Oracle <> p:6 var
+R721:722 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R727:728 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R745:748 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R736:742 ThieleMachine.HyperThiele_Oracle HyperThieleOracleMinimal Compute constr
+R755:765 ThieleMachine.HyperThiele_Oracle <> run_program:7 def
+R767:767 ThieleMachine.HyperThiele_Oracle <> O:5 var
+R783:786 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R778:780 ThieleMachine.HyperThiele_Oracle HyperThieleOracleMinimal Ask constr
+R793:793 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R797:801 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R794:794 ThieleMachine.HyperThiele_Oracle <> O:5 var
+R802:812 ThieleMachine.HyperThiele_Oracle <> run_program:7 def
+R814:814 ThieleMachine.HyperThiele_Oracle <> O:5 var
+def 840:851 HyperThieleOracleMinimal compile_code
+R858:863 ThieleMachine.HyperThiele_Oracle HyperThieleOracleMinimal Oracle def
+binder 854:854 <> O:9
+R871:877 ThieleMachine.HyperThiele_Oracle HyperThieleOracleMinimal Program def
+binder 867:867 <> p:10
+R882:885 Coq.Init.Datatypes <> list ind
+R887:891 ThieleMachine.ThieleMachine <> Instr rec
+R906:906 ThieleMachine.HyperThiele_Oracle <> p:10 var
+R919:920 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R925:926 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R943:946 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R934:940 ThieleMachine.HyperThiele_Oracle HyperThieleOracleMinimal Compute constr
+R953:964 ThieleMachine.HyperThiele_Oracle <> compile_code:11 def
+R966:966 ThieleMachine.HyperThiele_Oracle <> O:9 var
+R982:985 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R977:979 ThieleMachine.HyperThiele_Oracle HyperThieleOracleMinimal Ask constr
+R1016:1016 ThieleMachine.HyperThiele_Oracle <> O:9 var
+binder 1004:1008 <> reply:13
+R1054:1056 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1127:1142 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1057:1066 ThieleMachine.ThieleMachine <> instr_kind proj
+R1057:1066 ThieleMachine.ThieleMachine <> instr_kind proj
+R1057:1066 ThieleMachine.ThieleMachine <> instr_kind proj
+R1085:1095 ThieleMachine.ThieleMachine <> instr_event proj
+R1085:1095 ThieleMachine.ThieleMachine <> instr_event proj
+R1108:1117 ThieleMachine.ThieleMachine <> instr_cert proj
+R1108:1117 ThieleMachine.ThieleMachine <> instr_cert proj
+R1071:1082 ThieleMachine.ThieleMachine <> InstrLASSERT constr
+R1100:1103 Coq.Init.Datatypes <> Some constr
+R1122:1126 ThieleMachine.HyperThiele_Oracle <> reply:13 var
+R1143:1154 ThieleMachine.HyperThiele_Oracle <> compile_code:11 def
+R1156:1156 ThieleMachine.HyperThiele_Oracle <> O:9 var
+def 1185:1191 HyperThieleOracleMinimal compile
+R1198:1203 ThieleMachine.HyperThiele_Oracle HyperThieleOracleMinimal Oracle def
+binder 1194:1194 <> O:14
+R1211:1217 ThieleMachine.HyperThiele_Oracle HyperThieleOracleMinimal Program def
+binder 1207:1207 <> p:15
+R1222:1225 ThieleMachine.ThieleMachine <> Prog rec
+R1237:1240 ThieleMachine.ThieleMachine <> code proj
+R1237:1240 ThieleMachine.ThieleMachine <> code proj
+R1237:1240 ThieleMachine.ThieleMachine <> code proj
+R1245:1256 ThieleMachine.HyperThiele_Oracle HyperThieleOracleMinimal compile_code def
+R1258:1258 ThieleMachine.HyperThiele_Oracle <> O:14 var
+R1260:1260 ThieleMachine.HyperThiele_Oracle <> p:15 var
+def 1280:1290 HyperThieleOracleMinimal obs_to_bool
+R1299:1305 ThieleMachine.ThieleMachine <> StepObs rec
+binder 1293:1295 <> obs:16
+R1310:1313 Coq.Init.Datatypes <> bool ind
+R1318:1324 Coq.Arith.PeanoNat Nat eqb def
+R1327:1330 ThieleMachine.ThieleMachine <> cert proj
+R1332:1334 ThieleMachine.HyperThiele_Oracle <> obs:16 var
+prf 1355:1386 HyperThieleOracleMinimal compile_preserves_oracle_outputs
+R1406:1411 ThieleMachine.HyperThiele_Oracle HyperThieleOracleMinimal Oracle def
+binder 1402:1402 <> O:17
+R1419:1425 ThieleMachine.HyperThiele_Oracle HyperThieleOracleMinimal Program def
+binder 1415:1415 <> p:18
+R1450:1452 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1435:1445 ThieleMachine.HyperThiele_Oracle HyperThieleOracleMinimal run_program def
+R1447:1447 ThieleMachine.HyperThiele_Oracle <> O:17 var
+R1449:1449 ThieleMachine.HyperThiele_Oracle <> p:18 var
+R1453:1455 Coq.Lists.List <> map def
+R1470:1472 Coq.Lists.List <> map def
+R1488:1499 ThieleMachine.HyperThiele_Oracle HyperThieleOracleMinimal compile_code def
+R1501:1501 ThieleMachine.HyperThiele_Oracle <> O:17 var
+R1503:1503 ThieleMachine.HyperThiele_Oracle <> p:18 var
+R1474:1485 ThieleMachine.ThieleMachine <> obs_of_instr def
+R1457:1467 ThieleMachine.HyperThiele_Oracle HyperThieleOracleMinimal obs_to_bool def
+R1666:1676 ThieleMachine.HyperThiele_Oracle HyperThieleOracleMinimal obs_to_bool def
+R1753:1776 ThieleMachine.HyperThiele_Oracle HyperThieleOracleMinimal <> mod

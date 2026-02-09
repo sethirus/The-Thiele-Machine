@@ -1,0 +1,302 @@
+DIGEST 6c2efd258af0730c26df01b06845accc
+FThieleMachine.ThieleUnificationProtocol
+R297:300 Coq.Lists.List <> <> lib
+R302:315 Coq.Arith.PeanoNat <> <> lib
+R317:319 Coq.micromega.Lia <> <> lib
+R346:359 Coq.Setoids.Setoid <> <> lib
+R369:381 Coq.Lists.List ListNotations <> mod
+R412:418 Kernel.VMState <> <> lib
+R420:425 Kernel.VMStep <> <> lib
+R427:441 Kernel.SimulationProof <> <> lib
+R443:462 Kernel.MuLedgerConservation <> <> lib
+mod 473:497 <> ThieleUnificationProtocol
+def 734:744 ThieleUnificationProtocol ThieleState
+R756:770 Kernel.VMState <> VMState rec
+def 786:793 ThieleUnificationProtocol ModuleId
+R805:820 Kernel.VMState <> ModuleID def
+def 836:841 ThieleUnificationProtocol Opcode
+R853:873 Kernel.VMStep VMStep vm_instruction ind
+def 890:893 ThieleUnificationProtocol step
+R908:911 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R897:907 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol ThieleState def
+R918:921 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R912:917 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol Opcode def
+R933:936 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R922:932 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol ThieleState def
+R945:958 Kernel.VMStep VMStep vm_step ind
+def 974:976 ThieleUnificationProtocol run
+R986:988 Coq.Init.Datatypes <> nat ind
+binder 979:982 <> fuel:1
+R1000:1003 Coq.Init.Datatypes <> list ind
+R1005:1010 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol Opcode def
+binder 992:996 <> trace:2
+R1018:1028 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol ThieleState def
+binder 1014:1014 <> s:3
+R1033:1043 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol ThieleState def
+R1052:1073 Kernel.SimulationProof <> run_vm def
+R1075:1078 ThieleMachine.ThieleUnificationProtocol <> fuel:1 var
+R1080:1084 ThieleMachine.ThieleUnificationProtocol <> trace:2 var
+R1086:1086 ThieleMachine.ThieleUnificationProtocol <> s:3 var
+def 1103:1104 ThieleUnificationProtocol mu
+R1111:1121 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol ThieleState def
+binder 1107:1107 <> s:4
+R1126:1128 Coq.Init.Datatypes <> nat ind
+R1136:1148 Kernel.VMState <> vm_mu proj
+R1133:1133 ThieleMachine.ThieleUnificationProtocol <> s:4 var
+prf 1695:1708 ThieleUnificationProtocol run_functorial
+binder 1723:1723 <> m:5
+binder 1725:1725 <> n:6
+binder 1727:1731 <> trace:7
+binder 1733:1733 <> s:8
+R1761:1763 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1742:1744 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol run def
+R1748:1750 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1747:1747 ThieleMachine.ThieleUnificationProtocol <> m:5 var
+R1751:1751 ThieleMachine.ThieleUnificationProtocol <> n:6 var
+R1754:1758 ThieleMachine.ThieleUnificationProtocol <> trace:7 var
+R1760:1760 ThieleMachine.ThieleUnificationProtocol <> s:8 var
+R1764:1766 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol run def
+R1768:1768 ThieleMachine.ThieleUnificationProtocol <> n:6 var
+R1770:1774 ThieleMachine.ThieleUnificationProtocol <> trace:7 var
+R1777:1779 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol run def
+R1781:1781 ThieleMachine.ThieleUnificationProtocol <> m:5 var
+R1783:1787 ThieleMachine.ThieleUnificationProtocol <> trace:7 var
+R1789:1789 ThieleMachine.ThieleUnificationProtocol <> s:8 var
+R1813:1815 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol run def
+R1908:1910 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1905:1905 Coq.Init.Datatypes <> S constr
+R1924:1924 Coq.Init.Datatypes <> S constr
+R1928:1930 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1908:1910 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1905:1905 Coq.Init.Datatypes <> S constr
+R1924:1924 Coq.Init.Datatypes <> S constr
+R1928:1930 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1960:1981 Kernel.SimulationProof <> run_vm def
+R1984:1984 Coq.Init.Datatypes <> S constr
+R1988:1990 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1960:1981 Kernel.SimulationProof <> run_vm def
+R1984:1984 Coq.Init.Datatypes <> S constr
+R1988:1990 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2021:2029 Coq.Lists.List <> nth_error def
+R2038:2050 Kernel.VMState <> vm_pc proj
+R2021:2029 Coq.Lists.List <> nth_error def
+R2038:2050 Kernel.VMState <> vm_pc proj
+R2284:2307 Kernel.SimulationProof <> vm_apply def
+R2284:2307 Kernel.SimulationProof <> vm_apply def
+R2473:2494 Kernel.SimulationProof <> run_vm def
+R2497:2497 Coq.Init.Datatypes <> S constr
+R2473:2494 Kernel.SimulationProof <> run_vm def
+R2497:2497 Coq.Init.Datatypes <> S constr
+prf 2643:2653 ThieleUnificationProtocol mu_monotone
+binder 2668:2671 <> fuel:9
+binder 2673:2677 <> trace:10
+binder 2679:2679 <> s:11
+R2692:2695 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2688:2689 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol mu def
+R2691:2691 ThieleMachine.ThieleUnificationProtocol <> s:11 var
+R2696:2697 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol mu def
+R2700:2702 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol run def
+R2704:2707 ThieleMachine.ThieleUnificationProtocol <> fuel:9 var
+R2709:2713 ThieleMachine.ThieleUnificationProtocol <> trace:10 var
+R2715:2715 ThieleMachine.ThieleUnificationProtocol <> s:11 var
+R2764:2765 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol mu def
+R2768:2770 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol run def
+R2783:2822 Kernel.MuLedgerConservation <> run_vm_mu_monotonic thm
+R2783:2822 Kernel.MuLedgerConservation <> run_vm_mu_monotonic thm
+prf 2907:2928 ThieleUnificationProtocol mu_ledger_conservation
+binder 2943:2946 <> fuel:12
+binder 2948:2952 <> trace:13
+binder 2954:2954 <> s:14
+R2984:2994 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2963:2964 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol mu def
+R2967:2969 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol run def
+R2971:2974 ThieleMachine.ThieleUnificationProtocol <> fuel:12 var
+R2976:2980 ThieleMachine.ThieleUnificationProtocol <> trace:13 var
+R2982:2982 ThieleMachine.ThieleUnificationProtocol <> s:14 var
+R2999:3001 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2995:2996 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol mu def
+R2998:2998 ThieleMachine.ThieleUnificationProtocol <> s:14 var
+R3002:3032 Kernel.MuLedgerConservation <> ledger_sum def
+R3035:3069 Kernel.MuLedgerConservation <> ledger_entries def
+R3071:3074 ThieleMachine.ThieleUnificationProtocol <> fuel:12 var
+R3076:3080 ThieleMachine.ThieleUnificationProtocol <> trace:13 var
+R3082:3082 ThieleMachine.ThieleUnificationProtocol <> s:14 var
+R3131:3132 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol mu def
+R3135:3137 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol run def
+R3151:3193 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
+R3151:3193 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
+prf 3474:3487 ThieleUnificationProtocol mu_phase_split
+binder 3502:3502 <> m:15
+binder 3504:3504 <> n:16
+binder 3506:3510 <> trace:17
+binder 3512:3512 <> s:18
+R3545:3555 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3521:3522 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol mu def
+R3525:3527 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol run def
+R3531:3533 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3530:3530 ThieleMachine.ThieleUnificationProtocol <> m:15 var
+R3534:3534 ThieleMachine.ThieleUnificationProtocol <> n:16 var
+R3537:3541 ThieleMachine.ThieleUnificationProtocol <> trace:17 var
+R3543:3543 ThieleMachine.ThieleUnificationProtocol <> s:18 var
+R3574:3584 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3556:3557 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol mu def
+R3560:3562 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol run def
+R3564:3564 ThieleMachine.ThieleUnificationProtocol <> m:15 var
+R3566:3570 ThieleMachine.ThieleUnificationProtocol <> trace:17 var
+R3572:3572 ThieleMachine.ThieleUnificationProtocol <> s:18 var
+R3585:3615 Kernel.MuLedgerConservation <> ledger_sum def
+R3628:3662 Kernel.MuLedgerConservation <> ledger_entries def
+R3664:3664 ThieleMachine.ThieleUnificationProtocol <> n:16 var
+R3666:3670 ThieleMachine.ThieleUnificationProtocol <> trace:17 var
+R3673:3675 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol run def
+R3677:3677 ThieleMachine.ThieleUnificationProtocol <> m:15 var
+R3679:3683 ThieleMachine.ThieleUnificationProtocol <> trace:17 var
+R3685:3685 ThieleMachine.ThieleUnificationProtocol <> s:18 var
+R3735:3748 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol run_functorial thm
+R3735:3748 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol run_functorial thm
+R3735:3748 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol run_functorial thm
+R3763:3784 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol mu_ledger_conservation thm
+R3763:3784 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol mu_ledger_conservation thm
+R3763:3784 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol mu_ledger_conservation thm
+prf 4037:4069 ThieleUnificationProtocol graph_lookup_modules_insert_other
+binder 4084:4087 <> mods:19
+binder 4089:4091 <> mid:20
+binder 4093:4096 <> mid':21
+binder 4098:4099 <> m':22
+R4119:4128 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4111:4114 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4108:4110 ThieleMachine.ThieleUnificationProtocol <> mid:20 var
+R4115:4118 ThieleMachine.ThieleUnificationProtocol <> mid':21 var
+R4205:4213 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4129:4156 Kernel.VMState <> graph_lookup_modules def
+R4159:4186 Kernel.VMState <> graph_insert_modules def
+R4188:4191 ThieleMachine.ThieleUnificationProtocol <> mods:19 var
+R4193:4195 ThieleMachine.ThieleUnificationProtocol <> mid:20 var
+R4197:4198 ThieleMachine.ThieleUnificationProtocol <> m':22 var
+R4201:4204 ThieleMachine.ThieleUnificationProtocol <> mid':21 var
+R4214:4241 Kernel.VMState <> graph_lookup_modules def
+R4243:4246 ThieleMachine.ThieleUnificationProtocol <> mods:19 var
+R4248:4251 ThieleMachine.ThieleUnificationProtocol <> mid':21 var
+R4391:4397 Coq.Arith.PeanoNat Nat eqb def
+R4391:4397 Coq.Arith.PeanoNat Nat eqb def
+R4432:4441 Coq.Arith.PeanoNat Nat eqb_eq thm
+R4432:4441 Coq.Arith.PeanoNat Nat eqb_eq thm
+R4510:4516 Coq.Arith.PeanoNat Nat eqb def
+R4510:4516 Coq.Arith.PeanoNat Nat eqb def
+R4639:4648 Coq.Arith.PeanoNat Nat eqb_eq thm
+R4639:4648 Coq.Arith.PeanoNat Nat eqb_eq thm
+R4735:4762 Kernel.VMState <> graph_insert_modules def
+R4786:4797 Coq.Arith.PeanoNat Nat eqb_refl thm
+R4786:4797 Coq.Arith.PeanoNat Nat eqb_refl thm
+R4905:4907 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4889:4895 Coq.Arith.PeanoNat Nat eqb def
+R4908:4912 Coq.Init.Datatypes <> false constr
+R4905:4907 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4889:4895 Coq.Arith.PeanoNat Nat eqb def
+R4908:4912 Coq.Init.Datatypes <> false constr
+R4941:4951 Coq.Arith.PeanoNat Nat eqb_neq thm
+R4941:4951 Coq.Arith.PeanoNat Nat eqb_neq thm
+R5126:5153 Kernel.VMState <> graph_insert_modules def
+R5204:5210 Coq.Arith.PeanoNat Nat eqb def
+R5204:5210 Coq.Arith.PeanoNat Nat eqb def
+prf 5469:5493 ThieleUnificationProtocol graph_lookup_update_other
+binder 5508:5508 <> g:23
+binder 5510:5512 <> mid:24
+binder 5514:5517 <> mid':25
+binder 5519:5520 <> m':26
+R5540:5549 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5532:5535 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5529:5531 ThieleMachine.ThieleUnificationProtocol <> mid:24 var
+R5536:5539 ThieleMachine.ThieleUnificationProtocol <> mid':25 var
+R5607:5609 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5550:5569 Kernel.VMState <> graph_lookup def
+R5572:5591 Kernel.VMState <> graph_update def
+R5593:5593 ThieleMachine.ThieleUnificationProtocol <> g:23 var
+R5595:5597 ThieleMachine.ThieleUnificationProtocol <> mid:24 var
+R5599:5600 ThieleMachine.ThieleUnificationProtocol <> m':26 var
+R5603:5606 ThieleMachine.ThieleUnificationProtocol <> mid':25 var
+R5610:5629 Kernel.VMState <> graph_lookup def
+R5631:5631 ThieleMachine.ThieleUnificationProtocol <> g:23 var
+R5633:5636 ThieleMachine.ThieleUnificationProtocol <> mid':25 var
+R5690:5709 Kernel.VMState <> graph_lookup def
+R5712:5731 Kernel.VMState <> graph_update def
+R5755:5787 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol graph_lookup_modules_insert_other thm
+R5755:5787 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol graph_lookup_modules_insert_other thm
+prf 5822:5852 ThieleUnificationProtocol graph_add_axiom_other_unchanged
+binder 5867:5867 <> g:27
+binder 5869:5871 <> mid:28
+binder 5873:5876 <> mid':29
+binder 5878:5879 <> ax:30
+R5899:5908 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5891:5894 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5888:5890 ThieleMachine.ThieleUnificationProtocol <> mid:28 var
+R5895:5898 ThieleMachine.ThieleUnificationProtocol <> mid':29 var
+R5969:5971 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5909:5928 Kernel.VMState <> graph_lookup def
+R5931:5953 Kernel.VMState <> graph_add_axiom def
+R5955:5955 ThieleMachine.ThieleUnificationProtocol <> g:27 var
+R5957:5959 ThieleMachine.ThieleUnificationProtocol <> mid:28 var
+R5961:5962 ThieleMachine.ThieleUnificationProtocol <> ax:30 var
+R5965:5968 ThieleMachine.ThieleUnificationProtocol <> mid':29 var
+R5972:5991 Kernel.VMState <> graph_lookup def
+R5993:5993 ThieleMachine.ThieleUnificationProtocol <> g:27 var
+R5995:5998 ThieleMachine.ThieleUnificationProtocol <> mid':29 var
+R6052:6074 Kernel.VMState <> graph_add_axiom def
+R6091:6110 Kernel.VMState <> graph_lookup def
+R6091:6110 Kernel.VMState <> graph_lookup def
+R6202:6226 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol graph_lookup_update_other thm
+R6202:6226 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol graph_lookup_update_other thm
+prf 6257:6288 ThieleUnificationProtocol graph_add_axioms_other_unchanged
+binder 6303:6305 <> axs:31
+binder 6307:6307 <> g:32
+binder 6309:6311 <> mid:33
+binder 6313:6316 <> mid':34
+R6336:6345 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6328:6331 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R6325:6327 ThieleMachine.ThieleUnificationProtocol <> mid:33 var
+R6332:6335 ThieleMachine.ThieleUnificationProtocol <> mid':34 var
+R6408:6410 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6346:6365 Kernel.VMState <> graph_lookup def
+R6368:6391 Kernel.VMState <> graph_add_axioms def
+R6393:6393 ThieleMachine.ThieleUnificationProtocol <> g:32 var
+R6395:6397 ThieleMachine.ThieleUnificationProtocol <> mid:33 var
+R6399:6401 ThieleMachine.ThieleUnificationProtocol <> axs:31 var
+R6404:6407 ThieleMachine.ThieleUnificationProtocol <> mid':34 var
+R6411:6430 Kernel.VMState <> graph_lookup def
+R6432:6432 ThieleMachine.ThieleUnificationProtocol <> g:32 var
+R6434:6437 ThieleMachine.ThieleUnificationProtocol <> mid':34 var
+R6492:6515 Kernel.VMState <> graph_add_axioms def
+R6621:6643 Kernel.VMState <> graph_add_axiom def
+R6621:6643 Kernel.VMState <> graph_add_axiom def
+R6621:6643 Kernel.VMState <> graph_add_axiom def
+R6671:6701 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol graph_add_axiom_other_unchanged thm
+R6671:6701 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol graph_add_axiom_other_unchanged thm
+R6671:6701 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol graph_add_axiom_other_unchanged thm
+prf 6755:6782 ThieleUnificationProtocol no_signaling_pdiscover_graph
+binder 6797:6797 <> s:35
+binder 6799:6804 <> module:36
+binder 6806:6813 <> evidence:37
+binder 6815:6818 <> cost:38
+binder 6820:6824 <> other:39
+R6848:6857 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6839:6842 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R6833:6838 ThieleMachine.ThieleUnificationProtocol <> module:36 var
+R6843:6847 ThieleMachine.ThieleUnificationProtocol <> other:39 var
+R6978:6986 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6858:6877 Kernel.VMState <> graph_lookup def
+R6880:6895 Kernel.VMState <> vm_graph proj
+R6898:6921 Kernel.SimulationProof <> vm_apply def
+R6923:6923 ThieleMachine.ThieleUnificationProtocol <> s:35 var
+R6926:6947 Kernel.VMStep VMStep instr_pdiscover constr
+R6949:6954 ThieleMachine.ThieleUnificationProtocol <> module:36 var
+R6956:6963 ThieleMachine.ThieleUnificationProtocol <> evidence:37 var
+R6965:6968 ThieleMachine.ThieleUnificationProtocol <> cost:38 var
+R6973:6977 ThieleMachine.ThieleUnificationProtocol <> other:39 var
+R6987:7006 Kernel.VMState <> graph_lookup def
+R7009:7024 Kernel.VMState <> vm_graph proj
+R7026:7026 ThieleMachine.ThieleUnificationProtocol <> s:35 var
+R7029:7033 ThieleMachine.ThieleUnificationProtocol <> other:39 var
+R7193:7222 Kernel.VMState <> graph_record_discovery def
+R7235:7266 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol graph_add_axioms_other_unchanged thm
+R7235:7266 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol graph_add_axioms_other_unchanged thm
+R8124:8148 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol <> mod

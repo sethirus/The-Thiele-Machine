@@ -1,0 +1,208 @@
+DIGEST 9df789df6f93ee14cf8f26ee42c520b1
+FThieleUniversal.ThieleUniversal
+R263:266 Coq.Lists.List <> <> lib
+R268:270 Coq.micromega.Lia <> <> lib
+R309:310 ThieleUniversal.TM <> <> lib
+R312:320 ThieleUniversal.UTM_Rules <> <> lib
+R322:332 ThieleUniversal.UTM_Program <> <> lib
+R334:343 ThieleUniversal.UTM_Encode <> <> lib
+R345:347 ThieleUniversal.CPU <> <> lib
+R384:396 ThieleMachine.ThieleMachine <> <> lib
+R398:407 ThieleMachine.Simulation <> <> lib
+R409:422 ThieleMachine.EncodingBridge <> <> lib
+R432:441 ThieleMachine.Simulation <> <> mod
+R490:507 ThieleUniversal.TM <> <> modtype
+mod 484:485 <> TU
+R525:543 ThieleUniversal.CPU <> <> modtype
+mod 517:520 <> UCPU
+def 594:607 <> thiele_program
+R611:614 ThieleMachine.ThieleMachine <> Prog rec
+R619:640 ThieleMachine.Simulation <> utm_program def
+def 655:671 <> cpu_program_words
+R675:678 Coq.Init.Datatypes <> list ind
+R680:682 Coq.Init.Datatypes <> nat ind
+R689:696 Coq.Lists.List <> flat_map def
+R728:753 ThieleUniversal.UTM_Program UTM_Program program_instrs def
+R698:726 ThieleUniversal.UTM_Encode UTM_Encode encode_instr_words def
+def 768:784 <> cpu_initial_state
+R792:796 ThieleUniversal.ThieleUniversal <> TM rec
+binder 787:788 <> tm:1
+R807:817 ThieleUniversal.ThieleUniversal <> TMConfig def
+binder 800:803 <> conf:2
+R822:831 ThieleUniversal.ThieleUniversal <> State rec
+R838:861 ThieleMachine.Simulation <> utm_cpu_state def
+R863:864 ThieleUniversal.ThieleUniversal <> tm:1 var
+R866:869 ThieleUniversal.ThieleUniversal <> conf:2 var
+prf 879:898 <> cpu_rules_fit_window
+binder 911:912 <> tm:3
+R942:949 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R919:938 ThieleMachine.Simulation <> rules_fit def
+R940:941 ThieleUniversal.ThieleUniversal <> tm:3 var
+R1004:1011 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R950:960 Coq.Lists.List <> length abbrev
+R963:985 ThieleUniversal.UTM_Encode UTM_Encode encode_rules def
+R991:1001 ThieleUniversal.ThieleUniversal <> tm_rules proj
+R987:988 ThieleUniversal.ThieleUniversal <> tm:3 var
+R1039:1041 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R1012:1038 ThieleUniversal.UTM_Program UTM_Program TAPE_START_ADDR def
+R1042:1069 ThieleUniversal.UTM_Program UTM_Program RULES_START_ADDR def
+binder 1092:1095 <> Hfit:4
+R1100:1103 ThieleUniversal.ThieleUniversal <> Hfit:4 var
+binder 1092:1095 <> Hfit:5
+R1100:1103 ThieleUniversal.ThieleUniversal <> Hfit:5 var
+prf 1119:1138 <> cpu_program_is_blind
+R1142:1157 ThieleMachine.Simulation <> Blind def
+R1159:1172 ThieleUniversal.ThieleUniversal <> thiele_program def
+R1188:1215 ThieleMachine.Simulation <> utm_program_blind thm
+R1188:1215 ThieleMachine.Simulation <> utm_program_blind thm
+prf 1939:1960 <> thiele_universal_recap
+R1966:1972 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1996:2001 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1978:1995 ThieleMachine.ThieleMachine <> Prog rec
+binder 1973:1974 <> tp:6
+R2021:2028 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2002:2017 ThieleMachine.Simulation <> Blind def
+R2019:2020 ThieleUniversal.ThieleUniversal <> tp:6 var
+R2042:2046 ThieleUniversal.ThieleUniversal <> TM rec
+binder 2037:2038 <> tm:7
+R2057:2067 ThieleUniversal.ThieleUniversal <> TMConfig def
+binder 2050:2053 <> conf:8
+R2075:2077 Coq.Init.Datatypes <> nat ind
+binder 2071:2071 <> n:9
+R2120:2129 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2087:2109 ThieleMachine.Simulation <> all_steps_ok def
+R2111:2112 ThieleUniversal.ThieleUniversal <> tm:7 var
+R2114:2117 ThieleUniversal.ThieleUniversal <> conf:8 var
+R2119:2119 ThieleUniversal.ThieleUniversal <> n:9 var
+R2153:2162 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2130:2149 ThieleMachine.Simulation <> rules_fit def
+R2151:2152 ThieleUniversal.ThieleUniversal <> tm:7 var
+R2270:2278 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2163:2185 ThieleMachine.Simulation <> decode_state def
+R2187:2188 ThieleUniversal.ThieleUniversal <> tm:7 var
+R2199:2225 ThieleMachine.Simulation <> thiele_step_n_tm def
+R2227:2228 ThieleUniversal.ThieleUniversal <> tm:7 var
+R2230:2231 ThieleUniversal.ThieleUniversal <> tp:6 var
+R2234:2257 ThieleMachine.Simulation <> encode_config def
+R2259:2260 ThieleUniversal.ThieleUniversal <> tm:7 var
+R2262:2265 ThieleUniversal.ThieleUniversal <> conf:8 var
+R2268:2268 ThieleUniversal.ThieleUniversal <> n:9 var
+R2279:2290 ThieleUniversal.ThieleUniversal <> tm_step_n def
+R2292:2293 ThieleUniversal.ThieleUniversal <> tm:7 var
+R2295:2298 ThieleUniversal.ThieleUniversal <> conf:8 var
+R2300:2300 ThieleUniversal.ThieleUniversal <> n:9 var
+R2319:2340 ThieleMachine.Simulation <> utm_program def
+R2319:2340 ThieleMachine.Simulation <> utm_program def
+R2362:2389 ThieleMachine.Simulation <> utm_program_blind thm
+R2362:2389 ThieleMachine.Simulation <> utm_program_blind thm
+R2434:2471 ThieleMachine.Simulation <> thiele_step_n_utm_simulates thm
+R2434:2471 ThieleMachine.Simulation <> thiele_step_n_utm_simulates thm
+prf 2498:2529 <> thiele_prefix_simulation_summary
+binder 2542:2543 <> tm:10
+binder 2545:2548 <> conf:11
+binder 2550:2550 <> n:12
+R2590:2597 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2557:2579 ThieleMachine.Simulation <> all_steps_ok def
+R2581:2582 ThieleUniversal.ThieleUniversal <> tm:10 var
+R2584:2587 ThieleUniversal.ThieleUniversal <> conf:11 var
+R2589:2589 ThieleUniversal.ThieleUniversal <> n:12 var
+R2621:2628 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2598:2617 ThieleMachine.Simulation <> rules_fit def
+R2619:2620 ThieleUniversal.ThieleUniversal <> tm:10 var
+R2763:2769 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2629:2651 ThieleMachine.Simulation <> decode_state def
+R2653:2654 ThieleUniversal.ThieleUniversal <> tm:10 var
+R2663:2689 ThieleMachine.Simulation <> thiele_step_n_tm def
+R2691:2692 ThieleUniversal.ThieleUniversal <> tm:10 var
+R2694:2715 ThieleMachine.Simulation <> utm_program def
+R2727:2750 ThieleMachine.Simulation <> encode_config def
+R2752:2753 ThieleUniversal.ThieleUniversal <> tm:10 var
+R2755:2758 ThieleUniversal.ThieleUniversal <> conf:11 var
+R2761:2761 ThieleUniversal.ThieleUniversal <> n:12 var
+R2770:2781 ThieleUniversal.ThieleUniversal <> tm_step_n def
+R2783:2784 ThieleUniversal.ThieleUniversal <> tm:10 var
+R2786:2789 ThieleUniversal.ThieleUniversal <> conf:11 var
+R2791:2791 ThieleUniversal.ThieleUniversal <> n:12 var
+R2839:2876 ThieleMachine.Simulation <> thiele_step_n_utm_simulates thm
+R2839:2876 ThieleMachine.Simulation <> thiele_step_n_utm_simulates thm
+rec 2956:2974 <> interpreter_witness
+proj 2983:2998 <> interpreter_prog
+proj 3010:3026 <> interpreter_blind
+proj 3067:3083 <> interpreter_exact
+R3002:3005 ThieleMachine.ThieleMachine <> Prog rec
+R3030:3045 ThieleMachine.Simulation <> Blind def
+R3047:3062 ThieleUniversal.ThieleUniversal <> interpreter_prog:14 meth
+binder 3098:3099 <> tm:16
+binder 3101:3104 <> conf:17
+binder 3106:3106 <> n:18
+R3148:3157 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3115:3137 ThieleMachine.Simulation <> all_steps_ok def
+R3139:3140 ThieleUniversal.ThieleUniversal <> tm:16 var
+R3142:3145 ThieleUniversal.ThieleUniversal <> conf:17 var
+R3147:3147 ThieleUniversal.ThieleUniversal <> n:18 var
+R3181:3190 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3158:3177 ThieleMachine.Simulation <> rules_fit def
+R3179:3180 ThieleUniversal.ThieleUniversal <> tm:16 var
+R3323:3331 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3191:3213 ThieleMachine.Simulation <> decode_state def
+R3215:3216 ThieleUniversal.ThieleUniversal <> tm:16 var
+R3227:3253 ThieleMachine.Simulation <> thiele_step_n_tm def
+R3255:3256 ThieleUniversal.ThieleUniversal <> tm:16 var
+R3258:3273 ThieleUniversal.ThieleUniversal <> interpreter_prog:14 meth
+R3287:3310 ThieleMachine.Simulation <> encode_config def
+R3312:3313 ThieleUniversal.ThieleUniversal <> tm:16 var
+R3315:3318 ThieleUniversal.ThieleUniversal <> conf:17 var
+R3321:3321 ThieleUniversal.ThieleUniversal <> n:18 var
+R3332:3343 ThieleUniversal.ThieleUniversal <> tm_step_n def
+R3345:3346 ThieleUniversal.ThieleUniversal <> tm:16 var
+R3348:3351 ThieleUniversal.ThieleUniversal <> conf:17 var
+R3353:3353 ThieleUniversal.ThieleUniversal <> n:18 var
+def 3370:3393 <> thiele_universal_witness
+R3397:3415 ThieleUniversal.ThieleUniversal <> interpreter_witness rec
+R3437:3452 ThieleUniversal.ThieleUniversal <> interpreter_prog proj
+R3437:3452 ThieleUniversal.ThieleUniversal <> interpreter_prog proj
+R3437:3452 ThieleUniversal.ThieleUniversal <> interpreter_prog proj
+R3485:3501 ThieleUniversal.ThieleUniversal <> interpreter_blind proj
+R3485:3501 ThieleUniversal.ThieleUniversal <> interpreter_blind proj
+R3457:3470 ThieleUniversal.ThieleUniversal <> thiele_program def
+R3506:3525 ThieleUniversal.ThieleUniversal <> cpu_program_is_blind thm
+R3437:3452 ThieleUniversal.ThieleUniversal <> interpreter_prog proj
+R3437:3452 ThieleUniversal.ThieleUniversal <> interpreter_prog proj
+R3437:3452 ThieleUniversal.ThieleUniversal <> interpreter_prog proj
+R3485:3501 ThieleUniversal.ThieleUniversal <> interpreter_blind proj
+R3485:3501 ThieleUniversal.ThieleUniversal <> interpreter_blind proj
+R3457:3470 ThieleUniversal.ThieleUniversal <> thiele_program def
+R3506:3525 ThieleUniversal.ThieleUniversal <> cpu_program_is_blind thm
+R3569:3600 ThieleUniversal.ThieleUniversal <> thiele_prefix_simulation_summary thm
+R3569:3600 ThieleUniversal.ThieleUniversal <> thiele_prefix_simulation_summary thm
+prf 3635:3660 <> thiele_machine_subsumes_tm
+binder 3673:3674 <> tm:20
+binder 3676:3679 <> conf:21
+binder 3681:3681 <> n:22
+R3721:3728 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3688:3710 ThieleMachine.Simulation <> all_steps_ok def
+R3712:3713 ThieleUniversal.ThieleUniversal <> tm:20 var
+R3715:3718 ThieleUniversal.ThieleUniversal <> conf:21 var
+R3720:3720 ThieleUniversal.ThieleUniversal <> n:22 var
+R3752:3759 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3729:3748 ThieleMachine.Simulation <> rules_fit def
+R3750:3751 ThieleUniversal.ThieleUniversal <> tm:20 var
+R3915:3921 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3760:3782 ThieleMachine.Simulation <> decode_state def
+R3784:3785 ThieleUniversal.ThieleUniversal <> tm:20 var
+R3794:3820 ThieleMachine.Simulation <> thiele_step_n_tm def
+R3822:3823 ThieleUniversal.ThieleUniversal <> tm:20 var
+R3851:3866 ThieleUniversal.ThieleUniversal <> interpreter_prog proj
+R3825:3848 ThieleUniversal.ThieleUniversal <> thiele_universal_witness def
+R3879:3902 ThieleMachine.Simulation <> encode_config def
+R3904:3905 ThieleUniversal.ThieleUniversal <> tm:20 var
+R3907:3910 ThieleUniversal.ThieleUniversal <> conf:21 var
+R3913:3913 ThieleUniversal.ThieleUniversal <> n:22 var
+R3922:3933 ThieleUniversal.ThieleUniversal <> tm_step_n def
+R3935:3936 ThieleUniversal.ThieleUniversal <> tm:20 var
+R3938:3941 ThieleUniversal.ThieleUniversal <> conf:21 var
+R3943:3943 ThieleUniversal.ThieleUniversal <> n:22 var
+R4017:4033 ThieleUniversal.ThieleUniversal <> interpreter_exact proj
+R3991:4014 ThieleUniversal.ThieleUniversal <> thiele_universal_witness def
+R4017:4033 ThieleUniversal.ThieleUniversal <> interpreter_exact proj
+R3991:4014 ThieleUniversal.ThieleUniversal <> thiele_universal_witness def

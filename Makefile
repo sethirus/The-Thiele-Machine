@@ -317,7 +317,7 @@ rtl-synth: $(RTL_UNIFIED) $(SYNTH_SCRIPT)
 	@echo "    Script: $(SYNTH_SCRIPT)"
 	@echo "    Defines: -DSYNTHESIS -DYOSYS_LITE"
 	@echo "    Running (this takes ~5 minutes)..."
-	@cd $(RTL_DIR) && yosys -l synth_lite_clean.log synth_lite.ys 2>&1
+	@cd $(RTL_DIR) && yosys -l synth_lite_clean.log -s synth_lite.ys 2>&1
 	@echo ""
 	@echo "=== Synthesis Results ==="
 	@grep "Warnings:" $(SYNTH_LOG) | tail -1

@@ -1,0 +1,225 @@
+DIGEST aba1f7e365272192fd1470a631885f2b
+FQuantumDerivation.SchrodingerFromPartitions
+R642:645 Coq.Lists.List <> <> lib
+R647:652 Coq.ZArith.ZArith <> <> lib
+R654:656 Coq.micromega.Lia <> <> lib
+R658:661 Coq.Bool.Bool <> <> lib
+R663:665 Coq.Init.Nat <> <> lib
+R667:671 Coq.Reals.Reals <> <> lib
+R673:678 Coq.QArith.QArith <> <> lib
+R696:719 Coq.Logic.Classical_Prop <> <> lib
+R737:753 Coq.micromega.Lra <> <> lib
+R771:790 Coq.Reals.Ranalysis1 <> <> lib
+R800:812 Coq.Lists.List ListNotations <> mod
+R883:909 ThieleMachine.CoreSemantics <> <> lib
+R927:963 QuantumDerivation.CompositePartitions <> <> lib
+def 1554:1573 <> partition_transition
+R1584:1592 ThieleMachine.CoreSemantics <> Partition rec
+binder 1576:1577 <> p1:1
+binder 1579:1580 <> p2:2
+R1607:1614 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1623:1625 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1622:1622 Coq.Numbers.BinNums <> Z ind
+binder 1615:1618 <> cost:3
+R1635:1721 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1630:1633 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
+R1626:1629 QuantumDerivation.SchrodingerFromPartitions <> cost:3 var
+R1740:1743 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1722:1736 ThieleMachine.CoreSemantics <> partition_valid def
+R1738:1739 QuantumDerivation.SchrodingerFromPartitions <> p1:1 var
+R1744:1758 ThieleMachine.CoreSemantics <> partition_valid def
+R1760:1761 QuantumDerivation.SchrodingerFromPartitions <> p2:2 var
+def 1823:1826 <> Time
+R1831:1831 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 1880:1891 <> WaveFunction
+R1900:1903 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1896:1899 QuantumDerivation.SchrodingerFromPartitions <> Time def
+R1904:1912 ThieleMachine.CoreSemantics <> Partition rec
+def 1993:2009 <> unitary_evolution
+R2018:2029 QuantumDerivation.SchrodingerFromPartitions <> WaveFunction def
+binder 2012:2014 <> psi:4
+R2060:2063 QuantumDerivation.SchrodingerFromPartitions <> Time def
+binder 2052:2053 <> t1:5
+binder 2055:2056 <> t2:6
+R2099:2101 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2071:2089 QuantumDerivation.CompositePartitions <> partition_state_dim def
+R2092:2094 QuantumDerivation.SchrodingerFromPartitions <> psi:4 var
+R2096:2097 QuantumDerivation.SchrodingerFromPartitions <> t1:5 var
+R2102:2120 QuantumDerivation.CompositePartitions <> partition_state_dim def
+R2123:2125 QuantumDerivation.SchrodingerFromPartitions <> psi:4 var
+R2127:2128 QuantumDerivation.SchrodingerFromPartitions <> t2:6 var
+prf 2770:2801 <> mu_conservation_forces_unitarity
+R2821:2832 QuantumDerivation.SchrodingerFromPartitions <> WaveFunction def
+binder 2815:2817 <> psi:7
+R2861:2942 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2840:2856 QuantumDerivation.SchrodingerFromPartitions <> unitary_evolution def
+R2858:2860 QuantumDerivation.SchrodingerFromPartitions <> psi:7 var
+R2959:2962 QuantumDerivation.SchrodingerFromPartitions <> Time def
+binder 2951:2952 <> t1:8
+binder 2954:2955 <> t2:9
+R3017:3019 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2972:2974 Coq.Reals.Rdefinitions <> IZR def
+R2977:2984 Coq.ZArith.BinInt Z of_nat def
+R2987:3005 QuantumDerivation.CompositePartitions <> partition_state_dim def
+R3008:3010 QuantumDerivation.SchrodingerFromPartitions <> psi:7 var
+R3012:3013 QuantumDerivation.SchrodingerFromPartitions <> t1:8 var
+R3020:3022 Coq.Reals.Rdefinitions <> IZR def
+R3025:3032 Coq.ZArith.BinInt Z of_nat def
+R3035:3053 QuantumDerivation.CompositePartitions <> partition_state_dim def
+R3056:3058 QuantumDerivation.SchrodingerFromPartitions <> psi:7 var
+R3060:3061 QuantumDerivation.SchrodingerFromPartitions <> t2:9 var
+def 3594:3604 <> StateVector
+R3611:3613 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3610:3610 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3614:3614 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 3635:3652 <> wavefunction_phase
+R3665:3668 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3661:3664 QuantumDerivation.SchrodingerFromPartitions <> Time def
+R3669:3679 QuantumDerivation.SchrodingerFromPartitions <> StateVector def
+binder 3655:3657 <> psi:10
+R3687:3690 QuantumDerivation.SchrodingerFromPartitions <> Time def
+binder 3683:3683 <> t:11
+R3695:3695 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 3850:3867 <> discovery_velocity
+R3874:3874 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 3870:3870 <> v:12
+R3889:3891 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R3892:3892 QuantumDerivation.SchrodingerFromPartitions <> v:12 var
+def 3953:3958 <> derive
+R3966:3969 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3965:3965 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3970:3970 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 3961:3961 <> f:13
+R3978:3978 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 3974:3974 <> t:14
+R3986:3997 Coq.Reals.Ranalysis1 <> derivable_pt def
+R3999:3999 QuantumDerivation.SchrodingerFromPartitions <> f:13 var
+R4001:4001 QuantumDerivation.SchrodingerFromPartitions <> t:14 var
+binder 3982:3982 <> H:15
+R4006:4006 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4013:4021 Coq.Reals.Ranalysis1 <> derive_pt def
+R4023:4023 QuantumDerivation.SchrodingerFromPartitions <> f:13 var
+R4025:4025 QuantumDerivation.SchrodingerFromPartitions <> t:14 var
+R4027:4027 QuantumDerivation.SchrodingerFromPartitions <> H:15 var
+prf 4197:4221 <> schrodinger_gradient_form
+R4239:4239 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 4235:4235 <> v:16
+R4255:4258 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4251:4254 QuantumDerivation.SchrodingerFromPartitions <> Time def
+R4259:4259 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 4243:4247 <> theta:17
+R4267:4267 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4298:4306 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 4275:4275 <> t:18
+R4278:4289 Coq.Reals.Ranalysis1 <> derivable_pt def
+R4291:4295 QuantumDerivation.SchrodingerFromPartitions <> theta:17 var
+R4297:4297 QuantumDerivation.SchrodingerFromPartitions <> t:18 var
+R4307:4307 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4365:4373 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 4315:4315 <> t:19
+R4322:4333 Coq.Reals.Ranalysis1 <> derivable_pt def
+R4335:4339 QuantumDerivation.SchrodingerFromPartitions <> theta:17 var
+R4341:4341 QuantumDerivation.SchrodingerFromPartitions <> t:19 var
+binder 4318:4318 <> H:20
+R4361:4363 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4345:4350 QuantumDerivation.SchrodingerFromPartitions <> derive def
+R4352:4356 QuantumDerivation.SchrodingerFromPartitions <> theta:17 var
+R4358:4358 QuantumDerivation.SchrodingerFromPartitions <> t:19 var
+R4360:4360 QuantumDerivation.SchrodingerFromPartitions <> H:20 var
+R4364:4364 QuantumDerivation.SchrodingerFromPartitions <> v:16 var
+binder 4381:4381 <> t:21
+R4399:4402 Coq.Reals.Ranalysis1 <> comp def
+R4404:4406 Coq.Reals.Rtrigo_def <> cos def
+R4408:4412 QuantumDerivation.SchrodingerFromPartitions <> theta:17 var
+binder 4394:4394 <> x:22
+R4432:4435 Coq.Reals.Ranalysis1 <> comp def
+R4437:4439 Coq.Reals.Rtrigo_def <> sin def
+R4441:4445 QuantumDerivation.SchrodingerFromPartitions <> theta:17 var
+binder 4427:4427 <> y:23
+R4457:4464 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4510:4520 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4470:4481 Coq.Reals.Ranalysis1 <> derivable_pt def
+R4483:4483 QuantumDerivation.SchrodingerFromPartitions <> x:22 var
+R4485:4485 QuantumDerivation.SchrodingerFromPartitions <> t:21 var
+binder 4465:4466 <> Hx:24
+R4494:4505 Coq.Reals.Ranalysis1 <> derivable_pt def
+R4507:4507 QuantumDerivation.SchrodingerFromPartitions <> y:23 var
+R4509:4509 QuantumDerivation.SchrodingerFromPartitions <> t:21 var
+binder 4489:4490 <> Hy:25
+R4559:4571 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4534:4536 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4521:4526 QuantumDerivation.SchrodingerFromPartitions <> derive def
+R4528:4528 QuantumDerivation.SchrodingerFromPartitions <> x:22 var
+R4530:4530 QuantumDerivation.SchrodingerFromPartitions <> t:21 var
+R4532:4533 QuantumDerivation.SchrodingerFromPartitions <> Hx:24 var
+R4540:4542 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4538:4538 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R4539:4539 QuantumDerivation.SchrodingerFromPartitions <> v:16 var
+R4543:4545 Coq.Reals.Rtrigo_def <> sin def
+R4548:4552 QuantumDerivation.SchrodingerFromPartitions <> theta:17 var
+R4554:4554 QuantumDerivation.SchrodingerFromPartitions <> t:21 var
+R4585:4587 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4572:4577 QuantumDerivation.SchrodingerFromPartitions <> derive def
+R4579:4579 QuantumDerivation.SchrodingerFromPartitions <> y:23 var
+R4581:4581 QuantumDerivation.SchrodingerFromPartitions <> t:21 var
+R4583:4584 QuantumDerivation.SchrodingerFromPartitions <> Hy:25 var
+R4590:4592 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4589:4589 QuantumDerivation.SchrodingerFromPartitions <> v:16 var
+R4593:4595 Coq.Reals.Rtrigo_def <> cos def
+R4598:4602 QuantumDerivation.SchrodingerFromPartitions <> theta:17 var
+R4604:4604 QuantumDerivation.SchrodingerFromPartitions <> t:21 var
+R4664:4680 Coq.Reals.Ranalysis1 <> derivable_pt_comp thm
+R4688:4690 Coq.Reals.Rtrigo_def <> cos def
+R4706:4721 Coq.Reals.Rtrigo_reg <> derivable_pt_cos thm
+R4664:4680 Coq.Reals.Ranalysis1 <> derivable_pt_comp thm
+R4688:4690 Coq.Reals.Rtrigo_def <> cos def
+R4706:4721 Coq.Reals.Rtrigo_reg <> derivable_pt_cos thm
+R4749:4765 Coq.Reals.Ranalysis1 <> derivable_pt_comp thm
+R4773:4775 Coq.Reals.Rtrigo_def <> sin def
+R4791:4806 Coq.Reals.Rtrigo_reg <> derivable_pt_sin thm
+R4749:4765 Coq.Reals.Ranalysis1 <> derivable_pt_comp thm
+R4773:4775 Coq.Reals.Rtrigo_def <> sin def
+R4791:4806 Coq.Reals.Rtrigo_reg <> derivable_pt_sin thm
+R4847:4852 QuantumDerivation.SchrodingerFromPartitions <> derive def
+R4884:4897 Coq.Reals.Ranalysis1 <> derive_pt_comp thm
+R4884:4897 Coq.Reals.Ranalysis1 <> derive_pt_comp thm
+R4884:4897 Coq.Reals.Ranalysis1 <> derive_pt_comp thm
+R4912:4924 Coq.Reals.Rtrigo_reg <> derive_pt_cos thm
+R4912:4924 Coq.Reals.Rtrigo_reg <> derive_pt_cos thm
+R4912:4924 Coq.Reals.Rtrigo_reg <> derive_pt_cos thm
+R4938:4943 QuantumDerivation.SchrodingerFromPartitions <> derive def
+R5009:5022 Coq.Reals.Ranalysis1 <> derive_pt_comp thm
+R5009:5022 Coq.Reals.Ranalysis1 <> derive_pt_comp thm
+R5009:5022 Coq.Reals.Ranalysis1 <> derive_pt_comp thm
+R5037:5049 Coq.Reals.Rtrigo_reg <> derive_pt_sin thm
+R5037:5049 Coq.Reals.Rtrigo_reg <> derive_pt_sin thm
+R5037:5049 Coq.Reals.Rtrigo_reg <> derive_pt_sin thm
+R5063:5068 QuantumDerivation.SchrodingerFromPartitions <> derive def
+prf 5339:5363 <> quantum_dynamics_verified
+R5381:5381 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 5377:5377 <> v:26
+R5397:5400 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5393:5396 QuantumDerivation.SchrodingerFromPartitions <> Time def
+R5401:5401 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 5385:5389 <> theta:27
+R5409:5409 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5440:5449 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5616:5616 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 5417:5417 <> t:28
+R5420:5431 Coq.Reals.Ranalysis1 <> derivable_pt def
+R5433:5437 QuantumDerivation.SchrodingerFromPartitions <> theta:27 var
+R5439:5439 QuantumDerivation.SchrodingerFromPartitions <> t:28 var
+R5450:5457 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5463:5465 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5462:5462 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 5458:5458 <> H:29
+binder 5473:5473 <> t:30
+R5497:5499 Coq.Reals.Rtrigo_def <> cos def
+R5502:5506 QuantumDerivation.SchrodingerFromPartitions <> theta:27 var
+R5508:5508 QuantumDerivation.SchrodingerFromPartitions <> t:30 var
+binder 5488:5492 <> psi_x:31
+R5534:5536 Coq.Reals.Rtrigo_def <> sin def
+R5539:5543 QuantumDerivation.SchrodingerFromPartitions <> theta:27 var
+R5545:5545 QuantumDerivation.SchrodingerFromPartitions <> t:30 var
+binder 5525:5529 <> psi_y:32
+R5612:5615 Coq.Init.Logic <> True ind

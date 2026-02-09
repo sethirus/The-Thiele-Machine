@@ -1,0 +1,357 @@
+DIGEST a24433398277ec840bc73d3a0796331c
+FThieleMachine.BlindSighted
+R63:66 Coq.Lists.List <> <> lib
+R68:72 Coq.Arith.Arith <> <> lib
+R74:76 Coq.micromega.Lia <> <> lib
+R78:83 Coq.ZArith.ZArith <> <> lib
+R85:88 Coq.Bool.Bool <> <> lib
+R98:110 Coq.Lists.List ListNotations <> mod
+def 196:203 <> ModuleId
+R208:210 Coq.Init.Datatypes <> nat ind
+def 224:229 <> Region
+R234:237 Coq.Init.Datatypes <> list ind
+R239:241 Coq.Init.Datatypes <> nat ind
+rec 252:260 <> Partition
+proj 269:275 <> modules
+proj 307:313 <> next_id
+R279:282 Coq.Init.Datatypes <> list ind
+R293:295 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R285:292 ThieleMachine.BlindSighted <> ModuleId def
+R296:301 ThieleMachine.BlindSighted <> Region def
+R317:324 ThieleMachine.BlindSighted <> ModuleId def
+def 342:358 <> trivial_partition
+R372:377 ThieleMachine.BlindSighted <> Region def
+binder 361:368 <> universe:4
+R382:390 ThieleMachine.BlindSighted <> Partition rec
+R400:406 ThieleMachine.BlindSighted <> modules proj
+R400:406 ThieleMachine.BlindSighted <> modules proj
+R400:406 ThieleMachine.BlindSighted <> modules proj
+R428:434 ThieleMachine.BlindSighted <> next_id proj
+R428:434 ThieleMachine.BlindSighted <> next_id proj
+R411:411 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R425:425 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R412:412 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R414:415 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R424:424 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R416:423 ThieleMachine.BlindSighted <> universe:4 var
+rec 453:460 <> MuLedger
+proj 469:482 <> mu_operational
+proj 491:502 <> mu_discovery
+proj 511:518 <> mu_total
+R486:486 Coq.Numbers.BinNums <> Z ind
+R506:506 Coq.Numbers.BinNums <> Z ind
+R522:522 Coq.Numbers.BinNums <> Z ind
+def 540:550 <> zero_ledger
+R554:561 ThieleMachine.BlindSighted <> MuLedger rec
+R571:584 ThieleMachine.BlindSighted <> mu_operational proj
+R571:584 ThieleMachine.BlindSighted <> mu_operational proj
+R571:584 ThieleMachine.BlindSighted <> mu_operational proj
+R592:603 ThieleMachine.BlindSighted <> mu_discovery proj
+R592:603 ThieleMachine.BlindSighted <> mu_discovery proj
+R611:618 ThieleMachine.BlindSighted <> mu_total proj
+R611:618 ThieleMachine.BlindSighted <> mu_total proj
+rec 637:647 <> ThieleState
+proj 656:664 <> partition
+proj 681:686 <> ledger
+proj 702:707 <> halted
+proj 719:724 <> answer
+R668:676 ThieleMachine.BlindSighted <> Partition rec
+R690:697 ThieleMachine.BlindSighted <> MuLedger rec
+R711:714 Coq.Init.Datatypes <> bool ind
+R728:733 Coq.Init.Datatypes <> option ind
+R735:737 Coq.Init.Datatypes <> nat ind
+def 814:826 <> ThieleSighted
+R831:841 ThieleMachine.BlindSighted <> ThieleState rec
+def 856:868 <> initial_state
+R882:887 ThieleMachine.BlindSighted <> Region def
+binder 871:878 <> universe:14
+R892:902 ThieleMachine.BlindSighted <> ThieleState rec
+R912:920 ThieleMachine.BlindSighted <> partition proj
+R912:920 ThieleMachine.BlindSighted <> partition proj
+R912:920 ThieleMachine.BlindSighted <> partition proj
+R953:958 ThieleMachine.BlindSighted <> ledger proj
+R953:958 ThieleMachine.BlindSighted <> ledger proj
+R976:981 ThieleMachine.BlindSighted <> halted proj
+R976:981 ThieleMachine.BlindSighted <> halted proj
+R993:998 ThieleMachine.BlindSighted <> answer proj
+R993:998 ThieleMachine.BlindSighted <> answer proj
+R925:941 ThieleMachine.BlindSighted <> trivial_partition def
+R943:950 ThieleMachine.BlindSighted <> universe:14 var
+R963:973 ThieleMachine.BlindSighted <> zero_ledger def
+R986:990 Coq.Init.Datatypes <> false constr
+R1003:1006 Coq.Init.Datatypes <> None constr
+ind 1078:1088 <> ThieleInstr
+constr 1102:1105 <> PNEW
+constr 1140:1145 <> PSPLIT
+constr 1192:1197 <> PMERGE
+constr 1246:1254 <> PDISCOVER
+constr 1291:1294 <> EMIT
+constr 1319:1322 <> HALT
+R1115:1118 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1109:1114 ThieleMachine.BlindSighted <> Region def
+R1122:1125 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1119:1121 Coq.Init.Datatypes <> nat ind
+R1126:1136 ThieleMachine.BlindSighted <> ThieleInstr:15 ind
+R1157:1160 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1149:1156 ThieleMachine.BlindSighted <> ModuleId def
+R1167:1170 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1161:1166 ThieleMachine.BlindSighted <> Region def
+R1174:1177 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1171:1173 Coq.Init.Datatypes <> nat ind
+R1178:1188 ThieleMachine.BlindSighted <> ThieleInstr:15 ind
+R1209:1212 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1201:1208 ThieleMachine.BlindSighted <> ModuleId def
+R1221:1224 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1213:1220 ThieleMachine.BlindSighted <> ModuleId def
+R1228:1231 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1225:1227 Coq.Init.Datatypes <> nat ind
+R1232:1242 ThieleMachine.BlindSighted <> ThieleInstr:15 ind
+R1266:1269 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1258:1265 ThieleMachine.BlindSighted <> ModuleId def
+R1273:1276 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1270:1272 Coq.Init.Datatypes <> nat ind
+R1277:1287 ThieleMachine.BlindSighted <> ThieleInstr:15 ind
+R1301:1304 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1298:1300 Coq.Init.Datatypes <> nat ind
+R1305:1315 ThieleMachine.BlindSighted <> ThieleInstr:15 ind
+R1326:1336 ThieleMachine.BlindSighted <> ThieleInstr:15 ind
+scheme 1078:1088 <> ThieleInstr_rect
+scheme 1078:1088 <> ThieleInstr_ind
+scheme 1078:1088 <> ThieleInstr_rec
+scheme 1078:1088 <> ThieleInstr_sind
+def 1351:1360 <> ThieleProg
+R1365:1368 Coq.Init.Datatypes <> list ind
+R1370:1380 ThieleMachine.BlindSighted <> ThieleInstr ind
+def 1395:1407 <> is_blind_safe
+R1414:1424 ThieleMachine.BlindSighted <> ThieleInstr ind
+binder 1410:1410 <> i:17
+R1429:1432 Coq.Init.Datatypes <> bool ind
+R1445:1445 ThieleMachine.BlindSighted <> i:17 var
+R1456:1459 ThieleMachine.BlindSighted <> EMIT constr
+R1466:1469 Coq.Init.Datatypes <> true constr
+R1475:1478 ThieleMachine.BlindSighted <> HALT constr
+R1483:1486 Coq.Init.Datatypes <> true constr
+R1497:1501 Coq.Init.Datatypes <> false constr
+def 1521:1536 <> is_blind_program
+R1543:1552 ThieleMachine.BlindSighted <> ThieleProg def
+binder 1539:1539 <> p:19
+R1557:1560 Coq.Init.Datatypes <> bool ind
+R1565:1571 Coq.Lists.List <> forallb def
+R1587:1587 ThieleMachine.BlindSighted <> p:19 var
+R1573:1585 ThieleMachine.BlindSighted <> is_blind_safe def
+def 1672:1693 <> chsh_natural_partition
+R1697:1705 ThieleMachine.BlindSighted <> Partition rec
+R1715:1721 ThieleMachine.BlindSighted <> modules proj
+R1715:1721 ThieleMachine.BlindSighted <> modules proj
+R1715:1721 ThieleMachine.BlindSighted <> modules proj
+R1773:1779 ThieleMachine.BlindSighted <> next_id proj
+R1773:1779 ThieleMachine.BlindSighted <> next_id proj
+R1726:1726 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1738:1739 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1751:1752 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1770:1770 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1727:1727 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1729:1730 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1737:1737 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1731:1731 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1733:1734 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1736:1736 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1740:1740 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1742:1743 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1750:1750 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1744:1744 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1746:1747 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1749:1749 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1753:1753 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1755:1756 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1769:1769 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1757:1757 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1759:1760 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1762:1763 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1765:1766 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1768:1768 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+def 1866:1876 <> shor_n_bits
+R1883:1885 Coq.Init.Datatypes <> nat ind
+binder 1879:1879 <> N:20
+R1890:1892 Coq.Init.Datatypes <> nat ind
+R1919:1921 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1897:1904 Coq.Arith.PeanoNat Nat log2 def
+R1907:1913 Coq.Arith.PeanoNat Nat max def
+R1917:1917 ThieleMachine.BlindSighted <> N:20 var
+def 1937:1953 <> shor_residue_vars
+R1960:1962 Coq.Init.Datatypes <> nat ind
+binder 1956:1956 <> N:21
+R1967:1972 ThieleMachine.BlindSighted <> Region def
+R1977:1979 Coq.Lists.List <> seq def
+R1984:1994 ThieleMachine.BlindSighted <> shor_n_bits def
+R1996:1996 ThieleMachine.BlindSighted <> N:21 var
+def 2011:2026 <> shor_period_vars
+R2033:2035 Coq.Init.Datatypes <> nat ind
+binder 2029:2029 <> N:22
+R2040:2045 ThieleMachine.BlindSighted <> Region def
+R2050:2052 Coq.Lists.List <> seq def
+R2075:2085 ThieleMachine.BlindSighted <> shor_n_bits def
+R2087:2087 ThieleMachine.BlindSighted <> N:22 var
+R2056:2058 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2059:2069 ThieleMachine.BlindSighted <> shor_n_bits def
+R2071:2071 ThieleMachine.BlindSighted <> N:22 var
+def 2102:2117 <> shor_factor_vars
+R2124:2126 Coq.Init.Datatypes <> nat ind
+binder 2120:2120 <> N:23
+R2131:2136 ThieleMachine.BlindSighted <> Region def
+R2141:2143 Coq.Lists.List <> seq def
+R2170:2180 ThieleMachine.BlindSighted <> shor_n_bits def
+R2182:2182 ThieleMachine.BlindSighted <> N:23 var
+R2147:2149 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2151:2153 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2154:2164 ThieleMachine.BlindSighted <> shor_n_bits def
+R2166:2166 ThieleMachine.BlindSighted <> N:23 var
+def 2198:2219 <> shor_natural_partition
+R2226:2228 Coq.Init.Datatypes <> nat ind
+binder 2222:2222 <> N:24
+R2233:2241 ThieleMachine.BlindSighted <> Partition rec
+R2251:2257 ThieleMachine.BlindSighted <> modules proj
+R2251:2257 ThieleMachine.BlindSighted <> modules proj
+R2251:2257 ThieleMachine.BlindSighted <> modules proj
+R2377:2383 ThieleMachine.BlindSighted <> next_id proj
+R2377:2383 ThieleMachine.BlindSighted <> next_id proj
+R2262:2262 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2287:2304 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2328:2345 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2369:2369 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2263:2263 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2265:2266 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2286:2286 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2267:2283 ThieleMachine.BlindSighted <> shor_residue_vars def
+R2285:2285 ThieleMachine.BlindSighted <> N:24 var
+R2305:2305 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2307:2308 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2327:2327 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2309:2324 ThieleMachine.BlindSighted <> shor_period_vars def
+R2326:2326 ThieleMachine.BlindSighted <> N:24 var
+R2346:2346 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2348:2349 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2368:2368 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2350:2365 ThieleMachine.BlindSighted <> shor_factor_vars def
+R2367:2367 ThieleMachine.BlindSighted <> N:24 var
+def 2406:2421 <> BlindThieleState
+R2426:2436 ThieleMachine.BlindSighted <> ThieleState rec
+def 2450:2460 <> ThieleBlind
+R2465:2480 ThieleMachine.BlindSighted <> BlindThieleState def
+def 2494:2506 <> blind_initial
+R2520:2525 ThieleMachine.BlindSighted <> Region def
+binder 2509:2516 <> universe:25
+R2530:2545 ThieleMachine.BlindSighted <> BlindThieleState def
+R2550:2562 ThieleMachine.BlindSighted <> initial_state def
+R2564:2571 ThieleMachine.BlindSighted <> universe:25 var
+rec 2582:2593 <> TuringConfig
+proj 2600:2606 <> tm_tape
+proj 2620:2626 <> tm_head
+proj 2635:2642 <> tm_state
+R2610:2613 Coq.Init.Datatypes <> list ind
+R2615:2617 Coq.Init.Datatypes <> nat ind
+R2630:2632 Coq.Init.Datatypes <> nat ind
+R2646:2648 Coq.Init.Datatypes <> nat ind
+def 2664:2672 <> tm_output
+R2681:2692 ThieleMachine.BlindSighted <> TuringConfig rec
+binder 2675:2677 <> cfg:30
+R2697:2699 Coq.Init.Datatypes <> nat ind
+R2709:2716 ThieleMachine.BlindSighted <> tm_state proj
+R2704:2706 ThieleMachine.BlindSighted <> cfg:30 var
+def 2731:2746 <> encode_tm_config
+R2755:2766 ThieleMachine.BlindSighted <> TuringConfig rec
+binder 2749:2751 <> cfg:31
+R2771:2776 ThieleMachine.BlindSighted <> Region def
+R2794:2797 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R2786:2792 ThieleMachine.BlindSighted <> tm_tape proj
+R2781:2783 ThieleMachine.BlindSighted <> cfg:31 var
+R2798:2798 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2812:2813 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2828:2828 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2804:2810 ThieleMachine.BlindSighted <> tm_head proj
+R2799:2801 ThieleMachine.BlindSighted <> cfg:31 var
+R2819:2826 ThieleMachine.BlindSighted <> tm_state proj
+R2814:2816 ThieleMachine.BlindSighted <> cfg:31 var
+prf 2840:2856 <> TM_as_BlindThiele
+R2874:2885 ThieleMachine.BlindSighted <> TuringConfig rec
+binder 2868:2870 <> cfg:32
+R2889:2896 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2947:2951 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2910:2919 ThieleMachine.BlindSighted <> ThieleProg def
+binder 2897:2906 <> blind_prog:33
+R2931:2946 ThieleMachine.BlindSighted <> BlindThieleState def
+binder 2923:2927 <> final:34
+R2986:2989 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2979:2981 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2952:2967 ThieleMachine.BlindSighted <> is_blind_program def
+R2969:2978 ThieleMachine.BlindSighted <> blind_prog:33 var
+R2982:2985 Coq.Init.Datatypes <> true constr
+R3004:3006 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2997:3002 ThieleMachine.BlindSighted <> answer proj
+R2990:2994 ThieleMachine.BlindSighted <> final:34 var
+R3007:3010 Coq.Init.Datatypes <> Some constr
+R3013:3021 ThieleMachine.BlindSighted <> tm_output def
+R3023:3025 ThieleMachine.BlindSighted <> cfg:32 var
+R3058:3058 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3079:3080 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3085:3085 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3059:3062 ThieleMachine.BlindSighted <> EMIT constr
+R3065:3073 ThieleMachine.BlindSighted <> tm_output def
+R3081:3084 ThieleMachine.BlindSighted <> HALT constr
+R3058:3058 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3079:3080 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3085:3085 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3059:3062 ThieleMachine.BlindSighted <> EMIT constr
+R3065:3073 ThieleMachine.BlindSighted <> tm_output def
+R3081:3084 ThieleMachine.BlindSighted <> HALT constr
+R3100:3108 ThieleMachine.BlindSighted <> partition proj
+R3100:3108 ThieleMachine.BlindSighted <> partition proj
+R3100:3108 ThieleMachine.BlindSighted <> partition proj
+R3155:3160 ThieleMachine.BlindSighted <> ledger proj
+R3155:3160 ThieleMachine.BlindSighted <> ledger proj
+R3178:3183 ThieleMachine.BlindSighted <> halted proj
+R3178:3183 ThieleMachine.BlindSighted <> halted proj
+R3194:3199 ThieleMachine.BlindSighted <> answer proj
+R3194:3199 ThieleMachine.BlindSighted <> answer proj
+R3113:3129 ThieleMachine.BlindSighted <> trivial_partition def
+R3132:3147 ThieleMachine.BlindSighted <> encode_tm_config def
+R3165:3175 ThieleMachine.BlindSighted <> zero_ledger def
+R3188:3191 Coq.Init.Datatypes <> true constr
+R3204:3207 Coq.Init.Datatypes <> Some constr
+R3210:3218 ThieleMachine.BlindSighted <> tm_output def
+R3100:3108 ThieleMachine.BlindSighted <> partition proj
+R3100:3108 ThieleMachine.BlindSighted <> partition proj
+R3100:3108 ThieleMachine.BlindSighted <> partition proj
+R3155:3160 ThieleMachine.BlindSighted <> ledger proj
+R3155:3160 ThieleMachine.BlindSighted <> ledger proj
+R3178:3183 ThieleMachine.BlindSighted <> halted proj
+R3178:3183 ThieleMachine.BlindSighted <> halted proj
+R3194:3199 ThieleMachine.BlindSighted <> answer proj
+R3194:3199 ThieleMachine.BlindSighted <> answer proj
+R3113:3129 ThieleMachine.BlindSighted <> trivial_partition def
+R3132:3147 ThieleMachine.BlindSighted <> encode_tm_config def
+R3165:3175 ThieleMachine.BlindSighted <> zero_ledger def
+R3188:3191 Coq.Init.Datatypes <> true constr
+R3204:3207 Coq.Init.Datatypes <> Some constr
+R3210:3218 ThieleMachine.BlindSighted <> tm_output def
+prf 3272:3302 <> Blind_is_restriction_of_Sighted
+R3321:3330 ThieleMachine.BlindSighted <> ThieleProg def
+binder 3314:3317 <> prog:35
+R3347:3362 ThieleMachine.BlindSighted <> BlindThieleState def
+binder 3334:3343 <> init_state:36
+R3396:3399 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3389:3391 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3368:3383 ThieleMachine.BlindSighted <> is_blind_program def
+R3385:3388 ThieleMachine.BlindSighted <> prog:35 var
+R3392:3395 Coq.Init.Datatypes <> true constr
+binder 3407:3417 <> final_blind:37
+binder 3419:3431 <> final_sighted:38
+R3461:3464 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3445:3447 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3434:3444 ThieleMachine.BlindSighted <> final_blind:37 var
+R3448:3460 ThieleMachine.BlindSighted <> final_sighted:38 var
+R3485:3487 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3478:3483 ThieleMachine.BlindSighted <> answer proj
+R3465:3475 ThieleMachine.BlindSighted <> final_blind:37 var
+R3503:3508 ThieleMachine.BlindSighted <> answer proj
+R3488:3500 ThieleMachine.BlindSighted <> final_sighted:38 var

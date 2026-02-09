@@ -1,0 +1,306 @@
+DIGEST 3f4ccd67d4a086a2bac679b3b478348c
+FThieleMachine.WaveCheck
+R310:326 Coq.QArith.QArith <> <> lib
+R344:360 Coq.ZArith.ZArith <> <> lib
+R378:393 Coq.ZArith.Zbool <> <> lib
+R411:424 Coq.Lists.List <> <> lib
+R435:447 Coq.Lists.List ListNotations <> mod
+rec 717:732 <> WaveCoefficients
+proj 741:749 <> coeff_u_t
+proj 794:804 <> coeff_u_tm1
+proj 849:858 <> coeff_u_xp
+proj 904:913 <> coeff_u_xm
+R753:753 Coq.QArith.QArith_base <> Q rec
+R808:808 Coq.QArith.QArith_base <> Q rec
+R862:862 Coq.QArith.QArith_base <> Q rec
+R917:917 Coq.QArith.QArith_base <> Q rec
+rec 1064:1076 <> WavePDEParams
+proj 1085:1098 <> wave_c_squared
+R1102:1102 Coq.QArith.QArith_base <> Q rec
+rec 1184:1194 <> WaveSummary
+proj 1203:1217 <> ws_coefficients
+proj 1241:1246 <> ws_pde
+proj 1267:1278 <> ws_rms_error
+R1221:1236 ThieleMachine.WaveCheck <> WaveCoefficients rec
+R1250:1262 ThieleMachine.WaveCheck <> WavePDEParams rec
+R1282:1282 Coq.QArith.QArith_base <> Q rec
+def 1435:1449 <> discrete_d2_dt2
+R1470:1470 Coq.QArith.QArith_base <> Q rec
+binder 1452:1456 <> u_tp1:12
+binder 1458:1460 <> u_t:13
+binder 1462:1466 <> u_tm1:14
+R1475:1475 Coq.QArith.QArith_base <> Q rec
+R1497:1499 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R1487:1489 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R1482:1486 ThieleMachine.WaveCheck <> u_tp1:12 var
+R1491:1493 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R1494:1496 ThieleMachine.WaveCheck <> u_t:13 var
+R1500:1504 ThieleMachine.WaveCheck <> u_tm1:14 var
+def 1614:1628 <> discrete_d2_dx2
+R1647:1647 Coq.QArith.QArith_base <> Q rec
+binder 1631:1634 <> u_xp:15
+binder 1636:1638 <> u_x:16
+binder 1640:1643 <> u_xm:17
+R1652:1652 Coq.QArith.QArith_base <> Q rec
+R1673:1675 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R1663:1665 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R1659:1662 ThieleMachine.WaveCheck <> u_xp:15 var
+R1667:1669 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R1670:1672 ThieleMachine.WaveCheck <> u_x:16 var
+R1676:1679 ThieleMachine.WaveCheck <> u_xm:17 var
+def 1764:1774 <> wave_update
+R1781:1796 ThieleMachine.WaveCheck <> WaveCoefficients rec
+binder 1777:1777 <> w:18
+R1822:1822 Coq.QArith.QArith_base <> Q rec
+binder 1800:1802 <> u_t:19
+binder 1804:1808 <> u_tm1:20
+binder 1810:1813 <> u_xp:21
+binder 1815:1818 <> u_xm:22
+R1827:1827 Coq.QArith.QArith_base <> Q rec
+R1908:1913 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R1882:1886 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R1853:1858 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R1847:1849 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R1837:1845 ThieleMachine.WaveCheck <> coeff_u_t proj
+R1834:1834 ThieleMachine.WaveCheck <> w:18 var
+R1850:1852 ThieleMachine.WaveCheck <> u_t:19 var
+R1874:1876 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R1862:1872 ThieleMachine.WaveCheck <> coeff_u_tm1 proj
+R1859:1859 ThieleMachine.WaveCheck <> w:18 var
+R1877:1881 ThieleMachine.WaveCheck <> u_tm1:20 var
+R1901:1903 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R1890:1899 ThieleMachine.WaveCheck <> coeff_u_xp proj
+R1887:1887 ThieleMachine.WaveCheck <> w:18 var
+R1904:1907 ThieleMachine.WaveCheck <> u_xp:21 var
+R1928:1930 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R1917:1926 ThieleMachine.WaveCheck <> coeff_u_xm proj
+R1914:1914 ThieleMachine.WaveCheck <> w:18 var
+R1931:1934 ThieleMachine.WaveCheck <> u_xm:22 var
+def 2065:2092 <> discrete_wave_equation_holds
+R2107:2107 Coq.QArith.QArith_base <> Q rec
+binder 2100:2103 <> c_sq:23
+R2139:2139 Coq.QArith.QArith_base <> Q rec
+binder 2111:2115 <> u_tp1:24
+binder 2117:2119 <> u_t:25
+binder 2121:2125 <> u_tm1:26
+binder 2127:2130 <> u_xp:27
+binder 2132:2135 <> u_xm:28
+R2165:2179 ThieleMachine.WaveCheck <> discrete_d2_dt2 def
+R2181:2185 ThieleMachine.WaveCheck <> u_tp1:24 var
+R2187:2189 ThieleMachine.WaveCheck <> u_t:25 var
+R2191:2195 ThieleMachine.WaveCheck <> u_tm1:26 var
+binder 2158:2160 <> d2t:29
+R2213:2227 ThieleMachine.WaveCheck <> discrete_d2_dx2 def
+R2229:2232 ThieleMachine.WaveCheck <> u_xp:27 var
+R2234:2236 ThieleMachine.WaveCheck <> u_t:25 var
+R2238:2241 ThieleMachine.WaveCheck <> u_xm:28 var
+binder 2206:2208 <> d2x:30
+R2251:2254 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R2248:2250 ThieleMachine.WaveCheck <> d2t:29 var
+R2259:2261 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R2255:2258 ThieleMachine.WaveCheck <> c_sq:23 var
+R2262:2264 ThieleMachine.WaveCheck <> d2x:30 var
+def 2349:2368 <> wave_update_is_local
+R2375:2390 ThieleMachine.WaveCheck <> WaveCoefficients rec
+binder 2371:2371 <> w:31
+binder 2412:2414 <> u_t:32
+binder 2416:2420 <> u_tm1:33
+binder 2422:2425 <> u_xp:34
+binder 2427:2430 <> u_xm:35
+binder 2432:2435 <> u_t':36
+binder 2437:2442 <> u_tm1':37
+binder 2444:2448 <> u_xp':38
+binder 2450:2454 <> u_xm':39
+R2472:2479 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2464:2467 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R2461:2463 ThieleMachine.WaveCheck <> u_t:32 var
+R2468:2471 ThieleMachine.WaveCheck <> u_t':36 var
+R2495:2502 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2485:2488 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R2480:2484 ThieleMachine.WaveCheck <> u_tm1:33 var
+R2489:2494 ThieleMachine.WaveCheck <> u_tm1':37 var
+R2516:2523 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2507:2510 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R2503:2506 ThieleMachine.WaveCheck <> u_xp:34 var
+R2511:2515 ThieleMachine.WaveCheck <> u_xp':38 var
+R2537:2544 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2528:2531 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R2524:2527 ThieleMachine.WaveCheck <> u_xm:35 var
+R2532:2536 ThieleMachine.WaveCheck <> u_xm':39 var
+R2578:2581 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R2545:2555 ThieleMachine.WaveCheck <> wave_update def
+R2557:2557 ThieleMachine.WaveCheck <> w:31 var
+R2559:2561 ThieleMachine.WaveCheck <> u_t:32 var
+R2563:2567 ThieleMachine.WaveCheck <> u_tm1:33 var
+R2569:2572 ThieleMachine.WaveCheck <> u_xp:34 var
+R2574:2577 ThieleMachine.WaveCheck <> u_xm:35 var
+R2582:2592 ThieleMachine.WaveCheck <> wave_update def
+R2594:2594 ThieleMachine.WaveCheck <> w:31 var
+R2596:2599 ThieleMachine.WaveCheck <> u_t':36 var
+R2601:2606 ThieleMachine.WaveCheck <> u_tm1':37 var
+R2608:2612 ThieleMachine.WaveCheck <> u_xp':38 var
+R2614:2618 ThieleMachine.WaveCheck <> u_xm':39 var
+def 2905:2930 <> coefficients_match_wave_eq
+R2937:2952 ThieleMachine.WaveCheck <> WaveCoefficients rec
+binder 2933:2933 <> w:40
+R2960:2972 ThieleMachine.WaveCheck <> WavePDEParams rec
+binder 2956:2956 <> p:41
+R3002:3015 ThieleMachine.WaveCheck <> wave_c_squared proj
+R2999:2999 ThieleMachine.WaveCheck <> p:41 var
+binder 2991:2994 <> c_sq:42
+R3054:3059 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3036:3039 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R3026:3034 ThieleMachine.WaveCheck <> coeff_u_t proj
+R3023:3023 ThieleMachine.WaveCheck <> w:40 var
+R3041:3044 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R3053:3053 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R3046:3048 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R3049:3052 ThieleMachine.WaveCheck <> c_sq:42 var
+R3081:3086 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3075:3078 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R3063:3073 ThieleMachine.WaveCheck <> coeff_u_tm1 proj
+R3060:3060 ThieleMachine.WaveCheck <> w:40 var
+R3109:3114 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3101:3104 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R3090:3099 ThieleMachine.WaveCheck <> coeff_u_xp proj
+R3087:3087 ThieleMachine.WaveCheck <> w:40 var
+R3105:3108 ThieleMachine.WaveCheck <> c_sq:42 var
+R3129:3132 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R3118:3127 ThieleMachine.WaveCheck <> coeff_u_xm proj
+R3115:3115 ThieleMachine.WaveCheck <> w:40 var
+R3133:3136 ThieleMachine.WaveCheck <> c_sq:42 var
+def 3198:3215 <> symmetric_in_space
+R3222:3237 ThieleMachine.WaveCheck <> WaveCoefficients rec
+binder 3218:3218 <> w:43
+R3266:3269 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R3255:3264 ThieleMachine.WaveCheck <> coeff_u_xp proj
+R3252:3252 ThieleMachine.WaveCheck <> w:43 var
+R3273:3282 ThieleMachine.WaveCheck <> coeff_u_xm proj
+R3270:3270 ThieleMachine.WaveCheck <> w:43 var
+def 3511:3531 <> wave_summary_verified
+R3539:3549 ThieleMachine.WaveCheck <> WaveSummary rec
+binder 3534:3535 <> ws:44
+R3623:3628 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3564:3589 ThieleMachine.WaveCheck <> coefficients_match_wave_eq def
+R3595:3609 ThieleMachine.WaveCheck <> ws_coefficients proj
+R3591:3592 ThieleMachine.WaveCheck <> ws:44 var
+R3616:3621 ThieleMachine.WaveCheck <> ws_pde proj
+R3612:3613 ThieleMachine.WaveCheck <> ws:44 var
+R3629:3646 ThieleMachine.WaveCheck <> symmetric_in_space def
+R3652:3666 ThieleMachine.WaveCheck <> ws_coefficients proj
+R3648:3649 ThieleMachine.WaveCheck <> ws:44 var
+def 3765:3780 <> make_wave_coeffs
+R3790:3790 Coq.QArith.QArith_base <> Q rec
+binder 3783:3786 <> c_sq:45
+R3795:3810 ThieleMachine.WaveCheck <> WaveCoefficients rec
+R3820:3828 ThieleMachine.WaveCheck <> coeff_u_t proj
+R3820:3828 ThieleMachine.WaveCheck <> coeff_u_t proj
+R3820:3828 ThieleMachine.WaveCheck <> coeff_u_t proj
+R3854:3864 ThieleMachine.WaveCheck <> coeff_u_tm1 proj
+R3854:3864 ThieleMachine.WaveCheck <> coeff_u_tm1 proj
+R3878:3887 ThieleMachine.WaveCheck <> coeff_u_xp proj
+R3878:3887 ThieleMachine.WaveCheck <> coeff_u_xp proj
+R3903:3912 ThieleMachine.WaveCheck <> coeff_u_xm proj
+R3903:3912 ThieleMachine.WaveCheck <> coeff_u_xm proj
+R3834:3837 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R3846:3846 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R3839:3841 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R3842:3845 ThieleMachine.WaveCheck <> c_sq:45 var
+R3892:3895 ThieleMachine.WaveCheck <> c_sq:45 var
+R3917:3920 ThieleMachine.WaveCheck <> c_sq:45 var
+def 3993:4009 <> standard_wave_c05
+R4013:4028 ThieleMachine.WaveCheck <> WaveCoefficients rec
+R4035:4050 ThieleMachine.WaveCheck <> make_wave_coeffs def
+R4054:4056 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+prf 4085:4105 <> wave_coeffs_symmetric
+binder 4119:4122 <> c_sq:46
+R4125:4142 ThieleMachine.WaveCheck <> symmetric_in_space def
+R4145:4160 ThieleMachine.WaveCheck <> make_wave_coeffs def
+R4162:4165 ThieleMachine.WaveCheck <> c_sq:46 var
+R4193:4210 ThieleMachine.WaveCheck <> symmetric_in_space def
+R4213:4228 ThieleMachine.WaveCheck <> make_wave_coeffs def
+prf 4265:4281 <> wave_coeffs_match
+binder 4294:4297 <> c_sq:47
+R4313:4328 ThieleMachine.WaveCheck <> make_wave_coeffs def
+R4330:4333 ThieleMachine.WaveCheck <> c_sq:47 var
+binder 4308:4308 <> w:48
+R4354:4367 ThieleMachine.WaveCheck <> wave_c_squared proj
+R4354:4367 ThieleMachine.WaveCheck <> wave_c_squared proj
+R4354:4367 ThieleMachine.WaveCheck <> wave_c_squared proj
+R4372:4375 ThieleMachine.WaveCheck <> c_sq:47 var
+binder 4346:4346 <> p:49
+R4387:4412 ThieleMachine.WaveCheck <> coefficients_match_wave_eq def
+R4414:4414 ThieleMachine.WaveCheck <> w:48 var
+R4416:4416 ThieleMachine.WaveCheck <> p:49 var
+R4443:4468 ThieleMachine.WaveCheck <> coefficients_match_wave_eq def
+R4471:4486 ThieleMachine.WaveCheck <> make_wave_coeffs def
+prf 4537:4558 <> standard_wave_verified
+binder 4571:4574 <> c_sq:50
+R4590:4605 ThieleMachine.WaveCheck <> make_wave_coeffs def
+R4607:4610 ThieleMachine.WaveCheck <> c_sq:50 var
+binder 4585:4585 <> w:51
+R4631:4644 ThieleMachine.WaveCheck <> wave_c_squared proj
+R4631:4644 ThieleMachine.WaveCheck <> wave_c_squared proj
+R4631:4644 ThieleMachine.WaveCheck <> wave_c_squared proj
+R4649:4652 ThieleMachine.WaveCheck <> c_sq:50 var
+binder 4623:4623 <> p:52
+R4677:4691 ThieleMachine.WaveCheck <> ws_coefficients proj
+R4677:4691 ThieleMachine.WaveCheck <> ws_coefficients proj
+R4677:4691 ThieleMachine.WaveCheck <> ws_coefficients proj
+R4699:4704 ThieleMachine.WaveCheck <> ws_pde proj
+R4699:4704 ThieleMachine.WaveCheck <> ws_pde proj
+R4712:4723 ThieleMachine.WaveCheck <> ws_rms_error proj
+R4712:4723 ThieleMachine.WaveCheck <> ws_rms_error proj
+R4696:4696 ThieleMachine.WaveCheck <> w:51 var
+R4709:4709 ThieleMachine.WaveCheck <> p:52 var
+binder 4668:4669 <> ws:53
+R4740:4760 ThieleMachine.WaveCheck <> wave_summary_verified def
+R4762:4763 ThieleMachine.WaveCheck <> ws:53 var
+R4790:4810 ThieleMachine.WaveCheck <> wave_summary_verified def
+R4830:4846 ThieleMachine.WaveCheck <> wave_coeffs_match thm
+R4830:4846 ThieleMachine.WaveCheck <> wave_coeffs_match thm
+R4859:4879 ThieleMachine.WaveCheck <> wave_coeffs_symmetric thm
+R4859:4879 ThieleMachine.WaveCheck <> wave_coeffs_symmetric thm
+prf 5021:5051 <> emergent_wave_from_coefficients
+R5070:5080 ThieleMachine.WaveCheck <> WaveSummary rec
+binder 5065:5066 <> ws:54
+R5112:5112 Coq.QArith.QArith_base <> Q rec
+binder 5084:5088 <> u_tp1:55
+binder 5090:5092 <> u_t:56
+binder 5094:5098 <> u_tm1:57
+binder 5100:5103 <> u_xp:58
+binder 5105:5108 <> u_xm:59
+R5144:5151 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5120:5140 ThieleMachine.WaveCheck <> wave_summary_verified def
+R5142:5143 ThieleMachine.WaveCheck <> ws:54 var
+R5213:5220 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5157:5160 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R5152:5156 ThieleMachine.WaveCheck <> u_tp1:55 var
+R5161:5171 ThieleMachine.WaveCheck <> wave_update def
+R5177:5191 ThieleMachine.WaveCheck <> ws_coefficients proj
+R5173:5174 ThieleMachine.WaveCheck <> ws:54 var
+R5194:5196 ThieleMachine.WaveCheck <> u_t:56 var
+R5198:5202 ThieleMachine.WaveCheck <> u_tm1:57 var
+R5204:5207 ThieleMachine.WaveCheck <> u_xp:58 var
+R5209:5212 ThieleMachine.WaveCheck <> u_xm:59 var
+R5221:5248 ThieleMachine.WaveCheck <> discrete_wave_equation_holds def
+R5263:5276 ThieleMachine.WaveCheck <> wave_c_squared proj
+R5254:5259 ThieleMachine.WaveCheck <> ws_pde proj
+R5250:5251 ThieleMachine.WaveCheck <> ws:54 var
+R5279:5283 ThieleMachine.WaveCheck <> u_tp1:55 var
+R5285:5287 ThieleMachine.WaveCheck <> u_t:56 var
+R5289:5293 ThieleMachine.WaveCheck <> u_tm1:57 var
+R5295:5298 ThieleMachine.WaveCheck <> u_xp:58 var
+R5300:5303 ThieleMachine.WaveCheck <> u_xm:59 var
+R5379:5399 ThieleMachine.WaveCheck <> wave_summary_verified def
+R5463:5488 ThieleMachine.WaveCheck <> coefficients_match_wave_eq def
+R5578:5605 ThieleMachine.WaveCheck <> discrete_wave_equation_holds def
+R5608:5622 ThieleMachine.WaveCheck <> discrete_d2_dt2 def
+R5625:5639 ThieleMachine.WaveCheck <> discrete_d2_dx2 def
+R5651:5661 ThieleMachine.WaveCheck <> wave_update def
+R5693:5706 ThieleMachine.WaveCheck <> wave_c_squared proj
+R5709:5714 ThieleMachine.WaveCheck <> ws_pde proj
+R5693:5706 ThieleMachine.WaveCheck <> wave_c_squared proj
+R5709:5714 ThieleMachine.WaveCheck <> ws_pde proj
+R5739:5753 ThieleMachine.WaveCheck <> ws_coefficients proj
+R5739:5753 ThieleMachine.WaveCheck <> ws_coefficients proj

@@ -1,0 +1,147 @@
+DIGEST 56f1dbf239ac2fe3d77083bfd5bed952
+FKernel.MasterSummary
+R3019:3024 Coq.QArith.QArith <> <> lib
+R3026:3029 Coq.QArith.Qabs <> <> lib
+R3031:3033 Coq.micromega.Lia <> <> lib
+R3035:3038 Coq.Lists.List <> <> lib
+R3048:3060 Coq.Lists.List ListNotations <> mod
+R3117:3123 Kernel.VMState <> <> lib
+R3125:3130 Kernel.VMStep <> <> lib
+R3132:3142 Kernel.MuCostModel <> <> lib
+R3144:3157 Kernel.CHSHExtraction <> <> lib
+R3187:3200 Kernel.ClassicalBound <> <> lib
+R3202:3220 Kernel.TsirelsonUpperBound <> <> lib
+R3222:3240 Kernel.TsirelsonUniqueness <> <> lib
+R3270:3287 Kernel.QuantumEquivalence <> <> lib
+R3289:3301 Kernel.NoFreeInsight <> <> lib
+R3331:3348 Kernel.PythonBisimulation <> <> lib
+R3350:3369 Kernel.HardwareBisimulation <> <> lib
+R3399:3417 Kernel.NonCircularityAudit <> <> lib
+prf 3954:3969 <> master_tsirelson
+R3976:3976 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4033:4040 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4150:4150 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3977:3983 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3994:3995 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3984:3987 <> fuel:1
+binder 3989:3993 <> trace:2
+R4025:4027 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3996:4011 Kernel.MuCostModel <> mu_cost_of_trace def
+R4013:4016 Kernel.MasterSummary <> fuel:1 var
+R4018:4022 Kernel.MasterSummary <> trace:2 var
+binder 4048:4051 <> fuel:3
+binder 4053:4057 <> trace:4
+binder 4059:4064 <> s_init:5
+R4093:4099 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4067:4081 Kernel.MuCostModel <> mu_zero_program def
+R4083:4086 Kernel.MasterSummary <> fuel:3 var
+R4088:4092 Kernel.MasterSummary <> trace:4 var
+R4143:4146 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R4100:4103 Coq.QArith.Qabs <> Qabs def
+R4106:4123 Kernel.CHSHExtraction <> chsh_from_vm_trace def
+R4125:4128 Kernel.MasterSummary <> fuel:3 var
+R4130:4134 Kernel.MasterSummary <> trace:4 var
+R4136:4141 Kernel.MasterSummary <> s_init:5 var
+R4188:4212 Kernel.ClassicalBound <> classical_achieving_trace def
+R4188:4212 Kernel.ClassicalBound <> classical_achieving_trace def
+R4221:4245 Kernel.ClassicalBound <> classical_program_mu_zero thm
+R4221:4245 Kernel.ClassicalBound <> classical_program_mu_zero thm
+R4292:4311 Kernel.TsirelsonUpperBound <> mu_zero_chsh_bounded thm
+R4292:4311 Kernel.TsirelsonUpperBound <> mu_zero_chsh_bounded thm
+prf 4722:4747 <> master_quantum_foundations
+R4832:4885 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4803:4831 Kernel.QuantumEquivalence <> correlation_hierarchy_derived def
+R4913:4985 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5019:5019 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4886:4912 Kernel.QuantumEquivalence <> qm_is_cost_free_computation def
+R5001:5003 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4986:5000 Kernel.QuantumEquivalence <> tsirelson_bound def
+R5004:5018 Kernel.QuantumEquivalence <> tsirelson_bound def
+R5037:5064 Kernel.QuantumEquivalence <> quantum_foundations_complete thm
+R5037:5064 Kernel.QuantumEquivalence <> quantum_foundations_complete thm
+prf 5413:5434 <> master_non_circularity
+R5438:5464 Kernel.NonCircularityAudit <> non_circularity_certificate def
+R5482:5505 Kernel.NonCircularityAudit <> non_circularity_verified thm
+R5482:5505 Kernel.NonCircularityAudit <> non_circularity_verified thm
+def 5852:5875 <> verification_chain_holds
+binder 5896:5902 <> hw_init:6
+binder 5904:5910 <> py_init:7
+R5958:5965 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5917:5941 Kernel.HardwareBisimulation <> hw_bisimulation_invariant def
+R5943:5949 Kernel.MasterSummary <> hw_init:6 var
+R5951:5957 Kernel.MasterSummary <> py_init:7 var
+R5981:5984 Coq.Init.Datatypes <> list ind
+R5986:5988 Coq.Init.Datatypes <> nat ind
+binder 5973:5977 <> costs:8
+R6104:6111 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5995:6019 Kernel.HardwareBisimulation <> hw_bisimulation_invariant def
+R6029:6047 Kernel.HardwareBisimulation <> hardware_multi_step def
+R6049:6055 Kernel.MasterSummary <> hw_init:6 var
+R6057:6061 Kernel.MasterSummary <> costs:8 var
+R6072:6088 Kernel.HardwareBisimulation <> python_multi_step def
+R6090:6096 Kernel.MasterSummary <> py_init:7 var
+R6098:6102 Kernel.MasterSummary <> costs:8 var
+R6165:6173 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6112:6128 Kernel.HardwareBisimulation <> hw_mu_accumulator proj
+R6131:6149 Kernel.HardwareBisimulation <> hardware_multi_step def
+R6151:6157 Kernel.MasterSummary <> hw_init:6 var
+R6159:6163 Kernel.MasterSummary <> costs:8 var
+R6174:6178 Kernel.HardwareBisimulation <> py_mu proj
+R6181:6197 Kernel.HardwareBisimulation <> python_multi_step def
+R6199:6205 Kernel.MasterSummary <> py_init:7 var
+R6207:6211 Kernel.MasterSummary <> costs:8 var
+prf 6224:6248 <> master_verification_chain
+R6252:6275 Kernel.MasterSummary <> verification_chain_holds def
+R6294:6317 Kernel.MasterSummary <> verification_chain_holds def
+R6366:6392 Kernel.HardwareBisimulation <> complete_verification_chain thm
+R6366:6392 Kernel.HardwareBisimulation <> complete_verification_chain thm
+def 7330:7352 <> thiele_machine_complete
+R7405:7405 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7462:7468 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7406:7412 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7423:7424 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 7413:7416 <> fuel:9
+binder 7418:7422 <> trace:10
+R7454:7456 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7425:7440 Kernel.MuCostModel <> mu_cost_of_trace def
+R7442:7445 Kernel.MasterSummary <> fuel:9 var
+R7447:7451 Kernel.MasterSummary <> trace:10 var
+R7469:7469 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7579:7622 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 7477:7480 <> fuel:11
+binder 7482:7486 <> trace:12
+binder 7488:7493 <> s_init:13
+R7522:7528 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7496:7510 Kernel.MuCostModel <> mu_zero_program def
+R7512:7515 Kernel.MasterSummary <> fuel:11 var
+R7517:7521 Kernel.MasterSummary <> trace:12 var
+R7572:7575 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R7529:7532 Coq.QArith.Qabs <> Qabs def
+R7535:7552 Kernel.CHSHExtraction <> chsh_from_vm_trace def
+R7554:7557 Kernel.MasterSummary <> fuel:11 var
+R7559:7563 Kernel.MasterSummary <> trace:12 var
+R7565:7570 Kernel.MasterSummary <> s_init:13 var
+R7652:7657 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7623:7651 Kernel.QuantumEquivalence <> correlation_hierarchy_derived def
+R7685:7723 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7658:7684 Kernel.QuantumEquivalence <> qm_is_cost_free_computation def
+R7751:7792 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7724:7750 Kernel.NonCircularityAudit <> non_circularity_certificate def
+R7793:7816 Kernel.MasterSummary <> verification_chain_holds def
+prf 7828:7853 <> thiele_machine_is_complete
+R7857:7879 Kernel.MasterSummary <> thiele_machine_complete def
+R7898:7920 Kernel.MasterSummary <> thiele_machine_complete def
+R7995:8019 Kernel.ClassicalBound <> classical_achieving_trace def
+R7995:8019 Kernel.ClassicalBound <> classical_achieving_trace def
+R8028:8052 Kernel.ClassicalBound <> classical_program_mu_zero thm
+R8028:8052 Kernel.ClassicalBound <> classical_program_mu_zero thm
+R8099:8118 Kernel.TsirelsonUpperBound <> mu_zero_chsh_bounded thm
+R8099:8118 Kernel.TsirelsonUpperBound <> mu_zero_chsh_bounded thm
+R8142:8161 Kernel.QuantumEquivalence <> hierarchy_is_derived thm
+R8142:8161 Kernel.QuantumEquivalence <> hierarchy_is_derived thm
+R8174:8192 Kernel.QuantumEquivalence <> qm_equals_cost_free thm
+R8174:8192 Kernel.QuantumEquivalence <> qm_equals_cost_free thm
+R8205:8228 Kernel.NonCircularityAudit <> non_circularity_verified thm
+R8205:8228 Kernel.NonCircularityAudit <> non_circularity_verified thm
+R8241:8265 Kernel.MasterSummary <> master_verification_chain thm
+R8241:8265 Kernel.MasterSummary <> master_verification_chain thm

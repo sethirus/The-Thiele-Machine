@@ -1,0 +1,324 @@
+DIGEST 7e26d88874595cfbc6ba3fa23b7b9d8f
+FBridge.FiniteQuantum_to_Kernel
+R24:27 Coq.Lists.List <> <> lib
+R29:32 Coq.Bool.Bool <> <> lib
+R34:47 Coq.Arith.PeanoNat <> <> lib
+R49:51 Coq.micromega.Lia <> <> lib
+R53:58 Coq.QArith.QArith <> <> lib
+R60:65 Coq.ZArith.ZArith <> <> lib
+R75:87 Coq.Lists.List ListNotations <> mod
+R126:131 Kernel.VMStep <> <> lib
+R149:152 Kernel.CHSH <> <> lib
+mod 1014:1034 <> FiniteQuantumToKernel
+R1051:1060 Kernel.CHSH KernelCHSH <> modtype
+mod 1045:1046 <> FiniteQuantumToKernel.KC
+R1070:1082 Kernel.VMStep VMStep <> mod
+def 1097:1107 FiniteQuantumToKernel TheoryTrial
+R1119:1126 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel Trial rec
+def 1140:1152 FiniteQuantumToKernel TheoryProgram
+R1164:1167 Coq.Init.Datatypes <> list ind
+R1169:1179 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel TheoryTrial def
+def 1194:1206 FiniteQuantumToKernel trial_bits_ok
+R1213:1223 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel TheoryTrial def
+binder 1209:1209 <> t:1
+R1262:1267 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1255:1257 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1238:1243 Kernel.VMStep VMStep is_bit def
+R1248:1253 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_x proj
+R1245:1245 Bridge.FiniteQuantum_to_Kernel <> t:1 var
+R1258:1261 Coq.Init.Datatypes <> true constr
+R1292:1297 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1285:1287 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1268:1273 Kernel.VMStep VMStep is_bit def
+R1278:1283 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_y proj
+R1275:1275 Bridge.FiniteQuantum_to_Kernel <> t:1 var
+R1288:1291 Coq.Init.Datatypes <> true constr
+R1322:1327 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1315:1317 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1298:1303 Kernel.VMStep VMStep is_bit def
+R1308:1313 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_a proj
+R1305:1305 Bridge.FiniteQuantum_to_Kernel <> t:1 var
+R1318:1321 Coq.Init.Datatypes <> true constr
+R1345:1347 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1328:1333 Kernel.VMStep VMStep is_bit def
+R1338:1343 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_b proj
+R1335:1335 Bridge.FiniteQuantum_to_Kernel <> t:1 var
+R1348:1351 Coq.Init.Datatypes <> true constr
+def 1366:1380 FiniteQuantumToKernel program_bits_ok
+R1387:1399 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel TheoryProgram def
+binder 1383:1383 <> p:2
+R1414:1419 Coq.Lists.List <> Forall ind
+R1435:1435 Bridge.FiniteQuantum_to_Kernel <> p:2 var
+R1421:1433 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel trial_bits_ok def
+def 1450:1462 FiniteQuantumToKernel compile_trial
+R1469:1479 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel TheoryTrial def
+binder 1465:1465 <> t:3
+R1484:1497 Kernel.VMStep VMStep vm_instruction ind
+R1504:1519 Kernel.VMStep VMStep instr_chsh_trial constr
+R1524:1529 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_x proj
+R1521:1521 Bridge.FiniteQuantum_to_Kernel <> t:3 var
+R1535:1540 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_y proj
+R1532:1532 Bridge.FiniteQuantum_to_Kernel <> t:3 var
+R1546:1551 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_a proj
+R1543:1543 Bridge.FiniteQuantum_to_Kernel <> t:3 var
+R1557:1562 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_b proj
+R1554:1554 Bridge.FiniteQuantum_to_Kernel <> t:3 var
+def 1584:1590 FiniteQuantumToKernel compile
+R1597:1609 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel TheoryProgram def
+binder 1593:1593 <> p:4
+R1614:1617 Coq.Init.Datatypes <> list ind
+R1619:1632 Kernel.VMStep VMStep vm_instruction ind
+R1639:1641 Coq.Lists.List <> map def
+R1657:1657 Bridge.FiniteQuantum_to_Kernel <> p:4 var
+R1643:1655 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel compile_trial def
+prf 1667:1700 FiniteQuantumToKernel trial_bits_ok_implies_chsh_bits_ok
+binder 1713:1713 <> t:5
+R1735:1742 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1720:1732 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel trial_bits_ok def
+R1734:1734 Bridge.FiniteQuantum_to_Kernel <> t:5 var
+R1799:1801 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1743:1754 Kernel.VMStep VMStep chsh_bits_ok def
+R1759:1764 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_x proj
+R1756:1756 Bridge.FiniteQuantum_to_Kernel <> t:5 var
+R1770:1775 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_y proj
+R1767:1767 Bridge.FiniteQuantum_to_Kernel <> t:5 var
+R1781:1786 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_a proj
+R1778:1778 Bridge.FiniteQuantum_to_Kernel <> t:5 var
+R1792:1797 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_b proj
+R1789:1789 Bridge.FiniteQuantum_to_Kernel <> t:5 var
+R1802:1805 Coq.Init.Datatypes <> true constr
+R1854:1865 Kernel.VMStep VMStep chsh_bits_ok def
+prf 1923:1951 FiniteQuantumToKernel simulation_correctness_trials
+binder 1964:1964 <> p:6
+R1988:1995 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1971:1985 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel program_bits_ok def
+R1987:1987 Bridge.FiniteQuantum_to_Kernel <> p:6 var
+R2029:2031 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1996:2016 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel trials_of_receipts def
+R2019:2025 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel compile def
+R2027:2027 Bridge.FiniteQuantum_to_Kernel <> p:6 var
+R2032:2032 Bridge.FiniteQuantum_to_Kernel <> p:6 var
+R2170:2186 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel is_trial_instr def
+R2213:2246 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel trial_bits_ok_implies_chsh_bits_ok thm
+R2213:2246 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel trial_bits_ok_implies_chsh_bits_ok thm
+R2213:2246 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel trial_bits_ok_implies_chsh_bits_ok thm
+def 2778:2790 FiniteQuantumToKernel n_per_setting
+R2794:2796 Coq.Init.Datatypes <> nat ind
+def 2823:2825 FiniteQuantumToKernel t11
+R2829:2839 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel TheoryTrial def
+R2847:2852 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_x proj
+R2847:2852 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_x proj
+R2847:2852 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_x proj
+R2860:2865 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_y proj
+R2860:2865 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_y proj
+R2873:2878 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_a proj
+R2873:2878 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_a proj
+R2886:2891 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_b proj
+R2886:2891 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_b proj
+def 2913:2915 FiniteQuantumToKernel t10
+R2919:2929 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel TheoryTrial def
+R2937:2942 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_x proj
+R2937:2942 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_x proj
+R2937:2942 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_x proj
+R2950:2955 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_y proj
+R2950:2955 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_y proj
+R2963:2968 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_a proj
+R2963:2968 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_a proj
+R2976:2981 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_b proj
+R2976:2981 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_b proj
+def 3003:3005 FiniteQuantumToKernel t01
+R3009:3019 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel TheoryTrial def
+R3027:3032 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_x proj
+R3027:3032 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_x proj
+R3027:3032 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_x proj
+R3040:3045 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_y proj
+R3040:3045 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_y proj
+R3053:3058 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_a proj
+R3053:3058 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_a proj
+R3066:3071 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_b proj
+R3066:3071 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_b proj
+def 3093:3100 FiniteQuantumToKernel t00_same
+R3104:3114 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel TheoryTrial def
+R3122:3127 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_x proj
+R3122:3127 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_x proj
+R3122:3127 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_x proj
+R3135:3140 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_y proj
+R3135:3140 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_y proj
+R3148:3153 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_a proj
+R3148:3153 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_a proj
+R3161:3166 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_b proj
+R3161:3166 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_b proj
+def 3188:3195 FiniteQuantumToKernel t00_diff
+R3199:3209 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel TheoryTrial def
+R3217:3222 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_x proj
+R3217:3222 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_x proj
+R3217:3222 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_x proj
+R3230:3235 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_y proj
+R3230:3235 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_y proj
+R3243:3248 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_a proj
+R3243:3248 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_a proj
+R3256:3261 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_b proj
+R3256:3261 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_b proj
+def 3284:3309 FiniteQuantumToKernel tsirelson_envelope_program
+R3313:3325 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel TheoryProgram def
+R3356:3361 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R3332:3337 Coq.Lists.List <> repeat def
+R3343:3355 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel n_per_setting def
+R3339:3341 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t11 def
+R3386:3391 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R3362:3367 Coq.Lists.List <> repeat def
+R3373:3385 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel n_per_setting def
+R3369:3371 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t10 def
+R3416:3421 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R3392:3397 Coq.Lists.List <> repeat def
+R3403:3415 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel n_per_setting def
+R3399:3401 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t01 def
+R3442:3447 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R3422:3427 Coq.Lists.List <> repeat def
+R3429:3436 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t00_same def
+R3448:3453 Coq.Lists.List <> repeat def
+R3455:3462 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t00_diff def
+prf 3477:3504 FiniteQuantumToKernel trial_bits_ok_all_zeros_ones
+binder 3517:3517 <> x:7
+binder 3519:3519 <> y:8
+binder 3521:3521 <> a:9
+binder 3523:3523 <> b:10
+R3530:3530 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3553:3561 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3540:3543 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R3532:3534 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3531:3531 Bridge.FiniteQuantum_to_Kernel <> x:7 var
+R3545:3547 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3544:3544 Bridge.FiniteQuantum_to_Kernel <> x:7 var
+R3562:3562 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3585:3593 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3572:3575 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R3564:3566 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3563:3563 Bridge.FiniteQuantum_to_Kernel <> y:8 var
+R3577:3579 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3576:3576 Bridge.FiniteQuantum_to_Kernel <> y:8 var
+R3594:3594 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3617:3625 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3604:3607 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R3596:3598 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3595:3595 Bridge.FiniteQuantum_to_Kernel <> a:9 var
+R3609:3611 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3608:3608 Bridge.FiniteQuantum_to_Kernel <> a:9 var
+R3626:3626 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3649:3657 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3636:3639 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R3628:3630 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3627:3627 Bridge.FiniteQuantum_to_Kernel <> b:10 var
+R3641:3643 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3640:3640 Bridge.FiniteQuantum_to_Kernel <> b:10 var
+R3658:3670 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel trial_bits_ok def
+R3675:3680 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_x proj
+R3675:3680 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_x proj
+R3675:3680 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_x proj
+R3688:3693 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_y proj
+R3688:3693 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_y proj
+R3701:3706 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_a proj
+R3701:3706 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_a proj
+R3714:3719 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_b proj
+R3714:3719 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel t_b proj
+R3685:3685 Bridge.FiniteQuantum_to_Kernel <> x:7 var
+R3698:3698 Bridge.FiniteQuantum_to_Kernel <> y:8 var
+R3711:3711 Bridge.FiniteQuantum_to_Kernel <> a:9 var
+R3724:3724 Bridge.FiniteQuantum_to_Kernel <> b:10 var
+R3776:3788 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel trial_bits_ok def
+R3791:3796 Kernel.VMStep VMStep is_bit def
+prf 3954:3975 FiniteQuantumToKernel program_bits_ok_repeat
+binder 3988:3988 <> t:11
+binder 3990:3990 <> n:12
+R4012:4019 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3997:4009 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel trial_bits_ok def
+R4011:4011 Bridge.FiniteQuantum_to_Kernel <> t:11 var
+R4020:4034 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel program_bits_ok def
+R4037:4042 Coq.Lists.List <> repeat def
+R4046:4046 Bridge.FiniteQuantum_to_Kernel <> n:12 var
+R4044:4044 Bridge.FiniteQuantum_to_Kernel <> t:11 var
+prf 4160:4193 FiniteQuantumToKernel tsirelson_envelope_program_bits_ok
+R4197:4211 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel program_bits_ok def
+R4213:4238 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel tsirelson_envelope_program def
+R4257:4282 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel tsirelson_envelope_program def
+R4301:4310 Coq.Lists.List <> Forall_app thm
+R4301:4310 Coq.Lists.List <> Forall_app thm
+R4301:4310 Coq.Lists.List <> Forall_app thm
+R4301:4310 Coq.Lists.List <> Forall_app thm
+R4301:4310 Coq.Lists.List <> Forall_app thm
+R4301:4310 Coq.Lists.List <> Forall_app thm
+R4301:4310 Coq.Lists.List <> Forall_app thm
+R4301:4310 Coq.Lists.List <> Forall_app thm
+R4301:4310 Coq.Lists.List <> Forall_app thm
+R4301:4310 Coq.Lists.List <> Forall_app thm
+R4331:4352 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel program_bits_ok_repeat thm
+R4331:4352 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel program_bits_ok_repeat thm
+R4366:4393 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel trial_bits_ok_all_zeros_ones thm
+R4366:4393 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel trial_bits_ok_all_zeros_ones thm
+R4421:4442 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel program_bits_ok_repeat thm
+R4421:4442 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel program_bits_ok_repeat thm
+R4456:4483 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel trial_bits_ok_all_zeros_ones thm
+R4456:4483 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel trial_bits_ok_all_zeros_ones thm
+R4511:4532 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel program_bits_ok_repeat thm
+R4511:4532 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel program_bits_ok_repeat thm
+R4546:4573 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel trial_bits_ok_all_zeros_ones thm
+R4546:4573 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel trial_bits_ok_all_zeros_ones thm
+R4601:4622 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel program_bits_ok_repeat thm
+R4601:4622 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel program_bits_ok_repeat thm
+R4636:4663 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel trial_bits_ok_all_zeros_ones thm
+R4636:4663 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel trial_bits_ok_all_zeros_ones thm
+R4691:4712 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel program_bits_ok_repeat thm
+R4691:4712 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel program_bits_ok_repeat thm
+R4726:4753 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel trial_bits_ok_all_zeros_ones thm
+R4726:4753 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel trial_bits_ok_all_zeros_ones thm
+prf 5232:5262 FiniteQuantumToKernel tsirelson_envelope_program_chsh
+R5302:5306 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R5316:5316 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R5268:5274 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel chsh def
+R5276:5301 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel tsirelson_envelope_program def
+R5311:5311 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+prf 6170:6203 FiniteQuantumToKernel tsirelson_envelope_chsh_invariance
+R6317:6320 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R6283:6289 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel chsh def
+R6291:6316 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel tsirelson_envelope_program def
+R6321:6327 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel chsh def
+R6329:6354 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel tsirelson_envelope_program def
+prf 6850:6881 FiniteQuantumToKernel tsirelson_envelope_compiled_chsh
+R6955:6959 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R6969:6969 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R6887:6893 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel chsh def
+R6896:6916 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel trials_of_receipts def
+R6919:6925 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel compile def
+R6927:6952 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel tsirelson_envelope_program def
+R6964:6964 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R6989:7017 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel simulation_correctness_trials thm
+R6989:7017 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel simulation_correctness_trials thm
+R6989:7017 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel simulation_correctness_trials thm
+R6989:7017 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel simulation_correctness_trials thm
+R7030:7060 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel tsirelson_envelope_program_chsh thm
+R7030:7060 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel tsirelson_envelope_program_chsh thm
+R7073:7106 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel tsirelson_envelope_program_bits_ok thm
+R7073:7106 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel tsirelson_envelope_program_bits_ok thm
+prf 7999:8038 FiniteQuantumToKernel tsirelson_compiled_chsh_gauge_invariance
+binder 8051:8051 <> p:13
+R8088:8095 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8059:8061 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8058:8058 Bridge.FiniteQuantum_to_Kernel <> p:13 var
+R8062:8087 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel tsirelson_envelope_program def
+R8113:8120 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8096:8110 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel program_bits_ok def
+R8112:8112 Bridge.FiniteQuantum_to_Kernel <> p:13 var
+R8164:8167 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R8121:8127 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel chsh def
+R8130:8150 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel trials_of_receipts def
+R8153:8159 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel compile def
+R8161:8161 Bridge.FiniteQuantum_to_Kernel <> p:13 var
+R8168:8174 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel chsh def
+R8176:8176 Bridge.FiniteQuantum_to_Kernel <> p:13 var
+R8290:8321 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel tsirelson_envelope_compiled_chsh thm
+R8290:8321 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel tsirelson_envelope_compiled_chsh thm
+R8290:8321 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel tsirelson_envelope_compiled_chsh thm
+R8334:8364 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel tsirelson_envelope_program_chsh thm
+R8334:8364 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel tsirelson_envelope_program_chsh thm
+R8334:8364 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel tsirelson_envelope_program_chsh thm
+R8392:8412 Bridge.FiniteQuantum_to_Kernel FiniteQuantumToKernel <> mod
