@@ -1,0 +1,65 @@
+DIGEST feaf2d34074826ae201436456dae6be2
+FKernel.Subsumption
+R314:318 Coq.Arith.Arith <> <> lib
+R320:322 Coq.micromega.Lia <> <> lib
+R324:327 Coq.Lists.List <> <> lib
+R329:332 Coq.Bool.Bool <> <> lib
+R342:354 Coq.Lists.List ListNotations <> mod
+R385:390 Kernel.Kernel <> <> lib
+R392:399 Kernel.KernelTM <> <> lib
+R401:412 Kernel.KernelThiele <> <> lib
+R428:433 Kernel.Kernel <> <> modtype
+mod 423:423 <> K
+R450:457 Kernel.KernelTM <> <> modtype
+mod 443:445 <> KTM
+R474:485 Kernel.KernelThiele <> <> modtype
+mod 467:469 <> KTH
+def 700:717 <> program_is_sighted
+R724:732 Kernel.Subsumption <> program def
+binder 720:720 <> p:1
+R747:753 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R759:760 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 754:758 <> instr:2
+R771:774 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R761:762 Coq.Lists.List <> In def
+R770:770 Kernel.Subsumption <> p:1 var
+R764:768 Kernel.Subsumption <> instr:2 var
+R801:803 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R775:794 Kernel.Subsumption <> turing_instruction def
+R796:800 Kernel.Subsumption <> instr:2 var
+R804:808 Coq.Init.Datatypes <> false constr
+def 883:905 <> sighted_witness_program
+R909:917 Kernel.Subsumption <> program def
+R924:924 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R946:946 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R925:943 Kernel.Subsumption <> H_ClaimTapeIsZero constr
+prf 956:973 <> witness_is_sighted
+R977:994 Kernel.Subsumption <> program_is_sighted def
+R996:1018 Kernel.Subsumption <> sighted_witness_program def
+R1037:1054 Kernel.Subsumption <> program_is_sighted def
+R1057:1079 Kernel.Subsumption <> sighted_witness_program def
+R1092:1110 Kernel.Subsumption <> H_ClaimTapeIsZero constr
+R1092:1110 Kernel.Subsumption <> H_ClaimTapeIsZero constr
+prf 1184:1201 <> witness_not_turing
+R1205:1206 Coq.Init.Logic <> ::type_scope:'~'_x not
+R1207:1225 Kernel.Subsumption <> program_is_turing def
+R1227:1249 Kernel.Subsumption <> sighted_witness_program def
+R1268:1286 Kernel.Subsumption <> program_is_turing def
+R1289:1311 Kernel.Subsumption <> sighted_witness_program def
+prf 1449:1464 <> main_subsumption
+R1540:1547 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1561:1567 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1552:1560 Kernel.Subsumption <> program def
+binder 1548:1548 <> p:3
+R1588:1591 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1568:1585 Kernel.Subsumption <> program_is_sighted def
+R1587:1587 Kernel.Subsumption <> p:3 var
+R1592:1593 Coq.Init.Logic <> ::type_scope:'~'_x not
+R1594:1612 Kernel.Subsumption <> program_is_turing def
+R1614:1614 Kernel.Subsumption <> p:3 var
+R1633:1655 Kernel.Subsumption <> sighted_witness_program def
+R1633:1655 Kernel.Subsumption <> sighted_witness_program def
+R1677:1694 Kernel.Subsumption <> witness_is_sighted thm
+R1677:1694 Kernel.Subsumption <> witness_is_sighted thm
+R1707:1724 Kernel.Subsumption <> witness_not_turing thm
+R1707:1724 Kernel.Subsumption <> witness_not_turing thm

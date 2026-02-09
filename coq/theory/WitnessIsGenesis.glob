@@ -1,0 +1,184 @@
+DIGEST 6c931936fd92c0b21a143da16d9a7c95
+FTheory.WitnessIsGenesis
+R136:144 Coq.Bool.Bool <> <> lib
+R171:184 Coq.Arith.PeanoNat <> <> lib
+R203:216 Theory.Genesis <> <> lib
+rec 227:238 <> CreatorState
+proj 247:258 <> creator_hash
+proj 269:287 <> embedded_child_hash
+proj 298:309 <> anchor_value
+proj 320:338 <> coq_proofs_compiled
+proj 350:365 <> coq_proofs_sound
+R262:264 Coq.Init.Datatypes <> nat ind
+R291:293 Coq.Init.Datatypes <> nat ind
+R313:315 Coq.Init.Datatypes <> nat ind
+R342:345 Coq.Init.Datatypes <> bool ind
+R388:390 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R369:387 Theory.WitnessIsGenesis <> coq_proofs_compiled:5 meth
+R391:394 Coq.Init.Datatypes <> true constr
+rec 407:416 <> ChildState
+proj 425:443 <> child_reported_hash
+proj 454:473 <> child_anchor_binding
+proj 484:498 <> thesis_verified
+R447:449 Coq.Init.Datatypes <> nat ind
+R477:479 Coq.Init.Datatypes <> nat ind
+R502:505 Coq.Init.Datatypes <> bool ind
+def 522:535 <> anchor_binding
+R552:554 Coq.Init.Datatypes <> nat ind
+binder 538:541 <> hash:11
+binder 543:548 <> anchor:12
+R559:561 Coq.Init.Datatypes <> nat ind
+R570:572 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R566:569 Theory.WitnessIsGenesis <> hash:11 var
+R573:578 Theory.WitnessIsGenesis <> anchor:12 var
+def 593:605 <> proposer_func
+R612:623 Theory.WitnessIsGenesis <> CreatorState rec
+binder 608:608 <> c:13
+R628:637 Theory.WitnessIsGenesis <> ChildState rec
+R647:665 Theory.WitnessIsGenesis <> child_reported_hash proj
+R647:665 Theory.WitnessIsGenesis <> child_reported_hash proj
+R647:665 Theory.WitnessIsGenesis <> child_reported_hash proj
+R698:717 Theory.WitnessIsGenesis <> child_anchor_binding proj
+R698:717 Theory.WitnessIsGenesis <> child_anchor_binding proj
+R784:798 Theory.WitnessIsGenesis <> thesis_verified proj
+R784:798 Theory.WitnessIsGenesis <> thesis_verified proj
+R670:688 Theory.WitnessIsGenesis <> embedded_child_hash proj
+R690:690 Theory.WitnessIsGenesis <> c:13 var
+R722:735 Theory.WitnessIsGenesis <> anchor_binding def
+R762:773 Theory.WitnessIsGenesis <> anchor_value proj
+R775:775 Theory.WitnessIsGenesis <> c:13 var
+R738:756 Theory.WitnessIsGenesis <> embedded_child_hash proj
+R758:758 Theory.WitnessIsGenesis <> c:13 var
+R803:806 Coq.Init.Datatypes <> true constr
+def 824:835 <> auditor_func
+R842:853 Theory.WitnessIsGenesis <> CreatorState rec
+binder 838:838 <> c:14
+R865:874 Theory.WitnessIsGenesis <> ChildState rec
+binder 857:861 <> child:15
+R879:882 Coq.Init.Datatypes <> bool ind
+R1085:1090 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R1058:1063 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R948:953 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R889:895 Coq.Arith.PeanoNat Nat eqb def
+R898:916 Theory.WitnessIsGenesis <> child_reported_hash proj
+R918:922 Theory.WitnessIsGenesis <> child:15 var
+R926:944 Theory.WitnessIsGenesis <> embedded_child_hash proj
+R946:946 Theory.WitnessIsGenesis <> c:14 var
+R954:960 Coq.Arith.PeanoNat Nat eqb def
+R963:982 Theory.WitnessIsGenesis <> child_anchor_binding proj
+R984:988 Theory.WitnessIsGenesis <> child:15 var
+R1002:1015 Theory.WitnessIsGenesis <> anchor_binding def
+R1042:1053 Theory.WitnessIsGenesis <> anchor_value proj
+R1055:1055 Theory.WitnessIsGenesis <> c:14 var
+R1018:1036 Theory.WitnessIsGenesis <> embedded_child_hash proj
+R1038:1038 Theory.WitnessIsGenesis <> c:14 var
+R1064:1078 Theory.WitnessIsGenesis <> thesis_verified proj
+R1080:1084 Theory.WitnessIsGenesis <> child:15 var
+R1091:1109 Theory.WitnessIsGenesis <> coq_proofs_compiled proj
+R1111:1111 Theory.WitnessIsGenesis <> c:14 var
+rec 1122:1133 <> WitnessState
+proj 1142:1156 <> witness_creator
+proj 1176:1188 <> witness_child
+R1160:1171 Theory.WitnessIsGenesis <> CreatorState rec
+R1192:1201 Theory.WitnessIsGenesis <> ChildState rec
+def 1218:1229 <> witness_step
+R1236:1247 Theory.WitnessIsGenesis <> WitnessState rec
+binder 1232:1232 <> w:19
+R1252:1263 Theory.WitnessIsGenesis <> WitnessState rec
+R1273:1287 Theory.WitnessIsGenesis <> witness_creator proj
+R1273:1287 Theory.WitnessIsGenesis <> witness_creator proj
+R1273:1287 Theory.WitnessIsGenesis <> witness_creator proj
+R1316:1328 Theory.WitnessIsGenesis <> witness_child proj
+R1316:1328 Theory.WitnessIsGenesis <> witness_child proj
+R1292:1306 Theory.WitnessIsGenesis <> witness_creator proj
+R1308:1308 Theory.WitnessIsGenesis <> w:19 var
+R1333:1345 Theory.WitnessIsGenesis <> proposer_func def
+R1348:1362 Theory.WitnessIsGenesis <> witness_creator proj
+R1364:1364 Theory.WitnessIsGenesis <> w:19 var
+def 1383:1397 <> witness_auditor
+R1415:1426 Theory.WitnessIsGenesis <> WitnessState rec
+binder 1400:1405 <> before:20
+binder 1407:1411 <> after:21
+R1487:1492 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1462:1464 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1441:1455 Theory.WitnessIsGenesis <> witness_creator proj
+R1457:1461 Theory.WitnessIsGenesis <> after:21 var
+R1465:1479 Theory.WitnessIsGenesis <> witness_creator proj
+R1481:1486 Theory.WitnessIsGenesis <> before:20 var
+R1552:1554 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1493:1504 Theory.WitnessIsGenesis <> auditor_func def
+R1532:1544 Theory.WitnessIsGenesis <> witness_child proj
+R1546:1550 Theory.WitnessIsGenesis <> after:21 var
+R1507:1521 Theory.WitnessIsGenesis <> witness_creator proj
+R1523:1528 Theory.WitnessIsGenesis <> before:20 var
+R1555:1558 Coq.Init.Datatypes <> true constr
+prf 1568:1587 <> auditor_func_accepts
+R1604:1615 Theory.WitnessIsGenesis <> CreatorState rec
+binder 1600:1600 <> c:22
+R1654:1656 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1622:1633 Theory.WitnessIsGenesis <> auditor_func def
+R1638:1650 Theory.WitnessIsGenesis <> proposer_func def
+R1652:1652 Theory.WitnessIsGenesis <> c:22 var
+R1635:1635 Theory.WitnessIsGenesis <> c:22 var
+R1657:1660 Coq.Init.Datatypes <> true constr
+R1691:1702 Theory.WitnessIsGenesis <> auditor_func def
+R1705:1717 Theory.WitnessIsGenesis <> proposer_func def
+R1720:1733 Theory.WitnessIsGenesis <> anchor_binding def
+R1746:1757 Coq.Arith.PeanoNat Nat eqb_refl thm
+R1746:1757 Coq.Arith.PeanoNat Nat eqb_refl thm
+R1746:1757 Coq.Arith.PeanoNat Nat eqb_refl thm
+R1770:1781 Coq.Arith.PeanoNat Nat eqb_refl thm
+R1770:1781 Coq.Arith.PeanoNat Nat eqb_refl thm
+R1770:1781 Coq.Arith.PeanoNat Nat eqb_refl thm
+R1804:1819 Theory.WitnessIsGenesis <> coq_proofs_sound proj
+R1804:1819 Theory.WitnessIsGenesis <> coq_proofs_sound proj
+R1804:1819 Theory.WitnessIsGenesis <> coq_proofs_sound proj
+prf 1852:1874 <> witness_auditor_accepts
+R1891:1902 Theory.WitnessIsGenesis <> WitnessState rec
+binder 1887:1887 <> w:23
+R1905:1919 Theory.WitnessIsGenesis <> witness_auditor def
+R1924:1935 Theory.WitnessIsGenesis <> witness_step def
+R1937:1937 Theory.WitnessIsGenesis <> w:23 var
+R1921:1921 Theory.WitnessIsGenesis <> w:23 var
+R2014:2033 Theory.WitnessIsGenesis <> auditor_func_accepts thm
+R2014:2033 Theory.WitnessIsGenesis <> auditor_func_accepts thm
+def 2053:2063 <> WitnessProc
+R2067:2070 Theory.Genesis <> Proc rec
+R2072:2083 Theory.WitnessIsGenesis <> WitnessState rec
+R2093:2096 Theory.Genesis <> step proj
+R2093:2096 Theory.Genesis <> step proj
+R2093:2096 Theory.Genesis <> step proj
+R2120:2121 Theory.Genesis <> ok proj
+R2120:2121 Theory.Genesis <> ok proj
+R2148:2154 Theory.Genesis <> ok_step proj
+R2148:2154 Theory.Genesis <> ok_step proj
+R2101:2112 Theory.WitnessIsGenesis <> witness_step def
+R2126:2140 Theory.WitnessIsGenesis <> witness_auditor def
+R2159:2181 Theory.WitnessIsGenesis <> witness_auditor_accepts thm
+def 2199:2211 <> Logos_Machine
+R2215:2220 Theory.Genesis <> Thiele rec
+R2222:2233 Theory.WitnessIsGenesis <> WitnessState rec
+R2240:2253 Theory.Genesis <> proc_to_thiele def
+R2255:2265 Theory.WitnessIsGenesis <> WitnessProc def
+prf 2277:2315 <> Ouroboros_Witness_Is_A_Coherent_Process
+R2332:2343 Theory.WitnessIsGenesis <> WitnessState rec
+binder 2328:2328 <> s:24
+R2350:2359 Theory.Genesis <> ThieleStep ind
+R2378:2389 Theory.WitnessIsGenesis <> witness_step def
+R2391:2391 Theory.WitnessIsGenesis <> s:24 var
+R2375:2375 Theory.WitnessIsGenesis <> s:24 var
+R2361:2373 Theory.WitnessIsGenesis <> Logos_Machine def
+R2422:2434 Theory.WitnessIsGenesis <> Logos_Machine def
+R2445:2464 Theory.Genesis <> proc_realises_thiele thm
+R2445:2464 Theory.Genesis <> proc_realises_thiele thm
+prf 2483:2505 <> Logos_Auditor_Sees_True
+R2522:2533 Theory.WitnessIsGenesis <> CreatorState rec
+binder 2518:2518 <> c:25
+R2572:2574 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2540:2551 Theory.WitnessIsGenesis <> auditor_func def
+R2556:2568 Theory.WitnessIsGenesis <> proposer_func def
+R2570:2570 Theory.WitnessIsGenesis <> c:25 var
+R2553:2553 Theory.WitnessIsGenesis <> c:25 var
+R2575:2578 Coq.Init.Datatypes <> true constr
+R2596:2615 Theory.WitnessIsGenesis <> auditor_func_accepts thm
+R2596:2615 Theory.WitnessIsGenesis <> auditor_func_accepts thm

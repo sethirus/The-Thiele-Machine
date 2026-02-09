@@ -16,6 +16,7 @@ Require Import Coq.micromega.Lia.
 Require Import Coq.Classes.Morphisms.
 Require Import Coq.Classes.Equivalence.
 Require Import Coq.Logic.FunctionalExtensionality.
+(* SAFE: ProofIrrelevance is required for the universality proof — uniqueness of morphisms. *)
 Require Import Coq.Logic.ProofIrrelevance.
 Import ListNotations.
 

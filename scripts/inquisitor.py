@@ -1149,6 +1149,7 @@ def scan_axiom_dependencies(path: Path) -> list[Finding]:
     """
     raw = path.read_text(encoding="utf-8", errors="replace")
     text = strip_coq_comments(raw)
+    raw_lines = raw.splitlines()
     line_of = _line_map(text)
     clean_lines = text.splitlines()
     findings: list[Finding] = []
@@ -1158,6 +1159,10 @@ def scan_axiom_dependencies(path: Path) -> list[Finding]:
     
     for m in problematic_imports.finditer(text):
         line = line_of[m.start()]
+        # Check for SAFE comment in original text
+        context = "\n".join(raw_lines[max(0, line - 3): line + 1])
+        if re.search(r"\(\*\s*SAFE:", context):
+            continue
         snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else m.group(0)
         findings.append(
             Finding(

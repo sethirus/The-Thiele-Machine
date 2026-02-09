@@ -1,0 +1,375 @@
+DIGEST 938af9ece56d0e803d011536c83d7589
+FThieleMachine.BellReceiptSemantics
+R24:27 Coq.Lists.List <> <> lib
+R29:34 Coq.Strings.String <> <> lib
+R36:40 Coq.Strings.Ascii <> <> lib
+R42:47 Coq.ZArith.ZArith <> <> lib
+R49:52 Coq.Bool.Bool <> <> lib
+R54:59 Coq.QArith.QArith <> <> lib
+R61:66 Coq.PArith.PArith <> <> lib
+R76:88 Coq.Lists.List ListNotations <> mod
+R191:204 ThieleMachine.BellInequality <> <> lib
+rec 547:551 <> Trial
+proj 567:569 <> t_x
+proj 580:582 <> t_y
+proj 593:595 <> t_a
+proj 606:608 <> t_b
+R573:575 ThieleMachine.BellInequality <> Bit ind
+R586:588 ThieleMachine.BellInequality <> Bit ind
+R599:601 ThieleMachine.BellInequality <> Bit ind
+R612:614 ThieleMachine.BellInequality <> Bit ind
+def 631:637 <> bit_eqb
+R646:648 ThieleMachine.BellInequality <> Bit ind
+binder 640:640 <> x:6
+binder 642:642 <> y:7
+R653:656 Coq.Init.Datatypes <> bool ind
+R672:672 ThieleMachine.BellReceiptSemantics <> y:7 var
+R669:669 ThieleMachine.BellReceiptSemantics <> x:6 var
+R683:684 ThieleMachine.BellInequality <> B0 constr
+R687:688 ThieleMachine.BellInequality <> B0 constr
+R693:696 Coq.Init.Datatypes <> true constr
+R702:703 ThieleMachine.BellInequality <> B1 constr
+R706:707 ThieleMachine.BellInequality <> B1 constr
+R712:715 Coq.Init.Datatypes <> true constr
+R729:733 Coq.Init.Datatypes <> false constr
+def 754:764 <> bit_of_bool
+R771:774 Coq.Init.Datatypes <> bool ind
+binder 767:767 <> b:10
+R779:781 ThieleMachine.BellInequality <> Bit ind
+R789:789 ThieleMachine.BellReceiptSemantics <> b:10 var
+R804:805 ThieleMachine.BellInequality <> B0 constr
+R796:797 ThieleMachine.BellInequality <> B1 constr
+def 820:832 <> bit_of_char01
+R839:843 Coq.Strings.Ascii <> ascii ind
+binder 835:835 <> c:11
+R848:853 Coq.Init.Datatypes <> option ind
+R855:857 ThieleMachine.BellInequality <> Bit ind
+R867:875 Coq.Strings.Ascii <> eqb def
+R877:877 ThieleMachine.BellReceiptSemantics <> c:11 var
+R911:919 Coq.Strings.Ascii <> eqb def
+R921:921 ThieleMachine.BellReceiptSemantics <> c:11 var
+R952:955 Coq.Init.Datatypes <> None constr
+R937:940 Coq.Init.Datatypes <> Some constr
+R942:943 ThieleMachine.BellInequality <> B1 constr
+R893:896 Coq.Init.Datatypes <> Some constr
+R898:899 ThieleMachine.BellInequality <> B0 constr
+def 970:986 <> trial_of_payload4
+R999:1004 Coq.Strings.String <> string ind
+binder 989:995 <> payload:12
+R1009:1014 Coq.Init.Datatypes <> option ind
+R1016:1020 ThieleMachine.BellReceiptSemantics <> Trial rec
+R1033:1039 ThieleMachine.BellReceiptSemantics <> payload:12 var
+R1050:1062 Coq.Strings.String <> String constr
+R1067:1079 Coq.Strings.String <> String constr
+R1084:1096 Coq.Strings.String <> String constr
+R1101:1113 Coq.Strings.String <> String constr
+R1117:1134 Coq.Strings.String <> EmptyString constr
+R1207:1219 ThieleMachine.BellReceiptSemantics <> bit_of_char01 def
+R1190:1202 ThieleMachine.BellReceiptSemantics <> bit_of_char01 def
+R1173:1185 ThieleMachine.BellReceiptSemantics <> bit_of_char01 def
+R1156:1168 ThieleMachine.BellReceiptSemantics <> bit_of_char01 def
+R1238:1241 Coq.Init.Datatypes <> Some constr
+R1247:1250 Coq.Init.Datatypes <> Some constr
+R1257:1260 Coq.Init.Datatypes <> Some constr
+R1267:1270 Coq.Init.Datatypes <> Some constr
+R1289:1292 Coq.Init.Datatypes <> Some constr
+R1297:1299 ThieleMachine.BellReceiptSemantics <> t_x proj
+R1297:1299 ThieleMachine.BellReceiptSemantics <> t_x proj
+R1297:1299 ThieleMachine.BellReceiptSemantics <> t_x proj
+R1308:1310 ThieleMachine.BellReceiptSemantics <> t_y proj
+R1308:1310 ThieleMachine.BellReceiptSemantics <> t_y proj
+R1320:1322 ThieleMachine.BellReceiptSemantics <> t_a proj
+R1320:1322 ThieleMachine.BellReceiptSemantics <> t_a proj
+R1332:1334 ThieleMachine.BellReceiptSemantics <> t_b proj
+R1332:1334 ThieleMachine.BellReceiptSemantics <> t_b proj
+R1368:1371 Coq.Init.Datatypes <> None constr
+R1392:1395 Coq.Init.Datatypes <> None constr
+def 1416:1432 <> trial_of_metadata
+R1442:1447 Coq.Strings.String <> string ind
+binder 1435:1438 <> meta:14
+R1452:1457 Coq.Init.Datatypes <> option ind
+R1459:1463 ThieleMachine.BellReceiptSemantics <> Trial rec
+R1485:1491 Coq.Arith.PeanoNat Nat eqb def
+R1494:1506 Coq.Strings.String <> length def
+R1508:1511 ThieleMachine.BellReceiptSemantics <> meta:14 var
+binder 1474:1480 <> has_len:15
+R1539:1548 Coq.Strings.String <> eqb def
+R1551:1566 Coq.Strings.String <> substring def
+R1572:1575 ThieleMachine.BellReceiptSemantics <> meta:14 var
+binder 1525:1534 <> has_prefix:16
+R1602:1605 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R1595:1601 ThieleMachine.BellReceiptSemantics <> has_len:15 var
+R1606:1615 ThieleMachine.BellReceiptSemantics <> has_prefix:16 var
+R1685:1688 Coq.Init.Datatypes <> None constr
+R1632:1648 ThieleMachine.BellReceiptSemantics <> trial_of_payload4 def
+R1651:1666 Coq.Strings.String <> substring def
+R1672:1675 ThieleMachine.BellReceiptSemantics <> meta:14 var
+def 1701:1723 <> trials_of_metadata_list
+R1734:1737 Coq.Init.Datatypes <> list ind
+R1739:1744 Coq.Strings.String <> string ind
+binder 1726:1730 <> metas:17
+R1749:1752 Coq.Init.Datatypes <> list ind
+R1754:1758 ThieleMachine.BellReceiptSemantics <> Trial rec
+R1771:1775 ThieleMachine.BellReceiptSemantics <> metas:17 var
+R1786:1787 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1792:1793 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1800:1803 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1822:1838 ThieleMachine.BellReceiptSemantics <> trial_of_metadata def
+R1855:1858 Coq.Init.Datatypes <> Some constr
+R1866:1869 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1870:1892 ThieleMachine.BellReceiptSemantics <> trials_of_metadata_list:18 def
+R1905:1908 Coq.Init.Datatypes <> None constr
+R1913:1935 ThieleMachine.BellReceiptSemantics <> trials_of_metadata_list:18 def
+def 1969:1977 <> trial_eqb
+R1988:1992 ThieleMachine.BellReceiptSemantics <> Trial rec
+binder 1980:1981 <> t1:20
+binder 1983:1984 <> t2:21
+R1997:2000 Coq.Init.Datatypes <> bool ind
+R2098:2105 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R2065:2072 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R2032:2039 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R2007:2013 ThieleMachine.BellReceiptSemantics <> bit_eqb def
+R2019:2021 ThieleMachine.BellReceiptSemantics <> t_x proj
+R2015:2016 ThieleMachine.BellReceiptSemantics <> t1:20 var
+R2028:2030 ThieleMachine.BellReceiptSemantics <> t_x proj
+R2024:2025 ThieleMachine.BellReceiptSemantics <> t2:21 var
+R2040:2046 ThieleMachine.BellReceiptSemantics <> bit_eqb def
+R2052:2054 ThieleMachine.BellReceiptSemantics <> t_y proj
+R2048:2049 ThieleMachine.BellReceiptSemantics <> t1:20 var
+R2061:2063 ThieleMachine.BellReceiptSemantics <> t_y proj
+R2057:2058 ThieleMachine.BellReceiptSemantics <> t2:21 var
+R2073:2079 ThieleMachine.BellReceiptSemantics <> bit_eqb def
+R2085:2087 ThieleMachine.BellReceiptSemantics <> t_a proj
+R2081:2082 ThieleMachine.BellReceiptSemantics <> t1:20 var
+R2094:2096 ThieleMachine.BellReceiptSemantics <> t_a proj
+R2090:2091 ThieleMachine.BellReceiptSemantics <> t2:21 var
+R2106:2112 ThieleMachine.BellReceiptSemantics <> bit_eqb def
+R2118:2120 ThieleMachine.BellReceiptSemantics <> t_b proj
+R2114:2115 ThieleMachine.BellReceiptSemantics <> t1:20 var
+R2127:2129 ThieleMachine.BellReceiptSemantics <> t_b proj
+R2123:2124 ThieleMachine.BellReceiptSemantics <> t2:21 var
+def 2143:2153 <> count_trial
+R2160:2164 ThieleMachine.BellReceiptSemantics <> Trial rec
+binder 2156:2156 <> t:22
+R2173:2176 Coq.Init.Datatypes <> list ind
+R2178:2182 ThieleMachine.BellReceiptSemantics <> Trial rec
+binder 2168:2169 <> ts:23
+R2187:2189 Coq.Init.Datatypes <> nat ind
+R2202:2203 ThieleMachine.BellReceiptSemantics <> ts:23 var
+R2214:2215 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2227:2230 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2273:2275 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2241:2249 ThieleMachine.BellReceiptSemantics <> trial_eqb def
+R2251:2251 ThieleMachine.BellReceiptSemantics <> t:22 var
+R2276:2286 ThieleMachine.BellReceiptSemantics <> count_trial:24 def
+R2288:2288 ThieleMachine.BellReceiptSemantics <> t:22 var
+def 2312:2328 <> total_for_setting
+R2337:2339 ThieleMachine.BellInequality <> Bit ind
+binder 2331:2331 <> x:26
+binder 2333:2333 <> y:27
+R2348:2351 Coq.Init.Datatypes <> list ind
+R2353:2357 ThieleMachine.BellReceiptSemantics <> Trial rec
+binder 2343:2344 <> ts:28
+R2362:2364 Coq.Init.Datatypes <> nat ind
+R2574:2580 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2506:2512 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2438:2444 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2377:2387 ThieleMachine.BellReceiptSemantics <> count_trial def
+R2392:2394 ThieleMachine.BellReceiptSemantics <> t_x proj
+R2392:2394 ThieleMachine.BellReceiptSemantics <> t_x proj
+R2392:2394 ThieleMachine.BellReceiptSemantics <> t_x proj
+R2402:2404 ThieleMachine.BellReceiptSemantics <> t_y proj
+R2402:2404 ThieleMachine.BellReceiptSemantics <> t_y proj
+R2412:2414 ThieleMachine.BellReceiptSemantics <> t_a proj
+R2412:2414 ThieleMachine.BellReceiptSemantics <> t_a proj
+R2423:2425 ThieleMachine.BellReceiptSemantics <> t_b proj
+R2423:2425 ThieleMachine.BellReceiptSemantics <> t_b proj
+R2399:2399 ThieleMachine.BellReceiptSemantics <> x:26 var
+R2409:2409 ThieleMachine.BellReceiptSemantics <> y:27 var
+R2419:2420 ThieleMachine.BellInequality <> B0 constr
+R2430:2431 ThieleMachine.BellInequality <> B0 constr
+R2436:2437 ThieleMachine.BellReceiptSemantics <> ts:28 var
+R2445:2455 ThieleMachine.BellReceiptSemantics <> count_trial def
+R2460:2462 ThieleMachine.BellReceiptSemantics <> t_x proj
+R2460:2462 ThieleMachine.BellReceiptSemantics <> t_x proj
+R2460:2462 ThieleMachine.BellReceiptSemantics <> t_x proj
+R2470:2472 ThieleMachine.BellReceiptSemantics <> t_y proj
+R2470:2472 ThieleMachine.BellReceiptSemantics <> t_y proj
+R2480:2482 ThieleMachine.BellReceiptSemantics <> t_a proj
+R2480:2482 ThieleMachine.BellReceiptSemantics <> t_a proj
+R2491:2493 ThieleMachine.BellReceiptSemantics <> t_b proj
+R2491:2493 ThieleMachine.BellReceiptSemantics <> t_b proj
+R2467:2467 ThieleMachine.BellReceiptSemantics <> x:26 var
+R2477:2477 ThieleMachine.BellReceiptSemantics <> y:27 var
+R2487:2488 ThieleMachine.BellInequality <> B0 constr
+R2498:2499 ThieleMachine.BellInequality <> B1 constr
+R2504:2505 ThieleMachine.BellReceiptSemantics <> ts:28 var
+R2513:2523 ThieleMachine.BellReceiptSemantics <> count_trial def
+R2528:2530 ThieleMachine.BellReceiptSemantics <> t_x proj
+R2528:2530 ThieleMachine.BellReceiptSemantics <> t_x proj
+R2528:2530 ThieleMachine.BellReceiptSemantics <> t_x proj
+R2538:2540 ThieleMachine.BellReceiptSemantics <> t_y proj
+R2538:2540 ThieleMachine.BellReceiptSemantics <> t_y proj
+R2548:2550 ThieleMachine.BellReceiptSemantics <> t_a proj
+R2548:2550 ThieleMachine.BellReceiptSemantics <> t_a proj
+R2559:2561 ThieleMachine.BellReceiptSemantics <> t_b proj
+R2559:2561 ThieleMachine.BellReceiptSemantics <> t_b proj
+R2535:2535 ThieleMachine.BellReceiptSemantics <> x:26 var
+R2545:2545 ThieleMachine.BellReceiptSemantics <> y:27 var
+R2555:2556 ThieleMachine.BellInequality <> B1 constr
+R2566:2567 ThieleMachine.BellInequality <> B0 constr
+R2572:2573 ThieleMachine.BellReceiptSemantics <> ts:28 var
+R2581:2591 ThieleMachine.BellReceiptSemantics <> count_trial def
+R2596:2598 ThieleMachine.BellReceiptSemantics <> t_x proj
+R2596:2598 ThieleMachine.BellReceiptSemantics <> t_x proj
+R2596:2598 ThieleMachine.BellReceiptSemantics <> t_x proj
+R2606:2608 ThieleMachine.BellReceiptSemantics <> t_y proj
+R2606:2608 ThieleMachine.BellReceiptSemantics <> t_y proj
+R2616:2618 ThieleMachine.BellReceiptSemantics <> t_a proj
+R2616:2618 ThieleMachine.BellReceiptSemantics <> t_a proj
+R2627:2629 ThieleMachine.BellReceiptSemantics <> t_b proj
+R2627:2629 ThieleMachine.BellReceiptSemantics <> t_b proj
+R2603:2603 ThieleMachine.BellReceiptSemantics <> x:26 var
+R2613:2613 ThieleMachine.BellReceiptSemantics <> y:27 var
+R2623:2624 ThieleMachine.BellInequality <> B1 constr
+R2634:2635 ThieleMachine.BellInequality <> B1 constr
+R2640:2641 ThieleMachine.BellReceiptSemantics <> ts:28 var
+def 2664:2676 <> p_from_trials
+R2684:2687 Coq.Init.Datatypes <> list ind
+R2689:2693 ThieleMachine.BellReceiptSemantics <> Trial rec
+binder 2679:2680 <> ts:29
+R2707:2709 ThieleMachine.BellInequality <> Bit ind
+binder 2697:2697 <> a:30
+binder 2699:2699 <> b:31
+binder 2701:2701 <> x:32
+binder 2703:2703 <> y:33
+R2714:2714 Coq.QArith.QArith_base <> Q rec
+R2732:2739 Coq.ZArith.BinInt Z of_nat def
+R2742:2752 ThieleMachine.BellReceiptSemantics <> count_trial def
+R2757:2759 ThieleMachine.BellReceiptSemantics <> t_x proj
+R2757:2759 ThieleMachine.BellReceiptSemantics <> t_x proj
+R2757:2759 ThieleMachine.BellReceiptSemantics <> t_x proj
+R2767:2769 ThieleMachine.BellReceiptSemantics <> t_y proj
+R2767:2769 ThieleMachine.BellReceiptSemantics <> t_y proj
+R2777:2779 ThieleMachine.BellReceiptSemantics <> t_a proj
+R2777:2779 ThieleMachine.BellReceiptSemantics <> t_a proj
+R2787:2789 ThieleMachine.BellReceiptSemantics <> t_b proj
+R2787:2789 ThieleMachine.BellReceiptSemantics <> t_b proj
+R2764:2764 ThieleMachine.BellReceiptSemantics <> x:32 var
+R2774:2774 ThieleMachine.BellReceiptSemantics <> y:33 var
+R2784:2784 ThieleMachine.BellReceiptSemantics <> a:30 var
+R2794:2794 ThieleMachine.BellReceiptSemantics <> b:31 var
+R2799:2800 ThieleMachine.BellReceiptSemantics <> ts:29 var
+binder 2725:2727 <> num:34
+R2814:2830 ThieleMachine.BellReceiptSemantics <> total_for_setting def
+R2832:2832 ThieleMachine.BellReceiptSemantics <> x:32 var
+R2834:2834 ThieleMachine.BellReceiptSemantics <> y:33 var
+R2836:2837 ThieleMachine.BellReceiptSemantics <> ts:29 var
+R2848:2848 Coq.Init.Datatypes <> O constr
+R2859:2869 Coq.Init.Datatypes <> S constr
+R2883:2886 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R2907:2907 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R2880:2882 ThieleMachine.BellReceiptSemantics <> num:34 var
+R2887:2901 Coq.PArith.BinPos Pos of_succ_nat def
+def 2929:2945 <> raw_box_of_trials
+R2953:2956 Coq.Init.Datatypes <> list ind
+R2958:2962 ThieleMachine.BellReceiptSemantics <> Trial rec
+binder 2948:2949 <> ts:35
+R2971:2974 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2968:2970 ThieleMachine.BellInequality <> Bit ind
+R2978:2981 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2975:2977 ThieleMachine.BellInequality <> Bit ind
+R2985:2988 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2982:2984 ThieleMachine.BellInequality <> Bit ind
+R2992:2995 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2989:2991 ThieleMachine.BellInequality <> Bit ind
+R2996:2996 Coq.QArith.QArith_base <> Q rec
+binder 3008:3008 <> a:36
+binder 3010:3010 <> b:37
+binder 3012:3012 <> x:38
+binder 3014:3014 <> y:39
+R3019:3031 ThieleMachine.BellReceiptSemantics <> p_from_trials def
+R3033:3034 ThieleMachine.BellReceiptSemantics <> ts:35 var
+R3036:3036 ThieleMachine.BellReceiptSemantics <> a:36 var
+R3038:3038 ThieleMachine.BellReceiptSemantics <> b:37 var
+R3040:3040 ThieleMachine.BellReceiptSemantics <> x:38 var
+R3042:3042 ThieleMachine.BellReceiptSemantics <> y:39 var
+def 3403:3416 <> chsh_of_trials
+R3424:3427 Coq.Init.Datatypes <> list ind
+R3429:3433 ThieleMachine.BellReceiptSemantics <> Trial rec
+binder 3419:3420 <> ts:40
+R3438:3438 Coq.QArith.QArith_base <> Q rec
+R3457:3473 ThieleMachine.BellReceiptSemantics <> raw_box_of_trials def
+R3475:3476 ThieleMachine.BellReceiptSemantics <> ts:40 var
+binder 3449:3452 <> Braw:41
+R3868:3874 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R3944:3944 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R3791:3797 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R3867:3867 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R3643:3643 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R3713:3720 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R3790:3790 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R3644:3651 ThieleMachine.BellInequality <> sum_bit2 def
+binder 3658:3658 <> a:42
+binder 3660:3660 <> b:43
+R3665:3665 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R3694:3697 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R3666:3673 Coq.QArith.QArith_base <> inject_Z def
+R3682:3684 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R3677:3679 ThieleMachine.BellInequality <> sgn def
+R3681:3681 ThieleMachine.BellReceiptSemantics <> a:42 var
+R3685:3687 ThieleMachine.BellInequality <> sgn def
+R3689:3689 ThieleMachine.BellReceiptSemantics <> b:43 var
+R3698:3701 ThieleMachine.BellReceiptSemantics <> Braw:41 var
+R3703:3703 ThieleMachine.BellReceiptSemantics <> a:42 var
+R3705:3705 ThieleMachine.BellReceiptSemantics <> b:43 var
+R3707:3708 ThieleMachine.BellInequality <> B1 constr
+R3710:3711 ThieleMachine.BellInequality <> B1 constr
+R3721:3728 ThieleMachine.BellInequality <> sum_bit2 def
+binder 3735:3735 <> a:44
+binder 3737:3737 <> b:45
+R3742:3742 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R3771:3774 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R3743:3750 Coq.QArith.QArith_base <> inject_Z def
+R3759:3761 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R3754:3756 ThieleMachine.BellInequality <> sgn def
+R3758:3758 ThieleMachine.BellReceiptSemantics <> a:44 var
+R3762:3764 ThieleMachine.BellInequality <> sgn def
+R3766:3766 ThieleMachine.BellReceiptSemantics <> b:45 var
+R3775:3778 ThieleMachine.BellReceiptSemantics <> Braw:41 var
+R3780:3780 ThieleMachine.BellReceiptSemantics <> a:44 var
+R3782:3782 ThieleMachine.BellReceiptSemantics <> b:45 var
+R3784:3785 ThieleMachine.BellInequality <> B1 constr
+R3787:3788 ThieleMachine.BellInequality <> B0 constr
+R3798:3805 ThieleMachine.BellInequality <> sum_bit2 def
+binder 3812:3812 <> a:46
+binder 3814:3814 <> b:47
+R3819:3819 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R3848:3851 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R3820:3827 Coq.QArith.QArith_base <> inject_Z def
+R3836:3838 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R3831:3833 ThieleMachine.BellInequality <> sgn def
+R3835:3835 ThieleMachine.BellReceiptSemantics <> a:46 var
+R3839:3841 ThieleMachine.BellInequality <> sgn def
+R3843:3843 ThieleMachine.BellReceiptSemantics <> b:47 var
+R3852:3855 ThieleMachine.BellReceiptSemantics <> Braw:41 var
+R3857:3857 ThieleMachine.BellReceiptSemantics <> a:46 var
+R3859:3859 ThieleMachine.BellReceiptSemantics <> b:47 var
+R3861:3862 ThieleMachine.BellInequality <> B0 constr
+R3864:3865 ThieleMachine.BellInequality <> B1 constr
+R3875:3882 ThieleMachine.BellInequality <> sum_bit2 def
+binder 3889:3889 <> a:48
+binder 3891:3891 <> b:49
+R3896:3896 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R3925:3928 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R3897:3904 Coq.QArith.QArith_base <> inject_Z def
+R3913:3915 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R3908:3910 ThieleMachine.BellInequality <> sgn def
+R3912:3912 ThieleMachine.BellReceiptSemantics <> a:48 var
+R3916:3918 ThieleMachine.BellInequality <> sgn def
+R3920:3920 ThieleMachine.BellReceiptSemantics <> b:49 var
+R3929:3932 ThieleMachine.BellReceiptSemantics <> Braw:41 var
+R3934:3934 ThieleMachine.BellReceiptSemantics <> a:48 var
+R3936:3936 ThieleMachine.BellReceiptSemantics <> b:49 var
+R3938:3939 ThieleMachine.BellInequality <> B0 constr
+R3941:3942 ThieleMachine.BellInequality <> B0 constr

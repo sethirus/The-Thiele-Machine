@@ -1,0 +1,430 @@
+DIGEST 1f055786d8f823c7765f55872da31a04
+FKernel.PartitionSeparation
+R969:972 Coq.Lists.List <> <> lib
+R974:977 Coq.Bool.Bool <> <> lib
+R979:992 Coq.Arith.PeanoNat <> <> lib
+R1019:1032 Coq.Strings.String <> <> lib
+R1059:1061 Coq.micromega.Lia <> <> lib
+R1071:1083 Coq.Lists.List ListNotations <> mod
+R1102:1115 Kernel.VMState <> <> lib
+R1133:1145 Kernel.VMStep <> <> lib
+mod 1156:1174 <> PartitionSeparation
+rec 2980:2991 PartitionSeparation TMTransition
+proj 3000:3006 PartitionSeparation tm_from
+proj 3046:3052 PartitionSeparation tm_head
+proj 3092:3096 PartitionSeparation tm_to
+proj 3139:3146 PartitionSeparation tm_head'
+R3010:3013 Coq.Init.Datatypes <> list ind
+R3015:3017 Coq.Init.Datatypes <> nat ind
+R3056:3058 Coq.Init.Datatypes <> nat ind
+R3100:3103 Coq.Init.Datatypes <> list ind
+R3105:3107 Coq.Init.Datatypes <> nat ind
+R3150:3152 Coq.Init.Datatypes <> nat ind
+def 4725:4742 PartitionSeparation TMTransitionSystem
+R4747:4750 Coq.Init.Datatypes <> list ind
+R4752:4763 Kernel.PartitionSeparation PartitionSeparation TMTransition rec
+rec 6989:7004 PartitionSeparation ThieleTransition
+proj 7013:7027 PartitionSeparation th_graph_before
+proj 7049:7062 PartitionSeparation th_graph_after
+proj 7084:7095 PartitionSeparation th_mu_before
+proj 7106:7116 PartitionSeparation th_mu_after
+proj 7127:7148 PartitionSeparation th_module_count_before
+proj 7159:7179 PartitionSeparation th_module_count_after
+R7031:7044 Kernel.VMState <> PartitionGraph rec
+R7066:7079 Kernel.VMState <> PartitionGraph rec
+R7099:7101 Coq.Init.Datatypes <> nat ind
+R7120:7122 Coq.Init.Datatypes <> nat ind
+R7152:7154 Coq.Init.Datatypes <> nat ind
+R7183:7185 Coq.Init.Datatypes <> nat ind
+def 8971:8992 PartitionSeparation ThieleTransitionSystem
+R8997:9000 Coq.Init.Datatypes <> list ind
+R9002:9017 Kernel.PartitionSeparation PartitionSeparation ThieleTransition rec
+def 10442:10453 PartitionSeparation module_count
+R10460:10473 Kernel.VMState <> PartitionGraph rec
+binder 10456:10456 <> g:13
+R10478:10480 Coq.Init.Datatypes <> nat ind
+R10487:10497 Coq.Lists.List <> length abbrev
+R10500:10509 Kernel.VMState <> pg_modules proj
+R10511:10511 Kernel.PartitionSeparation <> g:13 var
+def 12153:12179 PartitionSeparation partition_structure_changed
+R12197:12210 Kernel.VMState <> PartitionGraph rec
+binder 12182:12187 <> before:14
+binder 12189:12193 <> after:15
+R12215:12218 Coq.Init.Datatypes <> bool ind
+R12225:12228 Coq.Init.Datatypes <> negb def
+R12231:12237 Coq.Arith.PeanoNat Nat eqb def
+R12240:12251 Kernel.PartitionSeparation PartitionSeparation module_count def
+R12253:12258 Kernel.PartitionSeparation <> before:14 var
+R12262:12273 Kernel.PartitionSeparation PartitionSeparation module_count def
+R12275:12279 Kernel.PartitionSeparation <> after:15 var
+def 13034:13049 PartitionSeparation initial_vm_state
+R13053:13059 Kernel.VMState <> VMState rec
+R13069:13076 Kernel.VMState <> vm_graph proj
+R13069:13076 Kernel.VMState <> vm_graph proj
+R13069:13076 Kernel.VMState <> vm_graph proj
+R13096:13102 Kernel.VMState <> vm_csrs proj
+R13096:13102 Kernel.VMState <> vm_csrs proj
+R13166:13172 Kernel.VMState <> vm_regs proj
+R13166:13172 Kernel.VMState <> vm_regs proj
+R13199:13204 Kernel.VMState <> vm_mem proj
+R13199:13204 Kernel.VMState <> vm_mem proj
+R13230:13234 Kernel.VMState <> vm_pc proj
+R13230:13234 Kernel.VMState <> vm_pc proj
+R13244:13248 Kernel.VMState <> vm_mu proj
+R13244:13248 Kernel.VMState <> vm_mu proj
+R13258:13263 Kernel.VMState <> vm_err proj
+R13258:13263 Kernel.VMState <> vm_err proj
+R13081:13091 Kernel.VMState <> empty_graph def
+R13110:13122 Kernel.VMState <> csr_cert_addr proj
+R13110:13122 Kernel.VMState <> csr_cert_addr proj
+R13110:13122 Kernel.VMState <> csr_cert_addr proj
+R13130:13139 Kernel.VMState <> csr_status proj
+R13130:13139 Kernel.VMState <> csr_status proj
+R13147:13153 Kernel.VMState <> csr_err proj
+R13147:13153 Kernel.VMState <> csr_err proj
+R13177:13182 Coq.Lists.List <> repeat def
+R13186:13194 Kernel.VMState <> REG_COUNT def
+R13209:13214 Coq.Lists.List <> repeat def
+R13218:13225 Kernel.VMState <> MEM_SIZE def
+R13268:13272 Coq.Init.Datatypes <> false constr
+def 14873:14890 PartitionSeparation separation_program
+R14894:14897 Coq.Init.Datatypes <> list ind
+R14899:14912 Kernel.VMStep VMStep vm_instruction ind
+R14917:14920 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R14943:14996 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R15016:15070 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R15098:15131 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R15144:15145 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R14921:14930 Kernel.VMStep VMStep instr_pnew constr
+R14932:14932 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R14934:14935 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R14937:14938 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R14940:14940 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R14997:15006 Kernel.VMStep VMStep instr_pnew constr
+R15008:15008 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R15010:15011 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R15013:15013 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R15071:15082 Kernel.VMStep VMStep instr_psplit constr
+R15086:15086 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R15088:15089 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R15091:15091 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R15093:15093 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R15095:15095 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R15132:15141 Kernel.VMStep VMStep instr_halt constr
+prf 16113:16132 PartitionSeparation initial_module_count
+R16176:16178 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16136:16147 Kernel.PartitionSeparation PartitionSeparation module_count def
+R16150:16157 Kernel.VMState <> vm_graph proj
+R16159:16174 Kernel.PartitionSeparation PartitionSeparation initial_vm_state def
+R16198:16209 Kernel.PartitionSeparation PartitionSeparation module_count def
+R16212:16227 Kernel.PartitionSeparation PartitionSeparation initial_vm_state def
+R16230:16240 Kernel.VMState <> empty_graph def
+prf 17581:17612 PartitionSeparation graph_add_module_increases_count
+binder 17623:17623 <> g:16
+binder 17625:17630 <> region:17
+binder 17632:17637 <> axioms:18
+binder 17639:17640 <> g':19
+binder 17642:17644 <> mid:20
+R17693:17698 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17681:17683 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17649:17664 Kernel.VMState <> graph_add_module def
+R17666:17666 Kernel.PartitionSeparation <> g:16 var
+R17668:17673 Kernel.PartitionSeparation <> region:17 var
+R17675:17680 Kernel.PartitionSeparation <> axioms:18 var
+R17684:17684 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R17687:17688 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R17692:17692 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R17685:17686 Kernel.PartitionSeparation <> g':19 var
+R17689:17691 Kernel.PartitionSeparation <> mid:20 var
+R17714:17716 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17699:17710 Kernel.PartitionSeparation PartitionSeparation module_count def
+R17712:17713 Kernel.PartitionSeparation <> g':19 var
+R17717:17717 Coq.Init.Datatypes <> S constr
+R17720:17731 Kernel.PartitionSeparation PartitionSeparation module_count def
+R17733:17733 Kernel.PartitionSeparation <> g:16 var
+R17790:17805 Kernel.VMState <> graph_add_module def
+R17853:17864 Kernel.PartitionSeparation PartitionSeparation module_count def
+def 19236:19255 PartitionSeparation tm_encoding_faithful
+R19267:19284 Kernel.PartitionSeparation PartitionSeparation TMTransitionSystem def
+binder 19258:19263 <> tm_sys:21
+R19329:19350 Kernel.PartitionSeparation PartitionSeparation ThieleTransitionSystem def
+binder 19320:19325 <> th_sys:22
+R19434:19436 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19416:19426 Coq.Lists.List <> length abbrev
+R19428:19433 Kernel.PartitionSeparation <> tm_sys:21 var
+R19437:19447 Coq.Lists.List <> length abbrev
+R19449:19454 Kernel.PartitionSeparation <> th_sys:22 var
+def 21609:21634 PartitionSeparation preserves_partition_labels
+R21646:21663 Kernel.PartitionSeparation PartitionSeparation TMTransitionSystem def
+binder 21637:21642 <> tm_sys:23
+R21715:21736 Kernel.PartitionSeparation PartitionSeparation ThieleTransitionSystem def
+binder 21706:21711 <> th_sys:24
+binder 21979:21979 <> n:25
+binder 21981:21988 <> th_trans:26
+R22029:22036 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22013:22015 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21995:22003 Coq.Lists.List <> nth_error def
+R22012:22012 Kernel.PartitionSeparation <> n:25 var
+R22005:22010 Kernel.PartitionSeparation <> th_sys:24 var
+R22016:22019 Coq.Init.Datatypes <> Some constr
+R22021:22028 Kernel.PartitionSeparation <> th_trans:26 var
+R22124:22264 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22117:22119 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22037:22063 Kernel.PartitionSeparation PartitionSeparation partition_structure_changed def
+R22075:22089 Kernel.PartitionSeparation PartitionSeparation th_graph_before proj
+R22065:22072 Kernel.PartitionSeparation <> th_trans:26 var
+R22102:22115 Kernel.PartitionSeparation PartitionSeparation th_graph_after proj
+R22092:22099 Kernel.PartitionSeparation <> th_trans:26 var
+R22120:22123 Coq.Init.Datatypes <> true constr
+R22265:22271 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R22280:22287 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 22272:22279 <> tm_trans:27
+R22322:22596 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R22306:22308 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22288:22296 Coq.Lists.List <> nth_error def
+R22305:22305 Kernel.PartitionSeparation <> n:25 var
+R22298:22303 Kernel.PartitionSeparation <> tm_sys:23 var
+R22309:22312 Coq.Init.Datatypes <> Some constr
+R22314:22321 Kernel.PartitionSeparation <> tm_trans:27 var
+R22597:22601 Coq.Init.Logic <> False ind
+prf 25339:25364 PartitionSeparation partition_based_separation
+R25527:25534 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R25595:25663 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R25542:25545 Coq.Init.Datatypes <> list ind
+R25547:25560 Kernel.VMStep VMStep vm_instruction ind
+binder 25535:25538 <> prog:28
+R25573:25594 Kernel.PartitionSeparation PartitionSeparation ThieleTransitionSystem def
+binder 25564:25569 <> th_sys:29
+R25684:25691 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R25680:25682 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R25664:25674 Coq.Lists.List <> length abbrev
+R25676:25679 Kernel.PartitionSeparation <> prog:28 var
+R25714:25776 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R25710:25712 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R25692:25702 Coq.Lists.List <> length abbrev
+R25704:25709 Kernel.PartitionSeparation <> th_sys:29 var
+R25794:25811 Kernel.PartitionSeparation PartitionSeparation TMTransitionSystem def
+binder 25785:25790 <> tm_sys:30
+R25855:25915 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25821:25840 Kernel.PartitionSeparation PartitionSeparation tm_encoding_faithful def
+R25842:25847 Kernel.PartitionSeparation <> tm_sys:30 var
+R25849:25854 Kernel.PartitionSeparation <> th_sys:29 var
+R25916:25917 Coq.Init.Logic <> ::type_scope:'~'_x not
+R25918:25943 Kernel.PartitionSeparation PartitionSeparation preserves_partition_labels def
+R25945:25950 Kernel.PartitionSeparation <> tm_sys:30 var
+R25952:25957 Kernel.PartitionSeparation <> th_sys:29 var
+R26016:26033 Kernel.PartitionSeparation PartitionSeparation separation_program def
+R26016:26033 Kernel.PartitionSeparation PartitionSeparation separation_program def
+R26112:26115 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R26370:26373 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R26116:26130 Kernel.PartitionSeparation PartitionSeparation th_graph_before proj
+R26116:26130 Kernel.PartitionSeparation PartitionSeparation th_graph_before proj
+R26116:26130 Kernel.PartitionSeparation PartitionSeparation th_graph_before proj
+R26161:26174 Kernel.PartitionSeparation PartitionSeparation th_graph_after proj
+R26161:26174 Kernel.PartitionSeparation PartitionSeparation th_graph_after proj
+R26239:26250 Kernel.PartitionSeparation PartitionSeparation th_mu_before proj
+R26239:26250 Kernel.PartitionSeparation PartitionSeparation th_mu_before proj
+R26271:26281 Kernel.PartitionSeparation PartitionSeparation th_mu_after proj
+R26271:26281 Kernel.PartitionSeparation PartitionSeparation th_mu_after proj
+R26302:26323 Kernel.PartitionSeparation PartitionSeparation th_module_count_before proj
+R26302:26323 Kernel.PartitionSeparation PartitionSeparation th_module_count_before proj
+R26344:26364 Kernel.PartitionSeparation PartitionSeparation th_module_count_after proj
+R26344:26364 Kernel.PartitionSeparation PartitionSeparation th_module_count_after proj
+R26135:26145 Kernel.VMState <> empty_graph def
+R26179:26181 Coq.Init.Datatypes <> fst def
+R26184:26199 Kernel.VMState <> graph_add_module def
+R26201:26211 Kernel.VMState <> empty_graph def
+R26213:26213 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R26215:26215 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R26217:26217 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R26219:26219 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R26221:26222 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R26112:26115 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R26370:26373 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R26116:26130 Kernel.PartitionSeparation PartitionSeparation th_graph_before proj
+R26116:26130 Kernel.PartitionSeparation PartitionSeparation th_graph_before proj
+R26116:26130 Kernel.PartitionSeparation PartitionSeparation th_graph_before proj
+R26161:26174 Kernel.PartitionSeparation PartitionSeparation th_graph_after proj
+R26161:26174 Kernel.PartitionSeparation PartitionSeparation th_graph_after proj
+R26239:26250 Kernel.PartitionSeparation PartitionSeparation th_mu_before proj
+R26239:26250 Kernel.PartitionSeparation PartitionSeparation th_mu_before proj
+R26271:26281 Kernel.PartitionSeparation PartitionSeparation th_mu_after proj
+R26271:26281 Kernel.PartitionSeparation PartitionSeparation th_mu_after proj
+R26302:26323 Kernel.PartitionSeparation PartitionSeparation th_module_count_before proj
+R26302:26323 Kernel.PartitionSeparation PartitionSeparation th_module_count_before proj
+R26344:26364 Kernel.PartitionSeparation PartitionSeparation th_module_count_after proj
+R26344:26364 Kernel.PartitionSeparation PartitionSeparation th_module_count_after proj
+R26135:26145 Kernel.VMState <> empty_graph def
+R26179:26181 Coq.Init.Datatypes <> fst def
+R26184:26199 Kernel.VMState <> graph_add_module def
+R26201:26211 Kernel.VMState <> empty_graph def
+R26213:26213 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R26215:26215 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R26217:26217 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R26219:26219 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R26221:26222 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R26430:26447 Kernel.PartitionSeparation PartitionSeparation separation_program def
+R26708:26733 Kernel.PartitionSeparation PartitionSeparation preserves_partition_labels def
+R27182:27198 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26832:26835 Coq.Init.Datatypes <> Some constr
+R26840:26854 Kernel.PartitionSeparation PartitionSeparation th_graph_before proj
+R26840:26854 Kernel.PartitionSeparation PartitionSeparation th_graph_before proj
+R26840:26854 Kernel.PartitionSeparation PartitionSeparation th_graph_before proj
+R26902:26915 Kernel.PartitionSeparation PartitionSeparation th_graph_after proj
+R26902:26915 Kernel.PartitionSeparation PartitionSeparation th_graph_after proj
+R26997:27008 Kernel.PartitionSeparation PartitionSeparation th_mu_before proj
+R26997:27008 Kernel.PartitionSeparation PartitionSeparation th_mu_before proj
+R27046:27056 Kernel.PartitionSeparation PartitionSeparation th_mu_after proj
+R27046:27056 Kernel.PartitionSeparation PartitionSeparation th_mu_after proj
+R27094:27115 Kernel.PartitionSeparation PartitionSeparation th_module_count_before proj
+R27094:27115 Kernel.PartitionSeparation PartitionSeparation th_module_count_before proj
+R27153:27173 Kernel.PartitionSeparation PartitionSeparation th_module_count_after proj
+R27153:27173 Kernel.PartitionSeparation PartitionSeparation th_module_count_after proj
+R26859:26869 Kernel.VMState <> empty_graph def
+R26920:26922 Coq.Init.Datatypes <> fst def
+R26925:26940 Kernel.VMState <> graph_add_module def
+R26942:26952 Kernel.VMState <> empty_graph def
+R26954:26954 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R26956:26956 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R26958:26958 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R26960:26960 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R26962:26963 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R27199:27202 Coq.Init.Datatypes <> Some constr
+R27207:27221 Kernel.PartitionSeparation PartitionSeparation th_graph_before proj
+R27207:27221 Kernel.PartitionSeparation PartitionSeparation th_graph_before proj
+R27207:27221 Kernel.PartitionSeparation PartitionSeparation th_graph_before proj
+R27261:27274 Kernel.PartitionSeparation PartitionSeparation th_graph_after proj
+R27261:27274 Kernel.PartitionSeparation PartitionSeparation th_graph_after proj
+R27348:27359 Kernel.PartitionSeparation PartitionSeparation th_mu_before proj
+R27348:27359 Kernel.PartitionSeparation PartitionSeparation th_mu_before proj
+R27389:27399 Kernel.PartitionSeparation PartitionSeparation th_mu_after proj
+R27389:27399 Kernel.PartitionSeparation PartitionSeparation th_mu_after proj
+R27429:27450 Kernel.PartitionSeparation PartitionSeparation th_module_count_before proj
+R27429:27450 Kernel.PartitionSeparation PartitionSeparation th_module_count_before proj
+R27480:27500 Kernel.PartitionSeparation PartitionSeparation th_module_count_after proj
+R27480:27500 Kernel.PartitionSeparation PartitionSeparation th_module_count_after proj
+R27226:27236 Kernel.VMState <> empty_graph def
+R27279:27281 Coq.Init.Datatypes <> fst def
+R27284:27299 Kernel.VMState <> graph_add_module def
+R27301:27311 Kernel.VMState <> empty_graph def
+R27313:27313 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R27315:27315 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R27317:27317 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R27319:27319 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R27321:27322 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R27182:27198 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26832:26835 Coq.Init.Datatypes <> Some constr
+R26840:26854 Kernel.PartitionSeparation PartitionSeparation th_graph_before proj
+R26840:26854 Kernel.PartitionSeparation PartitionSeparation th_graph_before proj
+R26840:26854 Kernel.PartitionSeparation PartitionSeparation th_graph_before proj
+R26902:26915 Kernel.PartitionSeparation PartitionSeparation th_graph_after proj
+R26902:26915 Kernel.PartitionSeparation PartitionSeparation th_graph_after proj
+R26997:27008 Kernel.PartitionSeparation PartitionSeparation th_mu_before proj
+R26997:27008 Kernel.PartitionSeparation PartitionSeparation th_mu_before proj
+R27046:27056 Kernel.PartitionSeparation PartitionSeparation th_mu_after proj
+R27046:27056 Kernel.PartitionSeparation PartitionSeparation th_mu_after proj
+R27094:27115 Kernel.PartitionSeparation PartitionSeparation th_module_count_before proj
+R27094:27115 Kernel.PartitionSeparation PartitionSeparation th_module_count_before proj
+R27153:27173 Kernel.PartitionSeparation PartitionSeparation th_module_count_after proj
+R27153:27173 Kernel.PartitionSeparation PartitionSeparation th_module_count_after proj
+R26859:26869 Kernel.VMState <> empty_graph def
+R26920:26922 Coq.Init.Datatypes <> fst def
+R26925:26940 Kernel.VMState <> graph_add_module def
+R26942:26952 Kernel.VMState <> empty_graph def
+R26954:26954 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R26956:26956 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R26958:26958 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R26960:26960 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R26962:26963 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R27199:27202 Coq.Init.Datatypes <> Some constr
+R27207:27221 Kernel.PartitionSeparation PartitionSeparation th_graph_before proj
+R27207:27221 Kernel.PartitionSeparation PartitionSeparation th_graph_before proj
+R27207:27221 Kernel.PartitionSeparation PartitionSeparation th_graph_before proj
+R27261:27274 Kernel.PartitionSeparation PartitionSeparation th_graph_after proj
+R27261:27274 Kernel.PartitionSeparation PartitionSeparation th_graph_after proj
+R27348:27359 Kernel.PartitionSeparation PartitionSeparation th_mu_before proj
+R27348:27359 Kernel.PartitionSeparation PartitionSeparation th_mu_before proj
+R27389:27399 Kernel.PartitionSeparation PartitionSeparation th_mu_after proj
+R27389:27399 Kernel.PartitionSeparation PartitionSeparation th_mu_after proj
+R27429:27450 Kernel.PartitionSeparation PartitionSeparation th_module_count_before proj
+R27429:27450 Kernel.PartitionSeparation PartitionSeparation th_module_count_before proj
+R27480:27500 Kernel.PartitionSeparation PartitionSeparation th_module_count_after proj
+R27480:27500 Kernel.PartitionSeparation PartitionSeparation th_module_count_after proj
+R27226:27236 Kernel.VMState <> empty_graph def
+R27279:27281 Coq.Init.Datatypes <> fst def
+R27284:27299 Kernel.VMState <> graph_add_module def
+R27301:27311 Kernel.VMState <> empty_graph def
+R27313:27313 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R27315:27315 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R27317:27317 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R27319:27319 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R27321:27322 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R27781:27783 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R27667:27693 Kernel.PartitionSeparation PartitionSeparation partition_structure_changed def
+R27695:27705 Kernel.VMState <> empty_graph def
+R27735:27737 Coq.Init.Datatypes <> fst def
+R27740:27755 Kernel.VMState <> graph_add_module def
+R27757:27767 Kernel.VMState <> empty_graph def
+R27769:27769 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R27771:27771 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R27773:27773 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R27775:27775 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R27777:27778 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R27784:27787 Coq.Init.Datatypes <> true constr
+R27781:27783 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R27667:27693 Kernel.PartitionSeparation PartitionSeparation partition_structure_changed def
+R27695:27705 Kernel.VMState <> empty_graph def
+R27735:27737 Coq.Init.Datatypes <> fst def
+R27740:27755 Kernel.VMState <> graph_add_module def
+R27757:27767 Kernel.VMState <> empty_graph def
+R27769:27769 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R27771:27771 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R27773:27773 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R27775:27775 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R27777:27778 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R27784:27787 Coq.Init.Datatypes <> true constr
+R27814:27840 Kernel.PartitionSeparation PartitionSeparation partition_structure_changed def
+R27843:27854 Kernel.PartitionSeparation PartitionSeparation module_count def
+R27857:27867 Kernel.VMState <> empty_graph def
+R27885:27900 Kernel.VMState <> graph_add_module def
+prf 29794:29828 PartitionSeparation turing_strictly_contained_partition
+R29979:29986 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R30047:30135 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R29994:29997 Coq.Init.Datatypes <> list ind
+R29999:30012 Kernel.VMStep VMStep vm_instruction ind
+binder 29987:29990 <> prog:31
+R30025:30046 Kernel.PartitionSeparation PartitionSeparation ThieleTransitionSystem def
+binder 30016:30021 <> th_sys:32
+R30156:30247 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R30152:30154 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R30136:30146 Coq.Lists.List <> length abbrev
+R30148:30151 Kernel.PartitionSeparation <> prog:31 var
+binder 30255:30260 <> tm_sys:33
+R30303:30312 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R30269:30288 Kernel.PartitionSeparation PartitionSeparation tm_encoding_faithful def
+R30290:30295 Kernel.PartitionSeparation <> tm_sys:33 var
+R30297:30302 Kernel.PartitionSeparation <> th_sys:32 var
+R30313:30314 Coq.Init.Logic <> ::type_scope:'~'_x not
+R30315:30340 Kernel.PartitionSeparation PartitionSeparation preserves_partition_labels def
+R30342:30347 Kernel.PartitionSeparation <> tm_sys:33 var
+R30349:30354 Kernel.PartitionSeparation <> th_sys:32 var
+R30375:30400 Kernel.PartitionSeparation PartitionSeparation partition_based_separation thm
+prf 32230:32250 PartitionSeparation pnew_not_tm_simulable
+R32273:32276 Coq.Init.Datatypes <> list ind
+R32278:32280 Coq.Init.Datatypes <> nat ind
+binder 32264:32269 <> region:34
+R32360:32362 Coq.Init.Datatypes <> fst def
+R32365:32374 Kernel.VMState <> graph_pnew def
+R32376:32386 Kernel.VMState <> empty_graph def
+R32388:32393 Kernel.PartitionSeparation <> region:34 var
+binder 32354:32355 <> g':35
+R32423:32495 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R32418:32421 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R32403:32414 Kernel.PartitionSeparation PartitionSeparation module_count def
+R32416:32417 Kernel.PartitionSeparation <> g':35 var
+R32512:32523 Kernel.PartitionSeparation PartitionSeparation TMTransition rec
+binder 32504:32508 <> tm_op:36
+R32591:32594 Coq.Init.Logic <> True ind
+R32706:32706 Coq.Init.Logic <> I constr
+R32706:32706 Coq.Init.Logic <> I constr
+R33493:33511 Kernel.PartitionSeparation PartitionSeparation <> mod

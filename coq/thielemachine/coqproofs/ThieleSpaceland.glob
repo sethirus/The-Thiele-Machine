@@ -1,0 +1,2018 @@
+DIGEST 97d64db622e3119c94a52c859877ec0b
+FThieleMachine.ThieleSpaceland
+R1076:1079 Coq.Lists.List <> <> lib
+R1081:1084 Coq.Bool.Bool <> <> lib
+R1086:1091 Coq.ZArith.ZArith <> <> lib
+R1093:1095 Coq.micromega.Lia <> <> lib
+R1097:1102 Coq.QArith.QArith <> <> lib
+R1104:1108 Coq.micromega.Psatz <> <> lib
+R1145:1157 ThieleMachine.CoreSemantics <> <> lib
+R1159:1167 ThieleMachine.Spaceland <> <> lib
+R1177:1189 Coq.Lists.List ListNotations <> mod
+mod 1485:1499 <> ThieleSpaceland
+def 1749:1753 ThieleSpaceland State
+R1758:1776 ThieleMachine.CoreSemantics <> State rec
+def 1825:1833 ThieleSpaceland Partition
+R1838:1860 ThieleMachine.CoreSemantics <> Partition rec
+def 1876:1883 ThieleSpaceland ModuleId
+R1888:1909 ThieleMachine.CoreSemantics <> ModuleId def
+def 1978:1988 ThieleSpaceland Instruction
+R1993:2017 ThieleMachine.CoreSemantics <> Instruction ind
+def 2033:2039 ThieleSpaceland program
+R2046:2050 ThieleMachine.ThieleSpaceland ThieleSpaceland State def
+binder 2042:2042 <> s:1
+R2055:2058 Coq.Init.Datatypes <> list ind
+R2060:2070 ThieleMachine.ThieleSpaceland ThieleSpaceland Instruction def
+R2075:2095 ThieleMachine.CoreSemantics <> program proj
+R2097:2097 ThieleMachine.ThieleSpaceland <> s:1 var
+def 2113:2114 ThieleSpaceland pc
+R2121:2125 ThieleMachine.ThieleSpaceland ThieleSpaceland State def
+binder 2117:2117 <> s:2
+R2130:2132 Coq.Init.Datatypes <> nat ind
+R2137:2152 ThieleMachine.CoreSemantics <> pc proj
+R2154:2154 ThieleMachine.ThieleSpaceland <> s:2 var
+def 2173:2187 ThieleSpaceland is_in_footprint
+R2194:2204 ThieleMachine.ThieleSpaceland ThieleSpaceland Instruction def
+binder 2190:2190 <> i:3
+R2213:2215 Coq.Init.Datatypes <> nat ind
+binder 2208:2209 <> m':4
+R2220:2223 Coq.Init.Datatypes <> bool ind
+R2238:2238 ThieleMachine.ThieleSpaceland <> i:3 var
+R2251:2268 ThieleMachine.CoreSemantics <> PNEW constr
+R2275:2281 Coq.Lists.List <> existsb def
+R2284:2290 Coq.Arith.PeanoNat Nat eqb def
+R2292:2293 ThieleMachine.ThieleSpaceland <> m':4 var
+R2309:2313 Coq.Init.Datatypes <> false constr
+def 2340:2352 ThieleSpaceland get_partition
+R2359:2363 ThieleMachine.ThieleSpaceland ThieleSpaceland State def
+binder 2355:2355 <> s:6
+R2368:2376 ThieleMachine.ThieleSpaceland ThieleSpaceland Partition def
+R2385:2407 ThieleMachine.CoreSemantics <> partition proj
+R2409:2409 ThieleMachine.ThieleSpaceland <> s:6 var
+def 2492:2505 ThieleSpaceland find_module_of
+R2518:2521 Coq.Init.Datatypes <> list ind
+R2532:2534 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2524:2531 ThieleMachine.ThieleSpaceland ThieleSpaceland ModuleId def
+R2535:2554 ThieleMachine.CoreSemantics <> Region def
+binder 2508:2514 <> modules:7
+R2592:2594 Coq.Init.Datatypes <> nat ind
+binder 2586:2588 <> var:8
+R2599:2604 Coq.Init.Datatypes <> option ind
+R2606:2613 ThieleMachine.ThieleSpaceland ThieleSpaceland ModuleId def
+R2628:2634 ThieleMachine.ThieleSpaceland <> modules:7 var
+R2647:2648 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2653:2656 Coq.Init.Datatypes <> None constr
+R2677:2680 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2664:2664 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2668:2669 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2676:2676 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2700:2706 Coq.Lists.List <> existsb def
+R2709:2715 Coq.Arith.PeanoNat Nat eqb def
+R2717:2719 ThieleMachine.ThieleSpaceland <> var:8 var
+R2764:2777 ThieleMachine.ThieleSpaceland <> find_module_of:9 def
+R2784:2786 ThieleMachine.ThieleSpaceland <> var:8 var
+R2742:2745 Coq.Init.Datatypes <> Some constr
+def 2813:2821 ThieleSpaceland module_of
+R2828:2832 ThieleMachine.ThieleSpaceland ThieleSpaceland State def
+binder 2824:2824 <> s:11
+R2842:2844 Coq.Init.Datatypes <> nat ind
+binder 2836:2838 <> var:12
+R2849:2856 ThieleMachine.ThieleSpaceland ThieleSpaceland ModuleId def
+R2871:2884 ThieleMachine.ThieleSpaceland ThieleSpaceland find_module_of def
+R2887:2907 ThieleMachine.CoreSemantics <> modules proj
+R2910:2922 ThieleMachine.ThieleSpaceland ThieleSpaceland get_partition def
+R2924:2924 ThieleMachine.ThieleSpaceland <> s:11 var
+R2928:2930 ThieleMachine.ThieleSpaceland <> var:12 var
+R2943:2946 Coq.Init.Datatypes <> Some constr
+R2965:2968 Coq.Init.Datatypes <> None constr
+def 3071:3084 ThieleSpaceland same_partition
+R3095:3099 ThieleMachine.ThieleSpaceland ThieleSpaceland State def
+binder 3087:3088 <> s1:13
+binder 3090:3091 <> s2:14
+R3132:3134 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3116:3128 ThieleMachine.ThieleSpaceland ThieleSpaceland get_partition def
+R3130:3131 ThieleMachine.ThieleSpaceland <> s1:13 var
+R3135:3147 ThieleMachine.ThieleSpaceland ThieleSpaceland get_partition def
+R3149:3150 ThieleMachine.ThieleSpaceland <> s2:14 var
+prf 3211:3230 ThieleSpaceland partition_wellformed
+R3246:3250 ThieleMachine.ThieleSpaceland ThieleSpaceland State def
+binder 3242:3242 <> s:15
+R3258:3265 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3289:3297 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3276:3279 Coq.Init.Datatypes <> list ind
+R3281:3288 ThieleMachine.ThieleSpaceland ThieleSpaceland ModuleId def
+binder 3266:3272 <> modules:16
+R3313:3315 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R3299:3304 Coq.Init.Datatypes <> length def
+R3306:3312 ThieleMachine.ThieleSpaceland <> modules:16 var
+R3431:3431 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3437:3437 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3431:3431 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3437:3437 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+def 3510:3514 ThieleSpaceland Label
+R3526:3540 ThieleMachine.Spaceland <> Label ind
+R3542:3549 ThieleMachine.ThieleSpaceland ThieleSpaceland ModuleId def
+prf 3602:3620 ThieleSpaceland LCompute_not_LSplit
+binder 3631:3631 <> m:17
+R3634:3634 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3653:3658 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3677:3677 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3636:3643 ThieleMachine.Spaceland <> LCompute constr
+R3645:3652 ThieleMachine.ThieleSpaceland ThieleSpaceland ModuleId def
+R3660:3665 ThieleMachine.Spaceland <> LSplit constr
+R3667:3674 ThieleMachine.ThieleSpaceland ThieleSpaceland ModuleId def
+R3676:3676 ThieleMachine.ThieleSpaceland <> m:17 var
+prf 3733:3751 ThieleSpaceland LCompute_not_LMerge
+binder 3762:3763 <> m1:18
+binder 3765:3766 <> m2:19
+R3769:3769 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3788:3793 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3816:3816 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3771:3778 ThieleMachine.Spaceland <> LCompute constr
+R3780:3787 ThieleMachine.ThieleSpaceland ThieleSpaceland ModuleId def
+R3795:3800 ThieleMachine.Spaceland <> LMerge constr
+R3802:3809 ThieleMachine.ThieleSpaceland ThieleSpaceland ModuleId def
+R3811:3812 ThieleMachine.ThieleSpaceland <> m1:18 var
+R3814:3815 ThieleMachine.ThieleSpaceland <> m2:19 var
+prf 3876:3896 ThieleSpaceland LCompute_not_LObserve
+binder 3907:3907 <> m:20
+R3910:3910 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3929:3934 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3955:3955 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3912:3919 ThieleMachine.Spaceland <> LCompute constr
+R3921:3928 ThieleMachine.ThieleSpaceland ThieleSpaceland ModuleId def
+R3936:3943 ThieleMachine.Spaceland <> LObserve constr
+R3945:3952 ThieleMachine.ThieleSpaceland ThieleSpaceland ModuleId def
+R3954:3954 ThieleMachine.ThieleSpaceland <> m:20 var
+def 4069:4082 ThieleSpaceland instr_to_label
+R4089:4113 ThieleMachine.CoreSemantics <> Instruction ind
+binder 4085:4085 <> i:21
+R4118:4123 Coq.Init.Datatypes <> option ind
+R4125:4129 ThieleMachine.ThieleSpaceland ThieleSpaceland Label def
+R4144:4144 ThieleMachine.ThieleSpaceland <> i:21 var
+R4157:4174 ThieleMachine.CoreSemantics <> PNEW constr
+R4181:4184 Coq.Init.Datatypes <> Some constr
+R4188:4195 ThieleMachine.Spaceland <> LCompute constr
+R4197:4204 ThieleMachine.ThieleSpaceland ThieleSpaceland ModuleId def
+R4213:4232 ThieleMachine.CoreSemantics <> PSPLIT constr
+R4239:4242 Coq.Init.Datatypes <> Some constr
+R4246:4251 ThieleMachine.Spaceland <> LSplit constr
+R4253:4260 ThieleMachine.ThieleSpaceland ThieleSpaceland ModuleId def
+R4271:4290 ThieleMachine.CoreSemantics <> PMERGE constr
+R4301:4304 Coq.Init.Datatypes <> Some constr
+R4308:4313 ThieleMachine.Spaceland <> LMerge constr
+R4315:4322 ThieleMachine.ThieleSpaceland ThieleSpaceland ModuleId def
+R4337:4359 ThieleMachine.CoreSemantics <> PDISCOVER constr
+R4364:4367 Coq.Init.Datatypes <> Some constr
+R4371:4378 ThieleMachine.Spaceland <> LObserve constr
+R4380:4387 ThieleMachine.ThieleSpaceland ThieleSpaceland ModuleId def
+R4433:4453 ThieleMachine.CoreSemantics <> LASSERT constr
+R4458:4461 Coq.Init.Datatypes <> Some constr
+R4465:4472 ThieleMachine.Spaceland <> LCompute constr
+R4474:4481 ThieleMachine.ThieleSpaceland ThieleSpaceland ModuleId def
+R4490:4508 ThieleMachine.CoreSemantics <> LJOIN constr
+R4513:4516 Coq.Init.Datatypes <> Some constr
+R4520:4527 ThieleMachine.Spaceland <> LCompute constr
+R4529:4536 ThieleMachine.ThieleSpaceland ThieleSpaceland ModuleId def
+R4545:4564 ThieleMachine.CoreSemantics <> MDLACC constr
+R4571:4574 Coq.Init.Datatypes <> Some constr
+R4578:4585 ThieleMachine.Spaceland <> LCompute constr
+R4587:4594 ThieleMachine.ThieleSpaceland ThieleSpaceland ModuleId def
+R4603:4620 ThieleMachine.CoreSemantics <> XFER constr
+R4625:4628 Coq.Init.Datatypes <> Some constr
+R4632:4639 ThieleMachine.Spaceland <> LCompute constr
+R4641:4648 ThieleMachine.ThieleSpaceland ThieleSpaceland ModuleId def
+R4657:4676 ThieleMachine.CoreSemantics <> PYEXEC constr
+R4681:4684 Coq.Init.Datatypes <> Some constr
+R4688:4695 ThieleMachine.Spaceland <> LCompute constr
+R4697:4704 ThieleMachine.ThieleSpaceland ThieleSpaceland ModuleId def
+R4713:4734 ThieleMachine.CoreSemantics <> XOR_LOAD constr
+R4739:4742 Coq.Init.Datatypes <> Some constr
+R4746:4753 ThieleMachine.Spaceland <> LCompute constr
+R4755:4762 ThieleMachine.ThieleSpaceland ThieleSpaceland ModuleId def
+R4771:4791 ThieleMachine.CoreSemantics <> XOR_ADD constr
+R4796:4799 Coq.Init.Datatypes <> Some constr
+R4803:4810 ThieleMachine.Spaceland <> LCompute constr
+R4812:4819 ThieleMachine.ThieleSpaceland ThieleSpaceland ModuleId def
+R4828:4849 ThieleMachine.CoreSemantics <> XOR_SWAP constr
+R4854:4857 Coq.Init.Datatypes <> Some constr
+R4861:4868 ThieleMachine.Spaceland <> LCompute constr
+R4870:4877 ThieleMachine.ThieleSpaceland ThieleSpaceland ModuleId def
+R4886:4907 ThieleMachine.CoreSemantics <> XOR_RANK constr
+R4912:4915 Coq.Init.Datatypes <> Some constr
+R4919:4926 ThieleMachine.Spaceland <> LCompute constr
+R4928:4935 ThieleMachine.ThieleSpaceland ThieleSpaceland ModuleId def
+R4944:4961 ThieleMachine.CoreSemantics <> EMIT constr
+R4968:4971 Coq.Init.Datatypes <> Some constr
+R4975:4982 ThieleMachine.Spaceland <> LCompute constr
+R4984:4991 ThieleMachine.ThieleSpaceland ThieleSpaceland ModuleId def
+R5000:5025 ThieleMachine.CoreSemantics <> ORACLE_HALTS constr
+R5030:5033 Coq.Init.Datatypes <> Some constr
+R5037:5044 ThieleMachine.Spaceland <> LObserve constr
+R5046:5053 ThieleMachine.ThieleSpaceland ThieleSpaceland ModuleId def
+R5096:5113 ThieleMachine.CoreSemantics <> HALT constr
+R5118:5121 Coq.Init.Datatypes <> None constr
+def 5229:5232 ThieleSpaceland step
+R5239:5243 ThieleMachine.ThieleSpaceland ThieleSpaceland State def
+binder 5235:5235 <> s:23
+R5251:5255 ThieleMachine.ThieleSpaceland ThieleSpaceland Label def
+binder 5247:5247 <> l:24
+R5264:5268 ThieleMachine.ThieleSpaceland ThieleSpaceland State def
+binder 5259:5260 <> s':25
+R5285:5292 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5322:5330 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5297:5321 ThieleMachine.CoreSemantics <> Instruction ind
+binder 5293:5293 <> i:26
+R5396:5405 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5387:5389 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5331:5339 Coq.Lists.List <> nth_error def
+R5368:5383 ThieleMachine.CoreSemantics <> pc proj
+R5385:5385 ThieleMachine.ThieleSpaceland <> s:23 var
+R5342:5362 ThieleMachine.CoreSemantics <> program proj
+R5364:5364 ThieleMachine.ThieleSpaceland <> s:23 var
+R5390:5393 Coq.Init.Datatypes <> Some constr
+R5395:5395 ThieleMachine.ThieleSpaceland <> i:26 var
+R5431:5440 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5422:5424 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5406:5419 ThieleMachine.ThieleSpaceland ThieleSpaceland instr_to_label def
+R5421:5421 ThieleMachine.ThieleSpaceland <> i:26 var
+R5425:5428 Coq.Init.Datatypes <> Some constr
+R5430:5430 ThieleMachine.ThieleSpaceland <> l:24 var
+R5461:5463 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5441:5458 ThieleMachine.CoreSemantics <> step def
+R5460:5460 ThieleMachine.ThieleSpaceland <> s:23 var
+R5464:5467 Coq.Init.Datatypes <> Some constr
+R5469:5470 ThieleMachine.ThieleSpaceland <> s':25 var
+prf 5516:5533 ThieleSpaceland step_deterministic
+binder 5544:5544 <> s:27
+binder 5546:5546 <> l:28
+binder 5548:5549 <> s1:29
+binder 5551:5552 <> s2:30
+R5570:5573 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5559:5562 ThieleMachine.ThieleSpaceland ThieleSpaceland step def
+R5564:5564 ThieleMachine.ThieleSpaceland <> s:27 var
+R5566:5566 ThieleMachine.ThieleSpaceland <> l:28 var
+R5568:5569 ThieleMachine.ThieleSpaceland <> s1:29 var
+R5585:5588 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5574:5577 ThieleMachine.ThieleSpaceland ThieleSpaceland step def
+R5579:5579 ThieleMachine.ThieleSpaceland <> s:27 var
+R5581:5581 ThieleMachine.ThieleSpaceland <> l:28 var
+R5583:5584 ThieleMachine.ThieleSpaceland <> s2:30 var
+R5591:5593 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5589:5590 ThieleMachine.ThieleSpaceland <> s1:29 var
+R5594:5595 ThieleMachine.ThieleSpaceland <> s2:30 var
+R5646:5649 ThieleMachine.ThieleSpaceland ThieleSpaceland step def
+prf 6241:6263 ThieleSpaceland find_module_of_app_some
+binder 6274:6277 <> mods:31
+binder 6279:6281 <> var:32
+binder 6283:6285 <> mid:33
+binder 6287:6293 <> new_mod:34
+binder 6295:6304 <> new_region:35
+R6345:6352 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6334:6336 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6311:6324 ThieleMachine.ThieleSpaceland ThieleSpaceland find_module_of def
+R6326:6329 ThieleMachine.ThieleSpaceland <> mods:31 var
+R6331:6333 ThieleMachine.ThieleSpaceland <> var:32 var
+R6337:6340 Coq.Init.Datatypes <> Some constr
+R6342:6344 ThieleMachine.ThieleSpaceland <> mid:33 var
+R6405:6407 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6353:6366 ThieleMachine.ThieleSpaceland ThieleSpaceland find_module_of def
+R6373:6376 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R6369:6372 ThieleMachine.ThieleSpaceland <> mods:31 var
+R6377:6377 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R6399:6399 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R6378:6378 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6386:6387 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6398:6398 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6379:6385 ThieleMachine.ThieleSpaceland <> new_mod:34 var
+R6388:6397 ThieleMachine.ThieleSpaceland <> new_region:35 var
+R6402:6404 ThieleMachine.ThieleSpaceland <> var:32 var
+R6408:6411 Coq.Init.Datatypes <> Some constr
+R6413:6415 ThieleMachine.ThieleSpaceland <> mid:33 var
+R6682:6688 Coq.Lists.List <> existsb def
+R6691:6697 Coq.Arith.PeanoNat Nat eqb def
+R6682:6688 Coq.Lists.List <> existsb def
+R6691:6697 Coq.Arith.PeanoNat Nat eqb def
+prf 6960:6982 ThieleSpaceland find_module_of_app_none
+binder 6993:6996 <> mods:36
+binder 6998:7000 <> var:37
+binder 7002:7008 <> new_mod:38
+binder 7010:7019 <> new_region:39
+R7056:7063 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7049:7051 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7026:7039 ThieleMachine.ThieleSpaceland ThieleSpaceland find_module_of def
+R7041:7044 ThieleMachine.ThieleSpaceland <> mods:36 var
+R7046:7048 ThieleMachine.ThieleSpaceland <> var:37 var
+R7052:7055 Coq.Init.Datatypes <> None constr
+R7104:7111 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7096:7098 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7064:7070 Coq.Lists.List <> existsb def
+R7086:7095 ThieleMachine.ThieleSpaceland <> new_region:39 var
+R7073:7079 Coq.Arith.PeanoNat Nat eqb def
+R7081:7083 ThieleMachine.ThieleSpaceland <> var:37 var
+R7099:7103 Coq.Init.Datatypes <> false constr
+R7164:7166 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7112:7125 ThieleMachine.ThieleSpaceland ThieleSpaceland find_module_of def
+R7132:7135 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7128:7131 ThieleMachine.ThieleSpaceland <> mods:36 var
+R7136:7136 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7158:7158 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7137:7137 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7145:7146 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7157:7157 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7138:7144 ThieleMachine.ThieleSpaceland <> new_mod:38 var
+R7147:7156 ThieleMachine.ThieleSpaceland <> new_region:39 var
+R7161:7163 ThieleMachine.ThieleSpaceland <> var:37 var
+R7167:7170 Coq.Init.Datatypes <> None constr
+R7426:7432 Coq.Lists.List <> existsb def
+R7435:7441 Coq.Arith.PeanoNat Nat eqb def
+R7426:7432 Coq.Lists.List <> existsb def
+R7435:7441 Coq.Arith.PeanoNat Nat eqb def
+prf 7851:7869 ThieleSpaceland module_independence
+binder 7880:7880 <> s:40
+binder 7882:7883 <> s':41
+binder 7885:7885 <> i:42
+R7910:7917 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7892:7895 ThieleMachine.ThieleSpaceland ThieleSpaceland step def
+R7897:7897 ThieleMachine.ThieleSpaceland <> s:40 var
+R7899:7906 ThieleMachine.Spaceland <> LCompute constr
+R7908:7909 ThieleMachine.ThieleSpaceland <> s':41 var
+R7955:7963 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8039:8039 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7946:7948 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7918:7926 Coq.Lists.List <> nth_error def
+R7941:7942 ThieleMachine.ThieleSpaceland ThieleSpaceland pc def
+R7944:7944 ThieleMachine.ThieleSpaceland <> s:40 var
+R7929:7935 ThieleMachine.ThieleSpaceland ThieleSpaceland program def
+R7937:7937 ThieleMachine.ThieleSpaceland <> s:40 var
+R7949:7952 Coq.Init.Datatypes <> Some constr
+R7954:7954 ThieleMachine.ThieleSpaceland <> i:42 var
+binder 7971:7972 <> m':43
+R8003:8006 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7995:7997 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7975:7989 ThieleMachine.ThieleSpaceland ThieleSpaceland is_in_footprint def
+R7991:7991 ThieleMachine.ThieleSpaceland <> i:42 var
+R7993:7994 ThieleMachine.ThieleSpaceland <> m':43 var
+R7998:8002 Coq.Init.Datatypes <> false constr
+R8021:8023 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8007:8015 ThieleMachine.ThieleSpaceland ThieleSpaceland module_of def
+R8017:8017 ThieleMachine.ThieleSpaceland <> s:40 var
+R8019:8020 ThieleMachine.ThieleSpaceland <> m':43 var
+R8024:8032 ThieleMachine.ThieleSpaceland ThieleSpaceland module_of def
+R8034:8035 ThieleMachine.ThieleSpaceland <> s':41 var
+R8037:8038 ThieleMachine.ThieleSpaceland <> m':43 var
+R8191:8194 ThieleMachine.ThieleSpaceland ThieleSpaceland step def
+R8337:8343 ThieleMachine.ThieleSpaceland ThieleSpaceland program def
+R8346:8347 ThieleMachine.ThieleSpaceland ThieleSpaceland pc def
+R8577:8579 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8571:8574 Coq.Init.Datatypes <> Some constr
+R8580:8583 Coq.Init.Datatypes <> Some constr
+R8577:8579 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8571:8574 Coq.Init.Datatypes <> Some constr
+R8580:8583 Coq.Init.Datatypes <> Some constr
+R8712:8714 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8690:8709 ThieleMachine.CoreSemantics <> halted proj
+R8715:8719 Coq.Init.Datatypes <> false constr
+R8712:8714 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8690:8709 ThieleMachine.CoreSemantics <> halted proj
+R8715:8719 Coq.Init.Datatypes <> false constr
+R8745:8764 ThieleMachine.CoreSemantics <> halted proj
+R8745:8764 ThieleMachine.CoreSemantics <> halted proj
+R8809:8826 ThieleMachine.CoreSemantics <> step def
+R8982:8995 ThieleMachine.ThieleSpaceland ThieleSpaceland instr_to_label def
+R9152:9166 ThieleMachine.ThieleSpaceland ThieleSpaceland is_in_footprint def
+R9299:9307 ThieleMachine.ThieleSpaceland ThieleSpaceland module_of def
+R9310:9322 ThieleMachine.ThieleSpaceland ThieleSpaceland get_partition def
+R9340:9357 ThieleMachine.CoreSemantics <> step def
+R9578:9584 Coq.Lists.List <> existsb def
+R9670:9672 Coq.Lists.List <> map def
+R9679:9699 ThieleMachine.CoreSemantics <> modules proj
+R9702:9724 ThieleMachine.CoreSemantics <> partition proj
+R9674:9676 Coq.Init.Datatypes <> snd def
+R9596:9615 ThieleMachine.CoreSemantics <> Region def
+binder 9591:9592 <> r':44
+R9620:9643 ThieleMachine.CoreSemantics <> region_eqb def
+R9647:9648 ThieleMachine.ThieleSpaceland <> r':44 var
+R9578:9584 Coq.Lists.List <> existsb def
+R9670:9672 Coq.Lists.List <> map def
+R9679:9699 ThieleMachine.CoreSemantics <> modules proj
+R9702:9724 ThieleMachine.CoreSemantics <> partition proj
+R9674:9676 Coq.Init.Datatypes <> snd def
+R9596:9615 ThieleMachine.CoreSemantics <> Region def
+binder 9591:9592 <> r':45
+R9620:9643 ThieleMachine.CoreSemantics <> region_eqb def
+R9647:9648 ThieleMachine.ThieleSpaceland <> r':45 var
+R9881:9887 Coq.Lists.List <> existsb def
+R9982:9984 Coq.Lists.List <> map def
+R9991:10011 ThieleMachine.CoreSemantics <> modules proj
+R10014:10036 ThieleMachine.CoreSemantics <> partition proj
+R9986:9988 Coq.Init.Datatypes <> snd def
+R9899:9918 ThieleMachine.CoreSemantics <> Region def
+binder 9894:9895 <> r':46
+R9923:9926 Coq.Init.Datatypes <> negb def
+R9929:9952 ThieleMachine.CoreSemantics <> disjoint_b def
+R9956:9957 ThieleMachine.ThieleSpaceland <> r':46 var
+R9881:9887 Coq.Lists.List <> existsb def
+R9982:9984 Coq.Lists.List <> map def
+R9991:10011 ThieleMachine.CoreSemantics <> modules proj
+R10014:10036 ThieleMachine.CoreSemantics <> partition proj
+R9986:9988 Coq.Init.Datatypes <> snd def
+R9899:9918 ThieleMachine.CoreSemantics <> Region def
+binder 9894:9895 <> r':47
+R9923:9926 Coq.Init.Datatypes <> negb def
+R9929:9952 ThieleMachine.CoreSemantics <> disjoint_b def
+R9956:9957 ThieleMachine.ThieleSpaceland <> r':47 var
+R10273:10303 ThieleMachine.CoreSemantics <> partition_valid_b def
+R10306:10329 ThieleMachine.CoreSemantics <> add_module def
+R10332:10354 ThieleMachine.CoreSemantics <> partition proj
+R10273:10303 ThieleMachine.CoreSemantics <> partition_valid_b def
+R10306:10329 ThieleMachine.CoreSemantics <> add_module def
+R10332:10354 ThieleMachine.CoreSemantics <> partition proj
+R10448:10471 ThieleMachine.CoreSemantics <> add_module def
+R10506:10519 ThieleMachine.ThieleSpaceland ThieleSpaceland find_module_of def
+R10522:10542 ThieleMachine.CoreSemantics <> modules proj
+R10545:10567 ThieleMachine.CoreSemantics <> partition proj
+R10506:10519 ThieleMachine.ThieleSpaceland ThieleSpaceland find_module_of def
+R10522:10542 ThieleMachine.CoreSemantics <> modules proj
+R10545:10567 ThieleMachine.CoreSemantics <> partition proj
+R10673:10695 ThieleMachine.ThieleSpaceland ThieleSpaceland find_module_of_app_some thm
+R10673:10695 ThieleMachine.ThieleSpaceland ThieleSpaceland find_module_of_app_some thm
+R10673:10695 ThieleMachine.ThieleSpaceland ThieleSpaceland find_module_of_app_some thm
+R10673:10695 ThieleMachine.ThieleSpaceland ThieleSpaceland find_module_of_app_some thm
+R10791:10813 ThieleMachine.ThieleSpaceland ThieleSpaceland find_module_of_app_none thm
+R10791:10813 ThieleMachine.ThieleSpaceland ThieleSpaceland find_module_of_app_none thm
+R10791:10813 ThieleMachine.ThieleSpaceland ThieleSpaceland find_module_of_app_none thm
+R10791:10813 ThieleMachine.ThieleSpaceland ThieleSpaceland find_module_of_app_none thm
+R10791:10813 ThieleMachine.ThieleSpaceland ThieleSpaceland find_module_of_app_none thm
+R11196:11210 ThieleMachine.ThieleSpaceland ThieleSpaceland is_in_footprint def
+R11261:11269 ThieleMachine.ThieleSpaceland ThieleSpaceland module_of def
+R11272:11284 ThieleMachine.ThieleSpaceland ThieleSpaceland get_partition def
+R11335:11337 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11309:11331 ThieleMachine.CoreSemantics <> partition proj
+R11338:11360 ThieleMachine.CoreSemantics <> partition proj
+R11335:11337 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11309:11331 ThieleMachine.CoreSemantics <> partition proj
+R11338:11360 ThieleMachine.CoreSemantics <> partition proj
+R11452:11472 ThieleMachine.CoreSemantics <> LASSERT constr
+R11389:11435 ThieleMachine.CoreSemantics <> partition_preserved_computational thm
+R11452:11472 ThieleMachine.CoreSemantics <> LASSERT constr
+R11389:11435 ThieleMachine.CoreSemantics <> partition_preserved_computational thm
+R11609:11623 ThieleMachine.ThieleSpaceland ThieleSpaceland is_in_footprint def
+R11674:11682 ThieleMachine.ThieleSpaceland ThieleSpaceland module_of def
+R11685:11697 ThieleMachine.ThieleSpaceland ThieleSpaceland get_partition def
+R11748:11750 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11722:11744 ThieleMachine.CoreSemantics <> partition proj
+R11751:11773 ThieleMachine.CoreSemantics <> partition proj
+R11748:11750 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11722:11744 ThieleMachine.CoreSemantics <> partition proj
+R11751:11773 ThieleMachine.CoreSemantics <> partition proj
+R11865:11883 ThieleMachine.CoreSemantics <> LJOIN constr
+R11802:11848 ThieleMachine.CoreSemantics <> partition_preserved_computational thm
+R11865:11883 ThieleMachine.CoreSemantics <> LJOIN constr
+R11802:11848 ThieleMachine.CoreSemantics <> partition_preserved_computational thm
+R12021:12035 ThieleMachine.ThieleSpaceland ThieleSpaceland is_in_footprint def
+R12086:12094 ThieleMachine.ThieleSpaceland ThieleSpaceland module_of def
+R12097:12109 ThieleMachine.ThieleSpaceland ThieleSpaceland get_partition def
+R12160:12162 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12134:12156 ThieleMachine.CoreSemantics <> partition proj
+R12163:12185 ThieleMachine.CoreSemantics <> partition proj
+R12160:12162 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12134:12156 ThieleMachine.CoreSemantics <> partition proj
+R12163:12185 ThieleMachine.CoreSemantics <> partition proj
+R12277:12296 ThieleMachine.CoreSemantics <> MDLACC constr
+R12214:12260 ThieleMachine.CoreSemantics <> partition_preserved_computational thm
+R12277:12296 ThieleMachine.CoreSemantics <> MDLACC constr
+R12214:12260 ThieleMachine.CoreSemantics <> partition_preserved_computational thm
+R12531:12551 ThieleMachine.ThieleSpaceland ThieleSpaceland LCompute_not_LObserve thm
+R12531:12551 ThieleMachine.ThieleSpaceland ThieleSpaceland LCompute_not_LObserve thm
+R12618:12632 ThieleMachine.ThieleSpaceland ThieleSpaceland is_in_footprint def
+R12683:12691 ThieleMachine.ThieleSpaceland ThieleSpaceland module_of def
+R12694:12706 ThieleMachine.ThieleSpaceland ThieleSpaceland get_partition def
+R12757:12759 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12731:12753 ThieleMachine.CoreSemantics <> partition proj
+R12760:12782 ThieleMachine.CoreSemantics <> partition proj
+R12757:12759 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12731:12753 ThieleMachine.CoreSemantics <> partition proj
+R12760:12782 ThieleMachine.CoreSemantics <> partition proj
+R12874:12891 ThieleMachine.CoreSemantics <> XFER constr
+R12811:12857 ThieleMachine.CoreSemantics <> partition_preserved_computational thm
+R12874:12891 ThieleMachine.CoreSemantics <> XFER constr
+R12811:12857 ThieleMachine.CoreSemantics <> partition_preserved_computational thm
+R13029:13043 ThieleMachine.ThieleSpaceland ThieleSpaceland is_in_footprint def
+R13094:13102 ThieleMachine.ThieleSpaceland ThieleSpaceland module_of def
+R13105:13117 ThieleMachine.ThieleSpaceland ThieleSpaceland get_partition def
+R13168:13170 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13142:13164 ThieleMachine.CoreSemantics <> partition proj
+R13171:13193 ThieleMachine.CoreSemantics <> partition proj
+R13168:13170 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13142:13164 ThieleMachine.CoreSemantics <> partition proj
+R13171:13193 ThieleMachine.CoreSemantics <> partition proj
+R13285:13304 ThieleMachine.CoreSemantics <> PYEXEC constr
+R13222:13268 ThieleMachine.CoreSemantics <> partition_preserved_computational thm
+R13285:13304 ThieleMachine.CoreSemantics <> PYEXEC constr
+R13222:13268 ThieleMachine.CoreSemantics <> partition_preserved_computational thm
+R13444:13458 ThieleMachine.ThieleSpaceland ThieleSpaceland is_in_footprint def
+R13509:13517 ThieleMachine.ThieleSpaceland ThieleSpaceland module_of def
+R13520:13532 ThieleMachine.ThieleSpaceland ThieleSpaceland get_partition def
+R13583:13585 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13557:13579 ThieleMachine.CoreSemantics <> partition proj
+R13586:13608 ThieleMachine.CoreSemantics <> partition proj
+R13583:13585 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13557:13579 ThieleMachine.CoreSemantics <> partition proj
+R13586:13608 ThieleMachine.CoreSemantics <> partition proj
+R13700:13721 ThieleMachine.CoreSemantics <> XOR_LOAD constr
+R13637:13683 ThieleMachine.CoreSemantics <> partition_preserved_computational thm
+R13700:13721 ThieleMachine.CoreSemantics <> XOR_LOAD constr
+R13637:13683 ThieleMachine.CoreSemantics <> partition_preserved_computational thm
+R13860:13874 ThieleMachine.ThieleSpaceland ThieleSpaceland is_in_footprint def
+R13925:13933 ThieleMachine.ThieleSpaceland ThieleSpaceland module_of def
+R13936:13948 ThieleMachine.ThieleSpaceland ThieleSpaceland get_partition def
+R13999:14001 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13973:13995 ThieleMachine.CoreSemantics <> partition proj
+R14002:14024 ThieleMachine.CoreSemantics <> partition proj
+R13999:14001 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13973:13995 ThieleMachine.CoreSemantics <> partition proj
+R14002:14024 ThieleMachine.CoreSemantics <> partition proj
+R14116:14136 ThieleMachine.CoreSemantics <> XOR_ADD constr
+R14053:14099 ThieleMachine.CoreSemantics <> partition_preserved_computational thm
+R14116:14136 ThieleMachine.CoreSemantics <> XOR_ADD constr
+R14053:14099 ThieleMachine.CoreSemantics <> partition_preserved_computational thm
+R14276:14290 ThieleMachine.ThieleSpaceland ThieleSpaceland is_in_footprint def
+R14341:14349 ThieleMachine.ThieleSpaceland ThieleSpaceland module_of def
+R14352:14364 ThieleMachine.ThieleSpaceland ThieleSpaceland get_partition def
+R14415:14417 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14389:14411 ThieleMachine.CoreSemantics <> partition proj
+R14418:14440 ThieleMachine.CoreSemantics <> partition proj
+R14415:14417 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14389:14411 ThieleMachine.CoreSemantics <> partition proj
+R14418:14440 ThieleMachine.CoreSemantics <> partition proj
+R14532:14553 ThieleMachine.CoreSemantics <> XOR_SWAP constr
+R14469:14515 ThieleMachine.CoreSemantics <> partition_preserved_computational thm
+R14532:14553 ThieleMachine.CoreSemantics <> XOR_SWAP constr
+R14469:14515 ThieleMachine.CoreSemantics <> partition_preserved_computational thm
+R14693:14707 ThieleMachine.ThieleSpaceland ThieleSpaceland is_in_footprint def
+R14758:14766 ThieleMachine.ThieleSpaceland ThieleSpaceland module_of def
+R14769:14781 ThieleMachine.ThieleSpaceland ThieleSpaceland get_partition def
+R14832:14834 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14806:14828 ThieleMachine.CoreSemantics <> partition proj
+R14835:14857 ThieleMachine.CoreSemantics <> partition proj
+R14832:14834 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14806:14828 ThieleMachine.CoreSemantics <> partition proj
+R14835:14857 ThieleMachine.CoreSemantics <> partition proj
+R14949:14970 ThieleMachine.CoreSemantics <> XOR_RANK constr
+R14886:14932 ThieleMachine.CoreSemantics <> partition_preserved_computational thm
+R14949:14970 ThieleMachine.CoreSemantics <> XOR_RANK constr
+R14886:14932 ThieleMachine.CoreSemantics <> partition_preserved_computational thm
+R15106:15120 ThieleMachine.ThieleSpaceland ThieleSpaceland is_in_footprint def
+R15171:15179 ThieleMachine.ThieleSpaceland ThieleSpaceland module_of def
+R15182:15194 ThieleMachine.ThieleSpaceland ThieleSpaceland get_partition def
+R15245:15247 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15219:15241 ThieleMachine.CoreSemantics <> partition proj
+R15248:15270 ThieleMachine.CoreSemantics <> partition proj
+R15245:15247 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15219:15241 ThieleMachine.CoreSemantics <> partition proj
+R15248:15270 ThieleMachine.CoreSemantics <> partition proj
+R15362:15379 ThieleMachine.CoreSemantics <> EMIT constr
+R15299:15345 ThieleMachine.CoreSemantics <> partition_preserved_computational thm
+R15362:15379 ThieleMachine.CoreSemantics <> EMIT constr
+R15299:15345 ThieleMachine.CoreSemantics <> partition_preserved_computational thm
+R15616:15636 ThieleMachine.ThieleSpaceland ThieleSpaceland LCompute_not_LObserve thm
+R15616:15636 ThieleMachine.ThieleSpaceland ThieleSpaceland LCompute_not_LObserve thm
+prf 15850:15871 ThieleSpaceland pnew_footprint_assigns
+binder 15882:15882 <> s:48
+binder 15884:15885 <> s':49
+binder 15887:15887 <> r:50
+binder 15889:15890 <> m':51
+R15915:15922 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15897:15900 ThieleMachine.ThieleSpaceland ThieleSpaceland step def
+R15902:15902 ThieleMachine.ThieleSpaceland <> s:48 var
+R15904:15911 ThieleMachine.Spaceland <> LCompute constr
+R15913:15914 ThieleMachine.ThieleSpaceland <> s':49 var
+R16009:16016 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15979:15981 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15923:15931 Coq.Lists.List <> nth_error def
+R15960:15975 ThieleMachine.CoreSemantics <> pc proj
+R15977:15977 ThieleMachine.ThieleSpaceland <> s:48 var
+R15934:15954 ThieleMachine.CoreSemantics <> program proj
+R15956:15956 ThieleMachine.ThieleSpaceland <> s:48 var
+R15982:15985 Coq.Init.Datatypes <> Some constr
+R15988:16005 ThieleMachine.CoreSemantics <> PNEW constr
+R16007:16007 ThieleMachine.ThieleSpaceland <> r:50 var
+R16165:16172 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16157:16159 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16017:16023 Coq.Lists.List <> existsb def
+R16097:16099 Coq.Lists.List <> map def
+R16106:16126 ThieleMachine.CoreSemantics <> modules proj
+R16129:16151 ThieleMachine.CoreSemantics <> partition proj
+R16153:16153 ThieleMachine.ThieleSpaceland <> s:48 var
+R16101:16103 Coq.Init.Datatypes <> snd def
+R16035:16054 ThieleMachine.CoreSemantics <> Region def
+binder 16030:16031 <> r':52
+R16059:16082 ThieleMachine.CoreSemantics <> region_eqb def
+R16084:16084 ThieleMachine.ThieleSpaceland <> r:50 var
+R16086:16087 ThieleMachine.ThieleSpaceland <> r':52 var
+R16160:16164 Coq.Init.Datatypes <> false constr
+R16328:16335 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16320:16322 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16173:16179 Coq.Lists.List <> existsb def
+R16260:16262 Coq.Lists.List <> map def
+R16269:16289 ThieleMachine.CoreSemantics <> modules proj
+R16292:16314 ThieleMachine.CoreSemantics <> partition proj
+R16316:16316 ThieleMachine.ThieleSpaceland <> s:48 var
+R16264:16266 Coq.Init.Datatypes <> snd def
+R16191:16210 ThieleMachine.CoreSemantics <> Region def
+binder 16186:16187 <> r':53
+R16215:16218 Coq.Init.Datatypes <> negb def
+R16221:16244 ThieleMachine.CoreSemantics <> disjoint_b def
+R16246:16246 ThieleMachine.ThieleSpaceland <> r:50 var
+R16248:16249 ThieleMachine.ThieleSpaceland <> r':53 var
+R16323:16327 Coq.Init.Datatypes <> false constr
+R16431:16438 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16424:16426 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16336:16366 ThieleMachine.CoreSemantics <> partition_valid_b def
+R16369:16392 ThieleMachine.CoreSemantics <> add_module def
+R16395:16417 ThieleMachine.CoreSemantics <> partition proj
+R16419:16419 ThieleMachine.ThieleSpaceland <> s:48 var
+R16422:16422 ThieleMachine.ThieleSpaceland <> r:50 var
+R16427:16430 Coq.Init.Datatypes <> true constr
+R16468:16628 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16461:16463 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16439:16445 Coq.Lists.List <> existsb def
+R16460:16460 ThieleMachine.ThieleSpaceland <> r:50 var
+R16448:16454 Coq.Arith.PeanoNat Nat eqb def
+R16456:16457 ThieleMachine.ThieleSpaceland <> m':51 var
+R16464:16467 Coq.Init.Datatypes <> true constr
+R16705:16712 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16698:16700 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16629:16642 ThieleMachine.ThieleSpaceland ThieleSpaceland find_module_of def
+R16645:16665 ThieleMachine.CoreSemantics <> modules proj
+R16668:16690 ThieleMachine.CoreSemantics <> partition proj
+R16692:16692 ThieleMachine.ThieleSpaceland <> s:48 var
+R16696:16697 ThieleMachine.ThieleSpaceland <> m':51 var
+R16701:16704 Coq.Init.Datatypes <> None constr
+R16713:16719 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R16723:16731 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 16720:16722 <> mid:54
+R16813:16822 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16802:16804 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16732:16745 ThieleMachine.ThieleSpaceland ThieleSpaceland find_module_of def
+R16748:16768 ThieleMachine.CoreSemantics <> modules proj
+R16771:16793 ThieleMachine.CoreSemantics <> partition proj
+R16795:16796 ThieleMachine.ThieleSpaceland <> s':49 var
+R16800:16801 ThieleMachine.ThieleSpaceland <> m':51 var
+R16805:16808 Coq.Init.Datatypes <> Some constr
+R16810:16812 ThieleMachine.ThieleSpaceland <> mid:54 var
+R16826:16828 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16823:16825 ThieleMachine.ThieleSpaceland <> mid:54 var
+R16829:16856 ThieleMachine.CoreSemantics <> next_module_id proj
+R16859:16881 ThieleMachine.CoreSemantics <> partition proj
+R16883:16883 ThieleMachine.ThieleSpaceland <> s:48 var
+R16987:16990 ThieleMachine.ThieleSpaceland ThieleSpaceland step def
+R17122:17139 ThieleMachine.CoreSemantics <> step def
+R17166:17185 ThieleMachine.CoreSemantics <> halted proj
+R17166:17185 ThieleMachine.CoreSemantics <> halted proj
+R17497:17520 ThieleMachine.CoreSemantics <> add_module def
+R17632:17659 ThieleMachine.CoreSemantics <> next_module_id proj
+R17662:17684 ThieleMachine.CoreSemantics <> partition proj
+R17632:17659 ThieleMachine.CoreSemantics <> next_module_id proj
+R17662:17684 ThieleMachine.CoreSemantics <> partition proj
+R17926:17946 ThieleMachine.CoreSemantics <> modules proj
+R17949:17971 ThieleMachine.CoreSemantics <> partition proj
+R17926:17946 ThieleMachine.CoreSemantics <> modules proj
+R17949:17971 ThieleMachine.CoreSemantics <> partition proj
+R18237:18243 Coq.Lists.List <> existsb def
+R18246:18252 Coq.Arith.PeanoNat Nat eqb def
+R18237:18243 Coq.Lists.List <> existsb def
+R18246:18252 Coq.Arith.PeanoNat Nat eqb def
+def 18788:18789 ThieleSpaceland mu
+R18796:18800 ThieleMachine.ThieleSpaceland ThieleSpaceland State def
+binder 18792:18792 <> s:55
+R18808:18812 ThieleMachine.ThieleSpaceland ThieleSpaceland Label def
+binder 18804:18804 <> l:56
+R18821:18825 ThieleMachine.ThieleSpaceland ThieleSpaceland State def
+binder 18816:18817 <> s':57
+R18830:18830 Coq.Numbers.BinNums <> Z ind
+R18908:18929 ThieleMachine.CoreSemantics <> mu_total proj
+R18932:18954 ThieleMachine.CoreSemantics <> mu_ledger proj
+R18956:18956 ThieleMachine.ThieleSpaceland <> s:55 var
+binder 18895:18903 <> mu_before:58
+R18982:19003 ThieleMachine.CoreSemantics <> mu_total proj
+R19006:19028 ThieleMachine.CoreSemantics <> mu_ledger proj
+R19030:19031 ThieleMachine.ThieleSpaceland <> s':57 var
+binder 18970:18977 <> mu_after:59
+R19049:19051 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R19041:19048 ThieleMachine.ThieleSpaceland <> mu_after:59 var
+R19052:19060 ThieleMachine.ThieleSpaceland <> mu_before:58 var
+prf 19107:19115 ThieleSpaceland mu_nonneg
+binder 19126:19126 <> s:60
+binder 19128:19128 <> l:61
+binder 19130:19131 <> s':62
+R19149:19152 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19138:19141 ThieleMachine.ThieleSpaceland ThieleSpaceland step def
+R19143:19143 ThieleMachine.ThieleSpaceland <> s:60 var
+R19145:19145 ThieleMachine.ThieleSpaceland <> l:61 var
+R19147:19148 ThieleMachine.ThieleSpaceland <> s':62 var
+R19162:19165 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
+R19153:19154 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R19156:19156 ThieleMachine.ThieleSpaceland <> s:60 var
+R19158:19158 ThieleMachine.ThieleSpaceland <> l:61 var
+R19160:19161 ThieleMachine.ThieleSpaceland <> s':62 var
+R19214:19215 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R19229:19232 ThieleMachine.ThieleSpaceland ThieleSpaceland step def
+R19368:19393 ThieleMachine.CoreSemantics <> mu_monotonic def
+R19368:19393 ThieleMachine.CoreSemantics <> mu_monotonic def
+R19414:19445 ThieleMachine.CoreSemantics <> mu_never_decreases thm
+R19414:19445 ThieleMachine.CoreSemantics <> mu_never_decreases thm
+R19475:19500 ThieleMachine.CoreSemantics <> mu_monotonic def
+R19503:19527 ThieleMachine.CoreSemantics <> mu_of_state def
+ind 19595:19599 ThieleSpaceland Trace
+constr 19617:19620 ThieleSpaceland TNil
+constr 19645:19649 ThieleSpaceland TCons
+R19629:19632 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19624:19628 ThieleMachine.ThieleSpaceland ThieleSpaceland State def
+R19633:19637 ThieleMachine.ThieleSpaceland <> Trace:63 ind
+R19658:19661 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19653:19657 ThieleMachine.ThieleSpaceland ThieleSpaceland State def
+R19667:19670 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19662:19666 ThieleMachine.ThieleSpaceland ThieleSpaceland Label def
+R19676:19679 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19671:19675 ThieleMachine.ThieleSpaceland <> Trace:63 ind
+R19680:19684 ThieleMachine.ThieleSpaceland <> Trace:63 ind
+scheme 19595:19599 ThieleSpaceland Trace_rect
+scheme 19595:19599 ThieleSpaceland Trace_ind
+scheme 19595:19599 ThieleSpaceland Trace_rec
+scheme 19595:19599 ThieleSpaceland Trace_sind
+def 19745:19754 ThieleSpaceland trace_init
+R19761:19765 ThieleMachine.ThieleSpaceland ThieleSpaceland Trace ind
+binder 19757:19757 <> t:65
+R19770:19774 ThieleMachine.ThieleSpaceland ThieleSpaceland State def
+R19789:19789 ThieleMachine.ThieleSpaceland <> t:65 var
+R19802:19805 ThieleMachine.ThieleSpaceland ThieleSpaceland TNil constr
+R19820:19824 ThieleMachine.ThieleSpaceland ThieleSpaceland TCons constr
+def 19900:19910 ThieleSpaceland trace_final
+R19917:19921 ThieleMachine.ThieleSpaceland ThieleSpaceland Trace ind
+binder 19913:19913 <> t:67
+R19926:19930 ThieleMachine.ThieleSpaceland ThieleSpaceland State def
+R19945:19945 ThieleMachine.ThieleSpaceland <> t:67 var
+R19958:19961 ThieleMachine.ThieleSpaceland ThieleSpaceland TNil constr
+R19976:19980 ThieleMachine.ThieleSpaceland ThieleSpaceland TCons constr
+R19994:20004 ThieleMachine.ThieleSpaceland <> trace_final:68 def
+def 20098:20108 ThieleSpaceland valid_trace
+R20115:20119 ThieleMachine.ThieleSpaceland ThieleSpaceland Trace ind
+binder 20111:20111 <> t:70
+R20142:20142 ThieleMachine.ThieleSpaceland <> t:70 var
+R20155:20158 ThieleMachine.ThieleSpaceland ThieleSpaceland TNil constr
+R20165:20168 Coq.Init.Logic <> True ind
+R20176:20180 ThieleMachine.ThieleSpaceland ThieleSpaceland TCons constr
+R20229:20232 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20203:20206 ThieleMachine.ThieleSpaceland ThieleSpaceland step def
+R20213:20222 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_init def
+R20233:20243 ThieleMachine.ThieleSpaceland <> valid_trace:71 def
+def 20307:20314 ThieleSpaceland trace_mu
+R20321:20325 ThieleMachine.ThieleSpaceland ThieleSpaceland Trace ind
+binder 20317:20317 <> t:73
+R20330:20330 Coq.Numbers.BinNums <> Z ind
+R20345:20345 ThieleMachine.ThieleSpaceland <> t:73 var
+R20358:20361 ThieleMachine.ThieleSpaceland ThieleSpaceland TNil constr
+R20376:20380 ThieleMachine.ThieleSpaceland ThieleSpaceland TCons constr
+R20428:20431 ThieleMachine.ThieleSpaceland ThieleSpaceland TNil constr
+R20439:20440 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R20459:20463 ThieleMachine.ThieleSpaceland ThieleSpaceland TCons constr
+R20484:20486 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R20475:20476 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R20487:20494 ThieleMachine.ThieleSpaceland <> trace_mu:74 def
+prf 20566:20576 ThieleSpaceland mu_monotone
+binder 20587:20588 <> t1:77
+binder 20590:20590 <> s:78
+binder 20592:20592 <> l:79
+R20625:20632 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20599:20609 ThieleMachine.ThieleSpaceland ThieleSpaceland valid_trace def
+R20612:20616 ThieleMachine.ThieleSpaceland ThieleSpaceland TCons constr
+R20618:20618 ThieleMachine.ThieleSpaceland <> s:78 var
+R20620:20620 ThieleMachine.ThieleSpaceland <> l:79 var
+R20622:20623 ThieleMachine.ThieleSpaceland <> t1:77 var
+R20656:20659 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
+R20633:20640 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_mu def
+R20643:20647 ThieleMachine.ThieleSpaceland ThieleSpaceland TCons constr
+R20649:20649 ThieleMachine.ThieleSpaceland <> s:78 var
+R20651:20651 ThieleMachine.ThieleSpaceland <> l:79 var
+R20653:20654 ThieleMachine.ThieleSpaceland <> t1:77 var
+R20660:20667 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_mu def
+R20669:20670 ThieleMachine.ThieleSpaceland <> t1:77 var
+R20979:20987 ThieleMachine.ThieleSpaceland ThieleSpaceland mu_nonneg thm
+R20979:20987 ThieleMachine.ThieleSpaceland ThieleSpaceland mu_nonneg thm
+R21135:21138 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
+R21126:21127 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R21152:21160 ThieleMachine.ThieleSpaceland ThieleSpaceland mu_nonneg thm
+R21135:21138 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
+R21126:21127 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R21152:21160 ThieleMachine.ThieleSpaceland ThieleSpaceland mu_nonneg thm
+def 21313:21324 ThieleSpaceland trace_concat
+R21335:21339 ThieleMachine.ThieleSpaceland ThieleSpaceland Trace ind
+binder 21327:21328 <> t1:80
+binder 21330:21331 <> t2:81
+R21344:21348 ThieleMachine.ThieleSpaceland ThieleSpaceland Trace ind
+R21363:21364 ThieleMachine.ThieleSpaceland <> t1:80 var
+R21377:21380 ThieleMachine.ThieleSpaceland ThieleSpaceland TNil constr
+R21387:21388 ThieleMachine.ThieleSpaceland <> t2:81 var
+R21396:21400 ThieleMachine.ThieleSpaceland ThieleSpaceland TCons constr
+R21414:21418 ThieleMachine.ThieleSpaceland ThieleSpaceland TCons constr
+R21425:21436 ThieleMachine.ThieleSpaceland <> trace_concat:82 def
+R21443:21444 ThieleMachine.ThieleSpaceland <> t2:81 var
+prf 21467:21477 ThieleSpaceland mu_additive
+binder 21488:21489 <> t1:84
+binder 21491:21492 <> t2:85
+R21529:21536 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21513:21515 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21499:21509 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_final def
+R21511:21512 ThieleMachine.ThieleSpaceland <> t1:84 var
+R21516:21525 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_init def
+R21527:21528 ThieleMachine.ThieleSpaceland <> t2:85 var
+R21566:21568 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21537:21544 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_mu def
+R21547:21558 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_concat def
+R21560:21561 ThieleMachine.ThieleSpaceland <> t1:84 var
+R21563:21564 ThieleMachine.ThieleSpaceland <> t2:85 var
+R21580:21582 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R21569:21576 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_mu def
+R21578:21579 ThieleMachine.ThieleSpaceland <> t1:84 var
+R21583:21590 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_mu def
+R21592:21593 ThieleMachine.ThieleSpaceland <> t2:85 var
+R22087:22098 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_concat def
+R22265:22276 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_concat def
+R22265:22276 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_concat def
+R22366:22373 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_mu def
+R22428:22439 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_concat def
+R22497:22504 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_mu def
+R22610:22617 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_mu def
+R22672:22683 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_concat def
+R22741:22748 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_mu def
+prf 22916:22928 ThieleSpaceland mu_blind_free
+binder 22939:22939 <> s:86
+binder 22941:22942 <> s':87
+R22967:22974 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22949:22952 ThieleMachine.ThieleSpaceland ThieleSpaceland step def
+R22954:22954 ThieleMachine.ThieleSpaceland <> s:86 var
+R22956:22963 ThieleMachine.Spaceland <> LCompute constr
+R22965:22966 ThieleMachine.ThieleSpaceland <> s':87 var
+R22994:23001 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22975:22988 ThieleMachine.ThieleSpaceland ThieleSpaceland same_partition def
+R22990:22990 ThieleMachine.ThieleSpaceland <> s:86 var
+R22992:22993 ThieleMachine.ThieleSpaceland <> s':87 var
+R23018:23021 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
+R23002:23003 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R23005:23005 ThieleMachine.ThieleSpaceland <> s:86 var
+R23007:23014 ThieleMachine.Spaceland <> LCompute constr
+R23016:23017 ThieleMachine.ThieleSpaceland <> s':87 var
+R23074:23075 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R23089:23092 ThieleMachine.ThieleSpaceland ThieleSpaceland step def
+R23503:23510 ThieleMachine.Spaceland <> LCompute constr
+R23482:23490 ThieleMachine.ThieleSpaceland ThieleSpaceland mu_nonneg thm
+R23503:23510 ThieleMachine.Spaceland <> LCompute constr
+R23482:23490 ThieleMachine.ThieleSpaceland ThieleSpaceland mu_nonneg thm
+R23525:23528 ThieleMachine.ThieleSpaceland ThieleSpaceland step def
+prf 23662:23680 ThieleSpaceland mu_observe_positive
+binder 23691:23691 <> s:88
+binder 23693:23693 <> m:89
+binder 23695:23696 <> s':90
+R23725:23732 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23703:23706 ThieleMachine.ThieleSpaceland ThieleSpaceland step def
+R23708:23708 ThieleMachine.ThieleSpaceland <> s:88 var
+R23711:23718 ThieleMachine.Spaceland <> LObserve constr
+R23720:23720 ThieleMachine.ThieleSpaceland <> m:89 var
+R23723:23724 ThieleMachine.ThieleSpaceland <> s':90 var
+R23753:23755 Coq.ZArith.BinInt <> ::Z_scope:x_'>'_x not
+R23733:23734 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R23736:23736 ThieleMachine.ThieleSpaceland <> s:88 var
+R23739:23746 ThieleMachine.Spaceland <> LObserve constr
+R23748:23748 ThieleMachine.ThieleSpaceland <> m:89 var
+R23751:23752 ThieleMachine.ThieleSpaceland <> s':90 var
+R23804:23805 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R23819:23822 ThieleMachine.ThieleSpaceland ThieleSpaceland step def
+R23957:23970 ThieleMachine.ThieleSpaceland ThieleSpaceland instr_to_label def
+R24145:24162 ThieleMachine.CoreSemantics <> step def
+R24190:24195 ThieleMachine.CoreSemantics <> halted proj
+R24190:24195 ThieleMachine.CoreSemantics <> halted proj
+R24329:24360 ThieleMachine.CoreSemantics <> add_mu_information def
+R24363:24393 ThieleMachine.CoreSemantics <> mu_pdiscover_cost def
+R24608:24625 ThieleMachine.CoreSemantics <> step def
+R24653:24658 ThieleMachine.CoreSemantics <> halted proj
+R24653:24658 ThieleMachine.CoreSemantics <> halted proj
+R24792:24823 ThieleMachine.CoreSemantics <> add_mu_information def
+R24826:24856 ThieleMachine.CoreSemantics <> mu_pdiscover_cost def
+prf 24991:25007 ThieleSpaceland mu_split_positive
+binder 25018:25018 <> s:91
+binder 25020:25020 <> m:92
+binder 25022:25023 <> s':93
+R25050:25057 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25030:25033 ThieleMachine.ThieleSpaceland ThieleSpaceland step def
+R25035:25035 ThieleMachine.ThieleSpaceland <> s:91 var
+R25038:25043 ThieleMachine.Spaceland <> LSplit constr
+R25045:25045 ThieleMachine.ThieleSpaceland <> m:92 var
+R25048:25049 ThieleMachine.ThieleSpaceland <> s':93 var
+R25076:25078 Coq.ZArith.BinInt <> ::Z_scope:x_'>'_x not
+R25058:25059 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R25061:25061 ThieleMachine.ThieleSpaceland <> s:91 var
+R25064:25069 ThieleMachine.Spaceland <> LSplit constr
+R25071:25071 ThieleMachine.ThieleSpaceland <> m:92 var
+R25074:25075 ThieleMachine.ThieleSpaceland <> s':93 var
+R25127:25128 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R25142:25145 ThieleMachine.ThieleSpaceland ThieleSpaceland step def
+R25259:25272 ThieleMachine.ThieleSpaceland ThieleSpaceland instr_to_label def
+R25577:25594 ThieleMachine.CoreSemantics <> step def
+R25622:25627 ThieleMachine.CoreSemantics <> halted proj
+R25622:25627 ThieleMachine.CoreSemantics <> halted proj
+R26021:26052 ThieleMachine.CoreSemantics <> add_mu_operational def
+R26055:26082 ThieleMachine.CoreSemantics <> mu_psplit_cost def
+R26202:26233 ThieleMachine.CoreSemantics <> add_mu_operational def
+R26236:26263 ThieleMachine.CoreSemantics <> mu_psplit_cost def
+prf 26350:26362 ThieleSpaceland mu_merge_free
+binder 26373:26373 <> s:94
+binder 26375:26376 <> m1:95
+binder 26378:26379 <> m2:96
+binder 26381:26382 <> s':97
+R26413:26420 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26389:26392 ThieleMachine.ThieleSpaceland ThieleSpaceland step def
+R26394:26394 ThieleMachine.ThieleSpaceland <> s:94 var
+R26397:26402 ThieleMachine.Spaceland <> LMerge constr
+R26407:26408 ThieleMachine.ThieleSpaceland <> m2:96 var
+R26404:26405 ThieleMachine.ThieleSpaceland <> m1:95 var
+R26411:26412 ThieleMachine.ThieleSpaceland <> s':97 var
+R26443:26446 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
+R26421:26422 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R26424:26424 ThieleMachine.ThieleSpaceland <> s:94 var
+R26427:26432 ThieleMachine.Spaceland <> LMerge constr
+R26437:26438 ThieleMachine.ThieleSpaceland <> m2:96 var
+R26434:26435 ThieleMachine.ThieleSpaceland <> m1:95 var
+R26441:26442 ThieleMachine.ThieleSpaceland <> s':97 var
+R26550:26558 ThieleMachine.ThieleSpaceland ThieleSpaceland mu_nonneg thm
+R26550:26558 ThieleMachine.ThieleSpaceland ThieleSpaceland mu_nonneg thm
+def 26803:26816 ThieleSpaceland PartitionTrace
+R26821:26824 Coq.Init.Datatypes <> list ind
+R26826:26834 ThieleMachine.ThieleSpaceland ThieleSpaceland Partition def
+def 26850:26856 ThieleSpaceland MuTrace
+R26861:26864 Coq.Init.Datatypes <> list ind
+R26866:26866 Coq.Numbers.BinNums <> Z ind
+def 26883:26897 ThieleSpaceland partition_trace
+R26904:26908 ThieleMachine.ThieleSpaceland ThieleSpaceland Trace ind
+binder 26900:26900 <> t:98
+R26913:26926 ThieleMachine.ThieleSpaceland ThieleSpaceland PartitionTrace def
+R26941:26941 ThieleMachine.ThieleSpaceland <> t:98 var
+R26954:26957 ThieleMachine.ThieleSpaceland ThieleSpaceland TNil constr
+R26964:26964 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R26980:26980 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R26965:26977 ThieleMachine.ThieleSpaceland ThieleSpaceland get_partition def
+R26988:26992 ThieleMachine.ThieleSpaceland ThieleSpaceland TCons constr
+R27021:27024 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R27006:27018 ThieleMachine.ThieleSpaceland ThieleSpaceland get_partition def
+R27025:27039 ThieleMachine.ThieleSpaceland <> partition_trace:99 def
+def 27069:27076 ThieleSpaceland mu_trace
+R27083:27087 ThieleMachine.ThieleSpaceland ThieleSpaceland Trace ind
+binder 27079:27079 <> t:101
+R27092:27098 ThieleMachine.ThieleSpaceland ThieleSpaceland MuTrace def
+R27113:27113 ThieleMachine.ThieleSpaceland <> t:101 var
+R27126:27129 ThieleMachine.ThieleSpaceland ThieleSpaceland TNil constr
+R27136:27136 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R27138:27138 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R27146:27150 ThieleMachine.ThieleSpaceland ThieleSpaceland TCons constr
+R27198:27201 ThieleMachine.ThieleSpaceland ThieleSpaceland TNil constr
+R27209:27209 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R27219:27219 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R27210:27211 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R27231:27235 ThieleMachine.ThieleSpaceland ThieleSpaceland TCons constr
+R27279:27280 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+binder 27268:27274 <> mu_here:105
+R27319:27326 ThieleMachine.ThieleSpaceland <> mu_trace:102 def
+binder 27308:27314 <> mu_rest:106
+R27355:27358 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R27348:27354 ThieleMachine.ThieleSpaceland <> mu_here:105 var
+R27359:27361 Coq.Lists.List <> map def
+R27379:27385 ThieleMachine.ThieleSpaceland <> mu_rest:106 var
+R27364:27368 Coq.ZArith.BinInt Z add def
+R27370:27376 ThieleMachine.ThieleSpaceland <> mu_here:105 var
+def 27424:27430 ThieleSpaceland project
+R27437:27441 ThieleMachine.ThieleSpaceland ThieleSpaceland Trace ind
+binder 27433:27433 <> t:107
+R27460:27462 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R27446:27459 ThieleMachine.ThieleSpaceland ThieleSpaceland PartitionTrace def
+R27463:27469 ThieleMachine.ThieleSpaceland ThieleSpaceland MuTrace def
+R27478:27478 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R27496:27497 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R27508:27508 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R27479:27493 ThieleMachine.ThieleSpaceland ThieleSpaceland partition_trace def
+R27495:27495 ThieleMachine.ThieleSpaceland <> t:107 var
+R27498:27505 ThieleMachine.ThieleSpaceland ThieleSpaceland mu_trace def
+R27507:27507 ThieleMachine.ThieleSpaceland <> t:107 var
+rec 27794:27800 ThieleSpaceland Receipt
+proj 27818:27834 ThieleSpaceland initial_partition
+proj 27853:27866 ThieleSpaceland label_sequence
+proj 27886:27900 ThieleSpaceland final_partition
+proj 27919:27926 ThieleSpaceland total_mu
+R27838:27846 ThieleMachine.ThieleSpaceland ThieleSpaceland Partition def
+R27870:27873 Coq.Init.Datatypes <> list ind
+R27875:27879 ThieleMachine.ThieleSpaceland ThieleSpaceland Label def
+R27904:27912 ThieleMachine.ThieleSpaceland ThieleSpaceland Partition def
+R27930:27930 Coq.Numbers.BinNums <> Z ind
+rec 28009:28019 ThieleSpaceland StepWitness
+proj 28037:28050 ThieleSpaceland step_pre_state
+proj 28065:28080 ThieleSpaceland step_instruction
+proj 28115:28124 ThieleSpaceland step_label
+proj 28139:28153 ThieleSpaceland step_post_state
+proj 28168:28174 ThieleSpaceland step_mu
+R28054:28058 ThieleMachine.ThieleSpaceland ThieleSpaceland State def
+R28084:28108 ThieleMachine.CoreSemantics <> Instruction ind
+R28128:28132 ThieleMachine.ThieleSpaceland ThieleSpaceland Label def
+R28157:28161 ThieleMachine.ThieleSpaceland ThieleSpaceland State def
+R28178:28178 Coq.Numbers.BinNums <> Z ind
+rec 28300:28314 ThieleSpaceland EnhancedReceipt
+proj 28332:28348 ThieleSpaceland enh_initial_state
+proj 28363:28380 ThieleSpaceland enh_step_witnesses
+proj 28437:28451 ThieleSpaceland enh_final_state
+proj 28466:28477 ThieleSpaceland enh_total_mu
+R28352:28356 ThieleMachine.ThieleSpaceland ThieleSpaceland State def
+R28384:28387 Coq.Init.Datatypes <> list ind
+R28389:28399 ThieleMachine.ThieleSpaceland ThieleSpaceland StepWitness rec
+R28455:28459 ThieleMachine.ThieleSpaceland ThieleSpaceland State def
+R28481:28481 Coq.Numbers.BinNums <> Z ind
+rec 29687:29703 ThieleSpaceland CryptoStepWitness
+proj 29721:29735 ThieleSpaceland crypto_pre_hash
+proj 29811:29828 ThieleSpaceland crypto_instruction
+proj 29891:29902 ThieleSpaceland crypto_label
+proj 29965:29979 ThieleSpaceland crypto_mu_delta
+proj 30045:30060 ThieleSpaceland crypto_post_hash
+R29739:29761 ThieleMachine.CoreSemantics <> StateHash def
+R29832:29856 ThieleMachine.CoreSemantics <> Instruction ind
+R29906:29910 ThieleMachine.ThieleSpaceland ThieleSpaceland Label def
+R29983:29983 Coq.Numbers.BinNums <> Z ind
+R30064:30086 ThieleMachine.CoreSemantics <> StateHash def
+rec 30201:30213 ThieleSpaceland CryptoReceipt
+proj 30231:30249 ThieleSpaceland crypto_initial_hash
+proj 30320:30335 ThieleSpaceland crypto_witnesses
+proj 30403:30419 ThieleSpaceland crypto_final_hash
+proj 30490:30504 ThieleSpaceland crypto_total_mu
+proj 30563:30583 ThieleSpaceland crypto_label_sequence
+R30253:30275 ThieleMachine.CoreSemantics <> StateHash def
+R30339:30342 Coq.Init.Datatypes <> list ind
+R30344:30360 ThieleMachine.ThieleSpaceland ThieleSpaceland CryptoStepWitness rec
+R30423:30445 ThieleMachine.CoreSemantics <> StateHash def
+R30508:30508 Coq.Numbers.BinNums <> Z ind
+R30587:30590 Coq.Init.Datatypes <> list ind
+R30592:30596 ThieleMachine.ThieleSpaceland ThieleSpaceland Label def
+def 30753:30769 ThieleSpaceland verify_hash_chain
+R30784:30787 Coq.Init.Datatypes <> list ind
+R30789:30805 ThieleMachine.ThieleSpaceland ThieleSpaceland CryptoStepWitness rec
+binder 30772:30780 <> witnesses:136
+R30810:30813 Coq.Init.Datatypes <> bool ind
+R30828:30836 ThieleMachine.ThieleSpaceland <> witnesses:136 var
+R30849:30850 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R30855:30858 Coq.Init.Datatypes <> true constr
+R30866:30866 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R30868:30868 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R30873:30876 Coq.Init.Datatypes <> true constr
+R30928:30931 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R30935:30938 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R31028:31039 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R30964:30984 ThieleMachine.CoreSemantics <> hash_eq def
+R30987:31002 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_post_hash proj
+R31009:31023 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_pre_hash proj
+R31040:31056 ThieleMachine.ThieleSpaceland <> verify_hash_chain:137 def
+def 31130:31150 ThieleSpaceland verify_crypto_receipt
+R31157:31169 ThieleMachine.ThieleSpaceland ThieleSpaceland CryptoReceipt rec
+binder 31153:31153 <> r:139
+R31174:31177 Coq.Init.Datatypes <> bool ind
+R31333:31390 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R31486:31486 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R31250:31294 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R31241:31245 Coq.ZArith.BinInt <> ::Z_scope:x_'>=?'_x not
+R31224:31238 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_total_mu proj
+R31240:31240 ThieleMachine.ThieleSpaceland <> r:139 var
+R31295:31311 ThieleMachine.ThieleSpaceland ThieleSpaceland verify_hash_chain def
+R31314:31329 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_witnesses proj
+R31331:31331 ThieleMachine.ThieleSpaceland <> r:139 var
+R31391:31397 Coq.Arith.PeanoNat Nat eqb def
+R31400:31410 Coq.Lists.List <> length abbrev
+R31413:31433 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_label_sequence proj
+R31435:31435 ThieleMachine.ThieleSpaceland <> r:139 var
+R31453:31463 Coq.Lists.List <> length abbrev
+R31466:31481 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_witnesses proj
+R31483:31483 ThieleMachine.ThieleSpaceland <> r:139 var
+def 31549:31561 ThieleSpaceland trace_initial
+R31568:31572 ThieleMachine.ThieleSpaceland ThieleSpaceland Trace ind
+binder 31564:31564 <> t:140
+R31577:31581 ThieleMachine.ThieleSpaceland ThieleSpaceland State def
+R31596:31596 ThieleMachine.ThieleSpaceland <> t:140 var
+R31609:31612 ThieleMachine.ThieleSpaceland ThieleSpaceland TNil constr
+R31627:31631 ThieleMachine.ThieleSpaceland ThieleSpaceland TCons constr
+def 31716:31745 ThieleSpaceland make_crypto_receipt_from_trace
+R31752:31756 ThieleMachine.ThieleSpaceland ThieleSpaceland Trace ind
+binder 31748:31748 <> t:142
+R31775:31797 ThieleMachine.CoreSemantics <> StateHash def
+binder 31760:31771 <> initial_hash:143
+R31802:31814 ThieleMachine.ThieleSpaceland ThieleSpaceland CryptoReceipt rec
+R31829:31829 ThieleMachine.ThieleSpaceland <> t:142 var
+R31842:31845 ThieleMachine.ThieleSpaceland ThieleSpaceland TNil constr
+R31901:31919 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_initial_hash proj
+R31901:31919 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_initial_hash proj
+R31901:31919 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_initial_hash proj
+R31949:31964 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_witnesses proj
+R31949:31964 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_witnesses proj
+R31984:32000 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_final_hash proj
+R31984:32000 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_final_hash proj
+R32044:32058 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_total_mu proj
+R32044:32058 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_total_mu proj
+R32077:32097 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_label_sequence proj
+R32077:32097 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_label_sequence proj
+R31924:31935 ThieleMachine.ThieleSpaceland <> initial_hash:143 var
+R31969:31970 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R32005:32028 ThieleMachine.CoreSemantics <> hash_state def
+R32102:32103 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R32114:32118 ThieleMachine.ThieleSpaceland ThieleSpaceland TCons constr
+R32154:32177 ThieleMachine.CoreSemantics <> hash_state def
+binder 32142:32149 <> pre_hash:146
+R32210:32222 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_initial def
+binder 32196:32205 <> post_state:147
+R32255:32278 ThieleMachine.CoreSemantics <> hash_state def
+R32280:32289 ThieleMachine.ThieleSpaceland <> post_state:147 var
+binder 32242:32250 <> post_hash:148
+R32317:32318 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R32324:32333 ThieleMachine.ThieleSpaceland <> post_state:147 var
+binder 32306:32312 <> step_mu:149
+R32364:32378 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_pre_hash proj
+R32364:32378 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_pre_hash proj
+R32364:32378 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_pre_hash proj
+R32418:32435 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_instruction proj
+R32418:32435 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_instruction proj
+R32523:32534 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_label proj
+R32523:32534 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_label proj
+R32567:32581 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_mu_delta proj
+R32567:32581 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_mu_delta proj
+R32620:32635 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_post_hash proj
+R32620:32635 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_post_hash proj
+R32383:32390 ThieleMachine.ThieleSpaceland <> pre_hash:146 var
+R32440:32443 ThieleMachine.CoreSemantics <> HALT constr
+R32586:32592 ThieleMachine.ThieleSpaceland <> step_mu:149 var
+R32640:32648 ThieleMachine.ThieleSpaceland <> post_hash:148 var
+binder 32350:32356 <> witness:150
+R32684:32713 ThieleMachine.ThieleSpaceland <> make_crypto_receipt_from_trace:144 def
+R32718:32726 ThieleMachine.ThieleSpaceland <> post_hash:148 var
+binder 32668:32679 <> rest_receipt:151
+R32742:32760 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_initial_hash proj
+R32742:32760 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_initial_hash proj
+R32742:32760 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_initial_hash proj
+R32786:32801 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_witnesses proj
+R32786:32801 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_witnesses proj
+R32859:32875 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_final_hash proj
+R32859:32875 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_final_hash proj
+R32923:32937 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_total_mu proj
+R32923:32937 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_total_mu proj
+R32993:33013 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_label_sequence proj
+R32993:33013 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_label_sequence proj
+R32765:32772 ThieleMachine.ThieleSpaceland <> pre_hash:146 var
+R32813:32816 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R32806:32812 ThieleMachine.ThieleSpaceland <> witness:150 var
+R32817:32832 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_witnesses proj
+R32834:32845 ThieleMachine.ThieleSpaceland <> rest_receipt:151 var
+R32880:32896 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_final_hash proj
+R32898:32909 ThieleMachine.ThieleSpaceland <> rest_receipt:151 var
+R32949:32951 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R32942:32948 ThieleMachine.ThieleSpaceland <> step_mu:149 var
+R32952:32966 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_total_mu proj
+R32968:32979 ThieleMachine.ThieleSpaceland <> rest_receipt:151 var
+R33019:33022 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R33023:33043 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_label_sequence proj
+R33045:33056 ThieleMachine.ThieleSpaceland <> rest_receipt:151 var
+def 33084:33095 ThieleSpaceland trace_labels
+R33102:33106 ThieleMachine.ThieleSpaceland ThieleSpaceland Trace ind
+binder 33098:33098 <> t:152
+R33111:33114 Coq.Init.Datatypes <> list ind
+R33116:33120 ThieleMachine.ThieleSpaceland ThieleSpaceland Label def
+R33135:33135 ThieleMachine.ThieleSpaceland <> t:152 var
+R33148:33151 ThieleMachine.ThieleSpaceland ThieleSpaceland TNil constr
+R33158:33159 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R33167:33171 ThieleMachine.ThieleSpaceland ThieleSpaceland TCons constr
+R33186:33189 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R33190:33201 ThieleMachine.ThieleSpaceland <> trace_labels:153 def
+def 33299:33310 ThieleSpaceland make_receipt
+R33317:33321 ThieleMachine.ThieleSpaceland ThieleSpaceland Trace ind
+binder 33313:33313 <> t:155
+R33326:33332 ThieleMachine.ThieleSpaceland ThieleSpaceland Receipt rec
+R33344:33360 ThieleMachine.ThieleSpaceland ThieleSpaceland initial_partition proj
+R33344:33360 ThieleMachine.ThieleSpaceland ThieleSpaceland initial_partition proj
+R33344:33360 ThieleMachine.ThieleSpaceland ThieleSpaceland initial_partition proj
+R33405:33418 ThieleMachine.ThieleSpaceland ThieleSpaceland label_sequence proj
+R33405:33418 ThieleMachine.ThieleSpaceland ThieleSpaceland label_sequence proj
+R33446:33460 ThieleMachine.ThieleSpaceland ThieleSpaceland final_partition proj
+R33446:33460 ThieleMachine.ThieleSpaceland ThieleSpaceland final_partition proj
+R33503:33510 ThieleMachine.ThieleSpaceland ThieleSpaceland total_mu proj
+R33503:33510 ThieleMachine.ThieleSpaceland ThieleSpaceland total_mu proj
+R33365:33377 ThieleMachine.ThieleSpaceland ThieleSpaceland get_partition def
+R33380:33392 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_initial def
+R33394:33394 ThieleMachine.ThieleSpaceland <> t:155 var
+R33423:33434 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_labels def
+R33436:33436 ThieleMachine.ThieleSpaceland <> t:155 var
+R33465:33477 ThieleMachine.ThieleSpaceland ThieleSpaceland get_partition def
+R33480:33490 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_final def
+R33492:33492 ThieleMachine.ThieleSpaceland <> t:155 var
+R33515:33522 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_mu def
+R33524:33524 ThieleMachine.ThieleSpaceland <> t:155 var
+def 33542:33553 ThieleSpaceland list_nat_eqb
+R33564:33567 Coq.Init.Datatypes <> list ind
+R33569:33571 Coq.Init.Datatypes <> nat ind
+binder 33556:33557 <> xs:156
+binder 33559:33560 <> ys:157
+R33576:33579 Coq.Init.Datatypes <> bool ind
+R33598:33599 ThieleMachine.ThieleSpaceland <> ys:157 var
+R33594:33595 ThieleMachine.ThieleSpaceland <> xs:156 var
+R33612:33613 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R33616:33617 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R33622:33625 Coq.Init.Datatypes <> true constr
+R33634:33637 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R33644:33647 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R33666:33669 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R33655:33661 Coq.Arith.PeanoNat Nat eqb def
+R33670:33681 ThieleMachine.ThieleSpaceland <> list_nat_eqb:158 def
+R33705:33709 Coq.Init.Datatypes <> false constr
+def 33732:33742 ThieleSpaceland modules_eqb
+R33753:33756 Coq.Init.Datatypes <> list ind
+R33767:33769 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R33759:33766 ThieleMachine.ThieleSpaceland ThieleSpaceland ModuleId def
+R33770:33789 ThieleMachine.CoreSemantics <> Region def
+binder 33745:33746 <> xs:161
+binder 33748:33749 <> ys:162
+R33795:33798 Coq.Init.Datatypes <> bool ind
+R33817:33818 ThieleMachine.ThieleSpaceland <> ys:162 var
+R33813:33814 ThieleMachine.ThieleSpaceland <> xs:161 var
+R33831:33832 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R33835:33836 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R33841:33844 Coq.Init.Datatypes <> true constr
+R33860:33863 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R33852:33852 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R33855:33856 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R33859:33859 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R33877:33880 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R33869:33869 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R33872:33873 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R33876:33876 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R33931:33934 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R33909:33912 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R33896:33902 Coq.Arith.PeanoNat Nat eqb def
+R33913:33924 ThieleMachine.ThieleSpaceland ThieleSpaceland list_nat_eqb def
+R33935:33945 ThieleMachine.ThieleSpaceland <> modules_eqb:163 def
+R33969:33973 Coq.Init.Datatypes <> false constr
+def 33998:34010 ThieleSpaceland partition_eqb
+R34019:34027 ThieleMachine.ThieleSpaceland ThieleSpaceland Partition def
+binder 34013:34013 <> p:166
+binder 34015:34015 <> q:167
+R34032:34035 Coq.Init.Datatypes <> bool ind
+R34107:34114 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R34044:34054 ThieleMachine.ThieleSpaceland ThieleSpaceland modules_eqb def
+R34057:34077 ThieleMachine.CoreSemantics <> modules proj
+R34079:34079 ThieleMachine.ThieleSpaceland <> p:166 var
+R34083:34103 ThieleMachine.CoreSemantics <> modules proj
+R34105:34105 ThieleMachine.ThieleSpaceland <> q:167 var
+R34115:34121 Coq.Arith.PeanoNat Nat eqb def
+R34124:34151 ThieleMachine.CoreSemantics <> next_module_id proj
+R34153:34153 ThieleMachine.ThieleSpaceland <> p:166 var
+R34157:34184 ThieleMachine.CoreSemantics <> next_module_id proj
+R34186:34186 ThieleMachine.ThieleSpaceland <> q:167 var
+prf 34199:34215 ThieleSpaceland list_nat_eqb_refl
+binder 34226:34227 <> xs:168
+R34248:34250 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R34230:34241 ThieleMachine.ThieleSpaceland ThieleSpaceland list_nat_eqb def
+R34243:34244 ThieleMachine.ThieleSpaceland <> xs:168 var
+R34246:34247 ThieleMachine.ThieleSpaceland <> xs:168 var
+R34251:34254 Coq.Init.Datatypes <> true constr
+R34324:34335 Coq.Arith.PeanoNat Nat eqb_refl thm
+R34324:34335 Coq.Arith.PeanoNat Nat eqb_refl thm
+R34324:34335 Coq.Arith.PeanoNat Nat eqb_refl thm
+prf 34379:34393 ThieleSpaceland list_nat_eqb_eq
+binder 34404:34405 <> xs:169
+binder 34407:34408 <> ys:170
+R34436:34439 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R34429:34431 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R34411:34422 ThieleMachine.ThieleSpaceland ThieleSpaceland list_nat_eqb def
+R34424:34425 ThieleMachine.ThieleSpaceland <> xs:169 var
+R34427:34428 ThieleMachine.ThieleSpaceland <> ys:170 var
+R34432:34435 Coq.Init.Datatypes <> true constr
+R34442:34444 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R34440:34441 ThieleMachine.ThieleSpaceland <> xs:169 var
+R34445:34446 ThieleMachine.ThieleSpaceland <> ys:170 var
+R34582:34594 Coq.Bool.Bool <> andb_true_iff thm
+R34582:34594 Coq.Bool.Bool <> andb_true_iff thm
+R34629:34638 Coq.Arith.PeanoNat Nat eqb_eq thm
+R34629:34638 Coq.Arith.PeanoNat Nat eqb_eq thm
+prf 34711:34726 ThieleSpaceland modules_eqb_refl
+binder 34737:34738 <> xs:171
+R34758:34760 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R34741:34751 ThieleMachine.ThieleSpaceland ThieleSpaceland modules_eqb def
+R34753:34754 ThieleMachine.ThieleSpaceland <> xs:171 var
+R34756:34757 ThieleMachine.ThieleSpaceland <> xs:171 var
+R34761:34764 Coq.Init.Datatypes <> true constr
+R34838:34849 Coq.Arith.PeanoNat Nat eqb_refl thm
+R34838:34849 Coq.Arith.PeanoNat Nat eqb_refl thm
+R34838:34849 Coq.Arith.PeanoNat Nat eqb_refl thm
+R34860:34876 ThieleMachine.ThieleSpaceland ThieleSpaceland list_nat_eqb_refl thm
+R34860:34876 ThieleMachine.ThieleSpaceland ThieleSpaceland list_nat_eqb_refl thm
+R34860:34876 ThieleMachine.ThieleSpaceland ThieleSpaceland list_nat_eqb_refl thm
+prf 34920:34933 ThieleSpaceland modules_eqb_eq
+binder 34944:34945 <> xs:172
+binder 34947:34948 <> ys:173
+R34975:34978 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R34968:34970 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R34951:34961 ThieleMachine.ThieleSpaceland ThieleSpaceland modules_eqb def
+R34963:34964 ThieleMachine.ThieleSpaceland <> xs:172 var
+R34966:34967 ThieleMachine.ThieleSpaceland <> ys:173 var
+R34971:34974 Coq.Init.Datatypes <> true constr
+R34981:34983 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R34979:34980 ThieleMachine.ThieleSpaceland <> xs:172 var
+R34984:34985 ThieleMachine.ThieleSpaceland <> ys:173 var
+R35217:35229 Coq.Bool.Bool <> andb_true_iff thm
+R35217:35229 Coq.Bool.Bool <> andb_true_iff thm
+R35264:35276 Coq.Bool.Bool <> andb_true_iff thm
+R35264:35276 Coq.Bool.Bool <> andb_true_iff thm
+R35309:35318 Coq.Arith.PeanoNat Nat eqb_eq thm
+R35309:35318 Coq.Arith.PeanoNat Nat eqb_eq thm
+R35349:35363 ThieleMachine.ThieleSpaceland ThieleSpaceland list_nat_eqb_eq thm
+R35349:35363 ThieleMachine.ThieleSpaceland ThieleSpaceland list_nat_eqb_eq thm
+prf 35436:35453 ThieleSpaceland partition_eqb_refl
+binder 35464:35464 <> p:174
+R35484:35486 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R35467:35479 ThieleMachine.ThieleSpaceland ThieleSpaceland partition_eqb def
+R35481:35481 ThieleMachine.ThieleSpaceland <> p:174 var
+R35483:35483 ThieleMachine.ThieleSpaceland <> p:174 var
+R35487:35490 Coq.Init.Datatypes <> true constr
+R35536:35548 ThieleMachine.ThieleSpaceland ThieleSpaceland partition_eqb def
+R35570:35585 ThieleMachine.ThieleSpaceland ThieleSpaceland modules_eqb_refl thm
+R35570:35585 ThieleMachine.ThieleSpaceland ThieleSpaceland modules_eqb_refl thm
+R35570:35585 ThieleMachine.ThieleSpaceland ThieleSpaceland modules_eqb_refl thm
+R35596:35607 Coq.Arith.PeanoNat Nat eqb_refl thm
+R35596:35607 Coq.Arith.PeanoNat Nat eqb_refl thm
+R35596:35607 Coq.Arith.PeanoNat Nat eqb_refl thm
+prf 35639:35654 ThieleSpaceland partition_eqb_eq
+binder 35665:35665 <> p:175
+binder 35667:35667 <> q:176
+R35694:35697 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R35687:35689 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R35670:35682 ThieleMachine.ThieleSpaceland ThieleSpaceland partition_eqb def
+R35684:35684 ThieleMachine.ThieleSpaceland <> p:175 var
+R35686:35686 ThieleMachine.ThieleSpaceland <> q:176 var
+R35690:35693 Coq.Init.Datatypes <> true constr
+R35699:35701 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R35698:35698 ThieleMachine.ThieleSpaceland <> p:175 var
+R35702:35702 ThieleMachine.ThieleSpaceland <> q:176 var
+R35763:35775 ThieleMachine.ThieleSpaceland ThieleSpaceland partition_eqb def
+R35805:35817 Coq.Bool.Bool <> andb_true_iff thm
+R35805:35817 Coq.Bool.Bool <> andb_true_iff thm
+R35851:35864 ThieleMachine.ThieleSpaceland ThieleSpaceland modules_eqb_eq thm
+R35851:35864 ThieleMachine.ThieleSpaceland ThieleSpaceland modules_eqb_eq thm
+R35882:35891 Coq.Arith.PeanoNat Nat eqb_eq thm
+R35882:35891 Coq.Arith.PeanoNat Nat eqb_eq thm
+def 36259:36272 ThieleSpaceland verify_receipt
+R36279:36285 ThieleMachine.ThieleSpaceland ThieleSpaceland Receipt rec
+binder 36275:36275 <> r:177
+R36290:36293 Coq.Init.Datatypes <> bool ind
+R36308:36321 ThieleMachine.ThieleSpaceland ThieleSpaceland label_sequence proj
+R36323:36323 ThieleMachine.ThieleSpaceland <> r:177 var
+R36336:36337 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R36342:36345 Coq.Init.Datatypes <> andb def
+R36423:36427 Coq.ZArith.BinInt Z eqb def
+R36430:36437 ThieleMachine.ThieleSpaceland ThieleSpaceland total_mu proj
+R36439:36439 ThieleMachine.ThieleSpaceland <> r:177 var
+R36348:36360 ThieleMachine.ThieleSpaceland ThieleSpaceland partition_eqb def
+R36363:36379 ThieleMachine.ThieleSpaceland ThieleSpaceland initial_partition proj
+R36381:36381 ThieleMachine.ThieleSpaceland <> r:177 var
+R36385:36399 ThieleMachine.ThieleSpaceland ThieleSpaceland final_partition proj
+R36401:36401 ThieleMachine.ThieleSpaceland <> r:177 var
+R36452:36455 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R36461:36464 Coq.Init.Datatypes <> true constr
+def 36554:36569 ThieleSpaceland trace_from_state
+R36576:36580 ThieleMachine.ThieleSpaceland ThieleSpaceland State def
+binder 36572:36572 <> s:178
+R36585:36589 ThieleMachine.ThieleSpaceland ThieleSpaceland Trace ind
+R36598:36601 ThieleMachine.ThieleSpaceland ThieleSpaceland TNil constr
+R36603:36603 ThieleMachine.ThieleSpaceland <> s:178 var
+def 36620:36627 ThieleSpaceland mk_state
+R36634:36642 ThieleMachine.ThieleSpaceland ThieleSpaceland Partition def
+binder 36630:36630 <> p:179
+R36657:36657 Coq.Numbers.BinNums <> Z ind
+binder 36646:36653 <> mu_total:180
+R36662:36666 ThieleMachine.ThieleSpaceland ThieleSpaceland State def
+R36678:36700 ThieleMachine.CoreSemantics <> partition proj
+R36678:36700 ThieleMachine.CoreSemantics <> partition proj
+R36678:36700 ThieleMachine.CoreSemantics <> partition proj
+R36715:36737 ThieleMachine.CoreSemantics <> mu_ledger proj
+R36715:36737 ThieleMachine.CoreSemantics <> mu_ledger proj
+R36942:36957 ThieleMachine.CoreSemantics <> pc proj
+R36942:36957 ThieleMachine.CoreSemantics <> pc proj
+R36972:36991 ThieleMachine.CoreSemantics <> halted proj
+R36972:36991 ThieleMachine.CoreSemantics <> halted proj
+R37009:37028 ThieleMachine.CoreSemantics <> result proj
+R37009:37028 ThieleMachine.CoreSemantics <> result proj
+R37046:37066 ThieleMachine.CoreSemantics <> program proj
+R37046:37066 ThieleMachine.CoreSemantics <> program proj
+R36705:36705 ThieleMachine.ThieleSpaceland <> p:179 var
+R36745:36772 ThieleMachine.CoreSemantics <> mu_operational proj
+R36745:36772 ThieleMachine.CoreSemantics <> mu_operational proj
+R36745:36772 ThieleMachine.CoreSemantics <> mu_operational proj
+R36824:36851 ThieleMachine.CoreSemantics <> mu_information proj
+R36824:36851 ThieleMachine.CoreSemantics <> mu_information proj
+R36896:36917 ThieleMachine.CoreSemantics <> mu_total proj
+R36896:36917 ThieleMachine.CoreSemantics <> mu_total proj
+R36777:36784 ThieleMachine.ThieleSpaceland <> mu_total:180 var
+R36922:36929 ThieleMachine.ThieleSpaceland <> mu_total:180 var
+R36996:36999 Coq.Init.Datatypes <> true constr
+R37033:37036 Coq.Init.Datatypes <> None constr
+R37071:37072 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+def 37090:37108 ThieleSpaceland build_receipt_trace
+R37128:37136 ThieleMachine.ThieleSpaceland ThieleSpaceland Partition def
+binder 37111:37116 <> init_p:181
+binder 37118:37124 <> final_p:182
+R37149:37149 Coq.Numbers.BinNums <> Z ind
+binder 37140:37145 <> tot_mu:183
+R37158:37161 Coq.Init.Datatypes <> list ind
+R37163:37167 ThieleMachine.ThieleSpaceland ThieleSpaceland Label def
+binder 37153:37154 <> ls:184
+R37172:37176 ThieleMachine.ThieleSpaceland ThieleSpaceland Trace ind
+R37191:37192 ThieleMachine.ThieleSpaceland <> ls:184 var
+R37205:37206 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R37211:37214 ThieleMachine.ThieleSpaceland ThieleSpaceland TNil constr
+R37217:37224 ThieleMachine.ThieleSpaceland ThieleSpaceland mk_state def
+R37226:37232 ThieleMachine.ThieleSpaceland <> final_p:182 var
+R37244:37247 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R37248:37249 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R37254:37258 ThieleMachine.ThieleSpaceland ThieleSpaceland TCons constr
+R37261:37268 ThieleMachine.ThieleSpaceland ThieleSpaceland mk_state def
+R37270:37275 ThieleMachine.ThieleSpaceland <> init_p:181 var
+R37283:37286 ThieleMachine.ThieleSpaceland ThieleSpaceland TNil constr
+R37289:37296 ThieleMachine.ThieleSpaceland ThieleSpaceland mk_state def
+R37298:37304 ThieleMachine.ThieleSpaceland <> final_p:182 var
+R37306:37311 ThieleMachine.ThieleSpaceland <> tot_mu:183 var
+R37322:37325 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R37333:37337 ThieleMachine.ThieleSpaceland ThieleSpaceland TCons constr
+R37340:37347 ThieleMachine.ThieleSpaceland ThieleSpaceland mk_state def
+R37349:37354 ThieleMachine.ThieleSpaceland <> init_p:181 var
+R37362:37380 ThieleMachine.ThieleSpaceland <> build_receipt_trace:185 def
+R37397:37402 ThieleMachine.ThieleSpaceland <> tot_mu:183 var
+R37389:37395 ThieleMachine.ThieleSpaceland <> final_p:182 var
+R37382:37387 ThieleMachine.ThieleSpaceland <> init_p:181 var
+prf 37427:37458 ThieleSpaceland trace_labels_build_receipt_trace
+binder 37469:37474 <> init_p:187
+binder 37476:37482 <> final_p:188
+binder 37484:37489 <> tot_mu:189
+binder 37491:37492 <> ls:190
+R37558:37560 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R37499:37510 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_labels def
+R37513:37531 ThieleMachine.ThieleSpaceland ThieleSpaceland build_receipt_trace def
+R37533:37538 ThieleMachine.ThieleSpaceland <> init_p:187 var
+R37540:37546 ThieleMachine.ThieleSpaceland <> final_p:188 var
+R37548:37553 ThieleMachine.ThieleSpaceland <> tot_mu:189 var
+R37555:37556 ThieleMachine.ThieleSpaceland <> ls:190 var
+R37561:37562 ThieleMachine.ThieleSpaceland <> ls:190 var
+R37618:37636 ThieleMachine.ThieleSpaceland ThieleSpaceland build_receipt_trace def
+R37638:37649 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_labels def
+R37712:37730 ThieleMachine.ThieleSpaceland ThieleSpaceland build_receipt_trace def
+R37732:37743 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_labels def
+R37773:37791 ThieleMachine.ThieleSpaceland ThieleSpaceland build_receipt_trace def
+R37793:37804 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_labels def
+prf 37859:37914 ThieleSpaceland get_partition_trace_initial_build_receipt_trace_nonempty
+binder 37925:37930 <> init_p:191
+binder 37932:37938 <> final_p:192
+binder 37940:37945 <> tot_mu:193
+binder 37947:37948 <> ls:194
+R37963:37970 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R37957:37960 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R37955:37956 ThieleMachine.ThieleSpaceland <> ls:194 var
+R37961:37962 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R38047:38049 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R37971:37983 ThieleMachine.ThieleSpaceland ThieleSpaceland get_partition def
+R37986:37998 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_initial def
+R38001:38019 ThieleMachine.ThieleSpaceland ThieleSpaceland build_receipt_trace def
+R38021:38026 ThieleMachine.ThieleSpaceland <> init_p:191 var
+R38028:38034 ThieleMachine.ThieleSpaceland <> final_p:192 var
+R38036:38041 ThieleMachine.ThieleSpaceland <> tot_mu:193 var
+R38043:38044 ThieleMachine.ThieleSpaceland <> ls:194 var
+R38050:38055 ThieleMachine.ThieleSpaceland <> init_p:191 var
+R38196:38214 ThieleMachine.ThieleSpaceland ThieleSpaceland build_receipt_trace def
+R38216:38228 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_initial def
+R38230:38242 ThieleMachine.ThieleSpaceland ThieleSpaceland get_partition def
+R38244:38251 ThieleMachine.ThieleSpaceland ThieleSpaceland mk_state def
+prf 38284:38337 ThieleSpaceland get_partition_trace_final_build_receipt_trace_nonempty
+binder 38348:38353 <> init_p:195
+binder 38355:38361 <> final_p:196
+binder 38363:38368 <> tot_mu:197
+binder 38370:38371 <> ls:198
+R38386:38393 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R38380:38383 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R38378:38379 ThieleMachine.ThieleSpaceland <> ls:198 var
+R38384:38385 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R38468:38470 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R38394:38406 ThieleMachine.ThieleSpaceland ThieleSpaceland get_partition def
+R38409:38419 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_final def
+R38422:38440 ThieleMachine.ThieleSpaceland ThieleSpaceland build_receipt_trace def
+R38442:38447 ThieleMachine.ThieleSpaceland <> init_p:195 var
+R38449:38455 ThieleMachine.ThieleSpaceland <> final_p:196 var
+R38457:38462 ThieleMachine.ThieleSpaceland <> tot_mu:197 var
+R38464:38465 ThieleMachine.ThieleSpaceland <> ls:198 var
+R38471:38477 ThieleMachine.ThieleSpaceland <> final_p:196 var
+R38601:38619 ThieleMachine.ThieleSpaceland ThieleSpaceland build_receipt_trace def
+R38621:38631 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_final def
+R38633:38645 ThieleMachine.ThieleSpaceland ThieleSpaceland get_partition def
+R38647:38654 ThieleMachine.ThieleSpaceland ThieleSpaceland mk_state def
+R38684:38702 ThieleMachine.ThieleSpaceland ThieleSpaceland build_receipt_trace def
+R38719:38729 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_final def
+prf 38791:38827 ThieleSpaceland trace_mu_build_receipt_trace_nonempty
+binder 38838:38843 <> init_p:199
+binder 38845:38851 <> final_p:200
+binder 38853:38858 <> tot_mu:201
+binder 38860:38861 <> ls:202
+R38876:38883 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R38870:38873 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R38868:38869 ThieleMachine.ThieleSpaceland <> ls:202 var
+R38874:38875 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R38939:38941 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R38884:38891 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_mu def
+R38894:38912 ThieleMachine.ThieleSpaceland ThieleSpaceland build_receipt_trace def
+R38914:38919 ThieleMachine.ThieleSpaceland <> init_p:199 var
+R38921:38927 ThieleMachine.ThieleSpaceland <> final_p:200 var
+R38929:38934 ThieleMachine.ThieleSpaceland <> tot_mu:201 var
+R38936:38937 ThieleMachine.ThieleSpaceland <> ls:202 var
+R38942:38947 ThieleMachine.ThieleSpaceland <> tot_mu:201 var
+R39071:39089 ThieleMachine.ThieleSpaceland ThieleSpaceland build_receipt_trace def
+R39091:39098 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_mu def
+R39117:39118 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R39190:39208 ThieleMachine.ThieleSpaceland ThieleSpaceland build_receipt_trace def
+R39210:39217 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_mu def
+R39238:39239 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R39277:39295 ThieleMachine.ThieleSpaceland ThieleSpaceland build_receipt_trace def
+R39314:39321 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_mu def
+R39340:39358 ThieleMachine.ThieleSpaceland ThieleSpaceland build_receipt_trace def
+R39379:39380 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+prf 39488:39500 ThieleSpaceland receipt_sound
+R39516:39522 ThieleMachine.ThieleSpaceland ThieleSpaceland Receipt rec
+binder 39512:39512 <> r:203
+R39553:39560 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R39546:39548 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R39530:39543 ThieleMachine.ThieleSpaceland ThieleSpaceland verify_receipt def
+R39545:39545 ThieleMachine.ThieleSpaceland <> r:203 var
+R39549:39552 Coq.Init.Datatypes <> true constr
+R39561:39568 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R39578:39586 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R39573:39577 ThieleMachine.ThieleSpaceland ThieleSpaceland Trace ind
+binder 39569:39569 <> t:204
+R39601:39603 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R39587:39598 ThieleMachine.ThieleSpaceland ThieleSpaceland make_receipt def
+R39600:39600 ThieleMachine.ThieleSpaceland <> t:204 var
+R39604:39604 ThieleMachine.ThieleSpaceland <> r:203 var
+R39678:39691 ThieleMachine.ThieleSpaceland ThieleSpaceland verify_receipt def
+R39855:39867 Coq.Bool.Bool <> andb_true_iff thm
+R39855:39867 Coq.Bool.Bool <> andb_true_iff thm
+R39904:39919 ThieleMachine.ThieleSpaceland ThieleSpaceland partition_eqb_eq thm
+R39904:39919 ThieleMachine.ThieleSpaceland ThieleSpaceland partition_eqb_eq thm
+R39934:39941 Coq.ZArith.BinInt Z eqb_eq thm
+R39934:39941 Coq.ZArith.BinInt Z eqb_eq thm
+R39992:39995 ThieleMachine.ThieleSpaceland ThieleSpaceland TNil constr
+R39998:40005 ThieleMachine.ThieleSpaceland ThieleSpaceland mk_state def
+R39992:39995 ThieleMachine.ThieleSpaceland ThieleSpaceland TNil constr
+R39998:40005 ThieleMachine.ThieleSpaceland ThieleSpaceland mk_state def
+R40032:40043 ThieleMachine.ThieleSpaceland ThieleSpaceland make_receipt def
+R40046:40058 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_initial def
+R40061:40073 ThieleMachine.ThieleSpaceland ThieleSpaceland get_partition def
+R40076:40086 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_final def
+R40089:40096 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_mu def
+R40099:40110 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_labels def
+R40231:40249 ThieleMachine.ThieleSpaceland ThieleSpaceland build_receipt_trace def
+R40275:40278 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R40231:40249 ThieleMachine.ThieleSpaceland ThieleSpaceland build_receipt_trace def
+R40275:40278 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R40302:40313 ThieleMachine.ThieleSpaceland ThieleSpaceland make_receipt def
+R40331:40386 ThieleMachine.ThieleSpaceland ThieleSpaceland get_partition_trace_initial_build_receipt_trace_nonempty thm
+R40412:40415 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R40331:40386 ThieleMachine.ThieleSpaceland ThieleSpaceland get_partition_trace_initial_build_receipt_trace_nonempty thm
+R40412:40415 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R40331:40386 ThieleMachine.ThieleSpaceland ThieleSpaceland get_partition_trace_initial_build_receipt_trace_nonempty thm
+R40412:40415 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R40462:40493 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_labels_build_receipt_trace thm
+R40462:40493 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_labels_build_receipt_trace thm
+R40462:40493 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_labels_build_receipt_trace thm
+R40511:40564 ThieleMachine.ThieleSpaceland ThieleSpaceland get_partition_trace_final_build_receipt_trace_nonempty thm
+R40590:40593 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R40511:40564 ThieleMachine.ThieleSpaceland ThieleSpaceland get_partition_trace_final_build_receipt_trace_nonempty thm
+R40590:40593 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R40511:40564 ThieleMachine.ThieleSpaceland ThieleSpaceland get_partition_trace_final_build_receipt_trace_nonempty thm
+R40590:40593 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R40641:40677 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_mu_build_receipt_trace_nonempty thm
+R40703:40706 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R40641:40677 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_mu_build_receipt_trace_nonempty thm
+R40703:40706 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R40641:40677 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_mu_build_receipt_trace_nonempty thm
+R40703:40706 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+prf 40846:40860 ThieleSpaceland trace_mu_nonneg
+binder 40871:40871 <> t:205
+R40891:40894 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R40878:40888 ThieleMachine.ThieleSpaceland ThieleSpaceland valid_trace def
+R40890:40890 ThieleMachine.ThieleSpaceland <> t:205 var
+R40905:40908 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
+R40895:40902 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_mu def
+R40904:40904 ThieleMachine.ThieleSpaceland <> t:205 var
+R41311:41319 ThieleMachine.ThieleSpaceland ThieleSpaceland mu_nonneg thm
+R41311:41319 ThieleMachine.ThieleSpaceland ThieleSpaceland mu_nonneg thm
+R41629:41632 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
+R41620:41621 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R41646:41654 ThieleMachine.ThieleSpaceland ThieleSpaceland mu_nonneg thm
+R41629:41632 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
+R41620:41621 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R41646:41654 ThieleMachine.ThieleSpaceland ThieleSpaceland mu_nonneg thm
+R41721:41724 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
+R41695:41702 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_mu def
+R41705:41709 ThieleMachine.ThieleSpaceland ThieleSpaceland TCons constr
+R41721:41724 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
+R41695:41702 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_mu def
+R41705:41709 ThieleMachine.ThieleSpaceland ThieleSpaceland TCons constr
+prf 41825:41840 ThieleSpaceland receipt_complete
+R41856:41860 ThieleMachine.ThieleSpaceland ThieleSpaceland Trace ind
+binder 41852:41852 <> t:206
+R41899:41901 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R41868:41881 ThieleMachine.ThieleSpaceland ThieleSpaceland verify_receipt def
+R41884:41895 ThieleMachine.ThieleSpaceland ThieleSpaceland make_receipt def
+R41897:41897 ThieleMachine.ThieleSpaceland <> t:206 var
+R41902:41905 Coq.Init.Datatypes <> true constr
+R42052:42065 ThieleMachine.ThieleSpaceland ThieleSpaceland verify_receipt def
+R42089:42106 ThieleMachine.ThieleSpaceland ThieleSpaceland partition_eqb_refl thm
+R42089:42106 ThieleMachine.ThieleSpaceland ThieleSpaceland partition_eqb_refl thm
+R42089:42106 ThieleMachine.ThieleSpaceland ThieleSpaceland partition_eqb_refl thm
+R42184:42197 ThieleMachine.ThieleSpaceland ThieleSpaceland verify_receipt def
+def 42531:42536 ThieleSpaceland kT_ln2
+R42540:42540 Coq.QArith.QArith_base <> Q rec
+R42546:42548 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+def 42603:42616 ThieleSpaceland landauer_bound
+R42630:42630 Coq.Numbers.BinNums <> Z ind
+binder 42619:42626 <> delta_mu:207
+R42635:42635 Coq.QArith.QArith_base <> Q rec
+R42650:42653 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R42671:42671 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R42644:42649 ThieleMachine.ThieleSpaceland ThieleSpaceland kT_ln2 def
+R42654:42661 Coq.QArith.QArith_base <> inject_Z def
+R42663:42670 ThieleMachine.ThieleSpaceland <> delta_mu:207 var
+prf 42763:42778 ThieleSpaceland mu_thermodynamic
+binder 42789:42789 <> s:208
+binder 42791:42791 <> l:209
+binder 42793:42794 <> s':210
+R42812:42819 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R42801:42804 ThieleMachine.ThieleSpaceland ThieleSpaceland step def
+R42806:42806 ThieleMachine.ThieleSpaceland <> s:208 var
+R42808:42808 ThieleMachine.ThieleSpaceland <> l:209 var
+R42810:42811 ThieleMachine.ThieleSpaceland <> s':210 var
+R42820:42826 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R42832:42833 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R42831:42831 Coq.QArith.QArith_base <> Q rec
+binder 42827:42827 <> W:211
+R42834:42836 Coq.QArith.QArith_base <> Qle def
+R42839:42852 ThieleMachine.ThieleSpaceland ThieleSpaceland landauer_bound def
+R42855:42856 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R42858:42858 ThieleMachine.ThieleSpaceland <> s:208 var
+R42860:42860 ThieleMachine.ThieleSpaceland <> l:209 var
+R42862:42863 ThieleMachine.ThieleSpaceland <> s':210 var
+R42867:42867 ThieleMachine.ThieleSpaceland <> W:211 var
+R42912:42925 ThieleMachine.ThieleSpaceland ThieleSpaceland landauer_bound def
+R42928:42929 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R42912:42925 ThieleMachine.ThieleSpaceland ThieleSpaceland landauer_bound def
+R42928:42929 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R42951:42958 Coq.QArith.QArith_base <> Qle_refl thm
+R42951:42958 Coq.QArith.QArith_base <> Qle_refl thm
+prf 43039:43054 ThieleSpaceland blind_reversible
+binder 43065:43065 <> s:212
+binder 43067:43068 <> s':213
+R43093:43100 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R43075:43078 ThieleMachine.ThieleSpaceland ThieleSpaceland step def
+R43080:43080 ThieleMachine.ThieleSpaceland <> s:212 var
+R43082:43089 ThieleMachine.Spaceland <> LCompute constr
+R43091:43092 ThieleMachine.ThieleSpaceland <> s':213 var
+R43121:43128 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R43117:43119 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R43101:43102 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R43104:43104 ThieleMachine.ThieleSpaceland <> s:212 var
+R43106:43113 ThieleMachine.Spaceland <> LCompute constr
+R43115:43116 ThieleMachine.ThieleSpaceland <> s':213 var
+R43162:43165 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R43129:43142 ThieleMachine.ThieleSpaceland ThieleSpaceland landauer_bound def
+R43145:43146 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R43148:43148 ThieleMachine.ThieleSpaceland <> s:212 var
+R43150:43157 ThieleMachine.Spaceland <> LCompute constr
+R43159:43160 ThieleMachine.ThieleSpaceland <> s':213 var
+R43231:43244 ThieleMachine.ThieleSpaceland ThieleSpaceland landauer_bound def
+R43247:43252 ThieleMachine.ThieleSpaceland ThieleSpaceland kT_ln2 def
+R43282:43290 Coq.QArith.QArith_base <> Qmult_0_r thm
+R43282:43290 Coq.QArith.QArith_base <> Qmult_0_r thm
+R43282:43290 Coq.QArith.QArith_base <> Qmult_0_r thm
+prf 43975:43989 ThieleSpaceland hash_eq_correct
+R44009:44031 ThieleMachine.CoreSemantics <> StateHash def
+binder 44001:44002 <> h1:214
+binder 44004:44005 <> h2:215
+R44073:44077 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R44066:44068 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R44039:44059 ThieleMachine.CoreSemantics <> hash_eq def
+R44061:44062 ThieleMachine.ThieleSpaceland <> h1:214 var
+R44064:44065 ThieleMachine.ThieleSpaceland <> h2:215 var
+R44069:44072 Coq.Init.Datatypes <> true constr
+R44080:44082 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R44078:44079 ThieleMachine.ThieleSpaceland <> h1:214 var
+R44083:44084 ThieleMachine.ThieleSpaceland <> h2:215 var
+R44494:44506 Coq.Bool.Bool <> andb_true_iff thm
+R44494:44506 Coq.Bool.Bool <> andb_true_iff thm
+R44558:44570 Coq.Bool.Bool <> eqb_prop thm
+R44558:44570 Coq.Bool.Bool <> eqb_prop thm
+R44793:44805 Coq.Bool.Bool <> andb_true_iff thm
+R44793:44805 Coq.Bool.Bool <> andb_true_iff thm
+R44831:44844 Coq.Bool.Bool <> eqb_reflx thm
+R44831:44844 Coq.Bool.Bool <> eqb_reflx thm
+prf 44939:44961 ThieleSpaceland crypto_receipt_complete
+R44977:44981 ThieleMachine.ThieleSpaceland ThieleSpaceland Trace ind
+binder 44973:44973 <> t:216
+R44992:45002 ThieleMachine.ThieleSpaceland ThieleSpaceland valid_trace def
+R45004:45004 ThieleMachine.ThieleSpaceland <> t:216 var
+binder 44985:44989 <> valid:217
+R45113:45115 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R45012:45032 ThieleMachine.ThieleSpaceland ThieleSpaceland verify_crypto_receipt def
+R45035:45064 ThieleMachine.ThieleSpaceland ThieleSpaceland make_crypto_receipt_from_trace def
+R45066:45066 ThieleMachine.ThieleSpaceland <> t:216 var
+R45069:45092 ThieleMachine.CoreSemantics <> hash_state def
+R45095:45107 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_initial def
+R45109:45109 ThieleMachine.ThieleSpaceland <> t:216 var
+R45116:45119 Coq.Init.Datatypes <> true constr
+R45163:45183 ThieleMachine.ThieleSpaceland ThieleSpaceland verify_crypto_receipt def
+R45196:45210 Coq.Init.Datatypes <> andb_true_intro thm
+R45196:45210 Coq.Init.Datatypes <> andb_true_intro thm
+R45265:45279 Coq.Init.Datatypes <> andb_true_intro thm
+R45265:45279 Coq.Init.Datatypes <> andb_true_intro thm
+R45331:45338 Coq.ZArith.BinInt Z geb_le thm
+R45331:45338 Coq.ZArith.BinInt Z geb_le thm
+R45868:45871 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
+R45859:45860 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R45885:45893 ThieleMachine.ThieleSpaceland ThieleSpaceland mu_nonneg thm
+R45868:45871 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
+R45859:45860 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R45885:45893 ThieleMachine.ThieleSpaceland ThieleSpaceland mu_nonneg thm
+R46289:46292 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
+R46280:46281 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R46306:46314 ThieleMachine.ThieleSpaceland ThieleSpaceland mu_nonneg thm
+R46289:46292 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
+R46280:46281 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R46306:46314 ThieleMachine.ThieleSpaceland ThieleSpaceland mu_nonneg thm
+R46424:46427 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R46428:46442 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_total_mu proj
+R46445:46474 ThieleMachine.ThieleSpaceland ThieleSpaceland make_crypto_receipt_from_trace def
+R46477:46481 ThieleMachine.ThieleSpaceland ThieleSpaceland TCons constr
+R46542:46565 ThieleMachine.CoreSemantics <> hash_state def
+R46568:46580 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_initial def
+R46583:46587 ThieleMachine.ThieleSpaceland ThieleSpaceland TCons constr
+R46424:46427 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R46428:46442 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_total_mu proj
+R46445:46474 ThieleMachine.ThieleSpaceland ThieleSpaceland make_crypto_receipt_from_trace def
+R46477:46481 ThieleMachine.ThieleSpaceland ThieleSpaceland TCons constr
+R46542:46565 ThieleMachine.CoreSemantics <> hash_state def
+R46568:46580 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_initial def
+R46583:46587 ThieleMachine.ThieleSpaceland ThieleSpaceland TCons constr
+R46905:46934 ThieleMachine.ThieleSpaceland ThieleSpaceland make_crypto_receipt_from_trace def
+R46947:46976 ThieleMachine.ThieleSpaceland ThieleSpaceland make_crypto_receipt_from_trace def
+R46947:46976 ThieleMachine.ThieleSpaceland ThieleSpaceland make_crypto_receipt_from_trace def
+R47006:47020 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_total_mu proj
+R47033:47047 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_total_mu proj
+R47033:47047 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_total_mu proj
+R47215:47218 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R47219:47220 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R47215:47218 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R47219:47220 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R47257:47275 Coq.ZArith.BinInt Z add_nonneg_nonneg thm
+R47257:47275 Coq.ZArith.BinInt Z add_nonneg_nonneg thm
+R48280:48294 Coq.Init.Datatypes <> andb_true_intro thm
+R48280:48294 Coq.Init.Datatypes <> andb_true_intro thm
+R48463:48465 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R48382:48402 ThieleMachine.CoreSemantics <> hash_eq def
+R48405:48428 ThieleMachine.CoreSemantics <> hash_state def
+R48435:48458 ThieleMachine.CoreSemantics <> hash_state def
+R48466:48469 Coq.Init.Datatypes <> true constr
+R48463:48465 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R48382:48402 ThieleMachine.CoreSemantics <> hash_eq def
+R48405:48428 ThieleMachine.CoreSemantics <> hash_state def
+R48435:48458 ThieleMachine.CoreSemantics <> hash_state def
+R48466:48469 Coq.Init.Datatypes <> true constr
+R48495:48499 Coq.Init.Logic <> proj2 thm
+R48502:48516 ThieleMachine.ThieleSpaceland ThieleSpaceland hash_eq_correct thm
+R48495:48499 Coq.Init.Logic <> proj2 thm
+R48502:48516 ThieleMachine.ThieleSpaceland ThieleSpaceland hash_eq_correct thm
+R48705:48714 Coq.Arith.PeanoNat Nat eqb_eq thm
+R48705:48714 Coq.Arith.PeanoNat Nat eqb_eq thm
+prf 49330:49354 ThieleSpaceland crypto_final_hash_correct
+R49370:49374 ThieleMachine.ThieleSpaceland ThieleSpaceland Trace ind
+binder 49366:49366 <> t:218
+R49479:49485 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R49382:49398 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_final_hash proj
+R49401:49430 ThieleMachine.ThieleSpaceland ThieleSpaceland make_crypto_receipt_from_trace def
+R49432:49432 ThieleMachine.ThieleSpaceland <> t:218 var
+R49435:49458 ThieleMachine.CoreSemantics <> hash_state def
+R49461:49473 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_initial def
+R49475:49475 ThieleMachine.ThieleSpaceland <> t:218 var
+R49486:49509 ThieleMachine.CoreSemantics <> hash_state def
+R49512:49522 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_final def
+R49524:49524 ThieleMachine.ThieleSpaceland <> t:218 var
+prf 49773:49809 ThieleSpaceland hash_chain_determines_endpoint_hashes
+R49833:49836 Coq.Init.Datatypes <> list ind
+R49838:49854 ThieleMachine.ThieleSpaceland ThieleSpaceland CryptoStepWitness rec
+binder 49821:49829 <> witnesses:219
+R49866:49870 ThieleMachine.ThieleSpaceland ThieleSpaceland State def
+binder 49858:49859 <> s1:220
+binder 49861:49862 <> s2:221
+R49912:49919 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R49905:49907 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R49878:49894 ThieleMachine.ThieleSpaceland ThieleSpaceland verify_hash_chain def
+R49896:49904 ThieleMachine.ThieleSpaceland <> witnesses:219 var
+R49908:49911 Coq.Init.Datatypes <> true constr
+R50394:50401 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R49947:49949 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R49920:49943 ThieleMachine.CoreSemantics <> hash_state def
+R49945:49946 ThieleMachine.ThieleSpaceland <> s1:220 var
+R49950:49968 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_initial_hash proj
+R49973:49991 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_initial_hash proj
+R49973:49991 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_initial_hash proj
+R49973:49991 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_initial_hash proj
+R50084:50099 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_witnesses proj
+R50084:50099 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_witnesses proj
+R50174:50190 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_final_hash proj
+R50174:50190 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_final_hash proj
+R50283:50297 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_total_mu proj
+R50283:50297 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_total_mu proj
+R50364:50384 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_label_sequence proj
+R50364:50384 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_label_sequence proj
+R49996:50019 ThieleMachine.CoreSemantics <> hash_state def
+R50021:50022 ThieleMachine.ThieleSpaceland <> s1:220 var
+R50104:50112 ThieleMachine.ThieleSpaceland <> witnesses:219 var
+R50195:50218 ThieleMachine.CoreSemantics <> hash_state def
+R50220:50221 ThieleMachine.ThieleSpaceland <> s2:221 var
+R50389:50390 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R50862:50954 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R50429:50431 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R50402:50425 ThieleMachine.CoreSemantics <> hash_state def
+R50427:50428 ThieleMachine.ThieleSpaceland <> s2:221 var
+R50432:50448 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_final_hash proj
+R50453:50471 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_initial_hash proj
+R50453:50471 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_initial_hash proj
+R50453:50471 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_initial_hash proj
+R50561:50576 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_witnesses proj
+R50561:50576 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_witnesses proj
+R50648:50664 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_final_hash proj
+R50648:50664 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_final_hash proj
+R50754:50768 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_total_mu proj
+R50754:50768 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_total_mu proj
+R50832:50852 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_label_sequence proj
+R50832:50852 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_label_sequence proj
+R50476:50499 ThieleMachine.CoreSemantics <> hash_state def
+R50501:50502 ThieleMachine.ThieleSpaceland <> s1:220 var
+R50581:50589 ThieleMachine.ThieleSpaceland <> witnesses:219 var
+R50669:50692 ThieleMachine.CoreSemantics <> hash_state def
+R50694:50695 ThieleMachine.ThieleSpaceland <> s2:221 var
+R50857:50858 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R50971:50975 ThieleMachine.ThieleSpaceland ThieleSpaceland Trace ind
+binder 50963:50964 <> t1:222
+binder 50966:50967 <> t2:223
+R51152:51161 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R51064:51072 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R50985:51014 ThieleMachine.ThieleSpaceland ThieleSpaceland make_crypto_receipt_from_trace def
+R51016:51017 ThieleMachine.ThieleSpaceland <> t1:222 var
+R51020:51043 ThieleMachine.CoreSemantics <> hash_state def
+R51046:51058 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_initial def
+R51060:51061 ThieleMachine.ThieleSpaceland <> t1:222 var
+R51073:51102 ThieleMachine.ThieleSpaceland ThieleSpaceland make_crypto_receipt_from_trace def
+R51104:51105 ThieleMachine.ThieleSpaceland <> t2:223 var
+R51108:51131 ThieleMachine.CoreSemantics <> hash_state def
+R51134:51146 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_initial def
+R51148:51149 ThieleMachine.ThieleSpaceland <> t2:223 var
+R51251:51260 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R51205:51207 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R51162:51185 ThieleMachine.CoreSemantics <> hash_state def
+R51188:51200 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_initial def
+R51202:51203 ThieleMachine.ThieleSpaceland <> t1:222 var
+R51208:51231 ThieleMachine.CoreSemantics <> hash_state def
+R51234:51246 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_initial def
+R51248:51249 ThieleMachine.ThieleSpaceland <> t2:223 var
+R51302:51304 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R51261:51284 ThieleMachine.CoreSemantics <> hash_state def
+R51287:51297 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_final def
+R51299:51300 ThieleMachine.ThieleSpaceland <> t1:222 var
+R51305:51328 ThieleMachine.CoreSemantics <> hash_state def
+R51331:51341 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_final def
+R51343:51344 ThieleMachine.ThieleSpaceland <> t2:223 var
+R51593:51614 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R51471:51489 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_initial_hash proj
+R51492:51521 ThieleMachine.ThieleSpaceland ThieleSpaceland make_crypto_receipt_from_trace def
+R51548:51571 ThieleMachine.CoreSemantics <> hash_state def
+R51574:51586 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_initial def
+R51615:51638 ThieleMachine.CoreSemantics <> hash_state def
+R51641:51653 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_initial def
+R51593:51614 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R51471:51489 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_initial_hash proj
+R51492:51521 ThieleMachine.ThieleSpaceland ThieleSpaceland make_crypto_receipt_from_trace def
+R51548:51571 ThieleMachine.CoreSemantics <> hash_state def
+R51574:51586 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_initial def
+R51615:51638 ThieleMachine.CoreSemantics <> hash_state def
+R51641:51653 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_initial def
+R51844:51865 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R51722:51740 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_initial_hash proj
+R51743:51772 ThieleMachine.ThieleSpaceland ThieleSpaceland make_crypto_receipt_from_trace def
+R51799:51822 ThieleMachine.CoreSemantics <> hash_state def
+R51825:51837 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_initial def
+R51866:51889 ThieleMachine.CoreSemantics <> hash_state def
+R51892:51904 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_initial def
+R51844:51865 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R51722:51740 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_initial_hash proj
+R51743:51772 ThieleMachine.ThieleSpaceland ThieleSpaceland make_crypto_receipt_from_trace def
+R51799:51822 ThieleMachine.CoreSemantics <> hash_state def
+R51825:51837 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_initial def
+R51866:51889 ThieleMachine.CoreSemantics <> hash_state def
+R51892:51904 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_initial def
+R52066:52090 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_final_hash_correct thm
+R52066:52090 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_final_hash_correct thm
+R52066:52090 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_final_hash_correct thm
+R52115:52139 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_final_hash_correct thm
+R52115:52139 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_final_hash_correct thm
+R52115:52139 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_final_hash_correct thm
+prf 52261:52280 ThieleSpaceland crypto_receipt_sound
+R52296:52308 ThieleMachine.ThieleSpaceland ThieleSpaceland CryptoReceipt rec
+binder 52292:52292 <> r:224
+R52316:52316 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R52449:52457 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R52317:52324 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R52359:52367 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R52329:52333 ThieleMachine.ThieleSpaceland ThieleSpaceland Trace ind
+binder 52325:52325 <> t:225
+R52346:52356 ThieleMachine.ThieleSpaceland ThieleSpaceland valid_trace def
+R52358:52358 ThieleMachine.ThieleSpaceland <> t:225 var
+binder 52337:52342 <> Hvalid:226
+R52445:52447 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R52368:52397 ThieleMachine.ThieleSpaceland ThieleSpaceland make_crypto_receipt_from_trace def
+R52399:52399 ThieleMachine.ThieleSpaceland <> t:225 var
+R52402:52425 ThieleMachine.CoreSemantics <> hash_state def
+R52428:52440 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_initial def
+R52442:52442 ThieleMachine.ThieleSpaceland <> t:225 var
+R52448:52448 ThieleMachine.ThieleSpaceland <> r:224 var
+R52481:52483 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R52458:52478 ThieleMachine.ThieleSpaceland ThieleSpaceland verify_crypto_receipt def
+R52480:52480 ThieleMachine.ThieleSpaceland <> r:224 var
+R52484:52487 Coq.Init.Datatypes <> true constr
+R52553:52575 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_receipt_complete thm
+R52553:52575 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_receipt_complete thm
+prf 52707:52732 ThieleSpaceland forgery_requires_collision
+R52748:52760 ThieleMachine.ThieleSpaceland ThieleSpaceland CryptoReceipt rec
+binder 52744:52744 <> r:227
+R52772:52776 ThieleMachine.ThieleSpaceland ThieleSpaceland Trace ind
+binder 52764:52765 <> t1:228
+binder 52767:52768 <> t2:229
+R52814:52821 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R52807:52809 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R52784:52804 ThieleMachine.ThieleSpaceland ThieleSpaceland verify_crypto_receipt def
+R52806:52806 ThieleMachine.ThieleSpaceland <> r:227 var
+R52810:52813 Coq.Init.Datatypes <> true constr
+R52905:52912 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R52901:52903 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R52822:52851 ThieleMachine.ThieleSpaceland ThieleSpaceland make_crypto_receipt_from_trace def
+R52853:52854 ThieleMachine.ThieleSpaceland <> t1:228 var
+R52857:52880 ThieleMachine.CoreSemantics <> hash_state def
+R52883:52895 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_initial def
+R52897:52898 ThieleMachine.ThieleSpaceland <> t1:228 var
+R52904:52904 ThieleMachine.ThieleSpaceland <> r:227 var
+R52996:53068 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R52992:52994 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R52913:52942 ThieleMachine.ThieleSpaceland ThieleSpaceland make_crypto_receipt_from_trace def
+R52944:52945 ThieleMachine.ThieleSpaceland <> t2:229 var
+R52948:52971 ThieleMachine.CoreSemantics <> hash_state def
+R52974:52986 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_initial def
+R52988:52989 ThieleMachine.ThieleSpaceland <> t2:229 var
+R52995:52995 ThieleMachine.ThieleSpaceland <> r:227 var
+R53158:53165 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R53112:53114 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R53069:53092 ThieleMachine.CoreSemantics <> hash_state def
+R53095:53107 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_initial def
+R53109:53110 ThieleMachine.ThieleSpaceland <> t1:228 var
+R53115:53138 ThieleMachine.CoreSemantics <> hash_state def
+R53141:53153 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_initial def
+R53155:53156 ThieleMachine.ThieleSpaceland <> t2:229 var
+R53207:53209 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R53166:53189 ThieleMachine.CoreSemantics <> hash_state def
+R53192:53202 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_final def
+R53204:53205 ThieleMachine.ThieleSpaceland <> t1:228 var
+R53210:53233 ThieleMachine.CoreSemantics <> hash_state def
+R53236:53246 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_final def
+R53248:53249 ThieleMachine.ThieleSpaceland <> t2:229 var
+R53363:53399 ThieleMachine.ThieleSpaceland ThieleSpaceland hash_chain_determines_endpoint_hashes thm
+R53402:53417 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_witnesses proj
+R53463:53475 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_initial def
+R53522:53532 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_final def
+R53363:53399 ThieleMachine.ThieleSpaceland ThieleSpaceland hash_chain_determines_endpoint_hashes thm
+R53402:53417 ThieleMachine.ThieleSpaceland ThieleSpaceland crypto_witnesses proj
+R53463:53475 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_initial def
+R53522:53532 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_final def
+R53583:53603 ThieleMachine.ThieleSpaceland ThieleSpaceland verify_crypto_receipt def
+R53629:53641 Coq.Bool.Bool <> andb_true_iff thm
+R53629:53641 Coq.Bool.Bool <> andb_true_iff thm
+R53696:53708 Coq.Bool.Bool <> andb_true_iff thm
+R53696:53708 Coq.Bool.Bool <> andb_true_iff thm
+R53971:53985 ThieleMachine.ThieleSpaceland ThieleSpaceland <> mod

@@ -1,0 +1,64 @@
+DIGEST 22a4cd2b2ee7b5c41f024f9607e7ca00
+FThieleMachine.EncodingBridge
+R24:27 Coq.Lists.List <> <> lib
+R29:36 Coq.Arith.PeanoNat <> <> lib
+R46:58 Coq.Lists.List ListNotations <> mod
+R96:103 ModularProofs.Encoding <> <> lib
+R105:118 ModularProofs.EncodingBounds <> <> lib
+R120:128 ModularProofs.TM_Basics <> <> lib
+def 143:158 <> tm_encode_config
+R168:175 ModularProofs.TM_Basics <> TMConfig def
+binder 161:164 <> conf:1
+R180:182 Coq.Init.Datatypes <> nat ind
+R213:216 ThieleMachine.EncodingBridge <> conf:1 var
+R194:194 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R196:197 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R202:203 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R208:208 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R221:233 ModularProofs.Encoding <> encode_config def
+def 260:275 <> tm_decode_config
+R285:287 Coq.Init.Datatypes <> nat ind
+binder 278:281 <> code:3
+R292:299 ModularProofs.TM_Basics <> TMConfig def
+R306:318 ModularProofs.Encoding <> decode_config def
+R320:323 ThieleMachine.EncodingBridge <> code:3 var
+def 338:349 <> tm_config_ok
+R359:366 ModularProofs.TM_Basics <> TMConfig def
+binder 352:355 <> conf:4
+R405:408 ThieleMachine.EncodingBridge <> conf:4 var
+R386:386 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R388:389 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R394:395 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R400:400 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R429:432 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R415:423 ModularProofs.TM_Basics <> digits_ok def
+R457:460 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R444:447 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R433:438 Coq.Init.Datatypes <> length def
+R448:456 ModularProofs.Encoding <> SHIFT_LEN def
+R465:467 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R468:476 ModularProofs.Encoding <> SHIFT_LEN def
+prf 486:511 <> tm_decode_encode_roundtrip
+binder 524:527 <> conf:6
+R551:558 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R534:545 ThieleMachine.EncodingBridge <> tm_config_ok def
+R547:550 ThieleMachine.EncodingBridge <> conf:6 var
+R599:601 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R559:574 ThieleMachine.EncodingBridge <> tm_decode_config def
+R577:592 ThieleMachine.EncodingBridge <> tm_encode_config def
+R594:597 ThieleMachine.EncodingBridge <> conf:6 var
+R602:605 ThieleMachine.EncodingBridge <> conf:6 var
+R690:729 ModularProofs.EncodingBounds <> le_SHIFT_LEN_lt_SHIFT_BIG thm
+R861:874 Coq.Arith.PeanoNat Nat lt_le_incl thm
+R815:837 ModularProofs.Encoding <> SHIFT_LEN_ge_1 thm
+R796:813 ModularProofs.Encoding <> BASE_ge_2 thm
+R761:778 ModularProofs.Encoding <> SHIFT_LEN def
+R747:759 ModularProofs.Encoding <> BASE def
+R690:729 ModularProofs.EncodingBounds <> le_SHIFT_LEN_lt_SHIFT_BIG thm
+R861:874 Coq.Arith.PeanoNat Nat lt_le_incl thm
+R815:837 ModularProofs.Encoding <> SHIFT_LEN_ge_1 thm
+R796:813 ModularProofs.Encoding <> BASE_ge_2 thm
+R761:778 ModularProofs.Encoding <> SHIFT_LEN def
+R747:759 ModularProofs.Encoding <> BASE def
+R910:929 ModularProofs.Encoding <> encode_decode_config thm
+R910:929 ModularProofs.Encoding <> encode_decode_config thm

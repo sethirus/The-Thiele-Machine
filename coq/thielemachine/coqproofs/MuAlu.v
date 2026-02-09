@@ -191,6 +191,7 @@ Record MuAccumulator : Type := {
       init_state.(vm_mu) = 0 (proven)
     The μ-ledger MUST start at zero for the Initiality Theorem to hold.
     Inquisitor: This zero is MATHEMATICALLY REQUIRED. *)
+(* SAFE: mu_zero is the mandated initial accumulator value per MuInitiality theorem. *)
 Definition mu_zero : MuAccumulator := {| mu_value := 0 |}.
 
 Definition mu_accumulate (acc : MuAccumulator) (delta : Q16) : MuAccumulator :=

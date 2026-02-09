@@ -1,0 +1,138 @@
+DIGEST ef1d607ab26d1facb5286cbb7966f2cc
+FTheory.Separation
+R125:139 Coq.Arith.Arith <> <> lib
+R157:174 Coq.Arith.PeanoNat <> <> lib
+R192:208 Coq.micromega.Lia <> <> lib
+mod 219:228 <> Separation
+def 310:321 Separation InstanceSize
+R326:328 Coq.Init.Datatypes <> nat ind
+def 411:421 Separation blind_steps
+R428:439 Theory.Separation Separation InstanceSize def
+binder 424:424 <> n:1
+R444:446 Coq.Init.Datatypes <> nat ind
+R451:457 Coq.Arith.PeanoNat Nat pow def
+R461:461 Theory.Separation <> n:1 var
+def 544:556 Separation sighted_steps
+R563:574 Theory.Separation Separation InstanceSize def
+binder 559:559 <> n:2
+R579:581 Coq.Init.Datatypes <> nat ind
+R587:589 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R586:586 Theory.Separation <> n:2 var
+prf 650:665 Separation blind_steps_succ
+binder 667:667 <> n:3
+R688:690 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R671:681 Theory.Separation Separation blind_steps def
+R684:684 Coq.Init.Datatypes <> S constr
+R686:686 Theory.Separation <> n:3 var
+R692:694 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R695:705 Theory.Separation Separation blind_steps def
+R707:707 Theory.Separation <> n:3 var
+R730:740 Theory.Separation Separation blind_steps def
+R755:768 Coq.Arith.PeanoNat Nat pow_succ_r thm
+R755:768 Coq.Arith.PeanoNat Nat pow_succ_r thm
+R755:768 Coq.Arith.PeanoNat Nat pow_succ_r thm
+prf 803:816 Separation pow2_ge_linear
+binder 827:827 <> n:4
+R841:844 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R830:836 Coq.Arith.PeanoNat Nat pow def
+R840:840 Theory.Separation <> n:4 var
+R846:848 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R845:845 Theory.Separation <> n:4 var
+R910:923 Coq.Arith.PeanoNat Nat pow_succ_r thm
+R910:923 Coq.Arith.PeanoNat Nat pow_succ_r thm
+R910:923 Coq.Arith.PeanoNat Nat pow_succ_r thm
+def 972:986 Separation polynomial_time
+R996:999 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R993:995 Coq.Init.Datatypes <> nat ind
+R1000:1002 Coq.Init.Datatypes <> nat ind
+binder 989:989 <> f:5
+R1012:1018 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1024:1025 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 1019:1019 <> a:6
+binder 1021:1021 <> b:7
+binder 1023:1023 <> c:8
+binder 1033:1033 <> n:9
+R1039:1042 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1036:1036 Theory.Separation <> f:5 var
+R1038:1038 Theory.Separation <> n:9 var
+R1060:1062 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1052:1054 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1048:1050 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R1044:1046 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R1043:1043 Theory.Separation <> a:6 var
+R1047:1047 Theory.Separation <> n:9 var
+R1051:1051 Theory.Separation <> n:9 var
+R1056:1058 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R1055:1055 Theory.Separation <> b:7 var
+R1059:1059 Theory.Separation <> n:9 var
+R1063:1063 Theory.Separation <> c:8 var
+def 1080:1102 Separation exponential_lower_bound
+R1112:1115 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1109:1111 Coq.Init.Datatypes <> nat ind
+R1116:1118 Coq.Init.Datatypes <> nat ind
+binder 1105:1105 <> f:10
+R1128:1134 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1136:1137 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 1135:1135 <> k:11
+binder 1145:1145 <> n:12
+R1157:1160 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R1148:1148 Theory.Separation <> f:10 var
+R1152:1154 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1151:1151 Theory.Separation <> n:12 var
+R1155:1155 Theory.Separation <> k:11 var
+R1161:1167 Coq.Arith.PeanoNat Nat pow def
+R1171:1171 Theory.Separation <> n:12 var
+prf 1183:1202 Separation sighted_is_quadratic
+R1206:1220 Theory.Separation Separation polynomial_time def
+R1222:1234 Theory.Separation Separation sighted_steps def
+R1257:1271 Theory.Separation Separation polynomial_time def
+R1274:1286 Theory.Separation Separation sighted_steps def
+prf 1336:1362 Separation blind_has_exponential_lower
+R1366:1388 Theory.Separation Separation exponential_lower_bound def
+R1390:1400 Theory.Separation Separation blind_steps def
+R1423:1445 Theory.Separation Separation exponential_lower_bound def
+R1448:1458 Theory.Separation Separation blind_steps def
+R1492:1502 Coq.Arith.PeanoNat Nat add_0_r thm
+R1492:1502 Coq.Arith.PeanoNat Nat add_0_r thm
+R1492:1502 Coq.Arith.PeanoNat Nat add_0_r thm
+R1511:1521 Coq.Arith.PeanoNat Nat le_refl thm
+R1511:1521 Coq.Arith.PeanoNat Nat le_refl thm
+prf 1540:1565 Separation blind_eventually_dominates
+binder 1580:1580 <> n:13
+R1596:1599 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R1583:1593 Theory.Separation Separation blind_steps def
+R1595:1595 Theory.Separation <> n:13 var
+R1600:1612 Theory.Separation Separation sighted_steps def
+R1614:1614 Theory.Separation <> n:13 var
+R1646:1656 Theory.Separation Separation blind_steps def
+R1659:1671 Theory.Separation Separation sighted_steps def
+R1684:1697 Theory.Separation Separation pow2_ge_linear thm
+R1684:1697 Theory.Separation Separation pow2_ge_linear thm
+prf 1718:1739 Separation exponential_separation
+R1776:1783 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1747:1761 Theory.Separation Separation polynomial_time def
+R1763:1775 Theory.Separation Separation sighted_steps def
+R1819:1827 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1892:1892 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1784:1806 Theory.Separation Separation exponential_lower_bound def
+R1808:1818 Theory.Separation Separation blind_steps def
+R1828:1834 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1837:1838 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 1835:1836 <> n0:14
+binder 1846:1846 <> n:15
+R1856:1859 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1850:1853 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R1849:1849 Theory.Separation <> n:15 var
+R1854:1855 Theory.Separation <> n0:14 var
+R1873:1876 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R1860:1870 Theory.Separation Separation blind_steps def
+R1872:1872 Theory.Separation <> n:15 var
+R1877:1889 Theory.Separation Separation sighted_steps def
+R1891:1891 Theory.Separation <> n:15 var
+R1934:1953 Theory.Separation Separation sighted_is_quadratic thm
+R1934:1953 Theory.Separation Separation sighted_is_quadratic thm
+R1968:1994 Theory.Separation Separation blind_has_exponential_lower thm
+R1968:1994 Theory.Separation Separation blind_has_exponential_lower thm
+R2031:2056 Theory.Separation Separation blind_eventually_dominates thm
+R2031:2056 Theory.Separation Separation blind_eventually_dominates thm
+R2071:2080 Theory.Separation Separation <> mod

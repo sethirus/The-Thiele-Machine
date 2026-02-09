@@ -1,0 +1,1820 @@
+DIGEST 5458b7e27e2700d784a379f8def9e9d5
+FKernel.SimulationProof
+R24:37 Coq.Strings.String <> <> lib
+R39:42 Coq.Lists.List <> <> lib
+R44:47 Coq.Bool.Bool <> <> lib
+R49:62 Coq.Arith.PeanoNat <> <> lib
+R72:84 Coq.Lists.List ListNotations <> mod
+R103:108 Kernel.Kernel <> <> lib
+R126:133 Kernel.KernelTM <> <> lib
+R151:162 Kernel.KernelThiele <> <> lib
+R180:186 Kernel.VMState <> <> lib
+R204:209 Kernel.VMStep <> <> lib
+R227:236 Kernel.VMEncoding <> <> lib
+def 327:340 <> states_related
+R350:356 Kernel.VMState <> VMState rec
+binder 343:346 <> s_vm:1
+R371:375 Kernel.Kernel <> state rec
+binder 360:367 <> s_kernel:2
+R424:429 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R402:404 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R396:400 Kernel.VMState <> vm_pc proj
+R390:393 Kernel.SimulationProof <> s_vm:1 var
+R415:422 Kernel.Kernel <> tm_state proj
+R405:412 Kernel.SimulationProof <> s_kernel:2 var
+R463:468 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R442:444 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R436:440 Kernel.VMState <> vm_mu proj
+R430:433 Kernel.SimulationProof <> s_vm:1 var
+R455:461 Kernel.Kernel <> mu_cost proj
+R445:452 Kernel.SimulationProof <> s_kernel:2 var
+R500:502 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R469:483 Kernel.VMEncoding <> decode_vm_state def
+R495:498 Kernel.Kernel <> tape proj
+R485:492 Kernel.SimulationProof <> s_kernel:2 var
+R503:506 Coq.Init.Datatypes <> Some constr
+R508:508 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R513:514 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R517:517 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R509:512 Kernel.SimulationProof <> s_vm:1 var
+R515:516 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+def 618:645 <> states_related_for_execution
+R655:661 Kernel.VMState <> VMState rec
+binder 648:651 <> s_vm:3
+R676:680 Kernel.Kernel <> state rec
+binder 665:672 <> s_kernel:4
+R811:865 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R807:809 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R798:805 Kernel.Kernel <> tm_state proj
+R788:795 Kernel.SimulationProof <> s_kernel:4 var
+R899:904 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R878:880 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R872:876 Kernel.VMState <> vm_mu proj
+R866:869 Kernel.SimulationProof <> s_vm:3 var
+R891:897 Kernel.Kernel <> mu_cost proj
+R881:888 Kernel.SimulationProof <> s_kernel:4 var
+R924:978 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R920:922 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R915:918 Kernel.Kernel <> head proj
+R905:912 Kernel.SimulationProof <> s_kernel:4 var
+R1010:1012 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R979:993 Kernel.VMEncoding <> decode_vm_state def
+R1005:1008 Kernel.Kernel <> tape proj
+R995:1002 Kernel.SimulationProof <> s_kernel:4 var
+R1013:1016 Coq.Init.Datatypes <> Some constr
+R1018:1018 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1023:1024 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1027:1027 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1019:1022 Kernel.SimulationProof <> s_vm:3 var
+R1025:1026 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+prf 1086:1116 <> states_related_implies_encoding
+binder 1129:1132 <> s_vm:5
+binder 1134:1141 <> s_kernel:6
+R1176:1183 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1148:1161 Kernel.SimulationProof <> states_related def
+R1163:1166 Kernel.SimulationProof <> s_vm:5 var
+R1168:1175 Kernel.SimulationProof <> s_kernel:6 var
+R1215:1217 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1184:1198 Kernel.VMEncoding <> decode_vm_state def
+R1210:1213 Kernel.Kernel <> tape proj
+R1200:1207 Kernel.SimulationProof <> s_kernel:6 var
+R1218:1221 Coq.Init.Datatypes <> Some constr
+R1223:1223 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1228:1229 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1232:1232 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1224:1227 Kernel.SimulationProof <> s_vm:5 var
+R1230:1231 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+prf 1330:1354 <> states_related_implies_pc
+binder 1367:1370 <> s_vm:7
+binder 1372:1379 <> s_kernel:8
+R1414:1421 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1386:1399 Kernel.SimulationProof <> states_related def
+R1401:1404 Kernel.SimulationProof <> s_vm:7 var
+R1406:1413 Kernel.SimulationProof <> s_kernel:8 var
+R1434:1436 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1428:1432 Kernel.VMState <> vm_pc proj
+R1422:1425 Kernel.SimulationProof <> s_vm:7 var
+R1447:1454 Kernel.Kernel <> tm_state proj
+R1437:1444 Kernel.SimulationProof <> s_kernel:8 var
+prf 1541:1565 <> states_related_implies_mu
+binder 1578:1581 <> s_vm:9
+binder 1583:1590 <> s_kernel:10
+R1625:1632 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1597:1610 Kernel.SimulationProof <> states_related def
+R1612:1615 Kernel.SimulationProof <> s_vm:9 var
+R1617:1624 Kernel.SimulationProof <> s_kernel:10 var
+R1645:1647 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1639:1643 Kernel.VMState <> vm_mu proj
+R1633:1636 Kernel.SimulationProof <> s_vm:9 var
+R1658:1664 Kernel.Kernel <> mu_cost proj
+R1648:1655 Kernel.SimulationProof <> s_kernel:10 var
+prf 1756:1786 <> encoding_implies_states_related
+binder 1799:1802 <> s_vm:11
+binder 1804:1811 <> s_kernel:12
+R1852:1859 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1830:1832 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1824:1828 Kernel.VMState <> vm_pc proj
+R1818:1821 Kernel.SimulationProof <> s_vm:11 var
+R1843:1850 Kernel.Kernel <> tm_state proj
+R1833:1840 Kernel.SimulationProof <> s_kernel:12 var
+R1893:1900 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1872:1874 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1866:1870 Kernel.VMState <> vm_mu proj
+R1860:1863 Kernel.SimulationProof <> s_vm:11 var
+R1885:1891 Kernel.Kernel <> mu_cost proj
+R1875:1882 Kernel.SimulationProof <> s_kernel:12 var
+R1950:1957 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1932:1934 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1901:1915 Kernel.VMEncoding <> decode_vm_state def
+R1927:1930 Kernel.Kernel <> tape proj
+R1917:1924 Kernel.SimulationProof <> s_kernel:12 var
+R1935:1938 Coq.Init.Datatypes <> Some constr
+R1940:1940 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1945:1946 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1949:1949 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1941:1944 Kernel.SimulationProof <> s_vm:11 var
+R1947:1948 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1958:1971 Kernel.SimulationProof <> states_related def
+R1973:1976 Kernel.SimulationProof <> s_vm:11 var
+R1978:1985 Kernel.SimulationProof <> s_kernel:12 var
+def 2081:2099 <> compile_instruction
+R2110:2123 Kernel.VMStep VMStep vm_instruction ind
+binder 2102:2106 <> instr:13
+R2128:2134 Kernel.Kernel <> program def
+R2303:2308 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R2283:2302 Kernel.VMEncoding <> compile_increment_pc def
+R2348:2353 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R2309:2322 Kernel.VMEncoding <> compile_add_mu def
+R2325:2340 Kernel.VMStep VMStep instruction_cost def
+R2342:2346 Kernel.SimulationProof <> instr:13 var
+R2354:2373 Kernel.VMEncoding <> compile_vm_operation def
+R2375:2379 Kernel.SimulationProof <> instr:13 var
+def 2394:2406 <> compile_trace
+R2417:2420 Coq.Init.Datatypes <> list ind
+R2422:2435 Kernel.VMStep VMStep vm_instruction ind
+binder 2409:2413 <> trace:14
+R2440:2446 Kernel.Kernel <> program def
+R2453:2463 Coq.Lists.List <> concat def
+R2466:2473 Coq.Lists.List <> map def
+R2495:2499 Kernel.SimulationProof <> trace:14 var
+R2475:2493 Kernel.SimulationProof <> compile_instruction def
+def 2513:2535 <> compile_trace_start_pos
+R2546:2549 Coq.Init.Datatypes <> list ind
+R2551:2564 Kernel.VMStep VMStep vm_instruction ind
+binder 2538:2542 <> trace:15
+R2573:2575 Coq.Init.Datatypes <> nat ind
+binder 2568:2569 <> pc:16
+R2580:2582 Coq.Init.Datatypes <> nat ind
+R2595:2596 Kernel.SimulationProof <> pc:16 var
+R2618:2618 Coq.Init.Datatypes <> S constr
+R2639:2647 Coq.Lists.List <> nth_error def
+R2649:2653 Kernel.SimulationProof <> trace:15 var
+R2672:2675 Coq.Init.Datatypes <> Some constr
+R2719:2721 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2686:2708 Kernel.SimulationProof <> compile_trace_start_pos:17 def
+R2710:2714 Kernel.SimulationProof <> trace:15 var
+R2722:2732 Coq.Lists.List <> length abbrev
+R2735:2753 Kernel.SimulationProof <> compile_instruction def
+R2770:2773 Coq.Init.Datatypes <> None constr
+R2778:2800 Kernel.SimulationProof <> compile_trace_start_pos:17 def
+R2802:2806 Kernel.SimulationProof <> trace:15 var
+prf 2882:2907 <> firstn_succ_nth_error_Some
+binder 2910:2910 <> A:19
+R2929:2932 Coq.Init.Datatypes <> list ind
+R2934:2934 Kernel.SimulationProof <> A:19 var
+binder 2925:2925 <> l:20
+R2942:2944 Coq.Init.Datatypes <> nat ind
+binder 2938:2938 <> n:21
+R2952:2952 Kernel.SimulationProof <> A:19 var
+binder 2948:2948 <> x:22
+R2982:2989 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2973:2975 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2960:2968 Coq.Lists.List <> nth_error def
+R2972:2972 Kernel.SimulationProof <> n:21 var
+R2970:2970 Kernel.SimulationProof <> l:20 var
+R2976:2979 Coq.Init.Datatypes <> Some constr
+R2981:2981 Kernel.SimulationProof <> x:22 var
+R3004:3006 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2990:2995 Coq.Lists.List <> firstn def
+R3003:3003 Kernel.SimulationProof <> l:20 var
+R2998:2998 Coq.Init.Datatypes <> S constr
+R3000:3000 Kernel.SimulationProof <> n:21 var
+R3017:3020 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R3007:3012 Coq.Lists.List <> firstn def
+R3016:3016 Kernel.SimulationProof <> l:20 var
+R3014:3014 Kernel.SimulationProof <> n:21 var
+R3021:3021 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3023:3023 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3022:3022 Kernel.SimulationProof <> x:22 var
+R3155:3161 Coq.Init.Logic <> f_equal thm
+R3155:3161 Coq.Init.Logic <> f_equal thm
+prf 3209:3234 <> firstn_succ_nth_error_None
+binder 3237:3237 <> A:23
+R3256:3259 Coq.Init.Datatypes <> list ind
+R3261:3261 Kernel.SimulationProof <> A:23 var
+binder 3252:3252 <> l:24
+R3269:3271 Coq.Init.Datatypes <> nat ind
+binder 3265:3265 <> n:25
+R3299:3306 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3292:3294 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3279:3287 Coq.Lists.List <> nth_error def
+R3291:3291 Kernel.SimulationProof <> n:25 var
+R3289:3289 Kernel.SimulationProof <> l:24 var
+R3295:3298 Coq.Init.Datatypes <> None constr
+R3321:3323 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3307:3312 Coq.Lists.List <> firstn def
+R3320:3320 Kernel.SimulationProof <> l:24 var
+R3315:3315 Coq.Init.Datatypes <> S constr
+R3317:3317 Kernel.SimulationProof <> n:25 var
+R3324:3329 Coq.Lists.List <> firstn def
+R3333:3333 Kernel.SimulationProof <> l:24 var
+R3331:3331 Kernel.SimulationProof <> n:25 var
+R3430:3436 Coq.Init.Logic <> f_equal thm
+R3430:3436 Coq.Init.Logic <> f_equal thm
+prf 3473:3502 <> length_concat_firstn_succ_Some
+binder 3505:3505 <> A:26
+R3524:3527 Coq.Init.Datatypes <> list ind
+R3530:3533 Coq.Init.Datatypes <> list ind
+R3535:3535 Kernel.SimulationProof <> A:26 var
+binder 3520:3520 <> l:27
+R3544:3546 Coq.Init.Datatypes <> nat ind
+binder 3540:3540 <> n:28
+R3554:3557 Coq.Init.Datatypes <> list ind
+R3559:3559 Kernel.SimulationProof <> A:26 var
+binder 3550:3550 <> x:29
+R3589:3596 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3580:3582 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3567:3575 Coq.Lists.List <> nth_error def
+R3579:3579 Kernel.SimulationProof <> n:28 var
+R3577:3577 Kernel.SimulationProof <> l:27 var
+R3583:3586 Coq.Init.Datatypes <> Some constr
+R3588:3588 Kernel.SimulationProof <> x:29 var
+R3629:3637 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3597:3602 Coq.Lists.List <> length abbrev
+R3605:3610 Coq.Lists.List <> concat def
+R3613:3618 Coq.Lists.List <> firstn def
+R3626:3626 Kernel.SimulationProof <> l:27 var
+R3621:3621 Coq.Init.Datatypes <> S constr
+R3623:3623 Kernel.SimulationProof <> n:28 var
+R3666:3668 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3638:3643 Coq.Lists.List <> length abbrev
+R3646:3651 Coq.Lists.List <> concat def
+R3654:3659 Coq.Lists.List <> firstn def
+R3663:3663 Kernel.SimulationProof <> l:27 var
+R3661:3661 Kernel.SimulationProof <> n:28 var
+R3669:3674 Coq.Lists.List <> length abbrev
+R3676:3676 Kernel.SimulationProof <> x:29 var
+R3715:3740 Kernel.SimulationProof <> firstn_succ_nth_error_Some thm
+R3715:3740 Kernel.SimulationProof <> firstn_succ_nth_error_Some thm
+R3715:3740 Kernel.SimulationProof <> firstn_succ_nth_error_Some thm
+R3762:3771 Coq.Lists.List <> concat_app thm
+R3762:3771 Coq.Lists.List <> concat_app thm
+R3762:3771 Coq.Lists.List <> concat_app thm
+R3789:3797 Coq.Lists.List <> app_nil_r thm
+R3789:3797 Coq.Lists.List <> app_nil_r thm
+R3789:3797 Coq.Lists.List <> app_nil_r thm
+R3810:3819 Coq.Lists.List <> app_length thm
+R3810:3819 Coq.Lists.List <> app_length thm
+R3810:3819 Coq.Lists.List <> app_length thm
+prf 3854:3883 <> length_concat_firstn_succ_None
+binder 3886:3886 <> A:30
+R3905:3908 Coq.Init.Datatypes <> list ind
+R3911:3914 Coq.Init.Datatypes <> list ind
+R3916:3916 Kernel.SimulationProof <> A:30 var
+binder 3901:3901 <> l:31
+R3925:3927 Coq.Init.Datatypes <> nat ind
+binder 3921:3921 <> n:32
+R3955:3962 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3948:3950 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3935:3943 Coq.Lists.List <> nth_error def
+R3947:3947 Kernel.SimulationProof <> n:32 var
+R3945:3945 Kernel.SimulationProof <> l:31 var
+R3951:3954 Coq.Init.Datatypes <> None constr
+R3995:3997 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3963:3968 Coq.Lists.List <> length abbrev
+R3971:3976 Coq.Lists.List <> concat def
+R3979:3984 Coq.Lists.List <> firstn def
+R3992:3992 Kernel.SimulationProof <> l:31 var
+R3987:3987 Coq.Init.Datatypes <> S constr
+R3989:3989 Kernel.SimulationProof <> n:32 var
+R3998:4003 Coq.Lists.List <> length abbrev
+R4006:4011 Coq.Lists.List <> concat def
+R4014:4019 Coq.Lists.List <> firstn def
+R4023:4023 Kernel.SimulationProof <> l:31 var
+R4021:4021 Kernel.SimulationProof <> n:32 var
+R4062:4087 Kernel.SimulationProof <> firstn_succ_nth_error_None thm
+R4062:4087 Kernel.SimulationProof <> firstn_succ_nth_error_None thm
+R4062:4087 Kernel.SimulationProof <> firstn_succ_nth_error_None thm
+prf 4124:4143 <> skipn_nth_error_cons
+binder 4146:4146 <> A:33
+R4165:4168 Coq.Init.Datatypes <> list ind
+R4170:4170 Kernel.SimulationProof <> A:33 var
+binder 4161:4161 <> l:34
+R4178:4180 Coq.Init.Datatypes <> nat ind
+binder 4174:4174 <> n:35
+R4188:4188 Kernel.SimulationProof <> A:33 var
+binder 4184:4184 <> x:36
+R4218:4225 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4209:4211 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4196:4204 Coq.Lists.List <> nth_error def
+R4208:4208 Kernel.SimulationProof <> n:35 var
+R4206:4206 Kernel.SimulationProof <> l:34 var
+R4212:4215 Coq.Init.Datatypes <> Some constr
+R4217:4217 Kernel.SimulationProof <> x:36 var
+R4235:4237 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4226:4230 Coq.Lists.List <> skipn def
+R4234:4234 Kernel.SimulationProof <> l:34 var
+R4232:4232 Kernel.SimulationProof <> n:35 var
+R4239:4242 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4238:4238 Kernel.SimulationProof <> x:36 var
+R4243:4247 Coq.Lists.List <> skipn def
+R4255:4255 Kernel.SimulationProof <> l:34 var
+R4250:4250 Coq.Init.Datatypes <> S constr
+R4252:4252 Kernel.SimulationProof <> n:35 var
+prf 4470:4494 <> nth_error_concat_first_hd
+binder 4497:4497 <> A:37
+R4516:4519 Coq.Init.Datatypes <> list ind
+R4522:4525 Coq.Init.Datatypes <> list ind
+R4527:4527 Kernel.SimulationProof <> A:37 var
+binder 4512:4512 <> l:38
+R4536:4538 Coq.Init.Datatypes <> nat ind
+binder 4532:4532 <> n:39
+R4546:4549 Coq.Init.Datatypes <> list ind
+R4551:4551 Kernel.SimulationProof <> A:37 var
+binder 4542:4542 <> x:40
+R4559:4559 Kernel.SimulationProof <> A:37 var
+binder 4555:4555 <> y:41
+R4589:4596 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4580:4582 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4567:4575 Coq.Lists.List <> nth_error def
+R4579:4579 Kernel.SimulationProof <> n:39 var
+R4577:4577 Kernel.SimulationProof <> l:38 var
+R4583:4586 Coq.Init.Datatypes <> Some constr
+R4588:4588 Kernel.SimulationProof <> x:40 var
+R4619:4626 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4610:4612 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4597:4605 Coq.Lists.List <> nth_error def
+R4607:4607 Kernel.SimulationProof <> x:40 var
+R4613:4616 Coq.Init.Datatypes <> Some constr
+R4618:4618 Kernel.SimulationProof <> y:41 var
+R4678:4680 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4627:4635 Coq.Lists.List <> nth_error def
+R4649:4654 Coq.Lists.List <> length abbrev
+R4657:4662 Coq.Lists.List <> concat def
+R4665:4670 Coq.Lists.List <> firstn def
+R4674:4674 Kernel.SimulationProof <> l:38 var
+R4672:4672 Kernel.SimulationProof <> n:39 var
+R4638:4643 Coq.Lists.List <> concat def
+R4645:4645 Kernel.SimulationProof <> l:38 var
+R4681:4684 Coq.Init.Datatypes <> Some constr
+R4686:4686 Kernel.SimulationProof <> y:41 var
+R4834:4836 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4826:4831 Coq.Lists.List <> concat def
+R4856:4859 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R4837:4842 Coq.Lists.List <> concat def
+R4845:4850 Coq.Lists.List <> firstn def
+R4860:4865 Coq.Lists.List <> concat def
+R4868:4872 Coq.Lists.List <> skipn def
+R4834:4836 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4826:4831 Coq.Lists.List <> concat def
+R4856:4859 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R4837:4842 Coq.Lists.List <> concat def
+R4845:4850 Coq.Lists.List <> firstn def
+R4860:4865 Coq.Lists.List <> concat def
+R4868:4872 Coq.Lists.List <> skipn def
+R4896:4907 Coq.Lists.List <> firstn_skipn thm
+R4896:4907 Coq.Lists.List <> firstn_skipn thm
+R4896:4907 Coq.Lists.List <> firstn_skipn thm
+R4950:4959 Coq.Lists.List <> concat_app thm
+R4950:4959 Coq.Lists.List <> concat_app thm
+R4950:4959 Coq.Lists.List <> concat_app thm
+R5005:5018 Coq.Lists.List <> nth_error_app2 thm
+R5005:5018 Coq.Lists.List <> nth_error_app2 thm
+R5005:5018 Coq.Lists.List <> nth_error_app2 thm
+R5005:5018 Coq.Lists.List <> nth_error_app2 thm
+R5033:5043 Coq.Arith.PeanoNat Nat le_refl thm
+R5033:5043 Coq.Arith.PeanoNat Nat le_refl thm
+R5058:5069 Coq.Arith.PeanoNat Nat sub_diag thm
+R5058:5069 Coq.Arith.PeanoNat Nat sub_diag thm
+R5058:5069 Coq.Arith.PeanoNat Nat sub_diag thm
+R5086:5105 Kernel.SimulationProof <> skipn_nth_error_cons thm
+R5114:5117 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5086:5105 Kernel.SimulationProof <> skipn_nth_error_cons thm
+R5114:5117 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+prf 5196:5219 <> compile_instruction_head
+binder 5232:5236 <> instr:42
+R5282:5284 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5243:5251 Coq.Lists.List <> nth_error def
+R5254:5272 Kernel.SimulationProof <> compile_instruction def
+R5274:5278 Kernel.SimulationProof <> instr:42 var
+R5285:5288 Coq.Init.Datatypes <> Some constr
+R5291:5297 Kernel.Kernel <> T_Write constr
+R5299:5302 Coq.Init.Datatypes <> true constr
+R5338:5356 Kernel.SimulationProof <> compile_instruction def
+prf 5393:5423 <> compile_trace_start_pos_correct
+binder 5436:5437 <> tr:43
+binder 5439:5440 <> pc:44
+R5476:5484 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5447:5469 Kernel.SimulationProof <> compile_trace_start_pos def
+R5471:5472 Kernel.SimulationProof <> tr:43 var
+R5474:5475 Kernel.SimulationProof <> pc:44 var
+R5485:5490 Coq.Lists.List <> length abbrev
+R5493:5498 Coq.Lists.List <> concat def
+R5501:5506 Coq.Lists.List <> firstn def
+R5512:5514 Coq.Lists.List <> map def
+R5536:5537 Kernel.SimulationProof <> tr:43 var
+R5516:5534 Kernel.SimulationProof <> compile_instruction def
+R5508:5509 Kernel.SimulationProof <> pc:44 var
+R5632:5640 Coq.Lists.List <> nth_error def
+R5632:5640 Coq.Lists.List <> nth_error def
+R5780:5800 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5739:5747 Coq.Lists.List <> nth_error def
+R5750:5752 Coq.Lists.List <> map def
+R5754:5772 Kernel.SimulationProof <> compile_instruction def
+R5801:5810 Coq.Init.Datatypes <> option_map def
+R5833:5841 Coq.Lists.List <> nth_error def
+R5812:5830 Kernel.SimulationProof <> compile_instruction def
+R5871:5883 Coq.Lists.List <> nth_error_map thm
+R5780:5800 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5739:5747 Coq.Lists.List <> nth_error def
+R5750:5752 Coq.Lists.List <> map def
+R5754:5772 Kernel.SimulationProof <> compile_instruction def
+R5801:5810 Coq.Init.Datatypes <> option_map def
+R5833:5841 Coq.Lists.List <> nth_error def
+R5812:5830 Kernel.SimulationProof <> compile_instruction def
+R5871:5883 Coq.Lists.List <> nth_error_map thm
+R5952:5981 Kernel.SimulationProof <> length_concat_firstn_succ_Some thm
+R6038:6056 Kernel.SimulationProof <> compile_instruction def
+R6006:6008 Coq.Lists.List <> map def
+R6010:6028 Kernel.SimulationProof <> compile_instruction def
+R5952:5981 Kernel.SimulationProof <> length_concat_firstn_succ_Some thm
+R6038:6056 Kernel.SimulationProof <> compile_instruction def
+R6006:6008 Coq.Lists.List <> map def
+R6010:6028 Kernel.SimulationProof <> compile_instruction def
+R6222:6242 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6181:6189 Coq.Lists.List <> nth_error def
+R6192:6194 Coq.Lists.List <> map def
+R6196:6214 Kernel.SimulationProof <> compile_instruction def
+R6243:6252 Coq.Init.Datatypes <> option_map def
+R6275:6283 Coq.Lists.List <> nth_error def
+R6254:6272 Kernel.SimulationProof <> compile_instruction def
+R6313:6325 Coq.Lists.List <> nth_error_map thm
+R6222:6242 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6181:6189 Coq.Lists.List <> nth_error def
+R6192:6194 Coq.Lists.List <> map def
+R6196:6214 Kernel.SimulationProof <> compile_instruction def
+R6243:6252 Coq.Init.Datatypes <> option_map def
+R6275:6283 Coq.Lists.List <> nth_error def
+R6254:6272 Kernel.SimulationProof <> compile_instruction def
+R6313:6325 Coq.Lists.List <> nth_error_map thm
+R6394:6423 Kernel.SimulationProof <> length_concat_firstn_succ_None thm
+R6448:6450 Coq.Lists.List <> map def
+R6452:6470 Kernel.SimulationProof <> compile_instruction def
+R6394:6423 Kernel.SimulationProof <> length_concat_firstn_succ_None thm
+R6448:6450 Coq.Lists.List <> map def
+R6452:6470 Kernel.SimulationProof <> compile_instruction def
+prf 6537:6553 <> compile_trace_nth
+binder 6566:6570 <> trace:45
+binder 6572:6573 <> pc:46
+binder 6575:6579 <> instr:47
+R6617:6721 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6604:6606 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6586:6594 Coq.Lists.List <> nth_error def
+R6602:6603 Kernel.SimulationProof <> pc:46 var
+R6596:6600 Kernel.SimulationProof <> trace:45 var
+R6607:6610 Coq.Init.Datatypes <> Some constr
+R6612:6616 Kernel.SimulationProof <> instr:47 var
+R6733:6755 Kernel.SimulationProof <> compile_trace_start_pos def
+R6757:6761 Kernel.SimulationProof <> trace:45 var
+R6763:6764 Kernel.SimulationProof <> pc:46 var
+binder 6726:6728 <> pos:48
+R6808:6810 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6773:6781 Coq.Lists.List <> nth_error def
+R6805:6807 Kernel.SimulationProof <> pos:48 var
+R6784:6796 Kernel.SimulationProof <> compile_trace def
+R6798:6802 Kernel.SimulationProof <> trace:45 var
+R6811:6814 Coq.Init.Datatypes <> Some constr
+R6817:6823 Kernel.Kernel <> T_Write constr
+R6825:6828 Coq.Init.Datatypes <> true constr
+R6878:6890 Kernel.SimulationProof <> compile_trace def
+R6907:6937 Kernel.SimulationProof <> compile_trace_start_pos_correct thm
+R6907:6937 Kernel.SimulationProof <> compile_trace_start_pos_correct thm
+R6984:7008 Kernel.SimulationProof <> nth_error_concat_first_hd thm
+R7013:7015 Coq.Lists.List <> map def
+R7017:7035 Kernel.SimulationProof <> compile_instruction def
+R7084:7102 Kernel.SimulationProof <> compile_instruction def
+R7112:7118 Kernel.Kernel <> T_Write constr
+R7120:7123 Coq.Init.Datatypes <> true constr
+R6984:7008 Kernel.SimulationProof <> nth_error_concat_first_hd thm
+R7013:7015 Coq.Lists.List <> map def
+R7017:7035 Kernel.SimulationProof <> compile_instruction def
+R7084:7102 Kernel.SimulationProof <> compile_instruction def
+R7112:7118 Kernel.Kernel <> T_Write constr
+R7120:7123 Coq.Init.Datatypes <> true constr
+R7144:7156 Coq.Lists.List <> nth_error_map thm
+R7158:7176 Kernel.SimulationProof <> compile_instruction def
+R7144:7156 Coq.Lists.List <> nth_error_map thm
+R7158:7176 Kernel.SimulationProof <> compile_instruction def
+R7260:7283 Kernel.SimulationProof <> compile_instruction_head thm
+R7260:7283 Kernel.SimulationProof <> compile_instruction_head thm
+def 7303:7310 <> vm_apply
+R7317:7323 Kernel.VMState <> VMState rec
+binder 7313:7313 <> s:49
+R7335:7348 Kernel.VMStep VMStep vm_instruction ind
+binder 7327:7331 <> instr:50
+R7353:7359 Kernel.VMState <> VMState rec
+R7372:7376 Kernel.SimulationProof <> instr:50 var
+R7387:7396 Kernel.VMStep VMStep instr_pnew constr
+R7439:7448 Kernel.VMState <> graph_pnew def
+R7453:7460 Kernel.VMState <> vm_graph proj
+R7450:7450 Kernel.SimulationProof <> s:49 var
+R7424:7424 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7431:7432 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7434:7434 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7479:7491 Kernel.VMStep VMStep advance_state def
+R7493:7493 Kernel.SimulationProof <> s:49 var
+R7496:7505 Kernel.VMStep VMStep instr_pnew constr
+R7530:7536 Kernel.VMState <> vm_csrs proj
+R7527:7527 Kernel.SimulationProof <> s:49 var
+R7542:7547 Kernel.VMState <> vm_err proj
+R7539:7539 Kernel.SimulationProof <> s:49 var
+R7554:7565 Kernel.VMStep VMStep instr_psplit constr
+R7619:7630 Kernel.VMState <> graph_psplit def
+R7635:7642 Kernel.VMState <> vm_graph proj
+R7632:7632 Kernel.SimulationProof <> s:49 var
+R7690:7693 Coq.Init.Datatypes <> Some constr
+R7695:7695 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7702:7703 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7705:7706 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7708:7708 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7723:7735 Kernel.VMStep VMStep advance_state def
+R7737:7737 Kernel.SimulationProof <> s:49 var
+R7740:7751 Kernel.VMStep VMStep instr_psplit constr
+R7813:7819 Kernel.VMState <> vm_csrs proj
+R7810:7810 Kernel.SimulationProof <> s:49 var
+R7825:7830 Kernel.VMState <> vm_err proj
+R7822:7822 Kernel.SimulationProof <> s:49 var
+R7841:7844 Coq.Init.Datatypes <> None constr
+R7859:7871 Kernel.VMStep VMStep advance_state def
+R7873:7873 Kernel.SimulationProof <> s:49 var
+R7876:7887 Kernel.VMStep VMStep instr_psplit constr
+R7942:7949 Kernel.VMState <> vm_graph proj
+R7939:7939 Kernel.SimulationProof <> s:49 var
+R7953:7963 Kernel.VMState <> csr_set_err def
+R7968:7974 Kernel.VMState <> vm_csrs proj
+R7965:7965 Kernel.SimulationProof <> s:49 var
+R7981:7989 Kernel.VMStep VMStep latch_err def
+R7991:7991 Kernel.SimulationProof <> s:49 var
+R7993:7996 Coq.Init.Datatypes <> true constr
+R8013:8024 Kernel.VMStep VMStep instr_pmerge constr
+R8052:8063 Kernel.VMState <> graph_pmerge def
+R8068:8075 Kernel.VMState <> vm_graph proj
+R8065:8065 Kernel.SimulationProof <> s:49 var
+R8097:8100 Coq.Init.Datatypes <> Some constr
+R8102:8102 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8109:8110 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8112:8112 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8127:8139 Kernel.VMStep VMStep advance_state def
+R8141:8141 Kernel.SimulationProof <> s:49 var
+R8144:8155 Kernel.VMStep VMStep instr_pmerge constr
+R8179:8185 Kernel.VMState <> vm_csrs proj
+R8176:8176 Kernel.SimulationProof <> s:49 var
+R8191:8196 Kernel.VMState <> vm_err proj
+R8188:8188 Kernel.SimulationProof <> s:49 var
+R8207:8210 Coq.Init.Datatypes <> None constr
+R8225:8237 Kernel.VMStep VMStep advance_state def
+R8239:8239 Kernel.SimulationProof <> s:49 var
+R8242:8253 Kernel.VMStep VMStep instr_pmerge constr
+R8282:8289 Kernel.VMState <> vm_graph proj
+R8279:8279 Kernel.SimulationProof <> s:49 var
+R8293:8303 Kernel.VMState <> csr_set_err def
+R8308:8314 Kernel.VMState <> vm_csrs proj
+R8305:8305 Kernel.SimulationProof <> s:49 var
+R8321:8329 Kernel.VMStep VMStep latch_err def
+R8331:8331 Kernel.SimulationProof <> s:49 var
+R8333:8336 Coq.Init.Datatypes <> true constr
+R8353:8365 Kernel.VMStep VMStep instr_lassert constr
+R8425:8440 Kernel.VMStep VMStep lassert_cert_sat constr
+R8464:8474 Kernel.VMStep VMStep check_model def
+R8840:8852 Kernel.VMStep VMStep advance_state def
+R8854:8854 Kernel.SimulationProof <> s:49 var
+R8857:8869 Kernel.VMStep VMStep instr_lassert constr
+R8887:8902 Kernel.VMStep VMStep lassert_cert_sat constr
+R8934:8941 Kernel.VMState <> vm_graph proj
+R8931:8931 Kernel.SimulationProof <> s:49 var
+R8945:8955 Kernel.VMState <> csr_set_err def
+R8960:8966 Kernel.VMState <> vm_csrs proj
+R8957:8957 Kernel.SimulationProof <> s:49 var
+R8973:8981 Kernel.VMStep VMStep latch_err def
+R8983:8983 Kernel.SimulationProof <> s:49 var
+R8985:8988 Coq.Init.Datatypes <> true constr
+R8521:8535 Kernel.VMState <> graph_add_axiom def
+R8540:8547 Kernel.VMState <> vm_graph proj
+R8537:8537 Kernel.SimulationProof <> s:49 var
+binder 8511:8516 <> graph':53
+R8593:8603 Kernel.VMState <> csr_set_err def
+R8606:8619 Kernel.VMState <> csr_set_status def
+R8624:8630 Kernel.VMState <> vm_csrs proj
+R8621:8621 Kernel.SimulationProof <> s:49 var
+binder 8584:8588 <> csrs':54
+R8653:8665 Kernel.VMStep VMStep advance_state def
+R8667:8667 Kernel.SimulationProof <> s:49 var
+R8670:8682 Kernel.VMStep VMStep instr_lassert constr
+R8700:8715 Kernel.VMStep VMStep lassert_cert_sat constr
+R8744:8749 Kernel.SimulationProof <> graph':53 var
+R8752:8768 Kernel.VMState <> csr_set_cert_addr def
+R8770:8774 Kernel.SimulationProof <> csrs':54 var
+R8777:8790 Kernel.VMState <> ascii_checksum def
+R8805:8810 Kernel.VMState <> vm_err proj
+R8802:8802 Kernel.SimulationProof <> s:49 var
+R8999:9016 Kernel.VMStep VMStep lassert_cert_unsat constr
+R9040:9049 Kernel.VMStep VMStep check_lrat def
+R9262:9274 Kernel.VMStep VMStep advance_state def
+R9276:9276 Kernel.SimulationProof <> s:49 var
+R9279:9291 Kernel.VMStep VMStep instr_lassert constr
+R9309:9326 Kernel.VMStep VMStep lassert_cert_unsat constr
+R9358:9365 Kernel.VMState <> vm_graph proj
+R9355:9355 Kernel.SimulationProof <> s:49 var
+R9369:9379 Kernel.VMState <> csr_set_err def
+R9384:9390 Kernel.VMState <> vm_csrs proj
+R9381:9381 Kernel.SimulationProof <> s:49 var
+R9397:9405 Kernel.VMStep VMStep latch_err def
+R9407:9407 Kernel.SimulationProof <> s:49 var
+R9409:9412 Coq.Init.Datatypes <> true constr
+R9082:9094 Kernel.VMStep VMStep advance_state def
+R9096:9096 Kernel.SimulationProof <> s:49 var
+R9099:9111 Kernel.VMStep VMStep instr_lassert constr
+R9129:9146 Kernel.VMStep VMStep lassert_cert_unsat constr
+R9178:9185 Kernel.VMState <> vm_graph proj
+R9175:9175 Kernel.SimulationProof <> s:49 var
+R9189:9199 Kernel.VMState <> csr_set_err def
+R9204:9210 Kernel.VMState <> vm_csrs proj
+R9201:9201 Kernel.SimulationProof <> s:49 var
+R9217:9225 Kernel.VMStep VMStep latch_err def
+R9227:9227 Kernel.SimulationProof <> s:49 var
+R9229:9232 Coq.Init.Datatypes <> true constr
+R9429:9439 Kernel.VMStep VMStep instr_ljoin constr
+R9470:9479 Coq.Strings.String <> eqb def
+R9760:9770 Kernel.VMState <> csr_set_err def
+R9775:9781 Kernel.VMState <> vm_csrs proj
+R9772:9772 Kernel.SimulationProof <> s:49 var
+binder 9751:9755 <> csrs':55
+R9797:9809 Kernel.VMStep VMStep advance_state def
+R9811:9811 Kernel.SimulationProof <> s:49 var
+R9814:9824 Kernel.VMStep VMStep instr_ljoin constr
+R9857:9864 Kernel.VMState <> vm_graph proj
+R9854:9854 Kernel.SimulationProof <> s:49 var
+R9878:9894 Kernel.VMState <> csr_set_cert_addr def
+R9896:9900 Kernel.SimulationProof <> csrs':55 var
+R9903:9916 Kernel.VMState <> ascii_checksum def
+R9919:9931 Coq.Strings.String <> append def
+R9959:9967 Kernel.VMStep VMStep latch_err def
+R9969:9969 Kernel.SimulationProof <> s:49 var
+R9971:9974 Coq.Init.Datatypes <> true constr
+R9519:9529 Kernel.VMState <> csr_set_err def
+R9534:9540 Kernel.VMState <> vm_csrs proj
+R9531:9531 Kernel.SimulationProof <> s:49 var
+binder 9510:9514 <> csrs':56
+R9556:9568 Kernel.VMStep VMStep advance_state def
+R9570:9570 Kernel.SimulationProof <> s:49 var
+R9573:9583 Kernel.VMStep VMStep instr_ljoin constr
+R9616:9623 Kernel.VMState <> vm_graph proj
+R9613:9613 Kernel.SimulationProof <> s:49 var
+R9637:9653 Kernel.VMState <> csr_set_cert_addr def
+R9655:9659 Kernel.SimulationProof <> csrs':56 var
+R9662:9675 Kernel.VMState <> ascii_checksum def
+R9678:9690 Coq.Strings.String <> append def
+R9720:9725 Kernel.VMState <> vm_err proj
+R9717:9717 Kernel.SimulationProof <> s:49 var
+R9981:9992 Kernel.VMStep VMStep instr_mdlacc constr
+R10015:10027 Kernel.VMStep VMStep advance_state def
+R10029:10029 Kernel.SimulationProof <> s:49 var
+R10032:10043 Kernel.VMStep VMStep instr_mdlacc constr
+R10061:10068 Kernel.VMState <> vm_graph proj
+R10058:10058 Kernel.SimulationProof <> s:49 var
+R10074:10080 Kernel.VMState <> vm_csrs proj
+R10071:10071 Kernel.SimulationProof <> s:49 var
+R10086:10091 Kernel.VMState <> vm_err proj
+R10083:10083 Kernel.SimulationProof <> s:49 var
+R10098:10107 Kernel.VMStep VMStep instr_emit constr
+R10151:10167 Kernel.VMState <> csr_set_cert_addr def
+R10172:10178 Kernel.VMState <> vm_csrs proj
+R10169:10169 Kernel.SimulationProof <> s:49 var
+R10182:10195 Kernel.VMState <> ascii_checksum def
+binder 10142:10146 <> csrs':57
+R10215:10227 Kernel.VMStep VMStep advance_state def
+R10229:10229 Kernel.SimulationProof <> s:49 var
+R10232:10241 Kernel.VMStep VMStep instr_emit constr
+R10267:10274 Kernel.VMState <> vm_graph proj
+R10264:10264 Kernel.SimulationProof <> s:49 var
+R10277:10281 Kernel.SimulationProof <> csrs':57 var
+R10286:10291 Kernel.VMState <> vm_err proj
+R10283:10283 Kernel.SimulationProof <> s:49 var
+R10298:10309 Kernel.VMStep VMStep instr_reveal constr
+R10355:10371 Kernel.VMState <> csr_set_cert_addr def
+R10376:10382 Kernel.VMState <> vm_csrs proj
+R10373:10373 Kernel.SimulationProof <> s:49 var
+R10386:10399 Kernel.VMState <> ascii_checksum def
+binder 10346:10350 <> csrs':58
+R10416:10428 Kernel.VMStep VMStep advance_state def
+R10430:10430 Kernel.SimulationProof <> s:49 var
+R10433:10444 Kernel.VMStep VMStep instr_reveal constr
+R10472:10479 Kernel.VMState <> vm_graph proj
+R10469:10469 Kernel.SimulationProof <> s:49 var
+R10482:10486 Kernel.SimulationProof <> csrs':58 var
+R10491:10496 Kernel.VMState <> vm_err proj
+R10488:10488 Kernel.SimulationProof <> s:49 var
+R10503:10517 Kernel.VMStep VMStep instr_pdiscover constr
+R10563:10584 Kernel.VMState <> graph_record_discovery def
+R10589:10596 Kernel.VMState <> vm_graph proj
+R10586:10586 Kernel.SimulationProof <> s:49 var
+binder 10553:10558 <> graph':59
+R10624:10636 Kernel.VMStep VMStep advance_state def
+R10638:10638 Kernel.SimulationProof <> s:49 var
+R10641:10655 Kernel.VMStep VMStep instr_pdiscover constr
+R10679:10684 Kernel.SimulationProof <> graph':59 var
+R10689:10695 Kernel.VMState <> vm_csrs proj
+R10686:10686 Kernel.SimulationProof <> s:49 var
+R10701:10706 Kernel.VMState <> vm_err proj
+R10698:10698 Kernel.SimulationProof <> s:49 var
+R10713:10724 Kernel.VMStep VMStep instr_pyexec constr
+R10748:10760 Kernel.VMStep VMStep advance_state def
+R10762:10762 Kernel.SimulationProof <> s:49 var
+R10765:10776 Kernel.VMStep VMStep instr_pyexec constr
+R10803:10810 Kernel.VMState <> vm_graph proj
+R10800:10800 Kernel.SimulationProof <> s:49 var
+R10814:10824 Kernel.VMState <> csr_set_err def
+R10829:10835 Kernel.VMState <> vm_csrs proj
+R10826:10826 Kernel.SimulationProof <> s:49 var
+R10842:10850 Kernel.VMStep VMStep latch_err def
+R10852:10852 Kernel.SimulationProof <> s:49 var
+R10854:10857 Coq.Init.Datatypes <> true constr
+R10864:10879 Kernel.VMStep VMStep instr_chsh_trial constr
+R10906:10917 Kernel.VMStep VMStep chsh_bits_ok def
+R11053:11065 Kernel.VMStep VMStep advance_state def
+R11067:11067 Kernel.SimulationProof <> s:49 var
+R11070:11085 Kernel.VMStep VMStep instr_chsh_trial constr
+R11114:11121 Kernel.VMState <> vm_graph proj
+R11111:11111 Kernel.SimulationProof <> s:49 var
+R11125:11135 Kernel.VMState <> csr_set_err def
+R11140:11146 Kernel.VMState <> vm_csrs proj
+R11137:11137 Kernel.SimulationProof <> s:49 var
+R11153:11161 Kernel.VMStep VMStep latch_err def
+R11163:11163 Kernel.SimulationProof <> s:49 var
+R11165:11168 Coq.Init.Datatypes <> true constr
+R10940:10952 Kernel.VMStep VMStep advance_state def
+R10954:10954 Kernel.SimulationProof <> s:49 var
+R10957:10972 Kernel.VMStep VMStep instr_chsh_trial constr
+R11001:11008 Kernel.VMState <> vm_graph proj
+R10998:10998 Kernel.SimulationProof <> s:49 var
+R11014:11020 Kernel.VMState <> vm_csrs proj
+R11011:11011 Kernel.SimulationProof <> s:49 var
+R11026:11031 Kernel.VMState <> vm_err proj
+R11023:11023 Kernel.SimulationProof <> s:49 var
+R11177:11186 Kernel.VMStep VMStep instr_xfer constr
+R11223:11231 Kernel.VMState <> write_reg def
+R11233:11233 Kernel.SimulationProof <> s:49 var
+R11240:11247 Kernel.VMState <> read_reg def
+R11249:11249 Kernel.SimulationProof <> s:49 var
+binder 11214:11218 <> regs':60
+R11265:11280 Kernel.VMStep VMStep advance_state_rm def
+R11282:11282 Kernel.SimulationProof <> s:49 var
+R11285:11294 Kernel.VMStep VMStep instr_xfer constr
+R11319:11326 Kernel.VMState <> vm_graph proj
+R11316:11316 Kernel.SimulationProof <> s:49 var
+R11332:11338 Kernel.VMState <> vm_csrs proj
+R11329:11329 Kernel.SimulationProof <> s:49 var
+R11341:11345 Kernel.SimulationProof <> regs':60 var
+R11350:11355 Kernel.VMState <> vm_mem proj
+R11347:11347 Kernel.SimulationProof <> s:49 var
+R11361:11366 Kernel.VMState <> vm_err proj
+R11358:11358 Kernel.SimulationProof <> s:49 var
+R11375:11388 Kernel.VMStep VMStep instr_xor_load constr
+R11426:11433 Kernel.VMState <> read_mem def
+R11435:11435 Kernel.SimulationProof <> s:49 var
+binder 11417:11421 <> value:61
+R11464:11472 Kernel.VMState <> write_reg def
+R11474:11474 Kernel.SimulationProof <> s:49 var
+R11480:11484 Kernel.SimulationProof <> value:61 var
+binder 11455:11459 <> regs':62
+R11495:11510 Kernel.VMStep VMStep advance_state_rm def
+R11512:11512 Kernel.SimulationProof <> s:49 var
+R11515:11528 Kernel.VMStep VMStep instr_xor_load constr
+R11554:11561 Kernel.VMState <> vm_graph proj
+R11551:11551 Kernel.SimulationProof <> s:49 var
+R11567:11573 Kernel.VMState <> vm_csrs proj
+R11564:11564 Kernel.SimulationProof <> s:49 var
+R11576:11580 Kernel.SimulationProof <> regs':62 var
+R11585:11590 Kernel.VMState <> vm_mem proj
+R11582:11582 Kernel.SimulationProof <> s:49 var
+R11596:11601 Kernel.VMState <> vm_err proj
+R11593:11593 Kernel.SimulationProof <> s:49 var
+R11610:11622 Kernel.VMStep VMStep instr_xor_add constr
+R11658:11665 Kernel.VMState <> read_reg def
+R11667:11667 Kernel.SimulationProof <> s:49 var
+binder 11650:11653 <> vdst:63
+R11694:11701 Kernel.VMState <> read_reg def
+R11703:11703 Kernel.SimulationProof <> s:49 var
+binder 11686:11689 <> vsrc:64
+R11731:11739 Kernel.VMState <> write_reg def
+R11741:11741 Kernel.SimulationProof <> s:49 var
+R11748:11757 Kernel.VMState <> word32_xor def
+R11759:11762 Kernel.SimulationProof <> vdst:63 var
+R11764:11767 Kernel.SimulationProof <> vsrc:64 var
+binder 11722:11726 <> regs':65
+R11779:11794 Kernel.VMStep VMStep advance_state_rm def
+R11796:11796 Kernel.SimulationProof <> s:49 var
+R11799:11811 Kernel.VMStep VMStep instr_xor_add constr
+R11836:11843 Kernel.VMState <> vm_graph proj
+R11833:11833 Kernel.SimulationProof <> s:49 var
+R11849:11855 Kernel.VMState <> vm_csrs proj
+R11846:11846 Kernel.SimulationProof <> s:49 var
+R11858:11862 Kernel.SimulationProof <> regs':65 var
+R11867:11872 Kernel.VMState <> vm_mem proj
+R11864:11864 Kernel.SimulationProof <> s:49 var
+R11878:11883 Kernel.VMState <> vm_err proj
+R11875:11875 Kernel.SimulationProof <> s:49 var
+R11892:11905 Kernel.VMStep VMStep instr_xor_swap constr
+R11938:11946 Kernel.VMState <> swap_regs def
+R11951:11957 Kernel.VMState <> vm_regs proj
+R11948:11948 Kernel.SimulationProof <> s:49 var
+binder 11929:11933 <> regs':66
+R11973:11988 Kernel.VMStep VMStep advance_state_rm def
+R11990:11990 Kernel.SimulationProof <> s:49 var
+R11993:12006 Kernel.VMStep VMStep instr_xor_swap constr
+R12027:12034 Kernel.VMState <> vm_graph proj
+R12024:12024 Kernel.SimulationProof <> s:49 var
+R12040:12046 Kernel.VMState <> vm_csrs proj
+R12037:12037 Kernel.SimulationProof <> s:49 var
+R12049:12053 Kernel.SimulationProof <> regs':66 var
+R12058:12063 Kernel.VMState <> vm_mem proj
+R12055:12055 Kernel.SimulationProof <> s:49 var
+R12069:12074 Kernel.VMState <> vm_err proj
+R12066:12066 Kernel.SimulationProof <> s:49 var
+R12083:12096 Kernel.VMStep VMStep instr_xor_rank constr
+R12132:12139 Kernel.VMState <> read_reg def
+R12141:12141 Kernel.SimulationProof <> s:49 var
+binder 12124:12127 <> vsrc:67
+R12169:12177 Kernel.VMState <> write_reg def
+R12179:12179 Kernel.SimulationProof <> s:49 var
+R12186:12200 Kernel.VMState <> word32_popcount def
+R12202:12205 Kernel.SimulationProof <> vsrc:67 var
+binder 12160:12164 <> regs':68
+R12217:12232 Kernel.VMStep VMStep advance_state_rm def
+R12234:12234 Kernel.SimulationProof <> s:49 var
+R12237:12250 Kernel.VMStep VMStep instr_xor_rank constr
+R12275:12282 Kernel.VMState <> vm_graph proj
+R12272:12272 Kernel.SimulationProof <> s:49 var
+R12288:12294 Kernel.VMState <> vm_csrs proj
+R12285:12285 Kernel.SimulationProof <> s:49 var
+R12297:12301 Kernel.SimulationProof <> regs':68 var
+R12306:12311 Kernel.VMState <> vm_mem proj
+R12303:12303 Kernel.SimulationProof <> s:49 var
+R12317:12322 Kernel.VMState <> vm_err proj
+R12314:12314 Kernel.SimulationProof <> s:49 var
+R12329:12346 Kernel.VMStep VMStep instr_oracle_halts constr
+R12370:12382 Kernel.VMStep VMStep advance_state def
+R12384:12384 Kernel.SimulationProof <> s:49 var
+R12387:12404 Kernel.VMStep VMStep instr_oracle_halts constr
+R12423:12430 Kernel.VMState <> vm_graph proj
+R12420:12420 Kernel.SimulationProof <> s:49 var
+R12436:12442 Kernel.VMState <> vm_csrs proj
+R12433:12433 Kernel.SimulationProof <> s:49 var
+R12448:12453 Kernel.VMState <> vm_err proj
+R12445:12445 Kernel.SimulationProof <> s:49 var
+R12460:12469 Kernel.VMStep VMStep instr_halt constr
+R12485:12497 Kernel.VMStep VMStep advance_state def
+R12499:12499 Kernel.SimulationProof <> s:49 var
+R12502:12511 Kernel.VMStep VMStep instr_halt constr
+R12522:12529 Kernel.VMState <> vm_graph proj
+R12519:12519 Kernel.SimulationProof <> s:49 var
+R12535:12541 Kernel.VMState <> vm_csrs proj
+R12532:12532 Kernel.SimulationProof <> s:49 var
+R12547:12552 Kernel.VMState <> vm_err proj
+R12544:12544 Kernel.SimulationProof <> s:49 var
+def 12572:12577 <> run_vm
+R12587:12589 Coq.Init.Datatypes <> nat ind
+binder 12580:12583 <> fuel:69
+R12601:12604 Coq.Init.Datatypes <> list ind
+R12606:12619 Kernel.VMStep VMStep vm_instruction ind
+binder 12593:12597 <> trace:70
+R12627:12633 Kernel.VMState <> VMState rec
+binder 12623:12623 <> s:71
+R12640:12646 Kernel.VMState <> VMState rec
+R12659:12662 Kernel.SimulationProof <> fuel:69 var
+R12678:12678 Kernel.SimulationProof <> s:71 var
+R12684:12684 Coq.Init.Datatypes <> S constr
+R12707:12715 Coq.Lists.List <> nth_error def
+R12726:12730 Kernel.VMState <> vm_pc proj
+R12723:12723 Kernel.SimulationProof <> s:71 var
+R12717:12721 Kernel.SimulationProof <> trace:70 var
+R12746:12749 Coq.Init.Datatypes <> Some constr
+R12760:12765 Kernel.SimulationProof <> run_vm:72 def
+R12780:12787 Kernel.SimulationProof <> vm_apply def
+R12789:12789 Kernel.SimulationProof <> s:71 var
+R12773:12777 Kernel.SimulationProof <> trace:70 var
+R12806:12809 Coq.Init.Datatypes <> None constr
+R12814:12814 Kernel.SimulationProof <> s:71 var
+ind 12844:12850 <> vm_exec
+constr 12916:12927 <> vm_exec_zero
+constr 12973:12984 <> vm_exec_step
+R12857:12860 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12854:12856 Coq.Init.Datatypes <> nat ind
+R12880:12883 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12861:12864 Coq.Init.Datatypes <> list ind
+R12866:12879 Kernel.VMStep VMStep vm_instruction ind
+R12891:12894 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12884:12890 Kernel.VMState <> VMState rec
+R12902:12905 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12895:12901 Kernel.VMState <> VMState rec
+binder 12938:12942 <> trace:76
+binder 12944:12944 <> s:77
+R12951:12957 Kernel.SimulationProof <> vm_exec:74 ind
+R12969:12969 Kernel.SimulationProof <> s:77 var
+R12967:12967 Kernel.SimulationProof <> s:77 var
+R12961:12965 Kernel.SimulationProof <> trace:76 var
+binder 12995:12998 <> fuel:78
+binder 13000:13004 <> trace:79
+binder 13006:13006 <> s:80
+binder 13008:13012 <> instr:81
+binder 13014:13015 <> s':82
+binder 13017:13019 <> s'':83
+R13064:13071 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13051:13053 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13026:13034 Coq.Lists.List <> nth_error def
+R13045:13049 Kernel.VMState <> vm_pc proj
+R13042:13042 Kernel.SimulationProof <> s:80 var
+R13036:13040 Kernel.SimulationProof <> trace:79 var
+R13054:13057 Coq.Init.Datatypes <> Some constr
+R13059:13063 Kernel.SimulationProof <> instr:81 var
+R13090:13097 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13072:13078 Kernel.VMStep VMStep vm_step ind
+R13080:13080 Kernel.SimulationProof <> s:80 var
+R13082:13086 Kernel.SimulationProof <> instr:81 var
+R13088:13089 Kernel.SimulationProof <> s':82 var
+R13123:13130 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13098:13104 Kernel.SimulationProof <> vm_exec:74 ind
+R13120:13122 Kernel.SimulationProof <> s'':83 var
+R13117:13118 Kernel.SimulationProof <> s':82 var
+R13111:13115 Kernel.SimulationProof <> trace:79 var
+R13106:13109 Kernel.SimulationProof <> fuel:78 var
+R13131:13137 Kernel.SimulationProof <> vm_exec:74 ind
+R13156:13158 Kernel.SimulationProof <> s'':83 var
+R13154:13154 Kernel.SimulationProof <> s:80 var
+R13148:13152 Kernel.SimulationProof <> trace:79 var
+R13140:13140 Coq.Init.Datatypes <> S constr
+R13142:13145 Kernel.SimulationProof <> fuel:78 var
+scheme 12844:12850 <> vm_exec_ind
+scheme 12844:12850 <> vm_exec_sind
+prf 13168:13183 <> vm_step_vm_apply
+binder 13196:13196 <> s:84
+binder 13198:13202 <> instr:85
+binder 13204:13205 <> s':86
+R13230:13237 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13212:13218 Kernel.VMStep VMStep vm_step ind
+R13220:13220 Kernel.SimulationProof <> s:84 var
+R13222:13226 Kernel.SimulationProof <> instr:85 var
+R13228:13229 Kernel.SimulationProof <> s':86 var
+R13254:13256 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13238:13245 Kernel.SimulationProof <> vm_apply def
+R13247:13247 Kernel.SimulationProof <> s:84 var
+R13249:13253 Kernel.SimulationProof <> instr:85 var
+R13257:13258 Kernel.SimulationProof <> s':86 var
+R13459:13461 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13444:13454 Kernel.VMStep VMStep check_model def
+R13462:13465 Coq.Init.Datatypes <> true constr
+R13459:13461 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13444:13454 Kernel.VMStep VMStep check_model def
+R13462:13465 Coq.Init.Datatypes <> true constr
+R13528:13530 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13514:13523 Kernel.VMStep VMStep check_lrat def
+R13531:13534 Coq.Init.Datatypes <> true constr
+R13528:13530 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13514:13523 Kernel.VMStep VMStep check_lrat def
+R13531:13534 Coq.Init.Datatypes <> true constr
+R13627:13629 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13627:13629 Coq.Init.Logic <> ::type_scope:x_'='_x not
+prf 13691:13711 <> vm_step_deterministic
+binder 13724:13724 <> s:87
+binder 13726:13730 <> instr:88
+binder 13732:13733 <> s1:89
+binder 13735:13736 <> s2:90
+R13761:13768 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13743:13749 Kernel.VMStep VMStep vm_step ind
+R13751:13751 Kernel.SimulationProof <> s:87 var
+R13753:13757 Kernel.SimulationProof <> instr:88 var
+R13759:13760 Kernel.SimulationProof <> s1:89 var
+R13787:13794 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13769:13775 Kernel.VMStep VMStep vm_step ind
+R13777:13777 Kernel.SimulationProof <> s:87 var
+R13779:13783 Kernel.SimulationProof <> instr:88 var
+R13785:13786 Kernel.SimulationProof <> s2:90 var
+R13797:13799 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13795:13796 Kernel.SimulationProof <> s1:89 var
+R13800:13801 Kernel.SimulationProof <> s2:90 var
+R13863:13878 Kernel.SimulationProof <> vm_step_vm_apply thm
+R13863:13878 Kernel.SimulationProof <> vm_step_vm_apply thm
+R13863:13878 Kernel.SimulationProof <> vm_step_vm_apply thm
+R13909:13924 Kernel.SimulationProof <> vm_step_vm_apply thm
+R13909:13924 Kernel.SimulationProof <> vm_step_vm_apply thm
+R13909:13924 Kernel.SimulationProof <> vm_step_vm_apply thm
+prf 13968:13977 <> vm_step_pc
+binder 13990:13990 <> s:91
+binder 13992:13996 <> instr:92
+binder 13998:13999 <> s':93
+R14024:14031 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14006:14012 Kernel.VMStep VMStep vm_step ind
+R14014:14014 Kernel.SimulationProof <> s:91 var
+R14016:14020 Kernel.SimulationProof <> instr:92 var
+R14022:14023 Kernel.SimulationProof <> s':93 var
+R14042:14044 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14036:14040 Kernel.VMState <> vm_pc proj
+R14032:14033 Kernel.SimulationProof <> s':93 var
+R14045:14045 Coq.Init.Datatypes <> S constr
+R14050:14054 Kernel.VMState <> vm_pc proj
+R14047:14047 Kernel.SimulationProof <> s:91 var
+prf 14143:14152 <> vm_step_mu
+binder 14165:14165 <> s:94
+binder 14167:14171 <> instr:95
+binder 14173:14174 <> s':96
+R14199:14206 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14181:14187 Kernel.VMStep VMStep vm_step ind
+R14189:14189 Kernel.SimulationProof <> s:94 var
+R14191:14195 Kernel.SimulationProof <> instr:95 var
+R14197:14198 Kernel.SimulationProof <> s':96 var
+R14217:14219 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14211:14215 Kernel.VMState <> vm_mu proj
+R14207:14208 Kernel.SimulationProof <> s':96 var
+R14229:14231 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14223:14227 Kernel.VMState <> vm_mu proj
+R14220:14220 Kernel.SimulationProof <> s:94 var
+R14232:14247 Kernel.VMStep VMStep instruction_cost def
+R14249:14253 Kernel.SimulationProof <> instr:95 var
+prf 14341:14354 <> vm_exec_run_vm
+binder 14367:14370 <> fuel:97
+binder 14372:14376 <> trace:98
+binder 14378:14378 <> s:99
+binder 14380:14381 <> s':100
+R14411:14418 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14388:14394 Kernel.SimulationProof <> vm_exec ind
+R14396:14399 Kernel.SimulationProof <> fuel:97 var
+R14401:14405 Kernel.SimulationProof <> trace:98 var
+R14407:14407 Kernel.SimulationProof <> s:99 var
+R14409:14410 Kernel.SimulationProof <> s':100 var
+R14438:14440 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14419:14424 Kernel.SimulationProof <> run_vm def
+R14426:14429 Kernel.SimulationProof <> fuel:97 var
+R14431:14435 Kernel.SimulationProof <> trace:98 var
+R14437:14437 Kernel.SimulationProof <> s:99 var
+R14441:14442 Kernel.SimulationProof <> s':100 var
+R14559:14574 Kernel.SimulationProof <> vm_step_vm_apply thm
+R14559:14574 Kernel.SimulationProof <> vm_step_vm_apply thm
+R14559:14574 Kernel.SimulationProof <> vm_step_vm_apply thm
+prf 14618:14638 <> vm_exec_deterministic
+binder 14651:14654 <> fuel:101
+binder 14656:14660 <> trace:102
+binder 14662:14662 <> s:103
+binder 14664:14665 <> s1:104
+binder 14667:14668 <> s2:105
+R14698:14705 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14675:14681 Kernel.SimulationProof <> vm_exec ind
+R14683:14686 Kernel.SimulationProof <> fuel:101 var
+R14688:14692 Kernel.SimulationProof <> trace:102 var
+R14694:14694 Kernel.SimulationProof <> s:103 var
+R14696:14697 Kernel.SimulationProof <> s1:104 var
+R14729:14736 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14706:14712 Kernel.SimulationProof <> vm_exec ind
+R14714:14717 Kernel.SimulationProof <> fuel:101 var
+R14719:14723 Kernel.SimulationProof <> trace:102 var
+R14725:14725 Kernel.SimulationProof <> s:103 var
+R14727:14728 Kernel.SimulationProof <> s2:105 var
+R14739:14741 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14737:14738 Kernel.SimulationProof <> s1:104 var
+R14742:14743 Kernel.SimulationProof <> s2:105 var
+R14810:14823 Kernel.SimulationProof <> vm_exec_run_vm thm
+R14810:14823 Kernel.SimulationProof <> vm_exec_run_vm thm
+R14810:14823 Kernel.SimulationProof <> vm_exec_run_vm thm
+R14856:14869 Kernel.SimulationProof <> vm_exec_run_vm thm
+R14856:14869 Kernel.SimulationProof <> vm_exec_run_vm thm
+R14856:14869 Kernel.SimulationProof <> vm_exec_run_vm thm
+prf 14915:14941 <> step_thiele_hclaim_tm_state
+binder 14954:14957 <> prog:106
+binder 14959:14960 <> st:107
+binder 14962:14966 <> delta:108
+R15012:15019 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14986:14988 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14973:14977 Kernel.KernelTM <> fetch def
+R14979:14982 Kernel.SimulationProof <> prog:106 var
+R14984:14985 Kernel.SimulationProof <> st:107 var
+R14989:15005 Kernel.Kernel <> H_ClaimTapeIsZero constr
+R15007:15011 Kernel.SimulationProof <> delta:108 var
+R15052:15054 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15043:15050 Kernel.Kernel <> tm_state proj
+R15021:15031 Kernel.KernelThiele <> step_thiele def
+R15033:15036 Kernel.SimulationProof <> prog:106 var
+R15038:15039 Kernel.SimulationProof <> st:107 var
+R15055:15055 Coq.Init.Datatypes <> S constr
+R15061:15068 Kernel.Kernel <> tm_state proj
+R15057:15058 Kernel.SimulationProof <> st:107 var
+R15119:15129 Kernel.KernelThiele <> step_thiele def
+prf 15177:15197 <> step_thiele_hclaim_mu
+binder 15210:15213 <> prog:109
+binder 15215:15216 <> st:110
+binder 15218:15222 <> delta:111
+R15268:15275 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15242:15244 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15229:15233 Kernel.KernelTM <> fetch def
+R15235:15238 Kernel.SimulationProof <> prog:109 var
+R15240:15241 Kernel.SimulationProof <> st:110 var
+R15245:15261 Kernel.Kernel <> H_ClaimTapeIsZero constr
+R15263:15267 Kernel.SimulationProof <> delta:111 var
+R15307:15309 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15299:15305 Kernel.Kernel <> mu_cost proj
+R15277:15287 Kernel.KernelThiele <> step_thiele def
+R15289:15292 Kernel.SimulationProof <> prog:109 var
+R15294:15295 Kernel.SimulationProof <> st:110 var
+R15322:15324 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R15314:15320 Kernel.Kernel <> mu_cost proj
+R15310:15311 Kernel.SimulationProof <> st:110 var
+R15325:15329 Kernel.SimulationProof <> delta:111 var
+R15379:15389 Kernel.KernelThiele <> step_thiele def
+prf 15437:15455 <> fetch_compile_trace
+binder 15468:15472 <> trace:112
+binder 15474:15477 <> s_vm:113
+binder 15479:15486 <> s_kernel:114
+binder 15488:15492 <> instr:115
+R15541:15548 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15499:15526 Kernel.SimulationProof <> states_related_for_execution def
+R15528:15531 Kernel.SimulationProof <> s_vm:113 var
+R15533:15540 Kernel.SimulationProof <> s_kernel:114 var
+R15590:15769 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15577:15579 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15549:15557 Coq.Lists.List <> nth_error def
+R15571:15575 Kernel.VMState <> vm_pc proj
+R15565:15568 Kernel.SimulationProof <> s_vm:113 var
+R15559:15563 Kernel.SimulationProof <> trace:112 var
+R15580:15583 Coq.Init.Datatypes <> Some constr
+R15585:15589 Kernel.SimulationProof <> instr:115 var
+R15806:15808 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15770:15774 Kernel.KernelTM <> fetch def
+R15777:15789 Kernel.SimulationProof <> compile_trace def
+R15791:15795 Kernel.SimulationProof <> trace:112 var
+R15798:15805 Kernel.SimulationProof <> s_kernel:114 var
+R15809:15815 Kernel.Kernel <> T_Write constr
+R15817:15820 Coq.Init.Datatypes <> true constr
+R15936:15940 Kernel.KernelTM <> fetch def
+R16017:16020 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R15989:15997 Coq.Lists.List <> nth_error def
+R16011:16015 Kernel.VMState <> vm_pc proj
+R16021:16024 Coq.Init.Datatypes <> None constr
+R16017:16020 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R15989:15997 Coq.Lists.List <> nth_error def
+R16011:16015 Kernel.VMState <> vm_pc proj
+R16021:16024 Coq.Init.Datatypes <> None constr
+R16122:16126 Kernel.VMState <> vm_pc proj
+R16171:16177 Coq.Init.Logic <> eq_refl constr
+R16122:16126 Kernel.VMState <> vm_pc proj
+R16171:16177 Coq.Init.Logic <> eq_refl constr
+R16171:16177 Coq.Init.Logic <> eq_refl constr
+R16207:16219 Kernel.SimulationProof <> compile_trace def
+R16241:16259 Kernel.SimulationProof <> compile_instruction def
+R16241:16259 Kernel.SimulationProof <> compile_instruction def
+R16319:16342 Kernel.SimulationProof <> compile_instruction_head thm
+R16319:16342 Kernel.SimulationProof <> compile_instruction_head thm
+R16434:16457 Kernel.SimulationProof <> compile_instruction_head thm
+R16434:16457 Kernel.SimulationProof <> compile_instruction_head thm
+prf 16556:16583 <> compile_increment_pc_correct
+binder 16596:16603 <> s_kernel:116
+binder 16605:16608 <> s_vm:117
+R16643:16650 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16615:16628 Kernel.SimulationProof <> states_related def
+R16630:16633 Kernel.SimulationProof <> s_vm:117 var
+R16635:16642 Kernel.SimulationProof <> s_kernel:116 var
+R16651:16657 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R16663:16670 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 16658:16662 <> s_vm':118
+R16966:16975 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16676:16681 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16963:16965 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16671:16675 Kernel.SimulationProof <> s_vm':118 var
+R16682:16689 Kernel.VMState <> vm_graph proj
+R16682:16689 Kernel.VMState <> vm_graph proj
+R16682:16689 Kernel.VMState <> vm_graph proj
+R16728:16734 Kernel.VMState <> vm_csrs proj
+R16728:16734 Kernel.VMState <> vm_csrs proj
+R16772:16778 Kernel.VMState <> vm_regs proj
+R16772:16778 Kernel.VMState <> vm_regs proj
+R16816:16821 Kernel.VMState <> vm_mem proj
+R16816:16821 Kernel.VMState <> vm_mem proj
+R16858:16862 Kernel.VMState <> vm_pc proj
+R16858:16862 Kernel.VMState <> vm_pc proj
+R16900:16904 Kernel.VMState <> vm_mu proj
+R16900:16904 Kernel.VMState <> vm_mu proj
+R16940:16945 Kernel.VMState <> vm_err proj
+R16940:16945 Kernel.VMState <> vm_err proj
+R16700:16707 Kernel.VMState <> vm_graph proj
+R16694:16697 Kernel.SimulationProof <> s_vm:117 var
+R16745:16751 Kernel.VMState <> vm_csrs proj
+R16739:16742 Kernel.SimulationProof <> s_vm:117 var
+R16789:16795 Kernel.VMState <> vm_regs proj
+R16783:16786 Kernel.SimulationProof <> s_vm:117 var
+R16832:16837 Kernel.VMState <> vm_mem proj
+R16826:16829 Kernel.SimulationProof <> s_vm:117 var
+R16867:16867 Coq.Init.Datatypes <> S constr
+R16875:16879 Kernel.VMState <> vm_pc proj
+R16869:16872 Kernel.SimulationProof <> s_vm:117 var
+R16915:16919 Kernel.VMState <> vm_mu proj
+R16909:16912 Kernel.SimulationProof <> s_vm:117 var
+R16956:16961 Kernel.VMState <> vm_err proj
+R16950:16953 Kernel.SimulationProof <> s_vm:117 var
+R16976:16989 Kernel.SimulationProof <> states_related def
+R16991:16995 Kernel.SimulationProof <> s_vm':118 var
+R17008:17011 Kernel.Kernel <> tape proj
+R17008:17011 Kernel.Kernel <> tape proj
+R17008:17011 Kernel.Kernel <> tape proj
+R17058:17061 Kernel.Kernel <> head proj
+R17058:17061 Kernel.Kernel <> head proj
+R17092:17099 Kernel.Kernel <> tm_state proj
+R17092:17099 Kernel.Kernel <> tm_state proj
+R17130:17136 Kernel.Kernel <> mu_cost proj
+R17130:17136 Kernel.Kernel <> mu_cost proj
+R17016:17038 Kernel.VMEncoding <> encode_vm_state_to_tape def
+R17040:17044 Kernel.SimulationProof <> s_vm':118 var
+R17073:17077 Kernel.VMState <> vm_pc proj
+R17066:17070 Kernel.SimulationProof <> s_vm':118 var
+R17111:17115 Kernel.VMState <> vm_pc proj
+R17104:17108 Kernel.SimulationProof <> s_vm':118 var
+R17148:17152 Kernel.VMState <> vm_mu proj
+R17141:17145 Kernel.SimulationProof <> s_vm':118 var
+R17428:17435 Coq.Init.Logic <> ex_intro constr
+R17442:17449 Kernel.VMState <> vm_graph proj
+R17442:17449 Kernel.VMState <> vm_graph proj
+R17442:17449 Kernel.VMState <> vm_graph proj
+R17495:17501 Kernel.VMState <> vm_csrs proj
+R17495:17501 Kernel.VMState <> vm_csrs proj
+R17546:17552 Kernel.VMState <> vm_regs proj
+R17546:17552 Kernel.VMState <> vm_regs proj
+R17597:17602 Kernel.VMState <> vm_mem proj
+R17597:17602 Kernel.VMState <> vm_mem proj
+R17646:17650 Kernel.VMState <> vm_pc proj
+R17646:17650 Kernel.VMState <> vm_pc proj
+R17695:17699 Kernel.VMState <> vm_mu proj
+R17695:17699 Kernel.VMState <> vm_mu proj
+R17742:17747 Kernel.VMState <> vm_err proj
+R17742:17747 Kernel.VMState <> vm_err proj
+R17460:17467 Kernel.VMState <> vm_graph proj
+R17512:17518 Kernel.VMState <> vm_csrs proj
+R17563:17569 Kernel.VMState <> vm_regs proj
+R17613:17618 Kernel.VMState <> vm_mem proj
+R17655:17655 Coq.Init.Datatypes <> S constr
+R17663:17667 Kernel.VMState <> vm_pc proj
+R17710:17714 Kernel.VMState <> vm_mu proj
+R17758:17763 Kernel.VMState <> vm_err proj
+R17428:17435 Coq.Init.Logic <> ex_intro constr
+R17442:17449 Kernel.VMState <> vm_graph proj
+R17442:17449 Kernel.VMState <> vm_graph proj
+R17442:17449 Kernel.VMState <> vm_graph proj
+R17495:17501 Kernel.VMState <> vm_csrs proj
+R17495:17501 Kernel.VMState <> vm_csrs proj
+R17546:17552 Kernel.VMState <> vm_regs proj
+R17546:17552 Kernel.VMState <> vm_regs proj
+R17597:17602 Kernel.VMState <> vm_mem proj
+R17597:17602 Kernel.VMState <> vm_mem proj
+R17646:17650 Kernel.VMState <> vm_pc proj
+R17646:17650 Kernel.VMState <> vm_pc proj
+R17695:17699 Kernel.VMState <> vm_mu proj
+R17695:17699 Kernel.VMState <> vm_mu proj
+R17742:17747 Kernel.VMState <> vm_err proj
+R17742:17747 Kernel.VMState <> vm_err proj
+R17460:17467 Kernel.VMState <> vm_graph proj
+R17512:17518 Kernel.VMState <> vm_csrs proj
+R17563:17569 Kernel.VMState <> vm_regs proj
+R17613:17618 Kernel.VMState <> vm_mem proj
+R17655:17655 Coq.Init.Datatypes <> S constr
+R17663:17667 Kernel.VMState <> vm_pc proj
+R17710:17714 Kernel.VMState <> vm_mu proj
+R17758:17763 Kernel.VMState <> vm_err proj
+R17807:17820 Kernel.SimulationProof <> states_related def
+R17872:17894 Kernel.VMEncoding <> encode_vm_state_to_tape def
+R17931:17945 Kernel.VMEncoding <> encode_vm_state def
+R17950:17957 Kernel.VMState <> vm_graph proj
+R17950:17957 Kernel.VMState <> vm_graph proj
+R17950:17957 Kernel.VMState <> vm_graph proj
+R18030:18036 Kernel.VMState <> vm_csrs proj
+R18030:18036 Kernel.VMState <> vm_csrs proj
+R18108:18114 Kernel.VMState <> vm_regs proj
+R18108:18114 Kernel.VMState <> vm_regs proj
+R18186:18191 Kernel.VMState <> vm_mem proj
+R18186:18191 Kernel.VMState <> vm_mem proj
+R18262:18266 Kernel.VMState <> vm_pc proj
+R18262:18266 Kernel.VMState <> vm_pc proj
+R18340:18344 Kernel.VMState <> vm_mu proj
+R18340:18344 Kernel.VMState <> vm_mu proj
+R18414:18419 Kernel.VMState <> vm_err proj
+R18414:18419 Kernel.VMState <> vm_err proj
+R17962:17969 Kernel.VMState <> vm_graph proj
+R18041:18047 Kernel.VMState <> vm_csrs proj
+R18119:18125 Kernel.VMState <> vm_regs proj
+R18196:18201 Kernel.VMState <> vm_mem proj
+R18271:18271 Coq.Init.Datatypes <> S constr
+R18274:18278 Kernel.VMState <> vm_pc proj
+R18349:18353 Kernel.VMState <> vm_mu proj
+R18424:18429 Kernel.VMState <> vm_err proj
+R17910:17918 Coq.Lists.List <> app_nil_r thm
+R17931:17945 Kernel.VMEncoding <> encode_vm_state def
+R17950:17957 Kernel.VMState <> vm_graph proj
+R17950:17957 Kernel.VMState <> vm_graph proj
+R17950:17957 Kernel.VMState <> vm_graph proj
+R18030:18036 Kernel.VMState <> vm_csrs proj
+R18030:18036 Kernel.VMState <> vm_csrs proj
+R18108:18114 Kernel.VMState <> vm_regs proj
+R18108:18114 Kernel.VMState <> vm_regs proj
+R18186:18191 Kernel.VMState <> vm_mem proj
+R18186:18191 Kernel.VMState <> vm_mem proj
+R18262:18266 Kernel.VMState <> vm_pc proj
+R18262:18266 Kernel.VMState <> vm_pc proj
+R18340:18344 Kernel.VMState <> vm_mu proj
+R18340:18344 Kernel.VMState <> vm_mu proj
+R18414:18419 Kernel.VMState <> vm_err proj
+R18414:18419 Kernel.VMState <> vm_err proj
+R17962:17969 Kernel.VMState <> vm_graph proj
+R18041:18047 Kernel.VMState <> vm_csrs proj
+R18119:18125 Kernel.VMState <> vm_regs proj
+R18196:18201 Kernel.VMState <> vm_mem proj
+R18271:18271 Coq.Init.Datatypes <> S constr
+R18274:18278 Kernel.VMState <> vm_pc proj
+R18349:18353 Kernel.VMState <> vm_mu proj
+R18424:18429 Kernel.VMState <> vm_err proj
+R17910:17918 Coq.Lists.List <> app_nil_r thm
+R17931:17945 Kernel.VMEncoding <> encode_vm_state def
+R17950:17957 Kernel.VMState <> vm_graph proj
+R17950:17957 Kernel.VMState <> vm_graph proj
+R17950:17957 Kernel.VMState <> vm_graph proj
+R18030:18036 Kernel.VMState <> vm_csrs proj
+R18030:18036 Kernel.VMState <> vm_csrs proj
+R18108:18114 Kernel.VMState <> vm_regs proj
+R18108:18114 Kernel.VMState <> vm_regs proj
+R18186:18191 Kernel.VMState <> vm_mem proj
+R18186:18191 Kernel.VMState <> vm_mem proj
+R18262:18266 Kernel.VMState <> vm_pc proj
+R18262:18266 Kernel.VMState <> vm_pc proj
+R18340:18344 Kernel.VMState <> vm_mu proj
+R18340:18344 Kernel.VMState <> vm_mu proj
+R18414:18419 Kernel.VMState <> vm_err proj
+R18414:18419 Kernel.VMState <> vm_err proj
+R17962:17969 Kernel.VMState <> vm_graph proj
+R18041:18047 Kernel.VMState <> vm_csrs proj
+R18119:18125 Kernel.VMState <> vm_regs proj
+R18196:18201 Kernel.VMState <> vm_mem proj
+R18271:18271 Coq.Init.Datatypes <> S constr
+R18274:18278 Kernel.VMState <> vm_pc proj
+R18349:18353 Kernel.VMState <> vm_mu proj
+R18424:18429 Kernel.VMState <> vm_err proj
+R17910:17918 Coq.Lists.List <> app_nil_r thm
+R18449:18471 Kernel.VMEncoding <> decode_vm_state_correct thm
+R18449:18471 Kernel.VMEncoding <> decode_vm_state_correct thm
+prf 18486:18507 <> compile_add_mu_correct
+binder 18520:18524 <> delta:119
+binder 18526:18533 <> s_kernel:120
+binder 18535:18538 <> s_vm:121
+R18573:18580 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18545:18558 Kernel.SimulationProof <> states_related def
+R18560:18563 Kernel.SimulationProof <> s_vm:121 var
+R18565:18572 Kernel.SimulationProof <> s_kernel:120 var
+R18597:18604 Kernel.VMState <> vm_graph proj
+R18597:18604 Kernel.VMState <> vm_graph proj
+R18597:18604 Kernel.VMState <> vm_graph proj
+R18646:18652 Kernel.VMState <> vm_csrs proj
+R18646:18652 Kernel.VMState <> vm_csrs proj
+R18693:18699 Kernel.VMState <> vm_regs proj
+R18693:18699 Kernel.VMState <> vm_regs proj
+R18740:18745 Kernel.VMState <> vm_mem proj
+R18740:18745 Kernel.VMState <> vm_mem proj
+R18785:18789 Kernel.VMState <> vm_pc proj
+R18785:18789 Kernel.VMState <> vm_pc proj
+R18828:18832 Kernel.VMState <> vm_mu proj
+R18828:18832 Kernel.VMState <> vm_mu proj
+R18879:18884 Kernel.VMState <> vm_err proj
+R18879:18884 Kernel.VMState <> vm_err proj
+R18615:18622 Kernel.VMState <> vm_graph proj
+R18609:18612 Kernel.SimulationProof <> s_vm:121 var
+R18663:18669 Kernel.VMState <> vm_csrs proj
+R18657:18660 Kernel.SimulationProof <> s_vm:121 var
+R18710:18716 Kernel.VMState <> vm_regs proj
+R18704:18707 Kernel.SimulationProof <> s_vm:121 var
+R18756:18761 Kernel.VMState <> vm_mem proj
+R18750:18753 Kernel.SimulationProof <> s_vm:121 var
+R18800:18804 Kernel.VMState <> vm_pc proj
+R18794:18797 Kernel.SimulationProof <> s_vm:121 var
+R18849:18851 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R18843:18847 Kernel.VMState <> vm_mu proj
+R18837:18840 Kernel.SimulationProof <> s_vm:121 var
+R18852:18856 Kernel.SimulationProof <> delta:119 var
+R18895:18900 Kernel.VMState <> vm_err proj
+R18889:18892 Kernel.SimulationProof <> s_vm:121 var
+binder 18585:18589 <> s_vm':122
+R18913:18926 Kernel.SimulationProof <> states_related def
+R18928:18932 Kernel.SimulationProof <> s_vm':122 var
+R18943:18946 Kernel.Kernel <> tape proj
+R18943:18946 Kernel.Kernel <> tape proj
+R18943:18946 Kernel.Kernel <> tape proj
+R18991:18994 Kernel.Kernel <> head proj
+R18991:18994 Kernel.Kernel <> head proj
+R19023:19030 Kernel.Kernel <> tm_state proj
+R19023:19030 Kernel.Kernel <> tm_state proj
+R19059:19065 Kernel.Kernel <> mu_cost proj
+R19059:19065 Kernel.Kernel <> mu_cost proj
+R18951:18973 Kernel.VMEncoding <> encode_vm_state_to_tape def
+R18975:18979 Kernel.SimulationProof <> s_vm':122 var
+R19006:19010 Kernel.VMState <> vm_pc proj
+R18999:19003 Kernel.SimulationProof <> s_vm':122 var
+R19042:19046 Kernel.VMState <> vm_pc proj
+R19035:19039 Kernel.SimulationProof <> s_vm':122 var
+R19077:19081 Kernel.VMState <> vm_mu proj
+R19070:19074 Kernel.SimulationProof <> s_vm':122 var
+R19358:19371 Kernel.SimulationProof <> states_related def
+R19416:19438 Kernel.VMEncoding <> encode_vm_state_to_tape def
+R19475:19489 Kernel.VMEncoding <> encode_vm_state def
+R19454:19462 Coq.Lists.List <> app_nil_r thm
+R19475:19489 Kernel.VMEncoding <> encode_vm_state def
+R19454:19462 Coq.Lists.List <> app_nil_r thm
+R19475:19489 Kernel.VMEncoding <> encode_vm_state def
+R19454:19462 Coq.Lists.List <> app_nil_r thm
+R19507:19529 Kernel.VMEncoding <> decode_vm_state_correct thm
+R19507:19529 Kernel.VMEncoding <> decode_vm_state_correct thm
+prf 19544:19569 <> decode_vm_state_update_err
+binder 19582:19585 <> tape:123
+binder 19587:19587 <> s:124
+binder 19589:19595 <> new_err:125
+R19637:19644 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19622:19624 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19602:19616 Kernel.VMEncoding <> decode_vm_state def
+R19618:19621 Kernel.SimulationProof <> tape:123 var
+R19625:19628 Coq.Init.Datatypes <> Some constr
+R19630:19630 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19632:19633 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19636:19636 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19631:19631 Kernel.SimulationProof <> s:124 var
+R19634:19635 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R19697:19705 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19645:19659 Kernel.VMEncoding <> decode_vm_state def
+R19662:19682 Kernel.VMEncoding <> update_vm_err_in_tape def
+R19684:19687 Kernel.SimulationProof <> tape:123 var
+R19689:19695 Kernel.SimulationProof <> new_err:125 var
+R19706:19709 Coq.Init.Datatypes <> Some constr
+R19711:19714 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19952:19956 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19959:19959 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19715:19722 Kernel.VMState <> vm_graph proj
+R19715:19722 Kernel.VMState <> vm_graph proj
+R19715:19722 Kernel.VMState <> vm_graph proj
+R19755:19761 Kernel.VMState <> vm_csrs proj
+R19755:19761 Kernel.VMState <> vm_csrs proj
+R19793:19799 Kernel.VMState <> vm_regs proj
+R19793:19799 Kernel.VMState <> vm_regs proj
+R19831:19836 Kernel.VMState <> vm_mem proj
+R19831:19836 Kernel.VMState <> vm_mem proj
+R19867:19871 Kernel.VMState <> vm_pc proj
+R19867:19871 Kernel.VMState <> vm_pc proj
+R19901:19905 Kernel.VMState <> vm_mu proj
+R19901:19905 Kernel.VMState <> vm_mu proj
+R19935:19940 Kernel.VMState <> vm_err proj
+R19935:19940 Kernel.VMState <> vm_err proj
+R19730:19737 Kernel.VMState <> vm_graph proj
+R19727:19727 Kernel.SimulationProof <> s:124 var
+R19769:19775 Kernel.VMState <> vm_csrs proj
+R19766:19766 Kernel.SimulationProof <> s:124 var
+R19807:19813 Kernel.VMState <> vm_regs proj
+R19804:19804 Kernel.SimulationProof <> s:124 var
+R19844:19849 Kernel.VMState <> vm_mem proj
+R19841:19841 Kernel.SimulationProof <> s:124 var
+R19879:19883 Kernel.VMState <> vm_pc proj
+R19876:19876 Kernel.SimulationProof <> s:124 var
+R19913:19917 Kernel.VMState <> vm_mu proj
+R19910:19910 Kernel.SimulationProof <> s:124 var
+R19945:19951 Kernel.SimulationProof <> new_err:125 var
+R19957:19958 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R20011:20031 Kernel.VMEncoding <> update_vm_err_in_tape def
+R20082:20084 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20052:20076 Kernel.VMEncoding <> decode_vm_state_from_tape def
+R20085:20088 Coq.Init.Datatypes <> Some constr
+R20082:20084 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20052:20076 Kernel.VMEncoding <> decode_vm_state_from_tape def
+R20085:20088 Coq.Init.Datatypes <> Some constr
+R20105:20129 Kernel.VMEncoding <> decode_vm_state_from_tape def
+R20199:20221 Kernel.VMEncoding <> encode_vm_state_to_tape def
+R20258:20272 Kernel.VMEncoding <> encode_vm_state def
+R20309:20316 Kernel.VMState <> vm_graph proj
+R20309:20316 Kernel.VMState <> vm_graph proj
+R20309:20316 Kernel.VMState <> vm_graph proj
+R20368:20374 Kernel.VMState <> vm_csrs proj
+R20368:20374 Kernel.VMState <> vm_csrs proj
+R20416:20422 Kernel.VMState <> vm_regs proj
+R20416:20422 Kernel.VMState <> vm_regs proj
+R20464:20469 Kernel.VMState <> vm_mem proj
+R20464:20469 Kernel.VMState <> vm_mem proj
+R20519:20523 Kernel.VMState <> vm_pc proj
+R20519:20523 Kernel.VMState <> vm_pc proj
+R20572:20576 Kernel.VMState <> vm_mu proj
+R20572:20576 Kernel.VMState <> vm_mu proj
+R20625:20630 Kernel.VMState <> vm_err proj
+R20625:20630 Kernel.VMState <> vm_err proj
+R20321:20328 Kernel.VMState <> vm_graph proj
+R20379:20385 Kernel.VMState <> vm_csrs proj
+R20427:20433 Kernel.VMState <> vm_regs proj
+R20474:20479 Kernel.VMState <> vm_mem proj
+R20528:20532 Kernel.VMState <> vm_pc proj
+R20581:20585 Kernel.VMState <> vm_mu proj
+R20237:20245 Coq.Lists.List <> app_nil_r thm
+R20258:20272 Kernel.VMEncoding <> encode_vm_state def
+R20309:20316 Kernel.VMState <> vm_graph proj
+R20309:20316 Kernel.VMState <> vm_graph proj
+R20309:20316 Kernel.VMState <> vm_graph proj
+R20368:20374 Kernel.VMState <> vm_csrs proj
+R20368:20374 Kernel.VMState <> vm_csrs proj
+R20416:20422 Kernel.VMState <> vm_regs proj
+R20416:20422 Kernel.VMState <> vm_regs proj
+R20464:20469 Kernel.VMState <> vm_mem proj
+R20464:20469 Kernel.VMState <> vm_mem proj
+R20519:20523 Kernel.VMState <> vm_pc proj
+R20519:20523 Kernel.VMState <> vm_pc proj
+R20572:20576 Kernel.VMState <> vm_mu proj
+R20572:20576 Kernel.VMState <> vm_mu proj
+R20625:20630 Kernel.VMState <> vm_err proj
+R20625:20630 Kernel.VMState <> vm_err proj
+R20321:20328 Kernel.VMState <> vm_graph proj
+R20379:20385 Kernel.VMState <> vm_csrs proj
+R20427:20433 Kernel.VMState <> vm_regs proj
+R20474:20479 Kernel.VMState <> vm_mem proj
+R20528:20532 Kernel.VMState <> vm_pc proj
+R20581:20585 Kernel.VMState <> vm_mu proj
+R20237:20245 Coq.Lists.List <> app_nil_r thm
+R20258:20272 Kernel.VMEncoding <> encode_vm_state def
+R20309:20316 Kernel.VMState <> vm_graph proj
+R20309:20316 Kernel.VMState <> vm_graph proj
+R20309:20316 Kernel.VMState <> vm_graph proj
+R20368:20374 Kernel.VMState <> vm_csrs proj
+R20368:20374 Kernel.VMState <> vm_csrs proj
+R20416:20422 Kernel.VMState <> vm_regs proj
+R20416:20422 Kernel.VMState <> vm_regs proj
+R20464:20469 Kernel.VMState <> vm_mem proj
+R20464:20469 Kernel.VMState <> vm_mem proj
+R20519:20523 Kernel.VMState <> vm_pc proj
+R20519:20523 Kernel.VMState <> vm_pc proj
+R20572:20576 Kernel.VMState <> vm_mu proj
+R20572:20576 Kernel.VMState <> vm_mu proj
+R20625:20630 Kernel.VMState <> vm_err proj
+R20625:20630 Kernel.VMState <> vm_err proj
+R20321:20328 Kernel.VMState <> vm_graph proj
+R20379:20385 Kernel.VMState <> vm_csrs proj
+R20427:20433 Kernel.VMState <> vm_regs proj
+R20474:20479 Kernel.VMState <> vm_mem proj
+R20528:20532 Kernel.VMState <> vm_pc proj
+R20581:20585 Kernel.VMState <> vm_mu proj
+R20237:20245 Coq.Lists.List <> app_nil_r thm
+R20658:20680 Kernel.VMEncoding <> decode_vm_state_correct thm
+R20658:20680 Kernel.VMEncoding <> decode_vm_state_correct thm
+R20658:20680 Kernel.VMEncoding <> decode_vm_state_correct thm
+prf 20710:20735 <> compile_update_err_correct
+binder 20748:20754 <> new_err:126
+binder 20756:20763 <> s_kernel:127
+binder 20765:20768 <> s_vm:128
+R20803:20810 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20775:20788 Kernel.SimulationProof <> states_related def
+R20790:20793 Kernel.SimulationProof <> s_vm:128 var
+R20795:20802 Kernel.SimulationProof <> s_kernel:127 var
+R20824:20844 Kernel.VMEncoding <> update_vm_err_in_tape def
+R20856:20859 Kernel.Kernel <> tape proj
+R20846:20853 Kernel.SimulationProof <> s_kernel:127 var
+R20862:20868 Kernel.SimulationProof <> new_err:126 var
+binder 20815:20819 <> tape':129
+R20877:20890 Kernel.SimulationProof <> states_related def
+R20901:20908 Kernel.VMState <> vm_graph proj
+R20901:20908 Kernel.VMState <> vm_graph proj
+R20901:20908 Kernel.VMState <> vm_graph proj
+R20939:20945 Kernel.VMState <> vm_csrs proj
+R20939:20945 Kernel.VMState <> vm_csrs proj
+R20974:20980 Kernel.VMState <> vm_regs proj
+R20974:20980 Kernel.VMState <> vm_regs proj
+R21009:21014 Kernel.VMState <> vm_mem proj
+R21009:21014 Kernel.VMState <> vm_mem proj
+R21043:21047 Kernel.VMState <> vm_pc proj
+R21043:21047 Kernel.VMState <> vm_pc proj
+R21075:21079 Kernel.VMState <> vm_mu proj
+R21075:21079 Kernel.VMState <> vm_mu proj
+R21107:21112 Kernel.VMState <> vm_err proj
+R21107:21112 Kernel.VMState <> vm_err proj
+R20919:20926 Kernel.VMState <> vm_graph proj
+R20913:20916 Kernel.SimulationProof <> s_vm:128 var
+R20956:20962 Kernel.VMState <> vm_csrs proj
+R20950:20953 Kernel.SimulationProof <> s_vm:128 var
+R20991:20997 Kernel.VMState <> vm_regs proj
+R20985:20988 Kernel.SimulationProof <> s_vm:128 var
+R21025:21030 Kernel.VMState <> vm_mem proj
+R21019:21022 Kernel.SimulationProof <> s_vm:128 var
+R21058:21062 Kernel.VMState <> vm_pc proj
+R21052:21055 Kernel.SimulationProof <> s_vm:128 var
+R21090:21094 Kernel.VMState <> vm_mu proj
+R21084:21087 Kernel.SimulationProof <> s_vm:128 var
+R21117:21123 Kernel.SimulationProof <> new_err:126 var
+R21137:21140 Kernel.Kernel <> tape proj
+R21137:21140 Kernel.Kernel <> tape proj
+R21137:21140 Kernel.Kernel <> tape proj
+R21161:21164 Kernel.Kernel <> head proj
+R21161:21164 Kernel.Kernel <> head proj
+R21195:21202 Kernel.Kernel <> tm_state proj
+R21195:21202 Kernel.Kernel <> tm_state proj
+R21237:21243 Kernel.Kernel <> mu_cost proj
+R21237:21243 Kernel.Kernel <> mu_cost proj
+R21145:21149 Kernel.SimulationProof <> tape':129 var
+R21179:21182 Kernel.Kernel <> head proj
+R21169:21176 Kernel.SimulationProof <> s_kernel:127 var
+R21217:21224 Kernel.Kernel <> tm_state proj
+R21207:21214 Kernel.SimulationProof <> s_kernel:127 var
+R21258:21264 Kernel.Kernel <> mu_cost proj
+R21248:21255 Kernel.SimulationProof <> s_kernel:127 var
+R21370:21383 Kernel.SimulationProof <> states_related def
+R21426:21451 Kernel.SimulationProof <> decode_vm_state_update_err thm
+R21426:21451 Kernel.SimulationProof <> decode_vm_state_update_err thm
+prf 21483:21507 <> vm_step_kernel_simulation
+binder 21520:21524 <> trace:130
+binder 21526:21529 <> s_vm:131
+binder 21531:21538 <> s_kernel:132
+binder 21540:21544 <> instr:133
+binder 21546:21550 <> s_vm':134
+R21599:21606 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21557:21584 Kernel.SimulationProof <> states_related_for_execution def
+R21586:21589 Kernel.SimulationProof <> s_vm:131 var
+R21591:21598 Kernel.SimulationProof <> s_kernel:132 var
+R21648:21655 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21635:21637 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21607:21615 Coq.Lists.List <> nth_error def
+R21629:21633 Kernel.VMState <> vm_pc proj
+R21623:21626 Kernel.SimulationProof <> s_vm:131 var
+R21617:21621 Kernel.SimulationProof <> trace:130 var
+R21638:21641 Coq.Init.Datatypes <> Some constr
+R21643:21647 Kernel.SimulationProof <> instr:133 var
+R21680:21687 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21656:21662 Kernel.VMStep VMStep vm_step ind
+R21664:21667 Kernel.SimulationProof <> s_vm:131 var
+R21669:21673 Kernel.SimulationProof <> instr:133 var
+R21675:21679 Kernel.SimulationProof <> s_vm':134 var
+R21688:21694 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R21704:21711 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 21695:21703 <> s_kernel':135
+R21712:21739 Kernel.SimulationProof <> states_related_for_execution def
+R21741:21745 Kernel.SimulationProof <> s_vm':134 var
+R21747:21755 Kernel.SimulationProof <> s_kernel':135 var
+R22025:22028 Kernel.Kernel <> tape proj
+R22025:22028 Kernel.Kernel <> tape proj
+R22025:22028 Kernel.Kernel <> tape proj
+R22076:22079 Kernel.Kernel <> head proj
+R22076:22079 Kernel.Kernel <> head proj
+R22099:22106 Kernel.Kernel <> tm_state proj
+R22099:22106 Kernel.Kernel <> tm_state proj
+R22126:22132 Kernel.Kernel <> mu_cost proj
+R22126:22132 Kernel.Kernel <> mu_cost proj
+R22033:22055 Kernel.VMEncoding <> encode_vm_state_to_tape def
+R22144:22148 Kernel.VMState <> vm_mu proj
+R22025:22028 Kernel.Kernel <> tape proj
+R22025:22028 Kernel.Kernel <> tape proj
+R22025:22028 Kernel.Kernel <> tape proj
+R22076:22079 Kernel.Kernel <> head proj
+R22076:22079 Kernel.Kernel <> head proj
+R22099:22106 Kernel.Kernel <> tm_state proj
+R22099:22106 Kernel.Kernel <> tm_state proj
+R22126:22132 Kernel.Kernel <> mu_cost proj
+R22126:22132 Kernel.Kernel <> mu_cost proj
+R22033:22055 Kernel.VMEncoding <> encode_vm_state_to_tape def
+R22144:22148 Kernel.VMState <> vm_mu proj
+R22164:22191 Kernel.SimulationProof <> states_related_for_execution def
+R22236:22258 Kernel.VMEncoding <> encode_vm_state_to_tape def
+R22295:22309 Kernel.VMEncoding <> encode_vm_state def
+R22274:22282 Coq.Lists.List <> app_nil_r thm
+R22295:22309 Kernel.VMEncoding <> encode_vm_state def
+R22274:22282 Coq.Lists.List <> app_nil_r thm
+R22295:22309 Kernel.VMEncoding <> encode_vm_state def
+R22274:22282 Coq.Lists.List <> app_nil_r thm
+R22327:22349 Kernel.VMEncoding <> decode_vm_state_correct thm
+R22327:22349 Kernel.VMEncoding <> decode_vm_state_correct thm
+prf 22641:22658 <> vm_exec_simulation
+binder 22671:22674 <> fuel:136
+binder 22676:22680 <> trace:137
+binder 22682:22685 <> s_vm:138
+binder 22687:22694 <> s_kernel:139
+binder 22696:22700 <> s_vm':140
+R22749:22756 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22707:22734 Kernel.SimulationProof <> states_related_for_execution def
+R22736:22739 Kernel.SimulationProof <> s_vm:138 var
+R22741:22748 Kernel.SimulationProof <> s_kernel:139 var
+R22786:22793 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22757:22763 Kernel.SimulationProof <> vm_exec ind
+R22765:22768 Kernel.SimulationProof <> fuel:136 var
+R22770:22774 Kernel.SimulationProof <> trace:137 var
+R22776:22779 Kernel.SimulationProof <> s_vm:138 var
+R22781:22785 Kernel.SimulationProof <> s_vm':140 var
+R22794:22800 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R22810:22883 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 22801:22809 <> s_kernel':141
+R22884:22911 Kernel.SimulationProof <> states_related_for_execution def
+R22913:22917 Kernel.SimulationProof <> s_vm':140 var
+R22919:22927 Kernel.SimulationProof <> s_kernel':141 var
+R22994:22997 Kernel.Kernel <> tape proj
+R22994:22997 Kernel.Kernel <> tape proj
+R22994:22997 Kernel.Kernel <> tape proj
+R23045:23048 Kernel.Kernel <> head proj
+R23045:23048 Kernel.Kernel <> head proj
+R23068:23075 Kernel.Kernel <> tm_state proj
+R23068:23075 Kernel.Kernel <> tm_state proj
+R23095:23101 Kernel.Kernel <> mu_cost proj
+R23095:23101 Kernel.Kernel <> mu_cost proj
+R23002:23024 Kernel.VMEncoding <> encode_vm_state_to_tape def
+R23113:23117 Kernel.VMState <> vm_mu proj
+R22994:22997 Kernel.Kernel <> tape proj
+R22994:22997 Kernel.Kernel <> tape proj
+R22994:22997 Kernel.Kernel <> tape proj
+R23045:23048 Kernel.Kernel <> head proj
+R23045:23048 Kernel.Kernel <> head proj
+R23068:23075 Kernel.Kernel <> tm_state proj
+R23068:23075 Kernel.Kernel <> tm_state proj
+R23095:23101 Kernel.Kernel <> mu_cost proj
+R23095:23101 Kernel.Kernel <> mu_cost proj
+R23002:23024 Kernel.VMEncoding <> encode_vm_state_to_tape def
+R23113:23117 Kernel.VMState <> vm_mu proj
+R23133:23160 Kernel.SimulationProof <> states_related_for_execution def
+R23207:23229 Kernel.VMEncoding <> encode_vm_state_to_tape def
+R23268:23282 Kernel.VMEncoding <> encode_vm_state def
+R23247:23255 Coq.Lists.List <> app_nil_r thm
+R23268:23282 Kernel.VMEncoding <> encode_vm_state def
+R23247:23255 Coq.Lists.List <> app_nil_r thm
+R23268:23282 Kernel.VMEncoding <> encode_vm_state def
+R23247:23255 Coq.Lists.List <> app_nil_r thm
+R23302:23324 Kernel.VMEncoding <> decode_vm_state_correct thm
+R23302:23324 Kernel.VMEncoding <> decode_vm_state_correct thm
+prf 23339:23374 <> vm_is_a_correct_refinement_of_kernel
+binder 23387:23390 <> fuel:142
+binder 23392:23396 <> trace:143
+binder 23398:23401 <> s_vm:144
+binder 23403:23410 <> s_kernel:145
+binder 23412:23416 <> s_vm':146
+R23451:23458 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23423:23436 Kernel.SimulationProof <> states_related def
+R23438:23441 Kernel.SimulationProof <> s_vm:144 var
+R23443:23450 Kernel.SimulationProof <> s_kernel:145 var
+R23488:23495 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23459:23465 Kernel.SimulationProof <> vm_exec ind
+R23467:23470 Kernel.SimulationProof <> fuel:142 var
+R23472:23476 Kernel.SimulationProof <> trace:143 var
+R23478:23481 Kernel.SimulationProof <> s_vm:144 var
+R23483:23487 Kernel.SimulationProof <> s_vm':146 var
+R23496:23502 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R23515:23522 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 23503:23514 <> final_kernel:147
+R23553:23628 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R23545:23547 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23523:23528 Kernel.SimulationProof <> run_vm def
+R23530:23533 Kernel.SimulationProof <> fuel:142 var
+R23535:23539 Kernel.SimulationProof <> trace:143 var
+R23541:23544 Kernel.SimulationProof <> s_vm:144 var
+R23548:23552 Kernel.SimulationProof <> s_vm':146 var
+R23629:23642 Kernel.SimulationProof <> states_related def
+R23644:23648 Kernel.SimulationProof <> s_vm':146 var
+R23650:23661 Kernel.SimulationProof <> final_kernel:147 var
+R23732:23735 Kernel.Kernel <> tape proj
+R23732:23735 Kernel.Kernel <> tape proj
+R23732:23735 Kernel.Kernel <> tape proj
+R23783:23786 Kernel.Kernel <> head proj
+R23783:23786 Kernel.Kernel <> head proj
+R23818:23825 Kernel.Kernel <> tm_state proj
+R23818:23825 Kernel.Kernel <> tm_state proj
+R23857:23863 Kernel.Kernel <> mu_cost proj
+R23857:23863 Kernel.Kernel <> mu_cost proj
+R23740:23762 Kernel.VMEncoding <> encode_vm_state_to_tape def
+R23798:23802 Kernel.VMState <> vm_pc proj
+R23837:23841 Kernel.VMState <> vm_pc proj
+R23875:23879 Kernel.VMState <> vm_mu proj
+R23732:23735 Kernel.Kernel <> tape proj
+R23732:23735 Kernel.Kernel <> tape proj
+R23732:23735 Kernel.Kernel <> tape proj
+R23783:23786 Kernel.Kernel <> head proj
+R23783:23786 Kernel.Kernel <> head proj
+R23818:23825 Kernel.Kernel <> tm_state proj
+R23818:23825 Kernel.Kernel <> tm_state proj
+R23857:23863 Kernel.Kernel <> mu_cost proj
+R23857:23863 Kernel.Kernel <> mu_cost proj
+R23740:23762 Kernel.VMEncoding <> encode_vm_state_to_tape def
+R23798:23802 Kernel.VMState <> vm_pc proj
+R23837:23841 Kernel.VMState <> vm_pc proj
+R23875:23879 Kernel.VMState <> vm_mu proj
+R23905:23918 Kernel.SimulationProof <> vm_exec_run_vm thm
+R23905:23918 Kernel.SimulationProof <> vm_exec_run_vm thm
+R23945:23958 Kernel.SimulationProof <> states_related def
+R24007:24029 Kernel.VMEncoding <> encode_vm_state_to_tape def
+R24068:24082 Kernel.VMEncoding <> encode_vm_state def
+R24047:24055 Coq.Lists.List <> app_nil_r thm
+R24068:24082 Kernel.VMEncoding <> encode_vm_state def
+R24047:24055 Coq.Lists.List <> app_nil_r thm
+R24068:24082 Kernel.VMEncoding <> encode_vm_state def
+R24047:24055 Coq.Lists.List <> app_nil_r thm
+R24102:24124 Kernel.VMEncoding <> decode_vm_state_correct thm
+R24102:24124 Kernel.VMEncoding <> decode_vm_state_correct thm

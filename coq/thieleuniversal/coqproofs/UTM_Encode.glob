@@ -1,0 +1,458 @@
+DIGEST 497b8cfebfbd2b58b2177eff94d55ae9
+FThieleUniversal.UTM_Encode
+R15:32 ThieleUniversal.TM <> <> lib
+R50:68 ThieleUniversal.CPU <> <> lib
+R86:89 Coq.Lists.List <> <> lib
+R107:109 Coq.Init.Nat <> <> lib
+R127:132 Coq.ZArith.ZArith <> <> lib
+R150:152 Coq.micromega.Lia <> <> lib
+R162:174 Coq.Lists.List ListNotations <> mod
+mod 227:236 <> UTM_Encode
+def 332:339 UTM_Encode ENC_BASE
+def 404:411 UTM_Encode encode_z
+R418:418 Coq.Numbers.BinNums <> Z ind
+binder 414:414 <> z:1
+R423:425 Coq.Init.Datatypes <> nat ind
+R436:436 ThieleUniversal.UTM_Encode <> z:1 var
+def 506:513 UTM_Encode decode_z
+R520:522 Coq.Init.Datatypes <> nat ind
+binder 516:516 <> n:3
+R527:527 Coq.Numbers.BinNums <> Z ind
+R538:538 ThieleUniversal.UTM_Encode <> n:3 var
+def 666:676 UTM_Encode encode_rule
+binder 678:678 <> r:5
+R704:704 ThieleUniversal.UTM_Encode <> r:5 var
+R688:688 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R690:690 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R692:692 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R695:695 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R697:697 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R699:699 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R709:709 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R711:711 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R713:713 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R716:716 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R718:718 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R729:729 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R719:726 ThieleUniversal.UTM_Encode UTM_Encode encode_z def
+def 745:756 UTM_Encode encode_rules
+R761:768 Coq.Lists.List <> flat_map def
+R770:780 ThieleUniversal.UTM_Encode UTM_Encode encode_rule def
+prf 792:806 UTM_Encode encode_z_le_two
+binder 817:817 <> z:7
+R830:833 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R820:827 ThieleUniversal.UTM_Encode UTM_Encode encode_z def
+R829:829 ThieleUniversal.UTM_Encode <> z:7 var
+prf 1031:1049 UTM_Encode decode_z_abs_le_one
+binder 1060:1060 <> n:8
+R1082:1085 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R1064:1068 Coq.ZArith.BinInt Z abs def
+R1071:1078 ThieleUniversal.UTM_Encode UTM_Encode decode_z def
+R1080:1080 ThieleUniversal.UTM_Encode <> n:8 var
+def 1398:1415 UTM_Encode encode_instr_words
+R1420:1424 ThieleUniversal.CPU <> Instr ind
+binder 1418:1418 <> i:9
+R1429:1432 Coq.Init.Datatypes <> list ind
+R1434:1436 Coq.Init.Datatypes <> nat ind
+R1451:1451 ThieleUniversal.UTM_Encode <> i:9 var
+R1464:1472 ThieleUniversal.CPU <> LoadConst constr
+R1487:1487 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1489:1490 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1493:1494 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1496:1497 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1499:1499 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1507:1518 ThieleUniversal.CPU <> LoadIndirect constr
+R1530:1530 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1532:1533 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1536:1537 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1540:1541 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1543:1543 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1551:1563 ThieleUniversal.CPU <> StoreIndirect constr
+R1574:1574 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1576:1577 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1580:1581 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1584:1585 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1587:1587 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1595:1601 ThieleUniversal.CPU <> CopyReg constr
+R1618:1618 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1620:1621 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1624:1625 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1628:1629 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1631:1631 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1639:1646 ThieleUniversal.CPU <> AddConst constr
+R1662:1662 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1664:1665 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1668:1669 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1671:1672 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1674:1674 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1682:1687 ThieleUniversal.CPU <> AddReg constr
+R1705:1705 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1707:1708 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1711:1712 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1715:1716 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1719:1719 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1727:1732 ThieleUniversal.CPU <> SubReg constr
+R1750:1750 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1752:1753 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1756:1757 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1760:1761 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1764:1764 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1772:1773 ThieleUniversal.CPU <> Jz constr
+R1795:1795 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1797:1798 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1801:1802 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1809:1810 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1812:1812 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1820:1822 ThieleUniversal.CPU <> Jnz constr
+R1843:1843 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1845:1846 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1849:1850 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1857:1858 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1860:1860 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1868:1871 ThieleUniversal.CPU <> Halt constr
+R1891:1891 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1893:1894 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1896:1897 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1899:1900 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1902:1902 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+def 2137:2157 UTM_Encode decode_instr_from_mem
+R2166:2169 Coq.Init.Datatypes <> list ind
+R2171:2173 Coq.Init.Datatypes <> nat ind
+binder 2160:2162 <> mem:11
+R2182:2184 Coq.Init.Datatypes <> nat ind
+binder 2177:2178 <> pc:12
+R2189:2193 ThieleUniversal.CPU <> Instr ind
+R2216:2218 Coq.Lists.List <> nth def
+R2223:2225 ThieleUniversal.UTM_Encode <> mem:11 var
+R2220:2221 ThieleUniversal.UTM_Encode <> pc:12 var
+binder 2206:2211 <> opcode:13
+R2248:2250 Coq.Lists.List <> nth def
+R2261:2263 ThieleUniversal.UTM_Encode <> mem:11 var
+R2255:2257 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R2253:2254 ThieleUniversal.UTM_Encode <> pc:12 var
+binder 2240:2243 <> arg1:14
+R2286:2288 Coq.Lists.List <> nth def
+R2299:2301 ThieleUniversal.UTM_Encode <> mem:11 var
+R2293:2295 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R2291:2292 ThieleUniversal.UTM_Encode <> pc:12 var
+binder 2278:2281 <> arg2:15
+R2324:2326 Coq.Lists.List <> nth def
+R2337:2339 ThieleUniversal.UTM_Encode <> mem:11 var
+R2331:2333 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R2329:2330 ThieleUniversal.UTM_Encode <> pc:12 var
+binder 2316:2319 <> arg3:16
+R2356:2361 ThieleUniversal.UTM_Encode <> opcode:13 var
+R2379:2387 ThieleUniversal.CPU <> LoadConst constr
+R2389:2392 ThieleUniversal.UTM_Encode <> arg1:14 var
+R2394:2397 ThieleUniversal.UTM_Encode <> arg2:15 var
+R2410:2421 ThieleUniversal.CPU <> LoadIndirect constr
+R2423:2426 ThieleUniversal.UTM_Encode <> arg1:14 var
+R2428:2431 ThieleUniversal.UTM_Encode <> arg2:15 var
+R2444:2456 ThieleUniversal.CPU <> StoreIndirect constr
+R2458:2461 ThieleUniversal.UTM_Encode <> arg1:14 var
+R2463:2466 ThieleUniversal.UTM_Encode <> arg2:15 var
+R2479:2485 ThieleUniversal.CPU <> CopyReg constr
+R2487:2490 ThieleUniversal.UTM_Encode <> arg1:14 var
+R2492:2495 ThieleUniversal.UTM_Encode <> arg2:15 var
+R2508:2515 ThieleUniversal.CPU <> AddConst constr
+R2517:2520 ThieleUniversal.UTM_Encode <> arg1:14 var
+R2522:2525 ThieleUniversal.UTM_Encode <> arg2:15 var
+R2538:2543 ThieleUniversal.CPU <> AddReg constr
+R2545:2548 ThieleUniversal.UTM_Encode <> arg1:14 var
+R2550:2553 ThieleUniversal.UTM_Encode <> arg2:15 var
+R2555:2558 ThieleUniversal.UTM_Encode <> arg3:16 var
+R2571:2576 ThieleUniversal.CPU <> SubReg constr
+R2578:2581 ThieleUniversal.UTM_Encode <> arg1:14 var
+R2583:2586 ThieleUniversal.UTM_Encode <> arg2:15 var
+R2588:2591 ThieleUniversal.UTM_Encode <> arg3:16 var
+R2604:2605 ThieleUniversal.CPU <> Jz constr
+R2607:2610 ThieleUniversal.UTM_Encode <> arg1:14 var
+R2612:2615 ThieleUniversal.UTM_Encode <> arg2:15 var
+R2628:2630 ThieleUniversal.CPU <> Jnz constr
+R2632:2635 ThieleUniversal.UTM_Encode <> arg1:14 var
+R2637:2640 ThieleUniversal.UTM_Encode <> arg2:15 var
+R2653:2656 ThieleUniversal.CPU <> Halt constr
+def 2760:2770 UTM_Encode instr_small
+R2777:2781 ThieleUniversal.CPU <> Instr ind
+binder 2773:2773 <> i:18
+R2804:2804 ThieleUniversal.UTM_Encode <> i:18 var
+R2817:2825 ThieleUniversal.CPU <> LoadConst constr
+R2834:2845 ThieleUniversal.CPU <> LoadIndirect constr
+R2854:2860 ThieleUniversal.CPU <> CopyReg constr
+R2869:2876 ThieleUniversal.CPU <> AddConst constr
+R2889:2890 ThieleUniversal.CPU <> Jz constr
+R2899:2901 ThieleUniversal.CPU <> Jnz constr
+R2924:2927 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2913:2915 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2916:2923 ThieleUniversal.UTM_Encode UTM_Encode ENC_BASE def
+R2929:2931 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2932:2939 ThieleUniversal.UTM_Encode UTM_Encode ENC_BASE def
+R2924:2927 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2913:2915 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2916:2923 ThieleUniversal.UTM_Encode UTM_Encode ENC_BASE def
+R2929:2931 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2932:2939 ThieleUniversal.UTM_Encode UTM_Encode ENC_BASE def
+R2924:2927 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2913:2915 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2916:2923 ThieleUniversal.UTM_Encode UTM_Encode ENC_BASE def
+R2929:2931 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2932:2939 ThieleUniversal.UTM_Encode UTM_Encode ENC_BASE def
+R2924:2927 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2913:2915 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2916:2923 ThieleUniversal.UTM_Encode UTM_Encode ENC_BASE def
+R2929:2931 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2932:2939 ThieleUniversal.UTM_Encode UTM_Encode ENC_BASE def
+R2924:2927 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2913:2915 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2916:2923 ThieleUniversal.UTM_Encode UTM_Encode ENC_BASE def
+R2929:2931 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2932:2939 ThieleUniversal.UTM_Encode UTM_Encode ENC_BASE def
+R2924:2927 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2913:2915 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2916:2923 ThieleUniversal.UTM_Encode UTM_Encode ENC_BASE def
+R2929:2931 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2932:2939 ThieleUniversal.UTM_Encode UTM_Encode ENC_BASE def
+R2947:2959 ThieleUniversal.CPU <> StoreIndirect constr
+R2983:2986 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2972:2974 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2975:2982 ThieleUniversal.UTM_Encode UTM_Encode ENC_BASE def
+R2989:2991 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2992:2999 ThieleUniversal.UTM_Encode UTM_Encode ENC_BASE def
+R3007:3012 ThieleUniversal.CPU <> AddReg constr
+R3025:3030 ThieleUniversal.CPU <> SubReg constr
+R3065:3068 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3054:3056 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3057:3064 ThieleUniversal.UTM_Encode UTM_Encode ENC_BASE def
+R3082:3085 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3071:3073 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3074:3081 ThieleUniversal.UTM_Encode UTM_Encode ENC_BASE def
+R3088:3090 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3091:3098 ThieleUniversal.UTM_Encode UTM_Encode ENC_BASE def
+R3065:3068 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3054:3056 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3057:3064 ThieleUniversal.UTM_Encode UTM_Encode ENC_BASE def
+R3082:3085 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3071:3073 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3074:3081 ThieleUniversal.UTM_Encode UTM_Encode ENC_BASE def
+R3088:3090 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3091:3098 ThieleUniversal.UTM_Encode UTM_Encode ENC_BASE def
+R3106:3109 ThieleUniversal.CPU <> Halt constr
+R3114:3117 Coq.Init.Logic <> True ind
+prf 3365:3387 UTM_Encode decode_encode_LoadConst
+binder 3398:3399 <> rd:20
+binder 3401:3401 <> v:21
+R3432:3439 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3404:3414 ThieleUniversal.UTM_Encode UTM_Encode instr_small def
+R3417:3425 ThieleUniversal.CPU <> LoadConst constr
+R3427:3428 ThieleUniversal.UTM_Encode <> rd:20 var
+R3430:3430 ThieleUniversal.UTM_Encode <> v:21 var
+R3501:3503 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3440:3460 ThieleUniversal.UTM_Encode UTM_Encode decode_instr_from_mem def
+R3463:3480 ThieleUniversal.UTM_Encode UTM_Encode encode_instr_words def
+R3483:3491 ThieleUniversal.CPU <> LoadConst constr
+R3493:3494 ThieleUniversal.UTM_Encode <> rd:20 var
+R3496:3496 ThieleUniversal.UTM_Encode <> v:21 var
+R3504:3512 ThieleUniversal.CPU <> LoadConst constr
+R3514:3515 ThieleUniversal.UTM_Encode <> rd:20 var
+R3517:3517 ThieleUniversal.UTM_Encode <> v:21 var
+R3542:3559 ThieleUniversal.UTM_Encode UTM_Encode encode_instr_words def
+R3561:3581 ThieleUniversal.UTM_Encode UTM_Encode decode_instr_from_mem def
+R3583:3590 ThieleUniversal.UTM_Encode UTM_Encode ENC_BASE def
+prf 3628:3653 UTM_Encode decode_encode_LoadIndirect
+binder 3664:3665 <> rd:22
+binder 3667:3667 <> v:23
+R3701:3708 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3670:3680 ThieleUniversal.UTM_Encode UTM_Encode instr_small def
+R3683:3694 ThieleUniversal.CPU <> LoadIndirect constr
+R3696:3697 ThieleUniversal.UTM_Encode <> rd:22 var
+R3699:3699 ThieleUniversal.UTM_Encode <> v:23 var
+R3773:3775 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3709:3729 ThieleUniversal.UTM_Encode UTM_Encode decode_instr_from_mem def
+R3732:3749 ThieleUniversal.UTM_Encode UTM_Encode encode_instr_words def
+R3752:3763 ThieleUniversal.CPU <> LoadIndirect constr
+R3765:3766 ThieleUniversal.UTM_Encode <> rd:22 var
+R3768:3768 ThieleUniversal.UTM_Encode <> v:23 var
+R3776:3787 ThieleUniversal.CPU <> LoadIndirect constr
+R3789:3790 ThieleUniversal.UTM_Encode <> rd:22 var
+R3792:3792 ThieleUniversal.UTM_Encode <> v:23 var
+R3817:3834 ThieleUniversal.UTM_Encode UTM_Encode encode_instr_words def
+R3836:3856 ThieleUniversal.UTM_Encode UTM_Encode decode_instr_from_mem def
+R3858:3865 ThieleUniversal.UTM_Encode UTM_Encode ENC_BASE def
+prf 3903:3929 UTM_Encode decode_encode_StoreIndirect
+binder 3940:3941 <> ra:24
+binder 3943:3944 <> rv:25
+R3980:3987 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3947:3957 ThieleUniversal.UTM_Encode UTM_Encode instr_small def
+R3960:3972 ThieleUniversal.CPU <> StoreIndirect constr
+R3974:3975 ThieleUniversal.UTM_Encode <> ra:24 var
+R3977:3978 ThieleUniversal.UTM_Encode <> rv:25 var
+R4054:4056 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3988:4008 ThieleUniversal.UTM_Encode UTM_Encode decode_instr_from_mem def
+R4011:4028 ThieleUniversal.UTM_Encode UTM_Encode encode_instr_words def
+R4031:4043 ThieleUniversal.CPU <> StoreIndirect constr
+R4045:4046 ThieleUniversal.UTM_Encode <> ra:24 var
+R4048:4049 ThieleUniversal.UTM_Encode <> rv:25 var
+R4057:4069 ThieleUniversal.CPU <> StoreIndirect constr
+R4071:4072 ThieleUniversal.UTM_Encode <> ra:24 var
+R4074:4075 ThieleUniversal.UTM_Encode <> rv:25 var
+R4100:4117 ThieleUniversal.UTM_Encode UTM_Encode encode_instr_words def
+R4119:4139 ThieleUniversal.UTM_Encode UTM_Encode decode_instr_from_mem def
+R4141:4148 ThieleUniversal.UTM_Encode UTM_Encode ENC_BASE def
+prf 4186:4206 UTM_Encode decode_encode_CopyReg
+binder 4217:4218 <> rd:26
+binder 4220:4221 <> rs:27
+R4251:4258 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4224:4234 ThieleUniversal.UTM_Encode UTM_Encode instr_small def
+R4237:4243 ThieleUniversal.CPU <> CopyReg constr
+R4245:4246 ThieleUniversal.UTM_Encode <> rd:26 var
+R4248:4249 ThieleUniversal.UTM_Encode <> rs:27 var
+R4319:4321 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4259:4279 ThieleUniversal.UTM_Encode UTM_Encode decode_instr_from_mem def
+R4282:4299 ThieleUniversal.UTM_Encode UTM_Encode encode_instr_words def
+R4302:4308 ThieleUniversal.CPU <> CopyReg constr
+R4310:4311 ThieleUniversal.UTM_Encode <> rd:26 var
+R4313:4314 ThieleUniversal.UTM_Encode <> rs:27 var
+R4322:4328 ThieleUniversal.CPU <> CopyReg constr
+R4330:4331 ThieleUniversal.UTM_Encode <> rd:26 var
+R4333:4334 ThieleUniversal.UTM_Encode <> rs:27 var
+R4359:4376 ThieleUniversal.UTM_Encode UTM_Encode encode_instr_words def
+R4378:4398 ThieleUniversal.UTM_Encode UTM_Encode decode_instr_from_mem def
+R4400:4407 ThieleUniversal.UTM_Encode UTM_Encode ENC_BASE def
+prf 4445:4466 UTM_Encode decode_encode_AddConst
+binder 4477:4478 <> rd:28
+binder 4480:4480 <> v:29
+R4510:4517 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4483:4493 ThieleUniversal.UTM_Encode UTM_Encode instr_small def
+R4496:4503 ThieleUniversal.CPU <> AddConst constr
+R4505:4506 ThieleUniversal.UTM_Encode <> rd:28 var
+R4508:4508 ThieleUniversal.UTM_Encode <> v:29 var
+R4578:4580 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4518:4538 ThieleUniversal.UTM_Encode UTM_Encode decode_instr_from_mem def
+R4541:4558 ThieleUniversal.UTM_Encode UTM_Encode encode_instr_words def
+R4561:4568 ThieleUniversal.CPU <> AddConst constr
+R4570:4571 ThieleUniversal.UTM_Encode <> rd:28 var
+R4573:4573 ThieleUniversal.UTM_Encode <> v:29 var
+R4581:4588 ThieleUniversal.CPU <> AddConst constr
+R4590:4591 ThieleUniversal.UTM_Encode <> rd:28 var
+R4593:4593 ThieleUniversal.UTM_Encode <> v:29 var
+R4618:4635 ThieleUniversal.UTM_Encode UTM_Encode encode_instr_words def
+R4637:4657 ThieleUniversal.UTM_Encode UTM_Encode decode_instr_from_mem def
+R4659:4666 ThieleUniversal.UTM_Encode UTM_Encode ENC_BASE def
+prf 4704:4723 UTM_Encode decode_encode_AddReg
+binder 4734:4735 <> rd:30
+binder 4737:4738 <> r1:31
+binder 4740:4741 <> r2:32
+R4773:4780 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4744:4754 ThieleUniversal.UTM_Encode UTM_Encode instr_small def
+R4757:4762 ThieleUniversal.CPU <> AddReg constr
+R4764:4765 ThieleUniversal.UTM_Encode <> rd:30 var
+R4767:4768 ThieleUniversal.UTM_Encode <> r1:31 var
+R4770:4771 ThieleUniversal.UTM_Encode <> r2:32 var
+R4843:4845 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4781:4801 ThieleUniversal.UTM_Encode UTM_Encode decode_instr_from_mem def
+R4804:4821 ThieleUniversal.UTM_Encode UTM_Encode encode_instr_words def
+R4824:4829 ThieleUniversal.CPU <> AddReg constr
+R4831:4832 ThieleUniversal.UTM_Encode <> rd:30 var
+R4834:4835 ThieleUniversal.UTM_Encode <> r1:31 var
+R4837:4838 ThieleUniversal.UTM_Encode <> r2:32 var
+R4846:4851 ThieleUniversal.CPU <> AddReg constr
+R4853:4854 ThieleUniversal.UTM_Encode <> rd:30 var
+R4856:4857 ThieleUniversal.UTM_Encode <> r1:31 var
+R4859:4860 ThieleUniversal.UTM_Encode <> r2:32 var
+R4885:4902 ThieleUniversal.UTM_Encode UTM_Encode encode_instr_words def
+R4904:4924 ThieleUniversal.UTM_Encode UTM_Encode decode_instr_from_mem def
+R4926:4933 ThieleUniversal.UTM_Encode UTM_Encode ENC_BASE def
+prf 4971:4990 UTM_Encode decode_encode_SubReg
+binder 5001:5002 <> rd:33
+binder 5004:5005 <> r1:34
+binder 5007:5008 <> r2:35
+R5040:5047 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5011:5021 ThieleUniversal.UTM_Encode UTM_Encode instr_small def
+R5024:5029 ThieleUniversal.CPU <> SubReg constr
+R5031:5032 ThieleUniversal.UTM_Encode <> rd:33 var
+R5034:5035 ThieleUniversal.UTM_Encode <> r1:34 var
+R5037:5038 ThieleUniversal.UTM_Encode <> r2:35 var
+R5110:5112 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5048:5068 ThieleUniversal.UTM_Encode UTM_Encode decode_instr_from_mem def
+R5071:5088 ThieleUniversal.UTM_Encode UTM_Encode encode_instr_words def
+R5091:5096 ThieleUniversal.CPU <> SubReg constr
+R5098:5099 ThieleUniversal.UTM_Encode <> rd:33 var
+R5101:5102 ThieleUniversal.UTM_Encode <> r1:34 var
+R5104:5105 ThieleUniversal.UTM_Encode <> r2:35 var
+R5113:5118 ThieleUniversal.CPU <> SubReg constr
+R5120:5121 ThieleUniversal.UTM_Encode <> rd:33 var
+R5123:5124 ThieleUniversal.UTM_Encode <> r1:34 var
+R5126:5127 ThieleUniversal.UTM_Encode <> r2:35 var
+R5152:5169 ThieleUniversal.UTM_Encode UTM_Encode encode_instr_words def
+R5171:5191 ThieleUniversal.UTM_Encode UTM_Encode decode_instr_from_mem def
+R5193:5200 ThieleUniversal.UTM_Encode UTM_Encode ENC_BASE def
+prf 5238:5253 UTM_Encode decode_encode_Jz
+binder 5264:5265 <> rc:36
+binder 5267:5272 <> target:37
+R5301:5308 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5275:5285 ThieleUniversal.UTM_Encode UTM_Encode instr_small def
+R5288:5289 ThieleUniversal.CPU <> Jz constr
+R5291:5292 ThieleUniversal.UTM_Encode <> rc:36 var
+R5294:5299 ThieleUniversal.UTM_Encode <> target:37 var
+R5368:5370 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5309:5329 ThieleUniversal.UTM_Encode UTM_Encode decode_instr_from_mem def
+R5332:5349 ThieleUniversal.UTM_Encode UTM_Encode encode_instr_words def
+R5352:5353 ThieleUniversal.CPU <> Jz constr
+R5355:5356 ThieleUniversal.UTM_Encode <> rc:36 var
+R5358:5363 ThieleUniversal.UTM_Encode <> target:37 var
+R5371:5372 ThieleUniversal.CPU <> Jz constr
+R5374:5375 ThieleUniversal.UTM_Encode <> rc:36 var
+R5377:5382 ThieleUniversal.UTM_Encode <> target:37 var
+R5407:5424 ThieleUniversal.UTM_Encode UTM_Encode encode_instr_words def
+R5426:5446 ThieleUniversal.UTM_Encode UTM_Encode decode_instr_from_mem def
+R5448:5455 ThieleUniversal.UTM_Encode UTM_Encode ENC_BASE def
+prf 5493:5509 UTM_Encode decode_encode_Jnz
+binder 5520:5521 <> rc:38
+binder 5523:5528 <> target:39
+R5558:5565 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5531:5541 ThieleUniversal.UTM_Encode UTM_Encode instr_small def
+R5544:5546 ThieleUniversal.CPU <> Jnz constr
+R5548:5549 ThieleUniversal.UTM_Encode <> rc:38 var
+R5551:5556 ThieleUniversal.UTM_Encode <> target:39 var
+R5626:5628 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5566:5586 ThieleUniversal.UTM_Encode UTM_Encode decode_instr_from_mem def
+R5589:5606 ThieleUniversal.UTM_Encode UTM_Encode encode_instr_words def
+R5609:5611 ThieleUniversal.CPU <> Jnz constr
+R5613:5614 ThieleUniversal.UTM_Encode <> rc:38 var
+R5616:5621 ThieleUniversal.UTM_Encode <> target:39 var
+R5629:5631 ThieleUniversal.CPU <> Jnz constr
+R5633:5634 ThieleUniversal.UTM_Encode <> rc:38 var
+R5636:5641 ThieleUniversal.UTM_Encode <> target:39 var
+R5666:5683 ThieleUniversal.UTM_Encode UTM_Encode encode_instr_words def
+R5685:5705 ThieleUniversal.UTM_Encode UTM_Encode decode_instr_from_mem def
+R5707:5714 ThieleUniversal.UTM_Encode UTM_Encode ENC_BASE def
+prf 5752:5769 UTM_Encode decode_encode_Halt
+R5822:5824 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5773:5793 ThieleUniversal.UTM_Encode UTM_Encode decode_instr_from_mem def
+R5796:5813 ThieleUniversal.UTM_Encode UTM_Encode encode_instr_words def
+R5815:5818 ThieleUniversal.CPU <> Halt constr
+R5825:5828 ThieleUniversal.CPU <> Halt constr
+R5845:5862 ThieleUniversal.UTM_Encode UTM_Encode encode_instr_words def
+R5864:5884 ThieleUniversal.UTM_Encode UTM_Encode decode_instr_from_mem def
+R5886:5893 ThieleUniversal.UTM_Encode UTM_Encode ENC_BASE def
+prf 5931:5953 UTM_Encode decode_encode_roundtrip
+binder 5968:5968 <> i:40
+R5984:5987 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5971:5981 ThieleUniversal.UTM_Encode UTM_Encode instr_small def
+R5983:5983 ThieleUniversal.UTM_Encode <> i:40 var
+R6034:6036 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5988:6008 ThieleUniversal.UTM_Encode UTM_Encode decode_instr_from_mem def
+R6011:6028 ThieleUniversal.UTM_Encode UTM_Encode encode_instr_words def
+R6030:6030 ThieleUniversal.UTM_Encode <> i:40 var
+R6037:6037 ThieleUniversal.UTM_Encode <> i:40 var
+R6241:6263 ThieleUniversal.UTM_Encode UTM_Encode decode_encode_LoadConst thm
+R6298:6323 ThieleUniversal.UTM_Encode UTM_Encode decode_encode_LoadIndirect thm
+R6358:6384 ThieleUniversal.UTM_Encode UTM_Encode decode_encode_StoreIndirect thm
+R6419:6439 ThieleUniversal.UTM_Encode UTM_Encode decode_encode_CopyReg thm
+R6474:6495 ThieleUniversal.UTM_Encode UTM_Encode decode_encode_AddConst thm
+R6530:6549 ThieleUniversal.UTM_Encode UTM_Encode decode_encode_AddReg thm
+R6584:6603 ThieleUniversal.UTM_Encode UTM_Encode decode_encode_SubReg thm
+R6638:6653 ThieleUniversal.UTM_Encode UTM_Encode decode_encode_Jz thm
+R6688:6704 ThieleUniversal.UTM_Encode UTM_Encode decode_encode_Jnz thm
+R6738:6755 ThieleUniversal.UTM_Encode UTM_Encode decode_encode_Halt thm
+R6770:6779 ThieleUniversal.UTM_Encode UTM_Encode <> mod

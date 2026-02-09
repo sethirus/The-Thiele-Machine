@@ -1,0 +1,195 @@
+DIGEST 36b817101374491ae58d190016b5d831
+FThieleMachine.LogicIsomorphism
+R529:532 Coq.Lists.List <> <> lib
+R534:539 Coq.Strings.String <> <> lib
+R541:546 Coq.ZArith.ZArith <> <> lib
+R564:590 ThieleMachine.CoreSemantics <> <> lib
+ind 767:776 <> ThieleProp
+constr 792:796 <> TProp
+R803:811 ThieleMachine.CoreSemantics <> Partition rec
+binder 799:799 <> p:3
+scheme 767:776 <> ThieleProp_rect
+scheme 767:776 <> ThieleProp_ind
+scheme 767:776 <> ThieleProp_rec
+scheme 767:776 <> ThieleProp_sind
+ind 991:1001 <> ThieleProof
+constr 1017:1022 <> TProof
+R1029:1035 ThieleMachine.CoreSemantics <> Program def
+binder 1025:1025 <> p:6
+scheme 991:1001 <> ThieleProof_rect
+scheme 991:1001 <> ThieleProof_ind
+scheme 991:1001 <> ThieleProof_rec
+scheme 991:1001 <> ThieleProof_sind
+def 1093:1109 <> prop_to_partition
+R1117:1126 ThieleMachine.LogicIsomorphism <> ThieleProp ind
+binder 1112:1113 <> tp:7
+R1131:1139 ThieleMachine.CoreSemantics <> Partition rec
+R1152:1153 ThieleMachine.LogicIsomorphism <> tp:7 var
+R1162:1166 ThieleMachine.LogicIsomorphism <> TProp constr
+def 1192:1207 <> proof_to_program
+R1217:1227 ThieleMachine.LogicIsomorphism <> ThieleProof ind
+binder 1210:1213 <> tprf:9
+R1232:1238 ThieleMachine.CoreSemantics <> Program def
+R1251:1254 ThieleMachine.LogicIsomorphism <> tprf:9 var
+R1263:1268 ThieleMachine.LogicIsomorphism <> TProof constr
+def 1464:1478 <> cut_elimination
+R1488:1490 Coq.Init.Datatypes <> nat ind
+binder 1481:1484 <> fuel:11
+R1498:1502 ThieleMachine.CoreSemantics <> State rec
+binder 1494:1494 <> s:12
+R1507:1511 ThieleMachine.CoreSemantics <> State rec
+R1518:1520 ThieleMachine.CoreSemantics <> run def
+R1522:1525 ThieleMachine.LogicIsomorphism <> fuel:11 var
+R1527:1527 ThieleMachine.LogicIsomorphism <> s:12 var
+def 1925:1941 <> ValidProofForProp
+R1952:1962 ThieleMachine.LogicIsomorphism <> ThieleProof ind
+binder 1944:1948 <> proof:13
+R1973:1982 ThieleMachine.LogicIsomorphism <> ThieleProp ind
+binder 1966:1969 <> prop:14
+R1993:1995 Coq.Init.Datatypes <> nat ind
+binder 1986:1989 <> fuel:15
+R2014:2019 ThieleMachine.CoreSemantics <> Region def
+binder 1999:2010 <> initial_vars:16
+R2046:2061 ThieleMachine.LogicIsomorphism <> proof_to_program def
+R2063:2067 ThieleMachine.LogicIsomorphism <> proof:13 var
+binder 2038:2041 <> prog:17
+R2093:2109 ThieleMachine.LogicIsomorphism <> prop_to_partition def
+R2111:2114 ThieleMachine.LogicIsomorphism <> prop:14 var
+binder 2078:2088 <> target_part:18
+R2135:2147 ThieleMachine.CoreSemantics <> initial_state def
+R2149:2160 ThieleMachine.LogicIsomorphism <> initial_vars:16 var
+R2162:2165 ThieleMachine.LogicIsomorphism <> prog:17 var
+binder 2125:2130 <> s_init:19
+R2187:2189 ThieleMachine.CoreSemantics <> run def
+R2191:2194 ThieleMachine.LogicIsomorphism <> fuel:15 var
+R2196:2201 ThieleMachine.LogicIsomorphism <> s_init:19 var
+binder 2176:2182 <> s_final:20
+R2231:2234 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2224:2226 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2217:2222 ThieleMachine.CoreSemantics <> halted proj
+R2208:2214 ThieleMachine.LogicIsomorphism <> s_final:20 var
+R2227:2230 Coq.Init.Datatypes <> true constr
+R2254:2256 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2244:2252 ThieleMachine.CoreSemantics <> partition proj
+R2235:2241 ThieleMachine.LogicIsomorphism <> s_final:20 var
+R2257:2267 ThieleMachine.LogicIsomorphism <> target_part:18 var
+prf 2549:2566 <> proof_is_execution
+R2588:2598 ThieleMachine.LogicIsomorphism <> ThieleProof ind
+binder 2580:2584 <> proof:21
+R2609:2618 ThieleMachine.LogicIsomorphism <> ThieleProp ind
+binder 2602:2605 <> prop:22
+R2629:2631 Coq.Init.Datatypes <> nat ind
+binder 2622:2625 <> fuel:23
+R2642:2647 ThieleMachine.CoreSemantics <> Region def
+binder 2635:2638 <> vars:24
+R2693:2700 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2655:2671 ThieleMachine.LogicIsomorphism <> ValidProofForProp def
+R2673:2677 ThieleMachine.LogicIsomorphism <> proof:21 var
+R2679:2682 ThieleMachine.LogicIsomorphism <> prop:22 var
+R2684:2687 ThieleMachine.LogicIsomorphism <> fuel:23 var
+R2689:2692 ThieleMachine.LogicIsomorphism <> vars:24 var
+R2766:2768 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2759:2764 ThieleMachine.CoreSemantics <> halted proj
+R2702:2704 ThieleMachine.CoreSemantics <> run def
+R2706:2709 ThieleMachine.LogicIsomorphism <> fuel:23 var
+R2712:2724 ThieleMachine.CoreSemantics <> initial_state def
+R2726:2729 ThieleMachine.LogicIsomorphism <> vars:24 var
+R2732:2747 ThieleMachine.LogicIsomorphism <> proof_to_program def
+R2749:2753 ThieleMachine.LogicIsomorphism <> proof:21 var
+R2769:2772 Coq.Init.Datatypes <> true constr
+R2829:2845 ThieleMachine.LogicIsomorphism <> ValidProofForProp def
+def 3083:3098 <> ProofEquivalence
+R3109:3119 ThieleMachine.LogicIsomorphism <> ThieleProof ind
+binder 3101:3102 <> p1:25
+binder 3104:3105 <> p2:26
+R3130:3132 Coq.Init.Datatypes <> nat ind
+binder 3123:3126 <> fuel:27
+R3143:3148 ThieleMachine.CoreSemantics <> Region def
+binder 3136:3139 <> vars:28
+R3173:3175 ThieleMachine.CoreSemantics <> run def
+R3177:3180 ThieleMachine.LogicIsomorphism <> fuel:27 var
+R3183:3195 ThieleMachine.CoreSemantics <> initial_state def
+R3197:3200 ThieleMachine.LogicIsomorphism <> vars:28 var
+R3203:3218 ThieleMachine.LogicIsomorphism <> proof_to_program def
+R3220:3221 ThieleMachine.LogicIsomorphism <> p1:25 var
+binder 3167:3168 <> s1:29
+R3240:3242 ThieleMachine.CoreSemantics <> run def
+R3244:3247 ThieleMachine.LogicIsomorphism <> fuel:27 var
+R3250:3262 ThieleMachine.CoreSemantics <> initial_state def
+R3264:3267 ThieleMachine.LogicIsomorphism <> vars:28 var
+R3270:3285 ThieleMachine.LogicIsomorphism <> proof_to_program def
+R3287:3288 ThieleMachine.LogicIsomorphism <> p2:26 var
+binder 3234:3235 <> s2:30
+R3315:3318 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3308:3310 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3301:3306 ThieleMachine.CoreSemantics <> halted proj
+R3297:3298 ThieleMachine.LogicIsomorphism <> s1:29 var
+R3311:3314 Coq.Init.Datatypes <> true constr
+R3337:3342 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3330:3332 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3323:3328 ThieleMachine.CoreSemantics <> halted proj
+R3319:3320 ThieleMachine.LogicIsomorphism <> s2:30 var
+R3333:3336 Coq.Init.Datatypes <> true constr
+R3357:3359 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3347:3355 ThieleMachine.CoreSemantics <> partition proj
+R3343:3344 ThieleMachine.LogicIsomorphism <> s1:29 var
+R3364:3372 ThieleMachine.CoreSemantics <> partition proj
+R3360:3361 ThieleMachine.LogicIsomorphism <> s2:30 var
+def 3707:3726 <> ExecutionEquivalence
+R3737:3747 ThieleMachine.LogicIsomorphism <> ThieleProof ind
+binder 3729:3730 <> p1:31
+binder 3732:3733 <> p2:32
+R3758:3760 Coq.Init.Datatypes <> nat ind
+binder 3751:3754 <> fuel:33
+R3771:3776 ThieleMachine.CoreSemantics <> Region def
+binder 3764:3767 <> vars:34
+R3801:3803 ThieleMachine.CoreSemantics <> run def
+R3805:3808 ThieleMachine.LogicIsomorphism <> fuel:33 var
+R3811:3823 ThieleMachine.CoreSemantics <> initial_state def
+R3825:3828 ThieleMachine.LogicIsomorphism <> vars:34 var
+R3831:3846 ThieleMachine.LogicIsomorphism <> proof_to_program def
+R3848:3849 ThieleMachine.LogicIsomorphism <> p1:31 var
+binder 3795:3796 <> s1:35
+R3868:3870 ThieleMachine.CoreSemantics <> run def
+R3872:3875 ThieleMachine.LogicIsomorphism <> fuel:33 var
+R3878:3890 ThieleMachine.CoreSemantics <> initial_state def
+R3892:3895 ThieleMachine.LogicIsomorphism <> vars:34 var
+R3898:3913 ThieleMachine.LogicIsomorphism <> proof_to_program def
+R3915:3916 ThieleMachine.LogicIsomorphism <> p2:32 var
+binder 3862:3863 <> s2:36
+R3943:3946 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3936:3938 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3929:3934 ThieleMachine.CoreSemantics <> halted proj
+R3925:3926 ThieleMachine.LogicIsomorphism <> s1:35 var
+R3939:3942 Coq.Init.Datatypes <> true constr
+R3965:3970 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3958:3960 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3951:3956 ThieleMachine.CoreSemantics <> halted proj
+R3947:3948 ThieleMachine.LogicIsomorphism <> s2:36 var
+R3961:3964 Coq.Init.Datatypes <> true constr
+R3985:3987 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3975:3983 ThieleMachine.CoreSemantics <> partition proj
+R3971:3972 ThieleMachine.LogicIsomorphism <> s1:35 var
+R3992:4000 ThieleMachine.CoreSemantics <> partition proj
+R3988:3989 ThieleMachine.LogicIsomorphism <> s2:36 var
+prf 4189:4205 <> proof_equivalence
+R4227:4237 ThieleMachine.LogicIsomorphism <> ThieleProof ind
+binder 4219:4220 <> p1:37
+binder 4222:4223 <> p2:38
+R4248:4250 Coq.Init.Datatypes <> nat ind
+binder 4241:4244 <> fuel:39
+R4261:4266 ThieleMachine.CoreSemantics <> Region def
+binder 4254:4257 <> vars:40
+R4306:4310 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R4274:4289 ThieleMachine.LogicIsomorphism <> ProofEquivalence def
+R4291:4292 ThieleMachine.LogicIsomorphism <> p1:37 var
+R4294:4295 ThieleMachine.LogicIsomorphism <> p2:38 var
+R4297:4300 ThieleMachine.LogicIsomorphism <> fuel:39 var
+R4302:4305 ThieleMachine.LogicIsomorphism <> vars:40 var
+R4311:4330 ThieleMachine.LogicIsomorphism <> ExecutionEquivalence def
+R4332:4333 ThieleMachine.LogicIsomorphism <> p1:37 var
+R4335:4336 ThieleMachine.LogicIsomorphism <> p2:38 var
+R4338:4341 ThieleMachine.LogicIsomorphism <> fuel:39 var
+R4343:4346 ThieleMachine.LogicIsomorphism <> vars:40 var
+R4391:4406 ThieleMachine.LogicIsomorphism <> ProofEquivalence def
+R4409:4428 ThieleMachine.LogicIsomorphism <> ExecutionEquivalence def

@@ -1,0 +1,297 @@
+DIGEST 52bbf2e15bf8de981efa0391da783acf
+FThieleMachineVerification.ObservationInterface
+R603:606 Coq.Lists.List <> <> lib
+R608:613 Coq.ZArith.ZArith <> <> lib
+R615:617 Coq.micromega.Lia <> <> lib
+R619:624 Coq.QArith.QArith <> <> lib
+R651:670 Coq.Logic.ClassicalDescription <> <> lib
+R680:692 Coq.Lists.List ListNotations <> mod
+R737:763 ThieleMachine.CoreSemantics <> <> lib
+R781:806 ThieleMachine.BlindSighted <> <> lib
+rec 1056:1063 <> ObsState
+proj 1090:1112 <> obs_partition_signature
+proj 1156:1176 <> obs_mu_delta_sequence
+proj 1220:1235 <> obs_final_output
+R1116:1119 Coq.Init.Datatypes <> list ind
+R1121:1123 Coq.Init.Datatypes <> nat ind
+R1180:1183 Coq.Init.Datatypes <> list ind
+R1185:1185 Coq.Numbers.BinNums <> Z ind
+R1239:1244 Coq.Init.Datatypes <> option ind
+R1246:1248 Coq.Init.Datatypes <> nat ind
+def 1345:1352 <> ObsTrace
+R1357:1360 Coq.Init.Datatypes <> list ind
+R1362:1369 ThieleMachineVerification.ObservationInterface <> ObsState rec
+def 1618:1636 <> partition_signature
+R1643:1664 ThieleMachine.BlindSighted <> Partition rec
+binder 1639:1639 <> p:5
+R1669:1672 Coq.Init.Datatypes <> list ind
+R1674:1676 Coq.Init.Datatypes <> nat ind
+R1683:1685 Coq.Lists.List <> map def
+R1716:1735 ThieleMachine.BlindSighted <> modules proj
+R1713:1713 ThieleMachineVerification.ObservationInterface <> p:5 var
+binder 1692:1692 <> m:6
+R1697:1702 Coq.Init.Datatypes <> length def
+R1705:1707 Coq.Init.Datatypes <> snd def
+R1709:1709 ThieleMachineVerification.ObservationInterface <> m:6 var
+def 1825:1841 <> mu_delta_sequence
+R1853:1873 ThieleMachine.BlindSighted <> MuLedger rec
+binder 1844:1849 <> ledger:7
+R1878:1881 Coq.Init.Datatypes <> list ind
+R1883:1883 Coq.Numbers.BinNums <> Z ind
+R2166:2166 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2170:2170 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+def 2243:2255 <> observe_state
+R2262:2285 ThieleMachine.BlindSighted <> ThieleState rec
+binder 2258:2258 <> s:8
+R2290:2297 ThieleMachineVerification.ObservationInterface <> ObsState rec
+R2304:2313 ThieleMachineVerification.ObservationInterface <> mkObsState constr
+R2320:2338 ThieleMachineVerification.ObservationInterface <> partition_signature def
+R2343:2364 ThieleMachine.BlindSighted <> partition proj
+R2340:2340 ThieleMachineVerification.ObservationInterface <> s:8 var
+R2373:2389 ThieleMachineVerification.ObservationInterface <> mu_delta_sequence def
+R2394:2412 ThieleMachine.BlindSighted <> ledger proj
+R2391:2391 ThieleMachineVerification.ObservationInterface <> s:8 var
+R2423:2441 ThieleMachine.BlindSighted <> answer proj
+R2420:2420 ThieleMachineVerification.ObservationInterface <> s:8 var
+def 2509:2521 <> observe_trace
+R2528:2551 ThieleMachine.BlindSighted <> ThieleState rec
+binder 2524:2524 <> s:9
+R2563:2585 ThieleMachine.BlindSighted <> ThieleProg def
+binder 2555:2559 <> trace:10
+R2590:2597 ThieleMachineVerification.ObservationInterface <> ObsTrace def
+R2610:2614 ThieleMachineVerification.ObservationInterface <> trace:10 var
+R2625:2626 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2631:2631 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2647:2647 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2632:2644 ThieleMachineVerification.ObservationInterface <> observe_state def
+R2646:2646 ThieleMachineVerification.ObservationInterface <> s:9 var
+R2658:2661 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2752:2755 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2737:2749 ThieleMachineVerification.ObservationInterface <> observe_state def
+R2751:2751 ThieleMachineVerification.ObservationInterface <> s:9 var
+R2756:2768 ThieleMachineVerification.ObservationInterface <> observe_trace:11 def
+R2770:2770 ThieleMachineVerification.ObservationInterface <> s:9 var
+def 3053:3061 <> obs_equiv
+R3072:3095 ThieleMachine.BlindSighted <> ThieleState rec
+binder 3064:3065 <> s1:13
+binder 3067:3068 <> s2:14
+R3126:3128 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3110:3122 ThieleMachineVerification.ObservationInterface <> observe_state def
+R3124:3125 ThieleMachineVerification.ObservationInterface <> s1:13 var
+R3129:3141 ThieleMachineVerification.ObservationInterface <> observe_state def
+R3143:3144 ThieleMachineVerification.ObservationInterface <> s2:14 var
+prf 3424:3437 <> obs_equiv_refl
+binder 3448:3448 <> s:15
+R3453:3461 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R3463:3463 ThieleMachineVerification.ObservationInterface <> s:15 var
+R3465:3465 ThieleMachineVerification.ObservationInterface <> s:15 var
+R3494:3502 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+prf 3546:3558 <> obs_equiv_sym
+binder 3569:3570 <> s1:16
+binder 3572:3573 <> s2:17
+R3593:3596 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3578:3586 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R3588:3589 ThieleMachineVerification.ObservationInterface <> s1:16 var
+R3591:3592 ThieleMachineVerification.ObservationInterface <> s2:17 var
+R3597:3605 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R3607:3608 ThieleMachineVerification.ObservationInterface <> s2:17 var
+R3610:3611 ThieleMachineVerification.ObservationInterface <> s1:16 var
+R3646:3654 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+prf 3713:3727 <> obs_equiv_trans
+binder 3738:3739 <> s1:18
+binder 3741:3742 <> s2:19
+binder 3744:3745 <> s3:20
+R3765:3768 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3750:3758 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R3760:3761 ThieleMachineVerification.ObservationInterface <> s1:18 var
+R3763:3764 ThieleMachineVerification.ObservationInterface <> s2:19 var
+R3784:3787 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3769:3777 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R3779:3780 ThieleMachineVerification.ObservationInterface <> s2:19 var
+R3782:3783 ThieleMachineVerification.ObservationInterface <> s3:20 var
+R3788:3796 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R3798:3799 ThieleMachineVerification.ObservationInterface <> s1:18 var
+R3801:3802 ThieleMachineVerification.ObservationInterface <> s3:20 var
+R3848:3856 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+prf 4218:4232 <> obs_equiv_sound
+binder 4243:4244 <> s1:21
+binder 4246:4247 <> s2:22
+R4267:4272 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4252:4260 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R4262:4263 ThieleMachineVerification.ObservationInterface <> s1:21 var
+R4265:4266 ThieleMachineVerification.ObservationInterface <> s2:22 var
+R4289:4291 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4273:4285 ThieleMachineVerification.ObservationInterface <> observe_state def
+R4287:4288 ThieleMachineVerification.ObservationInterface <> s1:21 var
+R4292:4304 ThieleMachineVerification.ObservationInterface <> observe_state def
+R4306:4307 ThieleMachineVerification.ObservationInterface <> s2:22 var
+R4344:4352 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+prf 4691:4710 <> mu_gauge_freedom_obs
+binder 4721:4722 <> s1:23
+binder 4724:4725 <> s2:24
+binder 4727:4727 <> k:25
+R4789:4794 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4759:4761 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4736:4757 ThieleMachine.BlindSighted <> partition proj
+R4732:4733 ThieleMachineVerification.ObservationInterface <> s1:23 var
+R4766:4787 ThieleMachine.BlindSighted <> partition proj
+R4762:4763 ThieleMachineVerification.ObservationInterface <> s2:24 var
+R4846:4851 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4819:4821 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4799:4817 ThieleMachine.BlindSighted <> answer proj
+R4795:4796 ThieleMachineVerification.ObservationInterface <> s1:23 var
+R4826:4844 ThieleMachine.BlindSighted <> answer proj
+R4822:4823 ThieleMachineVerification.ObservationInterface <> s2:24 var
+R4960:4965 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4900:4907 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4878:4898 ThieleMachine.BlindSighted <> mu_total proj
+R4856:4874 ThieleMachine.BlindSighted <> ledger proj
+R4852:4853 ThieleMachineVerification.ObservationInterface <> s2:24 var
+R4956:4958 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R4934:4954 ThieleMachine.BlindSighted <> mu_total proj
+R4912:4930 ThieleMachine.BlindSighted <> ledger proj
+R4908:4909 ThieleMachineVerification.ObservationInterface <> s1:23 var
+R4959:4959 ThieleMachineVerification.ObservationInterface <> k:25 var
+R4966:4974 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R4976:4977 ThieleMachineVerification.ObservationInterface <> s1:23 var
+R4979:4980 ThieleMachineVerification.ObservationInterface <> s2:24 var
+R5032:5040 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R5043:5055 ThieleMachineVerification.ObservationInterface <> observe_state def
+R5067:5085 ThieleMachineVerification.ObservationInterface <> partition_signature def
+R5088:5104 ThieleMachineVerification.ObservationInterface <> mu_delta_sequence def
+rec 5420:5439 <> ObservationInterface
+proj 5504:5514 <> OI_ObsState
+proj 5568:5578 <> OI_ObsTrace
+proj 5627:5642 <> OI_observe_state
+proj 5664:5679 <> OI_observe_trace
+proj 5738:5749 <> OI_obs_equiv
+proj 5806:5822 <> OI_obs_equiv_refl
+proj 5845:5860 <> OI_obs_equiv_sym
+proj 5882:5899 <> OI_obs_equiv_trans
+proj 5923:5940 <> OI_obs_equiv_sound
+R5519:5526 ThieleMachineVerification.ObservationInterface <> ObsState rec
+R5583:5590 ThieleMachineVerification.ObservationInterface <> ObsTrace def
+R5647:5659 ThieleMachineVerification.ObservationInterface <> observe_state def
+R5684:5696 ThieleMachineVerification.ObservationInterface <> observe_trace def
+R5754:5762 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R5827:5840 ThieleMachineVerification.ObservationInterface <> obs_equiv_refl thm
+R5865:5877 ThieleMachineVerification.ObservationInterface <> obs_equiv_sym thm
+R5904:5918 ThieleMachineVerification.ObservationInterface <> obs_equiv_trans thm
+R5945:5959 ThieleMachineVerification.ObservationInterface <> obs_equiv_sound thm
+def 6020:6047 <> StandardObservationInterface
+R6051:6070 ThieleMachineVerification.ObservationInterface <> ObservationInterface rec
+R6077:6090 ThieleMachineVerification.ObservationInterface <> mkObsInterface constr
+def 6369:6373 <> Event
+R6386:6389 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6378:6385 ThieleMachineVerification.ObservationInterface <> ObsState rec
+def 6604:6618 <> state_amplitude
+R6625:6648 ThieleMachine.BlindSighted <> ThieleState rec
+binder 6621:6621 <> s:36
+R6653:6653 Coq.QArith.QArith_base <> Q rec
+R6772:6792 ThieleMachine.BlindSighted <> mu_total proj
+R6750:6768 ThieleMachine.BlindSighted <> ledger proj
+R6747:6747 ThieleMachineVerification.ObservationInterface <> s:36 var
+binder 6741:6742 <> mu:37
+R6806:6809 Coq.ZArith.BinInt <> ::Z_scope:x_'<?'_x not
+R6804:6805 ThieleMachineVerification.ObservationInterface <> mu:37 var
+R6963:6966 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R7003:7003 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R6967:6976 Coq.PArith.BinPos Pos of_nat def
+R6979:6986 Coq.ZArith.BinInt Z to_nat def
+R6990:6992 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R6993:6997 Coq.ZArith.BinInt Z abs def
+R6999:7000 ThieleMachineVerification.ObservationInterface <> mu:37 var
+def 7059:7074 <> born_probability
+R7081:7104 ThieleMachine.BlindSighted <> ThieleState rec
+binder 7077:7077 <> s:38
+R7109:7109 Coq.QArith.QArith_base <> Q rec
+R7127:7141 ThieleMachineVerification.ObservationInterface <> state_amplitude def
+R7143:7143 ThieleMachineVerification.ObservationInterface <> s:38 var
+binder 7120:7122 <> amp:39
+R7154:7156 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R7151:7153 ThieleMachineVerification.ObservationInterface <> amp:39 var
+R7157:7159 ThieleMachineVerification.ObservationInterface <> amp:39 var
+def 7317:7333 <> event_probability
+R7340:7344 ThieleMachineVerification.ObservationInterface <> Event def
+binder 7336:7336 <> e:40
+R7349:7349 Coq.QArith.QArith_base <> Q rec
+R7480:7506 Coq.Logic.ClassicalDescription <> excluded_middle_informative thm
+R7509:7515 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7517:7518 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 7516:7516 <> o:41
+R7519:7519 ThieleMachineVerification.ObservationInterface <> e:40 var
+R7521:7521 ThieleMachineVerification.ObservationInterface <> o:41 var
+prf 7616:7642 <> born_probability_normalized
+binder 7653:7653 <> s:42
+R7660:7663 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x_'<='_x not
+R7682:7685 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x_'<='_x not
+R7664:7679 ThieleMachineVerification.ObservationInterface <> born_probability def
+R7681:7681 ThieleMachineVerification.ObservationInterface <> s:42 var
+R7664:7679 ThieleMachineVerification.ObservationInterface <> born_probability def
+R7681:7681 ThieleMachineVerification.ObservationInterface <> s:42 var
+R7719:7734 ThieleMachineVerification.ObservationInterface <> born_probability def
+R7737:7751 ThieleMachineVerification.ObservationInterface <> state_amplitude def
+R7766:7770 Coq.ZArith.BinInt Z ltb def
+R7773:7793 ThieleMachine.BlindSighted <> mu_total proj
+R7796:7814 ThieleMachine.BlindSighted <> ledger proj
+R7852:7854 Coq.QArith.QArith_base <> Qle def
+R7881:7885 Coq.QArith.QArith_base <> Qmult def
+R7888:7890 Coq.QArith.QArith_base <> Qle def
+R8029:8036 Coq.ZArith.BinInt Z to_nat def
+R8040:8042 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R8043:8047 Coq.ZArith.BinInt Z abs def
+R8050:8070 ThieleMachine.BlindSighted <> mu_total proj
+R8073:8091 ThieleMachine.BlindSighted <> ledger proj
+R8126:8128 Coq.QArith.QArith_base <> Qle def
+R8158:8160 Coq.QArith.QArith_base <> Qle def
+R7766:7770 Coq.ZArith.BinInt Z ltb def
+R7773:7793 ThieleMachine.BlindSighted <> mu_total proj
+R7796:7814 ThieleMachine.BlindSighted <> ledger proj
+R8029:8036 Coq.ZArith.BinInt Z to_nat def
+R8040:8042 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R8043:8047 Coq.ZArith.BinInt Z abs def
+R8050:8070 ThieleMachine.BlindSighted <> mu_total proj
+R8073:8091 ThieleMachine.BlindSighted <> ledger proj
+prf 8251:8278 <> event_probability_normalized
+R8317:8319 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8284:8300 ThieleMachineVerification.ObservationInterface <> event_probability def
+R8312:8315 Coq.Init.Logic <> True ind
+R8341:8357 ThieleMachineVerification.ObservationInterface <> event_probability def
+R8372:8398 Coq.Logic.ClassicalDescription <> excluded_middle_informative thm
+R8401:8407 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8420:8421 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8412:8419 ThieleMachineVerification.ObservationInterface <> ObsState rec
+binder 8408:8408 <> o:43
+R8422:8425 Coq.Init.Logic <> True ind
+R8372:8398 Coq.Logic.ClassicalDescription <> excluded_middle_informative thm
+R8401:8407 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8420:8421 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8412:8419 ThieleMachineVerification.ObservationInterface <> ObsState rec
+binder 8408:8408 <> o:44
+R8422:8425 Coq.Init.Logic <> True ind
+R8486:8498 ThieleMachineVerification.ObservationInterface <> observe_state def
+R8501:8526 ThieleMachine.BlindSighted <> initial_state def
+R8528:8529 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8486:8498 ThieleMachineVerification.ObservationInterface <> observe_state def
+R8501:8526 ThieleMachine.BlindSighted <> initial_state def
+R8528:8529 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8540:8540 Coq.Init.Logic <> I constr
+R8540:8540 Coq.Init.Logic <> I constr
+prf 8615:8638 <> event_probability_nonneg
+binder 8651:8651 <> e:45
+R8656:8659 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R8660:8676 ThieleMachineVerification.ObservationInterface <> event_probability def
+R8678:8678 ThieleMachineVerification.ObservationInterface <> e:45 var
+R8711:8727 ThieleMachineVerification.ObservationInterface <> event_probability def
+R8742:8768 Coq.Logic.ClassicalDescription <> excluded_middle_informative thm
+R8771:8777 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8779:8780 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 8778:8778 <> o:46
+R8783:8783 ThieleMachineVerification.ObservationInterface <> o:46 var
+R8742:8768 Coq.Logic.ClassicalDescription <> excluded_middle_informative thm
+R8771:8777 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8779:8780 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 8778:8778 <> o:47
+R8783:8783 ThieleMachineVerification.ObservationInterface <> o:47 var
+R8804:8806 Coq.QArith.QArith_base <> Qle def
+R8832:8834 Coq.QArith.QArith_base <> Qle def

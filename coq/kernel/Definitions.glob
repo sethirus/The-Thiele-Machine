@@ -1,0 +1,148 @@
+DIGEST a426ec82107e1ea2d74d69e563a97527
+FKernel.Definitions
+R24:27 Coq.Lists.List <> <> lib
+R29:31 Coq.micromega.Lia <> <> lib
+R62:68 Kernel.VMState <> <> lib
+R98:103 Kernel.VMStep <> <> lib
+R133:145 Kernel.KernelPhysics <> <> lib
+R156:168 Coq.Lists.List ListNotations <> mod
+def 1103:1107 <> Trace
+R1112:1115 Coq.Init.Datatypes <> list ind
+R1117:1130 Kernel.VMStep VMStep vm_instruction ind
+def 1144:1149 <> Weight
+R1159:1162 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1154:1158 Kernel.Definitions <> Trace def
+R1163:1165 Coq.Init.Datatypes <> nat ind
+def 2170:2181 <> weight_empty
+R2188:2193 Kernel.Definitions <> Weight def
+binder 2184:2184 <> w:1
+R2212:2214 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2208:2208 Kernel.Definitions <> w:1 var
+R2210:2211 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+def 2230:2246 <> weight_sequential
+R2253:2258 Kernel.Definitions <> Weight def
+binder 2249:2249 <> w:2
+binder 2280:2281 <> t1:3
+binder 2283:2284 <> t2:4
+R2299:2301 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2287:2287 Kernel.Definitions <> w:2 var
+R2292:2295 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R2290:2291 Kernel.Definitions <> t1:3 var
+R2296:2297 Kernel.Definitions <> t2:4 var
+R2306:2308 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2302:2302 Kernel.Definitions <> w:2 var
+R2304:2305 Kernel.Definitions <> t1:3 var
+R2309:2309 Kernel.Definitions <> w:2 var
+R2311:2312 Kernel.Definitions <> t2:4 var
+def 2327:2339 <> disjoint_list
+binder 2342:2342 <> A:5
+R2361:2364 Coq.Init.Datatypes <> list ind
+R2366:2366 Kernel.Definitions <> A:5 var
+binder 2353:2354 <> xs:6
+binder 2356:2357 <> ys:7
+binder 2388:2388 <> x:8
+R2398:2401 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2391:2392 Coq.Lists.List <> In def
+R2396:2397 Kernel.Definitions <> xs:6 var
+R2394:2394 Kernel.Definitions <> x:8 var
+R2402:2403 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2404:2405 Coq.Lists.List <> In def
+R2409:2410 Kernel.Definitions <> ys:7 var
+R2407:2407 Kernel.Definitions <> x:8 var
+def 2425:2438 <> trace_disjoint
+R2449:2453 Kernel.Definitions <> Trace def
+binder 2441:2442 <> t1:9
+binder 2444:2445 <> t2:10
+R2515:2520 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2468:2480 Kernel.Definitions <> disjoint_list def
+R2500:2510 Kernel.KernelPhysics <> causal_cone def
+R2512:2513 Kernel.Definitions <> t2:10 var
+R2483:2493 Kernel.KernelPhysics <> causal_cone def
+R2495:2496 Kernel.Definitions <> t1:9 var
+R2521:2533 Kernel.Definitions <> disjoint_list def
+R2553:2563 Kernel.KernelPhysics <> causal_cone def
+R2565:2566 Kernel.Definitions <> t1:9 var
+R2536:2546 Kernel.KernelPhysics <> causal_cone def
+R2548:2549 Kernel.Definitions <> t2:10 var
+def 3443:3466 <> weight_disjoint_commutes
+R3473:3478 Kernel.Definitions <> Weight def
+binder 3469:3469 <> w:11
+binder 3500:3501 <> t1:12
+binder 3503:3504 <> t2:13
+R3531:3538 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3511:3524 Kernel.Definitions <> trace_disjoint def
+R3526:3527 Kernel.Definitions <> t1:12 var
+R3529:3530 Kernel.Definitions <> t2:13 var
+R3551:3553 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3539:3539 Kernel.Definitions <> w:11 var
+R3544:3547 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R3542:3543 Kernel.Definitions <> t1:12 var
+R3548:3549 Kernel.Definitions <> t2:13 var
+R3554:3554 Kernel.Definitions <> w:11 var
+R3559:3562 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R3557:3558 Kernel.Definitions <> t2:13 var
+R3563:3564 Kernel.Definitions <> t1:12 var
+def 3580:3590 <> weight_laws
+R3597:3602 Kernel.Definitions <> Weight def
+binder 3593:3593 <> w:14
+R3631:3634 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3617:3628 Kernel.Definitions <> weight_empty def
+R3630:3630 Kernel.Definitions <> w:14 var
+R3654:3657 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3635:3651 Kernel.Definitions <> weight_sequential def
+R3653:3653 Kernel.Definitions <> w:14 var
+R3658:3681 Kernel.Definitions <> weight_disjoint_commutes def
+R3683:3683 Kernel.Definitions <> w:14 var
+def 4818:4834 <> singleton_uniform
+R4841:4846 Kernel.Definitions <> Weight def
+binder 4837:4837 <> w:15
+binder 4868:4868 <> i:16
+binder 4870:4870 <> j:17
+R4878:4880 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4873:4873 Kernel.Definitions <> w:15 var
+R4875:4875 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4877:4877 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4876:4876 Kernel.Definitions <> i:16 var
+R4881:4881 Kernel.Definitions <> w:15 var
+R4883:4883 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4885:4885 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4884:4884 Kernel.Definitions <> j:17 var
+def 4977:4994 <> unit_normalization
+R5001:5006 Kernel.Definitions <> Weight def
+binder 4997:4997 <> w:18
+R5037:5039 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5021:5021 Kernel.Definitions <> w:18 var
+R5023:5023 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5036:5036 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5024:5033 Kernel.VMStep VMStep instr_halt constr
+def 6349:6360 <> region_equiv
+R6371:6377 Kernel.VMState <> VMState rec
+binder 6363:6364 <> s1:19
+binder 6366:6367 <> s2:20
+binder 6399:6401 <> mid:21
+R6427:6429 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6404:6419 Kernel.KernelPhysics <> ObservableRegion def
+R6421:6422 Kernel.Definitions <> s1:19 var
+R6424:6426 Kernel.Definitions <> mid:21 var
+R6430:6445 Kernel.KernelPhysics <> ObservableRegion def
+R6447:6448 Kernel.Definitions <> s2:20 var
+R6450:6452 Kernel.Definitions <> mid:21 var
+def 6467:6491 <> finite_region_equiv_class
+R6498:6504 Kernel.VMState <> VMState rec
+binder 6494:6494 <> s:22
+R6519:6525 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6542:6547 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6530:6533 Coq.Init.Datatypes <> list ind
+R6535:6541 Kernel.VMState <> VMState rec
+binder 6526:6526 <> l:23
+R6555:6562 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6548:6552 Coq.Lists.List <> NoDup ind
+R6554:6554 Kernel.Definitions <> l:23 var
+binder 6570:6571 <> s':24
+R6591:6594 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6574:6585 Kernel.Definitions <> region_equiv def
+R6587:6587 Kernel.Definitions <> s:22 var
+R6589:6590 Kernel.Definitions <> s':24 var
+R6595:6596 Coq.Lists.List <> In def
+R6601:6601 Kernel.Definitions <> l:23 var
+R6598:6599 Kernel.Definitions <> s':24 var

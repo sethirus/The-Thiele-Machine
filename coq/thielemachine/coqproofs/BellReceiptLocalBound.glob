@@ -1,0 +1,130 @@
+DIGEST 3792fd2456655c0998915921c2063365
+FThieleMachine.BellReceiptLocalBound
+R24:27 Coq.Lists.List <> <> lib
+R29:32 Coq.Bool.Bool <> <> lib
+R34:39 Coq.QArith.QArith <> <> lib
+R41:43 Coq.micromega.Lia <> <> lib
+R53:65 Coq.Lists.List ListNotations <> mod
+R123:136 ThieleMachine.BellInequality <> <> lib
+R173:192 ThieleMachine.BellReceiptSemantics <> <> lib
+R229:248 ThieleMachine.BellReceiptSoundness <> <> lib
+R285:307 ThieleMachine.BellReceiptLocalGeneral <> <> lib
+R344:364 ThieleMachine.ThieleMachineConcrete <> <> lib
+def 827:836 <> nat_of_bit
+R843:845 ThieleMachine.BellInequality <> Bit ind
+binder 839:839 <> b:1
+R850:852 Coq.Init.Datatypes <> nat ind
+R865:865 ThieleMachine.BellReceiptLocalBound <> b:1 var
+R876:877 ThieleMachine.BellInequality <> B0 constr
+R892:893 ThieleMachine.BellInequality <> B1 constr
+def 923:934 <> bit_of_nat01
+R941:943 Coq.Init.Datatypes <> nat ind
+binder 937:937 <> n:3
+R948:950 ThieleMachine.BellInequality <> Bit ind
+R960:966 Coq.Arith.PeanoNat Nat eqb def
+R968:968 ThieleMachine.BellReceiptLocalBound <> n:3 var
+R985:986 ThieleMachine.BellInequality <> B1 constr
+R977:978 ThieleMachine.BellInequality <> B0 constr
+def 1001:1016 <> prog_of_strategy
+R1023:1030 ThieleMachine.BellInequality <> Strategy def
+binder 1019:1019 <> s:4
+R1035:1038 Coq.Init.Datatypes <> list ind
+R1040:1050 ThieleMachine.ThieleMachineConcrete <> ThieleInstr ind
+R1074:1074 ThieleMachine.BellReceiptLocalBound <> s:4 var
+R1062:1062 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1065:1066 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1069:1069 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1091:1100 ThieleMachine.BellReceiptLocalBound <> nat_of_bit def
+R1103:1111 ThieleMachine.BellInequality <> resp_eval def
+R1116:1117 ThieleMachine.BellInequality <> B0 constr
+binder 1085:1086 <> A0:6
+R1135:1144 ThieleMachine.BellReceiptLocalBound <> nat_of_bit def
+R1147:1155 ThieleMachine.BellInequality <> resp_eval def
+R1160:1161 ThieleMachine.BellInequality <> B1 constr
+binder 1129:1130 <> A1:7
+R1180:1189 ThieleMachine.BellReceiptLocalBound <> nat_of_bit def
+R1192:1200 ThieleMachine.BellInequality <> resp_eval def
+R1205:1206 ThieleMachine.BellInequality <> B0 constr
+binder 1173:1175 <> B0n:8
+R1225:1234 ThieleMachine.BellReceiptLocalBound <> nat_of_bit def
+R1237:1245 ThieleMachine.BellInequality <> resp_eval def
+R1250:1251 ThieleMachine.BellInequality <> B1 constr
+binder 1218:1220 <> B1n:9
+R1259:1260 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1282:1287 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1309:1314 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1336:1341 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1363:1364 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1261:1270 ThieleMachine.ThieleMachineConcrete <> CHSH_TRIAL constr
+R1276:1277 ThieleMachine.BellReceiptLocalBound <> A0:6 var
+R1279:1281 ThieleMachine.BellReceiptLocalBound <> B0n:8 var
+R1288:1297 ThieleMachine.ThieleMachineConcrete <> CHSH_TRIAL constr
+R1303:1304 ThieleMachine.BellReceiptLocalBound <> A0:6 var
+R1306:1308 ThieleMachine.BellReceiptLocalBound <> B1n:9 var
+R1315:1324 ThieleMachine.ThieleMachineConcrete <> CHSH_TRIAL constr
+R1330:1331 ThieleMachine.BellReceiptLocalBound <> A1:7 var
+R1333:1335 ThieleMachine.BellReceiptLocalBound <> B0n:8 var
+R1342:1351 ThieleMachine.ThieleMachineConcrete <> CHSH_TRIAL constr
+R1357:1358 ThieleMachine.BellReceiptLocalBound <> A1:7 var
+R1360:1362 ThieleMachine.BellReceiptLocalBound <> B1n:9 var
+def 1379:1398 <> trials_from_receipts
+R1406:1418 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
+binder 1401:1402 <> s0:10
+R1429:1432 Coq.Init.Datatypes <> list ind
+R1434:1444 ThieleMachine.ThieleMachineConcrete <> ThieleInstr ind
+binder 1422:1425 <> prog:11
+R1449:1452 Coq.Init.Datatypes <> list ind
+R1454:1458 ThieleMachine.BellReceiptSemantics <> Trial rec
+R1465:1491 ThieleMachine.BellReceiptSoundness <> trials_of_concrete_receipts def
+R1494:1513 ThieleMachine.ThieleMachineConcrete <> concrete_receipts_of def
+R1515:1516 ThieleMachine.BellReceiptLocalBound <> s0:10 var
+R1518:1521 ThieleMachine.BellReceiptLocalBound <> prog:11 var
+prf 1534:1568 <> local_fragment_CHSH_le_2_end_to_end
+binder 1581:1582 <> s0:12
+binder 1584:1588 <> strat:13
+R1668:1671 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R1596:1599 ThieleMachine.BellInequality <> Qabs def
+R1602:1615 ThieleMachine.BellReceiptSemantics <> chsh_of_trials def
+R1618:1637 ThieleMachine.BellReceiptLocalBound <> trials_from_receipts def
+R1639:1640 ThieleMachine.BellReceiptLocalBound <> s0:12 var
+R1643:1658 ThieleMachine.BellReceiptLocalBound <> prog_of_strategy def
+R1660:1664 ThieleMachine.BellReceiptLocalBound <> strat:13 var
+R1673:1673 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R1777:1780 ThieleMachine.BellInequality <> out0 proj
+R1777:1780 ThieleMachine.BellInequality <> out0 proj
+R1777:1780 ThieleMachine.BellInequality <> out0 proj
+R1789:1792 ThieleMachine.BellInequality <> out1 proj
+R1789:1792 ThieleMachine.BellInequality <> out1 proj
+R1777:1780 ThieleMachine.BellInequality <> out0 proj
+R1777:1780 ThieleMachine.BellInequality <> out0 proj
+R1777:1780 ThieleMachine.BellInequality <> out0 proj
+R1789:1792 ThieleMachine.BellInequality <> out1 proj
+R1789:1792 ThieleMachine.BellInequality <> out1 proj
+R1822:1825 ThieleMachine.BellInequality <> out0 proj
+R1822:1825 ThieleMachine.BellInequality <> out0 proj
+R1822:1825 ThieleMachine.BellInequality <> out0 proj
+R1834:1837 ThieleMachine.BellInequality <> out1 proj
+R1834:1837 ThieleMachine.BellInequality <> out1 proj
+R1822:1825 ThieleMachine.BellInequality <> out0 proj
+R1822:1825 ThieleMachine.BellInequality <> out0 proj
+R1822:1825 ThieleMachine.BellInequality <> out0 proj
+R1834:1837 ThieleMachine.BellInequality <> out1 proj
+R1834:1837 ThieleMachine.BellInequality <> out1 proj
+R1859:1878 ThieleMachine.BellReceiptLocalBound <> trials_from_receipts def
+R1891:1920 ThieleMachine.BellReceiptSoundness <> trials_of_concrete_receipts_of thm
+R1891:1920 ThieleMachine.BellReceiptSoundness <> trials_of_concrete_receipts_of thm
+R1891:1920 ThieleMachine.BellReceiptSoundness <> trials_of_concrete_receipts_of thm
+R2003:2025 ThieleMachine.BellReceiptLocalGeneral <> local_trials_CHSH_bound thm
+R2040:2053 ThieleMachine.BellReceiptSoundness <> trials_of_prog def
+R2056:2071 ThieleMachine.BellReceiptLocalBound <> prog_of_strategy def
+R2073:2073 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2077:2078 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2082:2082 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2003:2025 ThieleMachine.BellReceiptLocalGeneral <> local_trials_CHSH_bound thm
+R2040:2053 ThieleMachine.BellReceiptSoundness <> trials_of_prog def
+R2056:2071 ThieleMachine.BellReceiptLocalBound <> prog_of_strategy def
+R2073:2073 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2077:2078 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2082:2082 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2129:2144 ThieleMachine.BellReceiptLocalBound <> prog_of_strategy def
+R2299:2314 ThieleMachine.BellReceiptLocalBound <> prog_of_strategy def

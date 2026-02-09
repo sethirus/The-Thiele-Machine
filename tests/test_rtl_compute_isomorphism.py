@@ -120,7 +120,7 @@ def test_rtl_python_coq_compute_isomorphism() -> None:
     # Semantics must match across:
     #   - Python VM (thielecpu/vm.py)
     #   - extracted Coq semantics runner (build/extracted_vm_runner)
-    #   - RTL sim (thielecpu/hardware/thiele_cpu.v + thiele_cpu_tb.v)
+    #   - RTL sim (thielecpu/hardware/rtl/thiele_cpu_unified.v + thiele_cpu_tb.v)
 
     init_regs = [0] * 32
     init_mem = [0] * 256

@@ -1,0 +1,149 @@
+DIGEST 7d2a239d32aae7f263c4a2b3ce1da091
+FThieleMachineVerification.Prediction
+R557:560 Coq.Lists.List <> <> lib
+R562:567 Coq.ZArith.ZArith <> <> lib
+R569:571 Coq.micromega.Lia <> <> lib
+R573:578 Coq.QArith.QArith <> <> lib
+R588:600 Coq.Lists.List ListNotations <> mod
+R645:670 ThieleMachine.BlindSighted <> <> lib
+R688:733 ThieleMachineVerification.ObservationInterface <> <> lib
+R751:789 ThieleMachineVerification.Admissibility <> <> lib
+R807:846 ThieleMachineVerification.PhysicsPillars <> <> lib
+R864:891 ThieleMachine.BellInequality <> <> lib
+def 1928:1942 <> tsirelson_bound
+R1946:1946 Coq.QArith.QArith_base <> Q rec
+R1955:1957 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+def 1997:2011 <> partition_bound
+R2015:2015 Coq.QArith.QArith_base <> Q rec
+R2022:2024 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+def 2054:2068 <> algebraic_bound
+R2072:2072 Coq.QArith.QArith_base <> Q rec
+R2078:2080 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+prf 2151:2177 <> partition_exceeds_tsirelson
+R2198:2200 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
+R2183:2197 ThieleMachineVerification.Prediction <> tsirelson_bound def
+R2201:2215 ThieleMachineVerification.Prediction <> partition_bound def
+R2234:2248 ThieleMachineVerification.Prediction <> tsirelson_bound def
+R2251:2265 ThieleMachineVerification.Prediction <> partition_bound def
+R2277:2279 Coq.QArith.QArith_base <> Qlt def
+prf 2367:2391 <> partition_below_algebraic
+R2412:2414 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
+R2397:2411 ThieleMachineVerification.Prediction <> partition_bound def
+R2415:2429 ThieleMachineVerification.Prediction <> algebraic_bound def
+R2448:2462 ThieleMachineVerification.Prediction <> partition_bound def
+R2465:2479 ThieleMachineVerification.Prediction <> algebraic_bound def
+R2491:2493 Coq.QArith.QArith_base <> Qlt def
+def 3451:3473 <> experimental_prediction
+R3487:3493 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3506:3562 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3505:3505 Coq.QArith.QArith_base <> Q rec
+binder 3494:3501 <> system_S:1
+R3567:3652 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3563:3566 Coq.Init.Logic <> True ind
+R3657:3745 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3653:3656 Coq.Init.Logic <> True ind
+R3772:3779 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3761:3763 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
+R3746:3760 ThieleMachineVerification.Prediction <> tsirelson_bound def
+R3764:3771 ThieleMachineVerification.Prediction <> system_S:1 var
+R3788:3791 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R3780:3787 ThieleMachineVerification.Prediction <> system_S:1 var
+R3792:3806 ThieleMachineVerification.Prediction <> partition_bound def
+def 4364:4386 <> falsification_condition
+R4426:4436 ThieleMachine.BlindSighted <> ThieleState rec
+binder 4407:4422 <> partition_system:2
+R4488:4541 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4443:4458 ThieleMachineVerification.Admissibility <> spatial_locality def
+R4478:4486 ThieleMachine.BlindSighted <> partition proj
+R4460:4475 ThieleMachineVerification.Prediction <> partition_system:2 var
+R4562:4562 Coq.QArith.QArith_base <> Q rec
+binder 4549:4558 <> measured_S:3
+R4650:4705 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4631:4634 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R4621:4630 ThieleMachineVerification.Prediction <> measured_S:3 var
+R4635:4649 ThieleMachineVerification.Prediction <> tsirelson_bound def
+R4706:4710 Coq.Init.Logic <> False ind
+prf 4722:4746 <> prediction_is_falsifiable
+R4775:4778 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R4752:4774 ThieleMachineVerification.Prediction <> experimental_prediction def
+R4779:4801 ThieleMachineVerification.Prediction <> falsification_condition def
+R4828:4850 ThieleMachineVerification.Prediction <> experimental_prediction def
+R4862:4876 ThieleMachineVerification.Prediction <> partition_bound def
+R4862:4876 ThieleMachineVerification.Prediction <> partition_bound def
+R4944:4970 ThieleMachineVerification.Prediction <> partition_exceeds_tsirelson thm
+R4944:4970 ThieleMachineVerification.Prediction <> partition_exceeds_tsirelson thm
+R4984:4986 Coq.QArith.QArith_base <> Qle def
+prf 6082:6113 <> supra_quantum_requires_discovery
+R6129:6139 ThieleMachine.BlindSighted <> ThieleState rec
+binder 6125:6125 <> s:4
+R6150:6159 ThieleMachine.BlindSighted <> ThieleProg def
+binder 6143:6146 <> prog:5
+R6208:6208 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6300:6358 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6209:6215 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6221:6222 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 6216:6220 <> instr:6
+R6236:6244 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6223:6224 Coq.Lists.List <> In def
+R6232:6235 ThieleMachineVerification.Prediction <> prog:5 var
+R6226:6230 ThieleMachineVerification.Prediction <> instr:6 var
+R6251:6255 ThieleMachineVerification.Prediction <> instr:6 var
+R6262:6270 ThieleMachine.BlindSighted <> PDISCOVER constr
+R6279:6282 Coq.Init.Logic <> True ind
+R6291:6295 Coq.Init.Logic <> False ind
+R6359:6365 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6372:6373 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 6366:6366 <> m:8
+binder 6368:6371 <> cost:9
+R6374:6375 Coq.Lists.List <> In def
+R6396:6399 ThieleMachineVerification.Prediction <> prog:5 var
+R6378:6386 ThieleMachine.BlindSighted <> PDISCOVER constr
+R6388:6388 ThieleMachineVerification.Prediction <> m:8 var
+R6390:6393 ThieleMachineVerification.Prediction <> cost:9 var
+def 6624:6634 <> region_size
+R6641:6646 ThieleMachine.BlindSighted <> Region def
+binder 6637:6637 <> r:10
+R6651:6653 Coq.Init.Datatypes <> nat ind
+R6661:6675 Coq.Lists.List <> fold_right def
+R6677:6679 Coq.Init.Datatypes <> nat ind
+R6681:6683 Coq.Init.Datatypes <> nat ind
+R6695:6697 Coq.Init.Datatypes <> nat ind
+R6707:6709 Coq.Init.Datatypes <> nat ind
+binder 6701:6703 <> acc:11
+R6715:6722 Coq.Arith.PeanoNat Nat succ def
+R6724:6726 ThieleMachineVerification.Prediction <> acc:11 var
+R6735:6735 ThieleMachineVerification.Prediction <> r:10 var
+def 6750:6769 <> discovery_cost_bound
+R6776:6786 ThieleMachine.BlindSighted <> ThieleState rec
+binder 6772:6772 <> s:12
+R6794:6801 ThieleMachine.BlindSighted <> ModuleId def
+binder 6790:6790 <> m:13
+R6809:6814 ThieleMachine.BlindSighted <> Region def
+binder 6805:6805 <> r:14
+R6825:6827 Coq.Init.Datatypes <> nat ind
+binder 6818:6821 <> cost:15
+R6847:6850 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6843:6846 ThieleMachineVerification.Prediction <> cost:15 var
+R6851:6861 ThieleMachineVerification.Prediction <> region_size def
+R6863:6863 ThieleMachineVerification.Prediction <> r:14 var
+prf 6880:6902 <> discovery_cost_positive
+R6918:6928 ThieleMachine.BlindSighted <> ThieleState rec
+binder 6914:6914 <> s:16
+R6936:6943 ThieleMachine.BlindSighted <> ModuleId def
+binder 6932:6932 <> m:17
+R6954:6956 Coq.Init.Datatypes <> nat ind
+binder 6947:6950 <> cost:18
+R6965:6975 ThieleMachine.BlindSighted <> ThieleState rec
+binder 6960:6961 <> s':19
+R7051:7124 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7011:7026 ThieleMachineVerification.Admissibility <> instr_admissible def
+R7028:7028 ThieleMachineVerification.Prediction <> s:16 var
+R7031:7039 ThieleMachine.BlindSighted <> PDISCOVER constr
+R7041:7041 ThieleMachineVerification.Prediction <> m:17 var
+R7043:7046 ThieleMachineVerification.Prediction <> cost:18 var
+R7049:7050 ThieleMachineVerification.Prediction <> s':19 var
+R7139:7178 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7130:7132 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R7126:7129 ThieleMachineVerification.Prediction <> cost:18 var
+R7183:7186 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R7179:7182 ThieleMachineVerification.Prediction <> cost:18 var

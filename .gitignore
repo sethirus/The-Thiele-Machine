@@ -20,11 +20,9 @@ dist/
 .test_artifacts/
 .generated/
 
-# Coq compilation artifacts
-*.vo
+# Coq compilation artifacts (outside coq/ — coq/ artifacts are tracked)
 *.vos
 *.vok
-*.glob
 *.aux
 
 # Hypothesis and testing caches
@@ -125,12 +123,7 @@ out/
 # Certificates and generated data
 certificates/
 
-# Coq build artifacts
-*.aux
-*.glob
-*.vo
-*.vok
-*.vos
+# Coq build artifacts (coq/*.vo and coq/*.glob are tracked as proof artifacts)
 *.lia.cache
 *.nia.cache
 .coq-env
@@ -228,9 +221,7 @@ audit_verification.py
 
 # Phase completion and status reports (generated during work sessions)
 STATUS_REPORT.md
-AUDIT_REPORT.md
 INTEGRATION_COMPLETE.md
-INQUISITOR_REPORT.md
 
 # Build directory (iverilog compiled outputs)
 build/
