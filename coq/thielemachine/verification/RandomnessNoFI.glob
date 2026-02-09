@@ -1,0 +1,444 @@
+DIGEST 7ae62b09367cf6a9d9f9b5a58ef50992
+FThieleMachineVerification.RandomnessNoFI
+R24:29 Coq.ZArith.ZArith <> <> lib
+R31:33 Coq.micromega.Lia <> <> lib
+R35:38 Coq.Lists.List <> <> lib
+R48:60 Coq.Lists.List ListNotations <> mod
+R91:97 Kernel.VMState <> <> lib
+R127:132 Kernel.VMStep <> <> lib
+R162:176 Kernel.SimulationProof <> <> lib
+R206:218 Kernel.MuInformation <> <> lib
+R248:267 Kernel.MuLedgerConservation <> <> lib
+R297:317 Kernel.RevelationRequirement <> <> lib
+R347:359 Kernel.NoFreeInsight <> <> lib
+R389:415 Kernel.MuNoFreeInsightQuantitative <> <> lib
+R445:456 Kernel.QuantumBound <> <> lib
+R486:498 Kernel.Certification <> <> lib
+mod 536:549 <> RandomnessNoFI
+R560:574 Kernel.RevelationRequirement RevelationProof <> mod
+R584:596 Kernel.VMStep VMStep <> mod
+R606:617 Kernel.QuantumBound <> <> mod
+R627:645 Kernel.Certification CertificationTheory <> mod
+def 994:1003 RandomnessNoFI Admissible
+R1010:1010 Coq.Numbers.BinNums <> Z ind
+binder 1006:1006 <> K:1
+R1022:1026 Kernel.RevelationRequirement RevelationProof Trace def
+binder 1014:1018 <> trace:2
+R1047:1053 Kernel.VMState <> VMState rec
+binder 1030:1035 <> s_init:3
+binder 1037:1043 <> s_final:4
+R1064:1066 Coq.Init.Datatypes <> nat ind
+binder 1057:1060 <> fuel:5
+R1123:1128 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1108:1110 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1081:1089 Kernel.RevelationRequirement RevelationProof trace_run def
+R1091:1094 ThieleMachineVerification.RandomnessNoFI <> fuel:5 var
+R1096:1100 ThieleMachineVerification.RandomnessNoFI <> trace:2 var
+R1102:1107 ThieleMachineVerification.RandomnessNoFI <> s_init:3 var
+R1111:1114 Coq.Init.Datatypes <> Some constr
+R1116:1122 ThieleMachineVerification.RandomnessNoFI <> s_final:4 var
+R1169:1174 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1161:1163 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1147:1159 Kernel.VMState <> csr_cert_addr proj
+R1137:1143 Kernel.VMState <> vm_csrs proj
+R1129:1134 ThieleMachineVerification.RandomnessNoFI <> s_init:3 var
+R1175:1175 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1182:1188 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1177:1180 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R1181:1181 ThieleMachineVerification.RandomnessNoFI <> K:1 var
+R1213:1216 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R1189:1197 Kernel.MuInformation <> mu_info_z def
+R1199:1204 ThieleMachineVerification.RandomnessNoFI <> s_init:3 var
+R1206:1212 ThieleMachineVerification.RandomnessNoFI <> s_final:4 var
+R1217:1217 ThieleMachineVerification.RandomnessNoFI <> K:1 var
+def 1548:1569 RandomnessNoFI CertSetterPositiveCost
+binder 1590:1594 <> instr:6
+R1649:1656 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1601:1642 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setter def
+R1644:1648 ThieleMachineVerification.RandomnessNoFI <> instr:6 var
+R1659:1662 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1663:1678 Kernel.VMStep VMStep instruction_cost def
+R1680:1684 ThieleMachineVerification.RandomnessNoFI <> instr:6 var
+def 1704:1716 RandomnessNoFI AdmissiblePos
+R1723:1723 Coq.Numbers.BinNums <> Z ind
+binder 1719:1719 <> K:7
+R1735:1739 Kernel.RevelationRequirement RevelationProof Trace def
+binder 1727:1731 <> trace:8
+R1760:1766 Kernel.VMState <> VMState rec
+binder 1743:1748 <> s_init:9
+binder 1750:1756 <> s_final:10
+R1777:1779 Coq.Init.Datatypes <> nat ind
+binder 1770:1773 <> fuel:11
+R1832:1835 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1794:1803 ThieleMachineVerification.RandomnessNoFI RandomnessNoFI Admissible def
+R1805:1805 ThieleMachineVerification.RandomnessNoFI <> K:7 var
+R1807:1811 ThieleMachineVerification.RandomnessNoFI <> trace:8 var
+R1813:1818 ThieleMachineVerification.RandomnessNoFI <> s_init:9 var
+R1820:1826 ThieleMachineVerification.RandomnessNoFI <> s_final:10 var
+R1828:1831 ThieleMachineVerification.RandomnessNoFI <> fuel:11 var
+R1836:1857 ThieleMachineVerification.RandomnessNoFI RandomnessNoFI CertSetterPositiveCost def
+def 2137:2160 RandomnessNoFI cert_setter_count_in_run
+R2170:2172 Coq.Init.Datatypes <> nat ind
+binder 2163:2166 <> fuel:12
+R2184:2188 Kernel.RevelationRequirement RevelationProof Trace def
+binder 2176:2180 <> trace:13
+R2196:2202 Kernel.VMState <> VMState rec
+binder 2192:2192 <> s:14
+R2207:2209 Coq.Init.Datatypes <> nat ind
+R2222:2225 ThieleMachineVerification.RandomnessNoFI <> fuel:12 var
+R2236:2236 Coq.Init.Datatypes <> O constr
+R2251:2251 Coq.Init.Datatypes <> S constr
+R2274:2282 Coq.Lists.List <> nth_error def
+R2291:2295 Kernel.VMState <> vm_pc proj
+R2297:2297 ThieleMachineVerification.RandomnessNoFI <> s:14 var
+R2284:2288 ThieleMachineVerification.RandomnessNoFI <> trace:13 var
+R2313:2316 Coq.Init.Datatypes <> None constr
+R2335:2338 Coq.Init.Datatypes <> Some constr
+R2369:2376 Kernel.SimulationProof <> vm_apply def
+R2378:2378 ThieleMachineVerification.RandomnessNoFI <> s:14 var
+binder 2363:2364 <> s':17
+R2399:2399 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2474:2489 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2403:2445 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setterb def
+R2490:2513 ThieleMachineVerification.RandomnessNoFI <> cert_setter_count_in_run:15 def
+R2527:2528 ThieleMachineVerification.RandomnessNoFI <> s':17 var
+R2521:2525 ThieleMachineVerification.RandomnessNoFI <> trace:13 var
+def 2559:2574 RandomnessNoFI rng_metric_count
+R2584:2586 Coq.Init.Datatypes <> nat ind
+binder 2577:2580 <> fuel:18
+R2598:2602 Kernel.RevelationRequirement RevelationProof Trace def
+binder 2590:2594 <> trace:19
+R2615:2621 Kernel.VMState <> VMState rec
+binder 2606:2611 <> s_init:20
+R2626:2626 Coq.Numbers.BinNums <> Z ind
+R2633:2640 Coq.ZArith.BinInt Z of_nat def
+R2643:2666 ThieleMachineVerification.RandomnessNoFI RandomnessNoFI cert_setter_count_in_run def
+R2668:2671 ThieleMachineVerification.RandomnessNoFI <> fuel:18 var
+R2673:2677 ThieleMachineVerification.RandomnessNoFI <> trace:19 var
+R2679:2684 ThieleMachineVerification.RandomnessNoFI <> s_init:20 var
+def 2700:2706 RandomnessNoFI f_count
+R2713:2713 Coq.Numbers.BinNums <> Z ind
+binder 2709:2709 <> K:21
+R2718:2718 Coq.Numbers.BinNums <> Z ind
+R2725:2729 Coq.ZArith.BinInt Z max def
+R2733:2733 ThieleMachineVerification.RandomnessNoFI <> K:21 var
+prf 2743:2785 RandomnessNoFI is_cert_setterb_true_implies_is_cert_setter
+binder 2798:2802 <> instr:22
+R2865:2872 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2858:2860 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2809:2851 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setterb def
+R2853:2857 ThieleMachineVerification.RandomnessNoFI <> instr:22 var
+R2861:2864 Coq.Init.Datatypes <> true constr
+R2873:2914 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setter def
+R2916:2920 ThieleMachineVerification.RandomnessNoFI <> instr:22 var
+R2958:2999 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setter def
+prf 3026:3040 RandomnessNoFI mu_info_z_chain
+binder 3053:3054 <> s0:23
+binder 3056:3057 <> s1:24
+binder 3059:3060 <> s2:25
+R3082:3084 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3067:3075 Kernel.MuInformation <> mu_info_z def
+R3077:3078 ThieleMachineVerification.RandomnessNoFI <> s0:23 var
+R3080:3081 ThieleMachineVerification.RandomnessNoFI <> s2:25 var
+R3101:3103 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R3086:3094 Kernel.MuInformation <> mu_info_z def
+R3096:3097 ThieleMachineVerification.RandomnessNoFI <> s0:23 var
+R3099:3100 ThieleMachineVerification.RandomnessNoFI <> s1:24 var
+R3104:3112 Kernel.MuInformation <> mu_info_z def
+R3114:3115 ThieleMachineVerification.RandomnessNoFI <> s1:24 var
+R3117:3118 ThieleMachineVerification.RandomnessNoFI <> s2:25 var
+R3159:3167 Kernel.MuInformation <> mu_info_z def
+R3170:3177 Kernel.MuInformation <> mu_total def
+prf 3199:3240 RandomnessNoFI cert_setter_count_in_run_le_mu_info_run_vm
+binder 3253:3256 <> fuel:26
+binder 3258:3262 <> trace:27
+binder 3264:3264 <> s:28
+R3293:3300 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3271:3292 ThieleMachineVerification.RandomnessNoFI RandomnessNoFI CertSetterPositiveCost def
+R3339:3342 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3302:3325 ThieleMachineVerification.RandomnessNoFI RandomnessNoFI cert_setter_count_in_run def
+R3327:3330 ThieleMachineVerification.RandomnessNoFI <> fuel:26 var
+R3332:3336 ThieleMachineVerification.RandomnessNoFI <> trace:27 var
+R3338:3338 ThieleMachineVerification.RandomnessNoFI <> s:28 var
+R3343:3356 Kernel.MuInformation <> mu_info_run_vm def
+R3358:3361 ThieleMachineVerification.RandomnessNoFI <> fuel:26 var
+R3363:3367 ThieleMachineVerification.RandomnessNoFI <> trace:27 var
+R3369:3369 ThieleMachineVerification.RandomnessNoFI <> s:28 var
+R3482:3490 Coq.Lists.List <> nth_error def
+R3501:3505 Kernel.VMState <> vm_pc proj
+R3482:3490 Coq.Lists.List <> nth_error def
+R3501:3505 Kernel.VMState <> vm_pc proj
+R3661:3674 Kernel.MuInformation <> mu_info_run_vm def
+R3811:3853 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setterb def
+R3811:3853 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setterb def
+R3896:3937 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setter def
+R3896:3937 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setter def
+R3963:4005 ThieleMachineVerification.RandomnessNoFI RandomnessNoFI is_cert_setterb_true_implies_is_cert_setter thm
+R3963:4005 ThieleMachineVerification.RandomnessNoFI RandomnessNoFI is_cert_setterb_true_implies_is_cert_setter thm
+R4159:4166 Kernel.SimulationProof <> vm_apply def
+R4159:4166 Kernel.SimulationProof <> vm_apply def
+R4306:4308 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4284:4299 Kernel.VMStep VMStep instruction_cost def
+R4309:4332 ThieleMachineVerification.RandomnessNoFI RandomnessNoFI cert_setter_count_in_run def
+R4346:4353 Kernel.SimulationProof <> vm_apply def
+R4259:4270 Coq.Arith.PeanoNat Nat le_trans thm
+R4306:4308 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4284:4299 Kernel.VMStep VMStep instruction_cost def
+R4309:4332 ThieleMachineVerification.RandomnessNoFI RandomnessNoFI cert_setter_count_in_run def
+R4346:4353 Kernel.SimulationProof <> vm_apply def
+R4259:4270 Coq.Arith.PeanoNat Nat le_trans thm
+R4387:4403 Coq.Arith.PeanoNat Nat add_le_mono_r thm
+R4387:4403 Coq.Arith.PeanoNat Nat add_le_mono_r thm
+R4441:4457 Coq.Arith.PeanoNat Nat add_le_mono_l thm
+R4441:4457 Coq.Arith.PeanoNat Nat add_le_mono_l thm
+R4572:4579 Kernel.SimulationProof <> vm_apply def
+R4572:4579 Kernel.SimulationProof <> vm_apply def
+R4678:4689 Coq.Arith.PeanoNat Nat le_trans thm
+R4678:4689 Coq.Arith.PeanoNat Nat le_trans thm
+R4719:4730 Coq.Arith.PeanoNat Nat le_add_l thm
+R4719:4730 Coq.Arith.PeanoNat Nat le_add_l thm
+R4781:4794 Kernel.MuInformation <> mu_info_run_vm def
+prf 4835:4871 RandomnessNoFI cert_setter_count_in_run_le_mu_info_z
+binder 4884:4887 <> fuel:29
+binder 4889:4893 <> trace:30
+binder 4895:4900 <> s_init:31
+binder 4902:4908 <> s_final:32
+R4957:4964 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4942:4944 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4915:4923 Kernel.RevelationRequirement RevelationProof trace_run def
+R4925:4928 ThieleMachineVerification.RandomnessNoFI <> fuel:29 var
+R4930:4934 ThieleMachineVerification.RandomnessNoFI <> trace:30 var
+R4936:4941 ThieleMachineVerification.RandomnessNoFI <> s_init:31 var
+R4945:4948 Coq.Init.Datatypes <> Some constr
+R4950:4956 ThieleMachineVerification.RandomnessNoFI <> s_final:32 var
+R4987:4994 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4965:4986 ThieleMachineVerification.RandomnessNoFI RandomnessNoFI CertSetterPositiveCost def
+R5049:5052 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R4996:5003 Coq.ZArith.BinInt Z of_nat def
+R5006:5029 ThieleMachineVerification.RandomnessNoFI RandomnessNoFI cert_setter_count_in_run def
+R5031:5034 ThieleMachineVerification.RandomnessNoFI <> fuel:29 var
+R5036:5040 ThieleMachineVerification.RandomnessNoFI <> trace:30 var
+R5042:5047 ThieleMachineVerification.RandomnessNoFI <> s_init:31 var
+R5053:5061 Kernel.MuInformation <> mu_info_z def
+R5063:5068 ThieleMachineVerification.RandomnessNoFI <> s_init:31 var
+R5070:5076 ThieleMachineVerification.RandomnessNoFI <> s_final:32 var
+R5242:5244 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5245:5250 Kernel.SimulationProof <> run_vm def
+R5242:5244 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5245:5250 Kernel.SimulationProof <> run_vm def
+R5288:5317 Kernel.NoFreeInsight NoFreeInsight trace_run_run_vm thm
+R5288:5317 Kernel.NoFreeInsight NoFreeInsight trace_run_run_vm thm
+R5511:5552 ThieleMachineVerification.RandomnessNoFI RandomnessNoFI cert_setter_count_in_run_le_mu_info_run_vm thm
+R5511:5552 ThieleMachineVerification.RandomnessNoFI RandomnessNoFI cert_setter_count_in_run_le_mu_info_run_vm thm
+R5596:5607 Coq.ZArith.Znat Nat2Z inj_le thm
+R5596:5607 Coq.ZArith.Znat Nat2Z inj_le thm
+R5628:5641 Kernel.MuInformation <> mu_info_run_vm def
+R5724:5753 Kernel.MuInformation <> mu_info_z_run_vm_is_ledger_sum thm
+R5724:5753 Kernel.MuInformation <> mu_info_z_run_vm_is_ledger_sum thm
+R5724:5753 Kernel.MuInformation <> mu_info_z_run_vm_is_ledger_sum thm
+prf 5928:5976 RandomnessNoFI admissiblepos_implies_rng_metric_count_le_f_count
+R5994:5994 Coq.Numbers.BinNums <> Z ind
+binder 5990:5990 <> K:33
+R6006:6010 Kernel.RevelationRequirement RevelationProof Trace def
+binder 5998:6002 <> trace:34
+R6031:6037 Kernel.VMState <> VMState rec
+binder 6014:6019 <> s_init:35
+binder 6021:6027 <> s_final:36
+R6048:6050 Coq.Init.Datatypes <> nat ind
+binder 6041:6044 <> fuel:37
+R6099:6106 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6058:6070 ThieleMachineVerification.RandomnessNoFI RandomnessNoFI AdmissiblePos def
+R6072:6072 ThieleMachineVerification.RandomnessNoFI <> K:33 var
+R6074:6078 ThieleMachineVerification.RandomnessNoFI <> trace:34 var
+R6080:6085 ThieleMachineVerification.RandomnessNoFI <> s_init:35 var
+R6087:6093 ThieleMachineVerification.RandomnessNoFI <> s_final:36 var
+R6095:6098 ThieleMachineVerification.RandomnessNoFI <> fuel:37 var
+R6141:6144 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R6107:6122 ThieleMachineVerification.RandomnessNoFI RandomnessNoFI rng_metric_count def
+R6124:6127 ThieleMachineVerification.RandomnessNoFI <> fuel:37 var
+R6129:6133 ThieleMachineVerification.RandomnessNoFI <> trace:34 var
+R6135:6140 ThieleMachineVerification.RandomnessNoFI <> s_init:35 var
+R6145:6151 ThieleMachineVerification.RandomnessNoFI RandomnessNoFI f_count def
+R6153:6153 ThieleMachineVerification.RandomnessNoFI <> K:33 var
+R6271:6286 ThieleMachineVerification.RandomnessNoFI RandomnessNoFI rng_metric_count def
+R6289:6295 ThieleMachineVerification.RandomnessNoFI RandomnessNoFI f_count def
+R6312:6348 ThieleMachineVerification.RandomnessNoFI RandomnessNoFI cert_setter_count_in_run_le_mu_info_z thm
+R6312:6348 ThieleMachineVerification.RandomnessNoFI RandomnessNoFI cert_setter_count_in_run_le_mu_info_z thm
+R6479:6481 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6470:6474 Coq.ZArith.BinInt Z max def
+R6495:6501 Coq.ZArith.BinInt Z max_r thm
+R6479:6481 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6470:6474 Coq.ZArith.BinInt Z max def
+R6495:6501 Coq.ZArith.BinInt Z max_r thm
+R6546:6555 Coq.ZArith.BinInt Z le_trans thm
+R6546:6555 Coq.ZArith.BinInt Z le_trans thm
+def 6880:6890 RandomnessNoFI Admissible0
+R6901:6905 Kernel.RevelationRequirement RevelationProof Trace def
+binder 6893:6897 <> trace:38
+R6920:6937 Kernel.QuantumBound <> quantum_admissible def
+R6939:6943 ThieleMachineVerification.RandomnessNoFI <> trace:38 var
+prf 7291:7344 RandomnessNoFI admissible_implies_cert_cost_leq_budget_for_supra_chsh
+R7362:7362 Coq.Numbers.BinNums <> Z ind
+binder 7358:7358 <> K:39
+R7374:7378 Kernel.RevelationRequirement RevelationProof Trace def
+binder 7366:7370 <> trace:40
+R7399:7405 Kernel.VMState <> VMState rec
+binder 7382:7387 <> s_init:41
+binder 7389:7395 <> s_final:42
+R7416:7418 Coq.Init.Datatypes <> nat ind
+binder 7409:7412 <> fuel:43
+R7464:7471 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7426:7435 ThieleMachineVerification.RandomnessNoFI RandomnessNoFI Admissible def
+R7437:7437 ThieleMachineVerification.RandomnessNoFI <> K:39 var
+R7439:7443 ThieleMachineVerification.RandomnessNoFI <> trace:40 var
+R7445:7450 ThieleMachineVerification.RandomnessNoFI <> s_init:41 var
+R7452:7458 ThieleMachineVerification.RandomnessNoFI <> s_final:42 var
+R7460:7463 ThieleMachineVerification.RandomnessNoFI <> fuel:43 var
+R7519:7526 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7472:7480 Kernel.Certification CertificationTheory Certified def
+R7482:7488 ThieleMachineVerification.RandomnessNoFI <> s_final:42 var
+R7490:7512 Kernel.Certification CertificationTheory supra_quantum_certified def
+R7514:7518 ThieleMachineVerification.RandomnessNoFI <> trace:40 var
+R7527:7533 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7539:7546 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 7534:7538 <> instr:44
+R7595:7604 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7547:7588 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setter def
+R7590:7594 ThieleMachineVerification.RandomnessNoFI <> instr:44 var
+R7639:7642 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R7606:7613 Coq.ZArith.BinInt Z of_nat def
+R7616:7631 Kernel.VMStep VMStep instruction_cost def
+R7633:7637 ThieleMachineVerification.RandomnessNoFI <> instr:44 var
+R7643:7643 ThieleMachineVerification.RandomnessNoFI <> K:39 var
+R7776:7825 Kernel.Certification CertificationTheory certified_supra_chsh_implies_mu_info_z_lower_bound thm
+R7776:7825 Kernel.Certification CertificationTheory certified_supra_chsh_implies_mu_info_z_lower_bound thm
+R7953:7962 Coq.ZArith.BinInt Z le_trans thm
+R7953:7962 Coq.ZArith.BinInt Z le_trans thm
+def 8345:8361 RandomnessNoFI rng_metric_coarse
+R8374:8380 Kernel.VMState <> VMState rec
+binder 8364:8370 <> s_final:45
+R8385:8385 Coq.Numbers.BinNums <> Z ind
+R8395:8401 Coq.Arith.PeanoNat Nat eqb def
+R8422:8434 Kernel.VMState <> csr_cert_addr proj
+R8412:8418 Kernel.VMState <> vm_csrs proj
+R8403:8409 ThieleMachineVerification.RandomnessNoFI <> s_final:45 var
+def 8474:8474 RandomnessNoFI f
+R8481:8481 Coq.Numbers.BinNums <> Z ind
+binder 8477:8477 <> K:46
+R8486:8486 Coq.Numbers.BinNums <> Z ind
+R8496:8500 Coq.ZArith.BinInt Z leb def
+R8504:8504 ThieleMachineVerification.RandomnessNoFI <> K:46 var
+prf 8866:8910 RandomnessNoFI admissiblepos_implies_rng_metric_coarse_leq_f
+R8928:8928 Coq.Numbers.BinNums <> Z ind
+binder 8924:8924 <> K:47
+R8940:8944 Kernel.RevelationRequirement RevelationProof Trace def
+binder 8932:8936 <> trace:48
+R8965:8971 Kernel.VMState <> VMState rec
+binder 8948:8953 <> s_init:49
+binder 8955:8961 <> s_final:50
+R8982:8984 Coq.Init.Datatypes <> nat ind
+binder 8975:8978 <> fuel:51
+R9033:9040 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8992:9004 ThieleMachineVerification.RandomnessNoFI RandomnessNoFI AdmissiblePos def
+R9006:9006 ThieleMachineVerification.RandomnessNoFI <> K:47 var
+R9008:9012 ThieleMachineVerification.RandomnessNoFI <> trace:48 var
+R9014:9019 ThieleMachineVerification.RandomnessNoFI <> s_init:49 var
+R9021:9027 ThieleMachineVerification.RandomnessNoFI <> s_final:50 var
+R9029:9032 ThieleMachineVerification.RandomnessNoFI <> fuel:51 var
+R9066:9069 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R9041:9057 ThieleMachineVerification.RandomnessNoFI RandomnessNoFI rng_metric_coarse def
+R9059:9065 ThieleMachineVerification.RandomnessNoFI <> s_final:50 var
+R9070:9070 ThieleMachineVerification.RandomnessNoFI RandomnessNoFI f def
+R9072:9072 ThieleMachineVerification.RandomnessNoFI <> K:47 var
+R9225:9241 ThieleMachineVerification.RandomnessNoFI RandomnessNoFI rng_metric_coarse def
+R9244:9244 ThieleMachineVerification.RandomnessNoFI RandomnessNoFI f def
+R9259:9265 Coq.Arith.PeanoNat Nat eqb def
+R9286:9298 Kernel.VMState <> csr_cert_addr proj
+R9276:9282 Kernel.VMState <> vm_csrs proj
+R9259:9265 Coq.Arith.PeanoNat Nat eqb def
+R9286:9298 Kernel.VMState <> csr_cert_addr proj
+R9276:9282 Kernel.VMState <> vm_csrs proj
+R9379:9388 Coq.ZArith.BinInt Z leb_spec thm
+R9379:9388 Coq.ZArith.BinInt Z leb_spec thm
+R9483:9496 Kernel.QuantumBound <> has_supra_cert def
+R9483:9496 Kernel.QuantumBound <> has_supra_cert def
+R9521:9534 Kernel.QuantumBound <> has_supra_cert def
+R9549:9559 Coq.Arith.PeanoNat Nat eqb_neq thm
+R9549:9559 Coq.Arith.PeanoNat Nat eqb_neq thm
+R9614:9684 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative supra_cert_implies_mu_lower_bound_trace_run thm
+R9614:9684 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative supra_cert_implies_mu_lower_bound_trace_run thm
+R9903:9906 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R9907:9914 Coq.ZArith.BinInt Z of_nat def
+R9917:9932 Kernel.VMStep VMStep instruction_cost def
+R9903:9906 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R9907:9914 Coq.ZArith.BinInt Z of_nat def
+R9917:9932 Kernel.VMStep VMStep instruction_cost def
+R9959:9970 Coq.ZArith.Znat Nat2Z inj_le thm
+R9975:9990 Kernel.VMStep VMStep instruction_cost def
+R9959:9970 Coq.ZArith.Znat Nat2Z inj_le thm
+R9975:9990 Kernel.VMStep VMStep instruction_cost def
+R10153:10156 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R10120:10127 Coq.ZArith.BinInt Z of_nat def
+R10130:10145 Kernel.VMStep VMStep instruction_cost def
+R10157:10165 Kernel.MuInformation <> mu_info_z def
+R10153:10156 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R10120:10127 Coq.ZArith.BinInt Z of_nat def
+R10130:10145 Kernel.VMStep VMStep instruction_cost def
+R10157:10165 Kernel.MuInformation <> mu_info_z def
+R10206:10214 Kernel.MuInformation <> mu_info_z def
+R10217:10224 Kernel.MuInformation <> mu_total def
+R10245:10249 Coq.Init.Logic <> proj1 thm
+R10252:10263 Coq.ZArith.Znat Nat2Z inj_le thm
+R10278:10280 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10266:10270 Kernel.VMState <> vm_mu proj
+R10281:10296 Kernel.VMStep VMStep instruction_cost def
+R10306:10310 Kernel.VMState <> vm_mu proj
+R10245:10249 Coq.Init.Logic <> proj1 thm
+R10252:10263 Coq.ZArith.Znat Nat2Z inj_le thm
+R10278:10280 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10266:10270 Kernel.VMState <> vm_mu proj
+R10281:10296 Kernel.VMStep VMStep instruction_cost def
+R10306:10310 Kernel.VMState <> vm_mu proj
+R10363:10375 Coq.ZArith.Znat Nat2Z inj_add thm
+R10363:10375 Coq.ZArith.Znat Nat2Z inj_add thm
+R10363:10375 Coq.ZArith.Znat Nat2Z inj_add thm
+R10427:10430 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R10427:10430 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R10451:10460 Coq.ZArith.BinInt Z le_trans thm
+R10451:10460 Coq.ZArith.BinInt Z le_trans thm
+R10498:10507 Coq.ZArith.BinInt Z le_trans thm
+R10498:10507 Coq.ZArith.BinInt Z le_trans thm
+R10575:10584 Coq.ZArith.BinInt Z leb_spec thm
+R10575:10584 Coq.ZArith.BinInt Z leb_spec thm
+prf 10819:10862 RandomnessNoFI quantum_admissible_cannot_certify_supra_chsh
+R10884:10888 Kernel.RevelationRequirement RevelationProof Trace def
+binder 10876:10880 <> trace:52
+R10909:10915 Kernel.VMState <> VMState rec
+binder 10892:10897 <> s_init:53
+binder 10899:10905 <> s_final:54
+R10926:10928 Coq.Init.Datatypes <> nat ind
+binder 10919:10922 <> fuel:55
+R10978:10985 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10963:10965 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10936:10944 Kernel.RevelationRequirement RevelationProof trace_run def
+R10946:10949 ThieleMachineVerification.RandomnessNoFI <> fuel:55 var
+R10951:10955 ThieleMachineVerification.RandomnessNoFI <> trace:52 var
+R10957:10962 ThieleMachineVerification.RandomnessNoFI <> s_init:53 var
+R10966:10969 Coq.Init.Datatypes <> Some constr
+R10971:10977 ThieleMachineVerification.RandomnessNoFI <> s_final:54 var
+R11026:11033 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11018:11020 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11004:11016 Kernel.VMState <> csr_cert_addr proj
+R10994:11000 Kernel.VMState <> vm_csrs proj
+R10986:10991 ThieleMachineVerification.RandomnessNoFI <> s_init:53 var
+R11051:11058 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11034:11044 ThieleMachineVerification.RandomnessNoFI RandomnessNoFI Admissible0 def
+R11046:11050 ThieleMachineVerification.RandomnessNoFI <> trace:52 var
+R11059:11060 Coq.Init.Logic <> ::type_scope:'~'_x not
+R11061:11069 Kernel.Certification CertificationTheory Certified def
+R11071:11077 ThieleMachineVerification.RandomnessNoFI <> s_final:54 var
+R11079:11101 Kernel.Certification CertificationTheory supra_quantum_certified def
+R11103:11107 ThieleMachineVerification.RandomnessNoFI <> trace:52 var
+R11256:11308 Kernel.QuantumBound <> quantum_admissible_implies_no_supra_cert thm
+R11256:11308 Kernel.QuantumBound <> quantum_admissible_implies_no_supra_cert thm
+R11400:11413 ThieleMachineVerification.RandomnessNoFI RandomnessNoFI <> mod

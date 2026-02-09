@@ -1,0 +1,29 @@
+DIGEST 0ececa96072a782f1e8f8eb03f0f8038
+FBridge.Randomness_to_Kernel
+R24:27 Coq.Lists.List <> <> lib
+R29:36 Coq.Arith.PeanoNat <> <> lib
+R46:58 Coq.Lists.List ListNotations <> mod
+R89:99 Kernel.ReceiptCore <> <> lib
+mod 110:129 <> Randomness_to_Kernel
+def 305:317 Randomness_to_Kernel RAND_TRIAL_OP
+R321:323 Coq.Init.Datatypes <> nat ind
+def 346:356 Randomness_to_Kernel RandChannel
+R363:381 Kernel.ReceiptCore ReceiptCore Receipt rec
+binder 359:359 <> r:1
+R386:389 Coq.Init.Datatypes <> bool ind
+R396:402 Coq.Arith.PeanoNat Nat eqb def
+R405:420 Kernel.ReceiptCore ReceiptCore r_op proj
+R422:422 Bridge.Randomness_to_Kernel <> r:1 var
+R425:437 Bridge.Randomness_to_Kernel Randomness_to_Kernel RAND_TRIAL_OP def
+prf 447:471 Randomness_to_Kernel decode_is_filter_payloads
+binder 484:485 <> tr:2
+R525:531 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R492:509 Kernel.ReceiptCore ReceiptCore decode def
+R511:521 Bridge.Randomness_to_Kernel Randomness_to_Kernel RandChannel def
+R523:524 Bridge.Randomness_to_Kernel <> tr:2 var
+R532:534 Coq.Lists.List <> map def
+R567:572 Coq.Lists.List <> filter def
+R586:587 Bridge.Randomness_to_Kernel <> tr:2 var
+R574:584 Bridge.Randomness_to_Kernel Randomness_to_Kernel RandChannel def
+R536:556 Kernel.ReceiptCore ReceiptCore r_payload proj
+R631:650 Bridge.Randomness_to_Kernel Randomness_to_Kernel <> mod

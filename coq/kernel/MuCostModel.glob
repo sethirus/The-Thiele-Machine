@@ -1,0 +1,397 @@
+DIGEST 61f1d006ae9dc7c63553cf9abde75785
+FKernel.MuCostModel
+R2456:2459 Coq.Lists.List <> <> lib
+R2461:2463 Coq.micromega.Lia <> <> lib
+R2465:2469 Coq.Arith.Arith <> <> lib
+R2471:2478 Coq.Arith.PeanoNat <> <> lib
+R2488:2500 Coq.Lists.List ListNotations <> mod
+R2531:2537 Kernel.VMState <> <> lib
+R2539:2544 Kernel.VMStep <> <> lib
+def 3219:3230 <> module_count
+R3237:3250 Kernel.VMState <> PartitionGraph rec
+binder 3233:3233 <> g:1
+R3255:3257 Coq.Init.Datatypes <> nat ind
+R3264:3269 Coq.Init.Datatypes <> length def
+R3274:3283 Kernel.VMState <> pg_modules proj
+R3271:3271 Kernel.MuCostModel <> g:1 var
+def 3359:3378 <> partition_complexity
+R3385:3398 Kernel.VMState <> PartitionGraph rec
+binder 3381:3381 <> g:2
+R3403:3405 Coq.Init.Datatypes <> nat ind
+R3412:3423 Kernel.MuCostModel <> module_count def
+R3425:3425 Kernel.MuCostModel <> g:2 var
+def 3543:3558 <> mu_cost_of_instr
+R3569:3582 Kernel.VMStep VMStep vm_instruction ind
+binder 3561:3565 <> instr:3
+R3590:3596 Kernel.VMState <> VMState rec
+binder 3586:3586 <> s:4
+R3601:3603 Coq.Init.Datatypes <> nat ind
+R3616:3620 Kernel.MuCostModel <> instr:3 var
+R3631:3640 Kernel.VMStep VMStep instr_pnew constr
+R3705:3716 Kernel.VMStep VMStep instr_psplit constr
+R3778:3789 Kernel.VMStep VMStep instr_pmerge constr
+R3849:3860 Kernel.VMStep VMStep instr_reveal constr
+R3919:3931 Kernel.VMStep VMStep instr_lassert constr
+R3998:4008 Kernel.VMStep VMStep instr_ljoin constr
+def 4454:4469 <> mu_cost_of_trace
+R4482:4484 Coq.Init.Datatypes <> nat ind
+binder 4475:4478 <> fuel:6
+R4496:4499 Coq.Init.Datatypes <> list ind
+R4501:4514 Kernel.VMStep VMStep vm_instruction ind
+binder 4488:4492 <> trace:7
+R4523:4525 Coq.Init.Datatypes <> nat ind
+binder 4518:4519 <> pc:8
+R4530:4532 Coq.Init.Datatypes <> nat ind
+R4545:4548 Kernel.MuCostModel <> fuel:6 var
+R4570:4570 Coq.Init.Datatypes <> S constr
+R4593:4601 Coq.Lists.List <> nth_error def
+R4609:4610 Kernel.MuCostModel <> pc:8 var
+R4603:4607 Kernel.MuCostModel <> trace:7 var
+R4625:4628 Coq.Init.Datatypes <> None constr
+R4643:4646 Coq.Init.Datatypes <> Some constr
+R4961:4974 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4667:4682 Kernel.MuCostModel <> mu_cost_of_instr def
+R4706:4713 Kernel.VMState <> vm_graph proj
+R4706:4713 Kernel.VMState <> vm_graph proj
+R4706:4713 Kernel.VMState <> vm_graph proj
+R4746:4752 Kernel.VMState <> vm_csrs proj
+R4746:4752 Kernel.VMState <> vm_csrs proj
+R4829:4835 Kernel.VMState <> vm_regs proj
+R4829:4835 Kernel.VMState <> vm_regs proj
+R4859:4864 Kernel.VMState <> vm_mem proj
+R4859:4864 Kernel.VMState <> vm_mem proj
+R4888:4892 Kernel.VMState <> vm_pc proj
+R4888:4892 Kernel.VMState <> vm_pc proj
+R4916:4920 Kernel.VMState <> vm_mu proj
+R4916:4920 Kernel.VMState <> vm_mu proj
+R4943:4948 Kernel.VMState <> vm_err proj
+R4943:4948 Kernel.VMState <> vm_err proj
+R4718:4728 Kernel.VMState <> empty_graph def
+R4760:4772 Kernel.VMState <> csr_cert_addr proj
+R4760:4772 Kernel.VMState <> csr_cert_addr proj
+R4760:4772 Kernel.VMState <> csr_cert_addr proj
+R4780:4789 Kernel.VMState <> csr_status proj
+R4780:4789 Kernel.VMState <> csr_status proj
+R4797:4803 Kernel.VMState <> csr_err proj
+R4797:4803 Kernel.VMState <> csr_err proj
+R4840:4841 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4869:4870 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4897:4898 Kernel.MuCostModel <> pc:8 var
+R4953:4957 Coq.Init.Datatypes <> false constr
+R4975:4990 Kernel.MuCostModel <> mu_cost_of_trace:9 def
+R5005:5005 Coq.Init.Datatypes <> S constr
+R5007:5008 Kernel.MuCostModel <> pc:8 var
+R4998:5002 Kernel.MuCostModel <> trace:7 var
+def 5226:5240 <> mu_zero_program
+R5253:5255 Coq.Init.Datatypes <> nat ind
+binder 5246:5249 <> fuel:11
+R5267:5270 Coq.Init.Datatypes <> list ind
+R5272:5285 Kernel.VMStep VMStep vm_instruction ind
+binder 5259:5263 <> trace:12
+R5329:5331 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5300:5315 Kernel.MuCostModel <> mu_cost_of_trace def
+R5317:5320 Kernel.MuCostModel <> fuel:11 var
+R5322:5326 Kernel.MuCostModel <> trace:12 var
+def 5463:5475 <> mu_preserving
+R5488:5490 Coq.Init.Datatypes <> nat ind
+binder 5481:5484 <> fuel:13
+R5502:5505 Coq.Init.Datatypes <> list ind
+R5507:5520 Kernel.VMStep VMStep vm_instruction ind
+binder 5494:5498 <> trace:14
+R5541:5547 Kernel.VMState <> VMState rec
+binder 5524:5529 <> s_init:15
+binder 5531:5537 <> s_final:16
+R5577:5579 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5571:5575 Kernel.VMState <> vm_mu proj
+R5562:5568 Kernel.MuCostModel <> s_final:16 var
+R5588:5592 Kernel.VMState <> vm_mu proj
+R5580:5585 Kernel.MuCostModel <> s_init:15 var
+prf 5680:5700 <> partition_ops_mu_free
+binder 5713:5713 <> s:17
+binder 5715:5717 <> mid:18
+R5765:5772 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5761:5763 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5724:5739 Kernel.MuCostModel <> mu_cost_of_instr def
+R5742:5751 Kernel.VMStep VMStep instr_pnew constr
+R5753:5755 Kernel.MuCostModel <> mid:18 var
+R5760:5760 Kernel.MuCostModel <> s:17 var
+R5773:5773 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5857:5866 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5948:5948 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 5781:5784 <> mid1:19
+binder 5786:5789 <> mid2:20
+binder 5791:5794 <> mid3:21
+R5853:5855 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5803:5818 Kernel.MuCostModel <> mu_cost_of_instr def
+R5821:5832 Kernel.VMStep VMStep instr_psplit constr
+R5834:5837 Kernel.MuCostModel <> mid1:19 var
+R5839:5842 Kernel.MuCostModel <> mid2:20 var
+R5844:5847 Kernel.MuCostModel <> mid3:21 var
+R5852:5852 Kernel.MuCostModel <> s:17 var
+binder 5874:5877 <> mid1:22
+binder 5879:5882 <> mid2:23
+binder 5884:5887 <> mid3:24
+R5944:5946 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5896:5911 Kernel.MuCostModel <> mu_cost_of_instr def
+R5914:5925 Kernel.VMStep VMStep instr_pmerge constr
+R5927:5930 Kernel.MuCostModel <> mid1:22 var
+R5932:5935 Kernel.MuCostModel <> mid2:23 var
+R5937:5940 Kernel.MuCostModel <> mid3:24 var
+R5943:5943 Kernel.MuCostModel <> s:17 var
+R5975:5990 Kernel.MuCostModel <> mu_cost_of_instr def
+prf 6078:6093 <> reveal_costs_one
+binder 6106:6106 <> s:25
+binder 6108:6110 <> mid:26
+binder 6112:6115 <> addr:27
+binder 6117:6119 <> len:28
+binder 6121:6122 <> mu:29
+R6178:6180 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6129:6144 Kernel.MuCostModel <> mu_cost_of_instr def
+R6147:6158 Kernel.VMStep VMStep instr_reveal constr
+R6160:6162 Kernel.MuCostModel <> mid:26 var
+R6164:6167 Kernel.MuCostModel <> addr:27 var
+R6169:6171 Kernel.MuCostModel <> len:28 var
+R6173:6174 Kernel.MuCostModel <> mu:29 var
+R6177:6177 Kernel.MuCostModel <> s:25 var
+R6208:6223 Kernel.MuCostModel <> mu_cost_of_instr def
+prf 7176:7200 <> nth_error_none_propagates
+binder 7214:7214 <> A:30
+R7229:7232 Coq.Init.Datatypes <> list ind
+R7234:7234 Kernel.MuCostModel <> A:30 var
+binder 7225:7225 <> l:31
+binder 7237:7238 <> pc:32
+binder 7240:7240 <> n:33
+R7268:7275 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7261:7263 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7247:7255 Coq.Lists.List <> nth_error def
+R7259:7260 Kernel.MuCostModel <> pc:32 var
+R7257:7257 Kernel.MuCostModel <> l:31 var
+R7264:7267 Coq.Init.Datatypes <> None constr
+R7283:7290 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7278:7281 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7276:7277 Kernel.MuCostModel <> pc:32 var
+R7282:7282 Kernel.MuCostModel <> n:33 var
+R7304:7306 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7291:7299 Coq.Lists.List <> nth_error def
+R7303:7303 Kernel.MuCostModel <> n:33 var
+R7301:7301 Kernel.MuCostModel <> l:31 var
+R7307:7310 Coq.Init.Datatypes <> None constr
+R7355:7368 Coq.Lists.List <> nth_error_None thm
+R7355:7368 Coq.Lists.List <> nth_error_None thm
+R7386:7399 Coq.Lists.List <> nth_error_None thm
+R7386:7399 Coq.Lists.List <> nth_error_None thm
+prf 7465:7487 <> mu_cost_of_trace_unfold
+binder 7500:7504 <> fuel':34
+binder 7506:7510 <> trace:35
+binder 7512:7513 <> pc:36
+binder 7515:7519 <> instr:37
+R7557:7564 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7544:7546 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7526:7534 Coq.Lists.List <> nth_error def
+R7542:7543 Kernel.MuCostModel <> pc:36 var
+R7536:7540 Kernel.MuCostModel <> trace:35 var
+R7547:7550 Coq.Init.Datatypes <> Some constr
+R7552:7556 Kernel.MuCostModel <> instr:37 var
+R7600:7606 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7565:7580 Kernel.MuCostModel <> mu_cost_of_trace def
+R7583:7583 Coq.Init.Datatypes <> S constr
+R7585:7589 Kernel.MuCostModel <> fuel':34 var
+R7592:7596 Kernel.MuCostModel <> trace:35 var
+R7598:7599 Kernel.MuCostModel <> pc:36 var
+R7828:7835 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7607:7622 Kernel.MuCostModel <> mu_cost_of_instr def
+R7624:7628 Kernel.MuCostModel <> instr:37 var
+R7633:7640 Kernel.VMState <> vm_graph proj
+R7633:7640 Kernel.VMState <> vm_graph proj
+R7633:7640 Kernel.VMState <> vm_graph proj
+R7658:7664 Kernel.VMState <> vm_csrs proj
+R7658:7664 Kernel.VMState <> vm_csrs proj
+R7756:7762 Kernel.VMState <> vm_regs proj
+R7756:7762 Kernel.VMState <> vm_regs proj
+R7771:7776 Kernel.VMState <> vm_mem proj
+R7771:7776 Kernel.VMState <> vm_mem proj
+R7785:7789 Kernel.VMState <> vm_pc proj
+R7785:7789 Kernel.VMState <> vm_pc proj
+R7798:7802 Kernel.VMState <> vm_mu proj
+R7798:7802 Kernel.VMState <> vm_mu proj
+R7810:7815 Kernel.VMState <> vm_err proj
+R7810:7815 Kernel.VMState <> vm_err proj
+R7645:7655 Kernel.VMState <> empty_graph def
+R7672:7684 Kernel.VMState <> csr_cert_addr proj
+R7672:7684 Kernel.VMState <> csr_cert_addr proj
+R7672:7684 Kernel.VMState <> csr_cert_addr proj
+R7692:7701 Kernel.VMState <> csr_status proj
+R7692:7701 Kernel.VMState <> csr_status proj
+R7709:7715 Kernel.VMState <> csr_err proj
+R7709:7715 Kernel.VMState <> csr_err proj
+R7767:7768 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7781:7782 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7794:7795 Kernel.MuCostModel <> pc:36 var
+R7820:7824 Coq.Init.Datatypes <> false constr
+R7836:7851 Kernel.MuCostModel <> mu_cost_of_trace def
+R7853:7857 Kernel.MuCostModel <> fuel':34 var
+R7859:7863 Kernel.MuCostModel <> trace:35 var
+R7866:7866 Coq.Init.Datatypes <> S constr
+R7868:7869 Kernel.MuCostModel <> pc:36 var
+prf 7983:7999 <> one_plus_neq_zero
+binder 8010:8010 <> n:38
+R8018:8021 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R8014:8016 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8017:8017 Kernel.MuCostModel <> n:38 var
+prf 8127:8151 <> mu_zero_no_reveal_from_pc
+binder 8164:8167 <> fuel:39
+binder 8169:8173 <> trace:40
+binder 8175:8176 <> pc:41
+R8217:8225 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8354:8354 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8213:8215 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8183:8198 Kernel.MuCostModel <> mu_cost_of_trace def
+R8200:8203 Kernel.MuCostModel <> fuel:39 var
+R8205:8209 Kernel.MuCostModel <> trace:40 var
+R8211:8212 Kernel.MuCostModel <> pc:41 var
+binder 8233:8233 <> n:42
+binder 8235:8237 <> mid:43
+binder 8239:8242 <> addr:44
+binder 8244:8246 <> len:45
+binder 8248:8249 <> mu:46
+R8313:8322 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8275:8277 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8258:8266 Coq.Lists.List <> nth_error def
+R8274:8274 Kernel.MuCostModel <> n:42 var
+R8268:8272 Kernel.MuCostModel <> trace:40 var
+R8278:8281 Coq.Init.Datatypes <> Some constr
+R8284:8295 Kernel.VMStep VMStep instr_reveal constr
+R8297:8299 Kernel.MuCostModel <> mid:43 var
+R8301:8304 Kernel.MuCostModel <> addr:44 var
+R8306:8308 Kernel.MuCostModel <> len:45 var
+R8310:8311 Kernel.MuCostModel <> mu:46 var
+R8330:8339 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8325:8328 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8323:8324 Kernel.MuCostModel <> pc:41 var
+R8329:8329 Kernel.MuCostModel <> n:42 var
+R8341:8344 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8340:8340 Kernel.MuCostModel <> n:42 var
+R8347:8349 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8345:8346 Kernel.MuCostModel <> pc:41 var
+R8350:8353 Kernel.MuCostModel <> fuel:39 var
+R8536:8544 Coq.Lists.List <> nth_error def
+R8536:8544 Coq.Lists.List <> nth_error def
+R8628:8637 Coq.Arith.PeanoNat Nat eq_dec thm
+R8628:8637 Coq.Arith.PeanoNat Nat eq_dec thm
+R8810:8832 Kernel.MuCostModel <> mu_cost_of_trace_unfold thm
+R8810:8832 Kernel.MuCostModel <> mu_cost_of_trace_unfold thm
+R8810:8832 Kernel.MuCostModel <> mu_cost_of_trace_unfold thm
+R8881:8896 Kernel.MuCostModel <> mu_cost_of_instr def
+R9044:9046 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R9044:9046 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R9113:9135 Kernel.MuCostModel <> mu_cost_of_trace_unfold thm
+R9113:9135 Kernel.MuCostModel <> mu_cost_of_trace_unfold thm
+R9113:9135 Kernel.MuCostModel <> mu_cost_of_trace_unfold thm
+R9234:9249 Kernel.MuCostModel <> mu_cost_of_instr def
+R9258:9265 Kernel.VMState <> vm_graph proj
+R9258:9265 Kernel.VMState <> vm_graph proj
+R9258:9265 Kernel.VMState <> vm_graph proj
+R9283:9289 Kernel.VMState <> vm_csrs proj
+R9283:9289 Kernel.VMState <> vm_csrs proj
+R9393:9399 Kernel.VMState <> vm_regs proj
+R9393:9399 Kernel.VMState <> vm_regs proj
+R9408:9413 Kernel.VMState <> vm_mem proj
+R9408:9413 Kernel.VMState <> vm_mem proj
+R9422:9426 Kernel.VMState <> vm_pc proj
+R9422:9426 Kernel.VMState <> vm_pc proj
+R9435:9439 Kernel.VMState <> vm_mu proj
+R9435:9439 Kernel.VMState <> vm_mu proj
+R9447:9452 Kernel.VMState <> vm_err proj
+R9447:9452 Kernel.VMState <> vm_err proj
+R9270:9280 Kernel.VMState <> empty_graph def
+R9297:9309 Kernel.VMState <> csr_cert_addr proj
+R9297:9309 Kernel.VMState <> csr_cert_addr proj
+R9297:9309 Kernel.VMState <> csr_cert_addr proj
+R9317:9326 Kernel.VMState <> csr_status proj
+R9317:9326 Kernel.VMState <> csr_status proj
+R9334:9340 Kernel.VMState <> csr_err proj
+R9334:9340 Kernel.VMState <> csr_err proj
+R9404:9405 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R9418:9419 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R9457:9461 Coq.Init.Datatypes <> false constr
+R9234:9249 Kernel.MuCostModel <> mu_cost_of_instr def
+R9258:9265 Kernel.VMState <> vm_graph proj
+R9258:9265 Kernel.VMState <> vm_graph proj
+R9258:9265 Kernel.VMState <> vm_graph proj
+R9283:9289 Kernel.VMState <> vm_csrs proj
+R9283:9289 Kernel.VMState <> vm_csrs proj
+R9393:9399 Kernel.VMState <> vm_regs proj
+R9393:9399 Kernel.VMState <> vm_regs proj
+R9408:9413 Kernel.VMState <> vm_mem proj
+R9408:9413 Kernel.VMState <> vm_mem proj
+R9422:9426 Kernel.VMState <> vm_pc proj
+R9422:9426 Kernel.VMState <> vm_pc proj
+R9435:9439 Kernel.VMState <> vm_mu proj
+R9435:9439 Kernel.VMState <> vm_mu proj
+R9447:9452 Kernel.VMState <> vm_err proj
+R9447:9452 Kernel.VMState <> vm_err proj
+R9270:9280 Kernel.VMState <> empty_graph def
+R9297:9309 Kernel.VMState <> csr_cert_addr proj
+R9297:9309 Kernel.VMState <> csr_cert_addr proj
+R9297:9309 Kernel.VMState <> csr_cert_addr proj
+R9317:9326 Kernel.VMState <> csr_status proj
+R9317:9326 Kernel.VMState <> csr_status proj
+R9334:9340 Kernel.VMState <> csr_err proj
+R9334:9340 Kernel.VMState <> csr_err proj
+R9404:9405 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R9418:9419 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R9457:9461 Coq.Init.Datatypes <> false constr
+R9570:9573 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R9578:9580 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9574:9574 Coq.Init.Datatypes <> S constr
+R9570:9573 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R9578:9580 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9574:9574 Coq.Init.Datatypes <> S constr
+R9660:9662 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9663:9663 Coq.Init.Datatypes <> S constr
+R9682:9684 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9678:9678 Coq.Init.Datatypes <> S constr
+R9660:9662 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9663:9663 Coq.Init.Datatypes <> S constr
+R9682:9684 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9678:9678 Coq.Init.Datatypes <> S constr
+R9834:9850 Kernel.MuCostModel <> one_plus_neq_zero thm
+R9834:9850 Kernel.MuCostModel <> one_plus_neq_zero thm
+R10089:10113 Kernel.MuCostModel <> nth_error_none_propagates thm
+R10089:10113 Kernel.MuCostModel <> nth_error_none_propagates thm
+prf 10219:10235 <> mu_zero_no_reveal
+binder 10248:10251 <> fuel:47
+binder 10253:10257 <> trace:48
+R10290:10298 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10405:10405 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10264:10278 Kernel.MuCostModel <> mu_zero_program def
+R10280:10283 Kernel.MuCostModel <> fuel:47 var
+R10285:10289 Kernel.MuCostModel <> trace:48 var
+binder 10306:10306 <> n:49
+binder 10308:10310 <> mid:50
+binder 10312:10315 <> addr:51
+binder 10317:10319 <> len:52
+binder 10321:10322 <> mu:53
+R10386:10395 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10348:10350 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10331:10339 Coq.Lists.List <> nth_error def
+R10347:10347 Kernel.MuCostModel <> n:49 var
+R10341:10345 Kernel.MuCostModel <> trace:48 var
+R10351:10354 Coq.Init.Datatypes <> Some constr
+R10357:10368 Kernel.VMStep VMStep instr_reveal constr
+R10370:10372 Kernel.MuCostModel <> mid:50 var
+R10374:10377 Kernel.MuCostModel <> addr:51 var
+R10379:10381 Kernel.MuCostModel <> len:52 var
+R10383:10384 Kernel.MuCostModel <> mu:53 var
+R10397:10400 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R10396:10396 Kernel.MuCostModel <> n:49 var
+R10401:10404 Kernel.MuCostModel <> fuel:47 var
+R10474:10488 Kernel.MuCostModel <> mu_zero_program def
+R10516:10519 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R10516:10519 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R10550:10553 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R10555:10557 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10575:10599 Kernel.MuCostModel <> mu_zero_no_reveal_from_pc thm
+R10550:10553 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R10555:10557 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10575:10599 Kernel.MuCostModel <> mu_zero_no_reveal_from_pc thm

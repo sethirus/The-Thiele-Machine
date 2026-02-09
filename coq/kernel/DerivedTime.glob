@@ -1,0 +1,147 @@
+DIGEST 97b46adbd8563b881fb1970554ad485a
+FKernel.DerivedTime
+R24:27 Coq.Lists.List <> <> lib
+R29:42 Coq.Arith.PeanoNat <> <> lib
+R44:46 Coq.micromega.Lia <> <> lib
+R77:83 Kernel.VMState <> <> lib
+R85:90 Kernel.VMStep <> <> lib
+R92:104 Kernel.KernelPhysics <> <> lib
+R134:151 Kernel.SpacetimeEmergence <> <> lib
+R162:174 Coq.Lists.List ListNotations <> mod
+def 1833:1850 <> trace_equiv_region
+R1857:1863 Kernel.VMState <> VMState rec
+binder 1853:1853 <> s:1
+R1875:1878 Coq.Init.Datatypes <> list ind
+R1880:1893 Kernel.VMStep VMStep vm_instruction ind
+binder 1867:1868 <> t1:2
+binder 1870:1871 <> t2:3
+binder 1915:1916 <> s1:4
+binder 1918:1919 <> s2:5
+R1944:1951 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1926:1935 Kernel.SpacetimeEmergence <> exec_trace ind
+R1937:1937 Kernel.DerivedTime <> s:1 var
+R1939:1940 Kernel.DerivedTime <> t1:2 var
+R1942:1943 Kernel.DerivedTime <> s1:4 var
+R1970:1977 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1952:1961 Kernel.SpacetimeEmergence <> exec_trace ind
+R1963:1963 Kernel.DerivedTime <> s:1 var
+R1965:1966 Kernel.DerivedTime <> t2:3 var
+R1968:1969 Kernel.DerivedTime <> s2:5 var
+binder 1985:1987 <> mid:6
+R2013:2015 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1990:2005 Kernel.KernelPhysics <> ObservableRegion def
+R2007:2008 Kernel.DerivedTime <> s1:4 var
+R2010:2012 Kernel.DerivedTime <> mid:6 var
+R2016:2031 Kernel.KernelPhysics <> ObservableRegion def
+R2033:2034 Kernel.DerivedTime <> s2:5 var
+R2036:2038 Kernel.DerivedTime <> mid:6 var
+def 2692:2703 <> Derived_Time
+R2710:2716 Kernel.VMState <> VMState rec
+binder 2706:2706 <> s:7
+R2731:2732 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R2734:2736 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R2756:2758 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R2763:2764 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R2737:2740 Coq.Init.Datatypes <> list ind
+R2742:2755 Kernel.VMStep VMStep vm_instruction ind
+binder 2733:2733 <> t:8
+R2759:2762 Coq.Init.Logic <> True ind
+prf 3469:3496 <> mdlacc_preserves_all_regions
+binder 3509:3509 <> s:9
+binder 3511:3516 <> module:10
+binder 3518:3521 <> cost:11
+binder 3523:3524 <> s':12
+R3570:3577 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3531:3537 Kernel.VMStep VMStep vm_step ind
+R3539:3539 Kernel.DerivedTime <> s:9 var
+R3542:3553 Kernel.VMStep VMStep instr_mdlacc constr
+R3555:3560 Kernel.DerivedTime <> module:10 var
+R3562:3565 Kernel.DerivedTime <> cost:11 var
+R3568:3569 Kernel.DerivedTime <> s':12 var
+binder 3585:3587 <> mid:13
+R3612:3614 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3590:3605 Kernel.KernelPhysics <> ObservableRegion def
+R3607:3607 Kernel.DerivedTime <> s:9 var
+R3609:3611 Kernel.DerivedTime <> mid:13 var
+R3615:3630 Kernel.KernelPhysics <> ObservableRegion def
+R3632:3633 Kernel.DerivedTime <> s':12 var
+R3635:3637 Kernel.DerivedTime <> mid:13 var
+R3726:3741 Kernel.KernelPhysics <> ObservableRegion def
+prf 4920:4942 <> Time_Is_Not_Fundamental
+binder 4955:4955 <> s:14
+binder 4957:4962 <> module:15
+binder 4964:4967 <> cost:16
+R4974:4980 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4983:4990 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4981:4982 <> s':17
+R5008:5017 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4991:5000 Kernel.SpacetimeEmergence <> exec_trace ind
+R5002:5002 Kernel.DerivedTime <> s:14 var
+R5004:5005 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5007:5007 Kernel.DerivedTime <> s:14 var
+R5060:5069 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5018:5027 Kernel.SpacetimeEmergence <> exec_trace ind
+R5029:5029 Kernel.DerivedTime <> s:14 var
+R5031:5031 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5056:5056 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5032:5043 Kernel.VMStep VMStep instr_mdlacc constr
+R5045:5050 Kernel.DerivedTime <> module:15 var
+R5052:5055 Kernel.DerivedTime <> cost:16 var
+R5058:5059 Kernel.DerivedTime <> s':17 var
+R5070:5070 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5131:5141 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 5078:5080 <> mid:18
+R5105:5107 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5083:5098 Kernel.KernelPhysics <> ObservableRegion def
+R5100:5100 Kernel.DerivedTime <> s:14 var
+R5102:5104 Kernel.DerivedTime <> mid:18 var
+R5108:5123 Kernel.KernelPhysics <> ObservableRegion def
+R5125:5126 Kernel.DerivedTime <> s':17 var
+R5128:5130 Kernel.DerivedTime <> mid:18 var
+R5144:5147 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5142:5143 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5148:5148 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5173:5173 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5149:5160 Kernel.VMStep VMStep instr_mdlacc constr
+R5162:5167 Kernel.DerivedTime <> module:15 var
+R5169:5172 Kernel.DerivedTime <> cost:16 var
+R5217:5229 Kernel.VMStep VMStep advance_state def
+R5234:5245 Kernel.VMStep VMStep instr_mdlacc constr
+R5261:5268 Kernel.VMState <> vm_graph proj
+R5274:5280 Kernel.VMState <> vm_csrs proj
+R5286:5291 Kernel.VMState <> vm_err proj
+R5217:5229 Kernel.VMStep VMStep advance_state def
+R5234:5245 Kernel.VMStep VMStep instr_mdlacc constr
+R5261:5268 Kernel.VMState <> vm_graph proj
+R5274:5280 Kernel.VMState <> vm_csrs proj
+R5286:5291 Kernel.VMState <> vm_err proj
+R5348:5362 Kernel.SpacetimeEmergence <> exec_trace_cons constr
+R5348:5362 Kernel.SpacetimeEmergence <> exec_trace_cons constr
+R5379:5389 Kernel.VMStep VMStep step_mdlacc constr
+R5379:5389 Kernel.VMStep VMStep step_mdlacc constr
+R5459:5486 Kernel.DerivedTime <> mdlacc_preserves_all_regions thm
+R5459:5486 Kernel.DerivedTime <> mdlacc_preserves_all_regions thm
+R5542:5552 Kernel.VMStep VMStep step_mdlacc constr
+R5542:5552 Kernel.VMStep VMStep step_mdlacc constr
+prf 6221:6246 <> trace_equiv_region_stutter
+binder 6259:6259 <> s:19
+binder 6261:6266 <> module:20
+binder 6268:6271 <> cost:21
+R6278:6295 Kernel.DerivedTime <> trace_equiv_region def
+R6297:6297 Kernel.DerivedTime <> s:19 var
+R6299:6300 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6302:6302 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R6327:6327 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R6303:6314 Kernel.VMStep VMStep instr_mdlacc constr
+R6316:6321 Kernel.DerivedTime <> module:20 var
+R6323:6326 Kernel.DerivedTime <> cost:21 var
+R6471:6480 Kernel.SpacetimeEmergence <> exec_trace ind
+R6484:6485 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6471:6480 Kernel.SpacetimeEmergence <> exec_trace ind
+R6484:6485 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6569:6575 Kernel.VMStep VMStep vm_step ind
+R6580:6591 Kernel.VMStep VMStep instr_mdlacc constr
+R6569:6575 Kernel.VMStep VMStep vm_step ind
+R6580:6591 Kernel.VMStep VMStep instr_mdlacc constr
+R6621:6648 Kernel.DerivedTime <> mdlacc_preserves_all_regions thm
+R6621:6648 Kernel.DerivedTime <> mdlacc_preserves_all_regions thm

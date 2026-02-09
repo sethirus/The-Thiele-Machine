@@ -167,7 +167,7 @@ class TestCategory(Enum):
 # SECTION 3: Alignment Tests
 # =============================================================================
 
-def test_opcode_alignment() -> List[TestResult]:
+def _run_opcode_alignment() -> List[TestResult]:
     """Test that all opcodes match across Python, Verilog, and Coq."""
     results = []
     
@@ -235,7 +235,7 @@ def test_opcode_alignment() -> List[TestResult]:
     return results
 
 
-def test_mu_cost_formula() -> List[TestResult]:
+def _run_mu_cost_formula() -> List[TestResult]:
     """Test μ-cost formula consistency across layers.
     
     Note: Python VM applies S-expression canonicalization (normalizes whitespace)
@@ -314,7 +314,7 @@ def test_mu_cost_formula() -> List[TestResult]:
     return results
 
 
-def test_conservation_theorems() -> List[TestResult]:
+def _run_conservation_theorems() -> List[TestResult]:
     """Test that conservation law theorems compile in Coq."""
     results = []
     
@@ -356,7 +356,7 @@ def test_conservation_theorems() -> List[TestResult]:
     return results
 
 
-def test_infrastructure() -> List[TestResult]:
+def _run_infrastructure() -> List[TestResult]:
     """Test that required infrastructure exists."""
     results = []
     
@@ -410,7 +410,7 @@ def test_infrastructure() -> List[TestResult]:
     return results
 
 
-def test_edge_cases() -> List[TestResult]:
+def _run_edge_cases() -> List[TestResult]:
     """Test edge cases for μ-cost calculation."""
     results = []
     
@@ -529,7 +529,7 @@ def check_coq_no_axioms(filename: str) -> Tuple[bool, List[str]]:
     return len(axiom_lines) == 0, axiom_lines
 
 
-def test_physics_proofs() -> List[TestResult]:
+def _run_physics_proofs() -> List[TestResult]:
     """Test physics proof files for completeness and correctness."""
     results = []
     
@@ -631,7 +631,7 @@ def test_physics_proofs() -> List[TestResult]:
     return results
 
 
-def test_physics_embeddings() -> List[TestResult]:
+def _run_physics_embeddings() -> List[TestResult]:
     """Test physics embedding proofs for completeness."""
     results = []
     
@@ -723,7 +723,7 @@ def test_physics_embeddings() -> List[TestResult]:
     return results
 
 
-def test_isomorphism_proofs() -> List[TestResult]:
+def _run_isomorphism_proofs() -> List[TestResult]:
     """Test categorical isomorphism proofs."""
     results = []
     
@@ -804,7 +804,57 @@ def test_isomorphism_proofs() -> List[TestResult]:
 
 
 # =============================================================================
-# SECTION 5: Test Runner and Reporter
+# SECTION 5: Pytest-Compatible Test Wrappers
+# =============================================================================
+
+def _assert_results(results: List[TestResult]) -> None:
+    """Assert all TestResults passed, reporting failures."""
+    failed = [r for r in results if not r.passed]
+    assert not failed, "\n".join(f"  FAIL {r.name}: {r.message}" for r in failed)
+
+
+def test_opcode_alignment():
+    """Test that all opcodes match across Python, Verilog, and Coq."""
+    _assert_results(_run_opcode_alignment())
+
+
+def test_mu_cost_formula():
+    """Test μ-cost formula consistency across layers."""
+    _assert_results(_run_mu_cost_formula())
+
+
+def test_conservation_theorems():
+    """Test that conservation law theorems compile in Coq."""
+    _assert_results(_run_conservation_theorems())
+
+
+def test_infrastructure():
+    """Test that required infrastructure exists."""
+    _assert_results(_run_infrastructure())
+
+
+def test_edge_cases():
+    """Test edge cases for μ-cost calculation."""
+    _assert_results(_run_edge_cases())
+
+
+def test_physics_proofs():
+    """Test physics proof files for completeness and correctness."""
+    _assert_results(_run_physics_proofs())
+
+
+def test_physics_embeddings():
+    """Test physics embedding proofs for completeness."""
+    _assert_results(_run_physics_embeddings())
+
+
+def test_isomorphism_proofs():
+    """Test categorical isomorphism proofs."""
+    _assert_results(_run_isomorphism_proofs())
+
+
+# =============================================================================
+# SECTION 6: Test Runner and Reporter
 # =============================================================================
 
 def run_all_tests() -> Tuple[List[TestResult], int, int]:
@@ -818,14 +868,14 @@ def run_all_tests() -> Tuple[List[TestResult], int, int]:
     
     # Run each test category
     test_categories = [
-        (TestCategory.OPCODE, test_opcode_alignment),
-        (TestCategory.MU_COST, test_mu_cost_formula),
-        (TestCategory.CONSERVATION, test_conservation_theorems),
-        (TestCategory.INFRASTRUCTURE, test_infrastructure),
-        (TestCategory.EDGE_CASE, test_edge_cases),
-        (TestCategory.PHYSICS_PROOFS, test_physics_proofs),
-        (TestCategory.PHYSICS_EMBEDDINGS, test_physics_embeddings),
-        (TestCategory.ISOMORPHISM_PROOFS, test_isomorphism_proofs),
+        (TestCategory.OPCODE, _run_opcode_alignment),
+        (TestCategory.MU_COST, _run_mu_cost_formula),
+        (TestCategory.CONSERVATION, _run_conservation_theorems),
+        (TestCategory.INFRASTRUCTURE, _run_infrastructure),
+        (TestCategory.EDGE_CASE, _run_edge_cases),
+        (TestCategory.PHYSICS_PROOFS, _run_physics_proofs),
+        (TestCategory.PHYSICS_EMBEDDINGS, _run_physics_embeddings),
+        (TestCategory.ISOMORPHISM_PROOFS, _run_isomorphism_proofs),
     ]
     
     for category, test_func in test_categories:

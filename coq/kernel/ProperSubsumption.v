@@ -35,6 +35,7 @@ Definition Symbol := nat.
     This is NOT a vacuous definition - it's the canonical blank symbol
     used in all TM formalizations (Hopcroft & Ullman, Sipser, etc.).
     Inquisitor: This zero is INTENTIONAL and CORRECT. *)
+(* SAFE: Blank = 0 is the standard TM convention per Hopcroft & Ullman. *)
 Definition blank : Symbol := 0.
 
 (** Tape: infinite in both directions, represented as two lists + head position *)

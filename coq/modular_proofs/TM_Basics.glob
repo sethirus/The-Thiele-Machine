@@ -1,0 +1,415 @@
+DIGEST 6e731a1dbeabb9aad4cc218a529f4205
+FModularProofs.TM_Basics
+R534:537 Coq.Lists.List <> <> lib
+R539:543 Coq.Arith.Arith <> <> lib
+R545:547 Coq.micromega.Lia <> <> lib
+R549:552 Coq.Bool.Bool <> <> lib
+R562:574 Coq.Lists.List ListNotations <> mod
+def 806:812 <> TMState
+R832:834 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R821:823 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R818:820 Coq.Init.Datatypes <> nat ind
+R824:827 Coq.Init.Datatypes <> list ind
+R829:831 Coq.Init.Datatypes <> nat ind
+R835:837 Coq.Init.Datatypes <> nat ind
+def 857:864 <> TMConfig
+R869:875 ModularProofs.TM_Basics <> TMState def
+def 889:900 <> TMTransition
+R908:911 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R905:907 Coq.Init.Datatypes <> nat ind
+R915:919 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R935:935 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R912:914 Coq.Init.Datatypes <> nat ind
+R929:931 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R923:925 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R920:922 Coq.Init.Datatypes <> nat ind
+R926:928 Coq.Init.Datatypes <> nat ind
+R932:934 Coq.Init.Datatypes <> nat ind
+def 950:953 <> BASE
+R957:959 Coq.Init.Datatypes <> nat ind
+def 978:985 <> tm_blank
+R989:991 Coq.Init.Datatypes <> nat ind
+R996:1002 Coq.Arith.PeanoNat Nat sub def
+def 1020:1028 <> digits_ok
+R1036:1039 Coq.Init.Datatypes <> list ind
+R1041:1043 Coq.Init.Datatypes <> nat ind
+binder 1031:1032 <> xs:1
+R1056:1061 Coq.Lists.List <> Forall ind
+R1083:1084 ModularProofs.TM_Basics <> xs:1 var
+binder 1068:1068 <> d:2
+R1074:1076 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R1073:1073 ModularProofs.TM_Basics <> d:2 var
+R1077:1080 ModularProofs.TM_Basics <> BASE def
+def 1097:1107 <> replace_nth
+R1114:1117 Coq.Init.Datatypes <> list ind
+R1119:1121 Coq.Init.Datatypes <> nat ind
+binder 1110:1110 <> l:3
+R1129:1131 Coq.Init.Datatypes <> nat ind
+binder 1125:1125 <> n:4
+R1139:1141 Coq.Init.Datatypes <> nat ind
+binder 1135:1135 <> v:5
+R1146:1149 Coq.Init.Datatypes <> list ind
+R1151:1153 Coq.Init.Datatypes <> nat ind
+R1169:1169 ModularProofs.TM_Basics <> n:4 var
+R1166:1166 ModularProofs.TM_Basics <> l:3 var
+R1180:1181 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1189:1190 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1197:1200 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1211:1214 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1210:1210 ModularProofs.TM_Basics <> v:5 var
+R1223:1226 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1231:1231 Coq.Init.Datatypes <> S constr
+R1240:1243 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1244:1254 ModularProofs.TM_Basics <> replace_nth:6 def
+R1262:1262 ModularProofs.TM_Basics <> v:5 var
+def 1283:1291 <> move_head
+R1306:1308 Coq.Init.Datatypes <> nat ind
+binder 1294:1297 <> head:9
+binder 1299:1302 <> move:10
+R1313:1315 Coq.Init.Datatypes <> nat ind
+R1328:1331 ModularProofs.TM_Basics <> move:10 var
+R1347:1350 ModularProofs.TM_Basics <> head:9 var
+R1361:1361 Coq.Init.Datatypes <> S constr
+R1363:1366 ModularProofs.TM_Basics <> head:9 var
+R1377:1384 Coq.Arith.PeanoNat Nat pred def
+R1386:1389 ModularProofs.TM_Basics <> head:9 var
+def 1410:1416 <> tm_step
+R1424:1435 ModularProofs.TM_Basics <> TMTransition def
+binder 1419:1420 <> tm:12
+R1446:1453 ModularProofs.TM_Basics <> TMConfig def
+binder 1439:1442 <> conf:13
+R1458:1465 ModularProofs.TM_Basics <> TMConfig def
+R1496:1499 ModularProofs.TM_Basics <> conf:13 var
+R1477:1477 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1479:1480 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1485:1486 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1491:1491 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1520:1522 Coq.Lists.List <> nth def
+R1534:1541 ModularProofs.TM_Basics <> tm_blank def
+binder 1510:1515 <> symbol:15
+R1574:1575 ModularProofs.TM_Basics <> tm:12 var
+R1579:1584 ModularProofs.TM_Basics <> symbol:15 var
+R1553:1553 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1556:1557 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1563:1564 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1569:1569 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1604:1614 ModularProofs.TM_Basics <> replace_nth def
+binder 1595:1599 <> tape':16
+R1650:1658 ModularProofs.TM_Basics <> move_head def
+binder 1641:1645 <> head':17
+R1675:1675 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1678:1679 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1685:1686 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1692:1692 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1680:1684 ModularProofs.TM_Basics <> tape':16 var
+R1687:1691 ModularProofs.TM_Basics <> head':17 var
+def 1705:1712 <> tm_run_n
+R1720:1731 ModularProofs.TM_Basics <> TMTransition def
+binder 1715:1716 <> tm:18
+R1742:1749 ModularProofs.TM_Basics <> TMConfig def
+binder 1735:1738 <> conf:19
+R1757:1759 Coq.Init.Datatypes <> nat ind
+binder 1753:1753 <> n:20
+R1764:1771 ModularProofs.TM_Basics <> TMConfig def
+R1784:1784 ModularProofs.TM_Basics <> n:20 var
+R1800:1803 ModularProofs.TM_Basics <> conf:19 var
+R1809:1809 Coq.Init.Datatypes <> S constr
+R1817:1824 ModularProofs.TM_Basics <> tm_run_n:21 def
+R1830:1836 ModularProofs.TM_Basics <> tm_step def
+R1838:1839 ModularProofs.TM_Basics <> tm:18 var
+R1841:1844 ModularProofs.TM_Basics <> conf:19 var
+R1826:1827 ModularProofs.TM_Basics <> tm:18 var
+prf 2081:2098 <> replace_nth_length
+binder 2109:2109 <> l:23
+binder 2111:2111 <> n:24
+binder 2113:2113 <> v:25
+R2142:2144 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2116:2121 Coq.Init.Datatypes <> length def
+R2124:2134 ModularProofs.TM_Basics <> replace_nth def
+R2136:2136 ModularProofs.TM_Basics <> l:23 var
+R2138:2138 ModularProofs.TM_Basics <> n:24 var
+R2140:2140 ModularProofs.TM_Basics <> v:25 var
+R2145:2150 Coq.Init.Datatypes <> length def
+R2152:2152 ModularProofs.TM_Basics <> l:23 var
+prf 2231:2248 <> replace_nth_Forall
+R2269:2272 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2266:2268 Coq.Init.Datatypes <> nat ind
+binder 2262:2262 <> P:26
+R2284:2287 Coq.Init.Datatypes <> list ind
+R2289:2291 Coq.Init.Datatypes <> nat ind
+binder 2280:2280 <> l:27
+binder 2294:2294 <> n:28
+binder 2296:2296 <> v:29
+R2313:2320 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2303:2308 Coq.Lists.List <> Forall ind
+R2312:2312 ModularProofs.TM_Basics <> l:27 var
+R2310:2310 ModularProofs.TM_Basics <> P:26 var
+R2324:2331 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2321:2321 ModularProofs.TM_Basics <> P:26 var
+R2323:2323 ModularProofs.TM_Basics <> v:29 var
+R2332:2337 Coq.Lists.List <> Forall ind
+R2342:2352 ModularProofs.TM_Basics <> replace_nth def
+R2354:2354 ModularProofs.TM_Basics <> l:27 var
+R2356:2356 ModularProofs.TM_Basics <> n:28 var
+R2358:2358 ModularProofs.TM_Basics <> v:29 var
+R2339:2339 ModularProofs.TM_Basics <> P:26 var
+def 2774:2785 <> tm_config_ok
+R2795:2802 ModularProofs.TM_Basics <> TMConfig def
+binder 2788:2791 <> conf:30
+R2841:2844 ModularProofs.TM_Basics <> conf:30 var
+R2822:2822 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2824:2825 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2830:2831 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2836:2836 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2865:2868 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2851:2859 ModularProofs.TM_Basics <> digits_ok def
+R2873:2875 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2876:2881 Coq.Init.Datatypes <> length def
+prf 2896:2914 <> tm_config_ok_digits
+binder 2927:2927 <> q:32
+binder 2929:2932 <> tape:33
+binder 2934:2937 <> head:34
+R2972:2979 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2944:2955 ModularProofs.TM_Basics <> tm_config_ok def
+R2957:2957 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2959:2960 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2965:2966 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2971:2971 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2958:2958 ModularProofs.TM_Basics <> q:32 var
+R2961:2964 ModularProofs.TM_Basics <> tape:33 var
+R2967:2970 ModularProofs.TM_Basics <> head:34 var
+R2980:2988 ModularProofs.TM_Basics <> digits_ok def
+R2990:2993 ModularProofs.TM_Basics <> tape:33 var
+prf 3058:3074 <> tm_config_ok_head
+binder 3087:3087 <> q:35
+binder 3089:3092 <> tape:36
+binder 3094:3097 <> head:37
+R3132:3139 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3104:3115 ModularProofs.TM_Basics <> tm_config_ok def
+R3117:3117 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3119:3120 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3125:3126 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3131:3131 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3118:3118 ModularProofs.TM_Basics <> q:35 var
+R3121:3124 ModularProofs.TM_Basics <> tape:36 var
+R3127:3130 ModularProofs.TM_Basics <> head:37 var
+R3144:3146 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3140:3143 ModularProofs.TM_Basics <> head:37 var
+R3147:3152 Coq.Init.Datatypes <> length def
+R3154:3157 ModularProofs.TM_Basics <> tape:36 var
+prf 3222:3246 <> tm_config_ok_change_state
+binder 3259:3260 <> q1:38
+binder 3262:3263 <> q2:39
+binder 3265:3268 <> tape:40
+binder 3270:3273 <> head:41
+R3309:3316 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3280:3291 ModularProofs.TM_Basics <> tm_config_ok def
+R3293:3293 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3296:3297 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3302:3303 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3308:3308 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3294:3295 ModularProofs.TM_Basics <> q1:38 var
+R3298:3301 ModularProofs.TM_Basics <> tape:40 var
+R3304:3307 ModularProofs.TM_Basics <> head:41 var
+R3317:3328 ModularProofs.TM_Basics <> tm_config_ok def
+R3330:3330 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3333:3334 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3339:3340 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3345:3345 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3331:3332 ModularProofs.TM_Basics <> q2:39 var
+R3335:3338 ModularProofs.TM_Basics <> tape:40 var
+R3341:3344 ModularProofs.TM_Basics <> head:41 var
+prf 3406:3430 <> tm_config_ok_update_write
+binder 3443:3443 <> q:42
+binder 3445:3448 <> tape:43
+binder 3450:3453 <> head:44
+binder 3455:3459 <> write:45
+R3494:3501 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3466:3477 ModularProofs.TM_Basics <> tm_config_ok def
+R3479:3479 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3481:3482 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3487:3488 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3493:3493 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3480:3480 ModularProofs.TM_Basics <> q:42 var
+R3483:3486 ModularProofs.TM_Basics <> tape:43 var
+R3489:3492 ModularProofs.TM_Basics <> head:44 var
+R3514:3521 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3507:3509 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3502:3506 ModularProofs.TM_Basics <> write:45 var
+R3510:3513 ModularProofs.TM_Basics <> BASE def
+R3522:3533 ModularProofs.TM_Basics <> tm_config_ok def
+R3535:3535 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3537:3538 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3566:3567 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3572:3572 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3536:3536 ModularProofs.TM_Basics <> q:42 var
+R3539:3549 ModularProofs.TM_Basics <> replace_nth def
+R3551:3554 ModularProofs.TM_Basics <> tape:43 var
+R3556:3559 ModularProofs.TM_Basics <> head:44 var
+R3561:3565 ModularProofs.TM_Basics <> write:45 var
+R3568:3571 ModularProofs.TM_Basics <> head:44 var
+R3673:3690 ModularProofs.TM_Basics <> replace_nth_Forall thm
+R3673:3690 ModularProofs.TM_Basics <> replace_nth_Forall thm
+R3733:3750 ModularProofs.TM_Basics <> replace_nth_length thm
+R3733:3750 ModularProofs.TM_Basics <> replace_nth_length thm
+R3733:3750 ModularProofs.TM_Basics <> replace_nth_length thm
+prf 3778:3801 <> tm_config_ok_update_head
+binder 3814:3814 <> q:46
+binder 3816:3819 <> tape:47
+binder 3821:3824 <> head:48
+binder 3826:3830 <> head':49
+R3865:3872 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3837:3848 ModularProofs.TM_Basics <> tm_config_ok def
+R3850:3850 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3852:3853 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3858:3859 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3864:3864 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3851:3851 ModularProofs.TM_Basics <> q:46 var
+R3854:3857 ModularProofs.TM_Basics <> tape:47 var
+R3860:3863 ModularProofs.TM_Basics <> head:48 var
+R3892:3899 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3878:3880 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3873:3877 ModularProofs.TM_Basics <> head':49 var
+R3881:3886 Coq.Init.Datatypes <> length def
+R3888:3891 ModularProofs.TM_Basics <> tape:47 var
+R3900:3911 ModularProofs.TM_Basics <> tm_config_ok def
+R3913:3913 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3915:3916 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3921:3922 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3928:3928 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3914:3914 ModularProofs.TM_Basics <> q:46 var
+R3917:3920 ModularProofs.TM_Basics <> tape:47 var
+R3923:3927 ModularProofs.TM_Basics <> head':49 var
+prf 4250:4268 <> tm_step_tape_length
+binder 4281:4282 <> tm:50
+binder 4284:4284 <> q:51
+binder 4286:4289 <> tape:52
+binder 4291:4294 <> head:53
+R4319:4326 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4305:4307 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4301:4304 ModularProofs.TM_Basics <> head:53 var
+R4308:4313 Coq.Init.Datatypes <> length def
+R4315:4318 ModularProofs.TM_Basics <> tape:52 var
+R4393:4395 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4327:4332 Coq.Init.Datatypes <> length def
+R4357:4363 ModularProofs.TM_Basics <> tm_step def
+R4365:4366 ModularProofs.TM_Basics <> tm:50 var
+R4368:4368 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4370:4371 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4376:4377 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4382:4382 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4369:4369 ModularProofs.TM_Basics <> q:51 var
+R4372:4375 ModularProofs.TM_Basics <> tape:52 var
+R4378:4381 ModularProofs.TM_Basics <> head:53 var
+R4340:4340 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4342:4343 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4349:4350 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4352:4352 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4396:4401 Coq.Init.Datatypes <> length def
+R4403:4406 ModularProofs.TM_Basics <> tape:52 var
+R4456:4462 ModularProofs.TM_Basics <> tm_step def
+R4490:4492 Coq.Lists.List <> nth def
+R4504:4511 ModularProofs.TM_Basics <> tm_blank def
+R4490:4492 Coq.Lists.List <> nth def
+R4504:4511 ModularProofs.TM_Basics <> tm_blank def
+R4579:4596 ModularProofs.TM_Basics <> replace_nth_length thm
+R4579:4596 ModularProofs.TM_Basics <> replace_nth_length thm
+prf 4611:4634 <> tm_step_digits_preserved
+binder 4647:4648 <> tm:54
+binder 4650:4650 <> q:55
+binder 4652:4655 <> tape:56
+binder 4657:4660 <> head:57
+R4695:4702 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4667:4678 ModularProofs.TM_Basics <> tm_config_ok def
+R4680:4680 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4682:4683 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4688:4689 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4694:4694 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4681:4681 ModularProofs.TM_Basics <> q:55 var
+R4684:4687 ModularProofs.TM_Basics <> tape:56 var
+R4690:4693 ModularProofs.TM_Basics <> head:57 var
+R4729:4730 ModularProofs.TM_Basics <> tm:54 var
+R4732:4732 ModularProofs.TM_Basics <> q:55 var
+R4735:4737 Coq.Lists.List <> nth def
+R4749:4756 ModularProofs.TM_Basics <> tm_blank def
+R4744:4747 ModularProofs.TM_Basics <> tape:56 var
+R4739:4742 ModularProofs.TM_Basics <> head:57 var
+R4708:4708 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4711:4712 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4718:4719 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4724:4724 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4778:4785 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4771:4773 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4774:4777 ModularProofs.TM_Basics <> BASE def
+R4786:4794 ModularProofs.TM_Basics <> digits_ok def
+R4819:4825 ModularProofs.TM_Basics <> tm_step def
+R4827:4828 ModularProofs.TM_Basics <> tm:54 var
+R4830:4830 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4832:4833 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4838:4839 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4844:4844 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4831:4831 ModularProofs.TM_Basics <> q:55 var
+R4834:4837 ModularProofs.TM_Basics <> tape:56 var
+R4840:4843 ModularProofs.TM_Basics <> head:57 var
+R4802:4802 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4804:4805 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4811:4812 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4814:4814 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4935:4941 ModularProofs.TM_Basics <> tm_step def
+R4969:4971 Coq.Lists.List <> nth def
+R4983:4990 ModularProofs.TM_Basics <> tm_blank def
+R4969:4971 Coq.Lists.List <> nth def
+R4983:4990 ModularProofs.TM_Basics <> tm_blank def
+R5074:5091 ModularProofs.TM_Basics <> replace_nth_Forall thm
+R5074:5091 ModularProofs.TM_Basics <> replace_nth_Forall thm
+prf 5134:5155 <> tm_step_head_preserved
+binder 5168:5169 <> tm:58
+binder 5171:5171 <> q:59
+binder 5173:5176 <> tape:60
+binder 5178:5181 <> head:61
+R5216:5223 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5188:5199 ModularProofs.TM_Basics <> tm_config_ok def
+R5201:5201 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5203:5204 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5209:5210 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5215:5215 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5202:5202 ModularProofs.TM_Basics <> q:59 var
+R5205:5208 ModularProofs.TM_Basics <> tape:60 var
+R5211:5214 ModularProofs.TM_Basics <> head:61 var
+R5250:5251 ModularProofs.TM_Basics <> tm:58 var
+R5253:5253 ModularProofs.TM_Basics <> q:59 var
+R5256:5258 Coq.Lists.List <> nth def
+R5270:5277 ModularProofs.TM_Basics <> tm_blank def
+R5265:5268 ModularProofs.TM_Basics <> tape:60 var
+R5260:5263 ModularProofs.TM_Basics <> head:61 var
+R5229:5229 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5232:5233 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5239:5240 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5245:5245 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5320:5327 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5306:5308 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5287:5295 ModularProofs.TM_Basics <> move_head def
+R5297:5300 ModularProofs.TM_Basics <> head:61 var
+R5309:5314 Coq.Init.Datatypes <> length def
+R5316:5319 ModularProofs.TM_Basics <> tape:60 var
+R5350:5356 ModularProofs.TM_Basics <> tm_step def
+R5358:5359 ModularProofs.TM_Basics <> tm:58 var
+R5361:5361 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5363:5364 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5369:5370 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5375:5375 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5362:5362 ModularProofs.TM_Basics <> q:59 var
+R5365:5368 ModularProofs.TM_Basics <> tape:60 var
+R5371:5374 ModularProofs.TM_Basics <> head:61 var
+R5333:5333 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5335:5336 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5338:5339 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5345:5345 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5385:5387 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5388:5393 Coq.Init.Datatypes <> length def
+R5395:5398 ModularProofs.TM_Basics <> tape:60 var
+R5446:5452 ModularProofs.TM_Basics <> tm_step def
+R5480:5482 Coq.Lists.List <> nth def
+R5494:5501 ModularProofs.TM_Basics <> tm_blank def
+R5480:5482 Coq.Lists.List <> nth def
+R5494:5501 ModularProofs.TM_Basics <> tm_blank def

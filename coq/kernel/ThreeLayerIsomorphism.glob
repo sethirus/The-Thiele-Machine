@@ -1,0 +1,1428 @@
+DIGEST 74d6fd5f1806267daf81b41046589ba4
+FKernel.ThreeLayerIsomorphism
+R720:733 Coq.Strings.String <> <> lib
+R735:738 Coq.Lists.List <> <> lib
+R740:743 Coq.Bool.Bool <> <> lib
+R745:758 Coq.Arith.PeanoNat <> <> lib
+R760:762 Coq.micromega.Lia <> <> lib
+R772:784 Coq.Lists.List ListNotations <> mod
+R803:809 Kernel.VMState <> <> lib
+R827:832 Kernel.VMStep <> <> lib
+R850:864 Kernel.SimulationProof <> <> lib
+prf 1097:1110 <> vm_apply_total
+R1126:1132 Kernel.VMState <> VMState rec
+binder 1122:1122 <> s:1
+R1140:1153 Kernel.VMStep VMStep vm_instruction ind
+binder 1136:1136 <> i:2
+R1159:1165 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1168:1169 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 1166:1167 <> s':3
+R1182:1184 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1170:1177 Kernel.SimulationProof <> vm_apply def
+R1179:1179 Kernel.ThreeLayerIsomorphism <> s:1 var
+R1181:1181 Kernel.ThreeLayerIsomorphism <> i:2 var
+R1185:1186 Kernel.ThreeLayerIsomorphism <> s':3 var
+prf 1464:1485 <> instruction_exhaustive
+R1501:1514 Kernel.VMStep VMStep vm_instruction ind
+binder 1497:1497 <> i:4
+R1526:1526 Kernel.ThreeLayerIsomorphism <> i:4 var
+R1537:1546 Kernel.VMStep VMStep instr_pnew constr
+R1567:1570 Coq.Init.Logic <> True ind
+R1576:1587 Kernel.VMStep VMStep instr_psplit constr
+R1607:1610 Coq.Init.Logic <> True ind
+R1616:1627 Kernel.VMStep VMStep instr_pmerge constr
+R1647:1650 Coq.Init.Logic <> True ind
+R1656:1668 Kernel.VMStep VMStep instr_lassert constr
+R1687:1690 Coq.Init.Logic <> True ind
+R1696:1706 Kernel.VMStep VMStep instr_ljoin constr
+R1727:1730 Coq.Init.Logic <> True ind
+R1736:1747 Kernel.VMStep VMStep instr_mdlacc constr
+R1767:1770 Coq.Init.Logic <> True ind
+R1776:1790 Kernel.VMStep VMStep instr_pdiscover constr
+R1807:1810 Coq.Init.Logic <> True ind
+R1816:1825 Kernel.VMStep VMStep instr_xfer constr
+R1847:1850 Coq.Init.Logic <> True ind
+R1856:1867 Kernel.VMStep VMStep instr_pyexec constr
+R1887:1890 Coq.Init.Logic <> True ind
+R1896:1911 Kernel.VMStep VMStep instr_chsh_trial constr
+R1927:1930 Coq.Init.Logic <> True ind
+R1936:1949 Kernel.VMStep VMStep instr_xor_load constr
+R1967:1970 Coq.Init.Logic <> True ind
+R1976:1988 Kernel.VMStep VMStep instr_xor_add constr
+R2007:2010 Coq.Init.Logic <> True ind
+R2016:2029 Kernel.VMStep VMStep instr_xor_swap constr
+R2047:2050 Coq.Init.Logic <> True ind
+R2056:2069 Kernel.VMStep VMStep instr_xor_rank constr
+R2087:2090 Coq.Init.Logic <> True ind
+R2096:2105 Kernel.VMStep VMStep instr_emit constr
+R2127:2130 Coq.Init.Logic <> True ind
+R2136:2147 Kernel.VMStep VMStep instr_reveal constr
+R2167:2170 Coq.Init.Logic <> True ind
+R2176:2193 Kernel.VMStep VMStep instr_oracle_halts constr
+R2207:2210 Coq.Init.Logic <> True ind
+R2216:2225 Kernel.VMStep VMStep instr_halt constr
+R2247:2250 Coq.Init.Logic <> True ind
+R2284:2284 Coq.Init.Logic <> I constr
+R2284:2284 Coq.Init.Logic <> I constr
+R2284:2284 Coq.Init.Logic <> I constr
+R2284:2284 Coq.Init.Logic <> I constr
+R2284:2284 Coq.Init.Logic <> I constr
+R2284:2284 Coq.Init.Logic <> I constr
+R2284:2284 Coq.Init.Logic <> I constr
+R2284:2284 Coq.Init.Logic <> I constr
+R2284:2284 Coq.Init.Logic <> I constr
+R2284:2284 Coq.Init.Logic <> I constr
+R2284:2284 Coq.Init.Logic <> I constr
+R2284:2284 Coq.Init.Logic <> I constr
+R2284:2284 Coq.Init.Logic <> I constr
+R2284:2284 Coq.Init.Logic <> I constr
+R2284:2284 Coq.Init.Logic <> I constr
+R2284:2284 Coq.Init.Logic <> I constr
+R2284:2284 Coq.Init.Logic <> I constr
+R2284:2284 Coq.Init.Logic <> I constr
+R2284:2284 Coq.Init.Logic <> I constr
+prf 2583:2598 <> advance_state_mu
+binder 2609:2609 <> s:6
+binder 2611:2615 <> instr:7
+binder 2617:2617 <> g:8
+binder 2619:2619 <> c:9
+binder 2621:2621 <> e:10
+R2661:2663 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2626:2630 Kernel.VMState <> vm_mu proj
+R2633:2645 Kernel.VMStep VMStep advance_state def
+R2647:2647 Kernel.ThreeLayerIsomorphism <> s:6 var
+R2649:2653 Kernel.ThreeLayerIsomorphism <> instr:7 var
+R2655:2655 Kernel.ThreeLayerIsomorphism <> g:8 var
+R2657:2657 Kernel.ThreeLayerIsomorphism <> c:9 var
+R2659:2659 Kernel.ThreeLayerIsomorphism <> e:10 var
+R2664:2673 Kernel.VMStep VMStep apply_cost def
+R2675:2675 Kernel.ThreeLayerIsomorphism <> s:6 var
+R2677:2681 Kernel.ThreeLayerIsomorphism <> instr:7 var
+prf 2789:2807 <> advance_state_rm_mu
+binder 2818:2818 <> s:11
+binder 2820:2824 <> instr:12
+binder 2826:2826 <> g:13
+binder 2828:2828 <> c:14
+binder 2830:2830 <> r:15
+binder 2832:2832 <> m:16
+binder 2834:2834 <> e:17
+R2881:2883 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2839:2843 Kernel.VMState <> vm_mu proj
+R2846:2861 Kernel.VMStep VMStep advance_state_rm def
+R2863:2863 Kernel.ThreeLayerIsomorphism <> s:11 var
+R2865:2869 Kernel.ThreeLayerIsomorphism <> instr:12 var
+R2871:2871 Kernel.ThreeLayerIsomorphism <> g:13 var
+R2873:2873 Kernel.ThreeLayerIsomorphism <> c:14 var
+R2875:2875 Kernel.ThreeLayerIsomorphism <> r:15 var
+R2877:2877 Kernel.ThreeLayerIsomorphism <> m:16 var
+R2879:2879 Kernel.ThreeLayerIsomorphism <> e:17 var
+R2884:2893 Kernel.VMStep VMStep apply_cost def
+R2895:2895 Kernel.ThreeLayerIsomorphism <> s:11 var
+R2897:2901 Kernel.ThreeLayerIsomorphism <> instr:12 var
+prf 3007:3022 <> advance_state_pc
+binder 3033:3033 <> s:18
+binder 3035:3039 <> instr:19
+binder 3041:3041 <> g:20
+binder 3043:3043 <> c:21
+binder 3045:3045 <> e:22
+R3085:3087 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3050:3054 Kernel.VMState <> vm_pc proj
+R3057:3069 Kernel.VMStep VMStep advance_state def
+R3071:3071 Kernel.ThreeLayerIsomorphism <> s:18 var
+R3073:3077 Kernel.ThreeLayerIsomorphism <> instr:19 var
+R3079:3079 Kernel.ThreeLayerIsomorphism <> g:20 var
+R3081:3081 Kernel.ThreeLayerIsomorphism <> c:21 var
+R3083:3083 Kernel.ThreeLayerIsomorphism <> e:22 var
+R3088:3088 Coq.Init.Datatypes <> S constr
+R3091:3095 Kernel.VMState <> vm_pc proj
+R3097:3097 Kernel.ThreeLayerIsomorphism <> s:18 var
+prf 3207:3225 <> advance_state_rm_pc
+binder 3236:3236 <> s:23
+binder 3238:3242 <> instr:24
+binder 3244:3244 <> g:25
+binder 3246:3246 <> c:26
+binder 3248:3248 <> r:27
+binder 3250:3250 <> m:28
+binder 3252:3252 <> e:29
+R3299:3301 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3257:3261 Kernel.VMState <> vm_pc proj
+R3264:3279 Kernel.VMStep VMStep advance_state_rm def
+R3281:3281 Kernel.ThreeLayerIsomorphism <> s:23 var
+R3283:3287 Kernel.ThreeLayerIsomorphism <> instr:24 var
+R3289:3289 Kernel.ThreeLayerIsomorphism <> g:25 var
+R3291:3291 Kernel.ThreeLayerIsomorphism <> c:26 var
+R3293:3293 Kernel.ThreeLayerIsomorphism <> r:27 var
+R3295:3295 Kernel.ThreeLayerIsomorphism <> m:28 var
+R3297:3297 Kernel.ThreeLayerIsomorphism <> e:29 var
+R3302:3302 Coq.Init.Datatypes <> S constr
+R3305:3309 Kernel.VMState <> vm_pc proj
+R3311:3311 Kernel.ThreeLayerIsomorphism <> s:23 var
+prf 3425:3437 <> mu_cost_exact
+R3453:3459 Kernel.VMState <> VMState rec
+binder 3449:3449 <> s:30
+R3467:3480 Kernel.VMStep VMStep vm_instruction ind
+binder 3463:3463 <> i:31
+R3506:3508 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3486:3490 Kernel.VMState <> vm_mu proj
+R3493:3500 Kernel.SimulationProof <> vm_apply def
+R3502:3502 Kernel.ThreeLayerIsomorphism <> s:30 var
+R3504:3504 Kernel.ThreeLayerIsomorphism <> i:31 var
+R3516:3518 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3509:3513 Kernel.VMState <> vm_mu proj
+R3515:3515 Kernel.ThreeLayerIsomorphism <> s:30 var
+R3519:3534 Kernel.VMStep VMStep instruction_cost def
+R3536:3536 Kernel.ThreeLayerIsomorphism <> i:31 var
+R3588:3597 Kernel.VMStep VMStep apply_cost def
+R3689:3692 Coq.Init.Datatypes <> Some constr
+R3703:3706 Coq.Init.Datatypes <> None constr
+R3689:3692 Coq.Init.Datatypes <> Some constr
+R3703:3706 Coq.Init.Datatypes <> None constr
+R3790:3793 Coq.Init.Datatypes <> pair constr
+R3790:3793 Coq.Init.Datatypes <> pair constr
+R3958:3975 Kernel.VMStep VMStep lassert_cert_unsat constr
+R3986:4001 Kernel.VMStep VMStep lassert_cert_sat constr
+R3958:3975 Kernel.VMStep VMStep lassert_cert_unsat constr
+R3986:4001 Kernel.VMStep VMStep lassert_cert_sat constr
+prf 4117:4126 <> pc_advance
+R4142:4148 Kernel.VMState <> VMState rec
+binder 4138:4138 <> s:32
+R4156:4169 Kernel.VMStep VMStep vm_instruction ind
+binder 4152:4152 <> i:33
+R4195:4197 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4175:4179 Kernel.VMState <> vm_pc proj
+R4182:4189 Kernel.SimulationProof <> vm_apply def
+R4191:4191 Kernel.ThreeLayerIsomorphism <> s:32 var
+R4193:4193 Kernel.ThreeLayerIsomorphism <> i:33 var
+R4198:4198 Coq.Init.Datatypes <> S constr
+R4201:4205 Kernel.VMState <> vm_pc proj
+R4207:4207 Kernel.ThreeLayerIsomorphism <> s:32 var
+R4335:4338 Coq.Init.Datatypes <> Some constr
+R4349:4352 Coq.Init.Datatypes <> None constr
+R4335:4338 Coq.Init.Datatypes <> Some constr
+R4349:4352 Coq.Init.Datatypes <> None constr
+R4436:4439 Coq.Init.Datatypes <> pair constr
+R4436:4439 Coq.Init.Datatypes <> pair constr
+R4604:4621 Kernel.VMStep VMStep lassert_cert_unsat constr
+R4632:4647 Kernel.VMStep VMStep lassert_cert_sat constr
+R4604:4621 Kernel.VMStep VMStep lassert_cert_unsat constr
+R4632:4647 Kernel.VMStep VMStep lassert_cert_sat constr
+prf 4765:4775 <> mu_monotone
+R4791:4797 Kernel.VMState <> VMState rec
+binder 4787:4787 <> s:34
+R4805:4818 Kernel.VMStep VMStep vm_instruction ind
+binder 4801:4801 <> i:35
+R4844:4847 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4824:4828 Kernel.VMState <> vm_mu proj
+R4831:4838 Kernel.SimulationProof <> vm_apply def
+R4840:4840 Kernel.ThreeLayerIsomorphism <> s:34 var
+R4842:4842 Kernel.ThreeLayerIsomorphism <> i:35 var
+R4848:4852 Kernel.VMState <> vm_mu proj
+R4854:4854 Kernel.ThreeLayerIsomorphism <> s:34 var
+R4888:4900 Kernel.ThreeLayerIsomorphism <> mu_cost_exact thm
+R4888:4900 Kernel.ThreeLayerIsomorphism <> mu_cost_exact thm
+R4888:4900 Kernel.ThreeLayerIsomorphism <> mu_cost_exact thm
+prf 4982:5002 <> step_deterministic_fn
+binder 5013:5013 <> s:36
+binder 5015:5015 <> i:37
+binder 5017:5018 <> s1:38
+binder 5020:5021 <> s2:39
+R5043:5046 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5038:5040 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5026:5033 Kernel.SimulationProof <> vm_apply def
+R5035:5035 Kernel.ThreeLayerIsomorphism <> s:36 var
+R5037:5037 Kernel.ThreeLayerIsomorphism <> i:37 var
+R5041:5042 Kernel.ThreeLayerIsomorphism <> s1:38 var
+R5064:5067 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5059:5061 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5047:5054 Kernel.SimulationProof <> vm_apply def
+R5056:5056 Kernel.ThreeLayerIsomorphism <> s:36 var
+R5058:5058 Kernel.ThreeLayerIsomorphism <> i:37 var
+R5062:5063 Kernel.ThreeLayerIsomorphism <> s2:39 var
+R5070:5072 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5068:5069 Kernel.ThreeLayerIsomorphism <> s1:38 var
+R5073:5074 Kernel.ThreeLayerIsomorphism <> s2:39 var
+rec 5584:5591 <> WireSpec
+proj 5600:5607 <> ws_state
+proj 5619:5625 <> ws_step
+proj 5672:5676 <> ws_mu
+proj 5702:5706 <> ws_pc
+proj 5732:5742 <> ws_mu_exact
+proj 5814:5826 <> ws_pc_advance
+proj 5879:5894 <> ws_deterministic
+R5638:5641 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5630:5637 Kernel.ThreeLayerIsomorphism <> ws_state:41 meth
+R5656:5659 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5642:5655 Kernel.VMStep VMStep vm_instruction ind
+R5660:5667 Kernel.ThreeLayerIsomorphism <> ws_state:41 meth
+R5691:5694 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5683:5690 Kernel.ThreeLayerIsomorphism <> ws_state:41 meth
+R5695:5697 Coq.Init.Datatypes <> nat ind
+R5721:5724 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5713:5720 Kernel.ThreeLayerIsomorphism <> ws_state:41 meth
+R5725:5727 Coq.Init.Datatypes <> nat ind
+binder 5755:5755 <> s:45
+binder 5757:5757 <> i:46
+R5779:5781 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5760:5764 Kernel.ThreeLayerIsomorphism <> ws_mu:43 meth
+R5767:5773 Kernel.ThreeLayerIsomorphism <> ws_step:42 meth
+R5777:5777 Kernel.ThreeLayerIsomorphism <> i:46 var
+R5775:5775 Kernel.ThreeLayerIsomorphism <> s:45 var
+R5789:5791 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5782:5786 Kernel.ThreeLayerIsomorphism <> ws_mu:43 meth
+R5788:5788 Kernel.ThreeLayerIsomorphism <> s:45 var
+R5792:5807 Kernel.VMStep VMStep instruction_cost def
+R5809:5809 Kernel.ThreeLayerIsomorphism <> i:46 var
+binder 5837:5837 <> s:48
+binder 5839:5839 <> i:49
+R5861:5863 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5842:5846 Kernel.ThreeLayerIsomorphism <> ws_pc:44 meth
+R5849:5855 Kernel.ThreeLayerIsomorphism <> ws_step:42 meth
+R5859:5859 Kernel.ThreeLayerIsomorphism <> i:49 var
+R5857:5857 Kernel.ThreeLayerIsomorphism <> s:48 var
+R5871:5873 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5864:5868 Kernel.ThreeLayerIsomorphism <> ws_pc:44 meth
+R5870:5870 Kernel.ThreeLayerIsomorphism <> s:48 var
+binder 5905:5905 <> s:51
+binder 5907:5907 <> i:52
+binder 5909:5910 <> s1:53
+binder 5912:5913 <> s2:54
+R5936:5939 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5931:5933 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5920:5926 Kernel.ThreeLayerIsomorphism <> ws_step:42 meth
+R5930:5930 Kernel.ThreeLayerIsomorphism <> i:52 var
+R5928:5928 Kernel.ThreeLayerIsomorphism <> s:51 var
+R5934:5935 Kernel.ThreeLayerIsomorphism <> s1:53 var
+R5956:5959 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5951:5953 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5940:5946 Kernel.ThreeLayerIsomorphism <> ws_step:42 meth
+R5950:5950 Kernel.ThreeLayerIsomorphism <> i:52 var
+R5948:5948 Kernel.ThreeLayerIsomorphism <> s:51 var
+R5954:5955 Kernel.ThreeLayerIsomorphism <> s2:54 var
+R5962:5964 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5960:5961 Kernel.ThreeLayerIsomorphism <> s1:53 var
+R5965:5966 Kernel.ThreeLayerIsomorphism <> s2:54 var
+def 6039:6051 <> coq_wire_spec
+R6055:6062 Kernel.ThreeLayerIsomorphism <> WireSpec rec
+R6072:6079 Kernel.ThreeLayerIsomorphism <> ws_state proj
+R6072:6079 Kernel.ThreeLayerIsomorphism <> ws_state proj
+R6072:6079 Kernel.ThreeLayerIsomorphism <> ws_state proj
+R6095:6101 Kernel.ThreeLayerIsomorphism <> ws_step proj
+R6095:6101 Kernel.ThreeLayerIsomorphism <> ws_step proj
+R6119:6123 Kernel.ThreeLayerIsomorphism <> ws_mu proj
+R6119:6123 Kernel.ThreeLayerIsomorphism <> ws_mu proj
+R6140:6144 Kernel.ThreeLayerIsomorphism <> ws_pc proj
+R6140:6144 Kernel.ThreeLayerIsomorphism <> ws_pc proj
+R6161:6171 Kernel.ThreeLayerIsomorphism <> ws_mu_exact proj
+R6161:6171 Kernel.ThreeLayerIsomorphism <> ws_mu_exact proj
+R6195:6207 Kernel.ThreeLayerIsomorphism <> ws_pc_advance proj
+R6195:6207 Kernel.ThreeLayerIsomorphism <> ws_pc_advance proj
+R6289:6304 Kernel.ThreeLayerIsomorphism <> ws_deterministic proj
+R6289:6304 Kernel.ThreeLayerIsomorphism <> ws_deterministic proj
+R6084:6090 Kernel.VMState <> VMState rec
+R6107:6114 Kernel.SimulationProof <> vm_apply def
+R6131:6135 Kernel.VMState <> vm_mu proj
+R6152:6156 Kernel.VMState <> vm_pc proj
+R6178:6190 Kernel.ThreeLayerIsomorphism <> mu_cost_exact thm
+binder 6216:6216 <> s:56
+binder 6218:6218 <> i:57
+R6227:6234 Coq.Init.Logic <> eq_trans thm
+R6254:6259 Coq.Init.Logic <> eq_sym thm
+R6262:6272 Coq.Arith.PeanoNat Nat add_1_r thm
+R6275:6279 Kernel.VMState <> vm_pc proj
+R6281:6281 Kernel.ThreeLayerIsomorphism <> s:56 var
+R6237:6246 Kernel.ThreeLayerIsomorphism <> pc_advance thm
+R6248:6248 Kernel.ThreeLayerIsomorphism <> s:56 var
+R6250:6250 Kernel.ThreeLayerIsomorphism <> i:57 var
+R6309:6329 Kernel.ThreeLayerIsomorphism <> step_deterministic_fn thm
+def 6566:6573 <> run_wire
+R6583:6590 Kernel.ThreeLayerIsomorphism <> WireSpec rec
+binder 6576:6579 <> spec:58
+R6603:6606 Coq.Init.Datatypes <> list ind
+R6608:6621 Kernel.VMStep VMStep vm_instruction ind
+binder 6594:6599 <> instrs:59
+R6631:6638 Kernel.ThreeLayerIsomorphism <> ws_state proj
+R6640:6643 Kernel.ThreeLayerIsomorphism <> spec:58 var
+binder 6627:6627 <> s:60
+R6648:6655 Kernel.ThreeLayerIsomorphism <> ws_state proj
+R6657:6660 Kernel.ThreeLayerIsomorphism <> spec:58 var
+R6673:6678 Kernel.ThreeLayerIsomorphism <> instrs:59 var
+R6689:6690 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6701:6701 Kernel.ThreeLayerIsomorphism <> s:60 var
+R6708:6711 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6720:6727 Kernel.ThreeLayerIsomorphism <> run_wire:61 def
+R6740:6746 Kernel.ThreeLayerIsomorphism <> ws_step proj
+R6748:6751 Kernel.ThreeLayerIsomorphism <> spec:58 var
+R6753:6753 Kernel.ThreeLayerIsomorphism <> s:60 var
+R6729:6732 Kernel.ThreeLayerIsomorphism <> spec:58 var
+def 6775:6784 <> trace_cost
+R6796:6799 Coq.Init.Datatypes <> list ind
+R6801:6814 Kernel.VMStep VMStep vm_instruction ind
+binder 6787:6792 <> instrs:63
+R6819:6821 Coq.Init.Datatypes <> nat ind
+R6834:6839 Kernel.ThreeLayerIsomorphism <> instrs:63 var
+R6850:6851 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6869:6872 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6899:6901 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6881:6896 Kernel.VMStep VMStep instruction_cost def
+R6902:6911 Kernel.ThreeLayerIsomorphism <> trace_cost:64 def
+prf 6934:6947 <> trace_mu_exact
+R6966:6973 Kernel.ThreeLayerIsomorphism <> WireSpec rec
+binder 6959:6962 <> spec:66
+binder 6976:6981 <> instrs:67
+binder 6983:6983 <> s:68
+R7023:7025 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6988:6992 Kernel.ThreeLayerIsomorphism <> ws_mu proj
+R6994:6997 Kernel.ThreeLayerIsomorphism <> spec:66 var
+R7000:7007 Kernel.ThreeLayerIsomorphism <> run_wire def
+R7009:7012 Kernel.ThreeLayerIsomorphism <> spec:66 var
+R7014:7019 Kernel.ThreeLayerIsomorphism <> instrs:67 var
+R7021:7021 Kernel.ThreeLayerIsomorphism <> s:68 var
+R7038:7040 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7026:7030 Kernel.ThreeLayerIsomorphism <> ws_mu proj
+R7032:7035 Kernel.ThreeLayerIsomorphism <> spec:66 var
+R7037:7037 Kernel.ThreeLayerIsomorphism <> s:68 var
+R7041:7050 Kernel.ThreeLayerIsomorphism <> trace_cost def
+R7052:7057 Kernel.ThreeLayerIsomorphism <> instrs:67 var
+R7174:7184 Kernel.ThreeLayerIsomorphism <> ws_mu_exact proj
+R7174:7184 Kernel.ThreeLayerIsomorphism <> ws_mu_exact proj
+R7174:7184 Kernel.ThreeLayerIsomorphism <> ws_mu_exact proj
+prf 7212:7225 <> trace_pc_exact
+R7244:7251 Kernel.ThreeLayerIsomorphism <> WireSpec rec
+binder 7237:7240 <> spec:69
+binder 7254:7259 <> instrs:70
+binder 7261:7261 <> s:71
+R7301:7303 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7266:7270 Kernel.ThreeLayerIsomorphism <> ws_pc proj
+R7272:7275 Kernel.ThreeLayerIsomorphism <> spec:69 var
+R7278:7285 Kernel.ThreeLayerIsomorphism <> run_wire def
+R7287:7290 Kernel.ThreeLayerIsomorphism <> spec:69 var
+R7292:7297 Kernel.ThreeLayerIsomorphism <> instrs:70 var
+R7299:7299 Kernel.ThreeLayerIsomorphism <> s:71 var
+R7316:7318 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7304:7308 Kernel.ThreeLayerIsomorphism <> ws_pc proj
+R7310:7313 Kernel.ThreeLayerIsomorphism <> spec:69 var
+R7315:7315 Kernel.ThreeLayerIsomorphism <> s:71 var
+R7319:7324 Coq.Lists.List <> length abbrev
+R7326:7331 Kernel.ThreeLayerIsomorphism <> instrs:70 var
+R7448:7460 Kernel.ThreeLayerIsomorphism <> ws_pc_advance proj
+R7448:7460 Kernel.ThreeLayerIsomorphism <> ws_pc_advance proj
+R7448:7460 Kernel.ThreeLayerIsomorphism <> ws_pc_advance proj
+prf 7927:7950 <> three_layer_bisimulation
+R7978:7985 Kernel.ThreeLayerIsomorphism <> WireSpec rec
+binder 7964:7968 <> spec1:72
+binder 7970:7974 <> spec2:73
+R7998:8005 Kernel.ThreeLayerIsomorphism <> ws_state proj
+R8007:8011 Kernel.ThreeLayerIsomorphism <> spec1:72 var
+binder 7993:7994 <> s1:74
+R8020:8027 Kernel.ThreeLayerIsomorphism <> ws_state proj
+R8029:8033 Kernel.ThreeLayerIsomorphism <> spec2:73 var
+binder 8015:8016 <> s2:75
+R8050:8053 Coq.Init.Datatypes <> list ind
+R8055:8068 Kernel.VMStep VMStep vm_instruction ind
+binder 8041:8046 <> instrs:76
+R8105:8110 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8088:8090 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8074:8078 Kernel.ThreeLayerIsomorphism <> ws_mu proj
+R8080:8084 Kernel.ThreeLayerIsomorphism <> spec1:72 var
+R8086:8087 Kernel.ThreeLayerIsomorphism <> s1:74 var
+R8091:8095 Kernel.ThreeLayerIsomorphism <> ws_mu proj
+R8097:8101 Kernel.ThreeLayerIsomorphism <> spec2:73 var
+R8103:8104 Kernel.ThreeLayerIsomorphism <> s2:75 var
+R8142:8147 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8125:8127 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8111:8115 Kernel.ThreeLayerIsomorphism <> ws_pc proj
+R8117:8121 Kernel.ThreeLayerIsomorphism <> spec1:72 var
+R8123:8124 Kernel.ThreeLayerIsomorphism <> s1:74 var
+R8128:8132 Kernel.ThreeLayerIsomorphism <> ws_pc proj
+R8134:8138 Kernel.ThreeLayerIsomorphism <> spec2:73 var
+R8140:8141 Kernel.ThreeLayerIsomorphism <> s2:75 var
+R8231:8236 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8186:8192 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8148:8152 Kernel.ThreeLayerIsomorphism <> ws_mu proj
+R8154:8158 Kernel.ThreeLayerIsomorphism <> spec1:72 var
+R8161:8168 Kernel.ThreeLayerIsomorphism <> run_wire def
+R8170:8174 Kernel.ThreeLayerIsomorphism <> spec1:72 var
+R8176:8181 Kernel.ThreeLayerIsomorphism <> instrs:76 var
+R8183:8184 Kernel.ThreeLayerIsomorphism <> s1:74 var
+R8193:8197 Kernel.ThreeLayerIsomorphism <> ws_mu proj
+R8199:8203 Kernel.ThreeLayerIsomorphism <> spec2:73 var
+R8206:8213 Kernel.ThreeLayerIsomorphism <> run_wire def
+R8215:8219 Kernel.ThreeLayerIsomorphism <> spec2:73 var
+R8221:8226 Kernel.ThreeLayerIsomorphism <> instrs:76 var
+R8228:8229 Kernel.ThreeLayerIsomorphism <> s2:75 var
+R8275:8281 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8237:8241 Kernel.ThreeLayerIsomorphism <> ws_pc proj
+R8243:8247 Kernel.ThreeLayerIsomorphism <> spec1:72 var
+R8250:8257 Kernel.ThreeLayerIsomorphism <> run_wire def
+R8259:8263 Kernel.ThreeLayerIsomorphism <> spec1:72 var
+R8265:8270 Kernel.ThreeLayerIsomorphism <> instrs:76 var
+R8272:8273 Kernel.ThreeLayerIsomorphism <> s1:74 var
+R8282:8286 Kernel.ThreeLayerIsomorphism <> ws_pc proj
+R8288:8292 Kernel.ThreeLayerIsomorphism <> spec2:73 var
+R8295:8302 Kernel.ThreeLayerIsomorphism <> run_wire def
+R8304:8308 Kernel.ThreeLayerIsomorphism <> spec2:73 var
+R8310:8315 Kernel.ThreeLayerIsomorphism <> instrs:76 var
+R8317:8318 Kernel.ThreeLayerIsomorphism <> s2:75 var
+R8394:8407 Kernel.ThreeLayerIsomorphism <> trace_mu_exact thm
+R8394:8407 Kernel.ThreeLayerIsomorphism <> trace_mu_exact thm
+R8394:8407 Kernel.ThreeLayerIsomorphism <> trace_mu_exact thm
+R8394:8407 Kernel.ThreeLayerIsomorphism <> trace_mu_exact thm
+R8394:8407 Kernel.ThreeLayerIsomorphism <> trace_mu_exact thm
+R8428:8441 Kernel.ThreeLayerIsomorphism <> trace_pc_exact thm
+R8428:8441 Kernel.ThreeLayerIsomorphism <> trace_pc_exact thm
+R8428:8441 Kernel.ThreeLayerIsomorphism <> trace_pc_exact thm
+R8428:8441 Kernel.ThreeLayerIsomorphism <> trace_pc_exact thm
+R8428:8441 Kernel.ThreeLayerIsomorphism <> trace_pc_exact thm
+prf 8538:8557 <> coq_bisimilar_to_any
+R8578:8585 Kernel.ThreeLayerIsomorphism <> WireSpec rec
+binder 8571:8574 <> impl:77
+R8601:8607 Kernel.VMState <> VMState rec
+binder 8593:8597 <> s_coq:78
+R8620:8627 Kernel.ThreeLayerIsomorphism <> ws_state proj
+R8629:8632 Kernel.ThreeLayerIsomorphism <> impl:77 var
+binder 8611:8616 <> s_impl:79
+R8649:8652 Coq.Init.Datatypes <> list ind
+R8654:8667 Kernel.VMStep VMStep vm_instruction ind
+binder 8640:8645 <> instrs:80
+R8704:8709 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8684:8686 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8673:8677 Kernel.VMState <> vm_mu proj
+R8679:8683 Kernel.ThreeLayerIsomorphism <> s_coq:78 var
+R8687:8691 Kernel.ThreeLayerIsomorphism <> ws_mu proj
+R8693:8696 Kernel.ThreeLayerIsomorphism <> impl:77 var
+R8698:8703 Kernel.ThreeLayerIsomorphism <> s_impl:79 var
+R8741:8746 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8721:8723 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8710:8714 Kernel.VMState <> vm_pc proj
+R8716:8720 Kernel.ThreeLayerIsomorphism <> s_coq:78 var
+R8724:8728 Kernel.ThreeLayerIsomorphism <> ws_pc proj
+R8730:8733 Kernel.ThreeLayerIsomorphism <> impl:77 var
+R8735:8740 Kernel.ThreeLayerIsomorphism <> s_impl:79 var
+R8837:8842 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8790:8796 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8747:8751 Kernel.VMState <> vm_mu proj
+R8754:8761 Kernel.ThreeLayerIsomorphism <> run_wire def
+R8763:8775 Kernel.ThreeLayerIsomorphism <> coq_wire_spec def
+R8777:8782 Kernel.ThreeLayerIsomorphism <> instrs:80 var
+R8784:8788 Kernel.ThreeLayerIsomorphism <> s_coq:78 var
+R8797:8801 Kernel.ThreeLayerIsomorphism <> ws_mu proj
+R8803:8806 Kernel.ThreeLayerIsomorphism <> impl:77 var
+R8809:8816 Kernel.ThreeLayerIsomorphism <> run_wire def
+R8818:8821 Kernel.ThreeLayerIsomorphism <> impl:77 var
+R8823:8828 Kernel.ThreeLayerIsomorphism <> instrs:80 var
+R8830:8835 Kernel.ThreeLayerIsomorphism <> s_impl:79 var
+R8886:8892 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8843:8847 Kernel.VMState <> vm_pc proj
+R8850:8857 Kernel.ThreeLayerIsomorphism <> run_wire def
+R8859:8871 Kernel.ThreeLayerIsomorphism <> coq_wire_spec def
+R8873:8878 Kernel.ThreeLayerIsomorphism <> instrs:80 var
+R8880:8884 Kernel.ThreeLayerIsomorphism <> s_coq:78 var
+R8893:8897 Kernel.ThreeLayerIsomorphism <> ws_pc proj
+R8899:8902 Kernel.ThreeLayerIsomorphism <> impl:77 var
+R8905:8912 Kernel.ThreeLayerIsomorphism <> run_wire def
+R8914:8917 Kernel.ThreeLayerIsomorphism <> impl:77 var
+R8919:8924 Kernel.ThreeLayerIsomorphism <> instrs:80 var
+R8926:8931 Kernel.ThreeLayerIsomorphism <> s_impl:79 var
+R8959:8982 Kernel.ThreeLayerIsomorphism <> three_layer_bisimulation thm
+R8984:8996 Kernel.ThreeLayerIsomorphism <> coq_wire_spec def
+R8959:8982 Kernel.ThreeLayerIsomorphism <> three_layer_bisimulation thm
+R8984:8996 Kernel.ThreeLayerIsomorphism <> coq_wire_spec def
+prf 9256:9279 <> single_step_bisimulation
+R9307:9314 Kernel.ThreeLayerIsomorphism <> WireSpec rec
+binder 9293:9297 <> spec1:81
+binder 9299:9303 <> spec2:82
+R9327:9334 Kernel.ThreeLayerIsomorphism <> ws_state proj
+R9336:9340 Kernel.ThreeLayerIsomorphism <> spec1:81 var
+binder 9322:9323 <> s1:83
+R9349:9356 Kernel.ThreeLayerIsomorphism <> ws_state proj
+R9358:9362 Kernel.ThreeLayerIsomorphism <> spec2:82 var
+binder 9344:9345 <> s2:84
+R9374:9387 Kernel.VMStep VMStep vm_instruction ind
+binder 9370:9370 <> i:85
+R9424:9429 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9407:9409 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9393:9397 Kernel.ThreeLayerIsomorphism <> ws_mu proj
+R9399:9403 Kernel.ThreeLayerIsomorphism <> spec1:81 var
+R9405:9406 Kernel.ThreeLayerIsomorphism <> s1:83 var
+R9410:9414 Kernel.ThreeLayerIsomorphism <> ws_mu proj
+R9416:9420 Kernel.ThreeLayerIsomorphism <> spec2:82 var
+R9422:9423 Kernel.ThreeLayerIsomorphism <> s2:84 var
+R9461:9466 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9444:9446 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9430:9434 Kernel.ThreeLayerIsomorphism <> ws_pc proj
+R9436:9440 Kernel.ThreeLayerIsomorphism <> spec1:81 var
+R9442:9443 Kernel.ThreeLayerIsomorphism <> s1:83 var
+R9447:9451 Kernel.ThreeLayerIsomorphism <> ws_pc proj
+R9453:9457 Kernel.ThreeLayerIsomorphism <> spec2:82 var
+R9459:9460 Kernel.ThreeLayerIsomorphism <> s2:84 var
+R9534:9539 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9499:9501 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9467:9471 Kernel.ThreeLayerIsomorphism <> ws_mu proj
+R9473:9477 Kernel.ThreeLayerIsomorphism <> spec1:81 var
+R9480:9486 Kernel.ThreeLayerIsomorphism <> ws_step proj
+R9488:9492 Kernel.ThreeLayerIsomorphism <> spec1:81 var
+R9494:9495 Kernel.ThreeLayerIsomorphism <> s1:83 var
+R9497:9497 Kernel.ThreeLayerIsomorphism <> i:85 var
+R9502:9506 Kernel.ThreeLayerIsomorphism <> ws_mu proj
+R9508:9512 Kernel.ThreeLayerIsomorphism <> spec2:82 var
+R9515:9521 Kernel.ThreeLayerIsomorphism <> ws_step proj
+R9523:9527 Kernel.ThreeLayerIsomorphism <> spec2:82 var
+R9529:9530 Kernel.ThreeLayerIsomorphism <> s2:84 var
+R9532:9532 Kernel.ThreeLayerIsomorphism <> i:85 var
+R9572:9574 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9540:9544 Kernel.ThreeLayerIsomorphism <> ws_pc proj
+R9546:9550 Kernel.ThreeLayerIsomorphism <> spec1:81 var
+R9553:9559 Kernel.ThreeLayerIsomorphism <> ws_step proj
+R9561:9565 Kernel.ThreeLayerIsomorphism <> spec1:81 var
+R9567:9568 Kernel.ThreeLayerIsomorphism <> s1:83 var
+R9570:9570 Kernel.ThreeLayerIsomorphism <> i:85 var
+R9575:9579 Kernel.ThreeLayerIsomorphism <> ws_pc proj
+R9581:9585 Kernel.ThreeLayerIsomorphism <> spec2:82 var
+R9588:9594 Kernel.ThreeLayerIsomorphism <> ws_step proj
+R9596:9600 Kernel.ThreeLayerIsomorphism <> spec2:82 var
+R9602:9603 Kernel.ThreeLayerIsomorphism <> s2:84 var
+R9605:9605 Kernel.ThreeLayerIsomorphism <> i:85 var
+R9676:9686 Kernel.ThreeLayerIsomorphism <> ws_mu_exact proj
+R9697:9707 Kernel.ThreeLayerIsomorphism <> ws_mu_exact proj
+R9676:9686 Kernel.ThreeLayerIsomorphism <> ws_mu_exact proj
+R9676:9686 Kernel.ThreeLayerIsomorphism <> ws_mu_exact proj
+R9697:9707 Kernel.ThreeLayerIsomorphism <> ws_mu_exact proj
+R9697:9707 Kernel.ThreeLayerIsomorphism <> ws_mu_exact proj
+R9735:9747 Kernel.ThreeLayerIsomorphism <> ws_pc_advance proj
+R9758:9770 Kernel.ThreeLayerIsomorphism <> ws_pc_advance proj
+R9735:9747 Kernel.ThreeLayerIsomorphism <> ws_pc_advance proj
+R9735:9747 Kernel.ThreeLayerIsomorphism <> ws_pc_advance proj
+R9758:9770 Kernel.ThreeLayerIsomorphism <> ws_pc_advance proj
+R9758:9770 Kernel.ThreeLayerIsomorphism <> ws_pc_advance proj
+def 10633:10647 <> project_vmstate
+R10660:10673 Kernel.VMState <> PartitionGraph rec
+binder 10652:10656 <> graph:86
+R10684:10691 Kernel.VMState <> CSRState rec
+binder 10677:10680 <> csrs:87
+R10704:10707 Coq.Init.Datatypes <> list ind
+R10709:10711 Coq.Init.Datatypes <> nat ind
+binder 10697:10700 <> regs:88
+R10721:10724 Coq.Init.Datatypes <> list ind
+R10726:10728 Coq.Init.Datatypes <> nat ind
+binder 10715:10717 <> mem:89
+R10739:10741 Coq.Init.Datatypes <> nat ind
+binder 10734:10735 <> pc:90
+R10750:10752 Coq.Init.Datatypes <> nat ind
+binder 10745:10746 <> mu:91
+R10762:10765 Coq.Init.Datatypes <> bool ind
+binder 10756:10758 <> err:92
+R10770:10776 Kernel.VMState <> VMState rec
+R10786:10793 Kernel.VMState <> vm_graph proj
+R10786:10793 Kernel.VMState <> vm_graph proj
+R10786:10793 Kernel.VMState <> vm_graph proj
+R10805:10811 Kernel.VMState <> vm_csrs proj
+R10805:10811 Kernel.VMState <> vm_csrs proj
+R10822:10828 Kernel.VMState <> vm_regs proj
+R10822:10828 Kernel.VMState <> vm_regs proj
+R10844:10849 Kernel.VMState <> vm_mem proj
+R10844:10849 Kernel.VMState <> vm_mem proj
+R10859:10863 Kernel.VMState <> vm_pc proj
+R10859:10863 Kernel.VMState <> vm_pc proj
+R10872:10876 Kernel.VMState <> vm_mu proj
+R10872:10876 Kernel.VMState <> vm_mu proj
+R10885:10890 Kernel.VMState <> vm_err proj
+R10885:10890 Kernel.VMState <> vm_err proj
+R10798:10802 Kernel.ThreeLayerIsomorphism <> graph:86 var
+R10816:10819 Kernel.ThreeLayerIsomorphism <> csrs:87 var
+R10833:10836 Kernel.ThreeLayerIsomorphism <> regs:88 var
+R10854:10856 Kernel.ThreeLayerIsomorphism <> mem:89 var
+R10868:10869 Kernel.ThreeLayerIsomorphism <> pc:90 var
+R10881:10882 Kernel.ThreeLayerIsomorphism <> mu:91 var
+R10895:10897 Kernel.ThreeLayerIsomorphism <> err:92 var
+prf 10986:10996 <> vmstate_eta
+R11011:11017 Kernel.VMState <> VMState rec
+binder 11007:11007 <> s:93
+R11120:11122 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11022:11036 Kernel.ThreeLayerIsomorphism <> project_vmstate def
+R11041:11048 Kernel.VMState <> vm_graph proj
+R11038:11038 Kernel.ThreeLayerIsomorphism <> s:93 var
+R11054:11060 Kernel.VMState <> vm_csrs proj
+R11051:11051 Kernel.ThreeLayerIsomorphism <> s:93 var
+R11066:11072 Kernel.VMState <> vm_regs proj
+R11063:11063 Kernel.ThreeLayerIsomorphism <> s:93 var
+R11078:11083 Kernel.VMState <> vm_mem proj
+R11075:11075 Kernel.ThreeLayerIsomorphism <> s:93 var
+R11093:11097 Kernel.VMState <> vm_pc proj
+R11090:11090 Kernel.ThreeLayerIsomorphism <> s:93 var
+R11103:11107 Kernel.VMState <> vm_mu proj
+R11100:11100 Kernel.ThreeLayerIsomorphism <> s:93 var
+R11113:11118 Kernel.VMState <> vm_err proj
+R11110:11110 Kernel.ThreeLayerIsomorphism <> s:93 var
+R11123:11123 Kernel.ThreeLayerIsomorphism <> s:93 var
+prf 11385:11406 <> vm_apply_mem_preserved
+binder 11417:11417 <> s:94
+binder 11419:11419 <> i:95
+R11445:11447 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11424:11429 Kernel.VMState <> vm_mem proj
+R11432:11439 Kernel.SimulationProof <> vm_apply def
+R11441:11441 Kernel.ThreeLayerIsomorphism <> s:94 var
+R11443:11443 Kernel.ThreeLayerIsomorphism <> i:95 var
+R11448:11453 Kernel.VMState <> vm_mem proj
+R11455:11455 Kernel.ThreeLayerIsomorphism <> s:94 var
+R11582:11585 Coq.Init.Datatypes <> Some constr
+R11596:11599 Coq.Init.Datatypes <> None constr
+R11582:11585 Coq.Init.Datatypes <> Some constr
+R11596:11599 Coq.Init.Datatypes <> None constr
+R11683:11686 Coq.Init.Datatypes <> pair constr
+R11683:11686 Coq.Init.Datatypes <> pair constr
+R11851:11868 Kernel.VMStep VMStep lassert_cert_unsat constr
+R11879:11894 Kernel.VMStep VMStep lassert_cert_sat constr
+R11851:11868 Kernel.VMStep VMStep lassert_cert_unsat constr
+R11879:11894 Kernel.VMStep VMStep lassert_cert_sat constr
+rec 12262:12273 <> FullWireSpec
+proj 12282:12290 <> fws_state
+proj 12302:12309 <> fws_step
+proj 12428:12436 <> fws_graph
+proj 12471:12478 <> fws_csrs
+proj 12508:12515 <> fws_regs
+proj 12545:12551 <> fws_mem
+proj 12582:12587 <> fws_pc
+proj 12614:12619 <> fws_mu
+proj 12646:12652 <> fws_err
+proj 12831:12846 <> fws_step_correct
+R12323:12326 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12314:12322 Kernel.ThreeLayerIsomorphism <> fws_state:97 meth
+R12341:12344 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12327:12340 Kernel.VMStep VMStep vm_instruction ind
+R12345:12353 Kernel.ThreeLayerIsomorphism <> fws_state:97 meth
+R12449:12452 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12440:12448 Kernel.ThreeLayerIsomorphism <> fws_state:97 meth
+R12453:12466 Kernel.VMState <> PartitionGraph rec
+R12492:12495 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12483:12491 Kernel.ThreeLayerIsomorphism <> fws_state:97 meth
+R12496:12503 Kernel.VMState <> CSRState rec
+R12529:12532 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12520:12528 Kernel.ThreeLayerIsomorphism <> fws_state:97 meth
+R12533:12536 Coq.Init.Datatypes <> list ind
+R12538:12540 Coq.Init.Datatypes <> nat ind
+R12566:12569 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12557:12565 Kernel.ThreeLayerIsomorphism <> fws_state:97 meth
+R12570:12573 Coq.Init.Datatypes <> list ind
+R12575:12577 Coq.Init.Datatypes <> nat ind
+R12603:12606 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12594:12602 Kernel.ThreeLayerIsomorphism <> fws_state:97 meth
+R12607:12609 Coq.Init.Datatypes <> nat ind
+R12635:12638 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12626:12634 Kernel.ThreeLayerIsomorphism <> fws_state:97 meth
+R12639:12641 Coq.Init.Datatypes <> nat ind
+R12667:12670 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12658:12666 Kernel.ThreeLayerIsomorphism <> fws_state:97 meth
+R12671:12674 Coq.Init.Datatypes <> bool ind
+binder 12857:12857 <> s:106
+binder 12859:12859 <> i:107
+R12879:12893 Kernel.ThreeLayerIsomorphism <> project_vmstate def
+R12896:12904 Kernel.ThreeLayerIsomorphism <> fws_graph:99 meth
+R12906:12906 Kernel.ThreeLayerIsomorphism <> s:106 var
+R12910:12917 Kernel.ThreeLayerIsomorphism <> fws_csrs:100 meth
+R12919:12919 Kernel.ThreeLayerIsomorphism <> s:106 var
+R12923:12930 Kernel.ThreeLayerIsomorphism <> fws_regs:101 meth
+R12932:12932 Kernel.ThreeLayerIsomorphism <> s:106 var
+R12955:12961 Kernel.ThreeLayerIsomorphism <> fws_mem:102 meth
+R12963:12963 Kernel.ThreeLayerIsomorphism <> s:106 var
+R12967:12972 Kernel.ThreeLayerIsomorphism <> fws_pc:103 meth
+R12974:12974 Kernel.ThreeLayerIsomorphism <> s:106 var
+R12978:12983 Kernel.ThreeLayerIsomorphism <> fws_mu:104 meth
+R12985:12985 Kernel.ThreeLayerIsomorphism <> s:106 var
+R12989:12995 Kernel.ThreeLayerIsomorphism <> fws_err:105 meth
+R12997:12997 Kernel.ThreeLayerIsomorphism <> s:106 var
+binder 12870:12874 <> input:108
+R13021:13028 Kernel.SimulationProof <> vm_apply def
+R13030:13034 Kernel.ThreeLayerIsomorphism <> input:108 var
+R13036:13036 Kernel.ThreeLayerIsomorphism <> i:107 var
+binder 13011:13016 <> output:109
+R13087:13094 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13069:13071 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13045:13053 Kernel.ThreeLayerIsomorphism <> fws_graph:99 meth
+R13056:13063 Kernel.ThreeLayerIsomorphism <> fws_step:98 meth
+R13067:13067 Kernel.ThreeLayerIsomorphism <> i:107 var
+R13065:13065 Kernel.ThreeLayerIsomorphism <> s:106 var
+R13072:13079 Kernel.VMState <> vm_graph proj
+R13081:13086 Kernel.ThreeLayerIsomorphism <> output:109 var
+R13136:13143 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13119:13121 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13095:13102 Kernel.ThreeLayerIsomorphism <> fws_csrs:100 meth
+R13106:13113 Kernel.ThreeLayerIsomorphism <> fws_step:98 meth
+R13117:13117 Kernel.ThreeLayerIsomorphism <> i:107 var
+R13115:13115 Kernel.ThreeLayerIsomorphism <> s:106 var
+R13122:13128 Kernel.VMState <> vm_csrs proj
+R13130:13135 Kernel.ThreeLayerIsomorphism <> output:109 var
+R13185:13192 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13168:13170 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13144:13151 Kernel.ThreeLayerIsomorphism <> fws_regs:101 meth
+R13155:13162 Kernel.ThreeLayerIsomorphism <> fws_step:98 meth
+R13166:13166 Kernel.ThreeLayerIsomorphism <> i:107 var
+R13164:13164 Kernel.ThreeLayerIsomorphism <> s:106 var
+R13171:13177 Kernel.VMState <> vm_regs proj
+R13179:13184 Kernel.ThreeLayerIsomorphism <> output:109 var
+R13233:13240 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13217:13219 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13193:13199 Kernel.ThreeLayerIsomorphism <> fws_mem:102 meth
+R13204:13211 Kernel.ThreeLayerIsomorphism <> fws_step:98 meth
+R13215:13215 Kernel.ThreeLayerIsomorphism <> i:107 var
+R13213:13213 Kernel.ThreeLayerIsomorphism <> s:106 var
+R13220:13225 Kernel.VMState <> vm_mem proj
+R13227:13232 Kernel.ThreeLayerIsomorphism <> output:109 var
+R13280:13287 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13265:13267 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13241:13246 Kernel.ThreeLayerIsomorphism <> fws_pc:103 meth
+R13252:13259 Kernel.ThreeLayerIsomorphism <> fws_step:98 meth
+R13263:13263 Kernel.ThreeLayerIsomorphism <> i:107 var
+R13261:13261 Kernel.ThreeLayerIsomorphism <> s:106 var
+R13268:13272 Kernel.VMState <> vm_pc proj
+R13274:13279 Kernel.ThreeLayerIsomorphism <> output:109 var
+R13327:13334 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13312:13314 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13288:13293 Kernel.ThreeLayerIsomorphism <> fws_mu:104 meth
+R13299:13306 Kernel.ThreeLayerIsomorphism <> fws_step:98 meth
+R13310:13310 Kernel.ThreeLayerIsomorphism <> i:107 var
+R13308:13308 Kernel.ThreeLayerIsomorphism <> s:106 var
+R13315:13319 Kernel.VMState <> vm_mu proj
+R13321:13326 Kernel.ThreeLayerIsomorphism <> output:109 var
+R13359:13361 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13335:13341 Kernel.ThreeLayerIsomorphism <> fws_err:105 meth
+R13346:13353 Kernel.ThreeLayerIsomorphism <> fws_step:98 meth
+R13357:13357 Kernel.ThreeLayerIsomorphism <> i:107 var
+R13355:13355 Kernel.ThreeLayerIsomorphism <> s:106 var
+R13362:13367 Kernel.VMState <> vm_err proj
+R13369:13374 Kernel.ThreeLayerIsomorphism <> output:109 var
+prf 13442:13462 <> coq_full_step_correct
+R13478:13484 Kernel.VMState <> VMState rec
+binder 13474:13474 <> s:111
+R13492:13505 Kernel.VMStep VMStep vm_instruction ind
+binder 13488:13488 <> i:112
+R13524:13538 Kernel.ThreeLayerIsomorphism <> project_vmstate def
+R13541:13548 Kernel.VMState <> vm_graph proj
+R13550:13550 Kernel.ThreeLayerIsomorphism <> s:111 var
+R13554:13560 Kernel.VMState <> vm_csrs proj
+R13562:13562 Kernel.ThreeLayerIsomorphism <> s:111 var
+R13566:13572 Kernel.VMState <> vm_regs proj
+R13574:13574 Kernel.ThreeLayerIsomorphism <> s:111 var
+R13595:13600 Kernel.VMState <> vm_mem proj
+R13602:13602 Kernel.ThreeLayerIsomorphism <> s:111 var
+R13606:13610 Kernel.VMState <> vm_pc proj
+R13612:13612 Kernel.ThreeLayerIsomorphism <> s:111 var
+R13616:13620 Kernel.VMState <> vm_mu proj
+R13622:13622 Kernel.ThreeLayerIsomorphism <> s:111 var
+R13626:13631 Kernel.VMState <> vm_err proj
+R13633:13633 Kernel.ThreeLayerIsomorphism <> s:111 var
+binder 13515:13519 <> input:113
+R13655:13662 Kernel.SimulationProof <> vm_apply def
+R13664:13668 Kernel.ThreeLayerIsomorphism <> input:113 var
+R13670:13670 Kernel.ThreeLayerIsomorphism <> i:112 var
+binder 13645:13650 <> output:114
+R13718:13723 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13700:13702 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13677:13684 Kernel.VMState <> vm_graph proj
+R13687:13694 Kernel.SimulationProof <> vm_apply def
+R13696:13696 Kernel.ThreeLayerIsomorphism <> s:111 var
+R13698:13698 Kernel.ThreeLayerIsomorphism <> i:112 var
+R13703:13710 Kernel.VMState <> vm_graph proj
+R13712:13717 Kernel.ThreeLayerIsomorphism <> output:114 var
+R13764:13769 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13747:13749 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13724:13730 Kernel.VMState <> vm_csrs proj
+R13734:13741 Kernel.SimulationProof <> vm_apply def
+R13743:13743 Kernel.ThreeLayerIsomorphism <> s:111 var
+R13745:13745 Kernel.ThreeLayerIsomorphism <> i:112 var
+R13750:13756 Kernel.VMState <> vm_csrs proj
+R13758:13763 Kernel.ThreeLayerIsomorphism <> output:114 var
+R13810:13815 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13793:13795 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13770:13776 Kernel.VMState <> vm_regs proj
+R13780:13787 Kernel.SimulationProof <> vm_apply def
+R13789:13789 Kernel.ThreeLayerIsomorphism <> s:111 var
+R13791:13791 Kernel.ThreeLayerIsomorphism <> i:112 var
+R13796:13802 Kernel.VMState <> vm_regs proj
+R13804:13809 Kernel.ThreeLayerIsomorphism <> output:114 var
+R13855:13860 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13839:13841 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13816:13821 Kernel.VMState <> vm_mem proj
+R13826:13833 Kernel.SimulationProof <> vm_apply def
+R13835:13835 Kernel.ThreeLayerIsomorphism <> s:111 var
+R13837:13837 Kernel.ThreeLayerIsomorphism <> i:112 var
+R13842:13847 Kernel.VMState <> vm_mem proj
+R13849:13854 Kernel.ThreeLayerIsomorphism <> output:114 var
+R13899:13904 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13884:13886 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13861:13865 Kernel.VMState <> vm_pc proj
+R13871:13878 Kernel.SimulationProof <> vm_apply def
+R13880:13880 Kernel.ThreeLayerIsomorphism <> s:111 var
+R13882:13882 Kernel.ThreeLayerIsomorphism <> i:112 var
+R13887:13891 Kernel.VMState <> vm_pc proj
+R13893:13898 Kernel.ThreeLayerIsomorphism <> output:114 var
+R13943:13948 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13928:13930 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13905:13909 Kernel.VMState <> vm_mu proj
+R13915:13922 Kernel.SimulationProof <> vm_apply def
+R13924:13924 Kernel.ThreeLayerIsomorphism <> s:111 var
+R13926:13926 Kernel.ThreeLayerIsomorphism <> i:112 var
+R13931:13935 Kernel.VMState <> vm_mu proj
+R13937:13942 Kernel.ThreeLayerIsomorphism <> output:114 var
+R13972:13974 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13949:13954 Kernel.VMState <> vm_err proj
+R13959:13966 Kernel.SimulationProof <> vm_apply def
+R13968:13968 Kernel.ThreeLayerIsomorphism <> s:111 var
+R13970:13970 Kernel.ThreeLayerIsomorphism <> i:112 var
+R13975:13980 Kernel.VMState <> vm_err proj
+R13982:13987 Kernel.ThreeLayerIsomorphism <> output:114 var
+R14031:14041 Kernel.ThreeLayerIsomorphism <> vmstate_eta thm
+R14031:14041 Kernel.ThreeLayerIsomorphism <> vmstate_eta thm
+R14031:14041 Kernel.ThreeLayerIsomorphism <> vmstate_eta thm
+def 14090:14107 <> coq_full_wire_spec
+R14111:14122 Kernel.ThreeLayerIsomorphism <> FullWireSpec rec
+R14132:14140 Kernel.ThreeLayerIsomorphism <> fws_state proj
+R14132:14140 Kernel.ThreeLayerIsomorphism <> fws_state proj
+R14132:14140 Kernel.ThreeLayerIsomorphism <> fws_state proj
+R14156:14163 Kernel.ThreeLayerIsomorphism <> fws_step proj
+R14156:14163 Kernel.ThreeLayerIsomorphism <> fws_step proj
+R14181:14189 Kernel.ThreeLayerIsomorphism <> fws_graph proj
+R14181:14189 Kernel.ThreeLayerIsomorphism <> fws_graph proj
+R14206:14213 Kernel.ThreeLayerIsomorphism <> fws_csrs proj
+R14206:14213 Kernel.ThreeLayerIsomorphism <> fws_csrs proj
+R14230:14237 Kernel.ThreeLayerIsomorphism <> fws_regs proj
+R14230:14237 Kernel.ThreeLayerIsomorphism <> fws_regs proj
+R14254:14260 Kernel.ThreeLayerIsomorphism <> fws_mem proj
+R14254:14260 Kernel.ThreeLayerIsomorphism <> fws_mem proj
+R14277:14282 Kernel.ThreeLayerIsomorphism <> fws_pc proj
+R14277:14282 Kernel.ThreeLayerIsomorphism <> fws_pc proj
+R14299:14304 Kernel.ThreeLayerIsomorphism <> fws_mu proj
+R14299:14304 Kernel.ThreeLayerIsomorphism <> fws_mu proj
+R14321:14327 Kernel.ThreeLayerIsomorphism <> fws_err proj
+R14321:14327 Kernel.ThreeLayerIsomorphism <> fws_err proj
+R14344:14359 Kernel.ThreeLayerIsomorphism <> fws_step_correct proj
+R14344:14359 Kernel.ThreeLayerIsomorphism <> fws_step_correct proj
+R14145:14151 Kernel.VMState <> VMState rec
+R14169:14176 Kernel.SimulationProof <> vm_apply def
+R14194:14201 Kernel.VMState <> vm_graph proj
+R14219:14225 Kernel.VMState <> vm_csrs proj
+R14243:14249 Kernel.VMState <> vm_regs proj
+R14267:14272 Kernel.VMState <> vm_mem proj
+R14290:14294 Kernel.VMState <> vm_pc proj
+R14312:14316 Kernel.VMState <> vm_mu proj
+R14334:14339 Kernel.VMState <> vm_err proj
+R14364:14384 Kernel.ThreeLayerIsomorphism <> coq_full_step_correct thm
+prf 15210:15244 <> full_state_single_step_bisimulation
+R15272:15283 Kernel.ThreeLayerIsomorphism <> FullWireSpec rec
+binder 15258:15262 <> spec1:115
+binder 15264:15268 <> spec2:116
+R15296:15304 Kernel.ThreeLayerIsomorphism <> fws_state proj
+R15306:15310 Kernel.ThreeLayerIsomorphism <> spec1:115 var
+binder 15291:15292 <> s1:117
+R15319:15327 Kernel.ThreeLayerIsomorphism <> fws_state proj
+R15329:15333 Kernel.ThreeLayerIsomorphism <> spec2:116 var
+binder 15314:15315 <> s2:118
+R15345:15358 Kernel.VMStep VMStep vm_instruction ind
+binder 15341:15341 <> i:119
+R15403:15408 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15382:15384 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15364:15372 Kernel.ThreeLayerIsomorphism <> fws_graph proj
+R15374:15378 Kernel.ThreeLayerIsomorphism <> spec1:115 var
+R15380:15381 Kernel.ThreeLayerIsomorphism <> s1:117 var
+R15385:15393 Kernel.ThreeLayerIsomorphism <> fws_graph proj
+R15395:15399 Kernel.ThreeLayerIsomorphism <> spec2:116 var
+R15401:15402 Kernel.ThreeLayerIsomorphism <> s2:118 var
+R15448:15453 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15427:15429 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15409:15416 Kernel.ThreeLayerIsomorphism <> fws_csrs proj
+R15419:15423 Kernel.ThreeLayerIsomorphism <> spec1:115 var
+R15425:15426 Kernel.ThreeLayerIsomorphism <> s1:117 var
+R15430:15437 Kernel.ThreeLayerIsomorphism <> fws_csrs proj
+R15440:15444 Kernel.ThreeLayerIsomorphism <> spec2:116 var
+R15446:15447 Kernel.ThreeLayerIsomorphism <> s2:118 var
+R15493:15498 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15472:15474 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15454:15461 Kernel.ThreeLayerIsomorphism <> fws_regs proj
+R15464:15468 Kernel.ThreeLayerIsomorphism <> spec1:115 var
+R15470:15471 Kernel.ThreeLayerIsomorphism <> s1:117 var
+R15475:15482 Kernel.ThreeLayerIsomorphism <> fws_regs proj
+R15485:15489 Kernel.ThreeLayerIsomorphism <> spec2:116 var
+R15491:15492 Kernel.ThreeLayerIsomorphism <> s2:118 var
+R15538:15543 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15517:15519 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15499:15505 Kernel.ThreeLayerIsomorphism <> fws_mem proj
+R15509:15513 Kernel.ThreeLayerIsomorphism <> spec1:115 var
+R15515:15516 Kernel.ThreeLayerIsomorphism <> s1:117 var
+R15520:15526 Kernel.ThreeLayerIsomorphism <> fws_mem proj
+R15530:15534 Kernel.ThreeLayerIsomorphism <> spec2:116 var
+R15536:15537 Kernel.ThreeLayerIsomorphism <> s2:118 var
+R15583:15588 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15562:15564 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15544:15549 Kernel.ThreeLayerIsomorphism <> fws_pc proj
+R15554:15558 Kernel.ThreeLayerIsomorphism <> spec1:115 var
+R15560:15561 Kernel.ThreeLayerIsomorphism <> s1:117 var
+R15565:15570 Kernel.ThreeLayerIsomorphism <> fws_pc proj
+R15575:15579 Kernel.ThreeLayerIsomorphism <> spec2:116 var
+R15581:15582 Kernel.ThreeLayerIsomorphism <> s2:118 var
+R15628:15633 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15607:15609 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15589:15594 Kernel.ThreeLayerIsomorphism <> fws_mu proj
+R15599:15603 Kernel.ThreeLayerIsomorphism <> spec1:115 var
+R15605:15606 Kernel.ThreeLayerIsomorphism <> s1:117 var
+R15610:15615 Kernel.ThreeLayerIsomorphism <> fws_mu proj
+R15620:15624 Kernel.ThreeLayerIsomorphism <> spec2:116 var
+R15626:15627 Kernel.ThreeLayerIsomorphism <> s2:118 var
+R15673:15678 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15652:15654 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15634:15640 Kernel.ThreeLayerIsomorphism <> fws_err proj
+R15644:15648 Kernel.ThreeLayerIsomorphism <> spec1:115 var
+R15650:15651 Kernel.ThreeLayerIsomorphism <> s1:117 var
+R15655:15661 Kernel.ThreeLayerIsomorphism <> fws_err proj
+R15665:15669 Kernel.ThreeLayerIsomorphism <> spec2:116 var
+R15671:15672 Kernel.ThreeLayerIsomorphism <> s2:118 var
+R15756:15761 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15716:15718 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15679:15687 Kernel.ThreeLayerIsomorphism <> fws_graph proj
+R15689:15693 Kernel.ThreeLayerIsomorphism <> spec1:115 var
+R15696:15703 Kernel.ThreeLayerIsomorphism <> fws_step proj
+R15705:15709 Kernel.ThreeLayerIsomorphism <> spec1:115 var
+R15711:15712 Kernel.ThreeLayerIsomorphism <> s1:117 var
+R15714:15714 Kernel.ThreeLayerIsomorphism <> i:119 var
+R15719:15727 Kernel.ThreeLayerIsomorphism <> fws_graph proj
+R15729:15733 Kernel.ThreeLayerIsomorphism <> spec2:116 var
+R15736:15743 Kernel.ThreeLayerIsomorphism <> fws_step proj
+R15745:15749 Kernel.ThreeLayerIsomorphism <> spec2:116 var
+R15751:15752 Kernel.ThreeLayerIsomorphism <> s2:118 var
+R15754:15754 Kernel.ThreeLayerIsomorphism <> i:119 var
+R15839:15844 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15799:15801 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15762:15769 Kernel.ThreeLayerIsomorphism <> fws_csrs proj
+R15772:15776 Kernel.ThreeLayerIsomorphism <> spec1:115 var
+R15779:15786 Kernel.ThreeLayerIsomorphism <> fws_step proj
+R15788:15792 Kernel.ThreeLayerIsomorphism <> spec1:115 var
+R15794:15795 Kernel.ThreeLayerIsomorphism <> s1:117 var
+R15797:15797 Kernel.ThreeLayerIsomorphism <> i:119 var
+R15802:15809 Kernel.ThreeLayerIsomorphism <> fws_csrs proj
+R15812:15816 Kernel.ThreeLayerIsomorphism <> spec2:116 var
+R15819:15826 Kernel.ThreeLayerIsomorphism <> fws_step proj
+R15828:15832 Kernel.ThreeLayerIsomorphism <> spec2:116 var
+R15834:15835 Kernel.ThreeLayerIsomorphism <> s2:118 var
+R15837:15837 Kernel.ThreeLayerIsomorphism <> i:119 var
+R15922:15927 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15882:15884 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15845:15852 Kernel.ThreeLayerIsomorphism <> fws_regs proj
+R15855:15859 Kernel.ThreeLayerIsomorphism <> spec1:115 var
+R15862:15869 Kernel.ThreeLayerIsomorphism <> fws_step proj
+R15871:15875 Kernel.ThreeLayerIsomorphism <> spec1:115 var
+R15877:15878 Kernel.ThreeLayerIsomorphism <> s1:117 var
+R15880:15880 Kernel.ThreeLayerIsomorphism <> i:119 var
+R15885:15892 Kernel.ThreeLayerIsomorphism <> fws_regs proj
+R15895:15899 Kernel.ThreeLayerIsomorphism <> spec2:116 var
+R15902:15909 Kernel.ThreeLayerIsomorphism <> fws_step proj
+R15911:15915 Kernel.ThreeLayerIsomorphism <> spec2:116 var
+R15917:15918 Kernel.ThreeLayerIsomorphism <> s2:118 var
+R15920:15920 Kernel.ThreeLayerIsomorphism <> i:119 var
+R16005:16010 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15965:15967 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15928:15934 Kernel.ThreeLayerIsomorphism <> fws_mem proj
+R15938:15942 Kernel.ThreeLayerIsomorphism <> spec1:115 var
+R15945:15952 Kernel.ThreeLayerIsomorphism <> fws_step proj
+R15954:15958 Kernel.ThreeLayerIsomorphism <> spec1:115 var
+R15960:15961 Kernel.ThreeLayerIsomorphism <> s1:117 var
+R15963:15963 Kernel.ThreeLayerIsomorphism <> i:119 var
+R15968:15974 Kernel.ThreeLayerIsomorphism <> fws_mem proj
+R15978:15982 Kernel.ThreeLayerIsomorphism <> spec2:116 var
+R15985:15992 Kernel.ThreeLayerIsomorphism <> fws_step proj
+R15994:15998 Kernel.ThreeLayerIsomorphism <> spec2:116 var
+R16000:16001 Kernel.ThreeLayerIsomorphism <> s2:118 var
+R16003:16003 Kernel.ThreeLayerIsomorphism <> i:119 var
+R16088:16093 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16048:16050 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16011:16016 Kernel.ThreeLayerIsomorphism <> fws_pc proj
+R16021:16025 Kernel.ThreeLayerIsomorphism <> spec1:115 var
+R16028:16035 Kernel.ThreeLayerIsomorphism <> fws_step proj
+R16037:16041 Kernel.ThreeLayerIsomorphism <> spec1:115 var
+R16043:16044 Kernel.ThreeLayerIsomorphism <> s1:117 var
+R16046:16046 Kernel.ThreeLayerIsomorphism <> i:119 var
+R16051:16056 Kernel.ThreeLayerIsomorphism <> fws_pc proj
+R16061:16065 Kernel.ThreeLayerIsomorphism <> spec2:116 var
+R16068:16075 Kernel.ThreeLayerIsomorphism <> fws_step proj
+R16077:16081 Kernel.ThreeLayerIsomorphism <> spec2:116 var
+R16083:16084 Kernel.ThreeLayerIsomorphism <> s2:118 var
+R16086:16086 Kernel.ThreeLayerIsomorphism <> i:119 var
+R16171:16176 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16131:16133 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16094:16099 Kernel.ThreeLayerIsomorphism <> fws_mu proj
+R16104:16108 Kernel.ThreeLayerIsomorphism <> spec1:115 var
+R16111:16118 Kernel.ThreeLayerIsomorphism <> fws_step proj
+R16120:16124 Kernel.ThreeLayerIsomorphism <> spec1:115 var
+R16126:16127 Kernel.ThreeLayerIsomorphism <> s1:117 var
+R16129:16129 Kernel.ThreeLayerIsomorphism <> i:119 var
+R16134:16139 Kernel.ThreeLayerIsomorphism <> fws_mu proj
+R16144:16148 Kernel.ThreeLayerIsomorphism <> spec2:116 var
+R16151:16158 Kernel.ThreeLayerIsomorphism <> fws_step proj
+R16160:16164 Kernel.ThreeLayerIsomorphism <> spec2:116 var
+R16166:16167 Kernel.ThreeLayerIsomorphism <> s2:118 var
+R16169:16169 Kernel.ThreeLayerIsomorphism <> i:119 var
+R16214:16216 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16177:16183 Kernel.ThreeLayerIsomorphism <> fws_err proj
+R16187:16191 Kernel.ThreeLayerIsomorphism <> spec1:115 var
+R16194:16201 Kernel.ThreeLayerIsomorphism <> fws_step proj
+R16203:16207 Kernel.ThreeLayerIsomorphism <> spec1:115 var
+R16209:16210 Kernel.ThreeLayerIsomorphism <> s1:117 var
+R16212:16212 Kernel.ThreeLayerIsomorphism <> i:119 var
+R16217:16223 Kernel.ThreeLayerIsomorphism <> fws_err proj
+R16227:16231 Kernel.ThreeLayerIsomorphism <> spec2:116 var
+R16234:16241 Kernel.ThreeLayerIsomorphism <> fws_step proj
+R16243:16247 Kernel.ThreeLayerIsomorphism <> spec2:116 var
+R16249:16250 Kernel.ThreeLayerIsomorphism <> s2:118 var
+R16252:16252 Kernel.ThreeLayerIsomorphism <> i:119 var
+R16329:16344 Kernel.ThreeLayerIsomorphism <> fws_step_correct proj
+R16329:16344 Kernel.ThreeLayerIsomorphism <> fws_step_correct proj
+R16397:16412 Kernel.ThreeLayerIsomorphism <> fws_step_correct proj
+R16397:16412 Kernel.ThreeLayerIsomorphism <> fws_step_correct proj
+R16748:16754 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16590:16604 Kernel.ThreeLayerIsomorphism <> project_vmstate def
+R16607:16615 Kernel.ThreeLayerIsomorphism <> fws_graph proj
+R16628:16635 Kernel.ThreeLayerIsomorphism <> fws_csrs proj
+R16652:16659 Kernel.ThreeLayerIsomorphism <> fws_regs proj
+R16672:16678 Kernel.ThreeLayerIsomorphism <> fws_mem proj
+R16691:16696 Kernel.ThreeLayerIsomorphism <> fws_pc proj
+R16713:16718 Kernel.ThreeLayerIsomorphism <> fws_mu proj
+R16731:16737 Kernel.ThreeLayerIsomorphism <> fws_err proj
+R16755:16769 Kernel.ThreeLayerIsomorphism <> project_vmstate def
+R16772:16780 Kernel.ThreeLayerIsomorphism <> fws_graph proj
+R16793:16800 Kernel.ThreeLayerIsomorphism <> fws_csrs proj
+R16817:16824 Kernel.ThreeLayerIsomorphism <> fws_regs proj
+R16837:16843 Kernel.ThreeLayerIsomorphism <> fws_mem proj
+R16856:16861 Kernel.ThreeLayerIsomorphism <> fws_pc proj
+R16878:16883 Kernel.ThreeLayerIsomorphism <> fws_mu proj
+R16896:16902 Kernel.ThreeLayerIsomorphism <> fws_err proj
+R16748:16754 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16590:16604 Kernel.ThreeLayerIsomorphism <> project_vmstate def
+R16607:16615 Kernel.ThreeLayerIsomorphism <> fws_graph proj
+R16628:16635 Kernel.ThreeLayerIsomorphism <> fws_csrs proj
+R16652:16659 Kernel.ThreeLayerIsomorphism <> fws_regs proj
+R16672:16678 Kernel.ThreeLayerIsomorphism <> fws_mem proj
+R16691:16696 Kernel.ThreeLayerIsomorphism <> fws_pc proj
+R16713:16718 Kernel.ThreeLayerIsomorphism <> fws_mu proj
+R16731:16737 Kernel.ThreeLayerIsomorphism <> fws_err proj
+R16755:16769 Kernel.ThreeLayerIsomorphism <> project_vmstate def
+R16772:16780 Kernel.ThreeLayerIsomorphism <> fws_graph proj
+R16793:16800 Kernel.ThreeLayerIsomorphism <> fws_csrs proj
+R16817:16824 Kernel.ThreeLayerIsomorphism <> fws_regs proj
+R16837:16843 Kernel.ThreeLayerIsomorphism <> fws_mem proj
+R16856:16861 Kernel.ThreeLayerIsomorphism <> fws_pc proj
+R16878:16883 Kernel.ThreeLayerIsomorphism <> fws_mu proj
+R16896:16902 Kernel.ThreeLayerIsomorphism <> fws_err proj
+R16927:16941 Kernel.ThreeLayerIsomorphism <> project_vmstate def
+def 17132:17138 <> run_fws
+R17148:17159 Kernel.ThreeLayerIsomorphism <> FullWireSpec rec
+binder 17141:17144 <> spec:120
+R17172:17175 Coq.Init.Datatypes <> list ind
+R17177:17190 Kernel.VMStep VMStep vm_instruction ind
+binder 17163:17168 <> instrs:121
+R17200:17208 Kernel.ThreeLayerIsomorphism <> fws_state proj
+R17210:17213 Kernel.ThreeLayerIsomorphism <> spec:120 var
+binder 17196:17196 <> s:122
+R17218:17226 Kernel.ThreeLayerIsomorphism <> fws_state proj
+R17228:17231 Kernel.ThreeLayerIsomorphism <> spec:120 var
+R17244:17249 Kernel.ThreeLayerIsomorphism <> instrs:121 var
+R17260:17261 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R17272:17272 Kernel.ThreeLayerIsomorphism <> s:122 var
+R17279:17282 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R17291:17297 Kernel.ThreeLayerIsomorphism <> run_fws:123 def
+R17310:17317 Kernel.ThreeLayerIsomorphism <> fws_step proj
+R17319:17322 Kernel.ThreeLayerIsomorphism <> spec:120 var
+R17324:17324 Kernel.ThreeLayerIsomorphism <> s:122 var
+R17299:17302 Kernel.ThreeLayerIsomorphism <> spec:120 var
+prf 17745:17773 <> full_state_trace_bisimulation
+R17801:17812 Kernel.ThreeLayerIsomorphism <> FullWireSpec rec
+binder 17787:17791 <> spec1:125
+binder 17793:17797 <> spec2:126
+R17825:17833 Kernel.ThreeLayerIsomorphism <> fws_state proj
+R17835:17839 Kernel.ThreeLayerIsomorphism <> spec1:125 var
+binder 17820:17821 <> s1:127
+R17848:17856 Kernel.ThreeLayerIsomorphism <> fws_state proj
+R17858:17862 Kernel.ThreeLayerIsomorphism <> spec2:126 var
+binder 17843:17844 <> s2:128
+R17879:17882 Coq.Init.Datatypes <> list ind
+R17884:17897 Kernel.VMStep VMStep vm_instruction ind
+binder 17870:17875 <> instrs:129
+R17942:17947 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17921:17923 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17903:17911 Kernel.ThreeLayerIsomorphism <> fws_graph proj
+R17913:17917 Kernel.ThreeLayerIsomorphism <> spec1:125 var
+R17919:17920 Kernel.ThreeLayerIsomorphism <> s1:127 var
+R17924:17932 Kernel.ThreeLayerIsomorphism <> fws_graph proj
+R17934:17938 Kernel.ThreeLayerIsomorphism <> spec2:126 var
+R17940:17941 Kernel.ThreeLayerIsomorphism <> s2:128 var
+R17987:17992 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17966:17968 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17948:17955 Kernel.ThreeLayerIsomorphism <> fws_csrs proj
+R17958:17962 Kernel.ThreeLayerIsomorphism <> spec1:125 var
+R17964:17965 Kernel.ThreeLayerIsomorphism <> s1:127 var
+R17969:17976 Kernel.ThreeLayerIsomorphism <> fws_csrs proj
+R17979:17983 Kernel.ThreeLayerIsomorphism <> spec2:126 var
+R17985:17986 Kernel.ThreeLayerIsomorphism <> s2:128 var
+R18032:18037 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18011:18013 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17993:18000 Kernel.ThreeLayerIsomorphism <> fws_regs proj
+R18003:18007 Kernel.ThreeLayerIsomorphism <> spec1:125 var
+R18009:18010 Kernel.ThreeLayerIsomorphism <> s1:127 var
+R18014:18021 Kernel.ThreeLayerIsomorphism <> fws_regs proj
+R18024:18028 Kernel.ThreeLayerIsomorphism <> spec2:126 var
+R18030:18031 Kernel.ThreeLayerIsomorphism <> s2:128 var
+R18077:18082 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18056:18058 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18038:18044 Kernel.ThreeLayerIsomorphism <> fws_mem proj
+R18048:18052 Kernel.ThreeLayerIsomorphism <> spec1:125 var
+R18054:18055 Kernel.ThreeLayerIsomorphism <> s1:127 var
+R18059:18065 Kernel.ThreeLayerIsomorphism <> fws_mem proj
+R18069:18073 Kernel.ThreeLayerIsomorphism <> spec2:126 var
+R18075:18076 Kernel.ThreeLayerIsomorphism <> s2:128 var
+R18122:18127 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18101:18103 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18083:18088 Kernel.ThreeLayerIsomorphism <> fws_pc proj
+R18093:18097 Kernel.ThreeLayerIsomorphism <> spec1:125 var
+R18099:18100 Kernel.ThreeLayerIsomorphism <> s1:127 var
+R18104:18109 Kernel.ThreeLayerIsomorphism <> fws_pc proj
+R18114:18118 Kernel.ThreeLayerIsomorphism <> spec2:126 var
+R18120:18121 Kernel.ThreeLayerIsomorphism <> s2:128 var
+R18167:18172 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18146:18148 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18128:18133 Kernel.ThreeLayerIsomorphism <> fws_mu proj
+R18138:18142 Kernel.ThreeLayerIsomorphism <> spec1:125 var
+R18144:18145 Kernel.ThreeLayerIsomorphism <> s1:127 var
+R18149:18154 Kernel.ThreeLayerIsomorphism <> fws_mu proj
+R18159:18163 Kernel.ThreeLayerIsomorphism <> spec2:126 var
+R18165:18166 Kernel.ThreeLayerIsomorphism <> s2:128 var
+R18212:18217 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18191:18193 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18173:18179 Kernel.ThreeLayerIsomorphism <> fws_err proj
+R18183:18187 Kernel.ThreeLayerIsomorphism <> spec1:125 var
+R18189:18190 Kernel.ThreeLayerIsomorphism <> s1:127 var
+R18194:18200 Kernel.ThreeLayerIsomorphism <> fws_err proj
+R18204:18208 Kernel.ThreeLayerIsomorphism <> spec2:126 var
+R18210:18211 Kernel.ThreeLayerIsomorphism <> s2:128 var
+R18303:18308 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18259:18261 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18218:18226 Kernel.ThreeLayerIsomorphism <> fws_graph proj
+R18228:18232 Kernel.ThreeLayerIsomorphism <> spec1:125 var
+R18235:18241 Kernel.ThreeLayerIsomorphism <> run_fws def
+R18243:18247 Kernel.ThreeLayerIsomorphism <> spec1:125 var
+R18249:18254 Kernel.ThreeLayerIsomorphism <> instrs:129 var
+R18256:18257 Kernel.ThreeLayerIsomorphism <> s1:127 var
+R18262:18270 Kernel.ThreeLayerIsomorphism <> fws_graph proj
+R18272:18276 Kernel.ThreeLayerIsomorphism <> spec2:126 var
+R18279:18285 Kernel.ThreeLayerIsomorphism <> run_fws def
+R18287:18291 Kernel.ThreeLayerIsomorphism <> spec2:126 var
+R18293:18298 Kernel.ThreeLayerIsomorphism <> instrs:129 var
+R18300:18301 Kernel.ThreeLayerIsomorphism <> s2:128 var
+R18394:18399 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18350:18352 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18309:18316 Kernel.ThreeLayerIsomorphism <> fws_csrs proj
+R18319:18323 Kernel.ThreeLayerIsomorphism <> spec1:125 var
+R18326:18332 Kernel.ThreeLayerIsomorphism <> run_fws def
+R18334:18338 Kernel.ThreeLayerIsomorphism <> spec1:125 var
+R18340:18345 Kernel.ThreeLayerIsomorphism <> instrs:129 var
+R18347:18348 Kernel.ThreeLayerIsomorphism <> s1:127 var
+R18353:18360 Kernel.ThreeLayerIsomorphism <> fws_csrs proj
+R18363:18367 Kernel.ThreeLayerIsomorphism <> spec2:126 var
+R18370:18376 Kernel.ThreeLayerIsomorphism <> run_fws def
+R18378:18382 Kernel.ThreeLayerIsomorphism <> spec2:126 var
+R18384:18389 Kernel.ThreeLayerIsomorphism <> instrs:129 var
+R18391:18392 Kernel.ThreeLayerIsomorphism <> s2:128 var
+R18485:18490 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18441:18443 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18400:18407 Kernel.ThreeLayerIsomorphism <> fws_regs proj
+R18410:18414 Kernel.ThreeLayerIsomorphism <> spec1:125 var
+R18417:18423 Kernel.ThreeLayerIsomorphism <> run_fws def
+R18425:18429 Kernel.ThreeLayerIsomorphism <> spec1:125 var
+R18431:18436 Kernel.ThreeLayerIsomorphism <> instrs:129 var
+R18438:18439 Kernel.ThreeLayerIsomorphism <> s1:127 var
+R18444:18451 Kernel.ThreeLayerIsomorphism <> fws_regs proj
+R18454:18458 Kernel.ThreeLayerIsomorphism <> spec2:126 var
+R18461:18467 Kernel.ThreeLayerIsomorphism <> run_fws def
+R18469:18473 Kernel.ThreeLayerIsomorphism <> spec2:126 var
+R18475:18480 Kernel.ThreeLayerIsomorphism <> instrs:129 var
+R18482:18483 Kernel.ThreeLayerIsomorphism <> s2:128 var
+R18576:18581 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18532:18534 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18491:18497 Kernel.ThreeLayerIsomorphism <> fws_mem proj
+R18501:18505 Kernel.ThreeLayerIsomorphism <> spec1:125 var
+R18508:18514 Kernel.ThreeLayerIsomorphism <> run_fws def
+R18516:18520 Kernel.ThreeLayerIsomorphism <> spec1:125 var
+R18522:18527 Kernel.ThreeLayerIsomorphism <> instrs:129 var
+R18529:18530 Kernel.ThreeLayerIsomorphism <> s1:127 var
+R18535:18541 Kernel.ThreeLayerIsomorphism <> fws_mem proj
+R18545:18549 Kernel.ThreeLayerIsomorphism <> spec2:126 var
+R18552:18558 Kernel.ThreeLayerIsomorphism <> run_fws def
+R18560:18564 Kernel.ThreeLayerIsomorphism <> spec2:126 var
+R18566:18571 Kernel.ThreeLayerIsomorphism <> instrs:129 var
+R18573:18574 Kernel.ThreeLayerIsomorphism <> s2:128 var
+R18667:18672 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18623:18625 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18582:18587 Kernel.ThreeLayerIsomorphism <> fws_pc proj
+R18592:18596 Kernel.ThreeLayerIsomorphism <> spec1:125 var
+R18599:18605 Kernel.ThreeLayerIsomorphism <> run_fws def
+R18607:18611 Kernel.ThreeLayerIsomorphism <> spec1:125 var
+R18613:18618 Kernel.ThreeLayerIsomorphism <> instrs:129 var
+R18620:18621 Kernel.ThreeLayerIsomorphism <> s1:127 var
+R18626:18631 Kernel.ThreeLayerIsomorphism <> fws_pc proj
+R18636:18640 Kernel.ThreeLayerIsomorphism <> spec2:126 var
+R18643:18649 Kernel.ThreeLayerIsomorphism <> run_fws def
+R18651:18655 Kernel.ThreeLayerIsomorphism <> spec2:126 var
+R18657:18662 Kernel.ThreeLayerIsomorphism <> instrs:129 var
+R18664:18665 Kernel.ThreeLayerIsomorphism <> s2:128 var
+R18758:18763 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18714:18716 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18673:18678 Kernel.ThreeLayerIsomorphism <> fws_mu proj
+R18683:18687 Kernel.ThreeLayerIsomorphism <> spec1:125 var
+R18690:18696 Kernel.ThreeLayerIsomorphism <> run_fws def
+R18698:18702 Kernel.ThreeLayerIsomorphism <> spec1:125 var
+R18704:18709 Kernel.ThreeLayerIsomorphism <> instrs:129 var
+R18711:18712 Kernel.ThreeLayerIsomorphism <> s1:127 var
+R18717:18722 Kernel.ThreeLayerIsomorphism <> fws_mu proj
+R18727:18731 Kernel.ThreeLayerIsomorphism <> spec2:126 var
+R18734:18740 Kernel.ThreeLayerIsomorphism <> run_fws def
+R18742:18746 Kernel.ThreeLayerIsomorphism <> spec2:126 var
+R18748:18753 Kernel.ThreeLayerIsomorphism <> instrs:129 var
+R18755:18756 Kernel.ThreeLayerIsomorphism <> s2:128 var
+R18805:18807 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18764:18770 Kernel.ThreeLayerIsomorphism <> fws_err proj
+R18774:18778 Kernel.ThreeLayerIsomorphism <> spec1:125 var
+R18781:18787 Kernel.ThreeLayerIsomorphism <> run_fws def
+R18789:18793 Kernel.ThreeLayerIsomorphism <> spec1:125 var
+R18795:18800 Kernel.ThreeLayerIsomorphism <> instrs:129 var
+R18802:18803 Kernel.ThreeLayerIsomorphism <> s1:127 var
+R18808:18814 Kernel.ThreeLayerIsomorphism <> fws_err proj
+R18818:18822 Kernel.ThreeLayerIsomorphism <> spec2:126 var
+R18825:18831 Kernel.ThreeLayerIsomorphism <> run_fws def
+R18833:18837 Kernel.ThreeLayerIsomorphism <> spec2:126 var
+R18839:18844 Kernel.ThreeLayerIsomorphism <> instrs:129 var
+R18846:18847 Kernel.ThreeLayerIsomorphism <> s2:128 var
+R19046:19080 Kernel.ThreeLayerIsomorphism <> full_state_single_step_bisimulation thm
+R19046:19080 Kernel.ThreeLayerIsomorphism <> full_state_single_step_bisimulation thm
+prf 19348:19372 <> coq_full_bisimilar_to_any
+R19393:19404 Kernel.ThreeLayerIsomorphism <> FullWireSpec rec
+binder 19386:19389 <> impl:130
+R19420:19426 Kernel.VMState <> VMState rec
+binder 19412:19416 <> s_coq:131
+R19439:19447 Kernel.ThreeLayerIsomorphism <> fws_state proj
+R19449:19452 Kernel.ThreeLayerIsomorphism <> impl:130 var
+binder 19430:19435 <> s_impl:132
+R19469:19472 Coq.Init.Datatypes <> list ind
+R19474:19487 Kernel.VMStep VMStep vm_instruction ind
+binder 19460:19465 <> instrs:133
+R19531:19536 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19507:19509 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19493:19500 Kernel.VMState <> vm_graph proj
+R19502:19506 Kernel.ThreeLayerIsomorphism <> s_coq:131 var
+R19510:19518 Kernel.ThreeLayerIsomorphism <> fws_graph proj
+R19520:19523 Kernel.ThreeLayerIsomorphism <> impl:130 var
+R19525:19530 Kernel.ThreeLayerIsomorphism <> s_impl:132 var
+R19575:19580 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19551:19553 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19537:19543 Kernel.VMState <> vm_csrs proj
+R19546:19550 Kernel.ThreeLayerIsomorphism <> s_coq:131 var
+R19554:19561 Kernel.ThreeLayerIsomorphism <> fws_csrs proj
+R19564:19567 Kernel.ThreeLayerIsomorphism <> impl:130 var
+R19569:19574 Kernel.ThreeLayerIsomorphism <> s_impl:132 var
+R19619:19624 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19595:19597 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19581:19587 Kernel.VMState <> vm_regs proj
+R19590:19594 Kernel.ThreeLayerIsomorphism <> s_coq:131 var
+R19598:19605 Kernel.ThreeLayerIsomorphism <> fws_regs proj
+R19608:19611 Kernel.ThreeLayerIsomorphism <> impl:130 var
+R19613:19618 Kernel.ThreeLayerIsomorphism <> s_impl:132 var
+R19663:19668 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19639:19641 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19625:19630 Kernel.VMState <> vm_mem proj
+R19634:19638 Kernel.ThreeLayerIsomorphism <> s_coq:131 var
+R19642:19648 Kernel.ThreeLayerIsomorphism <> fws_mem proj
+R19652:19655 Kernel.ThreeLayerIsomorphism <> impl:130 var
+R19657:19662 Kernel.ThreeLayerIsomorphism <> s_impl:132 var
+R19707:19712 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19683:19685 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19669:19673 Kernel.VMState <> vm_pc proj
+R19678:19682 Kernel.ThreeLayerIsomorphism <> s_coq:131 var
+R19686:19691 Kernel.ThreeLayerIsomorphism <> fws_pc proj
+R19696:19699 Kernel.ThreeLayerIsomorphism <> impl:130 var
+R19701:19706 Kernel.ThreeLayerIsomorphism <> s_impl:132 var
+R19751:19756 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19727:19729 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19713:19717 Kernel.VMState <> vm_mu proj
+R19722:19726 Kernel.ThreeLayerIsomorphism <> s_coq:131 var
+R19730:19735 Kernel.ThreeLayerIsomorphism <> fws_mu proj
+R19740:19743 Kernel.ThreeLayerIsomorphism <> impl:130 var
+R19745:19750 Kernel.ThreeLayerIsomorphism <> s_impl:132 var
+R19795:19800 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19771:19773 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19757:19762 Kernel.VMState <> vm_err proj
+R19766:19770 Kernel.ThreeLayerIsomorphism <> s_coq:131 var
+R19774:19780 Kernel.ThreeLayerIsomorphism <> fws_err proj
+R19784:19787 Kernel.ThreeLayerIsomorphism <> impl:130 var
+R19789:19794 Kernel.ThreeLayerIsomorphism <> s_impl:132 var
+R19900:19905 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19851:19857 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19801:19807 Kernel.VMState <> vm_regs proj
+R19811:19817 Kernel.ThreeLayerIsomorphism <> run_fws def
+R19819:19836 Kernel.ThreeLayerIsomorphism <> coq_full_wire_spec def
+R19838:19843 Kernel.ThreeLayerIsomorphism <> instrs:133 var
+R19845:19849 Kernel.ThreeLayerIsomorphism <> s_coq:131 var
+R19858:19865 Kernel.ThreeLayerIsomorphism <> fws_regs proj
+R19867:19870 Kernel.ThreeLayerIsomorphism <> impl:130 var
+R19873:19879 Kernel.ThreeLayerIsomorphism <> run_fws def
+R19881:19884 Kernel.ThreeLayerIsomorphism <> impl:130 var
+R19886:19891 Kernel.ThreeLayerIsomorphism <> instrs:133 var
+R19893:19898 Kernel.ThreeLayerIsomorphism <> s_impl:132 var
+R20005:20010 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19956:19962 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19906:19911 Kernel.VMState <> vm_mem proj
+R19916:19922 Kernel.ThreeLayerIsomorphism <> run_fws def
+R19924:19941 Kernel.ThreeLayerIsomorphism <> coq_full_wire_spec def
+R19943:19948 Kernel.ThreeLayerIsomorphism <> instrs:133 var
+R19950:19954 Kernel.ThreeLayerIsomorphism <> s_coq:131 var
+R19963:19969 Kernel.ThreeLayerIsomorphism <> fws_mem proj
+R19972:19975 Kernel.ThreeLayerIsomorphism <> impl:130 var
+R19978:19984 Kernel.ThreeLayerIsomorphism <> run_fws def
+R19986:19989 Kernel.ThreeLayerIsomorphism <> impl:130 var
+R19991:19996 Kernel.ThreeLayerIsomorphism <> instrs:133 var
+R19998:20003 Kernel.ThreeLayerIsomorphism <> s_impl:132 var
+R20110:20115 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20061:20067 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20011:20015 Kernel.VMState <> vm_mu proj
+R20021:20027 Kernel.ThreeLayerIsomorphism <> run_fws def
+R20029:20046 Kernel.ThreeLayerIsomorphism <> coq_full_wire_spec def
+R20048:20053 Kernel.ThreeLayerIsomorphism <> instrs:133 var
+R20055:20059 Kernel.ThreeLayerIsomorphism <> s_coq:131 var
+R20068:20073 Kernel.ThreeLayerIsomorphism <> fws_mu proj
+R20077:20080 Kernel.ThreeLayerIsomorphism <> impl:130 var
+R20083:20089 Kernel.ThreeLayerIsomorphism <> run_fws def
+R20091:20094 Kernel.ThreeLayerIsomorphism <> impl:130 var
+R20096:20101 Kernel.ThreeLayerIsomorphism <> instrs:133 var
+R20103:20108 Kernel.ThreeLayerIsomorphism <> s_impl:132 var
+R20215:20220 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20166:20172 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20116:20121 Kernel.VMState <> vm_err proj
+R20126:20132 Kernel.ThreeLayerIsomorphism <> run_fws def
+R20134:20151 Kernel.ThreeLayerIsomorphism <> coq_full_wire_spec def
+R20153:20158 Kernel.ThreeLayerIsomorphism <> instrs:133 var
+R20160:20164 Kernel.ThreeLayerIsomorphism <> s_coq:131 var
+R20173:20179 Kernel.ThreeLayerIsomorphism <> fws_err proj
+R20182:20185 Kernel.ThreeLayerIsomorphism <> impl:130 var
+R20188:20194 Kernel.ThreeLayerIsomorphism <> run_fws def
+R20196:20199 Kernel.ThreeLayerIsomorphism <> impl:130 var
+R20201:20206 Kernel.ThreeLayerIsomorphism <> instrs:133 var
+R20208:20213 Kernel.ThreeLayerIsomorphism <> s_impl:132 var
+R20271:20277 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20221:20225 Kernel.VMState <> vm_pc proj
+R20231:20237 Kernel.ThreeLayerIsomorphism <> run_fws def
+R20239:20256 Kernel.ThreeLayerIsomorphism <> coq_full_wire_spec def
+R20258:20263 Kernel.ThreeLayerIsomorphism <> instrs:133 var
+R20265:20269 Kernel.ThreeLayerIsomorphism <> s_coq:131 var
+R20278:20283 Kernel.ThreeLayerIsomorphism <> fws_pc proj
+R20287:20290 Kernel.ThreeLayerIsomorphism <> impl:130 var
+R20293:20299 Kernel.ThreeLayerIsomorphism <> run_fws def
+R20301:20304 Kernel.ThreeLayerIsomorphism <> impl:130 var
+R20306:20311 Kernel.ThreeLayerIsomorphism <> instrs:133 var
+R20313:20318 Kernel.ThreeLayerIsomorphism <> s_impl:132 var
+R20400:20428 Kernel.ThreeLayerIsomorphism <> full_state_trace_bisimulation thm
+R20434:20451 Kernel.ThreeLayerIsomorphism <> coq_full_wire_spec def
+R20400:20428 Kernel.ThreeLayerIsomorphism <> full_state_trace_bisimulation thm
+R20434:20451 Kernel.ThreeLayerIsomorphism <> coq_full_wire_spec def

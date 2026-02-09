@@ -1,0 +1,331 @@
+DIGEST 51e2e8fb11eb6283faf0702b882fa21b
+FThieleMachine.PartitionDiscoveryIsomorphism
+R3279:3283 Coq.Arith.Arith <> <> lib
+R3285:3290 Coq.ZArith.ZArith <> <> lib
+R3292:3294 Coq.micromega.Lia <> <> lib
+R3296:3299 Coq.Lists.List <> <> lib
+R3301:3303 Coq.Init.Nat <> <> lib
+R3305:3308 Coq.Bool.Bool <> <> lib
+R3335:3353 Coq.Sorting.Permutation <> <> lib
+R3363:3375 Coq.Lists.List ListNotations <> mod
+rec 3769:3781 <> VariableGraph
+proj 3790:3797 <> num_vars
+proj 3808:3812 <> edges
+R3801:3803 Coq.Init.Datatypes <> nat ind
+R3816:3819 Coq.Init.Datatypes <> list ind
+R3825:3827 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3822:3824 Coq.Init.Datatypes <> nat ind
+R3828:3830 Coq.Init.Datatypes <> nat ind
+rec 3916:3924 <> Partition
+proj 3933:3949 <> partition_modules
+R3953:3956 Coq.Init.Datatypes <> list ind
+R3959:3962 Coq.Init.Datatypes <> list ind
+R3964:3966 Coq.Init.Datatypes <> nat ind
+rec 4047:4061 <> DiscoveryResult
+proj 4070:4089 <> discovered_partition
+proj 4106:4113 <> mdl_cost
+proj 4174:4190 <> discovery_mu_cost
+proj 4237:4242 <> method
+proj 4305:4321 <> discovery_time_ns
+R4093:4101 ThieleMachine.PartitionDiscoveryIsomorphism <> Partition rec
+R4117:4119 Coq.Init.Datatypes <> nat ind
+R4194:4196 Coq.Init.Datatypes <> nat ind
+R4246:4248 Coq.Init.Datatypes <> nat ind
+R4325:4327 Coq.Init.Datatypes <> nat ind
+def 4700:4714 <> build_adjacency
+R4721:4733 ThieleMachine.PartitionDiscoveryIsomorphism <> VariableGraph rec
+binder 4717:4717 <> g:12
+R4738:4741 Coq.Init.Datatypes <> list ind
+R4744:4747 Coq.Init.Datatypes <> list ind
+R4749:4751 Coq.Init.Datatypes <> nat ind
+R4804:4811 ThieleMachine.PartitionDiscoveryIsomorphism <> num_vars proj
+R4813:4813 ThieleMachine.PartitionDiscoveryIsomorphism <> g:12 var
+binder 4799:4799 <> n:13
+R4836:4841 Coq.Lists.List <> repeat def
+R4845:4845 ThieleMachine.PartitionDiscoveryIsomorphism <> n:13 var
+binder 4824:4831 <> init_row:14
+R4871:4876 Coq.Lists.List <> repeat def
+R4887:4887 ThieleMachine.PartitionDiscoveryIsomorphism <> n:13 var
+R4878:4885 ThieleMachine.PartitionDiscoveryIsomorphism <> init_row:14 var
+binder 4856:4866 <> init_matrix:15
+R4966:4976 ThieleMachine.PartitionDiscoveryIsomorphism <> init_matrix:15 var
+def 5028:5041 <> vertex_degrees
+R5048:5060 ThieleMachine.PartitionDiscoveryIsomorphism <> VariableGraph rec
+binder 5044:5044 <> g:16
+R5065:5068 Coq.Init.Datatypes <> list ind
+R5070:5072 Coq.Init.Datatypes <> nat ind
+R5088:5095 ThieleMachine.PartitionDiscoveryIsomorphism <> num_vars proj
+R5097:5097 ThieleMachine.PartitionDiscoveryIsomorphism <> g:16 var
+binder 5083:5083 <> n:17
+R5125:5127 Coq.Init.Datatypes <> nat ind
+binder 5121:5121 <> v:18
+R5133:5138 Coq.Init.Datatypes <> length def
+R5141:5146 Coq.Lists.List <> filter def
+R5228:5232 ThieleMachine.PartitionDiscoveryIsomorphism <> edges proj
+R5234:5234 ThieleMachine.PartitionDiscoveryIsomorphism <> g:16 var
+R5160:5162 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R5157:5159 Coq.Init.Datatypes <> nat ind
+R5163:5165 Coq.Init.Datatypes <> nat ind
+binder 5153:5153 <> e:19
+R5190:5190 ThieleMachine.PartitionDiscoveryIsomorphism <> e:19 var
+R5180:5180 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5182:5183 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5185:5185 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5195:5195 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R5207:5212 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R5224:5224 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R5196:5202 Coq.Arith.PeanoNat Nat eqb def
+R5206:5206 ThieleMachine.PartitionDiscoveryIsomorphism <> v:18 var
+R5213:5219 Coq.Arith.PeanoNat Nat eqb def
+R5223:5223 ThieleMachine.PartitionDiscoveryIsomorphism <> v:18 var
+binder 5108:5118 <> count_edges:21
+R5243:5245 Coq.Lists.List <> map def
+R5260:5262 Coq.Lists.List <> seq def
+R5266:5266 ThieleMachine.PartitionDiscoveryIsomorphism <> n:17 var
+R5247:5257 ThieleMachine.PartitionDiscoveryIsomorphism <> count_edges:21 var
+def 5336:5352 <> trivial_partition
+R5359:5361 Coq.Init.Datatypes <> nat ind
+binder 5355:5355 <> n:22
+R5366:5374 ThieleMachine.PartitionDiscoveryIsomorphism <> Partition rec
+R5384:5400 ThieleMachine.PartitionDiscoveryIsomorphism <> partition_modules proj
+R5384:5400 ThieleMachine.PartitionDiscoveryIsomorphism <> partition_modules proj
+R5384:5400 ThieleMachine.PartitionDiscoveryIsomorphism <> partition_modules proj
+R5405:5405 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5413:5413 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5406:5408 Coq.Lists.List <> seq def
+R5412:5412 ThieleMachine.PartitionDiscoveryIsomorphism <> n:22 var
+def 5502:5518 <> flatten_partition
+R5525:5533 ThieleMachine.PartitionDiscoveryIsomorphism <> Partition rec
+binder 5521:5521 <> p:23
+R5538:5541 Coq.Init.Datatypes <> list ind
+R5543:5545 Coq.Init.Datatypes <> nat ind
+R5552:5559 Coq.Lists.List <> flat_map def
+R5575:5591 ThieleMachine.PartitionDiscoveryIsomorphism <> partition_modules proj
+R5593:5593 ThieleMachine.PartitionDiscoveryIsomorphism <> p:23 var
+binder 5566:5566 <> m:24
+R5571:5571 ThieleMachine.PartitionDiscoveryIsomorphism <> m:24 var
+def 5609:5626 <> is_valid_partition
+R5633:5641 ThieleMachine.PartitionDiscoveryIsomorphism <> Partition rec
+binder 5629:5629 <> p:25
+R5649:5651 Coq.Init.Datatypes <> nat ind
+binder 5645:5645 <> n:26
+R5666:5676 Coq.Sorting.Permutation <> Permutation ind
+R5701:5703 Coq.Lists.List <> seq def
+R5707:5707 ThieleMachine.PartitionDiscoveryIsomorphism <> n:26 var
+R5679:5695 ThieleMachine.PartitionDiscoveryIsomorphism <> flatten_partition def
+R5697:5697 ThieleMachine.PartitionDiscoveryIsomorphism <> p:25 var
+def 6539:6560 <> spectral_discover_spec
+R6567:6579 ThieleMachine.PartitionDiscoveryIsomorphism <> VariableGraph rec
+binder 6563:6563 <> g:27
+R6598:6600 Coq.Init.Datatypes <> nat ind
+binder 6583:6594 <> max_clusters:28
+R6605:6619 ThieleMachine.PartitionDiscoveryIsomorphism <> DiscoveryResult rec
+R6635:6642 ThieleMachine.PartitionDiscoveryIsomorphism <> num_vars proj
+R6644:6644 ThieleMachine.PartitionDiscoveryIsomorphism <> g:27 var
+binder 6630:6630 <> n:29
+R6763:6782 ThieleMachine.PartitionDiscoveryIsomorphism <> discovered_partition proj
+R6763:6782 ThieleMachine.PartitionDiscoveryIsomorphism <> discovered_partition proj
+R6763:6782 ThieleMachine.PartitionDiscoveryIsomorphism <> discovered_partition proj
+R6813:6820 ThieleMachine.PartitionDiscoveryIsomorphism <> mdl_cost proj
+R6813:6820 ThieleMachine.PartitionDiscoveryIsomorphism <> mdl_cost proj
+R6833:6849 ThieleMachine.PartitionDiscoveryIsomorphism <> discovery_mu_cost proj
+R6833:6849 ThieleMachine.PartitionDiscoveryIsomorphism <> discovery_mu_cost proj
+R6867:6872 ThieleMachine.PartitionDiscoveryIsomorphism <> method proj
+R6867:6872 ThieleMachine.PartitionDiscoveryIsomorphism <> method proj
+R6901:6917 ThieleMachine.PartitionDiscoveryIsomorphism <> discovery_time_ns proj
+R6901:6917 ThieleMachine.PartitionDiscoveryIsomorphism <> discovery_time_ns proj
+R6787:6803 ThieleMachine.PartitionDiscoveryIsomorphism <> trivial_partition def
+R6805:6805 ThieleMachine.PartitionDiscoveryIsomorphism <> n:29 var
+R6825:6825 ThieleMachine.PartitionDiscoveryIsomorphism <> n:29 var
+R6855:6857 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R6854:6854 ThieleMachine.PartitionDiscoveryIsomorphism <> n:29 var
+R6931:6933 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R6927:6929 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R6923:6925 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R6922:6922 ThieleMachine.PartitionDiscoveryIsomorphism <> n:29 var
+R6926:6926 ThieleMachine.PartitionDiscoveryIsomorphism <> n:29 var
+R6930:6930 ThieleMachine.PartitionDiscoveryIsomorphism <> n:29 var
+def 7293:7307 <> partition_equiv
+R7318:7326 ThieleMachine.PartitionDiscoveryIsomorphism <> Partition rec
+binder 7310:7311 <> p1:30
+binder 7313:7314 <> p2:31
+R7341:7351 Coq.Sorting.Permutation <> Permutation ind
+R7377:7393 ThieleMachine.PartitionDiscoveryIsomorphism <> partition_modules proj
+R7395:7396 ThieleMachine.PartitionDiscoveryIsomorphism <> p2:31 var
+R7354:7370 ThieleMachine.PartitionDiscoveryIsomorphism <> partition_modules proj
+R7372:7373 ThieleMachine.PartitionDiscoveryIsomorphism <> p1:30 var
+def 7456:7470 <> discovery_equiv
+R7481:7495 ThieleMachine.PartitionDiscoveryIsomorphism <> DiscoveryResult rec
+binder 7473:7474 <> r1:32
+binder 7476:7477 <> r2:33
+R7577:7582 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7510:7524 ThieleMachine.PartitionDiscoveryIsomorphism <> partition_equiv def
+R7527:7546 ThieleMachine.PartitionDiscoveryIsomorphism <> discovered_partition proj
+R7548:7549 ThieleMachine.PartitionDiscoveryIsomorphism <> r1:32 var
+R7553:7572 ThieleMachine.PartitionDiscoveryIsomorphism <> discovered_partition proj
+R7574:7575 ThieleMachine.PartitionDiscoveryIsomorphism <> r2:33 var
+R7608:7613 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7594:7596 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7583:7590 ThieleMachine.PartitionDiscoveryIsomorphism <> mdl_cost proj
+R7592:7593 ThieleMachine.PartitionDiscoveryIsomorphism <> r1:32 var
+R7597:7604 ThieleMachine.PartitionDiscoveryIsomorphism <> mdl_cost proj
+R7606:7607 ThieleMachine.PartitionDiscoveryIsomorphism <> r2:33 var
+R7623:7625 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7614:7619 ThieleMachine.PartitionDiscoveryIsomorphism <> method proj
+R7621:7622 ThieleMachine.PartitionDiscoveryIsomorphism <> r1:32 var
+R7626:7631 ThieleMachine.PartitionDiscoveryIsomorphism <> method proj
+R7633:7634 ThieleMachine.PartitionDiscoveryIsomorphism <> r2:33 var
+prf 8202:8224 <> spectral_produces_valid
+R8242:8254 ThieleMachine.PartitionDiscoveryIsomorphism <> VariableGraph rec
+binder 8238:8238 <> g:34
+R8262:8279 ThieleMachine.PartitionDiscoveryIsomorphism <> is_valid_partition def
+R8282:8301 ThieleMachine.PartitionDiscoveryIsomorphism <> discovered_partition proj
+R8304:8325 ThieleMachine.PartitionDiscoveryIsomorphism <> spectral_discover_spec def
+R8327:8327 ThieleMachine.PartitionDiscoveryIsomorphism <> g:34 var
+R8335:8342 ThieleMachine.PartitionDiscoveryIsomorphism <> num_vars proj
+R8344:8344 ThieleMachine.PartitionDiscoveryIsomorphism <> g:34 var
+R8376:8393 ThieleMachine.PartitionDiscoveryIsomorphism <> is_valid_partition def
+R8405:8426 ThieleMachine.PartitionDiscoveryIsomorphism <> spectral_discover_spec def
+R8447:8463 ThieleMachine.PartitionDiscoveryIsomorphism <> trivial_partition def
+R8555:8571 ThieleMachine.PartitionDiscoveryIsomorphism <> flatten_partition def
+R8591:8599 Coq.Lists.List <> app_nil_r thm
+R8591:8599 Coq.Lists.List <> app_nil_r thm
+R8591:8599 Coq.Lists.List <> app_nil_r thm
+R8610:8625 Coq.Sorting.Permutation <> Permutation_refl thm
+R8610:8625 Coq.Sorting.Permutation <> Permutation_refl thm
+prf 8767:8795 <> implementation_produces_valid
+R8813:8825 ThieleMachine.PartitionDiscoveryIsomorphism <> VariableGraph rec
+binder 8809:8809 <> g:35
+R8838:8852 ThieleMachine.PartitionDiscoveryIsomorphism <> DiscoveryResult rec
+binder 8829:8834 <> result:36
+R9004:9011 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8971:8973 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8944:8963 ThieleMachine.PartitionDiscoveryIsomorphism <> discovered_partition proj
+R8965:8970 ThieleMachine.PartitionDiscoveryIsomorphism <> result:36 var
+R8974:8990 ThieleMachine.PartitionDiscoveryIsomorphism <> trivial_partition def
+R8993:9000 ThieleMachine.PartitionDiscoveryIsomorphism <> num_vars proj
+R9002:9002 ThieleMachine.PartitionDiscoveryIsomorphism <> g:35 var
+R9012:9029 ThieleMachine.PartitionDiscoveryIsomorphism <> is_valid_partition def
+R9032:9051 ThieleMachine.PartitionDiscoveryIsomorphism <> discovered_partition proj
+R9053:9058 ThieleMachine.PartitionDiscoveryIsomorphism <> result:36 var
+R9062:9069 ThieleMachine.PartitionDiscoveryIsomorphism <> num_vars proj
+R9071:9071 ThieleMachine.PartitionDiscoveryIsomorphism <> g:35 var
+R9129:9146 ThieleMachine.PartitionDiscoveryIsomorphism <> is_valid_partition def
+R9158:9174 ThieleMachine.PartitionDiscoveryIsomorphism <> trivial_partition def
+R9193:9209 ThieleMachine.PartitionDiscoveryIsomorphism <> flatten_partition def
+R9229:9237 Coq.Lists.List <> app_nil_r thm
+R9229:9237 Coq.Lists.List <> app_nil_r thm
+R9229:9237 Coq.Lists.List <> app_nil_r thm
+R9248:9263 Coq.Sorting.Permutation <> Permutation_refl thm
+R9248:9263 Coq.Sorting.Permutation <> Permutation_refl thm
+prf 9336:9357 <> spectral_is_polynomial
+R9375:9387 ThieleMachine.PartitionDiscoveryIsomorphism <> VariableGraph rec
+binder 9371:9371 <> g:37
+R9409:9430 ThieleMachine.PartitionDiscoveryIsomorphism <> spectral_discover_spec def
+R9432:9432 ThieleMachine.PartitionDiscoveryIsomorphism <> g:37 var
+binder 9399:9404 <> result:38
+R9468:9471 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R9444:9460 ThieleMachine.PartitionDiscoveryIsomorphism <> discovery_time_ns proj
+R9462:9467 ThieleMachine.PartitionDiscoveryIsomorphism <> result:38 var
+R9491:9493 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R9474:9476 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R9477:9477 Coq.Init.Nat <> ::nat_scope:x_'^'_x not
+R9488:9489 Coq.Init.Nat <> ::nat_scope:x_'^'_x not
+R9478:9485 ThieleMachine.PartitionDiscoveryIsomorphism <> num_vars proj
+R9487:9487 ThieleMachine.PartitionDiscoveryIsomorphism <> g:37 var
+R9536:9557 ThieleMachine.PartitionDiscoveryIsomorphism <> spectral_discover_spec def
+R9715:9722 ThieleMachine.PartitionDiscoveryIsomorphism <> num_vars proj
+R9715:9722 ThieleMachine.PartitionDiscoveryIsomorphism <> num_vars proj
+R9753:9756 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R9747:9749 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R9743:9745 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R9739:9741 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R9767:9769 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R9759:9761 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R9763:9765 Coq.Init.Nat <> ::nat_scope:x_'^'_x not
+R9753:9756 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R9747:9749 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R9743:9745 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R9739:9741 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R9767:9769 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R9759:9761 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R9763:9765 Coq.Init.Nat <> ::nat_scope:x_'^'_x not
+prf 9879:9900 <> coq_python_isomorphism
+R9918:9930 ThieleMachine.PartitionDiscoveryIsomorphism <> VariableGraph rec
+binder 9914:9914 <> g:39
+R9956:9977 ThieleMachine.PartitionDiscoveryIsomorphism <> spectral_discover_spec def
+R9979:9979 ThieleMachine.PartitionDiscoveryIsomorphism <> g:39 var
+binder 9942:9951 <> coq_result:40
+R9991:9998 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10030:10038 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10015:10029 ThieleMachine.PartitionDiscoveryIsomorphism <> DiscoveryResult rec
+binder 9999:10011 <> python_result:41
+R10039:10053 ThieleMachine.PartitionDiscoveryIsomorphism <> discovery_equiv def
+R10055:10064 ThieleMachine.PartitionDiscoveryIsomorphism <> coq_result:40 var
+R10066:10078 ThieleMachine.PartitionDiscoveryIsomorphism <> python_result:41 var
+R10110:10131 ThieleMachine.PartitionDiscoveryIsomorphism <> spectral_discover_spec def
+R10110:10131 ThieleMachine.PartitionDiscoveryIsomorphism <> spectral_discover_spec def
+R10149:10163 ThieleMachine.PartitionDiscoveryIsomorphism <> discovery_equiv def
+R10197:10211 ThieleMachine.PartitionDiscoveryIsomorphism <> partition_equiv def
+R10220:10235 Coq.Sorting.Permutation <> Permutation_refl thm
+R10220:10235 Coq.Sorting.Permutation <> Permutation_refl thm
+def 10641:10653 <> is_structured
+R10660:10672 ThieleMachine.PartitionDiscoveryIsomorphism <> VariableGraph rec
+binder 10656:10656 <> g:42
+R10830:10835 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10811:10814 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R10815:10822 ThieleMachine.PartitionDiscoveryIsomorphism <> num_vars proj
+R10824:10824 ThieleMachine.PartitionDiscoveryIsomorphism <> g:42 var
+R10853:10856 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R10837:10842 Coq.Init.Datatypes <> length def
+R10845:10849 ThieleMachine.PartitionDiscoveryIsomorphism <> edges proj
+R10851:10851 ThieleMachine.PartitionDiscoveryIsomorphism <> g:42 var
+R10858:10860 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R10861:10868 ThieleMachine.PartitionDiscoveryIsomorphism <> num_vars proj
+R10870:10870 ThieleMachine.PartitionDiscoveryIsomorphism <> g:42 var
+rec 11897:11914 <> GeometricSignature
+proj 11923:11937 <> avg_edge_weight
+proj 11975:11989 <> max_edge_weight
+proj 12027:12044 <> edge_weight_stddev
+proj 12079:12088 <> mst_weight
+proj 12131:12149 <> thresholded_density
+R11941:11943 Coq.Init.Datatypes <> nat ind
+R11993:11995 Coq.Init.Datatypes <> nat ind
+R12048:12050 Coq.Init.Datatypes <> nat ind
+R12092:12094 Coq.Init.Datatypes <> nat ind
+R12153:12155 Coq.Init.Datatypes <> nat ind
+def 12233:12250 <> classify_signature
+R12259:12276 ThieleMachine.PartitionDiscoveryIsomorphism <> GeometricSignature rec
+binder 12253:12255 <> sig:49
+R12281:12284 Coq.Init.Datatypes <> bool ind
+binder 12350:12362 <> threshold_avg:50
+binder 12410:12422 <> threshold_std:51
+binder 12470:12482 <> threshold_max:52
+R12532:12532 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R12576:12587 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R12634:12634 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R12533:12539 Coq.Arith.PeanoNat Nat ltb def
+R12542:12556 ThieleMachine.PartitionDiscoveryIsomorphism <> avg_edge_weight proj
+R12558:12560 ThieleMachine.PartitionDiscoveryIsomorphism <> sig:49 var
+R12563:12575 ThieleMachine.PartitionDiscoveryIsomorphism <> threshold_avg:50 var
+R12588:12594 Coq.Arith.PeanoNat Nat ltb def
+R12597:12614 ThieleMachine.PartitionDiscoveryIsomorphism <> edge_weight_stddev proj
+R12616:12618 ThieleMachine.PartitionDiscoveryIsomorphism <> sig:49 var
+R12621:12633 ThieleMachine.PartitionDiscoveryIsomorphism <> threshold_std:51 var
+R12676:12676 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R12720:12735 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R12782:12782 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R12677:12683 Coq.Arith.PeanoNat Nat ltb def
+R12685:12697 ThieleMachine.PartitionDiscoveryIsomorphism <> threshold_max:52 var
+R12700:12714 ThieleMachine.PartitionDiscoveryIsomorphism <> avg_edge_weight proj
+R12716:12718 ThieleMachine.PartitionDiscoveryIsomorphism <> sig:49 var
+R12736:12742 Coq.Arith.PeanoNat Nat ltb def
+R12744:12756 ThieleMachine.PartitionDiscoveryIsomorphism <> threshold_std:51 var
+R12759:12776 ThieleMachine.PartitionDiscoveryIsomorphism <> edge_weight_stddev proj
+R12778:12780 ThieleMachine.PartitionDiscoveryIsomorphism <> sig:49 var
+R12842:12848 Coq.Arith.PeanoNat Nat ltb def
+R12851:12865 ThieleMachine.PartitionDiscoveryIsomorphism <> max_edge_weight proj
+R12867:12869 ThieleMachine.PartitionDiscoveryIsomorphism <> sig:49 var
+R12872:12884 ThieleMachine.PartitionDiscoveryIsomorphism <> threshold_max:52 var
+R12791:12795 Coq.Init.Datatypes <> false constr
+R12643:12646 Coq.Init.Datatypes <> true constr

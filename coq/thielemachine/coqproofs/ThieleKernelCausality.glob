@@ -1,0 +1,665 @@
+DIGEST 11359df115e731b132db75db1afacdd1
+FThieleMachine.ThieleKernelCausality
+R408:411 Coq.Lists.List <> <> lib
+R413:426 Coq.Arith.PeanoNat <> <> lib
+R436:448 Coq.Lists.List ListNotations <> mod
+R479:485 Kernel.VMState <> <> lib
+R487:492 Kernel.VMStep <> <> lib
+R494:508 Kernel.SimulationProof <> <> lib
+R545:569 ThieleMachine.ThieleUnificationProtocol <> <> lib
+mod 580:600 <> ThieleKernelCausality
+def 617:624 ThieleKernelCausality ModuleID
+R629:644 Kernel.VMState <> ModuleID def
+def 1201:1213 ThieleKernelCausality instr_targets
+R1220:1234 Kernel.VMState <> VMState rec
+binder 1216:1216 <> s:1
+R1246:1266 Kernel.VMStep VMStep vm_instruction ind
+binder 1238:1242 <> instr:2
+R1275:1278 Coq.Init.Datatypes <> list ind
+R1280:1287 ThieleMachine.ThieleKernelCausality ThieleKernelCausality ModuleID def
+R1302:1306 ThieleMachine.ThieleKernelCausality <> instr:2 var
+R1319:1335 Kernel.VMStep VMStep instr_pnew constr
+R1374:1391 Kernel.VMState <> graph_pnew def
+R1396:1411 Kernel.VMState <> vm_graph proj
+R1393:1393 ThieleMachine.ThieleKernelCausality <> s:1 var
+R1362:1362 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1364:1365 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1369:1369 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1432:1432 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1436:1436 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1444:1462 Kernel.VMStep VMStep instr_psplit constr
+R1513:1532 Kernel.VMState <> graph_psplit def
+R1537:1552 Kernel.VMState <> vm_graph proj
+R1534:1534 ThieleMachine.ThieleKernelCausality <> s:1 var
+R1602:1605 Coq.Init.Datatypes <> Some constr
+R1607:1607 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1609:1610 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1618:1619 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1628:1628 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1633:1633 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1640:1641 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1649:1650 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1659:1659 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1671:1674 Coq.Init.Datatypes <> None constr
+R1679:1679 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1686:1686 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1706:1724 Kernel.VMStep VMStep instr_pmerge constr
+R1751:1770 Kernel.VMState <> graph_pmerge def
+R1775:1790 Kernel.VMState <> vm_graph proj
+R1772:1772 ThieleMachine.ThieleKernelCausality <> s:1 var
+R1814:1817 Coq.Init.Datatypes <> Some constr
+R1819:1819 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1821:1822 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1832:1832 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1837:1837 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1840:1841 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1844:1845 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1855:1855 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1867:1870 Coq.Init.Datatypes <> None constr
+R1875:1875 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1878:1879 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1882:1882 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1902:1921 Kernel.VMStep VMStep instr_lassert constr
+R1939:1939 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1946:1946 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1954:1975 Kernel.VMStep VMStep instr_pdiscover constr
+R1991:1991 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1998:1998 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2011:2012 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+def 2035:2050 ThieleKernelCausality targets_of_trace
+R2057:2071 Kernel.VMState <> VMState rec
+binder 2053:2053 <> s:4
+R2083:2086 Coq.Init.Datatypes <> list ind
+R2088:2108 Kernel.VMStep VMStep vm_instruction ind
+binder 2075:2079 <> trace:5
+R2117:2120 Coq.Init.Datatypes <> list ind
+R2122:2129 ThieleMachine.ThieleKernelCausality ThieleKernelCausality ModuleID def
+R2144:2148 ThieleMachine.ThieleKernelCausality <> trace:5 var
+R2161:2162 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2167:2168 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2181:2184 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2220:2231 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R2199:2211 ThieleMachine.ThieleKernelCausality ThieleKernelCausality instr_targets def
+R2213:2213 ThieleMachine.ThieleKernelCausality <> s:4 var
+R2232:2247 ThieleMachine.ThieleKernelCausality <> targets_of_trace:6 def
+R2250:2273 Kernel.SimulationProof <> vm_apply def
+R2275:2275 ThieleMachine.ThieleKernelCausality <> s:4 var
+def 2310:2328 ThieleKernelCausality in_light_cone_trace
+R2335:2349 Kernel.VMState <> VMState rec
+binder 2331:2331 <> s:8
+R2361:2364 Coq.Init.Datatypes <> list ind
+R2366:2386 Kernel.VMStep VMStep vm_instruction ind
+binder 2353:2357 <> trace:9
+R2400:2407 ThieleMachine.ThieleKernelCausality ThieleKernelCausality ModuleID def
+binder 2394:2396 <> mid:10
+R2424:2425 Coq.Lists.List <> In def
+R2432:2447 ThieleMachine.ThieleKernelCausality ThieleKernelCausality targets_of_trace def
+R2449:2449 ThieleMachine.ThieleKernelCausality <> s:8 var
+R2451:2455 ThieleMachine.ThieleKernelCausality <> trace:9 var
+R2427:2429 ThieleMachine.ThieleKernelCausality <> mid:10 var
+def 2471:2487 ThieleKernelCausality pdiscover_targets
+R2498:2501 Coq.Init.Datatypes <> list ind
+R2503:2523 Kernel.VMStep VMStep vm_instruction ind
+binder 2490:2494 <> trace:11
+R2528:2531 Coq.Init.Datatypes <> list ind
+R2533:2540 ThieleMachine.ThieleKernelCausality ThieleKernelCausality ModuleID def
+R2555:2559 ThieleMachine.ThieleKernelCausality <> trace:11 var
+R2572:2573 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2578:2579 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2587:2587 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2618:2623 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2588:2609 Kernel.VMStep VMStep instr_pdiscover constr
+R2633:2636 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2637:2653 ThieleMachine.ThieleKernelCausality <> pdiscover_targets:12 def
+R2665:2668 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2675:2691 ThieleMachine.ThieleKernelCausality <> pdiscover_targets:12 def
+def 2719:2731 ThieleKernelCausality in_light_cone
+R2742:2745 Coq.Init.Datatypes <> list ind
+R2747:2767 Kernel.VMStep VMStep vm_instruction ind
+binder 2734:2738 <> trace:14
+R2777:2784 ThieleMachine.ThieleKernelCausality ThieleKernelCausality ModuleID def
+binder 2771:2773 <> mid:15
+R2801:2802 Coq.Lists.List <> In def
+R2809:2825 ThieleMachine.ThieleKernelCausality ThieleKernelCausality pdiscover_targets def
+R2827:2831 ThieleMachine.ThieleKernelCausality <> trace:14 var
+R2804:2806 ThieleMachine.ThieleKernelCausality <> mid:15 var
+ind 2848:2859 ThieleKernelCausality PDiscoverNot
+constr 2919:2923 ThieleKernelCausality PD_ok
+R2870:2877 ThieleMachine.ThieleKernelCausality ThieleKernelCausality ModuleID def
+binder 2862:2866 <> other:16
+R2903:2906 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2882:2902 Kernel.VMStep VMStep vm_instruction ind
+binder 2934:2936 <> mid:19
+binder 2938:2945 <> evidence:20
+binder 2947:2950 <> cost:21
+R2971:2980 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2962:2965 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R2959:2961 ThieleMachine.ThieleKernelCausality <> mid:19 var
+R2966:2970 ThieleMachine.ThieleKernelCausality <> other:16 var
+R2981:2992 ThieleMachine.ThieleKernelCausality <> PDiscoverNot:17 ind
+R3001:3022 Kernel.VMStep VMStep instr_pdiscover constr
+R3024:3026 ThieleMachine.ThieleKernelCausality <> mid:19 var
+R3028:3035 ThieleMachine.ThieleKernelCausality <> evidence:20 var
+R3037:3040 ThieleMachine.ThieleKernelCausality <> cost:21 var
+R2994:2998 ThieleMachine.ThieleKernelCausality <> other:16 var
+scheme 2848:2859 ThieleKernelCausality PDiscoverNot_ind
+scheme 2848:2859 ThieleKernelCausality PDiscoverNot_sind
+def 3056:3068 ThieleKernelCausality vm_apply_list
+R3075:3089 Kernel.VMState <> VMState rec
+binder 3071:3071 <> s:22
+R3101:3104 Coq.Init.Datatypes <> list ind
+R3106:3126 Kernel.VMStep VMStep vm_instruction ind
+binder 3093:3097 <> trace:23
+R3135:3149 Kernel.VMState <> VMState rec
+R3164:3168 ThieleMachine.ThieleKernelCausality <> trace:23 var
+R3181:3182 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3187:3187 ThieleMachine.ThieleKernelCausality <> s:22 var
+R3200:3203 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3210:3222 ThieleMachine.ThieleKernelCausality <> vm_apply_list:24 def
+R3225:3248 Kernel.SimulationProof <> vm_apply def
+R3250:3250 ThieleMachine.ThieleKernelCausality <> s:22 var
+prf 3282:3322 ThieleKernelCausality no_superluminal_influence_pdiscover_trace
+binder 3337:3337 <> s:26
+binder 3339:3343 <> trace:27
+binder 3345:3349 <> other:28
+R3391:3400 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3358:3363 Coq.Lists.List <> Forall ind
+R3386:3390 ThieleMachine.ThieleKernelCausality <> trace:27 var
+R3366:3377 ThieleMachine.ThieleKernelCausality ThieleKernelCausality PDiscoverNot ind
+R3379:3383 ThieleMachine.ThieleKernelCausality <> other:28 var
+R3470:3478 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3401:3420 Kernel.VMState <> graph_lookup def
+R3423:3438 Kernel.VMState <> vm_graph proj
+R3441:3453 ThieleMachine.ThieleKernelCausality ThieleKernelCausality vm_apply_list def
+R3455:3455 ThieleMachine.ThieleKernelCausality <> s:26 var
+R3457:3461 ThieleMachine.ThieleKernelCausality <> trace:27 var
+R3465:3469 ThieleMachine.ThieleKernelCausality <> other:28 var
+R3479:3498 Kernel.VMState <> graph_lookup def
+R3501:3516 Kernel.VMState <> vm_graph proj
+R3518:3518 ThieleMachine.ThieleKernelCausality <> s:26 var
+R3521:3525 ThieleMachine.ThieleKernelCausality <> other:28 var
+R3780:3803 Kernel.SimulationProof <> vm_apply def
+R3808:3829 Kernel.VMStep VMStep instr_pdiscover constr
+R3780:3803 Kernel.SimulationProof <> vm_apply def
+R3808:3829 Kernel.VMStep VMStep instr_pdiscover constr
+R3780:3803 Kernel.SimulationProof <> vm_apply def
+R3808:3829 Kernel.VMStep VMStep instr_pdiscover constr
+R3933:3986 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol no_signaling_pdiscover_graph thm
+R3933:3986 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol no_signaling_pdiscover_graph thm
+prf 4219:4247 ThieleKernelCausality graph_lookup_add_module_other
+binder 4262:4262 <> g:29
+binder 4264:4269 <> region:30
+binder 4271:4276 <> axioms:31
+binder 4278:4279 <> g':32
+binder 4281:4286 <> new_id:33
+binder 4288:4292 <> other:34
+R4356:4365 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4341:4343 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4301:4324 Kernel.VMState <> graph_add_module def
+R4326:4326 ThieleMachine.ThieleKernelCausality <> g:29 var
+R4328:4333 ThieleMachine.ThieleKernelCausality <> region:30 var
+R4335:4340 ThieleMachine.ThieleKernelCausality <> axioms:31 var
+R4344:4344 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4347:4348 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4355:4355 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4345:4346 ThieleMachine.ThieleKernelCausality <> g':32 var
+R4349:4354 ThieleMachine.ThieleKernelCausality <> new_id:33 var
+R4381:4390 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4371:4374 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4366:4370 ThieleMachine.ThieleKernelCausality <> other:34 var
+R4375:4380 ThieleMachine.ThieleKernelCausality <> new_id:33 var
+R4420:4422 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4391:4410 Kernel.VMState <> graph_lookup def
+R4412:4413 ThieleMachine.ThieleKernelCausality <> g':32 var
+R4415:4419 ThieleMachine.ThieleKernelCausality <> other:34 var
+R4423:4442 Kernel.VMState <> graph_lookup def
+R4444:4444 ThieleMachine.ThieleKernelCausality <> g:29 var
+R4446:4450 ThieleMachine.ThieleKernelCausality <> other:34 var
+R4527:4550 Kernel.VMState <> graph_add_module def
+R4611:4630 Kernel.VMState <> graph_lookup def
+R4658:4664 Coq.Arith.PeanoNat Nat eqb def
+R4667:4684 Kernel.VMState <> pg_next_id proj
+R4658:4664 Coq.Arith.PeanoNat Nat eqb def
+R4667:4684 Kernel.VMState <> pg_next_id proj
+R4717:4726 Coq.Arith.PeanoNat Nat eqb_eq thm
+R4717:4726 Coq.Arith.PeanoNat Nat eqb_eq thm
+prf 4793:4825 ThieleKernelCausality graph_lookup_remove_modules_other
+binder 4840:4846 <> modules:35
+binder 4848:4850 <> mid:36
+binder 4852:4859 <> modules':37
+binder 4861:4867 <> removed:38
+binder 4869:4873 <> other:39
+R4949:4958 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4922:4924 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4882:4909 Kernel.VMState <> graph_remove_modules def
+R4911:4917 ThieleMachine.ThieleKernelCausality <> modules:35 var
+R4919:4921 ThieleMachine.ThieleKernelCausality <> mid:36 var
+R4925:4928 Coq.Init.Datatypes <> Some constr
+R4930:4930 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4939:4940 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4948:4948 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4931:4938 ThieleMachine.ThieleKernelCausality <> modules':37 var
+R4941:4947 ThieleMachine.ThieleKernelCausality <> removed:38 var
+R4971:4980 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4964:4967 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4959:4963 ThieleMachine.ThieleKernelCausality <> other:39 var
+R4968:4970 ThieleMachine.ThieleKernelCausality <> mid:36 var
+R5024:5026 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4981:5008 Kernel.VMState <> graph_lookup_modules def
+R5010:5017 ThieleMachine.ThieleKernelCausality <> modules':37 var
+R5019:5023 ThieleMachine.ThieleKernelCausality <> other:39 var
+R5027:5054 Kernel.VMState <> graph_lookup_modules def
+R5056:5062 ThieleMachine.ThieleKernelCausality <> modules:35 var
+R5064:5068 ThieleMachine.ThieleKernelCausality <> other:39 var
+R5240:5246 Coq.Arith.PeanoNat Nat eqb def
+R5240:5246 Coq.Arith.PeanoNat Nat eqb def
+R5339:5345 Coq.Arith.PeanoNat Nat eqb def
+R5339:5345 Coq.Arith.PeanoNat Nat eqb def
+R5397:5406 Coq.Arith.PeanoNat Nat eqb_eq thm
+R5397:5406 Coq.Arith.PeanoNat Nat eqb_eq thm
+R5438:5447 Coq.Arith.PeanoNat Nat eqb_eq thm
+R5438:5447 Coq.Arith.PeanoNat Nat eqb_eq thm
+R5505:5532 Kernel.VMState <> graph_remove_modules def
+R5505:5532 Kernel.VMState <> graph_remove_modules def
+R5674:5680 Coq.Arith.PeanoNat Nat eqb def
+R5674:5680 Coq.Arith.PeanoNat Nat eqb def
+prf 5769:5793 ThieleKernelCausality graph_lookup_remove_other
+binder 5808:5808 <> g:40
+binder 5810:5812 <> mid:41
+binder 5814:5815 <> g':42
+binder 5817:5823 <> removed:43
+binder 5825:5829 <> other:44
+R5885:5894 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5864:5866 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5838:5857 Kernel.VMState <> graph_remove def
+R5859:5859 ThieleMachine.ThieleKernelCausality <> g:40 var
+R5861:5863 ThieleMachine.ThieleKernelCausality <> mid:41 var
+R5867:5870 Coq.Init.Datatypes <> Some constr
+R5872:5872 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5875:5876 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5884:5884 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5873:5874 ThieleMachine.ThieleKernelCausality <> g':42 var
+R5877:5883 ThieleMachine.ThieleKernelCausality <> removed:43 var
+R5907:5916 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5900:5903 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5895:5899 ThieleMachine.ThieleKernelCausality <> other:44 var
+R5904:5906 ThieleMachine.ThieleKernelCausality <> mid:41 var
+R5946:5948 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5917:5936 Kernel.VMState <> graph_lookup def
+R5938:5939 ThieleMachine.ThieleKernelCausality <> g':42 var
+R5941:5945 ThieleMachine.ThieleKernelCausality <> other:44 var
+R5949:5968 Kernel.VMState <> graph_lookup def
+R5970:5970 ThieleMachine.ThieleKernelCausality <> g:40 var
+R5972:5976 ThieleMachine.ThieleKernelCausality <> other:44 var
+R6043:6062 Kernel.VMState <> graph_remove def
+R6086:6113 Kernel.VMState <> graph_remove_modules def
+R6116:6133 Kernel.VMState <> pg_modules proj
+R6086:6113 Kernel.VMState <> graph_remove_modules def
+R6116:6133 Kernel.VMState <> pg_modules proj
+R6252:6271 Kernel.VMState <> graph_lookup def
+R6296:6328 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_lookup_remove_modules_other thm
+R6296:6328 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_lookup_remove_modules_other thm
+prf 6354:6376 ThieleKernelCausality graph_pnew_lookup_other
+binder 6391:6391 <> g:45
+binder 6393:6398 <> region:46
+binder 6400:6401 <> g':47
+binder 6403:6405 <> mid:48
+binder 6407:6411 <> other:49
+R6459:6468 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6447:6449 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6420:6437 Kernel.VMState <> graph_pnew def
+R6439:6439 ThieleMachine.ThieleKernelCausality <> g:45 var
+R6441:6446 ThieleMachine.ThieleKernelCausality <> region:46 var
+R6450:6450 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6453:6454 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6458:6458 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6451:6452 ThieleMachine.ThieleKernelCausality <> g':47 var
+R6455:6457 ThieleMachine.ThieleKernelCausality <> mid:48 var
+R6481:6490 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6474:6477 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R6469:6473 ThieleMachine.ThieleKernelCausality <> other:49 var
+R6478:6480 ThieleMachine.ThieleKernelCausality <> mid:48 var
+R6520:6522 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6491:6510 Kernel.VMState <> graph_lookup def
+R6512:6513 ThieleMachine.ThieleKernelCausality <> g':47 var
+R6515:6519 ThieleMachine.ThieleKernelCausality <> other:49 var
+R6523:6542 Kernel.VMState <> graph_lookup def
+R6544:6544 ThieleMachine.ThieleKernelCausality <> g:45 var
+R6546:6550 ThieleMachine.ThieleKernelCausality <> other:49 var
+R6618:6635 Kernel.VMState <> graph_pnew def
+R6661:6685 Kernel.VMState <> graph_find_region def
+R6690:6713 Kernel.VMState <> normalize_region def
+R6661:6685 Kernel.VMState <> graph_find_region def
+R6690:6713 Kernel.VMState <> normalize_region def
+R6825:6853 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_lookup_add_module_other thm
+R6825:6853 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_lookup_add_module_other thm
+prf 6879:6903 ThieleKernelCausality graph_psplit_lookup_other
+binder 6918:6918 <> g:50
+binder 6920:6922 <> mid:51
+binder 6924:6927 <> left:52
+binder 6929:6933 <> right:53
+binder 6935:6936 <> g':54
+binder 6938:6944 <> left_id:55
+binder 6946:6953 <> right_id:56
+binder 6955:6959 <> other:57
+R7036:7045 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7005:7007 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6968:6987 Kernel.VMState <> graph_psplit def
+R6989:6989 ThieleMachine.ThieleKernelCausality <> g:50 var
+R6991:6993 ThieleMachine.ThieleKernelCausality <> mid:51 var
+R6995:6998 ThieleMachine.ThieleKernelCausality <> left:52 var
+R7000:7004 ThieleMachine.ThieleKernelCausality <> right:53 var
+R7008:7011 Coq.Init.Datatypes <> Some constr
+R7013:7013 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7016:7017 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7025:7026 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7035:7035 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7014:7015 ThieleMachine.ThieleKernelCausality <> g':54 var
+R7018:7024 ThieleMachine.ThieleKernelCausality <> left_id:55 var
+R7027:7034 ThieleMachine.ThieleKernelCausality <> right_id:56 var
+R7058:7067 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7051:7054 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R7046:7050 ThieleMachine.ThieleKernelCausality <> other:57 var
+R7055:7057 ThieleMachine.ThieleKernelCausality <> mid:51 var
+R7084:7093 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7073:7076 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R7068:7072 ThieleMachine.ThieleKernelCausality <> other:57 var
+R7077:7083 ThieleMachine.ThieleKernelCausality <> left_id:55 var
+R7111:7120 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7099:7102 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R7094:7098 ThieleMachine.ThieleKernelCausality <> other:57 var
+R7103:7110 ThieleMachine.ThieleKernelCausality <> right_id:56 var
+R7150:7152 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7121:7140 Kernel.VMState <> graph_lookup def
+R7142:7143 ThieleMachine.ThieleKernelCausality <> g':54 var
+R7145:7149 ThieleMachine.ThieleKernelCausality <> other:57 var
+R7153:7172 Kernel.VMState <> graph_lookup def
+R7174:7174 ThieleMachine.ThieleKernelCausality <> g:50 var
+R7176:7180 ThieleMachine.ThieleKernelCausality <> other:57 var
+R7294:7313 Kernel.VMState <> graph_psplit def
+R7337:7356 Kernel.VMState <> graph_lookup def
+R7337:7356 Kernel.VMState <> graph_lookup def
+R7494:7494 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7514:7517 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7494:7494 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7514:7517 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7628:7651 Kernel.VMState <> graph_add_module def
+R7655:7656 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7658:7659 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7628:7651 Kernel.VMState <> graph_add_module def
+R7655:7656 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7658:7659 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7785:7813 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_lookup_add_module_other thm
+R7817:7818 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7820:7821 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7785:7813 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_lookup_add_module_other thm
+R7817:7818 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7820:7821 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8038:8038 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8058:8061 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8038:8038 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8058:8061 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8148:8167 Kernel.VMState <> graph_remove def
+R8148:8167 Kernel.VMState <> graph_remove def
+R8247:8270 Kernel.VMState <> graph_add_module def
+R8283:8306 Kernel.VMState <> normalize_region def
+R8322:8342 Kernel.VMState <> module_axioms proj
+R8247:8270 Kernel.VMState <> graph_add_module def
+R8283:8306 Kernel.VMState <> normalize_region def
+R8322:8342 Kernel.VMState <> module_axioms proj
+R8403:8426 Kernel.VMState <> graph_add_module def
+R8436:8459 Kernel.VMState <> normalize_region def
+R8476:8496 Kernel.VMState <> module_axioms proj
+R8403:8426 Kernel.VMState <> graph_add_module def
+R8436:8459 Kernel.VMState <> normalize_region def
+R8476:8496 Kernel.VMState <> module_axioms proj
+R8638:8666 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_lookup_add_module_other thm
+R8676:8699 Kernel.VMState <> normalize_region def
+R8716:8736 Kernel.VMState <> module_axioms proj
+R8638:8666 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_lookup_add_module_other thm
+R8676:8699 Kernel.VMState <> normalize_region def
+R8716:8736 Kernel.VMState <> module_axioms proj
+R8638:8666 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_lookup_add_module_other thm
+R8676:8699 Kernel.VMState <> normalize_region def
+R8716:8736 Kernel.VMState <> module_axioms proj
+R8818:8846 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_lookup_add_module_other thm
+R8859:8882 Kernel.VMState <> normalize_region def
+R8898:8918 Kernel.VMState <> module_axioms proj
+R8818:8846 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_lookup_add_module_other thm
+R8859:8882 Kernel.VMState <> normalize_region def
+R8898:8918 Kernel.VMState <> module_axioms proj
+R8818:8846 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_lookup_add_module_other thm
+R8859:8882 Kernel.VMState <> normalize_region def
+R8898:8918 Kernel.VMState <> module_axioms proj
+R8996:9020 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_lookup_remove_other thm
+R8996:9020 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_lookup_remove_other thm
+prf 9085:9109 ThieleKernelCausality graph_pmerge_lookup_other
+binder 9124:9124 <> g:58
+binder 9126:9127 <> m1:59
+binder 9129:9130 <> m2:60
+binder 9132:9133 <> g':61
+binder 9135:9143 <> merged_id:62
+binder 9145:9149 <> other:63
+R9209:9218 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9186:9188 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9158:9177 Kernel.VMState <> graph_pmerge def
+R9179:9179 ThieleMachine.ThieleKernelCausality <> g:58 var
+R9181:9182 ThieleMachine.ThieleKernelCausality <> m1:59 var
+R9184:9185 ThieleMachine.ThieleKernelCausality <> m2:60 var
+R9189:9192 Coq.Init.Datatypes <> Some constr
+R9194:9194 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9197:9198 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9208:9208 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9195:9196 ThieleMachine.ThieleKernelCausality <> g':61 var
+R9199:9207 ThieleMachine.ThieleKernelCausality <> merged_id:62 var
+R9230:9239 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9224:9227 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R9219:9223 ThieleMachine.ThieleKernelCausality <> other:63 var
+R9228:9229 ThieleMachine.ThieleKernelCausality <> m1:59 var
+R9251:9260 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9245:9248 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R9240:9244 ThieleMachine.ThieleKernelCausality <> other:63 var
+R9249:9250 ThieleMachine.ThieleKernelCausality <> m2:60 var
+R9279:9288 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9266:9269 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R9261:9265 ThieleMachine.ThieleKernelCausality <> other:63 var
+R9270:9278 ThieleMachine.ThieleKernelCausality <> merged_id:62 var
+R9318:9320 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9289:9308 Kernel.VMState <> graph_lookup def
+R9310:9311 ThieleMachine.ThieleKernelCausality <> g':61 var
+R9313:9317 ThieleMachine.ThieleKernelCausality <> other:63 var
+R9321:9340 Kernel.VMState <> graph_lookup def
+R9342:9342 ThieleMachine.ThieleKernelCausality <> g:58 var
+R9344:9348 ThieleMachine.ThieleKernelCausality <> other:63 var
+R9426:9445 Kernel.VMState <> graph_pmerge def
+R9469:9475 Coq.Arith.PeanoNat Nat eqb def
+R9469:9475 Coq.Arith.PeanoNat Nat eqb def
+R9532:9551 Kernel.VMState <> graph_remove def
+R9532:9551 Kernel.VMState <> graph_remove def
+R9629:9648 Kernel.VMState <> graph_remove def
+R9629:9648 Kernel.VMState <> graph_remove def
+R9734:9737 Coq.Init.Datatypes <> negb def
+R9740:9764 Kernel.VMState <> nat_list_disjoint def
+R9767:9787 Kernel.VMState <> module_region proj
+R9796:9816 Kernel.VMState <> module_region proj
+R9734:9737 Coq.Init.Datatypes <> negb def
+R9740:9764 Kernel.VMState <> nat_list_disjoint def
+R9767:9787 Kernel.VMState <> module_region proj
+R9796:9816 Kernel.VMState <> module_region proj
+R9983:10004 Kernel.VMState <> nat_list_union def
+R10007:10027 Kernel.VMState <> module_region proj
+R10036:10056 Kernel.VMState <> module_region proj
+R9983:10004 Kernel.VMState <> nat_list_union def
+R10007:10027 Kernel.VMState <> module_region proj
+R10036:10056 Kernel.VMState <> module_region proj
+R10127:10130 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R10101:10121 Kernel.VMState <> module_axioms proj
+R10131:10151 Kernel.VMState <> module_axioms proj
+R10127:10130 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R10101:10121 Kernel.VMState <> module_axioms proj
+R10131:10151 Kernel.VMState <> module_axioms proj
+R10182:10206 Kernel.VMState <> graph_find_region def
+R10182:10206 Kernel.VMState <> graph_find_region def
+R10274:10293 Kernel.VMState <> graph_lookup def
+R10274:10293 Kernel.VMState <> graph_lookup def
+R10465:10468 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R10465:10468 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R10555:10605 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol graph_lookup_update_other thm
+R10667:10687 Kernel.VMState <> module_region proj
+R10667:10687 Kernel.VMState <> module_region proj
+R10667:10687 Kernel.VMState <> module_region proj
+R10747:10767 Kernel.VMState <> module_axioms proj
+R10747:10767 Kernel.VMState <> module_axioms proj
+R10692:10712 Kernel.VMState <> module_region proj
+R10806:10809 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R10772:10792 Kernel.VMState <> module_axioms proj
+R10555:10605 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol graph_lookup_update_other thm
+R10667:10687 Kernel.VMState <> module_region proj
+R10667:10687 Kernel.VMState <> module_region proj
+R10667:10687 Kernel.VMState <> module_region proj
+R10747:10767 Kernel.VMState <> module_axioms proj
+R10747:10767 Kernel.VMState <> module_axioms proj
+R10692:10712 Kernel.VMState <> module_region proj
+R10806:10809 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R10772:10792 Kernel.VMState <> module_axioms proj
+R10555:10605 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol graph_lookup_update_other thm
+R10667:10687 Kernel.VMState <> module_region proj
+R10667:10687 Kernel.VMState <> module_region proj
+R10667:10687 Kernel.VMState <> module_region proj
+R10747:10767 Kernel.VMState <> module_axioms proj
+R10747:10767 Kernel.VMState <> module_axioms proj
+R10692:10712 Kernel.VMState <> module_region proj
+R10806:10809 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R10772:10792 Kernel.VMState <> module_axioms proj
+R10867:10891 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_lookup_remove_other thm
+R10867:10891 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_lookup_remove_other thm
+R10867:10891 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_lookup_remove_other thm
+R10951:10975 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_lookup_remove_other thm
+R10951:10975 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_lookup_remove_other thm
+R10951:10975 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_lookup_remove_other thm
+R11047:11070 Kernel.VMState <> graph_add_module def
+R11047:11070 Kernel.VMState <> graph_add_module def
+R11232:11260 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_lookup_add_module_other thm
+R11232:11260 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_lookup_add_module_other thm
+R11232:11260 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_lookup_add_module_other thm
+R11358:11382 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_lookup_remove_other thm
+R11358:11382 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_lookup_remove_other thm
+R11358:11382 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_lookup_remove_other thm
+R11442:11466 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_lookup_remove_other thm
+R11442:11466 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_lookup_remove_other thm
+R11442:11466 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_lookup_remove_other thm
+prf 11743:11772 ThieleKernelCausality no_influence_step_graph_lookup
+binder 11787:11787 <> s:64
+binder 11789:11793 <> instr:65
+binder 11795:11799 <> other:66
+R11842:11851 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11808:11809 Coq.Init.Logic <> ::type_scope:'~'_x not
+R11810:11811 Coq.Lists.List <> In def
+R11820:11832 ThieleMachine.ThieleKernelCausality ThieleKernelCausality instr_targets def
+R11834:11834 ThieleMachine.ThieleKernelCausality <> s:64 var
+R11836:11840 ThieleMachine.ThieleKernelCausality <> instr:65 var
+R11813:11817 ThieleMachine.ThieleKernelCausality <> other:66 var
+R11932:11940 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11852:11871 Kernel.VMState <> graph_lookup def
+R11874:11889 Kernel.VMState <> vm_graph proj
+R11892:11915 Kernel.SimulationProof <> vm_apply def
+R11917:11917 ThieleMachine.ThieleKernelCausality <> s:64 var
+R11919:11923 ThieleMachine.ThieleKernelCausality <> instr:65 var
+R11927:11931 ThieleMachine.ThieleKernelCausality <> other:66 var
+R11941:11960 Kernel.VMState <> graph_lookup def
+R11963:11978 Kernel.VMState <> vm_graph proj
+R11980:11980 ThieleMachine.ThieleKernelCausality <> s:64 var
+R11983:11987 ThieleMachine.ThieleKernelCausality <> other:66 var
+R12763:12780 Kernel.VMState <> graph_pnew def
+R12783:12798 Kernel.VMState <> vm_graph proj
+R12763:12780 Kernel.VMState <> graph_pnew def
+R12783:12798 Kernel.VMState <> vm_graph proj
+R12876:12879 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R12876:12879 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R12975:12997 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_pnew_lookup_other thm
+R12975:12997 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_pnew_lookup_other thm
+R13042:13061 Kernel.VMState <> graph_psplit def
+R13064:13079 Kernel.VMState <> vm_graph proj
+R13042:13061 Kernel.VMState <> graph_psplit def
+R13064:13079 Kernel.VMState <> vm_graph proj
+R13182:13185 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R13182:13185 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R13295:13298 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R13295:13298 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R13409:13412 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R13409:13412 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R13524:13548 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_psplit_lookup_other thm
+R13524:13548 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_psplit_lookup_other thm
+R13686:13705 Kernel.VMState <> graph_pmerge def
+R13708:13723 Kernel.VMState <> vm_graph proj
+R13686:13705 Kernel.VMState <> graph_pmerge def
+R13708:13723 Kernel.VMState <> vm_graph proj
+R13808:13811 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R13808:13811 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R13914:13917 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R13914:13917 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R14027:14030 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R14027:14030 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R14145:14169 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_pmerge_lookup_other thm
+R14145:14169 ThieleMachine.ThieleKernelCausality ThieleKernelCausality graph_pmerge_lookup_other thm
+R14314:14317 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R14314:14317 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R14465:14481 Kernel.VMStep VMStep check_lrat def
+R14465:14481 Kernel.VMStep VMStep check_lrat def
+R14530:14547 Kernel.VMStep VMStep check_model def
+R14530:14547 Kernel.VMStep VMStep check_model def
+R14682:14738 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol graph_add_axiom_other_unchanged thm
+R14682:14738 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol graph_add_axiom_other_unchanged thm
+R14795:14804 Coq.Strings.String <> eqb def
+R14795:14804 Coq.Strings.String <> eqb def
+R14938:14941 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R14938:14941 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R15040:15093 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol no_signaling_pdiscover_graph thm
+R15040:15093 ThieleMachine.ThieleUnificationProtocol ThieleUnificationProtocol no_signaling_pdiscover_graph thm
+R15267:15278 Kernel.VMStep VMStep chsh_bits_ok def
+R15267:15278 Kernel.VMStep VMStep chsh_bits_ok def
+prf 15654:15684 ThieleKernelCausality no_superluminal_influence_trace
+binder 15699:15699 <> s:67
+binder 15701:15705 <> trace:68
+binder 15707:15711 <> other:69
+R15755:15764 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15720:15721 Coq.Init.Logic <> ::type_scope:'~'_x not
+R15722:15740 ThieleMachine.ThieleKernelCausality ThieleKernelCausality in_light_cone_trace def
+R15742:15742 ThieleMachine.ThieleKernelCausality <> s:67 var
+R15744:15748 ThieleMachine.ThieleKernelCausality <> trace:68 var
+R15750:15754 ThieleMachine.ThieleKernelCausality <> other:69 var
+R15834:15842 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15765:15784 Kernel.VMState <> graph_lookup def
+R15787:15802 Kernel.VMState <> vm_graph proj
+R15805:15817 ThieleMachine.ThieleKernelCausality ThieleKernelCausality vm_apply_list def
+R15819:15819 ThieleMachine.ThieleKernelCausality <> s:67 var
+R15821:15825 ThieleMachine.ThieleKernelCausality <> trace:68 var
+R15829:15833 ThieleMachine.ThieleKernelCausality <> other:69 var
+R15843:15862 Kernel.VMState <> graph_lookup def
+R15865:15880 Kernel.VMState <> vm_graph proj
+R15882:15882 ThieleMachine.ThieleKernelCausality <> s:67 var
+R15885:15889 ThieleMachine.ThieleKernelCausality <> other:69 var
+R16100:16117 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16066:16067 Coq.Init.Logic <> ::type_scope:'~'_x not
+R16068:16069 Coq.Lists.List <> In def
+R16078:16090 ThieleMachine.ThieleKernelCausality ThieleKernelCausality instr_targets def
+R16118:16119 Coq.Init.Logic <> ::type_scope:'~'_x not
+R16120:16138 ThieleMachine.ThieleKernelCausality ThieleKernelCausality in_light_cone_trace def
+R16141:16164 Kernel.SimulationProof <> vm_apply def
+R16100:16117 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16066:16067 Coq.Init.Logic <> ::type_scope:'~'_x not
+R16068:16069 Coq.Lists.List <> In def
+R16078:16090 ThieleMachine.ThieleKernelCausality ThieleKernelCausality instr_targets def
+R16118:16119 Coq.Init.Logic <> ::type_scope:'~'_x not
+R16120:16138 ThieleMachine.ThieleKernelCausality ThieleKernelCausality in_light_cone_trace def
+R16141:16164 Kernel.SimulationProof <> vm_apply def
+R16324:16333 Coq.Lists.List <> in_app_iff thm
+R16324:16333 Coq.Lists.List <> in_app_iff thm
+R16441:16450 Coq.Lists.List <> in_app_iff thm
+R16441:16450 Coq.Lists.List <> in_app_iff thm
+R16508:16531 Kernel.SimulationProof <> vm_apply def
+R16508:16531 Kernel.SimulationProof <> vm_apply def
+R16508:16531 Kernel.SimulationProof <> vm_apply def
+R16574:16603 ThieleMachine.ThieleKernelCausality ThieleKernelCausality no_influence_step_graph_lookup thm
+R16574:16603 ThieleMachine.ThieleKernelCausality ThieleKernelCausality no_influence_step_graph_lookup thm
+R16643:16663 ThieleMachine.ThieleKernelCausality ThieleKernelCausality <> mod

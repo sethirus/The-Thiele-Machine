@@ -1,0 +1,126 @@
+DIGEST ba1fe96009f64d73169450f8e413a0c9
+FKernel.MuNecessity
+R1160:1163 Coq.Lists.List <> <> lib
+R1165:1178 Coq.Arith.PeanoNat <> <> lib
+R1180:1182 Coq.micromega.Lia <> <> lib
+R1184:1187 Coq.Bool.Bool <> <> lib
+R1189:1194 Coq.ZArith.ZArith <> <> lib
+R1221:1234 Coq.Strings.String <> <> lib
+R1244:1256 Coq.Lists.List ListNotations <> mod
+R1287:1293 Kernel.VMState <> <> lib
+R1323:1328 Kernel.VMStep <> <> lib
+R1358:1372 Kernel.SimulationProof <> <> lib
+R1402:1421 Kernel.MuLedgerConservation <> <> lib
+R1451:1463 Kernel.LocalInfoLoss <> <> lib
+def 2907:2915 <> CostModel
+R2934:2937 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2920:2933 Kernel.VMStep VMStep vm_instruction ind
+R2938:2940 Coq.Init.Datatypes <> nat ind
+def 4554:4560 <> mu_cost
+R4564:4572 Kernel.MuNecessity <> CostModel def
+R4577:4589 Kernel.LocalInfoLoss <> instr_mu_cost def
+def 4652:4666 <> trace_cost_with
+R4673:4681 Kernel.MuNecessity <> CostModel def
+binder 4669:4669 <> C:1
+R4693:4696 Coq.Init.Datatypes <> list ind
+R4698:4711 Kernel.VMStep VMStep vm_instruction ind
+binder 4685:4689 <> trace:2
+R4716:4718 Coq.Init.Datatypes <> nat ind
+R4725:4734 Coq.Lists.List <> fold_right def
+R4763:4767 Kernel.MuNecessity <> trace:2 var
+binder 4741:4741 <> i:3
+binder 4743:4745 <> acc:4
+R4753:4755 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4750:4750 Kernel.MuNecessity <> C:1 var
+R4752:4752 Kernel.MuNecessity <> i:3 var
+R4756:4758 Kernel.MuNecessity <> acc:4 var
+def 4805:4817 <> mu_trace_cost
+R4828:4831 Coq.Init.Datatypes <> list ind
+R4833:4846 Kernel.VMStep VMStep vm_instruction ind
+binder 4820:4824 <> trace:5
+R4851:4853 Coq.Init.Datatypes <> nat ind
+R4860:4874 Kernel.MuNecessity <> trace_cost_with def
+R4876:4882 Kernel.MuNecessity <> mu_cost def
+R4884:4888 Kernel.MuNecessity <> trace:5 var
+def 7527:7545 <> landauer_valid_step
+R7552:7560 Kernel.MuNecessity <> CostModel def
+binder 7548:7548 <> C:6
+binder 7582:7582 <> s:7
+binder 7584:7584 <> i:8
+binder 7586:7587 <> s':9
+R7608:7615 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7594:7600 Kernel.VMStep VMStep vm_step ind
+R7602:7602 Kernel.MuNecessity <> s:7 var
+R7604:7604 Kernel.MuNecessity <> i:8 var
+R7606:7607 Kernel.MuNecessity <> s':9 var
+R7635:7642 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7616:7632 Kernel.LocalInfoLoss <> instr_well_formed def
+R7634:7634 Kernel.MuNecessity <> i:8 var
+R7643:7646 Coq.ZArith.BinInt Z ge def
+R7649:7656 Coq.ZArith.BinInt Z of_nat def
+R7659:7659 Kernel.MuNecessity <> C:6 var
+R7661:7661 Kernel.MuNecessity <> i:8 var
+R7666:7670 Coq.ZArith.BinInt Z max def
+R7675:7683 Kernel.LocalInfoLoss <> info_loss def
+R7685:7685 Kernel.MuNecessity <> s:7 var
+R7687:7688 Kernel.MuNecessity <> s':9 var
+prf 9722:9741 <> mu_is_landauer_valid
+R9745:9763 Kernel.MuNecessity <> landauer_valid_step def
+R9765:9771 Kernel.MuNecessity <> mu_cost def
+R9790:9808 Kernel.MuNecessity <> landauer_valid_step def
+R9811:9817 Kernel.MuNecessity <> mu_cost def
+R9861:9881 Kernel.LocalInfoLoss <> cost_bounds_info_loss thm
+R9861:9881 Kernel.LocalInfoLoss <> cost_bounds_info_loss thm
+prf 11810:11841 <> landauer_valid_bounds_total_loss
+binder 11854:11854 <> C:10
+R11882:11889 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11861:11879 Kernel.MuNecessity <> landauer_valid_step def
+R11881:11881 Kernel.MuNecessity <> C:10 var
+binder 11897:11897 <> s:11
+binder 11899:11903 <> trace:12
+binder 11905:11906 <> s':13
+R11936:11945 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11915:11924 Kernel.LocalInfoLoss <> exec_trace ind
+R11926:11926 Kernel.MuNecessity <> s:11 var
+R11928:11932 Kernel.MuNecessity <> trace:12 var
+R11934:11935 Kernel.MuNecessity <> s':13 var
+R11969:11978 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11946:11962 Kernel.LocalInfoLoss <> trace_well_formed def
+R11964:11968 Kernel.MuNecessity <> trace:12 var
+R11979:11982 Coq.ZArith.BinInt Z ge def
+R11985:11992 Coq.ZArith.BinInt Z of_nat def
+R11995:12009 Kernel.MuNecessity <> trace_cost_with def
+R12011:12011 Kernel.MuNecessity <> C:10 var
+R12013:12017 Kernel.MuNecessity <> trace:12 var
+R12022:12026 Coq.ZArith.BinInt Z max def
+R12031:12039 Kernel.LocalInfoLoss <> info_loss def
+R12041:12041 Kernel.MuNecessity <> s:11 var
+R12043:12044 Kernel.MuNecessity <> s':13 var
+R12182:12190 Kernel.LocalInfoLoss <> info_loss def
+R12262:12278 Kernel.LocalInfoLoss <> trace_well_formed def
+R12298:12312 Coq.Lists.List <> Forall_cons_iff thm
+R12298:12312 Coq.Lists.List <> Forall_cons_iff thm
+R12553:12561 Kernel.LocalInfoLoss <> info_loss def
+prf 13474:13492 <> mu_tight_for_pmerge
+binder 13505:13506 <> m1:14
+binder 13508:13509 <> m2:15
+binder 13511:13514 <> cost:16
+R13530:13537 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13525:13528 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R13521:13524 Kernel.MuNecessity <> cost:16 var
+R13571:13573 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13538:13544 Kernel.MuNecessity <> mu_cost def
+R13547:13558 Kernel.VMStep VMStep instr_pmerge constr
+R13560:13561 Kernel.MuNecessity <> m1:14 var
+R13563:13564 Kernel.MuNecessity <> m2:15 var
+R13566:13569 Kernel.MuNecessity <> cost:16 var
+R13574:13577 Kernel.MuNecessity <> cost:16 var
+R13604:13610 Kernel.MuNecessity <> mu_cost def
+R13613:13625 Kernel.LocalInfoLoss <> instr_mu_cost def
+prf 13776:13789 <> mu_nonnegative
+binder 13800:13800 <> i:17
+R13812:13815 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R13803:13809 Kernel.MuNecessity <> mu_cost def
+R13811:13811 Kernel.MuNecessity <> i:17 var
+R13843:13849 Kernel.MuNecessity <> mu_cost def
+R13852:13864 Kernel.LocalInfoLoss <> instr_mu_cost def

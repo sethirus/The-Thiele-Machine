@@ -1,0 +1,695 @@
+DIGEST 4de222b397fabb3be0be0d2d6d924486
+FKernelTOE.Persistence
+R24:27 Coq.Lists.List <> <> lib
+R29:32 Coq.Bool.Bool <> <> lib
+R34:47 Coq.Arith.PeanoNat <> <> lib
+R49:51 Coq.micromega.Lia <> <> lib
+R78:91 Coq.Strings.String <> <> lib
+R101:113 Coq.Lists.List ListNotations <> mod
+R144:150 Kernel.VMState <> <> lib
+R152:157 Kernel.VMStep <> <> lib
+mod 168:178 <> Persistence
+rec 425:433 Persistence FuelState
+proj 442:449 Persistence fs_state
+proj 464:470 Persistence fs_fuel
+R453:459 Kernel.VMState <> VMState rec
+R474:476 Coq.Init.Datatypes <> nat ind
+def 493:496 Persistence Dead
+R504:512 KernelTOE.Persistence Persistence FuelState rec
+binder 499:500 <> fs:4
+R527:527 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R555:560 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R575:575 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R548:550 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R528:533 Kernel.VMState <> vm_err proj
+R536:543 KernelTOE.Persistence Persistence fs_state proj
+R545:546 KernelTOE.Persistence <> fs:4 var
+R551:554 Coq.Init.Datatypes <> true constr
+R571:573 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R561:567 KernelTOE.Persistence Persistence fs_fuel proj
+R569:570 KernelTOE.Persistence <> fs:4 var
+def 590:598 Persistence fuel_cost
+R605:618 Kernel.VMStep VMStep vm_instruction ind
+binder 601:601 <> i:5
+R623:625 Coq.Init.Datatypes <> nat ind
+R630:645 Kernel.VMStep VMStep instruction_cost def
+R647:647 KernelTOE.Persistence <> i:5 var
+def 662:672 Persistence fuel_reward
+R679:692 Kernel.VMStep VMStep vm_instruction ind
+binder 675:675 <> i:6
+R697:699 Coq.Init.Datatypes <> nat ind
+R712:712 KernelTOE.Persistence <> i:6 var
+ind 748:756 Persistence fuel_step
+constr 814:825 Persistence fuel_step_ok
+constr 1041:1053 Persistence fuel_step_oom
+R769:772 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R760:768 KernelTOE.Persistence Persistence FuelState rec
+R787:790 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R773:786 Kernel.VMStep VMStep vm_instruction ind
+R800:803 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R791:799 KernelTOE.Persistence Persistence FuelState rec
+binder 836:836 <> s:10
+binder 838:839 <> s':11
+binder 841:841 <> i:12
+binder 843:846 <> fuel:13
+R867:874 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R853:859 Kernel.VMStep VMStep vm_step ind
+R861:861 KernelTOE.Persistence <> s:10 var
+R863:863 KernelTOE.Persistence <> i:12 var
+R865:866 KernelTOE.Persistence <> s':11 var
+R894:901 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R886:889 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R875:883 KernelTOE.Persistence Persistence fuel_cost def
+R885:885 KernelTOE.Persistence <> i:12 var
+R890:893 KernelTOE.Persistence <> fuel:13 var
+R902:910 KernelTOE.Persistence <> fuel_step:8 ind
+R972:979 KernelTOE.Persistence Persistence fs_state proj
+R972:979 KernelTOE.Persistence Persistence fs_state proj
+R972:979 KernelTOE.Persistence Persistence fs_state proj
+R988:994 KernelTOE.Persistence Persistence fs_fuel proj
+R988:994 KernelTOE.Persistence Persistence fs_fuel proj
+R984:985 KernelTOE.Persistence <> s':11 var
+R999:999 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1018:1021 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1004:1006 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R1000:1003 KernelTOE.Persistence <> fuel:13 var
+R1007:1015 KernelTOE.Persistence Persistence fuel_cost def
+R1017:1017 KernelTOE.Persistence <> i:12 var
+R1022:1032 KernelTOE.Persistence Persistence fuel_reward def
+R1034:1034 KernelTOE.Persistence <> i:12 var
+R961:961 KernelTOE.Persistence <> i:12 var
+R921:928 KernelTOE.Persistence Persistence fs_state proj
+R921:928 KernelTOE.Persistence Persistence fs_state proj
+R921:928 KernelTOE.Persistence Persistence fs_state proj
+R936:942 KernelTOE.Persistence Persistence fs_fuel proj
+R936:942 KernelTOE.Persistence Persistence fs_fuel proj
+R933:933 KernelTOE.Persistence <> s:10 var
+R947:950 KernelTOE.Persistence <> fuel:13 var
+binder 1064:1064 <> s:14
+binder 1066:1066 <> i:15
+binder 1068:1071 <> fuel:16
+R1096:1103 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1089:1091 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R1078:1086 KernelTOE.Persistence Persistence fuel_cost def
+R1088:1088 KernelTOE.Persistence <> i:15 var
+R1092:1095 KernelTOE.Persistence <> fuel:16 var
+R1104:1112 KernelTOE.Persistence <> fuel_step:8 ind
+R1174:1181 KernelTOE.Persistence Persistence fs_state proj
+R1174:1181 KernelTOE.Persistence Persistence fs_state proj
+R1174:1181 KernelTOE.Persistence Persistence fs_state proj
+R1497:1503 KernelTOE.Persistence Persistence fs_fuel proj
+R1497:1503 KernelTOE.Persistence Persistence fs_fuel proj
+R1189:1196 Kernel.VMState <> vm_graph proj
+R1189:1196 Kernel.VMState <> vm_graph proj
+R1189:1196 Kernel.VMState <> vm_graph proj
+R1239:1245 Kernel.VMState <> vm_csrs proj
+R1239:1245 Kernel.VMState <> vm_csrs proj
+R1287:1293 Kernel.VMState <> vm_regs proj
+R1287:1293 Kernel.VMState <> vm_regs proj
+R1335:1340 Kernel.VMState <> vm_mem proj
+R1335:1340 Kernel.VMState <> vm_mem proj
+R1381:1385 Kernel.VMState <> vm_pc proj
+R1381:1385 Kernel.VMState <> vm_pc proj
+R1425:1429 Kernel.VMState <> vm_mu proj
+R1425:1429 Kernel.VMState <> vm_mu proj
+R1469:1474 Kernel.VMState <> vm_err proj
+R1469:1474 Kernel.VMState <> vm_err proj
+R1204:1211 Kernel.VMState <> vm_graph proj
+R1201:1201 KernelTOE.Persistence <> s:14 var
+R1253:1259 Kernel.VMState <> vm_csrs proj
+R1250:1250 KernelTOE.Persistence <> s:14 var
+R1301:1307 Kernel.VMState <> vm_regs proj
+R1298:1298 KernelTOE.Persistence <> s:14 var
+R1348:1353 Kernel.VMState <> vm_mem proj
+R1345:1345 KernelTOE.Persistence <> s:14 var
+R1393:1397 Kernel.VMState <> vm_pc proj
+R1390:1390 KernelTOE.Persistence <> s:14 var
+R1437:1441 Kernel.VMState <> vm_mu proj
+R1434:1434 KernelTOE.Persistence <> s:14 var
+R1479:1482 Coq.Init.Datatypes <> true constr
+R1163:1163 KernelTOE.Persistence <> i:15 var
+R1123:1130 KernelTOE.Persistence Persistence fs_state proj
+R1123:1130 KernelTOE.Persistence Persistence fs_state proj
+R1123:1130 KernelTOE.Persistence Persistence fs_state proj
+R1138:1144 KernelTOE.Persistence Persistence fs_fuel proj
+R1138:1144 KernelTOE.Persistence Persistence fs_fuel proj
+R1135:1135 KernelTOE.Persistence <> s:14 var
+R1149:1152 KernelTOE.Persistence <> fuel:16 var
+scheme 748:756 Persistence fuel_step_ind
+scheme 748:756 Persistence fuel_step_sind
+def 1762:1777 Persistence CBettingStrategy
+R1798:1801 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1789:1797 KernelTOE.Persistence Persistence FuelState rec
+R1821:1824 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1802:1805 Coq.Init.Datatypes <> list ind
+R1807:1820 Kernel.VMStep VMStep vm_instruction ind
+R1839:1842 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1825:1838 Kernel.VMStep VMStep vm_instruction ind
+R1843:1845 Coq.Init.Datatypes <> nat ind
+def 1860:1863 Persistence cbet
+R1870:1885 KernelTOE.Persistence Persistence CBettingStrategy def
+binder 1866:1866 <> S:17
+R1894:1902 KernelTOE.Persistence Persistence FuelState rec
+binder 1889:1890 <> fs:18
+R1916:1919 Coq.Init.Datatypes <> list ind
+R1921:1934 Kernel.VMStep VMStep vm_instruction ind
+binder 1906:1912 <> choices:19
+R1942:1955 Kernel.VMStep VMStep vm_instruction ind
+binder 1938:1938 <> i:20
+R1960:1962 Coq.Init.Datatypes <> nat ind
+R1969:1969 KernelTOE.Persistence <> S:17 var
+R1971:1972 KernelTOE.Persistence <> fs:18 var
+R1974:1980 KernelTOE.Persistence <> choices:19 var
+R1982:1982 KernelTOE.Persistence <> i:20 var
+def 1997:2006 Persistence ctotal_bet
+R2013:2028 KernelTOE.Persistence Persistence CBettingStrategy def
+binder 2009:2009 <> S:21
+R2037:2045 KernelTOE.Persistence Persistence FuelState rec
+binder 2032:2033 <> fs:22
+R2059:2062 Coq.Init.Datatypes <> list ind
+R2064:2077 Kernel.VMStep VMStep vm_instruction ind
+binder 2049:2055 <> choices:23
+R2082:2084 Coq.Init.Datatypes <> nat ind
+R2091:2099 Coq.Lists.List <> fold_left def
+R2110:2112 Coq.Lists.List <> map def
+R2134:2140 KernelTOE.Persistence <> choices:23 var
+R2115:2118 KernelTOE.Persistence Persistence cbet def
+R2120:2120 KernelTOE.Persistence <> S:21 var
+R2122:2123 KernelTOE.Persistence <> fs:22 var
+R2125:2131 KernelTOE.Persistence <> choices:23 var
+R2101:2107 Coq.Arith.PeanoNat Nat add def
+def 2158:2180 Persistence cavailable_after_reveal
+R2189:2204 KernelTOE.Persistence Persistence CBettingStrategy def
+binder 2185:2185 <> S:24
+R2213:2221 KernelTOE.Persistence Persistence FuelState rec
+binder 2208:2209 <> fs:25
+R2235:2238 Coq.Init.Datatypes <> list ind
+R2240:2253 Kernel.VMStep VMStep vm_instruction ind
+binder 2225:2231 <> choices:26
+R2266:2279 Kernel.VMStep VMStep vm_instruction ind
+binder 2257:2262 <> oracle:27
+R2286:2288 Coq.Init.Datatypes <> nat ind
+R2295:2295 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2332:2335 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2306:2308 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R2296:2302 KernelTOE.Persistence Persistence fs_fuel proj
+R2304:2305 KernelTOE.Persistence <> fs:25 var
+R2309:2318 KernelTOE.Persistence Persistence ctotal_bet def
+R2320:2320 KernelTOE.Persistence <> S:24 var
+R2322:2323 KernelTOE.Persistence <> fs:25 var
+R2325:2331 KernelTOE.Persistence <> choices:26 var
+R2336:2339 KernelTOE.Persistence Persistence cbet def
+R2341:2341 KernelTOE.Persistence <> S:24 var
+R2343:2344 KernelTOE.Persistence <> fs:25 var
+R2346:2352 KernelTOE.Persistence <> choices:26 var
+R2354:2359 KernelTOE.Persistence <> oracle:27 var
+def 2451:2471 Persistence vm_instruction_eq_dec
+R2489:2502 Kernel.VMStep VMStep vm_instruction ind
+binder 2483:2483 <> x:28
+binder 2485:2485 <> y:29
+R2506:2506 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R2512:2516 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R2523:2523 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R2508:2510 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2507:2507 KernelTOE.Persistence <> x:28 var
+R2511:2511 KernelTOE.Persistence <> y:29 var
+R2518:2521 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R2517:2517 KernelTOE.Persistence <> x:28 var
+R2522:2522 KernelTOE.Persistence <> y:29 var
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2592:2601 Coq.Strings.String <> string_dec def
+R2619:2629 Coq.Lists.List <> list_eq_dec thm
+R2642:2651 Coq.Arith.PeanoNat Nat eq_dec thm
+R2664:2673 Coq.Strings.String <> string_dec def
+R2709:2718 Coq.Strings.String <> string_dec def
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2566:2575 Coq.Arith.PeanoNat Nat eq_dec thm
+R2592:2601 Coq.Strings.String <> string_dec def
+R2592:2601 Coq.Strings.String <> string_dec def
+R2592:2601 Coq.Strings.String <> string_dec def
+R2592:2601 Coq.Strings.String <> string_dec def
+R2592:2601 Coq.Strings.String <> string_dec def
+R2592:2601 Coq.Strings.String <> string_dec def
+R2592:2601 Coq.Strings.String <> string_dec def
+R2592:2601 Coq.Strings.String <> string_dec def
+R2592:2601 Coq.Strings.String <> string_dec def
+R2592:2601 Coq.Strings.String <> string_dec def
+R2592:2601 Coq.Strings.String <> string_dec def
+R2592:2601 Coq.Strings.String <> string_dec def
+R2619:2629 Coq.Lists.List <> list_eq_dec thm
+R2642:2651 Coq.Arith.PeanoNat Nat eq_dec thm
+R2619:2629 Coq.Lists.List <> list_eq_dec thm
+R2642:2651 Coq.Arith.PeanoNat Nat eq_dec thm
+R2619:2629 Coq.Lists.List <> list_eq_dec thm
+R2642:2651 Coq.Arith.PeanoNat Nat eq_dec thm
+R2619:2629 Coq.Lists.List <> list_eq_dec thm
+R2619:2629 Coq.Lists.List <> list_eq_dec thm
+R2642:2651 Coq.Arith.PeanoNat Nat eq_dec thm
+R2664:2673 Coq.Strings.String <> string_dec def
+R2709:2718 Coq.Strings.String <> string_dec def
+R2709:2718 Coq.Strings.String <> string_dec def
+def 2862:2876 Persistence UniformStrategy
+R2880:2895 KernelTOE.Persistence Persistence CBettingStrategy def
+binder 2906:2907 <> fs:30
+binder 2909:2915 <> choices:31
+binder 2917:2917 <> i:32
+R2932:2942 Coq.Lists.List <> length abbrev
+R2944:2950 KernelTOE.Persistence <> choices:31 var
+R2984:2989 Coq.Lists.List <> in_dec thm
+R3015:3021 KernelTOE.Persistence <> choices:31 var
+R3013:3013 KernelTOE.Persistence <> i:32 var
+R2991:3011 KernelTOE.Persistence Persistence vm_instruction_eq_dec def
+R3028:3034 KernelTOE.Persistence Persistence fs_fuel proj
+R3036:3037 KernelTOE.Persistence <> fs:30 var
+R3060:3065 Coq.Lists.List <> in_dec thm
+R3091:3097 KernelTOE.Persistence <> choices:31 var
+R3089:3089 KernelTOE.Persistence <> i:32 var
+R3067:3087 KernelTOE.Persistence Persistence vm_instruction_eq_dec def
+R3114:3116 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R3104:3110 KernelTOE.Persistence Persistence fs_fuel proj
+R3112:3113 KernelTOE.Persistence <> fs:30 var
+ind 3146:3155 Persistence game_stepC
+constr 3284:3301 Persistence game_stepC_survive
+constr 3695:3717 Persistence game_stepC_die_zero_bet
+R3164:3179 KernelTOE.Persistence Persistence CBettingStrategy def
+binder 3160:3160 <> S:33
+R3195:3198 Coq.Init.Datatypes <> list ind
+R3200:3213 Kernel.VMStep VMStep vm_instruction ind
+binder 3185:3191 <> choices:34
+R3228:3241 Kernel.VMStep VMStep vm_instruction ind
+binder 3219:3224 <> oracle:35
+R3257:3260 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3248:3256 KernelTOE.Persistence Persistence FuelState rec
+R3270:3273 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3261:3269 KernelTOE.Persistence Persistence FuelState rec
+binder 3312:3313 <> fs:38
+binder 3315:3316 <> s':39
+R3340:3347 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3323:3324 Coq.Lists.List <> In def
+R3333:3339 KernelTOE.Persistence <> choices:34 var
+R3326:3331 KernelTOE.Persistence <> oracle:35 var
+R3376:3383 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3372:3374 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R3348:3351 KernelTOE.Persistence Persistence cbet def
+R3353:3353 KernelTOE.Persistence <> S:33 var
+R3355:3356 KernelTOE.Persistence <> fs:38 var
+R3358:3364 KernelTOE.Persistence <> choices:34 var
+R3366:3371 KernelTOE.Persistence <> oracle:35 var
+R3415:3422 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3384:3390 Kernel.VMStep VMStep vm_step ind
+R3393:3400 KernelTOE.Persistence Persistence fs_state proj
+R3402:3403 KernelTOE.Persistence <> fs:38 var
+R3406:3411 KernelTOE.Persistence <> oracle:35 var
+R3413:3414 KernelTOE.Persistence <> s':39 var
+R3486:3493 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3439:3442 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3423:3431 KernelTOE.Persistence Persistence fuel_cost def
+R3433:3438 KernelTOE.Persistence <> oracle:35 var
+R3443:3465 KernelTOE.Persistence Persistence cavailable_after_reveal def
+R3467:3467 KernelTOE.Persistence <> S:33 var
+R3469:3470 KernelTOE.Persistence <> fs:38 var
+R3472:3478 KernelTOE.Persistence <> choices:34 var
+R3480:3485 KernelTOE.Persistence <> oracle:35 var
+R3507:3507 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3570:3573 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3551:3553 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R3508:3530 KernelTOE.Persistence Persistence cavailable_after_reveal def
+R3532:3532 KernelTOE.Persistence <> S:33 var
+R3534:3535 KernelTOE.Persistence <> fs:38 var
+R3537:3543 KernelTOE.Persistence <> choices:34 var
+R3545:3550 KernelTOE.Persistence <> oracle:35 var
+R3554:3562 KernelTOE.Persistence Persistence fuel_cost def
+R3564:3569 KernelTOE.Persistence <> oracle:35 var
+R3574:3584 KernelTOE.Persistence Persistence fuel_reward def
+R3586:3591 KernelTOE.Persistence <> oracle:35 var
+binder 3498:3502 <> fuel':40
+R3609:3616 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3605:3607 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R3600:3604 KernelTOE.Persistence <> fuel':40 var
+R3617:3626 KernelTOE.Persistence <> game_stepC:36 ind
+R3657:3664 KernelTOE.Persistence Persistence fs_state proj
+R3657:3664 KernelTOE.Persistence Persistence fs_state proj
+R3657:3664 KernelTOE.Persistence Persistence fs_state proj
+R3673:3679 KernelTOE.Persistence Persistence fs_fuel proj
+R3673:3679 KernelTOE.Persistence Persistence fs_fuel proj
+R3669:3670 KernelTOE.Persistence <> s':39 var
+R3684:3688 KernelTOE.Persistence <> fuel':40 var
+R3645:3646 KernelTOE.Persistence <> fs:38 var
+R3638:3643 KernelTOE.Persistence <> oracle:35 var
+R3630:3636 KernelTOE.Persistence <> choices:34 var
+R3628:3628 KernelTOE.Persistence <> S:33 var
+binder 3728:3729 <> fs:41
+R3753:3760 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3736:3737 Coq.Lists.List <> In def
+R3746:3752 KernelTOE.Persistence <> choices:34 var
+R3739:3744 KernelTOE.Persistence <> oracle:35 var
+R3789:3796 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3785:3787 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3761:3764 KernelTOE.Persistence Persistence cbet def
+R3766:3766 KernelTOE.Persistence <> S:33 var
+R3768:3769 KernelTOE.Persistence <> fs:41 var
+R3771:3777 KernelTOE.Persistence <> choices:34 var
+R3779:3784 KernelTOE.Persistence <> oracle:35 var
+R3797:3806 KernelTOE.Persistence <> game_stepC:36 ind
+R3837:3844 KernelTOE.Persistence Persistence fs_state proj
+R3837:3844 KernelTOE.Persistence Persistence fs_state proj
+R3837:3844 KernelTOE.Persistence Persistence fs_state proj
+R4232:4238 KernelTOE.Persistence Persistence fs_fuel proj
+R4232:4238 KernelTOE.Persistence Persistence fs_fuel proj
+R3852:3859 Kernel.VMState <> vm_graph proj
+R3852:3859 Kernel.VMState <> vm_graph proj
+R3852:3859 Kernel.VMState <> vm_graph proj
+R3914:3920 Kernel.VMState <> vm_csrs proj
+R3914:3920 Kernel.VMState <> vm_csrs proj
+R3974:3980 Kernel.VMState <> vm_regs proj
+R3974:3980 Kernel.VMState <> vm_regs proj
+R4034:4039 Kernel.VMState <> vm_mem proj
+R4034:4039 Kernel.VMState <> vm_mem proj
+R4092:4096 Kernel.VMState <> vm_pc proj
+R4092:4096 Kernel.VMState <> vm_pc proj
+R4148:4152 Kernel.VMState <> vm_mu proj
+R4148:4152 Kernel.VMState <> vm_mu proj
+R4204:4209 Kernel.VMState <> vm_err proj
+R4204:4209 Kernel.VMState <> vm_err proj
+R3879:3886 Kernel.VMState <> vm_graph proj
+R3865:3872 KernelTOE.Persistence Persistence fs_state proj
+R3874:3875 KernelTOE.Persistence <> fs:41 var
+R3940:3946 Kernel.VMState <> vm_csrs proj
+R3926:3933 KernelTOE.Persistence Persistence fs_state proj
+R3935:3936 KernelTOE.Persistence <> fs:41 var
+R4000:4006 Kernel.VMState <> vm_regs proj
+R3986:3993 KernelTOE.Persistence Persistence fs_state proj
+R3995:3996 KernelTOE.Persistence <> fs:41 var
+R4059:4064 Kernel.VMState <> vm_mem proj
+R4045:4052 KernelTOE.Persistence Persistence fs_state proj
+R4054:4055 KernelTOE.Persistence <> fs:41 var
+R4116:4120 Kernel.VMState <> vm_pc proj
+R4102:4109 KernelTOE.Persistence Persistence fs_state proj
+R4111:4112 KernelTOE.Persistence <> fs:41 var
+R4172:4176 Kernel.VMState <> vm_mu proj
+R4158:4165 KernelTOE.Persistence Persistence fs_state proj
+R4167:4168 KernelTOE.Persistence <> fs:41 var
+R4214:4217 Coq.Init.Datatypes <> true constr
+R3825:3826 KernelTOE.Persistence <> fs:41 var
+R3818:3823 KernelTOE.Persistence <> oracle:35 var
+R3810:3816 KernelTOE.Persistence <> choices:34 var
+R3808:3808 KernelTOE.Persistence <> S:33 var
+scheme 3146:3155 Persistence game_stepC_ind
+scheme 3146:3155 Persistence game_stepC_sind
+ind 4260:4277 Persistence game_exec_schedule
+constr 4391:4412 Persistence game_exec_schedule_nil
+constr 4463:4485 Persistence game_exec_schedule_cons
+R4286:4301 KernelTOE.Persistence Persistence CBettingStrategy def
+binder 4282:4282 <> S:42
+R4317:4320 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4308:4316 KernelTOE.Persistence Persistence FuelState rec
+R4364:4367 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4321:4324 Coq.Init.Datatypes <> list ind
+R4346:4348 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R4327:4330 Coq.Init.Datatypes <> list ind
+R4332:4345 Kernel.VMStep VMStep vm_instruction ind
+R4349:4362 Kernel.VMStep VMStep vm_instruction ind
+R4377:4380 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4368:4376 KernelTOE.Persistence Persistence FuelState rec
+binder 4423:4424 <> fs:45
+R4431:4448 KernelTOE.Persistence <> game_exec_schedule:43 ind
+R4458:4459 KernelTOE.Persistence <> fs:45 var
+R4455:4456 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4452:4453 KernelTOE.Persistence <> fs:45 var
+R4450:4450 KernelTOE.Persistence <> S:42 var
+binder 4496:4498 <> fs0:46
+binder 4500:4502 <> fs1:47
+binder 4504:4506 <> fsN:48
+binder 4508:4514 <> choices:49
+binder 4516:4521 <> oracle:50
+binder 4523:4526 <> rest:51
+R4568:4575 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4533:4542 KernelTOE.Persistence Persistence game_stepC ind
+R4544:4544 KernelTOE.Persistence <> S:42 var
+R4546:4552 KernelTOE.Persistence <> choices:49 var
+R4554:4559 KernelTOE.Persistence <> oracle:50 var
+R4561:4563 KernelTOE.Persistence <> fs0:46 var
+R4565:4567 KernelTOE.Persistence <> fs1:47 var
+R4609:4616 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4576:4593 KernelTOE.Persistence <> game_exec_schedule:43 ind
+R4606:4608 KernelTOE.Persistence <> fsN:48 var
+R4601:4604 KernelTOE.Persistence <> rest:51 var
+R4597:4599 KernelTOE.Persistence <> fs1:47 var
+R4595:4595 KernelTOE.Persistence <> S:42 var
+R4617:4634 KernelTOE.Persistence <> game_exec_schedule:43 ind
+R4670:4672 KernelTOE.Persistence <> fsN:48 var
+R4660:4663 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4643:4643 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4651:4652 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4659:4659 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4644:4650 KernelTOE.Persistence <> choices:49 var
+R4653:4658 KernelTOE.Persistence <> oracle:50 var
+R4664:4667 KernelTOE.Persistence <> rest:51 var
+R4638:4640 KernelTOE.Persistence <> fs0:46 var
+R4636:4636 KernelTOE.Persistence <> S:42 var
+scheme 4260:4277 Persistence game_exec_schedule_ind
+scheme 4260:4277 Persistence game_exec_schedule_sind
+def 4923:4931 Persistence pnew_inst
+R4938:4940 Coq.Init.Datatypes <> nat ind
+binder 4934:4934 <> n:52
+R4945:4958 Kernel.VMStep VMStep vm_instruction ind
+R4963:4972 Kernel.VMStep VMStep instr_pnew constr
+R4974:4974 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4976:4976 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4975:4975 KernelTOE.Persistence <> n:52 var
+def 4993:5004 Persistence pnew_choices
+R5011:5013 Coq.Init.Datatypes <> nat ind
+binder 5007:5007 <> n:53
+R5018:5021 Coq.Init.Datatypes <> list ind
+R5023:5036 Kernel.VMStep VMStep vm_instruction ind
+R5043:5045 Coq.Lists.List <> map def
+R5058:5060 Coq.Lists.List <> seq def
+R5064:5064 KernelTOE.Persistence <> n:53 var
+R5047:5055 KernelTOE.Persistence Persistence pnew_inst def
+def 5080:5097 Persistence schedule_expanding
+R5108:5110 Coq.Init.Datatypes <> nat ind
+binder 5100:5104 <> fuel0:54
+R5115:5118 Coq.Init.Datatypes <> list ind
+R5140:5142 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R5121:5124 Coq.Init.Datatypes <> list ind
+R5126:5139 Kernel.VMStep VMStep vm_instruction ind
+R5143:5156 Kernel.VMStep VMStep vm_instruction ind
+R5164:5164 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5202:5202 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5165:5165 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5188:5189 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5201:5201 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5166:5177 KernelTOE.Persistence Persistence pnew_choices def
+R5180:5180 Coq.Init.Datatypes <> S constr
+R5182:5186 KernelTOE.Persistence <> fuel0:54 var
+R5190:5198 KernelTOE.Persistence Persistence pnew_inst def
+prf 5212:5228 Persistence in_pnew_choices_0
+binder 5239:5239 <> n:55
+R5249:5252 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5245:5247 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5248:5248 KernelTOE.Persistence <> n:55 var
+R5253:5254 Coq.Lists.List <> In def
+R5271:5282 KernelTOE.Persistence Persistence pnew_choices def
+R5284:5284 KernelTOE.Persistence <> n:55 var
+R5257:5265 KernelTOE.Persistence Persistence pnew_inst def
+R5319:5330 KernelTOE.Persistence Persistence pnew_choices def
+R5341:5346 Coq.Lists.List <> in_map thm
+R5341:5346 Coq.Lists.List <> in_map thm
+R5357:5362 Coq.Lists.List <> in_seq thm
+R5357:5362 Coq.Lists.List <> in_seq thm
+prf 5397:5437 Persistence uniform_bet_zero_when_choices_exceed_fuel
+binder 5448:5449 <> fs:56
+binder 5451:5457 <> choices:57
+binder 5459:5464 <> oracle:58
+R5486:5491 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5469:5470 Coq.Lists.List <> In def
+R5479:5485 KernelTOE.Persistence <> choices:57 var
+R5472:5477 KernelTOE.Persistence <> oracle:58 var
+R5524:5529 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5511:5513 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R5492:5502 Coq.Lists.List <> length abbrev
+R5504:5510 KernelTOE.Persistence <> choices:57 var
+R5514:5520 KernelTOE.Persistence Persistence fs_fuel proj
+R5522:5523 KernelTOE.Persistence <> fs:56 var
+R5568:5570 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5530:5533 KernelTOE.Persistence Persistence cbet def
+R5535:5549 KernelTOE.Persistence Persistence UniformStrategy def
+R5551:5552 KernelTOE.Persistence <> fs:56 var
+R5554:5560 KernelTOE.Persistence <> choices:57 var
+R5562:5567 KernelTOE.Persistence <> oracle:58 var
+R5627:5630 KernelTOE.Persistence Persistence cbet def
+R5633:5647 KernelTOE.Persistence Persistence UniformStrategy def
+R5662:5672 Coq.Lists.List <> length abbrev
+R5662:5672 Coq.Lists.List <> length abbrev
+R5709:5732 Coq.Lists.List <> length_zero_iff_nil thm
+R5709:5732 Coq.Lists.List <> length_zero_iff_nil thm
+R5843:5848 Coq.Lists.List <> in_dec thm
+R5850:5870 KernelTOE.Persistence Persistence vm_instruction_eq_dec def
+R5843:5848 Coq.Lists.List <> in_dec thm
+R5850:5870 KernelTOE.Persistence Persistence vm_instruction_eq_dec def
+R5930:5932 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5920:5926 KernelTOE.Persistence Persistence fs_fuel proj
+R5930:5932 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5920:5926 KernelTOE.Persistence Persistence fs_fuel proj
+R6070:6075 Coq.Lists.List <> in_dec thm
+R6077:6097 KernelTOE.Persistence Persistence vm_instruction_eq_dec def
+R6070:6075 Coq.Lists.List <> in_dec thm
+R6077:6097 KernelTOE.Persistence Persistence vm_instruction_eq_dec def
+R6145:6157 Coq.Arith.PeanoNat Nat div_small def
+R6145:6157 Coq.Arith.PeanoNat Nat div_small def
+prf 6256:6276 Persistence Uniform_Strategy_Dies
+binder 6287:6288 <> s0:59
+binder 6290:6294 <> fuel0:60
+R6308:6313 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6304:6306 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R6299:6303 KernelTOE.Persistence <> fuel0:60 var
+R6314:6320 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6324:6329 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 6321:6323 <> fsN:61
+R6452:6463 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6330:6347 KernelTOE.Persistence Persistence game_exec_schedule ind
+R6349:6363 KernelTOE.Persistence Persistence UniformStrategy def
+R6374:6381 KernelTOE.Persistence Persistence fs_state proj
+R6374:6381 KernelTOE.Persistence Persistence fs_state proj
+R6374:6381 KernelTOE.Persistence Persistence fs_state proj
+R6390:6396 KernelTOE.Persistence Persistence fs_fuel proj
+R6390:6396 KernelTOE.Persistence Persistence fs_fuel proj
+R6386:6387 KernelTOE.Persistence <> s0:59 var
+R6401:6405 KernelTOE.Persistence <> fuel0:60 var
+R6417:6434 KernelTOE.Persistence Persistence schedule_expanding def
+R6436:6440 KernelTOE.Persistence <> fuel0:60 var
+R6449:6451 KernelTOE.Persistence <> fsN:61 var
+R6464:6467 KernelTOE.Persistence Persistence Dead def
+R6469:6471 KernelTOE.Persistence <> fsN:61 var
+R6515:6532 KernelTOE.Persistence Persistence schedule_expanding def
+R6551:6558 KernelTOE.Persistence Persistence fs_state proj
+R6551:6558 KernelTOE.Persistence Persistence fs_state proj
+R6551:6558 KernelTOE.Persistence Persistence fs_state proj
+R6866:6872 KernelTOE.Persistence Persistence fs_fuel proj
+R6866:6872 KernelTOE.Persistence Persistence fs_fuel proj
+R6566:6573 Kernel.VMState <> vm_graph proj
+R6566:6573 Kernel.VMState <> vm_graph proj
+R6566:6573 Kernel.VMState <> vm_graph proj
+R6615:6621 Kernel.VMState <> vm_csrs proj
+R6615:6621 Kernel.VMState <> vm_csrs proj
+R6662:6668 Kernel.VMState <> vm_regs proj
+R6662:6668 Kernel.VMState <> vm_regs proj
+R6709:6714 Kernel.VMState <> vm_mem proj
+R6709:6714 Kernel.VMState <> vm_mem proj
+R6754:6758 Kernel.VMState <> vm_pc proj
+R6754:6758 Kernel.VMState <> vm_pc proj
+R6797:6801 Kernel.VMState <> vm_mu proj
+R6797:6801 Kernel.VMState <> vm_mu proj
+R6840:6845 Kernel.VMState <> vm_err proj
+R6840:6845 Kernel.VMState <> vm_err proj
+R6582:6589 Kernel.VMState <> vm_graph proj
+R6630:6636 Kernel.VMState <> vm_csrs proj
+R6677:6683 Kernel.VMState <> vm_regs proj
+R6723:6728 Kernel.VMState <> vm_mem proj
+R6767:6771 Kernel.VMState <> vm_pc proj
+R6810:6814 Kernel.VMState <> vm_mu proj
+R6850:6853 Coq.Init.Datatypes <> true constr
+R6551:6558 KernelTOE.Persistence Persistence fs_state proj
+R6551:6558 KernelTOE.Persistence Persistence fs_state proj
+R6551:6558 KernelTOE.Persistence Persistence fs_state proj
+R6866:6872 KernelTOE.Persistence Persistence fs_fuel proj
+R6866:6872 KernelTOE.Persistence Persistence fs_fuel proj
+R6566:6573 Kernel.VMState <> vm_graph proj
+R6566:6573 Kernel.VMState <> vm_graph proj
+R6566:6573 Kernel.VMState <> vm_graph proj
+R6615:6621 Kernel.VMState <> vm_csrs proj
+R6615:6621 Kernel.VMState <> vm_csrs proj
+R6662:6668 Kernel.VMState <> vm_regs proj
+R6662:6668 Kernel.VMState <> vm_regs proj
+R6709:6714 Kernel.VMState <> vm_mem proj
+R6709:6714 Kernel.VMState <> vm_mem proj
+R6754:6758 Kernel.VMState <> vm_pc proj
+R6754:6758 Kernel.VMState <> vm_pc proj
+R6797:6801 Kernel.VMState <> vm_mu proj
+R6797:6801 Kernel.VMState <> vm_mu proj
+R6840:6845 Kernel.VMState <> vm_err proj
+R6840:6845 Kernel.VMState <> vm_err proj
+R6582:6589 Kernel.VMState <> vm_graph proj
+R6630:6636 Kernel.VMState <> vm_csrs proj
+R6677:6683 Kernel.VMState <> vm_regs proj
+R6723:6728 Kernel.VMState <> vm_mem proj
+R6767:6771 Kernel.VMState <> vm_pc proj
+R6810:6814 Kernel.VMState <> vm_mu proj
+R6850:6853 Coq.Init.Datatypes <> true constr
+R6903:6925 KernelTOE.Persistence Persistence game_exec_schedule_cons constr
+R6903:6925 KernelTOE.Persistence Persistence game_exec_schedule_cons constr
+R6941:6963 KernelTOE.Persistence Persistence game_stepC_die_zero_bet constr
+R6941:6963 KernelTOE.Persistence Persistence game_stepC_die_zero_bet constr
+R6980:6996 KernelTOE.Persistence Persistence in_pnew_choices_0 thm
+R6980:6996 KernelTOE.Persistence Persistence in_pnew_choices_0 thm
+R7013:7025 Coq.Arith.PeanoNat Nat lt_0_succ thm
+R7013:7025 Coq.Arith.PeanoNat Nat lt_0_succ thm
+R7042:7082 KernelTOE.Persistence Persistence uniform_bet_zero_when_choices_exceed_fuel thm
+R7042:7082 KernelTOE.Persistence Persistence uniform_bet_zero_when_choices_exceed_fuel thm
+R7102:7118 KernelTOE.Persistence Persistence in_pnew_choices_0 thm
+R7102:7118 KernelTOE.Persistence Persistence in_pnew_choices_0 thm
+R7138:7150 Coq.Arith.PeanoNat Nat lt_0_succ thm
+R7138:7150 Coq.Arith.PeanoNat Nat lt_0_succ thm
+R7171:7182 KernelTOE.Persistence Persistence pnew_choices def
+R7204:7213 Coq.Lists.List <> map_length thm
+R7216:7225 Coq.Lists.List <> seq_length thm
+R7204:7213 Coq.Lists.List <> map_length thm
+R7204:7213 Coq.Lists.List <> map_length thm
+R7216:7225 Coq.Lists.List <> seq_length thm
+R7216:7225 Coq.Lists.List <> seq_length thm
+R7246:7252 KernelTOE.Persistence Persistence fs_fuel proj
+R7290:7307 Coq.Arith.PeanoNat Nat lt_succ_diag_r thm
+R7290:7307 Coq.Arith.PeanoNat Nat lt_succ_diag_r thm
+R7340:7343 KernelTOE.Persistence Persistence Dead def
+R7380:7390 KernelTOE.Persistence Persistence <> mod

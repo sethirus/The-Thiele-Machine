@@ -1,0 +1,704 @@
+DIGEST 04047deed0308f58c966c3434485d518
+FModularProofs.Encoding
+R241:244 Coq.Lists.List <> <> lib
+R246:250 Coq.Arith.Arith <> <> lib
+R252:254 Coq.micromega.Lia <> <> lib
+R256:263 Coq.Arith.PeanoNat <> <> lib
+R265:268 Coq.Bool.Bool <> <> lib
+R305:318 ModularProofs.EncodingBounds <> <> lib
+R328:340 Coq.Lists.List ListNotations <> mod
+R357:363 Coq.Arith.PeanoNat Nat div def
+R365:374 Coq.Arith.PeanoNat Nat modulo def
+def 649:652 <> BASE
+R656:658 Coq.Init.Datatypes <> nat ind
+def 678:686 <> digits_ok
+R694:697 Coq.Init.Datatypes <> list ind
+R699:701 Coq.Init.Datatypes <> nat ind
+binder 689:690 <> xs:1
+R707:712 Coq.Lists.List <> Forall ind
+R734:735 ModularProofs.Encoding <> xs:1 var
+binder 719:719 <> a:2
+R725:727 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R724:724 ModularProofs.Encoding <> a:2 var
+R728:731 ModularProofs.Encoding <> BASE def
+def 1057:1065 <> SHIFT_LEN
+R1069:1071 Coq.Init.Datatypes <> nat ind
+def 1091:1101 <> SHIFT_SMALL
+R1105:1107 Coq.Init.Datatypes <> nat ind
+R1112:1118 Coq.Arith.PeanoNat Nat pow def
+R1120:1123 ModularProofs.Encoding <> BASE def
+R1125:1133 ModularProofs.Encoding <> SHIFT_LEN def
+def 1147:1155 <> SHIFT_BIG
+R1159:1161 Coq.Init.Datatypes <> nat ind
+R1166:1172 Coq.Arith.PeanoNat Nat pow def
+R1174:1177 ModularProofs.Encoding <> BASE def
+R1181:1183 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R1184:1192 ModularProofs.Encoding <> SHIFT_LEN def
+prf 1203:1211 <> BASE_ge_2
+R1216:1219 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1220:1223 ModularProofs.Encoding <> BASE def
+R1238:1241 ModularProofs.Encoding <> BASE def
+prf 1262:1275 <> SHIFT_LEN_ge_1
+R1280:1283 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1284:1292 ModularProofs.Encoding <> SHIFT_LEN def
+R1307:1315 ModularProofs.Encoding <> SHIFT_LEN def
+prf 1336:1343 <> BASE_pos
+R1348:1350 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R1351:1354 ModularProofs.Encoding <> BASE def
+R1373:1395 ModularProofs.EncodingBounds <> BASE_pos thm
+R1422:1435 ModularProofs.Encoding <> SHIFT_LEN_ge_1 thm
+R1412:1420 ModularProofs.Encoding <> BASE_ge_2 thm
+R1402:1410 ModularProofs.Encoding <> SHIFT_LEN def
+R1397:1400 ModularProofs.Encoding <> BASE def
+R1373:1395 ModularProofs.EncodingBounds <> BASE_pos thm
+R1422:1435 ModularProofs.Encoding <> SHIFT_LEN_ge_1 thm
+R1412:1420 ModularProofs.Encoding <> BASE_ge_2 thm
+R1402:1410 ModularProofs.Encoding <> SHIFT_LEN def
+R1397:1400 ModularProofs.Encoding <> BASE def
+def 1674:1690 <> pair_small_encode
+R1704:1706 Coq.Init.Datatypes <> nat ind
+binder 1693:1695 <> len:3
+binder 1697:1700 <> code:4
+R1711:1713 Coq.Init.Datatypes <> nat ind
+R1735:1737 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1721:1723 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R1718:1720 ModularProofs.Encoding <> len:3 var
+R1724:1734 ModularProofs.Encoding <> SHIFT_SMALL def
+R1738:1741 ModularProofs.Encoding <> code:4 var
+def 1755:1771 <> pair_small_decode
+R1778:1780 Coq.Init.Datatypes <> nat ind
+binder 1774:1774 <> z:5
+R1788:1790 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1785:1787 Coq.Init.Datatypes <> nat ind
+R1791:1793 Coq.Init.Datatypes <> nat ind
+R1798:1798 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1814:1815 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1833:1833 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1800:1802 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R1799:1799 ModularProofs.Encoding <> z:5 var
+R1803:1813 ModularProofs.Encoding <> SHIFT_SMALL def
+R1817:1821 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R1816:1816 ModularProofs.Encoding <> z:5 var
+R1822:1832 ModularProofs.Encoding <> SHIFT_SMALL def
+def 1848:1860 <> triple_encode
+R1877:1879 Coq.Init.Datatypes <> nat ind
+binder 1863:1863 <> q:6
+binder 1865:1868 <> head:7
+binder 1870:1873 <> code:8
+R1884:1886 Coq.Init.Datatypes <> nat ind
+R1927:1929 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1891:1891 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R1914:1917 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R1892:1892 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1906:1909 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1894:1896 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R1893:1893 ModularProofs.Encoding <> q:6 var
+R1897:1905 ModularProofs.Encoding <> SHIFT_BIG def
+R1910:1913 ModularProofs.Encoding <> head:7 var
+R1918:1926 ModularProofs.Encoding <> SHIFT_BIG def
+R1930:1933 ModularProofs.Encoding <> code:8 var
+def 1947:1959 <> triple_decode
+R1966:1968 Coq.Init.Datatypes <> nat ind
+binder 1962:1962 <> z:9
+R1982:1984 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1976:1978 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1973:1975 Coq.Init.Datatypes <> nat ind
+R1979:1981 Coq.Init.Datatypes <> nat ind
+R1985:1987 Coq.Init.Datatypes <> nat ind
+R2007:2011 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R2006:2006 ModularProofs.Encoding <> z:9 var
+R2012:2020 ModularProofs.Encoding <> SHIFT_BIG def
+binder 1998:2001 <> code:10
+R2038:2040 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R2037:2037 ModularProofs.Encoding <> z:9 var
+R2041:2049 ModularProofs.Encoding <> SHIFT_BIG def
+binder 2031:2032 <> z1:11
+R2070:2074 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R2068:2069 ModularProofs.Encoding <> z1:11 var
+R2075:2083 ModularProofs.Encoding <> SHIFT_BIG def
+binder 2060:2063 <> head:12
+R2101:2103 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R2099:2100 ModularProofs.Encoding <> z1:11 var
+R2104:2112 ModularProofs.Encoding <> SHIFT_BIG def
+binder 2094:2094 <> q:13
+R2119:2119 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2121:2122 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2127:2128 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2133:2133 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2120:2120 ModularProofs.Encoding <> q:13 var
+R2123:2126 ModularProofs.Encoding <> head:12 var
+R2129:2132 ModularProofs.Encoding <> code:10 var
+def 2363:2373 <> encode_list
+R2381:2384 Coq.Init.Datatypes <> list ind
+R2386:2388 Coq.Init.Datatypes <> nat ind
+binder 2376:2377 <> xs:14
+R2393:2395 Coq.Init.Datatypes <> nat ind
+R2408:2409 ModularProofs.Encoding <> xs:14 var
+R2420:2421 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2433:2436 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2466:2468 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2459:2461 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2444:2454 ModularProofs.Encoding <> encode_list:15 def
+R2462:2465 ModularProofs.Encoding <> BASE def
+def 2488:2502 <> decode_list_aux
+R2509:2511 Coq.Init.Datatypes <> nat ind
+binder 2505:2505 <> n:17
+R2521:2523 Coq.Init.Datatypes <> nat ind
+binder 2515:2517 <> len:18
+R2528:2531 Coq.Init.Datatypes <> list ind
+R2533:2535 Coq.Init.Datatypes <> nat ind
+R2548:2550 ModularProofs.Encoding <> len:18 var
+R2566:2567 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2573:2573 Coq.Init.Datatypes <> S constr
+R2583:2583 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2594:2598 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2585:2589 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R2584:2584 ModularProofs.Encoding <> n:17 var
+R2590:2593 ModularProofs.Encoding <> BASE def
+R2599:2613 ModularProofs.Encoding <> decode_list_aux:19 def
+R2617:2619 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R2616:2616 ModularProofs.Encoding <> n:17 var
+R2620:2623 ModularProofs.Encoding <> BASE def
+def 2650:2660 <> decode_list
+R2667:2669 Coq.Init.Datatypes <> nat ind
+binder 2663:2663 <> n:21
+R2679:2681 Coq.Init.Datatypes <> nat ind
+binder 2673:2675 <> len:22
+R2686:2689 Coq.Init.Datatypes <> list ind
+R2691:2693 Coq.Init.Datatypes <> nat ind
+R2698:2712 ModularProofs.Encoding <> decode_list_aux def
+R2714:2714 ModularProofs.Encoding <> n:21 var
+R2716:2718 ModularProofs.Encoding <> len:22 var
+def 2733:2752 <> encode_list_with_len
+R2760:2763 Coq.Init.Datatypes <> list ind
+R2765:2767 Coq.Init.Datatypes <> nat ind
+binder 2755:2756 <> xs:23
+R2772:2774 Coq.Init.Datatypes <> nat ind
+R2779:2795 ModularProofs.Encoding <> pair_small_encode def
+R2798:2803 Coq.Init.Datatypes <> length def
+R2805:2806 ModularProofs.Encoding <> xs:23 var
+R2810:2820 ModularProofs.Encoding <> encode_list def
+R2822:2823 ModularProofs.Encoding <> xs:23 var
+def 2838:2857 <> decode_list_with_len
+R2864:2866 Coq.Init.Datatypes <> nat ind
+binder 2860:2860 <> n:24
+R2871:2874 Coq.Init.Datatypes <> list ind
+R2876:2878 Coq.Init.Datatypes <> nat ind
+R2902:2918 ModularProofs.Encoding <> pair_small_decode def
+R2920:2920 ModularProofs.Encoding <> n:24 var
+binder 2888:2890 <> len:25
+binder 2893:2896 <> code:26
+R2925:2935 ModularProofs.Encoding <> decode_list def
+R2937:2940 ModularProofs.Encoding <> code:26 var
+R2942:2944 ModularProofs.Encoding <> len:25 var
+def 3016:3028 <> encode_config
+R3035:3037 Coq.Init.Datatypes <> nat ind
+binder 3031:3031 <> q:27
+R3048:3051 Coq.Init.Datatypes <> list ind
+R3053:3055 Coq.Init.Datatypes <> nat ind
+binder 3041:3044 <> tape:28
+R3066:3068 Coq.Init.Datatypes <> nat ind
+binder 3059:3062 <> head:29
+R3073:3075 Coq.Init.Datatypes <> nat ind
+R3080:3092 ModularProofs.Encoding <> triple_encode def
+R3094:3094 ModularProofs.Encoding <> q:27 var
+R3096:3099 ModularProofs.Encoding <> head:29 var
+R3102:3121 ModularProofs.Encoding <> encode_list_with_len def
+R3123:3126 ModularProofs.Encoding <> tape:28 var
+def 3141:3153 <> decode_config
+R3160:3162 Coq.Init.Datatypes <> nat ind
+binder 3156:3156 <> n:30
+R3181:3183 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3170:3172 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3167:3169 Coq.Init.Datatypes <> nat ind
+R3173:3176 Coq.Init.Datatypes <> list ind
+R3178:3180 Coq.Init.Datatypes <> nat ind
+R3184:3186 Coq.Init.Datatypes <> nat ind
+R3223:3235 ModularProofs.Encoding <> triple_decode def
+R3237:3237 ModularProofs.Encoding <> n:30 var
+R3198:3198 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3200:3201 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3206:3207 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3218:3218 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3264:3280 ModularProofs.Encoding <> pair_small_decode def
+R3249:3249 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3253:3254 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3259:3259 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3298:3298 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3300:3301 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3322:3323 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3328:3328 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3302:3312 ModularProofs.Encoding <> decode_list def
+prf 3743:3757 <> SHIFT_SMALL_pos
+R3762:3764 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3765:3775 ModularProofs.Encoding <> SHIFT_SMALL def
+R3794:3804 ModularProofs.Encoding <> SHIFT_SMALL def
+R3816:3845 ModularProofs.EncodingBounds <> SHIFT_SMALL_pos thm
+R3872:3885 ModularProofs.Encoding <> SHIFT_LEN_ge_1 thm
+R3862:3870 ModularProofs.Encoding <> BASE_ge_2 thm
+R3852:3860 ModularProofs.Encoding <> SHIFT_LEN def
+R3847:3850 ModularProofs.Encoding <> BASE def
+R3816:3845 ModularProofs.EncodingBounds <> SHIFT_SMALL_pos thm
+R3872:3885 ModularProofs.Encoding <> SHIFT_LEN_ge_1 thm
+R3862:3870 ModularProofs.Encoding <> BASE_ge_2 thm
+R3852:3860 ModularProofs.Encoding <> SHIFT_LEN def
+R3847:3850 ModularProofs.Encoding <> BASE def
+prf 3901:3920 <> SHIFT_BIG_as_product
+R3933:3935 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3924:3932 ModularProofs.Encoding <> SHIFT_BIG def
+R3947:3949 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3936:3946 ModularProofs.Encoding <> SHIFT_SMALL def
+R3950:3960 ModularProofs.Encoding <> SHIFT_SMALL def
+R3979:4013 ModularProofs.EncodingBounds <> SHIFT_BIG_as_product thm
+R4040:4053 ModularProofs.Encoding <> SHIFT_LEN_ge_1 thm
+R4030:4038 ModularProofs.Encoding <> BASE_ge_2 thm
+R4020:4028 ModularProofs.Encoding <> SHIFT_LEN def
+R4015:4018 ModularProofs.Encoding <> BASE def
+R3979:4013 ModularProofs.EncodingBounds <> SHIFT_BIG_as_product thm
+R4040:4053 ModularProofs.Encoding <> SHIFT_LEN_ge_1 thm
+R4030:4038 ModularProofs.Encoding <> BASE_ge_2 thm
+R4020:4028 ModularProofs.Encoding <> SHIFT_LEN def
+R4015:4018 ModularProofs.Encoding <> BASE def
+prf 4069:4081 <> SHIFT_BIG_pos
+R4086:4088 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4089:4097 ModularProofs.Encoding <> SHIFT_BIG def
+R4116:4143 ModularProofs.EncodingBounds <> SHIFT_BIG_pos thm
+R4170:4183 ModularProofs.Encoding <> SHIFT_LEN_ge_1 thm
+R4160:4168 ModularProofs.Encoding <> BASE_ge_2 thm
+R4150:4158 ModularProofs.Encoding <> SHIFT_LEN def
+R4145:4148 ModularProofs.Encoding <> BASE def
+R4116:4143 ModularProofs.EncodingBounds <> SHIFT_BIG_pos thm
+R4170:4183 ModularProofs.Encoding <> SHIFT_LEN_ge_1 thm
+R4160:4168 ModularProofs.Encoding <> BASE_ge_2 thm
+R4150:4158 ModularProofs.Encoding <> SHIFT_LEN def
+R4145:4148 ModularProofs.Encoding <> BASE def
+prf 4199:4218 <> pair_small_roundtrip
+binder 4229:4231 <> len:31
+binder 4233:4236 <> code:32
+R4259:4262 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4245:4247 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4241:4244 ModularProofs.Encoding <> code:32 var
+R4248:4258 ModularProofs.Encoding <> SHIFT_SMALL def
+R4309:4311 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4263:4279 ModularProofs.Encoding <> pair_small_decode def
+R4282:4298 ModularProofs.Encoding <> pair_small_encode def
+R4300:4302 ModularProofs.Encoding <> len:31 var
+R4304:4307 ModularProofs.Encoding <> code:32 var
+R4312:4312 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4316:4317 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4322:4322 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4313:4315 ModularProofs.Encoding <> len:31 var
+R4318:4321 ModularProofs.Encoding <> code:32 var
+R4366:4382 ModularProofs.Encoding <> pair_small_decode def
+R4385:4401 ModularProofs.Encoding <> pair_small_encode def
+R4416:4432 ModularProofs.EncodingBounds <> div_mul_add_small thm
+R4434:4444 ModularProofs.Encoding <> SHIFT_SMALL def
+R4455:4469 ModularProofs.Encoding <> SHIFT_SMALL_pos thm
+R4416:4432 ModularProofs.EncodingBounds <> div_mul_add_small thm
+R4434:4444 ModularProofs.Encoding <> SHIFT_SMALL def
+R4455:4469 ModularProofs.Encoding <> SHIFT_SMALL_pos thm
+prf 4543:4558 <> triple_roundtrip
+binder 4569:4569 <> q:33
+binder 4571:4574 <> head:34
+binder 4576:4585 <> code_small:35
+R4606:4611 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4594:4596 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4590:4593 ModularProofs.Encoding <> head:34 var
+R4597:4605 ModularProofs.Encoding <> SHIFT_BIG def
+R4634:4639 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4622:4624 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4612:4621 ModularProofs.Encoding <> code_small:35 var
+R4625:4633 ModularProofs.Encoding <> SHIFT_BIG def
+R4687:4689 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4640:4652 ModularProofs.Encoding <> triple_decode def
+R4655:4667 ModularProofs.Encoding <> triple_encode def
+R4669:4669 ModularProofs.Encoding <> q:33 var
+R4671:4674 ModularProofs.Encoding <> head:34 var
+R4676:4685 ModularProofs.Encoding <> code_small:35 var
+R4690:4690 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4692:4693 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4698:4699 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4710:4710 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4691:4691 ModularProofs.Encoding <> q:33 var
+R4694:4697 ModularProofs.Encoding <> head:34 var
+R4700:4709 ModularProofs.Encoding <> code_small:35 var
+R4769:4781 ModularProofs.Encoding <> triple_decode def
+R4784:4796 ModularProofs.Encoding <> triple_encode def
+R4811:4827 ModularProofs.EncodingBounds <> div_mul_add_small thm
+R4829:4837 ModularProofs.Encoding <> SHIFT_BIG def
+R4853:4855 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4841:4843 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4844:4852 ModularProofs.Encoding <> SHIFT_BIG def
+R4873:4885 ModularProofs.Encoding <> SHIFT_BIG_pos thm
+R4811:4827 ModularProofs.EncodingBounds <> div_mul_add_small thm
+R4829:4837 ModularProofs.Encoding <> SHIFT_BIG def
+R4853:4855 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4841:4843 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4844:4852 ModularProofs.Encoding <> SHIFT_BIG def
+R4873:4885 ModularProofs.Encoding <> SHIFT_BIG_pos thm
+R4971:4987 ModularProofs.EncodingBounds <> div_mul_add_small thm
+R4989:4997 ModularProofs.Encoding <> SHIFT_BIG def
+R5006:5018 ModularProofs.Encoding <> SHIFT_BIG_pos thm
+R4971:4987 ModularProofs.EncodingBounds <> div_mul_add_small thm
+R4989:4997 ModularProofs.Encoding <> SHIFT_BIG def
+R5006:5018 ModularProofs.Encoding <> SHIFT_BIG_pos thm
+R5103:5109 Coq.Arith.PeanoNat Nat div def
+R5111:5120 Coq.Arith.PeanoNat Nat modulo def
+prf 5130:5151 <> encode_list_decode_aux
+binder 5162:5163 <> xs:36
+R5180:5185 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5168:5176 ModularProofs.Encoding <> digits_ok def
+R5178:5179 ModularProofs.Encoding <> xs:36 var
+R5230:5232 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5186:5200 ModularProofs.Encoding <> decode_list_aux def
+R5203:5213 ModularProofs.Encoding <> encode_list def
+R5215:5216 ModularProofs.Encoding <> xs:36 var
+R5220:5225 Coq.Init.Datatypes <> length def
+R5227:5228 ModularProofs.Encoding <> xs:36 var
+R5233:5234 ModularProofs.Encoding <> xs:36 var
+R5363:5373 ModularProofs.Encoding <> encode_list def
+R5386:5391 Coq.Init.Datatypes <> length def
+R5404:5418 ModularProofs.Encoding <> decode_list_aux def
+R5464:5480 ModularProofs.EncodingBounds <> div_mul_add_small thm
+R5482:5485 ModularProofs.Encoding <> BASE def
+R5488:5498 ModularProofs.Encoding <> encode_list def
+R5506:5513 ModularProofs.Encoding <> BASE_pos thm
+R5464:5480 ModularProofs.EncodingBounds <> div_mul_add_small thm
+R5482:5485 ModularProofs.Encoding <> BASE def
+R5488:5498 ModularProofs.Encoding <> encode_list def
+R5506:5513 ModularProofs.Encoding <> BASE_pos thm
+prf 5592:5615 <> SHIFT_LEN_lt_SHIFT_SMALL
+R5628:5630 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5619:5627 ModularProofs.Encoding <> SHIFT_LEN def
+R5631:5641 ModularProofs.Encoding <> SHIFT_SMALL def
+R5660:5670 ModularProofs.Encoding <> SHIFT_SMALL def
+R5682:5718 ModularProofs.EncodingBounds <> shiftlen_lt_shiftsmall thm
+R5745:5758 ModularProofs.Encoding <> SHIFT_LEN_ge_1 thm
+R5735:5743 ModularProofs.Encoding <> BASE_ge_2 thm
+R5725:5733 ModularProofs.Encoding <> SHIFT_LEN def
+R5720:5723 ModularProofs.Encoding <> BASE def
+R5682:5718 ModularProofs.EncodingBounds <> shiftlen_lt_shiftsmall thm
+R5745:5758 ModularProofs.Encoding <> SHIFT_LEN_ge_1 thm
+R5735:5743 ModularProofs.Encoding <> BASE_ge_2 thm
+R5725:5733 ModularProofs.Encoding <> SHIFT_LEN def
+R5720:5723 ModularProofs.Encoding <> BASE def
+prf 5774:5791 <> len_lt_SHIFT_SMALL
+binder 5802:5804 <> len:37
+R5823:5826 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5810:5813 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5807:5809 ModularProofs.Encoding <> len:37 var
+R5814:5822 ModularProofs.Encoding <> SHIFT_LEN def
+R5830:5832 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5827:5829 ModularProofs.Encoding <> len:37 var
+R5833:5843 ModularProofs.Encoding <> SHIFT_SMALL def
+R5862:5872 ModularProofs.Encoding <> SHIFT_SMALL def
+R5902:5934 ModularProofs.EncodingBounds <> len_lt_SHIFT_SMALL thm
+R5961:5974 ModularProofs.Encoding <> SHIFT_LEN_ge_1 thm
+R5951:5959 ModularProofs.Encoding <> BASE_ge_2 thm
+R5941:5949 ModularProofs.Encoding <> SHIFT_LEN def
+R5936:5939 ModularProofs.Encoding <> BASE def
+R5902:5934 ModularProofs.EncodingBounds <> len_lt_SHIFT_SMALL thm
+R5961:5974 ModularProofs.Encoding <> SHIFT_LEN_ge_1 thm
+R5951:5959 ModularProofs.Encoding <> BASE_ge_2 thm
+R5941:5949 ModularProofs.Encoding <> SHIFT_LEN def
+R5936:5939 ModularProofs.Encoding <> BASE def
+prf 5998:6014 <> encode_list_upper
+binder 6025:6026 <> xs:38
+R6043:6048 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6031:6039 ModularProofs.Encoding <> digits_ok def
+R6041:6042 ModularProofs.Encoding <> xs:38 var
+R6063:6065 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6049:6059 ModularProofs.Encoding <> encode_list def
+R6061:6062 ModularProofs.Encoding <> xs:38 var
+R6066:6072 Coq.Arith.PeanoNat Nat pow def
+R6074:6077 ModularProofs.Encoding <> BASE def
+R6080:6085 Coq.Init.Datatypes <> length def
+R6087:6088 ModularProofs.Encoding <> xs:38 var
+R6217:6227 ModularProofs.Encoding <> encode_list def
+R6240:6245 Coq.Init.Datatypes <> length def
+R6289:6303 Coq.Arith.PeanoNat Nat pow_succ_r' thm
+R6289:6303 Coq.Arith.PeanoNat Nat pow_succ_r' thm
+R6289:6303 Coq.Arith.PeanoNat Nat pow_succ_r' thm
+R6324:6326 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6327:6330 ModularProofs.Encoding <> BASE def
+R6324:6326 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6327:6330 ModularProofs.Encoding <> BASE def
+R6387:6390 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6383:6385 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6369:6379 ModularProofs.Encoding <> encode_list def
+R6391:6397 Coq.Arith.PeanoNat Nat pow def
+R6399:6402 ModularProofs.Encoding <> BASE def
+R6405:6410 Coq.Init.Datatypes <> length def
+R6387:6390 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6383:6385 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6369:6379 ModularProofs.Encoding <> encode_list def
+R6391:6397 Coq.Arith.PeanoNat Nat pow def
+R6399:6402 ModularProofs.Encoding <> BASE def
+R6405:6410 Coq.Init.Datatypes <> length def
+R6471:6474 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6444:6444 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R6463:6466 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R6459:6461 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6445:6455 ModularProofs.Encoding <> encode_list def
+R6467:6470 ModularProofs.Encoding <> BASE def
+R6499:6501 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R6475:6481 Coq.Arith.PeanoNat Nat pow def
+R6483:6486 ModularProofs.Encoding <> BASE def
+R6489:6494 Coq.Init.Datatypes <> length def
+R6502:6505 ModularProofs.Encoding <> BASE def
+R6471:6474 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6444:6444 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R6463:6466 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R6459:6461 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6445:6455 ModularProofs.Encoding <> encode_list def
+R6467:6470 ModularProofs.Encoding <> BASE def
+R6499:6501 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R6475:6481 Coq.Arith.PeanoNat Nat pow def
+R6483:6486 ModularProofs.Encoding <> BASE def
+R6489:6494 Coq.Init.Datatypes <> length def
+R6502:6505 ModularProofs.Encoding <> BASE def
+R6521:6541 Coq.Arith.PeanoNat Nat mul_le_mono_pos_r thm
+R6551:6558 ModularProofs.Encoding <> BASE_pos thm
+R6521:6541 Coq.Arith.PeanoNat Nat mul_le_mono_pos_r thm
+R6551:6558 ModularProofs.Encoding <> BASE_pos thm
+R6620:6631 Coq.Arith.PeanoNat Nat mul_comm thm
+R6634:6640 Coq.Arith.PeanoNat Nat pow def
+R6642:6645 ModularProofs.Encoding <> BASE def
+R6648:6653 Coq.Init.Datatypes <> length def
+R6660:6663 ModularProofs.Encoding <> BASE def
+R6620:6631 Coq.Arith.PeanoNat Nat mul_comm thm
+R6634:6640 Coq.Arith.PeanoNat Nat pow def
+R6642:6645 ModularProofs.Encoding <> BASE def
+R6648:6653 Coq.Init.Datatypes <> length def
+R6660:6663 ModularProofs.Encoding <> BASE def
+R6620:6631 Coq.Arith.PeanoNat Nat mul_comm thm
+R6634:6640 Coq.Arith.PeanoNat Nat pow def
+R6642:6645 ModularProofs.Encoding <> BASE def
+R6648:6653 Coq.Init.Datatypes <> length def
+R6660:6663 ModularProofs.Encoding <> BASE def
+R6717:6719 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6713:6715 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6706:6708 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R6692:6702 ModularProofs.Encoding <> encode_list def
+R6709:6712 ModularProofs.Encoding <> BASE def
+R6720:6720 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R6739:6742 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R6735:6737 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6721:6731 ModularProofs.Encoding <> encode_list def
+R6743:6746 ModularProofs.Encoding <> BASE def
+R6717:6719 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6713:6715 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6706:6708 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R6692:6702 ModularProofs.Encoding <> encode_list def
+R6709:6712 ModularProofs.Encoding <> BASE def
+R6720:6720 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R6739:6742 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R6735:6737 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6721:6731 ModularProofs.Encoding <> encode_list def
+R6743:6746 ModularProofs.Encoding <> BASE def
+R6764:6782 Coq.Arith.PeanoNat Nat mul_add_distr_r thm
+R6764:6782 Coq.Arith.PeanoNat Nat mul_add_distr_r thm
+R6764:6782 Coq.Arith.PeanoNat Nat mul_add_distr_r thm
+R6799:6809 Coq.Arith.PeanoNat Nat mul_1_l thm
+R6799:6809 Coq.Arith.PeanoNat Nat mul_1_l thm
+R6799:6809 Coq.Arith.PeanoNat Nat mul_1_l thm
+R6824:6840 Coq.Arith.PeanoNat Nat add_lt_mono_l thm
+R6824:6840 Coq.Arith.PeanoNat Nat add_lt_mono_l thm
+R6861:6875 Coq.Arith.PeanoNat Nat lt_le_trans thm
+R6861:6875 Coq.Arith.PeanoNat Nat lt_le_trans thm
+prf 6919:6944 <> encode_list_lt_SHIFT_SMALL
+binder 6955:6956 <> xs:39
+R6973:6978 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6961:6969 ModularProofs.Encoding <> digits_ok def
+R6971:6972 ModularProofs.Encoding <> xs:39 var
+R7001:7006 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6988:6991 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6979:6984 Coq.Init.Datatypes <> length def
+R6986:6987 ModularProofs.Encoding <> xs:39 var
+R6992:7000 ModularProofs.Encoding <> SHIFT_LEN def
+R7021:7023 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R7007:7017 ModularProofs.Encoding <> encode_list def
+R7019:7020 ModularProofs.Encoding <> xs:39 var
+R7024:7034 ModularProofs.Encoding <> SHIFT_SMALL def
+R7079:7089 ModularProofs.Encoding <> SHIFT_SMALL def
+R7101:7141 ModularProofs.EncodingBounds <> encode_list_lt_SHIFT_SMALL thm
+R7216:7232 ModularProofs.Encoding <> encode_list_upper thm
+R7206:7214 ModularProofs.Encoding <> digits_ok def
+R7194:7204 ModularProofs.Encoding <> encode_list def
+R7168:7181 ModularProofs.Encoding <> SHIFT_LEN_ge_1 thm
+R7158:7166 ModularProofs.Encoding <> BASE_ge_2 thm
+R7148:7156 ModularProofs.Encoding <> SHIFT_LEN def
+R7143:7146 ModularProofs.Encoding <> BASE def
+R7101:7141 ModularProofs.EncodingBounds <> encode_list_lt_SHIFT_SMALL thm
+R7216:7232 ModularProofs.Encoding <> encode_list_upper thm
+R7206:7214 ModularProofs.Encoding <> digits_ok def
+R7194:7204 ModularProofs.Encoding <> encode_list def
+R7168:7181 ModularProofs.Encoding <> SHIFT_LEN_ge_1 thm
+R7158:7166 ModularProofs.Encoding <> BASE_ge_2 thm
+R7148:7156 ModularProofs.Encoding <> SHIFT_LEN def
+R7143:7146 ModularProofs.Encoding <> BASE def
+prf 7264:7294 <> encode_list_with_len_all_bounds
+binder 7305:7306 <> xs:40
+R7323:7328 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7311:7319 ModularProofs.Encoding <> digits_ok def
+R7321:7322 ModularProofs.Encoding <> xs:40 var
+R7351:7356 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7338:7341 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7329:7334 Coq.Init.Datatypes <> length def
+R7336:7337 ModularProofs.Encoding <> xs:40 var
+R7342:7350 ModularProofs.Encoding <> SHIFT_LEN def
+R7380:7385 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7366:7368 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R7357:7362 Coq.Init.Datatypes <> length def
+R7364:7365 ModularProofs.Encoding <> xs:40 var
+R7369:7379 ModularProofs.Encoding <> SHIFT_SMALL def
+R7414:7419 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7400:7402 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R7386:7396 ModularProofs.Encoding <> encode_list def
+R7398:7399 ModularProofs.Encoding <> xs:40 var
+R7403:7413 ModularProofs.Encoding <> SHIFT_SMALL def
+R7443:7445 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R7420:7439 ModularProofs.Encoding <> encode_list_with_len def
+R7441:7442 ModularProofs.Encoding <> xs:40 var
+R7446:7454 ModularProofs.Encoding <> SHIFT_BIG def
+R7499:7534 ModularProofs.EncodingBounds <> encode_list_bounds_of thm
+R7612:7628 ModularProofs.Encoding <> encode_list_upper thm
+R7602:7610 ModularProofs.Encoding <> digits_ok def
+R7590:7600 ModularProofs.Encoding <> encode_list def
+R7561:7574 ModularProofs.Encoding <> SHIFT_LEN_ge_1 thm
+R7551:7559 ModularProofs.Encoding <> BASE_ge_2 thm
+R7541:7549 ModularProofs.Encoding <> SHIFT_LEN def
+R7536:7539 ModularProofs.Encoding <> BASE def
+R7499:7534 ModularProofs.EncodingBounds <> encode_list_bounds_of thm
+R7612:7628 ModularProofs.Encoding <> encode_list_upper thm
+R7602:7610 ModularProofs.Encoding <> digits_ok def
+R7590:7600 ModularProofs.Encoding <> encode_list def
+R7561:7574 ModularProofs.Encoding <> SHIFT_LEN_ge_1 thm
+R7551:7559 ModularProofs.Encoding <> BASE_ge_2 thm
+R7541:7549 ModularProofs.Encoding <> SHIFT_LEN def
+R7536:7539 ModularProofs.Encoding <> BASE def
+R7764:7783 ModularProofs.Encoding <> encode_list_with_len def
+prf 7820:7846 <> encode_decode_list_with_len
+binder 7857:7858 <> xs:41
+R7875:7880 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7863:7871 ModularProofs.Encoding <> digits_ok def
+R7873:7874 ModularProofs.Encoding <> xs:41 var
+R7903:7908 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7890:7893 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7881:7886 Coq.Init.Datatypes <> length def
+R7888:7889 ModularProofs.Encoding <> xs:41 var
+R7894:7902 ModularProofs.Encoding <> SHIFT_LEN def
+R7955:7957 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7909:7928 ModularProofs.Encoding <> decode_list_with_len def
+R7931:7950 ModularProofs.Encoding <> encode_list_with_len def
+R7952:7953 ModularProofs.Encoding <> xs:41 var
+R7958:7959 ModularProofs.Encoding <> xs:41 var
+R8001:8020 ModularProofs.Encoding <> decode_list_with_len def
+R8023:8042 ModularProofs.Encoding <> encode_list_with_len def
+R8057:8092 ModularProofs.EncodingBounds <> encode_list_bounds_of thm
+R8170:8186 ModularProofs.Encoding <> encode_list_upper thm
+R8160:8168 ModularProofs.Encoding <> digits_ok def
+R8148:8158 ModularProofs.Encoding <> encode_list def
+R8119:8132 ModularProofs.Encoding <> SHIFT_LEN_ge_1 thm
+R8109:8117 ModularProofs.Encoding <> BASE_ge_2 thm
+R8099:8107 ModularProofs.Encoding <> SHIFT_LEN def
+R8094:8097 ModularProofs.Encoding <> BASE def
+R8057:8092 ModularProofs.EncodingBounds <> encode_list_bounds_of thm
+R8170:8186 ModularProofs.Encoding <> encode_list_upper thm
+R8160:8168 ModularProofs.Encoding <> digits_ok def
+R8148:8158 ModularProofs.Encoding <> encode_list def
+R8119:8132 ModularProofs.Encoding <> SHIFT_LEN_ge_1 thm
+R8109:8117 ModularProofs.Encoding <> BASE_ge_2 thm
+R8099:8107 ModularProofs.Encoding <> SHIFT_LEN def
+R8094:8097 ModularProofs.Encoding <> BASE def
+R8257:8276 ModularProofs.Encoding <> pair_small_roundtrip thm
+R8279:8284 Coq.Init.Datatypes <> length def
+R8291:8301 ModularProofs.Encoding <> encode_list def
+R8257:8276 ModularProofs.Encoding <> pair_small_roundtrip thm
+R8279:8284 Coq.Init.Datatypes <> length def
+R8291:8301 ModularProofs.Encoding <> encode_list def
+R8257:8276 ModularProofs.Encoding <> pair_small_roundtrip thm
+R8279:8284 Coq.Init.Datatypes <> length def
+R8291:8301 ModularProofs.Encoding <> encode_list def
+R8257:8276 ModularProofs.Encoding <> pair_small_roundtrip thm
+R8279:8284 Coq.Init.Datatypes <> length def
+R8291:8301 ModularProofs.Encoding <> encode_list def
+R8319:8340 ModularProofs.Encoding <> encode_list_decode_aux thm
+R8319:8340 ModularProofs.Encoding <> encode_list_decode_aux thm
+prf 8390:8409 <> encode_decode_config
+binder 8420:8420 <> q:42
+binder 8422:8425 <> tape:43
+binder 8427:8430 <> head:44
+R8449:8454 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8435:8443 ModularProofs.Encoding <> digits_ok def
+R8445:8448 ModularProofs.Encoding <> tape:43 var
+R8479:8484 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8466:8469 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8455:8460 Coq.Init.Datatypes <> length def
+R8462:8465 ModularProofs.Encoding <> tape:43 var
+R8470:8478 ModularProofs.Encoding <> SHIFT_LEN def
+R8501:8506 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8489:8491 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R8485:8488 ModularProofs.Encoding <> head:44 var
+R8492:8500 ModularProofs.Encoding <> SHIFT_BIG def
+R8548:8550 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8507:8519 ModularProofs.Encoding <> decode_config def
+R8522:8534 ModularProofs.Encoding <> encode_config def
+R8536:8536 ModularProofs.Encoding <> q:42 var
+R8538:8541 ModularProofs.Encoding <> tape:43 var
+R8543:8546 ModularProofs.Encoding <> head:44 var
+R8551:8551 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8553:8554 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8559:8560 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8565:8565 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8552:8552 ModularProofs.Encoding <> q:42 var
+R8555:8558 ModularProofs.Encoding <> tape:43 var
+R8561:8564 ModularProofs.Encoding <> head:44 var
+R8622:8634 ModularProofs.Encoding <> decode_config def
+R8637:8649 ModularProofs.Encoding <> encode_config def
+R8666:8701 ModularProofs.EncodingBounds <> encode_list_bounds_of thm
+R8781:8797 ModularProofs.Encoding <> encode_list_upper thm
+R8771:8779 ModularProofs.Encoding <> digits_ok def
+R8759:8769 ModularProofs.Encoding <> encode_list def
+R8728:8741 ModularProofs.Encoding <> SHIFT_LEN_ge_1 thm
+R8718:8726 ModularProofs.Encoding <> BASE_ge_2 thm
+R8708:8716 ModularProofs.Encoding <> SHIFT_LEN def
+R8703:8706 ModularProofs.Encoding <> BASE def
+R8666:8701 ModularProofs.EncodingBounds <> encode_list_bounds_of thm
+R8781:8797 ModularProofs.Encoding <> encode_list_upper thm
+R8771:8779 ModularProofs.Encoding <> digits_ok def
+R8759:8769 ModularProofs.Encoding <> encode_list def
+R8728:8741 ModularProofs.Encoding <> SHIFT_LEN_ge_1 thm
+R8718:8726 ModularProofs.Encoding <> BASE_ge_2 thm
+R8708:8716 ModularProofs.Encoding <> SHIFT_LEN def
+R8703:8706 ModularProofs.Encoding <> BASE def
+R8870:8885 ModularProofs.Encoding <> triple_roundtrip thm
+R8895:8914 ModularProofs.Encoding <> encode_list_with_len def
+R8870:8885 ModularProofs.Encoding <> triple_roundtrip thm
+R8895:8914 ModularProofs.Encoding <> encode_list_with_len def
+R8870:8885 ModularProofs.Encoding <> triple_roundtrip thm
+R8895:8914 ModularProofs.Encoding <> encode_list_with_len def
+R8870:8885 ModularProofs.Encoding <> triple_roundtrip thm
+R8895:8914 ModularProofs.Encoding <> encode_list_with_len def
+R8870:8885 ModularProofs.Encoding <> triple_roundtrip thm
+R8895:8914 ModularProofs.Encoding <> encode_list_with_len def
+R8937:8956 ModularProofs.Encoding <> encode_list_with_len def
+R8979:8998 ModularProofs.Encoding <> pair_small_roundtrip thm
+R9001:9006 Coq.Init.Datatypes <> length def
+R9015:9025 ModularProofs.Encoding <> encode_list def
+R8979:8998 ModularProofs.Encoding <> pair_small_roundtrip thm
+R9001:9006 Coq.Init.Datatypes <> length def
+R9015:9025 ModularProofs.Encoding <> encode_list def
+R8979:8998 ModularProofs.Encoding <> pair_small_roundtrip thm
+R9001:9006 Coq.Init.Datatypes <> length def
+R9015:9025 ModularProofs.Encoding <> encode_list def
+R8979:8998 ModularProofs.Encoding <> pair_small_roundtrip thm
+R9001:9006 Coq.Init.Datatypes <> length def
+R9015:9025 ModularProofs.Encoding <> encode_list def
+R9062:9069 Coq.Init.Logic <> f_equal2 thm
+R9062:9069 Coq.Init.Logic <> f_equal2 thm
+R9102:9109 Coq.Init.Logic <> f_equal2 thm
+R9102:9109 Coq.Init.Logic <> f_equal2 thm
+R9142:9163 ModularProofs.Encoding <> encode_list_decode_aux thm
+R9142:9163 ModularProofs.Encoding <> encode_list_decode_aux thm
+R9233:9252 ModularProofs.Encoding <> encode_list_with_len def

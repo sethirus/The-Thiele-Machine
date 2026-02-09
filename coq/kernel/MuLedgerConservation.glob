@@ -1,0 +1,868 @@
+DIGEST d5ac5ff51c4b963fabbb6b74e3847666
+FKernel.MuLedgerConservation
+R24:27 Coq.Lists.List <> <> lib
+R29:42 Coq.Arith.PeanoNat <> <> lib
+R44:46 Coq.micromega.Lia <> <> lib
+R56:68 Coq.Lists.List ListNotations <> mod
+R87:93 Kernel.VMState <> <> lib
+R111:116 Kernel.VMStep <> <> lib
+R134:148 Kernel.SimulationProof <> <> lib
+def 1679:1692 <> ledger_entries
+R1702:1704 Coq.Init.Datatypes <> nat ind
+binder 1695:1698 <> fuel:1
+R1716:1719 Coq.Init.Datatypes <> list ind
+R1721:1734 Kernel.VMStep VMStep vm_instruction ind
+binder 1708:1712 <> trace:2
+R1744:1750 Kernel.VMState <> VMState rec
+binder 1740:1740 <> s:3
+R1755:1758 Coq.Init.Datatypes <> list ind
+R1760:1762 Coq.Init.Datatypes <> nat ind
+R1775:1778 Kernel.MuLedgerConservation <> fuel:1 var
+R1794:1795 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1801:1801 Coq.Init.Datatypes <> S constr
+R1824:1832 Coq.Lists.List <> nth_error def
+R1843:1847 Kernel.VMState <> vm_pc proj
+R1840:1840 Kernel.MuLedgerConservation <> s:3 var
+R1834:1838 Kernel.MuLedgerConservation <> trace:2 var
+R1863:1866 Coq.Init.Datatypes <> Some constr
+R1909:1922 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1887:1902 Kernel.VMStep VMStep instruction_cost def
+R1923:1936 Kernel.MuLedgerConservation <> ledger_entries:4 def
+R1951:1958 Kernel.SimulationProof <> vm_apply def
+R1960:1960 Kernel.MuLedgerConservation <> s:3 var
+R1944:1948 Kernel.MuLedgerConservation <> trace:2 var
+R1977:1980 Coq.Init.Datatypes <> None constr
+R1985:1986 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+def 2015:2025 <> bounded_run
+R2035:2037 Coq.Init.Datatypes <> nat ind
+binder 2028:2031 <> fuel:6
+R2049:2052 Coq.Init.Datatypes <> list ind
+R2054:2067 Kernel.VMStep VMStep vm_instruction ind
+binder 2041:2045 <> trace:7
+R2077:2083 Kernel.VMState <> VMState rec
+binder 2073:2073 <> s:8
+R2088:2091 Coq.Init.Datatypes <> list ind
+R2093:2099 Kernel.VMState <> VMState rec
+R2112:2115 Kernel.MuLedgerConservation <> fuel:6 var
+R2131:2131 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2133:2133 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2132:2132 Kernel.MuLedgerConservation <> s:8 var
+R2139:2139 Coq.Init.Datatypes <> S constr
+R2162:2170 Coq.Lists.List <> nth_error def
+R2181:2185 Kernel.VMState <> vm_pc proj
+R2178:2178 Kernel.MuLedgerConservation <> s:8 var
+R2172:2176 Kernel.MuLedgerConservation <> trace:7 var
+R2201:2204 Coq.Init.Datatypes <> Some constr
+R2226:2229 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2225:2225 Kernel.MuLedgerConservation <> s:8 var
+R2230:2240 Kernel.MuLedgerConservation <> bounded_run:9 def
+R2255:2262 Kernel.SimulationProof <> vm_apply def
+R2264:2264 Kernel.MuLedgerConservation <> s:8 var
+R2248:2252 Kernel.MuLedgerConservation <> trace:7 var
+R2281:2284 Coq.Init.Datatypes <> None constr
+R2289:2289 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2291:2291 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2290:2290 Kernel.MuLedgerConservation <> s:8 var
+prf 2317:2332 <> bounded_run_head
+binder 2345:2348 <> fuel:11
+binder 2350:2354 <> trace:12
+binder 2356:2356 <> s:13
+R2363:2369 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2374:2375 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2370:2373 <> rest:14
+R2400:2402 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2376:2386 Kernel.MuLedgerConservation <> bounded_run def
+R2388:2391 Kernel.MuLedgerConservation <> fuel:11 var
+R2393:2397 Kernel.MuLedgerConservation <> trace:12 var
+R2399:2399 Kernel.MuLedgerConservation <> s:13 var
+R2404:2407 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2403:2403 Kernel.MuLedgerConservation <> s:13 var
+R2408:2411 Kernel.MuLedgerConservation <> rest:14 var
+R2487:2488 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2487:2488 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2518:2526 Coq.Lists.List <> nth_error def
+R2537:2541 Kernel.VMState <> vm_pc proj
+R2518:2526 Coq.Lists.List <> nth_error def
+R2537:2541 Kernel.VMState <> vm_pc proj
+R2584:2594 Kernel.MuLedgerConservation <> bounded_run def
+R2608:2615 Kernel.SimulationProof <> vm_apply def
+R2584:2594 Kernel.MuLedgerConservation <> bounded_run def
+R2608:2615 Kernel.SimulationProof <> vm_apply def
+R2654:2655 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2654:2655 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+prf 3861:3871 <> vm_apply_mu
+binder 3884:3884 <> s:15
+binder 3886:3890 <> instr:16
+R3923:3925 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3917:3921 Kernel.VMState <> vm_mu proj
+R3898:3905 Kernel.SimulationProof <> vm_apply def
+R3907:3907 Kernel.MuLedgerConservation <> s:15 var
+R3909:3913 Kernel.MuLedgerConservation <> instr:16 var
+R3935:3937 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3929:3933 Kernel.VMState <> vm_mu proj
+R3926:3926 Kernel.MuLedgerConservation <> s:15 var
+R3938:3953 Kernel.VMStep VMStep instruction_cost def
+R3955:3959 Kernel.MuLedgerConservation <> instr:16 var
+R4031:4040 Kernel.VMState <> graph_pnew def
+R4110:4121 Kernel.VMState <> graph_psplit def
+R4213:4224 Kernel.VMState <> graph_pmerge def
+R4356:4365 Kernel.VMStep VMStep check_lrat def
+R4428:4438 Kernel.VMStep VMStep check_model def
+R4503:4512 Coq.Strings.String <> eqb def
+R4031:4040 Kernel.VMState <> graph_pnew def
+R4031:4040 Kernel.VMState <> graph_pnew def
+R4031:4040 Kernel.VMState <> graph_pnew def
+R4031:4040 Kernel.VMState <> graph_pnew def
+R4031:4040 Kernel.VMState <> graph_pnew def
+R4031:4040 Kernel.VMState <> graph_pnew def
+R4031:4040 Kernel.VMState <> graph_pnew def
+R4031:4040 Kernel.VMState <> graph_pnew def
+R4031:4040 Kernel.VMState <> graph_pnew def
+R4031:4040 Kernel.VMState <> graph_pnew def
+R4031:4040 Kernel.VMState <> graph_pnew def
+R4031:4040 Kernel.VMState <> graph_pnew def
+R4031:4040 Kernel.VMState <> graph_pnew def
+R4031:4040 Kernel.VMState <> graph_pnew def
+R4031:4040 Kernel.VMState <> graph_pnew def
+R4031:4040 Kernel.VMState <> graph_pnew def
+R4031:4040 Kernel.VMState <> graph_pnew def
+R4031:4040 Kernel.VMState <> graph_pnew def
+R4110:4121 Kernel.VMState <> graph_psplit def
+R4110:4121 Kernel.VMState <> graph_psplit def
+R4110:4121 Kernel.VMState <> graph_psplit def
+R4110:4121 Kernel.VMState <> graph_psplit def
+R4110:4121 Kernel.VMState <> graph_psplit def
+R4110:4121 Kernel.VMState <> graph_psplit def
+R4110:4121 Kernel.VMState <> graph_psplit def
+R4110:4121 Kernel.VMState <> graph_psplit def
+R4110:4121 Kernel.VMState <> graph_psplit def
+R4110:4121 Kernel.VMState <> graph_psplit def
+R4110:4121 Kernel.VMState <> graph_psplit def
+R4110:4121 Kernel.VMState <> graph_psplit def
+R4110:4121 Kernel.VMState <> graph_psplit def
+R4110:4121 Kernel.VMState <> graph_psplit def
+R4110:4121 Kernel.VMState <> graph_psplit def
+R4110:4121 Kernel.VMState <> graph_psplit def
+R4110:4121 Kernel.VMState <> graph_psplit def
+R4213:4224 Kernel.VMState <> graph_pmerge def
+R4213:4224 Kernel.VMState <> graph_pmerge def
+R4213:4224 Kernel.VMState <> graph_pmerge def
+R4213:4224 Kernel.VMState <> graph_pmerge def
+R4213:4224 Kernel.VMState <> graph_pmerge def
+R4213:4224 Kernel.VMState <> graph_pmerge def
+R4213:4224 Kernel.VMState <> graph_pmerge def
+R4213:4224 Kernel.VMState <> graph_pmerge def
+R4213:4224 Kernel.VMState <> graph_pmerge def
+R4213:4224 Kernel.VMState <> graph_pmerge def
+R4213:4224 Kernel.VMState <> graph_pmerge def
+R4213:4224 Kernel.VMState <> graph_pmerge def
+R4213:4224 Kernel.VMState <> graph_pmerge def
+R4213:4224 Kernel.VMState <> graph_pmerge def
+R4213:4224 Kernel.VMState <> graph_pmerge def
+R4213:4224 Kernel.VMState <> graph_pmerge def
+R4356:4365 Kernel.VMStep VMStep check_lrat def
+R4428:4438 Kernel.VMStep VMStep check_model def
+R4356:4365 Kernel.VMStep VMStep check_lrat def
+R4503:4512 Coq.Strings.String <> eqb def
+R4503:4512 Coq.Strings.String <> eqb def
+R4503:4512 Coq.Strings.String <> eqb def
+R4503:4512 Coq.Strings.String <> eqb def
+R4503:4512 Coq.Strings.String <> eqb def
+R4503:4512 Coq.Strings.String <> eqb def
+R4503:4512 Coq.Strings.String <> eqb def
+R4503:4512 Coq.Strings.String <> eqb def
+R4503:4512 Coq.Strings.String <> eqb def
+R4503:4512 Coq.Strings.String <> eqb def
+R4503:4512 Coq.Strings.String <> eqb def
+R4503:4512 Coq.Strings.String <> eqb def
+R4503:4512 Coq.Strings.String <> eqb def
+R4503:4512 Coq.Strings.String <> eqb def
+R4598:4605 Kernel.SimulationProof <> vm_apply def
+R4629:4640 Kernel.VMStep VMStep chsh_bits_ok def
+R4682:4694 Kernel.VMStep VMStep advance_state def
+R4697:4706 Kernel.VMStep VMStep apply_cost def
+R4629:4640 Kernel.VMStep VMStep chsh_bits_ok def
+def 4744:4759 <> ledger_conserved
+R4771:4774 Coq.Init.Datatypes <> list ind
+R4776:4782 Kernel.VMState <> VMState rec
+binder 4762:4767 <> states:17
+R4796:4799 Coq.Init.Datatypes <> list ind
+R4801:4803 Coq.Init.Datatypes <> nat ind
+binder 4786:4792 <> entries:18
+R4834:4840 Kernel.MuLedgerConservation <> entries:18 var
+R4826:4831 Kernel.MuLedgerConservation <> states:17 var
+R4852:4855 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4858:4861 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4873:4876 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4925:4934 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4905:4907 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4899:4903 Kernel.VMState <> vm_mu proj
+R4917:4919 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4911:4915 Kernel.VMState <> vm_mu proj
+R4935:4950 Kernel.MuLedgerConservation <> ledger_conserved:19 def
+R4955:4958 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4978:4978 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4980:4980 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4983:4984 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4989:4992 Coq.Init.Logic <> True ind
+R5006:5010 Coq.Init.Logic <> False ind
+prf 5026:5046 <> ledger_conserved_tail
+binder 5059:5059 <> s:22
+binder 5061:5066 <> states:23
+binder 5068:5074 <> entries:24
+R5119:5126 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5081:5096 Kernel.MuLedgerConservation <> ledger_conserved def
+R5100:5103 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5099:5099 Kernel.MuLedgerConservation <> s:22 var
+R5104:5109 Kernel.MuLedgerConservation <> states:23 var
+R5112:5118 Kernel.MuLedgerConservation <> entries:24 var
+R5141:5147 Kernel.MuLedgerConservation <> entries:24 var
+R5133:5138 Kernel.MuLedgerConservation <> states:23 var
+R5162:5165 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5184:5187 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5242:5253 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5222:5224 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5216:5220 Kernel.VMState <> vm_mu proj
+R5234:5236 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5228:5232 Kernel.VMState <> vm_mu proj
+R5225:5225 Kernel.MuLedgerConservation <> s:22 var
+R5254:5269 Kernel.MuLedgerConservation <> ledger_conserved def
+R5274:5277 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5310:5311 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5314:5315 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5320:5323 Coq.Init.Logic <> True ind
+R5339:5343 Coq.Init.Logic <> False ind
+R5494:5494 Coq.Init.Logic <> I constr
+R5494:5494 Coq.Init.Logic <> I constr
+prf 6050:6075 <> vm_step_respects_mu_ledger
+binder 6088:6088 <> s:27
+binder 6090:6094 <> instr:28
+binder 6096:6097 <> s':29
+R6122:6129 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6104:6110 Kernel.VMStep VMStep vm_step ind
+R6112:6112 Kernel.MuLedgerConservation <> s:27 var
+R6114:6118 Kernel.MuLedgerConservation <> instr:28 var
+R6120:6121 Kernel.MuLedgerConservation <> s':29 var
+R6130:6145 Kernel.MuLedgerConservation <> ledger_conserved def
+R6147:6147 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6149:6150 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6153:6153 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6148:6148 Kernel.MuLedgerConservation <> s:27 var
+R6151:6152 Kernel.MuLedgerConservation <> s':29 var
+R6155:6155 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R6178:6178 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R6156:6171 Kernel.VMStep VMStep instruction_cost def
+R6173:6177 Kernel.MuLedgerConservation <> instr:28 var
+R6247:6256 Kernel.SimulationProof <> vm_step_mu thm
+R6247:6256 Kernel.SimulationProof <> vm_step_mu thm
+R6269:6269 Coq.Init.Logic <> I constr
+R6269:6269 Coq.Init.Logic <> I constr
+def 6287:6296 <> ledger_sum
+R6309:6312 Coq.Init.Datatypes <> list ind
+R6314:6316 Coq.Init.Datatypes <> nat ind
+binder 6299:6305 <> entries:30
+R6321:6323 Coq.Init.Datatypes <> nat ind
+R6336:6342 Kernel.MuLedgerConservation <> entries:30 var
+R6353:6354 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6370:6373 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6387:6389 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6390:6399 Kernel.MuLedgerConservation <> ledger_sum:31 def
+def 6955:6971 <> irreversible_bits
+R6982:6995 Kernel.VMStep VMStep vm_instruction ind
+binder 6974:6978 <> instr:33
+R7000:7002 Coq.Init.Datatypes <> nat ind
+R7034:7037 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R7012:7027 Kernel.VMStep VMStep instruction_cost def
+R7029:7033 Kernel.MuLedgerConservation <> instr:33 var
+prf 7062:7086 <> irreversible_bits_le_cost
+binder 7099:7103 <> instr:34
+R7129:7132 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7106:7122 Kernel.MuLedgerConservation <> irreversible_bits def
+R7124:7128 Kernel.MuLedgerConservation <> instr:34 var
+R7133:7148 Kernel.VMStep VMStep instruction_cost def
+R7150:7154 Kernel.MuLedgerConservation <> instr:34 var
+R7187:7203 Kernel.MuLedgerConservation <> irreversible_bits def
+R7240:7243 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R7218:7233 Kernel.VMStep VMStep instruction_cost def
+R7240:7243 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R7218:7233 Kernel.VMStep VMStep instruction_cost def
+R7275:7284 Coq.Arith.PeanoNat Nat eqb_eq thm
+R7275:7284 Coq.Arith.PeanoNat Nat eqb_eq thm
+R7318:7328 Coq.Arith.PeanoNat Nat eqb_neq thm
+R7318:7328 Coq.Arith.PeanoNat Nat eqb_neq thm
+def 7360:7377 <> irreversible_count
+R7387:7389 Coq.Init.Datatypes <> nat ind
+binder 7380:7383 <> fuel:35
+R7401:7404 Coq.Init.Datatypes <> list ind
+R7406:7419 Kernel.VMStep VMStep vm_instruction ind
+binder 7393:7397 <> trace:36
+R7429:7435 Kernel.VMState <> VMState rec
+binder 7425:7425 <> s:37
+R7440:7442 Coq.Init.Datatypes <> nat ind
+R7455:7458 Kernel.MuLedgerConservation <> fuel:35 var
+R7480:7480 Coq.Init.Datatypes <> S constr
+R7503:7511 Coq.Lists.List <> nth_error def
+R7522:7526 Kernel.VMState <> vm_pc proj
+R7519:7519 Kernel.MuLedgerConservation <> s:37 var
+R7513:7517 Kernel.MuLedgerConservation <> trace:36 var
+R7542:7545 Coq.Init.Datatypes <> Some constr
+R7589:7601 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7566:7582 Kernel.MuLedgerConservation <> irreversible_bits def
+R7602:7619 Kernel.MuLedgerConservation <> irreversible_count:38 def
+R7634:7641 Kernel.SimulationProof <> vm_apply def
+R7643:7643 Kernel.MuLedgerConservation <> s:37 var
+R7627:7631 Kernel.MuLedgerConservation <> trace:36 var
+R7660:7663 Coq.Init.Datatypes <> None constr
+prf 7694:7729 <> ledger_sum_bounds_irreversible_count
+binder 7742:7745 <> fuel:40
+binder 7747:7751 <> trace:41
+binder 7753:7753 <> s:42
+R7791:7794 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7760:7777 Kernel.MuLedgerConservation <> irreversible_count def
+R7779:7782 Kernel.MuLedgerConservation <> fuel:40 var
+R7784:7788 Kernel.MuLedgerConservation <> trace:41 var
+R7790:7790 Kernel.MuLedgerConservation <> s:42 var
+R7795:7804 Kernel.MuLedgerConservation <> ledger_sum def
+R7807:7820 Kernel.MuLedgerConservation <> ledger_entries def
+R7822:7825 Kernel.MuLedgerConservation <> fuel:40 var
+R7827:7831 Kernel.MuLedgerConservation <> trace:41 var
+R7833:7833 Kernel.MuLedgerConservation <> s:42 var
+R7922:7930 Coq.Lists.List <> nth_error def
+R7941:7945 Kernel.VMState <> vm_pc proj
+R7922:7930 Coq.Lists.List <> nth_error def
+R7941:7945 Kernel.VMState <> vm_pc proj
+R8009:8016 Kernel.SimulationProof <> vm_apply def
+R8009:8016 Kernel.SimulationProof <> vm_apply def
+R8047:8071 Kernel.MuLedgerConservation <> irreversible_bits_le_cost thm
+R8047:8071 Kernel.MuLedgerConservation <> irreversible_bits_le_cost thm
+prf 8377:8412 <> mu_ledger_bounds_irreversible_events
+binder 8425:8428 <> fuel:43
+binder 8430:8434 <> trace:44
+binder 8436:8436 <> s:45
+R8474:8477 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8443:8460 Kernel.MuLedgerConservation <> irreversible_count def
+R8462:8465 Kernel.MuLedgerConservation <> fuel:43 var
+R8467:8471 Kernel.MuLedgerConservation <> trace:44 var
+R8473:8473 Kernel.MuLedgerConservation <> s:45 var
+R8478:8487 Kernel.MuLedgerConservation <> ledger_sum def
+R8490:8503 Kernel.MuLedgerConservation <> ledger_entries def
+R8505:8508 Kernel.MuLedgerConservation <> fuel:43 var
+R8510:8514 Kernel.MuLedgerConservation <> trace:44 var
+R8516:8516 Kernel.MuLedgerConservation <> s:45 var
+R8535:8570 Kernel.MuLedgerConservation <> ledger_sum_bounds_irreversible_count thm
+R8535:8570 Kernel.MuLedgerConservation <> ledger_sum_bounds_irreversible_count thm
+def 8881:8900 <> ledger_component_sum
+R8929:8932 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8915:8928 Kernel.VMStep VMStep vm_instruction ind
+R8933:8935 Coq.Init.Datatypes <> nat ind
+binder 8903:8911 <> component:46
+R8948:8950 Coq.Init.Datatypes <> nat ind
+binder 8941:8944 <> fuel:47
+R8962:8965 Coq.Init.Datatypes <> list ind
+R8967:8980 Kernel.VMStep VMStep vm_instruction ind
+binder 8954:8958 <> trace:48
+R8988:8994 Kernel.VMState <> VMState rec
+binder 8984:8984 <> s:49
+R8999:9001 Coq.Init.Datatypes <> nat ind
+R9014:9017 Kernel.MuLedgerConservation <> fuel:47 var
+R9039:9039 Coq.Init.Datatypes <> S constr
+R9062:9070 Coq.Lists.List <> nth_error def
+R9081:9085 Kernel.VMState <> vm_pc proj
+R9078:9078 Kernel.MuLedgerConservation <> s:49 var
+R9072:9076 Kernel.MuLedgerConservation <> trace:48 var
+R9101:9104 Coq.Init.Datatypes <> Some constr
+R9140:9152 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9125:9133 Kernel.MuLedgerConservation <> component:46 var
+R9153:9172 Kernel.MuLedgerConservation <> ledger_component_sum:50 def
+R9197:9204 Kernel.SimulationProof <> vm_apply def
+R9206:9206 Kernel.MuLedgerConservation <> s:49 var
+R9190:9194 Kernel.MuLedgerConservation <> trace:48 var
+R9174:9182 Kernel.MuLedgerConservation <> component:46 var
+R9223:9226 Coq.Init.Datatypes <> None constr
+prf 9353:9388 <> bounded_model_mu_ledger_conservation
+binder 9401:9404 <> fuel:52
+binder 9406:9410 <> trace:53
+binder 9412:9412 <> s:54
+R9513:9518 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9419:9434 Kernel.MuLedgerConservation <> ledger_conserved def
+R9437:9447 Kernel.MuLedgerConservation <> bounded_run def
+R9449:9452 Kernel.MuLedgerConservation <> fuel:52 var
+R9454:9458 Kernel.MuLedgerConservation <> trace:53 var
+R9460:9460 Kernel.MuLedgerConservation <> s:54 var
+R9485:9498 Kernel.MuLedgerConservation <> ledger_entries def
+R9500:9503 Kernel.MuLedgerConservation <> fuel:52 var
+R9505:9509 Kernel.MuLedgerConservation <> trace:53 var
+R9511:9511 Kernel.MuLedgerConservation <> s:54 var
+R9548:9554 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9542:9546 Kernel.VMState <> vm_mu proj
+R9520:9525 Kernel.SimulationProof <> run_vm def
+R9527:9530 Kernel.MuLedgerConservation <> fuel:52 var
+R9532:9536 Kernel.MuLedgerConservation <> trace:53 var
+R9538:9538 Kernel.MuLedgerConservation <> s:54 var
+R9564:9566 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9558:9562 Kernel.VMState <> vm_mu proj
+R9555:9555 Kernel.MuLedgerConservation <> s:54 var
+R9567:9576 Kernel.MuLedgerConservation <> ledger_sum def
+R9579:9592 Kernel.MuLedgerConservation <> ledger_entries def
+R9594:9597 Kernel.MuLedgerConservation <> fuel:52 var
+R9599:9603 Kernel.MuLedgerConservation <> trace:53 var
+R9605:9605 Kernel.MuLedgerConservation <> s:54 var
+R9689:9689 Coq.Init.Logic <> I constr
+R9701:9711 Coq.Arith.PeanoNat Nat add_0_r thm
+R9689:9689 Coq.Init.Logic <> I constr
+R9701:9711 Coq.Arith.PeanoNat Nat add_0_r thm
+R9701:9711 Coq.Arith.PeanoNat Nat add_0_r thm
+R9742:9750 Coq.Lists.List <> nth_error def
+R9761:9765 Kernel.VMState <> vm_pc proj
+R9742:9750 Coq.Lists.List <> nth_error def
+R9761:9765 Kernel.VMState <> vm_pc proj
+R9827:9834 Kernel.SimulationProof <> vm_apply def
+R9827:9834 Kernel.SimulationProof <> vm_apply def
+R9885:9900 Kernel.MuLedgerConservation <> bounded_run_head thm
+R9914:9921 Kernel.SimulationProof <> vm_apply def
+R9885:9900 Kernel.MuLedgerConservation <> bounded_run_head thm
+R9914:9921 Kernel.SimulationProof <> vm_apply def
+R10043:10053 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R10112:10122 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R10043:10053 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R10112:10122 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R10112:10122 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R10151:10151 Coq.Init.Logic <> I constr
+R10163:10173 Coq.Arith.PeanoNat Nat add_0_r thm
+R10151:10151 Coq.Init.Logic <> I constr
+R10163:10173 Coq.Arith.PeanoNat Nat add_0_r thm
+R10163:10173 Coq.Arith.PeanoNat Nat add_0_r thm
+prf 10206:10232 <> bounded_ledger_conservation
+binder 10245:10248 <> fuel:55
+binder 10250:10254 <> trace:56
+binder 10256:10256 <> s:57
+R10263:10278 Kernel.MuLedgerConservation <> ledger_conserved def
+R10281:10291 Kernel.MuLedgerConservation <> bounded_run def
+R10293:10296 Kernel.MuLedgerConservation <> fuel:55 var
+R10298:10302 Kernel.MuLedgerConservation <> trace:56 var
+R10304:10304 Kernel.MuLedgerConservation <> s:57 var
+R10329:10342 Kernel.MuLedgerConservation <> ledger_entries def
+R10344:10347 Kernel.MuLedgerConservation <> fuel:55 var
+R10349:10353 Kernel.MuLedgerConservation <> trace:56 var
+R10355:10355 Kernel.MuLedgerConservation <> s:57 var
+R10398:10402 Coq.Init.Logic <> proj1 thm
+R10405:10440 Kernel.MuLedgerConservation <> bounded_model_mu_ledger_conservation thm
+R10398:10402 Coq.Init.Logic <> proj1 thm
+R10405:10440 Kernel.MuLedgerConservation <> bounded_model_mu_ledger_conservation thm
+prf 10474:10495 <> run_vm_mu_conservation
+binder 10508:10511 <> fuel:58
+binder 10513:10517 <> trace:59
+binder 10519:10519 <> s:60
+R10555:10561 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10549:10553 Kernel.VMState <> vm_mu proj
+R10527:10532 Kernel.SimulationProof <> run_vm def
+R10534:10537 Kernel.MuLedgerConservation <> fuel:58 var
+R10539:10543 Kernel.MuLedgerConservation <> trace:59 var
+R10545:10545 Kernel.MuLedgerConservation <> s:60 var
+R10571:10573 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10565:10569 Kernel.VMState <> vm_mu proj
+R10562:10562 Kernel.MuLedgerConservation <> s:60 var
+R10574:10583 Kernel.MuLedgerConservation <> ledger_sum def
+R10586:10599 Kernel.MuLedgerConservation <> ledger_entries def
+R10601:10604 Kernel.MuLedgerConservation <> fuel:58 var
+R10606:10610 Kernel.MuLedgerConservation <> trace:59 var
+R10612:10612 Kernel.MuLedgerConservation <> s:60 var
+R10655:10659 Coq.Init.Logic <> proj2 thm
+R10662:10697 Kernel.MuLedgerConservation <> bounded_model_mu_ledger_conservation thm
+R10655:10659 Coq.Init.Logic <> proj2 thm
+R10662:10697 Kernel.MuLedgerConservation <> bounded_model_mu_ledger_conservation thm
+prf 10731:10762 <> run_vm_mu_bounds_irreversibility
+binder 10775:10778 <> fuel:61
+binder 10780:10784 <> trace:62
+binder 10786:10786 <> s:63
+R10836:10839 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R10802:10804 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10796:10800 Kernel.VMState <> vm_mu proj
+R10793:10793 Kernel.MuLedgerConservation <> s:63 var
+R10805:10822 Kernel.MuLedgerConservation <> irreversible_count def
+R10824:10827 Kernel.MuLedgerConservation <> fuel:61 var
+R10829:10833 Kernel.MuLedgerConservation <> trace:62 var
+R10835:10835 Kernel.MuLedgerConservation <> s:63 var
+R10863:10867 Kernel.VMState <> vm_mu proj
+R10841:10846 Kernel.SimulationProof <> run_vm def
+R10848:10851 Kernel.MuLedgerConservation <> fuel:61 var
+R10853:10857 Kernel.MuLedgerConservation <> trace:62 var
+R10859:10859 Kernel.MuLedgerConservation <> s:63 var
+R10911:10932 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
+R10911:10932 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
+R10911:10932 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
+R10949:10984 Kernel.MuLedgerConservation <> ledger_sum_bounds_irreversible_count thm
+R10949:10984 Kernel.MuLedgerConservation <> ledger_sum_bounds_irreversible_count thm
+prf 11300:11325 <> run_vm_irreversibility_gap
+binder 11338:11341 <> fuel:64
+binder 11343:11347 <> trace:65
+binder 11349:11349 <> s:66
+R11387:11396 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11356:11373 Kernel.MuLedgerConservation <> irreversible_count def
+R11375:11378 Kernel.MuLedgerConservation <> fuel:64 var
+R11380:11384 Kernel.MuLedgerConservation <> trace:65 var
+R11386:11386 Kernel.MuLedgerConservation <> s:66 var
+R11426:11428 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R11420:11424 Kernel.VMState <> vm_mu proj
+R11398:11403 Kernel.SimulationProof <> run_vm def
+R11405:11408 Kernel.MuLedgerConservation <> fuel:64 var
+R11410:11414 Kernel.MuLedgerConservation <> trace:65 var
+R11416:11416 Kernel.MuLedgerConservation <> s:66 var
+R11432:11436 Kernel.VMState <> vm_mu proj
+R11429:11429 Kernel.MuLedgerConservation <> s:66 var
+R11480:11501 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
+R11480:11501 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
+R11480:11501 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
+R11518:11553 Kernel.MuLedgerConservation <> ledger_sum_bounds_irreversible_count thm
+R11518:11553 Kernel.MuLedgerConservation <> ledger_sum_bounds_irreversible_count thm
+prf 11871:11902 <> vm_irreversible_bits_lower_bound
+binder 11915:11918 <> fuel:67
+binder 11920:11924 <> trace:68
+binder 11926:11926 <> s:69
+R11964:11973 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11933:11950 Kernel.MuLedgerConservation <> irreversible_count def
+R11952:11955 Kernel.MuLedgerConservation <> fuel:67 var
+R11957:11961 Kernel.MuLedgerConservation <> trace:68 var
+R11963:11963 Kernel.MuLedgerConservation <> s:69 var
+R12003:12005 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R11997:12001 Kernel.VMState <> vm_mu proj
+R11975:11980 Kernel.SimulationProof <> run_vm def
+R11982:11985 Kernel.MuLedgerConservation <> fuel:67 var
+R11987:11991 Kernel.MuLedgerConservation <> trace:68 var
+R11993:11993 Kernel.MuLedgerConservation <> s:69 var
+R12009:12013 Kernel.VMState <> vm_mu proj
+R12006:12006 Kernel.MuLedgerConservation <> s:69 var
+R12032:12057 Kernel.MuLedgerConservation <> run_vm_irreversibility_gap thm
+R12032:12057 Kernel.MuLedgerConservation <> run_vm_irreversibility_gap thm
+prf 12076:12100 <> bounded_prefix_mu_balance
+binder 12113:12116 <> fuel:70
+binder 12118:12122 <> trace:71
+binder 12124:12124 <> s:72
+binder 12126:12126 <> k:73
+R12142:12149 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12134:12137 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R12133:12133 Kernel.MuLedgerConservation <> k:73 var
+R12138:12141 Kernel.MuLedgerConservation <> fuel:70 var
+R12176:12184 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12170:12174 Kernel.VMState <> vm_mu proj
+R12151:12156 Kernel.SimulationProof <> run_vm def
+R12158:12158 Kernel.MuLedgerConservation <> k:73 var
+R12160:12164 Kernel.MuLedgerConservation <> trace:71 var
+R12166:12166 Kernel.MuLedgerConservation <> s:72 var
+R12194:12196 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R12188:12192 Kernel.VMState <> vm_mu proj
+R12185:12185 Kernel.MuLedgerConservation <> s:72 var
+R12197:12206 Kernel.MuLedgerConservation <> ledger_sum def
+R12209:12222 Kernel.MuLedgerConservation <> ledger_entries def
+R12224:12224 Kernel.MuLedgerConservation <> k:73 var
+R12226:12230 Kernel.MuLedgerConservation <> trace:71 var
+R12232:12232 Kernel.MuLedgerConservation <> s:72 var
+R12280:12301 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
+R12280:12301 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
+prf 12560:12586 <> vm_mu_monotonic_single_step
+binder 12599:12599 <> s:74
+binder 12601:12605 <> instr:75
+R12621:12624 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R12615:12619 Kernel.VMState <> vm_mu proj
+R12612:12612 Kernel.MuLedgerConservation <> s:74 var
+R12645:12649 Kernel.VMState <> vm_mu proj
+R12626:12633 Kernel.SimulationProof <> vm_apply def
+R12635:12635 Kernel.MuLedgerConservation <> s:74 var
+R12637:12641 Kernel.MuLedgerConservation <> instr:75 var
+R12688:12698 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R12688:12698 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R12688:12698 Kernel.MuLedgerConservation <> vm_apply_mu thm
+prf 12722:12740 <> run_vm_mu_monotonic
+binder 12753:12756 <> fuel:76
+binder 12758:12762 <> trace:77
+binder 12764:12764 <> s:78
+R12780:12783 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R12774:12778 Kernel.VMState <> vm_mu proj
+R12771:12771 Kernel.MuLedgerConservation <> s:78 var
+R12807:12811 Kernel.VMState <> vm_mu proj
+R12785:12790 Kernel.SimulationProof <> run_vm def
+R12792:12795 Kernel.MuLedgerConservation <> fuel:76 var
+R12797:12801 Kernel.MuLedgerConservation <> trace:77 var
+R12803:12803 Kernel.MuLedgerConservation <> s:78 var
+R12900:12908 Coq.Lists.List <> nth_error def
+R12919:12923 Kernel.VMState <> vm_pc proj
+R12900:12908 Coq.Lists.List <> nth_error def
+R12919:12923 Kernel.VMState <> vm_pc proj
+R12980:12987 Kernel.SimulationProof <> vm_apply def
+R12980:12987 Kernel.SimulationProof <> vm_apply def
+R13023:13026 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R13017:13021 Kernel.VMState <> vm_mu proj
+R13047:13051 Kernel.VMState <> vm_mu proj
+R13028:13035 Kernel.SimulationProof <> vm_apply def
+R13023:13026 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R13017:13021 Kernel.VMState <> vm_mu proj
+R13047:13051 Kernel.VMState <> vm_mu proj
+R13028:13035 Kernel.SimulationProof <> vm_apply def
+R13079:13105 Kernel.MuLedgerConservation <> vm_mu_monotonic_single_step thm
+R13079:13105 Kernel.MuLedgerConservation <> vm_mu_monotonic_single_step thm
+prf 13295:13320 <> run_vm_mu_monotonic_prefix
+binder 13333:13334 <> k1:79
+binder 13336:13337 <> k2:80
+binder 13339:13343 <> trace:81
+binder 13345:13345 <> s:82
+R13360:13367 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13354:13357 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R13352:13353 Kernel.MuLedgerConservation <> k1:79 var
+R13358:13359 Kernel.MuLedgerConservation <> k2:80 var
+R13395:13398 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R13389:13393 Kernel.VMState <> vm_mu proj
+R13369:13374 Kernel.SimulationProof <> run_vm def
+R13376:13377 Kernel.MuLedgerConservation <> k1:79 var
+R13379:13383 Kernel.MuLedgerConservation <> trace:81 var
+R13385:13385 Kernel.MuLedgerConservation <> s:82 var
+R13420:13424 Kernel.VMState <> vm_mu proj
+R13400:13405 Kernel.SimulationProof <> run_vm def
+R13407:13408 Kernel.MuLedgerConservation <> k2:80 var
+R13410:13414 Kernel.MuLedgerConservation <> trace:81 var
+R13416:13416 Kernel.MuLedgerConservation <> s:82 var
+R13516:13534 Kernel.MuLedgerConservation <> run_vm_mu_monotonic thm
+R13516:13534 Kernel.MuLedgerConservation <> run_vm_mu_monotonic thm
+R13586:13591 Kernel.SimulationProof <> run_vm def
+R13610:13618 Coq.Lists.List <> nth_error def
+R13629:13633 Kernel.VMState <> vm_pc proj
+R13610:13618 Coq.Lists.List <> nth_error def
+R13629:13633 Kernel.VMState <> vm_pc proj
+R13692:13699 Kernel.SimulationProof <> vm_apply def
+R13692:13699 Kernel.SimulationProof <> vm_apply def
+prf 13751:13781 <> run_vm_mu_monotonic_composition
+binder 13794:13794 <> m:83
+binder 13796:13796 <> n:84
+binder 13798:13802 <> trace:85
+binder 13804:13804 <> s:86
+R13850:13857 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13820:13823 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R13814:13818 Kernel.VMState <> vm_mu proj
+R13811:13811 Kernel.MuLedgerConservation <> s:86 var
+R13844:13848 Kernel.VMState <> vm_mu proj
+R13825:13830 Kernel.SimulationProof <> run_vm def
+R13832:13832 Kernel.MuLedgerConservation <> m:83 var
+R13834:13838 Kernel.MuLedgerConservation <> trace:85 var
+R13840:13840 Kernel.MuLedgerConservation <> s:86 var
+R13884:13887 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R13878:13882 Kernel.VMState <> vm_mu proj
+R13859:13864 Kernel.SimulationProof <> run_vm def
+R13866:13866 Kernel.MuLedgerConservation <> m:83 var
+R13868:13872 Kernel.MuLedgerConservation <> trace:85 var
+R13874:13874 Kernel.MuLedgerConservation <> s:86 var
+R13914:13918 Kernel.VMState <> vm_mu proj
+R13889:13894 Kernel.SimulationProof <> run_vm def
+R13898:13900 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13897:13897 Kernel.MuLedgerConservation <> m:83 var
+R13901:13901 Kernel.MuLedgerConservation <> n:84 var
+R13904:13908 Kernel.MuLedgerConservation <> trace:85 var
+R13910:13910 Kernel.MuLedgerConservation <> s:86 var
+R14032:14050 Kernel.MuLedgerConservation <> run_vm_mu_monotonic thm
+R14032:14050 Kernel.MuLedgerConservation <> run_vm_mu_monotonic thm
+binder 14241:14242 <> k1:87
+binder 14244:14245 <> k2:88
+R14250:14253 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R14248:14249 Kernel.MuLedgerConservation <> k1:87 var
+R14256:14258 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14254:14255 Kernel.MuLedgerConservation <> k1:87 var
+R14259:14260 Kernel.MuLedgerConservation <> k2:88 var
+binder 14241:14242 <> k1:89
+binder 14244:14245 <> k2:90
+R14250:14253 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R14248:14249 Kernel.MuLedgerConservation <> k1:89 var
+R14256:14258 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14254:14255 Kernel.MuLedgerConservation <> k1:89 var
+R14259:14260 Kernel.MuLedgerConservation <> k2:90 var
+R14289:14314 Kernel.MuLedgerConservation <> run_vm_mu_monotonic_prefix thm
+R14320:14322 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14289:14314 Kernel.MuLedgerConservation <> run_vm_mu_monotonic_prefix thm
+R14320:14322 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+sec 14639:14653 <> MuDecomposition
+var 14666:14683 MuDecomposition mu_blind_component
+var 14685:14704 MuDecomposition mu_sighted_component
+R14722:14725 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14708:14721 Kernel.VMStep VMStep vm_instruction ind
+R14726:14728 Coq.Init.Datatypes <> nat ind
+var 14740:14757 MuDecomposition mu_component_split
+binder 14768:14772 <> instr:93
+R14799:14805 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14777:14792 Kernel.VMStep VMStep instruction_cost def
+R14794:14798 Kernel.MuLedgerConservation <> instr:93 var
+R14830:14832 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14806:14823 Kernel.MuLedgerConservation <> MuDecomposition.mu_blind_component var
+R14825:14829 Kernel.MuLedgerConservation <> instr:93 var
+R14833:14852 Kernel.MuLedgerConservation <> MuDecomposition.mu_sighted_component var
+R14854:14858 Kernel.MuLedgerConservation <> instr:93 var
+prf 14868:14897 <> ledger_sum_component_decompose
+binder 14910:14913 <> fuel:95
+binder 14915:14919 <> trace:96
+binder 14921:14921 <> s:97
+R14968:14976 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14928:14937 Kernel.MuLedgerConservation <> ledger_sum def
+R14940:14953 Kernel.MuLedgerConservation <> ledger_entries def
+R14955:14958 Kernel.MuLedgerConservation <> fuel:95 var
+R14960:14964 Kernel.MuLedgerConservation <> trace:96 var
+R14966:14966 Kernel.MuLedgerConservation <> s:97 var
+R15029:15037 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14977:14996 Kernel.MuLedgerConservation <> ledger_component_sum def
+R14998:15015 Kernel.MuLedgerConservation <> MuDecomposition.mu_blind_component var
+R15017:15020 Kernel.MuLedgerConservation <> fuel:95 var
+R15022:15026 Kernel.MuLedgerConservation <> trace:96 var
+R15028:15028 Kernel.MuLedgerConservation <> s:97 var
+R15038:15057 Kernel.MuLedgerConservation <> ledger_component_sum def
+R15059:15078 Kernel.MuLedgerConservation <> MuDecomposition.mu_sighted_component var
+R15080:15083 Kernel.MuLedgerConservation <> fuel:95 var
+R15085:15089 Kernel.MuLedgerConservation <> trace:96 var
+R15091:15091 Kernel.MuLedgerConservation <> s:97 var
+R15187:15195 Coq.Lists.List <> nth_error def
+R15206:15210 Kernel.VMState <> vm_pc proj
+R15187:15195 Coq.Lists.List <> nth_error def
+R15206:15210 Kernel.VMState <> vm_pc proj
+R15266:15283 Kernel.MuLedgerConservation <> MuDecomposition.mu_component_split var
+R15266:15283 Kernel.MuLedgerConservation <> MuDecomposition.mu_component_split var
+R15266:15283 Kernel.MuLedgerConservation <> MuDecomposition.mu_component_split var
+R15327:15334 Kernel.SimulationProof <> vm_apply def
+R15327:15334 Kernel.SimulationProof <> vm_apply def
+prf 15409:15436 <> bounded_run_mu_decomposition
+binder 15449:15452 <> fuel:98
+binder 15454:15458 <> trace:99
+binder 15460:15460 <> s:100
+R15496:15504 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15490:15494 Kernel.VMState <> vm_mu proj
+R15468:15473 Kernel.SimulationProof <> run_vm def
+R15475:15478 Kernel.MuLedgerConservation <> fuel:98 var
+R15480:15484 Kernel.MuLedgerConservation <> trace:99 var
+R15486:15486 Kernel.MuLedgerConservation <> s:100 var
+R15575:15583 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R15514:15522 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R15508:15512 Kernel.VMState <> vm_mu proj
+R15505:15505 Kernel.MuLedgerConservation <> s:100 var
+R15523:15542 Kernel.MuLedgerConservation <> ledger_component_sum def
+R15544:15561 Kernel.MuLedgerConservation <> MuDecomposition.mu_blind_component var
+R15563:15566 Kernel.MuLedgerConservation <> fuel:98 var
+R15568:15572 Kernel.MuLedgerConservation <> trace:99 var
+R15574:15574 Kernel.MuLedgerConservation <> s:100 var
+R15584:15603 Kernel.MuLedgerConservation <> ledger_component_sum def
+R15605:15624 Kernel.MuLedgerConservation <> MuDecomposition.mu_sighted_component var
+R15626:15629 Kernel.MuLedgerConservation <> fuel:98 var
+R15631:15635 Kernel.MuLedgerConservation <> trace:99 var
+R15637:15637 Kernel.MuLedgerConservation <> s:100 var
+R15682:15717 Kernel.MuLedgerConservation <> bounded_model_mu_ledger_conservation thm
+R15682:15717 Kernel.MuLedgerConservation <> bounded_model_mu_ledger_conservation thm
+R15774:15803 Kernel.MuLedgerConservation <> ledger_sum_component_decompose thm
+R15774:15803 Kernel.MuLedgerConservation <> ledger_sum_component_decompose thm
+R15774:15803 Kernel.MuLedgerConservation <> ledger_sum_component_decompose thm
+prf 15829:15864 <> bounded_run_blind_component_le_total
+binder 15877:15880 <> fuel:101
+binder 15882:15886 <> trace:102
+binder 15888:15888 <> s:103
+R15959:15966 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R15904:15906 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R15898:15902 Kernel.VMState <> vm_mu proj
+R15895:15895 Kernel.MuLedgerConservation <> s:103 var
+R15907:15926 Kernel.MuLedgerConservation <> ledger_component_sum def
+R15928:15945 Kernel.MuLedgerConservation <> MuDecomposition.mu_blind_component var
+R15947:15950 Kernel.MuLedgerConservation <> fuel:101 var
+R15952:15956 Kernel.MuLedgerConservation <> trace:102 var
+R15958:15958 Kernel.MuLedgerConservation <> s:103 var
+R15990:15994 Kernel.VMState <> vm_mu proj
+R15968:15973 Kernel.SimulationProof <> run_vm def
+R15975:15978 Kernel.MuLedgerConservation <> fuel:101 var
+R15980:15984 Kernel.MuLedgerConservation <> trace:102 var
+R15986:15986 Kernel.MuLedgerConservation <> s:103 var
+R16038:16065 Kernel.MuLedgerConservation <> bounded_run_mu_decomposition thm
+R16038:16065 Kernel.MuLedgerConservation <> bounded_run_mu_decomposition thm
+R16038:16065 Kernel.MuLedgerConservation <> bounded_run_mu_decomposition thm
+R16080:16099 Kernel.MuLedgerConservation <> ledger_component_sum def
+R16101:16118 Kernel.MuLedgerConservation <> MuDecomposition.mu_blind_component var
+R16080:16099 Kernel.MuLedgerConservation <> ledger_component_sum def
+R16101:16118 Kernel.MuLedgerConservation <> MuDecomposition.mu_blind_component var
+R16160:16179 Kernel.MuLedgerConservation <> ledger_component_sum def
+R16181:16200 Kernel.MuLedgerConservation <> MuDecomposition.mu_sighted_component var
+R16160:16179 Kernel.MuLedgerConservation <> ledger_component_sum def
+R16181:16200 Kernel.MuLedgerConservation <> MuDecomposition.mu_sighted_component var
+prf 16255:16292 <> bounded_run_sighted_component_le_total
+binder 16305:16308 <> fuel:104
+binder 16310:16314 <> trace:105
+binder 16316:16316 <> s:106
+R16389:16396 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R16332:16334 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R16326:16330 Kernel.VMState <> vm_mu proj
+R16323:16323 Kernel.MuLedgerConservation <> s:106 var
+R16335:16354 Kernel.MuLedgerConservation <> ledger_component_sum def
+R16356:16375 Kernel.MuLedgerConservation <> MuDecomposition.mu_sighted_component var
+R16377:16380 Kernel.MuLedgerConservation <> fuel:104 var
+R16382:16386 Kernel.MuLedgerConservation <> trace:105 var
+R16388:16388 Kernel.MuLedgerConservation <> s:106 var
+R16420:16424 Kernel.VMState <> vm_mu proj
+R16398:16403 Kernel.SimulationProof <> run_vm def
+R16405:16408 Kernel.MuLedgerConservation <> fuel:104 var
+R16410:16414 Kernel.MuLedgerConservation <> trace:105 var
+R16416:16416 Kernel.MuLedgerConservation <> s:106 var
+R16468:16495 Kernel.MuLedgerConservation <> bounded_run_mu_decomposition thm
+R16468:16495 Kernel.MuLedgerConservation <> bounded_run_mu_decomposition thm
+R16468:16495 Kernel.MuLedgerConservation <> bounded_run_mu_decomposition thm
+R16510:16529 Kernel.MuLedgerConservation <> ledger_component_sum def
+R16531:16548 Kernel.MuLedgerConservation <> MuDecomposition.mu_blind_component var
+R16510:16529 Kernel.MuLedgerConservation <> ledger_component_sum def
+R16531:16548 Kernel.MuLedgerConservation <> MuDecomposition.mu_blind_component var
+R16590:16609 Kernel.MuLedgerConservation <> ledger_component_sum def
+R16611:16630 Kernel.MuLedgerConservation <> MuDecomposition.mu_sighted_component var
+R16590:16609 Kernel.MuLedgerConservation <> ledger_component_sum def
+R16611:16630 Kernel.MuLedgerConservation <> MuDecomposition.mu_sighted_component var
+R16679:16693 Kernel.MuLedgerConservation MuDecomposition <> sec
+sec 17188:17205 <> GestaltIsomorphism
+var 17220:17223 GestaltIsomorphism Hash
+var 17244:17250 GestaltIsomorphism combine
+R17258:17261 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17254:17257 Kernel.MuLedgerConservation <> GestaltIsomorphism.Hash var
+R17266:17269 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17262:17265 Kernel.MuLedgerConservation <> GestaltIsomorphism.Hash var
+R17270:17273 Kernel.MuLedgerConservation <> GestaltIsomorphism.Hash var
+var 17287:17293 GestaltIsomorphism default
+R17297:17300 Kernel.MuLedgerConservation <> GestaltIsomorphism.Hash var
+def 17317:17328 <> final_digest
+R17340:17343 Coq.Init.Datatypes <> list ind
+R17345:17348 Kernel.MuLedgerConservation <> GestaltIsomorphism.Hash var
+binder 17331:17336 <> ledger:110
+R17353:17356 Kernel.MuLedgerConservation <> GestaltIsomorphism.Hash var
+R17371:17376 Kernel.MuLedgerConservation <> ledger:110 var
+R17389:17390 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R17395:17401 Kernel.MuLedgerConservation <> GestaltIsomorphism.default var
+R17414:17422 Coq.Lists.List <> last def
+R17431:17437 Kernel.MuLedgerConservation <> GestaltIsomorphism.default var
+R17424:17429 Kernel.MuLedgerConservation <> ledger:110 var
+def 17462:17480 <> gestalt_certificate
+R17490:17493 Kernel.MuLedgerConservation <> GestaltIsomorphism.Hash var
+binder 17483:17486 <> seal:112
+R17506:17509 Coq.Init.Datatypes <> list ind
+R17511:17514 Kernel.MuLedgerConservation <> GestaltIsomorphism.Hash var
+binder 17497:17502 <> ledger:113
+R17519:17522 Kernel.MuLedgerConservation <> GestaltIsomorphism.Hash var
+R17531:17537 Kernel.MuLedgerConservation <> GestaltIsomorphism.combine var
+R17539:17542 Kernel.MuLedgerConservation <> seal:112 var
+R17545:17556 Kernel.MuLedgerConservation <> final_digest def
+R17558:17563 Kernel.MuLedgerConservation <> ledger:113 var
+def 17581:17600 <> computed_isomorphism
+R17610:17613 Kernel.MuLedgerConservation <> GestaltIsomorphism.Hash var
+binder 17603:17606 <> seal:114
+R17626:17629 Coq.Init.Datatypes <> list ind
+R17631:17634 Kernel.MuLedgerConservation <> GestaltIsomorphism.Hash var
+binder 17617:17622 <> ledger:115
+R17639:17642 Kernel.MuLedgerConservation <> GestaltIsomorphism.Hash var
+R17651:17657 Kernel.MuLedgerConservation <> GestaltIsomorphism.combine var
+R17659:17662 Kernel.MuLedgerConservation <> seal:114 var
+R17665:17676 Kernel.MuLedgerConservation <> final_digest def
+R17678:17683 Kernel.MuLedgerConservation <> ledger:115 var
+prf 17696:17722 <> gestalt_matches_isomorphism
+binder 17737:17740 <> seal:116
+binder 17742:17747 <> ledger:117
+R17787:17789 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17756:17774 Kernel.MuLedgerConservation <> gestalt_certificate def
+R17776:17779 Kernel.MuLedgerConservation <> seal:116 var
+R17781:17786 Kernel.MuLedgerConservation <> ledger:117 var
+R17790:17809 Kernel.MuLedgerConservation <> computed_isomorphism def
+R17811:17814 Kernel.MuLedgerConservation <> seal:116 var
+R17816:17821 Kernel.MuLedgerConservation <> ledger:117 var
+R17864:17882 Kernel.MuLedgerConservation <> gestalt_certificate def
+R17885:17904 Kernel.MuLedgerConservation <> computed_isomorphism def
+R17936:17953 Kernel.MuLedgerConservation GestaltIsomorphism <> sec

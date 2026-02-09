@@ -1,0 +1,160 @@
+DIGEST f46e8ba0fe09e8d34304cba2cf123269
+FTests.TestNecessity
+R332:335 Coq.Lists.List <> <> lib
+R337:339 Coq.micromega.Lia <> <> lib
+R369:374 Kernel.VMStep <> <> lib
+R404:410 Kernel.VMState <> <> lib
+R440:450 Kernel.Definitions <> <> lib
+R461:473 Coq.Lists.List ListNotations <> mod
+def 528:537 <> halt_instr
+R542:551 Kernel.VMStep VMStep instr_halt constr
+def 567:577 <> other_instr
+R582:591 Kernel.VMStep VMStep instr_xfer constr
+def 994:1005 <> w_decreasing
+R1009:1014 Kernel.Definitions <> Weight def
+binder 1025:1025 <> t:1
+R1033:1035 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R1036:1041 Coq.Init.Datatypes <> length def
+R1043:1043 Tests.TestNecessity <> t:1 var
+prf 1108:1131 <> w_decreasing_empty_FAILS
+R1160:1163 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1135:1146 Kernel.Definitions <> weight_empty def
+R1148:1159 Tests.TestNecessity <> w_decreasing def
+R1164:1168 Coq.Init.Logic <> False ind
+R1187:1198 Kernel.Definitions <> weight_empty def
+R1201:1212 Tests.TestNecessity <> w_decreasing def
+def 1611:1622 <> w_privileged
+R1626:1631 Kernel.Definitions <> Weight def
+binder 1642:1642 <> t:2
+R1653:1653 Tests.TestNecessity <> t:2 var
+R1673:1674 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1694:1694 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1707:1709 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1695:1704 Kernel.VMStep VMStep instr_halt constr
+R1719:1721 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1722:1727 Coq.Init.Datatypes <> length def
+R1769:1770 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1781:1783 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1784:1789 Coq.Init.Datatypes <> length def
+prf 1949:1966 <> w_privileged_empty
+R1970:1981 Kernel.Definitions <> weight_empty def
+R1983:1994 Tests.TestNecessity <> w_privileged def
+R2013:2024 Kernel.Definitions <> weight_empty def
+R2027:2038 Tests.TestNecessity <> w_privileged def
+prf 2109:2144 <> w_privileged_sequential_REALLY_FAILS
+R2181:2184 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2151:2167 Kernel.Definitions <> weight_sequential def
+R2169:2180 Tests.TestNecessity <> w_privileged def
+R2185:2189 Coq.Init.Logic <> False ind
+R2222:2238 Kernel.Definitions <> weight_sequential def
+R2268:2268 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2279:2279 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2269:2278 Tests.TestNecessity <> halt_instr def
+R2281:2281 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2293:2293 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2282:2292 Tests.TestNecessity <> other_instr def
+R2268:2268 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2279:2279 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2269:2278 Tests.TestNecessity <> halt_instr def
+R2281:2281 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2293:2293 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2282:2292 Tests.TestNecessity <> other_instr def
+R2306:2317 Tests.TestNecessity <> w_privileged def
+R2320:2329 Tests.TestNecessity <> halt_instr def
+R2332:2342 Tests.TestNecessity <> other_instr def
+def 3077:3086 <> count_xfer
+R3093:3097 Kernel.Definitions <> Trace def
+binder 3089:3089 <> t:4
+R3102:3104 Coq.Init.Datatypes <> nat ind
+R3117:3117 Tests.TestNecessity <> t:4 var
+R3128:3129 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3140:3140 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3157:3159 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3141:3150 Kernel.VMStep VMStep instr_xfer constr
+R3169:3171 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3172:3181 Tests.TestNecessity <> count_xfer:5 def
+R3193:3194 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3203:3212 Tests.TestNecessity <> count_xfer:5 def
+def 3238:3248 <> w_free_read
+R3252:3257 Kernel.Definitions <> Weight def
+R3262:3271 Tests.TestNecessity <> count_xfer def
+prf 3317:3333 <> w_free_read_empty
+R3337:3348 Kernel.Definitions <> weight_empty def
+R3350:3360 Tests.TestNecessity <> w_free_read def
+R3379:3390 Kernel.Definitions <> weight_empty def
+R3393:3403 Tests.TestNecessity <> w_free_read def
+prf 3438:3451 <> count_xfer_app
+binder 3462:3463 <> t1:7
+binder 3465:3466 <> t2:8
+R3490:3492 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3469:3478 Tests.TestNecessity <> count_xfer def
+R3483:3486 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R3481:3482 Tests.TestNecessity <> t1:7 var
+R3487:3488 Tests.TestNecessity <> t2:8 var
+R3506:3508 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3493:3502 Tests.TestNecessity <> count_xfer def
+R3504:3505 Tests.TestNecessity <> t1:7 var
+R3509:3518 Tests.TestNecessity <> count_xfer def
+R3520:3521 Tests.TestNecessity <> t2:8 var
+prf 3656:3677 <> w_free_read_sequential
+R3681:3697 Kernel.Definitions <> weight_sequential def
+R3699:3709 Tests.TestNecessity <> w_free_read def
+R3728:3744 Kernel.Definitions <> weight_sequential def
+R3747:3757 Tests.TestNecessity <> w_free_read def
+R3782:3795 Tests.TestNecessity <> count_xfer_app thm
+R3782:3795 Tests.TestNecessity <> count_xfer_app thm
+prf 3810:3838 <> w_free_read_disjoint_commutes
+R3842:3865 Kernel.Definitions <> weight_disjoint_commutes def
+R3867:3877 Tests.TestNecessity <> w_free_read def
+R3896:3919 Kernel.Definitions <> weight_disjoint_commutes def
+R3922:3932 Tests.TestNecessity <> w_free_read def
+R3965:3978 Tests.TestNecessity <> count_xfer_app thm
+R3965:3978 Tests.TestNecessity <> count_xfer_app thm
+R3965:3978 Tests.TestNecessity <> count_xfer_app thm
+R3965:3978 Tests.TestNecessity <> count_xfer_app thm
+R3965:3978 Tests.TestNecessity <> count_xfer_app thm
+prf 3998:4013 <> w_free_read_laws
+R4017:4027 Kernel.Definitions <> weight_laws def
+R4029:4039 Tests.TestNecessity <> w_free_read def
+R4058:4068 Kernel.Definitions <> weight_laws def
+R4086:4102 Tests.TestNecessity <> w_free_read_empty thm
+R4086:4102 Tests.TestNecessity <> w_free_read_empty thm
+R4120:4141 Tests.TestNecessity <> w_free_read_sequential thm
+R4120:4141 Tests.TestNecessity <> w_free_read_sequential thm
+R4152:4180 Tests.TestNecessity <> w_free_read_disjoint_commutes thm
+R4152:4180 Tests.TestNecessity <> w_free_read_disjoint_commutes thm
+prf 4310:4332 <> w_free_read_NOT_uniform
+R4368:4371 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4339:4355 Kernel.Definitions <> singleton_uniform def
+R4357:4367 Tests.TestNecessity <> w_free_read def
+R4372:4376 Coq.Init.Logic <> False ind
+R4395:4411 Kernel.Definitions <> singleton_uniform def
+R4414:4424 Tests.TestNecessity <> w_free_read def
+R4454:4464 Tests.TestNecessity <> other_instr def
+R4466:4475 Tests.TestNecessity <> halt_instr def
+R4454:4464 Tests.TestNecessity <> other_instr def
+R4466:4475 Tests.TestNecessity <> halt_instr def
+R4488:4498 Tests.TestNecessity <> other_instr def
+R4501:4510 Tests.TestNecessity <> halt_instr def
+prf 5217:5228 <> test_summary
+R5284:5284 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5319:5383 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5451:5451 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5310:5313 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5285:5296 Kernel.Definitions <> weight_empty def
+R5298:5309 Tests.TestNecessity <> w_decreasing def
+R5314:5318 Coq.Init.Logic <> False ind
+R5407:5411 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5450:5450 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5384:5394 Kernel.Definitions <> weight_laws def
+R5396:5406 Tests.TestNecessity <> w_free_read def
+R5441:5444 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5412:5428 Kernel.Definitions <> singleton_uniform def
+R5430:5440 Tests.TestNecessity <> w_free_read def
+R5445:5449 Coq.Init.Logic <> False ind
+R5480:5503 Tests.TestNecessity <> w_decreasing_empty_FAILS thm
+R5480:5503 Tests.TestNecessity <> w_decreasing_empty_FAILS thm
+R5529:5544 Tests.TestNecessity <> w_free_read_laws thm
+R5529:5544 Tests.TestNecessity <> w_free_read_laws thm
+R5559:5581 Tests.TestNecessity <> w_free_read_NOT_uniform thm
+R5559:5581 Tests.TestNecessity <> w_free_read_NOT_uniform thm

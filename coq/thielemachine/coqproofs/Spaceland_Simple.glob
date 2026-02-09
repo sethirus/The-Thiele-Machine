@@ -1,0 +1,210 @@
+DIGEST c3af71213d811dda875b5c9fb0c96ee3
+FThieleMachine.Spaceland_Simple
+R82:85 Coq.Lists.List <> <> lib
+R87:90 Coq.Bool.Bool <> <> lib
+R92:97 Coq.ZArith.ZArith <> <> lib
+R99:101 Coq.micromega.Lia <> <> lib
+R111:123 Coq.Lists.List ListNotations <> mod
+modtype 159:167 <> Spaceland
+ax 182:186 Spaceland State
+ax 208:216 Spaceland Partition
+ax 238:245 Spaceland ModuleId
+ax 267:279 Spaceland get_partition
+R288:291 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R283:287 ThieleMachine.Spaceland_Simple Spaceland State defax
+R292:300 ThieleMachine.Spaceland_Simple Spaceland Partition defax
+ax 315:323 Spaceland module_of
+R332:335 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R327:331 ThieleMachine.Spaceland_Simple Spaceland State defax
+R339:342 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R336:338 Coq.Init.Datatypes <> nat ind
+R343:350 ThieleMachine.Spaceland_Simple Spaceland ModuleId defax
+def 367:380 Spaceland same_partition
+R391:395 ThieleMachine.Spaceland_Simple Spaceland State defax
+binder 383:384 <> s1:6
+binder 386:387 <> s2:7
+R428:430 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R412:424 ThieleMachine.Spaceland_Simple Spaceland get_partition defax
+R426:427 ThieleMachine.Spaceland_Simple <> s1:6 var
+R431:443 ThieleMachine.Spaceland_Simple Spaceland get_partition defax
+R445:446 ThieleMachine.Spaceland_Simple <> s2:7 var
+ax 462:481 Spaceland partition_wellformed
+R497:501 ThieleMachine.Spaceland_Simple Spaceland State defax
+binder 493:493 <> s:8
+R509:516 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R540:542 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R527:530 Coq.Init.Datatypes <> list ind
+R532:539 ThieleMachine.Spaceland_Simple Spaceland ModuleId defax
+binder 517:523 <> modules:9
+R558:560 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R544:549 Coq.Init.Datatypes <> length def
+R551:557 ThieleMachine.Spaceland_Simple <> modules:9 var
+ind 582:586 Spaceland Label
+constr 604:611 Spaceland LCompute
+constr 627:632 Spaceland LSplit
+constr 660:665 Spaceland LMerge
+constr 705:712 Spaceland LObserve
+R615:619 ThieleMachine.Spaceland_Simple <> Label:11 ind
+R644:647 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R636:643 ThieleMachine.Spaceland_Simple Spaceland ModuleId defax
+R648:652 ThieleMachine.Spaceland_Simple <> Label:11 ind
+R677:680 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R669:676 ThieleMachine.Spaceland_Simple Spaceland ModuleId defax
+R689:692 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R681:688 ThieleMachine.Spaceland_Simple Spaceland ModuleId defax
+R693:697 ThieleMachine.Spaceland_Simple <> Label:11 ind
+R724:727 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R716:723 ThieleMachine.Spaceland_Simple Spaceland ModuleId defax
+R728:732 ThieleMachine.Spaceland_Simple <> Label:11 ind
+scheme 582:586 Spaceland Label_rect
+scheme 582:586 Spaceland Label_ind
+scheme 582:586 Spaceland Label_rec
+scheme 582:586 Spaceland Label_sind
+ax 748:751 Spaceland step
+R760:763 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R755:759 ThieleMachine.Spaceland_Simple Spaceland State defax
+R769:772 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R764:768 ThieleMachine.Spaceland_Simple Spaceland Label ind
+R778:781 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R773:777 ThieleMachine.Spaceland_Simple Spaceland State defax
+ax 801:818 Spaceland step_deterministic
+binder 829:829 <> s:14
+binder 831:831 <> l:15
+binder 833:834 <> s1:16
+binder 836:837 <> s2:17
+R855:858 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R844:847 ThieleMachine.Spaceland_Simple Spaceland step defax
+R849:849 ThieleMachine.Spaceland_Simple <> s:14 var
+R851:851 ThieleMachine.Spaceland_Simple <> l:15 var
+R853:854 ThieleMachine.Spaceland_Simple <> s1:16 var
+R870:873 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R859:862 ThieleMachine.Spaceland_Simple Spaceland step defax
+R864:864 ThieleMachine.Spaceland_Simple <> s:14 var
+R866:866 ThieleMachine.Spaceland_Simple <> l:15 var
+R868:869 ThieleMachine.Spaceland_Simple <> s2:17 var
+R876:878 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R874:875 ThieleMachine.Spaceland_Simple <> s1:16 var
+R879:880 ThieleMachine.Spaceland_Simple <> s2:17 var
+ax 896:914 Spaceland module_independence
+binder 925:925 <> s:19
+binder 927:928 <> s':20
+binder 930:930 <> m:21
+R955:963 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1018:1018 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R937:940 ThieleMachine.Spaceland_Simple Spaceland step defax
+R942:942 ThieleMachine.Spaceland_Simple <> s:19 var
+R944:951 ThieleMachine.Spaceland_Simple Spaceland LCompute constr
+R953:954 ThieleMachine.Spaceland_Simple <> s':20 var
+binder 971:972 <> m':22
+R982:985 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R977:980 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R975:976 ThieleMachine.Spaceland_Simple <> m':22 var
+R981:981 ThieleMachine.Spaceland_Simple <> m:21 var
+R1000:1002 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R986:994 ThieleMachine.Spaceland_Simple Spaceland module_of defax
+R996:996 ThieleMachine.Spaceland_Simple <> s:19 var
+R998:999 ThieleMachine.Spaceland_Simple <> m':22 var
+R1003:1011 ThieleMachine.Spaceland_Simple Spaceland module_of defax
+R1013:1014 ThieleMachine.Spaceland_Simple <> s':20 var
+R1016:1017 ThieleMachine.Spaceland_Simple <> m':22 var
+ax 1034:1035 Spaceland mu
+R1044:1047 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1039:1043 ThieleMachine.Spaceland_Simple Spaceland State defax
+R1053:1056 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1048:1052 ThieleMachine.Spaceland_Simple Spaceland Label ind
+R1062:1065 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1057:1061 ThieleMachine.Spaceland_Simple Spaceland State defax
+R1066:1066 Coq.Numbers.BinNums <> Z ind
+ax 1082:1090 Spaceland mu_nonneg
+binder 1101:1101 <> s:25
+binder 1103:1103 <> l:26
+binder 1105:1106 <> s':27
+R1124:1127 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1113:1116 ThieleMachine.Spaceland_Simple Spaceland step defax
+R1118:1118 ThieleMachine.Spaceland_Simple <> s:25 var
+R1120:1120 ThieleMachine.Spaceland_Simple <> l:26 var
+R1122:1123 ThieleMachine.Spaceland_Simple <> s':27 var
+R1137:1140 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
+R1128:1129 ThieleMachine.Spaceland_Simple Spaceland mu defax
+R1131:1131 ThieleMachine.Spaceland_Simple <> s:25 var
+R1133:1133 ThieleMachine.Spaceland_Simple <> l:26 var
+R1135:1136 ThieleMachine.Spaceland_Simple <> s':27 var
+ind 1157:1161 Spaceland Trace
+constr 1179:1182 Spaceland TNil
+constr 1207:1211 Spaceland TCons
+R1191:1194 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1186:1190 ThieleMachine.Spaceland_Simple Spaceland State defax
+R1195:1199 ThieleMachine.Spaceland_Simple <> Trace:29 ind
+R1220:1223 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1215:1219 ThieleMachine.Spaceland_Simple Spaceland State defax
+R1229:1232 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1224:1228 ThieleMachine.Spaceland_Simple Spaceland Label ind
+R1238:1241 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1233:1237 ThieleMachine.Spaceland_Simple <> Trace:29 ind
+R1242:1246 ThieleMachine.Spaceland_Simple <> Trace:29 ind
+scheme 1157:1161 Spaceland Trace_rect
+scheme 1157:1161 Spaceland Trace_ind
+scheme 1157:1161 Spaceland Trace_rec
+scheme 1157:1161 Spaceland Trace_sind
+def 1261:1273 Spaceland trace_mu_impl
+R1280:1284 ThieleMachine.Spaceland_Simple Spaceland Trace ind
+binder 1276:1276 <> t:31
+R1289:1289 Coq.Numbers.BinNums <> Z ind
+R1304:1304 ThieleMachine.Spaceland_Simple <> t:31 var
+R1317:1320 ThieleMachine.Spaceland_Simple Spaceland TNil constr
+R1335:1339 ThieleMachine.Spaceland_Simple Spaceland TCons constr
+R1387:1390 ThieleMachine.Spaceland_Simple Spaceland TNil constr
+R1398:1399 ThieleMachine.Spaceland_Simple Spaceland mu defax
+R1418:1422 ThieleMachine.Spaceland_Simple Spaceland TCons constr
+R1443:1445 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R1434:1435 ThieleMachine.Spaceland_Simple Spaceland mu defax
+R1446:1458 ThieleMachine.Spaceland_Simple <> trace_mu_impl:32 def
+ax 1499:1506 Spaceland trace_mu
+R1515:1518 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1510:1514 ThieleMachine.Spaceland_Simple Spaceland Trace ind
+R1519:1519 Coq.Numbers.BinNums <> Z ind
+ax 1535:1547 Spaceland mu_blind_free
+binder 1558:1558 <> s:36
+binder 1560:1561 <> s':37
+R1586:1593 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1568:1571 ThieleMachine.Spaceland_Simple Spaceland step defax
+R1573:1573 ThieleMachine.Spaceland_Simple <> s:36 var
+R1575:1582 ThieleMachine.Spaceland_Simple Spaceland LCompute constr
+R1584:1585 ThieleMachine.Spaceland_Simple <> s':37 var
+R1613:1620 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1594:1607 ThieleMachine.Spaceland_Simple Spaceland same_partition def
+R1609:1609 ThieleMachine.Spaceland_Simple <> s:36 var
+R1611:1612 ThieleMachine.Spaceland_Simple <> s':37 var
+R1637:1639 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1621:1622 ThieleMachine.Spaceland_Simple Spaceland mu defax
+R1624:1624 ThieleMachine.Spaceland_Simple <> s:36 var
+R1626:1633 ThieleMachine.Spaceland_Simple Spaceland LCompute constr
+R1635:1636 ThieleMachine.Spaceland_Simple <> s':37 var
+def 1657:1670 Spaceland PartitionTrace
+R1675:1678 Coq.Init.Datatypes <> list ind
+R1680:1688 ThieleMachine.Spaceland_Simple Spaceland Partition defax
+def 1704:1710 Spaceland MuTrace
+R1715:1718 Coq.Init.Datatypes <> list ind
+R1720:1720 Coq.Numbers.BinNums <> Z ind
+ax 1736:1750 Spaceland partition_trace
+R1759:1762 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1754:1758 ThieleMachine.Spaceland_Simple Spaceland Trace ind
+R1763:1776 ThieleMachine.Spaceland_Simple Spaceland PartitionTrace def
+ax 1791:1798 Spaceland mu_trace
+R1807:1810 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1802:1806 ThieleMachine.Spaceland_Simple Spaceland Trace ind
+R1811:1817 ThieleMachine.Spaceland_Simple Spaceland MuTrace def
+ax 1832:1838 Spaceland project
+R1847:1850 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1842:1846 ThieleMachine.Spaceland_Simple Spaceland Trace ind
+R1865:1867 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1851:1864 ThieleMachine.Spaceland_Simple Spaceland PartitionTrace def
+R1868:1874 ThieleMachine.Spaceland_Simple Spaceland MuTrace def
+rec 1889:1895 Spaceland Receipt
+proj 1906:1922 Spaceland initial_partition
+proj 1941:1955 Spaceland final_partition
+proj 1974:1981 Spaceland total_mu
+R1926:1934 ThieleMachine.Spaceland_Simple Spaceland Partition defax
+R1959:1967 ThieleMachine.Spaceland_Simple Spaceland Partition defax
+R1985:1985 Coq.Numbers.BinNums <> Z ind
+R1999:2007 ThieleMachine.Spaceland_Simple Spaceland <> modtype

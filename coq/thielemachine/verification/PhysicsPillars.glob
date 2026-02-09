@@ -1,0 +1,416 @@
+DIGEST 08ed2956c2def333925b601c140bc0b0
+FThieleMachineVerification.PhysicsPillars
+R984:987 Coq.Lists.List <> <> lib
+R989:994 Coq.ZArith.ZArith <> <> lib
+R996:998 Coq.micromega.Lia <> <> lib
+R1000:1005 Coq.QArith.QArith <> <> lib
+R1007:1011 Coq.Reals.Reals <> <> lib
+R1021:1033 Coq.Lists.List ListNotations <> mod
+R1104:1129 ThieleMachine.BlindSighted <> <> lib
+R1147:1192 ThieleMachineVerification.ObservationInterface <> <> lib
+R1210:1248 ThieleMachineVerification.Admissibility <> <> lib
+R1266:1299 ThieleMachineVerification.Symmetry <> <> lib
+prf 1585:1596 <> no_signaling
+binder 1607:1607 <> s:1
+binder 1609:1612 <> prog:2
+R1640:1645 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1617:1632 ThieleMachineVerification.Admissibility <> trace_admissible def
+R1634:1634 ThieleMachineVerification.PhysicsPillars <> s:1 var
+R1636:1639 ThieleMachineVerification.PhysicsPillars <> prog:2 var
+R1676:1731 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1646:1661 ThieleMachineVerification.Admissibility <> spatial_locality def
+R1666:1674 ThieleMachine.BlindSighted <> partition proj
+R1663:1663 ThieleMachineVerification.PhysicsPillars <> s:1 var
+R1732:1747 ThieleMachineVerification.Admissibility <> spatial_locality def
+R1752:1760 ThieleMachine.BlindSighted <> partition proj
+R1749:1749 ThieleMachineVerification.PhysicsPillars <> s:1 var
+def 2413:2426 <> born_amplitude
+R2433:2443 ThieleMachine.BlindSighted <> ThieleState rec
+binder 2429:2429 <> s:3
+R2448:2448 Coq.QArith.QArith_base <> Q rec
+R2455:2469 ThieleMachineVerification.ObservationInterface <> state_amplitude def
+R2471:2471 ThieleMachineVerification.PhysicsPillars <> s:3 var
+prf 2552:2568 <> born_rule_from_mu
+binder 2579:2579 <> s:4
+R2602:2605 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R2584:2599 ThieleMachineVerification.ObservationInterface <> born_probability def
+R2601:2601 ThieleMachineVerification.PhysicsPillars <> s:4 var
+R2623:2625 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R2607:2620 ThieleMachineVerification.PhysicsPillars <> born_amplitude def
+R2622:2622 ThieleMachineVerification.PhysicsPillars <> s:4 var
+R2626:2639 ThieleMachineVerification.PhysicsPillars <> born_amplitude def
+R2641:2641 ThieleMachineVerification.PhysicsPillars <> s:4 var
+R2674:2689 ThieleMachineVerification.ObservationInterface <> born_probability def
+R2692:2705 ThieleMachineVerification.PhysicsPillars <> born_amplitude def
+prf 2823:2847 <> born_rule_gauge_invariant
+binder 2858:2859 <> s1:5
+binder 2861:2862 <> s2:6
+R2882:2950 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2867:2875 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R2877:2878 ThieleMachineVerification.PhysicsPillars <> s1:5 var
+R2880:2881 ThieleMachineVerification.PhysicsPillars <> s2:6 var
+R2951:2959 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R2961:2962 ThieleMachineVerification.PhysicsPillars <> s1:5 var
+R2964:2965 ThieleMachineVerification.PhysicsPillars <> s2:6 var
+prf 3082:3101 <> born_rule_normalized
+binder 3112:3112 <> s:7
+R3119:3122 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x_'<='_x not
+R3141:3144 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x_'<='_x not
+R3123:3138 ThieleMachineVerification.ObservationInterface <> born_probability def
+R3140:3140 ThieleMachineVerification.PhysicsPillars <> s:7 var
+R3123:3138 ThieleMachineVerification.ObservationInterface <> born_probability def
+R3140:3140 ThieleMachineVerification.PhysicsPillars <> s:7 var
+R3177:3203 ThieleMachineVerification.ObservationInterface <> born_probability_normalized thm
+R3177:3203 ThieleMachineVerification.ObservationInterface <> born_probability_normalized thm
+prf 3654:3671 <> lorentz_invariance
+binder 3682:3682 <> s:8
+binder 3684:3684 <> v:9
+R3689:3697 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R3699:3699 ThieleMachineVerification.PhysicsPillars <> s:8 var
+R3702:3714 ThieleMachineVerification.Symmetry <> lorentz_boost def
+R3716:3716 ThieleMachineVerification.PhysicsPillars <> v:9 var
+R3718:3718 ThieleMachineVerification.PhysicsPillars <> s:8 var
+R3751:3771 ThieleMachineVerification.Symmetry <> lorentz_preserves_obs thm
+R3751:3771 ThieleMachineVerification.Symmetry <> lorentz_preserves_obs thm
+prf 3839:3870 <> lorentz_admissibility_invariance
+binder 3881:3881 <> s:10
+binder 3883:3886 <> prog:11
+binder 3888:3888 <> v:12
+R3916:3921 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3893:3908 ThieleMachineVerification.Admissibility <> trace_admissible def
+R3910:3910 ThieleMachineVerification.PhysicsPillars <> s:10 var
+R3912:3915 ThieleMachineVerification.PhysicsPillars <> prog:11 var
+R3922:3937 ThieleMachineVerification.Admissibility <> trace_admissible def
+R3940:3952 ThieleMachineVerification.Symmetry <> lorentz_boost def
+R3954:3954 ThieleMachineVerification.PhysicsPillars <> v:12 var
+R3956:3956 ThieleMachineVerification.PhysicsPillars <> s:10 var
+R3959:3962 ThieleMachineVerification.PhysicsPillars <> prog:11 var
+R4004:4034 ThieleMachineVerification.Symmetry <> lorentz_preserves_admissibility thm
+R4004:4034 ThieleMachineVerification.Symmetry <> lorentz_preserves_admissibility thm
+prf 4386:4429 <> time_translation_implies_energy_conservation
+binder 4440:4440 <> s:13
+binder 4442:4445 <> prog:14
+R4452:4454 Coq.Init.Datatypes <> nat ind
+binder 4448:4448 <> n:15
+R4501:4506 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4494:4496 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4460:4488 ThieleMachine.BlindSighted <> is_blind_program def
+R4490:4493 ThieleMachineVerification.PhysicsPillars <> prog:14 var
+R4497:4500 Coq.Init.Datatypes <> true constr
+R4530:4620 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4507:4522 ThieleMachineVerification.Admissibility <> trace_admissible def
+R4524:4524 ThieleMachineVerification.PhysicsPillars <> s:13 var
+R4526:4529 ThieleMachineVerification.PhysicsPillars <> prog:14 var
+R4621:4636 ThieleMachineVerification.Admissibility <> trace_admissible def
+R4638:4638 ThieleMachineVerification.PhysicsPillars <> s:13 var
+R4640:4643 ThieleMachineVerification.PhysicsPillars <> prog:14 var
+prf 4776:4813 <> mu_gauge_implies_delta_mu_conservation
+binder 4824:4824 <> s:16
+binder 4826:4826 <> k:17
+R4831:4839 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R4841:4841 ThieleMachineVerification.PhysicsPillars <> s:16 var
+R4844:4857 ThieleMachineVerification.Symmetry <> mu_gauge_shift def
+R4859:4859 ThieleMachineVerification.PhysicsPillars <> k:17 var
+R4861:4861 ThieleMachineVerification.PhysicsPillars <> s:16 var
+R4894:4915 ThieleMachineVerification.Symmetry <> mu_gauge_preserves_obs thm
+R4894:4915 ThieleMachineVerification.Symmetry <> mu_gauge_preserves_obs thm
+prf 5008:5056 <> spatial_translation_implies_momentum_conservation
+binder 5067:5067 <> s:18
+binder 5069:5074 <> offset:19
+R5079:5087 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R5089:5089 ThieleMachineVerification.PhysicsPillars <> s:18 var
+R5092:5114 ThieleMachineVerification.Symmetry <> spatial_translate_state def
+R5116:5121 ThieleMachineVerification.PhysicsPillars <> offset:19 var
+R5123:5123 ThieleMachineVerification.PhysicsPillars <> s:18 var
+R5161:5193 ThieleMachineVerification.Symmetry <> spatial_translation_preserves_obs thm
+R5161:5193 ThieleMachineVerification.Symmetry <> spatial_translation_preserves_obs thm
+def 5469:5480 <> coarse_grain
+R5502:5504 Coq.Init.Datatypes <> nat ind
+binder 5483:5498 <> partition_cutoff:20
+R5514:5521 ThieleMachineVerification.ObservationInterface <> ObsState rec
+binder 5508:5510 <> obs:21
+R5526:5533 ThieleMachineVerification.ObservationInterface <> ObsState rec
+R5543:5565 ThieleMachineVerification.ObservationInterface <> obs_partition_signature proj
+R5543:5565 ThieleMachineVerification.ObservationInterface <> obs_partition_signature proj
+R5543:5565 ThieleMachineVerification.ObservationInterface <> obs_partition_signature proj
+R5659:5679 ThieleMachineVerification.ObservationInterface <> obs_mu_delta_sequence proj
+R5659:5679 ThieleMachineVerification.ObservationInterface <> obs_mu_delta_sequence proj
+R5718:5733 ThieleMachineVerification.ObservationInterface <> obs_final_output proj
+R5718:5733 ThieleMachineVerification.ObservationInterface <> obs_final_output proj
+R5578:5583 Coq.Lists.List <> filter def
+R5628:5650 ThieleMachineVerification.ObservationInterface <> obs_partition_signature proj
+R5623:5625 ThieleMachineVerification.PhysicsPillars <> obs:21 var
+binder 5590:5590 <> n:22
+R5595:5601 Coq.Arith.PeanoNat Nat leb def
+R5603:5618 ThieleMachineVerification.PhysicsPillars <> partition_cutoff:20 var
+R5620:5620 ThieleMachineVerification.PhysicsPillars <> n:22 var
+R5689:5709 ThieleMachineVerification.ObservationInterface <> obs_mu_delta_sequence proj
+R5684:5686 ThieleMachineVerification.PhysicsPillars <> obs:21 var
+R5743:5758 ThieleMachineVerification.ObservationInterface <> obs_final_output proj
+R5738:5740 ThieleMachineVerification.PhysicsPillars <> obs:21 var
+def 5848:5854 <> entropy
+R5863:5870 ThieleMachineVerification.ObservationInterface <> ObsState rec
+binder 5857:5859 <> obs:23
+R5875:5875 Coq.QArith.QArith_base <> Q rec
+R5981:5988 Coq.QArith.QArith_base <> inject_Z def
+R5991:5998 Coq.ZArith.BinInt Z of_nat def
+R6001:6006 Coq.Init.Datatypes <> length def
+R6013:6035 ThieleMachineVerification.ObservationInterface <> obs_partition_signature proj
+R6008:6010 ThieleMachineVerification.PhysicsPillars <> obs:23 var
+prf 6099:6114 <> filter_length_le
+binder 6126:6126 <> A:24
+R6142:6145 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6141:6141 ThieleMachineVerification.PhysicsPillars <> A:24 var
+R6146:6149 Coq.Init.Datatypes <> bool ind
+binder 6137:6137 <> f:25
+R6157:6160 Coq.Init.Datatypes <> list ind
+R6162:6162 ThieleMachineVerification.PhysicsPillars <> A:24 var
+binder 6153:6153 <> l:26
+R6188:6191 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6169:6174 Coq.Init.Datatypes <> length def
+R6177:6182 Coq.Lists.List <> filter def
+R6186:6186 ThieleMachineVerification.PhysicsPillars <> l:26 var
+R6184:6184 ThieleMachineVerification.PhysicsPillars <> f:25 var
+R6192:6197 Coq.Init.Datatypes <> length def
+R6199:6199 ThieleMachineVerification.PhysicsPillars <> l:26 var
+prf 6387:6404 <> second_law_entropy
+R6422:6429 ThieleMachineVerification.ObservationInterface <> ObsState rec
+binder 6416:6418 <> obs:27
+R6442:6444 Coq.Init.Datatypes <> nat ind
+binder 6433:6438 <> cutoff:28
+R6666:6671 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6593:6598 Coq.Init.Datatypes <> length def
+R6601:6606 Coq.Lists.List <> filter def
+R6641:6663 ThieleMachineVerification.ObservationInterface <> obs_partition_signature proj
+R6636:6638 ThieleMachineVerification.PhysicsPillars <> obs:27 var
+binder 6613:6613 <> n:29
+R6618:6624 Coq.Arith.PeanoNat Nat leb def
+R6626:6631 ThieleMachineVerification.PhysicsPillars <> cutoff:28 var
+R6633:6633 ThieleMachineVerification.PhysicsPillars <> n:29 var
+R6672:6677 Coq.Init.Datatypes <> length def
+R6684:6706 ThieleMachineVerification.ObservationInterface <> obs_partition_signature proj
+R6679:6681 ThieleMachineVerification.PhysicsPillars <> obs:27 var
+R6751:6766 ThieleMachineVerification.PhysicsPillars <> filter_length_le thm
+R6751:6766 ThieleMachineVerification.PhysicsPillars <> filter_length_le thm
+prf 7077:7100 <> obs_equiv_is_gauge_orbit
+binder 7111:7112 <> s1:30
+binder 7114:7115 <> s2:31
+R7151:7156 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7134:7136 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7124:7132 ThieleMachine.BlindSighted <> partition proj
+R7120:7121 ThieleMachineVerification.PhysicsPillars <> s1:30 var
+R7141:7149 ThieleMachine.BlindSighted <> partition proj
+R7137:7138 ThieleMachineVerification.PhysicsPillars <> s2:31 var
+R7182:7246 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7168:7170 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7161:7166 ThieleMachine.BlindSighted <> answer proj
+R7157:7158 ThieleMachineVerification.PhysicsPillars <> s1:30 var
+R7175:7180 ThieleMachine.BlindSighted <> answer proj
+R7171:7172 ThieleMachineVerification.PhysicsPillars <> s2:31 var
+R7247:7253 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7259:7265 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7258:7258 Coq.Numbers.BinNums <> Z ind
+binder 7254:7254 <> k:32
+R7321:7328 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7289:7291 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7280:7287 ThieleMachine.BlindSighted <> mu_total proj
+R7271:7276 ThieleMachine.BlindSighted <> ledger proj
+R7267:7268 ThieleMachineVerification.PhysicsPillars <> s2:31 var
+R7314:7316 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R7305:7312 ThieleMachine.BlindSighted <> mu_total proj
+R7296:7301 ThieleMachine.BlindSighted <> ledger proj
+R7292:7293 ThieleMachineVerification.PhysicsPillars <> s1:30 var
+R7317:7317 ThieleMachineVerification.PhysicsPillars <> k:32 var
+R7329:7337 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R7339:7340 ThieleMachineVerification.PhysicsPillars <> s1:30 var
+R7342:7343 ThieleMachineVerification.PhysicsPillars <> s2:31 var
+R7412:7414 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R7403:7410 ThieleMachine.BlindSighted <> mu_total proj
+R7394:7399 ThieleMachine.BlindSighted <> ledger proj
+R7428:7435 ThieleMachine.BlindSighted <> mu_total proj
+R7419:7424 ThieleMachine.BlindSighted <> ledger proj
+R7412:7414 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R7403:7410 ThieleMachine.BlindSighted <> mu_total proj
+R7394:7399 ThieleMachine.BlindSighted <> ledger proj
+R7428:7435 ThieleMachine.BlindSighted <> mu_total proj
+R7419:7424 ThieleMachine.BlindSighted <> ledger proj
+R7471:7490 ThieleMachineVerification.ObservationInterface <> mu_gauge_freedom_obs thm
+R7521:7523 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R7512:7519 ThieleMachine.BlindSighted <> mu_total proj
+R7503:7508 ThieleMachine.BlindSighted <> ledger proj
+R7537:7544 ThieleMachine.BlindSighted <> mu_total proj
+R7528:7533 ThieleMachine.BlindSighted <> ledger proj
+R7471:7490 ThieleMachineVerification.ObservationInterface <> mu_gauge_freedom_obs thm
+R7521:7523 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R7512:7519 ThieleMachine.BlindSighted <> mu_total proj
+R7503:7508 ThieleMachine.BlindSighted <> ledger proj
+R7537:7544 ThieleMachine.BlindSighted <> mu_total proj
+R7528:7533 ThieleMachine.BlindSighted <> ledger proj
+prf 7654:7674 <> gauge_freedom_maximal
+binder 7685:7686 <> s1:33
+binder 7688:7689 <> s2:34
+R7694:7694 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7754:7760 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7706:7710 ThieleMachineVerification.ObservationInterface <> Event def
+binder 7702:7702 <> e:35
+R7732:7734 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7713:7729 ThieleMachineVerification.ObservationInterface <> event_probability def
+R7731:7731 ThieleMachineVerification.PhysicsPillars <> e:35 var
+R7735:7751 ThieleMachineVerification.ObservationInterface <> event_probability def
+R7753:7753 ThieleMachineVerification.PhysicsPillars <> e:35 var
+R7792:7797 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7775:7777 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7765:7773 ThieleMachine.BlindSighted <> partition proj
+R7761:7762 ThieleMachineVerification.PhysicsPillars <> s1:33 var
+R7782:7790 ThieleMachine.BlindSighted <> partition proj
+R7778:7779 ThieleMachineVerification.PhysicsPillars <> s2:34 var
+R7823:7828 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7809:7811 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7802:7807 ThieleMachine.BlindSighted <> answer proj
+R7798:7799 ThieleMachineVerification.PhysicsPillars <> s1:33 var
+R7816:7821 ThieleMachine.BlindSighted <> answer proj
+R7812:7813 ThieleMachineVerification.PhysicsPillars <> s2:34 var
+R7829:7837 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R7839:7840 ThieleMachineVerification.PhysicsPillars <> s1:33 var
+R7842:7843 ThieleMachineVerification.PhysicsPillars <> s2:34 var
+R7895:7903 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R7906:7918 ThieleMachineVerification.ObservationInterface <> observe_state def
+R7930:7948 ThieleMachineVerification.ObservationInterface <> partition_signature def
+R7951:7967 ThieleMachineVerification.ObservationInterface <> mu_delta_sequence def
+prf 8228:8253 <> physics_pillars_consistent
+R8283:8283 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8402:8429 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 8291:8291 <> s:36
+binder 8293:8296 <> prog:37
+R8326:8333 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8303:8318 ThieleMachineVerification.Admissibility <> trace_admissible def
+R8320:8320 ThieleMachineVerification.PhysicsPillars <> s:36 var
+R8322:8325 ThieleMachineVerification.PhysicsPillars <> prog:37 var
+R8364:8371 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8334:8349 ThieleMachineVerification.Admissibility <> spatial_locality def
+R8354:8362 ThieleMachine.BlindSighted <> partition proj
+R8351:8351 ThieleMachineVerification.PhysicsPillars <> s:36 var
+R8372:8387 ThieleMachineVerification.Admissibility <> spatial_locality def
+R8392:8400 ThieleMachine.BlindSighted <> partition proj
+R8389:8389 ThieleMachineVerification.PhysicsPillars <> s:36 var
+R8430:8430 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8533:8569 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8431:8438 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8458:8465 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8453:8456 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8445:8452 ThieleMachineVerification.ObservationInterface <> ObsState rec
+R8457:8457 Coq.QArith.QArith_base <> Q rec
+binder 8439:8441 <> psi:38
+binder 8473:8473 <> s:39
+R8512:8515 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R8476:8492 ThieleMachineVerification.ObservationInterface <> event_probability def
+binder 8499:8500 <> s':40
+R8507:8509 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8505:8506 ThieleMachineVerification.PhysicsPillars <> s':40 var
+R8510:8510 ThieleMachineVerification.PhysicsPillars <> s:39 var
+R8522:8524 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R8517:8519 ThieleMachineVerification.PhysicsPillars <> psi:38 var
+R8521:8521 ThieleMachineVerification.PhysicsPillars <> s:39 var
+R8525:8527 ThieleMachineVerification.PhysicsPillars <> psi:38 var
+R8529:8529 ThieleMachineVerification.PhysicsPillars <> s:39 var
+R8570:8570 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8614:8654 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 8578:8578 <> s:41
+binder 8580:8580 <> v:42
+R8583:8591 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R8593:8593 ThieleMachineVerification.PhysicsPillars <> s:41 var
+R8596:8608 ThieleMachineVerification.Symmetry <> lorentz_boost def
+R8610:8610 ThieleMachineVerification.PhysicsPillars <> v:42 var
+R8612:8612 ThieleMachineVerification.PhysicsPillars <> s:41 var
+R8655:8655 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8700:8732 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 8663:8663 <> s:43
+binder 8665:8665 <> k:44
+R8668:8676 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R8678:8678 ThieleMachineVerification.PhysicsPillars <> s:43 var
+R8681:8694 ThieleMachineVerification.Symmetry <> mu_gauge_shift def
+R8696:8696 ThieleMachineVerification.PhysicsPillars <> k:44 var
+R8698:8698 ThieleMachineVerification.PhysicsPillars <> s:43 var
+R8733:8733 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8881:8912 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9101:9101 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 8741:8743 <> obs:45
+binder 8745:8750 <> cutoff:46
+R8832:8839 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8759:8764 Coq.Init.Datatypes <> length def
+R8767:8772 Coq.Lists.List <> filter def
+R8807:8829 ThieleMachineVerification.ObservationInterface <> obs_partition_signature proj
+R8802:8804 ThieleMachineVerification.PhysicsPillars <> obs:45 var
+binder 8779:8779 <> n:47
+R8784:8790 Coq.Arith.PeanoNat Nat leb def
+R8792:8797 ThieleMachineVerification.PhysicsPillars <> cutoff:46 var
+R8799:8799 ThieleMachineVerification.PhysicsPillars <> n:47 var
+R8840:8845 Coq.Init.Datatypes <> length def
+R8852:8874 ThieleMachineVerification.ObservationInterface <> obs_partition_signature proj
+R8847:8849 ThieleMachineVerification.PhysicsPillars <> obs:45 var
+binder 8920:8921 <> s1:48
+binder 8923:8924 <> s2:49
+R8962:8969 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8945:8947 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8935:8943 ThieleMachine.BlindSighted <> partition proj
+R8931:8932 ThieleMachineVerification.PhysicsPillars <> s1:48 var
+R8952:8960 ThieleMachine.BlindSighted <> partition proj
+R8948:8949 ThieleMachineVerification.PhysicsPillars <> s2:49 var
+R8995:9002 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8981:8983 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8974:8979 ThieleMachine.BlindSighted <> answer proj
+R8970:8971 ThieleMachineVerification.PhysicsPillars <> s1:48 var
+R8988:8993 ThieleMachine.BlindSighted <> answer proj
+R8984:8985 ThieleMachineVerification.PhysicsPillars <> s2:49 var
+R9003:9009 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9011:9012 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 9010:9010 <> k:50
+R9068:9085 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9036:9038 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9027:9034 ThieleMachine.BlindSighted <> mu_total proj
+R9018:9023 ThieleMachine.BlindSighted <> ledger proj
+R9014:9015 ThieleMachineVerification.PhysicsPillars <> s2:49 var
+R9061:9063 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R9052:9059 ThieleMachine.BlindSighted <> mu_total proj
+R9043:9048 ThieleMachine.BlindSighted <> ledger proj
+R9039:9040 ThieleMachineVerification.PhysicsPillars <> s1:48 var
+R9064:9064 ThieleMachineVerification.PhysicsPillars <> k:50 var
+R9086:9094 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R9096:9097 ThieleMachineVerification.PhysicsPillars <> s1:48 var
+R9099:9100 ThieleMachineVerification.PhysicsPillars <> s2:49 var
+binder 9193:9193 <> s:51
+R9198:9214 ThieleMachineVerification.ObservationInterface <> event_probability def
+binder 9221:9222 <> s':52
+R9229:9231 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9227:9228 ThieleMachineVerification.PhysicsPillars <> s':52 var
+R9232:9232 ThieleMachineVerification.PhysicsPillars <> s:51 var
+R9261:9277 ThieleMachineVerification.ObservationInterface <> event_probability def
+R9294:9341 Coq.Logic.ClassicalDescription <> excluded_middle_informative thm
+R9344:9350 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9363:9364 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9355:9362 ThieleMachineVerification.ObservationInterface <> ObsState rec
+binder 9351:9351 <> o:53
+R9366:9368 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9365:9365 ThieleMachineVerification.PhysicsPillars <> o:53 var
+R9395:9397 Coq.QArith.QArith_base <> Qeq def
+binder 9193:9193 <> s:54
+R9198:9214 ThieleMachineVerification.ObservationInterface <> event_probability def
+binder 9221:9222 <> s':55
+R9229:9231 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9227:9228 ThieleMachineVerification.PhysicsPillars <> s':55 var
+R9232:9232 ThieleMachineVerification.PhysicsPillars <> s:54 var
+R9294:9341 Coq.Logic.ClassicalDescription <> excluded_middle_informative thm
+R9344:9350 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9363:9364 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9355:9362 ThieleMachineVerification.ObservationInterface <> ObsState rec
+binder 9351:9351 <> o:56
+R9366:9368 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9365:9365 ThieleMachineVerification.PhysicsPillars <> o:56 var
+R9478:9495 ThieleMachineVerification.PhysicsPillars <> lorentz_invariance thm
+R9478:9495 ThieleMachineVerification.PhysicsPillars <> lorentz_invariance thm
+R9518:9539 ThieleMachineVerification.Symmetry <> mu_gauge_preserves_obs thm
+R9518:9539 ThieleMachineVerification.Symmetry <> mu_gauge_preserves_obs thm
+R9581:9598 ThieleMachineVerification.PhysicsPillars <> second_law_entropy thm
+R9581:9598 ThieleMachineVerification.PhysicsPillars <> second_law_entropy thm
+R9640:9663 ThieleMachineVerification.PhysicsPillars <> obs_equiv_is_gauge_orbit thm
+R9640:9663 ThieleMachineVerification.PhysicsPillars <> obs_equiv_is_gauge_orbit thm

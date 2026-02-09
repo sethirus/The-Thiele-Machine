@@ -1,0 +1,516 @@
+DIGEST fd759cbf6fe8cbd55abdda70dd1980e7
+FBridge.PythonMuLedgerBisimulation
+R883:896 Coq.Arith.PeanoNat <> <> lib
+R914:916 Coq.micromega.Lia <> <> lib
+R943:948 Coq.NArith.NArith <> <> lib
+R979:985 Kernel.VMState <> <> lib
+R987:992 Kernel.VMStep <> <> lib
+rec 1261:1274 <> PythonMuLedger
+proj 1283:1297 <> py_mu_discovery
+proj 1360:1374 <> py_mu_execution
+proj 1428:1446 <> py_landauer_entropy
+proj 1509:1515 <> py_mask
+R1301:1303 Coq.Init.Datatypes <> nat ind
+R1378:1380 Coq.Init.Datatypes <> nat ind
+R1450:1452 Coq.Init.Datatypes <> nat ind
+R1519:1521 Coq.Init.Datatypes <> nat ind
+def 1624:1638 <> python_mu_total
+R1650:1663 Bridge.PythonMuLedgerBisimulation <> PythonMuLedger rec
+binder 1641:1646 <> ledger:6
+R1668:1670 Coq.Init.Datatypes <> nat ind
+R1677:1677 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R1729:1734 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R1702:1704 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1686:1700 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R1678:1683 Bridge.PythonMuLedgerBisimulation <> ledger:6 var
+R1713:1727 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R1705:1710 Bridge.PythonMuLedgerBisimulation <> ledger:6 var
+R1743:1749 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R1735:1740 Bridge.PythonMuLedgerBisimulation <> ledger:6 var
+def 2019:2033 <> mu_ledger_bisim
+R2045:2058 Bridge.PythonMuLedgerBisimulation <> PythonMuLedger rec
+binder 2036:2041 <> ledger:7
+R2071:2073 Coq.Init.Datatypes <> nat ind
+binder 2062:2067 <> coq_mu:8
+R2110:2112 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2088:2102 Bridge.PythonMuLedgerBisimulation <> python_mu_total def
+R2104:2109 Bridge.PythonMuLedgerBisimulation <> ledger:7 var
+R2119:2123 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R2113:2118 Bridge.PythonMuLedgerBisimulation <> coq_mu:8 var
+R2132:2138 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R2124:2129 Bridge.PythonMuLedgerBisimulation <> ledger:7 var
+prf 2416:2447 <> discovery_charge_preserves_bisim
+R2470:2483 Bridge.PythonMuLedgerBisimulation <> PythonMuLedger rec
+binder 2461:2466 <> ledger:9
+R2496:2498 Coq.Init.Datatypes <> nat ind
+binder 2487:2492 <> coq_mu:10
+R2510:2512 Coq.Init.Datatypes <> nat ind
+binder 2502:2506 <> delta:11
+R2549:2556 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2520:2534 Bridge.PythonMuLedgerBisimulation <> mu_ledger_bisim def
+R2536:2541 Bridge.PythonMuLedgerBisimulation <> ledger:9 var
+R2543:2548 Bridge.PythonMuLedgerBisimulation <> coq_mu:10 var
+R2575:2589 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R2575:2589 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R2575:2589 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R2650:2664 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R2650:2664 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R2717:2735 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R2717:2735 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R2792:2798 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R2792:2798 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R2618:2620 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2602:2616 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R2594:2599 Bridge.PythonMuLedgerBisimulation <> ledger:9 var
+R2621:2625 Bridge.PythonMuLedgerBisimulation <> delta:11 var
+R2677:2691 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R2669:2674 Bridge.PythonMuLedgerBisimulation <> ledger:9 var
+R2748:2766 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R2740:2745 Bridge.PythonMuLedgerBisimulation <> ledger:9 var
+R2811:2817 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R2803:2808 Bridge.PythonMuLedgerBisimulation <> ledger:9 var
+binder 2561:2567 <> ledger':12
+R2851:2853 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2845:2850 Bridge.PythonMuLedgerBisimulation <> coq_mu:10 var
+R2854:2858 Bridge.PythonMuLedgerBisimulation <> delta:11 var
+binder 2834:2840 <> coq_mu':13
+R2867:2881 Bridge.PythonMuLedgerBisimulation <> mu_ledger_bisim def
+R2883:2889 Bridge.PythonMuLedgerBisimulation <> ledger':12 var
+R2891:2897 Bridge.PythonMuLedgerBisimulation <> coq_mu':13 var
+R2953:2967 Bridge.PythonMuLedgerBisimulation <> mu_ledger_bisim def
+R2984:2998 Bridge.PythonMuLedgerBisimulation <> python_mu_total def
+R3025:3034 Coq.Arith.PeanoNat Nat eq_dec thm
+R3044:3050 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R3025:3034 Coq.Arith.PeanoNat Nat eq_dec thm
+R3044:3050 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R3278:3297 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3202:3202 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R3258:3263 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R3233:3235 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3225:3227 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3203:3217 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R3236:3250 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R3264:3270 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R3298:3298 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R3313:3318 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R3305:3307 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3319:3325 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R3278:3297 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3202:3202 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R3258:3263 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R3233:3235 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3225:3227 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3203:3217 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R3236:3250 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R3264:3270 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R3298:3298 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R3313:3318 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R3305:3307 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3319:3325 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R3418:3441 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3393:3395 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3385:3387 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3363:3377 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R3396:3410 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R3489:3491 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3464:3466 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3442:3456 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R3467:3481 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R3418:3441 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3393:3395 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3385:3387 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3363:3377 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R3396:3410 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R3489:3491 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3464:3466 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3442:3456 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R3467:3481 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R3542:3552 Coq.Arith.PeanoNat Nat add_mod abbrev
+R3542:3552 Coq.Arith.PeanoNat Nat add_mod abbrev
+R3542:3552 Coq.Arith.PeanoNat Nat add_mod abbrev
+R3608:3618 Coq.Arith.PeanoNat Nat add_mod abbrev
+R3608:3618 Coq.Arith.PeanoNat Nat add_mod abbrev
+R3608:3618 Coq.Arith.PeanoNat Nat add_mod abbrev
+prf 3747:3778 <> execution_charge_preserves_bisim
+R3801:3814 Bridge.PythonMuLedgerBisimulation <> PythonMuLedger rec
+binder 3792:3797 <> ledger:14
+R3827:3829 Coq.Init.Datatypes <> nat ind
+binder 3818:3823 <> coq_mu:15
+R3841:3843 Coq.Init.Datatypes <> nat ind
+binder 3833:3837 <> delta:16
+R3880:3887 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3851:3865 Bridge.PythonMuLedgerBisimulation <> mu_ledger_bisim def
+R3867:3872 Bridge.PythonMuLedgerBisimulation <> ledger:14 var
+R3874:3879 Bridge.PythonMuLedgerBisimulation <> coq_mu:15 var
+R3906:3920 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R3906:3920 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R3906:3920 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R3973:3987 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R3973:3987 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R4048:4066 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R4048:4066 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R4123:4129 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R4123:4129 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R3933:3947 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R3925:3930 Bridge.PythonMuLedgerBisimulation <> ledger:14 var
+R4016:4018 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4000:4014 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R3992:3997 Bridge.PythonMuLedgerBisimulation <> ledger:14 var
+R4019:4023 Bridge.PythonMuLedgerBisimulation <> delta:16 var
+R4079:4097 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R4071:4076 Bridge.PythonMuLedgerBisimulation <> ledger:14 var
+R4142:4148 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R4134:4139 Bridge.PythonMuLedgerBisimulation <> ledger:14 var
+binder 3892:3898 <> ledger':17
+R4182:4184 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4176:4181 Bridge.PythonMuLedgerBisimulation <> coq_mu:15 var
+R4185:4189 Bridge.PythonMuLedgerBisimulation <> delta:16 var
+binder 4165:4171 <> coq_mu':18
+R4198:4212 Bridge.PythonMuLedgerBisimulation <> mu_ledger_bisim def
+R4214:4220 Bridge.PythonMuLedgerBisimulation <> ledger':17 var
+R4222:4228 Bridge.PythonMuLedgerBisimulation <> coq_mu':18 var
+R4284:4298 Bridge.PythonMuLedgerBisimulation <> mu_ledger_bisim def
+R4315:4329 Bridge.PythonMuLedgerBisimulation <> python_mu_total def
+R4356:4365 Coq.Arith.PeanoNat Nat eq_dec thm
+R4375:4381 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R4356:4365 Coq.Arith.PeanoNat Nat eq_dec thm
+R4375:4381 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R4611:4630 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4533:4533 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R4591:4596 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R4556:4559 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4590:4590 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4534:4548 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R4582:4584 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4560:4574 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R4597:4603 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R4631:4631 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R4646:4651 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R4638:4640 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4652:4658 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R4611:4630 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4533:4533 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R4591:4596 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R4556:4559 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4590:4590 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4534:4548 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R4582:4584 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4560:4574 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R4597:4603 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R4631:4631 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R4646:4651 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R4638:4640 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4652:4658 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R4689:4701 Coq.Arith.PeanoNat Nat add_assoc thm
+R4689:4701 Coq.Arith.PeanoNat Nat add_assoc thm
+R4689:4701 Coq.Arith.PeanoNat Nat add_assoc thm
+R4718:4728 Coq.Arith.PeanoNat Nat add_mod abbrev
+R4718:4728 Coq.Arith.PeanoNat Nat add_mod abbrev
+R4718:4728 Coq.Arith.PeanoNat Nat add_mod abbrev
+R4784:4794 Coq.Arith.PeanoNat Nat add_mod abbrev
+R4784:4794 Coq.Arith.PeanoNat Nat add_mod abbrev
+R4784:4794 Coq.Arith.PeanoNat Nat add_mod abbrev
+prf 4922:4952 <> combined_charge_preserves_bisim
+R4975:4988 Bridge.PythonMuLedgerBisimulation <> PythonMuLedger rec
+binder 4966:4971 <> ledger:19
+R5001:5003 Coq.Init.Datatypes <> nat ind
+binder 4992:4997 <> coq_mu:20
+R5031:5033 Coq.Init.Datatypes <> nat ind
+binder 5007:5016 <> delta_disc:21
+binder 5018:5027 <> delta_exec:22
+R5070:5077 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5041:5055 Bridge.PythonMuLedgerBisimulation <> mu_ledger_bisim def
+R5057:5062 Bridge.PythonMuLedgerBisimulation <> ledger:19 var
+R5064:5069 Bridge.PythonMuLedgerBisimulation <> coq_mu:20 var
+R5096:5110 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R5096:5110 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R5096:5110 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R5176:5190 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R5176:5190 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R5256:5274 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R5256:5274 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R5331:5337 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R5331:5337 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R5139:5141 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5123:5137 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R5115:5120 Bridge.PythonMuLedgerBisimulation <> ledger:19 var
+R5142:5151 Bridge.PythonMuLedgerBisimulation <> delta_disc:21 var
+R5219:5221 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5203:5217 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R5195:5200 Bridge.PythonMuLedgerBisimulation <> ledger:19 var
+R5222:5231 Bridge.PythonMuLedgerBisimulation <> delta_exec:22 var
+R5287:5305 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R5279:5284 Bridge.PythonMuLedgerBisimulation <> ledger:19 var
+R5350:5356 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R5342:5347 Bridge.PythonMuLedgerBisimulation <> ledger:19 var
+binder 5082:5088 <> ledger':23
+R5403:5405 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5390:5392 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5384:5389 Bridge.PythonMuLedgerBisimulation <> coq_mu:20 var
+R5393:5402 Bridge.PythonMuLedgerBisimulation <> delta_disc:21 var
+R5406:5415 Bridge.PythonMuLedgerBisimulation <> delta_exec:22 var
+binder 5373:5379 <> coq_mu':24
+R5424:5438 Bridge.PythonMuLedgerBisimulation <> mu_ledger_bisim def
+R5440:5446 Bridge.PythonMuLedgerBisimulation <> ledger':23 var
+R5448:5454 Bridge.PythonMuLedgerBisimulation <> coq_mu':24 var
+R5526:5540 Bridge.PythonMuLedgerBisimulation <> mu_ledger_bisim def
+R5557:5571 Bridge.PythonMuLedgerBisimulation <> python_mu_total def
+R5598:5607 Coq.Arith.PeanoNat Nat eq_dec thm
+R5617:5623 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R5598:5607 Coq.Arith.PeanoNat Nat eq_dec thm
+R5617:5623 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R5792:5806 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R5792:5806 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R5792:5806 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R5882:5896 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R5882:5896 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R5959:5977 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R5959:5977 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R6044:6050 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R6044:6050 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R5833:5835 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5811:5825 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R5901:5915 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R5982:6000 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R6055:6061 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R5792:5806 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R5792:5806 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R5792:5806 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R5882:5896 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R5882:5896 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R5959:5977 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R5959:5977 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R6044:6050 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R6044:6050 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R5833:5835 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5811:5825 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R5901:5915 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R5982:6000 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R6055:6061 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R6091:6105 Bridge.PythonMuLedgerBisimulation <> mu_ledger_bisim def
+R6132:6134 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6091:6105 Bridge.PythonMuLedgerBisimulation <> mu_ledger_bisim def
+R6132:6134 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6188:6219 Bridge.PythonMuLedgerBisimulation <> discovery_charge_preserves_bisim thm
+R6188:6219 Bridge.PythonMuLedgerBisimulation <> discovery_charge_preserves_bisim thm
+R6291:6305 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R6291:6305 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R6291:6305 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R6375:6389 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R6375:6389 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R6459:6477 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R6459:6477 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R6538:6544 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R6538:6544 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R6332:6334 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6310:6324 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R6416:6418 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6394:6408 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R6482:6500 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R6549:6555 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R6291:6305 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R6291:6305 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R6291:6305 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R6375:6389 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R6375:6389 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R6459:6477 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R6459:6477 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R6538:6544 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R6538:6544 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R6332:6334 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6310:6324 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R6416:6418 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6394:6408 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R6482:6500 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R6549:6555 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R6585:6599 Bridge.PythonMuLedgerBisimulation <> mu_ledger_bisim def
+R6634:6636 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6621:6623 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6585:6599 Bridge.PythonMuLedgerBisimulation <> mu_ledger_bisim def
+R6634:6636 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6621:6623 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6691:6722 Bridge.PythonMuLedgerBisimulation <> execution_charge_preserves_bisim thm
+R6749:6751 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6691:6722 Bridge.PythonMuLedgerBisimulation <> execution_charge_preserves_bisim thm
+R6749:6751 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+prf 6895:6920 <> landauer_entropy_auxiliary
+R6943:6956 Bridge.PythonMuLedgerBisimulation <> PythonMuLedger rec
+binder 6934:6939 <> ledger:25
+R6968:6970 Coq.Init.Datatypes <> nat ind
+binder 6960:6964 <> delta:26
+R7000:7006 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6978:6992 Bridge.PythonMuLedgerBisimulation <> python_mu_total def
+R6994:6999 Bridge.PythonMuLedgerBisimulation <> ledger:25 var
+R7007:7021 Bridge.PythonMuLedgerBisimulation <> python_mu_total def
+R7026:7040 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R7026:7040 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R7026:7040 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R7094:7108 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R7094:7108 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R7162:7180 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R7162:7180 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R7246:7252 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R7246:7252 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R7053:7067 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R7045:7050 Bridge.PythonMuLedgerBisimulation <> ledger:25 var
+R7121:7135 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R7113:7118 Bridge.PythonMuLedgerBisimulation <> ledger:25 var
+R7213:7215 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7193:7211 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R7185:7190 Bridge.PythonMuLedgerBisimulation <> ledger:25 var
+R7216:7220 Bridge.PythonMuLedgerBisimulation <> delta:26 var
+R7265:7271 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R7257:7262 Bridge.PythonMuLedgerBisimulation <> ledger:25 var
+R7317:7331 Bridge.PythonMuLedgerBisimulation <> python_mu_total def
+prf 7609:7626 <> empty_ledger_bisim
+R7647:7649 Coq.Init.Datatypes <> nat ind
+binder 7640:7643 <> mask:27
+R7665:7672 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7661:7663 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R7657:7660 Bridge.PythonMuLedgerBisimulation <> mask:27 var
+R7673:7687 Bridge.PythonMuLedgerBisimulation <> mu_ledger_bisim def
+R7692:7706 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R7692:7706 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R7692:7706 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R7737:7751 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R7737:7751 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R7782:7800 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R7782:7800 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R7831:7837 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R7831:7837 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R7842:7845 Bridge.PythonMuLedgerBisimulation <> mask:27 var
+R7894:7908 Bridge.PythonMuLedgerBisimulation <> mu_ledger_bisim def
+R7911:7925 Bridge.PythonMuLedgerBisimulation <> python_mu_total def
+prf 8417:8444 <> python_mu_ledger_isomorphism
+R8467:8480 Bridge.PythonMuLedgerBisimulation <> PythonMuLedger rec
+binder 8458:8463 <> ledger:28
+R8493:8495 Coq.Init.Datatypes <> nat ind
+binder 8484:8489 <> coq_mu:29
+R8532:8539 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8503:8517 Bridge.PythonMuLedgerBisimulation <> mu_ledger_bisim def
+R8519:8524 Bridge.PythonMuLedgerBisimulation <> ledger:28 var
+R8526:8531 Bridge.PythonMuLedgerBisimulation <> coq_mu:29 var
+R8572:8574 Coq.Init.Datatypes <> nat ind
+binder 8548:8557 <> delta_disc:30
+binder 8559:8568 <> delta_exec:31
+R8602:8616 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R8602:8616 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R8602:8616 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R8684:8698 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R8684:8698 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R8766:8784 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R8766:8784 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R8843:8849 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R8843:8849 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R8645:8647 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8629:8643 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R8621:8626 Bridge.PythonMuLedgerBisimulation <> ledger:28 var
+R8648:8657 Bridge.PythonMuLedgerBisimulation <> delta_disc:30 var
+R8727:8729 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8711:8725 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R8703:8708 Bridge.PythonMuLedgerBisimulation <> ledger:28 var
+R8730:8739 Bridge.PythonMuLedgerBisimulation <> delta_exec:31 var
+R8797:8815 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R8789:8794 Bridge.PythonMuLedgerBisimulation <> ledger:28 var
+R8862:8868 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R8854:8859 Bridge.PythonMuLedgerBisimulation <> ledger:28 var
+binder 8588:8594 <> ledger':32
+R8917:8919 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8904:8906 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8898:8903 Bridge.PythonMuLedgerBisimulation <> coq_mu:29 var
+R8907:8916 Bridge.PythonMuLedgerBisimulation <> delta_disc:30 var
+R8920:8929 Bridge.PythonMuLedgerBisimulation <> delta_exec:31 var
+binder 8887:8893 <> coq_mu':33
+R8940:8954 Bridge.PythonMuLedgerBisimulation <> mu_ledger_bisim def
+R8956:8962 Bridge.PythonMuLedgerBisimulation <> ledger':32 var
+R8964:8970 Bridge.PythonMuLedgerBisimulation <> coq_mu':33 var
+R9041:9071 Bridge.PythonMuLedgerBisimulation <> combined_charge_preserves_bisim thm
+R9041:9071 Bridge.PythonMuLedgerBisimulation <> combined_charge_preserves_bisim thm
+prf 9368:9385 <> mu_charges_commute
+R9408:9421 Bridge.PythonMuLedgerBisimulation <> PythonMuLedger rec
+binder 9399:9404 <> ledger:34
+R9434:9436 Coq.Init.Datatypes <> nat ind
+binder 9425:9430 <> coq_mu:35
+R9446:9448 Coq.Init.Datatypes <> nat ind
+binder 9440:9440 <> d:36
+binder 9442:9442 <> e:37
+R9485:9492 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9456:9470 Bridge.PythonMuLedgerBisimulation <> mu_ledger_bisim def
+R9472:9477 Bridge.PythonMuLedgerBisimulation <> ledger:34 var
+R9479:9484 Bridge.PythonMuLedgerBisimulation <> coq_mu:35 var
+R9513:9527 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R9513:9527 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R9513:9527 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R9586:9600 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R9586:9600 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R9659:9677 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R9659:9677 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R9736:9742 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R9736:9742 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R9556:9558 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9540:9554 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R9532:9537 Bridge.PythonMuLedgerBisimulation <> ledger:34 var
+R9559:9559 Bridge.PythonMuLedgerBisimulation <> d:36 var
+R9629:9631 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9613:9627 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R9605:9610 Bridge.PythonMuLedgerBisimulation <> ledger:34 var
+R9632:9632 Bridge.PythonMuLedgerBisimulation <> e:37 var
+R9690:9708 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R9682:9687 Bridge.PythonMuLedgerBisimulation <> ledger:34 var
+R9755:9761 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R9747:9752 Bridge.PythonMuLedgerBisimulation <> ledger:34 var
+binder 9497:9505 <> ledger_de:38
+R9794:9808 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R9794:9808 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R9794:9808 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R9867:9881 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R9867:9881 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R9940:9958 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R9940:9958 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R10017:10023 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R10017:10023 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R9837:9839 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9821:9835 Bridge.PythonMuLedgerBisimulation <> py_mu_discovery proj
+R9813:9818 Bridge.PythonMuLedgerBisimulation <> ledger:34 var
+R9840:9840 Bridge.PythonMuLedgerBisimulation <> d:36 var
+R9910:9912 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9894:9908 Bridge.PythonMuLedgerBisimulation <> py_mu_execution proj
+R9886:9891 Bridge.PythonMuLedgerBisimulation <> ledger:34 var
+R9913:9913 Bridge.PythonMuLedgerBisimulation <> e:37 var
+R9971:9989 Bridge.PythonMuLedgerBisimulation <> py_landauer_entropy proj
+R9963:9968 Bridge.PythonMuLedgerBisimulation <> ledger:34 var
+R10036:10042 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R10028:10033 Bridge.PythonMuLedgerBisimulation <> ledger:34 var
+binder 9778:9786 <> ledger_ed:39
+R10080:10082 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10055:10069 Bridge.PythonMuLedgerBisimulation <> python_mu_total def
+R10071:10079 Bridge.PythonMuLedgerBisimulation <> ledger_de:38 var
+R10083:10097 Bridge.PythonMuLedgerBisimulation <> python_mu_total def
+R10099:10107 Bridge.PythonMuLedgerBisimulation <> ledger_ed:39 var
+R10161:10175 Bridge.PythonMuLedgerBisimulation <> python_mu_total def
+prf 10246:10261 <> bisim_transitive
+R10293:10306 Bridge.PythonMuLedgerBisimulation <> PythonMuLedger rec
+binder 10275:10281 <> ledger1:40
+binder 10283:10289 <> ledger2:41
+R10319:10321 Coq.Init.Datatypes <> nat ind
+binder 10310:10315 <> coq_mu:42
+R10366:10373 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10346:10348 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10338:10344 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R10329:10335 Bridge.PythonMuLedgerBisimulation <> ledger1:40 var
+R10358:10364 Bridge.PythonMuLedgerBisimulation <> py_mask proj
+R10349:10355 Bridge.PythonMuLedgerBisimulation <> ledger2:41 var
+R10404:10411 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10374:10388 Bridge.PythonMuLedgerBisimulation <> mu_ledger_bisim def
+R10390:10396 Bridge.PythonMuLedgerBisimulation <> ledger1:40 var
+R10398:10403 Bridge.PythonMuLedgerBisimulation <> coq_mu:42 var
+R10461:10468 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10435:10437 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10412:10426 Bridge.PythonMuLedgerBisimulation <> python_mu_total def
+R10428:10434 Bridge.PythonMuLedgerBisimulation <> ledger1:40 var
+R10438:10452 Bridge.PythonMuLedgerBisimulation <> python_mu_total def
+R10454:10460 Bridge.PythonMuLedgerBisimulation <> ledger2:41 var
+R10469:10483 Bridge.PythonMuLedgerBisimulation <> mu_ledger_bisim def
+R10485:10491 Bridge.PythonMuLedgerBisimulation <> ledger2:41 var
+R10493:10498 Bridge.PythonMuLedgerBisimulation <> coq_mu:42 var
+R10565:10579 Bridge.PythonMuLedgerBisimulation <> mu_ledger_bisim def

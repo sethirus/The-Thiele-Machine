@@ -1,0 +1,113 @@
+DIGEST 1e74d00602ab075033655dfd1523c8b8
+FKernel.TOEDecision
+R24:27 Coq.Lists.List <> <> lib
+R58:64 Kernel.VMState <> <> lib
+R94:99 Kernel.VMStep <> <> lib
+R129:141 Kernel.KernelPhysics <> <> lib
+R171:184 Kernel.PhysicsClosure <> <> lib
+R214:231 Kernel.SpacetimeEmergence <> <> lib
+R261:284 Kernel.ProbabilityImpossibility <> <> lib
+R314:333 Kernel.EntropyImpossibility <> <> lib
+R363:378 Kernel.LorentzNotForced <> <> lib
+R471:474 Kernel.NoGo <> <> lib
+R504:510 Kernel.Closure <> <> lib
+R540:542 Kernel.TOE <> <> lib
+prf 1119:1143 <> KernelNoGoForTOE_Decision
+R1149:1166 Kernel.NoGo <> KernelNoGoForTOE_P def
+R1184:1199 Kernel.NoGo <> KernelNoGoForTOE thm
+R1184:1199 Kernel.NoGo <> KernelNoGoForTOE thm
+prf 1345:1376 <> Physics_Requires_Extra_Structure
+R1382:1399 Kernel.NoGo <> KernelNoGoForTOE_P def
+R1417:1432 Kernel.NoGo <> KernelNoGoForTOE thm
+R1417:1432 Kernel.NoGo <> KernelNoGoForTOE thm
+prf 1586:1607 <> Kernel_Physics_Closure
+R1613:1613 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1838:1846 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 1621:1621 <> s:1
+binder 1623:1624 <> s':2
+binder 1626:1630 <> instr:3
+binder 1632:1634 <> mid:4
+R1673:1682 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1643:1659 Kernel.VMState <> well_formed_graph def
+R1664:1671 Kernel.VMState <> vm_graph proj
+R1661:1661 Kernel.TOEDecision <> s:1 var
+R1712:1721 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1686:1688 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R1683:1685 Kernel.TOEDecision <> mid:4 var
+R1689:1698 Kernel.VMState <> pg_next_id proj
+R1703:1710 Kernel.VMState <> vm_graph proj
+R1700:1700 Kernel.TOEDecision <> s:1 var
+R1740:1749 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1722:1728 Kernel.VMStep VMStep vm_step ind
+R1730:1730 Kernel.TOEDecision <> s:1 var
+R1732:1736 Kernel.TOEDecision <> instr:3 var
+R1738:1739 Kernel.TOEDecision <> s':2 var
+R1780:1789 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1750:1751 Coq.Init.Logic <> ::type_scope:'~'_x not
+R1752:1753 Coq.Lists.List <> In def
+R1760:1772 Kernel.KernelPhysics <> instr_targets def
+R1774:1778 Kernel.TOEDecision <> instr:3 var
+R1755:1757 Kernel.TOEDecision <> mid:4 var
+R1812:1814 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1790:1805 Kernel.KernelPhysics <> ObservableRegion def
+R1807:1807 Kernel.TOEDecision <> s:1 var
+R1809:1811 Kernel.TOEDecision <> mid:4 var
+R1815:1830 Kernel.KernelPhysics <> ObservableRegion def
+R1832:1833 Kernel.TOEDecision <> s':2 var
+R1835:1837 Kernel.TOEDecision <> mid:4 var
+R1847:1847 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1924:1933 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2159:2159 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 1855:1855 <> s:5
+binder 1857:1858 <> s':6
+binder 1860:1864 <> instr:7
+R1891:1900 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1873:1879 Kernel.VMStep VMStep vm_step ind
+R1881:1881 Kernel.TOEDecision <> s:5 var
+R1883:1887 Kernel.TOEDecision <> instr:7 var
+R1889:1890 Kernel.TOEDecision <> s':6 var
+R1911:1914 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R1905:1909 Kernel.VMState <> vm_mu proj
+R1901:1902 Kernel.TOEDecision <> s':6 var
+R1918:1922 Kernel.VMState <> vm_mu proj
+R1915:1915 Kernel.TOEDecision <> s:5 var
+binder 1941:1941 <> s:8
+binder 1943:1947 <> trace:9
+binder 1949:1950 <> s':10
+binder 1952:1954 <> mid:11
+R1984:1993 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1963:1972 Kernel.SpacetimeEmergence <> exec_trace ind
+R1974:1974 Kernel.TOEDecision <> s:8 var
+R1976:1980 Kernel.TOEDecision <> trace:9 var
+R1982:1983 Kernel.TOEDecision <> s':10 var
+R2024:2033 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1994:2010 Kernel.VMState <> well_formed_graph def
+R2015:2022 Kernel.VMState <> vm_graph proj
+R2012:2012 Kernel.TOEDecision <> s:8 var
+R2063:2072 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2037:2039 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2034:2036 Kernel.TOEDecision <> mid:11 var
+R2040:2049 Kernel.VMState <> pg_next_id proj
+R2054:2061 Kernel.VMState <> vm_graph proj
+R2051:2051 Kernel.TOEDecision <> s:8 var
+R2101:2110 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2073:2074 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2075:2076 Coq.Lists.List <> In def
+R2083:2093 Kernel.KernelPhysics <> causal_cone def
+R2095:2099 Kernel.TOEDecision <> trace:9 var
+R2078:2080 Kernel.TOEDecision <> mid:11 var
+R2133:2135 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2111:2126 Kernel.KernelPhysics <> ObservableRegion def
+R2128:2128 Kernel.TOEDecision <> s:8 var
+R2130:2132 Kernel.TOEDecision <> mid:11 var
+R2136:2151 Kernel.KernelPhysics <> ObservableRegion def
+R2153:2154 Kernel.TOEDecision <> s':10 var
+R2156:2158 Kernel.TOEDecision <> mid:11 var
+R2177:2191 Kernel.PhysicsClosure <> Physics_Closure thm
+R2177:2191 Kernel.PhysicsClosure <> Physics_Closure thm
+prf 2270:2292 <> Kernel_TOE_FinalOutcome
+R2319:2322 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2298:2318 Kernel.Closure <> KernelMaximalClosureP def
+R2323:2340 Kernel.NoGo <> KernelNoGoForTOE_P def
+R2358:2379 Kernel.TOE <> KernelTOE_FinalOutcome thm
+R2358:2379 Kernel.TOE <> KernelTOE_FinalOutcome thm

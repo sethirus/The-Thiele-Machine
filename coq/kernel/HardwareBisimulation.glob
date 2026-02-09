@@ -1,0 +1,372 @@
+DIGEST 9cf8690c121e02a03f54841972a773e1
+FKernel.HardwareBisimulation
+R1778:1781 Coq.Lists.List <> <> lib
+R1783:1786 Coq.Bool.Bool <> <> lib
+R1788:1801 Coq.Arith.PeanoNat <> <> lib
+R1803:1805 Coq.micromega.Lia <> <> lib
+R1815:1827 Coq.Lists.List ListNotations <> mod
+R1858:1864 Kernel.VMState <> <> lib
+R1866:1871 Kernel.VMStep <> <> lib
+rec 2207:2219 <> HardwareState
+proj 2228:2232 <> hw_pc
+proj 2294:2310 <> hw_mu_accumulator
+proj 2377:2388 <> hw_alu_ready
+proj 2433:2443 <> hw_overflow
+R2236:2238 Coq.Init.Datatypes <> nat ind
+R2314:2316 Coq.Init.Datatypes <> nat ind
+R2392:2395 Coq.Init.Datatypes <> bool ind
+R2447:2450 Coq.Init.Datatypes <> bool ind
+rec 2567:2577 <> PythonState
+proj 2586:2590 <> py_pc
+proj 2601:2605 <> py_mu
+proj 2616:2621 <> py_err
+proj 2633:2648 <> py_graph_modules
+R2594:2596 Coq.Init.Datatypes <> nat ind
+R2609:2611 Coq.Init.Datatypes <> nat ind
+R2625:2628 Coq.Init.Datatypes <> bool ind
+R2652:2654 Coq.Init.Datatypes <> nat ind
+def 2960:2982 <> hw_py_states_correspond
+R2990:3002 Kernel.HardwareBisimulation <> HardwareState rec
+binder 2985:2986 <> hw:11
+R3011:3021 Kernel.HardwareBisimulation <> PythonState rec
+binder 3006:3007 <> py:12
+R3059:3064 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3046:3048 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3040:3044 Kernel.HardwareBisimulation <> hw_pc proj
+R3036:3037 Kernel.HardwareBisimulation <> hw:11 var
+R3053:3057 Kernel.HardwareBisimulation <> py_pc proj
+R3049:3050 Kernel.HardwareBisimulation <> py:12 var
+R3100:3105 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3087:3089 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3069:3085 Kernel.HardwareBisimulation <> hw_mu_accumulator proj
+R3065:3066 Kernel.HardwareBisimulation <> hw:11 var
+R3094:3098 Kernel.HardwareBisimulation <> py_mu proj
+R3090:3091 Kernel.HardwareBisimulation <> py:12 var
+R3122:3124 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3110:3120 Kernel.HardwareBisimulation <> hw_overflow proj
+R3106:3107 Kernel.HardwareBisimulation <> hw:11 var
+R3129:3134 Kernel.HardwareBisimulation <> py_err proj
+R3125:3126 Kernel.HardwareBisimulation <> py:12 var
+def 3268:3292 <> hw_bisimulation_invariant
+R3300:3312 Kernel.HardwareBisimulation <> HardwareState rec
+binder 3295:3296 <> hw:13
+R3321:3331 Kernel.HardwareBisimulation <> PythonState rec
+binder 3316:3317 <> py:14
+R3369:3374 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3356:3358 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3350:3354 Kernel.HardwareBisimulation <> hw_pc proj
+R3346:3347 Kernel.HardwareBisimulation <> hw:13 var
+R3363:3367 Kernel.HardwareBisimulation <> py_pc proj
+R3359:3360 Kernel.HardwareBisimulation <> py:14 var
+R3397:3399 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3379:3395 Kernel.HardwareBisimulation <> hw_mu_accumulator proj
+R3375:3376 Kernel.HardwareBisimulation <> hw:13 var
+R3404:3408 Kernel.HardwareBisimulation <> py_mu proj
+R3400:3401 Kernel.HardwareBisimulation <> py:14 var
+def 3585:3597 <> hardware_step
+R3605:3617 Kernel.HardwareBisimulation <> HardwareState rec
+binder 3600:3601 <> hw:15
+R3628:3630 Coq.Init.Datatypes <> nat ind
+binder 3621:3624 <> cost:16
+R3635:3647 Kernel.HardwareBisimulation <> HardwareState rec
+R3657:3661 Kernel.HardwareBisimulation <> hw_pc proj
+R3657:3661 Kernel.HardwareBisimulation <> hw_pc proj
+R3657:3661 Kernel.HardwareBisimulation <> hw_pc proj
+R3685:3701 Kernel.HardwareBisimulation <> hw_mu_accumulator proj
+R3685:3701 Kernel.HardwareBisimulation <> hw_mu_accumulator proj
+R3742:3753 Kernel.HardwareBisimulation <> hw_alu_ready proj
+R3742:3753 Kernel.HardwareBisimulation <> hw_alu_ready proj
+R3769:3779 Kernel.HardwareBisimulation <> hw_overflow proj
+R3769:3779 Kernel.HardwareBisimulation <> hw_overflow proj
+R3666:3666 Coq.Init.Datatypes <> S constr
+R3672:3676 Kernel.HardwareBisimulation <> hw_pc proj
+R3668:3669 Kernel.HardwareBisimulation <> hw:15 var
+R3728:3730 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3710:3726 Kernel.HardwareBisimulation <> hw_mu_accumulator proj
+R3706:3707 Kernel.HardwareBisimulation <> hw:15 var
+R3731:3734 Kernel.HardwareBisimulation <> cost:16 var
+R3758:3761 Coq.Init.Datatypes <> true constr
+R3788:3798 Kernel.HardwareBisimulation <> hw_overflow proj
+R3784:3785 Kernel.HardwareBisimulation <> hw:15 var
+def 3889:3899 <> python_step
+R3907:3917 Kernel.HardwareBisimulation <> PythonState rec
+binder 3902:3903 <> py:17
+R3928:3930 Coq.Init.Datatypes <> nat ind
+binder 3921:3924 <> cost:18
+R3935:3945 Kernel.HardwareBisimulation <> PythonState rec
+R3955:3959 Kernel.HardwareBisimulation <> py_pc proj
+R3955:3959 Kernel.HardwareBisimulation <> py_pc proj
+R3955:3959 Kernel.HardwareBisimulation <> py_pc proj
+R3983:3987 Kernel.HardwareBisimulation <> py_mu proj
+R3983:3987 Kernel.HardwareBisimulation <> py_mu proj
+R4016:4021 Kernel.HardwareBisimulation <> py_err proj
+R4016:4021 Kernel.HardwareBisimulation <> py_err proj
+R4044:4059 Kernel.HardwareBisimulation <> py_graph_modules proj
+R4044:4059 Kernel.HardwareBisimulation <> py_graph_modules proj
+R3964:3964 Coq.Init.Datatypes <> S constr
+R3970:3974 Kernel.HardwareBisimulation <> py_pc proj
+R3966:3967 Kernel.HardwareBisimulation <> py:17 var
+R4002:4004 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3996:4000 Kernel.HardwareBisimulation <> py_mu proj
+R3992:3993 Kernel.HardwareBisimulation <> py:17 var
+R4005:4008 Kernel.HardwareBisimulation <> cost:18 var
+R4030:4035 Kernel.HardwareBisimulation <> py_err proj
+R4026:4027 Kernel.HardwareBisimulation <> py:17 var
+R4068:4083 Kernel.HardwareBisimulation <> py_graph_modules proj
+R4064:4065 Kernel.HardwareBisimulation <> py:17 var
+prf 4172:4196 <> hw_initial_correspondence
+binder 4209:4210 <> hw:19
+binder 4212:4213 <> py:20
+R4234:4241 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4230:4232 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4224:4228 Kernel.HardwareBisimulation <> hw_pc proj
+R4220:4221 Kernel.HardwareBisimulation <> hw:19 var
+R4268:4275 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4264:4266 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4246:4262 Kernel.HardwareBisimulation <> hw_mu_accumulator proj
+R4242:4243 Kernel.HardwareBisimulation <> hw:19 var
+R4290:4297 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4286:4288 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4280:4284 Kernel.HardwareBisimulation <> py_pc proj
+R4276:4277 Kernel.HardwareBisimulation <> py:20 var
+R4312:4319 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4308:4310 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4302:4306 Kernel.HardwareBisimulation <> py_mu proj
+R4298:4299 Kernel.HardwareBisimulation <> py:20 var
+R4320:4344 Kernel.HardwareBisimulation <> hw_bisimulation_invariant def
+R4346:4347 Kernel.HardwareBisimulation <> hw:19 var
+R4349:4350 Kernel.HardwareBisimulation <> py:20 var
+R4413:4437 Kernel.HardwareBisimulation <> hw_bisimulation_invariant def
+prf 4567:4586 <> hw_step_preserves_pc
+binder 4599:4600 <> hw:21
+binder 4602:4603 <> py:22
+binder 4605:4608 <> cost:23
+R4646:4653 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4615:4639 Kernel.HardwareBisimulation <> hw_bisimulation_invariant def
+R4641:4642 Kernel.HardwareBisimulation <> hw:21 var
+R4644:4645 Kernel.HardwareBisimulation <> py:22 var
+R4685:4687 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4679:4683 Kernel.HardwareBisimulation <> hw_pc proj
+R4655:4667 Kernel.HardwareBisimulation <> hardware_step def
+R4669:4670 Kernel.HardwareBisimulation <> hw:21 var
+R4672:4675 Kernel.HardwareBisimulation <> cost:23 var
+R4711:4715 Kernel.HardwareBisimulation <> py_pc proj
+R4689:4699 Kernel.HardwareBisimulation <> python_step def
+R4701:4702 Kernel.HardwareBisimulation <> py:22 var
+R4704:4707 Kernel.HardwareBisimulation <> cost:23 var
+prf 4855:4874 <> hw_step_preserves_mu
+binder 4887:4888 <> hw:24
+binder 4890:4891 <> py:25
+binder 4893:4896 <> cost:26
+R4934:4941 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4903:4927 Kernel.HardwareBisimulation <> hw_bisimulation_invariant def
+R4929:4930 Kernel.HardwareBisimulation <> hw:24 var
+R4932:4933 Kernel.HardwareBisimulation <> py:25 var
+R4985:4987 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4967:4983 Kernel.HardwareBisimulation <> hw_mu_accumulator proj
+R4943:4955 Kernel.HardwareBisimulation <> hardware_step def
+R4957:4958 Kernel.HardwareBisimulation <> hw:24 var
+R4960:4963 Kernel.HardwareBisimulation <> cost:26 var
+R5011:5015 Kernel.HardwareBisimulation <> py_mu proj
+R4989:4999 Kernel.HardwareBisimulation <> python_step def
+R5001:5002 Kernel.HardwareBisimulation <> py:25 var
+R5004:5007 Kernel.HardwareBisimulation <> cost:26 var
+prf 5148:5167 <> hw_bisimulation_step
+binder 5180:5181 <> hw:27
+binder 5183:5184 <> py:28
+binder 5186:5189 <> cost:29
+R5227:5234 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5196:5220 Kernel.HardwareBisimulation <> hw_bisimulation_invariant def
+R5222:5223 Kernel.HardwareBisimulation <> hw:27 var
+R5225:5226 Kernel.HardwareBisimulation <> py:28 var
+R5235:5259 Kernel.HardwareBisimulation <> hw_bisimulation_invariant def
+R5262:5274 Kernel.HardwareBisimulation <> hardware_step def
+R5276:5277 Kernel.HardwareBisimulation <> hw:27 var
+R5279:5282 Kernel.HardwareBisimulation <> cost:29 var
+R5286:5296 Kernel.HardwareBisimulation <> python_step def
+R5298:5299 Kernel.HardwareBisimulation <> py:28 var
+R5301:5304 Kernel.HardwareBisimulation <> cost:29 var
+R5350:5374 Kernel.HardwareBisimulation <> hw_bisimulation_invariant def
+R5396:5415 Kernel.HardwareBisimulation <> hw_step_preserves_pc thm
+R5396:5415 Kernel.HardwareBisimulation <> hw_step_preserves_pc thm
+R5440:5459 Kernel.HardwareBisimulation <> hw_step_preserves_mu thm
+R5440:5459 Kernel.HardwareBisimulation <> hw_step_preserves_mu thm
+def 5561:5579 <> hardware_multi_step
+R5587:5599 Kernel.HardwareBisimulation <> HardwareState rec
+binder 5582:5583 <> hw:30
+R5611:5614 Coq.Init.Datatypes <> list ind
+R5616:5618 Coq.Init.Datatypes <> nat ind
+binder 5603:5607 <> costs:31
+R5623:5635 Kernel.HardwareBisimulation <> HardwareState rec
+R5648:5652 Kernel.HardwareBisimulation <> costs:31 var
+R5663:5664 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5669:5670 Kernel.HardwareBisimulation <> hw:30 var
+R5680:5683 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5694:5712 Kernel.HardwareBisimulation <> hardware_multi_step:32 def
+R5715:5727 Kernel.HardwareBisimulation <> hardware_step def
+R5729:5730 Kernel.HardwareBisimulation <> hw:30 var
+def 5797:5813 <> python_multi_step
+R5821:5831 Kernel.HardwareBisimulation <> PythonState rec
+binder 5816:5817 <> py:34
+R5843:5846 Coq.Init.Datatypes <> list ind
+R5848:5850 Coq.Init.Datatypes <> nat ind
+binder 5835:5839 <> costs:35
+R5855:5865 Kernel.HardwareBisimulation <> PythonState rec
+R5878:5882 Kernel.HardwareBisimulation <> costs:35 var
+R5893:5894 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5899:5900 Kernel.HardwareBisimulation <> py:34 var
+R5910:5913 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5924:5940 Kernel.HardwareBisimulation <> python_multi_step:36 def
+R5943:5953 Kernel.HardwareBisimulation <> python_step def
+R5955:5956 Kernel.HardwareBisimulation <> py:34 var
+prf 6031:6056 <> hw_bisimulation_multi_step
+binder 6069:6070 <> hw:38
+binder 6072:6073 <> py:39
+binder 6075:6079 <> costs:40
+R6117:6124 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6086:6110 Kernel.HardwareBisimulation <> hw_bisimulation_invariant def
+R6112:6113 Kernel.HardwareBisimulation <> hw:38 var
+R6115:6116 Kernel.HardwareBisimulation <> py:39 var
+R6125:6149 Kernel.HardwareBisimulation <> hw_bisimulation_invariant def
+R6152:6170 Kernel.HardwareBisimulation <> hardware_multi_step def
+R6172:6173 Kernel.HardwareBisimulation <> hw:38 var
+R6175:6179 Kernel.HardwareBisimulation <> costs:40 var
+R6183:6199 Kernel.HardwareBisimulation <> python_multi_step def
+R6201:6202 Kernel.HardwareBisimulation <> py:39 var
+R6204:6208 Kernel.HardwareBisimulation <> costs:40 var
+R6374:6393 Kernel.HardwareBisimulation <> hw_bisimulation_step thm
+R6374:6393 Kernel.HardwareBisimulation <> hw_bisimulation_step thm
+prf 6469:6490 <> hw_mu_cost_consistency
+binder 6503:6504 <> hw:41
+binder 6506:6507 <> py:42
+binder 6509:6513 <> costs:43
+R6551:6558 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6520:6544 Kernel.HardwareBisimulation <> hw_bisimulation_invariant def
+R6546:6547 Kernel.HardwareBisimulation <> hw:41 var
+R6549:6550 Kernel.HardwareBisimulation <> py:42 var
+R6609:6616 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6591:6607 Kernel.HardwareBisimulation <> hw_mu_accumulator proj
+R6560:6578 Kernel.HardwareBisimulation <> hardware_multi_step def
+R6580:6581 Kernel.HardwareBisimulation <> hw:41 var
+R6583:6587 Kernel.HardwareBisimulation <> costs:43 var
+R6647:6651 Kernel.HardwareBisimulation <> py_mu proj
+R6618:6634 Kernel.HardwareBisimulation <> python_multi_step def
+R6636:6637 Kernel.HardwareBisimulation <> py:42 var
+R6639:6643 Kernel.HardwareBisimulation <> costs:43 var
+R6703:6728 Kernel.HardwareBisimulation <> hw_bisimulation_multi_step thm
+R6703:6728 Kernel.HardwareBisimulation <> hw_bisimulation_multi_step thm
+prf 7323:7349 <> complete_verification_chain
+binder 7407:7413 <> hw_init:44
+binder 7415:7421 <> py_init:45
+R7469:7538 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7428:7452 Kernel.HardwareBisimulation <> hw_bisimulation_invariant def
+R7454:7460 Kernel.HardwareBisimulation <> hw_init:44 var
+R7462:7468 Kernel.HardwareBisimulation <> py_init:45 var
+R7554:7557 Coq.Init.Datatypes <> list ind
+R7559:7561 Coq.Init.Datatypes <> nat ind
+binder 7546:7550 <> costs:46
+R7717:7760 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7608:7632 Kernel.HardwareBisimulation <> hw_bisimulation_invariant def
+R7642:7660 Kernel.HardwareBisimulation <> hardware_multi_step def
+R7662:7668 Kernel.HardwareBisimulation <> hw_init:44 var
+R7670:7674 Kernel.HardwareBisimulation <> costs:46 var
+R7685:7701 Kernel.HardwareBisimulation <> python_multi_step def
+R7703:7709 Kernel.HardwareBisimulation <> py_init:45 var
+R7711:7715 Kernel.HardwareBisimulation <> costs:46 var
+R7816:7822 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7798:7814 Kernel.HardwareBisimulation <> hw_mu_accumulator proj
+R7762:7780 Kernel.HardwareBisimulation <> hardware_multi_step def
+R7782:7788 Kernel.HardwareBisimulation <> hw_init:44 var
+R7790:7794 Kernel.HardwareBisimulation <> costs:46 var
+R7858:7862 Kernel.HardwareBisimulation <> py_mu proj
+R7824:7840 Kernel.HardwareBisimulation <> python_multi_step def
+R7842:7848 Kernel.HardwareBisimulation <> py_init:45 var
+R7850:7854 Kernel.HardwareBisimulation <> costs:46 var
+R7930:7955 Kernel.HardwareBisimulation <> hw_bisimulation_multi_step thm
+R7930:7955 Kernel.HardwareBisimulation <> hw_bisimulation_multi_step thm
+R7981:8002 Kernel.HardwareBisimulation <> hw_mu_cost_consistency thm
+R7981:8002 Kernel.HardwareBisimulation <> hw_mu_cost_consistency thm
+def 8199:8208 <> q16_16_one
+R8212:8214 Coq.Init.Datatypes <> nat ind
+prf 8314:8326 <> q16_add_assoc
+R8347:8349 Coq.Init.Datatypes <> nat ind
+binder 8339:8339 <> a:47
+binder 8341:8341 <> b:48
+binder 8343:8343 <> c:49
+R8367:8369 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8357:8360 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8366:8366 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8356:8356 Kernel.HardwareBisimulation <> a:47 var
+R8362:8364 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8361:8361 Kernel.HardwareBisimulation <> b:48 var
+R8365:8365 Kernel.HardwareBisimulation <> c:49 var
+R8370:8370 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8376:8379 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8372:8374 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8371:8371 Kernel.HardwareBisimulation <> a:47 var
+R8375:8375 Kernel.HardwareBisimulation <> b:48 var
+R8380:8380 Kernel.HardwareBisimulation <> c:49 var
+prf 8470:8481 <> q16_add_comm
+R8500:8502 Coq.Init.Datatypes <> nat ind
+binder 8494:8494 <> a:50
+binder 8496:8496 <> b:51
+R8514:8516 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8510:8512 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8509:8509 Kernel.HardwareBisimulation <> a:50 var
+R8513:8513 Kernel.HardwareBisimulation <> b:51 var
+R8518:8520 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8517:8517 Kernel.HardwareBisimulation <> b:51 var
+R8521:8521 Kernel.HardwareBisimulation <> a:50 var
+prf 8599:8623 <> mu_accumulation_monotonic
+binder 8636:8637 <> hw:52
+binder 8639:8643 <> costs:53
+R8672:8675 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8654:8670 Kernel.HardwareBisimulation <> hw_mu_accumulator proj
+R8650:8651 Kernel.HardwareBisimulation <> hw:52 var
+R8708:8724 Kernel.HardwareBisimulation <> hw_mu_accumulator proj
+R8677:8695 Kernel.HardwareBisimulation <> hardware_multi_step def
+R8697:8698 Kernel.HardwareBisimulation <> hw:52 var
+R8700:8704 Kernel.HardwareBisimulation <> costs:53 var
+R8887:8890 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8869:8885 Kernel.HardwareBisimulation <> hw_mu_accumulator proj
+R8916:8932 Kernel.HardwareBisimulation <> hw_mu_accumulator proj
+R8892:8904 Kernel.HardwareBisimulation <> hardware_step def
+R8887:8890 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8869:8885 Kernel.HardwareBisimulation <> hw_mu_accumulator proj
+R8916:8932 Kernel.HardwareBisimulation <> hw_mu_accumulator proj
+R8892:8904 Kernel.HardwareBisimulation <> hardware_step def
+R8977:8989 Kernel.HardwareBisimulation <> hardware_step def
+R8977:8989 Kernel.HardwareBisimulation <> hardware_step def
+prf 9273:9302 <> hardware_synthesis_correctness
+binder 9315:9321 <> hw_init:54
+binder 9323:9329 <> py_init:55
+binder 9331:9335 <> costs:56
+R9383:9424 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9342:9366 Kernel.HardwareBisimulation <> hw_bisimulation_invariant def
+R9368:9374 Kernel.HardwareBisimulation <> hw_init:54 var
+R9376:9382 Kernel.HardwareBisimulation <> py_init:55 var
+R9441:9459 Kernel.HardwareBisimulation <> hardware_multi_step def
+R9461:9467 Kernel.HardwareBisimulation <> hw_init:54 var
+R9469:9473 Kernel.HardwareBisimulation <> costs:56 var
+binder 9429:9436 <> hw_final:57
+R9498:9514 Kernel.HardwareBisimulation <> python_multi_step def
+R9516:9522 Kernel.HardwareBisimulation <> py_init:55 var
+R9524:9528 Kernel.HardwareBisimulation <> costs:56 var
+binder 9486:9493 <> py_final:58
+R9580:9626 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9537:9561 Kernel.HardwareBisimulation <> hw_bisimulation_invariant def
+R9563:9570 Kernel.HardwareBisimulation <> hw_final:57 var
+R9572:9579 Kernel.HardwareBisimulation <> py_final:58 var
+R9674:9713 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9655:9657 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9637:9653 Kernel.HardwareBisimulation <> hw_mu_accumulator proj
+R9627:9634 Kernel.HardwareBisimulation <> hw_final:57 var
+R9668:9672 Kernel.HardwareBisimulation <> py_mu proj
+R9658:9665 Kernel.HardwareBisimulation <> py_final:58 var
+R9730:9732 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9724:9728 Kernel.HardwareBisimulation <> hw_pc proj
+R9714:9721 Kernel.HardwareBisimulation <> hw_final:57 var
+R9743:9747 Kernel.HardwareBisimulation <> py_pc proj
+R9733:9740 Kernel.HardwareBisimulation <> py_final:58 var
+R9828:9854 Kernel.HardwareBisimulation <> complete_verification_chain thm
+R9828:9854 Kernel.HardwareBisimulation <> complete_verification_chain thm

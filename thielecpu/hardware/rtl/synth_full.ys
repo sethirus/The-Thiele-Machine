@@ -1,0 +1,17 @@
+# Full-scale Yosys synthesis script for Thiele CPU
+# Uses full parameters: NUM_MODULES=64, REGION_SIZE=1024
+# Requires ~3-4 GB RAM
+read_verilog -sv -DSYNTHESIS thiele_cpu_unified.v
+hierarchy -top thiele_cpu -check
+proc
+flatten
+opt -full
+fsm
+opt -full
+memory
+opt -full
+techmap
+opt -full
+clean -purge
+stat
+write_verilog -noattr synth_full_out.v

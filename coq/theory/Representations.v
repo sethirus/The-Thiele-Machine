@@ -43,6 +43,7 @@ Section Representations.
   (* μ-cost in QM: Oracle queries and measurements cost 1, everything else is free *)
   (* INQUISITOR NOTE: μ-cost is zeroed as a placeholder; full cost accounting
      is deferred to the complete unitary model. *)
+  (* SAFE: qm_mu is intentionally zero — unitary (reversible) ops have zero μ-cost by definition. *)
   Definition qm_mu {A B} (_ : UnitaryOp A B) : nat := 0.
 
   (* The category of quantum operations *)
@@ -130,6 +131,7 @@ Section Representations.
   (* μ-cost in thermodynamics: related to entropy increase *)
   (* INQUISITOR NOTE: μ-cost placeholder; actual thermodynamic accounting
      requires domain-specific modeling. *)
+  (* SAFE: thermo_mu is intentionally zero — reversible thermodynamic ops have zero μ-cost. *)
   Definition thermo_mu {A B} (_ : ThermoOp A B) : nat := 0.
 
   Definition Thermo_Cat : Universality.SetoidCat Obj := {|

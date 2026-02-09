@@ -1,0 +1,251 @@
+DIGEST cd7fb27c3f405615f7ac19a01069bb7d
+FNoFI.Instance_Kernel
+R24:27 Coq.Lists.List <> <> lib
+R29:31 Coq.micromega.Lia <> <> lib
+R33:46 Coq.Arith.PeanoNat <> <> lib
+R56:68 Coq.Lists.List ListNotations <> mod
+R87:93 Kernel.VMState <> <> lib
+R111:116 Kernel.VMStep <> <> lib
+R134:148 Kernel.SimulationProof <> <> lib
+R166:185 Kernel.MuLedgerConservation <> <> lib
+R203:223 Kernel.RevelationRequirement <> <> lib
+R242:269 NoFI.NoFreeInsight_Interface <> <> lib
+R287:312 NoFI.NoFreeInsight_Theorem <> <> lib
+R337:358 NoFI.NoFreeInsight_Interface NO_FREE_INSIGHT_SYSTEM <> mod
+mod 323:332 <> KernelNoFI
+def 374:374 KernelNoFI S
+R379:385 Kernel.VMState <> VMState rec
+def 401:405 KernelNoFI Trace
+R410:413 Coq.Init.Datatypes <> list ind
+R415:428 Kernel.VMStep VMStep vm_instruction ind
+def 444:446 KernelNoFI Obs
+R451:453 Coq.Init.Datatypes <> nat ind
+def 696:703 KernelNoFI Strength
+R708:710 Coq.Init.Datatypes <> nat ind
+def 861:863 KernelNoFI run
+R871:875 NoFI.Instance_Kernel KernelNoFI Trace def
+binder 866:867 <> tr:1
+R884:884 NoFI.Instance_Kernel KernelNoFI S def
+binder 879:880 <> s0:2
+R889:894 Coq.Init.Datatypes <> option ind
+R896:896 NoFI.Instance_Kernel KernelNoFI S def
+R905:929 Kernel.RevelationRequirement RevelationProof trace_run def
+R932:939 Coq.Arith.PeanoNat Nat succ def
+R942:947 Coq.Init.Datatypes <> length def
+R949:950 NoFI.Instance_Kernel <> tr:1 var
+R954:955 NoFI.Instance_Kernel <> tr:1 var
+R957:958 NoFI.Instance_Kernel <> s0:2 var
+def 975:976 KernelNoFI ok
+R983:983 NoFI.Instance_Kernel KernelNoFI S def
+binder 979:979 <> s:3
+R1006:1008 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R999:1004 Kernel.VMState <> vm_err proj
+R996:996 NoFI.Instance_Kernel <> s:3 var
+R1009:1013 Coq.Init.Datatypes <> false constr
+def 1030:1031 KernelNoFI mu
+R1038:1038 NoFI.Instance_Kernel KernelNoFI S def
+binder 1034:1034 <> s:4
+R1043:1045 Coq.Init.Datatypes <> nat ind
+R1053:1057 Kernel.VMState <> vm_mu proj
+R1050:1050 NoFI.Instance_Kernel <> s:4 var
+def 1130:1136 KernelNoFI observe
+R1143:1143 NoFI.Instance_Kernel KernelNoFI S def
+binder 1139:1139 <> s:5
+R1148:1150 NoFI.Instance_Kernel KernelNoFI Obs def
+R1168:1180 Kernel.VMState <> csr_cert_addr proj
+R1158:1164 Kernel.VMState <> vm_csrs proj
+R1155:1155 NoFI.Instance_Kernel <> s:5 var
+def 1342:1350 KernelNoFI certifies
+R1357:1357 NoFI.Instance_Kernel KernelNoFI S def
+binder 1353:1353 <> s:6
+R1372:1379 NoFI.Instance_Kernel KernelNoFI Strength def
+binder 1361:1368 <> strength:7
+R1409:1412 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1404:1407 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R1396:1403 NoFI.Instance_Kernel <> strength:7 var
+R1434:1437 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1421:1424 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1413:1420 NoFI.Instance_Kernel <> strength:7 var
+R1425:1431 NoFI.Instance_Kernel KernelNoFI observe def
+R1433:1433 NoFI.Instance_Kernel <> s:6 var
+R1438:1467 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R1469:1469 NoFI.Instance_Kernel <> s:6 var
+def 1486:1494 KernelNoFI Certified
+R1502:1506 NoFI.Instance_Kernel KernelNoFI Trace def
+binder 1497:1498 <> tr:8
+R1515:1515 NoFI.Instance_Kernel KernelNoFI S def
+binder 1510:1511 <> s0:9
+R1530:1537 NoFI.Instance_Kernel KernelNoFI Strength def
+binder 1519:1526 <> strength:10
+R1554:1560 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1563:1564 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 1561:1562 <> s1:11
+R1584:1587 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1574:1576 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1565:1567 NoFI.Instance_Kernel KernelNoFI run def
+R1569:1570 NoFI.Instance_Kernel <> tr:8 var
+R1572:1573 NoFI.Instance_Kernel <> s0:9 var
+R1577:1580 Coq.Init.Datatypes <> Some constr
+R1582:1583 NoFI.Instance_Kernel <> s1:11 var
+R1593:1596 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1588:1589 NoFI.Instance_Kernel KernelNoFI ok def
+R1591:1592 NoFI.Instance_Kernel <> s1:11 var
+R1597:1605 NoFI.Instance_Kernel KernelNoFI certifies def
+R1607:1608 NoFI.Instance_Kernel <> s1:11 var
+R1610:1617 NoFI.Instance_Kernel <> strength:10 var
+prf 1629:1642 KernelNoFI Certified_spec
+binder 1657:1658 <> tr:12
+binder 1660:1661 <> s0:13
+binder 1663:1670 <> strength:14
+R1703:1713 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R1679:1687 NoFI.Instance_Kernel KernelNoFI Certified def
+R1689:1690 NoFI.Instance_Kernel <> tr:12 var
+R1692:1693 NoFI.Instance_Kernel <> s0:13 var
+R1695:1702 NoFI.Instance_Kernel <> strength:14 var
+R1714:1720 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1723:1724 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 1721:1722 <> s1:15
+R1744:1747 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1734:1736 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1725:1727 NoFI.Instance_Kernel KernelNoFI run def
+R1729:1730 NoFI.Instance_Kernel <> tr:12 var
+R1732:1733 NoFI.Instance_Kernel <> s0:13 var
+R1737:1740 Coq.Init.Datatypes <> Some constr
+R1742:1743 NoFI.Instance_Kernel <> s1:15 var
+R1753:1756 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1748:1749 NoFI.Instance_Kernel KernelNoFI ok def
+R1751:1752 NoFI.Instance_Kernel <> s1:15 var
+R1757:1765 NoFI.Instance_Kernel KernelNoFI certifies def
+R1767:1768 NoFI.Instance_Kernel <> s1:15 var
+R1770:1777 NoFI.Instance_Kernel <> strength:14 var
+R1823:1831 NoFI.Instance_Kernel KernelNoFI Certified def
+def 1862:1878 KernelNoFI strictly_stronger
+R1887:1894 NoFI.Instance_Kernel KernelNoFI Strength def
+binder 1881:1881 <> a:16
+binder 1883:1883 <> b:17
+R1908:1910 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R1907:1907 NoFI.Instance_Kernel <> b:17 var
+R1911:1911 NoFI.Instance_Kernel <> a:16 var
+def 2017:2031 KernelNoFI structure_event
+R2039:2043 NoFI.Instance_Kernel KernelNoFI Trace def
+binder 2034:2035 <> tr:18
+R2052:2052 NoFI.Instance_Kernel KernelNoFI S def
+binder 2047:2048 <> s0:19
+R2069:2109 Kernel.RevelationRequirement RevelationProof structure_addition_in_run def
+R2112:2119 Coq.Arith.PeanoNat Nat succ def
+R2122:2127 Coq.Init.Datatypes <> length def
+R2129:2130 NoFI.Instance_Kernel <> tr:18 var
+R2134:2135 NoFI.Instance_Kernel <> tr:18 var
+R2137:2138 NoFI.Instance_Kernel <> s0:19 var
+def 2155:2165 KernelNoFI clean_start
+R2172:2172 NoFI.Instance_Kernel KernelNoFI S def
+binder 2168:2168 <> s:20
+R2216:2218 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2202:2214 Kernel.VMState <> csr_cert_addr proj
+R2192:2198 Kernel.VMState <> vm_csrs proj
+R2189:2189 NoFI.Instance_Kernel <> s:20 var
+prf 2312:2337 KernelNoFI pyexec_preserves_cert_addr
+binder 2352:2352 <> s:21
+binder 2354:2360 <> payload:22
+binder 2362:2365 <> cost:23
+R2440:2448 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2426:2438 Kernel.VMState <> csr_cert_addr proj
+R2416:2422 Kernel.VMState <> vm_csrs proj
+R2375:2382 Kernel.SimulationProof <> vm_apply def
+R2384:2384 NoFI.Instance_Kernel <> s:21 var
+R2387:2398 Kernel.VMStep VMStep instr_pyexec constr
+R2400:2406 NoFI.Instance_Kernel <> payload:22 var
+R2408:2411 NoFI.Instance_Kernel <> cost:23 var
+R2462:2474 Kernel.VMState <> csr_cert_addr proj
+R2452:2458 Kernel.VMState <> vm_csrs proj
+R2449:2449 NoFI.Instance_Kernel <> s:21 var
+R2525:2532 Kernel.SimulationProof <> vm_apply def
+R2546:2558 Kernel.VMStep VMStep advance_state def
+prf 2605:2625 KernelNoFI trace_run_mu_monotone
+binder 2640:2643 <> fuel:24
+binder 2645:2646 <> tr:25
+binder 2648:2649 <> s0:26
+binder 2651:2652 <> s1:27
+R2707:2716 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2697:2699 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2661:2685 Kernel.RevelationRequirement RevelationProof trace_run def
+R2687:2690 NoFI.Instance_Kernel <> fuel:24 var
+R2692:2693 NoFI.Instance_Kernel <> tr:25 var
+R2695:2696 NoFI.Instance_Kernel <> s0:26 var
+R2700:2703 Coq.Init.Datatypes <> Some constr
+R2705:2706 NoFI.Instance_Kernel <> s1:27 var
+R2725:2728 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2717:2721 Kernel.VMState <> vm_mu proj
+R2723:2724 NoFI.Instance_Kernel <> s0:26 var
+R2729:2733 Kernel.VMState <> vm_mu proj
+R2735:2736 NoFI.Instance_Kernel <> s1:27 var
+R2890:2898 Coq.Lists.List <> nth_error def
+R2904:2908 Kernel.VMState <> vm_pc proj
+R2890:2898 Coq.Lists.List <> nth_error def
+R2904:2908 Kernel.VMState <> vm_pc proj
+R2953:2964 Coq.Arith.PeanoNat Nat le_trans thm
+R2969:2973 Kernel.VMState <> vm_mu proj
+R2976:2983 Kernel.SimulationProof <> vm_apply def
+R2953:2964 Coq.Arith.PeanoNat Nat le_trans thm
+R2969:2973 Kernel.VMState <> vm_mu proj
+R2976:2983 Kernel.SimulationProof <> vm_apply def
+R3019:3029 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R3019:3029 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R3019:3029 Kernel.MuLedgerConservation <> vm_apply_mu thm
+prf 3132:3142 KernelNoFI mu_monotone
+binder 3157:3158 <> tr:28
+binder 3160:3161 <> s0:29
+binder 3163:3164 <> s1:30
+R3192:3201 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3182:3184 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3173:3175 NoFI.Instance_Kernel KernelNoFI run def
+R3177:3178 NoFI.Instance_Kernel <> tr:28 var
+R3180:3181 NoFI.Instance_Kernel <> s0:29 var
+R3185:3188 Coq.Init.Datatypes <> Some constr
+R3190:3191 NoFI.Instance_Kernel <> s1:30 var
+R3207:3210 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3202:3203 NoFI.Instance_Kernel KernelNoFI mu def
+R3205:3206 NoFI.Instance_Kernel <> s0:29 var
+R3211:3212 NoFI.Instance_Kernel KernelNoFI mu def
+R3214:3215 NoFI.Instance_Kernel <> s1:30 var
+R3238:3240 NoFI.Instance_Kernel KernelNoFI run def
+R3243:3244 NoFI.Instance_Kernel KernelNoFI mu def
+R3284:3304 NoFI.Instance_Kernel KernelNoFI trace_run_mu_monotone thm
+R3284:3304 NoFI.Instance_Kernel KernelNoFI trace_run_mu_monotone thm
+prf 3341:3364 KernelNoFI no_free_insight_contract
+binder 3379:3380 <> tr:31
+binder 3382:3383 <> s0:32
+binder 3385:3386 <> s1:33
+binder 3388:3395 <> strength:34
+binder 3397:3400 <> weak:35
+R3423:3432 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3409:3419 NoFI.Instance_Kernel KernelNoFI clean_start def
+R3421:3422 NoFI.Instance_Kernel <> s0:32 var
+R3452:3461 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3442:3444 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3433:3435 NoFI.Instance_Kernel KernelNoFI run def
+R3437:3438 NoFI.Instance_Kernel <> tr:31 var
+R3440:3441 NoFI.Instance_Kernel <> s0:32 var
+R3445:3448 Coq.Init.Datatypes <> Some constr
+R3450:3451 NoFI.Instance_Kernel <> s1:33 var
+R3493:3502 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3462:3478 NoFI.Instance_Kernel KernelNoFI strictly_stronger def
+R3480:3487 NoFI.Instance_Kernel <> strength:34 var
+R3489:3492 NoFI.Instance_Kernel <> weak:35 var
+R3524:3533 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3503:3511 NoFI.Instance_Kernel KernelNoFI certifies def
+R3513:3514 NoFI.Instance_Kernel <> s1:33 var
+R3516:3523 NoFI.Instance_Kernel <> strength:34 var
+R3534:3548 NoFI.Instance_Kernel KernelNoFI structure_event def
+R3550:3551 NoFI.Instance_Kernel <> tr:31 var
+R3553:3554 NoFI.Instance_Kernel <> s0:32 var
+R3577:3587 NoFI.Instance_Kernel KernelNoFI clean_start def
+R3590:3592 NoFI.Instance_Kernel KernelNoFI run def
+R3595:3603 NoFI.Instance_Kernel KernelNoFI certifies def
+R3606:3620 NoFI.Instance_Kernel KernelNoFI structure_event def
+R3731:3790 Kernel.RevelationRequirement RevelationProof supra_cert_implies_structure_addition_in_run thm
+R3731:3790 Kernel.RevelationRequirement RevelationProof supra_cert_implies_structure_addition_in_run thm
+R3811:3820 NoFI.Instance_Kernel KernelNoFI <> mod
+R3853:3887 NoFI.NoFreeInsight_Theorem NoFreeInsight <> modtype
+R3889:3898 NoFI.Instance_Kernel KernelNoFI <> modtype
+mod 3831:3848 <> KernelNoFI_Theorem

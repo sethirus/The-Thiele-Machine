@@ -1,0 +1,563 @@
+DIGEST e430f9f756f2a0a282fef1762c5a4162
+FThieleMachine.MuAlu
+R869:874 Coq.ZArith.ZArith <> <> lib
+R876:879 Coq.Lists.List <> <> lib
+R881:884 Coq.Bool.Bool <> <> lib
+R886:888 Coq.micromega.Lia <> <> lib
+R898:910 Coq.Lists.List ListNotations <> mod
+def 1226:1228 <> Q16
+R1233:1233 Coq.Numbers.BinNums <> Z ind
+def 1265:1273 <> Q16_SHIFT
+R1277:1277 Coq.Numbers.BinNums <> Z ind
+def 1297:1303 <> Q16_ONE
+R1307:1309 ThieleMachine.MuAlu <> Q16 def
+def 1344:1350 <> Q16_MAX
+R1354:1356 ThieleMachine.MuAlu <> Q16 def
+def 1400:1406 <> Q16_MIN
+R1410:1412 ThieleMachine.MuAlu <> Q16 def
+def 1769:1776 <> saturate
+R1783:1783 Coq.Numbers.BinNums <> Z ind
+binder 1779:1779 <> x:1
+R1788:1790 ThieleMachine.MuAlu <> Q16 def
+R1801:1804 Coq.ZArith.BinInt <> ::Z_scope:x_'>?'_x not
+R1800:1800 ThieleMachine.MuAlu <> x:1 var
+R1805:1811 ThieleMachine.MuAlu <> Q16_MAX def
+R1837:1840 Coq.ZArith.BinInt <> ::Z_scope:x_'<?'_x not
+R1836:1836 ThieleMachine.MuAlu <> x:1 var
+R1841:1847 ThieleMachine.MuAlu <> Q16_MIN def
+R1869:1869 ThieleMachine.MuAlu <> x:1 var
+R1854:1860 ThieleMachine.MuAlu <> Q16_MIN def
+R1818:1824 ThieleMachine.MuAlu <> Q16_MAX def
+def 2109:2115 <> q16_add
+R2124:2126 ThieleMachine.MuAlu <> Q16 def
+binder 2118:2118 <> a:2
+binder 2120:2120 <> b:3
+R2131:2133 ThieleMachine.MuAlu <> Q16 def
+R2140:2147 ThieleMachine.MuAlu <> saturate def
+R2151:2153 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R2150:2150 ThieleMachine.MuAlu <> a:2 var
+R2154:2154 ThieleMachine.MuAlu <> b:3 var
+def 2212:2218 <> q16_sub
+R2227:2229 ThieleMachine.MuAlu <> Q16 def
+binder 2221:2221 <> a:4
+binder 2223:2223 <> b:5
+R2234:2236 ThieleMachine.MuAlu <> Q16 def
+R2243:2250 ThieleMachine.MuAlu <> saturate def
+R2254:2256 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R2253:2253 ThieleMachine.MuAlu <> a:4 var
+R2257:2257 ThieleMachine.MuAlu <> b:5 var
+def 2317:2323 <> q16_mul
+R2332:2334 ThieleMachine.MuAlu <> Q16 def
+binder 2326:2326 <> a:6
+binder 2328:2328 <> b:7
+R2339:2341 ThieleMachine.MuAlu <> Q16 def
+R2348:2355 ThieleMachine.MuAlu <> saturate def
+R2358:2358 Coq.ZArith.BinInt <> ::Z_scope:x_'/'_x not
+R2364:2367 Coq.ZArith.BinInt <> ::Z_scope:x_'/'_x not
+R2360:2362 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R2359:2359 ThieleMachine.MuAlu <> a:6 var
+R2363:2363 ThieleMachine.MuAlu <> b:7 var
+R2368:2374 ThieleMachine.MuAlu <> Q16_ONE def
+def 2428:2434 <> q16_div
+R2443:2445 ThieleMachine.MuAlu <> Q16 def
+binder 2437:2437 <> a:8
+binder 2439:2439 <> b:9
+R2450:2452 ThieleMachine.MuAlu <> Q16 def
+R2463:2466 Coq.ZArith.BinInt <> ::Z_scope:x_'=?'_x not
+R2462:2462 ThieleMachine.MuAlu <> b:9 var
+R2483:2490 ThieleMachine.MuAlu <> saturate def
+R2493:2493 Coq.ZArith.BinInt <> ::Z_scope:x_'/'_x not
+R2505:2508 Coq.ZArith.BinInt <> ::Z_scope:x_'/'_x not
+R2495:2497 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R2494:2494 ThieleMachine.MuAlu <> a:8 var
+R2498:2504 ThieleMachine.MuAlu <> Q16_ONE def
+R2509:2509 ThieleMachine.MuAlu <> b:9 var
+def 2822:2829 <> log2_lut
+R2833:2836 Coq.Init.Datatypes <> list ind
+R2838:2840 ThieleMachine.MuAlu <> Q16 def
+R2845:2848 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2850:2851 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2855:2856 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2860:2861 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2866:2867 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2872:2873 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2878:2879 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2884:2885 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2890:2893 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2898:2899 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2904:2905 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2910:2911 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2916:2917 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2922:2923 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2928:2929 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2934:2935 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2940:2943 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2948:2949 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2954:2955 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2960:2961 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2966:2967 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2972:2973 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2978:2979 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2984:2985 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2990:2993 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2998:2999 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3004:3005 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3010:3011 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3016:3017 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3022:3023 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3029:3030 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3036:3037 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3043:3046 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3052:3053 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3059:3060 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3066:3067 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3073:3074 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3080:3081 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3087:3088 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3094:3095 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3101:3104 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3110:3111 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3117:3118 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3124:3125 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3131:3132 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3138:3139 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3145:3146 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3152:3153 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3159:3162 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3168:3169 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3175:3176 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3182:3183 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3189:3190 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3196:3197 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3203:3204 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3210:3211 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3217:3220 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3226:3227 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3233:3234 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3240:3241 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3247:3248 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3254:3255 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3261:3262 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3268:3269 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3275:3278 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3284:3285 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3291:3292 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3298:3299 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3305:3306 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3312:3313 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3319:3320 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3326:3327 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3333:3336 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3342:3343 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3349:3350 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3356:3357 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3363:3364 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3370:3371 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3377:3378 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3384:3385 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3391:3394 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3400:3401 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3407:3408 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3414:3415 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3421:3422 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3428:3429 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3435:3436 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3442:3443 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3449:3452 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3458:3459 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3465:3466 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3472:3473 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3479:3480 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3486:3487 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3493:3494 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3500:3501 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3507:3510 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3516:3517 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3523:3524 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3530:3531 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3537:3538 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3544:3545 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3551:3552 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3558:3559 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3565:3568 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3574:3575 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3581:3582 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3588:3589 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3595:3596 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3602:3603 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3609:3610 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3616:3617 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3623:3626 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3632:3633 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3639:3640 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3646:3647 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3653:3654 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3660:3661 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3667:3668 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3674:3675 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3681:3684 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3690:3691 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3697:3698 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3704:3705 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3711:3712 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3718:3719 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3725:3726 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3732:3733 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3739:3742 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3748:3749 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3755:3756 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3762:3763 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3769:3770 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3776:3777 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3783:3784 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3790:3791 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3797:3800 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3806:3807 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3813:3814 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3820:3821 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3827:3828 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3834:3835 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3841:3842 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3848:3849 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3855:3858 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3864:3865 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3871:3872 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3878:3879 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3885:3886 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3892:3893 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3899:3900 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3906:3907 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3913:3916 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3922:3923 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3929:3930 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3936:3937 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3943:3944 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3950:3951 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3957:3958 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3964:3965 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3971:3974 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3980:3981 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3987:3988 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3994:3995 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4001:4002 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4008:4009 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4015:4016 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4022:4023 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4029:4032 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4038:4039 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4045:4046 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4052:4053 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4059:4060 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4066:4067 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4073:4074 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4080:4081 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4087:4090 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4096:4097 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4103:4104 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4110:4111 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4117:4118 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4124:4125 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4131:4132 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4138:4139 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4145:4148 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4154:4155 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4161:4162 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4168:4169 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4175:4176 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4182:4183 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4189:4190 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4196:4197 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4203:4206 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4212:4213 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4219:4220 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4226:4227 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4233:4234 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4240:4241 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4247:4248 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4254:4255 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4261:4264 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4270:4271 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4277:4278 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4284:4285 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4291:4292 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4298:4299 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4305:4306 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4312:4313 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4319:4322 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4328:4329 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4335:4336 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4342:4343 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4349:4350 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4356:4357 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4363:4364 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4370:4371 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4377:4380 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4386:4387 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4393:4394 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4400:4401 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4407:4408 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4414:4415 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4421:4422 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4428:4429 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4435:4438 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4444:4445 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4451:4452 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4458:4459 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4465:4466 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4472:4473 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4479:4480 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4486:4487 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4493:4496 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4502:4503 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4509:4510 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4516:4517 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4523:4524 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4530:4531 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4537:4538 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4544:4545 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4551:4554 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4560:4561 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4567:4568 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4574:4575 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4581:4582 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4588:4589 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4595:4596 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4602:4603 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4609:4612 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4618:4619 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4625:4626 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4632:4633 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4639:4640 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4646:4647 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4653:4654 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4660:4661 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4667:4668 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+def 4715:4724 <> lut_lookup
+R4735:4737 Coq.Init.Datatypes <> nat ind
+binder 4727:4731 <> index:10
+R4749:4752 Coq.Init.Datatypes <> list ind
+R4754:4756 ThieleMachine.MuAlu <> Q16 def
+binder 4741:4745 <> table:11
+R4761:4763 ThieleMachine.MuAlu <> Q16 def
+R4783:4787 ThieleMachine.MuAlu <> index:10 var
+R4776:4780 ThieleMachine.MuAlu <> table:11 var
+R4799:4802 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4806:4806 Coq.Init.Datatypes <> O constr
+R4818:4821 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4825:4825 Coq.Init.Datatypes <> S constr
+R4832:4841 ThieleMachine.MuAlu <> lut_lookup:12 def
+R4851:4852 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+def 5121:5146 <> count_leading_zeros_helper
+R5153:5153 Coq.Numbers.BinNums <> Z ind
+binder 5149:5149 <> x:15
+R5165:5167 Coq.Init.Datatypes <> nat ind
+binder 5157:5161 <> count:16
+R5178:5180 Coq.Init.Datatypes <> nat ind
+binder 5171:5174 <> fuel:17
+R5185:5187 Coq.Init.Datatypes <> nat ind
+R5200:5203 ThieleMachine.MuAlu <> fuel:17 var
+R5214:5214 Coq.Init.Datatypes <> O constr
+R5219:5223 ThieleMachine.MuAlu <> count:16 var
+R5229:5229 Coq.Init.Datatypes <> S constr
+R5249:5249 Coq.ZArith.BinInt <> ::Z_scope:x_'=?'_x not
+R5260:5264 Coq.ZArith.BinInt <> ::Z_scope:x_'=?'_x not
+R5251:5254 Coq.ZArith.BinInt <> ::Z_scope:x_'/'_x not
+R5259:5259 Coq.ZArith.BinInt <> ::Z_scope:x_'/'_x not
+R5250:5250 ThieleMachine.MuAlu <> x:15 var
+R5256:5256 Coq.ZArith.BinInt <> ::Z_scope:x_'^'_x not
+R5350:5354 ThieleMachine.MuAlu <> count:16 var
+R5280:5305 ThieleMachine.MuAlu <> count_leading_zeros_helper:18 def
+R5316:5316 Coq.Init.Datatypes <> S constr
+R5318:5322 ThieleMachine.MuAlu <> count:16 var
+R5309:5311 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R5308:5308 ThieleMachine.MuAlu <> x:15 var
+def 5375:5393 <> count_leading_zeros
+R5400:5400 Coq.Numbers.BinNums <> Z ind
+binder 5396:5396 <> x:20
+R5405:5407 Coq.Init.Datatypes <> nat ind
+R5418:5422 Coq.ZArith.BinInt <> ::Z_scope:x_'<=?'_x not
+R5417:5417 ThieleMachine.MuAlu <> x:20 var
+R5440:5465 ThieleMachine.MuAlu <> count_leading_zeros_helper def
+R5467:5467 ThieleMachine.MuAlu <> x:20 var
+def 5521:5537 <> extract_lut_index
+R5552:5552 Coq.Numbers.BinNums <> Z ind
+binder 5540:5548 <> frac_part:21
+R5557:5559 Coq.Init.Datatypes <> nat ind
+R5694:5701 Coq.ZArith.BinInt Z to_nat def
+R5704:5704 Coq.ZArith.BinInt <> ::Z_scope:x_'mod'_x not
+R5720:5725 Coq.ZArith.BinInt <> ::Z_scope:x_'mod'_x not
+R5714:5716 Coq.ZArith.BinInt <> ::Z_scope:x_'/'_x not
+R5705:5713 ThieleMachine.MuAlu <> frac_part:21 var
+def 5775:5782 <> q16_log2
+R5789:5791 ThieleMachine.MuAlu <> Q16 def
+binder 5785:5785 <> x:22
+R5796:5798 ThieleMachine.MuAlu <> Q16 def
+R5809:5813 Coq.ZArith.BinInt <> ::Z_scope:x_'<=?'_x not
+R5808:5808 ThieleMachine.MuAlu <> x:22 var
+R5840:5843 Coq.ZArith.BinInt <> ::Z_scope:x_'=?'_x not
+R5839:5839 ThieleMachine.MuAlu <> x:22 var
+R5844:5850 ThieleMachine.MuAlu <> Q16_ONE def
+R5880:5898 ThieleMachine.MuAlu <> count_leading_zeros def
+R5900:5900 ThieleMachine.MuAlu <> x:22 var
+binder 5874:5875 <> lz:23
+R5928:5935 Coq.ZArith.BinInt Z of_nat def
+R5940:5942 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R5943:5944 ThieleMachine.MuAlu <> lz:23 var
+binder 5913:5923 <> highest_bit:24
+R5985:5987 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R5974:5984 ThieleMachine.MuAlu <> highest_bit:24 var
+binder 5958:5969 <> integer_log2:25
+R6029:6031 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R6018:6028 ThieleMachine.MuAlu <> highest_bit:24 var
+binder 6002:6013 <> shift_amount:26
+R6081:6084 Coq.ZArith.BinInt <> ::Z_scope:x_'>?'_x not
+R6069:6080 ThieleMachine.MuAlu <> shift_amount:26 var
+R6157:6160 Coq.ZArith.BinInt <> ::Z_scope:x_'<?'_x not
+R6145:6156 ThieleMachine.MuAlu <> shift_amount:26 var
+R6221:6221 ThieleMachine.MuAlu <> x:22 var
+R6178:6181 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R6208:6208 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R6177:6177 ThieleMachine.MuAlu <> x:22 var
+R6182:6189 Coq.ZArith.BinInt Z shiftl def
+R6194:6194 Coq.ZArith.BinInt <> ::Z_scope:'-'_x not
+R6195:6206 ThieleMachine.MuAlu <> shift_amount:26 var
+R6102:6105 Coq.ZArith.BinInt <> ::Z_scope:x_'/'_x not
+R6129:6129 Coq.ZArith.BinInt <> ::Z_scope:x_'/'_x not
+R6101:6101 ThieleMachine.MuAlu <> x:22 var
+R6106:6113 Coq.ZArith.BinInt Z shiftl def
+R6117:6128 ThieleMachine.MuAlu <> shift_amount:26 var
+binder 6046:6055 <> normalized:27
+R6251:6255 Coq.ZArith.BinInt Z max def
+R6270:6272 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R6260:6269 ThieleMachine.MuAlu <> normalized:27 var
+R6273:6279 ThieleMachine.MuAlu <> Q16_ONE def
+binder 6238:6246 <> frac_part:28
+R6302:6318 ThieleMachine.MuAlu <> extract_lut_index def
+R6320:6328 ThieleMachine.MuAlu <> frac_part:28 var
+binder 6293:6297 <> index:29
+R6353:6362 ThieleMachine.MuAlu <> lut_lookup def
+R6364:6368 ThieleMachine.MuAlu <> index:29 var
+R6370:6377 ThieleMachine.MuAlu <> log2_lut def
+binder 6341:6348 <> frac_log:30
+R6400:6400 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R6423:6426 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R6413:6415 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R6401:6412 ThieleMachine.MuAlu <> integer_log2:25 var
+R6416:6422 ThieleMachine.MuAlu <> Q16_ONE def
+R6427:6434 ThieleMachine.MuAlu <> frac_log:30 var
+binder 6390:6395 <> result:31
+R6443:6450 ThieleMachine.MuAlu <> saturate def
+R6452:6457 ThieleMachine.MuAlu <> result:31 var
+R5821:5827 ThieleMachine.MuAlu <> Q16_MIN def
+def 6724:6739 <> information_gain
+R6757:6757 Coq.Numbers.BinNums <> Z ind
+binder 6742:6747 <> before:32
+binder 6749:6753 <> after:33
+R6762:6764 ThieleMachine.MuAlu <> Q16 def
+R6780:6784 Coq.ZArith.BinInt <> ::Z_scope:x_'<=?'_x not
+R6774:6779 ThieleMachine.MuAlu <> before:32 var
+R6809:6813 Coq.ZArith.BinInt <> ::Z_scope:x_'<=?'_x not
+R6804:6808 ThieleMachine.MuAlu <> after:33 var
+R6844:6847 Coq.ZArith.BinInt <> ::Z_scope:x_'>?'_x not
+R6839:6843 ThieleMachine.MuAlu <> after:33 var
+R6848:6853 ThieleMachine.MuAlu <> before:32 var
+R6878:6881 Coq.ZArith.BinInt <> ::Z_scope:x_'=?'_x not
+R6872:6877 ThieleMachine.MuAlu <> before:32 var
+R6882:6886 ThieleMachine.MuAlu <> after:33 var
+R6977:6977 Coq.ZArith.BinInt <> ::Z_scope:x_'/'_x not
+R6994:6997 Coq.ZArith.BinInt <> ::Z_scope:x_'/'_x not
+R6984:6986 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R6978:6983 ThieleMachine.MuAlu <> before:32 var
+R6987:6993 ThieleMachine.MuAlu <> Q16_ONE def
+R6998:7002 ThieleMachine.MuAlu <> after:33 var
+binder 6968:6972 <> ratio:34
+R7011:7018 ThieleMachine.MuAlu <> q16_log2 def
+R7020:7024 ThieleMachine.MuAlu <> ratio:34 var
+R6821:6827 ThieleMachine.MuAlu <> Q16_MAX def
+rec 7227:7239 <> MuAccumulator
+proj 7255:7262 <> mu_value
+R7266:7268 ThieleMachine.MuAlu <> Q16 def
+def 7683:7689 <> mu_zero
+R7693:7705 ThieleMachine.MuAlu <> MuAccumulator rec
+R7713:7720 ThieleMachine.MuAlu <> mu_value proj
+R7713:7720 ThieleMachine.MuAlu <> mu_value proj
+R7713:7720 ThieleMachine.MuAlu <> mu_value proj
+def 7743:7755 <> mu_accumulate
+R7764:7776 ThieleMachine.MuAlu <> MuAccumulator rec
+binder 7758:7760 <> acc:37
+R7788:7790 ThieleMachine.MuAlu <> Q16 def
+binder 7780:7784 <> delta:38
+R7795:7807 ThieleMachine.MuAlu <> MuAccumulator rec
+R7817:7824 ThieleMachine.MuAlu <> mu_value proj
+R7817:7824 ThieleMachine.MuAlu <> mu_value proj
+R7817:7824 ThieleMachine.MuAlu <> mu_value proj
+R7829:7835 ThieleMachine.MuAlu <> q16_add def
+R7838:7845 ThieleMachine.MuAlu <> mu_value proj
+R7847:7849 ThieleMachine.MuAlu <> acc:37 var
+R7852:7856 ThieleMachine.MuAlu <> delta:38 var
+prf 8089:8100 <> q16_add_comm
+binder 8111:8111 <> a:39
+binder 8113:8113 <> b:40
+R8129:8131 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8118:8124 ThieleMachine.MuAlu <> q16_add def
+R8126:8126 ThieleMachine.MuAlu <> a:39 var
+R8128:8128 ThieleMachine.MuAlu <> b:40 var
+R8132:8138 ThieleMachine.MuAlu <> q16_add def
+R8140:8140 ThieleMachine.MuAlu <> b:40 var
+R8142:8142 ThieleMachine.MuAlu <> a:39 var
+R8169:8175 ThieleMachine.MuAlu <> q16_add def
+R8178:8185 ThieleMachine.MuAlu <> saturate def
+R8198:8207 Coq.ZArith.BinInt Z add_comm thm
+R8198:8207 Coq.ZArith.BinInt Z add_comm thm
+R8198:8207 Coq.ZArith.BinInt Z add_comm thm
+prf 8286:8297 <> q16_add_zero
+binder 8308:8308 <> a:41
+R8336:8341 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8320:8323 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
+R8325:8328 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
+R8313:8319 ThieleMachine.MuAlu <> Q16_MIN def
+R8324:8324 ThieleMachine.MuAlu <> a:41 var
+R8324:8324 ThieleMachine.MuAlu <> a:41 var
+R8329:8335 ThieleMachine.MuAlu <> Q16_MAX def
+R8353:8355 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8342:8348 ThieleMachine.MuAlu <> q16_add def
+R8350:8350 ThieleMachine.MuAlu <> a:41 var
+R8356:8356 ThieleMachine.MuAlu <> a:41 var
+R8393:8399 ThieleMachine.MuAlu <> q16_add def
+R8402:8409 ThieleMachine.MuAlu <> saturate def
+R8422:8430 Coq.ZArith.BinInt Z add_0_r thm
+R8422:8430 Coq.ZArith.BinInt Z add_0_r thm
+R8422:8430 Coq.ZArith.BinInt Z add_0_r thm
+R8446:8449 Coq.ZArith.BinInt <> ::Z_scope:x_'>?'_x not
+R8450:8456 ThieleMachine.MuAlu <> Q16_MAX def
+R8483:8490 Coq.ZArith.BinInt Z gtb_lt thm
+R8446:8449 Coq.ZArith.BinInt <> ::Z_scope:x_'>?'_x not
+R8450:8456 ThieleMachine.MuAlu <> Q16_MAX def
+R8483:8490 Coq.ZArith.BinInt Z gtb_lt thm
+R8533:8536 Coq.ZArith.BinInt <> ::Z_scope:x_'<?'_x not
+R8537:8543 ThieleMachine.MuAlu <> Q16_MIN def
+R8570:8577 Coq.ZArith.BinInt Z ltb_lt thm
+R8533:8536 Coq.ZArith.BinInt <> ::Z_scope:x_'<?'_x not
+R8537:8543 ThieleMachine.MuAlu <> Q16_MIN def
+R8570:8577 Coq.ZArith.BinInt Z ltb_lt thm
+prf 8666:8684 <> saturate_idempotent
+binder 8695:8695 <> x:42
+R8721:8723 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8700:8707 ThieleMachine.MuAlu <> saturate def
+R8710:8717 ThieleMachine.MuAlu <> saturate def
+R8719:8719 ThieleMachine.MuAlu <> x:42 var
+R8724:8731 ThieleMachine.MuAlu <> saturate def
+R8733:8733 ThieleMachine.MuAlu <> x:42 var
+R8761:8768 ThieleMachine.MuAlu <> saturate def
+R8784:8787 Coq.ZArith.BinInt <> ::Z_scope:x_'>?'_x not
+R8788:8794 ThieleMachine.MuAlu <> Q16_MAX def
+R8784:8787 Coq.ZArith.BinInt <> ::Z_scope:x_'>?'_x not
+R8788:8794 ThieleMachine.MuAlu <> Q16_MAX def
+R8915:8921 ThieleMachine.MuAlu <> Q16_MAX def
+R8936:8942 ThieleMachine.MuAlu <> Q16_MIN def
+R8984:8987 Coq.ZArith.BinInt <> ::Z_scope:x_'<?'_x not
+R8988:8994 ThieleMachine.MuAlu <> Q16_MIN def
+R8984:8987 Coq.ZArith.BinInt <> ::Z_scope:x_'<?'_x not
+R8988:8994 ThieleMachine.MuAlu <> Q16_MIN def
+R9114:9120 ThieleMachine.MuAlu <> Q16_MIN def
+R9135:9141 ThieleMachine.MuAlu <> Q16_MAX def

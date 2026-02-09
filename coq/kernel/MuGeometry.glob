@@ -1,0 +1,167 @@
+DIGEST 317e03a766c439e5813957218c67bf16
+FKernel.MuGeometry
+R2226:2231 Coq.ZArith.ZArith <> <> lib
+R2233:2235 Coq.micromega.Lia <> <> lib
+R2254:2260 Kernel.VMState <> <> lib
+R2278:2292 Kernel.SimulationProof <> <> lib
+R2310:2322 Kernel.MuInformation <> <> lib
+mod 2516:2525 <> MuGeometry
+def 2614:2623 MuGeometry mu_total_z
+R2630:2636 Kernel.VMState <> VMState rec
+binder 2626:2626 <> s:1
+R2641:2641 Coq.Numbers.BinNums <> Z ind
+R2646:2653 Coq.ZArith.BinInt Z of_nat def
+R2656:2663 Kernel.MuInformation <> mu_total def
+R2665:2665 Kernel.MuGeometry <> s:1 var
+def 2957:2967 MuGeometry mu_distance
+R2978:2984 Kernel.VMState <> VMState rec
+binder 2970:2971 <> s1:2
+binder 2973:2974 <> s2:3
+R2989:2989 Coq.Numbers.BinNums <> Z ind
+R2996:3000 Coq.ZArith.BinInt Z abs def
+R3016:3018 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R3003:3012 Kernel.MuGeometry MuGeometry mu_total_z def
+R3014:3015 Kernel.MuGeometry <> s2:3 var
+R3019:3028 Kernel.MuGeometry MuGeometry mu_total_z def
+R3030:3031 Kernel.MuGeometry <> s1:2 var
+prf 3383:3400 MuGeometry mu_distance_nonneg
+binder 3411:3412 <> s1:4
+binder 3414:3415 <> s2:5
+R3420:3423 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R3424:3434 Kernel.MuGeometry MuGeometry mu_distance def
+R3436:3437 Kernel.MuGeometry <> s1:4 var
+R3439:3440 Kernel.MuGeometry <> s2:5 var
+R3470:3480 Kernel.MuGeometry MuGeometry mu_distance def
+R3489:3500 Coq.ZArith.BinInt Z abs_nonneg thm
+R3489:3500 Coq.ZArith.BinInt Z abs_nonneg thm
+prf 3783:3798 MuGeometry mu_distance_refl
+binder 3809:3809 <> s:6
+R3827:3829 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3812:3822 Kernel.MuGeometry MuGeometry mu_distance def
+R3824:3824 Kernel.MuGeometry <> s:6 var
+R3826:3826 Kernel.MuGeometry <> s:6 var
+R3862:3872 Kernel.MuGeometry MuGeometry mu_distance def
+R3885:3894 Coq.ZArith.BinInt Z sub_diag thm
+R3885:3894 Coq.ZArith.BinInt Z sub_diag thm
+R3885:3894 Coq.ZArith.BinInt Z sub_diag thm
+R3934:3940 Coq.ZArith.BinInt Z abs_0 thm
+R3934:3940 Coq.ZArith.BinInt Z abs_0 thm
+prf 4166:4180 MuGeometry mu_distance_sym
+binder 4191:4192 <> s1:7
+binder 4194:4195 <> s2:8
+R4215:4217 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4198:4208 Kernel.MuGeometry MuGeometry mu_distance def
+R4210:4211 Kernel.MuGeometry <> s1:7 var
+R4213:4214 Kernel.MuGeometry <> s2:8 var
+R4218:4228 Kernel.MuGeometry MuGeometry mu_distance def
+R4230:4231 Kernel.MuGeometry <> s2:8 var
+R4233:4234 Kernel.MuGeometry <> s1:7 var
+R4269:4279 Kernel.MuGeometry MuGeometry mu_distance def
+R4342:4344 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R4329:4338 Kernel.MuGeometry MuGeometry mu_total_z def
+R4345:4354 Kernel.MuGeometry MuGeometry mu_total_z def
+R4368:4369 Coq.ZArith.BinInt <> ::Z_scope:'-'_x not
+R4399:4399 Coq.ZArith.BinInt <> ::Z_scope:'-'_x not
+R4383:4385 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R4370:4379 Kernel.MuGeometry MuGeometry mu_total_z def
+R4386:4395 Kernel.MuGeometry MuGeometry mu_total_z def
+R4342:4344 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R4329:4338 Kernel.MuGeometry MuGeometry mu_total_z def
+R4345:4354 Kernel.MuGeometry MuGeometry mu_total_z def
+R4368:4369 Coq.ZArith.BinInt <> ::Z_scope:'-'_x not
+R4399:4399 Coq.ZArith.BinInt <> ::Z_scope:'-'_x not
+R4383:4385 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R4370:4379 Kernel.MuGeometry MuGeometry mu_total_z def
+R4386:4395 Kernel.MuGeometry MuGeometry mu_total_z def
+R4448:4456 Coq.ZArith.BinInt Z abs_opp thm
+R4448:4456 Coq.ZArith.BinInt Z abs_opp thm
+R4448:4456 Coq.ZArith.BinInt Z abs_opp thm
+prf 4770:4789 MuGeometry mu_distance_triangle
+binder 4802:4802 <> a:9
+binder 4804:4804 <> b:10
+binder 4806:4806 <> c:11
+R4829:4832 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R4814:4824 Kernel.MuGeometry MuGeometry mu_distance def
+R4826:4826 Kernel.MuGeometry <> a:9 var
+R4828:4828 Kernel.MuGeometry <> c:11 var
+R4848:4850 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R4833:4843 Kernel.MuGeometry MuGeometry mu_distance def
+R4845:4845 Kernel.MuGeometry <> a:9 var
+R4847:4847 Kernel.MuGeometry <> b:10 var
+R4851:4861 Kernel.MuGeometry MuGeometry mu_distance def
+R4863:4863 Kernel.MuGeometry <> b:10 var
+R4865:4865 Kernel.MuGeometry <> c:11 var
+R4903:4913 Kernel.MuGeometry MuGeometry mu_distance def
+R4980:4982 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R4968:4977 Kernel.MuGeometry MuGeometry mu_total_z def
+R4983:4992 Kernel.MuGeometry MuGeometry mu_total_z def
+R5009:5009 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R5037:5041 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R5069:5069 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R5022:5024 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R5010:5019 Kernel.MuGeometry MuGeometry mu_total_z def
+R5025:5034 Kernel.MuGeometry MuGeometry mu_total_z def
+R5054:5056 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R5042:5051 Kernel.MuGeometry MuGeometry mu_total_z def
+R5057:5066 Kernel.MuGeometry MuGeometry mu_total_z def
+R4980:4982 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R4968:4977 Kernel.MuGeometry MuGeometry mu_total_z def
+R4983:4992 Kernel.MuGeometry MuGeometry mu_total_z def
+R5009:5009 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R5037:5041 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R5069:5069 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R5022:5024 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R5010:5019 Kernel.MuGeometry MuGeometry mu_total_z def
+R5025:5034 Kernel.MuGeometry MuGeometry mu_total_z def
+R5054:5056 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R5042:5051 Kernel.MuGeometry MuGeometry mu_total_z def
+R5057:5066 Kernel.MuGeometry MuGeometry mu_total_z def
+R5147:5156 Coq.ZArith.BinInt Z le_trans thm
+R5147:5156 Coq.ZArith.BinInt Z le_trans thm
+R5169:5182 Coq.ZArith.BinInt Z abs_triangle thm
+R5169:5182 Coq.ZArith.BinInt Z abs_triangle thm
+prf 5621:5638 MuGeometry mu_distance_run_vm
+binder 5651:5654 <> fuel:12
+binder 5656:5660 <> trace:13
+binder 5662:5662 <> s:14
+R5704:5706 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5669:5679 Kernel.MuGeometry MuGeometry mu_distance def
+R5681:5681 Kernel.MuGeometry <> s:14 var
+R5684:5689 Kernel.SimulationProof <> run_vm def
+R5691:5694 Kernel.MuGeometry <> fuel:12 var
+R5696:5700 Kernel.MuGeometry <> trace:13 var
+R5702:5702 Kernel.MuGeometry <> s:14 var
+R5707:5714 Coq.ZArith.BinInt Z of_nat def
+R5717:5730 Kernel.MuInformation <> mu_info_run_vm def
+R5732:5735 Kernel.MuGeometry <> fuel:12 var
+R5737:5741 Kernel.MuGeometry <> trace:13 var
+R5743:5743 Kernel.MuGeometry <> s:14 var
+R5786:5796 Kernel.MuGeometry MuGeometry mu_distance def
+R5799:5808 Kernel.MuGeometry MuGeometry mu_total_z def
+R5885:5910 Kernel.MuInformation <> run_vm_mu_total_decomposes thm
+R5885:5910 Kernel.MuInformation <> run_vm_mu_total_decomposes thm
+R5885:5910 Kernel.MuInformation <> run_vm_mu_total_decomposes thm
+R6041:6043 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R5990:5997 Coq.ZArith.BinInt Z of_nat def
+R6010:6012 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6000:6007 Kernel.MuInformation <> mu_total def
+R6013:6026 Kernel.MuInformation <> mu_info_run_vm def
+R6044:6051 Coq.ZArith.BinInt Z of_nat def
+R6054:6061 Kernel.MuInformation <> mu_total def
+R6079:6086 Coq.ZArith.BinInt Z of_nat def
+R6089:6102 Kernel.MuInformation <> mu_info_run_vm def
+R6041:6043 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R5990:5997 Coq.ZArith.BinInt Z of_nat def
+R6010:6012 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6000:6007 Kernel.MuInformation <> mu_total def
+R6013:6026 Kernel.MuInformation <> mu_info_run_vm def
+R6044:6051 Coq.ZArith.BinInt Z of_nat def
+R6054:6061 Kernel.MuInformation <> mu_total def
+R6079:6086 Coq.ZArith.BinInt Z of_nat def
+R6089:6102 Kernel.MuInformation <> mu_info_run_vm def
+R6171:6178 Coq.ZArith.BinInt Z abs_eq thm
+R6171:6178 Coq.ZArith.BinInt Z abs_eq thm
+R6278:6290 Coq.ZArith.Znat Nat2Z inj_add thm
+R6278:6290 Coq.ZArith.Znat Nat2Z inj_add thm
+R6278:6290 Coq.ZArith.Znat Nat2Z inj_add thm
+R6312:6321 Kernel.MuGeometry MuGeometry <> mod
