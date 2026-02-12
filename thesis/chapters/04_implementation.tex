@@ -7,7 +7,7 @@
     invariant/.style={draw, rounded corners=3pt, fill=yellow!15, minimum width=6cm, font=\footnotesize, align=center, thick},
 ]
 % Three layers
-\node[layer, fill=blue!15, draw=blue!60] (coq) at (0,2.4) {\textbf{Layer 1: Coq (Formal)}\\2,316 verified theorems};
+\node[layer, fill=blue!15, draw=blue!60] (coq) at (0,2.4) {\textbf{Layer 1: Coq (Formal)}\\Full verified theorem corpus};
 \node[layer, fill=green!15, draw=green!50!black] (py) at (0,1.2) {\textbf{Layer 2: Python (Reference)}\\Tracing \& debugging};
 \node[layer, fill=orange!15, draw=orange!70] (rtl) at (0,0) {\textbf{Layer 3: Verilog (Physical)}\\Synthesizable RTL};
 
@@ -1842,7 +1842,7 @@ If any field differs, isomorphism test fails.
 
 % Labels below
 \node[font=\tiny, text=blue!70] at (0,-0.55) {No Admitted};
-\node[font=\tiny, text=green!50!black] at (2.2,-0.55) {285 compile};
+\node[font=\tiny, text=green!50!black] at (2.2,-0.55) {full compile};
 \node[font=\tiny, text=orange!70] at (4.4,-0.55) {3-way match};
 
 % CI PASS
@@ -1858,7 +1858,7 @@ If any field differs, isomorphism test fails.
 \textit{Author's Note (Devon): The Inquisitor is my paranoia made into automation. Every time changes get pushed, it checks for admits that might have snuck in, proofs that don't compile, theorems that secretly prove nothing. It's the automated version of me at 3 AM going ``wait, did I actually prove that or just claim it?''}
 \end{quote}
 
-The Inquisitor (\path{scripts/inquisitor.py}, $\sim$2,850 lines) is a heuristic static analysis tool that scans the Coq source tree for ``proof smells''---patterns that indicate incomplete, vacuous, or dishonest proofs. It goes far beyond simple pattern matching.
+The Inquisitor (\path{scripts/inquisitor.py}, 3,000+ lines) is a heuristic static analysis tool that scans the Coq source tree for ``proof smells''---patterns that indicate incomplete, vacuous, or dishonest proofs. It goes far beyond simple pattern matching.
 
 \textbf{What it detects} (20+ rule types across three severity levels):
 
@@ -2087,7 +2087,7 @@ yosys -p "read_verilog thiele_cpu_unified.v; synth_xilinx -top thiele_cpu; write
     >=Stealth,
 ]
 % Three layers
-\node[layer, fill=blue!15] (coq) at (-2.4,1.2) {\textbf{Coq}\\2,316 theorems};
+\node[layer, fill=blue!15] (coq) at (-2.4,1.2) {\textbf{Coq}\\Verified theorem corpus};
 \node[layer, fill=green!15] (py) at (0,1.2) {\textbf{Python}\\Reference VM};
 \node[layer, fill=orange!15] (rtl) at (2.4,1.2) {\textbf{Verilog}\\FPGA-ready};
 

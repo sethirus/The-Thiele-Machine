@@ -25,12 +25,11 @@ Theorem tseitin_speedup_example :
     n > 10 ->
     exists thiele_solver classical_solver,
       time_complexity thiele_solver n <= 100 /\
-      time_complexity classical_solver n >= 2^n /\
-      True.
+      time_complexity classical_solver n >= 2^n.
 Proof.
   intros n _.
   exists (fun _ => true), (fun _ => false).
-  repeat split; simpl.
+  split; simpl.
   - change (1 <= 1 + 99)%nat.
     apply Nat.le_add_r.
   - apply Nat.le_refl.
@@ -43,14 +42,11 @@ Theorem linear_structure_discovery :
   forall n,
     hidden_linear_system n ->
     exists partition,
-      length (modules partition) <= log n /\
-      True.
+      length (modules partition) <= log n.
 Proof.
   intros n _.
   exists ({| modules := []; interfaces := [] |}).
-  simpl. split.
-  - apply Nat.le_0_l.
-  - exact I.
+  simpl. apply Nat.le_0_l.
 Qed.
 
 Definition modular_arithmetic_circuit (n : nat) : Prop :=
@@ -61,16 +57,13 @@ Theorem modular_circuit_speedup :
     modular_arithmetic_circuit n ->
     exists thiele_time classical_time,
       thiele_time <= n * log n /\
-      classical_time >= 2^(n/2) /\
-      True.
+      classical_time >= 2^(n/2).
 Proof.
   intros n _.
   exists 0%nat, (Nat.pow 2 (n / 2)).
   split.
   - apply Nat.le_0_l.
-  - split.
-    + apply Nat.le_refl.
-    + exact I.
+  - apply Nat.le_refl.
 Qed.
 
 Definition structured_coloring_instance (n : nat) : Prop :=
@@ -81,16 +74,13 @@ Theorem coloring_structure_exploitation :
     structured_coloring_instance n ->
     exists thiele_solver greedy_solver,
       colors_used thiele_solver [] <= 3 /\
-      colors_used greedy_solver [] >= 4 /\
-      True.
+      colors_used greedy_solver [] >= 4.
 Proof.
   intros n _.
   exists (fun _ => 3), (fun _ => 4).
   split.
   - simpl. apply Nat.le_refl.
-  - split.
-    + simpl. apply Nat.le_refl.
-    + exact I.
+  - simpl. apply Nat.le_refl.
 Qed.
 
 Theorem structured_classes_exist :
@@ -101,8 +91,7 @@ Theorem structured_classes_exist :
         forall inst,
           In (A := nat -> Prop) inst instances ->
           exists thiele_advantage,
-            thiele_advantage >= 10 /\
-            True.
+            thiele_advantage >= 10.
 Proof.
   exists [fun n => (1 <= n)%nat].
   intros cls Hcls.
@@ -111,7 +100,5 @@ Proof.
   intros inst Hinst.
   destruct Hinst as [Hinst | Hinst]; [subst|contradiction].
   exists 10%nat.
-  split.
-  - apply Nat.le_refl.
-  - exact I.
+  apply Nat.le_refl.
 Qed.

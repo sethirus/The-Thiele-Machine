@@ -1,6 +1,6 @@
 # INQUISITOR REPORT
-Generated: 2026-02-11 05:57:37Z (UTC)
-Scanned: 288 Coq files across the repo
+Generated: 2026-02-12 09:17:15Z (UTC)
+Scanned: 292 Coq files across the repo
 ## Summary
 - HIGH: 0
 - MEDIUM: 0
@@ -52,6 +52,9 @@ Scanned: 288 Coq files across the repo
 - `EMERGENCE_CIRCULARITY`: 'emergence' claim where emergent property is in the definition (circular)
 - `CONSTRUCTOR_ROUND_TRIP`: construct object, immediately extract property (not proving anything)
 - `DEFINITIONAL_WITNESS`: existential witnessed by definition, then unfolds it (trivially proves definition exists)
+- `VACUOUS_CONJUNCTION`: theorem has `True` as a conjunct leaf — likely a weakened/placeholder conclusion
+- `TAUTOLOGICAL_IMPLICATION`: theorem conclusion is identical to one of its hypotheses (P -> P tautology)
+- `HYPOTHESIS_RESTATEMENT`: proof destructures hypothesis and extracts one piece (restating assumption, not deriving)
 
 ## Findings
 (none)

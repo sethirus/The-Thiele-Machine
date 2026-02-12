@@ -166,7 +166,8 @@ Theorem supra_quantum_requires_discovery : forall (s : ThieleState) (prog : Thie
   (* Then partition structure must be discovered *)
   exists m cost, In (PDISCOVER m cost) prog.
 Proof.
-  intros s prog [instr [Hin Hpdiscover]].
+  intros s prog Hexists.
+  destruct Hexists as [instr [Hin Hpdiscover]].
   destruct instr; try contradiction.
   (* instr = PDISCOVER m n *)
   exists m, n.

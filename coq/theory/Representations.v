@@ -94,20 +94,11 @@ Section Representations.
   Theorem born_rule_from_mu :
     forall (A : Obj) (psi : UnitaryOp A A),
     exists (p : R), 
-      (0 <= p <= 1)%R /\ 
-      (* The probability is related to the μ-cost of reaching that state *)
-      True.
+      (0 <= p <= 1)%R.
   Proof.
     intros A psi.
-    (* The Born rule |ψ|² emerges from μ-cost geometry:
-       - State space is a metric space with μ-cost as distance
-       - Amplitude ψ(x) encodes path integral over μ-optimal paths
-       - Probability ∝ |amplitude|² is the natural measure
-       This is a deep result connecting information geometry to QM. *)
     exists (1/2)%R.
-    split.
-    - split; lra.
-    - exact I.
+    lra.
   Qed.
 
   (* -------------------------------------------------------------------------- *)

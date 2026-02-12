@@ -2222,7 +2222,8 @@ Definition trial_probability (B : Box) (trial : CHSHTrial) : Q :=
 Lemma trial_probability_nonneg :
   forall B trial, 0#1 <= trial_probability B trial.
 Proof.
-  intros B [x y a b].
+  intros B trial.
+  destruct trial as [x y a b].
   unfold trial_probability; simpl.
   apply B.(nonneg).
 Qed.
