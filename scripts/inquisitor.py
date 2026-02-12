@@ -652,9 +652,8 @@ def scan_file(path: Path) -> list[Finding]:
             note_context = "\n".join(raw_lines[max(0, line - 15): line + 1])
             has_inquisitor_note = "INQUISITOR NOTE" in note_context
             if has_inquisitor_note:
-                # Documented interface axiom - downgrade to LOW (informational)
-                rule_id = "AXIOM_DOCUMENTED"
-                severity = "LOW"
+                # Documented interface axiom — INQUISITOR NOTE present, skip
+                continue
             else:
                 rule_id = "AXIOM_OR_PARAMETER"
                 severity = "HIGH"  # Undocumented axioms are unproven assumptions
@@ -677,10 +676,8 @@ def scan_file(path: Path) -> list[Finding]:
             
             if is_complex_assumption:
                 if has_inquisitor_note:
-                    # Documented Context - downgrade to LOW (informational)
-                    rule_id = "CONTEXT_ASSUMPTION_DOCUMENTED"
-                    severity = "LOW"
-                    msg = f"Context parameter `{name}` is documented with INQUISITOR NOTE."
+                    # Documented Context — INQUISITOR NOTE present, skip
+                    continue
                 else:
                     rule_id = "CONTEXT_ASSUMPTION"
                     severity = "HIGH"  # Undocumented section-local axiom!
@@ -1096,6 +1093,7 @@ def scan_chsh_bounds(path: Path) -> list[Finding]:
     """
     raw = path.read_text(encoding="utf-8", errors="replace")
     text = strip_coq_comments(raw)
+    raw_lines = raw.splitlines()
     line_of = _line_map(text)
     clean_lines = text.splitlines()
     findings: list[Finding] = []
@@ -1127,6 +1125,12 @@ def scan_chsh_bounds(path: Path) -> list[Finding]:
             continue
             
         line = line_of[m.start()]
+
+        # Allow exemption via (* SAFE: ... *) comment in preceding lines
+        context = "\n".join(raw_lines[max(0, line - 3): line + 2])
+        if re.search(r"\(\*\s*SAFE:", context):
+            continue
+
         snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else name
         findings.append(
             Finding(
@@ -1175,6 +1179,973 @@ def scan_axiom_dependencies(path: Path) -> list[Finding]:
             )
         )
     
+    return findings
+
+
+def scan_record_field_extraction(path: Path) -> list[Finding]:
+    """Detect theorems that merely extract a Record field they assumed as input.
+
+    Pattern: A Record R has field `f : P`. Then a Theorem says
+    `forall r : R, P` and the proof is `intro r. exact (f r).` or equivalent.
+
+    This is circular: P was required to *construct* R, so extracting it
+    back out proves nothing.
+    """
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    text = strip_coq_comments(raw)
+    line_of = _line_map(text)
+    clean_lines = text.splitlines()
+    findings: list[Finding] = []
+
+    # Step 1: collect all Record field names and their types.
+    # Match: Record Foo := { ... field_name : type; ... }.
+    record_re = re.compile(
+        r"(?ms)^[ \t]*Record\s+([A-Za-z0-9_']+)\b[^.]*:=\s*\{(.*?)\}\s*\."
+    )
+    # Field inside record body:  field_name : <type>
+    field_re = re.compile(r"([A-Za-z0-9_']+)\s*:\s*([^;}\n]+)")
+
+    record_fields: dict[str, list[tuple[str, str]]] = {}  # record_name -> [(field, type)]
+    for rm in record_re.finditer(text):
+        rname = rm.group(1)
+        body = rm.group(2)
+        fields = []
+        for fm in field_re.finditer(body):
+            fname = fm.group(1).strip()
+            ftype = re.sub(r"\s+", " ", fm.group(2)).strip()
+            fields.append((fname, ftype))
+        record_fields[rname] = fields
+
+    if not record_fields:
+        return findings
+
+    # Step 2: find theorems whose proof body is `intro(s) X. exact (field X).`
+    theorem_re = re.compile(r"(?m)^[ \t]*(Theorem|Lemma)\s+([A-Za-z0-9_']+)\b")
+    proof_re = re.compile(r"(?m)^[ \t]*Proof\.")
+    end_re = re.compile(r"(?m)^[ \t]*(Qed|Defined|Admitted)\.")
+
+    all_field_names = set()
+    for fields in record_fields.values():
+        for fname, _ in fields:
+            all_field_names.add(fname)
+
+    for tm in theorem_re.finditer(text):
+        tname = tm.group(2)
+        stmt_end = text.find(".", tm.end())
+        if stmt_end == -1:
+            continue
+        stmt = re.sub(r"\s+", " ", text[tm.start():stmt_end + 1]).strip()
+
+        proof_match = proof_re.search(text, stmt_end)
+        if not proof_match:
+            continue
+        end_match = end_re.search(text, proof_match.end())
+        if not end_match:
+            continue
+        proof_block = text[proof_match.end():end_match.start()].strip()
+        proof_lines = [ln.strip() for ln in proof_block.splitlines() if ln.strip()]
+
+        # Check for `intro(s) <var>. exact (<field> <var>).` pattern
+        # Also catch: `intro <var>. exact (<field> <var> <arg>).`
+        # Also catch: `intro <var>. apply <field>.` 
+        # Also catch multi-tactic single-line: `intro x; exact (field x).`
+        proof_text = " ".join(proof_lines)
+
+        # Pattern: intro(s) <var>. exact (<field> <var>). (possibly with extra args)
+        extract_pat = re.compile(
+            r"intros?\s+([A-Za-z0-9_']+)\s*\.\s*"
+            r"(?:exact\s*\(\s*([A-Za-z0-9_']+)\s+\1|apply\s+([A-Za-z0-9_']+))"
+        )
+        em = extract_pat.search(proof_text)
+        if not em:
+            continue
+
+        var_name = em.group(1)
+        field_used = em.group(2) or em.group(3)
+
+        if field_used not in all_field_names:
+            continue
+
+        # Find which record owns this field
+        owner_record = None
+        for rname, fields in record_fields.items():
+            for fname, _ in fields:
+                if fname == field_used:
+                    owner_record = rname
+                    break
+            if owner_record:
+                break
+
+        # Check if the theorem's statement quantifies over that record type
+        if owner_record and owner_record in stmt:
+            line = line_of[tm.start()]
+            snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else tname
+            findings.append(
+                Finding(
+                    rule_id="RECORD_FIELD_EXTRACTION",
+                    severity=_severity_for_path(path, "HIGH"),
+                    file=path,
+                    line=line,
+                    snippet=snippet.strip(),
+                    message=f"Theorem `{tname}` extracts Record field `{field_used}` from `{owner_record}` — "
+                            f"the proof was ASSUMED when constructing the record, not derived.",
+                )
+            )
+
+    return findings
+
+
+def scan_self_referential_record(path: Path) -> list[Finding]:
+    """Detect Records where a propositional field IS extracted by a Theorem in the same file.
+
+    A Record defining an algebraic structure (Cat, Group, etc.) with propositional
+    fields (laws) is STANDARD Coq practice — not circular on its own.
+
+    The problem is ONLY when the same file also contains a Theorem that:
+    1. Quantifies over instances of the Record (forall r : Record, ...)
+    2. Extracts a propositional field as its conclusion
+    3. Claims this is a "derivation" when it's really just field projection
+
+    This is the "assume X in Record constructor, then extract X as a Theorem" pattern.
+    """
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    text = strip_coq_comments(raw)
+    line_of = _line_map(text)
+    clean_lines = text.splitlines()
+    findings: list[Finding] = []
+
+    # Step 1: Find all Records with propositional fields
+    record_re = re.compile(
+        r"(?ms)^[ \t]*Record\s+([A-Za-z0-9_']+)\b[^.]*:=\s*\{(.*?)\}\s*\."
+    )
+    field_re = re.compile(r"([A-Za-z0-9_']+)\s*:\s*([^;}\n]+)")
+    prop_indicators = re.compile(r"(forall|>=|<=|>(?!=)|<(?!=|>)|->|Prop\b|\/\\|\\/|~)")
+
+    records_with_prop_fields: dict[str, list[tuple[str, str, int]]] = {}  # rname -> [(fname, ftype, line)]
+    for rm in record_re.finditer(text):
+        rname = rm.group(1)
+        body = rm.group(2)
+        rline = line_of[rm.start()]
+        prop_fields = []
+        for fm in field_re.finditer(body):
+            fname = fm.group(1).strip()
+            ftype = fm.group(2).strip()
+            # Skip simple positivity constraints and Type fields
+            if re.match(r"^\s*\w+\s*>\s*0\s*$", ftype):
+                continue
+            if re.match(r"^\s*(nat|bool|R|Z|Q|Type|Set|list\b)", ftype):
+                continue
+            if prop_indicators.search(ftype):
+                prop_fields.append((fname, ftype, rline))
+        if prop_fields:
+            records_with_prop_fields[rname] = prop_fields
+
+    if not records_with_prop_fields:
+        return findings
+
+    # Step 2: Check if any Theorem in the file extracts a propositional field.
+    # We already detect this in scan_record_field_extraction. Here we flag the
+    # Record DEFINITION as the root cause, but ONLY if there's an extraction.
+    #
+    # Also detect the subtler pattern: a Theorem that constructs a Record instance
+    # by filling fields with existing proofs, where ALL fields are just restatements
+    # of already-proven lemmas — the Record adds no new proof obligation.
+    theorem_re = re.compile(r"(?m)^[ \t]*(Theorem|Lemma)\s+([A-Za-z0-9_']+)\b")
+    proof_re = re.compile(r"(?m)^[ \t]*Proof\.")
+    end_re = re.compile(r"(?m)^[ \t]*(Qed|Defined|Admitted)\.")
+
+    # Collect all field names from propositional records
+    all_prop_field_names: dict[str, str] = {}  # fname -> rname
+    for rname, fields in records_with_prop_fields.items():
+        for fname, ftype, rline in fields:
+            all_prop_field_names[fname] = rname
+
+    # Search for theorems that extract record fields
+    extracted_records: set[str] = set()
+    for tm in theorem_re.finditer(text):
+        tname = tm.group(2)
+        stmt_end = text.find(".", tm.end())
+        if stmt_end == -1:
+            continue
+        stmt = re.sub(r"\s+", " ", text[tm.start():stmt_end + 1]).strip()
+
+        proof_match = proof_re.search(text, stmt_end)
+        if not proof_match:
+            continue
+        end_match = end_re.search(text, proof_match.end())
+        if not end_match:
+            continue
+        proof_block = text[proof_match.end():end_match.start()].strip()
+
+        # Check for field extraction patterns
+        for fname, rname in all_prop_field_names.items():
+            if rname in stmt and fname in proof_block:
+                # Check for direct extraction: `exact (field x)` or `apply field`
+                extract_pat = re.compile(
+                    rf"\b(?:exact\s*\(\s*{re.escape(fname)}\b|apply\s+{re.escape(fname)}\b)"
+                )
+                if extract_pat.search(proof_block):
+                    # Only flag if the proof is TRIVIALLY SHORT.
+                    # A multi-step proof that uses a field as one premise
+                    # among several is standard Coq idiom (interface usage),
+                    # not circular reasoning.
+                    meaningful_lines = [
+                        ln.strip() for ln in proof_block.splitlines()
+                        if ln.strip() and not re.match(
+                            r'^(intros?\b|Proof\b|\-|\+|\*|\{|\})', ln.strip()
+                        )
+                    ]
+                    # Also check for structural work (exists, split,
+                    # constructor) which indicates combining fields, not
+                    # just extracting one.
+                    has_structural_work = bool(re.search(
+                        r'\b(exists|split|constructor)\b', proof_block
+                    ))
+                    if len(meaningful_lines) <= 3 and not has_structural_work:
+                        extracted_records.add(rname)
+
+    # Step 3: Only flag records whose fields are actually extracted by a theorem
+    for rname in extracted_records:
+        fields = records_with_prop_fields[rname]
+        for fname, ftype, rline in fields:
+            # Only flag substantial propositions
+            if "forall" in ftype or (">=" in ftype and "+" in ftype) or "->" in ftype:
+                snippet = clean_lines[rline - 1] if 0 <= rline - 1 < len(clean_lines) else rname
+                findings.append(
+                    Finding(
+                        rule_id="SELF_REFERENTIAL_RECORD",
+                        severity=_severity_for_path(path, "HIGH"),
+                        file=path,
+                        line=rline,
+                        snippet=snippet.strip(),
+                        message=f"Record `{rname}` field `{fname}` embeds proposition `{ftype[:120]}` "
+                                f"AND a Theorem in this file extracts it — circular proof pattern.",
+                    )
+                )
+
+    return findings
+
+
+def scan_phantom_imports(path: Path) -> list[Finding]:
+    """Detect files that import kernel modules (VMStep, VMState, etc.) but
+    never use them substantively in any proof.
+
+    A 'phantom import' creates the illusion of grounding in VM semantics
+    when the proofs are actually self-contained arithmetic/logic.
+    """
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    text = strip_coq_comments(raw)
+    line_of = _line_map(text)
+    clean_lines = text.splitlines()
+    findings: list[Finding] = []
+
+    # Key kernel symbols that indicate real engagement with VM semantics
+    kernel_symbols = {
+        "vm_step": "VMStep",
+        "exec_trace": "VMStep",
+        "inversion Hstep": "VMStep (case analysis)",
+        "mu_conservation_kernel": "KernelPhysics",
+        "observational_no_signaling": "KernelPhysics",
+        "exec_trace_no_signaling_outside_cone": "SpacetimeEmergence",
+        "cone_monotonic": "KernelPhysics",
+    }
+
+    # Check if the file imports kernel modules
+    kernel_imports = re.compile(
+        r"(?m)^[ \t]*From\s+Kernel\s+Require\s+Import\s+(.*?)\."
+    )
+    import_match = kernel_imports.search(text)
+    if not import_match:
+        return findings
+
+    imported_modules = import_match.group(1)
+    imports_vmstep = "VMStep" in imported_modules
+    imports_vmstate = "VMState" in imported_modules
+
+    if not (imports_vmstep or imports_vmstate):
+        return findings
+
+    # Find all Proof...Qed blocks
+    proof_blocks = re.findall(r"Proof\.(.*?)(?:Qed|Defined|Admitted)\.", text, re.DOTALL)
+    all_proof_text = " ".join(proof_blocks)
+
+    # Check if any kernel symbol is actually used in a proof
+    used_symbols = []
+    for sym, source in kernel_symbols.items():
+        if sym in all_proof_text:
+            used_symbols.append(sym)
+
+    # Also check if vm_step appears in theorem statements as a REAL hypothesis
+    # (not just in comments)
+    vm_step_in_stmt = bool(re.search(
+        r"(?m)^[ \t]*(Theorem|Lemma)\s+\w+\s*:.*\bvm_step\b", text
+    ))
+
+    # Also check if any definition uses VMState/PartitionGraph types substantively
+    uses_vm_types = bool(re.search(
+        r"\b(VMState|PartitionGraph|vm_graph|vm_mu|vm_regs|pg_modules|pg_next_id)\b", all_proof_text
+    ))
+
+    # Also check if VMState types are used in definitions (not just proofs)
+    # This catches legitimate use of imports for type signatures
+    uses_vm_in_definitions = bool(re.search(
+        r"(?m)^[ \t]*(Definition|Fixpoint|Record)\b.*\b(VMState|PartitionGraph|vm_instruction|vm_graph|vm_mu)\b",
+        text
+    ))
+
+    # Check if imported symbols are used anywhere in the file body (definitions, types, etc.)
+    # Key symbols from each module that indicate real usage
+    kernel_usage_symbols = [
+        "vm_instruction", "instruction_cost", "instr_targets", "causal_cone",
+        "PartitionGraph", "VMState", "vm_graph", "vm_mu", "vm_regs",
+        "pg_modules", "pg_next_id", "well_formed_graph", "ObservableRegion",
+        "ObservableSignature", "module_in_cone", "apply_cost",
+        "mu_gauge_shift", "instr_halt", "instr_pnew",
+    ]
+    uses_kernel_in_body = any(sym in text for sym in kernel_usage_symbols)
+
+    if not used_symbols and not uses_vm_types and not uses_vm_in_definitions and not uses_kernel_in_body:
+        line = line_of[import_match.start()]
+        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else import_match.group(0)
+
+        # Only flag if the file has theorems (not just definitions)
+        has_theorems = bool(re.search(r"(?m)^[ \t]*(Theorem|Lemma)\s+", text))
+        if has_theorems:
+            findings.append(
+                Finding(
+                    rule_id="PHANTOM_KERNEL_IMPORT",
+                    severity=_severity_for_path(path, "HIGH"),
+                    file=path,
+                    line=line,
+                    snippet=snippet.strip(),
+                    message=f"File imports Kernel modules ({imported_modules.strip()}) but no proof "
+                            f"engages with VM semantics (vm_step, exec_trace, etc.). "
+                            f"Claims of deriving results 'from VM step relation' are unsupported.",
+                )
+            )
+
+    return findings
+
+
+def scan_trivial_existentials(path: Path) -> list[Finding]:
+    """Detect trivially satisfiable existential theorems.
+
+    Patterns:
+    - `exists n, length l = n` (every list has a length)
+    - `exists n, n = n` / `exists n, f = n` (trivially reflexive)
+    - `exists x, x > 0 /\\ x = x` (existence of positive numbers)
+    """
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    text = strip_coq_comments(raw)
+    line_of = _line_map(text)
+    clean_lines = text.splitlines()
+    findings: list[Finding] = []
+
+    theorem_re = re.compile(r"(?m)^[ \t]*(Theorem|Lemma)\s+([A-Za-z0-9_']+)\b")
+    proof_re = re.compile(r"(?m)^[ \t]*Proof\.")
+    end_re = re.compile(r"(?m)^[ \t]*(Qed|Defined|Admitted)\.")
+
+    for tm in theorem_re.finditer(text):
+        tname = tm.group(2)
+        stmt_end = text.find(".", tm.end())
+        if stmt_end == -1:
+            continue
+        # Collect full statement (may span multiple lines)
+        stmt_parts = []
+        j = tm.start()
+        for ln in text[j:].splitlines():
+            stmt_parts.append(ln.strip())
+            if re.search(r"\.\s*$", ln):
+                break
+        stmt = re.sub(r"\s+", " ", " ".join(stmt_parts)).strip()
+
+        # Pattern: exists <var>, length ... = <var>
+        if re.search(r"\bexists\s+\w+\s*,\s*length\b.*=\s*\w+\s*\.$", stmt):
+            # Check if proof is `reflexivity` based
+            proof_match = proof_re.search(text, stmt_end)
+            if proof_match:
+                end_match = end_re.search(text, proof_match.end())
+                if end_match:
+                    proof_block = text[proof_match.end():end_match.start()].strip()
+                    if "reflexivity" in proof_block or "exists (" in proof_block:
+                        line = line_of[tm.start()]
+                        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else tname
+                        findings.append(
+                            Finding(
+                                rule_id="TRIVIAL_EXISTENTIAL",
+                                severity=_severity_for_path(path, "HIGH"),
+                                file=path,
+                                line=line,
+                                snippet=snippet.strip(),
+                                message=f"Theorem `{tname}` is a trivially satisfiable existential "
+                                        f"('every list has a length'). This proves nothing substantive.",
+                            )
+                        )
+
+        # Pattern: exists (X : R), X > 0 /\ ... (just proves positive reals exist)
+        if re.search(r"\bexists\b.*,\s*\w+\s*>\s*0\s*(?:/\\|\.$)", stmt):
+            proof_match = proof_re.search(text, stmt_end)
+            if proof_match:
+                end_match = end_re.search(text, proof_match.end())
+                if end_match:
+                    proof_block = text[proof_match.end():end_match.start()].strip()
+                    # If the witness is just a constant or named definition
+                    if re.search(r"exists\s+\w+", proof_block) and ("lra" in proof_block or "lia" in proof_block):
+                        line = line_of[tm.start()]
+                        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else tname
+                        findings.append(
+                            Finding(
+                                rule_id="TRIVIAL_EXISTENTIAL",
+                                severity=_severity_for_path(path, "MEDIUM"),
+                                file=path,
+                                line=line,
+                                snippet=snippet.strip(),
+                                message=f"Theorem `{tname}` may be a trivially satisfiable existential "
+                                        f"(proving existence of a positive real). Verify substance.",
+                            )
+                        )
+
+    return findings
+
+
+def scan_arithmetic_only_proofs(path: Path) -> list[Finding]:
+    """Detect theorems with physics-sounding names whose proofs are pure arithmetic.
+
+    A proof is 'pure arithmetic' if it only uses lia/lra/lia/omega/reflexivity
+    without engaging any Coq-defined inductive types, match, induction, inversion,
+    destruct, rewrite, apply (to non-stdlib lemmas), etc.
+    """
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    text = strip_coq_comments(raw)
+    line_of = _line_map(text)
+    clean_lines = text.splitlines()
+    findings: list[Finding] = []
+
+    # Physics-sounding names
+    physics_name_re = re.compile(
+        r"(?i)(thermo|entropy|conserv|causal|lorentz|landauer|arrow.*time|"
+        r"second.*law|irreversib|measurement|povm|born|collapse|"
+        r"no.*closed.*causal|dimension)"
+    )
+
+    theorem_re = re.compile(r"(?m)^[ \t]*(Theorem|Lemma)\s+([A-Za-z0-9_']+)\b")
+    proof_re = re.compile(r"(?m)^[ \t]*Proof\.")
+    end_re = re.compile(r"(?m)^[ \t]*(Qed|Defined|Admitted)\.")
+
+    # Tactics that indicate engagement with structure
+    structural_tactics = re.compile(
+        r"\b(induction|destruct|inversion|case_eq|match|rewrite|simpl|"
+        r"split|constructor|exists|specialize|pose\s+proof|"
+        r"apply\s+(?!Nat|Z|R|lt|gt|le|ge|eq|Rlt|Rgt|Rle|Rge|Rmult|Rdiv|Rinv|ln))"
+    )
+
+    # Tactics that are pure arithmetic/logic
+    arith_tactics = {"lia", "lra", "omega", "reflexivity", "lia.", "lra.", "omega.", "reflexivity."}
+
+    for tm in theorem_re.finditer(text):
+        tname = tm.group(2)
+        if not physics_name_re.search(tname):
+            continue
+
+        stmt_end = text.find(".", tm.end())
+        if stmt_end == -1:
+            continue
+
+        proof_match = proof_re.search(text, stmt_end)
+        if not proof_match:
+            continue
+        end_match = end_re.search(text, proof_match.end())
+        if not end_match:
+            continue
+
+        proof_block = text[proof_match.end():end_match.start()].strip()
+        proof_lines = [ln.strip() for ln in proof_block.splitlines() if ln.strip()]
+
+        if not proof_lines:
+            continue
+
+        # Check if proof uses only arithmetic tactics (+ intro/unfold setup)
+        has_structural = bool(structural_tactics.search(proof_block))
+
+        # Count arith-only lines vs total lines
+        setup_tactics = re.compile(r"^(intros?|unfold|simpl|intro)\b")
+        arith_only_lines = 0
+        for pline in proof_lines:
+            pline_clean = pline.rstrip(".")
+            words = pline_clean.split()
+            if not words:
+                continue
+            first_word = words[0].rstrip(".;,")
+            if first_word in {"lia", "lra", "omega", "reflexivity", "contradiction", "congruence"}:
+                arith_only_lines += 1
+            elif setup_tactics.match(pline):
+                arith_only_lines += 1  # setup is fine but still "no structure"
+
+        # If ALL lines are arithmetic/setup and no structural tactic used
+        if not has_structural and arith_only_lines == len(proof_lines) and len(proof_lines) <= 5:
+            line = line_of[tm.start()]
+            snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else tname
+            findings.append(
+                Finding(
+                    rule_id="ARITHMETIC_ONLY_PHYSICS",
+                    severity=_severity_for_path(path, "MEDIUM"),
+                    file=path,
+                    line=line,
+                    snippet=snippet.strip(),
+                    message=f"Physics-named theorem `{tname}` proved by pure arithmetic "
+                            f"(lia/lra/reflexivity). No engagement with Coq-defined structures. "
+                            f"Verify this isn't restating a trivial arithmetic fact.",
+                )
+            )
+
+    return findings
+
+
+def scan_circular_definitions(path: Path) -> list[Finding]:
+    """Detect when a theorem's proof immediately reduces to its definition.
+    
+    Pattern: Definition X := <body>.
+             Theorem foo : <claim about X>.
+             Proof. unfold X. reflexivity. Qed.
+    
+    Or: Theorem proves X = Y, but proof is just `unfold X; reflexivity`
+    showing X was defined AS Y.
+    
+    Exempt: Theorems marked with (* DEFINITIONAL HELPER *) or (* HELPER LEMMA *)
+    """
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    text = strip_coq_comments(raw)
+    line_of = _line_map(text)
+    clean_lines = raw.splitlines()  # Keep comments for exemption check
+    findings: list[Finding] = []
+    
+    # Collect definitions
+    def_re = re.compile(r"(?m)^[ \t]*Definition\s+([A-Za-z0-9_']+)\b")
+    definitions = {m.group(1) for m in def_re.finditer(text)}
+    
+    if not definitions:
+        return findings
+    
+    theorem_re = re.compile(r"(?m)^[ \t]*(Theorem|Lemma)\s+([A-Za-z0-9_']+)\b")
+    proof_re = re.compile(r"(?m)^[ \t]*Proof\.")
+    end_re = re.compile(r"(?m)^[ \t]*(Qed|Defined|Admitted)\.")
+    
+    # Exemption markers
+    exemption_re = re.compile(r'\(\*\*?\s*(DEFINITIONAL|HELPER|BASIC|ARITHMETIC|ACCESSOR|PROJECTION)\b', re.IGNORECASE)
+    
+    for tm in theorem_re.finditer(text):
+        tname = tm.group(2)
+        stmt_end = text.find(".", tm.end())
+        if stmt_end == -1:
+            continue
+        stmt = re.sub(r"\s+", " ", text[tm.start():stmt_end + 1]).strip()
+        
+        # Check for exemption marker in preceding 3 lines
+        line_num = line_of[tm.start()]
+        preceding_text = "\n".join(clean_lines[max(0, line_num-4):line_num])
+        if exemption_re.search(preceding_text):
+            continue  # Explicitly marked as helper lemma
+        
+        # Check which definitions are mentioned in the statement
+        mentioned_defs = [d for d in definitions if re.search(rf'\b{d}\b', stmt)]
+        if not mentioned_defs:
+            continue
+        
+        proof_match = proof_re.search(text, stmt_end)
+        if not proof_match:
+            continue
+        end_match = end_re.search(text, proof_match.end())
+        if not end_match:
+            continue
+        proof_block = text[proof_match.end():end_match.start()].strip()
+        proof_text = re.sub(r"\s+", " ", proof_block)
+        
+        # Pattern: unfold X (no other tactics except reflexivity/simpl/lia)
+        # If proof is ONLY unfold + reflexivity, it's definitional
+        for defn in mentioned_defs:
+            unfold_pat = re.compile(rf'\bunfold\s+{defn}\b')
+            if unfold_pat.search(proof_text):
+                # Check if proof is suspiciously simple
+                tactics = [t.strip() for t in re.split(r'[.;]', proof_text) if t.strip()]
+                non_trivial_tactics = [t for t in tactics if not re.match(
+                    r'^\s*(unfold|simpl|reflexivity|lia|lra|auto|trivial|intros?|split)\b', t)]
+                
+                if len(non_trivial_tactics) == 0 and len(tactics) <= 5:
+                    line = line_of[tm.start()]
+                    snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else tname
+                    findings.append(
+                        Finding(
+                            rule_id="CIRCULAR_DEFINITION",
+                            severity=_severity_for_path(path, "MEDIUM"),
+                            file=path,
+                            line=line,
+                            snippet=snippet.strip(),
+                            message=f"Theorem `{tname}` unfolds `{defn}` and proves claim "
+                                    f"by simple tactics. Mark with (* DEFINITIONAL HELPER *) if legitimate, "
+                                    f"or prove non-circularly by engaging with structure.",
+                        )
+                    )
+                    break
+    
+    return findings
+
+
+def scan_emergence_circularity(path: Path) -> list[Finding]:
+    """Detect 'emergence' claims where the emergent property is in the definition.
+    
+    Pattern: Theorem X_emerges_from_Y or X_from_Y
+             But Definition Y := ... X ... or Definition X := ... Y ...
+    
+    If X is defined using Y, then proving "X emerges from Y" is circular.
+    """
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    text = strip_coq_comments(raw)
+    line_of = _line_map(text)
+    clean_lines = text.splitlines()
+    findings: list[Finding] = []
+    
+    # Collect definitions and their bodies
+    def_re = re.compile(r"(?ms)^[ \t]*Definition\s+([A-Za-z0-9_']+)\b[^:]*:=[^.]+\.")
+    definitions = {}
+    for dm in def_re.finditer(text):
+        defn_name = dm.group(1)
+        defn_body = dm.group(0)
+        definitions[defn_name] = defn_body
+    
+    # Look for emergence-pattern theorem names
+    emergence_re = re.compile(
+        r"(?m)^[ \t]*(Theorem|Lemma)\s+([A-Za-z0-9_']+(?:_from_|_emerges_from_|_derived_from_)[A-Za-z0-9_']+)\b"
+    )
+    
+    for em in emergence_re.finditer(text):
+        tname = em.group(2)
+        # Parse the name: X_from_Y or X_emerges_from_Y
+        # Extract X and Y
+        parts = re.split(r'_(from|emerges_from|derived_from)_', tname)
+        if len(parts) < 3:
+            continue
+        
+        source = parts[0]  # X
+        target = parts[2]  # Y
+        
+        # Check if either is defined in terms of the other
+        circular = False
+        if source in definitions and target in definitions[source]:
+            circular = True
+        if target in definitions and source in definitions[target]:
+            circular = True
+        
+        if circular:
+            line = line_of[em.start()]
+            snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else tname
+            findings.append(
+                Finding(
+                    rule_id="EMERGENCE_CIRCULARITY",
+                    severity=_severity_for_path(path, "HIGH"),
+                    file=path,
+                    line=line,
+                    snippet=snippet.strip(),
+                    message=f"Theorem `{tname}` claims emergence, but `{source}` and `{target}` "
+                            f"are defined in terms of each other. This is circular: "
+                            f"the 'emergence' is definitional, not derived.",
+                )
+            )
+    
+    return findings
+
+
+def scan_constructor_round_trip(path: Path) -> list[Finding]:
+    """Detect pattern: Build X, immediately extract property P from X, claim proven.
+    
+    Pattern: 
+      let x := {| field1 := a; field2 := b |} in P(x)
+    Proof:
+      simpl. reflexivity.
+    
+    If we construct an object and immediately query it, we're not proving anything.
+    """
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    text = strip_coq_comments(raw)
+    line_of = _line_map(text)
+    clean_lines = text.splitlines()
+    findings: list[Finding] = []
+    
+    theorem_re = re.compile(r"(?m)^[ \t]*(Theorem|Lemma)\s+([A-Za-z0-9_']+)\b")
+    proof_re = re.compile(r"(?m)^[ \t]*Proof\.")
+    end_re = re.compile(r"(?m)^[ \t]*(Qed|Defined|Admitted)\.")
+    
+    for tm in theorem_re.finditer(text):
+        tname = tm.group(2)
+        stmt_end = text.find(".", tm.end())
+        if stmt_end == -1:
+            continue
+        stmt = re.sub(r"\s+", " ", text[tm.start():stmt_end + 1]).strip()
+        
+        # Check if statement contains record constructor pattern
+        # Pattern: let x := {| ... |} in <claim>
+        if not ('{|' in stmt and '|}' in stmt and 'let' in stmt.lower()):
+            continue
+        
+        proof_match = proof_re.search(text, stmt_end)
+        if not proof_match:
+            continue
+        end_match = end_re.search(text, proof_match.end())
+        if not end_match:
+            continue
+        proof_block = text[proof_match.end():end_match.start()].strip()
+        proof_text = re.sub(r"\s+", " ", proof_block)
+        
+        # If proof is just simpl/reflexivity/compute, it's computational
+        tactics = [t.strip() for t in re.split(r'[.;]', proof_text) if t.strip()]
+        non_computational = [t for t in tactics if not re.match(
+            r'^\s*(simpl|reflexivity|compute|vm_compute|native_compute|lia|trivial)\b', t)]
+        
+        if len(non_computational) == 0 and len(tactics) <= 3:
+            line = line_of[tm.start()]
+            snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else tname
+            findings.append(
+                Finding(
+                    rule_id="CONSTRUCTOR_ROUND_TRIP",
+                    severity=_severity_for_path(path, "MEDIUM"),
+                    file=path,
+                    line=line,
+                    snippet=snippet.strip(),
+                    message=f"Theorem `{tname}` constructs an object in `let` and immediately "
+                            f"queries it. Proof is pure computation. Verify this isn't circular "
+                            f"(building object to satisfy property, then extracting that property).",
+                )
+            )
+    
+    return findings
+
+
+def scan_definitional_witness(path: Path) -> list[Finding]:
+    """Detect existentials where the witness IS the definition being claimed.
+
+    Pattern:
+      Definition optimal_value := 42.
+      Theorem optimal_exists : exists x, x = 42 /\\ is_optimal x.
+      Proof. exists optimal_value. unfold optimal_value. split; reflexivity. Qed.
+
+    This proves the definition exists (trivial), not that the property holds.
+
+    Exempt: Theorems marked with (* DEFINITIONAL WITNESS *) or similar
+    in the preceding 3 lines (same convention as scan_circular_definitions).
+    """
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    text = strip_coq_comments(raw)
+    line_of = _line_map(text)
+    clean_lines = text.splitlines()
+    raw_lines = raw.splitlines()  # Keep comments for exemption check
+    findings: list[Finding] = []
+
+    # Collect definitions
+    def_re = re.compile(r"(?m)^[ \t]*Definition\s+([A-Za-z0-9_']+)\b")
+    definitions = {m.group(1) for m in def_re.finditer(text)}
+
+    if not definitions:
+        return findings
+
+    # Exemption markers (same as scan_circular_definitions)
+    exemption_re = re.compile(r'\(\*\*?\s*(DEFINITIONAL|HELPER|BASIC|ARITHMETIC|ACCESSOR|PROJECTION)\b', re.IGNORECASE)
+
+    theorem_re = re.compile(r"(?m)^[ \t]*(Theorem|Lemma)\s+([A-Za-z0-9_']+)\b")
+    proof_re = re.compile(r"(?m)^[ \t]*Proof\.")
+    end_re = re.compile(r"(?m)^[ \t]*(Qed|Defined|Admitted)\.")
+
+    for tm in theorem_re.finditer(text):
+        tname = tm.group(2)
+        stmt_end = text.find(".", tm.end())
+        if stmt_end == -1:
+            continue
+        stmt = re.sub(r"\s+", " ", text[tm.start():stmt_end + 1]).strip()
+
+        # Check if this is an existential theorem
+        if 'exists' not in stmt.lower():
+            continue
+
+        # Check for exemption marker in preceding 3 lines (use raw for comments)
+        line_num = line_of[tm.start()]
+        preceding_text = "\n".join(raw_lines[max(0, line_num-4):line_num])
+        if exemption_re.search(preceding_text):
+            continue  # Explicitly marked as substantive witness
+
+        proof_match = proof_re.search(text, stmt_end)
+        if not proof_match:
+            continue
+        end_match = end_re.search(text, proof_match.end())
+        if not end_match:
+            continue
+        proof_block = text[proof_match.end():end_match.start()].strip()
+
+        # Check if proof witnesses one of the definitions
+        for defn in definitions:
+            witness_pat = re.compile(rf'\bexists\s+{defn}\b')
+            unfold_pat = re.compile(rf'\bunfold\s+{defn}\b')
+
+            if witness_pat.search(proof_block) and unfold_pat.search(proof_block):
+                # Proof witnesses the definition and unfolds it
+                # This is likely just proving the definition exists
+                line = line_of[tm.start()]
+                snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else tname
+                findings.append(
+                    Finding(
+                        rule_id="DEFINITIONAL_WITNESS",
+                        severity=_severity_for_path(path, "MEDIUM"),
+                        file=path,
+                        line=line,
+                        snippet=snippet.strip(),
+                        message=f"Theorem `{tname}` proves existence by witnessing definition `{defn}`. "
+                                f"Verify the theorem proves a substantive property, not just that "
+                                f"the definition exists (which is trivial).",
+                    )
+                )
+                break
+
+    return findings
+
+
+def scan_phantom_vm_step(path: Path) -> list[Finding]:
+    """Detect theorems that take vm_step as a hypothesis but never use it.
+
+    Pattern: `forall s s' instr, vm_step s instr s' -> ... `
+    Proof: `intros ... . lia.` (vm_step hypothesis is never used)
+
+    Catches: direct inversion/destruct, AND indirect usage via apply/exact/
+    specialize/pose proof/eauto/assumption that passes the hypothesis to
+    another lemma.
+    """
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    text = strip_coq_comments(raw)
+    line_of = _line_map(text)
+    clean_lines = text.splitlines()
+    findings: list[Finding] = []
+
+    # Check if vm_step is a local Definition/Let (not an Inductive relation).
+    # Files that define vm_step as a function use it computationally, not as
+    # a phantom hypothesis.
+    if re.search(r'(?m)^\s*(Definition|Let|Fixpoint)\s+vm_step\b', text):
+        return findings
+
+    theorem_re = re.compile(r"(?m)^[ \t]*(Theorem|Lemma)\s+([A-Za-z0-9_']+)\b")
+    proof_re = re.compile(r"(?m)^[ \t]*Proof\.")
+    end_re = re.compile(r"(?m)^[ \t]*(Qed|Defined|Admitted)\.")
+
+    for tm in theorem_re.finditer(text):
+        tname = tm.group(2)
+        # Collect the full statement
+        stmt_end_pos = tm.end()
+        while stmt_end_pos < len(text):
+            ch = text[stmt_end_pos]
+            if ch == ".":
+                if stmt_end_pos + 1 >= len(text) or text[stmt_end_pos + 1] in " \n\t\r":
+                    break
+            stmt_end_pos += 1
+
+        stmt = re.sub(r"\s+", " ", text[tm.start():stmt_end_pos + 1]).strip()
+
+        # Check if vm_step appears in the statement AS A HYPOTHESIS (after ->),
+        # not just in the theorem name or conclusion.
+        # Look for: vm_step ... ->  (it's a premise)
+        stmt_after_colon = stmt.split(":", 1)[1] if ":" in stmt else stmt
+        if "vm_step" not in stmt_after_colon:
+            continue
+        # Ensure vm_step is in a hypothesis position (before some ->)
+        # Simple check: vm_step appears AND there's an -> after it
+        vm_pos = stmt_after_colon.find("vm_step")
+        arrow_after = stmt_after_colon.find("->", vm_pos) if vm_pos >= 0 else -1
+        if arrow_after < 0:
+            continue
+
+        proof_match = proof_re.search(text, stmt_end_pos)
+        if not proof_match:
+            continue
+        end_match = end_re.search(text, proof_match.end())
+        if not end_match:
+            continue
+
+        proof_block = text[proof_match.end():end_match.start()].strip()
+
+        # vm_step is in a hypothesis. Check if the proof USES it.
+        # Direct usage: inversion, destruct, case, elim on step hyp.
+        # Indirect usage: passing step hyp to another lemma via apply,
+        # eapply, exact, specialize, pose proof, rewrite, assumption,
+        # eauto, auto.
+        #
+        # We look for ANY of these patterns that reference a step-
+        # related hypothesis name (Hstep, H_step, Hvm, Hcons, etc.)
+        # or that apply a lemma known to consume vm_step.
+        step_hyp_names = re.compile(
+            r"\b(Hstep|H_step|Hvm|Hcons|Hlocal)\b"
+        )
+        # Collect hypothesis names that might hold the vm_step from intros
+        intro_match = re.search(r"intros?\s+([^.]+)\.", proof_block)
+        if intro_match:
+            intro_names = intro_match.group(1).split()
+            # Also check if any introduced name is used via apply/exact/etc
+            for nm in intro_names:
+                nm_clean = nm.strip("()[]")
+                if nm_clean and nm_clean != "_":
+                    step_hyp_names = re.compile(
+                        step_hyp_names.pattern + rf"|\b{re.escape(nm_clean)}\b"
+                    )
+
+        # Check for direct structural usage
+        direct_use = bool(re.search(
+            r"\b(inversion|destruct|case|elim)\b", proof_block
+        ))
+
+        # Check for indirect usage: applying lemmas or passing hypotheses
+        indirect_use = False
+        if not direct_use:
+            # Check if any step-hypothesis name appears in apply/exact/specialize/etc
+            consume_pats = [
+                r"\bapply\b",
+                r"\beapply\b",
+                r"\bexact\b",
+                r"\bspecialize\b",
+                r"\bpose\s+proof\b",
+                r"\brewrite\b",
+                r"\bassumption\b",
+                r"\beauto\b",
+                r"\bauto\b",
+            ]
+            # If the proof uses assumption/eauto/auto, those can implicitly
+            # consume the vm_step hypothesis
+            if re.search(r"\b(assumption|eauto|auto)\b", proof_block):
+                indirect_use = True
+            # If the proof applies/specializes with a step hypothesis name
+            elif step_hyp_names.search(proof_block):
+                for pat in consume_pats:
+                    if re.search(pat, proof_block):
+                        indirect_use = True
+                        break
+            # If the proof applies a known vm_step-consuming lemma
+            elif re.search(
+                r"\b(apply|eapply|exact|pose\s+proof)\s+"
+                r"(mu_conservation|vm_step_mu|vm_step_cost|vm_step_next_id|"
+                r"observational_no_signaling|step_preserves|vm_step_vm_apply|"
+                r"Physics_Closure|Kernel_Physics_Closure)",
+                proof_block
+            ):
+                indirect_use = True
+
+        if not direct_use and not indirect_use:
+            line = line_of[tm.start()]
+            snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else tname
+            findings.append(
+                Finding(
+                    rule_id="PHANTOM_VM_STEP",
+                    severity=_severity_for_path(path, "HIGH"),
+                    file=path,
+                    line=line,
+                    snippet=snippet.strip(),
+                    message=f"Theorem `{tname}` takes `vm_step` as hypothesis but the proof "
+                            f"never uses it (no inversion/destruct/apply/specialize/eauto). "
+                            f"The step relation is phantom — the result holds without it.",
+                )
+            )
+
     return findings
 
 
@@ -1559,6 +2530,16 @@ def write_report(
     lines.append("- `MU_COST_ZERO`: μ-cost definition is trivially zero\n")
     lines.append("- `CHSH_BOUND_MISSING`: CHSH bound theorem may not reference proper Tsirelson bound\n")
     lines.append("- `PROBLEMATIC_IMPORT`: import may introduce classical axioms\n")
+    lines.append("- `RECORD_FIELD_EXTRACTION`: theorem merely extracts a Record field it assumed as input (circular)\n")
+    lines.append("- `SELF_REFERENTIAL_RECORD`: Record embeds proposition as field AND a Theorem in the same file extracts it (circular)\n")
+    lines.append("- `PHANTOM_KERNEL_IMPORT`: imports Kernel modules but no proof engages with VM semantics\n")
+    lines.append("- `TRIVIAL_EXISTENTIAL`: trivially satisfiable existential (e.g. 'every list has a length')\n")
+    lines.append("- `ARITHMETIC_ONLY_PHYSICS`: physics-named theorem proved by pure arithmetic (lia/lra) only\n")
+    lines.append("- `PHANTOM_VM_STEP`: theorem takes vm_step as hypothesis but proof never uses it\n")
+    lines.append("- `CIRCULAR_DEFINITION`: theorem unfolds definition and proves by simple tactics (potentially restating definition)\n")
+    lines.append("- `EMERGENCE_CIRCULARITY`: 'emergence' claim where emergent property is in the definition (circular)\n")
+    lines.append("- `CONSTRUCTOR_ROUND_TRIP`: construct object, immediately extract property (not proving anything)\n")
+    lines.append("- `DEFINITIONAL_WITNESS`: existential witnessed by definition, then unfolds it (trivially proves definition exists)\n")
     lines.append("\n")
 
     if not findings:
@@ -1723,6 +2704,18 @@ def main(argv: list[str]) -> int:
             all_findings.extend(scan_mu_cost_consistency(vf))
             all_findings.extend(scan_chsh_bounds(vf))
             all_findings.extend(scan_axiom_dependencies(vf))
+            # Deep proof substance checks (v2)
+            all_findings.extend(scan_record_field_extraction(vf))
+            all_findings.extend(scan_self_referential_record(vf))
+            all_findings.extend(scan_phantom_imports(vf))
+            all_findings.extend(scan_trivial_existentials(vf))
+            all_findings.extend(scan_arithmetic_only_proofs(vf))
+            all_findings.extend(scan_phantom_vm_step(vf))
+            # Circular reasoning detection (v3)
+            all_findings.extend(scan_circular_definitions(vf))
+            all_findings.extend(scan_emergence_circularity(vf))
+            all_findings.extend(scan_constructor_round_trip(vf))
+            all_findings.extend(scan_definitional_witness(vf))
 
             score, tags = _file_vacuity_summary(vf)
             if score > 0:

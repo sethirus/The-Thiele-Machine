@@ -2,17 +2,19 @@
 
 \subsection{How to Read This Index}
 
-This appendix catalogs every formally verified theorem in the Thiele Machine development. For each theorem, the index provides:
+This appendix catalogs key formally verified theorems in the Thiele Machine development. For each theorem, the index provides:
 \begin{itemize}
-    \item \textbf{Name}: The identifier used in Coq
-    \item \textbf{Location}: The conceptual proof domain where it is proven
+    \item \textbf{Name}: The exact identifier used in Coq (verifiable by search)
+    \item \textbf{Location}: The source file where it is proven
     \item \textbf{Status}: All theorems are PROVEN (zero admits)
 \end{itemize}
+
+\textbf{Note}: This index lists selected highlights from each proof domain. The complete corpus contains over 4,700 formal declarations across 285 source files. Every theorem can be located by grepping the \texttt{coq/} directory.
 
 \textbf{Verification}: Any theorem can be verified by:
 \begin{enumerate}
     \item Installing Coq 8.18.x
-    \item Building the formal development
+    \item Building the formal development (\texttt{make -j\$(nproc)} in \texttt{coq/})
     \item Checking that compilation succeeds without errors
 \end{enumerate}
 
@@ -23,9 +25,9 @@ If compilation fails, the proof is invalid. If compilation succeeds, the proof i
 Theorems follow systematic naming:
 \begin{itemize}
     \item \texttt{*\_preserves\_*}: Property is maintained by an operation
-    \item \texttt{*\_monotone}: Quantity only increases (or stays same)
+    \item \texttt{*\_monotone}/\texttt{*\_monotonic}: Quantity only increases (or stays same)
     \item \texttt{*\_conservation}: Quantity is conserved exactly
-    \item \texttt{*\_impossible}: Something cannot happen
+    \item \texttt{*\_impossible}/\texttt{*\_fails}: Something cannot happen
     \item \texttt{no\_*}: Negative result (something is forbidden)
 \end{itemize}
 
@@ -37,58 +39,75 @@ This appendix provides a comprehensive index of formally verified theorems, orga
 
 Key theorems include:
 \begin{itemize}
-    \item \texttt{vm\_step\_deterministic}, \texttt{vm\_exec\_fuel\_monotone}
-    \item \texttt{normalize\_region\_idempotent}, \texttt{region\_eq\_decidable}
-    \item \texttt{obs\_equiv\_symmetric}, \texttt{obs\_equiv\_transitive}
-    \item \texttt{no\_signaling\_preserved}, \texttt{partition\_locality}
-    \item \texttt{trace\_composition\_associative}
+    \item \texttt{vm\_step\_deterministic} (SimulationProof.v): Single-step execution is deterministic
+    \item \texttt{vm\_is\_a\_correct\_refinement\_of\_kernel} (SimulationProof.v): VM implementation refines kernel spec
+    \item \texttt{normalize\_region\_idempotent} (VMState.v): Region normalization is stable
+    \item \texttt{obs\_equiv\_refl}, \texttt{obs\_equiv\_sym}, \texttt{obs\_equiv\_trans} (KernelPhysics.v): Observational equivalence is an equivalence relation
+    \item \texttt{observational\_no\_signaling} (KernelPhysics.v): No-signaling from observational structure
+    \item \texttt{gauge\_invariance\_observables} (KernelPhysics.v): Gauge invariance of observables
+    \item \texttt{vm\_step\_preserves\_wf} (SpacetimeEmergence.v): Well-formedness preserved by execution
+    \item \texttt{exec\_trace\_no\_signaling\_outside\_cone} (SpacetimeEmergence.v): Causal locality
+    \item \texttt{step\_deterministic\_fn} (ThreeLayerIsomorphism.v): Functional determinism
 \end{itemize}
 
 \subsection{Conservation Laws}
 
 Key theorems include:
 \begin{itemize}
-    \item \texttt{mu\_monotone\_step}, \texttt{mu\_never\_decreases}
-    \item \texttt{vm\_exec\_mu\_monotone}
-    \item \texttt{mu\_conservation}, \texttt{ledger\_bound}
+    \item \texttt{mu\_monotonic}, \texttt{mu\_never\_decreases} (MuComplexity.v): $\mu$-cost monotonicity
+    \item \texttt{vm\_exec\_mu\_monotone} (MuNoFreeInsightQuantitative.v): Multi-step $\mu$-monotonicity
+    \item \texttt{mu\_conservation\_kernel} (KernelPhysics.v): Kernel-level $\mu$-conservation
+    \item \texttt{run\_vm\_mu\_conservation} (MuLedgerConservation.v): VM-level $\mu$-conservation
+    \item \texttt{mu\_ledger\_bounds\_irreversible\_events} (MuLedgerConservation.v): Ledger bounds on irreversibility
+    \item \texttt{mu\_is\_landauer\_valid} (MuNecessity.v): $\mu$-cost satisfies Landauer's principle
+    \item \texttt{mu\_distance\_triangle} (MuGeometry.v): $\mu$-distance metric inequality
 \end{itemize}
 
 \subsection{Impossibility Results}
 
 Key theorems include:
 \begin{itemize}
-    \item \texttt{region\_equiv\_class\_infinite}
-    \item \texttt{no\_unique\_measure\_forced}
-    \item \texttt{lorentz\_structure\_underdetermined}
+    \item \texttt{region\_equiv\_class\_infinite} (EntropyImpossibility.v): Region equivalence classes are infinite
+    \item \texttt{Entropy\_From\_Observation\_Fails\_Without\_Finiteness} (EntropyImpossibility.v): Entropy requires finiteness
+    \item \texttt{Lorentz\_Not\_Forced} (LorentzNotForced.v): Lorentz structure is underdetermined
+    \item \texttt{Cone\_Symmetry\_Underdetermined} (LorentzNotForced.v): Cone symmetry has freedom
+    \item \texttt{Born\_Rule\_Unique\_Fails\_Without\_More\_Structure} (ProbabilityImpossibility.v): Born rule uniqueness requires additional structure
 \end{itemize}
 
 \subsection{TOE Results}
 
 Key theorems include:
 \begin{itemize}
-    \item \texttt{Physics\_Requires\_Extra\_Structure}
-    \item \texttt{reaches\_transitive}, \texttt{causal\_order\_partial}
-    \item \texttt{cone\_composition}, \texttt{cone\_monotone}
+    \item \texttt{Physics\_Requires\_Extra\_Structure} (TOEDecision.v): Theory-of-everything impossibility
+    \item \texttt{KernelTOE\_FinalOutcome} (TOE.v): Final TOE outcome
+    \item \texttt{cone\_composition}, \texttt{cone\_monotone} (ConeAlgebra.v, ConeDerivation.v): Cone algebra
+    \item \texttt{Cone\_Structure\_Unique} (ConeDerivation.v): Cone uniqueness
+    \item \texttt{reaches\_trans} (SpacetimeEmergence.v): Causal reachability is transitive
+    \item \texttt{KernelMaximalClosure} (Closure.v): Kernel is maximally closed
+    \item \texttt{Uniform\_Strategy\_Dies} (Persistence.v): Uniform strategies fail to persist
 \end{itemize}
 
 \subsection{Subsumption}
 
 Key theorems include:
 \begin{itemize}
-    \item \texttt{thiele\_simulates\_turing}, \texttt{turing\_is\_strictly\_contained}
-    \item \texttt{embedding\_preserves\_semantics}
+    \item \texttt{main\_subsumption} (Subsumption.v): Main subsumption theorem (zero axioms)
+    \item \texttt{thiele\_simulates\_turing} (ProperSubsumption.v): Turing simulation
+    \item \texttt{thiele\_strictly\_extends\_turing} (ProperSubsumption.v): Strict extension
+    \item \texttt{partition\_based\_separation} (PartitionSeparation.v): Partition separation
+    \item \texttt{pnew\_not\_tm\_simulable} (PartitionSeparation.v): PNEW exceeds TM capability
 \end{itemize}
 
 \section{Kernel TOE Theorems}
 
 Key theorems include:
 \begin{itemize}
-    \item \texttt{KernelTOE\_FinalOutcome}
-    \item \path{CompositionalWeightFamily_Infinite}, \path{KernelNoGo_UniqueWeight_Fails}
-    \item \texttt{KernelMaximalClosure}
-    \item \texttt{no\_signaling\_from\_composition}
-    \item \texttt{probability\_not\_unique}
-    \item \texttt{lorentz\_not\_forced}
+    \item \texttt{KernelTOE\_FinalOutcome} (kernel\_toe/TOE.v): Final outcome
+    \item \texttt{CompositionalWeightFamily\_Infinite} (kernel\_toe/NoGo.v): Weight families are infinite
+    \item \texttt{KernelNoGo\_UniqueWeight\_Fails} (kernel\_toe/NoGo.v): Unique weight no-go
+    \item \texttt{KernelMaximalClosure} (kernel\_toe/Closure.v): Maximal closure
+    \item \texttt{KernelNoGoForTOE} (kernel\_toe/NoGo.v): Full TOE no-go theorem
+    \item \texttt{MultiplicativeWeightFamily\_Infinite} (kernel\_toe/NoGoSensitivity.v): Multiplicative sensitivity
 \end{itemize}
 
 \section{ThieleMachine Theorems}
@@ -97,114 +116,186 @@ Key theorems include:
 
 Key theorems include:
 \begin{itemize}
-    \item \texttt{quantum\_admissible\_implies\_CHSH\_le\_tsirelson}
-    \item \texttt{S\_SupraQuantum}, \texttt{CHSH\_classical\_bound}
-    \item \texttt{tsirelson\_from\_kernel}
-    \item \texttt{receipt\_locality}
+    \item \texttt{quantum\_admissible\_implies\_CHSH\_le\_tsirelson} (QuantumAdmissibilityTsirelson.v): Main Tsirelson bound
+    \item \texttt{S\_SupraQuantum} (BellInequality.v): Supra-quantum witness
+    \item \texttt{CHSH\_classical\_bound} (BellCheck.v): Classical CHSH bound
+    \item \texttt{local\_fragment\_CHSH\_le\_2\_end\_to\_end} (BellReceiptLocalBound.v): End-to-end local bound
+    \item \texttt{local\_trials\_CHSH\_bound} (BellReceiptLocalGeneral.v): Receipt-based locality
+    \item \texttt{trials\_from\_concrete\_receipts\_are\_sound} (BellReceiptSoundness.v): Receipt soundness
+    \item \texttt{born\_rule\_valid} (BornRule.v): Born rule validity
+    \item \texttt{born\_rule\_from\_tensor\_consistency} (BornRuleFromSymmetry.v): Born rule from tensor product consistency (non-circular)
+    \item \texttt{no\_cloning\_from\_mu\_monotonicity} (NoCloningFromMuMonotonicity.v): Machine-native no-cloning via integer arithmetic
+    \item \texttt{tsirelson\_from\_algebraic\_coherence} (AlgebraicCoherence.v): Algebraic coherence route
+    \item \texttt{tsirelson\_bound\_proof} (TsirelsonFromAlgebra.v): Self-contained algebraic Tsirelson derivation
+    \item \texttt{tsirelson\_achieved} (TsirelsonFromAlgebra.v): Achievability witness for $2\sqrt{2}$
 \end{itemize}
 
 \subsection{Partition Logic}
 
 Key theorems include:
 \begin{itemize}
-    \item \texttt{witness\_composition}, \texttt{partition\_refinement\_monotone}
-    \item \texttt{discovery\_terminates}
-    \item \texttt{merge\_preserves\_validity}
+    \item \texttt{witness\_composition} (PartitionLogic.v): Witness compositionality
+    \item \texttt{refinement\_admissible} (PartitionLogic.v): Refinement admissibility
+    \item \texttt{amortized\_discovery} (PartitionLogic.v): Amortized cost of discovery
+    \item \texttt{structured\_instance\_speedup} (PartitionLogic.v): Speedup from structure
+    \item \texttt{deterministic\_replay} (PartitionLogic.v): Deterministic replay
 \end{itemize}
 
-\subsection{Oracle and Hypercomputation}
+\subsection{Oracle Impossibility}
 
 Key theorems include:
 \begin{itemize}
-    \item \texttt{oracle\_well\_defined}
-    \item \texttt{oracle\_limits}
-    \item \texttt{halting\_undecidable}
-    \item \texttt{hypercomputation\_bounds}
+    \item \texttt{halting\_undecidable} (OracleImpossibility.v): Halting problem undecidability via diagonalization
+    \item \texttt{oracle\_halts\_costs\_mu} (OracleImpossibility.v): Any halting oracle incurs $\mu$-cost
+    \item \texttt{hypercomputation\_bounded} (OracleImpossibility.v): Hypercomputation is bounded by the Thiele framework
+    \item \texttt{always\_halts\_undecidable} (OracleImpossibility.v): Rice's theorem---no non-trivial semantic property is decidable
+    \item \texttt{oracle\_cost\_linear} (OracleImpossibility.v): Oracle cost grows linearly
 \end{itemize}
 
-\subsection{Verification}
+\subsection{Oracle Accounting}
+
+Key results include:
+\begin{itemize}
+    \item \texttt{Oracle.v}: 40+ lemmas on $\mu$-accounting for oracle interactions (e.g., \texttt{t1\_charge\_mu\_total}, \texttt{t1\_run\_mu\_total}, \texttt{t1\_trace\_receipt\_closed\_witness\_canonical})
+    \item \texttt{hyper\_thiele\_decides\_halting\_bool} (HyperThiele\_Halting.v): HyperThiele halting decision
+    \item \texttt{compile\_preserves\_oracle\_outputs} (HyperThiele\_Oracle.v): Oracle compilation correctness
+\end{itemize}
+
+\subsection{Quantum Foundations}
 
 Key theorems include:
 \begin{itemize}
-    \item \texttt{admissible\_randomness\_bound}
-    \item \texttt{causal\_structure\_requires\_disclosure}
-    \item \texttt{entropy\_requires\_coarsegraining}
+    \item \texttt{quantum\_foundations\_resolved} (QuantumEquivalence.v): Quantum foundations resolution
+    \item \texttt{nonunitary\_requires\_mu} (Unitarity.v): Non-unitary evolution requires $\mu$-cost
+    \item \texttt{physical\_evolution\_is\_CPTP} (Unitarity.v): Physical evolution is CPTP
+    \item \texttt{purification\_principle} (Purification.v): Purification
+    \item \texttt{information\_causality\_is\_mu\_cost} (InformationCausality.v): Information causality from $\mu$
+    \item \texttt{no\_free\_insight\_general} (NoFreeInsight.v): General no-free-insight theorem
+    \item \texttt{nonlocal\_correlation\_requires\_revelation} (RevelationRequirement.v): Revelation requirement
 \end{itemize}
 
 \section{Bridge Theorems}
 
 Key theorems include:
 \begin{itemize}
-    \item \texttt{decode\_is\_filter\_payloads}
-    \item \texttt{tomo\_decode\_correctness}
-    \item \texttt{entropy\_channel\_soundness}
-    \item \texttt{causal\_channel\_soundness}
-    \item \texttt{box\_decode\_correct}
-    \item \texttt{quantum\_measurement\_soundness}
+    \item \texttt{decode\_is\_filter\_payloads} (Randomness\_to\_Kernel.v): Decode correctness
+    \item \texttt{simulation\_correctness\_trials} (FiniteQuantum\_to\_Kernel.v, BoxWorld\_to\_Kernel.v): Bridge simulation correctness
+    \item \texttt{tsirelson\_envelope\_program\_chsh} (FiniteQuantum\_to\_Kernel.v): Tsirelson envelope CHSH
+    \item \texttt{supra\_16\_5\_program\_chsh} (BoxWorld\_to\_Kernel.v): Supra-quantum box world CHSH
+    \item \texttt{python\_mu\_ledger\_isomorphism} (PythonMuLedgerBisimulation.v): Python--Coq ledger bisimulation
+    \item \texttt{decodes\_to\_self} (Causal\_to\_Kernel.v, Tomography\_to\_Kernel.v, Entropy\_to\_Kernel.v): Channel decode identity
 \end{itemize}
 
 \section{Physics Model Theorems}
 
 Key theorems include:
 \begin{itemize}
-    \item \texttt{wave\_energy\_conserved}, \texttt{wave\_momentum\_conserved},
-    \item \texttt{wave\_step\_reversible}
-    \item \texttt{dissipation\_monotone}
-    \item \texttt{discrete\_step\_well\_defined}
+    \item \texttt{wave\_energy\_conserved}, \texttt{wave\_momentum\_conserved} (WaveModel.v): Wave conservation
+    \item \texttt{wave\_step\_reversible} (WaveModel.v): Wave reversibility
+    \item \texttt{dissipative\_energy\_strictly\_decreasing} (DissipativeModel.v): Dissipative energy loss
+    \item \texttt{lattice\_particles\_conserved}, \texttt{lattice\_momentum\_conserved} (DiscreteModel.v): Discrete conservation
+    \item \texttt{landauer\_bridge\_entropy} (LandauerBridge.v): Landauer entropy bridge
+    \item \texttt{erase\_mu\_equals\_entropy\_loss} (LandauerBridge.v): Erasure cost equals entropy loss
 \end{itemize}
 
 \section{Shor Primitives Theorems}
 
 Key theorems include:
 \begin{itemize}
-    \item \texttt{shor\_reduction}
-    \item \texttt{gcd\_euclid\_divides\_left}, \texttt{gcd\_euclid\_divides\_right}
-    \item \texttt{mod\_pow\_mult}, \texttt{mod\_pow\_correct}
+    \item \texttt{shor\_reduction} (PeriodFinding.v): Shor's factoring reduction
+    \item \texttt{gcd\_euclid\_correct} (Euclidean.v): GCD correctness
+    \item \texttt{gcd\_euclid\_divides\_left}, \texttt{gcd\_euclid\_divides\_right} (Euclidean.v): GCD divides both inputs
 \end{itemize}
 
 \section{NoFI Theorems}
 
 Key theorems include:
 \begin{itemize}
-    \item Module type definition (No Free Insight interface)
-    \item \texttt{no\_free\_insight}
-    \item \texttt{kernel\_satisfies\_nofi}
+    \item \texttt{no\_free\_insight} (NoFreeInsight\_Theorem.v): Main functor theorem
+    \item \texttt{no\_free\_insight\_contract} (Instance\_Kernel.v): Kernel instance of NoFI
+    \item \texttt{proves\_bits\_bounded\_by\_description} (MuChaitinTheory\_Theorem.v): Chaitin-style bound
 \end{itemize}
 
 \section{Self-Reference Theorems}
 
 Key theorems include:
 \begin{itemize}
-    \item \texttt{meta\_system\_richer}
-    \item \texttt{meta\_system\_self\_referential}
+    \item \texttt{meta\_system\_richer} (SelfReference.v): Meta-system strict enrichment
+    \item \texttt{meta\_system\_self\_referential} (SelfReference.v): Self-referential capability
+    \item \texttt{self\_reference\_requires\_metalevel} (SelfReference.v): Meta-level requirement
 \end{itemize}
 
 \section{Modular Proofs Theorems}
 
+\subsection{Cornerstone and Simulation}
+
 Key theorems include:
 \begin{itemize}
-    \item \texttt{tm\_step\_deterministic}
-    \item \texttt{minsky\_universal}
-    \item \texttt{tm\_reduces\_to\_minsky}
-    \item \texttt{thiele\_step\_deterministic}
-    \item \texttt{simulation\_correct}
-    \item \texttt{cornerstone\_properties}
-    \item \texttt{minsky\_reduces\_to\_thiele}
-    \item \texttt{thiele\_universal}
+    \item \texttt{thiele\_machine\_subsumes\_turing\_modular} (Simulation.v): Modular subsumption proof
+    \item \texttt{thiele\_solves\_instance} (CornerstoneThiele.v): Instance solving
+    \item \texttt{thiele\_pays\_the\_cost} (CornerstoneThiele.v): Cost accounting
+    \item \texttt{classical\_is\_slow} (CornerstoneThiele.v): Classical lower bound
+    \item \texttt{thiele\_is\_fast} (CornerstoneThiele.v): Thiele speedup
+    \item \texttt{thiele\_cycles\_are\_small} (CornerstoneThiele.v): Cycle bound
+\end{itemize}
+
+\subsection{Turing Subsumption Chain}
+
+The TM $\to$ Minsky $\to$ Thiele subsumption chain (776 lines across two files):
+\begin{itemize}
+    \item \texttt{tm\_minsky\_state\_simulation} (TM\_to\_Minsky.v): Step-level state simulation
+    \item \texttt{tm\_to\_minsky\_exists} (TM\_to\_Minsky.v): Existence of counter-based encoding for any TM
+    \item \texttt{thiele\_n\_step\_simulation} (ThieleInstance.v): $n$-step simulation correctness
+    \item \texttt{thiele\_subsumes\_tm\_complete} (ThieleInstance.v): End-to-end chain---every TM is faithfully simulated by a Thiele Machine
+    \item \texttt{identity\_tm\_thiele\_simulation} (ThieleInstance.v): Concrete witness for the identity TM
+\end{itemize}
+
+\section{ThieleUniversal Theorems}
+
+Key theorems include:
+\begin{itemize}
+    \item \texttt{thiele\_universal\_recap} (ThieleUniversal.v): Universality theorem
+    \item \texttt{thiele\_machine\_subsumes\_tm} (ThieleUniversal.v): TM subsumption corollary
+    \item \texttt{decode\_encode\_roundtrip} (UTM\_Encode.v): Encoding correctness
+\end{itemize}
+
+\section{Master Summary Theorems}
+
+Key theorems (in \texttt{coq/kernel/MasterSummary.v}) include:
+\begin{itemize}
+    \item \texttt{thiele\_machine\_is\_complete}: Completeness of the Thiele Machine
+    \item \texttt{master\_tsirelson}: Tsirelson bound from first principles
+    \item \texttt{master\_quantum\_foundations}: Quantum foundations resolution
+    \item \texttt{master\_non\_circularity}: Non-circularity audit
+    \item \texttt{master\_verification\_chain}: Full verification chain
+\end{itemize}
+
+See also \texttt{non\_circularity\_verified} (NonCircularityAudit.v), \texttt{three\_layer\_semantic\_isomorphism} (SemanticComplexityIsomorphism.v), and \texttt{complete\_verification\_chain} (HardwareBisimulation.v).
+
+\section{HardMathFacts Theorems}
+
+All six quantum-information facts that anchor the Tsirelson bound derivation are mechanically proven in \texttt{kernel/HardMathFactsProven.v} (686 lines). The proofs discharge the corresponding lemma statements from \texttt{AssumptionBundle.v}, upgrading them from parameters to theorems.
+\begin{itemize}
+    \item \texttt{norm\_E\_bound\_proven} (HardMathFactsProven.v): Norm bound on $E$ operators
+    \item \texttt{valid\_S\_4\_proven} (HardMathFactsProven.v): $S \leq 4$ for valid strategies
+    \item \texttt{local\_S\_2\_proven} (HardMathFactsProven.v): $S \leq 2$ for local strategies
+    \item \texttt{pr\_no\_ext\_proven} (HardMathFactsProven.v): Probability without external dependence
+    \item \texttt{symm\_coh\_bound\_proven} (HardMathFactsProven.v): Symmetric coherence bound
+    \item \texttt{tsir\_from\_coh\_proven} (HardMathFactsProven.v): Tsirelson bound from algebraic coherence
 \end{itemize}
 
 \section{Theorem Count Summary}
 
-The proof corpus is large and complete: every theorem listed in this appendix is fully discharged with zero admits. Exact counts can be recomputed by building the formal development and enumerating theorem-containing files.
+The proof corpus is large and complete: every theorem listed in this appendix is fully discharged with zero admits. The complete corpus contains over 4,700 formal declarations across 285 source files. Exact counts can be recomputed by building the formal development and enumerating theorem-containing files.
 
 \section{Zero-Admit Verification}
 
-All files in the active proof tree pass the zero-admit check: there are no \texttt{Admitted}, \texttt{admit.}, or \texttt{Axiom} declarations beyond foundational logic.
+All files in the active proof tree pass the zero-admit check: there are no \texttt{Admitted}, \texttt{admit.}, or \texttt{Axiom} declarations beyond foundational logic. The only axioms are standard Coq library axioms (\texttt{functional\_extensionality\_dep}, \texttt{sig\_forall\_dec}, \texttt{sig\_not\_dec}). The six \texttt{HardMathFacts} parameterized in \texttt{AssumptionBundle.v} are mechanically proven in \texttt{HardMathFactsProven.v}---the bundle is a theorem, not an assumption.
 
 \section{Compilation Status}
 
-Compilation of the formal development serves as the definitive check that every theorem in this index is valid.
+Compilation of the formal development serves as the definitive check that every theorem in this index is valid. The full build produces 285 \texttt{.vo} files with zero errors.
 
 \section{Cross-Reference with Tests}
 
-Many major theorems have corresponding executable validations. These tests are not proofs, but they serve as regression checks that the executable layers continue to match the formal model’s observable projections.
+Many major theorems have corresponding executable validations. These tests are not proofs, but they serve as regression checks that the executable layers continue to match the formal model's observable projections.

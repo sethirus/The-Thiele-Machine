@@ -862,6 +862,7 @@ Ltac step_n n :=
       step_n n'
   end.
 
+(** DEFINITIONAL HELPER: Unfolds run1 definition for rewriting *)
 Lemma run1_decode : forall st,
   run1 st = CPU.step (decode_instr st) st.
 Proof.

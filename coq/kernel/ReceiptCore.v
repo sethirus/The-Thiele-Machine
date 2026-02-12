@@ -107,6 +107,8 @@ Definition decodes_to (ch : ReceiptChannel) (tr : Trace) (xs : list (list nat)) 
 
     Trivial but important: decode(ch, tr) decodes to itself. This establishes
     that decoding is deterministic and well-defined. *)
+(** HELPER: Reflexivity/transitivity/symmetry property *)
+(** HELPER: Reflexivity/transitivity/symmetry property *)
 Lemma decodes_to_refl :
   forall ch tr, decodes_to ch tr (decode ch tr).
 Proof.

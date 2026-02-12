@@ -1,0 +1,252 @@
+DIGEST ebdcc55e0102ae32cfcd42d977f16496
+FKernel.NPMuCostBound
+R1625:1628 Coq.Lists.List <> <> lib
+R1630:1643 Coq.Arith.PeanoNat <> <> lib
+R1645:1647 Coq.micromega.Lia <> <> lib
+R1649:1652 Coq.Bool.Bool <> <> lib
+R1662:1674 Coq.Lists.List ListNotations <> mod
+R1705:1711 Kernel.VMState <> <> lib
+R1713:1718 Kernel.VMStep <> <> lib
+R1720:1732 Kernel.KernelPhysics <> <> lib
+rec 2010:2029 <> VerificationInstance
+proj 2038:2052 <> vi_problem_size
+proj 2103:2117 <> vi_witness_bits
+proj 2173:2192 <> vi_verification_cost
+proj 2242:2257 <> vi_witness_valid
+proj 2313:2331 <> vi_cost_covers_info
+R2056:2058 Coq.Init.Datatypes <> nat ind
+R2121:2123 Coq.Init.Datatypes <> nat ind
+R2196:2198 Coq.Init.Datatypes <> nat ind
+R2261:2264 Coq.Init.Datatypes <> bool ind
+R2362:2365 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2355:2357 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2339:2354 Kernel.NPMuCostBound <> vi_witness_valid:5 meth
+R2358:2361 Coq.Init.Datatypes <> true constr
+R2386:2389 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R2366:2385 Kernel.NPMuCostBound <> vi_verification_cost:4 meth
+R2390:2404 Kernel.NPMuCostBound <> vi_witness_bits:3 meth
+def 2568:2582 <> poly_verifiable
+R2590:2609 Kernel.NPMuCostBound <> VerificationInstance rec
+binder 2585:2586 <> vi:7
+R2617:2619 Coq.Init.Datatypes <> nat ind
+binder 2613:2613 <> k:8
+R2657:2660 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2634:2653 Kernel.NPMuCostBound <> vi_verification_cost proj
+R2655:2656 Kernel.NPMuCostBound <> vi:7 var
+R2661:2667 Coq.Arith.PeanoNat Nat pow def
+R2670:2684 Kernel.NPMuCostBound <> vi_problem_size proj
+R2686:2687 Kernel.NPMuCostBound <> vi:7 var
+R2690:2690 Kernel.NPMuCostBound <> k:8 var
+prf 3190:3220 <> verification_requires_structure
+binder 3231:3232 <> vi:9
+R3263:3268 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3256:3258 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3237:3252 Kernel.NPMuCostBound <> vi_witness_valid proj
+R3254:3255 Kernel.NPMuCostBound <> vi:9 var
+R3259:3262 Coq.Init.Datatypes <> true constr
+R3291:3296 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3287:3289 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R3269:3283 Kernel.NPMuCostBound <> vi_witness_bits proj
+R3285:3286 Kernel.NPMuCostBound <> vi:9 var
+R3320:3322 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R3297:3316 Kernel.NPMuCostBound <> vi_verification_cost proj
+R3318:3319 Kernel.NPMuCostBound <> vi:9 var
+R3374:3392 Kernel.NPMuCostBound <> vi_cost_covers_info proj
+R3374:3392 Kernel.NPMuCostBound <> vi_cost_covers_info proj
+rec 3686:3702 <> PredicateStrength
+proj 3711:3717 <> ps_cost
+proj 3728:3738 <> ps_strength
+R3721:3723 Coq.Init.Datatypes <> nat ind
+R3742:3744 Coq.Init.Datatypes <> nat ind
+prf 3861:3889 <> stronger_predicate_costs_more
+binder 3900:3901 <> p1:13
+binder 3903:3904 <> p2:14
+R3940:3945 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3923:3925 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3909:3919 Kernel.NPMuCostBound <> ps_strength proj
+R3921:3922 Kernel.NPMuCostBound <> p1:13 var
+R3926:3936 Kernel.NPMuCostBound <> ps_strength proj
+R3938:3939 Kernel.NPMuCostBound <> p2:14 var
+R3969:3974 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3956:3958 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3946:3952 Kernel.NPMuCostBound <> ps_cost proj
+R3954:3955 Kernel.NPMuCostBound <> p1:13 var
+R3959:3965 Kernel.NPMuCostBound <> ps_cost proj
+R3967:3968 Kernel.NPMuCostBound <> p2:14 var
+R3985:3987 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R3975:3981 Kernel.NPMuCostBound <> ps_cost proj
+R3983:3984 Kernel.NPMuCostBound <> p2:14 var
+R3988:3994 Kernel.NPMuCostBound <> ps_cost proj
+R3996:3997 Kernel.NPMuCostBound <> p1:13 var
+def 4321:4340 <> sorting_witness_cost
+R4358:4360 Coq.Init.Datatypes <> nat ind
+binder 4343:4343 <> n:15
+binder 4345:4354 <> inversions:16
+R4365:4367 Coq.Init.Datatypes <> nat ind
+R4372:4381 Kernel.NPMuCostBound <> inversions:16 var
+prf 4498:4513 <> sorted_zero_cost
+binder 4524:4524 <> n:17
+R4553:4555 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4529:4548 Kernel.NPMuCostBound <> sorting_witness_cost def
+R4550:4550 Kernel.NPMuCostBound <> n:17 var
+prf 4657:4673 <> reversed_max_cost
+binder 4684:4684 <> n:18
+R4729:4731 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4689:4708 Kernel.NPMuCostBound <> sorting_witness_cost def
+R4710:4710 Kernel.NPMuCostBound <> n:18 var
+R4724:4726 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R4714:4717 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4723:4723 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4713:4713 Kernel.NPMuCostBound <> n:18 var
+R4719:4721 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R4718:4718 Kernel.NPMuCostBound <> n:18 var
+R4743:4745 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R4733:4736 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4742:4742 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4732:4732 Kernel.NPMuCostBound <> n:18 var
+R4738:4740 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R4737:4737 Kernel.NPMuCostBound <> n:18 var
+def 4863:4884 <> factoring_witness_cost
+R4893:4895 Coq.Init.Datatypes <> nat ind
+binder 4887:4887 <> p:19
+binder 4889:4889 <> q:20
+R4900:4902 Coq.Init.Datatypes <> nat ind
+R4971:4973 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4961:4968 Coq.Arith.PeanoNat Nat log2 def
+R4970:4970 Kernel.NPMuCostBound <> p:19 var
+R4974:4981 Coq.Arith.PeanoNat Nat log2 def
+R4983:4983 Kernel.NPMuCostBound <> q:20 var
+prf 5061:5085 <> factoring_nontrivial_cost
+binder 5096:5096 <> p:21
+binder 5098:5098 <> q:22
+R5108:5111 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5104:5106 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R5103:5103 Kernel.NPMuCostBound <> p:21 var
+R5117:5122 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5113:5115 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R5112:5112 Kernel.NPMuCostBound <> q:22 var
+R5149:5151 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R5123:5144 Kernel.NPMuCostBound <> factoring_witness_cost def
+R5146:5146 Kernel.NPMuCostBound <> p:21 var
+R5148:5148 Kernel.NPMuCostBound <> q:22 var
+R5191:5212 Kernel.NPMuCostBound <> factoring_witness_cost def
+R5266:5268 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R5256:5263 Coq.Arith.PeanoNat Nat log2 def
+R5266:5268 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R5256:5263 Coq.Arith.PeanoNat Nat log2 def
+R5283:5294 Coq.Arith.PeanoNat Nat log2_pos thm
+R5283:5294 Coq.Arith.PeanoNat Nat log2_pos thm
+def 5406:5427 <> graph_iso_witness_cost
+R5434:5436 Coq.Init.Datatypes <> nat ind
+binder 5430:5430 <> n:23
+R5441:5443 Coq.Init.Datatypes <> nat ind
+R5512:5514 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R5511:5511 Kernel.NPMuCostBound <> n:23 var
+R5515:5522 Coq.Arith.PeanoNat Nat log2 def
+R5524:5524 Kernel.NPMuCostBound <> n:23 var
+prf 5601:5625 <> graph_iso_nontrivial_cost
+binder 5636:5636 <> n:24
+R5647:5652 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5642:5645 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5641:5641 Kernel.NPMuCostBound <> n:24 var
+R5677:5679 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R5653:5674 Kernel.NPMuCostBound <> graph_iso_witness_cost def
+R5676:5676 Kernel.NPMuCostBound <> n:24 var
+R5714:5735 Kernel.NPMuCostBound <> graph_iso_witness_cost def
+R5758:5760 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R5748:5755 Coq.Arith.PeanoNat Nat log2 def
+R5758:5760 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R5748:5755 Coq.Arith.PeanoNat Nat log2 def
+R5775:5786 Coq.Arith.PeanoNat Nat log2_pos thm
+R5775:5786 Coq.Arith.PeanoNat Nat log2_pos thm
+rec 6271:6279 <> MuCostGap
+proj 6288:6303 <> mcg_problem_size
+proj 6314:6326 <> mcg_find_cost
+proj 6377:6391 <> mcg_verify_cost
+proj 6438:6452 <> mcg_verify_poly
+R6307:6309 Coq.Init.Datatypes <> nat ind
+R6330:6332 Coq.Init.Datatypes <> nat ind
+R6395:6397 Coq.Init.Datatypes <> nat ind
+R6456:6462 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6464:6465 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 6463:6463 <> k:29
+R6481:6484 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6466:6480 Kernel.NPMuCostBound <> mcg_verify_cost:28 meth
+R6485:6491 Coq.Arith.PeanoNat Nat pow def
+R6493:6508 Kernel.NPMuCostBound <> mcg_problem_size:26 meth
+R6510:6510 Kernel.NPMuCostBound <> k:29 var
+def 6613:6622 <> has_mu_gap
+R6629:6637 Kernel.NPMuCostBound <> MuCostGap rec
+binder 6625:6625 <> g:31
+R6667:6669 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R6652:6664 Kernel.NPMuCostBound <> mcg_find_cost proj
+R6666:6666 Kernel.NPMuCostBound <> g:31 var
+R6670:6684 Kernel.NPMuCostBound <> mcg_verify_cost proj
+R6686:6686 Kernel.NPMuCostBound <> g:31 var
+prf 6911:6928 <> verification_floor
+binder 6939:6939 <> g:32
+R6965:6970 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6961:6963 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R6944:6958 Kernel.NPMuCostBound <> mcg_verify_cost proj
+R6960:6960 Kernel.NPMuCostBound <> g:32 var
+R7007:7012 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6986:6989 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6971:6983 Kernel.NPMuCostBound <> mcg_find_cost proj
+R6985:6985 Kernel.NPMuCostBound <> g:32 var
+R6990:7004 Kernel.NPMuCostBound <> mcg_verify_cost proj
+R7006:7006 Kernel.NPMuCostBound <> g:32 var
+R7025:7028 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R7013:7022 Kernel.NPMuCostBound <> has_mu_gap def
+R7024:7024 Kernel.NPMuCostBound <> g:32 var
+R7044:7046 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7029:7041 Kernel.NPMuCostBound <> mcg_find_cost proj
+R7043:7043 Kernel.NPMuCostBound <> g:32 var
+R7047:7061 Kernel.NPMuCostBound <> mcg_verify_cost proj
+R7063:7063 Kernel.NPMuCostBound <> g:32 var
+R7100:7109 Kernel.NPMuCostBound <> has_mu_gap def
+rec 7705:7722 <> PartitionAdvantage
+proj 7731:7745 <> pa_turing_steps
+proj 7792:7806 <> pa_thiele_steps
+proj 7851:7865 <> pa_mu_discovery
+proj 7909:7921 <> pa_total_cost
+R7749:7751 Coq.Init.Datatypes <> nat ind
+R7810:7812 Coq.Init.Datatypes <> nat ind
+R7869:7871 Coq.Init.Datatypes <> nat ind
+R7925:7927 Coq.Init.Datatypes <> nat ind
+prf 8057:8079 <> difficulty_conservation
+binder 8090:8091 <> pa:38
+R8154:8159 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8112:8114 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8096:8108 Kernel.NPMuCostBound <> pa_total_cost proj
+R8110:8111 Kernel.NPMuCostBound <> pa:38 var
+R8133:8135 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8115:8129 Kernel.NPMuCostBound <> pa_thiele_steps proj
+R8131:8132 Kernel.NPMuCostBound <> pa:38 var
+R8136:8150 Kernel.NPMuCostBound <> pa_mu_discovery proj
+R8152:8153 Kernel.NPMuCostBound <> pa:38 var
+R8178:8181 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8160:8174 Kernel.NPMuCostBound <> pa_thiele_steps proj
+R8176:8177 Kernel.NPMuCostBound <> pa:38 var
+R8182:8194 Kernel.NPMuCostBound <> pa_total_cost proj
+R8196:8197 Kernel.NPMuCostBound <> pa:38 var
+R8253:8264 Coq.Arith.PeanoNat Nat le_add_r thm
+R8253:8264 Coq.Arith.PeanoNat Nat le_add_r thm
+prf 8354:8376 <> time_structure_tradeoff
+binder 8387:8388 <> pa:39
+R8451:8456 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8409:8411 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8393:8405 Kernel.NPMuCostBound <> pa_total_cost proj
+R8407:8408 Kernel.NPMuCostBound <> pa:39 var
+R8430:8432 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8412:8426 Kernel.NPMuCostBound <> pa_thiele_steps proj
+R8428:8429 Kernel.NPMuCostBound <> pa:39 var
+R8433:8447 Kernel.NPMuCostBound <> pa_mu_discovery proj
+R8449:8450 Kernel.NPMuCostBound <> pa:39 var
+R8475:8477 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8457:8471 Kernel.NPMuCostBound <> pa_mu_discovery proj
+R8473:8474 Kernel.NPMuCostBound <> pa:39 var
+R8494:8496 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R8478:8490 Kernel.NPMuCostBound <> pa_total_cost proj
+R8492:8493 Kernel.NPMuCostBound <> pa:39 var
+R8497:8511 Kernel.NPMuCostBound <> pa_thiele_steps proj
+R8513:8514 Kernel.NPMuCostBound <> pa:39 var

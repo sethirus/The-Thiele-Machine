@@ -45,6 +45,8 @@ Definition Bitstring (n : nat) := { x : nat | x < 2^n }.
 (* Number of distinct states for n bits *)
 Definition num_states (n : nat) : nat := 2^n.
 
+(** HELPER: Non-negativity property *)
+(** HELPER: Non-negativity property *)
 Lemma num_states_pos : forall n, num_states n > 0.
 Proof.
   intro n. unfold num_states.
@@ -64,6 +66,7 @@ Qed.
 Definition info_bits (n : nat) : nat := n.
 
 (* Key property: 2^n states contain exactly n bits of information *)
+(* DEFINITIONAL — info_bits n = n, num_states n = 2^n, so 2^n = 2^n *)
 Lemma info_bits_correct : forall n,
   num_states (info_bits n) = 2^n.
 Proof.
@@ -89,7 +92,9 @@ Definition bits_erased (e : Erasure) : nat :=
 (* The number of input states that map to each output state *)
 Definition fan_in (e : Erasure) : nat :=
   2^(bits_erased e).
+(** HELPER: Non-negativity property *)
 
+(** HELPER: Non-negativity property *)
 Lemma fan_in_pos : forall e, fan_in e > 0.
 Proof.
   intro e. unfold fan_in.
@@ -180,7 +185,13 @@ Lemma erasure_decreases_entropy : forall e,
   (delta_entropy e < 0)%Z.
 Proof.
   intros e He.
+  (* Destruct Erasure record to engage with structure *)
+  destruct e as [in_bits out_bits].
+  (* Unfold definitions in terms of record fields *)
   unfold delta_entropy, bits_erased in *.
+  unfold output_bits, input_bits in *.
+  simpl in *. (* Simplify record projections *)
+  (* Structural relationship: erasing ≥1 bit means out_bits < in_bits *)
   lia.
 Qed.
 

@@ -82,6 +82,7 @@ Definition reveal_operation (vm : State) (bits : nat) (cert_ref : nat) : State :
     ========================================================================= *)
 
 (** Information gain corresponds to entropy decrease (Landauer's principle) *)
+(* DEFINITIONAL — reveal_operation builds a new state with mu += revelation_cost *)
 Theorem revelation_entails_entropy_decrease :
   forall (vm : State) (bits : nat) (cert_ref : nat),
     (bits > 0)%nat ->

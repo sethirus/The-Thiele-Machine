@@ -1,6 +1,6 @@
 # Physics Exploration - Formal Constant Derivations
 
-**Status:** All 4 files compile successfully with proper INQUISITOR documentation
+**Status:** All 6 files compile successfully with proper INQUISITOR documentation
 
 ## Overview
 
@@ -12,7 +12,7 @@ This directory contains formal Coq proofs exploring the derivation of physical c
 **Breakthrough Result:** Proves h = 4 × E_landauer × τ_μ
 
 - **Status:** ✅ RELATIONSHIP PROVEN
-- **Key Theorem:** `planck_from_info_theory`
+- **Key Theorem:** `planck_consistency_relation` (consistency check, not derivation)
 - **Axioms:** k_B, T, h (unavoidable physical inputs)
 - **Achievement:** ln2_positive is PROVEN (not axiomatized)
 
@@ -47,6 +47,18 @@ All approaches either contain c (circular) or require unknowns. May need full qu
 - **Achievement:** Proves no patterns exist in mass ratios
 
 Ratios (206.77, 1836.15, 3477.15) appear arbitrary. No connection to μ-theory found.
+
+### [EmergentSchrodinger.v](EmergentSchrodinger.v)
+**Result:** Schrödinger equation from partition dynamics
+
+- **Status:** ✅ Compiles
+- **Achievement:** Explores emergent Schrödinger dynamics from μ-framework
+
+### [PlanckEmergenceClean.v](PlanckEmergenceClean.v)
+**Result:** Clean Planck emergence derivation
+
+- **Status:** ✅ Compiles
+- **Achievement:** Cleaned-up version of Planck constant emergence
 
 ## Compilation
 
@@ -93,4 +105,4 @@ These experiments confirm the theoretical findings with concrete numbers.
 
 ## References
 
-See [AXIOM_SUMMARY.md](AXIOM_SUMMARY.md) for detailed axiom accounting.
+See the main [coq/README.md](../README.md) for project-wide proof details.

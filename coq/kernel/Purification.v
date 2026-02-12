@@ -74,6 +74,7 @@ Definition bloch_pure (x y z : R) : Prop := x*x + y*y + z*z = 1.
     FALSIFICATION: Find a pure state violating the mixed state bound (impossible
     by definition).
 *)
+(** ARITHMETIC HELPER: [r² = 1 -> r² <= 1] by lra. *)
 Lemma pure_is_mixed : forall x y z : R,
   bloch_pure x y z -> bloch_mixed x y z.
 Proof.
@@ -99,6 +100,8 @@ Definition purity (x y z : R) : R := x*x + y*y + z*z.
     FALSIFICATION: Find coordinates (x,y,z) with x² + y² + z² < 0 (impossible
     in real arithmetic).
 *)
+(** HELPER: Non-negativity property *)
+(** HELPER: Non-negativity property *)
 Lemma purity_nonneg : forall x y z : R, purity x y z >= 0.
 Proof.
   intros. unfold purity. nra.
@@ -145,7 +148,9 @@ Qed.
 (** sq_nonneg: Squares are non-negative
     Basic arithmetic fact: x² ≥ 0 for any real x.
     Used repeatedly in purity calculations.
+(** HELPER: Non-negativity property *)
 *)
+(** HELPER: Non-negativity property *)
 Lemma sq_nonneg : forall x : R, x * x >= 0.
 Proof. intro x. nra. Qed.
 

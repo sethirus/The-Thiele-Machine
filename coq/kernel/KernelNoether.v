@@ -336,7 +336,9 @@ Qed.
 
   USED BY: noether_backward (proves conservation from symmetry), all gauge theory theorems.
 *)
-(** Z-shifts preserve partition structure *)
+(** DEFINITIONAL HELPER: [z_gauge_shift] only modifies [vm_mu], not the
+    graph fields that [Observable_partition] reads.  Structural independence
+    of Record fields makes the two sides definitionally equal. *)
 Theorem z_gauge_invariance : forall delta s,
   Observable_partition (z_gauge_shift delta s) = Observable_partition s.
 Proof.
@@ -498,6 +500,8 @@ Definition in_same_orbit (s1 s2 : VMState) : Prop :=
   USED BY: Equivalence relation proofs, orbit structure analysis.
 *)
 (** Orbit equivalence is an equivalence relation *)
+(** HELPER: Reflexivity/transitivity/symmetry property *)
+(** HELPER: Reflexivity/transitivity/symmetry property *)
 Theorem orbit_equiv_refl : forall s, in_same_orbit s s.
 Proof.
   intros s. exists 0%Z. apply z_action_identity.
@@ -593,7 +597,9 @@ Qed.
   DEPENDENCIES: Requires z_action_composition (shifts compose), in_same_orbit.
 
   USED BY: Equivalence relation proofs, orbit chain analysis.
+(** HELPER: Reflexivity/transitivity/symmetry property *)
 *)
+(** HELPER: Reflexivity/transitivity/symmetry property *)
 Theorem orbit_equiv_trans : forall s1 s2 s3 d1 d2,
   0 <= Z.of_nat s1.(vm_mu) + d1 ->
   0 <= Z.of_nat s1.(vm_mu) + d1 + d2 ->

@@ -133,6 +133,9 @@ kernel/NoGoSensitivity.vos kernel/NoGoSensitivity.vok kernel/NoGoSensitivity.req
 kernel/ObserverDerivation.vo kernel/ObserverDerivation.glob kernel/ObserverDerivation.v.beautified kernel/ObserverDerivation.required_vo: kernel/ObserverDerivation.v kernel/VMState.vo kernel/VMStep.vo kernel/KernelPhysics.vo
 kernel/ObserverDerivation.vio: kernel/ObserverDerivation.v kernel/VMState.vio kernel/VMStep.vio kernel/KernelPhysics.vio
 kernel/ObserverDerivation.vos kernel/ObserverDerivation.vok kernel/ObserverDerivation.required_vos: kernel/ObserverDerivation.v kernel/VMState.vos kernel/VMStep.vos kernel/KernelPhysics.vos
+kernel/OracleImpossibility.vo kernel/OracleImpossibility.glob kernel/OracleImpossibility.v.beautified kernel/OracleImpossibility.required_vo: kernel/OracleImpossibility.v 
+kernel/OracleImpossibility.vio: kernel/OracleImpossibility.v 
+kernel/OracleImpossibility.vos kernel/OracleImpossibility.vok kernel/OracleImpossibility.required_vos: kernel/OracleImpossibility.v 
 kernel/PDISCOVERIntegration.vo kernel/PDISCOVERIntegration.glob kernel/PDISCOVERIntegration.v.beautified kernel/PDISCOVERIntegration.required_vo: kernel/PDISCOVERIntegration.v kernel/VMState.vo kernel/VMStep.vo
 kernel/PDISCOVERIntegration.vio: kernel/PDISCOVERIntegration.v kernel/VMState.vio kernel/VMStep.vio
 kernel/PDISCOVERIntegration.vos kernel/PDISCOVERIntegration.vok kernel/PDISCOVERIntegration.required_vos: kernel/PDISCOVERIntegration.v kernel/VMState.vos kernel/VMStep.vos
@@ -262,6 +265,12 @@ modular_proofs/TM_Basics.vos modular_proofs/TM_Basics.vok modular_proofs/TM_Basi
 modular_proofs/Thiele_Basics.vo modular_proofs/Thiele_Basics.glob modular_proofs/Thiele_Basics.v.beautified modular_proofs/Thiele_Basics.required_vo: modular_proofs/Thiele_Basics.v modular_proofs/TM_Basics.vo
 modular_proofs/Thiele_Basics.vio: modular_proofs/Thiele_Basics.v modular_proofs/TM_Basics.vio
 modular_proofs/Thiele_Basics.vos modular_proofs/Thiele_Basics.vok modular_proofs/Thiele_Basics.required_vos: modular_proofs/Thiele_Basics.v modular_proofs/TM_Basics.vos
+modular_proofs/ThieleInstance.vo modular_proofs/ThieleInstance.glob modular_proofs/ThieleInstance.v.beautified modular_proofs/ThieleInstance.required_vo: modular_proofs/ThieleInstance.v modular_proofs/TM_Basics.vo modular_proofs/Encoding.vo modular_proofs/Thiele_Basics.vo
+modular_proofs/ThieleInstance.vio: modular_proofs/ThieleInstance.v modular_proofs/TM_Basics.vio modular_proofs/Encoding.vio modular_proofs/Thiele_Basics.vio
+modular_proofs/ThieleInstance.vos modular_proofs/ThieleInstance.vok modular_proofs/ThieleInstance.required_vos: modular_proofs/ThieleInstance.v modular_proofs/TM_Basics.vos modular_proofs/Encoding.vos modular_proofs/Thiele_Basics.vos
+modular_proofs/TM_to_Minsky.vo modular_proofs/TM_to_Minsky.glob modular_proofs/TM_to_Minsky.v.beautified modular_proofs/TM_to_Minsky.required_vo: modular_proofs/TM_to_Minsky.v modular_proofs/TM_Basics.vo modular_proofs/Minsky.vo
+modular_proofs/TM_to_Minsky.vio: modular_proofs/TM_to_Minsky.v modular_proofs/TM_Basics.vio modular_proofs/Minsky.vio
+modular_proofs/TM_to_Minsky.vos modular_proofs/TM_to_Minsky.vok modular_proofs/TM_to_Minsky.required_vos: modular_proofs/TM_to_Minsky.v modular_proofs/TM_Basics.vos modular_proofs/Minsky.vos
 nofi/Instance_Kernel.vo nofi/Instance_Kernel.glob nofi/Instance_Kernel.v.beautified nofi/Instance_Kernel.required_vo: nofi/Instance_Kernel.v kernel/VMState.vo kernel/VMStep.vo kernel/SimulationProof.vo kernel/MuLedgerConservation.vo kernel/RevelationRequirement.vo nofi/NoFreeInsight_Interface.vo nofi/NoFreeInsight_Theorem.vo
 nofi/Instance_Kernel.vio: nofi/Instance_Kernel.v kernel/VMState.vio kernel/VMStep.vio kernel/SimulationProof.vio kernel/MuLedgerConservation.vio kernel/RevelationRequirement.vio nofi/NoFreeInsight_Interface.vio nofi/NoFreeInsight_Theorem.vio
 nofi/Instance_Kernel.vos nofi/Instance_Kernel.vok nofi/Instance_Kernel.required_vos: nofi/Instance_Kernel.v kernel/VMState.vos kernel/VMStep.vos kernel/SimulationProof.vos kernel/MuLedgerConservation.vos kernel/RevelationRequirement.vos nofi/NoFreeInsight_Interface.vos nofi/NoFreeInsight_Theorem.vos
@@ -688,6 +697,9 @@ kernel/Composition.vos kernel/Composition.vok kernel/Composition.required_vos: k
 kernel/HardAssumptions.vo kernel/HardAssumptions.glob kernel/HardAssumptions.v.beautified kernel/HardAssumptions.required_vo: kernel/HardAssumptions.v kernel/ValidCorrelation.vo kernel/AlgebraicCoherence.vo kernel/BoxCHSH.vo
 kernel/HardAssumptions.vio: kernel/HardAssumptions.v kernel/ValidCorrelation.vio kernel/AlgebraicCoherence.vio kernel/BoxCHSH.vio
 kernel/HardAssumptions.vos kernel/HardAssumptions.vok kernel/HardAssumptions.required_vos: kernel/HardAssumptions.v kernel/ValidCorrelation.vos kernel/AlgebraicCoherence.vos kernel/BoxCHSH.vos
+kernel/HardMathFactsProven.vo kernel/HardMathFactsProven.glob kernel/HardMathFactsProven.v.beautified kernel/HardMathFactsProven.required_vo: kernel/HardMathFactsProven.v kernel/ValidCorrelation.vo kernel/AlgebraicCoherence.vo kernel/AssumptionBundle.vo
+kernel/HardMathFactsProven.vio: kernel/HardMathFactsProven.v kernel/ValidCorrelation.vio kernel/AlgebraicCoherence.vio kernel/AssumptionBundle.vio
+kernel/HardMathFactsProven.vos kernel/HardMathFactsProven.vok kernel/HardMathFactsProven.required_vos: kernel/HardMathFactsProven.v kernel/ValidCorrelation.vos kernel/AlgebraicCoherence.vos kernel/AssumptionBundle.vos
 kernel/MinimalE.vo kernel/MinimalE.glob kernel/MinimalE.v.beautified kernel/MinimalE.required_vo: kernel/MinimalE.v 
 kernel/MinimalE.vio: kernel/MinimalE.v 
 kernel/MinimalE.vos kernel/MinimalE.vok kernel/MinimalE.required_vos: kernel/MinimalE.v 
@@ -814,3 +826,18 @@ tests/verify_zero_admits.vos tests/verify_zero_admits.vok tests/verify_zero_admi
 physics_exploration/PlanckEmergenceClean.vo physics_exploration/PlanckEmergenceClean.glob physics_exploration/PlanckEmergenceClean.v.beautified physics_exploration/PlanckEmergenceClean.required_vo: physics_exploration/PlanckEmergenceClean.v 
 physics_exploration/PlanckEmergenceClean.vio: physics_exploration/PlanckEmergenceClean.v 
 physics_exploration/PlanckEmergenceClean.vos physics_exploration/PlanckEmergenceClean.vok physics_exploration/PlanckEmergenceClean.required_vos: physics_exploration/PlanckEmergenceClean.v 
+kernel/CausalSetAxioms.vo kernel/CausalSetAxioms.glob kernel/CausalSetAxioms.v.beautified kernel/CausalSetAxioms.required_vo: kernel/CausalSetAxioms.v kernel/VMState.vo kernel/VMStep.vo kernel/KernelPhysics.vo
+kernel/CausalSetAxioms.vio: kernel/CausalSetAxioms.v kernel/VMState.vio kernel/VMStep.vio kernel/KernelPhysics.vio
+kernel/CausalSetAxioms.vos kernel/CausalSetAxioms.vok kernel/CausalSetAxioms.required_vos: kernel/CausalSetAxioms.v kernel/VMState.vos kernel/VMStep.vos kernel/KernelPhysics.vos
+kernel/POVMBridge.vo kernel/POVMBridge.glob kernel/POVMBridge.v.beautified kernel/POVMBridge.required_vo: kernel/POVMBridge.v kernel/VMState.vo kernel/VMStep.vo kernel/KernelPhysics.vo
+kernel/POVMBridge.vio: kernel/POVMBridge.v kernel/VMState.vio kernel/VMStep.vio kernel/KernelPhysics.vio
+kernel/POVMBridge.vos kernel/POVMBridge.vok kernel/POVMBridge.required_vos: kernel/POVMBridge.v kernel/VMState.vos kernel/VMStep.vos kernel/KernelPhysics.vos
+kernel/NPMuCostBound.vo kernel/NPMuCostBound.glob kernel/NPMuCostBound.v.beautified kernel/NPMuCostBound.required_vo: kernel/NPMuCostBound.v kernel/VMState.vo kernel/VMStep.vo kernel/KernelPhysics.vo
+kernel/NPMuCostBound.vio: kernel/NPMuCostBound.v kernel/VMState.vio kernel/VMStep.vio kernel/KernelPhysics.vio
+kernel/NPMuCostBound.vos kernel/NPMuCostBound.vok kernel/NPMuCostBound.required_vos: kernel/NPMuCostBound.v kernel/VMState.vos kernel/VMStep.vos kernel/KernelPhysics.vos
+kernel/ArrowOfTimeSynthesis.vo kernel/ArrowOfTimeSynthesis.glob kernel/ArrowOfTimeSynthesis.v.beautified kernel/ArrowOfTimeSynthesis.required_vo: kernel/ArrowOfTimeSynthesis.v kernel/VMState.vo kernel/VMStep.vo kernel/KernelPhysics.vo
+kernel/ArrowOfTimeSynthesis.vio: kernel/ArrowOfTimeSynthesis.v kernel/VMState.vio kernel/VMStep.vio kernel/KernelPhysics.vio
+kernel/ArrowOfTimeSynthesis.vos kernel/ArrowOfTimeSynthesis.vok kernel/ArrowOfTimeSynthesis.required_vos: kernel/ArrowOfTimeSynthesis.v kernel/VMState.vos kernel/VMStep.vos kernel/KernelPhysics.vos
+kernel/ConstantDerivationStrength.vo kernel/ConstantDerivationStrength.glob kernel/ConstantDerivationStrength.v.beautified kernel/ConstantDerivationStrength.required_vo: kernel/ConstantDerivationStrength.v 
+kernel/ConstantDerivationStrength.vio: kernel/ConstantDerivationStrength.v 
+kernel/ConstantDerivationStrength.vos kernel/ConstantDerivationStrength.vok kernel/ConstantDerivationStrength.required_vos: kernel/ConstantDerivationStrength.v 

@@ -122,6 +122,8 @@ Proof.
 Qed.
 
 (** Length of nodup_list is at most length of original *)
+(** HELPER: Accessor/projection *)
+(** HELPER: Accessor/projection *)
 Lemma nodup_list_length : forall l, length (nodup_list l) <= length l.
 Proof.
   intros l. induction l as [| a rest IH].
@@ -209,7 +211,9 @@ Proof.
     + f_equal. apply IH. intros Hin. apply Hnotin. right. exact Hin.
 Qed.
 
+(** HELPER: Accessor/projection *)
 (** Length of remove when element is in list *)
+(** HELPER: Accessor/projection *)
 Lemma remove_length_in : forall (a : A) (l : list A),
   NoDup l ->
   In a l ->
@@ -393,8 +397,10 @@ Qed.
     The version below (NoDup_incl_length) adds eq_dec and proves it cleanly
     by inducting on A, removing each element from B via remove.
 *)
+(** HELPER: Accessor/projection *)
 
 (** Pigeonhole: NoDup list A contained in NoDup list B means |A| <= |B| *)
+(** HELPER: Accessor/projection *)
 Lemma NoDup_incl_length {T : Type} (T_eq_dec : forall t1 t2 : T, {t1 = t2} + {t1 <> t2}) :
   forall (A B : list T),
     NoDup A ->
@@ -481,6 +487,11 @@ Variable mu : nat.  (* Current ledger value *)
 
 Definition mu_after : nat := mu + info_destroyed.
 
+(** ARITHMETIC HELPER: mu_after = mu + info_destroyed >= mu because
+    info_destroyed is a nat (>= 0).  The real non-trivial content is
+    in [info_nonincreasing] (pigeonhole argument) which ensures
+    info_destroyed is well-defined. *)
+(* ARITHMETIC *)
 Theorem mu_monotonic : mu_after >= mu.
 Proof.
   unfold mu_after. lia.

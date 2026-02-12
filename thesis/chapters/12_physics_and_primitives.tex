@@ -134,13 +134,41 @@ These proofs demonstrate that even simple computational models exhibit physical-
 \textbf{Connection to kernel:} These conservation laws \textit{transfer} to kernel semantics: if a computation embeds the wave model, the kernel's $\mu$-monotonicity acts as an irreversibility bound, while partition conservation mirrors energy/momentum conservation.
 
 
-\subsection{Dissipative Model}
+\subsection{Dissipative Model and Irreversibility}
 
-The dissipative model captures irreversible dynamics, connecting to $\mu$-monotonicity of the kernel.
+The dissipative model captures irreversible dynamics, connecting to $\mu$-monotonicity of the kernel. This irreversibility underpins the arrow of time itself.
 
-\subsection{Discrete Model}
+The Thiele Machine derives the arrow of time as a theorem rather than assuming it as a postulate. The complete derivation chain, formalized in \texttt{coq/kernel/ArrowOfTimeSynthesis.v}, is:
+\[
+\text{vm\_step costs} \;\Rightarrow\; \mu\text{-monotonicity} \;\Rightarrow\; \text{irreversibility} \;\Rightarrow\; \text{second law} \;\Rightarrow\; \text{temporal ordering} \;\Rightarrow\; \text{arrow of time}
+\]
+The key insight is that $\mu$-monotonicity defines a total preorder on states: if $\mu(s') \geq \mu(s)$, then $s'$ is ``later'' than $s$. When $\mu$ strictly increases, this ordering is asymmetric---time cannot flow backwards. This connects directly to Landauer's principle: each irreversible bit operation contributes $k_B T \ln 2$ of dissipation, and $\mu$ counts exactly these operations. The formal proof (\texttt{arrow\_of\_time\_derived}) collects all levels into a single constructive record with zero admits.
 
-The discrete model uses lattice-based dynamics for discrete spacetime emergence.
+\paragraph{Measurement as Irreversible Revelation.}
+
+The dissipative model also offers a framework for the quantum measurement problem. In the Thiele Machine, measurement isn't treated as a mysterious ``collapse''---it's modeled as a specific physical process: the REVEAL instruction extracts information from a partition module at $\mu$-cost. The formal bridge to quantum POVMs (Positive Operator-Valued Measures) is proven in \texttt{coq/kernel/POVMBridge.v}:
+\begin{itemize}
+    \item \textbf{POVM completeness:} Total $\mu$-cost $\geq$ total information gained (\texttt{measurement\_cost\_bounds\_info})
+    \item \textbf{Sequential composition:} Multiple REVEALs accumulate cost additively (\texttt{sequential\_measurement\_cost})
+    \item \textbf{Irreversibility:} Any non-trivial measurement costs $\mu > 0$ (\texttt{reveal\_irreversible})
+\end{itemize}
+The Born rule emerges from information-theoretic accounting (\texttt{BornRule.v}) and is independently derived from tensor product consistency alone in \texttt{BornRuleFromSymmetry.v}, eliminating any circularity concern. Post-measurement state is uniquely determined by maximum information extraction (\texttt{CollapseDetermination.v}), and measurement irreversibility follows from $\mu$-monotonicity (\texttt{ObservationIrreversibility.v}). Together, these proofs suggest that ``collapse'' may be what information extraction looks like when structural cost is tracked---not a resolution, but a concrete formal framework that makes the question amenable to mechanized reasoning.
+
+\subsection{Discrete Spacetime Model}
+
+The discrete model uses lattice-based dynamics for discrete spacetime emergence. The partition graph, equipped with the causal cone ordering from \texttt{SpacetimeEmergence.v}, constitutes a discrete pre-geometric structure.
+
+The formal development proves that this structure satisfies the axioms of a \textbf{causal set} in the Bombelli--Lee--Meyer--Sorkin (1987) sense. The proof lives in \texttt{CausalSetAxioms.v} and establishes:
+\begin{itemize}
+    \item \textbf{Reflexivity:} Every module causally precedes itself
+    \item \textbf{Transitivity:} Causal precedence composes (from \texttt{ConeAlgebra.v} monoid structure)
+    \item \textbf{Local finiteness:} The module count is always finite, bounded by \texttt{pg\_next\_id}
+    \item \textbf{No closed causal curves:} $\mu$-monotonicity prevents causal loops (\texttt{no\_closed\_causal\_curves\_mu})
+    \item \textbf{Cone growth:} Extending a trace only grows the causal past---the past never shrinks (\texttt{causal\_past\_grows})
+\end{itemize}
+The main theorem \texttt{partition\_graph\_is\_causal\_set} collects these into a single constructive record.
+
+The continuum limit---recovering a Lorentzian manifold from this discrete structure---remains open. As established in \texttt{LorentzNotForced.v}, Lorentz invariance is underdetermined by kernel constraints alone. Closing this gap requires Hauptvermutung-type faithful embedding results (Sorkin 2003), which demand external mathematical machinery beyond the kernel's scope.
 
 \section{Physical Constant Derivation}
 
@@ -154,7 +182,7 @@ The formal development includes an exploration of whether fundamental physical c
 
 \textbf{Result: [STRUCTURAL] RELATIONSHIP ESTABLISHED, NOT A DERIVATION}
 
-The relationship between Planck's constant $h$ and Landauer's principle establishes a structural connection between information theory and quantum mechanics. The formal proof is in \path{coq/physics_exploration/PlanckDerivation.v} (110 lines, compiles).
+The relationship between Planck's constant $h$ and Landauer's principle establishes a structural connection between information theory and quantum mechanics. The formal proof is in \path{coq/physics_exploration/PlanckDerivation.v} (83 lines, compiles).
 
 \paragraph{Important Clarification:}
 
@@ -221,7 +249,7 @@ Proof. unfold tau_mu. field. (* trivial *) Qed.
 
 \textbf{Result: [PARTIAL] STRUCTURE PROVEN, VALUE REQUIRES EMERGENCE THEORY}
 
-The speed of light derivation establishes structural relationships but cannot predict the numerical value. The formal proof is in \path{coq/physics_exploration/EmergentSpacetime.v} (25 lines).
+The speed of light derivation establishes structural relationships but cannot predict the numerical value. The formal proof is in \path{coq/physics_exploration/EmergentSpacetime.v} (27 lines).
 
 \paragraph{The Structural Result:}
 
@@ -287,7 +315,7 @@ Theorem c_structure_proof :
 
 \textbf{Result: [SPECULATIVE] NEEDS QUANTUM GRAVITY}
 
-The gravitational constant $G$ resists derivation. The formal analysis is in \path{coq/physics_exploration/HolographicGravity.v} (18 lines).
+The gravitational constant $G$ resists derivation. The formal analysis is in \path{coq/physics_exploration/HolographicGravity.v} (20 lines).
 
 \paragraph{Attempted Approaches:}
 
@@ -338,7 +366,7 @@ Theorem G_requires_unknowns :
 
 \textbf{Result: [FAILED] NO PATTERNS FOUND, APPEAR ARBITRARY}
 
-The attempt to derive particle masses failed completely. The formal analysis is in \path{coq/physics_exploration/ParticleMasses.v} (23 lines).
+The attempt to derive particle masses failed completely. The formal analysis is in \path{coq/physics_exploration/ParticleMasses.v} (30 lines).
 
 \paragraph{Tested Patterns:}
 
@@ -442,6 +470,20 @@ $c$ & Speed of light & \textit{Structure proven} \\
 \end{itemize}
 
 But it \textit{cannot} uniquely determine physics. That boundary is now formally proven (Chapter 10: TOE impossibility theorems).
+
+\paragraph{Derivation Strength Classification.}
+
+The formal boundary between derivable and empirical constants is made precise in \texttt{coq/kernel/ConstantDerivationStrength.v}. The key contributions are:
+
+\begin{itemize}
+    \item \textbf{Free parameters:} The substrate specification has exactly two free parameters ($\tau_\mu$, $d_\mu$) plus two external measurements ($k_B$, $T$). Everything else is derived.
+    \item \textbf{Derivation hierarchy:} $c = d_\mu / \tau_\mu$ depends only on free parameters. $E_{\text{bit}} = k_B T \ln 2$ depends only on external measurements. $h = 4 E_{\text{bit}} \tau_\mu$ depends on both.
+    \item \textbf{Independence results:} $h$ varies independently of $c$---scaling $\tau_\mu$ and $d_\mu$ by the same factor $\alpha$ preserves $c$ but changes $h$ by factor $\alpha$ (\texttt{h\_varies\_independently\_of\_c}).
+    \item \textbf{Optimality postulate:} If the substrate saturates the Margolus--Levitin bound, then both the Planck--Einstein relation ($E = h\nu$) and the energy-time uncertainty relation ($\Delta E \cdot \Delta t = h/4$) follow as theorems (\texttt{planck\_einstein\_from\_optimality}, \texttt{energy\_time\_uncertainty}).
+    \item \textbf{Universality:} All relational identities hold for \textit{any} positive substrate parameters---the identities are structural, not numerical (\texttt{h\_identity\_universal}, \texttt{c\_identity\_universal}).
+\end{itemize}
+
+The main theorem \texttt{derivation\_strength\_proven} collects all verified properties into a single constructive record. The conclusion is precise: structure is derivable, values are empirical.
 
 \section{Shor Primitives}
 
@@ -1072,14 +1114,23 @@ CHSH optimization & Brute force & Structure-aware \\
 
 The key insight: Thiele Machine trades \textbf{blind search time} for \textbf{explicit structure cost} ($\mu$).
 
+The $\mu$-cost framework gives specific information-theoretic bounds for NP verification. The formal development (\texttt{NPMuCostBound.v}) establishes that valid NP witnesses carry $\mu$-cost proportional to their information content: a verification trace that accepts a witness of $b$ bits must pay $\mu \geq b$, by the No Free Insight theorem. Specific problem structures induce concrete bounds---sorting witnesses cost $\mu$ equal to the number of inversions, factoring witnesses cost $\mu = \log_2 p + \log_2 q$, and graph isomorphism witnesses cost $\mu = n \log_2 n$.
+
+A conservation law links the two cost axes: reducing the number of steps requires a corresponding increase in $\mu$-discovery cost (\texttt{difficulty\_conservation}). The partition primitives (PNEW, PSPLIT, PMERGE, PDISCOVER) shift work from blind search into structural revelation---the total difficulty is conserved, only its distribution changes.
+
+This does \textit{not} resolve P~vs~NP. Proving P~$\neq$~NP would require showing superpolynomial $\mu$-cost for \textit{all} possible algorithms on some NP-complete problem, which is exactly as hard as the original conjecture. What the framework provides is a concrete, measurable reformulation of the gap between finding and verifying witnesses.
+
 \section{Summary}
 
 
 This chapter establishes:
 \begin{enumerate}
-    \item \textbf{Physics models}: Wave, dissipative, discrete dynamics with conservation laws
+    \item \textbf{Physics models}: Wave, dissipative, and discrete dynamics with conservation laws, including a derived arrow of time (\texttt{coq/kernel/ArrowOfTimeSynthesis.v}) and a formal POVM-to-REVEAL measurement bridge (\texttt{coq/kernel/POVMBridge.v})
+    \item \textbf{Causal structure}: The partition graph satisfies causal set axioms (\texttt{CausalSetAxioms.v}), connecting to quantum gravity approaches
+    \item \textbf{Physical constants}: Relational identities with a precise derivable/empirical classification (\texttt{coq/kernel/ConstantDerivationStrength.v})
     \item \textbf{Shor primitives}: Period finding and factorization reduction, formally verified
-    \item \textbf{Bridge modules}: domain-to-kernel bridges via receipt channels
+    \item \textbf{Complexity}: $\mu$-cost bounds for NP verification with difficulty conservation (\texttt{NPMuCostBound.v})
+    \item \textbf{Bridge modules}: Domain-to-kernel bridges via receipt channels
     \item \textbf{Flagship track}: DI randomness with quantitative bounds
     \item \textbf{TOE limits}: No unique physics from compositionality alone
 \end{enumerate}

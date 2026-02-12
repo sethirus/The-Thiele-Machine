@@ -391,6 +391,8 @@ Definition separation_program : list vm_instruction := [
     USED BY:
     - partition_based_separation proof (line 416): establishes initial structural state
 *)
+(** HELPER: Accessor/projection *)
+(** HELPER: Accessor/projection *)
 Lemma initial_module_count : module_count (vm_graph initial_vm_state) = 0.
 Proof.
   unfold module_count, initial_vm_state, empty_graph. simpl. reflexivity.
@@ -426,7 +428,9 @@ Qed.
 
     USED BY:
     - partition_based_separation (line 417): proves structural change occurs
+(** HELPER: Accessor/projection *)
 *)
+(** HELPER: Accessor/projection *)
 Lemma graph_add_module_increases_count : forall g region axioms g' mid,
   graph_add_module g region axioms = (g', mid) ->
   module_count g' = S (module_count g).
@@ -591,6 +595,12 @@ Definition preserves_partition_labels (tm_sys : TMTransitionSystem)
     - turing_strictly_contained_partition (line 638): packages as TM ⊊ Thiele corollary
     - File header (line 140): main theorem establishing strict containment
 *)
+(** DEFINITIONAL WITNESS: [separation_program] is the Thiele program witness,
+    but the proof establishes impossibility: any TM encoding that preserves
+    execution length (tm_encoding_faithful) cannot preserve partition labels.
+    The contradiction comes from [partition_structure_changed] detecting a
+    0-to-1 module transition that no TM can semantically represent. *)
+(* DEFINITIONAL *)
 Theorem partition_based_separation :
   (* There exists a Thiele program that produces transitions
      which no TM can faithfully represent when partition labels

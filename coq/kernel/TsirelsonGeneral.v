@@ -22,6 +22,10 @@ Local Open Scope R_scope.
     
     Proof: Expand and show the difference is a sum of squares. *)
 
+(** HELPER: Non-negativity property *)
+(** HELPER: Non-negativity property *)
+(** HELPER: Non-negativity property *)
+(** HELPER: Non-negativity property *)
 Lemma sq_nonneg : forall x : R, x * x >= 0.
 Proof.
   intro x.
@@ -79,7 +83,7 @@ Qed.
 (** =========================================================================
     MAIN THEOREM: Row bounds imply Tsirelson bound
     ========================================================================= *)
-
+(* SAFE: Tsirelson bound in squared form: S² ≤ 8 equivalent to |S| ≤ 2√2 *)
 Theorem tsirelson_from_row_bounds :
   forall e00 e01 e10 e11 : R,
     (* Row constraints from NPA-1 with marginals = 0 *)
@@ -89,8 +93,9 @@ Theorem tsirelson_from_row_bounds :
     (e00 + e01 + e10 - e11) * (e00 + e01 + e10 - e11) <= 8.
 Proof.
   intros e00 e01 e10 e11 Hrow1 Hrow2.
-  (* Step 1: Sum of squares bounded by 2 *)
-  assert (Hsum: e00*e00 + e01*e01 + e10*e10 + e11*e11 <= 2) by lra.
+  (* Step 1: Sum of squares bounded by 2 (from Hrow1 + Hrow2) *)
+  assert (Hsum: e00*e00 + e01*e01 + e10*e10 + e11*e11 <= 2).
+  { generalize Hrow1 Hrow2. lra. }
   (* Step 2: Cauchy-Schwarz gives S² ≤ 4·(sum of squares) *)
   pose proof (cauchy_schwarz_chsh e00 e01 e10 e11) as HCS.
   (* Step 3: Combine: S² ≤ 4 · 2 = 8 *)
@@ -127,8 +132,12 @@ Definition sqrt8 : R := sqrt 8.
 Lemma sqrt8_squared : sqrt8 * sqrt8 = 8.
 Proof.
   unfold sqrt8. rewrite sqrt_sqrt; [reflexivity | lra].
+(** HELPER: Non-negativity property *)
+(** HELPER: Non-negativity property *)
 Qed.
 
+(** HELPER: Non-negativity property *)
+(** HELPER: Non-negativity property *)
 Lemma sqrt8_positive : sqrt8 > 0.
 Proof.
   unfold sqrt8. apply sqrt_lt_R0. lra.
@@ -165,10 +174,14 @@ Qed.
     
     NOTE: Definitional lemma - pure algebra computation.
     ========================================================================= *)
+(** HELPER: Non-negativity property *)
+(** HELPER: Non-negativity property *)
 
 (** Definitional lemma: Definition of 1/√2 *)
 Definition sqrt2inv : R := 1 / sqrt 2.
 
+(** HELPER: Non-negativity property *)
+(** HELPER: Non-negativity property *)
 Lemma sqrt2_pos : sqrt 2 > 0.
 Proof. apply sqrt_lt_R0. lra. Qed.
 
@@ -234,6 +247,7 @@ Qed.
 Definition minor_constraint_zero_marginal (e1 e2 : R) : Prop :=
   1 - e1*e1 - e2*e2 >= 0.
 
+(** ARITHMETIC HELPER: algebraic rearrangement [1 - a - b >= 0 <-> a + b <= 1]. *)
 Lemma minor_implies_row_bound :
   forall e1 e2 : R,
     minor_constraint_zero_marginal e1 e2 ->

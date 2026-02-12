@@ -1,0 +1,419 @@
+DIGEST 377a2470e1ebb8dabe271a5d251df249
+FKernel.OracleImpossibility
+R1171:1185 Coq.Arith.Arith <> <> lib
+R1203:1216 Coq.Lists.List <> <> lib
+R1234:1250 Coq.micromega.Lia <> <> lib
+R1260:1272 Coq.Lists.List ListNotations <> mod
+def 1540:1546 <> Program
+R1551:1553 Coq.Init.Datatypes <> nat ind
+def 1691:1697 <> Decider
+R1709:1712 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1702:1708 Kernel.OracleImpossibility <> Program def
+R1713:1716 Coq.Init.Datatypes <> bool ind
+def 1901:1911 <> Interpreter
+R1923:1926 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1916:1922 Kernel.OracleImpossibility <> Program def
+R1934:1937 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1927:1933 Kernel.OracleImpossibility <> Program def
+R1938:1943 Coq.Init.Datatypes <> option ind
+R1945:1947 Coq.Init.Datatypes <> nat ind
+def 2027:2031 <> halts
+R2043:2053 Kernel.OracleImpossibility <> Interpreter def
+binder 2034:2039 <> interp:1
+R2067:2073 Kernel.OracleImpossibility <> Program def
+binder 2057:2057 <> p:2
+binder 2059:2063 <> input:3
+R2088:2094 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2101:2102 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2095:2100 <> result:4
+R2117:2119 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2103:2108 Kernel.OracleImpossibility <> interp:1 var
+R2110:2110 Kernel.OracleImpossibility <> p:2 var
+R2112:2116 Kernel.OracleImpossibility <> input:3 var
+R2120:2123 Coq.Init.Datatypes <> Some constr
+R2125:2130 Kernel.OracleImpossibility <> result:4 var
+def 2213:2220 <> diverges
+R2232:2242 Kernel.OracleImpossibility <> Interpreter def
+binder 2223:2228 <> interp:5
+R2256:2262 Kernel.OracleImpossibility <> Program def
+binder 2246:2246 <> p:6
+binder 2248:2252 <> input:7
+R2291:2293 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2277:2282 Kernel.OracleImpossibility <> interp:5 var
+R2284:2284 Kernel.OracleImpossibility <> p:6 var
+R2286:2290 Kernel.OracleImpossibility <> input:7 var
+R2294:2297 Coq.Init.Datatypes <> None constr
+def 2375:2389 <> correct_decider
+R2401:2411 Kernel.OracleImpossibility <> Interpreter def
+binder 2392:2397 <> interp:8
+R2419:2425 Kernel.OracleImpossibility <> Decider def
+binder 2415:2415 <> d:9
+binder 2447:2447 <> p:10
+binder 2449:2453 <> input:11
+R2460:2460 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2496:2505 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2545:2545 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2471:2475 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R2464:2466 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2461:2461 Kernel.OracleImpossibility <> d:9 var
+R2463:2463 Kernel.OracleImpossibility <> p:10 var
+R2467:2470 Coq.Init.Datatypes <> true constr
+R2476:2480 Kernel.OracleImpossibility <> halts def
+R2482:2487 Kernel.OracleImpossibility <> interp:8 var
+R2489:2489 Kernel.OracleImpossibility <> p:10 var
+R2491:2495 Kernel.OracleImpossibility <> input:11 var
+R2517:2521 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R2509:2511 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2506:2506 Kernel.OracleImpossibility <> d:9 var
+R2508:2508 Kernel.OracleImpossibility <> p:10 var
+R2512:2516 Coq.Init.Datatypes <> false constr
+R2522:2529 Kernel.OracleImpossibility <> diverges def
+R2531:2536 Kernel.OracleImpossibility <> interp:8 var
+R2538:2538 Kernel.OracleImpossibility <> p:10 var
+R2540:2544 Kernel.OracleImpossibility <> input:11 var
+def 3095:3109 <> self_applicable
+R3121:3131 Kernel.OracleImpossibility <> Interpreter def
+binder 3112:3117 <> interp:12
+binder 3153:3153 <> p:13
+R3172:3175 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R3156:3160 Kernel.OracleImpossibility <> halts def
+R3162:3167 Kernel.OracleImpossibility <> interp:12 var
+R3169:3169 Kernel.OracleImpossibility <> p:13 var
+R3171:3171 Kernel.OracleImpossibility <> p:13 var
+R3176:3183 Kernel.OracleImpossibility <> diverges def
+R3185:3190 Kernel.OracleImpossibility <> interp:12 var
+R3192:3192 Kernel.OracleImpossibility <> p:13 var
+R3194:3194 Kernel.OracleImpossibility <> p:13 var
+sec 3930:3945 <> DiagonalArgument
+var 4024:4031 DiagonalArgument classify
+R4042:4045 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4035:4041 Kernel.OracleImpossibility <> Program def
+R4046:4049 Coq.Init.Datatypes <> bool ind
+var 4482:4482 DiagonalArgument M
+R4489:4492 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4486:4488 Coq.Init.Datatypes <> nat ind
+R4496:4499 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4493:4495 Coq.Init.Datatypes <> nat ind
+R4500:4503 Coq.Init.Datatypes <> bool ind
+prf 4588:4608 <> anti_diagonal_differs
+binder 4623:4623 <> i:16
+R4638:4641 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4626:4629 Coq.Init.Datatypes <> negb def
+R4632:4632 Kernel.OracleImpossibility <> DiagonalArgument.M var
+R4634:4634 Kernel.OracleImpossibility <> i:16 var
+R4636:4636 Kernel.OracleImpossibility <> i:16 var
+R4642:4642 Kernel.OracleImpossibility <> DiagonalArgument.M var
+R4644:4644 Kernel.OracleImpossibility <> i:16 var
+R4646:4646 Kernel.OracleImpossibility <> i:16 var
+R4682:4682 Kernel.OracleImpossibility <> DiagonalArgument.M var
+R4682:4682 Kernel.OracleImpossibility <> DiagonalArgument.M var
+prf 4805:4826 <> no_row_is_antidiagonal
+binder 4841:4841 <> i:17
+R4844:4846 Coq.Init.Logic <> ::type_scope:'~'_x not
+R4877:4877 Coq.Init.Logic <> ::type_scope:'~'_x not
+binder 4854:4854 <> j:18
+R4869:4871 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4857:4860 Coq.Init.Datatypes <> negb def
+R4863:4863 Kernel.OracleImpossibility <> DiagonalArgument.M var
+R4865:4865 Kernel.OracleImpossibility <> j:18 var
+R4867:4867 Kernel.OracleImpossibility <> j:18 var
+R4872:4872 Kernel.OracleImpossibility <> DiagonalArgument.M var
+R4874:4874 Kernel.OracleImpossibility <> i:17 var
+R4876:4876 Kernel.OracleImpossibility <> j:18 var
+R4941:4941 Kernel.OracleImpossibility <> DiagonalArgument.M var
+R4941:4941 Kernel.OracleImpossibility <> DiagonalArgument.M var
+R4987:5002 Kernel.OracleImpossibility DiagonalArgument <> sec
+def 5586:5594 <> universal
+R5606:5616 Kernel.OracleImpossibility <> Interpreter def
+binder 5597:5602 <> interp:19
+R5646:5649 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5643:5645 Coq.Init.Datatypes <> nat ind
+R5650:5653 Coq.Init.Datatypes <> bool ind
+binder 5639:5639 <> f:20
+R5661:5667 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5671:5678 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5668:5670 <> p_f:21
+R5679:5679 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5722:5733 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5780:5780 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 5687:5687 <> n:22
+R5700:5703 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5693:5695 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5690:5690 Kernel.OracleImpossibility <> f:20 var
+R5692:5692 Kernel.OracleImpossibility <> n:22 var
+R5696:5699 Coq.Init.Datatypes <> true constr
+R5704:5708 Kernel.OracleImpossibility <> halts def
+R5710:5715 Kernel.OracleImpossibility <> interp:19 var
+R5717:5719 Kernel.OracleImpossibility <> p_f:21 var
+R5721:5721 Kernel.OracleImpossibility <> n:22 var
+binder 5741:5741 <> n:23
+R5755:5758 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5747:5749 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5744:5744 Kernel.OracleImpossibility <> f:20 var
+R5746:5746 Kernel.OracleImpossibility <> n:23 var
+R5750:5754 Coq.Init.Datatypes <> false constr
+R5759:5766 Kernel.OracleImpossibility <> diverges def
+R5768:5773 Kernel.OracleImpossibility <> interp:19 var
+R5775:5777 Kernel.OracleImpossibility <> p_f:21 var
+R5779:5779 Kernel.OracleImpossibility <> n:23 var
+prf 5865:5883 <> halting_undecidable
+R5906:5916 Kernel.OracleImpossibility <> Interpreter def
+binder 5897:5902 <> interp:24
+R5946:5953 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5924:5938 Kernel.OracleImpossibility <> self_applicable def
+R5940:5945 Kernel.OracleImpossibility <> interp:24 var
+R5970:5977 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5954:5962 Kernel.OracleImpossibility <> universal def
+R5964:5969 Kernel.OracleImpossibility <> interp:24 var
+R5978:5979 Coq.Init.Logic <> ::type_scope:'~'_x not
+R5980:5986 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5998:5999 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5991:5997 Kernel.OracleImpossibility <> Decider def
+binder 5987:5987 <> d:25
+R6000:6014 Kernel.OracleImpossibility <> correct_decider def
+R6016:6021 Kernel.OracleImpossibility <> interp:24 var
+R6023:6023 Kernel.OracleImpossibility <> d:25 var
+binder 6139:6139 <> p:26
+R6144:6147 Coq.Init.Datatypes <> negb def
+R6152:6152 Kernel.OracleImpossibility <> p:26 var
+binder 6139:6139 <> p:27
+R6144:6147 Coq.Init.Datatypes <> negb def
+R6152:6152 Kernel.OracleImpossibility <> p:27 var
+R6410:6412 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6413:6417 Coq.Init.Datatypes <> false constr
+R6410:6412 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6413:6417 Coq.Init.Datatypes <> false constr
+R6688:6692 Kernel.OracleImpossibility <> halts def
+R6709:6716 Kernel.OracleImpossibility <> diverges def
+R6918:6920 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6921:6924 Coq.Init.Datatypes <> true constr
+R6918:6920 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6921:6924 Coq.Init.Datatypes <> true constr
+R7197:7201 Kernel.OracleImpossibility <> halts def
+R7220:7227 Kernel.OracleImpossibility <> diverges def
+def 7973:7989 <> halting_info_bits
+R7993:7995 Coq.Init.Datatypes <> nat ind
+def 8063:8072 <> OracleCost
+R8084:8087 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8077:8083 Kernel.OracleImpossibility <> Program def
+R8088:8090 Coq.Init.Datatypes <> nat ind
+def 8181:8197 <> sound_oracle_cost
+R8207:8216 Kernel.OracleImpossibility <> OracleCost def
+binder 8200:8203 <> cost:28
+binder 8238:8238 <> p:29
+R8247:8250 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8241:8244 Kernel.OracleImpossibility <> cost:28 var
+R8246:8246 Kernel.OracleImpossibility <> p:29 var
+R8251:8267 Kernel.OracleImpossibility <> halting_info_bits def
+def 8338:8353 <> zero_cost_oracle
+R8363:8372 Kernel.OracleImpossibility <> OracleCost def
+binder 8356:8359 <> cost:30
+binder 8394:8394 <> p:31
+R8403:8405 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8397:8400 Kernel.OracleImpossibility <> cost:30 var
+R8402:8402 Kernel.OracleImpossibility <> p:31 var
+prf 8462:8482 <> oracle_halts_costs_mu
+R8502:8511 Kernel.OracleImpossibility <> OracleCost def
+binder 8495:8498 <> cost:32
+R8539:8542 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8518:8533 Kernel.OracleImpossibility <> zero_cost_oracle def
+R8535:8538 Kernel.OracleImpossibility <> cost:32 var
+R8543:8544 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8545:8561 Kernel.OracleImpossibility <> sound_oracle_cost def
+R8563:8566 Kernel.OracleImpossibility <> cost:32 var
+R8662:8678 Kernel.OracleImpossibility <> halting_info_bits def
+def 9326:9342 <> total_oracle_cost
+R9352:9361 Kernel.OracleImpossibility <> OracleCost def
+binder 9345:9348 <> cost:33
+R9376:9379 Coq.Init.Datatypes <> list ind
+R9381:9387 Kernel.OracleImpossibility <> Program def
+binder 9365:9372 <> programs:34
+R9392:9394 Coq.Init.Datatypes <> nat ind
+R9407:9414 Kernel.OracleImpossibility <> programs:34 var
+R9425:9426 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R9438:9441 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R9456:9458 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9450:9453 Kernel.OracleImpossibility <> cost:33 var
+R9459:9475 Kernel.OracleImpossibility <> total_oracle_cost:35 def
+R9477:9480 Kernel.OracleImpossibility <> cost:33 var
+prf 9567:9584 <> oracle_cost_linear
+R9605:9614 Kernel.OracleImpossibility <> OracleCost def
+binder 9598:9601 <> cost:37
+R9629:9632 Coq.Init.Datatypes <> list ind
+R9634:9640 Kernel.OracleImpossibility <> Program def
+binder 9618:9625 <> programs:38
+R9670:9677 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9648:9664 Kernel.OracleImpossibility <> sound_oracle_cost def
+R9666:9669 Kernel.OracleImpossibility <> cost:37 var
+R9709:9712 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R9678:9694 Kernel.OracleImpossibility <> total_oracle_cost def
+R9696:9699 Kernel.OracleImpossibility <> cost:37 var
+R9701:9708 Kernel.OracleImpossibility <> programs:38 var
+R9713:9718 Coq.Init.Datatypes <> length def
+R9720:9727 Kernel.OracleImpossibility <> programs:38 var
+R9864:9880 Kernel.OracleImpossibility <> halting_info_bits def
+prf 9961:9984 <> hypercomputation_bounded
+R10005:10014 Kernel.OracleImpossibility <> OracleCost def
+binder 9998:10001 <> cost:39
+R10022:10024 Coq.Init.Datatypes <> nat ind
+binder 10018:10018 <> n:40
+R10039:10042 Coq.Init.Datatypes <> list ind
+R10044:10050 Kernel.OracleImpossibility <> Program def
+binder 10028:10035 <> programs:41
+R10080:10087 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10058:10074 Kernel.OracleImpossibility <> sound_oracle_cost def
+R10076:10079 Kernel.OracleImpossibility <> cost:39 var
+R10107:10114 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10103:10105 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10088:10093 Coq.Init.Datatypes <> length def
+R10095:10102 Kernel.OracleImpossibility <> programs:41 var
+R10106:10106 Kernel.OracleImpossibility <> n:40 var
+R10146:10149 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R10115:10131 Kernel.OracleImpossibility <> total_oracle_cost def
+R10133:10136 Kernel.OracleImpossibility <> cost:39 var
+R10138:10145 Kernel.OracleImpossibility <> programs:41 var
+R10150:10150 Kernel.OracleImpossibility <> n:40 var
+R10225:10242 Kernel.OracleImpossibility <> oracle_cost_linear thm
+R10225:10242 Kernel.OracleImpossibility <> oracle_cost_linear thm
+def 10671:10686 <> SemanticProperty
+R10691:10691 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10713:10717 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10699:10702 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10692:10698 Kernel.OracleImpossibility <> Program def
+R10703:10708 Coq.Init.Datatypes <> option ind
+R10710:10712 Coq.Init.Datatypes <> nat ind
+def 10798:10808 <> non_trivial
+R10815:10830 Kernel.OracleImpossibility <> SemanticProperty def
+binder 10811:10811 <> P:42
+R10845:10845 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10859:10864 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10880:10880 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10846:10852 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10854:10855 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 10853:10853 <> f:43
+R10856:10856 Kernel.OracleImpossibility <> P:42 var
+R10858:10858 Kernel.OracleImpossibility <> f:43 var
+R10865:10871 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10873:10874 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 10872:10872 <> g:44
+R10875:10876 Coq.Init.Logic <> ::type_scope:'~'_x not
+R10877:10877 Kernel.OracleImpossibility <> P:42 var
+R10879:10879 Kernel.OracleImpossibility <> g:44 var
+def 11015:11032 <> property_decidable
+R11044:11054 Kernel.OracleImpossibility <> Interpreter def
+binder 11035:11040 <> interp:45
+R11062:11077 Kernel.OracleImpossibility <> SemanticProperty def
+binder 11058:11058 <> P:46
+R11092:11098 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11118:11123 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11110:11113 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11103:11109 Kernel.OracleImpossibility <> Program def
+R11114:11117 Coq.Init.Datatypes <> bool ind
+binder 11099:11099 <> d:47
+binder 11131:11131 <> p:48
+R11134:11134 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11162:11181 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11212:11212 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11145:11149 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R11138:11140 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11135:11135 Kernel.OracleImpossibility <> d:47 var
+R11137:11137 Kernel.OracleImpossibility <> p:48 var
+R11141:11144 Coq.Init.Datatypes <> true constr
+R11150:11150 Kernel.OracleImpossibility <> P:46 var
+R11153:11158 Kernel.OracleImpossibility <> interp:45 var
+R11160:11160 Kernel.OracleImpossibility <> p:48 var
+R11193:11197 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R11185:11187 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11182:11182 Kernel.OracleImpossibility <> d:47 var
+R11184:11184 Kernel.OracleImpossibility <> p:48 var
+R11188:11192 Coq.Init.Datatypes <> false constr
+R11198:11199 Coq.Init.Logic <> ::type_scope:'~'_x not
+R11200:11200 Kernel.OracleImpossibility <> P:46 var
+R11203:11208 Kernel.OracleImpossibility <> interp:45 var
+R11210:11210 Kernel.OracleImpossibility <> p:48 var
+def 11616:11627 <> always_halts
+R11641:11644 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11634:11640 Kernel.OracleImpossibility <> Program def
+R11645:11650 Coq.Init.Datatypes <> option ind
+R11652:11654 Coq.Init.Datatypes <> nat ind
+binder 11630:11630 <> f:49
+binder 11676:11680 <> input:50
+R11683:11689 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11696:11697 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 11690:11695 <> result:51
+R11705:11707 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11698:11698 Kernel.OracleImpossibility <> f:49 var
+R11700:11704 Kernel.OracleImpossibility <> input:50 var
+R11708:11711 Coq.Init.Datatypes <> Some constr
+R11713:11718 Kernel.OracleImpossibility <> result:51 var
+prf 11795:11818 <> always_halts_undecidable
+R11841:11851 Kernel.OracleImpossibility <> Interpreter def
+binder 11832:11837 <> interp:52
+R11881:11888 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11859:11873 Kernel.OracleImpossibility <> self_applicable def
+R11875:11880 Kernel.OracleImpossibility <> interp:52 var
+R11905:11982 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11889:11897 Kernel.OracleImpossibility <> universal def
+R11899:11904 Kernel.OracleImpossibility <> interp:52 var
+R11983:11983 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12030:12038 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11984:11990 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11997:11998 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 11991:11996 <> p_halt:53
+binder 12006:12006 <> n:54
+R12009:12013 Kernel.OracleImpossibility <> halts def
+R12015:12020 Kernel.OracleImpossibility <> interp:52 var
+R12022:12027 Kernel.OracleImpossibility <> p_halt:53 var
+R12029:12029 Kernel.OracleImpossibility <> n:54 var
+R12039:12039 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12087:12095 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12040:12046 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R12052:12053 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 12047:12051 <> p_div:55
+binder 12061:12061 <> n:56
+R12064:12071 Kernel.OracleImpossibility <> diverges def
+R12073:12078 Kernel.OracleImpossibility <> interp:52 var
+R12080:12084 Kernel.OracleImpossibility <> p_div:55 var
+R12086:12086 Kernel.OracleImpossibility <> n:56 var
+R12096:12097 Coq.Init.Logic <> ::type_scope:'~'_x not
+R12098:12115 Kernel.OracleImpossibility <> property_decidable def
+R12117:12122 Kernel.OracleImpossibility <> interp:52 var
+R12124:12135 Kernel.OracleImpossibility <> always_halts def
+binder 12561:12561 <> p:57
+R12584:12584 Kernel.OracleImpossibility <> p:57 var
+R12586:12586 Kernel.OracleImpossibility <> p:57 var
+R12599:12602 Coq.Init.Datatypes <> Some constr
+R12609:12612 Coq.Init.Datatypes <> true constr
+R12645:12648 Coq.Init.Datatypes <> None constr
+R12653:12657 Coq.Init.Datatypes <> false constr
+binder 12561:12561 <> p:58
+R12584:12584 Kernel.OracleImpossibility <> p:58 var
+R12586:12586 Kernel.OracleImpossibility <> p:58 var
+R12599:12602 Coq.Init.Datatypes <> Some constr
+R12609:12612 Coq.Init.Datatypes <> true constr
+R12645:12648 Coq.Init.Datatypes <> None constr
+R12653:12657 Coq.Init.Datatypes <> false constr
+binder 12836:12836 <> p:59
+R12841:12844 Coq.Init.Datatypes <> negb def
+R12856:12856 Kernel.OracleImpossibility <> p:59 var
+binder 12836:12836 <> p:60
+R12841:12844 Coq.Init.Datatypes <> negb def
+R12856:12856 Kernel.OracleImpossibility <> p:60 var
+R13018:13020 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13021:13024 Coq.Init.Datatypes <> true constr
+R13018:13020 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13021:13024 Coq.Init.Datatypes <> true constr
+R13104:13106 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13107:13111 Coq.Init.Datatypes <> false constr
+R13104:13106 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13107:13111 Coq.Init.Datatypes <> false constr
+R13207:13214 Kernel.OracleImpossibility <> diverges def
+R13344:13346 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13347:13351 Coq.Init.Datatypes <> false constr
+R13344:13346 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13347:13351 Coq.Init.Datatypes <> false constr
+R13431:13433 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13434:13437 Coq.Init.Datatypes <> true constr
+R13431:13433 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13434:13437 Coq.Init.Datatypes <> true constr
+R13534:13538 Kernel.OracleImpossibility <> halts def

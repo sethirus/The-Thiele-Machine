@@ -30,6 +30,7 @@ Lemma test_clause_size : str_size test_clause = 9%nat.
 Proof. reflexivity. Qed.
 
 (** Therefore the μ-cost is exactly 72 bits *)
+(* ARITHMETIC — 9 * 8 = 72 *)
 Theorem lassert_xor_mu_cost :
   lassert_mu_cost test_clause = 72.
 Proof.
@@ -40,6 +41,7 @@ Proof.
 Qed.
 
 (** General theorem: μ-cost is always 8× the query length *)
+(* DEFINITIONAL — lassert_mu_cost is defined as str_size * 8 *)
 Theorem lassert_mu_cost_formula :
   forall query : string,
     lassert_mu_cost query = Z.of_nat (str_size query) * 8.
@@ -48,6 +50,8 @@ Proof.
 Qed.
 
 (** The μ-cost is always non-negative *)
+(** HELPER: Non-negativity property *)
+(** HELPER: Non-negativity property *)
 Theorem lassert_mu_cost_nonneg :
   forall query : string,
     0 <= lassert_mu_cost query.

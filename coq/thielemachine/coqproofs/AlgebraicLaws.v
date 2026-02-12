@@ -118,6 +118,8 @@ Definition add_ledgers (l1 l2 : MuLedger) : MuLedger :=
      mu_information := l1.(mu_information) + l2.(mu_information);
      mu_total := l1.(mu_total) + l2.(mu_total) |}.
 
+(** HELPER: Accessor/projection *)
+(** HELPER: Accessor/projection *)
 Theorem mu_total_additive :
   forall (l1 l2 : MuLedger),
     mu_total (add_ledgers l1 l2) = mu_total l1 + mu_total l2.

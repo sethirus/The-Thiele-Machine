@@ -76,11 +76,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install toolchain dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y coq ocaml iverilog nextpnr-ecp5 fpga-trellis fpga-trellis-database
-
       - name: Download toolchain diagnostics
         uses: actions/download-artifact@v4
         with:
@@ -212,7 +207,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install -e . --no-deps
-          python -m pytest tests/test_extracted_vm_runner.py tests/test_bisimulation_complete.py tests/test_property_bisimulation.py tests/adversarial_fuzzing.py -v
+          python -m pytest tests/test_extracted_vm_runner.py tests/test_bisimulation.py tests/test_bisimulation_complete.py tests/test_property_bisimulation.py tests/adversarial_fuzzing.py -v
 
   dependency-scan:
     name: Dependency scan
@@ -275,7 +270,7 @@ jobs:
 
       - name: Synthesize with Yosys
         run: |
-          yosys -p "read_verilog -sv -nomem2reg -DSYNTHESIS -DYOSYS_LITE -I thielecpu/hardware/rtl thielecpu/hardware/rtl/thiele_cpu_unified.v; prep; check; stat" > synthesis.log 2>&1
+          yosys -p "read_verilog -sv -nomem2reg -DYOSYS_LITE -I thielecpu/hardware/rtl thielecpu/hardware/rtl/thiele_cpu_synth.v thielecpu/hardware/rtl/mu_alu.v thielecpu/hardware/rtl/mu_core.v thielecpu/hardware/rtl/receipt_integrity_checker.v; prep; check; stat" > synthesis.log 2>&1
 
       - name: Simulate hardware
         run: |
@@ -335,7 +330,7 @@ jobs:
       - name: Install all required tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y coq coinor-csdp ocaml iverilog yosys nextpnr-ecp5 fpga-trellis fpga-trellis-database
+          sudo apt-get install -y coq coinor-csdp ocaml iverilog yosys
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -349,8 +344,6 @@ jobs:
           pip install -e . --no-deps
 
       - name: Run full automated verification
-        env:
-          OPENFPGA_PNR: "0"
         run: bash scripts/automated_verification.sh
 
       - name: Upload verification reports

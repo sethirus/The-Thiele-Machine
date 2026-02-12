@@ -1,4 +1,4 @@
-DIGEST 3b36cd1a2fdcdc9a1f3d2ed086067fc7
+DIGEST a35524fd9cd2377e6c96748d5a10f4c2
 FKernel.ConeAlgebra
 R642:648 Kernel.VMState <> <> lib
 R650:655 Kernel.VMStep <> <> lib
@@ -6,286 +6,484 @@ R657:669 Kernel.KernelPhysics <> <> lib
 R687:700 Coq.Lists.List <> <> lib
 R718:730 Coq.Bool.Bool <> <> lib
 R748:765 Coq.Arith.PeanoNat <> <> lib
-R775:787 Coq.Lists.List ListNotations <> mod
-R797:799 Coq.Arith.PeanoNat Nat <> mod
-prf 2701:2716 <> cone_composition
-binder 2727:2728 <> t1:1
-binder 2730:2731 <> t2:2
-binder 2744:2744 <> x:3
-R2776:2793 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R2747:2748 Coq.Lists.List <> In def
-R2753:2763 Kernel.KernelPhysics <> causal_cone def
-R2768:2771 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R2766:2767 Kernel.ConeAlgebra <> t1:1 var
-R2772:2773 Kernel.ConeAlgebra <> t2:2 var
-R2750:2750 Kernel.ConeAlgebra <> x:3 var
-R2815:2818 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R2794:2795 Coq.Lists.List <> In def
-R2800:2810 Kernel.KernelPhysics <> causal_cone def
-R2812:2813 Kernel.ConeAlgebra <> t1:1 var
-R2797:2797 Kernel.ConeAlgebra <> x:3 var
-R2819:2820 Coq.Lists.List <> In def
-R2825:2835 Kernel.KernelPhysics <> causal_cone def
-R2837:2838 Kernel.ConeAlgebra <> t2:2 var
-R2822:2822 Kernel.ConeAlgebra <> x:3 var
-R3016:3026 Kernel.KernelPhysics <> causal_cone def
-R3040:3042 Coq.Init.Datatypes <> app def
-R3078:3086 Coq.Lists.List <> in_app_or thm
-R3078:3086 Coq.Lists.List <> in_app_or thm
-R3144:3152 Coq.Lists.List <> in_or_app thm
-R3144:3152 Coq.Lists.List <> in_or_app thm
-R3256:3264 Coq.Lists.List <> in_or_app thm
-R3256:3264 Coq.Lists.List <> in_or_app thm
-R3368:3376 Coq.Lists.List <> in_app_or thm
-R3368:3376 Coq.Lists.List <> in_app_or thm
-R3439:3447 Coq.Lists.List <> in_or_app thm
-R3439:3447 Coq.Lists.List <> in_or_app thm
-R3485:3493 Coq.Lists.List <> in_or_app thm
-R3485:3493 Coq.Lists.List <> in_or_app thm
-R3546:3554 Coq.Lists.List <> in_or_app thm
-R3546:3554 Coq.Lists.List <> in_or_app thm
-prf 4943:4956 <> cone_monotonic
-binder 4967:4972 <> trace1:4
-binder 4974:4979 <> trace2:5
-binder 4992:4992 <> x:6
-R5020:5023 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4995:4996 Coq.Lists.List <> In def
-R5001:5011 Kernel.KernelPhysics <> causal_cone def
-R5013:5018 Kernel.ConeAlgebra <> trace1:4 var
-R4998:4998 Kernel.ConeAlgebra <> x:6 var
-R5024:5025 Coq.Lists.List <> In def
-R5030:5040 Kernel.KernelPhysics <> causal_cone def
-R5049:5052 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R5043:5048 Kernel.ConeAlgebra <> trace1:4 var
-R5053:5058 Kernel.ConeAlgebra <> trace2:5 var
-R5027:5027 Kernel.ConeAlgebra <> x:6 var
-R5111:5126 Kernel.ConeAlgebra <> cone_composition thm
-R5111:5126 Kernel.ConeAlgebra <> cone_composition thm
-R5111:5126 Kernel.ConeAlgebra <> cone_composition thm
-prf 6440:6454 <> cone_idempotent
-binder 6465:6465 <> t:7
-binder 6467:6467 <> x:8
-R6499:6503 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R6472:6473 Coq.Lists.List <> In def
-R6478:6488 Kernel.KernelPhysics <> causal_cone def
-R6492:6495 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R6491:6491 Kernel.ConeAlgebra <> t:7 var
-R6496:6496 Kernel.ConeAlgebra <> t:7 var
-R6475:6475 Kernel.ConeAlgebra <> x:8 var
-R6504:6505 Coq.Lists.List <> In def
-R6510:6520 Kernel.KernelPhysics <> causal_cone def
-R6522:6522 Kernel.ConeAlgebra <> t:7 var
-R6507:6507 Kernel.ConeAlgebra <> x:8 var
-R6576:6591 Kernel.ConeAlgebra <> cone_composition thm
-R6576:6591 Kernel.ConeAlgebra <> cone_composition thm
-R6576:6591 Kernel.ConeAlgebra <> cone_composition thm
-R6635:6650 Kernel.ConeAlgebra <> cone_composition thm
-R6635:6650 Kernel.ConeAlgebra <> cone_composition thm
-R6635:6650 Kernel.ConeAlgebra <> cone_composition thm
-def 7785:7800 <> targets_disjoint
-R7811:7824 Kernel.VMStep VMStep vm_instruction ind
-binder 7803:7804 <> i1:9
-binder 7806:7807 <> i2:10
-binder 7846:7846 <> x:11
-R7872:7875 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7849:7850 Coq.Lists.List <> In def
-R7855:7867 Kernel.KernelPhysics <> instr_targets def
-R7869:7870 Kernel.ConeAlgebra <> i1:9 var
-R7852:7852 Kernel.ConeAlgebra <> x:11 var
-R7876:7877 Coq.Init.Logic <> ::type_scope:'~'_x not
-R7878:7879 Coq.Lists.List <> In def
-R7884:7896 Kernel.KernelPhysics <> instr_targets def
-R7898:7899 Kernel.ConeAlgebra <> i2:10 var
-R7881:7881 Kernel.ConeAlgebra <> x:11 var
-prf 9074:9091 <> cone_swap_disjoint
-binder 9102:9103 <> i1:12
-binder 9105:9106 <> i2:13
-R9133:9139 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9209:9209 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9111:9126 Kernel.ConeAlgebra <> targets_disjoint def
-R9128:9129 Kernel.ConeAlgebra <> i1:12 var
-R9131:9132 Kernel.ConeAlgebra <> i2:13 var
-binder 9147:9147 <> x:14
-R9177:9181 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R9150:9151 Coq.Lists.List <> In def
-R9156:9166 Kernel.KernelPhysics <> causal_cone def
-R9168:9168 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R9171:9172 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R9175:9175 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R9169:9170 Kernel.ConeAlgebra <> i1:12 var
-R9173:9174 Kernel.ConeAlgebra <> i2:13 var
-R9153:9153 Kernel.ConeAlgebra <> x:14 var
-R9182:9183 Coq.Lists.List <> In def
-R9188:9198 Kernel.KernelPhysics <> causal_cone def
-R9200:9200 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R9203:9204 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R9207:9207 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R9201:9202 Kernel.ConeAlgebra <> i2:13 var
-R9205:9206 Kernel.ConeAlgebra <> i1:12 var
-R9185:9185 Kernel.ConeAlgebra <> x:14 var
-R9252:9262 Kernel.KernelPhysics <> causal_cone def
-R9282:9290 Coq.Lists.List <> app_nil_r thm
-R9282:9290 Coq.Lists.List <> app_nil_r thm
-R9282:9290 Coq.Lists.List <> app_nil_r thm
-R9301:9309 Coq.Lists.List <> app_nil_r thm
-R9301:9309 Coq.Lists.List <> app_nil_r thm
-R9301:9309 Coq.Lists.List <> app_nil_r thm
-R9341:9349 Coq.Lists.List <> in_app_or thm
-R9341:9349 Coq.Lists.List <> in_app_or thm
-R9394:9402 Coq.Lists.List <> in_or_app thm
-R9394:9402 Coq.Lists.List <> in_or_app thm
-R9434:9442 Coq.Lists.List <> in_or_app thm
-R9434:9442 Coq.Lists.List <> in_or_app thm
-R9471:9479 Coq.Lists.List <> in_app_or thm
-R9471:9479 Coq.Lists.List <> in_app_or thm
-R9524:9532 Coq.Lists.List <> in_or_app thm
-R9524:9532 Coq.Lists.List <> in_or_app thm
-R9564:9572 Coq.Lists.List <> in_or_app thm
-R9564:9572 Coq.Lists.List <> in_or_app thm
-prf 10683:10692 <> cone_empty
-R10710:10712 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10696:10706 Kernel.KernelPhysics <> causal_cone def
-R10708:10709 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R10713:10714 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-prf 11835:11850 <> cone_associative
-binder 11861:11862 <> t1:15
-binder 11864:11865 <> t2:16
-binder 11867:11868 <> t3:17
-binder 11870:11870 <> x:18
-R11912:11918 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R11875:11876 Coq.Lists.List <> In def
-R11881:11891 Kernel.KernelPhysics <> causal_cone def
-R11894:11894 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R11903:11907 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R11897:11900 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R11895:11896 Kernel.ConeAlgebra <> t1:15 var
-R11901:11902 Kernel.ConeAlgebra <> t2:16 var
-R11908:11909 Kernel.ConeAlgebra <> t3:17 var
-R11878:11878 Kernel.ConeAlgebra <> x:18 var
-R11919:11920 Coq.Lists.List <> In def
-R11925:11935 Kernel.KernelPhysics <> causal_cone def
-R11940:11944 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R11953:11953 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R11938:11939 Kernel.ConeAlgebra <> t1:15 var
-R11947:11950 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R11945:11946 Kernel.ConeAlgebra <> t2:16 var
-R11951:11952 Kernel.ConeAlgebra <> t3:17 var
-R11922:11922 Kernel.ConeAlgebra <> x:18 var
-R11983:11991 Coq.Lists.List <> app_assoc thm
-R11983:11991 Coq.Lists.List <> app_assoc thm
-R11983:11991 Coq.Lists.List <> app_assoc thm
-def 13330:13349 <> causally_independent
-R13360:13363 Coq.Init.Datatypes <> list ind
-R13365:13378 Kernel.VMStep VMStep vm_instruction ind
-binder 13352:13353 <> t1:19
-binder 13355:13356 <> t2:20
-binder 13400:13400 <> x:21
-R13424:13427 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13403:13404 Coq.Lists.List <> In def
-R13409:13419 Kernel.KernelPhysics <> causal_cone def
-R13421:13422 Kernel.ConeAlgebra <> t1:19 var
-R13406:13406 Kernel.ConeAlgebra <> x:21 var
-R13428:13429 Coq.Init.Logic <> ::type_scope:'~'_x not
-R13430:13431 Coq.Lists.List <> In def
-R13436:13446 Kernel.KernelPhysics <> causal_cone def
-R13448:13449 Kernel.ConeAlgebra <> t2:20 var
-R13433:13433 Kernel.ConeAlgebra <> x:21 var
-prf 15016:15041 <> independent_traces_commute
-binder 15052:15053 <> t1:22
-binder 15055:15056 <> t2:23
-R15087:15093 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15167:15167 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15061:15080 Kernel.ConeAlgebra <> causally_independent def
-R15082:15083 Kernel.ConeAlgebra <> t1:22 var
-R15085:15086 Kernel.ConeAlgebra <> t2:23 var
-binder 15101:15101 <> x:24
-R15133:15137 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R15104:15105 Coq.Lists.List <> In def
-R15110:15120 Kernel.KernelPhysics <> causal_cone def
-R15125:15128 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R15123:15124 Kernel.ConeAlgebra <> t1:22 var
-R15129:15130 Kernel.ConeAlgebra <> t2:23 var
-R15107:15107 Kernel.ConeAlgebra <> x:24 var
+R783:799 Coq.micromega.Lia <> <> lib
+R809:821 Coq.Lists.List ListNotations <> mod
+R831:833 Coq.Arith.PeanoNat Nat <> mod
+prf 2735:2750 <> cone_composition
+binder 2761:2762 <> t1:1
+binder 2764:2765 <> t2:2
+binder 2778:2778 <> x:3
+R2810:2827 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R2781:2782 Coq.Lists.List <> In def
+R2787:2797 Kernel.KernelPhysics <> causal_cone def
+R2802:2805 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R2800:2801 Kernel.ConeAlgebra <> t1:1 var
+R2806:2807 Kernel.ConeAlgebra <> t2:2 var
+R2784:2784 Kernel.ConeAlgebra <> x:3 var
+R2849:2852 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R2828:2829 Coq.Lists.List <> In def
+R2834:2844 Kernel.KernelPhysics <> causal_cone def
+R2846:2847 Kernel.ConeAlgebra <> t1:1 var
+R2831:2831 Kernel.ConeAlgebra <> x:3 var
+R2853:2854 Coq.Lists.List <> In def
+R2859:2869 Kernel.KernelPhysics <> causal_cone def
+R2871:2872 Kernel.ConeAlgebra <> t2:2 var
+R2856:2856 Kernel.ConeAlgebra <> x:3 var
+R3050:3060 Kernel.KernelPhysics <> causal_cone def
+R3074:3076 Coq.Init.Datatypes <> app def
+R3112:3120 Coq.Lists.List <> in_app_or thm
+R3112:3120 Coq.Lists.List <> in_app_or thm
+R3178:3186 Coq.Lists.List <> in_or_app thm
+R3178:3186 Coq.Lists.List <> in_or_app thm
+R3290:3298 Coq.Lists.List <> in_or_app thm
+R3290:3298 Coq.Lists.List <> in_or_app thm
+R3402:3410 Coq.Lists.List <> in_app_or thm
+R3402:3410 Coq.Lists.List <> in_app_or thm
+R3473:3481 Coq.Lists.List <> in_or_app thm
+R3473:3481 Coq.Lists.List <> in_or_app thm
+R3519:3527 Coq.Lists.List <> in_or_app thm
+R3519:3527 Coq.Lists.List <> in_or_app thm
+R3580:3588 Coq.Lists.List <> in_or_app thm
+R3580:3588 Coq.Lists.List <> in_or_app thm
+prf 4977:4990 <> cone_monotonic
+binder 5001:5006 <> trace1:4
+binder 5008:5013 <> trace2:5
+binder 5026:5026 <> x:6
+R5054:5057 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5029:5030 Coq.Lists.List <> In def
+R5035:5045 Kernel.KernelPhysics <> causal_cone def
+R5047:5052 Kernel.ConeAlgebra <> trace1:4 var
+R5032:5032 Kernel.ConeAlgebra <> x:6 var
+R5058:5059 Coq.Lists.List <> In def
+R5064:5074 Kernel.KernelPhysics <> causal_cone def
+R5083:5086 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R5077:5082 Kernel.ConeAlgebra <> trace1:4 var
+R5087:5092 Kernel.ConeAlgebra <> trace2:5 var
+R5061:5061 Kernel.ConeAlgebra <> x:6 var
+R5145:5160 Kernel.ConeAlgebra <> cone_composition thm
+R5145:5160 Kernel.ConeAlgebra <> cone_composition thm
+R5145:5160 Kernel.ConeAlgebra <> cone_composition thm
+prf 6474:6488 <> cone_idempotent
+binder 6499:6499 <> t:7
+binder 6501:6501 <> x:8
+R6533:6537 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R6506:6507 Coq.Lists.List <> In def
+R6512:6522 Kernel.KernelPhysics <> causal_cone def
+R6526:6529 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R6525:6525 Kernel.ConeAlgebra <> t:7 var
+R6530:6530 Kernel.ConeAlgebra <> t:7 var
+R6509:6509 Kernel.ConeAlgebra <> x:8 var
+R6538:6539 Coq.Lists.List <> In def
+R6544:6554 Kernel.KernelPhysics <> causal_cone def
+R6556:6556 Kernel.ConeAlgebra <> t:7 var
+R6541:6541 Kernel.ConeAlgebra <> x:8 var
+R6610:6625 Kernel.ConeAlgebra <> cone_composition thm
+R6610:6625 Kernel.ConeAlgebra <> cone_composition thm
+R6610:6625 Kernel.ConeAlgebra <> cone_composition thm
+R6669:6684 Kernel.ConeAlgebra <> cone_composition thm
+R6669:6684 Kernel.ConeAlgebra <> cone_composition thm
+R6669:6684 Kernel.ConeAlgebra <> cone_composition thm
+def 7819:7834 <> targets_disjoint
+R7845:7858 Kernel.VMStep VMStep vm_instruction ind
+binder 7837:7838 <> i1:9
+binder 7840:7841 <> i2:10
+binder 7880:7880 <> x:11
+R7906:7909 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7883:7884 Coq.Lists.List <> In def
+R7889:7901 Kernel.KernelPhysics <> instr_targets def
+R7903:7904 Kernel.ConeAlgebra <> i1:9 var
+R7886:7886 Kernel.ConeAlgebra <> x:11 var
+R7910:7911 Coq.Init.Logic <> ::type_scope:'~'_x not
+R7912:7913 Coq.Lists.List <> In def
+R7918:7930 Kernel.KernelPhysics <> instr_targets def
+R7932:7933 Kernel.ConeAlgebra <> i2:10 var
+R7915:7915 Kernel.ConeAlgebra <> x:11 var
+prf 9108:9125 <> cone_swap_disjoint
+binder 9136:9137 <> i1:12
+binder 9139:9140 <> i2:13
+R9167:9173 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9243:9243 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9145:9160 Kernel.ConeAlgebra <> targets_disjoint def
+R9162:9163 Kernel.ConeAlgebra <> i1:12 var
+R9165:9166 Kernel.ConeAlgebra <> i2:13 var
+binder 9181:9181 <> x:14
+R9211:9215 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R9184:9185 Coq.Lists.List <> In def
+R9190:9200 Kernel.KernelPhysics <> causal_cone def
+R9202:9202 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9205:9206 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9209:9209 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9203:9204 Kernel.ConeAlgebra <> i1:12 var
+R9207:9208 Kernel.ConeAlgebra <> i2:13 var
+R9187:9187 Kernel.ConeAlgebra <> x:14 var
+R9216:9217 Coq.Lists.List <> In def
+R9222:9232 Kernel.KernelPhysics <> causal_cone def
+R9234:9234 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9237:9238 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9241:9241 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9235:9236 Kernel.ConeAlgebra <> i2:13 var
+R9239:9240 Kernel.ConeAlgebra <> i1:12 var
+R9219:9219 Kernel.ConeAlgebra <> x:14 var
+R9286:9296 Kernel.KernelPhysics <> causal_cone def
+R9316:9324 Coq.Lists.List <> app_nil_r thm
+R9316:9324 Coq.Lists.List <> app_nil_r thm
+R9316:9324 Coq.Lists.List <> app_nil_r thm
+R9335:9343 Coq.Lists.List <> app_nil_r thm
+R9335:9343 Coq.Lists.List <> app_nil_r thm
+R9335:9343 Coq.Lists.List <> app_nil_r thm
+R9375:9383 Coq.Lists.List <> in_app_or thm
+R9375:9383 Coq.Lists.List <> in_app_or thm
+R9428:9436 Coq.Lists.List <> in_or_app thm
+R9428:9436 Coq.Lists.List <> in_or_app thm
+R9468:9476 Coq.Lists.List <> in_or_app thm
+R9468:9476 Coq.Lists.List <> in_or_app thm
+R9505:9513 Coq.Lists.List <> in_app_or thm
+R9505:9513 Coq.Lists.List <> in_app_or thm
+R9558:9566 Coq.Lists.List <> in_or_app thm
+R9558:9566 Coq.Lists.List <> in_or_app thm
+R9598:9606 Coq.Lists.List <> in_or_app thm
+R9598:9606 Coq.Lists.List <> in_or_app thm
+prf 10717:10726 <> cone_empty
+R10744:10746 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10730:10740 Kernel.KernelPhysics <> causal_cone def
+R10742:10743 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R10747:10748 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+prf 11869:11884 <> cone_associative
+binder 11895:11896 <> t1:15
+binder 11898:11899 <> t2:16
+binder 11901:11902 <> t3:17
+binder 11904:11904 <> x:18
+R11946:11952 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R11909:11910 Coq.Lists.List <> In def
+R11915:11925 Kernel.KernelPhysics <> causal_cone def
+R11928:11928 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R11937:11941 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R11931:11934 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R11929:11930 Kernel.ConeAlgebra <> t1:15 var
+R11935:11936 Kernel.ConeAlgebra <> t2:16 var
+R11942:11943 Kernel.ConeAlgebra <> t3:17 var
+R11912:11912 Kernel.ConeAlgebra <> x:18 var
+R11953:11954 Coq.Lists.List <> In def
+R11959:11969 Kernel.KernelPhysics <> causal_cone def
+R11974:11978 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R11987:11987 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R11972:11973 Kernel.ConeAlgebra <> t1:15 var
+R11981:11984 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R11979:11980 Kernel.ConeAlgebra <> t2:16 var
+R11985:11986 Kernel.ConeAlgebra <> t3:17 var
+R11956:11956 Kernel.ConeAlgebra <> x:18 var
+R12017:12025 Coq.Lists.List <> app_assoc thm
+R12017:12025 Coq.Lists.List <> app_assoc thm
+R12017:12025 Coq.Lists.List <> app_assoc thm
+def 13364:13383 <> causally_independent
+R13394:13397 Coq.Init.Datatypes <> list ind
+R13399:13412 Kernel.VMStep VMStep vm_instruction ind
+binder 13386:13387 <> t1:19
+binder 13389:13390 <> t2:20
+binder 13434:13434 <> x:21
+R13458:13461 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13437:13438 Coq.Lists.List <> In def
+R13443:13453 Kernel.KernelPhysics <> causal_cone def
+R13455:13456 Kernel.ConeAlgebra <> t1:19 var
+R13440:13440 Kernel.ConeAlgebra <> x:21 var
+R13462:13463 Coq.Init.Logic <> ::type_scope:'~'_x not
+R13464:13465 Coq.Lists.List <> In def
+R13470:13480 Kernel.KernelPhysics <> causal_cone def
+R13482:13483 Kernel.ConeAlgebra <> t2:20 var
+R13467:13467 Kernel.ConeAlgebra <> x:21 var
+prf 15050:15075 <> independent_traces_commute
+binder 15086:15087 <> t1:22
+binder 15089:15090 <> t2:23
+R15121:15127 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15201:15201 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15095:15114 Kernel.ConeAlgebra <> causally_independent def
+R15116:15117 Kernel.ConeAlgebra <> t1:22 var
+R15119:15120 Kernel.ConeAlgebra <> t2:23 var
+binder 15135:15135 <> x:24
+R15167:15171 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
 R15138:15139 Coq.Lists.List <> In def
 R15144:15154 Kernel.KernelPhysics <> causal_cone def
 R15159:15162 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R15157:15158 Kernel.ConeAlgebra <> t2:23 var
-R15163:15164 Kernel.ConeAlgebra <> t1:22 var
+R15157:15158 Kernel.ConeAlgebra <> t1:22 var
+R15163:15164 Kernel.ConeAlgebra <> t2:23 var
 R15141:15141 Kernel.ConeAlgebra <> x:24 var
-R15229:15244 Kernel.ConeAlgebra <> cone_composition thm
-R15229:15244 Kernel.ConeAlgebra <> cone_composition thm
-R15229:15244 Kernel.ConeAlgebra <> cone_composition thm
-R15334:15349 Kernel.ConeAlgebra <> cone_composition thm
-R15334:15349 Kernel.ConeAlgebra <> cone_composition thm
-R15334:15349 Kernel.ConeAlgebra <> cone_composition thm
-def 17118:17136 <> min_steps_to_target
-R17145:17147 Coq.Init.Datatypes <> nat ind
-binder 17139:17141 <> mid:25
-R17159:17162 Coq.Init.Datatypes <> list ind
-R17164:17177 Kernel.VMStep VMStep vm_instruction ind
-binder 17151:17155 <> trace:26
-R17182:17187 Coq.Init.Datatypes <> option ind
-R17189:17191 Coq.Init.Datatypes <> nat ind
-R17204:17208 Kernel.ConeAlgebra <> trace:26 var
-R17219:17220 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R17225:17228 Coq.Init.Datatypes <> None constr
-R17235:17238 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R17256:17262 Coq.Lists.List <> existsb def
-R17279:17291 Kernel.KernelPhysics <> instr_targets def
-R17265:17271 Coq.Arith.PeanoNat Nat eqb def
-R17273:17275 Kernel.ConeAlgebra <> mid:25 var
-R17325:17343 Kernel.ConeAlgebra <> min_steps_to_target:27 def
-R17345:17347 Kernel.ConeAlgebra <> mid:25 var
-R17372:17375 Coq.Init.Datatypes <> None constr
-R17380:17383 Coq.Init.Datatypes <> None constr
-R17398:17401 Coq.Init.Datatypes <> Some constr
-R17408:17411 Coq.Init.Datatypes <> Some constr
-R17414:17414 Coq.Init.Datatypes <> S constr
-R17301:17304 Coq.Init.Datatypes <> Some constr
-prf 18351:18371 <> existsb_nat_eqb_false
-binder 18382:18382 <> x:29
-binder 18384:18385 <> xs:30
-R18420:18423 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R18412:18414 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18390:18396 Coq.Lists.List <> existsb def
-R18410:18411 Kernel.ConeAlgebra <> xs:30 var
-R18399:18405 Coq.Arith.PeanoNat Nat eqb def
-R18407:18407 Kernel.ConeAlgebra <> x:29 var
-R18415:18419 Coq.Init.Datatypes <> false constr
-R18424:18424 Coq.Init.Logic <> ::type_scope:'~'_x not
-R18425:18426 Coq.Lists.List <> In def
-R18430:18431 Kernel.ConeAlgebra <> xs:30 var
-R18428:18428 Kernel.ConeAlgebra <> x:29 var
-R18537:18543 Coq.Arith.PeanoNat Nat eqb def
-R18537:18543 Coq.Arith.PeanoNat Nat eqb def
-R18666:18676 Coq.Arith.PeanoNat Nat eqb_neq thm
-R18666:18676 Coq.Arith.PeanoNat Nat eqb_neq thm
-prf 20329:20344 <> target_has_depth
-binder 20355:20357 <> mid:31
-binder 20359:20363 <> trace:32
-R20394:20397 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R20368:20369 Coq.Lists.List <> In def
-R20376:20386 Kernel.KernelPhysics <> causal_cone def
-R20388:20392 Kernel.ConeAlgebra <> trace:32 var
-R20371:20373 Kernel.ConeAlgebra <> mid:31 var
-R20398:20404 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R20406:20407 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 20405:20405 <> n:33
-R20437:20439 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R20408:20426 Kernel.ConeAlgebra <> min_steps_to_target def
-R20428:20430 Kernel.ConeAlgebra <> mid:31 var
-R20432:20436 Kernel.ConeAlgebra <> trace:32 var
-R20440:20443 Coq.Init.Datatypes <> Some constr
-R20445:20445 Kernel.ConeAlgebra <> n:33 var
-R20580:20586 Coq.Lists.List <> existsb def
-R20603:20615 Kernel.KernelPhysics <> instr_targets def
-R20589:20595 Coq.Arith.PeanoNat Nat eqb def
-R20580:20586 Coq.Lists.List <> existsb def
-R20603:20615 Kernel.KernelPhysics <> instr_targets def
-R20589:20595 Coq.Arith.PeanoNat Nat eqb def
-R20672:20680 Coq.Lists.List <> in_app_or thm
-R20672:20680 Coq.Lists.List <> in_app_or thm
-R20821:20841 Kernel.ConeAlgebra <> existsb_nat_eqb_false thm
-R20821:20841 Kernel.ConeAlgebra <> existsb_nat_eqb_false thm
-R20948:20948 Coq.Init.Datatypes <> S constr
-R20948:20948 Coq.Init.Datatypes <> S constr
+R15172:15173 Coq.Lists.List <> In def
+R15178:15188 Kernel.KernelPhysics <> causal_cone def
+R15193:15196 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R15191:15192 Kernel.ConeAlgebra <> t2:23 var
+R15197:15198 Kernel.ConeAlgebra <> t1:22 var
+R15175:15175 Kernel.ConeAlgebra <> x:24 var
+R15263:15278 Kernel.ConeAlgebra <> cone_composition thm
+R15263:15278 Kernel.ConeAlgebra <> cone_composition thm
+R15263:15278 Kernel.ConeAlgebra <> cone_composition thm
+R15368:15383 Kernel.ConeAlgebra <> cone_composition thm
+R15368:15383 Kernel.ConeAlgebra <> cone_composition thm
+R15368:15383 Kernel.ConeAlgebra <> cone_composition thm
+def 17152:17170 <> min_steps_to_target
+R17179:17181 Coq.Init.Datatypes <> nat ind
+binder 17173:17175 <> mid:25
+R17193:17196 Coq.Init.Datatypes <> list ind
+R17198:17211 Kernel.VMStep VMStep vm_instruction ind
+binder 17185:17189 <> trace:26
+R17216:17221 Coq.Init.Datatypes <> option ind
+R17223:17225 Coq.Init.Datatypes <> nat ind
+R17238:17242 Kernel.ConeAlgebra <> trace:26 var
+R17253:17254 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R17259:17262 Coq.Init.Datatypes <> None constr
+R17269:17272 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R17290:17296 Coq.Lists.List <> existsb def
+R17313:17325 Kernel.KernelPhysics <> instr_targets def
+R17299:17305 Coq.Arith.PeanoNat Nat eqb def
+R17307:17309 Kernel.ConeAlgebra <> mid:25 var
+R17359:17377 Kernel.ConeAlgebra <> min_steps_to_target:27 def
+R17379:17381 Kernel.ConeAlgebra <> mid:25 var
+R17406:17409 Coq.Init.Datatypes <> None constr
+R17414:17417 Coq.Init.Datatypes <> None constr
+R17432:17435 Coq.Init.Datatypes <> Some constr
+R17442:17445 Coq.Init.Datatypes <> Some constr
+R17448:17448 Coq.Init.Datatypes <> S constr
+R17335:17338 Coq.Init.Datatypes <> Some constr
+prf 17625:17652 <> min_steps_to_target_app_left
+binder 17663:17665 <> mid:29
+binder 17667:17668 <> t1:30
+binder 17670:17671 <> t2:31
+binder 17673:17673 <> n:32
+R17713:17718 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17704:17706 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17678:17696 Kernel.ConeAlgebra <> min_steps_to_target def
+R17698:17700 Kernel.ConeAlgebra <> mid:29 var
+R17702:17703 Kernel.ConeAlgebra <> t1:30 var
+R17707:17710 Coq.Init.Datatypes <> Some constr
+R17712:17712 Kernel.ConeAlgebra <> n:32 var
+R17753:17755 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17719:17737 Kernel.ConeAlgebra <> min_steps_to_target def
+R17739:17741 Kernel.ConeAlgebra <> mid:29 var
+R17746:17749 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R17744:17745 Kernel.ConeAlgebra <> t1:30 var
+R17750:17751 Kernel.ConeAlgebra <> t2:31 var
+R17756:17759 Coq.Init.Datatypes <> Some constr
+R17761:17761 Kernel.ConeAlgebra <> n:32 var
+R17909:17915 Coq.Lists.List <> existsb def
+R17932:17944 Kernel.KernelPhysics <> instr_targets def
+R17918:17924 Coq.Arith.PeanoNat Nat eqb def
+R17909:17915 Coq.Lists.List <> existsb def
+R17932:17944 Kernel.KernelPhysics <> instr_targets def
+R17918:17924 Coq.Arith.PeanoNat Nat eqb def
+R18016:18034 Kernel.ConeAlgebra <> min_steps_to_target def
+R18016:18034 Kernel.ConeAlgebra <> min_steps_to_target def
+R18140:18142 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18133:18136 Coq.Init.Datatypes <> Some constr
+R18143:18146 Coq.Init.Datatypes <> Some constr
+R18140:18142 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18133:18136 Coq.Init.Datatypes <> Some constr
+R18143:18146 Coq.Init.Datatypes <> Some constr
+prf 18438:18466 <> min_steps_to_target_app_right
+binder 18477:18479 <> mid:33
+binder 18481:18482 <> t1:34
+binder 18484:18485 <> t2:35
+binder 18487:18487 <> n:36
+R18525:18530 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18518:18520 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18492:18510 Kernel.ConeAlgebra <> min_steps_to_target def
+R18512:18514 Kernel.ConeAlgebra <> mid:33 var
+R18516:18517 Kernel.ConeAlgebra <> t1:34 var
+R18521:18524 Coq.Init.Datatypes <> None constr
+R18566:18571 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18557:18559 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18531:18549 Kernel.ConeAlgebra <> min_steps_to_target def
+R18551:18553 Kernel.ConeAlgebra <> mid:33 var
+R18555:18556 Kernel.ConeAlgebra <> t2:35 var
+R18560:18563 Coq.Init.Datatypes <> Some constr
+R18565:18565 Kernel.ConeAlgebra <> n:36 var
+R18606:18608 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18572:18590 Kernel.ConeAlgebra <> min_steps_to_target def
+R18592:18594 Kernel.ConeAlgebra <> mid:33 var
+R18599:18602 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R18597:18598 Kernel.ConeAlgebra <> t1:34 var
+R18603:18604 Kernel.ConeAlgebra <> t2:35 var
+R18609:18612 Coq.Init.Datatypes <> Some constr
+R18624:18626 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R18615:18620 Coq.Init.Datatypes <> length def
+R18622:18623 Kernel.ConeAlgebra <> t1:34 var
+R18627:18627 Kernel.ConeAlgebra <> n:36 var
+R18797:18803 Coq.Lists.List <> existsb def
+R18820:18832 Kernel.KernelPhysics <> instr_targets def
+R18806:18812 Coq.Arith.PeanoNat Nat eqb def
+R18797:18803 Coq.Lists.List <> existsb def
+R18820:18832 Kernel.KernelPhysics <> instr_targets def
+R18806:18812 Coq.Arith.PeanoNat Nat eqb def
+R18880:18898 Kernel.ConeAlgebra <> min_steps_to_target def
+R18880:18898 Kernel.ConeAlgebra <> min_steps_to_target def
+R18987:18987 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19005:19008 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18995:19000 Coq.Init.Datatypes <> option ind
+R19002:19004 Coq.Init.Datatypes <> nat ind
+R18988:18991 Coq.Init.Datatypes <> None constr
+R19009:19012 Coq.Init.Datatypes <> None constr
+R18987:18987 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19005:19008 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18995:19000 Coq.Init.Datatypes <> option ind
+R19002:19004 Coq.Init.Datatypes <> nat ind
+R18988:18991 Coq.Init.Datatypes <> None constr
+R19009:19012 Coq.Init.Datatypes <> None constr
+prf 19236:19263 <> min_steps_to_target_app_none
+binder 19274:19276 <> mid:37
+binder 19278:19279 <> t1:38
+binder 19281:19282 <> t2:39
+R19320:19325 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19313:19315 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19287:19305 Kernel.ConeAlgebra <> min_steps_to_target def
+R19307:19309 Kernel.ConeAlgebra <> mid:37 var
+R19311:19312 Kernel.ConeAlgebra <> t1:38 var
+R19316:19319 Coq.Init.Datatypes <> None constr
+R19359:19364 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19352:19354 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19326:19344 Kernel.ConeAlgebra <> min_steps_to_target def
+R19346:19348 Kernel.ConeAlgebra <> mid:37 var
+R19350:19351 Kernel.ConeAlgebra <> t2:39 var
+R19355:19358 Coq.Init.Datatypes <> None constr
+R19399:19401 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19365:19383 Kernel.ConeAlgebra <> min_steps_to_target def
+R19385:19387 Kernel.ConeAlgebra <> mid:37 var
+R19392:19395 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R19390:19391 Kernel.ConeAlgebra <> t1:38 var
+R19396:19397 Kernel.ConeAlgebra <> t2:39 var
+R19402:19405 Coq.Init.Datatypes <> None constr
+R19560:19566 Coq.Lists.List <> existsb def
+R19583:19595 Kernel.KernelPhysics <> instr_targets def
+R19569:19575 Coq.Arith.PeanoNat Nat eqb def
+R19560:19566 Coq.Lists.List <> existsb def
+R19583:19595 Kernel.KernelPhysics <> instr_targets def
+R19569:19575 Coq.Arith.PeanoNat Nat eqb def
+R19643:19661 Kernel.ConeAlgebra <> min_steps_to_target def
+R19643:19661 Kernel.ConeAlgebra <> min_steps_to_target def
+R19751:19751 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19769:19772 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19759:19764 Coq.Init.Datatypes <> option ind
+R19766:19768 Coq.Init.Datatypes <> nat ind
+R19752:19755 Coq.Init.Datatypes <> None constr
+R19773:19776 Coq.Init.Datatypes <> None constr
+R19751:19751 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19769:19772 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19759:19764 Coq.Init.Datatypes <> option ind
+R19766:19768 Coq.Init.Datatypes <> nat ind
+R19752:19755 Coq.Init.Datatypes <> None constr
+R19773:19776 Coq.Init.Datatypes <> None constr
+prf 20780:20800 <> existsb_nat_eqb_false
+binder 20811:20811 <> x:40
+binder 20813:20814 <> xs:41
+R20849:20852 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20841:20843 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20819:20825 Coq.Lists.List <> existsb def
+R20839:20840 Kernel.ConeAlgebra <> xs:41 var
+R20828:20834 Coq.Arith.PeanoNat Nat eqb def
+R20836:20836 Kernel.ConeAlgebra <> x:40 var
+R20844:20848 Coq.Init.Datatypes <> false constr
+R20853:20853 Coq.Init.Logic <> ::type_scope:'~'_x not
+R20854:20855 Coq.Lists.List <> In def
+R20859:20860 Kernel.ConeAlgebra <> xs:41 var
+R20857:20857 Kernel.ConeAlgebra <> x:40 var
+R20966:20972 Coq.Arith.PeanoNat Nat eqb def
+R20966:20972 Coq.Arith.PeanoNat Nat eqb def
+R21095:21105 Coq.Arith.PeanoNat Nat eqb_neq thm
+R21095:21105 Coq.Arith.PeanoNat Nat eqb_neq thm
+prf 21240:21268 <> min_steps_to_target_lt_length
+binder 21279:21281 <> mid:42
+binder 21283:21287 <> trace:43
+binder 21289:21289 <> n:44
+R21332:21335 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21323:21325 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21294:21312 Kernel.ConeAlgebra <> min_steps_to_target def
+R21314:21316 Kernel.ConeAlgebra <> mid:42 var
+R21318:21322 Kernel.ConeAlgebra <> trace:43 var
+R21326:21329 Coq.Init.Datatypes <> Some constr
+R21331:21331 Kernel.ConeAlgebra <> n:44 var
+R21337:21339 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R21336:21336 Kernel.ConeAlgebra <> n:44 var
+R21340:21345 Coq.Init.Datatypes <> length def
+R21347:21351 Kernel.ConeAlgebra <> trace:43 var
+R21489:21495 Coq.Lists.List <> existsb def
+R21512:21524 Kernel.KernelPhysics <> instr_targets def
+R21498:21504 Coq.Arith.PeanoNat Nat eqb def
+R21489:21495 Coq.Lists.List <> existsb def
+R21512:21524 Kernel.KernelPhysics <> instr_targets def
+R21498:21504 Coq.Arith.PeanoNat Nat eqb def
+R21595:21613 Kernel.ConeAlgebra <> min_steps_to_target def
+R21595:21613 Kernel.ConeAlgebra <> min_steps_to_target def
+R21719:21721 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21712:21715 Coq.Init.Datatypes <> Some constr
+R21722:21725 Coq.Init.Datatypes <> Some constr
+R21719:21721 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21712:21715 Coq.Init.Datatypes <> Some constr
+R21722:21725 Coq.Init.Datatypes <> Some constr
+prf 23392:23407 <> target_has_depth
+binder 23418:23420 <> mid:45
+binder 23422:23426 <> trace:46
+R23457:23460 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23431:23432 Coq.Lists.List <> In def
+R23439:23449 Kernel.KernelPhysics <> causal_cone def
+R23451:23455 Kernel.ConeAlgebra <> trace:46 var
+R23434:23436 Kernel.ConeAlgebra <> mid:45 var
+R23461:23467 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R23469:23470 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 23468:23468 <> n:47
+R23500:23502 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23471:23489 Kernel.ConeAlgebra <> min_steps_to_target def
+R23491:23493 Kernel.ConeAlgebra <> mid:45 var
+R23495:23499 Kernel.ConeAlgebra <> trace:46 var
+R23503:23506 Coq.Init.Datatypes <> Some constr
+R23508:23508 Kernel.ConeAlgebra <> n:47 var
+R23643:23649 Coq.Lists.List <> existsb def
+R23666:23678 Kernel.KernelPhysics <> instr_targets def
+R23652:23658 Coq.Arith.PeanoNat Nat eqb def
+R23643:23649 Coq.Lists.List <> existsb def
+R23666:23678 Kernel.KernelPhysics <> instr_targets def
+R23652:23658 Coq.Arith.PeanoNat Nat eqb def
+R23735:23743 Coq.Lists.List <> in_app_or thm
+R23735:23743 Coq.Lists.List <> in_app_or thm
+R23884:23904 Kernel.ConeAlgebra <> existsb_nat_eqb_false thm
+R23884:23904 Kernel.ConeAlgebra <> existsb_nat_eqb_false thm
+R24011:24011 Coq.Init.Datatypes <> S constr
+R24011:24011 Coq.Init.Datatypes <> S constr
+prf 24244:24271 <> min_steps_to_target_triangle
+binder 24282:24284 <> mid:48
+binder 24286:24287 <> t1:49
+binder 24289:24290 <> t2:50
+binder 24292:24292 <> n:51
+R24332:24337 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24323:24325 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24297:24315 Kernel.ConeAlgebra <> min_steps_to_target def
+R24317:24319 Kernel.ConeAlgebra <> mid:48 var
+R24321:24322 Kernel.ConeAlgebra <> t2:50 var
+R24326:24329 Coq.Init.Datatypes <> Some constr
+R24331:24331 Kernel.ConeAlgebra <> n:51 var
+R24338:24344 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R24347:24352 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 24345:24346 <> n':52
+R24397:24404 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R24387:24389 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24353:24371 Kernel.ConeAlgebra <> min_steps_to_target def
+R24373:24375 Kernel.ConeAlgebra <> mid:48 var
+R24380:24383 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R24378:24379 Kernel.ConeAlgebra <> t1:49 var
+R24384:24385 Kernel.ConeAlgebra <> t2:50 var
+R24390:24393 Coq.Init.Datatypes <> Some constr
+R24395:24396 Kernel.ConeAlgebra <> n':52 var
+R24407:24410 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R24405:24406 Kernel.ConeAlgebra <> n':52 var
+R24420:24422 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R24411:24416 Coq.Init.Datatypes <> length def
+R24418:24419 Kernel.ConeAlgebra <> t1:49 var
+R24423:24423 Kernel.ConeAlgebra <> n:51 var
+R24470:24488 Kernel.ConeAlgebra <> min_steps_to_target def
+R24470:24488 Kernel.ConeAlgebra <> min_steps_to_target def
+R24550:24577 Kernel.ConeAlgebra <> min_steps_to_target_app_left thm
+R24550:24577 Kernel.ConeAlgebra <> min_steps_to_target_app_left thm
+R24603:24631 Kernel.ConeAlgebra <> min_steps_to_target_lt_length thm
+R24603:24631 Kernel.ConeAlgebra <> min_steps_to_target_lt_length thm
+R24667:24669 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R24658:24663 Coq.Init.Datatypes <> length def
+R24667:24669 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R24658:24663 Coq.Init.Datatypes <> length def
+R24693:24721 Kernel.ConeAlgebra <> min_steps_to_target_app_right thm
+R24693:24721 Kernel.ConeAlgebra <> min_steps_to_target_app_right thm

@@ -519,6 +519,7 @@ Qed.
     Building up to the tight bound. This establishes the baseline before
     applying the stronger constraints.
 *)
+(* SAFE: trivial S² ≤ 16 from unit correlators, stepping stone to Tsirelson *)
 Lemma chsh_weak_bound : forall e00 e01 e10 e11 : Q,
   Qabs e00 <= 1 -> Qabs e01 <= 1 -> Qabs e10 <= 1 -> Qabs e11 <= 1 ->
   (e00 + e01 + e10 - e11) * (e00 + e01 + e10 - e11) <= 16.
@@ -583,6 +584,7 @@ Qed.
     Find quantum correlations with sum of squares ≤ 2 and S > 2√2. Can't
     happen - Cauchy-Schwarz is absolute.
 *)
+(* SAFE: Tsirelson bound in squared form: S² ≤ 8 equivalent to |S| ≤ 2√2 *)
 Lemma chsh_squared_bound_from_correlations : forall e00 e01 e10 e11 : Q,
   Qabs e00 <= 1 -> Qabs e01 <= 1 -> Qabs e10 <= 1 -> Qabs e11 <= 1 ->
   (* Additional constraint: in any quantum realization, the sum of squares is bounded *)

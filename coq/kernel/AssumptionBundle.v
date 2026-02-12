@@ -108,7 +108,7 @@ Record HardMathFacts := {
     algebraically_coherent c ->
     Qabs (E00 c) <= 1 /\ Qabs (E01 c) <= 1 /\
     Qabs (E10 c) <= 1 /\ Qabs (E11 c) <= 1 ->
-    Qabs (S_from_correlators c) <= (28284271#10000000)  (* 2√2 ≈ 2.828427 *)
+    Qabs (S_from_correlators c) <= (28284272#10000000)  (* 2√2 ≈ 2.828427 *)
 }.
 
 (** Example: How to use the bundle *)
@@ -148,3 +148,29 @@ End ExampleUsage.
 (** Print Assumptions will show exactly which facts are used *)
 (* Print Assumptions correlation_bounded. *)
 (* Expected output: Axioms: facts : HardMathFacts *)
+
+(** =========================================================================
+    PROVEN INSTANCE: ALL 6 HARD MATH FACTS NOW MECHANIZED
+    =========================================================================
+
+    As of this development, ALL six assumptions have been proven from first
+    principles in HardMathFactsProven.v. The corrected record
+    HardMathFactsCorrected fixes two type issues in the original:
+
+    - pr_no_ext: corrected to require BOTH AB and AC marginals
+      (original only required AB, which was trivially satisfiable)
+    - symm_coh_bound/tsir_from_coh: corrected to use explicit
+      symmetric (e,e,e,-e) configuration instead of unconstrained correlators
+
+    See HardMathFactsProven.v for:
+    - HardMathFactsCorrected : the corrected record type
+    - hard_math_facts_proven : the concrete proven instance (ZERO axioms)
+
+    IMPORT:
+      From Kernel Require Import HardMathFactsProven.
+      (* Then use hard_math_facts_proven.(c_norm_E_bound), etc. *)
+
+    STATUS: The bundle above is DEPRECATED. Use HardMathFactsCorrected
+    from HardMathFactsProven.v instead. The original HardMathFacts record
+    is retained for backward compatibility only.
+    ========================================================================= *)

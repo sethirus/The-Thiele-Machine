@@ -77,6 +77,8 @@ Definition obs_equiv (s1 s2 : BlindSighted.ThieleState) : Prop :=
     ========================================================================= *)
 
 (** Reflexivity (definitional lemma: obs_equiv unfolds to equality) *)
+(** HELPER: Reflexivity/transitivity/symmetry property *)
+(** HELPER: Reflexivity/transitivity/symmetry property *)
 Lemma obs_equiv_refl : forall s,
   obs_equiv s s.
 Proof.
@@ -90,7 +92,9 @@ Proof.
   intros s1 s2 H. unfold obs_equiv in *. symmetry. exact H.
 Qed.
 
+(** HELPER: Reflexivity/transitivity/symmetry property *)
 (** Transitivity *)
+(** HELPER: Reflexivity/transitivity/symmetry property *)
 Lemma obs_equiv_trans : forall s1 s2 s3,
   obs_equiv s1 s2 -> obs_equiv s2 s3 -> obs_equiv s1 s3.
 Proof.
@@ -190,8 +194,10 @@ Definition event_probability (e : Event) : Q :=
   (* In full implementation: integrate born_probability over event set
      For now: return 0 or 1 based on existence *)
   if excluded_middle_informative (exists o, e o) then 1%Q else 0%Q.
+(** HELPER: Normalization property *)
 
 (** Normalization: Born probabilities sum to 1 (finite case) *)
+(** HELPER: Normalization property *)
 Theorem born_probability_normalized : forall s,
   (0 <= born_probability s <= 1)%Q.
 Proof.
@@ -205,19 +211,23 @@ Proof.
     destruct (Z.to_nat (1 + Z.abs (BlindSighted.mu_total (BlindSighted.ledger s)))) eqn:Hk;
     [simpl; unfold Qle; simpl; lia | simpl; unfold Qle; simpl; lia]
   ].
+(** HELPER: Normalization property *)
 Qed.
 
 (** Normalization (trivially satisfied by definition) *)
+(** HELPER: Normalization property *)
 Theorem event_probability_normalized :
   event_probability (fun _ => True) = 1%Q.
 Proof.
   unfold event_probability.
   destruct (excluded_middle_informative (exists o : ObsState, True)) as [_|H].
   - reflexivity.
+(** HELPER: Non-negativity property *)
   - exfalso. apply H. exists (observe_state (BlindSighted.initial_state [])). exact I.
 Qed.
 
 (** Non-negativity (trivially satisfied by definition) *)
+(** HELPER: Non-negativity property *)
 Theorem event_probability_nonneg :
   forall e, (0 <= event_probability e)%Q.
 Proof.

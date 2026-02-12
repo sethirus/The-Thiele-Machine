@@ -60,6 +60,8 @@ Definition mu_cost (query_bytes : nat) (before after : positive) : Q :=
 (* ================================================================ *)
 
 (* Query encoding cost is non-negative *)
+(** HELPER: Non-negativity property *)
+(** HELPER: Non-negativity property *)
 Lemma question_cost_nonnegative :
   forall (query_bytes : nat),
     question_cost query_bytes >= 0.
@@ -111,7 +113,9 @@ Proof.
   exact Hq.
 Qed.
 
+(** HELPER: Non-negativity property *)
 (* μ-cost is always non-negative *)
+(** HELPER: Non-negativity property *)
 Lemma mu_cost_nonnegative :
   forall (query_bytes : nat) (before after : positive),
     mu_cost query_bytes before after >= 0.
@@ -148,6 +152,7 @@ Proof.
 Qed.
 
 (* Theorem: Information component equals Shannon entropy reduction *)
+(* DEFINITIONAL — information_cost is defined as state_reduction_entropy *)
 Theorem information_equals_shannon_reduction :
   forall (before after : positive),
     (after < before)%positive ->

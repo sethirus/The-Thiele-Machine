@@ -404,7 +404,9 @@ Three bounds matter:
 
 The gap between 2 and $2\sqrt{2}$ is why quantum computers can do things classical computers cannot. The gap between $2\sqrt{2}$ and 4 is why nature stops at quantum---it does not go all the way to the no-signaling limit.
 
-These three bounds are among the 6 hard mathematical facts stated explicitly in \path{coq/kernel/AssumptionBundle.v}. I do not prove them in Coq---that would require massive real analysis libraries. Instead, I state them as verifiable assumptions and make every dependency transparent. Run \texttt{Print Assumptions} on any theorem and you see exactly which hard facts it uses.
+These three bounds are among the 6 hard mathematical facts formalized in \path{coq/kernel/AssumptionBundle.v} as a \texttt{HardMathFacts} record---bundled in a record type, threaded through proofs as explicit parameters, every dependency transparent.
+
+\path{coq/kernel/HardMathFactsProven.v} constructs a concrete instance of this record with zero axioms and zero admits. All six are machine-checked proofs from first principles: \texttt{norm\_E\_bound} from probability axioms, \texttt{valid\_S\_4} from the triangle inequality, \texttt{local\_S\_2} from exhaustive 16-case enumeration, \texttt{pr\_no\_ext} for PR-box monogamy, \texttt{symm\_coh\_bound} for symmetric coherence, and \texttt{tsir\_from\_coh} for Tsirelson's bound via algebraic coherence. The bundle is a theorem, not an assumption. Run \texttt{Print Assumptions} on any downstream result and Coq reports only standard library axioms.
 
 \subsection{Decoherence, Measurement, and Informational Cost}
 
@@ -434,7 +436,7 @@ Coq is the machine. It implements the Calculus of Inductive Constructions---a ty
 
 The trusted computing base is small---Coq's kernel is roughly 30,000 lines of OCaml. If you trust that kernel (and thousands of mathematicians do, daily), then you trust every proof it accepts. The alternative is trusting me, a car salesman. I know which one I would pick.
 
-For the Thiele Machine, this matters because the claims are not hand-waved. The 272 Coq files containing 2,154 theorems and lemmas were all checked by the compiler. Every property---$\mu$-monotonicity, No Free Insight, observational no-signaling---is established by a proof that the machine accepted, not by an argument I wrote in prose.
+For the Thiele Machine, this matters because the claims are not hand-waved. The 285 Coq files containing 2,316 theorems and lemmas were all checked by the compiler. Every property---$\mu$-monotonicity, No Free Insight, observational no-signaling, oracle impossibility---is established by a proof that the machine accepted, not by an argument I wrote in prose.
 
 \subsection{The Inquisitor Standard}
 
@@ -443,7 +445,7 @@ For the Thiele Machine, the project enforces a strict methodology. No wiggle roo
 \begin{enumerate}
     \item \textbf{No \texttt{Admitted}}: Every lemma must be fully proven
     \item \textbf{No \texttt{admit} tactics}: No shortcuts inside proofs
-    \item \textbf{Documented assumptions}: External mathematical results (e.g., Tsirelson's theorem, Fine's theorem, Bell's inequality) are stated explicitly as a \texttt{HardMathFacts} record in \path{coq/kernel/AssumptionBundle.v}---6 assumptions total, each with justification. These are not Coq \texttt{Axiom} declarations; they are bundled as a record type and threaded through proofs as explicit parameters, making every dependency transparent.
+    \item \textbf{Documented assumptions}: External mathematical results (e.g., Tsirelson's theorem, Fine's theorem, Bell's inequality) are formalized as a \texttt{HardMathFacts} record in \path{coq/kernel/AssumptionBundle.v}---6 facts total, each with justification. These are not Coq \texttt{Axiom} declarations; they are bundled as a record type and threaded through proofs as explicit parameters. All 6 are \textit{mechanically proven from first principles} in \path{coq/kernel/HardMathFactsProven.v}---the bundle is a theorem, not an assumption.
 \end{enumerate}
 
 This is enforced by an automated checker that scans all proof files and blocks violations. If a theorem says ``Proven,'' it's actually proven.

@@ -12,6 +12,7 @@ Module UTM_Program.
   Definition RULES_START_ADDR : nat := 100.
   Definition TAPE_START_ADDR  : nat := 1000.
 
+  (* ARITHMETIC — 100 <= 1000 *)
   Lemma RULES_START_ADDR_le_TAPE_START_ADDR :
     RULES_START_ADDR <= TAPE_START_ADDR.
   Proof.

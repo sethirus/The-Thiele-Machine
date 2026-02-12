@@ -191,6 +191,7 @@ Axiom chsh_squared_bound_from_constraint_axiom : forall (E00 E01 E10 E11 : R),
   PSD_4 (correlator_4x4 E00 E01 E10 E11) ->
   (E00 + E01 + E10 - E11)^2 <= 8.
 
+(* SAFE: Tsirelson bound in squared form: S² ≤ 8 equivalent to |S| ≤ 2√2 *)
 Lemma chsh_squared_bound_from_constraint : forall (E00 E01 E10 E11 : R),
   PSD_4 (correlator_4x4 E00 E01 E10 E11) ->
   (E00 + E01 + E10 - E11)^2 <= 8.

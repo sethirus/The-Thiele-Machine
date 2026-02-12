@@ -7,6 +7,7 @@
 (* ================================================================= *)
 
 From Coq Require Import List Arith Lia Bool.
+From ModularProofs Require Import Encoding.
 Import ListNotations.
 
 (* ----------------------------------------------------------------- *)
@@ -76,7 +77,7 @@ Qed.
 
 Definition tm_config_ok (conf : TMConfig) : Prop :=
   let '(q, tape, head) := conf in
-  digits_ok tape /\ head < length tape.
+  digits_ok tape /\ length tape <= Encoding.SHIFT_LEN /\ head < length tape.
 
 Lemma tm_config_ok_digits :
   forall q tape head,
@@ -88,7 +89,7 @@ Lemma tm_config_ok_head :
   forall q tape head,
     tm_config_ok (q, tape, head) ->
     head < length tape.
-Proof. intros q tape head [_ Hhead]. exact Hhead. Qed.
+Proof. intros q tape head [_ [_ Hhead]]. exact Hhead. Qed.
 
 Lemma tm_config_ok_change_state :
   forall q1 q2 tape head,
@@ -103,10 +104,12 @@ Lemma tm_config_ok_update_write :
     tm_config_ok (q, replace_nth tape head write, head).
 Proof.
   intros q tape head write Hok Hwrite.
-  destruct Hok as [Hdigs Hhead].
+  destruct Hok as [Hdigs [Hlen Hhead]].
   split.
   - apply replace_nth_Forall; [exact Hdigs|exact Hwrite].
-  - rewrite replace_nth_length. exact Hhead.
+  - split.
+    + rewrite replace_nth_length. exact Hlen.
+    + rewrite replace_nth_length. exact Hhead.
 Qed.
 
 Lemma tm_config_ok_update_head :
@@ -116,8 +119,9 @@ Lemma tm_config_ok_update_head :
     tm_config_ok (q, tape, head').
 Proof.
   intros q tape head head' Hok Hhead'.
-  destruct Hok as [Hdigs _].
-  split; auto.
+  destruct Hok as [Hdigs [Hlen _]].
+  split; [exact Hdigs|].
+  split; [exact Hlen|exact Hhead'].
 Qed.
 
 (* ----------------------------------------------------------------- *)
@@ -144,7 +148,7 @@ Lemma tm_step_digits_preserved :
     digits_ok (let '(_, tape', _) := tm_step tm (q, tape, head) in tape').
 Proof.
   intros tm q tape head Hok.
-  destruct Hok as [Hdigs Hhead].
+  destruct Hok as [Hdigs [_ Hhead]].
   unfold tm_step; simpl.
   remember (tm q (nth head tape tm_blank)) as trans.
   destruct trans as [[q' write] move]; simpl.

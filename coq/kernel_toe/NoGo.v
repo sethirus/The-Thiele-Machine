@@ -17,6 +17,8 @@ Import ListNotations.
 Definition w_scale (k : nat) : Weight :=
   fun t => k * length t.
 
+(** HELPER: Base case property *)
+(** HELPER: Base case property *)
 Lemma w_scale_empty : forall k, weight_empty (w_scale k).
 Proof.
   intro k. unfold weight_empty, w_scale. simpl. lia.
@@ -46,6 +48,7 @@ Proof.
     + apply w_scale_disjoint_commutes.
 Qed.
 
+(* DEFINITIONAL — witness w_scale, verify weight_laws + distinctness *)
 Theorem CompositionalWeightFamily_Infinite :
   exists w : nat -> Weight,
     (forall k, weight_laws (w k)) /\

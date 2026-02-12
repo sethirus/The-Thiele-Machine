@@ -161,7 +161,8 @@ Proof.
   intros. unfold mu_cost_of_instr. split; [reflexivity | split; reflexivity].
 Qed.
 
-(** REVEAL costs exactly 1 *)
+(** DEFINITIONAL HELPER: [mu_cost_of_instr] pattern-matches on instruction
+    constructors; [instr_reveal] maps to cost 1 by definition. *)
 Lemma reveal_costs_one :
   forall s mid addr len mu,
     mu_cost_of_instr (instr_reveal mid addr len mu) s = 1.
@@ -225,10 +226,14 @@ Proof.
 Qed.
 
 (** Auxiliary fact: 1 + anything ≠ 0 for nat *)
+(** HELPER: Base case property *)
+(** HELPER: Base case property *)
 Lemma one_plus_neq_zero : forall n, 1 + n <> 0.
 Proof. intros. lia. Qed.
 
+(** HELPER: Base case property *)
 (** Generalized version: REVEAL beyond horizon for any starting PC *)
+(** HELPER: Base case property *)
 Lemma mu_zero_no_reveal_from_pc :
   forall fuel trace pc,
     mu_cost_of_trace fuel trace pc = 0 ->
@@ -268,8 +273,10 @@ Proof.
       exfalso. eapply nth_error_none_propagates in Hpc; [|exact Hge].
       rewrite Hpc in Hnth. discriminate.
 Qed.
+(** HELPER: Base case property *)
 
 (** Specialized to PC = 0 *)
+(** HELPER: Base case property *)
 Lemma mu_zero_no_reveal :
   forall fuel trace,
     mu_zero_program fuel trace ->

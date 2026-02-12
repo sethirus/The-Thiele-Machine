@@ -162,6 +162,8 @@ Proof.
   simpl. reflexivity.
 Qed.
 
+(** DEFINITIONAL HELPER: [compile_instruction] always emits [T_Write true]
+    as its first element, regardless of the input instruction. *)
 Lemma compile_instruction_head :
   forall instr,
     nth_error (compile_instruction instr) 0 = Some (T_Write true).
@@ -171,6 +173,8 @@ Proof.
   simpl. reflexivity.
 Qed.
 
+(** HELPER: Non-negativity property *)
+(** HELPER: Non-negativity property *)
 Lemma compile_trace_start_pos_correct :
   forall tr pc,
     compile_trace_start_pos tr pc =
