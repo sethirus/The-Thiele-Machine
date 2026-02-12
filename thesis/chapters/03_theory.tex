@@ -326,7 +326,7 @@ Definition normalize_region (region : list nat) : list nat :=
 
 \textbf{The \texttt{Nat.eq\_dec} Parameter:} Coq requires a decidable equality function to compare elements. \texttt{Nat.eq\_dec} is a proven decision procedure that returns either \texttt{left (a = b)} (proof of equality) or \texttt{right (a $\neq$ b)} (proof of inequality) for any natural numbers a and b. This is more powerful than a simple boolean comparison—it provides a \emph{proof witness}.
 
-\textbf{Why Normalize?} Two lists \texttt{[1; 2; 1]} and \texttt{[2; 1]} represent the same \emph{set} of addresses. Normalization ensures a unique canonical representation, making equality checking straightforward and deterministic.
+\textbf{Why Normalize?} Two lists \texttt{[1; 2; 1]} and \texttt{[1; 2]} represent the same \emph{set} of addresses. Normalization via \texttt{nodup} removes duplicates while preserving first-occurrence order. Note: \texttt{nodup} does not sort, so \texttt{[1; 2]} and \texttt{[2; 1]} remain distinct. The Python VM uses \texttt{sorted(set(region))} for a stricter canonical form; the Coq model uses \texttt{nodup} for provability.
 
 The key lemma ensures idempotence:
 \begin{lstlisting}
@@ -775,7 +775,7 @@ One $\mu$-bit is the cost of specifying one bit of irreversibility or structural
 \textbf{Defense: The $\mu$-Measure Contract}
 \begin{itemize}
     \item \textbf{Canonical encoding}: SMT-LIB 2.0 prefix-free syntax is the reference encoding
-    \item \textbf{Normalization}: Regions are canonicalized via \texttt{normalize\_region} (removes duplicates, sorts)
+    \item \textbf{Normalization}: Regions are canonicalized via \texttt{normalize\_region} (removes duplicates, preserves order of first occurrence)
     \item \textbf{Invariance theorem targets}:
     \begin{itemize}
         \item \texttt{normalize\_region\_idempotent}: Repeated normalization is stable
@@ -1728,14 +1728,16 @@ If the $\mu$-ledger is conserved (no free insight), then perfect cloning is impo
 Proven as \texttt{no\_cloning\_from\_conservation} in \path{coq/kernel/NoCloning.v}:
 \begin{lstlisting}
 Theorem no_cloning_from_conservation :
-  forall C : CloningOperation,
-    (forall q, C.(fidelity) q = 1 /\ C.(mu_cost) q = 0) ->
-    False.
+  forall op : CloningOperation,
+    nontrivial_input op ->
+    respects_conservation op ->
+    is_perfect_clone op ->
+    ~ is_zero_cost op.
 \end{lstlisting}
 
 \paragraph{What This Proves:}
 \begin{itemize}
-    \item \textbf{Perfect Cloning is Impossible:} If cloning has fidelity 1 (perfect copy) and zero cost, that's a contradiction
+    \item \textbf{Perfect Cloning is Impossible at Zero Cost:} If an operation is nontrivial, respects conservation, and achieves perfect cloning, then it cannot be zero-cost. Any perfect clone requires $\mu > 0$.
     \item \textbf{Approximate Cloning Costs:} Higher fidelity costs more $\mu$-bits (bounded in \texttt{approximate\_cloning\_bound})
     \item \textbf{No-Deletion Too:} The same argument shows you can't delete states without paying (information destruction = bit erasure = cost)
 \end{itemize}
@@ -1754,9 +1756,11 @@ Proven in \path{coq/kernel/Unitarity.v}:
 \begin{lstlisting}
 Theorem nonunitary_requires_mu :
   forall E : Evolution,
-    E.(trace_preserving) E.(evolution_map) 1 0 0 /\
-    ~ E.(is_unitary) E.(evolution_map) ->
-    E.(mu_cost) > 0.
+    respects_info_conservation E ->
+    (exists x y z,
+      x*x + y*y + z*z <= 1 /\
+      info_loss E x y z > 0) ->
+    E.(evo_mu) > 0.
 \end{lstlisting}
 
 \paragraph{Physical Interpretation:}
@@ -1768,19 +1772,22 @@ Theorem nonunitary_requires_mu :
 
 CPTP (Completely Positive Trace-Preserving) maps are proven to be the physical evolutions:
 \begin{lstlisting}
-Lemma physical_evolution_is_CPTP :
+Theorem physical_evolution_is_CPTP :
   forall E : Evolution,
-    E.(completely_positive) E.(evolution_map) /\
-    E.(trace_preserving) E.(evolution_map) 1 0 0.
+    positivity_preserving E ->
+    trace_preserving E ->
+    is_CPTP E.
 \end{lstlisting}
 
 Lindblad evolution (dissipation) explicitly requires $\mu$:
 \begin{lstlisting}
 Theorem lindblad_requires_mu :
-  forall E : Evolution gamma : R,
-    E.(info_loss) E.(evolution_map) 1 0 0 = gamma ->
+  forall E gamma,
     gamma > 0 ->
-    E.(mu_cost) >= gamma.
+    satisfies_lindblad_bound E gamma ->
+    respects_info_conservation E ->
+    (info_loss E 1 0 0 = gamma) ->
+    E.(evo_mu) >= gamma.
 \end{lstlisting}
 
 \subsection{Born Rule from Accounting Constraints}
@@ -1799,11 +1806,14 @@ The Born rule $P(i) = |a_i|^2$ is the unique probability assignment satisfying:
 Proven in \path{coq/kernel/BornRule.v}:
 \begin{lstlisting}
 Theorem born_rule_from_accounting :
-  forall rule : ProbRule,
-    linear_in_preparation rule /\
-    rule.(mu_extraction_cost) = 0 ->
-    forall basis outcome x y z,
-      valid_prob_rule rule basis outcome x y z.
+  forall P : ProbRule,
+    valid_prob_rule P ->
+    is_linear_in_z P ->
+    mu_consistent P ->
+    forall x y z,
+      x*x + y*y + z*z <= 1 ->
+      P x y z 0 = prob_zero x y z /\
+      P x y z 1 = prob_one x y z.
 \end{lstlisting}
 
 \paragraph{Why Not Some Other Rule?}
@@ -1820,18 +1830,19 @@ Only $P = |a|^2$ satisfies all constraints simultaneously. The Born rule isn't a
 Every mixed state has a purification. This sounds like a quantum fact, but it's an accounting fact: incomplete information about a system means there's a reference system holding the missing bits.
 
 \begin{theorem}[Purification Principle]
-For any mixed state $\rho$ with purity $\gamma < 1$, there exists a pure state $|\Psi\rangle$ on an extended system such that $\text{Tr}_{\text{ref}}|\Psi\rangle\langle\Psi| = \rho$. The purification deficit is exactly $(1 - \gamma)$.
+For any mixed state on the Bloch sphere ($x^2 + y^2 + z^2 \le 1$), there exist eigenvalues $\lambda_1, \lambda_2 \in [0,1]$ with $\lambda_1 + \lambda_2 = 1$ and $(\lambda_1 - \lambda_2)^2 = x^2 + y^2 + z^2$ (the purity). The purification gap is exactly $1 - \text{purity}$.
 \end{theorem}
 
 Proven in \path{coq/kernel/Purification.v}:
 \begin{lstlisting}
 Theorem purification_principle :
   forall x y z : R,
-    bloch_mixed x y z -> 
-    exists ref_x ref_y ref_z : R,
-      bloch_pure ref_x ref_y ref_z /\
-      purification_deficit x y z ref_x ref_y ref_z = 
-        1 - purity x y z.
+    bloch_mixed x y z ->
+    exists (lambda1 lambda2 : R),
+      0 <= lambda1 <= 1 /\
+      0 <= lambda2 <= 1 /\
+      lambda1 + lambda2 = 1 /\
+      (lambda1 - lambda2) * (lambda1 - lambda2) = purity x y z.
 \end{lstlisting}
 
 \paragraph{What This Means:}
@@ -1881,16 +1892,16 @@ Quantum mechanics isn't a fundamental theory with mysterious postulates. It's th
 \begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=\textbf{Coq-Verified Quantum Axioms}]
 All theorems in this section are machine-checked in Coq 8.18 with zero Admitted statements:
 \begin{itemize}
-    \item \path{coq/kernel/NoCloning.v}: 936 lines, 18 definitions/theorems
-    \item \path{coq/kernel/NoCloningFromMuMonotonicity.v}: 260 lines, 11 definitions/theorems (machine-native, \texttt{lia}-only)
-    \item \path{coq/kernel/Unitarity.v}: 583 lines, 24 definitions/theorems
-    \item \path{coq/kernel/BornRule.v}: 321 lines, 20 definitions/theorems
-    \item \path{coq/kernel/BornRuleFromSymmetry.v}: 939 lines, 33 definitions/theorems (non-circular, tensor consistency)
+    \item \path{coq/kernel/NoCloning.v}: 936 lines, 23 definitions/theorems
+    \item \path{coq/kernel/NoCloningFromMuMonotonicity.v}: 260 lines, 16 definitions/theorems (machine-native, \texttt{lia}-only)
+    \item \path{coq/kernel/Unitarity.v}: 583 lines, 27 definitions/theorems
+    \item \path{coq/kernel/BornRule.v}: 321 lines, 21 definitions/theorems
+    \item \path{coq/kernel/BornRuleFromSymmetry.v}: 966 lines, 42 definitions/theorems (non-circular, tensor consistency)
     \item \path{coq/kernel/Purification.v}: 280 lines, 11 definitions/theorems
-    \item \path{coq/kernel/TsirelsonGeneral.v}: 315 lines, 19 definitions/theorems
+    \item \path{coq/kernel/TsirelsonGeneral.v}: 315 lines, 28 definitions/theorems
     \item \path{coq/kernel/TsirelsonFromAlgebra.v}: 327 lines, 13 definitions/theorems (self-contained algebraic)
 \end{itemize}
-Total: 3,961 lines of machine-verified proofs across eight files establishing that quantum axioms emerge from $\mu$-conservation.
+Total: 3,988 lines of machine-verified proofs across eight files establishing that quantum axioms emerge from $\mu$-conservation.
 \end{tcolorbox}
 
 \section{Chapter Summary}
@@ -1956,4 +1967,4 @@ This chapter defined the Thiele Machine as a formal 5-tuple $T = (S, \Pi, A, R, 
     \end{itemize}
 \end{enumerate}
 
-These formal foundations enable the implementation (Chapter 4), verification (Chapter 5), and evaluation (Chapter 6). The quantum axiom derivations (3,961 lines of Coq across eight files with zero Admitted statements) establish that quantum mechanics isn't a fundamental theory with mysterious postulates---it's the unique physics consistent with information conservation. Importantly, under \emph{Total $\mu$-Accounting}, setting $\mu_{\text{total}} = 0$ requires all components ($\mu_{\text{inst}}$ and $\mu_{\text{corr}}$) to be zero, where $\mu_{\text{corr}} = 0$ is exactly the condition of \emph{Algebraic Coherence} required to recover the Tsirelson bound $S \le 2.8284...$. Without enforcing $\mu_{\text{corr}} = 0$, the system is only bounded by the algebraic limit $S \le 4$.
+These formal foundations enable the implementation (Chapter 4), verification (Chapter 5), and evaluation (Chapter 6). The quantum axiom derivations (3,988 lines of Coq across eight files with zero Admitted statements) establish that quantum mechanics isn't a fundamental theory with mysterious postulates---it's the unique physics consistent with information conservation. Importantly, under \emph{Total $\mu$-Accounting}, setting $\mu_{\text{total}} = 0$ requires all components ($\mu_{\text{inst}}$ and $\mu_{\text{corr}}$) to be zero, where $\mu_{\text{corr}} = 0$ is exactly the condition of \emph{Algebraic Coherence} required to recover the Tsirelson bound $S \le 2.8284...$. Without enforcing $\mu_{\text{corr}} = 0$, the system is only bounded by the algebraic limit $S \le 4$.

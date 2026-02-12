@@ -371,7 +371,7 @@ The entropy balance is preserved. The demon's information processing exactly com
 
 \subsection{Connection to the Thiele Machine}
 
-The $\mu$-ledger is the computational analog of thermodynamic entropy. Both are monotonically increasing. Both track irreversible commitments. The difference: thermodynamic entropy tracks energy dissipation; the $\mu$-ledger tracks structural information cost.
+The $\mu$-ledger is the computational analog of thermodynamic entropy. Both are monotonically increasing. Both track irreversible commitments. The difference: thermodynamic entropy tracks energy dissipation; the $\mu$-ledger tracks structural information cost. And the initiality theorem (\path{coq/kernel/MuInitiality.v}) proves something thermodynamics can't: $\mu$ is the \emph{unique} monotone cost functional consistent with the instruction set. There is no alternative accounting system.
 
 Landauer's principle says erasing one bit costs $k_B T \ln 2$ joules. The Thiele Machine says asserting one bit of structural constraint costs at least one $\mu$-bit. The parallel is not an analogy---it is a structural isomorphism between information processing and thermodynamics, and the Coq proofs in \path{coq/kernel/MuLedgerConservation.v} establish the monotonicity formally.
 
@@ -397,16 +397,16 @@ where $E(x,y)$ is the correlation between Alice and Bob's outcomes for settings 
 
 Three bounds matter:
 \begin{itemize}
-    \item \textbf{Classical bound} ($S \le 2$): If Alice and Bob share only classical correlations---local hidden variables---then $|S| \le 2$. This is Bell's inequality, provable by enumerating all 16 deterministic strategies. Stated as \texttt{local\_S\_2} in \path{coq/kernel/AssumptionBundle.v}.
-    \item \textbf{Quantum bound} ($S \le 2\sqrt{2} \approx 2.828$): If they share quantum entanglement, the maximum is the Tsirelson bound. This requires Tsirelson's 1980 theorem \cite{tsirelson1980quantum}, stated as \texttt{tsir\_from\_coh} in the same file.
-    \item \textbf{Algebraic bound} ($S \le 4$): The absolute maximum from triangle inequality alone, achievable only by hypothetical ``PR-box'' correlations that violate quantum mechanics. Stated as \texttt{valid\_S\_4}.
+    \item \textbf{Classical bound} ($S \le 2$): If Alice and Bob share only classical correlations---local hidden variables---then $|S| \le 2$. This is Bell's inequality, provable by enumerating all 16 deterministic strategies. Formalized as \texttt{local\_S\_2} in \path{coq/kernel/AssumptionBundle.v} and independently proven via Fine's theorem in \path{coq/kernel/MinorConstraints.v}.
+    \item \textbf{Quantum bound} ($S \le 2\sqrt{2} \approx 2.828$): If they share quantum entanglement, the maximum is the Tsirelson bound. This requires Tsirelson's 1980 theorem \cite{tsirelson1980quantum}, formalized as \texttt{tsir\_from\_coh} in AssumptionBundle and independently derived from algebraic coherence in \path{coq/kernel/TsirelsonFromAlgebra.v}.
+    \item \textbf{Algebraic bound} ($S \le 4$): The absolute maximum from triangle inequality alone, achievable only by hypothetical ``PR-box'' correlations that violate quantum mechanics. Formalized as \texttt{valid\_S\_4}.
 \end{itemize}
 
 The gap between 2 and $2\sqrt{2}$ is why quantum computers can do things classical computers cannot. The gap between $2\sqrt{2}$ and 4 is why nature stops at quantum---it does not go all the way to the no-signaling limit.
 
 These three bounds are among the 6 hard mathematical facts formalized in \path{coq/kernel/AssumptionBundle.v} as a \texttt{HardMathFacts} record---bundled in a record type, threaded through proofs as explicit parameters, every dependency transparent.
 
-\path{coq/kernel/HardMathFactsProven.v} constructs a concrete instance of this record with zero axioms and zero admits. All six are machine-checked proofs from first principles: \texttt{norm\_E\_bound} from probability axioms, \texttt{valid\_S\_4} from the triangle inequality, \texttt{local\_S\_2} from exhaustive 16-case enumeration, \texttt{pr\_no\_ext} for PR-box monogamy, \texttt{symm\_coh\_bound} for symmetric coherence, and \texttt{tsir\_from\_coh} for Tsirelson's bound via algebraic coherence. The bundle is a theorem, not an assumption. Run \texttt{Print Assumptions} on any downstream result and Coq reports only standard library axioms.
+\path{coq/kernel/HardMathFactsProven.v} constructs a concrete instance of the corrected record (\texttt{HardMathFactsCorrected}) with zero axioms and zero admits---686 lines of machine-checked proof from first principles. All six are proven: \texttt{norm\_E\_bound\_proven} from probability axioms, \texttt{valid\_S\_4\_proven} from the triangle inequality, \texttt{local\_S\_2\_proven} from exhaustive 16-case enumeration, \texttt{pr\_no\_ext\_proven} for PR-box monogamy, \texttt{symm\_coh\_bound\_proven} for symmetric coherence, and \texttt{tsir\_from\_coh\_proven} for Tsirelson's bound via algebraic coherence. The bundle is a theorem, not an assumption. Run \texttt{Print Assumptions} on any downstream result and Coq reports only standard library axioms.
 
 \subsection{Decoherence, Measurement, and Informational Cost}
 
@@ -420,11 +420,11 @@ This perspective ties directly to the Thiele Machine's revelation rule. When the
 
 Here's the theorem that connects quantum correlations to $\mu$-accounting:
 
-\begin{theorem}[Revelation Requirement]
-If a Thiele Machine execution produces a state with "supra-quantum" certification (a nonzero certification flag in a control/status register, starting from 0), then the execution trace must contain an explicit revelation-class instruction (\texttt{REVEAL}, \texttt{EMIT}, \texttt{LJOIN}, or \texttt{LASSERT}).
+\begin{theorem}[Revelation Requirement (\path{coq/kernel/RevelationRequirement.v})]
+If a Thiele Machine execution produces a state with ``supra-quantum'' certification (a nonzero certification flag in a control/status register, starting from 0), then the execution trace must contain an explicit revelation-class instruction (\texttt{REVEAL}, \texttt{EMIT}, \texttt{LJOIN}, or \texttt{LASSERT}).
 \end{theorem}
 
-Translation: you can't certify non-local correlations without paying the structural cost. No free insight.
+Translation: you can't certify non-local correlations without paying the structural cost. No free insight, no free certification.
 
 \section{Formal Verification}
 
@@ -436,7 +436,7 @@ Coq is the machine. It implements the Calculus of Inductive Constructions---a ty
 
 The trusted computing base is small---Coq's kernel is roughly 30,000 lines of OCaml. If you trust that kernel (and thousands of mathematicians do, daily), then you trust every proof it accepts. The alternative is trusting me, a car salesman. I know which one I would pick.
 
-For the Thiele Machine, this matters because the claims are not hand-waved. The full Coq corpus (about 80,000 lines and over 2,300 theorem-like declarations) is checked by the compiler. Every property---$\mu$-monotonicity, No Free Insight, observational no-signaling, oracle impossibility---is established by a proof that the machine accepted, not by an argument I wrote in prose.
+For the Thiele Machine, this matters because the claims are not hand-waved. The Coq corpus---286 files, 79,741 lines, 2,329 theorem/lemma declarations---is checked by the compiler. Every property---$\mu$-monotonicity, $\mu$-initiality, No Free Insight, observational no-signaling, oracle impossibility---is established by a proof that the machine accepted, not by an argument I wrote in prose.
 
 \subsection{The Inquisitor Standard}
 
@@ -445,10 +445,10 @@ For the Thiele Machine, the project enforces a strict methodology. No wiggle roo
 \begin{enumerate}
     \item \textbf{No \texttt{Admitted}}: Every lemma must be fully proven
     \item \textbf{No \texttt{admit} tactics}: No shortcuts inside proofs
-    \item \textbf{Documented assumptions}: External mathematical results (e.g., Tsirelson's theorem, Fine's theorem, Bell's inequality) are formalized as a \texttt{HardMathFacts} record in \path{coq/kernel/AssumptionBundle.v}---6 facts total, each with justification. These are not Coq \texttt{Axiom} declarations; they are bundled as a record type and threaded through proofs as explicit parameters. All 6 are \textit{mechanically proven from first principles} in \path{coq/kernel/HardMathFactsProven.v}---the bundle is a theorem, not an assumption.
+    \item \textbf{Documented assumptions}: External mathematical results (e.g., Tsirelson's theorem, Fine's theorem, Bell's inequality) are formalized as a \texttt{HardMathFacts} record in \path{coq/kernel/AssumptionBundle.v}---6 facts total. These are not Coq \texttt{Axiom} declarations; they are bundled as a record type and threaded through proofs as explicit parameters. All 6 are \textit{mechanically proven from first principles} in \path{coq/kernel/HardMathFactsProven.v}. The assumption surface is zero.
 \end{enumerate}
 
-This is enforced by an automated checker that scans all proof files and blocks violations. If a theorem says ``Proven,'' it's actually proven.
+This is enforced by \path{scripts/inquisitor.py}---a static analyzer with 50+ finding codes that scans every Coq file in CI. It checks for \texttt{Admitted}, \texttt{admit}, custom axioms, circular definitions, tautological proofs, smuggled constraints, and more. If a theorem says ``Proven,'' it compiles to \texttt{Qed}.
 
 \subsection{Proof-Carrying Code}
 
@@ -525,7 +525,7 @@ This chapter established the foundation. Four interconnected areas:
 
 \item \textbf{Physics of Computation} (\S2.4): Landauer's principle and Maxwell's demon establish that information has physical consequences. The $\mu$-ledger is the computational analog of thermodynamic entropy---monotonically increasing, tracking irreversible commitments.
 
-\item \textbf{Quantum Correlations} (\S2.5): Bell's theorem and the CHSH inequality reveal that quantum mechanics permits correlations up to $2\sqrt{2}$ but no higher. The Thiele Machine connects this bound to $\mu$-accounting---the 6 hard mathematical assumptions in \path{coq/kernel/AssumptionBundle.v} make the dependency chain explicit.
+\item \textbf{Quantum Correlations} (\S2.5): Bell's theorem and the CHSH inequality reveal that quantum mechanics permits correlations up to $2\sqrt{2}$ but no higher. The Thiele Machine connects this bound to $\mu$-accounting---the 6 hard mathematical facts formalized in \path{coq/kernel/AssumptionBundle.v} are all mechanically proven from first principles in \path{coq/kernel/HardMathFactsProven.v}, making the dependency chain fully transparent with zero remaining assumptions.
 \end{enumerate}
 
 \noindent
@@ -536,5 +536,5 @@ The formal verification infrastructure (\S2.6) ensures all claims are machine-ch
     \item The \textit{blindness problem} motivates explicit structural accounting
     \item The $\mu$-cost is MDL-based and computable
     \item The classical bound ($S \le 2$) characterizes the $\mu=0$ class, while the Tsirelson bound ($2\sqrt{2}$) requires $\mu > 0$ investment
-    \item All proofs satisfy the Inquisitor Standard---no admits, documented assumptions only
+    \item All proofs satisfy the Inquisitor Standard---zero admits, zero custom axioms, all hard mathematical assumptions proven from first principles
 \end{itemize}
