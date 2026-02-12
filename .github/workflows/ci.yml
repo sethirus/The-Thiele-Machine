@@ -99,8 +99,10 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install iverilog
-        run: sudo apt-get update && sudo apt-get install -y iverilog
+      - name: Install Coq + OCaml + iverilog
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y coq coinor-csdp ocaml iverilog
 
       - name: Install dependencies
         run: |
@@ -108,22 +110,16 @@ jobs:
           pip install -r requirements.txt
           pip install -e . --no-deps
 
-      - name: Build Coq extraction and compile extracted runner (optional)
+      - name: Build Coq extraction and compile extracted runner
         run: |
           set -e
-          # Build extraction IR if Coq sources available
-          if [ -d coq ]; then
-            make -C coq Extraction.vo || true
-          fi
-          # Compile extracted OCaml runner if IR present and ocamlc available
-          if [ -f build/thiele_core.ml ] && command -v ocamlc >/dev/null 2>&1; then
-            ocamlc -I build -o build/extracted_vm_runner \
-              build/thiele_core.mli \
-              build/thiele_core.ml \
-              tools/extracted_vm_runner.ml
-          else
-            echo "OCaml/Coq artifacts not present or ocamlc missing - skipping extracted runner build"
-          fi
+          # Build extraction IR from Coq sources
+          make -C coq Extraction.vo
+          # Compile extracted OCaml runner
+          ocamlc -I build -o build/extracted_vm_runner \
+            build/thiele_core.mli \
+            build/thiele_core.ml \
+            tools/extracted_vm_runner.ml
 
       - name: Run pytest
         run: pytest
