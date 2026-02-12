@@ -1,5 +1,6 @@
 import json
 import random
+import shutil
 import subprocess
 import tempfile
 from pathlib import Path
@@ -15,6 +16,21 @@ HARDWARE_DIR = REPO_ROOT / "thielecpu" / "hardware"
 RTL_DIR = HARDWARE_DIR / "rtl"
 TESTBENCH_DIR = HARDWARE_DIR / "testbench"
 BUILD_DIR = REPO_ROOT / "build"
+
+_EXTRACTED_VM_RUNNER = BUILD_DIR / "extracted_vm_runner"
+_HAS_EXTRACTED_VM_RUNNER = _EXTRACTED_VM_RUNNER.exists()
+
+# Skip all tests in this module if the extracted runner or iverilog are not available
+pytestmark = [
+    pytest.mark.skipif(
+        not _HAS_EXTRACTED_VM_RUNNER,
+        reason="Extracted VM runner not built. Run: bash scripts/forge_artifact.sh"
+    ),
+    pytest.mark.skipif(
+        not shutil.which("iverilog"),
+        reason="iverilog not installed"
+    ),
+]
 
 
 def _encode_word(opcode: int, a: int = 0, b: int = 0, cost: int = 0) -> int:
