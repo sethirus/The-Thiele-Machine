@@ -13,8 +13,6 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 # Check if extraction runner is available
 _EXTRACTED_RUNNER = REPO_ROOT / "thielecpu" / "generated" / "generated_core.py"
 _HAS_EXTRACTION = _EXTRACTED_RUNNER.exists()
-_EXTRACTED_VM_RUNNER = REPO_ROOT / "build" / "extracted_vm_runner"
-_HAS_EXTRACTED_VM_RUNNER = _EXTRACTED_VM_RUNNER.exists()
 
 
 def _has_iverilog() -> bool:
@@ -27,10 +25,6 @@ pytestmark = [
     pytest.mark.skipif(
         not _HAS_EXTRACTION,
         reason="Coq extraction not built. Run: scripts/forge_artifact.sh"
-    ),
-    pytest.mark.skipif(
-        not _HAS_EXTRACTED_VM_RUNNER,
-        reason="Extracted VM runner not built. Run: scripts/forge_artifact.sh"
     ),
     pytest.mark.skipif(
         not _has_iverilog(),
