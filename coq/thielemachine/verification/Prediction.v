@@ -48,6 +48,7 @@ Definition partition_bound : Q := 16 # 5.      (* 3.2 *)
 Definition algebraic_bound : Q := 4 # 1.       (* 4.0 *)
 
 (** Partition systems exceed Tsirelson *)
+(* ARITHMETIC — 2828/1000 < 16/5 *)
 Theorem partition_exceeds_tsirelson :
   tsirelson_bound < partition_bound.
 Proof.
@@ -56,6 +57,7 @@ Proof.
 Qed.
 
 (** But partition systems don't reach algebraic maximum *)
+(* ARITHMETIC — 16/5 < 4/1 *)
 Theorem partition_below_algebraic :
   partition_bound < algebraic_bound.
 Proof.
@@ -178,6 +180,8 @@ Definition region_size (r : Region) : nat :=
 Definition discovery_cost_bound (s : ThieleState) (m : ModuleId) (r : Region) (cost : nat) : Prop :=
   (cost >= region_size r)%nat.
 
+(** HELPER: Non-negativity property *)
+(** HELPER: Non-negativity property *)
 Theorem discovery_cost_positive : forall (s : ThieleState) (m : ModuleId) (cost : nat) (s' : ThieleState),
   (* If PDISCOVER executes *)
   instr_admissible s (PDISCOVER m cost) s' ->

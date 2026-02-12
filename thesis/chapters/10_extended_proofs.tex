@@ -266,7 +266,7 @@ The Bell inequality framework is formalized across multiple files, with foundati
     Both verified with \texttt{Print Assumptions} returning ``Closed under the global context'' (zero axioms beyond Coq stdlib).
 \end{itemize}
 
-\textbf{Application-Level Proofs:}
+\textbf{Application-Level Proofs} (in \path{coq/thielemachine/coqproofs/})\textbf{:}
 \begin{itemize}
     \item \texttt{BellInequality.v}: Core CHSH definitions and classical bound
     \item \texttt{BellReceiptLocalGeneral.v}: Receipt-based locality
@@ -355,9 +355,10 @@ The kernel version of this theorem is in \texttt{coq/kernel/Subsumption.v}, and 
 
 \subsection{Oracle and Impossibility Theorems}
 
+All in \path{coq/thielemachine/coqproofs/}:
 \begin{itemize}
-    \item \texttt{Oracle.v}: Oracle machine definitions
-    \item \texttt{OracleImpossibility.v}: Limits of oracle computation
+    \item \texttt{Oracle.v}: Oracle machine definitions and $\mu$-accounting
+    \item \texttt{OracleImpossibility.v}: Demonstration of why a halting oracle cannot be constructed in Coq's type system
     \item \texttt{HyperThiele\_Halting.v}: Halting problem connections
     \item \texttt{HyperThiele\_Oracle.v}: Hypercomputation analysis
 \end{itemize}
@@ -366,9 +367,9 @@ The kernel version of this theorem is in \texttt{coq/kernel/Subsumption.v}, and 
 
 Further results cover: blind vs sighted computation, confluence, simulation relations, separation theorems, and proof-carrying computation. These theorems are not isolated; they reuse the kernel invariants and the partition logic to show that the same structural accounting principles scale to richer settings.
 
-\section{Recent Kernel Extensions}
+\section{Kernel Extensions}
 
-The kernel development has been extended with new proof files establishing fundamental properties from first principles.
+The kernel includes additional proof files establishing fundamental properties from first principles.
 
 \subsection{Finite Information Theory}
 
@@ -534,22 +535,25 @@ Therefore $\mu$ is the \textit{canonical} cost model: the unique instruction-con
 
 \section{Quantum Axioms from $\mu$-Accounting}
 
-The most recent kernel extension proves that the ``axioms'' of quantum mechanics---properties usually taken as foundational postulates---emerge from pure $\mu$-accounting. These aren't approximations or analogies. They're machine-checked derivations showing that if you enforce conservation of structural ignorance, quantum mechanics \textit{falls out}.
+The kernel extension on quantum axioms proves that the ``axioms'' of quantum mechanics---properties usually taken as foundational postulates---emerge from pure $\mu$-accounting. These aren't approximations or analogies. They're machine-checked derivations showing that if you enforce conservation of structural ignorance, quantum mechanics \textit{falls out}.
 
 \subsection{Proof Architecture Overview}
 
-The quantum axiom proofs live in five files totaling 2,393 lines of Coq with zero \texttt{Admitted} statements:
+The quantum axiom proofs live in eight files totaling 3,961 lines of Coq with zero \texttt{Admitted} statements:
 
 \begin{center}
 \begin{tabular}{lrrl}
 \toprule
-\textbf{File} & \textbf{Lines} & \textbf{Theorems} & \textbf{Primary Result} \\
+\textbf{File} & \textbf{Lines} & \textbf{Defs/Thms} & \textbf{Primary Result} \\
 \midrule
-\texttt{NoCloning.v} & 936 & 7 & No-cloning from conservation \\
-\texttt{Unitarity.v} & 570 & 6 & CPTP from irreversibility \\
-\texttt{BornRule.v} & 311 & 10 & Born rule from linearity \\
-\texttt{Purification.v} & 275 & 7 & Purification principle \\
-\texttt{TsirelsonGeneral.v} & 301 & 15 & Tsirelson bound from algebra \\
+\texttt{NoCloning.v} & 936 & 20 & No-cloning from conservation \\
+\texttt{NoCloningFromMuMonotonicity.v} & 260 & 11 & Machine-native no-cloning (\texttt{lia}) \\
+\texttt{Unitarity.v} & 583 & 25 & CPTP from irreversibility \\
+\texttt{BornRule.v} & 321 & 20 & Born rule from linearity \\
+\texttt{BornRuleFromSymmetry.v} & 939 & 33 & Born rule from tensor consistency \\
+\texttt{Purification.v} & 280 & 11 & Purification principle \\
+\texttt{TsirelsonGeneral.v} & 315 & 19 & Tsirelson bound from algebra \\
+\texttt{TsirelsonFromAlgebra.v} & 327 & 13 & Self-contained Tsirelson with witness \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -572,6 +576,9 @@ Theorem no_cloning_from_conservation :
 \textbf{What this proves:} If you want a ``cloner'' function that takes any quantum state $|\psi\rangle$ and produces two independent copies---both equal to the original, both at zero $\mu$-cost---then you're asking for the impossible. The theorem derives \texttt{False}, meaning such a cloner cannot exist.
 
 \textbf{Why it works:} Cloning requires creating new distinguishability (two systems that respond identically to all measurements). Creating distinguishability \textit{is} structural information. The $\mu$-ledger tracks this. Zero-cost cloning would violate conservation.
+
+\paragraph{Machine-native proof (\texttt{NoCloningFromMuMonotonicity.v}).}
+A second, self-contained no-cloning proof works entirely in natural-number arithmetic, avoiding any real-analysis imports. The key theorem \texttt{no\_cloning\_from\_mu\_monotonicity} shows that perfect cloning would require at least $\mu = n$ additional bits for an $n$-bit state, contradicting the zero-cost hypothesis. All proof obligations close with \texttt{lia} (linear integer arithmetic), making the argument fully decidable.
 
 The file also proves:
 \begin{itemize}
@@ -619,6 +626,9 @@ Theorem born_rule_from_accounting :
 \textbf{What this proves:} If your probability rule (1) gives normalized probabilities and (2) is linear in the density matrix, then it \textit{must} be the Born rule. There's no freedom here---linearity plus normalization pins down $P = |\langle\phi|\psi\rangle|^2$ uniquely.
 
 \textbf{Why it works:} The Bloch sphere representation makes this transparent. A linear functional on Bloch vectors that sums to 1 over orthogonal bases has exactly one form: $P = \frac{1}{2}(1 + \vec{r} \cdot \hat{n})$ where $\vec{r}$ is the Bloch vector and $\hat{n}$ is the measurement direction. This \textit{is} the Born rule.
+
+\paragraph{Non-circular derivation (\texttt{BornRuleFromSymmetry.v}).}
+The original \texttt{BornRule.v} takes linearity as a premise. A separate 939-line development derives the Born rule from \textbf{tensor product consistency} alone, eliminating the circularity concern. The key theorem \texttt{born\_rule\_from\_tensor\_consistency} establishes that any probability assignment compatible with tensor products on a composite Hilbert space must be the squared-amplitude rule. The proof proceeds by: (1)~defining separable states and their tensor structure, (2)~proving that consistency under partial trace forces multiplicativity of probabilities across subsystems, (3)~showing that multiplicativity plus normalization uniquely determines the Born rule. All obligations discharge via \texttt{lra}/\texttt{nra}/\texttt{field}; the file contains zero \texttt{Admitted} statements.
 
 Additional theorems:
 \begin{itemize}
@@ -672,9 +682,12 @@ Additional theorems:
     \item \texttt{supra\_tsirelson\_requires\_mu}: Exceeding $2\sqrt{2}$ requires $\mu$ expenditure
 \end{itemize}
 
+\paragraph{Self-contained algebraic proof (\texttt{TsirelsonFromAlgebra.v}).}
+A standalone 327-line development derives the Tsirelson bound from first principles without importing \texttt{TsirelsonGeneral.v}. The proof defines a \texttt{CHSHSetup} with four observables satisfying $A^2 = B^2 = I$, constructs the CHSH operator $S = AB + AB' + A'B - A'B'$, and proves $S^2 \leq 8I$ by direct algebraic expansion. The square root gives $S \leq 2\sqrt{2}$. The file also includes an achievability witness (\texttt{tsirelson\_achieved}) and a rational bound $S \leq 5657/2000$ (\texttt{tsirelson\_rational\_bound}).
+
 \subsection{What This Means}
 
-These proofs establish that quantum mechanics isn't a collection of arbitrary postulates. The rules emerge from a single principle: \textbf{structural information is conserved}. You can't clone because cloning creates information. Evolution is unitary because non-unitary evolution destroys information (or creates entanglement, which costs $\mu$). The Born rule is forced by linearity. Tsirelson bounds correlations because stronger correlations would require revealing partition structure.
+These proofs establish that quantum mechanics isn't a collection of arbitrary postulates. The rules emerge from a single principle: \textbf{structural information is conserved}. You can't clone because cloning creates information. Evolution is unitary because non-unitary evolution destroys information (or creates entanglement, which costs $\mu$). The Born rule is forced by tensor product consistency (\texttt{BornRuleFromSymmetry.v})---any probability assignment compatible with composite systems must be the squared-amplitude rule. Tsirelson bounds correlations because stronger correlations would require revealing partition structure.
 
 This is the kernel-level foundation for all the quantum physics in this thesis. When we claim the Thiele Machine can achieve supra-quantum correlations, we mean: it can pay the $\mu$ cost that the proofs show is required.
 
@@ -1763,7 +1776,7 @@ These predictions are falsifiable: if benchmarks show costs outside these bounds
 The extended proof architecture establishes:
 \begin{enumerate}
     \item \textbf{Zero-admit corpus}: A fully discharged proof tree with no admits or unproven axioms beyond foundational logic.
-    \item \textbf{Quantum axioms from $\mu$-accounting}: No-cloning, unitarity, Born rule, purification, and Tsirelson bound all derived from conservation of structural information (2,393 lines, 45 theorems).
+    \item \textbf{Quantum axioms from $\mu$-accounting}: No-cloning, unitarity, Born rule, purification, and Tsirelson bound all derived from conservation of structural information (3,961 lines, 152 definitions/theorems across eight files). Three additional proofs close circularity gaps: \texttt{BornRuleFromSymmetry.v} derives the Born rule from tensor consistency alone, \texttt{NoCloningFromMuMonotonicity.v} proves no-cloning in pure integer arithmetic, and \texttt{TsirelsonFromAlgebra.v} gives a self-contained algebraic Tsirelson derivation with achievability witness.
     \item \textbf{Quantum bounds}: Literal CHSH $\le$ 5657/2000.
     \item \textbf{TOE limits}: Physics requires extra structure beyond compositionality.
     \item \textbf{Impossibility theorems}: Entropy, probability, and unique weights are not forced by the kernel alone.

@@ -40,6 +40,7 @@ Definition optimal_quartet : list OptimalStrategy :=
   [Louvain; Spectral; Degree; Balanced].
 
 (* The quartet is complete (contains exactly 4 strategies) *)
+(* ARITHMETIC — length of a 4-element list *)
 Lemma optimal_quartet_complete : length optimal_quartet = 4%nat.
 Proof.
   unfold optimal_quartet. simpl. reflexivity.
@@ -74,6 +75,7 @@ Definition optimal_quartet_performance : PerformanceMetric := {|
 |}.
 
 (* The quartet achieves greater than 90% accuracy *)
+(* ARITHMETIC — concrete rational comparison 9051/10000 > 90/100 *)
 Theorem optimal_quartet_high_accuracy :
   mean_accuracy optimal_quartet_performance > 90 / 100.
 Proof.

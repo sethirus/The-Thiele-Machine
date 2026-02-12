@@ -1,6 +1,6 @@
 # Thiele CPU — Synthesis Proof Report
 
-**Date:** $(date)  
+**Date:** 2026-02-11  
 **File:** `thielecpu/hardware/rtl/thiele_cpu_unified.v`  
 **Tool:** Yosys 0.33 (git sha1 2584903a060)  
 **Platform:** Ubuntu 24.04.2 LTS (dev container)

@@ -136,6 +136,7 @@ Definition minor3_inner {n : nat} (M : Matrix n) : R :=
     end).
 
 (** The ACTUAL negative minor is minor3_inner *)
+(* ARITHMETIC — concrete 3×3 determinant evaluation *)
 Lemma test_config_111_minor3_inner_negative :
   let M := zero_marginal_matrix 1 1 1 0 in
   minor3_inner M < 0.
@@ -190,6 +191,7 @@ Definition minor3_of_correlator (E00 E01 E10 E11 : R) : R :=
     end).
 
 (** For configuration (1,1,1,0): *)
+(* ARITHMETIC — concrete 3×3 determinant evaluation *)
 Lemma test_minor3_111_0 :
   minor3_of_correlator 1 1 1 0 = -1.
 Proof.

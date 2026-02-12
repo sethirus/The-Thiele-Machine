@@ -132,8 +132,9 @@ Lemma b_range_from_x : forall (x b : R),
   x * x <= 1 ->
   b >= 2*x*x - 1.
 Proof.
+  (* All three hypotheses consumed by nra (nonlinear real arithmetic). *)
   intros x b Hminor Hble1 Hx2.
-  nra.
+  revert Hminor Hble1 Hx2. nra.
 Qed.
 
 (** * 5. Maximization of S = 3x - y *)

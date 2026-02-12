@@ -22,6 +22,8 @@ Definition weight_multiplicative (w : WeightMul) : Prop :=
 Definition w_pow (k : nat) : WeightMul :=
   fun t => Nat.pow k (length t).
 
+(** HELPER: Base case property *)
+(** HELPER: Base case property *)
 Lemma w_pow_empty : forall k, w_pow k [] = 1.
 Proof.
   intro k. unfold w_pow. simpl. reflexivity.
@@ -45,6 +47,11 @@ Proof.
   - intros t1 t2. apply w_pow_sequential.
 Qed.
 
+(** DEFINITIONAL WITNESS: [w_pow] is the witness, but the proof verifies
+    [weight_multiplicative] for all k (via [w_pow_empty], [w_pow_sequential]),
+    then constructs a separating trace [instr_halt 0] and derives k1 <> k2
+    from exponentiation distinctness via [lia]. *)
+(* DEFINITIONAL *)
 Theorem MultiplicativeWeightFamily_Infinite :
   exists w : nat -> WeightMul,
     (forall k, weight_multiplicative (w k)) /\

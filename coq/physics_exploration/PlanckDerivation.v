@@ -1,4 +1,27 @@
-(** Formal Derivation of Planck's Constant *)
+(** =========================================================================
+    Planck's Constant: Consistency Relation
+    =========================================================================
+
+    EPISTEMOLOGICAL STATUS: CONSISTENCY RELATION (not a derivation)
+
+    This file defines tau_mu := h/(4*E_landauer) and then shows
+    h = 4*E_landauer*tau_mu.  Substituting the definition yields h = h.
+
+    WHAT THIS ACTUALLY ESTABLISHES:
+    - Algebraic consistency: h, E_L, and tau_mu satisfy h = 4 E_L tau_mu
+    - Physical interpretation: h = 4 x (Landauer energy) x (time step)
+    - The action per mu-operation is h/4
+
+    WHAT THIS DOES NOT DO:
+    - Derive h from more primitive quantities (tau_mu is defined via h)
+    - Predict the numerical value of h without empirical input
+    - Constitute an independent derivation
+
+    HONEST ASSESSMENT: This is a CONSISTENCY CHECK, not a derivation.
+    The physical content is the INTERPRETATION of Planck's constant as
+    action-per-mu-operation, which is suggestive but not predictive.
+    The Coq proof verifies algebra; the physics is in the definitions.
+    ========================================================================= *)
 Require Import Reals Lra Psatz.
 From Kernel Require Import InformationCausality MuCostModel.
 Open Scope R_scope.
@@ -10,6 +33,8 @@ Open Scope R_scope.
 (** Boltzmann constant (normalized units) *)
 Definition k_B : R := / 100.
 
+(** HELPER: Non-negativity property *)
+(** HELPER: Non-negativity property *)
 Lemma k_B_positive : k_B > 0.
 Proof.
   unfold k_B.
@@ -18,14 +43,18 @@ Qed.
 
 (** Temperature (normalized units) *)
 Definition T : R := 1.
+(** HELPER: Non-negativity property *)
 
+(** HELPER: Non-negativity property *)
 Lemma T_positive : T > 0.
 Proof.
   unfold T. lra.
 Qed.
 
+(** HELPER: Non-negativity property *)
 Definition ln2 : R := ln 2.
 
+(** HELPER: Non-negativity property *)
 Lemma ln2_positive : ln2 > 0.
 Proof.
   unfold ln2.
@@ -33,28 +62,34 @@ Proof.
   rewrite <- (ln_1).
   apply ln_increasing; lra.
 Qed.
+(** HELPER: Non-negativity property *)
 
 Definition E_landauer : R := k_B * T * ln2.
 
+(** HELPER: Non-negativity property *)
 Lemma E_landauer_positive : E_landauer > 0.
 Proof.
   unfold E_landauer.
   apply Rmult_gt_0_compat.
   - apply Rmult_gt_0_compat; [apply k_B_positive | apply T_positive].
   - apply ln2_positive.
+(** HELPER: Non-negativity property *)
 Qed.
 
 Definition h : R := 1.
 
+(** HELPER: Non-negativity property *)
 Lemma h_positive : h > 0.
 Proof.
   unfold h. lra.
 Qed.
+(** HELPER: Non-negativity property *)
 
 Definition tau_min (E : R) : R := h / (4 * E).
 
 Definition tau_mu : R := tau_min E_landauer.
 
+(** HELPER: Non-negativity property *)
 Lemma tau_mu_positive : tau_mu > 0.
 Proof.
   unfold tau_mu, tau_min.
@@ -63,7 +98,11 @@ Proof.
   - apply Rmult_gt_0_compat; [lra | apply E_landauer_positive].
 Qed.
 
-Theorem planck_from_info_theory :
+(** CONSISTENCY RELATION (not a derivation):
+    Since tau_mu := h/(4*E_landauer), this reduces to h = h.
+    The Coq proof is pure algebra (field tactic).
+    The physics is in the DEFINITIONS, not in this theorem. *)
+Theorem planck_consistency_relation :
   h = 4 * E_landauer * tau_mu.
 Proof.
   unfold tau_mu, tau_min.

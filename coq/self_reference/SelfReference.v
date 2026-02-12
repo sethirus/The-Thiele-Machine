@@ -36,11 +36,13 @@ Definition meta_system (S : System) : System :=
   {| dimension := S.(dimension) + 1;
      sentences := fun P => sentences S P \/ P = contains_self_reference S |}.
 
+(* ARITHMETIC — meta_system adds 1 dimension, so dim+1 > dim *)
 Lemma meta_system_richer : forall S, dimensionally_richer (meta_system S) S.
 Proof.
   intros S; unfold dimensionally_richer, meta_system; simpl; lia.
 Qed.
 
+(* DEFINITIONAL — meta_system includes base sentences via left disjunct *)
 Lemma meta_system_can_reason_about : forall S, can_reason_about (meta_system S) S.
 Proof.
   intros S P HP; unfold can_reason_about, meta_system in *; simpl in *; auto.

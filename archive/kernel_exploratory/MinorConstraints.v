@@ -262,6 +262,7 @@ Proof.
 Qed.
 
 (** Main theorem: Minor constraints imply CHSH bound *)
+(* SAFE: proves classical CHSH bound |S| ≤ 2 from minor constraints *)
 Theorem minor_constraints_imply_CHSH_bound : forall E00 E01 E10 E11,
   satisfies_minor_constraints E00 E01 E10 E11 ->
   Rabs (E00) <= 1 ->

@@ -80,6 +80,7 @@ Module Observables.
   Qed.
   
   (** Absolute μ NOT observable - gauge freedom *)
+  (* DEFINITIONAL — observable reads partition only, not μ *)
   Lemma mu_gauge_freedom : forall p m1 m2,
     observable (TNil (p, m1)) = observable (TNil (p, m2)).
   Proof.

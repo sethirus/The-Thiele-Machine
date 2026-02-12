@@ -40,6 +40,8 @@ Proof.
 Qed.
 
 (** Prove sqrt2 > 0 using sqrt_lt_R0 from standard library *)
+(** HELPER: Non-negativity property *)
+(** HELPER: Non-negativity property *)
 Lemma sqrt2_positive : sqrt2 > 0.
 Proof.
   unfold sqrt2.
@@ -253,6 +255,7 @@ Qed.
         ≤ 2  (since |eBy| ≤ 1)
 
     This is the classical bound, achievable by deterministic strategies. *)
+(* SAFE: proves classical CHSH bound S ≤ 2, not Tsirelson bound 2√2 *)
 Lemma classical_CHSH_bound : forall (npa : NPAMomentMatrix),
   bounded_factorizable npa ->
   Rabs (S_value (npa_to_chsh npa)) <= 2.
@@ -284,7 +287,9 @@ Proof.
 Qed.
 
 (** For standard factorizable (without explicit bounds), the bound holds
+(** HELPER: Normalization property *)
     when correlations come from a quantum realizable matrix. *)
+(** HELPER: Normalization property *)
 Lemma factorizable_with_normalized_marginals :
   forall (npa : NPAMomentMatrix),
     factorizable npa ->

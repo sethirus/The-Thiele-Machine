@@ -4,7 +4,7 @@
 set -euo pipefail
 
 echo "Running INQUISITOR..."
-python3 scripts/inquisitor.py > INQUISITOR_REPORT.md 2>&1
+python3 scripts/inquisitor.py --report INQUISITOR_REPORT.md
 
 # Extract HIGH count
 HIGH_COUNT=$(grep "^- HIGH:" INQUISITOR_REPORT.md | awk '{print $3}')

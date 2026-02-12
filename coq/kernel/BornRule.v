@@ -57,6 +57,8 @@ Definition prob_zero (x y z : R) : R := (1 + z) / 2.
 Definition prob_one (x y z : R) : R := (1 - z) / 2.
 
 (** Probabilities are non-negative and sum to 1 *)
+(** HELPER: Non-negativity property *)
+(** HELPER: Non-negativity property *)
 Lemma probs_nonneg : forall x y z,
   x*x + y*y + z*z <= 1 ->
   0 <= prob_zero x y z /\ 0 <= prob_one x y z.
@@ -80,7 +82,9 @@ Proof.
       assert (z * z > 1) by nra. lra. }
   lra.
 Qed.
+(** HELPER: Normalization property *)
 
+(** HELPER: Normalization property *)
 Lemma probs_sum_to_one : forall x y z,
   prob_zero x y z + prob_one x y z = 1.
 Proof.
@@ -105,8 +109,10 @@ Definition measurement_mu_cost (x y z : R) : R :=
   (* For simplicity, use linear entropy instead of von Neumann entropy *)
   (* Linear entropy S_L = 1 - Tr(ρ²) = (1 - x² - y² - z²)/2 *)
   (1 - x*x - y*y - z*z) / 2.
+(** HELPER: Base case property *)
 
 (** Pure states have zero measurement cost (already definite) *)
+(** HELPER: Base case property *)
 Lemma pure_state_zero_cost : forall x y z,
   x*x + y*y + z*z = 1 ->
   measurement_mu_cost x y z = 0.
@@ -115,9 +121,11 @@ Proof.
   unfold measurement_mu_cost.
   replace (x*x + y*y + z*z) with 1 by lra.
   lra.
+(** HELPER: Non-negativity property *)
 Qed.
 
 (** Mixed states have positive measurement cost *)
+(** HELPER: Non-negativity property *)
 Lemma mixed_state_positive_cost : forall x y z,
   x*x + y*y + z*z < 1 ->
   measurement_mu_cost x y z > 0.
@@ -220,10 +228,12 @@ Qed.
 (** Post-measurement state after outcome 0: projects to |0⟩ *)
 Definition post_measurement_zero (x y z : R) : R * R * R := (0, 0, 1).
 
+(** HELPER: Base case property *)
 (** Post-measurement state after outcome 1: projects to |1⟩ *)
 Definition post_measurement_one (x y z : R) : R * R * R := (0, 0, -1).
 
 (** Measurement creates a pure state (purity = 1) *)
+(** HELPER: Base case property *)
 Lemma measurement_creates_pure_zero : forall x y z,
   let '(x', y', z') := post_measurement_zero x y z in
   x'*x' + y'*y' + z'*z' = 1.

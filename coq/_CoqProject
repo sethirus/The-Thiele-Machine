@@ -73,6 +73,7 @@ kernel/NoFreeInsight.v
 kernel/NoGo.v
 kernel/NoGoSensitivity.v
 kernel/ObserverDerivation.v
+kernel/OracleImpossibility.v
 kernel/PDISCOVERIntegration.v
 kernel/PartitionSeparation.v
 kernel/Persistence.v
@@ -116,6 +117,8 @@ modular_proofs/Minsky.v
 modular_proofs/Simulation.v
 modular_proofs/TM_Basics.v
 modular_proofs/Thiele_Basics.v
+modular_proofs/ThieleInstance.v
+modular_proofs/TM_to_Minsky.v
 nofi/Instance_Kernel.v
 nofi/MuChaitinTheory_Interface.v
 nofi/MuChaitinTheory_Theorem.v
@@ -255,10 +258,14 @@ kernel/Purification.v
 kernel/NoCloning.v
 kernel/Unitarity.v
 kernel/BornRule.v
+kernel/BornRuleFromSymmetry.v
+kernel/NoCloningFromMuMonotonicity.v
+kernel/TsirelsonFromAlgebra.v
 
 kernel/AssumptionBundle.v
 kernel/Composition.v
 kernel/HardAssumptions.v
+kernel/HardMathFactsProven.v
 kernel/MinimalE.v
 kernel/MinorConstraints.v
 kernel/MuComplexity.v
@@ -282,6 +289,7 @@ quantum_derivation/ProjectionFromPartitions.v
 quantum_derivation/SchrodingerFromPartitions.v
 quantum_derivation/TensorNecessity.v
 quantum_derivation/TwoDimensionalNecessity.v
+quantum_derivation/ComplexNecessity.v
 shor_primitives/PolylogConjecture.v
 tests/TestNecessity.v
 theory/ArchTheorem.v
@@ -301,3 +309,8 @@ thermodynamic/LandauerDerived.v
 thermodynamic/ThermodynamicBridge.v
 tests/verify_zero_admits.v
 physics_exploration/PlanckEmergenceClean.v
+kernel/CausalSetAxioms.v
+kernel/POVMBridge.v
+kernel/NPMuCostBound.v
+kernel/ArrowOfTimeSynthesis.v
+kernel/ConstantDerivationStrength.v

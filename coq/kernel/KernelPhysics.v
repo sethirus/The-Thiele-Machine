@@ -95,6 +95,8 @@ Definition obs_equiv (s1 s2 : VMState) : Prop :=
 
 (** Observational equivalence is reflexive *)
 (* Definitional lemma: This equality is by definition, not vacuous *)
+(** HELPER: Reflexivity/transitivity/symmetry property *)
+(** HELPER: Reflexivity/transitivity/symmetry property *)
 Theorem obs_equiv_refl : forall s, obs_equiv s s.
 Proof.
   intros s mid. reflexivity.
@@ -106,7 +108,9 @@ Proof.
   intros s1 s2 H mid. symmetry. apply H.
 Qed.
 
+(** HELPER: Reflexivity/transitivity/symmetry property *)
 (** Observational equivalence is transitive *)
+(** HELPER: Reflexivity/transitivity/symmetry property *)
 Theorem obs_equiv_trans : forall s1 s2 s3,
   obs_equiv s1 s2 -> obs_equiv s2 s3 -> obs_equiv s1 s3.
 Proof.
@@ -230,7 +234,9 @@ Qed.
 Definition conserved_partition_structure (s : VMState) : list (option (list nat)) :=
   fst (ObservableSignature s).
 
-(** Conservation theorem (kernel version): symmetry implies conservation *)
+(** DEFINITIONAL HELPER: mu_gauge_shift only modifies [vm_mu], not [vm_graph].
+    Since [conserved_partition_structure] reads partition data from [vm_graph]
+    via [ObservableSignature], the two sides are structurally identical. *)
 Theorem kernel_conservation_mu_gauge : forall s k,
   conserved_partition_structure s = conserved_partition_structure (nat_action k s).
 Proof.

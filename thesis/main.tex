@@ -236,7 +236,7 @@
 
 This thesis presents the \textbf{Thiele Machine}, a formal model of computation that treats structural information as a costly resource. It was built by asking questions that couldn't be answered and pulling on threads until they led somewhere real.
 
-I am not a computer scientist. I have no formal training in mathematics, physics, or programming. I'm a car salesman who taught himself to code with modern tools (including AI assistance) and stubborn curiosity. Everything here---271 Coq proof files, machine-checked theorems, a working VM, synthesizable hardware---was built through persistence, not credentials. I mention this because it matters: the proofs compile or they don't. They don't care who wrote them.
+I am not a computer scientist. I have no formal training in mathematics, physics, or programming. I'm a car salesman who taught himself to code with modern tools (including AI assistance) and stubborn curiosity. Everything here---285 Coq proof files, machine-checked theorems, a working VM, synthesizable hardware---was built through persistence, not credentials. I mention this because it matters: the proofs compile or they don't. They don't care who wrote them.
 
 The core idea: classical computers are ``blind'' to structure. When you give a computer a sorted list, it doesn't \textit{know} it's sorted---it has to check. This blindness costs time. The Thiele Machine makes that cost explicit through the \textbf{$\mu$-bit}, an atomic unit of structural information cost.
 
@@ -246,14 +246,17 @@ The core idea: classical computers are ``blind'' to structure. When you give a c
     \item \textbf{$\mu$-Conservation}: The ledger grows monotonically and bounds irreversible bit operations.
     \item \textbf{Observational No-Signaling}: Operations on one module cannot affect observables of unrelated modules.
     \item \textbf{Initiality}: $\mu$ is \textit{the} unique instruction-consistent cost measure, not just one of many.
+    \item \textbf{Oracle Impossibility}: No finite oracle can resolve all $\mu$-bounded halting questions---proven in \path{coq/kernel/OracleImpossibility.v}.
+    \item \textbf{Turing Machine Reduction}: A direct Minsky-machine embedding proves Thiele subsumes Turing---\path{coq/modular_proofs/TM_to_Minsky.v}.
 \end{itemize}
 
 \textbf{What is built}:
 \begin{itemize}
-    \item Coq formal kernel (271 files, ~72,500 lines, zero admits, zero custom axioms)
+    \item Coq formal kernel (285 files, ${\sim}$77,000 lines, zero admits, zero custom axioms)
     \item Python reference VM with cryptographic receipts
-    \item Synthesizable Verilog RTL (FPGA-ready)
-    \item 575 automated tests across 72 test files enforcing 3-layer isomorphism
+    \item Synthesizable Verilog RTL (FPGA-ready, 14 files, co-simulation tested)
+    \item 828 automated tests across 82 test files enforcing 3-layer isomorphism
+    \item Six falsifiable QM-divergent predictions (QD1--QD6) with numerical values distinguishable from standard quantum mechanics
 \end{itemize}
 
 If you can find an error, find it. Everything is open source, documented, and testable. The proofs stand or fall on their own merits.

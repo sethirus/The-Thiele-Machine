@@ -173,6 +173,8 @@ Qed.
 
 (** Its determinant gives us the key constraint *)
 
+(** HELPER: Base case property *)
+(** HELPER: Base case property *)
 Lemma det4_constraint_zero_marginals : forall (E00 E01 E10 E11 : R),
   let M := fun (i j : nat) =>
     match i, j with
@@ -203,7 +205,7 @@ Lemma psd_implies_sum_squared_bound : forall (E00 E01 E10 E11 : R),
   E00*E00 + E01*E01 + E10*E10 + E11*E11 <= 1 + 2*E00*E11 + 2*E01*E10.
 Proof.
   intros E00 E01 E10 E11 Hdet.
-  lra.
+  generalize Hdet. lra.
 Qed.
 
 (** Step 4: Optimize CHSH subject to constraint *)

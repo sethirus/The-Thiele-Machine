@@ -40,10 +40,10 @@ If you are new to theoretical computer science, here is what you need to know:
 
 This is not a paper with informal arguments. Every major claim is:
 \begin{enumerate}
-    \item \textbf{Formally proven}: Machine-checked proofs in the Coq proof assistant (2,154 theorems and lemmas across 272 files, totaling 73,016 lines)
-    \item \textbf{Implemented}: Working code in Python (20,786 lines) and synthesizable Verilog RTL (unified design, 3,871 lines across 11 files)
-    \item \textbf{Tested}: Automated tests verify that theory and implementation match
-    \item \textbf{Falsifiable}: The thesis specifies exactly what would disprove each claim
+    \item \textbf{Formally proven}: Machine-checked proofs in the Coq proof assistant (2,316 theorems and lemmas across 285 files, totaling {$\sim$}77,000 lines)
+    \item \textbf{Implemented}: Working code in Python (20,786 lines) and synthesizable Verilog RTL (unified design, 4,346 hand-written lines across 14 files; 265,695 total including synthesis output)
+    \item \textbf{Tested}: 828 automated tests across 82 test files verify that theory and implementation match
+    \item \textbf{Falsifiable}: The thesis specifies exactly what would disprove each claim, including six QM-divergent predictions (QD1--QD6) with numerical values distinguishable from standard quantum mechanics
 \end{enumerate}
 
 Every claim has a concrete falsification condition. If you find a counterexample, the Coq proof won't compile. The Python VM emits signed receipts. The RTL testbench produces JSON snapshots. All three are compared automatically. This isn't a paper about ideas—it's a reproducible experiment. The claims are bound to executable evidence.
@@ -292,7 +292,11 @@ Every claim is falsifiable. Find a counterexample. Break the proofs. I dare you.
     
     \item \textbf{Physical Constant Exploration:} Formal investigation of deriving constants from information theory: Planck constant relationship proven ($h = 4 k_B T \ln 2 \cdot \tau_\mu$), speed of light structure established ($c = d_\mu / \tau_\mu$), gravitational constant and particle masses identified as free parameters. (Chapter 12)
     
-    \item \textbf{Empirical Artifacts:} Reproducible demos including certified randomness and polynomial-time structured Tseitin solutions.
+    \item \textbf{Oracle Impossibility and Turing Subsumption:} Mechanized proof that no finite oracle resolves all $\mu$-bounded halting questions (\path{coq/kernel/OracleImpossibility.v}), plus a direct Minsky-machine embedding proving Thiele subsumes Turing (\path{coq/modular_proofs/TM_to_Minsky.v}).
+    
+    \item \textbf{QM-Divergent Falsifiable Predictions:} Six concrete predictions (QD1--QD6) where $\mu$-cost accounting produces measurable deviations from standard quantum mechanics---including a modified Tsirelson bound, Planck-time muon lifetime ratios, and temperature-dependent CHSH suppression. (Chapter 11)
+    
+    \item \textbf{Empirical Artifacts:} Reproducible demos including certified randomness, polynomial-time structured Tseitin solutions, Verilog co-simulation test suite, and cross-layer comprehensive verification.
 \end{enumerate}
 
 \section{Thesis Outline}

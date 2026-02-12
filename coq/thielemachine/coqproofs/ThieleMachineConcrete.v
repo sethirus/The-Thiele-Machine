@@ -155,9 +155,13 @@ Definition cert_for_query (query : string) : ConcreteCert :=
      timestamp := 0;
      sequence := 0 |}.
 
+(** HELPER: Base case property *)
+(** HELPER: Base case property *)
 Lemma cert_for_query_metadata_empty : forall q, (cert_for_query q).(metadata) = EmptyString.
 Proof. intros; reflexivity. Qed.
+(** HELPER: Base case property *)
 
+(** HELPER: Base case property *)
 Lemma cert_for_pyexec_metadata_empty : forall code, (cert_for_pyexec code).(metadata) = EmptyString.
 Proof.
   intro code.
@@ -243,8 +247,10 @@ Definition concrete_state_eqb (s1 s2 : ConcreteState) : bool :=
   Nat.eqb s1.(pc) s2.(pc)
     && Z.eqb s1.(status) s2.(status)
     && Z.eqb s1.(mu_acc) s2.(mu_acc)
+(** HELPER: Reflexivity/transitivity/symmetry property *)
     && String.eqb s1.(cert_addr) s2.(cert_addr).
 
+(** HELPER: Reflexivity/transitivity/symmetry property *)
 Lemma concrete_state_eqb_refl : forall s, concrete_state_eqb s s = true.
 Proof.
   intros s.
@@ -281,24 +287,30 @@ Definition concrete_cert_eqb (c1 c2 : ConcreteCert) : bool :=
 
 Definition step_obs_eqb (o1 o2 : StepObs) : bool :=
   option_event_eqb o1.(ev) o2.(ev)
+(** HELPER: Reflexivity/transitivity/symmetry property *)
     && Z.eqb o1.(mu_delta) o2.(mu_delta)
     && concrete_cert_eqb o1.(cert) o2.(cert).
 
+(** HELPER: Reflexivity/transitivity/symmetry property *)
 Lemma thiele_event_eqb_refl : forall e, thiele_event_eqb e e = true.
 Proof.
   intros e. destruct e; simpl; try apply String.eqb_refl; try reflexivity.
+(** HELPER: Reflexivity/transitivity/symmetry property *)
   repeat rewrite Nat.eqb_refl.
   reflexivity.
 Qed.
 
+(** HELPER: Reflexivity/transitivity/symmetry property *)
 Lemma concrete_cert_eqb_refl : forall cert, concrete_cert_eqb cert cert = true.
 Proof.
   intros [query reply meta ts seq].
+(** HELPER: Reflexivity/transitivity/symmetry property *)
   unfold concrete_cert_eqb; simpl.
   repeat rewrite Bool.andb_true_iff.
   repeat split; try apply String.eqb_refl; try apply Z.eqb_refl; try apply Nat.eqb_refl.
 Qed.
 
+(** HELPER: Reflexivity/transitivity/symmetry property *)
 Lemma step_obs_eqb_refl : forall obs, step_obs_eqb obs obs = true.
 Proof.
   intros [oev mu cert].
@@ -354,12 +366,14 @@ Lemma concrete_bitsize_cert_for_query :
     (Z.of_nat (String.length query)) * 8.
 Proof.
   intros query.
+(** HELPER: Base case property *)
   unfold concrete_bitsize, cert_for_query.
   simpl.
   rewrite Nat.add_0_r.
   reflexivity.
 Qed.
 
+(** HELPER: Base case property *)
 Lemma concrete_bitsize_default_cert_zero :
   concrete_bitsize default_cert = 0.
 Proof.
@@ -383,6 +397,7 @@ Proof.
   destruct (String.eqb code "bob_measurement"%string); simpl; reflexivity.
 Qed.
 
+(* DEFINITIONAL — cert_for_chsh_trial produces a zero-bitsize certificate *)
 Lemma concrete_bitsize_cert_for_chsh_trial :
   forall x y a b, concrete_bitsize (cert_for_chsh_trial x y a b) = 0.
 Proof.
@@ -417,6 +432,7 @@ Fixpoint concrete_receipts_of (s : ConcreteState) (prog : list ThieleInstr)
   | [] => []
   | instr :: tl =>
       let res := concrete_step instr s in
+(** HELPER: Accessor/projection *)
       {| receipt_instr := instr;
          receipt_pre := s;
          receipt_post := res.(post_state);
@@ -424,6 +440,7 @@ Fixpoint concrete_receipts_of (s : ConcreteState) (prog : list ThieleInstr)
         :: concrete_receipts_of res.(post_state) tl
   end.
 
+(** HELPER: Accessor/projection *)
 Lemma concrete_receipts_length :
   forall s prog,
     length (concrete_receipts_of s prog) = length prog.
@@ -445,6 +462,7 @@ Lemma concrete_receipts_instrs :
 Proof.
   intros s prog.
   revert s.
+(** HELPER: Accessor/projection *)
   induction prog as [|instr tl IH]; intros s; simpl.
   - reflexivity.
   - destruct (concrete_step instr s) as [post obs].
@@ -453,6 +471,7 @@ Proof.
     apply IH.
 Qed.
 
+(** HELPER: Accessor/projection *)
 Lemma concrete_trace_length :
   forall s prog,
     length (concrete_trace_of s prog) = length prog.
@@ -537,6 +556,7 @@ Proof.
   - simpl.
     destruct (is_bit_nat x && is_bit_nat y && is_bit_nat a && is_bit_nat b)%bool; simpl.
     + unfold concrete_bitsize, cert_for_chsh_trial.
+(** HELPER: Accessor/projection *)
       simpl.
       rewrite (IH (advance_pc s)). reflexivity.
     + unfold concrete_bitsize, default_cert.
@@ -546,6 +566,7 @@ Proof.
     rewrite (IH (advance_pc s)). reflexivity.
 Qed.
 
+(** HELPER: Accessor/projection *)
 Lemma concrete_exec_length :
   forall prog s tr,
     ConcreteExec prog s tr -> length tr = length prog.

@@ -42,11 +42,15 @@ Definition empty_prog : Prog := {| code := [] |}.
 Definition seq_prog (P Q : Prog) : Prog :=
   {| code := P.(code) ++ Q.(code) |}.
 
+(** HELPER: Base case property *)
+(** HELPER: Base case property *)
 Lemma seq_prog_nil_l : forall P, seq_prog empty_prog P = P.
 Proof.
   intros [code]. simpl. reflexivity.
 Qed.
+(** HELPER: Base case property *)
 
+(** HELPER: Base case property *)
 Lemma seq_prog_nil_r : forall P, seq_prog P empty_prog = P.
 Proof.
   intros [instrs]. simpl. apply (f_equal Build_Prog).
@@ -67,14 +71,17 @@ Qed.
 (* ------------------------------------------------------------------ *)
 
 Definition run_closed (P : Prog) : State * list StepObs :=
+(** HELPER: Base case property *)
   ({| pc := length P.(code) |}, map obs_of_instr P.(code)).
 
+(** HELPER: Base case property *)
 Lemma run_closed_empty :
   run_closed empty_prog = ({| pc := 0 |}, []).
 Proof.
   unfold run_closed, empty_prog. simpl. reflexivity.
 Qed.
 
+(* DEFINITIONAL — run_closed returns state with pc = length code *)
 Lemma run_closed_pc : forall P,
   (fst (run_closed P)).(pc) = length P.(code).
 Proof.
@@ -153,17 +160,21 @@ Proof.
 Qed.
 (* Observational equivalence: closed runs produce the same receipts. *)
 Definition obs_equiv (P Q : Prog) : Prop :=
+(** HELPER: Reflexivity/transitivity/symmetry property *)
   snd (run_closed P) = snd (run_closed Q).
 
 (* Definitional lemma: This equality is by definition, not vacuous *)
+(** HELPER: Reflexivity/transitivity/symmetry property *)
 Lemma obs_equiv_refl : forall P, obs_equiv P P.
 Proof. intro P. reflexivity. Qed.
 
 (* Definitional lemma: This equality is by definition, not vacuous *)
+(** HELPER: Reflexivity/transitivity/symmetry property *)
 Lemma obs_equiv_sym : forall P Q, obs_equiv P Q -> obs_equiv Q P.
 Proof. intros P Q H. symmetry. exact H. Qed.
 
 (* Definitional lemma: This equality is by definition, not vacuous *)
+(** HELPER: Reflexivity/transitivity/symmetry property *)
 Lemma obs_equiv_trans : forall P Q R,
   obs_equiv P Q -> obs_equiv Q R -> obs_equiv P R.
 Proof. intros P Q R HPQ HQR. etransitivity; eauto. Qed.

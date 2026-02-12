@@ -15,6 +15,8 @@ Check skipn_length.
 Check app_length.
 
 (* Helper lemma: crossover result has same length as second parent when cut <= both lengths *)
+(** HELPER: Accessor/projection *)
+(** HELPER: Accessor/projection *)
 Lemma crossover_length : forall {A : Type} (l1 l2 : list A) (n : nat),
   n <= length l1 ->
   n <= length l2 ->
@@ -161,7 +163,9 @@ Proof.
   split; assumption.
 Qed.
 
+(** HELPER: Accessor/projection *)
 (* Helper lemma: mutation preserves length *)
+(** HELPER: Accessor/projection *)
 Lemma mutate_at_length : forall (l : Strategy) (pos : nat) (x : Primitive),
   length (mutate_at l pos x) = length l.
 Proof.
@@ -298,6 +302,7 @@ Proof.
 Qed.
 
 (* The evolutionary loop is perpetual - there is always a next generation *)
+(* DEFINITIONAL — case analysis: empty uses optimal_quartet, non-empty uses crossover *)
 Theorem perpetual_evolution :
   forall generation : list Strategy,
   (forall s, In s generation -> is_viable s) ->

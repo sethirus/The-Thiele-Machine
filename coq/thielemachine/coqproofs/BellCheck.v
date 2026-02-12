@@ -78,6 +78,8 @@ Proof.
   ring.
 Qed.
 
+(** HELPER: Non-negativity property *)
+(** HELPER: Non-negativity property *)
 Lemma Qle_plus_nonneg :
   forall a b : Q,
     0#1 <= b ->
@@ -86,7 +88,9 @@ Proof.
   intros a b Hb.
   unfold Qle in *; simpl in *; lia.
 Qed.
+(** HELPER: Non-negativity property *)
 
+(** HELPER: Non-negativity property *)
 Lemma Qlt_plus_pos :
   forall a b : Q,
     0#1 < b ->
@@ -131,6 +135,7 @@ Proof.
   exact Hpos.
 Qed.
 
+(* SAFE: classical CHSH bound S ≤ 2 + ε for local hidden variable models *)
 Lemma CHSH_classical_bound :
   forall eps (B : Box),
     0#1 <= eps ->

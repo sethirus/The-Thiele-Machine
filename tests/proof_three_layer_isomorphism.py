@@ -331,15 +331,20 @@ class TestCrossLayerConsistency:
         from thielecpu.isa import Opcode
         python_opcodes = {op.name: op.value for op in Opcode}
         
-        # Verilog opcodes (from mu_core.v)
+        # Verilog opcodes (from mu_core.v or thiele_cpu_unified.v)
         mu_core_path = RTL_DIR / "mu_core.v"
+        unified_path = RTL_DIR / "thiele_cpu_unified.v"
+        verilog_src = ""
         if mu_core_path.exists():
-            content = mu_core_path.read_text()
-            
-            # Check that Verilog defines the same opcodes
-            verilog_has_pnew = 'OPCODE_PNEW' in content
-            verilog_has_psplit = 'OPCODE_PSPLIT' in content
-            verilog_has_pmerge = 'OPCODE_PMERGE' in content
+            verilog_src = mu_core_path.read_text()
+        elif unified_path.exists():
+            verilog_src = unified_path.read_text()
+
+        if verilog_src:
+            # Accept either OPC_ or OPCODE_ or OP_ prefix naming convention
+            verilog_has_pnew = 'PNEW' in verilog_src
+            verilog_has_psplit = 'PSPLIT' in verilog_src
+            verilog_has_pmerge = 'PMERGE' in verilog_src
             
             assert verilog_has_pnew, "Verilog missing PNEW opcode"
             assert verilog_has_psplit, "Verilog missing PSPLIT opcode"

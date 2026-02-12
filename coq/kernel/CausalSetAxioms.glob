@@ -1,0 +1,339 @@
+DIGEST 7a545e6a25ac975ea3cd3d3f0f834b5b
+FKernel.CausalSetAxioms
+R1845:1848 Coq.Lists.List <> <> lib
+R1850:1863 Coq.Arith.PeanoNat <> <> lib
+R1865:1867 Coq.micromega.Lia <> <> lib
+R1869:1872 Coq.Bool.Bool <> <> lib
+R1899:1921 Coq.Classes.RelationClasses <> <> lib
+R1931:1943 Coq.Lists.List ListNotations <> mod
+R1974:1980 Kernel.VMState <> <> lib
+R1982:1987 Kernel.VMStep <> <> lib
+R1989:2001 Kernel.KernelPhysics <> <> lib
+def 2417:2430 <> module_in_cone
+R2439:2441 Coq.Init.Datatypes <> nat ind
+binder 2433:2435 <> mid:1
+R2453:2456 Coq.Init.Datatypes <> list ind
+R2458:2471 Kernel.VMStep VMStep vm_instruction ind
+binder 2445:2449 <> trace:2
+R2486:2487 Coq.Lists.List <> In def
+R2494:2504 Kernel.KernelPhysics <> causal_cone def
+R2506:2510 Kernel.CausalSetAxioms <> trace:2 var
+R2489:2491 Kernel.CausalSetAxioms <> mid:1 var
+def 2883:2908 <> causally_precedes_in_trace
+R2925:2927 Coq.Init.Datatypes <> nat ind
+binder 2913:2916 <> mid1:3
+binder 2918:2921 <> mid2:4
+R2939:2942 Coq.Init.Datatypes <> list ind
+R2944:2957 Kernel.VMStep VMStep vm_instruction ind
+binder 2931:2935 <> trace:5
+R2997:3000 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2972:2985 Kernel.CausalSetAxioms <> module_in_cone def
+R2987:2990 Kernel.CausalSetAxioms <> mid1:3 var
+R2992:2996 Kernel.CausalSetAxioms <> trace:5 var
+R3001:3014 Kernel.CausalSetAxioms <> module_in_cone def
+R3016:3019 Kernel.CausalSetAxioms <> mid2:4 var
+R3021:3025 Kernel.CausalSetAxioms <> trace:5 var
+prf 3338:3353 <> causal_reflexive
+binder 3364:3366 <> mid:6
+binder 3368:3372 <> trace:7
+R3401:3406 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3377:3390 Kernel.CausalSetAxioms <> module_in_cone def
+R3392:3394 Kernel.CausalSetAxioms <> mid:6 var
+R3396:3400 Kernel.CausalSetAxioms <> trace:7 var
+R3407:3432 Kernel.CausalSetAxioms <> causally_precedes_in_trace def
+R3434:3436 Kernel.CausalSetAxioms <> mid:6 var
+R3438:3440 Kernel.CausalSetAxioms <> mid:6 var
+R3442:3446 Kernel.CausalSetAxioms <> trace:7 var
+R3489:3514 Kernel.CausalSetAxioms <> causally_precedes_in_trace def
+prf 3657:3673 <> causal_transitive
+binder 3684:3687 <> mid1:8
+binder 3689:3692 <> mid2:9
+binder 3694:3697 <> mid3:10
+binder 3699:3703 <> trace:11
+R3750:3755 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3708:3733 Kernel.CausalSetAxioms <> causally_precedes_in_trace def
+R3735:3738 Kernel.CausalSetAxioms <> mid1:8 var
+R3740:3743 Kernel.CausalSetAxioms <> mid2:9 var
+R3745:3749 Kernel.CausalSetAxioms <> trace:11 var
+R3798:3803 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3756:3781 Kernel.CausalSetAxioms <> causally_precedes_in_trace def
+R3783:3786 Kernel.CausalSetAxioms <> mid2:9 var
+R3788:3791 Kernel.CausalSetAxioms <> mid3:10 var
+R3793:3797 Kernel.CausalSetAxioms <> trace:11 var
+R3804:3829 Kernel.CausalSetAxioms <> causally_precedes_in_trace def
+R3831:3834 Kernel.CausalSetAxioms <> mid1:8 var
+R3836:3839 Kernel.CausalSetAxioms <> mid3:10 var
+R3841:3845 Kernel.CausalSetAxioms <> trace:11 var
+R3915:3940 Kernel.CausalSetAxioms <> causally_precedes_in_trace def
+def 4369:4384 <> graph_module_ids
+R4391:4404 Kernel.VMState <> PartitionGraph rec
+binder 4387:4387 <> g:12
+R4409:4412 Coq.Init.Datatypes <> list ind
+R4414:4416 Coq.Init.Datatypes <> nat ind
+R4423:4425 Coq.Lists.List <> map def
+R4434:4443 Kernel.VMState <> pg_modules proj
+R4431:4431 Kernel.CausalSetAxioms <> g:12 var
+R4427:4429 Coq.Init.Datatypes <> fst def
+prf 4454:4476 <> graph_module_ids_finite
+binder 4487:4487 <> g:13
+R4511:4516 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4492:4508 Kernel.VMState <> well_formed_graph def
+R4510:4510 Kernel.CausalSetAxioms <> g:13 var
+binder 4524:4526 <> mid:14
+R4556:4559 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4529:4530 Coq.Lists.List <> In def
+R4537:4552 Kernel.CausalSetAxioms <> graph_module_ids def
+R4554:4554 Kernel.CausalSetAxioms <> g:13 var
+R4532:4534 Kernel.CausalSetAxioms <> mid:14 var
+R4563:4565 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4560:4562 Kernel.CausalSetAxioms <> mid:14 var
+R4566:4575 Kernel.VMState <> pg_next_id proj
+R4577:4577 Kernel.CausalSetAxioms <> g:13 var
+R4620:4635 Kernel.CausalSetAxioms <> graph_module_ids def
+R4654:4670 Kernel.VMState <> well_formed_graph def
+R4692:4701 Kernel.VMState <> pg_modules proj
+R4692:4701 Kernel.VMState <> pg_modules proj
+R4737:4746 Kernel.VMState <> pg_next_id proj
+R4737:4746 Kernel.VMState <> pg_next_id proj
+prf 5317:5338 <> causal_interval_finite
+binder 5349:5349 <> g:15
+binder 5351:5354 <> mid1:16
+binder 5356:5359 <> mid2:17
+R5383:5388 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5364:5380 Kernel.VMState <> well_formed_graph def
+R5382:5382 Kernel.CausalSetAxioms <> g:15 var
+R5408:5413 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5393:5395 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5389:5392 Kernel.CausalSetAxioms <> mid1:16 var
+R5396:5405 Kernel.VMState <> pg_next_id proj
+R5407:5407 Kernel.CausalSetAxioms <> g:15 var
+R5433:5438 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5418:5420 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5414:5417 Kernel.CausalSetAxioms <> mid2:17 var
+R5421:5430 Kernel.VMState <> pg_next_id proj
+R5432:5432 Kernel.CausalSetAxioms <> g:15 var
+R5439:5445 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5451:5452 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5446:5450 <> bound:18
+R5473:5480 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5458:5460 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5453:5457 Kernel.CausalSetAxioms <> bound:18 var
+R5461:5470 Kernel.VMState <> pg_next_id proj
+R5472:5472 Kernel.CausalSetAxioms <> g:15 var
+binder 5488:5490 <> mid:19
+R5520:5523 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5493:5494 Coq.Lists.List <> In def
+R5501:5516 Kernel.CausalSetAxioms <> graph_module_ids def
+R5518:5518 Kernel.CausalSetAxioms <> g:15 var
+R5496:5498 Kernel.CausalSetAxioms <> mid:19 var
+R5527:5529 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5524:5526 Kernel.CausalSetAxioms <> mid:19 var
+R5530:5534 Kernel.CausalSetAxioms <> bound:18 var
+R5586:5595 Kernel.VMState <> pg_next_id proj
+R5586:5595 Kernel.VMState <> pg_next_id proj
+R5658:5680 Kernel.CausalSetAxioms <> graph_module_ids_finite thm
+R5658:5680 Kernel.CausalSetAxioms <> graph_module_ids_finite thm
+prf 5789:5804 <> local_finiteness
+binder 5815:5815 <> g:20
+R5839:5844 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5820:5836 Kernel.VMState <> well_formed_graph def
+R5838:5838 Kernel.CausalSetAxioms <> g:20 var
+R5845:5851 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5857:5858 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5852:5856 <> bound:21
+binder 5866:5868 <> mid:22
+R5898:5901 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5871:5872 Coq.Lists.List <> In def
+R5879:5894 Kernel.CausalSetAxioms <> graph_module_ids def
+R5896:5896 Kernel.CausalSetAxioms <> g:20 var
+R5874:5876 Kernel.CausalSetAxioms <> mid:22 var
+R5905:5907 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5902:5904 Kernel.CausalSetAxioms <> mid:22 var
+R5908:5912 Kernel.CausalSetAxioms <> bound:21 var
+R5948:5957 Kernel.VMState <> pg_next_id proj
+R5948:5957 Kernel.VMState <> pg_next_id proj
+R5990:6012 Kernel.CausalSetAxioms <> graph_module_ids_finite thm
+R5990:6012 Kernel.CausalSetAxioms <> graph_module_ids_finite thm
+prf 6108:6126 <> interval_finiteness
+binder 6137:6137 <> g:23
+R6161:6166 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6142:6158 Kernel.VMState <> well_formed_graph def
+R6160:6160 Kernel.CausalSetAxioms <> g:23 var
+binder 6174:6176 <> mid:24
+R6206:6209 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6179:6180 Coq.Lists.List <> In def
+R6187:6202 Kernel.CausalSetAxioms <> graph_module_ids def
+R6204:6204 Kernel.CausalSetAxioms <> g:23 var
+R6182:6184 Kernel.CausalSetAxioms <> mid:24 var
+R6213:6215 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6210:6212 Kernel.CausalSetAxioms <> mid:24 var
+R6216:6225 Kernel.VMState <> pg_next_id proj
+R6227:6227 Kernel.CausalSetAxioms <> g:23 var
+R6245:6267 Kernel.CausalSetAxioms <> graph_module_ids_finite thm
+R6245:6267 Kernel.CausalSetAxioms <> graph_module_ids_finite thm
+rec 6685:6699 <> CausalSetAxioms
+proj 6708:6719 <> cs_reflexive
+proj 6821:6833 <> cs_transitive
+proj 7016:7040 <> cs_local_finiteness_bound
+proj 7157:7174 <> cs_interval_finite
+binder 6730:6732 <> mid:26
+binder 6734:6738 <> trace:27
+R6769:6776 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6745:6758 Kernel.CausalSetAxioms <> module_in_cone def
+R6760:6762 Kernel.CausalSetAxioms <> mid:26 var
+R6764:6768 Kernel.CausalSetAxioms <> trace:27 var
+R6777:6802 Kernel.CausalSetAxioms <> causally_precedes_in_trace def
+R6804:6806 Kernel.CausalSetAxioms <> mid:26 var
+R6808:6810 Kernel.CausalSetAxioms <> mid:26 var
+R6812:6816 Kernel.CausalSetAxioms <> trace:27 var
+binder 6844:6847 <> mid1:29
+binder 6849:6852 <> mid2:30
+binder 6854:6857 <> mid3:31
+binder 6859:6863 <> trace:32
+R6912:6919 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6870:6895 Kernel.CausalSetAxioms <> causally_precedes_in_trace def
+R6897:6900 Kernel.CausalSetAxioms <> mid1:29 var
+R6902:6905 Kernel.CausalSetAxioms <> mid2:30 var
+R6907:6911 Kernel.CausalSetAxioms <> trace:32 var
+R6962:6969 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6920:6945 Kernel.CausalSetAxioms <> causally_precedes_in_trace def
+R6947:6950 Kernel.CausalSetAxioms <> mid2:30 var
+R6952:6955 Kernel.CausalSetAxioms <> mid3:31 var
+R6957:6961 Kernel.CausalSetAxioms <> trace:32 var
+R6970:6995 Kernel.CausalSetAxioms <> causally_precedes_in_trace def
+R6997:7000 Kernel.CausalSetAxioms <> mid1:29 var
+R7002:7005 Kernel.CausalSetAxioms <> mid3:31 var
+R7007:7011 Kernel.CausalSetAxioms <> trace:32 var
+binder 7051:7051 <> g:34
+R7077:7084 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7058:7074 Kernel.VMState <> well_formed_graph def
+R7076:7076 Kernel.CausalSetAxioms <> g:34 var
+R7085:7091 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7097:7098 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 7092:7096 <> bound:35
+binder 7106:7108 <> mid:36
+R7138:7141 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7111:7112 Coq.Lists.List <> In def
+R7119:7134 Kernel.CausalSetAxioms <> graph_module_ids def
+R7136:7136 Kernel.CausalSetAxioms <> g:34 var
+R7114:7116 Kernel.CausalSetAxioms <> mid:36 var
+R7145:7147 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R7142:7144 Kernel.CausalSetAxioms <> mid:36 var
+R7148:7152 Kernel.CausalSetAxioms <> bound:35 var
+binder 7185:7185 <> g:38
+R7211:7218 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7192:7208 Kernel.VMState <> well_formed_graph def
+R7210:7210 Kernel.CausalSetAxioms <> g:38 var
+binder 7226:7228 <> mid:39
+R7258:7261 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7231:7232 Coq.Lists.List <> In def
+R7239:7254 Kernel.CausalSetAxioms <> graph_module_ids def
+R7256:7256 Kernel.CausalSetAxioms <> g:38 var
+R7234:7236 Kernel.CausalSetAxioms <> mid:39 var
+R7265:7267 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R7262:7264 Kernel.CausalSetAxioms <> mid:39 var
+R7268:7277 Kernel.VMState <> pg_next_id proj
+R7279:7279 Kernel.CausalSetAxioms <> g:38 var
+prf 7362:7390 <> partition_graph_is_causal_set
+R7394:7408 Kernel.CausalSetAxioms <> CausalSetAxioms rec
+R7443:7458 Kernel.CausalSetAxioms <> causal_reflexive thm
+R7443:7458 Kernel.CausalSetAxioms <> causal_reflexive thm
+R7471:7487 Kernel.CausalSetAxioms <> causal_transitive thm
+R7471:7487 Kernel.CausalSetAxioms <> causal_transitive thm
+R7500:7515 Kernel.CausalSetAxioms <> local_finiteness thm
+R7500:7515 Kernel.CausalSetAxioms <> local_finiteness thm
+R7528:7546 Kernel.CausalSetAxioms <> interval_finiteness thm
+R7528:7546 Kernel.CausalSetAxioms <> interval_finiteness thm
+prf 7936:7952 <> causal_past_grows
+binder 7963:7965 <> mid:41
+binder 7967:7971 <> trace:42
+binder 7973:7977 <> extra:43
+R8006:8011 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7982:7995 Kernel.CausalSetAxioms <> module_in_cone def
+R7997:7999 Kernel.CausalSetAxioms <> mid:41 var
+R8001:8005 Kernel.CausalSetAxioms <> trace:42 var
+R8012:8025 Kernel.CausalSetAxioms <> module_in_cone def
+R8027:8029 Kernel.CausalSetAxioms <> mid:41 var
+R8037:8040 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R8032:8036 Kernel.CausalSetAxioms <> trace:42 var
+R8041:8045 Kernel.CausalSetAxioms <> extra:43 var
+R8095:8108 Kernel.CausalSetAxioms <> module_in_cone def
+R8124:8137 Kernel.KernelPhysics <> cone_monotonic thm
+R8124:8137 Kernel.KernelPhysics <> cone_monotonic thm
+prf 8759:8784 <> no_closed_causal_curves_mu
+binder 8795:8795 <> s:44
+binder 8797:8798 <> s':45
+binder 8800:8804 <> instr:46
+R8827:8832 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8809:8815 Kernel.VMStep VMStep vm_step ind
+R8817:8817 Kernel.CausalSetAxioms <> s:44 var
+R8819:8823 Kernel.CausalSetAxioms <> instr:46 var
+R8825:8826 Kernel.CausalSetAxioms <> s':45 var
+R8855:8860 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8843:8845 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R8837:8841 Kernel.VMState <> vm_mu proj
+R8833:8834 Kernel.CausalSetAxioms <> s':45 var
+R8849:8853 Kernel.VMState <> vm_mu proj
+R8846:8846 Kernel.CausalSetAxioms <> s:44 var
+R8861:8863 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8898:8898 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8864:8870 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8877:8878 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 8871:8876 <> instr':47
+R8879:8885 Kernel.VMStep VMStep vm_step ind
+R8887:8888 Kernel.CausalSetAxioms <> s':45 var
+R8890:8895 Kernel.CausalSetAxioms <> instr':47 var
+R8897:8897 Kernel.CausalSetAxioms <> s:44 var
+R9036:9057 Kernel.KernelPhysics <> mu_conservation_kernel thm
+R9036:9057 Kernel.KernelPhysics <> mu_conservation_kernel thm
+def 9817:9834 <> graph_connectivity
+R9841:9854 Kernel.VMState <> PartitionGraph rec
+binder 9837:9837 <> g:48
+R9859:9861 Coq.Init.Datatypes <> nat ind
+R9868:9873 Coq.Init.Datatypes <> length def
+R9878:9887 Kernel.VMState <> pg_modules proj
+R9875:9875 Kernel.CausalSetAxioms <> g:48 var
+prf 9900:9924 <> dimension_trace_dependent
+binder 9935:9936 <> g1:49
+binder 9938:9939 <> g2:50
+R9990:9995 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9965:9968 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R9944:9961 Kernel.CausalSetAxioms <> graph_connectivity def
+R9963:9964 Kernel.CausalSetAxioms <> g1:49 var
+R9969:9986 Kernel.CausalSetAxioms <> graph_connectivity def
+R9988:9989 Kernel.CausalSetAxioms <> g2:50 var
+R10011:10014 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R10000:10009 Kernel.VMState <> pg_modules proj
+R9996:9997 Kernel.CausalSetAxioms <> g1:49 var
+R10019:10028 Kernel.VMState <> pg_modules proj
+R10015:10016 Kernel.CausalSetAxioms <> g2:50 var
+R10073:10090 Kernel.CausalSetAxioms <> graph_connectivity def
+prf 10230:10252 <> causal_structure_varies
+binder 10263:10264 <> g1:51
+binder 10266:10267 <> g2:52
+R10324:10329 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10296:10299 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R10272:10277 Coq.Init.Datatypes <> length def
+R10284:10293 Kernel.VMState <> pg_modules proj
+R10280:10281 Kernel.CausalSetAxioms <> g1:51 var
+R10300:10305 Coq.Init.Datatypes <> length def
+R10312:10321 Kernel.VMState <> pg_modules proj
+R10308:10309 Kernel.CausalSetAxioms <> g2:52 var
+R10349:10352 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R10330:10345 Kernel.CausalSetAxioms <> graph_module_ids def
+R10347:10348 Kernel.CausalSetAxioms <> g1:51 var
+R10353:10368 Kernel.CausalSetAxioms <> graph_module_ids def
+R10370:10371 Kernel.CausalSetAxioms <> g2:52 var
+R10417:10432 Kernel.CausalSetAxioms <> graph_module_ids def
+R10511:10517 Coq.Init.Logic <> f_equal thm
+R10521:10526 Coq.Init.Datatypes <> length def
+R10528:10530 Coq.Init.Datatypes <> nat ind
+R10511:10517 Coq.Init.Logic <> f_equal thm
+R10521:10526 Coq.Init.Datatypes <> length def
+R10528:10530 Coq.Init.Datatypes <> nat ind
+R10552:10561 Coq.Lists.List <> map_length thm
+R10552:10561 Coq.Lists.List <> map_length thm
+R10552:10561 Coq.Lists.List <> map_length thm
+R10581:10590 Coq.Lists.List <> map_length thm
+R10581:10590 Coq.Lists.List <> map_length thm
+R10581:10590 Coq.Lists.List <> map_length thm

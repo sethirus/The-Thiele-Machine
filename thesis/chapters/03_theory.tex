@@ -1882,12 +1882,15 @@ Quantum mechanics isn't a fundamental theory with mysterious postulates. It's th
 All theorems in this section are machine-checked in Coq 8.18 with zero Admitted statements:
 \begin{itemize}
     \item \path{coq/kernel/NoCloning.v}: 936 lines, 18 definitions/theorems
-    \item \path{coq/kernel/Unitarity.v}: 570 lines, 23 definitions/theorems
-    \item \path{coq/kernel/BornRule.v}: 311 lines, 20 definitions/theorems
-    \item \path{coq/kernel/Purification.v}: 275 lines, 11 definitions/theorems
-    \item \path{coq/kernel/TsirelsonGeneral.v}: 301 lines, 19 definitions/theorems
+    \item \path{coq/kernel/NoCloningFromMuMonotonicity.v}: 260 lines, 11 definitions/theorems (machine-native, \texttt{lia}-only)
+    \item \path{coq/kernel/Unitarity.v}: 583 lines, 24 definitions/theorems
+    \item \path{coq/kernel/BornRule.v}: 321 lines, 20 definitions/theorems
+    \item \path{coq/kernel/BornRuleFromSymmetry.v}: 939 lines, 33 definitions/theorems (non-circular, tensor consistency)
+    \item \path{coq/kernel/Purification.v}: 280 lines, 11 definitions/theorems
+    \item \path{coq/kernel/TsirelsonGeneral.v}: 315 lines, 19 definitions/theorems
+    \item \path{coq/kernel/TsirelsonFromAlgebra.v}: 327 lines, 13 definitions/theorems (self-contained algebraic)
 \end{itemize}
-Total: 2,393 lines of machine-verified proofs establishing that quantum axioms emerge from $\mu$-conservation.
+Total: 3,961 lines of machine-verified proofs across eight files establishing that quantum axioms emerge from $\mu$-conservation.
 \end{tcolorbox}
 
 \section{Chapter Summary}
@@ -1953,4 +1956,4 @@ This chapter defined the Thiele Machine as a formal 5-tuple $T = (S, \Pi, A, R, 
     \end{itemize}
 \end{enumerate}
 
-These formal foundations enable the implementation (Chapter 4), verification (Chapter 5), and evaluation (Chapter 6). The quantum axiom derivations (2,393 lines of Coq with zero Admitted statements) establish that quantum mechanics isn't a fundamental theory with mysterious postulates---it's the unique physics consistent with information conservation. Importantly, under \emph{Total $\mu$-Accounting}, setting $\mu_{\text{total}} = 0$ requires all components ($\mu_{\text{inst}}$ and $\mu_{\text{corr}}$) to be zero, where $\mu_{\text{corr}} = 0$ is exactly the condition of \emph{Algebraic Coherence} required to recover the Tsirelson bound $S \le 2.8284...$. Without enforcing $\mu_{\text{corr}} = 0$, the system is only bounded by the algebraic limit $S \le 4$.
+These formal foundations enable the implementation (Chapter 4), verification (Chapter 5), and evaluation (Chapter 6). The quantum axiom derivations (3,961 lines of Coq across eight files with zero Admitted statements) establish that quantum mechanics isn't a fundamental theory with mysterious postulates---it's the unique physics consistent with information conservation. Importantly, under \emph{Total $\mu$-Accounting}, setting $\mu_{\text{total}} = 0$ requires all components ($\mu_{\text{inst}}$ and $\mu_{\text{corr}}$) to be zero, where $\mu_{\text{corr}} = 0$ is exactly the condition of \emph{Algebraic Coherence} required to recover the Tsirelson bound $S \le 2.8284...$. Without enforcing $\mu_{\text{corr}} = 0$, the system is only bounded by the algebraic limit $S \le 4$.

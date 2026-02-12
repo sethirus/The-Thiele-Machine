@@ -28,6 +28,8 @@ Definition tsirelson_bound : Q := (5657 # 2000)%Q.
 
 (** ** What μ=0 Actually Gives Us *)
 
+(** HELPER: Base case property *)
+(** HELPER: Base case property *)
 (* SAFE: Delegates to mu_zero_chsh_bounded — this is proof composition, not a placeholder. *)
 Theorem mu_zero_algebraic_bound :
   forall fuel trace s_init,

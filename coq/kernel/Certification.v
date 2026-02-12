@@ -145,6 +145,7 @@ Definition tsirelson_bound_q : Q := (5657#2000).
     This is a purely rational inequality, used to justify that
     [tsirelson_bound_q] is a safe upper envelope for 2√2.
 *)
+(** ARITHMETIC HELPER: concrete rational inequality (5657/2000)² > 8. *)
 Lemma tsirelson_bound_q_sq_gt_8 :
   Qlt (8#1) (tsirelson_bound_q * tsirelson_bound_q).
 Proof.

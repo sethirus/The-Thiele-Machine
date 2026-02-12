@@ -16,6 +16,7 @@ See [AXIOM_KERNEL.md](AXIOM_KERNEL.md) for the formal specification of:
 
 ### Phase 2: State Manifold
 - `TwoDimensionalNecessity.v` - 2D (S¹) required for continuous superposition
+- `ComplexNecessity.v` - Complex amplitudes forced by partition constraints
 
 ### Phase 3: Valuation Invariance
 - `BornRuleUnique.v` - P = |ψ|² is unique under refinement invariance
@@ -50,5 +51,6 @@ coqc -Q thielemachine/coqproofs ThieleMachine \
 | `CollapseDetermination.v` | 0 | A4, A3 | ✅ |
 | `ProjectionFromPartitions.v` | 0 | A4 | ✅ |
 | `SchrodingerFromPartitions.v` | 0 | I3 | ✅ |
+| `ComplexNecessity.v` | 0 | — | ✅ |
 
 **Result:** All files COMPLETE with 0 admits. Invariants I1-I3 declared in [AXIOM_KERNEL.md](AXIOM_KERNEL.md).
