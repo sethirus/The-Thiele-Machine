@@ -277,7 +277,7 @@ jobs:
 
       - name: Synthesize with Yosys
         run: |
-          yosys -p "read_verilog -sv -nomem2reg -DYOSYS_LITE -I thielecpu/hardware/rtl thielecpu/hardware/rtl/thiele_cpu_synth.v thielecpu/hardware/rtl/mu_alu.v thielecpu/hardware/rtl/mu_core.v thielecpu/hardware/rtl/receipt_integrity_checker.v; prep; check; stat" > synthesis.log 2>&1
+          yosys -p "read_verilog -sv -DSYNTHESIS -DYOSYS_LITE thielecpu/hardware/rtl/thiele_cpu_unified.v; prep -top thiele_cpu; check; stat" > synthesis.log 2>&1
 
       - name: Simulate hardware
         run: |
