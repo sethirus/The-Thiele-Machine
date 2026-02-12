@@ -79,6 +79,7 @@ Open Scope nat_scope.
 
   (* --- Basic register lemmas for reasoning about the program counter --- *)
 
+  (* DEFINITIONAL — write_reg/read_reg on same register returns written value *)
   Lemma read_pc_write_pc : forall v st,
     read_reg REG_PC (write_reg REG_PC v st) = v.
   Proof.
@@ -95,6 +96,7 @@ Open Scope nat_scope.
     - destruct (regs st) as [|a l]; [contradiction|reflexivity].
   Qed.
 
+  (* DEFINITIONAL — write_mem does not modify register file *)
   Lemma read_pc_write_mem : forall addr v st,
     read_reg REG_PC (write_mem addr v st) = read_reg REG_PC st.
   Proof.

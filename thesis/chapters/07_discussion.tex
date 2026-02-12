@@ -65,6 +65,9 @@ The thermodynamic bridge hypothesis ($Q \ge k_B T \ln 2 \cdot \mu$) would be \te
 \end{itemize}
 \end{tcolorbox}
 
+\paragraph{QM-Divergent Predictions.}
+The model also produces five quantitative predictions where it diverges from standard quantum mechanics (see Chapter 6 for full evaluation). These include a predicted CHSH ratio $S/S_{\text{QM}} \approx 2.2662$, a Tsirelson-regime value $S_{\text{Thiele}} \approx 2.160$ (vs.\ $2\sqrt{2} \approx 2.828$), a hydrogen ground-state correction of $\sim$95.7\,ppm, a GHZ visibility deficit $\delta \approx 0.00266$, and a decoherence-rate constant $\gamma \approx 381$\,GHz for a single nitrogen-vacancy center. Each prediction names a concrete experimental observable, a numerical value, and the measurement that would falsify it. If future experiments confirm or refute any of these values, the theory's empirical standing changes accordingly. The point is that the model is not hedging: it commits to numbers.
+
 \section{Broader Implications}
 
 The Thiele Machine is more than a new computational model; it is a proposal for a new relationship between computation, information, and physical reality. This chapter explores the implications of treating structure as a conserved resource.
@@ -330,6 +333,23 @@ Structure-aware complexity classes can be defined:
 \end{itemize}
 
 The relationship $\text{P} \subseteq \text{P}_\mu \subseteq \text{NP}_\mu$ is strict under reasonable assumptions. These classes are proposed as a vocabulary for reasoning about the time/structure trade-off rather than as settled complexity-theoretic results.
+
+\subsection{Turing Subsumption}
+
+A complexity-theoretic framework is vacuous if it cannot express ordinary computation. The Coq formalization proves that the Thiele Machine is at least Turing-complete via a two-step embedding chain: every Turing Machine reduces to a Minsky Machine (\path{coq/modular_proofs/TM_to_Minsky.v}), and every Minsky Machine reduces to a Thiele Machine trace (\path{coq/modular_proofs/ThieleInstance.v}). The final theorem, \texttt{thiele\_subsumes\_tm\_complete}, composes both reductions.
+
+This matters for the $\text{P}_\mu$ / $\text{NP}_\mu$ definitions above: because the model subsumes Turing computation, any existing complexity class (P, NP, PSPACE, etc.) embeds faithfully into its $\mu$-enriched counterpart. The structure-aware classes are genuine refinements of the classical hierarchy, not parallel constructions that happen to share names.
+
+\subsection{Oracle Impossibility}
+
+On the other end, the model is bounded. The Oracle Impossibility proof (\path{coq/kernel/OracleImpossibility.v}) establishes three results:
+\begin{enumerate}
+    \item \texttt{halting\_undecidable}: No total machine decides halting.
+    \item \texttt{oracle\_halts\_costs\_mu}: Any partial oracle that resolves halting instances requires $\mu$-cost proportional to the input.
+    \item \texttt{hypercomputation\_bounded}: No finite-$\mu$ trace can compute a function that a Turing Machine cannot.
+\end{enumerate}
+
+Together with Turing Subsumption, these results pin the model's computational power: it is exactly Turing-complete. It computes everything a Turing Machine can and nothing more, while adding the $\mu$-accounting layer on top. The structure-aware classes therefore live inside the same computability boundary as classical complexity theory---they refine it without escaping it.
 
 \section{Implications for Artificial Intelligence}
 
@@ -660,10 +680,15 @@ A high-level language for the Thiele Machine would include:
 
 The Thiele Machine offers:
 \begin{enumerate}
-    \item A precise formalization of "structural cost"
-    \item Provable connections to physical conservation laws
+    \item A precise formalization of ``structural cost''
+    \item Provable connections to physical conservation laws, including a constructively derived arrow of time and a formal measurement-as-revelation bridge
     \item A framework for verifiable computation
-    \item A new lens for understanding computational complexity
+    \item A new lens for understanding computational complexity, with concrete $\mu$-cost bounds for NP verification and a conservation law linking computation time to structural revelation cost
+    \item Turing subsumption: a mechanized proof that the model is exactly Turing-complete (TM $\to$ Minsky $\to$ Thiele), anchoring the structure-aware complexity classes inside classical computability
+    \item Oracle impossibility: three theorems bounding the model from above---halting is undecidable, partial oracles cost $\mu$, and hypercomputation is impossible at finite $\mu$
+    \item Five QM-divergent predictions with named observables and numerical values, making the physics bridge empirically falsifiable
+    \item Causal set axioms satisfied by the partition graph, connecting the discrete computational substrate to quantum gravity approaches
+    \item A precise classification of which physical constants are derivable (relational identities) and which require empirical measurement (free parameters)
 \end{enumerate}
 
-The limitations are real but surmountable. The foundational work—zero-admit proofs, 3-layer isomorphism, receipt generation—provides a solid base for future research.
+The limitations are real but surmountable. The foundational work---zero-admit proofs, 3-layer isomorphism, receipt generation---provides a solid base for future research.

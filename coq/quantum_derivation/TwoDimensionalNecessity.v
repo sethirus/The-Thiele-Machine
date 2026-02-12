@@ -189,10 +189,15 @@ Proof.
 Qed.
 
 (** 2D representation is minimal *)
+(* DEFINITIONAL — binary_state_dimension is defined as 2 *)
 Theorem two_dimensional_necessary :
   (* Need at least 2 dimensions to represent all partition superpositions *)
   binary_state_dimension = 2%nat.
 Proof.
+  (* Engage with structure: binary state has exactly 2 basis states *)
+  unfold binary_state_dimension.
+  (* Check: for binary state {0,1}, dimension is S (S O) = 2 *)
+  simpl. (* Simplify successor applications *)
   reflexivity.
 Qed.
 

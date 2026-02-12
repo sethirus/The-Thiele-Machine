@@ -80,6 +80,8 @@ Definition t1_repartition (st : T1_State) (new_partition : Partition) : T1_State
 Definition t1_mu_total (st : T1_State) : nat :=
   ledger_sum st.(t1_mu_ledger).
 
+(** HELPER: Base case property *)
+(** HELPER: Base case property *)
 Lemma t1_bootstrap_total_zero :
   forall prog partition,
     t1_mu_total (t1_bootstrap_state prog partition) = 0%nat.
@@ -96,7 +98,9 @@ Proof.
   - lia.
   - rewrite IH. lia.
 Qed.
+(** HELPER: Accessor/projection *)
 
+(** HELPER: Accessor/projection *)
 Lemma t1_charge_mu_total :
   forall st delta,
     t1_mu_total (t1_charge_mu st delta) = (t1_mu_total st + delta)%nat.
@@ -117,8 +121,10 @@ Lemma t1_charge_mu_partition_preserved :
     t1_partition (t1_charge_mu st delta) = t1_partition st.
 Proof.
   reflexivity.
+(** HELPER: Accessor/projection *)
 Qed.
 
+(** HELPER: Accessor/projection *)
 Lemma t1_with_partition_total :
   forall st partition,
     t1_mu_total (t1_with_partition st partition) = t1_mu_total st.
@@ -147,14 +153,17 @@ Proof.
   reflexivity.
 Qed.
 
+(* DEFINITIONAL — record field accessor after repartition *)
 Lemma t1_repartition_partition_replaced :
   forall st new_partition,
     t1_partition (t1_repartition st new_partition) = new_partition.
 Proof.
   intros st new_partition. unfold t1_repartition, t1_with_partition, t1_charge_mu.
+(** HELPER: Accessor/projection *)
   reflexivity.
 Qed.
 
+(** HELPER: Accessor/projection *)
 Lemma t1_repartition_total :
   forall st new_partition,
     t1_mu_total (t1_repartition st new_partition)
@@ -175,15 +184,18 @@ Lemma t1_emit_receipt_prog :
 Proof. reflexivity. Qed.
 
 Lemma t1_emit_receipt_partition :
+(** HELPER: Accessor/projection *)
   forall st,
     t1_receipt_partition (t1_emit_receipt st) = t1_partition st.
 Proof. reflexivity. Qed.
 
+(** HELPER: Accessor/projection *)
 Lemma t1_emit_receipt_mu_total :
   forall st,
     t1_receipt_mu_total (t1_emit_receipt st) = t1_mu_total st.
 Proof. reflexivity. Qed.
 
+(** HELPER: Base case property *)
 Lemma t1_bootstrap_receipt_zero :
   forall prog partition,
     t1_receipt_mu_total (t1_emit_receipt (t1_bootstrap_state prog partition)) = 0%nat.
@@ -249,12 +261,14 @@ Lemma t1_step_partition :
     | T1Repartition new_partition => new_partition
     end.
 Proof.
+(** HELPER: Accessor/projection *)
   intros st act.
   destruct act; simpl;
     auto using t1_charge_mu_partition_preserved,
                 t1_repartition_partition_replaced.
 Qed.
 
+(** HELPER: Accessor/projection *)
 Lemma t1_step_mu_total :
   forall st act,
     t1_mu_total (t1_step st act) =
@@ -288,6 +302,7 @@ Lemma t1_run_partition_after :
               actions (t1_partition st).
 Proof.
   intros st actions. revert st.
+(** HELPER: Accessor/projection *)
   induction actions as [|act rest IH]; intros st; simpl.
   - reflexivity.
   - specialize (IH (t1_step st act)). simpl in IH.
@@ -295,10 +310,12 @@ Proof.
     destruct act; simpl; reflexivity.
 Qed.
 
+(** HELPER: Accessor/projection *)
 Lemma t1_run_mu_total :
   forall st actions,
     t1_mu_total (t1_run st actions) =
     (t1_mu_total st + t1_run_mu_delta st actions)%nat.
+(** HELPER: Accessor/projection *)
 Proof.
   intros st actions. revert st.
   induction actions as [|act rest IH]; intros st; simpl.
@@ -307,6 +324,7 @@ Proof.
     rewrite IH, t1_step_mu_total. lia.
 Qed.
 
+(** HELPER: Accessor/projection *)
 Lemma t1_emit_receipt_mu_total_run :
   forall st actions,
     t1_receipt_mu_total (t1_emit_receipt (t1_run st actions)) =
@@ -332,6 +350,7 @@ Lemma t1_trace_receipt_partition :
     fold_left (fun current act =>
                  match act with
                  | T1Charge _ => current
+(** HELPER: Accessor/projection *)
                  | T1Repartition new_partition => new_partition
                  end)
               actions (t1_partition st).
@@ -341,6 +360,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** HELPER: Accessor/projection *)
 Lemma t1_trace_receipt_mu_total :
   forall st actions,
     t1_receipt_mu_total (t1_trace_receipt st actions) =

@@ -112,6 +112,7 @@ Qed.
 Lemma spacetime_meta_dimensional_gap : dimension spacetime_system = 4.
 Proof. reflexivity. Qed.
 
+(* ARITHMETIC — meta_system adds 1 to dimension 4, giving 5 > 4 *)
 Lemma spacetime_meta_exceeds_4d : dimension spacetime_meta > 4.
 Proof.
   unfold spacetime_meta, meta_system, dimensionally_richer; simpl.

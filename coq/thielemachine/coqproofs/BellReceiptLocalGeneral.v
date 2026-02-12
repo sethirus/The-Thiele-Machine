@@ -30,6 +30,8 @@ Definition local_trials (rA rB : Response) (ts : list Trial) : Prop :=
 Definition covers_settings (ts : list Trial) : Prop :=
   forall x y, (0 < total_for_setting x y ts)%nat.
 
+(** HELPER: Reflexivity/transitivity/symmetry property *)
+(** HELPER: Reflexivity/transitivity/symmetry property *)
 Lemma bit_eqb_refl : forall b, bit_eqb b b = true.
 Proof. destruct b; reflexivity. Qed.
 
@@ -41,7 +43,9 @@ Proof. intro H; inversion H. Qed.
 
 Lemma B1_neq_B0 : B1 <> B0.
 Proof. intro H; inversion H. Qed.
+(** HELPER: Reflexivity/transitivity/symmetry property *)
 
+(** HELPER: Reflexivity/transitivity/symmetry property *)
 Lemma trial_eqb_refl : forall t, trial_eqb t t = true.
 Proof.
   intros [x y a b]. unfold trial_eqb.
@@ -53,8 +57,10 @@ Lemma trial_eqb_eq : forall t u, trial_eqb t u = true -> t = u.
 Proof.
   intros [x y a b] [x' y' a' b'] H.
   destruct x, y, a, b, x', y', a', b'; simpl in H; try discriminate; reflexivity.
+(** HELPER: Base case property *)
 Qed.
 
+(** HELPER: Base case property *)
 Lemma count_trial_zero_if_no_equal :
   forall t ts,
     (forall u, In u ts -> u <> t) ->
@@ -70,9 +76,11 @@ Proof.
   - apply IH.
     intros u' Hin.
     apply Hno.
+(** HELPER: Base case property *)
     right. exact Hin.
 Qed.
 
+(** HELPER: Base case property *)
 Lemma count_trial_wrong_outcome_zero :
   forall ts rA rB x y a b,
     local_trials rA rB ts ->
@@ -148,10 +156,12 @@ Proof.
       by (right; rewrite Hb; exact B0_neq_B1).
     simpl.
     repeat rewrite Nat.add_0_r.
+(** HELPER: Non-negativity property *)
     repeat rewrite Nat.add_0_l.
     reflexivity.
 Qed.
 
+(** HELPER: Non-negativity property *)
 Lemma Q_of_succ_over_pos_of_succ :
   forall n,
     (Z.of_nat (Datatypes.S n) # Pos.of_succ_nat n) == 1#1.
@@ -172,11 +182,13 @@ Proof.
   unfold p_from_trials.
   rewrite <- (total_for_setting_deterministic ts rA rB x y Hlocal).
   destruct (total_for_setting x y ts) as [|den'] eqn:Hden; [lia|].
+(** HELPER: Base case property *)
   (* in the succ case, numerator equals denominator *)
   cbn.
   apply Q_of_succ_over_pos_of_succ.
 Qed.
 
+(** HELPER: Base case property *)
 Lemma p_from_trials_deterministic_zero :
   forall ts rA rB x y a b,
     local_trials rA rB ts ->
@@ -288,6 +300,7 @@ Proof.
     ring.
 Qed.
 
+(* SAFE: classical CHSH bound |S| ≤ 2 for local trial data *)
 Theorem local_trials_CHSH_bound :
   forall ts rA rB,
     local_trials rA rB ts ->

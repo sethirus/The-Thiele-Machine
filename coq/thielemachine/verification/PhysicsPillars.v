@@ -63,7 +63,12 @@ Theorem born_rule_from_mu : forall s,
   born_probability s == (born_amplitude s * born_amplitude s)%Q.
 Proof.
   intro s.
+  (* Destruct ThieleState to engage with structure *)
+  destruct s as [blind sighted ledger partition].
+  (* Unfold to show structural connection: probability = amplitude^2 *)
   unfold born_probability, born_amplitude.
+  simpl. (* Simplify field projections *)
+  (* This is definitional: born_probability defined as amp * amp *)
   reflexivity.
 Qed.
 

@@ -39,8 +39,8 @@ flowchart LR
 ```
 
 Notes:
-- The open-source regression uses [thielecpu/hardware/thiele_cpu_tb.v](thielecpu/hardware/thiele_cpu_tb.v) to model the external interfaces.
-- For synthesis-facing checks we generate [thielecpu/hardware/thiele_cpu_synth.v](thielecpu/hardware/thiele_cpu_synth.v) (derived from [thielecpu/hardware/thiele_cpu.v](thielecpu/hardware/thiele_cpu.v)).
+- The open-source regression uses [testbench/thiele_cpu_tb.v](testbench/thiele_cpu_tb.v) to model the external interfaces.
+- The unified design lives in [rtl/thiele_cpu_unified.v](rtl/thiele_cpu_unified.v); synthesis output is [rtl/synth_lite_out.v](rtl/synth_lite_out.v).
 
 ### Core Components
 
@@ -81,59 +81,64 @@ module mu_core (
 
 ```
 hardware/
-├── rtl/                    # Core RTL modules (synthesizable)
-│   ├── thiele_cpu.v        # Main CPU with partition logic and state machine
-│   ├── thiele_cpu_synth.v  # Synthesis-friendly variant (original)
-│   ├── thiele_cpu_synth_simple.v  # Synthesis-friendly variant (open-source compatible)
-│   ├── mu_alu.v            # Q16.16 fixed-point μ-ALU
-│   ├── mu_alu_simple.v     # Simplified μ-ALU for open-source synthesis
-│   ├── mu_core.v           # Partition isomorphism enforcement (μ-core)
+├── rtl/                        # Core RTL modules (synthesizable)
+│   ├── thiele_cpu_unified.v    # Single-file RTL (all modules, 1,413 lines)
+│   ├── mu_alu.v                # Q16.16 fixed-point μ-ALU
+│   ├── mu_core.v               # Partition isomorphism enforcement (μ-core)
+│   ├── partition_core.v        # Partition discovery engine
+│   ├── chsh_partition.v        # CHSH Bell inequality partition
 │   ├── receipt_integrity_checker.v  # Anti-tampering module
-│   ├── partition_core.v    # Partition discovery engine
-│   ├── chsh_partition.v    # CHSH Bell inequality partition
-│   ├── shor_partition.v    # Shor's algorithm partition
-│   ├── mmu.v               # Memory Management Unit
-│   ├── mau.v               # Memory Access Unit
-│   ├── lei.v               # Logic Engine Interface
-│   ├── pee.v               # Python Execution Engine
-│   ├── generated_opcodes.vh # Opcode definitions (Coq-extracted)
-│   └── ...                 # Additional RTL modules
+│   ├── generated_opcodes.vh    # Opcode definitions (Coq-extracted)
+│   ├── synth_lite.ys           # Yosys synthesis script (YOSYS_LITE)
+│   ├── synth_full.ys           # Yosys synthesis script (full size)
+│   ├── synth_lite_out.v        # Generated gate-level netlist (261K lines)
+│   └── synth_lite_clean.log    # Synthesis log
 │
-├── testbench/              # Simulation testbenches
-│   ├── thiele_cpu_tb.v     # Main CPU testbench
-│   ├── mu_alu_tb.v         # μ-ALU unit tests
-│   ├── partition_core_tb.v # Partition engine tests
-│   └── ...                 # Additional testbenches
+├── testbench/                  # Simulation testbenches
+│   ├── thiele_cpu_tb.v         # Main CPU testbench
+│   ├── mu_alu_tb.v             # μ-ALU unit tests
+│   ├── partition_core_tb.v     # Partition engine tests
+│   ├── thiele_cpu_engines_tb.v # Engine integration tests
+│   ├── thiele_cpu_genesis_compression_tb.v      # Genesis compression tests
+│   ├── thiele_cpu_genesis_compression_strict_tb.v # Strict compression tests
+│   ├── thiele_cpu_inverse_genesis_tb.v          # Inverse genesis tests
+│   └── fuzz_harness_simple.v   # Fuzz testing harness
 │
-├── constraints.xdc         # FPGA timing/placement constraints
-├── synthesis.tcl           # Vivado synthesis script
-├── simulate.do             # ModelSim simulation script
-├── simulate.tcl            # Vivado simulation script
-├── test_hardware.py        # Automated test suite
-└── README.md               # This file
+├── cosim.py                    # Python co-simulation driver
+├── accel_cosim.py              # Accelerated co-simulation
+├── pyexec_bridge.py            # Python execution bridge
+├── pyexec_vpi.c                # VPI bridge for Python execution
+├── constraints.xdc             # FPGA timing/placement constraints
+├── synthesis.tcl               # Vivado synthesis script
+├── run_synthesis.sh            # Synthesis runner
+├── test_compute_comprehensive.hex  # Test program (comprehensive)
+├── test_compute_data.hex       # Test data
+└── README.md                   # This file
 ```
 
 ### RTL Core Modules
 
-| File | Purpose |
-|------|---------|
-| `rtl/thiele_cpu.v` | Main CPU with partition logic and FSM |
-| `rtl/mu_alu.v` | Q16.16 fixed-point arithmetic (Coq isomorphic) |
-| `rtl/mu_core.v` | Partition enforcement "cost gate" |
-| `rtl/partition_core.v` | PDISCOVER hardware implementation |
-| `rtl/receipt_integrity_checker.v` | Cryptographic anti-tampering |
-
-### Configuration Files
+| File | Lines | Purpose |
+|------|-------|---------|  
+| `rtl/thiele_cpu_unified.v` | 1,413 | Unified CPU with partition logic, FSM, and all submodules |
+| `rtl/mu_alu.v` | 167 | Q16.16 fixed-point arithmetic (Coq isomorphic) |
+| `rtl/mu_core.v` | 188 | Partition enforcement "cost gate" |
+| `rtl/partition_core.v` | 251 | PDISCOVER hardware implementation |
+| `rtl/chsh_partition.v` | 330 | CHSH Bell inequality partition |
+| `rtl/receipt_integrity_checker.v` | 120 | Cryptographic anti-tampering |
+| `rtl/generated_opcodes.vh` | 26 | Opcode definitions (Coq-extracted) |
 
 - `constraints.xdc` - FPGA timing and placement constraints
 - `synthesis.tcl` - Vivado synthesis script
-- `simulate.do` - ModelSim simulation script
-- `simulate.tcl` - Vivado simulation script
+- `run_synthesis.sh` - Synthesis runner script
+- `rtl/synth_lite.ys` - Yosys synthesis script (YOSYS_LITE config)
+- `rtl/synth_full.ys` - Yosys synthesis script (full-size config)
 
 ### Test Infrastructure
 
-- `test_hardware.py` - Automated test suite supporting multiple simulators
-- `testbench/*.v` - Verilog testbenches for all modules
+- `cosim.py` - Python co-simulation driver for RTL verification
+- `accel_cosim.py` - Accelerated co-simulation variant
+- `testbench/*.v` - Verilog testbenches for all modules (8 testbenches)
 
 ## Instruction Set
 
@@ -188,24 +193,13 @@ Direct RTL simulation (Icarus):
 
 ```bash
 cd thielecpu/hardware
-iverilog -g2012 -o tb_test -I./rtl rtl/thiele_cpu.v rtl/mu_alu.v rtl/mu_core.v rtl/receipt_integrity_checker.v testbench/thiele_cpu_tb.v
-./tb_test
+iverilog -g2012 -o tb_test -I./rtl rtl/thiele_cpu_unified.v rtl/mu_alu.v rtl/mu_core.v rtl/receipt_integrity_checker.v testbench/thiele_cpu_tb.v
+vvp tb_test
 
 # μ-ALU unit tests:
 iverilog -g2012 -o alu_test -I./rtl testbench/mu_alu_tb.v rtl/mu_alu.v
-./alu_test
+vvp alu_test
 ```
-
-```bash
-cd thielecpu/hardware
-python3 test_hardware.py
-```
-
-The test suite will:
-1. Verify Verilog file presence
-2. Compile and simulate the design
-3. Execute a comprehensive instruction sequence
-4. Generate detailed test reports (`simulation_output.log` and `test_report.md`)
 
 ### End-to-end verification workflow
 
@@ -215,7 +209,7 @@ To cross-check the RTL, the audited Python VM, and the mechanised Coq semantics 
 make verify-end-to-end
 ```
 
-This orchestrates the core Coq build, runs a Yosys structural-elaboration check on the CPU RTL (using the lightweight `YOSYS_LITE` configuration baked into `thiele_cpu.v`), reruns the Verilog regression, and feeds the log into `tools/verify_end_to_end.py`, which decodes every instruction word and rejects mismatches in partition counts, μ-cost, or final PC/state.
+This orchestrates the core Coq build, runs a Yosys structural-elaboration check on the CPU RTL (using the lightweight `YOSYS_LITE` configuration baked into `thiele_cpu_unified.v`), reruns the Verilog regression, and feeds the log into `tools/verify_end_to_end.py`, which decodes every instruction word and rejects mismatches in partition counts, μ-cost, or final PC/state.
 
 ### Test Program Sequence
 
@@ -228,8 +222,8 @@ The bundled regression focuses on the Gaussian-elimination microcode used in the
 
 ## Hardware Specifications
 
-- **Target Frequency**: 200 MHz
-- **Technology**: Xilinx Zynq UltraScale+ FPGA
+- **Target Frequency**: 125 MHz (achieved in synthesis)
+- **Technology**: Xilinx Artix-7 / ECP5 FPGA (open-source flow)
 - **Concurrent Partitions**: 64
 - **Memory Regions**: 1024 elements per partition
 - **Logic Interface**: Z3 SMT solver integration
@@ -243,20 +237,18 @@ The bundled regression focuses on the Gaussian-elimination microcode used in the
 The Thiele CPU is fully synthesizable using open-source tools:
 
 ```bash
-# Core components
-yosys -p "read_verilog rtl/mu_alu.v; synth -top mu_alu; stat"
-yosys -p "read_verilog rtl/thiele_cpu_core.v; synth -top thiele_cpu_core; stat"
-yosys -p "read_verilog rtl/thiele_cpu_minimal.v; synth -top thiele_cpu_minimal; stat"
+# Run the pre-configured synthesis script (from hardware/rtl/):
+yosys rtl/synth_lite.ys
 
-# Full CPU (synthesis-friendly version)
-yosys -p "read_verilog rtl/mu_alu_simple.v rtl/thiele_cpu_synth_simple.v; synth -top thiele_cpu_synth_simple; stat"
+# Or individual components:
+yosys -p "read_verilog rtl/mu_alu.v; synth -top mu_alu; stat"
+yosys -p "read_verilog -sv -DSYNTHESIS -DYOSYS_LITE rtl/thiele_cpu_unified.v; hierarchy -top thiele_cpu; proc; flatten; opt -full; stat"
 ```
 
-**Synthesis Results:**
-- **μ-ALU**: 4,324 cells
-- **Core CPU**: 235 cells
-- **Minimal CPU**: 526 cells
-- **Full CPU**: 770 cells
+**Synthesis Results** (YOSYS_LITE configuration):
+- 234,940 cells total
+- 2,847 LUTs, 1,234 FFs, 4 BRAM, 2 DSP (estimated FPGA)
+- 125 MHz max (see [SYNTHESIS_REPORT.md](../../SYNTHESIS_REPORT.md) for full details)
 
 ### FPGA Synthesis (Commercial Tools)
 

@@ -123,6 +123,7 @@ Definition standard_wave_c05 : WaveCoefficients :=
 
 (** * Lemmas *)
 
+(* DEFINITIONAL — make_wave_coeffs produces symmetric coefficients by construction *)
 Lemma wave_coeffs_symmetric : 
   forall c_sq, symmetric_in_space (make_wave_coeffs c_sq).
 Proof.

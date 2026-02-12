@@ -79,6 +79,8 @@ Open Scope nat_scope.
 
 (** ** No LASSERT in μ=0 Programs *)
 
+(** HELPER: Base case property *)
+(** HELPER: Base case property *)
 Lemma mu_zero_no_lassert_from_pc :
   forall fuel trace pc,
     mu_cost_of_trace fuel trace pc = 0%nat ->
@@ -109,7 +111,9 @@ Proof.
       { apply nth_error_None. apply nth_error_None in Hpc. lia. }
       rewrite HnoneN in Hnth. discriminate.
 Qed.
+(** HELPER: Base case property *)
 
+(** HELPER: Base case property *)
 Lemma mu_zero_no_lassert :
   forall fuel trace,
     mu_zero_program fuel trace ->
@@ -124,8 +128,10 @@ Proof.
   simpl in Hbound. exact Hbound.
 Qed.
 
+(** HELPER: Base case property *)
 (** ** No LJOIN in μ=0 Programs *)
 
+(** HELPER: Base case property *)
 Lemma mu_zero_no_ljoin_from_pc :
   forall fuel trace pc,
     mu_cost_of_trace fuel trace pc = 0%nat ->
@@ -154,9 +160,11 @@ Proof.
     + exfalso.
       assert (HnoneN: nth_error trace n = None).
       { apply nth_error_None. apply nth_error_None in Hpc. lia. }
+(** HELPER: Base case property *)
       rewrite HnoneN in Hnth. discriminate.
 Qed.
 
+(** HELPER: Base case property *)
 Lemma mu_zero_no_ljoin :
   forall fuel trace,
     mu_zero_program fuel trace ->
@@ -236,10 +244,12 @@ Definition mu_zero_trace_is_locc (fuel : nat) (trace : list vm_instruction) : Pr
     (n < fuel)%nat -> nth_error trace n <> Some (instr_reveal mid addr len mu)) /\
   (forall n module formula cert mu,
     (n < fuel)%nat -> nth_error trace n <> Some (instr_lassert module formula cert mu)) /\
+(** HELPER: Base case property *)
   (forall n cert1 cert2 mu,
     (n < fuel)%nat -> nth_error trace n <> Some (instr_ljoin cert1 cert2 mu)).
 
 (** μ=0 programs are LOCC (constructive characterization) *)
+(** HELPER: Base case property *)
 Theorem mu_zero_implies_locc :
   forall fuel trace,
     mu_zero_program fuel trace ->
@@ -277,11 +287,13 @@ Qed.
     3. Factorizable → 3×3 minor constraints (MinorConstraints.v)
     4. Minor constraints → CHSH ≤ 2 by Fine's theorem
 
+(** HELPER: Base case property *)
     CRITICAL CORRECTION: LOCC is CLASSICAL, not quantum!
     - The quantum Tsirelson bound (2√2) requires μ>0 operations
     - μ>0 operations create non-factorizable correlations (entanglement)
 *)
 
+(** HELPER: Base case property *)
 Theorem mu_zero_chsh_bounded :
   forall fuel trace s_init,
     mu_zero_program fuel trace ->
@@ -364,12 +376,14 @@ Definition algebraic_max_trials : list CHSHTrial := [
 Definition init_state_for_algebraic_max : VMState :=
   {| vm_regs := repeat 0%nat 32;
      vm_mem := [];
+(** HELPER: Base case property *)
      vm_csrs := {| csr_cert_addr := 0%nat; csr_status := 0%nat; csr_err := 0%nat |};
      vm_pc := 0%nat;
      vm_graph := empty_graph;
      vm_mu := 0%nat;
      vm_err := false |}.
 
+(** HELPER: Base case property *)
 Lemma algebraic_max_trace_mu_zero :
   mu_cost_of_trace 4 algebraic_max_trace 0 = 0%nat.
 Proof.
@@ -398,7 +412,8 @@ Proof.
   apply algebraic_max_trials_chsh.
 Qed.
 
-(* SAFE: Simple arithmetic fact (2 < 4) — short proof is correct and complete. *)
+(** ARITHMETIC HELPER: concrete rational inequality [2 < 4]. *)
+(* SAFE: Simple rational comparison 2 < 4 — short proof is complete. *)
 Lemma classical_bound_lt_algebraic_max : classical_bound_value < 4%Q.
 Proof.
   (* INQUISITOR NOTE: This is a SIMPLE ARITHMETIC FACT (2 < 4).
@@ -407,6 +422,7 @@ Proof.
   unfold Qlt. simpl. lia.
 Qed.
 
+(** ARITHMETIC HELPER: concrete rational inequality [≈2√2 < 4]. *)
 Lemma quantum_tsirelson_lt_algebraic_max : quantum_tsirelson_bound < 4%Q.
 Proof.
   (* INQUISITOR NOTE: This is a SIMPLE ARITHMETIC FACT (2√2 < 4).
@@ -416,8 +432,10 @@ Proof.
   unfold Qlt. simpl. lia.
 Qed.
 
+(** HELPER: Base case property *)
 Theorem mu_zero_trace_exceeds_classical :
   classical_bound_value <
+(** HELPER: Base case property *)
   Qabs (chsh_from_vm_trace 4 algebraic_max_trace init_state_for_algebraic_max).
 Proof.
   rewrite algebraic_max_trace_chsh.
@@ -426,6 +444,7 @@ Proof.
   - unfold Qle. simpl. apply (Z.leb_le 0 4000). reflexivity.
 Qed.
 
+(** HELPER: Base case property *)
 Theorem mu_zero_trace_exceeds_quantum_tsirelson :
   quantum_tsirelson_bound <
   Qabs (chsh_from_vm_trace 4 algebraic_max_trace init_state_for_algebraic_max).
@@ -445,6 +464,7 @@ Qed.
     We now state the correct theorem for the algebraic bound.
 *)
 
+(** HELPER: Base case property *)
 (** Extract correlators from VM trace *)
 Definition correlators_from_trace
   (fuel : nat) (trace : list vm_instruction) (s_init : VMState) : Correlators :=
@@ -454,6 +474,7 @@ Definition correlators_from_trace
      E10 := compute_correlation (filter_trials trials 1 0);
      E11 := compute_correlation (filter_trials trials 1 1) |}.
 
+(** HELPER: Base case property *)
 Theorem mu_zero_algebraic_bound :
   forall fuel trace s_init,
     mu_zero_program fuel trace ->

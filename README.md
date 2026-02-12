@@ -4,7 +4,7 @@
 
 [![CI](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml/badge.svg)](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Coq](https://img.shields.io/badge/Coq-272%20Proof%20Files-blue)](coq/)
+[![Coq](https://img.shields.io/badge/Coq-285%20Proof%20Files-blue)](coq/)
 
 ---
 
@@ -54,12 +54,12 @@ workflow) to keep verification runtime manageable.
 
 | Component | Status |
 |-----------|--------|
-| **Coq proofs** | 272 files, 73,016 lines, 2,154 theorems/lemmas, **zero admits**, **zero axioms** beyond foundational logic. [Audit Report](COQ_AUDIT_REPORT.md) |
+| **Coq proofs** | 285 files, ~78,500 lines, ~2,316 theorems/lemmas, **zero admits**, **zero axioms** beyond foundational logic. [Audit Report](INQUISITOR_REPORT.md) |
 | **Python VM** | 20,786 lines. Working reference implementation with cryptographic receipts. |
-| **Verilog RTL** | 11 files, 3,871 lines. Synthesizable, FPGA-targetable. |
-| **Test suite** | 667 tests across 77 test files. |
+| **Verilog RTL** | 14 files, ~4,370 hand-written lines. Synthesizable, FPGA-targetable. |
+| **Test suite** | 828 tests across 82 test files. |
 | **3-layer isomorphism** | Coq = Python = Verilog. Same program, same state, three layers. |
-| **6 hard assumptions** | Documented, justified, falsifiable. Standard mathematical facts. |
+| **6 hard assumptions** | All 6 mechanically proven in `HardMathFactsProven.v`. Zero remaining assumptions. |
 
 ---
 
@@ -144,9 +144,9 @@ The Thiele Machine is implemented at three layers producing **identical state pr
 
 | Layer | Implementation | Purpose |
 |-------|----------------|---------|
-| **Coq** | 272 proof files, 73,016 lines, zero admits | Mathematical ground truth |
+| **Coq** | 285 proof files, ~78,500 lines, zero admits | Mathematical ground truth |
 | **Python** | 20,786 lines, receipts and traces | Executable reference |
-| **Verilog** | 11 files, 3,871 lines, synthesizable RTL | Physical realization |
+| **Verilog** | 14 files, ~4,370 hand-written lines, synthesizable RTL | Physical realization |
 
 For any instruction trace tau:
 ```
@@ -173,15 +173,18 @@ Synthesis: 2,847 LUTs, 1,234 FFs, 4 BRAM, 2 DSP, 125 MHz max.
 
 ## Quantum Axioms from Mu-Accounting
 
-Five files, 2,393 lines, 45 theorems, zero Admitted:
+Eight files, 3,961 lines, zero Admitted:
 
 | File | Lines | Theorems | What It Derives |
 |------|-------|----------|-----------------|
 | `NoCloning.v` | 936 | 7 | Perfect cloning costs mu > 0 |
-| `Unitarity.v` | 570 | 6 | Zero-cost evolution is CPTP |
-| `BornRule.v` | 311 | 10 | P = \|a\|^2 from linearity |
-| `Purification.v` | 275 | 7 | Mixed states need references |
-| `TsirelsonGeneral.v` | 301 | 15 | S <= 2*sqrt(2) from coherence |
+| `NoCloningFromMuMonotonicity.v` | 260 | 3 | Machine-native no-cloning (lia) |
+| `Unitarity.v` | 583 | 6 | Zero-cost evolution is CPTP |
+| `BornRule.v` | 321 | 10 | P = \|a\|^2 from linearity |
+| `BornRuleFromSymmetry.v` | 939 | 31 | Born rule from tensor consistency |
+| `Purification.v` | 280 | 7 | Mixed states need references |
+| `TsirelsonGeneral.v` | 315 | 15 | S <= 2*sqrt(2) from coherence |
+| `TsirelsonFromAlgebra.v` | 327 | 11 | Self-contained algebraic Tsirelson |
 
 Quantum mechanics is not postulated. It falls out of mu-conservation.
 
@@ -212,7 +215,7 @@ Documented in `coq/kernel/AssumptionBundle.v`. These are standard mathematical f
 | `symm_coh_bound` | Symmetric coherence bound |
 | `tsir_from_coh` | Tsirelson from coherence |
 
-Each has concrete justification and falsification conditions. Remove any one and the proofs still compile — they are isolated by design.
+Each has concrete justification and falsification conditions. All six are mechanically proven in `kernel/HardMathFactsProven.v` (686 lines).
 
 ---
 
@@ -235,7 +238,7 @@ If you find any of these, the Coq proofs won't compile.
 
 ```
 The-Thiele-Machine/
-├── coq/                    # 272 Coq proof files (73,016 lines)
+├── coq/                    # 285 Coq proof files (~78,500 lines)
 │   ├── kernel/             # Core theorems (MuInitiality, NoFreeInsight, etc.)
 │   ├── modular_proofs/     # Turing/Minsky simulation proofs
 │   ├── nofi/               # No Free Insight functor architecture
@@ -247,12 +250,12 @@ The-Thiele-Machine/
 │   ├── vm.py               # Core execution engine
 │   ├── state.py            # State machine, partitions, mu-ledger
 │   ├── isa.py              # 18-instruction ISA
-│   └── hardware/           # Verilog RTL (11 files, 3,871 lines)
-├── tests/                  # 667 tests across 77 files
+│   └── hardware/           # Verilog RTL (14 files, ~4,370 hand-written lines)
+├── tests/                  # 828 tests across 82 files
 ├── scripts/                # Build, verification, analysis tools
 ├── tools/                  # mu-Profiler and extracted VM runner
 ├── verifier/               # Physics divergence verification
-├── thesis/                 # Complete thesis (PDF + LaTeX, 124 pages)
+├── thesis/                 # Complete thesis (PDF + LaTeX)
 └── COQ_AUDIT_REPORT.md     # Full proof audit results
 ```
 
@@ -267,7 +270,7 @@ python scripts/inquisitor.py
 ```
 
 25+ lint rules enforced on every Coq file:
-- Zero `Admitted` / `admit` / `give_up` across all 272 proof files
+- Zero `Admitted` / `admit` / `give_up` across all 285 proof files
 - Zero custom axioms beyond `AssumptionBundle.v`
 - All proofs end with `Qed`
 - `Print Assumptions` at end of major files
@@ -319,8 +322,7 @@ This enables post-hoc verification without re-execution.
 | Hardware | [thielecpu/hardware/README.md](thielecpu/hardware/README.md) |
 | Thesis | [thesis/main.pdf](thesis/main.pdf) |
 | Reference Manual | [thesis/thiele_machine_manual.txt](thesis/thiele_machine_manual.txt) |
-| Proof Audit | [COQ_AUDIT_REPORT.md](COQ_AUDIT_REPORT.md) |
-| Style Guide | [COQ_DOCUMENTATION_STYLE_GUIDE.md](COQ_DOCUMENTATION_STYLE_GUIDE.md) |
+| Proof Audit | [INQUISITOR_REPORT.md](INQUISITOR_REPORT.md) |
 
 ---
 

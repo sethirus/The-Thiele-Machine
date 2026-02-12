@@ -1,14 +1,14 @@
 # Coq Proofs for the Thiele Machine
 
-This directory contains **271 Coq proof files (~72,500 lines)** organized into logical modules.
+This directory contains **285 Coq proof files (~78,500 lines)** organized into logical modules.
 
-**Status:** ✅ All 271 files compile cleanly | ✅ **ZERO admitted proofs** | ✅ **ZERO axioms in active code** | ✅ [Full Audit Report](../COQ_AUDIT_REPORT.md)
+**Status:** ✅ All 285 files compile cleanly | ✅ **ZERO admitted proofs** | ✅ **ZERO axioms in active code** | ✅ [Full Audit Report](../INQUISITOR_REPORT.md)
 
 ## Build
 
 ```bash
 # From repository root:
-make              # Build all 271 Coq proofs
+make              # Build all 285 Coq proofs
 
 # Or from coq/ directory:
 cd coq
@@ -26,13 +26,13 @@ make -j4
 
 | Directory | Files | Description |
 |-----------|-------|-------------|
-| `kernel/` | 89 | Core kernel proofs (Structural constraints, optimization bounds, bisimulation) |
+| `kernel/` | 97 | Core kernel proofs (Structural constraints, optimization bounds, bisimulation) |
 | `kernel_toe/` | 6 | Theory of Everything cone (no-go theorems) |
 | `thielemachine/` | 98 | Main Thiele Machine proofs (Bell, verification, deliverables) |
 | `thieleuniversal/` | 7 | Universal Turing Machine proofs |
-| `modular_proofs/` | 7 | Modular encoding and simulation proofs |
+| `modular_proofs/` | 9 | Modular encoding and simulation proofs |
 | `physics/` | 5 | Physics models (Landauer bridge, wave/discrete) |
-| `bridge/` | 6 | Embeddings (BoxWorld, Linear Algebra, Entropy) |
+| `bridge/` | 7 | Embeddings (BoxWorld, Linear Algebra, Entropy) |
 | `nofi/` | 5 | No-Free-Insight abstraction |
 | `catnet/` | 1 | Categorical network proofs |
 | `isomorphism/` | 1 | Universe isomorphism |
@@ -41,9 +41,14 @@ make -j4
 | `spacetime/` | 1 | Spacetime proofs |
 | `spacetime_projection/` | 1 | Spacetime projection |
 | `thiele_manifold/` | 4 | Thiele manifold physics |
-| `shor_primitives/` | 3 | Shor algorithm primitives |
+| `shor_primitives/` | 4 | Shor algorithm primitives |
 | `project_cerberus/` | 1 | Cerberus project |
 | `test_vscoq/` | 1 | VSCoq tests |
+| `physics_exploration/` | 6 | Physics exploration proofs |
+| `quantum_derivation/` | 9 | Quantum derivation proofs |
+| `theory/` | 13 | Theory proofs |
+| `thermodynamic/` | 2 | Thermodynamic proofs |
+| `tests/` | 2 | Coq test files |
 
 ## Key Theorems
 
@@ -97,7 +102,7 @@ python scripts/inquisitor.py --strict --coq-root coq
 - ✅ Active code uses only standard mathematical axioms:
   - `FunctionalExtensionality` (standard Coq library)
   - `ClassicalDedekindReals.sig_forall_dec` (classical decidability for reals)
-- ✅ Clean compilation of all 271 files
+- ✅ Clean compilation of all 285 files
 - 2 HIGH findings (intentional): `reversible_info_cost = 0` (mathematically required)
 
 **Key Theorem Dependencies:**
@@ -105,7 +110,7 @@ python scripts/inquisitor.py --strict --coq-root coq
 - Tsirelson bounds: Derived from algebraic coherence, no custom axioms
 - μ-cost theorems: Complete proofs, no admits
 
-See [Full Audit Report](../COQ_AUDIT_REPORT.md) for detailed analysis.
+See [Full Audit Report](../INQUISITOR_REPORT.md) for detailed analysis.
 
 ## Each Directory Has a README
 

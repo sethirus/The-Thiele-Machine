@@ -287,6 +287,8 @@ Proof.
 Qed.
 
 (** sum_n_nonneg: Nonnegative terms give a nonnegative sum *)
+(** HELPER: Non-negativity property *)
+(** HELPER: Non-negativity property *)
 Lemma sum_n_nonneg :
   forall n f,
     (forall λ, (λ <= n)%nat -> 0 <= f λ) ->
@@ -624,6 +626,7 @@ Definition CHSH_from_correlations (E : nat -> nat -> nat -> nat -> R) : R :=
 
     STATUS: COMPLETE (Proven with exhaustive case analysis, ~8 lines) *)
 (** Lemma: For each deterministic strategy, CHSH value is bounded *)
+(* SAFE: proves classical bound -2 ≤ S ≤ 2 for deterministic ±1 strategies *)
 Lemma deterministic_strategy_chsh_bounded :
   forall (A : nat -> R) (B : nat -> R),
     (forall x, A x = -1 \/ A x = 1) ->

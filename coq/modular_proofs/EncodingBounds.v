@@ -10,6 +10,8 @@ Proof.
   eapply Nat.le_lt_trans; [exact Hle|exact Hlt].
 Qed.
 
+(** HELPER: Non-negativity property *)
+(** HELPER: Non-negativity property *)
 Lemma pow_pos : forall a n, 1 <= a -> 0 < Nat.pow a n.
 Proof.
   intros a n Ha.

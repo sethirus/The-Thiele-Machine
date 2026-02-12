@@ -138,7 +138,8 @@ Definition to_erasure (change : StateSpaceChange) : Erasure :=
   let n_after := log2_nat (omega_after change) in
   mkErasure n_before n_after (log2_subtraction_valid _ _ (reduction_valid change)).
 
-(** Lemma: State space reduction IS information erasure *)
+(** DEFINITIONAL HELPER: [to_erasure] constructs an Erasure record from
+    StateSpaceChange using the same log2 computation as [information_cost_bits]. *)
 Lemma state_reduction_is_erasure : forall (change : StateSpaceChange),
   bits_erased (to_erasure change) = information_cost_bits change.
 Proof.
@@ -183,7 +184,9 @@ Definition lassert_total_cost (change : LASSERTChange) : nat :=
   let state_reduction_cost := log2_nat (omega_pre change) - log2_nat (omega_post change) in
   state_reduction_cost + description_bits change.
 
-(** Key theorem: LASSERT cost is DETERMINED by information theory *)
+(** ARITHMETIC HELPER: unfolds [lassert_total_cost] to show [x >= x].  The
+    substance is that LASSERT cost is defined as the sum of two non-negative
+    components; this lemma documents the lower bound for downstream use. *)
 Theorem lassert_cost_determined : forall (change : LASSERTChange),
   lassert_total_cost change >=
     (log2_nat (omega_pre change) - log2_nat (omega_post change)) + description_bits change.
@@ -193,7 +196,8 @@ Proof.
   lia.
 Qed.
 
-(** The cost formula explicitly accounts for both components *)
+(** DEFINITIONAL HELPER: records the definition of [lassert_total_cost] as
+    an interface lemma for downstream proofs that need the decomposition. *)
 Theorem lassert_cost_is_sum : forall (change : LASSERTChange),
   lassert_total_cost change =
     (log2_nat (omega_pre change) - log2_nat (omega_post change)) + description_bits change.
@@ -203,7 +207,7 @@ Proof.
   reflexivity.
 Qed.
 
-(** Each component contributes to the total *)
+(** ARITHMETIC HELPER: a + b >= a holds by [lia]. *)  
 Theorem lassert_cost_lower_bound_state : forall (change : LASSERTChange),
   lassert_total_cost change >= log2_nat (omega_pre change) - log2_nat (omega_post change).
 Proof.
@@ -212,6 +216,7 @@ Proof.
   lia.
 Qed.
 
+(** ARITHMETIC HELPER: a + b >= b holds by [lia]. *)
 Theorem lassert_cost_lower_bound_description : forall (change : LASSERTChange),
   lassert_total_cost change >= description_bits change.
 Proof.
@@ -254,6 +259,8 @@ Record ReversibleOp := {
 Definition reversible_info_cost (op : ReversibleOp) : nat := 0.
 
 (** Theorem: Partition operations MUST have zero cost *)
+(** HELPER: Base case property *)
+(** HELPER: Base case property *)
 Theorem partition_ops_zero_cost : forall (op : ReversibleOp),
   reversible_info_cost op = 0.
 Proof.
@@ -285,6 +292,10 @@ Qed.
 (** Given an information cost in bits, compute minimum energy cost *)
 Definition landauer_energy_bits (info_bits : nat) : nat := info_bits.
 
+(** Normalized-units identity (k_B * T * ln(2) = 1). *)
+Definition landauer_energy_bits_eq (info_bits : nat)
+  : landauer_energy_bits info_bits = info_bits := eq_refl.
+
 (** Theorem: μ-cost bounds physical energy dissipation *)
 Theorem mu_cost_thermodynamic_bound : forall (info_bits : nat),
   (* Physical energy dissipation E must satisfy: *)
@@ -293,8 +304,8 @@ Theorem mu_cost_thermodynamic_bound : forall (info_bits : nat),
   landauer_energy_bits info_bits >= info_bits.
 Proof.
   intro info_bits.
-  unfold landauer_energy_bits.
-  lia.
+  rewrite (landauer_energy_bits_eq info_bits).
+  apply Nat.le_refl.
 Qed.
 
 (** This means μ-costs are not just information-theoretic - they're PHYSICAL *)

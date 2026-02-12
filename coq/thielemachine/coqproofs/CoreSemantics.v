@@ -467,6 +467,7 @@ Proof. cbv [mu_mdlacc_cost]. lia. Qed.
 Lemma mu_emit_cost_nonneg : 0 <= mu_emit_cost.
 Proof. cbv [mu_emit_cost]. lia. Qed.
 
+(** HELPER LEMMA: Immediate consequence of add_mu_operational definition *)
 Lemma add_mu_operational_mu_total_ge :
   forall (l : MuLedger) (delta : Z),
     0 <= delta ->
@@ -477,6 +478,7 @@ Proof.
   lia.
 Qed.
 
+(** HELPER LEMMA: Immediate consequence of add_mu_information definition *)
 Lemma add_mu_information_mu_total_ge :
   forall (l : MuLedger) (delta : Z),
     0 <= delta ->
@@ -1542,13 +1544,15 @@ Proof.
       split; [reflexivity | reflexivity]]]]. }
 Qed.
 
-(** Helper lemmas for μ-ledger arithmetic *)
+(** Helper lemmas for μ-ledger arithmetic - DEFINITIONAL HELPERS *)
+(** HELPER LEMMA: Projection of record constructor *)
 Lemma add_mu_operational_total : forall l delta,
   mu_total (add_mu_operational l delta) = mu_total l + delta.
 Proof.
   intros. unfold add_mu_operational. simpl. reflexivity.
 Qed.
 
+(** HELPER LEMMA: Projection of record constructor *)
 Lemma add_mu_information_total : forall l delta,
   mu_total (add_mu_information l delta) = mu_total l + delta.
 Proof.

@@ -51,7 +51,14 @@ Qed.
     constraints imposed by the extracted PDE parameters.
 *)
 Lemma coefficient_constraints :
-  coef_a_a == 1 /  coef_a_b == 0 /  coef_a_lap_b == -(extracted_dt * extracted_inv_2m) /  coef_a_Vb == extracted_dt /  coef_b_b == 1 /  coef_b_a == 0 /  coef_b_lap_a ==  (extracted_dt * extracted_inv_2m) /  coef_b_Va == -extracted_dt.
+  coef_a_a == 1 /\
+  coef_a_b == 0 /\
+  coef_a_lap_b == -(extracted_dt * extracted_inv_2m) /\
+  coef_a_Vb == extracted_dt /\
+  coef_b_b == 1 /\
+  coef_b_a == 0 /\
+  coef_b_lap_a ==  (extracted_dt * extracted_inv_2m) /\
+  coef_b_Va == -extracted_dt.
 Proof.
   unfold coef_a_a, coef_a_b, coef_a_lap_b, coef_a_Vb.
   unfold coef_b_b, coef_b_a, coef_b_lap_a, coef_b_Va.
@@ -96,6 +103,16 @@ Proof.
   (* Use the coefficient constraints to rewrite the discovered rule *)
   destruct coefficient_constraints as [Haa [Hab [Halb [HaVb [Hbb [Hba [Hbla HbVa]]]]]]].
   rewrite Haa, Hab, Halb, HaVb, Hbb, Hba, Hbla, HbVa.
+  split; ring.
+Qed.
+
+(** * Additional verification: the update preserves normalization structure *)
+
+Lemma antisymmetric_coupling :
+  coef_a_lap_b == - coef_b_lap_a /\
+  coef_a_Vb == - coef_b_Va.
+Proof.
+  unfold coef_a_lap_b, coef_b_lap_a, coef_a_Vb, coef_b_Va.
   split; ring.
 Qed.
 \end{lstlisting}

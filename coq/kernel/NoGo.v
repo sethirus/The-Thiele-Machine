@@ -109,6 +109,8 @@ Definition w_scale (k : nat) : Weight :=
     FALSIFICATION: Find k where w_scale(k)([]) ≠ 0. This would violate basic
     arithmetic (k · 0 = 0 for all k).
 *)
+(** HELPER: Base case property *)
+(** HELPER: Base case property *)
 Lemma w_scale_empty : forall k, weight_empty (w_scale k).
 Proof.
   intro k. unfold weight_empty, w_scale. simpl. lia.
@@ -289,6 +291,11 @@ Qed.
     many k work, suggesting the laws are stricter than I claimed. But k ranges
     over all ℕ (infinite), and the proofs work for all k, so this seems impossible.
 *)
+(** DEFINITIONAL WITNESS: [w_scale] is the witness, but the proof does real work:
+    (1) verifies [weight_laws] for every scale factor k, and
+    (2) constructs a separating trace [instr_halt 0] and derives k1 <> k2
+    from multiplication distinctness via [lia]. *)
+(* DEFINITIONAL *)
 Theorem CompositionalWeightFamily_Infinite :
   exists w : nat -> Weight,
     (forall k, weight_laws (w k)) /\

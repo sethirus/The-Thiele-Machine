@@ -77,6 +77,9 @@ Definition stutter (region : list nat) (cost : nat) (t : list vm_instruction)
   : list vm_instruction :=
   instr_pnew region cost :: t.
 
+(** DEFINITIONAL HELPER: [causal_cone] skips [instr_pnew] because partition
+    creation does not affect the causal cone (it creates a new isolated module
+    with no causal predecessors). *)
 Lemma causal_cone_stutter : forall region cost t,
   causal_cone (stutter region cost t) = causal_cone t.
 Proof.

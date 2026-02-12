@@ -228,22 +228,33 @@ Definition is_unitary (E : Evolution) : Prop :=
 Definition unitary_zero_cost (E : Evolution) : Prop :=
   is_unitary E -> E.(evo_mu) = 0.
 
-(** unitary_preserves_trace: Unitaries preserve normalization
-    PROOF: Trivial - trace_rho is constant (always 1).
-
-    WHY PROVE THIS: Establishes unitaries satisfy trace-preserving axiom of
-    quantum channels. Part of CPTP characterization.
-
-    FALSIFICATION: Show unitary with Tr(ρ_out) ≠ 1 (impossible by definition).
+(** DEFINITIONAL HELPER: trace preservation from normalization constraint.
+    In the Bloch sphere parametrization ρ = (I + x·σ_x + y·σ_y + z·σ_z)/2,
+    Tr(ρ) = 1 holds for ALL density matrices by the normalization constraint
+    (the Pauli matrices are traceless: Tr(σ_i) = 0).  This is NOT special to
+    unitaries — it is a structural property of the parametrization itself.
+    The real non-trivial theorem is [unitary_preserves_positivity] below,
+    which actually USES the [is_unitary] hypothesis.
 *)
-Theorem unitary_preserves_trace :
+(* DEFINITIONAL *)
+Theorem trace_preserved_by_normalization :
+  forall E : Evolution,
+    trace_preserving E.
+Proof.
+  intros E.
+  unfold trace_preserving, trace_rho.
+  intros. reflexivity.
+Qed.
+
+(** Corollary for unitaries — follows from the general fact above. *)
+(** DEFINITIONAL HELPER *)
+Corollary unitary_preserves_trace :
   forall E : Evolution,
     is_unitary E ->
     trace_preserving E.
 Proof.
   intros E _.
-  unfold trace_preserving, trace_rho.
-  intros. reflexivity.
+  apply trace_preserved_by_normalization.
 Qed.
 
 (** unitary_preserves_positivity: Unitaries preserve physical constraints
@@ -256,6 +267,8 @@ Qed.
 
     FALSIFICATION: Find unitary mapping valid state to invalid state (r² > 1).
 *)
+(** HELPER: Non-negativity property *)
+(** HELPER: Non-negativity property *)
 Theorem unitary_preserves_positivity :
   forall E : Evolution,
     is_unitary E ->

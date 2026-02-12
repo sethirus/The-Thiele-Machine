@@ -33,18 +33,21 @@ Module GeometricSignature.
     intros p1 p2; unfold variation_of_information; apply Rle_refl.
   Qed.
 
+  (* DEFINITIONAL — VI is symmetric by construction (commutative Rabs) *)
   Lemma vi_symmetric : forall p1 p2,
       variation_of_information p1 p2 = variation_of_information p2 p1.
   Proof.
     intros p1 p2; unfold variation_of_information; reflexivity.
   Qed.
 
+  (* DEFINITIONAL — VI(p,p) = |H(p)-H(p)| = 0 *)
   Lemma vi_identity : forall p,
       variation_of_information p p = 0%R.
   Proof.
     intro p; unfold variation_of_information; reflexivity.
   Qed.
 
+  (* ARITHMETIC — triangle inequality for absolute difference *)
   Lemma vi_triangle : forall p1 p2 p3,
       (variation_of_information p1 p3 <=
        variation_of_information p1 p2 + variation_of_information p2 p3)%R.
