@@ -214,7 +214,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install -e . --no-deps
-          python -m pytest tests/test_extracted_vm_runner.py tests/test_bisimulation_complete.py tests/test_property_bisimulation.py tests/adversarial_fuzzing.py -v
+          python -m pytest tests/test_extracted_vm_runner.py tests/test_bisimulation.py tests/test_bisimulation_complete.py tests/test_property_bisimulation.py tests/adversarial_fuzzing.py -v
 
   dependency-scan:
     name: Dependency scan
