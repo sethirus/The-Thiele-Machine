@@ -97,7 +97,7 @@ Let $\N = \{0,1,2,\dots\}$. Let $\B = \{0,1\}$. Let $\Sigma$ be a finite alphabe
 
 \section{Regions and Modules}
 \begin{definition}[Region]
-A \textbf{Region} $R$ is a finite subset of $\N$, canonically represented as a sorted list of unique elements: $\mathrm{norm}(L)$ returns the sorted deduplicated form of list $L$.
+A \textbf{Region} $R$ is a finite subset of $\N$, canonically represented as a deduplicated list preserving first-occurrence order: $\mathrm{norm}(L) = \mathrm{nodup}(L)$ removes duplicate elements while preserving the order of their first appearance. (The Python VM applies a stricter canonical form via \texttt{sorted(set(region))}; the Coq specification uses \texttt{nodup Nat.eq\_dec} which does not sort.)
 \end{definition}
 
 \begin{definition}[Module]
@@ -131,26 +131,36 @@ These modify the partition graph $G$:
     \item $\texttt{PNEW}(R, \Delta\mu)$: Create module with region $R$.
     \item $\texttt{PSPLIT}(m, L, R, \Delta\mu)$: Split module $m$ into disjoint regions.
     \item $\texttt{PMERGE}(m_1, m_2, \Delta\mu)$: Merge two modules.
-    \item $\texttt{PDISCOVER}(m, E, \Delta\mu)$: Attach evidence $E$ to module $m$.
+    \item $\texttt{PDISCOVER}(m, E, \Delta\mu)$: Attach evidence $E$ (list of axioms) to module $m$.
+    \item $\texttt{MDLACC}(m, \Delta\mu)$: Minimum-description-length accumulate on module $m$.
 \end{itemize}
 
 \subsection{Logical Operations}
 These interact with information content:
 \begin{itemize}
-    \item $\texttt{LASSERT}(m, \phi, \pi, \Delta\mu)$: Assert formula $\phi$ on module $m$ with proof $\pi$.
+    \item $\texttt{LASSERT}(m, \phi, \mathit{cert}, \Delta\mu)$: Assert formula $\phi$ on module $m$ with certificate $\mathit{cert}$, which is either a SAT model (\texttt{lassert\_cert\_sat}) or an UNSAT LRAT proof (\texttt{lassert\_cert\_unsat}).
     \item $\texttt{LJOIN}(c_1, c_2, \Delta\mu)$: Join certificate checksums.
-    \item $\texttt{REVEAL}(m, n, \pi, \Delta\mu)$: Reveal $n$ bits of structure from $m$. \emph{Primary source of $\mu$-cost.}
+    \item $\texttt{REVEAL}(m, n, \mathit{cert}, \Delta\mu)$: Reveal $n$ bits of structure from $m$. \emph{Primary source of $\mu$-cost.}
     \item $\texttt{EMIT}(m, p, \Delta\mu)$: Emit payload $p$ from module $m$.
 \end{itemize}
 
 \subsection{Computational Operations (Reversible ALU)}
 Standard reversible register/memory operations: $\texttt{XFER}$, $\texttt{XOR\_LOAD}$, $\texttt{XOR\_ADD}$, $\texttt{XOR\_SWAP}$, $\texttt{XOR\_RANK}$.
 
-\section{Intrinsic Cost}
-The intrinsic cost function $K : \Ispace \times \Sspace \to \N$:
+\subsection{Auxiliary Operations}
 \begin{itemize}
-    \item $K(\texttt{REVEAL}, s) = 1$, \quad $K(\texttt{LASSERT}, s) = 1$ (if structure added), \quad $K(\text{other}, s) = 0$.
+    \item $\texttt{PYEXEC}(\mathit{payload}, \Delta\mu)$: Execute Python payload (host bridge).
+    \item $\texttt{CHSH\_TRIAL}(x, y, a, b, \Delta\mu)$: Run a CHSH correlation trial.
+    \item $\texttt{ORACLE\_HALTS}(\mathit{payload}, \Delta\mu)$: Query halting oracle (requires $\Delta\mu > 0$).
+    \item $\texttt{HALT}(\Delta\mu)$: Halt execution.
 \end{itemize}
+
+The full ISA comprises 18 instructions (4 structural + 4 logical + 5 ALU + 5 auxiliary). Every instruction carries an explicit $\Delta\mu$ parameter; the function $\texttt{instruction\_cost}$ extracts it.
+
+\section{Cost Model}
+Every instruction $i$ carries an explicit cost parameter $\Delta\mu_i \in \N$. The function $\texttt{instruction\_cost}(i)$ extracts this parameter. The cost is applied via $\texttt{apply\_cost}(s, i) = s.\mu + \texttt{instruction\_cost}(i)$. Since $\Delta\mu_i : \N$, the $\mu$-ledger is monotonically non-decreasing by construction.
+
+Semantically, only $\texttt{REVEAL}$ and $\texttt{LASSERT}$ (when adding structure) constitute genuine information-theoretic cost. Other instructions may carry $\Delta\mu > 0$ as a bookkeeping charge, but in typical programs their cost is set to zero.
 
 \chapter{Operational Semantics}
 
@@ -175,9 +185,9 @@ $\mathrm{Run}([], S) = S$; \quad $\mathrm{Run}(i::\tau', S) = \mathrm{Run}(\tau'
 
 \textbf{PNEW}: Normalize region; if already present, idempotent; else add $(R_{\mathrm{norm}}, \emptyset)$ to $G$.
 
-\textbf{REVEAL}: Update CSRs with checksum of proof $\pi$. Cost: $\Delta\mu$ (typically 1).
+\textbf{REVEAL}: Update CSRs with checksum of certificate $\mathit{cert}$. Cost: $\Delta\mu$ (typically 1).
 
-\textbf{LASSERT}: Verify proof $\pi$ for formula $\phi$ (LRAT for UNSAT, model-check for SAT). If valid, append $\phi$ to $A_m$; if invalid, set $\mathit{err} \gets \mathrm{true}$. Replaces oracles with verifiable proofs.
+\textbf{LASSERT}: Verify certificate $\mathit{cert}$ for formula $\phi$. If $\mathit{cert}$ is \texttt{lassert\_cert\_unsat}: verify LRAT proof (UNSAT). If $\mathit{cert}$ is \texttt{lassert\_cert\_sat}: verify model satisfies formula (SAT). If valid, append $\phi$ to $A_m$; if invalid, set $\mathit{err} \gets \mathrm{true}$. Replaces oracles with verifiable proofs.
 
 %=============================================================================
 % PART II: CORE THEOREMS
@@ -215,7 +225,7 @@ Let $P_{\mathrm{strong}} < P_{\mathrm{weak}}$. If a trace $\tau$ starting from a
 \end{theorem}
 
 \begin{proof}[Proof Sketch]
-Relies on four kernel axioms: (A1) Non-Forgeability of receipts, (A2) Monotonicity of $\mu$, (A3) Locality (disjoint modules are independent), (A4) Underdetermination (partition structure alone cannot distinguish $P_{\mathrm{strong}}$ from $P_{\mathrm{weak}}$). Certifying the stronger predicate requires excluding cases, which by A4 requires new information, which by definition is a structure addition. No axioms, no admits.
+The proof is parametric: \texttt{NoFreeInsight\_Theorem.v} proves the theorem for any system satisfying the \texttt{NO\_FREE\_INSIGHT\_SYSTEM} module type interface. The interface requires four contract obligations (not Coq \texttt{Axiom} declarations---they are proved separately for the kernel instantiation): (1)~$\mu$-monotonicity, (2)~a certification specification linking \texttt{certifies} to execution, (3)~a no-free-insight contract stating that strict strengthening requires structure addition, and (4)~that the system has a notion of clean start. The theorem file itself contains zero \texttt{Axiom}, zero \texttt{Admitted}. The contract obligations are discharged by the kernel instantiation.
 \end{proof}
 
 \begin{corollary}[Cost of Insight]
@@ -279,7 +289,7 @@ This is the Second Law of Thermodynamics: consistent cost accounting implies a s
 
 \section{Turing Machine Embedding}
 
-\begin{theorem}[Abstract Simulation {\normalfont (Embedding\_TM.v, TM\_to\_Minsky.v)}]
+\begin{theorem}[Abstract Simulation {\normalfont (Embedding\_TM.v, modular\_proofs/TM\_to\_Minsky.v)}]
 For every Turing Machine $T$, there exists a Minsky counter machine $M$ and a simulation relation $R$ such that $M$ simulates $T$ step-by-step, encoding the tape into two integers:
 \[ \mathrm{Left} = \sum_{i=0}^{h-1} t[h{-}1{-}i]\, 2^i, \qquad \mathrm{Right} = \sum_{i=0}^{n-h-1} t[h{+}i]\, 2^i \]
 The Thiele Machine simulates Minsky using its reversible ALU. Hence:
@@ -299,15 +309,15 @@ There exist Thiele traces with identical Turing shadows but non-isomorphic Thiel
 \end{theorem}
 
 \section{Halting Undecidability}
-\begin{theorem}[Diagonal Argument {\normalfont (HyperThiele\_Halting.v)}]
+\begin{theorem}[Diagonal Argument {\normalfont (kernel/OracleImpossibility.v)}]
 No total computable function decides the halting problem for the Thiele Machine.
 \end{theorem}
 
 \section{Oracle Cost Lower Bound}
-\begin{theorem}[Oracle Impossibility {\normalfont (OracleImpossibility.v)}]
+\begin{theorem}[Oracle Impossibility {\normalfont (kernel/OracleImpossibility.v)}]
 Any oracle correctly resolving $n$ independent halting queries must charge $\Delta\mu \ge n$:
 \[ \mathrm{Cost}(n \text{ queries}) \in \Omega(n) \]
-A zero-cost oracle is logically inconsistent with $\mu$-conservation.
+A zero-cost oracle is logically inconsistent with $\mu$-conservation. Specifically, \texttt{oracle\_halts\_costs\_mu} proves that zero-cost oracles violate soundness, and \texttt{oracle\_cost\_linear} proves the linear lower bound.
 \end{theorem}
 
 \section{Confluence}
@@ -824,7 +834,7 @@ Adding a new entry to a valid hash-chain audit log produces a valid chain. If th
 
 \section{Linear Scaling of Structural Cost}
 
-\begin{axiom}[Linear Scaling {\normalfont (FalsifiablePrediction.v)}]
+\begin{axiom}[Linear Scaling {\normalfont (kernel/FalsifiablePrediction.v)}]
 The $\mu$-cost of maintaining coherence of $N$ entangled qubits scales as $O(N)$ per time step.
 \end{axiom}
 
@@ -849,7 +859,7 @@ The four partition discovery strategies (Louvain, Spectral, Degree, Balanced) ac
 
 \section{Coupling Constant Prediction}
 
-\begin{definition}[Thiele $\alpha$ Limit {\normalfont (PhysicalConstants.v)}]
+\begin{definition}[Thiele $\alpha$ Limit {\normalfont (thiele\_manifold/PhysicalConstants.v)}]
 The asymptotic density of self-referential programs in the $n$-bit state space:
 \[ \alpha = \lim_{n \to \infty} \frac{A_{\mathrm{interaction}}(n)}{V_{\mathrm{spacetime}}(n)} = \lim_{n \to \infty} \frac{n+1}{2^n} \]
 This converges to 0, but the \emph{non-asymptotic} structure at physical scales should relate to coupling constants.
@@ -875,7 +885,9 @@ Cost = Complexity & \texttt{theory/CostIsComplexity.v} \\
 No Free Lunch & \texttt{theory/NoFreeLunch.v} \\
 No Arbitrage & \texttt{kernel/NoArbitrage.v} \\
 TM Embedding & \texttt{thielemachine/coqproofs/Embedding\_TM.v} \\
+TM $\to$ Minsky & \texttt{modular\_proofs/TM\_to\_Minsky.v} \\
 Strict Subsumption & \texttt{thielemachine/coqproofs/Subsumption.v} \\
+Semantic Strictness & \texttt{thielemachine/coqproofs/ThieleFoundations.v} \\
 Confluence & \texttt{thielemachine/coqproofs/Confluence.v} \\
 Tensoriality & \texttt{thielemachine/coqproofs/ThieleUnificationTensor.v} \\
 $\mu$-Conservation & \texttt{kernel/MuLedgerConservation.v} \\
@@ -894,6 +906,7 @@ Observation Irreversibility & \texttt{quantum\_derivation/ObservationIrreversibi
 Collapse Determination & \texttt{quantum\_derivation/CollapseDetermination.v} \\
 Tsirelson Derivation & \texttt{kernel/TsirelsonDerivation.v} \\
 Tsirelson (Algebraic) & \texttt{kernel/TsirelsonFromAlgebra.v} \\
+Tsirelson (General) & \texttt{kernel/TsirelsonGeneral.v} \\
 CHSH Separation & \texttt{thielemachine/verification/Deliverable\_CHSHSeparation.v} \\
 Emergent Schr\"odinger & \texttt{physics\_exploration/EmergentSchrodinger.v} \\
 Planck Consistency & \texttt{physics\_exploration/PlanckDerivation.v} \\
@@ -903,6 +916,7 @@ Information Causality & \texttt{kernel/InformationCausality.v} \\
 Landauer & \texttt{thermodynamic/LandauerDerived.v} \\
 Dissipative Embedding & \texttt{thielemachine/coqproofs/DissipativeEmbedding.v} \\
 Physics Embedding & \texttt{thielemachine/coqproofs/PhysicsEmbedding.v} \\
+Wave Embedding & \texttt{thielemachine/coqproofs/WaveEmbedding.v} \\
 Self-Reference & \texttt{self\_reference/SelfReference.v} \\
 Thiele Manifold & \texttt{thiele\_manifold/ThieleManifold.v} \\
 Genesis & \texttt{theory/Genesis.v} \\
@@ -913,8 +927,11 @@ Functor Soundness & \texttt{isomorphism/coqproofs/Universe.v} \\
 CatNet Integrity & \texttt{catnet/coqproofs/CatNet.v} \\
 Amortization & \texttt{thielemachine/coqproofs/AmortizedAnalysis.v} \\
 Optimal Quartet & \texttt{theory/ArchTheorem.v} \\
-Halting & \texttt{thielemachine/coqproofs/HyperThiele\_Halting.v} \\
-Oracle Impossibility & \texttt{thielemachine/coqproofs/OracleImpossibility.v} \\
+Falsifiable Prediction & \texttt{kernel/FalsifiablePrediction.v} \\
+Physical Constants & \texttt{thiele\_manifold/PhysicalConstants.v} \\
+Halting Undecidability & \texttt{kernel/OracleImpossibility.v} \\
+Oracle Cost Bound & \texttt{kernel/OracleImpossibility.v} \\
+Hyper-Thiele Oracle & \texttt{thielemachine/coqproofs/HyperThiele\_Halting.v} \\
 \end{tabular}
 \end{center}
 
@@ -961,10 +978,10 @@ Landauer & \textbf{(C)} & Fan-in irreversibility \\
 Dissipative Embedding & \textbf{(C)} & Irreversibility model \\
 Self-Reference & \textbf{(C)} & Dimension = complexity \\
 CHSH Separation & \textbf{(C)} & Numerical witnesses \\
+Tsirelson Bound & \textbf{(C)} & Algebraic derivation (\texttt{TsirelsonFromAlgebra.v}) \\
 \hline
 \multicolumn{3}{l}{\emph{Consistency relations (definitions verified, not predictions)}} \\
 \hline
-Tsirelson Bound & \textbf{(C)} & Algebraic derivation (\texttt{TsirelsonFromAlgebra.v}) \\
 Planck's Constant & \textbf{(R)} & $\tau_\mu := h/(4E_L)$ \\
 Information Causality & \textbf{(R)} & Tautology of cost model \\
 \end{tabular}
