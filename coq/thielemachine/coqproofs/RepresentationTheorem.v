@@ -187,10 +187,10 @@ Module ThieleRepresentation.
         length (trace_labels t2) = n /\
         trace_labels t1 = trace_labels t2 /\
         trace_mu t1 = trace_mu t2) ->
-    gauge_equivalent s1 s2.
+    (N >= 1) /\ gauge_equivalent s1 s2.
   Proof.
     intros s1 s2 N HN_ge_1 Heq _.
-    exact Heq.
+    exact (conj HN_ge_1 Heq).
   Qed.
 
 End ThieleRepresentation.

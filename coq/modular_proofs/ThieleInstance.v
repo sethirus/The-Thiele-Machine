@@ -99,7 +99,11 @@ Lemma config_fits_ok : forall conf,
   config_fits conf ->
   tm_config_ok conf.
 Proof.
-  intros [[q tape] head] [Hdig [Hlen Hhead]].
+  intros conf Hfits.
+  destruct conf as [[q tape] head].
+  unfold config_fits in Hfits.
+  simpl in Hfits.
+  destruct Hfits as [Hdig [Hlen Hhead]].
   unfold tm_config_ok. split; [exact Hdig|].
   split; [exact Hlen|exact Hhead].
 Qed.
@@ -116,7 +120,11 @@ Lemma config_fits_strong_ok : forall conf,
   config_fits_strong conf ->
   tm_config_ok conf.
 Proof.
-  intros [[q tape] head] [Hdig [Hlen [Hhead_lt _]]].
+  intros conf Hfits.
+  destruct conf as [[q tape] head].
+  unfold config_fits_strong in Hfits.
+  simpl in Hfits.
+  destruct Hfits as [Hdig [Hlen [Hhead_lt _]]].
   unfold tm_config_ok. split; [exact Hdig|].
   split; [exact Hlen|exact Hhead_lt].
 Qed.

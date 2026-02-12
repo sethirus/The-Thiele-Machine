@@ -2149,6 +2149,249 @@ def scan_phantom_vm_step(path: Path) -> list[Finding]:
     return findings
 
 
+def scan_vacuous_conjunction(path: Path) -> list[Finding]:
+    """Detect theorems with `True` as a conjunct leaf buried inside a conclusion.
+
+    Pattern: `exists a b t, ... /\\ True.` or `... /\\ True /\\ ...`
+    This catches weakened theorem statements where the real conclusion
+    has been replaced with `True` to make the proof trivially completable.
+
+    The existing IMPLIES_TRUE_STMT and EXISTS_TRUE_STMT rules only catch
+    cases where True is the ENTIRE conclusion. This catches True hidden
+    inside conjunctions.
+    """
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    text = strip_coq_comments(raw)
+    line_of = _line_map(text)
+    clean_lines = text.splitlines()
+    findings: list[Finding] = []
+
+    start_re = re.compile(r"^[ \t]*(Theorem|Lemma|Corollary)\s+([A-Za-z0-9_']+)\b")
+    end_re = re.compile(r"\.[ \t]*$")
+    max_lines = 200
+
+    for idx, ln in enumerate(clean_lines, start=1):
+        m = start_re.match(ln)
+        if not m:
+            continue
+        name = m.group(2)
+        parts: list[str] = [ln.strip()]
+        j = idx + 1
+        while j <= len(clean_lines) and len(parts) < max_lines:
+            if end_re.search(parts[-1]):
+                break
+            nxt = clean_lines[j - 1].strip()
+            if nxt:
+                parts.append(nxt)
+            j += 1
+        stmt = re.sub(r"\s+", " ", " ".join(parts)).strip()
+
+        # Check for True as a conjunct: /\ True or True /\
+        # But skip if the entire conclusion is just True (already caught)
+        if re.search(r":\s*True\s*\.$", stmt):
+            continue  # Already caught by PROP_TAUTOLOGY
+        if re.search(r"->\s*True\s*\.$", stmt):
+            continue  # Already caught by IMPLIES_TRUE_STMT
+
+        # Detect /\ True at the end or True /\ at the start of conclusion
+        has_conj_true = bool(
+            re.search(r"/\\\s*True\s*\.", stmt) or
+            re.search(r"True\s*/\\", stmt)
+        )
+        if has_conj_true:
+            snippet = clean_lines[idx - 1] if 0 <= idx - 1 < len(clean_lines) else stmt
+            findings.append(
+                Finding(
+                    rule_id="VACUOUS_CONJUNCTION",
+                    severity=_severity_for_path(path, "HIGH"),
+                    file=path,
+                    line=idx,
+                    snippet=snippet.strip(),
+                    message=f"Theorem `{name}` has `True` as a conjunct — likely a weakened/placeholder conclusion.",
+                )
+            )
+
+    return findings
+
+
+def scan_tautological_implication(path: Path) -> list[Finding]:
+    """Detect theorems where the conclusion is identical to one of the hypotheses.
+
+    Pattern: `forall p, (0 < p) -> ... -> p = 2 -> p = 2.`
+    The last hypothesis and the conclusion are the same (P -> P),
+    making the theorem vacuous — it proves nothing new.
+
+    Also detects the weaker pattern where the conclusion is a subset
+    of a hypothesis (destructuring extraction).
+    """
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    text = strip_coq_comments(raw)
+    line_of = _line_map(text)
+    clean_lines = text.splitlines()
+    findings: list[Finding] = []
+
+    start_re = re.compile(r"^[ \t]*(Theorem|Lemma|Corollary)\s+([A-Za-z0-9_']+)\b")
+    end_re = re.compile(r"\.[ \t]*$")
+    max_lines = 200
+
+    for idx, ln in enumerate(clean_lines, start=1):
+        m = start_re.match(ln)
+        if not m:
+            continue
+        name = m.group(2)
+        parts: list[str] = [ln.strip()]
+        j = idx + 1
+        while j <= len(clean_lines) and len(parts) < max_lines:
+            if end_re.search(parts[-1]):
+                break
+            nxt = clean_lines[j - 1].strip()
+            if nxt:
+                parts.append(nxt)
+            j += 1
+        stmt = re.sub(r"\s+", " ", " ".join(parts)).strip()
+
+        # Extract the part after ':' (the type/proposition)
+        colon_pos = stmt.find(":")
+        if colon_pos < 0:
+            continue
+        prop = stmt[colon_pos + 1:].strip()
+        # Remove trailing period
+        if prop.endswith("."):
+            prop = prop[:-1].strip()
+
+        # Strip outer forall binders to get to the -> chain
+        # forall x y z, P1 -> P2 -> ... -> Conclusion
+        inner = prop
+        while True:
+            m2 = re.match(r"forall\s+[^,]+,\s*(.+)", inner)
+            if m2:
+                inner = m2.group(1)
+            else:
+                break
+
+        # Split on top-level -> (not inside parens)
+        # Simple approach: split on " -> " (works for most Coq statements)
+        arrows = re.split(r"\s*->\s*", inner)
+        if len(arrows) < 2:
+            continue
+
+        conclusion = arrows[-1].strip()
+        hypotheses = [a.strip() for a in arrows[:-1]]
+
+        # Normalize whitespace for comparison
+        conclusion_norm = re.sub(r"\s+", " ", conclusion)
+
+        for hyp in hypotheses:
+            hyp_norm = re.sub(r"\s+", " ", hyp)
+            if hyp_norm == conclusion_norm and conclusion_norm:
+                snippet = clean_lines[idx - 1] if 0 <= idx - 1 < len(clean_lines) else stmt
+                findings.append(
+                    Finding(
+                        rule_id="TAUTOLOGICAL_IMPLICATION",
+                        severity=_severity_for_path(path, "HIGH"),
+                        file=path,
+                        line=idx,
+                        snippet=snippet.strip(),
+                        message=f"Theorem `{name}` has conclusion `{conclusion_norm}` identical to "
+                                f"hypothesis `{hyp_norm}` — this is a tautology (P -> P), proves nothing.",
+                    )
+                )
+                break
+
+    return findings
+
+
+def scan_hypothesis_restatement(path: Path) -> list[Finding]:
+    """Detect theorems whose proof just destructures and extracts a hypothesis piece.
+
+    Pattern: A theorem takes a compound hypothesis H (conjunction/record),
+    and the proof is just `intros T [_ [Hid _]] s. exact (Hid s).`
+    i.e., immediately destructures H and returns one piece.
+
+    This catches proofs that restate part of their input as a "theorem"
+    without deriving anything new.
+    """
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    text = strip_coq_comments(raw)
+    line_of = _line_map(text)
+    clean_lines = text.splitlines()
+    findings: list[Finding] = []
+
+    theorem_re = re.compile(r"(?m)^[ \t]*(Theorem|Lemma|Corollary)\s+([A-Za-z0-9_']+)\b")
+    proof_re = re.compile(r"(?m)^[ \t]*Proof\.")
+    end_re = re.compile(r"(?m)^[ \t]*(Qed|Defined|Admitted)\.")
+
+    for tm in theorem_re.finditer(text):
+        tname = tm.group(2)
+        start = tm.end()
+
+        proof_match = proof_re.search(text, start)
+        if not proof_match:
+            continue
+        end_match = end_re.search(text, proof_match.end())
+        if not end_match:
+            continue
+
+        proof_block = text[proof_match.end():end_match.start()].strip()
+        proof_lines = [ln.strip() for ln in proof_block.splitlines() if ln.strip()]
+
+        if not proof_lines:
+            continue
+
+        # Pattern 1: destructuring intro + exact
+        # e.g. "intros T [_ [Hid _]] s." followed by "exact (Hid s)."
+        # or single line: "intros T [_ [Hid _]] s; exact (Hid s)."
+        proof_text = " ".join(proof_lines)
+
+        # Check for destructuring pattern: brackets [ ] in intros
+        has_destruct_intro = bool(re.search(r"intros?\s+[^.]*\[", proof_text))
+        if not has_destruct_intro:
+            continue
+
+        # Check if proof is very short (1-3 meaningful lines)
+        if len(proof_lines) > 4:
+            continue
+
+        # Extract variable names introduced by destructuring intros
+        # e.g., "intros T [_ [Hid _]] s." → intro names = {T, Hid, s}
+        intro_m = re.search(r"intros?\s+([^.;]+)", proof_text)
+        intro_names: set[str] = set()
+        if intro_m:
+            intro_raw = intro_m.group(1)
+            for tok in re.findall(r"[A-Za-z][A-Za-z0-9_']*", intro_raw):
+                intro_names.add(tok)
+
+        # Check if proof ends with exact/apply whose PRIMARY target
+        # is one of the intro'd variables (not a named lemma).
+        # "exact (Hid s)." → target = Hid (from intros) → flag
+        # "exact (chain_links_mu_head n c Hmu)." → target = chain_links_mu_head (not from intros) → skip
+        exact_m = re.search(
+            r"\b(?:exact|apply)\b\s*\(?(\s*[A-Za-z][A-Za-z0-9_']*)",
+            proof_text
+        )
+        target_is_intro_var = False
+        if exact_m:
+            target_name = exact_m.group(1).strip()
+            target_is_intro_var = target_name in intro_names
+
+        if target_is_intro_var:
+            line = line_of[tm.start()]
+            snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else tname
+            findings.append(
+                Finding(
+                    rule_id="HYPOTHESIS_RESTATEMENT",
+                    severity="MEDIUM",  # Advisory: field extraction is a code smell, not a proof defect
+                    file=path,
+                    line=line,
+                    snippet=snippet.strip(),
+                    message=f"Theorem `{tname}` destructures a hypothesis and extracts one piece "
+                            f"as its conclusion — this restates an assumption, not a derived result.",
+                )
+            )
+
+    return findings
+
+
 def _file_vacuity_summary(path: Path) -> tuple[int, tuple[str, ...]]:
     raw = path.read_text(encoding="utf-8", errors="replace")
     text = strip_coq_comments(raw)
@@ -2540,6 +2783,9 @@ def write_report(
     lines.append("- `EMERGENCE_CIRCULARITY`: 'emergence' claim where emergent property is in the definition (circular)\n")
     lines.append("- `CONSTRUCTOR_ROUND_TRIP`: construct object, immediately extract property (not proving anything)\n")
     lines.append("- `DEFINITIONAL_WITNESS`: existential witnessed by definition, then unfolds it (trivially proves definition exists)\n")
+    lines.append("- `VACUOUS_CONJUNCTION`: theorem has `True` as a conjunct leaf — likely a weakened/placeholder conclusion\n")
+    lines.append("- `TAUTOLOGICAL_IMPLICATION`: theorem conclusion is identical to one of its hypotheses (P -> P tautology)\n")
+    lines.append("- `HYPOTHESIS_RESTATEMENT`: proof destructures hypothesis and extracts one piece (restating assumption, not deriving)\n")
     lines.append("\n")
 
     if not findings:
@@ -2716,6 +2962,10 @@ def main(argv: list[str]) -> int:
             all_findings.extend(scan_emergence_circularity(vf))
             all_findings.extend(scan_constructor_round_trip(vf))
             all_findings.extend(scan_definitional_witness(vf))
+            # Proof substance / tautology detection (v4)
+            all_findings.extend(scan_vacuous_conjunction(vf))
+            all_findings.extend(scan_tautological_implication(vf))
+            all_findings.extend(scan_hypothesis_restatement(vf))
 
             score, tags = _file_vacuity_summary(vf)
             if score > 0:

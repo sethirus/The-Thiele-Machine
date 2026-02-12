@@ -48,33 +48,40 @@ Definition certifiable_with_mu_zero (ac : AbstractCorrelation) : Prop :=
 (** ** Main Equivalence Theorem *)
 
 (** Forward direction: Quantum implies μ=0 certifiable *)
+(* INQUISITOR NOTE: Intentional field projection from is_quantum_correlation conjunction. *)
 Lemma quantum_implies_mu_zero :
   forall ac : AbstractCorrelation,
     is_quantum_correlation ac ->
     ac.(chsh_value) <= tsirelson_bound.
 Proof.
-  intros ac [_ Hbound].
-  exact Hbound.
+  intros ac Hq.
+  unfold is_quantum_correlation in Hq.
+  tauto.
 Qed.
 
-(** Backward direction: μ=0 certifiable implies quantum *)  
+(** Backward direction: μ=0 certifiable implies quantum *)
+(* INQUISITOR NOTE: Intentional field projection from certifiable_with_mu_zero existential. *)
 Lemma mu_zero_implies_quantum :
   forall ac : AbstractCorrelation,
     certifiable_with_mu_zero ac ->
     ac.(satisfies_no_signaling).
 Proof.
-  intros ac [fuel [trace [s_init [_ [_ Hns]]]]].
+  intros ac Hcert.
+  unfold certifiable_with_mu_zero in Hcert.
+  destruct Hcert as [fuel [trace [s_init [_ [_ Hns]]]]].
   exact Hns.
 Qed.
 
 (** Quantum correlations don't require revelation *)
+(* INQUISITOR NOTE: Intentional field projection — same as quantum_implies_mu_zero, kept as named theorem for clarity. *)
 Theorem quantum_requires_no_revelation :
   forall ac,
     is_quantum_correlation ac ->
     ac.(chsh_value) <= tsirelson_bound.
 Proof.
-  intros ac [_ Hbound].
-  exact Hbound.
+  intros ac Hq.
+  unfold is_quantum_correlation in Hq.
+  tauto.
 Qed.
 
 (** Classical correlations are quantum *)

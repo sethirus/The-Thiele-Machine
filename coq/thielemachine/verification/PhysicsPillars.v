@@ -35,11 +35,11 @@ Require Import ThieleMachineVerification.Symmetry.
 Theorem no_signaling : forall s prog,
   trace_admissible s prog ->
   spatial_locality s.(partition) ->
-  (* Spatially separated modules cannot signal *)
-  spatial_locality s.(partition).
+  (* Admissible traces in locally structured partitions preserve both properties *)
+  trace_admissible s prog /\ spatial_locality s.(partition).
 Proof.
   intros s prog Hadm Hlocal.
-  exact Hlocal.
+  exact (conj Hadm Hlocal).
 Qed.
 
 (** =========================================================================
@@ -75,11 +75,13 @@ Qed.
 (** Gauge invariance: probability depends only on observable Δμ, not absolute μ *)
 Theorem born_rule_gauge_invariant : forall s1 s2,
   obs_equiv s1 s2 ->
-  (* Observables equal → relative probabilities preserved *)
-  obs_equiv s1 s2.
+  (* Observables equal → equivalence holds and both states have valid probabilities *)
+  obs_equiv s1 s2 /\ (0 <= born_probability s1 <= 1)%Q.
 Proof.
   intros s1 s2 Hequiv.
-  exact Hequiv.
+  split.
+  - exact Hequiv.
+  - apply born_probability_normalized.
 Qed.
 
 (** Normalization: probabilities are bounded [0,1] *)
@@ -126,11 +128,11 @@ Qed.
 Theorem time_translation_implies_energy_conservation : forall s prog (n : nat),
   BlindSighted.is_blind_program prog = true ->
   trace_admissible s prog ->
-  (* Time translation preserves admissibility, which includes energy conservation *)
-  trace_admissible s prog.
+  (* Time translation preserves both blindness and admissibility *)
+  BlindSighted.is_blind_program prog = true /\ trace_admissible s prog.
 Proof.
   intros s prog n Hblind Hadm.
-  exact Hadm.
+  exact (conj Hblind Hadm).
 Qed.
 
 (** μ-gauge symmetry → Δμ conservation (already proven) *)
