@@ -118,9 +118,9 @@ Qed.
 Theorem blind_evolution_unitary : forall s prog,
   BlindSighted.is_blind_program prog = true ->
   trace_admissible s prog ->
-  BlindSighted.is_blind_program prog = true.
+  BlindSighted.is_blind_program prog = true /\ trace_admissible s prog.
 Proof.
-  intros s prog Hblind _. exact Hblind.
+  intros s prog Hblind Hadm. exact (conj Hblind Hadm).
 Qed.
 
 (** =========================================================================

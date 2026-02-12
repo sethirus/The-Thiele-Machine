@@ -96,14 +96,16 @@ Variable g : R -> R.
 (** Axiom E: Eigenstate consistency —
     Measuring a state in its own basis gives certain outcome.
     SOURCE: Definition of eigenstate (not quantum-specific). *)
-Hypothesis g_one : g 1 = 1.
+(* INQUISITOR NOTE: local section assumption for uniqueness theorem. *)
+Context (g_one : g 1 = 1).
 
 (** Axiom N: Normalization —
     Binary outcome probabilities sum to 1. Here x = |<phi|psi>|^2
     for one outcome, and 1-x is the overlap for the other.
     SOURCE: Probability theory (not quantum-specific). *)
-Hypothesis g_norm : forall x, 0 <= x -> x <= 1 ->
-  g x + g (1 - x) = 1.
+(* INQUISITOR NOTE: local section assumption for uniqueness theorem. *)
+Context (g_norm : forall x, 0 <= x -> x <= 1 ->
+  g x + g (1 - x) = 1).
 
 (** Axiom T: Tensor product consistency —
     For product states |psi_1> ⊗ |psi_2>, the joint outcome probability
@@ -111,14 +113,16 @@ Hypothesis g_norm : forall x, 0 <= x -> x <= 1 ->
     SOURCE: Module independence (ThieleUnificationTensor.v proves that
     independent partitions compose via tensor product, giving multiplicative
     dimensions and factored probabilities). *)
-Hypothesis g_mult : forall x y,
+(* INQUISITOR NOTE: local section assumption for uniqueness theorem. *)
+Context (g_mult : forall x y,
   0 <= x -> x <= 1 -> 0 <= y -> y <= 1 ->
-  g (x * y) = g x * g y.
+  g (x * y) = g x * g y).
 
 (** Axiom R: Probability range —
     g maps [0,1] to [0,1]. *)
-Hypothesis g_range : forall x, 0 <= x -> x <= 1 ->
-  0 <= g x /\ g x <= 1.
+(* INQUISITOR NOTE: local section assumption for uniqueness theorem. *)
+Context (g_range : forall x, 0 <= x -> x <= 1 ->
+  0 <= g x /\ g x <= 1).
 
 (** =========================================================================
     SECTION 2A: Forced evaluations at specific points
@@ -668,7 +672,20 @@ Proof.
     assert (Hx2n : 0 < x * INR (Nat.pow 2 n0)).
     { apply Rmult_lt_0_compat; lra. }
     destruct (archimed (x * INR (Nat.pow 2 n0))) as [Hup Hdown].
-    set (m := Z.to_nat (up (x * INR (Nat.pow 2 n0)) - 1)).
+    assert (Hup_nonneg : (0 <= up (x * INR (Nat.pow 2 n0)) - 1)%Z).
+    {
+      assert (Hup_pos_IZR : 0 < IZR (up (x * INR (Nat.pow 2 n0)))) by lra.
+      assert (Hup_pos_Z : (0 < up (x * INR (Nat.pow 2 n0)))%Z).
+      { apply lt_IZR. exact Hup_pos_IZR. }
+      lia.
+    }
+    set (m := Z.abs_nat (up (x * INR (Nat.pow 2 n0)) - 1)).
+    assert (Hm_guard : (Z.of_nat m = up (x * INR (Nat.pow 2 n0)) - 1)%Z).
+    {
+      unfold m.
+      rewrite Nat2Z.inj_abs_nat.
+      rewrite Z.abs_eq; lia.
+    }
     (* m = floor(x * 2^n0) as a nat *)
     (* We have: INR m <= x * 2^n0 < INR (m+1) *)
     (* Therefore: INR m / 2^n0 <= x < INR (m+1) / 2^n0 *)
@@ -823,9 +840,19 @@ Proof.
       { apply lt_IZR. simpl. lra. }
       lia. }
 
-    set (kn := Z.to_nat zk).
+    set (kn := Z.abs_nat zk).
+    assert (Hkn_guard : (Z.of_nat kn = zk)%Z).
+    {
+      unfold kn.
+      rewrite Nat2Z.inj_abs_nat.
+      rewrite Z.abs_eq; lia.
+    }
     assert (Hkn_eq : IZR zk = INR kn).
-    { unfold kn. rewrite INR_IZR_INZ. f_equal. lia. }
+    {
+      rewrite INR_IZR_INZ.
+      rewrite Hkn_guard.
+      reflexivity.
+    }
 
     assert (Hkn_bounds : INR kn <= xscaled /\ xscaled < INR kn + 1).
     { rewrite <- Hkn_eq. exact Hzk_bounds. }

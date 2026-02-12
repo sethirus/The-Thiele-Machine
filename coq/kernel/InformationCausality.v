@@ -87,8 +87,9 @@ Theorem information_causality_is_mu_cost :
     ic_mu_equivalent ic mu ->
     ic.(ic_satisfies_bound) <-> mu.(mu_bound_satisfied).
 Proof.
-  intros ic mu [_ [_ Hequiv]].
-  exact Hequiv.
+  intros ic mu Heq.
+  unfold ic_mu_equivalent in Heq.
+  tauto.
 Qed.
 
 (** ** Zero Communication Corollary
@@ -120,7 +121,9 @@ Theorem ic_zero_implies_tsirelson :
     ic.(ic_m_communication) = 0 ->
     mu.(mu_cost_paid) = 0.
 Proof.
-  intros ic mu [_ [Heq _]] Hic.
+  intros ic mu Heq Hic.
+  unfold ic_mu_equivalent in Heq.
+  destruct Heq as [_ [Heq _]].
   rewrite <- Heq. exact Hic.
 Qed.
 
@@ -135,7 +138,10 @@ Lemma ic_monotonicity :
     ic1.(ic_m_communication) <= ic2.(ic_m_communication) ->
     mu1.(mu_cost_paid) <= mu2.(mu_cost_paid).
 Proof.
-  intros ic1 ic2 mu1 mu2 [_ [Heq1 _]] [_ [Heq2 _]] Hn Hle.
+  intros ic1 ic2 mu1 mu2 Heq1 Heq2 Hn Hle.
+  unfold ic_mu_equivalent in Heq1, Heq2.
+  destruct Heq1 as [_ [Heq1 _]].
+  destruct Heq2 as [_ [Heq2 _]].
   rewrite <- Heq1, <- Heq2. exact Hle.
 Qed.
 
@@ -156,8 +162,9 @@ Lemma mu_cost_reflects_accessible_info :
     ic.(ic_satisfies_bound) ->
     mu.(mu_bound_satisfied).
 Proof.
-  intros ic mu [_ [_ Hequiv]] Hic.
-  apply Hequiv. exact Hic.
+  intros ic mu Heq Hic.
+  unfold ic_mu_equivalent in Heq.
+  tauto.
 Qed.
 
 (** Composition of IC scenarios *)
@@ -196,7 +203,9 @@ Lemma ic_equiv_cost_preservation :
          mu_cost_paid := mu.(mu_cost_paid) + delta;
          mu_bound_satisfied := mu.(mu_bound_satisfied) |}.
 Proof.
-  intros ic mu delta [Hn [Hc Hb]].
+  intros ic mu delta Heq.
+  unfold ic_mu_equivalent in Heq.
+  destruct Heq as [Hn [Hc Hb]].
   split; [simpl; exact Hn |].
   split; [simpl; lia |].
   simpl; exact Hb.
@@ -260,7 +269,9 @@ Lemma ic_implies_partition_constraint :
     mu.(mu_n_partitions) = ic.(ic_n_bits) /\
     mu.(mu_cost_paid) = ic.(ic_m_communication).
 Proof.
-  intros ic mu [Hn [Hc Hequiv]] _.
+  intros ic mu Heq _.
+  unfold ic_mu_equivalent in Heq.
+  destruct Heq as [Hn [Hc _]].
   split; [ symmetry; exact Hn | symmetry; exact Hc ].
 Qed.
 
@@ -272,7 +283,9 @@ Lemma communication_efficiency :
     ic.(ic_m_communication) < ic.(ic_n_bits) ->
     mu.(mu_cost_paid) < mu.(mu_n_partitions).
 Proof.
-  intros ic mu [Hn [Hc _]] Hn_pos Heff.
+  intros ic mu Heq Hn_pos Heff.
+  unfold ic_mu_equivalent in Heq.
+  destruct Heq as [Hn [Hc _]].
   rewrite <- Hn, <- Hc.
   exact Heff.
 Qed.
