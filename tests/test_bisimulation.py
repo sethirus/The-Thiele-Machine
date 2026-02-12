@@ -220,11 +220,23 @@ class TestBisimulationRegisters:
         py = _run_python_vm(prog)
         assert py["regs"][0] == 42
 
+        coq = _run_coq_extracted(prog)
+        if coq is not None:
+            assert coq["regs"][0] == py["regs"][0], (
+                f"reg[0] mismatch: Coq={coq['regs'][0]}, Python={py['regs'][0]}"
+            )
+
     def test_xor_add_accumulates(self):
         """XOR_ADD must accumulate register values."""
         prog = "INIT_MEM 0 10\nINIT_MEM 1 20\nXOR_LOAD 0 0 1\nXOR_LOAD 1 1 1\nXOR_ADD 0 1 1\nHALT 0\n"
         py = _run_python_vm(prog)
         assert py["regs"][0] == 30
+
+        coq = _run_coq_extracted(prog)
+        if coq is not None:
+            assert coq["regs"][0] == py["regs"][0], (
+                f"reg[0] mismatch: Coq={coq['regs'][0]}, Python={py['regs'][0]}"
+            )
 
     def test_xor_swap_exchanges(self):
         """XOR_SWAP must exchange register values."""
@@ -232,6 +244,15 @@ class TestBisimulationRegisters:
         py = _run_python_vm(prog)
         assert py["regs"][0] == 200
         assert py["regs"][1] == 100
+
+        coq = _run_coq_extracted(prog)
+        if coq is not None:
+            assert coq["regs"][0] == py["regs"][0], (
+                f"reg[0] mismatch: Coq={coq['regs'][0]}, Python={py['regs'][0]}"
+            )
+            assert coq["regs"][1] == py["regs"][1], (
+                f"reg[1] mismatch: Coq={coq['regs'][1]}, Python={py['regs'][1]}"
+            )
 
 
 class TestBisimulationPartitionGraph:
@@ -245,6 +266,12 @@ class TestBisimulationPartitionGraph:
         regions = {frozenset(m["region"]) for m in py["modules"]}
         assert frozenset([5]) in regions
 
+        coq = _run_coq_extracted(prog)
+        if coq is not None:
+            assert len(coq["modules"]) == len(py["modules"]), (
+                f"Module count mismatch: Coq={len(coq['modules'])}, Python={len(py['modules'])}"
+            )
+
     def test_pmerge_combines_modules(self):
         """PMERGE must combine two modules into one whose region is the union."""
         prog = "PNEW {5} 2\nPNEW {10} 2\nPMERGE 1 2 3\nHALT 0\n"
@@ -254,6 +281,14 @@ class TestBisimulationPartitionGraph:
             all_elements.update(m["region"])
         assert 5 in all_elements
         assert 10 in all_elements
+
+        coq = _run_coq_extracted(prog)
+        if coq is not None:
+            coq_elements = set()
+            for m in coq["modules"]:
+                coq_elements.update(m["region"])
+            assert 5 in coq_elements, "Element 5 missing from Coq modules"
+            assert 10 in coq_elements, "Element 10 missing from Coq modules"
 
 
 class TestBisimulationOpcodeAlignment:
