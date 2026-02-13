@@ -254,6 +254,7 @@ class TestCoqExtractedVMViolation:
     def test_coq_python_trace_equivalence(self, tmp_path):
         """If Coq extracted VM produces different trace than Python, FAILS"""
         import json
+        import os
         import shutil
         import subprocess
         from pathlib import Path
@@ -297,6 +298,7 @@ class TestCoqExtractedVMViolation:
         proc = subprocess.run(
             [str(runner_bin), str(trace_path)],
             check=True, cwd=str(repo_root), capture_output=True, text=True,
+            env={**os.environ, "OCAMLRUNPARAM": os.environ.get("OCAMLRUNPARAM", "l=64M")},
         )
         extracted = json.loads(proc.stdout)
 

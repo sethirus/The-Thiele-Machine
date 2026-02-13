@@ -1,4 +1,5 @@
 import json
+import os
 import random
 import subprocess
 import tempfile
@@ -105,7 +106,10 @@ def _coq_regions_after_trace(trace_lines: list[str]) -> list[list[int]]:
     with tempfile.TemporaryDirectory() as td:
         trace_path = Path(td) / "trace.txt"
         trace_path.write_text("\n".join(trace_lines) + "\n", encoding="utf-8")
-        result = subprocess.run([str(runner), str(trace_path)], capture_output=True, text=True, check=True)
+        result = subprocess.run(
+            [str(runner), str(trace_path)], capture_output=True, text=True, check=True,
+            env={**os.environ, "OCAMLRUNPARAM": os.environ.get("OCAMLRUNPARAM", "l=64M")},
+        )
 
         out = result.stdout
         start = out.find("{")
@@ -225,7 +229,10 @@ def _coq_regions_after_pnew(indices: list[int]) -> list[list[int]]:
     with tempfile.TemporaryDirectory() as td:
         trace_path = Path(td) / "trace.txt"
         trace_path.write_text("\n".join(trace_lines) + "\n", encoding="utf-8")
-        result = subprocess.run([str(runner), str(trace_path)], capture_output=True, text=True, check=True)
+        result = subprocess.run(
+            [str(runner), str(trace_path)], capture_output=True, text=True, check=True,
+            env={**os.environ, "OCAMLRUNPARAM": os.environ.get("OCAMLRUNPARAM", "l=64M")},
+        )
 
         out = result.stdout
         start = out.find("{")

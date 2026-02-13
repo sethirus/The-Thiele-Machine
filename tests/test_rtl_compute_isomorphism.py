@@ -1,4 +1,5 @@
 import json
+import os
 import subprocess
 import tempfile
 from pathlib import Path
@@ -54,7 +55,10 @@ def _run_extracted(init_mem: list[int], init_regs: list[int], trace_lines: list[
             prefix.append(f"INIT_MEM {a} {v & 0xFFFFFFFF}")
         trace_path.write_text("\n".join(prefix + trace_lines) + "\n", encoding="utf-8")
 
-        result = subprocess.run([str(runner), str(trace_path)], capture_output=True, text=True, check=True)
+        result = subprocess.run(
+            [str(runner), str(trace_path)], capture_output=True, text=True, check=True,
+            env={**os.environ, "OCAMLRUNPARAM": os.environ.get("OCAMLRUNPARAM", "l=64M")},
+        )
         payload = json.loads(result.stdout)
 
     regs = [int(v) & 0xFFFFFFFF for v in payload["regs"]]
