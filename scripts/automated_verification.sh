@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -euxo pipefail
 
 # Automated Thiele Machine Verification Pipeline
 # Runs full end-to-end: Coq -> Hardware -> Synthesis -> Simulation -> Reports
