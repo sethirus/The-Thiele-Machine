@@ -900,7 +900,7 @@ Theorem noether_backward : forall s,
   (forall i s', vm_step s i s' -> mu_current s <= mu_current s')%nat ->
   forall delta, Observable_partition (z_gauge_shift delta s) = Observable_partition s.
 Proof.
-  intros s Hcons delta.
+  intros s _ delta.
   apply z_gauge_invariance.
 Qed.
 

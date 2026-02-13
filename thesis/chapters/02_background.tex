@@ -79,7 +79,7 @@ If you are familiar with any section, feel free to skip it. The only prerequisit
 \label{fig:tm-blindness}
 \end{figure}
 
-Turing's 1936 machine \cite{turing1936computable} is elegant. It's also the source of everything wrong with how we think about computation. Here's the formal definition---a 7-tuple:
+Turing's 1936 machine \cite{turing1936computable} is elegant. It's also the source of everything wrong with how people think about computation. Here's the formal definition---a 7-tuple:
 \[
 M = (Q, \Sigma, \Gamma, \delta, q_0, q_{\text{accept}}, q_{\text{reject}})
 \]
@@ -373,9 +373,9 @@ The entropy balance is preserved. The demon's information processing exactly com
 
 The $\mu$-ledger is the computational analog of thermodynamic entropy. Both are monotonically increasing. Both track irreversible commitments. The difference: thermodynamic entropy tracks energy dissipation; the $\mu$-ledger tracks structural information cost. And the initiality theorem (\path{coq/kernel/MuInitiality.v}) proves something thermodynamics can't: $\mu$ is the \emph{unique} monotone cost functional consistent with the instruction set. There is no alternative accounting system.
 
-Landauer's principle says erasing one bit costs $k_B T \ln 2$ joules. The Thiele Machine says asserting one bit of structural constraint costs at least one $\mu$-bit. The parallel is not an analogy---it is a structural isomorphism between information processing and thermodynamics, and the Coq proofs in \path{coq/kernel/MuLedgerConservation.v} establish the monotonicity formally.
+Landauer's principle says erasing one bit costs $k_B T \ln 2$ joules. The Thiele Machine says asserting one bit of structural constraint costs at least one $\mu$-bit. The parallel is deliberate---both track irreversible information commitments---but honesty requires noting a difference: $\mu$-monotonicity is true \textit{by construction} (the machine is built so that every instruction adds a non-negative cost), whereas the second law of thermodynamics is an empirical fact about the universe. The Coq proofs in \path{coq/kernel/MuLedgerConservation.v} verify that the design achieves monotonicity, not that monotonicity is a discovered physical law.
 
-Every \texttt{LASSERT} (asserting a constraint), every \texttt{PSPLIT} (partitioning state), every \texttt{REVEAL} (disclosing information) increases $\mu$. Just as every bit erasure increases thermodynamic entropy. The second law of thermodynamics has a computational counterpart: the $\mu$-ledger never decreases.
+Every \texttt{LASSERT} (asserting a constraint), every \texttt{PSPLIT} (partitioning state), every \texttt{REVEAL} (disclosing information) increases $\mu$. By design, the $\mu$-ledger never decreases. This is the computational analog of the second law: entropy (here, $\mu$) is monotonic. The analogy is structural, and the engineering is intentional.
 
 Maxwell's Demon thought it could cheat thermodynamics by being clever. It could not---Landauer showed the demon's memory erasure pays exactly the entropy it tried to steal. The Thiele Machine makes the same guarantee: you cannot reduce the search space without paying structural information cost. The No Free Insight theorem (\path{coq/kernel/NoFreeInsight.v}) is, in a sense, the computational Landauer's principle.
 
@@ -398,7 +398,7 @@ where $E(x,y)$ is the correlation between Alice and Bob's outcomes for settings 
 Three bounds matter:
 \begin{itemize}
     \item \textbf{Classical bound} ($S \le 2$): If Alice and Bob share only classical correlations---local hidden variables---then $|S| \le 2$. This is Bell's inequality, provable by enumerating all 16 deterministic strategies. Formalized as \texttt{local\_S\_2} in \path{coq/kernel/AssumptionBundle.v} and independently proven via Fine's theorem in \path{coq/kernel/MinorConstraints.v}.
-    \item \textbf{Quantum bound} ($S \le 2\sqrt{2} \approx 2.828$): If they share quantum entanglement, the maximum is the Tsirelson bound. This requires Tsirelson's 1980 theorem \cite{tsirelson1980quantum}, formalized as \texttt{tsir\_from\_coh} in AssumptionBundle and independently derived from algebraic coherence in \path{coq/kernel/TsirelsonFromAlgebra.v}.
+    \item \textbf{Quantum bound} ($S \le 2\sqrt{2} \approx 2.828$): If they share quantum entanglement, the maximum is the Tsirelson bound. This requires Tsirelson's 1980 theorem \cite{tsirelson1980quantum}, formalized as \texttt{tsir\_from\_coh} in AssumptionBundle and independently proven via algebraic coherence constraints ($A^2 = B^2 = I$, which encode that observables are self-adjoint involutions) in \path{coq/kernel/TsirelsonFromAlgebra.v}.
     \item \textbf{Algebraic bound} ($S \le 4$): The absolute maximum from triangle inequality alone, achievable only by hypothetical ``PR-box'' correlations that violate quantum mechanics. Formalized as \texttt{valid\_S\_4}.
 \end{itemize}
 

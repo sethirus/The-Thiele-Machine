@@ -282,6 +282,7 @@ Fixpoint chain_total_cost (rs : list Receipt) : nat :=
 Definition chain_final_mu (rs : list Receipt) (initial_mu : nat) : nat :=
   initial_mu + chain_total_cost rs.
 
+(* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
 Lemma chain_links_mu_head :
   forall r1 r2 rest,
     chain_links_mu (r1 :: r2 :: rest) ->
@@ -294,6 +295,7 @@ Proof.
   apply Hlinks; reflexivity.
 Qed.
 
+(* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
 Lemma chain_links_hash_head :
   forall r1 r2 rest,
     chain_links_hash (r1 :: r2 :: rest) ->
@@ -348,6 +350,7 @@ Proof.
   - apply (chain_links_hash_tail r rest). exact Hhash.
 Qed.
 
+(* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
 Lemma chain_all_consistent_head :
   forall r rest,
     chain_all_consistent (r :: rest) ->
@@ -502,7 +505,7 @@ Theorem forged_receipt_fails_validation :
     (* Then receipt_mu_consistent is FALSE *)
     ~ receipt_mu_consistent r.
 Proof.
-  intros r claimed_mu_delta Hforged Hpost Hneq.
+  intros r claimed_mu_delta _ Hpost Hneq.
   unfold receipt_mu_consistent.
   intro Hconsistent.
   rewrite Hpost in Hconsistent.

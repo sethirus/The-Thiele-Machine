@@ -37,41 +37,18 @@ Theorem example : forall n, n + 0 = n.
 Proof. intros n. induction n; simpl; auto. Qed.
 \end{lstlisting}
 
-\paragraph{Understanding Basic Coq Proof Structure:}
+If you haven't seen Coq before, here's the gist: the theorem says ``for all $n$, $n + 0 = n$.'' The proof works by induction---you show it holds for $n = 0$ (base case), then assuming it holds for $n$, you show it holds for $n + 1$ (inductive step). The tactics between \texttt{Proof.} and \texttt{Qed.} are the script that carries this out:
 
-\textbf{What is this?} This is a \textbf{simple Coq theorem and proof} demonstrating the fundamental syntax of machine-checked mathematics. It proves that adding zero to any natural number returns that number unchanged.
-
-\textbf{Line-by-line breakdown:}
 \begin{itemize}
-    \item \textbf{Theorem example} — Declares a theorem named \texttt{example}. This is a proposition to be proven.
-    
-    \item \textbf{forall n} — Universal quantification: the statement holds for \textit{all} natural numbers $n$. In Coq, \texttt{nat} is the type of natural numbers $\{0, 1, 2, \ldots\}$.
-    
-    \item \textbf{n + 0 = n} — The property: adding zero to $n$ gives $n$. This is the right-identity law of addition.
-    
-    \item \textbf{Proof.} — Begins the proof script. Everything between \texttt{Proof.} and \texttt{Qed.} is the proof.
-    
-    \item \textbf{intros n} — Introduces the universally quantified variable $n$ into the proof context. Now we have a fixed (but arbitrary) $n$ and must prove $n + 0 = n$.
-    
-    \item \textbf{induction n} — Proof by induction on $n$:
-    \begin{itemize}
-        \item \textbf{Base case:} $n = 0$. Must show $0 + 0 = 0$. Trivial by definition of addition.
-        \item \textbf{Inductive step:} Assume $n + 0 = n$ (induction hypothesis). Must show $(S\ n) + 0 = S\ n$ (where $S$ is the successor function, $S\ n = n + 1$). By definition, $(S\ n) + 0 = S\ (n + 0) = S\ n$ using the hypothesis.
-    \end{itemize}
-    
-    \item \textbf{simpl} — Simplifies the goal using computation rules (e.g., $0 + 0 = 0$ by definition).
-    
-    \item \textbf{auto} — Automated tactic that tries to solve the goal using simple lemmas and tactics. In this case, it finishes both the base case and inductive step.
-    
-    \item \textbf{Qed.} — Completes the proof. Coq verifies that all proof obligations are discharged. If any step is invalid, Coq rejects the proof with an error.
+    \item \textbf{intros n} — Fixes an arbitrary $n$. Now I have to show $n + 0 = n$ for this specific $n$.
+    \item \textbf{induction n} — Splits the goal into a base case ($0 + 0 = 0$) and an inductive step (if $n + 0 = n$, then $S(n) + 0 = S(n)$, where $S$ is ``successor'' / ``plus one'').
+    \item \textbf{simpl; auto} — Coq simplifies using the definitions and finishes both cases automatically.
+    \item \textbf{Qed.} — Coq checks every step and seals the proof. Once you hit \texttt{Qed.}, it's done forever.
 \end{itemize}
 
-\textbf{Why machine-checking matters:} A human could write ``Proof: By induction on $n$. Base case: $0 + 0 = 0$. Inductive step: $(n+1) + 0 = (n + 0) + 1 = n + 1$. QED.'' This \textit{looks} correct, but contains a subtle error (the inductive step uses commutativity of addition, which must be proven separately). Coq forces \textit{every} step to be justified, catching such errors.
+I didn't write these tactics by hand---I fed Coq's error messages back to the LLM until it stopped complaining. The point isn't that I understand every tactic invocation intuitively. The point is that \texttt{Qed.} means Coq checked it, and that's the only opinion that matters.
 
-\textbf{Comparison to paper proofs:} In a math paper, you might write ``It is easy to see that $n + 0 = n$ by induction.'' Coq requires the full proof script. This verbosity is the price of absolute certainty.
-
-
-This states ``for all natural numbers n, n + 0 = n'' and proves it by induction.
+\textbf{Why this matters more than paper proofs:} A human could write ``By induction on $n$, trivially.'' That \textit{looks} correct, but glosses over whether each step actually follows from the definitions. I've seen plenty of ``obvious'' claims in papers that turn out to be wrong. Coq eliminates that failure mode---it forces every step to be justified, and if any step is wrong, it refuses to say \texttt{Qed.}
 
 \section{Proof Inventory}
 
@@ -234,12 +211,7 @@ Supra-quantum correlations ($S > 2.8285$) are \textit{impossible in standard qua
 \end{enumerate}
 Coq verifies \textit{every} arithmetic step using \texttt{Q} rationals, ensuring no rounding errors.
 
-\textbf{Example:} Suppose Alice and Bob share a maximally entangled state $|\Phi^+\rangle = \frac{1}{\sqrt{2}}(|00\rangle + |11\rangle)$ and measure in optimal bases:
-\begin{itemize}
-    \item Alice's measurements: $A_0 = \sigma_Z$, $A_1 = \sigma_X$
-    \item Bob's measurements: $B_0 = \frac{\sigma_Z + \sigma_X}{\sqrt{2}}$, $B_1 = \frac{\sigma_Z - \sigma_X}{\sqrt{2}}$
-\end{itemize}
-The correlations yield $S = 2\sqrt{2} \approx 2.82842712$. The theorem confirms this is maximal for quantum systems.
+\textbf{Example:} The standard CHSH setup: Alice and Bob share a maximally entangled state $|\Phi^+\rangle = \frac{1}{\sqrt{2}}(|00\rangle + |11\rangle)$. Alice measures along $\sigma_Z$ or $\sigma_X$; Bob measures along $(\sigma_Z \pm \sigma_X)/\sqrt{2}$. These optimal settings give $S = 2\sqrt{2} \approx 2.8284$, and the Coq proof confirms this is the maximum for any quantum-admissible box. The important part for the Thiele Machine: if someone claims correlations above this bound without paying $\mu$, the machine rejects the claim.
 
 \textbf{Connection to No Free Insight:} Claiming $S > 2.8285$ requires \textit{revelation}---making internal partition structure observable. This costs $\mu$. The theorem ensures that quantum correlations \textit{without} revelation cannot exceed the Tsirelson bound.
 
@@ -297,7 +269,7 @@ Theorem thiele_simulates_turing :
 
 \textbf{Parameter breakdown:}
 \begin{itemize}
-    \item \textbf{fuel : nat} — A \textit{step bound} (also called ``fuel'' or ``gas''). Coq requires recursive functions to terminate, so we bound the number of computation steps. Both \texttt{run\_tm} and \texttt{run\_thiele} run for \texttt{fuel} steps.
+    \item \textbf{fuel : nat} — A \textit{step bound} (also called ``fuel'' or ``gas''). Coq requires recursive functions to terminate, so the number of computation steps is bounded. Both \texttt{run\_tm} and \texttt{run\_thiele} run for \texttt{fuel} steps.
     
     \item \textbf{prog : Program} — A program (sequence of instructions). In Coq, \texttt{Program} is a list of instructions like \texttt{[PUSH 5; ADD; HALT]}.
     
@@ -498,7 +470,7 @@ Theorem mu_initiality :
 
 \textbf{Categorical interpretation:} In the category where objects are instruction-consistent cost functionals and morphisms are equalities on reachable states, $\mu$ is the \textit{initial object}. This is the formal sense in which ``$\mu$ is the free/least monotone.''
 
-\textbf{Physical interpretation:} This theorem elevates $\mu$ from ``a sound lower bound'' to ``the canonical physical cost.'' Any instruction-consistent accounting of irreversibility \textit{is} $\mu$ by mathematical necessity. This is why we claim ``$\mu$ is not metaphor''—it is the unique object satisfying the axioms.
+\textbf{Physical interpretation:} This theorem elevates $\mu$ from ``a sound lower bound'' to ``the canonical physical cost.'' Any instruction-consistent accounting of irreversibility \textit{is} $\mu$ by mathematical necessity. This is why I claim ``$\mu$ is not metaphor''—it is the unique object satisfying the axioms.
 
 \textbf{Proof status:} Zero axioms, zero admits. Both \texttt{mu\_is\_initial\_monotone} and \texttt{mu\_initiality} are closed under the global context.
 
@@ -529,13 +501,13 @@ Theorem mu_is_landauer_valid : landauer_valid_step mu_cost.
 
 Therefore $\mu$ is the \textit{canonical} cost model: the unique instruction-consistent accounting that respects irreversibility.
 
-\textbf{Epistemic honesty:} We do NOT prove ``any Landauer-valid cost $\geq \mu$'' because Landauer only constrains information-destroying operations. For non-erasing operations, Landauer permits $C(i) = 0$ while $\mu$ may charge $> 0$. What we prove is that $\mu$ itself is Landauer-valid and tight for structural operations.
+\textbf{Epistemic honesty:} I do NOT prove ``any Landauer-valid cost $\geq \mu$'' because Landauer only constrains information-destroying operations. For non-erasing operations, Landauer permits $C(i) = 0$ while $\mu$ may charge $> 0$. What I prove is that $\mu$ itself is Landauer-valid and tight for structural operations.
 
 \textbf{Proof status:} Zero axioms, zero admits. \texttt{mu\_is\_landauer\_valid} and \texttt{landauer\_valid\_bounds\_total\_loss} are closed under the global context.
 
 \section{Quantum Axioms from $\mu$-Accounting}
 
-The kernel extension on quantum axioms proves that the ``axioms'' of quantum mechanics---properties usually taken as foundational postulates---emerge from pure $\mu$-accounting. These aren't approximations or analogies. They're machine-checked derivations showing that if you enforce conservation of structural ignorance, quantum mechanics \textit{falls out}.
+The kernel extension on quantum axioms formalizes conditional results: each proof takes a conservation constraint motivated by $\mu$-accounting and shows a quantum axiom follows as arithmetic. The physics enters through the hypotheses---the proofs verify that the assumptions logically entail the conclusions. Some of these results (no-cloning, unitarity) are light arithmetic; others (Tsirelson from algebra, Born rule from tensor consistency) involve genuine algebraic work. All are machine-checked. The value is structural: they show quantum axioms are connected through conservation-shaped assumptions, not that they are derived from nothing.
 
 \subsection{Proof Architecture Overview}
 
@@ -566,16 +538,18 @@ Representative theorem from \texttt{kernel/NoCloning.v}:
 
 \begin{lstlisting}
 Theorem no_cloning_from_conservation :
-  forall (cloner : BlochVector -> BlochVector * BlochVector),
-    (forall psi, let (c1, c2) := cloner psi in
-                 c1 = psi /\ c2 = psi) ->
-    (forall psi, mu_cost_cloning (cloner psi) = 0) ->
-    False.
+  forall op : CloningOperation,
+    nontrivial_input op ->
+    respects_conservation op ->
+    is_perfect_clone op ->
+    ~ is_zero_cost op.
 \end{lstlisting}
 
-\textbf{What this proves:} If you want a ``cloner'' function that takes any quantum state $|\psi\rangle$ and produces two independent copies---both equal to the original, both at zero $\mu$-cost---then you're asking for the impossible. The theorem derives \texttt{False}, meaning such a cloner cannot exist.
+\textbf{What this proves:} Given a \texttt{CloningOperation} record (with fields for input info, output1 info, output2 info, and $\mu$-cost), if the input is nontrivial ($> 0$), conservation holds (output1 + output2 $\leq$ input + $\mu$), and the clone is perfect (output1 = input and output2 = input), then the operation cannot have zero cost. The proof reduces to arithmetic: $2I \leq I + 0$ contradicts $I > 0$ via \texttt{lra}.
 
-\textbf{Why it works:} Cloning requires creating new distinguishability (two systems that respond identically to all measurements). Creating distinguishability \textit{is} structural information. The $\mu$-ledger tracks this. Zero-cost cloning would violate conservation.
+\textbf{Why this makes physical sense:} Cloning means taking one system and producing two identical copies---both respond to every measurement the same way the original does. That's \textit{creating} structural information (now there are two systems carrying the same distinguishability that used to be carried by one). Creating information costs $\mu$. So zero-cost cloning violates conservation---and the arithmetic above is just the formal encoding of that intuition.
+
+\textbf{What this actually checks:} The physics is in the hypotheses. The \texttt{respects\_conservation} predicate encodes the no-cloning content (you can't double information without cost). The proof confirms the arithmetic is consistent. This is honest: the hard part is \textit{accepting} the conservation constraint; once you accept it, no-cloning is an immediate consequence.
 
 \paragraph{Machine-native proof (\texttt{NoCloningFromMuMonotonicity.v}).}
 A second, self-contained no-cloning proof works entirely in natural-number arithmetic, avoiding any real-analysis imports. The key theorem \texttt{no\_cloning\_from\_mu\_monotonicity} shows that perfect cloning would require at least $\mu = n$ additional bits for an $n$-bit state, contradicting the zero-cost hypothesis. All proof obligations close with \texttt{lia} (linear integer arithmetic), making the argument fully decidable.
@@ -593,15 +567,19 @@ Representative theorem from \texttt{kernel/Unitarity.v}:
 
 \begin{lstlisting}
 Theorem nonunitary_requires_mu :
-  forall (E : BlochVector -> BlochVector),
-    ~is_unitary E ->
-    physical_evolution E ->
-    forall rho, mu_cost_evolution E rho > 0.
+  forall E : Evolution,
+    respects_info_conservation E ->
+    (exists x y z,
+      x*x + y*y + z*z <= 1 /\
+      info_loss E x y z > 0) ->
+    E.(evo_mu) > 0.
 \end{lstlisting}
 
-\textbf{What this proves:} Any evolution that isn't unitary but \textit{is} physical (maps valid states to valid states) must cost $\mu > 0$. Unitary evolution is the \textit{only} free operation on isolated quantum systems.
+\textbf{What this proves:} An \texttt{Evolution} record has fields \texttt{evo\_x}, \texttt{evo\_y}, \texttt{evo\_z} (Bloch coordinate maps) and \texttt{evo\_mu} (cost). The hypothesis \texttt{respects\_info\_conservation} says that for every valid Bloch vector, \texttt{info\_loss} $\leq$ \texttt{evo\_mu}. If there exists any state where \texttt{info\_loss} $> 0$, then \texttt{evo\_mu} $> 0$. The proof is one step: specialize the conservation hypothesis at the witness, then \texttt{lra}.
 
-\textbf{Why it works:} Non-unitary evolution shrinks the Bloch sphere (takes pure states to mixed states). This is decoherence---the system becomes more entangled with its environment. Entanglement creates new structural relationships that cost $\mu$ to establish.
+\textbf{Why this makes physical sense:} Non-unitary evolution shrinks the Bloch sphere---pure states become mixed states. That's decoherence. The system is becoming more entangled with its environment, and entanglement creates new structural relationships that didn't exist before. Those new relationships cost $\mu$ to establish. So the only ``free'' operation on an isolated quantum system is unitary evolution, which preserves purity. Everything else pays.
+
+\textbf{Honest assessment:} The formal proof is just \texttt{x > 0 $\wedge$ x $\leq$ y $\Rightarrow$ y > 0}---it restates the content of its own hypothesis. The physics (what counts as ``info loss,'' why it should be bounded by $\mu$) enters through the \texttt{respects\_info\_conservation} predicate. The value is structural: it shows that unitarity is what you get when you demand zero cost, given conservation.
 
 Additional theorems:
 \begin{itemize}
@@ -616,16 +594,21 @@ Representative theorem from \texttt{kernel/BornRule.v}:
 
 \begin{lstlisting}
 Theorem born_rule_from_accounting :
-  forall (prob_rule : BlochVector -> MeasurementBasis -> R -> Prop),
-    respects_normalization prob_rule ->
-    linear_in_density prob_rule ->
-    forall psi basis,
-      prob_rule psi basis (bloch_probability psi basis).
+  forall P : ProbRule,
+    valid_prob_rule P ->
+    is_linear_in_z P ->
+    mu_consistent P ->
+    forall x y z,
+      x*x + y*y + z*z <= 1 ->
+      P x y z 0 = prob_zero x y z /\
+      P x y z 1 = prob_one x y z.
 \end{lstlisting}
 
-\textbf{What this proves:} If your probability rule (1) gives normalized probabilities and (2) is linear in the density matrix, then it \textit{must} be the Born rule. There's no freedom here---linearity plus normalization pins down $P = |\langle\phi|\psi\rangle|^2$ uniquely.
+\textbf{What this proves:} \texttt{ProbRule} is defined as \texttt{R -> R -> R -> R -> R}---a function from Bloch coordinates $(x,y,z)$ and measurement outcome to probability. The hypotheses: (1) \texttt{valid\_prob\_rule}: probabilities are non-negative, sum to 1, and eigenstates give certain outcomes; (2) \texttt{is\_linear\_in\_z}: probability is an affine function of the $z$-coordinate; (3) \texttt{mu\_consistent}: stated but unused in the proof (see below). The conclusion says $P$ must be the standard Born-rule probabilities on the Bloch sphere.
 
-\textbf{Why it works:} The Bloch sphere representation makes this transparent. A linear functional on Bloch vectors that sums to 1 over orthogonal bases has exactly one form: $P = \frac{1}{2}(1 + \vec{r} \cdot \hat{n})$ where $\vec{r}$ is the Bloch vector and $\hat{n}$ is the measurement direction. This \textit{is} the Born rule.
+\textbf{Why this makes sense geometrically:} The Bloch sphere gives you a clean picture. A qubit state is a point in a ball. A measurement picks a direction (an axis through the sphere). The probability of getting ``up'' along that axis is $P = \frac{1}{2}(1 + \vec{r} \cdot \hat{n})$, where $\vec{r}$ is the Bloch vector and $\hat{n}$ is the measurement direction. If you demand that $P$ be linear in the state (which you need for mixtures to work---a 50/50 mixture should give 50/50 probabilities) and sum to 1 over orthogonal outcomes, there's exactly one formula that works. That formula \textit{is} the Born rule.
+
+\textbf{Honest assessment:} The \texttt{mu\_consistent} hypothesis is present but completely unused---the proof works from \texttt{valid\_prob\_rule} and \texttt{is\_linear\_in\_z} alone. The linearity hypothesis \textit{is} the Born rule in disguise: on the Bloch sphere, only the Born rule is linear in the density matrix. The proof verifies that linearity plus normalization has a unique fixed point. This is why the non-circular derivation below matters.
 
 \paragraph{Non-circular derivation (\texttt{BornRuleFromSymmetry.v}).}
 The original \texttt{BornRule.v} takes linearity as a premise. A separate 939-line development derives the Born rule from \textbf{tensor product consistency} alone, eliminating the circularity concern. The key theorem \texttt{born\_rule\_from\_tensor\_consistency} establishes that any probability assignment compatible with tensor products on a composite Hilbert space must be the squared-amplitude rule. The proof proceeds by: (1)~defining separable states and their tensor structure, (2)~proving that consistency under partial trace forces multiplicativity of probabilities across subsystems, (3)~showing that multiplicativity plus normalization uniquely determines the Born rule. All obligations discharge via \texttt{lra}/\texttt{nra}/\texttt{field}; the file contains zero \texttt{Admitted} statements.
@@ -643,16 +626,20 @@ Representative theorem from \texttt{kernel/Purification.v}:
 
 \begin{lstlisting}
 Theorem purification_principle :
-  forall (rho : BlochVector),
-    is_mixed rho ->
-    exists (psi_AB : PureState) (trace_B : PureState -> BlochVector),
-      trace_B psi_AB = rho /\
-      is_pure psi_AB.
+  forall x y z : R,
+    bloch_mixed x y z ->
+    exists (lambda1 lambda2 : R),
+      0 <= lambda1 <= 1 /\
+      0 <= lambda2 <= 1 /\
+      lambda1 + lambda2 = 1 /\
+      (lambda1 - lambda2) * (lambda1 - lambda2) = purity x y z.
 \end{lstlisting}
 
-\textbf{What this proves:} Every mixed state can be ``purified''---viewed as the partial trace of some pure state on a larger system. The mixedness isn't fundamental; it's ignorance about correlations with an environment.
+\textbf{What this proves:} For any mixed-state Bloch vector $(x,y,z)$ with $x^2 + y^2 + z^2 \leq 1$, there exist convex weights $\lambda_1, \lambda_2$ that decompose the state into a mixture of two components whose purity deficit matches the original. The construction is explicit: $\lambda_{1,2} = (1 \pm \sqrt{r^2})/2$ where $r^2 = x^2 + y^2 + z^2$.
 
-\textbf{Why it works:} A Bloch vector inside the sphere (mixed) can always be written as a convex combination of surface points (pure). In the density matrix picture, this convex decomposition corresponds to tracing out an ancilla. The construction is explicit.
+\textbf{Why this makes sense:} A point inside the Bloch sphere (a mixed state) means the system isn't in a definite state---it's entangled with its environment, and I just can't see the environment's half. The ``purification'' says: any mixed state \textit{can} be viewed as half of a pure entangled state on a bigger system. The mixedness isn't fundamental---it's my ignorance about correlations with something I don't have access to. Geometrically, a Bloch vector inside the sphere (mixed) can always be written as a convex combination of surface points (pure states), and this decomposition corresponds to tracing out an ancilla.
+
+\textbf{Honest assessment:} This is a constructive existence proof using real-number algebra. The ``purification'' here is a convex decomposition on the Bloch ball---not a full Hilbert-space purification involving ancilla systems. The result is a geometric fact about the Bloch sphere representation, but it captures the correct physical intuition: mixedness is always reducible to entanglement with an environment.
 
 Additional theorems:
 \begin{itemize}
@@ -665,13 +652,18 @@ Additional theorems:
 Representative theorem from \texttt{kernel/TsirelsonGeneral.v}:
 
 \begin{lstlisting}
-Theorem tsirelson_from_minors :
-  forall (M : CorrelationMatrix),
-    quantum_realizable M ->
-    chsh_value M <= 2 * sqrt 2.
+Corollary tsirelson_from_minors :
+  forall e00 e01 e10 e11 : R,
+    minor_constraint_zero_marginal e00 e01 ->
+    minor_constraint_zero_marginal e10 e11 ->
+    (CHSH e00 e01 e10 e11)^2 <= 8.
 \end{lstlisting}
 
-\textbf{What this proves:} The maximum CHSH value for any quantum-realizable correlation matrix is $2\sqrt{2} \approx 2.828$. This is the Tsirelson bound, derived here from algebraic constraints on correlation matrices.
+\textbf{What this proves:} Given four correlator values $e_{00}, e_{01}, e_{10}, e_{11}$ satisfying the minor constraints (which encode that the $2{\times}2$ submatrices of the correlation matrix are positive semidefinite), the CHSH combination satisfies $S^2 \leq 8$, equivalently $|S| \leq 2\sqrt{2}$. This is the Tsirelson bound.
+
+\textbf{How the proof works:} The minor constraint \texttt{minor\_constraint\_zero\_marginal e1 e2} unfolds to $e_1^2 + e_2^2 \leq 1$ (a row-norm bound). The core algebra (\texttt{tsirelson\_bound\_squared}) then shows that two such row-norm constraints force $S^2 \leq 8$ via Cauchy--Schwarz--style reasoning, all dispatched by \texttt{nra}.
+
+\textbf{Where the physics enters:} The \texttt{minor\_constraint\_zero\_marginal} hypotheses are not proved from $\mu$-conservation---they encode the NPA-1 (Navascu\'{e}s--Pironio--Ac\'{i}n level-1) algebraic constraints, which are the quantum content. The proof verifies that these algebraic constraints entail the Tsirelson bound; it does not derive the constraints themselves.
 
 \textbf{Why it works:} Quantum correlations must come from tensor products of Pauli matrices, which constrains the eigenvalues of the correlation matrix. The $2 \times 2$ minors of the correlation matrix satisfy Cauchy-Schwarz inequalities that force $S \leq 2\sqrt{2}$.
 
@@ -687,9 +679,9 @@ A standalone 327-line development derives the Tsirelson bound from first princip
 
 \subsection{What This Means}
 
-These proofs establish that quantum mechanics isn't a collection of arbitrary postulates. The rules emerge from a single principle: \textbf{structural information is conserved}. You can't clone because cloning creates information. Evolution is unitary because non-unitary evolution destroys information (or creates entanglement, which costs $\mu$). The Born rule is forced by tensor product consistency (\texttt{BornRuleFromSymmetry.v})---any probability assignment compatible with composite systems must be the squared-amplitude rule. Tsirelson bounds correlations because stronger correlations would require revealing partition structure.
+These proofs show that quantum axioms follow from conservation-shaped hypotheses. The physics is in those hypotheses---\texttt{respects\_conservation}, \texttt{is\_linear\_in\_z}, the NPA-1 row constraints---not derived from nothing. But the structural connection is real: all the axioms flow from conservation constraints, which means accepting the $\mu$-accounting framework gives you quantum mechanics for free. The Born rule from tensor consistency (\texttt{BornRuleFromSymmetry.v}) is the strongest result---it genuinely eliminates the linearity premise. The Tsirelson algebraic proof is legitimate algebra. The no-cloning and unitarity results are lighter (essentially one-liners of real arithmetic), but they capture the structural reason those axioms work: they are accounting constraints.
 
-This is the kernel-level foundation for all the quantum physics in this thesis. When we claim the Thiele Machine can achieve supra-quantum correlations, we mean: it can pay the $\mu$ cost that the proofs show is required.
+This is the kernel-level foundation for all the quantum physics in this thesis. When I claim the Thiele Machine can achieve supra-quantum correlations, I mean: it can pay the $\mu$ cost that the proofs show is required.
 
 \section{Theory of Everything (TOE) Proofs}
 
@@ -706,7 +698,7 @@ Theorem KernelTOE_FinalOutcome :
 
 \paragraph{Understanding the TOE Final Outcome Theorem:}
 
-\textbf{What does this theorem prove?} This is the \textbf{definitive Theory of Everything (TOE) no-go theorem}. It establishes exactly which physical structures are \textit{forced by the kernel semantics} and which are \textit{not forced}. It answers the question: ``Can we derive all of physics from the kernel alone?'' The answer is: \textit{No. The kernel forces locality and causality, but not probability or geometry.}
+\textbf{What does this theorem prove?} This is the \textbf{definitive Theory of Everything (TOE) no-go theorem}. It establishes exactly which physical structures are \textit{forced by the kernel semantics} and which are \textit{not forced}. It answers the question: ``Can I derive all of physics from the kernel alone?'' The answer is: \textit{No. The kernel forces locality and causality, but not probability or geometry.}
 
 \textbf{Components breakdown:}
 \begin{itemize}
@@ -731,7 +723,7 @@ Theorem KernelTOE_FinalOutcome :
 ``The kernel semantics forces (1) locality, (2) $\mu$-conservation, (3) causal structure [maximal closure]. But it does not force (4) unique probability measures, (5) probability definitions, or (6) spacetime geometry [no-go]. Deriving these requires additional axioms.''
 \end{quote}
 
-\textbf{Why is this important?} This theorem answers the TOE question: \textit{Can we derive all of physics from first principles?} The answer is \textit{no}---at least, not from the kernel alone. The kernel provides a \textit{framework} (locality, causality, monotonicity), but physics requires \textit{extra structure} (coarse-graining, finiteness assumptions, geometric postulates).
+\textbf{Why is this important?} This theorem answers the TOE question: \textit{Can I derive all of physics from first principles?} The answer is \textit{no}---at least, not from the kernel alone. The kernel provides a \textit{framework} (locality, causality, monotonicity), but physics requires \textit{extra structure} (coarse-graining, finiteness assumptions, geometric postulates).
 
 \textbf{Proof strategy:} The theorem combines two separate results:
 \begin{enumerate}
@@ -753,7 +745,7 @@ Consider two partition models:
 \end{itemize}
 Both models satisfy the kernel laws (locality, $\mu$-monotonicity), but Model 2 has \textit{no probability definition}. Therefore, probability is not forced.
 
-\textbf{Connection to No Free Insight:} The kernel enforces No Free Insight ($\mu$-conservation), but No Free Insight alone does not determine \textit{how much} insight a revelation provides. That requires a weight function, which is not unique. This is why the thesis emphasizes \textit{verifiable} claims rather than \textit{predictive} claims---we can verify $\mu$-conservation without fixing a unique probability measure.
+\textbf{Connection to No Free Insight:} The kernel enforces No Free Insight ($\mu$-conservation), but No Free Insight alone does not determine \textit{how much} insight a revelation provides. That requires a weight function, which is not unique. This is why the thesis emphasizes \textit{verifiable} claims rather than \textit{predictive} claims---I can verify $\mu$-conservation without fixing a unique probability measure.
 
 \textbf{Philosophical implications:}
 \begin{itemize}
@@ -839,7 +831,7 @@ Theorem KernelNoGo_UniqueWeight_Fails : KernelNoGo_UniqueWeight_FailsP.
 
 \paragraph{Understanding the Unique Weight No-Go Theorem:}
 
-\textbf{What does this theorem prove?} This theorem proves that \textbf{no unique weight function is forced by compositionality alone}. Even if we restrict to weight functions satisfying all compositional laws, there is \textit{no canonical choice}---the kernel cannot prefer one weight function over another.
+\textbf{What does this theorem prove?} This theorem proves that \textbf{no unique weight function is forced by compositionality alone}. Even restricting to weight functions satisfying all compositional laws, there is \textit{no canonical choice}---the kernel cannot prefer one weight function over another.
 
 \textbf{Definitions:}
 \begin{itemize}
@@ -948,7 +940,7 @@ Without these, Newton's laws don't make predictions. Similarly, the kernel seman
     
     \item \textbf{Falsifiability:} The kernel laws (locality, $\mu$-conservation) are \textit{falsifiable}---experiments can test whether they hold. But the kernel doesn't make \textit{unfalsifiable} predictions (like ``probability of outcome X is exactly 0.5'').
     
-    \item \textbf{Modularity:} You can swap out extra structure (e.g., change the weight function) without breaking the kernel semantics. This supports \textit{what-if} analysis: ``What if we used a different probability measure?''
+    \item \textbf{Modularity:} You can swap out extra structure (e.g., change the weight function) without breaking the kernel semantics. This supports \textit{what-if} analysis: ``What if I used a different probability measure?''
 \end{itemize}
 
 \textbf{Connection to No Free Insight:} No Free Insight is a \textit{constraint} (``$\mu$ never decreases''), not a \textit{prediction} (``$\mu$ will increase by exactly 5 units''). This theorem formalizes why: predictions require extra structure (weight functions, coarse-graining), but constraints do not.
@@ -957,7 +949,7 @@ Without these, Newton's laws don't make predictions. Similarly, the kernel seman
 \begin{itemize}
     \item \textbf{Physics is contingent:} The laws of nature (probabilities, geometry, constants) are not \textit{logically necessary}. They could have been different.
     
-    \item \textbf{Observation vs. theory:} The kernel captures \textit{observational constraints} (what we can measure: locality, causality). Physical \textit{theories} (quantum mechanics, general relativity) add extra structure to explain \textit{why} those constraints hold.
+    \item \textbf{Observation vs. theory:} The kernel captures \textit{observational constraints} (what can be measured: locality, causality). Physical \textit{theories} (quantum mechanics, general relativity) add extra structure to explain \textit{why} those constraints hold.
     
     \item \textbf{Separation of concerns:} The Thiele Machine separates \textit{computational substrate} (the kernel) from \textit{physical interpretation} (the extra structure). This is analogous to how computer science separates \textit{algorithms} from \textit{hardware}.
 \end{itemize}
@@ -1511,7 +1503,7 @@ End NO_FREE_INSIGHT_SYSTEM.
 
 \textbf{What is this?} This is a \textbf{Coq module type}---an abstract interface specifying the signature of any system satisfying No Free Insight. It declares 11 parameters (types and functions) that any implementation must provide. The Thiele Machine kernel is one \textit{instance} of this interface, but other systems could also implement it.
 
-\textbf{Why use a module type?} By abstracting No Free Insight into an interface, we can:
+\textbf{Why use a module type?} By abstracting No Free Insight into an interface, I can:
 \begin{itemize}
     \item \textbf{Prove theorems generically:} Prove properties about \textit{any} system satisfying this interface, not just the Thiele Machine.
     \item \textbf{Support multiple implementations:} Different computational models (quantum computers, analog computers, biological systems) could implement this interface if they track ignorance.
@@ -1604,7 +1596,7 @@ End NO_FREE_INSIGHT_SYSTEM.
 \end{itemize}
 The kernel is \textit{proven} to satisfy the interface axioms (next section).
 
-\textbf{Why is this powerful?} By proving theorems about the interface, we get \textit{abstract theorems} that apply to any implementation. This is analogous to:
+\textbf{Why is this powerful?} By proving theorems about the interface, you get \textit{abstract theorems} that apply to any implementation. This is analogous to:
 \begin{itemize}
     \item \textbf{Monoids:} Theorems about monoids apply to integers (under addition), lists (under concatenation), functions (under composition), etc.
     \item \textbf{Databases:} SQL queries work on any database implementing the relational algebra interface.
@@ -1776,7 +1768,7 @@ These predictions are falsifiable: if benchmarks show costs outside these bounds
 The extended proof architecture establishes:
 \begin{enumerate}
     \item \textbf{Zero-admit corpus}: A fully discharged proof tree with no admits or unproven axioms beyond foundational logic.
-    \item \textbf{Quantum axioms from $\mu$-accounting}: No-cloning, unitarity, Born rule, purification, and Tsirelson bound all derived from conservation of structural information (3,961 lines, 152 definitions/theorems across eight files). Three additional proofs close circularity gaps: \texttt{BornRuleFromSymmetry.v} derives the Born rule from tensor consistency alone, \texttt{NoCloningFromMuMonotonicity.v} proves no-cloning in pure integer arithmetic, and \texttt{TsirelsonFromAlgebra.v} gives a self-contained algebraic Tsirelson derivation with achievability witness.
+    \item \textbf{Quantum axioms from $\mu$-accounting}: No-cloning, unitarity, Born rule, purification, and Tsirelson bound all follow from conservation-shaped hypotheses (3,961 lines, 152 definitions/theorems across eight files). The physics is in the assumptions; the proofs verify logical entailment. Three additional proofs address circularity: \texttt{BornRuleFromSymmetry.v} derives the Born rule from tensor consistency alone, \texttt{NoCloningFromMuMonotonicity.v} proves no-cloning in pure integer arithmetic, and \texttt{TsirelsonFromAlgebra.v} gives a self-contained algebraic Tsirelson derivation with achievability witness.
     \item \textbf{Quantum bounds}: Literal CHSH $\le$ 5657/2000.
     \item \textbf{TOE limits}: Physics requires extra structure beyond compositionality.
     \item \textbf{Impossibility theorems}: Entropy, probability, and unique weights are not forced by the kernel alone.

@@ -39,7 +39,7 @@ This chapter steps back from technical details to explore the broader significan
 
 This discussion covers several distinct areas:
 \begin{enumerate}
-    \item \textbf{Physics Connections} (§7.2): How the Thiele Machine mirrors physical laws---not as metaphor, but as formal isomorphism
+    \item \textbf{Physics Connections} (§7.2): How the Thiele Machine mirrors physical laws---formalized structural parallels, not loose metaphors
     \item \textbf{Complexity Theory} (§7.3): A new lens for understanding computational difficulty
     \item \textbf{AI and Trust} (§7.4--7.5): Applications to artificial intelligence and verifiable computation
     \item \textbf{Limitations and Future Work} (The Honest Part) (§7.6--7.7): Honest assessment of what the model cannot do and what remains to be built
@@ -185,7 +185,7 @@ Theorem observational_no_signaling : forall s s' instr mid,
 
 \textbf{Why exclude axioms from observables?} Axioms are \textit{internal commitments} (logical constraints on a module's state space). They are not externally visible signals. For example, if module A adds axiom ``$x < 5$'' (via \texttt{LASSERT}), this does not signal to module B---it only constrains A's internal state. Observables are restricted to \textit{public} information: partition regions and $\mu$-costs.
 
-\textbf{Example:} Suppose state $s$ has modules $\{A, B, C\}$ and we execute \texttt{PSPLIT A \{0,1\} \{2,3\}}. The theorem guarantees:
+\textbf{Example:} Suppose state $s$ has modules $\{A, B, C\}$ and you execute \texttt{PSPLIT A \{0,1\} \{2,3\}}. The theorem guarantees:
 \begin{itemize}
     \item Module B's region is unchanged (e.g., still $\{4,5,6\}$).
     \item Module C's region is unchanged.
@@ -245,7 +245,7 @@ The theorem guarantees both VMs have identical partition structures at the end. 
 
 
 The symmetry (freedom to shift $\mu$ by a constant) corresponds to the conserved quantity (partition structure). This is not metaphorical—it is the same mathematical relationship that underlies energy conservation in classical mechanics: a symmetry of the dynamics induces a conserved observable.
-The proof lives in \path{coq/kernel/KernelPhysics.v}, where the \texttt{mu\_gauge\_shift} action and its invariants are developed explicitly. This is a genuine Noether-style argument: the conservation law is derived from a symmetry of the semantics rather than assumed.
+The proof lives in \path{coq/kernel/KernelPhysics.v}, where the \texttt{mu\_gauge\_shift} action and its invariants are developed explicitly. This is structurally analogous to a Noether argument: a symmetry (gauge freedom in absolute $\mu$) corresponds to an invariant (partition structure). The analogy is real but the result is simpler than in physics---the invariance follows from the record layout (\texttt{vm\_graph} is a separate field from \texttt{vm\_mu}), not from dynamical equations.
 
 \subsection{Thermodynamic bridge and falsifiable prediction}
 
@@ -344,9 +344,9 @@ This matters for the $\text{P}_\mu$ / $\text{NP}_\mu$ definitions above: because
 
 On the other end, the model is bounded. The Oracle Impossibility proof (\path{coq/kernel/OracleImpossibility.v}) establishes three results:
 \begin{enumerate}
-    \item \texttt{halting\_undecidable}: No total machine decides halting.
-    \item \texttt{oracle\_halts\_costs\_mu}: Any partial oracle that resolves halting instances requires $\mu$-cost proportional to the input.
-    \item \texttt{hypercomputation\_bounded}: No finite-$\mu$ trace can compute a function that a Turing Machine cannot.
+    \item \texttt{halting\_undecidable}: No total machine decides halting (genuine diagonal argument).
+    \item \texttt{oracle\_halts\_costs\_mu}: Oracle soundness is defined to require cost $\geq 1$ per query; the proof verifies that zero cost violates this definition.
+    \item \texttt{hypercomputation\_bounded}: Given the per-query cost definition, $n$ independent oracle queries cost $\geq n$.
 \end{enumerate}
 
 Together with Turing Subsumption, these results pin the model's computational power: it is exactly Turing-complete. It computes everything a Turing Machine can and nothing more, while adding the $\mu$-accounting layer on top. The structure-aware classes therefore live inside the same computability boundary as classical complexity theory---they refine it without escaping it.

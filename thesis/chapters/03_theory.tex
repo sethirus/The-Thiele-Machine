@@ -164,14 +164,7 @@ Record VMState := {
 }.
 \end{lstlisting}
 
-\paragraph{Understanding the VMState Record:} This Coq \texttt{Record} defines a product type—a structure where all fields coexist simultaneously. Think of it as a snapshot of the entire machine state at a given moment. In Coq, a \texttt{Record} is syntactic sugar for an inductive type with a single constructor, making it convenient to define and access structured data.
-
-\textbf{From First Principles:} A state machine needs complete information to determine its next state. This record provides exactly that---nothing more, nothing less:
-\begin{itemize}
-    \item \textbf{Type Safety:} Each field has an explicit type (e.g., \texttt{nat} for natural numbers, \texttt{bool} for booleans). Coq's type system prevents misuse at compile time.
-    \item \textbf{Immutability:} In Coq, values are immutable. State transitions create new \texttt{VMState} values rather than mutating existing ones, enabling equational reasoning.
-    \item \textbf{Totality:} Every \texttt{VMState} must have all fields defined. There's no concept of ``null'' or ``undefined''—the state is always complete and well-formed.
-\end{itemize}
+\paragraph{What this record is:} A \texttt{VMState} is the complete snapshot of the machine at one moment. Every field has to be there---Coq doesn't let you leave anything undefined, which means the state is always well-formed whether you like it or not. That's one of the things I learned to appreciate about Coq: you can't cheat. You can't have a half-initialized state and hope for the best. Every transition builds a new complete state from the old one, so reasoning about state changes is just comparing two records.
 
 Each component serves a specific purpose:
 \begin{itemize}
@@ -194,22 +187,17 @@ Definition word32 (x : nat) : nat :=
   N.to_nat (N.land (N.of_nat x) word32_mask).
 \end{lstlisting}
 
-\paragraph{Understanding Word Masking:} These definitions ensure fixed-width arithmetic behavior, crucial for matching hardware semantics.
+\paragraph{What word masking does:} The \texttt{word32} function masks any number down to 32 bits---bitwise AND with \texttt{0xFFFFFFFF}. I had to learn why this exists the hard way: Coq's \texttt{nat} type is unbounded, but hardware registers are 32 bits. Without the mask, the Coq model and the hardware disagree on what happens at overflow.
 
-\textbf{Breaking Down the Code:}
+\textbf{Step by step:}
 \begin{enumerate}
-    \item \textbf{\texttt{N.ones 32}}: Creates a binary number with 32 consecutive 1-bits: \texttt{0xFFFFFFFF}. This is our bitmask. The \texttt{N} type represents binary natural numbers optimized for bit operations.
-    
-    \item \textbf{\texttt{N.of\_nat x}}: Converts from Coq's mathematical natural numbers (\texttt{nat}, defined inductively as \texttt{O | S nat}) to the binary representation (\texttt{N}). Why? Because \texttt{nat} is convenient for proofs but inefficient for computation.
-    
-    \item \textbf{\texttt{N.land}}: Bitwise AND operation. When we AND any number with \texttt{0xFFFFFFFF}, we keep only the lower 32 bits and discard everything above. Example: \texttt{0x1FFFFFFFF AND 0xFFFFFFFF = 0xFFFFFFFF}.
-    
-    \item \textbf{\texttt{N.to\_nat}}: Converts back to \texttt{nat} for use in the rest of the formal model.
+    \item \textbf{\texttt{N.ones 32}}: Creates the bitmask \texttt{0xFFFFFFFF}---32 consecutive 1-bits. The \texttt{N} type is Coq's binary natural number representation, which is what bit operations need.
+    \item \textbf{\texttt{N.of\_nat x}}: Converts from Coq's mathematical \texttt{nat} (which proofs use) to binary \texttt{N} (which bit operations need). Two representations of the same number, different purposes.
+    \item \textbf{\texttt{N.land}}: Bitwise AND. ANDing any number with \texttt{0xFFFFFFFF} keeps only the lower 32 bits. Example: \texttt{0x1FFFFFFFF AND 0xFFFFFFFF = 0xFFFFFFFF}.
+    \item \textbf{\texttt{N.to\_nat}}: Converts back to \texttt{nat} for the rest of the formal model.
 \end{enumerate}
 
-\textbf{Why This Matters:} Coq's \texttt{nat} type represents unbounded natural numbers (0, 1, 2, 3, ..., $\infty$). Real hardware uses fixed-width registers. Without explicit masking, \texttt{0xFFFFFFFF + 1} would be \texttt{0x100000000} in Coq but \texttt{0x00000000} in hardware (overflow/wraparound). By applying \texttt{word32} after every operation, we enforce hardware semantics in the mathematical model.
-
-This ensures that all arithmetic operations properly wrap at $2^{32}$, so word-level behavior is explicit and deterministic.
+\textbf{Why this matters:} Coq's \texttt{nat} is unbounded---\texttt{0xFFFFFFFF + 1} would be \texttt{0x100000000} in Coq but \texttt{0x00000000} in hardware (wraparound). By applying \texttt{word32} after every operation, the mathematical model matches register behavior exactly. When I prove something about the model, I'm proving it about the actual hardware, not some idealized version.
 In the Coq kernel, write operations (\texttt{write\_reg} and \texttt{write\_mem}) mask values through \texttt{word32}, so every stored word is explicitly truncated rather than implicitly relying on the host language. This makes the arithmetic model match the RTL and avoids ambiguities where a high-level language might use unbounded integers.
 
 \subsection{Partition Graph $\Pi$}
@@ -301,7 +289,7 @@ Definition well_formed_graph (g : PartitionGraph) : Prop :=
     \item \textbf{g.(field)}: Coq syntax for accessing record fields. This is notation for \texttt{pg\_modules g} and \texttt{pg\_next\_id g}.
 \end{itemize}
 
-\textbf{Why This Invariant?} It ensures that \texttt{pg\_next\_id} is always a valid "fresh" ID. When creating a new module, we can safely use \texttt{pg\_next\_id} knowing it doesn't conflict with existing IDs, then increment it. This is the standard technique for generating unique identifiers in functional programming.
+\textbf{Why This Invariant?} It ensures that \texttt{pg\_next\_id} is always a valid "fresh" ID. When creating a new module, the system can safely use \texttt{pg\_next\_id} knowing it doesn't conflict with existing IDs, then increment it. This is the standard technique for generating unique identifiers in functional programming.
 
 \textbf{Logical Implication:} If this invariant holds, then the partition graph is internally consistent—no module has an ID greater than or equal to the next available ID. This prevents temporal paradoxes where a module appears to be created "in the future."
 
@@ -339,8 +327,8 @@ Lemma normalize_region_idempotent : forall region,
 
 \textbf{Why This Lemma Matters:} It proves that normalization is stable—once a region is normalized, it stays normalized. This is critical for:
 \begin{enumerate}
-    \item \textbf{Equality Checking:} We can compare normalized regions directly without worrying about further transformations.
-    \item \textbf{Proof Simplification:} When reasoning about operations, we know that \texttt{normalize(normalize(r))} can be simplified to \texttt{normalize(r)}.
+    \item \textbf{Equality Checking:} Normalized regions can be compared directly without worrying about further transformations.
+    \item \textbf{Proof Simplification:} When reasoning about operations, \texttt{normalize(normalize(r))} simplifies to \texttt{normalize(r)}.
     \item \textbf{Canonical Forms:} Ensures every equivalence class has exactly one representative.
 \end{enumerate}
 
@@ -359,56 +347,15 @@ Definition VMAxiom := string.
 Definition AxiomSet := list VMAxiom.
 \end{lstlisting}
 
-\paragraph{Understanding the String-Based Axiom System:}
-\textbf{Type Alias Pattern:} These are type aliases (like typedef in C). \texttt{VMAxiom} is just another name for \texttt{string}, and \texttt{AxiomSet} is a list of strings.
+\paragraph{Why strings?} The kernel treats axioms as opaque strings in SMT-LIB format. It doesn't parse them, doesn't evaluate them---just stores them and hands them to a solver (Z3, CVC5) when someone needs to check consistency. That keeps the kernel's trusted computing base small: it's a filing cabinet, not a logic engine. Adding new logical theories means writing new strings, not touching the kernel code.
 
-\textbf{Why Strings Instead of Parsed ASTs?}
-\begin{enumerate}
-    \item \textbf{Separation of Concerns:} The Thiele Machine kernel doesn't need to understand logical formulas—it just stores and forwards them. Parsing logic belongs in the checker (Z3, CVC4), not the kernel.
-    \item \textbf{Extensibility:} New logical theories can be added without modifying the kernel. Want to add non-linear arithmetic? Just write new SMT-LIB strings.
-    \item \textbf{Verifiability:} The kernel's trusted computing base (TCB) is smaller because it doesn't contain a formula parser/evaluator.
-    \item \textbf{Interoperability:} SMT-LIB 2.0 is an industry standard. Any compliant solver can check our axioms.
-\end{enumerate}
-
-This choice keeps the kernel agnostic to the internal structure of logical formulas. The kernel does not parse or interpret these strings; it only passes them to certified checkers (see \path{coq/kernel/CertCheck.v}) and records them as part of a module's logical commitments.
-
-For example, an axiom asserting that a variable $x$ is non-negative might be:
+For example:
 \begin{lstlisting}
 "(assert (>= x 0))"
 \end{lstlisting}
+This constrains $x$ to be non-negative. The kernel doesn't know or care what that means---it just stores it and forwards it to the checker. If you need something more exotic, like non-linear arithmetic or a custom theory, you write new SMT-LIB strings. The kernel doesn't need to change.
 
-\paragraph{Understanding SMT-LIB Axiom Syntax:}
-\textbf{String Literal:} The entire axiom is a Coq string (enclosed in quotes), containing SMT-LIB syntax.
-
-\textbf{SMT-LIB S-Expression Breakdown:}
-\begin{itemize}
-    \item \textbf{Parentheses}: Delimit function application (prefix notation)
-    \item \textbf{assert}: SMT-LIB command to add a constraint to the solver
-    \item \textbf{(>= x 0)}: The constraint formula
-    \begin{itemize}
-        \item \textbf{>=}: Greater-than-or-equal predicate
-        \item \textbf{x}: A variable (must be declared previously)
-        \item \textbf{0}: Integer literal
-        \item \textbf{Reading}: "$x \geq 0$"
-    \end{itemize}
-\end{itemize}
-
-\textbf{Why String-Based?} Axioms are opaque to the kernel:
-\begin{itemize}
-    \item \textbf{No Parsing}: Kernel doesn't understand SMT-LIB semantics
-    \item \textbf{No Evaluation}: Kernel doesn't check validity
-    \item \textbf{Delegation}: Passed verbatim to certified checkers (Z3, CVC5)
-    \item \textbf{Flexibility}: Can support multiple solver formats without kernel changes
-\end{itemize}
-
-\textbf{Physical Interpretation:} This axiom narrows the possibility space:
-\begin{itemize}
-    \item \textbf{Before}: $x$ could be any integer ($-\infty$ to $+\infty$)
-    \item \textbf{After}: $x$ restricted to non-negative integers ($[0, +\infty)$)
-    \item \textbf{Cost}: Adding this constraint costs $\mu$-bits proportional to $\log_2(\text{fraction of space eliminated})$
-\end{itemize}
-
-\textbf{Example Usage in VM:} The \texttt{LASSERT} instruction would store this string in a module's axiom list, then invoke an SMT solver to check consistency with existing axioms.
+\textbf{Why I made this choice:} I spent a while trying to build a proper formula AST into the kernel, and it was a nightmare. Every new logical connective meant updating the parser, the evaluator, and every proof that touched formulas. Strings are ugly, but they keep the kernel small and the extension surface infinite. SMT-LIB 2.0 is an industry standard, so any compliant solver can check the axioms without custom glue code.
 
 \subsubsection{Axiom Operations}
 
@@ -489,40 +436,27 @@ Inductive vm_instruction :=
 | instr_halt (mu_delta : nat).
 \end{lstlisting}
 
-\paragraph{Understanding Inductive Types as Instruction Sets:}
-\textbf{Inductive Type Basics:} In Coq, \texttt{Inductive} defines a type by listing all possible constructors (like enum in C++ or algebraic data types in Haskell). Each constructor is a distinct way to create a value of type \texttt{vm\_instruction}.
+\paragraph{Why the instruction type matters:} Coq forces you to list every possible instruction up front---there's no way to sneak in a new one later without updating every proof that pattern-matches on instructions. That was painful during development (every time I added an instruction, dozens of proofs broke), but it means the proofs cover \emph{every} instruction, guaranteed.
 
-\textbf{Constructor Parameters:} Each instruction constructor carries data:
+The key design choice: every instruction carries a \texttt{mu\_delta} field. The cost isn't bolted on after the fact---it's baked into the instruction itself, so you literally cannot define an instruction without saying what it costs. That was intentional. It means every proof about the ledger gets the cost for free, just by pattern matching.
+
+\textbf{Reading the constructor parameters:} Each line in the listing above is a constructor with its data. For example:
 \begin{itemize}
-    \item \textbf{Type Safety}: \texttt{instr\_pnew} \emph{must} provide a \texttt{list nat} and \texttt{nat}, or it won't type-check
-    \item \textbf{Pattern Matching}: Later code can \texttt{match} on an instruction to determine which constructor it is and extract its parameters
-    \item \textbf{No Invalid States}: Can't have an instruction with missing or wrong-typed fields
+    \item \textbf{\texttt{instr\_psplit}}: Takes a \texttt{ModuleID} (which module to split), two \texttt{list nat} (the two disjoint sub-regions), and a \texttt{mu\_delta} cost. Splitting a module reveals internal structure, and the cost reflects how much structural information is being exposed.
+    \item \textbf{\texttt{instr\_pnew}}: Takes a \texttt{list nat} (the region to allocate) and a \texttt{mu\_delta} cost. Creating a new module is asserting new structure---that costs something.
+    \item \textbf{\texttt{instr\_xor\_reg}}: Takes three register indices and a \texttt{mu\_delta}. XOR is reversible, so its structural cost is zero, but the field is still there---the type system forces that.
 \end{itemize}
 
-\textbf{The Uniform \texttt{mu\_delta} Parameter:}
+The 18 instructions break into groups:
 \begin{itemize}
-    \item \textbf{First Principles}: Every instruction must account for its information-theoretic cost
-    \item \textbf{Embedded in Semantics}: The cost isn't metadata or a side annotation—it's part of the instruction itself
-    \item \textbf{Type Guarantee}: Impossible to execute an instruction without specifying its $\mu$-cost
-    \item \textbf{Verification Benefit}: Proofs about ledger monotonicity can pattern match and extract \texttt{mu\_delta} directly
+    \item \textbf{Partition Ops} (4): Structure creation and manipulation (\texttt{PNEW}, \texttt{PSPLIT}, \texttt{PMERGE}, \texttt{PDELETE})
+    \item \textbf{Logic Ops} (2): Axiom assertion and certificate joining (\texttt{LASSERT}, \texttt{CERTJOIN})
+    \item \textbf{Information Ops} (3): MDL accounting, discovery, revelation (\texttt{MDLACC}, \texttt{DISCOVER}, \texttt{REVEAL})
+    \item \textbf{Data Movement} (4): Transfer, Python execution, CHSH trials (\texttt{DATAXFER}, \texttt{PYEXEC}, \texttt{CHSH\_TRIAL}, \texttt{ORACLE\_HALTS})
+    \item \textbf{XOR Ops} (4): Reversible computation primitives
+    \item \textbf{Control} (1): Halt instruction
 \end{itemize}
-
-\textbf{Example Instruction Breakdown—\texttt{instr\_psplit}:}
-\begin{itemize}
-    \item \texttt{module : ModuleID}: Which module to split
-    \item \texttt{left right : list nat}: Two disjoint sub-regions whose union is the original module's region
-    \item \texttt{mu\_delta : nat}: Cost to pay for revealing the internal structure (typically $\log_2(\text{ways to partition})$)
-\end{itemize}
-
-\textbf{Why 18 Instructions?} Each serves a distinct purpose in the information economy:
-\begin{enumerate}
-    \item \textbf{Partition Ops (4)}: Structure creation and manipulation
-    \item \textbf{Logic Ops (2)}: Axiom assertion and certificate joining  
-    \item \textbf{Information Ops (3)}: MDL accounting, discovery, revelation
-    \item \textbf{Data Movement (4)}: Transfer, Python execution, CHSH trials
-    \item \textbf{XOR Ops (4)}: Reversible computation primitives
-    \item \textbf{Control (1)}: Halt instruction
-\end{enumerate}
+The diagram below groups them by typical cost.
 
 \subsubsection{Instruction Categories}
 
@@ -608,9 +542,9 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop := ...
 \paragraph{Understanding the Step Relation:}
 \textbf{What is an Inductive Relation?} This defines a ternary (3-way) relation between:
 \begin{enumerate}
-    \item \textbf{Initial state} (\texttt{VMState}): Where we start
+    \item \textbf{Initial state} (\texttt{VMState}): Where the machine starts
     \item \textbf{Instruction} (\texttt{vm\_instruction}): What operation to perform
-    \item \textbf{Final state} (\texttt{VMState}): Where we end up
+    \item \textbf{Final state} (\texttt{VMState}): Where the machine ends up
 \end{enumerate}
 
 \textbf{Type Signature Breakdown:}
@@ -624,7 +558,7 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop := ...
 \begin{itemize}
     \item \textbf{Nondeterminism}: Some instructions might have multiple valid outcomes (though the Thiele Machine is deterministic)
     \item \textbf{Partial Functions}: Not all (state, instruction) pairs have a successor. Relations can naturally express "stuck" states.
-    \item \textbf{Proof-Friendliness}: Inductive relations are easier to reason about in Coq—we can induct on derivation trees.
+    \item \textbf{Proof-Friendliness}: Inductive relations are easier to reason about in Coq—you can induct on derivation trees.
 \end{itemize}
 
 Each instruction has one or more step rules. For example, \texttt{PNEW}:
@@ -825,7 +759,7 @@ Definition apply_cost (s : VMState) (instr : vm_instruction) : nat :=
 \textbf{instruction\_cost Function:}
 \begin{itemize}
     \item \textbf{Pattern Matching}: Examines which constructor was used to create the instruction
-    \item \textbf{Underscore (\_)}: Means "ignore this parameter." We only care about extracting the \texttt{cost} field.
+    \item \textbf{Underscore (\_)}: Means "ignore this parameter." The only thing that matters here is extracting the \texttt{cost} field.
     \item \textbf{Uniform Access}: Every instruction carries its cost explicitly—no external lookup tables
 \end{itemize}
 
@@ -858,33 +792,19 @@ Theorem mu_conservation_kernel : forall s s' instr,
   s'.(vm_mu) >= s.(vm_mu).
 \end{lstlisting}
 
-\paragraph{Understanding the Monotonicity Theorem:}
-\textbf{Theorem Statement Anatomy:}
-\begin{itemize}
-    \item \textbf{Theorem}: Declares this is a proven mathematical statement (not an axiom)
-    \item \textbf{forall s s' instr}: Universal quantification—this holds for \emph{every possible} state pair and instruction
-    \item \textbf{Premise}: \texttt{vm\_step s instr s'} means there exists a valid step from \texttt{s} to \texttt{s'} via \texttt{instr}
-    \item \textbf{Arrow (->)}: Logical implication—"if premise, then conclusion"
-    \item \textbf{Conclusion}: \texttt{s'.(vm\_mu) >= s.(vm\_mu)} means the new $\mu$ is greater than or equal to the old $\mu$
-\end{itemize}
+\paragraph{What this theorem says:} For \emph{any} state, \emph{any} instruction, and \emph{any} resulting state: if the step is valid, the ledger didn't go down. That's it. No exceptions, no edge cases. Coq checked every branch of the step relation and confirmed the arithmetic.
 
-\textbf{What This Guarantees:}
+\textbf{Why it works:} Every instruction's cost is a \texttt{nat} (natural number, can't be negative), so the ledger can only go up or stay the same. The proof walks through each of the 23 step constructors and confirms that \texttt{advance\_state} adds \texttt{instruction\_cost instr} to the ledger, which is always $\geq 0$. This isn't ``probably true'' or ``true in tests''---it's checked for all possible executions.
+
+\textbf{What this guarantees:}
 \begin{enumerate}
-    \item \textbf{No Negative Costs}: Instructions can't have negative $\mu$-cost
-    \item \textbf{No Accounting Bugs}: Even with complex state updates, the ledger never decreases
-    \item \textbf{Temporal Ordering}: If state $s_2$ was reached from $s_1$, then $\mu_2 \geq \mu_1$
-    \item \textbf{No Rewinds}: Can't "undo" structural knowledge by stepping backward
+    \item \textbf{No Negative Costs}: Instructions can't push the ledger backwards
+    \item \textbf{No Accounting Bugs}: Even with complex state updates involving partition splits, merges, and data transfers, the ledger never decreases
+    \item \textbf{Temporal Ordering}: If state $s_2$ was reached from $s_1$, then $\mu_2 \geq \mu_1$---the ledger gives you a clock for free
+    \item \textbf{No Rewinds}: Can't ``undo'' structural knowledge by stepping backward
 \end{enumerate}
 
-\textbf{How It's Proven:} By structural induction on the \texttt{vm\_step} relation:
-\begin{enumerate}
-    \item \textbf{Base Case}: Show it holds for each instruction's step rule individually
-    \item \textbf{Examine advance\_state}: Verify that \texttt{advance\_state} always adds \texttt{instruction\_cost instr} to the ledger
-    \item \textbf{Use instruction\_cost Definition}: Show that \texttt{instruction\_cost} always returns a non-negative \texttt{nat}
-    \item \textbf{Arithmetic}: Since $\mu' = \mu + c$ and $c \geq 0$, we have $\mu' \geq \mu$ by properties of natural number addition
-\end{enumerate}
-
-\textbf{Why Coq Verification Matters:} This isn't "probably true" or "true in tests"---it's \emph{mathematically certain} for all possible executions. The machine checked every case.
+I had to learn how Coq handles this kind of proof the hard way: you do structural induction on the step relation, which means Coq generates one sub-goal per step constructor. All 23 of them. Each one boils down to showing that \texttt{advance\_state} adds a non-negative nat. It's tedious but airtight.
 
 \subsubsection{Multi-Step Conservation}
 
@@ -964,7 +884,7 @@ Theorem vm_irreversible_bits_lower_bound :
 \begin{enumerate}
     \item \textbf{Information Erasure = Heat}: Each erased bit dissipates at least $k_B T \ln 2$ Joules
     \item \textbf{$\mu$-Ledger Bounds Entropy}: If $\Delta\mu$ bits were revealed/erased, at least $\Delta\mu \cdot k_B T \ln 2$ Joules dissipated
-    \item \textbf{Thermodynamic Lower Bound}: The machine can't violate the second law
+    \item \textbf{Monotonicity Bound}: The machine cannot decrease $\mu$ (by design of unsigned costs)
 \end{enumerate}
 
 \textbf{Why ``Lower Bound'' Not ``Equality''?}
@@ -1231,7 +1151,7 @@ Definition ObservableRegion (s : VMState) (mid : nat) : option (list nat) :=
 \textbf{ObservableRegion Function (Region Only):}
 \begin{itemize}
     \item \textbf{Stripped-Down Version}: Only returns the module's region, not $\mu$
-    \item \textbf{Use Case}: When checking locality properties, we only care about region changes
+    \item \textbf{Use Case}: When checking locality properties, only region changes matter
 \end{itemize}
 
 \textbf{What's NOT Observable:}
@@ -1385,7 +1305,7 @@ Definition ReceiptPredicate (A : Type) := list A -> bool.
     \item \textbf{Quantum Physics}: $S \leq 2\sqrt{2}$ (Tsirelson bound)
     \item \textbf{Thermodynamics}: Entropy never decreases
 \end{itemize}
-These physical laws become \texttt{bool}-valued functions we can prove theorems about.
+These physical laws become \texttt{bool}-valued functions I can prove theorems about.
 
 For example:
 \begin{itemize}
@@ -1424,7 +1344,7 @@ Definition stronger {A : Type} (P1 P2 : ReceiptPredicate A) : Prop :=
     \end{itemize}
 \end{itemize}
 
-\textbf{Set-Theoretic Interpretation:} If we think of predicates as sets of traces they accept:
+\textbf{Set-Theoretic Interpretation:} Thinking of predicates as sets of traces they accept:
 \begin{itemize}
     \item \texttt{stronger P1 P2} means $\{traces \mid P1(trace)\} \subseteq \{traces \mid P2(trace)\}$
     \item Stronger predicate = smaller acceptance set = more constraints
@@ -1581,7 +1501,7 @@ Theorem nonlocal_correlation_requires_revelation :
 \textbf{Physical Meaning:}
 \begin{itemize}
     \item \textbf{Supra-Quantum Correlations Are Not Free}: Cannot passively observe $S > 2\sqrt{2}$ without active structural operations
-    \item \textbf{No Hidden Variables Loophole}: The theorem closes the loophole where someone might claim "the structure was always there, we just measured it"
+    \item \textbf{No Hidden Variables Loophole}: The theorem closes the loophole where someone might claim "the structure was always there, I just measured it"
     \item \textbf{Explicit Cost}: Must use instructions that explicitly charge $\mu$-cost
 \end{itemize}
 
@@ -1677,7 +1597,7 @@ Here:
     \item \textbf{Conservation Law}: Partition structure is conserved (doesn't change under shift)
 \end{itemize}
 
-\textbf{Practical Implication:} When verifying 3-way isomorphism (Coq, Python, Verilog), we only need to check that $\mu$ \emph{changes} match, not absolute values. If implementation A starts at $\mu=0$ and B starts at $\mu=1000$, that's fine—just verify increments are identical.
+\textbf{Practical Implication:} When verifying 3-way isomorphism (Coq, Python, Verilog), you only need to check that $\mu$ \emph{changes} match, not absolute values. If implementation A starts at $\mu=0$ and B starts at $\mu=1000$, that's fine—just verify increments are identical.
 
 \textbf{Proof Strategy:}
 \begin{itemize}
@@ -1713,17 +1633,19 @@ This is the computational analog of Noether's theorem: the gauge symmetry (abili
 
 \section{Quantum Axioms from $\mu$-Accounting}
 
-Here's the thing nobody told you about quantum mechanics: it's not weird physics, it's bookkeeping. Every quantum axiom---no-cloning, unitarity, the Born rule, purification---these all fall out of the same conservation law we've been building. You set $\mu = 0$ and suddenly you can't clone, can't be non-unitary, can't have any probability rule other than Born's. The mathematics demands it.
+Here's the thing nobody told you about quantum mechanics: it's bookkeeping. Every quantum axiom---no-cloning, unitarity, the Born rule, purification---these all follow from the same conservation constraints I've been building. You set $\mu = 0$ and suddenly you can't clone, can't be non-unitary, can't have any probability rule other than Born's. The mathematics demands it.
+
+A word of honesty, though: the physics enters through the hypotheses. Each proof below assumes a conservation constraint motivated by $\mu$-accounting, then derives the corresponding quantum axiom as an arithmetic consequence. The proofs show these axioms are \textit{connected}---they all follow from conservation-shaped assumptions---but the assumptions themselves encode the physical content. That is still valuable. It means these axioms are not independent postulates you have to swallow whole. They are structurally linked through a common accounting principle.
 
 \subsection{No-Cloning from $\mu$-Conservation}
 
-Everyone knows you can't clone quantum states. Textbooks invoke linearity of quantum mechanics. But that's backwards---linearity is a consequence, not a cause. Here's what's actually happening:
+Everyone knows you can't clone quantum states. Textbooks invoke linearity of quantum mechanics. Here's the accounting version---same result, different lens:
 
 \begin{theorem}[No-Cloning from Conservation]
 If the $\mu$-ledger is conserved (no free insight), then perfect cloning is impossible. Any cloning operation requires $\mu > 0$ proportional to the information content of the original state.
 \end{theorem}
 
-\textbf{Why?} Cloning duplicates information without destroying the original. That's information creation. Where does it come from? The $\mu$-ledger. If you try to clone without paying, you've violated conservation. Done.
+\textbf{How does this work?} The proof models a cloning operation as four real numbers: input information $I$, two output copies (both $= I$ for perfect cloning), and $\mu$-cost. Conservation requires $\text{out}_1 + \text{out}_2 \leq I + \mu$. With perfect cloning, that's $2I \leq I + \mu$, so $\mu \geq I > 0$. This is real arithmetic---the proof closes with \texttt{lra}. The conservation hypothesis is doing all the work. But that's the point: if you accept the $\mu$-accounting framework, no-cloning is not a separate postulate you need to assume. It drops out.
 
 Proven as \texttt{no\_cloning\_from\_conservation} in \path{coq/kernel/NoCloning.v}:
 \begin{lstlisting}
@@ -1737,22 +1659,22 @@ Theorem no_cloning_from_conservation :
 
 \paragraph{What This Proves:}
 \begin{itemize}
-    \item \textbf{Perfect Cloning is Impossible at Zero Cost:} If an operation is nontrivial, respects conservation, and achieves perfect cloning, then it cannot be zero-cost. Any perfect clone requires $\mu > 0$.
+    \item \textbf{Perfect Cloning is Impossible at Zero Cost:} If an operation is nontrivial, respects the conservation constraint, and achieves perfect cloning, then it cannot be zero-cost. The proof is the arithmetic fact $2I \leq I + 0$ contradicts $I > 0$.
     \item \textbf{Approximate Cloning Costs:} Higher fidelity costs more $\mu$-bits (bounded in \texttt{approximate\_cloning\_bound})
     \item \textbf{No-Deletion Too:} The same argument shows you can't delete states without paying (information destruction = bit erasure = cost)
 \end{itemize}
 
-The traditional proof uses linearity of quantum operators. This one uses accounting. Same result, cleaner foundation.
+The proof is simple---that is the point. It captures the structural reason no-cloning works: it is an accounting constraint.
 
 \subsection{Unitarity from Conservation}
 
-Quantum time evolution is unitary. Why? Because non-unitary evolution leaks information, and leaked information has to go somewhere in the $\mu$-ledger.
+Quantum time evolution is unitary. The accounting version: non-unitary evolution loses information (the Bloch vector shrinks), and the conservation hypothesis says information loss is bounded by $\mu$-cost.
 
 \begin{theorem}[Unitarity from Conservation]
-If evolution preserves the $\mu$-ledger (zero cost), then it must be unitary. Any non-unitary operation requires positive $\mu$-cost.
+If the conservation constraint holds (\texttt{respects\_info\_conservation}: information loss $\leq$ $\mu$-cost for all states), and some evolution actually loses information (\texttt{info\_loss > 0}), then $\mu$-cost must be positive.
 \end{theorem}
 
-Proven in \path{coq/kernel/Unitarity.v}:
+Proven in \path{coq/kernel/Unitarity.v}---the proof is one step of real arithmetic: from $\text{info\_loss} > 0$ and $\text{info\_loss} \leq \mu$, conclude $\mu > 0$. Like the no-cloning result, the physics is in the hypothesis (\texttt{respects\_info\_conservation}), and the conclusion follows by inequality chaining.
 \begin{lstlisting}
 Theorem nonunitary_requires_mu :
   forall E : Evolution,
@@ -1792,16 +1714,18 @@ Theorem lindblad_requires_mu :
 
 \subsection{Born Rule from Accounting Constraints}
 
-This is the big one. The Born rule---probability equals amplitude squared---is universally taught as a postulate. We derive it.
+This is the big one. The Born rule---probability equals amplitude squared---is universally taught as a postulate. The accounting version: the Born rule is the \textit{unique} linear probability rule consistent with eigenstate boundary conditions.
 
 \begin{theorem}[Born Rule from Accounting]
 The Born rule $P(i) = |a_i|^2$ is the unique probability assignment satisfying:
 \begin{enumerate}
     \item \textbf{Normalization:} $\sum_i P(i) = 1$
-    \item \textbf{Linearity in state preparation:} Probabilities compose properly under superposition
-    \item \textbf{$\mu$-conservation:} No free information extraction
+    \item \textbf{Eigenstate conditions:} $P(0,0,1,0) = 1$ and $P(0,0,-1,0) = 0$
+    \item \textbf{Linearity in Bloch $z$-component:} $P(x,y,z,0) = az + b$ for some constants $a, b$
 \end{enumerate}
 \end{theorem}
+
+A note of honesty: the linearity assumption (\texttt{is\_linear\_in\_z}) is doing most of the work here. If you already accept that measurement probabilities depend linearly on the Bloch vector's $z$-component, the Born rule is the unique solution satisfying the boundary conditions. The proof solves the system $a + b = 1$, $-a + b = 0$ to get $a = b = 1/2$, hence $P = (1+z)/2$. The theorem includes a \texttt{mu\_consistent} hypothesis, but this is unused in the actual proof---it reduces to the Bloch ball constraint already given. This is less ``deriving the Born rule from accounting'' and more ``the Born rule is the unique linear rule consistent with eigenstates.''
 
 Proven in \path{coq/kernel/BornRule.v}:
 \begin{lstlisting}
@@ -1817,13 +1741,13 @@ Theorem born_rule_from_accounting :
 \end{lstlisting}
 
 \paragraph{Why Not Some Other Rule?}
+Given the linearity assumption, other rules fail the boundary conditions:
 \begin{itemize}
-    \item \textbf{$P = |a|$ (First Power):} Doesn't normalize properly---probabilities wouldn't sum to 1
-    \item \textbf{$P = |a|^3$ (Cube):} Violates linearity under state preparation
-    \item \textbf{$P = |a|^4$ (Fourth Power):} Would require additional $\mu$-bits to maintain consistency
+    \item Any probability rule linear in $z$ satisfying $P(z=1) = 1$ and $P(z=-1) = 0$ must be $(1+z)/2$
+    \item Non-linear rules would require additional structure beyond the hypothesis
 \end{itemize}
 
-Only $P = |a|^2$ satisfies all constraints simultaneously. The Born rule isn't arbitrary---it's forced.
+The result is a uniqueness theorem within the linear class, not a derivation of linearity itself.
 
 \subsection{Purification from Reference Systems}
 
@@ -1854,7 +1778,7 @@ Theorem purification_principle :
 
 \subsection{Tsirelson Bound from Total $\mu$-Accounting}
 
-The Tsirelson bound $S \le 2\sqrt{2}$ limits quantum correlations. We proved it from pure algebra in \path{coq/kernel/TsirelsonGeneral.v}:
+The Tsirelson bound $S \le 2\sqrt{2}$ limits quantum correlations. The proof in \path{coq/kernel/TsirelsonGeneral.v} is genuine algebra---probably the most substantive result in this section:
 \begin{lstlisting}
 Corollary tsirelson_from_minors :
   forall e00 e01 e10 e11 : R,
@@ -1868,26 +1792,27 @@ Corollary tsirelson_from_minors :
 where \texttt{minor\_constraint\_zero\_marginal e1 e2} means $1 - e_1^2 - e_2^2 \ge 0$ (i.e., $e_1^2 + e_2^2 \le 1$), and \texttt{CHSH} is defined as $e_{00} + e_{01} + e_{10} - e_{11}$. The key insight is that the NPA-1 row constraints force each pair of correlators to lie on or inside the unit circle, which combined with Cauchy-Schwarz gives $S^2 \le 8$, hence $|S| \le 2\sqrt{2}$.
 
 \paragraph{The Connection to $\mu$-Accounting:}
+The physics enters through the hypotheses. The row constraints $e_{00}^2 + e_{01}^2 \leq 1$ come from the NPA-1 moment matrix---a quantum-mechanical object (the positive semidefiniteness of the matrix of correlators from projective measurements on shared quantum states). The algebra is genuine:
 \begin{itemize}
-    \item \textbf{$\mu = 0$ Condition:} When total $\mu$-cost is zero (structural + correlation cost), the system must be algebraically coherent
-    \item \textbf{Algebraic Coherence (Definition):} A correlation matrix is \textit{algebraically coherent} when $\mu_{\text{corr}} = 0$, meaning the correlations satisfy the NPA-1 row constraints:
-    \[
-    e_{00}^2 + e_{01}^2 \le 1 \quad \text{and} \quad e_{10}^2 + e_{11}^2 \le 1
-    \]
-    This ensures each pair of correlators lies within the unit disk. The proof in \texttt{TsirelsonGeneral.v} shows these row constraints, combined with Cauchy-Schwarz, force $S^2 \le 8$.
+    \item \textbf{Row Constraints:} Each pair of correlators lies within the unit disk. This is the NPA-1 condition, which encodes the quantum content.
+    \item \textbf{Algebraic Bound:} Given those constraints, the proof uses a sum-of-squares decomposition to show $S^2 \leq 8$. This part is real, machine-checked algebra.
     \item \textbf{Result:} Quantum correlations bounded by $2\sqrt{2}$, classical by 2
     \item \textbf{Note on PR Box:} A PR box ($S=4$) has correlators $(1,1,1,-1)$ with row sums $1^2+1^2=2>1$, violating the row constraint. This is why it cannot arise from quantum mechanics.
 \end{itemize}
+The $\mu$-accounting framing says: setting $\mu_{\text{corr}} = 0$ (zero correlation cost) is exactly the condition of algebraic coherence, which forces the row constraints. Whether this identification is physically meaningful is a claim about the framework, not something the algebra proves.
 
 \subsection{Why This Matters}
 
-That's quantum mechanics from accounting. Not ``axiomatized''---\textit{derived}. The difference:
+So what have I actually done here? Let me be honest about it.
+
+Each proof takes a conservation constraint---motivated by $\mu$-accounting---and shows that a quantum axiom follows as arithmetic. The physics is in the hypotheses. I have not derived quantum mechanics from nothing. What I have shown is that these axioms are \textit{connected}: they all follow from conservation-shaped assumptions, which means they are not logically independent postulates you have to accept one by one.
+
 \begin{itemize}
-    \item \textbf{Axiom:} ``Assume this is true'' (no explanation)
-    \item \textbf{Derivation:} ``This must be true because of conservation'' (forced by consistency)
+    \item \textbf{If you accept conservation constraints:} No-cloning, unitarity, and the Born rule drop out mechanically
+    \item \textbf{If you don't:} These proofs don't help---the physics is in the assumptions
 \end{itemize}
 
-Quantum mechanics isn't a fundamental theory with mysterious postulates. It's the unique physics consistent with information conservation. The universe runs on double-entry bookkeeping.
+The Tsirelson bound is the strongest result: genuine algebra from row-norm constraints, with a real sum-of-squares identity. The others are lighter---arithmetic consequences of their hypotheses. That is still useful. It tells you the $\mu$-accounting framework is consistent with quantum mechanics, and it shows where the quantum content actually lives (in the conservation constraints, not in separate postulates).
 
 \begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=\textbf{Coq-Verified Quantum Axioms}]
 All theorems in this section are machine-checked in Coq 8.18 with zero Admitted statements:
@@ -1901,7 +1826,7 @@ All theorems in this section are machine-checked in Coq 8.18 with zero Admitted 
     \item \path{coq/kernel/TsirelsonGeneral.v}: 315 lines, 28 definitions/theorems
     \item \path{coq/kernel/TsirelsonFromAlgebra.v}: 327 lines, 13 definitions/theorems (self-contained algebraic)
 \end{itemize}
-Total: 3,988 lines of machine-verified proofs across eight files establishing that quantum axioms emerge from $\mu$-conservation.
+Total: 3,988 lines of machine-verified proofs across eight files showing quantum axioms follow from conservation-shaped hypotheses.
 \end{tcolorbox}
 
 \section{Chapter Summary}
@@ -1933,7 +1858,7 @@ Total: 3,988 lines of machine-verified proofs across eight files establishing th
 \draw[->] (local) -- (nfi);
 \draw[->] (nfi) -- (quant);
 \end{tikzpicture}
-\caption{Chapter 3 structure: the formal 5-tuple yields two key properties ($\mu$-monotonicity and no-signaling), which combine to prove No Free Insight, which in turn forces the quantum axioms.}
+\caption{Chapter 3 structure: the formal 5-tuple yields two key properties ($\mu$-monotonicity and no-signaling), which combine to prove No Free Insight. Conservation-shaped hypotheses then yield quantum axiom conditionals.}
 \label{fig:ch3-summary}
 \end{figure}
 
@@ -1957,14 +1882,14 @@ This chapter defined the Thiele Machine as a formal 5-tuple $T = (S, \Pi, A, R, 
     
     \item \textbf{Gauge Symmetry}: The partition structure is invariant under $\mu$-shifts (computational Noether's theorem).
     
-    \item \textbf{Quantum Axioms from $\mu$-Accounting}: The fundamental axioms of quantum mechanics---no-cloning, unitarity, the Born rule, purification, and the Tsirelson bound---are not independent postulates but mathematical consequences of $\mu$-conservation:
+    \item \textbf{Quantum Axioms from $\mu$-Accounting}: The fundamental axioms of quantum mechanics---no-cloning, unitarity, the Born rule, purification, and the Tsirelson bound---follow from conservation-shaped hypotheses motivated by $\mu$-accounting. The physics enters through the assumptions; the proofs verify logical entailment:
     \begin{itemize}
-        \item \textbf{No-Cloning}: Perfect copying requires $\mu > 0$ (information creation costs)
-        \item \textbf{Unitarity}: Zero-cost evolution must be unitary (no information leak)
-        \item \textbf{Born Rule}: $P = |a|^2$ is the unique probability rule consistent with $\mu$-conservation
-        \item \textbf{Purification}: Mixed states require reference systems holding the missing information
-        \item \textbf{Tsirelson Bound}: $S \le 2\sqrt{2}$ follows from algebraic coherence at $\mu = 0$
+        \item \textbf{No-Cloning}: Conservation hypothesis ($\text{out}_1 + \text{out}_2 \leq I + \mu$) makes zero-cost cloning contradictory
+        \item \textbf{Unitarity}: Info-loss bounded by $\mu$-cost; positive info-loss forces positive $\mu$
+        \item \textbf{Born Rule}: Unique linear probability rule satisfying eigenstate boundary conditions
+        \item \textbf{Purification}: Mixed states have purifications (Bloch sphere geometry)
+        \item \textbf{Tsirelson Bound}: $S \le 2\sqrt{2}$ from row-norm constraints via sum-of-squares algebra
     \end{itemize}
 \end{enumerate}
 
-These formal foundations enable the implementation (Chapter 4), verification (Chapter 5), and evaluation (Chapter 6). The quantum axiom derivations (3,988 lines of Coq across eight files with zero Admitted statements) establish that quantum mechanics isn't a fundamental theory with mysterious postulates---it's the unique physics consistent with information conservation. Importantly, under \emph{Total $\mu$-Accounting}, setting $\mu_{\text{total}} = 0$ requires all components ($\mu_{\text{inst}}$ and $\mu_{\text{corr}}$) to be zero, where $\mu_{\text{corr}} = 0$ is exactly the condition of \emph{Algebraic Coherence} required to recover the Tsirelson bound $S \le 2.8284...$. Without enforcing $\mu_{\text{corr}} = 0$, the system is only bounded by the algebraic limit $S \le 4$.
+These formal foundations enable the implementation (Chapter 4), verification (Chapter 5), and evaluation (Chapter 6). The quantum axiom proofs (3,988 lines of Coq across eight files with zero Admitted statements) show that quantum mechanics is consistent with the $\mu$-accounting framework: each axiom follows from a conservation-shaped hypothesis. The physics is in the assumptions, but the structural connection between axioms---all flowing from conservation---is genuine and machine-verified. Importantly, under \emph{Total $\mu$-Accounting}, setting $\mu_{\text{total}} = 0$ requires all components ($\mu_{\text{inst}}$ and $\mu_{\text{corr}}$) to be zero, where $\mu_{\text{corr}} = 0$ is exactly the condition of \emph{Algebraic Coherence} required to recover the Tsirelson bound $S \le 2.8284...$. Without enforcing $\mu_{\text{corr}} = 0$, the system is only bounded by the algebraic limit $S \le 4$.

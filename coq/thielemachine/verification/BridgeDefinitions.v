@@ -247,7 +247,7 @@ Qed.
 Lemma firstn_pad_to : forall l n,
   length l <= n -> firstn (length l) (pad_to n l) = l.
 Proof.
-  intros l n Hle.
+  intros l n _.
   unfold pad_to.
   rewrite firstn_app.
   rewrite Nat.sub_diag.
@@ -959,7 +959,7 @@ Lemma read_reg_bounds : forall cpu r,
   r < 10 ->
   exists v, CPU.read_reg r cpu = v.
 Proof.
-  intros cpu r Hr.
+  intros cpu r _.
   exists (CPU.read_reg r cpu).
   reflexivity.
 Qed.

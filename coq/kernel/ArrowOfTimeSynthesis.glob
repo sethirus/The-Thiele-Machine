@@ -1,4 +1,4 @@
-DIGEST 6fd30171e70e5b06e2eb2bc36c4a1a29
+DIGEST 36de8d0878383bb136ab1770976313f4
 FKernel.ArrowOfTimeSynthesis
 R1178:1181 Coq.Lists.List <> <> lib
 R1183:1196 Coq.Arith.PeanoNat <> <> lib
@@ -14,363 +14,363 @@ binder 1740:1740 <> i:1
 R1762:1764 Coq.Init.Datatypes <> nat ind
 R1771:1786 Kernel.VMStep VMStep instruction_cost def
 R1788:1788 Kernel.ArrowOfTimeSynthesis <> i:1 var
-prf 1951:1967 <> instr_cost_nonneg
-binder 1978:1978 <> i:2
-R1993:1996 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R1981:1990 Kernel.ArrowOfTimeSynthesis <> instr_cost def
-R1992:1992 Kernel.ArrowOfTimeSynthesis <> i:2 var
-def 2075:2090 <> trace_total_cost
-R2101:2104 Coq.Init.Datatypes <> list ind
-R2106:2119 Kernel.VMStep VMStep vm_instruction ind
-binder 2093:2097 <> trace:3
-R2124:2126 Coq.Init.Datatypes <> nat ind
-R2139:2143 Kernel.ArrowOfTimeSynthesis <> trace:3 var
-R2154:2155 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R2167:2170 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R2191:2193 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R2179:2188 Kernel.ArrowOfTimeSynthesis <> instr_cost def
-R2194:2209 Kernel.ArrowOfTimeSynthesis <> trace_total_cost:4 def
-prf 2333:2353 <> empty_trace_zero_cost
-R2376:2378 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2357:2372 Kernel.ArrowOfTimeSynthesis <> trace_total_cost def
-R2374:2375 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-prf 2468:2486 <> trace_cost_additive
-binder 2497:2498 <> t1:6
-binder 2500:2501 <> t2:7
-R2533:2535 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2506:2521 Kernel.ArrowOfTimeSynthesis <> trace_total_cost def
-R2526:2529 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R2524:2525 Kernel.ArrowOfTimeSynthesis <> t1:6 var
-R2530:2531 Kernel.ArrowOfTimeSynthesis <> t2:7 var
-R2555:2557 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R2536:2551 Kernel.ArrowOfTimeSynthesis <> trace_total_cost def
-R2553:2554 Kernel.ArrowOfTimeSynthesis <> t1:6 var
-R2558:2573 Kernel.ArrowOfTimeSynthesis <> trace_total_cost def
-R2575:2576 Kernel.ArrowOfTimeSynthesis <> t2:7 var
-def 2956:2973 <> is_mu_irreversible
-R2980:2993 Kernel.VMStep VMStep vm_instruction ind
-binder 2976:2976 <> i:8
-R3020:3022 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R3008:3017 Kernel.ArrowOfTimeSynthesis <> instr_cost def
-R3019:3019 Kernel.ArrowOfTimeSynthesis <> i:8 var
-def 3084:3101 <> irreversible_count
-R3112:3115 Coq.Init.Datatypes <> list ind
-R3117:3130 Kernel.VMStep VMStep vm_instruction ind
-binder 3104:3108 <> trace:9
-R3135:3137 Coq.Init.Datatypes <> nat ind
-R3150:3154 Kernel.ArrowOfTimeSynthesis <> trace:9 var
-R3165:3166 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R3178:3181 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3196:3196 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R3238:3241 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R3200:3206 Coq.Arith.PeanoNat Nat ltb def
-R3211:3220 Kernel.ArrowOfTimeSynthesis <> instr_cost def
-R3242:3259 Kernel.ArrowOfTimeSynthesis <> irreversible_count:10 def
-prf 3323:3350 <> irreversible_bounded_by_cost
-binder 3361:3365 <> trace:12
-R3394:3397 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R3370:3387 Kernel.ArrowOfTimeSynthesis <> irreversible_count def
-R3389:3393 Kernel.ArrowOfTimeSynthesis <> trace:12 var
-R3398:3413 Kernel.ArrowOfTimeSynthesis <> trace_total_cost def
-R3415:3419 Kernel.ArrowOfTimeSynthesis <> trace:12 var
-R3501:3507 Coq.Arith.PeanoNat Nat ltb def
-R3512:3521 Kernel.ArrowOfTimeSynthesis <> instr_cost def
-R3501:3507 Coq.Arith.PeanoNat Nat ltb def
-R3512:3521 Kernel.ArrowOfTimeSynthesis <> instr_cost def
-R3548:3557 Coq.Arith.PeanoNat Nat ltb_lt thm
-R3548:3557 Coq.Arith.PeanoNat Nat ltb_lt thm
-R3584:3593 Coq.Arith.PeanoNat Nat ltb_ge thm
-R3584:3593 Coq.Arith.PeanoNat Nat ltb_ge thm
-def 3888:3905 <> observable_entropy
-R3912:3918 Kernel.VMState <> VMState rec
-binder 3908:3908 <> s:13
-R3923:3925 Coq.Init.Datatypes <> nat ind
-R3932:3937 Coq.Init.Datatypes <> length def
-R3953:3962 Kernel.VMState <> pg_modules proj
-R3942:3949 Kernel.VMState <> vm_graph proj
-R3939:3939 Kernel.ArrowOfTimeSynthesis <> s:13 var
-rec 4279:4301 <> ThermodynamicTransition
-proj 4310:4326 <> tt_entropy_before
-proj 4337:4352 <> tt_entropy_after
-proj 4363:4372 <> tt_mu_cost
-R4330:4332 Coq.Init.Datatypes <> nat ind
-R4356:4358 Coq.Init.Datatypes <> nat ind
-R4376:4378 Coq.Init.Datatypes <> nat ind
-def 4455:4470 <> valid_transition
-R4478:4500 Kernel.ArrowOfTimeSynthesis <> ThermodynamicTransition rec
-binder 4473:4474 <> tt:18
-R4550:4553 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R4528:4530 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4515:4524 Kernel.ArrowOfTimeSynthesis <> tt_mu_cost proj
-R4526:4527 Kernel.ArrowOfTimeSynthesis <> tt:18 var
-R4531:4546 Kernel.ArrowOfTimeSynthesis <> tt_entropy_after proj
-R4548:4549 Kernel.ArrowOfTimeSynthesis <> tt:18 var
-R4554:4570 Kernel.ArrowOfTimeSynthesis <> tt_entropy_before proj
-R4572:4573 Kernel.ArrowOfTimeSynthesis <> tt:18 var
-prf 4901:4930 <> total_entropy_mu_nondecreasing
-R4946:4968 Kernel.ArrowOfTimeSynthesis <> ThermodynamicTransition rec
-binder 4941:4942 <> tt:19
-R4992:4998 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4973:4988 Kernel.ArrowOfTimeSynthesis <> valid_transition def
-R4990:4991 Kernel.ArrowOfTimeSynthesis <> tt:19 var
-R5034:5037 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R5012:5014 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4999:5008 Kernel.ArrowOfTimeSynthesis <> tt_mu_cost proj
-R5010:5011 Kernel.ArrowOfTimeSynthesis <> tt:19 var
-R5015:5030 Kernel.ArrowOfTimeSynthesis <> tt_entropy_after proj
-R5032:5033 Kernel.ArrowOfTimeSynthesis <> tt:19 var
-R5038:5054 Kernel.ArrowOfTimeSynthesis <> tt_entropy_before proj
-R5056:5057 Kernel.ArrowOfTimeSynthesis <> tt:19 var
-def 5184:5210 <> mk_thermodynamic_transition
-R5225:5231 Kernel.VMState <> VMState rec
-binder 5218:5218 <> s:20
-binder 5220:5221 <> s':21
-R5247:5249 Coq.Init.Datatypes <> nat ind
-binder 5240:5243 <> cost:22
-R5254:5276 Kernel.ArrowOfTimeSynthesis <> ThermodynamicTransition rec
-R5286:5302 Kernel.ArrowOfTimeSynthesis <> tt_entropy_before proj
-R5286:5302 Kernel.ArrowOfTimeSynthesis <> tt_entropy_before proj
-R5286:5302 Kernel.ArrowOfTimeSynthesis <> tt_entropy_before proj
-R5334:5349 Kernel.ArrowOfTimeSynthesis <> tt_entropy_after proj
-R5334:5349 Kernel.ArrowOfTimeSynthesis <> tt_entropy_after proj
-R5382:5391 Kernel.ArrowOfTimeSynthesis <> tt_mu_cost proj
-R5382:5391 Kernel.ArrowOfTimeSynthesis <> tt_mu_cost proj
-R5307:5324 Kernel.ArrowOfTimeSynthesis <> observable_entropy def
-R5326:5326 Kernel.ArrowOfTimeSynthesis <> s:20 var
-R5354:5371 Kernel.ArrowOfTimeSynthesis <> observable_entropy def
-R5373:5374 Kernel.ArrowOfTimeSynthesis <> s':21 var
-R5396:5399 Kernel.ArrowOfTimeSynthesis <> cost:22 var
-prf 5771:5803 <> vm_step_produces_valid_transition
-binder 5814:5814 <> s:23
-binder 5816:5817 <> s':24
-binder 5819:5822 <> cost:25
-R5879:5884 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5831:5834 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R5827:5830 Kernel.ArrowOfTimeSynthesis <> cost:25 var
-R5855:5857 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R5835:5852 Kernel.ArrowOfTimeSynthesis <> observable_entropy def
-R5854:5854 Kernel.ArrowOfTimeSynthesis <> s:23 var
-R5858:5875 Kernel.ArrowOfTimeSynthesis <> observable_entropy def
-R5877:5878 Kernel.ArrowOfTimeSynthesis <> s':24 var
-R5885:5900 Kernel.ArrowOfTimeSynthesis <> valid_transition def
-R5903:5929 Kernel.ArrowOfTimeSynthesis <> mk_thermodynamic_transition def
-R5931:5931 Kernel.ArrowOfTimeSynthesis <> s:23 var
-R5933:5934 Kernel.ArrowOfTimeSynthesis <> s':24 var
-R5936:5939 Kernel.ArrowOfTimeSynthesis <> cost:25 var
-R5985:6000 Kernel.ArrowOfTimeSynthesis <> valid_transition def
-R6003:6029 Kernel.ArrowOfTimeSynthesis <> mk_thermodynamic_transition def
-R6048:6065 Kernel.ArrowOfTimeSynthesis <> observable_entropy def
-def 6455:6462 <> mu_later
-R6472:6478 Kernel.VMState <> VMState rec
-binder 6465:6465 <> s:26
-binder 6467:6468 <> s':27
-R6503:6506 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R6497:6501 Kernel.VMState <> vm_mu proj
-R6493:6494 Kernel.ArrowOfTimeSynthesis <> s':27 var
-R6510:6514 Kernel.VMState <> vm_mu proj
-R6507:6507 Kernel.ArrowOfTimeSynthesis <> s:26 var
-prf 6672:6684 <> mu_later_refl
-binder 6695:6695 <> s:28
-R6698:6705 Kernel.ArrowOfTimeSynthesis <> mu_later def
-R6707:6707 Kernel.ArrowOfTimeSynthesis <> s:28 var
-R6709:6709 Kernel.ArrowOfTimeSynthesis <> s:28 var
-R6737:6744 Kernel.ArrowOfTimeSynthesis <> mu_later def
-prf 6912:6925 <> mu_later_trans
-binder 6936:6937 <> s1:29
-binder 6939:6940 <> s2:30
-binder 6942:6943 <> s3:31
-R6962:6965 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6948:6955 Kernel.ArrowOfTimeSynthesis <> mu_later def
-R6957:6958 Kernel.ArrowOfTimeSynthesis <> s1:29 var
-R6960:6961 Kernel.ArrowOfTimeSynthesis <> s2:30 var
-R6980:6983 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6966:6973 Kernel.ArrowOfTimeSynthesis <> mu_later def
-R6975:6976 Kernel.ArrowOfTimeSynthesis <> s2:30 var
-R6978:6979 Kernel.ArrowOfTimeSynthesis <> s3:31 var
-R6984:6991 Kernel.ArrowOfTimeSynthesis <> mu_later def
-R6993:6994 Kernel.ArrowOfTimeSynthesis <> s1:29 var
-R6996:6997 Kernel.ArrowOfTimeSynthesis <> s3:31 var
-R7041:7048 Kernel.ArrowOfTimeSynthesis <> mu_later def
-def 7206:7222 <> mu_strictly_later
-R7232:7238 Kernel.VMState <> VMState rec
-binder 7225:7225 <> s:32
-binder 7227:7228 <> s':33
-R7263:7265 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R7257:7261 Kernel.VMState <> vm_mu proj
-R7253:7254 Kernel.ArrowOfTimeSynthesis <> s':33 var
-R7269:7273 Kernel.VMState <> vm_mu proj
-R7266:7266 Kernel.ArrowOfTimeSynthesis <> s:32 var
-prf 7425:7448 <> mu_strictly_later_irrefl
-binder 7459:7459 <> s:34
-R7464:7465 Coq.Init.Logic <> ::type_scope:'~'_x not
-R7466:7482 Kernel.ArrowOfTimeSynthesis <> mu_strictly_later def
-R7484:7484 Kernel.ArrowOfTimeSynthesis <> s:34 var
-R7486:7486 Kernel.ArrowOfTimeSynthesis <> s:34 var
-R7572:7588 Kernel.ArrowOfTimeSynthesis <> mu_strictly_later def
-prf 7736:7758 <> mu_strictly_later_asymm
-binder 7769:7769 <> s:35
-binder 7771:7772 <> s':36
-R7799:7802 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7777:7793 Kernel.ArrowOfTimeSynthesis <> mu_strictly_later def
-R7795:7795 Kernel.ArrowOfTimeSynthesis <> s:35 var
-R7797:7798 Kernel.ArrowOfTimeSynthesis <> s':36 var
-R7803:7804 Coq.Init.Logic <> ::type_scope:'~'_x not
-R7805:7821 Kernel.ArrowOfTimeSynthesis <> mu_strictly_later def
-R7823:7824 Kernel.ArrowOfTimeSynthesis <> s':36 var
-R7826:7826 Kernel.ArrowOfTimeSynthesis <> s:35 var
-R7860:7876 Kernel.ArrowOfTimeSynthesis <> mu_strictly_later def
-rec 8368:8378 <> ArrowOfTime
-proj 8426:8445 <> aot_mu_nondecreasing
-proj 8549:8573 <> aot_irreversibility_bound
-proj 8734:8747 <> aot_second_law
-proj 8937:8953 <> aot_vm_step_valid
-proj 9147:9172 <> aot_temporal_ordering_refl
-proj 9202:9228 <> aot_temporal_ordering_trans
-proj 9378:9396 <> aot_time_asymmetric
-binder 8456:8456 <> i:38
-R8471:8474 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8459:8468 Kernel.ArrowOfTimeSynthesis <> instr_cost def
-R8470:8470 Kernel.ArrowOfTimeSynthesis <> i:38 var
-binder 8584:8588 <> trace:40
-R8619:8622 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R8595:8612 Kernel.ArrowOfTimeSynthesis <> irreversible_count def
-R8614:8618 Kernel.ArrowOfTimeSynthesis <> trace:40 var
-R8623:8638 Kernel.ArrowOfTimeSynthesis <> trace_total_cost def
-R8640:8644 Kernel.ArrowOfTimeSynthesis <> trace:40 var
-R8763:8785 Kernel.ArrowOfTimeSynthesis <> ThermodynamicTransition rec
-binder 8758:8759 <> tt:42
-R8811:8818 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8792:8807 Kernel.ArrowOfTimeSynthesis <> valid_transition def
-R8809:8810 Kernel.ArrowOfTimeSynthesis <> tt:42 var
-R8854:8857 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8832:8834 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R8819:8828 Kernel.ArrowOfTimeSynthesis <> tt_mu_cost proj
-R8830:8831 Kernel.ArrowOfTimeSynthesis <> tt:42 var
-R8835:8850 Kernel.ArrowOfTimeSynthesis <> tt_entropy_after proj
-R8852:8853 Kernel.ArrowOfTimeSynthesis <> tt:42 var
-R8858:8874 Kernel.ArrowOfTimeSynthesis <> tt_entropy_before proj
-R8876:8877 Kernel.ArrowOfTimeSynthesis <> tt:42 var
-binder 8964:8964 <> s:44
-binder 8966:8967 <> s':45
-binder 8969:8972 <> cost:46
-R9031:9038 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8983:8986 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8979:8982 Kernel.ArrowOfTimeSynthesis <> cost:46 var
-R9007:9009 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R8987:9004 Kernel.ArrowOfTimeSynthesis <> observable_entropy def
-R9006:9006 Kernel.ArrowOfTimeSynthesis <> s:44 var
-R9010:9027 Kernel.ArrowOfTimeSynthesis <> observable_entropy def
-R9029:9030 Kernel.ArrowOfTimeSynthesis <> s':45 var
-R9039:9054 Kernel.ArrowOfTimeSynthesis <> valid_transition def
-R9057:9083 Kernel.ArrowOfTimeSynthesis <> mk_thermodynamic_transition def
-R9085:9085 Kernel.ArrowOfTimeSynthesis <> s:44 var
-R9087:9088 Kernel.ArrowOfTimeSynthesis <> s':45 var
-R9090:9093 Kernel.ArrowOfTimeSynthesis <> cost:46 var
-binder 9183:9183 <> s:48
-R9186:9193 Kernel.ArrowOfTimeSynthesis <> mu_later def
-R9195:9195 Kernel.ArrowOfTimeSynthesis <> s:48 var
-R9197:9197 Kernel.ArrowOfTimeSynthesis <> s:48 var
-binder 9239:9240 <> s1:50
-binder 9242:9243 <> s2:51
-binder 9245:9246 <> s3:52
-R9267:9270 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9253:9260 Kernel.ArrowOfTimeSynthesis <> mu_later def
-R9262:9263 Kernel.ArrowOfTimeSynthesis <> s1:50 var
-R9265:9266 Kernel.ArrowOfTimeSynthesis <> s2:51 var
-R9285:9288 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9271:9278 Kernel.ArrowOfTimeSynthesis <> mu_later def
-R9280:9281 Kernel.ArrowOfTimeSynthesis <> s2:51 var
-R9283:9284 Kernel.ArrowOfTimeSynthesis <> s3:52 var
-R9289:9296 Kernel.ArrowOfTimeSynthesis <> mu_later def
-R9298:9299 Kernel.ArrowOfTimeSynthesis <> s1:50 var
-R9301:9302 Kernel.ArrowOfTimeSynthesis <> s3:52 var
-binder 9407:9407 <> s:54
-binder 9409:9410 <> s':55
-R9439:9442 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9417:9433 Kernel.ArrowOfTimeSynthesis <> mu_strictly_later def
-R9435:9435 Kernel.ArrowOfTimeSynthesis <> s:54 var
-R9437:9438 Kernel.ArrowOfTimeSynthesis <> s':55 var
-R9443:9444 Coq.Init.Logic <> ::type_scope:'~'_x not
-R9445:9461 Kernel.ArrowOfTimeSynthesis <> mu_strictly_later def
-R9463:9464 Kernel.ArrowOfTimeSynthesis <> s':55 var
-R9466:9466 Kernel.ArrowOfTimeSynthesis <> s:54 var
-prf 9711:9731 <> arrow_of_time_derived
-R9735:9745 Kernel.ArrowOfTimeSynthesis <> ArrowOfTime rec
-R9804:9820 Kernel.ArrowOfTimeSynthesis <> instr_cost_nonneg thm
-R9804:9820 Kernel.ArrowOfTimeSynthesis <> instr_cost_nonneg thm
-R9861:9888 Kernel.ArrowOfTimeSynthesis <> irreversible_bounded_by_cost thm
-R9861:9888 Kernel.ArrowOfTimeSynthesis <> irreversible_bounded_by_cost thm
-R9940:9969 Kernel.ArrowOfTimeSynthesis <> total_entropy_mu_nondecreasing thm
-R9940:9969 Kernel.ArrowOfTimeSynthesis <> total_entropy_mu_nondecreasing thm
-R10023:10055 Kernel.ArrowOfTimeSynthesis <> vm_step_produces_valid_transition thm
-R10023:10055 Kernel.ArrowOfTimeSynthesis <> vm_step_produces_valid_transition thm
-R10102:10114 Kernel.ArrowOfTimeSynthesis <> mu_later_refl thm
-R10102:10114 Kernel.ArrowOfTimeSynthesis <> mu_later_refl thm
-R10162:10175 Kernel.ArrowOfTimeSynthesis <> mu_later_trans thm
-R10162:10175 Kernel.ArrowOfTimeSynthesis <> mu_later_trans thm
-R10210:10232 Kernel.ArrowOfTimeSynthesis <> mu_strictly_later_asymm thm
-R10210:10232 Kernel.ArrowOfTimeSynthesis <> mu_strictly_later_asymm thm
-def 10641:10665 <> landauer_bound_operations
-R10676:10679 Coq.Init.Datatypes <> list ind
-R10681:10694 Kernel.VMStep VMStep vm_instruction ind
-binder 10668:10672 <> trace:57
-R10699:10701 Coq.Init.Datatypes <> nat ind
-R10708:10725 Kernel.ArrowOfTimeSynthesis <> irreversible_count def
-R10727:10731 Kernel.ArrowOfTimeSynthesis <> trace:57 var
-prf 10819:10835 <> landauer_mu_bound
-binder 10846:10850 <> trace:58
-R10886:10889 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R10855:10879 Kernel.ArrowOfTimeSynthesis <> landauer_bound_operations def
-R10881:10885 Kernel.ArrowOfTimeSynthesis <> trace:58 var
-R10890:10905 Kernel.ArrowOfTimeSynthesis <> trace_total_cost def
-R10907:10911 Kernel.ArrowOfTimeSynthesis <> trace:58 var
-R10945:10969 Kernel.ArrowOfTimeSynthesis <> landauer_bound_operations def
-R10981:11008 Kernel.ArrowOfTimeSynthesis <> irreversible_bounded_by_cost thm
-R10981:11008 Kernel.ArrowOfTimeSynthesis <> irreversible_bounded_by_cost thm
-def 11436:11453 <> trace_effect_equiv
-R11464:11467 Coq.Init.Datatypes <> list ind
-R11469:11482 Kernel.VMStep VMStep vm_instruction ind
-binder 11456:11457 <> t1:59
-binder 11459:11460 <> t2:60
-R11538:11543 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11516:11518 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11497:11512 Kernel.ArrowOfTimeSynthesis <> trace_total_cost def
-R11514:11515 Kernel.ArrowOfTimeSynthesis <> t1:59 var
-R11519:11534 Kernel.ArrowOfTimeSynthesis <> trace_total_cost def
-R11536:11537 Kernel.ArrowOfTimeSynthesis <> t2:60 var
-R11558:11560 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11544:11554 Kernel.KernelPhysics <> causal_cone def
-R11556:11557 Kernel.ArrowOfTimeSynthesis <> t1:59 var
-R11561:11571 Kernel.KernelPhysics <> causal_cone def
-R11573:11574 Kernel.ArrowOfTimeSynthesis <> t2:60 var
-prf 11753:11775 <> trace_effect_equiv_refl
-binder 11786:11786 <> t:61
-R11789:11806 Kernel.ArrowOfTimeSynthesis <> trace_effect_equiv def
-R11808:11808 Kernel.ArrowOfTimeSynthesis <> t:61 var
-R11810:11810 Kernel.ArrowOfTimeSynthesis <> t:61 var
-R11838:11855 Kernel.ArrowOfTimeSynthesis <> trace_effect_equiv def
-prf 11991:12012 <> trace_effect_equiv_sym
-binder 12023:12024 <> t1:62
-binder 12026:12027 <> t2:63
-R12056:12059 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12032:12049 Kernel.ArrowOfTimeSynthesis <> trace_effect_equiv def
-R12051:12052 Kernel.ArrowOfTimeSynthesis <> t1:62 var
-R12054:12055 Kernel.ArrowOfTimeSynthesis <> t2:63 var
-R12060:12077 Kernel.ArrowOfTimeSynthesis <> trace_effect_equiv def
-R12079:12080 Kernel.ArrowOfTimeSynthesis <> t2:63 var
-R12082:12083 Kernel.ArrowOfTimeSynthesis <> t1:62 var
-prf 12266:12289 <> trace_effect_equiv_trans
-binder 12300:12301 <> t1:64
-binder 12303:12304 <> t2:65
-binder 12306:12307 <> t3:66
-R12336:12339 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12312:12329 Kernel.ArrowOfTimeSynthesis <> trace_effect_equiv def
-R12331:12332 Kernel.ArrowOfTimeSynthesis <> t1:64 var
-R12334:12335 Kernel.ArrowOfTimeSynthesis <> t2:65 var
-R12364:12369 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12340:12357 Kernel.ArrowOfTimeSynthesis <> trace_effect_equiv def
-R12359:12360 Kernel.ArrowOfTimeSynthesis <> t2:65 var
-R12362:12363 Kernel.ArrowOfTimeSynthesis <> t3:66 var
-R12370:12387 Kernel.ArrowOfTimeSynthesis <> trace_effect_equiv def
-R12389:12390 Kernel.ArrowOfTimeSynthesis <> t1:64 var
-R12392:12393 Kernel.ArrowOfTimeSynthesis <> t3:66 var
+prf 2036:2052 <> instr_cost_nonneg
+binder 2063:2063 <> i:2
+R2078:2081 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R2066:2075 Kernel.ArrowOfTimeSynthesis <> instr_cost def
+R2077:2077 Kernel.ArrowOfTimeSynthesis <> i:2 var
+def 2160:2175 <> trace_total_cost
+R2186:2189 Coq.Init.Datatypes <> list ind
+R2191:2204 Kernel.VMStep VMStep vm_instruction ind
+binder 2178:2182 <> trace:3
+R2209:2211 Coq.Init.Datatypes <> nat ind
+R2224:2228 Kernel.ArrowOfTimeSynthesis <> trace:3 var
+R2239:2240 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2252:2255 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2276:2278 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2264:2273 Kernel.ArrowOfTimeSynthesis <> instr_cost def
+R2279:2294 Kernel.ArrowOfTimeSynthesis <> trace_total_cost:4 def
+prf 2503:2523 <> empty_trace_zero_cost
+R2546:2548 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2527:2542 Kernel.ArrowOfTimeSynthesis <> trace_total_cost def
+R2544:2545 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+prf 2638:2656 <> trace_cost_additive
+binder 2667:2668 <> t1:6
+binder 2670:2671 <> t2:7
+R2703:2705 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2676:2691 Kernel.ArrowOfTimeSynthesis <> trace_total_cost def
+R2696:2699 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R2694:2695 Kernel.ArrowOfTimeSynthesis <> t1:6 var
+R2700:2701 Kernel.ArrowOfTimeSynthesis <> t2:7 var
+R2725:2727 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2706:2721 Kernel.ArrowOfTimeSynthesis <> trace_total_cost def
+R2723:2724 Kernel.ArrowOfTimeSynthesis <> t1:6 var
+R2728:2743 Kernel.ArrowOfTimeSynthesis <> trace_total_cost def
+R2745:2746 Kernel.ArrowOfTimeSynthesis <> t2:7 var
+def 3126:3143 <> is_mu_irreversible
+R3150:3163 Kernel.VMStep VMStep vm_instruction ind
+binder 3146:3146 <> i:8
+R3190:3192 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R3178:3187 Kernel.ArrowOfTimeSynthesis <> instr_cost def
+R3189:3189 Kernel.ArrowOfTimeSynthesis <> i:8 var
+def 3254:3271 <> irreversible_count
+R3282:3285 Coq.Init.Datatypes <> list ind
+R3287:3300 Kernel.VMStep VMStep vm_instruction ind
+binder 3274:3278 <> trace:9
+R3305:3307 Coq.Init.Datatypes <> nat ind
+R3320:3324 Kernel.ArrowOfTimeSynthesis <> trace:9 var
+R3335:3336 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3348:3351 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3366:3366 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3408:3411 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3370:3376 Coq.Arith.PeanoNat Nat ltb def
+R3381:3390 Kernel.ArrowOfTimeSynthesis <> instr_cost def
+R3412:3429 Kernel.ArrowOfTimeSynthesis <> irreversible_count:10 def
+prf 3493:3520 <> irreversible_bounded_by_cost
+binder 3531:3535 <> trace:12
+R3564:3567 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3540:3557 Kernel.ArrowOfTimeSynthesis <> irreversible_count def
+R3559:3563 Kernel.ArrowOfTimeSynthesis <> trace:12 var
+R3568:3583 Kernel.ArrowOfTimeSynthesis <> trace_total_cost def
+R3585:3589 Kernel.ArrowOfTimeSynthesis <> trace:12 var
+R3671:3677 Coq.Arith.PeanoNat Nat ltb def
+R3682:3691 Kernel.ArrowOfTimeSynthesis <> instr_cost def
+R3671:3677 Coq.Arith.PeanoNat Nat ltb def
+R3682:3691 Kernel.ArrowOfTimeSynthesis <> instr_cost def
+R3718:3727 Coq.Arith.PeanoNat Nat ltb_lt thm
+R3718:3727 Coq.Arith.PeanoNat Nat ltb_lt thm
+R3754:3763 Coq.Arith.PeanoNat Nat ltb_ge thm
+R3754:3763 Coq.Arith.PeanoNat Nat ltb_ge thm
+def 4058:4075 <> observable_entropy
+R4082:4088 Kernel.VMState <> VMState rec
+binder 4078:4078 <> s:13
+R4093:4095 Coq.Init.Datatypes <> nat ind
+R4102:4107 Coq.Init.Datatypes <> length def
+R4123:4132 Kernel.VMState <> pg_modules proj
+R4112:4119 Kernel.VMState <> vm_graph proj
+R4109:4109 Kernel.ArrowOfTimeSynthesis <> s:13 var
+rec 4449:4471 <> ThermodynamicTransition
+proj 4480:4496 <> tt_entropy_before
+proj 4507:4522 <> tt_entropy_after
+proj 4533:4542 <> tt_mu_cost
+R4500:4502 Coq.Init.Datatypes <> nat ind
+R4526:4528 Coq.Init.Datatypes <> nat ind
+R4546:4548 Coq.Init.Datatypes <> nat ind
+def 4625:4640 <> valid_transition
+R4648:4670 Kernel.ArrowOfTimeSynthesis <> ThermodynamicTransition rec
+binder 4643:4644 <> tt:18
+R4720:4723 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4698:4700 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4685:4694 Kernel.ArrowOfTimeSynthesis <> tt_mu_cost proj
+R4696:4697 Kernel.ArrowOfTimeSynthesis <> tt:18 var
+R4701:4716 Kernel.ArrowOfTimeSynthesis <> tt_entropy_after proj
+R4718:4719 Kernel.ArrowOfTimeSynthesis <> tt:18 var
+R4724:4740 Kernel.ArrowOfTimeSynthesis <> tt_entropy_before proj
+R4742:4743 Kernel.ArrowOfTimeSynthesis <> tt:18 var
+prf 5071:5100 <> total_entropy_mu_nondecreasing
+R5116:5138 Kernel.ArrowOfTimeSynthesis <> ThermodynamicTransition rec
+binder 5111:5112 <> tt:19
+R5162:5168 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5143:5158 Kernel.ArrowOfTimeSynthesis <> valid_transition def
+R5160:5161 Kernel.ArrowOfTimeSynthesis <> tt:19 var
+R5204:5207 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5182:5184 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5169:5178 Kernel.ArrowOfTimeSynthesis <> tt_mu_cost proj
+R5180:5181 Kernel.ArrowOfTimeSynthesis <> tt:19 var
+R5185:5200 Kernel.ArrowOfTimeSynthesis <> tt_entropy_after proj
+R5202:5203 Kernel.ArrowOfTimeSynthesis <> tt:19 var
+R5208:5224 Kernel.ArrowOfTimeSynthesis <> tt_entropy_before proj
+R5226:5227 Kernel.ArrowOfTimeSynthesis <> tt:19 var
+def 5354:5380 <> mk_thermodynamic_transition
+R5395:5401 Kernel.VMState <> VMState rec
+binder 5388:5388 <> s:20
+binder 5390:5391 <> s':21
+R5417:5419 Coq.Init.Datatypes <> nat ind
+binder 5410:5413 <> cost:22
+R5424:5446 Kernel.ArrowOfTimeSynthesis <> ThermodynamicTransition rec
+R5456:5472 Kernel.ArrowOfTimeSynthesis <> tt_entropy_before proj
+R5456:5472 Kernel.ArrowOfTimeSynthesis <> tt_entropy_before proj
+R5456:5472 Kernel.ArrowOfTimeSynthesis <> tt_entropy_before proj
+R5504:5519 Kernel.ArrowOfTimeSynthesis <> tt_entropy_after proj
+R5504:5519 Kernel.ArrowOfTimeSynthesis <> tt_entropy_after proj
+R5552:5561 Kernel.ArrowOfTimeSynthesis <> tt_mu_cost proj
+R5552:5561 Kernel.ArrowOfTimeSynthesis <> tt_mu_cost proj
+R5477:5494 Kernel.ArrowOfTimeSynthesis <> observable_entropy def
+R5496:5496 Kernel.ArrowOfTimeSynthesis <> s:20 var
+R5524:5541 Kernel.ArrowOfTimeSynthesis <> observable_entropy def
+R5543:5544 Kernel.ArrowOfTimeSynthesis <> s':21 var
+R5566:5569 Kernel.ArrowOfTimeSynthesis <> cost:22 var
+prf 5941:5973 <> vm_step_produces_valid_transition
+binder 5984:5984 <> s:23
+binder 5986:5987 <> s':24
+binder 5989:5992 <> cost:25
+R6049:6054 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6001:6004 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5997:6000 Kernel.ArrowOfTimeSynthesis <> cost:25 var
+R6025:6027 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R6005:6022 Kernel.ArrowOfTimeSynthesis <> observable_entropy def
+R6024:6024 Kernel.ArrowOfTimeSynthesis <> s:23 var
+R6028:6045 Kernel.ArrowOfTimeSynthesis <> observable_entropy def
+R6047:6048 Kernel.ArrowOfTimeSynthesis <> s':24 var
+R6055:6070 Kernel.ArrowOfTimeSynthesis <> valid_transition def
+R6073:6099 Kernel.ArrowOfTimeSynthesis <> mk_thermodynamic_transition def
+R6101:6101 Kernel.ArrowOfTimeSynthesis <> s:23 var
+R6103:6104 Kernel.ArrowOfTimeSynthesis <> s':24 var
+R6106:6109 Kernel.ArrowOfTimeSynthesis <> cost:25 var
+R6155:6170 Kernel.ArrowOfTimeSynthesis <> valid_transition def
+R6173:6199 Kernel.ArrowOfTimeSynthesis <> mk_thermodynamic_transition def
+R6218:6235 Kernel.ArrowOfTimeSynthesis <> observable_entropy def
+def 6625:6632 <> mu_later
+R6642:6648 Kernel.VMState <> VMState rec
+binder 6635:6635 <> s:26
+binder 6637:6638 <> s':27
+R6673:6676 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6667:6671 Kernel.VMState <> vm_mu proj
+R6663:6664 Kernel.ArrowOfTimeSynthesis <> s':27 var
+R6680:6684 Kernel.VMState <> vm_mu proj
+R6677:6677 Kernel.ArrowOfTimeSynthesis <> s:26 var
+prf 6927:6939 <> mu_later_refl
+binder 6950:6950 <> s:28
+R6953:6960 Kernel.ArrowOfTimeSynthesis <> mu_later def
+R6962:6962 Kernel.ArrowOfTimeSynthesis <> s:28 var
+R6964:6964 Kernel.ArrowOfTimeSynthesis <> s:28 var
+R6992:6999 Kernel.ArrowOfTimeSynthesis <> mu_later def
+prf 7252:7265 <> mu_later_trans
+binder 7276:7277 <> s1:29
+binder 7279:7280 <> s2:30
+binder 7282:7283 <> s3:31
+R7302:7305 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7288:7295 Kernel.ArrowOfTimeSynthesis <> mu_later def
+R7297:7298 Kernel.ArrowOfTimeSynthesis <> s1:29 var
+R7300:7301 Kernel.ArrowOfTimeSynthesis <> s2:30 var
+R7320:7323 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7306:7313 Kernel.ArrowOfTimeSynthesis <> mu_later def
+R7315:7316 Kernel.ArrowOfTimeSynthesis <> s2:30 var
+R7318:7319 Kernel.ArrowOfTimeSynthesis <> s3:31 var
+R7324:7331 Kernel.ArrowOfTimeSynthesis <> mu_later def
+R7333:7334 Kernel.ArrowOfTimeSynthesis <> s1:29 var
+R7336:7337 Kernel.ArrowOfTimeSynthesis <> s3:31 var
+R7381:7388 Kernel.ArrowOfTimeSynthesis <> mu_later def
+def 7546:7562 <> mu_strictly_later
+R7572:7578 Kernel.VMState <> VMState rec
+binder 7565:7565 <> s:32
+binder 7567:7568 <> s':33
+R7603:7605 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R7597:7601 Kernel.VMState <> vm_mu proj
+R7593:7594 Kernel.ArrowOfTimeSynthesis <> s':33 var
+R7609:7613 Kernel.VMState <> vm_mu proj
+R7606:7606 Kernel.ArrowOfTimeSynthesis <> s:32 var
+prf 7850:7873 <> mu_strictly_later_irrefl
+binder 7884:7884 <> s:34
+R7889:7890 Coq.Init.Logic <> ::type_scope:'~'_x not
+R7891:7907 Kernel.ArrowOfTimeSynthesis <> mu_strictly_later def
+R7909:7909 Kernel.ArrowOfTimeSynthesis <> s:34 var
+R7911:7911 Kernel.ArrowOfTimeSynthesis <> s:34 var
+R7997:8013 Kernel.ArrowOfTimeSynthesis <> mu_strictly_later def
+prf 8246:8268 <> mu_strictly_later_asymm
+binder 8279:8279 <> s:35
+binder 8281:8282 <> s':36
+R8309:8312 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8287:8303 Kernel.ArrowOfTimeSynthesis <> mu_strictly_later def
+R8305:8305 Kernel.ArrowOfTimeSynthesis <> s:35 var
+R8307:8308 Kernel.ArrowOfTimeSynthesis <> s':36 var
+R8313:8314 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8315:8331 Kernel.ArrowOfTimeSynthesis <> mu_strictly_later def
+R8333:8334 Kernel.ArrowOfTimeSynthesis <> s':36 var
+R8336:8336 Kernel.ArrowOfTimeSynthesis <> s:35 var
+R8370:8386 Kernel.ArrowOfTimeSynthesis <> mu_strictly_later def
+rec 8878:8888 <> ArrowOfTime
+proj 8936:8955 <> aot_mu_nondecreasing
+proj 9059:9083 <> aot_irreversibility_bound
+proj 9244:9257 <> aot_second_law
+proj 9447:9463 <> aot_vm_step_valid
+proj 9657:9682 <> aot_temporal_ordering_refl
+proj 9712:9738 <> aot_temporal_ordering_trans
+proj 9888:9906 <> aot_time_asymmetric
+binder 8966:8966 <> i:38
+R8981:8984 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8969:8978 Kernel.ArrowOfTimeSynthesis <> instr_cost def
+R8980:8980 Kernel.ArrowOfTimeSynthesis <> i:38 var
+binder 9094:9098 <> trace:40
+R9129:9132 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R9105:9122 Kernel.ArrowOfTimeSynthesis <> irreversible_count def
+R9124:9128 Kernel.ArrowOfTimeSynthesis <> trace:40 var
+R9133:9148 Kernel.ArrowOfTimeSynthesis <> trace_total_cost def
+R9150:9154 Kernel.ArrowOfTimeSynthesis <> trace:40 var
+R9273:9295 Kernel.ArrowOfTimeSynthesis <> ThermodynamicTransition rec
+binder 9268:9269 <> tt:42
+R9321:9328 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9302:9317 Kernel.ArrowOfTimeSynthesis <> valid_transition def
+R9319:9320 Kernel.ArrowOfTimeSynthesis <> tt:42 var
+R9364:9367 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R9342:9344 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9329:9338 Kernel.ArrowOfTimeSynthesis <> tt_mu_cost proj
+R9340:9341 Kernel.ArrowOfTimeSynthesis <> tt:42 var
+R9345:9360 Kernel.ArrowOfTimeSynthesis <> tt_entropy_after proj
+R9362:9363 Kernel.ArrowOfTimeSynthesis <> tt:42 var
+R9368:9384 Kernel.ArrowOfTimeSynthesis <> tt_entropy_before proj
+R9386:9387 Kernel.ArrowOfTimeSynthesis <> tt:42 var
+binder 9474:9474 <> s:44
+binder 9476:9477 <> s':45
+binder 9479:9482 <> cost:46
+R9541:9548 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9493:9496 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R9489:9492 Kernel.ArrowOfTimeSynthesis <> cost:46 var
+R9517:9519 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R9497:9514 Kernel.ArrowOfTimeSynthesis <> observable_entropy def
+R9516:9516 Kernel.ArrowOfTimeSynthesis <> s:44 var
+R9520:9537 Kernel.ArrowOfTimeSynthesis <> observable_entropy def
+R9539:9540 Kernel.ArrowOfTimeSynthesis <> s':45 var
+R9549:9564 Kernel.ArrowOfTimeSynthesis <> valid_transition def
+R9567:9593 Kernel.ArrowOfTimeSynthesis <> mk_thermodynamic_transition def
+R9595:9595 Kernel.ArrowOfTimeSynthesis <> s:44 var
+R9597:9598 Kernel.ArrowOfTimeSynthesis <> s':45 var
+R9600:9603 Kernel.ArrowOfTimeSynthesis <> cost:46 var
+binder 9693:9693 <> s:48
+R9696:9703 Kernel.ArrowOfTimeSynthesis <> mu_later def
+R9705:9705 Kernel.ArrowOfTimeSynthesis <> s:48 var
+R9707:9707 Kernel.ArrowOfTimeSynthesis <> s:48 var
+binder 9749:9750 <> s1:50
+binder 9752:9753 <> s2:51
+binder 9755:9756 <> s3:52
+R9777:9780 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9763:9770 Kernel.ArrowOfTimeSynthesis <> mu_later def
+R9772:9773 Kernel.ArrowOfTimeSynthesis <> s1:50 var
+R9775:9776 Kernel.ArrowOfTimeSynthesis <> s2:51 var
+R9795:9798 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9781:9788 Kernel.ArrowOfTimeSynthesis <> mu_later def
+R9790:9791 Kernel.ArrowOfTimeSynthesis <> s2:51 var
+R9793:9794 Kernel.ArrowOfTimeSynthesis <> s3:52 var
+R9799:9806 Kernel.ArrowOfTimeSynthesis <> mu_later def
+R9808:9809 Kernel.ArrowOfTimeSynthesis <> s1:50 var
+R9811:9812 Kernel.ArrowOfTimeSynthesis <> s3:52 var
+binder 9917:9917 <> s:54
+binder 9919:9920 <> s':55
+R9949:9952 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9927:9943 Kernel.ArrowOfTimeSynthesis <> mu_strictly_later def
+R9945:9945 Kernel.ArrowOfTimeSynthesis <> s:54 var
+R9947:9948 Kernel.ArrowOfTimeSynthesis <> s':55 var
+R9953:9954 Coq.Init.Logic <> ::type_scope:'~'_x not
+R9955:9971 Kernel.ArrowOfTimeSynthesis <> mu_strictly_later def
+R9973:9974 Kernel.ArrowOfTimeSynthesis <> s':55 var
+R9976:9976 Kernel.ArrowOfTimeSynthesis <> s:54 var
+prf 10221:10241 <> arrow_of_time_derived
+R10245:10255 Kernel.ArrowOfTimeSynthesis <> ArrowOfTime rec
+R10314:10330 Kernel.ArrowOfTimeSynthesis <> instr_cost_nonneg thm
+R10314:10330 Kernel.ArrowOfTimeSynthesis <> instr_cost_nonneg thm
+R10371:10398 Kernel.ArrowOfTimeSynthesis <> irreversible_bounded_by_cost thm
+R10371:10398 Kernel.ArrowOfTimeSynthesis <> irreversible_bounded_by_cost thm
+R10450:10479 Kernel.ArrowOfTimeSynthesis <> total_entropy_mu_nondecreasing thm
+R10450:10479 Kernel.ArrowOfTimeSynthesis <> total_entropy_mu_nondecreasing thm
+R10533:10565 Kernel.ArrowOfTimeSynthesis <> vm_step_produces_valid_transition thm
+R10533:10565 Kernel.ArrowOfTimeSynthesis <> vm_step_produces_valid_transition thm
+R10612:10624 Kernel.ArrowOfTimeSynthesis <> mu_later_refl thm
+R10612:10624 Kernel.ArrowOfTimeSynthesis <> mu_later_refl thm
+R10672:10685 Kernel.ArrowOfTimeSynthesis <> mu_later_trans thm
+R10672:10685 Kernel.ArrowOfTimeSynthesis <> mu_later_trans thm
+R10720:10742 Kernel.ArrowOfTimeSynthesis <> mu_strictly_later_asymm thm
+R10720:10742 Kernel.ArrowOfTimeSynthesis <> mu_strictly_later_asymm thm
+def 11151:11175 <> landauer_bound_operations
+R11186:11189 Coq.Init.Datatypes <> list ind
+R11191:11204 Kernel.VMStep VMStep vm_instruction ind
+binder 11178:11182 <> trace:57
+R11209:11211 Coq.Init.Datatypes <> nat ind
+R11218:11235 Kernel.ArrowOfTimeSynthesis <> irreversible_count def
+R11237:11241 Kernel.ArrowOfTimeSynthesis <> trace:57 var
+prf 11329:11345 <> landauer_mu_bound
+binder 11356:11360 <> trace:58
+R11396:11399 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11365:11389 Kernel.ArrowOfTimeSynthesis <> landauer_bound_operations def
+R11391:11395 Kernel.ArrowOfTimeSynthesis <> trace:58 var
+R11400:11415 Kernel.ArrowOfTimeSynthesis <> trace_total_cost def
+R11417:11421 Kernel.ArrowOfTimeSynthesis <> trace:58 var
+R11455:11479 Kernel.ArrowOfTimeSynthesis <> landauer_bound_operations def
+R11491:11518 Kernel.ArrowOfTimeSynthesis <> irreversible_bounded_by_cost thm
+R11491:11518 Kernel.ArrowOfTimeSynthesis <> irreversible_bounded_by_cost thm
+def 11946:11963 <> trace_effect_equiv
+R11974:11977 Coq.Init.Datatypes <> list ind
+R11979:11992 Kernel.VMStep VMStep vm_instruction ind
+binder 11966:11967 <> t1:59
+binder 11969:11970 <> t2:60
+R12048:12053 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12026:12028 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12007:12022 Kernel.ArrowOfTimeSynthesis <> trace_total_cost def
+R12024:12025 Kernel.ArrowOfTimeSynthesis <> t1:59 var
+R12029:12044 Kernel.ArrowOfTimeSynthesis <> trace_total_cost def
+R12046:12047 Kernel.ArrowOfTimeSynthesis <> t2:60 var
+R12068:12070 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12054:12064 Kernel.KernelPhysics <> causal_cone def
+R12066:12067 Kernel.ArrowOfTimeSynthesis <> t1:59 var
+R12071:12081 Kernel.KernelPhysics <> causal_cone def
+R12083:12084 Kernel.ArrowOfTimeSynthesis <> t2:60 var
+prf 12263:12285 <> trace_effect_equiv_refl
+binder 12296:12296 <> t:61
+R12299:12316 Kernel.ArrowOfTimeSynthesis <> trace_effect_equiv def
+R12318:12318 Kernel.ArrowOfTimeSynthesis <> t:61 var
+R12320:12320 Kernel.ArrowOfTimeSynthesis <> t:61 var
+R12348:12365 Kernel.ArrowOfTimeSynthesis <> trace_effect_equiv def
+prf 12501:12522 <> trace_effect_equiv_sym
+binder 12533:12534 <> t1:62
+binder 12536:12537 <> t2:63
+R12566:12569 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12542:12559 Kernel.ArrowOfTimeSynthesis <> trace_effect_equiv def
+R12561:12562 Kernel.ArrowOfTimeSynthesis <> t1:62 var
+R12564:12565 Kernel.ArrowOfTimeSynthesis <> t2:63 var
+R12570:12587 Kernel.ArrowOfTimeSynthesis <> trace_effect_equiv def
+R12589:12590 Kernel.ArrowOfTimeSynthesis <> t2:63 var
+R12592:12593 Kernel.ArrowOfTimeSynthesis <> t1:62 var
+prf 12776:12799 <> trace_effect_equiv_trans
+binder 12810:12811 <> t1:64
+binder 12813:12814 <> t2:65
+binder 12816:12817 <> t3:66
+R12846:12849 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12822:12839 Kernel.ArrowOfTimeSynthesis <> trace_effect_equiv def
+R12841:12842 Kernel.ArrowOfTimeSynthesis <> t1:64 var
+R12844:12845 Kernel.ArrowOfTimeSynthesis <> t2:65 var
+R12874:12879 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12850:12867 Kernel.ArrowOfTimeSynthesis <> trace_effect_equiv def
+R12869:12870 Kernel.ArrowOfTimeSynthesis <> t2:65 var
+R12872:12873 Kernel.ArrowOfTimeSynthesis <> t3:66 var
+R12880:12897 Kernel.ArrowOfTimeSynthesis <> trace_effect_equiv def
+R12899:12900 Kernel.ArrowOfTimeSynthesis <> t1:64 var
+R12902:12903 Kernel.ArrowOfTimeSynthesis <> t3:66 var

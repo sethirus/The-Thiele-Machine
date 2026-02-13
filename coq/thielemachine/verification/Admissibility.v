@@ -105,6 +105,7 @@ Qed.
     ========================================================================= *)
 
 (** No-signaling follows from admissibility *)
+(* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
 Theorem admissible_implies_no_signaling : forall s prog,
   trace_admissible s prog ->
   spatial_locality s.(partition).

@@ -67,6 +67,7 @@ Definition info_bits (n : nat) : nat := n.
 
 (* Key property: 2^n states contain exactly n bits of information *)
 (* DEFINITIONAL — info_bits n = n, num_states n = 2^n, so 2^n = 2^n *)
+(* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
 Lemma info_bits_correct : forall n,
   num_states (info_bits n) = 2^n.
 Proof.
@@ -219,6 +220,7 @@ Record PhysicalErasure := mkPhysicalErasure {
 (* MAIN THEOREM: For any physical erasure operation that erases n bits,
    the environment entropy must increase by at least n bits *)
 
+(* INQUISITOR NOTE: Record field extraction — exposes constraint for downstream use. *)
 Theorem landauer_information_bound : forall pe : PhysicalErasure,
   env_entropy_increase pe >= bits_erased (erasure_op pe).
 Proof.

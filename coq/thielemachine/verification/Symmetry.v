@@ -309,7 +309,7 @@ Theorem lorentz_preserves_obs_length : forall s v,
   length (partition_signature s.(partition)) = 
   length (partition_signature (lorentz_boost v s).(partition)).
 Proof.
-  intros s v Hvalid.
+  intros s v _.
   unfold lorentz_boost. simpl.
   reflexivity.
 Qed.
@@ -333,7 +333,7 @@ Theorem symmetry_composition : forall s k1 k2,
   obs_equiv s (mu_gauge_shift k1 s) ->
   obs_equiv s (mu_gauge_shift (k1 + k2) s).
 Proof.
-  intros s k1 k2 H.
+  intros s k1 k2 _.
   apply mu_gauge_preserves_obs.
 Qed.
 

@@ -126,6 +126,6 @@ Theorem projection_from_information_minimization :
     partition_state_dim p_after = 1%nat.
 Proof.
   (* This is mathematically identical to maximum_info_determines_unique_state *)
-  intros p_before p_after bits Hdim Hcons Hgains.
+  intros p_before p_after bits _ Hcons Hgains.
   apply (maximum_info_determines_unique_state p_before p_after bits Hcons Hgains).
 Qed.

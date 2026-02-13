@@ -38,7 +38,7 @@ This thesis has presented the Thiele Machine, a computational model that treats 
     
     \item \textbf{Observational No-Signaling}: The proof establishes that operations on one module cannot affect the observables of unrelated modules---a computational analog of Bell locality.
     
-    \item \textbf{Oracle Impossibility}: Three theorems (\texttt{halting\_undecidable}, \texttt{oracle\_halts\_costs\_mu}, \texttt{hypercomputation\_bounded}) in \path{OracleImpossibility.v} establish that no finite-$\mu$ trace can exceed Turing computability. Any partial halting oracle must pay $\mu$-cost proportional to its input. This caps the model from above.
+    \item \textbf{Oracle Impossibility}: Three theorems in \path{OracleImpossibility.v}: \texttt{halting\_undecidable} (genuine diagonal argument), \texttt{oracle\_halts\_costs\_mu} (oracle soundness defined as cost $\geq 1$ per query, zero cost violates this), and \texttt{hypercomputation\_bounded} ($n$ queries cost $\geq n$ by definition). The halting proof is substantive; the cost bounds are design consistency checks confirming the pricing is self-consistent. This caps the model from above.
     
     \item \textbf{Turing Subsumption}: The two-step embedding TM $\to$ Minsky $\to$ Thiele, mechanized in \path{TM_to_Minsky.v} and \path{ThieleInstance.v}, proves that the model is at least Turing-complete. Combined with Oracle Impossibility, the model is exactly Turing-complete: it computes everything a Turing Machine can and nothing more.
 \end{enumerate}
@@ -204,13 +204,13 @@ The $\mu$-cost dimension enriches computational complexity:
 
 The proven connections:
 \begin{itemize}
-    \item $\mu$-monotonicity $\leftrightarrow$ Second Law of Thermodynamics
-    \item No-signaling $\leftrightarrow$ Bell locality
-    \item Gauge invariance $\leftrightarrow$ Noether's theorem
+    \item $\mu$-monotonicity $\sim$ Second Law of Thermodynamics ($\mu$-monotonicity is true by construction---costs are natural numbers that only accumulate---so the correspondence is a structural parallel, not an empirical discovery)
+    \item No-signaling $\sim$ Bell locality
+    \item Gauge invariance $\sim$ Noether's theorem (gauge invariance is trivially true in the model because only the \texttt{vm\_mu} field is modified)
 \end{itemize}
 
 
-These are not analogies---they are formal isomorphisms at the level of the model's observables and invariants. The physical bridge (energy per $\mu$) is stated separately as an empirical hypothesis.
+These are structural parallels at the level of the model's observables and invariants---not derivations of physics from computation. The physical bridge (energy per $\mu$) is stated separately as an empirical hypothesis.
 
 \section{Open Problems}
 

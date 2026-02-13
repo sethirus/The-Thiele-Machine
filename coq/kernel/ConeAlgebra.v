@@ -218,7 +218,7 @@ Theorem cone_swap_disjoint : forall i1 i2,
   targets_disjoint i1 i2 ->
   (forall x, In x (causal_cone [i1; i2]) <-> In x (causal_cone [i2; i1])).
 Proof.
-  intros i1 i2 Hdisj x.
+  intros i1 i2 _ x.
   unfold causal_cone. simpl.
   rewrite app_nil_r. rewrite app_nil_r.
   split; intros H.

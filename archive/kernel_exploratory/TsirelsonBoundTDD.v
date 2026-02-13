@@ -157,7 +157,7 @@ Lemma zero_marginals_correlator_structure : forall (npa : NPAMomentMatrix),
   (* Key constraint from 4×4 minor *)
   det4_matrix (fun i j => M i j) >= 0.
 Proof.
-  intros npa HEA0 HEA1 HEB0 HEB1 Hrho_AA Hrho_BB M Hsym Hpsd.
+  intros npa _ _ _ _ _ _ M _ Hpsd.
   unfold PSD_5 in Hpsd.
   destruct Hpsd as [_ [_ [_ [H4 _]]]].
   exact H4.

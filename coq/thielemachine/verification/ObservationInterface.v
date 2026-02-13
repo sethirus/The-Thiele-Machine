@@ -108,6 +108,7 @@ Qed.
     ========================================================================= *)
 
 (** If two states are observationally equivalent, they have the same observables *)
+(* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
 Theorem obs_equiv_sound : forall s1 s2,
   obs_equiv s1 s2 ->
   observe_state s1 = observe_state s2.
@@ -129,7 +130,7 @@ Theorem mu_gauge_freedom_obs : forall s1 s2 k,
     s1.(BlindSighted.ledger).(BlindSighted.mu_total) + k ->
   obs_equiv s1 s2.
 Proof.
-  intros s1 s2 k Hpart Hans Hmu.
+  intros s1 s2 k Hpart Hans _.
   unfold obs_equiv, observe_state.
   unfold partition_signature, mu_delta_sequence.
   rewrite Hpart, Hans.

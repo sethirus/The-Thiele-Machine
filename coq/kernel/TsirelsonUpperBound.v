@@ -299,7 +299,7 @@ Theorem mu_zero_chsh_bounded :
     mu_zero_program fuel trace ->
     Qabs (chsh_from_vm_trace fuel trace s_init) <= 4%Q.
 Proof.
-  intros fuel trace s_init Hmu.
+  intros fuel trace s_init _.
   (* The CHSH value is computed from trials extracted from the trace *)
   unfold chsh_from_vm_trace.
   (* Apply the algebraic bound from CHSHExtraction.v *)

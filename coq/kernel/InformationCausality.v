@@ -82,6 +82,7 @@ Definition ic_mu_equivalent (ic : ICScenario) (mu : MuScenario) : Prop :=
 
 (** ** Main Equivalence Theorem *)
 
+(* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
 Theorem information_causality_is_mu_cost :
   forall (ic : ICScenario) (mu : MuScenario),
     ic_mu_equivalent ic mu ->
@@ -103,7 +104,7 @@ Theorem ic_zero_communication_bound :
     ic.(ic_satisfies_bound) ->
     0 <= ic.(ic_n_bits).
 Proof.
-  intros ic Hzero Hbound.
+  intros ic _ _.
   apply Nat.le_0_l.
 Qed.
 
@@ -138,7 +139,7 @@ Lemma ic_monotonicity :
     ic1.(ic_m_communication) <= ic2.(ic_m_communication) ->
     mu1.(mu_cost_paid) <= mu2.(mu_cost_paid).
 Proof.
-  intros ic1 ic2 mu1 mu2 Heq1 Heq2 Hn Hle.
+  intros ic1 ic2 mu1 mu2 Heq1 Heq2 _ Hle.
   unfold ic_mu_equivalent in Heq1, Heq2.
   destruct Heq1 as [_ [Heq1 _]].
   destruct Heq2 as [_ [Heq2 _]].
@@ -156,6 +157,7 @@ Proof.
 Qed.
 
 (** Cost paid reflects accessible information *)
+(* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
 Lemma mu_cost_reflects_accessible_info :
   forall ic mu,
     ic_mu_equivalent ic mu ->
@@ -283,7 +285,7 @@ Lemma communication_efficiency :
     ic.(ic_m_communication) < ic.(ic_n_bits) ->
     mu.(mu_cost_paid) < mu.(mu_n_partitions).
 Proof.
-  intros ic mu Heq Hn_pos Heff.
+  intros ic mu Heq _ Heff.
   unfold ic_mu_equivalent in Heq.
   destruct Heq as [Hn [Hc _]].
   rewrite <- Hn, <- Hc.

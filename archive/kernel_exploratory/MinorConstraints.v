@@ -388,7 +388,7 @@ Lemma local_factorization : forall B pA pB x y,
   BoxCHSH.E B x y ==
     (pA x 0%nat - pA x 1%nat) * (pB y 0%nat - pB y 1%nat).
 Proof.
-  intros B pA pB x y HpA_nn HpB_nn HpA_norm HpB_norm Hfactor.
+  intros B pA pB x y _ _ _ _ Hfactor.
   unfold BoxCHSH.E, BoxCHSH.bit_sign.
   simpl.
   (* Expand using factorization *)

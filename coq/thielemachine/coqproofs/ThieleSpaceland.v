@@ -553,7 +553,7 @@ Module ThieleSpaceland.
     same_partition s s' ->
     mu s LCompute s' >= 0.
   Proof.
-    intros s s' Hstep Hsame.
+    intros s s' Hstep _.
     unfold mu.
     unfold step in Hstep.
     destruct Hstep as [i [Hnth [Hlbl Hstep]]].
@@ -1233,7 +1233,7 @@ Module ThieleSpaceland.
       CoreSemantics.hash_state (trace_initial t1) = CoreSemantics.hash_state (trace_initial t2) /\
       CoreSemantics.hash_state (trace_final t1) = CoreSemantics.hash_state (trace_final t2).
   Proof.
-    intros witnesses s1 s2 Hchain Hinit Hfinal t1 t2 Heq.
+    intros witnesses s1 s2 _ _ _ t1 t2 Heq.
     split.
     - (* initial hashes *)
       assert (H1: crypto_initial_hash (make_crypto_receipt_from_trace t1 

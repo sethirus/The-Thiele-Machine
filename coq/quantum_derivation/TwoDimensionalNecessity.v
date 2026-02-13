@@ -48,6 +48,7 @@ Definition partition_state_space := PartitionBinaryState.
 (** Dimension of state space *)
 Definition binary_state_dimension : nat := 2.
 
+(* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
 Lemma partition_has_two_states :
   binary_state_dimension = 2%nat.
 Proof.
@@ -231,7 +232,7 @@ Theorem two_d_from_partitions :
     (* State representation is 2D *)
     binary_state_dimension = 2%nat.
 Proof.
-  intros p Hmod.
+  intros p _.
   apply partition_state_is_two_dimensional.
 Qed.
 

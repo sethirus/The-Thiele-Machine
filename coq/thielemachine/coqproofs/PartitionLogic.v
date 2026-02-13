@@ -290,7 +290,7 @@ Theorem amortized_discovery :
     (total_mu_discovery + total_mu_operational) / T <=
     mu_operational_cost (match I with | [] => 0 | x :: _ => x end) P + mu_discovery_cost (match I with | [] => 0 | x :: _ => x end) P.
 Proof.
-  intros I P H_same_partition.
+  intros I P _.
   unfold mu_discovery_cost, mu_operational_cost.
   simpl.
   (* Both sums are 0 because the functions return 0 *)

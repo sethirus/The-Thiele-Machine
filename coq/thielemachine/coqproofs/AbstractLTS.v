@@ -188,7 +188,7 @@ Module AbstractLTS.
     nth_error (program s) (pc s) = Some i ->
     (forall m', is_in_footprint i m' = false -> module_of s m' = module_of s' m').
   Proof.
-    intros s s' i Hstep Hprog m' Hfootprint.
+    intros s s' i Hstep _ m' _.
     unfold step in Hstep.
     destruct Hstep as [Hpart [Hmu Hid]].
     (* Partition unchanged → module membership unchanged *)

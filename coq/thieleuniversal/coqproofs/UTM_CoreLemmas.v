@@ -213,7 +213,7 @@ Lemma nth_update_firstn_skipn_commute : forall (l : list nat) r1 r2 (v1 v2 : nat
   r <> r2 ->
   nth r (firstn r1 l ++ v1 :: skipn (S r1) l) d = nth r (firstn r2 l ++ v2 :: skipn (S r2) l) d.
 Proof.
-  intros l r1 r2 v1 v2 r d Hr1 Hr2 Hr Hneq12 Hr1r Hr2r.
+  intros l r1 r2 v1 v2 r d Hr1 Hr2 Hr _ Hr1r Hr2r.
   pose proof (not_eq_sym Hr1r) as Hneq_r1.
   pose proof (not_eq_sym Hr2r) as Hneq_r2.
   rewrite (nth_update_firstn_skipn_other l r1 r v1 d Hr1 Hr Hneq_r1).
@@ -429,7 +429,7 @@ Lemma read_reg_write_reg_commute : forall st a b va vb r,
   a < length (CPU.regs st) -> b < length (CPU.regs st) -> r < length (CPU.regs st) ->
   CPU.read_reg r (CPU.write_reg a va (CPU.write_reg b vb st)) = CPU.read_reg r (CPU.write_reg b vb (CPU.write_reg a va st)).
 Proof.
-  intros st a b va vb r Hab Hra Hrb Ha Hb Hr.
+  intros st a b va vb r _ Hra Hrb Ha Hb Hr.
   set (st_b := CPU.write_reg b vb st).
   assert (Hlen_b : length (CPU.regs st_b) = length (CPU.regs st))
     by (unfold st_b; apply length_regs_write_reg; exact Hb).

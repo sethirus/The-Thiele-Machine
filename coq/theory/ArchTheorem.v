@@ -230,7 +230,7 @@ Lemma alternative_performance_empirical :
     mean_accuracy (alternative_performance config) <=
     mean_accuracy optimal_quartet_performance.
 Proof.
-  intros config H.
+  intros config _.
   unfold alternative_performance.
   apply Rle_refl.
 Qed.

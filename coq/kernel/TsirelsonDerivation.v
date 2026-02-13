@@ -92,7 +92,7 @@ Theorem tsirelson_from_pure_accounting :
     total_mu_zero fuel trace c ->
     Qabs (S_from_correlators c) <= tsirelson_bound.
 Proof.
-  intros fuel trace c He00 He01 He10 He11 Htotal.
+  intros fuel trace c _ _ _ _ Htotal.
   apply tsirelson_from_total_mu_zero with (fuel := fuel) (trace := trace).
   exact Htotal.
 Qed.

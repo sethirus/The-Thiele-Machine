@@ -122,23 +122,7 @@ let list_set_mod (size : int) (xs : int list) (idx : int) (v : int) : int list =
   go 0 xs
 
 let parse_program (lines : string list) : int * int list * int list * VMStep.vm_instruction list =
-  let rec skip_blanks = function
-    | [] -> []
-    | l :: rest ->
-        let t = trim l in
-        if t = "" || t.[0] = '#' || t.[0] = ';' then skip_blanks rest else l :: rest
-  in
-  let lines = skip_blanks lines in
-  let fuel, rest_lines =
-    match lines with
-    | first :: rest ->
-        let t = trim first in
-        let toks = split_ws t in
-        (match toks with
-        | [ "FUEL"; n ] -> (safe_int n, rest)
-        | _ -> (256, lines))
-    | [] -> (256, [])
-  in
+    let fuel = ref 256 in
     let init_regs = ref (List.init 32 (fun _ -> 0)) in
     let init_mem = ref (List.init 256 (fun _ -> 0)) in
 
@@ -148,6 +132,9 @@ let parse_program (lines : string list) : int * int list * int list * VMStep.vm_
     else
       let toks = split_ws t in
       match toks with
+      | [ "FUEL"; n ] ->
+        fuel := safe_int n;
+        None
       | [ "INIT_REG"; r; v ] ->
         init_regs := list_set_mod 32 !init_regs (safe_int r) (safe_int v);
         None
@@ -197,9 +184,9 @@ let parse_program (lines : string list) : int * int list * int list * VMStep.vm_
       | _ -> failwith ("unrecognized instruction line: " ^ t)
   in
   let instrs =
-    rest_lines |> List.filter_map parse_line
+    lines |> List.filter_map parse_line
   in
-    (fuel, !init_regs, !init_mem, instrs)
+    (!fuel, !init_regs, !init_mem, instrs)
 
 let initial_state () : vMState =
   {

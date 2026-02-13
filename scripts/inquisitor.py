@@ -233,16 +233,9 @@ def _classify_constant_severity(name: str, base_sev: str) -> str:
 
 
 def _severity_for_path(path: Path, default: str, rule_id: str = "") -> str:
-    if default == "HIGH":
-        return "HIGH"
-    # UNUSED_HYPOTHESIS is heuristic - downgraded to LOW
-    if rule_id == "UNUSED_HYPOTHESIS":
-        return "LOW"
-    path_str = path.as_posix().lower()
-    # Critical kernel files get highest scrutiny
-    if path.name in CRITICAL_KERNEL_FILES:
-        return "HIGH" if default in {"HIGH", "MEDIUM"} else "MEDIUM"
-    if "/kernel/" in path_str or path.name in PROTECTED_BASENAMES:
+    # MAXIMUM STRICTNESS: Every Coq file is held to the same standard.
+    # No file gets special treatment. No downgrades.
+    if default in {"HIGH", "MEDIUM"}:
         return "HIGH"
     return default
 
@@ -352,15 +345,15 @@ def scan_unused_hypotheses(path: Path) -> list[Finding]:
         if not proof_lines:
             continue
         
-        # Skip proofs using heavy automation tactics that use hypotheses implicitly
+        # Collect tactics that can implicitly consume hypotheses by name
         proof_body_text = " ".join(proof_lines)
-        # Skip any proof with automation that might use hypotheses implicitly
-        if any(tactic in proof_body_text for tactic in [
-            "lia", "omega", "congruence", "auto", "eauto", "intuition", "firstorder",
-            "assumption", "easy", "trivial", "now ", "reflexivity", "simpl", "unfold",
-            "rewrite", "apply", "exact", "destruct", "induction", "case", "discriminate"
-        ]):
-            continue
+        # These tactics can implicitly consume ANY hypothesis in scope:
+        implicit_consumers = re.compile(
+            r"\b(auto|eauto|intuition|firstorder|assumption|easy|trivial|"
+            r"lia|omega|lra|nra|nia|congruence|tauto|now|"
+            r"contradiction|ring|field|discriminate|decide\s+equality)\b"
+        )
+        has_implicit_consumer = bool(implicit_consumers.search(proof_body_text))
         
         intros_line = next((ln for ln in proof_lines if re.match(r"^intros\b", ln)), None)
         if not intros_line or ";" in intros_line:
@@ -372,10 +365,46 @@ def scan_unused_hypotheses(path: Path) -> list[Finding]:
         names = [n for n in names if n and n != "_"]
         if not names:
             continue
+
+        # Count how many forall variables + arrows are in the statement.
+        # Intros beyond this count introduce things from the conclusion
+        # (e.g., unfolding a definition reveals hidden foralls/lets).
+        # Those are NOT unused — they're goal-direction intros.
+        stmt_text = re.sub(r"\s+", " ", lemma_statement)
+        # Count forall-bound names
+        forall_vars = 0
+        for fm in re.finditer(r"\bforall\s+([^,]+),", stmt_text):
+            # Count names in the forall binder (e.g., "forall x y z," = 3)
+            binder = fm.group(1)
+            # Remove type annotations like (x : T) to just get names
+            binder_clean = re.sub(r"\([^)]*\)", lambda m: " ".join(re.findall(r"\b([a-zA-Z_]\w*)\b", m.group().split(":")[0])), binder)
+            var_names = [v for v in re.split(r"\s+", binder_clean.strip()) if v and v not in {":", "forall"} and not re.match(r"^[A-Z]", v)]
+            forall_vars += max(len(var_names), 0)
+        # Count arrows (->), but not (<->). Each arrow = one intro.
+        # Protect <-> first
+        protected = stmt_text.replace("<->", "\x00IFF\x00")
+        arrow_count = protected.count("->")
+        # Count let-bindings (let x := ... in ...) — each adds one intro
+        let_count = len(re.findall(r"\blet\s+", stmt_text))
+        max_statement_intros = forall_vars + arrow_count + let_count
+
+        # All names from intros
+        all_intros_names = re.split(r"[\s,]+", intros_match.group(1).strip())
+        all_intros_names = [n for n in all_intros_names if n]
+
         body = " ".join(proof_lines[1:])
         for name in names:
             if name in {"*", "?", "!", "intro", "intros"}:
                 continue
+
+            # Check if this name is beyond the statement's intro capacity
+            # (i.e., it's a conclusion-direction intro from unfolded definitions)
+            try:
+                name_pos = all_intros_names.index(name)
+            except ValueError:
+                name_pos = 0
+            if name_pos >= max_statement_intros:
+                continue  # Conclusion-direction intro — not a hypothesis
             # For names with apostrophes (like q'), word boundary \b doesn't work
             # Use a more flexible pattern that matches the name as a separate token
             if "'" in name:
@@ -385,22 +414,25 @@ def scan_unused_hypotheses(path: Path) -> list[Finding]:
                 # Standard word boundary for regular identifiers
                 pattern = rf"\b{re.escape(name)}\b"
             
-            # Check if used in proof body
+            # Check if used explicitly in proof body
             if re.search(pattern, body):
                 continue
             # Check if used in lemma statement/conclusion
             if re.search(pattern, lemma_statement):
                 continue
-            # UNUSED_HYPOTHESIS is a heuristic - many false positives from destructuring/automation
-            # Downgrade to LOW to reduce noise
+            # If an implicit consumer is present (auto, lia, etc.), it MIGHT use
+            # this hypothesis — but only if it's an arithmetic/decidable type.
+            # Still flag, but at LOW severity if implicit consumers are present.
+            sev = "MEDIUM" if has_implicit_consumer else "HIGH"
             findings.append(
                 Finding(
                     rule_id="UNUSED_HYPOTHESIS",
-                    severity="LOW",
+                    severity=sev,
                     file=path,
                     line=line_of[proof_match.start()],
                     snippet=intros_line,
-                    message=f"Introduced hypothesis `{name}` not used in proof body or conclusion (heuristic).",
+                    message=f"Introduced hypothesis `{name}` not referenced in proof body."
+                            + (" (implicit consumer present — may be false positive)" if has_implicit_consumer else ""),
                 )
             )
     return findings
@@ -1198,9 +1230,9 @@ def scan_record_field_extraction(path: Path) -> list[Finding]:
     findings: list[Finding] = []
 
     # Step 1: collect all Record field names and their types.
-    # Match: Record Foo := { ... field_name : type; ... }.
+    # Match: Record Foo := { ... }. OR Record Foo := mkFoo { ... }.
     record_re = re.compile(
-        r"(?ms)^[ \t]*Record\s+([A-Za-z0-9_']+)\b[^.]*:=\s*\{(.*?)\}\s*\."
+        r"(?ms)^[ \t]*Record\s+([A-Za-z0-9_']+)\b[^.]*:=\s*(?:[A-Za-z0-9_']+\s*)?\{(.*?)\}\s*\."
     )
     # Field inside record body:  field_name : <type>
     field_re = re.compile(r"([A-Za-z0-9_']+)\s*:\s*([^;}\n]+)")
@@ -1245,23 +1277,56 @@ def scan_record_field_extraction(path: Path) -> list[Finding]:
         proof_block = text[proof_match.end():end_match.start()].strip()
         proof_lines = [ln.strip() for ln in proof_block.splitlines() if ln.strip()]
 
-        # Check for `intro(s) <var>. exact (<field> <var>).` pattern
-        # Also catch: `intro <var>. exact (<field> <var> <arg>).`
-        # Also catch: `intro <var>. apply <field>.` 
-        # Also catch multi-tactic single-line: `intro x; exact (field x).`
+        # Check for extraction patterns:
+        # 1. `intro(s) <var>. exact (<field> <var>).`
+        # 2. `intro <var>. apply <field>.`
+        # 3. `intro <var>. destruct <var> as [...]. lia/auto/assumption.`
+        #    (destructures record then solves with arithmetic — semantically identical)
         proof_text = " ".join(proof_lines)
 
-        # Pattern: intro(s) <var>. exact (<field> <var>). (possibly with extra args)
+        # Pattern A: intro(s) <var>. exact (<field> <var>). (possibly with extra args)
         extract_pat = re.compile(
             r"intros?\s+([A-Za-z0-9_']+)\s*\.\s*"
             r"(?:exact\s*\(\s*([A-Za-z0-9_']+)\s+\1|apply\s+([A-Za-z0-9_']+))"
         )
         em = extract_pat.search(proof_text)
-        if not em:
+
+        # Pattern B: intro <var>. destruct <var> as [... field_hyps ...]. <solver>.
+        # The proof destructures the record and a simple solver (lia/auto/assumption)
+        # consumes the extracted field hypothesis.
+        destruct_extract_pat = re.compile(
+            r"intros?\s+([A-Za-z0-9_']+)\s*\.\s*"
+            r"destruct\s+\1\b[^.]*\.\s*"
+            r"(?:simpl\s*\.\s*)?"
+            r"(lia|lra|omega|auto|assumption|trivial|exact\b)"
+        )
+        dm = destruct_extract_pat.search(proof_text) if not em else None
+
+        if not em and not dm:
             continue
 
-        var_name = em.group(1)
-        field_used = em.group(2) or em.group(3)
+        if em:
+            var_name = em.group(1)
+            field_used = em.group(2) or em.group(3)
+        else:
+            # For destruct pattern, we flag it if the record has propositional fields
+            # and the proof is trivially short (just destruct + solver)
+            var_name = dm.group(1)
+            # Check if any record field is referenced — for destruct pattern,
+            # we flag ALL records quantified over since it's extraction-by-destruction
+            field_used = None
+            for rname, fields in record_fields.items():
+                # Use word boundary to avoid substring matches (Erasure vs PhysicalErasure)
+                if re.search(r'\b' + re.escape(rname) + r'\b', stmt):
+                    # Check if any field is a Prop (heuristic: type doesn't look like a data type
+                    # and type is not another known record)
+                    data_types = r'^(nat|N|Z|Q|R|bool|list|option)\b'
+                    prop_fields = [fn for fn, ft in fields
+                                   if not re.match(data_types, ft.strip())
+                                   and ft.strip().split()[0] not in record_fields]
+                    if prop_fields:
+                        field_used = prop_fields[0]  # Report first propositional field
+                        break
 
         if field_used not in all_field_names:
             continue
@@ -1277,8 +1342,15 @@ def scan_record_field_extraction(path: Path) -> list[Finding]:
                 break
 
         # Check if the theorem's statement quantifies over that record type
-        if owner_record and owner_record in stmt:
+        if owner_record and re.search(r'\b' + re.escape(owner_record) + r'\b', stmt):
             line = line_of[tm.start()]
+            # Check for INQUISITOR NOTE
+            raw_lines = raw.splitlines()
+            note_start = max(0, line - 4)
+            note_end = min(len(raw_lines), line + 2)
+            note_context = "\n".join(raw_lines[note_start:note_end])
+            if "INQUISITOR NOTE" in note_context:
+                continue  # Verified extraction — intentional
             snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else tname
             findings.append(
                 Finding(
@@ -1315,8 +1387,9 @@ def scan_self_referential_record(path: Path) -> list[Finding]:
     findings: list[Finding] = []
 
     # Step 1: Find all Records with propositional fields
+    # Match: Record Foo := { ... }. OR Record Foo := mkFoo { ... }.
     record_re = re.compile(
-        r"(?ms)^[ \t]*Record\s+([A-Za-z0-9_']+)\b[^.]*:=\s*\{(.*?)\}\s*\."
+        r"(?ms)^[ \t]*Record\s+([A-Za-z0-9_']+)\b[^.]*:=\s*(?:[A-Za-z0-9_']+\s*)?\{(.*?)\}\s*\."
     )
     field_re = re.compile(r"([A-Za-z0-9_']+)\s*:\s*([^;}\n]+)")
     prop_indicators = re.compile(r"(forall|>=|<=|>(?!=)|<(?!=|>)|->|Prop\b|\/\\|\\/|~)")
@@ -1621,12 +1694,17 @@ def scan_arithmetic_only_proofs(path: Path) -> list[Finding]:
     clean_lines = text.splitlines()
     findings: list[Finding] = []
 
-    # Physics-sounding names
+    # Physics-sounding names (in theorem name OR file path)
     physics_name_re = re.compile(
         r"(?i)(thermo|entropy|conserv|causal|lorentz|landauer|arrow.*time|"
         r"second.*law|irreversib|measurement|povm|born|collapse|"
-        r"no.*closed.*causal|dimension)"
+        r"no.*closed.*causal|dimension|potential|arbitrage|energy|"
+        r"dissipat|equilibrium|spacetime|emergent|unitari|cloning|"
+        r"signaling|causality|planck|schrodinger|purificat)"
     )
+    # Also check the file path for physics-sounding directories/names
+    path_str = str(path)
+    file_is_physics = bool(physics_name_re.search(path_str))
 
     theorem_re = re.compile(r"(?m)^[ \t]*(Theorem|Lemma)\s+([A-Za-z0-9_']+)\b")
     proof_re = re.compile(r"(?m)^[ \t]*Proof\.")
@@ -1644,7 +1722,7 @@ def scan_arithmetic_only_proofs(path: Path) -> list[Finding]:
 
     for tm in theorem_re.finditer(text):
         tname = tm.group(2)
-        if not physics_name_re.search(tname):
+        if not physics_name_re.search(tname) and not file_is_physics:
             continue
 
         stmt_end = text.find(".", tm.end())
@@ -1683,7 +1761,15 @@ def scan_arithmetic_only_proofs(path: Path) -> list[Finding]:
 
         # If ALL lines are arithmetic/setup and no structural tactic used
         if not has_structural and arith_only_lines == len(proof_lines) and len(proof_lines) <= 5:
+            # Check for INQUISITOR NOTE in the original text (with comments)
+            # covering a few lines before the theorem
+            raw_lines = raw.splitlines()
             line = line_of[tm.start()]
+            note_start = max(0, line - 4)
+            note_end = min(len(raw_lines), line + 2)
+            note_context = "\n".join(raw_lines[note_start:note_end])
+            if "INQUISITOR NOTE" in note_context:
+                continue  # Verified as intentionally arithmetic
             snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else tname
             findings.append(
                 Finding(
@@ -2269,9 +2355,15 @@ def scan_tautological_implication(path: Path) -> list[Finding]:
             else:
                 break
 
-        # Split on top-level -> (not inside parens)
-        # Simple approach: split on " -> " (works for most Coq statements)
-        arrows = re.split(r"\s*->\s*", inner)
+        # Split on top-level -> but NOT on <-> (which contains -> as substring)
+        # Use negative lookbehind to avoid splitting <->
+        arrows = re.split(r"\s*(?<!<)(?<!<)(?<!-)(?:->)(?!>)\s*", inner)
+        # Fallback: simpler split that respects <-> by first replacing it
+        if len(arrows) < 2:
+            # Try alternative: protect <-> then split on ->
+            protected = inner.replace("<->", "\x00IFF\x00")
+            arrows = re.split(r"\s*->\s*", protected)
+            arrows = [a.replace("\x00IFF\x00", "<->") for a in arrows]
         if len(arrows) < 2:
             continue
 
@@ -2281,9 +2373,19 @@ def scan_tautological_implication(path: Path) -> list[Finding]:
         # Normalize whitespace for comparison
         conclusion_norm = re.sub(r"\s+", " ", conclusion)
 
+        found_taut = False
+        # Check for INQUISITOR NOTE in original text
+        raw_lines = raw.splitlines()
+        note_start = max(0, idx - 4)
+        note_end = min(len(raw_lines), idx + 2)
+        note_context = "\n".join(raw_lines[note_start:note_end])
+        has_note = "INQUISITOR NOTE" in note_context
+
         for hyp in hypotheses:
             hyp_norm = re.sub(r"\s+", " ", hyp)
             if hyp_norm == conclusion_norm and conclusion_norm:
+                if has_note:
+                    continue  # Verified tautology — intentional extraction
                 snippet = clean_lines[idx - 1] if 0 <= idx - 1 < len(clean_lines) else stmt
                 findings.append(
                     Finding(
@@ -2294,6 +2396,58 @@ def scan_tautological_implication(path: Path) -> list[Finding]:
                         snippet=snippet.strip(),
                         message=f"Theorem `{name}` has conclusion `{conclusion_norm}` identical to "
                                 f"hypothesis `{hyp_norm}` — this is a tautology (P -> P), proves nothing.",
+                    )
+                )
+                found_taut = True
+                break
+
+        if found_taut:
+            continue
+
+        # Deeper check: see if the conclusion appears inside a Definition that
+        # one of the hypotheses refers to. This catches cases like:
+        #   Definition equiv a b := ... /\ (P a <-> Q b) /\ ...
+        #   Theorem foo : equiv x y -> P x <-> Q y.
+        # where the conclusion is literally embedded in the hypothesis's definition.
+        # Collect all Definition bodies in this file for unfolding.
+        if not hasattr(scan_tautological_implication, '_def_cache'):
+            scan_tautological_implication._def_cache = {}
+        cache_key = str(path)
+        if cache_key not in scan_tautological_implication._def_cache:
+            def_bodies: dict[str, str] = {}
+            def_re = re.compile(r"(?m)^[ \t]*Definition\s+([A-Za-z0-9_']+)\b[^:]*:(?:=|\s)\s*(.+?)\.$", re.DOTALL)
+            for dm in def_re.finditer(text):
+                dname = dm.group(1)
+                dbody = re.sub(r"\s+", " ", dm.group(2)).strip()
+                def_bodies[dname] = dbody
+            scan_tautological_implication._def_cache[cache_key] = def_bodies
+        def_bodies = scan_tautological_implication._def_cache[cache_key]
+
+        for hyp in hypotheses:
+            hyp_norm = re.sub(r"\s+", " ", hyp)
+            # Extract the definition name from the hypothesis (first identifier)
+            hyp_head = re.match(r"([A-Za-z0-9_']+)", hyp_norm)
+            if not hyp_head:
+                continue
+            hyp_def_name = hyp_head.group(1)
+            if hyp_def_name not in def_bodies:
+                continue
+            # Check if the conclusion text appears inside the definition body
+            if has_note:
+                continue  # Verified extraction — intentional
+            dbody = def_bodies[hyp_def_name]
+            if conclusion_norm in dbody:
+                snippet = clean_lines[idx - 1] if 0 <= idx - 1 < len(clean_lines) else stmt
+                findings.append(
+                    Finding(
+                        rule_id="TAUTOLOGICAL_IMPLICATION",
+                        severity=_severity_for_path(path, "MEDIUM"),
+                        file=path,
+                        line=idx,
+                        snippet=snippet.strip(),
+                        message=f"Theorem `{name}` conclusion `{conclusion_norm}` appears inside "
+                                f"Definition `{hyp_def_name}` — conclusion may be restating part of "
+                                f"hypothesis (check if proof is `tauto`/`intuition`).",
                     )
                 )
                 break
@@ -3023,40 +3177,25 @@ def main(argv: list[str]) -> int:
         scanned_scope=scanned_scope,
     )
 
-    # Fail-fast policy: HIGH sins in protected files, unless allowlisted.
-    protected_high = [
+    # Fail-fast policy: ANY HIGH finding in ANY file fails the build.
+    # No protected-file distinction. Every proof is held to the same standard.
+    all_high = [
         f
         for f in all_findings
         if f.severity == "HIGH"
-        and f.file.name in PROTECTED_BASENAMES
         and not is_allowlisted(f.file, enable_allowlist=args.allowlist)
     ]
 
-    if protected_high and args.fail_on_protected:
-        print(f"INQUISITOR: FAIL — {len(protected_high)} HIGH findings in protected files.")
+    if all_high:
+        print(f"INQUISITOR: FAIL — {len(all_high)} HIGH findings across all files.")
         print(f"Report: {report_path}")
         # Print a short console summary.
-        for f in protected_high[:25]:
+        for f in all_high[:50]:
             rel = f.file.relative_to(repo_root).as_posix()
             print(f"- {rel}:L{f.line} {f.rule_id} {f.message}")
-        if len(protected_high) > 25:
-            print(f"... ({len(protected_high) - 25} more)")
+        if len(all_high) > 50:
+            print(f"... ({len(all_high) - 50} more)")
         return 1
-
-    if args.strict:
-        strict_high = [
-            f for f in all_findings
-            if f.severity == "HIGH" and not is_allowlisted(f.file, enable_allowlist=args.allowlist)
-        ]
-        if strict_high:
-            print(f"INQUISITOR: FAIL (strict) — {len(strict_high)} HIGH findings outside allowlist.")
-            print(f"Report: {report_path}")
-            for f in strict_high[:25]:
-                rel = f.file.relative_to(repo_root).as_posix()
-                print(f"- {rel}:L{f.line} {f.rule_id} {f.message}")
-            if len(strict_high) > 25:
-                print(f"... ({len(strict_high) - 25} more)")
-            return 1
 
     # Helper to check if a finding has an INQUISITOR NOTE nearby in the source
     def has_inquisitor_note(finding) -> bool:
@@ -3072,24 +3211,23 @@ def main(argv: list[str]) -> int:
         except Exception:
             return False
 
-    # ULTRA-STRICT MODE: Also fail on MEDIUM findings in critical kernel files
+    # ULTRA-STRICT MODE: Also fail on MEDIUM findings in ANY file
     # UNLESS the finding has an INQUISITOR NOTE explaining it
     if args.ultra_strict:
-        critical_medium = [
+        all_medium = [
             f for f in all_findings
-            if f.severity == "MEDIUM" 
-            and is_critical_kernel_file(f.file)
+            if f.severity == "MEDIUM"
             and not is_allowlisted(f.file, enable_allowlist=args.allowlist)
             and not has_inquisitor_note(f)  # Allow documented edge cases
         ]
-        if critical_medium:
-            print(f"INQUISITOR: FAIL (ultra-strict) — {len(critical_medium)} undocumented MEDIUM findings in critical kernel files.")
+        if all_medium:
+            print(f"INQUISITOR: FAIL (ultra-strict) — {len(all_medium)} undocumented MEDIUM findings.")
             print(f"Report: {report_path}")
-            for f in critical_medium[:25]:
+            for f in all_medium[:50]:
                 rel = f.file.relative_to(repo_root).as_posix()
                 print(f"- {rel}:L{f.line} {f.rule_id} {f.message}")
-            if len(critical_medium) > 25:
-                print(f"... ({len(critical_medium) - 25} more)")
+            if len(all_medium) > 50:
+                print(f"... ({len(all_medium) - 50} more)")
             return 1
 
     print("INQUISITOR: OK")

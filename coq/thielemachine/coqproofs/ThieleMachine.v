@@ -370,7 +370,7 @@ Theorem ThieleMachine_universal :
     replay_ok P s0 (receipts_of s0 tr) = true
     /\ Z.le (sum_bits (receipts_of s0 tr)) (sum_mu tr).
 Proof.
-  intros P s0 tr WF HEX.
+  intros P s0 tr _ HEX.
   split.
   - apply (replay_of_exec P s0 tr HEX).
   - apply (mu_pays_bits_exec P s0 tr HEX).

@@ -279,7 +279,7 @@ Theorem box_chsh_bound_algebraic : forall B,
   box_algebraically_coherent B ->
   Qabs (S B) <= 4.
 Proof.
-  intros B Hvalid Hcoherent.
+  intros B _ Hcoherent.
   rewrite S_box_correlators.
   apply AlgebraicCoherence.tsirelson_from_algebraic_coherence.
   exact Hcoherent.

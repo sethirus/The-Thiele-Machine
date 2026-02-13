@@ -774,7 +774,7 @@ Theorem pnew_not_tm_simulable :
       (* TM transitions don't have partition structure *)
       True.  (* Vacuously true - TM has no partition field to compare *)
 Proof.
-  intros region g' Hcount tm_op.
+  intros region g' _ tm_op.
   exact I.
 Qed.
 

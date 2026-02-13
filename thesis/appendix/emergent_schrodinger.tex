@@ -1,7 +1,7 @@
 \chapter{Emergent Schrodinger Equation Proof}
 \label{app:schrodinger}
 
-This appendix contains the auto-generated Coq proof verifying that the Thiele Machine has successfully rediscovered the Schrodinger equation from raw data. The proof establishes structural equivalence between the discovered update rules and the finite-difference discretization of the Schrodinger equation.
+This appendix contains the auto-generated Coq proof verifying that regression coefficients extracted from simulation data are structurally equivalent to the finite-difference discretization of the Schrodinger equation. The coefficients were extracted by an external regression; the Coq proof confirms algebraic consistency, not autonomous discovery.
 
 \begin{lstlisting}[
   language=Caml,
@@ -88,8 +88,8 @@ Definition target_update_b (b lap_a Va : Q) : Q :=
     We prove that the discovered update rules are structurally equivalent 
     to the finite-difference discretization of the Schrodinger equation.
     
-    This confirms that the machine has "rediscovered" the correct physical law
-    from the data, rather than just fitting random coefficients.
+    This confirms that the externally extracted coefficients match the correct
+    finite-difference form, rather than being random fits.
 *)
 
 Theorem structural_equivalence :

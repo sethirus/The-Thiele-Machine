@@ -52,7 +52,7 @@ Theorem direct_sum_violates_independence : forall p1 p2,
     (* ...we can infer something about p2 from observing p1 *)
     observation = direct_sum_information p1 p2.
 Proof.
-  intros p1 p2 Hdisj.
+  intros p1 p2 _.
   exists (direct_sum_information p1 p2).
   reflexivity.
 Qed.
@@ -115,7 +115,7 @@ Remark tensor_product_enables_locality : forall p1 p2,
   (* - Unlike direct sum where dim_total = dim_p1 + dim_p2 couples them *)
   True.
 Proof.
-  intros p1 p2 Hdisj Hmult.
+  intros p1 p2 _ _.
   (* The multiplicative structure itself guarantees independence:
      Given: total = d1 × d2
      Measuring d1 does NOT uniquely determine d2

@@ -159,6 +159,7 @@ def test_rtl_python_coq_compute_isomorphism() -> None:
     ]
 
     trace_lines = [
+        "FUEL 64",
         "XOR_LOAD 0 0 0",
         "XOR_LOAD 1 1 0",
         "XOR_LOAD 2 2 0",
@@ -168,14 +169,14 @@ def test_rtl_python_coq_compute_isomorphism() -> None:
         "XOR_SWAP 0 3 0",
         "XFER 4 2 0",
         "XOR_RANK 5 4 0",
+        "HALT 0",
     ]
 
     py_regs, py_mem = _run_python_vm(init_mem, init_regs, program_text)
-    # coq_regs, coq_mem = _run_extracted(init_mem, init_regs, trace_lines)
+    coq_regs, coq_mem = _run_extracted(init_mem, init_regs, trace_lines)
     rtl_regs, rtl_mem = _run_rtl(program_words, init_mem)
 
-    assert py_regs == rtl_regs
-    assert py_mem == rtl_mem
-    # Coq check disabled due to environment issues with extracted runner
-    # assert py_regs == coq_regs == rtl_regs
-    # assert py_mem == coq_mem == rtl_mem
+    assert py_regs == coq_regs == rtl_regs, (
+        f"Register mismatch:\n  Python:  {py_regs[:8]}\n  Coq:     {coq_regs[:8]}\n  Verilog: {rtl_regs[:8]}"
+    )
+    assert py_mem == coq_mem == rtl_mem, "Memory mismatch between Python, Coq, and Verilog"

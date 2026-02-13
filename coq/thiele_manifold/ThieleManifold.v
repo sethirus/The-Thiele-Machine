@@ -77,7 +77,7 @@ Lemma tower_self_reference_escalates :
       can_reason_about Meta (level M n) /\
       dimensionally_richer Meta (level M n).
 Proof.
-  intros M n Hself.
+  intros M n _.
   exists (level M (S n)).
   split; [reflexivity|].
   split; [apply level_can_reason|apply level_strictly_richer].

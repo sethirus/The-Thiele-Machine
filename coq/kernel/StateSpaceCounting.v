@@ -184,7 +184,7 @@ Theorem nofreeinsight_information_theoretic_bound :
     (** Therefore: k ≥ log₂(state_space_before / state_space_after) *)
     k >= log2_nat (Nat.pow 2 k).
 Proof.
-  intros k Hk.
+  intros k _.
   unfold log2_nat.
   rewrite log2_pow2.
   rewrite Nat.eqb_refl.
