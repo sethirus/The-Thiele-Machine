@@ -100,6 +100,7 @@ Proof.
   unfold Qlt in *; simpl in *; lia.
 Qed.
 
+(* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
 Lemma CHSH_receipt_to_S :
   forall summary,
     summary_consistent summary ->

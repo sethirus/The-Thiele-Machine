@@ -18,8 +18,6 @@ def _tool_available(name: str) -> bool:
     reason="open-source FPGA tools not available",
 )
 def test_openfpga_ecp5_bitstream_generation() -> None:
-    if os.environ.get("OPENFPGA_PNR") != "1":
-        pytest.skip("OPENFPGA_PNR not enabled")
     repo_root = Path(__file__).resolve().parents[1]
     rtl_dir = repo_root / "thielecpu" / "hardware" / "rtl"
     top_verilog = rtl_dir / "thiele_cpu_unified.v"
@@ -31,20 +29,54 @@ def test_openfpga_ecp5_bitstream_generation() -> None:
         bit_out = workdir / "thiele_cpu.bit"
 
         cpu_count = os.cpu_count() or 2
-        threads = max(1, (cpu_count + 1) // 2)  # ceil(n/2) threads to match automated_verification.sh
+        threads = max(1, (cpu_count + 1) // 2)
+
+        # Write a yosys script that skips the 'share' pass.
+        # The share pass explodes combinatorially on the region_table
+        # $memrd cells (SAT activation patterns double per cell).
+        ys_script = workdir / "synth.ys"
+        ys_script.write_text(
+            f"read_verilog -sv -nomem2reg -DSYNTHESIS -DYOSYS_LITE "
+            f"-I {rtl_dir} {top_verilog}\n"
+            # begin label (hierarchy):
+            f"synth_ecp5 -top thiele_cpu -run begin:coarse\n"
+            # coarse sub-passes WITHOUT share:
+            "proc\n"
+            "flatten\n"
+            "tribuf -logic\n"
+            "deminout\n"
+            "opt_expr\n"
+            "opt_clean\n"
+            "check\n"
+            "opt -nodffe -nosdff\n"
+            "fsm\n"
+            "opt\n"
+            "wreduce\n"
+            "peepopt\n"
+            "opt_clean\n"
+            # skip: share  (causes exponential blowup on region_table)
+            "techmap -map +/cmp2lut.v -D LUT_WIDTH=4\n"
+            "opt_expr\n"
+            "opt_clean\n"
+            "techmap -map +/mul2dsp.v -map +/ecp5/dsp_map.v "
+            "-D DSP_A_MAXWIDTH=18 -D DSP_B_MAXWIDTH=18 "
+            "-D DSP_A_MINWIDTH=2 -D DSP_B_MINWIDTH=2 "
+            "-D DSP_NAME=$__MUL18X18\n"
+            "chtype -set $mul t:$__soft_mul\n"
+            "alumacc\n"
+            "opt\n"
+            "memory -nomap\n"
+            "opt_clean\n"
+            # resume from map_ram through end:
+            f"synth_ecp5 -top thiele_cpu -run map_ram: -json {json_out}\n"
+        )
         subprocess.run(
-            [
-                "yosys",
-                "-p",
-                "read_verilog -sv -nomem2reg -DSYNTHESIS -DYOSYS_LITE "
-                f"-I {rtl_dir} {top_verilog}; "
-                f"synth_ecp5 -top thiele_cpu -json {json_out}",
-            ],
+            ["yosys", "-s", str(ys_script)],
             check=True,
             capture_output=True,
             text=True,
             cwd=str(repo_root),
-            timeout=1200,  # align with automated_verification.sh default
+            timeout=1200,
         )
         subprocess.run(
             [

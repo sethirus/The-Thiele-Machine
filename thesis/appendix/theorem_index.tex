@@ -40,7 +40,7 @@ This appendix provides a comprehensive index of formally verified theorems, orga
 Key theorems include:
 \begin{itemize}
     \item \texttt{vm\_step\_deterministic} (SimulationProof.v): Single-step execution is deterministic
-    \item \texttt{vm\_is\_a\_correct\_refinement\_of\_kernel} (SimulationProof.v): VM implementation refines kernel spec
+    \item \texttt{vm\_is\_a\_correct\_refinement\_of\_kernel} (SimulationProof.v): VM implementation refines kernel spec (witness construction: proves existence of a related kernel state but does not show the kernel TM actually reaches it via \texttt{step\_thiele})
     \item \texttt{normalize\_region\_idempotent} (VMState.v): Region normalization is stable
     \item \texttt{obs\_equiv\_refl}, \texttt{obs\_equiv\_sym}, \texttt{obs\_equiv\_trans} (KernelPhysics.v): Observational equivalence is an equivalence relation
     \item \texttt{observational\_no\_signaling} (KernelPhysics.v): No-signaling from observational structure
@@ -182,7 +182,7 @@ Key theorems include:
     \item \texttt{simulation\_correctness\_trials} (FiniteQuantum\_to\_Kernel.v, BoxWorld\_to\_Kernel.v): Bridge simulation correctness
     \item \texttt{tsirelson\_envelope\_program\_chsh} (FiniteQuantum\_to\_Kernel.v): Tsirelson envelope CHSH
     \item \texttt{supra\_16\_5\_program\_chsh} (BoxWorld\_to\_Kernel.v): Supra-quantum box world CHSH
-    \item \texttt{python\_mu\_ledger\_isomorphism} (PythonMuLedgerBisimulation.v): Python--Coq ledger bisimulation
+    \item \texttt{python\_mu\_ledger\_isomorphism} (PythonMuLedgerBisimulation.v): Python--Coq ledger simulation (forward refinement)
     \item \texttt{decodes\_to\_self} (Causal\_to\_Kernel.v, Tomography\_to\_Kernel.v, Entropy\_to\_Kernel.v): Channel decode identity
 \end{itemize}
 

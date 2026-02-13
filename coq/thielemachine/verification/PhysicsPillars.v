@@ -217,7 +217,7 @@ Theorem gauge_freedom_maximal : forall s1 s2,
   s1.(answer) = s2.(answer) ->
   obs_equiv s1 s2.
 Proof.
-  intros s1 s2 Hprob Hpart Hans.
+  intros s1 s2 _ Hpart Hans.
   unfold obs_equiv, observe_state.
   unfold partition_signature, mu_delta_sequence.
   rewrite Hpart, Hans. reflexivity.

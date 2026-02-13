@@ -606,7 +606,7 @@ The total cost $\mu$ is conserved. The blind trace pays primarily in $\mu_{\text
 This workload is a purely ledger-level falsifier for a common loophole: claiming large structured insight while paying negligible $\mu$.
 
 \paragraph{From first principles.}
-Fix a buffer containing $n$ logical records. If the records are unconstrained, a ``random'' buffer can represent many microstates; in the toy model used here, we treat the erase as having no additional structural certificate beyond the erase itself.
+Fix a buffer containing $n$ logical records. If the records are unconstrained, a ``random'' buffer can represent many microstates; in the toy model used here, I treat the erase as having no additional structural certificate beyond the erase itself.
 
 Now impose the structure claim: ``the records are sorted.'' Without changing the physical erase operation, this structure restricts the space of consistent microstates by a factor of $n!$ (all permutations collapse to one canonical ordering). In information terms, the reduction is
 \[
@@ -981,4 +981,4 @@ The evaluation demonstrates:
     \item \textbf{Reproducibility}: All results can be reproduced from the published traces and artifact bundles
 \end{enumerate}
 
-The empirical results validate the theoretical claims: the Thiele Machine enforces structural accounting as a physical law, not merely as a convention.
+The empirical results validate the theoretical claims: the Thiele Machine enforces structural accounting as a machine invariant, verified across all three implementation layers.

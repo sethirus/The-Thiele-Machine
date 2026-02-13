@@ -216,7 +216,7 @@ Theorem halt_is_absorbing :
     obs_halted s = true ->
     obs_halted (abstract_step s AI_HALT) = true.
 Proof.
-  intros s Hhalt.
+  intros s _.
   simpl. reflexivity.
 Qed.
 

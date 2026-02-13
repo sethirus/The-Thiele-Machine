@@ -36,20 +36,26 @@ The hardware implementation consists of a synthesizable Verilog core plus suppor
 
 \subsection{Core Modules}
 
+The complete RTL consists of 7 synthesizable source files and 8 testbench files (15 Verilog files total):
+
 \begin{center}
-\begin{tabular}{|l|l|}
+{\footnotesize
+\begin{tabular}{|l|r|l|}
 \hline
-\textbf{Module} & \textbf{Purpose} \\
+\textbf{RTL Module} & \textbf{Lines} & \textbf{Purpose} \\
 \hline
-CPU core & Fetch/decode/execute pipeline for the ISA \\
-$\mu$-ALU & $\mu$-cost arithmetic unit (addition only) \\
-$\mu$-Core & Cost accounting engine and ledger storage \\
-MMU & Memory management unit \\
-LEI & Logic engine interface \\
-State serializer & JSON state export for isomorphism checks (integrated into testbench) \\
+\texttt{thiele\_cpu\_unified.v} & 1,413 & Unified fetch/decode/execute pipeline \\
+\texttt{partition\_core.v} & 251 & PNEW/PSPLIT/PMERGE partition operations \\
+\texttt{chsh\_partition.v} & 330 & CHSH supra-quantum distribution engine \\
+\texttt{mu\_core.v} & 188 & $\mu$-ledger enforcement and monotonicity gate \\
+\texttt{mu\_alu.v} & 167 & Q16.16 fixed-point cost arithmetic \\
+\texttt{receipt\_integrity\_checker.v} & 120 & Hardware receipt chain validation \\
+\texttt{synth\_lite\_out.v} & --- & Yosys gate-level synthesis output \\
 \hline
-\end{tabular}
+\end{tabular}}
 \end{center}
+
+Each accelerator module (\texttt{partition\_core}, \texttt{mu\_alu}, \texttt{receipt\_integrity\_checker}, \texttt{chsh\_partition}) has a standalone co-simulation harness in \path{thielecpu/hardware/accel\_cosim.py} that generates testbenches, runs them through iverilog, and parses JSON output for cross-layer comparison. This means every accelerator block is independently testable against Python reference implementations---you don't need to run the full CPU to verify that the $\mu$-ALU computes $1.5 + 2.25 = 3.75$ correctly in Q16.16.
 
 \subsection{Instruction Encoding}
 
@@ -383,7 +389,7 @@ def test_rtl_matches_python():
     \item \textbf{assert python\_result.regs == rtl\_result["regs"]} — Compares register arrays element-wise. If unequal, data flow diverged (ALU bug, memory bug, or serialization bug).
 \end{itemize}
 
-\textbf{Why is this test critical?} The isomorphism property is the thesis's central claim: the Python VM, extracted runner, and RTL simulation are three implementations of the same abstract machine. This test falsifies the claim if any field differs. With 10,000 test traces passing, we have strong evidence that all three layers implement identical semantics.
+\textbf{Why is this test critical?} The isomorphism property is the thesis's central claim: the Python VM, extracted runner, and RTL simulation are three implementations of the same abstract machine. This test falsifies the claim if any field differs. With 10,000 test traces passing, there's strong evidence that all three layers implement identical semantics.
 
 
 \section{Demonstration Suite}

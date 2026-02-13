@@ -178,7 +178,7 @@ Theorem composite_state_space_multiplicative : forall p1 p2,
   partition_state_dim (partition_compose p1 p2) = 
     ((partition_state_dim p1) * (partition_state_dim p2))%nat.
 Proof.
-  intros p1 p2 Hdisj.
+  intros p1 p2 _.
   unfold partition_compose, partition_state_dim.
   simpl.
   

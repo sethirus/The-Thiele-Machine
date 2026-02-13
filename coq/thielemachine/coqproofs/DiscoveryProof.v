@@ -533,7 +533,7 @@ Lemma spectral_produces_partition : forall n labels k,
   (forall label, In label labels -> label < k) ->
   is_valid_partition (assign_to_clusters n labels) n.
 Proof.
-  intros n labels k Hlen Hk Hlabels.
+  intros n labels k _ _ _.
   unfold is_valid_partition.
   apply assign_to_clusters_flatten.
 Qed.
@@ -567,7 +567,7 @@ Theorem discovery_produces_valid_partition_PROVEN :
     exists p : PartitionCandidate,
       is_valid_partition (modules p) (problem_size prob).
 Proof.
-  intros prob Hn.
+  intros prob _.
   exists {| modules := trivial_valid_partition_asc 1 (problem_size prob);
            mdl_cost := 0;
            discovery_cost := 0 |}.

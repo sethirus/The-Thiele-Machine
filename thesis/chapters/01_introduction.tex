@@ -189,7 +189,7 @@ Beyond these, the Coq development proves that $\mu$ is not just \emph{a} valid c
 
 \section{Methodology: The 3-Layer Isomorphism}
 
-The model isn't just described---it's built three times, in three different languages. Bisimulation proofs in Coq formally establish equivalence. Automated test suites enforce it empirically on every commit.
+The model isn't just described---it's built three times, in three different languages. Simulation proofs in Coq establish a refinement relation between the VM layer and the kernel TM specification. Automated test suites enforce observable equivalence empirically on every commit.
 
 \subsection{Layer 1: Coq (The Proofs)}
 
@@ -208,13 +208,13 @@ The mathematical ground truth. Machine-checked proofs that the compiler verifies
     
     \item \textbf{Subsumption}: Thiele Machine strictly subsumes Turing Machine, with proper simulation via Minsky encoding
     
-    \item \textbf{Quantum foundations}: Tsirelson bound derived from pure accounting, Born rule from symmetry, no-cloning from $\mu$-monotonicity, CHSH hierarchy (classical/quantum/supra-quantum) as cost tiers
+    \item \textbf{Quantum foundations}: Tsirelson bound from row-norm algebra, Born rule from linearity/tensor consistency, no-cloning from conservation constraints---physics enters via hypotheses, proofs verify entailment. CHSH hierarchy (classical/quantum/supra-quantum) as cost tiers
     
     \item \textbf{Revelation requirement}: CHSH $S > 2\sqrt{2}$ requires explicit revelation
     
     \item \textbf{No Free Insight}: strengthening predicates requires charged revelation
     
-    \item \textbf{Verification chain}: bisimulation proofs linking Coq semantics to Python VM and hardware RTL
+    \item \textbf{Verification chain}: simulation/refinement proofs linking Coq semantics to Python VM and hardware RTL
     
     \item \textbf{Non-circularity audit}: mechanized defense against ``smuggled constraint'' attacks
 \end{itemize}
@@ -298,7 +298,7 @@ Every claim is falsifiable. Find a counterexample. Break the proofs. I dare you.
     
     \item \textbf{Observational No-Signaling:} Operations on one module can't affect observables of unrelated modules—computational Bell locality.
     
-    \item \textbf{3-Layer Isomorphism:} Coq semantics, Python VM, and Verilog RTL produce identical observable projections for any instruction trace. Bisimulation proofs in Coq (\path{coq/kernel/PythonBisimulation.v}, \path{coq/kernel/HardwareBisimulation.v}) plus automated cross-layer test suites enforce this.
+    \item \textbf{3-Layer Isomorphism:} Coq semantics, Python VM, and Verilog RTL produce identical observable projections for any instruction trace. Refinement proofs in Coq (\path{coq/kernel/PythonBisimulation.v}, \path{coq/kernel/HardwareBisimulation.v}) establish simulation relations; automated cross-layer test suites verify observable agreement empirically.
     
     \item \textbf{The Inquisitor Standard:} Zero-admit, zero-axiom enforcement via 40+ static analysis rules covering circularity, tautology, smuggled constraints, and proof shortcuts. CI-enforced on every commit.
     

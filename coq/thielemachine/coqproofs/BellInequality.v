@@ -470,7 +470,7 @@ Lemma Qabs_le_bound :
     x <= y ->
     Qabs x <= y.
 Proof.
-  intros x y Hy Hlow Hhigh.
+  intros x y _ Hlow Hhigh.
   unfold Qabs.
   remember (Qle_bool 0 x) as b eqn:Hb.
   destruct b.
@@ -607,7 +607,7 @@ Lemma local_E_decompose :
     forall x y,
       E B x y == sum_strategies (fun s => w s * strategy_E s x y).
 Proof.
-  intros B w Hwpos Hsum Hwitness x y.
+  intros B w _ _ Hwitness x y.
   unfold E.
   set (F := fun s a b =>
               let '(rA, rB) := s in

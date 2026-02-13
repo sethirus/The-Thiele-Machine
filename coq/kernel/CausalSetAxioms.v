@@ -133,7 +133,7 @@ Theorem causal_interval_finite : forall g mid1 mid2,
   exists bound, bound = pg_next_id g /\
     forall mid, In mid (graph_module_ids g) -> mid < bound.
 Proof.
-  intros g mid1 mid2 Hwf H1 H2.
+  intros g mid1 mid2 Hwf _ _.
   exists (pg_next_id g).
   split.
   - reflexivity.

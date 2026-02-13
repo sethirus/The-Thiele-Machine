@@ -6,7 +6,7 @@
 
 \subsection{Computation as Physics}
 
-A central claim of this thesis is that computation is not merely an abstract mathematical process---it is a \textit{physical} process subject to physical laws. When a computer erases a bit, it dissipates heat. When it stores information, it consumes energy. The $\mu$-ledger tracks these physical costs.
+A central claim of this thesis is that computation is not merely an abstract mathematical process---it is a \textit{physical} process subject to physical laws. When a computer erases a bit, it dissipates heat. When it stores information, it consumes energy. The $\mu$-ledger tracks abstract structural costs that I hypothesize correspond to these physical costs via an explicit bridge postulate (\S7.2).
 
 To validate this connection, the Coq framework includes explicit physics models:
 \begin{itemize}
@@ -32,7 +32,7 @@ This chapter documents the physics models that demonstrate emergent conservation
 \section{Physics Models}
 
 
-The formal development contains verified physics models that demonstrate how physical laws emerge from computational structure.
+The formal development contains verified physics models that demonstrate structural parallels between the kernel's conservation laws and physical conservation laws. The physics enters through the model's design choices---what these proofs show is that those choices are internally consistent and produce dynamics with physically recognizable structure.
 
 \subsection{Wave Propagation Model}
 
@@ -138,11 +138,11 @@ These proofs demonstrate that even simple computational models exhibit physical-
 
 The dissipative model captures irreversible dynamics, connecting to $\mu$-monotonicity of the kernel. This irreversibility underpins the arrow of time itself.
 
-The Thiele Machine derives the arrow of time as a theorem rather than assuming it as a postulate. The complete derivation chain, formalized in \texttt{coq/kernel/ArrowOfTimeSynthesis.v}, is:
+The Thiele Machine constructs a formal arrow of time from the kernel's accounting. The derivation chain, formalized in \texttt{coq/kernel/ArrowOfTimeSynthesis.v}, is:
 \[
-\text{vm\_step costs} \;\Rightarrow\; \mu\text{-monotonicity} \;\Rightarrow\; \text{irreversibility} \;\Rightarrow\; \text{second law} \;\Rightarrow\; \text{temporal ordering} \;\Rightarrow\; \text{arrow of time}
+\text{vm\_step costs} \;\Rightarrow\; \mu\text{-monotonicity} \;\Rightarrow\; \text{irreversibility} \;\Rightarrow\; \text{temporal ordering} \;\Rightarrow\; \text{arrow of time}
 \]
-The key insight is that $\mu$-monotonicity defines a total preorder on states: if $\mu(s') \geq \mu(s)$, then $s'$ is ``later'' than $s$. When $\mu$ strictly increases, this ordering is asymmetric---time cannot flow backwards. This connects directly to Landauer's principle: each irreversible bit operation contributes $k_B T \ln 2$ of dissipation, and $\mu$ counts exactly these operations. The formal proof (\texttt{arrow\_of\_time\_derived}) collects all levels into a single constructive record with zero admits.
+The key insight is that $\mu$-monotonicity defines a total preorder on states: if $\mu(s') \geq \mu(s)$, then $s'$ is ``later'' than $s$. When $\mu$ strictly increases, this ordering is asymmetric---time cannot flow backwards. An important caveat: $\mu$-monotonicity is true by construction, because costs are natural numbers that only accumulate. So the ``second law'' here is a design feature of the accounting, not a thermodynamic discovery. The structural parallel to Landauer's principle is real---each irreversible operation has positive $\mu$-cost---but the parallel is between two monotone quantities, not a derivation of one from the other. The formal proof (\texttt{arrow\_of\_time\_derived}) collects all levels into a single constructive record with zero admits.
 
 \paragraph{Measurement as Irreversible Revelation.}
 
@@ -152,7 +152,7 @@ The dissipative model also offers a framework for the quantum measurement proble
     \item \textbf{Sequential composition:} Multiple REVEALs accumulate cost additively (\texttt{sequential\_measurement\_cost})
     \item \textbf{Irreversibility:} Any non-trivial measurement costs $\mu > 0$ (\texttt{reveal\_irreversible})
 \end{itemize}
-The Born rule emerges from information-theoretic accounting (\texttt{BornRule.v}) and is independently derived from tensor product consistency alone in \texttt{BornRuleFromSymmetry.v}, eliminating any circularity concern. Post-measurement state is uniquely determined by maximum information extraction (\texttt{CollapseDetermination.v}), and measurement irreversibility follows from $\mu$-monotonicity (\texttt{ObservationIrreversibility.v}). Together, these proofs suggest that ``collapse'' may be what information extraction looks like when structural cost is tracked---not a resolution, but a concrete formal framework that makes the question amenable to mechanized reasoning.
+The Born rule follows from conservation-shaped hypotheses in \texttt{BornRule.v}---the physics enters through the linearity and normalization assumptions, which encode the quantum content. An independent path through tensor product consistency in \texttt{BornRuleFromSymmetry.v} provides a separate derivation, though both routes rely on hypotheses that assume the structure they recover. Post-measurement state is uniquely determined by maximum information extraction (\texttt{CollapseDetermination.v}), and measurement irreversibility follows from $\mu$-monotonicity (\texttt{ObservationIrreversibility.v}). Together, these proofs suggest that ``collapse'' may be what information extraction looks like when structural cost is tracked---not a resolution, but a concrete formal framework that makes the question amenable to mechanized reasoning.
 
 \subsection{Discrete Spacetime Model}
 
@@ -186,11 +186,11 @@ The relationship between Planck's constant $h$ and Landauer's principle establis
 
 \paragraph{Important Clarification:}
 
-\textbf{This is NOT a derivation of $h$ from first principles.} The Coq proof establishes that the relationship $h = 4 E_{\text{landauer}} \tau_\mu$ is algebraically consistent, but $\tau_\mu$ is \textit{computed from known $h$}, not independently derived. We are working backwards, not forwards.
+\textbf{This is NOT a derivation of $h$ from first principles.} The Coq proof establishes that the relationship $h = 4 E_{\text{landauer}} \tau_\mu$ is algebraically consistent, but $\tau_\mu$ is \textit{computed from known $h$}, not independently derived. I'm working backwards, not forwards.
 
 \paragraph{The Core Relationship:}
 
-Starting from Landauer's principle $E_{\text{landauer}} = k_B T \ln 2$, we \textit{define} the fundamental $\mu$-time scale as:
+Starting from Landauer's principle $E_{\text{landauer}} = k_B T \ln 2$, I \textit{define} the fundamental $\mu$-time scale as:
 \[
 \tau_\mu := \frac{h}{4 E_{\text{landauer}}} = \frac{h}{4 k_B T \ln 2}
 \]
@@ -323,7 +323,7 @@ The gravitational constant $G$ resists derivation. The formal analysis is in \pa
     \item \textbf{Holographic principle:} $S = \frac{A c^3}{4G\hbar}$ (Bekenstein-Hawking entropy)
     \begin{itemize}
         \item Requires independent determination of $S$ and $A$
-        \item Circular: $G$ appears in the formula we're trying to derive
+        \item Circular: $G$ appears in the formula I'm trying to derive
     \end{itemize}
     
     \item \textbf{Newton's law:} $F = \frac{Gm_1 m_2}{r^2}$

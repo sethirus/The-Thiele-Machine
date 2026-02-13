@@ -272,31 +272,21 @@ class TestMuALU:
 
     def test_add_operation(self):
         """μ-ALU ADD: 1.5 + 2.25 = 3.75."""
-        try:
-            results = _run_accel_mu_alu([
-                {"op": "ADD", "a": self._q16_16(1.5), "b": self._q16_16(2.25)},
-            ])
-        except RuntimeError as e:
-            if "syntax error" in str(e):
-                pytest.skip("mu_alu cosim testbench has known syntax issue")
-            raise
-        if results:
-            result_f = self._from_q16_16(results[0]["result"])
-            assert abs(result_f - 3.75) < 0.01
+        results = _run_accel_mu_alu([
+            {"op": "ADD", "a": self._q16_16(1.5), "b": self._q16_16(2.25)},
+        ])
+        assert results, "mu_alu returned no results"
+        result_f = self._from_q16_16(results[0]["result"])
+        assert abs(result_f - 3.75) < 0.01
 
     def test_sub_operation(self):
         """μ-ALU SUB: 5.0 - 2.0 = 3.0."""
-        try:
-            results = _run_accel_mu_alu([
-                {"op": "SUB", "a": self._q16_16(5.0), "b": self._q16_16(2.0)},
-            ])
-        except RuntimeError as e:
-            if "syntax error" in str(e):
-                pytest.skip("mu_alu cosim testbench has known syntax issue")
-            raise
-        if results:
-            result_f = self._from_q16_16(results[0]["result"])
-            assert abs(result_f - 3.0) < 0.01
+        results = _run_accel_mu_alu([
+            {"op": "SUB", "a": self._q16_16(5.0), "b": self._q16_16(2.0)},
+        ])
+        assert results, "mu_alu returned no results"
+        result_f = self._from_q16_16(results[0]["result"])
+        assert abs(result_f - 3.0) < 0.01
 
 
 # ═══════════════════════════════════════════════════════════════════════

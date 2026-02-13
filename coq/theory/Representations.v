@@ -76,7 +76,7 @@ Section Representations.
     dim A = N ->
     exists (search : @Universality.Prog Obj Gen A A), True.
   Proof.
-    intros N A Hdim.
+    intros N A _.
     (* To find 1 marked item among N, we need to distinguish N possibilities.
        Each Oracle query provides O(1) information (1 bit ideally).
        By information theory, log₂(N) bits required.

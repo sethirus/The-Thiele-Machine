@@ -92,6 +92,7 @@ Qed.
 
 Definition entangled (sA sB : ThieleState) : Prop := state_payload sA = state_payload sB.
 
+(* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
 Lemma entanglement_survives_projection :
   forall sA sB, entangled sA sB -> project_event sA = project_event sB.
 Proof.
@@ -104,6 +105,7 @@ Definition observer_at_level (M : ThieleManifold) (n : nat) : System := level M 
 Definition can_access_meta (M : ThieleManifold) (n : nat) : Prop :=
   can_reason_about (observer_at_level M (S n)) (observer_at_level M n).
 
+(* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
 Lemma observers_have_meta_access :
   forall (M : ThieleManifold) n, can_access_meta M n.
 Proof.

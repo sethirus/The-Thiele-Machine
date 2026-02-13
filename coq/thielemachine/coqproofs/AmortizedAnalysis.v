@@ -142,7 +142,7 @@ Corollary amortization_enables_scalability :
         T >= 100 ->
         length instances >= 100.
 Proof.
-  intros problem_family thiele_solver H_structure.
+  intros problem_family thiele_solver _.
   (* The optimal cost exists by the structure hypothesis *)
   exists 1000.  (* Optimal cost from structure hypothesis *)
   intros T instances H_len H_T.

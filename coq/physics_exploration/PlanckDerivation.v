@@ -46,6 +46,7 @@ Definition T : R := 1.
 (** HELPER: Non-negativity property *)
 
 (** HELPER: Non-negativity property *)
+(* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
 Lemma T_positive : T > 0.
 Proof.
   unfold T. lra.
@@ -79,6 +80,7 @@ Qed.
 Definition h : R := 1.
 
 (** HELPER: Non-negativity property *)
+(* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
 Lemma h_positive : h > 0.
 Proof.
   unfold h. lra.

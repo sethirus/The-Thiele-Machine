@@ -12,6 +12,7 @@ Tests verify:
 - Observational equivalence at each step
 """
 
+import shutil
 import subprocess
 import tempfile
 from collections.abc import Callable as CallableType
@@ -24,6 +25,11 @@ import pytest
 
 from thielecpu.state import State, ModuleId, MAX_MODULES
 from thielecpu.isa import Opcode
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+RUNNER_BIN = REPO_ROOT / "build" / "extracted_vm_runner"
+HARDWARE_DIR = REPO_ROOT / "thielecpu" / "hardware"
+RTL_DIR = HARDWARE_DIR / "rtl"
 
 
 # =============================================================================
@@ -138,14 +144,65 @@ def execute_python(program: List[Instruction]) -> ProgramTrace:
 # =============================================================================
 
 def execute_coq(program: List[Instruction]) -> Optional[ProgramTrace]:
-    """Execute program via Coq extraction (if available).
+    """Execute program via Coq-extracted OCaml runner.
 
-    Note: This requires Coq extraction to be set up. For now, returns None
-    and we rely on semantic equivalence proofs.
+    Converts partition-centric Instruction list into trace format
+    for build/extracted_vm_runner and parses JSON output.
     """
-    # TODO: Implement Coq extraction pipeline
-    # For now, mark as skipped
-    return None
+    if not RUNNER_BIN.exists():
+        pytest.skip("Coq-extracted runner not built (build/extracted_vm_runner)")
+        return None
+
+    trace_lines = ["FUEL 256"]
+    for instr in program:
+        if instr.opcode == "PNEW":
+            region = instr.operands[0]
+            if isinstance(region, set):
+                region_str = "{" + ",".join(str(x) for x in sorted(region)) + "}"
+            else:
+                region_str = "{" + str(region) + "}"
+            trace_lines.append(f"PNEW {region_str} {instr.cost}")
+        elif instr.opcode == "PSPLIT":
+            # PSPLIT in the Coq runner needs: module_id, left_region, right_region, cost
+            # We can't pass a predicate to OCaml; the test must supply explicit regions.
+            # The Python executor captures which regions result, so we fall back.
+            # For now, skip Coq on PSPLIT (predicate-based) tests.
+            return None
+        elif instr.opcode == "PMERGE":
+            m1, m2 = instr.operands
+            m1_val = int(m1)
+            m2_val = int(m2)
+            trace_lines.append(f"PMERGE {m1_val} {m2_val} {instr.cost}")
+        elif instr.opcode == "HALT":
+            trace_lines.append(f"HALT {instr.cost}")
+        else:
+            return None  # Unsupported opcode for Coq trace format
+
+    with tempfile.TemporaryDirectory() as td:
+        trace_path = Path(td) / "trace.txt"
+        trace_path.write_text("\n".join(trace_lines) + "\n", encoding="utf-8")
+
+        result = subprocess.run(
+            [str(RUNNER_BIN), str(trace_path)],
+            capture_output=True, text=True, cwd=str(REPO_ROOT),
+        )
+        if result.returncode != 0:
+            return None
+
+        payload = json.loads(result.stdout)
+
+    # Build ProgramTrace from OCaml runner output
+    final_regions = {}
+    for mod in payload["graph"]["modules"]:
+        final_regions[mod["id"]] = sorted(mod["region"])
+
+    return ProgramTrace(
+        program=program,
+        final_mu=payload["mu"],
+        final_modules=len(payload["graph"]["modules"]),
+        final_regions=final_regions,
+        step_mu=[],  # OCaml runner only gives final state
+    )
 
 
 # =============================================================================
@@ -153,64 +210,70 @@ def execute_coq(program: List[Instruction]) -> Optional[ProgramTrace]:
 # =============================================================================
 
 def execute_verilog(program: List[Instruction]) -> Optional[ProgramTrace]:
-    """Execute program on Verilog simulator (iverilog or cocotb).
+    """Execute partition operations on Verilog partition_core via iverilog.
 
-    This generates a testbench, runs simulation, and parses VCD/log output.
+    Uses accel_cosim infrastructure to run partition_core.v and compare
+    resulting partition state with Python.
     """
-    verilog_rtl = Path(__file__).parent.parent / "thielecpu" / "hardware" / "rtl"
-    testbench_file = verilog_rtl / "thiele_cpu_synth.v"
-
-    if not testbench_file.exists():
-        pytest.skip("Verilog RTL not found")
+    if shutil.which("iverilog") is None:
+        pytest.skip("iverilog not installed")
         return None
 
-    # Generate test stimulus
-    stimulus = []
+    partition_core = RTL_DIR / "partition_core.v"
+    if not partition_core.exists():
+        pytest.skip("partition_core.v not found")
+        return None
+
+    from thielecpu.hardware.accel_cosim import run_partition_core
+
+    operations = []
     for instr in program:
-        stimulus.append(f"        instr_mem[prog_counter] = {instr.to_verilog_hex()};")
-        stimulus.append(f"        prog_counter = prog_counter + 1;")
+        if instr.opcode == "PNEW":
+            region = instr.operands[0]
+            if isinstance(region, set):
+                region_bits = 0
+                for bit in region:
+                    region_bits |= (1 << bit)
+            else:
+                region_bits = (1 << region)
+            operations.append({"op": "PNEW", "region": region_bits, "cost": instr.cost})
+        elif instr.opcode == "PSPLIT":
+            # partition_core PSPLIT needs explicit module_id and left/right masks.
+            # Since the test passes a predicate (not explicit masks), we cannot
+            # translate this to Verilog without first running Python to know the split.
+            return None
+        elif instr.opcode == "PMERGE":
+            m1, m2 = instr.operands
+            # partition_core uses 0-based module indices; Python State uses 1-based.
+            m1_val = int(m1) - 1
+            m2_val = int(m2) - 1
+            operations.append({"op": "PMERGE", "m1": m1_val, "m2": m2_val, "cost": instr.cost})
+        else:
+            return None  # Unsupported opcode for partition_core
 
-    # Create temporary testbench
-    testbench_template = f"""
-module isomorphism_tb;
-    reg clk;
-    reg rst_n;
-    reg [31:0] instr_data;
-    wire [31:0] pc, mu, status;
+    if not operations:
+        return None
 
-    // Instantiate DUT (simplified - actual may differ)
-    // thiele_cpu dut(...);
+    try:
+        results = run_partition_core(operations)
+    except Exception:
+        return None
 
-    // Program memory
-    reg [31:0] instr_mem [0:255];
-    integer prog_counter;
+    if not results:
+        return None
 
-    initial begin
-        clk = 0;
-        forever #5 clk = ~clk;
-    end
+    # mu_cost in partition_core is cumulative — final value is the total
+    last = results[-1]
+    total_mu = last.get("mu_cost", 0)
+    module_count = last.get("num_modules", 0)
 
-    initial begin
-        rst_n = 0;
-        prog_counter = 0;
-
-        // Load program
-{''.join(stimulus)}
-
-        #10 rst_n = 1;
-
-        // Run simulation
-        repeat (1000) @(posedge clk);
-
-        $display("Final mu: %d", mu);
-        $finish;
-    end
-endmodule
-"""
-
-    # TODO: Complete Verilog simulation pipeline
-    # For now, mark as pending implementation
-    return None
+    return ProgramTrace(
+        program=program,
+        final_mu=total_mu,
+        final_modules=module_count,
+        final_regions={},  # partition_core reports module count, not regions
+        step_mu=[r.get("mu_cost", 0) for r in results],
+    )
 
 
 # =============================================================================
@@ -268,16 +331,30 @@ class TestThreeLayerIsomorphism:
         ]
 
         python_trace = execute_python(program)
-        coq_trace = execute_coq(program)  # May be None
-        verilog_trace = execute_verilog(program)  # May be None
+        coq_trace = execute_coq(program)
+        verilog_trace = execute_verilog(program)
 
-        equiv, msg = traces_equivalent(python_trace, coq_trace, verilog_trace)
-
-        # For now, just verify Python execution
+        # Python assertions
         assert python_trace.final_modules == 1, "Should have 1 module"
         assert python_trace.final_mu == 1, "Should cost 1 μ-bit (popcount of {5})"
         assert 1 in python_trace.final_regions, "Module 1 should exist"
         assert python_trace.final_regions[1] == [5], "Module 1 should contain {5}"
+
+        # Cross-layer: Coq must match Python
+        if coq_trace is not None:
+            assert coq_trace.final_mu == python_trace.final_mu, \
+                f"Coq μ={coq_trace.final_mu} != Python μ={python_trace.final_mu}"
+            assert coq_trace.final_modules == python_trace.final_modules, \
+                f"Coq modules={coq_trace.final_modules} != Python={python_trace.final_modules}"
+            assert coq_trace.final_regions == python_trace.final_regions, \
+                f"Coq regions={coq_trace.final_regions} != Python={python_trace.final_regions}"
+
+        # Cross-layer: Verilog must match Python μ
+        if verilog_trace is not None:
+            assert verilog_trace.final_mu == python_trace.final_mu, \
+                f"Verilog μ={verilog_trace.final_mu} != Python μ={python_trace.final_mu}"
+            assert verilog_trace.final_modules == python_trace.final_modules, \
+                f"Verilog modules={verilog_trace.final_modules} != Python={python_trace.final_modules}"
 
     def test_pnew_deduplication(self):
         """Creating same region twice should reuse module ID."""
@@ -306,7 +383,7 @@ class TestThreeLayerIsomorphism:
         assert python_trace.final_mu == 4 + 64, "μ = discovery(4) + execution(64)"
 
     def test_pmerge_validation(self):
-        """PMERGE should validate disjoint requirement."""
+        """PMERGE should validate disjoint requirement and match across layers."""
         program = [
             Instruction("PNEW", ({1, 2},), cost=2),
             Instruction("PNEW", ({3, 4},), cost=2),
@@ -314,9 +391,23 @@ class TestThreeLayerIsomorphism:
         ]
 
         python_trace = execute_python(program)
+        coq_trace = execute_coq(program)
+        verilog_trace = execute_verilog(program)
 
         # Should merge successfully (disjoint regions)
         assert python_trace.final_mu == 2 + 2 + 4, "μ = 2*discovery + merge"
+
+        # Coq must match Python
+        if coq_trace is not None:
+            assert coq_trace.final_mu == python_trace.final_mu, \
+                f"Coq μ={coq_trace.final_mu} != Python μ={python_trace.final_mu}"
+            assert coq_trace.final_modules == python_trace.final_modules, \
+                f"Coq modules={coq_trace.final_modules} != Python={python_trace.final_modules}"
+
+        # Verilog must match Python
+        if verilog_trace is not None:
+            assert verilog_trace.final_mu == python_trace.final_mu, \
+                f"Verilog μ={verilog_trace.final_mu} != Python μ={python_trace.final_mu}"
 
     def test_pmerge_overlap_error(self):
         """PMERGE with overlapping regions should fail."""
@@ -374,9 +465,14 @@ class TestThreeLayerIsomorphism:
 # Benchmark Suite
 # =============================================================================
 
-pytest_benchmark = pytest.importorskip("pytest_benchmark")
+try:
+    import pytest_benchmark  # noqa: F401
+    _HAS_BENCHMARK = True
+except ImportError:
+    _HAS_BENCHMARK = False
 
 
+@pytest.mark.skipif(not _HAS_BENCHMARK, reason="pytest_benchmark not installed")
 class TestIsomorphismBenchmarks:
     """Performance benchmarking across layers."""
 

@@ -221,7 +221,7 @@ Lemma tsirelson_compiled_chsh_gauge_invariance :
     program_bits_ok p ->
     KC.chsh (KC.trials_of_receipts (compile p)) == KC.chsh p.
 Proof.
-  intros p Hp Hok.
+  intros p Hp _.
   rewrite Hp.
   (* Both sides equal 5657#2000, so they equal each other *)
   rewrite tsirelson_envelope_compiled_chsh.

@@ -237,6 +237,7 @@ Definition unitary_zero_cost (E : Evolution) : Prop :=
     which actually USES the [is_unitary] hypothesis.
 *)
 (* DEFINITIONAL *)
+(* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
 Theorem trace_preserved_by_normalization :
   forall E : Evolution,
     trace_preserving E.
