@@ -15,6 +15,7 @@ Goal: Make the Coq extraction an executable "ground truth" leg in CI.
 from __future__ import annotations
 
 import json
+import os
 import shutil
 import subprocess
 from pathlib import Path
@@ -27,6 +28,13 @@ EXTRACTED_IR = REPO_ROOT / "build" / "thiele_core.ml"
 EXTRACTED_MLI = REPO_ROOT / "build" / "thiele_core.mli"
 RUNNER_SRC = REPO_ROOT / "tools" / "extracted_vm_runner.ml"
 RUNNER_BIN = REPO_ROOT / "build" / "extracted_vm_runner"
+
+
+def _ocaml_env() -> dict:
+    """Return environment with increased OCaml stack size."""
+    env = os.environ.copy()
+    env.setdefault("OCAMLRUNPARAM", "l=64M")
+    return env
 
 
 def _compile_runner() -> None:
@@ -114,6 +122,7 @@ def test_extracted_pnew_pmerge_matches_python_state(tmp_path: Path) -> None:
         cwd=str(REPO_ROOT),
         capture_output=True,
         text=True,
+        env=_ocaml_env(),
     )
 
     extracted = json.loads(proc.stdout)
@@ -174,6 +183,7 @@ def test_extracted_xor_xfer_matches_python_vm(tmp_path: Path) -> None:
         cwd=str(REPO_ROOT),
         capture_output=True,
         text=True,
+        env=_ocaml_env(),
     )
     extracted = json.loads(proc.stdout)
 

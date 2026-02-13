@@ -32,6 +32,7 @@ The auto_mdlacc feature adds extra μ charges that Coq doesn't have.
 """
 
 import json
+import os
 import subprocess
 import tempfile
 from pathlib import Path
@@ -43,6 +44,13 @@ import pytest
 REPO_ROOT = Path(__file__).resolve().parents[1]
 EXTRACTED_RUNNER = REPO_ROOT / "build" / "extracted_vm_runner"
 VERILOG_TB = REPO_ROOT / "thielecpu" / "hardware" / "testbench" / "thiele_cpu_tb.v"
+
+
+def _ocaml_env() -> dict:
+    """Return environment with increased OCaml stack size."""
+    env = os.environ.copy()
+    env.setdefault("OCAMLRUNPARAM", "l=64M")
+    return env
 
 
 @dataclass
@@ -115,7 +123,8 @@ def run_coq_extracted(program: str) -> VMState:
             [str(EXTRACTED_RUNNER), prog_path],
             capture_output=True,
             text=True,
-            timeout=30
+            timeout=30,
+            env=_ocaml_env(),
         )
         if result.returncode != 0:
             raise RuntimeError(f"OCaml runner failed: {result.stderr}")

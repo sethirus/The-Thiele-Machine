@@ -105,7 +105,10 @@ def _run_extracted(init_mem: List[int], init_regs: List[int], trace_lines: List[
             prefix.append(f"INIT_MEM {a} {v & 0xFFFFFFFF}")
         trace_path.write_text("\n".join(prefix + trace_lines) + "\n", encoding="utf-8")
 
-        result = subprocess.run([str(runner), str(trace_path)], capture_output=True, text=True, check=True)
+        result = subprocess.run(
+            [str(runner), str(trace_path)], capture_output=True, text=True, check=True,
+            env={**os.environ, "OCAMLRUNPARAM": os.environ.get("OCAMLRUNPARAM", "l=64M")},
+        )
         payload = json.loads(result.stdout)
 
     regs = [int(v) & 0xFFFFFFFF for v in payload["regs"]]

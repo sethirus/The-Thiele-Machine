@@ -42,6 +42,7 @@ def _run_bundle(
     full_env = os.environ.copy()
     full_env.update(env)
     full_env.setdefault("PYTHONPATH", str(REPO_ROOT))
+    full_env.setdefault("OCAMLRUNPARAM", "l=64M")
 
     cmd = [sys.executable, "scripts/equivalence_bundle.py", "--out", str(out_path)]
     if scenario is not None:
