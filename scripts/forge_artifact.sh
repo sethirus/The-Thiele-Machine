@@ -20,6 +20,9 @@ die() {
 
 cd "$ROOT"
 
+# Ensure OCaml bytecode runtime has sufficient stack for extracted code
+export OCAMLRUNPARAM="${OCAMLRUNPARAM:-l=64M}"
+
 phase INIT "workspace=$ROOT"
 mkdir -p build thielecpu/hardware thielecpu/generated
 

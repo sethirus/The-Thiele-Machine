@@ -15,6 +15,7 @@ Tests verify:
 import shutil
 import subprocess
 import tempfile
+import os
 from collections.abc import Callable as CallableType
 from dataclasses import dataclass
 from pathlib import Path
@@ -185,6 +186,7 @@ def execute_coq(program: List[Instruction]) -> Optional[ProgramTrace]:
         result = subprocess.run(
             [str(RUNNER_BIN), str(trace_path)],
             capture_output=True, text=True, cwd=str(REPO_ROOT),
+            env={**os.environ, "OCAMLRUNPARAM": os.environ.get("OCAMLRUNPARAM", "l=64M")},
         )
         if result.returncode != 0:
             return None

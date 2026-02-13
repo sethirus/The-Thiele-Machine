@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 import tempfile
@@ -156,7 +157,10 @@ def execute_coq(program: list[Instruction]) -> ProgramTrace:
     with tempfile.TemporaryDirectory() as td:
         trace_path = Path(td) / "trace.txt"
         trace_path.write_text("\n".join(trace_lines) + "\n")
-        result = subprocess.run([str(runner), str(trace_path)], capture_output=True, text=True, check=True)
+        result = subprocess.run(
+            [str(runner), str(trace_path)], capture_output=True, text=True, check=True,
+            env={**os.environ, "OCAMLRUNPARAM": os.environ.get("OCAMLRUNPARAM", "l=64M")},
+        )
     payload = json.loads(result.stdout[result.stdout.find("{"):])
     modules = payload["graph"]["modules"]
     regions = {int(m["id"]): sorted(int(x) for x in m["region"]) for m in modules}
