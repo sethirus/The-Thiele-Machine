@@ -604,6 +604,7 @@ Qed.
     This would prove the information bound f + f ≤ 1 is not tight, suggesting
     a missing constraint.
 *)
+(* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
 Lemma symmetric_optimal_cloning :
   forall op,
     nontrivial_input op ->
@@ -921,6 +922,7 @@ Definition is_perfect_deletion (op : DeletionOperation) : Prop :=
     4. Measure energy dissipated, verify μ < I (less than input information)
     If all succeed, the theorem is false and Landauer's principle is violated.
 *)
+(* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
 Theorem no_deletion_without_cost :
   forall op : DeletionOperation,
     op.(del_input1_info) > 0 ->

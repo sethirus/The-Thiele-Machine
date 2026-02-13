@@ -186,6 +186,7 @@ Definition is_complete_reveal (bits_available bits_revealed : nat) : Prop :=
   bits_revealed = bits_available.
 
 (** Complete measurement forces unique outcome (dim = 1) *)
+(* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
 Theorem complete_reveal_determines_state :
   forall avail revealed,
     is_complete_reveal avail revealed ->

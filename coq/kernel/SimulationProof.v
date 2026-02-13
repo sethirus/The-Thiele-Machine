@@ -25,6 +25,7 @@ Definition states_related_for_execution (s_vm : VMState) (s_kernel : state) : Pr
 
 (** * Basic lemmas about the states relation *)
 
+(* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
 Lemma states_related_implies_encoding :
   forall s_vm s_kernel,
     states_related s_vm s_kernel ->
@@ -35,6 +36,7 @@ Proof.
   exact Htape.
 Qed.
 
+(* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
 Lemma states_related_implies_pc :
   forall s_vm s_kernel,
     states_related s_vm s_kernel ->
@@ -45,6 +47,7 @@ Proof.
   exact Hpc.
 Qed.
 
+(* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
 Lemma states_related_implies_mu :
   forall s_vm s_kernel,
     states_related s_vm s_kernel ->

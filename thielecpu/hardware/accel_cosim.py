@@ -307,11 +307,17 @@ def run_receipt_checker(receipts: List[Dict]) -> List[Dict]:
 # μ-ALU standalone cosim
 # ============================================================================
 
+_MU_ALU_OPCODES = {
+    "ADD": 0, "SUB": 1, "MUL_Q16": 2, "DIV_Q16": 3,
+    "LOG2": 4, "CMP": 5, "MIN": 6, "MAX": 7,
+}
+
+
 def _write_mu_alu_tb(work_dir: Path, operations: List[Dict]) -> Path:
     """Generate a testbench for mu_alu.
 
     Each operation is:
-      {"op": int(0-7), "a": int, "b": int}
+      {"op": int(0-7) or str name, "a": int, "b": int}
     Op codes: 0=ADD, 1=SUB, 2=MUL_Q16, 3=DIV_Q16, 4=LOG2, 5=CMP, 6=MIN, 7=MAX
     """
     tb_lines = []
@@ -351,7 +357,8 @@ module mu_alu_cosim_tb;
 """)
 
     for i, oper in enumerate(operations):
-        o = oper.get("op", 0)
+        raw_op = oper.get("op", 0)
+        o = _MU_ALU_OPCODES.get(raw_op, raw_op) if isinstance(raw_op, str) else int(raw_op)
         a = oper.get("a", 0)
         b = oper.get("b", 0)
         tb_lines.append(f"        run_op(3'd{o}, 32'h{a:08X}, 32'h{b:08X});")

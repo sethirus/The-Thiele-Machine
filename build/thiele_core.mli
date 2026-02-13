@@ -1,4 +1,6 @@
 
+type __ = Obj.t
+
 val negb : bool -> bool
 
 val fst : ('a1*'a2) -> 'a1
@@ -14,109 +16,153 @@ type comparison =
 | Lt
 | Gt
 
-val compOpp : comparison -> comparison
+type uint =
+| Nil
+| D0 of uint
+| D1 of uint
+| D2 of uint
+| D3 of uint
+| D4 of uint
+| D5 of uint
+| D6 of uint
+| D7 of uint
+| D8 of uint
+| D9 of uint
+
+type uint0 =
+| Nil0
+| D10 of uint0
+| D11 of uint0
+| D12 of uint0
+| D13 of uint0
+| D14 of uint0
+| D15 of uint0
+| D16 of uint0
+| D17 of uint0
+| D18 of uint0
+| D19 of uint0
+| Da of uint0
+| Db of uint0
+| Dc of uint0
+| Dd of uint0
+| De of uint0
+| Df of uint0
+
+type uint1 =
+| UIntDecimal of uint
+| UIntHexadecimal of uint0
 
 val add : int -> int -> int
 
-val eqb : bool -> bool -> bool
+val mul : int -> int -> int
 
-type positive =
-| XI of positive
-| XO of positive
-| XH
+val sub : int -> int -> int
 
-type n =
-| N0
-| Npos of positive
+val eqb : int -> int -> bool
 
-type z =
-| Z0
-| Zpos of positive
-| Zneg of positive
+val tail_add : int -> int -> int
+
+val tail_addmul : int -> int -> int -> int
+
+val tail_mul : int -> int -> int
+
+val of_uint_acc : uint -> int -> int
+
+val of_uint : uint -> int
+
+val of_hex_uint_acc : uint0 -> int -> int
+
+val of_hex_uint : uint0 -> int
+
+val of_num_uint : uint1 -> int
+
+val eqb0 : bool -> bool -> bool
 
 module Nat :
  sig
+  val pred : int -> int
+
   val add : int -> int -> int
 
   val mul : int -> int -> int
 
   val sub : int -> int -> int
 
-  val eqb : int -> int -> bool
-
-  val leb : int -> int -> bool
-
   val ltb : int -> int -> bool
+
+  val pow : int -> int -> int
 
   val divmod : int -> int -> int -> int -> int*int
 
   val modulo : int -> int -> int
 
-  val eq_dec : int -> int -> bool
+  val log2_iter : int -> int -> int -> int -> int
+
+  val log2 : int -> int
  end
 
 module Pos :
  sig
-  val succ : positive -> positive
+  val succ : int -> int
 
-  val add : positive -> positive -> positive
+  val add : int -> int -> int
 
-  val add_carry : positive -> positive -> positive
+  val add_carry : int -> int -> int
 
-  val pred_double : positive -> positive
+  val pred_double : int -> int
 
-  val pred_N : positive -> n
+  val pred_N : int -> int
 
-  val mul : positive -> positive -> positive
+  val mul : int -> int -> int
 
-  val iter : ('a1 -> 'a1) -> 'a1 -> positive -> 'a1
+  val iter : ('a1 -> 'a1) -> 'a1 -> int -> 'a1
 
-  val compare_cont : comparison -> positive -> positive -> comparison
+  val compare_cont : comparison -> int -> int -> comparison
 
-  val compare : positive -> positive -> comparison
+  val compare : int -> int -> comparison
 
-  val eqb : positive -> positive -> bool
+  val eqb : int -> int -> bool
 
-  val coq_Nsucc_double : n -> n
+  val coq_Nsucc_double : int -> int
 
-  val coq_Ndouble : n -> n
+  val coq_Ndouble : int -> int
 
-  val coq_land : positive -> positive -> n
+  val coq_land : int -> int -> int
 
-  val coq_lxor : positive -> positive -> n
+  val coq_lxor : int -> int -> int
 
-  val shiftl : positive -> n -> positive
+  val shiftl : int -> int -> int
 
-  val testbit : positive -> n -> bool
+  val testbit : int -> int -> bool
 
-  val iter_op : ('a1 -> 'a1 -> 'a1) -> positive -> 'a1 -> 'a1
+  val iter_op : ('a1 -> 'a1 -> 'a1) -> int -> 'a1 -> 'a1
 
-  val to_nat : positive -> int
+  val to_nat : int -> int
 
-  val of_succ_nat : int -> positive
+  val of_succ_nat : int -> int
  end
 
 module N :
  sig
-  val pred : n -> n
+  val pred : int -> int
 
-  val add : n -> n -> n
+  val add : int -> int -> int
 
-  val mul : n -> n -> n
+  val mul : int -> int -> int
 
-  val coq_land : n -> n -> n
+  val coq_land : int -> int -> int
 
-  val coq_lxor : n -> n -> n
+  val coq_lxor : int -> int -> int
 
-  val shiftl : n -> n -> n
+  val shiftl : int -> int -> int
 
-  val testbit : n -> n -> bool
+  val testbit : int -> int -> bool
 
-  val to_nat : n -> int
+  val to_nat : int -> int
 
-  val of_nat : int -> n
+  val of_nat : int -> int
 
-  val ones : n -> n
+  val ones : int -> int
  end
 
 val zero : char
@@ -125,15 +171,15 @@ val one : char
 
 val shift : bool -> char -> char
 
-val ascii_of_pos : positive -> char
+val ascii_of_pos : int -> char
 
-val ascii_of_N : n -> char
+val ascii_of_N : int -> char
 
 val ascii_of_nat : int -> char
 
-val n_of_digits : bool list -> n
+val n_of_digits : bool list -> int
 
-val n_of_ascii : char -> n
+val n_of_ascii : char -> int
 
 val nat_of_ascii : char -> int
 
@@ -163,28 +209,58 @@ val nodup : ('a1 -> 'a1 -> bool) -> 'a1 list -> 'a1 list
 
 module Z :
  sig
-  val opp : z -> z
+  val double : int -> int
 
-  val compare : z -> z -> comparison
+  val succ_double : int -> int
 
-  val ltb : z -> z -> bool
+  val pred_double : int -> int
 
-  val gtb : z -> z -> bool
+  val pos_sub : int -> int -> int
 
-  val eqb : z -> z -> bool
+  val add : int -> int -> int
 
-  val abs : z -> z
+  val opp : int -> int
 
-  val to_nat : z -> int
+  val sub : int -> int -> int
 
-  val of_nat : int -> z
+  val mul : int -> int -> int
+
+  val compare : int -> int -> comparison
+
+  val ltb : int -> int -> bool
+
+  val gtb : int -> int -> bool
+
+  val eqb : int -> int -> bool
+
+  val abs : int -> int
+
+  val to_nat : int -> int
+
+  val of_nat : int -> int
  end
 
-val eqb0 : char list -> char list -> bool
+val eqb1 : char list -> char list -> bool
 
 val append : char list -> char list -> char list
 
+val length0 : char list -> int
+
 val list_ascii_of_string : char list -> char list
+
+type q = { qnum : int; qden : int }
+
+val qplus : q -> q -> q
+
+val qmult : q -> q -> q
+
+val qopp : q -> q
+
+val qminus : q -> q -> q
+
+val qinv : q -> q
+
+val qdiv : q -> q -> q
 
 type moduleID = int
 
@@ -210,6 +286,8 @@ val normalize_module : moduleState -> moduleState
 
 type partitionGraph = { pg_next_id : moduleID;
                         pg_modules : (moduleID*moduleState) list }
+
+val empty_graph : partitionGraph
 
 val graph_lookup_modules :
   (moduleID*moduleState) list -> moduleID -> moduleState option
@@ -320,19 +398,19 @@ module CertCheck :
 
   val parse_nat_digits : char list -> int -> int option
 
-  val parse_int : char list -> z option
+  val parse_int : char list -> int option
 
   val parse_nat : char list -> int option
 
-  type dimacs_cnf = { cnf_num_vars : int; cnf_clauses : z list list }
+  type dimacs_cnf = { cnf_num_vars : int; cnf_clauses : int list list }
 
   val cnf_num_vars : dimacs_cnf -> int
 
-  val cnf_clauses : dimacs_cnf -> z list list
+  val cnf_clauses : dimacs_cnf -> int list list
 
-  val take_until_zero : z list -> z list
+  val take_until_zero : int list -> int list
 
-  val parse_clause_tokens : char list list -> z list option
+  val parse_clause_tokens : char list list -> int list option
 
   val parse_dimacs : char list -> dimacs_cnf option
 
@@ -352,29 +430,29 @@ module CertCheck :
 
   val parse_assignment : char list -> (int*bool) list option
 
-  val clause_satisfied : (int*bool) list -> z list -> bool
+  val clause_satisfied : (int*bool) list -> int list -> bool
 
   val check_model : char list -> char list -> bool
 
-  val assoc_remove : int -> (int*z list) list -> (int*z list) list
+  val assoc_remove : int -> (int*int list) list -> (int*int list) list
 
-  val db_clauses : (int*z list) list -> z list list
+  val db_clauses : (int*int list) list -> int list list
 
-  val eval_clause : (int*bool) list -> z list -> bool*z list
+  val eval_clause : (int*bool) list -> int list -> bool*int list
 
   val unit_conflict_fuel :
-    int -> int -> z list list -> (int*bool) list -> z list -> bool
+    int -> int -> int list list -> (int*bool) list -> int list -> bool
 
-  val unit_conflict : int -> z list list -> z list -> bool
+  val unit_conflict : int -> int list list -> int list -> bool
 
-  val verify_rup_clause : int -> (int*z list) list -> z list -> bool
+  val verify_rup_clause : int -> (int*int list) list -> int list -> bool
 
-  type lrat_step = { lrat_id : int; lrat_clause : z list;
+  type lrat_step = { lrat_id : int; lrat_clause : int list;
                      lrat_deletions : int list; lrat_is_delete : bool }
 
   val lrat_id : lrat_step -> int
 
-  val lrat_clause : lrat_step -> z list
+  val lrat_clause : lrat_step -> int list
 
   val lrat_deletions : lrat_step -> int list
 
@@ -382,18 +460,18 @@ module CertCheck :
 
   val parse_nat_list : char list list -> int list option
 
-  val parse_z_list : char list list -> z list option
+  val parse_z_list : char list list -> int list option
 
   val drop_until_zero : char list list -> char list list
 
   val parse_lrat_line : char list -> lrat_step option
 
-  val build_initial_db : z list list -> int -> (int*z list) list
+  val build_initial_db : int list list -> int -> (int*int list) list
 
-  val apply_deletions : (int*z list) list -> int list -> (int*z list) list
+  val apply_deletions : (int*int list) list -> int list -> (int*int list) list
 
   val check_lrat_lines :
-    int -> char list list -> (int*z list) list -> bool -> bool
+    int -> char list list -> (int*int list) list -> bool -> bool
 
   val check_lrat : char list -> char list -> bool
  end
@@ -449,3 +527,256 @@ module VMStep :
 val vm_apply : vMState -> VMStep.vm_instruction -> vMState
 
 val run_vm : int -> VMStep.vm_instruction list -> vMState -> vMState
+
+module ReceiptIntegrity :
+ sig
+  type state_hash = int
+
+  val mu_max : int
+
+  val mu_in_range_b : int -> bool
+
+  type coq_Receipt = { receipt_step : int;
+                       receipt_instruction : VMStep.vm_instruction;
+                       receipt_pre_mu : int; receipt_post_mu : int;
+                       receipt_pre_state_hash : state_hash;
+                       receipt_post_state_hash : state_hash }
+
+  val receipt_instruction : coq_Receipt -> VMStep.vm_instruction
+
+  val receipt_pre_mu : coq_Receipt -> int
+
+  val receipt_post_mu : coq_Receipt -> int
+
+  val receipt_pre_state_hash : coq_Receipt -> state_hash
+
+  val receipt_post_state_hash : coq_Receipt -> state_hash
+
+  val instruction_mu_delta : VMStep.vm_instruction -> int
+
+  val receipt_mu_consistent_b : coq_Receipt -> bool
+
+  val receipt_mu_in_range_b : coq_Receipt -> bool
+
+  val receipt_fully_valid_b : coq_Receipt -> bool
+
+  val chain_links_b : coq_Receipt list -> bool
+
+  val chain_all_consistent_b : coq_Receipt list -> bool
+
+  val chain_all_in_range_b : coq_Receipt list -> bool
+
+  val chain_all_valid_b : coq_Receipt list -> bool
+
+  val receipt_chain_valid_b : coq_Receipt list -> int -> bool
+
+  val chain_total_cost : coq_Receipt list -> int
+
+  val chain_final_mu : coq_Receipt list -> int -> int
+ end
+
+type cHSHTrial = { trial_x : int; trial_y : int; trial_a : int; trial_b : int }
+
+val extract_chsh_trials_from_trace :
+  int -> VMStep.vm_instruction list -> vMState -> cHSHTrial list
+
+val filter_trials : cHSHTrial list -> int -> int -> cHSHTrial list
+
+val compute_correlation : cHSHTrial list -> q
+
+val chsh_from_trials : cHSHTrial list -> q
+
+val chsh_from_vm_trace : int -> VMStep.vm_instruction list -> vMState -> q
+
+module KernelCHSH :
+ sig
+  type coq_Trial = { t_x : int; t_y : int; t_a : int; t_b : int }
+
+  val t_x : coq_Trial -> int
+
+  val t_y : coq_Trial -> int
+
+  val t_a : coq_Trial -> int
+
+  val t_b : coq_Trial -> int
+
+  val is_trial_instr : VMStep.vm_instruction -> coq_Trial option
+
+  val trials_of_receipts : VMStep.vm_instruction list -> coq_Trial list
+
+  val sign_z : int -> int
+
+  val trial_value_z : coq_Trial -> int
+
+  val count_setting : int -> int -> coq_Trial list -> int
+
+  val sum_setting_z : int -> int -> coq_Trial list -> int
+
+  val expectation : int -> int -> coq_Trial list -> q
+
+  val chsh : coq_Trial list -> q
+
+  type coq_LocalStrategy = { a0 : int; a1 : int; b0 : int; b1 : int }
+
+  val a0 : coq_LocalStrategy -> int
+
+  val a1 : coq_LocalStrategy -> int
+
+  val b0 : coq_LocalStrategy -> int
+
+  val b1 : coq_LocalStrategy -> int
+
+  val trial_of_local : coq_LocalStrategy -> int -> int -> coq_Trial
+
+  val trials_of_local : coq_LocalStrategy -> coq_Trial list
+
+  val chsh_local_z : coq_LocalStrategy -> int
+ end
+
+type constraintVar = int
+  (* singleton inductive, whose constructor was CVar *)
+
+type arithExpr =
+| AVar of constraintVar
+| AConst of int
+| AAdd of arithExpr * arithExpr
+| ASub of arithExpr * arithExpr
+| AMul of arithExpr * arithExpr
+
+type compOp =
+| Eq0
+| Lt0
+| Le
+| Gt0
+| Ge
+
+type atomicConstraint =
+| CCompare of compOp * arithExpr * arithExpr
+
+type constraint0 =
+| CAtom of atomicConstraint
+| CAnd of constraint0 * constraint0
+| COr of constraint0 * constraint0
+| CNot of constraint0
+| CTrue
+| CFalse
+
+val normalize_comp_op : compOp -> compOp
+
+val should_flip_comparison : compOp -> bool
+
+val normalize_atomic : atomicConstraint -> atomicConstraint
+
+val flatten_and : constraint0 -> constraint0 list
+
+val flatten_or : constraint0 -> constraint0 list
+
+val rebuild_and : constraint0 list -> constraint0
+
+val rebuild_or : constraint0 list -> constraint0
+
+val count_vars_arith : arithExpr -> int
+
+val count_vars : constraint0 -> int
+
+val count_atoms : constraint0 -> int
+
+val count_operators : constraint0 -> int
+
+val log2_nat : int -> int
+
+val semantic_complexity_bits : constraint0 -> int
+
+val axiom_semantic_cost : vMAxiom -> constraint0 -> int
+
+val axiom_cost_with_fallback : vMAxiom -> constraint0 option -> int
+
+val module_count : partitionGraph -> int
+
+val partition_complexity : partitionGraph -> int
+
+val mu_cost_of_instr : VMStep.vm_instruction -> vMState -> int
+
+val mu_cost_of_trace : int -> VMStep.vm_instruction list -> int -> int
+
+val ledger_entries : int -> VMStep.vm_instruction list -> vMState -> int list
+
+val bounded_run : int -> VMStep.vm_instruction list -> vMState -> vMState list
+
+val ledger_sum : int list -> int
+
+val irreversible_bits : VMStep.vm_instruction -> int
+
+val irreversible_count : int -> VMStep.vm_instruction list -> vMState -> int
+
+val ledger_component_sum :
+  (VMStep.vm_instruction -> int) -> int -> VMStep.vm_instruction list ->
+  vMState -> int
+
+val mu_cost_of_instr0 : VMStep.vm_instruction -> int
+
+val trace_mu_cost : VMStep.vm_instruction list -> int
+
+val region_size : int list -> int
+
+val evidence_size : vMAxiom list -> int
+
+val pnew_cost_bound : int list -> int
+
+val psplit_cost_bound : int list -> int list -> int
+
+val pmerge_cost_bound : int list -> int list -> int
+
+val discover_cost_bound : vMAxiom list -> int
+
+type experimentalTrial = { trial_instr : VMStep.vm_instruction;
+                           trial_measured_cost : int }
+
+val check_prediction : experimentalTrial -> bool
+
+type wireSpec = { ws_step : (__ -> VMStep.vm_instruction -> __);
+                  ws_mu : (__ -> int); ws_pc : (__ -> int) }
+
+type ws_state = __
+
+val run_wire : wireSpec -> VMStep.vm_instruction list -> ws_state -> ws_state
+
+val trace_cost : VMStep.vm_instruction list -> int
+
+val project_vmstate :
+  partitionGraph -> cSRState -> int list -> int list -> int -> int -> bool ->
+  vMState
+
+type fullWireSpec = { fws_step : (__ -> VMStep.vm_instruction -> __);
+                      fws_graph : (__ -> partitionGraph);
+                      fws_csrs : (__ -> cSRState);
+                      fws_regs : (__ -> int list);
+                      fws_mem : (__ -> int list); fws_pc : (__ -> int);
+                      fws_mu : (__ -> int); fws_err : (__ -> bool) }
+
+type fws_state = __
+
+val run_fws :
+  fullWireSpec -> VMStep.vm_instruction list -> fws_state -> fws_state
+
+type hardwareState = { hw_pc : int; hw_mu_accumulator : int;
+                       hw_alu_ready : bool; hw_overflow : bool }
+
+type pythonState = { py_pc : int; py_mu : int; py_err : bool;
+                     py_graph_modules : int }
+
+val hardware_step : hardwareState -> int -> hardwareState
+
+val python_step : pythonState -> int -> pythonState
+
+val hardware_multi_step : hardwareState -> int list -> hardwareState
+
+val python_multi_step : pythonState -> int list -> pythonState
+
+val q16_16_one : int
+
+val sqrt2_approx : q
+
+val inv_sqrt2 : q
+
+val tsirelson : q

@@ -264,7 +264,7 @@ A ``ghost'' is defined as two distinct propositions $p \neq q$ represented by th
 Information cannot exist without physical distinction.
 \end{theorem}
 
-\section{No Arbitrage Implies Thermodynamic Potential}
+\section{No Arbitrage Implies Potential Function}
 
 \begin{theorem}[Potential from No-Arbitrage {\normalfont (NoArbitrage.v)}]
 Let $w: \Ispace^* \to \Z$ be a cost function satisfying:
@@ -278,7 +278,7 @@ for every state $s$ and trace $\tau$.
 \end{theorem}
 
 \begin{remark}
-This is the Second Law of Thermodynamics: consistent cost accounting implies a state function (entropy) bounding all transitions. The potential $\phi$ is the $\mu$-theoretic analogue of free energy.
+This is structurally analogous to the Second Law of Thermodynamics: consistent cost accounting implies a potential function bounding all transitions. The concrete Coq model is a toy (increment/decrement on nat with asymmetric costs). No temperature, entropy, or thermodynamic system appears in the formalization. The connection to thermodynamics is an analogy, not a derivation.
 \end{remark}
 
 %=============================================================================
@@ -315,9 +315,12 @@ No total computable function decides the halting problem for the Thiele Machine.
 
 \section{Oracle Cost Lower Bound}
 \begin{theorem}[Oracle Impossibility {\normalfont (kernel/OracleImpossibility.v)}]
-Any oracle correctly resolving $n$ independent halting queries must charge $\Delta\mu \ge n$:
-\[ \mathrm{Cost}(n \text{ queries}) \in \Omega(n) \]
-A zero-cost oracle is logically inconsistent with $\mu$-conservation. Specifically, \texttt{oracle\_halts\_costs\_mu} proves that zero-cost oracles violate soundness, and \texttt{oracle\_cost\_linear} proves the linear lower bound.
+The formalization defines a \emph{sound} oracle as one charging $\Delta\mu \ge 1$ per query (\texttt{sound\_oracle\_cost}). Given this definition:
+\begin{enumerate}
+    \item \texttt{oracle\_halts\_costs\_mu}: A zero-cost oracle violates the soundness definition ($0 \ge 1 \Rightarrow \bot$).
+    \item \texttt{oracle\_cost\_linear}: Given \texttt{sound\_oracle\_cost}, $n$ queries cost $\ge n$.
+\end{enumerate}
+These results verify the \emph{internal consistency} of the pricing definition. The physical justification for why oracle queries should cost $\mu > 0$ comes from the No Free Insight framework (gaining information about undecidable propositions should cost something), but the Coq proofs verify the narrower claim that the pricing is self-consistent.
 \end{theorem}
 
 \section{Confluence}
@@ -411,16 +414,15 @@ $\mathrm{Obs}(\sigma_\delta(S)) = \mathrm{Obs}(S)$. Shifting $\mu$ by a constant
 \begin{theorem}[Noether's Theorem {\normalfont (KernelNoether.v, RepresentationTheorem.v)}]
 \leavevmode
 \begin{enumerate}
-    \item \textbf{Forward}: States identical except for $\mu$ lie on the same gauge orbit.
-    \item \textbf{Backward}: $\mu$-conservation implies gauge invariance of observables.
-    \item \textbf{Trace Preservation}: Gauge-equivalent states produce identical observable traces (same labels, same $\mu$-costs) for any finite horizon.
-    \item \textbf{Observable Completeness}: Trace-equivalent states are gauge-equivalent.
+    \item \textbf{Forward}: States identical except for $\mu$ lie on the same gauge orbit. (Trivially true by construction: if all other fields match, the $\mu$ difference is the gauge shift.)
+    \item \textbf{Gauge Invariance}: \texttt{z\_gauge\_invariance} proves that shifting $\mu$ does not change \texttt{Observable\_partition}. This is definitional: \texttt{z\_gauge\_shift} only modifies the \texttt{vm\_mu} field, and \texttt{Observable\_partition} reads only \texttt{vm\_graph}.
+    \item \textbf{Trace Preservation}: Gauge-equivalent states produce identical observable traces (same labels, same $\mu$-costs) for any finite horizon. Proven as \texttt{vm\_step\_orbit\_equiv}.
 \end{enumerate}
-The $\mu$-ledger is a gauge degree of freedom. Its \emph{absolute} value is unobservable; only \emph{differences} $\Delta\mu$ are physical.
+The $\mu$-ledger is a gauge degree of freedom. Its \emph{absolute} value is unobservable; only \emph{differences} $\Delta\mu$ are physical. The ``Noether'' label is a deliberate analogy---the result follows from the record structure (separate fields for $\mu$ and graph), not from a deep symmetry principle.
 \end{theorem}
 
-\begin{theorem}[$\mu$-Monotonicity (Second Law) {\normalfont (KernelNoether.v)}]
-$\mathrm{vm\_step}(S, i, S') \implies \mu(S) \le \mu(S')$. The $\mu$-ledger never decreases under the dynamics.
+\begin{theorem}[$\mu$-Monotonicity {\normalfont (KernelNoether.v)}]
+$\mathrm{vm\_step}(S, i, S') \implies \mu(S) \le \mu(S')$. The $\mu$-ledger never decreases under the dynamics. This is true by construction: instruction costs are natural numbers ($\ge 0$), so adding them to the ledger cannot decrease it. The proof examines each step constructor and confirms the arithmetic.
 \end{theorem}
 
 %=============================================================================
@@ -490,9 +492,10 @@ The Born rule $P(|0\rangle) = (1+z)/2$ is the \textbf{unique} probability assign
     \item Non-negativity and normalization: $P \ge 0$, $P(|0\rangle) + P(|1\rangle) = 1$.
     \item Eigenstate consistency: $P(0,0,1) = 1$, $P(0,0,-1) = 0$.
     \item Linearity in $z$: $P(x,y,z,0) = az + b$ for some $a,b$.
-    \item $\mu$-consistency: expected information gain $=$ $\mu$-cost.
 \end{enumerate}
 Proof: Boundary conditions force $a = 1/2$, $b = 1/2$. No other solution exists.
+
+\textbf{Note:} The Coq theorem also lists a \texttt{mu\_consistent} hypothesis, but it is \textbf{unused} in the proof. The hypothesis \texttt{mu\_consistent P} unfolds to ``measurement cost $\ge 0$ for valid Bloch vectors,'' which is trivially true for all states and does not constrain $P$. The linearity assumption (item~3) does all the work---it assumes the functional form $P = az+b$ and solves a 2-equation system. This is less ``deriving the Born rule from $\mu$-accounting'' and more ``the Born rule is the unique linear rule consistent with eigenstates.'' The non-circular derivation from tensor consistency (\texttt{BornRuleFromSymmetry.v}, below) is the stronger result.
 \end{theorem}
 
 \begin{theorem}[Born Rule from Tensor Consistency {\normalfont (BornRuleFromSymmetry.v)}]
@@ -521,9 +524,9 @@ An evolution $E$ maps Bloch vectors $(x,y,z) \mapsto (x',y',z')$ with associated
 \begin{theorem}[Unitarity from Zero Cost {\normalfont (Unitarity.v)}]
 \leavevmode
 \begin{enumerate}
-    \item $\mu = 0 \implies r'^2 \ge r^2$ (purity cannot decrease at zero cost).
-    \item Non-unitary evolution ($r'^2 < r^2$ for some state) requires $\mu > 0$.
-    \item $\mu = 0 \Leftrightarrow$ unitary $\Leftrightarrow$ reversible.
+    \item $\mu = 0 \implies r'^2 \ge r^2$ (purity cannot decrease at zero cost). Proven as \texttt{zero\_cost\_preserves\_purity}.
+    \item Non-unitary evolution ($r'^2 < r^2$ for some state) requires $\mu > 0$. Proven as \texttt{nonunitary\_requires\_mu}: the proof specializes the conservation hypothesis at the witness, then \texttt{lra}.
+    \item $\mu = 0 \Rightarrow$ no info loss (one direction proven). The converse and the full equivalence $\mu = 0 \Leftrightarrow$ unitary $\Leftrightarrow$ reversible are \emph{stated} in the file but not proven as theorems---they appear as \texttt{Definition} declarations (propositional constants) rather than proven \texttt{Theorem}s.
 \end{enumerate}
 \end{theorem}
 
@@ -669,38 +672,41 @@ Substituting $\tau_\mu = h/(4E_L)$ yields $h = 4 E_L \cdot h/(4E_L) = h$. The Co
 \section{The $\mu$-Metric}
 
 \begin{definition}[$\mu$-Distance {\normalfont (MuGeometry.v)}]
-For two states $S_1, S_2 \in \Sspace$ connected by a trace:
-\[ d_\mu(S_1, S_2) = \min_{\tau: S_1 \xrightarrow{\tau} S_2} \sum_{i \in \tau} \mathrm{cost}(i) \]
+The Coq formalization defines \texttt{mu\_distance} as the absolute difference of $\mu$-totals:
+\[ d_\mu(S_1, S_2) = |\mu_{\mathrm{total}}(S_2) - \mu_{\mathrm{total}}(S_1)| \]
+This is a one-dimensional projection, not a minimum over paths.
 \end{definition}
 
-\begin{theorem}[Metric Properties {\normalfont (MuGeometry.v)}]
-$d_\mu$ satisfies positivity and triangle inequality. For reversible paths it is symmetric (metric); for irreversible paths (monotonic $\mu$) it defines a directed causal order.
+\begin{theorem}[Pseudometric Properties {\normalfont (MuGeometry.v)}]
+$d_\mu$ satisfies non-negativity, reflexivity ($d(S,S)=0$), symmetry, and triangle inequality---all inherited from absolute value on $\mathbb{Z}$. Note: $d_\mu$ is a \textbf{pseudometric}, not a metric: $d(S_1,S_2)=0$ does \emph{not} imply $S_1=S_2$ (many distinct states share the same $\mu$-total). The ``geometry'' is a 1D projection onto the $\mu$ counter.
 \end{theorem}
 
 \section{Causal Cones}
 
-\begin{definition}[Future Light Cone {\normalfont (SpacetimeEmergence.v)}]
+\begin{definition}[$\mu$-Reachability Cone {\normalfont (SpacetimeEmergence.v)}]
 $C^+(S) = \{ S' \mid \exists \tau.\; S \xrightarrow{\tau} S' \wedge \mathrm{cost}(\tau) \le \mathrm{Budget} \}$.
 \end{definition}
 
-This recovers the causal structure of Special Relativity. The ``speed of light'' $c$ corresponds to the maximum rate of information processing: 1 bit per $\mu$-unit per time step.
+This is a structural analogy to causal cones: the set of reachable states given a finite $\mu$-budget plays a role analogous to a light cone. The analogy should not be over-read---there is no Lorentz invariance, no metric signature, and no boost transformations in the Coq formalization.
 
 \section{No-Signaling}
 
-\begin{theorem}[Observational No-Signaling {\normalfont (SpacetimeEmergence.v)}]
-Local operations on module $M_A$ cannot change statistics on disjoint module $M_B$ unless a message (carrying $\mu$-cost) traverses between them.
-\end{theorem}
-
-\chapter{Information Causality}
-
-\begin{theorem}[IC Bound {\normalfont (InformationCausality.v)}]
-For Alice's inputs $\{x_i\}$ and Bob's guesses $\{y_i\}$ given communication $b$:
-\[ \sum_i I(x_i : y_i \mid b) \le \Delta\mu_{\mathrm{channel}} \]
-Bob's total information about Alice's data is bounded by the $\mu$-capacity of the channel.
+\begin{theorem}[Observational Locality {\normalfont (SpacetimeEmergence.v)}]
+If module $M_B$ is not in the target set of any instruction in a trace, then $M_B$'s observable region is unchanged after execution (\texttt{exec\_trace\_no\_signaling\_outside\_cone}).
 \end{theorem}
 
 \begin{remark}
-In the Thiele Machine, Information Causality is a tautology of the cost model: you cannot learn more than you pay for.
+This is a \textbf{data isolation} property: operations targeting module $A$ in the partition graph do not affect the lookup of module $B$. The proof is structural (list operations on disjoint keys), non-trivial mainly for \texttt{psplit}/\texttt{pmerge} which restructure the graph. The label ``no-signaling'' is an analogy---there is no spatial metric or speed limit between modules.
+\end{remark}
+
+\chapter{Information Causality}
+
+\begin{theorem}[IC--$\mu$ Equivalence {\normalfont (InformationCausality.v)} --- \textbf{(R)}]
+The file defines two record types (\texttt{ICScenario} and \texttt{MuScenario}) with opaque \texttt{Prop} fields, then proves they are equivalent \emph{given} a hypothesis (\texttt{ic\_mu\_equivalent}) that literally states the equivalence. The proof is \texttt{tauto}. No mutual information, probability distributions, or CHSH values appear anywhere in the formalization.
+\end{theorem}
+
+\begin{remark}
+The intended statement---that Bob's total information about Alice's data is bounded by the channel's $\mu$-capacity---is a reasonable physical claim but is \textbf{not formalized} in the Coq file. The current file is a placeholder that assumes the conclusion as a hypothesis and re-derives it. A future version would need to define entropy, mutual information, and prove the bound from the VM semantics.
 \end{remark}
 
 \chapter{Thermodynamic Bridge}
@@ -710,14 +716,13 @@ In the Thiele Machine, Information Causality is a tautology of the cost model: y
 \begin{theorem}[Landauer Derived {\normalfont (LandauerDerived.v)}]
 \leavevmode
 \begin{enumerate}
-    \item Erasing $\ge 1$ bit is irreversible (fan-in $= 2^k > 1$).
-    \item Erasure decreases system entropy ($\Delta S_{\mathrm{sys}} < 0$).
-    \item For any physical erasure: environment entropy increase $\ge$ bits erased.
-    \item \textbf{Thermodynamic bridge}: energy dissipation $Q \ge k_B T \ln 2 \cdot \mu$.
-    \item Erasing $n$ bits costs $\ge n$ Landauer units.
-    \item Sequential erasures compose: $\mathrm{bits}(e_1) + \mathrm{bits}(e_2) = \mathrm{in}_1 - \mathrm{out}_2$.
+    \item \texttt{erasure\_irreversible}: Erasing $\ge 1$ bit implies fan-in $= 2^k > 1$ (arithmetic: $2^k > 1$ for $k \ge 1$).
+    \item \texttt{erasure\_decreases\_entropy}: Erasure decreases system entropy ($\Delta S < 0$) --- this is just $\mathrm{output} < \mathrm{input} \Rightarrow \mathrm{output} - \mathrm{input} < 0$.
+    \item \texttt{landauer\_information\_bound}: For any physical erasure, environment entropy increase $\ge$ bits erased.
+    \item \texttt{erasure\_additive}: Sequential erasures compose additively.
 \end{enumerate}
-The $\mu$-ledger literally counts irreversible bit erasures.
+
+\textbf{Caveat on item~3}: The \texttt{PhysicalErasure} record has \texttt{second\_law\_satisfied} as a \textbf{field}, not a derived property. The theorem \texttt{landauer\_information\_bound} simply extracts this field, making the bound an \emph{input assumption} rather than a derivation. The physical energy bound $Q \ge k_B T \ln 2 \cdot n$ is \textbf{explicitly not proven} (the file itself notes the conversion factor is not formalized). Also, the \texttt{mu} in this file is a standalone synonym for \texttt{bits\_erased}---it has no formal connection to \texttt{vm\_mu} in \texttt{VMState.v}.
 \end{theorem}
 
 \section{Dissipative Embedding}
@@ -849,7 +854,7 @@ The $\mu$-cost of maintaining coherence of $N$ entangled qubits scales as $O(N)$
 
 Since $d_\mu$ depends on information content, regions of high structural complexity effectively expand the metric.
 
-\textbf{Prediction}: In high-complexity computations, effective signal latency will increase relative to vacuum speed of light.
+\textbf{Prediction}: In high-complexity computations, effective signal latency will increase relative to vacuum propagation. (This prediction relies on interpreting $d_\mu$ as physically meaningful, which is currently an analogy rather than a derived result.)
 
 \section{Architectural Permanence}
 
@@ -950,15 +955,15 @@ No Free Insight & \textbf{(S)} & Module type contract \\
 $\mu$-Chaitin & \textbf{(S)} & Module type contract \\
 Cost = Complexity & \textbf{(S)} & Prefix-free coding \\
 No Free Lunch & \textbf{(S)} & Faithful representation \\
-No Arbitrage $\Rightarrow$ Potential & \textbf{(S)} & Additivity + no-arbitrage \\
+No Arbitrage $\Rightarrow$ Potential & \textbf{(S)} & Additivity + no-arbitrage (toy model) \\
 TM Embedding & \textbf{(S)} & Standard simulation \\
 Strict Subsumption & \textbf{(S)} & Partition structure \\
 Halting Undecidability & \textbf{(S)} & Diagonalization \\
-Oracle Cost & \textbf{(S)} & $\mu$-conservation \\
+Oracle Cost & \textbf{(S)} & Definitional (soundness $:=$ cost $\ge 1$) \\
 Confluence & \textbf{(S)} & Module independence \\
 $\mu$-Conservation & \textbf{(S)} & Machine semantics only \\
 Receipt Integrity & \textbf{(S)} & Hash-chain model \\
-Gauge / Noether & \textbf{(S)} & Machine semantics only \\
+Gauge / Noether & \textbf{(S)} & Definitional (record structure) \\
 Genesis & \textbf{(S)} & Definitional isomorphism \\
 Three-Layer Isomorphism & \textbf{(S)} & Decode function \\
 Curry--Howard--Thiele & \textbf{(S)} & Interpretation map \\
@@ -968,13 +973,13 @@ Curry--Howard--Thiele & \textbf{(S)} & Interpretation map \\
 2D Necessity & \textbf{(C)} & Superposition axiom (Axiom~\ref{ax:superposition}) \\
 Complex Necessity & \textbf{(C)} & 2D + norm preservation \\
 Born Rule Uniqueness & \textbf{(C)} & Tensor product consistency (\texttt{BornRuleFromSymmetry.v}) \\
-Unitarity from $\mu=0$ & \textbf{(C)} & Info conservation \\
+Unitarity from $\mu=0$ & \textbf{(C)} & Info conservation (one direction only) \\
 No-Cloning & \textbf{(C)} & Purity = information \\
 Purification & \textbf{(C)} & Bloch sphere model \\
 Observation Irreversibility & \textbf{(C)} & REVEAL semantics \\
 Collapse Determination & \textbf{(C)} & Entropy = $\log \dim$ \\
 Emergent Schr\"odinger & \textbf{(C)} & 2D + antisymmetry \\
-Landauer & \textbf{(C)} & Fan-in irreversibility \\
+Landauer & \textbf{(C)} & Second law \\emph{assumed} as record field \\
 Dissipative Embedding & \textbf{(C)} & Irreversibility model \\
 Self-Reference & \textbf{(C)} & Dimension = complexity \\
 CHSH Separation & \textbf{(C)} & Numerical witnesses \\
@@ -983,7 +988,10 @@ Tsirelson Bound & \textbf{(C)} & Algebraic derivation (\texttt{TsirelsonFromAlge
 \multicolumn{3}{l}{\emph{Consistency relations (definitions verified, not predictions)}} \\
 \hline
 Planck's Constant & \textbf{(R)} & $\tau_\mu := h/(4E_L)$ \\
-Information Causality & \textbf{(R)} & Tautology of cost model \\
+Information Causality & \textbf{(R)} & Circular: equivalence assumed as hypothesis \\
+$\mu$-Geometry & \textbf{(R)} & Pseudometric (absolute value on $\mathbb{Z}$) \\
+Spacetime Locality & \textbf{(R)} & Data isolation in partition graph \\
+Born Rule (\texttt{BornRule.v}) & \textbf{(R)} & $\mu$-consistent hypothesis unused \\
 \end{tabular}
 \end{center}
 

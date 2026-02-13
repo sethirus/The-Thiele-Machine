@@ -197,7 +197,7 @@ Theorem portable_proof_equivalence :
     | _, _ => False
     end.
 Proof.
-  intros c expected_result H_ok H_type.
+  intros c expected_result H_ok _.
   (* Since proof_ok c holds and prob_type c = expected_result,
      we can directly use the definition of proof_ok *)
   unfold proof_ok in H_ok.

@@ -368,7 +368,7 @@ Fixpoint iter_sq (x : R) (n : nat) : R :=
 Lemma iter_sq_nonneg : forall x n,
   0 <= x -> x <= 1 -> 0 <= iter_sq x n.
 Proof.
-  intros x n Hx0 Hx1.
+  intros x n Hx0 _.
   induction n as [|n IH]; simpl.
   - exact Hx0.
   - apply Rmult_le_pos; exact IH.

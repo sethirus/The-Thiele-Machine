@@ -226,7 +226,7 @@ Corollary mu_charges_commute :
                         py_mask := ledger.(py_mask) |} in
     python_mu_total ledger_de = python_mu_total ledger_ed.
 Proof.
-  intros ledger coq_mu d e Hbisim.
+  intros ledger coq_mu d e _.
   unfold python_mu_total. simpl.
   reflexivity.
 Qed.

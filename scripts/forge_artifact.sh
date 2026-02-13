@@ -31,6 +31,9 @@ command -v python3 >/dev/null || die "python3 not found on PATH"
 phase CLASSIFY "building Coq extraction entrypoint (proof of compilation)"
 make -C coq Extraction.vo
 
+phase CLASSIFY "patching extracted Nat module for native int performance"
+python3 scripts/patch_extracted_nat.py "$ROOT/build/thiele_core.ml"
+
 phase CLASSIFY "running Inquisitor (Coq proof-smell audit)"
 INQUISITOR_REPORT_PATH="$ROOT/artifacts/INQUISITOR_REPORT.md"
 INQUISITOR_STRICT="${INQUISITOR_STRICT:-0}"

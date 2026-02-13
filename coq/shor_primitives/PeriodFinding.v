@@ -178,7 +178,7 @@ Section Periods.
       1 < g < N ->
       Nat.divide g N /\ Nat.divide g (Nat.pow a (r / 2) - 1).
   Proof.
-    intros r _ _ Hbounds.
+    intros r _ _ g.
     unfold shor_candidate.
     split.
     - apply gcd_euclid_divides_right.

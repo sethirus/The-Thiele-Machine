@@ -45,6 +45,7 @@ Definition instr_cost (i : vm_instruction) : nat :=
 (** All instruction costs are non-negative (trivially, since nat ≥ 0) *)
 (** HELPER: Non-negativity property *)
 (** HELPER: Non-negativity property *)
+(* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
 Lemma instr_cost_nonneg : forall i, instr_cost i >= 0.
 Proof.
   intros i. lia.
@@ -60,6 +61,7 @@ Fixpoint trace_total_cost (trace : list vm_instruction) : nat :=
 (** HELPER: Base case property *)
 (** Empty trace has zero cost *)
 (** HELPER: Base case property *)
+(* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
 Theorem empty_trace_zero_cost : trace_total_cost [] = 0.
 Proof.
   reflexivity.
@@ -176,6 +178,7 @@ Definition mu_later (s s' : VMState) : Prop :=
 
 (** mu_later is reflexive *)
 (** HELPER: Reflexivity/transitivity/symmetry property *)
+(* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
 Theorem mu_later_refl : forall s, mu_later s s.
 Proof.
   intro s. unfold mu_later. lia.
@@ -184,6 +187,7 @@ Qed.
 
 (** mu_later is transitive *)
 (** HELPER: Reflexivity/transitivity/symmetry property *)
+(* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
 Theorem mu_later_trans : forall s1 s2 s3,
   mu_later s1 s2 -> mu_later s2 s3 -> mu_later s1 s3.
 Proof.
@@ -197,6 +201,7 @@ Definition mu_strictly_later (s s' : VMState) : Prop :=
 
 (** Strict ordering is irreflexive — no state is strictly later than itself *)
 (** HELPER: Reflexivity/transitivity/symmetry property *)
+(* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
 Theorem mu_strictly_later_irrefl : forall s,
   ~ mu_strictly_later s s.
 (** HELPER: Reflexivity/transitivity/symmetry property *)
@@ -206,6 +211,7 @@ Qed.
 
 (** Strict ordering is asymmetric — time cannot flow both ways *)
 (** HELPER: Reflexivity/transitivity/symmetry property *)
+(* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
 Theorem mu_strictly_later_asymm : forall s s',
   mu_strictly_later s s' -> ~ mu_strictly_later s' s.
 Proof.

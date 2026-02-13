@@ -165,7 +165,7 @@ Theorem discovery_produces_valid_partition_spec :
     let candidate := discover_partition prob in
     is_valid_partition (modules candidate) (problem_size prob).
 Proof.
-  intros prob Hpos candidate.
+  intros prob _ candidate.
   unfold candidate.
   unfold discover_partition.
   unfold is_valid_partition.

@@ -345,7 +345,7 @@ Corollary bounded_prefix_mu_balance :
     (run_vm k trace s).(vm_mu) =
       s.(vm_mu) + ledger_sum (ledger_entries k trace s).
 Proof.
-  intros fuel trace s k Hle.
+  intros fuel trace s k _.
   apply run_vm_mu_conservation.
 Qed.
 

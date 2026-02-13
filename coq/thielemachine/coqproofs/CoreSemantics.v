@@ -809,7 +809,7 @@ Remark polynomial_time_complexity_note :
     (* With sufficient fuel, well-formed programs halt *)
     (n > 0)%nat -> True.
 Proof.
-  intros n s prog Hn.
+  intros n s prog _.
   exact I.
 Qed.
 
@@ -1571,7 +1571,7 @@ Lemma step_mu_delta_equal : forall s1 s2 s1' s2',
   mu_total s1'.(mu_ledger) - mu_total s1.(mu_ledger) =
   mu_total s2'.(mu_ledger) - mu_total s2.(mu_ledger).
 Proof.
-  intros s1 s2 s1' s2' Hpart Hpc Hhalt Hres Hprog Hstep1 Hstep2.
+  intros s1 s2 s1' s2' Hpart Hpc Hhalt _ Hprog Hstep1 Hstep2.
   (* Use step_mu_independent to relate s1' and a hypothetical s2' from stepping s2 *)
   (* Since s1 and s2 are gauge-equivalent, step_mu_independent gives us that
      the stepped states preserve observable equality. The key is that each

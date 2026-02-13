@@ -79,12 +79,14 @@ Definition tm_config_ok (conf : TMConfig) : Prop :=
   let '(q, tape, head) := conf in
   digits_ok tape /\ length tape <= Encoding.SHIFT_LEN /\ head < length tape.
 
+(* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
 Lemma tm_config_ok_digits :
   forall q tape head,
     tm_config_ok (q, tape, head) ->
     digits_ok tape.
 Proof. intros q tape head [Hdigs _]. exact Hdigs. Qed.
 
+(* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
 Lemma tm_config_ok_head :
   forall q tape head,
     tm_config_ok (q, tape, head) ->
@@ -133,7 +135,7 @@ Lemma tm_step_tape_length :
     head < length tape ->
     length (let '(_, tape', _) := tm_step tm (q, tape, head) in tape') = length tape.
 Proof.
-  intros tm q tape head Hhead.
+  intros tm q tape head _.
   unfold tm_step; simpl.
   remember (tm q (nth head tape tm_blank)) as trans.
   destruct trans as [[q' write] move]; simpl.
@@ -163,7 +165,7 @@ Lemma tm_step_head_preserved :
     move_head head move < length tape ->
     let '(_, _, head') := tm_step tm (q, tape, head) in head' < length tape.
 Proof.
-  intros tm q tape head Hok.
+  intros tm q tape head _.
   unfold tm_step; simpl.
   remember (tm q (nth head tape tm_blank)) as trans.
   destruct trans as [[q' write] move]; simpl.

@@ -762,7 +762,7 @@ Theorem Uniform_Strategy_Dies : forall s0 fuel0,
     /\
     Dead fsN.
 Proof.
-  intros s0 fuel0 Hfuel.
+  intros s0 fuel0 _.
   (* Step 1: Construct witness fsN (error state with zero fuel) *)
   unfold schedule_expanding.
   exists

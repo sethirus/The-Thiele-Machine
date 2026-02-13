@@ -1,7 +1,7 @@
 \section{Experimental Validation Suite}
 
 \begin{quote}
-\textit{Author's Note (Devon): Time to get our hands dirty. All those theorems and proofs? They're claims about how the world works. And claims need to be tested. This chapter is me saying ``prove it''---to myself. I ran experiments. I tried to break my own system. I threw adversarial inputs at it. Because if I can't break it, maybe---just maybe---it actually works. And if I can break it, well, at least I find out before someone else does.}
+\textit{Author's Note (Devon): Time to get my hands dirty. All those theorems and proofs? They're claims about how the world works. And claims need to be tested. This chapter is me saying ``prove it''---to myself. I ran experiments. I tried to break my own system. I threw adversarial inputs at it. Because if I can't break it, maybe---just maybe---it actually works. And if I can break it, well, at least I find out before someone else does.}
 \end{quote}
 
 \subsection{The Role of Experiments in Theoretical Computer Science}
@@ -20,7 +20,7 @@ Where possible, the experiments correspond to concrete harnesses in the reposito
 
 \subsection{Falsification vs.\ Confirmation}
 
-Following Karl Popper's philosophy of science, the experimental suite prioritizes \textbf{falsification} over confirmation. It is easy to find examples where the theory ``works''; it is much harder to construct adversarial tests that could break the theory.
+The point of these experiments is to try to \textbf{break} the theory, not to confirm it. Confirmation is cheap---you can always find cases where things work. The real test is whether you can construct an input that violates the guarantees. That's how I approached it: red-team first, celebrate later.
 
 The experimental suite includes:
 \begin{itemize}
@@ -355,7 +355,7 @@ The Thiele Machine models this as $\mu$-increase: observation \textit{reveals st
     \item \textbf{$\Delta\mu$:} $101 - 100 = 1$. $\checkmark$ (Minimum cost satisfied)
 \end{itemize}
 
-\textbf{What if we measure twice?} Measuring the \textit{same} observable again on the \textit{same} eigenstate should cost \textit{zero} additional $\mu$ (the system is already in an eigenstate, no new information is gained). The experiment tests this:
+\textbf{What if you measure twice?} Measuring the \textit{same} observable again on the \textit{same} eigenstate should cost \textit{zero} additional $\mu$ (the system is already in an eigenstate, no new information is gained). The experiment tests this:
 \begin{itemize}
     \item \textbf{First measurement:} $\Delta\mu_1 = 1$ (collapse).
     \item \textbf{Second measurement (same basis):} $\Delta\mu_2 = 0$ (no collapse, eigenstate unchanged).
@@ -1053,7 +1053,7 @@ Representative topics:
 
 \subsection{Factorization and Shor's Algorithm}
 
-The Thiele Machine's partition-native computational model provides a unique lens on integer factorization. By treating the number field structure as a partition graph, we can execute structural analogs of quantum algorithms.
+The Thiele Machine's partition-native computational model provides a unique lens on integer factorization. By treating the number field structure as a partition graph, the machine can execute structural analogs of quantum algorithms.
 
 \begin{center}
 \begin{tabular}{|l|l|}
@@ -1074,7 +1074,7 @@ The Shor's algorithm demonstration uses the Thiele Machine's structural oracle (
 \begin{itemize}
     \item \textbf{Exact Factorization:} Successfully factored $3233 = 53 \times 61$ by discovering the period $r=260$ for base $a=3$.
     \item \textbf{Structural Substitution:} The execution trace confirms that 0 explicit modular multiplications were performed. Instead, the period was revealed through a \texttt{REVEAL} event on a certified partition, costing $\mu$ proportional to the structural complexity.
-    \item \textbf{Congruence Pruning:} On larger instances like $N=31313$, we demonstrated that partition-native pruning reduces the search space for factors by nearly half an order of magnitude (0.48 dex) before any compute-heavy steps begin.
+    \item \textbf{Congruence Pruning:} On larger instances like $N=31313$, I demonstrated that partition-native pruning reduces the search space for factors by nearly half an order of magnitude (0.48 dex) before any compute-heavy steps begin.
 \end{itemize}
 
 \begin{quote}
