@@ -20,6 +20,7 @@ All three produce IDENTICAL results for the same instruction sequences.
 """
 
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -119,7 +120,10 @@ def verify_coq_extraction() -> bool:
         runner_path = _ensure_coq_runner()
         trace = BUILD_DIR / "verify_trace.txt"
         trace.write_text("PNEW {0} 1\nHALT 0\n", encoding="utf-8")
-        result = subprocess.run([str(runner_path), str(trace)], capture_output=True, text=True, timeout=10)
+        result = subprocess.run(
+            [str(runner_path), str(trace)], capture_output=True, text=True, timeout=10,
+            env={**os.environ, "OCAMLRUNPARAM": os.environ.get("OCAMLRUNPARAM", "l=64M")},
+        )
         runner_works = '"pc":' in result.stdout and '"mu":' in result.stdout
     except Exception:
         runner_works = False

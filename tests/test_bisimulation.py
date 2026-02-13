@@ -24,6 +24,7 @@ the coq-kernel CI job.
 import shutil
 import subprocess
 import json
+import os
 import tempfile
 from pathlib import Path
 from typing import Dict, Any, List, Optional
@@ -40,6 +41,13 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 EXTRACTED_RUNNER = REPO_ROOT / "build" / "extracted_vm_runner"
 HAS_IVERILOG = shutil.which("iverilog") is not None
 OPCODES_VH = REPO_ROOT / "thielecpu" / "hardware" / "rtl" / "generated_opcodes.vh"
+
+
+def _ocaml_env() -> dict:
+    """Return environment with increased OCaml stack size."""
+    env = os.environ.copy()
+    env.setdefault("OCAMLRUNPARAM", "l=64M")
+    return env
 
 
 # ---------------------------------------------------------------------------
@@ -128,6 +136,7 @@ def _run_coq_extracted(program: str) -> Optional[Dict[str, Any]]:
             capture_output=True,
             text=True,
             timeout=30,
+            env=_ocaml_env(),
         )
         if result.returncode != 0:
             return None
