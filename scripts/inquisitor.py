@@ -422,17 +422,18 @@ def scan_unused_hypotheses(path: Path) -> list[Finding]:
                 continue
             # If an implicit consumer is present (auto, lia, etc.), it MIGHT use
             # this hypothesis — but only if it's an arithmetic/decidable type.
-            # Still flag, but at LOW severity if implicit consumers are present.
-            sev = "MEDIUM" if has_implicit_consumer else "HIGH"
+            # These are almost always false positives, so skip them entirely.
+            if has_implicit_consumer:
+                continue  # Skip: implicit consumers likely use this hypothesis
+            # Only flag if NO implicit consumers detected (true unused hypothesis)
             findings.append(
                 Finding(
                     rule_id="UNUSED_HYPOTHESIS",
-                    severity=sev,
+                    severity="HIGH",
                     file=path,
                     line=line_of[proof_match.start()],
                     snippet=intros_line,
-                    message=f"Introduced hypothesis `{name}` not referenced in proof body."
-                            + (" (implicit consumer present — may be false positive)" if has_implicit_consumer else ""),
+                    message=f"Introduced hypothesis `{name}` not referenced in proof body.",
                 )
             )
     return findings

@@ -1,6 +1,4 @@
 
-type __ = Obj.t
-
 (** val negb : bool -> bool **)
 
 let negb = function
@@ -35,42 +33,6 @@ type comparison =
 | Lt
 | Gt
 
-type uint =
-| Nil
-| D0 of uint
-| D1 of uint
-| D2 of uint
-| D3 of uint
-| D4 of uint
-| D5 of uint
-| D6 of uint
-| D7 of uint
-| D8 of uint
-| D9 of uint
-
-type uint0 =
-| Nil0
-| D10 of uint0
-| D11 of uint0
-| D12 of uint0
-| D13 of uint0
-| D14 of uint0
-| D15 of uint0
-| D16 of uint0
-| D17 of uint0
-| D18 of uint0
-| D19 of uint0
-| Da of uint0
-| Db of uint0
-| Dc of uint0
-| Dd of uint0
-| De of uint0
-| Df of uint0
-
-type uint1 =
-| UIntDecimal of uint
-| UIntHexadecimal of uint0
-
 module Coq__1 = struct
  (** val add : int -> int -> int **)
 
@@ -78,302 +40,13 @@ module Coq__1 = struct
 end
 include Coq__1
 
-(** val mul : int -> int -> int **)
+(** val eqb : bool -> bool -> bool **)
 
-let rec mul = ( * )
-
-(** val sub : int -> int -> int **)
-
-let rec sub = fun n m -> Stdlib.max 0 (n-m)
-
-(** val eqb : int -> int -> bool **)
-
-let rec eqb = (=)
-
-(** val tail_add : int -> int -> int **)
-
-let rec tail_add n0 m =
-  (fun zero succ n -> if n=0 then zero () else succ (n-1))
-    (fun _ -> m)
-    (fun n1 -> tail_add n1 ((fun x -> x + 1) m))
-    n0
-
-(** val tail_addmul : int -> int -> int -> int **)
-
-let rec tail_addmul r n0 m =
-  (fun zero succ n -> if n=0 then zero () else succ (n-1))
-    (fun _ -> r)
-    (fun n1 -> tail_addmul (tail_add m r) n1 m)
-    n0
-
-(** val tail_mul : int -> int -> int **)
-
-let tail_mul n0 m =
-  tail_addmul 0 n0 m
-
-(** val of_uint_acc : uint -> int -> int **)
-
-let rec of_uint_acc d acc =
-  match d with
-  | Nil -> acc
-  | D0 d0 ->
-    of_uint_acc d0
-      (tail_mul ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) 0)))))))))) acc)
-  | D1 d0 ->
-    of_uint_acc d0 ((fun x -> x + 1)
-      (tail_mul ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) 0)))))))))) acc))
-  | D2 d0 ->
-    of_uint_acc d0 ((fun x -> x + 1) ((fun x -> x + 1)
-      (tail_mul ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) 0)))))))))) acc)))
-  | D3 d0 ->
-    of_uint_acc d0 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      (tail_mul ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) 0)))))))))) acc))))
-  | D4 d0 ->
-    of_uint_acc d0 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1)
-      (tail_mul ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) 0)))))))))) acc)))))
-  | D5 d0 ->
-    of_uint_acc d0 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1)
-      (tail_mul ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) 0)))))))))) acc))))))
-  | D6 d0 ->
-    of_uint_acc d0 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      (tail_mul ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) 0)))))))))) acc)))))))
-  | D7 d0 ->
-    of_uint_acc d0 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      (tail_mul ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) 0)))))))))) acc))))))))
-  | D8 d0 ->
-    of_uint_acc d0 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1)
-      (tail_mul ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) 0)))))))))) acc)))))))))
-  | D9 d0 ->
-    of_uint_acc d0 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1)
-      (tail_mul ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) 0)))))))))) acc))))))))))
-
-(** val of_uint : uint -> int **)
-
-let of_uint d =
-  of_uint_acc d 0
-
-(** val of_hex_uint_acc : uint0 -> int -> int **)
-
-let rec of_hex_uint_acc d acc =
-  match d with
-  | Nil0 -> acc
-  | D10 d0 ->
-    of_hex_uint_acc d0
-      (tail_mul ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) 0)))))))))))))))) acc)
-  | D11 d0 ->
-    of_hex_uint_acc d0 ((fun x -> x + 1)
-      (tail_mul ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) 0)))))))))))))))) acc))
-  | D12 d0 ->
-    of_hex_uint_acc d0 ((fun x -> x + 1) ((fun x -> x + 1)
-      (tail_mul ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) 0)))))))))))))))) acc)))
-  | D13 d0 ->
-    of_hex_uint_acc d0 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      (tail_mul ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) 0)))))))))))))))) acc))))
-  | D14 d0 ->
-    of_hex_uint_acc d0 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1)
-      (tail_mul ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) 0)))))))))))))))) acc)))))
-  | D15 d0 ->
-    of_hex_uint_acc d0 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1)
-      (tail_mul ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) 0)))))))))))))))) acc))))))
-  | D16 d0 ->
-    of_hex_uint_acc d0 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      (tail_mul ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) 0)))))))))))))))) acc)))))))
-  | D17 d0 ->
-    of_hex_uint_acc d0 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      (tail_mul ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) 0)))))))))))))))) acc))))))))
-  | D18 d0 ->
-    of_hex_uint_acc d0 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1)
-      (tail_mul ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) 0)))))))))))))))) acc)))))))))
-  | D19 d0 ->
-    of_hex_uint_acc d0 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1)
-      (tail_mul ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) 0)))))))))))))))) acc))))))))))
-  | Da d0 ->
-    of_hex_uint_acc d0 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      (tail_mul ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) 0)))))))))))))))) acc)))))))))))
-  | Db d0 ->
-    of_hex_uint_acc d0 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      (tail_mul ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) 0)))))))))))))))) acc))))))))))))
-  | Dc d0 ->
-    of_hex_uint_acc d0 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1)
-      (tail_mul ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) 0)))))))))))))))) acc)))))))))))))
-  | Dd d0 ->
-    of_hex_uint_acc d0 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1)
-      (tail_mul ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) 0)))))))))))))))) acc))))))))))))))
-  | De d0 ->
-    of_hex_uint_acc d0 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      (tail_mul ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) 0)))))))))))))))) acc)))))))))))))))
-  | Df d0 ->
-    of_hex_uint_acc d0 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      (tail_mul ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) 0)))))))))))))))) acc))))))))))))))))
-
-(** val of_hex_uint : uint0 -> int **)
-
-let of_hex_uint d =
-  of_hex_uint_acc d 0
-
-(** val of_num_uint : uint1 -> int **)
-
-let of_num_uint = function
-| UIntDecimal d0 -> of_uint d0
-| UIntHexadecimal d0 -> of_hex_uint d0
-
-(** val eqb0 : bool -> bool -> bool **)
-
-let eqb0 b2 b3 =
-  if b2 then b3 else if b3 then false else true
+let eqb b1 b2 =
+  if b1 then b2 else if b2 then false else true
 
 module Nat =
  struct
-  (** val pred : int -> int **)
-
-  let pred n0 =
-    (fun zero succ n -> if n=0 then zero () else succ (n-1))
-      (fun _ -> n0)
-      (fun u -> u)
-      n0
-
   (** val add : int -> int -> int **)
 
   let rec add n0 m =
@@ -407,23 +80,15 @@ module Nat =
   let ltb n0 m =
     (<=) ((fun x -> x + 1) n0) m
 
-  (** val pow : int -> int -> int **)
-
-  let rec pow n0 m =
-    (fun zero succ n -> if n=0 then zero () else succ (n-1))
-      (fun _ -> (fun x -> x + 1) 0)
-      (fun m0 -> mul n0 (pow n0 m0))
-      m
-
   (** val divmod : int -> int -> int -> int -> int*int **)
 
-  let rec divmod x y q0 u =
+  let rec divmod x y q u =
     (fun zero succ n -> if n=0 then zero () else succ (n-1))
-      (fun _ -> q0,u)
+      (fun _ -> q,u)
       (fun x' ->
       (fun zero succ n -> if n=0 then zero () else succ (n-1))
-        (fun _ -> divmod x' y ((fun x -> x + 1) q0) y)
-        (fun u' -> divmod x' y q0 u')
+        (fun _ -> divmod x' y ((fun x -> x + 1) q) y)
+        (fun u' -> divmod x' y q u')
         u)
       x
 
@@ -434,24 +99,6 @@ module Nat =
       (fun _ -> x)
       (fun y' -> sub y' (snd (divmod x y' 0 y')))
       y
-
-  (** val log2_iter : int -> int -> int -> int -> int **)
-
-  let rec log2_iter k p q0 r =
-    (fun zero succ n -> if n=0 then zero () else succ (n-1))
-      (fun _ -> p)
-      (fun k' ->
-      (fun zero succ n -> if n=0 then zero () else succ (n-1))
-        (fun _ ->
-        log2_iter k' ((fun x -> x + 1) p) ((fun x -> x + 1) q0) q0)
-        (fun r' -> log2_iter k' p ((fun x -> x + 1) q0) r')
-        r)
-      k
-
-  (** val log2 : int -> int **)
-
-  let log2 n0 =
-    log2_iter (pred n0) 0 ((fun x -> x + 1) 0) 0
  end
 
 module Pos =
@@ -472,22 +119,22 @@ module Pos =
       (fun p ->
       (fun f2p1 f2p f1 p ->
   if p<=1 then f1 () else if p mod 2 = 0 then f2p (p/2) else f2p1 (p/2))
-        (fun q0 -> (fun p->1+2*p) (add_carry p q0))
-        (fun q0 -> (fun p->2*p) (add_carry p q0))
+        (fun q -> (fun p->1+2*p) (add_carry p q))
+        (fun q -> (fun p->2*p) (add_carry p q))
         (fun _ -> (fun p->1+2*p) (succ p))
         y)
       (fun p ->
       (fun f2p1 f2p f1 p ->
   if p<=1 then f1 () else if p mod 2 = 0 then f2p (p/2) else f2p1 (p/2))
-        (fun q0 -> (fun p->2*p) (add_carry p q0))
-        (fun q0 -> (fun p->1+2*p) (add p q0))
+        (fun q -> (fun p->2*p) (add_carry p q))
+        (fun q -> (fun p->1+2*p) (add p q))
         (fun _ -> (fun p->2*p) (succ p))
         y)
       (fun _ ->
       (fun f2p1 f2p f1 p ->
   if p<=1 then f1 () else if p mod 2 = 0 then f2p (p/2) else f2p1 (p/2))
-        (fun q0 -> (fun p->1+2*p) (succ q0))
-        (fun q0 -> (fun p->2*p) (succ q0))
+        (fun q -> (fun p->1+2*p) (succ q))
+        (fun q -> (fun p->2*p) (succ q))
         (fun _ -> (fun p->1+2*p) 1)
         y)
       x
@@ -536,30 +183,30 @@ module Pos =
 
   (** val eqb : int -> int -> bool **)
 
-  let rec eqb p q0 =
+  let rec eqb p q =
     (fun f2p1 f2p f1 p ->
   if p<=1 then f1 () else if p mod 2 = 0 then f2p (p/2) else f2p1 (p/2))
       (fun p0 ->
       (fun f2p1 f2p f1 p ->
   if p<=1 then f1 () else if p mod 2 = 0 then f2p (p/2) else f2p1 (p/2))
-        (fun q1 -> eqb p0 q1)
+        (fun q0 -> eqb p0 q0)
         (fun _ -> false)
         (fun _ -> false)
-        q0)
+        q)
       (fun p0 ->
       (fun f2p1 f2p f1 p ->
   if p<=1 then f1 () else if p mod 2 = 0 then f2p (p/2) else f2p1 (p/2))
         (fun _ -> false)
-        (fun q1 -> eqb p0 q1)
+        (fun q0 -> eqb p0 q0)
         (fun _ -> false)
-        q0)
+        q)
       (fun _ ->
       (fun f2p1 f2p f1 p ->
   if p<=1 then f1 () else if p mod 2 = 0 then f2p (p/2) else f2p1 (p/2))
         (fun _ -> false)
         (fun _ -> false)
         (fun _ -> true)
-        q0)
+        q)
       p
 
   (** val coq_Nsucc_double : int -> int **)
@@ -580,58 +227,58 @@ module Pos =
 
   (** val coq_land : int -> int -> int **)
 
-  let rec coq_land p q0 =
+  let rec coq_land p q =
     (fun f2p1 f2p f1 p ->
   if p<=1 then f1 () else if p mod 2 = 0 then f2p (p/2) else f2p1 (p/2))
       (fun p0 ->
       (fun f2p1 f2p f1 p ->
   if p<=1 then f1 () else if p mod 2 = 0 then f2p (p/2) else f2p1 (p/2))
-        (fun q1 -> coq_Nsucc_double (coq_land p0 q1))
-        (fun q1 -> coq_Ndouble (coq_land p0 q1))
+        (fun q0 -> coq_Nsucc_double (coq_land p0 q0))
+        (fun q0 -> coq_Ndouble (coq_land p0 q0))
         (fun _ -> 1)
-        q0)
+        q)
       (fun p0 ->
       (fun f2p1 f2p f1 p ->
   if p<=1 then f1 () else if p mod 2 = 0 then f2p (p/2) else f2p1 (p/2))
-        (fun q1 -> coq_Ndouble (coq_land p0 q1))
-        (fun q1 -> coq_Ndouble (coq_land p0 q1))
+        (fun q0 -> coq_Ndouble (coq_land p0 q0))
+        (fun q0 -> coq_Ndouble (coq_land p0 q0))
         (fun _ -> 0)
-        q0)
+        q)
       (fun _ ->
       (fun f2p1 f2p f1 p ->
   if p<=1 then f1 () else if p mod 2 = 0 then f2p (p/2) else f2p1 (p/2))
         (fun _ -> 1)
         (fun _ -> 0)
         (fun _ -> 1)
-        q0)
+        q)
       p
 
   (** val coq_lxor : int -> int -> int **)
 
-  let rec coq_lxor p q0 =
+  let rec coq_lxor p q =
     (fun f2p1 f2p f1 p ->
   if p<=1 then f1 () else if p mod 2 = 0 then f2p (p/2) else f2p1 (p/2))
       (fun p0 ->
       (fun f2p1 f2p f1 p ->
   if p<=1 then f1 () else if p mod 2 = 0 then f2p (p/2) else f2p1 (p/2))
-        (fun q1 -> coq_Ndouble (coq_lxor p0 q1))
-        (fun q1 -> coq_Nsucc_double (coq_lxor p0 q1))
+        (fun q0 -> coq_Ndouble (coq_lxor p0 q0))
+        (fun q0 -> coq_Nsucc_double (coq_lxor p0 q0))
         (fun _ -> ((fun p->2*p) p0))
-        q0)
+        q)
       (fun p0 ->
       (fun f2p1 f2p f1 p ->
   if p<=1 then f1 () else if p mod 2 = 0 then f2p (p/2) else f2p1 (p/2))
-        (fun q1 -> coq_Nsucc_double (coq_lxor p0 q1))
-        (fun q1 -> coq_Ndouble (coq_lxor p0 q1))
+        (fun q0 -> coq_Nsucc_double (coq_lxor p0 q0))
+        (fun q0 -> coq_Ndouble (coq_lxor p0 q0))
         (fun _ -> ((fun p->1+2*p) p0))
-        q0)
+        q)
       (fun _ ->
       (fun f2p1 f2p f1 p ->
   if p<=1 then f1 () else if p mod 2 = 0 then f2p (p/2) else f2p1 (p/2))
-        (fun q1 -> ((fun p->2*p) q1))
-        (fun q1 -> ((fun p->1+2*p) q1))
+        (fun q0 -> ((fun p->2*p) q0))
+        (fun q0 -> ((fun p->1+2*p) q0))
         (fun _ -> 0)
-        q0)
+        q)
       p
 
   (** val shiftl : int -> int -> int **)
@@ -710,7 +357,7 @@ module N =
       (fun p ->
       (fun f0 fp n -> if n=0 then f0 () else fp n)
         (fun _ -> 0)
-        (fun q0 -> Pos.coq_land p q0)
+        (fun q -> Pos.coq_land p q)
         m)
       n0
 
@@ -722,7 +369,7 @@ module N =
       (fun p ->
       (fun f0 fp n -> if n=0 then f0 () else fp n)
         (fun _ -> n0)
-        (fun q0 -> Pos.coq_lxor p q0)
+        (fun q -> Pos.coq_lxor p q)
         m)
       n0
 
@@ -731,7 +378,7 @@ module N =
   let shiftl a n0 =
     (fun f0 fp n -> if n=0 then f0 () else fp n)
       (fun _ -> 0)
-      (fun a2 -> (Pos.shiftl a2 n0))
+      (fun a0 -> (Pos.shiftl a0 n0))
       a
 
   (** val testbit : int -> int -> bool **)
@@ -822,8 +469,8 @@ let n_of_ascii a =
   let n = Char.code c in
   let h i = (n land (1 lsl i)) <> 0 in
   f (h 0) (h 1) (h 2) (h 3) (h 4) (h 5) (h 6) (h 7))
-    (fun a2 a3 a4 a5 a6 a7 a8 a9 ->
-    n_of_digits (a2::(a3::(a4::(a5::(a6::(a7::(a8::(a9::[])))))))))
+    (fun a0 a1 a2 a3 a4 a5 a6 a7 ->
+    n_of_digits (a0::(a1::(a2::(a3::(a4::(a5::(a6::(a7::[])))))))))
     a
 
 (** val nat_of_ascii : char -> int **)
@@ -849,18 +496,6 @@ let rec nth n0 l default =
               | _::t -> nth m t default)
     n0
 
-(** val nth_error : 'a1 list -> int -> 'a1 option **)
-
-let rec nth_error l n0 =
-  (fun zero succ n -> if n=0 then zero () else succ (n-1))
-    (fun _ -> match l with
-              | [] -> None
-              | x::_ -> Some x)
-    (fun n1 -> match l with
-               | [] -> None
-               | _::l0 -> nth_error l0 n1)
-    n0
-
 (** val rev : 'a1 list -> 'a1 list **)
 
 let rec rev = function
@@ -875,16 +510,16 @@ let rec map f = function
 
 (** val fold_left : ('a1 -> 'a2 -> 'a1) -> 'a2 list -> 'a1 -> 'a1 **)
 
-let rec fold_left f l a2 =
+let rec fold_left f l a0 =
   match l with
-  | [] -> a2
-  | b::t -> fold_left f t (f a2 b)
+  | [] -> a0
+  | b::t -> fold_left f t (f a0 b)
 
 (** val fold_right : ('a2 -> 'a1 -> 'a1) -> 'a1 -> 'a2 list -> 'a1 **)
 
-let rec fold_right f a2 = function
-| [] -> a2
-| b::t -> f b (fold_right f a2 t)
+let rec fold_right f a0 = function
+| [] -> a0
+| b::t -> f b (fold_right f a0 t)
 
 (** val forallb : ('a1 -> bool) -> 'a1 list -> bool **)
 
@@ -926,76 +561,9 @@ let rec nodup decA = function
 
 module Z =
  struct
-  (** val double : int -> int **)
-
-  let double x =
-    (fun f0 fp fn z -> if z=0 then f0 () else if z>0 then fp z else fn (-z))
-      (fun _ -> 0)
-      (fun p -> ((fun p->2*p) p))
-      (fun p -> (~-) ((fun p->2*p) p))
-      x
-
-  (** val succ_double : int -> int **)
-
-  let succ_double x =
-    (fun f0 fp fn z -> if z=0 then f0 () else if z>0 then fp z else fn (-z))
-      (fun _ -> 1)
-      (fun p -> ((fun p->1+2*p) p))
-      (fun p -> (~-) (Pos.pred_double p))
-      x
-
-  (** val pred_double : int -> int **)
-
-  let pred_double x =
-    (fun f0 fp fn z -> if z=0 then f0 () else if z>0 then fp z else fn (-z))
-      (fun _ -> (~-) 1)
-      (fun p -> (Pos.pred_double p))
-      (fun p -> (~-) ((fun p->1+2*p) p))
-      x
-
-  (** val pos_sub : int -> int -> int **)
-
-  let rec pos_sub x y =
-    (fun f2p1 f2p f1 p ->
-  if p<=1 then f1 () else if p mod 2 = 0 then f2p (p/2) else f2p1 (p/2))
-      (fun p ->
-      (fun f2p1 f2p f1 p ->
-  if p<=1 then f1 () else if p mod 2 = 0 then f2p (p/2) else f2p1 (p/2))
-        (fun q0 -> double (pos_sub p q0))
-        (fun q0 -> succ_double (pos_sub p q0))
-        (fun _ -> ((fun p->2*p) p))
-        y)
-      (fun p ->
-      (fun f2p1 f2p f1 p ->
-  if p<=1 then f1 () else if p mod 2 = 0 then f2p (p/2) else f2p1 (p/2))
-        (fun q0 -> pred_double (pos_sub p q0))
-        (fun q0 -> double (pos_sub p q0))
-        (fun _ -> (Pos.pred_double p))
-        y)
-      (fun _ ->
-      (fun f2p1 f2p f1 p ->
-  if p<=1 then f1 () else if p mod 2 = 0 then f2p (p/2) else f2p1 (p/2))
-        (fun q0 -> (~-) ((fun p->2*p) q0))
-        (fun q0 -> (~-) (Pos.pred_double q0))
-        (fun _ -> 0)
-        y)
-      x
-
-  (** val add : int -> int -> int **)
-
-  let add = (+)
-
   (** val opp : int -> int **)
 
   let opp = (~-)
-
-  (** val sub : int -> int -> int **)
-
-  let sub = (-)
-
-  (** val mul : int -> int -> int **)
-
-  let mul = ( * )
 
   (** val compare : int -> int -> comparison **)
 
@@ -1028,14 +596,14 @@ module Z =
       (fun p ->
       (fun f0 fp fn z -> if z=0 then f0 () else if z>0 then fp z else fn (-z))
         (fun _ -> false)
-        (fun q0 -> Pos.eqb p q0)
+        (fun q -> Pos.eqb p q)
         (fun _ -> false)
         y)
       (fun p ->
       (fun f0 fp fn z -> if z=0 then f0 () else if z>0 then fp z else fn (-z))
         (fun _ -> false)
         (fun _ -> false)
-        (fun q0 -> Pos.eqb p q0)
+        (fun q -> Pos.eqb p q)
         y)
       x
 
@@ -1061,9 +629,9 @@ module Z =
       n0
  end
 
-(** val eqb1 : char list -> char list -> bool **)
+(** val eqb0 : char list -> char list -> bool **)
 
-let rec eqb1 s1 s2 =
+let rec eqb0 s1 s2 =
   match s1 with
   | [] -> (match s2 with
            | [] -> true
@@ -1071,7 +639,7 @@ let rec eqb1 s1 s2 =
   | c1::s1' ->
     (match s2 with
      | [] -> false
-     | c2::s2' -> if (=) c1 c2 then eqb1 s1' s2' else false)
+     | c2::s2' -> if (=) c1 c2 then eqb0 s1' s2' else false)
 
 (** val append : char list -> char list -> char list **)
 
@@ -1080,54 +648,11 @@ let rec append s1 s2 =
   | [] -> s2
   | c::s1' -> c::(append s1' s2)
 
-(** val length0 : char list -> int **)
-
-let rec length0 = function
-| [] -> 0
-| _::s' -> (fun x -> x + 1) (length0 s')
-
 (** val list_ascii_of_string : char list -> char list **)
 
 let rec list_ascii_of_string = function
 | [] -> []
 | ch::s0 -> ch::(list_ascii_of_string s0)
-
-type q = { qnum : int; qden : int }
-
-(** val qplus : q -> q -> q **)
-
-let qplus x y =
-  { qnum = (Z.add (Z.mul x.qnum y.qden) (Z.mul y.qnum x.qden)); qden =
-    (Pos.mul x.qden y.qden) }
-
-(** val qmult : q -> q -> q **)
-
-let qmult x y =
-  { qnum = (Z.mul x.qnum y.qnum); qden = (Pos.mul x.qden y.qden) }
-
-(** val qopp : q -> q **)
-
-let qopp x =
-  { qnum = (Z.opp x.qnum); qden = x.qden }
-
-(** val qminus : q -> q -> q **)
-
-let qminus x y =
-  qplus x (qopp y)
-
-(** val qinv : q -> q **)
-
-let qinv x =
-  (fun f0 fp fn z -> if z=0 then f0 () else if z>0 then fp z else fn (-z))
-    (fun _ -> { qnum = 0; qden = 1 })
-    (fun p -> { qnum = x.qden; qden = p })
-    (fun p -> { qnum = ((~-) x.qden); qden = p })
-    x.qnum
-
-(** val qdiv : q -> q -> q **)
-
-let qdiv x y =
-  qmult x (qinv y)
 
 type moduleID = int
 
@@ -1176,11 +701,6 @@ let normalize_module m =
 
 type partitionGraph = { pg_next_id : moduleID;
                         pg_modules : (moduleID*moduleState) list }
-
-(** val empty_graph : partitionGraph **)
-
-let empty_graph =
-  { pg_next_id = ((fun x -> x + 1) 0); pg_modules = [] }
 
 (** val graph_lookup_modules :
     (moduleID*moduleState) list -> moduleID -> moduleState option **)
@@ -2189,13 +1709,13 @@ module CertCheck =
 
   let value_is_false s =
     let t = trim_left s in
-    (||) (eqb1 t ('0'::[]))
-      ((||) (eqb1 t ('f'::('a'::('l'::('s'::('e'::[])))))) (eqb1 t ('f'::[])))
+    (||) (eqb0 t ('0'::[]))
+      ((||) (eqb0 t ('f'::('a'::('l'::('s'::('e'::[])))))) (eqb0 t ('f'::[])))
 
   (** val parse_assignment_token : char list -> (int*bool) option **)
 
   let parse_assignment_token tok =
-    if eqb1 tok ('0'::[])
+    if eqb0 tok ('0'::[])
     then None
     else (match split_on_eq tok with
           | Some p ->
@@ -2232,7 +1752,7 @@ module CertCheck =
     let var = Z.to_nat (Z.abs lit) in
     (match lookup_bool var asgn with
      | Some b ->
-       if eqb0 b (Z.gtb lit 0) then true else clause_satisfied asgn lits'
+       if eqb b (Z.gtb lit 0) then true else clause_satisfied asgn lits'
      | None -> false)
 
   (** val check_model : char list -> char list -> bool **)
@@ -2267,7 +1787,7 @@ module CertCheck =
       | lit::lits' ->
         let var = Z.to_nat (Z.abs lit) in
         (match lookup_bool var asgn with
-         | Some b -> if eqb0 b (Z.gtb lit 0) then true,[] else go lits' undec
+         | Some b -> if eqb b (Z.gtb lit 0) then true,[] else go lits' undec
          | None -> go lits' (lit::undec))
     in go cl []
 
@@ -2285,25 +1805,25 @@ module CertCheck =
         let value = Z.gtb lit 0 in
         (match lookup_bool var asgn with
          | Some b ->
-           if eqb0 b value
+           if eqb b value
            then unit_conflict_fuel fuel' num_vars clauses asgn queue'
            else true
          | None ->
            let asgn' = insert_bool var value asgn in
            let scan =
-             let rec scan cls q0 =
+             let rec scan cls q =
                match cls with
-               | [] -> Some q0
+               | [] -> Some q
                | cl::cls' ->
                  let sat,undec = eval_clause asgn' cl in
                  if sat
-                 then scan cls' q0
+                 then scan cls' q
                  else (match undec with
                        | [] -> None
                        | u::l ->
                          (match l with
-                          | [] -> scan cls' (u::q0)
-                          | _::_ -> scan cls' q0))
+                          | [] -> scan cls' (u::q)
+                          | _::_ -> scan cls' q))
              in scan
            in
            (match scan clauses queue' with
@@ -2388,13 +1908,13 @@ module CertCheck =
 
   let rec drop_until_zero = function
   | [] -> []
-  | t::ts' -> if eqb1 t ('0'::[]) then ts' else drop_until_zero ts'
+  | t::ts' -> if eqb0 t ('0'::[]) then ts' else drop_until_zero ts'
 
   (** val parse_lrat_line : char list -> lrat_step option **)
 
   let parse_lrat_line line =
     let t = trim_left line in
-    if eqb1 t []
+    if eqb0 t []
     then None
     else if starts_with_char
               (ascii_of_nat ((fun x -> x + 1) ((fun x -> x + 1)
@@ -2438,7 +1958,7 @@ module CertCheck =
               (match toks with
                | [] -> None
                | first::rest ->
-                 if eqb1 first ('d'::[])
+                 if eqb0 first ('d'::[])
                  then (match parse_nat_list rest with
                        | Some dels ->
                          Some { lrat_id = 0; lrat_clause = [];
@@ -2652,7 +2172,7 @@ let vm_apply s = function
             (csr_set_err s.vm_csrs ((fun x -> x + 1) 0))
             (VMStep.latch_err s true))
 | VMStep.Coq_instr_ljoin (cert1, cert2, cost) ->
-  if eqb1 cert1 cert2
+  if eqb0 cert1 cert2
   then let csrs' = csr_set_err s.vm_csrs 0 in
        VMStep.advance_state s (VMStep.Coq_instr_ljoin (cert1, cert2, cost))
          s.vm_graph
@@ -2710,762 +2230,3 @@ let vm_apply s = function
   VMStep.advance_state s (VMStep.Coq_instr_reveal (module0, bits, cert,
     cost)) s.vm_graph csrs' s.vm_err
 | x -> VMStep.advance_state s x s.vm_graph s.vm_csrs s.vm_err
-
-(** val run_vm : int -> VMStep.vm_instruction list -> vMState -> vMState **)
-
-let rec run_vm fuel trace s =
-  (fun zero succ n -> if n=0 then zero () else succ (n-1))
-    (fun _ -> s)
-    (fun fuel' ->
-    match nth_error trace s.vm_pc with
-    | Some instr -> run_vm fuel' trace (vm_apply s instr)
-    | None -> s)
-    fuel
-
-module ReceiptIntegrity =
- struct
-  type state_hash = int
-
-  (** val mu_max : int **)
-
-  let mu_max =
-    sub
-      (Nat.pow ((fun x -> x + 1) ((fun x -> x + 1) 0)) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        0)))))))))))))))))))))))))))))))) ((fun x -> x + 1) 0)
-
-  (** val mu_in_range_b : int -> bool **)
-
-  let mu_in_range_b mu =
-    (<=) mu mu_max
-
-  type coq_Receipt = { receipt_step : int;
-                       receipt_instruction : VMStep.vm_instruction;
-                       receipt_pre_mu : int; receipt_post_mu : int;
-                       receipt_pre_state_hash : state_hash;
-                       receipt_post_state_hash : state_hash }
-
-  (** val receipt_instruction : coq_Receipt -> VMStep.vm_instruction **)
-
-  let receipt_instruction r =
-    r.receipt_instruction
-
-  (** val receipt_pre_mu : coq_Receipt -> int **)
-
-  let receipt_pre_mu r =
-    r.receipt_pre_mu
-
-  (** val receipt_post_mu : coq_Receipt -> int **)
-
-  let receipt_post_mu r =
-    r.receipt_post_mu
-
-  (** val receipt_pre_state_hash : coq_Receipt -> state_hash **)
-
-  let receipt_pre_state_hash r =
-    r.receipt_pre_state_hash
-
-  (** val receipt_post_state_hash : coq_Receipt -> state_hash **)
-
-  let receipt_post_state_hash r =
-    r.receipt_post_state_hash
-
-  (** val instruction_mu_delta : VMStep.vm_instruction -> int **)
-
-  let instruction_mu_delta =
-    VMStep.instruction_cost
-
-  (** val receipt_mu_consistent_b : coq_Receipt -> bool **)
-
-  let receipt_mu_consistent_b r =
-    (=) r.receipt_post_mu
-      (add r.receipt_pre_mu (instruction_mu_delta r.receipt_instruction))
-
-  (** val receipt_mu_in_range_b : coq_Receipt -> bool **)
-
-  let receipt_mu_in_range_b r =
-    (&&) (mu_in_range_b r.receipt_pre_mu) (mu_in_range_b r.receipt_post_mu)
-
-  (** val receipt_fully_valid_b : coq_Receipt -> bool **)
-
-  let receipt_fully_valid_b r =
-    (&&) (receipt_mu_consistent_b r) (receipt_mu_in_range_b r)
-
-  (** val chain_links_b : coq_Receipt list -> bool **)
-
-  let rec chain_links_b = function
-  | [] -> true
-  | r1::l ->
-    (match l with
-     | [] -> true
-     | r2::tail ->
-       (&&)
-         ((&&) ((=) r1.receipt_post_mu r2.receipt_pre_mu)
-           ((=) r1.receipt_post_state_hash r2.receipt_pre_state_hash))
-         (chain_links_b tail))
-
-  (** val chain_all_consistent_b : coq_Receipt list -> bool **)
-
-  let rec chain_all_consistent_b = function
-  | [] -> true
-  | r::rest -> (&&) (receipt_mu_consistent_b r) (chain_all_consistent_b rest)
-
-  (** val chain_all_in_range_b : coq_Receipt list -> bool **)
-
-  let rec chain_all_in_range_b = function
-  | [] -> true
-  | r::rest -> (&&) (receipt_mu_in_range_b r) (chain_all_in_range_b rest)
-
-  (** val chain_all_valid_b : coq_Receipt list -> bool **)
-
-  let rec chain_all_valid_b = function
-  | [] -> true
-  | r::rest -> (&&) (receipt_fully_valid_b r) (chain_all_valid_b rest)
-
-  (** val receipt_chain_valid_b : coq_Receipt list -> int -> bool **)
-
-  let receipt_chain_valid_b rs initial_mu =
-    (&&) ((&&) (chain_all_valid_b rs) (chain_links_b rs))
-      (match rs with
-       | [] -> true
-       | r::_ -> (=) r.receipt_pre_mu initial_mu)
-
-  (** val chain_total_cost : coq_Receipt list -> int **)
-
-  let rec chain_total_cost = function
-  | [] -> 0
-  | r::rest ->
-    add (instruction_mu_delta r.receipt_instruction) (chain_total_cost rest)
-
-  (** val chain_final_mu : coq_Receipt list -> int -> int **)
-
-  let chain_final_mu rs initial_mu =
-    add initial_mu (chain_total_cost rs)
- end
-
-type cHSHTrial = { trial_x : int; trial_y : int; trial_a : int; trial_b : int }
-
-(** val extract_chsh_trials_from_trace :
-    int -> VMStep.vm_instruction list -> vMState -> cHSHTrial list **)
-
-let rec extract_chsh_trials_from_trace fuel trace s =
-  (fun zero succ n -> if n=0 then zero () else succ (n-1))
-    (fun _ -> [])
-    (fun fuel' ->
-    match nth_error trace s.vm_pc with
-    | Some instr ->
-      (match instr with
-       | VMStep.Coq_instr_chsh_trial (x, y, a, b, mu_delta) ->
-         let trial = { trial_x = x; trial_y = y; trial_a = a; trial_b = b } in
-         trial::(extract_chsh_trials_from_trace fuel' trace { vm_graph =
-                  s.vm_graph; vm_csrs = s.vm_csrs; vm_regs = s.vm_regs;
-                  vm_mem = s.vm_mem; vm_pc = ((fun x -> x + 1) s.vm_pc);
-                  vm_mu = (add s.vm_mu mu_delta); vm_err = s.vm_err })
-       | _ ->
-         extract_chsh_trials_from_trace fuel' trace { vm_graph = s.vm_graph;
-           vm_csrs = s.vm_csrs; vm_regs = s.vm_regs; vm_mem = s.vm_mem;
-           vm_pc = ((fun x -> x + 1) s.vm_pc); vm_mu = s.vm_mu; vm_err =
-           s.vm_err })
-    | None -> [])
-    fuel
-
-(** val filter_trials : cHSHTrial list -> int -> int -> cHSHTrial list **)
-
-let filter_trials trials x y =
-  filter (fun t -> (&&) ((=) t.trial_x x) ((=) t.trial_y y)) trials
-
-(** val compute_correlation : cHSHTrial list -> q **)
-
-let compute_correlation trials = match trials with
-| [] -> { qnum = 0; qden = 1 }
-| _::_ ->
-  let same_count = length (filter (fun t -> (=) t.trial_a t.trial_b) trials)
-  in
-  let diff_count =
-    length (filter (fun t -> negb ((=) t.trial_a t.trial_b)) trials)
-  in
-  let total = length trials in
-  qdiv
-    (qminus { qnum = (Z.of_nat same_count); qden = 1 } { qnum =
-      (Z.of_nat diff_count); qden = 1 }) { qnum = (Z.of_nat total); qden = 1 }
-
-(** val chsh_from_trials : cHSHTrial list -> q **)
-
-let chsh_from_trials trials =
-  let e00 = compute_correlation (filter_trials trials 0 0) in
-  let e01 = compute_correlation (filter_trials trials 0 ((fun x -> x + 1) 0))
-  in
-  let e10 = compute_correlation (filter_trials trials ((fun x -> x + 1) 0) 0)
-  in
-  let e11 =
-    compute_correlation
-      (filter_trials trials ((fun x -> x + 1) 0) ((fun x -> x + 1) 0))
-  in
-  qminus (qplus (qplus e00 e01) e10) e11
-
-(** val chsh_from_vm_trace :
-    int -> VMStep.vm_instruction list -> vMState -> q **)
-
-let chsh_from_vm_trace fuel trace s_init =
-  let trials = extract_chsh_trials_from_trace fuel trace s_init in
-  chsh_from_trials trials
-
-module KernelCHSH =
- struct
-  type coq_Trial = { t_x : int; t_y : int; t_a : int; t_b : int }
-
-  (** val t_x : coq_Trial -> int **)
-
-  let t_x t =
-    t.t_x
-
-  (** val t_y : coq_Trial -> int **)
-
-  let t_y t =
-    t.t_y
-
-  (** val t_a : coq_Trial -> int **)
-
-  let t_a t =
-    t.t_a
-
-  (** val t_b : coq_Trial -> int **)
-
-  let t_b t =
-    t.t_b
-
-  (** val is_trial_instr : VMStep.vm_instruction -> coq_Trial option **)
-
-  let is_trial_instr = function
-  | VMStep.Coq_instr_chsh_trial (x, y, a, b, _) ->
-    if VMStep.chsh_bits_ok x y a b
-    then Some { t_x = x; t_y = y; t_a = a; t_b = b }
-    else None
-  | _ -> None
-
-  (** val trials_of_receipts :
-      VMStep.vm_instruction list -> coq_Trial list **)
-
-  let rec trials_of_receipts = function
-  | [] -> []
-  | i::tl ->
-    (match is_trial_instr i with
-     | Some t -> t::(trials_of_receipts tl)
-     | None -> trials_of_receipts tl)
-
-  (** val sign_z : int -> int **)
-
-  let sign_z bit =
-    if (=) bit ((fun x -> x + 1) 0) then 1 else (~-) 1
-
-  (** val trial_value_z : coq_Trial -> int **)
-
-  let trial_value_z t =
-    Z.mul (sign_z t.t_a) (sign_z t.t_b)
-
-  (** val count_setting : int -> int -> coq_Trial list -> int **)
-
-  let rec count_setting x y = function
-  | [] -> 0
-  | t::tl ->
-    add (if (&&) ((=) t.t_x x) ((=) t.t_y y) then (fun x -> x + 1) 0 else 0)
-      (count_setting x y tl)
-
-  (** val sum_setting_z : int -> int -> coq_Trial list -> int **)
-
-  let rec sum_setting_z x y = function
-  | [] -> 0
-  | t::tl ->
-    Z.add (if (&&) ((=) t.t_x x) ((=) t.t_y y) then trial_value_z t else 0)
-      (sum_setting_z x y tl)
-
-  (** val expectation : int -> int -> coq_Trial list -> q **)
-
-  let expectation x y ts =
-    (fun zero succ n -> if n=0 then zero () else succ (n-1))
-      (fun _ -> { qnum = 0; qden = 1 })
-      (fun n' -> { qnum = (sum_setting_z x y ts); qden =
-      (Pos.of_succ_nat n') })
-      (count_setting x y ts)
-
-  (** val chsh : coq_Trial list -> q **)
-
-  let chsh ts =
-    qminus
-      (qplus
-        (qplus (expectation ((fun x -> x + 1) 0) ((fun x -> x + 1) 0) ts)
-          (expectation ((fun x -> x + 1) 0) 0 ts))
-        (expectation 0 ((fun x -> x + 1) 0) ts)) (expectation 0 0 ts)
-
-  type coq_LocalStrategy = { a0 : int; a1 : int; b0 : int; b1 : int }
-
-  (** val a0 : coq_LocalStrategy -> int **)
-
-  let a0 l =
-    l.a0
-
-  (** val a1 : coq_LocalStrategy -> int **)
-
-  let a1 l =
-    l.a1
-
-  (** val b0 : coq_LocalStrategy -> int **)
-
-  let b0 l =
-    l.b0
-
-  (** val b1 : coq_LocalStrategy -> int **)
-
-  let b1 l =
-    l.b1
-
-  (** val trial_of_local : coq_LocalStrategy -> int -> int -> coq_Trial **)
-
-  let trial_of_local s x y =
-    { t_x = x; t_y = y; t_a = (if (=) x 0 then s.a0 else s.a1); t_b =
-      (if (=) y 0 then s.b0 else s.b1) }
-
-  (** val trials_of_local : coq_LocalStrategy -> coq_Trial list **)
-
-  let trials_of_local s =
-    (trial_of_local s 0 0)::((trial_of_local s 0 ((fun x -> x + 1) 0))::(
-      (trial_of_local s ((fun x -> x + 1) 0) 0)::((trial_of_local s
-                                                    ((fun x -> x + 1) 0)
-                                                    ((fun x -> x + 1) 0))::[])))
-
-  (** val chsh_local_z : coq_LocalStrategy -> int **)
-
-  let chsh_local_z s =
-    let a2 = sign_z s.a0 in
-    let a3 = sign_z s.a1 in
-    let b2 = sign_z s.b0 in
-    let b3 = sign_z s.b1 in
-    Z.sub (Z.add (Z.add (Z.mul a3 b3) (Z.mul a3 b2)) (Z.mul a2 b3))
-      (Z.mul a2 b2)
- end
-
-type constraintVar = int
-  (* singleton inductive, whose constructor was CVar *)
-
-type arithExpr =
-| AVar of constraintVar
-| AConst of int
-| AAdd of arithExpr * arithExpr
-| ASub of arithExpr * arithExpr
-| AMul of arithExpr * arithExpr
-
-type compOp =
-| Eq0
-| Lt0
-| Le
-| Gt0
-| Ge
-
-type atomicConstraint =
-| CCompare of compOp * arithExpr * arithExpr
-
-type constraint0 =
-| CAtom of atomicConstraint
-| CAnd of constraint0 * constraint0
-| COr of constraint0 * constraint0
-| CNot of constraint0
-| CTrue
-| CFalse
-
-(** val normalize_comp_op : compOp -> compOp **)
-
-let normalize_comp_op op = match op with
-| Gt0 -> Lt0
-| Ge -> Le
-| _ -> op
-
-(** val should_flip_comparison : compOp -> bool **)
-
-let should_flip_comparison = function
-| Gt0 -> true
-| Ge -> true
-| _ -> false
-
-(** val normalize_atomic : atomicConstraint -> atomicConstraint **)
-
-let normalize_atomic = function
-| CCompare (op, e1, e2) ->
-  if should_flip_comparison op
-  then CCompare ((normalize_comp_op op), e2, e1)
-  else CCompare (op, e1, e2)
-
-(** val flatten_and : constraint0 -> constraint0 list **)
-
-let rec flatten_and c = match c with
-| CAnd (c1, c2) -> app (flatten_and c1) (flatten_and c2)
-| _ -> c::[]
-
-(** val flatten_or : constraint0 -> constraint0 list **)
-
-let rec flatten_or c = match c with
-| COr (c1, c2) -> app (flatten_or c1) (flatten_or c2)
-| _ -> c::[]
-
-(** val rebuild_and : constraint0 list -> constraint0 **)
-
-let rebuild_and = function
-| [] -> CTrue
-| c::cs' -> fold_left (fun x x0 -> CAnd (x, x0)) cs' c
-
-(** val rebuild_or : constraint0 list -> constraint0 **)
-
-let rebuild_or = function
-| [] -> CFalse
-| c::cs' -> fold_left (fun x x0 -> COr (x, x0)) cs' c
-
-(** val count_vars_arith : arithExpr -> int **)
-
-let rec count_vars_arith = function
-| AVar _ -> (fun x -> x + 1) 0
-| AConst _ -> 0
-| AAdd (e1, e2) -> add (count_vars_arith e1) (count_vars_arith e2)
-| ASub (e1, e2) -> add (count_vars_arith e1) (count_vars_arith e2)
-| AMul (e1, e2) -> add (count_vars_arith e1) (count_vars_arith e2)
-
-(** val count_vars : constraint0 -> int **)
-
-let rec count_vars = function
-| CAtom a ->
-  let CCompare (_, e1, e2) = a in
-  add (count_vars_arith e1) (count_vars_arith e2)
-| CAnd (c1, c2) -> add (count_vars c1) (count_vars c2)
-| COr (c1, c2) -> add (count_vars c1) (count_vars c2)
-| CNot c' -> count_vars c'
-| _ -> 0
-
-(** val count_atoms : constraint0 -> int **)
-
-let rec count_atoms = function
-| CAtom _ -> (fun x -> x + 1) 0
-| CAnd (c1, c2) -> add (count_atoms c1) (count_atoms c2)
-| COr (c1, c2) -> add (count_atoms c1) (count_atoms c2)
-| CNot c' -> count_atoms c'
-| _ -> 0
-
-(** val count_operators : constraint0 -> int **)
-
-let rec count_operators = function
-| CAtom _ -> (fun x -> x + 1) 0
-| CAnd (c1, c2) ->
-  add (add ((fun x -> x + 1) 0) (count_operators c1)) (count_operators c2)
-| COr (c1, c2) ->
-  add (add ((fun x -> x + 1) 0) (count_operators c1)) (count_operators c2)
-| CNot c' -> add ((fun x -> x + 1) 0) (count_operators c')
-| _ -> 0
-
-(** val log2_nat : int -> int **)
-
-let log2_nat n0 =
-  (fun zero succ n -> if n=0 then zero () else succ (n-1))
-    (fun _ -> 0)
-    (fun _ ->
-    add (Nat.log2 n0)
-      (if eqb (Nat.pow ((fun x -> x + 1) ((fun x -> x + 1) 0)) (Nat.log2 n0))
-            n0
-       then 0
-       else (fun x -> x + 1) 0))
-    n0
-
-(** val semantic_complexity_bits : constraint0 -> int **)
-
-let semantic_complexity_bits c =
-  let atoms = count_atoms c in
-  let vars = count_vars c in
-  let ops = count_operators c in
-  let atom_bits = log2_nat ((fun x -> x + 1) atoms) in
-  let var_bits = log2_nat ((fun x -> x + 1) vars) in
-  let op_bits = log2_nat ((fun x -> x + 1) ops) in
-  mul ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-    ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-    0)))))))) (add (add atom_bits var_bits) op_bits)
-
-(** val axiom_semantic_cost : vMAxiom -> constraint0 -> int **)
-
-let axiom_semantic_cost _ =
-  semantic_complexity_bits
-
-(** val axiom_cost_with_fallback : vMAxiom -> constraint0 option -> int **)
-
-let axiom_cost_with_fallback ax = function
-| Some ast -> semantic_complexity_bits ast
-| None ->
-  mul (length0 ax) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-    ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-    ((fun x -> x + 1) 0))))))))
-
-(** val module_count : partitionGraph -> int **)
-
-let module_count g =
-  length g.pg_modules
-
-(** val partition_complexity : partitionGraph -> int **)
-
-let partition_complexity =
-  module_count
-
-(** val mu_cost_of_instr : VMStep.vm_instruction -> vMState -> int **)
-
-let mu_cost_of_instr instr _ =
-  match instr with
-  | VMStep.Coq_instr_lassert (_, _, _, _) -> (fun x -> x + 1) 0
-  | VMStep.Coq_instr_ljoin (_, _, _) -> (fun x -> x + 1) 0
-  | VMStep.Coq_instr_reveal (_, _, _, _) -> (fun x -> x + 1) 0
-  | _ -> 0
-
-(** val mu_cost_of_trace : int -> VMStep.vm_instruction list -> int -> int **)
-
-let rec mu_cost_of_trace fuel trace pc =
-  (fun zero succ n -> if n=0 then zero () else succ (n-1))
-    (fun _ -> 0)
-    (fun fuel' ->
-    match nth_error trace pc with
-    | Some instr ->
-      add
-        (mu_cost_of_instr instr { vm_graph = empty_graph; vm_csrs =
-          { csr_cert_addr = 0; csr_status = 0; csr_err = 0 }; vm_regs = [];
-          vm_mem = []; vm_pc = pc; vm_mu = 0; vm_err = false })
-        (mu_cost_of_trace fuel' trace ((fun x -> x + 1) pc))
-    | None -> 0)
-    fuel
-
-(** val ledger_entries :
-    int -> VMStep.vm_instruction list -> vMState -> int list **)
-
-let rec ledger_entries fuel trace s =
-  (fun zero succ n -> if n=0 then zero () else succ (n-1))
-    (fun _ -> [])
-    (fun fuel' ->
-    match nth_error trace s.vm_pc with
-    | Some instr ->
-      (VMStep.instruction_cost instr)::(ledger_entries fuel' trace
-                                         (vm_apply s instr))
-    | None -> [])
-    fuel
-
-(** val bounded_run :
-    int -> VMStep.vm_instruction list -> vMState -> vMState list **)
-
-let rec bounded_run fuel trace s =
-  (fun zero succ n -> if n=0 then zero () else succ (n-1))
-    (fun _ -> s::[])
-    (fun fuel' ->
-    match nth_error trace s.vm_pc with
-    | Some instr -> s::(bounded_run fuel' trace (vm_apply s instr))
-    | None -> s::[])
-    fuel
-
-(** val ledger_sum : int list -> int **)
-
-let rec ledger_sum = function
-| [] -> 0
-| delta::rest -> add delta (ledger_sum rest)
-
-(** val irreversible_bits : VMStep.vm_instruction -> int **)
-
-let irreversible_bits instr =
-  if (=) (VMStep.instruction_cost instr) 0 then 0 else (fun x -> x + 1) 0
-
-(** val irreversible_count :
-    int -> VMStep.vm_instruction list -> vMState -> int **)
-
-let rec irreversible_count fuel trace s =
-  (fun zero succ n -> if n=0 then zero () else succ (n-1))
-    (fun _ -> 0)
-    (fun fuel' ->
-    match nth_error trace s.vm_pc with
-    | Some instr ->
-      add (irreversible_bits instr)
-        (irreversible_count fuel' trace (vm_apply s instr))
-    | None -> 0)
-    fuel
-
-(** val ledger_component_sum :
-    (VMStep.vm_instruction -> int) -> int -> VMStep.vm_instruction list ->
-    vMState -> int **)
-
-let rec ledger_component_sum component fuel trace s =
-  (fun zero succ n -> if n=0 then zero () else succ (n-1))
-    (fun _ -> 0)
-    (fun fuel' ->
-    match nth_error trace s.vm_pc with
-    | Some instr ->
-      add (component instr)
-        (ledger_component_sum component fuel' trace (vm_apply s instr))
-    | None -> 0)
-    fuel
-
-(** val mu_cost_of_instr0 : VMStep.vm_instruction -> int **)
-
-let mu_cost_of_instr0 =
-  VMStep.instruction_cost
-
-(** val trace_mu_cost : VMStep.vm_instruction list -> int **)
-
-let rec trace_mu_cost = function
-| [] -> 0
-| i::rest -> Nat.add (mu_cost_of_instr0 i) (trace_mu_cost rest)
-
-(** val region_size : int list -> int **)
-
-let region_size region =
-  length (normalize_region region)
-
-(** val evidence_size : vMAxiom list -> int **)
-
-let evidence_size =
-  length
-
-(** val pnew_cost_bound : int list -> int **)
-
-let pnew_cost_bound =
-  region_size
-
-(** val psplit_cost_bound : int list -> int list -> int **)
-
-let psplit_cost_bound left right =
-  Nat.add (region_size left) (region_size right)
-
-(** val pmerge_cost_bound : int list -> int list -> int **)
-
-let pmerge_cost_bound r1 r2 =
-  Nat.add (region_size r1) (region_size r2)
-
-(** val discover_cost_bound : vMAxiom list -> int **)
-
-let discover_cost_bound =
-  evidence_size
-
-type experimentalTrial = { trial_instr : VMStep.vm_instruction;
-                           trial_measured_cost : int }
-
-(** val check_prediction : experimentalTrial -> bool **)
-
-let check_prediction t =
-  Nat.ltb (mu_cost_of_instr0 t.trial_instr) t.trial_measured_cost
-
-type wireSpec = { ws_step : (__ -> VMStep.vm_instruction -> __);
-                  ws_mu : (__ -> int); ws_pc : (__ -> int) }
-
-type ws_state = __
-
-(** val run_wire :
-    wireSpec -> VMStep.vm_instruction list -> ws_state -> ws_state **)
-
-let rec run_wire spec instrs s =
-  match instrs with
-  | [] -> s
-  | i::rest -> run_wire spec rest (spec.ws_step s i)
-
-(** val trace_cost : VMStep.vm_instruction list -> int **)
-
-let rec trace_cost = function
-| [] -> 0
-| i::rest -> add (VMStep.instruction_cost i) (trace_cost rest)
-
-(** val project_vmstate :
-    partitionGraph -> cSRState -> int list -> int list -> int -> int -> bool
-    -> vMState **)
-
-let project_vmstate graph csrs regs mem pc mu err =
-  { vm_graph = graph; vm_csrs = csrs; vm_regs = regs; vm_mem = mem; vm_pc =
-    pc; vm_mu = mu; vm_err = err }
-
-type fullWireSpec = { fws_step : (__ -> VMStep.vm_instruction -> __);
-                      fws_graph : (__ -> partitionGraph);
-                      fws_csrs : (__ -> cSRState);
-                      fws_regs : (__ -> int list);
-                      fws_mem : (__ -> int list); fws_pc : (__ -> int);
-                      fws_mu : (__ -> int); fws_err : (__ -> bool) }
-
-type fws_state = __
-
-(** val run_fws :
-    fullWireSpec -> VMStep.vm_instruction list -> fws_state -> fws_state **)
-
-let rec run_fws spec instrs s =
-  match instrs with
-  | [] -> s
-  | i::rest -> run_fws spec rest (spec.fws_step s i)
-
-type hardwareState = { hw_pc : int; hw_mu_accumulator : int;
-                       hw_alu_ready : bool; hw_overflow : bool }
-
-type pythonState = { py_pc : int; py_mu : int; py_err : bool;
-                     py_graph_modules : int }
-
-(** val hardware_step : hardwareState -> int -> hardwareState **)
-
-let hardware_step hw cost =
-  { hw_pc = ((fun x -> x + 1) hw.hw_pc); hw_mu_accumulator =
-    (add hw.hw_mu_accumulator cost); hw_alu_ready = true; hw_overflow =
-    hw.hw_overflow }
-
-(** val python_step : pythonState -> int -> pythonState **)
-
-let python_step py cost =
-  { py_pc = ((fun x -> x + 1) py.py_pc); py_mu = (add py.py_mu cost);
-    py_err = py.py_err; py_graph_modules = py.py_graph_modules }
-
-(** val hardware_multi_step : hardwareState -> int list -> hardwareState **)
-
-let rec hardware_multi_step hw = function
-| [] -> hw
-| cost::costs' -> hardware_multi_step (hardware_step hw cost) costs'
-
-(** val python_multi_step : pythonState -> int list -> pythonState **)
-
-let rec python_multi_step py = function
-| [] -> py
-| cost::costs' -> python_multi_step (python_step py cost) costs'
-
-(** val q16_16_one : int **)
-
-let q16_16_one =
-  of_num_uint (UIntDecimal (D6 (D5 (D5 (D3 (D6 Nil))))))
-
-(** val sqrt2_approx : q **)
-
-let sqrt2_approx =
-  { qnum = ((fun p->2*p) ((fun p->1+2*p) ((fun p->1+2*p) ((fun p->1+2*p)
-    ((fun p->1+2*p) ((fun p->1+2*p) ((fun p->2*p) ((fun p->2*p)
-    ((fun p->1+2*p) ((fun p->1+2*p) ((fun p->1+2*p) ((fun p->2*p)
-    ((fun p->1+2*p) 1))))))))))))); qden = ((fun p->2*p) ((fun p->2*p)
-    ((fun p->2*p) ((fun p->2*p) ((fun p->1+2*p) ((fun p->2*p) ((fun p->2*p)
-    ((fun p->2*p) ((fun p->1+2*p) ((fun p->1+2*p) ((fun p->1+2*p)
-    ((fun p->2*p) ((fun p->2*p) 1))))))))))))) }
-
-(** val inv_sqrt2 : q **)
-
-let inv_sqrt2 =
-  { qnum = ((fun p->1+2*p) ((fun p->1+2*p) ((fun p->1+2*p) ((fun p->1+2*p)
-    ((fun p->1+2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->1+2*p)
-    ((fun p->1+2*p) ((fun p->1+2*p) ((fun p->2*p) ((fun p->1+2*p)
-    1)))))))))))); qden = ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
-    ((fun p->2*p) ((fun p->1+2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
-    ((fun p->1+2*p) ((fun p->1+2*p) ((fun p->1+2*p) ((fun p->2*p)
-    ((fun p->2*p) 1))))))))))))) }
-
-(** val tsirelson : q **)
-
-let tsirelson =
-  { qnum = ((fun p->2*p) ((fun p->2*p) ((fun p->1+2*p) ((fun p->1+2*p)
-    ((fun p->1+2*p) ((fun p->1+2*p) ((fun p->1+2*p) ((fun p->2*p)
-    ((fun p->2*p) ((fun p->1+2*p) ((fun p->1+2*p) ((fun p->1+2*p)
-    ((fun p->2*p) ((fun p->1+2*p) 1)))))))))))))); qden = ((fun p->2*p)
-    ((fun p->2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->1+2*p) ((fun p->2*p)
-    ((fun p->2*p) ((fun p->2*p) ((fun p->1+2*p) ((fun p->1+2*p)
-    ((fun p->1+2*p) ((fun p->2*p) ((fun p->2*p) 1))))))))))))) }

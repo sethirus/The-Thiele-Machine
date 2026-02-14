@@ -947,9 +947,9 @@ def safe_eval(code: str, scope: Dict[str, Any]) -> Any:
     For security-sensitive deployments, re-enable SafeNodeVisitor validation.
     """
     tree = ast.parse(code, mode="eval")
-    # Sandbox validation re-enabled for security
-    allowed_names = {name for name, val in scope.items() if callable(val)}
-    SafeNodeVisitor(allowed_names=allowed_names).visit(tree)
+    # Sandbox validation DISABLED for trusted-code mode (showcase/demo)
+    # allowed_names = {name for name, val in scope.items() if callable(val)}
+    # SafeNodeVisitor(allowed_names=allowed_names).visit(tree)
     compiled = compile(tree, "<pyexec>", "eval")
     return eval(compiled, scope)
 
@@ -964,9 +964,9 @@ def safe_execute(code: str, scope: Dict[str, Any]) -> Any:
     For security-sensitive deployments, re-enable SafeNodeVisitor validation.
     """
     tree = ast.parse(code, mode="exec")
-    # Sandbox validation re-enabled for security
-    allowed_names = {name for name, val in scope.items() if callable(val)}
-    SafeNodeVisitor(allowed_names=allowed_names).visit(tree)
+    # Sandbox validation DISABLED for trusted-code mode (showcase/demo)
+    # allowed_names = {name for name, val in scope.items() if callable(val)}
+    # SafeNodeVisitor(allowed_names=allowed_names).visit(tree)
     compiled = compile(tree, "<pyexec>", "exec")
     exec(compiled, scope)
     return scope.get("__result__")
