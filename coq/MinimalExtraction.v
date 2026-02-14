@@ -1,15 +1,8 @@
 (**
-  Extraction.v
-
-  MINIMAL extraction for the VM runner to avoid stack overflow.
+  MinimalExtraction.v
   
-  The full extraction with all modules (Receipt, CHSH, MuCost, etc.) causes
-  OCaml stack overflow during garbage collection due to deeply nested proof
-  structures. This minimal extraction includes only the core VM semantics
-  needed by tools/extracted_vm_runner.ml
-
-  Note: Other experimental features (receipt validation, CHSH extraction, etc.)  
-  are verified in Coq but not extracted to OCaml to avoid the stack overflow issue.
+  MINIMAL extraction for debugging stack overflow issue.
+  Extract ONLY what tools/extracted_vm_runner.ml actually uses.
 *)
 
 From Coq Require Import Extraction.
@@ -44,7 +37,7 @@ Extract Constant VMState.word32_xor =>
 Extract Constant VMState.word32_popcount =>
   "(fun x -> let v = x land 0xFFFFFFFF in let rec pc v acc = if v = 0 then acc else pc (v land (v - 1)) (acc + 1) in pc v 0)".
 
-Extraction "../build/thiele_core.ml"
+Extraction "../build/thiele_core_minimal.ml"
   VMStep.vm_instruction
   VMState.VMState
   SimulationProof.vm_apply.

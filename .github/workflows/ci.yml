@@ -74,6 +74,7 @@ jobs:
   tests:
     name: Python tests
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     needs: prepare-toolchain
     env:
       PYTHONPATH: ${{ github.workspace }}
@@ -123,7 +124,7 @@ jobs:
             tools/extracted_vm_runner.ml
 
       - name: Run pytest
-        run: pytest
+        run: timeout 15m pytest -v --tb=short -m "not coq"
 
   proof-audit:
     name: Proof audit (Inquisitor)

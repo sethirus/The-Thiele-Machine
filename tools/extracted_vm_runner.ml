@@ -20,6 +20,11 @@ open Printf
 (* build/thiele_core.ml compiles as module [Thiele_core]. *)
 open Thiele_core
 
+(* Compatibility shim for older OCaml versions *)
+let list_nth_opt lst n =
+  try Some (List.nth lst n)
+  with _ -> None
+
 let trim (s : string) : string =
   let is_space = function ' ' | '\n' | '\r' | '\t' -> true | _ -> false in
   let len = String.length s in
@@ -123,8 +128,11 @@ let list_set_mod (size : int) (xs : int list) (idx : int) (v : int) : int list =
 
 let parse_program (lines : string list) : int * int list * int list * VMStep.vm_instruction list =
     let fuel = ref 256 in
-    let init_regs = ref (List.init 32 (fun _ -> 0)) in
-    let init_mem = ref (List.init 256 (fun _ -> 0)) in
+    let rec make_list n acc =
+      if n <= 0 then acc else make_list (n - 1) (0 :: acc)
+    in
+    let init_regs = ref (make_list 32 []) in
+    let init_mem = ref (make_list 256 []) in
 
     let parse_line (line : string) : VMStep.vm_instruction option =
     let t = trim line in
@@ -189,45 +197,80 @@ let parse_program (lines : string list) : int * int list * int list * VMStep.vm_
     (!fuel, !init_regs, !init_mem, instrs)
 
 let initial_state () : vMState =
+  let rec make_list n acc =
+    if n <=  0 then acc else make_list (n - 1) (0 :: acc)
+  in
   {
     vm_graph = { pg_next_id = 1; pg_modules = [] };
     vm_csrs = { csr_cert_addr = 0; csr_status = 0; csr_err = 0 };
-    vm_regs = List.init 32 (fun _ -> 0);
-    vm_mem = List.init 256 (fun _ -> 0);
+    vm_regs = make_list 32 [];
+    vm_mem = make_list 256 [];
     vm_pc = 0;
     vm_mu = 0;
     vm_err = false;
   }
 
-let () =
-  if Array.length Sys.argv <> 2 then (
-    eprintf "usage: %s <trace.txt>\n" Sys.argv.(0);
-    exit 2);
-  let trace_path = Sys.argv.(1) in
-  let lines = read_all_lines trace_path in
-  let fuel, regs0, mem0, prog = parse_program lines in
-  let s0 = initial_state () in
-  let s0 = { s0 with vm_regs = regs0; vm_mem = mem0 } in
-  let final_state = run_vm fuel prog s0 in
-  let modules_json =
-    final_state.vm_graph.pg_modules
-    |> List.map (fun (mid, m) ->
-           sprintf
-             "{\"id\":%d,\"region\":%s,\"axioms\":%d}"
-             mid
-             (json_int_list m.module_region)
-             (List.length m.module_axioms))
-    |> String.concat ","
+(* Tail-recursive version of run_vm to avoid stack overflow.
+   The extracted run_vm is NOT tail-recursive, causing stack overflow
+   even with modest fuel values (256). This iterative version is safe. *)
+let run_vm_iterative (max_fuel : int) (prog : VMStep.vm_instruction list) (initial : vMState) : vMState =
+  let rec loop fuel s =
+    if fuel <= 0 then s
+    else
+      match list_nth_opt prog s.vm_pc with
+      | None -> s  (* PC out of bounds, halt *)
+      | Some instr ->
+          let s' = vm_apply s instr in
+          loop (fuel - 1) s'
   in
-  printf
-    "{\"pc\":%d,\"mu\":%d,\"err\":%s,\"regs\":%s,\"mem\":%s,\"csrs\":{\"cert_addr\":%d,\"status\":%d,\"err\":%d},\"graph\":{\"next_id\":%d,\"modules\":[%s]}}\n"
-    final_state.vm_pc
-    final_state.vm_mu
-    (json_bool final_state.vm_err)
-    (json_int_list final_state.vm_regs)
-    (json_int_list final_state.vm_mem)
-    final_state.vm_csrs.csr_cert_addr
-    final_state.vm_csrs.csr_status
-    final_state.vm_csrs.csr_err
-    final_state.vm_graph.pg_next_id
-    modules_json
+  loop max_fuel initial
+
+let () =
+  try
+    if Array.length Sys.argv <> 2 then (
+      eprintf "usage: %s <trace.txt>\n" Sys.argv.(0);
+      exit 2);
+    let trace_path = Sys.argv.(1) in
+    eprintf "[DEBUG] Reading file: %s\n%!" trace_path;
+    let lines = read_all_lines trace_path in
+    eprintf "[DEBUG] Read %d lines\n%!" (List.length lines);
+    let fuel, regs0, mem0, prog = parse_program lines in
+    eprintf "[DEBUG] Parsed: fuel=%d, prog_len=%d\n%!" fuel (List.length prog);
+    let s0 = initial_state () in
+    eprintf "[DEBUG] Created initial state\n%!";
+    let s0 = { s0 with vm_regs = regs0; vm_mem = mem0 } in
+    eprintf "[DEBUG] Initial PC=%d MU=%d\n%!" s0.vm_pc s0.vm_mu;
+    eprintf "[DEBUG] Calling run_vm_iterative...\n%!";
+    let final_state = run_vm_iterative fuel prog s0 in
+    eprintf "[DEBUG] Run completed: PC=%d MU=%d\n%!" final_state.vm_pc final_state.vm_mu;
+    let modules_json =
+      final_state.vm_graph.pg_modules
+      |> List.map (fun (mid, m) ->
+             sprintf
+               "{\"id\":%d,\"region\":%s,\"axioms\":%d}"
+               mid
+               (json_int_list m.module_region)
+               (List.length m.module_axioms))
+      |> String.concat ","
+    in
+    printf
+      "{\"pc\":%d,\"mu\":%d,\"err\":%s,\"regs\":%s,\"mem\":%s,\"csrs\":{\"cert_addr\":%d,\"status\":%d,\"err\":%d},\"graph\":{\"next_id\":%d,\"modules\":[%s]}}\n%!"
+      final_state.vm_pc
+      final_state.vm_mu
+      (json_bool final_state.vm_err)
+      (json_int_list final_state.vm_regs)
+      (json_int_list final_state.vm_mem)
+      final_state.vm_csrs.csr_cert_addr
+      final_state.vm_csrs.csr_status
+      final_state.vm_csrs.csr_err
+      final_state.vm_graph.pg_next_id
+      modules_json;
+    eprintf "[DEBUG] Output complete\n%!";
+    exit 0  (* Explicit exit to bypass GC finalization *)
+  with
+  | Stack_overflow ->
+      eprintf "[ERROR] Stack overflow during execution\n%!";
+      exit 3
+  | e ->
+      eprintf "[ERROR] Exception: %s\n%!" (Printexc.to_string e);
+      exit 4

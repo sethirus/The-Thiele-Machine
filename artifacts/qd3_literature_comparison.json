@@ -1,0 +1,114 @@
+{
+  "prediction": "S(T) = 2*sqrt(2) * (1 - k_B * T * ln2 / E_sys)",
+  "constants": {
+    "h": 6.62607015e-34,
+    "hbar": 1.0545718176461565e-34,
+    "k_B": 1.380649e-23,
+    "ln2": 0.6931471805599453,
+    "Tsirelson": 2.8284271247461903
+  },
+  "literature_comparison": [
+    {
+      "label": "Loophole-free cryolink",
+      "year": 2023,
+      "T_mK": 15,
+      "f_GHz": 5.0,
+      "S_measured": 2.0747,
+      "S_uncertainty": 0.0033,
+      "S_qd3": 2.7058755312782243,
+      "qd3_correction_pct": 4.332853139320787,
+      "expt_gap_pct": 26.6482780536135,
+      "qd3_within_gap": true,
+      "readout_corrected": false
+    },
+    {
+      "label": "Remote entanglement (raw)",
+      "year": 2019,
+      "T_mK": 15,
+      "f_GHz": 6.0,
+      "S_measured": 2.237,
+      "S_uncertainty": 0.036,
+      "S_qd3": 2.726300796856219,
+      "qd3_correction_pct": 3.610710949433978,
+      "expt_gap_pct": 20.91010652428466,
+      "qd3_within_gap": true,
+      "readout_corrected": false
+    },
+    {
+      "label": "Remote entanglement (corrected)",
+      "year": 2019,
+      "T_mK": 15,
+      "f_GHz": 6.0,
+      "S_measured": 2.629,
+      "S_uncertainty": 0.028,
+      "S_qd3": 2.726300796856219,
+      "qd3_correction_pct": 3.610710949433978,
+      "expt_gap_pct": 7.050813613028334,
+      "qd3_within_gap": true,
+      "readout_corrected": true
+    },
+    {
+      "label": "Phase qubits",
+      "year": 2009,
+      "T_mK": 25,
+      "f_GHz": 8.0,
+      "S_measured": 2.05,
+      "S_uncertainty": 0.03,
+      "S_qd3": 2.7007692148837257,
+      "qd3_correction_pct": 4.513388686792489,
+      "expt_gap_pct": 27.52155492837889,
+      "qd3_within_gap": true,
+      "readout_corrected": false
+    }
+  ],
+  "temperature_scan_5GHz": [
+    {
+      "T_mK": 10,
+      "S_qd3": 2.7467260624342127
+    },
+    {
+      "T_mK": 15,
+      "S_qd3": 2.7058755312782243
+    },
+    {
+      "T_mK": 20,
+      "S_qd3": 2.665025000122236
+    },
+    {
+      "T_mK": 30,
+      "S_qd3": 2.5833239378102584
+    },
+    {
+      "T_mK": 42,
+      "S_qd3": 2.4852826630358855
+    },
+    {
+      "T_mK": 50,
+      "S_qd3": 2.419921813186304
+    },
+    {
+      "T_mK": 75,
+      "S_qd3": 2.2156691574063605
+    },
+    {
+      "T_mK": 100,
+      "S_qd3": 2.0114165016264174
+    },
+    {
+      "T_mK": 150,
+      "S_qd3": 1.6029111900665312
+    },
+    {
+      "T_mK": 200,
+      "S_qd3": 1.1944058785066447
+    },
+    {
+      "T_mK": 250,
+      "S_qd3": 0.7859005669467584
+    }
+  ],
+  "falsification_at_250mK": {
+    "min_freq_GHz_for_violation": 12.33,
+    "condition": "CHSH violation at 250 mK with f < 12.3 GHz falsifies QD3"
+  }
+}
