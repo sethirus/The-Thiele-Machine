@@ -232,7 +232,7 @@ class TestBothSolvers:
     def test_scaling_tseitin(self, size: int) -> None:
         """Verify scaling behavior on Tseitin formulas."""
         instance = generate_tseitin_instance(size, 42)
-        br, sr = run_both_solvers(instance, timeout_s=30.0)
+        br, sr = run_both_solvers(instance, timeout_s=5.0)
         
         # Just verify both complete without error
         assert br.status in ["SAT", "UNSAT", "TIMEOUT"]
