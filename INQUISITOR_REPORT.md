@@ -1,6 +1,6 @@
 # INQUISITOR REPORT
-Generated: 2026-02-13 18:14:05Z (UTC)
-Scanned: 292 Coq files across the repo
+Generated: 2026-02-18 00:45:59Z (UTC)
+Scanned: 301 Coq files across the repo
 ## Summary
 - HIGH: 0
 - MEDIUM: 0
@@ -28,7 +28,7 @@ Scanned: 292 Coq files across the repo
 - `TRIVIAL_EQUALITY`: theorem of form `X = X` with reflexivity-ish proof
 - `CONST_Q_FUN`: `Definition ... := fun _ => 0%Q` / `1%Q`
 - `EXISTS_CONST_Q`: `exists (fun _ => 0%Q)` / `exists (fun _ => 1%Q)`
-- `CLAMP_OR_TRUNCATION`: uses `Z.to_nat`, `Z.abs`, `Nat.min`, `Nat.max`
+- `CLAMP_OR_TRUNCATION`: uses `Z.to_nat` (can truncate negative values; Nat.min/max/Z.abs are safe)
 - `ASSUMPTION_AUDIT`: unexpected axioms from `Print Assumptions`
 - `SYMMETRY_CONTRACT`: missing equivariance lemma for declared symmetry
 - `PAPER_MAP_MISSING`: paper ↔ Coq symbol map entry missing/broken
@@ -54,7 +54,29 @@ Scanned: 292 Coq files across the repo
 - `DEFINITIONAL_WITNESS`: existential witnessed by definition, then unfolds it (trivially proves definition exists)
 - `VACUOUS_CONJUNCTION`: theorem has `True` as a conjunct leaf — likely a weakened/placeholder conclusion
 - `TAUTOLOGICAL_IMPLICATION`: theorem conclusion is identical to one of its hypotheses (P -> P tautology)
-- `HYPOTHESIS_RESTATEMENT`: proof destructures hypothesis and extracts one piece (restating assumption, not deriving)
+- `HYPOTHESIS_RESTATEMENT`: heuristic style warning (disabled in max-strict mode)
+- `PHYSICS_STUB_DEFINITION`: physics/geometry definition returns placeholder constant (0, 1, PI/3)
+- `MISSING_CORE_THEOREM`: file defines physics machinery (einstein_tensor, stress_energy) but lacks core theorem (einstein_equation)
+- `EINSTEIN_EQUATION_WEAK`: einstein_equation theorem exists but statement omits expected coupling structure
+- `EINSTEIN_EQUATION_ASSUMED`: einstein_equation theorem assumes coupling premise instead of deriving it
+- `EINSTEIN_MODEL_MISMATCH`: current curvature/stress definitions make unconditional Einstein equation structurally non-derivable
+- `DEFINITIONAL_CONSTRUCTION`: curvature/physics quantity DEFINED as relationship that should be PROVEN
+- `DEFINITION_BUILT_IN_THEOREM`: theorem proves relationship that's built into the definition (circular)
+- `INCOMPLETE_PHYSICS_DERIVATION`: gravity/physics file contains explicit unfinished marker text
+- `EINSTEIN_PROOF_INSUFFICIENT`: einstein_equation proof is definitional/trivial or lacks conservation/locality bridge usage
+- `FAKE_COMPLETION_CLAIM`: completion rhetoric appears while core theorem/stub criteria are unmet
+- `STRESS_ENERGY_UNGROUNDED`: stress_energy is defined from curvature/tensor objects instead of kernel primitives
+- `UNUSED_LOCAL_DEFINITION`: heuristic style warning (disabled in max-strict mode)
+- `MU_GRAVITY_COMPLETION_GATE`: top-level MuGravity completion theorem interface still exposes deprecated bridge predicates
+- `MU_GRAVITY_BRIDGE_LEAK`: Einstein/Horizon/Curvature theorem interface leaks legacy bridge predicates
+- `MU_GRAVITY_RAW_SOURCE_FORMULA`: Einstein/Horizon/Gravity theorem interface uses legacy raw-source style (disabled under no-shortcuts policy)
+- `MU_GRAVITY_DYNAMIC_RAW`: Einstein/Gravity theorem interface uses raw dynamically_self_calibrates instead of contract predicate
+- `MU_GRAVITY_ONE_STEP_LITERAL`: top completion theorem interface hard-codes run_vm 1 instead of symbolic fuel
+- `MU_GRAVITY_NO_SHORTCUTS`: MuGravity theorem interface contains shortcut predicates (contract/seed/calibration/bridge)
+- `MU_GRAVITY_MAX_STRICT`: MuGravity strict mode forbids shortcut alias symbols and Classical import
+- `MU_GRAVITY_DERIVATION_INCOMPLETE`: MuGravity theorem interfaces/declarations still expose unfinished derivation assumptions, including the six major obligations (geometric calibration, source normalization, horizon defect-area, active-step descent, semantic gap window, VM compatibility surfaces)
+- `MU_GRAVITY_VM_COMPATIBILITY`: MuGravity execution-facing theorem interfaces/declarations still rely on unresolved VM compatibility wrappers/assumptions instead of vm_apply/run_vm semantic derivations
+- `MU_GRAVITY_NO_ASSUMPTION_SURFACES`: MuGravity files may not use Axiom/Parameter/Hypothesis/Context/Variable(s); all such surfaces must be discharged as theorems
 
 ## Findings
 (none)

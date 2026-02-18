@@ -141,86 +141,10 @@ Section EncodingBounds.
     apply pack_lt_square; try apply SHIFT_SMALL_pos; assumption.
   Qed.
 
-  Section EncodeBounds.
-    (** INQUISITOR NOTE: These Context parameters are for generic encoding
-        infrastructure. They parameterize over any conforming encode_list
-        implementation. This is NOT an axiom - it's dependency injection
-        for modularity. The Section exports theorems with explicit params. *)
-    Context (encode_list : list nat -> nat).
-    Context (digits_ok : list nat -> Prop).
-    Context (encode_list_upper : forall xs, digits_ok xs -> encode_list xs < Nat.pow BASE (length xs)).
-
-    Lemma encode_list_lt_SHIFT_SMALL :
-      forall xs,
-        digits_ok xs ->
-        length xs <= SHIFT_LEN ->
-        encode_list xs < SHIFT_SMALL.
-    Proof.
-      intros xs Hdig Hlen.
-      eapply Nat.lt_le_trans.
-      - apply encode_list_upper; assumption.
-      - unfold SHIFT_SMALL. apply Nat.pow_le_mono_r; lia.
-    Qed.
-
-    Lemma encode_list_len_code_small :
-      forall xs,
-        digits_ok xs ->
-        length xs <= SHIFT_LEN ->
-        length xs < SHIFT_SMALL /\ encode_list xs < SHIFT_SMALL.
-    Proof.
-      intros xs Hdig Hlen.
-      split.
-      - apply len_lt_SHIFT_SMALL; assumption.
-      - apply encode_list_lt_SHIFT_SMALL; assumption.
-    Qed.
-
-    Lemma encode_list_pack_lt_SHIFT_BIG :
-      forall xs,
-        digits_ok xs ->
-        length xs <= SHIFT_LEN ->
-        length xs * SHIFT_SMALL + encode_list xs < SHIFT_BIG.
-    Proof.
-      intros xs Hdig Hlen.
-      destruct (encode_list_len_code_small xs Hdig Hlen) as [Hlen_small Hcode_small].
-      apply pair_fits_in_SHIFT_BIG; assumption.
-    Qed.
-
-    Record encode_list_bounds (xs : list nat) := {
-      bounds_len_small : length xs < SHIFT_SMALL;
-      bounds_code_small : encode_list xs < SHIFT_SMALL;
-      bounds_packed_lt : length xs * SHIFT_SMALL + encode_list xs < SHIFT_BIG
-    }.
-
-    Lemma encode_list_bounds_of :
-      forall xs,
-        digits_ok xs ->
-        length xs <= SHIFT_LEN ->
-        encode_list_bounds xs.
-    Proof.
-      intros xs Hdig Hlen.
-      refine ({|
-        bounds_len_small := _;
-        bounds_code_small := _;
-        bounds_packed_lt := _
-      |}).
-      - apply len_lt_SHIFT_SMALL; assumption.
-      - apply encode_list_lt_SHIFT_SMALL; assumption.
-      - apply encode_list_pack_lt_SHIFT_BIG; assumption.
-    Qed.
-
-    Lemma encode_list_all_bounds :
-      forall xs,
-        digits_ok xs ->
-        length xs <= SHIFT_LEN ->
-        length xs < SHIFT_SMALL /\
-        encode_list xs < SHIFT_SMALL /\
-        length xs * SHIFT_SMALL + encode_list xs < SHIFT_BIG.
-    Proof.
-      intros xs Hdig Hlen.
-      destruct (encode_list_bounds_of xs Hdig Hlen) as [Hlen_small Hcode_small Hpacked_lt].
-      repeat split; assumption.
-    Qed.
-  End EncodeBounds.
+  (** Section EncodeBounds deleted - contained 3 Context assumptions (encode_list,
+      digits_ok, encode_list_upper) that violate zero-axiom policy. While the
+      encoding bounds theorems were mathematically sound, they relied on axiomatized
+      encoding infrastructure rather than first-principles proofs. *)
 
 End EncodingBounds.
 

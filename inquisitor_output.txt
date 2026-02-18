@@ -1,0 +1,12 @@
+INQUISITOR: Compiling all Coq proofs...
+INQUISITOR: Compilation OK
+INQUISITOR: FAIL — 8 HIGH findings across all files.
+Report: /workspaces/The-Thiele-Machine/INQUISITOR_REPORT.md
+- coq/kernel/EinsteinEquations4D.v:L224 ADMITTED STUB PROOF FOUND - ABSOLUTELY FORBIDDEN. Admitted is a placeholder, not a proof. Complete the proof with real derivation or remove the theorem. Zero tolerance policy: difficulty is not an excuse.
+- coq/kernel/EinsteinEquations4D.v:L512 ADMITTED STUB PROOF FOUND - ABSOLUTELY FORBIDDEN. Admitted is a placeholder, not a proof. Complete the proof with real derivation or remove the theorem. Zero tolerance policy: difficulty is not an excuse.
+- coq/kernel/EinsteinEquations4D.v:L483 ADMIT_TACTIC ADMIT TACTIC FOUND - ABSOLUTELY FORBIDDEN. The admit tactic is a proof shortcut. Complete the proof step with real tactics or remove the theorem.
+- coq/kernel/EinsteinEquations4D.v:L537 UNUSED_HYPOTHESIS Introduced hypothesis `Hempty` not referenced in proof body.
+- coq/kernel/EinsteinEquations4D.v:L423 EINSTEIN_EQUATION_WEAK Theorem `einstein_equation` exists but statement does not match the expected field-equation shape `einstein_tensor = 8*PI*gravitational_constant*stress_energy`.
+- coq/kernel/EinsteinEquations4D.v:L467 INCOMPLETE_PHYSICS_DERIVATION File contains explicit unfinished marker in a physics derivation. Replace placeholder language with proved theorem content or move to exploratory area.
+- coq/kernel/EinsteinEquations4D.v:L481 INCOMPLETE_PHYSICS_DERIVATION File contains explicit unfinished marker in a physics derivation. Replace placeholder language with proved theorem content or move to exploratory area.
+- coq/kernel/EinsteinEquations4D.v:L423 EINSTEIN_PROOF_INSUFFICIENT Theorem `einstein_equation` proof appears non-substantive. Require non-definitional reasoning that uses conservation/locality bridge lemmas.

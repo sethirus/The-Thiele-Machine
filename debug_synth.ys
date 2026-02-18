@@ -1,0 +1,5 @@
+read_verilog -sv -DSYNTHESIS -DYOSYS_LITE /workspaces/The-Thiele-Machine/thielecpu/hardware/rtl/thiele_cpu_unified.v
+prep -top thiele_cpu
+check
+stat
+write_json /tmp/tmpo_bxbzdw/thiele_cpu.json

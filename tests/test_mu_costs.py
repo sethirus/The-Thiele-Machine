@@ -157,19 +157,24 @@ class TestPnewMuCost:
         
         # Cost = popcount({0,1,2,3,4}) = 5
         assert state.mu_ledger.mu_discovery == 5
-    
-    def test_pnew_existing_no_cost(self):
-        """PNEW for existing region has no additional cost."""
+
+    def test_pnew_existing_charges_cost(self):
+        """PNEW for existing region DOES charge cost (matches Coq semantics).
+
+        Per Coq VMStep.v:187-190, step_pnew always calls advance_state which
+        applies the cost, regardless of whether graph_pnew creates a new module
+        or returns an existing one.
+        """
         state = State()
-        
+
         state.pnew({0, 1, 2})
         initial_mu = state.mu_ledger.mu_discovery
-        
+
         # Create same region again
         state.pnew({0, 1, 2})
-        
-        # No additional cost
-        assert state.mu_ledger.mu_discovery == initial_mu
+
+        # Cost IS charged (popcount({0,1,2}) = 3)
+        assert state.mu_ledger.mu_discovery == initial_mu + 3
 
 
 class TestPsplitMuCost:

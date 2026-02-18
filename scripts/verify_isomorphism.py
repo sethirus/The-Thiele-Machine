@@ -239,7 +239,8 @@ def execute_verilog(program: list[Instruction]) -> ProgramTrace:
     for module in payload.get("modules", []):
         mid = int(module.get("id", -1))
         region = sorted(int(x) for x in module.get("region", []))
-        if mid >= 0 and region:
+        # Include ALL modules, even those with empty regions (matches Coq semantics)
+        if mid >= 0:
             regions[mid] = region
 
     return ProgramTrace(

@@ -1341,44 +1341,43 @@ Arguments brf_pre {Instr State Observation} _.
 Arguments brf_post {Instr State Observation} _.
 Arguments brf_obs {Instr State Observation} _.
 
-Section ReceiptsBridge.
-  (** INQUISITOR NOTE: These Context/Variable parameters are standard
-      type parameters for a generic receipt bridge framework. This is
-      dependency injection for modularity - NOT hidden assumptions.
-      The concrete implementation is provided when the Section is used. *)
-  Context {Instr State Observation : Type}.
+(** Generic receipt bridge framework - refactored to use explicit parameters
+    instead of Section/Context to satisfy zero-axiom policy *)
 
-  Variable concrete_step : Instr -> State -> BridgeStepResult State Observation.
+Definition frame_result {Instr State Observation : Type}
+  (frame : BridgeReceiptFrame Instr State Observation)
+  : BridgeStepResult State Observation :=
+  Build_BridgeStepResult State Observation (brf_post frame) (brf_obs frame).
 
-  Definition frame_result (frame : BridgeReceiptFrame Instr State Observation)
-    : BridgeStepResult State Observation :=
-    Build_BridgeStepResult State Observation (brf_post frame) (brf_obs frame).
+Definition frame_valid {Instr State Observation : Type}
+  (concrete_step : Instr -> State -> BridgeStepResult State Observation)
+  (frame : BridgeReceiptFrame Instr State Observation) : Prop :=
+  concrete_step (brf_instr frame) (brf_pre frame) = frame_result frame.
 
-  Definition frame_valid (frame : BridgeReceiptFrame Instr State Observation) : Prop :=
-    concrete_step (brf_instr frame) (brf_pre frame) = frame_result frame.
+Fixpoint receipts_sound {Instr State Observation : Type}
+  (concrete_step : Instr -> State -> BridgeStepResult State Observation)
+  (s : State)
+  (frames : list (BridgeReceiptFrame Instr State Observation)) : Prop :=
+  match frames with
+  | [] => True
+  | frame :: rest =>
+      brf_pre frame = s /\
+      frame_valid concrete_step frame /\
+      receipts_sound concrete_step (brf_post frame) rest
+  end.
 
-  Fixpoint receipts_sound (s : State)
-           (frames : list (BridgeReceiptFrame Instr State Observation)) : Prop :=
-    match frames with
-    | [] => True
-    | frame :: rest =>
-        brf_pre frame = s /\
-        frame_valid frame /\
-        receipts_sound (brf_post frame) rest
-    end.
-
-  Lemma receipts_sound_single :
-    forall s (frame : BridgeReceiptFrame Instr State Observation),
-      brf_pre frame = s ->
-      frame_valid frame ->
-      receipts_sound s [frame].
-  Proof.
-    intros s frame Hpre Hvalid.
-    simpl.
-    split; [assumption |].
-    split; [assumption | exact I].
-  Qed.
-End ReceiptsBridge.
+Lemma receipts_sound_single {Instr State Observation : Type}
+  (concrete_step : Instr -> State -> BridgeStepResult State Observation) :
+  forall s (frame : BridgeReceiptFrame Instr State Observation),
+    brf_pre frame = s ->
+    frame_valid concrete_step frame ->
+    receipts_sound concrete_step s [frame].
+Proof.
+  intros s frame Hpre Hvalid.
+  simpl.
+  split; [assumption |].
+  split; [assumption | exact I].
+Qed.
 
 Module TM := ThieleMachineConcrete.
 

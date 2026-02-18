@@ -1,0 +1,22 @@
+--- DiscreteGaussBonnet.v
++++ DiscreteGaussBonnet.v
+@@ -188,14 +188,9 @@ Fixpoint count_vertices_in_modules (modules : list (ModuleID * ModuleState)) : n
+ Lemma sum_of_vertex_degrees_equals_3F : forall g,
+   well_formed_triangulated g ->
+   sum_degrees g (vertices g) = (3 * F g)%nat.
+-Proof.
+-  intros g Hwf.
+-  (* This is a standard double-counting argument:
+-     - sum_degrees counts vertex-module incidences from vertex perspective
+-     - 3 * F counts them from module perspective (each module has 3 vertices)
+-     - These are equal by the fundamental counting principle
+-
+-     The formal proof requires infrastructure about bijections and list operations
+-     that we haven't fully developed yet. *)
+-  admit.
+ Admitted.
++
++(* NOTE: This theorem is used in angle defect calculations but is not proven
++   from first principles. It requires showing a bijection between vertex-face
++   incidences counted two ways. For our purposes, we verify it empirically
++   in tests and accept it as a structural property of triangulated surfaces. *)

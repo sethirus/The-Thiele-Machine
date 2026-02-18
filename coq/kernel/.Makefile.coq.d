@@ -40,9 +40,9 @@ CHSHExtraction.vos CHSHExtraction.vok CHSHExtraction.required_vos: CHSHExtractio
 CHSH.vo CHSH.glob CHSH.v.beautified CHSH.required_vo: CHSH.v VMStep.vo
 CHSH.vio: CHSH.v VMStep.vio
 CHSH.vos CHSH.vok CHSH.required_vos: CHSH.v VMStep.vos
-QuantumBound.vo QuantumBound.glob QuantumBound.v.beautified QuantumBound.required_vo: QuantumBound.v VMState.vo VMStep.vo RevelationRequirement.vo
-QuantumBound.vio: QuantumBound.v VMState.vio VMStep.vio RevelationRequirement.vio
-QuantumBound.vos QuantumBound.vok QuantumBound.required_vos: QuantumBound.v VMState.vos VMStep.vos RevelationRequirement.vos
+QuantumBound.vo QuantumBound.glob QuantumBound.v.beautified QuantumBound.required_vo: QuantumBound.v VMState.vo VMStep.vo RevelationRequirement.vo SimulationProof.vo
+QuantumBound.vio: QuantumBound.v VMState.vio VMStep.vio RevelationRequirement.vio SimulationProof.vio
+QuantumBound.vos QuantumBound.vok QuantumBound.required_vos: QuantumBound.v VMState.vos VMStep.vos RevelationRequirement.vos SimulationProof.vos
 MuInformation.vo MuInformation.glob MuInformation.v.beautified MuInformation.required_vo: MuInformation.v VMState.vo VMStep.vo SimulationProof.vo MuLedgerConservation.vo
 MuInformation.vio: MuInformation.v VMState.vio VMStep.vio SimulationProof.vio MuLedgerConservation.vio
 MuInformation.vos MuInformation.vok MuInformation.required_vos: MuInformation.v VMState.vos VMStep.vos SimulationProof.vos MuLedgerConservation.vos
@@ -106,6 +106,9 @@ MuChaitin.vos MuChaitin.vok MuChaitin.required_vos: MuChaitin.v VMState.vos VMSt
 MuGeometry.vo MuGeometry.glob MuGeometry.v.beautified MuGeometry.required_vo: MuGeometry.v VMState.vo SimulationProof.vo MuInformation.vo
 MuGeometry.vio: MuGeometry.v VMState.vio SimulationProof.vio MuInformation.vio
 MuGeometry.vos MuGeometry.vok MuGeometry.required_vos: MuGeometry.v VMState.vos SimulationProof.vos MuInformation.vos
+MuGravity.vo MuGravity.glob MuGravity.v.beautified MuGravity.required_vo: MuGravity.v VMState.vo VMStep.vo SimulationProof.vo SpacetimeEmergence.vo ConeAlgebra.vo MuLedgerConservation.vo KernelPhysics.vo ./Locality.vo ConstantUnification.vo MuGeometry.vo
+MuGravity.vio: MuGravity.v VMState.vio VMStep.vio SimulationProof.vio SpacetimeEmergence.vio ConeAlgebra.vio MuLedgerConservation.vio KernelPhysics.vio ./Locality.vio ConstantUnification.vio MuGeometry.vio
+MuGravity.vos MuGravity.vok MuGravity.required_vos: MuGravity.v VMState.vos VMStep.vos SimulationProof.vos SpacetimeEmergence.vos ConeAlgebra.vos MuLedgerConservation.vos KernelPhysics.vos ./Locality.vos ConstantUnification.vos MuGeometry.vos
 FalsifiablePrediction.vo FalsifiablePrediction.glob FalsifiablePrediction.v.beautified FalsifiablePrediction.required_vo: FalsifiablePrediction.v VMState.vo VMStep.vo KernelPhysics.vo
 FalsifiablePrediction.vio: FalsifiablePrediction.v VMState.vio VMStep.vio KernelPhysics.vio
 FalsifiablePrediction.vos FalsifiablePrediction.vok FalsifiablePrediction.required_vos: FalsifiablePrediction.v VMState.vos VMStep.vos KernelPhysics.vos
@@ -184,24 +187,9 @@ SemidefiniteProgramming.vos SemidefiniteProgramming.vok SemidefiniteProgramming.
 ConstructivePSD.vo ConstructivePSD.glob ConstructivePSD.v.beautified ConstructivePSD.required_vo: ConstructivePSD.v 
 ConstructivePSD.vio: ConstructivePSD.v 
 ConstructivePSD.vos ConstructivePSD.vok ConstructivePSD.required_vos: ConstructivePSD.v 
-TsirelsonBoundProof.vo TsirelsonBoundProof.glob TsirelsonBoundProof.v.beautified TsirelsonBoundProof.required_vo: TsirelsonBoundProof.v SemidefiniteProgramming.vo NPAMomentMatrix.vo
-TsirelsonBoundProof.vio: TsirelsonBoundProof.v SemidefiniteProgramming.vio NPAMomentMatrix.vio
-TsirelsonBoundProof.vos TsirelsonBoundProof.vok TsirelsonBoundProof.required_vos: TsirelsonBoundProof.v SemidefiniteProgramming.vos NPAMomentMatrix.vos
-TsirelsonBoundDirect.vo TsirelsonBoundDirect.glob TsirelsonBoundDirect.v.beautified TsirelsonBoundDirect.required_vo: TsirelsonBoundDirect.v ConstructivePSD.vo NPAMomentMatrix.vo TsirelsonBoundProof.vo
-TsirelsonBoundDirect.vio: TsirelsonBoundDirect.v ConstructivePSD.vio NPAMomentMatrix.vio TsirelsonBoundProof.vio
-TsirelsonBoundDirect.vos TsirelsonBoundDirect.vok TsirelsonBoundDirect.required_vos: TsirelsonBoundDirect.v ConstructivePSD.vos NPAMomentMatrix.vos TsirelsonBoundProof.vos
-TsirelsonBoundComplete.vo TsirelsonBoundComplete.glob TsirelsonBoundComplete.v.beautified TsirelsonBoundComplete.required_vo: TsirelsonBoundComplete.v ConstructivePSD.vo SemidefiniteProgramming.vo NPAMomentMatrix.vo TsirelsonBoundProof.vo
-TsirelsonBoundComplete.vio: TsirelsonBoundComplete.v ConstructivePSD.vio SemidefiniteProgramming.vio NPAMomentMatrix.vio TsirelsonBoundProof.vio
-TsirelsonBoundComplete.vos TsirelsonBoundComplete.vok TsirelsonBoundComplete.required_vos: TsirelsonBoundComplete.v ConstructivePSD.vos SemidefiniteProgramming.vos NPAMomentMatrix.vos TsirelsonBoundProof.vos
-TsirelsonBoundVerification.vo TsirelsonBoundVerification.glob TsirelsonBoundVerification.v.beautified TsirelsonBoundVerification.required_vo: TsirelsonBoundVerification.v SemidefiniteProgramming.vo NPAMomentMatrix.vo TsirelsonBoundProof.vo
-TsirelsonBoundVerification.vio: TsirelsonBoundVerification.v SemidefiniteProgramming.vio NPAMomentMatrix.vio TsirelsonBoundProof.vio
-TsirelsonBoundVerification.vos TsirelsonBoundVerification.vok TsirelsonBoundVerification.required_vos: TsirelsonBoundVerification.v SemidefiniteProgramming.vos NPAMomentMatrix.vos TsirelsonBoundProof.vos
-MinorConstraints.vo MinorConstraints.glob MinorConstraints.v.beautified MinorConstraints.required_vo: MinorConstraints.v ./ValidCorrelation.vo ./BoxCHSH.vo ./Tier1Proofs.vo
-MinorConstraints.vio: MinorConstraints.v ./ValidCorrelation.vio ./BoxCHSH.vio ./Tier1Proofs.vio
-MinorConstraints.vos MinorConstraints.vok MinorConstraints.required_vos: MinorConstraints.v ./ValidCorrelation.vos ./BoxCHSH.vos ./Tier1Proofs.vos
+MinorConstraints.vo MinorConstraints.glob MinorConstraints.v.beautified MinorConstraints.required_vo: MinorConstraints.v ./BoxCHSH.vo ./ValidCorrelation.vo ConstructivePSD.vo
+MinorConstraints.vio: MinorConstraints.v ./BoxCHSH.vio ./ValidCorrelation.vio ConstructivePSD.vio
+MinorConstraints.vos MinorConstraints.vok MinorConstraints.required_vos: MinorConstraints.v ./BoxCHSH.vos ./ValidCorrelation.vos ConstructivePSD.vos
 ConstantUnification.vo ConstantUnification.glob ConstantUnification.v.beautified ConstantUnification.required_vo: ConstantUnification.v 
 ConstantUnification.vio: ConstantUnification.v 
 ConstantUnification.vos ConstantUnification.vok ConstantUnification.required_vos: ConstantUnification.v 
-TsirelsonBoundTDD.vo TsirelsonBoundTDD.glob TsirelsonBoundTDD.v.beautified TsirelsonBoundTDD.required_vo: TsirelsonBoundTDD.v SemidefiniteProgramming.vo NPAMomentMatrix.vo TsirelsonBoundProof.vo
-TsirelsonBoundTDD.vio: TsirelsonBoundTDD.v SemidefiniteProgramming.vio NPAMomentMatrix.vio TsirelsonBoundProof.vio
-TsirelsonBoundTDD.vos TsirelsonBoundTDD.vok TsirelsonBoundTDD.required_vos: TsirelsonBoundTDD.v SemidefiniteProgramming.vos NPAMomentMatrix.vos TsirelsonBoundProof.vos

@@ -548,98 +548,16 @@ End L2Necessity.
     This REPLACES Axiom 5.1. The superposition principle is now a THEOREM.
     ========================================================================= *)
 
-Section GrandDerivation.
+(** Section GrandDerivation deleted.
+    
+    This section attempted to derive L2 norm uniquely from axioms about
+    zero-cost evolution, norm preservation, and non-triviality.
+    
+    However, it used Context assumptions which violate the zero-axiom policy.
+    
+    The L2 norm is accepted as the standard quantum mechanical norm.
+    *)
 
-(** Machine primitives (all proven in other files, zero axioms): *)
-
-(** P1: States have at least 2 dimensions (binary partition → 2 basis states) *)
-(* INQUISITOR NOTE: SECTION context parameter; this file provides local bridge lemmas. *)
-Context (machine_has_binary_partitions :
-  exists s0 s1 : State2D, s0 <> s1
-).
-
-(** P2: There exists a zero-cost evolution operator
-    (from ThermodynamicBridge.v: reversible ops have μ = 0) *)
-(* INQUISITOR NOTE: SECTION context parameter; instantiated by downstream machine model. *)
-Context (zero_cost_evolution_exists :
-  exists T : R -> State2D -> State2D,
-    (* T is a continuous one-parameter group *)
-    (forall s, T 0 s = s) /\
-    (forall t1 t2 s, T t1 (T t2 s) = T (t1 + t2) s) /\
-    (forall s eps, eps > 0 ->
-      exists delta, delta > 0 /\
-      forall t, Rabs t < delta ->
-      Rabs (fst (T t s) - fst s) < eps /\
-      Rabs (snd (T t s) - snd s) < eps)
-    ).
-
-(** P3: Zero-cost evolution preserves probability
-    (from Unitarity.v: μ = 0 → purity preserved → norm preserved) *)
-(* INQUISITOR NOTE: SECTION context parameter; no global axiom introduced. *)
-Context (zero_cost_preserves_norm :
-  forall T : R -> State2D -> State2D,
-    (forall s, T 0 s = s) ->
-    (forall t1 t2 s, T t1 (T t2 s) = T (t1 + t2) s) ->
-    exists p : nat, (0 < p)%nat /\
-      forall t a b,
-        Rabs (fst (T t (a, b))) ^ p + Rabs (snd (T t (a, b))) ^ p =
-        Rabs a ^ p + Rabs b ^ p
-).
-
-(** P4: There exists a non-trivial zero-cost evolution
-    (the machine can reversibly transform between distinct states) *)
-(* INQUISITOR NOTE: SECTION context parameter; used only for conditional bridge theorem. *)
-Context (nontrivial_evolution :
-  forall T : R -> State2D -> State2D,
-    (forall s, T 0 s = s) ->
-    (forall t1 t2 s, T t1 (T t2 s) = T (t1 + t2) s) ->
-    exists t s, T t s <> s
-).
-
-(** THE MAIN THEOREM: The norm exponent must be 2.
-    Axiom 5.1 (Superposition Principle with L2 norm) is DERIVED. *)
-Lemma Rabs_sq : forall x, Rabs x ^ 2 = x * x.
-Proof.
-  intros x.
-  replace (Rabs x ^ 2) with (Rabs x * (Rabs x * 1)) by ring.
-  rewrite Rmult_1_r. rewrite <- Rabs_mult.
-  rewrite Rabs_right; [ring | nra].
-Qed.
-
-Theorem superposition_principle_derived :
-  exists p : R, p = 2 /\
-    forall a b : R, (Rabs a ^ 2 + Rabs b ^ 2 = 1 <-> a * a + b * b = 1).
-Proof.
-  exists 2. split; [reflexivity|].
-  intros a b. split; intros H.
-  - rewrite !Rabs_sq in H. exact H.
-  - rewrite !Rabs_sq. exact H.
-Qed.
-
-(** COROLLARY: The derived state space is exactly the unit circle S¹ *)
-Corollary state_space_is_S1 :
-  forall a b : R, a * a + b * b = 1 ->
-    exists theta : R, a = cos theta /\ b = sin theta.
-Proof.
-  intros a b Hnorm.
-  assert (Ha_range : -1 <= a <= 1) by nra.
-  destruct (Rle_dec 0 b) as [Hbpos | Hbneg].
-  - exists (acos a). split.
-    + symmetry. apply cos_acos; lra.
-    + rewrite sin_acos by lra.
-      assert (Hb2 : Rsqr a = a * a) by (unfold Rsqr; ring).
-      assert (Hb3 : 1 - Rsqr a = b * b) by (unfold Rsqr; lra).
-      rewrite Hb3. rewrite sqrt_square; lra.
-  - exists (- acos a). split.
-    + rewrite cos_neg. symmetry. apply cos_acos; lra.
-    + rewrite sin_neg. rewrite sin_acos by lra.
-      assert (Hb3 : 1 - Rsqr a = b * b) by (unfold Rsqr; lra).
-      rewrite Hb3.
-      replace (b * b) with ((-b) * (-b)) by ring.
-      rewrite sqrt_square by lra. lra.
-Qed.
-
-End GrandDerivation.
 
 (** =========================================================================
     PART 5: EPISTEMOLOGICAL UPGRADE — FROM (C) TO (S)

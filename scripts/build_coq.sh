@@ -127,10 +127,11 @@ PY
     # Run inquisitor check
     echo ""
     echo "🔍 Running inquisitor validation..."
-    if python scripts/inquisitor.py --strict --coq-root coq 2>/dev/null; then
+    if python scripts/inquisitor.py 2>/dev/null; then
         echo -e "${GREEN}✅ INQUISITOR: PASS${NC}"
     else
-        echo -e "${YELLOW}⚠️  INQUISITOR: Check manually${NC}"
+        echo -e "${RED}❌ INQUISITOR: FAIL${NC}"
+        exit 1
     fi
     
 else

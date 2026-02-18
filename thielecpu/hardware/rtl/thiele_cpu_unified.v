@@ -193,6 +193,7 @@ wire [7:0]  operand_cost;
 // Module management (partition graph)
 reg [31:0] module_table  [0:NUM_MODULES-1];
 reg [31:0] region_table  [0:NUM_MODULES-1][0:REGION_SIZE-1];
+reg [NUM_MODULES-1:0] module_exists;  // Bit vector: 1 if module exists, 0 if deleted
 reg [5:0]  current_module;
 reg [5:0]  next_module_id;
 reg [31:0] swap_temp;
@@ -292,6 +293,7 @@ always @(posedge clk or negedge rst_n) begin
         info_gain_counter    <= 32'h0;
         current_module       <= 6'h0;
         next_module_id       <= 6'h1;
+        module_exists        <= {NUM_MODULES{1'b0}};  // All modules initially non-existent
         state                <= STATE_FETCH;
 
 `ifndef SYNTHESIS
@@ -638,6 +640,7 @@ task execute_pnew;
             region_table[next_module_id][0] <= region_spec_a;
             for (i = 1; i < REGION_SIZE; i = i + 1)
                 region_table[next_module_id][i] <= 32'h0;
+            module_exists[next_module_id]   <= 1'b1;  // Mark module as existing
             current_module <= next_module_id;
             next_module_id <= next_module_id + 1;
             csr_status <= 32'h1;
@@ -691,6 +694,9 @@ task execute_psplit;
             module_table[next_module_id]     <= even_count;
             module_table[next_module_id + 1] <= odd_count;
             module_table[module_id]          <= 32'h0;  // remove parent
+            module_exists[next_module_id]    <= 1'b1;   // New modules exist
+            module_exists[next_module_id + 1] <= 1'b1;
+            module_exists[module_id]         <= 1'b0;   // Parent deleted
             next_module_id <= next_module_id + 2;
             csr_status <= 32'h2;
             partition_ops_counter <= partition_ops_counter + 1;
@@ -719,6 +725,9 @@ task execute_pmerge;
                 module_table[next_module_id] <= total_size;
                 module_table[module_a]       <= 32'h0;
                 module_table[module_b]       <= 32'h0;
+                module_exists[next_module_id] <= 1'b1;  // Merged module exists
+                module_exists[module_a]       <= 1'b0;  // Source modules deleted
+                module_exists[module_b]       <= 1'b0;
                 current_module  <= next_module_id;
                 next_module_id  <= next_module_id + 1;
                 csr_status <= 32'h3;

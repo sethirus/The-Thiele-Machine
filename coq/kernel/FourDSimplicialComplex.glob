@@ -1,0 +1,896 @@
+DIGEST 42cfe997c319ca3436b3cfbd4912f999
+FKernel.FourDSimplicialComplex
+R1040:1043 Coq.Lists.List <> <> lib
+R1045:1058 Coq.Arith.PeanoNat <> <> lib
+R1060:1062 Coq.micromega.Lia <> <> lib
+R1064:1067 Coq.Bool.Bool <> <> lib
+R1069:1074 Coq.ZArith.ZArith <> <> lib
+R1084:1096 Coq.Lists.List ListNotations <> mod
+R1127:1133 Kernel.VMState <> <> lib
+R1163:1178 Kernel.DiscreteTopology <> <> lib
+rec 1314:1322 <> Simplex4D
+proj 1331:1342 <> s4d_vertices
+R1346:1349 Coq.Init.Datatypes <> list ind
+R1351:1353 Coq.Init.Datatypes <> nat ind
+rec 1458:1463 <> Cell3D
+proj 1472:1483 <> c3d_vertices
+R1487:1490 Coq.Init.Datatypes <> list ind
+R1492:1494 Coq.Init.Datatypes <> nat ind
+rec 1596:1601 <> Face2D
+proj 1610:1621 <> f2d_vertices
+R1625:1628 Coq.Init.Datatypes <> list ind
+R1630:1632 Coq.Init.Datatypes <> nat ind
+rec 1722:1727 <> Edge1D
+proj 1736:1747 <> e1d_vertices
+R1751:1754 Coq.Init.Datatypes <> list ind
+R1756:1758 Coq.Init.Datatypes <> nat ind
+rec 1837:1855 <> SimplicialComplex4D
+proj 1864:1876 <> sc4d_vertices
+proj 1892:1901 <> sc4d_edges
+proj 1920:1929 <> sc4d_faces
+proj 1948:1957 <> sc4d_cells
+proj 1976:1990 <> sc4d_4simplices
+R1880:1883 Coq.Init.Datatypes <> list ind
+R1885:1887 Coq.Init.Datatypes <> nat ind
+R1905:1908 Coq.Init.Datatypes <> list ind
+R1910:1915 Kernel.FourDSimplicialComplex <> Edge1D rec
+R1933:1936 Coq.Init.Datatypes <> list ind
+R1938:1943 Kernel.FourDSimplicialComplex <> Face2D rec
+R1961:1964 Coq.Init.Datatypes <> list ind
+R1966:1971 Kernel.FourDSimplicialComplex <> Cell3D rec
+R1994:1997 Coq.Init.Datatypes <> list ind
+R1999:2007 Kernel.FourDSimplicialComplex <> Simplex4D rec
+def 2103:2118 <> well_formed_edge
+R2125:2130 Kernel.FourDSimplicialComplex <> Edge1D rec
+binder 2121:2121 <> e:15
+R2168:2170 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2145:2150 Coq.Init.Datatypes <> length def
+R2153:2164 Kernel.FourDSimplicialComplex <> e1d_vertices proj
+R2166:2166 Kernel.FourDSimplicialComplex <> e:15 var
+def 2221:2236 <> well_formed_face
+R2243:2248 Kernel.FourDSimplicialComplex <> Face2D rec
+binder 2239:2239 <> f:16
+R2286:2288 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2263:2268 Coq.Init.Datatypes <> length def
+R2271:2282 Kernel.FourDSimplicialComplex <> f2d_vertices proj
+R2284:2284 Kernel.FourDSimplicialComplex <> f:16 var
+def 2339:2354 <> well_formed_cell
+R2361:2366 Kernel.FourDSimplicialComplex <> Cell3D rec
+binder 2357:2357 <> c:17
+R2404:2406 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2381:2386 Coq.Init.Datatypes <> length def
+R2389:2400 Kernel.FourDSimplicialComplex <> c3d_vertices proj
+R2402:2402 Kernel.FourDSimplicialComplex <> c:17 var
+def 2462:2481 <> well_formed_4simplex
+R2488:2496 Kernel.FourDSimplicialComplex <> Simplex4D rec
+binder 2484:2484 <> s:18
+R2534:2536 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2511:2516 Coq.Init.Datatypes <> length def
+R2519:2530 Kernel.FourDSimplicialComplex <> s4d_vertices proj
+R2532:2532 Kernel.FourDSimplicialComplex <> s:18 var
+def 2581:2601 <> all_edges_well_formed
+R2612:2615 Coq.Init.Datatypes <> list ind
+R2617:2622 Kernel.FourDSimplicialComplex <> Edge1D rec
+binder 2604:2608 <> edges:19
+R2637:2642 Coq.Lists.List <> Forall ind
+R2661:2665 Kernel.FourDSimplicialComplex <> edges:19 var
+R2644:2659 Kernel.FourDSimplicialComplex <> well_formed_edge def
+def 2709:2729 <> all_faces_well_formed
+R2740:2743 Coq.Init.Datatypes <> list ind
+R2745:2750 Kernel.FourDSimplicialComplex <> Face2D rec
+binder 2732:2736 <> faces:20
+R2765:2770 Coq.Lists.List <> Forall ind
+R2789:2793 Kernel.FourDSimplicialComplex <> faces:20 var
+R2772:2787 Kernel.FourDSimplicialComplex <> well_formed_face def
+def 2837:2857 <> all_cells_well_formed
+R2868:2871 Coq.Init.Datatypes <> list ind
+R2873:2878 Kernel.FourDSimplicialComplex <> Cell3D rec
+binder 2860:2864 <> cells:21
+R2893:2898 Coq.Lists.List <> Forall ind
+R2917:2921 Kernel.FourDSimplicialComplex <> cells:21 var
+R2900:2915 Kernel.FourDSimplicialComplex <> well_formed_cell def
+def 2971:2996 <> all_4simplices_well_formed
+R3011:3014 Coq.Init.Datatypes <> list ind
+R3016:3024 Kernel.FourDSimplicialComplex <> Simplex4D rec
+binder 2999:3007 <> simplices:22
+R3039:3044 Coq.Lists.List <> Forall ind
+R3067:3075 Kernel.FourDSimplicialComplex <> simplices:22 var
+R3046:3065 Kernel.FourDSimplicialComplex <> well_formed_4simplex def
+def 3170:3191 <> well_formed_4d_complex
+R3199:3217 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
+binder 3194:3195 <> sc:23
+R3269:3274 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3232:3252 Kernel.FourDSimplicialComplex <> all_edges_well_formed def
+R3255:3264 Kernel.FourDSimplicialComplex <> sc4d_edges proj
+R3266:3267 Kernel.FourDSimplicialComplex <> sc:23 var
+R3312:3317 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3275:3295 Kernel.FourDSimplicialComplex <> all_faces_well_formed def
+R3298:3307 Kernel.FourDSimplicialComplex <> sc4d_faces proj
+R3309:3310 Kernel.FourDSimplicialComplex <> sc:23 var
+R3355:3360 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3318:3338 Kernel.FourDSimplicialComplex <> all_cells_well_formed def
+R3341:3350 Kernel.FourDSimplicialComplex <> sc4d_cells proj
+R3352:3353 Kernel.FourDSimplicialComplex <> sc:23 var
+R3361:3386 Kernel.FourDSimplicialComplex <> all_4simplices_well_formed def
+R3389:3403 Kernel.FourDSimplicialComplex <> sc4d_4simplices proj
+R3405:3406 Kernel.FourDSimplicialComplex <> sc:23 var
+def 3943:3946 <> V_4d
+R3954:3972 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
+binder 3949:3950 <> sc:24
+R3977:3979 Coq.Init.Datatypes <> nat ind
+R3986:3991 Coq.Init.Datatypes <> length def
+R3994:4006 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
+R4008:4009 Kernel.FourDSimplicialComplex <> sc:24 var
+def 4025:4028 <> E_4d
+R4036:4054 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
+binder 4031:4032 <> sc:25
+R4059:4061 Coq.Init.Datatypes <> nat ind
+R4068:4073 Coq.Init.Datatypes <> length def
+R4076:4085 Kernel.FourDSimplicialComplex <> sc4d_edges proj
+R4087:4088 Kernel.FourDSimplicialComplex <> sc:25 var
+def 4104:4107 <> F_4d
+R4115:4133 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
+binder 4110:4111 <> sc:26
+R4138:4140 Coq.Init.Datatypes <> nat ind
+R4147:4152 Coq.Init.Datatypes <> length def
+R4155:4164 Kernel.FourDSimplicialComplex <> sc4d_faces proj
+R4166:4167 Kernel.FourDSimplicialComplex <> sc:26 var
+def 4183:4186 <> C_4d
+R4194:4212 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
+binder 4189:4190 <> sc:27
+R4217:4219 Coq.Init.Datatypes <> nat ind
+R4226:4231 Coq.Init.Datatypes <> length def
+R4234:4243 Kernel.FourDSimplicialComplex <> sc4d_cells proj
+R4245:4246 Kernel.FourDSimplicialComplex <> sc:27 var
+def 4262:4265 <> H_4d
+R4273:4291 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
+binder 4268:4269 <> sc:28
+R4296:4298 Coq.Init.Datatypes <> nat ind
+R4305:4310 Coq.Init.Datatypes <> length def
+R4313:4327 Kernel.FourDSimplicialComplex <> sc4d_4simplices proj
+R4329:4330 Kernel.FourDSimplicialComplex <> sc:28 var
+def 4395:4417 <> euler_characteristic_4d
+R4425:4443 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
+binder 4420:4421 <> sc:29
+R4448:4448 Coq.Numbers.BinNums <> Z ind
+R4540:4545 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R4519:4521 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R4495:4500 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R4474:4476 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R4456:4463 Coq.ZArith.BinInt Z of_nat def
+R4466:4469 Kernel.FourDSimplicialComplex <> V_4d def
+R4471:4472 Kernel.FourDSimplicialComplex <> sc:29 var
+R4477:4484 Coq.ZArith.BinInt Z of_nat def
+R4487:4490 Kernel.FourDSimplicialComplex <> E_4d def
+R4492:4493 Kernel.FourDSimplicialComplex <> sc:29 var
+R4501:4508 Coq.ZArith.BinInt Z of_nat def
+R4511:4514 Kernel.FourDSimplicialComplex <> F_4d def
+R4516:4517 Kernel.FourDSimplicialComplex <> sc:29 var
+R4522:4529 Coq.ZArith.BinInt Z of_nat def
+R4532:4535 Kernel.FourDSimplicialComplex <> C_4d def
+R4537:4538 Kernel.FourDSimplicialComplex <> sc:29 var
+R4546:4553 Coq.ZArith.BinInt Z of_nat def
+R4556:4559 Kernel.FourDSimplicialComplex <> H_4d def
+R4561:4562 Kernel.FourDSimplicialComplex <> sc:29 var
+def 5358:5372 <> regions_overlap
+R5383:5386 Coq.Init.Datatypes <> list ind
+R5388:5390 Coq.Init.Datatypes <> nat ind
+binder 5375:5376 <> r1:30
+binder 5378:5379 <> r2:31
+R5395:5398 Coq.Init.Datatypes <> bool ind
+R5411:5412 Kernel.FourDSimplicialComplex <> r1:30 var
+R5423:5424 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5429:5433 Coq.Init.Datatypes <> false constr
+R5440:5443 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5461:5472 Kernel.VMState <> nat_list_mem def
+R5476:5477 Kernel.FourDSimplicialComplex <> r2:31 var
+R5506:5520 Kernel.FourDSimplicialComplex <> regions_overlap:32 def
+R5527:5528 Kernel.FourDSimplicialComplex <> r2:31 var
+R5490:5493 Coq.Init.Datatypes <> true constr
+def 5663:5688 <> extract_edges_from_modules
+R5703:5706 Coq.Init.Datatypes <> list ind
+R5717:5719 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R5709:5716 Kernel.VMState <> ModuleID def
+R5720:5730 Kernel.VMState <> ModuleState rec
+binder 5693:5699 <> modules:34
+R5738:5741 Coq.Init.Datatypes <> list ind
+R5743:5748 Kernel.FourDSimplicialComplex <> Edge1D rec
+R5761:5767 Kernel.FourDSimplicialComplex <> modules:34 var
+R5778:5779 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5784:5785 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5800:5803 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5791:5791 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5795:5796 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5799:5799 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5847:5854 Coq.Lists.List <> flat_map def
+R5862:5862 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5866:5867 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5870:5870 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 5868:5869 <> m2:37
+binder 5863:5865 <> id2:38
+binder 5862:5870 <> pat:39
+R5888:5902 Kernel.FourDSimplicialComplex <> regions_overlap def
+R5905:5917 Kernel.VMState <> module_region proj
+R5924:5936 Kernel.VMState <> module_region proj
+R5938:5939 Kernel.FourDSimplicialComplex <> m2:37 var
+R6007:6008 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5957:5960 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5987:5990 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5961:5972 Kernel.FourDSimplicialComplex <> e1d_vertices proj
+R5961:5972 Kernel.FourDSimplicialComplex <> e1d_vertices proj
+R5961:5972 Kernel.FourDSimplicialComplex <> e1d_vertices proj
+R5977:5977 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5981:5982 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5986:5986 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5983:5985 Kernel.FourDSimplicialComplex <> id2:38 var
+binder 5822:5834 <> edges_with_m1:40
+R6047:6050 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R6034:6046 Kernel.FourDSimplicialComplex <> edges_with_m1:40 var
+R6051:6076 Kernel.FourDSimplicialComplex <> extract_edges_from_modules:35 def
+def 6229:6254 <> extract_faces_from_modules
+R6269:6272 Coq.Init.Datatypes <> list ind
+R6283:6285 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R6275:6282 Kernel.VMState <> ModuleID def
+R6286:6296 Kernel.VMState <> ModuleState rec
+binder 6259:6265 <> modules:41
+R6304:6307 Coq.Init.Datatypes <> list ind
+R6309:6314 Kernel.FourDSimplicialComplex <> Face2D rec
+R6327:6333 Kernel.FourDSimplicialComplex <> modules:41 var
+R6344:6345 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6350:6351 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6366:6369 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6357:6357 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6361:6362 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6365:6365 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6413:6420 Coq.Lists.List <> flat_map def
+R6428:6428 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6432:6433 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6436:6436 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 6434:6435 <> m2:44
+binder 6429:6431 <> id2:45
+binder 6428:6436 <> pat:46
+R6454:6468 Kernel.FourDSimplicialComplex <> regions_overlap def
+R6471:6483 Kernel.VMState <> module_region proj
+R6490:6502 Kernel.VMState <> module_region proj
+R6504:6505 Kernel.FourDSimplicialComplex <> m2:44 var
+R6823:6824 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6535:6542 Coq.Lists.List <> flat_map def
+R6550:6550 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6554:6555 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6558:6558 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 6556:6557 <> m3:47
+binder 6551:6553 <> id3:48
+binder 6550:6558 <> pat:49
+R6633:6653 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R6580:6594 Kernel.FourDSimplicialComplex <> regions_overlap def
+R6597:6609 Kernel.VMState <> module_region proj
+R6616:6628 Kernel.VMState <> module_region proj
+R6630:6631 Kernel.FourDSimplicialComplex <> m3:47 var
+R6654:6668 Kernel.FourDSimplicialComplex <> regions_overlap def
+R6671:6683 Kernel.VMState <> module_region proj
+R6685:6686 Kernel.FourDSimplicialComplex <> m2:44 var
+R6690:6702 Kernel.VMState <> module_region proj
+R6704:6705 Kernel.FourDSimplicialComplex <> m3:47 var
+R6786:6787 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6727:6730 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R6762:6765 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R6731:6742 Kernel.FourDSimplicialComplex <> f2d_vertices proj
+R6731:6742 Kernel.FourDSimplicialComplex <> f2d_vertices proj
+R6731:6742 Kernel.FourDSimplicialComplex <> f2d_vertices proj
+R6747:6747 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6751:6752 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6756:6757 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6761:6761 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6753:6755 Kernel.FourDSimplicialComplex <> id2:45 var
+R6758:6760 Kernel.FourDSimplicialComplex <> id3:48 var
+binder 6388:6400 <> faces_with_m1:50
+R6863:6866 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R6850:6862 Kernel.FourDSimplicialComplex <> faces_with_m1:50 var
+R6867:6892 Kernel.FourDSimplicialComplex <> extract_faces_from_modules:42 def
+def 7042:7067 <> extract_cells_from_modules
+R7082:7085 Coq.Init.Datatypes <> list ind
+R7096:7098 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R7088:7095 Kernel.VMState <> ModuleID def
+R7099:7109 Kernel.VMState <> ModuleState rec
+binder 7072:7078 <> modules:51
+R7117:7120 Coq.Init.Datatypes <> list ind
+R7122:7127 Kernel.FourDSimplicialComplex <> Cell3D rec
+R7140:7146 Kernel.FourDSimplicialComplex <> modules:51 var
+R7157:7158 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7163:7164 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7179:7182 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7170:7170 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7174:7175 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7178:7178 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7226:7233 Coq.Lists.List <> flat_map def
+R7241:7241 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7245:7246 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7249:7249 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 7247:7248 <> m2:54
+binder 7242:7244 <> id2:55
+binder 7241:7249 <> pat:56
+R7267:7281 Kernel.FourDSimplicialComplex <> regions_overlap def
+R7284:7296 Kernel.VMState <> module_region proj
+R7303:7315 Kernel.VMState <> module_region proj
+R7317:7318 Kernel.FourDSimplicialComplex <> m2:54 var
+R7988:7989 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7348:7355 Coq.Lists.List <> flat_map def
+R7363:7363 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7367:7368 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7371:7371 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 7369:7370 <> m3:57
+binder 7364:7366 <> id3:58
+binder 7363:7371 <> pat:59
+R7446:7466 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R7393:7407 Kernel.FourDSimplicialComplex <> regions_overlap def
+R7410:7422 Kernel.VMState <> module_region proj
+R7429:7441 Kernel.VMState <> module_region proj
+R7443:7444 Kernel.FourDSimplicialComplex <> m3:57 var
+R7467:7481 Kernel.FourDSimplicialComplex <> regions_overlap def
+R7484:7496 Kernel.VMState <> module_region proj
+R7498:7499 Kernel.FourDSimplicialComplex <> m2:54 var
+R7503:7515 Kernel.VMState <> module_region proj
+R7517:7518 Kernel.FourDSimplicialComplex <> m3:57 var
+R7951:7952 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7556:7563 Coq.Lists.List <> flat_map def
+R7571:7571 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7575:7576 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7579:7579 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 7577:7578 <> m4:60
+binder 7572:7574 <> id4:61
+binder 7571:7579 <> pat:62
+R7736:7760 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R7658:7682 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R7605:7619 Kernel.FourDSimplicialComplex <> regions_overlap def
+R7622:7634 Kernel.VMState <> module_region proj
+R7641:7653 Kernel.VMState <> module_region proj
+R7655:7656 Kernel.FourDSimplicialComplex <> m4:60 var
+R7683:7697 Kernel.FourDSimplicialComplex <> regions_overlap def
+R7700:7712 Kernel.VMState <> module_region proj
+R7714:7715 Kernel.FourDSimplicialComplex <> m2:54 var
+R7719:7731 Kernel.VMState <> module_region proj
+R7733:7734 Kernel.FourDSimplicialComplex <> m4:60 var
+R7761:7775 Kernel.FourDSimplicialComplex <> regions_overlap def
+R7778:7790 Kernel.VMState <> module_region proj
+R7792:7793 Kernel.FourDSimplicialComplex <> m3:57 var
+R7797:7809 Kernel.VMState <> module_region proj
+R7811:7812 Kernel.FourDSimplicialComplex <> m4:60 var
+R7906:7907 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7838:7841 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7878:7881 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7842:7853 Kernel.FourDSimplicialComplex <> c3d_vertices proj
+R7842:7853 Kernel.FourDSimplicialComplex <> c3d_vertices proj
+R7842:7853 Kernel.FourDSimplicialComplex <> c3d_vertices proj
+R7858:7858 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7862:7863 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7867:7868 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7872:7873 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7877:7877 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7864:7866 Kernel.FourDSimplicialComplex <> id2:55 var
+R7869:7871 Kernel.FourDSimplicialComplex <> id3:58 var
+R7874:7876 Kernel.FourDSimplicialComplex <> id4:61 var
+binder 7201:7213 <> cells_with_m1:63
+R8028:8031 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R8015:8027 Kernel.FourDSimplicialComplex <> cells_with_m1:63 var
+R8032:8057 Kernel.FourDSimplicialComplex <> extract_cells_from_modules:52 def
+def 8205:8235 <> extract_4simplices_from_modules
+R8250:8253 Coq.Init.Datatypes <> list ind
+R8264:8266 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R8256:8263 Kernel.VMState <> ModuleID def
+R8267:8277 Kernel.VMState <> ModuleState rec
+binder 8240:8246 <> modules:64
+R8285:8288 Coq.Init.Datatypes <> list ind
+R8290:8298 Kernel.FourDSimplicialComplex <> Simplex4D rec
+R8311:8317 Kernel.FourDSimplicialComplex <> modules:64 var
+R8328:8329 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8334:8335 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8350:8353 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8341:8341 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8345:8346 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8349:8349 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8401:8408 Coq.Lists.List <> flat_map def
+R8416:8416 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8420:8421 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8424:8424 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 8422:8423 <> m2:67
+binder 8417:8419 <> id2:68
+binder 8416:8424 <> pat:69
+R8442:8456 Kernel.FourDSimplicialComplex <> regions_overlap def
+R8459:8471 Kernel.VMState <> module_region proj
+R8478:8490 Kernel.VMState <> module_region proj
+R8492:8493 Kernel.FourDSimplicialComplex <> m2:67 var
+R9625:9626 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8523:8530 Coq.Lists.List <> flat_map def
+R8538:8538 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8542:8543 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8546:8546 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 8544:8545 <> m3:70
+binder 8539:8541 <> id3:71
+binder 8538:8546 <> pat:72
+R8621:8641 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R8568:8582 Kernel.FourDSimplicialComplex <> regions_overlap def
+R8585:8597 Kernel.VMState <> module_region proj
+R8604:8616 Kernel.VMState <> module_region proj
+R8618:8619 Kernel.FourDSimplicialComplex <> m3:70 var
+R8642:8656 Kernel.FourDSimplicialComplex <> regions_overlap def
+R8659:8671 Kernel.VMState <> module_region proj
+R8673:8674 Kernel.FourDSimplicialComplex <> m2:67 var
+R8678:8690 Kernel.VMState <> module_region proj
+R8692:8693 Kernel.FourDSimplicialComplex <> m3:70 var
+R9588:9589 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8731:8738 Coq.Lists.List <> flat_map def
+R8746:8746 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8750:8751 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8754:8754 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 8752:8753 <> m4:73
+binder 8747:8749 <> id4:74
+binder 8746:8754 <> pat:75
+R8911:8935 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R8833:8857 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R8780:8794 Kernel.FourDSimplicialComplex <> regions_overlap def
+R8797:8809 Kernel.VMState <> module_region proj
+R8816:8828 Kernel.VMState <> module_region proj
+R8830:8831 Kernel.FourDSimplicialComplex <> m4:73 var
+R8858:8872 Kernel.FourDSimplicialComplex <> regions_overlap def
+R8875:8887 Kernel.VMState <> module_region proj
+R8889:8890 Kernel.FourDSimplicialComplex <> m2:67 var
+R8894:8906 Kernel.VMState <> module_region proj
+R8908:8909 Kernel.FourDSimplicialComplex <> m4:73 var
+R8936:8950 Kernel.FourDSimplicialComplex <> regions_overlap def
+R8953:8965 Kernel.VMState <> module_region proj
+R8967:8968 Kernel.FourDSimplicialComplex <> m3:70 var
+R8972:8984 Kernel.VMState <> module_region proj
+R8986:8987 Kernel.FourDSimplicialComplex <> m4:73 var
+R9543:9544 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R9033:9040 Coq.Lists.List <> flat_map def
+R9048:9048 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9052:9053 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9056:9056 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 9054:9055 <> m5:76
+binder 9049:9051 <> id5:77
+binder 9048:9056 <> pat:78
+R9303:9331 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R9221:9249 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R9139:9167 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R9086:9100 Kernel.FourDSimplicialComplex <> regions_overlap def
+R9103:9115 Kernel.VMState <> module_region proj
+R9122:9134 Kernel.VMState <> module_region proj
+R9136:9137 Kernel.FourDSimplicialComplex <> m5:76 var
+R9168:9182 Kernel.FourDSimplicialComplex <> regions_overlap def
+R9185:9197 Kernel.VMState <> module_region proj
+R9199:9200 Kernel.FourDSimplicialComplex <> m2:67 var
+R9204:9216 Kernel.VMState <> module_region proj
+R9218:9219 Kernel.FourDSimplicialComplex <> m5:76 var
+R9250:9264 Kernel.FourDSimplicialComplex <> regions_overlap def
+R9267:9279 Kernel.VMState <> module_region proj
+R9281:9282 Kernel.FourDSimplicialComplex <> m3:70 var
+R9286:9298 Kernel.VMState <> module_region proj
+R9300:9301 Kernel.FourDSimplicialComplex <> m5:76 var
+R9332:9346 Kernel.FourDSimplicialComplex <> regions_overlap def
+R9349:9361 Kernel.VMState <> module_region proj
+R9363:9364 Kernel.FourDSimplicialComplex <> m4:73 var
+R9368:9380 Kernel.VMState <> module_region proj
+R9382:9383 Kernel.FourDSimplicialComplex <> m5:76 var
+R9490:9491 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R9413:9416 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9458:9461 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9417:9428 Kernel.FourDSimplicialComplex <> s4d_vertices proj
+R9417:9428 Kernel.FourDSimplicialComplex <> s4d_vertices proj
+R9417:9428 Kernel.FourDSimplicialComplex <> s4d_vertices proj
+R9433:9433 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9437:9438 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9442:9443 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9447:9448 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9452:9453 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9457:9457 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9439:9441 Kernel.FourDSimplicialComplex <> id2:68 var
+R9444:9446 Kernel.FourDSimplicialComplex <> id3:71 var
+R9449:9451 Kernel.FourDSimplicialComplex <> id4:74 var
+R9454:9456 Kernel.FourDSimplicialComplex <> id5:77 var
+binder 8372:8388 <> simplices_with_m1:79
+R9669:9672 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R9652:9668 Kernel.FourDSimplicialComplex <> simplices_with_m1:79 var
+R9673:9703 Kernel.FourDSimplicialComplex <> extract_4simplices_from_modules:65 def
+def 9785:9811 <> build_4d_complex_from_graph
+R9818:9831 Kernel.VMState <> PartitionGraph rec
+binder 9814:9814 <> g:80
+R9836:9854 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
+R9876:9885 Kernel.VMState <> pg_modules proj
+R9887:9887 Kernel.FourDSimplicialComplex <> g:80 var
+binder 9865:9871 <> modules:81
+R9910:9912 Coq.Lists.List <> map def
+R9918:9924 Kernel.FourDSimplicialComplex <> modules:81 var
+R9914:9916 Coq.Init.Datatypes <> fst def
+binder 9898:9905 <> vertices:82
+R9944:9969 Kernel.FourDSimplicialComplex <> extract_edges_from_modules def
+R9971:9977 Kernel.FourDSimplicialComplex <> modules:81 var
+binder 9935:9939 <> edges:83
+R9997:10022 Kernel.FourDSimplicialComplex <> extract_faces_from_modules def
+R10024:10030 Kernel.FourDSimplicialComplex <> modules:81 var
+binder 9988:9992 <> faces:84
+R10050:10075 Kernel.FourDSimplicialComplex <> extract_cells_from_modules def
+R10077:10083 Kernel.FourDSimplicialComplex <> modules:81 var
+binder 10041:10045 <> cells:85
+R10107:10137 Kernel.FourDSimplicialComplex <> extract_4simplices_from_modules def
+R10139:10145 Kernel.FourDSimplicialComplex <> modules:81 var
+binder 10094:10102 <> simplices:86
+R10155:10167 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
+R10155:10167 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
+R10155:10167 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
+R10187:10196 Kernel.FourDSimplicialComplex <> sc4d_edges proj
+R10187:10196 Kernel.FourDSimplicialComplex <> sc4d_edges proj
+R10213:10222 Kernel.FourDSimplicialComplex <> sc4d_faces proj
+R10213:10222 Kernel.FourDSimplicialComplex <> sc4d_faces proj
+R10239:10248 Kernel.FourDSimplicialComplex <> sc4d_cells proj
+R10239:10248 Kernel.FourDSimplicialComplex <> sc4d_cells proj
+R10265:10279 Kernel.FourDSimplicialComplex <> sc4d_4simplices proj
+R10265:10279 Kernel.FourDSimplicialComplex <> sc4d_4simplices proj
+R10172:10179 Kernel.FourDSimplicialComplex <> vertices:82 var
+R10201:10205 Kernel.FourDSimplicialComplex <> edges:83 var
+R10227:10231 Kernel.FourDSimplicialComplex <> faces:84 var
+R10253:10257 Kernel.FourDSimplicialComplex <> cells:85 var
+R10284:10292 Kernel.FourDSimplicialComplex <> simplices:86 var
+prf 10396:10422 <> empty_4d_complex_euler_zero
+R10674:10676 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10428:10450 Kernel.FourDSimplicialComplex <> euler_characteristic_4d def
+R10455:10467 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
+R10455:10467 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
+R10455:10467 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
+R10506:10515 Kernel.FourDSimplicialComplex <> sc4d_edges proj
+R10506:10515 Kernel.FourDSimplicialComplex <> sc4d_edges proj
+R10554:10563 Kernel.FourDSimplicialComplex <> sc4d_faces proj
+R10554:10563 Kernel.FourDSimplicialComplex <> sc4d_faces proj
+R10602:10611 Kernel.FourDSimplicialComplex <> sc4d_cells proj
+R10602:10611 Kernel.FourDSimplicialComplex <> sc4d_cells proj
+R10650:10664 Kernel.FourDSimplicialComplex <> sc4d_4simplices proj
+R10650:10664 Kernel.FourDSimplicialComplex <> sc4d_4simplices proj
+R10472:10473 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R10520:10521 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R10568:10569 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R10616:10617 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R10669:10670 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R10698:10720 Kernel.FourDSimplicialComplex <> euler_characteristic_4d def
+prf 10817:10839 <> single_vertex_euler_one
+R11092:11094 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10845:10867 Kernel.FourDSimplicialComplex <> euler_characteristic_4d def
+R10872:10884 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
+R10872:10884 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
+R10872:10884 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
+R10924:10933 Kernel.FourDSimplicialComplex <> sc4d_edges proj
+R10924:10933 Kernel.FourDSimplicialComplex <> sc4d_edges proj
+R10972:10981 Kernel.FourDSimplicialComplex <> sc4d_faces proj
+R10972:10981 Kernel.FourDSimplicialComplex <> sc4d_faces proj
+R11020:11029 Kernel.FourDSimplicialComplex <> sc4d_cells proj
+R11020:11029 Kernel.FourDSimplicialComplex <> sc4d_cells proj
+R11068:11082 Kernel.FourDSimplicialComplex <> sc4d_4simplices proj
+R11068:11082 Kernel.FourDSimplicialComplex <> sc4d_4simplices proj
+R10889:10889 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R10891:10891 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R10938:10939 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R10986:10987 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R11034:11035 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R11087:11088 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R11116:11138 Kernel.FourDSimplicialComplex <> euler_characteristic_4d def
+prf 11268:11294 <> extracted_edges_well_formed
+binder 11305:11311 <> modules:87
+R11316:11336 Kernel.FourDSimplicialComplex <> all_edges_well_formed def
+R11339:11364 Kernel.FourDSimplicialComplex <> extract_edges_from_modules def
+R11366:11372 Kernel.FourDSimplicialComplex <> modules:87 var
+R11443:11452 Coq.Lists.List <> Forall_nil constr
+R11443:11452 Coq.Lists.List <> Forall_nil constr
+R11472:11481 Coq.Lists.List <> Forall_app thm
+R11472:11481 Coq.Lists.List <> Forall_app thm
+R11570:11579 Coq.Lists.List <> Forall_nil constr
+R11570:11579 Coq.Lists.List <> Forall_nil constr
+R11607:11621 Kernel.FourDSimplicialComplex <> regions_overlap def
+R11624:11636 Kernel.VMState <> module_region proj
+R11642:11654 Kernel.VMState <> module_region proj
+R11607:11621 Kernel.FourDSimplicialComplex <> regions_overlap def
+R11624:11636 Kernel.VMState <> module_region proj
+R11642:11654 Kernel.VMState <> module_region proj
+R11686:11696 Coq.Lists.List <> Forall_cons constr
+R11686:11696 Coq.Lists.List <> Forall_cons constr
+R11720:11735 Kernel.FourDSimplicialComplex <> well_formed_edge def
+prf 11948:11973 <> singleton_face_well_formed
+binder 11984:11984 <> f:88
+R12007:12012 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11989:12004 Kernel.FourDSimplicialComplex <> well_formed_face def
+R12006:12006 Kernel.FourDSimplicialComplex <> f:88 var
+R12013:12018 Coq.Lists.List <> Forall ind
+R12037:12037 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R12039:12039 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R12038:12038 Kernel.FourDSimplicialComplex <> f:88 var
+R12020:12035 Kernel.FourDSimplicialComplex <> well_formed_face def
+R12073:12083 Coq.Lists.List <> Forall_cons constr
+R12073:12083 Coq.Lists.List <> Forall_cons constr
+R12111:12120 Coq.Lists.List <> Forall_nil constr
+R12111:12120 Coq.Lists.List <> Forall_nil constr
+prf 12207:12232 <> singleton_cell_well_formed
+binder 12243:12243 <> c:89
+R12266:12271 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12248:12263 Kernel.FourDSimplicialComplex <> well_formed_cell def
+R12265:12265 Kernel.FourDSimplicialComplex <> c:89 var
+R12272:12277 Coq.Lists.List <> Forall ind
+R12296:12296 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R12298:12298 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R12297:12297 Kernel.FourDSimplicialComplex <> c:89 var
+R12279:12294 Kernel.FourDSimplicialComplex <> well_formed_cell def
+R12332:12342 Coq.Lists.List <> Forall_cons constr
+R12332:12342 Coq.Lists.List <> Forall_cons constr
+R12370:12379 Coq.Lists.List <> Forall_nil constr
+R12370:12379 Coq.Lists.List <> Forall_nil constr
+prf 12472:12501 <> singleton_4simplex_well_formed
+binder 12512:12512 <> s:90
+R12539:12544 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12517:12536 Kernel.FourDSimplicialComplex <> well_formed_4simplex def
+R12538:12538 Kernel.FourDSimplicialComplex <> s:90 var
+R12545:12550 Coq.Lists.List <> Forall ind
+R12573:12573 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R12575:12575 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R12574:12574 Kernel.FourDSimplicialComplex <> s:90 var
+R12552:12571 Kernel.FourDSimplicialComplex <> well_formed_4simplex def
+R12609:12619 Coq.Lists.List <> Forall_cons constr
+R12609:12619 Coq.Lists.List <> Forall_cons constr
+R12647:12656 Coq.Lists.List <> Forall_nil constr
+R12647:12656 Coq.Lists.List <> Forall_nil constr
+prf 12712:12736 <> flat_map_preserves_forall
+binder 12748:12748 <> A:91
+binder 12750:12750 <> B:92
+R12759:12762 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12758:12758 Kernel.FourDSimplicialComplex <> B:92 var
+binder 12754:12754 <> P:93
+R12775:12778 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12774:12774 Kernel.FourDSimplicialComplex <> A:91 var
+R12779:12782 Coq.Init.Datatypes <> list ind
+R12784:12784 Kernel.FourDSimplicialComplex <> B:92 var
+binder 12770:12770 <> f:94
+R12792:12795 Coq.Init.Datatypes <> list ind
+R12797:12797 Kernel.FourDSimplicialComplex <> A:91 var
+binder 12788:12788 <> l:95
+R12803:12803 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12838:12844 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 12811:12811 <> x:96
+R12820:12823 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12814:12815 Coq.Lists.List <> In def
+R12819:12819 Kernel.FourDSimplicialComplex <> l:95 var
+R12817:12817 Kernel.FourDSimplicialComplex <> x:96 var
+R12824:12829 Coq.Lists.List <> Forall ind
+R12834:12834 Kernel.FourDSimplicialComplex <> f:94 var
+R12836:12836 Kernel.FourDSimplicialComplex <> x:96 var
+R12831:12831 Kernel.FourDSimplicialComplex <> P:93 var
+R12845:12850 Coq.Lists.List <> Forall ind
+R12855:12862 Coq.Lists.List <> flat_map def
+R12866:12866 Kernel.FourDSimplicialComplex <> l:95 var
+R12864:12864 Kernel.FourDSimplicialComplex <> f:94 var
+R12852:12852 Kernel.FourDSimplicialComplex <> P:93 var
+R12946:12955 Coq.Lists.List <> Forall_nil constr
+R12946:12955 Coq.Lists.List <> Forall_nil constr
+R12975:12984 Coq.Lists.List <> Forall_app thm
+R12975:12984 Coq.Lists.List <> Forall_app thm
+prf 13109:13135 <> extracted_faces_well_formed
+binder 13146:13152 <> modules:97
+R13157:13177 Kernel.FourDSimplicialComplex <> all_faces_well_formed def
+R13180:13205 Kernel.FourDSimplicialComplex <> extract_faces_from_modules def
+R13207:13213 Kernel.FourDSimplicialComplex <> modules:97 var
+R13233:13253 Kernel.FourDSimplicialComplex <> all_faces_well_formed def
+R13316:13325 Coq.Lists.List <> Forall_nil constr
+R13316:13325 Coq.Lists.List <> Forall_nil constr
+R13345:13354 Coq.Lists.List <> Forall_app thm
+R13345:13354 Coq.Lists.List <> Forall_app thm
+R13376:13400 Kernel.FourDSimplicialComplex <> flat_map_preserves_forall thm
+R13376:13400 Kernel.FourDSimplicialComplex <> flat_map_preserves_forall thm
+R13446:13460 Kernel.FourDSimplicialComplex <> regions_overlap def
+R13463:13475 Kernel.VMState <> module_region proj
+R13481:13493 Kernel.VMState <> module_region proj
+R13446:13460 Kernel.FourDSimplicialComplex <> regions_overlap def
+R13463:13475 Kernel.VMState <> module_region proj
+R13481:13493 Kernel.VMState <> module_region proj
+R13521:13545 Kernel.FourDSimplicialComplex <> flat_map_preserves_forall thm
+R13521:13545 Kernel.FourDSimplicialComplex <> flat_map_preserves_forall thm
+R13648:13668 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R13596:13610 Kernel.FourDSimplicialComplex <> regions_overlap def
+R13613:13625 Kernel.VMState <> module_region proj
+R13631:13643 Kernel.VMState <> module_region proj
+R13669:13683 Kernel.FourDSimplicialComplex <> regions_overlap def
+R13686:13698 Kernel.VMState <> module_region proj
+R13705:13717 Kernel.VMState <> module_region proj
+R13648:13668 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R13596:13610 Kernel.FourDSimplicialComplex <> regions_overlap def
+R13613:13625 Kernel.VMState <> module_region proj
+R13631:13643 Kernel.VMState <> module_region proj
+R13669:13683 Kernel.FourDSimplicialComplex <> regions_overlap def
+R13686:13698 Kernel.VMState <> module_region proj
+R13705:13717 Kernel.VMState <> module_region proj
+R13749:13774 Kernel.FourDSimplicialComplex <> singleton_face_well_formed thm
+R13749:13774 Kernel.FourDSimplicialComplex <> singleton_face_well_formed thm
+R13795:13810 Kernel.FourDSimplicialComplex <> well_formed_face def
+R13850:13859 Coq.Lists.List <> Forall_nil constr
+R13850:13859 Coq.Lists.List <> Forall_nil constr
+R13876:13885 Coq.Lists.List <> Forall_nil constr
+R13876:13885 Coq.Lists.List <> Forall_nil constr
+prf 13959:13985 <> extracted_cells_well_formed
+binder 13996:14002 <> modules:98
+R14007:14027 Kernel.FourDSimplicialComplex <> all_cells_well_formed def
+R14030:14055 Kernel.FourDSimplicialComplex <> extract_cells_from_modules def
+R14057:14063 Kernel.FourDSimplicialComplex <> modules:98 var
+R14083:14103 Kernel.FourDSimplicialComplex <> all_cells_well_formed def
+R14166:14175 Coq.Lists.List <> Forall_nil constr
+R14166:14175 Coq.Lists.List <> Forall_nil constr
+R14195:14204 Coq.Lists.List <> Forall_app thm
+R14195:14204 Coq.Lists.List <> Forall_app thm
+R14226:14250 Kernel.FourDSimplicialComplex <> flat_map_preserves_forall thm
+R14226:14250 Kernel.FourDSimplicialComplex <> flat_map_preserves_forall thm
+R14296:14310 Kernel.FourDSimplicialComplex <> regions_overlap def
+R14313:14325 Kernel.VMState <> module_region proj
+R14331:14343 Kernel.VMState <> module_region proj
+R14296:14310 Kernel.FourDSimplicialComplex <> regions_overlap def
+R14313:14325 Kernel.VMState <> module_region proj
+R14331:14343 Kernel.VMState <> module_region proj
+R14365:14389 Kernel.FourDSimplicialComplex <> flat_map_preserves_forall thm
+R14365:14389 Kernel.FourDSimplicialComplex <> flat_map_preserves_forall thm
+R14492:14512 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R14440:14454 Kernel.FourDSimplicialComplex <> regions_overlap def
+R14457:14469 Kernel.VMState <> module_region proj
+R14475:14487 Kernel.VMState <> module_region proj
+R14513:14527 Kernel.FourDSimplicialComplex <> regions_overlap def
+R14530:14542 Kernel.VMState <> module_region proj
+R14549:14561 Kernel.VMState <> module_region proj
+R14492:14512 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R14440:14454 Kernel.FourDSimplicialComplex <> regions_overlap def
+R14457:14469 Kernel.VMState <> module_region proj
+R14475:14487 Kernel.VMState <> module_region proj
+R14513:14527 Kernel.FourDSimplicialComplex <> regions_overlap def
+R14530:14542 Kernel.VMState <> module_region proj
+R14549:14561 Kernel.VMState <> module_region proj
+R14586:14610 Kernel.FourDSimplicialComplex <> flat_map_preserves_forall thm
+R14586:14610 Kernel.FourDSimplicialComplex <> flat_map_preserves_forall thm
+R14796:14819 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R14719:14742 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R14667:14681 Kernel.FourDSimplicialComplex <> regions_overlap def
+R14684:14696 Kernel.VMState <> module_region proj
+R14702:14714 Kernel.VMState <> module_region proj
+R14743:14757 Kernel.FourDSimplicialComplex <> regions_overlap def
+R14760:14772 Kernel.VMState <> module_region proj
+R14779:14791 Kernel.VMState <> module_region proj
+R14820:14834 Kernel.FourDSimplicialComplex <> regions_overlap def
+R14837:14849 Kernel.VMState <> module_region proj
+R14856:14868 Kernel.VMState <> module_region proj
+R14796:14819 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R14719:14742 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R14667:14681 Kernel.FourDSimplicialComplex <> regions_overlap def
+R14684:14696 Kernel.VMState <> module_region proj
+R14702:14714 Kernel.VMState <> module_region proj
+R14743:14757 Kernel.FourDSimplicialComplex <> regions_overlap def
+R14760:14772 Kernel.VMState <> module_region proj
+R14779:14791 Kernel.VMState <> module_region proj
+R14820:14834 Kernel.FourDSimplicialComplex <> regions_overlap def
+R14837:14849 Kernel.VMState <> module_region proj
+R14856:14868 Kernel.VMState <> module_region proj
+R14896:14921 Kernel.FourDSimplicialComplex <> singleton_cell_well_formed thm
+R14896:14921 Kernel.FourDSimplicialComplex <> singleton_cell_well_formed thm
+R14945:14960 Kernel.FourDSimplicialComplex <> well_formed_cell def
+R15003:15012 Coq.Lists.List <> Forall_nil constr
+R15003:15012 Coq.Lists.List <> Forall_nil constr
+R15032:15041 Coq.Lists.List <> Forall_nil constr
+R15032:15041 Coq.Lists.List <> Forall_nil constr
+R15058:15067 Coq.Lists.List <> Forall_nil constr
+R15058:15067 Coq.Lists.List <> Forall_nil constr
+prf 15147:15178 <> extracted_4simplices_well_formed
+binder 15189:15195 <> modules:99
+R15200:15225 Kernel.FourDSimplicialComplex <> all_4simplices_well_formed def
+R15228:15258 Kernel.FourDSimplicialComplex <> extract_4simplices_from_modules def
+R15260:15266 Kernel.FourDSimplicialComplex <> modules:99 var
+R15286:15311 Kernel.FourDSimplicialComplex <> all_4simplices_well_formed def
+R15374:15383 Coq.Lists.List <> Forall_nil constr
+R15374:15383 Coq.Lists.List <> Forall_nil constr
+R15403:15412 Coq.Lists.List <> Forall_app thm
+R15403:15412 Coq.Lists.List <> Forall_app thm
+R15434:15458 Kernel.FourDSimplicialComplex <> flat_map_preserves_forall thm
+R15434:15458 Kernel.FourDSimplicialComplex <> flat_map_preserves_forall thm
+R15504:15518 Kernel.FourDSimplicialComplex <> regions_overlap def
+R15521:15533 Kernel.VMState <> module_region proj
+R15539:15551 Kernel.VMState <> module_region proj
+R15504:15518 Kernel.FourDSimplicialComplex <> regions_overlap def
+R15521:15533 Kernel.VMState <> module_region proj
+R15539:15551 Kernel.VMState <> module_region proj
+R15573:15597 Kernel.FourDSimplicialComplex <> flat_map_preserves_forall thm
+R15573:15597 Kernel.FourDSimplicialComplex <> flat_map_preserves_forall thm
+R15700:15720 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R15648:15662 Kernel.FourDSimplicialComplex <> regions_overlap def
+R15665:15677 Kernel.VMState <> module_region proj
+R15683:15695 Kernel.VMState <> module_region proj
+R15721:15735 Kernel.FourDSimplicialComplex <> regions_overlap def
+R15738:15750 Kernel.VMState <> module_region proj
+R15757:15769 Kernel.VMState <> module_region proj
+R15700:15720 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R15648:15662 Kernel.FourDSimplicialComplex <> regions_overlap def
+R15665:15677 Kernel.VMState <> module_region proj
+R15683:15695 Kernel.VMState <> module_region proj
+R15721:15735 Kernel.FourDSimplicialComplex <> regions_overlap def
+R15738:15750 Kernel.VMState <> module_region proj
+R15757:15769 Kernel.VMState <> module_region proj
+R15794:15818 Kernel.FourDSimplicialComplex <> flat_map_preserves_forall thm
+R15794:15818 Kernel.FourDSimplicialComplex <> flat_map_preserves_forall thm
+R16004:16027 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R15927:15950 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R15875:15889 Kernel.FourDSimplicialComplex <> regions_overlap def
+R15892:15904 Kernel.VMState <> module_region proj
+R15910:15922 Kernel.VMState <> module_region proj
+R15951:15965 Kernel.FourDSimplicialComplex <> regions_overlap def
+R15968:15980 Kernel.VMState <> module_region proj
+R15987:15999 Kernel.VMState <> module_region proj
+R16028:16042 Kernel.FourDSimplicialComplex <> regions_overlap def
+R16045:16057 Kernel.VMState <> module_region proj
+R16064:16076 Kernel.VMState <> module_region proj
+R16004:16027 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R15927:15950 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R15875:15889 Kernel.FourDSimplicialComplex <> regions_overlap def
+R15892:15904 Kernel.VMState <> module_region proj
+R15910:15922 Kernel.VMState <> module_region proj
+R15951:15965 Kernel.FourDSimplicialComplex <> regions_overlap def
+R15968:15980 Kernel.VMState <> module_region proj
+R15987:15999 Kernel.VMState <> module_region proj
+R16028:16042 Kernel.FourDSimplicialComplex <> regions_overlap def
+R16045:16057 Kernel.VMState <> module_region proj
+R16064:16076 Kernel.VMState <> module_region proj
+R16104:16128 Kernel.FourDSimplicialComplex <> flat_map_preserves_forall thm
+R16104:16128 Kernel.FourDSimplicialComplex <> flat_map_preserves_forall thm
+R16403:16429 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R16323:16349 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R16243:16269 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R16191:16205 Kernel.FourDSimplicialComplex <> regions_overlap def
+R16208:16220 Kernel.VMState <> module_region proj
+R16226:16238 Kernel.VMState <> module_region proj
+R16270:16284 Kernel.FourDSimplicialComplex <> regions_overlap def
+R16287:16299 Kernel.VMState <> module_region proj
+R16306:16318 Kernel.VMState <> module_region proj
+R16350:16364 Kernel.FourDSimplicialComplex <> regions_overlap def
+R16367:16379 Kernel.VMState <> module_region proj
+R16386:16398 Kernel.VMState <> module_region proj
+R16430:16444 Kernel.FourDSimplicialComplex <> regions_overlap def
+R16447:16459 Kernel.VMState <> module_region proj
+R16466:16478 Kernel.VMState <> module_region proj
+R16403:16429 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R16323:16349 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R16243:16269 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R16191:16205 Kernel.FourDSimplicialComplex <> regions_overlap def
+R16208:16220 Kernel.VMState <> module_region proj
+R16226:16238 Kernel.VMState <> module_region proj
+R16270:16284 Kernel.FourDSimplicialComplex <> regions_overlap def
+R16287:16299 Kernel.VMState <> module_region proj
+R16306:16318 Kernel.VMState <> module_region proj
+R16350:16364 Kernel.FourDSimplicialComplex <> regions_overlap def
+R16367:16379 Kernel.VMState <> module_region proj
+R16386:16398 Kernel.VMState <> module_region proj
+R16430:16444 Kernel.FourDSimplicialComplex <> regions_overlap def
+R16447:16459 Kernel.VMState <> module_region proj
+R16466:16478 Kernel.VMState <> module_region proj
+R16509:16538 Kernel.FourDSimplicialComplex <> singleton_4simplex_well_formed thm
+R16509:16538 Kernel.FourDSimplicialComplex <> singleton_4simplex_well_formed thm
+R16565:16584 Kernel.FourDSimplicialComplex <> well_formed_4simplex def
+R16630:16639 Coq.Lists.List <> Forall_nil constr
+R16630:16639 Coq.Lists.List <> Forall_nil constr
+R16662:16671 Coq.Lists.List <> Forall_nil constr
+R16662:16671 Coq.Lists.List <> Forall_nil constr
+R16691:16700 Coq.Lists.List <> Forall_nil constr
+R16691:16700 Coq.Lists.List <> Forall_nil constr
+R16717:16726 Coq.Lists.List <> Forall_nil constr
+R16717:16726 Coq.Lists.List <> Forall_nil constr
+prf 16820:16847 <> build_4d_complex_well_formed
+binder 16858:16858 <> g:100
+R16882:16887 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16863:16879 Kernel.VMState <> well_formed_graph def
+R16881:16881 Kernel.FourDSimplicialComplex <> g:100 var
+R16888:16909 Kernel.FourDSimplicialComplex <> well_formed_4d_complex def
+R16912:16938 Kernel.FourDSimplicialComplex <> build_4d_complex_from_graph def
+R16940:16940 Kernel.FourDSimplicialComplex <> g:100 var
+R17028:17049 Kernel.FourDSimplicialComplex <> well_formed_4d_complex def
+R17052:17078 Kernel.FourDSimplicialComplex <> build_4d_complex_from_graph def
+R17116:17142 Kernel.FourDSimplicialComplex <> extracted_edges_well_formed thm
+R17116:17142 Kernel.FourDSimplicialComplex <> extracted_edges_well_formed thm
+R17155:17181 Kernel.FourDSimplicialComplex <> extracted_faces_well_formed thm
+R17155:17181 Kernel.FourDSimplicialComplex <> extracted_faces_well_formed thm
+R17194:17220 Kernel.FourDSimplicialComplex <> extracted_cells_well_formed thm
+R17194:17220 Kernel.FourDSimplicialComplex <> extracted_cells_well_formed thm
+R17233:17264 Kernel.FourDSimplicialComplex <> extracted_4simplices_well_formed thm
+R17233:17264 Kernel.FourDSimplicialComplex <> extracted_4simplices_well_formed thm
