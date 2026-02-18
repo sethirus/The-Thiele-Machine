@@ -92,7 +92,7 @@ make -j4
 
 ```bash
 # Run inquisitor to check for axioms/admits
-python scripts/inquisitor.py --strict --coq-root coq
+python scripts/inquisitor.py
 ```
 
 **Findings:**

@@ -195,8 +195,11 @@ Lemma encode_list_lt_SHIFT_SMALL : forall xs,
 Proof.
   intros xs Hdigits Hlen.
   unfold SHIFT_SMALL.
-  apply (EncodingBounds.encode_list_lt_SHIFT_SMALL BASE SHIFT_LEN BASE_ge_2 SHIFT_LEN_ge_1
-           encode_list digits_ok encode_list_upper xs Hdigits Hlen).
+  pose proof (encode_list_upper xs Hdigits) as Hupper.
+  eapply Nat.lt_le_trans; [exact Hupper|].
+  apply Nat.pow_le_mono_r.
+  - pose proof BASE_pos. lia.
+  - exact Hlen.
 Qed.
 
 Lemma encode_list_with_len_all_bounds : forall xs,
@@ -207,13 +210,15 @@ Lemma encode_list_with_len_all_bounds : forall xs,
   encode_list_with_len xs < SHIFT_BIG.
 Proof.
   intros xs Hdig Hlen.
-  destruct (EncodingBounds.encode_list_bounds_of BASE SHIFT_LEN BASE_ge_2 SHIFT_LEN_ge_1
-              encode_list digits_ok encode_list_upper xs Hdig Hlen)
-    as [Hlen_small Hcode_small Hpacked_lt].
-    split; [exact Hlen_small|].
-    split; [exact Hcode_small|].
-    unfold encode_list_with_len.
-    exact Hpacked_lt.
+  split.
+  - apply len_lt_SHIFT_SMALL; exact Hlen.
+  - split.
+    + apply encode_list_lt_SHIFT_SMALL; assumption.
+    + unfold encode_list_with_len, pair_small_encode.
+      apply (EncodingBounds.pair_fits_in_SHIFT_BIG BASE SHIFT_LEN BASE_ge_2 SHIFT_LEN_ge_1
+               (length xs) (encode_list xs)).
+      * apply len_lt_SHIFT_SMALL; exact Hlen.
+      * apply encode_list_lt_SHIFT_SMALL; assumption.
 Qed.
 
 Lemma encode_decode_list_with_len : forall xs,
@@ -223,9 +228,7 @@ Lemma encode_decode_list_with_len : forall xs,
 Proof.
   intros xs Hdig Hlen.
   unfold decode_list_with_len, encode_list_with_len.
-  destruct (EncodingBounds.encode_list_bounds_of BASE SHIFT_LEN BASE_ge_2 SHIFT_LEN_ge_1
-              encode_list digits_ok encode_list_upper xs Hdig Hlen)
-    as [Hlen_small Hcode_small Hpacked_lt].
+  pose proof (encode_list_lt_SHIFT_SMALL xs Hdig Hlen) as Hcode_small.
   rewrite (pair_small_roundtrip (length xs) (encode_list xs)).
   - apply encode_list_decode_aux; assumption.
   - exact Hcode_small.
@@ -239,9 +242,8 @@ Lemma encode_decode_config : forall q tape head,
 Proof.
   intros q tape head Hdig Hlen Hhead.
   unfold decode_config, encode_config.
-  pose proof (EncodingBounds.encode_list_bounds_of BASE SHIFT_LEN BASE_ge_2 SHIFT_LEN_ge_1
-                encode_list digits_ok encode_list_upper tape Hdig Hlen)
-    as [Hlen_small Hcode_small Hpacked_lt].
+  pose proof (encode_list_lt_SHIFT_SMALL tape Hdig Hlen) as Hcode_small.
+  pose proof (encode_list_with_len_all_bounds tape Hdig Hlen) as [_ [_ Hpacked_lt]].
   rewrite (triple_roundtrip q head (encode_list_with_len tape)).
     - unfold encode_list_with_len at 1.
       rewrite (pair_small_roundtrip (length tape) (encode_list tape)).
@@ -251,6 +253,5 @@ Proof.
         apply encode_list_decode_aux; assumption.
       + exact Hcode_small.
   - exact Hhead.
-  - unfold encode_list_with_len.
-    exact Hpacked_lt.
+  - exact Hpacked_lt.
 Qed.

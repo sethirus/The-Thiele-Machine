@@ -278,7 +278,7 @@ initial begin
             $display("  ],");
             $display("  \"modules\": [");
             for (i = 0; i < NUM_MODULES; i = i + 1) begin
-                if (dut.module_table[i] != 0) begin
+                if (dut.module_exists[i]) begin  // Check if module exists (not just non-empty)
                     integer k;
                     $display("    {\"id\": %0d, \"region\": [", i);
                     for (k = 0; k < dut.module_table[i]; k = k + 1) begin

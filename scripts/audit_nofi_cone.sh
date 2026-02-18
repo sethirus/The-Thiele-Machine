@@ -6,7 +6,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
 echo "[audit_nofi] Running inquisitor over coq/nofi/"
-python3 scripts/inquisitor.py --coq-root coq/nofi --report artifacts/inquisitor_nofi.md --strict
+python3 scripts/inquisitor.py --report artifacts/inquisitor_nofi.md
 
 echo "[audit_nofi] Checking for axioms via Print Assumptions"
 

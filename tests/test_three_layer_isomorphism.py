@@ -359,17 +359,22 @@ class TestThreeLayerIsomorphism:
                 f"Verilog modules={verilog_trace.final_modules} != Python={python_trace.final_modules}"
 
     def test_pnew_deduplication(self):
-        """Creating same region twice should reuse module ID."""
+        """Creating same region twice reuses module ID but charges cost each time.
+
+        Per Coq semantics (VMStep.v:187-190), PNEW always charges cost via
+        advance_state, even when graph_pnew returns an existing module.
+        """
         program = [
             Instruction("PNEW", ({5},), cost=1),
-            Instruction("PNEW", ({5},), cost=1),  # Should reuse module 1
+            Instruction("PNEW", ({5},), cost=1),  # Should reuse module 1, but charge cost
         ]
 
         python_trace = execute_python(program)
 
-        # Should still have only 1 module (deduplication)
+        # Should still have only 1 module (deduplication at module level)
         assert python_trace.final_modules == 1, "Deduplication should prevent duplicate modules"
-        assert python_trace.final_mu == 1, "Second PNEW should not charge (existing region)"
+        # But cost IS charged for both instructions
+        assert python_trace.final_mu == 2, "Both PNEW instructions charge cost (1+1=2)"
 
     def test_pnew_psplit_sequence(self):
         """PNEW followed by PSPLIT."""
