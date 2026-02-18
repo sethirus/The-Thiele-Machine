@@ -223,6 +223,10 @@ initial begin
                         end
                     end
 
+                    // μ-cost: always charge popcount(region) for PNEW,
+                    // even if module already exists (matches Coq/Python semantics).
+                    mu_discovery = mu_discovery + mask_popcount(new_mask);
+
                     if (!existing_found && num_modules < 64) begin
                         // Create new module
                         module_ids[num_modules] = next_id;
@@ -230,13 +234,9 @@ initial begin
                         next_id = next_id + 1;
                         current_module_idx = num_modules;
                         num_modules = num_modules + 1;
-
-                        // μ-cost: popcount of region = 1 (single element)
-                        mu_discovery = mu_discovery + 1;
                     end else if (existing_found) begin
                         current_module_idx = existing_index;
                     end
-                    // If existing_found, no new module is created and no μ is charged
                     
                     pc = pc + 1;
                     step_count = step_count + 1;
