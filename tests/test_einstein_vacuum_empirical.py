@@ -13,13 +13,8 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-import pytest
+from build.thiele_vm import VMState, run_vm_trace
 import math
-
-try:
-    from build.thiele_vm import VMState, run_vm_trace
-except Exception:
-    pytest.skip("build.thiele_vm not available", allow_module_level=True)
 
 def test_vacuum_spacetime_zero_curvature():
     """
