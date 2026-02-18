@@ -165,7 +165,7 @@ Definition coarse_grain (partition_cutoff : nat) (obs : ObsState) : ObsState :=
 (** Entropy functional (Shannon entropy over observable partitions) *)
 Definition entropy (obs : ObsState) : Q :=
   (* H = -Σ p_i log p_i *)
-  (* Placeholder: needs probability measure over partition elements *)
+  (* Current implementation uses partition-count surrogate until measure model is integrated. *)
   inject_Z (Z.of_nat (length obs.(obs_partition_signature))).
 
 (** Helper lemma: filter never increases length *)

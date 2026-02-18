@@ -1,0 +1,104 @@
+"""
+The CORRECT discrete Gauss-Bonnet formula for triangulated surfaces.
+
+Reference: "Discrete Differential-Geometry Operators for Triangulated 2-Manifolds"
+Meyer et al., 2003
+
+For a triangulated surface:
+  sum_{v in vertices} K_v * A_v = 2π*χ
+
+where:
+  K_v = (2π - sum of angles at v) / A_v  (Gaussian curvature)
+  A_v = (1/3) * sum of areas of incident triangles (Voronoi area)
+
+So: sum_{v} (2π - sum_angles_v) = 2π*χ
+
+This should be EXACT for any triangulation!
+"""
+
+import sys, math
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent.parent / "tools"))
+sys.path.insert(0, str(Path(__file__).parent))
+
+import test_2d_mesh_creation
+
+PI = math.pi
+
+state, _ = test_2d_mesh_creation.test_2d_mesh_creation()
+
+all_vertices = set()
+for m in state.modules:
+    all_vertices.update(m.region)
+
+# Compute exactly according to Meyer et al.
+print("EXACT DISCRETE GAUSS-BONNET (Meyer et al. 2003)")
+print("=" * 80)
+
+# For each vertex, sum the angles
+angle_deficit_sum = 0
+
+for v in sorted(all_vertices):
+    # Find all triangles containing v
+    triangles_with_v = [m for m in state.modules if v in m.region]
+    
+    # Sum angles at v (assuming equilateral)
+    angle_sum_at_v = len(triangles_with_v) * (PI / 3)
+    
+    # Angle deficit
+    deficit = 2 * PI - angle_sum_at_v
+    angle_deficit_sum += deficit
+    
+    print(f"Vertex {v}: {len(triangles_with_v)} triangles, angle_sum={angle_sum_at_v:.4f}, deficit={deficit:.4f}")
+
+# Euler characteristic
+V = len(all_vertices)
+E = len(set((min(m.region[i], m.region[j]), max(m.region[i], m.region[j])) 
+             for m in state.modules for i in range(3) for j in range(i+1, 3)))
+F = len(state.modules)
+chi = V - E + F
+
+print(f"\nV={V}, E={E}, F={F}, χ={chi}")
+print(f"\nsum(angle_deficits) = {angle_deficit_sum:.6f}")
+print(f"2π*χ = {2*PI*chi:.6f}")
+print(f"Ratio: {angle_deficit_sum / (2*PI*chi):.6f}")
+
+# AHA! The issue might be that we have boundary vertices!
+# For boundary vertices, the formula is different!
+
+print("\n" + "=" * 80)
+print("CHECKING FOR BOUNDARY")
+print("=" * 80)
+
+# A vertex is on the boundary if its incident edges don't form a closed loop
+for v in sorted(all_vertices):
+    triangles = [m for m in state.modules if v in m.region]
+    
+    # Get all edges incident to v
+    edges = set()
+    for tri in triangles:
+        region = tri.region
+        for other_v in region:
+            if other_v != v:
+                edges.add(tuple(sorted([v, other_v])))
+    
+    # Check if this forms a cycle
+    # For interior vertex: each edge appears in exactly 2 triangles
+    # For boundary: some edges appear in only 1 triangle
+    
+    edge_counts = {}
+    for tri in triangles:
+        region = tri.region
+        for i in range(3):
+            for j in range(i+1, 3):
+                edge = tuple(sorted([region[i], region[j]]))
+                if v in edge:
+                    edge_counts[edge] = edge_counts.get(edge, 0) + 1
+    
+    boundary_edges = [e for e, count in edge_counts.items() if count == 1]
+    
+    if boundary_edges:
+        print(f"Vertex {v}: BOUNDARY (edges {boundary_edges})")
+    else:
+        print(f"Vertex {v}: interior")

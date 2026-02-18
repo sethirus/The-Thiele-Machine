@@ -264,17 +264,26 @@ class State:
         """Create a module for ``region`` if not already present.
 
         μ-update: mu_discovery += popcount(region) when ``charge_discovery`` is True.
+
+        NOTE: Cost is charged even if module already exists, matching Coq semantics.
+        The PNEW instruction always costs μ, regardless of whether it creates a new module.
         """
         canonical_region = normalize_region(region)
+
+        # Charge discovery cost if requested, even for duplicate PNEW
+        if charge_discovery:
+            region_mask = mask_of_indices(canonical_region)
+            self.mu_ledger.charge_discovery(mask_popcount(region_mask))
+
         existing = self.regions.find(canonical_region)
         if existing is not None:
             return ModuleId(existing)
 
         if self.num_modules >= MAX_MODULES:
             raise ValueError(f"Cannot create module: max modules ({MAX_MODULES}) reached")
-        mid = self._alloc(canonical_region, charge_discovery=charge_discovery)
+        mid = self._alloc(canonical_region, charge_discovery=False)  # Already charged above
         self.axioms[mid] = []  # Initialize empty axioms for new module
-        
+
         self._enforce_invariant()
         return mid
 
@@ -299,7 +308,13 @@ class State:
         ISOMORPHISM REQUIREMENT: The cost parameter MUST match the mu_delta in
         the instruction encoding to maintain perfect three-layer isomorphism
         with Coq and Verilog implementations.
+
+        NOTE: Cost is charged REGARDLESS of success/failure, matching Coq semantics.
         """
+        # Charge cost first (matches Coq: advance_state always applies cost)
+        if charge_execution:
+            self.mu_ledger.charge_execution(cost)
+
         region = self.regions[module]
         part1 = {x for x in region if pred(x)}
         part2 = region - part1
@@ -318,9 +333,7 @@ class State:
         # Copy axioms to both new modules
         self.axioms[m1] = axioms.copy()
         self.axioms[m2] = axioms.copy()
-        if charge_execution:
-            self.mu_ledger.charge_execution(cost)
-        
+
         self._enforce_invariant()
         return m1, m2
 
@@ -380,7 +393,13 @@ class State:
 
         ISOMORPHISM REQUIREMENT: The cost parameter MUST match the mu_delta in
         the instruction encoding to maintain perfect three-layer isomorphism.
+
+        NOTE: Cost is charged REGARDLESS of success/failure, matching Coq semantics.
         """
+        # Charge cost first (matches Coq: advance_state always applies cost)
+        if charge_execution:
+            self.mu_ledger.charge_execution(cost)
+
         if m1 == m2:
             raise ValueError("cannot merge module with itself")
         r1 = self.regions[m1]
@@ -393,7 +412,7 @@ class State:
         # Remove from bitmask representation
         self.partition_masks.pop(m1, None)
         self.partition_masks.pop(m2, None)
-        
+
         axioms1 = self.axioms.pop(m1, [])
         axioms2 = self.axioms.pop(m2, [])
         existing = self.regions.find(union)
@@ -405,9 +424,7 @@ class State:
             return existing_id
         mid = self._alloc(union)
         self.axioms[mid] = axioms1 + axioms2  # Combine axioms
-        if charge_execution:
-            self.mu_ledger.charge_execution(cost)
-        
+
         self._enforce_invariant()
         return mid
 

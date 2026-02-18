@@ -71,8 +71,12 @@ class TestIsomorphismProperties:
 
     @given(region=region_strategy())
     @settings(max_examples=100, deadline=None)
-    def test_pnew_idempotent(self, region):
-        """Property: Creating same region twice costs only once."""
+    def test_pnew_module_deduplication(self, region):
+        """Property: Creating same region twice returns same module ID, but charges cost each time.
+
+        Per Coq semantics (VMStep.v), PNEW always charges cost via advance_state,
+        even when graph_pnew returns an existing module instead of creating a new one.
+        """
         assume(len(region) > 0 and len(region) <= 8)
 
         state = State()
@@ -85,12 +89,13 @@ class TestIsomorphismProperties:
         m2 = state.pnew(region, charge_discovery=True)
         mu_after_second = state.mu_ledger.total
 
-        # Should return same module ID
+        # Should return same module ID (deduplication at module level)
         assert m1 == m2, f"Module IDs differ: {m1} vs {m2}"
 
-        # μ-cost should not increase (deduplication)
-        assert mu_after_second == mu_after_first, \
-            f"μ-cost increased on duplicate PNEW: {mu_after_first} -> {mu_after_second}"
+        # μ-cost DOES increase (cost charged for instruction execution)
+        expected_cost = len(region)  # popcount(region)
+        assert mu_after_second == mu_after_first + expected_cost, \
+            f"μ-cost should increase by {expected_cost}: {mu_after_first} -> {mu_after_second}"
 
     @given(
         region=region_strategy(),

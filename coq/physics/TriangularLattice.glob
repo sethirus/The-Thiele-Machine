@@ -1,0 +1,1521 @@
+DIGEST f8393951933be3a7e99a0eb234cad2db
+FPhysics.TriangularLattice
+R24:27 Coq.Lists.List <> <> lib
+R29:42 Coq.Arith.PeanoNat <> <> lib
+R44:46 Coq.micromega.Lia <> <> lib
+R48:51 Coq.Bool.Bool <> <> lib
+R61:73 Coq.Lists.List ListNotations <> mod
+R104:110 Kernel.VMState <> <> lib
+R112:120 Kernel.MuGravity <> <> lib
+R157:170 ModularProofs.EncodingBounds <> <> lib
+def 378:389 <> lattice_size
+R396:398 Coq.Init.Datatypes <> nat ind
+binder 392:392 <> n:1
+R403:405 Coq.Init.Datatypes <> nat ind
+R411:413 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R410:410 Physics.TriangularLattice <> n:1 var
+R414:414 Physics.TriangularLattice <> n:1 var
+def 429:438 <> lattice_id
+R449:451 Coq.Init.Datatypes <> nat ind
+binder 441:441 <> n:2
+binder 443:443 <> x:3
+binder 445:445 <> y:4
+R456:458 Coq.Init.Datatypes <> nat ind
+R464:466 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R463:463 Physics.TriangularLattice <> x:3 var
+R468:470 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R467:467 Physics.TriangularLattice <> n:2 var
+R471:471 Physics.TriangularLattice <> y:4 var
+def 486:496 <> coord_of_id
+R506:508 Coq.Init.Datatypes <> nat ind
+binder 499:499 <> n:5
+binder 501:502 <> id:6
+R516:518 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R513:515 Coq.Init.Datatypes <> nat ind
+R519:521 Coq.Init.Datatypes <> nat ind
+R532:535 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R531:531 Physics.TriangularLattice <> n:5 var
+R555:555 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R564:565 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R572:572 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R558:562 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R556:557 Physics.TriangularLattice <> id:6 var
+R563:563 Physics.TriangularLattice <> n:5 var
+R568:570 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R566:567 Physics.TriangularLattice <> id:6 var
+R571:571 Physics.TriangularLattice <> n:5 var
+R543:543 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R545:546 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R548:548 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+def 587:595 <> in_bounds
+R606:608 Coq.Init.Datatypes <> nat ind
+binder 598:598 <> n:7
+binder 600:600 <> x:8
+binder 602:602 <> y:9
+R613:616 Coq.Init.Datatypes <> bool ind
+R621:621 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R628:633 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R640:640 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R623:626 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R622:622 Physics.TriangularLattice <> x:8 var
+R627:627 Physics.TriangularLattice <> n:7 var
+R635:638 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R634:634 Physics.TriangularLattice <> y:9 var
+R639:639 Physics.TriangularLattice <> n:7 var
+def 655:669 <> neighbor_coords
+R678:680 Coq.Init.Datatypes <> nat ind
+binder 672:672 <> x:10
+binder 674:674 <> y:11
+R685:688 Coq.Init.Datatypes <> list ind
+R694:696 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R691:693 Coq.Init.Datatypes <> nat ind
+R697:699 Coq.Init.Datatypes <> nat ind
+R707:707 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R718:722 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R733:737 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R752:756 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R767:771 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R782:786 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R801:801 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R708:708 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R714:715 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R717:717 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R710:712 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R709:709 Physics.TriangularLattice <> x:10 var
+R716:716 Physics.TriangularLattice <> y:11 var
+R723:723 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R725:726 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R732:732 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R724:724 Physics.TriangularLattice <> x:10 var
+R728:730 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R727:727 Physics.TriangularLattice <> y:11 var
+R738:738 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R744:745 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R751:751 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R740:742 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R739:739 Physics.TriangularLattice <> x:10 var
+R747:749 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R746:746 Physics.TriangularLattice <> y:11 var
+R757:757 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R759:760 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R766:766 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R758:758 Physics.TriangularLattice <> x:10 var
+R762:764 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R761:761 Physics.TriangularLattice <> y:11 var
+R772:772 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R778:779 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R781:781 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R774:776 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R773:773 Physics.TriangularLattice <> x:10 var
+R780:780 Physics.TriangularLattice <> y:11 var
+R787:787 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R793:794 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R800:800 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R789:791 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R788:788 Physics.TriangularLattice <> x:10 var
+R796:798 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R795:795 Physics.TriangularLattice <> y:11 var
+def 816:827 <> neighbors_of
+R837:839 Coq.Init.Datatypes <> nat ind
+binder 830:830 <> n:12
+binder 832:833 <> id:13
+R844:847 Coq.Init.Datatypes <> list ind
+R849:851 Coq.Init.Datatypes <> nat ind
+R873:883 Physics.TriangularLattice <> coord_of_id def
+R885:885 Physics.TriangularLattice <> n:12 var
+R887:888 Physics.TriangularLattice <> id:13 var
+R863:863 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R865:866 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R868:868 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R895:897 Coq.Lists.List <> map def
+R944:949 Coq.Lists.List <> filter def
+R989:1003 Physics.TriangularLattice <> neighbor_coords def
+R957:957 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R960:961 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R964:964 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 962:963 <> y':14
+binder 958:959 <> x':15
+binder 957:964 <> pat:16
+R969:977 Physics.TriangularLattice <> in_bounds def
+R979:979 Physics.TriangularLattice <> n:12 var
+R981:982 Physics.TriangularLattice <> x':15 var
+R984:985 Physics.TriangularLattice <> y':14 var
+R905:905 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R908:909 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R912:912 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 910:911 <> y':17
+binder 906:907 <> x':18
+binder 905:912 <> pat:19
+R917:926 Physics.TriangularLattice <> lattice_id def
+R928:928 Physics.TriangularLattice <> n:12 var
+R930:931 Physics.TriangularLattice <> x':18 var
+R933:934 Physics.TriangularLattice <> y':17 var
+def 1024:1030 <> edge_id
+R1041:1043 Coq.Init.Datatypes <> nat ind
+binder 1033:1033 <> n:20
+binder 1035:1035 <> u:21
+binder 1037:1037 <> v:22
+R1048:1050 Coq.Init.Datatypes <> nat ind
+R1068:1079 Physics.TriangularLattice <> lattice_size def
+R1081:1081 Physics.TriangularLattice <> n:20 var
+binder 1061:1063 <> max:23
+R1092:1095 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R1091:1091 Physics.TriangularLattice <> u:21 var
+R1096:1096 Physics.TriangularLattice <> v:22 var
+R1127:1129 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1121:1123 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R1120:1120 Physics.TriangularLattice <> v:22 var
+R1124:1126 Physics.TriangularLattice <> max:23 var
+R1130:1130 Physics.TriangularLattice <> u:21 var
+R1110:1112 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1104:1106 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R1103:1103 Physics.TriangularLattice <> u:21 var
+R1107:1109 Physics.TriangularLattice <> max:23 var
+R1113:1113 Physics.TriangularLattice <> v:22 var
+def 1145:1161 <> module_region_for
+R1171:1173 Coq.Init.Datatypes <> nat ind
+binder 1164:1164 <> n:24
+binder 1166:1167 <> id:25
+R1178:1181 Coq.Init.Datatypes <> list ind
+R1183:1185 Coq.Init.Datatypes <> nat ind
+R1192:1194 Coq.Lists.List <> map def
+R1212:1223 Physics.TriangularLattice <> neighbors_of def
+R1225:1225 Physics.TriangularLattice <> n:24 var
+R1227:1228 Physics.TriangularLattice <> id:25 var
+R1197:1203 Physics.TriangularLattice <> edge_id def
+R1205:1205 Physics.TriangularLattice <> n:24 var
+R1207:1208 Physics.TriangularLattice <> id:25 var
+def 1244:1259 <> module_state_for
+R1269:1271 Coq.Init.Datatypes <> nat ind
+binder 1262:1262 <> n:26
+binder 1264:1265 <> id:27
+R1276:1286 Kernel.VMState <> ModuleState rec
+R1296:1308 Kernel.VMState <> module_region proj
+R1296:1308 Kernel.VMState <> module_region proj
+R1296:1308 Kernel.VMState <> module_region proj
+R1342:1354 Kernel.VMState <> module_axioms proj
+R1342:1354 Kernel.VMState <> module_axioms proj
+R1313:1329 Physics.TriangularLattice <> module_region_for def
+R1331:1331 Physics.TriangularLattice <> n:26 var
+R1333:1334 Physics.TriangularLattice <> id:27 var
+R1359:1360 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+def 1378:1388 <> lattice_ids
+R1395:1397 Coq.Init.Datatypes <> nat ind
+binder 1391:1391 <> n:28
+R1402:1405 Coq.Init.Datatypes <> list ind
+R1407:1409 Coq.Init.Datatypes <> nat ind
+R1414:1416 Coq.Lists.List <> seq def
+R1421:1432 Physics.TriangularLattice <> lattice_size def
+R1434:1434 Physics.TriangularLattice <> n:28 var
+def 1450:1464 <> lattice_modules
+R1471:1473 Coq.Init.Datatypes <> nat ind
+binder 1467:1467 <> n:29
+R1478:1481 Coq.Init.Datatypes <> list ind
+R1492:1494 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1484:1491 Kernel.VMState <> ModuleID def
+R1495:1505 Kernel.VMState <> ModuleState rec
+R1513:1515 Coq.Lists.List <> map def
+R1558:1568 Physics.TriangularLattice <> lattice_ids def
+R1570:1570 Physics.TriangularLattice <> n:29 var
+binder 1522:1523 <> id:30
+R1528:1528 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1531:1532 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1554:1554 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1529:1530 Physics.TriangularLattice <> id:30 var
+R1533:1548 Physics.TriangularLattice <> module_state_for def
+R1550:1550 Physics.TriangularLattice <> n:29 var
+R1552:1553 Physics.TriangularLattice <> id:30 var
+def 1586:1598 <> lattice_graph
+R1605:1607 Coq.Init.Datatypes <> nat ind
+binder 1601:1601 <> n:31
+R1612:1625 Kernel.VMState <> PartitionGraph rec
+R1635:1644 Kernel.VMState <> pg_next_id proj
+R1635:1644 Kernel.VMState <> pg_next_id proj
+R1635:1644 Kernel.VMState <> pg_next_id proj
+R1670:1679 Kernel.VMState <> pg_modules proj
+R1670:1679 Kernel.VMState <> pg_modules proj
+R1649:1660 Physics.TriangularLattice <> lattice_size def
+R1662:1662 Physics.TriangularLattice <> n:31 var
+R1684:1698 Physics.TriangularLattice <> lattice_modules def
+R1700:1700 Physics.TriangularLattice <> n:31 var
+def 1718:1733 <> lattice_vm_state
+R1740:1742 Coq.Init.Datatypes <> nat ind
+binder 1736:1736 <> n:32
+R1747:1753 Kernel.VMState <> VMState rec
+R1763:1770 Kernel.VMState <> vm_graph proj
+R1763:1770 Kernel.VMState <> vm_graph proj
+R1763:1770 Kernel.VMState <> vm_graph proj
+R1797:1803 Kernel.VMState <> vm_csrs proj
+R1797:1803 Kernel.VMState <> vm_csrs proj
+R1870:1876 Kernel.VMState <> vm_regs proj
+R1870:1876 Kernel.VMState <> vm_regs proj
+R1899:1904 Kernel.VMState <> vm_mem proj
+R1899:1904 Kernel.VMState <> vm_mem proj
+R1928:1932 Kernel.VMState <> vm_pc proj
+R1928:1932 Kernel.VMState <> vm_pc proj
+R1945:1949 Kernel.VMState <> vm_mu proj
+R1945:1949 Kernel.VMState <> vm_mu proj
+R1962:1967 Kernel.VMState <> vm_err proj
+R1962:1967 Kernel.VMState <> vm_err proj
+R1775:1787 Physics.TriangularLattice <> lattice_graph def
+R1789:1789 Physics.TriangularLattice <> n:32 var
+R1811:1823 Kernel.VMState <> csr_cert_addr proj
+R1811:1823 Kernel.VMState <> csr_cert_addr proj
+R1811:1823 Kernel.VMState <> csr_cert_addr proj
+R1831:1840 Kernel.VMState <> csr_status proj
+R1831:1840 Kernel.VMState <> csr_status proj
+R1848:1854 Kernel.VMState <> csr_err proj
+R1848:1854 Kernel.VMState <> csr_err proj
+R1881:1886 Coq.Lists.List <> repeat def
+R1909:1914 Coq.Lists.List <> repeat def
+R1972:1976 Coq.Init.Datatypes <> false constr
+prf 1989:2010 <> lattice_id_coord_of_id
+binder 2021:2021 <> n:33
+binder 2023:2023 <> u:34
+R2034:2039 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2029:2032 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R2028:2028 Physics.TriangularLattice <> n:33 var
+R2100:2102 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2040:2049 Physics.TriangularLattice <> lattice_id def
+R2051:2051 Physics.TriangularLattice <> n:33 var
+R2054:2056 Coq.Init.Datatypes <> fst def
+R2059:2069 Physics.TriangularLattice <> coord_of_id def
+R2071:2071 Physics.TriangularLattice <> n:33 var
+R2073:2073 Physics.TriangularLattice <> u:34 var
+R2078:2080 Coq.Init.Datatypes <> snd def
+R2083:2093 Physics.TriangularLattice <> coord_of_id def
+R2095:2095 Physics.TriangularLattice <> n:33 var
+R2097:2097 Physics.TriangularLattice <> u:34 var
+R2103:2103 Physics.TriangularLattice <> u:34 var
+R2139:2148 Physics.TriangularLattice <> lattice_id def
+R2151:2161 Physics.TriangularLattice <> coord_of_id def
+R2177:2180 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R2177:2180 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R2202:2211 Coq.Arith.PeanoNat Nat eqb_eq thm
+R2202:2211 Coq.Arith.PeanoNat Nat eqb_eq thm
+R2262:2272 Coq.Arith.PeanoNat Nat div_mod thm
+R2262:2272 Coq.Arith.PeanoNat Nat div_mod thm
+R2312:2314 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2308:2310 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R2325:2328 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2334:2334 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2330:2332 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R2360:2371 Coq.Arith.PeanoNat Nat mul_comm thm
+R2312:2314 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2308:2310 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R2325:2328 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2334:2334 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2330:2332 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R2360:2371 Coq.Arith.PeanoNat Nat mul_comm thm
+R2360:2371 Coq.Arith.PeanoNat Nat mul_comm thm
+R2400:2411 Coq.Arith.PeanoNat Nat add_comm thm
+R2400:2411 Coq.Arith.PeanoNat Nat add_comm thm
+R2400:2411 Coq.Arith.PeanoNat Nat add_comm thm
+prf 2470:2491 <> coord_of_id_lattice_id
+binder 2502:2502 <> n:35
+binder 2504:2504 <> x:36
+binder 2506:2506 <> y:37
+R2517:2522 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2512:2515 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R2511:2511 Physics.TriangularLattice <> n:35 var
+R2528:2533 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2524:2526 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2523:2523 Physics.TriangularLattice <> x:36 var
+R2527:2527 Physics.TriangularLattice <> n:35 var
+R2566:2568 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2534:2544 Physics.TriangularLattice <> coord_of_id def
+R2546:2546 Physics.TriangularLattice <> n:35 var
+R2549:2558 Physics.TriangularLattice <> lattice_id def
+R2560:2560 Physics.TriangularLattice <> n:35 var
+R2562:2562 Physics.TriangularLattice <> x:36 var
+R2564:2564 Physics.TriangularLattice <> y:37 var
+R2569:2569 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2571:2572 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2574:2574 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2570:2570 Physics.TriangularLattice <> x:36 var
+R2573:2573 Physics.TriangularLattice <> y:37 var
+R2615:2625 Physics.TriangularLattice <> coord_of_id def
+R2628:2637 Physics.TriangularLattice <> lattice_id def
+R2653:2656 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R2653:2656 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R2678:2687 Coq.Arith.PeanoNat Nat eqb_eq thm
+R2678:2687 Coq.Arith.PeanoNat Nat eqb_eq thm
+R2741:2743 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2741:2743 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2771:2787 ModularProofs.EncodingBounds <> div_mul_add_small thm
+R2771:2787 ModularProofs.EncodingBounds <> div_mul_add_small thm
+R2831:2842 Coq.Arith.PeanoNat Nat add_comm thm
+R2831:2842 Coq.Arith.PeanoNat Nat add_comm thm
+R2831:2842 Coq.Arith.PeanoNat Nat add_comm thm
+R2857:2868 Coq.Arith.PeanoNat Nat mul_comm thm
+R2857:2868 Coq.Arith.PeanoNat Nat mul_comm thm
+R2857:2868 Coq.Arith.PeanoNat Nat mul_comm thm
+prf 2936:2956 <> coord_of_id_in_bounds
+binder 2967:2967 <> n:38
+binder 2969:2969 <> u:39
+R2980:2985 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2975:2978 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R2974:2974 Physics.TriangularLattice <> n:38 var
+R3004:3009 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2987:2989 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2986:2986 Physics.TriangularLattice <> u:39 var
+R2990:3001 Physics.TriangularLattice <> lattice_size def
+R3003:3003 Physics.TriangularLattice <> n:38 var
+R3069:3071 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3010:3018 Physics.TriangularLattice <> in_bounds def
+R3020:3020 Physics.TriangularLattice <> n:38 var
+R3023:3025 Coq.Init.Datatypes <> fst def
+R3028:3038 Physics.TriangularLattice <> coord_of_id def
+R3040:3040 Physics.TriangularLattice <> n:38 var
+R3042:3042 Physics.TriangularLattice <> u:39 var
+R3047:3049 Coq.Init.Datatypes <> snd def
+R3052:3062 Physics.TriangularLattice <> coord_of_id def
+R3064:3064 Physics.TriangularLattice <> n:38 var
+R3066:3066 Physics.TriangularLattice <> u:39 var
+R3072:3075 Coq.Init.Datatypes <> true constr
+R3114:3122 Physics.TriangularLattice <> in_bounds def
+R3125:3135 Physics.TriangularLattice <> coord_of_id def
+R3151:3154 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R3151:3154 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R3176:3185 Coq.Arith.PeanoNat Nat eqb_eq thm
+R3176:3185 Coq.Arith.PeanoNat Nat eqb_eq thm
+R3230:3244 Coq.Init.Datatypes <> andb_true_intro thm
+R3230:3244 Coq.Init.Datatypes <> andb_true_intro thm
+R3270:3279 Coq.Arith.PeanoNat Nat ltb_lt thm
+R3270:3279 Coq.Arith.PeanoNat Nat ltb_lt thm
+R3294:3312 Coq.Arith.PeanoNat Nat mod_upper_bound def
+R3294:3312 Coq.Arith.PeanoNat Nat mod_upper_bound def
+R3343:3352 Coq.Arith.PeanoNat Nat ltb_lt thm
+R3343:3352 Coq.Arith.PeanoNat Nat ltb_lt thm
+R3368:3379 Physics.TriangularLattice <> lattice_size def
+R3401:3422 Coq.Arith.PeanoNat Nat div_lt_upper_bound abbrev
+R3401:3422 Coq.Arith.PeanoNat Nat div_lt_upper_bound abbrev
+prf 3486:3496 <> edge_id_sym
+binder 3507:3507 <> n:40
+binder 3509:3509 <> u:41
+binder 3511:3511 <> v:42
+R3529:3531 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3516:3522 Physics.TriangularLattice <> edge_id def
+R3524:3524 Physics.TriangularLattice <> n:40 var
+R3526:3526 Physics.TriangularLattice <> u:41 var
+R3528:3528 Physics.TriangularLattice <> v:42 var
+R3532:3538 Physics.TriangularLattice <> edge_id def
+R3540:3540 Physics.TriangularLattice <> n:40 var
+R3542:3542 Physics.TriangularLattice <> v:42 var
+R3544:3544 Physics.TriangularLattice <> u:41 var
+R3579:3585 Physics.TriangularLattice <> edge_id def
+R3601:3604 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R3630:3633 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R3601:3604 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R3630:3633 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R3630:3633 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R3656:3665 Coq.Arith.PeanoNat Nat ltb_lt thm
+R3656:3665 Coq.Arith.PeanoNat Nat ltb_lt thm
+R3685:3694 Coq.Arith.PeanoNat Nat ltb_lt thm
+R3685:3694 Coq.Arith.PeanoNat Nat ltb_lt thm
+R3757:3766 Coq.Arith.PeanoNat Nat ltb_ge thm
+R3757:3766 Coq.Arith.PeanoNat Nat ltb_ge thm
+R3786:3795 Coq.Arith.PeanoNat Nat ltb_ge thm
+R3786:3795 Coq.Arith.PeanoNat Nat ltb_ge thm
+R3818:3820 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3834:3848 Coq.Arith.PeanoNat Nat le_antisymm thm
+R3818:3820 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3834:3848 Coq.Arith.PeanoNat Nat le_antisymm thm
+prf 3917:3942 <> module_region_for_has_edge
+binder 3953:3953 <> n:43
+binder 3955:3955 <> u:44
+binder 3957:3957 <> v:45
+R3985:3990 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3962:3963 Coq.Lists.List <> In def
+R3968:3979 Physics.TriangularLattice <> neighbors_of def
+R3981:3981 Physics.TriangularLattice <> n:43 var
+R3983:3983 Physics.TriangularLattice <> u:44 var
+R3965:3965 Physics.TriangularLattice <> v:45 var
+R3991:3992 Coq.Lists.List <> In def
+R4011:4027 Physics.TriangularLattice <> module_region_for def
+R4029:4029 Physics.TriangularLattice <> n:43 var
+R4031:4031 Physics.TriangularLattice <> u:44 var
+R3995:4001 Physics.TriangularLattice <> edge_id def
+R4003:4003 Physics.TriangularLattice <> n:43 var
+R4005:4005 Physics.TriangularLattice <> u:44 var
+R4007:4007 Physics.TriangularLattice <> v:45 var
+R4071:4087 Physics.TriangularLattice <> module_region_for def
+R4098:4107 Coq.Lists.List <> in_map_iff thm
+R4098:4107 Coq.Lists.List <> in_map_iff thm
+prf 4169:4198 <> nat_list_disjoint_false_of_mem
+binder 4209:4210 <> xs:46
+binder 4212:4213 <> ys:47
+binder 4215:4215 <> x:48
+R4227:4232 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4220:4221 Coq.Lists.List <> In def
+R4225:4226 Physics.TriangularLattice <> xs:46 var
+R4223:4223 Physics.TriangularLattice <> x:48 var
+R4257:4262 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4250:4252 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4233:4244 Kernel.VMState <> nat_list_mem def
+R4246:4246 Physics.TriangularLattice <> x:48 var
+R4248:4249 Physics.TriangularLattice <> ys:47 var
+R4253:4256 Coq.Init.Datatypes <> true constr
+R4286:4288 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4263:4279 Kernel.VMState <> nat_list_disjoint def
+R4281:4282 Physics.TriangularLattice <> xs:46 var
+R4284:4285 Physics.TriangularLattice <> ys:47 var
+R4289:4293 Coq.Init.Datatypes <> false constr
+R4339:4355 Kernel.VMState <> nat_list_disjoint def
+R4366:4387 Coq.Bool.Bool <> not_true_is_false thm
+R4366:4387 Coq.Bool.Bool <> not_true_is_false thm
+R4418:4422 Coq.Init.Logic <> proj1 thm
+R4425:4438 Coq.Lists.List <> forallb_forall thm
+binder 4445:4445 <> y:49
+R4450:4453 Coq.Init.Datatypes <> negb def
+R4456:4467 Kernel.VMState <> nat_list_mem def
+R4469:4469 Physics.TriangularLattice <> y:49 var
+R4418:4422 Coq.Init.Logic <> proj1 thm
+R4425:4438 Coq.Lists.List <> forallb_forall thm
+binder 4445:4445 <> y:50
+R4450:4453 Coq.Init.Datatypes <> negb def
+R4456:4467 Kernel.VMState <> nat_list_mem def
+R4469:4469 Physics.TriangularLattice <> y:50 var
+R4532:4549 Coq.Bool.Bool <> negb_true_iff thm
+R4532:4549 Coq.Bool.Bool <> negb_true_iff thm
+prf 4614:4636 <> nat_list_mem_true_of_in
+binder 4647:4647 <> x:51
+binder 4649:4650 <> xs:52
+R4662:4667 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4655:4656 Coq.Lists.List <> In def
+R4660:4661 Physics.TriangularLattice <> xs:52 var
+R4658:4658 Physics.TriangularLattice <> x:51 var
+R4685:4687 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4668:4679 Kernel.VMState <> nat_list_mem def
+R4681:4681 Physics.TriangularLattice <> x:51 var
+R4683:4684 Physics.TriangularLattice <> xs:52 var
+R4688:4691 Coq.Init.Datatypes <> true constr
+R4833:4844 Coq.Arith.PeanoNat Nat eqb_refl thm
+R4833:4844 Coq.Arith.PeanoNat Nat eqb_refl thm
+R4833:4844 Coq.Arith.PeanoNat Nat eqb_refl thm
+R4876:4882 Coq.Arith.PeanoNat Nat eqb def
+R4876:4882 Coq.Arith.PeanoNat Nat eqb def
+prf 4960:4997 <> module_regions_share_edge_if_neighbors
+binder 5008:5008 <> n:53
+binder 5010:5010 <> u:54
+binder 5012:5012 <> v:55
+R5040:5045 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5017:5018 Coq.Lists.List <> In def
+R5023:5034 Physics.TriangularLattice <> neighbors_of def
+R5036:5036 Physics.TriangularLattice <> n:53 var
+R5038:5038 Physics.TriangularLattice <> u:54 var
+R5020:5020 Physics.TriangularLattice <> v:55 var
+R5069:5074 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5046:5047 Coq.Lists.List <> In def
+R5052:5063 Physics.TriangularLattice <> neighbors_of def
+R5065:5065 Physics.TriangularLattice <> n:53 var
+R5067:5067 Physics.TriangularLattice <> v:55 var
+R5049:5049 Physics.TriangularLattice <> u:54 var
+R5140:5142 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5075:5091 Kernel.VMState <> nat_list_disjoint def
+R5094:5110 Physics.TriangularLattice <> module_region_for def
+R5112:5112 Physics.TriangularLattice <> n:53 var
+R5114:5114 Physics.TriangularLattice <> u:54 var
+R5118:5134 Physics.TriangularLattice <> module_region_for def
+R5136:5136 Physics.TriangularLattice <> n:53 var
+R5138:5138 Physics.TriangularLattice <> v:55 var
+R5143:5147 Coq.Init.Datatypes <> false constr
+R5231:5237 Physics.TriangularLattice <> edge_id def
+R5189:5218 Physics.TriangularLattice <> nat_list_disjoint_false_of_mem thm
+R5231:5237 Physics.TriangularLattice <> edge_id def
+R5189:5218 Physics.TriangularLattice <> nat_list_disjoint_false_of_mem thm
+R5257:5282 Physics.TriangularLattice <> module_region_for_has_edge thm
+R5257:5282 Physics.TriangularLattice <> module_region_for_has_edge thm
+R5311:5327 Physics.TriangularLattice <> module_region_for def
+R5342:5352 Physics.TriangularLattice <> edge_id_sym thm
+R5342:5352 Physics.TriangularLattice <> edge_id_sym thm
+R5342:5352 Physics.TriangularLattice <> edge_id_sym thm
+R5365:5387 Physics.TriangularLattice <> nat_list_mem_true_of_in thm
+R5365:5387 Physics.TriangularLattice <> nat_list_mem_true_of_in thm
+R5400:5425 Physics.TriangularLattice <> module_region_for_has_edge thm
+R5400:5425 Physics.TriangularLattice <> module_region_for_has_edge thm
+prf 5455:5473 <> neighbor_coords_sym
+binder 5484:5484 <> x:56
+binder 5486:5486 <> y:57
+binder 5488:5489 <> x':58
+binder 5491:5492 <> y':59
+R5530:5535 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5497:5498 Coq.Lists.List <> In def
+R5510:5524 Physics.TriangularLattice <> neighbor_coords def
+R5526:5526 Physics.TriangularLattice <> x:56 var
+R5528:5528 Physics.TriangularLattice <> y:57 var
+R5500:5500 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5503:5504 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5507:5507 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5501:5502 Physics.TriangularLattice <> x':58 var
+R5505:5506 Physics.TriangularLattice <> y':59 var
+R5536:5537 Coq.Lists.List <> In def
+R5547:5561 Physics.TriangularLattice <> neighbor_coords def
+R5563:5564 Physics.TriangularLattice <> x':58 var
+R5566:5567 Physics.TriangularLattice <> y':59 var
+R5539:5539 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5541:5542 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5544:5544 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5540:5540 Physics.TriangularLattice <> x:56 var
+R5543:5543 Physics.TriangularLattice <> y:57 var
+R5611:5625 Physics.TriangularLattice <> neighbor_coords def
+R5763:5765 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R5759:5761 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5905:5907 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R5901:5903 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6064:6066 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R6060:6062 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6104:6106 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R6100:6102 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6314:6324 Coq.Arith.PeanoNat Nat sub_0_r thm
+R6335:6346 Coq.Arith.PeanoNat Nat add_comm thm
+R6549:6559 Coq.Arith.PeanoNat Nat sub_0_r thm
+R6570:6581 Coq.Arith.PeanoNat Nat add_comm thm
+R6812:6822 Coq.Arith.PeanoNat Nat sub_0_r thm
+R6833:6844 Coq.Arith.PeanoNat Nat add_comm thm
+R6890:6900 Coq.Arith.PeanoNat Nat sub_0_r thm
+R6911:6922 Coq.Arith.PeanoNat Nat add_comm thm
+R6998:7008 Coq.Arith.PeanoNat Nat sub_0_r thm
+R7029:7040 Coq.Arith.PeanoNat Nat add_comm thm
+R7067:7078 Coq.Arith.PeanoNat Nat add_comm thm
+R5763:5765 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R5759:5761 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5905:5907 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R5901:5903 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6064:6066 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R6060:6062 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6104:6106 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R6100:6102 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6314:6324 Coq.Arith.PeanoNat Nat sub_0_r thm
+R6314:6324 Coq.Arith.PeanoNat Nat sub_0_r thm
+R6335:6346 Coq.Arith.PeanoNat Nat add_comm thm
+R6335:6346 Coq.Arith.PeanoNat Nat add_comm thm
+R6549:6559 Coq.Arith.PeanoNat Nat sub_0_r thm
+R6549:6559 Coq.Arith.PeanoNat Nat sub_0_r thm
+R6570:6581 Coq.Arith.PeanoNat Nat add_comm thm
+R6570:6581 Coq.Arith.PeanoNat Nat add_comm thm
+R6812:6822 Coq.Arith.PeanoNat Nat sub_0_r thm
+R6812:6822 Coq.Arith.PeanoNat Nat sub_0_r thm
+R6833:6844 Coq.Arith.PeanoNat Nat add_comm thm
+R6833:6844 Coq.Arith.PeanoNat Nat add_comm thm
+R6890:6900 Coq.Arith.PeanoNat Nat sub_0_r thm
+R6890:6900 Coq.Arith.PeanoNat Nat sub_0_r thm
+R6911:6922 Coq.Arith.PeanoNat Nat add_comm thm
+R6911:6922 Coq.Arith.PeanoNat Nat add_comm thm
+R6998:7008 Coq.Arith.PeanoNat Nat sub_0_r thm
+R6998:7008 Coq.Arith.PeanoNat Nat sub_0_r thm
+R6998:7008 Coq.Arith.PeanoNat Nat sub_0_r thm
+R6998:7008 Coq.Arith.PeanoNat Nat sub_0_r thm
+R6998:7008 Coq.Arith.PeanoNat Nat sub_0_r thm
+R7029:7040 Coq.Arith.PeanoNat Nat add_comm thm
+R7029:7040 Coq.Arith.PeanoNat Nat add_comm thm
+R7067:7078 Coq.Arith.PeanoNat Nat add_comm thm
+R7067:7078 Coq.Arith.PeanoNat Nat add_comm thm
+prf 7158:7179 <> neighbors_of_symmetric
+binder 7190:7190 <> n:60
+binder 7192:7192 <> u:61
+binder 7194:7194 <> v:62
+R7205:7210 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7200:7203 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R7199:7199 Physics.TriangularLattice <> n:60 var
+R7229:7234 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7212:7214 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R7211:7211 Physics.TriangularLattice <> u:61 var
+R7215:7226 Physics.TriangularLattice <> lattice_size def
+R7228:7228 Physics.TriangularLattice <> n:60 var
+R7253:7258 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7236:7238 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R7235:7235 Physics.TriangularLattice <> v:62 var
+R7239:7250 Physics.TriangularLattice <> lattice_size def
+R7252:7252 Physics.TriangularLattice <> n:60 var
+R7282:7287 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7259:7260 Coq.Lists.List <> In def
+R7265:7276 Physics.TriangularLattice <> neighbors_of def
+R7278:7278 Physics.TriangularLattice <> n:60 var
+R7280:7280 Physics.TriangularLattice <> u:61 var
+R7262:7262 Physics.TriangularLattice <> v:62 var
+R7288:7289 Coq.Lists.List <> In def
+R7294:7305 Physics.TriangularLattice <> neighbors_of def
+R7307:7307 Physics.TriangularLattice <> n:60 var
+R7309:7309 Physics.TriangularLattice <> v:62 var
+R7291:7291 Physics.TriangularLattice <> u:61 var
+R7358:7369 Physics.TriangularLattice <> neighbors_of def
+R7391:7401 Physics.TriangularLattice <> coord_of_id def
+R7391:7401 Physics.TriangularLattice <> coord_of_id def
+R7447:7456 Coq.Lists.List <> in_map_iff thm
+R7447:7456 Coq.Lists.List <> in_map_iff thm
+R7548:7556 Coq.Lists.List <> filter_In thm
+R7548:7556 Coq.Lists.List <> filter_In thm
+R7620:7631 Physics.TriangularLattice <> neighbors_of def
+R7646:7656 Physics.TriangularLattice <> coord_of_id def
+R7661:7670 Physics.TriangularLattice <> lattice_id def
+R7646:7656 Physics.TriangularLattice <> coord_of_id def
+R7661:7670 Physics.TriangularLattice <> lattice_id def
+R7739:7741 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7731:7731 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7734:7735 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7738:7738 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7742:7742 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7745:7746 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7749:7749 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7739:7741 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7731:7731 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7734:7735 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7738:7738 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7742:7742 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7745:7746 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7749:7749 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7786:7807 Physics.TriangularLattice <> coord_of_id_lattice_id thm
+R7786:7807 Physics.TriangularLattice <> coord_of_id_lattice_id thm
+R7836:7848 Coq.Bool.Bool <> andb_true_iff thm
+R7836:7848 Coq.Bool.Bool <> andb_true_iff thm
+R7905:7914 Coq.Arith.PeanoNat Nat ltb_lt thm
+R7905:7914 Coq.Arith.PeanoNat Nat ltb_lt thm
+R7933:7942 Coq.Arith.PeanoNat Nat ltb_lt thm
+R7933:7942 Coq.Arith.PeanoNat Nat ltb_lt thm
+R8007:8016 Coq.Lists.List <> in_map_iff thm
+R8007:8016 Coq.Lists.List <> in_map_iff thm
+R8028:8028 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8030:8031 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8033:8033 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8028:8028 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8030:8031 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8033:8033 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8061:8067 Coq.Init.Logic <> f_equal thm
+R8069:8071 Coq.Init.Datatypes <> fst def
+R8061:8067 Coq.Init.Logic <> f_equal thm
+R8069:8071 Coq.Init.Datatypes <> fst def
+R8103:8109 Coq.Init.Logic <> f_equal thm
+R8111:8113 Coq.Init.Datatypes <> snd def
+R8103:8109 Coq.Init.Logic <> f_equal thm
+R8111:8113 Coq.Init.Datatypes <> snd def
+R8193:8214 Physics.TriangularLattice <> lattice_id_coord_of_id thm
+R8193:8214 Physics.TriangularLattice <> lattice_id_coord_of_id thm
+R8237:8245 Coq.Lists.List <> filter_In thm
+R8237:8245 Coq.Lists.List <> filter_In thm
+R8271:8289 Physics.TriangularLattice <> neighbor_coords_sym thm
+R8271:8289 Physics.TriangularLattice <> neighbor_coords_sym thm
+R8325:8331 Coq.Init.Logic <> f_equal thm
+R8333:8335 Coq.Init.Datatypes <> fst def
+R8325:8331 Coq.Init.Logic <> f_equal thm
+R8333:8335 Coq.Init.Datatypes <> fst def
+R8369:8375 Coq.Init.Logic <> f_equal thm
+R8377:8379 Coq.Init.Datatypes <> snd def
+R8369:8375 Coq.Init.Logic <> f_equal thm
+R8377:8379 Coq.Init.Datatypes <> snd def
+R8467:8487 Physics.TriangularLattice <> coord_of_id_in_bounds thm
+R8467:8487 Physics.TriangularLattice <> coord_of_id_in_bounds thm
+prf 8515:8531 <> all_ids_below_map
+binder 8542:8544 <> ids:63
+binder 8546:8550 <> bound:64
+binder 8552:8552 <> f:65
+R8557:8557 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8592:8598 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 8565:8566 <> id:66
+R8578:8581 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8569:8570 Coq.Lists.List <> In def
+R8575:8577 Physics.TriangularLattice <> ids:63 var
+R8572:8573 Physics.TriangularLattice <> id:66 var
+R8584:8586 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R8582:8583 Physics.TriangularLattice <> id:66 var
+R8587:8591 Physics.TriangularLattice <> bound:64 var
+R8599:8611 Kernel.VMState <> all_ids_below def
+R8614:8616 Coq.Lists.List <> map def
+R8641:8643 Physics.TriangularLattice <> ids:63 var
+binder 8623:8624 <> id:67
+R8629:8629 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8632:8633 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8638:8638 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8630:8631 Physics.TriangularLattice <> id:67 var
+R8634:8634 Physics.TriangularLattice <> f:65 var
+R8636:8637 Physics.TriangularLattice <> id:67 var
+R8646:8650 Physics.TriangularLattice <> bound:64 var
+R8731:8731 Coq.Init.Logic <> I constr
+R8731:8731 Coq.Init.Logic <> I constr
+prf 8868:8892 <> lattice_graph_well_formed
+binder 8903:8903 <> n:68
+R8908:8924 Kernel.VMState <> well_formed_graph def
+R8927:8939 Physics.TriangularLattice <> lattice_graph def
+R8941:8941 Physics.TriangularLattice <> n:68 var
+R8972:8988 Kernel.VMState <> well_formed_graph def
+R8991:9003 Physics.TriangularLattice <> lattice_graph def
+R9006:9020 Physics.TriangularLattice <> lattice_modules def
+R9023:9033 Physics.TriangularLattice <> lattice_ids def
+R9044:9060 Physics.TriangularLattice <> all_ids_below_map thm
+R9044:9060 Physics.TriangularLattice <> all_ids_below_map thm
+R9088:9093 Coq.Lists.List <> in_seq thm
+R9088:9093 Coq.Lists.List <> in_seq thm
+prf 9155:9178 <> graph_lookup_modules_map
+binder 9189:9191 <> ids:69
+binder 9193:9193 <> f:70
+binder 9195:9197 <> mid:71
+R9212:9217 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9202:9203 Coq.Lists.List <> In def
+R9209:9211 Physics.TriangularLattice <> ids:69 var
+R9205:9207 Physics.TriangularLattice <> mid:71 var
+R9275:9277 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9218:9237 Kernel.VMState <> graph_lookup_modules def
+R9240:9242 Coq.Lists.List <> map def
+R9267:9269 Physics.TriangularLattice <> ids:69 var
+binder 9249:9250 <> id:72
+R9255:9255 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9258:9259 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9264:9264 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9256:9257 Physics.TriangularLattice <> id:72 var
+R9260:9260 Physics.TriangularLattice <> f:70 var
+R9262:9263 Physics.TriangularLattice <> id:72 var
+R9272:9274 Physics.TriangularLattice <> mid:71 var
+R9278:9281 Coq.Init.Datatypes <> Some constr
+R9284:9284 Physics.TriangularLattice <> f:70 var
+R9286:9288 Physics.TriangularLattice <> mid:71 var
+R9434:9445 Coq.Arith.PeanoNat Nat eqb_refl thm
+R9434:9445 Coq.Arith.PeanoNat Nat eqb_refl thm
+R9434:9445 Coq.Arith.PeanoNat Nat eqb_refl thm
+R9477:9483 Coq.Arith.PeanoNat Nat eqb def
+R9477:9483 Coq.Arith.PeanoNat Nat eqb def
+R9516:9525 Coq.Arith.PeanoNat Nat eqb_eq thm
+R9516:9525 Coq.Arith.PeanoNat Nat eqb_eq thm
+prf 9596:9615 <> graph_lookup_lattice
+binder 9626:9626 <> n:73
+binder 9628:9629 <> id:74
+R9653:9658 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9636:9638 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R9634:9635 Physics.TriangularLattice <> id:74 var
+R9639:9650 Physics.TriangularLattice <> lattice_size def
+R9652:9652 Physics.TriangularLattice <> n:73 var
+R9692:9694 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9659:9670 Kernel.VMState <> graph_lookup def
+R9673:9685 Physics.TriangularLattice <> lattice_graph def
+R9687:9687 Physics.TriangularLattice <> n:73 var
+R9690:9691 Physics.TriangularLattice <> id:74 var
+R9695:9698 Coq.Init.Datatypes <> Some constr
+R9701:9716 Physics.TriangularLattice <> module_state_for def
+R9718:9718 Physics.TriangularLattice <> n:73 var
+R9720:9721 Physics.TriangularLattice <> id:74 var
+R9760:9771 Kernel.VMState <> graph_lookup def
+R9774:9786 Physics.TriangularLattice <> lattice_graph def
+R9789:9803 Physics.TriangularLattice <> lattice_modules def
+R9806:9816 Physics.TriangularLattice <> lattice_ids def
+R9827:9850 Physics.TriangularLattice <> graph_lookup_modules_map thm
+R9827:9850 Physics.TriangularLattice <> graph_lookup_modules_map thm
+R9861:9866 Coq.Lists.List <> in_seq thm
+R9861:9866 Coq.Lists.List <> in_seq thm
+R9896:9906 Coq.Arith.PeanoNat Nat add_0_l thm
+R9896:9906 Coq.Arith.PeanoNat Nat add_0_l thm
+R9896:9906 Coq.Arith.PeanoNat Nat add_0_l thm
+prf 9932:9951 <> nat_list_mem_true_in
+binder 9962:9962 <> x:75
+binder 9964:9965 <> xs:76
+R9994:9999 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9987:9989 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9970:9981 Kernel.VMState <> nat_list_mem def
+R9983:9983 Physics.TriangularLattice <> x:75 var
+R9985:9986 Physics.TriangularLattice <> xs:76 var
+R9990:9993 Coq.Init.Datatypes <> true constr
+R10000:10001 Coq.Lists.List <> In def
+R10005:10006 Physics.TriangularLattice <> xs:76 var
+R10003:10003 Physics.TriangularLattice <> x:75 var
+R10103:10109 Coq.Arith.PeanoNat Nat eqb def
+R10103:10109 Coq.Arith.PeanoNat Nat eqb def
+R10143:10152 Coq.Arith.PeanoNat Nat eqb_eq thm
+R10143:10152 Coq.Arith.PeanoNat Nat eqb_eq thm
+prf 10230:10259 <> nat_list_disjoint_false_exists
+binder 10270:10271 <> xs:77
+binder 10273:10274 <> ys:78
+R10310:10315 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10302:10304 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10279:10295 Kernel.VMState <> nat_list_disjoint def
+R10297:10298 Physics.TriangularLattice <> xs:77 var
+R10300:10301 Physics.TriangularLattice <> ys:78 var
+R10305:10309 Coq.Init.Datatypes <> false constr
+R10316:10322 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10324:10325 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 10323:10323 <> x:79
+R10333:10336 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10326:10327 Coq.Lists.List <> In def
+R10331:10332 Physics.TriangularLattice <> xs:77 var
+R10329:10329 Physics.TriangularLattice <> x:79 var
+R10354:10356 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10337:10348 Kernel.VMState <> nat_list_mem def
+R10350:10350 Physics.TriangularLattice <> x:79 var
+R10352:10353 Physics.TriangularLattice <> ys:78 var
+R10357:10360 Coq.Init.Datatypes <> true constr
+R10461:10479 Coq.Bool.Bool <> andb_false_iff thm
+R10461:10479 Coq.Bool.Bool <> andb_false_iff thm
+R10599:10617 Coq.Bool.Bool <> negb_false_iff thm
+R10599:10617 Coq.Bool.Bool <> negb_false_iff thm
+prf 10768:10784 <> in_bounds_true_lt
+binder 10795:10795 <> n:80
+binder 10797:10797 <> x:81
+binder 10799:10799 <> y:82
+R10826:10831 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10819:10821 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10804:10812 Physics.TriangularLattice <> in_bounds def
+R10814:10814 Physics.TriangularLattice <> n:80 var
+R10816:10816 Physics.TriangularLattice <> x:81 var
+R10818:10818 Physics.TriangularLattice <> y:82 var
+R10822:10825 Coq.Init.Datatypes <> true constr
+R10837:10842 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10833:10835 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R10832:10832 Physics.TriangularLattice <> x:81 var
+R10836:10836 Physics.TriangularLattice <> n:80 var
+R10844:10846 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R10843:10843 Physics.TriangularLattice <> y:82 var
+R10847:10847 Physics.TriangularLattice <> n:80 var
+R10885:10893 Physics.TriangularLattice <> in_bounds def
+R10910:10922 Coq.Bool.Bool <> andb_true_iff thm
+R10910:10922 Coq.Bool.Bool <> andb_true_iff thm
+R10972:10981 Coq.Arith.PeanoNat Nat ltb_lt thm
+R10972:10981 Coq.Arith.PeanoNat Nat ltb_lt thm
+R10972:10981 Coq.Arith.PeanoNat Nat ltb_lt thm
+prf 11008:11020 <> lattice_id_lt
+binder 11031:11031 <> n:83
+binder 11033:11033 <> x:84
+binder 11035:11035 <> y:85
+R11045:11050 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11041:11043 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R11040:11040 Physics.TriangularLattice <> x:84 var
+R11044:11044 Physics.TriangularLattice <> n:83 var
+R11056:11061 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11052:11054 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R11051:11051 Physics.TriangularLattice <> y:85 var
+R11055:11055 Physics.TriangularLattice <> n:83 var
+R11078:11080 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R11062:11071 Physics.TriangularLattice <> lattice_id def
+R11073:11073 Physics.TriangularLattice <> n:83 var
+R11075:11075 Physics.TriangularLattice <> x:84 var
+R11077:11077 Physics.TriangularLattice <> y:85 var
+R11081:11092 Physics.TriangularLattice <> lattice_size def
+R11094:11094 Physics.TriangularLattice <> n:83 var
+R11135:11144 Physics.TriangularLattice <> lattice_id def
+R11147:11158 Physics.TriangularLattice <> lattice_size def
+R11232:11234 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R11228:11230 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R11224:11224 Coq.Init.Datatypes <> S constr
+R11239:11241 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R11235:11235 Coq.Init.Datatypes <> S constr
+R11242:11242 Coq.Init.Datatypes <> S constr
+R11264:11284 Coq.Arith.PeanoNat Nat mul_lt_mono_pos_l thm
+R11232:11234 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R11228:11230 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R11224:11224 Coq.Init.Datatypes <> S constr
+R11239:11241 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R11235:11235 Coq.Init.Datatypes <> S constr
+R11242:11242 Coq.Init.Datatypes <> S constr
+R11264:11284 Coq.Arith.PeanoNat Nat mul_lt_mono_pos_l thm
+prf 11314:11328 <> neighbors_of_lt
+binder 11339:11339 <> n:86
+binder 11341:11342 <> id:87
+binder 11344:11344 <> v:88
+R11373:11378 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11349:11350 Coq.Lists.List <> In def
+R11355:11366 Physics.TriangularLattice <> neighbors_of def
+R11368:11368 Physics.TriangularLattice <> n:86 var
+R11370:11371 Physics.TriangularLattice <> id:87 var
+R11352:11352 Physics.TriangularLattice <> v:88 var
+R11380:11382 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R11379:11379 Physics.TriangularLattice <> v:88 var
+R11383:11394 Physics.TriangularLattice <> lattice_size def
+R11396:11396 Physics.TriangularLattice <> n:86 var
+R11436:11447 Physics.TriangularLattice <> neighbors_of def
+R11469:11479 Physics.TriangularLattice <> coord_of_id def
+R11469:11479 Physics.TriangularLattice <> coord_of_id def
+R11523:11537 Physics.TriangularLattice <> neighbor_coords def
+R11523:11537 Physics.TriangularLattice <> neighbor_coords def
+R11565:11570 Coq.Lists.List <> filter def
+R11578:11578 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11581:11582 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11585:11585 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 11583:11584 <> y':89
+binder 11579:11580 <> x':90
+binder 11578:11585 <> pat:91
+R11590:11598 Physics.TriangularLattice <> in_bounds def
+R11602:11603 Physics.TriangularLattice <> x':90 var
+R11605:11606 Physics.TriangularLattice <> y':89 var
+R11565:11570 Coq.Lists.List <> filter def
+R11578:11578 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11581:11582 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11585:11585 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 11583:11584 <> y':92
+binder 11579:11580 <> x':93
+binder 11578:11585 <> pat:94
+R11590:11598 Physics.TriangularLattice <> in_bounds def
+R11602:11603 Physics.TriangularLattice <> x':93 var
+R11605:11606 Physics.TriangularLattice <> y':92 var
+R11628:11629 Coq.Lists.List <> In def
+R11634:11636 Coq.Lists.List <> map def
+R11644:11644 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11647:11648 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11651:11651 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 11649:11650 <> y':95
+binder 11645:11646 <> x':96
+binder 11644:11651 <> pat:97
+R11656:11665 Physics.TriangularLattice <> lattice_id def
+R11669:11670 Physics.TriangularLattice <> x':96 var
+R11672:11673 Physics.TriangularLattice <> y':95 var
+R11628:11629 Coq.Lists.List <> In def
+R11634:11636 Coq.Lists.List <> map def
+R11644:11644 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11647:11648 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11651:11651 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 11649:11650 <> y':98
+binder 11645:11646 <> x':99
+binder 11644:11651 <> pat:100
+R11656:11665 Physics.TriangularLattice <> lattice_id def
+R11669:11670 Physics.TriangularLattice <> x':99 var
+R11672:11673 Physics.TriangularLattice <> y':98 var
+R11702:11711 Coq.Lists.List <> in_map_iff thm
+R11702:11711 Coq.Lists.List <> in_map_iff thm
+R11809:11817 Coq.Lists.List <> filter_In thm
+R11809:11817 Coq.Lists.List <> filter_In thm
+R11874:11890 Physics.TriangularLattice <> in_bounds_true_lt thm
+R11874:11890 Physics.TriangularLattice <> in_bounds_true_lt thm
+R11943:11955 Physics.TriangularLattice <> lattice_id_lt thm
+R11943:11955 Physics.TriangularLattice <> lattice_id_lt thm
+prf 11982:11996 <> edge_id_min_max
+binder 12007:12007 <> n:101
+binder 12009:12009 <> u:102
+binder 12011:12011 <> v:103
+R12029:12031 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12016:12022 Physics.TriangularLattice <> edge_id def
+R12024:12024 Physics.TriangularLattice <> n:101 var
+R12026:12026 Physics.TriangularLattice <> u:102 var
+R12028:12028 Physics.TriangularLattice <> v:103 var
+R12060:12062 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R12043:12045 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R12032:12038 Coq.Arith.PeanoNat Nat min def
+R12040:12040 Physics.TriangularLattice <> u:102 var
+R12042:12042 Physics.TriangularLattice <> v:103 var
+R12046:12057 Physics.TriangularLattice <> lattice_size def
+R12059:12059 Physics.TriangularLattice <> n:101 var
+R12063:12069 Coq.Arith.PeanoNat Nat max def
+R12071:12071 Physics.TriangularLattice <> u:102 var
+R12073:12073 Physics.TriangularLattice <> v:103 var
+R12108:12114 Physics.TriangularLattice <> edge_id def
+R12130:12133 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R12130:12133 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R12156:12165 Coq.Arith.PeanoNat Nat ltb_lt thm
+R12156:12165 Coq.Arith.PeanoNat Nat ltb_lt thm
+R12187:12195 Coq.Arith.PeanoNat Nat min_l thm
+R12187:12195 Coq.Arith.PeanoNat Nat min_l thm
+R12187:12195 Coq.Arith.PeanoNat Nat min_l thm
+R12217:12225 Coq.Arith.PeanoNat Nat max_r thm
+R12217:12225 Coq.Arith.PeanoNat Nat max_r thm
+R12217:12225 Coq.Arith.PeanoNat Nat max_r thm
+R12262:12271 Coq.Arith.PeanoNat Nat ltb_ge thm
+R12262:12271 Coq.Arith.PeanoNat Nat ltb_ge thm
+R12293:12301 Coq.Arith.PeanoNat Nat min_r thm
+R12293:12301 Coq.Arith.PeanoNat Nat min_r thm
+R12293:12301 Coq.Arith.PeanoNat Nat min_r thm
+R12323:12331 Coq.Arith.PeanoNat Nat max_l thm
+R12323:12331 Coq.Arith.PeanoNat Nat max_l thm
+R12323:12331 Coq.Arith.PeanoNat Nat max_l thm
+prf 12370:12389 <> edge_id_eq_unordered
+binder 12400:12400 <> n:104
+binder 12402:12402 <> u:105
+binder 12404:12404 <> v:106
+binder 12406:12406 <> c:107
+binder 12408:12408 <> d:108
+R12419:12424 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12414:12417 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R12413:12413 Physics.TriangularLattice <> n:104 var
+R12443:12448 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12426:12428 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R12425:12425 Physics.TriangularLattice <> u:105 var
+R12429:12440 Physics.TriangularLattice <> lattice_size def
+R12442:12442 Physics.TriangularLattice <> n:104 var
+R12467:12472 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12450:12452 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R12449:12449 Physics.TriangularLattice <> v:106 var
+R12453:12464 Physics.TriangularLattice <> lattice_size def
+R12466:12466 Physics.TriangularLattice <> n:104 var
+R12491:12496 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12474:12476 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R12473:12473 Physics.TriangularLattice <> c:107 var
+R12477:12488 Physics.TriangularLattice <> lattice_size def
+R12490:12490 Physics.TriangularLattice <> n:104 var
+R12515:12520 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12498:12500 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R12497:12497 Physics.TriangularLattice <> d:108 var
+R12501:12512 Physics.TriangularLattice <> lattice_size def
+R12514:12514 Physics.TriangularLattice <> n:104 var
+R12550:12555 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12534:12536 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12521:12527 Physics.TriangularLattice <> edge_id def
+R12529:12529 Physics.TriangularLattice <> n:104 var
+R12531:12531 Physics.TriangularLattice <> u:105 var
+R12533:12533 Physics.TriangularLattice <> v:106 var
+R12537:12543 Physics.TriangularLattice <> edge_id def
+R12545:12545 Physics.TriangularLattice <> n:104 var
+R12547:12547 Physics.TriangularLattice <> c:107 var
+R12549:12549 Physics.TriangularLattice <> d:108 var
+R12556:12556 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R12571:12576 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R12591:12591 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R12562:12565 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12558:12560 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12557:12557 Physics.TriangularLattice <> u:105 var
+R12561:12561 Physics.TriangularLattice <> c:107 var
+R12567:12569 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12566:12566 Physics.TriangularLattice <> v:106 var
+R12570:12570 Physics.TriangularLattice <> d:108 var
+R12582:12585 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12578:12580 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12577:12577 Physics.TriangularLattice <> u:105 var
+R12581:12581 Physics.TriangularLattice <> d:108 var
+R12587:12589 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12586:12586 Physics.TriangularLattice <> v:106 var
+R12590:12590 Physics.TriangularLattice <> c:107 var
+R12654:12665 Physics.TriangularLattice <> lattice_size def
+R12654:12665 Physics.TriangularLattice <> lattice_size def
+R12689:12691 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R12689:12691 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R12773:12775 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R12762:12768 Coq.Arith.PeanoNat Nat max def
+R12773:12775 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R12762:12768 Coq.Arith.PeanoNat Nat max def
+R12832:12834 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R12821:12827 Coq.Arith.PeanoNat Nat max def
+R12832:12834 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R12821:12827 Coq.Arith.PeanoNat Nat max def
+R12875:12891 ModularProofs.EncodingBounds <> div_mul_add_small thm
+R12898:12904 Coq.Arith.PeanoNat Nat min def
+R12912:12918 Coq.Arith.PeanoNat Nat max def
+R12875:12891 ModularProofs.EncodingBounds <> div_mul_add_small thm
+R12898:12904 Coq.Arith.PeanoNat Nat min def
+R12912:12918 Coq.Arith.PeanoNat Nat max def
+R12970:12986 ModularProofs.EncodingBounds <> div_mul_add_small thm
+R12993:12999 Coq.Arith.PeanoNat Nat min def
+R13007:13013 Coq.Arith.PeanoNat Nat max def
+R12970:12986 ModularProofs.EncodingBounds <> div_mul_add_small thm
+R12993:12999 Coq.Arith.PeanoNat Nat min def
+R13007:13013 Coq.Arith.PeanoNat Nat max def
+R13089:13091 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13083:13085 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R13070:13076 Physics.TriangularLattice <> edge_id def
+R13092:13098 Coq.Arith.PeanoNat Nat min def
+R13117:13131 Physics.TriangularLattice <> edge_id_min_max thm
+R13089:13091 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13083:13085 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R13070:13076 Physics.TriangularLattice <> edge_id def
+R13092:13098 Coq.Arith.PeanoNat Nat min def
+R13117:13131 Physics.TriangularLattice <> edge_id_min_max thm
+R13117:13131 Physics.TriangularLattice <> edge_id_min_max thm
+R13188:13190 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13180:13184 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R13167:13173 Physics.TriangularLattice <> edge_id def
+R13191:13197 Coq.Arith.PeanoNat Nat max def
+R13216:13230 Physics.TriangularLattice <> edge_id_min_max thm
+R13188:13190 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13180:13184 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R13167:13173 Physics.TriangularLattice <> edge_id def
+R13191:13197 Coq.Arith.PeanoNat Nat max def
+R13216:13230 Physics.TriangularLattice <> edge_id_min_max thm
+R13216:13230 Physics.TriangularLattice <> edge_id_min_max thm
+R13285:13287 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13279:13281 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R13266:13272 Physics.TriangularLattice <> edge_id def
+R13288:13294 Coq.Arith.PeanoNat Nat min def
+R13313:13327 Physics.TriangularLattice <> edge_id_min_max thm
+R13285:13287 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13279:13281 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R13266:13272 Physics.TriangularLattice <> edge_id def
+R13288:13294 Coq.Arith.PeanoNat Nat min def
+R13313:13327 Physics.TriangularLattice <> edge_id_min_max thm
+R13313:13327 Physics.TriangularLattice <> edge_id_min_max thm
+R13384:13386 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13376:13380 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R13363:13369 Physics.TriangularLattice <> edge_id def
+R13387:13393 Coq.Arith.PeanoNat Nat max def
+R13412:13426 Physics.TriangularLattice <> edge_id_min_max thm
+R13384:13386 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13376:13380 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R13363:13369 Physics.TriangularLattice <> edge_id def
+R13387:13393 Coq.Arith.PeanoNat Nat max def
+R13412:13426 Physics.TriangularLattice <> edge_id_min_max thm
+R13412:13426 Physics.TriangularLattice <> edge_id_min_max thm
+R13560:13562 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13549:13555 Coq.Arith.PeanoNat Nat min def
+R13563:13569 Coq.Arith.PeanoNat Nat min def
+R13560:13562 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13549:13555 Coq.Arith.PeanoNat Nat min def
+R13563:13569 Coq.Arith.PeanoNat Nat min def
+R13635:13637 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13624:13630 Coq.Arith.PeanoNat Nat max def
+R13638:13644 Coq.Arith.PeanoNat Nat max def
+R13635:13637 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13624:13630 Coq.Arith.PeanoNat Nat max def
+R13638:13644 Coq.Arith.PeanoNat Nat max def
+R13692:13706 Coq.Arith.PeanoNat Nat le_gt_cases thm
+R13739:13753 Coq.Arith.PeanoNat Nat le_gt_cases thm
+R13692:13706 Coq.Arith.PeanoNat Nat le_gt_cases thm
+R13739:13753 Coq.Arith.PeanoNat Nat le_gt_cases thm
+R13739:13753 Coq.Arith.PeanoNat Nat le_gt_cases thm
+R13796:13804 Coq.Arith.PeanoNat Nat min_l thm
+R13796:13804 Coq.Arith.PeanoNat Nat min_l thm
+R13796:13804 Coq.Arith.PeanoNat Nat min_l thm
+R13834:13842 Coq.Arith.PeanoNat Nat max_r thm
+R13834:13842 Coq.Arith.PeanoNat Nat max_r thm
+R13834:13842 Coq.Arith.PeanoNat Nat max_r thm
+R13874:13882 Coq.Arith.PeanoNat Nat min_l thm
+R13874:13882 Coq.Arith.PeanoNat Nat min_l thm
+R13874:13882 Coq.Arith.PeanoNat Nat min_l thm
+R13912:13920 Coq.Arith.PeanoNat Nat max_r thm
+R13912:13920 Coq.Arith.PeanoNat Nat max_r thm
+R13912:13920 Coq.Arith.PeanoNat Nat max_r thm
+R14001:14009 Coq.Arith.PeanoNat Nat min_l thm
+R14001:14009 Coq.Arith.PeanoNat Nat min_l thm
+R14001:14009 Coq.Arith.PeanoNat Nat min_l thm
+R14039:14047 Coq.Arith.PeanoNat Nat max_r thm
+R14039:14047 Coq.Arith.PeanoNat Nat max_r thm
+R14039:14047 Coq.Arith.PeanoNat Nat max_r thm
+R14079:14087 Coq.Arith.PeanoNat Nat min_r thm
+R14079:14087 Coq.Arith.PeanoNat Nat min_r thm
+R14079:14087 Coq.Arith.PeanoNat Nat min_r thm
+R14117:14125 Coq.Arith.PeanoNat Nat max_l thm
+R14117:14125 Coq.Arith.PeanoNat Nat max_l thm
+R14117:14125 Coq.Arith.PeanoNat Nat max_l thm
+R14206:14214 Coq.Arith.PeanoNat Nat min_r thm
+R14206:14214 Coq.Arith.PeanoNat Nat min_r thm
+R14206:14214 Coq.Arith.PeanoNat Nat min_r thm
+R14244:14252 Coq.Arith.PeanoNat Nat max_l thm
+R14244:14252 Coq.Arith.PeanoNat Nat max_l thm
+R14244:14252 Coq.Arith.PeanoNat Nat max_l thm
+R14284:14292 Coq.Arith.PeanoNat Nat min_l thm
+R14284:14292 Coq.Arith.PeanoNat Nat min_l thm
+R14284:14292 Coq.Arith.PeanoNat Nat min_l thm
+R14322:14330 Coq.Arith.PeanoNat Nat max_r thm
+R14322:14330 Coq.Arith.PeanoNat Nat max_r thm
+R14322:14330 Coq.Arith.PeanoNat Nat max_r thm
+R14410:14418 Coq.Arith.PeanoNat Nat min_r thm
+R14410:14418 Coq.Arith.PeanoNat Nat min_r thm
+R14410:14418 Coq.Arith.PeanoNat Nat min_r thm
+R14448:14456 Coq.Arith.PeanoNat Nat max_l thm
+R14448:14456 Coq.Arith.PeanoNat Nat max_l thm
+R14448:14456 Coq.Arith.PeanoNat Nat max_l thm
+R14488:14496 Coq.Arith.PeanoNat Nat min_r thm
+R14488:14496 Coq.Arith.PeanoNat Nat min_r thm
+R14488:14496 Coq.Arith.PeanoNat Nat min_r thm
+R14526:14534 Coq.Arith.PeanoNat Nat max_l thm
+R14526:14534 Coq.Arith.PeanoNat Nat max_l thm
+R14526:14534 Coq.Arith.PeanoNat Nat max_l thm
+prf 14604:14637 <> modules_adjacent_by_region_lattice
+binder 14648:14648 <> n:109
+binder 14650:14650 <> u:110
+binder 14652:14652 <> v:111
+R14675:14680 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14658:14660 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R14657:14657 Physics.TriangularLattice <> u:110 var
+R14661:14672 Physics.TriangularLattice <> lattice_size def
+R14674:14674 Physics.TriangularLattice <> n:109 var
+R14699:14704 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14682:14684 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R14681:14681 Physics.TriangularLattice <> v:111 var
+R14685:14696 Physics.TriangularLattice <> lattice_size def
+R14698:14698 Physics.TriangularLattice <> n:109 var
+R14756:14760 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14705:14730 Kernel.MuGravity <> modules_adjacent_by_region def
+R14733:14748 Physics.TriangularLattice <> lattice_vm_state def
+R14750:14750 Physics.TriangularLattice <> n:109 var
+R14753:14753 Physics.TriangularLattice <> u:110 var
+R14755:14755 Physics.TriangularLattice <> v:111 var
+R14761:14764 Coq.Init.Datatypes <> negb def
+R14767:14783 Kernel.VMState <> nat_list_disjoint def
+R14786:14802 Physics.TriangularLattice <> module_region_for def
+R14804:14804 Physics.TriangularLattice <> n:109 var
+R14806:14806 Physics.TriangularLattice <> u:110 var
+R14810:14826 Physics.TriangularLattice <> module_region_for def
+R14828:14828 Physics.TriangularLattice <> n:109 var
+R14830:14830 Physics.TriangularLattice <> v:111 var
+R14873:14898 Kernel.MuGravity <> modules_adjacent_by_region def
+R14901:14916 Physics.TriangularLattice <> lattice_vm_state def
+R14939:14958 Physics.TriangularLattice <> graph_lookup_lattice thm
+R14939:14958 Physics.TriangularLattice <> graph_lookup_lattice thm
+R14939:14958 Physics.TriangularLattice <> graph_lookup_lattice thm
+R14980:14999 Physics.TriangularLattice <> graph_lookup_lattice thm
+R14980:14999 Physics.TriangularLattice <> graph_lookup_lattice thm
+R14980:14999 Physics.TriangularLattice <> graph_lookup_lattice thm
+prf 15044:15079 <> modules_adjacent_by_region_neighbors
+binder 15090:15090 <> n:112
+binder 15092:15092 <> u:113
+binder 15094:15094 <> v:114
+R15105:15110 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15100:15103 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R15099:15099 Physics.TriangularLattice <> n:112 var
+R15129:15134 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15112:15114 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15111:15111 Physics.TriangularLattice <> u:113 var
+R15115:15126 Physics.TriangularLattice <> lattice_size def
+R15128:15128 Physics.TriangularLattice <> n:112 var
+R15153:15158 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15136:15138 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15135:15135 Physics.TriangularLattice <> v:114 var
+R15139:15150 Physics.TriangularLattice <> lattice_size def
+R15152:15152 Physics.TriangularLattice <> n:112 var
+R15165:15170 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15160:15163 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R15159:15159 Physics.TriangularLattice <> u:113 var
+R15164:15164 Physics.TriangularLattice <> v:114 var
+R15229:15235 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R15222:15224 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15171:15196 Kernel.MuGravity <> modules_adjacent_by_region def
+R15199:15214 Physics.TriangularLattice <> lattice_vm_state def
+R15216:15216 Physics.TriangularLattice <> n:112 var
+R15219:15219 Physics.TriangularLattice <> u:113 var
+R15221:15221 Physics.TriangularLattice <> v:114 var
+R15225:15228 Coq.Init.Datatypes <> true constr
+R15259:15262 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15236:15237 Coq.Lists.List <> In def
+R15242:15253 Physics.TriangularLattice <> neighbors_of def
+R15255:15255 Physics.TriangularLattice <> n:112 var
+R15257:15257 Physics.TriangularLattice <> u:113 var
+R15239:15239 Physics.TriangularLattice <> v:114 var
+R15263:15264 Coq.Lists.List <> In def
+R15269:15280 Physics.TriangularLattice <> neighbors_of def
+R15282:15282 Physics.TriangularLattice <> n:112 var
+R15284:15284 Physics.TriangularLattice <> v:114 var
+R15266:15266 Physics.TriangularLattice <> u:113 var
+R15338:15371 Physics.TriangularLattice <> modules_adjacent_by_region_lattice thm
+R15338:15371 Physics.TriangularLattice <> modules_adjacent_by_region_lattice thm
+R15338:15371 Physics.TriangularLattice <> modules_adjacent_by_region_lattice thm
+R15422:15439 Coq.Bool.Bool <> negb_true_iff thm
+R15422:15439 Coq.Bool.Bool <> negb_true_iff thm
+R15464:15493 Physics.TriangularLattice <> nat_list_disjoint_false_exists thm
+R15464:15493 Physics.TriangularLattice <> nat_list_disjoint_false_exists thm
+R15534:15553 Physics.TriangularLattice <> nat_list_mem_true_in thm
+R15534:15553 Physics.TriangularLattice <> nat_list_mem_true_in thm
+R15575:15591 Physics.TriangularLattice <> module_region_for def
+R15617:15626 Coq.Lists.List <> in_map_iff thm
+R15617:15626 Coq.Lists.List <> in_map_iff thm
+R15646:15655 Coq.Lists.List <> in_map_iff thm
+R15646:15655 Coq.Lists.List <> in_map_iff thm
+R15774:15776 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15777:15788 Physics.TriangularLattice <> lattice_size def
+R15804:15818 Physics.TriangularLattice <> neighbors_of_lt thm
+R15774:15776 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15777:15788 Physics.TriangularLattice <> lattice_size def
+R15804:15818 Physics.TriangularLattice <> neighbors_of_lt thm
+R15863:15865 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15866:15877 Physics.TriangularLattice <> lattice_size def
+R15893:15907 Physics.TriangularLattice <> neighbors_of_lt thm
+R15863:15865 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15866:15877 Physics.TriangularLattice <> lattice_size def
+R15893:15907 Physics.TriangularLattice <> neighbors_of_lt thm
+R15950:15969 Physics.TriangularLattice <> edge_id_eq_unordered thm
+R16005:16010 Coq.Init.Logic <> eq_sym thm
+R15950:15969 Physics.TriangularLattice <> edge_id_eq_unordered thm
+R16005:16010 Coq.Init.Logic <> eq_sym thm
+R16079:16087 Coq.Init.Logic <> or_introl constr
+R16119:16127 Coq.Init.Logic <> or_intror constr
+R16079:16087 Coq.Init.Logic <> or_introl constr
+R16119:16127 Coq.Init.Logic <> or_intror constr
+R16392:16409 Coq.Bool.Bool <> negb_true_iff thm
+R16392:16409 Coq.Bool.Bool <> negb_true_iff thm
+R16422:16459 Physics.TriangularLattice <> module_regions_share_edge_if_neighbors thm
+R16422:16459 Physics.TriangularLattice <> module_regions_share_edge_if_neighbors thm
+prf 16486:16504 <> lattice_modules_ids
+binder 16515:16515 <> n:117
+R16547:16549 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16520:16522 Coq.Lists.List <> map def
+R16529:16543 Physics.TriangularLattice <> lattice_modules def
+R16545:16545 Physics.TriangularLattice <> n:117 var
+R16524:16526 Coq.Init.Datatypes <> fst def
+R16550:16560 Physics.TriangularLattice <> lattice_ids def
+R16562:16562 Physics.TriangularLattice <> n:117 var
+R16592:16606 Physics.TriangularLattice <> lattice_modules def
+R16609:16619 Physics.TriangularLattice <> lattice_ids def
+R16632:16638 Coq.Lists.List <> map_map thm
+R16632:16638 Coq.Lists.List <> map_map thm
+R16632:16638 Coq.Lists.List <> map_map thm
+R16658:16663 Coq.Lists.List <> map_id thm
+R16658:16663 Coq.Lists.List <> map_id thm
+R16658:16663 Coq.Lists.List <> map_id thm
+prf 16691:16725 <> module_neighbors_lattice_iff_mutual
+binder 16736:16736 <> n:118
+binder 16738:16738 <> u:119
+binder 16740:16740 <> v:120
+R16751:16756 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16746:16749 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R16745:16745 Physics.TriangularLattice <> n:118 var
+R16775:16780 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16758:16760 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R16757:16757 Physics.TriangularLattice <> u:119 var
+R16761:16772 Physics.TriangularLattice <> lattice_size def
+R16774:16774 Physics.TriangularLattice <> n:118 var
+R16799:16804 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16782:16784 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R16781:16781 Physics.TriangularLattice <> v:120 var
+R16785:16796 Physics.TriangularLattice <> lattice_size def
+R16798:16798 Physics.TriangularLattice <> n:118 var
+R16851:16857 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R16805:16806 Coq.Lists.List <> In def
+R16811:16826 Kernel.MuGravity <> module_neighbors def
+R16829:16844 Physics.TriangularLattice <> lattice_vm_state def
+R16846:16846 Physics.TriangularLattice <> n:118 var
+R16849:16849 Physics.TriangularLattice <> u:119 var
+R16808:16808 Physics.TriangularLattice <> v:120 var
+R16864:16867 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16859:16862 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R16858:16858 Physics.TriangularLattice <> v:120 var
+R16863:16863 Physics.TriangularLattice <> u:119 var
+R16891:16894 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16868:16869 Coq.Lists.List <> In def
+R16874:16885 Physics.TriangularLattice <> neighbors_of def
+R16887:16887 Physics.TriangularLattice <> n:118 var
+R16889:16889 Physics.TriangularLattice <> u:119 var
+R16871:16871 Physics.TriangularLattice <> v:120 var
+R16895:16896 Coq.Lists.List <> In def
+R16901:16912 Physics.TriangularLattice <> neighbors_of def
+R16914:16914 Physics.TriangularLattice <> n:118 var
+R16916:16916 Physics.TriangularLattice <> v:120 var
+R16898:16898 Physics.TriangularLattice <> u:119 var
+R16961:16976 Kernel.MuGravity <> module_neighbors def
+R16979:17003 Kernel.MuGravity <> module_neighbors_physical def
+R17006:17030 Kernel.MuGravity <> module_neighbors_adjacent def
+R17042:17057 Physics.TriangularLattice <> lattice_vm_state def
+R17060:17072 Physics.TriangularLattice <> lattice_graph def
+R17094:17112 Physics.TriangularLattice <> lattice_modules_ids thm
+R17094:17112 Physics.TriangularLattice <> lattice_modules_ids thm
+R17094:17112 Physics.TriangularLattice <> lattice_modules_ids thm
+R17149:17157 Coq.Lists.List <> filter_In thm
+R17149:17157 Coq.Lists.List <> filter_In thm
+R17210:17222 Coq.Bool.Bool <> andb_true_iff thm
+R17210:17222 Coq.Bool.Bool <> andb_true_iff thm
+R17279:17296 Coq.Bool.Bool <> negb_true_iff thm
+R17279:17296 Coq.Bool.Bool <> negb_true_iff thm
+R17317:17327 Coq.Arith.PeanoNat Nat eqb_neq thm
+R17317:17327 Coq.Arith.PeanoNat Nat eqb_neq thm
+R17359:17362 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R17359:17362 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R17431:17435 Coq.Init.Logic <> proj1 thm
+R17438:17473 Physics.TriangularLattice <> modules_adjacent_by_region_neighbors thm
+R17431:17435 Coq.Init.Logic <> proj1 thm
+R17438:17473 Physics.TriangularLattice <> modules_adjacent_by_region_neighbors thm
+R17644:17652 Coq.Lists.List <> filter_In thm
+R17644:17652 Coq.Lists.List <> filter_In thm
+R17678:17683 Coq.Lists.List <> in_seq thm
+R17678:17683 Coq.Lists.List <> in_seq thm
+R17715:17725 Coq.Arith.PeanoNat Nat add_0_l thm
+R17715:17725 Coq.Arith.PeanoNat Nat add_0_l thm
+R17715:17725 Coq.Arith.PeanoNat Nat add_0_l thm
+R17750:17762 Coq.Bool.Bool <> andb_true_iff thm
+R17750:17762 Coq.Bool.Bool <> andb_true_iff thm
+R17786:17803 Coq.Bool.Bool <> negb_true_iff thm
+R17786:17803 Coq.Bool.Bool <> negb_true_iff thm
+R17812:17822 Coq.Arith.PeanoNat Nat eqb_neq thm
+R17812:17822 Coq.Arith.PeanoNat Nat eqb_neq thm
+R17894:17897 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R17894:17897 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R17965:17969 Coq.Init.Logic <> proj2 thm
+R17972:18007 Physics.TriangularLattice <> modules_adjacent_by_region_neighbors thm
+R17965:17969 Coq.Init.Logic <> proj2 thm
+R17972:18007 Physics.TriangularLattice <> modules_adjacent_by_region_neighbors thm
+prf 18072:18099 <> module_neighbors_lattice_iff
+binder 18110:18110 <> n:121
+binder 18112:18112 <> u:122
+binder 18114:18114 <> v:123
+R18125:18130 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18120:18123 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R18119:18119 Physics.TriangularLattice <> n:121 var
+R18149:18154 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18132:18134 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R18131:18131 Physics.TriangularLattice <> u:122 var
+R18135:18146 Physics.TriangularLattice <> lattice_size def
+R18148:18148 Physics.TriangularLattice <> n:121 var
+R18173:18178 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18156:18158 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R18155:18155 Physics.TriangularLattice <> v:123 var
+R18159:18170 Physics.TriangularLattice <> lattice_size def
+R18172:18172 Physics.TriangularLattice <> n:121 var
+R18225:18231 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R18179:18180 Coq.Lists.List <> In def
+R18185:18200 Kernel.MuGravity <> module_neighbors def
+R18203:18218 Physics.TriangularLattice <> lattice_vm_state def
+R18220:18220 Physics.TriangularLattice <> n:121 var
+R18223:18223 Physics.TriangularLattice <> u:122 var
+R18182:18182 Physics.TriangularLattice <> v:123 var
+R18238:18241 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18233:18236 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R18232:18232 Physics.TriangularLattice <> v:123 var
+R18237:18237 Physics.TriangularLattice <> u:122 var
+R18242:18243 Coq.Lists.List <> In def
+R18248:18259 Physics.TriangularLattice <> neighbors_of def
+R18261:18261 Physics.TriangularLattice <> n:121 var
+R18263:18263 Physics.TriangularLattice <> u:122 var
+R18245:18245 Physics.TriangularLattice <> v:123 var
+R18334:18338 Coq.Init.Logic <> proj1 thm
+R18341:18375 Physics.TriangularLattice <> module_neighbors_lattice_iff_mutual thm
+R18334:18338 Coq.Init.Logic <> proj1 thm
+R18341:18375 Physics.TriangularLattice <> module_neighbors_lattice_iff_mutual thm
+R18495:18499 Coq.Init.Logic <> proj2 thm
+R18502:18536 Physics.TriangularLattice <> module_neighbors_lattice_iff_mutual thm
+R18495:18499 Coq.Init.Logic <> proj2 thm
+R18502:18536 Physics.TriangularLattice <> module_neighbors_lattice_iff_mutual thm
+R18617:18638 Physics.TriangularLattice <> neighbors_of_symmetric thm
+R18617:18638 Physics.TriangularLattice <> neighbors_of_symmetric thm
+prf 18665:18691 <> module_neighbors_lattice_eq
+binder 18702:18702 <> n:124
+binder 18704:18704 <> u:125
+R18715:18720 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18710:18713 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R18709:18709 Physics.TriangularLattice <> n:124 var
+R18739:18744 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18722:18724 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R18721:18721 Physics.TriangularLattice <> u:125 var
+R18725:18736 Physics.TriangularLattice <> lattice_size def
+R18738:18738 Physics.TriangularLattice <> n:124 var
+R18784:18788 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18745:18760 Kernel.MuGravity <> module_neighbors def
+R18763:18778 Physics.TriangularLattice <> lattice_vm_state def
+R18780:18780 Physics.TriangularLattice <> n:124 var
+R18783:18783 Physics.TriangularLattice <> u:125 var
+R18789:18794 Coq.Lists.List <> filter def
+R18879:18889 Physics.TriangularLattice <> lattice_ids def
+R18891:18891 Physics.TriangularLattice <> n:124 var
+binder 18801:18801 <> v:126
+R18806:18809 Coq.Init.Datatypes <> andb def
+R18833:18844 Kernel.VMState <> nat_list_mem def
+R18846:18846 Physics.TriangularLattice <> v:126 var
+R18849:18860 Physics.TriangularLattice <> neighbors_of def
+R18862:18862 Physics.TriangularLattice <> n:124 var
+R18864:18864 Physics.TriangularLattice <> u:125 var
+R18812:18815 Coq.Init.Datatypes <> negb def
+R18818:18824 Coq.Arith.PeanoNat Nat eqb def
+R18826:18826 Physics.TriangularLattice <> u:125 var
+R18828:18828 Physics.TriangularLattice <> v:126 var
+R18931:18946 Kernel.MuGravity <> module_neighbors def
+R18949:18973 Kernel.MuGravity <> module_neighbors_physical def
+R18976:19000 Kernel.MuGravity <> module_neighbors_adjacent def
+R19012:19027 Physics.TriangularLattice <> lattice_vm_state def
+R19030:19042 Physics.TriangularLattice <> lattice_graph def
+R19064:19082 Physics.TriangularLattice <> lattice_modules_ids thm
+R19064:19082 Physics.TriangularLattice <> lattice_modules_ids thm
+R19064:19082 Physics.TriangularLattice <> lattice_modules_ids thm
+R19093:19105 Coq.Lists.List <> filter_ext_in thm
+R19093:19105 Coq.Lists.List <> filter_ext_in thm
+R19132:19137 Coq.Lists.List <> in_seq thm
+R19132:19137 Coq.Lists.List <> in_seq thm
+R19185:19191 Coq.Arith.PeanoNat Nat eqb def
+R19185:19191 Coq.Arith.PeanoNat Nat eqb def
+R19241:19251 Coq.Arith.PeanoNat Nat eqb_neq thm
+R19241:19251 Coq.Arith.PeanoNat Nat eqb_neq thm
+R19271:19284 Coq.Bool.Bool <> eq_true_iff_eq thm
+R19271:19284 Coq.Bool.Bool <> eq_true_iff_eq thm
+R19334:19338 Coq.Init.Logic <> proj1 thm
+R19341:19376 Physics.TriangularLattice <> modules_adjacent_by_region_neighbors thm
+R19334:19338 Coq.Init.Logic <> proj1 thm
+R19341:19376 Physics.TriangularLattice <> modules_adjacent_by_region_neighbors thm
+R19431:19453 Physics.TriangularLattice <> nat_list_mem_true_of_in thm
+R19431:19453 Physics.TriangularLattice <> nat_list_mem_true_of_in thm
+R19463:19467 Coq.Init.Logic <> proj1 thm
+R19463:19467 Coq.Init.Logic <> proj1 thm
+R19512:19531 Physics.TriangularLattice <> nat_list_mem_true_in thm
+R19512:19531 Physics.TriangularLattice <> nat_list_mem_true_in thm
+R19567:19588 Physics.TriangularLattice <> neighbors_of_symmetric thm
+R19567:19588 Physics.TriangularLattice <> neighbors_of_symmetric thm
+R19636:19640 Coq.Init.Logic <> proj2 thm
+R19643:19678 Physics.TriangularLattice <> modules_adjacent_by_region_neighbors thm
+R19636:19640 Coq.Init.Logic <> proj2 thm
+R19643:19678 Physics.TriangularLattice <> modules_adjacent_by_region_neighbors thm
+R19737:19740 Coq.Init.Logic <> conj constr
+R19737:19740 Coq.Init.Logic <> conj constr

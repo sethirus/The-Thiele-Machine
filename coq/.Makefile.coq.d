@@ -259,15 +259,15 @@ modular_proofs/Minsky.vos modular_proofs/Minsky.vok modular_proofs/Minsky.requir
 modular_proofs/Simulation.vo modular_proofs/Simulation.glob modular_proofs/Simulation.v.beautified modular_proofs/Simulation.required_vo: modular_proofs/Simulation.v modular_proofs/TM_Basics.vo modular_proofs/Thiele_Basics.vo
 modular_proofs/Simulation.vio: modular_proofs/Simulation.v modular_proofs/TM_Basics.vio modular_proofs/Thiele_Basics.vio
 modular_proofs/Simulation.vos modular_proofs/Simulation.vok modular_proofs/Simulation.required_vos: modular_proofs/Simulation.v modular_proofs/TM_Basics.vos modular_proofs/Thiele_Basics.vos
-modular_proofs/TM_Basics.vo modular_proofs/TM_Basics.glob modular_proofs/TM_Basics.v.beautified modular_proofs/TM_Basics.required_vo: modular_proofs/TM_Basics.v 
-modular_proofs/TM_Basics.vio: modular_proofs/TM_Basics.v 
-modular_proofs/TM_Basics.vos modular_proofs/TM_Basics.vok modular_proofs/TM_Basics.required_vos: modular_proofs/TM_Basics.v 
+modular_proofs/TM_Basics.vo modular_proofs/TM_Basics.glob modular_proofs/TM_Basics.v.beautified modular_proofs/TM_Basics.required_vo: modular_proofs/TM_Basics.v modular_proofs/Encoding.vo
+modular_proofs/TM_Basics.vio: modular_proofs/TM_Basics.v modular_proofs/Encoding.vio
+modular_proofs/TM_Basics.vos modular_proofs/TM_Basics.vok modular_proofs/TM_Basics.required_vos: modular_proofs/TM_Basics.v modular_proofs/Encoding.vos
 modular_proofs/Thiele_Basics.vo modular_proofs/Thiele_Basics.glob modular_proofs/Thiele_Basics.v.beautified modular_proofs/Thiele_Basics.required_vo: modular_proofs/Thiele_Basics.v modular_proofs/TM_Basics.vo
 modular_proofs/Thiele_Basics.vio: modular_proofs/Thiele_Basics.v modular_proofs/TM_Basics.vio
 modular_proofs/Thiele_Basics.vos modular_proofs/Thiele_Basics.vok modular_proofs/Thiele_Basics.required_vos: modular_proofs/Thiele_Basics.v modular_proofs/TM_Basics.vos
-modular_proofs/ThieleInstance.vo modular_proofs/ThieleInstance.glob modular_proofs/ThieleInstance.v.beautified modular_proofs/ThieleInstance.required_vo: modular_proofs/ThieleInstance.v modular_proofs/TM_Basics.vo modular_proofs/Encoding.vo modular_proofs/Thiele_Basics.vo
-modular_proofs/ThieleInstance.vio: modular_proofs/ThieleInstance.v modular_proofs/TM_Basics.vio modular_proofs/Encoding.vio modular_proofs/Thiele_Basics.vio
-modular_proofs/ThieleInstance.vos modular_proofs/ThieleInstance.vok modular_proofs/ThieleInstance.required_vos: modular_proofs/ThieleInstance.v modular_proofs/TM_Basics.vos modular_proofs/Encoding.vos modular_proofs/Thiele_Basics.vos
+modular_proofs/ThieleInstance.vo modular_proofs/ThieleInstance.glob modular_proofs/ThieleInstance.v.beautified modular_proofs/ThieleInstance.required_vo: modular_proofs/ThieleInstance.v modular_proofs/TM_Basics.vo modular_proofs/Encoding.vo modular_proofs/EncodingBounds.vo modular_proofs/Thiele_Basics.vo
+modular_proofs/ThieleInstance.vio: modular_proofs/ThieleInstance.v modular_proofs/TM_Basics.vio modular_proofs/Encoding.vio modular_proofs/EncodingBounds.vio modular_proofs/Thiele_Basics.vio
+modular_proofs/ThieleInstance.vos modular_proofs/ThieleInstance.vok modular_proofs/ThieleInstance.required_vos: modular_proofs/ThieleInstance.v modular_proofs/TM_Basics.vos modular_proofs/Encoding.vos modular_proofs/EncodingBounds.vos modular_proofs/Thiele_Basics.vos
 modular_proofs/TM_to_Minsky.vo modular_proofs/TM_to_Minsky.glob modular_proofs/TM_to_Minsky.v.beautified modular_proofs/TM_to_Minsky.required_vo: modular_proofs/TM_to_Minsky.v modular_proofs/TM_Basics.vo modular_proofs/Minsky.vo
 modular_proofs/TM_to_Minsky.vio: modular_proofs/TM_to_Minsky.v modular_proofs/TM_Basics.vio modular_proofs/Minsky.vio
 modular_proofs/TM_to_Minsky.vos modular_proofs/TM_to_Minsky.vok modular_proofs/TM_to_Minsky.required_vos: modular_proofs/TM_to_Minsky.v modular_proofs/TM_Basics.vos modular_proofs/Minsky.vos
@@ -298,6 +298,9 @@ physics/LandauerBridge.vos physics/LandauerBridge.vok physics/LandauerBridge.req
 physics/PreregSplit.vo physics/PreregSplit.glob physics/PreregSplit.v.beautified physics/PreregSplit.required_vo: physics/PreregSplit.v 
 physics/PreregSplit.vio: physics/PreregSplit.v 
 physics/PreregSplit.vos physics/PreregSplit.vok physics/PreregSplit.required_vos: physics/PreregSplit.v 
+physics/TriangularLattice.vo physics/TriangularLattice.glob physics/TriangularLattice.v.beautified physics/TriangularLattice.required_vo: physics/TriangularLattice.v kernel/VMState.vo kernel/MuGravity.vo modular_proofs/EncodingBounds.vo
+physics/TriangularLattice.vio: physics/TriangularLattice.v kernel/VMState.vio kernel/MuGravity.vio modular_proofs/EncodingBounds.vio
+physics/TriangularLattice.vos physics/TriangularLattice.vok physics/TriangularLattice.required_vos: physics/TriangularLattice.v kernel/VMState.vos kernel/MuGravity.vos modular_proofs/EncodingBounds.vos
 physics/WaveModel.vo physics/WaveModel.glob physics/WaveModel.v.beautified physics/WaveModel.required_vo: physics/WaveModel.v 
 physics/WaveModel.vio: physics/WaveModel.v 
 physics/WaveModel.vos physics/WaveModel.vok physics/WaveModel.required_vos: physics/WaveModel.v 
@@ -352,12 +355,12 @@ thielemachine/coqproofs/Axioms.vos thielemachine/coqproofs/Axioms.vok thielemach
 thielemachine/coqproofs/BellArtifacts.vo thielemachine/coqproofs/BellArtifacts.glob thielemachine/coqproofs/BellArtifacts.v.beautified thielemachine/coqproofs/BellArtifacts.required_vo: thielemachine/coqproofs/BellArtifacts.v thielemachine/coqproofs/BellInequality.vo
 thielemachine/coqproofs/BellArtifacts.vio: thielemachine/coqproofs/BellArtifacts.v thielemachine/coqproofs/BellInequality.vio
 thielemachine/coqproofs/BellArtifacts.vos thielemachine/coqproofs/BellArtifacts.vok thielemachine/coqproofs/BellArtifacts.required_vos: thielemachine/coqproofs/BellArtifacts.v thielemachine/coqproofs/BellInequality.vos
-thielemachine/coqproofs/BellCheck.vo thielemachine/coqproofs/BellCheck.glob thielemachine/coqproofs/BellCheck.v.beautified thielemachine/coqproofs/BellCheck.required_vo: thielemachine/coqproofs/BellCheck.v thielemachine/coqproofs/BellInequality.vo
-thielemachine/coqproofs/BellCheck.vio: thielemachine/coqproofs/BellCheck.v thielemachine/coqproofs/BellInequality.vio
-thielemachine/coqproofs/BellCheck.vos thielemachine/coqproofs/BellCheck.vok thielemachine/coqproofs/BellCheck.required_vos: thielemachine/coqproofs/BellCheck.v thielemachine/coqproofs/BellInequality.vos
 thielemachine/coqproofs/BellInequality.vo thielemachine/coqproofs/BellInequality.glob thielemachine/coqproofs/BellInequality.v.beautified thielemachine/coqproofs/BellInequality.required_vo: thielemachine/coqproofs/BellInequality.v thielemachine/coqproofs/ThieleMachineConcrete.vo thielemachine/coqproofs/QHelpers.vo
 thielemachine/coqproofs/BellInequality.vio: thielemachine/coqproofs/BellInequality.v thielemachine/coqproofs/ThieleMachineConcrete.vio thielemachine/coqproofs/QHelpers.vio
 thielemachine/coqproofs/BellInequality.vos thielemachine/coqproofs/BellInequality.vok thielemachine/coqproofs/BellInequality.required_vos: thielemachine/coqproofs/BellInequality.v thielemachine/coqproofs/ThieleMachineConcrete.vos thielemachine/coqproofs/QHelpers.vos
+thielemachine/coqproofs/BellCheck.vo thielemachine/coqproofs/BellCheck.glob thielemachine/coqproofs/BellCheck.v.beautified thielemachine/coqproofs/BellCheck.required_vo: thielemachine/coqproofs/BellCheck.v thielemachine/coqproofs/BellInequality.vo
+thielemachine/coqproofs/BellCheck.vio: thielemachine/coqproofs/BellCheck.v thielemachine/coqproofs/BellInequality.vio
+thielemachine/coqproofs/BellCheck.vos thielemachine/coqproofs/BellCheck.vok thielemachine/coqproofs/BellCheck.required_vos: thielemachine/coqproofs/BellCheck.v thielemachine/coqproofs/BellInequality.vos
 thielemachine/coqproofs/BellReceiptLocalBound.vo thielemachine/coqproofs/BellReceiptLocalBound.glob thielemachine/coqproofs/BellReceiptLocalBound.v.beautified thielemachine/coqproofs/BellReceiptLocalBound.required_vo: thielemachine/coqproofs/BellReceiptLocalBound.v thielemachine/coqproofs/BellInequality.vo thielemachine/coqproofs/BellReceiptSemantics.vo thielemachine/coqproofs/BellReceiptSoundness.vo thielemachine/coqproofs/BellReceiptLocalGeneral.vo thielemachine/coqproofs/ThieleMachineConcrete.vo
 thielemachine/coqproofs/BellReceiptLocalBound.vio: thielemachine/coqproofs/BellReceiptLocalBound.v thielemachine/coqproofs/BellInequality.vio thielemachine/coqproofs/BellReceiptSemantics.vio thielemachine/coqproofs/BellReceiptSoundness.vio thielemachine/coqproofs/BellReceiptLocalGeneral.vio thielemachine/coqproofs/ThieleMachineConcrete.vio
 thielemachine/coqproofs/BellReceiptLocalBound.vos thielemachine/coqproofs/BellReceiptLocalBound.vok thielemachine/coqproofs/BellReceiptLocalBound.required_vos: thielemachine/coqproofs/BellReceiptLocalBound.v thielemachine/coqproofs/BellInequality.vos thielemachine/coqproofs/BellReceiptSemantics.vos thielemachine/coqproofs/BellReceiptSoundness.vos thielemachine/coqproofs/BellReceiptLocalGeneral.vos thielemachine/coqproofs/ThieleMachineConcrete.vos
@@ -688,6 +691,15 @@ kernel/Unitarity.vos kernel/Unitarity.vok kernel/Unitarity.required_vos: kernel/
 kernel/BornRule.vo kernel/BornRule.glob kernel/BornRule.v.beautified kernel/BornRule.required_vo: kernel/BornRule.v 
 kernel/BornRule.vio: kernel/BornRule.v 
 kernel/BornRule.vos kernel/BornRule.vok kernel/BornRule.required_vos: kernel/BornRule.v 
+kernel/BornRuleFromSymmetry.vo kernel/BornRuleFromSymmetry.glob kernel/BornRuleFromSymmetry.v.beautified kernel/BornRuleFromSymmetry.required_vo: kernel/BornRuleFromSymmetry.v 
+kernel/BornRuleFromSymmetry.vio: kernel/BornRuleFromSymmetry.v 
+kernel/BornRuleFromSymmetry.vos kernel/BornRuleFromSymmetry.vok kernel/BornRuleFromSymmetry.required_vos: kernel/BornRuleFromSymmetry.v 
+kernel/NoCloningFromMuMonotonicity.vo kernel/NoCloningFromMuMonotonicity.glob kernel/NoCloningFromMuMonotonicity.v.beautified kernel/NoCloningFromMuMonotonicity.required_vo: kernel/NoCloningFromMuMonotonicity.v 
+kernel/NoCloningFromMuMonotonicity.vio: kernel/NoCloningFromMuMonotonicity.v 
+kernel/NoCloningFromMuMonotonicity.vos kernel/NoCloningFromMuMonotonicity.vok kernel/NoCloningFromMuMonotonicity.required_vos: kernel/NoCloningFromMuMonotonicity.v 
+kernel/TsirelsonFromAlgebra.vo kernel/TsirelsonFromAlgebra.glob kernel/TsirelsonFromAlgebra.v.beautified kernel/TsirelsonFromAlgebra.required_vo: kernel/TsirelsonFromAlgebra.v 
+kernel/TsirelsonFromAlgebra.vio: kernel/TsirelsonFromAlgebra.v 
+kernel/TsirelsonFromAlgebra.vos kernel/TsirelsonFromAlgebra.vok kernel/TsirelsonFromAlgebra.required_vos: kernel/TsirelsonFromAlgebra.v 
 kernel/AssumptionBundle.vo kernel/AssumptionBundle.glob kernel/AssumptionBundle.v.beautified kernel/AssumptionBundle.required_vo: kernel/AssumptionBundle.v kernel/ValidCorrelation.vo kernel/AlgebraicCoherence.vo
 kernel/AssumptionBundle.vio: kernel/AssumptionBundle.v kernel/ValidCorrelation.vio kernel/AlgebraicCoherence.vio
 kernel/AssumptionBundle.vos kernel/AssumptionBundle.vok kernel/AssumptionBundle.required_vos: kernel/AssumptionBundle.v kernel/ValidCorrelation.vos kernel/AlgebraicCoherence.vos
@@ -769,6 +781,9 @@ quantum_derivation/TensorNecessity.vos quantum_derivation/TensorNecessity.vok qu
 quantum_derivation/TwoDimensionalNecessity.vo quantum_derivation/TwoDimensionalNecessity.glob quantum_derivation/TwoDimensionalNecessity.v.beautified quantum_derivation/TwoDimensionalNecessity.required_vo: quantum_derivation/TwoDimensionalNecessity.v thielemachine/coqproofs/CoreSemantics.vo quantum_derivation/CompositePartitions.vo
 quantum_derivation/TwoDimensionalNecessity.vio: quantum_derivation/TwoDimensionalNecessity.v thielemachine/coqproofs/CoreSemantics.vio quantum_derivation/CompositePartitions.vio
 quantum_derivation/TwoDimensionalNecessity.vos quantum_derivation/TwoDimensionalNecessity.vok quantum_derivation/TwoDimensionalNecessity.required_vos: quantum_derivation/TwoDimensionalNecessity.v thielemachine/coqproofs/CoreSemantics.vos quantum_derivation/CompositePartitions.vos
+quantum_derivation/ComplexNecessity.vo quantum_derivation/ComplexNecessity.glob quantum_derivation/ComplexNecessity.v.beautified quantum_derivation/ComplexNecessity.required_vo: quantum_derivation/ComplexNecessity.v 
+quantum_derivation/ComplexNecessity.vio: quantum_derivation/ComplexNecessity.v 
+quantum_derivation/ComplexNecessity.vos quantum_derivation/ComplexNecessity.vok quantum_derivation/ComplexNecessity.required_vos: quantum_derivation/ComplexNecessity.v 
 shor_primitives/PolylogConjecture.vo shor_primitives/PolylogConjecture.glob shor_primitives/PolylogConjecture.v.beautified shor_primitives/PolylogConjecture.required_vo: shor_primitives/PolylogConjecture.v 
 shor_primitives/PolylogConjecture.vio: shor_primitives/PolylogConjecture.v 
 shor_primitives/PolylogConjecture.vos shor_primitives/PolylogConjecture.vok shor_primitives/PolylogConjecture.required_vos: shor_primitives/PolylogConjecture.v 
@@ -841,3 +856,15 @@ kernel/ArrowOfTimeSynthesis.vos kernel/ArrowOfTimeSynthesis.vok kernel/ArrowOfTi
 kernel/ConstantDerivationStrength.vo kernel/ConstantDerivationStrength.glob kernel/ConstantDerivationStrength.v.beautified kernel/ConstantDerivationStrength.required_vo: kernel/ConstantDerivationStrength.v 
 kernel/ConstantDerivationStrength.vio: kernel/ConstantDerivationStrength.v 
 kernel/ConstantDerivationStrength.vos kernel/ConstantDerivationStrength.vok kernel/ConstantDerivationStrength.required_vos: kernel/ConstantDerivationStrength.v 
+kernel/MuGravity.vo kernel/MuGravity.glob kernel/MuGravity.v.beautified kernel/MuGravity.required_vo: kernel/MuGravity.v kernel/VMState.vo kernel/VMStep.vo kernel/SimulationProof.vo kernel/SpacetimeEmergence.vo kernel/ConeAlgebra.vo kernel/MuLedgerConservation.vo kernel/KernelPhysics.vo kernel/Locality.vo kernel/ConstantUnification.vo kernel/MuGeometry.vo
+kernel/MuGravity.vio: kernel/MuGravity.v kernel/VMState.vio kernel/VMStep.vio kernel/SimulationProof.vio kernel/SpacetimeEmergence.vio kernel/ConeAlgebra.vio kernel/MuLedgerConservation.vio kernel/KernelPhysics.vio kernel/Locality.vio kernel/ConstantUnification.vio kernel/MuGeometry.vio
+kernel/MuGravity.vos kernel/MuGravity.vok kernel/MuGravity.required_vos: kernel/MuGravity.v kernel/VMState.vos kernel/VMStep.vos kernel/SimulationProof.vos kernel/SpacetimeEmergence.vos kernel/ConeAlgebra.vos kernel/MuLedgerConservation.vos kernel/KernelPhysics.vos kernel/Locality.vos kernel/ConstantUnification.vos kernel/MuGeometry.vos
+kernel/MuGravity_Definitions.vo kernel/MuGravity_Definitions.glob kernel/MuGravity_Definitions.v.beautified kernel/MuGravity_Definitions.required_vo: kernel/MuGravity_Definitions.v kernel/MuGravity.vo
+kernel/MuGravity_Definitions.vio: kernel/MuGravity_Definitions.v kernel/MuGravity.vio
+kernel/MuGravity_Definitions.vos kernel/MuGravity_Definitions.vok kernel/MuGravity_Definitions.required_vos: kernel/MuGravity_Definitions.v kernel/MuGravity.vos
+kernel/MuGravity_BridgeTheorems.vo kernel/MuGravity_BridgeTheorems.glob kernel/MuGravity_BridgeTheorems.v.beautified kernel/MuGravity_BridgeTheorems.required_vo: kernel/MuGravity_BridgeTheorems.v kernel/VMState.vo kernel/ConstantUnification.vo kernel/MuGravity.vo
+kernel/MuGravity_BridgeTheorems.vio: kernel/MuGravity_BridgeTheorems.v kernel/VMState.vio kernel/ConstantUnification.vio kernel/MuGravity.vio
+kernel/MuGravity_BridgeTheorems.vos kernel/MuGravity_BridgeTheorems.vok kernel/MuGravity_BridgeTheorems.required_vos: kernel/MuGravity_BridgeTheorems.v kernel/VMState.vos kernel/ConstantUnification.vos kernel/MuGravity.vos
+kernel/MuGravity_Emergence.vo kernel/MuGravity_Emergence.glob kernel/MuGravity_Emergence.v.beautified kernel/MuGravity_Emergence.required_vo: kernel/MuGravity_Emergence.v kernel/VMState.vo kernel/VMStep.vo kernel/SimulationProof.vo kernel/ConstantUnification.vo kernel/MuGravity.vo
+kernel/MuGravity_Emergence.vio: kernel/MuGravity_Emergence.v kernel/VMState.vio kernel/VMStep.vio kernel/SimulationProof.vio kernel/ConstantUnification.vio kernel/MuGravity.vio
+kernel/MuGravity_Emergence.vos kernel/MuGravity_Emergence.vok kernel/MuGravity_Emergence.required_vos: kernel/MuGravity_Emergence.v kernel/VMState.vos kernel/VMStep.vos kernel/SimulationProof.vos kernel/ConstantUnification.vos kernel/MuGravity.vos
