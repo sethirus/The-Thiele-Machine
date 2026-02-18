@@ -20,14 +20,15 @@ import json
 import math
 from pathlib import Path
 
+import pytest
+
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 try:
     from build.thiele_vm import VMState, run_vm, graph_lookup
-except ImportError:
-    print("WARNING: Could not import VM - tests will be skipped")
-    sys.exit(0)
+except Exception:
+    pytest.skip("build.thiele_vm not available", allow_module_level=True)
 
 
 # Physical constants from ConstantUnification.v
