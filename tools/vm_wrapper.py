@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import List, Dict, Any, Tuple
 from dataclasses import dataclass
 
-VM_RUNNER_PATH = Path(__file__).parent.parent / "build" / "vm_runner"
+VM_RUNNER_PATH = Path(__file__).parent.parent / "build" / "extracted_vm_runner"
 
 @dataclass
 class VMModule:
@@ -48,7 +48,7 @@ def run_vm_trace(instructions: List[str], fuel: int = 1000) -> VMState:
         RuntimeError: If VM execution fails
     """
     if not VM_RUNNER_PATH.exists():
-        raise RuntimeError(f"VM runner not found at {VM_RUNNER_PATH}. Run: ocamlfind ocamlopt -linkpkg -package str -I build -o build/vm_runner build/thiele_core.mli build/thiele_core.ml tools/extracted_vm_runner.ml")
+        raise RuntimeError(f"VM runner not found at {VM_RUNNER_PATH}. Run: ocamlc -I build -o build/extracted_vm_runner build/thiele_core.mli build/thiele_core.ml tools/extracted_vm_runner.ml")
 
     # Create temporary trace file
     with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as f:
