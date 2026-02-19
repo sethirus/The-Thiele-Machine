@@ -7,10 +7,10 @@ flowchart LR
   N2 -->|194| N1
   N3["coq/kernel/MuGravity.v"]
   N4["thielecpu/hardware/rtl/cross_layer_defs.vh"]
-  N3 -->|182| N4
+  N3 -->|181| N4
   N5["thielecpu/vm.py"]
   N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
-  N5 -->|164| N1
+  N5 -->|170| N1
   N4["thielecpu/hardware/rtl/cross_layer_defs.vh"]
   N3["coq/kernel/MuGravity.v"]
   N4 -->|163| N3
@@ -44,21 +44,21 @@ flowchart LR
   N8["experiments/qd3_literature_comparison.py"]
   N6["coq/thielemachine/coqproofs/BellInequality.v"]
   N8 -->|107| N6
+  N10["thielecpu/dsl/executor.py"]
+  N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
+  N10 -->|103| N1
   N2["thielecpu/cross_layer_manifest.py"]
   N6["coq/thielemachine/coqproofs/BellInequality.v"]
   N2 -->|101| N6
-  N10["thielecpu/dsl/executor.py"]
-  N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
-  N10 -->|100| N1
   N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
   N10["thielecpu/dsl/executor.py"]
   N1 -->|97| N10
   N3["coq/kernel/MuGravity.v"]
   N11["scripts/validate_mu_gravity_calibration.py"]
-  N3 -->|87| N11
+  N3 -->|86| N11
   N12["coq/thielemachine/coqproofs/CoreSemantics.v"]
   N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
-  N12 -->|87| N1
+  N12 -->|86| N1
   N13["coq/kernel/VMState.v"]
   N4["thielecpu/hardware/rtl/cross_layer_defs.vh"]
   N13 -->|82| N4

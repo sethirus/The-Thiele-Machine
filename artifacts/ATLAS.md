@@ -1,15 +1,15 @@
 # Thiele Integration Atlas
 
-Generated: 2026-02-19T15:35:18.318451+00:00
+Generated: 2026-02-19T20:21:50.823431+00:00
 
 Single canonical atlas for cross-layer integration planning (Coq + VM/Python + RTL/Verilog + tests).
 
 ## Executive Summary
 
-- Total symbols: **14883**
-- Total edges: **108266**
+- Total symbols: **14953**
+- Total edges: **108989**
 - 3-layer triads: **164**
-- Partial triads (2/3 layers): **88**
+- Partial triads (2/3 layers): **90**
 - Integrate candidates: **0**
 - Safe removals (strict): **0**
 - Inquisitor gate: **PASS**
@@ -28,7 +28,7 @@ Important: Proof accuracy is Inquisitor proof-hygiene quality, not project compl
 | Strict pass | True |
 | Proof accuracy | 100.00% |
 | Proof grade | A+ |
-| Scanned Coq files | 307 |
+| Scanned Coq files | 308 |
 | HIGH findings | 0 |
 | MEDIUM findings | 0 |
 | LOW findings | 0 |
@@ -42,7 +42,7 @@ Top failing rule families from Inquisitor:
 
 ## Kernel Organization Guidance
 
-- Kernel Coq files: **122**, average connectivity **73%**
+- Kernel Coq files: **123**, average connectivity **73%**
 - Non-kernel Coq files: **182**, average connectivity **74%**
 - Guidance: Kernel connectivity is weaker than non-kernel Coq files; prioritize proving bridge lemmas from physics/domain theorems into kernel VM semantics before moving declarations into kernel.
 
@@ -50,12 +50,12 @@ Top failing rule families from Inquisitor:
 
 | Metric | Value |
 |---|---:|
-| Isomorphism score (0-100) | 87.73 |
+| Isomorphism score (0-100) | 87.55 |
 | Core+Bridge production ratio | 100% |
 | Triad completion ratio | 65% |
 | Directional coverage | 6/6 |
 | Integrate-file pressure | 0% |
-| Completion readiness (heuristic) | 63.65 |
+| Completion readiness (heuristic) | 63.52 |
 
 ## Test Verification Gate
 
@@ -65,8 +65,8 @@ Top failing rule families from Inquisitor:
 | Production symbol coverage | 7% |
 | Production file coverage | 47% |
 | Isolated test files | 0 |
-| Covered prod symbols | 894/12006 |
-| Covered prod files | 233/501 |
+| Covered prod symbols | 899/12076 |
+| Covered prod files | 235/505 |
 
 ## Definition of Done (Unambiguous Completion Gate)
 
@@ -74,15 +74,15 @@ Overall status: **NOT_COMPLETED**
 
 | Check | Actual | Target | Pass |
 |---|---:|---:|---|
-| isomorphism_score | 87.73 | >= 100.0 | False |
-| triad_completion_ratio | 0.6508 | >= 1.0 | False |
-| core_bridge_ratio | 0.9988 | >= 1.0 | False |
-| test_prod_symbol_coverage_ratio | 0.0745 | >= 1.0 | False |
-| test_prod_file_coverage_ratio | 0.4651 | >= 1.0 | False |
+| isomorphism_score | 87.55 | >= 100.0 | False |
+| triad_completion_ratio | 0.6457 | >= 1.0 | False |
+| core_bridge_ratio | 0.9986 | >= 1.0 | False |
+| test_prod_symbol_coverage_ratio | 0.0744 | >= 1.0 | False |
+| test_prod_file_coverage_ratio | 0.4653 | >= 1.0 | False |
 | isolated_test_files | 0.0 | <= 0.0 | True |
-| per_proof_doc_ratio | 1.0 | >= 1.0 | True |
+| per_proof_doc_ratio | 0.9988 | >= 1.0 | False |
 | proof_files_with_readme_ratio | 1.0 | >= 1.0 | True |
-| kernel_proof_latex_coverage_ratio | 1.0 | >= 1.0 | True |
+| kernel_proof_latex_coverage_ratio | 0.9962 | >= 1.0 | False |
 | coq_compile_pass | 1.0 | >= 1.0 | True |
 | extraction_freshness_pass | 1.0 | >= 1.0 | True |
 | rtl_synthesis_pass | 1.0 | >= 1.0 | True |
@@ -90,11 +90,13 @@ Overall status: **NOT_COMPLETED**
 
 Unmet checks:
 
-- isomorphism_score: actual=87.73 target >= 100.0
-- triad_completion_ratio: actual=0.6508 target >= 1.0
-- core_bridge_ratio: actual=0.9988 target >= 1.0
-- test_prod_symbol_coverage_ratio: actual=0.0745 target >= 1.0
-- test_prod_file_coverage_ratio: actual=0.4651 target >= 1.0
+- isomorphism_score: actual=87.55 target >= 100.0
+- triad_completion_ratio: actual=0.6457 target >= 1.0
+- core_bridge_ratio: actual=0.9986 target >= 1.0
+- test_prod_symbol_coverage_ratio: actual=0.0744 target >= 1.0
+- test_prod_file_coverage_ratio: actual=0.4653 target >= 1.0
+- per_proof_doc_ratio: actual=0.9988 target >= 1.0
+- kernel_proof_latex_coverage_ratio: actual=0.9962 target >= 1.0
 
 ## Toolchain Reality Gates
 
@@ -104,7 +106,7 @@ checkable end-to-end.
 
 | Gate | Ran | Pass | Detail |
 |---|---|---|---|
-| Coq compile (make -C coq, zero Admitted) | ✓ | **PASS** | 310/310 .vo, admits=0 |
+| Coq compile (make -C coq, zero Admitted) | ✓ | **PASS** | 311/311 .vo, admits=0 |
 | Extraction freshness (thiele_core.ml ≥ Extraction.v) | ✓ | **PASS** | — |
 | RTL synthesis (Yosys lite, top=thiele_cpu, cells>0) | ✓ | **PASS** | cells=2 top=True |
 | Co-simulation (iverilog/vvp testbench) | ✓ | **PASS** | rc=0 fatal=False |
@@ -114,7 +116,7 @@ checkable end-to-end.
 | Metric | Value |
 |---|---:|
 | TeX files scanned | 20 |
-| Kernel proof symbols mentioned in TeX | 1042/1042 |
+| Kernel proof symbols mentioned in TeX | 1042/1046 |
 | Kernel proof LaTeX coverage ratio | 100% |
 | Triad norms mentioned in TeX | 93/164 |
 | Triad norm LaTeX coverage ratio | 57% |
@@ -123,19 +125,23 @@ Top missing kernel proof symbols in TeX (first 20):
 
 | Symbol |
 |---|
-| *(none)* |
+| alpha_fundamental |
+| p_13_equals_101 |
+| p_14_equals_135 |
+| p_15_equals_176 |
 
 ## Coq Proof Documentation Coverage (Low Priority)
 
 | Metric | Value |
 |---|---:|
-| Proof files | 274 |
-| Proof files with local README | 274/274 |
-| Proof files with comment blocks | 274/274 |
-| Proof files documented (README + comments) | 274/274 |
+| Proof files | 275 |
+| Proof files with local README | 275/275 |
+| Proof files with comment blocks | 275/275 |
+| Proof files documented (README + comments) | 274/275 |
 
 | Proof file | Proof count | Has comments | Has README | Status |
 |---|---:|---|---|---|
+| coq/kernel/AlphaDerivation.v | 4 | True | True | needs_docs |
 | coq/bridge/BoxWorld_to_Kernel.v | 7 | True | True | documented |
 | coq/bridge/Causal_to_Kernel.v | 1 | True | True | documented |
 | coq/bridge/Entropy_to_Kernel.v | 1 | True | True | documented |
@@ -395,8 +401,7 @@ Top missing kernel proof symbols in TeX (first 20):
 | coq/thielemachine/verification/Deliverable_SignalingLowerBound.v | 1 | True | True | documented |
 | coq/thielemachine/verification/FullIsomorphism.v | 10 | True | True | documented |
 | coq/thielemachine/verification/ObservationInterface.v | 8 | True | True | documented |
-| coq/thielemachine/verification/PhysicsPillars.v | 14 | True | True | documented |
-| ... 14 more proof-doc rows omitted | | | | |
+| ... 15 more proof-doc rows omitted | | | | |
 
 Top uncovered production files (first 20):
 
@@ -432,16 +437,16 @@ Top uncovered production files (first 20):
 
 | Rank | Task | Type | Estimated score gain | Details |
 |---:|---|---|---:|---|
-| 1 | Complete triad 'base' | close_partial_triad | 0.14 | missing=rtl present=coq,python |
-| 2 | Complete triad 'csr_cert_addr' | close_partial_triad | 0.14 | missing=coq present=python,rtl |
-| 3 | Complete triad 'csr_error' | close_partial_triad | 0.14 | missing=coq present=python,rtl |
-| 4 | Complete triad 'csr_status' | close_partial_triad | 0.14 | missing=coq present=python,rtl |
-| 5 | Complete triad 'err_chain' | close_partial_triad | 0.14 | missing=coq present=python,rtl |
-| 6 | Complete triad 'err_mu_mismatch' | close_partial_triad | 0.14 | missing=coq present=python,rtl |
-| 7 | Complete triad 'err_none' | close_partial_triad | 0.14 | missing=coq present=python,rtl |
-| 8 | Complete triad 'err_overflow' | close_partial_triad | 0.14 | missing=coq present=python,rtl |
-| 9 | Complete triad 'err_unknown_op' | close_partial_triad | 0.14 | missing=coq present=python,rtl |
-| 10 | Complete triad 'idle' | close_partial_triad | 0.14 | missing=coq present=python,rtl |
+| 1 | Complete triad 'alpha_em' | close_partial_triad | 0.14 | missing=rtl present=coq,python |
+| 2 | Complete triad 'base' | close_partial_triad | 0.14 | missing=rtl present=coq,python |
+| 3 | Complete triad 'csr_cert_addr' | close_partial_triad | 0.14 | missing=coq present=python,rtl |
+| 4 | Complete triad 'csr_error' | close_partial_triad | 0.14 | missing=coq present=python,rtl |
+| 5 | Complete triad 'csr_status' | close_partial_triad | 0.14 | missing=coq present=python,rtl |
+| 6 | Complete triad 'err_chain' | close_partial_triad | 0.14 | missing=coq present=python,rtl |
+| 7 | Complete triad 'err_mu_mismatch' | close_partial_triad | 0.14 | missing=coq present=python,rtl |
+| 8 | Complete triad 'err_none' | close_partial_triad | 0.14 | missing=coq present=python,rtl |
+| 9 | Complete triad 'err_overflow' | close_partial_triad | 0.14 | missing=coq present=python,rtl |
+| 10 | Complete triad 'err_unknown_op' | close_partial_triad | 0.14 | missing=coq present=python,rtl |
 
 ## Test File Verification Detail
 
@@ -458,68 +463,68 @@ Top uncovered production files (first 20):
 | thielecpu/hardware/testbench/fuzz_harness_simple.v | rtl_tb | 26 | 3 | 3 | 3 | covered |
 | coq/tests/verify_zero_admits.v | test | 5 | 6 | 4 | 6 | covered |
 | tests/test_shor_demo.py | test | 8 | 9 | 3 | 4 | covered |
+| coq/tests/TestNecessity.v | test | 20 | 10 | 2 | 8 | covered |
 | tests/test_christoffel_flat_spacetime.py | test | 4 | 10 | 1 | 2 | covered |
 | tests/test_emergent_geometry_proxies.py | test | 10 | 11 | 7 | 7 | covered |
-| tests/test_rsa_scaling.py | test | 5 | 11 | 2 | 2 | covered |
-| coq/tests/TestNecessity.v | test | 20 | 12 | 3 | 9 | covered |
 | tests/test_coq_available.py | test | 4 | 12 | 9 | 9 | covered |
 | tests/test_metric_diagnosis.py | test | 2 | 13 | 11 | 12 | covered |
 | tests/test_metric_position_dependent.py | test | 1 | 13 | 11 | 12 | covered |
 | tests/test_einstein_equation_empirical.py | test | 5 | 14 | 1 | 3 | covered |
 | tests/test_einstein_nonvacuum_empirical.py | test | 2 | 14 | 11 | 13 | covered |
+| tests/test_rsa_scaling.py | test | 5 | 14 | 3 | 3 | covered |
 | tests/test_transition_logic.py | test | 8 | 16 | 4 | 7 | covered |
 | tests/test_mu_gravity_physics_analysis.py | test | 7 | 18 | 5 | 6 | covered |
 | tests/test_foundry_generated_surface.py | test | 6 | 20 | 10 | 13 | covered |
-| tests/test_vm_cli_input_prompt.py | test | 5 | 21 | 12 | 14 | covered |
-| tests/test_structure_period_finding.py | test | 10 | 24 | 8 | 9 | covered |
+| tests/test_vm_cli_input_prompt.py | test | 5 | 22 | 13 | 15 | covered |
+| tests/test_structure_period_finding.py | test | 10 | 25 | 9 | 10 | covered |
 | tests/trs_conformance/test_vectors.py | test | 19 | 25 | 8 | 8 | covered |
 | tests/test_axiom_geometric_calibration.py | test | 8 | 26 | 16 | 21 | covered |
 | tests/test_certcheck.py | test | 6 | 27 | 4 | 7 | covered |
 | tests/test_christoffel_corrected_metric.py | test | 4 | 27 | 18 | 21 | covered |
 | tests/test_christoffel_v3_metric.py | test | 3 | 27 | 18 | 21 | covered |
-| tests/test_phase3_bad_graph.py | test | 22 | 29 | 7 | 7 | covered |
 | tests/test_mu_gravity_calibration_validator.py | test | 8 | 30 | 7 | 9 | covered |
 | tests/test_mu_entropy_n_bits_certificate.py | test | 4 | 31 | 7 | 9 | covered |
 | tests/test_gauss_bonnet_2d.py | test | 8 | 32 | 14 | 18 | covered |
 | tests/test_mu_entropy_one_bit_certificate.py | test | 6 | 34 | 6 | 9 | covered |
-| tests/test_rtl_mu_charging.py | test | 10 | 35 | 16 | 16 | covered |
+| tests/test_rtl_mu_charging.py | test | 10 | 37 | 17 | 17 | covered |
 | tests/test_actual_truth_simplified.py | test | 13 | 38 | 15 | 21 | covered |
-| tests/test_partition_rsa_factorization.py | test | 8 | 38 | 16 | 17 | covered |
 | tests/test_period_oracle.py | test | 10 | 38 | 15 | 16 | covered |
 | tests/test_utm_program_validation.py | test | 12 | 39 | 8 | 9 | covered |
-| tests/test_vm_cli_c_and_stdin.py | test | 6 | 39 | 16 | 18 | covered |
+| tests/test_partition_rsa_factorization.py | test | 8 | 40 | 17 | 18 | covered |
 | tests/test_real_angles_from_metric.py | test | 10 | 40 | 18 | 25 | covered |
 | tests/test_chsh_manifold.py | test | 22 | 41 | 13 | 17 | covered |
+| tests/test_phase3_bad_graph.py | test | 22 | 41 | 8 | 8 | covered |
+| tests/test_vm_cli_c_and_stdin.py | test | 6 | 41 | 17 | 19 | covered |
 | tests/test_einstein_vacuum_empirical.py | test | 9 | 47 | 19 | 23 | covered |
 | tests/test_opcode_isomorphism.py | test | 11 | 47 | 15 | 16 | covered |
-| tests/test_openfpga_flow.py | test | 14 | 47 | 19 | 23 | covered |
 | tests/test_2d_mesh_creation.py | test | 6 | 50 | 14 | 22 | covered |
+| tests/test_openfpga_flow.py | test | 14 | 50 | 21 | 25 | covered |
 | tests/test_phase4_null_hypothesis.py | test | 17 | 52 | 8 | 16 | covered |
 | tests/test_discrete_topology.py | test | 12 | 53 | 14 | 20 | covered |
 | tests/test_fine_structure.py | test | 12 | 53 | 15 | 20 | covered |
 | tests/test_opcode_alignment.py | test | 11 | 56 | 19 | 20 | covered |
-| scripts/test_16_instructions_tdd.py | test | 4 | 59 | 24 | 30 | covered |
 | tests/alignment/test_mu_alignment.py | test | 16 | 59 | 21 | 27 | covered |
 | tests/test_c_rand_randomness_verifier.py | test | 13 | 59 | 5 | 10 | covered |
 | tests/test_c_causal_causal_verifier.py | test | 13 | 61 | 7 | 11 | covered |
 | tests/test_c_entropy_entropy2_verifier.py | test | 13 | 61 | 7 | 11 | covered |
 | tests/test_c1_physics_divergence_verifier.py | test | 20 | 62 | 14 | 19 | covered |
+| scripts/test_16_instructions_tdd.py | test | 4 | 63 | 25 | 32 | covered |
 | tests/test_phase1_long_run.py | test | 20 | 64 | 13 | 20 | covered |
 | tests/test_advantage_benchmarks.py | test | 39 | 65 | 5 | 5 | covered |
 | tests/test_nofi_pyexec_nonforgeability.py | test | 6 | 65 | 30 | 37 | covered |
 | tests/test_c_tomo_tomography_verifier.py | test | 13 | 67 | 8 | 12 | covered |
-| tests/test_coq_bridge_coverage_links.py | test | 17 | 70 | 36 | 41 | covered |
-| tests/test_three_layer_isomorphism_fuzz.py | test | 15 | 73 | 17 | 27 | covered |
+| tests/test_coq_bridge_coverage_links.py | test | 17 | 71 | 37 | 42 | covered |
+| tests/test_three_layer_isomorphism_fuzz.py | test | 15 | 74 | 18 | 28 | covered |
 | tests/test_nofi_semantic_structure_event.py | test | 8 | 76 | 33 | 43 | covered |
-| tests/test_geometric_factorization_claim.py | test | 13 | 79 | 21 | 30 | covered |
+| tests/test_geometric_factorization_claim.py | test | 13 | 83 | 22 | 31 | covered |
 | tests/test_mu_signaling_lower_bound.py | test | 7 | 85 | 20 | 29 | covered |
 | tests/test_mu.py | test | 5 | 86 | 28 | 39 | covered |
 | tests/test_axiom_source_normalization.py | test | 13 | 90 | 22 | 33 | covered |
-| tests/test_equivalence_bundle.py | test | 18 | 90 | 39 | 40 | covered |
+| tests/test_equivalence_bundle.py | test | 18 | 91 | 40 | 41 | covered |
 | tests/test_christoffel_empirical.py | test | 9 | 93 | 19 | 22 | covered |
 | tests/test_find_actual_truth.py | test | 15 | 100 | 24 | 34 | covered |
-| tests/test_full_stack_geometric_factorization.py | test | 16 | 102 | 26 | 33 | covered |
 | tests/test_topology_curvature_bridge.py | test | 15 | 103 | 22 | 30 | covered |
+| tests/test_full_stack_geometric_factorization.py | test | 16 | 104 | 27 | 34 | covered |
 | tests/test_dialogue_of_the_one.py | test | 20 | 105 | 21 | 29 | covered |
 | tests/test_pnew_topology_change.py | test | 16 | 110 | 17 | 22 | covered |
 | tests/test_axiom_horizon_cycle.py | test | 14 | 112 | 21 | 30 | covered |
@@ -529,77 +534,77 @@ Top uncovered production files (first 20):
 | tests/test_security_monitor.py | test | 13 | 129 | 29 | 37 | covered |
 | tests/test_quantitative_nofreeinsight.py | test | 25 | 135 | 6 | 12 | covered |
 | tests/test_mu_gravity_axioms.py | test | 16 | 138 | 27 | 39 | covered |
-| tests/test_connectivity_enforcement.py | test | 23 | 149 | 33 | 38 | covered |
-| tests/trs_conformance/test_trs10.py | test | 36 | 166 | 21 | 30 | covered |
+| tests/test_connectivity_enforcement.py | test | 23 | 151 | 35 | 40 | covered |
 | tests/test_refinement.py | test | 23 | 168 | 27 | 39 | covered |
 | scripts/test_three_layer_isomorphism.py | test | 17 | 170 | 38 | 54 | covered |
+| tests/trs_conformance/test_trs10.py | test | 36 | 170 | 22 | 31 | covered |
 | tests/test_crypto_isomorphism.py | test | 21 | 171 | 31 | 51 | covered |
 | tests/test_mu_profiler_universality.py | test | 39 | 174 | 16 | 24 | covered |
 | tests/test_canonical_hash_golden.py | test | 30 | 190 | 11 | 24 | covered |
 | tests/test_cross_platform_isomorphism.py | test | 28 | 197 | 29 | 53 | covered |
-| tests/test_predicate_parser.py | test | 31 | 211 | 12 | 16 | covered |
-| tests/test_rtl_synthesis_gate.py | test | 30 | 238 | 43 | 50 | covered |
-| tests/test_rtl_compute_isomorphism.py | test | 19 | 248 | 60 | 88 | covered |
+| tests/test_predicate_parser.py | test | 31 | 213 | 13 | 17 | covered |
+| tests/test_rtl_synthesis_gate.py | test | 30 | 240 | 44 | 51 | covered |
+| tests/test_rtl_compute_isomorphism.py | test | 19 | 250 | 61 | 89 | covered |
 | tests/test_alpha_refinement.py | test | 16 | 255 | 39 | 73 | covered |
 | tests/test_verification_fuzz.py | test | 60 | 273 | 6 | 13 | covered |
-| tests/test_random_program_fuzz.py | test | 50 | 275 | 65 | 86 | covered |
+| tests/test_random_program_fuzz.py | test | 50 | 277 | 66 | 87 | covered |
 | tests/test_falsifiable_predictions.py | test | 39 | 284 | 27 | 40 | covered |
-| tests/test_property_bisimulation.py | test | 39 | 292 | 60 | 88 | covered |
+| tests/test_property_bisimulation.py | test | 39 | 296 | 61 | 90 | covered |
 | tests/test_receipt_chain.py | test | 30 | 302 | 21 | 42 | covered |
 | tests/test_cross_layer_comprehensive.py | test | 55 | 303 | 38 | 70 | covered |
-| tests/test_extraction_freshness.py | test | 25 | 304 | 47 | 58 | covered |
 | tests/test_three_layer_isomorphism_semantic.py | test | 43 | 306 | 10 | 31 | covered |
+| tests/test_extraction_freshness.py | test | 25 | 310 | 49 | 60 | covered |
 | tests/test_thesis_verify.py | test | 39 | 333 | 13 | 37 | covered |
-| tests/test_discovery_enhancements.py | test | 39 | 353 | 23 | 39 | covered |
 | tests/test_mu_fixed.py | test | 42 | 353 | 11 | 44 | covered |
 | tests/test_partition_boundary.py | test | 18 | 353 | 23 | 37 | covered |
-| tests/test_bisimulation.py | test | 47 | 358 | 66 | 108 | covered |
-| tests/test_coq_compile_gate.py | test | 27 | 376 | 46 | 53 | covered |
+| tests/test_discovery_enhancements.py | test | 39 | 355 | 24 | 40 | covered |
+| tests/test_bisimulation.py | test | 47 | 366 | 67 | 110 | covered |
+| tests/test_coq_compile_gate.py | test | 27 | 382 | 47 | 54 | covered |
 | tests/test_isomorphism_violation_detection.py | test | 49 | 382 | 41 | 73 | covered |
-| tests/test_efficient_discovery.py | test | 39 | 386 | 38 | 71 | covered |
-| tests/test_extracted_vm_runner.py | test | 22 | 462 | 59 | 74 | covered |
-| tests/test_partition_isomorphism_minimal.py | test | 32 | 466 | 66 | 107 | covered |
+| tests/test_efficient_discovery.py | test | 39 | 396 | 39 | 72 | covered |
+| tests/test_partition_isomorphism_minimal.py | test | 32 | 468 | 67 | 108 | covered |
+| tests/test_extracted_vm_runner.py | test | 22 | 469 | 60 | 75 | covered |
 | tests/test_accelerator_cosim.py | test | 56 | 476 | 38 | 65 | covered |
-| tests/test_verilog_cosim.py | test | 72 | 492 | 50 | 67 | covered |
+| tests/test_verilog_cosim.py | test | 72 | 498 | 51 | 68 | covered |
 | tests/test_structural_verifier.py | test | 56 | 520 | 33 | 59 | covered |
 | tests/test_vm_encoding_validation.py | test | 16 | 520 | 25 | 41 | covered |
-| tests/test_isomorphism_vm_vs_coq.py | test | 36 | 545 | 54 | 74 | covered |
+| tests/test_isomorphism_vm_vs_coq.py | test | 36 | 546 | 55 | 75 | covered |
 | tests/test_benchmark_suite.py | test | 56 | 627 | 40 | 70 | covered |
-| tests/alignment/test_comprehensive_alignment.py | test | 53 | 649 | 50 | 59 | covered |
-| tests/test_bianchi_enforcement.py | test | 47 | 688 | 49 | 79 | covered |
-| tests/test_three_layer_isomorphism.py | test | 48 | 703 | 74 | 141 | covered |
-| tests/test_isomorphism_vm_vs_verilog.py | test | 43 | 729 | 67 | 104 | covered |
+| tests/alignment/test_comprehensive_alignment.py | test | 53 | 667 | 51 | 61 | covered |
+| tests/test_bianchi_enforcement.py | test | 47 | 692 | 50 | 80 | covered |
+| tests/test_three_layer_isomorphism.py | test | 48 | 706 | 75 | 142 | covered |
+| tests/test_isomorphism_vm_vs_verilog.py | test | 43 | 736 | 68 | 106 | covered |
 | tests/test_fuzz_isomorphism.py | test | 35 | 737 | 65 | 110 | covered |
 | tests/test_mu_costs.py | test | 53 | 815 | 32 | 68 | covered |
 | tests/test_qm_divergent.py | test | 78 | 864 | 31 | 72 | covered |
-| tests/test_bisimulation_complete.py | test | 80 | 1357 | 74 | 122 | covered |
-| tests/test_rigorous_isomorphism.py | test | 72 | 1471 | 71 | 118 | covered |
+| tests/test_bisimulation_complete.py | test | 80 | 1372 | 75 | 124 | covered |
+| tests/test_rigorous_isomorphism.py | test | 72 | 1491 | 72 | 119 | covered |
 
 ## Run-to-Run Progress Delta
 
-- History snapshots tracked: **84**
-- Score delta vs previous run: **-3.74**
+- History snapshots tracked: **86**
+- Score delta vs previous run: **+0.00**
 - Triad delta vs previous run: **+0**
-- Partial-triad delta vs previous run: **+88**
+- Partial-triad delta vs previous run: **+0**
 - Integrate-file delta vs previous run: **+0**
 
 ## Guided Next Actions (Priority Queue)
 
+- Close partial triad 'partition' by adding missing layer(s): rtl [present: coq,python]
 - Close partial triad 'opc_halt' by adding missing layer(s): coq [present: python,rtl]
 - Close partial triad 'opc_mdlacc' by adding missing layer(s): coq [present: python,rtl]
 - Close partial triad 'opc_pmerge' by adding missing layer(s): coq [present: python,rtl]
 - Close partial triad 'opc_pnew' by adding missing layer(s): coq [present: python,rtl]
 - Close partial triad 'opc_psplit' by adding missing layer(s): coq [present: python,rtl]
+- Close partial triad 'alpha_em' by adding missing layer(s): rtl [present: coq,python]
 - Close partial triad 'base' by adding missing layer(s): rtl [present: coq,python]
-- Close partial triad 'csr_cert_addr' by adding missing layer(s): coq [present: python,rtl]
-- Close partial triad 'csr_error' by adding missing layer(s): coq [present: python,rtl]
 
 ## Coverage by Layer
 
 | Layer | Files | Symbols |
 |---|---:|---:|
-| coq | 304 | 6645 |
-| python | 189 | 4762 |
+| coq | 305 | 6661 |
+| python | 192 | 4816 |
 | rtl | 8 | 599 |
 | rtl_tb | 8 | 226 |
 | test | 119 | 2651 |
@@ -619,11 +624,11 @@ Top uncovered production files (first 20):
 
 | Class | Count |
 |---|---:|
-| core | 4124 |
-| bridge | 5169 |
-| island | 17 |
-| orphan | 215 |
-| duplicate | 2481 |
+| core | 4139 |
+| bridge | 5199 |
+| island | 18 |
+| orphan | 216 |
+| duplicate | 2504 |
 | stale | 0 |
 | test_only | 2877 |
 
@@ -631,14 +636,14 @@ Top uncovered production files (first 20):
 
 | Edge kind | Count |
 |---|---:|
-| cross_ref | 35200 |
-| py_ref | 23040 |
-| coq_ref | 17314 |
-| test_covers | 16806 |
-| cross_stem | 9996 |
-| cross_transitive | 3333 |
-| cross_name | 1546 |
-| cross_norm | 800 |
+| cross_ref | 35810 |
+| py_ref | 23241 |
+| test_covers | 16944 |
+| coq_ref | 16786 |
+| cross_stem | 10300 |
+| cross_transitive | 3267 |
+| cross_name | 1578 |
+| cross_norm | 832 |
 | cross_opcode | 208 |
 | rtl_ref | 23 |
 
@@ -646,16 +651,16 @@ Top uncovered production files (first 20):
 
 ```mermaid
 flowchart LR
-  C["Coq\n6645 symbols"]
-  P["Python/VM\n4762 symbols"]
+  C["Coq\n6661 symbols"]
+  P["Python/VM\n4816 symbols"]
   R["RTL/Verilog\n599 symbols"]
   T["Tests/TB\n2877 symbols"]
-  C -->|17317| P
-  P -->|16204| C
-  C -->|4876| R
-  R -->|4156| C
-  P -->|4465| R
-  R -->|4065| P
+  C -->|17704| P
+  P -->|16631| C
+  C -->|4853| R
+  R -->|4158| C
+  P -->|4526| R
+  R -->|4123| P
   T -. coverage .-> C
   T -. coverage .-> P
   T -. coverage .-> R
@@ -673,10 +678,10 @@ flowchart LR
   N2 -->|194| N1
   N3["coq/kernel/MuGravity.v"]
   N4["thielecpu/hardware/rtl/cross_layer_defs.vh"]
-  N3 -->|182| N4
+  N3 -->|181| N4
   N5["thielecpu/vm.py"]
   N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
-  N5 -->|164| N1
+  N5 -->|170| N1
   N4["thielecpu/hardware/rtl/cross_layer_defs.vh"]
   N3["coq/kernel/MuGravity.v"]
   N4 -->|163| N3
@@ -710,21 +715,21 @@ flowchart LR
   N8["experiments/qd3_literature_comparison.py"]
   N6["coq/thielemachine/coqproofs/BellInequality.v"]
   N8 -->|107| N6
+  N10["thielecpu/dsl/executor.py"]
+  N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
+  N10 -->|103| N1
   N2["thielecpu/cross_layer_manifest.py"]
   N6["coq/thielemachine/coqproofs/BellInequality.v"]
   N2 -->|101| N6
-  N10["thielecpu/dsl/executor.py"]
-  N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
-  N10 -->|100| N1
   N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
   N10["thielecpu/dsl/executor.py"]
   N1 -->|97| N10
   N3["coq/kernel/MuGravity.v"]
   N11["scripts/validate_mu_gravity_calibration.py"]
-  N3 -->|87| N11
+  N3 -->|86| N11
   N12["coq/thielemachine/coqproofs/CoreSemantics.v"]
   N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
-  N12 -->|87| N1
+  N12 -->|86| N1
   N13["coq/kernel/VMState.v"]
   N4["thielecpu/hardware/rtl/cross_layer_defs.vh"]
   N13 -->|82| N4
@@ -752,11 +757,11 @@ flowchart TB
   C --> T3
   T3 --> P
   T3 --> R
-  T4["mu_cost"]
+  T4["hash"]
   C --> T4
   T4 --> P
   T4 --> R
-  T5["hash"]
+  T5["mu_cost"]
   C --> T5
   T5 --> P
   T5 --> R
@@ -818,9 +823,9 @@ flowchart TB
 
 | From \ To | coq | python | rtl |
 |---|---:|---:|---:|
-| coq | 0 | 17317 | 4876 |
-| python | 16204 | 0 | 4465 |
-| rtl | 4156 | 4065 | 0 |
+| coq | 0 | 17704 | 4853 |
+| python | 16631 | 0 | 4526 |
+| rtl | 4158 | 4123 | 0 |
 
 ## Confirmed 3-Layer Triads (Isomorphic Name Clusters)
 
@@ -829,8 +834,8 @@ flowchart TB
 | step | step | step | step | 16/3/1 |
 | state | State | State | state | 15/1/2 |
 | receipt | Receipt | Receipt | receipt | 11/1/1 |
+| hash | Hash | __hash__ | hash | 6/5/1 |
 | mu_cost | mu_cost | mu_cost | mu_cost | 8/1/2 |
-| hash | Hash | hash | hash | 6/3/1 |
 | instr | instr | Instr | instr | 6/1/2 |
 | tsirelson_bound | tsirelson_bound | TSIRELSON_BOUND | TSIRELSON_BOUND | 5/3/1 |
 | hash_state | hash_state | hash_state | hash_state | 3/3/1 |
@@ -995,11 +1000,13 @@ flowchart TB
 
 | Normalized | Present layers | Missing layer(s) | Weight |
 |---|---|---|---:|
+| partition | coq,python | rtl | 17 |
 | opc_halt | python,rtl | coq | 4 |
 | opc_mdlacc | python,rtl | coq | 4 |
 | opc_pmerge | python,rtl | coq | 4 |
 | opc_pnew | python,rtl | coq | 4 |
 | opc_psplit | python,rtl | coq | 4 |
+| alpha_em | coq,python | rtl | 3 |
 | base | coq,python | rtl | 3 |
 | csr_cert_addr | python,rtl | coq | 3 |
 | csr_error | python,rtl | coq | 3 |
@@ -1124,6 +1131,7 @@ flowchart TB
 | scripts/run_experiment.py | python | 4 |
 | thielecpu/assemble.py | python | 4 |
 | thielecpu/shor_cf.py | python | 8 |
+| scripts/run_tests_with_timeout.py | python | 4 |
 | thielecpu/program_sweep.py | python | 13 |
 | experiments/phase_tunneling/run_experiments.py | python | 8 |
 | coq/kernel/KernelThiele.v | coq | 3 |
@@ -1154,6 +1162,7 @@ flowchart TB
 | experiments/ledger_io.py | python | 11 |
 | experiments/thermodynamic_factoring.py | python | 12 |
 | build/thiele_vm.py | python | 10 |
+| coq/kernel/AlphaDerivation.v | coq | 4 |
 | coq/kernel/HardAssumptions.v | coq | 7 |
 | coq/kernel/TestTripartite.v | coq | 2 |
 | coq/modular_proofs/Simulation.v | coq | 2 |
@@ -1291,9 +1300,7 @@ flowchart TB
 | experiments/proofpack.py | python | 12 |
 | coq/kernel/MuInformation.v | coq | 5 |
 | experiments/graph_isomorphism_partitions.py | python | 14 |
-| experiments/power_measurement/measure_real_power.py | python | 9 |
-| coq/quantum_derivation/SchrodingerFromPartitions.v | coq | 5 |
-| ... 287 more duplicate rows omitted | | |
+| ... 291 more duplicate rows omitted | | |
 
 ## Strict Safe-Removal Candidates
 
@@ -1320,6 +1327,7 @@ A file appears here only if ALL conditions hold:
 | coq/kernel/ConstructivePSD.v | coq | 45 | 4 | 2 | 82% |
 | experiments/run_isomorphism_suite.py | python | 16 | 5 | 0 | 25% |
 | thielecpu/primitives.py | python | 44 | 2 | 3 | 70% |
+| coq/kernel/AlphaDerivation.v | coq | 16 | 3 | 1 | 50% |
 | experiments/visualize_predictions.py | python | 13 | 4 | 0 | 54% |
 | thielecpu/factoring.py | python | 13 | 4 | 0 | 54% |
 | coq/kernel/TOEDecision.v | coq | 16 | 3 | 0 | 25% |
@@ -1349,51 +1357,50 @@ A file appears here only if ALL conditions hold:
 | coq/thielemachine/verification/Prediction.v | coq | 18 | 2 | 0 | 67% |
 | scripts/stress_test_verifier.py | python | 30 | 1 | 1 | 67% |
 | tools/mu_profiler.py | python | 41 | 2 | 0 | 71% |
-| scripts/rsa_partition_demo.py | python | 72 | 2 | 0 | 71% |
 
 ## Embedded Machine Snapshot
 
 ```json
 {
-  "generated_at": "2026-02-19T15:35:18.318451+00:00",
+  "generated_at": "2026-02-19T20:21:50.823431+00:00",
   "summary": {
-    "symbols": 14883,
-    "edges": 108266,
+    "symbols": 14953,
+    "edges": 108989,
     "triads": 164,
-    "partial_triads": 88,
+    "partial_triads": 90,
     "classifications": {
-      "duplicate": 2481,
-      "bridge": 5169,
-      "core": 4124,
-      "orphan": 215,
-      "island": 17,
+      "duplicate": 2504,
+      "bridge": 5199,
+      "core": 4139,
+      "orphan": 216,
+      "island": 18,
       "test_only": 2877
     },
     "integrate_files": 0,
     "remove_safe_files": 0
   },
   "isomorphism_metrics": {
-    "isomorphism_score": 87.73,
-    "core_bridge_ratio": 0.9988,
-    "triad_completion_ratio": 0.6508,
+    "isomorphism_score": 87.55,
+    "core_bridge_ratio": 0.9986,
+    "triad_completion_ratio": 0.6457,
     "directional_coverage_ratio": 1.0,
     "integrate_file_ratio": 0.0,
-    "prod_symbol_count": 8818,
-    "core_bridge_count": 8807,
+    "prod_symbol_count": 8861,
+    "core_bridge_count": 8849,
     "triad_count": 164,
-    "partial_triad_count": 88,
+    "partial_triad_count": 90,
     "active_direction_count": 6,
     "direction_count": 6,
     "integrate_file_count": 0,
-    "prod_file_count": 501
+    "prod_file_count": 505
   },
   "trend_delta": {
     "has_previous": true,
-    "score_delta": -3.74,
+    "score_delta": 0.0,
     "triad_delta": 0,
-    "partial_triad_delta": 88,
+    "partial_triad_delta": 0,
     "integrate_file_delta": 0,
-    "core_bridge_ratio_delta": 0.2425
+    "core_bridge_ratio_delta": 0.0
   },
   "proof_quality_metrics": {
     "proof_accuracy": 100.0,
@@ -1402,7 +1409,7 @@ A file appears here only if ALL conditions hold:
     "high": 0,
     "medium": 0,
     "low": 0,
-    "scanned_files": 307,
+    "scanned_files": 308,
     "weighted_penalty": 0.0,
     "strict_pass": true
   },
@@ -1411,12 +1418,12 @@ A file appears here only if ALL conditions hold:
     "strict_pass": false,
     "test_file_count": 127,
     "isolated_test_file_count": 0,
-    "prod_symbol_coverage_ratio": 0.0745,
-    "prod_file_coverage_ratio": 0.4651,
-    "covered_prod_symbol_count": 894,
-    "prod_symbol_count": 12006,
-    "covered_prod_file_count": 233,
-    "prod_file_count": 501,
+    "prod_symbol_coverage_ratio": 0.0744,
+    "prod_file_coverage_ratio": 0.4653,
+    "covered_prod_symbol_count": 899,
+    "prod_symbol_count": 12076,
+    "covered_prod_file_count": 235,
+    "prod_file_count": 505,
     "uncovered_prod_files_top": [
       "coq/Extraction.v",
       "coq/MinimalExtraction.v",
@@ -1451,6 +1458,13 @@ A file appears here only if ALL conditions hold:
     ]
   },
   "priority_plan": [
+    {
+      "type": "close_partial_triad",
+      "priority": 1,
+      "task": "Complete triad 'alpha_em'",
+      "details": "missing=rtl present=coq,python",
+      "estimated_score_gain": 0.14
+    },
     {
       "type": "close_partial_triad",
       "priority": 1,
@@ -1513,13 +1527,6 @@ A file appears here only if ALL conditions hold:
       "task": "Complete triad 'err_unknown_op'",
       "details": "missing=coq present=python,rtl",
       "estimated_score_gain": 0.14
-    },
-    {
-      "type": "close_partial_triad",
-      "priority": 1,
-      "task": "Complete triad 'idle'",
-      "details": "missing=coq present=python,rtl",
-      "estimated_score_gain": 0.14
     }
   ],
   "fragmented_correctness_flags": [
@@ -1528,29 +1535,36 @@ A file appears here only if ALL conditions hold:
   ],
   "latex_coverage_metrics": {
     "tex_file_count": 20,
-    "kernel_proof_symbol_count": 1042,
+    "kernel_proof_symbol_count": 1046,
     "kernel_proof_symbol_mentioned_count": 1042,
-    "kernel_proof_latex_coverage_ratio": 1.0,
-    "kernel_proof_missing_top": [],
+    "kernel_proof_latex_coverage_ratio": 0.9962,
+    "kernel_proof_missing_top": [
+      "alpha_fundamental",
+      "p_13_equals_101",
+      "p_14_equals_135",
+      "p_15_equals_176"
+    ],
     "triad_norm_count": 164,
     "triad_norm_mentioned_count": 93,
     "triad_norm_latex_coverage_ratio": 0.5671
   },
   "proof_documentation_metrics": {
-    "proof_file_count": 274,
-    "total_proof_count": 2578,
-    "documented_proof_count": 2578,
-    "per_proof_doc_ratio": 1.0,
+    "proof_file_count": 275,
+    "total_proof_count": 2582,
+    "documented_proof_count": 2579,
+    "per_proof_doc_ratio": 0.9988,
     "fully_documented_file_count": 274,
-    "fully_documented_file_ratio": 1.0,
-    "proof_files_with_readme_count": 274,
-    "proof_files_with_comment_blocks_count": 274,
+    "fully_documented_file_ratio": 0.9964,
+    "proof_files_with_readme_count": 275,
+    "proof_files_with_comment_blocks_count": 275,
     "proof_files_documented_count": 274,
     "proof_files_with_readme_ratio": 1.0,
     "proof_files_with_comment_ratio": 1.0,
-    "proof_files_documented_ratio": 1.0,
+    "proof_files_documented_ratio": 0.9964,
     "missing_readme_proof_files_top": [],
-    "underdocumented_proof_files_top": []
+    "underdocumented_proof_files_top": [
+      "coq/kernel/AlphaDerivation.v"
+    ]
   },
   "definition_of_done": {
     "status": "NOT_COMPLETED",
@@ -1558,35 +1572,35 @@ A file appears here only if ALL conditions hold:
     "checks": [
       {
         "name": "isomorphism_score",
-        "actual": 87.73,
+        "actual": 87.55,
         "comparator": ">=",
         "threshold": 100.0,
         "passed": false
       },
       {
         "name": "triad_completion_ratio",
-        "actual": 0.6508,
+        "actual": 0.6457,
         "comparator": ">=",
         "threshold": 1.0,
         "passed": false
       },
       {
         "name": "core_bridge_ratio",
-        "actual": 0.9988,
+        "actual": 0.9986,
         "comparator": ">=",
         "threshold": 1.0,
         "passed": false
       },
       {
         "name": "test_prod_symbol_coverage_ratio",
-        "actual": 0.0745,
+        "actual": 0.0744,
         "comparator": ">=",
         "threshold": 1.0,
         "passed": false
       },
       {
         "name": "test_prod_file_coverage_ratio",
-        "actual": 0.4651,
+        "actual": 0.4653,
         "comparator": ">=",
         "threshold": 1.0,
         "passed": false
@@ -1600,10 +1614,10 @@ A file appears here only if ALL conditions hold:
       },
       {
         "name": "per_proof_doc_ratio",
-        "actual": 1.0,
+        "actual": 0.9988,
         "comparator": ">=",
         "threshold": 1.0,
-        "passed": true
+        "passed": false
       },
       {
         "name": "proof_files_with_readme_ratio",
@@ -1614,10 +1628,10 @@ A file appears here only if ALL conditions hold:
       },
       {
         "name": "kernel_proof_latex_coverage_ratio",
-        "actual": 1.0,
+        "actual": 0.9962,
         "comparator": ">=",
         "threshold": 1.0,
-        "passed": true
+        "passed": false
       },
       {
         "name": "coq_compile_pass",
@@ -1648,39 +1662,53 @@ A file appears here only if ALL conditions hold:
         "passed": true
       }
     ],
-    "unmet_check_count": 5,
+    "unmet_check_count": 7,
     "unmet_checks": [
       {
         "name": "isomorphism_score",
-        "actual": 87.73,
+        "actual": 87.55,
         "comparator": ">=",
         "threshold": 100.0,
         "passed": false
       },
       {
         "name": "triad_completion_ratio",
-        "actual": 0.6508,
+        "actual": 0.6457,
         "comparator": ">=",
         "threshold": 1.0,
         "passed": false
       },
       {
         "name": "core_bridge_ratio",
-        "actual": 0.9988,
+        "actual": 0.9986,
         "comparator": ">=",
         "threshold": 1.0,
         "passed": false
       },
       {
         "name": "test_prod_symbol_coverage_ratio",
-        "actual": 0.0745,
+        "actual": 0.0744,
         "comparator": ">=",
         "threshold": 1.0,
         "passed": false
       },
       {
         "name": "test_prod_file_coverage_ratio",
-        "actual": 0.4651,
+        "actual": 0.4653,
+        "comparator": ">=",
+        "threshold": 1.0,
+        "passed": false
+      },
+      {
+        "name": "per_proof_doc_ratio",
+        "actual": 0.9988,
+        "comparator": ">=",
+        "threshold": 1.0,
+        "passed": false
+      },
+      {
+        "name": "kernel_proof_latex_coverage_ratio",
+        "actual": 0.9962,
         "comparator": ">=",
         "threshold": 1.0,
         "passed": false
@@ -1693,8 +1721,8 @@ A file appears here only if ALL conditions hold:
       "pass": true,
       "returncode": 0,
       "stderr_tail": "",
-      "total_v_files": 310,
-      "total_vo_files": 310,
+      "total_v_files": 311,
+      "total_vo_files": 311,
       "compile_ratio": 1.0,
       "admitted_count": 0
     },
@@ -1753,12 +1781,12 @@ A file appears here only if ALL conditions hold:
     "report_path": "INQUISITOR_REPORT.md"
   },
   "cross_layer_matrix": {
-    "coq->python": 17317,
-    "coq->rtl": 4876,
-    "python->coq": 16204,
-    "python->rtl": 4465,
-    "rtl->coq": 4156,
-    "rtl->python": 4065
+    "coq->python": 17704,
+    "coq->rtl": 4853,
+    "python->coq": 16631,
+    "python->rtl": 4526,
+    "rtl->coq": 4158,
+    "rtl->python": 4123
   },
   "top_cross_file_links": [
     {
@@ -1774,12 +1802,12 @@ A file appears here only if ALL conditions hold:
     {
       "src": "coq/kernel/MuGravity.v",
       "dst": "thielecpu/hardware/rtl/cross_layer_defs.vh",
-      "weight": 182
+      "weight": 181
     },
     {
       "src": "thielecpu/vm.py",
       "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
-      "weight": 164
+      "weight": 170
     },
     {
       "src": "thielecpu/hardware/rtl/cross_layer_defs.vh",
@@ -1837,14 +1865,14 @@ A file appears here only if ALL conditions hold:
       "weight": 107
     },
     {
+      "src": "thielecpu/dsl/executor.py",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "weight": 103
+    },
+    {
       "src": "thielecpu/cross_layer_manifest.py",
       "dst": "coq/thielemachine/coqproofs/BellInequality.v",
       "weight": 101
-    },
-    {
-      "src": "thielecpu/dsl/executor.py",
-      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
-      "weight": 100
     },
     {
       "src": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
@@ -1854,12 +1882,12 @@ A file appears here only if ALL conditions hold:
     {
       "src": "coq/kernel/MuGravity.v",
       "dst": "scripts/validate_mu_gravity_calibration.py",
-      "weight": 87
+      "weight": 86
     },
     {
       "src": "coq/thielemachine/coqproofs/CoreSemantics.v",
       "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
-      "weight": 87
+      "weight": 86
     },
     {
       "src": "coq/kernel/VMState.v",
@@ -1907,17 +1935,17 @@ A file appears here only if ALL conditions hold:
       "weight": 72
     },
     {
+      "src": "thielecpu/mu_fixed.py",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "weight": 70
+    },
+    {
       "src": "coq/kernel/VMEncoding.v",
       "dst": "thielecpu/hardware/rtl/cross_layer_defs.vh",
       "weight": 69
     },
     {
       "src": "coq/kernel/ReceiptIntegrity.v",
-      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
-      "weight": 68
-    },
-    {
-      "src": "thielecpu/mu_fixed.py",
       "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
       "weight": 68
     },
@@ -1952,8 +1980,18 @@ A file appears here only if ALL conditions hold:
       "weight": 61
     },
     {
+      "src": "coq/kernel/CrossLayerManifest.v",
+      "dst": "thielecpu/cross_layer_manifest.py",
+      "weight": 60
+    },
+    {
       "src": "experiments/mu_audited_bell_test.py",
       "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "weight": 60
+    },
+    {
+      "src": "thielecpu/cross_layer_manifest.py",
+      "dst": "coq/kernel/CrossLayerManifest.v",
       "weight": 60
     },
     {
@@ -1977,11 +2015,6 @@ A file appears here only if ALL conditions hold:
       "weight": 60
     },
     {
-      "src": "thielecpu/thesis_verify.py",
-      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
-      "weight": 60
-    },
-    {
       "src": "coq/thielemachine/coqproofs/AbstractLTS.v",
       "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
       "weight": 59
@@ -1992,14 +2025,9 @@ A file appears here only if ALL conditions hold:
       "weight": 59
     },
     {
-      "src": "coq/kernel/CrossLayerManifest.v",
-      "dst": "thielecpu/cross_layer_manifest.py",
-      "weight": 58
-    },
-    {
-      "src": "thielecpu/cross_layer_manifest.py",
-      "dst": "coq/kernel/CrossLayerManifest.v",
-      "weight": 58
+      "src": "thielecpu/thesis_verify.py",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "weight": 59
     },
     {
       "src": "coq/thielemachine/coqproofs/Oracle.v",
