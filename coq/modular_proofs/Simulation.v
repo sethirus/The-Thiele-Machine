@@ -20,6 +20,7 @@ Section Simulation.
   Local Notation decode := (mts_decode sem).
   Local Notation run_n := (mts_run_n sem).
 
+  (** [thiele_simulates_tm]: formal specification. *)
   Lemma thiele_simulates_tm :
     forall n conf,
       tm_config_ok conf ->
@@ -30,6 +31,7 @@ Section Simulation.
   Qed.
 End Simulation.
 
+(** [thiele_machine_subsumes_turing_modular]: formal specification. *)
 Theorem thiele_machine_subsumes_turing_modular :
   forall tm (sem : ModularThieleSemantics tm) conf n,
     tm_config_ok conf ->

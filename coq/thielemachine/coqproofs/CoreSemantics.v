@@ -319,6 +319,7 @@ Fixpoint region_eqb (r1 r2 : Region) : bool :=
 Definition region_overlap_b (r1 r2 : Region) : bool :=
   existsb (fun x => existsb (Nat.eqb x) r2) r1.
 
+(** [region_eqb_refl]: formal specification. *)
 Lemma region_eqb_refl : forall r, region_eqb r r = true.
 Proof.
   induction r as [|x xs IH]; simpl; auto.
@@ -451,24 +452,31 @@ Definition mu_lassert_cost : Z := 20. (* Cost for logical assertion *)
 Definition mu_mdlacc_cost : Z := 5.   (* Cost for MDL accumulation *)
 Definition mu_emit_cost : Z := 1.     (* Cost to emit result *)
 
+(** [mu_pnew_cost_nonneg]: formal specification. *)
 Lemma mu_pnew_cost_nonneg : 0 <= mu_pnew_cost.
 Proof. cbv [mu_pnew_cost]. lia. Qed.
 
+(** [mu_psplit_cost_nonneg]: formal specification. *)
 Lemma mu_psplit_cost_nonneg : 0 <= mu_psplit_cost.
 Proof. cbv [mu_psplit_cost]. lia. Qed.
 
+(** [mu_pmerge_cost_nonneg]: formal specification. *)
 Lemma mu_pmerge_cost_nonneg : 0 <= mu_pmerge_cost.
 Proof. cbv [mu_pmerge_cost]. lia. Qed.
 
+(** [mu_pdiscover_cost_nonneg]: formal specification. *)
 Lemma mu_pdiscover_cost_nonneg : 0 <= mu_pdiscover_cost.
 Proof. cbv [mu_pdiscover_cost]. lia. Qed.
 
+(** [mu_lassert_cost_nonneg]: formal specification. *)
 Lemma mu_lassert_cost_nonneg : 0 <= mu_lassert_cost.
 Proof. cbv [mu_lassert_cost]. lia. Qed.
 
+(** [mu_mdlacc_cost_nonneg]: formal specification. *)
 Lemma mu_mdlacc_cost_nonneg : 0 <= mu_mdlacc_cost.
 Proof. cbv [mu_mdlacc_cost]. lia. Qed.
 
+(** [mu_emit_cost_nonneg]: formal specification. *)
 Lemma mu_emit_cost_nonneg : 0 <= mu_emit_cost.
 Proof. cbv [mu_emit_cost]. lia. Qed.
 

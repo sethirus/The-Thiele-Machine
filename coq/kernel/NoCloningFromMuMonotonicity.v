@@ -207,6 +207,7 @@ Definition md_respects_mu (op : MachineDeleteOp) : Prop :=
 Definition md_is_perfect (op : MachineDeleteOp) : Prop :=
   md_output op = md_input1 op /\ md_input1 op = md_input2 op.
 
+(** [no_deletion_mu]: formal specification. *)
 Theorem no_deletion_mu :
   forall op : MachineDeleteOp,
     (md_input1 op > 0)%nat ->

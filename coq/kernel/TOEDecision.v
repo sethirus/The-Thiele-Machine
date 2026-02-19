@@ -25,6 +25,7 @@ From Kernel Require Import TOE.
    finiteness/coarse-graining axiom/definition).
 *)
 
+(** [KernelNoGoForTOE_Decision]: formal specification. *)
 Theorem KernelNoGoForTOE_Decision :
   KernelNoGoForTOE_P.
 Proof.
@@ -33,6 +34,7 @@ Qed.
 
 (* Backward-compatible name, but sharpened: the gaps are now stated using
    explicit laws and an explicit finiteness notion. *)
+(** [Physics_Requires_Extra_Structure]: formal specification. *)
 Theorem Physics_Requires_Extra_Structure :
   KernelNoGoForTOE_P.
 Proof.
@@ -42,6 +44,7 @@ Qed.
 (* The best available closure theorem inside the kernel layer:
    locality/no-signaling + mu monotonicity + multi-step cone locality.
 *)
+(** [Kernel_Physics_Closure]: formal specification. *)
 Theorem Kernel_Physics_Closure :
   (forall s s' instr mid,
       well_formed_graph s.(vm_graph) ->
@@ -65,6 +68,7 @@ Proof.
 Qed.
 
 (* Final packaged outcome: forced closure + minimal no-go. *)
+(** [Kernel_TOE_FinalOutcome]: formal specification. *)
 Theorem Kernel_TOE_FinalOutcome :
   KernelMaximalClosureP /\ KernelNoGoForTOE_P.
 Proof.

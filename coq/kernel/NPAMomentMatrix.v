@@ -463,6 +463,7 @@ Proof.
   simpl. reflexivity.
 Qed.
 
+(** [quantum_realizable_implies_normalized]: formal specification. *)
 Lemma quantum_realizable_implies_normalized : forall (npa : NPAMomentMatrix),
   quantum_realizable npa ->
   Rabs (npa.(npa_E00)) <= 1 /\

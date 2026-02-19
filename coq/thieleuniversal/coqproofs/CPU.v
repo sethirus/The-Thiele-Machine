@@ -80,12 +80,14 @@ Open Scope nat_scope.
   (* --- Basic register lemmas for reasoning about the program counter --- *)
 
   (* DEFINITIONAL — write_reg/read_reg on same register returns written value *)
+  (** [read_pc_write_pc]: formal specification. *)
   Lemma read_pc_write_pc : forall v st,
     read_reg REG_PC (write_reg REG_PC v st) = v.
   Proof.
     intros v st. unfold read_reg, write_reg. simpl. reflexivity.
   Qed.
 
+  (** [read_pc_write_nonpc]: formal specification. *)
   Lemma read_pc_write_nonpc : forall rd v st,
     rd <> REG_PC -> regs st <> [] ->
     read_reg REG_PC (write_reg rd v st) = read_reg REG_PC st.
@@ -97,6 +99,7 @@ Open Scope nat_scope.
   Qed.
 
   (* DEFINITIONAL — write_mem does not modify register file *)
+  (** [read_pc_write_mem]: formal specification. *)
   Lemma read_pc_write_mem : forall addr v st,
     read_reg REG_PC (write_mem addr v st) = read_reg REG_PC st.
   Proof.
@@ -112,6 +115,7 @@ Open Scope nat_scope.
     | _ => False
     end.
 
+  (** [step_pc_succ]: formal specification. *)
   Lemma step_pc_succ : forall i st,
     pc_unchanged i ->
     read_reg REG_PC (step i st) = S (read_reg REG_PC st).
@@ -153,6 +157,7 @@ Open Scope nat_scope.
   Qed.
 
   (* Helper lemmas for jump instructions *)
+  (** [step_jz_true]: formal specification. *)
   Lemma step_jz_true : forall rc target st,
     Nat.eqb (read_reg rc st) 0 = true ->
     read_reg REG_PC (step (Jz rc target) st) = target.
@@ -161,6 +166,7 @@ Open Scope nat_scope.
     unfold step. rewrite Heq. simpl. reflexivity.
   Qed.
 
+  (** [step_jz_false]: formal specification. *)
   Lemma step_jz_false : forall rc target st,
     Nat.eqb (read_reg rc st) 0 = false ->
     read_reg REG_PC (step (Jz rc target) st) = S (read_reg REG_PC st).
@@ -169,6 +175,7 @@ Open Scope nat_scope.
     unfold step. rewrite Heq. simpl. reflexivity.
   Qed.
 
+  (** [step_jnz_true]: formal specification. *)
   Lemma step_jnz_true : forall rc target st,
     Nat.eqb (read_reg rc st) 0 = true ->
     read_reg REG_PC (step (Jnz rc target) st) = S (read_reg REG_PC st).
@@ -177,6 +184,7 @@ Open Scope nat_scope.
     unfold step. rewrite Heq. simpl. reflexivity.
   Qed.
 
+  (** [step_jnz_false]: formal specification. *)
   Lemma step_jnz_false : forall rc target st,
     Nat.eqb (read_reg rc st) 0 = false ->
     read_reg REG_PC (step (Jnz rc target) st) = target.

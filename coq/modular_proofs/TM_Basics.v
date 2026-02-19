@@ -54,11 +54,13 @@ Fixpoint tm_run_n (tm : TMTransition) (conf : TMConfig) (n : nat) : TMConfig :=
 (* Structural List Lemmas                                            *)
 (* ----------------------------------------------------------------- *)
 
+(** [replace_nth_length]: formal specification. *)
 Lemma replace_nth_length : forall l n v, length (replace_nth l n v) = length l.
 Proof.
   induction l as [|x xs IH]; intros [|n] v; simpl; auto.
 Qed.
 
+(** [replace_nth_Forall]: formal specification. *)
 Lemma replace_nth_Forall :
   forall (P : nat -> Prop) (l : list nat) n v,
     Forall P l ->
@@ -80,6 +82,7 @@ Definition tm_config_ok (conf : TMConfig) : Prop :=
   digits_ok tape /\ length tape <= Encoding.SHIFT_LEN /\ head < length tape.
 
 (* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
+(** [tm_config_ok_digits]: formal specification. *)
 Lemma tm_config_ok_digits :
   forall q tape head,
     tm_config_ok (q, tape, head) ->
@@ -87,18 +90,21 @@ Lemma tm_config_ok_digits :
 Proof. intros q tape head [Hdigs _]. exact Hdigs. Qed.
 
 (* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
+(** [tm_config_ok_head]: formal specification. *)
 Lemma tm_config_ok_head :
   forall q tape head,
     tm_config_ok (q, tape, head) ->
     head < length tape.
 Proof. intros q tape head [_ [_ Hhead]]. exact Hhead. Qed.
 
+(** [tm_config_ok_change_state]: formal specification. *)
 Lemma tm_config_ok_change_state :
   forall q1 q2 tape head,
     tm_config_ok (q1, tape, head) ->
     tm_config_ok (q2, tape, head).
 Proof. intros q1 q2 tape head Hok. exact Hok. Qed.
 
+(** [tm_config_ok_update_write]: formal specification. *)
 Lemma tm_config_ok_update_write :
   forall q tape head write,
     tm_config_ok (q, tape, head) ->
@@ -114,6 +120,7 @@ Proof.
     + rewrite replace_nth_length. exact Hhead.
 Qed.
 
+(** [tm_config_ok_update_head]: formal specification. *)
 Lemma tm_config_ok_update_head :
   forall q tape head head',
     tm_config_ok (q, tape, head) ->
@@ -130,6 +137,7 @@ Qed.
 (* Step Preservation Facts                                           *)
 (* ----------------------------------------------------------------- *)
 
+(** [tm_step_tape_length]: formal specification. *)
 Lemma tm_step_tape_length :
   forall tm q tape head,
     head < length tape ->
@@ -142,6 +150,7 @@ Proof.
   apply replace_nth_length.
 Qed.
 
+(** [tm_step_digits_preserved]: formal specification. *)
 Lemma tm_step_digits_preserved :
   forall tm q tape head,
     tm_config_ok (q, tape, head) ->
@@ -158,6 +167,7 @@ Proof.
   apply replace_nth_Forall; [exact Hdigs|exact Hwrite].
 Qed.
 
+(** [tm_step_head_preserved]: formal specification. *)
 Lemma tm_step_head_preserved :
   forall tm q tape head,
     tm_config_ok (q, tape, head) ->

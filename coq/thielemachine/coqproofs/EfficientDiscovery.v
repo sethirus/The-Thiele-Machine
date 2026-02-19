@@ -76,6 +76,7 @@ Definition discover_partition (prob : Problem) : PartitionCandidate :=
      discovery_cost := 0 (* charged elsewhere; keeps profitability trivially true *)
   |}.
 
+(** [covers_range_trivial_range_partition]: formal specification. *)
 Lemma covers_range_trivial_range_partition :
   forall n : nat,
     covers_range (trivial_range_partition n) [] = List.seq 0 n.
@@ -322,6 +323,7 @@ Definition charge_discovery (m : MuLedger) (cost : nat) : MuLedger :=
 
 (** Conservation: μ after >= μ before + discovery_cost *)
 (* ARITHMETIC — (op+cost)+info = (op+info)+cost *)
+(** [mu_conservation_after_discovery]: formal specification. *)
 Theorem mu_conservation_after_discovery :
   forall prob m,
     let candidate := discover_partition prob in

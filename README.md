@@ -60,7 +60,7 @@ The CI pipeline uses an open-source FPGA flow: `yosys` $\to$ `nextpnr-ecp5` $\to
 
 | Component | Status |
 |-----------|--------|
-| **Coq proofs** | 304 files, ~85,800 lines, 2,177 theorems/lemmas, **zero admits**, **zero axioms** beyond foundational logic |
+| **Coq proofs** | 310 files, ~90,350 lines, 2,268 theorems/lemmas, **zero admits**, **zero axioms** beyond foundational logic |
 | **Python VM** | 20,810 lines. Working reference implementation with cryptographic receipts |
 | **Verilog RTL** | 8 source files, ~2,500 hand-written lines (+ synthesis output). Synthesizable, FPGA-targetable |
 | **Test suite** | 891 tests across 108 test files |
@@ -218,7 +218,7 @@ The Thiele Machine is implemented at three layers producing **identical state pr
 
 | Layer | Implementation | Purpose |
 |-------|----------------|---------|
-| **Coq** | 304 proof files, ~85,800 lines, zero admits | Mathematical ground truth |
+| **Coq** | 310 proof files, ~90,350 lines, zero admits | Mathematical ground truth |
 | **Python** | 20,810 lines, receipts and traces | Executable reference |
 | **Verilog** | 8 source files, ~2,500 hand-written lines, synthesizable RTL | Physical realization |
 
@@ -264,7 +264,7 @@ If you find any of these, the Coq proofs won't compile.
 
 ```
 The-Thiele-Machine/
-+-- coq/                    # 304 Coq proof files (~85,800 lines)
++-- coq/                    # 310 Coq proof files (~90,350 lines)
 |   +-- kernel/             # Core theorems (MuInitiality, NoFreeInsight, etc.)
 |   +-- modular_proofs/     # Turing/Minsky simulation proofs
 |   +-- nofi/               # No Free Insight functor architecture

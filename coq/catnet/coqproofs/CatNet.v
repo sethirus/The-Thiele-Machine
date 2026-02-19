@@ -52,6 +52,7 @@ Definition add_entry (log : AuditLog) (new_data : string) : AuditLog :=
   let new_entry := {| data := new_data; previous_hash := prev_hash |} in
   log ++ [new_entry].
 
+(** [is_chain_valid_from_add_entry]: formal specification. *)
 Lemma is_chain_valid_from_add_entry :
   forall log prev_hash new_data,
     is_chain_valid_from prev_hash log ->
@@ -66,6 +67,7 @@ Proof.
     apply IH. exact Hrest.
 Qed.
 
+(** [add_entry_preserves_chain_validity]: formal specification. *)
 Theorem add_entry_preserves_chain_validity :
   forall log new_data,
     is_chain_valid log ->
@@ -90,6 +92,7 @@ Definition controlled_step (st : ControlledState) (axioms : list nat) (data : st
   then {| log := add_entry st.(log) data; paradox_detected := false |}
   else {| log := st.(log); paradox_detected := true |}.
 
+(** [paradox_halts_execution]: formal specification. *)
 Theorem paradox_halts_execution :
   forall st axioms data,
     logic_oracle axioms = false ->

@@ -2174,11 +2174,19 @@ class VM:
         trace_config: Optional[TraceConfig] = None,
         *,
         auto_mdlacc: bool = True,
+        write_artifacts: bool = True,
     ) -> None:
         outdir.mkdir(parents=True, exist_ok=True)
         trace_lines: List[str] = []
         ledger: List[LedgerEntry] = []
         cert_dir = outdir / "certs"
+        # Single CertStore instance reused across the whole VM run to avoid
+        # repeated directory scans and per-REVEAL initialization overhead.
+        try:
+            store = CertStore(cert_dir)
+        except Exception:
+            # Defensive fallback: if CertStore construction fails, set store to None
+            store = None
         modules: Dict[str, int] = {}  # For tracking named modules
         # NOTE: Do not pre-create a genesis module here; tests and the Coq
         # extracted runner expect no pre-existing modules. `current_module`
@@ -2549,7 +2557,8 @@ class VM:
                 )
 
                 # Persist the certificate payload so MDLACC can account for it.
-                store = CertStore(cert_dir)
+                if store is None:
+                    store = CertStore(cert_dir)
                 cid = store.next_id()
                 cert_bytes = cert_payload.encode("utf-8")
                 store.write_bytes(cid, "reveal", cert_bytes)
@@ -3000,8 +3009,9 @@ class VM:
         })
 
         # Write outputs
-        (outdir / "trace.log").write_text("\n".join(trace_lines), encoding='utf-8')
-        (outdir / "mu_ledger.json").write_text(json.dumps(ledger), encoding='utf-8')
+        if write_artifacts:
+            (outdir / "trace.log").write_text("\n".join(trace_lines), encoding='utf-8')
+            (outdir / "mu_ledger.json").write_text(json.dumps(ledger), encoding='utf-8')
 
         # Final enforcement check: detect supra-quantum correlations generated without REVEAL
         # This enforces No Free Insight theorem at program completion
@@ -3061,11 +3071,12 @@ class VM:
                 "metadata": dict(trace_config.metadata),
             }
             self._trace_call(trace_config, "on_finish", finish_payload)
-        (outdir / "summary.json").write_text(json.dumps(summary), encoding='utf-8')
+        if write_artifacts:
+            (outdir / "summary.json").write_text(json.dumps(summary), encoding='utf-8')
 
-        receipts_path = outdir / "step_receipts.json"
-        receipts_json = [receipt.to_dict() for receipt in self.step_receipts]
-        receipts_path.write_text(json.dumps(receipts_json, indent=2), encoding='utf-8')
+            receipts_path = outdir / "step_receipts.json"
+            receipts_json = [receipt.to_dict() for receipt in self.step_receipts]
+            receipts_path.write_text(json.dumps(receipts_json, indent=2), encoding='utf-8')
 
         # Log VM run finish
         try:

@@ -42,6 +42,7 @@ Definition compile_trial (t : TheoryTrial) : vm_instruction :=
 Definition compile (p : TheoryProgram) : list vm_instruction :=
   map compile_trial p.
 
+(** [trial_bits_ok_implies_chsh_bits_ok]: formal specification. *)
 Lemma trial_bits_ok_implies_chsh_bits_ok :
   forall t,
     trial_bits_ok t ->
@@ -76,6 +77,7 @@ Proof.
 Qed.
 
 (* Definitional lemma: Observable preserving transformation by construction *)
+(** [simulation_correctness_chsh_value]: formal specification. *)
 Corollary simulation_correctness_chsh_value :
   forall p,
     program_bits_ok p ->
@@ -100,6 +102,7 @@ Qed.
     the observable (CHSH value) is invariant under the compilation mapping.
 *)
 (* Definitional lemma: Observable preserving transformation by construction *)
+(** [simulation_chsh_invariance]: formal specification. *)
 Lemma simulation_chsh_invariance :
   forall p,
     program_bits_ok p ->
@@ -138,6 +141,7 @@ Definition supra_16_5_program : TheoryProgram :=
     {| KC.t_x := 0; KC.t_y := 0; KC.t_a := 0; KC.t_b := 1 |}
   ].
 
+(** [supra_16_5_program_bits_ok]: formal specification. *)
 Lemma supra_16_5_program_bits_ok : program_bits_ok supra_16_5_program.
 Proof.
   repeat constructor; unfold trial_bits_ok, is_bit; simpl; try reflexivity.
@@ -151,6 +155,7 @@ Qed.
     value 16/5, which is then verified by reflexivity.
 *)
 (* Definitional lemma: Observable preserving transformation by construction *)
+(** [supra_16_5_program_chsh]: formal specification. *)
 Theorem supra_16_5_program_chsh :
   KC.chsh supra_16_5_program = (16#5).
 Proof.
@@ -174,6 +179,7 @@ Qed.
     as a fundamental constant of the system.
 *)
 (* Definitional lemma: Observable preserving transformation by construction *)
+(** [supra_program_chsh_definitional_invariance]: formal specification. *)
 Lemma supra_program_chsh_definitional_invariance :
   (* Definitional invariance: the CHSH value is an intrinsic constant *)
   KC.chsh supra_16_5_program = KC.chsh supra_16_5_program.

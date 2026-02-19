@@ -82,6 +82,7 @@ Record TuringConfig := { tm_tape : list nat; tm_head : nat; tm_state : nat }.
 Definition tm_output (cfg : TuringConfig) : nat := cfg.(tm_state).
 Definition encode_tm_config (cfg : TuringConfig) : Region := cfg.(tm_tape) ++ [cfg.(tm_head); cfg.(tm_state)].
 
+(** [TM_as_BlindThiele]: formal specification. *)
 Theorem TM_as_BlindThiele : forall (cfg : TuringConfig), exists (blind_prog : ThieleProg) (final : BlindThieleState),
   is_blind_program blind_prog = true /\ final.(answer) = Some (tm_output cfg).
 Proof.
@@ -91,6 +92,7 @@ Proof.
   split; simpl; reflexivity.
 Qed.
 
+(** [Blind_is_restriction_of_Sighted]: formal specification. *)
 Theorem Blind_is_restriction_of_Sighted : forall (prog : ThieleProg) (init_state : BlindThieleState),
   is_blind_program prog = true -> forall final_blind final_sighted, final_blind = final_sighted -> final_blind.(answer) = final_sighted.(answer).
 Proof.

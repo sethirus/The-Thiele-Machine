@@ -52,6 +52,7 @@ Definition python_semantic_complexity_bits
     the Coq spec, so equality is definitional. The real verification is in
     the test suite that cross-checks extracted values. *)
 (* DEFINITIONAL *)
+(** [python_log2_matches_coq]: formal specification. *)
 Theorem python_log2_matches_coq :
   forall n : nat,
     python_log2_nat n = log2_nat n.
@@ -281,6 +282,7 @@ Definition isomorphism_verified : Prop :=
           = python_semantic_complexity_bits
               (count_atoms c) (count_vars c) (count_operators c).
 
+(** [isomorphism_verified_holds]: formal specification. *)
 Theorem isomorphism_verified_holds : isomorphism_verified.
 Proof.
   unfold isomorphism_verified.

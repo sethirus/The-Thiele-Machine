@@ -44,6 +44,7 @@ Definition Superposition (vars : Region) : Prop :=
     ValidFactorization vars p1 /\
     ValidFactorization vars p2.
 
+(** [superposition_emergence]: formal specification. *)
 Theorem superposition_emergence : 
   exists (vars : Region), Superposition vars.
 Proof.
@@ -176,6 +177,7 @@ Definition Entangled (r : Region) : Prop :=
   let (r_even, r_odd) := split_region r in
   r_even = [] \/ r_odd = [].
 
+(** [entanglement_emergence]: formal specification. *)
 Theorem entanglement_emergence :
   exists (r : Region), r <> [] /\ Entangled r.
 Proof.
@@ -280,6 +282,7 @@ Definition BornRuleCompliant (s1 s2 : State) : Prop :=
   s1.(mu_ledger).(mu_total) = s2.(mu_ledger).(mu_total) ->
   StateWeight s1 = StateWeight s2.
 
+(** [born_rule_derivation]: formal specification. *)
 Theorem born_rule_derivation :
   forall (s1 s2 : State),
     BornRuleCompliant s1 s2.

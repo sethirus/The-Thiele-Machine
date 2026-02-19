@@ -9,6 +9,7 @@ Require Import NoFI.NoFreeInsight_Interface.
 *)
 
 Module NoFreeInsight (X : NO_FREE_INSIGHT_SYSTEM).
+  (** [no_free_insight]: formal specification. *)
   Theorem no_free_insight :
     forall tr s0 s1 strength weak,
       X.clean_start s0 ->

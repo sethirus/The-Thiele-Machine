@@ -34,6 +34,7 @@ Definition is_cert_setterb (i : vm_instruction) : bool :=
 
 Definition is_cert_setter (i : vm_instruction) : Prop := is_cert_setterb i = true.
 
+(** [vm_exec_mu_monotone]: formal specification. *)
 Lemma vm_exec_mu_monotone :
   forall fuel trace s0 sf,
     vm_exec fuel trace s0 sf ->
@@ -72,6 +73,7 @@ Proof.
     + inversion Hrun; subst. lia.
 Qed.
 
+(** [cert_preserved_if_not_cert_setterb]: formal specification. *)
 Lemma cert_preserved_if_not_cert_setterb :
   forall s instr,
     is_cert_setterb instr = false ->
@@ -82,6 +84,7 @@ Proof.
   all: destruct instr; simpl in Hnot; try discriminate; intros; discriminate.
 Qed.
 
+(** [supra_cert_implies_mu_lower_bound_trace_run]: formal specification. *)
 Theorem supra_cert_implies_mu_lower_bound_trace_run :
   forall fuel trace s_init s_final,
     trace_run fuel trace s_init = Some s_final ->
@@ -119,6 +122,7 @@ Proof.
       unfold has_supra_cert in Hsupra. rewrite Hinit in Hsupra. contradiction.
 Qed.
 
+(** [step_preserves_cert_if_not_cert_setter]: formal specification. *)
 Lemma step_preserves_cert_if_not_cert_setter :
   forall s instr s',
     vm_step s instr s' ->
@@ -131,6 +135,7 @@ Proof.
   all: destruct instr; simpl in Hnot; try discriminate; intros; discriminate.
 Qed.
 
+(** [supra_cert_has_cert_setter_step]: formal specification. *)
 Theorem supra_cert_has_cert_setter_step :
   forall fuel trace s_init s_final,
     vm_exec fuel trace s_init s_final ->
@@ -185,6 +190,7 @@ Proof.
               --- exact Hpost.
 Qed.
 
+(** [supra_cert_implies_mu_lower_bound]: formal specification. *)
 Corollary supra_cert_implies_mu_lower_bound :
   forall fuel trace s_init s_final,
     vm_exec fuel trace s_init s_final ->

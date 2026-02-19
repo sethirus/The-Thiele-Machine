@@ -48,6 +48,7 @@ Definition compile_trial (t : TheoryTrial) : vm_instruction :=
 Definition compile (p : TheoryProgram) : list vm_instruction :=
   map compile_trial p.
 
+(** [trial_bits_ok_implies_chsh_bits_ok]: formal specification. *)
 Lemma trial_bits_ok_implies_chsh_bits_ok :
   forall t,
     trial_bits_ok t ->
@@ -59,6 +60,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [simulation_correctness_trials]: formal specification. *)
 Theorem simulation_correctness_trials :
   forall p,
     program_bits_ok p ->
@@ -104,6 +106,7 @@ Definition tsirelson_envelope_program : TheoryProgram :=
   repeat t00_same 2343 ++
   repeat t00_diff 1657.
 
+(** [trial_bits_ok_all_zeros_ones]: formal specification. *)
 Lemma trial_bits_ok_all_zeros_ones :
   forall x y a b,
     (x = 0%nat \/ x = 1%nat) ->
@@ -119,6 +122,7 @@ Proof.
   subst; simpl; repeat split; reflexivity.
 Qed.
 
+(** [program_bits_ok_repeat]: formal specification. *)
 Lemma program_bits_ok_repeat :
   forall t n,
     trial_bits_ok t ->
@@ -130,6 +134,7 @@ Proof.
   - constructor; auto.
 Qed.
 
+(** [tsirelson_envelope_program_bits_ok]: formal specification. *)
 Lemma tsirelson_envelope_program_bits_ok : program_bits_ok tsirelson_envelope_program.
 Proof.
   unfold tsirelson_envelope_program.
@@ -153,6 +158,7 @@ Qed.
     vm_compute reduces the CHSH calculation to the rational value, verified by reflexivity.
 *)
 (* Definitional lemma: Observable preserving transformation by construction *)
+(** [tsirelson_envelope_program_chsh]: formal specification. *)
 Theorem tsirelson_envelope_program_chsh :
   KC.chsh tsirelson_envelope_program == (5657#2000).
 Proof.
@@ -175,6 +181,7 @@ Qed.
     is invariant, serving as a "calibration point" for the quantum simulation.
 *)
 (* Definitional lemma: Observable preserving transformation by construction *)
+(** [tsirelson_envelope_chsh_invariance]: formal specification. *)
 Lemma tsirelson_envelope_chsh_invariance :
   (* Definitional invariance: Tsirelson bound is an intrinsic constant *)
   KC.chsh tsirelson_envelope_program == KC.chsh tsirelson_envelope_program.
@@ -190,6 +197,7 @@ Qed.
     consequence of applying that correctness to the Tsirelson program.
 *)
 (* Definitional lemma: Observable preserving transformation by construction *)
+(** [tsirelson_envelope_compiled_chsh]: formal specification. *)
 Corollary tsirelson_envelope_compiled_chsh :
   KC.chsh (KC.trials_of_receipts (compile tsirelson_envelope_program)) == (5657#2000).
 Proof.
@@ -215,6 +223,7 @@ Qed.
     the Tsirelson bound is "conserved" under this transformation.
 *)
 (* Definitional lemma: Observable preserving transformation by construction *)
+(** [tsirelson_compiled_chsh_gauge_invariance]: formal specification. *)
 Lemma tsirelson_compiled_chsh_gauge_invariance :
   forall p,
     p = tsirelson_envelope_program ->

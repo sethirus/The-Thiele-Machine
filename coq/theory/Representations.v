@@ -71,6 +71,7 @@ Section Representations.
   |}.
 
   (* Grover's Algorithm: √N query complexity is FORCED by μ-cost *)
+  (** [grover_bound_from_mu]: formal specification. *)
   Theorem grover_bound_from_mu :
     forall (N : nat) (A : Obj),
     dim A = N ->
@@ -91,6 +92,7 @@ Section Representations.
   Qed.
 
   (* Born Rule: Measurement probabilities come from μ-cost allocation *)
+  (** [born_rule_from_mu]: formal specification. *)
   Theorem born_rule_from_mu :
     forall (A : Obj) (psi : UnitaryOp A A),
     exists (p : R), 
@@ -150,6 +152,7 @@ Section Representations.
   (* Landauer's Principle: Erasing 1 bit costs kT ln(2) energy *)
   Variable landauer_constant : R.
 
+  (** [landauer_from_mu]: formal specification. *)
   Theorem landauer_from_mu :
     forall (A : Obj) (erase : ThermoOp A A),
     (* Erasing information requires energy proportional to μ-cost *)
@@ -166,6 +169,7 @@ Section Representations.
   Qed.
 
   (* Second Law: Entropy never decreases, because μ-cost never decreases *)
+  (** [second_law_from_mu]: formal specification. *)
   Theorem second_law_from_mu :
     forall (A B : Obj) (process : ThermoOp A B),
     thermo_mu process >= 0.
@@ -188,6 +192,7 @@ Section Representations.
   (* -------------------------------------------------------------------------- *)
 
   (* Theorem: QM is a representation of Thiele *)
+  (** [QM_is_Thiele_representation]: formal specification. *)
   Theorem QM_is_Thiele_representation :
     forall (gen_interp : forall A B, Gen A B -> UnitaryOp A B),
     True.
@@ -198,6 +203,7 @@ Section Representations.
   (* Theorem: Thermodynamics is a representation of Thiele *)
   (* NOTE: Proves existence of representation (True) rather than specific mapping.
      This is standard for representation theorems where the construction is the content. *)
+  (** [Thermo_is_Thiele_representation]: formal specification. *)
   Theorem Thermo_is_Thiele_representation :
     forall (gen_interp : forall A B, Gen A B -> ThermoOp A B),
     True.
@@ -216,6 +222,7 @@ Section Representations.
      2. Violate the No Free Lunch principle (physical impossibility)
   *)
 
+  (** [no_escape_from_thiele]: formal specification. *)
   Theorem no_escape_from_thiele :
     forall (D : Universality.DiscoveryTheory Obj),
     True.

@@ -7,24 +7,28 @@ From ThieleMachineVerification Require Import BridgeCheckpoints.
    Native compilation of the computation is 10-100x faster than vm_compute.
    These proofs verify CPU execution via computational reflection on concrete states. *)
 
+(** [prove_segment_0_3]: formal specification. *)
 Theorem prove_segment_0_3:
   check_transition checkpoint_0 checkpoint_3 3 = true.
 Proof.
   native_compute. reflexivity.
 Qed.
 
+(** [prove_segment_3_9]: formal specification. *)
 Theorem prove_segment_3_9:
   check_transition checkpoint_3 checkpoint_9 6 = true.
 Proof.
   native_compute. reflexivity.
 Qed.
 
+(** [prove_segment_9_15]: formal specification. *)
 Theorem prove_segment_9_15:
   check_transition checkpoint_9 checkpoint_15 6 = true.
 Proof.
   native_compute. reflexivity.
 Qed.
 
+(** [prove_segment_15_19]: formal specification. *)
 Theorem prove_segment_15_19:
   check_transition checkpoint_15 checkpoint_19 4 = true.
 Proof.
@@ -32,6 +36,7 @@ Proof.
 Qed.
 
 (* General isomorphism proof - setup_state correctly encodes a TM configuration *)
+(** [cpu_tm_general_isomorphism]: formal specification. *)
 Theorem cpu_tm_general_isomorphism : forall tm conf,
   length program <= UTM_Program.RULES_START_ADDR ->
   length (UTM_Encode.encode_rules tm.(tm_rules))

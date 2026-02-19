@@ -650,8 +650,8 @@ Open Scope Q_scope.
     is already done. The SAFE comment means Z.abs usage is in the delegated lemma,
     which has been verified.
 *)
-(* SAFE: This lemma is a direct specialization of chsh_algebraic_bound; the
-   short proof is intentional and inherits that lemma's verification. *)
+(** [chsh_local_bound]: formal specification. *)
+(* SAFE: direct specialization of chsh_algebraic_bound; short proof intentional. *)
 Lemma chsh_local_bound :
   forall trials a_func b_func,
     locally_deterministic_strategy a_func b_func ->

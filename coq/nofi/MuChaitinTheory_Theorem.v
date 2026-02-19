@@ -49,6 +49,7 @@ Module MuChaitinTheory (X : MU_CHAITIN_THEORY_SYSTEM).
     exact X.priced.
   Qed.
 
+  (** [mu_info_nat_le_from_mu_budget]: formal specification. *)
   Lemma mu_info_nat_le_from_mu_budget :
     forall (s_init s_final : VMState) (k : nat),
       s_final.(vm_mu) <= s_init.(vm_mu) + k ->

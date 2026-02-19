@@ -131,6 +131,7 @@ Definition project_state (s : RTLState) : TM.State :=
 Definition project_program (s : RTLState) : TM.Prog :=
   {| TM.code := decode_program s.(rtl_prog) |}.
 
+(** [rtl_step_preserves_program]: formal specification. *)
 Lemma rtl_step_preserves_program : forall s s' obs,
   rtl_step s = Some (s', obs) -> s'.(rtl_prog) = s.(rtl_prog).
 Proof.
@@ -140,6 +141,7 @@ Proof.
   inversion Hstep; subst; reflexivity.
 Qed.
 
+(** [decode_program_nth]: formal specification. *)
 Lemma decode_program_nth : forall prog idx word,
   nth_error prog idx = Some word ->
   nth_error (decode_program prog) idx = Some (decode_instr word).

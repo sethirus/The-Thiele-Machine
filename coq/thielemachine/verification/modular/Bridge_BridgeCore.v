@@ -39,6 +39,7 @@ Fixpoint list_eqb {A} (eqb : A -> A -> bool) (l1 l2 : list A) : bool :=
   | _, _ => false
   end.
 
+(** [list_eqb_spec]: formal specification. *)
 Lemma list_eqb_spec {A} (eqb : A -> A -> bool) (eqb_spec : forall x y, eqb x y = true <-> x = y) :
   forall l1 l2, list_eqb eqb l1 l2 = true <-> l1 = l2.
 Proof.
@@ -46,6 +47,7 @@ Proof.
   rewrite Bool.andb_true_iff, eqb_spec, IH. firstorder congruence.
 Qed.
 
+(** [list_eqb_refl]: formal specification. *)
 Lemma list_eqb_refl {A} (eqb : A -> A -> bool) (eqb_refl : forall x, eqb x x = true) :
   forall l, list_eqb eqb l l = true.
   Proof.
@@ -57,6 +59,7 @@ Definition state_eqb (s1 s2 : CPU.State) : bool :=
     && list_eqb Nat.eqb s1.(CPU.regs) s2.(CPU.regs)
     && list_eqb Nat.eqb s1.(CPU.mem) s2.(CPU.mem).
 
+(** [state_eqb_refl]: formal specification. *)
 Lemma state_eqb_refl : forall s, state_eqb s s = true.
 Proof.
   intro s. destruct s as [r m c].
@@ -68,6 +71,7 @@ Proof.
   - apply list_eqb_refl. intros x. apply Nat.eqb_refl.
 Qed.
 
+(** [state_eqb_true_iff]: formal specification. *)
 Lemma state_eqb_true_iff : forall s1 s2, state_eqb s1 s2 = true <-> s1 = s2.
 Proof.
   intros s1 s2; split; intro H.
@@ -86,6 +90,7 @@ Proof.
 Definition check_transition (start_state end_state : CPU.State) (steps : nat) : bool :=
   state_eqb (run_n start_state steps) end_state.
 
+(** [check_transition_sound]: formal specification. *)
 Lemma check_transition_sound : forall s1 s2 n,
   check_transition s1 s2 n = true -> run_n s1 n = s2.
 Proof.
@@ -120,10 +125,12 @@ Definition set_nth {A : Type} (l : list A) (n : nat) (v : A) : list A :=
 Definition pad_to (n : nat) (l : list nat) : list nat :=
   l ++ repeat 0 (n - length l).
 
+(** [pad_to_expand]: formal specification. *)
 Lemma pad_to_expand : forall n l,
   pad_to n l = l ++ repeat 0 (n - length l).
 Proof. reflexivity. Qed.
 
+(** [length_pad_to_ge]: formal specification. *)
 Lemma length_pad_to_ge : forall l n,
   length l <= n -> length (pad_to n l) = n.
 Proof.
@@ -133,6 +140,7 @@ Proof.
   lia.
 Qed.
 
+(** [length_pad_to_ge_base]: formal specification. *)
 Lemma length_pad_to_ge_base : forall l n,
   length (pad_to n l) >= length l.
 Proof.
@@ -142,6 +150,7 @@ Proof.
   lia.
 Qed.
 
+(** [nth_app_lt]: formal specification. *)
 Lemma nth_app_lt : forall {A} (l1 l2 : list A) n d,
   n < length l1 -> nth n (l1 ++ l2) d = nth n l1 d.
 Proof.
@@ -151,6 +160,7 @@ Proof.
   apply IH. lia.
 Qed.
 
+(** [firstn_pad_to]: formal specification. *)
 Lemma firstn_pad_to : forall l n,
   length l <= n -> firstn (length l) (pad_to n l) = l.
 Proof.

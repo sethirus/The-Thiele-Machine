@@ -57,6 +57,7 @@ Proof.
   rewrite List.app_nil_r. reflexivity.
 Qed.
 
+(** [seq_prog_assoc]: formal specification. *)
 Lemma seq_prog_assoc : forall P Q R,
   seq_prog (seq_prog P Q) R = seq_prog P (seq_prog Q R).
 Proof.
@@ -82,6 +83,7 @@ Proof.
 Qed.
 
 (* DEFINITIONAL — run_closed returns state with pc = length code *)
+(** [run_closed_pc]: formal specification. *)
 Lemma run_closed_pc : forall P,
   (fst (run_closed P)).(pc) = length P.(code).
 Proof.
@@ -107,6 +109,7 @@ Fixpoint final_state (s : State) (trace : list (State * StepObs)) : State :=
   | (s', _) :: tl => final_state s' tl
   end.
 
+(** [skipn_cons_inv]: formal specification. *)
 Lemma skipn_cons_inv : forall (A : Type) (xs : list A) k a tl,
   skipn k xs = a :: tl ->
   skipn (S k) xs = tl.
@@ -118,6 +121,7 @@ Proof.
     apply IH in Hskip. exact Hskip.
 Qed.
 
+(** [skipn_nth_error]: formal specification. *)
 Lemma skipn_nth_error : forall (A : Type) (xs : list A) k a tl,
   skipn k xs = a :: tl ->
   nth_error xs k = Some a.
@@ -129,6 +133,7 @@ Proof.
     apply IH in Hskip. exact Hskip.
 Qed.
 
+(** [skipn_succ_suffix]: formal specification. *)
 Lemma skipn_succ_suffix : forall (A : Type) (xs : list A) k a tl,
   skipn k xs = a :: tl ->
   skipn (S k) xs = tl.
@@ -137,6 +142,7 @@ Proof.
   apply skipn_cons_inv with (xs:=xs) (a:=a); assumption.
 Qed.
 
+(** [closed_trace_exec_aux]: formal specification. *)
 Lemma closed_trace_exec_aux : forall P pc suffix,
   skipn pc P.(code) = suffix ->
   Exec P {| pc := pc |} (closed_trace pc suffix).
@@ -152,6 +158,7 @@ Proof.
     + apply IH. apply skipn_succ_suffix with (a:=instr). exact Hskip.
 Qed.
 
+(** [closed_trace_exec]: formal specification. *)
 Lemma closed_trace_exec : forall P,
   Exec P closed_state (trace_of_prog P).
 Proof.
@@ -179,6 +186,7 @@ Lemma obs_equiv_trans : forall P Q R,
   obs_equiv P Q -> obs_equiv Q R -> obs_equiv P R.
 Proof. intros P Q R HPQ HQR. etransitivity; eauto. Qed.
 
+(** [run_closed_obs_seq]: formal specification. *)
 Lemma run_closed_obs_seq : forall P Q,
   snd (run_closed (seq_prog P Q)) = snd (run_closed P) ++ snd (run_closed Q).
 Proof.
@@ -186,6 +194,7 @@ Proof.
 Qed.
 
 (* Definitional lemma: This equality is by definition, not vacuous *)
+(** [obs_equiv_compose]: formal specification. *)
 Lemma obs_equiv_compose : forall P P' Q Q',
   obs_equiv P P' -> obs_equiv Q Q' ->
   obs_equiv (seq_prog P Q) (seq_prog P' Q').
@@ -196,6 +205,7 @@ Proof.
 Qed.
 
 (* Definitional lemma: This equality is by definition, not vacuous *)
+(** [obs_equiv_id_l]: formal specification. *)
 Lemma obs_equiv_id_l : forall P,
   obs_equiv (seq_prog empty_prog P) P.
 Proof.
@@ -204,6 +214,7 @@ Proof.
 Qed.
 
 (* Definitional lemma: This equality is by definition, not vacuous *)
+(** [obs_equiv_id_r]: formal specification. *)
 Lemma obs_equiv_id_r : forall P,
   obs_equiv (seq_prog P empty_prog) P.
 Proof.
@@ -240,6 +251,7 @@ Definition ThieleProc : Category :=
 (* Interface helpers for upcoming tensor proofs *)
 (* ------------------------------------------------------------------ *)
 
+(** [iface_tensor_partitions]: formal specification. *)
 Lemma iface_tensor_partitions : forall A B,
   (tensor_interface A B).(iface_partitions) =
   A.(iface_partitions) + B.(iface_partitions).
@@ -247,6 +259,7 @@ Proof.
   intros A B. reflexivity.
 Qed.
 
+(** [run_closed_tensor_pc]: formal specification. *)
 Lemma run_closed_tensor_pc : forall P Q,
   (fst (run_closed (seq_prog P Q))).(pc) =
     (fst (run_closed P)).(pc) + (fst (run_closed Q)).(pc).

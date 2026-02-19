@@ -38,6 +38,7 @@ Proof.
     apply Rmult_le_pos; lra.
 Qed.
 
+(** [cauchy_schwarz_chsh]: formal specification. *)
 Lemma cauchy_schwarz_chsh :
   forall a b c d : R,
     (a + b + c - d) * (a + b + c - d) <= 4 * (a*a + b*b + c*c + d*d).
@@ -84,6 +85,7 @@ Qed.
     MAIN THEOREM: Row bounds imply Tsirelson bound
     ========================================================================= *)
 (* SAFE: Tsirelson bound in squared form: S² ≤ 8 equivalent to |S| ≤ 2√2 *)
+(** [tsirelson_from_row_bounds]: formal specification. *)
 Theorem tsirelson_from_row_bounds :
   forall e00 e01 e10 e11 : R,
     (* Row constraints from NPA-1 with marginals = 0 *)
@@ -129,6 +131,7 @@ Qed.
 
 Definition sqrt8 : R := sqrt 8.
 
+(** [sqrt8_squared]: formal specification. *)
 Lemma sqrt8_squared : sqrt8 * sqrt8 = 8.
 Proof.
   unfold sqrt8. rewrite sqrt_sqrt; [reflexivity | lra].
@@ -185,6 +188,7 @@ Definition sqrt2inv : R := 1 / sqrt 2.
 Lemma sqrt2_pos : sqrt 2 > 0.
 Proof. apply sqrt_lt_R0. lra. Qed.
 
+(** [sqrt2inv_squared]: formal specification. *)
 Lemma sqrt2inv_squared : sqrt2inv * sqrt2inv = 1/2.
 Proof.
   unfold sqrt2inv.
@@ -204,6 +208,7 @@ Proof.
   unfold CHSH. ring.
 Qed.
 
+(** [four_over_sqrt2]: formal specification. *)
 Lemma four_over_sqrt2 : 4 * sqrt2inv = sqrt8.
 Proof.
   unfold sqrt2inv, sqrt8.

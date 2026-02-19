@@ -13,6 +13,7 @@ Definition tm_config_ok (conf : TMConfig) : Prop :=
   let '(q, tape, head) := conf in
   digits_ok tape /\ length tape <= SHIFT_LEN /\ head < SHIFT_LEN.
 
+(** [tm_decode_encode_roundtrip]: formal specification. *)
 Lemma tm_decode_encode_roundtrip :
   forall conf,
     tm_config_ok conf ->

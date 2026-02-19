@@ -109,6 +109,7 @@ Qed.
 
 (** If two states are observationally equivalent, they have the same observables *)
 (* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
+(** [obs_equiv_sound]: formal specification. *)
 Theorem obs_equiv_sound : forall s1 s2,
   obs_equiv s1 s2 ->
   observe_state s1 = observe_state s2.

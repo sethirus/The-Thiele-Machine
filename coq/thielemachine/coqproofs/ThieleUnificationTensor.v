@@ -16,6 +16,7 @@ From ThieleMachine Require Import ThieleUnificationProtocol.
 
 Module ThieleUnificationTensor.
 
+  (** [pg_next_id_graph_add_axiom]: formal specification. *)
   Lemma pg_next_id_graph_add_axiom :
     forall g mid ax,
       VMState.pg_next_id (VMState.graph_add_axiom g mid ax) = VMState.pg_next_id g.
@@ -27,6 +28,7 @@ Module ThieleUnificationTensor.
     reflexivity.
   Qed.
 
+  (** [pg_next_id_graph_add_axioms]: formal specification. *)
   Lemma pg_next_id_graph_add_axioms :
     forall axs g mid,
       VMState.pg_next_id (VMState.graph_add_axioms g mid axs) = VMState.pg_next_id g.
@@ -40,6 +42,7 @@ Module ThieleUnificationTensor.
       apply pg_next_id_graph_add_axiom.
   Qed.
 
+  (** [graph_lookup_insert_modules_same]: formal specification. *)
   Lemma graph_lookup_insert_modules_same :
     forall modules mid m,
       VMState.graph_lookup_modules
@@ -61,6 +64,7 @@ Module ThieleUnificationTensor.
         exact IH.
   Qed.
 
+  (** [graph_lookup_update_same]: formal specification. *)
   Lemma graph_lookup_update_same :
     forall g mid m,
       VMState.graph_lookup (VMState.graph_update g mid m) mid =
@@ -72,6 +76,7 @@ Module ThieleUnificationTensor.
     apply graph_lookup_insert_modules_same.
   Qed.
 
+  (** [graph_add_axiom_mid_lookup_respects_lookup]: formal specification. *)
   Lemma graph_add_axiom_mid_lookup_respects_lookup :
     forall g1 g2 mid ax,
       VMState.graph_lookup g1 mid = VMState.graph_lookup g2 mid ->
@@ -92,6 +97,7 @@ Module ThieleUnificationTensor.
       reflexivity.
   Qed.
 
+  (** [graph_add_axioms_mid_lookup_respects_lookup]: formal specification. *)
   Lemma graph_add_axioms_mid_lookup_respects_lookup :
     forall axs g1 g2 mid,
       VMState.graph_lookup g1 mid = VMState.graph_lookup g2 mid ->

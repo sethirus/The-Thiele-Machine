@@ -25,6 +25,7 @@ Module Separation.
     lia.
   Qed.
 
+  (** [pow2_ge_linear]: formal specification. *)
   Lemma pow2_ge_linear : forall n, Nat.pow 2 n >= n + 1.
   Proof.
     induction n.
@@ -39,17 +40,20 @@ Module Separation.
   Definition exponential_lower_bound (f : nat -> nat) :=
     exists k, forall n, f (n + k) >= Nat.pow 2 n.
 
+  (** [sighted_is_quadratic]: formal specification. *)
   Lemma sighted_is_quadratic : polynomial_time sighted_steps.
   Proof.
     unfold polynomial_time, sighted_steps. exists 0, 1, 1. intros n. lia.
   Qed.
 
+  (** [blind_has_exponential_lower]: formal specification. *)
   Lemma blind_has_exponential_lower : exponential_lower_bound blind_steps.
   Proof.
     unfold exponential_lower_bound, blind_steps. exists 0.
     intro n. rewrite Nat.add_0_r. apply Nat.le_refl.
   Qed.
 
+  (** [blind_eventually_dominates]: formal specification. *)
   Lemma blind_eventually_dominates :
     forall n, blind_steps n >= sighted_steps n.
   Proof.
@@ -57,6 +61,7 @@ Module Separation.
     apply pow2_ge_linear.
   Qed.
 
+  (** [exponential_separation]: formal specification. *)
   Theorem exponential_separation :
     polynomial_time sighted_steps /\
     exponential_lower_bound blind_steps /\

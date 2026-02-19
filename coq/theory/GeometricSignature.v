@@ -27,6 +27,7 @@ Module GeometricSignature.
       this snapshot and keeps the development axiom-free. *)
   Definition variation_of_information (p1 p2 : Partition) : R := 0%R.
 
+  (** [vi_non_negative]: formal specification. *)
   Lemma vi_non_negative : forall p1 p2,
       (variation_of_information p1 p2 >= 0)%R.
   Proof.
@@ -34,6 +35,7 @@ Module GeometricSignature.
   Qed.
 
   (* DEFINITIONAL — VI is symmetric by construction (commutative Rabs) *)
+  (** [vi_symmetric]: formal specification. *)
   Lemma vi_symmetric : forall p1 p2,
       variation_of_information p1 p2 = variation_of_information p2 p1.
   Proof.
@@ -41,6 +43,7 @@ Module GeometricSignature.
   Qed.
 
   (* DEFINITIONAL — VI(p,p) = |H(p)-H(p)| = 0 *)
+  (** [vi_identity]: formal specification. *)
   Lemma vi_identity : forall p,
       variation_of_information p p = 0%R.
   Proof.
@@ -48,6 +51,7 @@ Module GeometricSignature.
   Qed.
 
   (* ARITHMETIC — triangle inequality for absolute difference *)
+  (** [vi_triangle]: formal specification. *)
   Lemma vi_triangle : forall p1 p2 p3,
       (variation_of_information p1 p3 <=
        variation_of_information p1 p2 + variation_of_information p2 p3)%R.

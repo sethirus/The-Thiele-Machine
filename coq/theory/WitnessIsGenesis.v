@@ -48,6 +48,7 @@ Definition witness_auditor (before after : WitnessState) : Prop :=
   witness_creator after = witness_creator before /\
   auditor_func (witness_creator before) (witness_child after) = true.
 
+(** [auditor_func_accepts]: formal specification. *)
 Lemma auditor_func_accepts :
   forall c : CreatorState,
     auditor_func c (proposer_func c) = true.
@@ -61,6 +62,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [witness_auditor_accepts]: formal specification. *)
 Lemma witness_auditor_accepts :
   forall w : WitnessState, witness_auditor w (witness_step w).
 Proof.
@@ -77,6 +79,7 @@ Definition WitnessProc : Proc WitnessState :=
 Definition Logos_Machine : Thiele WitnessState :=
   proc_to_thiele WitnessProc.
 
+(** [Ouroboros_Witness_Is_A_Coherent_Process]: formal specification. *)
 Theorem Ouroboros_Witness_Is_A_Coherent_Process :
   forall s : WitnessState,
     ThieleStep Logos_Machine s (witness_step s).
@@ -86,6 +89,7 @@ Proof.
   apply proc_realises_thiele.
 Qed.
 
+(** [Logos_Auditor_Sees_True]: formal specification. *)
 Corollary Logos_Auditor_Sees_True :
   forall c : CreatorState,
     auditor_func c (proposer_func c) = true.

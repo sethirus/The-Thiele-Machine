@@ -391,6 +391,7 @@ Proof.
   unfold mu_cost_of_trace. simpl. reflexivity.
 Qed.
 
+(** [algebraic_max_trials_chsh]: formal specification. *)
 Lemma algebraic_max_trials_chsh :
   chsh_from_trials algebraic_max_trials == 4%Q.
 Proof.
@@ -398,6 +399,7 @@ Proof.
   vm_compute. reflexivity.
 Qed.
 
+(** [extract_algebraic_max_trials]: formal specification. *)
 Lemma extract_algebraic_max_trials :
   extract_chsh_trials_from_trace 4 algebraic_max_trace init_state_for_algebraic_max =
   algebraic_max_trials.
@@ -405,6 +407,7 @@ Proof.
   unfold extract_chsh_trials_from_trace. simpl. reflexivity.
 Qed.
 
+(** [algebraic_max_trace_chsh]: formal specification. *)
 Lemma algebraic_max_trace_chsh :
   chsh_from_vm_trace 4 algebraic_max_trace init_state_for_algebraic_max == 4%Q.
 Proof.
@@ -415,6 +418,7 @@ Qed.
 
 (** ARITHMETIC HELPER: concrete rational inequality [2 < 4]. *)
 (* SAFE: Simple rational comparison 2 < 4 — short proof is complete. *)
+(** [classical_bound_lt_algebraic_max]: formal specification. *)
 Lemma classical_bound_lt_algebraic_max : classical_bound_value < 4%Q.
 Proof.
   (* INQUISITOR NOTE: This is a SIMPLE ARITHMETIC FACT (2 < 4).

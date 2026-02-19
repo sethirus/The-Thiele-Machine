@@ -100,6 +100,7 @@ Proof.
     apply Rmult_le_pos; lra.
 Qed.
 
+(** [cauchy_schwarz_chsh]: formal specification. *)
 Lemma cauchy_schwarz_chsh :
   forall a b c d : R,
     (a + b + c - d) * (a + b + c - d) <=
@@ -171,6 +172,7 @@ Qed.
 
 Definition optimal_correlator : R := / sqrt 2.
 
+(** [optimal_correlator_squared]: formal specification. *)
 Lemma optimal_correlator_squared :
   optimal_correlator * optimal_correlator = / 2.
 Proof.
@@ -198,6 +200,7 @@ Lemma optimal_chsh :
   4 * optimal_correlator.
 Proof. unfold CHSH_value. ring. Qed.
 
+(** [four_e_eq_sqrt8]: formal specification. *)
 Lemma four_e_eq_sqrt8 : 4 * optimal_correlator = sqrt 8.
 Proof.
   unfold optimal_correlator.
@@ -212,6 +215,7 @@ Proof.
     + field.
     + simpl. rewrite Rmult_1_r. rewrite sqrt_sqrt; lra.
 Qed.
+(** [tsirelson_tight]: formal specification. *)
 Theorem tsirelson_tight :
   exists e00 e01 e10 e11 : R,
     e00*e00 + e01*e01 <= 1 /\

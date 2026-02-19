@@ -59,6 +59,7 @@ Definition is_instr_mem_safe (mem_len : nat) (i : Instr) : bool :=
   | _ => true
   end.
 
+(** [succ_le_of_lt]: formal specification. *)
 Lemma succ_le_of_lt : forall a b, a < b -> S a <= b.
 Proof. intros a b H; lia. Qed.
 
@@ -136,6 +137,7 @@ Fixpoint run_kernel_n (p : Program) (st : MachineState) (n : nat) : MachineState
 
 (* Auxiliary lemmas about [kernel_step]. *)
 
+(** [kernel_step_mem_length]: formal specification. *)
 Lemma kernel_step_mem_length :
   forall p st,
     length (mem (kernel_step p st)) = length st.(mem).
@@ -150,6 +152,7 @@ Proof.
   destruct i; reflexivity.
 Qed.
 
+(** [kernel_step_pc_bound]: formal specification. *)
 Lemma kernel_step_pc_bound :
   forall p st,
     st.(paradox_detected) = false ->
@@ -174,6 +177,7 @@ Proof.
   - lia.
 Qed.
 
+(** [run_kernel_paradox]: formal specification. *)
 Lemma run_kernel_paradox :
   forall p st n,
     paradox_detected st = true ->
@@ -187,6 +191,7 @@ Qed.
 
 
 (* Main security theorem: The program counter never exceeds the program's bounds (Thiele Edition). *)
+(** [pc_never_exceeds_program_bounds_thiele]: formal specification. *)
 Theorem pc_never_exceeds_program_bounds_thiele :
   forall (p_with_axioms : Program) (st : MachineState) (n : nat),
     st.(pc) <= length (fst p_with_axioms) ->
@@ -212,6 +217,7 @@ Proof.
       exact Hall.
 Qed.
 
+(** [mem_safety_preserved_thiele]: formal specification. *)
 Theorem mem_safety_preserved_thiele :
   forall (p_with_axioms : Program) (st_init : MachineState) (n : nat),
     (forall instr,

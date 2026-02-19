@@ -22,6 +22,7 @@ Inductive reaches : VMState -> VMState -> Prop :=
 | reaches_refl : forall s, reaches s s
 | reaches_cons : forall s1 s2 s3, step_rel s1 s2 -> reaches s2 s3 -> reaches s1 s3.
 
+(** [reaches_one]: formal specification. *)
 Lemma reaches_one : forall s s', step_rel s s' -> reaches s s'.
 Proof.
   intros s s' H.
@@ -30,6 +31,7 @@ Proof.
   - constructor.
 Qed.
 
+(** [reaches_trans]: formal specification. *)
 Lemma reaches_trans : forall s1 s2 s3, reaches s1 s2 -> reaches s2 s3 -> reaches s1 s3.
 Proof.
   intros s1 s2 s3 H12 H23.
@@ -38,6 +40,7 @@ Proof.
   - eapply reaches_cons; eauto.
 Qed.
 
+(** [step_rel_no_signaling]: formal specification. *)
 Lemma step_rel_no_signaling :
   forall s instr s' mid,
     well_formed_graph s.(vm_graph) ->
@@ -50,6 +53,7 @@ Proof.
   eapply observational_no_signaling; eauto.
 Qed.
 
+(** [all_ids_below_graph_insert_modules]: formal specification. *)
 Lemma all_ids_below_graph_insert_modules :
   forall modules bound mid m,
     all_ids_below modules bound ->
@@ -66,6 +70,7 @@ Proof.
       * apply IH; assumption.
 Qed.
 
+(** [graph_update_preserves_wf]: formal specification. *)
 Lemma graph_update_preserves_wf : forall g mid m,
   well_formed_graph g ->
   mid < pg_next_id g ->
@@ -76,6 +81,7 @@ Proof.
   apply all_ids_below_graph_insert_modules; assumption.
 Qed.
 
+(** [graph_add_axiom_preserves_wf]: formal specification. *)
 Lemma graph_add_axiom_preserves_wf : forall g mid ax,
   well_formed_graph g ->
   well_formed_graph (graph_add_axiom g mid ax).
@@ -92,6 +98,7 @@ Proof.
   - exact Hwf.
 Qed.
 
+(** [graph_add_axioms_preserves_wf]: formal specification. *)
 Lemma graph_add_axioms_preserves_wf : forall axs g mid,
   well_formed_graph g ->
   well_formed_graph (graph_add_axioms g mid axs).
@@ -104,6 +111,7 @@ Proof.
     exact Hwf.
 Qed.
 
+(** [graph_record_discovery_preserves_wf]: formal specification. *)
 Lemma graph_record_discovery_preserves_wf : forall g mid ev,
   well_formed_graph g ->
   well_formed_graph (graph_record_discovery g mid ev).
@@ -114,6 +122,7 @@ Proof.
   exact Hwf.
 Qed.
 
+(** [graph_pnew_preserves_wf]: formal specification. *)
 Lemma graph_pnew_preserves_wf : forall g region,
   well_formed_graph g ->
   well_formed_graph (fst (graph_pnew g region)).
@@ -125,6 +134,7 @@ Proof.
   - simpl. apply graph_add_module_preserves_wf. exact Hwf.
 Qed.
 
+(** [graph_psplit_preserves_wf]: formal specification. *)
 Lemma graph_psplit_preserves_wf : forall g mid left right g' l_id r_id,
   well_formed_graph g ->
   graph_psplit g mid left right = Some (g', l_id, r_id) ->
@@ -154,6 +164,7 @@ Proof.
     exact Hwf_right_fst.
 Qed.
 
+(** [graph_pmerge_preserves_wf]: formal specification. *)
 Lemma graph_pmerge_preserves_wf : forall g m1 m2 g' merged_id,
   well_formed_graph g ->
   graph_pmerge g m1 m2 = Some (g', merged_id) ->
@@ -189,6 +200,7 @@ Proof.
   }
 Qed.
 
+(** [vm_step_preserves_wf]: formal specification. *)
 Lemma vm_step_preserves_wf : forall s instr s',
   well_formed_graph s.(vm_graph) ->
   vm_step s instr s' ->
@@ -211,6 +223,7 @@ Proof.
     subst. apply graph_record_discovery_preserves_wf. exact Hwf.
 Qed.
 
+(** [graph_pnew_next_id_monotone]: formal specification. *)
 Lemma graph_pnew_next_id_monotone : forall g region,
   pg_next_id g <= pg_next_id (fst (graph_pnew g region)).
 Proof.
@@ -219,6 +232,7 @@ Proof.
   destruct (graph_find_region g (normalize_region region)) eqn:Hfind; simpl; lia.
 Qed.
 
+(** [graph_update_next_id_same]: formal specification. *)
 Lemma graph_update_next_id_same : forall g mid m,
   pg_next_id (graph_update g mid m) = pg_next_id g.
 Proof.
@@ -226,6 +240,7 @@ Proof.
   unfold graph_update. simpl. reflexivity.
 Qed.
 
+(** [graph_add_axiom_next_id_same]: formal specification. *)
 Lemma graph_add_axiom_next_id_same : forall g mid ax,
   pg_next_id (graph_add_axiom g mid ax) = pg_next_id g.
 Proof.
@@ -236,6 +251,7 @@ Proof.
   - reflexivity.
 Qed.
 
+(** [graph_add_axioms_next_id_same]: formal specification. *)
 Lemma graph_add_axioms_next_id_same : forall axs g mid,
   pg_next_id (graph_add_axioms g mid axs) = pg_next_id g.
 Proof.
@@ -247,6 +263,7 @@ Proof.
     reflexivity.
 Qed.
 
+(** [graph_record_discovery_next_id_same]: formal specification. *)
 Lemma graph_record_discovery_next_id_same : forall g mid ev,
   pg_next_id (graph_record_discovery g mid ev) = pg_next_id g.
 Proof.
@@ -255,6 +272,7 @@ Proof.
   apply graph_add_axioms_next_id_same.
 Qed.
 
+(** [graph_psplit_next_id_monotone]: formal specification. *)
 Lemma graph_psplit_next_id_monotone : forall g mid left right g' l_id r_id,
   graph_psplit g mid left right = Some (g', l_id, r_id) ->
   pg_next_id g <= pg_next_id g'.
@@ -282,6 +300,7 @@ Proof.
     lia.
 Qed.
 
+(** [graph_remove_next_id_same]: formal specification. *)
 Lemma graph_remove_next_id_same : forall g mid g' m,
   graph_remove g mid = Some (g', m) ->
   pg_next_id g' = pg_next_id g.
@@ -294,6 +313,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [graph_pmerge_next_id_monotone]: formal specification. *)
 Lemma graph_pmerge_next_id_monotone : forall g m1 m2 g' merged_id,
   graph_pmerge g m1 m2 = Some (g', merged_id) ->
   pg_next_id g <= pg_next_id g'.
@@ -323,6 +343,7 @@ Proof.
     lia.
 Qed.
 
+(** [vm_step_next_id_monotone]: formal specification. *)
 Lemma vm_step_next_id_monotone : forall s instr s',
   vm_step s instr s' ->
   pg_next_id s.(vm_graph) <= pg_next_id s'.(vm_graph).
@@ -344,6 +365,7 @@ Proof.
     subst. rewrite graph_record_discovery_next_id_same. lia.
 Qed.
 
+(** [vm_step_preserves_mid_lt_next_id]: formal specification. *)
 Lemma vm_step_preserves_mid_lt_next_id : forall s instr s' mid,
   mid < pg_next_id s.(vm_graph) ->
   vm_step s instr s' ->
@@ -361,6 +383,7 @@ Inductive exec_trace : VMState -> list vm_instruction -> VMState -> Prop :=
     exec_trace s2 rest s3 ->
     exec_trace s1 (instr :: rest) s3.
 
+(** [exec_trace_no_signaling_outside_cone]: formal specification. *)
 Lemma exec_trace_no_signaling_outside_cone :
   forall s trace s' mid,
     exec_trace s trace s' ->

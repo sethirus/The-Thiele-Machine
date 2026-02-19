@@ -41,6 +41,7 @@ Section WithRefinement.
        hw_trace := vm_trace;
        hw_refines_vm := rtl_refines_vm |}.
 
+  (** [rtl_mu_conservation]: formal specification. *)
   Lemma rtl_mu_conservation :
     forall fuel s,
       (decode_vm (impl_iter rtl_step_total fuel s)).(vm_mu) =
@@ -50,6 +51,7 @@ Section WithRefinement.
     apply (faithful_impl_mu_conservation rtl_faithful_impl).
   Qed.
 
+  (** [rtl_irreversibility_lower_bound]: formal specification. *)
   Lemma rtl_irreversibility_lower_bound :
     forall fuel s,
       irreversible_count fuel vm_trace (decode_vm s) <=

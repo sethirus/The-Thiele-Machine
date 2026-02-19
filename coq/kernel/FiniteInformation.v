@@ -492,6 +492,7 @@ Definition mu_after : nat := mu + info_destroyed.
     in [info_nonincreasing] (pigeonhole argument) which ensures
     info_destroyed is well-defined. *)
 (* ARITHMETIC *)
+(** [mu_monotonic]: formal specification. *)
 Theorem mu_monotonic : mu_after >= mu.
 Proof.
   unfold mu_after. lia.
@@ -581,6 +582,7 @@ Proof.
   inversion Hstep; subst; simpl; unfold apply_cost; reflexivity.
 Qed.
 
+(** [vm_mu_monotonic]: formal specification. *)
 Theorem vm_mu_monotonic :
   forall s s' i,
     vm_step s i s' ->

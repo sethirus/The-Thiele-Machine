@@ -44,6 +44,7 @@ Definition csv_supra_quantum_p (a b x y : Bit) : Q :=
   | B1, B1, B1, B1 => 1#2
   end.
 
+(** [csv_supra_quantum_p_nonneg]: formal specification. *)
 Lemma csv_supra_quantum_p_nonneg :
   forall a b x y,
     0#1 <= csv_supra_quantum_p a b x y.
@@ -52,6 +53,7 @@ Proof.
   destruct x, y, a, b; simpl; unfold Qle; simpl; lia.
 Qed.
 
+(** [csv_supra_quantum_p_norm]: formal specification. *)
 Lemma csv_supra_quantum_p_norm :
   forall x y,
     sum_bit2 (fun a b => csv_supra_quantum_p a b x y) == 1#1.
@@ -60,6 +62,7 @@ Proof.
   destruct x, y; vm_compute; reflexivity.
 Qed.
 
+(** [csv_supra_quantum_p_nosig_A]: formal specification. *)
 Lemma csv_supra_quantum_p_nosig_A :
   forall x y1 y2 a,
     sum_bit (fun b => csv_supra_quantum_p a b x y1) ==
@@ -69,6 +72,7 @@ Proof.
   destruct x, y1, y2, a; vm_compute; reflexivity.
 Qed.
 
+(** [csv_supra_quantum_p_nosig_B]: formal specification. *)
 Lemma csv_supra_quantum_p_nosig_B :
   forall y x1 x2 b,
     sum_bit (fun a => csv_supra_quantum_p a b x1 y) ==
@@ -78,6 +82,7 @@ Proof.
   destruct y, x1, x2, b; vm_compute; reflexivity.
 Qed.
 
+(** [csv_supra_quantum_p_eq]: formal specification. *)
 Lemma csv_supra_quantum_p_eq :
   forall a b x y,
     csv_supra_quantum_p a b x y = supra_quantum_p a b x y.
@@ -86,6 +91,7 @@ Proof.
   destruct x, y, a, b; reflexivity.
 Qed.
 
+(** [csv_supra_quantum_p_Qeq]: formal specification. *)
 Lemma csv_supra_quantum_p_Qeq :
   forall a b x y,
     csv_supra_quantum_p a b x y == supra_quantum_p a b x y.
@@ -107,6 +113,7 @@ Definition CsvSupraQuantum : Box := {|
 (*  Derived: the artifact CHSH equals the Coq SupraQuantum CHSH             *)
 (* ----------------------------------------------------------------------- *)
 
+(** [E_csv_supra_quantum]: formal specification. *)
 Lemma E_csv_supra_quantum :
   forall x y,
     E CsvSupraQuantum x y == E SupraQuantum x y.
@@ -120,6 +127,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [S_CsvSupraQuantum]: formal specification. *)
 Theorem S_CsvSupraQuantum : S CsvSupraQuantum == 16#5.
 Proof.
   unfold S.

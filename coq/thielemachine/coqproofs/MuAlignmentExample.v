@@ -31,6 +31,7 @@ Proof. reflexivity. Qed.
 
 (** Therefore the μ-cost is exactly 72 bits *)
 (* ARITHMETIC — 9 * 8 = 72 *)
+(** [lassert_xor_mu_cost]: formal specification. *)
 Theorem lassert_xor_mu_cost :
   lassert_mu_cost test_clause = 72.
 Proof.
@@ -42,6 +43,7 @@ Qed.
 
 (** General theorem: μ-cost is always 8× the query length *)
 (* DEFINITIONAL — lassert_mu_cost is defined as str_size * 8 *)
+(** [lassert_mu_cost_formula]: formal specification. *)
 Theorem lassert_mu_cost_formula :
   forall query : string,
     lassert_mu_cost query = Z.of_nat (str_size query) * 8.

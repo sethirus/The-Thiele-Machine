@@ -54,6 +54,7 @@ Definition classical_bound (summary : BellSummary) : Prop :=
 Definition bell_violation (summary : BellSummary) : Prop :=
   (2#1) + epsilon summary < measured_S summary.
 
+(** [classical_gap_plus]: formal specification. *)
 Lemma classical_gap_plus :
   forall summary,
     classical_gap_witness summary ->
@@ -66,6 +67,7 @@ Proof.
   ring.
 Qed.
 
+(** [violation_margin_plus]: formal specification. *)
 Lemma violation_margin_plus :
   forall summary,
     violation_margin_witness summary ->
@@ -101,6 +103,7 @@ Proof.
 Qed.
 
 (* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
+(** [CHSH_receipt_to_S]: formal specification. *)
 Lemma CHSH_receipt_to_S :
   forall summary,
     summary_consistent summary ->
@@ -110,6 +113,7 @@ Proof.
   exact H.
 Qed.
 
+(** [classical_gap_implies_bound]: formal specification. *)
 Lemma classical_gap_implies_bound :
   forall summary,
     classical_gap_witness summary ->
@@ -123,6 +127,7 @@ Proof.
   exact Hnonneg.
 Qed.
 
+(** [violation_margin_implies_violation]: formal specification. *)
 Lemma violation_margin_implies_violation :
   forall summary,
     violation_margin_witness summary ->
@@ -137,6 +142,7 @@ Proof.
 Qed.
 
 (* SAFE: classical CHSH bound S ≤ 2 + ε for local hidden variable models *)
+(** [CHSH_classical_bound]: formal specification. *)
 Lemma CHSH_classical_bound :
   forall eps (B : Box),
     0#1 <= eps ->

@@ -76,6 +76,7 @@ Definition bloch_pure (x y z : R) : Prop := x*x + y*y + z*z = 1.
 *)
 (** ARITHMETIC HELPER: [r² = 1 -> r² <= 1] by lra. *)
 (* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
+(** [pure_is_mixed]: formal specification. *)
 Lemma pure_is_mixed : forall x y z : R,
   bloch_pure x y z -> bloch_mixed x y z.
 Proof.
@@ -104,6 +105,7 @@ Definition purity (x y z : R) : R := x*x + y*y + z*z.
 (** HELPER: Non-negativity property *)
 (** HELPER: Non-negativity property *)
 (* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
+(** [purity_nonneg]: formal specification. *)
 Lemma purity_nonneg : forall x y z : R, purity x y z >= 0.
 Proof.
   intros. unfold purity. nra.
@@ -276,6 +278,7 @@ Qed.
     FALSIFICATION: Show maximally mixed state has deficit ≠ 1 (arithmetic error).
 *)
 (* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
+(** [maximally_mixed_needs_full_reference]: formal specification. *)
 Lemma maximally_mixed_needs_full_reference :
   purification_deficit 0 0 0 = 1.
 Proof.

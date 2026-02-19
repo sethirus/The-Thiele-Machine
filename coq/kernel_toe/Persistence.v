@@ -136,6 +136,7 @@ Definition pnew_choices (n : nat) : list vm_instruction :=
 Definition schedule_expanding (fuel0 : nat) : list (list vm_instruction * vm_instruction) :=
   [(pnew_choices (S fuel0), pnew_inst 0)].
 
+(** [in_pnew_choices_0]: formal specification. *)
 Lemma in_pnew_choices_0 : forall n,
   0 < n -> In (pnew_inst 0) (pnew_choices n).
 Proof.
@@ -146,6 +147,7 @@ Proof.
   split; [lia|lia].
 Qed.
 
+(** [uniform_bet_zero_when_choices_exceed_fuel]: formal specification. *)
 Lemma uniform_bet_zero_when_choices_exceed_fuel : forall fs choices oracle,
   In oracle choices ->
   List.length choices > fs_fuel fs ->
@@ -171,6 +173,7 @@ Proof.
       * exfalso. exact (Hcontra Hin).
 Qed.
 
+(** [Uniform_Strategy_Dies]: formal specification. *)
 Theorem Uniform_Strategy_Dies : forall s0 fuel0,
   fuel0 > 0 ->
   exists fsN,

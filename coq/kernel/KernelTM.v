@@ -87,6 +87,7 @@ Definition initial_state_for (M : TuringMachine) : state := tm_initial M.
 Definition final_state_for (M : TuringMachine) : state :=
   run_tm (tm_steps M) (tm_program M) (tm_initial M).
 
+(** [tm_is_turing_complete]: formal specification. *)
 Theorem tm_is_turing_complete :
   forall (M : TuringMachine),
     exists (p : program),

@@ -148,6 +148,7 @@ Record BenchmarkPSPLIT := {
 Definition total_cost_bound (num_ops partition_size : nat) : nat :=
   num_ops * partition_size.
 
+(** [workload_linear]: formal specification. *)
 Theorem workload_linear : forall N M total,
   total = total_cost_bound N M ->
   linear_time_op (N * M) total.

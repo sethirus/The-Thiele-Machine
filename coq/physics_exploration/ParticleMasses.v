@@ -21,6 +21,7 @@ Definition proton_electron_ratio : R := m_proton / m_electron.
 (** The mass ratios are well-defined positive quantities.
     This documents that the ratios are meaningful (positive divisor). *)
 (* DEFINITIONAL — witnesses the two named ratios and verifies positivity *)
+(** [masses_are_free_parameters]: formal specification. *)
 Theorem masses_are_free_parameters :
   exists (r1 r2 : R), r1 > 0 /\ r2 > 0.
 Proof.

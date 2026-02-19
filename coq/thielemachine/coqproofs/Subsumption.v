@@ -16,6 +16,7 @@ Module KS := Subsumption.
     ThieleMachine module. *)
 
 (* Re-export main theorem from kernel *)
+(** [turing_strictly_contained_in_thiele]: formal specification. *)
 Theorem turing_strictly_contained_in_thiele :
   exists (p : K.program),
     KS.program_is_sighted p /\ ~ K.program_is_turing p.

@@ -83,6 +83,7 @@ Definition ic_mu_equivalent (ic : ICScenario) (mu : MuScenario) : Prop :=
 (** ** Main Equivalence Theorem *)
 
 (* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
+(** [information_causality_is_mu_cost]: formal specification. *)
 Theorem information_causality_is_mu_cost :
   forall (ic : ICScenario) (mu : MuScenario),
     ic_mu_equivalent ic mu ->
@@ -158,6 +159,7 @@ Qed.
 
 (** Cost paid reflects accessible information *)
 (* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
+(** [mu_cost_reflects_accessible_info]: formal specification. *)
 Lemma mu_cost_reflects_accessible_info :
   forall ic mu,
     ic_mu_equivalent ic mu ->

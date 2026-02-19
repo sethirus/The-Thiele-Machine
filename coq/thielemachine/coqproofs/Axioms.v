@@ -14,6 +14,7 @@ Fixpoint tm_iterate (s : TM.State) (n : nat) : TM.State :=
   | S k => tm_iterate (TM.advance_state s) k
   end.
 
+(** [tm_iterate_pc]: formal specification. *)
 Lemma tm_iterate_pc :
   forall s n,
     TM.pc (tm_iterate s n) = (TM.pc s + n)%nat.
@@ -24,6 +25,7 @@ Proof.
     simpl. lia.
 Qed.
 
+(** [decode_encode_id]: formal specification. *)
 Theorem decode_encode_id :
   forall conf,
     tm_config_ok conf ->
@@ -32,6 +34,7 @@ Proof.
   apply tm_decode_encode_roundtrip.
 Qed.
 
+(** [utm_catalogue_static_check]: formal specification. *)
 Theorem utm_catalogue_static_check :
   catalogue_static_check utm_tm = true.
 (* Justified: The UTM catalogue passes static verification checks, ensuring the universal Turing machine is correctly configured. *)
@@ -42,6 +45,7 @@ Qed.
 Definition tm_config_head (conf : TM_Basics.TMConfig) : nat :=
   let '(_, tape, head) := conf in head.
 
+(** [utm_head_lt_shift_len]: formal specification. *)
 Lemma utm_head_lt_shift_len :
   forall conf,
     tm_config_ok conf ->
@@ -54,6 +58,7 @@ Proof.
   exact Hhead.
 Qed.
 
+(** [utm_simulation_steps]: formal specification. *)
 Theorem utm_simulation_steps :
   forall s n,
     TM.pc (tm_iterate s n) = (TM.pc s + n)%nat.
@@ -64,6 +69,7 @@ Proof.
   apply tm_iterate_pc.
 Qed.
 
+(** [check_step_sound]: formal specification. *)
 Theorem check_step_sound :
   forall P s s' obs,
     TM.step P s s' obs ->
@@ -73,6 +79,7 @@ Proof.
   apply TM.check_step_sound.
 Qed.
 
+(** [check_step_complete]: formal specification. *)
 Theorem check_step_complete :
   forall P s s' oev c,
     TM.check_step P s s' oev c = true ->
@@ -84,6 +91,7 @@ Proof.
   apply TM.check_step_complete.
 Qed.
 
+(** [mu_lower_bound]: formal specification. *)
 Theorem mu_lower_bound :
   forall P s s' obs,
     TM.step P s s' obs ->

@@ -105,6 +105,7 @@ Fixpoint structure_addition_in_run (fuel : nat) (trace : Trace) (s : VMState) : 
       end
   end.
 
+(** [supra_cert_implies_structure_addition_in_run]: formal specification. *)
 Lemma supra_cert_implies_structure_addition_in_run :
   forall (trace : Trace) (s_init s_final : VMState) (fuel : nat),
     trace_run fuel trace s_init = Some s_final ->

@@ -29,6 +29,7 @@ Proof.
   intro k. unfold w_pow. simpl. reflexivity.
 Qed.
 
+(** [w_pow_sequential]: formal specification. *)
 Lemma w_pow_sequential : forall k t1 t2,
   w_pow k (t1 ++ t2) = w_pow k t1 * w_pow k t2.
 Proof.
@@ -40,6 +41,7 @@ Proof.
   lia.
 Qed.
 
+(** [w_pow_multiplicative]: formal specification. *)
 Lemma w_pow_multiplicative : forall k, weight_multiplicative (w_pow k).
 Proof.
   intro k. split.
@@ -52,6 +54,7 @@ Qed.
     then constructs a separating trace [instr_halt 0] and derives k1 <> k2
     from exponentiation distinctness via [lia]. *)
 (* DEFINITIONAL *)
+(** [MultiplicativeWeightFamily_Infinite]: formal specification. *)
 Theorem MultiplicativeWeightFamily_Infinite :
   exists w : nat -> WeightMul,
     (forall k, weight_multiplicative (w k)) /\

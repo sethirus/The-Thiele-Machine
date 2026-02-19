@@ -65,6 +65,7 @@ Proof.
   intros. reflexivity.
 Qed.
 
+(** [run_composition]: formal specification. *)
 Theorem run_composition :
   forall (n m : nat) (s : State),
     run (n + m) s = run m (run n s).

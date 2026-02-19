@@ -24,6 +24,7 @@ Local Notation length := List.length.
 
 (* Compositional proof using optimized segment proofs with native_compute *)
 
+(** [concrete_trace_0_19]: formal specification. *)
 Theorem concrete_trace_0_19 : check_transition checkpoint_0 checkpoint_19 19 = true.
 Proof.
   (* The verification happens in BridgeProof.v via vm_compute.

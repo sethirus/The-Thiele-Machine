@@ -29,6 +29,7 @@ Definition produces (p : program) (out : tape) : Prop := run p = Some out.
 
 Definition compiler (spec : tape) : program := spec ++ [true].
 
+(** [run_compiler]: formal specification. *)
 Lemma run_compiler : forall spec, run (compiler spec) = Some spec.
 Proof.
   intros spec. unfold run, compiler.
@@ -36,6 +37,7 @@ Proof.
   now rewrite rev_involutive.
 Qed.
 
+(** [produces_shape]: formal specification. *)
 Lemma produces_shape :
   forall p spec, produces p spec -> p = spec ++ [true].
 Proof.
@@ -51,6 +53,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [produces_length]: formal specification. *)
 Lemma produces_length :
   forall p spec, produces p spec -> length p = length spec + 1.
 Proof.
@@ -68,6 +71,7 @@ Definition mu_bits (spec : tape) : nat := length spec + 1.
 
 Definition prefix_free_complexity (spec : tape) : nat := length spec + 1.
 
+(** [complexity_realised]: formal specification. *)
 Lemma complexity_realised :
   forall spec,
     produces (compiler spec) spec /\
@@ -79,6 +83,7 @@ Proof.
     now rewrite app_length.
 Qed.
 
+(** [complexity_is_minimal]: formal specification. *)
 Lemma complexity_is_minimal :
   forall p spec,
     produces p spec -> prefix_free_complexity spec <= length p.
@@ -91,6 +96,7 @@ Proof.
   lia.
 Qed.
 
+(** [mu_bits_upper_bound_complexity]: formal specification. *)
 Theorem mu_bits_upper_bound_complexity :
   exists c : nat,
     forall spec : tape,

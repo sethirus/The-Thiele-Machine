@@ -1,0 +1,289 @@
+#!/usr/bin/env python3
+"""
+Derive α ≈ 1/137 by finding where 137 appears in μ-structure.
+
+NEW HYPOTHESIS: α is not a density ratio - it's an INVERSE of a fundamental count.
+
+α ≈ 1/137.036 → Find what equals 137 in partition/μ-structure
+
+Candidates:
+1. # of partitions at some special n
+2. # of refinement paths at some depth
+3. Sum of partition invariants (degrees, depths, etc.)
+4. Fixed point of some recursive structure
+5. Dimension of minimal representation space
+6. Loop order where perturbation series converges
+
+This is analogous to:
+- e ≈ 2.718 from lim (1 + 1/n)^n
+- π ≈ 3.14159 from circle circumference/diameter
+- φ ≈ 1.618 from continued fraction [1,1,1,1,...]
+
+Maybe α = 1 / (some fundamental combinatorial quantity)
+"""
+
+import math
+from collections import defaultdict
+from typing import Dict, List, Set, Tuple
+
+ALPHA_EM = 1 / 137.035999084
+TARGET = 137.035999084
+
+
+def generate_partitions(n: int) -> List[Tuple[int, ...]]:
+    """Generate all integer partitions of n."""
+    if n == 0:
+        return [()]
+    
+    partitions = []
+    for i in range(1, n + 1):
+        for p in generate_partitions(n - i):
+            if not p or i <= p[0]:
+                partitions.append((i,) + p)
+    
+    return partitions
+
+
+def count_partitions(max_n: int = 50) -> List[Tuple[int, int]]:
+    """Count partitions p(n) - does p(n) = 137 for some n?"""
+    print("=" * 80)
+    print("PARTITION FUNCTION p(n)")
+    print("=" * 80)
+    print()
+    print("Looking for n where p(n) ≈ 137...")
+    print()
+    
+    results = []
+    found_137 = None
+    
+    for n in range(1, max_n + 1):
+        parts = generate_partitions(n)
+        count = len(parts)
+        results.append((n, count))
+        
+        if count >= 130 and count <= 145:
+            error = abs(count - TARGET) / TARGET * 100
+            marker = " ← CLOSE!" if abs(count - 137) <= 5 else ""
+            print(f"n={n:2d}: p(n)={count:4d}, error={error:5.2f}%{marker}")
+            
+            if abs(count - 137) <= 5 and found_137 is None:
+                found_137 = (n, count)
+    
+    if found_137:
+        n, count = found_137
+        print()
+        print(f"✓ Found: p({n}) = {count} ≈ 137")
+        print(f"  → Hypothesis: α = 1 / p({n})")
+        print(f"  → α_calc = 1/{count} = {1/count:.10f}")
+        print(f"  → α_em   = {ALPHA_EM:.10f}")
+        print(f"  → Error  = {abs(1/count - ALPHA_EM) / ALPHA_EM * 100:.2f}%")
+    else:
+        print()
+        print("✗ No partition count equals 137")
+    
+    print()
+    return results
+
+
+def refinement_depth_at_n(max_n: int = 30) -> None:
+    """Maximum refinement depth from partition (n) to (1,1,...,1)."""
+    print("=" * 80)
+    print("REFINEMENT DEPTH (longest path to fully refined)")
+    print("=" * 80)
+    print()
+    print("Depth = max steps from (n) to (1,1,...,1)")
+    print()
+    
+    for n in [10, 15, 20, 25, 30, 35, 40, 45, 50]:
+        # Depth from (n) = n-1 (split n → (n-1,1) → (n-2,1,1) → ... → (1,1,...,1))
+        depth = n - 1
+        
+        marker = " ← TARGET!" if abs(depth - TARGET) / TARGET * 100 < 5 else ""
+        print(f"n={n:2d}: depth={depth:3d}, error={(abs(depth - TARGET) / TARGET * 100):6.2f}%{marker}")
+    
+    print()
+
+
+def sum_of_refinement_degrees(n: int) -> int:
+    """Sum of out-degrees (# of possible refinements) over all partitions."""
+    partitions = generate_partitions(n)
+    total_degree = 0
+    
+    for p in partitions:
+        # Count refinements of p
+        degree = 0
+        for i, part in enumerate(p):
+            if part > 1:
+                # Can split 'part' into a+b in multiple ways
+                degree += part - 1
+        total_degree += degree
+    
+    return total_degree
+
+
+def search_combinatorial_invariants(max_n: int = 25) -> None:
+    """Search various combinatorial quantities for 137."""
+    print("=" * 80)
+    print("COMBINATORIAL INVARIANT SEARCH")
+    print("=" * 80)
+    print()
+    
+    for n in range(1, max_n + 1):
+        parts = generate_partitions(n)
+        
+        # p(n) - number of partitions
+        p_n = len(parts)
+        
+        # Sum of degrees
+        sum_deg = sum_of_refinement_degrees(n)
+        
+        # Product of parts (for partition (n))
+        prod = n
+        
+        # Max number of parts
+        max_parts = n  # partition (1,1,...,1) has n parts
+        
+        # Check if any quantity ≈ 137
+        quantities = {
+            'p(n)': p_n,
+            'sum_deg': sum_deg,
+            'n_sq': n * n,
+            '2pow_n_div_n': (2**n) // n if n > 0 else 0,
+        }
+        
+        for name, val in quantities.items():
+            if abs(val - TARGET) / TARGET * 100 < 5:
+                print(f"n={n:2d}: {name:10s} = {val:6d} (error={(abs(val - TARGET) / TARGET * 100):5.2f}%)")
+
+
+def fibonacci_like_sequences() -> None:
+    """Check if 137 appears in sequences generated by partition rules."""
+    print()
+    print("=" * 80)
+    print("RECURSIVE SEQUENCE SEARCH")
+    print("=" * 80)
+    print()
+    
+    # Sequence: a(n) = sum of refinements at depth n
+    seq = [1, 1]  # a(0) = a(1) = 1
+    
+    for i in range(2, 150):
+        # Recurrence: a(n) = a(n-1) + a(n-2) + f(n) for some f
+        # Try various recurrences
+        next_val = seq[-1] + seq[-2]
+        seq.append(next_val)
+        
+        if abs(next_val - TARGET) / TARGET * 100 < 1:
+            print(f"Fibonacci: F({i}) = {next_val} ≈ 137")
+    
+    # Check Lucas numbers
+    lucas = [2, 1]
+    for i in range(2, 150):
+        next_val = lucas[-1] + lucas[-2]
+        lucas.append(next_val)
+        
+        if abs(next_val - TARGET) / TARGET * 100 < 1:
+            print(f"Lucas: L({i}) = {next_val} ≈ 137")
+
+
+def dimensional_scaling() -> None:
+    """Check if 137 emerges from dimensional factors."""
+    print()
+    print("=" * 80)
+    print("DIMENSIONAL SCALING")
+    print("=" * 80)
+    print()
+    
+    # Check combinations involving fundamental dimensions
+    # In physics: α involves ε₀, μ₀, ℏ, c, e
+    
+    # Common approximations
+    candidates = {
+        '4π²': 4 * math.pi ** 2,
+        '16π²': 16 * math.pi ** 2,
+        '6π²': 6 * math.pi ** 2,
+        'π² × 14': math.pi ** 2 * 14,
+        '4π³': 4 * math.pi ** 3,
+        'e^5': math.e ** 5,
+        'e⁴ × π': math.e ** 4 * math.pi,
+        '2^7 + 9': 2**7 + 9,
+        '3^5 - 106': 3**5 - 106,
+        '11 × 12 + 5': 11 * 12 + 5,
+        '7 × 19 + 4': 7 * 19 + 4,
+    }
+    
+    for name, val in candidates.items():
+        error = abs(val - TARGET) / TARGET * 100
+        if error < 10:
+            marker = " ← CLOSE!" if error < 2 else ""
+            print(f"{name:15s} = {val:8.4f}, error={error:5.2f}%{marker}")
+
+
+def prime_factorization_patterns() -> None:
+    """Analyze 137 as a prime."""
+    print()
+    print("=" * 80)
+    print("137 AS A PRIME NUMBER")
+    print("=" * 80)
+    print()
+    
+    print("137 is the 33rd prime number")
+    print("137 = 128 + 9 = 2^7 + 3^2")
+    print("137 = 140 - 3 = (4 × 5 × 7) - 3")
+    print()
+    
+    # Check if 33 (index of 137 as prime) appears in partition structure
+    print("Checking if partition structure involves 33...")
+    
+    for n in range(1, 15):
+        parts = generate_partitions(n)
+        
+        # Various measures
+        if len(parts) == 33:
+            print(f"  p({n}) = {len(parts)} = 33 ← partition count")
+        
+        sum_deg = sum_of_refinement_degrees(n)
+        if sum_deg == 33:
+            print(f"  Σdeg at n={n} = 33 ← sum of degrees")
+
+
+def main():
+    print()
+    print("╔" + "=" * 78 + "╗")
+    print("║" + " " * 22 + "INVERSE DERIVATION: α = 1 / ???" + " " * 25 + "║")
+    print("╚" + "=" * 78 + "╝")
+    print()
+    print(f"Target: 1/α = {TARGET:.6f} ≈ 137.036")
+    print()
+    
+    # Search 1: Partition counts
+    count_partitions(max_n=50)
+    
+    # Search 2: Refinement depths
+    refinement_depth_at_n(max_n=50)
+    
+    # Search 3: Combinatorial invariants
+    search_combinatorial_invariants(max_n=25)
+    
+    # Search 4: Fibonacci-like sequences
+    fibonacci_like_sequences()
+    
+    # Search 5: Dimensional factors
+    dimensional_scaling()
+    
+    # Search 6: Prime patterns
+    prime_factorization_patterns()
+    
+    print()
+    print("=" * 80)
+    print("CONCLUSION")
+    print("=" * 80)
+    print()
+    print("If 137 appears naturally: → α = 1/137 is DERIVED")
+    print("If 137 doesn't appear:    → α is NOT fundamental to μ-structure")
+    print("                          → α might be emergent/environmental")
+    print()
+
+
+if __name__ == "__main__":
+    main()

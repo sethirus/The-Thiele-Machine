@@ -112,6 +112,7 @@ Fixpoint nodup_local (l : list LocalObs) : list LocalObs :=
     else a :: nodup_local rest
   end.
 
+(** [nodup_local_NoDup]: formal specification. *)
 Lemma nodup_local_NoDup : forall l, NoDup (nodup_local l).
 Proof.
   intros l. induction l as [| a rest IH].
@@ -129,6 +130,7 @@ Proof.
       * exact IH.
 Qed.
 
+(** [in_nodup_local]: formal specification. *)
 Lemma in_nodup_local : forall l a, In a (nodup_local l) <-> In a l.
 Proof.
   intros l. induction l as [| x rest IH].

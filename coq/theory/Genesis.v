@@ -33,6 +33,7 @@ Section Universal_Ouroboros.
   Definition proc_to_thiele (P : Proc) : Thiele :=
     {| proposer := step P; auditor := ok P |}.
 
+  (** [proc_realises_thiele]: formal specification. *)
   Theorem proc_realises_thiele (P : Proc) :
     forall s, ThieleStep (proc_to_thiele P) s (step P s).
   Proof. intro s. constructor. apply ok_step. Qed.
@@ -43,10 +44,12 @@ Section Universal_Ouroboros.
     {| step := proposer T; ok := auditor T; ok_step := H |}.
 
   (* Round-trip identities (isomorphism). *)
+  (** [to_from_id]: formal specification. *)
   Theorem to_from_id (P : Proc) :
     thiele_to_proc (proc_to_thiele P) (ok_step P) = P.
   Proof. destruct P; reflexivity. Qed.
 
+  (** [from_to_id]: formal specification. *)
   Theorem from_to_id (T : Thiele) (H : forall s, auditor T s (proposer T s)) :
     proc_to_thiele (thiele_to_proc T H) = T.
   Proof. destruct T; reflexivity. Qed.

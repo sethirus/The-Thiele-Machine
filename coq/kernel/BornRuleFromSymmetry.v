@@ -64,18 +64,22 @@ Local Open Scope R_scope.
 
 Definition born_identity (x : R) : R := x.
 
+(** [born_identity_eigenstate]: formal specification. *)
 Lemma born_identity_eigenstate : born_identity 1 = 1.
 Proof. unfold born_identity. ring. Qed.
 
+(** [born_identity_normalization]: formal specification. *)
 Lemma born_identity_normalization : forall x,
   0 <= x -> x <= 1 -> born_identity x + born_identity (1 - x) = 1.
 Proof. intros. unfold born_identity. ring. Qed.
 
+(** [born_identity_tensor]: formal specification. *)
 Lemma born_identity_tensor : forall x y,
   0 <= x -> x <= 1 -> 0 <= y -> y <= 1 ->
   born_identity (x * y) = born_identity x * born_identity y.
 Proof. intros. unfold born_identity. ring. Qed.
 
+(** [born_identity_range]: formal specification. *)
 Lemma born_identity_range : forall x,
   0 <= x -> x <= 1 -> 0 <= born_identity x /\ born_identity x <= 1.
 Proof. intros. unfold born_identity. lra. Qed.

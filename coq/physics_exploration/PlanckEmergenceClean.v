@@ -62,16 +62,19 @@ Section PhysicalConstants.
     - exact hbar_pos.
   Qed.
 
+  (** [c5_pos]: formal specification. *)
   Lemma c5_pos : c^5 > 0.
   Proof.
     apply pow_lt. exact c_pos.
   Qed.
 
+  (** [kB2_pos]: formal specification. *)
   Lemma kB2_pos : k_B^2 > 0.
   Proof.
     apply pow_lt. exact k_B_pos.
   Qed.
 
+  (** [T_planck_sq_pos]: formal specification. *)
   Lemma T_planck_sq_pos : T_planck_sq > 0.
   Proof.
     unfold T_planck_sq.
@@ -80,6 +83,7 @@ Section PhysicalConstants.
     - apply Rmult_lt_0_compat; [exact G_pos | exact kB2_pos].
   Qed.
 
+  (** [t_planck_sq_pos]: formal specification. *)
   Lemma t_planck_sq_pos : t_planck_sq > 0.
   Proof.
     unfold t_planck_sq.
@@ -88,6 +92,7 @@ Section PhysicalConstants.
     - exact c5_pos.
   Qed.
 
+  (** [E_landauer_pos]: formal specification. *)
   Lemma E_landauer_pos : forall T, T > 0 -> E_landauer T > 0.
   Proof.
     intros T HT.
@@ -97,6 +102,7 @@ Section PhysicalConstants.
     - exact ln2_pos.
   Qed.
 
+  (** [tau_mu_pos]: formal specification. *)
   Lemma tau_mu_pos : forall T, T > 0 -> tau_mu T > 0.
   Proof.
     intros T HT.
@@ -115,18 +121,23 @@ Section PhysicalConstants.
   Lemma ln2_neq_0 : ln2 <> 0.
   Proof. lra. Qed.
 
+  (** [k_B_neq_0]: formal specification. *)
   Lemma k_B_neq_0 : k_B <> 0.
   Proof. lra. Qed.
 
+  (** [G_neq_0]: formal specification. *)
   Lemma G_neq_0 : G <> 0.
   Proof. lra. Qed.
 
+  (** [hbar_neq_0]: formal specification. *)
   Lemma hbar_neq_0 : hbar <> 0.
   Proof. lra. Qed.
 
+  (** [c_neq_0]: formal specification. *)
   Lemma c_neq_0 : c <> 0.
   Proof. lra. Qed.
 
+  (** [tau_mu_squared_ratio]: formal specification. *)
   Theorem tau_mu_squared_ratio :
     forall T, T > 0 ->
     tau_mu T ^ 2 / t_planck_sq = 

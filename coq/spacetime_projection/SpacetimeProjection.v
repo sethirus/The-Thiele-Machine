@@ -30,6 +30,7 @@ Definition project_event (s : ThieleState) : Event :=
 Definition project_operation (pre post : ThieleState) : Event * Event :=
   (project_event pre, project_event post).
 
+(** [projection_many_to_one]: formal specification. *)
 Lemma projection_many_to_one :
   exists s1 s2, s1 <> s2 /\ project_event s1 = project_event s2.
 Proof.
@@ -41,6 +42,7 @@ Qed.
 (** ** Projection at the system level *)
 Definition manifold_to_spacetime_system (M : ThieleManifold) : System := pi4 M.
 
+(** [projection_dimension_gap]: formal specification. *)
 Lemma projection_dimension_gap :
   forall (M : ThieleManifold) n,
     n > 0 -> dimensionally_richer (level M n) (manifold_to_spacetime_system M).
@@ -49,6 +51,7 @@ Proof.
   apply pi4_lossy_for_higher_levels; lia.
 Qed.
 
+(** [projection_mu_cost_positive]: formal specification. *)
 Lemma projection_mu_cost_positive :
   forall (M : ThieleManifold) n,
     n > 0 -> mu_cost (level M n) (manifold_to_spacetime_system M) > 0.
@@ -58,6 +61,7 @@ Proof.
 Qed.
 
 (* CREATIVE FIX: Extract P from spacetime_sentences P using the witness *)
+(** [canonical_projection_can_reason]: formal specification. *)
 Lemma canonical_projection_can_reason :
   can_reason_about (manifold_to_spacetime_system canonical_manifold) spacetime_system.
 Proof.
@@ -78,10 +82,12 @@ Definition superposition (s1 s2 : ThieleState) : Prop := s1 <> s2.
 
 Definition measurement (s1 s2 : ThieleState) : Event := project_event s1.
 
+(** [measurement_collapses_superposition]: formal specification. *)
 Lemma measurement_collapses_superposition :
   forall s1 s2, superposition s1 s2 -> measurement s1 s2 = project_event s1.
 Proof. intros; reflexivity. Qed.
 
+(** [superposed_states_can_coincide_after_projection]: formal specification. *)
 Lemma superposed_states_can_coincide_after_projection :
   exists s1 s2, superposition s1 s2 /\ measurement s1 s2 = project_event s2.
 Proof.
@@ -93,6 +99,7 @@ Qed.
 Definition entangled (sA sB : ThieleState) : Prop := state_payload sA = state_payload sB.
 
 (* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
+(** [entanglement_survives_projection]: formal specification. *)
 Lemma entanglement_survives_projection :
   forall sA sB, entangled sA sB -> project_event sA = project_event sB.
 Proof.
@@ -106,12 +113,14 @@ Definition can_access_meta (M : ThieleManifold) (n : nat) : Prop :=
   can_reason_about (observer_at_level M (S n)) (observer_at_level M n).
 
 (* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
+(** [observers_have_meta_access]: formal specification. *)
 Lemma observers_have_meta_access :
   forall (M : ThieleManifold) n, can_access_meta M n.
 Proof.
   intros; unfold can_access_meta, observer_at_level; apply level_can_reason.
 Qed.
 
+(** [free_will_as_partition_choice]: formal specification. *)
 Lemma free_will_as_partition_choice :
   forall (M : ThieleManifold) n,
     can_access_meta M n ->

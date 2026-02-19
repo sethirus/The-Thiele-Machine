@@ -17,12 +17,14 @@ Module RelCategory.
     fun a c => exists b : B, S a b /\ R b c.
 
   (* Helper: convert logical equivalence into equality of propositions. *)
+  (** [iff_to_eq]: formal specification. *)
   Lemma iff_to_eq (P Q : Prop) : (P <-> Q) -> P = Q.
   Proof.
     intros [PQ QP]. apply propositional_extensionality; split; assumption.
   Qed.
 
   (* Pointwise equality of relations uses functional extensionality and propositional extensionality. *)
+  (** [rel_comp_id_l]: formal specification. *)
   Lemma rel_comp_id_l :
     forall (A B:Type) (R : Rel A B), rel_comp (@rel_id B) R = R.
   Proof.
@@ -33,6 +35,7 @@ Module RelCategory.
     - intros HR. exists b. split; [assumption|reflexivity].
   Qed.
 
+  (** [rel_comp_id_r]: formal specification. *)
   Lemma rel_comp_id_r :
     forall (A B:Type) (R : Rel A B), rel_comp R (@rel_id A) = R.
   Proof.
@@ -43,6 +46,7 @@ Module RelCategory.
     - intros HR. exists a. split; [reflexivity|assumption].
   Qed.
 
+  (** [rel_comp_assoc]: formal specification. *)
   Lemma rel_comp_assoc :
     forall (A B C D:Type)
            (T : Rel C D) (R : Rel B C) (S : Rel A B),

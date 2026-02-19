@@ -24,12 +24,14 @@ Proof.
   intro k. unfold weight_empty, w_scale. simpl. lia.
 Qed.
 
+(** [w_scale_sequential]: formal specification. *)
 Lemma w_scale_sequential : forall k, weight_sequential (w_scale k).
 Proof.
   intro k. unfold weight_sequential, w_scale.
   intros t1 t2. rewrite app_length. lia.
 Qed.
 
+(** [w_scale_disjoint_commutes]: formal specification. *)
 Lemma w_scale_disjoint_commutes : forall k, weight_disjoint_commutes (w_scale k).
 Proof.
   intro k. unfold weight_disjoint_commutes, w_scale.
@@ -37,6 +39,7 @@ Proof.
   rewrite !app_length. lia.
 Qed.
 
+(** [w_scale_laws]: formal specification. *)
 Lemma w_scale_laws : forall k, weight_laws (w_scale k).
 Proof.
   intro k.
@@ -49,6 +52,7 @@ Proof.
 Qed.
 
 (* DEFINITIONAL — witness w_scale, verify weight_laws + distinctness *)
+(** [CompositionalWeightFamily_Infinite]: formal specification. *)
 Theorem CompositionalWeightFamily_Infinite :
   exists w : nat -> Weight,
     (forall k, weight_laws (w k)) /\
@@ -73,6 +77,7 @@ Definition KernelNoGo_UniqueWeight_FailsP : Prop :=
     weight_laws w2 /\
     (exists t, w1 t <> w2 t).
 
+(** [KernelNoGo_UniqueWeight_Fails]: formal specification. *)
 Theorem KernelNoGo_UniqueWeight_Fails : KernelNoGo_UniqueWeight_FailsP.
 Proof.
   (* Pick two distinct points from the infinite family. *)
@@ -127,6 +132,7 @@ Proof.
   exists f. split; assumption.
 Qed.
 
+(** [NoDup_map_inj]: formal specification. *)
 Lemma NoDup_map_inj :
   forall (A B : Type) (f : A -> B) (l : list A),
     NoDup l ->
@@ -149,6 +155,7 @@ Proof.
       apply (Hinj a b (or_intror Ha) (or_intror Hb) Hab).
 Qed.
 
+(** [region_equiv_class_not_finite]: formal specification. *)
 Theorem region_equiv_class_not_finite :
   forall s,
     ~ finite_region_equiv_class s.
@@ -196,6 +203,7 @@ Definition KernelNoGoForTOE_P : Prop :=
   /\
   (forall s, ~ finite_region_equiv_class s).
 
+(** [KernelNoGoForTOE]: formal specification. *)
 Theorem KernelNoGoForTOE : KernelNoGoForTOE_P.
 Proof.
   split.

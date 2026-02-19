@@ -101,6 +101,7 @@ Qed.
 Definition graph_module_ids (g : PartitionGraph) : list nat :=
   map fst g.(pg_modules).
 
+(** [graph_module_ids_finite]: formal specification. *)
 Lemma graph_module_ids_finite : forall g,
   well_formed_graph g ->
   forall mid, In mid (graph_module_ids g) -> mid < pg_next_id g.
@@ -252,6 +253,7 @@ Qed.
 Definition graph_connectivity (g : PartitionGraph) : nat :=
   length g.(pg_modules).
 
+(** [dimension_trace_dependent]: formal specification. *)
 Theorem dimension_trace_dependent : forall g1 g2,
   graph_connectivity g1 <> graph_connectivity g2 ->
   g1.(pg_modules) <> g2.(pg_modules).

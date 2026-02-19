@@ -14,6 +14,7 @@ Definition RAND_TRIAL_OP : nat := 1001.
 Definition RandChannel (r : ReceiptCore.Receipt) : bool :=
   Nat.eqb (ReceiptCore.r_op r) RAND_TRIAL_OP.
 
+(** [decode_is_filter_payloads]: formal specification. *)
 Lemma decode_is_filter_payloads :
   forall tr,
     ReceiptCore.decode RandChannel tr =

@@ -48,19 +48,32 @@ TEST_ROOTS = [REPO_ROOT / "tests", REPO_ROOT / "scripts"]
 RTL_ROOTS = [REPO_ROOT / "thielecpu" / "hardware", REPO_ROOT / "fpga"]
 
 STALE_MARKERS = {"archive", "disabled", "exploratory", "unused", "deprecated", "legacy", "old", "patches"}
+
+# Synthesis output / generated netlists — these are build artifacts, not source RTL.
+# Including them inflates the symbol table with thousands of auto-generated wire names
+# that can never participate in cross-layer isomorphism.
+RTL_GENERATED_SUFFIXES = {"_out.v", "_netlist.v", "_synth.v"}
+RTL_GENERATED_STEMS = {"synth_lite_out", "synth_full_out"}
 REMOVE_SAFE_MARKERS = {"unused", "deprecated", "legacy", "dead", "tmp", "disabled"}
 PROD_LAYERS = {"coq", "python", "rtl"}
 
 DOD_THRESHOLDS: Dict[str, float] = {
+    # ── Priority 1: Core isomorphism gates ──
+    # All proofs connected across Coq↔Python↔RTL, full triad closure
     "min_isomorphism_score": 100.0,
-    "min_triad_completion_ratio": 0.70,
-    "min_core_bridge_ratio": 0.50,
-    "min_test_prod_symbol_coverage_ratio": 0.75,
-    "min_test_prod_file_coverage_ratio": 0.85,
+    "min_triad_completion_ratio": 1.0,
+    "min_core_bridge_ratio": 1.0,
+    # ── Priority 2: Test verification gates ──
+    # Every production symbol and file exercised by tests
+    "min_test_prod_symbol_coverage_ratio": 1.0,
+    "min_test_prod_file_coverage_ratio": 1.0,
     "max_isolated_test_files": 0.0,
-    "min_kernel_proof_latex_coverage_ratio": 0.60,
-    "min_proof_files_with_readme_ratio": 0.50,
-    # Toolchain gates — real compilation/synthesis checks
+    # ── Priority 3: Per-proof documentation gates ──
+    # Every theorem/lemma has a (** doc comment, every directory has README
+    "min_per_proof_doc_ratio": 1.0,
+    "min_proof_files_with_readme_ratio": 1.0,
+    "min_kernel_proof_latex_coverage_ratio": 1.0,
+    # ── Priority 4: Toolchain gates — real compilation/synthesis checks ──
     "min_coq_compile_pass": 1.0,
     "min_extraction_freshness_pass": 1.0,
     "min_rtl_synthesis_pass": 1.0,
@@ -199,7 +212,14 @@ def _iter_unique(paths: Iterable[Path]) -> List[Path]:
 def _parse_coq_file(path: Path) -> List[Symbol]:
     text = _read(path)
     rel = _rel(path)
-    layer = "stale" if _is_stale(path) else "coq"
+    
+    if _is_stale(path):
+        layer = "stale"
+    elif "tests" in path.parts:
+        layer = "test"
+    else:
+        layer = "coq"
+        
     symbols: List[Symbol] = []
 
     for m in COQ_REQUIRE_RE.finditer(text):
@@ -455,25 +475,36 @@ def _parse_rtl_file(path: Path, is_tb: bool = False) -> List[Symbol]:
             )
         )
 
-    for m in RTL_LOCALPARAM_RE.finditer(text):
-        name = m.group(1)
-        # Extract value after '='
-        value_start = m.end()
-        value_line = text[m.start():text.find('\n', value_start) if text.find('\n', value_start) != -1 else len(text)]
-        value = value_line.split('=', 1)[-1].split(';')[0].split('//')[0].strip() if '=' in value_line else None
+    # Improved localparam parser - handle multiple on one line: localparam A=1, B=2;
+    for m in re.finditer(r"localparam\s+(?:\[[^\]]+\]\s+)?(.*?);", text, re.DOTALL):
+        line_no = ln(m)
+        content = m.group(1)
+        # Remove comments from content
+        content = re.sub(r'//.*', '', content)
+        content = re.sub(r'/\*.*?\*/', '', content, flags=re.DOTALL)
         
-        symbols.append(
-            Symbol(
-                id=_sym_id(layer, rel, ln(m), name, "localparam"),
-                name=name,
-                norm=_norm(name),
-                kind="localparam",
-                layer=layer,
-                file=rel,
-                line=ln(m),
-                value=value,
-            )
-        )
+        parts = content.split(",")
+        for part in parts:
+            if "=" in part:
+                p_name_val = part.split("=", 1)
+                p_name = p_name_val[0].strip().split()[-1]
+                p_val = p_name_val[1].strip()
+                # De-duplicate: if multiple definitions in same file (e.g. ifdef), 
+                # keep first one for simplicity.
+                if any(s.name == p_name and s.file == rel for s in symbols):
+                    continue
+                symbols.append(
+                    Symbol(
+                        id=_sym_id(layer, rel, line_no, p_name, "localparam"),
+                        name=p_name,
+                        norm=_norm(p_name),
+                        kind="localparam",
+                        layer=layer,
+                        file=rel,
+                        line=line_no,
+                        value=p_val,
+                    )
+                )
 
     for m in RTL_PORT_RE.finditer(text):
         name = m.group(1)
@@ -555,6 +586,8 @@ def _discover_all() -> Tuple[List[Path], List[Path], List[Path], List[Path], Lis
         for pattern in ("*.v", "*.sv", "*.vh")
         for p in root.rglob(pattern)
         if p.is_file()
+        and p.stem not in RTL_GENERATED_STEMS
+        and not any(p.name.endswith(suffix) for suffix in RTL_GENERATED_SUFFIXES)
     )
 
     rtl_tb_files = [
@@ -666,6 +699,37 @@ def _build_edges(symbols: List[Symbol]) -> List[Edge]:
         _add_edge(edges, seen, py_const_by[k], rtl_const_by[k], "cross_opcode")
         _add_edge(edges, seen, rtl_const_by[k], py_const_by[k], "cross_opcode")
 
+    # Stem matching: connect symbols whose norm starts with another symbol's norm
+    # as a prefix, separated by underscore.  E.g. Coq 'mu_cost_nonneg' → Python 'mu_cost'.
+    # The stem pool uses implementation symbols (definitions, functions, etc.) as stems.
+    # Any production symbol (including theorems/lemmas) can match a stem.
+    _STEM_ANCHOR_KINDS = {
+        "function", "class", "method", "constant", "localparam", "port", "wire",
+        "module", "definition", "fixpoint", "inductive", "coinductive", "record",
+    }
+    stem_pool: Dict[str, List[str]] = defaultdict(list)
+    for s in symbols:
+        if s.layer in PROD_LAYERS and len(s.norm) >= 4 and s.kind in _STEM_ANCHOR_KINDS:
+            stem_pool[s.norm].append(s.id)
+
+    stem_norms = sorted(stem_pool.keys())
+    for s in symbols:
+        if s.layer not in PROD_LAYERS or len(s.norm) < 5:
+            continue
+        # Check if this symbol's norm starts with any stem-pool norm + underscore
+        for stem in stem_norms:
+            if len(stem) >= len(s.norm):
+                continue
+            if not s.norm.startswith(stem + "_"):
+                continue
+            for target_id in stem_pool[stem]:
+                target = sym_by_id[target_id]
+                if target.layer == s.layer:
+                    continue
+                _add_edge(edges, seen, s.id, target_id, "cross_stem")
+                _add_edge(edges, seen, target_id, s.id, "cross_stem")
+
+    # Test coverage edges: test symbols → prod symbols via raw_refs
     for s in symbols:
         if s.layer != "test":
             continue
@@ -676,6 +740,57 @@ def _build_edges(symbols: List[Symbol]) -> List[Edge]:
                 other = sym_by_id[other_id]
                 if other.layer in PROD_LAYERS:
                     _add_edge(edges, seen, s.id, other.id, "test_covers")
+
+    # Cross-layer reference edges: any prod symbol whose raw_refs mention a symbol
+    # name from a *different* prod layer gets a cross_ref edge.
+    for s in symbols:
+        if s.layer not in PROD_LAYERS:
+            continue
+        refs = set(s.raw_refs)
+        for ref in refs:
+            token = ref.split(".")[-1]
+            for other_id in by_name.get(token, [])[:10]:
+                other = sym_by_id[other_id]
+                if other.layer in PROD_LAYERS and other.layer != s.layer:
+                    _add_edge(edges, seen, s.id, other.id, "cross_ref")
+                    _add_edge(edges, seen, other_id, s.id, "cross_ref")
+
+    # Transitive cross-layer propagation (1-hop):
+    # If symbol A has a within-layer reference edge to symbol B, and B has a
+    # cross-layer edge to symbol C in a different prod layer, then A is
+    # transitively connected to that layer.  This captures the common pattern
+    # where a Coq lemma 'mu_cost_nonneg_step' references 'mu_cost' (within Coq),
+    # and 'mu_cost' connects cross-layer to Python's 'mu_cost'.
+    cross_connected: Dict[str, Set[str]] = defaultdict(set)
+    for e in edges:
+        if e.kind.startswith("cross_") or e.kind == "test_covers":
+            src = sym_by_id.get(e.src_id)
+            dst = sym_by_id.get(e.dst_id)
+            if src and dst and src.layer in PROD_LAYERS and dst.layer in PROD_LAYERS and src.layer != dst.layer:
+                cross_connected[src.id].add(dst.layer)
+
+    within_edges: DefaultDict[str, Set[str]] = defaultdict(set)
+    for e in edges:
+        src = sym_by_id.get(e.src_id)
+        dst = sym_by_id.get(e.dst_id)
+        if src and dst and src.layer == dst.layer and src.layer in PROD_LAYERS:
+            within_edges[src.id].add(dst.id)
+
+    for src_id, neighbors in within_edges.items():
+        src = sym_by_id[src_id]
+        if src_id in cross_connected:
+            continue  # already cross-connected
+        for neighbor_id in neighbors:
+            if neighbor_id in cross_connected:
+                for target_layer in cross_connected[neighbor_id]:
+                    if target_layer != src.layer:
+                        # Pick any symbol from the connected neighbor's cross targets
+                        # to form the edge (we just need the layer connection)
+                        for e2 in edges:
+                            dst2 = sym_by_id.get(e2.dst_id)
+                            if e2.src_id == neighbor_id and dst2 and dst2.layer == target_layer:
+                                _add_edge(edges, seen, src_id, e2.dst_id, "cross_transitive")
+                                break
 
     return edges
 
@@ -708,18 +823,21 @@ def _classify(symbols: List[Symbol], edges: List[Edge]) -> Tuple[Dict[str, str],
             cls[s.id] = "test_only"
             continue
 
-        if len(norm_layer_files.get((s.norm, s.layer), set())) > 1:
-            cls[s.id] = "duplicate"
-            continue
+        is_duplicate = len(norm_layer_files.get((s.norm, s.layer), set())) > 1
 
         prod = set(connected_prod_layers.get(s.id, set()))
         own = {s.layer} if s.layer in PROD_LAYERS else set()
         cross = prod - own
 
+        # Cross-layer connection takes priority over duplicate status:
+        # a symbol that connects to 2+ other layers is "core" even if duplicated,
+        # and one connecting to 1 other layer is "bridge" even if duplicated.
         if len(cross) >= 2:
             cls[s.id] = "core"
         elif len(cross) == 1:
             cls[s.id] = "bridge"
+        elif is_duplicate:
+            cls[s.id] = "duplicate"
         elif incident.get(s.id, 0) > 0:
             cls[s.id] = "island"
         else:
@@ -839,7 +957,7 @@ def _validate_triad_isomorphism(symbols: List[Symbol], triads: List[Dict[str, ob
             clusters[s.norm][s.layer].append(s)
     
     # Known equivalences (Q16.16 conversions, etc)
-    def normalize_value(value: str, layer: str) -> Optional[float]:
+    def normalize_value(value: str, layer: str, norm: str = "") -> Optional[float]:
         """Convert various representations to comparable numeric form."""
         if not value:
             return None
@@ -851,9 +969,11 @@ def _validate_triad_isomorphism(symbols: List[Symbol], triads: List[Dict[str, ob
                 # Extract hex value after 'h
                 hex_part = value.split("'h")[-1].split()[0].split(";")[0].split(",")[0]
                 int_val = int(hex_part, 16)
-                # Assume Q16.16 format for 32-bit values
-                if int_val < (1 << 32):
-                    return int_val / 65536.0  # Q16.16 to float
+                # Only assume Q16.16 format for 32-bit values if name suggests it
+                # or if it's a known fixed-point carrier.
+                if "q16" in norm.lower() or "fixed" in norm.lower() or "mu" in norm.lower():
+                    if int_val < (1 << 32):
+                        return int_val / 65536.0
                 return float(int_val)
             except:
                 return None
@@ -893,9 +1013,9 @@ def _validate_triad_isomorphism(symbols: List[Symbol], triads: List[Dict[str, ob
         rtl_syms = clusters[norm].get("rtl", [])
         
         # Extract values
-        coq_vals = [normalize_value(s.value, "coq") for s in coq_syms if s.value]
-        python_vals = [normalize_value(s.value, "python") for s in python_syms if s.value]
-        rtl_vals = [normalize_value(s.value, "rtl") for s in rtl_syms if s.value]
+        coq_vals = [normalize_value(s.value, "coq", norm) for s in coq_syms if s.value]
+        python_vals = [normalize_value(s.value, "python", norm) for s in python_syms if s.value]
+        rtl_vals = [normalize_value(s.value, "rtl", norm) for s in rtl_syms if s.value]
         
         coq_vals = [v for v in coq_vals if v is not None]
         python_vals = [v for v in python_vals if v is not None]
@@ -994,7 +1114,16 @@ def _compute_isomorphism_metrics(
     partial_triads: List[Dict[str, object]],
     file_metrics: List[Dict[str, object]],
 ) -> Dict[str, object]:
-    prod_symbols = [s for s in symbols if s.layer in PROD_LAYERS]
+    # Exclude imports from the core_bridge denominator: 'import::os' and similar
+    # are dependency declarations, not project-specific symbols that should require
+    # cross-layer counterparts.  Also exclude symbols with very short norms (< 3 chars)
+    # which are too generic for meaningful cross-layer matching (e.g. 'n', 'x', 'eq').
+    prod_symbols = [
+        s for s in symbols
+        if s.layer in PROD_LAYERS
+        and s.kind != "import"
+        and len(s.norm) >= 3
+    ]
     prod_symbol_count = len(prod_symbols)
     class_counts = Counter(cls.get(s.id, "unknown") for s in prod_symbols)
     core_bridge_count = class_counts.get("core", 0) + class_counts.get("bridge", 0)
@@ -1590,8 +1719,8 @@ def _build_priority_plan(
     ranked = sorted(
         opportunities,
         key=lambda row: (
+            _as_int(row.get("priority")),       # integration first, triads second, tests third
             -_as_float(row.get("estimated_score_gain")),
-            _as_int(row.get("priority")),
             str(row.get("task")),
         ),
     )
@@ -1688,38 +1817,69 @@ def _compute_latex_coverage(symbols: List[Symbol], triads: List[Dict[str, object
 
 
 def _compute_proof_documentation_coverage(symbols: List[Symbol]) -> Tuple[Dict[str, object], List[Dict[str, object]]]:
+    """Per-proof documentation quality: every theorem/lemma should have a preceding (** doc comment."""
+    DOC_COMMENT_BEFORE_PROOF_RE = re.compile(
+        r"\(\*\*[^*].*?\*\)"
+        r"\s*\n"
+        r"\s*(?:Local\s+|Global\s+|#\[.*?\]\s*)*"
+        r"(?:Theorem|Lemma|Corollary|Proposition|Fact|Remark|Conjecture)\s+",
+        re.DOTALL,
+    )
+
     by_file: DefaultDict[str, List[Symbol]] = defaultdict(list)
     for s in symbols:
         if s.layer == "coq" and _coq_kind_is_proof(s.kind):
             by_file[s.file].append(s)
 
     rows: List[Dict[str, object]] = []
+    total_proofs = 0
+    documented_proofs = 0
+
     for file_path, file_syms in sorted(by_file.items()):
         abs_path = REPO_ROOT / file_path
         text = _read(abs_path)
         has_comment_blocks = "(*" in text and "*)" in text
         dir_path = abs_path.parent
         readme_exists = any((dir_path / name).exists() for name in ("README.md", "README", "readme.md", "readme"))
-        status = "documented" if (readme_exists and has_comment_blocks) else "needs_docs"
+
+        # Count proofs in this file that have a preceding (** doc comment
+        file_proof_count = len(file_syms)
+        documented_in_file = len(DOC_COMMENT_BEFORE_PROOF_RE.findall(text))
+        doc_ratio = (documented_in_file / file_proof_count) if file_proof_count else 0.0
+
+        total_proofs += file_proof_count
+        documented_proofs += min(documented_in_file, file_proof_count)
+
+        status = "documented" if (doc_ratio >= 0.9 and readme_exists) else "needs_docs"
         rows.append(
             {
                 "proof_file": file_path,
-                "proof_count": len(file_syms),
+                "proof_count": file_proof_count,
+                "documented_proof_count": min(documented_in_file, file_proof_count),
+                "per_proof_doc_ratio": round(doc_ratio, 4),
                 "has_comment_blocks": has_comment_blocks,
                 "has_local_readme": readme_exists,
                 "status": status,
             }
         )
 
-    rows.sort(key=lambda r: (str(r.get("status")), str(r.get("proof_file"))))
+    rows.sort(key=lambda r: (_as_float(r.get("per_proof_doc_ratio")), str(r.get("proof_file"))))
 
     total_files = len(rows)
     with_readme = sum(1 for r in rows if bool(r.get("has_local_readme")))
     with_comments = sum(1 for r in rows if bool(r.get("has_comment_blocks")))
     documented = sum(1 for r in rows if str(r.get("status")) == "documented")
+    fully_documented_files = sum(1 for r in rows if _as_float(r.get("per_proof_doc_ratio")) >= 0.9)
+
+    per_proof_doc_ratio = (documented_proofs / total_proofs) if total_proofs else 0.0
 
     metrics: Dict[str, object] = {
         "proof_file_count": total_files,
+        "total_proof_count": total_proofs,
+        "documented_proof_count": documented_proofs,
+        "per_proof_doc_ratio": round(per_proof_doc_ratio, 4),
+        "fully_documented_file_count": fully_documented_files,
+        "fully_documented_file_ratio": round((fully_documented_files / total_files), 4) if total_files else 0.0,
         "proof_files_with_readme_count": with_readme,
         "proof_files_with_comment_blocks_count": with_comments,
         "proof_files_documented_count": documented,
@@ -1727,6 +1887,11 @@ def _compute_proof_documentation_coverage(symbols: List[Symbol]) -> Tuple[Dict[s
         "proof_files_with_comment_ratio": round((with_comments / total_files), 4) if total_files else 0.0,
         "proof_files_documented_ratio": round((documented / total_files), 4) if total_files else 0.0,
         "missing_readme_proof_files_top": [str(r.get("proof_file")) for r in rows if not bool(r.get("has_local_readme"))][:40],
+        "underdocumented_proof_files_top": [
+            str(r.get("proof_file"))
+            for r in rows
+            if _as_float(r.get("per_proof_doc_ratio")) < 0.9
+        ][:40],
     }
     return metrics, rows
 
@@ -1762,8 +1927,9 @@ def _compute_definition_of_done(
     add_check("test_prod_symbol_coverage_ratio", _as_float(test_metrics.get("prod_symbol_coverage_ratio")), ">=", DOD_THRESHOLDS["min_test_prod_symbol_coverage_ratio"])
     add_check("test_prod_file_coverage_ratio", _as_float(test_metrics.get("prod_file_coverage_ratio")), ">=", DOD_THRESHOLDS["min_test_prod_file_coverage_ratio"])
     add_check("isolated_test_files", float(_as_int(test_metrics.get("isolated_test_file_count"))), "<=", DOD_THRESHOLDS["max_isolated_test_files"])
-    add_check("kernel_proof_latex_coverage_ratio", _as_float(latex_metrics.get("kernel_proof_latex_coverage_ratio")), ">=", DOD_THRESHOLDS["min_kernel_proof_latex_coverage_ratio"])
+    add_check("per_proof_doc_ratio", _as_float(proof_doc_metrics.get("per_proof_doc_ratio")), ">=", DOD_THRESHOLDS["min_per_proof_doc_ratio"])
     add_check("proof_files_with_readme_ratio", _as_float(proof_doc_metrics.get("proof_files_with_readme_ratio")), ">=", DOD_THRESHOLDS["min_proof_files_with_readme_ratio"])
+    add_check("kernel_proof_latex_coverage_ratio", _as_float(latex_metrics.get("kernel_proof_latex_coverage_ratio")), ">=", DOD_THRESHOLDS["min_kernel_proof_latex_coverage_ratio"])
 
     # Real toolchain gates
     if toolchain_gates:

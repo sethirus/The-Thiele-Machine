@@ -21,6 +21,7 @@ Definition catalogue_static_check (tm : TM) : bool :=
   forallb rule_write_lt_base_check (tm_rules tm) &&
   forallb rule_move_le_one_check (tm_rules tm).
 
+(** [utm_catalogue_static_check_proved]: formal specification. *)
 Lemma utm_catalogue_static_check_proved :
   catalogue_static_check utm_tm = true.
 Proof.

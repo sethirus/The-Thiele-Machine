@@ -28,6 +28,7 @@ Proof.
   unfold Qlt. simpl. lia.
 Qed.
 
+(** [tsirelson_bound_strict_lt_partition]: formal specification. *)
 Lemma tsirelson_bound_strict_lt_partition : kernel_tsirelson_bound_q < (16#5).
 Proof.
   unfold kernel_tsirelson_bound_q.
@@ -57,6 +58,7 @@ Proof.
   exact S_SupraQuantum.
 Qed.
 
+(** [witness_exceeds_tsirelson]: formal specification. *)
 Corollary witness_exceeds_tsirelson :
   kernel_tsirelson_bound_q < (16#5).
 Proof.

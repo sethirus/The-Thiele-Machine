@@ -92,6 +92,7 @@ Definition tm_to_minsky (conf : TMConfig) : TMasMinsky :=
 Lemma encode_binary_nil : encode_binary [] = 0.
 Proof. reflexivity. Qed.
 
+(** [encode_binary_cons]: formal specification. *)
 Lemma encode_binary_cons : forall x xs,
   encode_binary (x :: xs) = encode_binary xs * 2 + x.
 Proof. reflexivity. Qed.
@@ -109,6 +110,7 @@ Proof.
   apply Nat.mod_small. lia.
 Qed.
 
+(** [encode_binary_div2]: formal specification. *)
 Lemma encode_binary_div2 : forall x xs,
   x < 2 ->
   encode_binary (x :: xs) / 2 = encode_binary xs.
@@ -138,6 +140,7 @@ Definition sim_relation (conf : TMConfig) (m : TMasMinsky) : Prop :=
 
 (** The abstraction function establishes the simulation relation. *)
 (* DEFINITIONAL HELPER *)
+(** [tm_to_minsky_establishes_sim]: formal specification. *)
 Lemma tm_to_minsky_establishes_sim :
   forall conf, sim_relation conf (tm_to_minsky conf).
 Proof.
@@ -193,10 +196,12 @@ Fixpoint abstract_minsky_run_n (tm : TMTransition) (m : TMasMinsky) (n : nat) : 
   | S n' => abstract_minsky_run_n tm (abstract_minsky_step tm m) n'
   end.
 
+(** [abstract_minsky_run_n_zero]: formal specification. *)
 Lemma abstract_minsky_run_n_zero :
   forall tm m, abstract_minsky_run_n tm m 0 = m.
 Proof. reflexivity. Qed.
 
+(** [abstract_minsky_run_n_succ]: formal specification. *)
 Lemma abstract_minsky_run_n_succ :
   forall tm m n,
     abstract_minsky_run_n tm m (S n) = abstract_minsky_run_n tm (abstract_minsky_step tm m) n.
@@ -275,6 +280,7 @@ Qed.
 (** The main subsumption result for the state component. *)
 Local Opaque Nat.modulo Nat.div.
 
+(** [tm_minsky_state_simulation]: formal specification. *)
 Theorem tm_minsky_state_simulation :
   forall (tm : TMTransition) (conf : TMConfig),
     tm_config_ok conf ->

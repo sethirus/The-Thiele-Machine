@@ -41,6 +41,7 @@ Module KernelNoFI <: NO_FREE_INSIGHT_SYSTEM.
   Definition Certified (tr : Trace) (s0 : S) (strength : Strength) : Prop :=
     exists s1, run tr s0 = Some s1 /\ ok s1 /\ certifies s1 strength.
 
+  (** [Certified_spec]: formal specification. *)
   Lemma Certified_spec :
     forall tr s0 strength,
       Certified tr s0 strength <->
@@ -71,6 +72,7 @@ Module KernelNoFI <: NO_FREE_INSIGHT_SYSTEM.
     reflexivity.
   Qed.
 
+  (** [trace_run_mu_monotone]: formal specification. *)
   Lemma trace_run_mu_monotone :
     forall fuel tr s0 s1,
       RevelationProof.trace_run fuel tr s0 = Some s1 ->
@@ -86,6 +88,7 @@ Module KernelNoFI <: NO_FREE_INSIGHT_SYSTEM.
       + inversion Hrun; subst. lia.
   Qed.
 
+  (** [mu_monotone]: formal specification. *)
   Lemma mu_monotone :
     forall tr s0 s1,
       run tr s0 = Some s1 ->
@@ -97,6 +100,7 @@ Module KernelNoFI <: NO_FREE_INSIGHT_SYSTEM.
     exact Hrun.
   Qed.
 
+  (** [no_free_insight_contract]: formal specification. *)
   Theorem no_free_insight_contract :
     forall tr s0 s1 strength weak,
       clean_start s0 ->

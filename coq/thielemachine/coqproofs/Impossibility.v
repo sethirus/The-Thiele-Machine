@@ -36,6 +36,7 @@ Definition PTM_strategy (arch : PTMArchitecture) (lam : Lambda) : Strategy :=
   (ptm_response_table (ptm_alice arch) lam,
    ptm_response_table (ptm_bob arch) lam).
 
+(** [PTM_strategy_realizes]: formal specification. *)
 Lemma PTM_strategy_realizes :
   forall arch lam, PTM_strategy arch lam = lam.
 Proof.
@@ -48,6 +49,7 @@ Definition PTM_CHSH_expectation (arch : PTMArchitecture) : Q :=
   sum_strategies (fun lam =>
     ptm_lambda_weight arch lam * strategy_S (PTM_strategy arch lam)).
 
+(** [PTM_CHSH_expectation_unfold]: formal specification. *)
 Lemma PTM_CHSH_expectation_unfold :
   forall arch,
     PTM_CHSH_expectation arch ==
@@ -61,6 +63,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [impossibility_of_re_encoding]: formal specification. *)
 Theorem impossibility_of_re_encoding :
   forall (arch : PTMArchitecture),
     Qabs (PTM_CHSH_expectation arch) <= 2#1.

@@ -16,6 +16,7 @@ From ThieleMachine Require Import InfoTheory.
 
 Module DeliverableMuEntropyOneBit.
 
+(** [state_reduction_entropy_two_to_one]: formal specification. *)
 Lemma state_reduction_entropy_two_to_one :
   state_reduction_entropy 2%positive 1%positive = (1%Q).
 Proof.
@@ -24,6 +25,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [information_cost_two_to_one]: formal specification. *)
 Lemma information_cost_two_to_one :
   information_cost 2%positive 1%positive = (1%Q).
 Proof.
@@ -31,6 +33,7 @@ Proof.
   exact state_reduction_entropy_two_to_one.
 Qed.
 
+(** [mu_cost_ge_one_bit]: formal specification. *)
 Theorem mu_cost_ge_one_bit :
   forall (query_bytes : nat),
     (1%Q <= mu_cost query_bytes 2%positive 1%positive)%Q.
@@ -43,6 +46,7 @@ Proof.
   exact Hbound.
 Qed.
 
+(** [mu_cost_tight_when_query_empty]: formal specification. *)
 Corollary mu_cost_tight_when_query_empty :
   mu_cost 0 2%positive 1%positive = (1%Q).
 Proof.

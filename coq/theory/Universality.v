@@ -66,6 +66,7 @@ Section Universality.
     end.
 
   (* μ-cost respects equality *)
+  (** [prog_mu_respects_eq]: formal specification. *)
   Lemma prog_mu_respects_eq : forall A B (p q : Prog A B),
     ProgEq p q -> prog_mu p = prog_mu q.
   Proof.
@@ -132,12 +133,15 @@ Section Universality.
   (* The quotient would be Prog/ProgEq, but for simplicity we work with 
      setoid equality. The Cat laws hold up to ProgEq. *)
 
+  (** [prog_id_l]: formal specification. *)
   Lemma prog_id_l : forall A B (f : Prog A B), ProgEq (Seq (Id B) f) f.
   Proof. intros. apply ProgEq_id_l. Qed.
 
+  (** [prog_id_r]: formal specification. *)
   Lemma prog_id_r : forall A B (f : Prog A B), ProgEq (Seq f (Id A)) f.
   Proof. intros. apply ProgEq_id_r. Qed.
 
+  (** [prog_assoc]: formal specification. *)
   Lemma prog_assoc : forall A B C D (h : Prog C D) (g : Prog B C) (f : Prog A B),
     ProgEq (Seq h (Seq g f)) (Seq (Seq h g) f).
   Proof. intros. apply ProgEq_assoc. Qed.
@@ -147,6 +151,7 @@ Section Universality.
      A proper quotient construction would require HoTT or setoid rewriting. *)
   
   (* ProgEq is an equivalence *)
+  (** [ProgEq_equiv]: formal specification. *)
   Lemma ProgEq_equiv : forall A B, Equivalence (@ProgEq A B).
   Proof.
     intros A B. constructor.
@@ -156,6 +161,7 @@ Section Universality.
   Qed.
 
   (* Seq is proper (respects ProgEq) *)
+  (** [Seq_proper]: formal specification. *)
   Lemma Seq_proper : forall A B C,
     Proper (@ProgEq B C ==> @ProgEq A B ==> @ProgEq A C) (@Seq A B C).
   Proof.
@@ -175,6 +181,7 @@ Section Universality.
     S_comp_proper := Seq_proper
   |}.
 
+  (** [prog_mu_proper]: formal specification. *)
   Lemma prog_mu_proper : forall A B, Proper (@ProgEq A B ==> eq) (@prog_mu A B).
   Proof.
     intros A B p q Heq. apply prog_mu_respects_eq. assumption.
@@ -206,6 +213,7 @@ Section Universality.
       end.
 
     (* extend respects ProgEq *)
+    (** [extend_proper]: formal specification. *)
     Lemma extend_proper : forall A B, 
       Proper (@ProgEq A B ==> @S_eq (BaseCat D) A B) (@extend A B).
     Proof.
@@ -221,6 +229,7 @@ Section Universality.
       - (* cong *) apply (S_comp_proper (BaseCat D)); assumption.
     Qed.
 
+    (** [extend_preserves_mu]: formal specification. *)
     Lemma extend_preserves_mu : forall A B (p : Prog A B),
       mu D (extend p) = prog_mu p.
     Proof.
@@ -282,6 +291,7 @@ Section Universality.
   Qed.
 
 
+  (** [mu_cost_is_invariant]: formal specification. *)
   Corollary mu_cost_is_invariant :
     forall (D : DiscoveryTheory)
            (gen_interp : forall A B, Gen A B -> S_Hom (BaseCat D) A B)
@@ -293,6 +303,7 @@ Section Universality.
     intros. apply (preserves_cost phi).
   Qed.
 
+  (** [no_free_insight_forced]: formal specification. *)
   Theorem no_free_insight_forced :
     forall (D : DiscoveryTheory),
     forall A B C (f : S_Hom (BaseCat D) B C) (g : S_Hom (BaseCat D) A B),

@@ -61,6 +61,7 @@ Definition mu_in_range (mu : nat) : Prop := mu <= mu_max.
 
 Definition mu_in_range_b (mu : nat) : bool := Nat.leb mu mu_max.
 
+(** [mu_in_range_b_correct]: formal specification. *)
 Lemma mu_in_range_b_correct :
   forall mu, mu_in_range_b mu = true <-> mu_in_range mu.
 Proof.
@@ -107,6 +108,7 @@ Definition receipt_mu_consistent (r : Receipt) : Prop :=
 Definition receipt_mu_consistent_b (r : Receipt) : bool :=
   Nat.eqb r.(receipt_post_mu) (r.(receipt_pre_mu) + instruction_mu_delta r.(receipt_instruction)).
 
+(** [receipt_mu_consistent_b_correct]: formal specification. *)
 Lemma receipt_mu_consistent_b_correct :
   forall r, receipt_mu_consistent_b r = true <-> receipt_mu_consistent r.
 Proof.
@@ -129,6 +131,7 @@ Definition receipt_mu_in_range (r : Receipt) : Prop :=
 Definition receipt_mu_in_range_b (r : Receipt) : bool :=
   mu_in_range_b r.(receipt_pre_mu) && mu_in_range_b r.(receipt_post_mu).
 
+(** [receipt_mu_in_range_b_correct]: formal specification. *)
 Lemma receipt_mu_in_range_b_correct :
   forall r, receipt_mu_in_range_b r = true <-> receipt_mu_in_range r.
 Proof.
@@ -153,6 +156,7 @@ Definition receipt_fully_valid (r : Receipt) : Prop :=
 Definition receipt_fully_valid_b (r : Receipt) : bool :=
   receipt_mu_consistent_b r && receipt_mu_in_range_b r.
 
+(** [receipt_fully_valid_b_correct]: formal specification. *)
 Lemma receipt_fully_valid_b_correct :
   forall r, receipt_fully_valid_b r = true <-> receipt_fully_valid r.
 Proof.
@@ -283,6 +287,7 @@ Definition chain_final_mu (rs : list Receipt) (initial_mu : nat) : nat :=
   initial_mu + chain_total_cost rs.
 
 (* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
+(** [chain_links_mu_head]: formal specification. *)
 Lemma chain_links_mu_head :
   forall r1 r2 rest,
     chain_links_mu (r1 :: r2 :: rest) ->
@@ -296,6 +301,7 @@ Proof.
 Qed.
 
 (* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
+(** [chain_links_hash_head]: formal specification. *)
 Lemma chain_links_hash_head :
   forall r1 r2 rest,
     chain_links_hash (r1 :: r2 :: rest) ->
@@ -308,6 +314,7 @@ Proof.
   apply Hlinks; reflexivity.
 Qed.
 
+(** [chain_links_head]: formal specification. *)
 Lemma chain_links_head :
   forall r1 r2 rest,
     chain_links (r1 :: r2 :: rest) ->
@@ -317,6 +324,7 @@ Proof.
   apply (chain_links_mu_head r1 r2 rest). exact Hmu.
 Qed.
 
+(** [chain_links_mu_tail]: formal specification. *)
 Lemma chain_links_mu_tail :
   forall r rest,
     chain_links_mu (r :: rest) ->
@@ -328,6 +336,7 @@ Proof.
   apply (Hlinks (S i) r1 r2); assumption.
 Qed.
 
+(** [chain_links_hash_tail]: formal specification. *)
 Lemma chain_links_hash_tail :
   forall r rest,
     chain_links_hash (r :: rest) ->
@@ -339,6 +348,7 @@ Proof.
   apply (Hlinks (S i) r1 r2); assumption.
 Qed.
 
+(** [chain_links_tail]: formal specification. *)
 Lemma chain_links_tail :
   forall r rest,
     chain_links (r :: rest) ->
@@ -351,6 +361,7 @@ Proof.
 Qed.
 
 (* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
+(** [chain_all_consistent_head]: formal specification. *)
 Lemma chain_all_consistent_head :
   forall r rest,
     chain_all_consistent (r :: rest) ->
@@ -361,6 +372,7 @@ Proof.
   inversion Hconsistent. assumption.
 Qed.
 
+(** [chain_all_consistent_tail]: formal specification. *)
 Lemma chain_all_consistent_tail :
   forall r rest,
     chain_all_consistent (r :: rest) ->
@@ -371,6 +383,7 @@ Proof.
   inversion Hconsistent. assumption.
 Qed.
 
+(** [chain_final_mu_correct]: formal specification. *)
 Lemma chain_final_mu_correct :
   forall rs initial_mu,
     receipt_chain_valid rs initial_mu ->
@@ -496,6 +509,7 @@ Qed.
 Definition is_forged_receipt (r : Receipt) (claimed_mu_delta : nat) : Prop :=
   claimed_mu_delta <> instruction_mu_delta r.(receipt_instruction).
 
+(** [forged_receipt_fails_validation]: formal specification. *)
 Theorem forged_receipt_fails_validation :
   forall r claimed_mu_delta,
     is_forged_receipt r claimed_mu_delta ->
@@ -524,6 +538,7 @@ Qed.
 Definition is_overflow_receipt (r : Receipt) : Prop :=
   r.(receipt_pre_mu) > mu_max \/ r.(receipt_post_mu) > mu_max.
 
+(** [overflow_receipt_fails_range_check]: formal specification. *)
 Theorem overflow_receipt_fails_range_check :
   forall r,
     is_overflow_receipt r ->
@@ -536,6 +551,7 @@ Proof.
   destruct Hoverflow as [Hpre_over | Hpost_over]; lia.
 Qed.
 
+(** [overflow_receipt_fails_full_validation]: formal specification. *)
 Theorem overflow_receipt_fails_full_validation :
   forall r,
     is_overflow_receipt r ->

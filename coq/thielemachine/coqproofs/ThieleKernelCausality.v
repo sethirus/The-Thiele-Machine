@@ -86,6 +86,7 @@ Module ThieleKernelCausality.
     | instr :: tl => vm_apply_list (SimulationProof.vm_apply s instr) tl
     end.
 
+  (** [no_superluminal_influence_pdiscover_trace]: formal specification. *)
   Theorem no_superluminal_influence_pdiscover_trace :
     forall s trace other,
       Forall (PDiscoverNot other) trace ->
@@ -124,6 +125,7 @@ Module ThieleKernelCausality.
     - reflexivity.
   Qed.
 
+  (** [graph_lookup_remove_modules_other]: formal specification. *)
   Lemma graph_lookup_remove_modules_other :
     forall modules mid modules' removed other,
       VMState.graph_remove_modules modules mid = Some (modules', removed) ->
@@ -149,6 +151,7 @@ Module ThieleKernelCausality.
         * eapply IH; eauto.
   Qed.
 
+  (** [graph_lookup_remove_other]: formal specification. *)
   Lemma graph_lookup_remove_other :
     forall g mid g' removed other,
       VMState.graph_remove g mid = Some (g', removed) ->
@@ -165,6 +168,7 @@ Module ThieleKernelCausality.
     eapply graph_lookup_remove_modules_other; eauto.
   Qed.
 
+  (** [graph_pnew_lookup_other]: formal specification. *)
   Lemma graph_pnew_lookup_other :
     forall g region g' mid other,
       VMState.graph_pnew g region = (g', mid) ->
@@ -179,6 +183,7 @@ Module ThieleKernelCausality.
     - eapply graph_lookup_add_module_other; eauto.
   Qed.
 
+  (** [graph_psplit_lookup_other]: formal specification. *)
   Lemma graph_psplit_lookup_other :
     forall g mid left right g' left_id right_id other,
       VMState.graph_psplit g mid left right = Some (g', left_id, right_id) ->
@@ -223,6 +228,7 @@ Module ThieleKernelCausality.
       + cbv zeta in Hps. discriminate.
   Qed.
 
+  (** [graph_pmerge_lookup_other]: formal specification. *)
   Lemma graph_pmerge_lookup_other :
     forall g m1 m2 g' merged_id other,
       VMState.graph_pmerge g m1 m2 = Some (g', merged_id) ->
@@ -374,6 +380,7 @@ Module ThieleKernelCausality.
       reflexivity.
   Qed.
 
+  (** [no_superluminal_influence_trace]: formal specification. *)
   Theorem no_superluminal_influence_trace :
     forall s trace other,
       ~ in_light_cone_trace s trace other ->

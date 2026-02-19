@@ -97,6 +97,7 @@ Module OracleImpossibility.
       exists s0 trace, Exec P s0 trace.
     
     (* By excluded middle, we know: *)
+    (** [halts_or_not]: formal specification. *)
     Lemma halts_or_not : forall P, halts_prop P \/ ~ halts_prop P.
     Proof.
       intro P. apply classic.

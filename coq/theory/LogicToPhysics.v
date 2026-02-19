@@ -18,6 +18,7 @@ Section LogicToPhysics.
   Definition interp := @interp Type Gen C interp0.
 
   (* Cut is composition in the physics category Rel. *)
+  (** [cut_is_relational_composition]: formal specification. *)
   Theorem cut_is_relational_composition :
     forall A B C0 (π1 : Prog Gen B C0) (π2 : Prog Gen A B),
       interp (cut π1 π2) =

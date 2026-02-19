@@ -136,6 +136,7 @@ Definition l1_continuous_group (T : R -> State2D -> State2D) : Prop :=
 Definition rotation_2d (t : R) (s : State2D) : State2D :=
   (fst s * cos t - snd s * sin t, fst s * sin t + snd s * cos t).
 
+(** [sqrt2_gt_1]: formal specification. *)
 Lemma sqrt2_gt_1 : sqrt 2 > 1.
 Proof.
   assert (Hsqrt2_pos : 0 < sqrt 2) by apply Rlt_sqrt2_0.
@@ -143,6 +144,7 @@ Proof.
   nra.
 Qed.
 
+(** [inv_sqrt2_lt_1]: formal specification. *)
 Lemma inv_sqrt2_lt_1 : / sqrt 2 < 1.
 Proof.
   assert (Hsqrt2_gt1 := sqrt2_gt_1).
@@ -315,6 +317,7 @@ Definition lp_continuous_group (p : nat) (T : R -> R -> R -> R * R) : Prop :=
 Definition rotation_group (t a b : R) : R * R :=
   (a * cos t - b * sin t, a * sin t + b * cos t).
 
+(** [rotation_is_l2_isometry]: formal specification. *)
 Lemma rotation_is_l2_isometry :
   forall t a b,
     lp_norm_pow 2 (fst (rotation_group t a b)) (snd (rotation_group t a b)) =
@@ -342,6 +345,7 @@ Proof.
   nra.
 Qed.
 
+(** [rotation_is_continuous_group]: formal specification. *)
 Lemma rotation_is_continuous_group :
   lp_continuous_group 2 rotation_group.
 Proof.
@@ -614,6 +618,7 @@ Definition D1_l2_norm := l2_is_unique_continuous_norm.
 (** D6: Schrödinger equation emerges (SchrodingerFromPartitions.v) *)
 (* schrodinger_gradient_form : continuous limit of partition evolution *)
 
+(** [quantum_mechanics_from_machine]: formal specification. *)
 Theorem quantum_mechanics_from_machine :
   (* The existence of the L2 norm as the unique solution *)
   exists p : R, p = 2.

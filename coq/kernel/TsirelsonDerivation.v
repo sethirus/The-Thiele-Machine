@@ -54,6 +54,7 @@ Proof.
   lia.
 Qed.
 
+(** [tsirelson_from_correlation_mu_zero]: formal specification. *)
 Theorem tsirelson_from_correlation_mu_zero :
   forall c : Correlators,
     correlation_mu_cost c == 0 ->
@@ -76,6 +77,7 @@ Proof.
     apply Qlt_irrefl in Hpos. exact Hpos.
 Qed.
 
+(** [tsirelson_from_total_mu_zero]: formal specification. *)
 Corollary tsirelson_from_total_mu_zero :
   forall fuel trace c,
     total_mu_zero fuel trace c ->
@@ -85,6 +87,7 @@ Proof.
   apply tsirelson_from_correlation_mu_zero. exact Hcorr.
 Qed.
 
+(** [tsirelson_from_pure_accounting]: formal specification. *)
 Theorem tsirelson_from_pure_accounting :
   forall fuel trace c,
     Qabs (E00 c) <= 1 -> Qabs (E01 c) <= 1 ->

@@ -131,6 +131,7 @@ Definition euler_characteristic (g : PartitionGraph) : Z :=
 
 (** Empty graph has no topology *)
 (* DEFINITIONAL HELPER *)
+(** [empty_graph_euler_char_0]: formal specification. *)
 Lemma empty_graph_euler_char_0 :
   euler_characteristic empty_graph = 0%Z.
 Proof.
@@ -141,6 +142,7 @@ Qed.
 
 (** Vertex count is non-negative *)
 (* DEFINITIONAL HELPER *)
+(** [V_nonneg]: formal specification. *)
 Lemma V_nonneg : forall g, (0 <= V g)%nat.
 Proof.
   intro g. unfold V. lia.
@@ -148,6 +150,7 @@ Qed.
 
 (** Edge count is non-negative *)
 (* DEFINITIONAL HELPER *)
+(** [E_nonneg]: formal specification. *)
 Lemma E_nonneg : forall g, (0 <= E g)%nat.
 Proof.
   intro g. unfold E. lia.
@@ -155,6 +158,7 @@ Qed.
 
 (** Face count is non-negative *)
 (* DEFINITIONAL HELPER *)
+(** [F_nonneg]: formal specification. *)
 Lemma F_nonneg : forall g, (0 <= F g)%nat.
 Proof.
   intro g. unfold F. lia.
@@ -342,6 +346,7 @@ Proof.
       * right. apply IH. exact H2.
 Qed.
 
+(** [collect_edges_In]: formal specification. *)
 Lemma collect_edges_In : forall e modules,
   In e (collect_edges_from_modules modules) ->
   exists mid m, In (mid, m) modules /\ In e (module_edges m).
@@ -393,6 +398,7 @@ Proof.
   lia.
 Qed.
 
+(** [boundary_interior_exclusive]: formal specification. *)
 Lemma boundary_interior_exclusive : forall g e,
   is_boundary_edge g e = true ->
   is_interior_edge g e = false.

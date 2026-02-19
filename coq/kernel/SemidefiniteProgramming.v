@@ -275,6 +275,7 @@ Definition SymmetricPSD {n : nat} (M : Matrix n) : Prop :=
 (** Diagonal elements of PSD matrices are non-negative.
     This follows directly from our PSD definition which requires all M[i,i] >= 0. *)
 (* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
+(** [PSD_diagonal_nonneg]: formal specification. *)
 Lemma PSD_diagonal_nonneg : forall (n : nat) (M : Matrix n) (i : nat),
   (i < n)%nat ->
   PSD M ->

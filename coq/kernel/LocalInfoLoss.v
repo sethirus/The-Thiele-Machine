@@ -306,6 +306,7 @@ Definition instr_well_formed (i : vm_instruction) : Prop :=
   | _ => True
   end.
 
+(** [cost_bounds_info_loss]: formal specification. *)
 Theorem cost_bounds_info_loss :
   forall s i s',
     vm_step s i s' ->

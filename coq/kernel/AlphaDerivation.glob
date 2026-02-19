@@ -1,0 +1,95 @@
+DIGEST 390e1465d3b1896e5f1e8f84a3781525
+FThieleMachine.kernel.AlphaDerivation
+R565:579 Coq.Reals.Reals <> <> lib
+R597:610 Coq.Lists.List <> <> lib
+R628:642 Coq.Arith.Arith <> <> lib
+R660:676 Coq.micromega.Lia <> <> lib
+R686:698 Coq.Lists.List ListNotations <> mod
+def 871:882 <> is_partition
+R889:891 Coq.Init.Datatypes <> nat ind
+binder 885:885 <> n:1
+R899:902 Coq.Init.Datatypes <> list ind
+R904:906 Coq.Init.Datatypes <> nat ind
+binder 895:895 <> p:2
+R950:955 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R946:948 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R921:929 Coq.Lists.List <> fold_left def
+R939:939 ThieleMachine.kernel.AlphaDerivation <> p:2 var
+R931:937 Coq.Arith.PeanoNat Nat add def
+R949:949 ThieleMachine.kernel.AlphaDerivation <> n:1 var
+R956:956 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R988:995 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1070:1070 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 964:964 <> x:3
+R973:976 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R967:968 Coq.Lists.List <> In def
+R972:972 ThieleMachine.kernel.AlphaDerivation <> p:2 var
+R970:970 ThieleMachine.kernel.AlphaDerivation <> x:3 var
+R979:981 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R978:978 ThieleMachine.kernel.AlphaDerivation <> x:3 var
+binder 1003:1003 <> i:4
+binder 1005:1005 <> j:5
+R1030:1033 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1010:1012 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<'_x not
+R1014:1016 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<'_x not
+R1009:1009 ThieleMachine.kernel.AlphaDerivation <> i:4 var
+R1013:1013 ThieleMachine.kernel.AlphaDerivation <> j:5 var
+R1013:1013 ThieleMachine.kernel.AlphaDerivation <> j:5 var
+R1017:1022 Coq.Init.Datatypes <> length def
+R1024:1024 ThieleMachine.kernel.AlphaDerivation <> p:2 var
+R1048:1051 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R1035:1037 Coq.Lists.List <> nth def
+R1041:1041 ThieleMachine.kernel.AlphaDerivation <> p:2 var
+R1039:1039 ThieleMachine.kernel.AlphaDerivation <> i:4 var
+R1052:1054 Coq.Lists.List <> nth def
+R1058:1058 ThieleMachine.kernel.AlphaDerivation <> p:2 var
+R1056:1056 ThieleMachine.kernel.AlphaDerivation <> j:5 var
+def 1142:1161 <> partition_count_slow
+R1173:1175 Coq.Init.Datatypes <> nat ind
+binder 1164:1164 <> n:6
+binder 1166:1169 <> fuel:7
+R1180:1182 Coq.Init.Datatypes <> nat ind
+R1195:1198 ThieleMachine.kernel.AlphaDerivation <> fuel:7 var
+R1220:1220 Coq.Init.Datatypes <> S constr
+R1306:1306 ThieleMachine.kernel.AlphaDerivation <> n:6 var
+def 1665:1665 <> p
+R1672:1674 Coq.Init.Datatypes <> nat ind
+binder 1668:1668 <> n:11
+R1679:1681 Coq.Init.Datatypes <> nat ind
+R1686:1705 ThieleMachine.kernel.AlphaDerivation <> partition_count_slow def
+R1707:1707 ThieleMachine.kernel.AlphaDerivation <> n:11 var
+prf 1777:1791 <> p_14_equals_135
+R1799:1801 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1795:1795 ThieleMachine.kernel.AlphaDerivation <> p def
+prf 1843:1857 <> p_13_equals_101
+R1865:1867 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1861:1861 ThieleMachine.kernel.AlphaDerivation <> p def
+prf 1909:1923 <> p_15_equals_176
+R1931:1933 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1927:1927 ThieleMachine.kernel.AlphaDerivation <> p def
+def 2060:2075 <> alpha_em_inverse
+R2079:2079 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 2110:2117 <> alpha_em
+R2121:2121 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2126:2129 Coq.Reals.Rdefinitions <> Rdiv def
+R2131:2132 Coq.Reals.Rdefinitions RbaseSymbolsImpl R1 defax
+R2134:2149 ThieleMachine.kernel.AlphaDerivation <> alpha_em_inverse def
+def 2210:2224 <> alpha_partition
+R2228:2228 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2233:2236 Coq.Reals.Rdefinitions <> Rdiv def
+R2238:2239 Coq.Reals.Rdefinitions RbaseSymbolsImpl R1 defax
+R2242:2244 Coq.Reals.Raxioms <> INR def
+R2247:2247 ThieleMachine.kernel.AlphaDerivation <> p def
+def 2315:2325 <> alpha_error
+R2329:2329 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2336:2339 Coq.Reals.Rbasic_fun <> Rabs def
+R2342:2347 Coq.Reals.Rdefinitions <> Rminus def
+R2349:2363 ThieleMachine.kernel.AlphaDerivation <> alpha_partition def
+R2365:2372 ThieleMachine.kernel.AlphaDerivation <> alpha_em def
+def 2388:2406 <> alpha_error_percent
+R2410:2410 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2417:2420 Coq.Reals.Rdefinitions <> Rdiv def
+R2423:2427 Coq.Reals.Rdefinitions RbaseSymbolsImpl Rmult defax
+R2429:2439 ThieleMachine.kernel.AlphaDerivation <> alpha_error def
+R2442:2444 Coq.Reals.Raxioms <> INR def
+R2452:2459 ThieleMachine.kernel.AlphaDerivation <> alpha_em def

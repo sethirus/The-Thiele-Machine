@@ -27,12 +27,15 @@ Definition SHIFT_LEN : nat := 3.
 Definition SHIFT_SMALL : nat := Nat.pow BASE SHIFT_LEN.
 Definition SHIFT_BIG : nat := Nat.pow BASE (2 * SHIFT_LEN).
 
+(** [BASE_ge_2]: formal specification. *)
 Lemma BASE_ge_2 : 2 <= BASE.
 Proof. cbv [BASE]. lia. Qed.
 
+(** [SHIFT_LEN_ge_1]: formal specification. *)
 Lemma SHIFT_LEN_ge_1 : 1 <= SHIFT_LEN.
 Proof. cbv [SHIFT_LEN]. lia. Qed.
 
+(** [BASE_pos]: formal specification. *)
 Lemma BASE_pos : 0 < BASE.
 Proof.
   apply (EncodingBounds.BASE_pos BASE SHIFT_LEN BASE_ge_2 SHIFT_LEN_ge_1).
@@ -89,22 +92,26 @@ Definition decode_config (n : nat) : nat * list nat * nat :=
    bounds that are relevant for the chosen SHIFT_LEN so proofs stay
    focused and avoid heavy arithmetic automation. *)
 
+(** [SHIFT_SMALL_pos]: formal specification. *)
 Lemma SHIFT_SMALL_pos : 0 < SHIFT_SMALL.
 Proof.
   unfold SHIFT_SMALL.
   apply (EncodingBounds.SHIFT_SMALL_pos BASE SHIFT_LEN BASE_ge_2 SHIFT_LEN_ge_1).
 Qed.
 
+(** [SHIFT_BIG_as_product]: formal specification. *)
 Lemma SHIFT_BIG_as_product : SHIFT_BIG = SHIFT_SMALL * SHIFT_SMALL.
 Proof.
   apply (EncodingBounds.SHIFT_BIG_as_product BASE SHIFT_LEN BASE_ge_2 SHIFT_LEN_ge_1).
 Qed.
 
+(** [SHIFT_BIG_pos]: formal specification. *)
 Lemma SHIFT_BIG_pos : 0 < SHIFT_BIG.
 Proof.
   apply (EncodingBounds.SHIFT_BIG_pos BASE SHIFT_LEN BASE_ge_2 SHIFT_LEN_ge_1).
 Qed.
 
+(** [pair_small_roundtrip]: formal specification. *)
 Lemma pair_small_roundtrip : forall len code,
   code < SHIFT_SMALL -> pair_small_decode (pair_small_encode len code) = (len, code).
 Proof.
@@ -115,6 +122,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [triple_roundtrip]: formal specification. *)
 Lemma triple_roundtrip : forall q head code_small,
   head < SHIFT_BIG ->
   code_small < SHIFT_BIG ->
@@ -134,6 +142,7 @@ Qed.
 
 Local Opaque Nat.div Nat.modulo.
 
+(** [encode_list_decode_aux]: formal specification. *)
 Lemma encode_list_decode_aux : forall xs,
   digits_ok xs ->
   decode_list_aux (encode_list xs) (length xs) = xs.
@@ -150,12 +159,14 @@ Proof.
     reflexivity.
 Qed.
 
+(** [SHIFT_LEN_lt_SHIFT_SMALL]: formal specification. *)
 Lemma SHIFT_LEN_lt_SHIFT_SMALL : SHIFT_LEN < SHIFT_SMALL.
 Proof.
   unfold SHIFT_SMALL.
   apply (EncodingBounds.shiftlen_lt_shiftsmall BASE SHIFT_LEN BASE_ge_2 SHIFT_LEN_ge_1).
 Qed.
 
+(** [len_lt_SHIFT_SMALL]: formal specification. *)
 Lemma len_lt_SHIFT_SMALL : forall len, len <= SHIFT_LEN -> len < SHIFT_SMALL.
 Proof.
   unfold SHIFT_SMALL.
@@ -163,6 +174,7 @@ Proof.
   apply (EncodingBounds.len_lt_SHIFT_SMALL BASE SHIFT_LEN BASE_ge_2 SHIFT_LEN_ge_1 len Hle).
 Qed.
 
+(** [encode_list_upper]: formal specification. *)
 Lemma encode_list_upper : forall xs,
   digits_ok xs ->
   encode_list xs < Nat.pow BASE (length xs).
@@ -188,6 +200,7 @@ Proof.
     exact Hle.
 Qed.
 
+(** [encode_list_lt_SHIFT_SMALL]: formal specification. *)
 Lemma encode_list_lt_SHIFT_SMALL : forall xs,
   digits_ok xs ->
   length xs <= SHIFT_LEN ->
@@ -202,6 +215,7 @@ Proof.
   - exact Hlen.
 Qed.
 
+(** [encode_list_with_len_all_bounds]: formal specification. *)
 Lemma encode_list_with_len_all_bounds : forall xs,
   digits_ok xs ->
   length xs <= SHIFT_LEN ->
@@ -221,6 +235,7 @@ Proof.
       * apply encode_list_lt_SHIFT_SMALL; assumption.
 Qed.
 
+(** [encode_decode_list_with_len]: formal specification. *)
 Lemma encode_decode_list_with_len : forall xs,
   digits_ok xs ->
   length xs <= SHIFT_LEN ->
@@ -234,6 +249,7 @@ Proof.
   - exact Hcode_small.
 Qed.
 
+(** [encode_decode_config]: formal specification. *)
 Lemma encode_decode_config : forall q tape head,
   digits_ok tape ->
   length tape <= SHIFT_LEN ->

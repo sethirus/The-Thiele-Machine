@@ -20,6 +20,7 @@ Fixpoint gcd_euclid (a b : nat) : nat :=
   | S a' => gcd_euclid (b mod S a') (S a')
   end.
 
+(** [gcd_euclid_correct]: formal specification. *)
 Theorem gcd_euclid_correct :
   forall a b, gcd_euclid a b = Nat.gcd a b.
 Proof.
@@ -33,12 +34,14 @@ Proof.
     exact IH.
 Qed.
 
+(** [gcd_euclid_divides_left]: formal specification. *)
 Corollary gcd_euclid_divides_left :
   forall a b, Nat.divide (gcd_euclid a b) a.
 Proof.
   intros a b; rewrite gcd_euclid_correct; apply Nat.gcd_divide_l.
 Qed.
 
+(** [gcd_euclid_divides_right]: formal specification. *)
 Corollary gcd_euclid_divides_right :
   forall a b, Nat.divide (gcd_euclid a b) b.
 Proof.

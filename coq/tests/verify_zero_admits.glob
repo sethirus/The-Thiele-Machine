@@ -1,4 +1,4 @@
-DIGEST 1d6533e618c6eb6d50d60245257a7c4b
+DIGEST 6967eb2c31592760feec67365ec544a5
 FTests.verify_zero_admits
 R748:760 Kernel.NoFreeInsight <> <> lib
 R762:774 Kernel.KernelPhysics <> <> lib
@@ -23,3 +23,11 @@ R3358:3389 Kernel.TOEDecision <> Physics_Requires_Extra_Structure thm
 R3653:3693 Kernel.ProperSubsumption ProperSubsumption thiele_simulates_turing thm
 R3758:3797 Kernel.ProperSubsumption ProperSubsumption cost_certificate_valid thm
 R3870:3917 Kernel.ProperSubsumption ProperSubsumption thiele_strictly_extends_turing thm
+prf 4710:4738 <> zero_admit_connectivity_check
+R4753:4774 Kernel.KernelPhysics <> mu_conservation_kernel thm
+R4790:4808 Kernel.MuLedgerConservation <> run_vm_mu_monotonic thm
+R4824:4849 Kernel.KernelPhysics <> observational_no_signaling thm
+R4865:4896 Kernel.MuLedgerConservation <> vm_irreversible_bits_lower_bound thm
+R4912:4966 Kernel.NoFreeInsight NoFreeInsight strengthening_requires_structure_addition thm
+R4982:5037 Kernel.RevelationRequirement RevelationProof nonlocal_correlation_requires_revelation thm
+R5045:5048 Coq.Init.Logic <> ::type_scope:x_'<>'_x not

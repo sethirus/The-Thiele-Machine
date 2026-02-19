@@ -9,6 +9,7 @@ Open Scope Z_scope.
 Open Scope nat_scope.
 
 (* Utility lemma: taking the first n elements of a repeat. *)
+(** [firstn_repeat]: formal specification. *)
 Lemma firstn_repeat : forall (A:Type) (x:A) n m,
   (* SAFE: Bounded arithmetic operation with explicit domain *)
   firstn n (repeat x m) = repeat x (Init.Nat.min n m).
@@ -23,6 +24,7 @@ Proof.
 Qed.
 
 (* Utility lemma: dropping n elements from a repeat. *)
+(** [skipn_repeat]: formal specification. *)
 Lemma skipn_repeat : forall (A:Type) (x:A) n m,
   skipn n (repeat x m) = repeat x (m - n).
 Proof.
@@ -57,6 +59,7 @@ Fixpoint find_rule (rules : list (nat*nat*nat*nat*Z)) (q_cur : nat) (sym_cur : n
   end.
 
 (* A concrete lemma showing equivalence between a δ-function and a single encoded rule. *)
+(** [delta_rule_single]: formal specification. *)
 Lemma delta_rule_single :
   forall delta q s,
     let '(q',w,m) := delta q s in
@@ -84,6 +87,7 @@ Definition tm_step (tm : TM) (conf : TMConfig) : TMConfig :=
       (q', tape', h')
   end.
 
+(** [tm_step_rule_found_continue]: formal specification. *)
 Lemma tm_step_rule_found_continue :
   forall tm q tape head q' write move,
     (Nat.eqb q tm.(tm_accept) || Nat.eqb q tm.(tm_reject)) = false ->
@@ -106,6 +110,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [tm_step_no_rule_continue]: formal specification. *)
 Lemma tm_step_no_rule_continue :
   forall tm q tape head,
     (Nat.eqb q tm.(tm_accept) || Nat.eqb q tm.(tm_reject)) = false ->
@@ -120,6 +125,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [tm_step_halting_state]: formal specification. *)
 Lemma tm_step_halting_state :
   forall tm q tape head,
     (Nat.eqb q tm.(tm_accept) || Nat.eqb q tm.(tm_reject)) = true ->

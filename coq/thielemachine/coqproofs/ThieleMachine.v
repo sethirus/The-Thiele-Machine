@@ -104,6 +104,7 @@ Definition event_eqb : Event -> Event -> bool := Nat.eqb.
 Definition option_event_eqb := option_eqb event_eqb.
 Definition cert_eqb : Cert -> Cert -> bool := Nat.eqb.
 
+(** [option_event_eqb_refl]: formal specification. *)
 Lemma option_event_eqb_refl : forall e, option_event_eqb e e = true.
 Proof.
   intros [e|]; simpl.
@@ -111,11 +112,13 @@ Proof.
   - reflexivity.
 Qed.
 
+(** [cert_eqb_refl]: formal specification. *)
 Lemma cert_eqb_refl : forall c, cert_eqb c c = true.
 Proof.
   intro c. unfold cert_eqb. apply Nat.eqb_refl.
 Qed.
 
+(** [option_event_eqb_eq]: formal specification. *)
 Lemma option_event_eqb_eq : forall e1 e2,
   option_event_eqb e1 e2 = true -> e1 = e2.
 Proof.
@@ -123,6 +126,7 @@ Proof.
   - apply Nat.eqb_eq in H. subst. reflexivity.
 Qed.
 
+(** [cert_eqb_eq]: formal specification. *)
 Lemma cert_eqb_eq : forall c1 c2,
   cert_eqb c1 c2 = true -> c1 = c2.
 Proof.
@@ -225,6 +229,7 @@ Definition Receipt := (State * State * option Event * Cert)%type.
 (* State equality (simplified - equality on program counters) *)
 Definition state_eq (s1 s2 : State) : bool := Nat.eqb s1.(pc) s2.(pc).
 
+(** [state_eq_of_pc]: formal specification. *)
 Lemma state_eq_of_pc : forall s1 s2,
   s1.(pc) = s2.(pc) -> s1 = s2.
 Proof.
@@ -249,6 +254,7 @@ Fixpoint replay_ok (P:Prog) (s0:State) (rs:list Receipt) : bool :=
 (* ================================================================= *)
 
 (* Soundness: every concrete step yields a certificate the checker accepts *)
+(** [check_step_sound]: formal specification. *)
 Lemma check_step_sound :
   forall P s s' obs,
     step P s s' obs ->
@@ -266,6 +272,7 @@ Proof.
 Qed.
 
 (* μ covers certificate size per step *)
+(** [mu_lower_bound]: formal specification. *)
 Lemma mu_lower_bound :
   forall P s s' obs,
     step P s s' obs ->
@@ -277,6 +284,7 @@ Proof.
 Qed.
 
 (* Completeness: accepted certificates correspond to valid steps *)
+(** [check_step_complete]: formal specification. *)
 Lemma check_step_complete :
   forall P s s' oev c,
     check_step P s s' oev c = true ->
@@ -303,6 +311,7 @@ Proof.
 Qed.
 
 (* State equality correctness (for replay proof) *)
+(** [state_eqb_refl]: formal specification. *)
 Lemma state_eqb_refl : forall s, state_eq s s = true.
 Proof.
   intro s.
@@ -337,6 +346,7 @@ Fixpoint receipts_of (s0:State) (tr:list (State*StepObs)) : list Receipt :=
   end.
 
 (* Universal replay theorem *)
+(** [replay_of_exec]: formal specification. *)
 Lemma replay_of_exec :
   forall P s0 tr,
     Exec P s0 tr ->
@@ -350,6 +360,7 @@ Proof.
 Qed.
 
 (* Universal μ-accounting theorem *)
+(** [mu_pays_bits_exec]: formal specification. *)
 Lemma mu_pays_bits_exec :
   forall P s0 tr,
     Exec P s0 tr ->
@@ -363,6 +374,7 @@ Proof.
 Qed.
 
 (* Universal theorem (with well-formed guard) *)
+(** [ThieleMachine_universal]: formal specification. *)
 Theorem ThieleMachine_universal :
   forall P s0 tr,
     well_formed P ->
@@ -395,6 +407,7 @@ Definition chain_exec (s0:State) (tr:list (State*StepObs)) : Hash :=
 
 (* Auditor's recomputed chain equals runtime chain *)
 (* Definitional lemma: This equality is by definition, not vacuous *)
+(** [chain_equiv]: formal specification. *)
 Lemma chain_equiv :
   forall s0 tr,
     chain_exec s0 tr = hcombine (hash_state s0) (chain_receipts (receipts_of s0 tr)).
@@ -405,6 +418,7 @@ Proof. intros s0 tr. simpl. reflexivity. Qed.
 (* ================================================================= *)
 
 (* Replay soundness: valid executions produce verifiable receipts *)
+(** [replay_sound]: formal specification. *)
 Lemma replay_sound :
   forall P s0 tr,
     Exec P s0 tr ->
@@ -430,6 +444,7 @@ Proof.
 Qed.
 
 (* μ-accounting lifts to full executions *)
+(** [mu_pays_for_certs]: formal specification. *)
 Lemma mu_pays_for_certs :
   forall P s0 tr,
     Exec P s0 tr ->

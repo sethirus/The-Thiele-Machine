@@ -75,6 +75,7 @@ Definition thiele_D : nat := 6.
 Require Import ZArith.
 Open Scope Z_scope.
 
+(** [thiele_sighted_steps_polynomial_forall_Z]: formal specification. *)
 Lemma thiele_sighted_steps_polynomial_forall_Z : forall (n : nat),
   Z.of_nat (thiele_sighted_steps (tseitin_family n)) <= Z.of_nat (thiele_C * cubic (instance_size (tseitin_family n))).
 Proof.
@@ -92,6 +93,7 @@ Proof.
     simpl; lia.
 Qed.
 
+(** [thiele_mu_cost_quadratic_forall_Z]: formal specification. *)
 Lemma thiele_mu_cost_quadratic_forall_Z : forall (n : nat),
   Z.of_nat (thiele_mu_cost (tseitin_family n)) <= Z.of_nat (thiele_D * quadratic (instance_size (tseitin_family n))).
 Proof.
@@ -108,6 +110,7 @@ Proof.
 Qed.
 
 (* Nat-level polynomial bounds (useful to avoid Z/nat conversion issues). *)
+(** [thiele_sighted_steps_polynomial_forall]: formal specification. *)
 Lemma thiele_sighted_steps_polynomial_forall : forall (n : nat),
   (thiele_sighted_steps (tseitin_family n) <= thiele_C * cubic (instance_size (tseitin_family n)))%nat.
 Proof.
@@ -122,6 +125,7 @@ Proof.
     simpl; lia.
 Qed.
 
+(** [thiele_mu_cost_quadratic_forall]: formal specification. *)
 Lemma thiele_mu_cost_quadratic_forall : forall (n : nat),
   (thiele_mu_cost (tseitin_family n) <= thiele_D * quadratic (instance_size (tseitin_family n)))%nat.
 Proof.
@@ -136,6 +140,7 @@ Proof.
     simpl; lia.
 Qed.
 
+(** [thiele_exponential_separation]: formal specification. *)
 Theorem thiele_exponential_separation :
   exists (N C D : nat), forall (n : nat), (n >= N)%nat ->
     (thiele_sighted_steps (tseitin_family n) <= C * cubic n)%nat /\

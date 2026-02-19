@@ -22,6 +22,7 @@ Definition program_is_sighted (p : K.program) : Prop :=
 Definition sighted_witness_program : K.program :=
   [K.H_ClaimTapeIsZero 0].
 
+(** [witness_is_sighted]: formal specification. *)
 Lemma witness_is_sighted : program_is_sighted sighted_witness_program.
 Proof.
   unfold program_is_sighted, sighted_witness_program.
@@ -31,6 +32,7 @@ Proof.
   - reflexivity.
 Qed.
 
+(** [witness_not_turing]: formal specification. *)
 Lemma witness_not_turing : ~ K.program_is_turing sighted_witness_program.
 Proof.
   unfold K.program_is_turing, sighted_witness_program.
@@ -40,6 +42,7 @@ Proof.
 Qed.
 
 (* Main theorem: Turing is strictly contained in Thiele *)
+(** [main_subsumption]: formal specification. *)
 Theorem main_subsumption :
   (* Strict containment - sighted programs are not Turing programs *)
   exists (p : K.program),

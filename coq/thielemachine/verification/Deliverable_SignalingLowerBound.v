@@ -16,6 +16,7 @@ From Kernel Require Import SpacetimeEmergence.
 
 Module DeliverableSignalingLowerBound.
 
+(** [observable_change_implies_in_cone]: formal specification. *)
 Theorem observable_change_implies_in_cone :
   forall s trace s' mid,
     exec_trace s trace s' ->

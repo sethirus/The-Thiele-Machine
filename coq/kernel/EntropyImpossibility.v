@@ -81,6 +81,7 @@ Definition tweak_regs (s : VMState) (x : nat) : VMState :=
 *)
 (* Definitional lemma: ObservableRegion ignores vm_regs, so region_equiv is
    unchanged by tweak_regs by construction. *)
+(** [tweak_regs_region_equiv]: formal specification. *)
 Lemma tweak_regs_region_equiv : forall s x,
   region_equiv s (tweak_regs s x).
 Proof.

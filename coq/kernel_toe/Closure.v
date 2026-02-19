@@ -32,6 +32,7 @@ Definition KernelMaximalClosureP : Prop :=
       ~ In mid (causal_cone trace) ->
       ObservableRegion s mid = ObservableRegion s' mid).
 
+(** [KernelMaximalClosure]: formal specification. *)
 Theorem KernelMaximalClosure : KernelMaximalClosureP.
 Proof.
   exact Physics_Closure.

@@ -124,6 +124,7 @@ Definition standard_wave_c05 : WaveCoefficients :=
 (** * Lemmas *)
 
 (* DEFINITIONAL — make_wave_coeffs produces symmetric coefficients by construction *)
+(** [wave_coeffs_symmetric]: formal specification. *)
 Lemma wave_coeffs_symmetric : 
   forall c_sq, symmetric_in_space (make_wave_coeffs c_sq).
 Proof.
@@ -131,6 +132,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [wave_coeffs_match]: formal specification. *)
 Lemma wave_coeffs_match :
   forall c_sq,
     let w := make_wave_coeffs c_sq in
@@ -141,6 +143,7 @@ Proof.
   repeat split; reflexivity.
 Qed.
 
+(** [standard_wave_verified]: formal specification. *)
 Lemma standard_wave_verified :
   forall c_sq,
     let w := make_wave_coeffs c_sq in

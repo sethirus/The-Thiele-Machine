@@ -72,12 +72,14 @@ Definition nat_list_add (xs : list nat) (x : nat) : list nat :=
 Definition normalize_region (region : list nat) : list nat :=
   nodup Nat.eq_dec region.
 
+(** [normalize_region_nodup]: formal specification. *)
 Lemma normalize_region_nodup : forall region, NoDup (normalize_region region).
 Proof.
   intro region. unfold normalize_region.
   apply NoDup_nodup.
 Qed.
 
+(** [normalize_region_idempotent]: formal specification. *)
 Lemma normalize_region_idempotent : forall region,
   normalize_region (normalize_region region) = normalize_region region.
 Proof.

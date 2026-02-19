@@ -6,6 +6,7 @@ Import ListNotations.
 
 
 
+(** [list_sum_app]: formal specification. *)
 Lemma list_sum_app : forall l1 l2, list_sum (l1 ++ l2) = list_sum l1 + list_sum l2.
 Proof.
   intros l1 l2. induction l1 as [|h t IH]; simpl; lia.
@@ -52,6 +53,7 @@ Definition C_logic_comp {a b c} (f : C_logic_Hom a b) (g : C_logic_Hom b c) : C_
 Definition F_obj (s : C_phys_Obj) : C_logic_Obj := list_sum s.
 
 (* The functor's action on arrows: it maps a physical path to a proof of momentum conservation. *)
+(** [F_hom_proof]: formal specification. *)
 Lemma F_hom_proof : forall s1 s2, Path s1 s2 -> F_obj s1 = F_obj s2.
 Proof.
   intros s1 s2 Hpath.
@@ -73,6 +75,7 @@ Definition F_hom {s1 s2} (p : Path s1 s2) : C_logic_Hom (F_obj s1) (F_obj s2) :=
 (* The final statement: The act of observation (F) is a valid, structure-preserving
    map from the world of physics to the world of logic. *)
 
+(** [Thiele_Functor_Is_Sound]: formal specification. *)
 Theorem Thiele_Functor_Is_Sound :
   forall (s1 s2 : C_phys_Obj) (p : C_phys_Hom s1 s2),
     C_logic_Hom (F_obj s1) (F_obj s2).

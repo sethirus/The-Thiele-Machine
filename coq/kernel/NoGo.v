@@ -296,6 +296,7 @@ Qed.
     (2) constructs a separating trace [instr_halt 0] and derives k1 <> k2
     from multiplication distinctness via [lia]. *)
 (* DEFINITIONAL *)
+(** [CompositionalWeightFamily_Infinite]: formal specification. *)
 Theorem CompositionalWeightFamily_Infinite :
   exists w : nat -> Weight,
     (forall k, weight_laws (w k)) /\

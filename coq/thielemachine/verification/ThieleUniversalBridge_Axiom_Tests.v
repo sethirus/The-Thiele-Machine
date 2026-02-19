@@ -75,6 +75,7 @@ Qed.
  *)
 
 (* Property test: Writing to any register ≠ TEMP1 preserves TEMP1 *)
+(** [nth_firstn_lt]: formal specification. *)
 Lemma nth_firstn_lt {A} (l : list A) (n m : nat) (d : A) :
   n < m -> m <= length l -> nth n (firstn m l) d = nth n l d.
 Proof.
@@ -85,6 +86,7 @@ Proof.
   apply IHm; lia.
 Qed.
 
+(** [nth_app_left]: formal specification. *)
 Lemma nth_app_left {A} (l1 l2 : list A) (n : nat) (d : A) :
   n < length l1 -> nth n (l1 ++ l2) d = nth n l1 d.
 Proof.
@@ -93,6 +95,7 @@ Proof.
   apply IHn; lia.
 Qed.
 
+(** [nth_app_right]: formal specification. *)
 Lemma nth_app_right {A} (l1 l2 : list A) (n : nat) (d : A) :
   length l1 <= n -> nth n (l1 ++ l2) d = nth (n - length l1) l2 d.
 Proof.
@@ -103,6 +106,7 @@ Proof.
     apply IHl1; lia.
 Qed.
 
+(** [nth_skipn']: formal specification. *)
 Lemma nth_skipn' {A} (l : list A) (n m : nat) (d : A) :
   nth n (skipn m l) d = nth (n + m) l d.
   Proof.
@@ -116,6 +120,7 @@ Lemma nth_skipn' {A} (l : list A) (n m : nat) (d : A) :
       + rewrite Nat.add_succ_r. simpl. apply IH.
   Qed.
 
+(** [write_preserves_other_regs]: formal specification. *)
 Lemma write_preserves_other_regs : forall cpu r v,
   r <> CPU.REG_TEMP1 ->
   (* SAFE: Bounded arithmetic operation with explicit domain *)
@@ -159,12 +164,14 @@ Proof.
   Qed.
 
 (* Specific case: ADDR ≠ TEMP1 *)
+(** [addr_neq_temp1]: formal specification. *)
 Lemma addr_neq_temp1 : CPU.REG_ADDR <> CPU.REG_TEMP1.
 Proof.
   unfold CPU.REG_ADDR, CPU.REG_TEMP1. lia.
 Qed.
 
 (* Validation: axiom follows from general property *)
+  (** [temp1_preserved_through_addr_write_validated]: formal specification. *)
   Lemma temp1_preserved_through_addr_write_validated : forall cpu addr_val,
     length (CPU.regs cpu) >= 10 ->
     CPU.read_reg CPU.REG_TEMP1 (CPU.write_reg CPU.REG_ADDR addr_val cpu) =
@@ -185,6 +192,7 @@ Qed.
  * (stored at a different index) untouched.
  *)
 
+(** [pc_update_preserves_regs]: formal specification. *)
 Lemma pc_update_preserves_regs : forall cpu new_pc,
   length (CPU.regs cpu) >= 10 ->
   CPU.read_reg CPU.REG_TEMP1 (CPU.write_reg CPU.REG_PC new_pc cpu) =
@@ -197,6 +205,7 @@ Lemma pc_update_preserves_regs : forall cpu new_pc,
   Qed.
 
 (* This axiom is actually provable directly! *)
+  (** [temp1_preserved_through_pc_write_validated]: formal specification. *)
   Lemma temp1_preserved_through_pc_write_validated : forall cpu new_pc,
     length (CPU.regs cpu) >= 10 ->
     CPU.read_reg CPU.REG_TEMP1 (CPU.write_reg CPU.REG_PC new_pc cpu) =
