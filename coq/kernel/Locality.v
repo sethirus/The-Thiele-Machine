@@ -210,6 +210,11 @@ Lemma advance_state_graph :
     (advance_state s i g csrs err).(vm_graph) = g.
 Proof. intros. reflexivity. Qed.
 
+Lemma advance_state_reveal_graph :
+  forall s i flat_idx delta g csrs err,
+    (advance_state_reveal s i flat_idx delta g csrs err).(vm_graph) = g.
+Proof. intros. reflexivity. Qed.
+
 Lemma advance_state_rm_graph :
   forall s i g csrs regs mem err,
     (advance_state_rm s i g csrs regs mem err).(vm_graph) = g.
@@ -438,7 +443,7 @@ Proof.
   - (* reveal *)
     inversion Hstep; subst.
     unfold states_agree_on_module, module_region_obs.
-    rewrite advance_state_graph. reflexivity.
+    rewrite advance_state_reveal_graph. reflexivity.
   - (* oracle_halts *)
     inversion Hstep; subst.
     unfold states_agree_on_module, module_region_obs.

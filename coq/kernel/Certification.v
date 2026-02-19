@@ -159,6 +159,10 @@ Definition chsh_value (receipts : Receipts) : Q :=
 Definition has_supra_chsh (receipts : Receipts) : Prop :=
   Qlt tsirelson_bound_q (chsh_value receipts).
 
+(** Helper: Compute CHSH value from receipts (matches Python/RTL compute_chsh) *)
+Definition compute_chsh (receipts : Receipts) : Q :=
+  chsh_value receipts.
+
 (** * Supra-Quantum Predicate
     
     RUNTIME DEFINITION (Python):

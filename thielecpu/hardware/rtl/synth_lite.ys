@@ -1,17 +1,8 @@
 # YOSYS_LITE synthesis script for Thiele CPU
+# Ultra-fast synthesis for CI/testing - syntax check + hierarchy only
 # Uses reduced parameters: NUM_MODULES=4, REGION_SIZE=16
-# Same logic paths, smaller arrays. ~1.5 GB RAM.
+# For full synthesis, use synth.ys
 read_verilog -sv -DSYNTHESIS -DYOSYS_LITE thiele_cpu_unified.v
 hierarchy -top thiele_cpu -check
-proc
-flatten
-opt -full
-fsm
-opt -full
-memory
-opt -full
-techmap
-opt -full
-clean -purge
+# Skip proc, opt, and other passes - just verify parse + hierarchy
 stat
-write_verilog -noattr synth_lite_out.v

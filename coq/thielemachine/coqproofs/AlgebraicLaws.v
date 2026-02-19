@@ -116,7 +116,8 @@ Qed.
 Definition add_ledgers (l1 l2 : MuLedger) : MuLedger :=
   {| mu_operational := l1.(mu_operational) + l2.(mu_operational);
      mu_information := l1.(mu_information) + l2.(mu_information);
-     mu_total := l1.(mu_total) + l2.(mu_total) |}.
+     mu_total := l1.(mu_total) + l2.(mu_total);
+     mu_tensor := map (fun ab => Z.add (fst ab) (snd ab)) (combine l1.(mu_tensor) l2.(mu_tensor)) |}.
 
 (** HELPER: Accessor/projection *)
 (** HELPER: Accessor/projection *)

@@ -1,12 +1,332 @@
-DIGEST 5e5c2fa603e72c49d4c116d335758aff
+DIGEST e6837479d33cfe6ed53019c364b41bc3
 FThieleMachine.WaveEmbedding
-R440:443 Coq.Lists.List <> <> lib
-R445:447 Coq.micromega.Lia <> <> lib
-R478:486 Physics.WaveModel <> <> lib
-R516:522 Kernel.VMState <> <> lib
-R524:529 Kernel.VMStep <> <> lib
-R531:550 Kernel.MuLedgerConservation <> <> lib
-R552:566 Kernel.SimulationProof <> <> lib
-R604:623 ThieleManifold.ThieleManifoldBridge <> <> lib
-R625:642 ThieleManifold.PhysicsIsomorphism <> <> lib
-R653:665 Coq.Lists.List ListNotations <> mod
+R656:659 Coq.Lists.List <> <> lib
+R661:663 Coq.micromega.Lia <> <> lib
+R665:678 Coq.Arith.PeanoNat <> <> lib
+R680:685 Coq.Strings.String <> <> lib
+R716:724 Physics.WaveModel <> <> lib
+R754:760 Kernel.VMState <> <> lib
+R762:767 Kernel.VMStep <> <> lib
+R769:788 Kernel.MuLedgerConservation <> <> lib
+R790:804 Kernel.SimulationProof <> <> lib
+R842:861 ThieleManifold.ThieleManifoldBridge <> <> lib
+R863:880 ThieleManifold.PhysicsIsomorphism <> <> lib
+R891:903 Coq.Lists.List ListNotations <> mod
+abbrev 1031:1036 <> WState
+R1042:1051 ThieleManifold.PhysicsIsomorphism <> phys_state proj
+R1053:1062 ThieleManifold.PhysicsIsomorphism <> wave_model def
+def 1078:1098 <> module_from_wave_cell
+R1105:1112 Physics.WaveModel <> WaveCell rec
+binder 1101:1101 <> c:1
+R1117:1127 Kernel.VMState <> ModuleState rec
+R1137:1149 Kernel.VMState <> module_region proj
+R1137:1149 Kernel.VMState <> module_region proj
+R1137:1149 Kernel.VMState <> module_region proj
+R1186:1198 Kernel.VMState <> module_axioms proj
+R1186:1198 Kernel.VMState <> module_axioms proj
+R1154:1154 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1165:1166 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1178:1178 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1155:1162 Physics.WaveModel <> left_amp proj
+R1164:1164 ThieleMachine.WaveEmbedding <> c:1 var
+R1167:1175 Physics.WaveModel <> right_amp proj
+R1177:1177 ThieleMachine.WaveEmbedding <> c:1 var
+R1203:1204 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+def 1222:1241 <> wave_encoded_modules
+R1248:1253 ThieleMachine.WaveEmbedding <> WState abbrev
+binder 1244:1244 <> s:2
+R1258:1261 Coq.Init.Datatypes <> list ind
+R1272:1274 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1264:1271 Kernel.VMState <> ModuleID def
+R1275:1285 Kernel.VMState <> ModuleState rec
+R1293:1295 Coq.Lists.List <> map def
+R1337:1337 ThieleMachine.WaveEmbedding <> s:2 var
+binder 1302:1302 <> c:3
+R1307:1307 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1309:1310 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1334:1334 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1311:1331 ThieleMachine.WaveEmbedding <> module_from_wave_cell def
+R1333:1333 ThieleMachine.WaveEmbedding <> c:3 var
+def 1352:1362 <> wave_encode
+R1369:1374 ThieleMachine.WaveEmbedding <> WState abbrev
+binder 1365:1365 <> s:4
+R1379:1385 Kernel.VMState <> VMState rec
+R1395:1402 Kernel.VMState <> vm_graph proj
+R1395:1402 Kernel.VMState <> vm_graph proj
+R1395:1402 Kernel.VMState <> vm_graph proj
+R1509:1515 Kernel.VMState <> vm_csrs proj
+R1509:1515 Kernel.VMState <> vm_csrs proj
+R1582:1588 Kernel.VMState <> vm_regs proj
+R1582:1588 Kernel.VMState <> vm_regs proj
+R1611:1616 Kernel.VMState <> vm_mem proj
+R1611:1616 Kernel.VMState <> vm_mem proj
+R1640:1644 Kernel.VMState <> vm_pc proj
+R1640:1644 Kernel.VMState <> vm_pc proj
+R1657:1661 Kernel.VMState <> vm_mu proj
+R1657:1661 Kernel.VMState <> vm_mu proj
+R1674:1685 Kernel.VMState <> vm_mu_tensor proj
+R1674:1685 Kernel.VMState <> vm_mu_tensor proj
+R1717:1722 Kernel.VMState <> vm_err proj
+R1717:1722 Kernel.VMState <> vm_err proj
+R1410:1419 Kernel.VMState <> pg_next_id proj
+R1410:1419 Kernel.VMState <> pg_next_id proj
+R1410:1419 Kernel.VMState <> pg_next_id proj
+R1463:1472 Kernel.VMState <> pg_modules proj
+R1463:1472 Kernel.VMState <> pg_modules proj
+R1424:1424 Coq.Init.Datatypes <> S constr
+R1427:1437 Coq.Lists.List <> length abbrev
+R1439:1439 ThieleMachine.WaveEmbedding <> s:4 var
+R1477:1496 ThieleMachine.WaveEmbedding <> wave_encoded_modules def
+R1498:1498 ThieleMachine.WaveEmbedding <> s:4 var
+R1523:1535 Kernel.VMState <> csr_cert_addr proj
+R1523:1535 Kernel.VMState <> csr_cert_addr proj
+R1523:1535 Kernel.VMState <> csr_cert_addr proj
+R1543:1552 Kernel.VMState <> csr_status proj
+R1543:1552 Kernel.VMState <> csr_status proj
+R1560:1566 Kernel.VMState <> csr_err proj
+R1560:1566 Kernel.VMState <> csr_err proj
+R1593:1598 Coq.Lists.List <> repeat def
+R1621:1626 Coq.Lists.List <> repeat def
+R1690:1709 Kernel.VMState <> vm_mu_tensor_default def
+R1727:1731 Coq.Init.Datatypes <> false constr
+def 1749:1764 <> decode_wave_cell
+R1771:1781 Kernel.VMState <> ModuleState rec
+binder 1767:1767 <> m:5
+R1786:1793 Physics.WaveModel <> WaveCell rec
+R1809:1821 Kernel.VMState <> module_region proj
+R1806:1806 ThieleMachine.WaveEmbedding <> m:5 var
+R1833:1833 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1835:1836 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1838:1838 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1846:1853 Physics.WaveModel <> left_amp proj
+R1846:1853 Physics.WaveModel <> left_amp proj
+R1846:1853 Physics.WaveModel <> left_amp proj
+R1861:1869 Physics.WaveModel <> right_amp proj
+R1861:1869 Physics.WaveModel <> right_amp proj
+R1891:1898 Physics.WaveModel <> left_amp proj
+R1891:1898 Physics.WaveModel <> left_amp proj
+R1891:1898 Physics.WaveModel <> left_amp proj
+R1906:1914 Physics.WaveModel <> right_amp proj
+R1906:1914 Physics.WaveModel <> right_amp proj
+def 1943:1961 <> wave_decode_modules
+R1971:1974 Coq.Init.Datatypes <> list ind
+R1985:1987 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1977:1984 Kernel.VMState <> ModuleID def
+R1988:1998 Kernel.VMState <> ModuleState rec
+binder 1964:1967 <> mods:6
+R2004:2009 ThieleMachine.WaveEmbedding <> WState abbrev
+R2016:2018 Coq.Lists.List <> map def
+R2056:2059 ThieleMachine.WaveEmbedding <> mods:6 var
+R2026:2026 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2028:2029 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2031:2031 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 2030:2030 <> m:7
+binder 2026:2031 <> pat:8
+R2036:2051 ThieleMachine.WaveEmbedding <> decode_wave_cell def
+R2053:2053 ThieleMachine.WaveEmbedding <> m:7 var
+def 2074:2084 <> wave_decode
+R2091:2097 Kernel.VMState <> VMState rec
+binder 2087:2087 <> s:9
+R2102:2107 ThieleMachine.WaveEmbedding <> WState abbrev
+R2140:2149 Kernel.VMState <> pg_modules proj
+R2129:2136 Kernel.VMState <> vm_graph proj
+R2126:2126 ThieleMachine.WaveEmbedding <> s:9 var
+binder 2118:2121 <> mods:10
+R2160:2166 Coq.Arith.PeanoNat Nat eqb def
+R2171:2175 Kernel.VMState <> vm_pc proj
+R2168:2168 ThieleMachine.WaveEmbedding <> s:9 var
+R2217:2225 Physics.WaveModel <> wave_step def
+R2228:2246 ThieleMachine.WaveEmbedding <> wave_decode_modules def
+R2248:2251 ThieleMachine.WaveEmbedding <> mods:10 var
+R2185:2203 ThieleMachine.WaveEmbedding <> wave_decode_modules def
+R2205:2208 ThieleMachine.WaveEmbedding <> mods:10 var
+prf 2262:2287 <> decode_cell_from_wave_cell
+R2302:2309 Physics.WaveModel <> WaveCell rec
+binder 2298:2298 <> c:11
+R2356:2358 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2314:2329 ThieleMachine.WaveEmbedding <> decode_wave_cell def
+R2332:2352 ThieleMachine.WaveEmbedding <> module_from_wave_cell def
+R2354:2354 ThieleMachine.WaveEmbedding <> c:11 var
+R2359:2359 ThieleMachine.WaveEmbedding <> c:11 var
+prf 2406:2424 <> wave_decode_encoded
+R2439:2444 ThieleMachine.WaveEmbedding <> WState abbrev
+binder 2435:2435 <> s:12
+R2493:2495 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2449:2467 ThieleMachine.WaveEmbedding <> wave_decode_modules def
+R2470:2489 ThieleMachine.WaveEmbedding <> wave_encoded_modules def
+R2491:2491 ThieleMachine.WaveEmbedding <> s:12 var
+R2496:2496 ThieleMachine.WaveEmbedding <> s:12 var
+R2524:2542 ThieleMachine.WaveEmbedding <> wave_decode_modules def
+R2545:2564 ThieleMachine.WaveEmbedding <> wave_encoded_modules def
+R2619:2644 ThieleMachine.WaveEmbedding <> decode_cell_from_wave_cell thm
+R2619:2644 ThieleMachine.WaveEmbedding <> decode_cell_from_wave_cell thm
+R2619:2644 ThieleMachine.WaveEmbedding <> decode_cell_from_wave_cell thm
+prf 2678:2698 <> wave_decode_encode_id
+R2713:2718 ThieleMachine.WaveEmbedding <> WState abbrev
+binder 2709:2709 <> s:13
+R2750:2752 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2723:2733 ThieleMachine.WaveEmbedding <> wave_decode def
+R2736:2746 ThieleMachine.WaveEmbedding <> wave_encode def
+R2748:2748 ThieleMachine.WaveEmbedding <> s:13 var
+R2753:2753 ThieleMachine.WaveEmbedding <> s:13 var
+R2781:2791 ThieleMachine.WaveEmbedding <> wave_decode def
+R2794:2804 ThieleMachine.WaveEmbedding <> wave_encode def
+R2826:2829 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R2838:2841 Coq.Init.Datatypes <> true constr
+R2863:2874 Coq.Arith.PeanoNat Nat eqb_refl thm
+R2826:2829 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R2838:2841 Coq.Init.Datatypes <> true constr
+R2863:2874 Coq.Arith.PeanoNat Nat eqb_refl thm
+R2886:2904 ThieleMachine.WaveEmbedding <> wave_decode_encoded thm
+R2886:2904 ThieleMachine.WaveEmbedding <> wave_decode_encoded thm
+def 2960:2975 <> wave_trace_instr
+R2979:2992 Kernel.VMStep VMStep vm_instruction ind
+R2997:3006 Kernel.VMStep VMStep instr_emit constr
+R3010:3020 Coq.Strings.String <> EmptyString constr
+def 3036:3045 <> wave_trace
+R3049:3052 Coq.Init.Datatypes <> list ind
+R3054:3067 Kernel.VMStep VMStep vm_instruction ind
+R3072:3072 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3089:3089 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3073:3088 ThieleMachine.WaveEmbedding <> wave_trace_instr def
+prf 3099:3118 <> wave_trace_cost_zero
+binder 3131:3132 <> pc:14
+binder 3134:3138 <> instr:15
+R3177:3180 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3164:3166 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3141:3149 Coq.Lists.List <> nth_error def
+R3162:3163 ThieleMachine.WaveEmbedding <> pc:14 var
+R3151:3160 ThieleMachine.WaveEmbedding <> wave_trace def
+R3167:3170 Coq.Init.Datatypes <> Some constr
+R3172:3176 ThieleMachine.WaveEmbedding <> instr:15 var
+R3203:3205 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3181:3196 Kernel.VMStep VMStep instruction_cost def
+R3198:3202 ThieleMachine.WaveEmbedding <> instr:15 var
+prf 3398:3424 <> thiele_implements_wave_step
+R3441:3446 ThieleMachine.WaveEmbedding <> WState abbrev
+binder 3437:3437 <> S:16
+R3502:3508 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3453:3463 ThieleMachine.WaveEmbedding <> wave_decode def
+R3466:3471 Kernel.SimulationProof <> run_vm def
+R3475:3484 ThieleMachine.WaveEmbedding <> wave_trace def
+R3487:3497 ThieleMachine.WaveEmbedding <> wave_encode def
+R3499:3499 ThieleMachine.WaveEmbedding <> S:16 var
+R3509:3517 ThieleManifold.PhysicsIsomorphism <> phys_step proj
+R3519:3528 ThieleManifold.PhysicsIsomorphism <> wave_model def
+R3530:3530 ThieleMachine.WaveEmbedding <> S:16 var
+R3558:3567 ThieleMachine.WaveEmbedding <> wave_trace def
+R3586:3601 ThieleMachine.WaveEmbedding <> wave_trace_instr def
+R3604:3614 ThieleMachine.WaveEmbedding <> wave_encode def
+R3617:3627 ThieleMachine.WaveEmbedding <> wave_decode def
+R3649:3667 ThieleMachine.WaveEmbedding <> wave_decode_encoded thm
+R3649:3667 ThieleMachine.WaveEmbedding <> wave_decode_encoded thm
+R3649:3667 ThieleMachine.WaveEmbedding <> wave_decode_encoded thm
+prf 3731:3754 <> vm_preserves_wave_energy
+R3771:3776 ThieleMachine.WaveEmbedding <> WState abbrev
+binder 3767:3767 <> S:17
+R3846:3852 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3783:3793 Physics.WaveModel <> wave_energy def
+R3796:3806 ThieleMachine.WaveEmbedding <> wave_decode def
+R3809:3814 Kernel.SimulationProof <> run_vm def
+R3818:3827 ThieleMachine.WaveEmbedding <> wave_trace def
+R3830:3840 ThieleMachine.WaveEmbedding <> wave_encode def
+R3842:3842 ThieleMachine.WaveEmbedding <> S:17 var
+R3853:3863 Physics.WaveModel <> wave_energy def
+R3865:3865 ThieleMachine.WaveEmbedding <> S:17 var
+R3894:3920 ThieleMachine.WaveEmbedding <> thiele_implements_wave_step thm
+R3894:3920 ThieleMachine.WaveEmbedding <> thiele_implements_wave_step thm
+R3894:3920 ThieleMachine.WaveEmbedding <> thiele_implements_wave_step thm
+R3931:3951 Physics.WaveModel <> wave_energy_conserved thm
+R3931:3951 Physics.WaveModel <> wave_energy_conserved thm
+prf 3966:3991 <> vm_preserves_wave_momentum
+R4008:4013 ThieleMachine.WaveEmbedding <> WState abbrev
+binder 4004:4004 <> S:18
+R4085:4091 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4020:4032 Physics.WaveModel <> wave_momentum def
+R4035:4045 ThieleMachine.WaveEmbedding <> wave_decode def
+R4048:4053 Kernel.SimulationProof <> run_vm def
+R4057:4066 ThieleMachine.WaveEmbedding <> wave_trace def
+R4069:4079 ThieleMachine.WaveEmbedding <> wave_encode def
+R4081:4081 ThieleMachine.WaveEmbedding <> S:18 var
+R4092:4104 Physics.WaveModel <> wave_momentum def
+R4106:4106 ThieleMachine.WaveEmbedding <> S:18 var
+R4135:4161 ThieleMachine.WaveEmbedding <> thiele_implements_wave_step thm
+R4135:4161 ThieleMachine.WaveEmbedding <> thiele_implements_wave_step thm
+R4135:4161 ThieleMachine.WaveEmbedding <> thiele_implements_wave_step thm
+R4172:4194 Physics.WaveModel <> wave_momentum_conserved thm
+R4172:4194 Physics.WaveModel <> wave_momentum_conserved thm
+def 4256:4269 <> wave_embedding
+R4273:4287 ThieleManifold.PhysicsIsomorphism <> ThieleEmbedding rec
+R4289:4298 ThieleManifold.PhysicsIsomorphism <> wave_model def
+R4320:4328 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
+R4320:4328 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
+R4320:4328 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
+R4357:4366 ThieleManifold.PhysicsIsomorphism <> emb_encode proj
+R4357:4366 ThieleManifold.PhysicsIsomorphism <> emb_encode proj
+R4396:4405 ThieleManifold.PhysicsIsomorphism <> emb_decode proj
+R4396:4405 ThieleManifold.PhysicsIsomorphism <> emb_decode proj
+R4435:4447 ThieleManifold.PhysicsIsomorphism <> emb_roundtrip proj
+R4435:4447 ThieleManifold.PhysicsIsomorphism <> emb_roundtrip proj
+R4467:4478 ThieleManifold.PhysicsIsomorphism <> emb_step_sim proj
+R4467:4478 ThieleManifold.PhysicsIsomorphism <> emb_step_sim proj
+R4498:4510 ThieleManifold.PhysicsIsomorphism <> emb_cost_free proj
+R4498:4510 ThieleManifold.PhysicsIsomorphism <> emb_cost_free proj
+R4554:4570 ThieleManifold.PhysicsIsomorphism <> emb_cost_positive proj
+R4554:4570 ThieleManifold.PhysicsIsomorphism <> emb_cost_positive proj
+R4333:4342 ThieleMachine.WaveEmbedding <> wave_trace def
+R4371:4381 ThieleMachine.WaveEmbedding <> wave_encode def
+R4410:4420 ThieleMachine.WaveEmbedding <> wave_decode def
+R4515:4518 Coq.Init.Datatypes <> Some constr
+R4520:4539 ThieleMachine.WaveEmbedding <> wave_trace_cost_zero thm
+R4575:4578 Coq.Init.Datatypes <> None constr
+R4320:4328 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
+R4320:4328 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
+R4320:4328 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
+R4357:4366 ThieleManifold.PhysicsIsomorphism <> emb_encode proj
+R4357:4366 ThieleManifold.PhysicsIsomorphism <> emb_encode proj
+R4396:4405 ThieleManifold.PhysicsIsomorphism <> emb_decode proj
+R4396:4405 ThieleManifold.PhysicsIsomorphism <> emb_decode proj
+R4435:4447 ThieleManifold.PhysicsIsomorphism <> emb_roundtrip proj
+R4435:4447 ThieleManifold.PhysicsIsomorphism <> emb_roundtrip proj
+R4467:4478 ThieleManifold.PhysicsIsomorphism <> emb_step_sim proj
+R4467:4478 ThieleManifold.PhysicsIsomorphism <> emb_step_sim proj
+R4498:4510 ThieleManifold.PhysicsIsomorphism <> emb_cost_free proj
+R4498:4510 ThieleManifold.PhysicsIsomorphism <> emb_cost_free proj
+R4554:4570 ThieleManifold.PhysicsIsomorphism <> emb_cost_positive proj
+R4554:4570 ThieleManifold.PhysicsIsomorphism <> emb_cost_positive proj
+R4333:4342 ThieleMachine.WaveEmbedding <> wave_trace def
+R4371:4381 ThieleMachine.WaveEmbedding <> wave_encode def
+R4410:4420 ThieleMachine.WaveEmbedding <> wave_decode def
+R4515:4518 Coq.Init.Datatypes <> Some constr
+R4520:4539 ThieleMachine.WaveEmbedding <> wave_trace_cost_zero thm
+R4575:4578 Coq.Init.Datatypes <> None constr
+R4594:4614 ThieleMachine.WaveEmbedding <> wave_decode_encode_id thm
+R4594:4614 ThieleMachine.WaveEmbedding <> wave_decode_encode_id thm
+R4627:4653 ThieleMachine.WaveEmbedding <> thiele_implements_wave_step thm
+R4627:4653 ThieleMachine.WaveEmbedding <> thiele_implements_wave_step thm
+prf 4672:4699 <> wave_trace_cost_free_witness
+R4705:4729 ThieleManifold.PhysicsIsomorphism <> embedding_trace_cost_free def
+R4731:4744 ThieleMachine.WaveEmbedding <> wave_embedding def
+R4761:4780 ThieleMachine.WaveEmbedding <> wave_trace_cost_zero thm
+R4761:4780 ThieleMachine.WaveEmbedding <> wave_trace_cost_zero thm
+prf 4850:4877 <> wave_irreversible_count_zero
+binder 4890:4893 <> fuel:19
+binder 4895:4898 <> s_vm:20
+R4944:4946 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4905:4922 Kernel.MuLedgerConservation <> irreversible_count def
+R4924:4927 ThieleMachine.WaveEmbedding <> fuel:19 var
+R4929:4938 ThieleMachine.WaveEmbedding <> wave_trace def
+R4940:4943 ThieleMachine.WaveEmbedding <> s_vm:20 var
+R4966:5008 ThieleManifold.PhysicsIsomorphism <> reversible_trace_irreversibility_count_zero thm
+R5036:5063 ThieleMachine.WaveEmbedding <> wave_trace_cost_free_witness thm
+R5021:5034 ThieleMachine.WaveEmbedding <> wave_embedding def
+R4966:5008 ThieleManifold.PhysicsIsomorphism <> reversible_trace_irreversibility_count_zero thm
+R5036:5063 ThieleMachine.WaveEmbedding <> wave_trace_cost_free_witness thm
+R5021:5034 ThieleMachine.WaveEmbedding <> wave_embedding def
+prf 5081:5095 <> wave_embeddable
+R5099:5108 ThieleManifold.PhysicsIsomorphism <> embeddable def
+R5110:5119 ThieleManifold.PhysicsIsomorphism <> wave_model def
+R5136:5149 ThieleMachine.WaveEmbedding <> wave_embedding def
+R5158:5158 Coq.Init.Logic <> I constr
+R5136:5149 ThieleMachine.WaveEmbedding <> wave_embedding def
+R5158:5158 Coq.Init.Logic <> I constr

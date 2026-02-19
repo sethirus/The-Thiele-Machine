@@ -127,58 +127,74 @@ def encode_state(
     mu_operational: Fraction,
     mu_information: Fraction,
     mu_total: Fraction,
-    pc: int,
-    halted: bool,
-    result: Optional[int],
-    program: List[Tuple[int, List[int]]]
+    mu_tensor: Optional[List[int]] = None,
+    pc: int = 0,
+    halted: bool = False,
+    result: Optional[int] = None,
+    program: List[Tuple[int, List[int]]] = []
 ) -> List[int]:
     """Canonical state encoding (Coq ground truth).
-    
+
     Coq: Definition encode_state (s : State) : list Z := ...
-    
+
     This is the **authoritative** representation. Anything not captured here
     does not exist semantically.
-    
+
     Args:
         modules: Partition modules (sorted by module_id)
         next_module_id: Next available module ID
         mu_operational: μ_operational (exact rational)
         mu_information: μ_information (exact rational)
         mu_total: μ_total (exact rational)
+        mu_tensor: Flattened 4×4 μ-tensor (row-major) or None ⇒ zeros
         pc: Program counter
         halted: Halt flag
         result: Optional result value
         program: Instruction sequence
-    
+
     Returns:
         Canonical encoding as list of integers
     """
     # Partition
     encoded = encode_partition(modules, next_module_id)
-    
+
     # μ-ledger (convert Fraction to int - assumes integral μ-costs)
-    # NOTE: Coq uses Z (integers), not rationals. If VM uses Fraction,
-    # we must normalize first (e.g., require denominator=1 or scale)
     encoded.extend([
         int(mu_operational),
         int(mu_information),
         int(mu_total)
     ])
-    
+
+    # μ-tensor (flattened 4×4). Use 16 zeros if not provided for backward compat.
+    if mu_tensor is None:
+        encoded.extend([0] * 16)
+    else:
+        # Accept nested or flat representations
+        if len(mu_tensor) == 16 and all(isinstance(x, int) for x in mu_tensor):
+            encoded.extend(mu_tensor)
+        else:
+            # If given as nested lists (e.g. [[...]*4]*4), flatten
+            flat = []
+            for row in mu_tensor:
+                flat.extend(row)
+            # Pad/truncate to 16
+            flat = (flat + [0]*16)[:16]
+            encoded.extend([int(x) for x in flat])
+
     # Control state
     encoded.append(pc)
     encoded.append(1 if halted else 0)
-    
+
     # Result
     if result is None:
         encoded.append(0)
     else:
         encoded.extend([1, result])
-    
+
     # Program
     encoded.append(len(program))
     encoded.extend(encode_program(program))
-    
+
     return encoded
 
 
@@ -217,48 +233,56 @@ def hash256_coq(xs: List[int]) -> str:
     return hex(acc)[2:].zfill(64)
 
 
+def hash256(xs: List[int]) -> str:
+    """Alias for cross-layer isomorphism (matches Coq Hash256.hash256 and RTL hash256 module)."""
+    return hash256_coq(xs)
+
+
 def hash_state(
     modules: List[Tuple[int, frozenset[int]]],
     next_module_id: int,
     mu_operational: Fraction,
     mu_information: Fraction,
     mu_total: Fraction,
-    pc: int,
-    halted: bool,
-    result: Optional[int],
-    program: List[Tuple[int, List[int]]]
+    mu_tensor: Optional[List[int]] = None,
+    pc: int = 0,
+    halted: bool = False,
+    result: Optional[int] = None,
+    program: List[Tuple[int, List[int]]] = []
 ) -> str:
     """Hash canonical state encoding using Coq's polynomial mixer.
-    
+
     Coq: Definition hash_state (s : State) : StateHash := Hash256.hash256 (encode_state s).
-    
+
     This is the **one true equivalence relation**.
-    
+
     Two states are semantically equal iff their hashes match.
-    
+
     CRITICAL: This uses Coq's polynomial mixer, NOT SHA-256.
-    
+
     Args:
-        (same as encode_state)
-    
+        Matches the parameters of :pyfunc:`encode_state`. ``mu_tensor`` is
+        optional for backward compatibility (defaults to 16 zeros).
+
     Returns:
         Hex-encoded 256-bit hash (64 chars)
     """
     encoded = encode_state(
         modules, next_module_id,
         mu_operational, mu_information, mu_total,
+        mu_tensor,
         pc, halted, result, program
     )
-    
+
     return hash256_coq(encoded)
 
 
 def state_hash_from_vm(state) -> str:
     """Extract canonical hash from VM State object.
-    
+
     Args:
         state: thielecpu.state.State instance
-    
+
     Returns:
         Canonical hash (hex string)
     """
@@ -267,24 +291,31 @@ def state_hash_from_vm(state) -> str:
         (mid, frozenset(state.regions.modules[mid]))
         for mid in state.regions.modules.keys()
     )
-    
+
     # Extract next_module_id (VM uses regions.next_module_id)
     next_module_id = state.regions.next_module_id
-    
+
     # Extract μ-ledger
-    mu_operational = state.mu_ledger.operational
-    mu_information = state.mu_ledger.informational
+    # Map Python MuLedger -> Coq MuLedger fields:
+    #   Coq.mu_operational  <-> Python.mu_ledger.mu_execution
+    #   Coq.mu_information  <-> Python.mu_ledger.mu_discovery
+    mu_operational = state.mu_ledger.mu_execution
+    mu_information = state.mu_ledger.mu_discovery
     mu_total = state.mu_ledger.total
-    
+
+    # Flatten mu_tensor (row-major) for canonical encoding
+    mu_tensor_flat = [int(x) for row in state.mu_ledger.mu_tensor for x in row]
+
     # Control state (VM doesn't have pc/halted/program - use defaults for now)
     # TODO: Extend State class to include these fields
     pc = 0
     halted = False
     result = None
     program = []  # Empty program for now
-    
+
     return hash_state(
         modules, next_module_id,
         mu_operational, mu_information, mu_total,
+        mu_tensor_flat,
         pc, halted, result, program
     )

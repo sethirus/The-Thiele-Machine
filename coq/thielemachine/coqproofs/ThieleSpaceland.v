@@ -909,7 +909,8 @@ Module ThieleSpaceland.
     {| CoreSemantics.partition := p;
        CoreSemantics.mu_ledger := {| CoreSemantics.mu_operational := mu_total;
                                      CoreSemantics.mu_information := 0;
-                                     CoreSemantics.mu_total := mu_total |};
+                                     CoreSemantics.mu_total := mu_total;
+                                     CoreSemantics.mu_tensor := repeat 0 16 |};
        CoreSemantics.pc := 0;
        CoreSemantics.halted := true;
        CoreSemantics.result := None;

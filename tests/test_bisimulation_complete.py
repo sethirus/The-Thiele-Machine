@@ -614,21 +614,20 @@ class TestMissingOpcodesCosim:
         assert vl_state.mu == 4, f"Verilog μ: {vl_state.mu}, expected: 4"
 
     def test_reveal_python_mu(self):
-        """REVEAL in Python: takes 'mid bits [cert]'. bits=3 → info_charge(3) → μ=3.
-        KNOWN FORMAT DIVERGENCE: Python interprets args as (module_id, bits, cert)
-        while Verilog interprets as (operand_a, operand_b, cost)."""
-        program = "REVEAL 0 3\nHALT 0\n"
+        """REVEAL in Python: takes '<ti> <tj> <bits> [cert]'. bits=3 → info_charge(3) → μ=3.
+        Also updates mu_tensor[ti][tj] += bits."""
+        program = "REVEAL 0 0 3\nHALT 0\n"
         py_state = run_python_vm(program)
         assert py_state.mu == 3, f"Python μ: {py_state.mu}, expected: 3"
 
-    def test_reveal_nonzero_a_verilog_divergence(self):
-        """REVEAL with operand_a>0 in Verilog adds revelation cost:
-        μ = operand_cost + (operand_a << 8). operand_a=2, cost=4 → 4+512=516."""
+    def test_reveal_nonzero_a_verilog_tensor_index(self):
+        """REVEAL with operand_a>0 in Verilog selects tensor index but does NOT add extra
+        scalar μ cost. operand_a=2 (flat tensor idx 2), cost=4 → μ=4, mu_tensor_reg[2]+=4."""
         program = "REVEAL 2 0 4\nHALT 0\n"
         vl_state = run_verilog_simulation(program)
         if vl_state is None:
             pytest.skip("Verilog simulator not available")
-        assert vl_state.mu == 516, f"Verilog μ: {vl_state.mu}, expected: 516"
+        assert vl_state.mu == 4, f"Verilog μ: {vl_state.mu}, expected: 4"
 
     # --- ORACLE_HALTS ---
     def test_oracle_halts_verilog_mu(self):

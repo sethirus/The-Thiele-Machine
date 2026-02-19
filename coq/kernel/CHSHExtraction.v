@@ -125,6 +125,7 @@ Fixpoint extract_chsh_trials_from_trace
                    vm_mem := s.(vm_mem);
                    vm_pc := S s.(vm_pc);
                    vm_mu := s.(vm_mu) + mu_delta;
+                   vm_mu_tensor := s.(vm_mu_tensor);
                    vm_err := s.(vm_err) |} 
           | _ =>
               (* Other instructions: skip and continue *)
@@ -135,6 +136,7 @@ Fixpoint extract_chsh_trials_from_trace
                    vm_mem := s.(vm_mem);
                    vm_pc := S s.(vm_pc);
                    vm_mu := s.(vm_mu);
+                   vm_mu_tensor := s.(vm_mu_tensor);
                    vm_err := s.(vm_err) |}
           end
       end

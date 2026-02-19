@@ -1,4 +1,4 @@
-DIGEST d5ae5e3cde1d93552be5ad227b958472
+DIGEST 8c7000824f14e1969a6314fdb7619cd6
 FThieleMachine.DissipativeEmbedding
 R526:529 Coq.Lists.List <> <> lib
 R531:533 Coq.micromega.Lia <> <> lib
@@ -63,8 +63,10 @@ R1549:1553 Kernel.VMState <> vm_pc proj
 R1549:1553 Kernel.VMState <> vm_pc proj
 R1566:1570 Kernel.VMState <> vm_mu proj
 R1566:1570 Kernel.VMState <> vm_mu proj
-R1583:1588 Kernel.VMState <> vm_err proj
-R1583:1588 Kernel.VMState <> vm_err proj
+R1583:1594 Kernel.VMState <> vm_mu_tensor proj
+R1583:1594 Kernel.VMState <> vm_mu_tensor proj
+R1626:1631 Kernel.VMState <> vm_err proj
+R1626:1631 Kernel.VMState <> vm_err proj
 R1324:1333 Kernel.VMState <> pg_next_id proj
 R1324:1333 Kernel.VMState <> pg_next_id proj
 R1324:1333 Kernel.VMState <> pg_next_id proj
@@ -84,284 +86,285 @@ R1469:1475 Kernel.VMState <> csr_err proj
 R1469:1475 Kernel.VMState <> csr_err proj
 R1502:1507 Coq.Lists.List <> repeat def
 R1530:1535 Coq.Lists.List <> repeat def
-R1593:1597 Coq.Init.Datatypes <> false constr
-def 1615:1625 <> decode_cell
-R1632:1642 Kernel.VMState <> ModuleState rec
-binder 1628:1628 <> m:6
-R1647:1650 Physics.DissipativeModel <> Cell ind
-R1666:1678 Kernel.VMState <> module_region proj
-R1663:1663 ThieleMachine.DissipativeEmbedding <> m:6 var
-R1686:1687 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R1692:1694 Physics.DissipativeModel <> Vac constr
-R1703:1705 Physics.DissipativeModel <> Hot constr
-def 1724:1737 <> decode_modules
-R1747:1750 Coq.Init.Datatypes <> list ind
-R1761:1763 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R1753:1760 Kernel.VMState <> ModuleID def
-R1764:1774 Kernel.VMState <> ModuleState rec
-binder 1740:1743 <> mods:7
-R1780:1790 ThieleMachine.DissipativeEmbedding <> PhysLattice abbrev
-R1797:1799 Coq.Lists.List <> map def
-R1832:1835 ThieleMachine.DissipativeEmbedding <> mods:7 var
-R1807:1807 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1809:1810 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1812:1812 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-binder 1811:1811 <> m:8
-binder 1807:1812 <> pat:9
-R1817:1827 ThieleMachine.DissipativeEmbedding <> decode_cell def
-R1829:1829 ThieleMachine.DissipativeEmbedding <> m:8 var
-def 1850:1863 <> decode_lattice
-R1870:1876 Kernel.VMState <> VMState rec
-binder 1866:1866 <> s:10
-R1881:1891 ThieleMachine.DissipativeEmbedding <> PhysLattice abbrev
-R1924:1933 Kernel.VMState <> pg_modules proj
-R1913:1920 Kernel.VMState <> vm_graph proj
-R1910:1910 ThieleMachine.DissipativeEmbedding <> s:10 var
-binder 1902:1905 <> mods:11
-R1944:1950 Coq.Arith.PeanoNat Nat eqb def
-R1955:1959 Kernel.VMState <> vm_pc proj
-R1952:1952 ThieleMachine.DissipativeEmbedding <> s:10 var
-R1996:2001 Coq.Lists.List <> repeat def
-R2008:2018 Coq.Lists.List <> length abbrev
-R2020:2023 ThieleMachine.DissipativeEmbedding <> mods:11 var
-R2003:2005 Physics.DissipativeModel <> Vac constr
-R1969:1982 ThieleMachine.DissipativeEmbedding <> decode_modules def
-R1984:1987 ThieleMachine.DissipativeEmbedding <> mods:11 var
-prf 2034:2055 <> encoded_modules_length
-R2070:2080 ThieleMachine.DissipativeEmbedding <> PhysLattice abbrev
-binder 2066:2066 <> l:12
-R2116:2118 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2085:2095 Coq.Lists.List <> length abbrev
-R2098:2112 ThieleMachine.DissipativeEmbedding <> encoded_modules def
-R2114:2114 ThieleMachine.DissipativeEmbedding <> l:12 var
-R2119:2129 Coq.Lists.List <> length abbrev
-R2131:2131 ThieleMachine.DissipativeEmbedding <> l:12 var
-R2157:2171 ThieleMachine.DissipativeEmbedding <> encoded_modules def
-R2186:2195 Coq.Lists.List <> map_length thm
-R2186:2195 Coq.Lists.List <> map_length thm
-R2186:2195 Coq.Lists.List <> map_length thm
-prf 2210:2231 <> decode_modules_encoded
-R2246:2256 ThieleMachine.DissipativeEmbedding <> PhysLattice abbrev
-binder 2242:2242 <> l:13
-R2293:2295 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2259:2272 ThieleMachine.DissipativeEmbedding <> decode_modules def
-R2275:2289 ThieleMachine.DissipativeEmbedding <> encoded_modules def
-R2291:2291 ThieleMachine.DissipativeEmbedding <> l:13 var
-R2296:2296 ThieleMachine.DissipativeEmbedding <> l:13 var
-R2324:2337 ThieleMachine.DissipativeEmbedding <> decode_modules def
-R2340:2354 ThieleMachine.DissipativeEmbedding <> encoded_modules def
-R2357:2372 ThieleMachine.DissipativeEmbedding <> module_from_cell def
-prf 2555:2570 <> decode_encode_id
-R2585:2595 ThieleMachine.DissipativeEmbedding <> PhysLattice abbrev
-binder 2581:2581 <> l:14
-R2631:2633 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2598:2611 ThieleMachine.DissipativeEmbedding <> decode_lattice def
-R2614:2627 ThieleMachine.DissipativeEmbedding <> encode_lattice def
-R2629:2629 ThieleMachine.DissipativeEmbedding <> l:14 var
-R2634:2634 ThieleMachine.DissipativeEmbedding <> l:14 var
-R2662:2675 ThieleMachine.DissipativeEmbedding <> decode_lattice def
-R2678:2691 ThieleMachine.DissipativeEmbedding <> encode_lattice def
-R2713:2716 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
-R2725:2728 Coq.Init.Datatypes <> true constr
-R2750:2761 Coq.Arith.PeanoNat Nat eqb_refl thm
-R2713:2716 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
-R2725:2728 Coq.Init.Datatypes <> true constr
-R2750:2761 Coq.Arith.PeanoNat Nat eqb_refl thm
-R2773:2794 ThieleMachine.DissipativeEmbedding <> decode_modules_encoded thm
-R2773:2794 ThieleMachine.DissipativeEmbedding <> decode_modules_encoded thm
-def 2891:2902 <> eraser_instr
-R2906:2919 Kernel.VMStep VMStep vm_instruction ind
-R2924:2933 Kernel.VMStep VMStep instr_emit constr
-R2937:2947 Coq.Strings.String <> EmptyString constr
-def 2963:2975 <> physics_trace
-R2979:2982 Coq.Init.Datatypes <> list ind
-R2984:2997 Kernel.VMStep VMStep vm_instruction ind
-R3002:3002 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R3015:3015 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R3003:3014 ThieleMachine.DissipativeEmbedding <> eraser_instr def
-prf 3025:3051 <> physics_trace_cost_positive
-binder 3064:3065 <> pc:15
-binder 3067:3071 <> instr:16
-R3113:3116 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3100:3102 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3074:3082 Coq.Lists.List <> nth_error def
-R3098:3099 ThieleMachine.DissipativeEmbedding <> pc:15 var
-R3084:3096 ThieleMachine.DissipativeEmbedding <> physics_trace def
-R3103:3106 Coq.Init.Datatypes <> Some constr
-R3108:3112 ThieleMachine.DissipativeEmbedding <> instr:16 var
-R3139:3142 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R3117:3132 Kernel.VMStep VMStep instruction_cost def
-R3134:3138 ThieleMachine.DissipativeEmbedding <> instr:16 var
-prf 3488:3517 <> dissipative_vm_step_simulation
-R3534:3544 ThieleMachine.DissipativeEmbedding <> PhysLattice abbrev
-binder 3530:3530 <> L:17
-R3609:3615 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3551:3564 ThieleMachine.DissipativeEmbedding <> decode_lattice def
-R3567:3572 Kernel.SimulationProof <> run_vm def
-R3576:3588 ThieleMachine.DissipativeEmbedding <> physics_trace def
-R3591:3604 ThieleMachine.DissipativeEmbedding <> encode_lattice def
-R3606:3606 ThieleMachine.DissipativeEmbedding <> L:17 var
-R3616:3624 ThieleManifold.PhysicsIsomorphism <> phys_step proj
-R3626:3642 ThieleManifold.PhysicsIsomorphism <> dissipative_model def
-R3644:3644 ThieleMachine.DissipativeEmbedding <> L:17 var
-R3672:3684 ThieleMachine.DissipativeEmbedding <> physics_trace def
-R3760:3771 ThieleMachine.DissipativeEmbedding <> eraser_instr def
-R3774:3787 ThieleMachine.DissipativeEmbedding <> encode_lattice def
-R3790:3803 ThieleMachine.DissipativeEmbedding <> decode_lattice def
-R3904:3918 ThieleMachine.DissipativeEmbedding <> encoded_modules def
-R3904:3918 ThieleMachine.DissipativeEmbedding <> encoded_modules def
-R3990:4004 ThieleMachine.DissipativeEmbedding <> encoded_modules def
-R4037:4046 Coq.Lists.List <> map_length thm
-R4037:4046 Coq.Lists.List <> map_length thm
-R4037:4046 Coq.Lists.List <> map_length thm
-R4116:4124 ThieleManifold.PhysicsIsomorphism <> phys_step proj
-R4126:4142 ThieleManifold.PhysicsIsomorphism <> dissipative_model def
-R4150:4182 Physics.DissipativeModel <> dissipative_step def
-R4116:4124 ThieleManifold.PhysicsIsomorphism <> phys_step proj
-R4126:4142 ThieleManifold.PhysicsIsomorphism <> dissipative_model def
-R4196:4201 Coq.Lists.List <> repeat def
-R4208:4218 Coq.Lists.List <> length abbrev
-R4203:4205 Physics.DissipativeModel <> Vac constr
-R4230:4262 Physics.DissipativeModel <> dissipative_step def
-R4196:4201 Coq.Lists.List <> repeat def
-R4208:4218 Coq.Lists.List <> length abbrev
-R4203:4205 Physics.DissipativeModel <> Vac constr
-R4230:4262 Physics.DissipativeModel <> dissipative_step def
-R4296:4328 Physics.DissipativeModel <> dissipative_step def
-def 4544:4564 <> dissipative_embedding
-R4568:4582 ThieleManifold.PhysicsIsomorphism <> ThieleEmbedding rec
-R4584:4600 ThieleManifold.PhysicsIsomorphism <> dissipative_model def
-R4622:4630 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
-R4622:4630 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
-R4622:4630 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
-R4662:4671 ThieleManifold.PhysicsIsomorphism <> emb_encode proj
-R4662:4671 ThieleManifold.PhysicsIsomorphism <> emb_encode proj
-R4704:4713 ThieleManifold.PhysicsIsomorphism <> emb_decode proj
-R4704:4713 ThieleManifold.PhysicsIsomorphism <> emb_decode proj
-R4746:4758 ThieleManifold.PhysicsIsomorphism <> emb_roundtrip proj
-R4746:4758 ThieleManifold.PhysicsIsomorphism <> emb_roundtrip proj
-R4778:4789 ThieleManifold.PhysicsIsomorphism <> emb_step_sim proj
-R4778:4789 ThieleManifold.PhysicsIsomorphism <> emb_step_sim proj
-R4809:4821 ThieleManifold.PhysicsIsomorphism <> emb_cost_free proj
-R4809:4821 ThieleManifold.PhysicsIsomorphism <> emb_cost_free proj
-R4844:4860 ThieleManifold.PhysicsIsomorphism <> emb_cost_positive proj
-R4844:4860 ThieleManifold.PhysicsIsomorphism <> emb_cost_positive proj
-R4635:4647 ThieleMachine.DissipativeEmbedding <> physics_trace def
-R4676:4689 ThieleMachine.DissipativeEmbedding <> encode_lattice def
-R4718:4731 ThieleMachine.DissipativeEmbedding <> decode_lattice def
-R4826:4829 Coq.Init.Datatypes <> None constr
-R4865:4868 Coq.Init.Datatypes <> Some constr
-R4870:4896 ThieleMachine.DissipativeEmbedding <> physics_trace_cost_positive thm
-R4622:4630 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
-R4622:4630 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
-R4622:4630 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
-R4662:4671 ThieleManifold.PhysicsIsomorphism <> emb_encode proj
-R4662:4671 ThieleManifold.PhysicsIsomorphism <> emb_encode proj
-R4704:4713 ThieleManifold.PhysicsIsomorphism <> emb_decode proj
-R4704:4713 ThieleManifold.PhysicsIsomorphism <> emb_decode proj
-R4746:4758 ThieleManifold.PhysicsIsomorphism <> emb_roundtrip proj
-R4746:4758 ThieleManifold.PhysicsIsomorphism <> emb_roundtrip proj
-R4778:4789 ThieleManifold.PhysicsIsomorphism <> emb_step_sim proj
-R4778:4789 ThieleManifold.PhysicsIsomorphism <> emb_step_sim proj
-R4809:4821 ThieleManifold.PhysicsIsomorphism <> emb_cost_free proj
-R4809:4821 ThieleManifold.PhysicsIsomorphism <> emb_cost_free proj
-R4844:4860 ThieleManifold.PhysicsIsomorphism <> emb_cost_positive proj
-R4844:4860 ThieleManifold.PhysicsIsomorphism <> emb_cost_positive proj
-R4635:4647 ThieleMachine.DissipativeEmbedding <> physics_trace def
-R4676:4689 ThieleMachine.DissipativeEmbedding <> encode_lattice def
-R4718:4731 ThieleMachine.DissipativeEmbedding <> decode_lattice def
-R4826:4829 Coq.Init.Datatypes <> None constr
-R4865:4868 Coq.Init.Datatypes <> Some constr
-R4870:4896 ThieleMachine.DissipativeEmbedding <> physics_trace_cost_positive thm
-R4928:4943 ThieleMachine.DissipativeEmbedding <> decode_encode_id thm
-R4928:4943 ThieleMachine.DissipativeEmbedding <> decode_encode_id thm
-R4971:5000 ThieleMachine.DissipativeEmbedding <> dissipative_vm_step_simulation thm
-R4971:5000 ThieleMachine.DissipativeEmbedding <> dissipative_vm_step_simulation thm
-prf 5019:5049 <> dissipative_trace_cost_positive
-R5055:5083 ThieleManifold.PhysicsIsomorphism <> embedding_trace_cost_positive def
-R5085:5105 ThieleMachine.DissipativeEmbedding <> dissipative_embedding def
-R5122:5148 ThieleMachine.DissipativeEmbedding <> physics_trace_cost_positive thm
-R5122:5148 ThieleMachine.DissipativeEmbedding <> physics_trace_cost_positive thm
-prf 5221:5246 <> dissipative_mu_gap_generic
-binder 5259:5262 <> fuel:18
-binder 5264:5264 <> s:19
-binder 5266:5270 <> instr:20
-R5285:5288 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5281:5283 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R5277:5280 ThieleMachine.DissipativeEmbedding <> fuel:18 var
-R5335:5342 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5322:5324 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5289:5297 Coq.Lists.List <> nth_error def
-R5316:5320 Kernel.VMState <> vm_pc proj
-R5313:5313 ThieleMachine.DissipativeEmbedding <> s:19 var
-R5299:5311 ThieleMachine.DissipativeEmbedding <> physics_trace def
-R5325:5328 Coq.Init.Datatypes <> Some constr
-R5330:5334 ThieleMachine.DissipativeEmbedding <> instr:20 var
-R5380:5383 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R5374:5378 Kernel.VMState <> vm_mu proj
-R5344:5349 Kernel.SimulationProof <> run_vm def
-R5351:5354 ThieleMachine.DissipativeEmbedding <> fuel:18 var
-R5356:5368 ThieleMachine.DissipativeEmbedding <> physics_trace def
-R5370:5370 ThieleMachine.DissipativeEmbedding <> s:19 var
-R5393:5395 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R5387:5391 Kernel.VMState <> vm_mu proj
-R5384:5384 ThieleMachine.DissipativeEmbedding <> s:19 var
-R5674:5701 ThieleManifold.PhysicsIsomorphism <> dissipative_embedding_mu_gap thm
-R5705:5725 ThieleMachine.DissipativeEmbedding <> dissipative_embedding def
-R5736:5766 ThieleMachine.DissipativeEmbedding <> dissipative_trace_cost_positive thm
-R5674:5701 ThieleManifold.PhysicsIsomorphism <> dissipative_embedding_mu_gap thm
-R5705:5725 ThieleMachine.DissipativeEmbedding <> dissipative_embedding def
-R5736:5766 ThieleMachine.DissipativeEmbedding <> dissipative_trace_cost_positive thm
-prf 5813:5841 <> dissipative_mu_gap_generic_hw
-R5862:5883 ThieleManifold.ThieleManifoldBridge <> FaithfulImplementation rec
-binder 5855:5858 <> Impl:21
-binder 5886:5889 <> fuel:22
-binder 5891:5891 <> s:23
-binder 5893:5897 <> instr:24
-R5912:5915 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5908:5910 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R5904:5907 ThieleMachine.DissipativeEmbedding <> fuel:22 var
-R5947:5954 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5931:5933 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5922:5929 ThieleManifold.ThieleManifoldBridge <> hw_trace proj
-R5916:5919 ThieleMachine.DissipativeEmbedding <> Impl:21 var
-R5934:5946 ThieleMachine.DissipativeEmbedding <> physics_trace def
-R6020:6027 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6007:6009 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5955:5963 Coq.Lists.List <> nth_error def
-R6001:6005 Kernel.VMState <> vm_pc proj
-R5986:5994 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
-R5980:5983 ThieleMachine.DissipativeEmbedding <> Impl:21 var
-R5997:5997 ThieleMachine.DissipativeEmbedding <> s:23 var
-R5965:5977 ThieleMachine.DissipativeEmbedding <> physics_trace def
-R6010:6013 Coq.Init.Datatypes <> Some constr
-R6015:6019 ThieleMachine.DissipativeEmbedding <> instr:24 var
-R6088:6097 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R6082:6086 Kernel.VMState <> vm_mu proj
-R6035:6043 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
-R6029:6032 ThieleMachine.DissipativeEmbedding <> Impl:21 var
-R6047:6055 ThieleManifold.ThieleManifoldBridge <> impl_iter def
-R6077:6077 ThieleMachine.DissipativeEmbedding <> s:23 var
-R6072:6075 ThieleMachine.DissipativeEmbedding <> fuel:22 var
-R6063:6069 ThieleManifold.ThieleManifoldBridge <> hw_step proj
-R6057:6060 ThieleMachine.DissipativeEmbedding <> Impl:21 var
-R6126:6128 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R6120:6124 Kernel.VMState <> vm_mu proj
-R6105:6113 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
-R6099:6102 ThieleMachine.DissipativeEmbedding <> Impl:21 var
-R6116:6116 ThieleMachine.DissipativeEmbedding <> s:23 var
-R6202:6214 ThieleManifold.ThieleManifoldBridge <> hw_refines_vm proj
-R6202:6214 ThieleManifold.ThieleManifoldBridge <> hw_refines_vm proj
-R6299:6326 ThieleManifold.PhysicsIsomorphism <> dissipative_embedding_mu_gap thm
-R6330:6350 ThieleMachine.DissipativeEmbedding <> dissipative_embedding def
-R6361:6391 ThieleMachine.DissipativeEmbedding <> dissipative_trace_cost_positive thm
-R6299:6326 ThieleManifold.PhysicsIsomorphism <> dissipative_embedding_mu_gap thm
-R6330:6350 ThieleMachine.DissipativeEmbedding <> dissipative_embedding def
-R6361:6391 ThieleMachine.DissipativeEmbedding <> dissipative_trace_cost_positive thm
-prf 6436:6457 <> dissipative_embeddable
-R6461:6470 ThieleManifold.PhysicsIsomorphism <> embeddable def
-R6472:6488 ThieleManifold.PhysicsIsomorphism <> dissipative_model def
-R6505:6525 ThieleMachine.DissipativeEmbedding <> dissipative_embedding def
-R6534:6534 Coq.Init.Logic <> I constr
-R6505:6525 ThieleMachine.DissipativeEmbedding <> dissipative_embedding def
-R6534:6534 Coq.Init.Logic <> I constr
+R1599:1618 Kernel.VMState <> vm_mu_tensor_default def
+R1636:1640 Coq.Init.Datatypes <> false constr
+def 1658:1668 <> decode_cell
+R1675:1685 Kernel.VMState <> ModuleState rec
+binder 1671:1671 <> m:6
+R1690:1693 Physics.DissipativeModel <> Cell ind
+R1709:1721 Kernel.VMState <> module_region proj
+R1706:1706 ThieleMachine.DissipativeEmbedding <> m:6 var
+R1729:1730 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1735:1737 Physics.DissipativeModel <> Vac constr
+R1746:1748 Physics.DissipativeModel <> Hot constr
+def 1767:1780 <> decode_modules
+R1790:1793 Coq.Init.Datatypes <> list ind
+R1804:1806 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1796:1803 Kernel.VMState <> ModuleID def
+R1807:1817 Kernel.VMState <> ModuleState rec
+binder 1783:1786 <> mods:7
+R1823:1833 ThieleMachine.DissipativeEmbedding <> PhysLattice abbrev
+R1840:1842 Coq.Lists.List <> map def
+R1875:1878 ThieleMachine.DissipativeEmbedding <> mods:7 var
+R1850:1850 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1852:1853 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1855:1855 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 1854:1854 <> m:8
+binder 1850:1855 <> pat:9
+R1860:1870 ThieleMachine.DissipativeEmbedding <> decode_cell def
+R1872:1872 ThieleMachine.DissipativeEmbedding <> m:8 var
+def 1893:1906 <> decode_lattice
+R1913:1919 Kernel.VMState <> VMState rec
+binder 1909:1909 <> s:10
+R1924:1934 ThieleMachine.DissipativeEmbedding <> PhysLattice abbrev
+R1967:1976 Kernel.VMState <> pg_modules proj
+R1956:1963 Kernel.VMState <> vm_graph proj
+R1953:1953 ThieleMachine.DissipativeEmbedding <> s:10 var
+binder 1945:1948 <> mods:11
+R1987:1993 Coq.Arith.PeanoNat Nat eqb def
+R1998:2002 Kernel.VMState <> vm_pc proj
+R1995:1995 ThieleMachine.DissipativeEmbedding <> s:10 var
+R2039:2044 Coq.Lists.List <> repeat def
+R2051:2061 Coq.Lists.List <> length abbrev
+R2063:2066 ThieleMachine.DissipativeEmbedding <> mods:11 var
+R2046:2048 Physics.DissipativeModel <> Vac constr
+R2012:2025 ThieleMachine.DissipativeEmbedding <> decode_modules def
+R2027:2030 ThieleMachine.DissipativeEmbedding <> mods:11 var
+prf 2077:2098 <> encoded_modules_length
+R2113:2123 ThieleMachine.DissipativeEmbedding <> PhysLattice abbrev
+binder 2109:2109 <> l:12
+R2159:2161 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2128:2138 Coq.Lists.List <> length abbrev
+R2141:2155 ThieleMachine.DissipativeEmbedding <> encoded_modules def
+R2157:2157 ThieleMachine.DissipativeEmbedding <> l:12 var
+R2162:2172 Coq.Lists.List <> length abbrev
+R2174:2174 ThieleMachine.DissipativeEmbedding <> l:12 var
+R2200:2214 ThieleMachine.DissipativeEmbedding <> encoded_modules def
+R2229:2238 Coq.Lists.List <> map_length thm
+R2229:2238 Coq.Lists.List <> map_length thm
+R2229:2238 Coq.Lists.List <> map_length thm
+prf 2253:2274 <> decode_modules_encoded
+R2289:2299 ThieleMachine.DissipativeEmbedding <> PhysLattice abbrev
+binder 2285:2285 <> l:13
+R2336:2338 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2302:2315 ThieleMachine.DissipativeEmbedding <> decode_modules def
+R2318:2332 ThieleMachine.DissipativeEmbedding <> encoded_modules def
+R2334:2334 ThieleMachine.DissipativeEmbedding <> l:13 var
+R2339:2339 ThieleMachine.DissipativeEmbedding <> l:13 var
+R2367:2380 ThieleMachine.DissipativeEmbedding <> decode_modules def
+R2383:2397 ThieleMachine.DissipativeEmbedding <> encoded_modules def
+R2400:2415 ThieleMachine.DissipativeEmbedding <> module_from_cell def
+prf 2598:2613 <> decode_encode_id
+R2628:2638 ThieleMachine.DissipativeEmbedding <> PhysLattice abbrev
+binder 2624:2624 <> l:14
+R2674:2676 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2641:2654 ThieleMachine.DissipativeEmbedding <> decode_lattice def
+R2657:2670 ThieleMachine.DissipativeEmbedding <> encode_lattice def
+R2672:2672 ThieleMachine.DissipativeEmbedding <> l:14 var
+R2677:2677 ThieleMachine.DissipativeEmbedding <> l:14 var
+R2705:2718 ThieleMachine.DissipativeEmbedding <> decode_lattice def
+R2721:2734 ThieleMachine.DissipativeEmbedding <> encode_lattice def
+R2756:2759 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R2768:2771 Coq.Init.Datatypes <> true constr
+R2793:2804 Coq.Arith.PeanoNat Nat eqb_refl thm
+R2756:2759 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R2768:2771 Coq.Init.Datatypes <> true constr
+R2793:2804 Coq.Arith.PeanoNat Nat eqb_refl thm
+R2816:2837 ThieleMachine.DissipativeEmbedding <> decode_modules_encoded thm
+R2816:2837 ThieleMachine.DissipativeEmbedding <> decode_modules_encoded thm
+def 2934:2945 <> eraser_instr
+R2949:2962 Kernel.VMStep VMStep vm_instruction ind
+R2967:2976 Kernel.VMStep VMStep instr_emit constr
+R2980:2990 Coq.Strings.String <> EmptyString constr
+def 3006:3018 <> physics_trace
+R3022:3025 Coq.Init.Datatypes <> list ind
+R3027:3040 Kernel.VMStep VMStep vm_instruction ind
+R3045:3045 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3058:3058 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3046:3057 ThieleMachine.DissipativeEmbedding <> eraser_instr def
+prf 3068:3094 <> physics_trace_cost_positive
+binder 3107:3108 <> pc:15
+binder 3110:3114 <> instr:16
+R3156:3159 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3143:3145 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3117:3125 Coq.Lists.List <> nth_error def
+R3141:3142 ThieleMachine.DissipativeEmbedding <> pc:15 var
+R3127:3139 ThieleMachine.DissipativeEmbedding <> physics_trace def
+R3146:3149 Coq.Init.Datatypes <> Some constr
+R3151:3155 ThieleMachine.DissipativeEmbedding <> instr:16 var
+R3182:3185 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3160:3175 Kernel.VMStep VMStep instruction_cost def
+R3177:3181 ThieleMachine.DissipativeEmbedding <> instr:16 var
+prf 3531:3560 <> dissipative_vm_step_simulation
+R3577:3587 ThieleMachine.DissipativeEmbedding <> PhysLattice abbrev
+binder 3573:3573 <> L:17
+R3652:3658 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3594:3607 ThieleMachine.DissipativeEmbedding <> decode_lattice def
+R3610:3615 Kernel.SimulationProof <> run_vm def
+R3619:3631 ThieleMachine.DissipativeEmbedding <> physics_trace def
+R3634:3647 ThieleMachine.DissipativeEmbedding <> encode_lattice def
+R3649:3649 ThieleMachine.DissipativeEmbedding <> L:17 var
+R3659:3667 ThieleManifold.PhysicsIsomorphism <> phys_step proj
+R3669:3685 ThieleManifold.PhysicsIsomorphism <> dissipative_model def
+R3687:3687 ThieleMachine.DissipativeEmbedding <> L:17 var
+R3715:3727 ThieleMachine.DissipativeEmbedding <> physics_trace def
+R3803:3814 ThieleMachine.DissipativeEmbedding <> eraser_instr def
+R3817:3830 ThieleMachine.DissipativeEmbedding <> encode_lattice def
+R3833:3846 ThieleMachine.DissipativeEmbedding <> decode_lattice def
+R3947:3961 ThieleMachine.DissipativeEmbedding <> encoded_modules def
+R3947:3961 ThieleMachine.DissipativeEmbedding <> encoded_modules def
+R4033:4047 ThieleMachine.DissipativeEmbedding <> encoded_modules def
+R4080:4089 Coq.Lists.List <> map_length thm
+R4080:4089 Coq.Lists.List <> map_length thm
+R4080:4089 Coq.Lists.List <> map_length thm
+R4159:4167 ThieleManifold.PhysicsIsomorphism <> phys_step proj
+R4169:4185 ThieleManifold.PhysicsIsomorphism <> dissipative_model def
+R4193:4225 Physics.DissipativeModel <> dissipative_step def
+R4159:4167 ThieleManifold.PhysicsIsomorphism <> phys_step proj
+R4169:4185 ThieleManifold.PhysicsIsomorphism <> dissipative_model def
+R4239:4244 Coq.Lists.List <> repeat def
+R4251:4261 Coq.Lists.List <> length abbrev
+R4246:4248 Physics.DissipativeModel <> Vac constr
+R4273:4305 Physics.DissipativeModel <> dissipative_step def
+R4239:4244 Coq.Lists.List <> repeat def
+R4251:4261 Coq.Lists.List <> length abbrev
+R4246:4248 Physics.DissipativeModel <> Vac constr
+R4273:4305 Physics.DissipativeModel <> dissipative_step def
+R4339:4371 Physics.DissipativeModel <> dissipative_step def
+def 4587:4607 <> dissipative_embedding
+R4611:4625 ThieleManifold.PhysicsIsomorphism <> ThieleEmbedding rec
+R4627:4643 ThieleManifold.PhysicsIsomorphism <> dissipative_model def
+R4665:4673 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
+R4665:4673 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
+R4665:4673 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
+R4705:4714 ThieleManifold.PhysicsIsomorphism <> emb_encode proj
+R4705:4714 ThieleManifold.PhysicsIsomorphism <> emb_encode proj
+R4747:4756 ThieleManifold.PhysicsIsomorphism <> emb_decode proj
+R4747:4756 ThieleManifold.PhysicsIsomorphism <> emb_decode proj
+R4789:4801 ThieleManifold.PhysicsIsomorphism <> emb_roundtrip proj
+R4789:4801 ThieleManifold.PhysicsIsomorphism <> emb_roundtrip proj
+R4821:4832 ThieleManifold.PhysicsIsomorphism <> emb_step_sim proj
+R4821:4832 ThieleManifold.PhysicsIsomorphism <> emb_step_sim proj
+R4852:4864 ThieleManifold.PhysicsIsomorphism <> emb_cost_free proj
+R4852:4864 ThieleManifold.PhysicsIsomorphism <> emb_cost_free proj
+R4887:4903 ThieleManifold.PhysicsIsomorphism <> emb_cost_positive proj
+R4887:4903 ThieleManifold.PhysicsIsomorphism <> emb_cost_positive proj
+R4678:4690 ThieleMachine.DissipativeEmbedding <> physics_trace def
+R4719:4732 ThieleMachine.DissipativeEmbedding <> encode_lattice def
+R4761:4774 ThieleMachine.DissipativeEmbedding <> decode_lattice def
+R4869:4872 Coq.Init.Datatypes <> None constr
+R4908:4911 Coq.Init.Datatypes <> Some constr
+R4913:4939 ThieleMachine.DissipativeEmbedding <> physics_trace_cost_positive thm
+R4665:4673 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
+R4665:4673 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
+R4665:4673 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
+R4705:4714 ThieleManifold.PhysicsIsomorphism <> emb_encode proj
+R4705:4714 ThieleManifold.PhysicsIsomorphism <> emb_encode proj
+R4747:4756 ThieleManifold.PhysicsIsomorphism <> emb_decode proj
+R4747:4756 ThieleManifold.PhysicsIsomorphism <> emb_decode proj
+R4789:4801 ThieleManifold.PhysicsIsomorphism <> emb_roundtrip proj
+R4789:4801 ThieleManifold.PhysicsIsomorphism <> emb_roundtrip proj
+R4821:4832 ThieleManifold.PhysicsIsomorphism <> emb_step_sim proj
+R4821:4832 ThieleManifold.PhysicsIsomorphism <> emb_step_sim proj
+R4852:4864 ThieleManifold.PhysicsIsomorphism <> emb_cost_free proj
+R4852:4864 ThieleManifold.PhysicsIsomorphism <> emb_cost_free proj
+R4887:4903 ThieleManifold.PhysicsIsomorphism <> emb_cost_positive proj
+R4887:4903 ThieleManifold.PhysicsIsomorphism <> emb_cost_positive proj
+R4678:4690 ThieleMachine.DissipativeEmbedding <> physics_trace def
+R4719:4732 ThieleMachine.DissipativeEmbedding <> encode_lattice def
+R4761:4774 ThieleMachine.DissipativeEmbedding <> decode_lattice def
+R4869:4872 Coq.Init.Datatypes <> None constr
+R4908:4911 Coq.Init.Datatypes <> Some constr
+R4913:4939 ThieleMachine.DissipativeEmbedding <> physics_trace_cost_positive thm
+R4971:4986 ThieleMachine.DissipativeEmbedding <> decode_encode_id thm
+R4971:4986 ThieleMachine.DissipativeEmbedding <> decode_encode_id thm
+R5014:5043 ThieleMachine.DissipativeEmbedding <> dissipative_vm_step_simulation thm
+R5014:5043 ThieleMachine.DissipativeEmbedding <> dissipative_vm_step_simulation thm
+prf 5062:5092 <> dissipative_trace_cost_positive
+R5098:5126 ThieleManifold.PhysicsIsomorphism <> embedding_trace_cost_positive def
+R5128:5148 ThieleMachine.DissipativeEmbedding <> dissipative_embedding def
+R5165:5191 ThieleMachine.DissipativeEmbedding <> physics_trace_cost_positive thm
+R5165:5191 ThieleMachine.DissipativeEmbedding <> physics_trace_cost_positive thm
+prf 5264:5289 <> dissipative_mu_gap_generic
+binder 5302:5305 <> fuel:18
+binder 5307:5307 <> s:19
+binder 5309:5313 <> instr:20
+R5328:5331 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5324:5326 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R5320:5323 ThieleMachine.DissipativeEmbedding <> fuel:18 var
+R5378:5385 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5365:5367 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5332:5340 Coq.Lists.List <> nth_error def
+R5359:5363 Kernel.VMState <> vm_pc proj
+R5356:5356 ThieleMachine.DissipativeEmbedding <> s:19 var
+R5342:5354 ThieleMachine.DissipativeEmbedding <> physics_trace def
+R5368:5371 Coq.Init.Datatypes <> Some constr
+R5373:5377 ThieleMachine.DissipativeEmbedding <> instr:20 var
+R5423:5426 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5417:5421 Kernel.VMState <> vm_mu proj
+R5387:5392 Kernel.SimulationProof <> run_vm def
+R5394:5397 ThieleMachine.DissipativeEmbedding <> fuel:18 var
+R5399:5411 ThieleMachine.DissipativeEmbedding <> physics_trace def
+R5413:5413 ThieleMachine.DissipativeEmbedding <> s:19 var
+R5436:5438 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5430:5434 Kernel.VMState <> vm_mu proj
+R5427:5427 ThieleMachine.DissipativeEmbedding <> s:19 var
+R5717:5744 ThieleManifold.PhysicsIsomorphism <> dissipative_embedding_mu_gap thm
+R5748:5768 ThieleMachine.DissipativeEmbedding <> dissipative_embedding def
+R5779:5809 ThieleMachine.DissipativeEmbedding <> dissipative_trace_cost_positive thm
+R5717:5744 ThieleManifold.PhysicsIsomorphism <> dissipative_embedding_mu_gap thm
+R5748:5768 ThieleMachine.DissipativeEmbedding <> dissipative_embedding def
+R5779:5809 ThieleMachine.DissipativeEmbedding <> dissipative_trace_cost_positive thm
+prf 5856:5884 <> dissipative_mu_gap_generic_hw
+R5905:5926 ThieleManifold.ThieleManifoldBridge <> FaithfulImplementation rec
+binder 5898:5901 <> Impl:21
+binder 5929:5932 <> fuel:22
+binder 5934:5934 <> s:23
+binder 5936:5940 <> instr:24
+R5955:5958 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5951:5953 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R5947:5950 ThieleMachine.DissipativeEmbedding <> fuel:22 var
+R5990:5997 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5974:5976 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5965:5972 ThieleManifold.ThieleManifoldBridge <> hw_trace proj
+R5959:5962 ThieleMachine.DissipativeEmbedding <> Impl:21 var
+R5977:5989 ThieleMachine.DissipativeEmbedding <> physics_trace def
+R6063:6070 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6050:6052 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5998:6006 Coq.Lists.List <> nth_error def
+R6044:6048 Kernel.VMState <> vm_pc proj
+R6029:6037 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
+R6023:6026 ThieleMachine.DissipativeEmbedding <> Impl:21 var
+R6040:6040 ThieleMachine.DissipativeEmbedding <> s:23 var
+R6008:6020 ThieleMachine.DissipativeEmbedding <> physics_trace def
+R6053:6056 Coq.Init.Datatypes <> Some constr
+R6058:6062 ThieleMachine.DissipativeEmbedding <> instr:24 var
+R6131:6140 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6125:6129 Kernel.VMState <> vm_mu proj
+R6078:6086 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
+R6072:6075 ThieleMachine.DissipativeEmbedding <> Impl:21 var
+R6090:6098 ThieleManifold.ThieleManifoldBridge <> impl_iter def
+R6120:6120 ThieleMachine.DissipativeEmbedding <> s:23 var
+R6115:6118 ThieleMachine.DissipativeEmbedding <> fuel:22 var
+R6106:6112 ThieleManifold.ThieleManifoldBridge <> hw_step proj
+R6100:6103 ThieleMachine.DissipativeEmbedding <> Impl:21 var
+R6169:6171 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6163:6167 Kernel.VMState <> vm_mu proj
+R6148:6156 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
+R6142:6145 ThieleMachine.DissipativeEmbedding <> Impl:21 var
+R6159:6159 ThieleMachine.DissipativeEmbedding <> s:23 var
+R6245:6257 ThieleManifold.ThieleManifoldBridge <> hw_refines_vm proj
+R6245:6257 ThieleManifold.ThieleManifoldBridge <> hw_refines_vm proj
+R6342:6369 ThieleManifold.PhysicsIsomorphism <> dissipative_embedding_mu_gap thm
+R6373:6393 ThieleMachine.DissipativeEmbedding <> dissipative_embedding def
+R6404:6434 ThieleMachine.DissipativeEmbedding <> dissipative_trace_cost_positive thm
+R6342:6369 ThieleManifold.PhysicsIsomorphism <> dissipative_embedding_mu_gap thm
+R6373:6393 ThieleMachine.DissipativeEmbedding <> dissipative_embedding def
+R6404:6434 ThieleMachine.DissipativeEmbedding <> dissipative_trace_cost_positive thm
+prf 6479:6500 <> dissipative_embeddable
+R6504:6513 ThieleManifold.PhysicsIsomorphism <> embeddable def
+R6515:6531 ThieleManifold.PhysicsIsomorphism <> dissipative_model def
+R6548:6568 ThieleMachine.DissipativeEmbedding <> dissipative_embedding def
+R6577:6577 Coq.Init.Logic <> I constr
+R6548:6568 ThieleMachine.DissipativeEmbedding <> dissipative_embedding def
+R6577:6577 Coq.Init.Logic <> I constr

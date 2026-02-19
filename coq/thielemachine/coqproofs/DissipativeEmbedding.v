@@ -34,6 +34,7 @@ Definition encode_lattice (l : PhysLattice) : VMState :=
      vm_mem := repeat 0 256;
      vm_pc := 0;
      vm_mu := 0;
+     vm_mu_tensor := vm_mu_tensor_default;
      vm_err := false |}.
 
 Definition decode_cell (m : ModuleState) : Cell :=

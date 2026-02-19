@@ -1,0 +1,915 @@
+{
+  "generated_at": "2026-02-19T07:56:59.860572+00:00",
+  "counts": {
+    "symbols": 36461,
+    "edges": 58514,
+    "triads": 72,
+    "files": 623
+  },
+  "class_counts": {
+    "duplicate": 4741,
+    "island": 5600,
+    "orphan": 22982,
+    "bridge": 134,
+    "core": 151,
+    "test_only": 2853
+  },
+  "edge_kind_counts": {
+    "coq_ref": 17312,
+    "py_ref": 22791,
+    "rtl_ref": 28,
+    "cross_name": 942,
+    "cross_norm": 658,
+    "cross_opcode": 56,
+    "test_covers": 16727
+  },
+  "cross_layer_matrix": {
+    "coq->python": 394,
+    "coq->rtl": 268,
+    "python->coq": 394,
+    "python->rtl": 166,
+    "rtl->coq": 268,
+    "rtl->python": 166
+  },
+  "top_cross_file_links": [
+    {
+      "src": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "dst": "thielecpu/receipts.py",
+      "weight": 40
+    },
+    {
+      "src": "thielecpu/receipts.py",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "weight": 40
+    },
+    {
+      "src": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "dst": "thielecpu/state.py",
+      "weight": 19
+    },
+    {
+      "src": "thielecpu/state.py",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "weight": 19
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/HardwareBridge.v",
+      "dst": "thielecpu/hardware/rtl/generated_opcodes.vh",
+      "weight": 18
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/HardwareBridge.v",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "weight": 18
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/HardwareBridge.v",
+      "dst": "thielecpu/receipts.py",
+      "weight": 18
+    },
+    {
+      "src": "thielecpu/hardware/rtl/generated_opcodes.vh",
+      "dst": "coq/thielemachine/coqproofs/HardwareBridge.v",
+      "weight": 18
+    },
+    {
+      "src": "thielecpu/hardware/rtl/generated_opcodes.vh",
+      "dst": "thielecpu/receipts.py",
+      "weight": 18
+    },
+    {
+      "src": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "dst": "coq/thielemachine/coqproofs/HardwareBridge.v",
+      "weight": 18
+    },
+    {
+      "src": "thielecpu/receipts.py",
+      "dst": "coq/thielemachine/coqproofs/HardwareBridge.v",
+      "weight": 18
+    },
+    {
+      "src": "thielecpu/receipts.py",
+      "dst": "thielecpu/hardware/rtl/generated_opcodes.vh",
+      "weight": 18
+    },
+    {
+      "src": "coq/kernel/VMState.v",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "weight": 12
+    },
+    {
+      "src": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "dst": "coq/kernel/VMState.v",
+      "weight": 12
+    },
+    {
+      "src": "coq/kernel/MuGravity.v",
+      "dst": "scripts/validate_mu_gravity_calibration.py",
+      "weight": 11
+    },
+    {
+      "src": "scripts/validate_mu_gravity_calibration.py",
+      "dst": "coq/kernel/MuGravity.v",
+      "weight": 11
+    },
+    {
+      "src": "coq/kernel/SemanticMuCost.v",
+      "dst": "thielecpu/semantic_mu_coq_isomorphic.py",
+      "weight": 7
+    },
+    {
+      "src": "coq/kernel/VMState.v",
+      "dst": "thielecpu/state.py",
+      "weight": 7
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/AbstractLTS.v",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "weight": 7
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/CoreSemantics.v",
+      "dst": "thielecpu/canonical_encoding.py",
+      "weight": 7
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/ThieleSpaceland.v",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "weight": 7
+    },
+    {
+      "src": "thielecpu/canonical_encoding.py",
+      "dst": "coq/thielemachine/coqproofs/CoreSemantics.v",
+      "weight": 7
+    },
+    {
+      "src": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "dst": "coq/thielemachine/coqproofs/AbstractLTS.v",
+      "weight": 7
+    },
+    {
+      "src": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "dst": "coq/thielemachine/coqproofs/ThieleSpaceland.v",
+      "weight": 7
+    },
+    {
+      "src": "thielecpu/semantic_mu_coq_isomorphic.py",
+      "dst": "coq/kernel/SemanticMuCost.v",
+      "weight": 7
+    },
+    {
+      "src": "thielecpu/state.py",
+      "dst": "coq/kernel/VMState.v",
+      "weight": 7
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/SpacelandCore.v",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "weight": 6
+    },
+    {
+      "src": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "dst": "coq/thielemachine/coqproofs/SpacelandCore.v",
+      "weight": 6
+    },
+    {
+      "src": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "dst": "thielecpu/mu_fixed.py",
+      "weight": 6
+    },
+    {
+      "src": "thielecpu/mu_fixed.py",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "weight": 6
+    },
+    {
+      "src": "coq/kernel/CertCheck.v",
+      "dst": "thielecpu/certcheck.py",
+      "weight": 5
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/MuAlu.v",
+      "dst": "thielecpu/mu_fixed.py",
+      "weight": 5
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/ThieleMachine.v",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "weight": 5
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/ThieleMachineSig.v",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "weight": 5
+    },
+    {
+      "src": "experiments/mu_audited_bell_test.py",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "weight": 5
+    },
+    {
+      "src": "thielecpu/certcheck.py",
+      "dst": "coq/kernel/CertCheck.v",
+      "weight": 5
+    },
+    {
+      "src": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "dst": "coq/thielemachine/coqproofs/ThieleMachine.v",
+      "weight": 5
+    },
+    {
+      "src": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "dst": "coq/thielemachine/coqproofs/ThieleMachineSig.v",
+      "weight": 5
+    },
+    {
+      "src": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "dst": "experiments/mu_audited_bell_test.py",
+      "weight": 5
+    },
+    {
+      "src": "thielecpu/mu_fixed.py",
+      "dst": "coq/thielemachine/coqproofs/MuAlu.v",
+      "weight": 5
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/BellInequality.v",
+      "dst": "scripts/generate_tsirelson_receipts.py",
+      "weight": 4
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/CoreSemantics.v",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "weight": 4
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/EfficientDiscovery.v",
+      "dst": "thielecpu/discovery.py",
+      "weight": 4
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/MuAlu.v",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "weight": 4
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/SpacelandCore.v",
+      "dst": "experiments/phi_vs_mu_correlation.py",
+      "weight": 4
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/SpacelandCore.v",
+      "dst": "thielecpu/hardware/rtl/synth_lite_out.v",
+      "weight": 4
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/SpacelandCore.v",
+      "dst": "thielecpu/state.py",
+      "weight": 4
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/Spaceland_Simple.v",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "weight": 4
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/ThieleSpaceland.v",
+      "dst": "thielecpu/crypto.py",
+      "weight": 4
+    },
+    {
+      "src": "experiments/phi_vs_mu_correlation.py",
+      "dst": "coq/thielemachine/coqproofs/SpacelandCore.v",
+      "weight": 4
+    },
+    {
+      "src": "scripts/generate_tsirelson_receipts.py",
+      "dst": "coq/thielemachine/coqproofs/BellInequality.v",
+      "weight": 4
+    },
+    {
+      "src": "thielecpu/crypto.py",
+      "dst": "coq/thielemachine/coqproofs/ThieleSpaceland.v",
+      "weight": 4
+    },
+    {
+      "src": "thielecpu/discovery.py",
+      "dst": "coq/thielemachine/coqproofs/EfficientDiscovery.v",
+      "weight": 4
+    },
+    {
+      "src": "thielecpu/discovery.py",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "weight": 4
+    },
+    {
+      "src": "thielecpu/hardware/rtl/synth_lite_out.v",
+      "dst": "coq/thielemachine/coqproofs/SpacelandCore.v",
+      "weight": 4
+    },
+    {
+      "src": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "dst": "coq/thielemachine/coqproofs/CoreSemantics.v",
+      "weight": 4
+    },
+    {
+      "src": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "dst": "coq/thielemachine/coqproofs/MuAlu.v",
+      "weight": 4
+    },
+    {
+      "src": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "dst": "coq/thielemachine/coqproofs/Spaceland_Simple.v",
+      "weight": 4
+    },
+    {
+      "src": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "dst": "thielecpu/discovery.py",
+      "weight": 4
+    },
+    {
+      "src": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "dst": "thielecpu/vm.py",
+      "weight": 4
+    },
+    {
+      "src": "thielecpu/state.py",
+      "dst": "coq/thielemachine/coqproofs/SpacelandCore.v",
+      "weight": 4
+    },
+    {
+      "src": "thielecpu/vm.py",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "weight": 4
+    },
+    {
+      "src": "coq/kernel/FiniteInformation.v",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "weight": 3
+    },
+    {
+      "src": "coq/kernel/MuGravity.v",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "weight": 3
+    },
+    {
+      "src": "coq/kernel/VMState.v",
+      "dst": "thielecpu/hardware/rtl/mu_alu.v",
+      "weight": 3
+    },
+    {
+      "src": "coq/kernel/VMState.v",
+      "dst": "thielecpu/hardware/rtl/partition_core.v",
+      "weight": 3
+    },
+    {
+      "src": "coq/kernel/VMState.v",
+      "dst": "thielecpu/isa.py",
+      "weight": 3
+    },
+    {
+      "src": "coq/kernel/VMState.v",
+      "dst": "thielecpu/mu_fixed.py",
+      "weight": 3
+    },
+    {
+      "src": "coq/modular_proofs/Minsky.v",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "weight": 3
+    },
+    {
+      "src": "coq/theory/GeometricSignature.v",
+      "dst": "thielecpu/vm.py",
+      "weight": 3
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/AbstractLTS.v",
+      "dst": "thielecpu/hardware/rtl/synth_lite_out.v",
+      "weight": 3
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/AbstractLTS.v",
+      "dst": "thielecpu/state.py",
+      "weight": 3
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/CoreSemantics.v",
+      "dst": "experiments/phi_vs_mu_correlation.py",
+      "weight": 3
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/CoreSemantics.v",
+      "dst": "thielecpu/state.py",
+      "weight": 3
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/DiscoveryProof.v",
+      "dst": "thielecpu/discovery.py",
+      "weight": 3
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/EfficientDiscovery.v",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "weight": 3
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/EfficientDiscovery.v",
+      "dst": "thielecpu/state.py",
+      "weight": 3
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/Hash256.v",
+      "dst": "thielecpu/canonical_encoding.py",
+      "weight": 3
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/HyperThiele.v",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "weight": 3
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/MuAlu.v",
+      "dst": "thielecpu/hardware/rtl/mu_alu.v",
+      "weight": 3
+    }
+  ],
+  "isomorphism_metrics": {
+    "isomorphism_score": 47.38,
+    "core_bridge_ratio": 0.0085,
+    "triad_completion_ratio": 0.4898,
+    "directional_coverage_ratio": 1.0,
+    "integrate_file_ratio": 0.006,
+    "prod_symbol_count": 33608,
+    "core_bridge_count": 285,
+    "triad_count": 72,
+    "partial_triad_count": 75,
+    "active_direction_count": 6,
+    "direction_count": 6,
+    "integrate_file_count": 3,
+    "prod_file_count": 498
+  },
+  "trend_delta": {
+    "has_previous": true,
+    "score_delta": 0.24,
+    "triad_delta": 1,
+    "partial_triad_delta": -1,
+    "integrate_file_delta": 0,
+    "core_bridge_ratio_delta": 0.0
+  },
+  "history_length": 68,
+  "inquisitor": {
+    "ran": true,
+    "timed_out": false,
+    "returncode": 0,
+    "status": "PASS",
+    "strict_pass": true,
+    "report": {
+      "report_found": true,
+      "scanned_files": 305,
+      "high": 0,
+      "medium": 0,
+      "low": 0,
+      "top_rules": []
+    },
+    "stdout_tail": "INQUISITOR: Compiling all Coq proofs...\nINQUISITOR: Compilation OK\nINQUISITOR: OK\nReport: /workspaces/The-Thiele-Machine/INQUISITOR_REPORT.md",
+    "stderr_tail": "",
+    "command": "python3 scripts/inquisitor.py --report INQUISITOR_REPORT.md",
+    "report_path": "INQUISITOR_REPORT.md"
+  },
+  "proof_quality_metrics": {
+    "proof_accuracy": 100.0,
+    "proof_quality_grade": "A+",
+    "gate_rating": "PASS",
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "scanned_files": 305,
+    "weighted_penalty": 0.0,
+    "strict_pass": true
+  },
+  "test_verification_metrics": {
+    "test_gate": "FAIL",
+    "strict_pass": false,
+    "test_file_count": 125,
+    "isolated_test_file_count": 0,
+    "prod_symbol_coverage_ratio": 0.0254,
+    "prod_file_coverage_ratio": 0.4558,
+    "covered_prod_symbol_count": 853,
+    "prod_symbol_count": 33608,
+    "covered_prod_file_count": 227,
+    "prod_file_count": 498,
+    "uncovered_prod_files_top": [
+      "coq/Extraction.v",
+      "coq/MinimalExtraction.v",
+      "coq/bridge/Randomness_to_Kernel.v",
+      "coq/kernel/AlgebraicCoherence.v",
+      "coq/kernel/ArrowOfTimeSynthesis.v",
+      "coq/kernel/AssumptionBundle.v",
+      "coq/kernel/BornRule.v",
+      "coq/kernel/BornRuleFromSymmetry.v",
+      "coq/kernel/CHSH.v",
+      "coq/kernel/CHSHExtraction.v",
+      "coq/kernel/CausalSetAxioms.v",
+      "coq/kernel/Certification.v",
+      "coq/kernel/ClassicalBound.v",
+      "coq/kernel/Closure.v",
+      "coq/kernel/Composition.v",
+      "coq/kernel/ConeAlgebra.v",
+      "coq/kernel/ConeDerivation.v",
+      "coq/kernel/ConstantDerivationStrength.v",
+      "coq/kernel/Definitions.v",
+      "coq/kernel/DerivedTime.v",
+      "coq/kernel/EinsteinEmergence.v",
+      "coq/kernel/EntropyImpossibility.v",
+      "coq/kernel/FourDSimplicialComplex.v",
+      "coq/kernel/GeodesicCompleteness.v",
+      "coq/kernel/HardAssumptions.v",
+      "coq/kernel/HardMathFactsProven.v",
+      "coq/kernel/HardwareBisimulation.v",
+      "coq/kernel/InformationCausality.v",
+      "coq/kernel/InverseSquareLaw.v",
+      "coq/kernel/KernelBenchmarks.v"
+    ]
+  },
+  "priority_plan": [
+    {
+      "type": "test_coverage_gap",
+      "priority": 2,
+      "task": "Add strict tests covering coq/Extraction.v",
+      "details": "No discovered test coverage edges to this production file",
+      "estimated_score_gain": 0.8
+    },
+    {
+      "type": "test_coverage_gap",
+      "priority": 2,
+      "task": "Add strict tests covering coq/MinimalExtraction.v",
+      "details": "No discovered test coverage edges to this production file",
+      "estimated_score_gain": 0.8
+    },
+    {
+      "type": "test_coverage_gap",
+      "priority": 2,
+      "task": "Add strict tests covering coq/bridge/Randomness_to_Kernel.v",
+      "details": "No discovered test coverage edges to this production file",
+      "estimated_score_gain": 0.8
+    },
+    {
+      "type": "test_coverage_gap",
+      "priority": 2,
+      "task": "Add strict tests covering coq/kernel/AlgebraicCoherence.v",
+      "details": "No discovered test coverage edges to this production file",
+      "estimated_score_gain": 0.8
+    },
+    {
+      "type": "test_coverage_gap",
+      "priority": 2,
+      "task": "Add strict tests covering coq/kernel/ArrowOfTimeSynthesis.v",
+      "details": "No discovered test coverage edges to this production file",
+      "estimated_score_gain": 0.8
+    },
+    {
+      "type": "test_coverage_gap",
+      "priority": 2,
+      "task": "Add strict tests covering coq/kernel/AssumptionBundle.v",
+      "details": "No discovered test coverage edges to this production file",
+      "estimated_score_gain": 0.8
+    },
+    {
+      "type": "test_coverage_gap",
+      "priority": 2,
+      "task": "Add strict tests covering coq/kernel/BornRule.v",
+      "details": "No discovered test coverage edges to this production file",
+      "estimated_score_gain": 0.8
+    },
+    {
+      "type": "test_coverage_gap",
+      "priority": 2,
+      "task": "Add strict tests covering coq/kernel/BornRuleFromSymmetry.v",
+      "details": "No discovered test coverage edges to this production file",
+      "estimated_score_gain": 0.8
+    },
+    {
+      "type": "test_coverage_gap",
+      "priority": 2,
+      "task": "Add strict tests covering coq/kernel/CHSH.v",
+      "details": "No discovered test coverage edges to this production file",
+      "estimated_score_gain": 0.8
+    },
+    {
+      "type": "test_coverage_gap",
+      "priority": 2,
+      "task": "Add strict tests covering coq/kernel/CHSHExtraction.v",
+      "details": "No discovered test coverage edges to this production file",
+      "estimated_score_gain": 0.8
+    }
+  ],
+  "fragmented_correctness_flags": [
+    "Proof gate PASS but test gate FAIL: verified statements are not yet sufficiently exercised against runtime surfaces.",
+    "Proof hygiene is high while bridge ratio is low: risk of decorative proofs disconnected from implementation layers.",
+    "Production symbol coverage by tests is below strict target; dynamic paths are under-verified."
+  ],
+  "latex_coverage_metrics": {
+    "tex_file_count": 19,
+    "kernel_proof_symbol_count": 1043,
+    "kernel_proof_symbol_mentioned_count": 38,
+    "kernel_proof_latex_coverage_ratio": 0.0364,
+    "kernel_proof_missing_top": [
+      "Born_Rule_Unique_Fails_Without_More_Structure",
+      "Cone_Structure_Unique",
+      "Cone_Symmetry_Underdetermined",
+      "E_bit_independent_of_granularity",
+      "E_expand",
+      "E_nonneg",
+      "Entropy_From_Observation_Fails_Without_Finiteness",
+      "F_equals_module_count",
+      "F_nonneg",
+      "I_is_PSD",
+      "In_implies_graph_lookup",
+      "KernelNoGoForTOE_Decision",
+      "Kernel_Physics_Closure",
+      "Kernel_TOE_FinalOutcome",
+      "Lorentz_Not_Forced",
+      "MultiplicativeWeightFamily_Infinite",
+      "NoDup_incl_length",
+      "NoDup_map_inj",
+      "NoDup_remove_elem",
+      "Observational_Locality_Iff_Physics",
+      "Observer_Minimality",
+      "PSD5_convex",
+      "PSD5_off_diagonal_bound",
+      "PSD_cauchy_schwarz",
+      "PSD_diagonal_nonneg",
+      "PSD_off_diagonal_bound",
+      "PSD_perfect_corr_implies_equal_rows",
+      "Physics_Closure",
+      "Potential_from_MinCost",
+      "Qabs_4_triangle",
+      "Qabs_bound",
+      "Qabs_triangle_4",
+      "Qgt_minus_pos",
+      "Qopp_0_le",
+      "Rabs_le_inv",
+      "Rabs_sq_le",
+      "S_box_correlators",
+      "Time_Is_Not_Fundamental",
+      "Uniform_Strategy_Dies",
+      "V_nonneg"
+    ],
+    "triad_norm_count": 72,
+    "triad_norm_mentioned_count": 51,
+    "triad_norm_latex_coverage_ratio": 0.7083
+  },
+  "proof_documentation_metrics": {
+    "proof_file_count": 274,
+    "proof_files_with_readme_count": 15,
+    "proof_files_with_comment_blocks_count": 271,
+    "proof_files_documented_count": 15,
+    "proof_files_with_readme_ratio": 0.0547,
+    "proof_files_with_comment_ratio": 0.9891,
+    "proof_files_documented_ratio": 0.0547,
+    "missing_readme_proof_files_top": [
+      "coq/bridge/BoxWorld_to_Kernel.v",
+      "coq/bridge/Causal_to_Kernel.v",
+      "coq/bridge/Entropy_to_Kernel.v",
+      "coq/bridge/FiniteQuantum_to_Kernel.v",
+      "coq/bridge/PythonMuLedgerBisimulation.v",
+      "coq/bridge/Randomness_to_Kernel.v",
+      "coq/bridge/Tomography_to_Kernel.v",
+      "coq/catnet/coqproofs/CatNet.v",
+      "coq/isomorphism/coqproofs/Universe.v",
+      "coq/kernel/AlgebraicCoherence.v",
+      "coq/kernel/ArrowOfTimeSynthesis.v",
+      "coq/kernel/BornRule.v",
+      "coq/kernel/BornRuleFromSymmetry.v",
+      "coq/kernel/BoxCHSH.v",
+      "coq/kernel/CHSH.v",
+      "coq/kernel/CHSHExtraction.v",
+      "coq/kernel/CausalSetAxioms.v",
+      "coq/kernel/Certification.v",
+      "coq/kernel/ClassicalBound.v",
+      "coq/kernel/Closure.v",
+      "coq/kernel/Composition.v",
+      "coq/kernel/ConeAlgebra.v",
+      "coq/kernel/ConeDerivation.v",
+      "coq/kernel/ConstantDerivationStrength.v",
+      "coq/kernel/ConstantUnification.v",
+      "coq/kernel/ConstructivePSD.v",
+      "coq/kernel/DerivedTime.v",
+      "coq/kernel/DiscreteGaussBonnet.v",
+      "coq/kernel/DiscreteTopology.v",
+      "coq/kernel/EinsteinEmergence.v",
+      "coq/kernel/EinsteinEquations4D.v",
+      "coq/kernel/EntropyImpossibility.v",
+      "coq/kernel/FalsifiablePrediction.v",
+      "coq/kernel/FiniteInformation.v",
+      "coq/kernel/FourDSimplicialComplex.v",
+      "coq/kernel/GeodesicCompleteness.v",
+      "coq/kernel/HardAssumptions.v",
+      "coq/kernel/HardMathFactsProven.v",
+      "coq/kernel/HardwareBisimulation.v",
+      "coq/kernel/InformationCausality.v"
+    ]
+  },
+  "definition_of_done": {
+    "status": "NOT_COMPLETED",
+    "completed": false,
+    "checks": [
+      {
+        "name": "isomorphism_score",
+        "actual": 47.38,
+        "comparator": ">=",
+        "threshold": 100.0,
+        "passed": false
+      },
+      {
+        "name": "triad_completion_ratio",
+        "actual": 0.4898,
+        "comparator": ">=",
+        "threshold": 0.7,
+        "passed": false
+      },
+      {
+        "name": "core_bridge_ratio",
+        "actual": 0.0085,
+        "comparator": ">=",
+        "threshold": 0.5,
+        "passed": false
+      },
+      {
+        "name": "test_prod_symbol_coverage_ratio",
+        "actual": 0.0254,
+        "comparator": ">=",
+        "threshold": 0.75,
+        "passed": false
+      },
+      {
+        "name": "test_prod_file_coverage_ratio",
+        "actual": 0.4558,
+        "comparator": ">=",
+        "threshold": 0.85,
+        "passed": false
+      },
+      {
+        "name": "isolated_test_files",
+        "actual": 0.0,
+        "comparator": "<=",
+        "threshold": 0.0,
+        "passed": true
+      },
+      {
+        "name": "kernel_proof_latex_coverage_ratio",
+        "actual": 0.0364,
+        "comparator": ">=",
+        "threshold": 0.6,
+        "passed": false
+      },
+      {
+        "name": "proof_files_with_readme_ratio",
+        "actual": 0.0547,
+        "comparator": ">=",
+        "threshold": 0.5,
+        "passed": false
+      },
+      {
+        "name": "coq_compile_pass",
+        "actual": 1.0,
+        "comparator": ">=",
+        "threshold": 1.0,
+        "passed": true
+      },
+      {
+        "name": "extraction_freshness_pass",
+        "actual": 1.0,
+        "comparator": ">=",
+        "threshold": 1.0,
+        "passed": true
+      },
+      {
+        "name": "rtl_synthesis_pass",
+        "actual": 1.0,
+        "comparator": ">=",
+        "threshold": 1.0,
+        "passed": true
+      },
+      {
+        "name": "inquisitor_strict_pass",
+        "actual": 1.0,
+        "comparator": "==",
+        "threshold": 1.0,
+        "passed": true
+      }
+    ],
+    "unmet_check_count": 7,
+    "unmet_checks": [
+      {
+        "name": "isomorphism_score",
+        "actual": 47.38,
+        "comparator": ">=",
+        "threshold": 100.0,
+        "passed": false
+      },
+      {
+        "name": "triad_completion_ratio",
+        "actual": 0.4898,
+        "comparator": ">=",
+        "threshold": 0.7,
+        "passed": false
+      },
+      {
+        "name": "core_bridge_ratio",
+        "actual": 0.0085,
+        "comparator": ">=",
+        "threshold": 0.5,
+        "passed": false
+      },
+      {
+        "name": "test_prod_symbol_coverage_ratio",
+        "actual": 0.0254,
+        "comparator": ">=",
+        "threshold": 0.75,
+        "passed": false
+      },
+      {
+        "name": "test_prod_file_coverage_ratio",
+        "actual": 0.4558,
+        "comparator": ">=",
+        "threshold": 0.85,
+        "passed": false
+      },
+      {
+        "name": "kernel_proof_latex_coverage_ratio",
+        "actual": 0.0364,
+        "comparator": ">=",
+        "threshold": 0.6,
+        "passed": false
+      },
+      {
+        "name": "proof_files_with_readme_ratio",
+        "actual": 0.0547,
+        "comparator": ">=",
+        "threshold": 0.5,
+        "passed": false
+      }
+    ]
+  },
+  "toolchain_gates": {
+    "coq_compile": {
+      "ran": true,
+      "pass": true,
+      "returncode": 0,
+      "stderr_tail": "",
+      "total_v_files": 308,
+      "total_vo_files": 308,
+      "compile_ratio": 1.0,
+      "admitted_count": 0
+    },
+    "extraction_freshness": {
+      "ran": true,
+      "pass": true,
+      "files": {
+        "Extraction.v": {
+          "exists": true,
+          "nonempty": true,
+          "symbols_ok": true,
+          "missing_symbols": [],
+          "fresh": true,
+          "pass": true
+        },
+        "MinimalExtraction.v": {
+          "exists": true,
+          "nonempty": true,
+          "symbols_ok": true,
+          "missing_symbols": [],
+          "fresh": true,
+          "pass": true
+        }
+      }
+    },
+    "rtl_synthesis": {
+      "ran": true,
+      "pass": true,
+      "mode": "full_synthesis",
+      "returncode": 0,
+      "cell_count": 2,
+      "top_module_present": true,
+      "modules_found": [
+        "energy_calc",
+        "tsirelson_checker",
+        "hash256",
+        "clz8",
+        "mu_core",
+        "receipt_integrity_checker",
+        "mu_alu",
+        "thiele_cpu"
+      ],
+      "stderr_tail": ""
+    },
+    "cosim": {
+      "ran": true,
+      "pass": true,
+      "returncode": 0,
+      "has_fail_marker": false,
+      "stdout_tail": "0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0\n  ],\n  \"modules\": [\n    {\"id\": -1, \"region\": []}\n  ]\n}\n/workspaces/The-Thiele-Machine/thielecpu/hardware/testbench/thiele_cpu_tb.v:297: $finish called at 345000 (1ps)\n"
+    }
+  }
+}

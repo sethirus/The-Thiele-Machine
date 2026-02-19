@@ -160,6 +160,22 @@ Definition apply_cost (s : VMState) (instr : vm_instruction) : nat :=
 Definition latch_err (s : VMState) (flag : bool) : bool :=
   orb flag s.(vm_err).
 
+(** list_update_at: Replace element at index k in list l with value v.
+    If k >= length l the list is returned unchanged. *)
+Fixpoint list_update_at (l : list nat) (k : nat) (v : nat) : list nat :=
+  match l, k with
+  | [], _ => []
+  | _ :: t, 0 => v :: t
+  | h :: t, S i => h :: list_update_at t i v
+  end.
+
+(** vm_mu_tensor_add_at: Increment the flat entry at index k of the
+    vm_mu_tensor by delta.  Used by REVEAL to charge to a specific
+    spacetime metric component. *)
+Definition vm_mu_tensor_add_at (s : VMState) (k delta : nat) : list nat :=
+  let old := nth k s.(vm_mu_tensor) 0 in
+  list_update_at s.(vm_mu_tensor) k (old + delta).
+
 Definition advance_state (s : VMState) (instr : vm_instruction)
   (graph : PartitionGraph) (csrs : CSRState) (err_flag : bool)
   : VMState :=
@@ -169,6 +185,25 @@ Definition advance_state (s : VMState) (instr : vm_instruction)
   vm_mem := s.(vm_mem);
      vm_pc := S s.(vm_pc);
      vm_mu := apply_cost s instr;
+     vm_mu_tensor := s.(vm_mu_tensor);
+     vm_err := err_flag |}.
+
+(** advance_state_reveal: Like advance_state but additionally increments
+    vm_mu_tensor[flat_idx] by delta, recording where in metric-space the
+    revelation cost was charged.  The REVEAL instruction encodes the
+    tensor direction as a flat index (= ti*4+tj, range 0..15) in its
+    module field. *)
+Definition advance_state_reveal (s : VMState) (instr : vm_instruction)
+  (flat_idx delta : nat)
+  (graph : PartitionGraph) (csrs : CSRState) (err_flag : bool)
+  : VMState :=
+  {| vm_graph := graph;
+     vm_csrs := csrs;
+     vm_regs := s.(vm_regs);
+     vm_mem := s.(vm_mem);
+     vm_pc := S s.(vm_pc);
+     vm_mu := apply_cost s instr;
+     vm_mu_tensor := vm_mu_tensor_add_at s flat_idx delta;
      vm_err := err_flag |}.
 
 Definition advance_state_rm (s : VMState) (instr : vm_instruction)
@@ -181,6 +216,7 @@ Definition advance_state_rm (s : VMState) (instr : vm_instruction)
   vm_mem := mem;
   vm_pc := S s.(vm_pc);
   vm_mu := apply_cost s instr;
+  vm_mu_tensor := s.(vm_mu_tensor);
   vm_err := err_flag |}.
 
 Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
@@ -245,7 +281,7 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
 | step_reveal : forall s module bits cert cost csrs',
     csrs' = csr_set_cert_addr s.(vm_csrs) (ascii_checksum cert) ->
     vm_step s (instr_reveal module bits cert cost)
-      (advance_state s (instr_reveal module bits cert cost)
+      (advance_state_reveal s (instr_reveal module bits cert cost) module bits
         s.(vm_graph) csrs' s.(vm_err))
 | step_pdiscover : forall s module evidence cost graph',
     graph' = graph_record_discovery s.(vm_graph) module evidence ->

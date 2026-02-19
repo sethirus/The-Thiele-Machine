@@ -44,6 +44,7 @@ Inductive fuel_step : FuelState -> vm_instruction -> FuelState -> Prop :=
                         vm_mem := s.(vm_mem);
                         vm_pc := s.(vm_pc);
                         vm_mu := s.(vm_mu);
+                        vm_mu_tensor := s.(vm_mu_tensor);
                         vm_err := true |};
          fs_fuel := 0 |}.
 
@@ -109,6 +110,7 @@ Inductive game_stepC
                         vm_mem := (fs_state fs).(vm_mem);
                         vm_pc := (fs_state fs).(vm_pc);
                         vm_mu := (fs_state fs).(vm_mu);
+                        vm_mu_tensor := (fs_state fs).(vm_mu_tensor);
                         vm_err := true |};
          fs_fuel := 0 |}.
 
@@ -188,6 +190,7 @@ Proof.
                       vm_mem := s0.(vm_mem);
                       vm_pc := s0.(vm_pc);
                       vm_mu := s0.(vm_mu);
+                      vm_mu_tensor := s0.(vm_mu_tensor);
                       vm_err := true |};
        fs_fuel := 0 |}.
   split.

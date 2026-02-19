@@ -366,3 +366,62 @@ jobs:
         with:
           name: verification-reports
           path: verification_reports/
+
+  openfpga-large-runner:
+    name: Full FPGA flow (large runner)
+    # This job is intended to run on a large self-hosted runner labeled `large`.
+    # It will also be available for manual dispatch via `workflow_dispatch`.
+    runs-on: [self-hosted, linux, x64, large]
+    needs: prepare-toolchain
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show toolchain diagnostics (if available)
+        run: |
+          if [ -f ./artifacts/toolchain/toolchain_diagnostics.txt ]; then
+            sed -n '1,200p' ./artifacts/toolchain/toolchain_diagnostics.txt || true
+          else
+            echo "No toolchain diagnostics available"
+          fi || true
+
+      - name: Ensure FPGA toolchain present (best-effort)
+        run: |
+          echo "Checking yosys/nextpnr-ecp5/ecppack availability"
+          command -v yosys || true
+          command -v nextpnr-ecp5 || true
+          command -v ecppack || true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -e . --no-deps
+
+      - name: Run full OpenFPGA flow test (no-cache)
+        env:
+          OPENFPGA_MIN_MEM_GB: "2"
+          OPENFPGA_USE_CACHE: "0"
+          OPENFPGA_YOSYS_RETRIES: "2"
+          OPENFPGA_PNR_RETRIES: "2"
+          OPENFPGA_ECPPACK_RETRIES: "2"
+        run: |
+          # Run only the full bitstream generation test (heavy job)
+          pytest -q tests/test_openfpga_flow.py::test_openfpga_ecp5_bitstream_generation -q
+
+      - name: Upload FPGA artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: openfpga-artifacts
+          path: |
+            *.json
+            *.cfg
+            *.bit
+            synthesis.log
+            build/thiele_cpu_tb.vcd || true

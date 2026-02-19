@@ -122,6 +122,7 @@ Fixpoint mu_cost_of_trace
                vm_mem := [];
                vm_pc := pc;
                vm_mu := 0;
+               vm_mu_tensor := vm_mu_tensor_default;
                vm_err := false |} 
           + mu_cost_of_trace fuel' trace (S pc)
       end
@@ -219,7 +220,7 @@ Lemma mu_cost_of_trace_unfold :
     nth_error trace pc = Some instr ->
     mu_cost_of_trace (S fuel') trace pc =
     mu_cost_of_instr instr {| vm_graph := empty_graph; vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0 |};
-                              vm_regs := []; vm_mem := []; vm_pc := pc; vm_mu := 0; vm_err := false |} 
+                              vm_regs := []; vm_mem := []; vm_pc := pc; vm_mu := 0; vm_mu_tensor := vm_mu_tensor_default; vm_err := false |} 
     + mu_cost_of_trace fuel' trace (S pc).
 Proof.
   intros. simpl. rewrite H. reflexivity.
@@ -260,7 +261,7 @@ Proof.
         rewrite (mu_cost_of_trace_unfold fuel' trace pc ipc Hpc) in Hcost.
         (* Case split on instruction cost *)
         destruct (mu_cost_of_instr ipc {| vm_graph := empty_graph; vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0 |};
-                                          vm_regs := []; vm_mem := []; vm_pc := pc; vm_mu := 0; vm_err := false |}) eqn:Hcost_ipc.
+                                          vm_regs := []; vm_mem := []; vm_pc := pc; vm_mu := 0; vm_mu_tensor := vm_mu_tensor_default; vm_err := false |}) eqn:Hcost_ipc.
         -- (* Cost 0: recurse *)
            simpl in Hcost.
            assert (Hbound: n >= S pc + fuel') by (eapply IH; [exact Hcost | exact Hnth | lia]).

@@ -1,4 +1,4 @@
-DIGEST 60e51c89acfe68156b3bd76fad2cea87
+DIGEST 83e595f2da257f7f30a968011e592cc9
 FThieleMachine.AlgebraicLaws
 R700:713 Coq.Lists.List <> <> lib
 R731:753 Coq.Sorting.Permutation <> <> lib
@@ -154,6 +154,8 @@ R4382:4395 ThieleMachine.CoreSemantics <> mu_information proj
 R4382:4395 ThieleMachine.CoreSemantics <> mu_information proj
 R4448:4455 ThieleMachine.CoreSemantics <> mu_total proj
 R4448:4455 ThieleMachine.CoreSemantics <> mu_total proj
+R4496:4504 ThieleMachine.CoreSemantics <> mu_tensor proj
+R4496:4504 ThieleMachine.CoreSemantics <> mu_tensor proj
 R4353:4355 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
 R4338:4351 ThieleMachine.CoreSemantics <> mu_operational proj
 R4334:4335 ThieleMachine.AlgebraicLaws <> l1:20 var
@@ -169,40 +171,52 @@ R4464:4471 ThieleMachine.CoreSemantics <> mu_total proj
 R4460:4461 ThieleMachine.AlgebraicLaws <> l1:20 var
 R4480:4487 ThieleMachine.CoreSemantics <> mu_total proj
 R4476:4477 ThieleMachine.AlgebraicLaws <> l2:21 var
-prf 4573:4589 <> mu_total_additive
-R4611:4618 ThieleMachine.CoreSemantics <> MuLedger rec
-binder 4603:4604 <> l1:22
-binder 4606:4607 <> l2:23
-R4654:4656 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4626:4633 ThieleMachine.CoreSemantics <> mu_total proj
-R4636:4646 ThieleMachine.AlgebraicLaws <> add_ledgers def
-R4648:4649 ThieleMachine.AlgebraicLaws <> l1:22 var
-R4651:4652 ThieleMachine.AlgebraicLaws <> l2:23 var
-R4668:4670 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R4657:4664 ThieleMachine.CoreSemantics <> mu_total proj
-R4666:4667 ThieleMachine.AlgebraicLaws <> l1:22 var
-R4671:4678 ThieleMachine.CoreSemantics <> mu_total proj
-R4680:4681 ThieleMachine.AlgebraicLaws <> l2:23 var
-R4710:4720 ThieleMachine.AlgebraicLaws <> add_ledgers def
-R4723:4730 ThieleMachine.CoreSemantics <> mu_total proj
-prf 5016:5035 <> mu_monotonicity_step
-R5056:5060 ThieleMachine.CoreSemantics <> State rec
-binder 5049:5049 <> s:24
-binder 5051:5052 <> s':25
-R5084:5091 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5074:5076 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5068:5071 ThieleMachine.CoreSemantics <> step def
-R5073:5073 ThieleMachine.AlgebraicLaws <> s:24 var
-R5077:5080 Coq.Init.Datatypes <> Some constr
-R5082:5083 ThieleMachine.AlgebraicLaws <> s':25 var
-R5115:5118 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
-R5092:5099 ThieleMachine.CoreSemantics <> mu_total proj
-R5102:5110 ThieleMachine.CoreSemantics <> mu_ledger proj
-R5112:5113 ThieleMachine.AlgebraicLaws <> s':25 var
-R5119:5126 ThieleMachine.CoreSemantics <> mu_total proj
-R5129:5137 ThieleMachine.CoreSemantics <> mu_ledger proj
-R5139:5139 ThieleMachine.AlgebraicLaws <> s:24 var
-R5168:5185 ThieleMachine.CoreSemantics <> mu_never_decreases thm
-R5168:5185 ThieleMachine.CoreSemantics <> mu_never_decreases thm
-R5202:5213 ThieleMachine.CoreSemantics <> mu_monotonic def
-R5216:5226 ThieleMachine.CoreSemantics <> mu_of_state def
+R4509:4511 Coq.Lists.List <> map def
+R4550:4556 Coq.Lists.List <> combine def
+R4577:4585 ThieleMachine.CoreSemantics <> mu_tensor proj
+R4573:4574 ThieleMachine.AlgebraicLaws <> l2:21 var
+R4562:4570 ThieleMachine.CoreSemantics <> mu_tensor proj
+R4558:4559 ThieleMachine.AlgebraicLaws <> l1:20 var
+binder 4518:4519 <> ab:22
+R4524:4528 Coq.ZArith.BinInt Z add def
+R4531:4533 Coq.Init.Datatypes <> fst def
+R4535:4536 ThieleMachine.AlgebraicLaws <> ab:22 var
+R4540:4542 Coq.Init.Datatypes <> snd def
+R4544:4545 ThieleMachine.AlgebraicLaws <> ab:22 var
+prf 4672:4688 <> mu_total_additive
+R4710:4717 ThieleMachine.CoreSemantics <> MuLedger rec
+binder 4702:4703 <> l1:23
+binder 4705:4706 <> l2:24
+R4753:4755 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4725:4732 ThieleMachine.CoreSemantics <> mu_total proj
+R4735:4745 ThieleMachine.AlgebraicLaws <> add_ledgers def
+R4747:4748 ThieleMachine.AlgebraicLaws <> l1:23 var
+R4750:4751 ThieleMachine.AlgebraicLaws <> l2:24 var
+R4767:4769 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R4756:4763 ThieleMachine.CoreSemantics <> mu_total proj
+R4765:4766 ThieleMachine.AlgebraicLaws <> l1:23 var
+R4770:4777 ThieleMachine.CoreSemantics <> mu_total proj
+R4779:4780 ThieleMachine.AlgebraicLaws <> l2:24 var
+R4809:4819 ThieleMachine.AlgebraicLaws <> add_ledgers def
+R4822:4829 ThieleMachine.CoreSemantics <> mu_total proj
+prf 5115:5134 <> mu_monotonicity_step
+R5155:5159 ThieleMachine.CoreSemantics <> State rec
+binder 5148:5148 <> s:25
+binder 5150:5151 <> s':26
+R5183:5190 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5173:5175 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5167:5170 ThieleMachine.CoreSemantics <> step def
+R5172:5172 ThieleMachine.AlgebraicLaws <> s:25 var
+R5176:5179 Coq.Init.Datatypes <> Some constr
+R5181:5182 ThieleMachine.AlgebraicLaws <> s':26 var
+R5214:5217 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
+R5191:5198 ThieleMachine.CoreSemantics <> mu_total proj
+R5201:5209 ThieleMachine.CoreSemantics <> mu_ledger proj
+R5211:5212 ThieleMachine.AlgebraicLaws <> s':26 var
+R5218:5225 ThieleMachine.CoreSemantics <> mu_total proj
+R5228:5236 ThieleMachine.CoreSemantics <> mu_ledger proj
+R5238:5238 ThieleMachine.AlgebraicLaws <> s:25 var
+R5267:5284 ThieleMachine.CoreSemantics <> mu_never_decreases thm
+R5267:5284 ThieleMachine.CoreSemantics <> mu_never_decreases thm
+R5301:5312 ThieleMachine.CoreSemantics <> mu_monotonic def
+R5315:5325 ThieleMachine.CoreSemantics <> mu_of_state def

@@ -1,4 +1,4 @@
-DIGEST d4e96b8b9a8eeb8a05b9d8755eb26e92
+DIGEST e896bd3a68355e97b985020476e0bab4
 FThieleMachineVerification.Symmetry
 R851:854 Coq.Lists.List <> <> lib
 R856:861 Coq.ZArith.ZArith <> <> lib
@@ -19,10 +19,10 @@ R1445:1453 ThieleMachine.BlindSighted <> partition proj
 R1445:1453 ThieleMachine.BlindSighted <> partition proj
 R1478:1483 ThieleMachine.BlindSighted <> ledger proj
 R1478:1483 ThieleMachine.BlindSighted <> ledger proj
-R1664:1669 ThieleMachine.BlindSighted <> halted proj
-R1664:1669 ThieleMachine.BlindSighted <> halted proj
-R1691:1696 ThieleMachine.BlindSighted <> answer proj
-R1691:1696 ThieleMachine.BlindSighted <> answer proj
+R1719:1724 ThieleMachine.BlindSighted <> halted proj
+R1719:1724 ThieleMachine.BlindSighted <> halted proj
+R1746:1751 ThieleMachine.BlindSighted <> answer proj
+R1746:1751 ThieleMachine.BlindSighted <> answer proj
 R1461:1469 ThieleMachine.BlindSighted <> partition proj
 R1458:1458 ThieleMachineVerification.Symmetry <> s:2 var
 R1491:1504 ThieleMachine.BlindSighted <> mu_operational proj
@@ -32,6 +32,8 @@ R1556:1567 ThieleMachine.BlindSighted <> mu_discovery proj
 R1556:1567 ThieleMachine.BlindSighted <> mu_discovery proj
 R1617:1624 ThieleMachine.BlindSighted <> mu_total proj
 R1617:1624 ThieleMachine.BlindSighted <> mu_total proj
+R1674:1682 ThieleMachine.BlindSighted <> mu_tensor proj
+R1674:1682 ThieleMachine.BlindSighted <> mu_tensor proj
 R1521:1534 ThieleMachine.BlindSighted <> mu_operational proj
 R1512:1517 ThieleMachine.BlindSighted <> ledger proj
 R1509:1509 ThieleMachineVerification.Symmetry <> s:2 var
@@ -43,721 +45,744 @@ R1641:1648 ThieleMachine.BlindSighted <> mu_total proj
 R1632:1637 ThieleMachine.BlindSighted <> ledger proj
 R1629:1629 ThieleMachineVerification.Symmetry <> s:2 var
 R1653:1653 ThieleMachineVerification.Symmetry <> k:1 var
-R1677:1682 ThieleMachine.BlindSighted <> halted proj
-R1674:1674 ThieleMachineVerification.Symmetry <> s:2 var
-R1704:1709 ThieleMachine.BlindSighted <> answer proj
-R1701:1701 ThieleMachineVerification.Symmetry <> s:2 var
-prf 1763:1784 <> mu_gauge_preserves_obs
-binder 1795:1795 <> s:3
-binder 1797:1797 <> k:4
-R1802:1810 ThieleMachineVerification.ObservationInterface <> obs_equiv def
-R1812:1812 ThieleMachineVerification.Symmetry <> s:3 var
-R1815:1828 ThieleMachineVerification.Symmetry <> mu_gauge_shift def
-R1830:1830 ThieleMachineVerification.Symmetry <> k:4 var
-R1832:1832 ThieleMachineVerification.Symmetry <> s:3 var
-R1866:1874 ThieleMachineVerification.ObservationInterface <> obs_equiv def
-R1877:1889 ThieleMachineVerification.ObservationInterface <> observe_state def
-R1892:1905 ThieleMachineVerification.Symmetry <> mu_gauge_shift def
-R1924:1942 ThieleMachineVerification.ObservationInterface <> partition_signature def
-R1945:1961 ThieleMachineVerification.ObservationInterface <> mu_delta_sequence def
-prf 2182:2213 <> mu_gauge_preserves_admissibility
-binder 2224:2224 <> s:5
-binder 2226:2229 <> prog:6
-binder 2231:2231 <> k:7
-R2259:2264 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2236:2251 ThieleMachineVerification.Admissibility <> trace_admissible def
-R2253:2253 ThieleMachineVerification.Symmetry <> s:5 var
-R2255:2258 ThieleMachineVerification.Symmetry <> prog:6 var
-R2265:2280 ThieleMachineVerification.Admissibility <> trace_admissible def
-R2283:2296 ThieleMachineVerification.Symmetry <> mu_gauge_shift def
-R2298:2298 ThieleMachineVerification.Symmetry <> k:7 var
-R2300:2300 ThieleMachineVerification.Symmetry <> s:5 var
-R2303:2306 ThieleMachineVerification.Symmetry <> prog:6 var
-def 2861:2879 <> execute_instruction
-R2890:2900 ThieleMachine.BlindSighted <> ThieleInstr ind
-binder 2882:2886 <> instr:8
-R2908:2918 ThieleMachine.BlindSighted <> ThieleState rec
-binder 2904:2904 <> s:9
-R2923:2933 ThieleMachine.BlindSighted <> ThieleState rec
-R2946:2950 ThieleMachineVerification.Symmetry <> instr:8 var
-R2961:2964 ThieleMachine.BlindSighted <> PNEW constr
-R3069:3075 ThieleMachine.BlindSighted <> next_id proj
-R3057:3065 ThieleMachine.BlindSighted <> partition proj
-R3054:3054 ThieleMachineVerification.Symmetry <> s:9 var
-binder 3044:3049 <> new_id:11
-R3129:3132 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R3121:3127 ThieleMachine.BlindSighted <> modules proj
-R3109:3117 ThieleMachine.BlindSighted <> partition proj
-R3106:3106 ThieleMachineVerification.Symmetry <> s:9 var
-R3133:3133 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R3145:3145 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R3134:3134 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3141:3142 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3144:3144 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3135:3140 ThieleMachineVerification.Symmetry <> new_id:11 var
-binder 3091:3101 <> new_modules:12
-R3159:3167 ThieleMachine.BlindSighted <> partition proj
-R3159:3167 ThieleMachine.BlindSighted <> partition proj
-R3159:3167 ThieleMachine.BlindSighted <> partition proj
-R3232:3237 ThieleMachine.BlindSighted <> ledger proj
-R3232:3237 ThieleMachine.BlindSighted <> ledger proj
-R3458:3463 ThieleMachine.BlindSighted <> halted proj
-R3458:3463 ThieleMachine.BlindSighted <> halted proj
-R3489:3494 ThieleMachine.BlindSighted <> answer proj
-R3489:3494 ThieleMachine.BlindSighted <> answer proj
-R3175:3181 ThieleMachine.BlindSighted <> modules proj
-R3175:3181 ThieleMachine.BlindSighted <> modules proj
-R3175:3181 ThieleMachine.BlindSighted <> modules proj
-R3199:3205 ThieleMachine.BlindSighted <> next_id proj
-R3199:3205 ThieleMachine.BlindSighted <> next_id proj
-R3186:3196 ThieleMachineVerification.Symmetry <> new_modules:12 var
-R3210:3210 Coq.Init.Datatypes <> S constr
-R3212:3217 ThieleMachineVerification.Symmetry <> new_id:11 var
-R3245:3258 ThieleMachine.BlindSighted <> mu_operational proj
-R3245:3258 ThieleMachine.BlindSighted <> mu_operational proj
-R3245:3258 ThieleMachine.BlindSighted <> mu_operational proj
-R3330:3341 ThieleMachine.BlindSighted <> mu_discovery proj
-R3330:3341 ThieleMachine.BlindSighted <> mu_discovery proj
-R3395:3402 ThieleMachine.BlindSighted <> mu_total proj
-R3395:3402 ThieleMachine.BlindSighted <> mu_total proj
-R3290:3292 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R3275:3288 ThieleMachine.BlindSighted <> mu_operational proj
-R3266:3271 ThieleMachine.BlindSighted <> ledger proj
-R3263:3263 ThieleMachineVerification.Symmetry <> s:9 var
-R3293:3300 Coq.ZArith.BinInt Z of_nat def
-R3358:3369 ThieleMachine.BlindSighted <> mu_discovery proj
-R3349:3354 ThieleMachine.BlindSighted <> ledger proj
-R3346:3346 ThieleMachineVerification.Symmetry <> s:9 var
-R3428:3430 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R3419:3426 ThieleMachine.BlindSighted <> mu_total proj
-R3410:3415 ThieleMachine.BlindSighted <> ledger proj
-R3407:3407 ThieleMachineVerification.Symmetry <> s:9 var
-R3431:3438 Coq.ZArith.BinInt Z of_nat def
-R3471:3476 ThieleMachine.BlindSighted <> halted proj
-R3468:3468 ThieleMachineVerification.Symmetry <> s:9 var
-R3502:3507 ThieleMachine.BlindSighted <> answer proj
-R3499:3499 ThieleMachineVerification.Symmetry <> s:9 var
-R3517:3522 ThieleMachine.BlindSighted <> PSPLIT constr
-R3610:3618 ThieleMachine.BlindSighted <> partition proj
-R3610:3618 ThieleMachine.BlindSighted <> partition proj
-R3610:3618 ThieleMachine.BlindSighted <> partition proj
-R3686:3691 ThieleMachine.BlindSighted <> ledger proj
-R3686:3691 ThieleMachine.BlindSighted <> ledger proj
-R3912:3917 ThieleMachine.BlindSighted <> halted proj
-R3912:3917 ThieleMachine.BlindSighted <> halted proj
-R3943:3948 ThieleMachine.BlindSighted <> answer proj
-R3943:3948 ThieleMachine.BlindSighted <> answer proj
-R3626:3634 ThieleMachine.BlindSighted <> partition proj
-R3623:3623 ThieleMachineVerification.Symmetry <> s:9 var
-R3699:3712 ThieleMachine.BlindSighted <> mu_operational proj
-R3699:3712 ThieleMachine.BlindSighted <> mu_operational proj
-R3699:3712 ThieleMachine.BlindSighted <> mu_operational proj
-R3784:3795 ThieleMachine.BlindSighted <> mu_discovery proj
-R3784:3795 ThieleMachine.BlindSighted <> mu_discovery proj
-R3849:3856 ThieleMachine.BlindSighted <> mu_total proj
-R3849:3856 ThieleMachine.BlindSighted <> mu_total proj
-R3744:3746 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R3729:3742 ThieleMachine.BlindSighted <> mu_operational proj
-R3720:3725 ThieleMachine.BlindSighted <> ledger proj
-R3717:3717 ThieleMachineVerification.Symmetry <> s:9 var
-R3747:3754 Coq.ZArith.BinInt Z of_nat def
-R3812:3823 ThieleMachine.BlindSighted <> mu_discovery proj
-R3803:3808 ThieleMachine.BlindSighted <> ledger proj
-R3800:3800 ThieleMachineVerification.Symmetry <> s:9 var
-R3882:3884 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R3873:3880 ThieleMachine.BlindSighted <> mu_total proj
-R3864:3869 ThieleMachine.BlindSighted <> ledger proj
-R3861:3861 ThieleMachineVerification.Symmetry <> s:9 var
-R3885:3892 Coq.ZArith.BinInt Z of_nat def
-R3925:3930 ThieleMachine.BlindSighted <> halted proj
-R3922:3922 ThieleMachineVerification.Symmetry <> s:9 var
-R3956:3961 ThieleMachine.BlindSighted <> answer proj
-R3953:3953 ThieleMachineVerification.Symmetry <> s:9 var
-R3971:3976 ThieleMachine.BlindSighted <> PMERGE constr
-R4050:4058 ThieleMachine.BlindSighted <> partition proj
-R4050:4058 ThieleMachine.BlindSighted <> partition proj
-R4050:4058 ThieleMachine.BlindSighted <> partition proj
-R4126:4131 ThieleMachine.BlindSighted <> ledger proj
-R4126:4131 ThieleMachine.BlindSighted <> ledger proj
-R4352:4357 ThieleMachine.BlindSighted <> halted proj
-R4352:4357 ThieleMachine.BlindSighted <> halted proj
-R4383:4388 ThieleMachine.BlindSighted <> answer proj
-R4383:4388 ThieleMachine.BlindSighted <> answer proj
-R4066:4074 ThieleMachine.BlindSighted <> partition proj
-R4063:4063 ThieleMachineVerification.Symmetry <> s:9 var
-R4139:4152 ThieleMachine.BlindSighted <> mu_operational proj
-R4139:4152 ThieleMachine.BlindSighted <> mu_operational proj
-R4139:4152 ThieleMachine.BlindSighted <> mu_operational proj
-R4224:4235 ThieleMachine.BlindSighted <> mu_discovery proj
-R4224:4235 ThieleMachine.BlindSighted <> mu_discovery proj
-R4289:4296 ThieleMachine.BlindSighted <> mu_total proj
-R4289:4296 ThieleMachine.BlindSighted <> mu_total proj
-R4184:4186 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R4169:4182 ThieleMachine.BlindSighted <> mu_operational proj
-R4160:4165 ThieleMachine.BlindSighted <> ledger proj
-R4157:4157 ThieleMachineVerification.Symmetry <> s:9 var
-R4187:4194 Coq.ZArith.BinInt Z of_nat def
-R4252:4263 ThieleMachine.BlindSighted <> mu_discovery proj
-R4243:4248 ThieleMachine.BlindSighted <> ledger proj
-R4240:4240 ThieleMachineVerification.Symmetry <> s:9 var
-R4322:4324 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R4313:4320 ThieleMachine.BlindSighted <> mu_total proj
-R4304:4309 ThieleMachine.BlindSighted <> ledger proj
-R4301:4301 ThieleMachineVerification.Symmetry <> s:9 var
-R4325:4332 Coq.ZArith.BinInt Z of_nat def
-R4365:4370 ThieleMachine.BlindSighted <> halted proj
-R4362:4362 ThieleMachineVerification.Symmetry <> s:9 var
-R4396:4401 ThieleMachine.BlindSighted <> answer proj
-R4393:4393 ThieleMachineVerification.Symmetry <> s:9 var
-R4411:4419 ThieleMachine.BlindSighted <> PDISCOVER constr
-R4510:4518 ThieleMachine.BlindSighted <> partition proj
-R4510:4518 ThieleMachine.BlindSighted <> partition proj
-R4510:4518 ThieleMachine.BlindSighted <> partition proj
-R4547:4552 ThieleMachine.BlindSighted <> ledger proj
-R4547:4552 ThieleMachine.BlindSighted <> ledger proj
-R4773:4778 ThieleMachine.BlindSighted <> halted proj
-R4773:4778 ThieleMachine.BlindSighted <> halted proj
-R4804:4809 ThieleMachine.BlindSighted <> answer proj
-R4804:4809 ThieleMachine.BlindSighted <> answer proj
-R4526:4534 ThieleMachine.BlindSighted <> partition proj
-R4523:4523 ThieleMachineVerification.Symmetry <> s:9 var
-R4560:4573 ThieleMachine.BlindSighted <> mu_operational proj
-R4560:4573 ThieleMachine.BlindSighted <> mu_operational proj
-R4560:4573 ThieleMachine.BlindSighted <> mu_operational proj
-R4629:4640 ThieleMachine.BlindSighted <> mu_discovery proj
-R4629:4640 ThieleMachine.BlindSighted <> mu_discovery proj
-R4710:4717 ThieleMachine.BlindSighted <> mu_total proj
-R4710:4717 ThieleMachine.BlindSighted <> mu_total proj
-R4590:4603 ThieleMachine.BlindSighted <> mu_operational proj
-R4581:4586 ThieleMachine.BlindSighted <> ledger proj
-R4578:4578 ThieleMachineVerification.Symmetry <> s:9 var
-R4670:4672 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R4657:4668 ThieleMachine.BlindSighted <> mu_discovery proj
-R4648:4653 ThieleMachine.BlindSighted <> ledger proj
-R4645:4645 ThieleMachineVerification.Symmetry <> s:9 var
-R4673:4680 Coq.ZArith.BinInt Z of_nat def
-R4743:4745 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R4734:4741 ThieleMachine.BlindSighted <> mu_total proj
-R4725:4730 ThieleMachine.BlindSighted <> ledger proj
-R4722:4722 ThieleMachineVerification.Symmetry <> s:9 var
-R4746:4753 Coq.ZArith.BinInt Z of_nat def
-R4786:4791 ThieleMachine.BlindSighted <> halted proj
-R4783:4783 ThieleMachineVerification.Symmetry <> s:9 var
-R4817:4822 ThieleMachine.BlindSighted <> answer proj
-R4814:4814 ThieleMachineVerification.Symmetry <> s:9 var
-R4832:4835 ThieleMachine.BlindSighted <> EMIT constr
-R4877:4885 ThieleMachine.BlindSighted <> partition proj
-R4877:4885 ThieleMachine.BlindSighted <> partition proj
-R4877:4885 ThieleMachine.BlindSighted <> partition proj
-R4914:4919 ThieleMachine.BlindSighted <> ledger proj
-R4914:4919 ThieleMachine.BlindSighted <> ledger proj
-R4945:4950 ThieleMachine.BlindSighted <> halted proj
-R4945:4950 ThieleMachine.BlindSighted <> halted proj
-R4976:4981 ThieleMachine.BlindSighted <> answer proj
-R4976:4981 ThieleMachine.BlindSighted <> answer proj
-R4893:4901 ThieleMachine.BlindSighted <> partition proj
-R4890:4890 ThieleMachineVerification.Symmetry <> s:9 var
-R4927:4932 ThieleMachine.BlindSighted <> ledger proj
-R4924:4924 ThieleMachineVerification.Symmetry <> s:9 var
-R4958:4963 ThieleMachine.BlindSighted <> halted proj
-R4955:4955 ThieleMachineVerification.Symmetry <> s:9 var
-R4986:4989 Coq.Init.Datatypes <> Some constr
-R5000:5003 ThieleMachine.BlindSighted <> HALT constr
-R5044:5052 ThieleMachine.BlindSighted <> partition proj
-R5044:5052 ThieleMachine.BlindSighted <> partition proj
-R5044:5052 ThieleMachine.BlindSighted <> partition proj
-R5081:5086 ThieleMachine.BlindSighted <> ledger proj
-R5081:5086 ThieleMachine.BlindSighted <> ledger proj
-R5112:5117 ThieleMachine.BlindSighted <> halted proj
-R5112:5117 ThieleMachine.BlindSighted <> halted proj
-R5137:5142 ThieleMachine.BlindSighted <> answer proj
-R5137:5142 ThieleMachine.BlindSighted <> answer proj
-R5060:5068 ThieleMachine.BlindSighted <> partition proj
-R5057:5057 ThieleMachineVerification.Symmetry <> s:9 var
-R5094:5099 ThieleMachine.BlindSighted <> ledger proj
-R5091:5091 ThieleMachineVerification.Symmetry <> s:9 var
-R5122:5125 Coq.Init.Datatypes <> true constr
-R5150:5155 ThieleMachine.BlindSighted <> answer proj
-R5147:5147 ThieleMachineVerification.Symmetry <> s:9 var
-def 5220:5232 <> execute_trace
-R5242:5251 ThieleMachine.BlindSighted <> ThieleProg def
-binder 5235:5238 <> prog:13
-R5259:5269 ThieleMachine.BlindSighted <> ThieleState rec
-binder 5255:5255 <> s:14
-R5274:5284 ThieleMachine.BlindSighted <> ThieleState rec
-R5297:5300 ThieleMachineVerification.Symmetry <> prog:13 var
-R5311:5312 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R5317:5317 ThieleMachineVerification.Symmetry <> s:14 var
-R5328:5331 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R5353:5358 ThieleMachine.BlindSighted <> halted proj
-R5350:5350 ThieleMachineVerification.Symmetry <> s:14 var
-R5379:5391 ThieleMachineVerification.Symmetry <> execute_trace:15 def
-R5399:5417 ThieleMachineVerification.Symmetry <> execute_instruction def
-R5425:5425 ThieleMachineVerification.Symmetry <> s:14 var
-R5366:5366 ThieleMachineVerification.Symmetry <> s:14 var
-def 5695:5704 <> apply_perm
-R5714:5717 Coq.Init.Datatypes <> list ind
-R5728:5730 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R5720:5727 ThieleMachine.BlindSighted <> ModuleId def
-R5731:5738 ThieleMachine.BlindSighted <> ModuleId def
-binder 5707:5710 <> perm:17
-R5749:5756 ThieleMachine.BlindSighted <> ModuleId def
-binder 5743:5745 <> mid:18
-R5761:5768 ThieleMachine.BlindSighted <> ModuleId def
-R5781:5784 ThieleMachineVerification.Symmetry <> perm:17 var
-R5795:5796 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R5801:5803 ThieleMachineVerification.Symmetry <> mid:18 var
-R5819:5822 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R5809:5809 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5814:5815 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5818:5818 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5834:5840 Coq.Arith.PeanoNat Nat eqb def
-R5842:5844 ThieleMachineVerification.Symmetry <> mid:18 var
-R5864:5873 ThieleMachineVerification.Symmetry <> apply_perm:19 def
-R5880:5882 ThieleMachineVerification.Symmetry <> mid:18 var
-def 5963:5977 <> permute_modules
-R5987:5990 Coq.Init.Datatypes <> list ind
-R6001:6003 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R5993:6000 ThieleMachine.BlindSighted <> ModuleId def
-R6004:6011 ThieleMachine.BlindSighted <> ModuleId def
-binder 5980:5983 <> perm:21
-R6020:6030 ThieleMachine.BlindSighted <> ThieleState rec
-binder 6016:6016 <> s:22
-R6035:6045 ThieleMachine.BlindSighted <> ThieleState rec
-R6071:6073 Coq.Lists.List <> map def
-R6134:6140 ThieleMachine.BlindSighted <> modules proj
-R6122:6130 ThieleMachine.BlindSighted <> partition proj
-R6119:6119 ThieleMachineVerification.Symmetry <> s:22 var
-R6081:6081 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6085:6086 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6088:6088 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-binder 6087:6087 <> r:23
-binder 6082:6084 <> mid:24
-binder 6081:6088 <> pat:25
-R6093:6093 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6113:6114 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6116:6116 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6094:6103 ThieleMachineVerification.Symmetry <> apply_perm def
-R6105:6108 ThieleMachineVerification.Symmetry <> perm:21 var
-R6110:6112 ThieleMachineVerification.Symmetry <> mid:24 var
-R6115:6115 ThieleMachineVerification.Symmetry <> r:23 var
-binder 6056:6066 <> new_modules:26
-R6151:6159 ThieleMachine.BlindSighted <> partition proj
-R6151:6159 ThieleMachine.BlindSighted <> partition proj
-R6151:6159 ThieleMachine.BlindSighted <> partition proj
-R6235:6240 ThieleMachine.BlindSighted <> ledger proj
-R6235:6240 ThieleMachine.BlindSighted <> ledger proj
-R6262:6267 ThieleMachine.BlindSighted <> halted proj
-R6262:6267 ThieleMachine.BlindSighted <> halted proj
-R6289:6294 ThieleMachine.BlindSighted <> answer proj
-R6289:6294 ThieleMachine.BlindSighted <> answer proj
-R6167:6173 ThieleMachine.BlindSighted <> modules proj
-R6167:6173 ThieleMachine.BlindSighted <> modules proj
-R6167:6173 ThieleMachine.BlindSighted <> modules proj
-R6191:6197 ThieleMachine.BlindSighted <> next_id proj
-R6191:6197 ThieleMachine.BlindSighted <> next_id proj
-R6178:6188 ThieleMachineVerification.Symmetry <> new_modules:26 var
-R6217:6223 ThieleMachine.BlindSighted <> next_id proj
-R6205:6213 ThieleMachine.BlindSighted <> partition proj
-R6202:6202 ThieleMachineVerification.Symmetry <> s:22 var
-R6248:6253 ThieleMachine.BlindSighted <> ledger proj
-R6245:6245 ThieleMachineVerification.Symmetry <> s:22 var
-R6275:6280 ThieleMachine.BlindSighted <> halted proj
-R6272:6272 ThieleMachineVerification.Symmetry <> s:22 var
-R6302:6307 ThieleMachine.BlindSighted <> answer proj
-R6299:6299 ThieleMachineVerification.Symmetry <> s:22 var
-prf 6508:6544 <> partition_signature_permute_invariant
-binder 6555:6558 <> mods:27
-binder 6560:6563 <> perm:28
-binder 6565:6567 <> nid:29
-R6729:6733 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6572:6590 ThieleMachineVerification.ObservationInterface <> partition_signature def
-R6595:6614 ThieleMachine.BlindSighted <> modules proj
-R6595:6614 ThieleMachine.BlindSighted <> modules proj
-R6595:6614 ThieleMachine.BlindSighted <> modules proj
-R6699:6718 ThieleMachine.BlindSighted <> next_id proj
-R6699:6718 ThieleMachine.BlindSighted <> next_id proj
-R6619:6621 Coq.Lists.List <> map def
-R6667:6670 ThieleMachineVerification.Symmetry <> mods:27 var
-R6629:6629 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6633:6634 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6636:6636 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-binder 6635:6635 <> r:30
-binder 6630:6632 <> mid:31
-binder 6629:6636 <> pat:32
-R6641:6641 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6661:6662 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6664:6664 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6642:6651 ThieleMachineVerification.Symmetry <> apply_perm def
-R6653:6656 ThieleMachineVerification.Symmetry <> perm:28 var
-R6658:6660 ThieleMachineVerification.Symmetry <> mid:31 var
-R6663:6663 ThieleMachineVerification.Symmetry <> r:30 var
-R6723:6725 ThieleMachineVerification.Symmetry <> nid:29 var
-R6734:6752 ThieleMachineVerification.ObservationInterface <> partition_signature def
-R6757:6776 ThieleMachine.BlindSighted <> modules proj
-R6757:6776 ThieleMachine.BlindSighted <> modules proj
-R6757:6776 ThieleMachine.BlindSighted <> modules proj
-R6787:6806 ThieleMachine.BlindSighted <> next_id proj
-R6787:6806 ThieleMachine.BlindSighted <> next_id proj
-R6781:6784 ThieleMachineVerification.Symmetry <> mods:27 var
-R6811:6813 ThieleMachineVerification.Symmetry <> nid:29 var
-R6859:6877 ThieleMachineVerification.ObservationInterface <> partition_signature def
-prf 6988:7022 <> partition_permutation_preserves_obs
-binder 7033:7033 <> s:33
-binder 7035:7038 <> perm:34
-R7043:7051 ThieleMachineVerification.ObservationInterface <> obs_equiv def
-R7053:7053 ThieleMachineVerification.Symmetry <> s:33 var
-R7056:7070 ThieleMachineVerification.Symmetry <> permute_modules def
-R7072:7075 ThieleMachineVerification.Symmetry <> perm:34 var
-R7077:7077 ThieleMachineVerification.Symmetry <> s:33 var
-R7114:7122 ThieleMachineVerification.ObservationInterface <> obs_equiv def
-R7125:7137 ThieleMachineVerification.ObservationInterface <> observe_state def
-R7140:7154 ThieleMachineVerification.Symmetry <> permute_modules def
-R7213:7249 ThieleMachineVerification.Symmetry <> partition_signature_permute_invariant thm
-R7263:7282 ThieleMachine.BlindSighted <> modules proj
-R7285:7306 ThieleMachine.BlindSighted <> partition proj
-R7338:7357 ThieleMachine.BlindSighted <> next_id proj
-R7360:7381 ThieleMachine.BlindSighted <> partition proj
-R7213:7249 ThieleMachineVerification.Symmetry <> partition_signature_permute_invariant thm
-R7263:7282 ThieleMachine.BlindSighted <> modules proj
-R7285:7306 ThieleMachine.BlindSighted <> partition proj
-R7338:7357 ThieleMachine.BlindSighted <> next_id proj
-R7360:7381 ThieleMachine.BlindSighted <> partition proj
-def 7687:7692 <> take_n
-binder 7695:7695 <> A:35
-R7710:7712 Coq.Init.Datatypes <> nat ind
-binder 7706:7706 <> n:36
-R7720:7723 Coq.Init.Datatypes <> list ind
-R7725:7725 ThieleMachineVerification.Symmetry <> A:35 var
-binder 7716:7716 <> l:37
-R7730:7733 Coq.Init.Datatypes <> list ind
-R7735:7735 ThieleMachineVerification.Symmetry <> A:35 var
-R7751:7751 ThieleMachineVerification.Symmetry <> l:37 var
-R7748:7748 ThieleMachineVerification.Symmetry <> n:36 var
-R7762:7762 Coq.Init.Datatypes <> O constr
-R7770:7771 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R7777:7777 Coq.Init.Datatypes <> S constr
-R7784:7787 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R7794:7797 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R7798:7803 ThieleMachineVerification.Symmetry <> take_n:38 def
-R7814:7814 Coq.Init.Datatypes <> S constr
-R7819:7820 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R7825:7826 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-def 7847:7860 <> time_translate
-R7867:7869 Coq.Init.Datatypes <> nat ind
-binder 7863:7863 <> n:41
-R7877:7887 ThieleMachine.BlindSighted <> ThieleState rec
-binder 7873:7873 <> s:42
-R7898:7907 ThieleMachine.BlindSighted <> ThieleProg def
-binder 7891:7894 <> prog:43
-R7912:7922 ThieleMachine.BlindSighted <> ThieleState rec
-R7929:7941 ThieleMachineVerification.Symmetry <> execute_trace def
-R7944:7949 ThieleMachineVerification.Symmetry <> take_n def
-R7953:7956 ThieleMachineVerification.Symmetry <> prog:43 var
-R7951:7951 ThieleMachineVerification.Symmetry <> n:41 var
-R7959:7959 ThieleMachineVerification.Symmetry <> s:42 var
-prf 8046:8076 <> execute_instruction_monotone_mu
-binder 8087:8091 <> instr:44
-binder 8093:8093 <> s:45
-R8119:8122 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R8110:8117 ThieleMachine.BlindSighted <> mu_total proj
-R8101:8106 ThieleMachine.BlindSighted <> ledger proj
-R8098:8098 ThieleMachineVerification.Symmetry <> s:45 var
-R8163:8170 ThieleMachine.BlindSighted <> mu_total proj
-R8154:8159 ThieleMachine.BlindSighted <> ledger proj
-R8124:8142 ThieleMachineVerification.Symmetry <> execute_instruction def
-R8144:8148 ThieleMachineVerification.Symmetry <> instr:44 var
-R8150:8150 ThieleMachineVerification.Symmetry <> s:45 var
-prf 8245:8269 <> execute_trace_monotone_mu
-binder 8280:8283 <> prog:46
-binder 8285:8285 <> s:47
-R8311:8314 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R8302:8309 ThieleMachine.BlindSighted <> mu_total proj
-R8293:8298 ThieleMachine.BlindSighted <> ledger proj
-R8290:8290 ThieleMachineVerification.Symmetry <> s:47 var
-R8348:8355 ThieleMachine.BlindSighted <> mu_total proj
-R8339:8344 ThieleMachine.BlindSighted <> ledger proj
-R8316:8328 ThieleMachineVerification.Symmetry <> execute_trace def
-R8330:8333 ThieleMachineVerification.Symmetry <> prog:46 var
-R8335:8335 ThieleMachineVerification.Symmetry <> s:47 var
-R8443:8448 ThieleMachine.BlindSighted <> halted proj
-R8443:8448 ThieleMachine.BlindSighted <> halted proj
-R8497:8515 ThieleMachineVerification.Symmetry <> execute_instruction def
-R8497:8515 ThieleMachineVerification.Symmetry <> execute_instruction def
-R8546:8576 ThieleMachineVerification.Symmetry <> execute_instruction_monotone_mu thm
-R8546:8576 ThieleMachineVerification.Symmetry <> execute_instruction_monotone_mu thm
-prf 8613:8645 <> time_translation_preserves_energy
-R8661:8671 ThieleMachine.BlindSighted <> ThieleState rec
-binder 8657:8657 <> s:48
-R8682:8691 ThieleMachine.BlindSighted <> ThieleProg def
-binder 8675:8678 <> prog:49
-R8699:8701 Coq.Init.Datatypes <> nat ind
-binder 8695:8695 <> n:50
-R8728:8731 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R8719:8726 ThieleMachine.BlindSighted <> mu_total proj
-R8710:8715 ThieleMachine.BlindSighted <> ledger proj
-R8707:8707 ThieleMachineVerification.Symmetry <> s:48 var
-R8768:8775 ThieleMachine.BlindSighted <> mu_total proj
-R8759:8764 ThieleMachine.BlindSighted <> ledger proj
-R8733:8746 ThieleMachineVerification.Symmetry <> time_translate def
-R8748:8748 ThieleMachineVerification.Symmetry <> n:50 var
-R8750:8750 ThieleMachineVerification.Symmetry <> s:48 var
-R8752:8755 ThieleMachineVerification.Symmetry <> prog:49 var
-R8814:8827 ThieleMachineVerification.Symmetry <> time_translate def
-R8838:8862 ThieleMachineVerification.Symmetry <> execute_trace_monotone_mu thm
-R8838:8862 ThieleMachineVerification.Symmetry <> execute_trace_monotone_mu thm
-def 9168:9184 <> spatial_translate
-R9196:9198 Coq.Init.Datatypes <> nat ind
-binder 9187:9192 <> offset:51
-R9206:9211 ThieleMachine.BlindSighted <> Region def
-binder 9202:9202 <> r:52
-R9216:9221 ThieleMachine.BlindSighted <> Region def
-R9228:9230 Coq.Lists.List <> map def
-R9249:9249 ThieleMachineVerification.Symmetry <> r:52 var
-R9233:9239 Coq.Arith.PeanoNat Nat add def
-R9241:9246 ThieleMachineVerification.Symmetry <> offset:51 var
-def 9264:9286 <> spatial_translate_state
-R9298:9300 Coq.Init.Datatypes <> nat ind
-binder 9289:9294 <> offset:53
-R9308:9318 ThieleMachine.BlindSighted <> ThieleState rec
-binder 9304:9304 <> s:54
-R9323:9333 ThieleMachine.BlindSighted <> ThieleState rec
-R9343:9351 ThieleMachine.BlindSighted <> partition proj
-R9343:9351 ThieleMachine.BlindSighted <> partition proj
-R9343:9351 ThieleMachine.BlindSighted <> partition proj
-R9552:9557 ThieleMachine.BlindSighted <> ledger proj
-R9552:9557 ThieleMachine.BlindSighted <> ledger proj
-R9579:9584 ThieleMachine.BlindSighted <> halted proj
-R9579:9584 ThieleMachine.BlindSighted <> halted proj
-R9606:9611 ThieleMachine.BlindSighted <> answer proj
-R9606:9611 ThieleMachine.BlindSighted <> answer proj
-R9359:9365 ThieleMachine.BlindSighted <> modules proj
-R9359:9365 ThieleMachine.BlindSighted <> modules proj
-R9359:9365 ThieleMachine.BlindSighted <> modules proj
-R9508:9514 ThieleMachine.BlindSighted <> next_id proj
-R9508:9514 ThieleMachine.BlindSighted <> next_id proj
-R9370:9372 Coq.Lists.List <> map def
-R9477:9483 ThieleMachine.BlindSighted <> modules proj
-R9465:9473 ThieleMachine.BlindSighted <> partition proj
-R9462:9462 ThieleMachineVerification.Symmetry <> s:54 var
-R9380:9380 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9383:9384 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9386:9386 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-binder 9385:9385 <> r:55
-binder 9381:9382 <> id:56
-binder 9380:9386 <> pat:57
-R9391:9391 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9394:9395 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9422:9422 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9392:9393 ThieleMachineVerification.Symmetry <> id:56 var
-R9396:9412 ThieleMachineVerification.Symmetry <> spatial_translate def
-R9414:9419 ThieleMachineVerification.Symmetry <> offset:53 var
-R9421:9421 ThieleMachineVerification.Symmetry <> r:55 var
-R9534:9540 ThieleMachine.BlindSighted <> next_id proj
-R9522:9530 ThieleMachine.BlindSighted <> partition proj
-R9519:9519 ThieleMachineVerification.Symmetry <> s:54 var
-R9565:9570 ThieleMachine.BlindSighted <> ledger proj
-R9562:9562 ThieleMachineVerification.Symmetry <> s:54 var
-R9592:9597 ThieleMachine.BlindSighted <> halted proj
-R9589:9589 ThieleMachineVerification.Symmetry <> s:54 var
-R9619:9624 ThieleMachine.BlindSighted <> answer proj
-R9616:9616 ThieleMachineVerification.Symmetry <> s:54 var
-prf 9697:9729 <> spatial_translation_preserves_obs
-binder 9740:9740 <> s:58
-binder 9742:9747 <> offset:59
-R9752:9760 ThieleMachineVerification.ObservationInterface <> obs_equiv def
-R9762:9762 ThieleMachineVerification.Symmetry <> s:58 var
-R9765:9787 ThieleMachineVerification.Symmetry <> spatial_translate_state def
-R9789:9794 ThieleMachineVerification.Symmetry <> offset:59 var
-R9796:9796 ThieleMachineVerification.Symmetry <> s:58 var
-R9835:9843 ThieleMachineVerification.ObservationInterface <> obs_equiv def
-R9846:9858 ThieleMachineVerification.ObservationInterface <> observe_state def
-R9861:9883 ThieleMachineVerification.Symmetry <> spatial_translate_state def
-R9895:9913 ThieleMachineVerification.ObservationInterface <> partition_signature def
-R9964:9983 ThieleMachine.BlindSighted <> modules proj
-R9986:10007 ThieleMachine.BlindSighted <> partition proj
-R9964:9983 ThieleMachine.BlindSighted <> modules proj
-R9986:10007 ThieleMachine.BlindSighted <> partition proj
-R10077:10093 ThieleMachineVerification.Symmetry <> spatial_translate def
-R10104:10113 Coq.Lists.List <> map_length thm
-R10104:10113 Coq.Lists.List <> map_length thm
-R10104:10113 Coq.Lists.List <> map_length thm
-def 10724:10737 <> SpacetimeCoord
-R10744:10746 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R10743:10743 Coq.Numbers.BinNums <> Z ind
-R10747:10747 Coq.Numbers.BinNums <> Z ind
-def 10887:10900 <> velocity_valid
-R10907:10907 Coq.Numbers.BinNums <> Z ind
-binder 10903:10903 <> v:60
-R10912:10915 Coq.Init.Datatypes <> bool ind
-R10922:10925 Coq.Init.Datatypes <> andb def
-R10945:10949 Coq.ZArith.BinInt Z leb def
-R10951:10951 ThieleMachineVerification.Symmetry <> v:60 var
-R10928:10932 Coq.ZArith.BinInt Z leb def
-R10941:10941 ThieleMachineVerification.Symmetry <> v:60 var
-def 11157:11175 <> lorentz_boost_coord
-R11182:11182 Coq.Numbers.BinNums <> Z ind
-binder 11178:11178 <> v:61
-R11194:11207 ThieleMachineVerification.Symmetry <> SpacetimeCoord def
-binder 11186:11190 <> coord:62
-R11212:11225 ThieleMachineVerification.Symmetry <> SpacetimeCoord def
-R11247:11251 ThieleMachineVerification.Symmetry <> coord:62 var
-R11237:11237 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11239:11240 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11242:11242 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11261:11274 ThieleMachineVerification.Symmetry <> velocity_valid def
-R11276:11276 ThieleMachineVerification.Symmetry <> v:61 var
-R11606:11606 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11608:11609 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11611:11611 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11356:11356 Coq.ZArith.BinInt <> ::Z_scope:x_'/'_x not
-R11362:11365 Coq.ZArith.BinInt <> ::Z_scope:x_'/'_x not
-R11358:11360 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
-R11357:11357 ThieleMachineVerification.Symmetry <> v:61 var
-R11361:11361 ThieleMachineVerification.Symmetry <> v:61 var
-binder 11350:11351 <> v2:64
-binder 11381:11389 <> gamma_num:65
-R11422:11426 Coq.ZArith.BinInt Z max def
-R11434:11436 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
-R11437:11438 ThieleMachineVerification.Symmetry <> v2:64 var
-binder 11409:11417 <> gamma_den:66
-R11458:11458 Coq.ZArith.BinInt <> ::Z_scope:x_'/'_x not
-R11488:11492 Coq.ZArith.BinInt <> ::Z_scope:x_'/'_x not
-R11508:11508 Coq.ZArith.BinInt <> ::Z_scope:x_'/'_x not
-R11468:11471 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
-R11487:11487 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
-R11459:11467 ThieleMachineVerification.Symmetry <> gamma_num:65 var
-R11479:11481 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
-R11475:11477 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
-R11483:11485 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
-R11482:11482 ThieleMachineVerification.Symmetry <> v:61 var
-R11496:11498 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
-R11499:11507 ThieleMachineVerification.Symmetry <> gamma_den:66 var
-binder 11452:11453 <> t':67
-R11527:11527 Coq.ZArith.BinInt <> ::Z_scope:x_'/'_x not
-R11557:11561 Coq.ZArith.BinInt <> ::Z_scope:x_'/'_x not
-R11577:11577 Coq.ZArith.BinInt <> ::Z_scope:x_'/'_x not
-R11537:11540 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
-R11556:11556 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
-R11528:11536 ThieleMachineVerification.Symmetry <> gamma_num:65 var
-R11548:11550 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
-R11544:11546 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
-R11552:11554 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
-R11551:11551 ThieleMachineVerification.Symmetry <> v:61 var
-R11565:11567 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
-R11568:11576 ThieleMachineVerification.Symmetry <> gamma_den:66 var
-binder 11521:11522 <> x':68
-R11586:11586 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11589:11590 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11593:11593 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11587:11588 ThieleMachineVerification.Symmetry <> t':67 var
-R11591:11592 ThieleMachineVerification.Symmetry <> x':68 var
-def 11892:11904 <> lorentz_boost
-R11911:11911 Coq.Numbers.BinNums <> Z ind
-binder 11907:11907 <> v:69
-R11919:11929 ThieleMachine.BlindSighted <> ThieleState rec
-binder 11915:11915 <> s:70
-R11934:11944 ThieleMachine.BlindSighted <> ThieleState rec
-R11954:11962 ThieleMachine.BlindSighted <> partition proj
-R11954:11962 ThieleMachine.BlindSighted <> partition proj
-R11954:11962 ThieleMachine.BlindSighted <> partition proj
-R12023:12028 ThieleMachine.BlindSighted <> ledger proj
-R12023:12028 ThieleMachine.BlindSighted <> ledger proj
-R12080:12085 ThieleMachine.BlindSighted <> halted proj
-R12080:12085 ThieleMachine.BlindSighted <> halted proj
-R12107:12112 ThieleMachine.BlindSighted <> answer proj
-R12107:12112 ThieleMachine.BlindSighted <> answer proj
-R11970:11978 ThieleMachine.BlindSighted <> partition proj
-R11967:11967 ThieleMachineVerification.Symmetry <> s:70 var
-R12036:12041 ThieleMachine.BlindSighted <> ledger proj
-R12033:12033 ThieleMachineVerification.Symmetry <> s:70 var
-R12093:12098 ThieleMachine.BlindSighted <> halted proj
-R12090:12090 ThieleMachineVerification.Symmetry <> s:70 var
-R12120:12125 ThieleMachine.BlindSighted <> answer proj
-R12117:12117 ThieleMachineVerification.Symmetry <> s:70 var
-prf 12223:12243 <> lorentz_preserves_obs
-binder 12254:12254 <> s:71
-binder 12256:12256 <> v:72
-R12261:12269 ThieleMachineVerification.ObservationInterface <> obs_equiv def
-R12271:12271 ThieleMachineVerification.Symmetry <> s:71 var
-R12274:12286 ThieleMachineVerification.Symmetry <> lorentz_boost def
-R12288:12288 ThieleMachineVerification.Symmetry <> v:72 var
-R12290:12290 ThieleMachineVerification.Symmetry <> s:71 var
-R12324:12332 ThieleMachineVerification.ObservationInterface <> obs_equiv def
-R12335:12347 ThieleMachineVerification.ObservationInterface <> observe_state def
-R12350:12362 ThieleMachineVerification.Symmetry <> lorentz_boost def
-prf 12473:12500 <> lorentz_preserves_obs_length
-binder 12511:12511 <> s:73
-binder 12513:12513 <> v:74
-R12541:12546 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12534:12536 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12518:12531 ThieleMachineVerification.Symmetry <> velocity_valid def
-R12533:12533 ThieleMachineVerification.Symmetry <> v:74 var
-R12537:12540 Coq.Init.Datatypes <> true constr
-R12589:12594 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12547:12552 Coq.Init.Datatypes <> length def
-R12555:12573 ThieleMachineVerification.ObservationInterface <> partition_signature def
-R12578:12586 ThieleMachine.BlindSighted <> partition proj
-R12575:12575 ThieleMachineVerification.Symmetry <> s:73 var
-R12595:12600 Coq.Init.Datatypes <> length def
-R12603:12621 ThieleMachineVerification.ObservationInterface <> partition_signature def
-R12644:12652 ThieleMachine.BlindSighted <> partition proj
-R12624:12636 ThieleMachineVerification.Symmetry <> lorentz_boost def
-R12638:12638 ThieleMachineVerification.Symmetry <> v:74 var
-R12640:12640 ThieleMachineVerification.Symmetry <> s:73 var
-R12689:12701 ThieleMachineVerification.Symmetry <> lorentz_boost def
-prf 12824:12854 <> lorentz_preserves_admissibility
-binder 12865:12865 <> s:75
-binder 12867:12870 <> prog:76
-binder 12872:12872 <> v:77
-R12900:12905 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12877:12892 ThieleMachineVerification.Admissibility <> trace_admissible def
-R12894:12894 ThieleMachineVerification.Symmetry <> s:75 var
-R12896:12899 ThieleMachineVerification.Symmetry <> prog:76 var
-R12906:12921 ThieleMachineVerification.Admissibility <> trace_admissible def
-R12924:12936 ThieleMachineVerification.Symmetry <> lorentz_boost def
-R12938:12938 ThieleMachineVerification.Symmetry <> v:77 var
-R12940:12940 ThieleMachineVerification.Symmetry <> s:75 var
-R12943:12946 ThieleMachineVerification.Symmetry <> prog:76 var
-R12989:13001 ThieleMachineVerification.Symmetry <> lorentz_boost def
-prf 13275:13294 <> symmetry_composition
-binder 13305:13305 <> s:78
-binder 13307:13308 <> k1:79
-binder 13310:13311 <> k2:80
-R13349:13354 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13316:13324 ThieleMachineVerification.ObservationInterface <> obs_equiv def
-R13326:13326 ThieleMachineVerification.Symmetry <> s:78 var
-R13329:13342 ThieleMachineVerification.Symmetry <> mu_gauge_shift def
-R13344:13345 ThieleMachineVerification.Symmetry <> k1:79 var
-R13347:13347 ThieleMachineVerification.Symmetry <> s:78 var
-R13355:13363 ThieleMachineVerification.ObservationInterface <> obs_equiv def
-R13365:13365 ThieleMachineVerification.Symmetry <> s:78 var
-R13368:13381 ThieleMachineVerification.Symmetry <> mu_gauge_shift def
-R13386:13388 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R13384:13385 ThieleMachineVerification.Symmetry <> k1:79 var
-R13389:13390 ThieleMachineVerification.Symmetry <> k2:80 var
-R13393:13393 ThieleMachineVerification.Symmetry <> s:78 var
-R13432:13453 ThieleMachineVerification.Symmetry <> mu_gauge_preserves_obs thm
-R13432:13453 ThieleMachineVerification.Symmetry <> mu_gauge_preserves_obs thm
-prf 13500:13516 <> symmetry_identity
-binder 13527:13527 <> s:81
-R13532:13540 ThieleMachineVerification.ObservationInterface <> obs_equiv def
-R13542:13542 ThieleMachineVerification.Symmetry <> s:81 var
-R13545:13558 ThieleMachineVerification.Symmetry <> mu_gauge_shift def
-R13562:13562 ThieleMachineVerification.Symmetry <> s:81 var
-R13593:13614 ThieleMachineVerification.Symmetry <> mu_gauge_preserves_obs thm
-R13593:13614 ThieleMachineVerification.Symmetry <> mu_gauge_preserves_obs thm
-prf 13653:13668 <> symmetry_inverse
-binder 13679:13679 <> s:82
-binder 13681:13681 <> k:83
-R13686:13694 ThieleMachineVerification.ObservationInterface <> obs_equiv def
-R13697:13710 ThieleMachineVerification.Symmetry <> mu_gauge_shift def
-R13712:13712 ThieleMachineVerification.Symmetry <> k:83 var
-R13715:13728 ThieleMachineVerification.Symmetry <> mu_gauge_shift def
-R13731:13731 Coq.ZArith.BinInt <> ::Z_scope:'-'_x not
-R13732:13732 ThieleMachineVerification.Symmetry <> k:83 var
-R13735:13735 ThieleMachineVerification.Symmetry <> s:82 var
-R13739:13739 ThieleMachineVerification.Symmetry <> s:82 var
-R13772:13785 ThieleMachineVerification.Symmetry <> mu_gauge_shift def
-R13788:13796 ThieleMachineVerification.ObservationInterface <> obs_equiv def
-R13799:13811 ThieleMachineVerification.ObservationInterface <> observe_state def
+R1699:1707 ThieleMachine.BlindSighted <> mu_tensor proj
+R1690:1695 ThieleMachine.BlindSighted <> ledger proj
+R1687:1687 ThieleMachineVerification.Symmetry <> s:2 var
+R1732:1737 ThieleMachine.BlindSighted <> halted proj
+R1729:1729 ThieleMachineVerification.Symmetry <> s:2 var
+R1759:1764 ThieleMachine.BlindSighted <> answer proj
+R1756:1756 ThieleMachineVerification.Symmetry <> s:2 var
+prf 1818:1839 <> mu_gauge_preserves_obs
+binder 1850:1850 <> s:3
+binder 1852:1852 <> k:4
+R1857:1865 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R1867:1867 ThieleMachineVerification.Symmetry <> s:3 var
+R1870:1883 ThieleMachineVerification.Symmetry <> mu_gauge_shift def
+R1885:1885 ThieleMachineVerification.Symmetry <> k:4 var
+R1887:1887 ThieleMachineVerification.Symmetry <> s:3 var
+R1921:1929 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R1932:1944 ThieleMachineVerification.ObservationInterface <> observe_state def
+R1947:1960 ThieleMachineVerification.Symmetry <> mu_gauge_shift def
+R1979:1997 ThieleMachineVerification.ObservationInterface <> partition_signature def
+R2000:2016 ThieleMachineVerification.ObservationInterface <> mu_delta_sequence def
+prf 2237:2268 <> mu_gauge_preserves_admissibility
+binder 2279:2279 <> s:5
+binder 2281:2284 <> prog:6
+binder 2286:2286 <> k:7
+R2314:2319 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2291:2306 ThieleMachineVerification.Admissibility <> trace_admissible def
+R2308:2308 ThieleMachineVerification.Symmetry <> s:5 var
+R2310:2313 ThieleMachineVerification.Symmetry <> prog:6 var
+R2320:2335 ThieleMachineVerification.Admissibility <> trace_admissible def
+R2338:2351 ThieleMachineVerification.Symmetry <> mu_gauge_shift def
+R2353:2353 ThieleMachineVerification.Symmetry <> k:7 var
+R2355:2355 ThieleMachineVerification.Symmetry <> s:5 var
+R2358:2361 ThieleMachineVerification.Symmetry <> prog:6 var
+def 2916:2934 <> execute_instruction
+R2945:2955 ThieleMachine.BlindSighted <> ThieleInstr ind
+binder 2937:2941 <> instr:8
+R2963:2973 ThieleMachine.BlindSighted <> ThieleState rec
+binder 2959:2959 <> s:9
+R2978:2988 ThieleMachine.BlindSighted <> ThieleState rec
+R3001:3005 ThieleMachineVerification.Symmetry <> instr:8 var
+R3016:3019 ThieleMachine.BlindSighted <> PNEW constr
+R3124:3130 ThieleMachine.BlindSighted <> next_id proj
+R3112:3120 ThieleMachine.BlindSighted <> partition proj
+R3109:3109 ThieleMachineVerification.Symmetry <> s:9 var
+binder 3099:3104 <> new_id:11
+R3184:3187 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R3176:3182 ThieleMachine.BlindSighted <> modules proj
+R3164:3172 ThieleMachine.BlindSighted <> partition proj
+R3161:3161 ThieleMachineVerification.Symmetry <> s:9 var
+R3188:3188 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3200:3200 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3189:3189 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3196:3197 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3199:3199 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3190:3195 ThieleMachineVerification.Symmetry <> new_id:11 var
+binder 3146:3156 <> new_modules:12
+R3214:3222 ThieleMachine.BlindSighted <> partition proj
+R3214:3222 ThieleMachine.BlindSighted <> partition proj
+R3214:3222 ThieleMachine.BlindSighted <> partition proj
+R3287:3292 ThieleMachine.BlindSighted <> ledger proj
+R3287:3292 ThieleMachine.BlindSighted <> ledger proj
+R3572:3577 ThieleMachine.BlindSighted <> halted proj
+R3572:3577 ThieleMachine.BlindSighted <> halted proj
+R3603:3608 ThieleMachine.BlindSighted <> answer proj
+R3603:3608 ThieleMachine.BlindSighted <> answer proj
+R3230:3236 ThieleMachine.BlindSighted <> modules proj
+R3230:3236 ThieleMachine.BlindSighted <> modules proj
+R3230:3236 ThieleMachine.BlindSighted <> modules proj
+R3254:3260 ThieleMachine.BlindSighted <> next_id proj
+R3254:3260 ThieleMachine.BlindSighted <> next_id proj
+R3241:3251 ThieleMachineVerification.Symmetry <> new_modules:12 var
+R3265:3265 Coq.Init.Datatypes <> S constr
+R3267:3272 ThieleMachineVerification.Symmetry <> new_id:11 var
+R3300:3313 ThieleMachine.BlindSighted <> mu_operational proj
+R3300:3313 ThieleMachine.BlindSighted <> mu_operational proj
+R3300:3313 ThieleMachine.BlindSighted <> mu_operational proj
+R3385:3396 ThieleMachine.BlindSighted <> mu_discovery proj
+R3385:3396 ThieleMachine.BlindSighted <> mu_discovery proj
+R3450:3457 ThieleMachine.BlindSighted <> mu_total proj
+R3450:3457 ThieleMachine.BlindSighted <> mu_total proj
+R3523:3531 ThieleMachine.BlindSighted <> mu_tensor proj
+R3523:3531 ThieleMachine.BlindSighted <> mu_tensor proj
+R3345:3347 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R3330:3343 ThieleMachine.BlindSighted <> mu_operational proj
+R3321:3326 ThieleMachine.BlindSighted <> ledger proj
+R3318:3318 ThieleMachineVerification.Symmetry <> s:9 var
+R3348:3355 Coq.ZArith.BinInt Z of_nat def
+R3413:3424 ThieleMachine.BlindSighted <> mu_discovery proj
+R3404:3409 ThieleMachine.BlindSighted <> ledger proj
+R3401:3401 ThieleMachineVerification.Symmetry <> s:9 var
+R3483:3485 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R3474:3481 ThieleMachine.BlindSighted <> mu_total proj
+R3465:3470 ThieleMachine.BlindSighted <> ledger proj
+R3462:3462 ThieleMachineVerification.Symmetry <> s:9 var
+R3486:3493 Coq.ZArith.BinInt Z of_nat def
+R3548:3556 ThieleMachine.BlindSighted <> mu_tensor proj
+R3539:3544 ThieleMachine.BlindSighted <> ledger proj
+R3536:3536 ThieleMachineVerification.Symmetry <> s:9 var
+R3585:3590 ThieleMachine.BlindSighted <> halted proj
+R3582:3582 ThieleMachineVerification.Symmetry <> s:9 var
+R3616:3621 ThieleMachine.BlindSighted <> answer proj
+R3613:3613 ThieleMachineVerification.Symmetry <> s:9 var
+R3631:3636 ThieleMachine.BlindSighted <> PSPLIT constr
+R3724:3732 ThieleMachine.BlindSighted <> partition proj
+R3724:3732 ThieleMachine.BlindSighted <> partition proj
+R3724:3732 ThieleMachine.BlindSighted <> partition proj
+R3800:3805 ThieleMachine.BlindSighted <> ledger proj
+R3800:3805 ThieleMachine.BlindSighted <> ledger proj
+R4085:4090 ThieleMachine.BlindSighted <> halted proj
+R4085:4090 ThieleMachine.BlindSighted <> halted proj
+R4116:4121 ThieleMachine.BlindSighted <> answer proj
+R4116:4121 ThieleMachine.BlindSighted <> answer proj
+R3740:3748 ThieleMachine.BlindSighted <> partition proj
+R3737:3737 ThieleMachineVerification.Symmetry <> s:9 var
+R3813:3826 ThieleMachine.BlindSighted <> mu_operational proj
+R3813:3826 ThieleMachine.BlindSighted <> mu_operational proj
+R3813:3826 ThieleMachine.BlindSighted <> mu_operational proj
+R3898:3909 ThieleMachine.BlindSighted <> mu_discovery proj
+R3898:3909 ThieleMachine.BlindSighted <> mu_discovery proj
+R3963:3970 ThieleMachine.BlindSighted <> mu_total proj
+R3963:3970 ThieleMachine.BlindSighted <> mu_total proj
+R4036:4044 ThieleMachine.BlindSighted <> mu_tensor proj
+R4036:4044 ThieleMachine.BlindSighted <> mu_tensor proj
+R3858:3860 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R3843:3856 ThieleMachine.BlindSighted <> mu_operational proj
+R3834:3839 ThieleMachine.BlindSighted <> ledger proj
+R3831:3831 ThieleMachineVerification.Symmetry <> s:9 var
+R3861:3868 Coq.ZArith.BinInt Z of_nat def
+R3926:3937 ThieleMachine.BlindSighted <> mu_discovery proj
+R3917:3922 ThieleMachine.BlindSighted <> ledger proj
+R3914:3914 ThieleMachineVerification.Symmetry <> s:9 var
+R3996:3998 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R3987:3994 ThieleMachine.BlindSighted <> mu_total proj
+R3978:3983 ThieleMachine.BlindSighted <> ledger proj
+R3975:3975 ThieleMachineVerification.Symmetry <> s:9 var
+R3999:4006 Coq.ZArith.BinInt Z of_nat def
+R4061:4069 ThieleMachine.BlindSighted <> mu_tensor proj
+R4052:4057 ThieleMachine.BlindSighted <> ledger proj
+R4049:4049 ThieleMachineVerification.Symmetry <> s:9 var
+R4098:4103 ThieleMachine.BlindSighted <> halted proj
+R4095:4095 ThieleMachineVerification.Symmetry <> s:9 var
+R4129:4134 ThieleMachine.BlindSighted <> answer proj
+R4126:4126 ThieleMachineVerification.Symmetry <> s:9 var
+R4144:4149 ThieleMachine.BlindSighted <> PMERGE constr
+R4223:4231 ThieleMachine.BlindSighted <> partition proj
+R4223:4231 ThieleMachine.BlindSighted <> partition proj
+R4223:4231 ThieleMachine.BlindSighted <> partition proj
+R4299:4304 ThieleMachine.BlindSighted <> ledger proj
+R4299:4304 ThieleMachine.BlindSighted <> ledger proj
+R4584:4589 ThieleMachine.BlindSighted <> halted proj
+R4584:4589 ThieleMachine.BlindSighted <> halted proj
+R4615:4620 ThieleMachine.BlindSighted <> answer proj
+R4615:4620 ThieleMachine.BlindSighted <> answer proj
+R4239:4247 ThieleMachine.BlindSighted <> partition proj
+R4236:4236 ThieleMachineVerification.Symmetry <> s:9 var
+R4312:4325 ThieleMachine.BlindSighted <> mu_operational proj
+R4312:4325 ThieleMachine.BlindSighted <> mu_operational proj
+R4312:4325 ThieleMachine.BlindSighted <> mu_operational proj
+R4397:4408 ThieleMachine.BlindSighted <> mu_discovery proj
+R4397:4408 ThieleMachine.BlindSighted <> mu_discovery proj
+R4462:4469 ThieleMachine.BlindSighted <> mu_total proj
+R4462:4469 ThieleMachine.BlindSighted <> mu_total proj
+R4535:4543 ThieleMachine.BlindSighted <> mu_tensor proj
+R4535:4543 ThieleMachine.BlindSighted <> mu_tensor proj
+R4357:4359 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R4342:4355 ThieleMachine.BlindSighted <> mu_operational proj
+R4333:4338 ThieleMachine.BlindSighted <> ledger proj
+R4330:4330 ThieleMachineVerification.Symmetry <> s:9 var
+R4360:4367 Coq.ZArith.BinInt Z of_nat def
+R4425:4436 ThieleMachine.BlindSighted <> mu_discovery proj
+R4416:4421 ThieleMachine.BlindSighted <> ledger proj
+R4413:4413 ThieleMachineVerification.Symmetry <> s:9 var
+R4495:4497 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R4486:4493 ThieleMachine.BlindSighted <> mu_total proj
+R4477:4482 ThieleMachine.BlindSighted <> ledger proj
+R4474:4474 ThieleMachineVerification.Symmetry <> s:9 var
+R4498:4505 Coq.ZArith.BinInt Z of_nat def
+R4560:4568 ThieleMachine.BlindSighted <> mu_tensor proj
+R4551:4556 ThieleMachine.BlindSighted <> ledger proj
+R4548:4548 ThieleMachineVerification.Symmetry <> s:9 var
+R4597:4602 ThieleMachine.BlindSighted <> halted proj
+R4594:4594 ThieleMachineVerification.Symmetry <> s:9 var
+R4628:4633 ThieleMachine.BlindSighted <> answer proj
+R4625:4625 ThieleMachineVerification.Symmetry <> s:9 var
+R4643:4651 ThieleMachine.BlindSighted <> PDISCOVER constr
+R4742:4750 ThieleMachine.BlindSighted <> partition proj
+R4742:4750 ThieleMachine.BlindSighted <> partition proj
+R4742:4750 ThieleMachine.BlindSighted <> partition proj
+R4779:4784 ThieleMachine.BlindSighted <> ledger proj
+R4779:4784 ThieleMachine.BlindSighted <> ledger proj
+R5064:5069 ThieleMachine.BlindSighted <> halted proj
+R5064:5069 ThieleMachine.BlindSighted <> halted proj
+R5095:5100 ThieleMachine.BlindSighted <> answer proj
+R5095:5100 ThieleMachine.BlindSighted <> answer proj
+R4758:4766 ThieleMachine.BlindSighted <> partition proj
+R4755:4755 ThieleMachineVerification.Symmetry <> s:9 var
+R4792:4805 ThieleMachine.BlindSighted <> mu_operational proj
+R4792:4805 ThieleMachine.BlindSighted <> mu_operational proj
+R4792:4805 ThieleMachine.BlindSighted <> mu_operational proj
+R4861:4872 ThieleMachine.BlindSighted <> mu_discovery proj
+R4861:4872 ThieleMachine.BlindSighted <> mu_discovery proj
+R4942:4949 ThieleMachine.BlindSighted <> mu_total proj
+R4942:4949 ThieleMachine.BlindSighted <> mu_total proj
+R5015:5023 ThieleMachine.BlindSighted <> mu_tensor proj
+R5015:5023 ThieleMachine.BlindSighted <> mu_tensor proj
+R4822:4835 ThieleMachine.BlindSighted <> mu_operational proj
+R4813:4818 ThieleMachine.BlindSighted <> ledger proj
+R4810:4810 ThieleMachineVerification.Symmetry <> s:9 var
+R4902:4904 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R4889:4900 ThieleMachine.BlindSighted <> mu_discovery proj
+R4880:4885 ThieleMachine.BlindSighted <> ledger proj
+R4877:4877 ThieleMachineVerification.Symmetry <> s:9 var
+R4905:4912 Coq.ZArith.BinInt Z of_nat def
+R4975:4977 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R4966:4973 ThieleMachine.BlindSighted <> mu_total proj
+R4957:4962 ThieleMachine.BlindSighted <> ledger proj
+R4954:4954 ThieleMachineVerification.Symmetry <> s:9 var
+R4978:4985 Coq.ZArith.BinInt Z of_nat def
+R5040:5048 ThieleMachine.BlindSighted <> mu_tensor proj
+R5031:5036 ThieleMachine.BlindSighted <> ledger proj
+R5028:5028 ThieleMachineVerification.Symmetry <> s:9 var
+R5077:5082 ThieleMachine.BlindSighted <> halted proj
+R5074:5074 ThieleMachineVerification.Symmetry <> s:9 var
+R5108:5113 ThieleMachine.BlindSighted <> answer proj
+R5105:5105 ThieleMachineVerification.Symmetry <> s:9 var
+R5123:5126 ThieleMachine.BlindSighted <> EMIT constr
+R5168:5176 ThieleMachine.BlindSighted <> partition proj
+R5168:5176 ThieleMachine.BlindSighted <> partition proj
+R5168:5176 ThieleMachine.BlindSighted <> partition proj
+R5205:5210 ThieleMachine.BlindSighted <> ledger proj
+R5205:5210 ThieleMachine.BlindSighted <> ledger proj
+R5236:5241 ThieleMachine.BlindSighted <> halted proj
+R5236:5241 ThieleMachine.BlindSighted <> halted proj
+R5267:5272 ThieleMachine.BlindSighted <> answer proj
+R5267:5272 ThieleMachine.BlindSighted <> answer proj
+R5184:5192 ThieleMachine.BlindSighted <> partition proj
+R5181:5181 ThieleMachineVerification.Symmetry <> s:9 var
+R5218:5223 ThieleMachine.BlindSighted <> ledger proj
+R5215:5215 ThieleMachineVerification.Symmetry <> s:9 var
+R5249:5254 ThieleMachine.BlindSighted <> halted proj
+R5246:5246 ThieleMachineVerification.Symmetry <> s:9 var
+R5277:5280 Coq.Init.Datatypes <> Some constr
+R5291:5294 ThieleMachine.BlindSighted <> HALT constr
+R5335:5343 ThieleMachine.BlindSighted <> partition proj
+R5335:5343 ThieleMachine.BlindSighted <> partition proj
+R5335:5343 ThieleMachine.BlindSighted <> partition proj
+R5372:5377 ThieleMachine.BlindSighted <> ledger proj
+R5372:5377 ThieleMachine.BlindSighted <> ledger proj
+R5403:5408 ThieleMachine.BlindSighted <> halted proj
+R5403:5408 ThieleMachine.BlindSighted <> halted proj
+R5428:5433 ThieleMachine.BlindSighted <> answer proj
+R5428:5433 ThieleMachine.BlindSighted <> answer proj
+R5351:5359 ThieleMachine.BlindSighted <> partition proj
+R5348:5348 ThieleMachineVerification.Symmetry <> s:9 var
+R5385:5390 ThieleMachine.BlindSighted <> ledger proj
+R5382:5382 ThieleMachineVerification.Symmetry <> s:9 var
+R5413:5416 Coq.Init.Datatypes <> true constr
+R5441:5446 ThieleMachine.BlindSighted <> answer proj
+R5438:5438 ThieleMachineVerification.Symmetry <> s:9 var
+def 5511:5523 <> execute_trace
+R5533:5542 ThieleMachine.BlindSighted <> ThieleProg def
+binder 5526:5529 <> prog:13
+R5550:5560 ThieleMachine.BlindSighted <> ThieleState rec
+binder 5546:5546 <> s:14
+R5565:5575 ThieleMachine.BlindSighted <> ThieleState rec
+R5588:5591 ThieleMachineVerification.Symmetry <> prog:13 var
+R5602:5603 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5608:5608 ThieleMachineVerification.Symmetry <> s:14 var
+R5619:5622 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5644:5649 ThieleMachine.BlindSighted <> halted proj
+R5641:5641 ThieleMachineVerification.Symmetry <> s:14 var
+R5670:5682 ThieleMachineVerification.Symmetry <> execute_trace:15 def
+R5690:5708 ThieleMachineVerification.Symmetry <> execute_instruction def
+R5716:5716 ThieleMachineVerification.Symmetry <> s:14 var
+R5657:5657 ThieleMachineVerification.Symmetry <> s:14 var
+def 5986:5995 <> apply_perm
+R6005:6008 Coq.Init.Datatypes <> list ind
+R6019:6021 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R6011:6018 ThieleMachine.BlindSighted <> ModuleId def
+R6022:6029 ThieleMachine.BlindSighted <> ModuleId def
+binder 5998:6001 <> perm:17
+R6040:6047 ThieleMachine.BlindSighted <> ModuleId def
+binder 6034:6036 <> mid:18
+R6052:6059 ThieleMachine.BlindSighted <> ModuleId def
+R6072:6075 ThieleMachineVerification.Symmetry <> perm:17 var
+R6086:6087 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6092:6094 ThieleMachineVerification.Symmetry <> mid:18 var
+R6110:6113 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6100:6100 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6105:6106 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6109:6109 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6125:6131 Coq.Arith.PeanoNat Nat eqb def
+R6133:6135 ThieleMachineVerification.Symmetry <> mid:18 var
+R6155:6164 ThieleMachineVerification.Symmetry <> apply_perm:19 def
+R6171:6173 ThieleMachineVerification.Symmetry <> mid:18 var
+def 6254:6268 <> permute_modules
+R6278:6281 Coq.Init.Datatypes <> list ind
+R6292:6294 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R6284:6291 ThieleMachine.BlindSighted <> ModuleId def
+R6295:6302 ThieleMachine.BlindSighted <> ModuleId def
+binder 6271:6274 <> perm:21
+R6311:6321 ThieleMachine.BlindSighted <> ThieleState rec
+binder 6307:6307 <> s:22
+R6326:6336 ThieleMachine.BlindSighted <> ThieleState rec
+R6362:6364 Coq.Lists.List <> map def
+R6425:6431 ThieleMachine.BlindSighted <> modules proj
+R6413:6421 ThieleMachine.BlindSighted <> partition proj
+R6410:6410 ThieleMachineVerification.Symmetry <> s:22 var
+R6372:6372 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6376:6377 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6379:6379 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 6378:6378 <> r:23
+binder 6373:6375 <> mid:24
+binder 6372:6379 <> pat:25
+R6384:6384 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6404:6405 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6407:6407 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6385:6394 ThieleMachineVerification.Symmetry <> apply_perm def
+R6396:6399 ThieleMachineVerification.Symmetry <> perm:21 var
+R6401:6403 ThieleMachineVerification.Symmetry <> mid:24 var
+R6406:6406 ThieleMachineVerification.Symmetry <> r:23 var
+binder 6347:6357 <> new_modules:26
+R6442:6450 ThieleMachine.BlindSighted <> partition proj
+R6442:6450 ThieleMachine.BlindSighted <> partition proj
+R6442:6450 ThieleMachine.BlindSighted <> partition proj
+R6526:6531 ThieleMachine.BlindSighted <> ledger proj
+R6526:6531 ThieleMachine.BlindSighted <> ledger proj
+R6553:6558 ThieleMachine.BlindSighted <> halted proj
+R6553:6558 ThieleMachine.BlindSighted <> halted proj
+R6580:6585 ThieleMachine.BlindSighted <> answer proj
+R6580:6585 ThieleMachine.BlindSighted <> answer proj
+R6458:6464 ThieleMachine.BlindSighted <> modules proj
+R6458:6464 ThieleMachine.BlindSighted <> modules proj
+R6458:6464 ThieleMachine.BlindSighted <> modules proj
+R6482:6488 ThieleMachine.BlindSighted <> next_id proj
+R6482:6488 ThieleMachine.BlindSighted <> next_id proj
+R6469:6479 ThieleMachineVerification.Symmetry <> new_modules:26 var
+R6508:6514 ThieleMachine.BlindSighted <> next_id proj
+R6496:6504 ThieleMachine.BlindSighted <> partition proj
+R6493:6493 ThieleMachineVerification.Symmetry <> s:22 var
+R6539:6544 ThieleMachine.BlindSighted <> ledger proj
+R6536:6536 ThieleMachineVerification.Symmetry <> s:22 var
+R6566:6571 ThieleMachine.BlindSighted <> halted proj
+R6563:6563 ThieleMachineVerification.Symmetry <> s:22 var
+R6593:6598 ThieleMachine.BlindSighted <> answer proj
+R6590:6590 ThieleMachineVerification.Symmetry <> s:22 var
+prf 6799:6835 <> partition_signature_permute_invariant
+binder 6846:6849 <> mods:27
+binder 6851:6854 <> perm:28
+binder 6856:6858 <> nid:29
+R7020:7024 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6863:6881 ThieleMachineVerification.ObservationInterface <> partition_signature def
+R6886:6905 ThieleMachine.BlindSighted <> modules proj
+R6886:6905 ThieleMachine.BlindSighted <> modules proj
+R6886:6905 ThieleMachine.BlindSighted <> modules proj
+R6990:7009 ThieleMachine.BlindSighted <> next_id proj
+R6990:7009 ThieleMachine.BlindSighted <> next_id proj
+R6910:6912 Coq.Lists.List <> map def
+R6958:6961 ThieleMachineVerification.Symmetry <> mods:27 var
+R6920:6920 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6924:6925 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6927:6927 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 6926:6926 <> r:30
+binder 6921:6923 <> mid:31
+binder 6920:6927 <> pat:32
+R6932:6932 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6952:6953 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6955:6955 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6933:6942 ThieleMachineVerification.Symmetry <> apply_perm def
+R6944:6947 ThieleMachineVerification.Symmetry <> perm:28 var
+R6949:6951 ThieleMachineVerification.Symmetry <> mid:31 var
+R6954:6954 ThieleMachineVerification.Symmetry <> r:30 var
+R7014:7016 ThieleMachineVerification.Symmetry <> nid:29 var
+R7025:7043 ThieleMachineVerification.ObservationInterface <> partition_signature def
+R7048:7067 ThieleMachine.BlindSighted <> modules proj
+R7048:7067 ThieleMachine.BlindSighted <> modules proj
+R7048:7067 ThieleMachine.BlindSighted <> modules proj
+R7078:7097 ThieleMachine.BlindSighted <> next_id proj
+R7078:7097 ThieleMachine.BlindSighted <> next_id proj
+R7072:7075 ThieleMachineVerification.Symmetry <> mods:27 var
+R7102:7104 ThieleMachineVerification.Symmetry <> nid:29 var
+R7150:7168 ThieleMachineVerification.ObservationInterface <> partition_signature def
+prf 7279:7313 <> partition_permutation_preserves_obs
+binder 7324:7324 <> s:33
+binder 7326:7329 <> perm:34
+R7334:7342 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R7344:7344 ThieleMachineVerification.Symmetry <> s:33 var
+R7347:7361 ThieleMachineVerification.Symmetry <> permute_modules def
+R7363:7366 ThieleMachineVerification.Symmetry <> perm:34 var
+R7368:7368 ThieleMachineVerification.Symmetry <> s:33 var
+R7405:7413 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R7416:7428 ThieleMachineVerification.ObservationInterface <> observe_state def
+R7431:7445 ThieleMachineVerification.Symmetry <> permute_modules def
+R7504:7540 ThieleMachineVerification.Symmetry <> partition_signature_permute_invariant thm
+R7554:7573 ThieleMachine.BlindSighted <> modules proj
+R7576:7597 ThieleMachine.BlindSighted <> partition proj
+R7629:7648 ThieleMachine.BlindSighted <> next_id proj
+R7651:7672 ThieleMachine.BlindSighted <> partition proj
+R7504:7540 ThieleMachineVerification.Symmetry <> partition_signature_permute_invariant thm
+R7554:7573 ThieleMachine.BlindSighted <> modules proj
+R7576:7597 ThieleMachine.BlindSighted <> partition proj
+R7629:7648 ThieleMachine.BlindSighted <> next_id proj
+R7651:7672 ThieleMachine.BlindSighted <> partition proj
+def 7978:7983 <> take_n
+binder 7986:7986 <> A:35
+R8001:8003 Coq.Init.Datatypes <> nat ind
+binder 7997:7997 <> n:36
+R8011:8014 Coq.Init.Datatypes <> list ind
+R8016:8016 ThieleMachineVerification.Symmetry <> A:35 var
+binder 8007:8007 <> l:37
+R8021:8024 Coq.Init.Datatypes <> list ind
+R8026:8026 ThieleMachineVerification.Symmetry <> A:35 var
+R8042:8042 ThieleMachineVerification.Symmetry <> l:37 var
+R8039:8039 ThieleMachineVerification.Symmetry <> n:36 var
+R8053:8053 Coq.Init.Datatypes <> O constr
+R8061:8062 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8068:8068 Coq.Init.Datatypes <> S constr
+R8075:8078 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8085:8088 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8089:8094 ThieleMachineVerification.Symmetry <> take_n:38 def
+R8105:8105 Coq.Init.Datatypes <> S constr
+R8110:8111 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8116:8117 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+def 8138:8151 <> time_translate
+R8158:8160 Coq.Init.Datatypes <> nat ind
+binder 8154:8154 <> n:41
+R8168:8178 ThieleMachine.BlindSighted <> ThieleState rec
+binder 8164:8164 <> s:42
+R8189:8198 ThieleMachine.BlindSighted <> ThieleProg def
+binder 8182:8185 <> prog:43
+R8203:8213 ThieleMachine.BlindSighted <> ThieleState rec
+R8220:8232 ThieleMachineVerification.Symmetry <> execute_trace def
+R8235:8240 ThieleMachineVerification.Symmetry <> take_n def
+R8244:8247 ThieleMachineVerification.Symmetry <> prog:43 var
+R8242:8242 ThieleMachineVerification.Symmetry <> n:41 var
+R8250:8250 ThieleMachineVerification.Symmetry <> s:42 var
+prf 8337:8367 <> execute_instruction_monotone_mu
+binder 8378:8382 <> instr:44
+binder 8384:8384 <> s:45
+R8410:8413 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R8401:8408 ThieleMachine.BlindSighted <> mu_total proj
+R8392:8397 ThieleMachine.BlindSighted <> ledger proj
+R8389:8389 ThieleMachineVerification.Symmetry <> s:45 var
+R8454:8461 ThieleMachine.BlindSighted <> mu_total proj
+R8445:8450 ThieleMachine.BlindSighted <> ledger proj
+R8415:8433 ThieleMachineVerification.Symmetry <> execute_instruction def
+R8435:8439 ThieleMachineVerification.Symmetry <> instr:44 var
+R8441:8441 ThieleMachineVerification.Symmetry <> s:45 var
+prf 8536:8560 <> execute_trace_monotone_mu
+binder 8571:8574 <> prog:46
+binder 8576:8576 <> s:47
+R8602:8605 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R8593:8600 ThieleMachine.BlindSighted <> mu_total proj
+R8584:8589 ThieleMachine.BlindSighted <> ledger proj
+R8581:8581 ThieleMachineVerification.Symmetry <> s:47 var
+R8639:8646 ThieleMachine.BlindSighted <> mu_total proj
+R8630:8635 ThieleMachine.BlindSighted <> ledger proj
+R8607:8619 ThieleMachineVerification.Symmetry <> execute_trace def
+R8621:8624 ThieleMachineVerification.Symmetry <> prog:46 var
+R8626:8626 ThieleMachineVerification.Symmetry <> s:47 var
+R8734:8739 ThieleMachine.BlindSighted <> halted proj
+R8734:8739 ThieleMachine.BlindSighted <> halted proj
+R8788:8806 ThieleMachineVerification.Symmetry <> execute_instruction def
+R8788:8806 ThieleMachineVerification.Symmetry <> execute_instruction def
+R8837:8867 ThieleMachineVerification.Symmetry <> execute_instruction_monotone_mu thm
+R8837:8867 ThieleMachineVerification.Symmetry <> execute_instruction_monotone_mu thm
+prf 8904:8936 <> time_translation_preserves_energy
+R8952:8962 ThieleMachine.BlindSighted <> ThieleState rec
+binder 8948:8948 <> s:48
+R8973:8982 ThieleMachine.BlindSighted <> ThieleProg def
+binder 8966:8969 <> prog:49
+R8990:8992 Coq.Init.Datatypes <> nat ind
+binder 8986:8986 <> n:50
+R9019:9022 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R9010:9017 ThieleMachine.BlindSighted <> mu_total proj
+R9001:9006 ThieleMachine.BlindSighted <> ledger proj
+R8998:8998 ThieleMachineVerification.Symmetry <> s:48 var
+R9059:9066 ThieleMachine.BlindSighted <> mu_total proj
+R9050:9055 ThieleMachine.BlindSighted <> ledger proj
+R9024:9037 ThieleMachineVerification.Symmetry <> time_translate def
+R9039:9039 ThieleMachineVerification.Symmetry <> n:50 var
+R9041:9041 ThieleMachineVerification.Symmetry <> s:48 var
+R9043:9046 ThieleMachineVerification.Symmetry <> prog:49 var
+R9105:9118 ThieleMachineVerification.Symmetry <> time_translate def
+R9129:9153 ThieleMachineVerification.Symmetry <> execute_trace_monotone_mu thm
+R9129:9153 ThieleMachineVerification.Symmetry <> execute_trace_monotone_mu thm
+def 9459:9475 <> spatial_translate
+R9487:9489 Coq.Init.Datatypes <> nat ind
+binder 9478:9483 <> offset:51
+R9497:9502 ThieleMachine.BlindSighted <> Region def
+binder 9493:9493 <> r:52
+R9507:9512 ThieleMachine.BlindSighted <> Region def
+R9519:9521 Coq.Lists.List <> map def
+R9540:9540 ThieleMachineVerification.Symmetry <> r:52 var
+R9524:9530 Coq.Arith.PeanoNat Nat add def
+R9532:9537 ThieleMachineVerification.Symmetry <> offset:51 var
+def 9555:9577 <> spatial_translate_state
+R9589:9591 Coq.Init.Datatypes <> nat ind
+binder 9580:9585 <> offset:53
+R9599:9609 ThieleMachine.BlindSighted <> ThieleState rec
+binder 9595:9595 <> s:54
+R9614:9624 ThieleMachine.BlindSighted <> ThieleState rec
+R9634:9642 ThieleMachine.BlindSighted <> partition proj
+R9634:9642 ThieleMachine.BlindSighted <> partition proj
+R9634:9642 ThieleMachine.BlindSighted <> partition proj
+R9843:9848 ThieleMachine.BlindSighted <> ledger proj
+R9843:9848 ThieleMachine.BlindSighted <> ledger proj
+R9870:9875 ThieleMachine.BlindSighted <> halted proj
+R9870:9875 ThieleMachine.BlindSighted <> halted proj
+R9897:9902 ThieleMachine.BlindSighted <> answer proj
+R9897:9902 ThieleMachine.BlindSighted <> answer proj
+R9650:9656 ThieleMachine.BlindSighted <> modules proj
+R9650:9656 ThieleMachine.BlindSighted <> modules proj
+R9650:9656 ThieleMachine.BlindSighted <> modules proj
+R9799:9805 ThieleMachine.BlindSighted <> next_id proj
+R9799:9805 ThieleMachine.BlindSighted <> next_id proj
+R9661:9663 Coq.Lists.List <> map def
+R9768:9774 ThieleMachine.BlindSighted <> modules proj
+R9756:9764 ThieleMachine.BlindSighted <> partition proj
+R9753:9753 ThieleMachineVerification.Symmetry <> s:54 var
+R9671:9671 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9674:9675 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9677:9677 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 9676:9676 <> r:55
+binder 9672:9673 <> id:56
+binder 9671:9677 <> pat:57
+R9682:9682 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9685:9686 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9713:9713 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9683:9684 ThieleMachineVerification.Symmetry <> id:56 var
+R9687:9703 ThieleMachineVerification.Symmetry <> spatial_translate def
+R9705:9710 ThieleMachineVerification.Symmetry <> offset:53 var
+R9712:9712 ThieleMachineVerification.Symmetry <> r:55 var
+R9825:9831 ThieleMachine.BlindSighted <> next_id proj
+R9813:9821 ThieleMachine.BlindSighted <> partition proj
+R9810:9810 ThieleMachineVerification.Symmetry <> s:54 var
+R9856:9861 ThieleMachine.BlindSighted <> ledger proj
+R9853:9853 ThieleMachineVerification.Symmetry <> s:54 var
+R9883:9888 ThieleMachine.BlindSighted <> halted proj
+R9880:9880 ThieleMachineVerification.Symmetry <> s:54 var
+R9910:9915 ThieleMachine.BlindSighted <> answer proj
+R9907:9907 ThieleMachineVerification.Symmetry <> s:54 var
+prf 9988:10020 <> spatial_translation_preserves_obs
+binder 10031:10031 <> s:58
+binder 10033:10038 <> offset:59
+R10043:10051 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R10053:10053 ThieleMachineVerification.Symmetry <> s:58 var
+R10056:10078 ThieleMachineVerification.Symmetry <> spatial_translate_state def
+R10080:10085 ThieleMachineVerification.Symmetry <> offset:59 var
+R10087:10087 ThieleMachineVerification.Symmetry <> s:58 var
+R10126:10134 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R10137:10149 ThieleMachineVerification.ObservationInterface <> observe_state def
+R10152:10174 ThieleMachineVerification.Symmetry <> spatial_translate_state def
+R10186:10204 ThieleMachineVerification.ObservationInterface <> partition_signature def
+R10255:10274 ThieleMachine.BlindSighted <> modules proj
+R10277:10298 ThieleMachine.BlindSighted <> partition proj
+R10255:10274 ThieleMachine.BlindSighted <> modules proj
+R10277:10298 ThieleMachine.BlindSighted <> partition proj
+R10368:10384 ThieleMachineVerification.Symmetry <> spatial_translate def
+R10395:10404 Coq.Lists.List <> map_length thm
+R10395:10404 Coq.Lists.List <> map_length thm
+R10395:10404 Coq.Lists.List <> map_length thm
+def 11015:11028 <> SpacetimeCoord
+R11035:11037 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R11034:11034 Coq.Numbers.BinNums <> Z ind
+R11038:11038 Coq.Numbers.BinNums <> Z ind
+def 11178:11191 <> velocity_valid
+R11198:11198 Coq.Numbers.BinNums <> Z ind
+binder 11194:11194 <> v:60
+R11203:11206 Coq.Init.Datatypes <> bool ind
+R11213:11216 Coq.Init.Datatypes <> andb def
+R11236:11240 Coq.ZArith.BinInt Z leb def
+R11242:11242 ThieleMachineVerification.Symmetry <> v:60 var
+R11219:11223 Coq.ZArith.BinInt Z leb def
+R11232:11232 ThieleMachineVerification.Symmetry <> v:60 var
+def 11448:11466 <> lorentz_boost_coord
+R11473:11473 Coq.Numbers.BinNums <> Z ind
+binder 11469:11469 <> v:61
+R11485:11498 ThieleMachineVerification.Symmetry <> SpacetimeCoord def
+binder 11477:11481 <> coord:62
+R11503:11516 ThieleMachineVerification.Symmetry <> SpacetimeCoord def
+R11538:11542 ThieleMachineVerification.Symmetry <> coord:62 var
+R11528:11528 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11530:11531 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11533:11533 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11552:11565 ThieleMachineVerification.Symmetry <> velocity_valid def
+R11567:11567 ThieleMachineVerification.Symmetry <> v:61 var
+R11897:11897 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11899:11900 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11902:11902 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11647:11647 Coq.ZArith.BinInt <> ::Z_scope:x_'/'_x not
+R11653:11656 Coq.ZArith.BinInt <> ::Z_scope:x_'/'_x not
+R11649:11651 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R11648:11648 ThieleMachineVerification.Symmetry <> v:61 var
+R11652:11652 ThieleMachineVerification.Symmetry <> v:61 var
+binder 11641:11642 <> v2:64
+binder 11672:11680 <> gamma_num:65
+R11713:11717 Coq.ZArith.BinInt Z max def
+R11725:11727 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R11728:11729 ThieleMachineVerification.Symmetry <> v2:64 var
+binder 11700:11708 <> gamma_den:66
+R11749:11749 Coq.ZArith.BinInt <> ::Z_scope:x_'/'_x not
+R11779:11783 Coq.ZArith.BinInt <> ::Z_scope:x_'/'_x not
+R11799:11799 Coq.ZArith.BinInt <> ::Z_scope:x_'/'_x not
+R11759:11762 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R11778:11778 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R11750:11758 ThieleMachineVerification.Symmetry <> gamma_num:65 var
+R11770:11772 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R11766:11768 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R11774:11776 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R11773:11773 ThieleMachineVerification.Symmetry <> v:61 var
+R11787:11789 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R11790:11798 ThieleMachineVerification.Symmetry <> gamma_den:66 var
+binder 11743:11744 <> t':67
+R11818:11818 Coq.ZArith.BinInt <> ::Z_scope:x_'/'_x not
+R11848:11852 Coq.ZArith.BinInt <> ::Z_scope:x_'/'_x not
+R11868:11868 Coq.ZArith.BinInt <> ::Z_scope:x_'/'_x not
+R11828:11831 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R11847:11847 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R11819:11827 ThieleMachineVerification.Symmetry <> gamma_num:65 var
+R11839:11841 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R11835:11837 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R11843:11845 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R11842:11842 ThieleMachineVerification.Symmetry <> v:61 var
+R11856:11858 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R11859:11867 ThieleMachineVerification.Symmetry <> gamma_den:66 var
+binder 11812:11813 <> x':68
+R11877:11877 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11880:11881 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11884:11884 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11878:11879 ThieleMachineVerification.Symmetry <> t':67 var
+R11882:11883 ThieleMachineVerification.Symmetry <> x':68 var
+def 12183:12195 <> lorentz_boost
+R12202:12202 Coq.Numbers.BinNums <> Z ind
+binder 12198:12198 <> v:69
+R12210:12220 ThieleMachine.BlindSighted <> ThieleState rec
+binder 12206:12206 <> s:70
+R12225:12235 ThieleMachine.BlindSighted <> ThieleState rec
+R12245:12253 ThieleMachine.BlindSighted <> partition proj
+R12245:12253 ThieleMachine.BlindSighted <> partition proj
+R12245:12253 ThieleMachine.BlindSighted <> partition proj
+R12314:12319 ThieleMachine.BlindSighted <> ledger proj
+R12314:12319 ThieleMachine.BlindSighted <> ledger proj
+R12371:12376 ThieleMachine.BlindSighted <> halted proj
+R12371:12376 ThieleMachine.BlindSighted <> halted proj
+R12398:12403 ThieleMachine.BlindSighted <> answer proj
+R12398:12403 ThieleMachine.BlindSighted <> answer proj
+R12261:12269 ThieleMachine.BlindSighted <> partition proj
+R12258:12258 ThieleMachineVerification.Symmetry <> s:70 var
+R12327:12332 ThieleMachine.BlindSighted <> ledger proj
+R12324:12324 ThieleMachineVerification.Symmetry <> s:70 var
+R12384:12389 ThieleMachine.BlindSighted <> halted proj
+R12381:12381 ThieleMachineVerification.Symmetry <> s:70 var
+R12411:12416 ThieleMachine.BlindSighted <> answer proj
+R12408:12408 ThieleMachineVerification.Symmetry <> s:70 var
+prf 12514:12534 <> lorentz_preserves_obs
+binder 12545:12545 <> s:71
+binder 12547:12547 <> v:72
+R12552:12560 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R12562:12562 ThieleMachineVerification.Symmetry <> s:71 var
+R12565:12577 ThieleMachineVerification.Symmetry <> lorentz_boost def
+R12579:12579 ThieleMachineVerification.Symmetry <> v:72 var
+R12581:12581 ThieleMachineVerification.Symmetry <> s:71 var
+R12615:12623 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R12626:12638 ThieleMachineVerification.ObservationInterface <> observe_state def
+R12641:12653 ThieleMachineVerification.Symmetry <> lorentz_boost def
+prf 12764:12791 <> lorentz_preserves_obs_length
+binder 12802:12802 <> s:73
+binder 12804:12804 <> v:74
+R12832:12837 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12825:12827 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12809:12822 ThieleMachineVerification.Symmetry <> velocity_valid def
+R12824:12824 ThieleMachineVerification.Symmetry <> v:74 var
+R12828:12831 Coq.Init.Datatypes <> true constr
+R12880:12885 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12838:12843 Coq.Init.Datatypes <> length def
+R12846:12864 ThieleMachineVerification.ObservationInterface <> partition_signature def
+R12869:12877 ThieleMachine.BlindSighted <> partition proj
+R12866:12866 ThieleMachineVerification.Symmetry <> s:73 var
+R12886:12891 Coq.Init.Datatypes <> length def
+R12894:12912 ThieleMachineVerification.ObservationInterface <> partition_signature def
+R12935:12943 ThieleMachine.BlindSighted <> partition proj
+R12915:12927 ThieleMachineVerification.Symmetry <> lorentz_boost def
+R12929:12929 ThieleMachineVerification.Symmetry <> v:74 var
+R12931:12931 ThieleMachineVerification.Symmetry <> s:73 var
+R12980:12992 ThieleMachineVerification.Symmetry <> lorentz_boost def
+prf 13115:13145 <> lorentz_preserves_admissibility
+binder 13156:13156 <> s:75
+binder 13158:13161 <> prog:76
+binder 13163:13163 <> v:77
+R13191:13196 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13168:13183 ThieleMachineVerification.Admissibility <> trace_admissible def
+R13185:13185 ThieleMachineVerification.Symmetry <> s:75 var
+R13187:13190 ThieleMachineVerification.Symmetry <> prog:76 var
+R13197:13212 ThieleMachineVerification.Admissibility <> trace_admissible def
+R13215:13227 ThieleMachineVerification.Symmetry <> lorentz_boost def
+R13229:13229 ThieleMachineVerification.Symmetry <> v:77 var
+R13231:13231 ThieleMachineVerification.Symmetry <> s:75 var
+R13234:13237 ThieleMachineVerification.Symmetry <> prog:76 var
+R13280:13292 ThieleMachineVerification.Symmetry <> lorentz_boost def
+prf 13566:13585 <> symmetry_composition
+binder 13596:13596 <> s:78
+binder 13598:13599 <> k1:79
+binder 13601:13602 <> k2:80
+R13640:13645 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13607:13615 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R13617:13617 ThieleMachineVerification.Symmetry <> s:78 var
+R13620:13633 ThieleMachineVerification.Symmetry <> mu_gauge_shift def
+R13635:13636 ThieleMachineVerification.Symmetry <> k1:79 var
+R13638:13638 ThieleMachineVerification.Symmetry <> s:78 var
+R13646:13654 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R13656:13656 ThieleMachineVerification.Symmetry <> s:78 var
+R13659:13672 ThieleMachineVerification.Symmetry <> mu_gauge_shift def
+R13677:13679 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R13675:13676 ThieleMachineVerification.Symmetry <> k1:79 var
+R13680:13681 ThieleMachineVerification.Symmetry <> k2:80 var
+R13684:13684 ThieleMachineVerification.Symmetry <> s:78 var
+R13723:13744 ThieleMachineVerification.Symmetry <> mu_gauge_preserves_obs thm
+R13723:13744 ThieleMachineVerification.Symmetry <> mu_gauge_preserves_obs thm
+prf 13791:13807 <> symmetry_identity
+binder 13818:13818 <> s:81
+R13823:13831 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R13833:13833 ThieleMachineVerification.Symmetry <> s:81 var
+R13836:13849 ThieleMachineVerification.Symmetry <> mu_gauge_shift def
+R13853:13853 ThieleMachineVerification.Symmetry <> s:81 var
+R13884:13905 ThieleMachineVerification.Symmetry <> mu_gauge_preserves_obs thm
+R13884:13905 ThieleMachineVerification.Symmetry <> mu_gauge_preserves_obs thm
+prf 13944:13959 <> symmetry_inverse
+binder 13970:13970 <> s:82
+binder 13972:13972 <> k:83
+R13977:13985 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R13988:14001 ThieleMachineVerification.Symmetry <> mu_gauge_shift def
+R14003:14003 ThieleMachineVerification.Symmetry <> k:83 var
+R14006:14019 ThieleMachineVerification.Symmetry <> mu_gauge_shift def
+R14022:14022 Coq.ZArith.BinInt <> ::Z_scope:'-'_x not
+R14023:14023 ThieleMachineVerification.Symmetry <> k:83 var
+R14026:14026 ThieleMachineVerification.Symmetry <> s:82 var
+R14030:14030 ThieleMachineVerification.Symmetry <> s:82 var
+R14063:14076 ThieleMachineVerification.Symmetry <> mu_gauge_shift def
+R14079:14087 ThieleMachineVerification.ObservationInterface <> obs_equiv def
+R14090:14102 ThieleMachineVerification.ObservationInterface <> observe_state def

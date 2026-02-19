@@ -69,10 +69,10 @@ def shannon_entropy_component(before_hypotheses: int, after_hypotheses: int) -> 
     """Return the pure Shannon information gain component in bits.
 
     Interpretation: under the uniform hypothesis-set model, the Shannon entropy
-    of a hypothesis set of size ``n`` is $H = \log_2(n)$ (in bits). Therefore
+    of a hypothesis set of size ``n`` is $H = \\log_2(n)$ (in bits). Therefore
     reducing a set from ``before`` to ``after`` costs
 
-    $\Delta H = \log_2(\tfrac{\text{before}}{\text{after}})$.
+    $\\Delta H = \\log_2(\\tfrac{\\text{before}}{\\text{after}})$.
 
     This is exactly the ``information_gain_bits`` component.
 
