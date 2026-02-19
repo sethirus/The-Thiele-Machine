@@ -27,6 +27,7 @@ Definition trial_of_nat_params (x y a b : nat) : option Trial :=
             t_b := bit_of_nat01 b |}
   else None.
 
+(** [is_bit_nat_true_cases]: formal specification. *)
 Lemma is_bit_nat_true_cases :
   forall n, is_bit_nat n = true -> n = 0 \/ n = 1.
 Proof.
@@ -40,6 +41,7 @@ Proof.
       discriminate.
 Qed.
 
+(** [andb4_true]: formal specification. *)
 Lemma andb4_true :
   forall b1 b2 b3 b4,
     (b1 && b2 && b3 && b4)%bool = true ->
@@ -49,6 +51,7 @@ Proof.
   destruct b1, b2, b3, b4; simpl in H; try discriminate; repeat split; reflexivity.
 Qed.
 
+(** [trial_of_metadata_cert_for_chsh_trial]: formal specification. *)
 Lemma trial_of_metadata_cert_for_chsh_trial :
   forall x y a b,
     is_bit_nat x = true ->
@@ -73,6 +76,7 @@ Proof.
   subst; vm_compute; reflexivity.
 Qed.
 
+(** [trial_of_metadata_concrete_step]: formal specification. *)
 Lemma trial_of_metadata_concrete_step :
   forall instr s,
     trial_of_metadata ((concrete_step instr s).(observation).(cert).(metadata)) =
@@ -130,6 +134,7 @@ Fixpoint trials_of_prog (prog : list ThieleInstr) : list Trial :=
       end
   end.
 
+(** [trials_of_concrete_receipts_of]: formal specification. *)
 Theorem trials_of_concrete_receipts_of :
   forall s prog,
     trials_of_concrete_receipts (concrete_receipts_of s prog) =
@@ -152,6 +157,7 @@ Proof.
   - (* EMIT *) apply IH.
 Qed.
 
+(** [trials_from_concrete_receipts_are_sound]: formal specification. *)
 Theorem trials_from_concrete_receipts_are_sound :
   forall instr s t,
     trial_of_metadata ((concrete_step instr s).(observation).(cert).(metadata)) = Some t ->

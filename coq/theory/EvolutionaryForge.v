@@ -108,6 +108,7 @@ Definition produces_valid_partition (s : Strategy) (g : Graph) (p : Partition) :
 Definition performance (s : Strategy) (_g : Graph) (n : nat) : Prop :=
   n = 100.
 
+(** [performance_deterministic]: formal specification. *)
 Lemma performance_deterministic : forall s g n1 n2,
   performance s g n1 -> performance s g n2 -> n1 = n2.
 Proof.
@@ -132,6 +133,7 @@ Definition optimal_quartet : list Strategy :=
   [louvain_strategy; spectral_strategy; degree_strategy; balanced_strategy].
 
 (* All strategies in optimal quartet are viable *)
+(** [optimal_quartet_viable]: formal specification. *)
 Theorem optimal_quartet_viable : 
   forall s, In s optimal_quartet -> is_viable s.
 Proof.
@@ -147,6 +149,7 @@ Qed.
    ============================================================================ *)
 
 (* Crossover preserves viability under certain conditions *)
+(** [crossover_preserves_viability]: formal specification. *)
 Theorem crossover_preserves_viability :
   forall s1 s2 cut,
   is_viable s1 -> is_viable s2 ->
@@ -179,6 +182,7 @@ Proof.
 Qed.
 
 (* Mutation preserves viability *)
+(** [mutation_preserves_viability]: formal specification. *)
 Theorem mutation_preserves_viability :
   forall s pos new_prim,
   is_viable s ->
@@ -191,6 +195,7 @@ Proof.
 Qed.
 
 (* Evolved strategies can match or exceed parent performance *)
+(** [evolution_can_improve]: formal specification. *)
 Lemma evolution_can_improve : forall parent child g,
   is_viable parent ->
   is_viable child ->
@@ -205,6 +210,7 @@ Proof.
 Qed.
 
 (* Empirical evidence: midpoint crossover achieves ≥90% accuracy. *)
+(** [crossover_midpoint_empirical_success]: formal specification. *)
 Lemma crossover_midpoint_empirical_success :
   forall parent1 parent2,
     In parent1 optimal_quartet ->
@@ -219,6 +225,7 @@ Proof.
 Qed.
 
 (* The evolutionary process terminates (finds viable offspring) *)
+(** [evolution_terminates]: formal specification. *)
 Theorem evolution_terminates :
   forall s1 s2,
   is_viable s1 -> is_viable s2 ->
@@ -249,6 +256,7 @@ Proof.
 Qed.
 
 (* Key theorem: Evolved strategies inherit properties from parents *)
+(** [evolved_inherits_properties]: formal specification. *)
 Theorem evolved_inherits_properties :
   forall s1 s2 cut,
   is_viable s1 -> is_viable s2 ->
@@ -277,6 +285,7 @@ Qed.
    ============================================================================ *)
 
 (* The ultimate theorem: The Forge creates viable, potentially superior strategies *)
+(** [empyrean_theorem]: formal specification. *)
 Theorem empyrean_theorem :
   forall parent1 parent2 : Strategy,
   In parent1 optimal_quartet ->
@@ -303,6 +312,7 @@ Qed.
 
 (* The evolutionary loop is perpetual - there is always a next generation *)
 (* DEFINITIONAL — case analysis: empty uses optimal_quartet, non-empty uses crossover *)
+(** [perpetual_evolution]: formal specification. *)
 Theorem perpetual_evolution :
   forall generation : list Strategy,
   (forall s, In s generation -> is_viable s) ->
@@ -369,6 +379,7 @@ Qed.
 
 (* The machine achieves self-evolution: it creates better versions of itself *)
 (* Empirical assumption: the evolutionary process can be extended indefinitely. *)
+(** [empirical_evolution_process]: formal specification. *)
 Lemma empirical_evolution_process :
   exists evolution_process : nat -> list Strategy,
     evolution_process 0 = optimal_quartet /\
@@ -387,6 +398,7 @@ Proof.
     unfold optimal_quartet. simpl. lia.
 Qed.
 
+(** [machine_achieves_self_evolution]: formal specification. *)
 Theorem machine_achieves_self_evolution :
   exists evolution_process : nat -> list Strategy,
     evolution_process 0 = optimal_quartet /\

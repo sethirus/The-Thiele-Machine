@@ -19,6 +19,7 @@ Definition head_to_head_gap_positive (summary : HeadToHeadSummary) : Prop :=
 Definition head_to_head_sighted_better (summary : HeadToHeadSummary) : Prop :=
   hh_sighted_mu summary < hh_blind_mu summary.
 
+(** [Qlt_plus_pos]: formal specification. *)
 Lemma Qlt_plus_pos :
   forall a b : Q,
     0#1 < b ->
@@ -28,6 +29,7 @@ Proof.
   unfold Qlt in *; simpl in *; lia.
 Qed.
 
+(** [head_to_head_gap_cancel]: formal specification. *)
 Lemma head_to_head_gap_cancel :
   forall summary,
     hh_sighted_mu summary + (hh_blind_mu summary - hh_sighted_mu summary)
@@ -43,6 +45,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [head_to_head_gap_implies_better]: formal specification. *)
 Lemma head_to_head_gap_implies_better :
   forall summary,
     head_to_head_consistent summary ->

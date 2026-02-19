@@ -52,6 +52,7 @@ Definition program : list nat :=
    without re-running a large reduction. *)
 Definition program_len : nat := Eval vm_compute in List.length program.
 
+(** [program_length_eq]: formal specification. *)
 Lemma program_length_eq : List.length program = program_len.
 Proof. reflexivity. Qed.
 
@@ -74,6 +75,7 @@ Fixpoint run_n (s : CPU.State) (n : nat) : CPU.State :=
   | S n' => run_n (run1 s) n'
   end.
 
+(** [list_eqb_refl]: formal specification. *)
 Lemma list_eqb_refl {A} (eqb : A -> A -> bool) (eqb_refl : forall x, eqb x x = true) :
   forall l, list_eqb eqb l l = true.
 Proof.
@@ -85,6 +87,7 @@ Definition state_eqb (s1 s2 : CPU.State) : bool :=
     && list_eqb Nat.eqb s1.(CPU.regs) s2.(CPU.regs)
     && list_eqb Nat.eqb s1.(CPU.mem) s2.(CPU.mem).
 
+(** [state_eqb_refl]: formal specification. *)
 Lemma state_eqb_refl : forall s, state_eqb s s = true.
 Proof.
   intro s. destruct s as [r m c].
@@ -96,6 +99,7 @@ Proof.
   - apply list_eqb_refl. intros x. apply Nat.eqb_refl.
 Qed.
 
+(** [state_eqb_true_iff]: formal specification. *)
 Lemma state_eqb_true_iff : forall s1 s2, state_eqb s1 s2 = true <-> s1 = s2.
 Proof.
   intros s1 s2; split; intro H.
@@ -114,6 +118,7 @@ Proof.
 Definition check_transition (start_state end_state : CPU.State) (steps : nat) : bool :=
   state_eqb (run_n start_state steps) end_state.
 
+(** [check_transition_sound]: formal specification. *)
 Lemma check_transition_sound : forall s1 s2 n,
   check_transition s1 s2 n = true -> run_n s1 n = s2.
 Proof.
@@ -144,6 +149,7 @@ Ltac step_symbolic :=
 Definition set_nth {A : Type} (l : list A) (n : nat) (v : A) : list A :=
   firstn n l ++ [v] ++ skipn (S n) l.
 
+(** [nth_set_nth_same]: formal specification. *)
 Lemma nth_set_nth_same : forall {A} (l : list A) n v d,
   n < length l ->
   nth n (set_nth l n v) d = v.
@@ -158,6 +164,7 @@ Proof.
     lia.
 Qed.
 
+(** [nth_set_nth_diff]: formal specification. *)
 Lemma nth_set_nth_diff : forall {A} (l : list A) n m v d,
   n <> m ->
   n < length l ->
@@ -195,10 +202,12 @@ Qed.
 Definition pad_to (n : nat) (l : list nat) : list nat :=
   l ++ repeat 0 (n - length l).
 
+(** [pad_to_expand]: formal specification. *)
 Lemma pad_to_expand : forall n l,
   pad_to n l = l ++ repeat 0 (n - length l).
 Proof. reflexivity. Qed.
 
+(** [length_pad_to_ge]: formal specification. *)
 Lemma length_pad_to_ge : forall l n,
   length l <= n -> length (pad_to n l) = n.
 Proof.
@@ -208,6 +217,7 @@ Proof.
   lia.
 Qed.
 
+(** [length_pad_to_ge_base]: formal specification. *)
 Lemma length_pad_to_ge_base : forall l n,
   length (pad_to n l) >= length l.
 Proof.
@@ -217,6 +227,7 @@ Proof.
   lia.
 Qed.
 
+(** [length_pad_to_ge_n]: formal specification. *)
 Lemma length_pad_to_ge_n : forall l n,
   n <= length (pad_to n l).
 Proof.
@@ -235,6 +246,7 @@ Proof.
     lia.
 Qed.
 
+(** [nth_app_lt]: formal specification. *)
 Lemma nth_app_lt : forall {A} (l1 l2 : list A) n d,
   n < length l1 -> nth n (l1 ++ l2) d = nth n l1 d.
 Proof.
@@ -244,6 +256,7 @@ Proof.
   apply IH. lia.
 Qed.
 
+(** [firstn_pad_to]: formal specification. *)
 Lemma firstn_pad_to : forall l n,
   length l <= n -> firstn (length l) (pad_to n l) = l.
 Proof.
@@ -257,6 +270,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [firstn_app_le']: formal specification. *)
 Lemma firstn_app_le' : forall {A} n (l1 l2 : list A),
   n <= length l1 -> firstn n (l1 ++ l2) = firstn n l1.
 Proof.
@@ -268,6 +282,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [skipn_app_le']: formal specification. *)
 Lemma skipn_app_le' : forall {A} n (l1 l2 : list A),
   n <= length l1 -> skipn n (l1 ++ l2) = skipn n l1 ++ l2.
 Proof.
@@ -278,6 +293,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [firstn_pad_to_le]: formal specification. *)
 Lemma firstn_pad_to_le : forall l n k,
   k <= length l -> firstn k (pad_to n l) = firstn k l.
 Proof.
@@ -287,6 +303,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [firstn_pad_to_app_le]: formal specification. *)
 Lemma firstn_pad_to_app_le : forall l n rest k,
   k <= length l -> firstn k (pad_to n l ++ rest) = firstn k l.
 Proof.
@@ -297,6 +314,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [skipn_pad_to_app]: formal specification. *)
 Lemma skipn_pad_to_app : forall l n rest,
   length l <= n -> skipn n (pad_to n l ++ rest) = rest.
 Proof.
@@ -311,6 +329,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [firstn_program_prefix]: formal specification. *)
 Lemma firstn_program_prefix :
   length program <= UTM_Program.RULES_START_ADDR ->
   forall rules,
@@ -344,6 +363,7 @@ Proof.
   exact Hfirstn_prog.
 Qed.
 
+(** [firstn_skipn_pad_to_app]: formal specification. *)
 Lemma firstn_skipn_pad_to_app : forall l n rest,
   length l <= n -> firstn (length rest) (skipn n (pad_to n l ++ rest)) = rest.
 Proof.
@@ -352,6 +372,7 @@ Proof.
   apply firstn_all.
 Qed.
 
+(** [skipn_pad_to_split]: formal specification. *)
 Lemma skipn_pad_to_split : forall l n k,
   k <= length l ->
   skipn k (pad_to n l) = skipn k l ++ repeat 0 (n - length l).
@@ -362,6 +383,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [firstn_rules_window]: formal specification. *)
 Lemma firstn_rules_window :
   length program <= UTM_Program.RULES_START_ADDR ->
   forall rules,
@@ -397,6 +419,7 @@ Proof.
   apply firstn_all.
 Qed.
 
+(** [firstn_skipn_app_exact]: formal specification. *)
 Lemma firstn_skipn_app_exact : forall {A} (pref rest : list A) n,
   length pref = n ->
   firstn (length rest) (skipn n (pref ++ rest)) = rest.
@@ -412,6 +435,7 @@ Proof.
 Qed.
 
 (* Padding preserves existing elements below the original length. *)
+(** [nth_pad_to_lt]: formal specification. *)
 Lemma nth_pad_to_lt : forall (l : list nat) n d k,
   n < length l ->
   nth n (pad_to k l) d = nth n l d.
@@ -466,6 +490,7 @@ Ltac calc_bounds :=
 (* The concrete program lives at the front of memory; when the PC stays within
    the program bounds we can read directly from the static [program] list and
    ignore the symbolic rules/tape suffix. *)
+(** [program_memory_lookup]: formal specification. *)
 Lemma program_memory_lookup : forall tm conf n,
   n < length program ->
   nth n (CPU.mem (setup_state tm conf)) 0 = nth n program 0.
@@ -504,6 +529,7 @@ Qed.
    fact to read directly from [program] without re-running the padding
    expansions.  This lets later steps avoid reopening [setup_state]. *)
 
+(** [decode_program_at_pc]: formal specification. *)
 Lemma decode_program_at_pc : forall tm conf pc,
   4 * pc + 3 < length program ->
   UTM_Encode.decode_instr_from_mem (CPU.mem (setup_state tm conf)) (4 * pc) =
@@ -519,6 +545,7 @@ Qed.
 (* Basic lemmas about setup_state                                    *)
 (* ----------------------------------------------------------------- *)
 
+(** [length_set_nth]: formal specification. *)
 Lemma length_set_nth : forall {A : Type} (l : list A) n v,
   n < length l ->
   length (set_nth l n v) = length l.
@@ -532,6 +559,7 @@ Proof.
   lia.
 Qed.
 
+(** [setup_state_regs_length]: formal specification. *)
 Lemma setup_state_regs_length :
   forall tm conf, length (CPU.regs (setup_state tm conf)) = 10.
 Proof.
@@ -552,6 +580,7 @@ Definition inv_min (st : CPU.State) (tm : TM) (conf : TMConfig) : Prop :=
   CPU.read_reg CPU.REG_Q st = q /\
   CPU.read_reg CPU.REG_HEAD st = head.
 
+(** [inv_min_setup_state]: formal specification. *)
 Lemma inv_min_setup_state : forall tm conf,
   inv_min (setup_state tm conf) tm conf.
 Proof.
@@ -567,6 +596,7 @@ Definition IS_FindRule_Start (pc : nat) : Prop := pc = 3.
 Definition tape_window_ok (st : CPU.State) (tape : list nat) : Prop :=
   firstn (length tape) (skipn UTM_Program.TAPE_START_ADDR st.(CPU.mem)) = tape.
 
+(** [tape_window_ok_intro]: formal specification. *)
 Lemma tape_window_ok_intro : forall st tape,
   firstn (length tape) (skipn UTM_Program.TAPE_START_ADDR st.(CPU.mem)) = tape ->
   tape_window_ok st tape.
@@ -580,6 +610,7 @@ Qed.
 (* Memory layout helper lemmas for setup_state                       *)
 (* ----------------------------------------------------------------- *)
 
+(** [setup_state_mem_structure]: formal specification. *)
 Lemma setup_state_mem_structure : forall tm conf,
   length program <= UTM_Program.RULES_START_ADDR ->
   length (UTM_Encode.encode_rules tm.(tm_rules))
@@ -602,6 +633,7 @@ Qed.
 (* Make this lemma transparent/computable for rewriting *)
 #[global] Hint Rewrite setup_state_mem_structure using (lia) : setup_state_db.
 
+(** [setup_state_tape_region]: formal specification. *)
 Lemma setup_state_tape_region : forall tm conf,
   length program <= UTM_Program.RULES_START_ADDR ->
   length (UTM_Encode.encode_rules tm.(tm_rules))
@@ -624,6 +656,7 @@ Proof.
   apply skipn_O.
 Qed.
 
+(** [tape_window_ok_setup_state]: formal specification. *)
 Lemma tape_window_ok_setup_state : forall tm q tape head,
   length program <= UTM_Program.RULES_START_ADDR ->
   length (UTM_Encode.encode_rules tm.(tm_rules))
@@ -643,6 +676,7 @@ Qed.
 
 (* Helper lemmas for setup_state register access *)
 
+(** [setup_state_reg_q]: formal specification. *)
 Lemma setup_state_reg_q : forall tm q tape head,
   CPU.read_reg CPU.REG_Q (setup_state tm ((q, tape), head)) = q.
 Proof.
@@ -650,6 +684,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [setup_state_reg_head]: formal specification. *)
 Lemma setup_state_reg_head : forall tm q tape head,
   CPU.read_reg CPU.REG_HEAD (setup_state tm ((q, tape), head)) = head.
 Proof.
@@ -657,6 +692,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [setup_state_reg_pc]: formal specification. *)
 Lemma setup_state_reg_pc : forall tm q tape head,
   CPU.read_reg CPU.REG_PC (setup_state tm ((q, tape), head)) = 0.
 Proof.
@@ -664,6 +700,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [setup_state_reg_temp1]: formal specification. *)
 Lemma setup_state_reg_temp1 : forall tm q tape head,
   CPU.read_reg CPU.REG_TEMP1 (setup_state tm ((q, tape), head)) = UTM_Program.TAPE_START_ADDR.
 Proof.
@@ -671,6 +708,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [setup_state_reg_addr]: formal specification. *)
 Lemma setup_state_reg_addr : forall tm q tape head,
   CPU.read_reg CPU.REG_ADDR (setup_state tm ((q, tape), head)) = UTM_Program.TAPE_START_ADDR + head.
 Proof.
@@ -709,6 +747,7 @@ Ltac bunker_buster_setup_state_program_prefix :=
            UTM_Program.TAPE_START_ADDR) as Hge;
       lia ].
 
+(** [setup_state_program_prefix]: formal specification. *)
 Lemma setup_state_program_prefix : forall tm q tape head,
   length program <= UTM_Program.RULES_START_ADDR ->
   length (UTM_Encode.encode_rules tm.(tm_rules))
@@ -718,6 +757,7 @@ Proof.
   bunker_buster_setup_state_program_prefix.
 Qed.
 
+(** [setup_state_rules_window]: formal specification. *)
 Lemma setup_state_rules_window : forall tm q tape head,
   length program <= UTM_Program.RULES_START_ADDR ->
   length (UTM_Encode.encode_rules tm.(tm_rules))
@@ -788,6 +828,7 @@ Definition inv_full (st : CPU.State) (tm : TM) (conf : TMConfig) : Prop :=
   CPU.read_reg CPU.REG_TEMP1 st = UTM_Program.TAPE_START_ADDR /\
   CPU.read_reg CPU.REG_ADDR st = UTM_Program.TAPE_START_ADDR + head.
 
+(** [inv_full_setup_state]: formal specification. *)
 Lemma inv_full_setup_state : forall tm conf,
   length program <= UTM_Program.RULES_START_ADDR ->
   length (UTM_Encode.encode_rules tm.(tm_rules))
@@ -875,6 +916,7 @@ Qed.
 (* Helper lemmas                                                      *)
 (* ----------------------------------------------------------------- *)
 
+(** [nth_add_skipn]: formal specification. *)
 Lemma nth_add_skipn : forall {A} n m (l : list A) d,
   nth n (skipn m l) d = nth (m + n) l d.
 Proof.
@@ -887,6 +929,7 @@ Proof.
     + simpl. apply IH.
 Qed.
 
+(** [nth_firstn_lt]: formal specification. *)
 Lemma nth_firstn_lt : forall {A} n m (l : list A) d,
   n < m -> nth n (firstn m l) d = nth n l d.
 Proof.
@@ -906,6 +949,7 @@ Qed.
 (* ----------------------------------------------------------------- *)
 
 (* Step composition lemmas *)
+(** [run_n_add]: formal specification. *)
 Lemma run_n_add : forall cpu m n,
   run_n cpu (m + n) = run_n (run_n cpu m) n.
 Proof.
@@ -916,6 +960,7 @@ Proof.
   - simpl. rewrite IH. reflexivity.
 Qed.
 
+(** [run_n_S]: formal specification. *)
 Lemma run_n_S : forall cpu n,
   run_n cpu (S n) = run_n (run1 cpu) n.
 Proof.
@@ -923,12 +968,14 @@ Proof.
   simpl. reflexivity.
 Qed.
 
+(** [run_n_0]: formal specification. *)
 Lemma run_n_0 : forall cpu,
   run_n cpu 0 = cpu.
 Proof.
   intros cpu. reflexivity.
 Qed.
 
+(** [run_n_1]: formal specification. *)
 Lemma run_n_1 : forall cpu,
   run_n cpu 1 = run1 cpu.
 Proof.
@@ -947,6 +994,7 @@ Qed.
 #[global] Opaque pad_to.
 
 (* Rewrite run_n in terms of iterations *)
+(** [run_n_unfold_3]: formal specification. *)
 Lemma run_n_unfold_3 : forall cpu,
   run_n cpu 3 = run1 (run1 (run1 cpu)).
 Proof.
@@ -955,6 +1003,7 @@ Proof.
 Qed.
 
 (* Memory and register helpers *)
+(** [read_reg_bounds]: formal specification. *)
 Lemma read_reg_bounds : forall cpu r,
   r < 10 ->
   exists v, CPU.read_reg r cpu = v.
@@ -965,6 +1014,7 @@ Proof.
 Qed.
 
 (* Key lemma: reading from the register you just wrote gives the value *)
+(** [read_reg_write_reg_same]: formal specification. *)
 Lemma read_reg_write_reg_same : forall r v st,
   r < length st.(CPU.regs) ->
   CPU.read_reg r (CPU.write_reg r v st) = v.
@@ -984,6 +1034,7 @@ Proof.
 Qed.
 
 (* Reading a different register after write *)
+(** [read_reg_write_reg_diff]: formal specification. *)
 Lemma read_reg_write_reg_diff : forall r1 r2 v st,
   r1 <> r2 ->
   r1 < length st.(CPU.regs) ->
@@ -1023,6 +1074,7 @@ Proof.
 Qed.
 
 (*Writing to a register never shrinks the register file. *)
+(** [length_write_reg_ge]: formal specification. *)
 Lemma length_write_reg_ge : forall r v st,
   length (CPU.write_reg r v st).(CPU.regs) >= length st.(CPU.regs).
 Proof.
@@ -1041,6 +1093,7 @@ Proof.
 Qed.
 
 (* Stepping cannot shorten the register file. *)
+(** [length_step_ge]: formal specification. *)
 Lemma length_step_ge : forall instr st,
   length (CPU.regs (CPU.step instr st)) >= length st.(CPU.regs).
 Proof.
@@ -1071,6 +1124,7 @@ Proof.
 Qed.
 
 (* Multi-step execution preserves or grows the register file length. *)
+(** [length_run_n_ge]: formal specification. *)
 Lemma length_run_n_ge : forall st n,
   length (CPU.regs (run_n st n)) >= length st.(CPU.regs).
 Proof.
@@ -1106,6 +1160,7 @@ Qed.
 
 
 (* Helper: length is preserved by write_reg *)
+(** [length_write_reg]: formal specification. *)
 Lemma length_write_reg : forall r v st,
   r < length st.(CPU.regs) ->
   length (CPU.write_reg r v st).(CPU.regs) = length st.(CPU.regs).
@@ -1125,6 +1180,7 @@ Qed.
 (* These lemmas work on the expanded nth/firstn/skipn/app forms *)
 
 (* Helper: nth on list built with firstn/skipn/app preserves original value for different indices *)
+(** [nth_write_diff]: formal specification. *)
 Lemma nth_write_diff : forall {A : Type} (l : list A) (r r' : nat) (v d : A),
   r <> r' ->
   r < length l ->
@@ -1162,6 +1218,7 @@ Proof.
 Qed.
 
 (* Specialized version for nat lists (most common case) *)
+(** [nth_nat_write_diff]: formal specification. *)
 Lemma nth_nat_write_diff : forall (l : list nat) (r r' v : nat),
   r <> r' ->
   r < length l ->
@@ -1173,6 +1230,7 @@ Qed.
 
 (* Specialized lemma for nested writes (common CPU.step pattern) *)
 (* CPU.step typically writes PC first, then the target register *)
+(** [nth_double_write_diff]: formal specification. *)
 Lemma nth_double_write_diff : forall (l : list nat) (r r1 r2 v1 v2 : nat),
   r <> r1 ->
   r <> r2 ->
@@ -1210,6 +1268,7 @@ Ltac solve_reg_preservation :=
 (* Note: This lemma requires that rd <> REG_PC for all register-writing instructions.
    This is a constraint on the instruction encoding that should be enforced by the
    instruction decoder or compiler. The UTM program in UTM_Program.v satisfies this. *)
+(** [step_pc_increment]: formal specification. *)
 Lemma step_pc_increment : forall cpu instr,
   CPU.pc_unchanged instr ->
   CPU.read_reg CPU.REG_PC (CPU.step instr cpu) = S (CPU.read_reg CPU.REG_PC cpu).
@@ -1233,6 +1292,7 @@ Qed.
 *)
 
 (* Lemmas about what instructions are at specific PCs *)
+(** [instr_at_pc_0]: formal specification. *)
 Lemma instr_at_pc_0 :
   nth 0 UTM_Program.program_instrs CPU.Halt =
   CPU.LoadConst CPU.REG_TEMP1 UTM_Program.TAPE_START_ADDR.
@@ -1240,6 +1300,7 @@ Proof.
   unfold UTM_Program.program_instrs. simpl. reflexivity.
 Qed.
 
+(** [instr_at_pc_1]: formal specification. *)
 Lemma instr_at_pc_1 :
   nth 1 UTM_Program.program_instrs CPU.Halt =
   CPU.AddReg CPU.REG_ADDR CPU.REG_TEMP1 CPU.REG_HEAD.
@@ -1247,6 +1308,7 @@ Proof.
   unfold UTM_Program.program_instrs. simpl. reflexivity.
 Qed.
 
+(** [instr_at_pc_2]: formal specification. *)
 Lemma instr_at_pc_2 :
   nth 2 UTM_Program.program_instrs CPU.Halt =
   CPU.LoadIndirect CPU.REG_SYM CPU.REG_ADDR.
@@ -1254,6 +1316,7 @@ Proof.
   unfold UTM_Program.program_instrs. simpl. reflexivity.
 Qed.
 
+(** [instr_at_pc_3]: formal specification. *)
 Lemma instr_at_pc_3 :
   nth 3 UTM_Program.program_instrs CPU.Halt =
   CPU.LoadConst CPU.REG_ADDR UTM_Program.RULES_START_ADDR.
@@ -1261,6 +1324,7 @@ Proof.
   unfold UTM_Program.program_instrs. simpl. reflexivity.
 Qed.
 
+(** [instr_at_pc_4]: formal specification. *)
 Lemma instr_at_pc_4 :
   nth 4 UTM_Program.program_instrs CPU.Halt =
   CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR.
@@ -1268,6 +1332,7 @@ Proof.
   unfold UTM_Program.program_instrs. simpl. reflexivity.
 Qed.
 
+(** [instr_at_pc_5]: formal specification. *)
 Lemma instr_at_pc_5 :
   nth 5 UTM_Program.program_instrs CPU.Halt =
   CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q.
@@ -1276,6 +1341,7 @@ Proof.
 Qed.
 
 
+(** [check_transition_compose]: formal specification. *)
 Lemma check_transition_compose : forall s1 s2 s3 n1 n2,
   check_transition s1 s2 n1 = true ->
   check_transition s2 s3 n2 = true ->
@@ -1296,6 +1362,7 @@ Qed.
    What we *do* prove here (complete) is the foundational isomorphism between
    a TM configuration and the CPU state produced by [setup_state]. *)
 
+(** [cpu_tm_isomorphism]: formal specification. *)
 Theorem cpu_tm_isomorphism : forall tm conf,
   length program <= UTM_Program.RULES_START_ADDR ->
   length (UTM_Encode.encode_rules tm.(tm_rules))

@@ -176,6 +176,7 @@ Module ThieleRepresentation.
   Local Close Scope Z_scope.
   Local Open Scope nat_scope.
   
+  (** [observable_completeness_finite]: formal specification. *)
   Theorem observable_completeness_finite : forall s1 s2 (N : nat),
     N >= 1 ->
     gauge_equivalent s1 s2 ->

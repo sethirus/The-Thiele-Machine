@@ -57,6 +57,7 @@ Proof.
   ring.
 Qed.
 
+(** [TsirelsonApprox_within_1_over_10000_of_kernel_bound]: formal specification. *)
 Corollary TsirelsonApprox_within_1_over_10000_of_kernel_bound :
   Qabs (S TsirelsonApprox) <= kernel_tsirelson_bound_q /\
   kernel_tsirelson_bound_q - (1#10000) <= Qabs (S TsirelsonApprox).

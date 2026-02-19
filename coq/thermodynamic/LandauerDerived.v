@@ -68,6 +68,7 @@ Definition info_bits (n : nat) : nat := n.
 (* Key property: 2^n states contain exactly n bits of information *)
 (* DEFINITIONAL — info_bits n = n, num_states n = 2^n, so 2^n = 2^n *)
 (* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
+(** [info_bits_correct]: formal specification. *)
 Lemma info_bits_correct : forall n,
   num_states (info_bits n) = 2^n.
 Proof.
@@ -118,6 +119,7 @@ Definition is_irreversible (e : Erasure) : Prop :=
 (* Key theorem: Erasure of at least 1 bit is irreversible *)
 
 (* Helper lemma: 2^n >= 1 for all n *)
+(** [pow2_ge_1]: formal specification. *)
 Lemma pow2_ge_1 : forall n, 2^n >= 1.
 Proof.
   induction n as [|n' IH].
@@ -135,6 +137,7 @@ Proof.
 Qed.
 
 (* Helper lemma: 2^(S n) >= 2 *)
+(** [pow2_S_ge_2]: formal specification. *)
 Lemma pow2_S_ge_2 : forall n, 2^(S n) >= 2.
 Proof.
   intro n.
@@ -146,6 +149,7 @@ Proof.
   apply Nat.add_le_mono; exact H.
 Qed.
 
+(** [erasure_irreversible]: formal specification. *)
 Theorem erasure_irreversible : forall e,
   bits_erased e >= 1 -> is_irreversible e.
 Proof.
@@ -181,6 +185,7 @@ Definition delta_entropy (e : Erasure) : Z :=
   Z.of_nat (output_bits e) - Z.of_nat (input_bits e).
 
 (* Erasure decreases system entropy *)
+(** [erasure_decreases_entropy]: formal specification. *)
 Lemma erasure_decreases_entropy : forall e,
   bits_erased e >= 1 ->
   (delta_entropy e < 0)%Z.
@@ -221,6 +226,7 @@ Record PhysicalErasure := mkPhysicalErasure {
    the environment entropy must increase by at least n bits *)
 
 (* INQUISITOR NOTE: Record field extraction — exposes constraint for downstream use. *)
+(** [landauer_information_bound]: formal specification. *)
 Theorem landauer_information_bound : forall pe : PhysicalErasure,
   env_entropy_increase pe >= bits_erased (erasure_op pe).
 Proof.
@@ -276,6 +282,7 @@ Definition mu (e : Erasure) : nat := bits_erased e.
 (* The thermodynamic bridge theorem: *)
 (* Energy dissipation (in Landauer units) >= μ *)
 
+(** [thermodynamic_bridge]: formal specification. *)
 Theorem thermodynamic_bridge : forall pe : PhysicalErasure,
   env_entropy_increase pe >= mu (erasure_op pe).
 Proof.
@@ -295,9 +302,11 @@ Definition one_bit_reset : Erasure := {|
   output_leq := Nat.le_0_l 1
 |}.
 
+(** [one_bit_erased]: formal specification. *)
 Lemma one_bit_erased : bits_erased one_bit_reset = 1.
 Proof. reflexivity. Qed.
 
+(** [one_bit_irreversible]: formal specification. *)
 Lemma one_bit_irreversible : is_irreversible one_bit_reset.
 Proof.
   apply erasure_irreversible.
@@ -305,6 +314,7 @@ Proof.
 Qed.
 
 (* Helper: 1 >= 1 *)
+(** [one_ge_one]: formal specification. *)
 Lemma one_ge_one : 1 >= 1.
 Proof. auto. Qed.
 
@@ -316,6 +326,7 @@ Definition physical_one_bit_reset : PhysicalErasure := {|
 |}.
 
 (* Verify Landauer bound for this example *)
+(** [one_bit_landauer]: formal specification. *)
 Lemma one_bit_landauer : 
   env_entropy_increase physical_one_bit_reset >= 1.
 Proof.
@@ -334,14 +345,17 @@ Definition n_bit_reset (n : nat) : Erasure := {|
   output_leq := Nat.le_0_l n
 |}.
 
+(** [n_bits_erased]: formal specification. *)
 Lemma n_bits_erased : forall n, bits_erased (n_bit_reset n) = n.
 Proof. intro n. unfold bits_erased, n_bit_reset. simpl. apply Nat.sub_0_r. Qed.
 
 (* Helper: n >= n *)
+(** [n_ge_n]: formal specification. *)
 Lemma n_ge_n : forall n, n >= n.
 Proof. intro n. auto. Qed.
 
 (* Note: We need bits_erased (n_bit_reset n) = n - 0 = n *)
+(** [n_bit_second_law]: formal specification. *)
 Lemma n_bit_second_law : forall n, n >= bits_erased (n_bit_reset n).
 Proof.
   intro n. rewrite n_bits_erased. apply n_ge_n.
@@ -354,6 +368,7 @@ Definition physical_n_bit_reset (n : nat) : PhysicalErasure := {|
   second_law_satisfied := n_bit_second_law n
 |}.
 
+(** [n_bit_landauer]: formal specification. *)
 Theorem n_bit_landauer : forall n,
   env_entropy_increase (physical_n_bit_reset n) >= n.
 Proof.
@@ -368,6 +383,7 @@ Qed.
    ======================================================================== *)
 
 (* Sequential erasures add up *)
+(** [erasure_additive]: formal specification. *)
 Lemma erasure_additive : forall e1 e2,
   output_bits e1 = input_bits e2 ->
   bits_erased e1 + bits_erased e2 = 

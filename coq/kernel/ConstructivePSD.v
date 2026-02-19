@@ -139,6 +139,7 @@ Proof.
   intros. unfold sum_fin5. ring.
 Qed.
 
+(** [sum_fin5_scal]: formal specification. *)
 Lemma sum_fin5_scal : forall (c : RealNumber) (f : Fin5 -> RealNumber),
   sum_fin5 (fun i => c * f i) = c * sum_fin5 f.
 Proof.
@@ -148,6 +149,7 @@ Qed.
 Definition bilinear5 (M : Matrix5) (u v : Vec5) : RealNumber :=
   sum_fin5 (fun i => sum_fin5 (fun j => u i * M i j * v j)).
 
+(** [bilinear5_sym]: formal specification. *)
 Lemma bilinear5_sym : forall (M : Matrix5) (u v : Vec5),
   symmetric5 M ->
   bilinear5 M u v = bilinear5 M v u.
@@ -171,6 +173,7 @@ Proof.
   ring.
 Qed.
 
+(** [quad5_expansion_bilinear]: formal specification. *)
 Lemma quad5_expansion_bilinear : forall (M : Matrix5) (u v : Vec5),
   symmetric5 M ->
   quad5 M (fun k => u k + v k) = quad5 M u + 2 * bilinear5 M u v + quad5 M v.
@@ -217,6 +220,7 @@ Qed.
 
 Definition e_basis (k : Fin5) : Vec5 := fun x => if Fin.eq_dec x k then 1 else 0.
 
+(** [sum_e_basis]: formal specification. *)
 Lemma sum_e_basis : forall (k : Fin5) (f : Fin5 -> RealNumber),
   sum_fin5 (fun i => e_basis k i * f i) = f k.
 Proof.
@@ -235,6 +239,7 @@ Proof.
            ++ inversion k.
 Qed.
 
+(** [sum_e_basis_r]: formal specification. *)
 Lemma sum_e_basis_r : forall (k : Fin5) (f : Fin5 -> RealNumber),
   sum_fin5 (fun i => f i * e_basis k i) = f k.
 Proof.
@@ -243,6 +248,7 @@ Proof.
   apply f_equal. apply functional_extensionality. intro. rewrite Rmult_comm. reflexivity.
 Qed.
 
+(** [quad5_e_basis]: formal specification. *)
 Lemma quad5_e_basis : forall (M : Matrix5) (k : Fin5),
   quad5 M (e_basis k) = M k k.
 Proof.
@@ -257,6 +263,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [bilinear5_e_basis]: formal specification. *)
 Lemma bilinear5_e_basis : forall (M : Matrix5) (i j : Fin5),
   bilinear5 M (e_basis i) (e_basis j) = M i j.
 Proof.
@@ -272,6 +279,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [quad5_scal]: formal specification. *)
 Lemma quad5_scal : forall (M : Matrix5) (c : RealNumber) (u : Vec5),
   quad5 M (fun k => c * u k) = c * c * quad5 M u.
 Proof.
@@ -285,6 +293,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [bilinear5_scal_r]: formal specification. *)
 Lemma bilinear5_scal_r : forall (M : Matrix5) (c : RealNumber) (u v : Vec5),
   bilinear5 M u (fun k => c * v k) = c * bilinear5 M u v.
 Proof.
@@ -298,18 +307,21 @@ Proof.
   reflexivity.
 Qed.
 
+(** [bilinear5_linear_r]: formal specification. *)
 Lemma bilinear5_linear_r : forall (M : Matrix5) (u v w : Vec5),
   bilinear5 M u (fun k => v k + w k) = bilinear5 M u v + bilinear5 M u w.
 Proof.
   intros M u v w. unfold bilinear5, sum_fin5. ring.
 Qed.
 
+(** [bilinear5_linear_l]: formal specification. *)
 Lemma bilinear5_linear_l : forall (M : Matrix5) (u v w : Vec5),
   bilinear5 M (fun k => u k + v k) w = bilinear5 M u w + bilinear5 M v w.
 Proof.
   intros M u v w. unfold bilinear5, sum_fin5. ring.
 Qed.
 
+(** [bilinear5_scal_l]: formal specification. *)
 Lemma bilinear5_scal_l : forall (M : Matrix5) (c : RealNumber) (u v : Vec5),
   bilinear5 M (fun k => c * u k) v = c * bilinear5 M u v.
 Proof.
@@ -324,6 +336,7 @@ Proof.
 Qed.
 
 (* Expansion lemma for a linear combination of three basis vectors *)
+(** [quad5_e_combo_3]: formal specification. *)
 Lemma quad5_e_combo_3 : forall (M : Matrix5) (i j k : Fin5) (c1 c2 c3 : RealNumber),
   symmetric5 M ->
   quad5 M (fun idx => c1 * e_basis i idx + c2 * e_basis j idx + c3 * e_basis k idx)
@@ -440,6 +453,7 @@ Proof.
       lra.
 Qed.
 
+(** [PSD5_off_diagonal_bound]: formal specification. *)
 Lemma PSD5_off_diagonal_bound : forall (M : Matrix5) (i j : Fin5),
   PSD5 M ->
   symmetric5 M ->

@@ -1,16 +1,11 @@
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# Copyright 2025 Devon Thiele
-# See the LICENSE file in the repository root for full terms.
-
-"""Pytest configuration ensuring repository modules import reliably."""
-
 from __future__ import annotations
 
 import importlib.util
 import sys
 import os
 from pathlib import Path
+import signal
+from typing import Optional
 
 # Fix Windows console encoding for Unicode characters (μ, ✓, etc.)
 if sys.platform == "win32":
@@ -45,6 +40,46 @@ def _ensure_module(name: str, path: Path) -> None:
 
 
 _ensure_module("demonstrate_isomorphism", ROOT / "demonstrate_isomorphism.py")
+
+
+def pytest_addoption(parser):
+    parser.addini("per_test_timeout", "Per-test timeout in seconds", default="60")
+    parser.addoption(
+        "--per-test-timeout",
+        action="store",
+        type=int,
+        default=None,
+        help="Override per-test timeout in seconds (CLI)",
+    )
+
+
+def _alarm_handler(signum, frame):
+    raise TimeoutError("Test exceeded per-test timeout")
+
+
+def _get_timeout(item) -> int:
+    cfg = item.config
+    cli = cfg.getoption("--per-test-timeout")
+    if cli is not None:
+        return int(cli)
+    ini = cfg.getini("per_test_timeout")
+    try:
+        return int(ini)
+    except Exception:
+        return 60
+
+
+def pytest_runtest_setup(item):
+    timeout = _get_timeout(item)
+    # SIGALRM is available on Unix and is reliable for per-test timeouts
+    signal.signal(signal.SIGALRM, _alarm_handler)
+    signal.alarm(timeout)
+
+
+def pytest_runtest_teardown(item, nextitem):
+    # Cancel any pending alarm
+    signal.alarm(0)
+
 
 # Hypothesis: relax per-test deadlines on slower/dev Windows machines so
 # timing-sensitive property tests don't fail spuriously. We register and

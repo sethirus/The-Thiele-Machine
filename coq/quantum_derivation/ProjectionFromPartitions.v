@@ -29,6 +29,7 @@ Local Open Scope Z_scope.
 Require Import ThieleMachine.CoreSemantics.
 Require Import QuantumDerivation.CompositePartitions.
 
+(** [filter_false_all]: formal specification. *)
 Lemma filter_false_all : forall (A : Type) (f : A -> bool) (l : list A),
   (forall x, In x l -> f x = false) ->
   filter f l = [].
@@ -39,6 +40,7 @@ Proof.
   apply IH. intros y Hy. apply H. right. exact Hy.
 Qed.
 
+(** [filter_unique_id]: formal specification. *)
 Lemma filter_unique_id : forall (mods : list (ModuleId * Region)) (mid : ModuleId) (r : Region),
   NoDup (map fst mods) ->
   In (mid, r) mods ->
@@ -68,6 +70,7 @@ Definition projection_step (p : Partition) (mid : ModuleId) : Partition :=
   {| modules := filter (fun m => (fst m =? mid)%nat) p.(modules);
      next_module_id := p.(next_module_id) |}.
 
+(** [projection_to_single_module_is_dim_1]: formal specification. *)
 Theorem projection_to_single_module_is_dim_1 :
   forall (p : Partition) (mid : ModuleId) (r : Region),
     NoDup (map fst (modules p)) ->
@@ -81,6 +84,7 @@ Proof.
   simpl. lia.
 Qed.
 
+(** [projection_post_prob_unanimous]: formal specification. *)
 Theorem projection_post_prob_unanimous :
   forall (p_before : Partition) (mid : ModuleId) (r : Region),
     NoDup (map fst (modules p_before)) ->

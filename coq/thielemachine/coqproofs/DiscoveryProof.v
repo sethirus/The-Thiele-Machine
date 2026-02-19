@@ -169,6 +169,7 @@ Proof.
   lia.
 Qed.
 
+(** [count_occ_seq_not_in_range]: formal specification. *)
 Lemma count_occ_seq_not_in_range : forall a start len,
   ~ In a (seq start len) ->
   count_occ Nat.eq_dec (seq start len) a = 0.
@@ -243,6 +244,7 @@ Proof.
     simpl in Hlen_le. rewrite seq_length in Hlen_le. lia.
 Qed.
 
+(** [perm_of_seq_check_sound]: formal specification. *)
 Lemma perm_of_seq_check_sound : forall l n,
   perm_of_seq_check l n = true -> Permutation l (seq 1 n).
 Proof.
@@ -299,6 +301,7 @@ Proof.
     + apply IH. intros i Hi. apply Hcnt. lia.
 Qed.
 
+(** [perm_of_seq_check_complete]: formal specification. *)
 Lemma perm_of_seq_check_complete : forall l n,
   Permutation l (seq 1 n) -> perm_of_seq_check l n = true.
 Proof.
@@ -342,6 +345,7 @@ Fixpoint kmeans_steps (n k max_iters : nat) : nat :=
   | S iters' => n * k + kmeans_steps n k iters'
   end.
 
+(** [kmeans_steps_bound]: formal specification. *)
 Lemma kmeans_steps_bound : forall n k max_iters,
   kmeans_steps n k max_iters <= max_iters * n * k.
 Proof.
@@ -351,6 +355,7 @@ Proof.
   - simpl. lia.
 Qed.
 
+(** [kmeans_polynomial]: formal specification. *)
 Theorem kmeans_polynomial : forall n k max_iters,
   k <= n ->
   max_iters <= 100 ->
@@ -382,6 +387,7 @@ Fixpoint refinement_steps (n num_edges iterations : nat) : nat :=
   | S it' => n * num_edges + refinement_steps n num_edges it'
   end.
 
+(** [refinement_steps_bound]: formal specification. *)
 Lemma refinement_steps_bound : forall n e iterations,
   refinement_steps n e iterations <= iterations * n * e.
 Proof.
@@ -391,6 +397,7 @@ Proof.
   - simpl. lia.
 Qed.
 
+(** [refinement_polynomial]: formal specification. *)
 Theorem refinement_polynomial : forall n e iterations,
   iterations <= 10 ->
   e <= n * n ->
@@ -432,6 +439,7 @@ Definition spectral_discover_steps (n : nat) : nat :=
   let refinement := 10 * n * n * n in (* Proven above *)
   adjacency_build + laplacian_compute + eigendecomp + kmeans + refinement.
 
+(** [spectral_discover_polynomial]: formal specification. *)
 Theorem spectral_discover_polynomial : forall n,
   n > 0 ->
   spectral_discover_steps n <= spectral_discovery_complexity_constant * n * n * n.
@@ -452,11 +460,13 @@ Qed.
 Lemma pow3_eq : forall n, n ^ 3 = n * n * n.
 Proof. intro n. simpl. ring. Qed.
 
+(** [mul_assoc_for_const]: formal specification. *)
 Lemma mul_assoc_for_const : forall c n, c * n * n * n = c * (n * n * n).
 Proof. intros. ring. Qed.
 
 (** ** THEOREM 1: Discovery is Polynomial Time - PROVEN *)
 (* DEFINITIONAL — witnesses constant 113, delegates to spectral_discover_polynomial *)
+(** [discovery_polynomial_time_PROVEN]: formal specification. *)
 Theorem discovery_polynomial_time_PROVEN :
   forall (prob : Problem),
     exists c : nat,
@@ -545,6 +555,7 @@ Fixpoint trivial_valid_partition_asc (start n : nat) : Partition :=
   | S n' => [start] :: trivial_valid_partition_asc (S start) n'
   end.
 
+(** [trivial_valid_partition_asc_flatten]: formal specification. *)
 Lemma trivial_valid_partition_asc_flatten : forall n start,
   flatten (trivial_valid_partition_asc start n) = seq start n.
 Proof.
@@ -553,6 +564,7 @@ Proof.
   - simpl. f_equal. apply IH.
 Qed.
 
+(** [trivial_valid_partition_perm]: formal specification. *)
 Lemma trivial_valid_partition_perm : forall n,
   Permutation (flatten (trivial_valid_partition_asc 1 n)) (seq 1 n).
 Proof.
@@ -561,6 +573,7 @@ Proof.
   apply Permutation_refl.
 Qed.
 
+(** [discovery_produces_valid_partition_PROVEN]: formal specification. *)
 Theorem discovery_produces_valid_partition_PROVEN :
   forall (prob : Problem),
     problem_size prob > 0 ->
@@ -584,6 +597,7 @@ Definition compute_mdl (prob : Problem) (p : Partition) : nat :=
   description_cost + communication_cost.
 
 (* ARITHMETIC — nat >= 0 is always true *)
+(** [mdl_cost_well_defined_PROVEN]: formal specification. *)
 Theorem mdl_cost_well_defined_PROVEN :
   forall (prob : Problem) (p : Partition),
     compute_mdl prob p >= 0.
@@ -599,6 +613,7 @@ Definition compute_discovery_cost (prob : Problem) : nat :=
   problem_size prob * 10.
 
 (* ARITHMETIC — n*10 <= n*10 by reflexivity *)
+(** [discovery_cost_bounded_PROVEN]: formal specification. *)
 Theorem discovery_cost_bounded_PROVEN :
   forall (prob : Problem),
     compute_discovery_cost prob <= problem_size prob * 10.

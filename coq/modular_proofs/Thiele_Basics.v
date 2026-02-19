@@ -41,6 +41,7 @@ Section HelperLemmas.
   Context {tm : TMTransition}.
   Context (sem : ModularThieleSemantics tm).
 
+  (** [mts_run_n_S]: formal specification. *)
   Lemma mts_run_n_S :
     forall s n,
       mts_run_n sem s (S n) = mts_run_n sem (mts_run1 sem s) n.
@@ -49,6 +50,7 @@ Section HelperLemmas.
     apply mts_run_n_succ.
   Qed.
 
+  (** [mts_run_n_one]: formal specification. *)
   Lemma mts_run_n_one :
     forall s,
       mts_run_n sem s 1 = mts_run1 sem s.

@@ -326,6 +326,7 @@ Definition classical_8piG : R := (8 * PI)%R.  (* Times actual G *)
 Definition coupling_ratio : R :=
   (einstein_coupling_constant / classical_8piG)%R.
 
+(** [coupling_ratio_value]: formal specification. *)
 Lemma coupling_ratio_value :
   coupling_ratio = (5 / (8 * computational_scale))%R.
 Proof.

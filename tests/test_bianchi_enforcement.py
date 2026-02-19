@@ -80,7 +80,12 @@ class TestBianchiPythonEnforcement:
         vm = VM(state=state)
         instructions = [("PNEW", "{0,1,2} 5"), ("REVEAL", "1 2 3"), ("HALT", "0")]
         with tempfile.TemporaryDirectory() as tmpdir:
-            vm.run(instructions, Path(tmpdir) / "out", auto_mdlacc=False)
+            vm.run(
+                instructions,
+                Path(tmpdir) / "out",
+                auto_mdlacc=False,
+                write_artifacts=False,
+            )
         # Bianchi should hold after REVEAL
         vm.state.mu_ledger.check_bianchi_consistency()
         # Verify tensor was charged

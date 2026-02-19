@@ -11,6 +11,7 @@ Require Import ThieleMachine.SpecSound.
 Definition certs_independent (c1 c2 : Cert) : Prop :=
   cnf c1 <> cnf c2.
 
+(** [independent_steps_confluence]: formal specification. *)
 Theorem independent_steps_confluence :
   forall s c1 s1 c2 s2,
     audited_step s c1 s1 ->

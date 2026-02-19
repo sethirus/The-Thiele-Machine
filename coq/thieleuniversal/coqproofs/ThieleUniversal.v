@@ -26,6 +26,7 @@ Definition cpu_program_words : list nat :=
 Definition cpu_initial_state (tm : TU.TM) (conf : TU.TMConfig) : UCPU.State :=
   Simulation.utm_cpu_state tm conf.
 
+(** [cpu_rules_fit_window]: formal specification. *)
 Lemma cpu_rules_fit_window :
   forall tm,
     Simulation.rules_fit tm ->
@@ -33,6 +34,7 @@ Lemma cpu_rules_fit_window :
     <= UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR.
 Proof. exact (fun _ Hfit => Hfit). Qed.
 
+(** [cpu_program_is_blind]: formal specification. *)
 Lemma cpu_program_is_blind : Simulation.Blind thiele_program.
 Proof. exact Simulation.utm_program_blind. Qed.
 
@@ -67,6 +69,7 @@ Proof.
     apply Simulation.thiele_step_n_utm_simulates; assumption.
 Qed.
 
+(** [thiele_prefix_simulation_summary]: formal specification. *)
 Lemma thiele_prefix_simulation_summary :
   forall tm conf n,
     Simulation.all_steps_ok tm conf n ->
@@ -103,6 +106,7 @@ Proof.
   apply thiele_prefix_simulation_summary; assumption.
 Defined.
 
+(** [thiele_machine_subsumes_tm]: formal specification. *)
 Corollary thiele_machine_subsumes_tm :
   forall tm conf n,
     Simulation.all_steps_ok tm conf n ->

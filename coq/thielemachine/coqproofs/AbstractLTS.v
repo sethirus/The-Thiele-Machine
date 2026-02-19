@@ -459,6 +459,7 @@ Module AbstractLTS.
     | _, _ => false
     end.
 
+  (** [list_nat_eqb_refl]: formal specification. *)
   Lemma list_nat_eqb_refl : forall xs, list_nat_eqb xs xs = true.
   Proof.
     induction xs as [| x xs IH]; simpl.
@@ -466,6 +467,7 @@ Module AbstractLTS.
     - rewrite Nat.eqb_refl. now rewrite IH.
   Qed.
 
+  (** [partition_eqb_refl]: formal specification. *)
   Lemma partition_eqb_refl : forall p, partition_eqb p p = true.
   Proof.
     induction p as [| m p IH]; simpl.
@@ -473,6 +475,7 @@ Module AbstractLTS.
     - rewrite list_nat_eqb_refl. now rewrite IH.
   Qed.
 
+  (** [list_nat_eqb_eq]: formal specification. *)
   Lemma list_nat_eqb_eq : forall xs ys, list_nat_eqb xs ys = true -> xs = ys.
   Proof.
     induction xs as [| x xs IH]; destruct ys as [| y ys]; simpl; intros H; try discriminate.
@@ -482,6 +485,7 @@ Module AbstractLTS.
       f_equal. apply IH. exact Hrest.
   Qed.
 
+  (** [partition_eqb_eq]: formal specification. *)
   Lemma partition_eqb_eq : forall p q, partition_eqb p q = true -> p = q.
   Proof.
     induction p as [| m p IH]; destruct q as [| n q]; simpl; intros H; try discriminate.
@@ -515,6 +519,7 @@ Module AbstractLTS.
         TCons (mk_state id init_p 0) l (build_receipt_trace init_p final_p tot_mu ls' (S id))
     end.
 
+  (** [trace_labels_build_receipt_trace]: formal specification. *)
   Lemma trace_labels_build_receipt_trace : forall init_p final_p tot_mu ls id,
     trace_labels (build_receipt_trace init_p final_p tot_mu ls id) = ls.
   Proof.
@@ -528,6 +533,7 @@ Module AbstractLTS.
         exact (IH (S id)).
   Qed.
 
+  (** [get_partition_trace_initial_build_receipt_trace_nonempty]: formal specification. *)
   Lemma get_partition_trace_initial_build_receipt_trace_nonempty : forall init_p final_p tot_mu ls id,
     ls <> [] ->
     get_partition (trace_initial (build_receipt_trace init_p final_p tot_mu ls id)) = init_p.
@@ -540,6 +546,7 @@ Module AbstractLTS.
       + cbn [build_receipt_trace trace_initial get_partition mk_state]. reflexivity.
   Qed.
 
+  (** [get_partition_trace_final_build_receipt_trace_nonempty]: formal specification. *)
   Lemma get_partition_trace_final_build_receipt_trace_nonempty : forall init_p final_p tot_mu ls id,
     ls <> [] ->
     get_partition (trace_final (build_receipt_trace init_p final_p tot_mu ls id)) = final_p.
@@ -553,6 +560,7 @@ Module AbstractLTS.
         exact (IH (S id) (ltac:(discriminate))).
   Qed.
 
+  (** [trace_mu_build_receipt_trace_nonempty]: formal specification. *)
   Lemma trace_mu_build_receipt_trace_nonempty : forall init_p final_p tot_mu ls id,
     ls <> [] ->
     trace_mu (build_receipt_trace init_p final_p tot_mu ls id) = tot_mu.
@@ -574,6 +582,7 @@ Module AbstractLTS.
           exact (IH (S id) (ltac:(discriminate))).
   Qed.
   
+  (** [receipt_sound]: formal specification. *)
   Lemma receipt_sound : forall (r : Receipt),
     verify_receipt r = true ->
     exists (t : Trace),
@@ -602,6 +611,7 @@ Module AbstractLTS.
       reflexivity.
   Qed.
   
+  (** [receipt_complete]: formal specification. *)
   Lemma receipt_complete : forall (t : Trace),
     verify_receipt (make_receipt t) = true.
   Proof.
@@ -623,6 +633,7 @@ Module AbstractLTS.
   Definition landauer_bound (delta_mu : Z) : Q :=
     kT_ln2 * (inject_Z delta_mu).
   
+  (** [mu_thermodynamic]: formal specification. *)
   Lemma mu_thermodynamic : forall s l s',
     step s l s' ->
     exists W0 : Q, Qle (landauer_bound (mu s l s')) W0.
@@ -632,6 +643,7 @@ Module AbstractLTS.
     apply Qle_refl.
   Qed.
   
+  (** [blind_reversible]: formal specification. *)
   Lemma blind_reversible : forall s s',
     step s (@LCompute ModuleId) s' ->
     mu s (@LCompute ModuleId) s' = 0 ->

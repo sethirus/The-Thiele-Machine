@@ -437,6 +437,8 @@ Definition van_dam_and_prob (B : Box) : Q :=
 (* DEFINITIONAL HELPER — vm_compute verifies the specific arithmetic of
    van_dam_and_prob applied to pr_kernel. Falsification: compute by hand
    and check the result is 1/4. *)
+(** [van_dam_and_prob_pr_kernel_computed]: formal specification. *)
+(* DEFINITIONAL HELPER *)
 Lemma van_dam_and_prob_pr_kernel_computed : van_dam_and_prob pr_kernel == 1#4.
 Proof.
   unfold van_dam_and_prob, compose_two, pr_kernel, wire2.

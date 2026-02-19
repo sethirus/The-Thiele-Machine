@@ -41,6 +41,7 @@ Definition prog_of_strategy (s : Strategy) : list ThieleInstr :=
 Definition trials_from_receipts (s0 : ConcreteState) (prog : list ThieleInstr) : list Trial :=
   trials_of_concrete_receipts (concrete_receipts_of s0 prog).
 
+(** [local_fragment_CHSH_le_2_end_to_end]: formal specification. *)
 Theorem local_fragment_CHSH_le_2_end_to_end :
   forall s0 strat,
     (Qabs (chsh_of_trials (trials_from_receipts s0 (prog_of_strategy strat))) <= 2#1)%Q.

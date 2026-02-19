@@ -280,6 +280,7 @@ Qed.
     4 * derived_E_bit * tau_mu), but the interface lemma lets clients use
     the expanded form without depending on the definition body. *)
 (* DEFINITIONAL *)
+(** [h_identity_universal]: formal specification. *)
 Theorem h_identity_universal : forall p : SubstrateParams,
   derived_h p = 4 * (sp_k_B p * sp_T p * ln 2) * sp_tau_mu p.
 Proof.

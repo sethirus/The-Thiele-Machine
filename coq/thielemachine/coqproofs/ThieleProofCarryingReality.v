@@ -17,6 +17,7 @@ Module ThieleProofCarryingReality.
 
   Module TM := ThieleMachineConcrete.
 
+  (** [concrete_exec_trace_of]: formal specification. *)
   Lemma concrete_exec_trace_of :
     forall prog s,
       TM.ConcreteExec prog s (TM.concrete_trace_of s prog).
@@ -31,6 +32,7 @@ Module ThieleProofCarryingReality.
         apply IH.
   Qed.
 
+  (** [supra_quantum_receipts_replay_ok]: formal specification. *)
   Theorem supra_quantum_receipts_replay_ok :
     TM.concrete_replay_ok
       BellInequality.supra_quantum_start

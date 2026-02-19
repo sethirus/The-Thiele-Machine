@@ -40,6 +40,7 @@ Definition GlobalSemantics (p : Partition) : list Region :=
     you know the global semantics.
 *)
 (* DEFINITIONAL — GlobalSemantics is defined as map LocalSemantics *)
+(** [no_independent_global_semantics]: formal specification. *)
 Theorem no_independent_global_semantics : forall (p : Partition),
   GlobalSemantics p = map LocalSemantics p.(modules).
 Proof.

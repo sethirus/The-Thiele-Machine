@@ -157,6 +157,7 @@ Qed.
 
 (** THEOREM 4: Landauer entropy is auxiliary (doesn't affect bisimulation) *)
 (* DEFINITIONAL — python_mu_total sums discovery+execution, not landauer_entropy *)
+(** [landauer_entropy_auxiliary]: formal specification. *)
 Lemma landauer_entropy_auxiliary :
   forall (ledger : PythonMuLedger) (delta : nat),
     python_mu_total ledger =
@@ -177,6 +178,7 @@ Qed.
 
 (** Empty ledger bisimulates vm_mu = 0 *)
 (* ARITHMETIC — base case: 0 + 0 = 0 *)
+(** [empty_ledger_bisim]: formal specification. *)
 Lemma empty_ledger_bisim :
   forall (mask : nat),
     mask > 0 ->

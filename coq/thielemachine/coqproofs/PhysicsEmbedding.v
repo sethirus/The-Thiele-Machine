@@ -61,14 +61,17 @@ Definition lattice_decode (s : VMState) : LGState :=
   if Nat.eqb s.(vm_pc) 0 then lattice_decode_modules mods
   else DiscreteModel.physics_step (lattice_decode_modules mods).
 
+(** [lattice_encoded_modules_length]: formal specification. *)
 Lemma lattice_encoded_modules_length : forall l : LGState,
   List.length (lattice_encoded_modules l) = List.length l.
 Proof. intro l; unfold lattice_encoded_modules; now rewrite map_length. Qed.
 
+(** [decode_cell_from_lattice_cell]: formal specification. *)
 Lemma decode_cell_from_lattice_cell : forall c : DiscreteModel.Cell,
   decode_lattice_cell (module_from_lattice_cell c) = c.
 Proof. destruct c; reflexivity. Qed.
 
+(** [lattice_decode_encoded]: formal specification. *)
 Lemma lattice_decode_encoded : forall l : LGState,
   lattice_decode_modules (lattice_encoded_modules l) = l.
 Proof.
@@ -77,6 +80,7 @@ Proof.
   rewrite decode_cell_from_lattice_cell. f_equal. exact IH.
 Qed.
 
+(** [lattice_decode_encode_id]: formal specification. *)
 Lemma lattice_decode_encode_id : forall l : LGState,
   lattice_decode (lattice_encode l) = l.
 Proof.
@@ -90,6 +94,7 @@ Qed.
 Definition lattice_trace_instr : vm_instruction := instr_emit 0 EmptyString 0.
 Definition lattice_trace : list vm_instruction := [lattice_trace_instr].
 
+(** [lattice_trace_cost_zero]: formal specification. *)
 Lemma lattice_trace_cost_zero :
   forall pc instr, nth_error lattice_trace pc = Some instr -> instruction_cost instr = 0.
 Proof.
@@ -126,6 +131,7 @@ Proof.
   apply DiscreteModel.physics_preserves_particle_count.
 Qed.
 
+(** [vm_preserves_momentum]: formal specification. *)
 Lemma vm_preserves_momentum :
   forall L : LGState,
     DiscreteModel.momentum
@@ -136,6 +142,7 @@ Proof.
   apply DiscreteModel.physics_preserves_momentum.
 Qed.
 
+(** [lattice_vm_conserves_observables]: formal specification. *)
 Theorem lattice_vm_conserves_observables :
   forall L : LGState,
     DiscreteModel.particle_count
@@ -163,6 +170,7 @@ Proof.
   - exact thiele_implements_physics_step.
 Defined.
 
+(** [lattice_trace_cost_free_witness]: formal specification. *)
 Lemma lattice_trace_cost_free_witness :
   embedding_trace_cost_free lattice_gas_embedding.
 Proof. exists lattice_trace_cost_zero; reflexivity. Qed.
@@ -177,5 +185,6 @@ Proof.
            lattice_gas_embedding lattice_trace_cost_free_witness).
 Qed.
 
+(** [lattice_gas_embeddable]: formal specification. *)
 Theorem lattice_gas_embeddable : embeddable lattice_gas_model.
 Proof. exists lattice_gas_embedding; exact I. Qed.

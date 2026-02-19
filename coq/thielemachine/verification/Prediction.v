@@ -49,6 +49,7 @@ Definition algebraic_bound : Q := 4 # 1.       (* 4.0 *)
 
 (** Partition systems exceed Tsirelson *)
 (* ARITHMETIC — 2828/1000 < 16/5 *)
+(** [partition_exceeds_tsirelson]: formal specification. *)
 Theorem partition_exceeds_tsirelson :
   tsirelson_bound < partition_bound.
 Proof.
@@ -58,6 +59,7 @@ Qed.
 
 (** But partition systems don't reach algebraic maximum *)
 (* ARITHMETIC — 16/5 < 4/1 *)
+(** [partition_below_algebraic]: formal specification. *)
 Theorem partition_below_algebraic :
   partition_bound < algebraic_bound.
 Proof.
@@ -123,6 +125,7 @@ Definition falsification_condition : Prop :=
       (* Then partition model is falsified *)
       False.
 
+(** [prediction_is_falsifiable]: formal specification. *)
 Theorem prediction_is_falsifiable :
   experimental_prediction \/ falsification_condition.
 Proof.

@@ -15,6 +15,7 @@ Open Scope Q_scope.
 
 Definition kernel_tsirelson_bound_q : Q := (5657#2000).
 
+(** [TsirelsonApprox_Qabs_le_kernel_bound]: formal specification. *)
 Lemma TsirelsonApprox_Qabs_le_kernel_bound :
   Qabs (S TsirelsonApprox) <= kernel_tsirelson_bound_q.
 Proof.

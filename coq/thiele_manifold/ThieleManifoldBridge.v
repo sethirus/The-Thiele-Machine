@@ -20,6 +20,7 @@ From Kernel Require Import MuLedgerConservation VMState VMStep SimulationProof.
 Definition thiele_self_reference : Prop :=
   exists P : Prog, obs_equiv P P.
 
+(** [thiele_self_reference_true]: formal specification. *)
 Lemma thiele_self_reference_true : thiele_self_reference.
 Proof.
   exists empty_prog. apply obs_equiv_refl.
@@ -28,6 +29,7 @@ Qed.
 Definition thiele_sentences (Q : Prop) : Prop :=
   exists P : Prog, Q /\ obs_equiv P P.
 
+(** [thiele_sentence_of_true]: formal specification. *)
 Lemma thiele_sentence_of_true : forall Q, Q -> thiele_sentences Q.
 Proof.
   intros Q HQ. exists empty_prog. split; [assumption|apply obs_equiv_refl].
@@ -37,6 +39,7 @@ Definition thiele_system : System :=
   {| dimension := 4;
      sentences := thiele_sentences |}.
 
+(** [thiele_system_self_referential]: formal specification. *)
 Lemma thiele_system_self_referential : contains_self_reference thiele_system.
 Proof.
   exists thiele_self_reference.
@@ -47,6 +50,7 @@ Proof.
 Qed.
 
 (* CREATIVE FIX: Extract P from spacetime_sentences, then witness via empty_prog *)
+(** [thiele_system_reasons_about_spacetime]: formal specification. *)
 Lemma thiele_system_reasons_about_spacetime :
   can_reason_about thiele_system spacetime_system.
 Proof.
@@ -71,6 +75,7 @@ Fixpoint thiele_level (n : nat) : System :=
   | S k => meta_system (thiele_level k)
   end.
 
+(** [thiele_level_richer]: formal specification. *)
 Lemma thiele_level_richer : forall n, dimensionally_richer (thiele_level (S n)) (thiele_level n).
 Proof.
   induction n; simpl.
@@ -79,6 +84,7 @@ Proof.
     specialize (meta_system_richer (thiele_level n)). lia.
 Qed.
 
+(** [thiele_level_can_reason]: formal specification. *)
 Lemma thiele_level_can_reason : forall n, can_reason_about (thiele_level (S n)) (thiele_level n).
 Proof.
   induction n; simpl.
@@ -87,6 +93,7 @@ Proof.
     eapply meta_system_can_reason_about. exact HP.
 Qed.
 
+(** [thiele_base_at_least_four]: formal specification. *)
 Lemma thiele_base_at_least_four : 4 <= dimension (thiele_level 0).
 Proof. simpl. lia. Qed.
 
@@ -96,9 +103,11 @@ Definition thiele_machine_manifold : ThieleManifold :=
      level_can_reason := thiele_level_can_reason;
      base_at_least_four := thiele_base_at_least_four |}.
 
+(** [thiele_manifold_projection_matches_base]: formal specification. *)
 Lemma thiele_manifold_projection_matches_base : pi4 thiele_machine_manifold = thiele_system.
 Proof. reflexivity. Qed.
 
+(** [thiele_level_dimension]: formal specification. *)
 Lemma thiele_level_dimension : forall n, dimension (thiele_level n) = 4 + n.
 Proof.
   induction n as [|n IH]; simpl.
@@ -106,6 +115,7 @@ Proof.
   - unfold meta_system. simpl. lia.
 Qed.
 
+(** [thiele_level_mu_cost]: formal specification. *)
 Lemma thiele_level_mu_cost :
   forall n, mu_cost (level thiele_machine_manifold n) (pi4 thiele_machine_manifold) = n.
 Proof.
@@ -113,6 +123,7 @@ Proof.
   rewrite thiele_level_dimension. lia.
 Qed.
 
+(** [thiele_level_mu_gap]: formal specification. *)
 Lemma thiele_level_mu_gap :
   forall n,
     mu_cost (level thiele_machine_manifold (S n)) (pi4 thiele_machine_manifold) -
@@ -121,6 +132,7 @@ Proof.
   intros n. rewrite !thiele_level_mu_cost. lia.
 Qed.
 
+(** [thiele_manifold_requires_meta]: formal specification. *)
 Lemma thiele_manifold_requires_meta :
   exists Meta, can_reason_about Meta thiele_system /\ dimensionally_richer Meta thiele_system.
 Proof.
@@ -129,6 +141,7 @@ Proof.
   now exists Meta.
 Qed.
 
+(** [thiele_projection_has_positive_mu_cost]: formal specification. *)
 Lemma thiele_projection_has_positive_mu_cost :
   mu_cost (level thiele_machine_manifold 1) (pi4 thiele_machine_manifold) > 0.
 Proof.
@@ -137,6 +150,7 @@ Proof.
 Qed.
 
 (* CREATIVE FIX: Extract P from spacetime_sentences, then witness via thiele_sentences *)
+(** [thiele_manifold_supports_spacetime_shadow]: formal specification. *)
 Lemma thiele_manifold_supports_spacetime_shadow :
   can_reason_about (spacetime_shadow thiele_machine_manifold) spacetime_system.
 Proof.
@@ -170,6 +184,7 @@ Proof.
   apply run_vm_mu_bounds_irreversibility.
 Qed.
 
+(** [thiele_manifold_irreversibility_gap]: formal specification. *)
 Theorem thiele_manifold_irreversibility_gap :
   forall fuel trace s,
     irreversible_count fuel trace s <=
@@ -200,6 +215,7 @@ Definition faithful_to_vm {A}
   (step : A -> A) (decode : A -> VMState) (trace : list vm_instruction) : Prop :=
   forall fuel s, decode (impl_iter step fuel s) = run_vm fuel trace (decode s).
 
+(** [faithful_irreversibility_lower_bound]: formal specification. *)
 Lemma faithful_irreversibility_lower_bound :
   forall (A : Type) (step : A -> A) (decode : A -> VMState)
          (trace : list vm_instruction) (s : A) (fuel : nat),
@@ -230,6 +246,7 @@ Record FaithfulImplementation := {
     hw_decode (impl_iter hw_step fuel s) = run_vm fuel hw_trace (hw_decode s)
 }.
 
+(** [faithful_impl_irreversibility_lower_bound]: formal specification. *)
 Lemma faithful_impl_irreversibility_lower_bound :
   forall (Impl : FaithfulImplementation) fuel s,
     irreversible_count fuel Impl.(hw_trace) (Impl.(hw_decode) s) <=
@@ -260,6 +277,7 @@ Proof.
   apply run_vm_mu_conservation.
 Qed.
 
+(** [faithful_impl_cost_delta]: formal specification. *)
 Lemma faithful_impl_cost_delta :
   forall (Impl : FaithfulImplementation) fuel s,
     (Impl.(hw_decode) (impl_iter Impl.(hw_step) fuel s)).(vm_mu) -

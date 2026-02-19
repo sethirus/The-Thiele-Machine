@@ -605,6 +605,7 @@ Qed.
     a missing constraint.
 *)
 (* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
+(** [symmetric_optimal_cloning]: formal specification. *)
 Lemma symmetric_optimal_cloning :
   forall op,
     nontrivial_input op ->
@@ -923,6 +924,7 @@ Definition is_perfect_deletion (op : DeletionOperation) : Prop :=
     If all succeed, the theorem is false and Landauer's principle is violated.
 *)
 (* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
+(** [no_deletion_without_cost]: formal specification. *)
 Theorem no_deletion_without_cost :
   forall op : DeletionOperation,
     op.(del_input1_info) > 0 ->

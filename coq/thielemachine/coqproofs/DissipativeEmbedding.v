@@ -48,10 +48,12 @@ Definition decode_lattice (s : VMState) : PhysLattice :=
   if Nat.eqb s.(vm_pc) 0 then decode_modules mods
   else repeat Vac (List.length mods).
 
+(** [encoded_modules_length]: formal specification. *)
 Lemma encoded_modules_length : forall l : PhysLattice,
   List.length (encoded_modules l) = List.length l.
 Proof. intro l; unfold encoded_modules; now rewrite map_length. Qed.
 
+(** [decode_modules_encoded]: formal specification. *)
 Lemma decode_modules_encoded : forall l : PhysLattice, decode_modules (encoded_modules l) = l.
 Proof.
   intro l. unfold decode_modules, encoded_modules, module_from_cell.
@@ -60,6 +62,7 @@ Proof.
 Qed.
 
 (* CREATIVE FIX: The Nat.eqb_refl was in wrong scope. Use equation form directly *)
+(** [decode_encode_id]: formal specification. *)
 Lemma decode_encode_id : forall l : PhysLattice, decode_lattice (encode_lattice l) = l.
 Proof.
   intro l. unfold decode_lattice, encode_lattice.
@@ -73,6 +76,7 @@ Qed.
 Definition eraser_instr : vm_instruction := instr_emit 0 EmptyString 1.
 Definition physics_trace : list vm_instruction := [eraser_instr].
 
+(** [physics_trace_cost_positive]: formal specification. *)
 Lemma physics_trace_cost_positive :
   forall pc instr, nth_error physics_trace pc = Some instr -> instruction_cost instr >= 1.
 Proof.
@@ -84,6 +88,7 @@ Proof.
     destruct pc; simpl in *; inversion Hlookup.
 Qed.
 
+(** [dissipative_vm_step_simulation]: formal specification. *)
 Lemma dissipative_vm_step_simulation :
   forall L : PhysLattice,
     decode_lattice (run_vm 1 physics_trace (encode_lattice L)) =
@@ -124,6 +129,7 @@ Proof.
   - (* step_sim *) exact dissipative_vm_step_simulation.
 Defined.
 
+(** [dissipative_trace_cost_positive]: formal specification. *)
 Lemma dissipative_trace_cost_positive :
   embedding_trace_cost_positive dissipative_embedding.
 Proof. exists physics_trace_cost_positive; reflexivity. Qed.
@@ -143,6 +149,7 @@ Proof.
          dissipative_trace_cost_positive fuel s instr Hfuel Hlookup).
 Qed.
 
+(** [dissipative_mu_gap_generic_hw]: formal specification. *)
 Corollary dissipative_mu_gap_generic_hw :
   forall (Impl : FaithfulImplementation) fuel s instr,
     fuel > 0 -> Impl.(hw_trace) = physics_trace ->
@@ -158,5 +165,6 @@ Proof.
          dissipative_trace_cost_positive fuel _ instr Hfuel Hlookup).
 Qed.
 
+(** [dissipative_embeddable]: formal specification. *)
 Theorem dissipative_embeddable : embeddable dissipative_model.
 Proof. exists dissipative_embedding; exact I. Qed.

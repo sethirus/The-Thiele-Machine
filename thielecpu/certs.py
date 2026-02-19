@@ -24,15 +24,19 @@ class CertStore:
     def __init__(self, outdir: Path) -> None:
         self.outdir = outdir
         self.outdir.mkdir(parents=True, exist_ok=True)
+        # Initialize a persistent counter to avoid repeated directory scans
+        existing = len(list(self.outdir.glob("*.sha256")))
+        # Next id to use (1-based)
+        self._next = existing + 1
 
     # ------------------------------------------------------------------
     # Id management
     # ------------------------------------------------------------------
     def next_id(self) -> str:
         """Return the next certificate id as a zero-padded string."""
-
-        existing = len(list(self.outdir.glob("*.sha256")))
-        return f"{existing + 1:04d}"
+        cid = f"{self._next:04d}"
+        self._next += 1
+        return cid
 
     # ------------------------------------------------------------------
     # File helpers

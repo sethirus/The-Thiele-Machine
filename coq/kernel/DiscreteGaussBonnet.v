@@ -65,6 +65,7 @@ Definition total_angle_defect (g : PartitionGraph) : R :=
 
 (** For equilateral triangles in our discretization, each angle is π/3 *)
 (* DEFINITIONAL HELPER *)
+(** [equilateral_triangle_angle]: formal specification. *)
 Lemma equilateral_triangle_angle :
   (triangle_interior_angle = PI / 3)%R.
 Proof.
@@ -74,6 +75,7 @@ Qed.
 
 (** Three such angles sum to π *)
 (* This follows from definition of equilateral triangle *)
+(** [three_equilateral_angles_sum_pi]: formal specification. *)
 Lemma three_equilateral_angles_sum_pi :
   (3 * triangle_interior_angle = PI)%R.
 Proof.
@@ -166,6 +168,7 @@ Fixpoint count_vertices_in_modules (modules : list (ModuleID * ModuleState)) : n
   | (_, m) :: rest => (length (module_region m) + count_vertices_in_modules rest)%nat
   end.
 
+(** [sum_of_vertex_degrees_equals_3F]: formal specification. *)
 Lemma sum_of_vertex_degrees_equals_3F : forall g,
   well_formed_triangulated g ->
   sum_degrees g (vertices g) = (3 * F g)%nat.
@@ -214,6 +217,7 @@ Proof.
     ring.
 Qed.
 
+(** [sum_angle_defects_equals_2piV_minus_piF]: formal specification. *)
 Lemma sum_angle_defects_equals_2piV_minus_piF : forall g,
   well_formed_triangulated g ->
   total_angle_defect g = (2 * PI * INR (V g) - PI * INR (F g))%R.

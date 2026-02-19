@@ -169,6 +169,7 @@ Proof.
   - f_equal. exact IH.
 Qed.
 
+(** [partition_permutation_preserves_obs]: formal specification. *)
 Theorem partition_permutation_preserves_obs : forall s perm,
   obs_equiv s (permute_modules perm s).
 Proof.
@@ -205,6 +206,7 @@ Proof.
   destruct instr; simpl; try lia.
 Qed.
 
+(** [execute_trace_monotone_mu]: formal specification. *)
 Lemma execute_trace_monotone_mu : forall prog s,
   s.(ledger).(mu_total) <= (execute_trace prog s).(ledger).(mu_total).
 Proof.
@@ -217,6 +219,7 @@ Proof.
       lia.
 Qed.
 
+(** [time_translation_preserves_energy]: formal specification. *)
 Theorem time_translation_preserves_energy : forall (s : ThieleState) (prog : ThieleProg) (n : nat),
   s.(ledger).(mu_total) <= (time_translate n s prog).(ledger).(mu_total).
 Proof.

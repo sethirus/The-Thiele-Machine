@@ -11,10 +11,12 @@ Open Scope Q_scope.
    minimal, mechanically checkable bridge that lets us push Qeq evidence
    into the Z-level inequalities produced by unfolding Qle/Qlt. *)
 
+(** [Qeq_cross_mul]: formal specification. *)
 Lemma Qeq_cross_mul : forall x y : Q, x == y ->
   (Qnum x * QDen y = Qnum y * QDen x)%Z.
 Proof. intros; unfold Qeq; assumption. Qed.
 
+(** [Qeq_le_compat]: formal specification. *)
 Lemma Qeq_le_compat : forall x y z : Q, x == y -> x <= z -> y <= z.
 Proof.
   intros x y z Hxy Hxz.
@@ -24,6 +26,7 @@ Proof.
   exact Hxz.
 Qed.
 
+(** [Qeq_lt_compat]: formal specification. *)
 Lemma Qeq_lt_compat : forall x y z : Q, x == y -> x < z -> y < z.
 Proof.
    intros x y z Hxy Hxz.
@@ -39,6 +42,7 @@ Qed.
 (* A symmetric form of the cross-multiplication identity is often
     convenient when the Z-level product appears with the factors in the
     opposite order. *)
+(** [Qeq_cross_mul_sym]: formal specification. *)
 Lemma Qeq_cross_mul_sym : forall x y : Q, x == y ->
    (Qnum y * QDen x = Qnum x * QDen y)%Z.
 Proof. intros. symmetry. rewrite (Qeq_cross_mul x y H). reflexivity. Qed.

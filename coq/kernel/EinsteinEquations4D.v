@@ -6,6 +6,7 @@
 
     THE MAIN RESULT:
     ```
+    (** [einstein_field_equations]: formal specification. *)
     Theorem einstein_field_equations : forall s sc μ ν,
       well_formed_4d_complex sc ->
       einstein_tensor s sc μ ν = (8 * PI * G * stress_energy_tensor s sc μ ν)%R.
@@ -61,6 +62,7 @@ Definition gravitational_constant : R := (/ (8 * PI))%R.
 Definition newtons_constant : R := gravitational_constant.
 
 (* DEFINITIONAL HELPER *)
+(** [computational_scale_positive]: formal specification. *)
 Lemma computational_scale_positive : (computational_scale > 0)%R.
 Proof.
   unfold computational_scale.
@@ -148,6 +150,7 @@ From Coq Require Import Classical_Prop.
     We prove this connection step by step. **)
 
 (* Lemma 1: Metric diagonal components come from vm_mu_tensor *)
+(** [metric_diagonal_proportional_to_mass]: formal specification. *)
 Lemma metric_diagonal_proportional_to_mass : forall s mu,
   RiemannTensor4D.metric_component s mu mu mu mu =
     INR (vm_mu_tensor_entry s (mu mod 4) (mu mod 4)).
@@ -158,6 +161,7 @@ Proof.
 Qed.
 
 (* Lemma 1b: metric_component is independent of vertex arguments v1,v2 *)
+(** [metric_component_vertex_independent]: formal specification. *)
 Lemma metric_component_vertex_independent : forall s mu nu v1 v2 w1 w2,
   RiemannTensor4D.metric_component s mu nu v1 v2 =
   RiemannTensor4D.metric_component s mu nu w1 w2.
@@ -168,6 +172,7 @@ Proof.
 Qed.
 
 (* Lemma 2: Discrete derivative of constant function is 0 *)
+(** [discrete_derivative_constant]: formal specification. *)
 Lemma discrete_derivative_constant : forall s sc c mu v,
   RiemannTensor4D.discrete_derivative s sc (fun _ => c) mu v = 0%R.
 Proof.
@@ -180,6 +185,7 @@ Qed.
 
 (* Lemma 2b: metric_component is position-independent by construction
    (it reads vm_mu_tensor which is a state-level tensor, not vertex-local) *)
+(** [metric_component_position_independent_uniform]: formal specification. *)
 Lemma metric_component_position_independent_uniform : forall s mu nu w1 w2,
   RiemannTensor4D.metric_component s mu nu w1 w1 =
   RiemannTensor4D.metric_component s mu nu w2 w2.
@@ -189,6 +195,7 @@ Proof.
 Qed.
 
 (* Lemma 2c: Derivative of position-independent function is zero *)
+(** [discrete_derivative_position_independent]: formal specification. *)
 Lemma discrete_derivative_position_independent : forall s sc f mu v,
   (forall w1 w2, f w1 = f w2) ->
   RiemannTensor4D.discrete_derivative s sc f mu v = 0%R.
@@ -201,6 +208,7 @@ Proof.
 Qed.
 
 (* Helper: filter with always-false predicate gives empty list *)
+(** [filter_false]: formal specification. *)
 Lemma filter_false : forall {A} (l : list A),
   filter (fun _ => false) l = [].
 Proof.
@@ -209,6 +217,7 @@ Proof.
 Qed.
 
 (* Lemma: In a simplicial complex with no edges, all derivatives vanish *)
+(** [no_edges_derivative_zero]: formal specification. *)
 Lemma no_edges_derivative_zero : forall s sc f mu v,
   sc4d_edges sc = [] ->
   RiemannTensor4D.discrete_derivative s sc f mu v = 0%R.
@@ -223,6 +232,7 @@ Qed.
 
 (* Lemma 3: For flat spacetime (uniform mass), Christoffel symbols vanish
    SIMPLIFIED VERSION: Prove for empty simplicial complex first *)
+(** [flat_spacetime_christoffel_zero]: formal specification. *)
 Lemma flat_spacetime_christoffel_zero : forall s sc rho mu nu v m,
   (forall w, module_structural_mass s w = m) ->
   sc4d_edges sc = [] ->
@@ -237,6 +247,7 @@ Proof.
 Qed.
 
 (* GENERAL CASE: For arbitrary simplicial complex *)
+(** [flat_spacetime_christoffel_zero_general]: formal specification. *)
 Lemma flat_spacetime_christoffel_zero_general : forall s sc rho mu nu v m,
   (forall w, module_structural_mass s w = m) ->
   RiemannTensor4D.christoffel s sc rho mu nu v = 0%R.
@@ -289,6 +300,7 @@ Proof.
 Qed.
 
 (* Lemma 4: Flat spacetime has zero Riemann tensor - simple version *)
+(** [flat_spacetime_riemann_zero]: formal specification. *)
 Lemma flat_spacetime_riemann_zero : forall s sc rho sigma mu nu v m,
   (forall w, module_structural_mass s w = m) ->
   sc4d_edges sc = [] ->
@@ -320,6 +332,7 @@ Proof.
 Qed.
 
 (* GENERAL VERSION *)
+(** [flat_spacetime_riemann_zero_general]: formal specification. *)
 Lemma flat_spacetime_riemann_zero_general : forall s sc rho sigma mu nu v m,
   (forall w, module_structural_mass s w = m) ->
   RiemannTensor4D.riemann_tensor s sc rho sigma mu nu v = 0%R.
@@ -355,6 +368,7 @@ Proof.
 Qed.
 
 (* Lemma 5: fold_left of zeros is zero *)
+(** [fold_left_sum_zeros]: formal specification. *)
 Lemma fold_left_sum_zeros : forall {A} (l : list A) g,
   (forall x, g x = 0%R) ->
   fold_left (fun acc x => (acc + g x)%R) l 0%R = 0%R.
@@ -366,6 +380,7 @@ Proof.
 Qed.
 
 (* Lemma 5b: Nested fold_left of zeros is zero *)
+(** [fold_left_nested_zeros]: formal specification. *)
 Lemma fold_left_nested_zeros : forall {A B} (l1 : list A) (l2 : list B) f,
   (forall x y, f x y = 0%R) ->
   fold_left (fun acc x => fold_left (fun acc' y => (acc' + f x y)%R) l2 acc) l1 0%R = 0%R.
@@ -381,6 +396,7 @@ Proof.
 Qed.
 
 (* Lemma 6: Flat spacetime has zero Einstein tensor - simple version *)
+(** [flat_spacetime_einstein_zero]: formal specification. *)
 Lemma flat_spacetime_einstein_zero : forall s sc mu nu v m,
   (forall w, module_structural_mass s w = m) ->
   sc4d_edges sc = [] ->
@@ -427,6 +443,7 @@ Proof.
 Qed.
 
 (* GENERAL VERSION *)
+(** [flat_spacetime_einstein_zero_general]: formal specification. *)
 Lemma flat_spacetime_einstein_zero_general : forall s sc mu nu v m,
   (forall w, module_structural_mass s w = m) ->
   RiemannTensor4D.einstein_tensor s sc mu nu v = 0%R.
@@ -543,6 +560,7 @@ Proof.
 Qed.
 
 (* Lemma 7: Flat spacetime stress-energy for (0,0) component *)
+(** [flat_spacetime_stress_energy_00]: formal specification. *)
 Lemma flat_spacetime_stress_energy_00 : forall s sc v m,
   (forall w, module_structural_mass s w = m) ->
   stress_energy_tensor s sc 0%nat 0%nat v = INR m.

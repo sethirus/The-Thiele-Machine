@@ -5,6 +5,7 @@ Require Import Lia.
 Require Import Permutation.
 Import ListNotations.
 
+(** [Permutation_length_eq]: formal specification. *)
 Lemma Permutation_length_eq : forall A (l1 l2 : list A), Permutation l1 l2 -> length l1 = length l2.
 Proof.
   intros A l1 l2 H.
@@ -60,6 +61,7 @@ Definition sum_mu (certs : list nat) := length certs.
 Definition receipts_ok := fun (_ _ : nat) => True.  (* Placeholder *)
 
 (* Helper lemmas for sum *)
+(** [fold_left_add_zeros]: formal specification. *)
 Lemma fold_left_add_zeros : forall (l : list nat) (acc : nat),
   fold_left Nat.add (map (fun _ => 0) l) acc = acc.
 Proof.
@@ -68,6 +70,7 @@ Proof.
   - rewrite IHl. lia.
 Qed.
 
+(** [sum_const_zero]: formal specification. *)
 Lemma sum_const_zero : forall (l : list nat), 
   sum (map (fun _ => 0) l) = 0.
 Proof.
@@ -111,6 +114,7 @@ Definition interface_satisfied (w1 w2 : LocalWitness) (axiom : list nat) : bool 
 (* === Witness Composition Theorem === *)
 
 (* Theorem 6: When interface axioms are satisfied, local witnesses compose to a global witness *)
+(** [witness_composition]: formal specification. *)
 Theorem witness_composition :
   forall (P : Partition) (local_ws : list LocalWitness) (global_w : GlobalWitness),
     (* Preconditions: all interface axioms are satisfied *)
@@ -159,6 +163,7 @@ Definition partition_change_cost (old_P new_P : Partition) : nat :=
     old_size - new_size.
 
 (* Theorem 7: Refinement admissibility *)
+(** [refinement_admissible]: formal specification. *)
 Theorem refinement_admissible :
   forall (P : Partition) (module_idx : nat) (submodules : list (list nat)),
     let P' := refine_partition P module_idx submodules in
@@ -177,6 +182,7 @@ Proof.
 Qed.
 
 (* Progress theorem for refinements *)
+(** [refinement_progress]: formal specification. *)
 Theorem refinement_progress :
   forall (P : Partition),
     (* Some potential function that decreases with admissible refinements *)
@@ -222,6 +228,7 @@ Qed.
 (* === Order-Invariance with Costs === *)
 
 (* Theorem 8: Order-invariance with identical receipts *)
+(** [order_invariance_with_costs]: formal specification. *)
 Theorem order_invariance_with_costs :
   forall (s : CoreState) (certs1 certs2 : list Cert) (s1 s2 : CoreState),
     (* Same certificates in different order *)
@@ -244,6 +251,7 @@ Qed.
 (* === Structured-Instance Speedup === *)
 
 (* Theorem 9: Structured-instance speedup *)
+(** [structured_instance_speedup]: formal specification. *)
 Theorem structured_instance_speedup :
   forall (instance_family : Type) (structure_detector : instance_family -> Partition),
     (* For families with hidden structure *)
@@ -278,6 +286,7 @@ Qed.
 (* === Amortized Discovery === *)
 
 (* Theorem 10: Amortized discovery across runs *)
+(** [amortized_discovery]: formal specification. *)
 Theorem amortized_discovery :
   forall (I : list instance_family) (P : Partition),
     (* Same partition reused across instances *)
@@ -306,6 +315,7 @@ Qed.
 
 (* Theorem 12: Deterministic replay - requires external definitions *)
 (*
+(** [deterministic_replay]: formal specification. *)
 Theorem deterministic_replay :
   forall (receipt1 receipt2 : Receipt) (expected_digest : Hash),
     (* Same canonical JSON serialization *)

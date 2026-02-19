@@ -98,6 +98,7 @@ Proof.
     + assert (f x >= g x) by (apply Hfg; left; reflexivity). lia.
 Qed.
 
+(** [measurement_cost_bounds_info]: formal specification. *)
 Theorem measurement_cost_bounds_info : forall cm,
   total_cost cm >= total_bits cm.
 Proof.
@@ -187,6 +188,7 @@ Definition is_complete_reveal (bits_available bits_revealed : nat) : Prop :=
 
 (** Complete measurement forces unique outcome (dim = 1) *)
 (* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
+(** [complete_reveal_determines_state]: formal specification. *)
 Theorem complete_reveal_determines_state :
   forall avail revealed,
     is_complete_reveal avail revealed ->

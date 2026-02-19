@@ -60,10 +60,9 @@ Definition Embed (M : TuringMachine) : CoreThieleMachine :=
      PartitionLabels := unit; (* Trivial partition set *)
      MuCost := 0 |}.
 
-(* 
-   Theorem 1: Turing Embedding (Subsumption)
-   We prove that the embedding has the desired properties directly.
-*)
+(* Thm-1: Turing Embedding (Subsumption) —
+   We prove that the embedding has the desired properties directly. *)
+(** [Turing_Embedding_Properties]: formal specification. *)
 Theorem Turing_Embedding_Properties : forall (M : TuringMachine),
   let T := Embed M in
   TM_Skeleton T = M /\
@@ -103,6 +102,7 @@ Definition Shadow (_t : Trace)
                         (fun _ _ => (tt, tt, true)) tt (fun _ => True))))) :=
   [].
 
+(** [Semantic_Strictness]: formal specification. *)
 Theorem Semantic_Strictness : exists (T1 T2 : CoreThieleMachine) (tau1 tau2 : Trace),
   Shadow tau1 = Shadow tau2 /\ ~ Isomorphic tau1 tau2.
 Proof.
@@ -157,6 +157,7 @@ Definition HyperComputable (f : nat -> nat) : Prop :=
   exists (prog : list CoreSemantics.Instruction),
     uses_ORACLE_HALTS prog /\ Computable f.
 
+(** [Strict_Containment]: formal specification. *)
 Theorem Strict_Containment :
   forall f, Computable f -> HyperComputable f.
 Proof.

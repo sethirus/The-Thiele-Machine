@@ -74,6 +74,7 @@ Proof.
 Qed.
 
 (* Log2 monotonicity (ceiling vs floor) *)
+(** [log2_monotonic]: formal specification. *)
 Lemma log2_monotonic :
   forall (n m : positive),
     (n > m)%positive ->
@@ -93,6 +94,7 @@ Proof.
 Qed.
 
 (* μ-cost bounds Shannon entropy (a + b >= b when a >= 0) *)
+(** [mu_bounds_shannon_entropy]: formal specification. *)
 Lemma mu_bounds_shannon_entropy :
   forall (query_bytes : nat) (before after : positive),
     (after < before)%positive ->
@@ -153,6 +155,7 @@ Qed.
 
 (* Theorem: Information component equals Shannon entropy reduction *)
 (* DEFINITIONAL — information_cost is defined as state_reduction_entropy *)
+(** [information_equals_shannon_reduction]: formal specification. *)
 Theorem information_equals_shannon_reduction :
   forall (before after : positive),
     (after < before)%positive ->
@@ -180,6 +183,7 @@ Definition mdl_cost (num_parameters parameter_bits data_points : nat)
   data_description_length data_points residual_entropy.
 
 (* μ-cost for partition discovery includes MDL *)
+(** [partition_discovery_mu_includes_mdl]: formal specification. *)
 Lemma partition_discovery_mu_includes_mdl :
   forall (partition_description_bits : nat)
          (data_points : nat)
@@ -209,6 +213,7 @@ Definition kolmogorov_complexity (data : list bool) : Q :=
    We keep the statement shape but discharge it constructively: choose
    overhead = K(data). Then K(data) <= μ + K(data) follows from μ >= 0.
 *)
+(** [mu_bounds_kolmogorov]: formal specification. *)
 Lemma mu_bounds_kolmogorov :
   forall (data : list bool) (program_bytes : nat),
     mu_cost program_bytes 1 1 >= 0 ->
@@ -238,6 +243,7 @@ Qed.
 (* ================================================================ *)
 
 (* μ-monotonicity implies information conservation *)
+(** [mu_monotonicity_conservation]: formal specification. *)
 Lemma mu_monotonicity_conservation :
   forall (mu_before mu_after : Q),
     mu_after >= mu_before ->
@@ -260,6 +266,7 @@ Definition binary_search_mu_cost (n : nat) (query_bytes : nat) : Q :=
   inject_Z num_queries * question_cost query_bytes.
 
 (* Binary search μ-cost is bounded below by log(n) when queries are non-empty *)
+(** [binary_search_bound]: formal specification. *)
 Lemma binary_search_bound :
   forall (n query_bytes : nat),
     n > 0 ->

@@ -72,6 +72,7 @@ Definition ClassicalEmbeddingStatement : Prop :=
       (* The Thiele cost is at least the classical step count (embedding) *)
       mu_of_state (run n (embed n)) >= Z.of_nat n.
 
+(** [classical_embedding]: formal specification. *)
 Theorem classical_embedding : ClassicalEmbeddingStatement.
 Proof.
   unfold ClassicalEmbeddingStatement.

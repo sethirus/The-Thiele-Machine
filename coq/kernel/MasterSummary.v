@@ -140,6 +140,7 @@ Definition verification_chain_holds : Prop :=
     hw_mu_accumulator (hardware_multi_step hw_init costs) =
       py_mu (python_multi_step py_init costs).
 
+(** [master_verification_chain]: formal specification. *)
 Theorem master_verification_chain : verification_chain_holds.
 Proof.
   unfold verification_chain_holds.
@@ -178,6 +179,7 @@ Definition thiele_machine_complete : Prop :=
   (* Verification chain complete *)
   verification_chain_holds.
 
+(** [thiele_machine_is_complete]: formal specification. *)
 Theorem thiele_machine_is_complete : thiele_machine_complete.
 Proof.
   unfold thiele_machine_complete.

@@ -32,6 +32,7 @@ Definition mu_operational_cost (inst : Instance) (P : Partition) : nat :=
 
 (* === Basic Amortization Theorem === *)
 
+(** [basic_amortization]: formal specification. *)
 Theorem basic_amortization :
   forall (i : Instance) (instances' : list Instance) (P : Partition),
     let instances := i :: instances' in
@@ -45,6 +46,7 @@ Qed.
 
 (* === Advanced Amortization with Reuse Patterns === *)
 
+(** [amortization_improves_with_reuse]: formal specification. *)
 Theorem amortization_improves_with_reuse :
   forall (runs : list (list Instance)) (P : Partition),
     (* Each "run" is a batch of instances using the same partition *)
@@ -88,6 +90,7 @@ Definition convergence_to_operational_cost
 (* === Practical Amortization Bounds === *)
 
 (* Theorem: Concrete bounds for realistic scenarios *)
+(** [practical_amortization_bounds]: formal specification. *)
 Theorem practical_amortization_bounds :
   exists discovery_cost operational_cost : nat,
     forall T instances_per_batch batch_count,
@@ -115,6 +118,7 @@ Proof.
 (* === Amortization vs Instance Size === *)
 
 (* Theorem: Amortization becomes more beneficial for larger instances *)
+(** [amortization_scales_with_size]: formal specification. *)
 Theorem amortization_scales_with_size :
   forall (small_inst large_inst : Instance) (P : Partition),
     size large_inst >= 2 * size small_inst ->
@@ -129,6 +133,7 @@ Proof.
 (* === Summary: Amortization Benefits === *)
 
 (* Corollary: Amortization makes Thiele machine increasingly efficient *)
+(** [amortization_enables_scalability]: formal specification. *)
 Corollary amortization_enables_scalability :
   forall (problem_family : Type) (thiele_solver : problem_family -> nat),
     (* For any problem family with exploitable structure *)

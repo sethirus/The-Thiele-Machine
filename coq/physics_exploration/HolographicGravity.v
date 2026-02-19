@@ -8,11 +8,13 @@ Open Scope R_scope.
 
 Definition G : R := 1.
 
+(** [G_positive]: formal specification. *)
 Lemma G_positive : G > 0.
 Proof. unfold G. lra. Qed.
 
 Definition l_planck : R := sqrt (h * G / (c * c * c)).
 
+(** [G_requires_unknowns]: formal specification. *)
 Theorem G_requires_unknowns :
   exists (unknown : R), unknown > 0 /\ G = unknown.
 Proof.

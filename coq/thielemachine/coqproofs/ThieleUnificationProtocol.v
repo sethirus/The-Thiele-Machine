@@ -150,6 +150,7 @@ Module ThieleUnificationProtocol.
           apply IH. exact Hneq.
   Qed.
 
+  (** [graph_lookup_update_other]: formal specification. *)
   Lemma graph_lookup_update_other :
     forall g mid mid' m',
       mid <> mid' ->
@@ -162,6 +163,7 @@ Module ThieleUnificationProtocol.
     exact Hneq.
   Qed.
 
+  (** [graph_add_axiom_other_unchanged]: formal specification. *)
   Lemma graph_add_axiom_other_unchanged :
     forall g mid mid' ax,
       mid <> mid' ->
@@ -174,6 +176,7 @@ Module ThieleUnificationProtocol.
     apply graph_lookup_update_other; exact Hneq.
   Qed.
 
+  (** [graph_add_axioms_other_unchanged]: formal specification. *)
   Lemma graph_add_axioms_other_unchanged :
     forall axs g mid mid',
       mid <> mid' ->
@@ -189,6 +192,7 @@ Module ThieleUnificationProtocol.
       reflexivity.
   Qed.
 
+  (** [no_signaling_pdiscover_graph]: formal specification. *)
   Theorem no_signaling_pdiscover_graph :
     forall s module evidence cost other,
       module <> other ->

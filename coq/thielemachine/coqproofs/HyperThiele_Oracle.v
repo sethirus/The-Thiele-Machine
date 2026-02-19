@@ -38,6 +38,7 @@ Module HyperThieleOracleMinimal.
 
   Definition obs_to_bool (obs : StepObs) : bool := Nat.eqb (cert obs) 1%nat.
 
+  (** [compile_preserves_oracle_outputs]: formal specification. *)
   Theorem compile_preserves_oracle_outputs :
     forall (O : Oracle) (p : Program),
       run_program O p = map obs_to_bool (map obs_of_instr (compile_code O p)).

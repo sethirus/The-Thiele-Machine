@@ -150,6 +150,7 @@ Proof.
 Qed.
 
 (* Theorem 2: μ is additive over operation sequences *)
+(** [mu_additive]: formal specification. *)
 Theorem mu_additive : forall ops1 ops2 s,
   mu_value (execute_ops (ops1 ++ ops2) s) = 
   mu_value (execute_ops ops2 (execute_ops ops1 s)).
@@ -163,6 +164,7 @@ Proof.
 Qed.
 
 (* Helper lemma: single operation μ cost *)
+(** [single_op_mu]: formal specification. *)
 Lemma single_op_mu : forall op s,
   mu_value (execute_op op s) = mu_value s + op_mu_cost op (config s).
 Proof.
@@ -197,6 +199,7 @@ Qed.
 
 (* Simpler version: μ increases by exactly the cost of each operation *)
 (* DEFINITIONAL — execute_op constructs state with mu += op_mu_cost *)
+(** [mu_increases_by_cost]: formal specification. *)
 Theorem mu_increases_by_cost : forall op s,
   mu_value (execute_op op s) = mu_value s + op_mu_cost op (config s).
 Proof.
@@ -212,6 +215,7 @@ Definition reversible {A : Type} (f : A -> A) : Prop :=
   exists g : A -> A, forall x, g (f x) = x /\ f (g x) = x.
 
 (* Flip is reversible *)
+(** [flip_reversible]: formal specification. *)
 Theorem flip_reversible : forall idx,
   reversible (fun c => set_bit c idx (negb (get_bit c idx))).
 Proof.
@@ -251,6 +255,7 @@ Proof.
 Qed.
 
 (* Erase is NOT reversible (many inputs map to same output) *)
+(** [erase_not_reversible]: formal specification. *)
 Theorem erase_not_reversible : forall n,
   n > 0 ->
   ~ reversible (fun c => erase_bits c n).
@@ -322,6 +327,7 @@ Definition potential_info (c : Config) : nat :=
   length (filter (fun b => b) c).  (* Count of true bits = potential info *)
 
 (* When we erase n bits, we lose at most n bits of information *)
+(** [erase_info_loss]: formal specification. *)
 Theorem erase_info_loss : forall c n,
   n <= length c ->
   potential_info (erase_bits c n) <= potential_info c.
@@ -376,6 +382,7 @@ Proof.
 Qed.
 
 (* For erase: μ-cost is exactly n *)
+(** [erase_mu_cost]: formal specification. *)
 Theorem erase_mu_cost : forall n c,
   op_mu_cost (OpErase n) c = n.
 (** HELPER: Base case property *)
@@ -406,6 +413,7 @@ Qed.
 Definition energy_lower_bound (mu : nat) : nat := mu.
 
 (* The Landauer bound theorem: minimum energy = μ *)
+(** [landauer_bound]: formal specification. *)
 Theorem landauer_bound : forall ops s,
   energy_lower_bound (mu_value (execute_ops ops s) - mu_value s) = 
   mu_value (execute_ops ops s) - mu_value s.
@@ -454,6 +462,7 @@ Definition implementation_correct
     impl_execute ops c = (mu_value s', config s').
 
 (* Theorem: If implementation is correct, Landauer bound holds for it *)
+(** [impl_satisfies_landauer]: formal specification. *)
 Theorem impl_satisfies_landauer :
   forall impl_execute,
   implementation_correct impl_execute ->

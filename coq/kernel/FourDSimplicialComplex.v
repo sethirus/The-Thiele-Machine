@@ -307,6 +307,7 @@ Definition build_4d_complex_from_graph (g : PartitionGraph) : SimplicialComplex4
 
 (** Empty complex has χ = 0 *)
 (* DEFINITIONAL HELPER *)
+(** [empty_4d_complex_euler_zero]: formal specification. *)
 Lemma empty_4d_complex_euler_zero :
   euler_characteristic_4d {| sc4d_vertices := [];
                               sc4d_edges := [];
@@ -321,6 +322,7 @@ Qed.
 
 (** Single vertex has χ = 1 *)
 (* DEFINITIONAL HELPER *)
+(** [single_vertex_euler_one]: formal specification. *)
 Lemma single_vertex_euler_one :
   euler_characteristic_4d {| sc4d_vertices := [0];
                               sc4d_edges := [];
@@ -399,6 +401,7 @@ Proof.
     + apply IH. intros y Hy. apply H. simpl. right. exact Hy.
 Qed.
 
+(** [extracted_faces_well_formed]: formal specification. *)
 Lemma extracted_faces_well_formed : forall modules,
   all_faces_well_formed (extract_faces_from_modules modules).
 Proof.

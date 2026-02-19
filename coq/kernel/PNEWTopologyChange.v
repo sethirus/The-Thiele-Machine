@@ -62,6 +62,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [pnew_fresh_increases_F]: formal specification. *)
 Theorem pnew_fresh_increases_F : forall g region,
   graph_find_region g (normalize_region region) = None ->
   let (g', _) := graph_pnew g region in

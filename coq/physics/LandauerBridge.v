@@ -207,6 +207,7 @@ Qed.
 (** VM entropy: length of data *)
 Definition vm_entropy (cfg : VMConfig) : nat := length (vm_data cfg).
 
+(** [landauer_bridge_entropy]: formal specification. *)
 Theorem landauer_bridge_entropy :
   forall cfg i,
     let cfg' := vm_step cfg i in

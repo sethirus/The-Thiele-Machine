@@ -21,6 +21,7 @@ Open Scope Q_scope.
 Definition quantum_admissible_box (B : Box) : Prop :=
   local B \/ B = TsirelsonApprox.
 
+(** [two_le_kernel_tsirelson_bound]: formal specification. *)
 Lemma two_le_kernel_tsirelson_bound :
   (2#1) <= kernel_tsirelson_bound_q.
 Proof.
@@ -28,6 +29,7 @@ Proof.
   unfold Qle. simpl. lia.
 Qed.
 
+(** [quantum_admissible_implies_CHSH_le_tsirelson]: formal specification. *)
 Theorem quantum_admissible_implies_CHSH_le_tsirelson :
   forall B,
     quantum_admissible_box B ->

@@ -13,6 +13,7 @@ Module UTM_Program.
   Definition TAPE_START_ADDR  : nat := 1000.
 
   (* ARITHMETIC — 100 <= 1000 *)
+  (** [RULES_START_ADDR_le_TAPE_START_ADDR]: formal specification. *)
   Lemma RULES_START_ADDR_le_TAPE_START_ADDR :
     RULES_START_ADDR <= TAPE_START_ADDR.
   Proof.
@@ -72,6 +73,7 @@ Module UTM_Program.
       Jnz REG_TEMP1 0
     ].
 
+  (** [nth_firstn_lt]: formal specification. *)
   Lemma nth_firstn_lt : forall (A : Type) n m (l : list A) d,
     n < m -> nth n (firstn m l) d = nth n l d.
   Proof.
@@ -83,9 +85,11 @@ Module UTM_Program.
       apply IH. lia.
   Qed.
 
+  (** [program_instrs_length_gt_48]: formal specification. *)
   Lemma program_instrs_length_gt_48 : 48 < length program_instrs.
   Proof. cbn; lia. Qed.
 
+  (** [program_instrs_before_apply_not_store]: formal specification. *)
   Lemma program_instrs_before_apply_not_store :
     forall pc,
       pc < 29 ->
@@ -131,6 +135,7 @@ Module UTM_Program.
     exact Hpc.
   Qed.
 
+  (** [program_instrs_before_apply_jump_target_lt]: formal specification. *)
   Lemma program_instrs_before_apply_jump_target_lt :
     forall pc,
       pc < 29 ->
@@ -180,6 +185,7 @@ Module UTM_Program.
     exact Hpc.
   Qed.
 
+  (** [program_instrs_before_apply_reg_bound]: formal specification. *)
   Lemma program_instrs_before_apply_reg_bound :
     forall pc,
       pc < 29 ->
@@ -257,62 +263,77 @@ Module UTM_Program.
     exact Hpc.
   Qed.
 
+  (** [program_instrs_pc29]: formal specification. *)
   Lemma program_instrs_pc29 :
     nth 29 program_instrs Halt = CopyReg REG_TEMP1 REG_HEAD.
   Proof. reflexivity. Qed.
 
+  (** [program_instrs_pc7]: formal specification. *)
   Lemma program_instrs_pc7 :
     nth 7 program_instrs Halt = Jz REG_TEMP1 12.
   Proof. reflexivity. Qed.
 
+  (** [program_instrs_pc9]: formal specification. *)
   Lemma program_instrs_pc9 :
     nth 9 program_instrs Halt = Jnz REG_TEMP1 4.
   Proof. reflexivity. Qed.
 
+  (** [program_instrs_pc11]: formal specification. *)
   Lemma program_instrs_pc11 :
     nth 11 program_instrs Halt = Jnz REG_TEMP1 0.
   Proof. reflexivity. Qed.
 
+  (** [program_instrs_pc17]: formal specification. *)
   Lemma program_instrs_pc17 :
     nth 17 program_instrs Halt = Jz REG_TEMP1 22.
   Proof. reflexivity. Qed.
 
+  (** [program_instrs_pc20]: formal specification. *)
   Lemma program_instrs_pc20 :
     nth 20 program_instrs Halt = Jnz REG_TEMP1 4.
   Proof. reflexivity. Qed.
 
+  (** [program_instrs_pc21]: formal specification. *)
   Lemma program_instrs_pc21 :
     nth 21 program_instrs Halt = LoadConst REG_TEMP1 0.
   Proof. reflexivity. Qed.
 
+  (** [program_instrs_pc22]: formal specification. *)
   Lemma program_instrs_pc22 :
     nth 22 program_instrs Halt = CopyReg REG_TEMP1 REG_ADDR.
   Proof. reflexivity. Qed.
 
+  (** [program_instrs_pc23]: formal specification. *)
   Lemma program_instrs_pc23 :
     nth 23 program_instrs Halt = AddConst REG_TEMP1 2.
   Proof. reflexivity. Qed.
 
+  (** [program_instrs_pc24]: formal specification. *)
   Lemma program_instrs_pc24 :
     nth 24 program_instrs Halt = LoadIndirect REG_Q' REG_TEMP1.
   Proof. reflexivity. Qed.
 
+  (** [program_instrs_pc25]: formal specification. *)
   Lemma program_instrs_pc25 :
     nth 25 program_instrs Halt = AddConst REG_TEMP1 1.
   Proof. reflexivity. Qed.
 
+  (** [program_instrs_pc26]: formal specification. *)
   Lemma program_instrs_pc26 :
     nth 26 program_instrs Halt = LoadIndirect REG_WRITE REG_TEMP1.
   Proof. reflexivity. Qed.
 
+  (** [program_instrs_pc27]: formal specification. *)
   Lemma program_instrs_pc27 :
     nth 27 program_instrs Halt = AddConst REG_TEMP1 1.
   Proof. reflexivity. Qed.
 
+  (** [program_instrs_pc28]: formal specification. *)
   Lemma program_instrs_pc28 :
     nth 28 program_instrs Halt = LoadIndirect REG_MOVE REG_TEMP1.
   Proof. reflexivity. Qed.
 
+  (** [program_instrs_before_apply_pc_unchanged]: formal specification. *)
   Lemma program_instrs_before_apply_pc_unchanged :
     forall pc,
       pc < 29 ->
@@ -382,6 +403,7 @@ Module UTM_Program.
     exact Hpc.
   Qed.
 
+  (** [program_instrs_monotonic_after_apply]: formal specification. *)
   Lemma program_instrs_monotonic_after_apply : forall pc,
     29 <= pc < 48 ->
     match nth pc program_instrs Halt with

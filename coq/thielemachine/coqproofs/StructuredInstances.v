@@ -20,6 +20,7 @@ Definition time_complexity (solver : nat -> bool) (n : nat) : nat :=
 Definition tseitin_3regular_expander (n : nat) : Prop :=
   (12 <= n)%nat /\ n mod 3 = 0.
 
+(** [tseitin_speedup_example]: formal specification. *)
 Theorem tseitin_speedup_example :
   forall n,
     n > 10 ->
@@ -38,6 +39,7 @@ Qed.
 Definition hidden_linear_system (n : nat) : Prop :=
   exists k, n = 2 * k.
 
+(** [linear_structure_discovery]: formal specification. *)
 Theorem linear_structure_discovery :
   forall n,
     hidden_linear_system n ->
@@ -52,6 +54,7 @@ Qed.
 Definition modular_arithmetic_circuit (n : nat) : Prop :=
   (1 <= n)%nat.
 
+(** [modular_circuit_speedup]: formal specification. *)
 Theorem modular_circuit_speedup :
   forall n,
     modular_arithmetic_circuit n ->
@@ -69,6 +72,7 @@ Qed.
 Definition structured_coloring_instance (n : nat) : Prop :=
   (4 <= n)%nat.
 
+(** [coloring_structure_exploitation]: formal specification. *)
 Theorem coloring_structure_exploitation :
   forall n,
     structured_coloring_instance n ->
@@ -83,6 +87,7 @@ Proof.
   - simpl. apply Nat.le_refl.
 Qed.
 
+(** [structured_classes_exist]: formal specification. *)
 Theorem structured_classes_exist :
   exists problem_classes,
     forall cls,
