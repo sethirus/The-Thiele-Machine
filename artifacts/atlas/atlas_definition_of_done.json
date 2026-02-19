@@ -4,35 +4,35 @@
   "checks": [
     {
       "name": "isomorphism_score",
-      "actual": 87.73,
+      "actual": 87.55,
       "comparator": ">=",
       "threshold": 100.0,
       "passed": false
     },
     {
       "name": "triad_completion_ratio",
-      "actual": 0.6508,
+      "actual": 0.6457,
       "comparator": ">=",
       "threshold": 1.0,
       "passed": false
     },
     {
       "name": "core_bridge_ratio",
-      "actual": 0.9988,
+      "actual": 0.9986,
       "comparator": ">=",
       "threshold": 1.0,
       "passed": false
     },
     {
       "name": "test_prod_symbol_coverage_ratio",
-      "actual": 0.0745,
+      "actual": 0.0744,
       "comparator": ">=",
       "threshold": 1.0,
       "passed": false
     },
     {
       "name": "test_prod_file_coverage_ratio",
-      "actual": 0.4651,
+      "actual": 0.4653,
       "comparator": ">=",
       "threshold": 1.0,
       "passed": false
@@ -46,10 +46,10 @@
     },
     {
       "name": "per_proof_doc_ratio",
-      "actual": 1.0,
+      "actual": 0.9988,
       "comparator": ">=",
       "threshold": 1.0,
-      "passed": true
+      "passed": false
     },
     {
       "name": "proof_files_with_readme_ratio",
@@ -60,10 +60,10 @@
     },
     {
       "name": "kernel_proof_latex_coverage_ratio",
-      "actual": 1.0,
+      "actual": 0.9962,
       "comparator": ">=",
       "threshold": 1.0,
-      "passed": true
+      "passed": false
     },
     {
       "name": "coq_compile_pass",
@@ -94,39 +94,53 @@
       "passed": true
     }
   ],
-  "unmet_check_count": 5,
+  "unmet_check_count": 7,
   "unmet_checks": [
     {
       "name": "isomorphism_score",
-      "actual": 87.73,
+      "actual": 87.55,
       "comparator": ">=",
       "threshold": 100.0,
       "passed": false
     },
     {
       "name": "triad_completion_ratio",
-      "actual": 0.6508,
+      "actual": 0.6457,
       "comparator": ">=",
       "threshold": 1.0,
       "passed": false
     },
     {
       "name": "core_bridge_ratio",
-      "actual": 0.9988,
+      "actual": 0.9986,
       "comparator": ">=",
       "threshold": 1.0,
       "passed": false
     },
     {
       "name": "test_prod_symbol_coverage_ratio",
-      "actual": 0.0745,
+      "actual": 0.0744,
       "comparator": ">=",
       "threshold": 1.0,
       "passed": false
     },
     {
       "name": "test_prod_file_coverage_ratio",
-      "actual": 0.4651,
+      "actual": 0.4653,
+      "comparator": ">=",
+      "threshold": 1.0,
+      "passed": false
+    },
+    {
+      "name": "per_proof_doc_ratio",
+      "actual": 0.9988,
+      "comparator": ">=",
+      "threshold": 1.0,
+      "passed": false
+    },
+    {
+      "name": "kernel_proof_latex_coverage_ratio",
+      "actual": 0.9962,
       "comparator": ">=",
       "threshold": 1.0,
       "passed": false
