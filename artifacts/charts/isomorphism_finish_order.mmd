@@ -1,0 +1,17 @@
+flowchart TD
+    R0[Current Baseline
+proof-undeniable + isomorphism-bitlock PASS]
+    R1[P0: Coq FullWireSpec discharge
+(concrete non-Coq instantiation)]
+    R2[P1: Lockstep corpus expansion
+(edge/corner/fuzz traces)]
+    R3[P1: Receipt end-to-end closure
+(proof + runtime anti-forgery)]
+    R4[P2: Dual-simulator parity
+(iverilog + verilator)]
+    R5[Release Readiness
+mathematical + visual + runtime closure]
+
+    R0 --> R1 --> R2 --> R5
+    R1 --> R3 --> R5
+    R2 --> R4 --> R5

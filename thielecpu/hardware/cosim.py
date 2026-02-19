@@ -1,12 +1,12 @@
 """Verilog co-simulation harness for 3-way bisimulation testing.
 
-Compiles and runs the Thiele CPU RTL through Icarus Verilog, parses the
-JSON output, and returns a canonical VMState that can be compared against
-the Coq-extracted OCaml runner and the Python VM.
+Compiles and runs the Thiele CPU RTL, parses the JSON output, and returns a
+canonical VMState that can be compared against the Coq-extracted OCaml runner
+and the Python VM.
 
-Requirements:
-    - iverilog (Icarus Verilog compiler)
-    - vvp (Icarus Verilog runtime)
+Supported simulators:
+    - iverilog + vvp (default)
+    - verilator (optional)
 
 The harness converts a text-format program (same format as the OCaml runner)
 into a hex instruction memory image, runs the testbench, and scrapes the
@@ -47,6 +47,14 @@ OPCODES: Dict[str, int] = {
 
 RTL_DIR = Path(__file__).resolve().parent / "rtl"
 TB_DIR = Path(__file__).resolve().parent / "testbench"
+
+
+def _command_available(cmd: str) -> bool:
+    try:
+        subprocess.run([cmd, "--version"], capture_output=True, timeout=5)
+    except (FileNotFoundError, subprocess.TimeoutExpired):
+        return False
+    return True
 
 
 def _parse_brace_list(s: str) -> List[int]:
@@ -229,7 +237,7 @@ def program_to_hex(program: str) -> Tuple[List[str], List[str]]:
     return instr_hex, data_hex
 
 
-def compile_testbench(work_dir: Path) -> Path:
+def compile_testbench_iverilog(work_dir: Path) -> Path:
     """Compile the thiele_cpu testbench with iverilog.
 
     Returns the path to the compiled vvp binary.
@@ -260,9 +268,43 @@ def compile_testbench(work_dir: Path) -> Path:
     return output
 
 
-def run_simulation(vvp_binary: Path, program_hex: Path,
-                   data_hex: Optional[Path] = None,
-                   timeout: int = 30) -> str:
+def compile_testbench_verilator(work_dir: Path) -> Path:
+    """Compile the thiele_cpu testbench with Verilator.
+
+    Returns the path to the compiled executable.
+    """
+    rtl_files = [
+        RTL_DIR / "thiele_cpu_unified.v",
+        TB_DIR / "thiele_cpu_tb.v",
+    ]
+
+    for f in rtl_files:
+        if not f.exists():
+            raise FileNotFoundError(f"RTL file missing: {f}")
+
+    cmd = [
+        "verilator",
+        "--binary",
+        "--timing",
+        "-Wno-fatal",
+        "-I" + str(RTL_DIR),
+        "-DYOSYS_LITE",
+        "--top-module", "thiele_cpu_tb",
+    ] + [str(f) for f in rtl_files]
+
+    result = subprocess.run(cmd, cwd=work_dir, capture_output=True, text=True, timeout=120)
+    if result.returncode != 0:
+        raise RuntimeError(f"verilator compilation failed:\n{result.stderr}")
+
+    binary = work_dir / "obj_dir" / "Vthiele_cpu_tb"
+    if not binary.exists():
+        raise RuntimeError("verilator compilation did not produce obj_dir/Vthiele_cpu_tb")
+    return binary
+
+
+def run_simulation_iverilog(vvp_binary: Path, program_hex: Path,
+                            data_hex: Optional[Path] = None,
+                            timeout: int = 30) -> str:
     """Run the compiled testbench and return stdout."""
     cmd = ["vvp", str(vvp_binary)]
     plusargs = [f"+PROGRAM={program_hex}"]
@@ -273,6 +315,19 @@ def run_simulation(vvp_binary: Path, program_hex: Path,
     result = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
     if result.returncode != 0 and "timed out" not in result.stdout.lower():
         # Some simulations finish with non-zero exit; check output
+        pass
+    return result.stdout
+
+
+def run_simulation_verilator(binary: Path, program_hex: Path,
+                             data_hex: Optional[Path] = None,
+                             timeout: int = 30) -> str:
+    """Run the Verilator-built executable and return stdout."""
+    cmd = [str(binary), f"+PROGRAM={program_hex}"]
+    if data_hex:
+        cmd.append(f"+DATA={data_hex}")
+    result = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
+    if result.returncode != 0 and "timed out" not in result.stdout.lower():
         pass
     return result.stdout
 
@@ -320,21 +375,30 @@ def parse_verilog_output(stdout: str) -> Dict[str, Any]:
                          f"Cleaned JSON:\n{json_text[:2000]}") from e
 
 
-def run_verilog(program: str, timeout: int = 30) -> Optional[Dict[str, Any]]:
+def run_verilog(
+    program: str,
+    timeout: int = 30,
+    backend: Optional[str] = None,
+) -> Optional[Dict[str, Any]]:
     """Run a program through Verilog simulation and return parsed state.
 
     Args:
         program: Text-format program (same as OCaml runner input).
         timeout: Simulation timeout in seconds.
+        backend: `iverilog` or `verilator`. Defaults to env `THIELE_RTL_SIM`
+             or `iverilog` when unset.
 
     Returns:
         Dict with keys: mu, regs, mem, modules, status, etc.
-        None if iverilog is not available.
+        None if selected backend is unavailable.
     """
-    # Check iverilog availability
-    try:
-        subprocess.run(["iverilog", "-v"], capture_output=True, timeout=5)
-    except (FileNotFoundError, subprocess.TimeoutExpired):
+    selected_backend = (backend or os.getenv("THIELE_RTL_SIM", "iverilog")).strip().lower()
+    if selected_backend not in {"iverilog", "verilator"}:
+        raise ValueError(f"Unsupported RTL backend: {selected_backend}")
+
+    if selected_backend == "iverilog" and not _command_available("iverilog"):
+        return None
+    if selected_backend == "verilator" and not _command_available("verilator"):
         return None
 
     instr_hex, data_hex = program_to_hex(program)
@@ -348,12 +412,12 @@ def run_verilog(program: str, timeout: int = 30) -> Optional[Dict[str, Any]]:
         prog_hex_path.write_text("\n".join(instr_hex) + "\n")
         data_hex_path.write_text("\n".join(data_hex) + "\n")
 
-        # Compile
-        vvp_binary = compile_testbench(work_dir)
-
-        # Run
-        stdout = run_simulation(vvp_binary, prog_hex_path, data_hex_path,
-                                timeout=timeout)
+        if selected_backend == "iverilog":
+            compiled = compile_testbench_iverilog(work_dir)
+            stdout = run_simulation_iverilog(compiled, prog_hex_path, data_hex_path, timeout=timeout)
+        else:
+            compiled = compile_testbench_verilator(work_dir)
+            stdout = run_simulation_verilator(compiled, prog_hex_path, data_hex_path, timeout=timeout)
 
         # Parse
         return parse_verilog_output(stdout)

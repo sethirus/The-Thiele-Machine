@@ -30,6 +30,7 @@ Module Demo.
        VMState.vm_mem := repeat 0 VMState.MEM_SIZE;
        VMState.vm_pc := 0;
        VMState.vm_mu := 0;
+       VMState.vm_mu_tensor := VMState.vm_mu_tensor_default;
        VMState.vm_err := false |}.
 
   Definition trace : list VMStep.vm_instruction :=

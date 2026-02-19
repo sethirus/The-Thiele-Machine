@@ -208,6 +208,7 @@ Definition init_state_for_classical : VMState :=
      vm_pc := 0%nat;
      vm_graph := empty_graph;
      vm_mu := 0%nat;
+     vm_mu_tensor := vm_mu_tensor_default;
      vm_err := false |}.
 
 (** classical_program_mu_zero: The trace costs zero μ.

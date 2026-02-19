@@ -60,6 +60,7 @@ Definition tweak_regs (s : VMState) (x : nat) : VMState :=
      vm_mem := s.(vm_mem);
      vm_pc := s.(vm_pc);
      vm_mu := s.(vm_mu);
+     vm_mu_tensor := s.(vm_mu_tensor);
      vm_err := s.(vm_err) |}.
 
 (** Definitional lemma: This equality is by definition, not vacuous

@@ -32,7 +32,8 @@ Definition mu_gauge_shift (k : Z) (s : ThieleState) : ThieleState :=
   {| partition := s.(partition);
      ledger := {| mu_operational := s.(ledger).(mu_operational);
                   mu_discovery := s.(ledger).(mu_discovery);
-                  mu_total := s.(ledger).(mu_total) + k |};
+                  mu_total := s.(ledger).(mu_total) + k;
+                  mu_tensor := s.(ledger).(mu_tensor) |};
      halted := s.(halted);
      answer := s.(answer) |}.
 
@@ -80,7 +81,8 @@ Definition execute_instruction (instr : ThieleInstr) (s : ThieleState) : ThieleS
       {| partition := {| modules := new_modules; next_id := S new_id |};
          ledger := {| mu_operational := s.(ledger).(mu_operational) + Z.of_nat cost;
                       mu_discovery := s.(ledger).(mu_discovery);
-                      mu_total := s.(ledger).(mu_total) + Z.of_nat cost |};
+                      mu_total := s.(ledger).(mu_total) + Z.of_nat cost;
+                      mu_tensor := s.(ledger).(mu_tensor) |};
          halted := s.(halted);
          answer := s.(answer) |}
   | PSPLIT mid r cost =>
@@ -88,7 +90,8 @@ Definition execute_instruction (instr : ThieleInstr) (s : ThieleState) : ThieleS
       {| partition := s.(partition); (* Simplified: actual split omitted *)
          ledger := {| mu_operational := s.(ledger).(mu_operational) + Z.of_nat cost;
                       mu_discovery := s.(ledger).(mu_discovery);
-                      mu_total := s.(ledger).(mu_total) + Z.of_nat cost |};
+                      mu_total := s.(ledger).(mu_total) + Z.of_nat cost;
+                      mu_tensor := s.(ledger).(mu_tensor) |};
          halted := s.(halted);
          answer := s.(answer) |}
   | PMERGE m1 m2 cost =>
@@ -96,7 +99,8 @@ Definition execute_instruction (instr : ThieleInstr) (s : ThieleState) : ThieleS
       {| partition := s.(partition); (* Simplified: actual merge omitted *)
          ledger := {| mu_operational := s.(ledger).(mu_operational) + Z.of_nat cost;
                       mu_discovery := s.(ledger).(mu_discovery);
-                      mu_total := s.(ledger).(mu_total) + Z.of_nat cost |};
+                      mu_total := s.(ledger).(mu_total) + Z.of_nat cost;
+                      mu_tensor := s.(ledger).(mu_tensor) |};
          halted := s.(halted);
          answer := s.(answer) |}
   | PDISCOVER mid cost =>
@@ -104,7 +108,8 @@ Definition execute_instruction (instr : ThieleInstr) (s : ThieleState) : ThieleS
       {| partition := s.(partition);
          ledger := {| mu_operational := s.(ledger).(mu_operational);
                       mu_discovery := s.(ledger).(mu_discovery) + Z.of_nat cost;
-                      mu_total := s.(ledger).(mu_total) + Z.of_nat cost |};
+                      mu_total := s.(ledger).(mu_total) + Z.of_nat cost;
+                      mu_tensor := s.(ledger).(mu_tensor) |};
          halted := s.(halted);
          answer := s.(answer) |}
   | EMIT n =>

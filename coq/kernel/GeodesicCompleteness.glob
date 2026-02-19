@@ -1,0 +1,261 @@
+DIGEST 502533aec45b5c848a9da855b53db4d8
+FKernel.GeodesicCompleteness
+R1355:1360 Coq.ZArith.ZArith <> <> lib
+R1362:1364 Coq.micromega.Lia <> <> lib
+R1366:1369 Coq.Lists.List <> <> lib
+R1371:1384 Coq.Arith.PeanoNat <> <> lib
+R1394:1406 Coq.Lists.List ListNotations <> mod
+R1437:1443 Kernel.VMState <> <> lib
+R1445:1450 Kernel.VMStep <> <> lib
+R1480:1494 Kernel.SimulationProof <> <> lib
+R1524:1536 Kernel.MuInformation <> <> lib
+R1566:1575 Kernel.MuGeometry <> <> lib
+prf 2174:2203 <> execution_cost_equals_distance
+binder 2216:2219 <> fuel:1
+binder 2221:2225 <> trace:2
+binder 2227:2227 <> s:3
+R2278:2284 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2232:2253 Kernel.MuGeometry MuGeometry mu_distance def
+R2255:2255 Kernel.GeodesicCompleteness <> s:3 var
+R2258:2263 Kernel.SimulationProof <> run_vm def
+R2265:2268 Kernel.GeodesicCompleteness <> fuel:1 var
+R2270:2274 Kernel.GeodesicCompleteness <> trace:2 var
+R2276:2276 Kernel.GeodesicCompleteness <> s:3 var
+R2285:2292 Coq.ZArith.BinInt Z of_nat def
+R2295:2308 Kernel.MuInformation <> mu_info_run_vm def
+R2310:2313 Kernel.GeodesicCompleteness <> fuel:1 var
+R2315:2319 Kernel.GeodesicCompleteness <> trace:2 var
+R2321:2321 Kernel.GeodesicCompleteness <> s:3 var
+R2340:2368 Kernel.MuGeometry MuGeometry mu_distance_run_vm thm
+R2340:2368 Kernel.MuGeometry MuGeometry mu_distance_run_vm thm
+prf 2466:2484 <> geodesic_inequality
+R2505:2511 Kernel.VMState <> VMState rec
+binder 2497:2497 <> a:4
+binder 2499:2499 <> b:5
+binder 2501:2501 <> c:6
+R2543:2546 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R2517:2538 Kernel.MuGeometry MuGeometry mu_distance def
+R2540:2540 Kernel.GeodesicCompleteness <> a:4 var
+R2542:2542 Kernel.GeodesicCompleteness <> c:6 var
+R2573:2575 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R2547:2568 Kernel.MuGeometry MuGeometry mu_distance def
+R2570:2570 Kernel.GeodesicCompleteness <> a:4 var
+R2572:2572 Kernel.GeodesicCompleteness <> b:5 var
+R2576:2597 Kernel.MuGeometry MuGeometry mu_distance def
+R2599:2599 Kernel.GeodesicCompleteness <> b:5 var
+R2601:2601 Kernel.GeodesicCompleteness <> c:6 var
+R2622:2652 Kernel.MuGeometry MuGeometry mu_distance_triangle thm
+R2622:2652 Kernel.MuGeometry MuGeometry mu_distance_triangle thm
+prf 3677:3703 <> every_execution_is_geodesic
+binder 3716:3719 <> fuel:7
+binder 3721:3725 <> trace:8
+binder 3727:3727 <> s:9
+R3742:3747 Kernel.SimulationProof <> run_vm def
+R3749:3752 Kernel.GeodesicCompleteness <> fuel:7 var
+R3754:3758 Kernel.GeodesicCompleteness <> trace:8 var
+R3760:3760 Kernel.GeodesicCompleteness <> s:9 var
+binder 3736:3737 <> s':10
+R3794:3796 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3767:3788 Kernel.MuGeometry MuGeometry mu_distance def
+R3790:3790 Kernel.GeodesicCompleteness <> s:9 var
+R3792:3793 Kernel.GeodesicCompleteness <> s':10 var
+R3797:3804 Coq.ZArith.BinInt Z of_nat def
+R3807:3820 Kernel.MuInformation <> mu_info_run_vm def
+R3822:3825 Kernel.GeodesicCompleteness <> fuel:7 var
+R3827:3831 Kernel.GeodesicCompleteness <> trace:8 var
+R3833:3833 Kernel.GeodesicCompleteness <> s:9 var
+R3885:3913 Kernel.MuGeometry MuGeometry mu_distance_run_vm thm
+R3885:3913 Kernel.MuGeometry MuGeometry mu_distance_run_vm thm
+prf 4733:4748 <> forward_pointing
+binder 4761:4764 <> fuel:11
+binder 4766:4770 <> trace:12
+binder 4772:4772 <> s:13
+R4788:4791 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4778:4785 Kernel.MuInformation <> mu_total def
+R4787:4787 Kernel.GeodesicCompleteness <> s:13 var
+R4792:4799 Kernel.MuInformation <> mu_total def
+R4802:4807 Kernel.SimulationProof <> run_vm def
+R4809:4812 Kernel.GeodesicCompleteness <> fuel:11 var
+R4814:4818 Kernel.GeodesicCompleteness <> trace:12 var
+R4820:4820 Kernel.GeodesicCompleteness <> s:13 var
+R4869:4894 Kernel.MuInformation <> run_vm_mu_total_decomposes thm
+R4869:4894 Kernel.MuInformation <> run_vm_mu_total_decomposes thm
+R4869:4894 Kernel.MuInformation <> run_vm_mu_total_decomposes thm
+prf 4995:5010 <> forward_distance
+binder 5023:5026 <> fuel:14
+binder 5028:5032 <> trace:15
+binder 5034:5034 <> s:16
+R5085:5091 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5039:5060 Kernel.MuGeometry MuGeometry mu_distance def
+R5062:5062 Kernel.GeodesicCompleteness <> s:16 var
+R5065:5070 Kernel.SimulationProof <> run_vm def
+R5072:5075 Kernel.GeodesicCompleteness <> fuel:14 var
+R5077:5081 Kernel.GeodesicCompleteness <> trace:15 var
+R5083:5083 Kernel.GeodesicCompleteness <> s:16 var
+R5092:5099 Coq.ZArith.BinInt Z of_nat def
+R5102:5115 Kernel.MuInformation <> mu_info_run_vm def
+R5117:5120 Kernel.GeodesicCompleteness <> fuel:14 var
+R5122:5126 Kernel.GeodesicCompleteness <> trace:15 var
+R5128:5128 Kernel.GeodesicCompleteness <> s:16 var
+R5171:5199 Kernel.MuGeometry MuGeometry mu_distance_run_vm thm
+R5171:5199 Kernel.MuGeometry MuGeometry mu_distance_run_vm thm
+def 6165:6176 <> cauchy_in_mu
+R6188:6191 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6185:6187 Coq.Init.Datatypes <> nat ind
+R6192:6198 Kernel.VMState <> VMState rec
+binder 6179:6181 <> seq:17
+R6226:6226 Coq.Numbers.BinNums <> Z ind
+binder 6220:6222 <> eps:18
+R6240:6247 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6233:6235 Coq.ZArith.BinInt <> ::Z_scope:x_'>'_x not
+R6230:6232 Kernel.GeodesicCompleteness <> eps:18 var
+R6248:6254 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6262:6263 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6259:6261 Coq.Init.Datatypes <> nat ind
+binder 6255:6255 <> N:19
+R6277:6279 Coq.Init.Datatypes <> nat ind
+binder 6271:6271 <> m:20
+binder 6273:6273 <> n:21
+R6300:6303 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6290:6293 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6289:6289 Kernel.GeodesicCompleteness <> m:20 var
+R6294:6294 Kernel.GeodesicCompleteness <> N:19 var
+R6316:6325 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6306:6309 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6305:6305 Kernel.GeodesicCompleteness <> n:21 var
+R6310:6310 Kernel.GeodesicCompleteness <> N:19 var
+R6365:6367 Coq.ZArith.BinInt <> ::Z_scope:x_'<'_x not
+R6327:6348 Kernel.MuGeometry MuGeometry mu_distance def
+R6351:6353 Kernel.GeodesicCompleteness <> seq:17 var
+R6355:6355 Kernel.GeodesicCompleteness <> m:20 var
+R6359:6361 Kernel.GeodesicCompleteness <> seq:17 var
+R6363:6363 Kernel.GeodesicCompleteness <> n:21 var
+R6368:6370 Kernel.GeodesicCompleteness <> eps:18 var
+def 6427:6438 <> converges_to
+R6450:6453 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6447:6449 Coq.Init.Datatypes <> nat ind
+R6454:6460 Kernel.VMState <> VMState rec
+binder 6441:6443 <> seq:22
+R6470:6476 Kernel.VMState <> VMState rec
+binder 6464:6466 <> lim:23
+R6504:6504 Coq.Numbers.BinNums <> Z ind
+binder 6498:6500 <> eps:24
+R6518:6525 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6511:6513 Coq.ZArith.BinInt <> ::Z_scope:x_'>'_x not
+R6508:6510 Kernel.GeodesicCompleteness <> eps:24 var
+R6526:6532 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6540:6541 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6537:6539 Coq.Init.Datatypes <> nat ind
+binder 6533:6533 <> N:25
+R6553:6555 Coq.Init.Datatypes <> nat ind
+binder 6549:6549 <> n:26
+R6576:6585 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6566:6569 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6565:6565 Kernel.GeodesicCompleteness <> n:26 var
+R6570:6570 Kernel.GeodesicCompleteness <> N:25 var
+R6621:6623 Coq.ZArith.BinInt <> ::Z_scope:x_'<'_x not
+R6587:6608 Kernel.MuGeometry MuGeometry mu_distance def
+R6611:6613 Kernel.GeodesicCompleteness <> seq:22 var
+R6615:6615 Kernel.GeodesicCompleteness <> n:26 var
+R6618:6620 Kernel.GeodesicCompleteness <> lim:23 var
+R6624:6626 Kernel.GeodesicCompleteness <> eps:24 var
+prf 6795:6814 <> cauchy_stabilizes_mu
+R6836:6839 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6833:6835 Coq.Init.Datatypes <> nat ind
+R6840:6846 Kernel.VMState <> VMState rec
+binder 6827:6829 <> seq:27
+R6867:6872 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6851:6862 Kernel.GeodesicCompleteness <> cauchy_in_mu def
+R6864:6866 Kernel.GeodesicCompleteness <> seq:27 var
+R6873:6879 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6887:6888 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6884:6886 Coq.Init.Datatypes <> nat ind
+binder 6880:6880 <> N:28
+R6902:6904 Coq.Init.Datatypes <> nat ind
+binder 6896:6896 <> m:29
+binder 6898:6898 <> n:30
+R6923:6926 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6913:6916 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6912:6912 Kernel.GeodesicCompleteness <> m:29 var
+R6917:6917 Kernel.GeodesicCompleteness <> N:28 var
+R6939:6946 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6929:6932 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6928:6928 Kernel.GeodesicCompleteness <> n:30 var
+R6933:6933 Kernel.GeodesicCompleteness <> N:28 var
+R6963:6965 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6947:6954 Kernel.MuInformation <> mu_total def
+R6957:6959 Kernel.GeodesicCompleteness <> seq:27 var
+R6961:6961 Kernel.GeodesicCompleteness <> m:29 var
+R6966:6973 Kernel.MuInformation <> mu_total def
+R6976:6978 Kernel.GeodesicCompleteness <> seq:27 var
+R6980:6980 Kernel.GeodesicCompleteness <> n:30 var
+R7193:7214 Kernel.MuGeometry MuGeometry mu_distance def
+R7217:7237 Kernel.MuGeometry MuGeometry mu_total_z def
+R7399:7401 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7372:7379 Coq.ZArith.BinInt Z of_nat def
+R7382:7389 Kernel.MuInformation <> mu_total def
+R7402:7409 Coq.ZArith.BinInt Z of_nat def
+R7412:7419 Kernel.MuInformation <> mu_total def
+R7399:7401 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7372:7379 Coq.ZArith.BinInt Z of_nat def
+R7382:7389 Kernel.MuInformation <> mu_total def
+R7402:7409 Coq.ZArith.BinInt Z of_nat def
+R7412:7419 Kernel.MuInformation <> mu_total def
+prf 7583:7600 <> mu_metric_complete
+R7622:7625 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7619:7621 Coq.Init.Datatypes <> nat ind
+R7626:7632 Kernel.VMState <> VMState rec
+binder 7613:7615 <> seq:31
+R7653:7658 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7637:7648 Kernel.GeodesicCompleteness <> cauchy_in_mu def
+R7650:7652 Kernel.GeodesicCompleteness <> seq:31 var
+R7659:7665 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7673:7674 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7670:7672 Coq.Init.Datatypes <> nat ind
+binder 7666:7666 <> N:32
+R7688:7690 Coq.Init.Datatypes <> nat ind
+binder 7682:7682 <> m:33
+binder 7684:7684 <> n:34
+R7709:7712 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7699:7702 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R7698:7698 Kernel.GeodesicCompleteness <> m:33 var
+R7703:7703 Kernel.GeodesicCompleteness <> N:32 var
+R7725:7732 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7715:7718 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R7714:7714 Kernel.GeodesicCompleteness <> n:34 var
+R7719:7719 Kernel.GeodesicCompleteness <> N:32 var
+R7771:7773 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7733:7754 Kernel.MuGeometry MuGeometry mu_distance def
+R7757:7759 Kernel.GeodesicCompleteness <> seq:31 var
+R7761:7761 Kernel.GeodesicCompleteness <> m:33 var
+R7765:7767 Kernel.GeodesicCompleteness <> seq:31 var
+R7769:7769 Kernel.GeodesicCompleteness <> n:34 var
+R7820:7839 Kernel.GeodesicCompleteness <> cauchy_stabilizes_mu thm
+R7820:7839 Kernel.GeodesicCompleteness <> cauchy_stabilizes_mu thm
+R7904:7925 Kernel.MuGeometry MuGeometry mu_distance def
+R7928:7948 Kernel.MuGeometry MuGeometry mu_total_z def
+def 9173:9183 <> mu_velocity
+R9193:9199 Kernel.VMState <> VMState rec
+binder 9186:9186 <> s:35
+binder 9188:9189 <> s':36
+R9204:9204 Coq.Numbers.BinNums <> Z ind
+R9236:9238 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R9212:9232 Kernel.MuGeometry MuGeometry mu_total_z def
+R9234:9235 Kernel.GeodesicCompleteness <> s':36 var
+R9239:9259 Kernel.MuGeometry MuGeometry mu_total_z def
+R9261:9261 Kernel.GeodesicCompleteness <> s:35 var
+prf 9336:9353 <> mu_velocity_nonneg
+binder 9366:9369 <> fuel:37
+binder 9371:9375 <> trace:38
+binder 9377:9377 <> s:39
+R9384:9387 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R9388:9398 Kernel.GeodesicCompleteness <> mu_velocity def
+R9400:9400 Kernel.GeodesicCompleteness <> s:39 var
+R9403:9408 Kernel.SimulationProof <> run_vm def
+R9410:9413 Kernel.GeodesicCompleteness <> fuel:37 var
+R9415:9419 Kernel.GeodesicCompleteness <> trace:38 var
+R9421:9421 Kernel.GeodesicCompleteness <> s:39 var
+R9467:9477 Kernel.GeodesicCompleteness <> mu_velocity def
+R9480:9500 Kernel.MuGeometry MuGeometry mu_total_z def
+R9518:9533 Kernel.GeodesicCompleteness <> forward_pointing thm
+R9518:9533 Kernel.GeodesicCompleteness <> forward_pointing thm

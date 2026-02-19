@@ -646,6 +646,22 @@ Proof.
   apply (all_ids_below_implies_lookup_none _ _ _ Hwf Hge).
 Qed.
 
+(** Architecture constants (matches Python state.py and RTL thiele_cpu_unified.v) *)
+Definition REG_COUNT : nat := 32.
+Definition MEM_SIZE : nat := 256.
+Definition NUM_MODULES : nat := 64.  (* Maximum number of concurrent modules *)
+Definition REGION_SIZE : nat := 16.  (* Maximum region size (YOSYS_LITE synthesis config) *)
+
+(** Opcode constants for instruction encoding (matches Python receipts.py and RTL) *)
+(* SAFE: OP_PNEW is the canonical opcode 0 for PNEW in the instruction set architecture *)
+Definition OP_PNEW : nat := 0.  (* Partition new - opcode for PNEW instruction *)
+Definition OPCODE := nat.  (* Type alias for opcode values *)
+
+(** Q16.16 fixed-point constants (matches RTL and Python) *)
+Definition Q16_SHIFT : nat := 16.            (* Fractional bit position *)
+Definition Q16_ONE : nat := 65536.           (* Representation of 1 in Q16.16 (2^16) *)
+Definition Q16_MAX : nat := 2147483647.      (* Max positive Q16.16 (2^31-1) *)
+
 Definition graph_pnew (g : PartitionGraph) (region : list nat)
   : PartitionGraph * ModuleID :=
   let normalized := normalize_region region in
@@ -740,6 +756,14 @@ Definition csr_set_cert_addr (csrs : CSRState) (addr : nat) : CSRState :=
      csr_status := csrs.(csr_status);
      csr_err := csrs.(csr_err) |}.
 
+(** Accessors for CSR fields (matches Python/RTL naming) *)
+Definition cert_addr (csrs : CSRState) : nat := csrs.(csr_cert_addr).
+Definition status (csrs : CSRState) : nat := csrs.(csr_status).
+
+(** Accessors for PartitionGraph fields (matches Python/RTL naming) *)
+Definition next_id (g : PartitionGraph) : ModuleID := g.(pg_next_id).
+Definition partitions (g : PartitionGraph) : list (ModuleID * ModuleState) := g.(pg_modules).
+
 (** VMState: Complete snapshot of Thiele Machine at single instant.
 
     WHY: A state machine needs complete information to determine next state.
@@ -784,11 +808,22 @@ Record VMState := {
   vm_mem : list nat;
   vm_pc : nat;
   vm_mu : nat;
+  vm_mu_tensor : list nat;  (* Flattened 4×4 μ-tensor (row-major, 16 entries) *)
   vm_err : bool
 }.
 
-Definition REG_COUNT : nat := 32.
-Definition MEM_SIZE : nat := 256.
+(** Default empty μ-tensor (16 zeros) for backward-compatible state builds. *)
+Definition vm_mu_tensor_default : list nat := repeat 0 16.
+
+(** Helper: access a flattened mu-tensor entry (row-major). *)
+Definition vm_mu_tensor_entry (s : VMState) (i j : nat) : nat :=
+  nth (i * 4 + j) s.(vm_mu_tensor) 0.
+
+(** Helper functions for μ-cost and information (matches Python/RTL) *)
+Definition vm_mu_cost (s : VMState) : nat := s.(vm_mu).
+Definition vm_mu_information (s : VMState) : nat := s.(vm_mu).  (* μ-cost in information bits *)
+Definition vm_mu_total (s : VMState) : nat := s.(vm_mu).  (* Total accumulated μ-cost *)
+Definition mu_information (s : VMState) : nat := s.(vm_mu).  (* Alias for cross-layer isomorphism *)
 
 (** word32_mask: Bitmask for 32-bit word truncation.
 
@@ -878,6 +913,7 @@ Definition update_state
   vm_mem := s.(vm_mem);
      vm_pc := advance_pc s;
      vm_mu := mu;
+     vm_mu_tensor := vm_mu_tensor_default;
      vm_err := err |}.
 
 (** ** graph_psplit and graph_pmerge Length Lemmas *)

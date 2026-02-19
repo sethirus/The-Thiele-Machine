@@ -352,9 +352,10 @@ Definition encode_vm_state (s : VMState) : list bool :=
   (* Hardware-style scratch state *)
   encode_nat_list s.(vm_regs) ++
   encode_nat_list s.(vm_mem) ++
-  (* Variable data: graph, csr *)
+  (* Variable data: graph, csr, mu_tensor (placed after csr to simplify decoding) *)
   encode_partition_graph s.(vm_graph) ++
-  encode_csr s.(vm_csrs).
+  encode_csr s.(vm_csrs) ++
+  encode_nat_list s.(vm_mu_tensor).
 
 Definition decode_vm_state (bs : list bool)
   : option (VMState * list bool) :=
@@ -370,18 +371,23 @@ Definition decode_vm_state (bs : list bool)
         | Some (regs, rest''') =>
           match decode_nat_list rest''' with
           | Some (mem, rest'''') =>
-            (* Then decode variable data: graph, csr *)
+            (* Then decode variable data: graph, csr, then mu_tensor *)
             match decode_partition_graph rest'''' with
             | Some (graph, rest''''') =>
               match decode_csr rest''''' with
-              | Some (csrs, rest'''''') =>
-                Some ({| vm_graph := graph;
-                     vm_csrs := csrs;
-                     vm_regs := regs;
-                     vm_mem := mem;
-                     vm_pc := pc;
-                     vm_mu := mu;
-                     vm_err := err |}, rest'''''')
+              | Some (csrs, rest'''''' ) =>
+                match decode_nat_list rest'''''' with
+                | Some (mu_tensor, rest''''''' ) =>
+                  Some ({| vm_graph := graph;
+                       vm_csrs := csrs;
+                       vm_regs := regs;
+                       vm_mem := mem;
+                       vm_pc := pc;
+                       vm_mu := mu;
+                       vm_mu_tensor := mu_tensor;
+                       vm_err := err |}, rest''''''' )
+                | None => None
+                end
               | None => None
               end
             | None => None
@@ -404,19 +410,19 @@ Lemma decode_vm_state_correct :
   forall s rest,
     decode_vm_state (encode_vm_state s ++ rest) = Some (s, rest).
 Proof.
-  intros [graph csrs regs mem pc mu err] rest.
+  intros [graph csrs regs mem pc mu mu_tensor err] rest.
   unfold encode_vm_state, decode_vm_state.
   repeat rewrite <- app_assoc.
   rewrite decode_nat_correct.
   simpl.
-  replace (encode_nat mu ++ encode_bool err ++ encode_nat_list regs ++ encode_nat_list mem ++ encode_partition_graph graph ++ encode_csr csrs ++ rest)
-    with (encode_nat mu ++ (encode_bool err ++ encode_nat_list regs ++ encode_nat_list mem ++ encode_partition_graph graph ++ encode_csr csrs ++ rest))
+  replace (encode_nat mu ++ encode_bool err ++ encode_nat_list regs ++ encode_nat_list mem ++ encode_partition_graph graph ++ encode_csr csrs ++ encode_nat_list mu_tensor ++ rest)
+    with (encode_nat mu ++ (encode_bool err ++ encode_nat_list regs ++ encode_nat_list mem ++ encode_partition_graph graph ++ encode_csr csrs ++ encode_nat_list mu_tensor ++ rest))
     by (repeat rewrite app_assoc; reflexivity).
   rewrite decode_nat_correct.
   simpl.
-  set (tail := encode_nat_list regs ++ encode_nat_list mem ++ encode_partition_graph graph ++ encode_csr csrs ++ rest).
-  replace (encode_bool err ++ encode_nat_list regs ++ encode_nat_list mem ++ encode_partition_graph graph ++ encode_csr csrs ++ rest)
-    with (encode_bool err ++ tail)
+  set (tail := encode_bool err ++ encode_nat_list regs ++ encode_nat_list mem ++ encode_partition_graph graph ++ encode_csr csrs ++ encode_nat_list mu_tensor ++ rest).
+  replace (encode_bool err ++ encode_nat_list regs ++ encode_nat_list mem ++ encode_partition_graph graph ++ encode_csr csrs ++ encode_nat_list mu_tensor ++ rest)
+    with (encode_bool err ++ (encode_nat_list regs ++ encode_nat_list mem ++ encode_partition_graph graph ++ encode_csr csrs ++ encode_nat_list mu_tensor ++ rest))
     by (subst tail; repeat rewrite app_assoc; reflexivity).
   destruct (decode_bool (encode_bool err ++ tail)) as [[err' tail']|] eqn:Hbool.
   - pose proof (decode_bool_correct err tail) as Htarget.
@@ -425,8 +431,8 @@ Proof.
     simpl.
     clear Hbool Htarget.
     subst tail.
-    set (tail_regs := encode_nat_list mem ++ encode_partition_graph graph ++ encode_csr csrs ++ rest).
-    replace (encode_nat_list regs ++ encode_nat_list mem ++ encode_partition_graph graph ++ encode_csr csrs ++ rest)
+    set (tail_regs := encode_nat_list mem ++ encode_partition_graph graph ++ encode_csr csrs ++ encode_nat_list mu_tensor ++ rest).
+    replace (encode_nat_list regs ++ encode_nat_list mem ++ encode_partition_graph graph ++ encode_csr csrs ++ encode_nat_list mu_tensor ++ rest)
       with (encode_nat_list regs ++ tail_regs)
       by (subst tail_regs; repeat rewrite app_assoc; reflexivity).
     destruct (decode_nat_list (encode_nat_list regs ++ tail_regs))
@@ -437,8 +443,8 @@ Proof.
       simpl.
       clear Hregs Hregs_target.
       subst tail_regs.
-      set (tail_mem := encode_partition_graph graph ++ encode_csr csrs ++ rest).
-      replace (encode_nat_list mem ++ encode_partition_graph graph ++ encode_csr csrs ++ rest)
+      set (tail_mem := encode_partition_graph graph ++ encode_csr csrs ++ encode_nat_list mu_tensor ++ rest).
+      replace (encode_nat_list mem ++ encode_partition_graph graph ++ encode_csr csrs ++ encode_nat_list mu_tensor ++ rest)
         with (encode_nat_list mem ++ tail_mem)
         by (subst tail_mem; repeat rewrite app_assoc; reflexivity).
       destruct (decode_nat_list (encode_nat_list mem ++ tail_mem))
@@ -449,8 +455,8 @@ Proof.
         simpl.
         clear Hmem Hmem_target.
         subst tail_mem.
-        set (tail_graph := encode_csr csrs ++ rest).
-        replace (encode_partition_graph graph ++ encode_csr csrs ++ rest)
+        set (tail_graph := encode_csr csrs ++ encode_nat_list mu_tensor ++ rest).
+        replace (encode_partition_graph graph ++ encode_csr csrs ++ encode_nat_list mu_tensor ++ rest)
           with (encode_partition_graph graph ++ tail_graph)
           by (subst tail_graph; repeat rewrite app_assoc; reflexivity).
         destruct (decode_partition_graph (encode_partition_graph graph ++ tail_graph))
@@ -461,12 +467,20 @@ Proof.
            simpl.
            clear Hgraph Hgraph_target.
            subst tail_graph.
-           destruct (decode_csr (encode_csr csrs ++ rest)) as [[csrs' rest']|] eqn:Hcsr.
-           ++ pose proof (decode_csr_correct csrs rest) as Hcsr_target.
+           destruct (decode_csr (encode_csr csrs ++ encode_nat_list mu_tensor ++ rest)) as [[csrs' rest'']|] eqn:Hcsr.
+           ++ pose proof (decode_csr_correct csrs (encode_nat_list mu_tensor ++ rest)) as Hcsr_target.
               rewrite Hcsr_target in Hcsr.
-              inversion Hcsr; subst csrs' rest'.
-              reflexivity.
-           ++ pose proof (decode_csr_correct csrs rest) as Hcsr_target.
+              inversion Hcsr; subst csrs' rest''.
+              (* decode mu_tensor that follows csrs in the encoding *)
+              destruct (decode_nat_list (encode_nat_list mu_tensor ++ rest)) as [[mu_tensor' rest''']|] eqn:Hmut.
+              ** pose proof (decode_nat_list_correct mu_tensor rest) as Hmut_target.
+                 rewrite Hmut_target in Hmut.
+                 inversion Hmut; subst mu_tensor' rest'''.
+                 simpl. reflexivity.
+              ** pose proof (decode_nat_list_correct mu_tensor rest) as Hmut_target.
+                 rewrite Hmut_target in Hmut.
+                 discriminate.
+           ++ pose proof (decode_csr_correct csrs (encode_nat_list mu_tensor ++ rest)) as Hcsr_target.
               rewrite Hcsr_target in Hcsr.
               discriminate.
         -- pose proof (decode_partition_graph_correct graph tail_graph) as Hgraph_target.
@@ -553,6 +567,7 @@ Definition update_vm_pc_in_tape (tape : list bool) (new_pc : nat) : list bool :=
                    vm_mem := s.(vm_mem);
                    vm_pc := new_pc;
                    vm_mu := s.(vm_mu);
+                   vm_mu_tensor := s.(vm_mu_tensor);
                    vm_err := s.(vm_err) |} in
       encode_vm_state_to_tape s'
   | None => tape  (* error case *)
@@ -567,6 +582,7 @@ Definition update_vm_mu_in_tape (tape : list bool) (new_mu : nat) : list bool :=
                    vm_mem := s.(vm_mem);
                    vm_pc := s.(vm_pc);
                    vm_mu := new_mu;
+                   vm_mu_tensor := s.(vm_mu_tensor);
                    vm_err := s.(vm_err) |} in
       encode_vm_state_to_tape s'
   | None => tape
@@ -581,6 +597,7 @@ Definition update_vm_err_in_tape (tape : list bool) (new_err : bool) : list bool
                    vm_mem := s.(vm_mem);
                    vm_pc := s.(vm_pc);
                    vm_mu := s.(vm_mu);
+                   vm_mu_tensor := s.(vm_mu_tensor);
                    vm_err := new_err |} in
       encode_vm_state_to_tape s'
   | None => tape
@@ -596,6 +613,7 @@ Definition update_vm_graph_in_tape (tape : list bool) (new_graph : PartitionGrap
                    vm_mem := s.(vm_mem);
                    vm_pc := s.(vm_pc);
                    vm_mu := s.(vm_mu);
+                   vm_mu_tensor := s.(vm_mu_tensor);
                    vm_err := s.(vm_err) |} in
       encode_vm_state_to_tape s'
   | None => tape
@@ -611,6 +629,7 @@ Definition update_vm_csrs_in_tape (tape : list bool) (new_csrs : CSRState) : lis
                    vm_mem := s.(vm_mem);
                    vm_pc := s.(vm_pc);
                    vm_mu := s.(vm_mu);
+                   vm_mu_tensor := s.(vm_mu_tensor);
                    vm_err := s.(vm_err) |} in
       encode_vm_state_to_tape s'
   | None => tape
@@ -638,6 +657,7 @@ Lemma update_pc_preserves_other_fields :
                s'.(vm_csrs) = s.(vm_csrs) /\
                s'.(vm_pc) = pc /\
                s'.(vm_mu) = s.(vm_mu) /\
+               s'.(vm_mu_tensor) = s.(vm_mu_tensor) /\
                s'.(vm_err) = s.(vm_err).
 Proof.
   intros tape pc s Hdecode.
@@ -649,10 +669,11 @@ Proof.
             vm_mem := s.(vm_mem);
             vm_pc := pc;
             vm_mu := s.(vm_mu);
+            vm_mu_tensor := s.(vm_mu_tensor);
             vm_err := s.(vm_err) |}.
   split.
   - apply encode_decode_vm_state_roundtrip.
-  - simpl; auto.
+  - simpl; repeat split; auto.
 Qed.
 
 (** Similar lemmas for other update functions would follow the same pattern *)

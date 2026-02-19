@@ -104,6 +104,7 @@ Definition init_state_for_tsirelson : VMState :=
      vm_pc := 0%nat;
      vm_graph := empty_graph;
      vm_mu := 0%nat;
+     vm_mu_tensor := vm_mu_tensor_default;
      vm_err := false |}.
 
 (** ** μ-cost is Zero *)

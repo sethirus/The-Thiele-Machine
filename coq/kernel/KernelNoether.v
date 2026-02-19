@@ -91,6 +91,7 @@ Definition z_gauge_shift (delta : Z) (s : VMState) : VMState :=
   {| vm_graph := s.(vm_graph);
      (* SAFE: Bounded arithmetic - caller ensures delta keeps result non-negative *)
      vm_mu := Z.to_nat (Z.of_nat s.(vm_mu) + delta);
+     vm_mu_tensor := s.(vm_mu_tensor);
      vm_regs := s.(vm_regs);
      vm_mem := s.(vm_mem);
      vm_csrs := s.(vm_csrs);
@@ -434,7 +435,7 @@ Proof.
   intros s i s' Hstep.
   unfold mu_current.
   inversion Hstep; subst;
-    unfold advance_state, advance_state_rm, apply_cost in *;
+    unfold advance_state, advance_state_reveal, advance_state_rm, apply_cost in *;
     simpl; lia.
 Qed.
 
@@ -772,7 +773,7 @@ Proof.
   all: try (econstructor; [reflexivity | idtac..]).
   all: try (econstructor; [eassumption | idtac..]).
   all: try econstructor.
-  all: unfold z_gauge_shift, advance_state, advance_state_rm, apply_cost; simpl.
+  all: unfold z_gauge_shift, advance_state, advance_state_reveal, advance_state_rm, apply_cost; simpl.
   all: try (f_equal; symmetry; apply shift_cost_comm; assumption).
 Qed.
 
@@ -835,10 +836,11 @@ Theorem noether_forward : forall s1 s2,
   s1.(vm_mem) = s2.(vm_mem) ->
   s1.(vm_csrs) = s2.(vm_csrs) ->
   s1.(vm_pc) = s2.(vm_pc) ->
+  s1.(vm_mu_tensor) = s2.(vm_mu_tensor) ->
   s1.(vm_err) = s2.(vm_err) ->
   exists delta, z_gauge_shift delta s1 = s2.
 Proof.
-  intros s1 s2 Hobs Hgraph Hregs Hmem Hcsrs Hpc Herr.
+  intros s1 s2 Hobs Hgraph Hregs Hmem Hcsrs Hpc Hmutensor Herr.
   exists (Z.of_nat s2.(vm_mu) - Z.of_nat s1.(vm_mu))%Z.
   unfold z_gauge_shift. destruct s1, s2; simpl in *.
   subst. f_equal.

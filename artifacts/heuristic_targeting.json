@@ -1,0 +1,122 @@
+{
+  "generated_at": "2026-02-19T01:17:07.538756+00:00",
+  "factor_weights": {
+    "formal_gap": 0.24,
+    "runtime_coverage": 0.2,
+    "receipt_integrity": 0.16,
+    "backend_parity": 0.12,
+    "inquisitor_pressure": 0.08,
+    "disconnect_pressure": 0.12,
+    "proof_isolation": 0.08,
+    "semantic_sprawl": 0.05,
+    "outside_pressure": 0.04,
+    "stale_pressure": 0.03
+  },
+  "connection_signals": {
+    "disconnect_pressure": 0.5,
+    "proof_isolation": 1.0,
+    "semantic_sprawl": 1.0,
+    "outside_pressure": 0.4125,
+    "stale_pressure": 0.4125
+  },
+  "inquisitor": {
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "top_rules": []
+  },
+  "alignment_summary": {
+    "aligned_elements": 7,
+    "total_elements": 7
+  },
+  "targets": [
+    {
+      "id": "P0-fullwirespec-discharge",
+      "priority": "P0",
+      "title": "Discharge concrete FullWireSpec obligation in Coq",
+      "factors": {
+        "formal_gap": 1.0,
+        "runtime_coverage": 0.6,
+        "receipt_integrity": 0.4,
+        "backend_parity": 0.4,
+        "inquisitor_pressure": 0.0,
+        "disconnect_pressure": 0.5,
+        "proof_isolation": 1.0,
+        "semantic_sprawl": 1.0,
+        "outside_pressure": 0.4125,
+        "stale_pressure": 0.4125
+      },
+      "heuristic_score": 0.6909,
+      "validation": [
+        "coqchk on updated module set",
+        "make proof-undeniable"
+      ]
+    },
+    {
+      "id": "P1-receipt-endtoend",
+      "priority": "P1",
+      "title": "Receipt integrity end-to-end closure",
+      "factors": {
+        "formal_gap": 0.5,
+        "runtime_coverage": 0.6,
+        "receipt_integrity": 1.0,
+        "backend_parity": 0.4,
+        "inquisitor_pressure": 0.0,
+        "disconnect_pressure": 0.5,
+        "proof_isolation": 1.0,
+        "semantic_sprawl": 1.0,
+        "outside_pressure": 0.4125,
+        "stale_pressure": 0.4125
+      },
+      "heuristic_score": 0.6669,
+      "validation": [
+        "pytest -q tests/test_receipt_chain.py",
+        "make proof-undeniable"
+      ]
+    },
+    {
+      "id": "P1-lockstep-expansion",
+      "priority": "P1",
+      "title": "Expand lockstep corpus and adversarial coverage",
+      "factors": {
+        "formal_gap": 0.5,
+        "runtime_coverage": 1.0,
+        "receipt_integrity": 0.4,
+        "backend_parity": 0.4,
+        "inquisitor_pressure": 0.0,
+        "disconnect_pressure": 0.5,
+        "proof_isolation": 1.0,
+        "semantic_sprawl": 1.0,
+        "outside_pressure": 0.4125,
+        "stale_pressure": 0.4125
+      },
+      "heuristic_score": 0.6509,
+      "validation": [
+        "make test-smoke-isomorphism",
+        "make isomorphism-bitlock"
+      ]
+    },
+    {
+      "id": "P2-backend-parity",
+      "priority": "P2",
+      "title": "Dual-simulator parity (iverilog/verilator)",
+      "factors": {
+        "formal_gap": 0.5,
+        "runtime_coverage": 0.6,
+        "receipt_integrity": 0.4,
+        "backend_parity": 1.0,
+        "inquisitor_pressure": 0.0,
+        "disconnect_pressure": 0.5,
+        "proof_isolation": 1.0,
+        "semantic_sprawl": 1.0,
+        "outside_pressure": 0.4125,
+        "stale_pressure": 0.4125
+      },
+      "heuristic_score": 0.6429,
+      "validation": [
+        "make test-emergent-geometry",
+        "make test-emergent-geometry-verilator"
+      ]
+    }
+  ]
+}

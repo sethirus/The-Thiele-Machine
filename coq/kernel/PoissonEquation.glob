@@ -1,0 +1,703 @@
+DIGEST 52edb3f8448e1ac0aacf6ae35ac671b8
+FKernel.PoissonEquation
+R1132:1136 Coq.Reals.Reals <> <> lib
+R1138:1141 Coq.Lists.List <> <> lib
+R1143:1156 Coq.Arith.PeanoNat <> <> lib
+R1158:1160 Coq.micromega.Lia <> <> lib
+R1162:1164 Coq.micromega.Lra <> <> lib
+R1166:1169 Coq.Bool.Bool <> <> lib
+R1179:1191 Coq.Lists.List ListNotations <> mod
+R1248:1254 Kernel.VMState <> <> lib
+R1256:1261 Kernel.VMStep <> <> lib
+R1291:1312 Kernel.FourDSimplicialComplex <> <> lib
+R1342:1358 Kernel.MetricFromMuCosts <> <> lib
+R1388:1402 Kernel.RiemannTensor4D <> <> lib
+R1432:1440 Kernel.MuGravity <> <> lib
+R1470:1482 Kernel.KernelPhysics <> <> lib
+def 2290:2308 <> newtonian_potential
+R2315:2321 Kernel.VMState <> VMState rec
+binder 2311:2311 <> s:1
+R2329:2336 Kernel.VMState <> ModuleID def
+binder 2325:2325 <> v:2
+R2341:2341 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2381:2383 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R2349:2351 Coq.Reals.Raxioms <> INR def
+R2354:2375 Kernel.MuGravity <> module_structural_mass def
+R2377:2377 Kernel.PoissonEquation <> s:1 var
+R2379:2379 Kernel.PoissonEquation <> v:2 var
+def 2454:2465 <> mass_density
+R2472:2478 Kernel.VMState <> VMState rec
+binder 2468:2468 <> s:3
+R2486:2493 Kernel.VMState <> ModuleID def
+binder 2482:2482 <> v:4
+R2498:2498 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2505:2507 Coq.Reals.Raxioms <> INR def
+R2510:2531 Kernel.MuGravity <> module_structural_mass def
+R2533:2533 Kernel.PoissonEquation <> s:3 var
+R2535:2535 Kernel.PoissonEquation <> v:4 var
+def 3263:3271 <> neighbors
+R3279:3297 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
+binder 3274:3275 <> sc:5
+R3305:3307 Coq.Init.Datatypes <> nat ind
+binder 3301:3301 <> v:6
+R3312:3315 Coq.Init.Datatypes <> list ind
+R3317:3319 Coq.Init.Datatypes <> nat ind
+R3326:3331 Coq.Lists.List <> filter def
+R3506:3518 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
+R3520:3521 Kernel.PoissonEquation <> sc:5 var
+binder 3338:3338 <> w:7
+R3347:3353 Coq.Lists.List <> existsb def
+R3486:3495 Kernel.FourDSimplicialComplex <> sc4d_edges proj
+R3497:3498 Kernel.PoissonEquation <> sc:5 var
+binder 3360:3360 <> e:8
+R3384:3395 Kernel.FourDSimplicialComplex <> e1d_vertices proj
+R3397:3397 Kernel.PoissonEquation <> e:8 var
+binder 3375:3379 <> verts:9
+R3456:3459 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R3408:3408 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R3429:3434 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R3455:3455 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R3409:3420 Kernel.VMState <> nat_list_mem def
+R3422:3422 Kernel.PoissonEquation <> v:6 var
+R3424:3428 Kernel.PoissonEquation <> verts:9 var
+R3435:3446 Kernel.VMState <> nat_list_mem def
+R3448:3448 Kernel.PoissonEquation <> w:7 var
+R3450:3454 Kernel.PoissonEquation <> verts:9 var
+R3460:3463 Coq.Init.Datatypes <> negb def
+R3466:3472 Coq.Arith.PeanoNat Nat eqb def
+R3474:3474 Kernel.PoissonEquation <> v:6 var
+R3476:3476 Kernel.PoissonEquation <> w:7 var
+def 3585:3590 <> degree
+R3598:3616 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
+binder 3593:3594 <> sc:10
+R3624:3626 Coq.Init.Datatypes <> nat ind
+binder 3620:3620 <> v:11
+R3631:3633 Coq.Init.Datatypes <> nat ind
+R3640:3645 Coq.Init.Datatypes <> length def
+R3648:3656 Kernel.PoissonEquation <> neighbors def
+R3658:3659 Kernel.PoissonEquation <> sc:10 var
+R3661:3661 Kernel.PoissonEquation <> v:11 var
+def 3741:3758 <> discrete_laplacian
+R3766:3784 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
+binder 3761:3762 <> sc:12
+R3797:3800 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3794:3796 Coq.Init.Datatypes <> nat ind
+R3801:3801 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 3790:3790 <> f:13
+R3809:3811 Coq.Init.Datatypes <> nat ind
+binder 3805:3805 <> v:14
+R3816:3816 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3823:3831 Coq.Lists.List <> fold_left def
+R3875:3883 Kernel.PoissonEquation <> neighbors def
+R3885:3886 Kernel.PoissonEquation <> sc:12 var
+R3888:3888 Kernel.PoissonEquation <> v:14 var
+binder 3838:3840 <> acc:15
+binder 3842:3842 <> w:16
+R3851:3854 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R3864:3864 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R3848:3850 Kernel.PoissonEquation <> acc:15 var
+R3858:3860 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R3855:3855 Kernel.PoissonEquation <> f:13 var
+R3857:3857 Kernel.PoissonEquation <> w:16 var
+R3861:3861 Kernel.PoissonEquation <> f:13 var
+R3863:3863 Kernel.PoissonEquation <> v:14 var
+prf 3955:3977 <> laplacian_constant_zero
+binder 3988:3989 <> sc:17
+binder 3991:3991 <> c:18
+binder 3993:3993 <> v:19
+R4034:4036 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3998:4015 Kernel.PoissonEquation <> discrete_laplacian def
+R4017:4018 Kernel.PoissonEquation <> sc:17 var
+R4030:4030 Kernel.PoissonEquation <> c:18 var
+R4033:4033 Kernel.PoissonEquation <> v:19 var
+R4075:4092 Kernel.PoissonEquation <> discrete_laplacian def
+R4122:4125 Coq.Init.Datatypes <> list ind
+R4127:4129 Coq.Init.Datatypes <> nat ind
+binder 4117:4118 <> ws:20
+R4139:4139 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 4133:4135 <> acc:21
+R4200:4202 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4147:4155 Coq.Lists.List <> fold_left def
+R4197:4199 Kernel.PoissonEquation <> acc:21 var
+R4194:4195 Kernel.PoissonEquation <> ws:20 var
+binder 4162:4162 <> a:22
+R4169:4171 Coq.Init.Datatypes <> nat ind
+R4179:4182 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4188:4188 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4178:4178 Kernel.PoissonEquation <> a:22 var
+R4184:4186 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R4203:4205 Kernel.PoissonEquation <> acc:21 var
+R4122:4125 Coq.Init.Datatypes <> list ind
+R4127:4129 Coq.Init.Datatypes <> nat ind
+binder 4117:4118 <> ws:23
+R4139:4139 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 4133:4135 <> acc:24
+R4200:4202 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4147:4155 Coq.Lists.List <> fold_left def
+R4197:4199 Kernel.PoissonEquation <> acc:24 var
+R4194:4195 Kernel.PoissonEquation <> ws:23 var
+binder 4162:4162 <> a:25
+R4169:4171 Coq.Init.Datatypes <> nat ind
+R4179:4182 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4188:4188 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4178:4178 Kernel.PoissonEquation <> a:25 var
+R4184:4186 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R4203:4205 Kernel.PoissonEquation <> acc:24 var
+R4305:4308 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4314:4314 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4310:4312 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R4305:4308 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4314:4314 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4310:4312 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+prf 4435:4453 <> fold_left_sum_scale
+binder 4465:4465 <> A:26
+R4473:4476 Coq.Init.Datatypes <> list ind
+R4478:4478 Kernel.PoissonEquation <> A:26 var
+binder 4469:4469 <> l:27
+R4487:4490 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4486:4486 Kernel.PoissonEquation <> A:26 var
+R4491:4491 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 4482:4482 <> f:28
+R4500:4500 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 4495:4496 <> α:29
+binder 4503:4506 <> init:30
+R4570:4574 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4511:4519 Coq.Lists.List <> fold_left def
+R4560:4562 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4558:4559 Kernel.PoissonEquation <> α:29 var
+R4563:4566 Kernel.PoissonEquation <> init:30 var
+R4555:4555 Kernel.PoissonEquation <> l:27 var
+binder 4526:4528 <> acc:31
+binder 4530:4530 <> x:32
+R4539:4541 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4536:4538 Kernel.PoissonEquation <> acc:31 var
+R4544:4546 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4542:4543 Kernel.PoissonEquation <> α:29 var
+R4547:4547 Kernel.PoissonEquation <> f:28 var
+R4549:4549 Kernel.PoissonEquation <> x:32 var
+R4578:4580 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4576:4577 Kernel.PoissonEquation <> α:29 var
+R4581:4589 Coq.Lists.List <> fold_left def
+R4622:4625 Kernel.PoissonEquation <> init:30 var
+R4620:4620 Kernel.PoissonEquation <> l:27 var
+binder 4596:4598 <> acc:33
+binder 4600:4600 <> x:34
+R4609:4611 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4606:4608 Kernel.PoissonEquation <> acc:33 var
+R4612:4612 Kernel.PoissonEquation <> f:28 var
+R4614:4614 Kernel.PoissonEquation <> x:34 var
+R4789:4791 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4782:4784 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4794:4796 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4812:4815 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4826:4826 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4820:4822 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4789:4791 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4782:4784 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4794:4796 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4812:4815 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4826:4826 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4820:4822 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+def 5940:5961 <> laplacian_of_potential
+R5968:5974 Kernel.VMState <> VMState rec
+binder 5964:5964 <> s:35
+R5983:6001 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
+binder 5978:5979 <> sc:36
+R6009:6011 Coq.Init.Datatypes <> nat ind
+binder 6005:6005 <> v:37
+R6016:6016 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R6023:6040 Kernel.PoissonEquation <> discrete_laplacian def
+R6042:6043 Kernel.PoissonEquation <> sc:36 var
+R6046:6064 Kernel.PoissonEquation <> newtonian_potential def
+R6066:6066 Kernel.PoissonEquation <> s:35 var
+R6069:6069 Kernel.PoissonEquation <> v:37 var
+prf 6231:6276 <> laplacian_potential_equals_half_laplacian_mass
+binder 6289:6289 <> s:38
+binder 6291:6292 <> sc:39
+binder 6294:6294 <> v:40
+R6328:6334 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6299:6320 Kernel.PoissonEquation <> laplacian_of_potential def
+R6322:6322 Kernel.PoissonEquation <> s:38 var
+R6324:6325 Kernel.PoissonEquation <> sc:39 var
+R6327:6327 Kernel.PoissonEquation <> v:40 var
+R6376:6378 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6336:6353 Kernel.PoissonEquation <> discrete_laplacian def
+R6355:6356 Kernel.PoissonEquation <> sc:39 var
+R6359:6370 Kernel.PoissonEquation <> mass_density def
+R6372:6372 Kernel.PoissonEquation <> s:38 var
+R6375:6375 Kernel.PoissonEquation <> v:40 var
+R6418:6439 Kernel.PoissonEquation <> laplacian_of_potential def
+R6442:6459 Kernel.PoissonEquation <> discrete_laplacian def
+R6462:6480 Kernel.PoissonEquation <> newtonian_potential def
+R6483:6494 Kernel.PoissonEquation <> mass_density def
+R6509:6511 Coq.Reals.Raxioms <> INR def
+R6514:6535 Kernel.MuGravity <> module_structural_mass def
+R6509:6511 Coq.Reals.Raxioms <> INR def
+R6514:6535 Kernel.MuGravity <> module_structural_mass def
+binder 6704:6705 <> ws:41
+binder 6707:6710 <> acc1:42
+binder 6712:6715 <> acc2:43
+R6741:6748 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6726:6728 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6722:6725 Kernel.PoissonEquation <> acc1:42 var
+R6734:6736 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6730:6733 Kernel.PoissonEquation <> acc2:43 var
+R6834:6840 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6749:6757 Coq.Lists.List <> fold_left def
+R6830:6833 Kernel.PoissonEquation <> acc1:42 var
+R6827:6828 Kernel.PoissonEquation <> ws:41 var
+binder 6764:6764 <> a:44
+binder 6766:6766 <> w:45
+R6773:6776 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6821:6821 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6772:6772 Kernel.PoissonEquation <> a:44 var
+R6813:6815 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6809:6811 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6777:6779 Coq.Reals.Raxioms <> INR def
+R6782:6803 Kernel.MuGravity <> module_structural_mass def
+R6807:6807 Kernel.PoissonEquation <> w:45 var
+R6817:6819 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6919:6921 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6842:6850 Coq.Lists.List <> fold_left def
+R6915:6918 Kernel.PoissonEquation <> acc2:43 var
+R6912:6913 Kernel.PoissonEquation <> ws:41 var
+binder 6857:6857 <> a:46
+binder 6859:6859 <> w:47
+R6866:6869 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6906:6906 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6865:6865 Kernel.PoissonEquation <> a:46 var
+R6902:6904 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6870:6872 Coq.Reals.Raxioms <> INR def
+R6875:6896 Kernel.MuGravity <> module_structural_mass def
+R6900:6900 Kernel.PoissonEquation <> w:47 var
+binder 6704:6705 <> ws:48
+binder 6707:6710 <> acc1:49
+binder 6712:6715 <> acc2:50
+R6741:6748 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6726:6728 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6722:6725 Kernel.PoissonEquation <> acc1:49 var
+R6734:6736 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6730:6733 Kernel.PoissonEquation <> acc2:50 var
+R6834:6840 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6749:6757 Coq.Lists.List <> fold_left def
+R6830:6833 Kernel.PoissonEquation <> acc1:49 var
+R6827:6828 Kernel.PoissonEquation <> ws:48 var
+binder 6764:6764 <> a:51
+binder 6766:6766 <> w:52
+R6773:6776 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6821:6821 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6772:6772 Kernel.PoissonEquation <> a:51 var
+R6813:6815 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6809:6811 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6777:6779 Coq.Reals.Raxioms <> INR def
+R6782:6803 Kernel.MuGravity <> module_structural_mass def
+R6807:6807 Kernel.PoissonEquation <> w:52 var
+R6817:6819 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6919:6921 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6842:6850 Coq.Lists.List <> fold_left def
+R6915:6918 Kernel.PoissonEquation <> acc2:50 var
+R6912:6913 Kernel.PoissonEquation <> ws:48 var
+binder 6857:6857 <> a:53
+binder 6859:6859 <> w:54
+R6866:6869 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6906:6906 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6865:6865 Kernel.PoissonEquation <> a:53 var
+R6902:6904 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6870:6872 Coq.Reals.Raxioms <> INR def
+R6875:6896 Kernel.MuGravity <> module_structural_mass def
+R6900:6900 Kernel.PoissonEquation <> w:54 var
+prf 8158:8182 <> fold_left_all_zero_except
+R8199:8202 Coq.Init.Datatypes <> list ind
+R8204:8206 Coq.Init.Datatypes <> nat ind
+binder 8194:8195 <> ws:55
+R8217:8220 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8214:8216 Coq.Init.Datatypes <> nat ind
+R8221:8221 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 8210:8210 <> f:56
+R8229:8229 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 8225:8225 <> c:57
+R8235:8235 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8264:8270 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 8243:8243 <> w:58
+R8253:8256 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8246:8247 Coq.Lists.List <> In def
+R8251:8252 Kernel.PoissonEquation <> ws:55 var
+R8249:8249 Kernel.PoissonEquation <> w:58 var
+R8260:8262 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8257:8257 Kernel.PoissonEquation <> f:56 var
+R8259:8259 Kernel.PoissonEquation <> w:58 var
+R8263:8263 Kernel.PoissonEquation <> c:57 var
+R8322:8324 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8271:8279 Coq.Lists.List <> fold_left def
+R8316:8317 Kernel.PoissonEquation <> ws:55 var
+binder 8286:8288 <> acc:59
+binder 8290:8290 <> w:60
+R8299:8302 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R8310:8310 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R8296:8298 Kernel.PoissonEquation <> acc:59 var
+R8306:8308 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R8303:8303 Kernel.PoissonEquation <> f:56 var
+R8305:8305 Kernel.PoissonEquation <> w:60 var
+R8309:8309 Kernel.PoissonEquation <> c:57 var
+R8442:8444 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8442:8444 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8507:8510 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R8516:8516 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R8512:8514 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R8507:8510 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R8516:8516 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R8512:8514 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+prf 8609:8639 <> field_propagation_single_source
+binder 8652:8652 <> s:61
+binder 8654:8655 <> sc:62
+binder 8657:8657 <> v:63
+binder 8659:8659 <> w:64
+R8685:8690 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8664:8665 Coq.Lists.List <> In def
+R8670:8678 Kernel.PoissonEquation <> neighbors def
+R8680:8681 Kernel.PoissonEquation <> sc:62 var
+R8683:8683 Kernel.PoissonEquation <> v:63 var
+R8667:8667 Kernel.PoissonEquation <> w:64 var
+R8725:8730 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8717:8719 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8691:8712 Kernel.MuGravity <> module_structural_mass def
+R8714:8714 Kernel.PoissonEquation <> s:61 var
+R8716:8716 Kernel.PoissonEquation <> v:63 var
+R8731:8731 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8811:8817 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 8739:8739 <> u:65
+R8763:8766 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8742:8743 Coq.Lists.List <> In def
+R8748:8756 Kernel.PoissonEquation <> neighbors def
+R8758:8759 Kernel.PoissonEquation <> sc:62 var
+R8761:8761 Kernel.PoissonEquation <> v:63 var
+R8745:8745 Kernel.PoissonEquation <> u:65 var
+R8773:8776 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8768:8771 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R8767:8767 Kernel.PoissonEquation <> u:65 var
+R8772:8772 Kernel.PoissonEquation <> w:64 var
+R8803:8805 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8777:8798 Kernel.MuGravity <> module_structural_mass def
+R8800:8800 Kernel.PoissonEquation <> s:61 var
+R8802:8802 Kernel.PoissonEquation <> u:65 var
+R8853:8858 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8844:8847 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R8818:8839 Kernel.MuGravity <> module_structural_mass def
+R8841:8841 Kernel.PoissonEquation <> s:61 var
+R8843:8843 Kernel.PoissonEquation <> w:64 var
+R8859:8865 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8867:8868 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 8866:8866 <> u:66
+R8890:8897 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8869:8870 Coq.Lists.List <> In def
+R8875:8883 Kernel.PoissonEquation <> neighbors def
+R8885:8886 Kernel.PoissonEquation <> sc:62 var
+R8888:8888 Kernel.PoissonEquation <> v:63 var
+R8872:8872 Kernel.PoissonEquation <> u:66 var
+R8937:8940 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R8915:8917 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R8899:8910 Kernel.PoissonEquation <> mass_density def
+R8912:8912 Kernel.PoissonEquation <> s:61 var
+R8914:8914 Kernel.PoissonEquation <> u:66 var
+R8918:8929 Kernel.PoissonEquation <> mass_density def
+R8931:8931 Kernel.PoissonEquation <> s:61 var
+R8933:8933 Kernel.PoissonEquation <> v:63 var
+R9042:9053 Kernel.PoissonEquation <> mass_density def
+R9092:9101 Coq.Reals.RIneq <> Rminus_0_r thm
+R9092:9101 Coq.Reals.RIneq <> Rminus_0_r thm
+R9092:9101 Coq.Reals.RIneq <> Rminus_0_r thm
+R9141:9146 Coq.Reals.RIneq <> INR_eq thm
+R9141:9146 Coq.Reals.RIneq <> INR_eq thm
+prf 9568:9597 <> field_propagation_constructive
+binder 9610:9610 <> s:67
+binder 9612:9613 <> sc:68
+binder 9615:9615 <> v:69
+R9654:9659 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9646:9648 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9620:9641 Kernel.MuGravity <> module_structural_mass def
+R9643:9643 Kernel.PoissonEquation <> s:67 var
+R9645:9645 Kernel.PoissonEquation <> v:69 var
+R9660:9660 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9731:9882 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9661:9667 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9669:9670 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 9668:9668 <> w:70
+R9692:9695 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9671:9672 Coq.Lists.List <> In def
+R9677:9685 Kernel.PoissonEquation <> neighbors def
+R9687:9688 Kernel.PoissonEquation <> sc:68 var
+R9690:9690 Kernel.PoissonEquation <> v:69 var
+R9674:9674 Kernel.PoissonEquation <> w:70 var
+R9722:9725 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R9696:9717 Kernel.MuGravity <> module_structural_mass def
+R9719:9719 Kernel.PoissonEquation <> s:67 var
+R9721:9721 Kernel.PoissonEquation <> w:70 var
+R9883:9889 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9891:9892 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 9890:9890 <> w:71
+R9914:9921 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9893:9894 Coq.Lists.List <> In def
+R9899:9907 Kernel.PoissonEquation <> neighbors def
+R9909:9910 Kernel.PoissonEquation <> sc:68 var
+R9912:9912 Kernel.PoissonEquation <> v:69 var
+R9896:9896 Kernel.PoissonEquation <> w:71 var
+R9961:9964 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R9939:9941 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R9923:9934 Kernel.PoissonEquation <> mass_density def
+R9936:9936 Kernel.PoissonEquation <> s:67 var
+R9938:9938 Kernel.PoissonEquation <> w:71 var
+R9942:9953 Kernel.PoissonEquation <> mass_density def
+R9955:9955 Kernel.PoissonEquation <> s:67 var
+R9957:9957 Kernel.PoissonEquation <> v:69 var
+R10055:10066 Kernel.PoissonEquation <> mass_density def
+R10100:10109 Coq.Reals.RIneq <> Rminus_0_r thm
+R10100:10109 Coq.Reals.RIneq <> Rminus_0_r thm
+R10100:10109 Coq.Reals.RIneq <> Rminus_0_r thm
+R10141:10146 Coq.Reals.RIneq <> INR_eq thm
+R10141:10146 Coq.Reals.RIneq <> INR_eq thm
+def 11119:11126 <> G_Newton
+R11130:11130 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R11136:11138 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R11145:11145 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R11140:11142 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R11143:11144 Coq.Reals.Rtrigo1 <> PI def
+prf 11290:11312 <> poisson_equation_vacuum
+binder 11325:11325 <> s:72
+binder 11327:11328 <> sc:73
+binder 11330:11330 <> v:74
+binder 11332:11332 <> m:75
+R11337:11337 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11378:11384 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 11345:11345 <> u:76
+R11374:11376 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11348:11369 Kernel.MuGravity <> module_structural_mass def
+R11371:11371 Kernel.PoissonEquation <> s:72 var
+R11373:11373 Kernel.PoissonEquation <> u:76 var
+R11377:11377 Kernel.PoissonEquation <> m:75 var
+R11414:11416 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11385:11406 Kernel.PoissonEquation <> laplacian_of_potential def
+R11408:11408 Kernel.PoissonEquation <> s:72 var
+R11410:11411 Kernel.PoissonEquation <> sc:73 var
+R11413:11413 Kernel.PoissonEquation <> v:74 var
+R11467:11488 Kernel.PoissonEquation <> laplacian_of_potential def
+R11491:11508 Kernel.PoissonEquation <> discrete_laplacian def
+R11511:11529 Kernel.PoissonEquation <> newtonian_potential def
+R11545:11553 Kernel.PoissonEquation <> neighbors def
+R11545:11553 Kernel.PoissonEquation <> neighbors def
+R11660:11675 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R11656:11658 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R11624:11626 Coq.Reals.Raxioms <> INR def
+R11629:11650 Kernel.MuGravity <> module_structural_mass def
+R11708:11710 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R11676:11678 Coq.Reals.Raxioms <> INR def
+R11681:11702 Kernel.MuGravity <> module_structural_mass def
+R11728:11728 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R11809:11812 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R11761:11776 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R11729:11731 Coq.Reals.Raxioms <> INR def
+R11734:11755 Kernel.MuGravity <> module_structural_mass def
+R11777:11779 Coq.Reals.Raxioms <> INR def
+R11782:11803 Kernel.MuGravity <> module_structural_mass def
+R11660:11675 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R11656:11658 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R11624:11626 Coq.Reals.Raxioms <> INR def
+R11629:11650 Kernel.MuGravity <> module_structural_mass def
+R11708:11710 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R11676:11678 Coq.Reals.Raxioms <> INR def
+R11681:11702 Kernel.MuGravity <> module_structural_mass def
+R11728:11728 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R11809:11812 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R11761:11776 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R11729:11731 Coq.Reals.Raxioms <> INR def
+R11734:11755 Kernel.MuGravity <> module_structural_mass def
+R11777:11779 Coq.Reals.Raxioms <> INR def
+R11782:11803 Kernel.MuGravity <> module_structural_mass def
+R11886:11888 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R11881:11883 Coq.Reals.Raxioms <> INR def
+R11889:11891 Coq.Reals.Raxioms <> INR def
+R11886:11888 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R11881:11883 Coq.Reals.Raxioms <> INR def
+R11889:11891 Coq.Reals.Raxioms <> INR def
+R11930:11932 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R11930:11932 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R11967:11975 Coq.Reals.Raxioms <> Rplus_0_l thm
+R11967:11975 Coq.Reals.Raxioms <> Rplus_0_l thm
+R11967:11975 Coq.Reals.Raxioms <> Rplus_0_l thm
+prf 12184:12222 <> poisson_equation_links_geometry_to_mass
+binder 12235:12235 <> s:77
+binder 12237:12238 <> sc:78
+binder 12240:12240 <> v:79
+R12274:12280 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12245:12266 Kernel.PoissonEquation <> laplacian_of_potential def
+R12268:12268 Kernel.PoissonEquation <> s:77 var
+R12270:12271 Kernel.PoissonEquation <> sc:78 var
+R12273:12273 Kernel.PoissonEquation <> v:79 var
+R12281:12289 Coq.Lists.List <> fold_left def
+R12370:12378 Kernel.PoissonEquation <> neighbors def
+R12380:12381 Kernel.PoissonEquation <> sc:78 var
+R12383:12383 Kernel.PoissonEquation <> v:79 var
+binder 12296:12298 <> acc:80
+binder 12300:12300 <> w:81
+R12315:12317 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R12312:12314 Kernel.PoissonEquation <> acc:80 var
+R12318:12318 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R12354:12357 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R12335:12337 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R12319:12330 Kernel.PoissonEquation <> mass_density def
+R12332:12332 Kernel.PoissonEquation <> s:77 var
+R12334:12334 Kernel.PoissonEquation <> w:81 var
+R12338:12349 Kernel.PoissonEquation <> mass_density def
+R12351:12351 Kernel.PoissonEquation <> s:77 var
+R12353:12353 Kernel.PoissonEquation <> v:79 var
+R12425:12470 Kernel.PoissonEquation <> laplacian_potential_equals_half_laplacian_mass thm
+R12425:12470 Kernel.PoissonEquation <> laplacian_potential_equals_half_laplacian_mass thm
+R12425:12470 Kernel.PoissonEquation <> laplacian_potential_equals_half_laplacian_mass thm
+R12482:12499 Kernel.PoissonEquation <> discrete_laplacian def
+binder 12518:12518 <> w:82
+R12540:12542 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R12524:12535 Kernel.PoissonEquation <> mass_density def
+R12539:12539 Kernel.PoissonEquation <> w:82 var
+R12543:12554 Kernel.PoissonEquation <> mass_density def
+binder 12518:12518 <> w:83
+R12540:12542 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R12524:12535 Kernel.PoissonEquation <> mass_density def
+R12539:12539 Kernel.PoissonEquation <> w:83 var
+R12543:12554 Kernel.PoissonEquation <> mass_density def
+R12751:12754 Coq.Init.Datatypes <> list ind
+R12756:12758 Coq.Init.Datatypes <> nat ind
+binder 12746:12747 <> ws:84
+R12769:12769 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 12762:12765 <> init:85
+R12833:12839 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12826:12828 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R12778:12786 Coq.Lists.List <> fold_left def
+R12822:12825 Kernel.PoissonEquation <> init:85 var
+R12819:12820 Kernel.PoissonEquation <> ws:84 var
+binder 12793:12795 <> acc:86
+binder 12797:12798 <> w':87
+R12807:12809 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R12804:12806 Kernel.PoissonEquation <> acc:86 var
+R12812:12813 Kernel.PoissonEquation <> w':87 var
+R12840:12848 Coq.Lists.List <> fold_left def
+R12893:12895 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R12889:12892 Kernel.PoissonEquation <> init:85 var
+R12885:12886 Kernel.PoissonEquation <> ws:84 var
+binder 12855:12857 <> acc:88
+binder 12859:12860 <> w':89
+R12869:12871 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R12866:12868 Kernel.PoissonEquation <> acc:88 var
+R12876:12878 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R12874:12875 Kernel.PoissonEquation <> w':89 var
+R12751:12754 Coq.Init.Datatypes <> list ind
+R12756:12758 Coq.Init.Datatypes <> nat ind
+binder 12746:12747 <> ws:90
+R12769:12769 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 12762:12765 <> init:91
+R12833:12839 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12826:12828 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R12778:12786 Coq.Lists.List <> fold_left def
+R12822:12825 Kernel.PoissonEquation <> init:91 var
+R12819:12820 Kernel.PoissonEquation <> ws:90 var
+binder 12793:12795 <> acc:92
+binder 12797:12798 <> w':93
+R12807:12809 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R12804:12806 Kernel.PoissonEquation <> acc:92 var
+R12812:12813 Kernel.PoissonEquation <> w':93 var
+R12840:12848 Coq.Lists.List <> fold_left def
+R12893:12895 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R12889:12892 Kernel.PoissonEquation <> init:91 var
+R12885:12886 Kernel.PoissonEquation <> ws:90 var
+binder 12855:12857 <> acc:94
+binder 12859:12860 <> w':95
+R12869:12871 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R12866:12868 Kernel.PoissonEquation <> acc:94 var
+R12876:12878 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R12874:12875 Kernel.PoissonEquation <> w':95 var
+R13014:13017 Coq.Reals.Rdefinitions <> Rdiv def
+R13028:13045 Coq.Reals.RIneq <> Rmult_plus_distr_r thm
+R13028:13045 Coq.Reals.RIneq <> Rmult_plus_distr_r thm
+R13028:13045 Coq.Reals.RIneq <> Rmult_plus_distr_r thm
+R13083:13091 Kernel.PoissonEquation <> neighbors def
+R13083:13091 Kernel.PoissonEquation <> neighbors def
+R13115:13117 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R13115:13117 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+ind 13942:13956 <> graph_connected
+constr 14011:14017 <> gc_refl
+constr 14083:14089 <> gc_step
+R13964:13982 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
+binder 13959:13960 <> sc:96
+R13990:13993 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13987:13989 Coq.Init.Datatypes <> nat ind
+R13997:14000 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13994:13996 Coq.Init.Datatypes <> nat ind
+binder 14028:14028 <> v:99
+R14054:14057 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14031:14032 Coq.Lists.List <> In def
+R14037:14049 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
+R14051:14052 Kernel.PoissonEquation <> sc:96 var
+R14034:14034 Kernel.PoissonEquation <> v:99 var
+R14058:14072 Kernel.PoissonEquation <> graph_connected:97 ind
+R14079:14079 Kernel.PoissonEquation <> v:99 var
+R14077:14077 Kernel.PoissonEquation <> v:99 var
+R14074:14075 Kernel.PoissonEquation <> sc:96 var
+binder 14100:14100 <> v:100
+binder 14102:14102 <> w:101
+binder 14104:14104 <> u:102
+R14133:14140 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14111:14125 Kernel.PoissonEquation <> graph_connected:97 ind
+R14132:14132 Kernel.PoissonEquation <> w:101 var
+R14130:14130 Kernel.PoissonEquation <> v:100 var
+R14127:14128 Kernel.PoissonEquation <> sc:96 var
+R14162:14169 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14141:14142 Coq.Lists.List <> In def
+R14147:14155 Kernel.PoissonEquation <> neighbors def
+R14157:14158 Kernel.PoissonEquation <> sc:96 var
+R14160:14160 Kernel.PoissonEquation <> w:101 var
+R14144:14144 Kernel.PoissonEquation <> u:102 var
+R14170:14184 Kernel.PoissonEquation <> graph_connected:97 ind
+R14191:14191 Kernel.PoissonEquation <> u:102 var
+R14189:14189 Kernel.PoissonEquation <> v:100 var
+R14186:14187 Kernel.PoissonEquation <> sc:96 var
+scheme 13942:13956 <> graph_connected_ind
+scheme 13942:13956 <> graph_connected_sind
+prf 14281:14302 <> propagation_transitive
+binder 14315:14316 <> sc:103
+binder 14318:14318 <> v:104
+binder 14320:14320 <> w:105
+R14347:14352 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14325:14339 Kernel.PoissonEquation <> graph_connected ind
+R14341:14342 Kernel.PoissonEquation <> sc:103 var
+R14344:14344 Kernel.PoissonEquation <> v:104 var
+R14346:14346 Kernel.PoissonEquation <> w:105 var
+binder 14360:14360 <> s:106
+R14400:14513 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14391:14394 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R14365:14386 Kernel.MuGravity <> module_structural_mass def
+R14388:14388 Kernel.PoissonEquation <> s:106 var
+R14390:14390 Kernel.PoissonEquation <> v:104 var
+R14514:14520 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R14536:14541 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R14528:14531 Coq.Init.Datatypes <> list ind
+R14533:14535 Coq.Init.Datatypes <> nat ind
+binder 14521:14524 <> path:107
+R14564:14571 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R14554:14557 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R14543:14548 Coq.Init.Datatypes <> length def
+R14550:14553 Kernel.PoissonEquation <> path:107 var
+R14585:14587 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14572:14573 Coq.Lists.List <> hd def
+R14581:14584 Kernel.PoissonEquation <> path:107 var
+R14588:14588 Kernel.PoissonEquation <> v:104 var
+R14659:14659 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R14661:14661 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R14659:14659 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R14661:14661 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R14763:14766 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R14767:14767 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R14769:14769 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R14763:14766 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R14767:14767 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R14769:14769 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R14802:14811 Coq.Lists.List <> app_length thm
+R14802:14811 Coq.Lists.List <> app_length thm
+R14802:14811 Coq.Lists.List <> app_length thm

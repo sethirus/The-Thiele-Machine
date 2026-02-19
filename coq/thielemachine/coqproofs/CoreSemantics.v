@@ -70,30 +70,34 @@ Definition trivial_partition (vars : Region) : Partition :=
   {| modules := [(0%nat, vars)];
      next_module_id := 1%nat |}.
 
-(** μ-Ledger: Tracks information cost *)
+(** μ-Ledger: Tracks information cost (extended with tensor) *)
 Record MuLedger := {
   mu_operational : Z;    (* Cost of computation steps *)
   mu_information : Z;    (* Cost of information revelation *)
   mu_total : Z;          (* Total cost = operational + information *)
+  mu_tensor : list Z;    (* Flattened 4×4 μ-metric tensor (row-major, 16 entries) *)
 }.
 
 (** Zero ledger (initial state) *)
 Definition zero_mu : MuLedger :=
   {| mu_operational := 0;
      mu_information := 0;
-     mu_total := 0 |}.
+     mu_total := 0;
+     mu_tensor := repeat 0 16 |}.
 
-(** Add operational cost *)
+(** Add operational cost (preserve tensor) *)
 Definition add_mu_operational (l : MuLedger) (delta : Z) : MuLedger :=
   {| mu_operational := l.(mu_operational) + delta;
      mu_information := l.(mu_information);
-     mu_total := l.(mu_total) + delta |}.
+     mu_total := l.(mu_total) + delta;
+     mu_tensor := l.(mu_tensor) |}.
 
-(** Add information cost *)
+(** Add information cost (preserve tensor) *)
 Definition add_mu_information (l : MuLedger) (delta : Z) : MuLedger :=
   {| mu_operational := l.(mu_operational);
      mu_information := l.(mu_information) + delta;
-     mu_total := l.(mu_total) + delta |}.
+     mu_total := l.(mu_total) + delta;
+     mu_tensor := l.(mu_tensor) |}.
 
 (** Instruction set - defined before State to avoid forward reference *)
 Inductive Instruction : Type :=
@@ -236,6 +240,7 @@ Fixpoint encode_program (p : Program) : list Z :=
 Definition encode_state (s : State) : list Z :=
   encode_partition s.(partition)
   ++ [s.(mu_ledger).(mu_operational); s.(mu_ledger).(mu_information); s.(mu_ledger).(mu_total)]
+  ++ s.(mu_ledger).(mu_tensor)
   ++ [Z.of_nat s.(pc); bool_to_Z s.(halted)]
   ++ (match s.(result) with None => [0] | Some n => [1; Z.of_nat n] end)
   ++ [Z.of_nat (List.length s.(program))]

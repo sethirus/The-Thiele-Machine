@@ -1,4 +1,4 @@
-DIGEST c0025ee626d901010b64d5d573fb9145
+DIGEST b2175ab084dfb0fa41dfb06bb4d2a31b
 FKernel.EntropyImpossibility
 R24:27 Coq.Lists.List <> <> lib
 R29:42 Coq.Arith.PeanoNat <> <> lib
@@ -37,8 +37,10 @@ R2722:2726 Kernel.VMState <> vm_pc proj
 R2722:2726 Kernel.VMState <> vm_pc proj
 R2747:2751 Kernel.VMState <> vm_mu proj
 R2747:2751 Kernel.VMState <> vm_mu proj
-R2772:2777 Kernel.VMState <> vm_err proj
-R2772:2777 Kernel.VMState <> vm_err proj
+R2772:2783 Kernel.VMState <> vm_mu_tensor proj
+R2772:2783 Kernel.VMState <> vm_mu_tensor proj
+R2811:2816 Kernel.VMState <> vm_err proj
+R2811:2816 Kernel.VMState <> vm_err proj
 R2616:2623 Kernel.VMState <> vm_graph proj
 R2613:2613 Kernel.EntropyImpossibility <> s:4 var
 R2646:2652 Kernel.VMState <> vm_csrs proj
@@ -53,108 +55,110 @@ R2734:2738 Kernel.VMState <> vm_pc proj
 R2731:2731 Kernel.EntropyImpossibility <> s:4 var
 R2759:2763 Kernel.VMState <> vm_mu proj
 R2756:2756 Kernel.EntropyImpossibility <> s:4 var
-R2785:2790 Kernel.VMState <> vm_err proj
-R2782:2782 Kernel.EntropyImpossibility <> s:4 var
-prf 3629:3651 <> tweak_regs_region_equiv
-binder 3662:3662 <> s:6
-binder 3664:3664 <> x:7
-R3669:3680 Kernel.EntropyImpossibility <> region_equiv def
-R3682:3682 Kernel.EntropyImpossibility <> s:6 var
-R3685:3694 Kernel.EntropyImpossibility <> tweak_regs def
-R3696:3696 Kernel.EntropyImpossibility <> s:6 var
-R3698:3698 Kernel.EntropyImpossibility <> x:7 var
-R3736:3747 Kernel.EntropyImpossibility <> region_equiv def
-R3750:3759 Kernel.EntropyImpossibility <> tweak_regs def
-R3771:3786 Kernel.KernelPhysics <> ObservableRegion def
-prf 4505:4524 <> tweak_regs_injective
-binder 4535:4535 <> s:8
-binder 4537:4537 <> a:9
-binder 4539:4539 <> b:10
-R4575:4578 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4558:4560 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4544:4553 Kernel.EntropyImpossibility <> tweak_regs def
-R4555:4555 Kernel.EntropyImpossibility <> s:8 var
-R4557:4557 Kernel.EntropyImpossibility <> a:9 var
-R4561:4570 Kernel.EntropyImpossibility <> tweak_regs def
-R4572:4572 Kernel.EntropyImpossibility <> s:8 var
-R4574:4574 Kernel.EntropyImpossibility <> b:10 var
-R4580:4582 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4579:4579 Kernel.EntropyImpossibility <> a:9 var
-R4583:4583 Kernel.EntropyImpossibility <> b:10 var
-R4655:4657 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4631:4637 Kernel.VMState <> vm_regs proj
-R4640:4649 Kernel.EntropyImpossibility <> tweak_regs def
-R4658:4664 Kernel.VMState <> vm_regs proj
-R4667:4676 Kernel.EntropyImpossibility <> tweak_regs def
-R4655:4657 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4631:4637 Kernel.VMState <> vm_regs proj
-R4640:4649 Kernel.EntropyImpossibility <> tweak_regs def
-R4658:4664 Kernel.VMState <> vm_regs proj
-R4667:4676 Kernel.EntropyImpossibility <> tweak_regs def
-R4713:4722 Kernel.EntropyImpossibility <> tweak_regs def
-prf 5920:5946 <> region_equiv_class_infinite
-binder 5957:5957 <> s:11
-R5962:5968 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R5987:5992 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R5976:5979 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5973:5975 Coq.Init.Datatypes <> nat ind
-R5980:5986 Kernel.VMState <> VMState rec
-binder 5969:5969 <> f:12
-R5993:5993 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6024:6033 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6070:6070 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 6001:6001 <> n:13
-R6004:6015 Kernel.EntropyImpossibility <> region_equiv def
-R6017:6017 Kernel.EntropyImpossibility <> s:11 var
-R6020:6020 Kernel.EntropyImpossibility <> f:12 var
-R6022:6022 Kernel.EntropyImpossibility <> n:13 var
-binder 6041:6042 <> n1:14
-binder 6044:6045 <> n2:15
-R6059:6062 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6052:6054 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6048:6048 Kernel.EntropyImpossibility <> f:12 var
-R6050:6051 Kernel.EntropyImpossibility <> n1:14 var
-R6055:6055 Kernel.EntropyImpossibility <> f:12 var
-R6057:6058 Kernel.EntropyImpossibility <> n2:15 var
-R6065:6067 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6063:6064 Kernel.EntropyImpossibility <> n1:14 var
-R6068:6069 Kernel.EntropyImpossibility <> n2:15 var
-binder 6105:6105 <> n:16
-R6110:6119 Kernel.EntropyImpossibility <> tweak_regs def
-R6123:6123 Kernel.EntropyImpossibility <> n:16 var
-binder 6105:6105 <> n:17
-R6110:6119 Kernel.EntropyImpossibility <> tweak_regs def
-R6123:6123 Kernel.EntropyImpossibility <> n:17 var
-R6155:6177 Kernel.EntropyImpossibility <> tweak_regs_region_equiv thm
-R6155:6177 Kernel.EntropyImpossibility <> tweak_regs_region_equiv thm
-R6213:6232 Kernel.EntropyImpossibility <> tweak_regs_injective thm
-R6213:6232 Kernel.EntropyImpossibility <> tweak_regs_injective thm
-prf 7613:7661 <> Entropy_From_Observation_Fails_Without_Finiteness
-binder 7674:7674 <> s:18
-R7681:7687 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R7706:7713 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R7695:7698 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7692:7694 Coq.Init.Datatypes <> nat ind
-R7699:7705 Kernel.VMState <> VMState rec
-binder 7688:7688 <> f:19
-R7714:7714 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7745:7756 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7793:7793 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 7722:7722 <> n:20
-R7725:7736 Kernel.EntropyImpossibility <> region_equiv def
-R7738:7738 Kernel.EntropyImpossibility <> s:18 var
-R7741:7741 Kernel.EntropyImpossibility <> f:19 var
-R7743:7743 Kernel.EntropyImpossibility <> n:20 var
-binder 7764:7765 <> n1:21
-binder 7767:7768 <> n2:22
-R7782:7785 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7775:7777 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7771:7771 Kernel.EntropyImpossibility <> f:19 var
-R7773:7774 Kernel.EntropyImpossibility <> n1:21 var
-R7778:7778 Kernel.EntropyImpossibility <> f:19 var
-R7780:7781 Kernel.EntropyImpossibility <> n2:22 var
-R7788:7790 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7786:7787 Kernel.EntropyImpossibility <> n1:21 var
-R7791:7792 Kernel.EntropyImpossibility <> n2:22 var
-R7822:7848 Kernel.EntropyImpossibility <> region_equiv_class_infinite thm
-R7822:7848 Kernel.EntropyImpossibility <> region_equiv_class_infinite thm
+R2791:2802 Kernel.VMState <> vm_mu_tensor proj
+R2788:2788 Kernel.EntropyImpossibility <> s:4 var
+R2824:2829 Kernel.VMState <> vm_err proj
+R2821:2821 Kernel.EntropyImpossibility <> s:4 var
+prf 3668:3690 <> tweak_regs_region_equiv
+binder 3701:3701 <> s:6
+binder 3703:3703 <> x:7
+R3708:3719 Kernel.EntropyImpossibility <> region_equiv def
+R3721:3721 Kernel.EntropyImpossibility <> s:6 var
+R3724:3733 Kernel.EntropyImpossibility <> tweak_regs def
+R3735:3735 Kernel.EntropyImpossibility <> s:6 var
+R3737:3737 Kernel.EntropyImpossibility <> x:7 var
+R3775:3786 Kernel.EntropyImpossibility <> region_equiv def
+R3789:3798 Kernel.EntropyImpossibility <> tweak_regs def
+R3810:3825 Kernel.KernelPhysics <> ObservableRegion def
+prf 4544:4563 <> tweak_regs_injective
+binder 4574:4574 <> s:8
+binder 4576:4576 <> a:9
+binder 4578:4578 <> b:10
+R4614:4617 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4597:4599 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4583:4592 Kernel.EntropyImpossibility <> tweak_regs def
+R4594:4594 Kernel.EntropyImpossibility <> s:8 var
+R4596:4596 Kernel.EntropyImpossibility <> a:9 var
+R4600:4609 Kernel.EntropyImpossibility <> tweak_regs def
+R4611:4611 Kernel.EntropyImpossibility <> s:8 var
+R4613:4613 Kernel.EntropyImpossibility <> b:10 var
+R4619:4621 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4618:4618 Kernel.EntropyImpossibility <> a:9 var
+R4622:4622 Kernel.EntropyImpossibility <> b:10 var
+R4694:4696 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4670:4676 Kernel.VMState <> vm_regs proj
+R4679:4688 Kernel.EntropyImpossibility <> tweak_regs def
+R4697:4703 Kernel.VMState <> vm_regs proj
+R4706:4715 Kernel.EntropyImpossibility <> tweak_regs def
+R4694:4696 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4670:4676 Kernel.VMState <> vm_regs proj
+R4679:4688 Kernel.EntropyImpossibility <> tweak_regs def
+R4697:4703 Kernel.VMState <> vm_regs proj
+R4706:4715 Kernel.EntropyImpossibility <> tweak_regs def
+R4752:4761 Kernel.EntropyImpossibility <> tweak_regs def
+prf 5959:5985 <> region_equiv_class_infinite
+binder 5996:5996 <> s:11
+R6001:6007 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6026:6031 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6015:6018 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6012:6014 Coq.Init.Datatypes <> nat ind
+R6019:6025 Kernel.VMState <> VMState rec
+binder 6008:6008 <> f:12
+R6032:6032 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6063:6072 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6109:6109 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 6040:6040 <> n:13
+R6043:6054 Kernel.EntropyImpossibility <> region_equiv def
+R6056:6056 Kernel.EntropyImpossibility <> s:11 var
+R6059:6059 Kernel.EntropyImpossibility <> f:12 var
+R6061:6061 Kernel.EntropyImpossibility <> n:13 var
+binder 6080:6081 <> n1:14
+binder 6083:6084 <> n2:15
+R6098:6101 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6091:6093 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6087:6087 Kernel.EntropyImpossibility <> f:12 var
+R6089:6090 Kernel.EntropyImpossibility <> n1:14 var
+R6094:6094 Kernel.EntropyImpossibility <> f:12 var
+R6096:6097 Kernel.EntropyImpossibility <> n2:15 var
+R6104:6106 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6102:6103 Kernel.EntropyImpossibility <> n1:14 var
+R6107:6108 Kernel.EntropyImpossibility <> n2:15 var
+binder 6144:6144 <> n:16
+R6149:6158 Kernel.EntropyImpossibility <> tweak_regs def
+R6162:6162 Kernel.EntropyImpossibility <> n:16 var
+binder 6144:6144 <> n:17
+R6149:6158 Kernel.EntropyImpossibility <> tweak_regs def
+R6162:6162 Kernel.EntropyImpossibility <> n:17 var
+R6194:6216 Kernel.EntropyImpossibility <> tweak_regs_region_equiv thm
+R6194:6216 Kernel.EntropyImpossibility <> tweak_regs_region_equiv thm
+R6252:6271 Kernel.EntropyImpossibility <> tweak_regs_injective thm
+R6252:6271 Kernel.EntropyImpossibility <> tweak_regs_injective thm
+prf 7652:7700 <> Entropy_From_Observation_Fails_Without_Finiteness
+binder 7713:7713 <> s:18
+R7720:7726 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7745:7752 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7734:7737 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7731:7733 Coq.Init.Datatypes <> nat ind
+R7738:7744 Kernel.VMState <> VMState rec
+binder 7727:7727 <> f:19
+R7753:7753 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7784:7795 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7832:7832 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 7761:7761 <> n:20
+R7764:7775 Kernel.EntropyImpossibility <> region_equiv def
+R7777:7777 Kernel.EntropyImpossibility <> s:18 var
+R7780:7780 Kernel.EntropyImpossibility <> f:19 var
+R7782:7782 Kernel.EntropyImpossibility <> n:20 var
+binder 7803:7804 <> n1:21
+binder 7806:7807 <> n2:22
+R7821:7824 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7814:7816 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7810:7810 Kernel.EntropyImpossibility <> f:19 var
+R7812:7813 Kernel.EntropyImpossibility <> n1:21 var
+R7817:7817 Kernel.EntropyImpossibility <> f:19 var
+R7819:7820 Kernel.EntropyImpossibility <> n2:22 var
+R7827:7829 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7825:7826 Kernel.EntropyImpossibility <> n1:21 var
+R7830:7831 Kernel.EntropyImpossibility <> n2:22 var
+R7861:7887 Kernel.EntropyImpossibility <> region_equiv_class_infinite thm
+R7861:7887 Kernel.EntropyImpossibility <> region_equiv_class_infinite thm

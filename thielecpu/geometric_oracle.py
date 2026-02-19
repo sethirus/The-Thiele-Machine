@@ -55,7 +55,7 @@ def check_congruence_possibility(
 
     The oracle implements the textbook identity:
 
-    .. math:: (p \bmod m) (q \bmod m) \equiv n \bmod m.
+    .. math:: (p \\bmod m) (q \\bmod m) \\equiv n \\bmod m.
 
     For supplied residues ``residue_a`` and ``residue_b`` this function computes
     both sides of the identity modulo ``base`` and simply checks equality.  If

@@ -18,10 +18,11 @@ Record MuLedger := {
   mu_operational : Z;
   mu_discovery : Z;
   mu_total : Z;
+  mu_tensor : list Z;
 }.
 
 Definition zero_ledger : MuLedger :=
-  {| mu_operational := 0; mu_discovery := 0; mu_total := 0 |}.
+  {| mu_operational := 0; mu_discovery := 0; mu_total := 0; mu_tensor := repeat 0%Z 16 |}.
 
 Record ThieleState := {
   partition : Partition;

@@ -597,7 +597,7 @@ Variable reversible_has_zero_cost : forall T : State2D -> State2D,
 (** Chain of derived results: *)
 
 (** D1: L2 norm is forced (this file) *)
-Definition D1_l2_norm := superposition_principle_derived.
+Definition D1_l2_norm := l2_is_unique_continuous_norm.
 
 (** D2: State space is S¹ (TwoDimensionalNecessity.v, now uses D1 instead of axiom) *)
 (* two_dimensional_necessary : S¹ is the minimal continuous superposition space *)

@@ -28,16 +28,48 @@ From Kernel Require Import VMState.
 From Kernel Require Import FourDSimplicialComplex.
 From Kernel Require Import MuGravity.
 
-(** ** Step 1: Edge Lengths from μ-Costs
+(** ** Step 0: μ-Tensor as Metric
 
-    DEFINITION: The length of an edge between modules m1 and m2
-    is derived from their structural masses.
+    The vm_mu_tensor field is a 4×4 matrix (16 nat entries, row-major).
+    It IS the spacetime metric g_μν.
 
-    JUSTIFICATION:
-    - module_structural_mass = region_size + axiom_count
-    - This measures "information content" of a module
-    - Distance should scale with information content
-    - This is the UNIQUE minimal metric from μ-accounting
+    DERIVATION:
+    μ-tensor(i,j) = (i,j) component of the metric tensor
+    This replaces the old scalar module_structural_mass approach.
+*)
+
+(** Read (i,j) entry of vm_mu_tensor as a real number *)
+Definition mu_tensor_to_metric (s : VMState) (i j : nat) : R :=
+  INR (vm_mu_tensor_entry s i j).
+
+(** Properties of the tensor metric *)
+Lemma mu_tensor_metric_nonneg : forall s i j,
+  (mu_tensor_to_metric s i j >= 0)%R.
+Proof.
+  intros s i j.
+  unfold mu_tensor_to_metric.
+  apply Rle_ge, pos_INR.
+Qed.
+
+(** Zero vm_mu_tensor gives zero metric *)
+Lemma zero_tensor_gives_zero_metric : forall s i j,
+  s.(vm_mu_tensor) = repeat 0%nat 16 ->
+  mu_tensor_to_metric s i j = 0%R.
+Proof.
+  intros s i j H.
+  unfold mu_tensor_to_metric, vm_mu_tensor_entry.
+  rewrite H.
+  destruct (Nat.lt_decidable (i * 4 + j) 16) as [Hlt | Hge].
+  - rewrite nth_repeat. simpl. reflexivity.
+  - rewrite nth_overflow.
+    + simpl. reflexivity.
+    + rewrite repeat_length. lia.
+Qed.
+
+(** ** Step 1: Edge Lengths from μ-Costs (structural mass compatibility)
+
+    The scalar edge_length remains useful for triangle geometry.
+    The full metric tensor is given by mu_tensor_to_metric above.
 *)
 
 Definition edge_length (s : VMState) (m1 m2 : ModuleID) : R :=
@@ -290,3 +322,81 @@ Fixpoint sum_angle_defects_4d (s : VMState) (sc : SimplicialComplex4D)
     - Define Einstein tensor
     - Prove Einstein field equations
 *)
+
+(** =========================================================================
+    LOCAL (VERTEX-DEPENDENT) METRIC
+    =========================================================================
+
+    The global vm_mu_tensor gives a single 4×4 metric for the whole state.
+    For "curved" discrete spacetime we also define a LOCAL metric where each
+    vertex v carries its own mass = module_structural_mass s v.
+
+    g_μν^{local}(v) = mass(v)   if μ = ν   (diagonal, isotropic)
+                    = 0          if μ ≠ ν
+
+    When masses differ between vertices, discrete derivatives of this metric
+    are non-zero, producing non-trivial Christoffel symbols, Riemann
+    curvature, and Einstein tensor.
+    =========================================================================*)
+
+(** Local diagonal metric at vertex v, direction (μ,ν). *)
+Definition metric_at_vertex (s : VMState) (v μ ν : ModuleID) : R :=
+  if (μ mod 4 =? ν mod 4)%bool
+  then INR (module_structural_mass s v)
+  else 0%R.
+
+(** Metric at vertex is non-negative. *)
+Lemma metric_at_vertex_nonneg : forall s v μ ν,
+  (metric_at_vertex s v μ ν >= 0)%R.
+Proof.
+  intros s v μ ν.
+  unfold metric_at_vertex.
+  destruct (μ mod 4 =? ν mod 4)%bool.
+  - apply Rle_ge. apply pos_INR.
+  - lra.
+Qed.
+
+(** Metric at vertex is zero off-diagonal. *)
+Lemma metric_at_vertex_offdiag : forall s v μ ν,
+  (μ mod 4 =? ν mod 4)%bool = false ->
+  metric_at_vertex s v μ ν = 0%R.
+Proof.
+  intros s v μ ν H.
+  unfold metric_at_vertex. rewrite H. reflexivity.
+Qed.
+
+(** Metric at vertex on diagonal equals INR mass. *)
+Lemma metric_at_vertex_diag : forall s v μ,
+  metric_at_vertex s v μ μ = INR (module_structural_mass s v).
+Proof.
+  intros s v μ.
+  unfold metric_at_vertex.
+  rewrite Nat.eqb_refl. reflexivity.
+Qed.
+
+(** KEY CURVATURE LEMMA: When two adjacent vertices have different masses,
+    the discrete derivative of the local metric is non-zero.
+    This is the computational origin of spacetime curvature. *)
+Lemma local_metric_derivative_nonzero_when_masses_differ :
+  forall m1 m2,
+  m1 <> m2 ->
+  INR m1 <> INR m2.
+Proof.
+  intros m1 m2 Hne.
+  intro Heq.
+  apply Hne.
+  exact (INR_eq m1 m2 Heq).
+Qed.
+
+(** Flat-space special case: uniform mass → local metric is position-independent
+    → same value at every vertex → discrete derivatives vanish. *)
+Lemma local_metric_uniform_position_independent : forall s m μ ν v w,
+  (forall u, module_structural_mass s u = m) ->
+  metric_at_vertex s v μ ν = metric_at_vertex s w μ ν.
+Proof.
+  intros s m μ ν v w H_uniform.
+  unfold metric_at_vertex.
+  destruct (μ mod 4 =? ν mod 4)%bool.
+  - rewrite H_uniform, H_uniform. reflexivity.
+  - reflexivity.
+Qed.

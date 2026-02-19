@@ -1964,6 +1964,7 @@ Proof.
                 vm_mem := [];
                 vm_pc := 0;
                 vm_mu := 0;
+                vm_mu_tensor := vm_mu_tensor_default;
                 vm_err := false |}).
   exists s0, 100%nat, [0%nat].
   split.

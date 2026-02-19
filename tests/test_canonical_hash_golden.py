@@ -101,8 +101,9 @@ class TestStateEncoding:
             result=None,
             program=[]
         )
-        # Expected: [next_module_id=0, μ_op=0, μ_info=0, μ_total=0, pc=0, halted=0, result=0, prog_len=0]
-        assert encoded == [0, 0, 0, 0, 0, 0, 0, 0]
+        # Expected: [next_module_id=0, μ_op=0, μ_info=0, μ_total=0,
+        #            μ_tensor(16 zeros), pc=0, halted=0, result=0, prog_len=0]
+        assert encoded == [0] * 24  # 1 (next_module_id) + 3 (μ) + 16 (tensor) + 1 (pc) + 1 (halted) + 1 (result) + 1 (prog_len) = 24
     
     def test_state_with_partition(self):
         """State with one module."""
@@ -121,8 +122,12 @@ class TestStateEncoding:
         #            ^module   ^next ^μ      ^pc ^h ^r ^plen
         assert encoded[:4] == [0, 2, 1, 2], "Module encoding incorrect"
         assert encoded[4] == 1, "next_module_id incorrect"
+        # μ-ledger still at the same offsets after the partition encoding
         assert encoded[5:8] == [10, 5, 15], "μ-ledger incorrect"
-        assert encoded[8:12] == [0, 0, 0, 0], "Control state incorrect"
+        # μ-tensor occupies the next 16 positions
+        assert encoded[8:24] == [0] * 16, "μ-tensor must be serialized as 16 entries"
+        # Control state (pc, halted) follows the tensor
+        assert encoded[24:26] == [0, 0], "Control state incorrect"
     
     def test_state_with_result(self):
         """State with result value."""
@@ -137,22 +142,22 @@ class TestStateEncoding:
             result=42,
             program=[]
         )
-        # Expected: [0, 0, 0, 0, 5, 1, 1, 42, 0]
-        #            ^next ^μ    ^pc^h ^result ^plen
-        assert encoded == [0, 0, 0, 0, 5, 1, 1, 42, 0]
+        # Expected: partition + μ-ledger + μ-tensor (16 zeros) + control + result + prog_len
+        expected = [0, 0, 0, 0] + [0] * 16 + [5, 1, 1, 42, 0]
+        assert encoded == expected
     
     def test_hash_determinism(self):
         """Same state produces same hash."""
         modules = [(0, frozenset({1, 2}))]
-        h1 = hash_state(modules, 1, Fraction(0), Fraction(0), Fraction(0), 0, False, None, [])
-        h2 = hash_state(modules, 1, Fraction(0), Fraction(0), Fraction(0), 0, False, None, [])
+        h1 = hash_state(modules, 1, Fraction(0), Fraction(0), Fraction(0), mu_tensor=None, pc=0, halted=False, result=None, program=[])
+        h2 = hash_state(modules, 1, Fraction(0), Fraction(0), Fraction(0), mu_tensor=None, pc=0, halted=False, result=None, program=[])
         assert h1 == h2, "Hash must be deterministic"
     
     def test_hash_sensitivity(self):
         """Different states produce different hashes."""
         modules = [(0, frozenset({1, 2}))]
-        h1 = hash_state(modules, 1, Fraction(0), Fraction(0), Fraction(0), 0, False, None, [])
-        h2 = hash_state(modules, 2, Fraction(0), Fraction(0), Fraction(0), 0, False, None, [])
+        h1 = hash_state(modules, 1, Fraction(0), Fraction(0), Fraction(0), mu_tensor=None, pc=0, halted=False, result=None, program=[])
+        h2 = hash_state(modules, 2, Fraction(0), Fraction(0), Fraction(0), mu_tensor=None, pc=0, halted=False, result=None, program=[])
         assert h1 != h2, "Different next_module_id must produce different hash"
 
 
@@ -165,14 +170,14 @@ class TestModuleIDSemantics:
         h1 = hash_state(
             [(0, frozenset({1, 2}))], 1,
             Fraction(0), Fraction(0), Fraction(0),
-            0, False, None, []
+            mu_tensor=None, pc=0, halted=False, result=None, program=[]
         )
         
         # State 2: module 5 = {1,2}
         h2 = hash_state(
             [(5, frozenset({1, 2}))], 6,
             Fraction(0), Fraction(0), Fraction(0),
-            0, False, None, []
+            mu_tensor=None, pc=0, halted=False, result=None, program=[]
         )
         
         # Different module IDs => different hashes
@@ -192,12 +197,13 @@ class TestCoqGoldenVectors:
     def test_golden1_empty_state(self):
         """Golden1: Empty state."""
         # encode_state: [next_module_id=0, μ=0,0,0, pc=0, halted=0, result=0, prog_len=0]
-        encoded = encode_state([], 0, Fraction(0), Fraction(0), Fraction(0), 0, False, None, [])
+        encoded = encode_state([], 0, Fraction(0), Fraction(0), Fraction(0), mu_tensor=None, pc=0, halted=False, result=None, program=[])
         result = hash256_coq(encoded)
         
-        golden_encoding = [0, 0, 0, 0, 0, 0, 0, 0]
-        golden_hash = "000a3d09c70dfecb97c273c187798b50584090db287c94512f891c2f1bf949a0"
-        
+        # Insert μ-tensor (16 zeros) after the μ-ledger triple
+        golden_encoding = [0, 0, 0, 0] + [0] * 16 + [0, 0, 0, 0]
+        golden_hash = "6e84358e004e1cc1c40d99caf23a90cd95a1cf17eac7c13f8f6ccee882ef64e0"
+
         assert encoded == golden_encoding, f"Encoding mismatch: {encoded} != {golden_encoding}"
         assert result == golden_hash, f"Hash mismatch: {result} != {golden_hash}"
     
@@ -206,14 +212,15 @@ class TestCoqGoldenVectors:
         encoded = encode_state(
             [(0, frozenset({1, 2, 3}))], 1,
             Fraction(8), Fraction(0), Fraction(8),
-            1, False, None,
-            [(0, [3, 1, 2, 3])]  # PNEW [1,2,3]: tag=0, len=3, vars
+            mu_tensor=None, pc=1, halted=False, result=None,
+            program=[(0, [3, 1, 2, 3])]  # PNEW [1,2,3]: tag=0, len=3, vars
         )
         result = hash256_coq(encoded)
         
-        golden_encoding = [0, 3, 1, 2, 3, 1, 8, 0, 8, 1, 0, 0, 1, 0, 3, 1, 2, 3]
-        golden_hash = "93be69e2758b081faf60f5cf0fc1449ece9ae306e1e70cf28543a191966a4db9"
-        
+        # Insert 16 zeros for μ-tensor after the μ-ledger triple
+        golden_encoding = [0, 3, 1, 2, 3, 1, 8, 0, 8] + [0] * 16 + [1, 0, 0, 1, 0, 3, 1, 2, 3]
+        golden_hash = "1e9d09182646b3181fae73a98887c809a37a384f30c7238a5c77ea0ef3507bf9"
+
         assert encoded == golden_encoding, f"Encoding mismatch"
         assert result == golden_hash, f"Hash mismatch"
     
@@ -222,14 +229,15 @@ class TestCoqGoldenVectors:
         encoded = encode_state(
             [], 0,
             Fraction(1), Fraction(0), Fraction(1),
-            1, True, 42,
-            [(14, [42])]  # EMIT 42: tag=14, value=42
+            mu_tensor=None, pc=1, halted=True, result=42,
+            program=[(14, [42])]  # EMIT 42: tag=14, value=42
         )
         result = hash256_coq(encoded)
         
-        golden_encoding = [0, 1, 0, 1, 1, 1, 1, 42, 1, 14, 42]
-        golden_hash = "6ca67241001b58ada3ff98355cc00800b28948772f7c9f374cb29a3b8366ec23"
-        
+        # Correct canonical layout: partition ++ μ-ledger ++ μ-tensor ++ pc, halted ++ result ++ prog_len ++ program
+        golden_encoding = [0, 1, 0, 1] + [0] * 16 + [1, 1, 1, 42, 1, 14, 42]
+        golden_hash = "1aebd22d65659dfdb090c8d8d2d1c895c06f2b1e6b04c9cf3ceaad9d7e4d1fe3"
+
         assert encoded == golden_encoding, f"Encoding mismatch"
         assert result == golden_hash, f"Hash mismatch"
     
@@ -238,8 +246,8 @@ class TestCoqGoldenVectors:
         encoded = encode_state(
             [(0, frozenset({1, 2})), (1, frozenset({3, 4, 5})), (2, frozenset({6}))], 3,
             Fraction(24), Fraction(0), Fraction(24),
-            3, False, None,
-            [(0, [2, 1, 2]), (0, [3, 3, 4, 5]), (0, [1, 6])]  # 3 PNEW instructions
+            mu_tensor=None, pc=3, halted=False, result=None,
+            program=[(0, [2, 1, 2]), (0, [3, 3, 4, 5]), (0, [1, 6])]  # 3 PNEW instructions
         )
         result = hash256_coq(encoded)
         
@@ -249,6 +257,7 @@ class TestCoqGoldenVectors:
             2, 1, 6,  # Module 2
             3,  # next_module_id
             24, 0, 24,  # μ-ledger
+        ] + [0] * 16 + [
             3, 0,  # pc, halted
             0,  # result
             3,  # prog_len
@@ -256,8 +265,8 @@ class TestCoqGoldenVectors:
             0, 3, 3, 4, 5,  # PNEW [3,4,5]
             0, 1, 6  # PNEW [6]
         ]
-        golden_hash = "964322687d4dbb9f932c8d047d176d3a01a6d5d8e65482561c5d96b293fd13e4"
-        
+        golden_hash = "f79b04297144212c13e4348627629e6d030158681fd31f8f25f26bf1f3e200a4"
+
         assert encoded == golden_encoding, f"Encoding mismatch"
         assert result == golden_hash, f"Hash mismatch"
 

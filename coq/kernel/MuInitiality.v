@@ -159,6 +159,7 @@ Definition init_state : VMState := {|
   vm_mem := repeat 0 MEM_SIZE;
   vm_pc := 0;
   vm_mu := 0;
+  vm_mu_tensor := vm_mu_tensor_default;
   vm_err := false
 |}.
 

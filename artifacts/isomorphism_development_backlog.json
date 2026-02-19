@@ -1,0 +1,79 @@
+{
+  "generated_at": "2026-02-19T01:17:07.083541+00:00",
+  "backlog": [
+    {
+      "id": "P0-fullwirespec-discharge",
+      "priority": "P0",
+      "title": "Discharge concrete FullWireSpec obligation in Coq",
+      "why": "Moves concrete implementation equivalence from runtime evidence into explicit Coq instantiation theorem(s).",
+      "inputs": [
+        "coq/kernel/ThreeLayerIsomorphism.v",
+        "artifacts/isomorphism_gap_report.json"
+      ],
+      "outputs": [
+        "Concrete *_full_wire_spec definition(s)",
+        "Proofs consuming fws_step_correct for non-Coq spec(s)"
+      ],
+      "validation": [
+        "coqchk on updated module set",
+        "make proof-undeniable"
+      ]
+    },
+    {
+      "id": "P1-lockstep-expansion",
+      "priority": "P1",
+      "title": "Expand lockstep corpus and adversarial coverage",
+      "why": "Increase confidence envelope beyond representative traces.",
+      "inputs": [
+        "tests/test_rtl_compute_isomorphism.py",
+        "tests/test_three_layer_isomorphism_fuzz.py",
+        "scripts/measurement_and_fuzzing_suite.py"
+      ],
+      "outputs": [
+        "Additional isomorphic trace suites (edge/corner/fuzz)",
+        "Updated artifacts/isomorphism_validation.json"
+      ],
+      "validation": [
+        "make test-smoke-isomorphism",
+        "make isomorphism-bitlock"
+      ]
+    },
+    {
+      "id": "P1-receipt-endtoend",
+      "priority": "P1",
+      "title": "Receipt integrity end-to-end closure",
+      "why": "Ensure signed receipt claims are mathematically and operationally bound across all layers.",
+      "inputs": [
+        "coq/kernel/ReceiptIntegrity.v",
+        "scripts/verify_receipt.py",
+        "tests/test_receipt_chain.py"
+      ],
+      "outputs": [
+        "Cross-layer receipt conformance checklist",
+        "Regression tests for forged/invalid chains"
+      ],
+      "validation": [
+        "pytest -q tests/test_receipt_chain.py",
+        "make proof-undeniable"
+      ]
+    },
+    {
+      "id": "P2-backend-parity",
+      "priority": "P2",
+      "title": "Dual-simulator parity (iverilog/verilator)",
+      "why": "Reduces simulator-specific blind spots in RTL evidence.",
+      "inputs": [
+        "thielecpu/hardware/cosim.py",
+        "tests/test_emergent_geometry_proxies.py"
+      ],
+      "outputs": [
+        "Documented backend parity checks",
+        "Stable passing profile for both simulators"
+      ],
+      "validation": [
+        "make test-emergent-geometry",
+        "make test-emergent-geometry-verilator"
+      ]
+    }
+  ]
+}

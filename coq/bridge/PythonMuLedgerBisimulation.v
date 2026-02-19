@@ -19,6 +19,7 @@
     ========================================================================= *)
 
 Require Import Arith.PeanoNat.
+Require Import Coq.Lists.List.
 Require Import Lia.
 From Coq Require Import NArith.
 
@@ -33,6 +34,7 @@ Record PythonMuLedger := {
   py_mu_discovery : nat;        (* Cost of partition discovery operations *)
   py_mu_execution : nat;        (* Cost of instruction execution *)
   py_landauer_entropy : nat;    (* Physical erasure accounting (side-channel) *)
+  py_mu_tensor : list nat;      (* Flattened 4×4 μ-tensor (row-major) *)
   py_mask : nat                 (* Hardware constant: 2^32 *)
 }.
 
@@ -59,6 +61,7 @@ Theorem discovery_charge_preserves_bisim :
     let ledger' := {| py_mu_discovery := ledger.(py_mu_discovery) + delta;
                       py_mu_execution := ledger.(py_mu_execution);
                       py_landauer_entropy := ledger.(py_landauer_entropy);
+                      py_mu_tensor := ledger.(py_mu_tensor);
                       py_mask := ledger.(py_mask) |} in
     let coq_mu' := coq_mu + delta in
     mu_ledger_bisim ledger' coq_mu'.
@@ -91,6 +94,7 @@ Theorem execution_charge_preserves_bisim :
     let ledger' := {| py_mu_discovery := ledger.(py_mu_discovery);
                       py_mu_execution := ledger.(py_mu_execution) + delta;
                       py_landauer_entropy := ledger.(py_landauer_entropy);
+                      py_mu_tensor := ledger.(py_mu_tensor);
                       py_mask := ledger.(py_mask) |} in
     let coq_mu' := coq_mu + delta in
     mu_ledger_bisim ledger' coq_mu'.
@@ -121,6 +125,7 @@ Theorem combined_charge_preserves_bisim :
     let ledger' := {| py_mu_discovery := ledger.(py_mu_discovery) + delta_disc;
                       py_mu_execution := ledger.(py_mu_execution) + delta_exec;
                       py_landauer_entropy := ledger.(py_landauer_entropy);
+                      py_mu_tensor := ledger.(py_mu_tensor);
                       py_mask := ledger.(py_mask) |} in
     let coq_mu' := coq_mu + delta_disc + delta_exec in
     mu_ledger_bisim ledger' coq_mu'.
@@ -135,12 +140,14 @@ Proof.
     pose (ledger_after_disc := {| py_mu_discovery := py_mu_discovery ledger + delta_disc;
                                   py_mu_execution := py_mu_execution ledger;
                                   py_landauer_entropy := py_landauer_entropy ledger;
+                                  py_mu_tensor := py_mu_tensor ledger;
                                   py_mask := py_mask ledger |}).
     assert (H1: mu_ledger_bisim ledger_after_disc (coq_mu + delta_disc)).
     { unfold ledger_after_disc. apply (discovery_charge_preserves_bisim ledger coq_mu delta_disc); assumption. }
     pose (ledger_final := {| py_mu_discovery := py_mu_discovery ledger + delta_disc;
                             py_mu_execution := py_mu_execution ledger + delta_exec;
                             py_landauer_entropy := py_landauer_entropy ledger;
+                            py_mu_tensor := py_mu_tensor ledger;
                             py_mask := py_mask ledger |}).
     assert (H2: mu_ledger_bisim ledger_final (coq_mu + delta_disc + delta_exec)).
     { unfold ledger_final.
@@ -156,6 +163,7 @@ Lemma landauer_entropy_auxiliary :
     python_mu_total {| py_mu_discovery := ledger.(py_mu_discovery);
                        py_mu_execution := ledger.(py_mu_execution);
                        py_landauer_entropy := ledger.(py_landauer_entropy) + delta;
+                       py_mu_tensor := ledger.(py_mu_tensor);
                        py_mask := ledger.(py_mask) |}.
 Proof.
   intros ledger delta.
@@ -175,6 +183,7 @@ Lemma empty_ledger_bisim :
     mu_ledger_bisim {| py_mu_discovery := 0;
                        py_mu_execution := 0;
                        py_landauer_entropy := 0;
+                       py_mu_tensor := repeat 0 16;
                        py_mask := mask |} 0.
 Proof.
   intros mask Hmask_pos.
@@ -199,6 +208,7 @@ Theorem python_mu_ledger_isomorphism :
       let ledger' := {| py_mu_discovery := ledger.(py_mu_discovery) + delta_disc;
                         py_mu_execution := ledger.(py_mu_execution) + delta_exec;
                         py_landauer_entropy := ledger.(py_landauer_entropy);
+                        py_mu_tensor := ledger.(py_mu_tensor);
                         py_mask := ledger.(py_mask) |} in
       let coq_mu' := coq_mu + delta_disc + delta_exec in
       mu_ledger_bisim ledger' coq_mu'.
@@ -219,10 +229,12 @@ Corollary mu_charges_commute :
     let ledger_de := {| py_mu_discovery := ledger.(py_mu_discovery) + d;
                         py_mu_execution := ledger.(py_mu_execution) + e;
                         py_landauer_entropy := ledger.(py_landauer_entropy);
+                        py_mu_tensor := ledger.(py_mu_tensor);
                         py_mask := ledger.(py_mask) |} in
     let ledger_ed := {| py_mu_discovery := ledger.(py_mu_discovery) + d;
                         py_mu_execution := ledger.(py_mu_execution) + e;
                         py_landauer_entropy := ledger.(py_landauer_entropy);
+                        py_mu_tensor := ledger.(py_mu_tensor);
                         py_mask := ledger.(py_mask) |} in
     python_mu_total ledger_de = python_mu_total ledger_ed.
 Proof.

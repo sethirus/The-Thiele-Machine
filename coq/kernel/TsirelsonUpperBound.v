@@ -72,7 +72,7 @@ Definition instruction_is_mu_free (instr : vm_instruction) : Prop :=
   mu_cost_of_instr instr 
     {| vm_graph := empty_graph;
        vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0 |};
-       vm_regs := []; vm_mem := []; vm_pc := 0; vm_mu := 0; vm_err := false |} = 0%nat.
+       vm_regs := []; vm_mem := []; vm_pc := 0; vm_mu := 0; vm_mu_tensor := vm_mu_tensor_default; vm_err := false |} = 0%nat.
 
 Close Scope Q_scope.
 Open Scope nat_scope.
@@ -101,7 +101,7 @@ Proof.
         rewrite (mu_cost_of_trace_unfold fuel' trace pc ipc Hpc) in Hcost.
         destruct (mu_cost_of_instr ipc {| vm_graph := empty_graph; 
                    vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0 |};
-                   vm_regs := []; vm_mem := []; vm_pc := pc; vm_mu := 0; vm_err := false |}) eqn:Hcost_ipc.
+                   vm_regs := []; vm_mem := []; vm_pc := pc; vm_mu := 0; vm_mu_tensor := vm_mu_tensor_default; vm_err := false |}) eqn:Hcost_ipc.
         -- simpl in Hcost.
            assert (Hbound: n >= S pc + fuel') by (eapply IH; [exact Hcost | exact Hnth | lia]).
            lia.
@@ -152,7 +152,7 @@ Proof.
         rewrite (mu_cost_of_trace_unfold fuel' trace pc ipc Hpc) in Hcost.
         destruct (mu_cost_of_instr ipc {| vm_graph := empty_graph;
                    vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0 |};
-                   vm_regs := []; vm_mem := []; vm_pc := pc; vm_mu := 0; vm_err := false |}) eqn:Hcost_ipc.
+                   vm_regs := []; vm_mem := []; vm_pc := pc; vm_mu := 0; vm_mu_tensor := vm_mu_tensor_default; vm_err := false |}) eqn:Hcost_ipc.
         -- simpl in Hcost.
            assert (Hbound: n >= S pc + fuel') by (eapply IH; [exact Hcost | exact Hnth | lia]).
            lia.
@@ -381,6 +381,7 @@ Definition init_state_for_algebraic_max : VMState :=
      vm_pc := 0%nat;
      vm_graph := empty_graph;
      vm_mu := 0%nat;
+     vm_mu_tensor := vm_mu_tensor_default;
      vm_err := false |}.
 
 (** HELPER: Base case property *)

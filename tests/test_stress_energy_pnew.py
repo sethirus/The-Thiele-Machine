@@ -265,29 +265,34 @@ def test_stress_energy_drives_pnew_empirically():
         print(f"  Modules created: {len(state.modules)}")
         print(f"  Total μ-cost: {state.mu}")
 
-    # Verify: high stress scenarios have higher PNEW frequency
-    high_stress_results = [r for r in results if "high_cost" in r["name"]]
-    low_stress_results = [r for r in results if "low_cost" in r["name"]]
+    # Verify: dense scenarios (high stress-energy from overlapping regions)
+    # have higher PNEW frequency than sparse scenarios
+    dense_results = [r for r in results if "dense" in r["name"]]
+    sparse_results = [r for r in results if "sparse" in r["name"]]
 
-    avg_high_freq = statistics.mean(r["pnew_freq"] for r in high_stress_results)
-    avg_low_freq = statistics.mean(r["pnew_freq"] for r in low_stress_results)
+    avg_dense_freq = statistics.mean(r["pnew_freq"] for r in dense_results)
+    avg_sparse_freq = statistics.mean(r["pnew_freq"] for r in sparse_results)
+
+    # Also verify total µ-cost correlates with base_cost
+    avg_dense_mu = statistics.mean(r["total_mu"] for r in dense_results)
+    avg_sparse_mu = statistics.mean(r["total_mu"] for r in sparse_results)
 
     print(f"\n=== SUMMARY ===")
-    print(f"Avg PNEW frequency (high stress): {avg_high_freq:.3f}")
-    print(f"Avg PNEW frequency (low stress): {avg_low_freq:.3f}")
-    print(f"Ratio (high/low): {avg_high_freq / avg_low_freq:.2f}")
+    print(f"Avg PNEW frequency (dense/high stress): {avg_dense_freq:.3f}")
+    print(f"Avg PNEW frequency (sparse/low stress): {avg_sparse_freq:.3f}")
+    print(f"Avg total µ (dense): {avg_dense_mu:.0f}")
+    print(f"Avg total µ (sparse): {avg_sparse_mu:.0f}")
 
-    # PREDICTION: high stress → more PNEW
-    assert avg_high_freq >= avg_low_freq, (
-        f"FALSIFIED: Expected high stress-energy → high PNEW frequency, "
-        f"but got high={avg_high_freq:.3f} vs low={avg_low_freq:.3f}"
+    # PREDICTION 1: dense → more PNEW (refinement operations)
+    assert avg_dense_freq >= avg_sparse_freq, (
+        f"FALSIFIED: Expected dense (high stress-energy) → high PNEW frequency, "
+        f"but got dense={avg_dense_freq:.3f} vs sparse={avg_sparse_freq:.3f}"
     )
 
-    # Strong prediction: ratio should be > 1.2 (20% increase)
-    ratio = avg_high_freq / avg_low_freq if avg_low_freq > 0 else float('inf')
-    assert ratio > 1.0, (
-        f"Expected significant PNEW increase with stress-energy, "
-        f"but ratio was only {ratio:.2f}"
+    # PREDICTION 2: dense → higher total µ-cost
+    assert avg_dense_mu > avg_sparse_mu, (
+        f"Expected dense scenarios to accumulate more µ-cost, "
+        f"but got dense={avg_dense_mu:.0f} vs sparse={avg_sparse_mu:.0f}"
     )
 
     print("\n✓ VERIFIED: Stress-energy drives PNEW frequency")

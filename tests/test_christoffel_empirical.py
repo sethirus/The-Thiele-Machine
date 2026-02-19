@@ -16,9 +16,9 @@ def test_christoffel_uniform_mass_numerically():
     m = 5  # Uniform mass
     n_vertices = 4  # 4D spacetime
     
-    # Metric tensor in uniform mass
+    # Metric tensor in uniform mass: g_{μν}(w) = 2m·δ_{μν} (constant everywhere)
     def metric(mu, nu, w):
-        if mu == w and nu == w:
+        if mu == nu:
             return 2 * m
         return 0
     
@@ -87,13 +87,13 @@ def test_christoffel_all_indices_equal():
     n = 4
     
     def metric(mu, nu, w):
-        if mu == w and nu == w:
+        if mu == nu:
             return 2 * m
         return 0
-    
+
     def get_neighbors(v, n):
         return [(v - 1) % n, (v + 1) % n]
-    
+
     for mu in range(n):
         for v in range(n):
             neighbors = get_neighbors(v, n)

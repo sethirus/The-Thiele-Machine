@@ -147,7 +147,7 @@ Definition mu_zero_class (instr : vm_instruction) : Prop :=
   mu_cost_of_instr instr 
     {| vm_graph := empty_graph;
        vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0 |};
-       vm_regs := []; vm_mem := []; vm_pc := 0; vm_mu := 0; vm_err := false |} = 0%nat.
+       vm_regs := []; vm_mem := []; vm_pc := 0; vm_mu := 0; vm_mu_tensor := vm_mu_tensor_default; vm_err := false |} = 0%nat.
 
 (** ** Property 1: CLOSURE - μ=0 class is closed under trace composition *)
 

@@ -991,7 +991,7 @@ try:
     from .logic import lassert, ljoin
     from .mdl import mdlacc, info_charge
     from .certs import CertStore
-    from .state import State
+    from .state import State, BianchiViolationError
     from .isa import CSR
     from .memory import RegionGraph
     from ._types import LedgerEntry, ModuleId
@@ -1014,7 +1014,7 @@ except ImportError:
     from thielecpu.logic import lassert, ljoin
     from thielecpu.mdl import mdlacc, info_charge
     from thielecpu.certs import CertStore
-    from thielecpu.state import State
+    from thielecpu.state import State, BianchiViolationError
     from thielecpu.isa import CSR
     from thielecpu.memory import RegionGraph
     from thielecpu._types import LedgerEntry, ModuleId
@@ -2489,30 +2489,47 @@ class VM:
                 except Exception:
                     pass
             elif op == "REVEAL":
-                # REVEAL <module_id> <bits> <cert...>
-                # Explicit revelation primitive: charges μ-information and records a certificate payload.
+                # REVEAL <ti> <tj> <bits> [<cert...>]
+                # Direction-tagged revelation: charges Δμ to mu_tensor[ti][tj] and
+                # to the scalar μ-accumulator, then records a certificate payload.
+                # Encoding mirrors Coq instr_reveal: module = ti*4+tj (flat index 0-15).
                 reveal_seen = True
                 parts = arg.split()
-                module_id = current_module
+                ti = 0
+                tj = 0
                 bits = 0
                 cert_payload = ""
-                if parts:
+                if len(parts) >= 1:
                     try:
-                        module_id = ModuleId(int(parts[0]))
+                        ti = max(0, min(3, int(parts[0])))
                     except ValueError:
-                        module_id = current_module
+                        ti = 0
                 if len(parts) >= 2:
                     try:
-                        bits = int(parts[1])
+                        tj = max(0, min(3, int(parts[1])))
+                    except ValueError:
+                        tj = 0
+                if len(parts) >= 3:
+                    try:
+                        bits = int(parts[2])
                     except ValueError:
                         bits = 0
-                if len(parts) >= 3:
-                    cert_payload = " ".join(parts[2:])
+                if len(parts) >= 4:
+                    cert_payload = " ".join(parts[3:])
+                module_id = ModuleId(ti * 4 + tj)
 
                 prev_info = self.state.mu_information
                 prev_ledger = self.state.mu_ledger.copy()
                 if bits > 0:
                     info_charge(self.state, float(bits))
+                    # Charge to the specific tensor component (direction)
+                    self.state.mu_ledger.mu_tensor[ti][tj] = (
+                        self.state.mu_ledger.mu_tensor[ti][tj] + bits
+                    )
+                    # Bianchi guard: tensor sub-ledger must never exceed scalar mu.
+                    # Mirrors Coq mu_conservation_implies_bianchi: every reachable
+                    # state satisfies ∇_μ G^μν = 0.  A violation is a logical paradox.
+                    self.state.mu_ledger.check_bianchi_consistency()
                 ledger.append(
                     {
                         "step": step,
@@ -2527,7 +2544,7 @@ class VM:
                         "total_mu_operational": self.state.mu_operational,
                         "total_mu_information": self.state.mu_information,
                         "total_mu_legacy": self.state.mu,
-                        "reason": f"reveal_module{int(module_id)}",
+                        "reason": f"reveal_tensor_{ti}_{tj}",
                     }
                 )
 
@@ -2540,7 +2557,7 @@ class VM:
                 self.state.csr[CSR.CERT_ADDR] = str(store.hash_path(cid))
 
                 trace_lines.append(
-                    f"{step}: REVEAL module={int(module_id)} bits={bits} cert_sha256={digest}"
+                    f"{step}: REVEAL tensor[{ti}][{tj}] bits={bits} cert_sha256={digest}"
                 )
                 receipt_instruction = InstructionWitness(
                     "REVEAL",

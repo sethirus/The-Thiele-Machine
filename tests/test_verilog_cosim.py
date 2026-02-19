@@ -337,9 +337,9 @@ class TestCompilation:
     def test_unified_rtl_compiles(self):
         """thiele_cpu_unified.v + thiele_cpu_tb.v compile cleanly."""
         import tempfile
-        from thielecpu.hardware.cosim import compile_testbench
+        from thielecpu.hardware.cosim import compile_testbench_iverilog
         with tempfile.TemporaryDirectory() as tmpdir:
-            vvp = compile_testbench(Path(tmpdir))
+            vvp = compile_testbench_iverilog(Path(tmpdir))
             assert vvp.exists()
             assert vvp.stat().st_size > 0
 

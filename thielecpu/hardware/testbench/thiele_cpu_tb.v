@@ -70,6 +70,7 @@ integer have_data_hex;
 
 // Loop variable
 integer i;
+integer cycle_count;
 
 // ============================================================================
 // CPU INSTANCE
@@ -220,6 +221,7 @@ end
 initial begin
     // Initialize
     rst_n = 0;
+    cycle_count = 0;
     logic_ack = 0;
     py_ack = 0;
     mem_rdata = 32'h0;
@@ -264,6 +266,7 @@ initial begin
             $display("  \"mdl_ops\": %d,", mdl_ops);
             $display("  \"info_gain\": %d,", info_gain);
             $display("  \"mu\": %d,", mu);
+            $display("  \"cycles\": %0d,", cycle_count);
             $display("  \"regs\": [");
             for (i = 0; i < 32; i = i + 1) begin
                 if (i < 31) $display("    %0d,", dut.reg_file[i]);
@@ -299,6 +302,12 @@ end
 // ============================================================================
 // MONITORING
 // ============================================================================
+
+always @(posedge clk) begin
+    if (rst_n) begin
+        cycle_count <= cycle_count + 1;
+    end
+end
 
 `ifdef VERBOSE
 always @(posedge clk) begin

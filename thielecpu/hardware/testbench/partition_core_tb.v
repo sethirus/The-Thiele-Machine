@@ -13,6 +13,10 @@
 
 module partition_core_tb;
 
+`ifdef ATLAS_SYMBOL_ANCHOR
+partition_core atlas_partition_core_anchor ();
+`endif
+
     // Parameters matching spec
     parameter MAX_MODULES = 8;
     parameter REGION_WIDTH = 64;

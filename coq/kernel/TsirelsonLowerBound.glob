@@ -1,4 +1,4 @@
-DIGEST c612706dba4bf378673e27e0e2bd4e72
+DIGEST a09909872bf064fd0bbc9e7d6508ebe7
 FKernel.TsirelsonLowerBound
 R1505:1508 Coq.Lists.List <> <> lib
 R1510:1515 Coq.QArith.QArith <> <> lib
@@ -83,8 +83,10 @@ R4007:4014 Kernel.VMState <> vm_graph proj
 R4007:4014 Kernel.VMState <> vm_graph proj
 R4037:4041 Kernel.VMState <> vm_mu proj
 R4037:4041 Kernel.VMState <> vm_mu proj
-R4058:4063 Kernel.VMState <> vm_err proj
-R4058:4063 Kernel.VMState <> vm_err proj
+R4058:4069 Kernel.VMState <> vm_mu_tensor proj
+R4058:4069 Kernel.VMState <> vm_mu_tensor proj
+R4101:4106 Kernel.VMState <> vm_err proj
+R4101:4106 Kernel.VMState <> vm_err proj
 R4019:4029 Kernel.VMState <> empty_graph def
 R3915:3927 Kernel.VMState <> csr_cert_addr proj
 R3915:3927 Kernel.VMState <> csr_cert_addr proj
@@ -95,32 +97,33 @@ R3960:3966 Kernel.VMState <> csr_err proj
 R3960:3966 Kernel.VMState <> csr_err proj
 R3860:3865 Coq.Lists.List <> repeat def
 R3892:3893 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R4068:4072 Coq.Init.Datatypes <> false constr
-prf 4112:4136 <> tsirelson_program_mu_zero
-R4189:4191 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4142:4157 Kernel.MuCostModel <> mu_cost_of_trace def
-R4162:4186 Kernel.TsirelsonLowerBound <> tsirelson_achieving_trace def
-R4215:4230 Kernel.MuCostModel <> mu_cost_of_trace def
-prf 4304:4324 <> tsirelson_lower_bound
-R4330:4337 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R4378:4410 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R4345:4347 Coq.Init.Datatypes <> nat ind
-binder 4338:4341 <> fuel:9
-R4359:4362 Coq.Init.Datatypes <> list ind
-R4364:4377 Kernel.VMStep VMStep vm_instruction ind
-binder 4351:4355 <> trace:10
-R4448:4551 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4440:4442 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4411:4426 Kernel.MuCostModel <> mu_cost_of_trace def
-R4428:4431 Kernel.TsirelsonLowerBound <> fuel:9 var
-R4433:4437 Kernel.TsirelsonLowerBound <> trace:10 var
-R4565:4568 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4556:4558 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4552:4555 Kernel.TsirelsonLowerBound <> fuel:9 var
-R4574:4576 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4569:4573 Kernel.TsirelsonLowerBound <> trace:10 var
-R4577:4601 Kernel.TsirelsonLowerBound <> tsirelson_achieving_trace def
-R4628:4652 Kernel.TsirelsonLowerBound <> tsirelson_achieving_trace def
-R4628:4652 Kernel.TsirelsonLowerBound <> tsirelson_achieving_trace def
-R4674:4698 Kernel.TsirelsonLowerBound <> tsirelson_program_mu_zero thm
-R4674:4698 Kernel.TsirelsonLowerBound <> tsirelson_program_mu_zero thm
+R4074:4093 Kernel.VMState <> vm_mu_tensor_default def
+R4111:4115 Coq.Init.Datatypes <> false constr
+prf 4155:4179 <> tsirelson_program_mu_zero
+R4232:4234 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4185:4200 Kernel.MuCostModel <> mu_cost_of_trace def
+R4205:4229 Kernel.TsirelsonLowerBound <> tsirelson_achieving_trace def
+R4258:4273 Kernel.MuCostModel <> mu_cost_of_trace def
+prf 4347:4367 <> tsirelson_lower_bound
+R4373:4380 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4421:4453 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4388:4390 Coq.Init.Datatypes <> nat ind
+binder 4381:4384 <> fuel:9
+R4402:4405 Coq.Init.Datatypes <> list ind
+R4407:4420 Kernel.VMStep VMStep vm_instruction ind
+binder 4394:4398 <> trace:10
+R4491:4594 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4483:4485 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4454:4469 Kernel.MuCostModel <> mu_cost_of_trace def
+R4471:4474 Kernel.TsirelsonLowerBound <> fuel:9 var
+R4476:4480 Kernel.TsirelsonLowerBound <> trace:10 var
+R4608:4611 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4599:4601 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4595:4598 Kernel.TsirelsonLowerBound <> fuel:9 var
+R4617:4619 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4612:4616 Kernel.TsirelsonLowerBound <> trace:10 var
+R4620:4644 Kernel.TsirelsonLowerBound <> tsirelson_achieving_trace def
+R4671:4695 Kernel.TsirelsonLowerBound <> tsirelson_achieving_trace def
+R4671:4695 Kernel.TsirelsonLowerBound <> tsirelson_achieving_trace def
+R4717:4741 Kernel.TsirelsonLowerBound <> tsirelson_program_mu_zero thm
+R4717:4741 Kernel.TsirelsonLowerBound <> tsirelson_program_mu_zero thm

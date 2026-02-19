@@ -1,0 +1,67 @@
+flowchart LR
+  N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
+  N2["thielecpu/receipts.py"]
+  N1 -->|40| N2
+  N2["thielecpu/receipts.py"]
+  N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
+  N2 -->|40| N1
+  N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
+  N3["thielecpu/state.py"]
+  N1 -->|19| N3
+  N3["thielecpu/state.py"]
+  N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
+  N3 -->|19| N1
+  N4["coq/thielemachine/coqproofs/HardwareBridge.v"]
+  N5["thielecpu/hardware/rtl/generated_opcodes.vh"]
+  N4 -->|18| N5
+  N4["coq/thielemachine/coqproofs/HardwareBridge.v"]
+  N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
+  N4 -->|18| N1
+  N4["coq/thielemachine/coqproofs/HardwareBridge.v"]
+  N2["thielecpu/receipts.py"]
+  N4 -->|18| N2
+  N5["thielecpu/hardware/rtl/generated_opcodes.vh"]
+  N4["coq/thielemachine/coqproofs/HardwareBridge.v"]
+  N5 -->|18| N4
+  N5["thielecpu/hardware/rtl/generated_opcodes.vh"]
+  N2["thielecpu/receipts.py"]
+  N5 -->|18| N2
+  N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
+  N4["coq/thielemachine/coqproofs/HardwareBridge.v"]
+  N1 -->|18| N4
+  N2["thielecpu/receipts.py"]
+  N4["coq/thielemachine/coqproofs/HardwareBridge.v"]
+  N2 -->|18| N4
+  N2["thielecpu/receipts.py"]
+  N5["thielecpu/hardware/rtl/generated_opcodes.vh"]
+  N2 -->|18| N5
+  N6["coq/kernel/VMState.v"]
+  N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
+  N6 -->|12| N1
+  N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
+  N6["coq/kernel/VMState.v"]
+  N1 -->|12| N6
+  N7["coq/kernel/MuGravity.v"]
+  N8["scripts/validate_mu_gravity_calibration.py"]
+  N7 -->|11| N8
+  N8["scripts/validate_mu_gravity_calibration.py"]
+  N7["coq/kernel/MuGravity.v"]
+  N8 -->|11| N7
+  N9["coq/kernel/SemanticMuCost.v"]
+  N10["thielecpu/semantic_mu_coq_isomorphic.py"]
+  N9 -->|7| N10
+  N6["coq/kernel/VMState.v"]
+  N3["thielecpu/state.py"]
+  N6 -->|7| N3
+  N11["coq/thielemachine/coqproofs/AbstractLTS.v"]
+  N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
+  N11 -->|7| N1
+  N12["coq/thielemachine/coqproofs/CoreSemantics.v"]
+  N13["thielecpu/canonical_encoding.py"]
+  N12 -->|7| N13
+  N14["coq/thielemachine/coqproofs/ThieleSpaceland.v"]
+  N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
+  N14 -->|7| N1
+  N13["thielecpu/canonical_encoding.py"]
+  N12["coq/thielemachine/coqproofs/CoreSemantics.v"]
+  N13 -->|7| N12

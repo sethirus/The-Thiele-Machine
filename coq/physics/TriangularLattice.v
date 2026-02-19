@@ -59,6 +59,7 @@ Definition lattice_vm_state (n : nat) : VMState :=
      vm_mem := repeat 0 256;
      vm_pc := 0;
      vm_mu := 0;
+     vm_mu_tensor := vm_mu_tensor_default;
      vm_err := false |}.
 
 Lemma lattice_id_coord_of_id : forall n u,

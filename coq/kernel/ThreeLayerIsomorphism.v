@@ -275,14 +275,14 @@ Qed.
 Definition project_vmstate
   (graph : PartitionGraph) (csrs : CSRState)
   (regs : list nat) (mem : list nat)
-  (pc : nat) (mu : nat) (err : bool) : VMState :=
+  (pc : nat) (mu : nat) (mu_tensor : list nat) (err : bool) : VMState :=
   {| vm_graph := graph; vm_csrs := csrs; vm_regs := regs;
-     vm_mem := mem; vm_pc := pc; vm_mu := mu; vm_err := err |}.
+     vm_mem := mem; vm_pc := pc; vm_mu := mu; vm_mu_tensor := mu_tensor; vm_err := err |}.
 
 (** Record eta: projecting and reconstructing a VMState yields identity. *)
 Lemma vmstate_eta : forall s : VMState,
   project_vmstate s.(vm_graph) s.(vm_csrs) s.(vm_regs) s.(vm_mem)
-    s.(vm_pc) s.(vm_mu) s.(vm_err) = s.
+    s.(vm_pc) s.(vm_mu) s.(vm_mu_tensor) s.(vm_err) = s.
 Proof. destruct s. reflexivity. Qed.
 
 (** Memory is always preserved by vm_apply — no instruction modifies
@@ -322,13 +322,14 @@ Record FullWireSpec := {
   fws_mem   : fws_state -> list nat;
   fws_pc    : fws_state -> nat;
   fws_mu    : fws_state -> nat;
+  fws_mu_tensor : fws_state -> list nat;  (* Flattened 4×4 μ-tensor *)
   fws_err   : fws_state -> bool;
 
   (** Core correctness: all output observables match vm_apply of projected input.
       This is the SINGLE axiom that implementations must satisfy. *)
   fws_step_correct : forall s i,
     let input := project_vmstate (fws_graph s) (fws_csrs s) (fws_regs s)
-                   (fws_mem s) (fws_pc s) (fws_mu s) (fws_err s) in
+                   (fws_mem s) (fws_pc s) (fws_mu s) (fws_mu_tensor s) (fws_err s) in
     let output := vm_apply input i in
     fws_graph (fws_step s i) = vm_graph output /\
     fws_csrs  (fws_step s i) = vm_csrs output /\
@@ -336,13 +337,14 @@ Record FullWireSpec := {
     fws_mem   (fws_step s i) = vm_mem output /\
     fws_pc    (fws_step s i) = vm_pc output /\
     fws_mu    (fws_step s i) = vm_mu output /\
+    fws_mu_tensor (fws_step s i) = vm_mu_tensor output /\
     fws_err   (fws_step s i) = vm_err output
 }.
 
 (** The Coq kernel trivially satisfies FullWireSpec. *)
 Lemma coq_full_step_correct : forall (s : VMState) (i : vm_instruction),
   let input := project_vmstate (vm_graph s) (vm_csrs s) (vm_regs s)
-                 (vm_mem s) (vm_pc s) (vm_mu s) (vm_err s) in
+                 (vm_mem s) (vm_pc s) (vm_mu s) (vm_mu_tensor s) (vm_err s) in
   let output := vm_apply input i in
   vm_graph (vm_apply s i) = vm_graph output /\
   vm_csrs  (vm_apply s i) = vm_csrs output /\
@@ -350,6 +352,7 @@ Lemma coq_full_step_correct : forall (s : VMState) (i : vm_instruction),
   vm_mem   (vm_apply s i) = vm_mem output /\
   vm_pc    (vm_apply s i) = vm_pc output /\
   vm_mu    (vm_apply s i) = vm_mu output /\
+  vm_mu_tensor (vm_apply s i) = vm_mu_tensor output /\
   vm_err   (vm_apply s i) = vm_err output.
 Proof.
   intros s i. cbv zeta.
@@ -366,6 +369,7 @@ Definition coq_full_wire_spec : FullWireSpec := {|
   fws_mem   := vm_mem;
   fws_pc    := vm_pc;
   fws_mu    := vm_mu;
+  fws_mu_tensor := vm_mu_tensor;
   fws_err   := vm_err;
   fws_step_correct := coq_full_step_correct
 |}.
@@ -396,6 +400,7 @@ Theorem full_state_single_step_bisimulation :
   fws_mem   spec1 s1 = fws_mem   spec2 s2 ->
   fws_pc    spec1 s1 = fws_pc    spec2 s2 ->
   fws_mu    spec1 s1 = fws_mu    spec2 s2 ->
+  fws_mu_tensor spec1 s1 = fws_mu_tensor spec2 s2 ->
   fws_err   spec1 s1 = fws_err   spec2 s2 ->
   fws_graph spec1 (fws_step spec1 s1 i) = fws_graph spec2 (fws_step spec2 s2 i) /\
   fws_csrs  spec1 (fws_step spec1 s1 i) = fws_csrs  spec2 (fws_step spec2 s2 i) /\
@@ -403,21 +408,22 @@ Theorem full_state_single_step_bisimulation :
   fws_mem   spec1 (fws_step spec1 s1 i) = fws_mem   spec2 (fws_step spec2 s2 i) /\
   fws_pc    spec1 (fws_step spec1 s1 i) = fws_pc    spec2 (fws_step spec2 s2 i) /\
   fws_mu    spec1 (fws_step spec1 s1 i) = fws_mu    spec2 (fws_step spec2 s2 i) /\
+  fws_mu_tensor spec1 (fws_step spec1 s1 i) = fws_mu_tensor spec2 (fws_step spec2 s2 i) /\
   fws_err   spec1 (fws_step spec1 s1 i) = fws_err   spec2 (fws_step spec2 s2 i).
 Proof.
-  intros spec1 spec2 s1 s2 i Hg Hc Hr Hm Hp Hmu He.
+  intros spec1 spec2 s1 s2 i Hg Hc Hr Hm Hp Hmu Hmutensor He.
   pose proof (fws_step_correct spec1 s1 i) as HS1. cbv zeta in HS1.
   pose proof (fws_step_correct spec2 s2 i) as HS2. cbv zeta in HS2.
-  destruct HS1 as (H1g & H1c & H1r & H1m & H1p & H1mu & H1e).
-  destruct HS2 as (H2g & H2c & H2r & H2m & H2p & H2mu & H2e).
+  destruct HS1 as (H1g & H1c & H1r & H1m & H1p & H1mu & H1mutensor & H1e).
+  destruct HS2 as (H2g & H2c & H2r & H2m & H2p & H2mu & H2mutensor & H2e).
   assert (HI : project_vmstate (fws_graph spec1 s1) (fws_csrs spec1 s1)
     (fws_regs spec1 s1) (fws_mem spec1 s1) (fws_pc spec1 s1)
-    (fws_mu spec1 s1) (fws_err spec1 s1) =
+    (fws_mu spec1 s1) (fws_mu_tensor spec1 s1) (fws_err spec1 s1) =
     project_vmstate (fws_graph spec2 s2) (fws_csrs spec2 s2)
     (fws_regs spec2 s2) (fws_mem spec2 s2) (fws_pc spec2 s2)
-    (fws_mu spec2 s2) (fws_err spec2 s2)).
-  { unfold project_vmstate. rewrite Hg, Hc, Hr, Hm, Hp, Hmu, He. reflexivity. }
-  rewrite HI in H1g, H1c, H1r, H1m, H1p, H1mu, H1e.
+    (fws_mu spec2 s2) (fws_mu_tensor spec2 s2) (fws_err spec2 s2)).
+  { unfold project_vmstate. rewrite Hg, Hc, Hr, Hm, Hp, Hmu, Hmutensor, He. reflexivity. }
+  rewrite HI in H1g, H1c, H1r, H1m, H1p, H1mu, H1mutensor, H1e.
   repeat split; congruence.
 Qed.
 
@@ -447,6 +453,7 @@ Theorem full_state_trace_bisimulation :
   fws_mem   spec1 s1 = fws_mem   spec2 s2 ->
   fws_pc    spec1 s1 = fws_pc    spec2 s2 ->
   fws_mu    spec1 s1 = fws_mu    spec2 s2 ->
+  fws_mu_tensor spec1 s1 = fws_mu_tensor spec2 s2 ->
   fws_err   spec1 s1 = fws_err   spec2 s2 ->
   fws_graph spec1 (run_fws spec1 instrs s1) = fws_graph spec2 (run_fws spec2 instrs s2) /\
   fws_csrs  spec1 (run_fws spec1 instrs s1) = fws_csrs  spec2 (run_fws spec2 instrs s2) /\
@@ -454,17 +461,18 @@ Theorem full_state_trace_bisimulation :
   fws_mem   spec1 (run_fws spec1 instrs s1) = fws_mem   spec2 (run_fws spec2 instrs s2) /\
   fws_pc    spec1 (run_fws spec1 instrs s1) = fws_pc    spec2 (run_fws spec2 instrs s2) /\
   fws_mu    spec1 (run_fws spec1 instrs s1) = fws_mu    spec2 (run_fws spec2 instrs s2) /\
+  fws_mu_tensor spec1 (run_fws spec1 instrs s1) = fws_mu_tensor spec2 (run_fws spec2 instrs s2) /\
   fws_err   spec1 (run_fws spec1 instrs s1) = fws_err   spec2 (run_fws spec2 instrs s2).
 Proof.
   intros spec1 spec2 s1 s2 instrs.
   revert s1 s2.
-  induction instrs as [| i rest IH]; intros s1 s2 Hg Hc Hr Hm Hp Hmu He.
+  induction instrs as [| i rest IH]; intros s1 s2 Hg Hc Hr Hm Hp Hmu Hmutensor He.
   - simpl. repeat split; assumption.
   - simpl.
     pose proof (full_state_single_step_bisimulation
-                  spec1 spec2 s1 s2 i Hg Hc Hr Hm Hp Hmu He)
-      as (Sg & Sc & Sr & Sm & Sp & Smu & Se).
-    exact (IH _ _ Sg Sc Sr Sm Sp Smu Se).
+                  spec1 spec2 s1 s2 i Hg Hc Hr Hm Hp Hmu Hmutensor He)
+      as (Sg & Sc & Sr & Sm & Sp & Smu & Smut & Se).
+    exact (IH _ _ Sg Sc Sr Sm Sp Smu Smut Se).
 Qed.
 
 (** Corollary: Coq kernel is fully bisimilar (all 7 fields) to any
@@ -479,6 +487,7 @@ Corollary coq_full_bisimilar_to_any :
   vm_mem   s_coq = fws_mem   impl s_impl ->
   vm_pc    s_coq = fws_pc    impl s_impl ->
   vm_mu    s_coq = fws_mu    impl s_impl ->
+  vm_mu_tensor s_coq = fws_mu_tensor impl s_impl ->
   vm_err   s_coq = fws_err   impl s_impl ->
   vm_regs  (run_fws coq_full_wire_spec instrs s_coq) =
     fws_regs impl (run_fws impl instrs s_impl) /\
@@ -486,14 +495,16 @@ Corollary coq_full_bisimilar_to_any :
     fws_mem  impl (run_fws impl instrs s_impl) /\
   vm_mu    (run_fws coq_full_wire_spec instrs s_coq) =
     fws_mu   impl (run_fws impl instrs s_impl) /\
+  vm_mu_tensor (run_fws coq_full_wire_spec instrs s_coq) =
+    fws_mu_tensor impl (run_fws impl instrs s_impl) /\
   vm_err   (run_fws coq_full_wire_spec instrs s_coq) =
     fws_err  impl (run_fws impl instrs s_impl) /\
   vm_pc    (run_fws coq_full_wire_spec instrs s_coq) =
     fws_pc   impl (run_fws impl instrs s_impl).
 Proof.
-  intros impl s_coq s_impl instrs Hg Hc Hr Hm Hp Hmu He.
+  intros impl s_coq s_impl instrs Hg Hc Hr Hm Hp Hmu Hmutensor He.
   pose proof (full_state_trace_bisimulation
     coq_full_wire_spec impl s_coq s_impl instrs
-    Hg Hc Hr Hm Hp Hmu He) as (Fg & Fc & Fr & Fm & Fp & Fmu & Fe).
+    Hg Hc Hr Hm Hp Hmu Hmutensor He) as (Fg & Fc & Fr & Fm & Fp & Fmu & Fmut & Fe).
   repeat split; assumption.
 Qed.
