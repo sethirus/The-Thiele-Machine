@@ -1,38 +1,38 @@
 {
-  "generated_at": "2026-02-19T15:35:18.318451+00:00",
+  "generated_at": "2026-02-19T20:21:50.823431+00:00",
   "counts": {
-    "symbols": 14883,
-    "edges": 108266,
+    "symbols": 14953,
+    "edges": 108989,
     "triads": 164,
-    "files": 628
+    "files": 632
   },
   "class_counts": {
-    "duplicate": 2481,
-    "bridge": 5169,
-    "core": 4124,
-    "orphan": 215,
-    "island": 17,
+    "duplicate": 2504,
+    "bridge": 5199,
+    "core": 4139,
+    "orphan": 216,
+    "island": 18,
     "test_only": 2877
   },
   "edge_kind_counts": {
-    "coq_ref": 17314,
-    "py_ref": 23040,
+    "coq_ref": 16786,
+    "py_ref": 23241,
     "rtl_ref": 23,
-    "cross_name": 1546,
-    "cross_norm": 800,
+    "cross_name": 1578,
+    "cross_norm": 832,
     "cross_opcode": 208,
-    "cross_stem": 9996,
-    "test_covers": 16806,
-    "cross_ref": 35200,
-    "cross_transitive": 3333
+    "cross_stem": 10300,
+    "test_covers": 16944,
+    "cross_ref": 35810,
+    "cross_transitive": 3267
   },
   "cross_layer_matrix": {
-    "coq->python": 17317,
-    "coq->rtl": 4876,
-    "python->coq": 16204,
-    "python->rtl": 4465,
-    "rtl->coq": 4156,
-    "rtl->python": 4065
+    "coq->python": 17704,
+    "coq->rtl": 4853,
+    "python->coq": 16631,
+    "python->rtl": 4526,
+    "rtl->coq": 4158,
+    "rtl->python": 4123
   },
   "top_cross_file_links": [
     {
@@ -48,12 +48,12 @@
     {
       "src": "coq/kernel/MuGravity.v",
       "dst": "thielecpu/hardware/rtl/cross_layer_defs.vh",
-      "weight": 182
+      "weight": 181
     },
     {
       "src": "thielecpu/vm.py",
       "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
-      "weight": 164
+      "weight": 170
     },
     {
       "src": "thielecpu/hardware/rtl/cross_layer_defs.vh",
@@ -111,14 +111,14 @@
       "weight": 107
     },
     {
+      "src": "thielecpu/dsl/executor.py",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "weight": 103
+    },
+    {
       "src": "thielecpu/cross_layer_manifest.py",
       "dst": "coq/thielemachine/coqproofs/BellInequality.v",
       "weight": 101
-    },
-    {
-      "src": "thielecpu/dsl/executor.py",
-      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
-      "weight": 100
     },
     {
       "src": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
@@ -128,12 +128,12 @@
     {
       "src": "coq/kernel/MuGravity.v",
       "dst": "scripts/validate_mu_gravity_calibration.py",
-      "weight": 87
+      "weight": 86
     },
     {
       "src": "coq/thielemachine/coqproofs/CoreSemantics.v",
       "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
-      "weight": 87
+      "weight": 86
     },
     {
       "src": "coq/kernel/VMState.v",
@@ -181,17 +181,17 @@
       "weight": 72
     },
     {
+      "src": "thielecpu/mu_fixed.py",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "weight": 70
+    },
+    {
       "src": "coq/kernel/VMEncoding.v",
       "dst": "thielecpu/hardware/rtl/cross_layer_defs.vh",
       "weight": 69
     },
     {
       "src": "coq/kernel/ReceiptIntegrity.v",
-      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
-      "weight": 68
-    },
-    {
-      "src": "thielecpu/mu_fixed.py",
       "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
       "weight": 68
     },
@@ -226,8 +226,18 @@
       "weight": 61
     },
     {
+      "src": "coq/kernel/CrossLayerManifest.v",
+      "dst": "thielecpu/cross_layer_manifest.py",
+      "weight": 60
+    },
+    {
       "src": "experiments/mu_audited_bell_test.py",
       "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "weight": 60
+    },
+    {
+      "src": "thielecpu/cross_layer_manifest.py",
+      "dst": "coq/kernel/CrossLayerManifest.v",
       "weight": 60
     },
     {
@@ -251,11 +261,6 @@
       "weight": 60
     },
     {
-      "src": "thielecpu/thesis_verify.py",
-      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
-      "weight": 60
-    },
-    {
       "src": "coq/thielemachine/coqproofs/AbstractLTS.v",
       "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
       "weight": 59
@@ -266,14 +271,9 @@
       "weight": 59
     },
     {
-      "src": "coq/kernel/CrossLayerManifest.v",
-      "dst": "thielecpu/cross_layer_manifest.py",
-      "weight": 58
-    },
-    {
-      "src": "thielecpu/cross_layer_manifest.py",
-      "dst": "coq/kernel/CrossLayerManifest.v",
-      "weight": 58
+      "src": "thielecpu/thesis_verify.py",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "weight": 59
     },
     {
       "src": "coq/thielemachine/coqproofs/Oracle.v",
@@ -291,11 +291,6 @@
       "weight": 57
     },
     {
-      "src": "thielecpu/vm.py",
-      "dst": "thielecpu/hardware/rtl/cross_layer_defs.vh",
-      "weight": 57
-    },
-    {
       "src": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
       "dst": "coq/thielemachine/coqproofs/ThieleMachine.v",
       "weight": 56
@@ -303,6 +298,11 @@
     {
       "src": "thielecpu/state.py",
       "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "weight": 56
+    },
+    {
+      "src": "thielecpu/vm.py",
+      "dst": "thielecpu/hardware/rtl/cross_layer_defs.vh",
       "weight": 56
     },
     {
@@ -336,23 +336,23 @@
       "weight": 53
     },
     {
-      "src": "coq/kernel/MuGravity.v",
-      "dst": "experiments/vm_reference.py",
-      "weight": 52
-    },
-    {
       "src": "thielecpu/isa.py",
       "dst": "coq/kernel/VMEncoding.v",
       "weight": 52
     },
     {
-      "src": "coq/thielemachine/coqproofs/CoreSemantics.v",
-      "dst": "thielecpu/state.py",
+      "src": "coq/kernel/MuGravity.v",
+      "dst": "experiments/vm_reference.py",
       "weight": 51
     },
     {
       "src": "scripts/inquisitor.py",
       "dst": "thielecpu/hardware/rtl/cross_layer_defs.vh",
+      "weight": 51
+    },
+    {
+      "src": "thielecpu/dsl/compiler.py",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
       "weight": 51
     },
     {
@@ -373,6 +373,11 @@
     {
       "src": "coq/thielemachine/coqproofs/BellInequality.v",
       "dst": "experiments/mu_audited_bell_test.py",
+      "weight": 50
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/CoreSemantics.v",
+      "dst": "thielecpu/state.py",
       "weight": 50
     },
     {
@@ -416,11 +421,6 @@
       "weight": 49
     },
     {
-      "src": "thielecpu/dsl/compiler.py",
-      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
-      "weight": 49
-    },
-    {
       "src": "thielecpu/dsl/executor.py",
       "dst": "coq/thielemachine/coqproofs/ThieleMachine.v",
       "weight": 49
@@ -437,29 +437,29 @@
     }
   ],
   "isomorphism_metrics": {
-    "isomorphism_score": 87.73,
-    "core_bridge_ratio": 0.9988,
-    "triad_completion_ratio": 0.6508,
+    "isomorphism_score": 87.55,
+    "core_bridge_ratio": 0.9986,
+    "triad_completion_ratio": 0.6457,
     "directional_coverage_ratio": 1.0,
     "integrate_file_ratio": 0.0,
-    "prod_symbol_count": 8818,
-    "core_bridge_count": 8807,
+    "prod_symbol_count": 8861,
+    "core_bridge_count": 8849,
     "triad_count": 164,
-    "partial_triad_count": 88,
+    "partial_triad_count": 90,
     "active_direction_count": 6,
     "direction_count": 6,
     "integrate_file_count": 0,
-    "prod_file_count": 501
+    "prod_file_count": 505
   },
   "trend_delta": {
     "has_previous": true,
-    "score_delta": -3.74,
+    "score_delta": 0.0,
     "triad_delta": 0,
-    "partial_triad_delta": 88,
+    "partial_triad_delta": 0,
     "integrate_file_delta": 0,
-    "core_bridge_ratio_delta": 0.2425
+    "core_bridge_ratio_delta": 0.0
   },
-  "history_length": 84,
+  "history_length": 86,
   "inquisitor": {
     "ran": true,
     "timed_out": false,
@@ -468,7 +468,7 @@
     "strict_pass": true,
     "report": {
       "report_found": true,
-      "scanned_files": 307,
+      "scanned_files": 308,
       "high": 0,
       "medium": 0,
       "low": 0,
@@ -486,7 +486,7 @@
     "high": 0,
     "medium": 0,
     "low": 0,
-    "scanned_files": 307,
+    "scanned_files": 308,
     "weighted_penalty": 0.0,
     "strict_pass": true
   },
@@ -495,12 +495,12 @@
     "strict_pass": false,
     "test_file_count": 127,
     "isolated_test_file_count": 0,
-    "prod_symbol_coverage_ratio": 0.0745,
-    "prod_file_coverage_ratio": 0.4651,
-    "covered_prod_symbol_count": 894,
-    "prod_symbol_count": 12006,
-    "covered_prod_file_count": 233,
-    "prod_file_count": 501,
+    "prod_symbol_coverage_ratio": 0.0744,
+    "prod_file_coverage_ratio": 0.4653,
+    "covered_prod_symbol_count": 899,
+    "prod_symbol_count": 12076,
+    "covered_prod_file_count": 235,
+    "prod_file_count": 505,
     "uncovered_prod_files_top": [
       "coq/Extraction.v",
       "coq/MinimalExtraction.v",
@@ -535,6 +535,13 @@
     ]
   },
   "priority_plan": [
+    {
+      "type": "close_partial_triad",
+      "priority": 1,
+      "task": "Complete triad 'alpha_em'",
+      "details": "missing=rtl present=coq,python",
+      "estimated_score_gain": 0.14
+    },
     {
       "type": "close_partial_triad",
       "priority": 1,
@@ -597,13 +604,6 @@
       "task": "Complete triad 'err_unknown_op'",
       "details": "missing=coq present=python,rtl",
       "estimated_score_gain": 0.14
-    },
-    {
-      "type": "close_partial_triad",
-      "priority": 1,
-      "task": "Complete triad 'idle'",
-      "details": "missing=coq present=python,rtl",
-      "estimated_score_gain": 0.14
     }
   ],
   "fragmented_correctness_flags": [
@@ -612,29 +612,36 @@
   ],
   "latex_coverage_metrics": {
     "tex_file_count": 20,
-    "kernel_proof_symbol_count": 1042,
+    "kernel_proof_symbol_count": 1046,
     "kernel_proof_symbol_mentioned_count": 1042,
-    "kernel_proof_latex_coverage_ratio": 1.0,
-    "kernel_proof_missing_top": [],
+    "kernel_proof_latex_coverage_ratio": 0.9962,
+    "kernel_proof_missing_top": [
+      "alpha_fundamental",
+      "p_13_equals_101",
+      "p_14_equals_135",
+      "p_15_equals_176"
+    ],
     "triad_norm_count": 164,
     "triad_norm_mentioned_count": 93,
     "triad_norm_latex_coverage_ratio": 0.5671
   },
   "proof_documentation_metrics": {
-    "proof_file_count": 274,
-    "total_proof_count": 2578,
-    "documented_proof_count": 2578,
-    "per_proof_doc_ratio": 1.0,
+    "proof_file_count": 275,
+    "total_proof_count": 2582,
+    "documented_proof_count": 2579,
+    "per_proof_doc_ratio": 0.9988,
     "fully_documented_file_count": 274,
-    "fully_documented_file_ratio": 1.0,
-    "proof_files_with_readme_count": 274,
-    "proof_files_with_comment_blocks_count": 274,
+    "fully_documented_file_ratio": 0.9964,
+    "proof_files_with_readme_count": 275,
+    "proof_files_with_comment_blocks_count": 275,
     "proof_files_documented_count": 274,
     "proof_files_with_readme_ratio": 1.0,
     "proof_files_with_comment_ratio": 1.0,
-    "proof_files_documented_ratio": 1.0,
+    "proof_files_documented_ratio": 0.9964,
     "missing_readme_proof_files_top": [],
-    "underdocumented_proof_files_top": []
+    "underdocumented_proof_files_top": [
+      "coq/kernel/AlphaDerivation.v"
+    ]
   },
   "definition_of_done": {
     "status": "NOT_COMPLETED",
@@ -642,35 +649,35 @@
     "checks": [
       {
         "name": "isomorphism_score",
-        "actual": 87.73,
+        "actual": 87.55,
         "comparator": ">=",
         "threshold": 100.0,
         "passed": false
       },
       {
         "name": "triad_completion_ratio",
-        "actual": 0.6508,
+        "actual": 0.6457,
         "comparator": ">=",
         "threshold": 1.0,
         "passed": false
       },
       {
         "name": "core_bridge_ratio",
-        "actual": 0.9988,
+        "actual": 0.9986,
         "comparator": ">=",
         "threshold": 1.0,
         "passed": false
       },
       {
         "name": "test_prod_symbol_coverage_ratio",
-        "actual": 0.0745,
+        "actual": 0.0744,
         "comparator": ">=",
         "threshold": 1.0,
         "passed": false
       },
       {
         "name": "test_prod_file_coverage_ratio",
-        "actual": 0.4651,
+        "actual": 0.4653,
         "comparator": ">=",
         "threshold": 1.0,
         "passed": false
@@ -684,10 +691,10 @@
       },
       {
         "name": "per_proof_doc_ratio",
-        "actual": 1.0,
+        "actual": 0.9988,
         "comparator": ">=",
         "threshold": 1.0,
-        "passed": true
+        "passed": false
       },
       {
         "name": "proof_files_with_readme_ratio",
@@ -698,10 +705,10 @@
       },
       {
         "name": "kernel_proof_latex_coverage_ratio",
-        "actual": 1.0,
+        "actual": 0.9962,
         "comparator": ">=",
         "threshold": 1.0,
-        "passed": true
+        "passed": false
       },
       {
         "name": "coq_compile_pass",
@@ -732,39 +739,53 @@
         "passed": true
       }
     ],
-    "unmet_check_count": 5,
+    "unmet_check_count": 7,
     "unmet_checks": [
       {
         "name": "isomorphism_score",
-        "actual": 87.73,
+        "actual": 87.55,
         "comparator": ">=",
         "threshold": 100.0,
         "passed": false
       },
       {
         "name": "triad_completion_ratio",
-        "actual": 0.6508,
+        "actual": 0.6457,
         "comparator": ">=",
         "threshold": 1.0,
         "passed": false
       },
       {
         "name": "core_bridge_ratio",
-        "actual": 0.9988,
+        "actual": 0.9986,
         "comparator": ">=",
         "threshold": 1.0,
         "passed": false
       },
       {
         "name": "test_prod_symbol_coverage_ratio",
-        "actual": 0.0745,
+        "actual": 0.0744,
         "comparator": ">=",
         "threshold": 1.0,
         "passed": false
       },
       {
         "name": "test_prod_file_coverage_ratio",
-        "actual": 0.4651,
+        "actual": 0.4653,
+        "comparator": ">=",
+        "threshold": 1.0,
+        "passed": false
+      },
+      {
+        "name": "per_proof_doc_ratio",
+        "actual": 0.9988,
+        "comparator": ">=",
+        "threshold": 1.0,
+        "passed": false
+      },
+      {
+        "name": "kernel_proof_latex_coverage_ratio",
+        "actual": 0.9962,
         "comparator": ">=",
         "threshold": 1.0,
         "passed": false
@@ -777,8 +798,8 @@
       "pass": true,
       "returncode": 0,
       "stderr_tail": "",
-      "total_v_files": 310,
-      "total_vo_files": 310,
+      "total_v_files": 311,
+      "total_vo_files": 311,
       "compile_ratio": 1.0,
       "admitted_count": 0
     },

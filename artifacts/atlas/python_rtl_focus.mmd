@@ -4,16 +4,16 @@ flowchart LR
   X1 -->|391| X2
   X3["thielecpu/vm.py"]
   X2["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
-  X3 -->|315| X2
+  X3 -->|321| X2
   X4["thielecpu/receipts.py"]
   X2["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
   X4 -->|290| X2
   X5["thielecpu/dsl/executor.py"]
   X2["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
-  X5 -->|197| X2
+  X5 -->|200| X2
   X6["thielecpu/mu_fixed.py"]
   X2["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
-  X6 -->|129| X2
+  X6 -->|131| X2
   X7["experiments/mu_audited_bell_test.py"]
   X2["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
   X7 -->|120| X2
@@ -25,7 +25,7 @@ flowchart LR
   X1 -->|114| X9
   X10["thielecpu/thesis_verify.py"]
   X2["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
-  X10 -->|114| X2
+  X10 -->|113| X2
   X11["thielecpu/state.py"]
   X2["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
   X11 -->|110| X2
@@ -34,19 +34,19 @@ flowchart LR
   X12 -->|102| X13
   X3["thielecpu/vm.py"]
   X13["thielecpu/hardware/rtl/cross_layer_defs.vh"]
-  X3 -->|102| X13
+  X3 -->|101| X13
   X14["thielecpu/dsl/compiler.py"]
   X2["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
-  X14 -->|98| X2
+  X14 -->|100| X2
   X12["scripts/inquisitor.py"]
   X15["thielecpu/hardware/rtl/chsh_partition.v"]
   X12 -->|79| X15
-  X6["thielecpu/mu_fixed.py"]
-  X16["thielecpu/hardware/rtl/mu_alu.v"]
-  X6 -->|76| X16
-  X17["scripts/generate_full_mesh_audit.py"]
+  X16["scripts/generate_full_mesh_audit.py"]
   X2["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
-  X17 -->|75| X2
+  X16 -->|75| X2
+  X6["thielecpu/mu_fixed.py"]
+  X17["thielecpu/hardware/rtl/mu_alu.v"]
+  X6 -->|74| X17
   X1["thielecpu/cross_layer_manifest.py"]
   X18["thielecpu/hardware/rtl/mu_core.v"]
   X1 -->|72| X18
