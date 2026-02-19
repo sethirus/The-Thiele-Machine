@@ -1,12 +1,369 @@
-DIGEST dcde207b50adb21dc3fd5b57d9669b6a
+DIGEST fe89ca553c05676752a27829f97b0f0b
 FThieleMachine.PhysicsEmbedding
-R382:385 Coq.Lists.List <> <> lib
-R387:389 Coq.micromega.Lia <> <> lib
-R420:432 Physics.DiscreteModel <> <> lib
-R462:468 Kernel.VMState <> <> lib
-R470:475 Kernel.VMStep <> <> lib
-R477:496 Kernel.MuLedgerConservation <> <> lib
-R498:512 Kernel.SimulationProof <> <> lib
-R550:569 ThieleManifold.ThieleManifoldBridge <> <> lib
-R571:588 ThieleManifold.PhysicsIsomorphism <> <> lib
-R599:611 Coq.Lists.List ListNotations <> mod
+R669:672 Coq.Lists.List <> <> lib
+R674:676 Coq.micromega.Lia <> <> lib
+R678:691 Coq.Arith.PeanoNat <> <> lib
+R693:698 Coq.Strings.String <> <> lib
+R729:741 Physics.DiscreteModel <> <> lib
+R771:777 Kernel.VMState <> <> lib
+R779:784 Kernel.VMStep <> <> lib
+R786:805 Kernel.MuLedgerConservation <> <> lib
+R807:821 Kernel.SimulationProof <> <> lib
+R859:878 ThieleManifold.ThieleManifoldBridge <> <> lib
+R880:897 ThieleManifold.PhysicsIsomorphism <> <> lib
+R908:920 Coq.Lists.List ListNotations <> mod
+abbrev 1063:1069 <> LGState
+R1075:1084 ThieleManifold.PhysicsIsomorphism <> phys_state proj
+R1086:1102 ThieleManifold.PhysicsIsomorphism <> lattice_gas_model def
+def 1118:1141 <> module_from_lattice_cell
+R1148:1165 Physics.DiscreteModel <> Cell ind
+binder 1144:1144 <> c:1
+R1170:1180 Kernel.VMState <> ModuleState rec
+R1190:1202 Kernel.VMState <> module_region proj
+R1190:1202 Kernel.VMState <> module_region proj
+R1190:1202 Kernel.VMState <> module_region proj
+R1413:1425 Kernel.VMState <> module_axioms proj
+R1413:1425 Kernel.VMState <> module_axioms proj
+R1213:1213 ThieleMachine.PhysicsEmbedding <> c:1 var
+R1244:1262 Physics.DiscreteModel <> Empty constr
+R1267:1268 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1294:1316 Physics.DiscreteModel <> LeftMover constr
+R1321:1321 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1323:1323 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1349:1372 Physics.DiscreteModel <> RightMover constr
+R1377:1377 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1379:1379 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1430:1431 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+def 1449:1471 <> lattice_encoded_modules
+R1478:1484 ThieleMachine.PhysicsEmbedding <> LGState abbrev
+binder 1474:1474 <> l:3
+R1489:1492 Coq.Init.Datatypes <> list ind
+R1503:1505 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1495:1502 Kernel.VMState <> ModuleID def
+R1506:1516 Kernel.VMState <> ModuleState rec
+R1524:1526 Coq.Lists.List <> map def
+R1571:1571 ThieleMachine.PhysicsEmbedding <> l:3 var
+binder 1533:1533 <> c:4
+R1538:1538 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1540:1541 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1568:1568 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1542:1565 ThieleMachine.PhysicsEmbedding <> module_from_lattice_cell def
+R1567:1567 ThieleMachine.PhysicsEmbedding <> c:4 var
+def 1586:1599 <> lattice_encode
+R1606:1612 ThieleMachine.PhysicsEmbedding <> LGState abbrev
+binder 1602:1602 <> l:5
+R1617:1623 Kernel.VMState <> VMState rec
+R1633:1640 Kernel.VMState <> vm_graph proj
+R1633:1640 Kernel.VMState <> vm_graph proj
+R1633:1640 Kernel.VMState <> vm_graph proj
+R1750:1756 Kernel.VMState <> vm_csrs proj
+R1750:1756 Kernel.VMState <> vm_csrs proj
+R1823:1829 Kernel.VMState <> vm_regs proj
+R1823:1829 Kernel.VMState <> vm_regs proj
+R1852:1857 Kernel.VMState <> vm_mem proj
+R1852:1857 Kernel.VMState <> vm_mem proj
+R1881:1885 Kernel.VMState <> vm_pc proj
+R1881:1885 Kernel.VMState <> vm_pc proj
+R1898:1902 Kernel.VMState <> vm_mu proj
+R1898:1902 Kernel.VMState <> vm_mu proj
+R1915:1926 Kernel.VMState <> vm_mu_tensor proj
+R1915:1926 Kernel.VMState <> vm_mu_tensor proj
+R1958:1963 Kernel.VMState <> vm_err proj
+R1958:1963 Kernel.VMState <> vm_err proj
+R1648:1657 Kernel.VMState <> pg_next_id proj
+R1648:1657 Kernel.VMState <> pg_next_id proj
+R1648:1657 Kernel.VMState <> pg_next_id proj
+R1701:1710 Kernel.VMState <> pg_modules proj
+R1701:1710 Kernel.VMState <> pg_modules proj
+R1662:1662 Coq.Init.Datatypes <> S constr
+R1665:1675 Coq.Lists.List <> length abbrev
+R1677:1677 ThieleMachine.PhysicsEmbedding <> l:5 var
+R1715:1737 ThieleMachine.PhysicsEmbedding <> lattice_encoded_modules def
+R1739:1739 ThieleMachine.PhysicsEmbedding <> l:5 var
+R1764:1776 Kernel.VMState <> csr_cert_addr proj
+R1764:1776 Kernel.VMState <> csr_cert_addr proj
+R1764:1776 Kernel.VMState <> csr_cert_addr proj
+R1784:1793 Kernel.VMState <> csr_status proj
+R1784:1793 Kernel.VMState <> csr_status proj
+R1801:1807 Kernel.VMState <> csr_err proj
+R1801:1807 Kernel.VMState <> csr_err proj
+R1834:1839 Coq.Lists.List <> repeat def
+R1862:1867 Coq.Lists.List <> repeat def
+R1931:1950 Kernel.VMState <> vm_mu_tensor_default def
+R1968:1972 Coq.Init.Datatypes <> false constr
+def 1990:2008 <> decode_lattice_cell
+R2015:2025 Kernel.VMState <> ModuleState rec
+binder 2011:2011 <> m:6
+R2030:2047 Physics.DiscreteModel <> Cell ind
+R2063:2075 Kernel.VMState <> module_region proj
+R2060:2060 ThieleMachine.PhysicsEmbedding <> m:6 var
+R2087:2088 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2093:2111 Physics.DiscreteModel <> Empty constr
+R2117:2117 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2119:2119 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2124:2146 Physics.DiscreteModel <> LeftMover constr
+R2152:2152 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2154:2154 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2159:2182 Physics.DiscreteModel <> RightMover constr
+R2193:2211 Physics.DiscreteModel <> Empty constr
+def 2232:2253 <> lattice_decode_modules
+R2263:2266 Coq.Init.Datatypes <> list ind
+R2277:2279 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2269:2276 Kernel.VMState <> ModuleID def
+R2280:2290 Kernel.VMState <> ModuleState rec
+binder 2256:2259 <> mods:7
+R2296:2302 ThieleMachine.PhysicsEmbedding <> LGState abbrev
+R2309:2311 Coq.Lists.List <> map def
+R2352:2355 ThieleMachine.PhysicsEmbedding <> mods:7 var
+R2319:2319 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2321:2322 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2324:2324 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 2323:2323 <> m:8
+binder 2319:2324 <> pat:9
+R2329:2347 ThieleMachine.PhysicsEmbedding <> decode_lattice_cell def
+R2349:2349 ThieleMachine.PhysicsEmbedding <> m:8 var
+def 2370:2383 <> lattice_decode
+R2390:2396 Kernel.VMState <> VMState rec
+binder 2386:2386 <> s:10
+R2401:2407 ThieleMachine.PhysicsEmbedding <> LGState abbrev
+R2440:2449 Kernel.VMState <> pg_modules proj
+R2429:2436 Kernel.VMState <> vm_graph proj
+R2426:2426 ThieleMachine.PhysicsEmbedding <> s:10 var
+binder 2418:2421 <> mods:11
+R2460:2466 Coq.Arith.PeanoNat Nat eqb def
+R2471:2475 Kernel.VMState <> vm_pc proj
+R2468:2468 ThieleMachine.PhysicsEmbedding <> s:10 var
+R2520:2545 Physics.DiscreteModel <> physics_step def
+R2548:2569 ThieleMachine.PhysicsEmbedding <> lattice_decode_modules def
+R2571:2574 ThieleMachine.PhysicsEmbedding <> mods:11 var
+R2485:2506 ThieleMachine.PhysicsEmbedding <> lattice_decode_modules def
+R2508:2511 ThieleMachine.PhysicsEmbedding <> mods:11 var
+prf 2585:2614 <> lattice_encoded_modules_length
+R2629:2635 ThieleMachine.PhysicsEmbedding <> LGState abbrev
+binder 2625:2625 <> l:12
+R2679:2681 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2640:2650 Coq.Lists.List <> length abbrev
+R2653:2675 ThieleMachine.PhysicsEmbedding <> lattice_encoded_modules def
+R2677:2677 ThieleMachine.PhysicsEmbedding <> l:12 var
+R2682:2692 Coq.Lists.List <> length abbrev
+R2694:2694 ThieleMachine.PhysicsEmbedding <> l:12 var
+R2720:2742 ThieleMachine.PhysicsEmbedding <> lattice_encoded_modules def
+R2757:2766 Coq.Lists.List <> map_length thm
+R2757:2766 Coq.Lists.List <> map_length thm
+R2757:2766 Coq.Lists.List <> map_length thm
+prf 2781:2809 <> decode_cell_from_lattice_cell
+R2824:2841 Physics.DiscreteModel <> Cell ind
+binder 2820:2820 <> c:13
+R2894:2896 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2846:2864 ThieleMachine.PhysicsEmbedding <> decode_lattice_cell def
+R2867:2890 ThieleMachine.PhysicsEmbedding <> module_from_lattice_cell def
+R2892:2892 ThieleMachine.PhysicsEmbedding <> c:13 var
+R2897:2897 ThieleMachine.PhysicsEmbedding <> c:13 var
+prf 2944:2965 <> lattice_decode_encoded
+R2980:2986 ThieleMachine.PhysicsEmbedding <> LGState abbrev
+binder 2976:2976 <> l:14
+R3041:3043 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2991:3012 ThieleMachine.PhysicsEmbedding <> lattice_decode_modules def
+R3015:3037 ThieleMachine.PhysicsEmbedding <> lattice_encoded_modules def
+R3039:3039 ThieleMachine.PhysicsEmbedding <> l:14 var
+R3044:3044 ThieleMachine.PhysicsEmbedding <> l:14 var
+R3072:3093 ThieleMachine.PhysicsEmbedding <> lattice_decode_modules def
+R3096:3118 ThieleMachine.PhysicsEmbedding <> lattice_encoded_modules def
+R3173:3201 ThieleMachine.PhysicsEmbedding <> decode_cell_from_lattice_cell thm
+R3173:3201 ThieleMachine.PhysicsEmbedding <> decode_cell_from_lattice_cell thm
+R3173:3201 ThieleMachine.PhysicsEmbedding <> decode_cell_from_lattice_cell thm
+prf 3235:3258 <> lattice_decode_encode_id
+R3273:3279 ThieleMachine.PhysicsEmbedding <> LGState abbrev
+binder 3269:3269 <> l:15
+R3317:3319 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3284:3297 ThieleMachine.PhysicsEmbedding <> lattice_decode def
+R3300:3313 ThieleMachine.PhysicsEmbedding <> lattice_encode def
+R3315:3315 ThieleMachine.PhysicsEmbedding <> l:15 var
+R3320:3320 ThieleMachine.PhysicsEmbedding <> l:15 var
+R3348:3361 ThieleMachine.PhysicsEmbedding <> lattice_decode def
+R3364:3377 ThieleMachine.PhysicsEmbedding <> lattice_encode def
+R3399:3402 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R3411:3414 Coq.Init.Datatypes <> true constr
+R3436:3447 Coq.Arith.PeanoNat Nat eqb_refl thm
+R3399:3402 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R3411:3414 Coq.Init.Datatypes <> true constr
+R3436:3447 Coq.Arith.PeanoNat Nat eqb_refl thm
+R3459:3480 ThieleMachine.PhysicsEmbedding <> lattice_decode_encoded thm
+R3459:3480 ThieleMachine.PhysicsEmbedding <> lattice_decode_encoded thm
+def 3536:3554 <> lattice_trace_instr
+R3558:3571 Kernel.VMStep VMStep vm_instruction ind
+R3576:3585 Kernel.VMStep VMStep instr_emit constr
+R3589:3599 Coq.Strings.String <> EmptyString constr
+def 3615:3627 <> lattice_trace
+R3631:3634 Coq.Init.Datatypes <> list ind
+R3636:3649 Kernel.VMStep VMStep vm_instruction ind
+R3654:3654 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3674:3674 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3655:3673 ThieleMachine.PhysicsEmbedding <> lattice_trace_instr def
+prf 3684:3706 <> lattice_trace_cost_zero
+binder 3719:3720 <> pc:16
+binder 3722:3726 <> instr:17
+R3768:3771 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3755:3757 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3729:3737 Coq.Lists.List <> nth_error def
+R3753:3754 ThieleMachine.PhysicsEmbedding <> pc:16 var
+R3739:3751 ThieleMachine.PhysicsEmbedding <> lattice_trace def
+R3758:3761 Coq.Init.Datatypes <> Some constr
+R3763:3767 ThieleMachine.PhysicsEmbedding <> instr:17 var
+R3794:3796 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3772:3787 Kernel.VMStep VMStep instruction_cost def
+R3789:3793 ThieleMachine.PhysicsEmbedding <> instr:17 var
+prf 3989:4018 <> thiele_implements_physics_step
+R4035:4041 ThieleMachine.PhysicsEmbedding <> LGState abbrev
+binder 4031:4031 <> L:18
+R4106:4112 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4048:4061 ThieleMachine.PhysicsEmbedding <> lattice_decode def
+R4064:4069 Kernel.SimulationProof <> run_vm def
+R4073:4085 ThieleMachine.PhysicsEmbedding <> lattice_trace def
+R4088:4101 ThieleMachine.PhysicsEmbedding <> lattice_encode def
+R4103:4103 ThieleMachine.PhysicsEmbedding <> L:18 var
+R4113:4121 ThieleManifold.PhysicsIsomorphism <> phys_step proj
+R4123:4139 ThieleManifold.PhysicsIsomorphism <> lattice_gas_model def
+R4141:4141 ThieleMachine.PhysicsEmbedding <> L:18 var
+R4169:4181 ThieleMachine.PhysicsEmbedding <> lattice_trace def
+R4200:4218 ThieleMachine.PhysicsEmbedding <> lattice_trace_instr def
+R4221:4234 ThieleMachine.PhysicsEmbedding <> lattice_encode def
+R4237:4250 ThieleMachine.PhysicsEmbedding <> lattice_decode def
+R4402:4423 ThieleMachine.PhysicsEmbedding <> lattice_decode_encoded thm
+R4402:4423 ThieleMachine.PhysicsEmbedding <> lattice_decode_encoded thm
+R4402:4423 ThieleMachine.PhysicsEmbedding <> lattice_decode_encoded thm
+prf 4487:4513 <> vm_preserves_particle_count
+R4530:4536 ThieleMachine.PhysicsEmbedding <> LGState abbrev
+binder 4526:4526 <> L:19
+R4638:4644 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4543:4570 Physics.DiscreteModel <> particle_count def
+R4579:4592 ThieleMachine.PhysicsEmbedding <> lattice_decode def
+R4595:4600 Kernel.SimulationProof <> run_vm def
+R4604:4616 ThieleMachine.PhysicsEmbedding <> lattice_trace def
+R4619:4632 ThieleMachine.PhysicsEmbedding <> lattice_encode def
+R4634:4634 ThieleMachine.PhysicsEmbedding <> L:19 var
+R4645:4672 Physics.DiscreteModel <> particle_count def
+R4674:4674 ThieleMachine.PhysicsEmbedding <> L:19 var
+R4703:4732 ThieleMachine.PhysicsEmbedding <> thiele_implements_physics_step thm
+R4703:4732 ThieleMachine.PhysicsEmbedding <> thiele_implements_physics_step thm
+R4703:4732 ThieleMachine.PhysicsEmbedding <> thiele_implements_physics_step thm
+R4743:4788 Physics.DiscreteModel <> physics_preserves_particle_count thm
+R4743:4788 Physics.DiscreteModel <> physics_preserves_particle_count thm
+prf 4803:4823 <> vm_preserves_momentum
+R4840:4846 ThieleMachine.PhysicsEmbedding <> LGState abbrev
+binder 4836:4836 <> L:20
+R4942:4948 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4853:4874 Physics.DiscreteModel <> momentum def
+R4883:4896 ThieleMachine.PhysicsEmbedding <> lattice_decode def
+R4899:4904 Kernel.SimulationProof <> run_vm def
+R4908:4920 ThieleMachine.PhysicsEmbedding <> lattice_trace def
+R4923:4936 ThieleMachine.PhysicsEmbedding <> lattice_encode def
+R4938:4938 ThieleMachine.PhysicsEmbedding <> L:20 var
+R4949:4970 Physics.DiscreteModel <> momentum def
+R4972:4972 ThieleMachine.PhysicsEmbedding <> L:20 var
+R5001:5030 ThieleMachine.PhysicsEmbedding <> thiele_implements_physics_step thm
+R5001:5030 ThieleMachine.PhysicsEmbedding <> thiele_implements_physics_step thm
+R5001:5030 ThieleMachine.PhysicsEmbedding <> thiele_implements_physics_step thm
+R5041:5080 Physics.DiscreteModel <> physics_preserves_momentum thm
+R5041:5080 Physics.DiscreteModel <> physics_preserves_momentum thm
+prf 5097:5128 <> lattice_vm_conserves_observables
+R5145:5151 ThieleMachine.PhysicsEmbedding <> LGState abbrev
+binder 5141:5141 <> L:21
+R5290:5297 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5253:5259 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5158:5185 Physics.DiscreteModel <> particle_count def
+R5194:5207 ThieleMachine.PhysicsEmbedding <> lattice_decode def
+R5210:5215 Kernel.SimulationProof <> run_vm def
+R5219:5231 ThieleMachine.PhysicsEmbedding <> lattice_trace def
+R5234:5247 ThieleMachine.PhysicsEmbedding <> lattice_encode def
+R5249:5249 ThieleMachine.PhysicsEmbedding <> L:21 var
+R5260:5287 Physics.DiscreteModel <> particle_count def
+R5289:5289 ThieleMachine.PhysicsEmbedding <> L:21 var
+R5387:5393 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5298:5319 Physics.DiscreteModel <> momentum def
+R5328:5341 ThieleMachine.PhysicsEmbedding <> lattice_decode def
+R5344:5349 Kernel.SimulationProof <> run_vm def
+R5353:5365 ThieleMachine.PhysicsEmbedding <> lattice_trace def
+R5368:5381 ThieleMachine.PhysicsEmbedding <> lattice_encode def
+R5383:5383 ThieleMachine.PhysicsEmbedding <> L:21 var
+R5394:5415 Physics.DiscreteModel <> momentum def
+R5417:5417 ThieleMachine.PhysicsEmbedding <> L:21 var
+R5452:5478 ThieleMachine.PhysicsEmbedding <> vm_preserves_particle_count thm
+R5488:5508 ThieleMachine.PhysicsEmbedding <> vm_preserves_momentum thm
+R5452:5478 ThieleMachine.PhysicsEmbedding <> vm_preserves_particle_count thm
+R5488:5508 ThieleMachine.PhysicsEmbedding <> vm_preserves_momentum thm
+def 5571:5591 <> lattice_gas_embedding
+R5595:5609 ThieleManifold.PhysicsIsomorphism <> ThieleEmbedding rec
+R5611:5627 ThieleManifold.PhysicsIsomorphism <> lattice_gas_model def
+R5649:5657 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
+R5649:5657 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
+R5649:5657 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
+R5689:5698 ThieleManifold.PhysicsIsomorphism <> emb_encode proj
+R5689:5698 ThieleManifold.PhysicsIsomorphism <> emb_encode proj
+R5731:5740 ThieleManifold.PhysicsIsomorphism <> emb_decode proj
+R5731:5740 ThieleManifold.PhysicsIsomorphism <> emb_decode proj
+R5773:5785 ThieleManifold.PhysicsIsomorphism <> emb_roundtrip proj
+R5773:5785 ThieleManifold.PhysicsIsomorphism <> emb_roundtrip proj
+R5805:5816 ThieleManifold.PhysicsIsomorphism <> emb_step_sim proj
+R5805:5816 ThieleManifold.PhysicsIsomorphism <> emb_step_sim proj
+R5836:5848 ThieleManifold.PhysicsIsomorphism <> emb_cost_free proj
+R5836:5848 ThieleManifold.PhysicsIsomorphism <> emb_cost_free proj
+R5895:5911 ThieleManifold.PhysicsIsomorphism <> emb_cost_positive proj
+R5895:5911 ThieleManifold.PhysicsIsomorphism <> emb_cost_positive proj
+R5662:5674 ThieleMachine.PhysicsEmbedding <> lattice_trace def
+R5703:5716 ThieleMachine.PhysicsEmbedding <> lattice_encode def
+R5745:5758 ThieleMachine.PhysicsEmbedding <> lattice_decode def
+R5853:5856 Coq.Init.Datatypes <> Some constr
+R5858:5880 ThieleMachine.PhysicsEmbedding <> lattice_trace_cost_zero thm
+R5916:5919 Coq.Init.Datatypes <> None constr
+R5649:5657 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
+R5649:5657 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
+R5649:5657 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
+R5689:5698 ThieleManifold.PhysicsIsomorphism <> emb_encode proj
+R5689:5698 ThieleManifold.PhysicsIsomorphism <> emb_encode proj
+R5731:5740 ThieleManifold.PhysicsIsomorphism <> emb_decode proj
+R5731:5740 ThieleManifold.PhysicsIsomorphism <> emb_decode proj
+R5773:5785 ThieleManifold.PhysicsIsomorphism <> emb_roundtrip proj
+R5773:5785 ThieleManifold.PhysicsIsomorphism <> emb_roundtrip proj
+R5805:5816 ThieleManifold.PhysicsIsomorphism <> emb_step_sim proj
+R5805:5816 ThieleManifold.PhysicsIsomorphism <> emb_step_sim proj
+R5836:5848 ThieleManifold.PhysicsIsomorphism <> emb_cost_free proj
+R5836:5848 ThieleManifold.PhysicsIsomorphism <> emb_cost_free proj
+R5895:5911 ThieleManifold.PhysicsIsomorphism <> emb_cost_positive proj
+R5895:5911 ThieleManifold.PhysicsIsomorphism <> emb_cost_positive proj
+R5662:5674 ThieleMachine.PhysicsEmbedding <> lattice_trace def
+R5703:5716 ThieleMachine.PhysicsEmbedding <> lattice_encode def
+R5745:5758 ThieleMachine.PhysicsEmbedding <> lattice_decode def
+R5853:5856 Coq.Init.Datatypes <> Some constr
+R5858:5880 ThieleMachine.PhysicsEmbedding <> lattice_trace_cost_zero thm
+R5916:5919 Coq.Init.Datatypes <> None constr
+R5935:5958 ThieleMachine.PhysicsEmbedding <> lattice_decode_encode_id thm
+R5935:5958 ThieleMachine.PhysicsEmbedding <> lattice_decode_encode_id thm
+R5971:6000 ThieleMachine.PhysicsEmbedding <> thiele_implements_physics_step thm
+R5971:6000 ThieleMachine.PhysicsEmbedding <> thiele_implements_physics_step thm
+prf 6019:6049 <> lattice_trace_cost_free_witness
+R6055:6079 ThieleManifold.PhysicsIsomorphism <> embedding_trace_cost_free def
+R6081:6101 ThieleMachine.PhysicsEmbedding <> lattice_gas_embedding def
+R6118:6140 ThieleMachine.PhysicsEmbedding <> lattice_trace_cost_zero thm
+R6118:6140 ThieleMachine.PhysicsEmbedding <> lattice_trace_cost_zero thm
+prf 6210:6240 <> lattice_irreversible_count_zero
+binder 6253:6256 <> fuel:22
+binder 6258:6261 <> s_vm:23
+R6310:6312 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6268:6285 Kernel.MuLedgerConservation <> irreversible_count def
+R6287:6290 ThieleMachine.PhysicsEmbedding <> fuel:22 var
+R6292:6304 ThieleMachine.PhysicsEmbedding <> lattice_trace def
+R6306:6309 ThieleMachine.PhysicsEmbedding <> s_vm:23 var
+R6332:6374 ThieleManifold.PhysicsIsomorphism <> reversible_trace_irreversibility_count_zero thm
+R6409:6439 ThieleMachine.PhysicsEmbedding <> lattice_trace_cost_free_witness thm
+R6387:6407 ThieleMachine.PhysicsEmbedding <> lattice_gas_embedding def
+R6332:6374 ThieleManifold.PhysicsIsomorphism <> reversible_trace_irreversibility_count_zero thm
+R6409:6439 ThieleMachine.PhysicsEmbedding <> lattice_trace_cost_free_witness thm
+R6387:6407 ThieleMachine.PhysicsEmbedding <> lattice_gas_embedding def
+prf 6457:6478 <> lattice_gas_embeddable
+R6482:6491 ThieleManifold.PhysicsIsomorphism <> embeddable def
+R6493:6509 ThieleManifold.PhysicsIsomorphism <> lattice_gas_model def
+R6526:6546 ThieleMachine.PhysicsEmbedding <> lattice_gas_embedding def
+R6555:6555 Coq.Init.Logic <> I constr
+R6526:6546 ThieleMachine.PhysicsEmbedding <> lattice_gas_embedding def
+R6555:6555 Coq.Init.Logic <> I constr

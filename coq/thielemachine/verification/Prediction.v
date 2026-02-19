@@ -43,7 +43,7 @@ Require Import ThieleMachine.BellInequality.
     FORMAL STATEMENT
     =========================================================================*)
 
-Definition tsirelson_bound : Q := 2828 # 1000. (* 2√2 ≈ 2.828 *)
+Definition tsirelson_bound : Q := 5657 # 2000. (* 2√2 ≈ 2.8285 *)
 Definition partition_bound : Q := 16 # 5.      (* 3.2 *)
 Definition algebraic_bound : Q := 4 # 1.       (* 4.0 *)
 

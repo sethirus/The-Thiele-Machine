@@ -288,7 +288,8 @@ Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
       advance_state s (instr_emit module payload cost) s.(vm_graph) csrs' s.(vm_err)
   | instr_reveal module bits cert cost =>
       let csrs' := csr_set_cert_addr s.(vm_csrs) (ascii_checksum cert) in
-      advance_state s (instr_reveal module bits cert cost) s.(vm_graph) csrs' s.(vm_err)
+      advance_state_reveal s (instr_reveal module bits cert cost) module bits
+        s.(vm_graph) csrs' s.(vm_err)
   | instr_pdiscover module evidence cost =>
       let graph' := graph_record_discovery s.(vm_graph) module evidence in
       advance_state s (instr_pdiscover module evidence cost) graph' s.(vm_csrs) s.(vm_err)
@@ -486,6 +487,7 @@ Lemma compile_increment_pc_correct :
                  vm_mem := s_vm.(vm_mem);
                  vm_pc := S s_vm.(vm_pc);
                  vm_mu := s_vm.(vm_mu);
+                 vm_mu_tensor := s_vm.(vm_mu_tensor);
                  vm_err := s_vm.(vm_err) |} /\
       states_related s_vm'
         {| tape := encode_vm_state_to_tape s_vm';
@@ -503,6 +505,7 @@ Proof.
                         vm_mem := s_vm.(vm_mem);
                         vm_pc := S s_vm.(vm_pc);
                         vm_mu := s_vm.(vm_mu);
+                        vm_mu_tensor := s_vm.(vm_mu_tensor);
                         vm_err := s_vm.(vm_err) |} _).
   split; [reflexivity|].
   unfold states_related.
@@ -514,6 +517,7 @@ Proof.
                                                      vm_mem := vm_mem s_vm;
                                                      vm_pc := S (vm_pc s_vm);
                                                      vm_mu := vm_mu s_vm;
+                                                     vm_mu_tensor := vm_mu_tensor s_vm;
                                                      vm_err := vm_err s_vm |}).
   apply decode_vm_state_correct.
 Qed.
@@ -527,6 +531,7 @@ Lemma compile_add_mu_correct :
                     vm_mem := s_vm.(vm_mem);
                     vm_pc := s_vm.(vm_pc);
                     vm_mu := s_vm.(vm_mu) + delta;
+                    vm_mu_tensor := s_vm.(vm_mu_tensor);
                     vm_err := s_vm.(vm_err) |} in
     states_related s_vm'
       {| tape := encode_vm_state_to_tape s_vm';
@@ -555,6 +560,7 @@ Lemma decode_vm_state_update_err :
               vm_mem := s.(vm_mem);
               vm_pc := s.(vm_pc);
               vm_mu := s.(vm_mu);
+              vm_mu_tensor := s.(vm_mu_tensor);
               vm_err := new_err |}, []).
 Proof.
   intros tape s new_err Hdecode.
@@ -571,6 +577,7 @@ Proof.
                           vm_mem := vm_mem s;
                                    vm_pc := vm_pc s;
                                    vm_mu := vm_mu s;
+                                   vm_mu_tensor := vm_mu_tensor s;
                                    vm_err := new_err |}).
   rewrite decode_vm_state_correct.
   reflexivity.
@@ -587,6 +594,7 @@ Lemma compile_update_err_correct :
         vm_mem := s_vm.(vm_mem);
          vm_pc := s_vm.(vm_pc);
          vm_mu := s_vm.(vm_mu);
+         vm_mu_tensor := s_vm.(vm_mu_tensor);
          vm_err := new_err |}
       {| tape := tape';
          head := s_kernel.(head);

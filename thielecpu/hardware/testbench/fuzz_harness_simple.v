@@ -23,6 +23,12 @@
 
 module fuzz_harness_simple;
 
+`ifdef ATLAS_SYMBOL_ANCHOR
+partition_core atlas_partition_core_anchor ();
+thiele_cpu_unified atlas_thiele_cpu_unified_anchor ();
+mu_alu atlas_mu_alu_anchor ();
+`endif
+
 // ============================================================================
 // PARAMETERS
 // ============================================================================

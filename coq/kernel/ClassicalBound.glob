@@ -1,4 +1,4 @@
-DIGEST aa7713d7f6fbe46d80f09776fdae3448
+DIGEST 413c5a3f05ffbd7a68cb1cacb184d594
 FKernel.ClassicalBound
 R1937:1940 Coq.Lists.List <> <> lib
 R1942:1947 Coq.QArith.QArith <> <> lib
@@ -82,8 +82,10 @@ R8454:8461 Kernel.VMState <> vm_graph proj
 R8454:8461 Kernel.VMState <> vm_graph proj
 R8484:8488 Kernel.VMState <> vm_mu proj
 R8484:8488 Kernel.VMState <> vm_mu proj
-R8505:8510 Kernel.VMState <> vm_err proj
-R8505:8510 Kernel.VMState <> vm_err proj
+R8505:8516 Kernel.VMState <> vm_mu_tensor proj
+R8505:8516 Kernel.VMState <> vm_mu_tensor proj
+R8548:8553 Kernel.VMState <> vm_err proj
+R8548:8553 Kernel.VMState <> vm_err proj
 R8466:8476 Kernel.VMState <> empty_graph def
 R8362:8374 Kernel.VMState <> csr_cert_addr proj
 R8362:8374 Kernel.VMState <> csr_cert_addr proj
@@ -94,32 +96,33 @@ R8407:8413 Kernel.VMState <> csr_err proj
 R8407:8413 Kernel.VMState <> csr_err proj
 R8307:8312 Coq.Lists.List <> repeat def
 R8339:8340 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R8515:8519 Coq.Init.Datatypes <> false constr
-prf 9406:9430 <> classical_program_mu_zero
-R9483:9485 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9436:9451 Kernel.MuCostModel <> mu_cost_of_trace def
-R9456:9480 Kernel.ClassicalBound <> classical_achieving_trace def
-R9509:9524 Kernel.MuCostModel <> mu_cost_of_trace def
-prf 10928:10951 <> classical_bound_achieved
-R10957:10964 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R11005:11037 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R10972:10974 Coq.Init.Datatypes <> nat ind
-binder 10965:10968 <> fuel:9
-R10986:10989 Coq.Init.Datatypes <> list ind
-R10991:11004 Kernel.VMStep VMStep vm_instruction ind
-binder 10978:10982 <> trace:10
-R11075:11173 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11067:11069 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11038:11053 Kernel.MuCostModel <> mu_cost_of_trace def
-R11055:11058 Kernel.ClassicalBound <> fuel:9 var
-R11060:11064 Kernel.ClassicalBound <> trace:10 var
-R11187:11190 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11178:11180 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11174:11177 Kernel.ClassicalBound <> fuel:9 var
-R11196:11198 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11191:11195 Kernel.ClassicalBound <> trace:10 var
-R11199:11223 Kernel.ClassicalBound <> classical_achieving_trace def
-R11250:11274 Kernel.ClassicalBound <> classical_achieving_trace def
-R11250:11274 Kernel.ClassicalBound <> classical_achieving_trace def
-R11296:11320 Kernel.ClassicalBound <> classical_program_mu_zero thm
-R11296:11320 Kernel.ClassicalBound <> classical_program_mu_zero thm
+R8521:8540 Kernel.VMState <> vm_mu_tensor_default def
+R8558:8562 Coq.Init.Datatypes <> false constr
+prf 9449:9473 <> classical_program_mu_zero
+R9526:9528 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9479:9494 Kernel.MuCostModel <> mu_cost_of_trace def
+R9499:9523 Kernel.ClassicalBound <> classical_achieving_trace def
+R9552:9567 Kernel.MuCostModel <> mu_cost_of_trace def
+prf 10971:10994 <> classical_bound_achieved
+R11000:11007 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11048:11080 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11015:11017 Coq.Init.Datatypes <> nat ind
+binder 11008:11011 <> fuel:9
+R11029:11032 Coq.Init.Datatypes <> list ind
+R11034:11047 Kernel.VMStep VMStep vm_instruction ind
+binder 11021:11025 <> trace:10
+R11118:11216 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11110:11112 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11081:11096 Kernel.MuCostModel <> mu_cost_of_trace def
+R11098:11101 Kernel.ClassicalBound <> fuel:9 var
+R11103:11107 Kernel.ClassicalBound <> trace:10 var
+R11230:11233 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11221:11223 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11217:11220 Kernel.ClassicalBound <> fuel:9 var
+R11239:11241 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11234:11238 Kernel.ClassicalBound <> trace:10 var
+R11242:11266 Kernel.ClassicalBound <> classical_achieving_trace def
+R11293:11317 Kernel.ClassicalBound <> classical_achieving_trace def
+R11293:11317 Kernel.ClassicalBound <> classical_achieving_trace def
+R11339:11363 Kernel.ClassicalBound <> classical_program_mu_zero thm
+R11339:11363 Kernel.ClassicalBound <> classical_program_mu_zero thm

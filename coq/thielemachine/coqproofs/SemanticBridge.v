@@ -32,12 +32,14 @@ Definition blind_partition_to_core (p : BlindSighted.Partition) : CoreSemantics.
 Definition core_ledger_to_blind (l : CoreSemantics.MuLedger) : BlindSighted.MuLedger :=
   {| BlindSighted.mu_operational := l.(CoreSemantics.mu_operational);
      BlindSighted.mu_discovery := l.(CoreSemantics.mu_information);
-     BlindSighted.mu_total := l.(CoreSemantics.mu_total) |}.
+     BlindSighted.mu_total := l.(CoreSemantics.mu_total);
+     BlindSighted.mu_tensor := l.(CoreSemantics.mu_tensor) |}.
 
 Definition blind_ledger_to_core (l : BlindSighted.MuLedger) : CoreSemantics.MuLedger :=
   {| CoreSemantics.mu_operational := l.(BlindSighted.mu_operational);
      CoreSemantics.mu_information := l.(BlindSighted.mu_discovery);
-     CoreSemantics.mu_total := l.(BlindSighted.mu_total) |}.
+     CoreSemantics.mu_total := l.(BlindSighted.mu_total);
+     CoreSemantics.mu_tensor := l.(BlindSighted.mu_tensor) |}.
 
 Definition core_to_blind (s : CoreSemantics.State) : BlindSighted.ThieleState :=
   {| BlindSighted.partition := core_partition_to_blind s.(CoreSemantics.partition);

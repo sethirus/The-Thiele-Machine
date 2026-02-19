@@ -7,8 +7,10 @@
 .PHONY: experiments-small-save experiments-falsify-save experiments-budget-save experiments-full-save
 .PHONY: proofpack-smoke proofpack-turbulence-high proofpack-phase3 bell law nusd headtohead turbulence-law turbulence-law-v2 turbulence-closure-v1 self-model-v1
 .PHONY: vm-run rtl-run compare clean purge verify-end-to-end
-.PHONY: showcase test-isomorphism test-alignment test-all
+.PHONY: showcase test-isomorphism test-alignment test-all test-ultra-smoke-isomorphism test-smoke-isomorphism test-full-isomorphism test-emergent-geometry test-emergent-geometry-verilator black-hole-demo atlas-audit proof-dag isomorphism-visual-audit isomorphism-roadmap heuristic-heatmaps inquisitor-visual-audit
 .PHONY: generate-python
+.PHONY: deliverable-one-hour
+.PHONY: proof-complete-gate coq-gate extraction-gate rtl-gate cosim-gate
 
 # ============================================================================
 # E1.1: DEMO TARGETS - One-Command Reproducibility
@@ -29,6 +31,15 @@ help:
 	@echo "EXISTING TARGETS:"
 	@echo "  make showcase       - Run showcase programs"
 	@echo "  make test-all       - Run all tests"
+	@echo "  make test-ultra-smoke-isomorphism - Fast (<2 min) cross-layer sanity checks"
+	@echo "  make test-smoke-isomorphism - Practical local isomorphism smoke run"
+	@echo "  make test-emergent-geometry - Fast proxy checks for silicon-curving claims"
+	@echo "  make test-emergent-geometry-verilator - Same proxy checks using Verilator backend"
+	@echo "  make black-hole-demo - Show Python fail-fast vs RTL kill-switch semantics"
+	@echo "  make atlas-audit    - Generate single detailed cross-layer integration atlas"
+	@echo "  make isomorphism-bitlock - Strict bit-for-bit Coq/Python/RTL lockstep gate"
+	@echo "  make proof-undeniable - Machine-checkable formal proof gate (inquisitor + coqchk)"
+	@echo "  make deliverable-one-hour - Publishable real-result brief (proof + RSA artifact)"
 	@echo "  make experiments-*  - Run partition experiments"
 	@echo ""
 	@echo "CLOSED WORK (A+B+C):"
@@ -137,6 +148,112 @@ test-alignment:
 
 test-all:
 	pytest tests/test_mu.py tests/test_mu_costs.py tests/test_bisimulation_complete.py tests/test_accelerator_cosim.py tests/test_three_layer_isomorphism.py tests/test_opcode_alignment.py tests/test_rtl_compute_isomorphism.py tests/test_rtl_mu_charging.py tests/test_fuzz_isomorphism.py tests/alignment/ -v
+
+test-ultra-smoke-isomorphism:
+	THIELE_FUZZ_MAX_EXAMPLES=$${THIELE_FUZZ_MAX_EXAMPLES:-2} \
+	THIELE_FUZZ_TENSOR_MAX_EXAMPLES=$${THIELE_FUZZ_TENSOR_MAX_EXAMPLES:-1} \
+	THIELE_FUZZ_LONG_MAX_EXAMPLES=$${THIELE_FUZZ_LONG_MAX_EXAMPLES:-1} \
+	THIELE_BIANCHI_MAX_EXAMPLES=$${THIELE_BIANCHI_MAX_EXAMPLES:-6} \
+	THIELE_BIANCHI_SEQ_MAX_EXAMPLES=$${THIELE_BIANCHI_SEQ_MAX_EXAMPLES:-4} \
+	THIELE_BIANCHI_SINGLE_MAX_EXAMPLES=$${THIELE_BIANCHI_SINGLE_MAX_EXAMPLES:-4} \
+	pytest -q \
+	  tests/test_bisimulation_complete.py::TestBisimulationCoqPython::test_empty_program \
+	  tests/test_bisimulation_complete.py::TestBisimulationCoqPython::test_single_pnew \
+	  tests/test_bisimulation_complete.py::TestBisimulationVerilog::test_mu_alu_addition \
+	  tests/test_bisimulation_complete.py::TestOpcodeAlignment::test_opcode_values_coq_python \
+	  tests/test_bisimulation_complete.py::TestOpcodeAlignment::test_opcode_values_coq_verilog \
+	  tests/test_random_program_fuzz.py::TestRandomProgramIsomorphism::test_mu_matches_for_random_programs \
+	  tests/test_bianchi_enforcement.py::TestBianchiPythonEnforcement::test_bianchi_holds_after_reveal_instruction \
+	  tests/test_bianchi_enforcement.py::TestBianchiPropertyBased::test_bianchi_consistency_property \
+	  -x --maxfail=1
+
+test-smoke-isomorphism:
+	THIELE_FUZZ_MAX_EXAMPLES=$${THIELE_FUZZ_MAX_EXAMPLES:-8} \
+	THIELE_FUZZ_TENSOR_MAX_EXAMPLES=$${THIELE_FUZZ_TENSOR_MAX_EXAMPLES:-4} \
+	THIELE_FUZZ_LONG_MAX_EXAMPLES=$${THIELE_FUZZ_LONG_MAX_EXAMPLES:-4} \
+	THIELE_BIANCHI_MAX_EXAMPLES=$${THIELE_BIANCHI_MAX_EXAMPLES:-20} \
+	THIELE_BIANCHI_SEQ_MAX_EXAMPLES=$${THIELE_BIANCHI_SEQ_MAX_EXAMPLES:-15} \
+	THIELE_BIANCHI_SINGLE_MAX_EXAMPLES=$${THIELE_BIANCHI_SINGLE_MAX_EXAMPLES:-15} \
+	pytest -q tests/test_bisimulation_complete.py tests/test_random_program_fuzz.py tests/test_bianchi_enforcement.py -x --maxfail=1
+
+test-full-isomorphism:
+	pytest -q tests/test_bisimulation_complete.py tests/test_random_program_fuzz.py tests/test_bianchi_enforcement.py
+
+test-emergent-geometry:
+	pytest -q tests/test_emergent_geometry_proxies.py -x --maxfail=1
+
+test-emergent-geometry-verilator:
+	THIELE_RTL_SIM=verilator pytest -q tests/test_emergent_geometry_proxies.py -x --maxfail=1
+
+black-hole-demo:
+	python3 scripts/black_hole_demo.py
+
+atlas-audit:
+	python3 scripts/generate_full_mesh_audit.py
+	@echo "Atlas artifact: artifacts/ATLAS.md"
+
+# ============================================================================
+# PROOF COMPLETION GATES
+# ============================================================================
+# proof-complete-gate: the single command that must pass before claiming
+# three-way isomorphism is mechanically verified.
+#   1. Coq compiles clean (zero Admitted, all .vo present)
+#   2. Extraction artefacts are fresh and export the right symbols
+#   3. RTL synthesises with Yosys (non-empty design, top=thiele_cpu)
+#   4. Co-simulation testbench runs without fatal errors
+#   5. Atlas score/DOD gate recalculated with all real toolchain results
+proof-complete-gate: coq-gate extraction-gate rtl-gate
+	pytest tests/test_coq_compile_gate.py tests/test_extraction_freshness.py tests/test_rtl_synthesis_gate.py -v -m "coq or hardware" --tb=short
+	@echo ""
+	@echo "Regenerating atlas with toolchain gate results..."
+	python3 scripts/generate_full_mesh_audit.py
+	@echo ""
+	@echo "proof-complete-gate: ALL GATES PASSED"
+
+coq-gate:
+	@echo "[coq-gate] Building all Coq proofs..."
+	$(MAKE) -C coq -j4
+	@echo "[coq-gate] Checking for Admitted..."
+	@count=$$(grep -rn 'Admitted\.' coq/ --include='*.v' | grep -v patches | wc -l); \
+	 if [ "$$count" -ne 0 ]; then \
+	   echo "FAIL: $$count Admitted. found:"; \
+	   grep -rn 'Admitted\.' coq/ --include='*.v' | grep -v patches; \
+	   exit 1; \
+	 fi
+	@echo "[coq-gate] PASS: zero Admitted, all proofs compile"
+
+extraction-gate:
+	@echo "[extraction-gate] Verifying thiele_core.ml and thiele_core_minimal.ml..."
+	@for f in build/thiele_core.ml build/thiele_core_minimal.ml; do \
+	  if [ ! -s "$$f" ]; then echo "FAIL: $$f missing or empty"; exit 1; fi; \
+	  for sym in vm_instruction vm_apply vMState; do \
+	    if ! grep -q "$$sym" "$$f"; then echo "FAIL: $$sym not found in $$f"; exit 1; fi; \
+	  done; \
+	done
+	@echo "[extraction-gate] PASS: extraction artefacts present and export correct symbols"
+
+rtl-gate:
+	@echo "[rtl-gate] Running Yosys lite synthesis..."
+	yosys -s thielecpu/hardware/rtl/synth_lite.ys 2>&1 | tee /tmp/rtl_gate.log
+	@if grep -q 'ERROR\|error:' /tmp/rtl_gate.log; then echo "FAIL: Yosys errors found"; exit 1; fi
+	@cells=$$(grep 'Number of cells:' /tmp/rtl_gate.log | awk '{print $$NF}'); \
+	 if [ -z "$$cells" ] || [ "$$cells" -eq 0 ]; then echo "FAIL: zero cells synthesised"; exit 1; fi
+	@echo "[rtl-gate] PASS: RTL synthesises cleanly"
+
+cosim-gate:
+	@echo "[cosim-gate] Running iverilog/vvp co-simulation..."
+	pytest tests/test_rtl_synthesis_gate.py::test_verilog_cosim_testbench -v --tb=short
+	@echo "[cosim-gate] PASS"
+
+proof-dag: atlas-audit
+
+isomorphism-visual-audit: atlas-audit
+
+isomorphism-roadmap: atlas-audit
+
+heuristic-heatmaps: atlas-audit
+
+inquisitor-visual-audit: atlas-audit
 
 generate-python:
 	python3 scripts/generate_python_from_coq.py
@@ -367,7 +484,7 @@ synth-report:
 clean-synth: rtl-clean
 
 # Coq proof compilation
-.PHONY: coq-core coq-kernel coq-subsumption
+.PHONY: coq-core coq-kernel coq-subsumption proof-undeniable isomorphism-bitlock
 
 coq-core:
 	@echo "Building Coq core proofs..."
@@ -381,6 +498,35 @@ coq-kernel:
 coq-subsumption:
 	@$(MAKE) -C coq kernel/Subsumption.vo
 	@echo "✓ Subsumption proof (TURING ⊊ THIELE) verified"
+
+isomorphism-bitlock:
+	@echo "Running strict bit-for-bit Coq/Python/RTL lockstep gate..."
+	@pytest -q tests/test_rtl_compute_isomorphism.py -x --maxfail=1
+	@THIELE_EXHAUSTIVE=$${THIELE_EXHAUSTIVE:-1} \
+	pytest -q \
+	  tests/test_partition_isomorphism_minimal.py::test_partition_ops_pmerge_psplit_isomorphic \
+	  tests/test_partition_isomorphism_minimal.py::test_partition_ops_randomized_merge_split_isomorphic \
+	  tests/test_partition_isomorphism_minimal.py::test_pnew_dedup_singletons_isomorphic \
+	  tests/test_partition_isomorphism_minimal.py::test_pnew_randomized_sequences_isomorphic \
+	  -x --maxfail=1
+	@echo "✓ Bit-for-bit runtime lockstep PASSED"
+
+proof-undeniable:
+	@echo "Running formal proof gate (compile + audit + independent checker)..."
+	@$(MAKE) coq-kernel
+	@python3 scripts/inquisitor.py
+	@cd coq && coqchk -R kernel Kernel Kernel.Kernel Kernel.KernelTM Kernel.KernelThiele
+	@cd coq && coqchk -R kernel Kernel Kernel.PythonBisimulation Kernel.HardwareBisimulation Kernel.ThreeLayerIsomorphism
+	@cd coq && coqchk -R kernel Kernel -R bridge Bridge Kernel.VMState Kernel.VMStep Bridge.PythonMuLedgerBisimulation
+	@$(MAKE) isomorphism-bitlock
+	@echo "✓ Formal proof gate PASSED (inquisitor + coqchk)"
+
+deliverable-one-hour:
+	@echo "Building one-hour tangible deliverable..."
+	@$(MAKE) proof-undeniable
+	@python3 scripts/rsa_partition_demo.py --moduli $${DELIVERABLE_MODULI:-3233 10403} --analysis-bits 256 512 1024
+	@python3 scripts/generate_impact_deliverable.py --input rsa_demo_output/analysis_report.json --output artifacts/ONE_HOUR_DELIVERABLE.md
+	@echo "✓ Deliverable ready: artifacts/ONE_HOUR_DELIVERABLE.md"
 
 # Integration testing
 .PHONY: test-vm-rtl test-integration

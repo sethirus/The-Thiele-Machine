@@ -43,38 +43,18 @@ From Kernel Require Import MetricFromMuCosts.
 
 (** Metric tensor component
 
-    The metric tensor g_μν(w) at vertex w in directions μ,ν.
+    The metric tensor g_μν is read DIRECTLY from the vm_mu_tensor field.
+    This is the core change from the scalar approach:
 
-    In discrete spacetime:
-    - w is the vertex (position/event)
-    - μ,ν are coordinate indices (directions)
-    - g_μν(w) describes the local geometry at w
+    OLD: metric_component used module_structural_mass (scalar per module)
+    NEW: metric_component reads vm_mu_tensor(μ mod 4, ν mod 4) (full 4×4 tensor)
 
-    For a diagonal metric (isotropic/spherically symmetric):
-    g_μν(w) = δ_μν * f(w) for some function f
-
-    We define:
-    g_μν(w) = δ_μν * (2 * mass[w])
-
-    This makes the metric:
-    - Position-dependent (depends on local mass at w)
-    - Creates curvature when mass varies
-    - Reduces to flat metric for uniform mass
-
-    The factor of 2 comes from edge_length definition.
+    This makes the metric a genuine tensor field on the computational state,
+    enabling Einstein equations to emerge from quantum information dynamics.
+    Indices are taken mod 4 to stay in bounds.
 *)
 Definition metric_component (s : VMState) (μ ν v1 v2 : ModuleID) : R :=
-  if (μ =? ν)%bool then
-    (* Diagonal: depends on mass at the position *)
-    if (v1 =? v2)%bool then
-      (* At vertex v1, metric is 2*mass[v1] = edge_length(v1,v1) *)
-      edge_length s v1 v1
-    else
-      (* Between different vertices *)
-      edge_length s v1 v2
-  else
-    (* Off-diagonal components are zero *)
-    0%R.
+  mu_tensor_to_metric s (μ mod 4) (ν mod 4).
 
 (** ** Step 2: Discrete Christoffel Symbols
 

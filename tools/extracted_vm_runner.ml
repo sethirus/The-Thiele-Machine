@@ -186,6 +186,21 @@ let parse_program (lines : string list) : int * int list * int list * VMStep.vm_
                safe_int a,
                safe_int b,
                safe_int cost ))
+      | [ "REVEAL"; ti; tj; bits ] ->
+        let flat_idx = (safe_int ti) * 4 + (safe_int tj) in
+        let delta = safe_int bits in
+        Some (VMStep.Coq_instr_reveal (flat_idx, delta, [], delta))
+      | [ "REVEAL"; ti; tj; bits; cert ] ->
+        let flat_idx = (safe_int ti) * 4 + (safe_int tj) in
+        let delta = safe_int bits in
+        Some (VMStep.Coq_instr_reveal (flat_idx, delta, char_list_of_string cert, delta))
+      | [ "LASSERT"; mid; axiom; cost ] ->
+        Some (VMStep.Coq_instr_lassert (safe_int mid, char_list_of_string axiom,
+          VMStep.Coq_lassert_cert_sat (char_list_of_string ""), safe_int cost))
+      | [ "LJOIN"; f1; f2; cost ] ->
+        Some (VMStep.Coq_instr_ljoin (char_list_of_string f1, char_list_of_string f2, safe_int cost))
+      | [ "EMIT"; mid; bits; cost ] ->
+        Some (VMStep.Coq_instr_emit (safe_int mid, char_list_of_string bits, safe_int cost))
       | [ "ORACLE_HALTS"; payload; cost ] ->
         Some (VMStep.Coq_instr_oracle_halts (char_list_of_string payload, safe_int cost))
       | [ "HALT"; cost ] -> Some (VMStep.Coq_instr_halt (safe_int cost))
@@ -207,6 +222,7 @@ let initial_state () : vMState =
     vm_mem = make_list 256 [];
     vm_pc = 0;
     vm_mu = 0;
+    vm_mu_tensor = make_list 16 [];
     vm_err = false;
   }
 
@@ -254,12 +270,13 @@ let () =
       |> String.concat ","
     in
     printf
-      "{\"pc\":%d,\"mu\":%d,\"err\":%s,\"regs\":%s,\"mem\":%s,\"csrs\":{\"cert_addr\":%d,\"status\":%d,\"err\":%d},\"graph\":{\"next_id\":%d,\"modules\":[%s]}}\n%!"
+      "{\"pc\":%d,\"mu\":%d,\"err\":%s,\"regs\":%s,\"mem\":%s,\"mu_tensor\":%s,\"csrs\":{\"cert_addr\":%d,\"status\":%d,\"err\":%d},\"graph\":{\"next_id\":%d,\"modules\":[%s]}}\n%!"
       final_state.vm_pc
       final_state.vm_mu
       (json_bool final_state.vm_err)
       (json_int_list final_state.vm_regs)
       (json_int_list final_state.vm_mem)
+      (json_int_list final_state.vm_mu_tensor)
       final_state.vm_csrs.csr_cert_addr
       final_state.vm_csrs.csr_status
       final_state.vm_csrs.csr_err

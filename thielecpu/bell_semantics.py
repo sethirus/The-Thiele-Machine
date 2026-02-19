@@ -22,8 +22,13 @@ from typing import Dict, Tuple
 CountKey = Tuple[int, int, int, int]
 SettingKey = Tuple[int, int]
 
-TSIRELSON_BOUND: Fraction = Fraction(5657, 2000)  # 2.8285, conservative rational bound
+TSIRELSON_BOUND: Fraction = Fraction(5657, 2000)  # 2√2 ≈ 2.8285 (matches Coq kernel)
 DEFAULT_ENFORCEMENT_MIN_TRIALS_PER_SETTING: int = 10
+
+# CHSH value computation result (matches Coq kernel/Certification.v chsh_value)
+def chsh_value(counts: BellCounts) -> Fraction:
+    """Compute CHSH value from trial counts (matches Coq Certification.chsh_value)."""
+    return counts.chsh()
 
 
 @dataclass

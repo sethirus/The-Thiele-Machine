@@ -1,0 +1,17 @@
+flowchart LR
+    A[Coq Kernel Proofs
+VMState/VMStep/ThreeLayerIsomorphism] --> B[Bridges
+PythonMuLedgerBisimulation
+HardwareBisimulation]
+    B --> C[Python VM
+state.py + vm.py]
+    B --> D[RTL CPU
+thiele_cpu_unified.v]
+    C --> E[Runtime Isomorphism Tests]
+    D --> E
+    E --> F[Lockstep Verdict
+make isomorphism-bitlock]
+    A --> G[Proof DAG
+artifacts/proof_dependency_dag.json]
+    G --> H[Dependency Analysis
+roots / hubs / leaves]

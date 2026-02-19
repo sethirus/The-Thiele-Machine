@@ -139,7 +139,7 @@ Theorem mu_monotonic_step : forall s i s',
 Proof.
   intros s i s' Hstep.
   inversion Hstep; subst; 
-    unfold VMStep.advance_state, VMStep.advance_state_rm, VMStep.apply_cost; 
+    unfold VMStep.advance_state, VMStep.advance_state_reveal, VMStep.advance_state_rm, VMStep.apply_cost; 
     simpl; lia.
 Qed.
 

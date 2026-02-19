@@ -165,6 +165,7 @@ hardware/
 ### Prerequisites
 
 - Icarus Verilog (`iverilog`) for open-source simulation
+- Verilator (`verilator`) for alternate cycle-accurate simulation
 - Yosys (`yosys`) for structural checks and synthesis experiments
 - Coq 8.18.x for replaying the proof-level hardware bridge against the RTL trace
 - (Optional) Vivado/ModelSim for commercial simulation
@@ -172,7 +173,7 @@ hardware/
 On Debian/Ubuntu systems the required open-source tools can be installed with:
 
 ```bash
-sudo apt-get install coq iverilog yosys
+sudo apt-get install coq iverilog verilator yosys
 ```
 
 ### Running Tests
@@ -200,6 +201,21 @@ vvp tb_test
 iverilog -g2012 -o alu_test -I./rtl testbench/mu_alu_tb.v rtl/mu_alu.v
 vvp alu_test
 ```
+
+Co-simulation backend selection from Python:
+
+```bash
+# default backend
+THIELE_RTL_SIM=iverilog pytest -q tests/test_emergent_geometry_proxies.py
+
+# optional backend
+THIELE_RTL_SIM=verilator pytest -q tests/test_emergent_geometry_proxies.py
+```
+
+Layer semantics for Bianchi violation:
+
+- Python VM (`thielecpu/state.py`): raises `BianchiViolationError`.
+- Verilog RTL (`rtl/thiele_cpu_unified.v`): kill-switch freezes progress in `STATE_FETCH`.
 
 ### End-to-end verification workflow
 
