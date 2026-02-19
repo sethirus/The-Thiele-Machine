@@ -19,16 +19,19 @@ Import ThieleUniversal.TM.
 Import ThieleUniversal.UTM_Encode.
 Import ThieleUniversal.UTM_Program.
 
+(** [length_UTM_Encode_encode_rule]: formal specification. *)
 Lemma length_UTM_Encode_encode_rule : forall r,
   length (UTM_Encode.encode_rule r) = 5.
 Proof.
   intros [[[[q s] q'] w] m]. simpl. reflexivity.
 Qed.
 
+(** [flat_map_cons]: formal specification. *)
 Lemma flat_map_cons {A B} (f : A -> list B) (x : A) (xs : list A) :
   flat_map f (x :: xs) = f x ++ flat_map f xs.
 Proof. reflexivity. Qed.
 
+(** [nth_app_lt]: formal specification. *)
 Lemma nth_app_lt {A} (l1 l2 : list A) n d :
   n < length l1 -> nth n (l1 ++ l2) d = nth n l1 d.
 Proof.
@@ -37,6 +40,7 @@ Proof.
   apply IH. lia.
 Qed.
 
+(** [nth_app_ge]: formal specification. *)
 Lemma nth_app_ge {A} (l1 l2 : list A) n d :
   n >= length l1 -> nth n (l1 ++ l2) d = nth (n - length l1) l2 d.
 Proof.
@@ -51,6 +55,7 @@ Proof.
     exact IH.
 Qed.
 
+(** [nth_add_skipn]: formal specification. *)
 Lemma nth_add_skipn {A} (l : list A) base k d :
   nth (base + k) l d = nth k (skipn base l) d.
 Proof.
@@ -61,6 +66,7 @@ Proof.
     destruct k; simpl; auto using IH.
 Qed.
 
+(** [nth_firstn_lt]: formal specification. *)
 Lemma nth_firstn_lt {A} (n m : nat) (l : list A) d :
   n < m -> nth n (firstn m l) d = nth n l d.
 Proof.
@@ -71,6 +77,7 @@ Proof.
     apply IH. lia.
 Qed.
 
+(** [length_skipn_succ]: formal specification. *)
 Lemma length_skipn_succ : forall (A : Type) r (xs : list A),
   r < length xs -> length (skipn r xs) = S (length (skipn (S r) xs)).
 Proof.
@@ -87,6 +94,7 @@ Proof.
       exact Hr.
 Qed.
 
+(** [length_update_firstn_skipn]: formal specification. *)
 Lemma length_update_firstn_skipn : forall (A : Type) (l : list A) r (v : A),
   r < length l -> length (firstn r l ++ v :: skipn (S r) l) = length l.
 Proof.
@@ -101,6 +109,7 @@ Proof.
     reflexivity.
 Qed.
 
+(** [nth_update_firstn_skipn_same]: formal specification. *)
 Lemma nth_update_firstn_skipn_same : forall (A : Type) (l : list A) r (x d : A),
   r < length l -> nth r (firstn r l ++ x :: skipn (S r) l) d = x.
 Proof.
@@ -121,12 +130,14 @@ Fixpoint set_nth_local (l:list nat) (idx:nat) (v:nat) : list nat :=
   | hd::tl, S i => hd :: set_nth_local tl i v
   end.
 
+(** [length_set_nth_local]: formal specification. *)
 Lemma length_set_nth_local : forall l idx v,
   length (set_nth_local l idx v) = length l.
 Proof.
   induction l as [|hd tl IH]; intros [|idx] v; simpl; auto.
 Qed.
 
+(** [nth_set_nth_local_eq]: formal specification. *)
 Lemma nth_set_nth_local_eq : forall l idx v d,
   idx < length l ->
   nth idx (set_nth_local l idx v) d = v.
@@ -140,6 +151,7 @@ Proof.
       lia.
 Qed.
 
+(** [nth_set_nth_local_neq]: formal specification. *)
 Lemma nth_set_nth_local_neq : forall l idx j v d,
   idx < length l -> j < length l -> idx <> j ->
   nth j (set_nth_local l idx v) d = nth j l d.
@@ -148,6 +160,7 @@ Proof.
   - eapply IH; lia.
 Qed.
 
+(** [set_nth_eq_update]: formal specification. *)
 Lemma set_nth_eq_update : forall l r v,
   r < length l ->
   firstn r l ++ v :: skipn (S r) l = set_nth_local l r v.
@@ -179,6 +192,7 @@ Ltac normalize_set_nth :=
 
 
 
+(** [skipn_cons_nth]: formal specification. *)
 Lemma skipn_cons_nth : forall (A : Type) (l : list A) n d,
   n < length l ->
   skipn n l = nth n l d :: skipn (S n) l.
@@ -191,6 +205,7 @@ Proof.
     apply IH. simpl in Hlt. lia.
 Qed.
 
+(** [nth_update_firstn_skipn_other]: formal specification. *)
 Lemma nth_update_firstn_skipn_other : forall (l : list nat) r1 r2 (x d : nat),
   r1 < length l ->
   r2 < length l ->
@@ -204,6 +219,7 @@ Proof.
   unfold set_nth_local.
   apply nth_set_nth_local_neq; assumption.
 Qed.
+(** [nth_update_firstn_skipn_commute]: formal specification. *)
 Lemma nth_update_firstn_skipn_commute : forall (l : list nat) r1 r2 (v1 v2 : nat) r (d : nat),
   r1 < length l ->
   r2 < length l ->
@@ -221,6 +237,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [length_UTM_Encode_encode_rules]: formal specification. *)
 Lemma length_UTM_Encode_encode_rules : forall rs,
   length (UTM_Encode.encode_rules rs) = 5 * length rs.
 Proof.
@@ -228,12 +245,14 @@ Proof.
   rewrite app_length, length_UTM_Encode_encode_rule, IH. lia.
 Qed.
 
+(** [encode_rules_cons]: formal specification. *)
 Lemma encode_rules_cons : forall r rs,
   UTM_Encode.encode_rules (r :: rs) = UTM_Encode.encode_rule r ++ UTM_Encode.encode_rules rs.
 Proof.
   intros r rs. unfold UTM_Encode.encode_rules. simpl. reflexivity.
 Qed.
 
+(** [nth_encode_rules]: formal specification. *)
 Lemma nth_encode_rules :
   forall rs i j d,
     i < length rs -> j < 5 ->
@@ -273,6 +292,7 @@ Proof.
     simpl. destruct j; simpl in *; try lia; reflexivity.
 Qed.
 
+(** [skipn_ge_length]: formal specification. *)
 Lemma skipn_ge_length : forall (A : Type) (l : list A) n,
   length l <= n -> skipn n l = [].
 Proof.
@@ -284,6 +304,7 @@ Proof.
     + apply IH. simpl in Hlen. lia.
 Qed.
 
+(** [length_skipn_general]: formal specification. *)
 Lemma length_skipn_general : forall (A : Type) n (l : list A),
   length (skipn n l) = length l - n.
 Proof.
@@ -293,6 +314,7 @@ Proof.
   rewrite IH. lia.
 Qed.
 
+(** [skipn_app_exact]: formal specification. *)
 Lemma skipn_app_exact : forall (A : Type) (l1 l2 : list A) n,
   skipn (length l1 + n) (l1 ++ l2) = skipn n l2.
 Proof.
@@ -306,6 +328,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [skipn_encode_rules]: formal specification. *)
 Lemma skipn_encode_rules :
   forall rs i,
     skipn (i * 5) (UTM_Encode.encode_rules rs) = UTM_Encode.encode_rules (skipn i rs).
@@ -324,6 +347,7 @@ Proof.
       apply IH.
 Qed.
 
+(** [firstn_encode_rules]: formal specification. *)
 Lemma firstn_encode_rules :
   forall rs i,
     firstn (i * 5) (UTM_Encode.encode_rules rs) = UTM_Encode.encode_rules (firstn i rs).
@@ -342,6 +366,7 @@ Proof.
       apply IH.
 Qed.
 
+(** [read_mem_rule_component_from_table]: formal specification. *)
 Lemma read_mem_rule_component_from_table :
   forall (rules : list (nat * nat * nat * nat * Z)) (st : CPU.State)
          (i offset : nat),
@@ -381,6 +406,7 @@ Proof.
   apply (nth_encode_rules rules i offset 0); lia.
 Qed.
 
+(** [nat_eqb_sub_zero_false_of_lt]: formal specification. *)
 Lemma nat_eqb_sub_zero_false_of_lt : forall a b,
   b < a -> Nat.eqb (a - b) 0 = false.
 Proof.
@@ -390,6 +416,7 @@ Proof.
   lia.
 Qed.
 
+(** [length_regs_write_reg]: formal specification. *)
 Lemma length_regs_write_reg : forall st r v,
   r < length (CPU.regs st) ->
   length (CPU.regs (CPU.write_reg r v st)) = length (CPU.regs st).
@@ -400,6 +427,7 @@ Proof.
   exact Hr.
 Qed.
 
+(** [read_reg_write_reg_same]: formal specification. *)
 Lemma read_reg_write_reg_same : forall st r v,
   r < length (CPU.regs st) ->
   CPU.read_reg r (CPU.write_reg r v st) = v.
@@ -410,6 +438,7 @@ Proof.
   exact Hr.
 Qed.
 
+(** [read_reg_write_reg_other]: formal specification. *)
 Lemma read_reg_write_reg_other : forall st r1 r2 v,
   r1 < length (CPU.regs st) ->
   r2 < length (CPU.regs st) ->
@@ -424,6 +453,7 @@ Proof.
   - exact Hneq.
 Qed.
 
+(** [read_reg_write_reg_commute]: formal specification. *)
 Lemma read_reg_write_reg_commute : forall st a b va vb r,
   a <> b -> r <> a -> r <> b ->
   a < length (CPU.regs st) -> b < length (CPU.regs st) -> r < length (CPU.regs st) ->
@@ -462,6 +492,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [read_reg_ge_length]: formal specification. *)
 Lemma read_reg_ge_length : forall st r,
   r >= length (CPU.regs st) -> CPU.read_reg r st = 0.
 Proof.
@@ -471,6 +502,7 @@ Proof.
   exact Hge.
 Qed.
 
+(** [nth_overflow_nat]: formal specification. *)
 Lemma nth_overflow_nat : forall n l,
   length l <= n -> nth n l 0 = 0.
 Proof.
@@ -479,6 +511,7 @@ Proof.
   exact Hlen.
 Qed.
 
+(** [read_reg_nonzero_implies_in_bounds]: formal specification. *)
 Lemma read_reg_nonzero_implies_in_bounds : forall st r,
   CPU.read_reg r st <> 0 -> r < length (CPU.regs st).
 Proof.
@@ -490,6 +523,7 @@ Proof.
   { exact Hlt. }
 Qed.
 
+(** [length_firstn_le]: formal specification. *)
 Lemma length_firstn_le : forall (A : Type) (l : list A) n,
   n <= length l -> length (firstn n l) = n.
 Proof.
@@ -501,6 +535,7 @@ Proof.
     simpl. f_equal. apply IH. lia.
 Qed.
 
+(** [TM_find_rule_some_split]: formal specification. *)
 Lemma TM_find_rule_some_split :
   forall rules q sym q' w m,
     find_rule rules q sym = Some (q', w, m) ->
@@ -523,6 +558,7 @@ Proof.
       simpl. now rewrite Heq.
 Qed.
 
+(** [TM_find_rule_skipn_index]: formal specification. *)
 Lemma TM_find_rule_skipn_index :
   forall rules i q sym q' w m,
     TM.find_rule (skipn i rules) q sym = Some (q', w, m) ->
@@ -559,6 +595,7 @@ Proof.
 Qed.
 
 (* Helper lemma for memory consistency in rule table suffixes *)
+(** [encode_rules_skipn_consistent]: formal specification. *)
 Lemma encode_rules_skipn_consistent :
   forall rules i j,
     i < length rules ->

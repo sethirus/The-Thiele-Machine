@@ -99,9 +99,11 @@ Module ThieleSpaceland.
   Lemma LCompute_not_LSplit : forall m, (@LCompute ModuleId) <> (@LSplit ModuleId m).
   Proof. intros m H. discriminate H. Qed.
   
+  (** [LCompute_not_LMerge]: formal specification. *)
   Lemma LCompute_not_LMerge : forall m1 m2, (@LCompute ModuleId) <> (@LMerge ModuleId m1 m2).
   Proof. intros m1 m2 H. discriminate H. Qed.
   
+  (** [LCompute_not_LObserve]: formal specification. *)
   Lemma LCompute_not_LObserve : forall m, (@LCompute ModuleId) <> (@LObserve ModuleId m).
   Proof. intros m H. discriminate H. Qed.
   
@@ -509,6 +511,7 @@ Module ThieleSpaceland.
     | TCons s l rest => TCons s l (trace_concat rest t2)
     end.
   
+  (** [mu_additive]: formal specification. *)
   Lemma mu_additive : forall t1 t2,
     trace_final t1 = trace_init t2 ->
     trace_mu (trace_concat t1 t2) = trace_mu t1 + trace_mu t2.
@@ -839,12 +842,14 @@ Module ThieleSpaceland.
     modules_eqb (CoreSemantics.modules p) (CoreSemantics.modules q)
     && Nat.eqb (CoreSemantics.next_module_id p) (CoreSemantics.next_module_id q).
 
+  (** [list_nat_eqb_refl]: formal specification. *)
   Lemma list_nat_eqb_refl : forall xs, list_nat_eqb xs xs = true.
   Proof.
     induction xs as [| x xs IH]; simpl; auto.
     rewrite Nat.eqb_refl. rewrite IH. reflexivity.
   Qed.
 
+  (** [list_nat_eqb_eq]: formal specification. *)
   Lemma list_nat_eqb_eq : forall xs ys, list_nat_eqb xs ys = true -> xs = ys.
   Proof.
     induction xs as [| x xs IH]; destruct ys as [| y ys]; simpl; intros H; try discriminate.
@@ -854,12 +859,14 @@ Module ThieleSpaceland.
       f_equal. apply IH. exact Hrest.
   Qed.
 
+  (** [modules_eqb_refl]: formal specification. *)
   Lemma modules_eqb_refl : forall xs, modules_eqb xs xs = true.
   Proof.
     induction xs as [| [m r] xs IH]; simpl; auto.
     rewrite Nat.eqb_refl. rewrite list_nat_eqb_refl. rewrite IH. reflexivity.
   Qed.
 
+  (** [modules_eqb_eq]: formal specification. *)
   Lemma modules_eqb_eq : forall xs ys, modules_eqb xs ys = true -> xs = ys.
   Proof.
     induction xs as [| [m r] xs IH]; destruct ys as [| [m' r'] ys]; simpl; intros H; try discriminate.
@@ -872,6 +879,7 @@ Module ThieleSpaceland.
       f_equal. apply IH. exact Hrest.
   Qed.
 
+  (** [partition_eqb_refl]: formal specification. *)
   Lemma partition_eqb_refl : forall p, partition_eqb p p = true.
   Proof.
     intros [mods mid].
@@ -879,6 +887,7 @@ Module ThieleSpaceland.
     rewrite modules_eqb_refl. rewrite Nat.eqb_refl. reflexivity.
   Qed.
 
+  (** [partition_eqb_eq]: formal specification. *)
   Lemma partition_eqb_eq : forall p q, partition_eqb p q = true -> p = q.
   Proof.
     intros [mods mid] [mods' mid'] H.
@@ -923,6 +932,7 @@ Module ThieleSpaceland.
     | l :: ls' => TCons (mk_state init_p 0) l (build_receipt_trace init_p final_p tot_mu ls')
     end.
 
+  (** [trace_labels_build_receipt_trace]: formal specification. *)
   Lemma trace_labels_build_receipt_trace : forall init_p final_p tot_mu ls,
     trace_labels (build_receipt_trace init_p final_p tot_mu ls) = ls.
   Proof.
@@ -935,6 +945,7 @@ Module ThieleSpaceland.
         exact IH.
   Qed.
 
+  (** [get_partition_trace_initial_build_receipt_trace_nonempty]: formal specification. *)
   Lemma get_partition_trace_initial_build_receipt_trace_nonempty : forall init_p final_p tot_mu ls,
     ls <> [] ->
     get_partition (trace_initial (build_receipt_trace init_p final_p tot_mu ls)) = init_p.
@@ -945,6 +956,7 @@ Module ThieleSpaceland.
     - destruct ls as [| l2 ls2]; cbn [build_receipt_trace trace_initial get_partition mk_state]; reflexivity.
   Qed.
 
+  (** [get_partition_trace_final_build_receipt_trace_nonempty]: formal specification. *)
   Lemma get_partition_trace_final_build_receipt_trace_nonempty : forall init_p final_p tot_mu ls,
     ls <> [] ->
     get_partition (trace_final (build_receipt_trace init_p final_p tot_mu ls)) = final_p.
@@ -958,6 +970,7 @@ Module ThieleSpaceland.
         exact (IH (ltac:(discriminate))).
   Qed.
 
+  (** [trace_mu_build_receipt_trace_nonempty]: formal specification. *)
   Lemma trace_mu_build_receipt_trace_nonempty : forall init_p final_p tot_mu ls,
     ls <> [] ->
     trace_mu (build_receipt_trace init_p final_p tot_mu ls) = tot_mu.

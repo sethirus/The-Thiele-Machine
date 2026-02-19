@@ -66,6 +66,7 @@ Fixpoint bounded_run (fuel : nat) (trace : list vm_instruction)
       end
   end.
 
+(** [bounded_run_head]: formal specification. *)
 Lemma bounded_run_head :
   forall fuel trace s,
     exists rest, bounded_run fuel trace s = s :: rest.
@@ -134,6 +135,7 @@ Fixpoint ledger_conserved (states : list VMState) (entries : list nat)
   | _, _ => False
   end.
 
+(** [ledger_conserved_tail]: formal specification. *)
 Lemma ledger_conserved_tail :
   forall s states entries,
     ledger_conserved (s :: states) entries ->
@@ -193,6 +195,7 @@ Fixpoint ledger_sum (entries : list nat) : nat :=
 Definition irreversible_bits (instr : vm_instruction) : nat :=
   if instruction_cost instr =? 0 then 0 else 1.
 
+(** [irreversible_bits_le_cost]: formal specification. *)
 Lemma irreversible_bits_le_cost :
   forall instr, irreversible_bits instr <= instruction_cost instr.
 Proof.
@@ -283,6 +286,7 @@ Proof.
     + split; [exact I | rewrite Nat.add_0_r; reflexivity].
 Qed.
 
+(** [bounded_ledger_conservation]: formal specification. *)
 Corollary bounded_ledger_conservation :
   forall fuel trace s,
     ledger_conserved (bounded_run fuel trace s)
@@ -292,6 +296,7 @@ Proof.
   apply (proj1 (bounded_model_mu_ledger_conservation fuel trace s)).
 Qed.
 
+(** [run_vm_mu_conservation]: formal specification. *)
 Corollary run_vm_mu_conservation :
   forall fuel trace s,
     (run_vm fuel trace s).(vm_mu) =
@@ -301,6 +306,7 @@ Proof.
   apply (proj2 (bounded_model_mu_ledger_conservation fuel trace s)).
 Qed.
 
+(** [run_vm_mu_bounds_irreversibility]: formal specification. *)
 Corollary run_vm_mu_bounds_irreversibility :
   forall fuel trace s,
     s.(vm_mu) + irreversible_count fuel trace s <= (run_vm fuel trace s).(vm_mu).
@@ -339,6 +345,7 @@ Proof.
   apply run_vm_irreversibility_gap.
 Qed.
 
+(** [bounded_prefix_mu_balance]: formal specification. *)
 Corollary bounded_prefix_mu_balance :
   forall fuel trace s k,
     k <= fuel ->
@@ -364,6 +371,7 @@ Proof.
   lia.
 Qed.
 
+(** [run_vm_mu_monotonic]: formal specification. *)
 Theorem run_vm_mu_monotonic :
   forall fuel trace s,
     s.(vm_mu) <= (run_vm fuel trace s).(vm_mu).
@@ -396,6 +404,7 @@ Proof.
       * simpl. lia.
 Qed.
 
+(** [run_vm_mu_monotonic_composition]: formal specification. *)
 Theorem run_vm_mu_monotonic_composition :
   forall m n trace s,
     s.(vm_mu) <= (run_vm m trace s).(vm_mu) /\
@@ -424,6 +433,7 @@ Variable mu_component_split : forall instr,
   instruction_cost instr =
     mu_blind_component instr + mu_sighted_component instr.
 
+(** [ledger_sum_component_decompose]: formal specification. *)
 Lemma ledger_sum_component_decompose :
   forall fuel trace s,
     ledger_sum (ledger_entries fuel trace s) =
@@ -442,6 +452,7 @@ Proof.
     + reflexivity.
 Qed.
 
+(** [bounded_run_mu_decomposition]: formal specification. *)
 Theorem bounded_run_mu_decomposition :
   forall fuel trace s,
     (run_vm fuel trace s).(vm_mu) =
@@ -457,6 +468,7 @@ Proof.
   lia.
 Qed.
 
+(** [bounded_run_blind_component_le_total]: formal specification. *)
 Corollary bounded_run_blind_component_le_total :
   forall fuel trace s,
     s.(vm_mu) + ledger_component_sum mu_blind_component fuel trace s <=
@@ -469,6 +481,7 @@ Proof.
   lia.
 Qed.
 
+(** [bounded_run_sighted_component_le_total]: formal specification. *)
 Corollary bounded_run_sighted_component_le_total :
   forall fuel trace s,
     s.(vm_mu) + ledger_component_sum mu_sighted_component fuel trace s <=

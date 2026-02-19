@@ -69,7 +69,7 @@ Import ListNotations.
     - Field observe: VMState → A (the measurement function)
 
     IMPLEMENTATION (coq/kernel/ObserverDerivation.v:61-63):
-    Record with single field. The type A determines what granularity the observer
+    A single-field record. The type A determines what granularity the observer
     has - coarse observers collapse distinctions that fine observers preserve.
 
     EXAMPLE:
@@ -466,6 +466,7 @@ Definition ObserverObservableRegion : Observer (nat -> option (list nat)) :=
     - Establishes consistency between full and region observations
 *)
 (* Definitional lemma: This equality is by definition, not vacuous *)
+(** [obs_equiv_implies_region_equiv]: formal specification. *)
 Lemma obs_equiv_implies_region_equiv : forall s1 s2,
   obs_equiv s1 s2 ->
   forall mid, ObservableRegion s1 mid = ObservableRegion s2 mid.
@@ -526,6 +527,7 @@ Qed.
     - File header (line 42): states as key property
 *)
 (* Definitional lemma: This equality is by definition, not vacuous *)
+(** [observer_region_gauge_invariant]: formal specification. *)
 Lemma observer_region_gauge_invariant : forall s k mid,
   observe _ ObserverObservableRegion s mid =
   observe _ ObserverObservableRegion (mu_gauge_shift k s) mid.

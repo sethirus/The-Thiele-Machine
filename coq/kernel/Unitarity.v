@@ -238,6 +238,7 @@ Definition unitary_zero_cost (E : Evolution) : Prop :=
 *)
 (* DEFINITIONAL *)
 (* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
+(** [trace_preserved_by_normalization]: formal specification. *)
 Theorem trace_preserved_by_normalization :
   forall E : Evolution,
     trace_preserving E.

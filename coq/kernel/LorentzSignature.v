@@ -75,9 +75,11 @@ Qed.
 Lemma signature_spatial_1 : signature_tensor 1 1 = 1%R.
 Proof. unfold signature_tensor. simpl. reflexivity. Qed.
 
+(** [signature_spatial_2]: formal specification. *)
 Lemma signature_spatial_2 : signature_tensor 2 2 = 1%R.
 Proof. unfold signature_tensor. simpl. reflexivity. Qed.
 
+(** [signature_spatial_3]: formal specification. *)
 Lemma signature_spatial_3 : signature_tensor 3 3 = 1%R.
 Proof. unfold signature_tensor. simpl. reflexivity. Qed.
 

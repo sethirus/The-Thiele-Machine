@@ -477,6 +477,7 @@ Proof.
   eapply MuNoFreeInsightQuantitative.supra_cert_implies_mu_lower_bound_trace_run; eauto.
 Qed.
 
+(** [certified_bell_violation_implies_mu_lower_bound]: formal specification. *)
 Corollary certified_bell_violation_implies_mu_lower_bound :
   forall (trace : Trace) (s_init s_final : VMState) (fuel : nat),
     trace_run fuel trace s_init = Some s_final ->

@@ -31,14 +31,17 @@ Module SimpleSpaceland.
   Definition mu_cost (s : State) (l : Label) (s' : State) : Z :=
     (snd s' - snd s)%Z.
   
+  (** [step_det]: formal specification. *)
   Lemma step_det : forall s l s1 s2,
     step s l s1 -> step s l s2 -> s1 = s2.
   Proof. intros. destruct H; inversion H0; reflexivity. Qed.
   
+  (** [mu_nonneg]: formal specification. *)
   Lemma mu_nonneg : forall s l s',
     step s l s' -> (mu_cost s l s' >= 0)%Z.
   Proof. intros. unfold mu_cost. destruct H; simpl; lia. Qed.
   
+  (** [mu_blind]: formal specification. *)
   Lemma mu_blind : forall s s',
     step s LCompute s' -> fst s = fst s' -> mu_cost s LCompute s' = 0%Z.
   Proof. intros. inversion H; subst; unfold mu_cost; simpl; lia. Qed.
@@ -81,6 +84,7 @@ Module Observables.
   
   (** Absolute μ NOT observable - gauge freedom *)
   (* DEFINITIONAL — observable reads partition only, not μ *)
+  (** [mu_gauge_freedom]: formal specification. *)
   Lemma mu_gauge_freedom : forall p m1 m2,
     observable (TNil (p, m1)) = observable (TNil (p, m2)).
   Proof.

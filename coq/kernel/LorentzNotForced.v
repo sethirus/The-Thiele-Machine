@@ -61,6 +61,7 @@ Definition cone_preserving (phi : list vm_instruction -> list vm_instruction) : 
   forall t, causal_cone (phi t) = causal_cone t.
 
 (* There is always a trivial cone-preserving symmetry: identity. *)
+(** [Lorentz_Not_Forced]: formal specification. *)
 Theorem Lorentz_Not_Forced : exists phi, cone_preserving phi.
 Proof.
   exists (fun t => t).
@@ -90,6 +91,7 @@ Proof.
 Qed.
 
 (* Definitional lemma: This equality is by definition, not vacuous *)
+(** [Cone_Symmetry_Underdetermined]: formal specification. *)
 Theorem Cone_Symmetry_Underdetermined :
   exists phi,
     (forall t, causal_cone (phi t) = causal_cone t) /\

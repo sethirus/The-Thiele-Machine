@@ -82,6 +82,7 @@ Definition rule_references_chsh (r : mu_cost_rule) : bool := false.
 Definition rule_references_quantum (r : mu_cost_rule) : bool := false.
 Definition rule_references_tsirelson (r : mu_cost_rule) : bool := false.
 
+(** [mu_cost_is_physics_free]: formal specification. *)
 Theorem mu_cost_is_physics_free :
   forall r : mu_cost_rule,
     rule_references_chsh r = false /\
@@ -98,6 +99,7 @@ Definition chsh_formula_is_algebraic : Prop :=
   forall e00 e01 e10 e11 : Q,
     (e00 + e01 + e10 - e11)%Q = (e00 + e01 + e10 - e11)%Q.
 
+(** [chsh_formula_physics_free]: formal specification. *)
 Theorem chsh_formula_physics_free : chsh_formula_is_algebraic.
 Proof. unfold chsh_formula_is_algebraic. intros. reflexivity. Qed.
 
@@ -116,6 +118,7 @@ Definition classical_bound_appears_as_achievable : Prop :=
   (* This value is achieved by a μ=0 program (constructive) *)
   mu_cost_of_trace 10 classical_achieving_trace 0 = 0%nat.
 
+(** [classical_bound_is_derived_not_assumed]: formal specification. *)
 Theorem classical_bound_is_derived_not_assumed : classical_bound_appears_as_achievable.
 Proof.
   unfold classical_bound_appears_as_achievable, classical_chsh_value.
@@ -154,6 +157,7 @@ Definition mu_zero_class (instr : vm_instruction) : Prop :=
 Definition trace_all_mu_zero (trace : list vm_instruction) : Prop :=
   forall instr, In instr trace -> mu_zero_class instr.
 
+(** [mu_zero_closure]: formal specification. *)
 Theorem mu_zero_closure :
   forall trace1 trace2,
     trace_all_mu_zero trace1 ->
@@ -186,6 +190,7 @@ Proof.
   intros. subst. unfold mu_zero_class, mu_cost_of_instr. reflexivity.
 Qed.
 
+(** [psplit_is_mu_zero]: formal specification. *)
 Lemma psplit_is_mu_zero :
   forall mid left right mu_delta,
     mu_delta = 0%nat ->
@@ -194,6 +199,7 @@ Proof.
   intros. subst. unfold mu_zero_class, mu_cost_of_instr. reflexivity.
 Qed.
 
+(** [pmerge_is_mu_zero]: formal specification. *)
 Lemma pmerge_is_mu_zero :
   forall m1 m2 mu_delta,
     mu_delta = 0%nat ->
@@ -213,6 +219,7 @@ Proof.
   discriminate.
 Qed.
 
+(** [lassert_not_mu_zero]: formal specification. *)
 Lemma lassert_not_mu_zero :
   forall mid formula cert mu_delta,
     ~(mu_zero_class (instr_lassert mid formula cert mu_delta)).
@@ -222,6 +229,7 @@ Proof.
   discriminate.
 Qed.
 
+(** [ljoin_not_mu_zero]: formal specification. *)
 Lemma ljoin_not_mu_zero :
   forall cert1 cert2 mu_delta,
     ~(mu_zero_class (instr_ljoin cert1 cert2 mu_delta)).
@@ -291,6 +299,7 @@ Definition mu_zero_locc_correspondence : Prop :=
   (* Revelation ops are costly (non-LOCC) *)
   (forall mid bits cert, ~mu_zero_class (instr_reveal mid bits cert 0)).
 
+(** [mu_zero_is_locc_like]: formal specification. *)
 Theorem mu_zero_is_locc_like : mu_zero_locc_correspondence.
 Proof.
   unfold mu_zero_locc_correspondence.
@@ -352,6 +361,7 @@ Definition non_circularity_certificate : Prop :=
   (* Part D: μ=0 class has LOCC-like properties *)
   mu_zero_locc_correspondence.
 
+(** [non_circularity_verified]: formal specification. *)
 Theorem non_circularity_verified : non_circularity_certificate.
 Proof.
   unfold non_circularity_certificate.

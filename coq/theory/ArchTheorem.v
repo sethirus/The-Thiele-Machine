@@ -41,12 +41,14 @@ Definition optimal_quartet : list OptimalStrategy :=
 
 (* The quartet is complete (contains exactly 4 strategies) *)
 (* ARITHMETIC — length of a 4-element list *)
+(** [optimal_quartet_complete]: formal specification. *)
 Lemma optimal_quartet_complete : length optimal_quartet = 4%nat.
 Proof.
   unfold optimal_quartet. simpl. reflexivity.
 Qed.
 
 (* Each strategy in the quartet is distinct *)
+(** [optimal_quartet_distinct]: formal specification. *)
 Lemma optimal_quartet_distinct : NoDup optimal_quartet.
 Proof.
   unfold optimal_quartet.
@@ -76,6 +78,7 @@ Definition optimal_quartet_performance : PerformanceMetric := {|
 
 (* The quartet achieves greater than 90% accuracy *)
 (* ARITHMETIC — concrete rational comparison 9051/10000 > 90/100 *)
+(** [optimal_quartet_high_accuracy]: formal specification. *)
 Theorem optimal_quartet_high_accuracy :
   mean_accuracy optimal_quartet_performance > 90 / 100.
 Proof.
@@ -122,11 +125,13 @@ Definition probability_correct_classification
 Definition reliability_threshold : R := 90/100.
 
 (* The reliability threshold is 90/100 (90% accuracy) *)
+(** [reliability_threshold_value]: formal specification. *)
 Lemma reliability_threshold_value :
   reliability_threshold = 90/100.
 Proof. reflexivity. Qed.
 
 (* Empirical alignment between the observed accuracy and the abstract model. *)
+(** [probability_alignment_empirical]: formal specification. *)
 Lemma probability_alignment_empirical :
   probability_correct_classification optimal_quartet eq_refl =
   mean_accuracy optimal_quartet_performance.
@@ -139,6 +144,7 @@ Proof. reflexivity. Qed.
  * a Thiele Machine using the optimal quartet classifies it correctly
  * with probability greater than 90%.
  *)
+(** [arch_theorem]: formal specification. *)
 Theorem arch_theorem :
   forall (pc : ProblemClass),
   probability_correct_classification optimal_quartet eq_refl > reliability_threshold.
@@ -156,6 +162,7 @@ Qed.
  *)
 
 (* For structured problems, the machine returns STRUCTURED *)
+(** [arch_theorem_structured]: formal specification. *)
 Theorem arch_theorem_structured :
   forall (sig : GeometricSignatureTy),
   is_structured_signature sig = true ->
@@ -179,6 +186,7 @@ Proof.
 Qed.
 
 (* For chaotic problems, the machine returns CHAOTIC *)
+(** [arch_theorem_chaotic]: formal specification. *)
 Theorem arch_theorem_chaotic :
   forall (sig : GeometricSignatureTy),
   is_structured_signature sig = false ->
@@ -224,6 +232,7 @@ Definition alternative_performance
   optimal_quartet_performance.
 
 (* The optimal quartet is best *)
+(** [alternative_performance_empirical]: formal specification. *)
 Lemma alternative_performance_empirical :
   forall (config : StrategyConfiguration),
     config <> optimal_quartet ->
@@ -235,6 +244,7 @@ Proof.
   apply Rle_refl.
 Qed.
 
+(** [optimal_quartet_is_optimal]: formal specification. *)
 Theorem optimal_quartet_is_optimal :
   forall (config : StrategyConfiguration),
   config <> optimal_quartet ->
@@ -250,6 +260,7 @@ Qed.
  * The optimal configuration is architecturally final.
  * No further optimization is needed.
  *)
+(** [architectural_permanence]: formal specification. *)
 Theorem architectural_permanence :
   forall (future_config : StrategyConfiguration),
   mean_accuracy (alternative_performance future_config) <=

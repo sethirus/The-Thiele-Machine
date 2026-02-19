@@ -64,6 +64,7 @@ Definition spacetime_system : System :=
 Definition spacetime_self_reference : Prop :=
   exists (F : Frame) (P : Prop), P /\ observes F (fun _ => P).
 
+(** [spacetime_is_self_referential]: formal specification. *)
 Lemma spacetime_is_self_referential :
   spacetime_self_reference -> contains_self_reference spacetime_system.
 Proof.
@@ -103,16 +104,19 @@ Qed.
 (** A concrete meta-level witness for spacetime that is dimensionally richer. *)
 Definition spacetime_meta : System := meta_system spacetime_system.
 
+(** [spacetime_meta_properties]: formal specification. *)
 Lemma spacetime_meta_properties :
   can_reason_about spacetime_meta spacetime_system /\ dimensionally_richer spacetime_meta spacetime_system.
 Proof.
   split; [apply meta_system_can_reason_about | apply meta_system_richer].
 Qed.
 
+(** [spacetime_meta_dimensional_gap]: formal specification. *)
 Lemma spacetime_meta_dimensional_gap : dimension spacetime_system = 4.
 Proof. reflexivity. Qed.
 
 (* ARITHMETIC — meta_system adds 1 to dimension 4, giving 5 > 4 *)
+(** [spacetime_meta_exceeds_4d]: formal specification. *)
 Lemma spacetime_meta_exceeds_4d : dimension spacetime_meta > 4.
 Proof.
   unfold spacetime_meta, meta_system, dimensionally_richer; simpl.
@@ -125,6 +129,7 @@ Qed.
 Definition spacetime_global_gap : Prop :=
   forall (Q : LocalPredicate), (exists e, at_event e Q) -> ~ (forall e, Q e = true -> contains_self_reference spacetime_system).
 
+(** [global_truth_escapes]: formal specification. *)
 Lemma global_truth_escapes :
   spacetime_global_gap ->
   exists Meta,

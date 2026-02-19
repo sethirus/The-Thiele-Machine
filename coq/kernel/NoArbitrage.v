@@ -138,6 +138,7 @@ Fixpoint asymmetric_cost (t : CTrace) : Z :=
   | op :: rest => op_cost op + asymmetric_cost rest
   end.
 
+(** [asymmetric_additive]: formal specification. *)
 Lemma asymmetric_additive : c_additive asymmetric_cost.
 Proof.
   split; [reflexivity|].

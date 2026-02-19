@@ -35,12 +35,15 @@ Definition covers_settings (ts : list Trial) : Prop :=
 Lemma bit_eqb_refl : forall b, bit_eqb b b = true.
 Proof. destruct b; reflexivity. Qed.
 
+(** [bit_eqb_eq]: formal specification. *)
 Lemma bit_eqb_eq : forall x y, bit_eqb x y = true -> x = y.
 Proof. destruct x, y; simpl; auto; discriminate. Qed.
 
+(** [B0_neq_B1]: formal specification. *)
 Lemma B0_neq_B1 : B0 <> B1.
 Proof. intro H; inversion H. Qed.
 
+(** [B1_neq_B0]: formal specification. *)
 Lemma B1_neq_B0 : B1 <> B0.
 Proof. intro H; inversion H. Qed.
 (** HELPER: Reflexivity/transitivity/symmetry property *)
@@ -53,6 +56,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [trial_eqb_eq]: formal specification. *)
 Lemma trial_eqb_eq : forall t u, trial_eqb t u = true -> t = u.
 Proof.
   intros [x y a b] [x' y' a' b'] H.
@@ -101,6 +105,7 @@ Proof.
   - apply Hnb. exact HuB.
 Qed.
 
+(** [total_for_setting_deterministic]: formal specification. *)
 Lemma total_for_setting_deterministic :
   forall ts rA rB x y,
     local_trials rA rB ts ->
@@ -172,6 +177,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [p_from_trials_deterministic_one]: formal specification. *)
 Lemma p_from_trials_deterministic_one :
   forall ts rA rB x y,
     local_trials rA rB ts ->
@@ -206,6 +212,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [correlator_deterministic]: formal specification. *)
 Lemma correlator_deterministic :
   forall ts rA rB x y,
     local_trials rA rB ts ->
@@ -301,6 +308,7 @@ Proof.
 Qed.
 
 (* SAFE: classical CHSH bound |S| ≤ 2 for local trial data *)
+(** [local_trials_CHSH_bound]: formal specification. *)
 Theorem local_trials_CHSH_bound :
   forall ts rA rB,
     local_trials rA rB ts ->

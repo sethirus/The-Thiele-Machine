@@ -55,10 +55,12 @@ Definition wave_decode (s : VMState) : WState :=
   if Nat.eqb s.(vm_pc) 0 then wave_decode_modules mods
   else wave_step (wave_decode_modules mods).
 
+(** [decode_cell_from_wave_cell]: formal specification. *)
 Lemma decode_cell_from_wave_cell : forall c : WaveCell,
   decode_wave_cell (module_from_wave_cell c) = c.
 Proof. destruct c; reflexivity. Qed.
 
+(** [wave_decode_encoded]: formal specification. *)
 Lemma wave_decode_encoded : forall s : WState,
   wave_decode_modules (wave_encoded_modules s) = s.
 Proof.
@@ -67,6 +69,7 @@ Proof.
   rewrite decode_cell_from_wave_cell. f_equal. exact IH.
 Qed.
 
+(** [wave_decode_encode_id]: formal specification. *)
 Lemma wave_decode_encode_id : forall s : WState,
   wave_decode (wave_encode s) = s.
 Proof.
@@ -80,6 +83,7 @@ Qed.
 Definition wave_trace_instr : vm_instruction := instr_emit 0 EmptyString 0.
 Definition wave_trace : list vm_instruction := [wave_trace_instr].
 
+(** [wave_trace_cost_zero]: formal specification. *)
 Lemma wave_trace_cost_zero :
   forall pc instr, nth_error wave_trace pc = Some instr -> instruction_cost instr = 0.
 Proof.
@@ -113,6 +117,7 @@ Proof.
   apply wave_energy_conserved.
 Qed.
 
+(** [vm_preserves_wave_momentum]: formal specification. *)
 Lemma vm_preserves_wave_momentum :
   forall S : WState,
     wave_momentum (wave_decode (run_vm 1 wave_trace (wave_encode S))) =
@@ -137,6 +142,7 @@ Proof.
   - exact thiele_implements_wave_step.
 Defined.
 
+(** [wave_trace_cost_free_witness]: formal specification. *)
 Lemma wave_trace_cost_free_witness :
   embedding_trace_cost_free wave_embedding.
 Proof. exists wave_trace_cost_zero; reflexivity. Qed.
@@ -151,5 +157,6 @@ Proof.
            wave_embedding wave_trace_cost_free_witness).
 Qed.
 
+(** [wave_embeddable]: formal specification. *)
 Theorem wave_embeddable : embeddable wave_model.
 Proof. exists wave_embedding; exact I. Qed.

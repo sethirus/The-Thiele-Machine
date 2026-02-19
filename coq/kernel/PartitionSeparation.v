@@ -602,6 +602,7 @@ Definition preserves_partition_labels (tm_sys : TMTransitionSystem)
     The contradiction comes from [partition_structure_changed] detecting a
     0-to-1 module transition that no TM can semantically represent. *)
 (* DEFINITIONAL *)
+(** [partition_based_separation]: formal specification. *)
 Theorem partition_based_separation :
   (* There exists a Thiele program that produces transitions
      which no TM can faithfully represent when partition labels

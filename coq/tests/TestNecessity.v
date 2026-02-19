@@ -114,6 +114,7 @@ Proof.
   unfold weight_empty, w_free_read. simpl. reflexivity.
 Qed.
 
+(** [count_xfer_app]: formal specification. *)
 Lemma count_xfer_app : forall t1 t2, count_xfer (t1 ++ t2) = count_xfer t1 + count_xfer t2.
 Proof.
   induction t1 as [|i rest IH]; intro t2.
@@ -121,12 +122,14 @@ Proof.
   - simpl. destruct i; simpl; rewrite IH; lia.
 Qed.
 
+(** [w_free_read_sequential]: formal specification. *)
 Lemma w_free_read_sequential : weight_sequential w_free_read.
 Proof.
   unfold weight_sequential, w_free_read.
   intros t1 t2. apply count_xfer_app.
 Qed.
 
+(** [w_free_read_disjoint_commutes]: formal specification. *)
 Lemma w_free_read_disjoint_commutes : weight_disjoint_commutes w_free_read.
 Proof.
   unfold weight_disjoint_commutes, w_free_read.
@@ -134,6 +137,7 @@ Proof.
   rewrite !count_xfer_app. lia.
 Qed.
 
+(** [w_free_read_laws]: formal specification. *)
 Lemma w_free_read_laws : weight_laws w_free_read.
 Proof.
   unfold weight_laws.

@@ -47,6 +47,7 @@ Section Core.
     | @Seq _ _ _ q p'   => comp CatC (interp q) (interp p')
     end.
 
+  (** [interp_respects]: formal specification. *)
   Theorem interp_respects :
     forall A B (p q : Prog A B), EqProg p q -> interp p = interp q.
   Proof.
@@ -65,6 +66,7 @@ Section Core.
   (* Logic layer: "cut" is sequential composition. *)
   Definition cut {A B C} (π1 : Prog B C) (π2 : Prog A B) : Prog A C := Seq π1 π2.
 
+  (** [cut_is_composition]: formal specification. *)
   Theorem cut_is_composition :
     forall A B C (π1:Prog B C) (π2:Prog A B),
       interp (cut π1 π2) = comp CatC (interp π1) (interp π2).

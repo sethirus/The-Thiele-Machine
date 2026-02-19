@@ -132,6 +132,7 @@ Inductive run_from : CoreState -> Receipt -> CoreState -> Prop :=
       run_from s' rest s'' ->
       run_from s (rl :: rest) s''.
 
+(** [Soundness_aux]: formal specification. *)
 Lemma Soundness_aux : forall s r, check_steps r -> exists sN, run_from s r sN.
 Proof.
   intros s r H.
@@ -151,6 +152,7 @@ Proof.
     + exact H_run_rest.
 Qed.
 
+(** [Soundness_receipts]: formal specification. *)
 Theorem Soundness_receipts :
   forall s0 r expected_digest, receipts_ok r expected_digest -> exists sN, run_from s0 r sN.
 Proof.
@@ -159,6 +161,7 @@ Proof.
   apply (Soundness_aux s0 r Hsteps).
 Qed.
 
+(** [Completeness_receipts]: formal specification. *)
 Theorem Completeness_receipts :
   forall s0 sN r, run_from s0 r sN -> receipts_ok r (hash_digest (global_digest_list r)).
 Proof.
@@ -184,6 +187,7 @@ Qed.
 (* === Portable-Proof Equivalence (Theorem 11) === *)
 
 (* DRAT/LRAT artifacts suffice for replay without solver re-execution *)
+(** [portable_proof_equivalence]: formal specification. *)
 Theorem portable_proof_equivalence :
   forall (c : Cert) (expected_result : ProblemType),
     proof_ok c ->
@@ -212,6 +216,7 @@ Proof.
 Qed.
 
 (* No solver re-execution needed for verification *)
+(** [lightweight_verification]: formal specification. *)
 Theorem lightweight_verification :
   forall (c : Cert),
     proof_ok c ->

@@ -54,6 +54,7 @@ Definition obs_state_eqb (s1 s2 : ObservableState) : bool :=
   Nat.eqb s1.(obs_partition_count) s2.(obs_partition_count) &&
   Bool.eqb s1.(obs_halted) s2.(obs_halted).
 
+(** [obs_state_eqb_refl]: formal specification. *)
 Lemma obs_state_eqb_refl : forall s, obs_state_eqb s s = true.
 Proof.
   intro s. unfold obs_state_eqb.
@@ -64,6 +65,7 @@ Proof.
   destruct obs_halted0; reflexivity.
 Qed.
 
+(** [obs_state_eqb_correct]: formal specification. *)
 Lemma obs_state_eqb_correct : forall s1 s2,
   obs_state_eqb s1 s2 = true <-> s1 = s2.
 Proof.
@@ -198,6 +200,7 @@ Fixpoint trace_total_cost (trace : list AbstractInstruction) : nat :=
   | i :: rest => abstract_mu_cost i + trace_total_cost rest
   end.
 
+(** [abstract_run_mu_correct]: formal specification. *)
 Theorem abstract_run_mu_correct :
   forall trace s,
     obs_mu (abstract_run s trace) = obs_mu s + trace_total_cost trace.

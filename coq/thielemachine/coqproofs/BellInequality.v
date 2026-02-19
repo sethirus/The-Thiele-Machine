@@ -24,9 +24,11 @@ Definition eqb (a b : Bit) : bool :=
   | _, _ => false
   end.
 
+(** [eqb_eq]: formal specification. *)
 Lemma eqb_eq : forall a b : Bit, eqb a b = true -> a = b.
 Proof. destruct a, b; simpl; auto; try discriminate; intros Contra; inversion Contra. Qed.
 
+(** [eqb_neq]: formal specification. *)
 Lemma eqb_neq : forall a b : Bit, eqb a b = false -> a <> b.
 Proof. intros a b H. destruct a, b; simpl in H; try discriminate; intros Contra; inversion Contra. Qed.
 
@@ -48,10 +50,12 @@ Definition bit_to_Z (b : Bit) : Z :=
   | B1 => 1%Z
   end.
 
+(** [bit_to_nat_roundtrip]: formal specification. *)
 Lemma bit_to_nat_roundtrip :
   forall b, (match bit_to_nat b with 0%nat => B0 | _ => B1 end) = b.
 Proof. destruct b; reflexivity. Qed.
 
+(** [bit_to_Z_roundtrip]: formal specification. *)
 Lemma bit_to_Z_roundtrip :
   forall b, (if Z.eqb (bit_to_Z b) 0%Z then B0 else B1) = b.
 Proof. destruct b; reflexivity. Qed.
@@ -64,11 +68,13 @@ Definition sum_bit2 (f : Bit -> Bit -> Q) : Q :=
   sum_bit (fun a => sum_bit (fun b => f a b)).
 
 (* DEFINITIONAL — sum_bit is defined as f B0 + f B1 *)
+(** [sum_bit_unfold]: formal specification. *)
 Lemma sum_bit_unfold : forall f, sum_bit f == f B0 + f B1.
 Proof.
   intros f. unfold sum_bit. reflexivity.
 Qed.
 
+(** [sum_bit2_unfold]: formal specification. *)
 Lemma sum_bit2_unfold :
   forall f,
     sum_bit2 f ==
@@ -78,6 +84,7 @@ Proof.
   ring.
 Qed.
 
+(** [sum_bit_ext]: formal specification. *)
 Lemma sum_bit_ext :
   forall f g,
     (forall b, f b == g b) ->
@@ -92,6 +99,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [sum_bit2_ext]: formal specification. *)
 Lemma sum_bit2_ext :
   forall f g,
     (forall a b, f a b == g a b) ->
@@ -170,6 +178,7 @@ Fixpoint sum_strategies_list (l : list Strategy) (f : Strategy -> Q) : Q :=
 Definition sum_strategies (f : Strategy -> Q) : Q :=
   sum_strategies_list all_strategies f.
 
+(** [sum_strategies_list_ext]: formal specification. *)
 Lemma sum_strategies_list_ext :
   forall l f g,
     (forall s, In s l -> f s == g s) ->
@@ -189,6 +198,7 @@ Proof.
     reflexivity.
 Qed.
 
+(** [sum_strategies_ext]: formal specification. *)
 Lemma sum_strategies_ext :
   forall f g,
     (forall s, In s all_strategies -> f s == g s) ->
@@ -200,6 +210,7 @@ Proof.
   exact Hfg.
 Qed.
 
+(** [sum_strategies_list_plus]: formal specification. *)
 Lemma sum_strategies_list_plus :
   forall (l : list Strategy) (f g : Strategy -> Q),
     sum_strategies_list l (fun s => f s + g s) ==
@@ -210,6 +221,7 @@ Proof.
   - rewrite IH. ring.
 Qed.
 
+(** [sum_strategies_list_scale]: formal specification. *)
 Lemma sum_strategies_list_scale :
   forall (l : list Strategy) (c : Q) (f : Strategy -> Q),
     sum_strategies_list l (fun s => c * f s) ==
@@ -220,6 +232,7 @@ Proof.
   - rewrite IH. ring.
 Qed.
 
+(** [sum_strategies_plus]: formal specification. *)
 Lemma sum_strategies_plus :
   forall f g,
     sum_strategies (fun s => f s + g s) ==
@@ -229,6 +242,7 @@ Proof.
   apply sum_strategies_list_plus.
 Qed.
 
+(** [sum_strategies_scale]: formal specification. *)
 Lemma sum_strategies_scale :
   forall c f,
     sum_strategies (fun s => c * f s) ==
@@ -256,6 +270,7 @@ Proof.
   apply Qmult_le_compat_r; assumption.
 Qed.
 
+(** [sum_strategies_list_weighted_upper]: formal specification. *)
 Lemma sum_strategies_list_weighted_upper :
   forall (l : list Strategy) (w : Strategy -> Q) (F : Strategy -> Q) (c : Q),
     (forall s, In s l -> 0#1 <= w s) ->
@@ -280,6 +295,7 @@ Proof.
     + exact IH.
 Qed.
 
+(** [sum_strategies_list_weighted_lower]: formal specification. *)
 Lemma sum_strategies_list_weighted_lower :
   forall (l : list Strategy) (w : Strategy -> Q) (F : Strategy -> Q) (d : Q),
     (forall s, In s l -> 0#1 <= w s) ->
@@ -304,6 +320,7 @@ Proof.
     + exact IH.
 Qed.
 
+(** [sum_strategies_weighted_upper]: formal specification. *)
 Lemma sum_strategies_weighted_upper :
   forall w F c,
     (forall s, 0#1 <= w s) ->
@@ -318,6 +335,7 @@ Proof.
   - exact Hbound.
 Qed.
 
+(** [sum_strategies_weighted_lower]: formal specification. *)
 Lemma sum_strategies_weighted_lower :
   forall w F d,
     (forall s, 0#1 <= w s) ->
@@ -332,6 +350,7 @@ Proof.
   - exact Hbound.
 Qed.
 
+(** [sum_bit2_sum_strategies]: formal specification. *)
 Lemma sum_bit2_sum_strategies :
   forall w (F : Strategy -> Bit -> Bit -> Q),
     sum_bit2 (fun a b => sum_strategies (fun s => w s * F s a b)) ==
@@ -362,6 +381,7 @@ Definition local (B : Box) : Prop :=
 
 Definition Qabs (x : Q) : Q := if Qle_bool 0 x then x else -x.
 
+(** [Qopp_eq_compat_local]: formal specification. *)
 Lemma Qopp_eq_compat_local : forall x y : Q, x == y -> -x == -y.
 Proof.
   intros x y Heq.
@@ -372,6 +392,7 @@ Proof.
   exact Heq.
 Qed.
 
+(** [Qabs_proper_local]: formal specification. *)
 Lemma Qabs_proper_local : forall x y : Q, x == y -> Qabs x == Qabs y.
 Proof.
   intros x y Heq.
@@ -425,6 +446,7 @@ Proof.
     exact Hpos.
 Qed.
 
+(** [Qabs_le_upper]: formal specification. *)
 Lemma Qabs_le_upper : forall x y : Q, 0#1 <= y -> Qabs x <= y -> x <= y.
 Proof.
   intros x y Hy Habs.
@@ -442,6 +464,7 @@ Proof.
     exact (Qle_trans _ _ _ Hnot Hy).
 Qed.
 
+(** [Qabs_le_lower]: formal specification. *)
 Lemma Qabs_le_lower : forall x y : Q, 0#1 <= y -> Qabs x <= y -> - y <= x.
 Proof.
   intros x y Hy Habs.
@@ -463,6 +486,7 @@ Proof.
     exact Habs.
 Qed.
 
+(** [Qabs_le_bound]: formal specification. *)
 Lemma Qabs_le_bound :
   forall x y : Q,
     0#1 <= y ->
@@ -529,6 +553,7 @@ Proof.
     apply Qle_refl.
 Qed.
 
+(** [Qmult_minus1_l]: formal specification. *)
 Lemma Qmult_minus1_l :
   forall q : Q, ((-1)#1) * q == - q.
 Proof.
@@ -541,6 +566,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [Qopp_plus_distr]: formal specification. *)
 Lemma Qopp_plus_distr :
   forall x y : Q, - (x + y) == - x + - y.
 Proof.
@@ -557,6 +583,7 @@ Definition strategy_S (s : Strategy) : Q :=
   strategy_E s B1 B1 + strategy_E s B1 B0 +
   strategy_E s B0 B1 - strategy_E s B0 B0.
 
+(** [strategy_E_from_indicators]: formal specification. *)
 Lemma strategy_E_from_indicators :
   forall rA rB x y,
     sum_bit2 (fun a b =>
@@ -571,6 +598,7 @@ Proof.
     reflexivity.
 Qed.
 
+(** [strategy_S_bound]: formal specification. *)
 Lemma strategy_S_bound : forall s, Qabs (strategy_S s) <= 2#1.
 Proof.
   intros [rA rB]; destruct rA as [a0 a1]; destruct a0, a1;
@@ -578,6 +606,7 @@ Proof.
   unfold Qle; simpl; lia.
 Qed.
 
+(** [strategy_S_upper_bound]: formal specification. *)
 Lemma strategy_S_upper_bound : forall s, strategy_S s <= 2#1.
 Proof.
   intros s.
@@ -586,6 +615,7 @@ Proof.
   - apply strategy_S_bound.
 Qed.
 
+(** [strategy_S_lower_bound]: formal specification. *)
 Lemma strategy_S_lower_bound : forall s, - (2#1) <= strategy_S s.
 Proof.
   intros s.
@@ -594,6 +624,7 @@ Proof.
   - apply strategy_S_bound.
 Qed.
 
+(** [local_E_decompose]: formal specification. *)
 Lemma local_E_decompose :
   forall (B : Box) (w : Strategy -> Q),
     (forall s, 0#1 <= w s) ->
@@ -632,6 +663,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [local_E_as_convex]: formal specification. *)
 Lemma local_E_as_convex :
   forall B,
     local B ->
@@ -646,6 +678,7 @@ Proof.
   apply local_E_decompose; assumption.
 Qed.
 
+(** [local_S_decompose]: formal specification. *)
 Lemma local_S_decompose :
   forall (B : Box) (w : Strategy -> Q),
     (forall s, 0#1 <= w s) ->
@@ -694,6 +727,7 @@ Proof.
   ring.
 Qed.
 
+(** [local_S_as_convex]: formal specification. *)
 Lemma local_S_as_convex :
   forall B,
     local B ->
@@ -720,6 +754,7 @@ Definition local_deterministic (B : Box) : Prop :=
 (* The classical bound: any local box satisfies |S| <= 2.  The proof relies on the
    explicit convex decomposition into deterministic strategies shown above. *)
 (* SAFE: classical CHSH bound |S| ≤ 2 for local hidden variable models *)
+(** [local_CHSH_bound]: formal specification. *)
 Lemma local_CHSH_bound : forall (B : Box), local B -> Qabs (S B) <= 2#1.
 Proof.
   intros B [w [Hwpos [Hsum Hwitness]]].
@@ -751,6 +786,7 @@ Definition PR_p (a b x y : Bit) : Q :=
   else
     if (eqb a b) then (1#2) else 0#1.
 
+(** [PR_norm]: formal specification. *)
 Lemma PR_norm : forall x y, sum_bit2 (fun a b => PR_p a b x y) == 1#1.
 Proof.
   intros x y. destruct x, y; unfold PR_p, sum_bit2, sum_bit; simpl; ring.
@@ -764,6 +800,7 @@ Proof.
   destruct a, b, x, y; simpl; unfold Qle; simpl; lia.
 Qed.
 
+(** [PR_nosig_A]: formal specification. *)
 Lemma PR_nosig_A :
   forall x y1 y2 a,
     sum_bit (fun b => PR_p a b x y1) ==
@@ -773,6 +810,7 @@ Proof.
   destruct x, y1, y2, a; unfold PR_p, sum_bit; simpl; ring.
 Qed.
 
+(** [PR_nosig_B]: formal specification. *)
 Lemma PR_nosig_B :
   forall y x1 x2 b,
     sum_bit (fun a => PR_p a b x1 y) ==
@@ -790,31 +828,37 @@ Definition PR : Box := {|
   nosig_B := PR_nosig_B
 |}.
 
+(** [PR_E_B0_B0]: formal specification. *)
 Lemma PR_E_B0_B0 : E PR B0 B0 == - (1#1).
 Proof.
   unfold E, PR, PR_p, sum_bit2, sum_bit; simpl; ring.
 Qed.
 
+(** [PR_E_B0_B1]: formal specification. *)
 Lemma PR_E_B0_B1 : E PR B0 B1 == 1#1.
 Proof.
   unfold E, PR, PR_p, sum_bit2, sum_bit; simpl; ring.
 Qed.
 
+(** [PR_E_B1_B0]: formal specification. *)
 Lemma PR_E_B1_B0 : E PR B1 B0 == 1#1.
 Proof.
   unfold E, PR, PR_p, sum_bit2, sum_bit; simpl; ring.
 Qed.
 
+(** [PR_E_B1_B1]: formal specification. *)
 Lemma PR_E_B1_B1 : E PR B1 B1 == 1#1.
 Proof.
   unfold E, PR, PR_p, sum_bit2, sum_bit; simpl; ring.
 Qed.
 
+(** [PR_S]: formal specification. *)
 Lemma PR_S : S PR == inject_Z 4.
 Proof.
   unfold S, E, PR, PR_p, sum_bit2, sum_bit; simpl; ring.
 Qed.
 
+(** [PR_Qabs]: formal specification. *)
 Lemma PR_Qabs : Qabs (S PR) == inject_Z 4.
 Proof.
   (* Use PR_S to avoid relying on vm_compute for Qabs normalization. *)
@@ -824,6 +868,7 @@ Proof.
   unfold Qle; simpl; lia.
 Qed.
 
+(** [PR_not_local]: formal specification. *)
 Lemma PR_not_local : ~ local PR.
 Proof.
   intros Hlocal.
@@ -859,6 +904,7 @@ Proof.
 Qed.
 
 (* ARITHMETIC — concrete rational comparison γ ≤ 1 *)
+(** [tsirelson_gamma_le_one]: formal specification. *)
 Lemma tsirelson_gamma_le_one : tsirelson_gamma <= 1#1.
 Proof.
   unfold tsirelson_gamma, Qle; simpl; lia.
@@ -872,6 +918,7 @@ Proof.
 Qed.
 
 (* SAFE: bound on gamma parameter -1 ≤ γ ≤ 1, not CHSH value *)
+(** [tsirelson_gamma_bound]: formal specification. *)
 Lemma tsirelson_gamma_bound : -1#1 <= tsirelson_gamma <= 1#1.
 Proof.
   split.
@@ -879,6 +926,7 @@ Proof.
   - apply tsirelson_gamma_le_one.
 Qed.
 
+(** [sgn_prod_cases]: formal specification. *)
 Lemma sgn_prod_cases :
   forall a b,
     (sgn a * sgn b)%Z = 1%Z \/ (sgn a * sgn b)%Z = (-1)%Z.
@@ -892,6 +940,7 @@ Definition correlator_from_gamma (gamma : Q) (x y : Bit) : Q :=
   | _, _ => gamma
   end.
 
+(** [correlator_from_gamma_cases]: formal specification. *)
 Lemma correlator_from_gamma_cases :
 (** HELPER: Non-negativity property *)
 (** HELPER: Non-negativity property *)
@@ -922,6 +971,7 @@ Proof.
   destruct a; destruct b; destruct x; destruct y; simpl; unfold Qle; simpl; lia.
 Qed.
 
+(** [correlator_box_norm]: formal specification. *)
 Lemma correlator_box_norm :
   forall gamma x y,
     sum_bit2 (fun a b => correlator_box gamma a b x y) == 1#1.
@@ -934,6 +984,7 @@ Proof.
   ring.
 Qed.
 
+(** [correlator_box_marginal_A]: formal specification. *)
 Lemma correlator_box_marginal_A :
   forall gamma x y a,
     sum_bit (fun b => correlator_box gamma a b x y) == 1#2.
@@ -944,6 +995,7 @@ Proof.
   destruct a; simpl; ring.
 Qed.
 
+(** [correlator_box_marginal_B]: formal specification. *)
 Lemma correlator_box_marginal_B :
   forall gamma x y b,
     sum_bit (fun a => correlator_box gamma a b x y) == 1#2.
@@ -954,6 +1006,7 @@ Proof.
   destruct b; simpl; ring.
 Qed.
 
+(** [correlator_box_E_value]: formal specification. *)
 Lemma correlator_box_E_value :
   forall gamma x y,
     sum_bit2 (fun a b => inject_Z ((sgn a * sgn b)%Z) * correlator_box gamma a b x y)
@@ -967,6 +1020,7 @@ Proof.
   ring.
 Qed.
 
+(** [correlator_box_no_signal_A]: formal specification. *)
 Lemma correlator_box_no_signal_A :
   forall gamma x y1 y2 a,
     sum_bit (fun b => correlator_box gamma a b x y1) ==
@@ -978,6 +1032,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [correlator_box_no_signal_B]: formal specification. *)
 Lemma correlator_box_no_signal_B :
   forall gamma y x1 x2 b,
     sum_bit (fun a => correlator_box gamma a b x1 y) ==
@@ -997,6 +1052,7 @@ Definition TsirelsonApprox : Box := {|
   nosig_B := correlator_box_no_signal_B tsirelson_gamma
 |}.
 
+(** [TsirelsonApprox_E]: formal specification. *)
 Lemma TsirelsonApprox_E :
   forall x y,
     E TsirelsonApprox x y == tsirelson_correlator x y.
@@ -1007,6 +1063,7 @@ Proof.
   apply correlator_box_E_value.
 Qed.
 
+(** [TsirelsonApprox_S]: formal specification. *)
 Lemma TsirelsonApprox_S : S TsirelsonApprox == (4#1) * tsirelson_gamma.
 Proof.
   unfold S.
@@ -1016,6 +1073,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [TsirelsonApprox_Qabs]: formal specification. *)
 Lemma TsirelsonApprox_Qabs :
   Qabs (S TsirelsonApprox) == (4#1) * tsirelson_gamma.
 Proof.
@@ -1025,11 +1083,13 @@ Proof.
   unfold Qle; simpl; lia.
 Qed.
 
+(** [TsirelsonApprox_violation]: formal specification. *)
 Lemma TsirelsonApprox_violation : 2#1 < (4#1) * tsirelson_gamma.
 Proof.
   unfold Qlt, tsirelson_gamma; simpl; lia.
 Qed.
 
+(** [TsirelsonApprox_not_local]: formal specification. *)
 Lemma TsirelsonApprox_not_local : ~ local TsirelsonApprox.
 Proof.
   intros Hlocal.
@@ -1136,6 +1196,7 @@ Proof.
   destruct x; destruct y; destruct a; destruct b; simpl; unfold Qle; simpl; lia.
 Qed.
 
+(** [supra_quantum_p_norm]: formal specification. *)
 Lemma supra_quantum_p_norm :
   forall x y,
     sum_bit2 (fun a b => supra_quantum_p a b x y) == 1#1.
@@ -1146,6 +1207,7 @@ Proof.
   destruct x; destruct y; simpl; ring.
 Qed.
 
+(** [supra_quantum_p_marginal_A]: formal specification. *)
 Lemma supra_quantum_p_marginal_A :
   forall x y a,
     sum_bit (fun b => supra_quantum_p a b x y) == 1#2.
@@ -1156,6 +1218,7 @@ Proof.
   destruct x; destruct y; destruct a; simpl; ring.
 Qed.
 
+(** [supra_quantum_p_nosig_A]: formal specification. *)
 Lemma supra_quantum_p_nosig_A :
   forall x y1 y2 a,
     sum_bit (fun b => supra_quantum_p a b x y1) ==
@@ -1166,6 +1229,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [supra_quantum_p_marginal_B]: formal specification. *)
 Lemma supra_quantum_p_marginal_B :
   forall y x b,
     sum_bit (fun a => supra_quantum_p a b x y) == 1#2.
@@ -1176,6 +1240,7 @@ Proof.
   destruct x; destruct y; destruct b; simpl; ring.
 Qed.
 
+(** [supra_quantum_p_nosig_B]: formal specification. *)
 Lemma supra_quantum_p_nosig_B :
   forall y x1 x2 b,
     sum_bit (fun a => supra_quantum_p a b x1 y) ==
@@ -1196,6 +1261,7 @@ Definition SupraQuantum : Box := {|
 
 (* Verify the expectation values *)
 
+(** [E_SupraQuantum_B0_B0]: formal specification. *)
 Lemma E_SupraQuantum_B0_B0 : E SupraQuantum B0 B0 == -1#5.
 Proof.
   unfold E, SupraQuantum, supra_quantum_p; simpl.
@@ -1203,6 +1269,7 @@ Proof.
   ring.
 Qed.
 
+(** [E_SupraQuantum_B0_B1]: formal specification. *)
 Lemma E_SupraQuantum_B0_B1 : E SupraQuantum B0 B1 == 1#1.
 Proof.
   unfold E, SupraQuantum, supra_quantum_p; simpl.
@@ -1210,6 +1277,7 @@ Proof.
   ring.
 Qed.
 
+(** [E_SupraQuantum_B1_B0]: formal specification. *)
 Lemma E_SupraQuantum_B1_B0 : E SupraQuantum B1 B0 == 1#1.
 Proof.
   unfold E, SupraQuantum, supra_quantum_p; simpl.
@@ -1217,6 +1285,7 @@ Proof.
   ring.
 Qed.
 
+(** [E_SupraQuantum_B1_B1]: formal specification. *)
 Lemma E_SupraQuantum_B1_B1 : E SupraQuantum B1 B1 == 1#1.
 Proof.
   unfold E, SupraQuantum, supra_quantum_p; simpl.
@@ -1226,6 +1295,7 @@ Qed.
 
 (* The CHSH value is exactly 16/5 *)
 
+(** [S_SupraQuantum]: formal specification. *)
 Theorem S_SupraQuantum : S SupraQuantum == 16#5.
 Proof.
   unfold S.
@@ -1248,12 +1318,14 @@ Proof.
   unfold Qlt; simpl; lia.
 Qed.
 
+(** [supra_quantum_exceeds_classical]: formal specification. *)
 Lemma supra_quantum_exceeds_classical :
   inject_Z 2 < 16#5.
 Proof.
   unfold Qlt; simpl; lia.
 Qed.
 
+(** [supra_quantum_below_PR]: formal specification. *)
 Lemma supra_quantum_below_PR :
   16#5 < inject_Z 4.
 Proof.
@@ -1274,6 +1346,7 @@ Proof.
     discriminate.
 Qed.
 
+(** [S_SupraQuantum_bounds]: formal specification. *)
 Lemma S_SupraQuantum_bounds : 0#1 <= S SupraQuantum /\ S SupraQuantum < inject_Z 4.
 Proof.
   split.
@@ -1281,6 +1354,7 @@ Proof.
   - apply supra_quantum_below_PR.
 Qed.
 
+(** [SupraQuantum_not_local]: formal specification. *)
 Theorem SupraQuantum_not_local : ~ local SupraQuantum.
 Proof.
   intros Hlocal.
@@ -1306,6 +1380,7 @@ Qed.
 
 (* Main existence theorem: a valid no-signaling distribution exceeds Tsirelson *)
 
+(** [supra_quantum_witness_exists]: formal specification. *)
 Theorem supra_quantum_witness_exists :
   exists B : Box,
     S B == 16#5 /\
@@ -1366,6 +1441,7 @@ Fixpoint receipts_sound {Instr State Observation : Type}
       receipts_sound concrete_step (brf_post frame) rest
   end.
 
+(** [receipts_sound_single]: formal specification. *)
 Lemma receipts_sound_single {Instr State Observation : Type}
   (concrete_step : Instr -> State -> BridgeStepResult State Observation) :
   forall s (frame : BridgeReceiptFrame Instr State Observation),
@@ -1398,6 +1474,7 @@ Definition cert_sequence_bit (cert : TM.ConcreteCert) : Bit :=
   | _ => B1
   end.
 
+(** [cert_timestamp_bit_bit_to_Z]: formal specification. *)
 Lemma cert_timestamp_bit_bit_to_Z :
   forall b query reply metadata seq,
     cert_timestamp_bit
@@ -1412,6 +1489,7 @@ Proof.
   apply bit_to_Z_roundtrip.
 Qed.
 
+(** [cert_sequence_bit_bit_to_nat]: formal specification. *)
 Lemma cert_sequence_bit_bit_to_nat :
   forall b query reply metadata timestamp,
     cert_sequence_bit
@@ -1434,6 +1512,7 @@ Definition concrete_receipt_frame
      brf_post := TM.receipt_post receipt;
      brf_obs := TM.receipt_obs receipt |}.
 
+(** [concrete_receipts_sound]: formal specification. *)
 Lemma concrete_receipts_sound :
   forall s prog,
     @receipts_sound TM.ThieleInstr TM.ConcreteState TM.StepObs concrete_step_frame
@@ -1478,6 +1557,7 @@ Definition tsirelson_frames :
   list (BridgeReceiptFrame TM.ThieleInstr TM.ConcreteState TM.StepObs) :=
   List.map concrete_receipt_frame tsirelson_receipts.
 
+(** [tsirelson_receipts_sound]: formal specification. *)
 Lemma tsirelson_receipts_sound :
   @receipts_sound _ _ _ concrete_step_frame tsirelson_start tsirelson_frames.
 Proof.
@@ -1507,6 +1587,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [tsirelson_receipts_instrs]: formal specification. *)
 Lemma tsirelson_receipts_instrs :
   List.map TM.receipt_instr tsirelson_receipts = tsirelson_program.
 Proof.
@@ -1522,12 +1603,14 @@ Definition tsirelson_state (pc : nat) : TM.ConcreteState :=
      TM.mu_acc := 0%Z;
      TM.cert_addr := EmptyString |}.
 
+(** [tsirelson_start_state]: formal specification. *)
 Lemma tsirelson_start_state :
   tsirelson_start = tsirelson_state 0%nat.
 Proof.
   reflexivity.
 Qed.
 
+(** [tsirelson_receipts_pres]: formal specification. *)
 Lemma tsirelson_receipts_pres :
   List.map TM.receipt_pre tsirelson_receipts =
     [ tsirelson_state 0%nat;
@@ -1566,6 +1649,7 @@ Definition tsirelson_expected_events : list (option TM.ThieleEvent) :=
     Some (TM.ErrorOccurred "tsirelson_outcome"%string)
   ].
 
+(** [tsirelson_receipts_events]: formal specification. *)
 Lemma tsirelson_receipts_events :
   List.map (fun r => TM.ev (TM.receipt_obs r)) tsirelson_receipts =
   tsirelson_expected_events.
@@ -1578,6 +1662,7 @@ Qed.
 Definition tsirelson_expected_mu : list Z :=
   [0%Z; 0%Z; 0%Z; 0%Z; 0%Z].
 
+(** [tsirelson_receipts_mu]: formal specification. *)
 Lemma tsirelson_receipts_mu :
   List.map (fun r => TM.mu_delta (TM.receipt_obs r)) tsirelson_receipts =
   tsirelson_expected_mu.
@@ -1596,12 +1681,14 @@ Proof.
   reflexivity.
 Qed.
 
+(** [tsirelson_program_nth0]: formal specification. *)
 Lemma tsirelson_program_nth0 :
   List.nth_error tsirelson_program 0 = Some (TM.PNEW [0%nat; 1%nat]).
 Proof.
   reflexivity.
 Qed.
 
+(** [tsirelson_program_nth1]: formal specification. *)
 Lemma tsirelson_program_nth1 :
   List.nth_error tsirelson_program 1 =
   Some (TM.PYEXEC "prepare_shared_partition"%string).
@@ -1609,6 +1696,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [tsirelson_program_nth2]: formal specification. *)
 Lemma tsirelson_program_nth2 :
   List.nth_error tsirelson_program 2 =
   Some (TM.PYEXEC "alice_measurement"%string).
@@ -1616,6 +1704,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [tsirelson_program_nth3]: formal specification. *)
 Lemma tsirelson_program_nth3 :
   List.nth_error tsirelson_program 3 =
   Some (TM.PYEXEC "bob_measurement"%string).
@@ -1623,6 +1712,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [tsirelson_program_nth4]: formal specification. *)
 Lemma tsirelson_program_nth4 :
   List.nth_error tsirelson_program 4 =
   Some (TM.EMIT "tsirelson_outcome"%string).
@@ -1630,6 +1720,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [tsirelson_receipt_event_0]: formal specification. *)
 Lemma tsirelson_receipt_event_0 :
   List.nth_error
     (List.map (fun r => TM.ev (TM.receipt_obs r)) tsirelson_receipts)
@@ -1639,6 +1730,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [tsirelson_receipt_event_1]: formal specification. *)
 Lemma tsirelson_receipt_event_1 :
   List.nth_error
     (List.map (fun r => TM.ev (TM.receipt_obs r)) tsirelson_receipts)
@@ -1648,6 +1740,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [tsirelson_receipt_event_2]: formal specification. *)
 Lemma tsirelson_receipt_event_2 :
   List.nth_error
     (List.map (fun r => TM.ev (TM.receipt_obs r)) tsirelson_receipts)
@@ -1657,6 +1750,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [tsirelson_receipt_event_3]: formal specification. *)
 Lemma tsirelson_receipt_event_3 :
   List.nth_error
     (List.map (fun r => TM.ev (TM.receipt_obs r)) tsirelson_receipts)
@@ -1666,6 +1760,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [tsirelson_receipt_event_4]: formal specification. *)
 Lemma tsirelson_receipt_event_4 :
   List.nth_error
     (List.map (fun r => TM.ev (TM.receipt_obs r)) tsirelson_receipts)
@@ -1693,6 +1788,7 @@ Definition tsirelson_alice_cert : TM.ConcreteCert :=
 Definition tsirelson_bob_cert : TM.ConcreteCert :=
   tsirelson_cert tsirelson_bob_setting tsirelson_bob_outcome.
 
+(** [tsirelson_alice_cert_timestamp]: formal specification. *)
 Lemma tsirelson_alice_cert_timestamp :
   cert_timestamp_bit tsirelson_alice_cert = tsirelson_alice_setting.
 Proof.
@@ -1700,6 +1796,7 @@ Proof.
   apply cert_timestamp_bit_bit_to_Z.
 Qed.
 
+(** [tsirelson_alice_cert_sequence]: formal specification. *)
 Lemma tsirelson_alice_cert_sequence :
   cert_sequence_bit tsirelson_alice_cert = tsirelson_alice_outcome.
 Proof.
@@ -1707,6 +1804,7 @@ Proof.
   apply cert_sequence_bit_bit_to_nat.
 Qed.
 
+(** [tsirelson_bob_cert_timestamp]: formal specification. *)
 Lemma tsirelson_bob_cert_timestamp :
   cert_timestamp_bit tsirelson_bob_cert = tsirelson_bob_setting.
 Proof.
@@ -1714,6 +1812,7 @@ Proof.
   apply cert_timestamp_bit_bit_to_Z.
 Qed.
 
+(** [tsirelson_bob_cert_sequence]: formal specification. *)
 Lemma tsirelson_bob_cert_sequence :
   cert_sequence_bit tsirelson_bob_cert = tsirelson_bob_outcome.
 Proof.
@@ -1739,6 +1838,7 @@ Definition tsirelson_bob_receipt : TM.ConcreteReceipt :=
           TM.mu_delta := 0%Z;
           TM.cert := tsirelson_bob_cert |} |}.
 
+(** [tsirelson_receipt_2_full]: formal specification. *)
 Lemma tsirelson_receipt_2_full :
   List.nth_error tsirelson_receipts 2 = Some tsirelson_alice_receipt.
 Proof.
@@ -1748,6 +1848,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [tsirelson_receipt_3_full]: formal specification. *)
 Lemma tsirelson_receipt_3_full :
   List.nth_error tsirelson_receipts 3 = Some tsirelson_bob_receipt.
 Proof.
@@ -1765,6 +1866,7 @@ Definition tsirelson_bob_frame :
   BridgeReceiptFrame TM.ThieleInstr TM.ConcreteState TM.StepObs :=
   concrete_receipt_frame tsirelson_bob_receipt.
 
+(** [tsirelson_frames_2_full]: formal specification. *)
 Lemma tsirelson_frames_2_full :
   List.nth_error tsirelson_frames 2 = Some tsirelson_alice_frame.
 Proof.
@@ -1774,6 +1876,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [tsirelson_frames_3_full]: formal specification. *)
 Lemma tsirelson_frames_3_full :
 (** HELPER: Non-negativity property *)
 (** HELPER: Non-negativity property *)
@@ -1786,6 +1889,7 @@ Proof.
 Qed.
 
 (* DEFINITIONAL — evaluates concrete step function on Alice's frame *)
+(** [tsirelson_alice_frame_valid]: formal specification. *)
 Lemma tsirelson_alice_frame_valid :
   frame_valid concrete_step_frame tsirelson_alice_frame.
 Proof.
@@ -1796,12 +1900,14 @@ Proof.
   reflexivity.
 Qed.
 
+(** [tsirelson_alice_frame_instr]: formal specification. *)
 Lemma tsirelson_alice_frame_instr :
   brf_instr tsirelson_alice_frame = TM.PYEXEC "alice_measurement"%string.
 Proof.
   reflexivity.
 Qed.
 
+(** [tsirelson_alice_frame_pre]: formal specification. *)
 Lemma tsirelson_alice_frame_pre :
   brf_pre tsirelson_alice_frame = tsirelson_state 2%nat.
 Proof.
@@ -1816,6 +1922,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [tsirelson_alice_frame_event]: formal specification. *)
 Lemma tsirelson_alice_frame_event :
   TM.ev (brf_obs tsirelson_alice_frame) =
     Some (TM.PolicyCheck "alice_measurement"%string).
@@ -1823,12 +1930,14 @@ Proof.
   reflexivity.
 Qed.
 
+(** [tsirelson_alice_frame_mu]: formal specification. *)
 Lemma tsirelson_alice_frame_mu :
   TM.mu_delta (brf_obs tsirelson_alice_frame) = 0%Z.
 Proof.
   reflexivity.
 Qed.
 
+(** [tsirelson_alice_frame_cert]: formal specification. *)
 Lemma tsirelson_alice_frame_cert :
   TM.cert (brf_obs tsirelson_alice_frame) = tsirelson_alice_cert.
 Proof.
@@ -1843,6 +1952,7 @@ Definition frame_output_bit
   (frame : BridgeReceiptFrame TM.ThieleInstr TM.ConcreteState TM.StepObs) : Bit :=
   cert_sequence_bit (TM.cert (brf_obs frame)).
 
+(** [tsirelson_alice_frame_input_bit]: formal specification. *)
 Lemma tsirelson_alice_frame_input_bit :
   frame_input_bit tsirelson_alice_frame = tsirelson_alice_setting.
 Proof.
@@ -1853,6 +1963,7 @@ Proof.
 (** HELPER: Non-negativity property *)
 Qed.
 
+(** [tsirelson_alice_frame_output_bit]: formal specification. *)
 Lemma tsirelson_alice_frame_output_bit :
   frame_output_bit tsirelson_alice_frame = tsirelson_alice_outcome.
 Proof.
@@ -1862,6 +1973,7 @@ Proof.
 Qed.
 
 (* DEFINITIONAL — evaluates concrete step function on Bob's frame *)
+(** [tsirelson_bob_frame_valid]: formal specification. *)
 Lemma tsirelson_bob_frame_valid :
   frame_valid concrete_step_frame tsirelson_bob_frame.
 Proof.
@@ -1872,12 +1984,14 @@ Proof.
   reflexivity.
 Qed.
 
+(** [tsirelson_bob_frame_instr]: formal specification. *)
 Lemma tsirelson_bob_frame_instr :
   brf_instr tsirelson_bob_frame = TM.PYEXEC "bob_measurement"%string.
 Proof.
   reflexivity.
 Qed.
 
+(** [tsirelson_bob_frame_pre]: formal specification. *)
 Lemma tsirelson_bob_frame_pre :
   brf_pre tsirelson_bob_frame = tsirelson_state 3%nat.
 Proof.
@@ -1892,6 +2006,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [tsirelson_bob_frame_event]: formal specification. *)
 Lemma tsirelson_bob_frame_event :
   TM.ev (brf_obs tsirelson_bob_frame) =
     Some (TM.PolicyCheck "bob_measurement"%string).
@@ -1899,18 +2014,21 @@ Proof.
   reflexivity.
 Qed.
 
+(** [tsirelson_bob_frame_mu]: formal specification. *)
 Lemma tsirelson_bob_frame_mu :
   TM.mu_delta (brf_obs tsirelson_bob_frame) = 0%Z.
 Proof.
   reflexivity.
 Qed.
 
+(** [tsirelson_bob_frame_cert]: formal specification. *)
 Lemma tsirelson_bob_frame_cert :
   TM.cert (brf_obs tsirelson_bob_frame) = tsirelson_bob_cert.
 Proof.
   reflexivity.
 Qed.
 
+(** [tsirelson_bob_frame_input_bit]: formal specification. *)
 Lemma tsirelson_bob_frame_input_bit :
   frame_input_bit tsirelson_bob_frame = tsirelson_bob_setting.
 Proof.
@@ -1919,6 +2037,7 @@ Proof.
   apply tsirelson_bob_cert_timestamp.
 Qed.
 
+(** [tsirelson_bob_frame_output_bit]: formal specification. *)
 Lemma tsirelson_bob_frame_output_bit :
   frame_output_bit tsirelson_bob_frame = tsirelson_bob_outcome.
 Proof.
@@ -1927,6 +2046,7 @@ Proof.
   apply tsirelson_bob_cert_sequence.
 Qed.
 
+(** [tsirelson_measurements_sound]: formal specification. *)
 Lemma tsirelson_measurements_sound :
   @receipts_sound _ _ _ concrete_step_frame (tsirelson_state 2%nat)
     [tsirelson_alice_frame; tsirelson_bob_frame].
@@ -1973,6 +2093,7 @@ Definition supra_quantum_frames :
   list (BridgeReceiptFrame TM.ThieleInstr TM.ConcreteState TM.StepObs) :=
   List.map concrete_receipt_frame supra_quantum_receipts.
 
+(** [supra_quantum_receipts_sound]: formal specification. *)
 Lemma supra_quantum_receipts_sound :
   @receipts_sound _ _ _ concrete_step_frame supra_quantum_start supra_quantum_frames.
 Proof.
@@ -2004,6 +2125,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [supra_quantum_receipts_instrs]: formal specification. *)
 Lemma supra_quantum_receipts_instrs :
   List.map TM.receipt_instr supra_quantum_receipts = supra_quantum_program.
 Proof.
@@ -2017,12 +2139,14 @@ Definition supra_quantum_state (pc : nat) : TM.ConcreteState :=
      TM.mu_acc := 0%Z;
      TM.cert_addr := EmptyString |}.
 
+(** [supra_quantum_start_state]: formal specification. *)
 Lemma supra_quantum_start_state :
   supra_quantum_start = supra_quantum_state 0%nat.
 Proof.
   reflexivity.
 Qed.
 
+(** [supra_quantum_receipts_pres]: formal specification. *)
 Lemma supra_quantum_receipts_pres :
   List.map TM.receipt_pre supra_quantum_receipts =
     [ supra_quantum_state 0%nat;
@@ -2061,6 +2185,7 @@ Definition supra_quantum_expected_events : list (option TM.ThieleEvent) :=
     Some (TM.ErrorOccurred "supra_quantum_outcome"%string)
   ].
 
+(** [supra_quantum_receipts_events]: formal specification. *)
 Lemma supra_quantum_receipts_events :
   List.map (fun r => TM.ev (TM.receipt_obs r)) supra_quantum_receipts =
     supra_quantum_expected_events.
@@ -2072,6 +2197,7 @@ Qed.
 
 (* μ-cost tracking: The supra-quantum program has finite μ-cost *)
 
+(** [supra_quantum_mu_cost_bounded]: formal specification. *)
 Lemma supra_quantum_mu_cost_bounded :
   forall r, In r supra_quantum_receipts ->
     exists n : Z, TM.mu_acc (TM.receipt_post r) = n.
@@ -2137,6 +2263,7 @@ Qed.
 
 (* Main theorem: The program produces CHSH = 16/5 *)
 
+(** [supra_quantum_program_valid]: formal specification. *)
 Theorem supra_quantum_program_valid :
   @receipts_sound _ _ _ concrete_step_frame supra_quantum_start supra_quantum_frames /\
   S SupraQuantum == 16#5 /\
@@ -2227,6 +2354,7 @@ Proof.
   apply B.(nonneg).
 Qed.
 
+(** [trial_probability_Qabs]: formal specification. *)
 Lemma trial_probability_Qabs :
   forall B trial, Qabs (trial_probability B trial) == trial_probability B trial.
 Proof.
@@ -2241,6 +2369,7 @@ Fixpoint trials_probability (B : Box) (trials : list CHSHTrial) : Q :=
   | t :: rest => trial_probability B t + trials_probability B rest
   end.
 
+(** [trials_probability_app]: formal specification. *)
 Lemma trials_probability_app :
   forall B t1 t2,
     trials_probability B (t1 ++ t2) ==
@@ -2265,6 +2394,7 @@ Proof.
     apply Qplus_nonneg; assumption.
 Qed.
 
+(** [trial_E_cases]: formal specification. *)
 Lemma trial_E_cases :
   forall trial, trial_E trial = 1#1 \/ trial_E trial = (-1)#1.
 Proof.
@@ -2272,6 +2402,7 @@ Proof.
   destruct (sgn_prod_cases a b) as [H|H]; rewrite H; simpl; auto.
 Qed.
 
+(** [trial_S_cases]: formal specification. *)
 Lemma trial_S_cases :
   forall trial, trial_S trial = 1#1 \/ trial_S trial = (-1)#1.
 Proof.
@@ -2280,6 +2411,7 @@ Proof.
     destruct (sgn_prod_cases a b) as [H|H]; rewrite H; simpl; auto.
 Qed.
 
+(** [trial_S_Qabs]: formal specification. *)
 Lemma trial_S_Qabs :
   forall trial, Qabs (trial_S trial) == 1#1.
 Proof.
@@ -2293,6 +2425,7 @@ Fixpoint trials_S (trials : list CHSHTrial) : Q :=
   | t :: rest => trial_S t + trials_S rest
   end.
 
+(** [trials_S_app]: formal specification. *)
 Lemma trials_S_app :
   forall t1 t2, trials_S (t1 ++ t2) == trials_S t1 + trials_S t2.
 Proof.
@@ -2307,6 +2440,7 @@ Fixpoint trials_weighted_S (B : Box) (trials : list CHSHTrial) : Q :=
   | t :: rest => trial_S t * trial_probability B t + trials_weighted_S B rest
   end.
 
+(** [trials_weighted_S_app]: formal specification. *)
 Lemma trials_weighted_S_app :
   forall B t1 t2,
     trials_weighted_S B (t1 ++ t2) ==
@@ -2319,6 +2453,7 @@ Proof.
     ring.
 Qed.
 
+(** [trials_weighted_S_singleton]: formal specification. *)
 Lemma trials_weighted_S_singleton :
   forall B trial,
     trials_weighted_S B [trial] ==
@@ -2329,6 +2464,7 @@ Proof.
   ring.
 Qed.
 
+(** [trial_weighted_S_bounds]: formal specification. *)
 Lemma trial_weighted_S_bounds :
   forall B trial,
     let p := trial_probability B trial in
@@ -2349,6 +2485,7 @@ Proof.
     + apply Qopp_le_self_of_nonneg. exact Hp.
 Qed.
 
+(** [trials_weighted_S_bounds]: formal specification. *)
 Lemma trials_weighted_S_bounds :
   forall B trials,
     - trials_probability B trials <= trials_weighted_S B trials <=
@@ -2365,6 +2502,7 @@ Proof.
     + apply Qplus_le_compat; assumption.
 Qed.
 
+(** [trials_weighted_S_Qabs]: formal specification. *)
 Lemma trials_weighted_S_Qabs :
   forall B trials,
     Qabs (trials_weighted_S B trials) <= trials_probability B trials.
@@ -2411,6 +2549,7 @@ Definition interpret_trials (interp : FrameTrialInterpreter)
   : list CHSHTrial :=
   List.map (fun pair => interpret_trial interp (fst pair) (snd pair)) pairs.
 
+(** [interpret_trials_singleton]: formal specification. *)
 Lemma interpret_trials_singleton :
   forall interp pair,
     trials_S (interpret_trials interp [pair]) ==
@@ -2488,6 +2627,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [filter_measurement_frames_app]: formal specification. *)
 Lemma filter_measurement_frames_app :
   forall l1 l2,
     filter_measurement_frames (List.app l1 l2) =
@@ -2500,6 +2640,7 @@ Proof.
 Qed.
 
 (* DEFINITIONAL — concrete evaluation of filter on Tsirelson frames *)
+(** [filter_measurement_frames_tsirelson_frames]: formal specification. *)
 Lemma filter_measurement_frames_tsirelson_frames :
   filter_measurement_frames tsirelson_frames = tsirelson_measurement_frames.
 Proof.
@@ -2512,6 +2653,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [filter_measurement_frames_repeat_tsirelson_frames]: formal specification. *)
 Lemma filter_measurement_frames_repeat_tsirelson_frames :
   forall n,
     filter_measurement_frames
@@ -2532,6 +2674,7 @@ Proof.
     reflexivity.
 Qed.
 
+(** [filter_measurement_frames_firstn_tsirelson_frames]: formal specification. *)
 Lemma filter_measurement_frames_firstn_tsirelson_frames :
   forall m,
     filter_measurement_frames (firstn m tsirelson_frames) =
@@ -2569,6 +2712,7 @@ Proof.
         reflexivity.
 Qed.
 
+(** [repeat_app]: formal specification. *)
 Lemma repeat_app :
   forall (A : Type) (x : A) k q,
     List.repeat x (k + q) =
@@ -2580,6 +2724,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [firstn_app_ge]: formal specification. *)
 Lemma firstn_app_ge :
   forall (A : Type) (l1 l2 : list A) (n : nat),
     (List.length l1 <= n)%nat ->
@@ -2591,6 +2736,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [firstn_repeat_min]: formal specification. *)
 Lemma firstn_repeat_min :
   forall (A : Type) (x : A) (k n : nat),
   (* SAFE: Bounded arithmetic operation with explicit domain *)
@@ -2605,6 +2751,7 @@ Proof.
       reflexivity.
 Qed.
 
+(** [double_succ]: formal specification. *)
 Lemma double_succ :
   forall k : nat, Nat.mul 2 (Nat.succ k) = Nat.succ (Nat.succ (Nat.mul 2 k)).
 Proof.
@@ -2617,6 +2764,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [chunk_pairs_repeat]: formal specification. *)
 Lemma chunk_pairs_repeat :
   forall (A : Type) (alice bob : A) n,
     chunk_pairs (List.concat (List.repeat [alice; bob] n)) =
@@ -2629,6 +2777,7 @@ Proof.
     reflexivity.
 Qed.
 
+(** [chunk_pairs_measurement_frames_app]: formal specification. *)
 Lemma chunk_pairs_measurement_frames_app :
   forall rest,
     chunk_pairs (List.app tsirelson_measurement_frames rest) =
@@ -2640,6 +2789,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [Nat_min_succ_succ]: formal specification. *)
 Lemma Nat_min_succ_succ :
   forall a b : nat,
   (* SAFE: Bounded arithmetic operation with explicit domain *)
@@ -2650,6 +2800,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [chunk_pairs_firstn_repeat_general]: formal specification. *)
 Lemma chunk_pairs_firstn_repeat_general :
   forall (A : Type) (alice bob : A) (n m : nat),
     chunk_pairs
@@ -2678,6 +2829,7 @@ Proof.
         reflexivity.
 Qed.
 
+(** [chunk_pairs_firstn_repeat]: formal specification. *)
 Lemma chunk_pairs_firstn_repeat :
   forall (A : Type) (alice bob : A) (n k : nat),
     chunk_pairs
@@ -2696,6 +2848,7 @@ Proof.
       apply IH.
 Qed.
 
+(** [chunk_measurement_frames_repeat]: formal specification. *)
 Lemma chunk_measurement_frames_repeat :
   forall n,
     chunk_pairs
@@ -2707,6 +2860,7 @@ Proof.
   apply chunk_pairs_repeat.
 Qed.
 
+(** [chunk_measurement_frames_firstn]: formal specification. *)
 Lemma chunk_measurement_frames_firstn :
   forall (n k : nat),
     chunk_pairs
@@ -2721,6 +2875,7 @@ Proof.
   apply firstn_repeat_min.
 Qed.
 
+(** [chunk_measurement_frames_firstn_general]: formal specification. *)
 Lemma chunk_measurement_frames_firstn_general :
   forall (n m : nat),
     chunk_pairs
@@ -2734,6 +2889,7 @@ Proof.
   apply chunk_pairs_firstn_repeat_general.
 Qed.
 
+(** [interpret_trials_repeat]: formal specification. *)
 Lemma interpret_trials_repeat :
   forall interp pair n,
     interpret_trials interp (List.repeat pair n) =
@@ -2745,6 +2901,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [interpret_trials_firstn]: formal specification. *)
 Lemma interpret_trials_firstn :
   forall interp frames k,
     interpret_trials interp (firstn k frames) =
@@ -2771,6 +2928,7 @@ Definition tsirelson_trial_of (interp : FrameTrialInterpreter) : CHSHTrial :=
 Definition tsirelson_trials_of (interp : FrameTrialInterpreter) : list CHSHTrial :=
   interpret_trials interp [tsirelson_measurement_pair].
 
+(** [tsirelson_trials_S_of]: formal specification. *)
 Lemma tsirelson_trials_S_of :
   forall interp,
     trials_S (tsirelson_trials_of interp) == trial_S (tsirelson_trial_of interp).
@@ -2780,6 +2938,7 @@ Proof.
   apply interpret_trials_singleton.
 Qed.
 
+(** [tsirelson_trials_weighted_S_of]: formal specification. *)
 Lemma tsirelson_trials_weighted_S_of :
   forall interp,
     trials_weighted_S TsirelsonApprox (tsirelson_trials_of interp) ==
@@ -2792,6 +2951,7 @@ Proof.
   ring.
 Qed.
 
+(** [tsirelson_trial_x_frame_interpreter]: formal specification. *)
 Lemma tsirelson_trial_x_frame_interpreter :
   trial_x (tsirelson_trial_of tsirelson_frame_interpreter) = tsirelson_alice_setting.
 Proof.
@@ -2800,6 +2960,7 @@ Proof.
   apply tsirelson_alice_frame_input_bit.
 Qed.
 
+(** [tsirelson_trial_y_frame_interpreter]: formal specification. *)
 Lemma tsirelson_trial_y_frame_interpreter :
   trial_y (tsirelson_trial_of tsirelson_frame_interpreter) = tsirelson_bob_setting.
 Proof.
@@ -2808,6 +2969,7 @@ Proof.
   apply tsirelson_bob_frame_input_bit.
 Qed.
 
+(** [tsirelson_trial_a_frame_interpreter]: formal specification. *)
 Lemma tsirelson_trial_a_frame_interpreter :
   trial_a (tsirelson_trial_of tsirelson_frame_interpreter) = tsirelson_alice_outcome.
 Proof.
@@ -2816,6 +2978,7 @@ Proof.
   apply tsirelson_alice_frame_output_bit.
 Qed.
 
+(** [tsirelson_trial_b_frame_interpreter]: formal specification. *)
 Lemma tsirelson_trial_b_frame_interpreter :
   trial_b (tsirelson_trial_of tsirelson_frame_interpreter) = tsirelson_bob_outcome.
 Proof.
@@ -2824,6 +2987,7 @@ Proof.
   apply tsirelson_bob_frame_output_bit.
 Qed.
 
+(** [tsirelson_trial_E_frame_interpreter]: formal specification. *)
 Lemma tsirelson_trial_E_frame_interpreter :
   trial_E (tsirelson_trial_of tsirelson_frame_interpreter) == 1#1.
 (** HELPER: Non-negativity property *)
@@ -2837,6 +3001,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [tsirelson_trial_S_frame_interpreter]: formal specification. *)
 Lemma tsirelson_trial_S_frame_interpreter :
   trial_S (tsirelson_trial_of tsirelson_frame_interpreter) == 1#1.
 Proof.
@@ -2847,6 +3012,7 @@ Proof.
   apply tsirelson_trial_E_frame_interpreter.
 Qed.
 
+(** [tsirelson_trials_weighted_S_frame_interpreter]: formal specification. *)
 Lemma tsirelson_trials_weighted_S_frame_interpreter :
   trials_weighted_S TsirelsonApprox (tsirelson_trials_of tsirelson_frame_interpreter) ==
   trial_probability TsirelsonApprox (tsirelson_trial_of tsirelson_frame_interpreter).
@@ -2859,6 +3025,7 @@ Proof.
 Qed.
 
 (* DEFINITIONAL — evaluates correlator function on Alice/Bob settings *)
+(** [tsirelson_correlator_tsirelson_trial]: formal specification. *)
 Lemma tsirelson_correlator_tsirelson_trial :
   tsirelson_correlator tsirelson_alice_setting tsirelson_bob_setting = tsirelson_gamma.
 Proof.
@@ -2869,6 +3036,7 @@ Proof.
 Qed.
 
 (* DEFINITIONAL — evaluates TsirelsonApprox probability formula *)
+(** [tsirelson_trial_probability_value]: formal specification. *)
 Lemma tsirelson_trial_probability_value :
   TsirelsonApprox.(p)
     tsirelson_alice_outcome tsirelson_bob_outcome
@@ -2893,6 +3061,7 @@ Proof.
   unfold Qlt, tsirelson_gamma; simpl; lia.
 Qed.
 
+(** [tsirelson_trial_probability_frame_interpreter]: formal specification. *)
 Lemma tsirelson_trial_probability_frame_interpreter :
   trial_probability TsirelsonApprox
     (tsirelson_trial_of tsirelson_frame_interpreter)
@@ -2916,6 +3085,7 @@ Proof.
   apply tsirelson_trial_probability_positive.
 Qed.
 
+(** [tsirelson_trials_probability_frame_interpreter]: formal specification. *)
 Lemma tsirelson_trials_probability_frame_interpreter :
   trials_probability TsirelsonApprox
     (tsirelson_trials_of tsirelson_frame_interpreter)
@@ -2927,6 +3097,7 @@ Proof.
   apply tsirelson_trial_probability_frame_interpreter.
 Qed.
 
+(** [tsirelson_trials_weighted_S_probability_frame_interpreter]: formal specification. *)
 Lemma tsirelson_trials_weighted_S_probability_frame_interpreter :
   trials_weighted_S TsirelsonApprox
     (tsirelson_trials_of tsirelson_frame_interpreter)
@@ -2949,6 +3120,7 @@ Proof.
   apply tsirelson_trial_probability_frame_interpreter_positive.
 Qed.
 
+(** [tsirelson_trials_weighted_S_repeat_probability]: formal specification. *)
 Lemma tsirelson_trials_weighted_S_repeat_probability :
   forall n,
     trials_weighted_S TsirelsonApprox
@@ -2969,6 +3141,7 @@ Proof.
     reflexivity.
 Qed.
 
+(** [tsirelson_interpret_chunk_measurement_frames_repeat]: formal specification. *)
 Lemma tsirelson_interpret_chunk_measurement_frames_repeat :
   forall n,
     interpret_trials tsirelson_frame_interpreter
@@ -2982,6 +3155,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [tsirelson_interpret_chunk_measurement_trials_repeat]: formal specification. *)
 Lemma tsirelson_interpret_chunk_measurement_trials_repeat :
   forall n,
     interpret_trials tsirelson_frame_interpreter
@@ -2995,6 +3169,7 @@ Proof.
   apply interpret_trials_repeat.
 Qed.
 
+(** [tsirelson_interpret_chunk_measurement_frames_firstn]: formal specification. *)
 Lemma tsirelson_interpret_chunk_measurement_frames_firstn :
   forall (n k : nat),
     interpret_trials tsirelson_frame_interpreter
@@ -3010,6 +3185,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [tsirelson_interpret_chunk_measurement_frames_firstn_general]: formal specification. *)
 Lemma tsirelson_interpret_chunk_measurement_frames_firstn_general :
   forall (n m : nat),
     interpret_trials tsirelson_frame_interpreter
@@ -3025,6 +3201,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [tsirelson_trials_weighted_S_chunk_measurement_frames_repeat]: formal specification. *)
 Lemma tsirelson_trials_weighted_S_chunk_measurement_frames_repeat :
   forall n,
     trials_weighted_S TsirelsonApprox
@@ -3041,6 +3218,7 @@ Proof.
   apply tsirelson_trials_weighted_S_repeat_probability.
 Qed.
 
+(** [tsirelson_trials_weighted_S_chunk_measurement_frames_firstn]: formal specification. *)
 Lemma tsirelson_trials_weighted_S_chunk_measurement_frames_firstn :
   forall (n k : nat),
     trials_weighted_S TsirelsonApprox
@@ -3067,6 +3245,7 @@ Proof.
   apply tsirelson_trials_weighted_S_repeat_probability.
 Qed.
 
+(** [tsirelson_trials_weighted_S_chunk_measurement_frames_firstn_general]: formal specification. *)
 Lemma tsirelson_trials_weighted_S_chunk_measurement_frames_firstn_general :
   forall (n m : nat),
     trials_weighted_S TsirelsonApprox
@@ -3093,6 +3272,7 @@ Proof.
   apply tsirelson_trials_weighted_S_repeat_probability.
 Qed.
 
+(** [tsirelson_trials_weighted_S_filter_measurement_frames_firstn_single]: formal specification. *)
 Lemma tsirelson_trials_weighted_S_filter_measurement_frames_firstn_single :
   forall m,
     trials_weighted_S TsirelsonApprox
@@ -3123,6 +3303,7 @@ Proof.
   apply tsirelson_trials_weighted_S_chunk_measurement_frames_firstn_general.
 Qed.
 
+(** [tsirelson_trials_receipts_sound]: formal specification. *)
 Lemma tsirelson_trials_receipts_sound :
   @receipts_sound _ _ _ concrete_step_frame (tsirelson_state 2%nat)
     [tsirelson_alice_frame; tsirelson_bob_frame].

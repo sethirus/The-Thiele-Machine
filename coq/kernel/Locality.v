@@ -120,6 +120,7 @@ Proof.
     + reflexivity.
 Qed.
 
+(** [graph_update_preserves_lookup_other]: formal specification. *)
 Lemma graph_update_preserves_lookup_other :
   forall g mid_target m mid,
     mid <> mid_target ->
@@ -142,6 +143,7 @@ Proof.
       * apply IH.
 Qed.
 
+(** [graph_add_axiom_preserves_lookup_other]: formal specification. *)
 Lemma graph_add_axiom_preserves_lookup_other :
   forall g mid_target ax mid,
     mid <> mid_target ->
@@ -154,6 +156,7 @@ Proof.
   - reflexivity.
 Qed.
 
+(** [graph_add_axioms_preserves_lookup_other]: formal specification. *)
 Lemma graph_add_axioms_preserves_lookup_other :
   forall axs g mid_target mid,
     mid <> mid_target ->
@@ -210,11 +213,13 @@ Lemma advance_state_graph :
     (advance_state s i g csrs err).(vm_graph) = g.
 Proof. intros. reflexivity. Qed.
 
+(** [advance_state_reveal_graph]: formal specification. *)
 Lemma advance_state_reveal_graph :
   forall s i flat_idx delta g csrs err,
     (advance_state_reveal s i flat_idx delta g csrs err).(vm_graph) = g.
 Proof. intros. reflexivity. Qed.
 
+(** [advance_state_rm_graph]: formal specification. *)
 Lemma advance_state_rm_graph :
   forall s i g csrs regs mem err,
     (advance_state_rm s i g csrs regs mem err).(vm_graph) = g.

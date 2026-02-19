@@ -777,8 +777,8 @@ Module PDISCOVERIntegration.
       strong on average (high avg), or they're inconsistent (high std).
 
       FALSIFICATION:
-      Find sig where pdiscern_classify sig = CHAOTIC but avg < 500 and std < 300.
-      Theorem proves impossible.
+      Find sig where pdiscern_classify sig = CHAOTIC but avg < 500 and std < 300
+      — that would disprove this lemma (impossible by case analysis).
 
       DEPENDENCIES:
       - pdiscern_classify (line 101), Nat.ltb_ge (Coq.Arith.PeanoNat)

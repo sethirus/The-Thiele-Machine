@@ -211,6 +211,7 @@ Definition concrete_step (instr : ThieleInstr) (s : ConcreteState) : StepResult 
                            cert := default_cert |} |}
   end.
 
+(** [chsh_metadata_only_from_chsh_trial]: formal specification. *)
 Lemma chsh_metadata_only_from_chsh_trial :
   forall instr s,
     String.eqb
@@ -228,6 +229,7 @@ Proof.
   - (* EMIT *) vm_compute in H. discriminate.
 Qed.
 
+(** [chsh_event_only_from_chsh_trial]: formal specification. *)
 Lemma chsh_event_only_from_chsh_trial :
   forall instr s x y a b,
     (concrete_step instr s).(observation).(ev) = Some (ChshTrial x y a b) ->
@@ -360,6 +362,7 @@ Definition concrete_bitsize (c : ConcreteCert) : Z :=
   Z.of_nat (String.length c.(smt_query)
             + String.length c.(solver_reply)) * 8.
 
+(** [concrete_bitsize_cert_for_query]: formal specification. *)
 Lemma concrete_bitsize_cert_for_query :
   forall query,
     concrete_bitsize (cert_for_query query) =
@@ -388,6 +391,7 @@ Fixpoint concrete_sum_bits (rs : list ConcreteReceipt) : Z :=
   | r :: tl => concrete_bitsize r.(receipt_obs).(cert) + concrete_sum_bits tl
   end.
 
+(** [concrete_bitsize_cert_for_pyexec]: formal specification. *)
 Lemma concrete_bitsize_cert_for_pyexec :
   forall code, concrete_bitsize (cert_for_pyexec code) = 0.
 Proof.
@@ -398,6 +402,7 @@ Proof.
 Qed.
 
 (* DEFINITIONAL — cert_for_chsh_trial produces a zero-bitsize certificate *)
+(** [concrete_bitsize_cert_for_chsh_trial]: formal specification. *)
 Lemma concrete_bitsize_cert_for_chsh_trial :
   forall x y a b, concrete_bitsize (cert_for_chsh_trial x y a b) = 0.
 Proof.
@@ -456,6 +461,7 @@ Proof.
     reflexivity.
 Qed.
 
+(** [concrete_receipts_instrs]: formal specification. *)
 Lemma concrete_receipts_instrs :
   forall s prog,
     List.map receipt_instr (concrete_receipts_of s prog) = prog.
@@ -498,6 +504,7 @@ Inductive ConcreteExec : list ThieleInstr -> ConcreteState -> list (ConcreteStat
     ConcreteExec prog s' tr ->
     ConcreteExec (instr :: prog) s ((s', obs) :: tr).
 
+(** [concrete_exec_trace_deterministic]: formal specification. *)
 Lemma concrete_exec_trace_deterministic :
   forall prog s tr,
     ConcreteExec prog s tr ->
@@ -509,6 +516,7 @@ Proof.
   - rewrite H. simpl. f_equal. apply IHHexec.
 Qed.
 
+(** [concrete_exec_receipts_ok]: formal specification. *)
 Lemma concrete_exec_receipts_ok :
   forall prog s tr,
     ConcreteExec prog s tr ->
@@ -531,6 +539,7 @@ Proof.
     + rewrite (concrete_state_eqb_refl s) in Hpre. discriminate.
 Qed.
 
+(** [concrete_sum_bits_trace]: formal specification. *)
 Lemma concrete_sum_bits_trace :
   forall s prog,
     concrete_sum_bits (concrete_receipts_of s prog) =
@@ -576,6 +585,7 @@ Proof.
   apply concrete_trace_length.
 Qed.
 
+(** [ConcreteThieleMachine_exists]: formal specification. *)
 Theorem ConcreteThieleMachine_exists :
   exists (prog : list ThieleInstr) (s0 : ConcreteState),
     forall tr,

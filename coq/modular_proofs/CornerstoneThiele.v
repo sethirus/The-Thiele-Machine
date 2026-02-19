@@ -349,17 +349,22 @@ Definition classical_cycle_count : nat := 3786.
 
 (* --- Main theorems --- *)
 
+(** [classical_is_slow]: formal specification. *)
 Lemma classical_is_slow : classical_cycle_count = 3786.
 Proof. reflexivity. Qed.
 
+(** [thiele_cycles_are_small]: formal specification. *)
 Lemma thiele_cycles_are_small : thiele_cycles = 9.
 Proof. reflexivity. Qed.
 
+(** [thiele_is_fast]: formal specification. *)
 Lemma thiele_is_fast : state_stage thiele_final = ST_FINISHED.
 Proof. vm_compute. reflexivity. Qed.
 
+(** [thiele_solves_instance]: formal specification. *)
 Lemma thiele_solves_instance : state_done thiele_final = true /\ state_success thiele_final = true.
 Proof. vm_compute. split; reflexivity. Qed.
 
+(** [thiele_pays_the_cost]: formal specification. *)
 Lemma thiele_pays_the_cost : state_mu thiele_final = 23.
 Proof. vm_compute. reflexivity. Qed.

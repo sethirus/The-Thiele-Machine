@@ -86,6 +86,7 @@ Qed.
 
 (** HELPER: Normalization property *)
 (* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
+(** [probs_sum_to_one]: formal specification. *)
 Lemma probs_sum_to_one : forall x y z,
   prob_zero x y z + prob_one x y z = 1.
 Proof.
@@ -128,6 +129,7 @@ Qed.
 (** Mixed states have positive measurement cost *)
 (** HELPER: Non-negativity property *)
 (* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
+(** [mixed_state_positive_cost]: formal specification. *)
 Lemma mixed_state_positive_cost : forall x y z,
   x*x + y*y + z*z < 1 ->
   measurement_mu_cost x y z > 0.
@@ -243,6 +245,7 @@ Proof.
   intros. simpl. lra.
 Qed.
 
+(** [measurement_creates_pure_one]: formal specification. *)
 Lemma measurement_creates_pure_one : forall x y z,
   let '(x', y', z') := post_measurement_one x y z in
   x'*x' + y'*y' + z'*z' = 1.

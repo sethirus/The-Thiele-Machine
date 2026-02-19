@@ -36,6 +36,7 @@ Definition tm_config_head (conf : TMConfig) : nat :=
 Definition Blind (p : Prog) : Prop :=
   Forall (fun i => is_LASSERT i = false /\ is_MDLACC i = false) p.(code).
 
+(** [decode_encode_id_tm]: formal specification. *)
 Lemma decode_encode_id_tm :
   forall tm conf,
     config_ok tm conf ->
@@ -67,6 +68,7 @@ Fixpoint thiele_step_n_tm (tm : TM) (p : Prog) (st : State) (n : nat) : State :=
 
 Definition utm_program : Prog := {| code := [] |}.
 
+(** [utm_program_blind]: formal specification. *)
 Lemma utm_program_blind : Blind utm_program.
 Proof. unfold Blind, utm_program; simpl; constructor. Qed.
 
@@ -85,6 +87,7 @@ Definition rules_fit (tm : TM) : Prop :=
 Definition all_steps_ok (tm : TM) (conf : TMConfig) (n : nat) : Prop :=
   forall k, k <= n -> config_ok tm (tm_step_n tm conf k).
 
+(** [all_steps_ok_tail]: formal specification. *)
 Lemma all_steps_ok_tail :
   forall tm conf n,
     all_steps_ok tm conf (S n) ->
@@ -98,6 +101,7 @@ Proof.
   exact Hall.
 Qed.
 
+(** [thiele_step_n_tm_correct]: formal specification. *)
 Lemma thiele_step_n_tm_correct :
   forall tm p conf n,
     all_steps_ok tm conf n ->
@@ -123,6 +127,7 @@ Proof.
     exact IH.
 Qed.
 
+(** [thiele_step_n_utm_simulates]: formal specification. *)
 Lemma thiele_step_n_utm_simulates :
   forall tm conf n,
     all_steps_ok tm conf n ->

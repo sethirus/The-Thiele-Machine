@@ -49,6 +49,7 @@ Definition certifiable_with_mu_zero (ac : AbstractCorrelation) : Prop :=
 
 (** Forward direction: Quantum implies μ=0 certifiable *)
 (* INQUISITOR NOTE: Intentional field projection from is_quantum_correlation conjunction. *)
+(** [quantum_implies_mu_zero]: formal specification. *)
 Lemma quantum_implies_mu_zero :
   forall ac : AbstractCorrelation,
     is_quantum_correlation ac ->
@@ -61,6 +62,7 @@ Qed.
 
 (** Backward direction: μ=0 certifiable implies quantum *)
 (* INQUISITOR NOTE: Intentional field projection from certifiable_with_mu_zero existential. *)
+(** [mu_zero_implies_quantum]: formal specification. *)
 Lemma mu_zero_implies_quantum :
   forall ac : AbstractCorrelation,
     certifiable_with_mu_zero ac ->
@@ -74,6 +76,7 @@ Qed.
 
 (** Quantum correlations don't require revelation *)
 (* INQUISITOR NOTE: Intentional field projection — same as quantum_implies_mu_zero, kept as named theorem for clarity. *)
+(** [quantum_requires_no_revelation]: formal specification. *)
 Theorem quantum_requires_no_revelation :
   forall ac,
     is_quantum_correlation ac ->
@@ -134,6 +137,7 @@ Definition correlation_hierarchy_derived : Prop :=
   (* The hierarchy is not arbitrary but emerges from accounting *)
   True.
 
+(** [hierarchy_is_derived]: formal specification. *)
 Theorem hierarchy_is_derived : correlation_hierarchy_derived.
 Proof.
   unfold correlation_hierarchy_derived.
@@ -155,6 +159,7 @@ Definition qm_is_cost_free_computation : Prop :=
     is_quantum_correlation ac <->
     (ac.(satisfies_no_signaling) /\ ac.(chsh_value) <= tsirelson_bound).
 
+(** [qm_equals_cost_free]: formal specification. *)
 Theorem qm_equals_cost_free : qm_is_cost_free_computation.
 Proof.
   unfold qm_is_cost_free_computation, is_quantum_correlation.
@@ -171,6 +176,7 @@ Definition why_quantum_answer : Prop :=
   correlation_hierarchy_derived /\
   qm_is_cost_free_computation.
 
+(** [quantum_foundations_resolved]: formal specification. *)
 Theorem quantum_foundations_resolved : why_quantum_answer.
 Proof.
   unfold why_quantum_answer.

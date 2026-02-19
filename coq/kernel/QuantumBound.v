@@ -27,6 +27,7 @@
 
     **Theorem (Quantum Tsirelson Bound):**
     ```coq
+    (** [quantum_tsirelson_bound]: formal specification. *)
     Theorem quantum_tsirelson_bound :
       forall B : Box,
         requires_mu_gt_zero B ->           (* Uses LJOIN, REVEAL, or LASSERT *)

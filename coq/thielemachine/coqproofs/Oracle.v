@@ -90,6 +90,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [ledger_sum_app_singleton]: formal specification. *)
 Lemma ledger_sum_app_singleton :
   forall l delta,
     ledger_sum (l ++ [delta]) = (ledger_sum l + delta)%nat.
@@ -109,6 +110,7 @@ Proof.
   apply ledger_sum_app_singleton.
 Qed.
 
+(** [t1_charge_mu_prog_preserved]: formal specification. *)
 Lemma t1_charge_mu_prog_preserved :
   forall st delta,
     t1_prog (t1_charge_mu st delta) = t1_prog st.
@@ -116,6 +118,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [t1_charge_mu_partition_preserved]: formal specification. *)
 Lemma t1_charge_mu_partition_preserved :
   forall st delta,
     t1_partition (t1_charge_mu st delta) = t1_partition st.
@@ -132,6 +135,7 @@ Proof.
   intros st partition. reflexivity.
 Qed.
 
+(** [t1_with_partition_prog_preserved]: formal specification. *)
 Lemma t1_with_partition_prog_preserved :
   forall st partition,
     t1_prog (t1_with_partition st partition) = t1_prog st.
@@ -139,6 +143,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [t1_with_partition_partition_replaced]: formal specification. *)
 Lemma t1_with_partition_partition_replaced :
   forall st partition,
     t1_partition (t1_with_partition st partition) = partition.
@@ -146,6 +151,7 @@ Proof.
   intros st partition. reflexivity.
 Qed.
 
+(** [t1_repartition_prog_preserved]: formal specification. *)
 Lemma t1_repartition_prog_preserved :
   forall st new_partition,
     t1_prog (t1_repartition st new_partition) = t1_prog st.
@@ -154,6 +160,7 @@ Proof.
 Qed.
 
 (* DEFINITIONAL — record field accessor after repartition *)
+(** [t1_repartition_partition_replaced]: formal specification. *)
 Lemma t1_repartition_partition_replaced :
   forall st new_partition,
     t1_partition (t1_repartition st new_partition) = new_partition.
@@ -178,11 +185,13 @@ Definition t1_emit_receipt (st : T1_State) : T1_Receipt :=
      t1_receipt_partition := st.(t1_partition);
      t1_receipt_mu_total := t1_mu_total st |}.
 
+(** [t1_emit_receipt_prog]: formal specification. *)
 Lemma t1_emit_receipt_prog :
   forall st,
     t1_receipt_prog (t1_emit_receipt st) = t1_prog st.
 Proof. reflexivity. Qed.
 
+(** [t1_emit_receipt_partition]: formal specification. *)
 Lemma t1_emit_receipt_partition :
 (** HELPER: Accessor/projection *)
   forall st,
@@ -243,6 +252,7 @@ Fixpoint t1_run_mu_delta (st : T1_State) (actions : list T1_Action) : nat :=
 Definition t1_trace_receipt (st : T1_State) (actions : list T1_Action) : T1_Receipt :=
   t1_emit_receipt (t1_run st actions).
 
+(** [t1_step_prog_preserved]: formal specification. *)
 Lemma t1_step_prog_preserved :
   forall st act,
     t1_prog (t1_step st act) = t1_prog st.
@@ -253,6 +263,7 @@ Proof.
                 t1_repartition_prog_preserved.
 Qed.
 
+(** [t1_step_partition]: formal specification. *)
 Lemma t1_step_partition :
   forall st act,
     t1_partition (t1_step st act) =
@@ -280,6 +291,7 @@ Proof.
                 t1_repartition_total.
 Qed.
 
+(** [t1_run_prog_preserved]: formal specification. *)
 Lemma t1_run_prog_preserved :
   forall st actions,
     t1_prog (t1_run st actions) = t1_prog st.
@@ -291,6 +303,7 @@ Proof.
     rewrite IH, t1_step_prog_preserved. reflexivity.
 Qed.
 
+(** [t1_run_partition_after]: formal specification. *)
 Lemma t1_run_partition_after :
   forall st actions,
     t1_partition (t1_run st actions) =
@@ -335,6 +348,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [t1_trace_receipt_prog]: formal specification. *)
 Lemma t1_trace_receipt_prog :
   forall st actions,
     t1_receipt_prog (t1_trace_receipt st actions) = t1_prog st.
@@ -344,6 +358,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [t1_trace_receipt_partition]: formal specification. *)
 Lemma t1_trace_receipt_partition :
   forall st actions,
     t1_receipt_partition (t1_trace_receipt st actions) =
@@ -417,6 +432,7 @@ Proof.
   intro st. apply closed_trace_exec.
 Qed.
 
+(** [t1_closed_trace_sum_bits_le_sum_mu]: formal specification. *)
 Lemma t1_closed_trace_sum_bits_le_sum_mu :
   forall st,
     Z.le (sum_bits (receipts_of closed_state (trace_of_prog (t1_prog st))))
@@ -430,6 +446,7 @@ Proof.
                            Hexec).
 Qed.
 
+(** [t1_trace_receipt_closed_witness_from_bits]: formal specification. *)
 Lemma t1_trace_receipt_closed_witness_from_bits :
   forall st actions,
     Z.le (sum_bits (receipts_of closed_state (trace_of_prog (t1_prog st))))
@@ -444,6 +461,7 @@ Proof.
   - exact Hbound.
 Qed.
 
+(** [t1_trace_receipt_closed_witness_from_mu]: formal specification. *)
 Lemma t1_trace_receipt_closed_witness_from_mu :
   forall st actions,
     Z.le (sum_mu_exec (trace_of_prog (t1_prog st)))
@@ -471,6 +489,7 @@ Definition prog_closed_trace_mu_requirement (prog : Prog) : nat :=
 Definition t1_closed_trace_mu_requirement (st : T1_State) : nat :=
   prog_closed_trace_mu_requirement st.(t1_prog).
 
+(** [sum_mu_exec_closed_trace_nat]: formal specification. *)
 Lemma sum_mu_exec_closed_trace_nat :
   forall (instrs : list Instr),
     forall start_pc : nat,
@@ -485,6 +504,7 @@ Proof.
     reflexivity.
 Qed.
 
+(** [trace_of_prog_sum_mu_nat]: formal specification. *)
 Lemma trace_of_prog_sum_mu_nat :
   forall prog,
     sum_mu_exec (trace_of_prog prog)
@@ -494,6 +514,7 @@ Proof.
   apply sum_mu_exec_closed_trace_nat.
 Qed.
 
+(** [t1_closed_trace_sum_mu_nat]: formal specification. *)
 Lemma t1_closed_trace_sum_mu_nat :
   forall st,
     sum_mu_exec (trace_of_prog (t1_prog st))
@@ -503,6 +524,7 @@ Proof.
   apply trace_of_prog_sum_mu_nat.
 Qed.
 
+(** [t1_trace_receipt_closed_witness_from_ledger_nat]: formal specification. *)
 Lemma t1_trace_receipt_closed_witness_from_ledger_nat :
   forall st actions,
     (t1_closed_trace_mu_requirement st
@@ -525,6 +547,7 @@ Proof.
 Definition t1_closed_trace_mu_actions (st : T1_State) : list T1_Action :=
   map T1Charge (map instr_cert (t1_prog st).(code)).
 
+(** [t1_run_mu_delta_all_charge]: formal specification. *)
 Lemma t1_run_mu_delta_all_charge :
   forall st charges,
     t1_run_mu_delta st (map T1Charge charges) = ledger_sum charges.
@@ -537,6 +560,7 @@ Proof.
     rewrite IH. reflexivity.
 Qed.
 
+(** [ledger_sum_map_instr_cert]: formal specification. *)
 Lemma ledger_sum_map_instr_cert :
   forall instrs,
     ledger_sum (map instr_cert instrs) = sum_instr_certificates instrs.
@@ -546,6 +570,7 @@ Proof.
   - rewrite IH. reflexivity.
 Qed.
 
+(** [t1_run_mu_delta_closed_trace_mu_actions]: formal specification. *)
 Lemma t1_run_mu_delta_closed_trace_mu_actions :
   forall st,
     t1_run_mu_delta st (t1_closed_trace_mu_actions st)
@@ -557,6 +582,7 @@ Proof.
   apply ledger_sum_map_instr_cert.
 Qed.
 
+(** [t1_closed_trace_mu_requirement_covered_by_canonical_actions]: formal specification. *)
 Lemma t1_closed_trace_mu_requirement_covered_by_canonical_actions :
   forall st,
     (t1_closed_trace_mu_requirement st
@@ -568,6 +594,7 @@ Proof.
   lia.
 Qed.
 
+(** [t1_trace_receipt_closed_witness_canonical]: formal specification. *)
 Lemma t1_trace_receipt_closed_witness_canonical :
   forall st,
     T1_ReceiptWitness (t1_trace_receipt st (t1_closed_trace_mu_actions st)).

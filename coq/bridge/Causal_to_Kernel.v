@@ -11,6 +11,7 @@ Definition CausalChannel (r : ReceiptCore.Receipt) : bool :=
   Nat.eqb (ReceiptCore.r_op r) CAUSAL_QUERY_OP.
 
 (* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
+(** [decodes_to_self]: formal specification. *)
 Lemma decodes_to_self :
   forall tr,
     ReceiptCore.decodes_to CausalChannel tr (ReceiptCore.decode CausalChannel tr).

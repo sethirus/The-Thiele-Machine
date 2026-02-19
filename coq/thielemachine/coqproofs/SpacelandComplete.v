@@ -39,10 +39,12 @@ Module SimpleSpaceland.
   Definition mu_cost (s : State) (l : Label) (s' : State) : Z :=
     (snd s' - snd s)%Z.
   
+  (** [step_det]: formal specification. *)
   Lemma step_det : forall s l s1 s2,
     step s l s1 -> step s l s2 -> s1 = s2.
   Proof. intros. destruct H; inversion H0; reflexivity. Qed.
   
+  (** [mu_nonneg]: formal specification. *)
   Lemma mu_nonneg : forall s l s',
     step s l s' -> (mu_cost s l s' >= 0)%Z.
   Proof. intros. unfold mu_cost. destruct H; simpl; lia. Qed.
@@ -134,6 +136,7 @@ Module Dynamics.
   
   Definition observable (t : Trace) := (partition_seq t, mu_seq t).
 
+  (** [valid_trace_cons]: formal specification. *)
   Lemma valid_trace_cons : forall s l t',
     valid_trace (TCons s l t') -> step s l (trace_init t') /\ valid_trace t'.
   Proof.
@@ -143,6 +146,7 @@ Module Dynamics.
     - exact Hv.
   Qed.
 
+  (** [step_fst]: formal specification. *)
   Lemma step_fst : forall s l s',
     step s l s' -> fst s' = next_partition (fst s) l.
   Proof.
@@ -150,6 +154,7 @@ Module Dynamics.
     destruct l; inversion H; subst; simpl; reflexivity.
   Qed.
 
+  (** [step_cost]: formal specification. *)
   Lemma step_cost : forall s l s',
     step s l s' -> mu_cost s l s' = cost_of_label l.
   Proof.
@@ -157,6 +162,7 @@ Module Dynamics.
     destruct l; inversion H; subst; unfold mu_cost; simpl; lia.
   Qed.
 
+  (** [partition_seq_by_labels]: formal specification. *)
   Lemma partition_seq_by_labels : forall t,
     valid_trace t -> partition_seq t = partitions_from (fst (trace_init t)) (labels t).
   Proof.
@@ -169,6 +175,7 @@ Module Dynamics.
       reflexivity.
   Qed.
 
+  (** [mu_seq_by_labels]: formal specification. *)
   Lemma mu_seq_by_labels : forall t,
     valid_trace t -> mu_seq t = mu_from (labels t).
   Proof.
@@ -253,6 +260,7 @@ Module Dynamics.
     - unfold mu_cost. simpl. lia.
   Qed.
   
+  (** [blind_is_free]: formal specification. *)
   Lemma blind_is_free : forall p mu,
     let s := (p, mu) in
     let s' := (p, mu) in
@@ -264,6 +272,7 @@ Module Dynamics.
     - unfold mu_cost. simpl. lia.
   Qed.
   
+  (** [mu_observable_in_splits]: formal specification. *)
   Theorem mu_observable_in_splits : forall p1 p2 mu,
     p1 <> p2 ->
     let s1 := (p1, mu) in
@@ -309,6 +318,7 @@ Module ObservationalEquivalence.
     | TCons (p, m) l t' => TCons (p, (m + k)%Z) l (shift_trace t' k)
     end.
 
+  (** [step_shift]: formal specification. *)
   Lemma step_shift : forall p m l p' m' k,
     step (p, m) l (p', m') ->
     step (p, (m + k)%Z) l (p', (m' + k)%Z).
@@ -319,6 +329,7 @@ Module ObservationalEquivalence.
       constructor.
   Qed.
 
+  (** [shift_trace_valid]: formal specification. *)
   Lemma shift_trace_valid : forall t k,
     valid_trace t -> valid_trace (shift_trace t k).
   Proof.
@@ -333,6 +344,7 @@ Module ObservationalEquivalence.
         * apply IHt. assumption.
   Qed.
 
+  (** [shift_trace_init]: formal specification. *)
   Lemma shift_trace_init : forall t k,
     trace_init (shift_trace t k) = 
     let (p, m) := trace_init t in (p, (m + k)%Z).
@@ -340,6 +352,7 @@ Module ObservationalEquivalence.
     intros. destruct t; simpl; destruct s; reflexivity.
   Qed.
 
+  (** [shift_trace_observable]: formal specification. *)
   Lemma shift_trace_observable : forall t k,
     valid_trace t ->
     observable (shift_trace t k) = observable t.
@@ -427,6 +440,7 @@ Module ObservationalEquivalence.
     destruct H as [Hp _]. assumption.
   Qed.
   
+  (** [mu_gauge_only]: formal specification. *)
   Corollary mu_gauge_only : forall s1 s2,
     obs_equiv s1 s2 ->
     exists k, snd s2 = (snd s1 + k)%Z. (* μ offset is only freedom *)

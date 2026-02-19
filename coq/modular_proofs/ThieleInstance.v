@@ -73,9 +73,11 @@ Fixpoint thiele_run_n (tm : TMTransition) (s : ThieleState) (n : nat) : ThieleSt
   | S n' => thiele_run_n tm (thiele_run1 tm s) n'
   end.
 
+(** [thiele_run_n_zero]: formal specification. *)
 Lemma thiele_run_n_zero : forall tm s, thiele_run_n tm s 0 = s.
 Proof. reflexivity. Qed.
 
+(** [thiele_run_n_succ]: formal specification. *)
 Lemma thiele_run_n_succ : forall tm s n,
   thiele_run_n tm s (S n) = thiele_run_n tm (thiele_run1 tm s) n.
 Proof. reflexivity. Qed.
@@ -116,6 +118,7 @@ Definition config_fits_strong (conf : TMConfig) : Prop :=
   head < length tape /\
   head < Encoding.SHIFT_BIG.
 
+(** [config_fits_strong_ok]: formal specification. *)
 Lemma config_fits_strong_ok : forall conf,
   config_fits_strong conf ->
   tm_config_ok conf.
@@ -129,6 +132,7 @@ Proof.
   split; [exact Hlen|exact Hhead_lt].
 Qed.
 
+(** [config_fits_strong_decode_encode]: formal specification. *)
 Lemma config_fits_strong_decode_encode : forall conf,
   config_fits_strong conf ->
   thiele_decode (thiele_encode conf) = conf.

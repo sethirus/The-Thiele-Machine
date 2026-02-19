@@ -20,6 +20,7 @@ Module UTM_Encode.
   Definition encode_rule r := let '(q,s,q',w,m) := r in [q;s;q';w;encode_z m].
   Definition encode_rules := flat_map encode_rule.
 
+  (** [encode_z_le_two]: formal specification. *)
   Lemma encode_z_le_two : forall z, encode_z z <= 2.
   Proof.
     intro z.
@@ -29,6 +30,7 @@ Module UTM_Encode.
   Qed.
 
   (* SAFE: Bounded arithmetic operation with explicit domain *)
+  (** [decode_z_abs_le_one]: formal specification. *)
   Lemma decode_z_abs_le_one : forall n, (Z.abs (decode_z n) <= 1)%Z.
   Proof.
     intro n.
@@ -92,41 +94,51 @@ Module UTM_Encode.
     decode_instr_from_mem (encode_instr_words (LoadConst rd v)) 0 = LoadConst rd v.
   Proof. intros; cbv [encode_instr_words decode_instr_from_mem ENC_BASE]; simpl; reflexivity. Qed.
 
+  (** [decode_encode_LoadIndirect]: formal specification. *)
   Lemma decode_encode_LoadIndirect : forall rd v, instr_small (LoadIndirect rd v) ->
     decode_instr_from_mem (encode_instr_words (LoadIndirect rd v)) 0 = LoadIndirect rd v.
   Proof. intros; cbv [encode_instr_words decode_instr_from_mem ENC_BASE]; simpl; reflexivity. Qed.
 
+  (** [decode_encode_StoreIndirect]: formal specification. *)
   Lemma decode_encode_StoreIndirect : forall ra rv, instr_small (StoreIndirect ra rv) ->
     decode_instr_from_mem (encode_instr_words (StoreIndirect ra rv)) 0 = StoreIndirect ra rv.
   Proof. intros; cbv [encode_instr_words decode_instr_from_mem ENC_BASE]; simpl; reflexivity. Qed.
 
+  (** [decode_encode_CopyReg]: formal specification. *)
   Lemma decode_encode_CopyReg : forall rd rs, instr_small (CopyReg rd rs) ->
     decode_instr_from_mem (encode_instr_words (CopyReg rd rs)) 0 = CopyReg rd rs.
   Proof. intros; cbv [encode_instr_words decode_instr_from_mem ENC_BASE]; simpl; reflexivity. Qed.
 
+  (** [decode_encode_AddConst]: formal specification. *)
   Lemma decode_encode_AddConst : forall rd v, instr_small (AddConst rd v) ->
     decode_instr_from_mem (encode_instr_words (AddConst rd v)) 0 = AddConst rd v.
   Proof. intros; cbv [encode_instr_words decode_instr_from_mem ENC_BASE]; simpl; reflexivity. Qed.
 
+  (** [decode_encode_AddReg]: formal specification. *)
   Lemma decode_encode_AddReg : forall rd r1 r2, instr_small (AddReg rd r1 r2) ->
     decode_instr_from_mem (encode_instr_words (AddReg rd r1 r2)) 0 = AddReg rd r1 r2.
   Proof. intros; cbv [encode_instr_words decode_instr_from_mem ENC_BASE]; simpl; reflexivity. Qed.
 
+  (** [decode_encode_SubReg]: formal specification. *)
   Lemma decode_encode_SubReg : forall rd r1 r2, instr_small (SubReg rd r1 r2) ->
     decode_instr_from_mem (encode_instr_words (SubReg rd r1 r2)) 0 = SubReg rd r1 r2.
   Proof. intros; cbv [encode_instr_words decode_instr_from_mem ENC_BASE]; simpl; reflexivity. Qed.
 
+  (** [decode_encode_Jz]: formal specification. *)
   Lemma decode_encode_Jz : forall rc target, instr_small (Jz rc target) ->
     decode_instr_from_mem (encode_instr_words (Jz rc target)) 0 = Jz rc target.
   Proof. intros; cbv [encode_instr_words decode_instr_from_mem ENC_BASE]; simpl; reflexivity. Qed.
 
+  (** [decode_encode_Jnz]: formal specification. *)
   Lemma decode_encode_Jnz : forall rc target, instr_small (Jnz rc target) ->
     decode_instr_from_mem (encode_instr_words (Jnz rc target)) 0 = Jnz rc target.
   Proof. intros; cbv [encode_instr_words decode_instr_from_mem ENC_BASE]; simpl; reflexivity. Qed.
 
+  (** [decode_encode_Halt]: formal specification. *)
   Lemma decode_encode_Halt : decode_instr_from_mem (encode_instr_words Halt) 0 = Halt.
   Proof. cbv [encode_instr_words decode_instr_from_mem ENC_BASE]; simpl; reflexivity. Qed.
 
+  (** [decode_encode_roundtrip]: formal specification. *)
   Lemma decode_encode_roundtrip :
     forall i, instr_small i -> decode_instr_from_mem (encode_instr_words i) 0 = i.
   Proof.

@@ -146,6 +146,7 @@ Definition complex_mult_unit (theta x y : R) : R * R :=
 
 (** The key isomorphism: complex multiplication IS rotation *)
 (* DEFINITIONAL HELPER *)
+(** [complex_multiplication_is_rotation]: formal specification. *)
 Theorem complex_multiplication_is_rotation :
   forall theta a b,
     complex_mult_unit theta a b = (rot_x theta a b, rot_y theta a b).

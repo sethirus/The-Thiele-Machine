@@ -211,6 +211,7 @@ Proof.
     apply IH. intros w' Hin. apply H. right. exact Hin.
 Qed.
 
+(** [field_propagation_single_source]: formal specification. *)
 Theorem field_propagation_single_source :
   forall s sc v w,
   In w (neighbors sc v) ->

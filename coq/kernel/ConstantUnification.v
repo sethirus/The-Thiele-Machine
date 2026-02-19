@@ -117,12 +117,15 @@ Definition T : R := 1.           (* Temperature (normalized) *)
 Lemma tau_mu_pos : tau_mu > 0.
 Proof. unfold tau_mu. lra. Qed.
 
+(** [d_mu_pos]: formal specification. *)
 Lemma d_mu_pos : d_mu > 0.
 Proof. unfold d_mu. lra. Qed.
 
+(** [k_B_pos]: formal specification. *)
 Lemma k_B_pos : k_B > 0.
 Proof. unfold k_B. apply Rinv_0_lt_compat. lra. Qed.
 
+(** [T_pos]: formal specification. *)
 Lemma T_pos : T > 0.
 Proof. unfold T. lra. Qed.
 

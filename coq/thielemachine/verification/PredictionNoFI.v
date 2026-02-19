@@ -36,6 +36,7 @@ Module PredictionPipelineNoFI.
   Definition prediction_claim (strength : K.Strength) : K.S -> Prop :=
     fun s => K.certifies s strength.
 
+  (** [strengthening_example]: formal specification. *)
   Lemma strengthening_example :
     K.strictly_stronger 2 1.
   Proof.

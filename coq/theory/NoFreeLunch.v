@@ -14,6 +14,7 @@ Definition Ghost : Prop :=
   exists p q : Prop,
     p <> q /\ (forall s : PhysicalState, Represents s p -> Represents s q).
 
+(** [ghost_impossible]: formal specification. *)
 Lemma ghost_impossible : Ghost -> False.
 Proof.
   intros [p [q [Hneq Hghost]]].
@@ -25,6 +26,7 @@ Proof.
   exact Hghost.
 Qed.
 
+(** [NoFreeLunch]: formal specification. *)
 Theorem NoFreeLunch :
   forall p q : Prop,
     p <> q ->

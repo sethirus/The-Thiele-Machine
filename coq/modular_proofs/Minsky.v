@@ -36,6 +36,7 @@ Fixpoint set_nth (l : list nat) (idx : nat) (v : nat) : list nat :=
 
 Definition read_reg (regs : list nat) (r : nat) : nat := nth r regs 0.
 
+(** [set_nth_length]: formal specification. *)
 Lemma set_nth_length : forall l idx v, length (set_nth l idx v) = length l.
 Proof.
   induction l as [|hd tl IH]; intros [|idx] v; simpl; auto.
@@ -62,6 +63,7 @@ Fixpoint run_n (p : program) (cfg : config) (n : nat) : config :=
   | S n' => run_n p (step p cfg) n'
   end.
 
+(** [run_n_succ]: formal specification. *)
 Lemma run_n_succ : forall p cfg n,
     run_n p cfg (S n) = run_n p (step p cfg) n.
 Proof. reflexivity. Qed.

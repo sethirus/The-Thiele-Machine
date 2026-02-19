@@ -310,6 +310,7 @@ Qed.
 
 (* DEFINITIONAL HELPER — tightness of μ for pmerge is by construction:
    mu_cost unfolds to the operand cost field directly. *)
+(** [mu_tight_for_pmerge]: formal specification. *)
 Lemma mu_tight_for_pmerge :
   forall m1 m2 cost,
     cost >= 2 ->
@@ -320,6 +321,7 @@ Qed.
 
 (* DEFINITIONAL HELPER — non-negativity of μ follows from the definition:
    mu_cost unfolds to a natural number field, which is always ≥ 0. *)
+(** [mu_nonnegative]: formal specification. *)
 Lemma mu_nonnegative : forall i, mu_cost i >= 0.
 Proof.
   intros. unfold mu_cost, instr_mu_cost. lia.

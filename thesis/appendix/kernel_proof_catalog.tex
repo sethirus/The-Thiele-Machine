@@ -1,0 +1,1624 @@
+\section{Complete Kernel Proof Catalog}
+
+% Auto-generated comprehensive index of all formally verified kernel proof symbols.
+% This appendix catalogs every theorem, lemma, corollary, proposition,
+% fact, remark, and conjecture in the coq/kernel/ directory.
+% All proofs are closed under the global Coq context with zero admits.
+
+Total kernel proof symbols: \textbf{1060}.
+
+\subsection{AlgebraicCoherence}
+
+\begin{itemize}
+  \item \verb|Qabs_bound| \quad \textit{(Lemma)} % Qabs_bound
+  \item \verb|chsh_bound_4| \quad \textit{(Theorem)} % chsh_bound_4
+  \item \verb|symmetric_tsirelson_bound| \quad \textit{(Theorem)} % symmetric_tsirelson_bound
+  \item \verb|tsirelson_from_algebraic_coherence| \quad \textit{(Theorem)} % tsirelson_from_algebraic_coherence
+  \item \verb|algebraic_max_not_coherent| \quad \textit{(Theorem)} % algebraic_max_not_coherent
+  \item \verb|sum_6_squares_nonneg| \quad \textit{(Lemma)} % sum_6_squares_nonneg
+  \item \verb|cauchy_schwarz_chsh| \quad \textit{(Lemma)} % cauchy_schwarz_chsh
+  \item \verb|correlation_squares_bound| \quad \textit{(Lemma)} % correlation_squares_bound
+  \item \verb|chsh_weak_bound| \quad \textit{(Lemma)} % chsh_weak_bound
+  \item \verb|chsh_squared_bound_from_correlations| \quad \textit{(Lemma)} % chsh_squared_bound_from_correlations
+  \item \verb|symmetric_minor_implies_sum_bound| \quad \textit{(Lemma)} % symmetric_minor_implies_sum_bound
+  \item \verb|symmetric_case_implies_tsirelson| \quad \textit{(Theorem)} % symmetric_case_implies_tsirelson
+  \item \verb|chsh_general_bound| \quad \textit{(Theorem)} % chsh_general_bound
+  \item \verb|tsirelson_config_S| \quad \textit{(Lemma)} % tsirelson_config_S
+  \item \verb|tsirelson_achieving_coherent| \quad \textit{(Lemma)} % tsirelson_achieving_coherent
+  \item \verb|tsirelson_achieving_value| \quad \textit{(Lemma)} % tsirelson_achieving_value
+  \item \verb|tsirelson_bound_tight| \quad \textit{(Theorem)} % tsirelson_bound_tight
+\end{itemize}
+
+\subsection{ArrowOfTimeSynthesis}
+
+\begin{itemize}
+  \item \verb|instr_cost_nonneg| \quad \textit{(Lemma)} % instr_cost_nonneg
+  \item \verb|empty_trace_zero_cost| \quad \textit{(Theorem)} % empty_trace_zero_cost
+  \item \verb|trace_cost_additive| \quad \textit{(Theorem)} % trace_cost_additive
+  \item \verb|irreversible_bounded_by_cost| \quad \textit{(Theorem)} % irreversible_bounded_by_cost
+  \item \verb|total_entropy_mu_nondecreasing| \quad \textit{(Theorem)} % total_entropy_mu_nondecreasing
+  \item \verb|vm_step_produces_valid_transition| \quad \textit{(Theorem)} % vm_step_produces_valid_transition
+  \item \verb|mu_later_refl| \quad \textit{(Theorem)} % mu_later_refl
+  \item \verb|mu_later_trans| \quad \textit{(Theorem)} % mu_later_trans
+  \item \verb|mu_strictly_later_irrefl| \quad \textit{(Theorem)} % mu_strictly_later_irrefl
+  \item \verb|mu_strictly_later_asymm| \quad \textit{(Theorem)} % mu_strictly_later_asymm
+  \item \verb|arrow_of_time_derived| \quad \textit{(Theorem)} % arrow_of_time_derived
+  \item \verb|landauer_mu_bound| \quad \textit{(Theorem)} % landauer_mu_bound
+  \item \verb|trace_effect_equiv_refl| \quad \textit{(Theorem)} % trace_effect_equiv_refl
+  \item \verb|trace_effect_equiv_sym| \quad \textit{(Theorem)} % trace_effect_equiv_sym
+  \item \verb|trace_effect_equiv_trans| \quad \textit{(Theorem)} % trace_effect_equiv_trans
+\end{itemize}
+
+\subsection{BornRule}
+
+\begin{itemize}
+  \item \verb|probs_nonneg| \quad \textit{(Lemma)} % probs_nonneg
+  \item \verb|probs_sum_to_one| \quad \textit{(Lemma)} % probs_sum_to_one
+  \item \verb|pure_state_zero_cost| \quad \textit{(Lemma)} % pure_state_zero_cost
+  \item \verb|mixed_state_positive_cost| \quad \textit{(Lemma)} % mixed_state_positive_cost
+  \item \verb|born_rule_valid| \quad \textit{(Theorem)} % born_rule_valid
+  \item \verb|linear_implies_born| \quad \textit{(Theorem)} % linear_implies_born
+  \item \verb|measurement_creates_pure_zero| \quad \textit{(Lemma)} % measurement_creates_pure_zero
+  \item \verb|measurement_creates_pure_one| \quad \textit{(Lemma)} % measurement_creates_pure_one
+  \item \verb|born_rule_mu_consistent| \quad \textit{(Theorem)} % born_rule_mu_consistent
+  \item \verb|born_rule_from_accounting| \quad \textit{(Theorem)} % born_rule_from_accounting
+\end{itemize}
+
+\subsection{BornRuleFromSymmetry}
+
+\begin{itemize}
+  \item \verb|born_identity_eigenstate| \quad \textit{(Lemma)} % born_identity_eigenstate
+  \item \verb|born_identity_normalization| \quad \textit{(Lemma)} % born_identity_normalization
+  \item \verb|born_identity_tensor| \quad \textit{(Lemma)} % born_identity_tensor
+  \item \verb|born_identity_range| \quad \textit{(Lemma)} % born_identity_range
+\end{itemize}
+
+\subsection{BoxCHSH}
+
+\begin{itemize}
+  \item \verb|E_expand| \quad \textit{(Lemma)} % E_expand
+  \item \verb|normalized_E_bound| \quad \textit{(Lemma)} % normalized_E_bound
+  \item \verb|Qabs_triangle_4| \quad \textit{(Lemma)} % Qabs_triangle_4
+  \item \verb|valid_box_S_le_4| \quad \textit{(Lemma)} % valid_box_S_le_4
+  \item \verb|local_S_2_deterministic| \quad \textit{(Theorem)} % local_S_2_deterministic
+  \item \verb|S_box_correlators| \quad \textit{(Lemma)} % S_box_correlators
+  \item \verb|box_chsh_bound_algebraic| \quad \textit{(Theorem)} % box_chsh_bound_algebraic
+\end{itemize}
+
+\subsection{CHSH}
+
+\begin{itemize}
+  \item \verb|is_bit_true_cases| \quad \textit{(Lemma)} % is_bit_true_cases
+  \item \verb|count_setting_trials_of_local| \quad \textit{(Lemma)} % count_setting_trials_of_local
+  \item \verb|expectation_trials_of_local| \quad \textit{(Lemma)} % expectation_trials_of_local
+  \item \verb|local_strategy_chsh_between_neg2_2| \quad \textit{(Theorem)} % local_strategy_chsh_between_neg2_2
+  \item \verb|local_strategy_chsh_abs_le_2_z| \quad \textit{(Corollary)} % local_strategy_chsh_abs_le_2_z
+\end{itemize}
+
+\subsection{CHSHExtraction}
+
+\begin{itemize}
+  \item \verb|trial_partition| \quad \textit{(Lemma)} % trial_partition
+  \item \verb|filter_length_le| \quad \textit{(Lemma)} % filter_length_le
+  \item \verb|Qabs_4_triangle| \quad \textit{(Lemma)} % Qabs_4_triangle
+  \item \verb|correlation_bound_1| \quad \textit{(Lemma)} % correlation_bound_1
+  \item \verb|chsh_algebraic_bound| \quad \textit{(Lemma)} % chsh_algebraic_bound
+  \item \verb|chsh_local_bound| \quad \textit{(Lemma)} % chsh_local_bound
+\end{itemize}
+
+\subsection{CausalSetAxioms}
+
+\begin{itemize}
+  \item \verb|causal_reflexive| \quad \textit{(Theorem)} % causal_reflexive
+  \item \verb|causal_transitive| \quad \textit{(Theorem)} % causal_transitive
+  \item \verb|graph_module_ids_finite| \quad \textit{(Lemma)} % graph_module_ids_finite
+  \item \verb|causal_interval_finite| \quad \textit{(Theorem)} % causal_interval_finite
+  \item \verb|local_finiteness| \quad \textit{(Theorem)} % local_finiteness
+  \item \verb|interval_finiteness| \quad \textit{(Theorem)} % interval_finiteness
+  \item \verb|partition_graph_is_causal_set| \quad \textit{(Theorem)} % partition_graph_is_causal_set
+  \item \verb|causal_past_grows| \quad \textit{(Theorem)} % causal_past_grows
+  \item \verb|no_closed_causal_curves_mu| \quad \textit{(Theorem)} % no_closed_causal_curves_mu
+  \item \verb|dimension_trace_dependent| \quad \textit{(Theorem)} % dimension_trace_dependent
+  \item \verb|causal_structure_varies| \quad \textit{(Theorem)} % causal_structure_varies
+\end{itemize}
+
+\subsection{Certification}
+
+\begin{itemize}
+  \item \verb|tsirelson_bound_q_sq_gt_8| \quad \textit{(Lemma)} % tsirelson_bound_q_sq_gt_8
+  \item \verb|reveal_charges_mu| \quad \textit{(Lemma)} % reveal_charges_mu
+  \item \verb|chsh_trials_non_forgeable| \quad \textit{(Lemma)} % chsh_trials_non_forgeable
+  \item \verb|pyexec_cannot_forge_chsh| \quad \textit{(Lemma)} % pyexec_cannot_forge_chsh
+  \item \verb|no_free_insight_chsh| \quad \textit{(Theorem)} % no_free_insight_chsh
+  \item \verb|certified_supra_chsh_implies_mu_lower_bound| \quad \textit{(Theorem)} % certified_supra_chsh_implies_mu_lower_bound
+  \item \verb|quantum_admissible_cannot_certify_supra_chsh| \quad \textit{(Theorem)} % quantum_admissible_cannot_certify_supra_chsh
+  \item \verb|quantum_admissible_cannot_certify_chsh_claim| \quad \textit{(Theorem)} % quantum_admissible_cannot_certify_chsh_claim
+  \item \verb|certified_chsh_claim_implies_mu_lower_bound| \quad \textit{(Theorem)} % certified_chsh_claim_implies_mu_lower_bound
+  \item \verb|certified_bell_violation_implies_mu_lower_bound| \quad \textit{(Corollary)} % certified_bell_violation_implies_mu_lower_bound
+  \item \verb|certified_supra_chsh_implies_mu_info_z_lower_bound| \quad \textit{(Theorem)} % certified_supra_chsh_implies_mu_info_z_lower_bound
+\end{itemize}
+
+\subsection{ClassicalBound}
+
+\begin{itemize}
+  \item \verb|classical_program_mu_zero| \quad \textit{(Lemma)} % classical_program_mu_zero
+  \item \verb|classical_bound_achieved| \quad \textit{(Theorem)} % classical_bound_achieved
+\end{itemize}
+
+\subsection{Closure}
+
+\begin{itemize}
+  \item \verb|KernelMaximalClosure| \quad \textit{(Theorem)} % KernelMaximalClosure
+\end{itemize}
+
+\subsection{Composition}
+
+\begin{itemize}
+  \item \verb|pr_kernel_nonneg| \quad \textit{(Lemma)} % pr_kernel_nonneg
+  \item \verb|pr_kernel_normalized| \quad \textit{(Lemma)} % pr_kernel_normalized
+  \item \verb|pr_compose_not_coherent| \quad \textit{(Lemma)} % pr_compose_not_coherent
+  \item \verb|van_dam_and_prob_pr_kernel_computed| \quad \textit{(Lemma)} % van_dam_and_prob_pr_kernel_computed
+  \item \verb|van_dam_collapse_sufficient| \quad \textit{(Theorem)} % van_dam_collapse_sufficient
+\end{itemize}
+
+\subsection{ConeAlgebra}
+
+\begin{itemize}
+  \item \verb|cone_composition| \quad \textit{(Theorem)} % cone_composition
+  \item \verb|cone_monotonic| \quad \textit{(Theorem)} % cone_monotonic
+  \item \verb|cone_idempotent| \quad \textit{(Theorem)} % cone_idempotent
+  \item \verb|cone_swap_disjoint| \quad \textit{(Theorem)} % cone_swap_disjoint
+  \item \verb|cone_empty| \quad \textit{(Theorem)} % cone_empty
+  \item \verb|cone_associative| \quad \textit{(Theorem)} % cone_associative
+  \item \verb|independent_traces_commute| \quad \textit{(Theorem)} % independent_traces_commute
+  \item \verb|min_steps_to_target_app_left| \quad \textit{(Lemma)} % min_steps_to_target_app_left
+  \item \verb|min_steps_to_target_app_right| \quad \textit{(Lemma)} % min_steps_to_target_app_right
+  \item \verb|min_steps_to_target_app_none| \quad \textit{(Lemma)} % min_steps_to_target_app_none
+  \item \verb|existsb_nat_eqb_false| \quad \textit{(Lemma)} % existsb_nat_eqb_false
+  \item \verb|min_steps_to_target_lt_length| \quad \textit{(Lemma)} % min_steps_to_target_lt_length
+  \item \verb|target_has_depth| \quad \textit{(Theorem)} % target_has_depth
+  \item \verb|min_steps_to_target_triangle| \quad \textit{(Theorem)} % min_steps_to_target_triangle
+\end{itemize}
+
+\subsection{ConeDerivation}
+
+\begin{itemize}
+  \item \verb|Cone_Structure_Unique| \quad \textit{(Theorem)} % Cone_Structure_Unique
+  \item \verb|cone_monotone| \quad \textit{(Theorem)} % cone_monotone
+\end{itemize}
+
+\subsection{ConstantDerivationStrength}
+
+\begin{itemize}
+  \item \verb|ln2_positive| \quad \textit{(Lemma)} % ln2_positive
+  \item \verb|derived_c_positive| \quad \textit{(Lemma)} % derived_c_positive
+  \item \verb|derived_E_bit_positive| \quad \textit{(Lemma)} % derived_E_bit_positive
+  \item \verb|derived_h_positive| \quad \textit{(Lemma)} % derived_h_positive
+  \item \verb|c_depends_only_on_ratio| \quad \textit{(Theorem)} % c_depends_only_on_ratio
+  \item \verb|E_bit_independent_of_granularity| \quad \textit{(Theorem)} % E_bit_independent_of_granularity
+  \item \verb|h_sensitivity| \quad \textit{(Theorem)} % h_sensitivity
+  \item \verb|h_varies_independently_of_c| \quad \textit{(Theorem)} % h_varies_independently_of_c
+  \item \verb|planck_einstein_from_optimality| \quad \textit{(Theorem)} % planck_einstein_from_optimality
+  \item \verb|energy_time_uncertainty| \quad \textit{(Theorem)} % energy_time_uncertainty
+  \item \verb|any_positive_params_valid| \quad \textit{(Theorem)} % any_positive_params_valid
+  \item \verb|h_identity_universal| \quad \textit{(Theorem)} % h_identity_universal
+  \item \verb|c_identity_universal| \quad \textit{(Theorem)} % c_identity_universal
+  \item \verb|derivation_strength_proven| \quad \textit{(Theorem)} % derivation_strength_proven
+\end{itemize}
+
+\subsection{ConstantUnification}
+
+\begin{itemize}
+  \item \verb|tau_mu_pos| \quad \textit{(Lemma)} % tau_mu_pos
+  \item \verb|d_mu_pos| \quad \textit{(Lemma)} % d_mu_pos
+  \item \verb|k_B_pos| \quad \textit{(Lemma)} % k_B_pos
+  \item \verb|T_pos| \quad \textit{(Lemma)} % T_pos
+  \item \verb|h_relational_identity| \quad \textit{(Theorem)} % h_relational_identity
+  \item \verb|c_structural| \quad \textit{(Theorem)} % c_structural
+\end{itemize}
+
+\subsection{ConstructivePSD}
+
+\begin{itemize}
+  \item \verb|sum_fin5_unfold| \quad \textit{(Lemma)} % sum_fin5_unfold
+  \item \verb|quad5_unfold| \quad \textit{(Lemma)} % quad5_unfold
+  \item \verb|Rabs_le_inv| \quad \textit{(Lemma)} % Rabs_le_inv
+  \item \verb|Rabs_sq_le| \quad \textit{(Lemma)} % Rabs_sq_le
+  \item \verb|sum_fin5_linear| \quad \textit{(Lemma)} % sum_fin5_linear
+  \item \verb|sum_fin5_scal| \quad \textit{(Lemma)} % sum_fin5_scal
+  \item \verb|bilinear5_sym| \quad \textit{(Lemma)} % bilinear5_sym
+  \item \verb|quad5_expansion_bilinear| \quad \textit{(Lemma)} % quad5_expansion_bilinear
+  \item \verb|sum_e_basis| \quad \textit{(Lemma)} % sum_e_basis
+  \item \verb|sum_e_basis_r| \quad \textit{(Lemma)} % sum_e_basis_r
+  \item \verb|quad5_e_basis| \quad \textit{(Lemma)} % quad5_e_basis
+  \item \verb|bilinear5_e_basis| \quad \textit{(Lemma)} % bilinear5_e_basis
+  \item \verb|quad5_scal| \quad \textit{(Lemma)} % quad5_scal
+  \item \verb|bilinear5_scal_r| \quad \textit{(Lemma)} % bilinear5_scal_r
+  \item \verb|bilinear5_linear_r| \quad \textit{(Lemma)} % bilinear5_linear_r
+  \item \verb|bilinear5_linear_l| \quad \textit{(Lemma)} % bilinear5_linear_l
+  \item \verb|bilinear5_scal_l| \quad \textit{(Lemma)} % bilinear5_scal_l
+  \item \verb|quad5_e_combo_3| \quad \textit{(Lemma)} % quad5_e_combo_3
+  \item \verb|quadratic_nonneg_discriminant| \quad \textit{(Lemma)} % quadratic_nonneg_discriminant
+  \item \verb|PSD5_off_diagonal_bound| \quad \textit{(Lemma)} % PSD5_off_diagonal_bound
+  \item \verb|PSD_perfect_corr_implies_equal_rows| \quad \textit{(Lemma)} % PSD_perfect_corr_implies_equal_rows
+  \item \verb|psd_3x3_determinant_nonneg| \quad \textit{(Lemma)} % psd_3x3_determinant_nonneg
+  \item \verb|PSD5_convex| \quad \textit{(Lemma)} % PSD5_convex
+\end{itemize}
+
+\subsection{DerivedTime}
+
+\begin{itemize}
+  \item \verb|mdlacc_preserves_all_regions| \quad \textit{(Lemma)} % mdlacc_preserves_all_regions
+  \item \verb|Time_Is_Not_Fundamental| \quad \textit{(Theorem)} % Time_Is_Not_Fundamental
+  \item \verb|trace_equiv_region_stutter| \quad \textit{(Theorem)} % trace_equiv_region_stutter
+\end{itemize}
+
+\subsection{DiscreteGaussBonnet}
+
+\begin{itemize}
+  \item \verb|equilateral_triangle_angle| \quad \textit{(Lemma)} % equilateral_triangle_angle
+  \item \verb|three_equilateral_angles_sum_pi| \quad \textit{(Lemma)} % three_equilateral_angles_sum_pi
+  \item \verb|sum_of_vertex_degrees_equals_3F| \quad \textit{(Lemma)} % sum_of_vertex_degrees_equals_3F
+  \item \verb|sum_angle_defects_expand| \quad \textit{(Lemma)} % sum_angle_defects_expand
+  \item \verb|sum_angle_defects_equals_2piV_minus_piF| \quad \textit{(Lemma)} % sum_angle_defects_equals_2piV_minus_piF
+  \item \verb|nat_algebra_for_triangulation| \quad \textit{(Lemma)} % nat_algebra_for_triangulation
+  \item \verb|euler_in_terms_of_E_and_F| \quad \textit{(Lemma)} % euler_in_terms_of_E_and_F
+  \item \verb|discrete_gauss_bonnet| \quad \textit{(Theorem)} % discrete_gauss_bonnet
+  \item \verb|disk_total_curvature| \quad \textit{(Corollary)} % disk_total_curvature
+  \item \verb|sphere_total_curvature| \quad \textit{(Corollary)} % sphere_total_curvature
+  \item \verb|torus_total_curvature| \quad \textit{(Corollary)} % torus_total_curvature
+\end{itemize}
+
+\subsection{DiscreteTopology}
+
+\begin{itemize}
+  \item \verb|empty_graph_euler_char_0| \quad \textit{(Lemma)} % empty_graph_euler_char_0
+  \item \verb|V_nonneg| \quad \textit{(Lemma)} % V_nonneg
+  \item \verb|E_nonneg| \quad \textit{(Lemma)} % E_nonneg
+  \item \verb|F_nonneg| \quad \textit{(Lemma)} % F_nonneg
+  \item \verb|F_equals_module_count| \quad \textit{(Lemma)} % F_equals_module_count
+  \item \verb|deduplicate_edges_In| \quad \textit{(Lemma)} % deduplicate_edges_In
+  \item \verb|collect_edges_In| \quad \textit{(Lemma)} % collect_edges_In
+  \item \verb|edge_in_list_appears_in_some_module| \quad \textit{(Lemma)} % edge_in_list_appears_in_some_module
+  \item \verb|edge_appears_in_1_or_2_modules| \quad \textit{(Lemma)} % edge_appears_in_1_or_2_modules
+  \item \verb|interior_boundary_exclusive| \quad \textit{(Lemma)} % interior_boundary_exclusive
+  \item \verb|boundary_interior_exclusive| \quad \textit{(Lemma)} % boundary_interior_exclusive
+  \item \verb|edge_is_interior_or_boundary| \quad \textit{(Lemma)} % edge_is_interior_or_boundary
+  \item \verb|total_edges_eq_interior_plus_boundary| \quad \textit{(Lemma)} % total_edges_eq_interior_plus_boundary
+  \item \verb|region_edges_internal_length_3| \quad \textit{(Lemma)} % region_edges_internal_length_3
+  \item \verb|triangle_has_3_edges| \quad \textit{(Lemma)} % triangle_has_3_edges
+  \item \verb|In_implies_graph_lookup| \quad \textit{(Lemma)} % In_implies_graph_lookup
+  \item \verb|edge_face_incidence_equation| \quad \textit{(Lemma)} % edge_face_incidence_equation
+  \item \verb|triangulation_combinatorial_identity| \quad \textit{(Theorem)} % triangulation_combinatorial_identity
+\end{itemize}
+
+\subsection{EinsteinEmergence}
+
+\begin{itemize}
+  \item \verb|coupling_constant_positive| \quad \textit{(Lemma)} % coupling_constant_positive
+  \item \verb|information_creates_curvature| \quad \textit{(Theorem)} % information_creates_curvature
+  \item \verb|curvature_quantization| \quad \textit{(Theorem)} % curvature_quantization
+  \item \verb|minimum_curvature_quantum| \quad \textit{(Corollary)} % minimum_curvature_quantum
+  \item \verb|coupling_ratio_value| \quad \textit{(Lemma)} % coupling_ratio_value
+  \item \verb|coupling_comparison| \quad \textit{(Corollary)} % coupling_comparison
+  \item \verb|einstein_emerges| \quad \textit{(Theorem)} % einstein_emerges
+\end{itemize}
+
+\subsection{EinsteinEquations4D}
+
+\begin{itemize}
+  \item \verb|einstein_field_equations| \quad \textit{(Theorem)} % einstein_field_equations
+  \item \verb|computational_scale_positive| \quad \textit{(Lemma)} % computational_scale_positive
+  \item \verb|metric_diagonal_proportional_to_mass| \quad \textit{(Lemma)} % metric_diagonal_proportional_to_mass
+  \item \verb|metric_component_vertex_independent| \quad \textit{(Lemma)} % metric_component_vertex_independent
+  \item \verb|discrete_derivative_constant| \quad \textit{(Lemma)} % discrete_derivative_constant
+  \item \verb|metric_component_position_independent_uniform| \quad \textit{(Lemma)} % metric_component_position_independent_uniform
+  \item \verb|discrete_derivative_position_independent| \quad \textit{(Lemma)} % discrete_derivative_position_independent
+  \item \verb|filter_false| \quad \textit{(Lemma)} % filter_false
+  \item \verb|no_edges_derivative_zero| \quad \textit{(Lemma)} % no_edges_derivative_zero
+  \item \verb|flat_spacetime_christoffel_zero| \quad \textit{(Lemma)} % flat_spacetime_christoffel_zero
+  \item \verb|flat_spacetime_christoffel_zero_general| \quad \textit{(Lemma)} % flat_spacetime_christoffel_zero_general
+  \item \verb|flat_spacetime_riemann_zero| \quad \textit{(Lemma)} % flat_spacetime_riemann_zero
+  \item \verb|flat_spacetime_riemann_zero_general| \quad \textit{(Lemma)} % flat_spacetime_riemann_zero_general
+  \item \verb|fold_left_sum_zeros| \quad \textit{(Lemma)} % fold_left_sum_zeros
+  \item \verb|fold_left_nested_zeros| \quad \textit{(Lemma)} % fold_left_nested_zeros
+  \item \verb|flat_spacetime_einstein_zero| \quad \textit{(Lemma)} % flat_spacetime_einstein_zero
+  \item \verb|flat_spacetime_einstein_zero_general| \quad \textit{(Lemma)} % flat_spacetime_einstein_zero_general
+  \item \verb|curvature_from_mu_gradients| \quad \textit{(Lemma)} % curvature_from_mu_gradients
+  \item \verb|stress_energy_conserved_non_pmerge| \quad \textit{(Lemma)} % stress_energy_conserved_non_pmerge
+  \item \verb|flat_spacetime_stress_energy_00| \quad \textit{(Lemma)} % flat_spacetime_stress_energy_00
+  \item \verb|einstein_equation_vacuum| \quad \textit{(Theorem)} % einstein_equation_vacuum
+  \item \verb|einstein_equation| \quad \textit{(Theorem)} % einstein_equation
+  \item \verb|empty_spacetime_satisfies_einstein| \quad \textit{(Lemma)} % empty_spacetime_satisfies_einstein
+  \item \verb|metric_unconditionally_position_independent| \quad \textit{(Lemma)} % metric_unconditionally_position_independent
+  \item \verb|christoffel_unconditionally_zero| \quad \textit{(Lemma)} % christoffel_unconditionally_zero
+  \item \verb|riemann_unconditionally_zero| \quad \textit{(Lemma)} % riemann_unconditionally_zero
+  \item \verb|ricci_unconditionally_zero| \quad \textit{(Lemma)} % ricci_unconditionally_zero
+  \item \verb|ricci_scalar_unconditionally_zero| \quad \textit{(Lemma)} % ricci_scalar_unconditionally_zero
+  \item \verb|einstein_unconditionally_zero| \quad \textit{(Lemma)} % einstein_unconditionally_zero
+  \item \verb|discrete_bianchi_identity| \quad \textit{(Theorem)} % discrete_bianchi_identity
+  \item \verb|mu_conservation_implies_bianchi| \quad \textit{(Theorem)} % mu_conservation_implies_bianchi
+  \item \verb|local_bianchi_flat_case| \quad \textit{(Theorem)} % local_bianchi_flat_case
+  \item \verb|local_christoffel_nonzero_possible_when_masses_differ| \quad \textit{(Lemma)} % local_christoffel_nonzero_possible_when_masses_differ
+  \item \verb|non_uniform_mass_produces_curvature| \quad \textit{(Theorem)} % non_uniform_mass_produces_curvature
+  \item \verb|local_einstein_equation_vacuum| \quad \textit{(Theorem)} % local_einstein_equation_vacuum
+  \item \verb|local_einstein_vanishes_uniform| \quad \textit{(Theorem)} % local_einstein_vanishes_uniform
+  \item \verb|mu_conservation_implies_local_bianchi_flat| \quad \textit{(Theorem)} % mu_conservation_implies_local_bianchi_flat
+  \item \verb|mu_conservation_implies_local_einstein_vacuum| \quad \textit{(Theorem)} % mu_conservation_implies_local_einstein_vacuum
+\end{itemize}
+
+\subsection{EntropyImpossibility}
+
+\begin{itemize}
+  \item \verb|tweak_regs_region_equiv| \quad \textit{(Lemma)} % tweak_regs_region_equiv
+  \item \verb|tweak_regs_injective| \quad \textit{(Lemma)} % tweak_regs_injective
+  \item \verb|region_equiv_class_infinite| \quad \textit{(Theorem)} % region_equiv_class_infinite
+  \item \verb|Entropy_From_Observation_Fails_Without_Finiteness| \quad \textit{(Theorem)} % Entropy_From_Observation_Fails_Without_Finiteness
+\end{itemize}
+
+\subsection{FalsifiablePrediction}
+
+\begin{itemize}
+  \item \verb|mu_monotonic_step| \quad \textit{(Theorem)} % mu_monotonic_step
+  \item \verb|mu_cost_additive| \quad \textit{(Theorem)} % mu_cost_additive
+\end{itemize}
+
+\subsection{FiniteInformation}
+
+\begin{itemize}
+  \item \verb|existsb_spec| \quad \textit{(Lemma)} % existsb_spec
+  \item \verb|nodup_list_NoDup| \quad \textit{(Lemma)} % nodup_list_NoDup
+  \item \verb|in_nodup_list| \quad \textit{(Lemma)} % in_nodup_list
+  \item \verb|nodup_list_length| \quad \textit{(Lemma)} % nodup_list_length
+  \item \verb|in_remove_neq| \quad \textit{(Lemma)} % in_remove_neq
+  \item \verb|in_remove_intro| \quad \textit{(Lemma)} % in_remove_intro
+  \item \verb|NoDup_remove_elem| \quad \textit{(Lemma)} % NoDup_remove_elem
+  \item \verb|remove_not_in| \quad \textit{(Lemma)} % remove_not_in
+  \item \verb|remove_length_in| \quad \textit{(Lemma)} % remove_length_in
+  \item \verb|image_obs_subset| \quad \textit{(Lemma)} % image_obs_subset
+  \item \verb|nodup_subset| \quad \textit{(Lemma)} % nodup_subset
+  \item \verb|NoDup_incl_length| \quad \textit{(Lemma)} % NoDup_incl_length
+  \item \verb|info_nonincreasing| \quad \textit{(Theorem)} % info_nonincreasing
+  \item \verb|info_destroyed_welldef| \quad \textit{(Lemma)} % info_destroyed_welldef
+  \item \verb|mu_monotonic| \quad \textit{(Theorem)} % mu_monotonic
+  \item \verb|vm_mu_accounting| \quad \textit{(Lemma)} % vm_mu_accounting
+  \item \verb|vm_mu_monotonic| \quad \textit{(Theorem)} % vm_mu_monotonic
+\end{itemize}
+
+\subsection{FourDSimplicialComplex}
+
+\begin{itemize}
+  \item \verb|empty_4d_complex_euler_zero| \quad \textit{(Lemma)} % empty_4d_complex_euler_zero
+  \item \verb|single_vertex_euler_one| \quad \textit{(Lemma)} % single_vertex_euler_one
+  \item \verb|extracted_edges_well_formed| \quad \textit{(Lemma)} % extracted_edges_well_formed
+  \item \verb|singleton_face_well_formed| \quad \textit{(Lemma)} % singleton_face_well_formed
+  \item \verb|singleton_cell_well_formed| \quad \textit{(Lemma)} % singleton_cell_well_formed
+  \item \verb|singleton_4simplex_well_formed| \quad \textit{(Lemma)} % singleton_4simplex_well_formed
+  \item \verb|flat_map_preserves_forall| \quad \textit{(Lemma)} % flat_map_preserves_forall
+  \item \verb|extracted_faces_well_formed| \quad \textit{(Lemma)} % extracted_faces_well_formed
+  \item \verb|extracted_cells_well_formed| \quad \textit{(Lemma)} % extracted_cells_well_formed
+  \item \verb|extracted_4simplices_well_formed| \quad \textit{(Lemma)} % extracted_4simplices_well_formed
+  \item \verb|build_4d_complex_well_formed| \quad \textit{(Theorem)} % build_4d_complex_well_formed
+\end{itemize}
+
+\subsection{GeodesicCompleteness}
+
+\begin{itemize}
+  \item \verb|execution_cost_equals_distance| \quad \textit{(Theorem)} % execution_cost_equals_distance
+  \item \verb|geodesic_inequality| \quad \textit{(Theorem)} % geodesic_inequality
+  \item \verb|every_execution_is_geodesic| \quad \textit{(Theorem)} % every_execution_is_geodesic
+  \item \verb|forward_pointing| \quad \textit{(Lemma)} % forward_pointing
+  \item \verb|forward_distance| \quad \textit{(Lemma)} % forward_distance
+  \item \verb|cauchy_stabilizes_mu| \quad \textit{(Lemma)} % cauchy_stabilizes_mu
+  \item \verb|mu_metric_complete| \quad \textit{(Theorem)} % mu_metric_complete
+  \item \verb|mu_velocity_nonneg| \quad \textit{(Lemma)} % mu_velocity_nonneg
+\end{itemize}
+
+\subsection{HardAssumptions}
+
+\begin{itemize}
+  \item \verb|symmetric_coherence_bound| \quad \textit{(Theorem)} % symmetric_coherence_bound
+  \item \verb|tsirelson_from_algebraic_coherence| \quad \textit{(Theorem)} % tsirelson_from_algebraic_coherence
+\end{itemize}
+
+\subsection{HardMathFactsProven}
+
+\begin{itemize}
+  \item \verb|norm_E_bound_proven| \quad \textit{(Lemma)} % norm_E_bound_proven
+  \item \verb|valid_S_4_proven| \quad \textit{(Lemma)} % valid_S_4_proven
+  \item \verb|local_S_2_proven| \quad \textit{(Lemma)} % local_S_2_proven
+  \item \verb|pr_no_ext_proven| \quad \textit{(Lemma)} % pr_no_ext_proven
+  \item \verb|symm_coh_bound_proven| \quad \textit{(Lemma)} % symm_coh_bound_proven
+  \item \verb|tsir_from_coh_proven| \quad \textit{(Lemma)} % tsir_from_coh_proven
+  \item \verb|tsir_from_coh_weak| \quad \textit{(Lemma)} % tsir_from_coh_weak
+\end{itemize}
+
+\subsection{HardwareBisimulation}
+
+\begin{itemize}
+  \item \verb|hw_initial_correspondence| \quad \textit{(Theorem)} % hw_initial_correspondence
+  \item \verb|hw_step_preserves_pc| \quad \textit{(Theorem)} % hw_step_preserves_pc
+  \item \verb|hw_step_preserves_mu| \quad \textit{(Theorem)} % hw_step_preserves_mu
+  \item \verb|hw_bisimulation_step| \quad \textit{(Theorem)} % hw_bisimulation_step
+  \item \verb|hw_bisimulation_multi_step| \quad \textit{(Theorem)} % hw_bisimulation_multi_step
+  \item \verb|hw_mu_cost_consistency| \quad \textit{(Corollary)} % hw_mu_cost_consistency
+  \item \verb|complete_verification_chain| \quad \textit{(Theorem)} % complete_verification_chain
+  \item \verb|q16_add_assoc| \quad \textit{(Lemma)} % q16_add_assoc
+  \item \verb|q16_add_comm| \quad \textit{(Lemma)} % q16_add_comm
+  \item \verb|mu_accumulation_monotonic| \quad \textit{(Lemma)} % mu_accumulation_monotonic
+  \item \verb|hardware_synthesis_correctness| \quad \textit{(Theorem)} % hardware_synthesis_correctness
+\end{itemize}
+
+\subsection{InformationCausality}
+
+\begin{itemize}
+  \item \verb|information_causality_is_mu_cost| \quad \textit{(Theorem)} % information_causality_is_mu_cost
+  \item \verb|ic_zero_communication_bound| \quad \textit{(Theorem)} % ic_zero_communication_bound
+  \item \verb|ic_zero_implies_tsirelson| \quad \textit{(Theorem)} % ic_zero_implies_tsirelson
+  \item \verb|ic_monotonicity| \quad \textit{(Lemma)} % ic_monotonicity
+  \item \verb|ic_communication_bounded| \quad \textit{(Lemma)} % ic_communication_bounded
+  \item \verb|mu_cost_reflects_accessible_info| \quad \textit{(Lemma)} % mu_cost_reflects_accessible_info
+  \item \verb|ic_composition| \quad \textit{(Lemma)} % ic_composition
+  \item \verb|ic_equiv_cost_preservation| \quad \textit{(Lemma)} % ic_equiv_cost_preservation
+  \item \verb|zero_cost_is_quantum| \quad \textit{(Lemma)} % zero_cost_is_quantum
+  \item \verb|ic_cost_optimal| \quad \textit{(Lemma)} % ic_cost_optimal
+  \item \verb|accessible_info_bounded| \quad \textit{(Lemma)} % accessible_info_bounded
+  \item \verb|ic_implies_partition_constraint| \quad \textit{(Lemma)} % ic_implies_partition_constraint
+  \item \verb|communication_efficiency| \quad \textit{(Lemma)} % communication_efficiency
+\end{itemize}
+
+\subsection{InverseSquareLaw}
+
+\begin{itemize}
+  \item \verb|adjacent_symmetric| \quad \textit{(Lemma)} % adjacent_symmetric
+  \item \verb|graph_path_snoc| \quad \textit{(Lemma)} % graph_path_snoc
+  \item \verb|graph_path_symmetric| \quad \textit{(Lemma)} % graph_path_symmetric
+  \item \verb|graph_distance_nonneg| \quad \textit{(Lemma)} % graph_distance_nonneg
+  \item \verb|graph_path_zero_eq| \quad \textit{(Lemma)} % graph_path_zero_eq
+  \item \verb|graph_path_triangle| \quad \textit{(Lemma)} % graph_path_triangle
+  \item \verb|potential_inverse_r| \quad \textit{(Lemma)} % potential_inverse_r
+  \item \verb|inverse_square_law| \quad \textit{(Theorem)} % inverse_square_law
+  \item \verb|force_quarter_at_double_distance| \quad \textit{(Corollary)} % force_quarter_at_double_distance
+  \item \verb|discrete_matches_continuous| \quad \textit{(Lemma)} % discrete_matches_continuous
+  \item \verb|spatial_dims_is_3| \quad \textit{(Lemma)} % spatial_dims_is_3
+  \item \verb|green_exponent_3d| \quad \textit{(Lemma)} % green_exponent_3d
+  \item \verb|force_exponent_3d| \quad \textit{(Theorem)} % force_exponent_3d
+\end{itemize}
+
+\subsection{KernelBenchmarks}
+
+\begin{itemize}
+  \item \verb|pnew_linear| \quad \textit{(Theorem)} % pnew_linear
+  \item \verb|psplit_linear| \quad \textit{(Theorem)} % psplit_linear
+  \item \verb|pmerge_linear_worst| \quad \textit{(Theorem)} % pmerge_linear_worst
+  \item \verb|space_linear| \quad \textit{(Theorem)} % space_linear
+  \item \verb|workload_linear| \quad \textit{(Theorem)} % workload_linear
+\end{itemize}
+
+\subsection{KernelNoether}
+
+\begin{itemize}
+  \item \verb|z_action_identity| \quad \textit{(Theorem)} % z_action_identity
+  \item \verb|z_action_composition| \quad \textit{(Theorem)} % z_action_composition
+  \item \verb|z_action_inverse| \quad \textit{(Theorem)} % z_action_inverse
+  \item \verb|z_gauge_invariance| \quad \textit{(Theorem)} % z_gauge_invariance
+  \item \verb|vm_step_mu_monotonic| \quad \textit{(Theorem)} % vm_step_mu_monotonic
+  \item \verb|orbit_equiv_refl| \quad \textit{(Theorem)} % orbit_equiv_refl
+  \item \verb|orbit_equiv_sym| \quad \textit{(Theorem)} % orbit_equiv_sym
+  \item \verb|orbit_equiv_trans| \quad \textit{(Theorem)} % orbit_equiv_trans
+  \item \verb|shift_cost_comm| \quad \textit{(Lemma)} % shift_cost_comm
+  \item \verb|vm_step_orbit_equiv| \quad \textit{(Lemma)} % vm_step_orbit_equiv
+  \item \verb|noether_forward| \quad \textit{(Theorem)} % noether_forward
+  \item \verb|noether_backward| \quad \textit{(Theorem)} % noether_backward
+\end{itemize}
+
+\subsection{KernelPhysics}
+
+\begin{itemize}
+  \item \verb|obs_equiv_refl| \quad \textit{(Theorem)} % obs_equiv_refl
+  \item \verb|obs_equiv_sym| \quad \textit{(Theorem)} % obs_equiv_sym
+  \item \verb|obs_equiv_trans| \quad \textit{(Theorem)} % obs_equiv_trans
+  \item \verb|gauge_invariance_observables| \quad \textit{(Theorem)} % gauge_invariance_observables
+  \item \verb|cone_monotonic| \quad \textit{(Theorem)} % cone_monotonic
+  \item \verb|mu_conservation_kernel| \quad \textit{(Theorem)} % mu_conservation_kernel
+  \item \verb|nat_action_identity| \quad \textit{(Theorem)} % nat_action_identity
+  \item \verb|nat_action_composition| \quad \textit{(Theorem)} % nat_action_composition
+  \item \verb|kernel_conservation_mu_gauge| \quad \textit{(Theorem)} % kernel_conservation_mu_gauge
+  \item \verb|graph_insert_modules_preserves_unrelated| \quad \textit{(Lemma)} % graph_insert_modules_preserves_unrelated
+  \item \verb|graph_insert_modules_lookup_same| \quad \textit{(Lemma)} % graph_insert_modules_lookup_same
+  \item \verb|graph_update_lookup_same| \quad \textit{(Lemma)} % graph_update_lookup_same
+  \item \verb|graph_update_preserves_unrelated| \quad \textit{(Lemma)} % graph_update_preserves_unrelated
+  \item \verb|graph_add_axiom_preserves_unrelated| \quad \textit{(Lemma)} % graph_add_axiom_preserves_unrelated
+  \item \verb|graph_record_discovery_preserves_unrelated| \quad \textit{(Lemma)} % graph_record_discovery_preserves_unrelated
+  \item \verb|graph_lookup_beyond_next_id| \quad \textit{(Lemma)} % graph_lookup_beyond_next_id
+  \item \verb|graph_add_module_preserves_existing| \quad \textit{(Lemma)} % graph_add_module_preserves_existing
+  \item \verb|graph_remove_preserves_next_id| \quad \textit{(Lemma)} % graph_remove_preserves_next_id
+  \item \verb|graph_remove_preserves_unrelated| \quad \textit{(Lemma)} % graph_remove_preserves_unrelated
+  \item \verb|graph_pnew_preserves_existing| \quad \textit{(Lemma)} % graph_pnew_preserves_existing
+  \item \verb|graph_psplit_preserves_unrelated| \quad \textit{(Lemma)} % graph_psplit_preserves_unrelated
+  \item \verb|graph_pmerge_preserves_observables| \quad \textit{(Lemma)} % graph_pmerge_preserves_observables
+  \item \verb|observational_no_signaling| \quad \textit{(Theorem)} % observational_no_signaling
+\end{itemize}
+
+\subsection{KernelTM}
+
+\begin{itemize}
+  \item \verb|tm_is_turing_complete| \quad \textit{(Theorem)} % tm_is_turing_complete
+\end{itemize}
+
+\subsection{L2Derivation}
+
+\begin{itemize}
+  \item \verb|sqrt2_gt_1| \quad \textit{(Lemma)} % sqrt2_gt_1
+  \item \verb|inv_sqrt2_lt_1| \quad \textit{(Lemma)} % inv_sqrt2_lt_1
+  \item \verb|l1_no_continuous_group| \quad \textit{(Theorem)} % l1_no_continuous_group
+  \item \verb|l1_no_continuous_evolution| \quad \textit{(Corollary)} % l1_no_continuous_evolution
+  \item \verb|rotation_is_l2_isometry| \quad \textit{(Lemma)} % rotation_is_l2_isometry
+  \item \verb|rotation_is_continuous_group| \quad \textit{(Lemma)} % rotation_is_continuous_group
+  \item \verb|pow_inv_sqrt2_lt_1| \quad \textit{(Lemma)} % pow_inv_sqrt2_lt_1
+  \item \verb|rotation_breaks_lp_when_not_2| \quad \textit{(Theorem)} % rotation_breaks_lp_when_not_2
+  \item \verb|l2_is_unique_continuous_norm| \quad \textit{(Theorem)} % l2_is_unique_continuous_norm
+  \item \verb|quantum_mechanics_from_machine| \quad \textit{(Theorem)} % quantum_mechanics_from_machine
+\end{itemize}
+
+\subsection{LocalInfoLoss}
+
+\begin{itemize}
+  \item \verb|pnew_module_count_change| \quad \textit{(Lemma)} % pnew_module_count_change
+  \item \verb|psplit_module_count_change| \quad \textit{(Lemma)} % psplit_module_count_change
+  \item \verb|pmerge_module_count_change| \quad \textit{(Lemma)} % pmerge_module_count_change
+  \item \verb|other_instr_module_count_unchanged| \quad \textit{(Lemma)} % other_instr_module_count_unchanged
+  \item \verb|pmerge_info_loss_bounded| \quad \textit{(Lemma)} % pmerge_info_loss_bounded
+  \item \verb|cost_bounds_info_loss| \quad \textit{(Theorem)} % cost_bounds_info_loss
+  \item \verb|trace_cost_bounds_total_info_loss| \quad \textit{(Theorem)} % trace_cost_bounds_total_info_loss
+  \item \verb|causality_implies_conservation| \quad \textit{(Theorem)} % causality_implies_conservation
+\end{itemize}
+
+\subsection{Locality}
+
+\begin{itemize}
+  \item \verb|wf_graph_lookup_implies_below| \quad \textit{(Lemma)} % wf_graph_lookup_implies_below
+  \item \verb|all_ids_below_lookup_implies_below| \quad \textit{(Lemma)} % all_ids_below_lookup_implies_below
+  \item \verb|graph_pnew_preserves_lookup| \quad \textit{(Lemma)} % graph_pnew_preserves_lookup
+  \item \verb|graph_update_preserves_lookup_other| \quad \textit{(Lemma)} % graph_update_preserves_lookup_other
+  \item \verb|graph_add_axiom_preserves_lookup_other| \quad \textit{(Lemma)} % graph_add_axiom_preserves_lookup_other
+  \item \verb|graph_add_axioms_preserves_lookup_other| \quad \textit{(Lemma)} % graph_add_axioms_preserves_lookup_other
+  \item \verb|advance_state_graph| \quad \textit{(Lemma)} % advance_state_graph
+  \item \verb|advance_state_reveal_graph| \quad \textit{(Lemma)} % advance_state_reveal_graph
+  \item \verb|advance_state_rm_graph| \quad \textit{(Lemma)} % advance_state_rm_graph
+  \item \verb|module_exists_implies_below| \quad \textit{(Lemma)} % module_exists_implies_below
+  \item \verb|region_obs_lookup_eq| \quad \textit{(Lemma)} % region_obs_lookup_eq
+  \item \verb|not_in_singleton| \quad \textit{(Lemma)} % not_in_singleton
+  \item \verb|not_in_pair| \quad \textit{(Lemma)} % not_in_pair
+  \item \verb|vm_step_is_local| \quad \textit{(Theorem)} % vm_step_is_local
+\end{itemize}
+
+\subsection{LorentzNotForced}
+
+\begin{itemize}
+  \item \verb|Lorentz_Not_Forced| \quad \textit{(Theorem)} % Lorentz_Not_Forced
+  \item \verb|causal_cone_stutter| \quad \textit{(Lemma)} % causal_cone_stutter
+  \item \verb|Cone_Symmetry_Underdetermined| \quad \textit{(Theorem)} % Cone_Symmetry_Underdetermined
+\end{itemize}
+
+\subsection{LorentzSignature}
+
+\begin{itemize}
+  \item \verb|signature_temporal| \quad \textit{(Lemma)} % signature_temporal
+  \item \verb|signature_spatial_1| \quad \textit{(Lemma)} % signature_spatial_1
+  \item \verb|signature_spatial_2| \quad \textit{(Lemma)} % signature_spatial_2
+  \item \verb|signature_spatial_3| \quad \textit{(Lemma)} % signature_spatial_3
+  \item \verb|signature_offdiag| \quad \textit{(Lemma)} % signature_offdiag
+  \item \verb|signature_symmetric| \quad \textit{(Lemma)} % signature_symmetric
+  \item \verb|lorentzian_metric_temporal_nonpositive| \quad \textit{(Lemma)} % lorentzian_metric_temporal_nonpositive
+  \item \verb|lorentzian_metric_spatial_nonneg| \quad \textit{(Lemma)} % lorentzian_metric_spatial_nonneg
+  \item \verb|lorentzian_metric_symmetric| \quad \textit{(Lemma)} % lorentzian_metric_symmetric
+  \item \verb|temporal_irreversibility| \quad \textit{(Lemma)} % temporal_irreversibility
+  \item \verb|xor_involution| \quad \textit{(Lemma)} % xor_involution
+  \item \verb|spatial_reversibility| \quad \textit{(Theorem)} % spatial_reversibility
+  \item \verb|pure_temporal_is_timelike| \quad \textit{(Lemma)} % pure_temporal_is_timelike
+  \item \verb|pure_spatial_is_spacelike| \quad \textit{(Lemma)} % pure_spatial_is_spacelike
+  \item \verb|mu_globally_irreversible| \quad \textit{(Theorem)} % mu_globally_irreversible
+  \item \verb|lorentz_signature_is_forced| \quad \textit{(Theorem)} % lorentz_signature_is_forced
+  \item \verb|temporal_interval_nonneg| \quad \textit{(Lemma)} % temporal_interval_nonneg
+\end{itemize}
+
+\subsection{MasterSummary}
+
+\begin{itemize}
+  \item \verb|master_tsirelson| \quad \textit{(Theorem)} % master_tsirelson
+  \item \verb|master_quantum_foundations| \quad \textit{(Theorem)} % master_quantum_foundations
+  \item \verb|master_non_circularity| \quad \textit{(Theorem)} % master_non_circularity
+  \item \verb|master_verification_chain| \quad \textit{(Theorem)} % master_verification_chain
+  \item \verb|thiele_machine_is_complete| \quad \textit{(Theorem)} % thiele_machine_is_complete
+\end{itemize}
+
+\subsection{MetricFromMuCosts}
+
+\begin{itemize}
+  \item \verb|mu_tensor_metric_nonneg| \quad \textit{(Lemma)} % mu_tensor_metric_nonneg
+  \item \verb|zero_tensor_gives_zero_metric| \quad \textit{(Lemma)} % zero_tensor_gives_zero_metric
+  \item \verb|edge_length_nonneg| \quad \textit{(Lemma)} % edge_length_nonneg
+  \item \verb|edge_length_symmetric| \quad \textit{(Lemma)} % edge_length_symmetric
+  \item \verb|edge_length_identity| \quad \textit{(Lemma)} % edge_length_identity
+  \item \verb|edge_length_triangle_inequality| \quad \textit{(Lemma)} % edge_length_triangle_inequality
+  \item \verb|edge_length_is_metric| \quad \textit{(Theorem)} % edge_length_is_metric
+  \item \verb|angle_sum_determines_curvature| \quad \textit{(Theorem)} % angle_sum_determines_curvature
+  \item \verb|metric_at_vertex_nonneg| \quad \textit{(Lemma)} % metric_at_vertex_nonneg
+  \item \verb|metric_at_vertex_offdiag| \quad \textit{(Lemma)} % metric_at_vertex_offdiag
+  \item \verb|metric_at_vertex_diag| \quad \textit{(Lemma)} % metric_at_vertex_diag
+  \item \verb|local_metric_derivative_nonzero_when_masses_differ| \quad \textit{(Lemma)} % local_metric_derivative_nonzero_when_masses_differ
+  \item \verb|local_metric_uniform_position_independent| \quad \textit{(Lemma)} % local_metric_uniform_position_independent
+\end{itemize}
+
+\subsection{MinimalE}
+
+\begin{itemize}
+  \item \verb|Qopp_0_le| \quad \textit{(Lemma)} % Qopp_0_le
+  \item \verb|minimal_normalized_E_bound| \quad \textit{(Lemma)} % minimal_normalized_E_bound
+\end{itemize}
+
+\subsection{MinorConstraints}
+
+\begin{itemize}
+  \item \verb|sum_n_le| \quad \textit{(Lemma)} % sum_n_le
+  \item \verb|sum_n_scale| \quad \textit{(Lemma)} % sum_n_scale
+  \item \verb|sum_n_plus| \quad \textit{(Lemma)} % sum_n_plus
+  \item \verb|sum_n_minus| \quad \textit{(Lemma)} % sum_n_minus
+  \item \verb|sum_n_nonneg| \quad \textit{(Lemma)} % sum_n_nonneg
+  \item \verb|sum_n_cauchy_schwarz| \quad \textit{(Lemma)} % sum_n_cauchy_schwarz
+  \item \verb|factorizable_cauchy_schwarz| \quad \textit{(Lemma)} % factorizable_cauchy_schwarz
+  \item \verb|factorizable_satisfies_minors| \quad \textit{(Theorem)} % factorizable_satisfies_minors
+  \item \verb|deterministic_strategy_chsh_bounded| \quad \textit{(Lemma)} % deterministic_strategy_chsh_bounded
+  \item \verb|fine_theorem| \quad \textit{(Theorem)} % fine_theorem
+  \item \verb|factorizable_CHSH_classical_bound| \quad \textit{(Corollary)} % factorizable_CHSH_classical_bound
+  \item \verb|local_box_CHSH_bound| \quad \textit{(Theorem)} % local_box_CHSH_bound
+  \item \verb|fine_theorem_holds| \quad \textit{(Theorem)} % fine_theorem_holds
+\end{itemize}
+
+\subsection{ModularObservation}
+
+\begin{itemize}
+  \item \verb|full_observe_eq_implies_agrees| \quad \textit{(Lemma)} % full_observe_eq_implies_agrees
+  \item \verb|nodup_local_NoDup| \quad \textit{(Lemma)} % nodup_local_NoDup
+  \item \verb|in_nodup_local| \quad \textit{(Lemma)} % in_nodup_local
+  \item \verb|non_target_obs_invariant| \quad \textit{(Lemma)} % non_target_obs_invariant
+\end{itemize}
+
+\subsection{MuChaitin}
+
+\begin{itemize}
+  \item \verb|mu_info_nat_ge_from_mu_total| \quad \textit{(Lemma)} % mu_info_nat_ge_from_mu_total
+  \item \verb|supra_cert_implies_mu_info_nat_lower_bound| \quad \textit{(Theorem)} % supra_cert_implies_mu_info_nat_lower_bound
+  \item \verb|supra_cert_implies_mu_bounds_cert_payload| \quad \textit{(Theorem)} % supra_cert_implies_mu_bounds_cert_payload
+\end{itemize}
+
+\subsection{MuComplexity}
+
+\begin{itemize}
+  \item \verb|mu_compositional| \quad \textit{(Theorem)} % mu_compositional
+  \item \verb|mu_monotonic| \quad \textit{(Theorem)} % mu_monotonic
+  \item \verb|mu_subadditive| \quad \textit{(Theorem)} % mu_subadditive
+  \item \verb|mu_composes| \quad \textit{(Theorem)} % mu_composes
+  \item \verb|mu_never_decreases| \quad \textit{(Theorem)} % mu_never_decreases
+\end{itemize}
+
+\subsection{MuCostDerivation}
+
+\begin{itemize}
+  \item \verb|log2_subtraction_valid| \quad \textit{(Lemma)} % log2_subtraction_valid
+  \item \verb|state_reduction_is_erasure| \quad \textit{(Lemma)} % state_reduction_is_erasure
+  \item \verb|lassert_cost_determined| \quad \textit{(Theorem)} % lassert_cost_determined
+  \item \verb|lassert_cost_is_sum| \quad \textit{(Theorem)} % lassert_cost_is_sum
+  \item \verb|lassert_cost_lower_bound_state| \quad \textit{(Theorem)} % lassert_cost_lower_bound_state
+  \item \verb|lassert_cost_lower_bound_description| \quad \textit{(Theorem)} % lassert_cost_lower_bound_description
+  \item \verb|partition_ops_zero_cost| \quad \textit{(Theorem)} % partition_ops_zero_cost
+  \item \verb|partition_ops_cannot_cost| \quad \textit{(Theorem)} % partition_ops_cannot_cost
+  \item \verb|mu_cost_thermodynamic_bound| \quad \textit{(Theorem)} % mu_cost_thermodynamic_bound
+  \item \verb|cost_function_unique| \quad \textit{(Theorem)} % cost_function_unique
+\end{itemize}
+
+\subsection{MuCostModel}
+
+\begin{itemize}
+  \item \verb|partition_ops_mu_free| \quad \textit{(Lemma)} % partition_ops_mu_free
+  \item \verb|reveal_costs_one| \quad \textit{(Lemma)} % reveal_costs_one
+  \item \verb|nth_error_none_propagates| \quad \textit{(Lemma)} % nth_error_none_propagates
+  \item \verb|mu_cost_of_trace_unfold| \quad \textit{(Lemma)} % mu_cost_of_trace_unfold
+  \item \verb|one_plus_neq_zero| \quad \textit{(Lemma)} % one_plus_neq_zero
+  \item \verb|mu_zero_no_reveal_from_pc| \quad \textit{(Lemma)} % mu_zero_no_reveal_from_pc
+  \item \verb|mu_zero_no_reveal| \quad \textit{(Lemma)} % mu_zero_no_reveal
+\end{itemize}
+
+\subsection{MuGeometry}
+
+\begin{itemize}
+  \item \verb|mu_distance_nonneg| \quad \textit{(Lemma)} % mu_distance_nonneg
+  \item \verb|mu_distance_refl| \quad \textit{(Lemma)} % mu_distance_refl
+  \item \verb|mu_distance_sym| \quad \textit{(Lemma)} % mu_distance_sym
+  \item \verb|mu_distance_triangle| \quad \textit{(Lemma)} % mu_distance_triangle
+  \item \verb|mu_distance_run_vm| \quad \textit{(Lemma)} % mu_distance_run_vm
+\end{itemize}
+
+\subsection{MuGravity}
+
+\begin{itemize}
+  \item \verb|ln2_pos| \quad \textit{(Lemma)} % ln2_pos
+  \item \verb|mu_module_distance_nonneg| \quad \textit{(Lemma)} % mu_module_distance_nonneg
+  \item \verb|mu_module_distance_refl| \quad \textit{(Lemma)} % mu_module_distance_refl
+  \item \verb|mu_module_distance_sym| \quad \textit{(Lemma)} % mu_module_distance_sym
+  \item \verb|mu_module_distance_triangle| \quad \textit{(Lemma)} % mu_module_distance_triangle
+  \item \verb|triangle_angle_constant_distances| \quad \textit{(Lemma)} % triangle_angle_constant_distances
+  \item \verb|sum_angles_constant| \quad \textit{(Lemma)} % sum_angles_constant
+  \item \verb|geometric_angle_defect_constant_angles| \quad \textit{(Lemma)} % geometric_angle_defect_constant_angles
+  \item \verb|angle_defect_curvature_defined| \quad \textit{(Lemma)} % angle_defect_curvature_defined
+  \item \verb|mu_laplacian_w_zero_if_uniform_density_list| \quad \textit{(Lemma)} % mu_laplacian_w_zero_if_uniform_density_list
+  \item \verb|mu_laplacian_zero_if_uniform_density| \quad \textit{(Lemma)} % mu_laplacian_zero_if_uniform_density
+  \item \verb|ricci_curvature_defined| \quad \textit{(Lemma)} % ricci_curvature_defined
+  \item \verb|flat_implies_zero_curvature| \quad \textit{(Lemma)} % flat_implies_zero_curvature
+  \item \verb|flat_at_module_zero_curvature| \quad \textit{(Lemma)} % flat_at_module_zero_curvature
+  \item \verb|curvature_laplacian_relation| \quad \textit{(Lemma)} % curvature_laplacian_relation
+  \item \verb|curvature_from_angle_defect| \quad \textit{(Lemma)} % curvature_from_angle_defect
+  \item \verb|gravitational_constant_pos| \quad \textit{(Lemma)} % gravitational_constant_pos
+  \item \verb|stress_energy_defined| \quad \textit{(Lemma)} % stress_energy_defined
+  \item \verb|einstein_tensor_normal_form| \quad \textit{(Lemma)} % einstein_tensor_normal_form
+  \item \verb|einstein_balance_implies_tensor_relation| \quad \textit{(Lemma)} % einstein_balance_implies_tensor_relation
+  \item \verb|horizon_area_singleton| \quad \textit{(Lemma)} % horizon_area_singleton
+  \item \verb|horizon_total_angle_defect_singleton| \quad \textit{(Lemma)} % horizon_total_angle_defect_singleton
+  \item \verb|horizon_entropy_nonneg| \quad \textit{(Lemma)} % horizon_entropy_nonneg
+  \item \verb|ledger_time_monotonic_run| \quad \textit{(Lemma)} % ledger_time_monotonic_run
+  \item \verb|calibration_residual_zero_iff| \quad \textit{(Lemma)} % calibration_residual_zero_iff
+  \item \verb|zero_residual_implies_calibrated| \quad \textit{(Lemma)} % zero_residual_implies_calibrated
+  \item \verb|vm_apply_graph_preserved_safe| \quad \textit{(Lemma)} % vm_apply_graph_preserved_safe
+  \item \verb|module_neighbors_vm_graph_invariant| \quad \textit{(Lemma)} % module_neighbors_vm_graph_invariant
+  \item \verb|module_encoding_length_vm_graph_invariant| \quad \textit{(Lemma)} % module_encoding_length_vm_graph_invariant
+  \item \verb|module_region_size_vm_graph_invariant| \quad \textit{(Lemma)} % module_region_size_vm_graph_invariant
+  \item \verb|mu_laplacian_vm_graph_invariant| \quad \textit{(Lemma)} % mu_laplacian_vm_graph_invariant
+  \item \verb|module_structural_mass_vm_graph_invariant| \quad \textit{(Lemma)} % module_structural_mass_vm_graph_invariant
+  \item \verb|mu_module_distance_vm_graph_invariant| \quad \textit{(Lemma)} % mu_module_distance_vm_graph_invariant
+  \item \verb|triangle_angle_vm_graph_invariant| \quad \textit{(Lemma)} % triangle_angle_vm_graph_invariant
+  \item \verb|module_triangles_vm_graph_invariant| \quad \textit{(Lemma)} % module_triangles_vm_graph_invariant
+  \item \verb|sum_angles_vm_graph_invariant| \quad \textit{(Lemma)} % sum_angles_vm_graph_invariant
+  \item \verb|stress_energy_vm_graph_invariant| \quad \textit{(Lemma)} % stress_energy_vm_graph_invariant
+  \item \verb|angle_defect_vm_graph_invariant| \quad \textit{(Lemma)} % angle_defect_vm_graph_invariant
+  \item \verb|calibration_residual_vm_graph_invariant| \quad \textit{(Lemma)} % calibration_residual_vm_graph_invariant
+  \item \verb|calibration_residual_safe_step_eq| \quad \textit{(Lemma)} % calibration_residual_safe_step_eq
+  \item \verb|calibration_residual_bounded_descent_safe_trace| \quad \textit{(Theorem)} % calibration_residual_bounded_descent_safe_trace
+  \item \verb|calibration_residual_nonincreasing_safe_trace| \quad \textit{(Corollary)} % calibration_residual_nonincreasing_safe_trace
+  \item \verb|calibration_residual_strict_descent_safe_trace| \quad \textit{(Theorem)} % calibration_residual_strict_descent_safe_trace
+  \item \verb|safe_step_strict_descent_impossible| \quad \textit{(Lemma)} % safe_step_strict_descent_impossible
+  \item \verb|calibration_residual_rank_zero_iff| \quad \textit{(Lemma)} % calibration_residual_rank_zero_iff
+  \item \verb|calibration_rank_progress_one_step_active_policy| \quad \textit{(Theorem)} % calibration_rank_progress_one_step_active_policy
+  \item \verb|calibration_rank_reaches_zero_one_step| \quad \textit{(Theorem)} % calibration_rank_reaches_zero_one_step
+  \item \verb|run_vm_one_step_from_nth| \quad \textit{(Lemma)} % run_vm_one_step_from_nth
+  \item \verb|calibration_progress_one_step_active_policy| \quad \textit{(Theorem)} % calibration_progress_one_step_active_policy
+  \item \verb|calibration_progress_positive_fuel_active_policy| \quad \textit{(Theorem)} % calibration_progress_positive_fuel_active_policy
+  \item \verb|calibration_prefix_one_step_progress| \quad \textit{(Theorem)} % calibration_prefix_one_step_progress
+  \item \verb|calibration_prefix_chain_progress| \quad \textit{(Theorem)} % calibration_prefix_chain_progress
+  \item \verb|calibration_prefix_chain_progress_all| \quad \textit{(Corollary)} % calibration_prefix_chain_progress_all
+  \item \verb|scheduler_prefers_active_implies_active_when_uncalibrated| \quad \textit{(Lemma)} % scheduler_prefers_active_implies_active_when_uncalibrated
+  \item \verb|cost_biased_scheduler_progress_one_step| \quad \textit{(Theorem)} % cost_biased_scheduler_progress_one_step
+  \item \verb|pnew_fresh_region_active| \quad \textit{(Lemma)} % pnew_fresh_region_active
+  \item \verb|pnew_zero_cost_minimal_against_safe| \quad \textit{(Lemma)} % pnew_zero_cost_minimal_against_safe
+  \item \verb|vm_graph_pnew| \quad \textit{(Lemma)} % vm_graph_pnew
+  \item \verb|graph_lookup_pnew_preserves_existing| \quad \textit{(Lemma)} % graph_lookup_pnew_preserves_existing
+  \item \verb|module_encoding_length_pnew_preserved| \quad \textit{(Lemma)} % module_encoding_length_pnew_preserved
+  \item \verb|module_region_size_pnew_preserved| \quad \textit{(Lemma)} % module_region_size_pnew_preserved
+  \item \verb|mu_cost_density_pnew_preserved| \quad \textit{(Lemma)} % mu_cost_density_pnew_preserved
+  \item \verb|module_structural_mass_pnew_preserved| \quad \textit{(Lemma)} % module_structural_mass_pnew_preserved
+  \item \verb|mu_module_distance_pnew_preserved| \quad \textit{(Lemma)} % mu_module_distance_pnew_preserved
+  \item \verb|triangle_angle_pnew_preserved| \quad \textit{(Lemma)} % triangle_angle_pnew_preserved
+  \item \verb|modules_adjacent_by_region_pnew_preserved| \quad \textit{(Lemma)} % modules_adjacent_by_region_pnew_preserved
+  \item \verb|edge_weight_pnew_preserved| \quad \textit{(Lemma)} % edge_weight_pnew_preserved
+  \item \verb|mu_gradient_pnew_preserved| \quad \textit{(Lemma)} % mu_gradient_pnew_preserved
+  \item \verb|all_ids_below_in_fst| \quad \textit{(Lemma)} % all_ids_below_in_fst
+  \item \verb|modules_adjacent_by_region_pnew_new_disjoint| \quad \textit{(Lemma)} % modules_adjacent_by_region_pnew_new_disjoint
+  \item \verb|module_neighbors_pnew_disjoint| \quad \textit{(Lemma)} % module_neighbors_pnew_disjoint
+  \item \verb|module_triangles_pnew_disjoint| \quad \textit{(Lemma)} % module_triangles_pnew_disjoint
+  \item \verb|module_triangles_in_neighbors| \quad \textit{(Lemma)} % module_triangles_in_neighbors
+  \item \verb|module_neighbors_ids_below| \quad \textit{(Lemma)} % module_neighbors_ids_below
+  \item \verb|module_triangles_ids_below| \quad \textit{(Lemma)} % module_triangles_ids_below
+  \item \verb|sum_angles_pnew_disjoint_list| \quad \textit{(Lemma)} % sum_angles_pnew_disjoint_list
+  \item \verb|sum_angles_pnew_disjoint| \quad \textit{(Lemma)} % sum_angles_pnew_disjoint
+  \item \verb|geometric_angle_defect_pnew_disjoint| \quad \textit{(Lemma)} % geometric_angle_defect_pnew_disjoint
+  \item \verb|mu_laplacian_w_pnew_disjoint_list| \quad \textit{(Lemma)} % mu_laplacian_w_pnew_disjoint_list
+  \item \verb|mu_laplacian_pnew_disjoint| \quad \textit{(Lemma)} % mu_laplacian_pnew_disjoint
+  \item \verb|scheduler_prefers_fresh_pnew_zero_cost| \quad \textit{(Theorem)} % scheduler_prefers_fresh_pnew_zero_cost
+  \item \verb|calibration_progress_one_step_selected_instruction| \quad \textit{(Theorem)} % calibration_progress_one_step_selected_instruction
+  \item \verb|fresh_pnew_zero_cost_progress_one_step| \quad \textit{(Theorem)} % fresh_pnew_zero_cost_progress_one_step
+  \item \verb|pnew_zero_cost_not_universally_contractive| \quad \textit{(Lemma)} % pnew_zero_cost_not_universally_contractive
+  \item \verb|no_unconditional_pnew_zero_cost_strict_descent| \quad \textit{(Theorem)} % no_unconditional_pnew_zero_cost_strict_descent
+  \item \verb|calibration_gap_pnew_disjoint_preserved| \quad \textit{(Lemma)} % calibration_gap_pnew_disjoint_preserved
+  \item \verb|calibration_residual_pnew_disjoint_preserved| \quad \textit{(Lemma)} % calibration_residual_pnew_disjoint_preserved
+  \item \verb|calibration_gap_delta_fresh_pnew| \quad \textit{(Lemma)} % calibration_gap_delta_fresh_pnew
+  \item \verb|semantic_gap_window_certificate_fresh_pnew_from_delta| \quad \textit{(Theorem)} % semantic_gap_window_certificate_fresh_pnew_from_delta
+  \item \verb|semantic_gap_window_semantics_fresh_pnew_from_delta| \quad \textit{(Theorem)} % semantic_gap_window_semantics_fresh_pnew_from_delta
+  \item \verb|calibration_residual_as_gap_abs| \quad \textit{(Lemma)} % calibration_residual_as_gap_abs
+  \item \verb|calibration_gap_after_as_before_plus_delta| \quad \textit{(Lemma)} % calibration_gap_after_as_before_plus_delta
+  \item \verb|abs_strict_descent_by_delta_window_pos| \quad \textit{(Lemma)} % abs_strict_descent_by_delta_window_pos
+  \item \verb|calibration_residual_strict_descent_from_semantic_gap_window| \quad \textit{(Theorem)} % calibration_residual_strict_descent_from_semantic_gap_window
+  \item \verb|calibration_gap_abs_strict_descent| \quad \textit{(Lemma)} % calibration_gap_abs_strict_descent
+  \item \verb|calibration_progress_one_step_from_gap_window| \quad \textit{(Theorem)} % calibration_progress_one_step_from_gap_window
+  \item \verb|run_vm_prioritizes_implies_scheduler_prefers| \quad \textit{(Lemma)} % run_vm_prioritizes_implies_scheduler_prefers
+  \item \verb|run_vm_prioritizes_implies_active_policy| \quad \textit{(Theorem)} % run_vm_prioritizes_implies_active_policy
+  \item \verb|run_vm_prioritized_active_semantic_progress_one_step| \quad \textit{(Theorem)} % run_vm_prioritized_active_semantic_progress_one_step
+  \item \verb|nth_error_constructive_trace_at_pc| \quad \textit{(Lemma)} % nth_error_constructive_trace_at_pc
+  \item \verb|nth_error_constructive_trace_for_state| \quad \textit{(Lemma)} % nth_error_constructive_trace_for_state
+  \item \verb|constructive_trace_prioritizes_active_when_uncalibrated| \quad \textit{(Theorem)} % constructive_trace_prioritizes_active_when_uncalibrated
+  \item \verb|constructive_trace_semantic_progress_one_step| \quad \textit{(Theorem)} % constructive_trace_semantic_progress_one_step
+  \item \verb|run_constructive_plan_app| \quad \textit{(Lemma)} % run_constructive_plan_app
+  \item \verb|constructive_prefix_one_step_progress| \quad \textit{(Theorem)} % constructive_prefix_one_step_progress
+  \item \verb|constructive_prefix_chain_progress_all| \quad \textit{(Theorem)} % constructive_prefix_chain_progress_all
+  \item \verb|calibration_progress_consecutive_run_vm_from_gap_window| \quad \textit{(Theorem)} % calibration_progress_consecutive_run_vm_from_gap_window
+  \item \verb|mu_geometry_defined| \quad \textit{(Theorem)} % mu_geometry_defined
+\end{itemize}
+
+\subsection{MuGravity\_BridgeTheorems}
+
+\begin{itemize}
+  \item \verb|curvature_bridge_interface| \quad \textit{(Theorem)} % curvature_bridge_interface
+\end{itemize}
+
+\subsection{MuGravity\_Definitions}
+
+\begin{itemize}
+  \item \verb|residual_rank_zero_exactly_residual_zero| \quad \textit{(Lemma)} % residual_rank_zero_exactly_residual_zero
+\end{itemize}
+
+\subsection{MuGravity\_Emergence}
+
+\begin{itemize}
+  \item \verb|full_gravity_path_scheduler_contract| \quad \textit{(Theorem)} % full_gravity_path_scheduler_contract
+\end{itemize}
+
+\subsection{MuInformation}
+
+\begin{itemize}
+  \item \verb|mu_info_z_vm_apply| \quad \textit{(Lemma)} % mu_info_z_vm_apply
+  \item \verb|run_vm_mu_total_decomposes| \quad \textit{(Theorem)} % run_vm_mu_total_decomposes
+  \item \verb|mu_info_z_run_vm_is_ledger_sum| \quad \textit{(Theorem)} % mu_info_z_run_vm_is_ledger_sum
+  \item \verb|mu_info_z_run_vm_nonneg| \quad \textit{(Corollary)} % mu_info_z_run_vm_nonneg
+  \item \verb|run_vm_mu_total_monotone| \quad \textit{(Corollary)} % run_vm_mu_total_monotone
+\end{itemize}
+
+\subsection{MuInitiality}
+
+\begin{itemize}
+  \item \verb|init_state_mu_zero| \quad \textit{(Lemma)} % init_state_mu_zero
+  \item \verb|exec_trace_correct| \quad \textit{(Lemma)} % exec_trace_correct
+  \item \verb|trace_reaches_exec| \quad \textit{(Lemma)} % trace_reaches_exec
+  \item \verb|reachable_from_trace_gen| \quad \textit{(Lemma)} % reachable_from_trace_gen
+  \item \verb|reachable_from_trace| \quad \textit{(Lemma)} % reachable_from_trace
+  \item \verb|reachable_iff_trace| \quad \textit{(Lemma)} % reachable_iff_trace
+  \item \verb|mu_accumulates_trace_cost| \quad \textit{(Lemma)} % mu_accumulates_trace_cost
+  \item \verb|mu_equals_trace_cost| \quad \textit{(Corollary)} % mu_equals_trace_cost
+  \item \verb|instruction_consistent_monotone| \quad \textit{(Lemma)} % instruction_consistent_monotone
+  \item \verb|consistent_accumulates_trace_cost| \quad \textit{(Lemma)} % consistent_accumulates_trace_cost
+  \item \verb|mu_is_initial_monotone| \quad \textit{(Theorem)} % mu_is_initial_monotone
+  \item \verb|mu_trace_determined| \quad \textit{(Corollary)} % mu_trace_determined
+  \item \verb|consistent_monotones_agree| \quad \textit{(Corollary)} % consistent_monotones_agree
+  \item \verb|monotone_factors_through_mu| \quad \textit{(Theorem)} % monotone_factors_through_mu
+  \item \verb|mu_is_identity_factorization| \quad \textit{(Corollary)} % mu_is_identity_factorization
+  \item \verb|mu_is_universal| \quad \textit{(Theorem)} % mu_is_universal
+  \item \verb|mu_initiality| \quad \textit{(Theorem)} % mu_initiality
+  \item \verb|physical_cost_equals_mu| \quad \textit{(Theorem)} % physical_cost_equals_mu
+\end{itemize}
+
+\subsection{MuLedgerConservation}
+
+\begin{itemize}
+  \item \verb|bounded_run_head| \quad \textit{(Lemma)} % bounded_run_head
+  \item \verb|vm_apply_mu| \quad \textit{(Lemma)} % vm_apply_mu
+  \item \verb|ledger_conserved_tail| \quad \textit{(Lemma)} % ledger_conserved_tail
+  \item \verb|vm_step_respects_mu_ledger| \quad \textit{(Theorem)} % vm_step_respects_mu_ledger
+  \item \verb|irreversible_bits_le_cost| \quad \textit{(Lemma)} % irreversible_bits_le_cost
+  \item \verb|ledger_sum_bounds_irreversible_count| \quad \textit{(Lemma)} % ledger_sum_bounds_irreversible_count
+  \item \verb|mu_ledger_bounds_irreversible_events| \quad \textit{(Theorem)} % mu_ledger_bounds_irreversible_events
+  \item \verb|bounded_model_mu_ledger_conservation| \quad \textit{(Theorem)} % bounded_model_mu_ledger_conservation
+  \item \verb|bounded_ledger_conservation| \quad \textit{(Corollary)} % bounded_ledger_conservation
+  \item \verb|run_vm_mu_conservation| \quad \textit{(Corollary)} % run_vm_mu_conservation
+  \item \verb|run_vm_mu_bounds_irreversibility| \quad \textit{(Corollary)} % run_vm_mu_bounds_irreversibility
+  \item \verb|run_vm_irreversibility_gap| \quad \textit{(Theorem)} % run_vm_irreversibility_gap
+  \item \verb|vm_irreversible_bits_lower_bound| \quad \textit{(Theorem)} % vm_irreversible_bits_lower_bound
+  \item \verb|bounded_prefix_mu_balance| \quad \textit{(Corollary)} % bounded_prefix_mu_balance
+  \item \verb|vm_mu_monotonic_single_step| \quad \textit{(Theorem)} % vm_mu_monotonic_single_step
+  \item \verb|run_vm_mu_monotonic| \quad \textit{(Theorem)} % run_vm_mu_monotonic
+  \item \verb|run_vm_mu_monotonic_prefix| \quad \textit{(Theorem)} % run_vm_mu_monotonic_prefix
+  \item \verb|run_vm_mu_monotonic_composition| \quad \textit{(Theorem)} % run_vm_mu_monotonic_composition
+  \item \verb|ledger_sum_component_decompose| \quad \textit{(Lemma)} % ledger_sum_component_decompose
+  \item \verb|bounded_run_mu_decomposition| \quad \textit{(Theorem)} % bounded_run_mu_decomposition
+  \item \verb|bounded_run_blind_component_le_total| \quad \textit{(Corollary)} % bounded_run_blind_component_le_total
+  \item \verb|bounded_run_sighted_component_le_total| \quad \textit{(Corollary)} % bounded_run_sighted_component_le_total
+  \item \verb|final_digest_rev| \quad \textit{(Lemma)} % final_digest_rev
+  \item \verb|gestalt_matches_isomorphism_singleton| \quad \textit{(Lemma)} % gestalt_matches_isomorphism_singleton
+\end{itemize}
+
+\subsection{MuNecessity}
+
+\begin{itemize}
+  \item \verb|mu_is_landauer_valid| \quad \textit{(Theorem)} % mu_is_landauer_valid
+  \item \verb|landauer_valid_bounds_total_loss| \quad \textit{(Lemma)} % landauer_valid_bounds_total_loss
+  \item \verb|mu_tight_for_pmerge| \quad \textit{(Lemma)} % mu_tight_for_pmerge
+  \item \verb|mu_nonnegative| \quad \textit{(Lemma)} % mu_nonnegative
+\end{itemize}
+
+\subsection{MuNoFreeInsightQuantitative}
+
+\begin{itemize}
+  \item \verb|vm_exec_mu_monotone| \quad \textit{(Lemma)} % vm_exec_mu_monotone
+  \item \verb|trace_run_mu_monotone| \quad \textit{(Lemma)} % trace_run_mu_monotone
+  \item \verb|cert_preserved_if_not_cert_setterb| \quad \textit{(Lemma)} % cert_preserved_if_not_cert_setterb
+  \item \verb|supra_cert_implies_mu_lower_bound_trace_run| \quad \textit{(Theorem)} % supra_cert_implies_mu_lower_bound_trace_run
+  \item \verb|step_preserves_cert_if_not_cert_setter| \quad \textit{(Lemma)} % step_preserves_cert_if_not_cert_setter
+  \item \verb|supra_cert_has_cert_setter_step| \quad \textit{(Theorem)} % supra_cert_has_cert_setter_step
+  \item \verb|supra_cert_implies_mu_lower_bound| \quad \textit{(Corollary)} % supra_cert_implies_mu_lower_bound
+\end{itemize}
+
+\subsection{NPAMomentMatrix}
+
+\begin{itemize}
+  \item \verb|npa_diagonal_one| \quad \textit{(Lemma)} % npa_diagonal_one
+  \item \verb|npa_E00_position| \quad \textit{(Lemma)} % npa_E00_position
+  \item \verb|npa_E01_position| \quad \textit{(Lemma)} % npa_E01_position
+  \item \verb|npa_E10_position| \quad \textit{(Lemma)} % npa_E10_position
+  \item \verb|npa_E11_position| \quad \textit{(Lemma)} % npa_E11_position
+  \item \verb|quantum_realizable_implies_normalized| \quad \textit{(Lemma)} % quantum_realizable_implies_normalized
+  \item \verb|npa_to_matrix_symmetric| \quad \textit{(Lemma)} % npa_to_matrix_symmetric
+\end{itemize}
+
+\subsection{NPMuCostBound}
+
+\begin{itemize}
+  \item \verb|verification_requires_structure| \quad \textit{(Theorem)} % verification_requires_structure
+  \item \verb|stronger_predicate_costs_more| \quad \textit{(Theorem)} % stronger_predicate_costs_more
+  \item \verb|sorted_zero_cost| \quad \textit{(Theorem)} % sorted_zero_cost
+  \item \verb|reversed_max_cost| \quad \textit{(Theorem)} % reversed_max_cost
+  \item \verb|factoring_nontrivial_cost| \quad \textit{(Theorem)} % factoring_nontrivial_cost
+  \item \verb|graph_iso_nontrivial_cost| \quad \textit{(Theorem)} % graph_iso_nontrivial_cost
+  \item \verb|verification_floor| \quad \textit{(Theorem)} % verification_floor
+  \item \verb|difficulty_conservation| \quad \textit{(Theorem)} % difficulty_conservation
+  \item \verb|time_structure_tradeoff| \quad \textit{(Theorem)} % time_structure_tradeoff
+\end{itemize}
+
+\subsection{NoArbitrage}
+
+\begin{itemize}
+  \item \verb|Potential_from_MinCost| \quad \textit{(Theorem)} % Potential_from_MinCost
+  \item \verb|asymmetric_additive| \quad \textit{(Lemma)} % asymmetric_additive
+  \item \verb|asymmetric_cost_pos| \quad \textit{(Lemma)} % asymmetric_cost_pos
+  \item \verb|step_cost_bounds_delta| \quad \textit{(Lemma)} % step_cost_bounds_delta
+  \item \verb|asymmetric_bounded_by_phi| \quad \textit{(Lemma)} % asymmetric_bounded_by_phi
+\end{itemize}
+
+\subsection{NoCloning}
+
+\begin{itemize}
+  \item \verb|no_cloning_from_conservation| \quad \textit{(Theorem)} % no_cloning_from_conservation
+  \item \verb|cloning_requires_mu| \quad \textit{(Corollary)} % cloning_requires_mu
+  \item \verb|approximate_cloning_bound| \quad \textit{(Theorem)} % approximate_cloning_bound
+  \item \verb|optimal_approximate_cloning| \quad \textit{(Corollary)} % optimal_approximate_cloning
+  \item \verb|symmetric_optimal_cloning| \quad \textit{(Lemma)} % symmetric_optimal_cloning
+  \item \verb|no_cloning_bloch| \quad \textit{(Theorem)} % no_cloning_bloch
+  \item \verb|no_deletion_without_cost| \quad \textit{(Theorem)} % no_deletion_without_cost
+\end{itemize}
+
+\subsection{NoCloningFromMuMonotonicity}
+
+\begin{itemize}
+  \item \verb|no_cloning_mu_monotonicity| \quad \textit{(Theorem)} % no_cloning_mu_monotonicity
+  \item \verb|cloning_requires_mu_nat| \quad \textit{(Corollary)} % cloning_requires_mu_nat
+  \item \verb|approximate_cloning_zero_cost| \quad \textit{(Theorem)} % approximate_cloning_zero_cost
+  \item \verb|no_deletion_mu| \quad \textit{(Theorem)} % no_deletion_mu
+\end{itemize}
+
+\subsection{NoFreeInsight}
+
+\begin{itemize}
+  \item \verb|trace_run_run_vm| \quad \textit{(Lemma)} % trace_run_run_vm
+  \item \verb|no_free_insight_general| \quad \textit{(Theorem)} % no_free_insight_general
+  \item \verb|strengthening_requires_structure_addition| \quad \textit{(Theorem)} % strengthening_requires_structure_addition
+\end{itemize}
+
+\subsection{NoGo}
+
+\begin{itemize}
+  \item \verb|w_scale_empty| \quad \textit{(Lemma)} % w_scale_empty
+  \item \verb|w_scale_sequential| \quad \textit{(Lemma)} % w_scale_sequential
+  \item \verb|w_scale_disjoint_commutes| \quad \textit{(Lemma)} % w_scale_disjoint_commutes
+  \item \verb|w_scale_laws| \quad \textit{(Lemma)} % w_scale_laws
+  \item \verb|CompositionalWeightFamily_Infinite| \quad \textit{(Theorem)} % CompositionalWeightFamily_Infinite
+  \item \verb|KernelNoGo_UniqueWeight_Fails| \quad \textit{(Theorem)} % KernelNoGo_UniqueWeight_Fails
+  \item \verb|Weight_Unique_Under_UniformSingletons| \quad \textit{(Theorem)} % Weight_Unique_Under_UniformSingletons
+  \item \verb|region_equiv_class_dedekind_infinite| \quad \textit{(Lemma)} % region_equiv_class_dedekind_infinite
+  \item \verb|NoDup_map_inj| \quad \textit{(Lemma)} % NoDup_map_inj
+  \item \verb|region_equiv_class_not_finite| \quad \textit{(Theorem)} % region_equiv_class_not_finite
+  \item \verb|KernelNoGoForTOE| \quad \textit{(Theorem)} % KernelNoGoForTOE
+\end{itemize}
+
+\subsection{NoGoSensitivity}
+
+\begin{itemize}
+  \item \verb|w_pow_empty| \quad \textit{(Lemma)} % w_pow_empty
+  \item \verb|w_pow_sequential| \quad \textit{(Lemma)} % w_pow_sequential
+  \item \verb|w_pow_multiplicative| \quad \textit{(Lemma)} % w_pow_multiplicative
+  \item \verb|MultiplicativeWeightFamily_Infinite| \quad \textit{(Theorem)} % MultiplicativeWeightFamily_Infinite
+\end{itemize}
+
+\subsection{NonCircularityAudit}
+
+\begin{itemize}
+  \item \verb|mu_cost_is_physics_free| \quad \textit{(Theorem)} % mu_cost_is_physics_free
+  \item \verb|chsh_formula_physics_free| \quad \textit{(Theorem)} % chsh_formula_physics_free
+  \item \verb|classical_bound_is_derived_not_assumed| \quad \textit{(Theorem)} % classical_bound_is_derived_not_assumed
+  \item \verb|mu_zero_closure| \quad \textit{(Theorem)} % mu_zero_closure
+  \item \verb|mu_zero_identity| \quad \textit{(Theorem)} % mu_zero_identity
+  \item \verb|pnew_is_mu_zero| \quad \textit{(Lemma)} % pnew_is_mu_zero
+  \item \verb|psplit_is_mu_zero| \quad \textit{(Lemma)} % psplit_is_mu_zero
+  \item \verb|pmerge_is_mu_zero| \quad \textit{(Lemma)} % pmerge_is_mu_zero
+  \item \verb|reveal_not_mu_zero| \quad \textit{(Lemma)} % reveal_not_mu_zero
+  \item \verb|lassert_not_mu_zero| \quad \textit{(Lemma)} % lassert_not_mu_zero
+  \item \verb|ljoin_not_mu_zero| \quad \textit{(Lemma)} % ljoin_not_mu_zero
+  \item \verb|chsh_trial_is_mu_zero| \quad \textit{(Lemma)} % chsh_trial_is_mu_zero
+  \item \verb|xfer_is_mu_zero| \quad \textit{(Lemma)} % xfer_is_mu_zero
+  \item \verb|mu_zero_is_locc_like| \quad \textit{(Theorem)} % mu_zero_is_locc_like
+  \item \verb|non_circularity_verified| \quad \textit{(Theorem)} % non_circularity_verified
+\end{itemize}
+
+\subsection{ObserverDerivation}
+
+\begin{itemize}
+  \item \verb|observer_le_refl| \quad \textit{(Lemma)} % observer_le_refl
+  \item \verb|observer_le_trans| \quad \textit{(Lemma)} % observer_le_trans
+  \item \verb|obs_equiv_implies_region_equiv| \quad \textit{(Lemma)} % obs_equiv_implies_region_equiv
+  \item \verb|observer_region_gauge_invariant| \quad \textit{(Lemma)} % observer_region_gauge_invariant
+  \item \verb|Observational_Locality_Iff_Physics| \quad \textit{(Theorem)} % Observational_Locality_Iff_Physics
+  \item \verb|Observer_Minimality| \quad \textit{(Theorem)} % Observer_Minimality
+  \item \verb|weaker_observer_collapse_witness| \quad \textit{(Lemma)} % weaker_observer_collapse_witness
+\end{itemize}
+
+\subsection{OracleImpossibility}
+
+\begin{itemize}
+  \item \verb|anti_diagonal_differs| \quad \textit{(Lemma)} % anti_diagonal_differs
+  \item \verb|no_row_is_antidiagonal| \quad \textit{(Lemma)} % no_row_is_antidiagonal
+  \item \verb|halting_undecidable| \quad \textit{(Theorem)} % halting_undecidable
+  \item \verb|oracle_halts_costs_mu| \quad \textit{(Theorem)} % oracle_halts_costs_mu
+  \item \verb|oracle_cost_linear| \quad \textit{(Lemma)} % oracle_cost_linear
+  \item \verb|hypercomputation_bounded| \quad \textit{(Theorem)} % hypercomputation_bounded
+  \item \verb|always_halts_undecidable| \quad \textit{(Theorem)} % always_halts_undecidable
+\end{itemize}
+
+\subsection{PDISCOVERIntegration}
+
+\begin{itemize}
+  \item \verb|pdiscern_deterministic| \quad \textit{(Theorem)} % pdiscern_deterministic
+  \item \verb|structured_implies_low_variation| \quad \textit{(Theorem)} % structured_implies_low_variation
+  \item \verb|proves| \quad \textit{(Theorem)} % proves
+  \item \verb|chaotic_implies_high_variation| \quad \textit{(Theorem)} % chaotic_implies_high_variation
+  \item \verb|classification_complete| \quad \textit{(Theorem)} % classification_complete
+  \item \verb|vm_classification_exists| \quad \textit{(Theorem)} % vm_classification_exists
+  \item \verb|backward_compatible| \quad \textit{(Theorem)} % backward_compatible
+\end{itemize}
+
+\subsection{PNEWTopologyChange}
+
+\begin{itemize}
+  \item \verb|graph_add_module_increases_F| \quad \textit{(Lemma)} % graph_add_module_increases_F
+  \item \verb|pnew_fresh_increases_F| \quad \textit{(Theorem)} % pnew_fresh_increases_F
+  \item \verb|pnew_fresh_triangle_changes_topology| \quad \textit{(Theorem)} % pnew_fresh_triangle_changes_topology
+  \item \verb|pnew_fresh_changes_graph| \quad \textit{(Theorem)} % pnew_fresh_changes_graph
+  \item \verb|pnew_fresh_changes_F| \quad \textit{(Theorem)} % pnew_fresh_changes_F
+  \item \verb|pnew_fresh_measurably_changes_topology| \quad \textit{(Theorem)} % pnew_fresh_measurably_changes_topology
+  \item \verb|vm_pnew_step_changes_topology| \quad \textit{(Theorem)} % vm_pnew_step_changes_topology
+\end{itemize}
+
+\subsection{POVMBridge}
+
+\begin{itemize}
+  \item \verb|fold_left_add_ge| \quad \textit{(Lemma)} % fold_left_add_ge
+  \item \verb|fold_left_add_mono| \quad \textit{(Lemma)} % fold_left_add_mono
+  \item \verb|measurement_cost_bounds_info| \quad \textit{(Theorem)} % measurement_cost_bounds_info
+  \item \verb|fold_left_cond_ge| \quad \textit{(Lemma)} % fold_left_cond_ge
+  \item \verb|sequential_measurement_cost| \quad \textit{(Theorem)} % sequential_measurement_cost
+  \item \verb|complete_reveal_determines_state| \quad \textit{(Theorem)} % complete_reveal_determines_state
+  \item \verb|reveal_irreversible| \quad \textit{(Theorem)} % reveal_irreversible
+  \item \verb|reveal_satisfies_povm_bridge| \quad \textit{(Theorem)} % reveal_satisfies_povm_bridge
+\end{itemize}
+
+\subsection{PartitionSeparation}
+
+\begin{itemize}
+  \item \verb|initial_module_count| \quad \textit{(Lemma)} % initial_module_count
+  \item \verb|graph_add_module_increases_count| \quad \textit{(Lemma)} % graph_add_module_increases_count
+  \item \verb|partition_based_separation| \quad \textit{(Theorem)} % partition_based_separation
+  \item \verb|turing_strictly_contained_partition| \quad \textit{(Corollary)} % turing_strictly_contained_partition
+  \item \verb|pnew_not_tm_simulable| \quad \textit{(Theorem)} % pnew_not_tm_simulable
+\end{itemize}
+
+\subsection{Persistence}
+
+\begin{itemize}
+  \item \verb|in_pnew_choices_0| \quad \textit{(Lemma)} % in_pnew_choices_0
+  \item \verb|uniform_bet_zero_when_choices_exceed_fuel| \quad \textit{(Lemma)} % uniform_bet_zero_when_choices_exceed_fuel
+  \item \verb|Uniform_Strategy_Dies| \quad \textit{(Theorem)} % Uniform_Strategy_Dies
+\end{itemize}
+
+\subsection{PhysicsClosure}
+
+\begin{itemize}
+  \item \verb|Physics_Closure| \quad \textit{(Theorem)} % Physics_Closure
+\end{itemize}
+
+\subsection{PoissonEquation}
+
+\begin{itemize}
+  \item \verb|laplacian_constant_zero| \quad \textit{(Lemma)} % laplacian_constant_zero
+  \item \verb|fold_left_sum_scale| \quad \textit{(Lemma)} % fold_left_sum_scale
+  \item \verb|laplacian_potential_equals_half_laplacian_mass| \quad \textit{(Lemma)} % laplacian_potential_equals_half_laplacian_mass
+  \item \verb|fold_left_all_zero_except| \quad \textit{(Lemma)} % fold_left_all_zero_except
+  \item \verb|field_propagation_single_source| \quad \textit{(Theorem)} % field_propagation_single_source
+  \item \verb|field_propagation_constructive| \quad \textit{(Theorem)} % field_propagation_constructive
+  \item \verb|poisson_equation_vacuum| \quad \textit{(Theorem)} % poisson_equation_vacuum
+  \item \verb|poisson_equation_links_geometry_to_mass| \quad \textit{(Theorem)} % poisson_equation_links_geometry_to_mass
+  \item \verb|propagation_transitive| \quad \textit{(Theorem)} % propagation_transitive
+\end{itemize}
+
+\subsection{ProbabilityImpossibility}
+
+\begin{itemize}
+  \item \verb|w_len_compositional| \quad \textit{(Lemma)} % w_len_compositional
+  \item \verb|w_len2_compositional| \quad \textit{(Lemma)} % w_len2_compositional
+  \item \verb|Born_Rule_Unique_Fails_Without_More_Structure| \quad \textit{(Theorem)} % Born_Rule_Unique_Fails_Without_More_Structure
+\end{itemize}
+
+\subsection{ProperSubsumption}
+
+\begin{itemize}
+  \item \verb|thiele_simulates_turing_gen| \quad \textit{(Lemma)} % thiele_simulates_turing_gen
+  \item \verb|thiele_simulates_turing| \quad \textit{(Theorem)} % thiele_simulates_turing
+  \item \verb|turing_computable_implies_thiele_computable| \quad \textit{(Corollary)} % turing_computable_implies_thiele_computable
+  \item \verb|thiele_run_mu_bound| \quad \textit{(Lemma)} % thiele_run_mu_bound
+  \item \verb|cost_certificate_valid| \quad \textit{(Lemma)} % cost_certificate_valid
+  \item \verb|thiele_strictly_extends_turing| \quad \textit{(Theorem)} % thiele_strictly_extends_turing
+\end{itemize}
+
+\subsection{Purification}
+
+\begin{itemize}
+  \item \verb|pure_is_mixed| \quad \textit{(Lemma)} % pure_is_mixed
+  \item \verb|purity_nonneg| \quad \textit{(Lemma)} % purity_nonneg
+  \item \verb|mixed_has_deficit| \quad \textit{(Lemma)} % mixed_has_deficit
+  \item \verb|sq_nonneg| \quad \textit{(Lemma)} % sq_nonneg
+  \item \verb|purification_principle| \quad \textit{(Theorem)} % purification_principle
+  \item \verb|pure_needs_no_reference| \quad \textit{(Corollary)} % pure_needs_no_reference
+  \item \verb|maximally_mixed_needs_full_reference| \quad \textit{(Lemma)} % maximally_mixed_needs_full_reference
+\end{itemize}
+
+\subsection{PythonBisimulation}
+
+\begin{itemize}
+  \item \verb|initial_correspondence| \quad \textit{(Theorem)} % initial_correspondence
+  \item \verb|step_preserves_pc| \quad \textit{(Theorem)} % step_preserves_pc
+  \item \verb|step_preserves_mu| \quad \textit{(Theorem)} % step_preserves_mu
+  \item \verb|bisimulation_step| \quad \textit{(Theorem)} % bisimulation_step
+  \item \verb|mu_cost_consistency| \quad \textit{(Corollary)} % mu_cost_consistency
+\end{itemize}
+
+\subsection{QuantumBound}
+
+\begin{itemize}
+  \item \verb|quantum_tsirelson_bound| \quad \textit{(Theorem)} % quantum_tsirelson_bound
+  \item \verb|csr_set_err_preserves_cert_addr| \quad \textit{(Lemma)} % csr_set_err_preserves_cert_addr
+  \item \verb|csr_set_status_preserves_cert_addr| \quad \textit{(Lemma)} % csr_set_status_preserves_cert_addr
+  \item \verb|advance_state_cert_addr| \quad \textit{(Lemma)} % advance_state_cert_addr
+  \item \verb|advance_state_rm_cert_addr| \quad \textit{(Lemma)} % advance_state_rm_cert_addr
+  \item \verb|vm_apply_preserves_cert_addr| \quad \textit{(Lemma)} % vm_apply_preserves_cert_addr
+  \item \verb|quantum_admissible_all_not_cert_setters| \quad \textit{(Lemma)} % quantum_admissible_all_not_cert_setters
+  \item \verb|quantum_admissible_implies_no_supra_cert| \quad \textit{(Lemma)} % quantum_admissible_implies_no_supra_cert
+\end{itemize}
+
+\subsection{QuantumEquivalence}
+
+\begin{itemize}
+  \item \verb|quantum_implies_mu_zero| \quad \textit{(Lemma)} % quantum_implies_mu_zero
+  \item \verb|mu_zero_implies_quantum| \quad \textit{(Lemma)} % mu_zero_implies_quantum
+  \item \verb|quantum_requires_no_revelation| \quad \textit{(Theorem)} % quantum_requires_no_revelation
+  \item \verb|classical_is_quantum| \quad \textit{(Lemma)} % classical_is_quantum
+  \item \verb|hierarchy_is_derived| \quad \textit{(Theorem)} % hierarchy_is_derived
+  \item \verb|qm_equals_cost_free| \quad \textit{(Theorem)} % qm_equals_cost_free
+  \item \verb|quantum_foundations_resolved| \quad \textit{(Theorem)} % quantum_foundations_resolved
+  \item \verb|quantum_foundations_complete| \quad \textit{(Theorem)} % quantum_foundations_complete
+  \item \verb|cost_causes_quantum_bound| \quad \textit{(Theorem)} % cost_causes_quantum_bound
+  \item \verb|exceeding_bound_implies_cost| \quad \textit{(Theorem)} % exceeding_bound_implies_cost
+\end{itemize}
+
+\subsection{ReceiptCore}
+
+\begin{itemize}
+  \item \verb|decodes_to_refl| \quad \textit{(Lemma)} % decodes_to_refl
+\end{itemize}
+
+\subsection{ReceiptIntegrity}
+
+\begin{itemize}
+  \item \verb|mu_in_range_b_correct| \quad \textit{(Lemma)} % mu_in_range_b_correct
+  \item \verb|receipt_mu_consistent_b_correct| \quad \textit{(Lemma)} % receipt_mu_consistent_b_correct
+  \item \verb|receipt_mu_in_range_b_correct| \quad \textit{(Lemma)} % receipt_mu_in_range_b_correct
+  \item \verb|receipt_fully_valid_b_correct| \quad \textit{(Lemma)} % receipt_fully_valid_b_correct
+  \item \verb|chain_links_mu_head| \quad \textit{(Lemma)} % chain_links_mu_head
+  \item \verb|chain_links_hash_head| \quad \textit{(Lemma)} % chain_links_hash_head
+  \item \verb|chain_links_head| \quad \textit{(Lemma)} % chain_links_head
+  \item \verb|chain_links_mu_tail| \quad \textit{(Lemma)} % chain_links_mu_tail
+  \item \verb|chain_links_hash_tail| \quad \textit{(Lemma)} % chain_links_hash_tail
+  \item \verb|chain_links_tail| \quad \textit{(Lemma)} % chain_links_tail
+  \item \verb|chain_all_consistent_head| \quad \textit{(Lemma)} % chain_all_consistent_head
+  \item \verb|chain_all_consistent_tail| \quad \textit{(Lemma)} % chain_all_consistent_tail
+  \item \verb|chain_final_mu_correct| \quad \textit{(Lemma)} % chain_final_mu_correct
+  \item \verb|valid_chain_mu_equals_computation| \quad \textit{(Theorem)} % valid_chain_mu_equals_computation
+  \item \verb|forged_receipt_fails_validation| \quad \textit{(Theorem)} % forged_receipt_fails_validation
+  \item \verb|overflow_receipt_fails_range_check| \quad \textit{(Theorem)} % overflow_receipt_fails_range_check
+  \item \verb|overflow_receipt_fails_full_validation| \quad \textit{(Theorem)} % overflow_receipt_fails_full_validation
+\end{itemize}
+
+\subsection{RevelationRequirement}
+
+\begin{itemize}
+  \item \verb|uses_revelation_decidable| \quad \textit{(Lemma)} % uses_revelation_decidable
+  \item \verb|supra_cert_implies_structure_addition_in_run| \quad \textit{(Lemma)} % supra_cert_implies_structure_addition_in_run
+  \item \verb|non_cert_setter_preserves_cert| \quad \textit{(Lemma)} % non_cert_setter_preserves_cert
+  \item \verb|nonlocal_correlation_requires_revelation| \quad \textit{(Theorem)} % nonlocal_correlation_requires_revelation
+  \item \verb|cert_setter_necessary_for_supra| \quad \textit{(Corollary)} % cert_setter_necessary_for_supra
+\end{itemize}
+
+\subsection{SemanticComplexityIsomorphism}
+
+\begin{itemize}
+  \item \verb|python_log2_matches_coq| \quad \textit{(Theorem)} % python_log2_matches_coq
+  \item \verb|python_semantic_complexity_matches_coq| \quad \textit{(Theorem)} % python_semantic_complexity_matches_coq
+  \item \verb|python_coq_isomorphism_for_constraint| \quad \textit{(Corollary)} % python_coq_isomorphism_for_constraint
+  \item \verb|verilog_enforces_monotonicity| \quad \textit{(Theorem)} % verilog_enforces_monotonicity
+  \item \verb|three_layer_semantic_isomorphism| \quad \textit{(Theorem)} % three_layer_semantic_isomorphism
+  \item \verb|verilog_receives_coq_value| \quad \textit{(Corollary)} % verilog_receives_coq_value
+  \item \verb|lassert_cost_isomorphism| \quad \textit{(Theorem)} % lassert_cost_isomorphism
+  \item \verb|syntax_invariance_preserved| \quad \textit{(Theorem)} % syntax_invariance_preserved
+  \item \verb|hardware_preserves_coq_monotonicity| \quad \textit{(Theorem)} % hardware_preserves_coq_monotonicity
+  \item \verb|perfect_three_layer_isomorphism| \quad \textit{(Theorem)} % perfect_three_layer_isomorphism
+  \item \verb|no_exceptions_perfect_isomorphism| \quad \textit{(Corollary)} % no_exceptions_perfect_isomorphism
+  \item \verb|isomorphism_verified_holds| \quad \textit{(Theorem)} % isomorphism_verified_holds
+\end{itemize}
+
+\subsection{SemanticMuCost}
+
+\begin{itemize}
+  \item \verb|log2_nat_ge_1_of_ge_2| \quad \textit{(Lemma)} % log2_nat_ge_1_of_ge_2
+  \item \verb|semantic_complexity_nonzero| \quad \textit{(Theorem)} % semantic_complexity_nonzero
+\end{itemize}
+
+\subsection{SemidefiniteProgramming}
+
+\begin{itemize}
+  \item \verb|PSD_diagonal_nonneg| \quad \textit{(Lemma)} % PSD_diagonal_nonneg
+  \item \verb|I_is_PSD| \quad \textit{(Lemma)} % I_is_PSD
+  \item \verb|schur_2x2_criterion| \quad \textit{(Lemma)} % schur_2x2_criterion
+  \item \verb|PSD_cauchy_schwarz| \quad \textit{(Lemma)} % PSD_cauchy_schwarz
+  \item \verb|PSD_off_diagonal_bound| \quad \textit{(Lemma)} % PSD_off_diagonal_bound
+\end{itemize}
+
+\subsection{SimulationProof}
+
+\begin{itemize}
+  \item \verb|states_related_implies_encoding| \quad \textit{(Lemma)} % states_related_implies_encoding
+  \item \verb|states_related_implies_pc| \quad \textit{(Lemma)} % states_related_implies_pc
+  \item \verb|states_related_implies_mu| \quad \textit{(Lemma)} % states_related_implies_mu
+  \item \verb|encoding_implies_states_related| \quad \textit{(Lemma)} % encoding_implies_states_related
+  \item \verb|firstn_succ_nth_error_Some| \quad \textit{(Lemma)} % firstn_succ_nth_error_Some
+  \item \verb|firstn_succ_nth_error_None| \quad \textit{(Lemma)} % firstn_succ_nth_error_None
+  \item \verb|length_concat_firstn_succ_Some| \quad \textit{(Lemma)} % length_concat_firstn_succ_Some
+  \item \verb|length_concat_firstn_succ_None| \quad \textit{(Lemma)} % length_concat_firstn_succ_None
+  \item \verb|skipn_nth_error_cons| \quad \textit{(Lemma)} % skipn_nth_error_cons
+  \item \verb|nth_error_concat_first_hd| \quad \textit{(Lemma)} % nth_error_concat_first_hd
+  \item \verb|compile_instruction_head| \quad \textit{(Lemma)} % compile_instruction_head
+  \item \verb|compile_trace_start_pos_correct| \quad \textit{(Lemma)} % compile_trace_start_pos_correct
+  \item \verb|compile_trace_nth| \quad \textit{(Lemma)} % compile_trace_nth
+  \item \verb|vm_step_vm_apply| \quad \textit{(Lemma)} % vm_step_vm_apply
+  \item \verb|vm_step_deterministic| \quad \textit{(Lemma)} % vm_step_deterministic
+  \item \verb|vm_step_pc| \quad \textit{(Lemma)} % vm_step_pc
+  \item \verb|vm_step_mu| \quad \textit{(Lemma)} % vm_step_mu
+  \item \verb|vm_exec_run_vm| \quad \textit{(Lemma)} % vm_exec_run_vm
+  \item \verb|vm_exec_deterministic| \quad \textit{(Lemma)} % vm_exec_deterministic
+  \item \verb|step_thiele_hclaim_tm_state| \quad \textit{(Lemma)} % step_thiele_hclaim_tm_state
+  \item \verb|step_thiele_hclaim_mu| \quad \textit{(Lemma)} % step_thiele_hclaim_mu
+  \item \verb|fetch_compile_trace| \quad \textit{(Lemma)} % fetch_compile_trace
+  \item \verb|compile_increment_pc_correct| \quad \textit{(Lemma)} % compile_increment_pc_correct
+  \item \verb|compile_add_mu_correct| \quad \textit{(Lemma)} % compile_add_mu_correct
+  \item \verb|decode_vm_state_update_err| \quad \textit{(Lemma)} % decode_vm_state_update_err
+  \item \verb|compile_update_err_correct| \quad \textit{(Lemma)} % compile_update_err_correct
+  \item \verb|vm_step_kernel_simulation| \quad \textit{(Lemma)} % vm_step_kernel_simulation
+  \item \verb|vm_exec_simulation| \quad \textit{(Lemma)} % vm_exec_simulation
+  \item \verb|vm_is_a_correct_refinement_of_kernel| \quad \textit{(Lemma)} % vm_is_a_correct_refinement_of_kernel
+\end{itemize}
+
+\subsection{SpacetimeEmergence}
+
+\begin{itemize}
+  \item \verb|reaches_one| \quad \textit{(Lemma)} % reaches_one
+  \item \verb|reaches_trans| \quad \textit{(Lemma)} % reaches_trans
+  \item \verb|step_rel_no_signaling| \quad \textit{(Lemma)} % step_rel_no_signaling
+  \item \verb|all_ids_below_graph_insert_modules| \quad \textit{(Lemma)} % all_ids_below_graph_insert_modules
+  \item \verb|graph_update_preserves_wf| \quad \textit{(Lemma)} % graph_update_preserves_wf
+  \item \verb|graph_add_axiom_preserves_wf| \quad \textit{(Lemma)} % graph_add_axiom_preserves_wf
+  \item \verb|graph_add_axioms_preserves_wf| \quad \textit{(Lemma)} % graph_add_axioms_preserves_wf
+  \item \verb|graph_record_discovery_preserves_wf| \quad \textit{(Lemma)} % graph_record_discovery_preserves_wf
+  \item \verb|graph_pnew_preserves_wf| \quad \textit{(Lemma)} % graph_pnew_preserves_wf
+  \item \verb|graph_psplit_preserves_wf| \quad \textit{(Lemma)} % graph_psplit_preserves_wf
+  \item \verb|graph_pmerge_preserves_wf| \quad \textit{(Lemma)} % graph_pmerge_preserves_wf
+  \item \verb|vm_step_preserves_wf| \quad \textit{(Lemma)} % vm_step_preserves_wf
+  \item \verb|graph_pnew_next_id_monotone| \quad \textit{(Lemma)} % graph_pnew_next_id_monotone
+  \item \verb|graph_update_next_id_same| \quad \textit{(Lemma)} % graph_update_next_id_same
+  \item \verb|graph_add_axiom_next_id_same| \quad \textit{(Lemma)} % graph_add_axiom_next_id_same
+  \item \verb|graph_add_axioms_next_id_same| \quad \textit{(Lemma)} % graph_add_axioms_next_id_same
+  \item \verb|graph_record_discovery_next_id_same| \quad \textit{(Lemma)} % graph_record_discovery_next_id_same
+  \item \verb|graph_psplit_next_id_monotone| \quad \textit{(Lemma)} % graph_psplit_next_id_monotone
+  \item \verb|graph_remove_next_id_same| \quad \textit{(Lemma)} % graph_remove_next_id_same
+  \item \verb|graph_pmerge_next_id_monotone| \quad \textit{(Lemma)} % graph_pmerge_next_id_monotone
+  \item \verb|vm_step_next_id_monotone| \quad \textit{(Lemma)} % vm_step_next_id_monotone
+  \item \verb|vm_step_preserves_mid_lt_next_id| \quad \textit{(Lemma)} % vm_step_preserves_mid_lt_next_id
+  \item \verb|exec_trace_no_signaling_outside_cone| \quad \textit{(Lemma)} % exec_trace_no_signaling_outside_cone
+\end{itemize}
+
+\subsection{StateSpaceCounting}
+
+\begin{itemize}
+  \item \verb|lassert_cost_bounds_formula_length| \quad \textit{(Lemma)} % lassert_cost_bounds_formula_length
+  \item \verb|mu_increase_bounds_axiom_bits| \quad \textit{(Theorem)} % mu_increase_bounds_axiom_bits
+  \item \verb|nofreeinsight_quantitative_lower_bound| \quad \textit{(Theorem)} % nofreeinsight_quantitative_lower_bound
+  \item \verb|pow2_ge_1| \quad \textit{(Lemma)} % pow2_ge_1
+  \item \verb|log2_pow2| \quad \textit{(Lemma)} % log2_pow2
+  \item \verb|nofreeinsight_information_theoretic_bound| \quad \textit{(Theorem)} % nofreeinsight_information_theoretic_bound
+  \item \verb|no_free_insight_quantitative| \quad \textit{(Theorem)} % no_free_insight_quantitative
+\end{itemize}
+
+\subsection{StressEnergyDynamics}
+
+\begin{itemize}
+  \item \verb|pnew_increases_mu_cost| \quad \textit{(Lemma)} % pnew_increases_mu_cost
+  \item \verb|pnew_trace_length_correlates| \quad \textit{(Lemma)} % pnew_trace_length_correlates
+  \item \verb|stress_energy_drives_pnew_frequency| \quad \textit{(Theorem)} % stress_energy_drives_pnew_frequency
+  \item \verb|pnew_frequency_bounded| \quad \textit{(Lemma)} % pnew_frequency_bounded
+  \item \verb|information_gravity_coupling| \quad \textit{(Theorem)} % information_gravity_coupling
+\end{itemize}
+
+\subsection{Subsumption}
+
+\begin{itemize}
+  \item \verb|witness_is_sighted| \quad \textit{(Lemma)} % witness_is_sighted
+  \item \verb|witness_not_turing| \quad \textit{(Lemma)} % witness_not_turing
+  \item \verb|main_subsumption| \quad \textit{(Theorem)} % main_subsumption
+\end{itemize}
+
+\subsection{TOE}
+
+\begin{itemize}
+  \item \verb|KernelTOE_FinalOutcome| \quad \textit{(Theorem)} % KernelTOE_FinalOutcome
+\end{itemize}
+
+\subsection{TOEDecision}
+
+\begin{itemize}
+  \item \verb|KernelNoGoForTOE_Decision| \quad \textit{(Theorem)} % KernelNoGoForTOE_Decision
+  \item \verb|Physics_Requires_Extra_Structure| \quad \textit{(Theorem)} % Physics_Requires_Extra_Structure
+  \item \verb|Kernel_Physics_Closure| \quad \textit{(Theorem)} % Kernel_Physics_Closure
+  \item \verb|Kernel_TOE_FinalOutcome| \quad \textit{(Theorem)} % Kernel_TOE_FinalOutcome
+\end{itemize}
+
+\subsection{ThreeLayerIsomorphism}
+
+\begin{itemize}
+  \item \verb|vm_apply_total| \quad \textit{(Theorem)} % vm_apply_total
+  \item \verb|instruction_exhaustive| \quad \textit{(Lemma)} % instruction_exhaustive
+  \item \verb|advance_state_mu| \quad \textit{(Lemma)} % advance_state_mu
+  \item \verb|advance_state_rm_mu| \quad \textit{(Lemma)} % advance_state_rm_mu
+  \item \verb|advance_state_pc| \quad \textit{(Lemma)} % advance_state_pc
+  \item \verb|advance_state_rm_pc| \quad \textit{(Lemma)} % advance_state_rm_pc
+  \item \verb|mu_cost_exact| \quad \textit{(Theorem)} % mu_cost_exact
+  \item \verb|pc_advance| \quad \textit{(Theorem)} % pc_advance
+  \item \verb|mu_monotone| \quad \textit{(Theorem)} % mu_monotone
+  \item \verb|step_deterministic_fn| \quad \textit{(Theorem)} % step_deterministic_fn
+  \item \verb|trace_mu_exact| \quad \textit{(Theorem)} % trace_mu_exact
+  \item \verb|trace_pc_exact| \quad \textit{(Theorem)} % trace_pc_exact
+  \item \verb|three_layer_bisimulation| \quad \textit{(Theorem)} % three_layer_bisimulation
+  \item \verb|coq_bisimilar_to_any| \quad \textit{(Corollary)} % coq_bisimilar_to_any
+  \item \verb|single_step_bisimulation| \quad \textit{(Theorem)} % single_step_bisimulation
+  \item \verb|vmstate_eta| \quad \textit{(Lemma)} % vmstate_eta
+  \item \verb|vm_apply_mem_preserved| \quad \textit{(Theorem)} % vm_apply_mem_preserved
+  \item \verb|coq_full_step_correct| \quad \textit{(Lemma)} % coq_full_step_correct
+  \item \verb|full_state_single_step_bisimulation| \quad \textit{(Theorem)} % full_state_single_step_bisimulation
+  \item \verb|full_state_trace_bisimulation| \quad \textit{(Theorem)} % full_state_trace_bisimulation
+  \item \verb|coq_full_bisimilar_to_any| \quad \textit{(Corollary)} % coq_full_bisimilar_to_any
+\end{itemize}
+
+\subsection{Tier1Proofs}
+
+\begin{itemize}
+  \item \verb|bit_sign_0| \quad \textit{(Lemma)} % bit_sign_0
+  \item \verb|bit_sign_1| \quad \textit{(Lemma)} % bit_sign_1
+  \item \verb|E_expand| \quad \textit{(Lemma)} % E_expand
+  \item \verb|normalized_E_bound| \quad \textit{(Theorem)} % normalized_E_bound
+  \item \verb|Qabs_triangle_4| \quad \textit{(Lemma)} % Qabs_triangle_4
+  \item \verb|valid_box_S_le_4| \quad \textit{(Theorem)} % valid_box_S_le_4
+\end{itemize}
+
+\subsection{TopologyCurvatureBridge}
+
+\begin{itemize}
+  \item \verb|delta_chi_implies_delta_curvature| \quad \textit{(Theorem)} % delta_chi_implies_delta_curvature
+  \item \verb|add_triangle_changes_curvature| \quad \textit{(Corollary)} % add_triangle_changes_curvature
+  \item \verb|remove_triangle_changes_curvature| \quad \textit{(Corollary)} % remove_triangle_changes_curvature
+  \item \verb|topology_invariant_implies_curvature_invariant| \quad \textit{(Corollary)} % topology_invariant_implies_curvature_invariant
+  \item \verb|local_curvature_changes_sum_to_global| \quad \textit{(Theorem)} % local_curvature_changes_sum_to_global
+\end{itemize}
+
+\subsection{TsirelsonComputation}
+
+\begin{itemize}
+  \item \verb|four_inv_sqrt2| \quad \textit{(Lemma)} % four_inv_sqrt2
+\end{itemize}
+
+\subsection{TsirelsonDerivation}
+
+\begin{itemize}
+  \item \verb|nonzero_mu_implies_exceeds_bound| \quad \textit{(Theorem)} % nonzero_mu_implies_exceeds_bound
+  \item \verb|Qgt_minus_pos| \quad \textit{(Lemma)} % Qgt_minus_pos
+  \item \verb|tsirelson_from_correlation_mu_zero| \quad \textit{(Theorem)} % tsirelson_from_correlation_mu_zero
+  \item \verb|tsirelson_from_total_mu_zero| \quad \textit{(Corollary)} % tsirelson_from_total_mu_zero
+  \item \verb|tsirelson_from_pure_accounting| \quad \textit{(Theorem)} % tsirelson_from_pure_accounting
+\end{itemize}
+
+\subsection{TsirelsonFromAlgebra}
+
+\begin{itemize}
+  \item \verb|chsh_gap_is_sum_of_squares| \quad \textit{(Lemma)} % chsh_gap_is_sum_of_squares
+  \item \verb|sq_nonneg_local| \quad \textit{(Lemma)} % sq_nonneg_local
+  \item \verb|cauchy_schwarz_chsh| \quad \textit{(Lemma)} % cauchy_schwarz_chsh
+  \item \verb|tsirelson_squared| \quad \textit{(Theorem)} % tsirelson_squared
+  \item \verb|sqrt8_eq_2sqrt2| \quad \textit{(Lemma)} % sqrt8_eq_2sqrt2
+  \item \verb|optimal_correlator_squared| \quad \textit{(Lemma)} % optimal_correlator_squared
+  \item \verb|optimal_satisfies_row_bound| \quad \textit{(Lemma)} % optimal_satisfies_row_bound
+  \item \verb|optimal_chsh| \quad \textit{(Lemma)} % optimal_chsh
+  \item \verb|four_e_eq_sqrt8| \quad \textit{(Lemma)} % four_e_eq_sqrt8
+  \item \verb|tsirelson_tight| \quad \textit{(Theorem)} % tsirelson_tight
+  \item \verb|rational_tsirelson_bound| \quad \textit{(Lemma)} % rational_tsirelson_bound
+\end{itemize}
+
+\subsection{TsirelsonGeneral}
+
+\begin{itemize}
+  \item \verb|sq_nonneg| \quad \textit{(Lemma)} % sq_nonneg
+  \item \verb|cauchy_schwarz_chsh| \quad \textit{(Lemma)} % cauchy_schwarz_chsh
+  \item \verb|tsirelson_from_row_bounds| \quad \textit{(Theorem)} % tsirelson_from_row_bounds
+  \item \verb|tsirelson_bound_squared| \quad \textit{(Corollary)} % tsirelson_bound_squared
+  \item \verb|sqrt8_squared| \quad \textit{(Lemma)} % sqrt8_squared
+  \item \verb|sqrt8_positive| \quad \textit{(Lemma)} % sqrt8_positive
+  \item \verb|tsirelson_bound_abs| \quad \textit{(Theorem)} % tsirelson_bound_abs
+  \item \verb|sqrt2_pos| \quad \textit{(Lemma)} % sqrt2_pos
+  \item \verb|sqrt2inv_squared| \quad \textit{(Lemma)} % sqrt2inv_squared
+  \item \verb|optimal_chsh_value| \quad \textit{(Lemma)} % optimal_chsh_value
+  \item \verb|four_over_sqrt2| \quad \textit{(Lemma)} % four_over_sqrt2
+  \item \verb|tsirelson_achievable| \quad \textit{(Theorem)} % tsirelson_achievable
+  \item \verb|minor_implies_row_bound| \quad \textit{(Lemma)} % minor_implies_row_bound
+  \item \verb|tsirelson_from_minors| \quad \textit{(Corollary)} % tsirelson_from_minors
+  \item \verb|tsirelson_from_minors_abs| \quad \textit{(Corollary)} % tsirelson_from_minors_abs
+\end{itemize}
+
+\subsection{TsirelsonLowerBound}
+
+\begin{itemize}
+  \item \verb|tsirelson_program_mu_zero| \quad \textit{(Lemma)} % tsirelson_program_mu_zero
+  \item \verb|tsirelson_lower_bound| \quad \textit{(Theorem)} % tsirelson_lower_bound
+\end{itemize}
+
+\subsection{TsirelsonUniqueness}
+
+\begin{itemize}
+  \item \verb|mu_zero_algebraic_bound| \quad \textit{(Theorem)} % mu_zero_algebraic_bound
+\end{itemize}
+
+\subsection{TsirelsonUpperBound}
+
+\begin{itemize}
+  \item \verb|mu_zero_no_lassert_from_pc| \quad \textit{(Lemma)} % mu_zero_no_lassert_from_pc
+  \item \verb|mu_zero_no_lassert| \quad \textit{(Lemma)} % mu_zero_no_lassert
+  \item \verb|mu_zero_no_ljoin_from_pc| \quad \textit{(Lemma)} % mu_zero_no_ljoin_from_pc
+  \item \verb|mu_zero_no_ljoin| \quad \textit{(Lemma)} % mu_zero_no_ljoin
+  \item \verb|classical_bound_algebraic| \quad \textit{(Lemma)} % classical_bound_algebraic
+  \item \verb|quantum_tsirelson_algebraic| \quad \textit{(Lemma)} % quantum_tsirelson_algebraic
+  \item \verb|mu_zero_implies_locc| \quad \textit{(Theorem)} % mu_zero_implies_locc
+  \item \verb|mu_zero_chsh_bounded| \quad \textit{(Theorem)} % mu_zero_chsh_bounded
+  \item \verb|mu_zero_chsh_classical_decidable| \quad \textit{(Corollary)} % mu_zero_chsh_classical_decidable
+  \item \verb|mu_zero_chsh_quantum_tsirelson_decidable| \quad \textit{(Corollary)} % mu_zero_chsh_quantum_tsirelson_decidable
+  \item \verb|algebraic_max_trace_mu_zero| \quad \textit{(Lemma)} % algebraic_max_trace_mu_zero
+  \item \verb|algebraic_max_trials_chsh| \quad \textit{(Lemma)} % algebraic_max_trials_chsh
+  \item \verb|extract_algebraic_max_trials| \quad \textit{(Lemma)} % extract_algebraic_max_trials
+  \item \verb|algebraic_max_trace_chsh| \quad \textit{(Lemma)} % algebraic_max_trace_chsh
+  \item \verb|classical_bound_lt_algebraic_max| \quad \textit{(Lemma)} % classical_bound_lt_algebraic_max
+  \item \verb|quantum_tsirelson_lt_algebraic_max| \quad \textit{(Lemma)} % quantum_tsirelson_lt_algebraic_max
+  \item \verb|mu_zero_trace_exceeds_classical| \quad \textit{(Theorem)} % mu_zero_trace_exceeds_classical
+  \item \verb|mu_zero_trace_exceeds_quantum_tsirelson| \quad \textit{(Theorem)} % mu_zero_trace_exceeds_quantum_tsirelson
+  \item \verb|mu_zero_algebraic_bound| \quad \textit{(Theorem)} % mu_zero_algebraic_bound
+\end{itemize}
+
+\subsection{Unitarity}
+
+\begin{itemize}
+  \item \verb|trace_preserved_by_normalization| \quad \textit{(Theorem)} % trace_preserved_by_normalization
+  \item \verb|unitary_preserves_trace| \quad \textit{(Corollary)} % unitary_preserves_trace
+  \item \verb|unitary_preserves_positivity| \quad \textit{(Theorem)} % unitary_preserves_positivity
+  \item \verb|nonunitary_requires_mu| \quad \textit{(Theorem)} % nonunitary_requires_mu
+  \item \verb|physical_evolution_is_CPTP| \quad \textit{(Theorem)} % physical_evolution_is_CPTP
+  \item \verb|lindblad_requires_mu| \quad \textit{(Theorem)} % lindblad_requires_mu
+  \item \verb|zero_cost_preserves_purity| \quad \textit{(Theorem)} % zero_cost_preserves_purity
+\end{itemize}
+
+\subsection{VMEncoding}
+
+\begin{itemize}
+  \item \verb|decode_nat_correct| \quad \textit{(Lemma)} % decode_nat_correct
+  \item \verb|decode_bool_correct| \quad \textit{(Lemma)} % decode_bool_correct
+  \item \verb|decode_ascii_correct| \quad \textit{(Lemma)} % decode_ascii_correct
+  \item \verb|decode_list_payload_correct| \quad \textit{(Lemma)} % decode_list_payload_correct
+  \item \verb|decode_sequence_correct| \quad \textit{(Lemma)} % decode_sequence_correct
+  \item \verb|decode_string_correct| \quad \textit{(Lemma)} % decode_string_correct
+  \item \verb|decode_nat_list_correct| \quad \textit{(Lemma)} % decode_nat_list_correct
+  \item \verb|decode_string_list_correct| \quad \textit{(Lemma)} % decode_string_list_correct
+  \item \verb|decode_module_state_correct| \quad \textit{(Lemma)} % decode_module_state_correct
+  \item \verb|decode_module_entry_correct| \quad \textit{(Lemma)} % decode_module_entry_correct
+  \item \verb|decode_partition_graph_correct| \quad \textit{(Lemma)} % decode_partition_graph_correct
+  \item \verb|decode_csr_correct| \quad \textit{(Lemma)} % decode_csr_correct
+  \item \verb|decode_vm_state_correct| \quad \textit{(Lemma)} % decode_vm_state_correct
+  \item \verb|encode_decode_vm_state_roundtrip| \quad \textit{(Lemma)} % encode_decode_vm_state_roundtrip
+  \item \verb|update_pc_preserves_other_fields| \quad \textit{(Lemma)} % update_pc_preserves_other_fields
+\end{itemize}
+
+\subsection{VMState}
+
+\begin{itemize}
+  \item \verb|normalize_region_nodup| \quad \textit{(Lemma)} % normalize_region_nodup
+  \item \verb|normalize_region_idempotent| \quad \textit{(Lemma)} % normalize_region_idempotent
+  \item \verb|empty_graph_well_formed| \quad \textit{(Lemma)} % empty_graph_well_formed
+  \item \verb|graph_add_module_lookup_other| \quad \textit{(Lemma)} % graph_add_module_lookup_other
+  \item \verb|all_ids_below_weaken| \quad \textit{(Lemma)} % all_ids_below_weaken
+  \item \verb|graph_add_module_preserves_wf| \quad \textit{(Lemma)} % graph_add_module_preserves_wf
+  \item \verb|graph_remove_modules_preserves_all_ids_below| \quad \textit{(Lemma)} % graph_remove_modules_preserves_all_ids_below
+  \item \verb|graph_remove_preserves_wf| \quad \textit{(Lemma)} % graph_remove_preserves_wf
+  \item \verb|graph_add_module_length| \quad \textit{(Lemma)} % graph_add_module_length
+  \item \verb|graph_remove_modules_length| \quad \textit{(Lemma)} % graph_remove_modules_length
+  \item \verb|graph_remove_length| \quad \textit{(Lemma)} % graph_remove_length
+  \item \verb|graph_insert_modules_length| \quad \textit{(Lemma)} % graph_insert_modules_length
+  \item \verb|graph_insert_modules_existing_length| \quad \textit{(Lemma)} % graph_insert_modules_existing_length
+  \item \verb|graph_update_length| \quad \textit{(Lemma)} % graph_update_length
+  \item \verb|graph_add_axiom_length| \quad \textit{(Lemma)} % graph_add_axiom_length
+  \item \verb|graph_lookup_modules_in| \quad \textit{(Lemma)} % graph_lookup_modules_in
+  \item \verb|graph_add_axiom_preserves_length| \quad \textit{(Lemma)} % graph_add_axiom_preserves_length
+  \item \verb|graph_add_axioms_preserves_length| \quad \textit{(Lemma)} % graph_add_axioms_preserves_length
+  \item \verb|graph_record_discovery_preserves_length| \quad \textit{(Lemma)} % graph_record_discovery_preserves_length
+  \item \verb|graph_update_existing_length| \quad \textit{(Lemma)} % graph_update_existing_length
+  \item \verb|graph_insert_modules_lookup_same| \quad \textit{(Lemma)} % graph_insert_modules_lookup_same
+  \item \verb|graph_update_lookup_same| \quad \textit{(Lemma)} % graph_update_lookup_same
+  \item \verb|graph_insert_modules_preserves_unrelated| \quad \textit{(Lemma)} % graph_insert_modules_preserves_unrelated
+  \item \verb|graph_update_preserves_unrelated| \quad \textit{(Lemma)} % graph_update_preserves_unrelated
+  \item \verb|all_ids_below_implies_lookup_none| \quad \textit{(Lemma)} % all_ids_below_implies_lookup_none
+  \item \verb|graph_remove_preserves_next_id| \quad \textit{(Lemma)} % graph_remove_preserves_next_id
+  \item \verb|graph_remove_preserves_unrelated| \quad \textit{(Lemma)} % graph_remove_preserves_unrelated
+  \item \verb|wf_graph_lookup_beyond_next_id| \quad \textit{(Theorem)} % wf_graph_lookup_beyond_next_id
+  \item \verb|graph_psplit_increases_length| \quad \textit{(Lemma)} % graph_psplit_increases_length
+  \item \verb|graph_pmerge_decreases_length| \quad \textit{(Lemma)} % graph_pmerge_decreases_length
+  \item \verb|graph_pmerge_length_bound| \quad \textit{(Lemma)} % graph_pmerge_length_bound
+  \item \verb|graph_pmerge_preserves_region_obs| \quad \textit{(Lemma)} % graph_pmerge_preserves_region_obs
+\end{itemize}
+
+\subsection{ValidCorrelation}
+
+\begin{itemize}
+  \item \verb|bell_math_deterministic| \quad \textit{(Theorem)} % bell_math_deterministic
+\end{itemize}
+

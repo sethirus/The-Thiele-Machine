@@ -51,6 +51,7 @@ Module MinimalThieleMachine.
   Definition hash_cert (c : Cert) : Hash := TM.hash_cert c.
   Definition hcombine (h1 h2 : Hash) : Hash := TM.hcombine h1 h2.
 
+  (** [check_step_sound]: formal specification. *)
   Lemma check_step_sound :
     forall P s s' obs,
       step P s s' obs ->
@@ -65,6 +66,7 @@ Module MinimalThieleMachine.
     exact Hstep.
   Qed.
 
+  (** [mu_lower_bound]: formal specification. *)
   Lemma mu_lower_bound :
     forall P s s' obs,
       step P s s' obs ->
@@ -77,6 +79,7 @@ Module MinimalThieleMachine.
     exact Hstep.
   Qed.
 
+  (** [check_step_complete]: formal specification. *)
   Lemma check_step_complete :
     forall P s s' oev c,
       check_step P s s' oev c = true ->
@@ -95,6 +98,7 @@ Module MinimalThieleMachine.
     - split; [exact Hev | exact Hcert].
   Qed.
 
+  (** [state_eqb_refl]: formal specification. *)
   Lemma state_eqb_refl : forall s, state_eqb s s = true.
   Proof.
     intro s.

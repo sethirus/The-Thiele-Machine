@@ -627,6 +627,7 @@ Definition CHSH_from_correlations (E : nat -> nat -> nat -> nat -> R) : R :=
     STATUS: COMPLETE (Proven with exhaustive case analysis, ~8 lines) *)
 (** Lemma: For each deterministic strategy, CHSH value is bounded *)
 (* SAFE: proves classical bound -2 ≤ S ≤ 2 for deterministic ±1 strategies *)
+(** [deterministic_strategy_chsh_bounded]: formal specification. *)
 Lemma deterministic_strategy_chsh_bounded :
   forall (A : nat -> R) (B : nat -> R),
     (forall x, A x = -1 \/ A x = 1) ->
@@ -957,6 +958,7 @@ Qed.
 Definition fine_theorem_proven : Prop :=
   forall E, is_factorizable E -> (-2 <= CHSH_from_correlations E <= 2)%R.
 
+(** [fine_theorem_holds]: formal specification. *)
 Theorem fine_theorem_holds : fine_theorem_proven.
 Proof.
   unfold fine_theorem_proven.

@@ -26,6 +26,7 @@ Definition states_related_for_execution (s_vm : VMState) (s_kernel : state) : Pr
 (** * Basic lemmas about the states relation *)
 
 (* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
+(** [states_related_implies_encoding]: formal specification. *)
 Lemma states_related_implies_encoding :
   forall s_vm s_kernel,
     states_related s_vm s_kernel ->
@@ -37,6 +38,7 @@ Proof.
 Qed.
 
 (* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
+(** [states_related_implies_pc]: formal specification. *)
 Lemma states_related_implies_pc :
   forall s_vm s_kernel,
     states_related s_vm s_kernel ->
@@ -48,6 +50,7 @@ Proof.
 Qed.
 
 (* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
+(** [states_related_implies_mu]: formal specification. *)
 Lemma states_related_implies_mu :
   forall s_vm s_kernel,
     states_related s_vm s_kernel ->
@@ -59,6 +62,7 @@ Proof.
 Qed.
 
 
+(** [encoding_implies_states_related]: formal specification. *)
 Lemma encoding_implies_states_related :
   forall s_vm s_kernel,
     s_vm.(vm_pc) = s_kernel.(tm_state) ->
@@ -90,6 +94,7 @@ Fixpoint compile_trace_start_pos (trace : list vm_instruction) (pc : nat) : nat 
       end
   end.
 
+(** [firstn_succ_nth_error_Some]: formal specification. *)
 Lemma firstn_succ_nth_error_Some {A} :
   forall (l : list A) (n : nat) (x : A),
     nth_error l n = Some x ->
@@ -100,6 +105,7 @@ Proof.
   - apply f_equal. rewrite (IH n x H). reflexivity.
 Qed.
 
+(** [firstn_succ_nth_error_None]: formal specification. *)
 Lemma firstn_succ_nth_error_None {A} :
   forall (l : list A) (n : nat),
     nth_error l n = None ->
@@ -109,6 +115,7 @@ Proof.
   apply f_equal. apply IH. assumption.
 Qed.
 
+(** [length_concat_firstn_succ_Some]: formal specification. *)
 Lemma length_concat_firstn_succ_Some {A} :
   forall (l : list (list A)) (n : nat) (x : list A),
     nth_error l n = Some x ->
@@ -121,6 +128,7 @@ Proof.
   rewrite app_length. simpl. reflexivity.
 Qed.
 
+(** [length_concat_firstn_succ_None]: formal specification. *)
 Lemma length_concat_firstn_succ_None {A} :
   forall (l : list (list A)) (n : nat),
     nth_error l n = None ->
@@ -131,6 +139,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [skipn_nth_error_cons]: formal specification. *)
 Lemma skipn_nth_error_cons {A} :
   forall (l : list A) (n : nat) (x : A),
     nth_error l n = Some x ->
@@ -144,6 +153,7 @@ Proof.
     + apply IH in H. assumption.
 Qed.
 
+(** [nth_error_concat_first_hd]: formal specification. *)
 Lemma nth_error_concat_first_hd {A} :
   forall (l : list (list A)) (n : nat) (x : list A) (y : A),
     nth_error l n = Some x ->
@@ -209,6 +219,7 @@ Proof.
 Qed.
 
 
+(** [compile_trace_nth]: formal specification. *)
 Lemma compile_trace_nth :
   forall trace pc instr,
     nth_error trace pc = Some instr ->
@@ -353,6 +364,7 @@ Inductive vm_exec : nat -> list vm_instruction -> VMState -> VMState -> Prop :=
     vm_exec fuel trace s' s'' ->
     vm_exec (S fuel) trace s s''.
 
+(** [vm_step_vm_apply]: formal specification. *)
 Lemma vm_step_vm_apply :
   forall s instr s',
     vm_step s instr s' ->
@@ -370,6 +382,7 @@ Proof.
            end; reflexivity.
 Qed.
 
+(** [vm_step_deterministic]: formal specification. *)
 Lemma vm_step_deterministic :
   forall s instr s1 s2,
     vm_step s instr s1 ->
@@ -382,6 +395,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [vm_step_pc]: formal specification. *)
 Lemma vm_step_pc :
   forall s instr s',
     vm_step s instr s' ->
@@ -391,6 +405,7 @@ Proof.
   inversion Hstep; subst; reflexivity.
 Qed.
 
+(** [vm_step_mu]: formal specification. *)
 Lemma vm_step_mu :
   forall s instr s',
     vm_step s instr s' ->
@@ -400,6 +415,7 @@ Proof.
   inversion Hstep; subst; reflexivity.
 Qed.
 
+(** [vm_exec_run_vm]: formal specification. *)
 Lemma vm_exec_run_vm :
   forall fuel trace s s',
     vm_exec fuel trace s s' ->
@@ -414,6 +430,7 @@ Proof.
     apply IHHexec.
 Qed.
 
+(** [vm_exec_deterministic]: formal specification. *)
 Lemma vm_exec_deterministic :
   forall fuel trace s s1 s2,
     vm_exec fuel trace s s1 ->
@@ -426,6 +443,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [step_thiele_hclaim_tm_state]: formal specification. *)
 Lemma step_thiele_hclaim_tm_state :
   forall prog st delta,
     fetch prog st = H_ClaimTapeIsZero delta ->
@@ -437,6 +455,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [step_thiele_hclaim_mu]: formal specification. *)
 Lemma step_thiele_hclaim_mu :
   forall prog st delta,
     fetch prog st = H_ClaimTapeIsZero delta ->
@@ -448,6 +467,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [fetch_compile_trace]: formal specification. *)
 Lemma fetch_compile_trace :
   forall trace s_vm s_kernel instr,
     states_related_for_execution s_vm s_kernel ->
@@ -477,6 +497,7 @@ Proof.
 Qed.
 
 
+(** [compile_increment_pc_correct]: formal specification. *)
 Lemma compile_increment_pc_correct :
   forall s_kernel s_vm,
     states_related s_vm s_kernel ->
@@ -522,6 +543,7 @@ Proof.
   apply decode_vm_state_correct.
 Qed.
 
+(** [compile_add_mu_correct]: formal specification. *)
 Lemma compile_add_mu_correct :
   forall delta s_kernel s_vm,
     states_related s_vm s_kernel ->
@@ -550,6 +572,7 @@ Proof.
   apply decode_vm_state_correct.
 Qed.
 
+(** [decode_vm_state_update_err]: formal specification. *)
 Lemma decode_vm_state_update_err :
   forall tape s new_err,
     decode_vm_state tape = Some (s, []) ->
@@ -583,6 +606,7 @@ Proof.
   reflexivity.
 Qed.
 
+(** [compile_update_err_correct]: formal specification. *)
 Lemma compile_update_err_correct :
   forall new_err s_kernel s_vm,
     states_related s_vm s_kernel ->
@@ -609,6 +633,7 @@ Proof.
   exact Hdecode.
 Qed.
 
+(** [vm_step_kernel_simulation]: formal specification. *)
 Lemma vm_step_kernel_simulation :
   forall trace s_vm s_kernel instr s_vm',
     states_related_for_execution s_vm s_kernel ->
@@ -644,6 +669,7 @@ Proof.
   reflexivity.
 Qed. *)
 
+(** [vm_exec_simulation]: formal specification. *)
 Lemma vm_exec_simulation :
   forall fuel trace s_vm s_kernel s_vm',
     states_related_for_execution s_vm s_kernel ->
@@ -664,6 +690,7 @@ Proof.
     apply decode_vm_state_correct.
 Qed.
 
+(** [vm_is_a_correct_refinement_of_kernel]: formal specification. *)
 Lemma vm_is_a_correct_refinement_of_kernel :
   forall fuel trace s_vm s_kernel s_vm',
     states_related s_vm s_kernel ->

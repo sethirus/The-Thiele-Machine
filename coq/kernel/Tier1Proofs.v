@@ -45,6 +45,7 @@ Definition S (B : Box) : Q :=
 Lemma bit_sign_0 : bit_sign 0%nat = 1.
 Proof. reflexivity. Qed.
 
+(** [bit_sign_1]: formal specification. *)
 Lemma bit_sign_1 : bit_sign 1%nat = -1.
 Proof. reflexivity. Qed.
 
@@ -177,6 +178,7 @@ Proof.
   - apply Qabs_triangle.
 Qed.
 
+(** [valid_box_S_le_4]: formal specification. *)
 Theorem valid_box_S_le_4 : forall B,
   valid_box B ->
   Qabs (S B) <= 4.

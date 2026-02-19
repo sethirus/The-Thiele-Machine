@@ -1,5 +1,6 @@
 From Coq Require Import Arith.Arith Arith.PeanoNat Lists.List Lia.
 
+(** [pow2_gt_succ]: formal specification. *)
 Lemma pow2_gt_succ : forall n, S n < Nat.pow 2 (S n).
 Proof.
   intro n.
@@ -28,21 +29,25 @@ Section EncodingBounds.
   Context (BASE_ge_2 : 2 <= BASE).
   Context (SHIFT_LEN_ge_1 : 1 <= SHIFT_LEN).
 
+  (** [BASE_pos]: formal specification. *)
   Lemma BASE_pos : 0 < BASE.
   Proof. lia. Qed.
 
+  (** [SHIFT_SMALL_pos]: formal specification. *)
   Lemma SHIFT_SMALL_pos : 0 < SHIFT_SMALL.
   Proof.
     unfold SHIFT_SMALL.
     apply pow_pos; lia.
   Qed.
 
+  (** [SHIFT_SMALL_nonzero]: formal specification. *)
   Lemma SHIFT_SMALL_nonzero : SHIFT_SMALL <> 0.
   Proof.
     pose proof SHIFT_SMALL_pos as Hpos.
     lia.
   Qed.
 
+  (** [shiftlen_lt_shiftsmall]: formal specification. *)
   Lemma shiftlen_lt_shiftsmall : SHIFT_LEN < SHIFT_SMALL.
   Proof.
     destruct SHIFT_LEN as [|len] eqn:Hlen; [lia|].
@@ -55,12 +60,14 @@ Section EncodingBounds.
     eapply Nat.lt_le_trans; [exact Hpow|exact Hmono].
   Qed.
 
+  (** [len_lt_SHIFT_SMALL]: formal specification. *)
   Lemma len_lt_SHIFT_SMALL : forall len, len <= SHIFT_LEN -> len < SHIFT_SMALL.
   Proof.
     intros len Hle.
     eapply Nat.le_lt_trans; [exact Hle|apply shiftlen_lt_shiftsmall].
   Qed.
 
+  (** [SHIFT_BIG_as_product]: formal specification. *)
   Lemma SHIFT_BIG_as_product : SHIFT_BIG = SHIFT_SMALL * SHIFT_SMALL.
   Proof.
     unfold SHIFT_BIG, SHIFT_SMALL.
@@ -69,12 +76,14 @@ Section EncodingBounds.
     reflexivity.
   Qed.
 
+  (** [SHIFT_SMALL_ge_succ_SHIFT_LEN]: formal specification. *)
   Lemma SHIFT_SMALL_ge_succ_SHIFT_LEN : S SHIFT_LEN <= SHIFT_SMALL.
   Proof.
     assert (SHIFT_LEN < SHIFT_SMALL) by apply shiftlen_lt_shiftsmall.
     lia.
   Qed.
 
+  (** [SHIFT_SMALL_le_SHIFT_BIG]: formal specification. *)
   Lemma SHIFT_SMALL_le_SHIFT_BIG : SHIFT_SMALL <= SHIFT_BIG.
   Proof.
     rewrite SHIFT_BIG_as_product.
@@ -86,11 +95,13 @@ Section EncodingBounds.
     lia.
   Qed.
 
+  (** [SHIFT_LEN_lt_SHIFT_BIG]: formal specification. *)
   Lemma SHIFT_LEN_lt_SHIFT_BIG : SHIFT_LEN < SHIFT_BIG.
   Proof.
     eapply Nat.lt_le_trans; [apply shiftlen_lt_shiftsmall|apply SHIFT_SMALL_le_SHIFT_BIG].
   Qed.
 
+  (** [le_SHIFT_LEN_lt_SHIFT_BIG]: formal specification. *)
   Lemma le_SHIFT_LEN_lt_SHIFT_BIG :
     forall x, x <= SHIFT_LEN -> x < SHIFT_BIG.
   Proof.
@@ -100,6 +111,7 @@ Section EncodingBounds.
     - eapply Nat.le_trans; [apply SHIFT_SMALL_ge_succ_SHIFT_LEN|apply SHIFT_SMALL_le_SHIFT_BIG].
   Qed.
 
+  (** [lt_SHIFT_LEN_succ_lt_SHIFT_BIG]: formal specification. *)
   Lemma lt_SHIFT_LEN_succ_lt_SHIFT_BIG :
     forall x, x < SHIFT_LEN -> S x < SHIFT_BIG.
   Proof.
@@ -109,18 +121,21 @@ Section EncodingBounds.
     - eapply Nat.le_trans; [apply SHIFT_SMALL_ge_succ_SHIFT_LEN|apply SHIFT_SMALL_le_SHIFT_BIG].
   Qed.
 
+  (** [SHIFT_BIG_pos]: formal specification. *)
   Lemma SHIFT_BIG_pos : 0 < SHIFT_BIG.
   Proof.
     rewrite SHIFT_BIG_as_product.
     apply Nat.mul_pos_pos; apply SHIFT_SMALL_pos.
   Qed.
 
+  (** [SHIFT_BIG_nonzero]: formal specification. *)
   Lemma SHIFT_BIG_nonzero : SHIFT_BIG <> 0.
   Proof.
     pose proof SHIFT_BIG_pos as Hpos.
     lia.
   Qed.
 
+  (** [pack_lt_square]: formal specification. *)
   Lemma pack_lt_square : forall k a c, 0 < k -> a < k -> c < k -> a * k + c < k * k.
   Proof.
     intros k a c Hk Ha Hc.
@@ -130,6 +145,7 @@ Section EncodingBounds.
       apply Nat.mul_le_mono_pos_r; lia.
   Qed.
 
+  (** [pair_fits_in_SHIFT_BIG]: formal specification. *)
   Lemma pair_fits_in_SHIFT_BIG :
     forall len code,
       len < SHIFT_SMALL ->
@@ -148,6 +164,7 @@ Section EncodingBounds.
 
 End EncodingBounds.
 
+(** [div_mul_add_small]: formal specification. *)
 Lemma div_mul_add_small :
   forall k a c,
     0 < k ->

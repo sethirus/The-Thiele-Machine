@@ -75,6 +75,7 @@ Definition rng_metric_count (fuel : nat) (trace : Trace) (s_init : VMState) : Z 
 Definition f_count (K : Z) : Z :=
   Z.max 0 K.
 
+(** [is_cert_setterb_true_implies_is_cert_setter]: formal specification. *)
 Lemma is_cert_setterb_true_implies_is_cert_setter :
   forall instr,
     MuNoFreeInsightQuantitative.is_cert_setterb instr = true ->
@@ -85,6 +86,7 @@ Proof.
   exact Hb.
 Qed.
 
+(** [mu_info_z_chain]: formal specification. *)
 Lemma mu_info_z_chain :
   forall s0 s1 s2,
     mu_info_z s0 s2 = (mu_info_z s0 s1 + mu_info_z s1 s2)%Z.
@@ -94,6 +96,7 @@ Proof.
   lia.
 Qed.
 
+(** [cert_setter_count_in_run_le_mu_info_run_vm]: formal specification. *)
 Lemma cert_setter_count_in_run_le_mu_info_run_vm :
   forall fuel trace s,
     CertSetterPositiveCost ->
@@ -132,6 +135,7 @@ Proof.
       lia.
 Qed.
 
+(** [cert_setter_count_in_run_le_mu_info_z]: formal specification. *)
 Theorem cert_setter_count_in_run_le_mu_info_z :
   forall fuel trace s_init s_final,
     trace_run fuel trace s_init = Some s_final ->

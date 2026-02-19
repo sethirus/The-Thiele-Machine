@@ -191,6 +191,7 @@ Qed.
 
 (** μ-monotonicity: vm_step always increases or preserves μ *)
 (* SAFE: Short proof using inversion+lia which is sufficient for this inductive property *)
+(** [mu_conservation_kernel]: formal specification. *)
 Theorem mu_conservation_kernel : forall s s' instr,
   vm_step s instr s' ->
   s'.(vm_mu) >= s.(vm_mu).
@@ -281,6 +282,7 @@ Proof.
       * apply IH. assumption.
 Qed.
 
+(** [graph_insert_modules_lookup_same]: formal specification. *)
 Lemma graph_insert_modules_lookup_same : forall modules mid m,
   graph_lookup_modules (graph_insert_modules modules mid m) mid = Some m.
 Proof.
@@ -296,6 +298,7 @@ Proof.
       simpl. rewrite Heq. apply IH.
 Qed.
 
+(** [graph_update_lookup_same]: formal specification. *)
 Lemma graph_update_lookup_same : forall g mid m,
   graph_lookup (graph_update g mid m) mid = Some (normalize_module m).
 Proof.
@@ -304,6 +307,7 @@ Proof.
   apply graph_insert_modules_lookup_same.
 Qed.
 
+(** [graph_update_preserves_unrelated]: formal specification. *)
 Lemma graph_update_preserves_unrelated : forall g mid mid' m,
   mid <> mid' ->
   graph_lookup (graph_update g mid' m) mid = graph_lookup g mid.
@@ -313,6 +317,7 @@ Proof.
   apply graph_insert_modules_preserves_unrelated. assumption.
 Qed.
 
+(** [graph_add_axiom_preserves_unrelated]: formal specification. *)
 Lemma graph_add_axiom_preserves_unrelated : forall g mid mid' ax,
   mid <> mid' ->
   graph_lookup (graph_add_axiom g mid' ax) mid = graph_lookup g mid.
@@ -326,6 +331,7 @@ Proof.
     reflexivity.
 Qed.
 
+(** [graph_record_discovery_preserves_unrelated]: formal specification. *)
 Lemma graph_record_discovery_preserves_unrelated : forall g mid mid' ev,
   mid <> mid' ->
   graph_lookup (graph_record_discovery g mid' ev) mid = graph_lookup g mid.

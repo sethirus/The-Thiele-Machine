@@ -31,15 +31,18 @@ Definition utm_tm : TM :=
 (* Basic catalogue witnesses                                          *)
 (* ------------------------------------------------------------------ *)
 
+(** [utm_blank_lt_base]: formal specification. *)
 Lemma utm_blank_lt_base : utm_blank < Encoding.BASE.
 Proof. cbv [utm_blank Encoding.BASE]; lia. Qed.
 
+(** [utm_rules_write_lt_base]: formal specification. *)
 Lemma utm_rules_write_lt_base :
   Forall (fun rule => let '(_, _, _, write, _) := rule in write < Encoding.BASE) utm_rules.
 Proof.
   repeat constructor; cbn; lia.
 Qed.
 
+(** [utm_rules_move_abs_le_one]: formal specification. *)
 Lemma utm_rules_move_abs_le_one :
   (* SAFE: Bounded arithmetic operation with explicit domain *)
   Forall (fun rule => let '(_, _, _, _, move) := rule in (Z.abs move <= 1)%Z) utm_rules.

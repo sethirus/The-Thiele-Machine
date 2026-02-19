@@ -55,6 +55,7 @@ Definition blind_to_core (s : BlindSighted.ThieleState) (pc : nat) (prog : CoreS
      CoreSemantics.result := s.(BlindSighted.answer);
      CoreSemantics.program := prog |}.
 
+(** [partition_conversion_roundtrip]: formal specification. *)
 Lemma partition_conversion_roundtrip :
   forall (p : CoreSemantics.Partition),
     blind_partition_to_core (core_partition_to_blind p) = p.
@@ -64,6 +65,7 @@ Proof.
   destruct p; simpl; reflexivity.
 Qed.
 
+(** [ledger_conversion_roundtrip]: formal specification. *)
 Lemma ledger_conversion_roundtrip :
   forall (l : CoreSemantics.MuLedger),
     blind_ledger_to_core (core_ledger_to_blind l) = l.
@@ -73,6 +75,7 @@ Proof.
   destruct l; simpl; reflexivity.
 Qed.
 
+(** [state_correspondence]: formal specification. *)
 Lemma state_correspondence :
   forall (s : CoreSemantics.State),
     let s' := core_to_blind s in
@@ -102,6 +105,7 @@ Definition core_mu_total (s : CoreSemantics.State) : Z :=
 Definition blind_mu_total (s : BlindSighted.ThieleState) : Z :=
   s.(BlindSighted.ledger).(BlindSighted.mu_total).
 
+(** [mu_alignment]: formal specification. *)
 Lemma mu_alignment :
   forall (s : CoreSemantics.State),
     core_mu_total s = blind_mu_total (core_to_blind s).

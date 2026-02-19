@@ -350,6 +350,7 @@ Fixpoint exec_trace_from (s : VMState) (trace : list vm_instruction) : VMState :
   | instr :: rest => exec_trace_from (vm_apply s instr) rest
   end.
 
+(** [exec_trace_correct]: formal specification. *)
 Lemma exec_trace_correct :
   forall s trace,
     trace_reaches s trace (exec_trace_from s trace).
@@ -360,6 +361,7 @@ Proof.
   - constructor. apply IH.
 Qed.
 
+(** [trace_reaches_exec]: formal specification. *)
 Lemma trace_reaches_exec :
   forall s trace s',
     trace_reaches s trace s' -> s' = exec_trace_from s trace.

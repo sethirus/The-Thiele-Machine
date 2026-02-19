@@ -38,6 +38,7 @@ Module FinSum.
         fun f => Nat.add (f Fin.F1) (sum_nat n' (fun i => f (Fin.FS i)))
     end.
 
+  (** [sumR_ext]: formal specification. *)
   Lemma sumR_ext :
     forall (n : nat) (f g : Fin.t n -> R),
       (forall i, f i = g i) -> sumR n f = sumR n g.
@@ -51,6 +52,7 @@ Module FinSum.
       apply Hfg.
   Qed.
 
+  (** [sum_nat_ext]: formal specification. *)
   Lemma sum_nat_ext :
     forall (n : nat) (f g : Fin.t n -> nat),
       (forall i, f i = g i) -> sum_nat n f = sum_nat n g.
@@ -64,6 +66,7 @@ Module FinSum.
       apply Hfg.
   Qed.
 
+  (** [sumR_const]: formal specification. *)
   Lemma sumR_const : forall (n : nat) (c : R), sumR n (fun _ => c) = INR n * c.
   Proof.
     induction n; intros c.
@@ -74,6 +77,7 @@ Module FinSum.
       ring.
   Qed.
 
+  (** [sumR_mul_const]: formal specification. *)
   Lemma sumR_mul_const :
     forall (n : nat) (c : R) (f : Fin.t n -> R),
       sumR n (fun i => c * f i) = c * sumR n f.
@@ -84,6 +88,7 @@ Module FinSum.
       ring.
   Qed.
 
+  (** [sumR_add]: formal specification. *)
   Lemma sumR_add :
     forall (n : nat) (f g : Fin.t n -> R),
       sumR n (fun i => f i + g i) = sumR n f + sumR n g.
@@ -94,6 +99,7 @@ Module FinSum.
       ring.
   Qed.
 
+  (** [sumR_opp]: formal specification. *)
   Lemma sumR_opp :
     forall (n : nat) (f : Fin.t n -> R),
       sumR n (fun i => - f i) = - sumR n f.
@@ -104,6 +110,7 @@ Module FinSum.
       ring.
   Qed.
 
+  (** [sumR_sub]: formal specification. *)
   Lemma sumR_sub :
     forall (n : nat) (f g : Fin.t n -> R),
       sumR n (fun i => f i - g i) = sumR n f - sumR n g.
@@ -128,6 +135,7 @@ Module FinSum.
          ) f
     end.
 
+  (** [sumR_remove_ext]: formal specification. *)
   Lemma sumR_remove_ext :
     forall (n : nat) (i : Fin.t n) (f g : Fin.t n -> R),
       (forall j, f j = g j) -> sumR_remove n i f = sumR_remove n i g.
@@ -143,6 +151,7 @@ Module FinSum.
         apply Hfg.
   Qed.
 
+  (** [sumR_remove_ext_except]: formal specification. *)
   Lemma sumR_remove_ext_except :
     forall (n : nat) (i : Fin.t n) (f g : Fin.t n -> R),
       (forall j, j <> i -> f j = g j) ->
@@ -171,6 +180,7 @@ Module FinSum.
           exact (Hk Hc).
   Qed.
 
+  (** [sumR_remove_mul_const]: formal specification. *)
   Lemma sumR_remove_mul_const :
     forall (n : nat) (i : Fin.t n) (c : R) (f : Fin.t n -> R),
       sumR_remove n i (fun j => c * f j) = c * sumR_remove n i f.
@@ -182,6 +192,7 @@ Module FinSum.
       + rewrite IHn. ring.
   Qed.
 
+  (** [sumR_split_remove]: formal specification. *)
   Lemma sumR_split_remove :
     forall (n : nat) (f : Fin.t n -> R) (i : Fin.t n),
       sumR n f = f i + sumR_remove n i f.
@@ -200,6 +211,7 @@ Module FinSum.
           reflexivity.
   Qed.
 
+  (** [sumR_remove_at]: formal specification. *)
   Lemma sumR_remove_at :
     forall (n : nat) (f : Fin.t n -> R) (i : Fin.t n),
       sumR_remove n i f = sumR n f - f i.
@@ -224,6 +236,7 @@ Definition dot {n : nat} (x y : Vec n) : R :=
 
 Definition ones {n : nat} : Vec n := fun _ => 1.
 
+(** [dot_ones_sum]: formal specification. *)
 Lemma dot_ones_sum : forall (n : nat) (x : Vec n), dot x (ones (n:=n)) = vec_sum x.
 Proof.
   intros n x.
@@ -241,6 +254,7 @@ Definition quad {n : nat} (M : Mat n) (x : Vec n) : R := dot x (mat_vec_mul M x)
 Definition rayleigh_quotient {n : nat} (M : Mat n) (x : Vec n) : R :=
   quad M x / dot x x.
 
+(** [dot_self_nonneg]: formal specification. *)
 Lemma dot_self_nonneg : forall (n : nat) (x : Vec n), 0 <= dot x x.
 Proof.
   induction n; intros x; simpl.
@@ -264,6 +278,7 @@ Qed.
 Definition laplacian_complete (n : nat) : Mat (S n) :=
   fun i j => if Fin.eq_dec i j then INR n else (-1).
 
+(** [mat_vec_mul_laplacian_complete]: formal specification. *)
 Lemma mat_vec_mul_laplacian_complete :
   forall (n : nat) (x : Vec (S n)) (i : Fin.t (S n)),
     mat_vec_mul (laplacian_complete n) x i = INR (S n) * x i - vec_sum x.
@@ -308,6 +323,7 @@ Proof.
   lra.
 Qed.
 
+(** [quad_laplacian_complete]: formal specification. *)
 Lemma quad_laplacian_complete :
   forall (n : nat) (x : Vec (S n)),
     quad (laplacian_complete n) x = INR (S n) * dot x x - (vec_sum x) * (vec_sum x).
@@ -341,6 +357,7 @@ Proof.
   ring.
 Qed.
 
+(** [rayleigh_complete_on_orthogonal]: formal specification. *)
 Lemma rayleigh_complete_on_orthogonal :
   forall (n : nat) (x : Vec (S n)),
     vec_sum x = 0 ->
@@ -373,6 +390,7 @@ Definition subset_compl {n : nat} (S : Subset n) : Subset n := fun i => negb (S 
 Definition card {n : nat} (S : Subset n) : nat :=
   FinSum.sum_nat n (fun i => if S i then 1%nat else 0%nat).
 
+(** [card_compl_sum]: formal specification. *)
 Lemma card_compl_sum : forall (n : nat) (S : Subset n), (card S + card (subset_compl S) = n)%nat.
 Proof.
   induction n; intros S.
@@ -402,6 +420,7 @@ Definition conductance_complete (n : nat) (S : Subset (S n)) : R :=
   (* SAFE: Bounded arithmetic operation with explicit domain *)
   INR b / INR (Nat.min vS vT).
 
+(** [boundary_le_vol_left_complete]: formal specification. *)
 Lemma boundary_le_vol_left_complete :
   forall (n : nat) (cut : Subset (S n)),
     (card cut > 0)%nat ->
@@ -419,6 +438,7 @@ Proof.
   nia.
 Qed.
 
+(** [boundary_le_vol_right_complete]: formal specification. *)
 Lemma boundary_le_vol_right_complete :
   forall (n : nat) (cut : Subset (S n)),
     (card (subset_compl cut) > 0)%nat ->
@@ -436,6 +456,7 @@ Proof.
   nia.
 Qed.
 
+(** [conductance_complete_le_1]: formal specification. *)
 Lemma conductance_complete_le_1 :
   forall (n : nat) (cut : Subset (S n)),
     (card cut > 0)%nat ->
@@ -474,6 +495,7 @@ Proof.
     + apply not_0_INR. nia.
 Qed.
 
+(** [cheeger_style_complete_graph_squared]: formal specification. *)
 Theorem cheeger_style_complete_graph_squared :
   forall (n : nat) (cut : Subset (S n)),
     (n >= 1)%nat ->
