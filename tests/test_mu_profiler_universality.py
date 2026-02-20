@@ -330,13 +330,68 @@ def maximally_complex(a, b, c, d, e, f, g):
 
     def fail(self, message):
         """Handle test failures"""
-        print(f"❌ FAILED: {message}")
+        print(f"Failed: {message}")
         raise AssertionError(message)
 
-def main():
-    """Run the complete hypothesis proof"""
-    proof = HypothesisProof()
-    proof.run_all_tests()
 
-if __name__ == "__main__":
-    main()
+def test_profiler_with_builtins():
+    """Test that profiler works with built-in functions."""
+    builtins_to_test = [len, sum, max, min, abs, sorted]
+
+    for func in builtins_to_test:
+        result = analyze(func)
+        assert result['success'] == True, f"Failed to analyze built-in {func.__name__}"
+        assert isinstance(result['mu_cost'], int), f"mu_cost should be int for {func.__name__}"
+        assert result['mu_cost'] >= 0, f"mu_cost should be non-negative for {func.__name__}"
+
+
+def test_profiler_with_lambdas():
+    """Test that profiler returns a result for lambda expressions."""
+    lambdas = [
+        lambda: 42,
+        lambda x: x + 1,
+        lambda x, y: x * y,
+    ]
+
+    for i, lam in enumerate(lambdas):
+        result = analyze(lam)
+        # Lambdas may or may not have source code available
+        # Just verify we get a valid response
+        assert isinstance(result, dict), f"Should return dict for lambda {i}"
+        assert 'success' in result, f"Should have 'success' key for lambda {i}"
+        assert 'mu_cost' in result, f"Should have 'mu_cost' key for lambda {i}"
+
+
+def test_profiler_with_methods():
+    """Test that profiler returns a result for class methods."""
+    class TestClass:
+        def method(self, x):
+            return x * 2
+
+        @staticmethod
+        def static_method(x):
+            return x + 1
+
+    result1 = analyze(TestClass.method)
+    result2 = analyze(TestClass.static_method)
+
+    # Methods may or may not be analyzable depending on how they're defined
+    # Just verify we get valid responses
+    assert isinstance(result1, dict), "Should return dict for method"
+    assert isinstance(result2, dict), "Should return dict for static method"
+    assert 'success' in result1, "Should have 'success' key"
+    assert 'mu_cost' in result1, "Should have 'mu_cost' key"
+
+
+def test_profiler_with_simple_function():
+    """Test that profiler works with a simple function defined at module level."""
+    # Define a simple function that should definitely be analyzable
+    def simple_add(x, y):
+        return x + y
+
+    result = analyze(simple_add)
+    assert isinstance(result, dict), "Should return dict"
+    assert 'success' in result, "Should have 'success' key"
+    assert 'mu_cost' in result, "Should have 'mu_cost' key"
+    assert isinstance(result['mu_cost'], int), "mu_cost should be int"
+    assert result['mu_cost'] >= 0, "mu_cost should be non-negative"

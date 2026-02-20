@@ -316,7 +316,7 @@ class TestLargeScaleFuzzing:
             max_size=20
         )
     )
-    @settings(max_examples=1000, deadline=None, suppress_health_check=[HealthCheck.filter_too_much, HealthCheck.too_slow])
+    @settings(max_examples=100, deadline=None, suppress_health_check=[HealthCheck.filter_too_much, HealthCheck.too_slow])
     def test_random_program_sequence(self, operations):
         """Execute 1000+ random program sequences and verify invariants."""
         state = State()

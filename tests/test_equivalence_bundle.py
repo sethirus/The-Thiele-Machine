@@ -41,7 +41,12 @@ def _run_bundle(
 ) -> subprocess.CompletedProcess[str]:
     full_env = os.environ.copy()
     full_env.update(env)
-    full_env.setdefault("PYTHONPATH", str(REPO_ROOT))
+    existing_pythonpath = full_env.get("PYTHONPATH", "")
+    full_env["PYTHONPATH"] = (
+        f"{REPO_ROOT}{os.pathsep}{existing_pythonpath}"
+        if existing_pythonpath
+        else str(REPO_ROOT)
+    )
     full_env.setdefault("OCAMLRUNPARAM", "l=64M")
 
     cmd = [sys.executable, "scripts/equivalence_bundle.py", "--out", str(out_path)]
@@ -190,3 +195,79 @@ def test_magic_ops_alignment_regression(tmp_path: Path) -> None:
     assert bundle["aligned"] is True
     # Ensure μ totals match exactly across Python, Extracted, and RTL
     assert bundle["python"]["mu"] == bundle["extracted"]["mu"] == bundle["rtl"]["mu"]
+
+
+def test_equivalence_bundle_mdlacc_pdiscover_pricing_parity(tmp_path: Path) -> None:
+    """Ensure MDLACC and PDISCOVER μ deltas are priced and reflected identically across layers.
+
+    - MDLACC must charge the expected Q16.16 execution cost (1 << 16 for the test module).
+    - The PDISCOVER info_gain in the program text must appear in the remaining μ after MDLACC
+      and be observable in the ledger's final entry.
+    - Exact ledger `reason` strings for MDLACC and the terminal receipt are asserted.
+    - Python, extracted, and RTL totals must remain aligned.
+    """
+    out_path = tmp_path / "equivalence_bundle.json"
+    _run_bundle({"EVIDENCE_STRICT": "1"}, out_path, expect_ok=True, scenario="magic_ops")
+
+    bundle = json.loads(out_path.read_text())
+    assert bundle["program"]["scenario"] == "magic_ops"
+    assert bundle["aligned"] is True
+
+    # MDLACC ledger entry must exist and charge Q16.16 (1 << 16)
+    mdl_entry = next((e for e in bundle["python"]["mu_ledger"] if e.get("reason", "").startswith("mdlacc")), None)
+    assert mdl_entry is not None
+    # exact reason string (regression guard)
+    assert mdl_entry["reason"] == "mdlacc_explicit_module1"
+    assert mdl_entry["delta_mu_execution"] == (1 << 16)
+
+    # Locate the terminal / final ledger entry and assert its reason string
+    final_entry = next((e for e in bundle["python"]["mu_ledger"] if e.get("reason") == "final"), None)
+    assert final_entry is not None
+    assert final_entry["reason"] == "final"
+    assert final_entry["total_mu"] == bundle["python"]["mu"]
+
+    # PDISCOVER's info_gain (from program text) should account for the remaining μ
+    # after MDLACC — this delta is observed between the MDLACC entry and the final entry.
+    pdiscover_instr = next((t for t in bundle["program"]["text"] if t[0] == "PDISCOVER"), None)
+    assert pdiscover_instr is not None
+    expected_info_gain = int(pdiscover_instr[1].split()[-1])
+
+    # Confirm the final ledger reflects the PDISCOVER contribution
+    exec_delta_after_mdl = final_entry["total_mu_execution"] - mdl_entry["total_mu_execution"]
+    assert exec_delta_after_mdl == expected_info_gain
+
+    # Cross-layer parity: totals must match exactly
+    assert bundle["python"]["mu"] == bundle["extracted"]["mu"] == bundle["rtl"]["mu"]
+
+
+def test_equivalence_bundle_oracle_halts_special_handling(tmp_path: Path) -> None:
+    """ORACLE_HALTS charges an extremely large μ — exercise special handling.
+
+    - Skip invoking the extracted runner (SKIP_EXTRACTED_RUNNER=1) because the
+      extracted binary cannot safely handle the oracle's μ magnitude in tests.
+    - Allow μ-normalization so the placeholder extracted output falls back to
+      the Python total.
+    - Verify Python and RTL both see the oracle charge (1_000_000) and that
+      extracted is normalized to Python's total.
+    """
+    out_path = tmp_path / "equivalence_bundle.json"
+
+    env = {
+        "ALLOW_MU_NORMALIZE": "1",
+        "SKIP_EXTRACTED_RUNNER": "1",
+    }
+    _run_bundle(env, out_path, expect_ok=True, scenario="oracle_halts")
+
+    bundle = json.loads(out_path.read_text())
+    assert bundle["program"]["scenario"] == "oracle_halts"
+
+    # Python layer must include the oracle execution charge (1_000_000)
+    assert bundle["python"]["summary"]["mu_execution"] >= 1000000
+    assert bundle["python"]["summary"]["mu_operational"] == 1000000.0
+
+    # RTL should observe the same total (Python + RTL parity)
+    assert bundle["python"]["mu"] == bundle["rtl"]["mu"]
+
+    # Extracted was skipped and must be normalized to Python's μ
+    assert bundle["extracted"]["mu_normalized"] is True
+    assert bundle["allow_mu_normalize"] is True

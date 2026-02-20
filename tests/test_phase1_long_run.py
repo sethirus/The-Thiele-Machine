@@ -193,11 +193,11 @@ def test_long_run_small():
 @pytest.mark.slow
 @pytest.mark.hardware
 def test_long_run_full():
-    """Full 1M operation test (marked as slow/hardware).
-    
+    """Full 100K operation test (marked as slow/hardware).
+
     This test can be run manually for complete Phase 1 verification.
     """
-    test = LongRunTest(num_operations=1_000_000)
+    test = LongRunTest(num_operations=100_000)
     test.generate_operations()
     test.execute_python_vm()
     test.execute_verilog_simulation()

@@ -250,6 +250,39 @@ class TestOpcodeEncoding:
         assert OPCODES["HALT"] == 0xFF
         assert OPCODES["PNEW"] == 0x00
 
+    def test_chsh_trial_encoding_full_args(self):
+        """CHSH_TRIAL x y a b cost packs bits into operand_a/operand_b."""
+        from thielecpu.hardware.cosim import program_to_hex
+
+        # x=1,y=0 -> operand_a=0b10=2 ; a=0,b=1 -> operand_b=0b01=1
+        instr, _ = program_to_hex("CHSH_TRIAL 1 0 0 1 6")
+        word = int(instr[0], 16)
+        opcode = (word >> 24) & 0xFF
+        op_a = (word >> 16) & 0xFF
+        op_b = (word >> 8) & 0xFF
+        cost = word & 0xFF
+
+        assert opcode == 0x09
+        assert op_a == 2
+        assert op_b == 1
+        assert cost == 6
+
+    def test_chsh_trial_encoding_legacy_args(self):
+        """Legacy CHSH_TRIAL a b cost form remains accepted."""
+        from thielecpu.hardware.cosim import program_to_hex
+
+        instr, _ = program_to_hex("CHSH_TRIAL 2 1 6")
+        word = int(instr[0], 16)
+        opcode = (word >> 24) & 0xFF
+        op_a = (word >> 16) & 0xFF
+        op_b = (word >> 8) & 0xFF
+        cost = word & 0xFF
+
+        assert opcode == 0x09
+        assert op_a == 2
+        assert op_b == 1
+        assert cost == 6
+
 
 # ═══════════════════════════════════════════════════════════════════════
 # 6. μ-ALU accelerator (standalone module)

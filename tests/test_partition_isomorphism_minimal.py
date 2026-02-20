@@ -92,7 +92,7 @@ def _python_regions_after_program(program: list[tuple[str, str]]) -> list[list[i
     vm = VM(state)
 
     with tempfile.TemporaryDirectory() as td:
-        vm.run(program, Path(td))
+        vm.run(program, Path(td), write_artifacts=False)
 
     regions = [sorted(region) for region in state.regions.modules.values() if region]
     return sorted(regions)
@@ -203,7 +203,7 @@ def _python_regions_after_pnew(indices: list[int]) -> list[list[int]]:
     program.append(("HALT", ""))
 
     with tempfile.TemporaryDirectory() as td:
-        vm.run(program, Path(td))
+        vm.run(program, Path(td), write_artifacts=False)
 
     regions = []
     for _mid, mask in state.partition_masks.items():
