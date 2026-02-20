@@ -1,4 +1,4 @@
-"""Complete bisimulation verification for three-layer isomorphism.
+"""Broad bisimulation-oriented checks for three-layer isomorphism.
 
 This module implements ACTUAL bisimulation testing between:
 1. Coq-extracted OCaml (ground truth) - coq/build/extracted_runner
@@ -13,7 +13,9 @@ The test verifies bit-for-bit equivalence of:
 - memory (256 x 32-bit)
 - partition graph structure (modules and regions)
 
-NOT vacuous - this runs real programs through all three layers and compares state.
+These tests run real programs through all three layers and compare key projected
+state fields, but they are not a formal proof of complete semantic equivalence
+for every unified-CPU FSM path.
 
 Test classes:
 - TestBisimulationCoqPython: Runs identical programs through Coq extraction and Python VM
@@ -173,7 +175,7 @@ def run_python_vm(program: str) -> VMState:
     with tempfile.TemporaryDirectory() as tmpdir:
         outdir = Path(tmpdir) / "out"
         # CRITICAL: auto_mdlacc=False for Coq isomorphism
-        vm.run(instructions, outdir, auto_mdlacc=False)
+        vm.run(instructions, outdir, auto_mdlacc=False, write_artifacts=False)
     
     # Extract module regions from RegionGraph
     modules = []

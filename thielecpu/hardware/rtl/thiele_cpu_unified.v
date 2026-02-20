@@ -191,7 +191,7 @@ reg [31:0] csr_cert_addr;
 reg [31:0] csr_status;
 reg [31:0] csr_error;
 
-// μ-bit accumulator (Q16.16 format)
+// μ-bit accumulator (integer bit-count domain)
 reg [31:0] mu_accumulator;
 
 // μ-ledger components (matches Python MuLedger and Coq vm_mu)
@@ -268,6 +268,8 @@ reg  [31:0]  chsh_value;
 wire         exceeds_tsirelson;
 wire         exceeds_classical;
 wire         exceeds_prbox;
+reg signed [31:0] chsh_sum_00, chsh_sum_01, chsh_sum_10, chsh_sum_11;
+reg [15:0] chsh_cnt_00, chsh_cnt_01, chsh_cnt_10, chsh_cnt_11;
 
 wire [63:0]  energy_aj;
 reg  [31:0]  temperature_q16;
@@ -325,6 +327,7 @@ localparam [3:0] STATE_ALU_WAIT2         = 4'h8;
 localparam [3:0] STATE_RECEIPT_HOLD      = 4'h9;
 localparam [3:0] STATE_PDISCOVER_LAUNCH2 = 4'hA;
 localparam [3:0] STATE_PDISCOVER_ARM2    = 4'hB;
+localparam [3:0] STATE_HALT              = 4'hC;
 
 // ALU context codes
 localparam [7:0] ALU_CTX_MDLACC      = 8'h01;
@@ -398,12 +401,21 @@ always @(posedge clk or negedge rst_n) begin
         next_module_id       <= 6'h1;
         module_exists        <= {NUM_MODULES{1'b0}};  // All modules initially non-existent
         state                <= STATE_FETCH;
+        step_in_progress     <= 1'b0;
         
         // Isomorphism layer initialization
         hash_input           <= 256'h0;
         hash_valid           <= 1'b0;
         hash_reset_req       <= 1'b1;
         chsh_value           <= 32'h0;
+        chsh_sum_00          <= 32'sd0;
+        chsh_sum_01          <= 32'sd0;
+        chsh_sum_10          <= 32'sd0;
+        chsh_sum_11          <= 32'sd0;
+        chsh_cnt_00          <= 16'd0;
+        chsh_cnt_01          <= 16'd0;
+        chsh_cnt_10          <= 16'd0;
+        chsh_cnt_11          <= 16'd0;
         temperature_q16      <= 32'h0001_2C00;  // ~300K in Q16.16
         
         begin : mu_tensor_reset
@@ -424,6 +436,7 @@ always @(posedge clk or negedge rst_n) begin
             data_mem[i] = 32'h0;
 `endif
     end else begin
+        step_in_progress <= (state != STATE_FETCH) && (state != STATE_HALT);
         case (state)
 
             // ----------------------------------------------------------
@@ -564,21 +577,67 @@ always @(posedge clk or negedge rst_n) begin
                     end
 
                     OPCODE_CHSH_TRIAL: begin
-                        // CHSH_TRIAL <a[1:0]> <b[1:0]> <cost>:
-                        // Check CHSH correlator against Tsirelson bound.
-                        // Operands a,b encode Alice/Bob measurement angles.
-                        // Wire chsh_value from μ-ALU result or operand, check with tsirelson_checker.
+                        // CHSH_TRIAL <xy[1:0]> <ab[1:0]> <cost>:
+                        // operand_a[1:0] = setting bits (x,y)
+                        // operand_b[1:0] = outcome bits (a,b)
+                        // Accumulate correlators E_xy = avg((-1)^(a xor b)) and
+                        // derive S = E00 + E01 + E10 - E11 in Q16.16.
                         if ((operand_a[7:2] != 6'b0) || (operand_b[7:2] != 6'b0))
                             csr_error <= 32'h1;  // Invalid CHSH angles
                         else begin
-                            // Load CHSH correlator value (from ALU or simulated)
-                            chsh_value <= {16'h0, operand_a, operand_b};  // Placeholder: use ALU result in real impl
-                            
-                            // Check against Tsirelson bound
-                            if (exceeds_tsirelson) begin
-                                csr_error <= 32'hBADC45C;  // Violation detected (hex: BAD CHSH)
-                            end else if (exceeds_classical) begin
-                                csr_status <= 32'h00A47042;  // Quantum regime
+                            begin : chsh_block
+                                reg [1:0] setting;
+                                reg signed [31:0] corr;
+                                reg signed [31:0] s00, s01, s10, s11;
+                                reg [15:0] c00, c01, c10, c11;
+                                reg signed [31:0] e00, e01, e10, e11;
+                                reg signed [31:0] s_val;
+                                reg [31:0] s_abs;
+
+                                setting = operand_a[1:0];
+                                corr = (operand_b[1] ^ operand_b[0]) ? -32'sd1 : 32'sd1;
+
+                                s00 = chsh_sum_00;
+                                s01 = chsh_sum_01;
+                                s10 = chsh_sum_10;
+                                s11 = chsh_sum_11;
+                                c00 = chsh_cnt_00;
+                                c01 = chsh_cnt_01;
+                                c10 = chsh_cnt_10;
+                                c11 = chsh_cnt_11;
+
+                                case (setting)
+                                    2'b00: begin s00 = s00 + corr; c00 = c00 + 1'b1; end
+                                    2'b01: begin s01 = s01 + corr; c01 = c01 + 1'b1; end
+                                    2'b10: begin s10 = s10 + corr; c10 = c10 + 1'b1; end
+                                    default: begin s11 = s11 + corr; c11 = c11 + 1'b1; end
+                                endcase
+
+                                chsh_sum_00 <= s00;
+                                chsh_sum_01 <= s01;
+                                chsh_sum_10 <= s10;
+                                chsh_sum_11 <= s11;
+                                chsh_cnt_00 <= c00;
+                                chsh_cnt_01 <= c01;
+                                chsh_cnt_10 <= c10;
+                                chsh_cnt_11 <= c11;
+
+                                if (c00 != 0 && c01 != 0 && c10 != 0 && c11 != 0) begin
+                                    e00 = (s00 <<< 16) / $signed({1'b0, c00});
+                                    e01 = (s01 <<< 16) / $signed({1'b0, c01});
+                                    e10 = (s10 <<< 16) / $signed({1'b0, c10});
+                                    e11 = (s11 <<< 16) / $signed({1'b0, c11});
+                                    s_val = e00 + e01 + e10 - e11;
+                                    s_abs = s_val[31] ? $unsigned(-s_val) : $unsigned(s_val);
+                                    chsh_value <= s_abs;
+
+                                    // Check bounds against the newly computed S value.
+                                    if (s_abs > TSIRELSON_BOUND) begin
+                                        csr_error <= 32'hBADC45C;  // Violation detected (hex: BAD CHSH)
+                                    end else if (s_abs > CHSH) begin
+                                        csr_status <= 32'h00A47042;  // Quantum regime
+                                    end
+                                end
                             end
                         end
                         mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
@@ -618,8 +677,7 @@ always @(posedge clk or negedge rst_n) begin
                     // ---- Halt ----
                     OPCODE_HALT: begin
                         mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
-                        pc_reg <= pc_reg + 4;
-                        state <= STATE_FETCH;
+                        state <= STATE_HALT;
                     end
 
                     default: begin
@@ -760,6 +818,12 @@ always @(posedge clk or negedge rst_n) begin
             end
 
             // ----------------------------------------------------------
+            STATE_HALT: begin
+                // Terminal state: no further instruction retirement.
+                state <= STATE_HALT;
+            end
+
+            // ----------------------------------------------------------
             default: state <= STATE_FETCH;
 
         endcase
@@ -779,7 +843,9 @@ task execute_pnew;
         found_id = 0;
         for (i = 0; i < NUM_MODULES; i = i + 1) begin
             if (i < next_module_id) begin
-                if (module_table[i] == 32'd1 && region_table[i][0] == region_spec_a) begin
+                // module_exists is the existence bit; module_table stores region size.
+                if (module_exists[i] && module_table[i] == ((region_spec_b == 0) ? 32'd1 : {24'h0, region_spec_b})
+                    && region_table[i][0] == region_spec_a) begin
                     found = 1;
                     found_id = i;
                 end
@@ -792,7 +858,7 @@ task execute_pnew;
             $display("PNEW dedup: region={%0d} -> module %0d", region_spec_a, found_id);
 `endif
         end else if (next_module_id < NUM_MODULES) begin
-            module_table[next_module_id]    <= 32'd1;
+            module_table[next_module_id]    <= (region_spec_b == 0) ? 32'd1 : {24'h0, region_spec_b};
             region_table[next_module_id][0] <= region_spec_a;
             for (i = 1; i < REGION_SIZE; i = i + 1)
                 region_table[next_module_id][i] <= 32'h0;
@@ -987,6 +1053,7 @@ task execute_mdlacc;
                     if (k < module_size && region_table[module_id][k] > max_element)
                         max_element = region_table[module_id][k];
                 bit_length = ceil_log2_8(max_element + 1);
+                // Scale MDL cost into Q16.16 fixed-point to match μ-ALU convention
                 mdl_cost   = (bit_length * module_size) << 16;
             end else begin
                 mdl_cost = 0;
@@ -1438,7 +1505,7 @@ wire receipt_integrity_ok_w, chain_continuity_ok_w;
 
 receipt_integrity_checker integrity_checker (
     .clk(clk), .rst_n(rst_n),
-    .receipt_valid(instr_valid),
+    .receipt_valid(receipt_valid),
     .receipt_pre_mu(current_mu_cost),
     .receipt_post_mu(proposed_cost),
     .receipt_opcode(instruction[31:24]),
@@ -1510,16 +1577,16 @@ always @(posedge clk or negedge rst_n) begin
                         core_status <= ST_DENIED_COST;
                 end
                 OPC_PDISCOVER: begin
-                    receipt_required    <= 1'b1;
-                    instr_allowed       <= 1'b0;
+                    receipt_required    <= 1'b0;
+                    instr_allowed       <= 1'b1;
                     partition_gate_open <= 1'b1;
                     cost_gate_open      <= 1'b1;
                     expected_cost       <= proposed_cost;
                     core_status         <= ST_ALLOWED;
                 end
                 OPC_MDLACC: begin
-                    receipt_required    <= 1'b1;
-                    instr_allowed       <= 1'b0;
+                    receipt_required    <= 1'b0;
+                    instr_allowed       <= 1'b1;
                     partition_gate_open <= 1'b1;
                     cost_gate_open      <= 1'b1;
                     expected_cost       <= proposed_cost;

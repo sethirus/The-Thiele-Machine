@@ -207,11 +207,24 @@ def program_to_hex(program: str) -> Tuple[List[str], List[str]]:
             cost = int(rev_parts[2]) if len(rev_parts) > 2 else 0
             instrs.append(_encode_instruction("REVEAL", a, b, cost))
         elif op == "CHSH_TRIAL":
+            # Preferred form: CHSH_TRIAL x y a b [cost]
+            # RTL packs settings into operand_a[1:0]={x,y} and outcomes into
+            # operand_b[1:0]={a,b}. Keep legacy CHSH_TRIAL a b [cost] support.
             ch_parts = arg.split()
-            a = int(ch_parts[0]) if len(ch_parts) > 0 else 0
-            b = int(ch_parts[1]) if len(ch_parts) > 1 else 0
-            cost = int(ch_parts[2]) if len(ch_parts) > 2 else 0
-            instrs.append(_encode_instruction("CHSH_TRIAL", a, b, cost))
+            if len(ch_parts) >= 4:
+                x = int(ch_parts[0])
+                y = int(ch_parts[1])
+                a = int(ch_parts[2])
+                b = int(ch_parts[3])
+                cost = int(ch_parts[4]) if len(ch_parts) > 4 else 0
+                op_a = ((x & 0x1) << 1) | (y & 0x1)
+                op_b = ((a & 0x1) << 1) | (b & 0x1)
+                instrs.append(_encode_instruction("CHSH_TRIAL", op_a, op_b, cost))
+            else:
+                a = int(ch_parts[0]) if len(ch_parts) > 0 else 0
+                b = int(ch_parts[1]) if len(ch_parts) > 1 else 0
+                cost = int(ch_parts[2]) if len(ch_parts) > 2 else 0
+                instrs.append(_encode_instruction("CHSH_TRIAL", a, b, cost))
         elif op == "HALT":
             h_parts = arg.split()
             cost = int(h_parts[0]) if len(h_parts) > 0 else 0

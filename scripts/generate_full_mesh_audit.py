@@ -100,6 +100,28 @@ RTL_PORT_RE = re.compile(r"^\s*(?:input|output|inout)\s+(?:wire\s+|reg\s+)?(?:\[
 RTL_WIRE_REG_RE = re.compile(r"^\s*(?:wire|reg)\s+(?:\[[^\]]+\]\s+)?([A-Za-z_][A-Za-z0-9_]*)\s*[;,=[]", re.MULTILINE)
 RTL_INSTANCE_RE = re.compile(r"^\s*([A-Za-z_][A-Za-z0-9_]*)\s+(?:#\([^)]*\)\s+)?([A-Za-z_][A-Za-z0-9_]*)\s*\(", re.MULTILINE)
 PY_CONST_RE = re.compile(r"^[ \t]*([A-Z][A-Z0-9_]{2,})\s*[=:]\s*", re.MULTILINE)
+VERILOG_NUM_RE = re.compile(r"^\s*(\d+)'([dDhHbBoO])([0-9a-fA-F_xXzZ]+)\s*$")
+COQ_RAT_RE = re.compile(r"(-?\d+)\s*#\s*(-?\d+)")
+
+# Typed normalization rules for deep cross-layer constant comparison.
+# Without this, the audit can report false mismatches from representation changes
+# (e.g. raw Q16 carrier int vs scaled real).
+NORM_COMPARE_RULES: List[Tuple[re.Pattern[str], str]] = [
+    (re.compile(r"^q16_"), "int32_raw"),
+    (re.compile(r"^(tsirelson_bound|tau_mu|classical_bound|quantum_bound)$"), "q16_real"),
+    (re.compile(r"^tsirelson_(alice|bob)_(setting|outcome)$"), "enum_b01"),
+]
+NORM_SKIP_RULES: Set[str] = {
+    # Known semantic collision: Coq real-valued measure vs RTL width-like constant.
+    "variation_of_information",
+    # Generic names currently collide across unrelated constants.
+    "mask",
+    "modulus",
+}
+INT_EXPR_NAMES: Dict[str, int] = {
+    "Q16_SHIFT": 16,
+    "q16_shift": 16,
+}
 
 
 @dataclass
@@ -195,6 +217,65 @@ def _coq_kind_is_proof(kind: str) -> bool:
         "remark",
         "conjecture",
     }
+
+
+def _norm_compare_mode(norm: str) -> str:
+    for patt, mode in NORM_COMPARE_RULES:
+        if patt.match(norm):
+            return mode
+    return "auto"
+
+
+def _safe_eval_int_expr(expr: str, names: Mapping[str, int]) -> Optional[int]:
+    """Evaluate a constrained integer expression safely (no calls/attributes)."""
+    try:
+        node = ast.parse(expr, mode="eval")
+    except SyntaxError:
+        return None
+
+    def eval_node(n: ast.AST) -> int:
+        if isinstance(n, ast.Expression):
+            return eval_node(n.body)
+        if isinstance(n, ast.Constant) and isinstance(n.value, int):
+            return int(n.value)
+        if isinstance(n, ast.Name):
+            if n.id in names:
+                return int(names[n.id])
+            raise ValueError(f"unknown name {n.id}")
+        if isinstance(n, ast.UnaryOp) and isinstance(n.op, (ast.UAdd, ast.USub, ast.Invert)):
+            v = eval_node(n.operand)
+            if isinstance(n.op, ast.UAdd):
+                return +v
+            if isinstance(n.op, ast.USub):
+                return -v
+            return ~v
+        if isinstance(n, ast.BinOp):
+            l = eval_node(n.left)
+            r = eval_node(n.right)
+            if isinstance(n.op, ast.Add):
+                return l + r
+            if isinstance(n.op, ast.Sub):
+                return l - r
+            if isinstance(n.op, ast.Mult):
+                return l * r
+            if isinstance(n.op, ast.FloorDiv):
+                return l // r
+            if isinstance(n.op, ast.LShift):
+                return l << r
+            if isinstance(n.op, ast.RShift):
+                return l >> r
+            if isinstance(n.op, ast.BitOr):
+                return l | r
+            if isinstance(n.op, ast.BitAnd):
+                return l & r
+            if isinstance(n.op, ast.Pow):
+                return l ** r
+        raise ValueError("unsupported expression")
+
+    try:
+        return eval_node(node)
+    except ValueError:
+        return None
 
 
 def _iter_unique(paths: Iterable[Path]) -> List[Path]:
@@ -956,66 +1037,123 @@ def _validate_triad_isomorphism(symbols: List[Symbol], triads: List[Dict[str, ob
         if s.layer in PROD_LAYERS and len(s.norm) >= 4:
             clusters[s.norm][s.layer].append(s)
     
-    # Known equivalences (Q16.16 conversions, etc)
-    def normalize_value(value: str, layer: str, norm: str = "") -> Optional[float]:
-        """Convert various representations to comparable numeric form."""
+    def normalize_value(value: str, layer: str, norm: str = "", mode: str = "auto") -> Optional[float]:
+        """Convert Coq/Python/RTL numeric surface syntax into comparable values."""
         if not value:
             return None
-        value = value.strip()
-        
-        # RTL hex constants: 32'h0002D3CE -> float
-        if "'h" in value:
-            try:
-                # Extract hex value after 'h
-                hex_part = value.split("'h")[-1].split()[0].split(";")[0].split(",")[0]
-                int_val = int(hex_part, 16)
-                # Only assume Q16.16 format for 32-bit values if name suggests it
-                # or if it's a known fixed-point carrier.
-                if "q16" in norm.lower() or "fixed" in norm.lower() or "mu" in norm.lower():
-                    if int_val < (1 << 32):
-                        return int_val / 65536.0
-                return float(int_val)
-            except:
-                return None
-        
-        # Python Fraction: Fraction(2828, 1000) -> float
-        if "Fraction(" in value:
-            try:
-                import re as regex
-                m = regex.search(r'Fraction\((\d+),\s*(\d+)\)', value)
-                if m:
-                    return int(m.group(1)) / int(m.group(2))
-            except:
-                pass
-        
-        # Coq rational: 2828 # 1000 -> float
-        if "#" in value:
-            try:
-                parts = value.split("#")
-                if len(parts) == 2:
-                    return int(parts[0].strip()) / int(parts[1].strip())
-            except:
-                pass
-        
-        # Direct numeric
+
+        cleaned = value.strip()
+        cleaned = cleaned.split("//", 1)[0].strip()
+        cleaned = cleaned.split("/*", 1)[0].strip()
+        cleaned = cleaned.replace("_", "")
+
+        # Enums encoded as constructors in Coq and bits in impl layers.
+        if mode == "enum_b01":
+            token = cleaned.strip("()%;,").upper()
+            enum_map = {
+                "B0": 0.0,
+                "B1": 1.0,
+                "0": 0.0,
+                "1": 1.0,
+            }
+            return enum_map.get(token)
+
+        # Python Fraction: Fraction(2828, 1000)
+        frac_match = re.search(r"Fraction\(\s*(-?\d+)\s*,\s*(-?\d+)\s*\)", cleaned)
+        if frac_match:
+            den = int(frac_match.group(2))
+            if den != 0:
+                return int(frac_match.group(1)) / den
+
+        # Coq rational: (5657 # 2000)%Q
+        rat_match = COQ_RAT_RE.search(cleaned)
+        if rat_match:
+            den = int(rat_match.group(2))
+            if den != 0:
+                return int(rat_match.group(1)) / den
+
+        # Verilog sized constants: 32'h0002D3CE / 16'd42 / 8'b1010
+        vnum = VERILOG_NUM_RE.match(cleaned.rstrip(";,"))
+        if vnum:
+            width = int(vnum.group(1))
+            base = vnum.group(2).lower()
+            digits = vnum.group(3).replace("x", "0").replace("z", "0")
+            base_map = {"d": 10, "h": 16, "b": 2, "o": 8}
+            intval = int(digits, base_map[base])
+
+            # Int carrier view for fixed-point constants (e.g. Q16_ONE = 65536).
+            if mode == "int32_raw":
+                if width == 32 and intval >= (1 << 31):
+                    intval -= (1 << 32)
+                return float(intval)
+
+            # Semantic fixed-point view (Q16.16).
+            if mode == "q16_real":
+                if width == 32 and intval >= (1 << 31):
+                    intval -= (1 << 32)
+                return float(intval) / 65536.0
+
+            # Backward-compatible heuristic scaling in auto mode.
+            norm_l = norm.lower()
+            fixed_hint = any(token in norm_l for token in ("fixed", "tau_mu", "classical_bound", "quantum_bound"))
+            if mode == "auto" and fixed_hint and width >= 24:
+                if intval >= (1 << 31):
+                    intval -= (1 << 32)
+                return intval / 65536.0
+            return float(intval)
+
+        # Trim wrappers like parentheses and Coq %suffixes
+        scalar = cleaned.strip("()")
+        scalar = re.sub(r"%[A-Za-z0-9_']+", "", scalar)
+
+        # Coq often uses '^' for arithmetic exponentiation.
+        if layer == "coq" and "^" in scalar and "**" not in scalar:
+            scalar = scalar.replace("^", "**")
+
+        # Plain integer literals (supports 0x... and signs)
         try:
-            return float(value)
-        except:
+            return float(int(scalar, 0))
+        except ValueError:
+            pass
+
+        # Safe integer expression subset, e.g. 1 << Q16_SHIFT or 2 ** 256.
+        int_expr = _safe_eval_int_expr(scalar, INT_EXPR_NAMES)
+        if int_expr is not None:
+            if mode == "q16_real":
+                return float(int_expr) / 65536.0
+            return float(int_expr)
+
+        try:
+            return float(scalar)
+        except ValueError:
             return None
     
     for triad in triads:
         norm = triad["norm"]
         if norm not in clusters:
             continue
+        if norm in NORM_SKIP_RULES:
+            continue
+
+        compare_mode = _norm_compare_mode(norm)
         
         coq_syms = clusters[norm].get("coq", [])
         python_syms = clusters[norm].get("python", [])
         rtl_syms = clusters[norm].get("rtl", [])
+
+        coq_value_syms = [s for s in coq_syms if s.value]
+        python_value_syms = [s for s in python_syms if s.value]
+        rtl_value_syms = [s for s in rtl_syms if s.value]
+
+        # Ambiguous norms (multiple value symbols in a layer) are often name-collisions,
+        # not true constant-contract mismatches. Skip until a typed manifest disambiguates.
+        if any(len(vs) > 1 for vs in (coq_value_syms, python_value_syms, rtl_value_syms)):
+            continue
         
         # Extract values
-        coq_vals = [normalize_value(s.value, "coq", norm) for s in coq_syms if s.value]
-        python_vals = [normalize_value(s.value, "python", norm) for s in python_syms if s.value]
-        rtl_vals = [normalize_value(s.value, "rtl", norm) for s in rtl_syms if s.value]
+        coq_vals = [normalize_value(s.value, "coq", norm, compare_mode) for s in coq_value_syms]
+        python_vals = [normalize_value(s.value, "python", norm, compare_mode) for s in python_value_syms]
+        rtl_vals = [normalize_value(s.value, "rtl", norm, compare_mode) for s in rtl_value_syms]
         
         coq_vals = [v for v in coq_vals if v is not None]
         python_vals = [v for v in python_vals if v is not None]
@@ -1035,6 +1173,7 @@ def _validate_triad_isomorphism(symbols: List[Symbol], triads: List[Dict[str, ob
         if abs(max_val - min_val) > tolerance:
             violations.append({
                 "norm": norm,
+                "compare_mode": compare_mode,
                 "coq_value": coq_vals[0] if coq_vals else None,
                 "python_value": python_vals[0] if python_vals else None,
                 "rtl_value": rtl_vals[0] if rtl_vals else None,
@@ -2482,6 +2621,7 @@ def _write_analysis_bundle(
     proof_doc_metrics: Dict[str, object],
     proof_doc_rows: List[Dict[str, object]],
     dod_status: Dict[str, object],
+    isomorphism_violations: List[Dict[str, object]],
     generated_at: str,
     toolchain_gates: Optional[Dict[str, object]] = None,
 ) -> Dict[str, List[str]]:
@@ -2530,6 +2670,7 @@ def _write_analysis_bundle(
     proof_docs_csv = ATLAS_EXPORT_DIR / "atlas_proof_documentation.csv"
     latex_json = ATLAS_EXPORT_DIR / "atlas_latex_coverage.json"
     dod_json = ATLAS_EXPORT_DIR / "atlas_definition_of_done.json"
+    violations_json = ATLAS_EXPORT_DIR / "atlas_isomorphism_violations.json"
 
     summary_payload = {
         "generated_at": generated_at,
@@ -2560,6 +2701,8 @@ def _write_analysis_bundle(
         "latex_coverage_metrics": latex_metrics,
         "proof_documentation_metrics": proof_doc_metrics,
         "definition_of_done": dod_status,
+        "isomorphism_violations": isomorphism_violations,
+        "isomorphism_violation_count": len(isomorphism_violations),
         "toolchain_gates": toolchain_gates or {},
     }
     summary_path.write_text(json.dumps(summary_payload, indent=2), encoding="utf-8")
@@ -2578,6 +2721,7 @@ def _write_analysis_bundle(
     priority_json.write_text(json.dumps(priority_plan, indent=2), encoding="utf-8")
     latex_json.write_text(json.dumps(latex_metrics, indent=2), encoding="utf-8")
     dod_json.write_text(json.dumps(dod_status, indent=2), encoding="utf-8")
+    violations_json.write_text(json.dumps(isomorphism_violations, indent=2), encoding="utf-8")
 
     _write_csv(
         symbols_csv,
@@ -2671,6 +2815,7 @@ def _write_analysis_bundle(
             _rel(proof_docs_csv),
             _rel(latex_json),
             _rel(dod_json),
+            _rel(violations_json),
         ]
     )
 
@@ -2760,6 +2905,7 @@ def _md_report(
     proof_doc_metrics: Dict[str, object],
     proof_doc_rows: List[Dict[str, object]],
     dod_status: Dict[str, object],
+    isomorphism_violations: List[Dict[str, object]],
     generated_at: str,
     output_bundle: Dict[str, List[str]],
     toolchain_gates: Optional[Dict[str, object]] = None,
@@ -2845,6 +2991,7 @@ def _md_report(
         f"- Proof accuracy: **{_as_float(proof_metrics.get('proof_accuracy')):.2f}%**",
         f"- Test verification gate: **{str(test_metrics.get('test_gate', 'FAIL'))}**",
         f"- Definition of Done: **{str(dod_status.get('status', 'NOT_COMPLETED'))}**",
+        f"- Deep isomorphism value mismatches: **{len(isomorphism_violations)}**",
         "",
         "Conservative policy: no Coq proof declarations are ever recommended for removal.",
         "Important: Proof accuracy is Inquisitor proof-hygiene quality, not project completion percentage.",
@@ -2951,6 +3098,29 @@ def _md_report(
         "| Gate | Ran | Pass | Detail |",
         "|---|---|---|---|",
     ]
+
+    lines += [
+        "",
+        "## Deep Isomorphism Value Mismatches",
+        "",
+        "These are value-level disagreements for triads where constants were parseable across layers.",
+        "",
+        "| Norm | Coq | Python | RTL | Delta | Severity |",
+        "|---|---:|---:|---:|---:|---|",
+    ]
+    if isomorphism_violations:
+        for row in isomorphism_violations[:30]:
+            lines.append(
+                "| "
+                f"{row.get('norm')} | "
+                f"{row.get('coq_value')} | "
+                f"{row.get('python_value')} | "
+                f"{row.get('rtl_value')} | "
+                f"{row.get('delta')} | "
+                f"{row.get('severity')} |"
+            )
+    else:
+        lines.append("| *(none)* | | | | | |")
     if toolchain_gates:
         gate_defs = [
             ("coq_compile",          "Coq compile (make -C coq, zero Admitted)"),
@@ -3474,6 +3644,7 @@ def main() -> int:
         proof_doc_metrics,
         proof_doc_rows,
         dod_status,
+        isomorphism_violations,
         generated_at,
         toolchain_gates,
     )
@@ -3498,6 +3669,7 @@ def main() -> int:
         proof_doc_metrics,
         proof_doc_rows,
         dod_status,
+        isomorphism_violations,
         generated_at,
         bundle,
         toolchain_gates,
