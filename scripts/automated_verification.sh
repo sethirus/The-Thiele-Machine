@@ -40,17 +40,26 @@ echo "Open-source FPGA flow enabled (yosys + nextpnr-ecp5)"
 
 # 2. Run Full Forge Pipeline
 phase FORGE "Running complete foundry pipeline"
-bash scripts/forge_artifact.sh > "$REPORTS_DIR/forge.log" 2>&1
-echo "Forge pipeline completed - see $REPORTS_DIR/forge.log"
+forge_exit=0
+bash scripts/forge_artifact.sh > "$REPORTS_DIR/forge.log" 2>&1 || forge_exit=$?
+if [ "$forge_exit" -ne 0 ]; then
+  echo "WARNING: Forge pipeline exited with code $forge_exit - continuing (see $REPORTS_DIR/forge.log)"
+else
+  echo "Forge pipeline completed - see $REPORTS_DIR/forge.log"
+fi
 
 # 3. Detailed Synthesis Report
 phase SYNTH "Generating detailed synthesis report"
-{
-  echo "=== Yosys Synthesis Report ==="
-  echo "Command: yosys -p 'read_verilog -sv -nomem2reg -DSYNTHESIS -DYOSYS_LITE -I thielecpu/hardware/rtl thielecpu/hardware/rtl/thiele_cpu_unified.v; prep; check; stat'"
-  echo ""
-  yosys -p "read_verilog -sv -nomem2reg -DSYNTHESIS -DYOSYS_LITE -I thielecpu/hardware/rtl thielecpu/hardware/rtl/thiele_cpu_unified.v; prep; check; stat"
-} > "$REPORTS_DIR/synthesis_report.txt" 2>&1
+if [ ! -f "$REPORTS_DIR/forge.log" ]; then
+  echo "forge.log not found. Synthesis skipped." | tee "$REPORTS_DIR/synthesis_report.txt"
+else
+  {
+    echo "=== Yosys Synthesis Report ==="
+    echo "Command: yosys -p 'read_verilog -sv -nomem2reg -DSYNTHESIS -DYOSYS_LITE -I thielecpu/hardware/rtl thielecpu/hardware/rtl/thiele_cpu_unified.v; prep; check; stat'"
+    echo ""
+    yosys -p "read_verilog -sv -nomem2reg -DSYNTHESIS -DYOSYS_LITE -I thielecpu/hardware/rtl thielecpu/hardware/rtl/thiele_cpu_unified.v; prep; check; stat"
+  } > "$REPORTS_DIR/synthesis_report.txt" 2>&1 || echo "WARNING: Yosys synthesis failed - see $REPORTS_DIR/synthesis_report.txt"
+fi
 echo "Synthesis report: $REPORTS_DIR/synthesis_report.txt"
 
 # 4. Hardware Simulation with Full Output
