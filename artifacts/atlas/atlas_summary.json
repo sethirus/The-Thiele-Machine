@@ -1,38 +1,38 @@
 {
-  "generated_at": "2026-02-19T20:21:50.823431+00:00",
+  "generated_at": "2026-02-20T00:19:23.627011+00:00",
   "counts": {
-    "symbols": 14953,
-    "edges": 108989,
+    "symbols": 14991,
+    "edges": 109307,
     "triads": 164,
-    "files": 632
+    "files": 633
   },
   "class_counts": {
     "duplicate": 2504,
-    "bridge": 5199,
-    "core": 4139,
-    "orphan": 216,
-    "island": 18,
-    "test_only": 2877
+    "bridge": 5198,
+    "core": 4144,
+    "orphan": 215,
+    "island": 22,
+    "test_only": 2908
   },
   "edge_kind_counts": {
     "coq_ref": 16786,
-    "py_ref": 23241,
+    "py_ref": 23340,
     "rtl_ref": 23,
     "cross_name": 1578,
     "cross_norm": 832,
     "cross_opcode": 208,
     "cross_stem": 10300,
-    "test_covers": 16944,
-    "cross_ref": 35810,
-    "cross_transitive": 3267
+    "test_covers": 17116,
+    "cross_ref": 35860,
+    "cross_transitive": 3264
   },
   "cross_layer_matrix": {
-    "coq->python": 17704,
+    "coq->python": 17712,
     "coq->rtl": 4853,
-    "python->coq": 16631,
-    "python->rtl": 4526,
+    "python->coq": 16640,
+    "python->rtl": 4540,
     "rtl->coq": 4158,
-    "rtl->python": 4123
+    "rtl->python": 4139
   },
   "top_cross_file_links": [
     {
@@ -53,7 +53,7 @@
     {
       "src": "thielecpu/vm.py",
       "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
-      "weight": 170
+      "weight": 171
     },
     {
       "src": "thielecpu/hardware/rtl/cross_layer_defs.vh",
@@ -113,7 +113,7 @@
     {
       "src": "thielecpu/dsl/executor.py",
       "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
-      "weight": 103
+      "weight": 102
     },
     {
       "src": "thielecpu/cross_layer_manifest.py",
@@ -226,6 +226,11 @@
       "weight": 61
     },
     {
+      "src": "thielecpu/vm.py",
+      "dst": "thielecpu/hardware/rtl/cross_layer_defs.vh",
+      "weight": 61
+    },
+    {
       "src": "coq/kernel/CrossLayerManifest.v",
       "dst": "thielecpu/cross_layer_manifest.py",
       "weight": 60
@@ -261,17 +266,17 @@
       "weight": 60
     },
     {
+      "src": "thielecpu/thesis_verify.py",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
+      "weight": 60
+    },
+    {
       "src": "coq/thielemachine/coqproofs/AbstractLTS.v",
       "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
       "weight": 59
     },
     {
       "src": "coq/thielemachine/coqproofs/ThieleMachine.v",
-      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
-      "weight": 59
-    },
-    {
-      "src": "thielecpu/thesis_verify.py",
       "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
       "weight": 59
     },
@@ -298,11 +303,6 @@
     {
       "src": "thielecpu/state.py",
       "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
-      "weight": 56
-    },
-    {
-      "src": "thielecpu/vm.py",
-      "dst": "thielecpu/hardware/rtl/cross_layer_defs.vh",
       "weight": 56
     },
     {
@@ -406,11 +406,6 @@
       "weight": 49
     },
     {
-      "src": "coq/thielemachine/coqproofs/ThieleMachineConcrete.v",
-      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
-      "weight": 49
-    },
-    {
       "src": "coq/thielemachine/coqproofs/ThieleMachineSig.v",
       "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
       "weight": 49
@@ -431,19 +426,24 @@
       "weight": 49
     },
     {
-      "src": "experiments/vm_reference.py",
-      "dst": "coq/kernel/MuGravity.v",
+      "src": "coq/kernel/MuGravity.v",
+      "dst": "build/thiele_vm.py",
+      "weight": 48
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/ThieleMachineConcrete.v",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_unified.v",
       "weight": 48
     }
   ],
   "isomorphism_metrics": {
-    "isomorphism_score": 87.55,
-    "core_bridge_ratio": 0.9986,
+    "isomorphism_score": 87.54,
+    "core_bridge_ratio": 0.9982,
     "triad_completion_ratio": 0.6457,
     "directional_coverage_ratio": 1.0,
     "integrate_file_ratio": 0.0,
-    "prod_symbol_count": 8861,
-    "core_bridge_count": 8849,
+    "prod_symbol_count": 8869,
+    "core_bridge_count": 8853,
     "triad_count": 164,
     "partial_triad_count": 90,
     "active_direction_count": 6,
@@ -459,7 +459,7 @@
     "integrate_file_delta": 0,
     "core_bridge_ratio_delta": 0.0
   },
-  "history_length": 86,
+  "history_length": 94,
   "inquisitor": {
     "ran": true,
     "timed_out": false,
@@ -493,12 +493,12 @@
   "test_verification_metrics": {
     "test_gate": "FAIL",
     "strict_pass": false,
-    "test_file_count": 127,
+    "test_file_count": 128,
     "isolated_test_file_count": 0,
-    "prod_symbol_coverage_ratio": 0.0744,
+    "prod_symbol_coverage_ratio": 0.0745,
     "prod_file_coverage_ratio": 0.4653,
-    "covered_prod_symbol_count": 899,
-    "prod_symbol_count": 12076,
+    "covered_prod_symbol_count": 900,
+    "prod_symbol_count": 12083,
     "covered_prod_file_count": 235,
     "prod_file_count": 505,
     "uncovered_prod_files_top": [
@@ -649,7 +649,7 @@
     "checks": [
       {
         "name": "isomorphism_score",
-        "actual": 87.55,
+        "actual": 87.54,
         "comparator": ">=",
         "threshold": 100.0,
         "passed": false
@@ -663,14 +663,14 @@
       },
       {
         "name": "core_bridge_ratio",
-        "actual": 0.9986,
+        "actual": 0.9982,
         "comparator": ">=",
         "threshold": 1.0,
         "passed": false
       },
       {
         "name": "test_prod_symbol_coverage_ratio",
-        "actual": 0.0744,
+        "actual": 0.0745,
         "comparator": ">=",
         "threshold": 1.0,
         "passed": false
@@ -743,7 +743,7 @@
     "unmet_checks": [
       {
         "name": "isomorphism_score",
-        "actual": 87.55,
+        "actual": 87.54,
         "comparator": ">=",
         "threshold": 100.0,
         "passed": false
@@ -757,14 +757,14 @@
       },
       {
         "name": "core_bridge_ratio",
-        "actual": 0.9986,
+        "actual": 0.9982,
         "comparator": ">=",
         "threshold": 1.0,
         "passed": false
       },
       {
         "name": "test_prod_symbol_coverage_ratio",
-        "actual": 0.0744,
+        "actual": 0.0745,
         "comparator": ">=",
         "threshold": 1.0,
         "passed": false
@@ -792,6 +792,57 @@
       }
     ]
   },
+  "isomorphism_violations": [
+    {
+      "norm": "num_modules",
+      "compare_mode": "auto",
+      "coq_value": 64.0,
+      "python_value": null,
+      "rtl_value": 4.0,
+      "coq_raw": "64",
+      "python_raw": "",
+      "rtl_raw": "",
+      "delta": 60.0,
+      "severity": "CRITICAL"
+    },
+    {
+      "norm": "tsirelson_alice_outcome",
+      "compare_mode": "enum_b01",
+      "coq_value": 0.0,
+      "python_value": 0.0,
+      "rtl_value": 1.0,
+      "coq_raw": "B0",
+      "python_raw": "0",
+      "rtl_raw": "1",
+      "delta": 1.0,
+      "severity": "CRITICAL"
+    },
+    {
+      "norm": "tsirelson_alice_setting",
+      "compare_mode": "enum_b01",
+      "coq_value": 0.0,
+      "python_value": 0.0,
+      "rtl_value": 1.0,
+      "coq_raw": "B0",
+      "python_raw": "0",
+      "rtl_raw": "1",
+      "delta": 1.0,
+      "severity": "CRITICAL"
+    },
+    {
+      "norm": "tsirelson_bob_outcome",
+      "compare_mode": "enum_b01",
+      "coq_value": 0.0,
+      "python_value": 0.0,
+      "rtl_value": 1.0,
+      "coq_raw": "B0",
+      "python_raw": "0",
+      "rtl_raw": "1",
+      "delta": 1.0,
+      "severity": "CRITICAL"
+    }
+  ],
+  "isomorphism_violation_count": 4,
   "toolchain_gates": {
     "coq_compile": {
       "ran": true,

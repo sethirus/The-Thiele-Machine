@@ -353,18 +353,49 @@ class IsomorphismTest:
             }, f, indent=2)
 
 
-def main():
+def test_cross_platform_arithmetic_operations():
+    """Test arithmetic operations produce consistent results."""
     test = IsomorphismTest()
-    success = test.run_full_test_suite()
-    
-    # Save results
-    output_path = Path('artifacts/cross_platform_isomorphism_results.json')
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    test.save_results(output_path)
-    print(f"\nResults saved to: {output_path}")
-    
-    return 0 if success else 1
+
+    test_cases = [
+        ('add', 1.0, 1.0, 2.0),
+        ('add', 3.5, 2.25, 5.75),
+        ('sub', 5.0, 3.0, 2.0),
+        ('mul', 2.0, 3.0, 6.0),
+        ('div', 6.0, 2.0, 3.0),
+    ]
+
+    for op, a, b, expected in test_cases:
+        result = test.test_arithmetic_operation(op, a, b, expected)
+        assert result['isomorphic'], f"{op}({a}, {b}) failed: got {result['python_result']:.4f}, expected {expected:.4f}"
 
 
-if __name__ == '__main__':
-    exit(main())
+def test_cross_platform_log2():
+    """Test log2 operations produce consistent results."""
+    import math
+    test = IsomorphismTest()
+
+    log2_cases = [
+        (1.0, 0.0),
+        (2.0, 1.0),
+        (4.0, 2.0),
+    ]
+
+    for x, expected in log2_cases:
+        result = test.test_log2_operation(x, expected)
+        assert result['isomorphic'], f"log2({x:.2f}) failed: got {result['python_result']:.4f}, expected {expected:.4f}"
+
+
+def test_cross_platform_information_gain():
+    """Test information gain calculation."""
+    import math
+    test = IsomorphismTest()
+
+    info_gain_cases = [
+        (100, 50, 1.0),
+        (21, 7, math.log2(3)),
+    ]
+
+    for before, after, expected in info_gain_cases:
+        result = test.test_information_gain(before, after, expected)
+        assert result['isomorphic'], f"info_gain({before}->{after}) failed: got {result['python_result']:.4f}, expected {expected:.4f}"

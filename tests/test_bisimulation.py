@@ -101,7 +101,7 @@ def _run_python_vm(program: str) -> Dict[str, Any]:
         vm.data_memory[idx % 256] = val
 
     with tempfile.TemporaryDirectory() as tmpdir:
-        vm.run(instructions, Path(tmpdir) / "out", auto_mdlacc=False)
+        vm.run(instructions, Path(tmpdir) / "out", auto_mdlacc=False, write_artifacts=False)
 
     modules = []
     if hasattr(vm.state.regions, "modules"):

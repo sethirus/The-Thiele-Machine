@@ -88,6 +88,13 @@ def _run_python_vm(init_mem: List[int], init_regs: List[int], program_text: List
 
 def _run_extracted(init_mem: List[int], init_regs: List[int], trace_lines: List[str]) -> Dict[str, object]:
     runner = BUILD_DIR / "extracted_vm_runner"
+
+    # Allow tests to skip invoking the extracted runner when exercising gates
+    # (e.g. ORACLE_HALTS) that the extracted binary cannot handle.
+    if os.environ.get("SKIP_EXTRACTED_RUNNER", "").lower() in {"1", "true", "yes"}:
+        print("Skipping extracted runner (SKIP_EXTRACTED_RUNNER=1); using placeholder extracted output.", file=sys.stderr)
+        return {"regs": [], "mem": [], "mu": None, "modules": []}
+
     if not runner.exists():
         print(
             "Warning: missing extracted runner; proceeding with placeholder extracted output. Run scripts/forge_artifact.sh to build it.",
@@ -247,7 +254,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Generate a compact cross-layer equivalence bundle")
     parser.add_argument(
         "--scenario",
-        choices=["pnew_only", "multiop_compute", "psplit_odd", "magic_ops"],
+        choices=["pnew_only", "multiop_compute", "psplit_odd", "magic_ops", "oracle_halts"],
         default="pnew_only",
         help="Which deterministic trace to run (default: pnew_only)",
     )
@@ -371,6 +378,31 @@ def main() -> None:
             f"PMERGE 5 3 {merge_cost}",
             f"PMERGE 6 4 {merge_cost}",
             f"PSPLIT 7 {{1,3}} {{2,4}} {split_cost}",
+            "HALT 0",
+        ]
+
+    elif scenario == "oracle_halts":
+        # Special-case: ORACLE_HALTS charges a very large μ (1_000_000). The
+        # extracted runner cannot safely execute that delta in strict mode; tests
+        # may set SKIP_EXTRACTED_RUNNER=1 to avoid invoking the extracted binary.
+        oracle_cost = 1_000_000
+
+        program_words = [
+            _encode_word(0x00, 1, 0, pnew_mu),         # PNEW {1}
+            _encode_word(0x10, 0, 0, 0),               # ORACLE_HALTS (RTL applies fixed charge)
+            _encode_word(0xFF, 0, 0, 0),               # HALT
+        ]
+
+        # Use explicit-cost mode for Python so the VM charges oracle_cost deterministically.
+        program_text = [
+            ("PNEW", f"{{1}} {pnew_mu}"),
+            ("ORACLE_HALTS", f"oracle-demo {oracle_cost}"),
+            ("HALT", "0"),
+        ]
+
+        trace_lines = [
+            f"PNEW {{1}} {pnew_mu}",
+            f"ORACLE_HALTS oracle-demo {oracle_cost}",
             "HALT 0",
         ]
 

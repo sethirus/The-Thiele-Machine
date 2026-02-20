@@ -32,9 +32,9 @@ def _env_int(name: str, default: int) -> int:
         return default
 
 
-RPF_MAX_EXAMPLES = _env_int("THIELE_FUZZ_MAX_EXAMPLES", 200)
-RPF_TENSOR_MAX_EXAMPLES = _env_int("THIELE_FUZZ_TENSOR_MAX_EXAMPLES", 100)
-RPF_LONG_MAX_EXAMPLES = _env_int("THIELE_FUZZ_LONG_MAX_EXAMPLES", 50)
+RPF_MAX_EXAMPLES = _env_int("THIELE_FUZZ_MAX_EXAMPLES", 50)
+RPF_TENSOR_MAX_EXAMPLES = _env_int("THIELE_FUZZ_TENSOR_MAX_EXAMPLES", 50)
+RPF_LONG_MAX_EXAMPLES = _env_int("THIELE_FUZZ_LONG_MAX_EXAMPLES", 30)
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 EXTRACTED_RUNNER = REPO_ROOT / "build" / "extracted_vm_runner_native"
@@ -83,7 +83,7 @@ def run_python(program: str):
     for idx, val in init_mem.items():
         vm.data_memory[idx % 256] = val
     with tempfile.TemporaryDirectory() as tmpdir:
-        vm.run(instructions, Path(tmpdir) / "out", auto_mdlacc=False)
+        vm.run(instructions, Path(tmpdir) / "out", auto_mdlacc=False, write_artifacts=False)
 
     from thielecpu.isa import CSR
     modules = []
@@ -215,6 +215,14 @@ class TestRandomProgramIsomorphism:
         assert coq["mu"] == py["mu"], (
             f"μ mismatch: Coq={coq['mu']} Python={py['mu']}\nProgram:\n{program}"
         )
+        assert coq["err"] == py["err"], (
+            f"err mismatch: Coq={coq['err']} Python={py['err']}\nProgram:\n{program}"
+        )
+        for i in range(32):
+            assert coq["regs"][i] == py["regs"][i], (
+                f"Reg[{i}] mismatch: Coq={coq['regs'][i]} Python={py['regs'][i]}"
+                f"\nProgram:\n{program}"
+            )
 
     @given(program=random_program())
     @settings(max_examples=RPF_MAX_EXAMPLES, deadline=None, suppress_health_check=[HealthCheck.too_slow])

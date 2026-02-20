@@ -166,6 +166,3 @@ def test_end_to_end_integration():
     assert recon.shape == batch.shape, "Reconstruction shape should match input"
 
 
-if __name__ == "__main__":
-    # Run tests
-    pytest.main([__file__, "-v"])

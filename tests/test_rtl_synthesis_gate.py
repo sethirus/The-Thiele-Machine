@@ -1,7 +1,7 @@
 """
 test_rtl_synthesis_gate.py
 ==========================
-Gate test: the Thiele CPU Verilog is synthesisable with Yosys.
+Gate test: the Thiele CPU Verilog is structurally healthy (parse/elaborate/smoke sim).
 
 What this enforces
 ------------------
@@ -14,7 +14,13 @@ What this enforces
 7. The synthesised Verilog output (``synth_lite_out.v``) is written and is
    non-empty.
 8. (Co-sim gate, slow) A representative test-bench compiles and runs under
-   iverilog/vvp without fatal simulator errors.
+    iverilog/vvp without fatal simulator errors.
+
+Important limitation
+--------------------
+These are structural/smoke checks. They do not prove end-to-end ISA semantics
+for the unified CPU FSM (HALT terminal behavior, receipt-gated commit ordering,
+or CHSH correlator correctness).
 
 Running
 -------
