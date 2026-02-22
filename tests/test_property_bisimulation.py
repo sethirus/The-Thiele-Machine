@@ -229,8 +229,9 @@ class TestVerilogPythonBisimulation:
         null_output = "NUL" if os.name == 'nt' else "/dev/null"
         result = subprocess.run(
             ["iverilog", "-g2012", "-I.", "-o", null_output,
-             "thiele_cpu_unified.v"],
-            cwd=RTL_DIR,
+             str(RTL_DIR / "thiele_cpu_kami.v"),
+             str(REPO_ROOT / "thielecpu" / "hardware" / "testbench" / "thiele_cpu_kami_tb.v")],
+            cwd=HARDWARE_DIR,
             capture_output=True,
             text=True,
         )

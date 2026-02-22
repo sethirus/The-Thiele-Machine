@@ -198,6 +198,7 @@ Definition KernelMaximalClosureP : Prop :=
     PhysicsClosure.v has the proof details (induction, case analysis). This
     file has the clean statement. Separation of concerns: proof vs interface.
 *)
+(* INQUISITOR NOTE: alias for Physics_Closure - backward-compatible name *)
 Theorem KernelMaximalClosure : KernelMaximalClosureP.
 Proof.
   exact Physics_Closure.

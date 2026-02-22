@@ -1,0 +1,8 @@
+INQUISITOR: Compiling all Coq proofs...
+INQUISITOR: Compilation OK
+INQUISITOR: FAIL — 4 HIGH findings across all files.
+Report: /workspaces/The-Thiele-Machine/artifacts/INQUISITOR_REPORT.md
+- coq/kernel/TOEDecision.v:L75 EXACT_ALIAS Theorem `Kernel_TOE_FinalOutcome` is a pure alias: its entire proof is `exact KernelTOE_FinalOutcome.` This proves nothing new — it just re-exports `KernelTOE_FinalOutcome` under a new name. If intentional (backward-compat / summary module), add (* INQUISITOR NOTE: alias for <reason> *) above the theorem.
+- coq/kernel/CPURefinement.v:L338 DEFINITIONAL_INVARIANCE Invariance/equivariance lemma proved by reflexivity/easy (definitional).
+- coq/kernel/CPURefinement.v:L338 CIRCULAR_DEFINITION Theorem `implementation_equivalence` unfolds `simple_execute_instruction` and proves claim by simple tactics. Mark with (* DEFINITIONAL HELPER *) if legitimate, or prove non-circularly by engaging with structure.
+- coq/thielemachine/verification/Deliverable_CHSHSeparation.v:L65 EXACT_ALIAS Theorem `witness_exceeds_tsirelson` is a pure alias: its entire proof is `exact tsirelson_bound_strict_lt_partition.` This proves nothing new — it just re-exports `tsirelson_bound_strict_lt_partition` under a new name. If intentional (backward-compat / summary module), add (* INQUISITOR NOTE: alias for <reason> *) above the theorem.

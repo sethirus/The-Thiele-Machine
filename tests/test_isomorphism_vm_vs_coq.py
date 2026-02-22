@@ -57,15 +57,15 @@ class TestCoqTheoremContent:
     
     def test_bridge_proofs_exist(self):
         """Bridge proof files should exist."""
-        bridge_proof = COQ_DIR.parent / "verification" / "BridgeProof.v"
-        bridge_defs = COQ_DIR.parent / "verification" / "BridgeDefinitions.v"
-        
+        bridge_proof = REPO_ROOT / "coq" / "thieleuniversal" / "verification" / "BridgeProof.v"
+        bridge_defs = REPO_ROOT / "coq" / "thieleuniversal" / "verification" / "BridgeDefinitions.v"
+
         assert bridge_proof.exists(), "BridgeProof.v not found"
         assert bridge_defs.exists(), "BridgeDefinitions.v not found"
-    
+
     def test_isomorphism_theorem(self):
         """BridgeProof.v should contain the isomorphism theorem."""
-        bridge_proof = COQ_DIR.parent / "verification" / "BridgeProof.v"
+        bridge_proof = REPO_ROOT / "coq" / "thieleuniversal" / "verification" / "BridgeProof.v"
         content = bridge_proof.read_text()
         
         assert "cpu_tm_isomorphism" in content, \

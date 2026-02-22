@@ -45,7 +45,7 @@ import pytest
 # Repository paths
 REPO_ROOT = Path(__file__).resolve().parents[1]
 EXTRACTED_RUNNER = REPO_ROOT / "build" / "extracted_vm_runner"
-VERILOG_TB = REPO_ROOT / "thielecpu" / "hardware" / "testbench" / "thiele_cpu_tb.v"
+VERILOG_TB = REPO_ROOT / "thielecpu" / "hardware" / "testbench" / "thiele_cpu_kami_tb.v"
 
 
 def _ocaml_env() -> dict:
@@ -649,15 +649,14 @@ class TestMissingOpcodesCosim:
         # Python charges oracle_cost=1,000,000 + base mu_execution=1 → 1,000,001
         assert py_state.mu == 1000001, f"Python μ: {py_state.mu}, expected: 1000001"
 
-    # --- PYEXEC ---
+    # --- LOAD_IMM (replaces former PYEXEC 0x08) ---
     def test_pyexec_verilog_mu(self):
-        """PYEXEC: Verilog goes to STATE_PYTHON, TB auto-acks, charges operand_cost.
-        Python PYEXEC runs actual Python code, which is a different interface."""
-        program = "PYEXEC 0 0 5\nHALT 0\n"
+        """LOAD_IMM: loads immediate value into register."""
+        program = "LOAD_IMM 0 5\nHALT 0\n"
         vl_state = run_verilog_simulation(program)
         if vl_state is None:
             pytest.skip("Verilog simulator not available")
-        assert vl_state.mu == 5, f"Verilog μ: {vl_state.mu}, expected: 5"
+        assert vl_state.regs[0] == 5, f"Verilog reg[0]: {vl_state.regs[0]}, expected: 5"
 
     # --- CHSH_TRIAL ---
     def test_chsh_trial_verilog_vs_python(self):
@@ -688,7 +687,7 @@ LJOIN 1 2 3
 MDLACC 1 5
 PDISCOVER 4 2 0
 XFER 5 2 1
-PYEXEC 0 0 1
+LOAD_IMM 0 1
 CHSH_TRIAL 0 0 6
 XOR_LOAD 0 0 1
 XOR_ADD 1 0 1
@@ -793,13 +792,12 @@ HALT 0
         assert 10 in vl_regions, f"Element 10 missing from Verilog modules: {vl_state.modules}"
 
     def test_error_flag_pyexec_verilog(self):
-        """PYEXEC in Verilog: TB auto-acks, charges operand_cost, no error.
-        We verify μ is correct since the error behavior is TB-dependent."""
-        program = "PYEXEC 0 0 3\nHALT 0\n"
+        """LOAD_IMM (former PYEXEC): loads immediate into register, no error."""
+        program = "LOAD_IMM 0 3\nHALT 0\n"
         vl_state = run_verilog_simulation(program)
         if vl_state is None:
             pytest.skip("Verilog simulator not available")
-        assert vl_state.mu == 3, f"Verilog μ: {vl_state.mu}, expected: 3"
+        assert vl_state.regs[0] == 3, f"Verilog reg[0]: {vl_state.regs[0]}, expected: 3"
 
     def test_xor_rank_popcount(self):
         """XOR_RANK popcount must match between Python and Verilog."""
@@ -890,7 +888,7 @@ class TestOpcodeAlignment:
             "MDLACC": 0x05,
             "PDISCOVER": 0x06,
             "XFER": 0x07,
-            "PYEXEC": 0x08,
+            "LOAD_IMM": 0x08,
             "CHSH_TRIAL": 0x09,
             "XOR_LOAD": 0x0A,
             "XOR_ADD": 0x0B,
@@ -899,6 +897,14 @@ class TestOpcodeAlignment:
             "EMIT": 0x0E,
             "REVEAL": 0x0F,
             "ORACLE_HALTS": 0x10,
+            "LOAD": 0x11,
+            "STORE": 0x12,
+            "ADD": 0x13,
+            "SUB": 0x14,
+            "JUMP": 0x15,
+            "JNEZ": 0x16,
+            "CALL": 0x17,
+            "RET": 0x18,
             "HALT": 0xFF,
         }
         

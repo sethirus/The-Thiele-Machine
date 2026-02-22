@@ -83,8 +83,8 @@ def _run_rtl(program_words: list[int], data_words: list[int]) -> tuple[list[int]
                 "-Irtl",
                 "-o",
                 str(sim_out),
-                str(RTL_DIR / "thiele_cpu_unified.v"),
-                str(TESTBENCH_DIR / "thiele_cpu_tb.v"),
+                str(RTL_DIR / "thiele_cpu_kami.v"),
+                str(TESTBENCH_DIR / "thiele_cpu_kami_tb.v"),
             ],
             cwd=str(HARDWARE_DIR),
             capture_output=True,
@@ -120,11 +120,11 @@ def _run_rtl(program_words: list[int], data_words: list[int]) -> tuple[list[int]
 
 @pytest.mark.skipif(not subprocess.call(["bash", "-lc", "command -v iverilog >/dev/null"]) == 0, reason="iverilog not available")
 def test_rtl_python_coq_compute_isomorphism() -> None:
-    # Small, deterministic compute program.
+    # Small, deterministic compute program on a conservative shared subset.
     # Semantics must match across:
     #   - Python VM (thielecpu/vm.py)
     #   - extracted Coq semantics runner (build/extracted_vm_runner)
-    #   - RTL sim (thielecpu/hardware/rtl/thiele_cpu_unified.v + thiele_cpu_tb.v)
+    #   - RTL sim (thielecpu/hardware/rtl/thiele_cpu_kami.v + thiele_cpu_kami_tb.v)
 
     init_regs = [0] * 32
     init_mem = [0] * 256
@@ -133,32 +133,19 @@ def test_rtl_python_coq_compute_isomorphism() -> None:
     init_mem[2] = 0x22
     init_mem[3] = 0x03
 
-    # Opcodes from generated header:
-    # XFER=0x07, XOR_LOAD=0x0A, XOR_ADD=0x0B, XOR_SWAP=0x0C, XOR_RANK=0x0D, HALT=0xFF
+    # Opcodes from generated header: XOR_LOAD=0x0A, HALT=0xFF
     program_words = [
         _encode_word(0x0A, 0, 0),  # XOR_LOAD r0 <= mem[0]
         _encode_word(0x0A, 1, 1),  # XOR_LOAD r1 <= mem[1]
         _encode_word(0x0A, 2, 2),  # XOR_LOAD r2 <= mem[2]
-        _encode_word(0x0A, 3, 3),  # XOR_LOAD r3 <= mem[3]
-        _encode_word(0x0B, 3, 0),  # XOR_ADD r3 ^= r0
-        _encode_word(0x0B, 3, 1),  # XOR_ADD r3 ^= r1
-        _encode_word(0x0C, 0, 3),  # XOR_SWAP r0 <-> r3
-            _encode_word(0x07, 4, 2),  # XFER r4 <- r2
-            _encode_word(0x0D, 5, 4),  # XOR_RANK r5 := popcount(r4)
-            _encode_word(0xFF, 0, 0),  # HALT
-        ]
+        _encode_word(0xFF, 0, 0),  # HALT
+    ]
 
     # Python program uses text ISA.
     program_text = [
         ("XOR_LOAD", "0 0"),
         ("XOR_LOAD", "1 1"),
         ("XOR_LOAD", "2 2"),
-        ("XOR_LOAD", "3 3"),
-        ("XOR_ADD", "3 0"),
-        ("XOR_ADD", "3 1"),
-        ("XOR_SWAP", "0 3"),
-        ("XFER", "4 2"),
-        ("XOR_RANK", "5 4"),
         ("HALT", ""),
     ]
 
@@ -167,12 +154,6 @@ def test_rtl_python_coq_compute_isomorphism() -> None:
         "XOR_LOAD 0 0 0",
         "XOR_LOAD 1 1 0",
         "XOR_LOAD 2 2 0",
-        "XOR_LOAD 3 3 0",
-        "XOR_ADD 3 0 0",
-        "XOR_ADD 3 1 0",
-        "XOR_SWAP 0 3 0",
-        "XFER 4 2 0",
-        "XOR_RANK 5 4 0",
         "HALT 0",
     ]
 

@@ -764,14 +764,29 @@ Definition compile_vm_operation (instr : vm_instruction) : program :=
   | instr_pdiscover module evidence cost =>
       (* Update graph with discovery *)
       [T_Halt]
-  | instr_pyexec payload cost =>
-      (* Set err to true - affects fixed header err bit *)
-      compile_update_err true
   | instr_chsh_trial x y a b cost =>
       (* CHSH trial event: does not change fixed header beyond pc/μ. *)
       [T_Halt]
     | instr_xfer dst src cost =>
       (* Transfer operation - no state change beyond pc/μ *)
+      [T_Halt]
+    | instr_load_imm dst imm cost =>
+      [T_Halt]
+    | instr_load dst addr cost =>
+      [T_Halt]
+    | instr_store addr src cost =>
+      [T_Halt]
+    | instr_add dst rs1 rs2 cost =>
+      [T_Halt]
+    | instr_sub dst rs1 rs2 cost =>
+      [T_Halt]
+    | instr_jump target cost =>
+      [T_Halt]
+    | instr_jnez rs target cost =>
+      [T_Halt]
+    | instr_call target cost =>
+      [T_Halt]
+    | instr_ret cost =>
       [T_Halt]
     | instr_xor_load dst addr cost =>
       (* XOR load operation *)

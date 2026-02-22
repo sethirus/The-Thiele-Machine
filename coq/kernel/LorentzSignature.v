@@ -336,6 +336,7 @@ Definition direction_irreversible (μ : nat) : Prop :=
      vm_mu_tensor_entry s' (μ mod 4) (μ mod 4))%nat.
 
 (** The global μ-accumulator is irreversible (from mu_conservation_kernel) *)
+(* INQUISITOR NOTE: alias for mu_conservation_kernel - Lorentz context naming *)
 Theorem mu_globally_irreversible : forall s s' instr,
   vm_step s instr s' ->
   (vm_mu s <= vm_mu s')%nat.

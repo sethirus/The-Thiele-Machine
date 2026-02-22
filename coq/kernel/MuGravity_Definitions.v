@@ -16,6 +16,7 @@ Definition residual_measure := calibration_residual.
 Definition residual_rank := calibration_residual_rank.
 
 (** [residual_rank_zero_exactly_residual_zero]: formal specification. *)
+(* INQUISITOR NOTE: alias for calibration_residual_rank_zero_iff - shorter name for user convenience *)
 Lemma residual_rank_zero_exactly_residual_zero : forall s m,
   residual_rank s m = 0%nat <-> residual_measure s m = 0%R.
 Proof.

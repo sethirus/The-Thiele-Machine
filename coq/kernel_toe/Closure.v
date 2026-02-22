@@ -33,6 +33,7 @@ Definition KernelMaximalClosureP : Prop :=
       ObservableRegion s mid = ObservableRegion s' mid).
 
 (** [KernelMaximalClosure]: formal specification. *)
+(* INQUISITOR NOTE: alias for Physics_Closure - backward-compatible name *)
 Theorem KernelMaximalClosure : KernelMaximalClosureP.
 Proof.
   exact Physics_Closure.

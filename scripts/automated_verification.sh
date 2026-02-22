@@ -55,9 +55,9 @@ if [ ! -f "$REPORTS_DIR/forge.log" ]; then
 else
   {
     echo "=== Yosys Synthesis Report ==="
-    echo "Command: yosys -p 'read_verilog -sv -nomem2reg -DSYNTHESIS -DYOSYS_LITE -I thielecpu/hardware/rtl thielecpu/hardware/rtl/thiele_cpu_unified.v; prep; check; stat'"
+    echo "Command: yosys -p 'read_verilog -sv -nomem2reg -DSYNTHESIS -I thielecpu/hardware/rtl thielecpu/hardware/rtl/thiele_cpu_kami.v; prep -top mkModule1; check; stat'"
     echo ""
-    yosys -p "read_verilog -sv -nomem2reg -DSYNTHESIS -DYOSYS_LITE -I thielecpu/hardware/rtl thielecpu/hardware/rtl/thiele_cpu_unified.v; prep; check; stat"
+    yosys -p "read_verilog -sv -nomem2reg -DSYNTHESIS -I thielecpu/hardware/rtl thielecpu/hardware/rtl/thiele_cpu_kami.v; prep -top mkModule1; check; stat"
   } > "$REPORTS_DIR/synthesis_report.txt" 2>&1 || echo "WARNING: Yosys synthesis failed - see $REPORTS_DIR/synthesis_report.txt"
 fi
 echo "Synthesis report: $REPORTS_DIR/synthesis_report.txt"
@@ -94,7 +94,7 @@ ECP5_PNR_ROUTER="${ECP5_PNR_ROUTER:-router1}"
 ECP5_PNR_CELL_TIMEOUT="${ECP5_PNR_CELL_TIMEOUT:-4}"
 ECP5_DEVICE_FLAG="--${ECP5_DEVICE}"
 if [ "$OPENFPGA_PNR" = "1" ]; then
-  yosys -p "read_verilog -sv -nomem2reg -DSYNTHESIS -DYOSYS_LITE -I thielecpu/hardware/rtl thielecpu/hardware/rtl/thiele_cpu_unified.v; synth_ecp5 -top thiele_cpu -json $PNR_JSON" \
+  yosys -p "read_verilog -sv -nomem2reg -DSYNTHESIS -I thielecpu/hardware/rtl thielecpu/hardware/rtl/thiele_cpu_kami.v; synth_ecp5 -top mkModule1 -json $PNR_JSON" \
     > "$REPORTS_DIR/openfpga_synth.log" 2>&1
   if [ ! -f "$PNR_JSON" ]; then
     echo "Open-source synthesis did not produce $PNR_JSON - see $REPORTS_DIR/openfpga_synth.log"

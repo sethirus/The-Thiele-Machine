@@ -88,7 +88,15 @@ Definition instr_mu_cost (i : vm_instruction) : nat :=
   | instr_mdlacc _ cost => cost
   | instr_pdiscover _ _ cost => cost
   | instr_xfer _ _ cost => cost
-  | instr_pyexec _ cost => cost
+  | instr_load_imm _ _ cost => cost
+  | instr_load _ _ cost => cost
+  | instr_store _ _ cost => cost
+  | instr_add _ _ _ cost => cost
+  | instr_sub _ _ _ cost => cost
+  | instr_jump _ cost => cost
+  | instr_jnez _ _ cost => cost
+  | instr_call _ cost => cost
+  | instr_ret cost => cost
   | instr_chsh_trial _ _ _ _ cost => cost
   | instr_xor_load _ _ cost => cost
   | instr_xor_add _ _ cost => cost
@@ -215,10 +223,34 @@ Proof.
     
   (* xfer: graph unchanged *)
   - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
-  
-  (* pyexec: graph unchanged *)
+
+  (* load_imm: graph unchanged *)
   - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
-  
+
+  (* load: graph unchanged *)
+  - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
+
+  (* store: graph unchanged *)
+  - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
+
+  (* add: graph unchanged *)
+  - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
+
+  (* sub: graph unchanged *)
+  - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
+
+  (* jump: graph unchanged *)
+  - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
+
+  (* jnez: graph unchanged *)
+  - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
+
+  (* call: graph unchanged *)
+  - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
+
+  (* ret: graph unchanged *)
+  - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
+
   (* chsh_trial: graph unchanged *)
   - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
   
@@ -332,6 +364,22 @@ Proof.
     lia.
   
   (* All other instructions: state_info unchanged, info_loss = 0 *)
+  - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
+    unfold state_info in H. simpl in H. lia.
+  - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
+    unfold state_info in H. simpl in H. lia.
+  - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
+    unfold state_info in H. simpl in H. lia.
+  - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
+    unfold state_info in H. simpl in H. lia.
+  - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
+    unfold state_info in H. simpl in H. lia.
+  - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
+    unfold state_info in H. simpl in H. lia.
+  - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
+    unfold state_info in H. simpl in H. lia.
+  - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
+    unfold state_info in H. simpl in H. lia.
   - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
     unfold state_info in H. simpl in H. lia.
   - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.

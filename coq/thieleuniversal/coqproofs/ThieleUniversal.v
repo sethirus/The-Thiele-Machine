@@ -8,7 +8,8 @@
 
 From Coq Require Import List Lia.
 From ThieleUniversal Require Import TM UTM_Rules UTM_Program UTM_Encode CPU.
-From ThieleMachine Require Import ThieleMachine Simulation EncodingBridge.
+From ThieleMachine Require Import ThieleMachine EncodingBridge.
+From ThieleUniversal Require Import Simulation.
 Export Simulation.
 
 Set Default Goal Selector "!".

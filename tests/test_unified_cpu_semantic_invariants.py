@@ -77,10 +77,6 @@ module tb;
   wire [31:0] logic_addr;
   reg logic_ack;
   reg [31:0] logic_data;
-  wire py_req;
-  wire [31:0] py_code_addr;
-  reg py_ack;
-  reg [31:0] py_result;
   reg [31:0] instr_mem [0:15];
   wire [31:0] pc;
 
@@ -92,7 +88,6 @@ module tb;
     .bianchi_alarm(bianchi_alarm),
     .mem_addr(mem_addr), .mem_wdata(mem_wdata), .mem_rdata(mem_rdata), .mem_we(mem_we), .mem_en(mem_en),
     .logic_req(logic_req), .logic_addr(logic_addr), .logic_ack(logic_ack), .logic_data(logic_data),
-    .py_req(py_req), .py_code_addr(py_code_addr), .py_ack(py_ack), .py_result(py_result),
     .instr_data(instr_mem[pc[31:2]]), .pc(pc)
   );
 
@@ -108,8 +103,6 @@ module tb;
     mem_rdata = 0;
     logic_ack = 0;
     logic_data = 0;
-    py_ack = 0;
-    py_result = 0;
     halt_seen = 0;
     post_halt_cycles = 0;
 

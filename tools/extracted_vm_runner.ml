@@ -170,6 +170,24 @@ let parse_program (lines : string list) : int * int list * int list * VMStep.vm_
           Some (VMStep.Coq_instr_pdiscover (safe_int mid, evidence, safe_int cost))
       | [ "XFER"; dst; src; cost ] ->
         Some (VMStep.Coq_instr_xfer (safe_int dst, safe_int src, safe_int cost))
+      | [ "LOAD_IMM"; dst; imm; cost ] ->
+        Some (VMStep.Coq_instr_load_imm (safe_int dst, safe_int imm, safe_int cost))
+      | [ "LOAD"; dst; addr; cost ] ->
+        Some (VMStep.Coq_instr_load (safe_int dst, safe_int addr, safe_int cost))
+      | [ "STORE"; addr; src; cost ] ->
+        Some (VMStep.Coq_instr_store (safe_int addr, safe_int src, safe_int cost))
+      | [ "ADD"; dst; src1; src2; cost ] ->
+        Some (VMStep.Coq_instr_add (safe_int dst, safe_int src1, safe_int src2, safe_int cost))
+      | [ "SUB"; dst; src1; src2; cost ] ->
+        Some (VMStep.Coq_instr_sub (safe_int dst, safe_int src1, safe_int src2, safe_int cost))
+      | [ "JUMP"; target; cost ] ->
+        Some (VMStep.Coq_instr_jump (safe_int target, safe_int cost))
+      | [ "JNEZ"; rs; target; cost ] ->
+        Some (VMStep.Coq_instr_jnez (safe_int rs, safe_int target, safe_int cost))
+      | [ "CALL"; target; cost ] ->
+        Some (VMStep.Coq_instr_call (safe_int target, safe_int cost))
+      | [ "RET"; cost ] ->
+        Some (VMStep.Coq_instr_ret (safe_int cost))
       | [ "XOR_LOAD"; dst; addr; cost ] ->
         Some (VMStep.Coq_instr_xor_load (safe_int dst, safe_int addr, safe_int cost))
       | [ "XOR_ADD"; dst; src; cost ] ->

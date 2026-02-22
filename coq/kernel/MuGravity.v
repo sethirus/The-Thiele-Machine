@@ -951,8 +951,24 @@ Inductive calibration_safe_instruction : vm_instruction -> Prop :=
     calibration_safe_instruction (instr_emit module payload cost)
 | csi_reveal : forall module bits cert cost,
     calibration_safe_instruction (instr_reveal module bits cert cost)
-| csi_pyexec : forall payload cost,
-    calibration_safe_instruction (instr_pyexec payload cost)
+| csi_load_imm : forall dst imm cost,
+    calibration_safe_instruction (instr_load_imm dst imm cost)
+| csi_load : forall dst addr cost,
+    calibration_safe_instruction (instr_load dst addr cost)
+| csi_store : forall addr src cost,
+    calibration_safe_instruction (instr_store addr src cost)
+| csi_add : forall dst rs1 rs2 cost,
+    calibration_safe_instruction (instr_add dst rs1 rs2 cost)
+| csi_sub : forall dst rs1 rs2 cost,
+    calibration_safe_instruction (instr_sub dst rs1 rs2 cost)
+| csi_jump : forall target cost,
+    calibration_safe_instruction (instr_jump target cost)
+| csi_jnez : forall rs target cost,
+    calibration_safe_instruction (instr_jnez rs target cost)
+| csi_call : forall target cost,
+    calibration_safe_instruction (instr_call target cost)
+| csi_ret : forall cost,
+    calibration_safe_instruction (instr_ret cost)
 | csi_chsh_trial : forall x y a b cost,
     calibration_safe_instruction (instr_chsh_trial x y a b cost)
 | csi_xfer : forall dst src cost,
@@ -979,6 +995,7 @@ Proof.
   destruct i; inversion Hsafe; subst; simpl.
   all: try (destruct (String.eqb cert1 cert2)%string);
        try (destruct (chsh_bits_ok x y a b));
+       try (destruct (Nat.eqb _ 0));
        reflexivity.
 Qed.
 

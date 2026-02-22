@@ -1,4 +1,4 @@
-DIGEST 611a4450c0a0f372186df340a8c7dd86
+DIGEST b4e2583944f95b096018fff04791c984
 FKernel.LocalInfoLoss
 R2336:2339 Coq.Lists.List <> <> lib
 R2341:2354 Coq.Arith.PeanoNat <> <> lib
@@ -58,355 +58,395 @@ R3687:3697 Kernel.VMStep VMStep instr_ljoin constr
 R3720:3731 Kernel.VMStep VMStep instr_mdlacc constr
 R3752:3766 Kernel.VMStep VMStep instr_pdiscover constr
 R3789:3798 Kernel.VMStep VMStep instr_xfer constr
-R3821:3832 Kernel.VMStep VMStep instr_pyexec constr
-R3853:3868 Kernel.VMStep VMStep instr_chsh_trial constr
-R3895:3908 Kernel.VMStep VMStep instr_xor_load constr
-R3931:3943 Kernel.VMStep VMStep instr_xor_add constr
-R3966:3979 Kernel.VMStep VMStep instr_xor_swap constr
-R4002:4015 Kernel.VMStep VMStep instr_xor_rank constr
-R4038:4047 Kernel.VMStep VMStep instr_emit constr
-R4070:4081 Kernel.VMStep VMStep instr_reveal constr
-R4106:4123 Kernel.VMStep VMStep instr_oracle_halts constr
-R4144:4153 Kernel.VMStep VMStep instr_halt constr
-prf 5213:5236 <> pnew_module_count_change
-binder 5249:5249 <> s:8
-binder 5251:5256 <> region:9
-binder 5258:5261 <> cost:10
-binder 5263:5264 <> s':11
-R5308:5315 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5271:5277 Kernel.VMStep VMStep vm_step ind
-R5279:5279 Kernel.LocalInfoLoss <> s:8 var
-R5282:5291 Kernel.VMStep VMStep instr_pnew constr
-R5293:5298 Kernel.LocalInfoLoss <> region:9 var
-R5300:5303 Kernel.LocalInfoLoss <> cost:10 var
-R5306:5307 Kernel.LocalInfoLoss <> s':11 var
-R5329:5332 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R5316:5325 Kernel.LocalInfoLoss <> state_info def
-R5327:5328 Kernel.LocalInfoLoss <> s':11 var
-R5333:5342 Kernel.LocalInfoLoss <> state_info def
-R5344:5344 Kernel.LocalInfoLoss <> s:8 var
-R5422:5431 Kernel.LocalInfoLoss <> state_info def
-R5510:5519 Kernel.VMState <> graph_pnew def
-R5540:5556 Kernel.VMState <> graph_find_region def
-R5540:5556 Kernel.VMState <> graph_find_region def
-R5658:5667 Kernel.LocalInfoLoss <> state_info def
-R5725:5740 Kernel.VMState <> graph_add_module def
-prf 5865:5890 <> psplit_module_count_change
-binder 5903:5903 <> s:12
-binder 5905:5907 <> mid:13
-binder 5909:5912 <> left:14
-binder 5914:5918 <> right:15
-binder 5920:5923 <> cost:16
-binder 5925:5926 <> s':17
-R5980:6053 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5933:5939 Kernel.VMStep VMStep vm_step ind
-R5941:5941 Kernel.LocalInfoLoss <> s:12 var
-R5944:5955 Kernel.VMStep VMStep instr_psplit constr
-R5957:5959 Kernel.LocalInfoLoss <> mid:13 var
-R5961:5964 Kernel.LocalInfoLoss <> left:14 var
-R5966:5970 Kernel.LocalInfoLoss <> right:15 var
-R5972:5975 Kernel.LocalInfoLoss <> cost:16 var
-R5978:5979 Kernel.LocalInfoLoss <> s':17 var
-R6067:6070 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R6054:6063 Kernel.LocalInfoLoss <> state_info def
-R6065:6066 Kernel.LocalInfoLoss <> s':17 var
-R6071:6080 Kernel.LocalInfoLoss <> state_info def
-R6082:6082 Kernel.LocalInfoLoss <> s:12 var
-R6166:6175 Kernel.LocalInfoLoss <> state_info def
-R6241:6253 Kernel.VMStep VMStep advance_state def
-R6315:6317 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6295:6306 Kernel.VMState <> graph_psplit def
-R6318:6321 Coq.Init.Datatypes <> Some constr
-R6315:6317 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6295:6306 Kernel.VMState <> graph_psplit def
-R6318:6321 Coq.Init.Datatypes <> Some constr
-R6353:6381 Kernel.VMState <> graph_psplit_increases_length thm
-R6353:6381 Kernel.VMState <> graph_psplit_increases_length thm
-prf 6536:6561 <> pmerge_module_count_change
-binder 6574:6574 <> s:18
-binder 6576:6577 <> m1:19
-binder 6579:6580 <> m2:20
-binder 6582:6585 <> cost:21
-binder 6587:6588 <> s':22
-R6633:6713 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6595:6601 Kernel.VMStep VMStep vm_step ind
-R6603:6603 Kernel.LocalInfoLoss <> s:18 var
-R6606:6617 Kernel.VMStep VMStep instr_pmerge constr
-R6619:6620 Kernel.LocalInfoLoss <> m1:19 var
-R6622:6623 Kernel.LocalInfoLoss <> m2:20 var
-R6625:6628 Kernel.LocalInfoLoss <> cost:21 var
-R6631:6632 Kernel.LocalInfoLoss <> s':22 var
-R6727:6730 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R6714:6723 Kernel.LocalInfoLoss <> state_info def
-R6725:6726 Kernel.LocalInfoLoss <> s':22 var
-R6731:6740 Kernel.LocalInfoLoss <> state_info def
-R6742:6742 Kernel.LocalInfoLoss <> s:18 var
-R6817:6826 Kernel.LocalInfoLoss <> state_info def
-R6907:6919 Kernel.VMStep VMStep advance_state def
-R6979:6981 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6961:6972 Kernel.VMState <> graph_pmerge def
-R6982:6985 Coq.Init.Datatypes <> Some constr
-R6979:6981 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6961:6972 Kernel.VMState <> graph_pmerge def
-R6982:6985 Coq.Init.Datatypes <> Some constr
-R7017:7045 Kernel.VMState <> graph_pmerge_decreases_length thm
-R7017:7045 Kernel.VMState <> graph_pmerge_decreases_length thm
-prf 7200:7233 <> other_instr_module_count_unchanged
-binder 7246:7246 <> s:23
-binder 7248:7248 <> i:24
-binder 7250:7251 <> s':25
-R7272:7279 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7258:7264 Kernel.VMStep VMStep vm_step ind
-R7266:7266 Kernel.LocalInfoLoss <> s:23 var
-R7268:7268 Kernel.LocalInfoLoss <> i:24 var
-R7270:7271 Kernel.LocalInfoLoss <> s':25 var
-R7286:7286 Kernel.LocalInfoLoss <> i:24 var
-R7299:7308 Kernel.VMStep VMStep instr_pnew constr
-R7317:7320 Coq.Init.Logic <> True ind
-R7328:7339 Kernel.VMStep VMStep instr_psplit constr
-R7352:7355 Coq.Init.Logic <> True ind
-R7363:7374 Kernel.VMStep VMStep instr_pmerge constr
-R7385:7388 Coq.Init.Logic <> True ind
-R7414:7416 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7401:7410 Kernel.LocalInfoLoss <> state_info def
-R7412:7413 Kernel.LocalInfoLoss <> s':25 var
-R7417:7426 Kernel.LocalInfoLoss <> state_info def
-R7428:7428 Kernel.LocalInfoLoss <> s:23 var
-R7602:7611 Kernel.LocalInfoLoss <> state_info def
-R7684:7715 Kernel.VMState <> graph_add_axiom_preserves_length thm
-R7684:7715 Kernel.VMState <> graph_add_axiom_preserves_length thm
-R7850:7859 Kernel.LocalInfoLoss <> state_info def
-R7952:7961 Kernel.LocalInfoLoss <> state_info def
-R8092:8101 Kernel.LocalInfoLoss <> state_info def
-R8121:8159 Kernel.VMState <> graph_record_discovery_preserves_length thm
-R8121:8159 Kernel.VMState <> graph_record_discovery_preserves_length thm
-R8232:8241 Kernel.LocalInfoLoss <> state_info def
-R8334:8343 Kernel.LocalInfoLoss <> state_info def
-R8440:8449 Kernel.LocalInfoLoss <> state_info def
-R8544:8553 Kernel.LocalInfoLoss <> state_info def
-R8647:8656 Kernel.LocalInfoLoss <> state_info def
-R8751:8760 Kernel.LocalInfoLoss <> state_info def
-R8855:8864 Kernel.LocalInfoLoss <> state_info def
-R8955:8964 Kernel.LocalInfoLoss <> state_info def
-R9057:9066 Kernel.LocalInfoLoss <> state_info def
-R9165:9174 Kernel.LocalInfoLoss <> state_info def
-R9265:9274 Kernel.LocalInfoLoss <> state_info def
-prf 10225:10248 <> pmerge_info_loss_bounded
-binder 10261:10261 <> s:27
-binder 10263:10264 <> m1:28
-binder 10266:10267 <> m2:29
-binder 10269:10272 <> cost:30
-binder 10274:10275 <> s':31
-R10320:10327 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10282:10288 Kernel.VMStep VMStep vm_step ind
-R10290:10290 Kernel.LocalInfoLoss <> s:27 var
-R10293:10304 Kernel.VMStep VMStep instr_pmerge constr
-R10306:10307 Kernel.LocalInfoLoss <> m1:28 var
-R10309:10310 Kernel.LocalInfoLoss <> m2:29 var
-R10312:10315 Kernel.LocalInfoLoss <> cost:30 var
-R10318:10319 Kernel.LocalInfoLoss <> s':31 var
-R10343:10346 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R10329:10337 Kernel.LocalInfoLoss <> info_loss def
-R10339:10339 Kernel.LocalInfoLoss <> s:27 var
-R10341:10342 Kernel.LocalInfoLoss <> s':31 var
-R10401:10409 Kernel.LocalInfoLoss <> info_loss def
-R10412:10421 Kernel.LocalInfoLoss <> state_info def
-R10526:10538 Kernel.VMStep VMStep advance_state def
-R10598:10600 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10580:10591 Kernel.VMState <> graph_pmerge def
-R10601:10604 Coq.Init.Datatypes <> Some constr
-R10598:10600 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10580:10591 Kernel.VMState <> graph_pmerge def
-R10601:10604 Coq.Init.Datatypes <> Some constr
-R10636:10660 Kernel.VMState <> graph_pmerge_length_bound thm
-R10636:10660 Kernel.VMState <> graph_pmerge_length_bound thm
-def 11282:11298 <> instr_well_formed
-R11305:11318 Kernel.VMStep VMStep vm_instruction ind
-binder 11301:11301 <> i:32
-R11339:11339 Kernel.LocalInfoLoss <> i:32 var
-R11350:11361 Kernel.VMStep VMStep instr_pmerge constr
-R11379:11382 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R11394:11397 Coq.Init.Logic <> True ind
-prf 11469:11489 <> cost_bounds_info_loss
-binder 11502:11502 <> s:34
-binder 11504:11504 <> i:35
-binder 11506:11507 <> s':36
-R11528:11535 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11514:11520 Kernel.VMStep VMStep vm_step ind
-R11522:11522 Kernel.LocalInfoLoss <> s:34 var
-R11524:11524 Kernel.LocalInfoLoss <> i:35 var
-R11526:11527 Kernel.LocalInfoLoss <> s':36 var
-R11555:11562 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11536:11552 Kernel.LocalInfoLoss <> instr_well_formed def
-R11554:11554 Kernel.LocalInfoLoss <> i:35 var
-R11563:11566 Coq.ZArith.BinInt Z ge def
-R11569:11576 Coq.ZArith.BinInt Z of_nat def
-R11579:11591 Kernel.LocalInfoLoss <> instr_mu_cost def
-R11593:11593 Kernel.LocalInfoLoss <> i:35 var
-R11598:11606 Kernel.LocalInfoLoss <> info_loss def
-R11608:11608 Kernel.LocalInfoLoss <> s:34 var
-R11610:11611 Kernel.LocalInfoLoss <> s':36 var
-R11658:11666 Kernel.LocalInfoLoss <> info_loss def
-R11669:11678 Kernel.LocalInfoLoss <> state_info def
-R11789:11812 Kernel.LocalInfoLoss <> pnew_module_count_change thm
-R11789:11812 Kernel.LocalInfoLoss <> pnew_module_count_change thm
-R11852:11861 Kernel.LocalInfoLoss <> state_info def
-R11974:11999 Kernel.LocalInfoLoss <> psplit_module_count_change thm
-R11974:11999 Kernel.LocalInfoLoss <> psplit_module_count_change thm
-R12043:12052 Kernel.LocalInfoLoss <> state_info def
-R12152:12175 Kernel.LocalInfoLoss <> pmerge_info_loss_bounded thm
-R12152:12175 Kernel.LocalInfoLoss <> pmerge_info_loss_bounded thm
-R12219:12227 Kernel.LocalInfoLoss <> info_loss def
-R12230:12239 Kernel.LocalInfoLoss <> state_info def
-R12265:12281 Kernel.LocalInfoLoss <> instr_well_formed def
-R12284:12296 Kernel.LocalInfoLoss <> instr_mu_cost def
-R12400:12433 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
-R12400:12433 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
-R12466:12475 Kernel.LocalInfoLoss <> state_info def
-R12516:12549 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
-R12516:12549 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
-R12582:12591 Kernel.LocalInfoLoss <> state_info def
-R12632:12665 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
-R12632:12665 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
-R12698:12707 Kernel.LocalInfoLoss <> state_info def
-R12748:12781 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
-R12748:12781 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
-R12814:12823 Kernel.LocalInfoLoss <> state_info def
-R12864:12897 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
-R12864:12897 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
-R12930:12939 Kernel.LocalInfoLoss <> state_info def
-R12980:13013 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
-R12980:13013 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
-R13046:13055 Kernel.LocalInfoLoss <> state_info def
-R13096:13129 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
-R13096:13129 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
-R13162:13171 Kernel.LocalInfoLoss <> state_info def
-R13212:13245 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
-R13212:13245 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
-R13278:13287 Kernel.LocalInfoLoss <> state_info def
-R13328:13361 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
-R13328:13361 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
-R13394:13403 Kernel.LocalInfoLoss <> state_info def
-R13444:13477 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
-R13444:13477 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
-R13510:13519 Kernel.LocalInfoLoss <> state_info def
-R13560:13593 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
-R13560:13593 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
-R13626:13635 Kernel.LocalInfoLoss <> state_info def
-R13676:13709 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
-R13676:13709 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
-R13742:13751 Kernel.LocalInfoLoss <> state_info def
-R13792:13825 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
-R13792:13825 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
-R13858:13867 Kernel.LocalInfoLoss <> state_info def
-R13908:13941 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
-R13908:13941 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
-R13974:13983 Kernel.LocalInfoLoss <> state_info def
-R14024:14057 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
-R14024:14057 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
-R14090:14099 Kernel.LocalInfoLoss <> state_info def
-ind 14367:14376 <> exec_trace
-constr 14435:14443 <> trace_nil
-constr 14477:14486 <> trace_cons
-R14387:14390 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14380:14386 Kernel.VMState <> VMState rec
-R14410:14413 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14391:14394 Coq.Init.Datatypes <> list ind
-R14396:14409 Kernel.VMStep VMStep vm_instruction ind
-R14421:14424 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14414:14420 Kernel.VMState <> VMState rec
-binder 14454:14454 <> s:39
-R14457:14466 Kernel.LocalInfoLoss <> exec_trace:37 ind
-R14473:14473 Kernel.LocalInfoLoss <> s:39 var
-R14470:14471 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R14468:14468 Kernel.LocalInfoLoss <> s:39 var
-binder 14497:14497 <> s:40
-binder 14499:14499 <> i:41
-binder 14501:14502 <> s':42
-binder 14504:14505 <> is:43
-binder 14507:14509 <> s'':44
-R14530:14537 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14516:14522 Kernel.VMStep VMStep vm_step ind
-R14524:14524 Kernel.LocalInfoLoss <> s:40 var
-R14526:14526 Kernel.LocalInfoLoss <> i:41 var
-R14528:14529 Kernel.LocalInfoLoss <> s':42 var
-R14558:14565 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14538:14547 Kernel.LocalInfoLoss <> exec_trace:37 ind
-R14555:14557 Kernel.LocalInfoLoss <> s'':44 var
-R14552:14553 Kernel.LocalInfoLoss <> is:43 var
-R14549:14550 Kernel.LocalInfoLoss <> s':42 var
-R14566:14575 Kernel.LocalInfoLoss <> exec_trace:37 ind
-R14589:14591 Kernel.LocalInfoLoss <> s'':44 var
-R14581:14584 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R14580:14580 Kernel.LocalInfoLoss <> i:41 var
-R14585:14586 Kernel.LocalInfoLoss <> is:43 var
-R14577:14577 Kernel.LocalInfoLoss <> s:40 var
-scheme 14367:14376 <> exec_trace_ind
-scheme 14367:14376 <> exec_trace_sind
-def 14633:14642 <> trace_cost
-R14650:14653 Coq.Init.Datatypes <> list ind
-R14655:14668 Kernel.VMStep VMStep vm_instruction ind
-binder 14645:14646 <> is:45
-R14673:14675 Coq.Init.Datatypes <> nat ind
-R14688:14689 Kernel.LocalInfoLoss <> is:45 var
-R14700:14701 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R14713:14716 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R14740:14742 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R14725:14737 Kernel.LocalInfoLoss <> instr_mu_cost def
-R14743:14752 Kernel.LocalInfoLoss <> trace_cost:46 def
-def 14837:14853 <> trace_well_formed
-R14861:14864 Coq.Init.Datatypes <> list ind
-R14866:14879 Kernel.VMStep VMStep vm_instruction ind
-binder 14856:14857 <> is:48
-R14894:14899 Coq.Lists.List <> Forall ind
-R14919:14920 Kernel.LocalInfoLoss <> is:48 var
-R14901:14917 Kernel.LocalInfoLoss <> instr_well_formed def
-prf 14999:15031 <> trace_cost_bounds_total_info_loss
-binder 15044:15044 <> s:49
-binder 15046:15047 <> is:50
-binder 15049:15050 <> s':51
-R15075:15082 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15057:15066 Kernel.LocalInfoLoss <> exec_trace ind
-R15068:15068 Kernel.LocalInfoLoss <> s:49 var
-R15070:15071 Kernel.LocalInfoLoss <> is:50 var
-R15073:15074 Kernel.LocalInfoLoss <> s':51 var
-R15103:15110 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15083:15099 Kernel.LocalInfoLoss <> trace_well_formed def
-R15101:15102 Kernel.LocalInfoLoss <> is:50 var
-R15111:15114 Coq.ZArith.BinInt Z ge def
-R15117:15124 Coq.ZArith.BinInt Z of_nat def
-R15127:15136 Kernel.LocalInfoLoss <> trace_cost def
-R15138:15139 Kernel.LocalInfoLoss <> is:50 var
-R15144:15152 Kernel.LocalInfoLoss <> info_loss def
-R15154:15154 Kernel.LocalInfoLoss <> s:49 var
-R15156:15157 Kernel.LocalInfoLoss <> s':51 var
-R15268:15276 Kernel.LocalInfoLoss <> info_loss def
-R15377:15385 Kernel.LocalInfoLoss <> info_loss def
-R15566:15586 Kernel.LocalInfoLoss <> cost_bounds_info_loss thm
-R15566:15586 Kernel.LocalInfoLoss <> cost_bounds_info_loss thm
-R15626:15634 Kernel.LocalInfoLoss <> info_loss def
-prf 16718:16747 <> causality_implies_conservation
-binder 16760:16760 <> s:52
-binder 16762:16763 <> is:53
-binder 16765:16766 <> s':54
-R16791:16798 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16773:16782 Kernel.LocalInfoLoss <> exec_trace ind
-R16784:16784 Kernel.LocalInfoLoss <> s:52 var
-R16786:16787 Kernel.LocalInfoLoss <> is:53 var
-R16789:16790 Kernel.LocalInfoLoss <> s':54 var
-R16819:16860 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16799:16815 Kernel.LocalInfoLoss <> trace_well_formed def
-R16817:16818 Kernel.LocalInfoLoss <> is:53 var
-R16879:16928 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R16874:16877 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R16861:16870 Kernel.LocalInfoLoss <> trace_cost def
-R16872:16873 Kernel.LocalInfoLoss <> is:53 var
-R16929:16932 Coq.ZArith.BinInt Z ge def
-R16935:16942 Coq.ZArith.BinInt Z of_nat def
-R16945:16954 Kernel.LocalInfoLoss <> trace_cost def
-R16956:16957 Kernel.LocalInfoLoss <> is:53 var
-R16962:16970 Kernel.LocalInfoLoss <> info_loss def
-R16972:16972 Kernel.LocalInfoLoss <> s:52 var
-R16974:16975 Kernel.LocalInfoLoss <> s':54 var
-R17108:17140 Kernel.LocalInfoLoss <> trace_cost_bounds_total_info_loss thm
-R17108:17140 Kernel.LocalInfoLoss <> trace_cost_bounds_total_info_loss thm
+R3821:3834 Kernel.VMStep VMStep instr_load_imm constr
+R3857:3866 Kernel.VMStep VMStep instr_load constr
+R3889:3899 Kernel.VMStep VMStep instr_store constr
+R3922:3930 Kernel.VMStep VMStep instr_add constr
+R3955:3963 Kernel.VMStep VMStep instr_sub constr
+R3988:3997 Kernel.VMStep VMStep instr_jump constr
+R4018:4027 Kernel.VMStep VMStep instr_jnez constr
+R4050:4059 Kernel.VMStep VMStep instr_call constr
+R4080:4088 Kernel.VMStep VMStep instr_ret constr
+R4107:4122 Kernel.VMStep VMStep instr_chsh_trial constr
+R4149:4162 Kernel.VMStep VMStep instr_xor_load constr
+R4185:4197 Kernel.VMStep VMStep instr_xor_add constr
+R4220:4233 Kernel.VMStep VMStep instr_xor_swap constr
+R4256:4269 Kernel.VMStep VMStep instr_xor_rank constr
+R4292:4301 Kernel.VMStep VMStep instr_emit constr
+R4324:4335 Kernel.VMStep VMStep instr_reveal constr
+R4360:4377 Kernel.VMStep VMStep instr_oracle_halts constr
+R4398:4407 Kernel.VMStep VMStep instr_halt constr
+prf 5467:5490 <> pnew_module_count_change
+binder 5503:5503 <> s:8
+binder 5505:5510 <> region:9
+binder 5512:5515 <> cost:10
+binder 5517:5518 <> s':11
+R5562:5569 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5525:5531 Kernel.VMStep VMStep vm_step ind
+R5533:5533 Kernel.LocalInfoLoss <> s:8 var
+R5536:5545 Kernel.VMStep VMStep instr_pnew constr
+R5547:5552 Kernel.LocalInfoLoss <> region:9 var
+R5554:5557 Kernel.LocalInfoLoss <> cost:10 var
+R5560:5561 Kernel.LocalInfoLoss <> s':11 var
+R5583:5586 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5570:5579 Kernel.LocalInfoLoss <> state_info def
+R5581:5582 Kernel.LocalInfoLoss <> s':11 var
+R5587:5596 Kernel.LocalInfoLoss <> state_info def
+R5598:5598 Kernel.LocalInfoLoss <> s:8 var
+R5676:5685 Kernel.LocalInfoLoss <> state_info def
+R5764:5773 Kernel.VMState <> graph_pnew def
+R5794:5810 Kernel.VMState <> graph_find_region def
+R5794:5810 Kernel.VMState <> graph_find_region def
+R5912:5921 Kernel.LocalInfoLoss <> state_info def
+R5979:5994 Kernel.VMState <> graph_add_module def
+prf 6119:6144 <> psplit_module_count_change
+binder 6157:6157 <> s:12
+binder 6159:6161 <> mid:13
+binder 6163:6166 <> left:14
+binder 6168:6172 <> right:15
+binder 6174:6177 <> cost:16
+binder 6179:6180 <> s':17
+R6234:6307 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6187:6193 Kernel.VMStep VMStep vm_step ind
+R6195:6195 Kernel.LocalInfoLoss <> s:12 var
+R6198:6209 Kernel.VMStep VMStep instr_psplit constr
+R6211:6213 Kernel.LocalInfoLoss <> mid:13 var
+R6215:6218 Kernel.LocalInfoLoss <> left:14 var
+R6220:6224 Kernel.LocalInfoLoss <> right:15 var
+R6226:6229 Kernel.LocalInfoLoss <> cost:16 var
+R6232:6233 Kernel.LocalInfoLoss <> s':17 var
+R6321:6324 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6308:6317 Kernel.LocalInfoLoss <> state_info def
+R6319:6320 Kernel.LocalInfoLoss <> s':17 var
+R6325:6334 Kernel.LocalInfoLoss <> state_info def
+R6336:6336 Kernel.LocalInfoLoss <> s:12 var
+R6420:6429 Kernel.LocalInfoLoss <> state_info def
+R6495:6507 Kernel.VMStep VMStep advance_state def
+R6569:6571 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6549:6560 Kernel.VMState <> graph_psplit def
+R6572:6575 Coq.Init.Datatypes <> Some constr
+R6569:6571 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6549:6560 Kernel.VMState <> graph_psplit def
+R6572:6575 Coq.Init.Datatypes <> Some constr
+R6607:6635 Kernel.VMState <> graph_psplit_increases_length thm
+R6607:6635 Kernel.VMState <> graph_psplit_increases_length thm
+prf 6790:6815 <> pmerge_module_count_change
+binder 6828:6828 <> s:18
+binder 6830:6831 <> m1:19
+binder 6833:6834 <> m2:20
+binder 6836:6839 <> cost:21
+binder 6841:6842 <> s':22
+R6887:6967 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6849:6855 Kernel.VMStep VMStep vm_step ind
+R6857:6857 Kernel.LocalInfoLoss <> s:18 var
+R6860:6871 Kernel.VMStep VMStep instr_pmerge constr
+R6873:6874 Kernel.LocalInfoLoss <> m1:19 var
+R6876:6877 Kernel.LocalInfoLoss <> m2:20 var
+R6879:6882 Kernel.LocalInfoLoss <> cost:21 var
+R6885:6886 Kernel.LocalInfoLoss <> s':22 var
+R6981:6984 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6968:6977 Kernel.LocalInfoLoss <> state_info def
+R6979:6980 Kernel.LocalInfoLoss <> s':22 var
+R6985:6994 Kernel.LocalInfoLoss <> state_info def
+R6996:6996 Kernel.LocalInfoLoss <> s:18 var
+R7071:7080 Kernel.LocalInfoLoss <> state_info def
+R7161:7173 Kernel.VMStep VMStep advance_state def
+R7233:7235 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7215:7226 Kernel.VMState <> graph_pmerge def
+R7236:7239 Coq.Init.Datatypes <> Some constr
+R7233:7235 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7215:7226 Kernel.VMState <> graph_pmerge def
+R7236:7239 Coq.Init.Datatypes <> Some constr
+R7271:7299 Kernel.VMState <> graph_pmerge_decreases_length thm
+R7271:7299 Kernel.VMState <> graph_pmerge_decreases_length thm
+prf 7454:7487 <> other_instr_module_count_unchanged
+binder 7500:7500 <> s:23
+binder 7502:7502 <> i:24
+binder 7504:7505 <> s':25
+R7526:7533 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7512:7518 Kernel.VMStep VMStep vm_step ind
+R7520:7520 Kernel.LocalInfoLoss <> s:23 var
+R7522:7522 Kernel.LocalInfoLoss <> i:24 var
+R7524:7525 Kernel.LocalInfoLoss <> s':25 var
+R7540:7540 Kernel.LocalInfoLoss <> i:24 var
+R7553:7562 Kernel.VMStep VMStep instr_pnew constr
+R7571:7574 Coq.Init.Logic <> True ind
+R7582:7593 Kernel.VMStep VMStep instr_psplit constr
+R7606:7609 Coq.Init.Logic <> True ind
+R7617:7628 Kernel.VMStep VMStep instr_pmerge constr
+R7639:7642 Coq.Init.Logic <> True ind
+R7668:7670 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7655:7664 Kernel.LocalInfoLoss <> state_info def
+R7666:7667 Kernel.LocalInfoLoss <> s':25 var
+R7671:7680 Kernel.LocalInfoLoss <> state_info def
+R7682:7682 Kernel.LocalInfoLoss <> s:23 var
+R7856:7865 Kernel.LocalInfoLoss <> state_info def
+R7938:7969 Kernel.VMState <> graph_add_axiom_preserves_length thm
+R7938:7969 Kernel.VMState <> graph_add_axiom_preserves_length thm
+R8104:8113 Kernel.LocalInfoLoss <> state_info def
+R8206:8215 Kernel.LocalInfoLoss <> state_info def
+R8346:8355 Kernel.LocalInfoLoss <> state_info def
+R8375:8413 Kernel.VMState <> graph_record_discovery_preserves_length thm
+R8375:8413 Kernel.VMState <> graph_record_discovery_preserves_length thm
+R8486:8495 Kernel.LocalInfoLoss <> state_info def
+R8588:8597 Kernel.LocalInfoLoss <> state_info def
+R8686:8695 Kernel.LocalInfoLoss <> state_info def
+R8785:8794 Kernel.LocalInfoLoss <> state_info def
+R8882:8891 Kernel.LocalInfoLoss <> state_info def
+R8979:8988 Kernel.LocalInfoLoss <> state_info def
+R9077:9086 Kernel.LocalInfoLoss <> state_info def
+R9175:9184 Kernel.LocalInfoLoss <> state_info def
+R9273:9282 Kernel.LocalInfoLoss <> state_info def
+R9370:9379 Kernel.LocalInfoLoss <> state_info def
+R9474:9483 Kernel.LocalInfoLoss <> state_info def
+R9578:9587 Kernel.LocalInfoLoss <> state_info def
+R9681:9690 Kernel.LocalInfoLoss <> state_info def
+R9785:9794 Kernel.LocalInfoLoss <> state_info def
+R9889:9898 Kernel.LocalInfoLoss <> state_info def
+R9989:9998 Kernel.LocalInfoLoss <> state_info def
+R10091:10100 Kernel.LocalInfoLoss <> state_info def
+R10199:10208 Kernel.LocalInfoLoss <> state_info def
+R10299:10308 Kernel.LocalInfoLoss <> state_info def
+prf 11259:11282 <> pmerge_info_loss_bounded
+binder 11295:11295 <> s:27
+binder 11297:11298 <> m1:28
+binder 11300:11301 <> m2:29
+binder 11303:11306 <> cost:30
+binder 11308:11309 <> s':31
+R11354:11361 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11316:11322 Kernel.VMStep VMStep vm_step ind
+R11324:11324 Kernel.LocalInfoLoss <> s:27 var
+R11327:11338 Kernel.VMStep VMStep instr_pmerge constr
+R11340:11341 Kernel.LocalInfoLoss <> m1:28 var
+R11343:11344 Kernel.LocalInfoLoss <> m2:29 var
+R11346:11349 Kernel.LocalInfoLoss <> cost:30 var
+R11352:11353 Kernel.LocalInfoLoss <> s':31 var
+R11377:11380 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R11363:11371 Kernel.LocalInfoLoss <> info_loss def
+R11373:11373 Kernel.LocalInfoLoss <> s:27 var
+R11375:11376 Kernel.LocalInfoLoss <> s':31 var
+R11435:11443 Kernel.LocalInfoLoss <> info_loss def
+R11446:11455 Kernel.LocalInfoLoss <> state_info def
+R11560:11572 Kernel.VMStep VMStep advance_state def
+R11632:11634 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11614:11625 Kernel.VMState <> graph_pmerge def
+R11635:11638 Coq.Init.Datatypes <> Some constr
+R11632:11634 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11614:11625 Kernel.VMState <> graph_pmerge def
+R11635:11638 Coq.Init.Datatypes <> Some constr
+R11670:11694 Kernel.VMState <> graph_pmerge_length_bound thm
+R11670:11694 Kernel.VMState <> graph_pmerge_length_bound thm
+def 12316:12332 <> instr_well_formed
+R12339:12352 Kernel.VMStep VMStep vm_instruction ind
+binder 12335:12335 <> i:32
+R12373:12373 Kernel.LocalInfoLoss <> i:32 var
+R12384:12395 Kernel.VMStep VMStep instr_pmerge constr
+R12413:12416 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R12428:12431 Coq.Init.Logic <> True ind
+prf 12503:12523 <> cost_bounds_info_loss
+binder 12536:12536 <> s:34
+binder 12538:12538 <> i:35
+binder 12540:12541 <> s':36
+R12562:12569 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12548:12554 Kernel.VMStep VMStep vm_step ind
+R12556:12556 Kernel.LocalInfoLoss <> s:34 var
+R12558:12558 Kernel.LocalInfoLoss <> i:35 var
+R12560:12561 Kernel.LocalInfoLoss <> s':36 var
+R12589:12596 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12570:12586 Kernel.LocalInfoLoss <> instr_well_formed def
+R12588:12588 Kernel.LocalInfoLoss <> i:35 var
+R12597:12600 Coq.ZArith.BinInt Z ge def
+R12603:12610 Coq.ZArith.BinInt Z of_nat def
+R12613:12625 Kernel.LocalInfoLoss <> instr_mu_cost def
+R12627:12627 Kernel.LocalInfoLoss <> i:35 var
+R12632:12640 Kernel.LocalInfoLoss <> info_loss def
+R12642:12642 Kernel.LocalInfoLoss <> s:34 var
+R12644:12645 Kernel.LocalInfoLoss <> s':36 var
+R12692:12700 Kernel.LocalInfoLoss <> info_loss def
+R12703:12712 Kernel.LocalInfoLoss <> state_info def
+R12823:12846 Kernel.LocalInfoLoss <> pnew_module_count_change thm
+R12823:12846 Kernel.LocalInfoLoss <> pnew_module_count_change thm
+R12886:12895 Kernel.LocalInfoLoss <> state_info def
+R13008:13033 Kernel.LocalInfoLoss <> psplit_module_count_change thm
+R13008:13033 Kernel.LocalInfoLoss <> psplit_module_count_change thm
+R13077:13086 Kernel.LocalInfoLoss <> state_info def
+R13186:13209 Kernel.LocalInfoLoss <> pmerge_info_loss_bounded thm
+R13186:13209 Kernel.LocalInfoLoss <> pmerge_info_loss_bounded thm
+R13253:13261 Kernel.LocalInfoLoss <> info_loss def
+R13264:13273 Kernel.LocalInfoLoss <> state_info def
+R13299:13315 Kernel.LocalInfoLoss <> instr_well_formed def
+R13318:13330 Kernel.LocalInfoLoss <> instr_mu_cost def
+R13434:13467 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R13434:13467 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R13500:13509 Kernel.LocalInfoLoss <> state_info def
+R13550:13583 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R13550:13583 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R13616:13625 Kernel.LocalInfoLoss <> state_info def
+R13666:13699 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R13666:13699 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R13732:13741 Kernel.LocalInfoLoss <> state_info def
+R13782:13815 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R13782:13815 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R13848:13857 Kernel.LocalInfoLoss <> state_info def
+R13898:13931 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R13898:13931 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R13964:13973 Kernel.LocalInfoLoss <> state_info def
+R14014:14047 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R14014:14047 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R14080:14089 Kernel.LocalInfoLoss <> state_info def
+R14130:14163 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R14130:14163 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R14196:14205 Kernel.LocalInfoLoss <> state_info def
+R14246:14279 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R14246:14279 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R14312:14321 Kernel.LocalInfoLoss <> state_info def
+R14362:14395 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R14362:14395 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R14428:14437 Kernel.LocalInfoLoss <> state_info def
+R14478:14511 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R14478:14511 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R14544:14553 Kernel.LocalInfoLoss <> state_info def
+R14594:14627 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R14594:14627 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R14660:14669 Kernel.LocalInfoLoss <> state_info def
+R14710:14743 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R14710:14743 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R14776:14785 Kernel.LocalInfoLoss <> state_info def
+R14826:14859 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R14826:14859 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R14892:14901 Kernel.LocalInfoLoss <> state_info def
+R14942:14975 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R14942:14975 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R15008:15017 Kernel.LocalInfoLoss <> state_info def
+R15058:15091 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R15058:15091 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R15124:15133 Kernel.LocalInfoLoss <> state_info def
+R15174:15207 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R15174:15207 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R15240:15249 Kernel.LocalInfoLoss <> state_info def
+R15290:15323 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R15290:15323 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R15356:15365 Kernel.LocalInfoLoss <> state_info def
+R15406:15439 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R15406:15439 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R15472:15481 Kernel.LocalInfoLoss <> state_info def
+R15522:15555 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R15522:15555 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R15588:15597 Kernel.LocalInfoLoss <> state_info def
+R15638:15671 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R15638:15671 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R15704:15713 Kernel.LocalInfoLoss <> state_info def
+R15754:15787 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R15754:15787 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R15820:15829 Kernel.LocalInfoLoss <> state_info def
+R15870:15903 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R15870:15903 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R15936:15945 Kernel.LocalInfoLoss <> state_info def
+R15986:16019 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R15986:16019 Kernel.LocalInfoLoss <> other_instr_module_count_unchanged thm
+R16052:16061 Kernel.LocalInfoLoss <> state_info def
+ind 16329:16338 <> exec_trace
+constr 16397:16405 <> trace_nil
+constr 16439:16448 <> trace_cons
+R16349:16352 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16342:16348 Kernel.VMState <> VMState rec
+R16372:16375 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16353:16356 Coq.Init.Datatypes <> list ind
+R16358:16371 Kernel.VMStep VMStep vm_instruction ind
+R16383:16386 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16376:16382 Kernel.VMState <> VMState rec
+binder 16416:16416 <> s:39
+R16419:16428 Kernel.LocalInfoLoss <> exec_trace:37 ind
+R16435:16435 Kernel.LocalInfoLoss <> s:39 var
+R16432:16433 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R16430:16430 Kernel.LocalInfoLoss <> s:39 var
+binder 16459:16459 <> s:40
+binder 16461:16461 <> i:41
+binder 16463:16464 <> s':42
+binder 16466:16467 <> is:43
+binder 16469:16471 <> s'':44
+R16492:16499 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16478:16484 Kernel.VMStep VMStep vm_step ind
+R16486:16486 Kernel.LocalInfoLoss <> s:40 var
+R16488:16488 Kernel.LocalInfoLoss <> i:41 var
+R16490:16491 Kernel.LocalInfoLoss <> s':42 var
+R16520:16527 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16500:16509 Kernel.LocalInfoLoss <> exec_trace:37 ind
+R16517:16519 Kernel.LocalInfoLoss <> s'':44 var
+R16514:16515 Kernel.LocalInfoLoss <> is:43 var
+R16511:16512 Kernel.LocalInfoLoss <> s':42 var
+R16528:16537 Kernel.LocalInfoLoss <> exec_trace:37 ind
+R16551:16553 Kernel.LocalInfoLoss <> s'':44 var
+R16543:16546 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R16542:16542 Kernel.LocalInfoLoss <> i:41 var
+R16547:16548 Kernel.LocalInfoLoss <> is:43 var
+R16539:16539 Kernel.LocalInfoLoss <> s:40 var
+scheme 16329:16338 <> exec_trace_ind
+scheme 16329:16338 <> exec_trace_sind
+def 16595:16604 <> trace_cost
+R16612:16615 Coq.Init.Datatypes <> list ind
+R16617:16630 Kernel.VMStep VMStep vm_instruction ind
+binder 16607:16608 <> is:45
+R16635:16637 Coq.Init.Datatypes <> nat ind
+R16650:16651 Kernel.LocalInfoLoss <> is:45 var
+R16662:16663 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R16675:16678 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R16702:16704 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R16687:16699 Kernel.LocalInfoLoss <> instr_mu_cost def
+R16705:16714 Kernel.LocalInfoLoss <> trace_cost:46 def
+def 16799:16815 <> trace_well_formed
+R16823:16826 Coq.Init.Datatypes <> list ind
+R16828:16841 Kernel.VMStep VMStep vm_instruction ind
+binder 16818:16819 <> is:48
+R16856:16861 Coq.Lists.List <> Forall ind
+R16881:16882 Kernel.LocalInfoLoss <> is:48 var
+R16863:16879 Kernel.LocalInfoLoss <> instr_well_formed def
+prf 16961:16993 <> trace_cost_bounds_total_info_loss
+binder 17006:17006 <> s:49
+binder 17008:17009 <> is:50
+binder 17011:17012 <> s':51
+R17037:17044 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17019:17028 Kernel.LocalInfoLoss <> exec_trace ind
+R17030:17030 Kernel.LocalInfoLoss <> s:49 var
+R17032:17033 Kernel.LocalInfoLoss <> is:50 var
+R17035:17036 Kernel.LocalInfoLoss <> s':51 var
+R17065:17072 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17045:17061 Kernel.LocalInfoLoss <> trace_well_formed def
+R17063:17064 Kernel.LocalInfoLoss <> is:50 var
+R17073:17076 Coq.ZArith.BinInt Z ge def
+R17079:17086 Coq.ZArith.BinInt Z of_nat def
+R17089:17098 Kernel.LocalInfoLoss <> trace_cost def
+R17100:17101 Kernel.LocalInfoLoss <> is:50 var
+R17106:17114 Kernel.LocalInfoLoss <> info_loss def
+R17116:17116 Kernel.LocalInfoLoss <> s:49 var
+R17118:17119 Kernel.LocalInfoLoss <> s':51 var
+R17230:17238 Kernel.LocalInfoLoss <> info_loss def
+R17339:17347 Kernel.LocalInfoLoss <> info_loss def
+R17528:17548 Kernel.LocalInfoLoss <> cost_bounds_info_loss thm
+R17528:17548 Kernel.LocalInfoLoss <> cost_bounds_info_loss thm
+R17588:17596 Kernel.LocalInfoLoss <> info_loss def
+prf 18680:18709 <> causality_implies_conservation
+binder 18722:18722 <> s:52
+binder 18724:18725 <> is:53
+binder 18727:18728 <> s':54
+R18753:18760 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18735:18744 Kernel.LocalInfoLoss <> exec_trace ind
+R18746:18746 Kernel.LocalInfoLoss <> s:52 var
+R18748:18749 Kernel.LocalInfoLoss <> is:53 var
+R18751:18752 Kernel.LocalInfoLoss <> s':54 var
+R18781:18822 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18761:18777 Kernel.LocalInfoLoss <> trace_well_formed def
+R18779:18780 Kernel.LocalInfoLoss <> is:53 var
+R18841:18890 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18836:18839 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R18823:18832 Kernel.LocalInfoLoss <> trace_cost def
+R18834:18835 Kernel.LocalInfoLoss <> is:53 var
+R18891:18894 Coq.ZArith.BinInt Z ge def
+R18897:18904 Coq.ZArith.BinInt Z of_nat def
+R18907:18916 Kernel.LocalInfoLoss <> trace_cost def
+R18918:18919 Kernel.LocalInfoLoss <> is:53 var
+R18924:18932 Kernel.LocalInfoLoss <> info_loss def
+R18934:18934 Kernel.LocalInfoLoss <> s:52 var
+R18936:18937 Kernel.LocalInfoLoss <> s':54 var
+R19070:19102 Kernel.LocalInfoLoss <> trace_cost_bounds_total_info_loss thm
+R19070:19102 Kernel.LocalInfoLoss <> trace_cost_bounds_total_info_loss thm

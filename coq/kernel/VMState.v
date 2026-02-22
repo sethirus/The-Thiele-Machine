@@ -865,6 +865,17 @@ Definition word32 (x : nat) : nat :=
 Definition word32_xor (a b : nat) : nat :=
   word32 (N.to_nat (N.lxor (N.of_nat a) (N.of_nat b))).
 
+(** word32_add: Modular 32-bit addition (wraps at 2^32). *)
+Definition word32_add (a b : nat) : nat := word32 (a + b).
+
+(** word32_sub: Modular 32-bit subtraction using two's complement.
+    word32_sub a b = (a - b) mod 2^32. *)
+Definition word32_sub (a b : nat) : nat :=
+  N.to_nat (N.land
+    (N.add (N.of_nat (word32 a))
+           (N.add (N.lxor (N.of_nat (word32 b)) word32_mask) 1%N))
+    word32_mask).
+
 Fixpoint popcount_upto (bits : nat) (x : N) : nat :=
   match bits with
   | 0 => 0

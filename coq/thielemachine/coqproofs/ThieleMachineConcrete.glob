@@ -1,4 +1,4 @@
-DIGEST 2577e2f6cb9b9540297189f4e95ceba1
+DIGEST 5d29cb7e6a30f322fc72b271c6fcde33
 FThieleMachine.ThieleMachineConcrete
 R316:319 Coq.Lists.List <> <> lib
 R321:326 Coq.Strings.String <> <> lib
@@ -18,9 +18,9 @@ ind 906:916 <> ThieleInstr
 constr 932:938 <> LASSERT
 constr 968:973 <> MDLACC
 constr 993:996 <> PNEW
-constr 1028:1033 <> PYEXEC
-constr 1063:1072 <> CHSH_TRIAL
-constr 1120:1123 <> EMIT
+constr 1028:1035 <> LOAD_IMM
+constr 1065:1074 <> CHSH_TRIAL
+constr 1122:1125 <> EMIT
 R948:951 Coq.Init.Logic <> ::type_scope:x_'->'_x not
 R942:947 Coq.Strings.String <> string ind
 R952:962 ThieleMachine.ThieleMachineConcrete <> ThieleInstr:1 ind
@@ -29,1270 +29,1270 @@ R1008:1011 Coq.Init.Logic <> ::type_scope:x_'->'_x not
 R1000:1003 Coq.Init.Datatypes <> list ind
 R1005:1007 Coq.Init.Datatypes <> nat ind
 R1012:1022 ThieleMachine.ThieleMachineConcrete <> ThieleInstr:1 ind
-R1043:1046 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1037:1042 Coq.Strings.String <> string ind
-R1047:1057 ThieleMachine.ThieleMachineConcrete <> ThieleInstr:1 ind
-R1079:1082 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1076:1078 Coq.Init.Datatypes <> nat ind
-R1086:1089 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1083:1085 Coq.Init.Datatypes <> nat ind
-R1093:1096 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1090:1092 Coq.Init.Datatypes <> nat ind
-R1100:1103 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1097:1099 Coq.Init.Datatypes <> nat ind
-R1104:1114 ThieleMachine.ThieleMachineConcrete <> ThieleInstr:1 ind
-R1133:1136 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1127:1132 Coq.Strings.String <> string ind
-R1137:1147 ThieleMachine.ThieleMachineConcrete <> ThieleInstr:1 ind
+R1045:1048 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1039:1044 Coq.Strings.String <> string ind
+R1049:1059 ThieleMachine.ThieleMachineConcrete <> ThieleInstr:1 ind
+R1081:1084 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1078:1080 Coq.Init.Datatypes <> nat ind
+R1088:1091 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1085:1087 Coq.Init.Datatypes <> nat ind
+R1095:1098 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1092:1094 Coq.Init.Datatypes <> nat ind
+R1102:1105 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1099:1101 Coq.Init.Datatypes <> nat ind
+R1106:1116 ThieleMachine.ThieleMachineConcrete <> ThieleInstr:1 ind
+R1135:1138 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1129:1134 Coq.Strings.String <> string ind
+R1139:1149 ThieleMachine.ThieleMachineConcrete <> ThieleInstr:1 ind
 scheme 906:916 <> ThieleInstr_rect
 scheme 906:916 <> ThieleInstr_ind
 scheme 906:916 <> ThieleInstr_rec
 scheme 906:916 <> ThieleInstr_sind
-ind 1161:1171 <> ThieleEvent
-constr 1187:1197 <> PolicyCheck
-constr 1227:1243 <> InferenceComplete
-constr 1263:1271 <> ChshTrial
-constr 1319:1331 <> ErrorOccurred
-R1207:1210 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1201:1206 Coq.Strings.String <> string ind
-R1211:1221 ThieleMachine.ThieleMachineConcrete <> ThieleEvent:3 ind
-R1247:1257 ThieleMachine.ThieleMachineConcrete <> ThieleEvent:3 ind
-R1278:1281 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1275:1277 Coq.Init.Datatypes <> nat ind
-R1285:1288 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1282:1284 Coq.Init.Datatypes <> nat ind
-R1292:1295 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1289:1291 Coq.Init.Datatypes <> nat ind
-R1299:1302 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1296:1298 Coq.Init.Datatypes <> nat ind
-R1303:1313 ThieleMachine.ThieleMachineConcrete <> ThieleEvent:3 ind
-R1341:1344 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1335:1340 Coq.Strings.String <> string ind
-R1345:1355 ThieleMachine.ThieleMachineConcrete <> ThieleEvent:3 ind
-scheme 1161:1171 <> ThieleEvent_rect
-scheme 1161:1171 <> ThieleEvent_ind
-scheme 1161:1171 <> ThieleEvent_rec
-scheme 1161:1171 <> ThieleEvent_sind
-rec 1547:1559 <> ConcreteState
-proj 1575:1576 <> pc
-proj 1587:1592 <> status
-proj 1601:1606 <> mu_acc
-proj 1615:1623 <> cert_addr
-R1580:1582 Coq.Init.Datatypes <> nat ind
-R1596:1596 Coq.Numbers.BinNums <> Z ind
-R1610:1610 Coq.Numbers.BinNums <> Z ind
-R1627:1632 Coq.Strings.String <> string ind
-def 1650:1671 <> default_concrete_state
-R1675:1687 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
-R1697:1698 ThieleMachine.ThieleMachineConcrete <> pc proj
-R1697:1698 ThieleMachine.ThieleMachineConcrete <> pc proj
-R1697:1698 ThieleMachine.ThieleMachineConcrete <> pc proj
-R1711:1716 ThieleMachine.ThieleMachineConcrete <> status proj
-R1711:1716 ThieleMachine.ThieleMachineConcrete <> status proj
-R1729:1734 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
-R1729:1734 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
-R1747:1755 ThieleMachine.ThieleMachineConcrete <> cert_addr proj
-R1747:1755 ThieleMachine.ThieleMachineConcrete <> cert_addr proj
-R1760:1770 Coq.Strings.String <> EmptyString constr
-rec 1965:1976 <> ConcreteCert
-proj 1992:2000 <> smt_query
-proj 2014:2025 <> solver_reply
-proj 2039:2046 <> metadata
-proj 2060:2068 <> timestamp
-proj 2077:2084 <> sequence
-R2004:2009 Coq.Strings.String <> string ind
-R2029:2034 Coq.Strings.String <> string ind
-R2050:2055 Coq.Strings.String <> string ind
-R2072:2072 Coq.Numbers.BinNums <> Z ind
-R2088:2090 Coq.Init.Datatypes <> nat ind
-rec 2104:2110 <> StepObs
-proj 2126:2127 <> ev
-proj 2153:2160 <> mu_delta
-proj 2169:2172 <> cert
-R2131:2136 Coq.Init.Datatypes <> option ind
-R2138:2148 ThieleMachine.ThieleMachineConcrete <> ThieleEvent ind
-R2164:2164 Coq.Numbers.BinNums <> Z ind
-R2176:2187 ThieleMachine.ThieleMachineConcrete <> ConcreteCert rec
-rec 2201:2210 <> StepResult
-proj 2226:2235 <> post_state
-proj 2256:2266 <> observation
-R2239:2251 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
-R2270:2276 ThieleMachine.ThieleMachineConcrete <> StepObs rec
-def 2294:2305 <> default_cert
-R2309:2320 ThieleMachine.ThieleMachineConcrete <> ConcreteCert rec
-R2330:2338 ThieleMachine.ThieleMachineConcrete <> smt_query proj
-R2330:2338 ThieleMachine.ThieleMachineConcrete <> smt_query proj
-R2330:2338 ThieleMachine.ThieleMachineConcrete <> smt_query proj
-R2361:2372 ThieleMachine.ThieleMachineConcrete <> solver_reply proj
-R2361:2372 ThieleMachine.ThieleMachineConcrete <> solver_reply proj
-R2395:2402 ThieleMachine.ThieleMachineConcrete <> metadata proj
-R2395:2402 ThieleMachine.ThieleMachineConcrete <> metadata proj
-R2425:2433 ThieleMachine.ThieleMachineConcrete <> timestamp proj
-R2425:2433 ThieleMachine.ThieleMachineConcrete <> timestamp proj
-R2446:2453 ThieleMachine.ThieleMachineConcrete <> sequence proj
-R2446:2453 ThieleMachine.ThieleMachineConcrete <> sequence proj
-R2343:2353 Coq.Strings.String <> EmptyString constr
-R2377:2387 Coq.Strings.String <> EmptyString constr
-R2407:2417 Coq.Strings.String <> EmptyString constr
-def 2476:2490 <> cert_for_pyexec
-R2500:2505 Coq.Strings.String <> string ind
-binder 2493:2496 <> code:23
-R2510:2521 ThieleMachine.ThieleMachineConcrete <> ConcreteCert rec
-R2531:2540 Coq.Strings.String <> eqb def
-R2542:2545 ThieleMachine.ThieleMachineConcrete <> code:23 var
-R2741:2750 Coq.Strings.String <> eqb def
-R2752:2755 ThieleMachine.ThieleMachineConcrete <> code:23 var
-R2946:2957 ThieleMachine.ThieleMachineConcrete <> default_cert def
-R2794:2802 ThieleMachine.ThieleMachineConcrete <> smt_query proj
-R2794:2802 ThieleMachine.ThieleMachineConcrete <> smt_query proj
-R2794:2802 ThieleMachine.ThieleMachineConcrete <> smt_query proj
-R2827:2838 ThieleMachine.ThieleMachineConcrete <> solver_reply proj
-R2827:2838 ThieleMachine.ThieleMachineConcrete <> solver_reply proj
-R2863:2870 ThieleMachine.ThieleMachineConcrete <> metadata proj
-R2863:2870 ThieleMachine.ThieleMachineConcrete <> metadata proj
-R2895:2903 ThieleMachine.ThieleMachineConcrete <> timestamp proj
-R2895:2903 ThieleMachine.ThieleMachineConcrete <> timestamp proj
-R2918:2925 ThieleMachine.ThieleMachineConcrete <> sequence proj
-R2918:2925 ThieleMachine.ThieleMachineConcrete <> sequence proj
-R2807:2817 Coq.Strings.String <> EmptyString constr
-R2843:2853 Coq.Strings.String <> EmptyString constr
-R2875:2885 Coq.Strings.String <> EmptyString constr
-R2586:2594 ThieleMachine.ThieleMachineConcrete <> smt_query proj
-R2586:2594 ThieleMachine.ThieleMachineConcrete <> smt_query proj
-R2586:2594 ThieleMachine.ThieleMachineConcrete <> smt_query proj
-R2619:2630 ThieleMachine.ThieleMachineConcrete <> solver_reply proj
-R2619:2630 ThieleMachine.ThieleMachineConcrete <> solver_reply proj
-R2655:2662 ThieleMachine.ThieleMachineConcrete <> metadata proj
-R2655:2662 ThieleMachine.ThieleMachineConcrete <> metadata proj
-R2687:2695 ThieleMachine.ThieleMachineConcrete <> timestamp proj
-R2687:2695 ThieleMachine.ThieleMachineConcrete <> timestamp proj
-R2710:2717 ThieleMachine.ThieleMachineConcrete <> sequence proj
-R2710:2717 ThieleMachine.ThieleMachineConcrete <> sequence proj
-R2599:2609 Coq.Strings.String <> EmptyString constr
-R2635:2645 Coq.Strings.String <> EmptyString constr
-R2667:2677 Coq.Strings.String <> EmptyString constr
-def 2972:2981 <> bit_char01
-R2988:2990 Coq.Init.Datatypes <> nat ind
-binder 2984:2984 <> n:24
-R2995:2999 Coq.Strings.Ascii <> ascii ind
-R3009:3015 Coq.Arith.PeanoNat Nat eqb def
-R3017:3017 ThieleMachine.ThieleMachineConcrete <> n:24 var
-def 3062:3073 <> bit_string01
-R3080:3082 Coq.Init.Datatypes <> nat ind
-binder 3076:3076 <> n:25
-R3087:3092 Coq.Strings.String <> string ind
-R3099:3104 Coq.Strings.String <> String constr
-R3107:3116 ThieleMachine.ThieleMachineConcrete <> bit_char01 def
-R3118:3118 ThieleMachine.ThieleMachineConcrete <> n:25 var
-R3121:3131 Coq.Strings.String <> EmptyString constr
-def 3146:3155 <> is_bit_nat
-R3162:3164 Coq.Init.Datatypes <> nat ind
-binder 3158:3158 <> n:26
-R3169:3172 Coq.Init.Datatypes <> bool ind
-R3191:3194 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
-R3180:3186 Coq.Arith.PeanoNat Nat eqb def
-R3188:3188 ThieleMachine.ThieleMachineConcrete <> n:26 var
-R3195:3201 Coq.Arith.PeanoNat Nat eqb def
-R3203:3203 ThieleMachine.ThieleMachineConcrete <> n:26 var
-def 3226:3244 <> cert_for_chsh_trial
-R3257:3259 Coq.Init.Datatypes <> nat ind
-binder 3247:3247 <> x:27
-binder 3249:3249 <> y:28
-binder 3251:3251 <> a:29
-binder 3253:3253 <> b:30
-R3264:3275 ThieleMachine.ThieleMachineConcrete <> ConcreteCert rec
-R3285:3293 ThieleMachine.ThieleMachineConcrete <> smt_query proj
-R3285:3293 ThieleMachine.ThieleMachineConcrete <> smt_query proj
-R3285:3293 ThieleMachine.ThieleMachineConcrete <> smt_query proj
-R3316:3327 ThieleMachine.ThieleMachineConcrete <> solver_reply proj
-R3316:3327 ThieleMachine.ThieleMachineConcrete <> solver_reply proj
-R3350:3357 ThieleMachine.ThieleMachineConcrete <> metadata proj
-R3350:3357 ThieleMachine.ThieleMachineConcrete <> metadata proj
-R3448:3456 ThieleMachine.ThieleMachineConcrete <> timestamp proj
-R3448:3456 ThieleMachine.ThieleMachineConcrete <> timestamp proj
-R3469:3476 ThieleMachine.ThieleMachineConcrete <> sequence proj
-R3469:3476 ThieleMachine.ThieleMachineConcrete <> sequence proj
-R3298:3308 Coq.Strings.String <> EmptyString constr
-R3332:3342 Coq.Strings.String <> EmptyString constr
-R3369:3372 Coq.Strings.String <> ::string_scope:x_'++'_x not
-R3387:3390 Coq.Strings.String <> ::string_scope:x_'++'_x not
-R3373:3384 ThieleMachine.ThieleMachineConcrete <> bit_string01 def
-R3386:3386 ThieleMachine.ThieleMachineConcrete <> x:27 var
-R3405:3408 Coq.Strings.String <> ::string_scope:x_'++'_x not
-R3391:3402 ThieleMachine.ThieleMachineConcrete <> bit_string01 def
-R3404:3404 ThieleMachine.ThieleMachineConcrete <> y:28 var
-R3423:3426 Coq.Strings.String <> ::string_scope:x_'++'_x not
-R3409:3420 ThieleMachine.ThieleMachineConcrete <> bit_string01 def
-R3422:3422 ThieleMachine.ThieleMachineConcrete <> a:29 var
-R3427:3438 ThieleMachine.ThieleMachineConcrete <> bit_string01 def
-R3440:3440 ThieleMachine.ThieleMachineConcrete <> b:30 var
-def 3504:3513 <> advance_pc
-R3520:3532 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
-binder 3516:3516 <> s:31
-R3537:3549 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
-R3559:3560 ThieleMachine.ThieleMachineConcrete <> pc proj
-R3559:3560 ThieleMachine.ThieleMachineConcrete <> pc proj
-R3559:3560 ThieleMachine.ThieleMachineConcrete <> pc proj
-R3580:3585 ThieleMachine.ThieleMachineConcrete <> status proj
-R3580:3585 ThieleMachine.ThieleMachineConcrete <> status proj
-R3607:3612 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
-R3607:3612 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
-R3634:3642 ThieleMachine.ThieleMachineConcrete <> cert_addr proj
-R3634:3642 ThieleMachine.ThieleMachineConcrete <> cert_addr proj
-R3565:3565 Coq.Init.Datatypes <> S constr
-R3570:3571 ThieleMachine.ThieleMachineConcrete <> pc proj
-R3567:3567 ThieleMachine.ThieleMachineConcrete <> s:31 var
-R3593:3598 ThieleMachine.ThieleMachineConcrete <> status proj
-R3590:3590 ThieleMachine.ThieleMachineConcrete <> s:31 var
-R3620:3625 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
-R3617:3617 ThieleMachine.ThieleMachineConcrete <> s:31 var
-R3650:3658 ThieleMachine.ThieleMachineConcrete <> cert_addr proj
-R3647:3647 ThieleMachine.ThieleMachineConcrete <> s:31 var
-def 3677:3682 <> add_mu
-R3689:3701 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
-binder 3685:3685 <> s:32
-R3713:3713 Coq.Numbers.BinNums <> Z ind
-binder 3705:3709 <> delta:33
-R3718:3730 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
-R3740:3741 ThieleMachine.ThieleMachineConcrete <> pc proj
-R3740:3741 ThieleMachine.ThieleMachineConcrete <> pc proj
-R3740:3741 ThieleMachine.ThieleMachineConcrete <> pc proj
-R3759:3764 ThieleMachine.ThieleMachineConcrete <> status proj
-R3759:3764 ThieleMachine.ThieleMachineConcrete <> status proj
-R3786:3791 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
-R3786:3791 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
-R3821:3829 ThieleMachine.ThieleMachineConcrete <> cert_addr proj
-R3821:3829 ThieleMachine.ThieleMachineConcrete <> cert_addr proj
-R3749:3750 ThieleMachine.ThieleMachineConcrete <> pc proj
-R3746:3746 ThieleMachine.ThieleMachineConcrete <> s:32 var
-R3772:3777 ThieleMachine.ThieleMachineConcrete <> status proj
-R3769:3769 ThieleMachine.ThieleMachineConcrete <> s:32 var
-R3806:3808 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R3799:3804 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
-R3796:3796 ThieleMachine.ThieleMachineConcrete <> s:32 var
-R3809:3813 ThieleMachine.ThieleMachineConcrete <> delta:33 var
-R3837:3845 ThieleMachine.ThieleMachineConcrete <> cert_addr proj
-R3834:3834 ThieleMachine.ThieleMachineConcrete <> s:32 var
-def 3864:3873 <> with_pc_mu
-R3880:3892 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
-binder 3876:3876 <> s:34
-R3904:3904 Coq.Numbers.BinNums <> Z ind
-binder 3896:3900 <> delta:35
-R3909:3921 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
-R3928:3933 ThieleMachine.ThieleMachineConcrete <> add_mu def
-R3936:3945 ThieleMachine.ThieleMachineConcrete <> advance_pc def
-R3947:3947 ThieleMachine.ThieleMachineConcrete <> s:34 var
-R3950:3954 ThieleMachine.ThieleMachineConcrete <> delta:35 var
-def 3969:3978 <> set_status
-R3985:3997 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
-binder 3981:3981 <> s:36
-R4006:4006 Coq.Numbers.BinNums <> Z ind
-binder 4001:4002 <> st:37
-R4011:4023 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
-R4033:4034 ThieleMachine.ThieleMachineConcrete <> pc proj
-R4033:4034 ThieleMachine.ThieleMachineConcrete <> pc proj
-R4033:4034 ThieleMachine.ThieleMachineConcrete <> pc proj
-R4052:4057 ThieleMachine.ThieleMachineConcrete <> status proj
-R4052:4057 ThieleMachine.ThieleMachineConcrete <> status proj
-R4071:4076 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
-R4071:4076 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
-R4098:4106 ThieleMachine.ThieleMachineConcrete <> cert_addr proj
-R4098:4106 ThieleMachine.ThieleMachineConcrete <> cert_addr proj
-R4042:4043 ThieleMachine.ThieleMachineConcrete <> pc proj
-R4039:4039 ThieleMachine.ThieleMachineConcrete <> s:36 var
-R4062:4063 ThieleMachine.ThieleMachineConcrete <> st:37 var
-R4084:4089 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
-R4081:4081 ThieleMachine.ThieleMachineConcrete <> s:36 var
-R4114:4122 ThieleMachine.ThieleMachineConcrete <> cert_addr proj
-R4111:4111 ThieleMachine.ThieleMachineConcrete <> s:36 var
-def 4141:4151 <> record_cert
-R4158:4170 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
-binder 4154:4154 <> s:38
-R4181:4186 Coq.Strings.String <> string ind
-binder 4174:4177 <> addr:39
-R4191:4203 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
-R4213:4214 ThieleMachine.ThieleMachineConcrete <> pc proj
-R4213:4214 ThieleMachine.ThieleMachineConcrete <> pc proj
-R4213:4214 ThieleMachine.ThieleMachineConcrete <> pc proj
-R4232:4237 ThieleMachine.ThieleMachineConcrete <> status proj
-R4232:4237 ThieleMachine.ThieleMachineConcrete <> status proj
-R4259:4264 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
-R4259:4264 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
-R4286:4294 ThieleMachine.ThieleMachineConcrete <> cert_addr proj
-R4286:4294 ThieleMachine.ThieleMachineConcrete <> cert_addr proj
-R4222:4223 ThieleMachine.ThieleMachineConcrete <> pc proj
-R4219:4219 ThieleMachine.ThieleMachineConcrete <> s:38 var
-R4245:4250 ThieleMachine.ThieleMachineConcrete <> status proj
-R4242:4242 ThieleMachine.ThieleMachineConcrete <> s:38 var
-R4272:4277 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
-R4269:4269 ThieleMachine.ThieleMachineConcrete <> s:38 var
-R4299:4302 ThieleMachine.ThieleMachineConcrete <> addr:39 var
-def 4494:4507 <> cert_for_query
-R4518:4523 Coq.Strings.String <> string ind
-binder 4510:4514 <> query:40
-R4528:4539 ThieleMachine.ThieleMachineConcrete <> ConcreteCert rec
-R4549:4557 ThieleMachine.ThieleMachineConcrete <> smt_query proj
-R4549:4557 ThieleMachine.ThieleMachineConcrete <> smt_query proj
-R4549:4557 ThieleMachine.ThieleMachineConcrete <> smt_query proj
-R4574:4585 ThieleMachine.ThieleMachineConcrete <> solver_reply proj
-R4574:4585 ThieleMachine.ThieleMachineConcrete <> solver_reply proj
-R4608:4615 ThieleMachine.ThieleMachineConcrete <> metadata proj
-R4608:4615 ThieleMachine.ThieleMachineConcrete <> metadata proj
-R4638:4646 ThieleMachine.ThieleMachineConcrete <> timestamp proj
-R4638:4646 ThieleMachine.ThieleMachineConcrete <> timestamp proj
-R4659:4666 ThieleMachine.ThieleMachineConcrete <> sequence proj
-R4659:4666 ThieleMachine.ThieleMachineConcrete <> sequence proj
-R4562:4566 ThieleMachine.ThieleMachineConcrete <> query:40 var
-R4590:4600 Coq.Strings.String <> EmptyString constr
-R4620:4630 Coq.Strings.String <> EmptyString constr
-prf 4752:4780 <> cert_for_query_metadata_empty
-binder 4791:4791 <> q:41
-R4823:4825 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4814:4821 ThieleMachine.ThieleMachineConcrete <> metadata proj
-R4795:4808 ThieleMachine.ThieleMachineConcrete <> cert_for_query def
-R4810:4810 ThieleMachine.ThieleMachineConcrete <> q:41 var
-R4826:4836 Coq.Strings.String <> EmptyString constr
-prf 4947:4976 <> cert_for_pyexec_metadata_empty
-binder 4987:4990 <> code:42
-R5026:5028 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5017:5024 ThieleMachine.ThieleMachineConcrete <> metadata proj
-R4994:5008 ThieleMachine.ThieleMachineConcrete <> cert_for_pyexec def
-R5010:5013 ThieleMachine.ThieleMachineConcrete <> code:42 var
-R5029:5039 Coq.Strings.String <> EmptyString constr
-R5072:5086 ThieleMachine.ThieleMachineConcrete <> cert_for_pyexec def
-R5101:5110 Coq.Strings.String <> eqb def
-R5101:5110 Coq.Strings.String <> eqb def
-R5174:5183 Coq.Strings.String <> eqb def
-R5174:5183 Coq.Strings.String <> eqb def
-def 5247:5259 <> concrete_step
-R5270:5280 ThieleMachine.ThieleMachineConcrete <> ThieleInstr ind
-binder 5262:5266 <> instr:43
-R5288:5300 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
-binder 5284:5284 <> s:44
-R5305:5314 ThieleMachine.ThieleMachineConcrete <> StepResult rec
-R5327:5331 ThieleMachine.ThieleMachineConcrete <> instr:43 var
-R5342:5348 ThieleMachine.ThieleMachineConcrete <> LASSERT constr
-R5375:5375 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
-R5406:5409 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
-R5376:5383 Coq.ZArith.BinInt Z of_nat def
-R5386:5398 Coq.Strings.String <> length def
-binder 5369:5370 <> mu:46
-R5424:5433 ThieleMachine.ThieleMachineConcrete <> post_state proj
-R5424:5433 ThieleMachine.ThieleMachineConcrete <> post_state proj
-R5424:5433 ThieleMachine.ThieleMachineConcrete <> post_state proj
-R5464:5474 ThieleMachine.ThieleMachineConcrete <> observation proj
-R5464:5474 ThieleMachine.ThieleMachineConcrete <> observation proj
-R5438:5447 ThieleMachine.ThieleMachineConcrete <> with_pc_mu def
-R5449:5449 ThieleMachine.ThieleMachineConcrete <> s:44 var
-R5451:5452 ThieleMachine.ThieleMachineConcrete <> mu:46 var
-R5482:5483 ThieleMachine.ThieleMachineConcrete <> ev proj
-R5482:5483 ThieleMachine.ThieleMachineConcrete <> ev proj
-R5482:5483 ThieleMachine.ThieleMachineConcrete <> ev proj
-R5541:5548 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
-R5541:5548 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
-R5584:5587 ThieleMachine.ThieleMachineConcrete <> cert proj
-R5584:5587 ThieleMachine.ThieleMachineConcrete <> cert proj
-R5488:5491 Coq.Init.Datatypes <> Some constr
-R5494:5504 ThieleMachine.ThieleMachineConcrete <> PolicyCheck constr
-R5553:5554 ThieleMachine.ThieleMachineConcrete <> mu:46 var
-R5592:5605 ThieleMachine.ThieleMachineConcrete <> cert_for_query def
-R5623:5628 ThieleMachine.ThieleMachineConcrete <> MDLACC constr
-R5642:5651 ThieleMachine.ThieleMachineConcrete <> post_state proj
-R5642:5651 ThieleMachine.ThieleMachineConcrete <> post_state proj
-R5642:5651 ThieleMachine.ThieleMachineConcrete <> post_state proj
-R5679:5689 ThieleMachine.ThieleMachineConcrete <> observation proj
-R5679:5689 ThieleMachine.ThieleMachineConcrete <> observation proj
-R5656:5665 ThieleMachine.ThieleMachineConcrete <> advance_pc def
-R5667:5667 ThieleMachine.ThieleMachineConcrete <> s:44 var
-R5697:5698 ThieleMachine.ThieleMachineConcrete <> ev proj
-R5697:5698 ThieleMachine.ThieleMachineConcrete <> ev proj
-R5697:5698 ThieleMachine.ThieleMachineConcrete <> ev proj
-R5736:5743 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
-R5736:5743 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
-R5778:5781 ThieleMachine.ThieleMachineConcrete <> cert proj
-R5778:5781 ThieleMachine.ThieleMachineConcrete <> cert proj
-R5703:5706 Coq.Init.Datatypes <> None constr
-R5786:5797 ThieleMachine.ThieleMachineConcrete <> default_cert def
-R5809:5812 ThieleMachine.ThieleMachineConcrete <> PNEW constr
-R5828:5837 ThieleMachine.ThieleMachineConcrete <> post_state proj
-R5828:5837 ThieleMachine.ThieleMachineConcrete <> post_state proj
-R5828:5837 ThieleMachine.ThieleMachineConcrete <> post_state proj
-R5865:5875 ThieleMachine.ThieleMachineConcrete <> observation proj
-R5865:5875 ThieleMachine.ThieleMachineConcrete <> observation proj
-R5842:5851 ThieleMachine.ThieleMachineConcrete <> advance_pc def
-R5853:5853 ThieleMachine.ThieleMachineConcrete <> s:44 var
-R5883:5884 ThieleMachine.ThieleMachineConcrete <> ev proj
-R5883:5884 ThieleMachine.ThieleMachineConcrete <> ev proj
-R5883:5884 ThieleMachine.ThieleMachineConcrete <> ev proj
-R5940:5947 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
-R5940:5947 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
-R5982:5985 ThieleMachine.ThieleMachineConcrete <> cert proj
-R5982:5985 ThieleMachine.ThieleMachineConcrete <> cert proj
-R5889:5892 Coq.Init.Datatypes <> Some constr
-R5894:5910 ThieleMachine.ThieleMachineConcrete <> InferenceComplete constr
-R5990:6001 ThieleMachine.ThieleMachineConcrete <> default_cert def
-R6013:6018 ThieleMachine.ThieleMachineConcrete <> PYEXEC constr
-R6037:6046 ThieleMachine.ThieleMachineConcrete <> post_state proj
-R6037:6046 ThieleMachine.ThieleMachineConcrete <> post_state proj
-R6037:6046 ThieleMachine.ThieleMachineConcrete <> post_state proj
-R6074:6084 ThieleMachine.ThieleMachineConcrete <> observation proj
-R6074:6084 ThieleMachine.ThieleMachineConcrete <> observation proj
-R6051:6060 ThieleMachine.ThieleMachineConcrete <> advance_pc def
-R6062:6062 ThieleMachine.ThieleMachineConcrete <> s:44 var
-R6092:6093 ThieleMachine.ThieleMachineConcrete <> ev proj
-R6092:6093 ThieleMachine.ThieleMachineConcrete <> ev proj
-R6092:6093 ThieleMachine.ThieleMachineConcrete <> ev proj
-R6150:6157 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
-R6150:6157 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
-R6192:6195 ThieleMachine.ThieleMachineConcrete <> cert proj
-R6192:6195 ThieleMachine.ThieleMachineConcrete <> cert proj
-R6098:6101 Coq.Init.Datatypes <> Some constr
-R6104:6114 ThieleMachine.ThieleMachineConcrete <> PolicyCheck constr
-R6200:6214 ThieleMachine.ThieleMachineConcrete <> cert_for_pyexec def
-R6231:6240 ThieleMachine.ThieleMachineConcrete <> CHSH_TRIAL constr
-R6307:6310 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R6291:6294 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R6275:6278 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R6263:6272 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R6279:6288 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R6295:6304 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R6311:6320 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R6557:6566 ThieleMachine.ThieleMachineConcrete <> post_state proj
-R6557:6566 ThieleMachine.ThieleMachineConcrete <> post_state proj
-R6557:6566 ThieleMachine.ThieleMachineConcrete <> post_state proj
-R6595:6605 ThieleMachine.ThieleMachineConcrete <> observation proj
-R6595:6605 ThieleMachine.ThieleMachineConcrete <> observation proj
-R6571:6580 ThieleMachine.ThieleMachineConcrete <> advance_pc def
-R6582:6582 ThieleMachine.ThieleMachineConcrete <> s:44 var
-R6613:6614 ThieleMachine.ThieleMachineConcrete <> ev proj
-R6613:6614 ThieleMachine.ThieleMachineConcrete <> ev proj
-R6613:6614 ThieleMachine.ThieleMachineConcrete <> ev proj
-R6685:6692 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
-R6685:6692 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
-R6722:6725 ThieleMachine.ThieleMachineConcrete <> cert proj
-R6722:6725 ThieleMachine.ThieleMachineConcrete <> cert proj
-R6619:6622 Coq.Init.Datatypes <> Some constr
-R6625:6637 ThieleMachine.ThieleMachineConcrete <> ErrorOccurred constr
-R6730:6741 ThieleMachine.ThieleMachineConcrete <> default_cert def
-R6346:6355 ThieleMachine.ThieleMachineConcrete <> post_state proj
-R6346:6355 ThieleMachine.ThieleMachineConcrete <> post_state proj
-R6346:6355 ThieleMachine.ThieleMachineConcrete <> post_state proj
-R6384:6394 ThieleMachine.ThieleMachineConcrete <> observation proj
-R6384:6394 ThieleMachine.ThieleMachineConcrete <> observation proj
-R6360:6369 ThieleMachine.ThieleMachineConcrete <> advance_pc def
-R6371:6371 ThieleMachine.ThieleMachineConcrete <> s:44 var
-R6402:6403 ThieleMachine.ThieleMachineConcrete <> ev proj
-R6402:6403 ThieleMachine.ThieleMachineConcrete <> ev proj
-R6402:6403 ThieleMachine.ThieleMachineConcrete <> ev proj
-R6456:6463 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
-R6456:6463 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
-R6493:6496 ThieleMachine.ThieleMachineConcrete <> cert proj
-R6493:6496 ThieleMachine.ThieleMachineConcrete <> cert proj
-R6408:6411 Coq.Init.Datatypes <> Some constr
-R6414:6422 ThieleMachine.ThieleMachineConcrete <> ChshTrial constr
-R6501:6519 ThieleMachine.ThieleMachineConcrete <> cert_for_chsh_trial def
-R6753:6756 ThieleMachine.ThieleMachineConcrete <> EMIT constr
-R6778:6787 ThieleMachine.ThieleMachineConcrete <> post_state proj
-R6778:6787 ThieleMachine.ThieleMachineConcrete <> post_state proj
-R6778:6787 ThieleMachine.ThieleMachineConcrete <> post_state proj
-R6815:6825 ThieleMachine.ThieleMachineConcrete <> observation proj
-R6815:6825 ThieleMachine.ThieleMachineConcrete <> observation proj
-R6792:6801 ThieleMachine.ThieleMachineConcrete <> advance_pc def
-R6803:6803 ThieleMachine.ThieleMachineConcrete <> s:44 var
-R6833:6834 ThieleMachine.ThieleMachineConcrete <> ev proj
-R6833:6834 ThieleMachine.ThieleMachineConcrete <> ev proj
-R6833:6834 ThieleMachine.ThieleMachineConcrete <> ev proj
-R6896:6903 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
-R6896:6903 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
-R6938:6941 ThieleMachine.ThieleMachineConcrete <> cert proj
-R6938:6941 ThieleMachine.ThieleMachineConcrete <> cert proj
-R6839:6842 Coq.Init.Datatypes <> Some constr
-R6845:6857 ThieleMachine.ThieleMachineConcrete <> ErrorOccurred constr
-R6946:6957 ThieleMachine.ThieleMachineConcrete <> default_cert def
-prf 7046:7079 <> chsh_metadata_only_from_chsh_trial
-binder 7092:7096 <> instr:47
-binder 7098:7098 <> s:48
-R7221:7228 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7214:7216 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7105:7114 Coq.Strings.String <> eqb def
-R7123:7138 Coq.Strings.String <> substring def
-R7190:7197 ThieleMachine.ThieleMachineConcrete <> metadata proj
-R7183:7186 ThieleMachine.ThieleMachineConcrete <> cert proj
-R7169:7179 ThieleMachine.ThieleMachineConcrete <> observation proj
-R7145:7157 ThieleMachine.ThieleMachineConcrete <> concrete_step def
-R7159:7163 ThieleMachine.ThieleMachineConcrete <> instr:47 var
-R7165:7165 ThieleMachine.ThieleMachineConcrete <> s:48 var
-R7217:7220 Coq.Init.Datatypes <> true constr
-R7229:7235 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R7243:7244 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 7236:7236 <> x:49
-binder 7238:7238 <> y:50
-binder 7240:7240 <> a:51
-binder 7242:7242 <> b:52
-R7250:7252 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7245:7249 ThieleMachine.ThieleMachineConcrete <> instr:47 var
-R7253:7262 ThieleMachine.ThieleMachineConcrete <> CHSH_TRIAL constr
-R7264:7264 ThieleMachine.ThieleMachineConcrete <> x:49 var
-R7266:7266 ThieleMachine.ThieleMachineConcrete <> y:50 var
-R7268:7268 ThieleMachine.ThieleMachineConcrete <> a:51 var
-R7270:7270 ThieleMachine.ThieleMachineConcrete <> b:52 var
-R7496:7525 ThieleMachine.ThieleMachineConcrete <> cert_for_pyexec_metadata_empty thm
-R7496:7525 ThieleMachine.ThieleMachineConcrete <> cert_for_pyexec_metadata_empty thm
-R7496:7525 ThieleMachine.ThieleMachineConcrete <> cert_for_pyexec_metadata_empty thm
-prf 7756:7786 <> chsh_event_only_from_chsh_trial
-binder 7799:7803 <> instr:53
-binder 7805:7805 <> s:54
-binder 7807:7807 <> x:55
-binder 7809:7809 <> y:56
-binder 7811:7811 <> a:57
-binder 7813:7813 <> b:58
-R7889:7896 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7862:7864 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7859:7860 ThieleMachine.ThieleMachineConcrete <> ev proj
-R7845:7855 ThieleMachine.ThieleMachineConcrete <> observation proj
-R7821:7833 ThieleMachine.ThieleMachineConcrete <> concrete_step def
-R7835:7839 ThieleMachine.ThieleMachineConcrete <> instr:53 var
-R7841:7841 ThieleMachine.ThieleMachineConcrete <> s:54 var
-R7865:7868 Coq.Init.Datatypes <> Some constr
-R7871:7879 ThieleMachine.ThieleMachineConcrete <> ChshTrial constr
-R7881:7881 ThieleMachine.ThieleMachineConcrete <> x:55 var
-R7883:7883 ThieleMachine.ThieleMachineConcrete <> y:56 var
-R7885:7885 ThieleMachine.ThieleMachineConcrete <> a:57 var
-R7887:7887 ThieleMachine.ThieleMachineConcrete <> b:58 var
-R7902:7904 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7897:7901 ThieleMachine.ThieleMachineConcrete <> instr:53 var
-R7905:7914 ThieleMachine.ThieleMachineConcrete <> CHSH_TRIAL constr
-R7916:7916 ThieleMachine.ThieleMachineConcrete <> x:55 var
-R7918:7918 ThieleMachine.ThieleMachineConcrete <> y:56 var
-R7920:7920 ThieleMachine.ThieleMachineConcrete <> a:57 var
-R7922:7922 ThieleMachine.ThieleMachineConcrete <> b:58 var
-R8064:8067 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R8047:8050 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R8030:8033 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R8018:8027 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R8034:8043 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R8051:8060 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R8068:8077 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R8064:8067 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R8047:8050 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R8030:8033 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R8018:8027 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R8034:8043 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R8051:8060 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R8068:8077 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-def 8345:8362 <> concrete_state_eqb
-R8373:8385 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
-binder 8365:8366 <> s1:59
-binder 8368:8369 <> s2:60
-R8390:8393 Coq.Init.Datatypes <> bool ind
-R8497:8562 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R8460:8467 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R8423:8430 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R8400:8406 Coq.Arith.PeanoNat Nat eqb def
-R8412:8413 ThieleMachine.ThieleMachineConcrete <> pc proj
-R8408:8409 ThieleMachine.ThieleMachineConcrete <> s1:59 var
-R8420:8421 ThieleMachine.ThieleMachineConcrete <> pc proj
-R8416:8417 ThieleMachine.ThieleMachineConcrete <> s2:60 var
-R8431:8435 Coq.ZArith.BinInt Z eqb def
-R8441:8446 ThieleMachine.ThieleMachineConcrete <> status proj
-R8437:8438 ThieleMachine.ThieleMachineConcrete <> s1:59 var
-R8453:8458 ThieleMachine.ThieleMachineConcrete <> status proj
-R8449:8450 ThieleMachine.ThieleMachineConcrete <> s2:60 var
-R8468:8472 Coq.ZArith.BinInt Z eqb def
-R8478:8483 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
-R8474:8475 ThieleMachine.ThieleMachineConcrete <> s1:59 var
-R8490:8495 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
-R8486:8487 ThieleMachine.ThieleMachineConcrete <> s2:60 var
-R8563:8572 Coq.Strings.String <> eqb def
-R8578:8586 ThieleMachine.ThieleMachineConcrete <> cert_addr proj
-R8574:8575 ThieleMachine.ThieleMachineConcrete <> s1:59 var
-R8593:8601 ThieleMachine.ThieleMachineConcrete <> cert_addr proj
-R8589:8590 ThieleMachine.ThieleMachineConcrete <> s2:60 var
-prf 8670:8692 <> concrete_state_eqb_refl
-binder 8703:8703 <> s:61
-R8728:8730 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8706:8723 ThieleMachine.ThieleMachineConcrete <> concrete_state_eqb def
-R8725:8725 ThieleMachine.ThieleMachineConcrete <> s:61 var
-R8727:8727 ThieleMachine.ThieleMachineConcrete <> s:61 var
-R8731:8734 Coq.Init.Datatypes <> true constr
-R8765:8782 ThieleMachine.ThieleMachineConcrete <> concrete_state_eqb def
-R8802:8819 Coq.Bool.Bool <> andb_true_iff thm
-R8802:8819 Coq.Bool.Bool <> andb_true_iff thm
-R8802:8819 Coq.Bool.Bool <> andb_true_iff thm
-R8802:8819 Coq.Bool.Bool <> andb_true_iff thm
-R8802:8819 Coq.Bool.Bool <> andb_true_iff thm
-R8802:8819 Coq.Bool.Bool <> andb_true_iff thm
-R8802:8819 Coq.Bool.Bool <> andb_true_iff thm
-R8802:8819 Coq.Bool.Bool <> andb_true_iff thm
-R8848:8859 Coq.Arith.PeanoNat Nat eqb_refl thm
-R8876:8885 Coq.ZArith.BinInt Z eqb_refl thm
-R8902:8916 Coq.Strings.String <> eqb_refl thm
-R8848:8859 Coq.Arith.PeanoNat Nat eqb_refl thm
-R8848:8859 Coq.Arith.PeanoNat Nat eqb_refl thm
-R8848:8859 Coq.Arith.PeanoNat Nat eqb_refl thm
-R8848:8859 Coq.Arith.PeanoNat Nat eqb_refl thm
-R8876:8885 Coq.ZArith.BinInt Z eqb_refl thm
-R8876:8885 Coq.ZArith.BinInt Z eqb_refl thm
-R8876:8885 Coq.ZArith.BinInt Z eqb_refl thm
-R8902:8916 Coq.Strings.String <> eqb_refl thm
-def 8936:8951 <> thiele_event_eqb
-R8962:8972 ThieleMachine.ThieleMachineConcrete <> ThieleEvent ind
-binder 8954:8955 <> e1:62
-binder 8957:8958 <> e2:63
-R8977:8980 Coq.Init.Datatypes <> bool ind
-R8997:8998 ThieleMachine.ThieleMachineConcrete <> e2:63 var
-R8993:8994 ThieleMachine.ThieleMachineConcrete <> e1:62 var
-R9009:9019 ThieleMachine.ThieleMachineConcrete <> PolicyCheck constr
-R9024:9034 ThieleMachine.ThieleMachineConcrete <> PolicyCheck constr
-R9041:9050 Coq.Strings.String <> eqb def
-R9060:9076 ThieleMachine.ThieleMachineConcrete <> InferenceComplete constr
-R9079:9095 ThieleMachine.ThieleMachineConcrete <> InferenceComplete constr
-R9100:9103 Coq.Init.Datatypes <> true constr
-R9109:9117 ThieleMachine.ThieleMachineConcrete <> ChshTrial constr
-R9132:9140 ThieleMachine.ThieleMachineConcrete <> ChshTrial constr
-R9210:9213 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R9193:9196 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R9176:9179 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R9163:9169 Coq.Arith.PeanoNat Nat eqb def
-R9180:9186 Coq.Arith.PeanoNat Nat eqb def
-R9197:9203 Coq.Arith.PeanoNat Nat eqb def
-R9214:9220 Coq.Arith.PeanoNat Nat eqb def
-R9232:9244 ThieleMachine.ThieleMachineConcrete <> ErrorOccurred constr
-R9249:9261 ThieleMachine.ThieleMachineConcrete <> ErrorOccurred constr
-R9268:9277 Coq.Strings.String <> eqb def
-R9295:9299 Coq.Init.Datatypes <> false constr
-def 9320:9335 <> option_event_eqb
-R9346:9351 Coq.Init.Datatypes <> option ind
-R9353:9363 ThieleMachine.ThieleMachineConcrete <> ThieleEvent ind
-binder 9338:9339 <> e1:66
-binder 9341:9342 <> e2:67
-R9368:9371 Coq.Init.Datatypes <> bool ind
-R9388:9389 ThieleMachine.ThieleMachineConcrete <> e2:67 var
-R9384:9385 ThieleMachine.ThieleMachineConcrete <> e1:66 var
-R9400:9403 Coq.Init.Datatypes <> None constr
-R9406:9409 Coq.Init.Datatypes <> None constr
-R9414:9417 Coq.Init.Datatypes <> true constr
-R9423:9426 Coq.Init.Datatypes <> Some constr
-R9431:9434 Coq.Init.Datatypes <> Some constr
-R9441:9456 ThieleMachine.ThieleMachineConcrete <> thiele_event_eqb def
-R9474:9478 Coq.Init.Datatypes <> false constr
-def 9499:9515 <> concrete_cert_eqb
-R9526:9537 ThieleMachine.ThieleMachineConcrete <> ConcreteCert rec
-binder 9518:9519 <> c1:70
-binder 9521:9522 <> c2:71
-R9542:9545 Coq.Init.Datatypes <> bool ind
-R9735:9742 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R9692:9699 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R9646:9653 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R9592:9599 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R9552:9561 Coq.Strings.String <> eqb def
-R9567:9575 ThieleMachine.ThieleMachineConcrete <> smt_query proj
-R9563:9564 ThieleMachine.ThieleMachineConcrete <> c1:70 var
-R9582:9590 ThieleMachine.ThieleMachineConcrete <> smt_query proj
-R9578:9579 ThieleMachine.ThieleMachineConcrete <> c2:71 var
-R9600:9609 Coq.Strings.String <> eqb def
-R9615:9626 ThieleMachine.ThieleMachineConcrete <> solver_reply proj
-R9611:9612 ThieleMachine.ThieleMachineConcrete <> c1:70 var
+ind 1163:1173 <> ThieleEvent
+constr 1189:1199 <> PolicyCheck
+constr 1229:1245 <> InferenceComplete
+constr 1265:1273 <> ChshTrial
+constr 1321:1333 <> ErrorOccurred
+R1209:1212 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1203:1208 Coq.Strings.String <> string ind
+R1213:1223 ThieleMachine.ThieleMachineConcrete <> ThieleEvent:3 ind
+R1249:1259 ThieleMachine.ThieleMachineConcrete <> ThieleEvent:3 ind
+R1280:1283 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1277:1279 Coq.Init.Datatypes <> nat ind
+R1287:1290 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1284:1286 Coq.Init.Datatypes <> nat ind
+R1294:1297 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1291:1293 Coq.Init.Datatypes <> nat ind
+R1301:1304 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1298:1300 Coq.Init.Datatypes <> nat ind
+R1305:1315 ThieleMachine.ThieleMachineConcrete <> ThieleEvent:3 ind
+R1343:1346 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1337:1342 Coq.Strings.String <> string ind
+R1347:1357 ThieleMachine.ThieleMachineConcrete <> ThieleEvent:3 ind
+scheme 1163:1173 <> ThieleEvent_rect
+scheme 1163:1173 <> ThieleEvent_ind
+scheme 1163:1173 <> ThieleEvent_rec
+scheme 1163:1173 <> ThieleEvent_sind
+rec 1549:1561 <> ConcreteState
+proj 1577:1578 <> pc
+proj 1589:1594 <> status
+proj 1603:1608 <> mu_acc
+proj 1617:1625 <> cert_addr
+R1582:1584 Coq.Init.Datatypes <> nat ind
+R1598:1598 Coq.Numbers.BinNums <> Z ind
+R1612:1612 Coq.Numbers.BinNums <> Z ind
+R1629:1634 Coq.Strings.String <> string ind
+def 1652:1673 <> default_concrete_state
+R1677:1689 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
+R1699:1700 ThieleMachine.ThieleMachineConcrete <> pc proj
+R1699:1700 ThieleMachine.ThieleMachineConcrete <> pc proj
+R1699:1700 ThieleMachine.ThieleMachineConcrete <> pc proj
+R1713:1718 ThieleMachine.ThieleMachineConcrete <> status proj
+R1713:1718 ThieleMachine.ThieleMachineConcrete <> status proj
+R1731:1736 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
+R1731:1736 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
+R1749:1757 ThieleMachine.ThieleMachineConcrete <> cert_addr proj
+R1749:1757 ThieleMachine.ThieleMachineConcrete <> cert_addr proj
+R1762:1772 Coq.Strings.String <> EmptyString constr
+rec 1967:1978 <> ConcreteCert
+proj 1994:2002 <> smt_query
+proj 2016:2027 <> solver_reply
+proj 2041:2048 <> metadata
+proj 2062:2070 <> timestamp
+proj 2079:2086 <> sequence
+R2006:2011 Coq.Strings.String <> string ind
+R2031:2036 Coq.Strings.String <> string ind
+R2052:2057 Coq.Strings.String <> string ind
+R2074:2074 Coq.Numbers.BinNums <> Z ind
+R2090:2092 Coq.Init.Datatypes <> nat ind
+rec 2106:2112 <> StepObs
+proj 2128:2129 <> ev
+proj 2155:2162 <> mu_delta
+proj 2171:2174 <> cert
+R2133:2138 Coq.Init.Datatypes <> option ind
+R2140:2150 ThieleMachine.ThieleMachineConcrete <> ThieleEvent ind
+R2166:2166 Coq.Numbers.BinNums <> Z ind
+R2178:2189 ThieleMachine.ThieleMachineConcrete <> ConcreteCert rec
+rec 2203:2212 <> StepResult
+proj 2228:2237 <> post_state
+proj 2258:2268 <> observation
+R2241:2253 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
+R2272:2278 ThieleMachine.ThieleMachineConcrete <> StepObs rec
+def 2296:2307 <> default_cert
+R2311:2322 ThieleMachine.ThieleMachineConcrete <> ConcreteCert rec
+R2332:2340 ThieleMachine.ThieleMachineConcrete <> smt_query proj
+R2332:2340 ThieleMachine.ThieleMachineConcrete <> smt_query proj
+R2332:2340 ThieleMachine.ThieleMachineConcrete <> smt_query proj
+R2363:2374 ThieleMachine.ThieleMachineConcrete <> solver_reply proj
+R2363:2374 ThieleMachine.ThieleMachineConcrete <> solver_reply proj
+R2397:2404 ThieleMachine.ThieleMachineConcrete <> metadata proj
+R2397:2404 ThieleMachine.ThieleMachineConcrete <> metadata proj
+R2427:2435 ThieleMachine.ThieleMachineConcrete <> timestamp proj
+R2427:2435 ThieleMachine.ThieleMachineConcrete <> timestamp proj
+R2448:2455 ThieleMachine.ThieleMachineConcrete <> sequence proj
+R2448:2455 ThieleMachine.ThieleMachineConcrete <> sequence proj
+R2345:2355 Coq.Strings.String <> EmptyString constr
+R2379:2389 Coq.Strings.String <> EmptyString constr
+R2409:2419 Coq.Strings.String <> EmptyString constr
+def 2478:2494 <> cert_for_load_imm
+R2504:2509 Coq.Strings.String <> string ind
+binder 2497:2500 <> code:23
+R2514:2525 ThieleMachine.ThieleMachineConcrete <> ConcreteCert rec
+R2535:2544 Coq.Strings.String <> eqb def
+R2546:2549 ThieleMachine.ThieleMachineConcrete <> code:23 var
+R2745:2754 Coq.Strings.String <> eqb def
+R2756:2759 ThieleMachine.ThieleMachineConcrete <> code:23 var
+R2950:2961 ThieleMachine.ThieleMachineConcrete <> default_cert def
+R2798:2806 ThieleMachine.ThieleMachineConcrete <> smt_query proj
+R2798:2806 ThieleMachine.ThieleMachineConcrete <> smt_query proj
+R2798:2806 ThieleMachine.ThieleMachineConcrete <> smt_query proj
+R2831:2842 ThieleMachine.ThieleMachineConcrete <> solver_reply proj
+R2831:2842 ThieleMachine.ThieleMachineConcrete <> solver_reply proj
+R2867:2874 ThieleMachine.ThieleMachineConcrete <> metadata proj
+R2867:2874 ThieleMachine.ThieleMachineConcrete <> metadata proj
+R2899:2907 ThieleMachine.ThieleMachineConcrete <> timestamp proj
+R2899:2907 ThieleMachine.ThieleMachineConcrete <> timestamp proj
+R2922:2929 ThieleMachine.ThieleMachineConcrete <> sequence proj
+R2922:2929 ThieleMachine.ThieleMachineConcrete <> sequence proj
+R2811:2821 Coq.Strings.String <> EmptyString constr
+R2847:2857 Coq.Strings.String <> EmptyString constr
+R2879:2889 Coq.Strings.String <> EmptyString constr
+R2590:2598 ThieleMachine.ThieleMachineConcrete <> smt_query proj
+R2590:2598 ThieleMachine.ThieleMachineConcrete <> smt_query proj
+R2590:2598 ThieleMachine.ThieleMachineConcrete <> smt_query proj
+R2623:2634 ThieleMachine.ThieleMachineConcrete <> solver_reply proj
+R2623:2634 ThieleMachine.ThieleMachineConcrete <> solver_reply proj
+R2659:2666 ThieleMachine.ThieleMachineConcrete <> metadata proj
+R2659:2666 ThieleMachine.ThieleMachineConcrete <> metadata proj
+R2691:2699 ThieleMachine.ThieleMachineConcrete <> timestamp proj
+R2691:2699 ThieleMachine.ThieleMachineConcrete <> timestamp proj
+R2714:2721 ThieleMachine.ThieleMachineConcrete <> sequence proj
+R2714:2721 ThieleMachine.ThieleMachineConcrete <> sequence proj
+R2603:2613 Coq.Strings.String <> EmptyString constr
+R2639:2649 Coq.Strings.String <> EmptyString constr
+R2671:2681 Coq.Strings.String <> EmptyString constr
+def 2976:2985 <> bit_char01
+R2992:2994 Coq.Init.Datatypes <> nat ind
+binder 2988:2988 <> n:24
+R2999:3003 Coq.Strings.Ascii <> ascii ind
+R3013:3019 Coq.Arith.PeanoNat Nat eqb def
+R3021:3021 ThieleMachine.ThieleMachineConcrete <> n:24 var
+def 3066:3077 <> bit_string01
+R3084:3086 Coq.Init.Datatypes <> nat ind
+binder 3080:3080 <> n:25
+R3091:3096 Coq.Strings.String <> string ind
+R3103:3108 Coq.Strings.String <> String constr
+R3111:3120 ThieleMachine.ThieleMachineConcrete <> bit_char01 def
+R3122:3122 ThieleMachine.ThieleMachineConcrete <> n:25 var
+R3125:3135 Coq.Strings.String <> EmptyString constr
+def 3150:3159 <> is_bit_nat
+R3166:3168 Coq.Init.Datatypes <> nat ind
+binder 3162:3162 <> n:26
+R3173:3176 Coq.Init.Datatypes <> bool ind
+R3195:3198 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R3184:3190 Coq.Arith.PeanoNat Nat eqb def
+R3192:3192 ThieleMachine.ThieleMachineConcrete <> n:26 var
+R3199:3205 Coq.Arith.PeanoNat Nat eqb def
+R3207:3207 ThieleMachine.ThieleMachineConcrete <> n:26 var
+def 3230:3248 <> cert_for_chsh_trial
+R3261:3263 Coq.Init.Datatypes <> nat ind
+binder 3251:3251 <> x:27
+binder 3253:3253 <> y:28
+binder 3255:3255 <> a:29
+binder 3257:3257 <> b:30
+R3268:3279 ThieleMachine.ThieleMachineConcrete <> ConcreteCert rec
+R3289:3297 ThieleMachine.ThieleMachineConcrete <> smt_query proj
+R3289:3297 ThieleMachine.ThieleMachineConcrete <> smt_query proj
+R3289:3297 ThieleMachine.ThieleMachineConcrete <> smt_query proj
+R3320:3331 ThieleMachine.ThieleMachineConcrete <> solver_reply proj
+R3320:3331 ThieleMachine.ThieleMachineConcrete <> solver_reply proj
+R3354:3361 ThieleMachine.ThieleMachineConcrete <> metadata proj
+R3354:3361 ThieleMachine.ThieleMachineConcrete <> metadata proj
+R3452:3460 ThieleMachine.ThieleMachineConcrete <> timestamp proj
+R3452:3460 ThieleMachine.ThieleMachineConcrete <> timestamp proj
+R3473:3480 ThieleMachine.ThieleMachineConcrete <> sequence proj
+R3473:3480 ThieleMachine.ThieleMachineConcrete <> sequence proj
+R3302:3312 Coq.Strings.String <> EmptyString constr
+R3336:3346 Coq.Strings.String <> EmptyString constr
+R3373:3376 Coq.Strings.String <> ::string_scope:x_'++'_x not
+R3391:3394 Coq.Strings.String <> ::string_scope:x_'++'_x not
+R3377:3388 ThieleMachine.ThieleMachineConcrete <> bit_string01 def
+R3390:3390 ThieleMachine.ThieleMachineConcrete <> x:27 var
+R3409:3412 Coq.Strings.String <> ::string_scope:x_'++'_x not
+R3395:3406 ThieleMachine.ThieleMachineConcrete <> bit_string01 def
+R3408:3408 ThieleMachine.ThieleMachineConcrete <> y:28 var
+R3427:3430 Coq.Strings.String <> ::string_scope:x_'++'_x not
+R3413:3424 ThieleMachine.ThieleMachineConcrete <> bit_string01 def
+R3426:3426 ThieleMachine.ThieleMachineConcrete <> a:29 var
+R3431:3442 ThieleMachine.ThieleMachineConcrete <> bit_string01 def
+R3444:3444 ThieleMachine.ThieleMachineConcrete <> b:30 var
+def 3508:3517 <> advance_pc
+R3524:3536 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
+binder 3520:3520 <> s:31
+R3541:3553 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
+R3563:3564 ThieleMachine.ThieleMachineConcrete <> pc proj
+R3563:3564 ThieleMachine.ThieleMachineConcrete <> pc proj
+R3563:3564 ThieleMachine.ThieleMachineConcrete <> pc proj
+R3584:3589 ThieleMachine.ThieleMachineConcrete <> status proj
+R3584:3589 ThieleMachine.ThieleMachineConcrete <> status proj
+R3611:3616 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
+R3611:3616 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
+R3638:3646 ThieleMachine.ThieleMachineConcrete <> cert_addr proj
+R3638:3646 ThieleMachine.ThieleMachineConcrete <> cert_addr proj
+R3569:3569 Coq.Init.Datatypes <> S constr
+R3574:3575 ThieleMachine.ThieleMachineConcrete <> pc proj
+R3571:3571 ThieleMachine.ThieleMachineConcrete <> s:31 var
+R3597:3602 ThieleMachine.ThieleMachineConcrete <> status proj
+R3594:3594 ThieleMachine.ThieleMachineConcrete <> s:31 var
+R3624:3629 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
+R3621:3621 ThieleMachine.ThieleMachineConcrete <> s:31 var
+R3654:3662 ThieleMachine.ThieleMachineConcrete <> cert_addr proj
+R3651:3651 ThieleMachine.ThieleMachineConcrete <> s:31 var
+def 3681:3686 <> add_mu
+R3693:3705 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
+binder 3689:3689 <> s:32
+R3717:3717 Coq.Numbers.BinNums <> Z ind
+binder 3709:3713 <> delta:33
+R3722:3734 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
+R3744:3745 ThieleMachine.ThieleMachineConcrete <> pc proj
+R3744:3745 ThieleMachine.ThieleMachineConcrete <> pc proj
+R3744:3745 ThieleMachine.ThieleMachineConcrete <> pc proj
+R3763:3768 ThieleMachine.ThieleMachineConcrete <> status proj
+R3763:3768 ThieleMachine.ThieleMachineConcrete <> status proj
+R3790:3795 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
+R3790:3795 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
+R3825:3833 ThieleMachine.ThieleMachineConcrete <> cert_addr proj
+R3825:3833 ThieleMachine.ThieleMachineConcrete <> cert_addr proj
+R3753:3754 ThieleMachine.ThieleMachineConcrete <> pc proj
+R3750:3750 ThieleMachine.ThieleMachineConcrete <> s:32 var
+R3776:3781 ThieleMachine.ThieleMachineConcrete <> status proj
+R3773:3773 ThieleMachine.ThieleMachineConcrete <> s:32 var
+R3810:3812 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R3803:3808 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
+R3800:3800 ThieleMachine.ThieleMachineConcrete <> s:32 var
+R3813:3817 ThieleMachine.ThieleMachineConcrete <> delta:33 var
+R3841:3849 ThieleMachine.ThieleMachineConcrete <> cert_addr proj
+R3838:3838 ThieleMachine.ThieleMachineConcrete <> s:32 var
+def 3868:3877 <> with_pc_mu
+R3884:3896 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
+binder 3880:3880 <> s:34
+R3908:3908 Coq.Numbers.BinNums <> Z ind
+binder 3900:3904 <> delta:35
+R3913:3925 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
+R3932:3937 ThieleMachine.ThieleMachineConcrete <> add_mu def
+R3940:3949 ThieleMachine.ThieleMachineConcrete <> advance_pc def
+R3951:3951 ThieleMachine.ThieleMachineConcrete <> s:34 var
+R3954:3958 ThieleMachine.ThieleMachineConcrete <> delta:35 var
+def 3973:3982 <> set_status
+R3989:4001 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
+binder 3985:3985 <> s:36
+R4010:4010 Coq.Numbers.BinNums <> Z ind
+binder 4005:4006 <> st:37
+R4015:4027 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
+R4037:4038 ThieleMachine.ThieleMachineConcrete <> pc proj
+R4037:4038 ThieleMachine.ThieleMachineConcrete <> pc proj
+R4037:4038 ThieleMachine.ThieleMachineConcrete <> pc proj
+R4056:4061 ThieleMachine.ThieleMachineConcrete <> status proj
+R4056:4061 ThieleMachine.ThieleMachineConcrete <> status proj
+R4075:4080 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
+R4075:4080 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
+R4102:4110 ThieleMachine.ThieleMachineConcrete <> cert_addr proj
+R4102:4110 ThieleMachine.ThieleMachineConcrete <> cert_addr proj
+R4046:4047 ThieleMachine.ThieleMachineConcrete <> pc proj
+R4043:4043 ThieleMachine.ThieleMachineConcrete <> s:36 var
+R4066:4067 ThieleMachine.ThieleMachineConcrete <> st:37 var
+R4088:4093 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
+R4085:4085 ThieleMachine.ThieleMachineConcrete <> s:36 var
+R4118:4126 ThieleMachine.ThieleMachineConcrete <> cert_addr proj
+R4115:4115 ThieleMachine.ThieleMachineConcrete <> s:36 var
+def 4145:4155 <> record_cert
+R4162:4174 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
+binder 4158:4158 <> s:38
+R4185:4190 Coq.Strings.String <> string ind
+binder 4178:4181 <> addr:39
+R4195:4207 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
+R4217:4218 ThieleMachine.ThieleMachineConcrete <> pc proj
+R4217:4218 ThieleMachine.ThieleMachineConcrete <> pc proj
+R4217:4218 ThieleMachine.ThieleMachineConcrete <> pc proj
+R4236:4241 ThieleMachine.ThieleMachineConcrete <> status proj
+R4236:4241 ThieleMachine.ThieleMachineConcrete <> status proj
+R4263:4268 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
+R4263:4268 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
+R4290:4298 ThieleMachine.ThieleMachineConcrete <> cert_addr proj
+R4290:4298 ThieleMachine.ThieleMachineConcrete <> cert_addr proj
+R4226:4227 ThieleMachine.ThieleMachineConcrete <> pc proj
+R4223:4223 ThieleMachine.ThieleMachineConcrete <> s:38 var
+R4249:4254 ThieleMachine.ThieleMachineConcrete <> status proj
+R4246:4246 ThieleMachine.ThieleMachineConcrete <> s:38 var
+R4276:4281 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
+R4273:4273 ThieleMachine.ThieleMachineConcrete <> s:38 var
+R4303:4306 ThieleMachine.ThieleMachineConcrete <> addr:39 var
+def 4498:4511 <> cert_for_query
+R4522:4527 Coq.Strings.String <> string ind
+binder 4514:4518 <> query:40
+R4532:4543 ThieleMachine.ThieleMachineConcrete <> ConcreteCert rec
+R4553:4561 ThieleMachine.ThieleMachineConcrete <> smt_query proj
+R4553:4561 ThieleMachine.ThieleMachineConcrete <> smt_query proj
+R4553:4561 ThieleMachine.ThieleMachineConcrete <> smt_query proj
+R4578:4589 ThieleMachine.ThieleMachineConcrete <> solver_reply proj
+R4578:4589 ThieleMachine.ThieleMachineConcrete <> solver_reply proj
+R4612:4619 ThieleMachine.ThieleMachineConcrete <> metadata proj
+R4612:4619 ThieleMachine.ThieleMachineConcrete <> metadata proj
+R4642:4650 ThieleMachine.ThieleMachineConcrete <> timestamp proj
+R4642:4650 ThieleMachine.ThieleMachineConcrete <> timestamp proj
+R4663:4670 ThieleMachine.ThieleMachineConcrete <> sequence proj
+R4663:4670 ThieleMachine.ThieleMachineConcrete <> sequence proj
+R4566:4570 ThieleMachine.ThieleMachineConcrete <> query:40 var
+R4594:4604 Coq.Strings.String <> EmptyString constr
+R4624:4634 Coq.Strings.String <> EmptyString constr
+prf 4756:4784 <> cert_for_query_metadata_empty
+binder 4795:4795 <> q:41
+R4827:4829 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4818:4825 ThieleMachine.ThieleMachineConcrete <> metadata proj
+R4799:4812 ThieleMachine.ThieleMachineConcrete <> cert_for_query def
+R4814:4814 ThieleMachine.ThieleMachineConcrete <> q:41 var
+R4830:4840 Coq.Strings.String <> EmptyString constr
+prf 4951:4982 <> cert_for_load_imm_metadata_empty
+binder 4993:4996 <> code:42
+R5034:5036 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5025:5032 ThieleMachine.ThieleMachineConcrete <> metadata proj
+R5000:5016 ThieleMachine.ThieleMachineConcrete <> cert_for_load_imm def
+R5018:5021 ThieleMachine.ThieleMachineConcrete <> code:42 var
+R5037:5047 Coq.Strings.String <> EmptyString constr
+R5080:5096 ThieleMachine.ThieleMachineConcrete <> cert_for_load_imm def
+R5111:5120 Coq.Strings.String <> eqb def
+R5111:5120 Coq.Strings.String <> eqb def
+R5184:5193 Coq.Strings.String <> eqb def
+R5184:5193 Coq.Strings.String <> eqb def
+def 5257:5269 <> concrete_step
+R5280:5290 ThieleMachine.ThieleMachineConcrete <> ThieleInstr ind
+binder 5272:5276 <> instr:43
+R5298:5310 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
+binder 5294:5294 <> s:44
+R5315:5324 ThieleMachine.ThieleMachineConcrete <> StepResult rec
+R5337:5341 ThieleMachine.ThieleMachineConcrete <> instr:43 var
+R5352:5358 ThieleMachine.ThieleMachineConcrete <> LASSERT constr
+R5385:5385 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R5416:5419 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R5386:5393 Coq.ZArith.BinInt Z of_nat def
+R5396:5408 Coq.Strings.String <> length def
+binder 5379:5380 <> mu:46
+R5434:5443 ThieleMachine.ThieleMachineConcrete <> post_state proj
+R5434:5443 ThieleMachine.ThieleMachineConcrete <> post_state proj
+R5434:5443 ThieleMachine.ThieleMachineConcrete <> post_state proj
+R5474:5484 ThieleMachine.ThieleMachineConcrete <> observation proj
+R5474:5484 ThieleMachine.ThieleMachineConcrete <> observation proj
+R5448:5457 ThieleMachine.ThieleMachineConcrete <> with_pc_mu def
+R5459:5459 ThieleMachine.ThieleMachineConcrete <> s:44 var
+R5461:5462 ThieleMachine.ThieleMachineConcrete <> mu:46 var
+R5492:5493 ThieleMachine.ThieleMachineConcrete <> ev proj
+R5492:5493 ThieleMachine.ThieleMachineConcrete <> ev proj
+R5492:5493 ThieleMachine.ThieleMachineConcrete <> ev proj
+R5551:5558 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
+R5551:5558 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
+R5594:5597 ThieleMachine.ThieleMachineConcrete <> cert proj
+R5594:5597 ThieleMachine.ThieleMachineConcrete <> cert proj
+R5498:5501 Coq.Init.Datatypes <> Some constr
+R5504:5514 ThieleMachine.ThieleMachineConcrete <> PolicyCheck constr
+R5563:5564 ThieleMachine.ThieleMachineConcrete <> mu:46 var
+R5602:5615 ThieleMachine.ThieleMachineConcrete <> cert_for_query def
+R5633:5638 ThieleMachine.ThieleMachineConcrete <> MDLACC constr
+R5652:5661 ThieleMachine.ThieleMachineConcrete <> post_state proj
+R5652:5661 ThieleMachine.ThieleMachineConcrete <> post_state proj
+R5652:5661 ThieleMachine.ThieleMachineConcrete <> post_state proj
+R5689:5699 ThieleMachine.ThieleMachineConcrete <> observation proj
+R5689:5699 ThieleMachine.ThieleMachineConcrete <> observation proj
+R5666:5675 ThieleMachine.ThieleMachineConcrete <> advance_pc def
+R5677:5677 ThieleMachine.ThieleMachineConcrete <> s:44 var
+R5707:5708 ThieleMachine.ThieleMachineConcrete <> ev proj
+R5707:5708 ThieleMachine.ThieleMachineConcrete <> ev proj
+R5707:5708 ThieleMachine.ThieleMachineConcrete <> ev proj
+R5746:5753 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
+R5746:5753 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
+R5788:5791 ThieleMachine.ThieleMachineConcrete <> cert proj
+R5788:5791 ThieleMachine.ThieleMachineConcrete <> cert proj
+R5713:5716 Coq.Init.Datatypes <> None constr
+R5796:5807 ThieleMachine.ThieleMachineConcrete <> default_cert def
+R5819:5822 ThieleMachine.ThieleMachineConcrete <> PNEW constr
+R5838:5847 ThieleMachine.ThieleMachineConcrete <> post_state proj
+R5838:5847 ThieleMachine.ThieleMachineConcrete <> post_state proj
+R5838:5847 ThieleMachine.ThieleMachineConcrete <> post_state proj
+R5875:5885 ThieleMachine.ThieleMachineConcrete <> observation proj
+R5875:5885 ThieleMachine.ThieleMachineConcrete <> observation proj
+R5852:5861 ThieleMachine.ThieleMachineConcrete <> advance_pc def
+R5863:5863 ThieleMachine.ThieleMachineConcrete <> s:44 var
+R5893:5894 ThieleMachine.ThieleMachineConcrete <> ev proj
+R5893:5894 ThieleMachine.ThieleMachineConcrete <> ev proj
+R5893:5894 ThieleMachine.ThieleMachineConcrete <> ev proj
+R5950:5957 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
+R5950:5957 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
+R5992:5995 ThieleMachine.ThieleMachineConcrete <> cert proj
+R5992:5995 ThieleMachine.ThieleMachineConcrete <> cert proj
+R5899:5902 Coq.Init.Datatypes <> Some constr
+R5904:5920 ThieleMachine.ThieleMachineConcrete <> InferenceComplete constr
+R6000:6011 ThieleMachine.ThieleMachineConcrete <> default_cert def
+R6023:6030 ThieleMachine.ThieleMachineConcrete <> LOAD_IMM constr
+R6049:6058 ThieleMachine.ThieleMachineConcrete <> post_state proj
+R6049:6058 ThieleMachine.ThieleMachineConcrete <> post_state proj
+R6049:6058 ThieleMachine.ThieleMachineConcrete <> post_state proj
+R6086:6096 ThieleMachine.ThieleMachineConcrete <> observation proj
+R6086:6096 ThieleMachine.ThieleMachineConcrete <> observation proj
+R6063:6072 ThieleMachine.ThieleMachineConcrete <> advance_pc def
+R6074:6074 ThieleMachine.ThieleMachineConcrete <> s:44 var
+R6104:6105 ThieleMachine.ThieleMachineConcrete <> ev proj
+R6104:6105 ThieleMachine.ThieleMachineConcrete <> ev proj
+R6104:6105 ThieleMachine.ThieleMachineConcrete <> ev proj
+R6162:6169 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
+R6162:6169 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
+R6204:6207 ThieleMachine.ThieleMachineConcrete <> cert proj
+R6204:6207 ThieleMachine.ThieleMachineConcrete <> cert proj
+R6110:6113 Coq.Init.Datatypes <> Some constr
+R6116:6126 ThieleMachine.ThieleMachineConcrete <> PolicyCheck constr
+R6212:6228 ThieleMachine.ThieleMachineConcrete <> cert_for_load_imm def
+R6245:6254 ThieleMachine.ThieleMachineConcrete <> CHSH_TRIAL constr
+R6321:6324 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R6305:6308 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R6289:6292 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R6277:6286 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R6293:6302 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R6309:6318 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R6325:6334 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R6571:6580 ThieleMachine.ThieleMachineConcrete <> post_state proj
+R6571:6580 ThieleMachine.ThieleMachineConcrete <> post_state proj
+R6571:6580 ThieleMachine.ThieleMachineConcrete <> post_state proj
+R6609:6619 ThieleMachine.ThieleMachineConcrete <> observation proj
+R6609:6619 ThieleMachine.ThieleMachineConcrete <> observation proj
+R6585:6594 ThieleMachine.ThieleMachineConcrete <> advance_pc def
+R6596:6596 ThieleMachine.ThieleMachineConcrete <> s:44 var
+R6627:6628 ThieleMachine.ThieleMachineConcrete <> ev proj
+R6627:6628 ThieleMachine.ThieleMachineConcrete <> ev proj
+R6627:6628 ThieleMachine.ThieleMachineConcrete <> ev proj
+R6699:6706 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
+R6699:6706 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
+R6736:6739 ThieleMachine.ThieleMachineConcrete <> cert proj
+R6736:6739 ThieleMachine.ThieleMachineConcrete <> cert proj
+R6633:6636 Coq.Init.Datatypes <> Some constr
+R6639:6651 ThieleMachine.ThieleMachineConcrete <> ErrorOccurred constr
+R6744:6755 ThieleMachine.ThieleMachineConcrete <> default_cert def
+R6360:6369 ThieleMachine.ThieleMachineConcrete <> post_state proj
+R6360:6369 ThieleMachine.ThieleMachineConcrete <> post_state proj
+R6360:6369 ThieleMachine.ThieleMachineConcrete <> post_state proj
+R6398:6408 ThieleMachine.ThieleMachineConcrete <> observation proj
+R6398:6408 ThieleMachine.ThieleMachineConcrete <> observation proj
+R6374:6383 ThieleMachine.ThieleMachineConcrete <> advance_pc def
+R6385:6385 ThieleMachine.ThieleMachineConcrete <> s:44 var
+R6416:6417 ThieleMachine.ThieleMachineConcrete <> ev proj
+R6416:6417 ThieleMachine.ThieleMachineConcrete <> ev proj
+R6416:6417 ThieleMachine.ThieleMachineConcrete <> ev proj
+R6470:6477 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
+R6470:6477 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
+R6507:6510 ThieleMachine.ThieleMachineConcrete <> cert proj
+R6507:6510 ThieleMachine.ThieleMachineConcrete <> cert proj
+R6422:6425 Coq.Init.Datatypes <> Some constr
+R6428:6436 ThieleMachine.ThieleMachineConcrete <> ChshTrial constr
+R6515:6533 ThieleMachine.ThieleMachineConcrete <> cert_for_chsh_trial def
+R6767:6770 ThieleMachine.ThieleMachineConcrete <> EMIT constr
+R6792:6801 ThieleMachine.ThieleMachineConcrete <> post_state proj
+R6792:6801 ThieleMachine.ThieleMachineConcrete <> post_state proj
+R6792:6801 ThieleMachine.ThieleMachineConcrete <> post_state proj
+R6829:6839 ThieleMachine.ThieleMachineConcrete <> observation proj
+R6829:6839 ThieleMachine.ThieleMachineConcrete <> observation proj
+R6806:6815 ThieleMachine.ThieleMachineConcrete <> advance_pc def
+R6817:6817 ThieleMachine.ThieleMachineConcrete <> s:44 var
+R6847:6848 ThieleMachine.ThieleMachineConcrete <> ev proj
+R6847:6848 ThieleMachine.ThieleMachineConcrete <> ev proj
+R6847:6848 ThieleMachine.ThieleMachineConcrete <> ev proj
+R6910:6917 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
+R6910:6917 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
+R6952:6955 ThieleMachine.ThieleMachineConcrete <> cert proj
+R6952:6955 ThieleMachine.ThieleMachineConcrete <> cert proj
+R6853:6856 Coq.Init.Datatypes <> Some constr
+R6859:6871 ThieleMachine.ThieleMachineConcrete <> ErrorOccurred constr
+R6960:6971 ThieleMachine.ThieleMachineConcrete <> default_cert def
+prf 7060:7093 <> chsh_metadata_only_from_chsh_trial
+binder 7106:7110 <> instr:47
+binder 7112:7112 <> s:48
+R7235:7242 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7228:7230 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7119:7128 Coq.Strings.String <> eqb def
+R7137:7152 Coq.Strings.String <> substring def
+R7204:7211 ThieleMachine.ThieleMachineConcrete <> metadata proj
+R7197:7200 ThieleMachine.ThieleMachineConcrete <> cert proj
+R7183:7193 ThieleMachine.ThieleMachineConcrete <> observation proj
+R7159:7171 ThieleMachine.ThieleMachineConcrete <> concrete_step def
+R7173:7177 ThieleMachine.ThieleMachineConcrete <> instr:47 var
+R7179:7179 ThieleMachine.ThieleMachineConcrete <> s:48 var
+R7231:7234 Coq.Init.Datatypes <> true constr
+R7243:7249 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7257:7258 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 7250:7250 <> x:49
+binder 7252:7252 <> y:50
+binder 7254:7254 <> a:51
+binder 7256:7256 <> b:52
+R7264:7266 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7259:7263 ThieleMachine.ThieleMachineConcrete <> instr:47 var
+R7267:7276 ThieleMachine.ThieleMachineConcrete <> CHSH_TRIAL constr
+R7278:7278 ThieleMachine.ThieleMachineConcrete <> x:49 var
+R7280:7280 ThieleMachine.ThieleMachineConcrete <> y:50 var
+R7282:7282 ThieleMachine.ThieleMachineConcrete <> a:51 var
+R7284:7284 ThieleMachine.ThieleMachineConcrete <> b:52 var
+R7512:7543 ThieleMachine.ThieleMachineConcrete <> cert_for_load_imm_metadata_empty thm
+R7512:7543 ThieleMachine.ThieleMachineConcrete <> cert_for_load_imm_metadata_empty thm
+R7512:7543 ThieleMachine.ThieleMachineConcrete <> cert_for_load_imm_metadata_empty thm
+prf 7774:7804 <> chsh_event_only_from_chsh_trial
+binder 7817:7821 <> instr:53
+binder 7823:7823 <> s:54
+binder 7825:7825 <> x:55
+binder 7827:7827 <> y:56
+binder 7829:7829 <> a:57
+binder 7831:7831 <> b:58
+R7907:7914 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7880:7882 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7877:7878 ThieleMachine.ThieleMachineConcrete <> ev proj
+R7863:7873 ThieleMachine.ThieleMachineConcrete <> observation proj
+R7839:7851 ThieleMachine.ThieleMachineConcrete <> concrete_step def
+R7853:7857 ThieleMachine.ThieleMachineConcrete <> instr:53 var
+R7859:7859 ThieleMachine.ThieleMachineConcrete <> s:54 var
+R7883:7886 Coq.Init.Datatypes <> Some constr
+R7889:7897 ThieleMachine.ThieleMachineConcrete <> ChshTrial constr
+R7899:7899 ThieleMachine.ThieleMachineConcrete <> x:55 var
+R7901:7901 ThieleMachine.ThieleMachineConcrete <> y:56 var
+R7903:7903 ThieleMachine.ThieleMachineConcrete <> a:57 var
+R7905:7905 ThieleMachine.ThieleMachineConcrete <> b:58 var
+R7920:7922 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7915:7919 ThieleMachine.ThieleMachineConcrete <> instr:53 var
+R7923:7932 ThieleMachine.ThieleMachineConcrete <> CHSH_TRIAL constr
+R7934:7934 ThieleMachine.ThieleMachineConcrete <> x:55 var
+R7936:7936 ThieleMachine.ThieleMachineConcrete <> y:56 var
+R7938:7938 ThieleMachine.ThieleMachineConcrete <> a:57 var
+R7940:7940 ThieleMachine.ThieleMachineConcrete <> b:58 var
+R8082:8085 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R8065:8068 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R8048:8051 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R8036:8045 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R8052:8061 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R8069:8078 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R8086:8095 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R8082:8085 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R8065:8068 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R8048:8051 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R8036:8045 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R8052:8061 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R8069:8078 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R8086:8095 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+def 8363:8380 <> concrete_state_eqb
+R8391:8403 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
+binder 8383:8384 <> s1:59
+binder 8386:8387 <> s2:60
+R8408:8411 Coq.Init.Datatypes <> bool ind
+R8515:8580 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R8478:8485 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R8441:8448 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R8418:8424 Coq.Arith.PeanoNat Nat eqb def
+R8430:8431 ThieleMachine.ThieleMachineConcrete <> pc proj
+R8426:8427 ThieleMachine.ThieleMachineConcrete <> s1:59 var
+R8438:8439 ThieleMachine.ThieleMachineConcrete <> pc proj
+R8434:8435 ThieleMachine.ThieleMachineConcrete <> s2:60 var
+R8449:8453 Coq.ZArith.BinInt Z eqb def
+R8459:8464 ThieleMachine.ThieleMachineConcrete <> status proj
+R8455:8456 ThieleMachine.ThieleMachineConcrete <> s1:59 var
+R8471:8476 ThieleMachine.ThieleMachineConcrete <> status proj
+R8467:8468 ThieleMachine.ThieleMachineConcrete <> s2:60 var
+R8486:8490 Coq.ZArith.BinInt Z eqb def
+R8496:8501 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
+R8492:8493 ThieleMachine.ThieleMachineConcrete <> s1:59 var
+R8508:8513 ThieleMachine.ThieleMachineConcrete <> mu_acc proj
+R8504:8505 ThieleMachine.ThieleMachineConcrete <> s2:60 var
+R8581:8590 Coq.Strings.String <> eqb def
+R8596:8604 ThieleMachine.ThieleMachineConcrete <> cert_addr proj
+R8592:8593 ThieleMachine.ThieleMachineConcrete <> s1:59 var
+R8611:8619 ThieleMachine.ThieleMachineConcrete <> cert_addr proj
+R8607:8608 ThieleMachine.ThieleMachineConcrete <> s2:60 var
+prf 8688:8710 <> concrete_state_eqb_refl
+binder 8721:8721 <> s:61
+R8746:8748 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8724:8741 ThieleMachine.ThieleMachineConcrete <> concrete_state_eqb def
+R8743:8743 ThieleMachine.ThieleMachineConcrete <> s:61 var
+R8745:8745 ThieleMachine.ThieleMachineConcrete <> s:61 var
+R8749:8752 Coq.Init.Datatypes <> true constr
+R8783:8800 ThieleMachine.ThieleMachineConcrete <> concrete_state_eqb def
+R8820:8837 Coq.Bool.Bool <> andb_true_iff thm
+R8820:8837 Coq.Bool.Bool <> andb_true_iff thm
+R8820:8837 Coq.Bool.Bool <> andb_true_iff thm
+R8820:8837 Coq.Bool.Bool <> andb_true_iff thm
+R8820:8837 Coq.Bool.Bool <> andb_true_iff thm
+R8820:8837 Coq.Bool.Bool <> andb_true_iff thm
+R8820:8837 Coq.Bool.Bool <> andb_true_iff thm
+R8820:8837 Coq.Bool.Bool <> andb_true_iff thm
+R8866:8877 Coq.Arith.PeanoNat Nat eqb_refl thm
+R8894:8903 Coq.ZArith.BinInt Z eqb_refl thm
+R8920:8934 Coq.Strings.String <> eqb_refl thm
+R8866:8877 Coq.Arith.PeanoNat Nat eqb_refl thm
+R8866:8877 Coq.Arith.PeanoNat Nat eqb_refl thm
+R8866:8877 Coq.Arith.PeanoNat Nat eqb_refl thm
+R8866:8877 Coq.Arith.PeanoNat Nat eqb_refl thm
+R8894:8903 Coq.ZArith.BinInt Z eqb_refl thm
+R8894:8903 Coq.ZArith.BinInt Z eqb_refl thm
+R8894:8903 Coq.ZArith.BinInt Z eqb_refl thm
+R8920:8934 Coq.Strings.String <> eqb_refl thm
+def 8954:8969 <> thiele_event_eqb
+R8980:8990 ThieleMachine.ThieleMachineConcrete <> ThieleEvent ind
+binder 8972:8973 <> e1:62
+binder 8975:8976 <> e2:63
+R8995:8998 Coq.Init.Datatypes <> bool ind
+R9015:9016 ThieleMachine.ThieleMachineConcrete <> e2:63 var
+R9011:9012 ThieleMachine.ThieleMachineConcrete <> e1:62 var
+R9027:9037 ThieleMachine.ThieleMachineConcrete <> PolicyCheck constr
+R9042:9052 ThieleMachine.ThieleMachineConcrete <> PolicyCheck constr
+R9059:9068 Coq.Strings.String <> eqb def
+R9078:9094 ThieleMachine.ThieleMachineConcrete <> InferenceComplete constr
+R9097:9113 ThieleMachine.ThieleMachineConcrete <> InferenceComplete constr
+R9118:9121 Coq.Init.Datatypes <> true constr
+R9127:9135 ThieleMachine.ThieleMachineConcrete <> ChshTrial constr
+R9150:9158 ThieleMachine.ThieleMachineConcrete <> ChshTrial constr
+R9228:9231 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R9211:9214 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R9194:9197 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R9181:9187 Coq.Arith.PeanoNat Nat eqb def
+R9198:9204 Coq.Arith.PeanoNat Nat eqb def
+R9215:9221 Coq.Arith.PeanoNat Nat eqb def
+R9232:9238 Coq.Arith.PeanoNat Nat eqb def
+R9250:9262 ThieleMachine.ThieleMachineConcrete <> ErrorOccurred constr
+R9267:9279 ThieleMachine.ThieleMachineConcrete <> ErrorOccurred constr
+R9286:9295 Coq.Strings.String <> eqb def
+R9313:9317 Coq.Init.Datatypes <> false constr
+def 9338:9353 <> option_event_eqb
+R9364:9369 Coq.Init.Datatypes <> option ind
+R9371:9381 ThieleMachine.ThieleMachineConcrete <> ThieleEvent ind
+binder 9356:9357 <> e1:66
+binder 9359:9360 <> e2:67
+R9386:9389 Coq.Init.Datatypes <> bool ind
+R9406:9407 ThieleMachine.ThieleMachineConcrete <> e2:67 var
+R9402:9403 ThieleMachine.ThieleMachineConcrete <> e1:66 var
+R9418:9421 Coq.Init.Datatypes <> None constr
+R9424:9427 Coq.Init.Datatypes <> None constr
+R9432:9435 Coq.Init.Datatypes <> true constr
+R9441:9444 Coq.Init.Datatypes <> Some constr
+R9449:9452 Coq.Init.Datatypes <> Some constr
+R9459:9474 ThieleMachine.ThieleMachineConcrete <> thiele_event_eqb def
+R9492:9496 Coq.Init.Datatypes <> false constr
+def 9517:9533 <> concrete_cert_eqb
+R9544:9555 ThieleMachine.ThieleMachineConcrete <> ConcreteCert rec
+binder 9536:9537 <> c1:70
+binder 9539:9540 <> c2:71
+R9560:9563 Coq.Init.Datatypes <> bool ind
+R9753:9760 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R9710:9717 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R9664:9671 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R9610:9617 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R9570:9579 Coq.Strings.String <> eqb def
+R9585:9593 ThieleMachine.ThieleMachineConcrete <> smt_query proj
+R9581:9582 ThieleMachine.ThieleMachineConcrete <> c1:70 var
+R9600:9608 ThieleMachine.ThieleMachineConcrete <> smt_query proj
+R9596:9597 ThieleMachine.ThieleMachineConcrete <> c2:71 var
+R9618:9627 Coq.Strings.String <> eqb def
 R9633:9644 ThieleMachine.ThieleMachineConcrete <> solver_reply proj
-R9629:9630 ThieleMachine.ThieleMachineConcrete <> c2:71 var
-R9654:9663 Coq.Strings.String <> eqb def
-R9669:9676 ThieleMachine.ThieleMachineConcrete <> metadata proj
-R9665:9666 ThieleMachine.ThieleMachineConcrete <> c1:70 var
-R9683:9690 ThieleMachine.ThieleMachineConcrete <> metadata proj
-R9679:9680 ThieleMachine.ThieleMachineConcrete <> c2:71 var
-R9700:9704 Coq.ZArith.BinInt Z eqb def
-R9710:9718 ThieleMachine.ThieleMachineConcrete <> timestamp proj
-R9706:9707 ThieleMachine.ThieleMachineConcrete <> c1:70 var
-R9725:9733 ThieleMachine.ThieleMachineConcrete <> timestamp proj
-R9721:9722 ThieleMachine.ThieleMachineConcrete <> c2:71 var
-R9743:9749 Coq.Arith.PeanoNat Nat eqb def
-R9755:9762 ThieleMachine.ThieleMachineConcrete <> sequence proj
-R9751:9752 ThieleMachine.ThieleMachineConcrete <> c1:70 var
-R9769:9776 ThieleMachine.ThieleMachineConcrete <> sequence proj
-R9765:9766 ThieleMachine.ThieleMachineConcrete <> c2:71 var
-def 9792:9803 <> step_obs_eqb
-R9814:9820 ThieleMachine.ThieleMachineConcrete <> StepObs rec
-binder 9806:9807 <> o1:72
-binder 9809:9810 <> o2:73
-R9825:9828 Coq.Init.Datatypes <> bool ind
-R9966:9973 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R9867:9932 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R9835:9850 ThieleMachine.ThieleMachineConcrete <> option_event_eqb def
-R9856:9857 ThieleMachine.ThieleMachineConcrete <> ev proj
-R9852:9853 ThieleMachine.ThieleMachineConcrete <> o1:72 var
-R9864:9865 ThieleMachine.ThieleMachineConcrete <> ev proj
-R9860:9861 ThieleMachine.ThieleMachineConcrete <> o2:73 var
-R9933:9937 Coq.ZArith.BinInt Z eqb def
-R9943:9950 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
-R9939:9940 ThieleMachine.ThieleMachineConcrete <> o1:72 var
-R9957:9964 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
-R9953:9954 ThieleMachine.ThieleMachineConcrete <> o2:73 var
-R9974:9990 ThieleMachine.ThieleMachineConcrete <> concrete_cert_eqb def
-R9996:9999 ThieleMachine.ThieleMachineConcrete <> cert proj
-R9992:9993 ThieleMachine.ThieleMachineConcrete <> o1:72 var
-R10006:10009 ThieleMachine.ThieleMachineConcrete <> cert proj
-R10002:10003 ThieleMachine.ThieleMachineConcrete <> o2:73 var
-prf 10078:10098 <> thiele_event_eqb_refl
-binder 10109:10109 <> e:74
-R10132:10134 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10112:10127 ThieleMachine.ThieleMachineConcrete <> thiele_event_eqb def
-R10129:10129 ThieleMachine.ThieleMachineConcrete <> e:74 var
-R10131:10131 ThieleMachine.ThieleMachineConcrete <> e:74 var
-R10135:10138 Coq.Init.Datatypes <> true constr
-R10189:10203 Coq.Strings.String <> eqb_refl thm
-R10189:10203 Coq.Strings.String <> eqb_refl thm
-R10189:10203 Coq.Strings.String <> eqb_refl thm
-R10189:10203 Coq.Strings.String <> eqb_refl thm
-R10189:10203 Coq.Strings.String <> eqb_refl thm
-R10298:10309 Coq.Arith.PeanoNat Nat eqb_refl thm
-R10298:10309 Coq.Arith.PeanoNat Nat eqb_refl thm
-R10298:10309 Coq.Arith.PeanoNat Nat eqb_refl thm
-R10298:10309 Coq.Arith.PeanoNat Nat eqb_refl thm
-R10298:10309 Coq.Arith.PeanoNat Nat eqb_refl thm
-R10298:10309 Coq.Arith.PeanoNat Nat eqb_refl thm
-R10298:10309 Coq.Arith.PeanoNat Nat eqb_refl thm
-R10298:10309 Coq.Arith.PeanoNat Nat eqb_refl thm
-R10298:10309 Coq.Arith.PeanoNat Nat eqb_refl thm
-R10298:10309 Coq.Arith.PeanoNat Nat eqb_refl thm
-prf 10397:10418 <> concrete_cert_eqb_refl
-binder 10429:10432 <> cert:75
-R10462:10464 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10435:10451 ThieleMachine.ThieleMachineConcrete <> concrete_cert_eqb def
-R10453:10456 ThieleMachine.ThieleMachineConcrete <> cert:75 var
-R10458:10461 ThieleMachine.ThieleMachineConcrete <> cert:75 var
-R10465:10468 Coq.Init.Datatypes <> true constr
-R10581:10597 ThieleMachine.ThieleMachineConcrete <> concrete_cert_eqb def
-R10624:10641 Coq.Bool.Bool <> andb_true_iff thm
-R10624:10641 Coq.Bool.Bool <> andb_true_iff thm
-R10624:10641 Coq.Bool.Bool <> andb_true_iff thm
-R10624:10641 Coq.Bool.Bool <> andb_true_iff thm
-R10624:10641 Coq.Bool.Bool <> andb_true_iff thm
-R10624:10641 Coq.Bool.Bool <> andb_true_iff thm
-R10624:10641 Coq.Bool.Bool <> andb_true_iff thm
-R10624:10641 Coq.Bool.Bool <> andb_true_iff thm
-R10624:10641 Coq.Bool.Bool <> andb_true_iff thm
-R10624:10641 Coq.Bool.Bool <> andb_true_iff thm
-R10670:10684 Coq.Strings.String <> eqb_refl thm
-R10697:10706 Coq.ZArith.BinInt Z eqb_refl thm
-R10719:10730 Coq.Arith.PeanoNat Nat eqb_refl thm
-R10670:10684 Coq.Strings.String <> eqb_refl thm
-R10670:10684 Coq.Strings.String <> eqb_refl thm
-R10670:10684 Coq.Strings.String <> eqb_refl thm
-R10670:10684 Coq.Strings.String <> eqb_refl thm
-R10670:10684 Coq.Strings.String <> eqb_refl thm
-R10697:10706 Coq.ZArith.BinInt Z eqb_refl thm
-R10697:10706 Coq.ZArith.BinInt Z eqb_refl thm
-R10719:10730 Coq.Arith.PeanoNat Nat eqb_refl thm
-prf 10803:10819 <> step_obs_eqb_refl
-binder 10830:10832 <> obs:76
-R10855:10857 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10835:10846 ThieleMachine.ThieleMachineConcrete <> step_obs_eqb def
-R10848:10850 ThieleMachine.ThieleMachineConcrete <> obs:76 var
-R10852:10854 ThieleMachine.ThieleMachineConcrete <> obs:76 var
-R10858:10861 Coq.Init.Datatypes <> true constr
-R10904:10915 ThieleMachine.ThieleMachineConcrete <> step_obs_eqb def
-R10918:10933 ThieleMachine.ThieleMachineConcrete <> option_event_eqb def
-R10979:10999 ThieleMachine.ThieleMachineConcrete <> thiele_event_eqb_refl thm
-R11015:11024 Coq.ZArith.BinInt Z eqb_refl thm
-R11039:11060 ThieleMachine.ThieleMachineConcrete <> concrete_cert_eqb_refl thm
-R10979:10999 ThieleMachine.ThieleMachineConcrete <> thiele_event_eqb_refl thm
-R10979:10999 ThieleMachine.ThieleMachineConcrete <> thiele_event_eqb_refl thm
-R10979:10999 ThieleMachine.ThieleMachineConcrete <> thiele_event_eqb_refl thm
-R10979:10999 ThieleMachine.ThieleMachineConcrete <> thiele_event_eqb_refl thm
-R10979:10999 ThieleMachine.ThieleMachineConcrete <> thiele_event_eqb_refl thm
-R11015:11024 Coq.ZArith.BinInt Z eqb_refl thm
-R11015:11024 Coq.ZArith.BinInt Z eqb_refl thm
-R11015:11024 Coq.ZArith.BinInt Z eqb_refl thm
-R11015:11024 Coq.ZArith.BinInt Z eqb_refl thm
-R11015:11024 Coq.ZArith.BinInt Z eqb_refl thm
-R11015:11024 Coq.ZArith.BinInt Z eqb_refl thm
-R11039:11060 ThieleMachine.ThieleMachineConcrete <> concrete_cert_eqb_refl thm
-R11039:11060 ThieleMachine.ThieleMachineConcrete <> concrete_cert_eqb_refl thm
-R11039:11060 ThieleMachine.ThieleMachineConcrete <> concrete_cert_eqb_refl thm
-R11039:11060 ThieleMachine.ThieleMachineConcrete <> concrete_cert_eqb_refl thm
-def 11097:11111 <> receipt_matches
-R11122:11132 ThieleMachine.ThieleMachineConcrete <> ThieleInstr ind
-binder 11114:11118 <> instr:77
-R11160:11172 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
-binder 11147:11150 <> spre:78
-binder 11152:11156 <> spost:79
-R11182:11188 ThieleMachine.ThieleMachineConcrete <> StepObs rec
-binder 11176:11178 <> obs:80
-R11193:11196 Coq.Init.Datatypes <> bool ind
-R11214:11226 ThieleMachine.ThieleMachineConcrete <> concrete_step def
-R11228:11232 ThieleMachine.ThieleMachineConcrete <> instr:77 var
-R11234:11237 ThieleMachine.ThieleMachineConcrete <> spre:78 var
-binder 11207:11209 <> res:81
-R11285:11292 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R11244:11261 ThieleMachine.ThieleMachineConcrete <> concrete_state_eqb def
-R11268:11277 ThieleMachine.ThieleMachineConcrete <> post_state proj
-R11263:11265 ThieleMachine.ThieleMachineConcrete <> res:81 var
-R11280:11284 ThieleMachine.ThieleMachineConcrete <> spost:79 var
-R11293:11304 ThieleMachine.ThieleMachineConcrete <> step_obs_eqb def
-R11311:11321 ThieleMachine.ThieleMachineConcrete <> observation proj
-R11306:11308 ThieleMachine.ThieleMachineConcrete <> res:81 var
-R11324:11326 ThieleMachine.ThieleMachineConcrete <> obs:80 var
-rec 11518:11532 <> ConcreteReceipt
-proj 11548:11560 <> receipt_instr
-proj 11579:11589 <> receipt_pre
-proj 11610:11621 <> receipt_post
-proj 11642:11652 <> receipt_obs
-R11564:11574 ThieleMachine.ThieleMachineConcrete <> ThieleInstr ind
-R11593:11605 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
-R11625:11637 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
-R11656:11662 ThieleMachine.ThieleMachineConcrete <> StepObs rec
-def 11680:11698 <> concrete_check_step
-R11705:11719 ThieleMachine.ThieleMachineConcrete <> ConcreteReceipt rec
-binder 11701:11701 <> r:87
-R11724:11727 Coq.Init.Datatypes <> bool ind
-R11734:11748 ThieleMachine.ThieleMachineConcrete <> receipt_matches def
-R11753:11765 ThieleMachine.ThieleMachineConcrete <> receipt_instr proj
-R11750:11750 ThieleMachine.ThieleMachineConcrete <> r:87 var
-R11771:11781 ThieleMachine.ThieleMachineConcrete <> receipt_pre proj
+R9629:9630 ThieleMachine.ThieleMachineConcrete <> c1:70 var
+R9651:9662 ThieleMachine.ThieleMachineConcrete <> solver_reply proj
+R9647:9648 ThieleMachine.ThieleMachineConcrete <> c2:71 var
+R9672:9681 Coq.Strings.String <> eqb def
+R9687:9694 ThieleMachine.ThieleMachineConcrete <> metadata proj
+R9683:9684 ThieleMachine.ThieleMachineConcrete <> c1:70 var
+R9701:9708 ThieleMachine.ThieleMachineConcrete <> metadata proj
+R9697:9698 ThieleMachine.ThieleMachineConcrete <> c2:71 var
+R9718:9722 Coq.ZArith.BinInt Z eqb def
+R9728:9736 ThieleMachine.ThieleMachineConcrete <> timestamp proj
+R9724:9725 ThieleMachine.ThieleMachineConcrete <> c1:70 var
+R9743:9751 ThieleMachine.ThieleMachineConcrete <> timestamp proj
+R9739:9740 ThieleMachine.ThieleMachineConcrete <> c2:71 var
+R9761:9767 Coq.Arith.PeanoNat Nat eqb def
+R9773:9780 ThieleMachine.ThieleMachineConcrete <> sequence proj
+R9769:9770 ThieleMachine.ThieleMachineConcrete <> c1:70 var
+R9787:9794 ThieleMachine.ThieleMachineConcrete <> sequence proj
+R9783:9784 ThieleMachine.ThieleMachineConcrete <> c2:71 var
+def 9810:9821 <> step_obs_eqb
+R9832:9838 ThieleMachine.ThieleMachineConcrete <> StepObs rec
+binder 9824:9825 <> o1:72
+binder 9827:9828 <> o2:73
+R9843:9846 Coq.Init.Datatypes <> bool ind
+R9984:9991 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R9885:9950 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R9853:9868 ThieleMachine.ThieleMachineConcrete <> option_event_eqb def
+R9874:9875 ThieleMachine.ThieleMachineConcrete <> ev proj
+R9870:9871 ThieleMachine.ThieleMachineConcrete <> o1:72 var
+R9882:9883 ThieleMachine.ThieleMachineConcrete <> ev proj
+R9878:9879 ThieleMachine.ThieleMachineConcrete <> o2:73 var
+R9951:9955 Coq.ZArith.BinInt Z eqb def
+R9961:9968 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
+R9957:9958 ThieleMachine.ThieleMachineConcrete <> o1:72 var
+R9975:9982 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
+R9971:9972 ThieleMachine.ThieleMachineConcrete <> o2:73 var
+R9992:10008 ThieleMachine.ThieleMachineConcrete <> concrete_cert_eqb def
+R10014:10017 ThieleMachine.ThieleMachineConcrete <> cert proj
+R10010:10011 ThieleMachine.ThieleMachineConcrete <> o1:72 var
+R10024:10027 ThieleMachine.ThieleMachineConcrete <> cert proj
+R10020:10021 ThieleMachine.ThieleMachineConcrete <> o2:73 var
+prf 10096:10116 <> thiele_event_eqb_refl
+binder 10127:10127 <> e:74
+R10150:10152 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10130:10145 ThieleMachine.ThieleMachineConcrete <> thiele_event_eqb def
+R10147:10147 ThieleMachine.ThieleMachineConcrete <> e:74 var
+R10149:10149 ThieleMachine.ThieleMachineConcrete <> e:74 var
+R10153:10156 Coq.Init.Datatypes <> true constr
+R10207:10221 Coq.Strings.String <> eqb_refl thm
+R10207:10221 Coq.Strings.String <> eqb_refl thm
+R10207:10221 Coq.Strings.String <> eqb_refl thm
+R10207:10221 Coq.Strings.String <> eqb_refl thm
+R10207:10221 Coq.Strings.String <> eqb_refl thm
+R10316:10327 Coq.Arith.PeanoNat Nat eqb_refl thm
+R10316:10327 Coq.Arith.PeanoNat Nat eqb_refl thm
+R10316:10327 Coq.Arith.PeanoNat Nat eqb_refl thm
+R10316:10327 Coq.Arith.PeanoNat Nat eqb_refl thm
+R10316:10327 Coq.Arith.PeanoNat Nat eqb_refl thm
+R10316:10327 Coq.Arith.PeanoNat Nat eqb_refl thm
+R10316:10327 Coq.Arith.PeanoNat Nat eqb_refl thm
+R10316:10327 Coq.Arith.PeanoNat Nat eqb_refl thm
+R10316:10327 Coq.Arith.PeanoNat Nat eqb_refl thm
+R10316:10327 Coq.Arith.PeanoNat Nat eqb_refl thm
+prf 10415:10436 <> concrete_cert_eqb_refl
+binder 10447:10450 <> cert:75
+R10480:10482 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10453:10469 ThieleMachine.ThieleMachineConcrete <> concrete_cert_eqb def
+R10471:10474 ThieleMachine.ThieleMachineConcrete <> cert:75 var
+R10476:10479 ThieleMachine.ThieleMachineConcrete <> cert:75 var
+R10483:10486 Coq.Init.Datatypes <> true constr
+R10599:10615 ThieleMachine.ThieleMachineConcrete <> concrete_cert_eqb def
+R10642:10659 Coq.Bool.Bool <> andb_true_iff thm
+R10642:10659 Coq.Bool.Bool <> andb_true_iff thm
+R10642:10659 Coq.Bool.Bool <> andb_true_iff thm
+R10642:10659 Coq.Bool.Bool <> andb_true_iff thm
+R10642:10659 Coq.Bool.Bool <> andb_true_iff thm
+R10642:10659 Coq.Bool.Bool <> andb_true_iff thm
+R10642:10659 Coq.Bool.Bool <> andb_true_iff thm
+R10642:10659 Coq.Bool.Bool <> andb_true_iff thm
+R10642:10659 Coq.Bool.Bool <> andb_true_iff thm
+R10642:10659 Coq.Bool.Bool <> andb_true_iff thm
+R10688:10702 Coq.Strings.String <> eqb_refl thm
+R10715:10724 Coq.ZArith.BinInt Z eqb_refl thm
+R10737:10748 Coq.Arith.PeanoNat Nat eqb_refl thm
+R10688:10702 Coq.Strings.String <> eqb_refl thm
+R10688:10702 Coq.Strings.String <> eqb_refl thm
+R10688:10702 Coq.Strings.String <> eqb_refl thm
+R10688:10702 Coq.Strings.String <> eqb_refl thm
+R10688:10702 Coq.Strings.String <> eqb_refl thm
+R10715:10724 Coq.ZArith.BinInt Z eqb_refl thm
+R10715:10724 Coq.ZArith.BinInt Z eqb_refl thm
+R10737:10748 Coq.Arith.PeanoNat Nat eqb_refl thm
+prf 10821:10837 <> step_obs_eqb_refl
+binder 10848:10850 <> obs:76
+R10873:10875 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10853:10864 ThieleMachine.ThieleMachineConcrete <> step_obs_eqb def
+R10866:10868 ThieleMachine.ThieleMachineConcrete <> obs:76 var
+R10870:10872 ThieleMachine.ThieleMachineConcrete <> obs:76 var
+R10876:10879 Coq.Init.Datatypes <> true constr
+R10922:10933 ThieleMachine.ThieleMachineConcrete <> step_obs_eqb def
+R10936:10951 ThieleMachine.ThieleMachineConcrete <> option_event_eqb def
+R10997:11017 ThieleMachine.ThieleMachineConcrete <> thiele_event_eqb_refl thm
+R11033:11042 Coq.ZArith.BinInt Z eqb_refl thm
+R11057:11078 ThieleMachine.ThieleMachineConcrete <> concrete_cert_eqb_refl thm
+R10997:11017 ThieleMachine.ThieleMachineConcrete <> thiele_event_eqb_refl thm
+R10997:11017 ThieleMachine.ThieleMachineConcrete <> thiele_event_eqb_refl thm
+R10997:11017 ThieleMachine.ThieleMachineConcrete <> thiele_event_eqb_refl thm
+R10997:11017 ThieleMachine.ThieleMachineConcrete <> thiele_event_eqb_refl thm
+R10997:11017 ThieleMachine.ThieleMachineConcrete <> thiele_event_eqb_refl thm
+R11033:11042 Coq.ZArith.BinInt Z eqb_refl thm
+R11033:11042 Coq.ZArith.BinInt Z eqb_refl thm
+R11033:11042 Coq.ZArith.BinInt Z eqb_refl thm
+R11033:11042 Coq.ZArith.BinInt Z eqb_refl thm
+R11033:11042 Coq.ZArith.BinInt Z eqb_refl thm
+R11033:11042 Coq.ZArith.BinInt Z eqb_refl thm
+R11057:11078 ThieleMachine.ThieleMachineConcrete <> concrete_cert_eqb_refl thm
+R11057:11078 ThieleMachine.ThieleMachineConcrete <> concrete_cert_eqb_refl thm
+R11057:11078 ThieleMachine.ThieleMachineConcrete <> concrete_cert_eqb_refl thm
+R11057:11078 ThieleMachine.ThieleMachineConcrete <> concrete_cert_eqb_refl thm
+def 11115:11129 <> receipt_matches
+R11140:11150 ThieleMachine.ThieleMachineConcrete <> ThieleInstr ind
+binder 11132:11136 <> instr:77
+R11178:11190 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
+binder 11165:11168 <> spre:78
+binder 11170:11174 <> spost:79
+R11200:11206 ThieleMachine.ThieleMachineConcrete <> StepObs rec
+binder 11194:11196 <> obs:80
+R11211:11214 Coq.Init.Datatypes <> bool ind
+R11232:11244 ThieleMachine.ThieleMachineConcrete <> concrete_step def
+R11246:11250 ThieleMachine.ThieleMachineConcrete <> instr:77 var
+R11252:11255 ThieleMachine.ThieleMachineConcrete <> spre:78 var
+binder 11225:11227 <> res:81
+R11303:11310 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R11262:11279 ThieleMachine.ThieleMachineConcrete <> concrete_state_eqb def
+R11286:11295 ThieleMachine.ThieleMachineConcrete <> post_state proj
+R11281:11283 ThieleMachine.ThieleMachineConcrete <> res:81 var
+R11298:11302 ThieleMachine.ThieleMachineConcrete <> spost:79 var
+R11311:11322 ThieleMachine.ThieleMachineConcrete <> step_obs_eqb def
+R11329:11339 ThieleMachine.ThieleMachineConcrete <> observation proj
+R11324:11326 ThieleMachine.ThieleMachineConcrete <> res:81 var
+R11342:11344 ThieleMachine.ThieleMachineConcrete <> obs:80 var
+rec 11536:11550 <> ConcreteReceipt
+proj 11566:11578 <> receipt_instr
+proj 11597:11607 <> receipt_pre
+proj 11628:11639 <> receipt_post
+proj 11660:11670 <> receipt_obs
+R11582:11592 ThieleMachine.ThieleMachineConcrete <> ThieleInstr ind
+R11611:11623 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
+R11643:11655 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
+R11674:11680 ThieleMachine.ThieleMachineConcrete <> StepObs rec
+def 11698:11716 <> concrete_check_step
+R11723:11737 ThieleMachine.ThieleMachineConcrete <> ConcreteReceipt rec
+binder 11719:11719 <> r:87
+R11742:11745 Coq.Init.Datatypes <> bool ind
+R11752:11766 ThieleMachine.ThieleMachineConcrete <> receipt_matches def
+R11771:11783 ThieleMachine.ThieleMachineConcrete <> receipt_instr proj
 R11768:11768 ThieleMachine.ThieleMachineConcrete <> r:87 var
-R11787:11798 ThieleMachine.ThieleMachineConcrete <> receipt_post proj
-R11784:11784 ThieleMachine.ThieleMachineConcrete <> r:87 var
-R11804:11814 ThieleMachine.ThieleMachineConcrete <> receipt_obs proj
-R11801:11801 ThieleMachine.ThieleMachineConcrete <> r:87 var
-def 11828:11845 <> concrete_replay_ok
-R11853:11865 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
-binder 11848:11849 <> s0:88
-R11874:11877 Coq.Init.Datatypes <> list ind
-R11879:11893 ThieleMachine.ThieleMachineConcrete <> ConcreteReceipt rec
-binder 11869:11870 <> rs:89
-R11898:11901 Coq.Init.Datatypes <> bool ind
-R11914:11915 ThieleMachine.ThieleMachineConcrete <> rs:89 var
-R11926:11927 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R11932:11935 Coq.Init.Datatypes <> true constr
-R11942:11945 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R11961:11964 Coq.Init.Datatypes <> negb def
-R11967:11984 ThieleMachine.ThieleMachineConcrete <> concrete_state_eqb def
-R11986:11987 ThieleMachine.ThieleMachineConcrete <> s0:88 var
-R11992:12002 ThieleMachine.ThieleMachineConcrete <> receipt_pre proj
-R12031:12049 ThieleMachine.ThieleMachineConcrete <> concrete_check_step def
-R12124:12128 Coq.Init.Datatypes <> false constr
-R12069:12086 ThieleMachine.ThieleMachineConcrete <> concrete_replay_ok:90 def
-R12091:12102 ThieleMachine.ThieleMachineConcrete <> receipt_post proj
-R12011:12015 Coq.Init.Datatypes <> false constr
-def 12313:12328 <> concrete_bitsize
-R12335:12346 ThieleMachine.ThieleMachineConcrete <> ConcreteCert rec
-binder 12331:12331 <> c:92
-R12351:12351 Coq.Numbers.BinNums <> Z ind
-R12441:12443 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
-R12358:12365 Coq.ZArith.BinInt Z of_nat def
-R12395:12409 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R12368:12380 Coq.Strings.String <> length def
-R12385:12393 ThieleMachine.ThieleMachineConcrete <> smt_query proj
-R12382:12382 ThieleMachine.ThieleMachineConcrete <> c:92 var
-R12410:12422 Coq.Strings.String <> length def
-R12427:12438 ThieleMachine.ThieleMachineConcrete <> solver_reply proj
-R12424:12424 ThieleMachine.ThieleMachineConcrete <> c:92 var
-prf 12518:12548 <> concrete_bitsize_cert_for_query
-binder 12561:12565 <> query:93
-R12611:12617 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12572:12587 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize def
-R12590:12603 ThieleMachine.ThieleMachineConcrete <> cert_for_query def
-R12605:12609 ThieleMachine.ThieleMachineConcrete <> query:93 var
-R12618:12618 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
-R12649:12652 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
-R12619:12626 Coq.ZArith.BinInt Z of_nat def
-R12629:12641 Coq.Strings.String <> length def
-R12643:12647 ThieleMachine.ThieleMachineConcrete <> query:93 var
-R12722:12737 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize def
-R12740:12753 ThieleMachine.ThieleMachineConcrete <> cert_for_query def
-R12775:12785 Coq.Arith.PeanoNat Nat add_0_r thm
-R12775:12785 Coq.Arith.PeanoNat Nat add_0_r thm
-R12775:12785 Coq.Arith.PeanoNat Nat add_0_r thm
-prf 12849:12882 <> concrete_bitsize_default_cert_zero
-R12917:12919 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12888:12903 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize def
-R12905:12916 ThieleMachine.ThieleMachineConcrete <> default_cert def
-R12939:12954 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize def
-R12957:12968 ThieleMachine.ThieleMachineConcrete <> default_cert def
-def 13010:13026 <> concrete_sum_bits
-R13034:13037 Coq.Init.Datatypes <> list ind
-R13039:13053 ThieleMachine.ThieleMachineConcrete <> ConcreteReceipt rec
-binder 13029:13030 <> rs:94
-R13058:13058 Coq.Numbers.BinNums <> Z ind
-R13071:13072 ThieleMachine.ThieleMachineConcrete <> rs:94 var
-R13083:13084 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R13096:13099 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R13145:13147 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R13106:13121 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize def
-R13140:13143 ThieleMachine.ThieleMachineConcrete <> cert proj
-R13126:13136 ThieleMachine.ThieleMachineConcrete <> receipt_obs proj
-R13148:13164 ThieleMachine.ThieleMachineConcrete <> concrete_sum_bits:95 def
-prf 13248:13279 <> concrete_bitsize_cert_for_pyexec
-binder 13292:13295 <> code:97
-R13337:13339 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13298:13313 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize def
-R13316:13330 ThieleMachine.ThieleMachineConcrete <> cert_for_pyexec def
-R13332:13335 ThieleMachine.ThieleMachineConcrete <> code:97 var
-R13374:13388 ThieleMachine.ThieleMachineConcrete <> cert_for_pyexec def
-R13403:13412 Coq.Strings.String <> eqb def
-R13403:13412 Coq.Strings.String <> eqb def
-R13484:13493 Coq.Strings.String <> eqb def
-R13484:13493 Coq.Strings.String <> eqb def
-prf 13707:13742 <> concrete_bitsize_cert_for_chsh_trial
-binder 13755:13755 <> x:98
-binder 13757:13757 <> y:99
-binder 13759:13759 <> a:100
-binder 13761:13761 <> b:101
-R13810:13812 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13764:13779 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize def
-R13782:13800 ThieleMachine.ThieleMachineConcrete <> cert_for_chsh_trial def
-R13802:13802 ThieleMachine.ThieleMachineConcrete <> x:98 var
-R13804:13804 ThieleMachine.ThieleMachineConcrete <> y:99 var
-R13806:13806 ThieleMachine.ThieleMachineConcrete <> a:100 var
-R13808:13808 ThieleMachine.ThieleMachineConcrete <> b:101 var
-R13850:13865 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize def
-R13868:13886 ThieleMachine.ThieleMachineConcrete <> cert_for_chsh_trial def
-def 13928:13942 <> concrete_sum_mu
-R13950:13953 Coq.Init.Datatypes <> list ind
-R13969:13971 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R13956:13968 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
-R13972:13978 ThieleMachine.ThieleMachineConcrete <> StepObs rec
-binder 13945:13946 <> tr:102
-R13984:13984 Coq.Numbers.BinNums <> Z ind
-R13997:13998 ThieleMachine.ThieleMachineConcrete <> tr:102 var
-R14009:14010 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R14029:14032 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R14021:14021 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R14023:14024 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R14028:14028 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R14053:14055 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R14044:14051 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
-R14056:14070 ThieleMachine.ThieleMachineConcrete <> concrete_sum_mu:103 def
-def 14273:14289 <> concrete_trace_of
-R14296:14308 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
-binder 14292:14292 <> s:105
-R14319:14322 Coq.Init.Datatypes <> list ind
-R14324:14334 ThieleMachine.ThieleMachineConcrete <> ThieleInstr ind
-binder 14312:14315 <> prog:106
-R14341:14344 Coq.Init.Datatypes <> list ind
-R14360:14362 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R14347:14359 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
-R14363:14369 ThieleMachine.ThieleMachineConcrete <> StepObs rec
-R14383:14386 ThieleMachine.ThieleMachineConcrete <> prog:106 var
-R14397:14398 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R14403:14404 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R14415:14418 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R14442:14454 ThieleMachine.ThieleMachineConcrete <> concrete_step def
-R14462:14462 ThieleMachine.ThieleMachineConcrete <> s:105 var
-binder 14435:14437 <> res:109
-R14510:14513 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R14473:14473 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R14490:14491 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R14509:14509 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R14479:14488 ThieleMachine.ThieleMachineConcrete <> post_state proj
-R14474:14476 ThieleMachine.ThieleMachineConcrete <> res:109 var
-R14497:14507 ThieleMachine.ThieleMachineConcrete <> observation proj
-R14492:14494 ThieleMachine.ThieleMachineConcrete <> res:109 var
-R14514:14530 ThieleMachine.ThieleMachineConcrete <> concrete_trace_of:107 def
-R14537:14546 ThieleMachine.ThieleMachineConcrete <> post_state proj
-R14532:14534 ThieleMachine.ThieleMachineConcrete <> res:109 var
-def 14569:14588 <> concrete_receipts_of
-R14595:14607 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
-binder 14591:14591 <> s:110
-R14618:14621 Coq.Init.Datatypes <> list ind
-R14623:14633 ThieleMachine.ThieleMachineConcrete <> ThieleInstr ind
-binder 14611:14614 <> prog:111
-R14640:14643 Coq.Init.Datatypes <> list ind
-R14645:14659 ThieleMachine.ThieleMachineConcrete <> ConcreteReceipt rec
-R14672:14675 ThieleMachine.ThieleMachineConcrete <> prog:111 var
-R14686:14687 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R14692:14693 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R14704:14707 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R14731:14743 ThieleMachine.ThieleMachineConcrete <> concrete_step def
-R14751:14751 ThieleMachine.ThieleMachineConcrete <> s:110 var
-binder 14724:14726 <> res:114
-R14797:14799 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R14935:14949 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R14800:14812 ThieleMachine.ThieleMachineConcrete <> receipt_instr proj
-R14800:14812 ThieleMachine.ThieleMachineConcrete <> receipt_instr proj
-R14800:14812 ThieleMachine.ThieleMachineConcrete <> receipt_instr proj
-R14833:14843 ThieleMachine.ThieleMachineConcrete <> receipt_pre proj
-R14833:14843 ThieleMachine.ThieleMachineConcrete <> receipt_pre proj
-R14860:14871 ThieleMachine.ThieleMachineConcrete <> receipt_post proj
-R14860:14871 ThieleMachine.ThieleMachineConcrete <> receipt_post proj
-R14903:14913 ThieleMachine.ThieleMachineConcrete <> receipt_obs proj
-R14903:14913 ThieleMachine.ThieleMachineConcrete <> receipt_obs proj
-R14848:14848 ThieleMachine.ThieleMachineConcrete <> s:110 var
-R14881:14890 ThieleMachine.ThieleMachineConcrete <> post_state proj
-R14876:14878 ThieleMachine.ThieleMachineConcrete <> res:114 var
-R14923:14933 ThieleMachine.ThieleMachineConcrete <> observation proj
-R14918:14920 ThieleMachine.ThieleMachineConcrete <> res:114 var
-R14950:14969 ThieleMachine.ThieleMachineConcrete <> concrete_receipts_of:112 def
-R14976:14985 ThieleMachine.ThieleMachineConcrete <> post_state proj
-R14971:14973 ThieleMachine.ThieleMachineConcrete <> res:114 var
-prf 15040:15063 <> concrete_receipts_length
-binder 15076:15076 <> s:115
-binder 15078:15081 <> prog:116
-R15124:15126 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15088:15093 ThieleMachine.ThieleMachineConcrete <> length abbrev
-R15096:15115 ThieleMachine.ThieleMachineConcrete <> concrete_receipts_of def
-R15117:15117 ThieleMachine.ThieleMachineConcrete <> s:115 var
-R15119:15122 ThieleMachine.ThieleMachineConcrete <> prog:116 var
-R15127:15132 ThieleMachine.ThieleMachineConcrete <> length abbrev
-R15134:15137 ThieleMachine.ThieleMachineConcrete <> prog:116 var
-R15260:15272 ThieleMachine.ThieleMachineConcrete <> concrete_step def
-R15260:15272 ThieleMachine.ThieleMachineConcrete <> concrete_step def
-prf 15437:15460 <> concrete_receipts_instrs
-binder 15473:15473 <> s:117
-binder 15475:15478 <> prog:118
-R15537:15539 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15485:15492 Coq.Lists.List <> map def
-R15509:15528 ThieleMachine.ThieleMachineConcrete <> concrete_receipts_of def
-R15530:15530 ThieleMachine.ThieleMachineConcrete <> s:117 var
-R15532:15535 ThieleMachine.ThieleMachineConcrete <> prog:118 var
-R15494:15506 ThieleMachine.ThieleMachineConcrete <> receipt_instr proj
-R15540:15543 ThieleMachine.ThieleMachineConcrete <> prog:118 var
-R15701:15713 ThieleMachine.ThieleMachineConcrete <> concrete_step def
-R15701:15713 ThieleMachine.ThieleMachineConcrete <> concrete_step def
-prf 15824:15844 <> concrete_trace_length
-binder 15857:15857 <> s:119
-binder 15859:15862 <> prog:120
-R15902:15904 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15869:15874 ThieleMachine.ThieleMachineConcrete <> length abbrev
-R15877:15893 ThieleMachine.ThieleMachineConcrete <> concrete_trace_of def
-R15895:15895 ThieleMachine.ThieleMachineConcrete <> s:119 var
-R15897:15900 ThieleMachine.ThieleMachineConcrete <> prog:120 var
-R15905:15910 ThieleMachine.ThieleMachineConcrete <> length abbrev
-R15912:15915 ThieleMachine.ThieleMachineConcrete <> prog:120 var
-R16038:16050 ThieleMachine.ThieleMachineConcrete <> concrete_step def
-R16038:16050 ThieleMachine.ThieleMachineConcrete <> concrete_step def
-ind 16332:16343 <> ConcreteExec
-constr 16428:16436 <> cexec_nil
-constr 16473:16482 <> cexec_cons
-R16363:16366 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16347:16350 Coq.Init.Datatypes <> list ind
-R16352:16362 ThieleMachine.ThieleMachineConcrete <> ThieleInstr ind
-R16380:16383 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16367:16379 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
-R16414:16417 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16384:16387 Coq.Init.Datatypes <> list ind
-R16403:16405 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R16390:16402 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
-R16406:16412 ThieleMachine.ThieleMachineConcrete <> StepObs rec
-binder 16447:16447 <> s:123
-R16450:16461 ThieleMachine.ThieleMachineConcrete <> ConcreteExec:121 ind
-R16468:16469 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R16466:16466 ThieleMachine.ThieleMachineConcrete <> s:123 var
-R16463:16464 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-binder 16493:16497 <> instr:124
-binder 16499:16502 <> prog:125
-binder 16504:16504 <> s:126
-binder 16506:16507 <> s':127
-binder 16509:16511 <> obs:128
-binder 16513:16514 <> tr:129
-R16587:16594 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16542:16547 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16584:16586 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16521:16533 ThieleMachine.ThieleMachineConcrete <> concrete_step def
-R16535:16539 ThieleMachine.ThieleMachineConcrete <> instr:124 var
-R16541:16541 ThieleMachine.ThieleMachineConcrete <> s:126 var
-R16548:16557 ThieleMachine.ThieleMachineConcrete <> post_state proj
-R16548:16557 ThieleMachine.ThieleMachineConcrete <> post_state proj
-R16548:16557 ThieleMachine.ThieleMachineConcrete <> post_state proj
-R16566:16576 ThieleMachine.ThieleMachineConcrete <> observation proj
-R16566:16576 ThieleMachine.ThieleMachineConcrete <> observation proj
-R16562:16563 ThieleMachine.ThieleMachineConcrete <> s':127 var
-R16581:16583 ThieleMachine.ThieleMachineConcrete <> obs:128 var
-R16618:16625 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16595:16606 ThieleMachine.ThieleMachineConcrete <> ConcreteExec:121 ind
-R16616:16617 ThieleMachine.ThieleMachineConcrete <> tr:129 var
-R16613:16614 ThieleMachine.ThieleMachineConcrete <> s':127 var
-R16608:16611 ThieleMachine.ThieleMachineConcrete <> prog:125 var
-R16626:16637 ThieleMachine.ThieleMachineConcrete <> ConcreteExec:121 ind
-R16667:16670 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R16658:16658 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R16661:16662 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R16666:16666 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R16659:16660 ThieleMachine.ThieleMachineConcrete <> s':127 var
-R16663:16665 ThieleMachine.ThieleMachineConcrete <> obs:128 var
-R16671:16672 ThieleMachine.ThieleMachineConcrete <> tr:129 var
-R16655:16655 ThieleMachine.ThieleMachineConcrete <> s:126 var
-R16645:16648 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R16640:16644 ThieleMachine.ThieleMachineConcrete <> instr:124 var
-R16649:16652 ThieleMachine.ThieleMachineConcrete <> prog:125 var
-scheme 16332:16343 <> ConcreteExec_ind
-scheme 16332:16343 <> ConcreteExec_sind
-prf 16749:16781 <> concrete_exec_trace_deterministic
-binder 16794:16797 <> prog:130
-binder 16799:16799 <> s:131
-binder 16801:16802 <> tr:132
-R16831:16838 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16809:16820 ThieleMachine.ThieleMachineConcrete <> ConcreteExec ind
-R16822:16825 ThieleMachine.ThieleMachineConcrete <> prog:130 var
-R16827:16827 ThieleMachine.ThieleMachineConcrete <> s:131 var
-R16829:16830 ThieleMachine.ThieleMachineConcrete <> tr:132 var
-R16841:16843 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16839:16840 ThieleMachine.ThieleMachineConcrete <> tr:132 var
-R16844:16860 ThieleMachine.ThieleMachineConcrete <> concrete_trace_of def
-R16862:16862 ThieleMachine.ThieleMachineConcrete <> s:131 var
-R16864:16867 ThieleMachine.ThieleMachineConcrete <> prog:130 var
-prf 17062:17086 <> concrete_exec_receipts_ok
-binder 17099:17102 <> prog:133
-binder 17104:17104 <> s:134
-binder 17106:17107 <> tr:135
-R17136:17143 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17114:17125 ThieleMachine.ThieleMachineConcrete <> ConcreteExec ind
-R17127:17130 ThieleMachine.ThieleMachineConcrete <> prog:133 var
-R17132:17132 ThieleMachine.ThieleMachineConcrete <> s:134 var
-R17134:17135 ThieleMachine.ThieleMachineConcrete <> tr:135 var
-R17194:17196 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R17144:17161 ThieleMachine.ThieleMachineConcrete <> concrete_replay_ok def
-R17163:17163 ThieleMachine.ThieleMachineConcrete <> s:134 var
-R17166:17185 ThieleMachine.ThieleMachineConcrete <> concrete_receipts_of def
-R17187:17187 ThieleMachine.ThieleMachineConcrete <> s:134 var
-R17189:17192 ThieleMachine.ThieleMachineConcrete <> prog:133 var
-R17197:17200 Coq.Init.Datatypes <> true constr
-R17293:17310 ThieleMachine.ThieleMachineConcrete <> concrete_state_eqb def
-R17293:17310 ThieleMachine.ThieleMachineConcrete <> concrete_state_eqb def
-R17340:17358 ThieleMachine.ThieleMachineConcrete <> concrete_check_step def
-R17361:17375 ThieleMachine.ThieleMachineConcrete <> receipt_matches def
-R17424:17441 ThieleMachine.ThieleMachineConcrete <> concrete_state_eqb def
-R17444:17453 ThieleMachine.ThieleMachineConcrete <> post_state proj
-R17456:17468 ThieleMachine.ThieleMachineConcrete <> concrete_step def
-R17424:17441 ThieleMachine.ThieleMachineConcrete <> concrete_state_eqb def
-R17444:17453 ThieleMachine.ThieleMachineConcrete <> post_state proj
-R17456:17468 ThieleMachine.ThieleMachineConcrete <> concrete_step def
-R17513:17524 ThieleMachine.ThieleMachineConcrete <> step_obs_eqb def
-R17527:17537 ThieleMachine.ThieleMachineConcrete <> observation proj
-R17540:17552 ThieleMachine.ThieleMachineConcrete <> concrete_step def
-R17513:17524 ThieleMachine.ThieleMachineConcrete <> step_obs_eqb def
-R17527:17537 ThieleMachine.ThieleMachineConcrete <> observation proj
-R17540:17552 ThieleMachine.ThieleMachineConcrete <> concrete_step def
-R17677:17693 ThieleMachine.ThieleMachineConcrete <> step_obs_eqb_refl thm
-R17677:17693 ThieleMachine.ThieleMachineConcrete <> step_obs_eqb_refl thm
-R17677:17693 ThieleMachine.ThieleMachineConcrete <> step_obs_eqb_refl thm
-R17784:17806 ThieleMachine.ThieleMachineConcrete <> concrete_state_eqb_refl thm
-R17784:17806 ThieleMachine.ThieleMachineConcrete <> concrete_state_eqb_refl thm
-R17784:17806 ThieleMachine.ThieleMachineConcrete <> concrete_state_eqb_refl thm
-R17851:17873 ThieleMachine.ThieleMachineConcrete <> concrete_state_eqb_refl thm
-R17851:17873 ThieleMachine.ThieleMachineConcrete <> concrete_state_eqb_refl thm
-R17851:17873 ThieleMachine.ThieleMachineConcrete <> concrete_state_eqb_refl thm
-prf 17969:17991 <> concrete_sum_bits_trace
-binder 18004:18004 <> s:136
-binder 18006:18009 <> prog:137
-R18063:18069 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18016:18032 ThieleMachine.ThieleMachineConcrete <> concrete_sum_bits def
-R18035:18054 ThieleMachine.ThieleMachineConcrete <> concrete_receipts_of def
-R18056:18056 ThieleMachine.ThieleMachineConcrete <> s:136 var
-R18058:18061 ThieleMachine.ThieleMachineConcrete <> prog:137 var
-R18070:18084 ThieleMachine.ThieleMachineConcrete <> concrete_sum_mu def
-R18087:18103 ThieleMachine.ThieleMachineConcrete <> concrete_trace_of def
-R18105:18105 ThieleMachine.ThieleMachineConcrete <> s:136 var
-R18107:18110 ThieleMachine.ThieleMachineConcrete <> prog:137 var
-R18298:18298 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
-R18329:18332 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
-R18299:18306 Coq.ZArith.BinInt Z of_nat def
-R18309:18321 Coq.Strings.String <> length def
-R18298:18298 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
-R18329:18332 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
-R18299:18306 Coq.ZArith.BinInt Z of_nat def
-R18309:18321 Coq.Strings.String <> length def
-R18360:18390 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize_cert_for_query thm
-R18360:18390 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize_cert_for_query thm
-R18360:18390 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize_cert_for_query thm
-R18421:18430 ThieleMachine.ThieleMachineConcrete <> with_pc_mu def
-R18421:18430 ThieleMachine.ThieleMachineConcrete <> with_pc_mu def
-R18421:18430 ThieleMachine.ThieleMachineConcrete <> with_pc_mu def
-R18485:18494 ThieleMachine.ThieleMachineConcrete <> advance_pc def
-R18485:18494 ThieleMachine.ThieleMachineConcrete <> advance_pc def
-R18485:18494 ThieleMachine.ThieleMachineConcrete <> advance_pc def
-R18542:18551 ThieleMachine.ThieleMachineConcrete <> advance_pc def
-R18542:18551 ThieleMachine.ThieleMachineConcrete <> advance_pc def
-R18542:18551 ThieleMachine.ThieleMachineConcrete <> advance_pc def
-R18594:18625 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize_cert_for_pyexec thm
-R18594:18625 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize_cert_for_pyexec thm
-R18594:18625 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize_cert_for_pyexec thm
-R18645:18654 ThieleMachine.ThieleMachineConcrete <> advance_pc def
-R18645:18654 ThieleMachine.ThieleMachineConcrete <> advance_pc def
-R18645:18654 ThieleMachine.ThieleMachineConcrete <> advance_pc def
-R18743:18746 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R18727:18730 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R18711:18714 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R18699:18708 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R18715:18724 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R18731:18740 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R18747:18756 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R18743:18746 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R18727:18730 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R18711:18714 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R18699:18708 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R18715:18724 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R18731:18740 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R18747:18756 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R18787:18802 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize def
-R18805:18823 ThieleMachine.ThieleMachineConcrete <> cert_for_chsh_trial def
-R18893:18902 ThieleMachine.ThieleMachineConcrete <> advance_pc def
-R18893:18902 ThieleMachine.ThieleMachineConcrete <> advance_pc def
-R18893:18902 ThieleMachine.ThieleMachineConcrete <> advance_pc def
-R18935:18950 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize def
-R18953:18964 ThieleMachine.ThieleMachineConcrete <> default_cert def
-R18999:19008 ThieleMachine.ThieleMachineConcrete <> advance_pc def
-R18999:19008 ThieleMachine.ThieleMachineConcrete <> advance_pc def
-R18999:19008 ThieleMachine.ThieleMachineConcrete <> advance_pc def
-R19056:19065 ThieleMachine.ThieleMachineConcrete <> advance_pc def
-R19056:19065 ThieleMachine.ThieleMachineConcrete <> advance_pc def
-R19056:19065 ThieleMachine.ThieleMachineConcrete <> advance_pc def
-prf 19132:19151 <> concrete_exec_length
-binder 19164:19167 <> prog:138
-binder 19169:19169 <> s:139
-binder 19171:19172 <> tr:140
-R19201:19204 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19179:19190 ThieleMachine.ThieleMachineConcrete <> ConcreteExec ind
-R19192:19195 ThieleMachine.ThieleMachineConcrete <> prog:138 var
-R19197:19197 ThieleMachine.ThieleMachineConcrete <> s:139 var
-R19199:19200 ThieleMachine.ThieleMachineConcrete <> tr:140 var
-R19214:19216 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19205:19210 ThieleMachine.ThieleMachineConcrete <> length abbrev
-R19212:19213 ThieleMachine.ThieleMachineConcrete <> tr:140 var
-R19217:19222 ThieleMachine.ThieleMachineConcrete <> length abbrev
-R19224:19227 ThieleMachine.ThieleMachineConcrete <> prog:138 var
-R19274:19306 ThieleMachine.ThieleMachineConcrete <> concrete_exec_trace_deterministic thm
-R19274:19306 ThieleMachine.ThieleMachineConcrete <> concrete_exec_trace_deterministic thm
-R19274:19306 ThieleMachine.ThieleMachineConcrete <> concrete_exec_trace_deterministic thm
-R19330:19350 ThieleMachine.ThieleMachineConcrete <> concrete_trace_length thm
-R19330:19350 ThieleMachine.ThieleMachineConcrete <> concrete_trace_length thm
-prf 19428:19455 <> ConcreteThieleMachine_exists
-R19461:19468 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R19513:19519 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R19476:19479 Coq.Init.Datatypes <> list ind
-R19481:19491 ThieleMachine.ThieleMachineConcrete <> ThieleInstr ind
-binder 19469:19472 <> prog:141
-R19500:19512 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
-binder 19495:19496 <> s0:142
-binder 19527:19528 <> tr:143
-R19560:19569 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19537:19548 ThieleMachine.ThieleMachineConcrete <> ConcreteExec ind
-R19550:19553 ThieleMachine.ThieleMachineConcrete <> prog:141 var
-R19555:19556 ThieleMachine.ThieleMachineConcrete <> s0:142 var
-R19558:19559 ThieleMachine.ThieleMachineConcrete <> tr:143 var
-R19570:19576 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R19579:19588 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 19577:19578 <> rs:144
-R19610:19621 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R19598:19600 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19589:19594 ThieleMachine.ThieleMachineConcrete <> length abbrev
-R19596:19597 ThieleMachine.ThieleMachineConcrete <> rs:144 var
-R19601:19606 ThieleMachine.ThieleMachineConcrete <> length abbrev
-R19608:19609 ThieleMachine.ThieleMachineConcrete <> tr:143 var
-R19653:19664 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R19646:19648 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19622:19639 ThieleMachine.ThieleMachineConcrete <> concrete_replay_ok def
-R19641:19642 ThieleMachine.ThieleMachineConcrete <> s0:142 var
-R19644:19645 ThieleMachine.ThieleMachineConcrete <> rs:144 var
-R19649:19652 Coq.Init.Datatypes <> true constr
-R19665:19668 Coq.ZArith.BinInt Z le def
-R19671:19687 ThieleMachine.ThieleMachineConcrete <> concrete_sum_bits def
-R19689:19690 ThieleMachine.ThieleMachineConcrete <> rs:144 var
-R19694:19708 ThieleMachine.ThieleMachineConcrete <> concrete_sum_mu def
-R19710:19711 ThieleMachine.ThieleMachineConcrete <> tr:143 var
-R19731:19732 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R19731:19732 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R19744:19765 ThieleMachine.ThieleMachineConcrete <> default_concrete_state def
-R19744:19765 ThieleMachine.ThieleMachineConcrete <> default_concrete_state def
-R19822:19823 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R19822:19823 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R11789:11799 ThieleMachine.ThieleMachineConcrete <> receipt_pre proj
+R11786:11786 ThieleMachine.ThieleMachineConcrete <> r:87 var
+R11805:11816 ThieleMachine.ThieleMachineConcrete <> receipt_post proj
+R11802:11802 ThieleMachine.ThieleMachineConcrete <> r:87 var
+R11822:11832 ThieleMachine.ThieleMachineConcrete <> receipt_obs proj
+R11819:11819 ThieleMachine.ThieleMachineConcrete <> r:87 var
+def 11846:11863 <> concrete_replay_ok
+R11871:11883 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
+binder 11866:11867 <> s0:88
+R11892:11895 Coq.Init.Datatypes <> list ind
+R11897:11911 ThieleMachine.ThieleMachineConcrete <> ConcreteReceipt rec
+binder 11887:11888 <> rs:89
+R11916:11919 Coq.Init.Datatypes <> bool ind
+R11932:11933 ThieleMachine.ThieleMachineConcrete <> rs:89 var
+R11944:11945 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R11950:11953 Coq.Init.Datatypes <> true constr
+R11960:11963 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R11979:11982 Coq.Init.Datatypes <> negb def
+R11985:12002 ThieleMachine.ThieleMachineConcrete <> concrete_state_eqb def
+R12004:12005 ThieleMachine.ThieleMachineConcrete <> s0:88 var
+R12010:12020 ThieleMachine.ThieleMachineConcrete <> receipt_pre proj
+R12049:12067 ThieleMachine.ThieleMachineConcrete <> concrete_check_step def
+R12142:12146 Coq.Init.Datatypes <> false constr
+R12087:12104 ThieleMachine.ThieleMachineConcrete <> concrete_replay_ok:90 def
+R12109:12120 ThieleMachine.ThieleMachineConcrete <> receipt_post proj
+R12029:12033 Coq.Init.Datatypes <> false constr
+def 12331:12346 <> concrete_bitsize
+R12353:12364 ThieleMachine.ThieleMachineConcrete <> ConcreteCert rec
+binder 12349:12349 <> c:92
+R12369:12369 Coq.Numbers.BinNums <> Z ind
+R12459:12461 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R12376:12383 Coq.ZArith.BinInt Z of_nat def
+R12413:12427 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R12386:12398 Coq.Strings.String <> length def
+R12403:12411 ThieleMachine.ThieleMachineConcrete <> smt_query proj
+R12400:12400 ThieleMachine.ThieleMachineConcrete <> c:92 var
+R12428:12440 Coq.Strings.String <> length def
+R12445:12456 ThieleMachine.ThieleMachineConcrete <> solver_reply proj
+R12442:12442 ThieleMachine.ThieleMachineConcrete <> c:92 var
+prf 12536:12566 <> concrete_bitsize_cert_for_query
+binder 12579:12583 <> query:93
+R12629:12635 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12590:12605 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize def
+R12608:12621 ThieleMachine.ThieleMachineConcrete <> cert_for_query def
+R12623:12627 ThieleMachine.ThieleMachineConcrete <> query:93 var
+R12636:12636 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R12667:12670 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R12637:12644 Coq.ZArith.BinInt Z of_nat def
+R12647:12659 Coq.Strings.String <> length def
+R12661:12665 ThieleMachine.ThieleMachineConcrete <> query:93 var
+R12740:12755 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize def
+R12758:12771 ThieleMachine.ThieleMachineConcrete <> cert_for_query def
+R12793:12803 Coq.Arith.PeanoNat Nat add_0_r thm
+R12793:12803 Coq.Arith.PeanoNat Nat add_0_r thm
+R12793:12803 Coq.Arith.PeanoNat Nat add_0_r thm
+prf 12867:12900 <> concrete_bitsize_default_cert_zero
+R12935:12937 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12906:12921 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize def
+R12923:12934 ThieleMachine.ThieleMachineConcrete <> default_cert def
+R12957:12972 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize def
+R12975:12986 ThieleMachine.ThieleMachineConcrete <> default_cert def
+def 13028:13044 <> concrete_sum_bits
+R13052:13055 Coq.Init.Datatypes <> list ind
+R13057:13071 ThieleMachine.ThieleMachineConcrete <> ConcreteReceipt rec
+binder 13047:13048 <> rs:94
+R13076:13076 Coq.Numbers.BinNums <> Z ind
+R13089:13090 ThieleMachine.ThieleMachineConcrete <> rs:94 var
+R13101:13102 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R13114:13117 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R13163:13165 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R13124:13139 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize def
+R13158:13161 ThieleMachine.ThieleMachineConcrete <> cert proj
+R13144:13154 ThieleMachine.ThieleMachineConcrete <> receipt_obs proj
+R13166:13182 ThieleMachine.ThieleMachineConcrete <> concrete_sum_bits:95 def
+prf 13268:13301 <> concrete_bitsize_cert_for_load_imm
+binder 13314:13317 <> code:97
+R13361:13363 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13320:13335 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize def
+R13338:13354 ThieleMachine.ThieleMachineConcrete <> cert_for_load_imm def
+R13356:13359 ThieleMachine.ThieleMachineConcrete <> code:97 var
+R13398:13414 ThieleMachine.ThieleMachineConcrete <> cert_for_load_imm def
+R13429:13438 Coq.Strings.String <> eqb def
+R13429:13438 Coq.Strings.String <> eqb def
+R13510:13519 Coq.Strings.String <> eqb def
+R13510:13519 Coq.Strings.String <> eqb def
+prf 13733:13768 <> concrete_bitsize_cert_for_chsh_trial
+binder 13781:13781 <> x:98
+binder 13783:13783 <> y:99
+binder 13785:13785 <> a:100
+binder 13787:13787 <> b:101
+R13836:13838 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13790:13805 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize def
+R13808:13826 ThieleMachine.ThieleMachineConcrete <> cert_for_chsh_trial def
+R13828:13828 ThieleMachine.ThieleMachineConcrete <> x:98 var
+R13830:13830 ThieleMachine.ThieleMachineConcrete <> y:99 var
+R13832:13832 ThieleMachine.ThieleMachineConcrete <> a:100 var
+R13834:13834 ThieleMachine.ThieleMachineConcrete <> b:101 var
+R13876:13891 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize def
+R13894:13912 ThieleMachine.ThieleMachineConcrete <> cert_for_chsh_trial def
+def 13954:13968 <> concrete_sum_mu
+R13976:13979 Coq.Init.Datatypes <> list ind
+R13995:13997 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R13982:13994 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
+R13998:14004 ThieleMachine.ThieleMachineConcrete <> StepObs rec
+binder 13971:13972 <> tr:102
+R14010:14010 Coq.Numbers.BinNums <> Z ind
+R14023:14024 ThieleMachine.ThieleMachineConcrete <> tr:102 var
+R14035:14036 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R14055:14058 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R14047:14047 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14049:14050 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14054:14054 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14079:14081 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R14070:14077 ThieleMachine.ThieleMachineConcrete <> mu_delta proj
+R14082:14096 ThieleMachine.ThieleMachineConcrete <> concrete_sum_mu:103 def
+def 14299:14315 <> concrete_trace_of
+R14322:14334 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
+binder 14318:14318 <> s:105
+R14345:14348 Coq.Init.Datatypes <> list ind
+R14350:14360 ThieleMachine.ThieleMachineConcrete <> ThieleInstr ind
+binder 14338:14341 <> prog:106
+R14367:14370 Coq.Init.Datatypes <> list ind
+R14386:14388 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R14373:14385 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
+R14389:14395 ThieleMachine.ThieleMachineConcrete <> StepObs rec
+R14409:14412 ThieleMachine.ThieleMachineConcrete <> prog:106 var
+R14423:14424 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R14429:14430 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R14441:14444 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R14468:14480 ThieleMachine.ThieleMachineConcrete <> concrete_step def
+R14488:14488 ThieleMachine.ThieleMachineConcrete <> s:105 var
+binder 14461:14463 <> res:109
+R14536:14539 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R14499:14499 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14516:14517 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14535:14535 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14505:14514 ThieleMachine.ThieleMachineConcrete <> post_state proj
+R14500:14502 ThieleMachine.ThieleMachineConcrete <> res:109 var
+R14523:14533 ThieleMachine.ThieleMachineConcrete <> observation proj
+R14518:14520 ThieleMachine.ThieleMachineConcrete <> res:109 var
+R14540:14556 ThieleMachine.ThieleMachineConcrete <> concrete_trace_of:107 def
+R14563:14572 ThieleMachine.ThieleMachineConcrete <> post_state proj
+R14558:14560 ThieleMachine.ThieleMachineConcrete <> res:109 var
+def 14595:14614 <> concrete_receipts_of
+R14621:14633 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
+binder 14617:14617 <> s:110
+R14644:14647 Coq.Init.Datatypes <> list ind
+R14649:14659 ThieleMachine.ThieleMachineConcrete <> ThieleInstr ind
+binder 14637:14640 <> prog:111
+R14666:14669 Coq.Init.Datatypes <> list ind
+R14671:14685 ThieleMachine.ThieleMachineConcrete <> ConcreteReceipt rec
+R14698:14701 ThieleMachine.ThieleMachineConcrete <> prog:111 var
+R14712:14713 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R14718:14719 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R14730:14733 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R14757:14769 ThieleMachine.ThieleMachineConcrete <> concrete_step def
+R14777:14777 ThieleMachine.ThieleMachineConcrete <> s:110 var
+binder 14750:14752 <> res:114
+R14823:14825 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R14961:14975 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R14826:14838 ThieleMachine.ThieleMachineConcrete <> receipt_instr proj
+R14826:14838 ThieleMachine.ThieleMachineConcrete <> receipt_instr proj
+R14826:14838 ThieleMachine.ThieleMachineConcrete <> receipt_instr proj
+R14859:14869 ThieleMachine.ThieleMachineConcrete <> receipt_pre proj
+R14859:14869 ThieleMachine.ThieleMachineConcrete <> receipt_pre proj
+R14886:14897 ThieleMachine.ThieleMachineConcrete <> receipt_post proj
+R14886:14897 ThieleMachine.ThieleMachineConcrete <> receipt_post proj
+R14929:14939 ThieleMachine.ThieleMachineConcrete <> receipt_obs proj
+R14929:14939 ThieleMachine.ThieleMachineConcrete <> receipt_obs proj
+R14874:14874 ThieleMachine.ThieleMachineConcrete <> s:110 var
+R14907:14916 ThieleMachine.ThieleMachineConcrete <> post_state proj
+R14902:14904 ThieleMachine.ThieleMachineConcrete <> res:114 var
+R14949:14959 ThieleMachine.ThieleMachineConcrete <> observation proj
+R14944:14946 ThieleMachine.ThieleMachineConcrete <> res:114 var
+R14976:14995 ThieleMachine.ThieleMachineConcrete <> concrete_receipts_of:112 def
+R15002:15011 ThieleMachine.ThieleMachineConcrete <> post_state proj
+R14997:14999 ThieleMachine.ThieleMachineConcrete <> res:114 var
+prf 15066:15089 <> concrete_receipts_length
+binder 15102:15102 <> s:115
+binder 15104:15107 <> prog:116
+R15150:15152 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15114:15119 ThieleMachine.ThieleMachineConcrete <> length abbrev
+R15122:15141 ThieleMachine.ThieleMachineConcrete <> concrete_receipts_of def
+R15143:15143 ThieleMachine.ThieleMachineConcrete <> s:115 var
+R15145:15148 ThieleMachine.ThieleMachineConcrete <> prog:116 var
+R15153:15158 ThieleMachine.ThieleMachineConcrete <> length abbrev
+R15160:15163 ThieleMachine.ThieleMachineConcrete <> prog:116 var
+R15286:15298 ThieleMachine.ThieleMachineConcrete <> concrete_step def
+R15286:15298 ThieleMachine.ThieleMachineConcrete <> concrete_step def
+prf 15463:15486 <> concrete_receipts_instrs
+binder 15499:15499 <> s:117
+binder 15501:15504 <> prog:118
+R15563:15565 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15511:15518 Coq.Lists.List <> map def
+R15535:15554 ThieleMachine.ThieleMachineConcrete <> concrete_receipts_of def
+R15556:15556 ThieleMachine.ThieleMachineConcrete <> s:117 var
+R15558:15561 ThieleMachine.ThieleMachineConcrete <> prog:118 var
+R15520:15532 ThieleMachine.ThieleMachineConcrete <> receipt_instr proj
+R15566:15569 ThieleMachine.ThieleMachineConcrete <> prog:118 var
+R15727:15739 ThieleMachine.ThieleMachineConcrete <> concrete_step def
+R15727:15739 ThieleMachine.ThieleMachineConcrete <> concrete_step def
+prf 15850:15870 <> concrete_trace_length
+binder 15883:15883 <> s:119
+binder 15885:15888 <> prog:120
+R15928:15930 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15895:15900 ThieleMachine.ThieleMachineConcrete <> length abbrev
+R15903:15919 ThieleMachine.ThieleMachineConcrete <> concrete_trace_of def
+R15921:15921 ThieleMachine.ThieleMachineConcrete <> s:119 var
+R15923:15926 ThieleMachine.ThieleMachineConcrete <> prog:120 var
+R15931:15936 ThieleMachine.ThieleMachineConcrete <> length abbrev
+R15938:15941 ThieleMachine.ThieleMachineConcrete <> prog:120 var
+R16064:16076 ThieleMachine.ThieleMachineConcrete <> concrete_step def
+R16064:16076 ThieleMachine.ThieleMachineConcrete <> concrete_step def
+ind 16358:16369 <> ConcreteExec
+constr 16454:16462 <> cexec_nil
+constr 16499:16508 <> cexec_cons
+R16389:16392 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16373:16376 Coq.Init.Datatypes <> list ind
+R16378:16388 ThieleMachine.ThieleMachineConcrete <> ThieleInstr ind
+R16406:16409 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16393:16405 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
+R16440:16443 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16410:16413 Coq.Init.Datatypes <> list ind
+R16429:16431 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R16416:16428 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
+R16432:16438 ThieleMachine.ThieleMachineConcrete <> StepObs rec
+binder 16473:16473 <> s:123
+R16476:16487 ThieleMachine.ThieleMachineConcrete <> ConcreteExec:121 ind
+R16494:16495 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R16492:16492 ThieleMachine.ThieleMachineConcrete <> s:123 var
+R16489:16490 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+binder 16519:16523 <> instr:124
+binder 16525:16528 <> prog:125
+binder 16530:16530 <> s:126
+binder 16532:16533 <> s':127
+binder 16535:16537 <> obs:128
+binder 16539:16540 <> tr:129
+R16613:16620 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16568:16573 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16610:16612 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16547:16559 ThieleMachine.ThieleMachineConcrete <> concrete_step def
+R16561:16565 ThieleMachine.ThieleMachineConcrete <> instr:124 var
+R16567:16567 ThieleMachine.ThieleMachineConcrete <> s:126 var
+R16574:16583 ThieleMachine.ThieleMachineConcrete <> post_state proj
+R16574:16583 ThieleMachine.ThieleMachineConcrete <> post_state proj
+R16574:16583 ThieleMachine.ThieleMachineConcrete <> post_state proj
+R16592:16602 ThieleMachine.ThieleMachineConcrete <> observation proj
+R16592:16602 ThieleMachine.ThieleMachineConcrete <> observation proj
+R16588:16589 ThieleMachine.ThieleMachineConcrete <> s':127 var
+R16607:16609 ThieleMachine.ThieleMachineConcrete <> obs:128 var
+R16644:16651 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16621:16632 ThieleMachine.ThieleMachineConcrete <> ConcreteExec:121 ind
+R16642:16643 ThieleMachine.ThieleMachineConcrete <> tr:129 var
+R16639:16640 ThieleMachine.ThieleMachineConcrete <> s':127 var
+R16634:16637 ThieleMachine.ThieleMachineConcrete <> prog:125 var
+R16652:16663 ThieleMachine.ThieleMachineConcrete <> ConcreteExec:121 ind
+R16693:16696 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R16684:16684 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16687:16688 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16692:16692 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16685:16686 ThieleMachine.ThieleMachineConcrete <> s':127 var
+R16689:16691 ThieleMachine.ThieleMachineConcrete <> obs:128 var
+R16697:16698 ThieleMachine.ThieleMachineConcrete <> tr:129 var
+R16681:16681 ThieleMachine.ThieleMachineConcrete <> s:126 var
+R16671:16674 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R16666:16670 ThieleMachine.ThieleMachineConcrete <> instr:124 var
+R16675:16678 ThieleMachine.ThieleMachineConcrete <> prog:125 var
+scheme 16358:16369 <> ConcreteExec_ind
+scheme 16358:16369 <> ConcreteExec_sind
+prf 16775:16807 <> concrete_exec_trace_deterministic
+binder 16820:16823 <> prog:130
+binder 16825:16825 <> s:131
+binder 16827:16828 <> tr:132
+R16857:16864 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16835:16846 ThieleMachine.ThieleMachineConcrete <> ConcreteExec ind
+R16848:16851 ThieleMachine.ThieleMachineConcrete <> prog:130 var
+R16853:16853 ThieleMachine.ThieleMachineConcrete <> s:131 var
+R16855:16856 ThieleMachine.ThieleMachineConcrete <> tr:132 var
+R16867:16869 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16865:16866 ThieleMachine.ThieleMachineConcrete <> tr:132 var
+R16870:16886 ThieleMachine.ThieleMachineConcrete <> concrete_trace_of def
+R16888:16888 ThieleMachine.ThieleMachineConcrete <> s:131 var
+R16890:16893 ThieleMachine.ThieleMachineConcrete <> prog:130 var
+prf 17088:17112 <> concrete_exec_receipts_ok
+binder 17125:17128 <> prog:133
+binder 17130:17130 <> s:134
+binder 17132:17133 <> tr:135
+R17162:17169 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17140:17151 ThieleMachine.ThieleMachineConcrete <> ConcreteExec ind
+R17153:17156 ThieleMachine.ThieleMachineConcrete <> prog:133 var
+R17158:17158 ThieleMachine.ThieleMachineConcrete <> s:134 var
+R17160:17161 ThieleMachine.ThieleMachineConcrete <> tr:135 var
+R17220:17222 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17170:17187 ThieleMachine.ThieleMachineConcrete <> concrete_replay_ok def
+R17189:17189 ThieleMachine.ThieleMachineConcrete <> s:134 var
+R17192:17211 ThieleMachine.ThieleMachineConcrete <> concrete_receipts_of def
+R17213:17213 ThieleMachine.ThieleMachineConcrete <> s:134 var
+R17215:17218 ThieleMachine.ThieleMachineConcrete <> prog:133 var
+R17223:17226 Coq.Init.Datatypes <> true constr
+R17319:17336 ThieleMachine.ThieleMachineConcrete <> concrete_state_eqb def
+R17319:17336 ThieleMachine.ThieleMachineConcrete <> concrete_state_eqb def
+R17366:17384 ThieleMachine.ThieleMachineConcrete <> concrete_check_step def
+R17387:17401 ThieleMachine.ThieleMachineConcrete <> receipt_matches def
+R17450:17467 ThieleMachine.ThieleMachineConcrete <> concrete_state_eqb def
+R17470:17479 ThieleMachine.ThieleMachineConcrete <> post_state proj
+R17482:17494 ThieleMachine.ThieleMachineConcrete <> concrete_step def
+R17450:17467 ThieleMachine.ThieleMachineConcrete <> concrete_state_eqb def
+R17470:17479 ThieleMachine.ThieleMachineConcrete <> post_state proj
+R17482:17494 ThieleMachine.ThieleMachineConcrete <> concrete_step def
+R17539:17550 ThieleMachine.ThieleMachineConcrete <> step_obs_eqb def
+R17553:17563 ThieleMachine.ThieleMachineConcrete <> observation proj
+R17566:17578 ThieleMachine.ThieleMachineConcrete <> concrete_step def
+R17539:17550 ThieleMachine.ThieleMachineConcrete <> step_obs_eqb def
+R17553:17563 ThieleMachine.ThieleMachineConcrete <> observation proj
+R17566:17578 ThieleMachine.ThieleMachineConcrete <> concrete_step def
+R17703:17719 ThieleMachine.ThieleMachineConcrete <> step_obs_eqb_refl thm
+R17703:17719 ThieleMachine.ThieleMachineConcrete <> step_obs_eqb_refl thm
+R17703:17719 ThieleMachine.ThieleMachineConcrete <> step_obs_eqb_refl thm
+R17810:17832 ThieleMachine.ThieleMachineConcrete <> concrete_state_eqb_refl thm
+R17810:17832 ThieleMachine.ThieleMachineConcrete <> concrete_state_eqb_refl thm
+R17810:17832 ThieleMachine.ThieleMachineConcrete <> concrete_state_eqb_refl thm
+R17877:17899 ThieleMachine.ThieleMachineConcrete <> concrete_state_eqb_refl thm
+R17877:17899 ThieleMachine.ThieleMachineConcrete <> concrete_state_eqb_refl thm
+R17877:17899 ThieleMachine.ThieleMachineConcrete <> concrete_state_eqb_refl thm
+prf 17995:18017 <> concrete_sum_bits_trace
+binder 18030:18030 <> s:136
+binder 18032:18035 <> prog:137
+R18089:18095 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18042:18058 ThieleMachine.ThieleMachineConcrete <> concrete_sum_bits def
+R18061:18080 ThieleMachine.ThieleMachineConcrete <> concrete_receipts_of def
+R18082:18082 ThieleMachine.ThieleMachineConcrete <> s:136 var
+R18084:18087 ThieleMachine.ThieleMachineConcrete <> prog:137 var
+R18096:18110 ThieleMachine.ThieleMachineConcrete <> concrete_sum_mu def
+R18113:18129 ThieleMachine.ThieleMachineConcrete <> concrete_trace_of def
+R18131:18131 ThieleMachine.ThieleMachineConcrete <> s:136 var
+R18133:18136 ThieleMachine.ThieleMachineConcrete <> prog:137 var
+R18324:18324 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R18355:18358 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R18325:18332 Coq.ZArith.BinInt Z of_nat def
+R18335:18347 Coq.Strings.String <> length def
+R18324:18324 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R18355:18358 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R18325:18332 Coq.ZArith.BinInt Z of_nat def
+R18335:18347 Coq.Strings.String <> length def
+R18386:18416 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize_cert_for_query thm
+R18386:18416 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize_cert_for_query thm
+R18386:18416 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize_cert_for_query thm
+R18447:18456 ThieleMachine.ThieleMachineConcrete <> with_pc_mu def
+R18447:18456 ThieleMachine.ThieleMachineConcrete <> with_pc_mu def
+R18447:18456 ThieleMachine.ThieleMachineConcrete <> with_pc_mu def
+R18511:18520 ThieleMachine.ThieleMachineConcrete <> advance_pc def
+R18511:18520 ThieleMachine.ThieleMachineConcrete <> advance_pc def
+R18511:18520 ThieleMachine.ThieleMachineConcrete <> advance_pc def
+R18568:18577 ThieleMachine.ThieleMachineConcrete <> advance_pc def
+R18568:18577 ThieleMachine.ThieleMachineConcrete <> advance_pc def
+R18568:18577 ThieleMachine.ThieleMachineConcrete <> advance_pc def
+R18620:18653 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize_cert_for_load_imm thm
+R18620:18653 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize_cert_for_load_imm thm
+R18620:18653 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize_cert_for_load_imm thm
+R18673:18682 ThieleMachine.ThieleMachineConcrete <> advance_pc def
+R18673:18682 ThieleMachine.ThieleMachineConcrete <> advance_pc def
+R18673:18682 ThieleMachine.ThieleMachineConcrete <> advance_pc def
+R18771:18774 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R18755:18758 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R18739:18742 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R18727:18736 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R18743:18752 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R18759:18768 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R18775:18784 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R18771:18774 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R18755:18758 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R18739:18742 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R18727:18736 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R18743:18752 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R18759:18768 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R18775:18784 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R18815:18830 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize def
+R18833:18851 ThieleMachine.ThieleMachineConcrete <> cert_for_chsh_trial def
+R18921:18930 ThieleMachine.ThieleMachineConcrete <> advance_pc def
+R18921:18930 ThieleMachine.ThieleMachineConcrete <> advance_pc def
+R18921:18930 ThieleMachine.ThieleMachineConcrete <> advance_pc def
+R18963:18978 ThieleMachine.ThieleMachineConcrete <> concrete_bitsize def
+R18981:18992 ThieleMachine.ThieleMachineConcrete <> default_cert def
+R19027:19036 ThieleMachine.ThieleMachineConcrete <> advance_pc def
+R19027:19036 ThieleMachine.ThieleMachineConcrete <> advance_pc def
+R19027:19036 ThieleMachine.ThieleMachineConcrete <> advance_pc def
+R19084:19093 ThieleMachine.ThieleMachineConcrete <> advance_pc def
+R19084:19093 ThieleMachine.ThieleMachineConcrete <> advance_pc def
+R19084:19093 ThieleMachine.ThieleMachineConcrete <> advance_pc def
+prf 19160:19179 <> concrete_exec_length
+binder 19192:19195 <> prog:138
+binder 19197:19197 <> s:139
+binder 19199:19200 <> tr:140
+R19229:19232 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19207:19218 ThieleMachine.ThieleMachineConcrete <> ConcreteExec ind
+R19220:19223 ThieleMachine.ThieleMachineConcrete <> prog:138 var
+R19225:19225 ThieleMachine.ThieleMachineConcrete <> s:139 var
+R19227:19228 ThieleMachine.ThieleMachineConcrete <> tr:140 var
+R19242:19244 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19233:19238 ThieleMachine.ThieleMachineConcrete <> length abbrev
+R19240:19241 ThieleMachine.ThieleMachineConcrete <> tr:140 var
+R19245:19250 ThieleMachine.ThieleMachineConcrete <> length abbrev
+R19252:19255 ThieleMachine.ThieleMachineConcrete <> prog:138 var
+R19302:19334 ThieleMachine.ThieleMachineConcrete <> concrete_exec_trace_deterministic thm
+R19302:19334 ThieleMachine.ThieleMachineConcrete <> concrete_exec_trace_deterministic thm
+R19302:19334 ThieleMachine.ThieleMachineConcrete <> concrete_exec_trace_deterministic thm
+R19358:19378 ThieleMachine.ThieleMachineConcrete <> concrete_trace_length thm
+R19358:19378 ThieleMachine.ThieleMachineConcrete <> concrete_trace_length thm
+prf 19456:19483 <> ConcreteThieleMachine_exists
+R19489:19496 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R19541:19547 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R19504:19507 Coq.Init.Datatypes <> list ind
+R19509:19519 ThieleMachine.ThieleMachineConcrete <> ThieleInstr ind
+binder 19497:19500 <> prog:141
+R19528:19540 ThieleMachine.ThieleMachineConcrete <> ConcreteState rec
+binder 19523:19524 <> s0:142
+binder 19555:19556 <> tr:143
+R19588:19597 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19565:19576 ThieleMachine.ThieleMachineConcrete <> ConcreteExec ind
+R19578:19581 ThieleMachine.ThieleMachineConcrete <> prog:141 var
+R19583:19584 ThieleMachine.ThieleMachineConcrete <> s0:142 var
+R19586:19587 ThieleMachine.ThieleMachineConcrete <> tr:143 var
+R19598:19604 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R19607:19616 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 19605:19606 <> rs:144
+R19638:19649 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19626:19628 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19617:19622 ThieleMachine.ThieleMachineConcrete <> length abbrev
+R19624:19625 ThieleMachine.ThieleMachineConcrete <> rs:144 var
+R19629:19634 ThieleMachine.ThieleMachineConcrete <> length abbrev
+R19636:19637 ThieleMachine.ThieleMachineConcrete <> tr:143 var
+R19681:19692 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19674:19676 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19650:19667 ThieleMachine.ThieleMachineConcrete <> concrete_replay_ok def
+R19669:19670 ThieleMachine.ThieleMachineConcrete <> s0:142 var
+R19672:19673 ThieleMachine.ThieleMachineConcrete <> rs:144 var
+R19677:19680 Coq.Init.Datatypes <> true constr
+R19693:19696 Coq.ZArith.BinInt Z le def
+R19699:19715 ThieleMachine.ThieleMachineConcrete <> concrete_sum_bits def
+R19717:19718 ThieleMachine.ThieleMachineConcrete <> rs:144 var
+R19722:19736 ThieleMachine.ThieleMachineConcrete <> concrete_sum_mu def
+R19738:19739 ThieleMachine.ThieleMachineConcrete <> tr:143 var
+R19759:19760 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R19759:19760 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R19772:19793 ThieleMachine.ThieleMachineConcrete <> default_concrete_state def
+R19772:19793 ThieleMachine.ThieleMachineConcrete <> default_concrete_state def
+R19850:19851 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R19850:19851 Coq.Lists.List ListNotations ::list_scope:'['_']' not

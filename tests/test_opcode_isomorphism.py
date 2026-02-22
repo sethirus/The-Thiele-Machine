@@ -18,7 +18,7 @@ import pytest
 
 
 # CANONICAL ISA REFERENCE
-# This is the single source of truth for the 18-instruction Thiele Machine ISA.
+# This is the single source of truth for the Thiele Machine ISA.
 # All three layers (Coq, Python, Verilog) must match these exact values.
 # Based on: coq/kernel/VMStep.v instruction enumeration order
 EXPECTED_ISA = {
@@ -30,21 +30,29 @@ EXPECTED_ISA = {
     "MDLACC": 0x05,        # MDL: accumulate description cost
     "PDISCOVER": 0x06,     # Partition: discover structure
     "XFER": 0x07,          # ALU: transfer data
-    "PYEXEC": 0x08,        # Execute Python code
+    "LOAD_IMM": 0x08,      # Load immediate value (reclaimed from PYEXEC)
     "CHSH_TRIAL": 0x09,    # Quantum: CHSH trial
     "XOR_LOAD": 0x0A,      # XOR: load value
     "XOR_ADD": 0x0B,       # XOR: add rows
     "XOR_SWAP": 0x0C,      # XOR: swap rows
     "XOR_RANK": 0x0D,      # XOR: compute rank
     "EMIT": 0x0E,          # Emit output
-    "REVEAL": 0x0F,        # Reveal hidden info (FIXED: was missing)
-    "ORACLE_HALTS": 0x10,  # Oracle: query halting (FIXED: was 0x0F)
+    "REVEAL": 0x0F,        # Reveal hidden info
+    "ORACLE_HALTS": 0x10,  # Oracle: query halting
+    "LOAD": 0x11,          # Load from memory
+    "STORE": 0x12,         # Store to memory
+    "ADD": 0x13,           # Integer addition
+    "SUB": 0x14,           # Integer subtraction
+    "JUMP": 0x15,          # Unconditional jump
+    "JNEZ": 0x16,          # Jump if not zero
+    "CALL": 0x17,          # Function call
+    "RET": 0x18,           # Return from function
     "HALT": 0xFF,          # Halt execution
 }
 
 
 def test_python_isa_completeness():
-    """Verify Python ISA has all 18 instructions with correct opcodes."""
+    """Verify Python ISA has all 26 instructions with correct opcodes."""
     from thielecpu.isa import Opcode
     
     python_opcodes = {op.name: op.value for op in Opcode}
@@ -70,7 +78,7 @@ def test_python_isa_completeness():
 
 
 def test_verilog_isa_completeness():
-    """Verify Verilog generated_opcodes.vh has all 18 instructions with correct opcodes."""
+    """Verify Verilog generated_opcodes.vh has all 26 instructions with correct opcodes."""
     repo_root = Path(__file__).parent.parent
     verilog_header = repo_root / "thielecpu" / "hardware" / "rtl" / "generated_opcodes.vh"
     
@@ -109,7 +117,7 @@ def test_verilog_isa_completeness():
 
 
 def test_coq_isa_completeness():
-    """Verify Coq kernel has all 18 instructions."""
+    """Verify Coq kernel has all 26 instructions."""
     repo_root = Path(__file__).parent.parent
     coq_vmstep = repo_root / "coq" / "kernel" / "VMStep.v"
     
@@ -127,7 +135,7 @@ def test_coq_isa_completeness():
                 coq_instructions.append(name)
     
     # Check count
-    assert len(coq_instructions) == 18, f"Coq has {len(coq_instructions)} instructions, expected 18"
+    assert len(coq_instructions) == 26, f"Coq has {len(coq_instructions)} instructions, expected 26"
     
     # Check all expected instructions are present
     coq_set = set(coq_instructions)
@@ -149,7 +157,7 @@ def test_three_way_isomorphism():
     from thielecpu.isa import Opcode
     
     # Verify count
-    assert len(Opcode) == 18, f"Expected 18 opcodes, got {len(Opcode)}"
+    assert len(Opcode) == 26, f"Expected 26 opcodes, got {len(Opcode)}"
     
     # Verify each opcode
     for name, expected_value in EXPECTED_ISA.items():
@@ -158,7 +166,7 @@ def test_three_way_isomorphism():
         assert python_value == expected_value, \
             f"{name}: Python has 0x{python_value:02X}, expected 0x{expected_value:02X}"
     
-    print(f"✓ Three-way isomorphism verified: 18 instructions across Coq, Python, and Verilog")
+    print(f"✓ Three-way isomorphism verified: 26 instructions across Coq, Python, and Verilog")
     print(f"✓ All opcode values match bit-for-bit")
 
 

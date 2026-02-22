@@ -1,10 +1,35 @@
 """
+thielecpu/vm.py — EXPERIMENTAL RESEARCH VM
+============================================
 Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-Copyright 2025 Devon Thiele
+Copyright 2025 Devon Thiele — See LICENSE for full terms.
 
-See the LICENSE file in the repository root for full terms.
-Virtual machine execution loop.
+This is the *research and exploration* Thiele Machine VM.
+
+It extends the formally-proven core (``build/thiele_core.ml``) with
+features that are under active development and NOT yet in the Coq spec:
+  - PYEXEC: execute sandboxed Python code as a VM instruction
+  - Bianchi tensor enforcement (BianchiViolationError)
+  - PDISCOVER using SpectralClustering (sklearn/networkx)
+  - MuLedger split into mu_discovery / mu_execution / landauer_entropy
+  - Genesis wave / geometric factorization helpers
+
+STRUCTURAL DIVERGENCE FROM COQ SPEC (known, intentional):
+  Coq/OCaml vMState field  │  Python State field
+  ─────────────────────────┼──────────────────────────────────
+  vm_mu : int              │  mu_ledger.total  (split ledger)
+  vm_graph                 │  regions (RegionGraph) + partition_masks
+  vm_pc : int              │  step_count : int
+  vm_err : bool            │  csr[CSR.ERR]
+  vm_mu_tensor : int list  │  mu_ledger.mu_tensor : List[List[int]]
+
+The divergence is tracked in ``coq/bridge/PythonMuLedgerBisimulation.v``
+which proves the totals equivalent.  Field-level structural alignment
+is future work.
+
+For the ground-truth VM (formally proven, Coq-extracted, matches Verilog
+RTL bit-for-bit) use ``build/thiele_vm.py`` (delegates to
+``build/extracted_vm_runner``).
 """
 
 from __future__ import annotations

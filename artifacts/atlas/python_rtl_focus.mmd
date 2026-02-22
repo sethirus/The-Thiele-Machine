@@ -1,19 +1,19 @@
 flowchart LR
   X1["thielecpu/cross_layer_manifest.py"]
   X2["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
-  X1 -->|391| X2
+  X1 -->|385| X2
   X3["thielecpu/vm.py"]
   X2["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
-  X3 -->|322| X2
+  X3 -->|320| X2
   X4["thielecpu/receipts.py"]
   X2["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
-  X4 -->|290| X2
+  X4 -->|286| X2
   X5["thielecpu/dsl/executor.py"]
   X2["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
-  X5 -->|199| X2
+  X5 -->|197| X2
   X6["thielecpu/mu_fixed.py"]
   X2["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
-  X6 -->|131| X2
+  X6 -->|127| X2
   X7["experiments/mu_audited_bell_test.py"]
   X2["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
   X7 -->|120| X2
@@ -25,31 +25,31 @@ flowchart LR
   X1 -->|114| X9
   X10["thielecpu/thesis_verify.py"]
   X2["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
-  X10 -->|114| X2
+  X10 -->|113| X2
   X11["thielecpu/state.py"]
   X2["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
   X11 -->|110| X2
+  X12["scripts/inquisitor.py"]
+  X13["thielecpu/hardware/rtl/cross_layer_defs.vh"]
+  X12 -->|106| X13
   X3["thielecpu/vm.py"]
-  X12["thielecpu/hardware/rtl/cross_layer_defs.vh"]
-  X3 -->|106| X12
-  X13["scripts/inquisitor.py"]
-  X12["thielecpu/hardware/rtl/cross_layer_defs.vh"]
-  X13 -->|102| X12
+  X13["thielecpu/hardware/rtl/cross_layer_defs.vh"]
+  X3 -->|102| X13
   X14["thielecpu/dsl/compiler.py"]
   X2["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
-  X14 -->|100| X2
+  X14 -->|98| X2
   X15["scripts/generate_full_mesh_audit.py"]
   X2["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
-  X15 -->|92| X2
-  X13["scripts/inquisitor.py"]
+  X15 -->|93| X2
+  X12["scripts/inquisitor.py"]
   X16["thielecpu/hardware/rtl/chsh_partition.v"]
-  X13 -->|79| X16
+  X12 -->|81| X16
   X6["thielecpu/mu_fixed.py"]
   X17["thielecpu/hardware/rtl/mu_alu.v"]
-  X6 -->|74| X17
-  X1["thielecpu/cross_layer_manifest.py"]
-  X18["thielecpu/hardware/rtl/mu_core.v"]
-  X1 -->|72| X18
-  X19["thielecpu/canonical_encoding.py"]
+  X6 -->|78| X17
+  X18["thielecpu/isa.py"]
   X2["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
-  X19 -->|70| X2
+  X18 -->|76| X2
+  X1["thielecpu/cross_layer_manifest.py"]
+  X19["thielecpu/hardware/rtl/mu_core.v"]
+  X1 -->|72| X19

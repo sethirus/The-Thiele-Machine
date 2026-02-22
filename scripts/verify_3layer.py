@@ -184,7 +184,7 @@ def verify_verilog_rtl() -> bool:
     # Check compilation
     compile_cmd = [
         "iverilog", "-g2012", "-Irtl", "-o", "/tmp/thiele_verify",
-        "rtl/thiele_cpu_unified.v"
+        "rtl/thiele_cpu_kami.v"
     ]
     
     result = subprocess.run(
@@ -204,7 +204,7 @@ def verify_verilog_rtl() -> bool:
     # Run testbench
     tb_compile = subprocess.run(
         ["iverilog", "-g2012", "-Irtl", "-o", "/tmp/thiele_tb_verify",
-         "rtl/thiele_cpu_unified.v", "testbench/thiele_cpu_tb.v"],
+         "rtl/thiele_cpu_kami.v", "testbench/thiele_cpu_kami_tb.v"],
         cwd=HARDWARE_DIR,
         capture_output=True,
         text=True,

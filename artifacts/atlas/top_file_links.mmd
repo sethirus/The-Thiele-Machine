@@ -1,55 +1,55 @@
 flowchart LR
   N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
   N2["thielecpu/cross_layer_manifest.py"]
-  N1 -->|197| N2
+  N1 -->|194| N2
   N2["thielecpu/cross_layer_manifest.py"]
   N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
-  N2 -->|194| N1
+  N2 -->|191| N1
   N3["coq/kernel/MuGravity.v"]
   N4["thielecpu/hardware/rtl/cross_layer_defs.vh"]
-  N3 -->|181| N4
+  N3 -->|182| N4
   N5["thielecpu/vm.py"]
   N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
-  N5 -->|171| N1
+  N5 -->|167| N1
   N4["thielecpu/hardware/rtl/cross_layer_defs.vh"]
   N3["coq/kernel/MuGravity.v"]
   N4 -->|163| N3
   N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
   N5["thielecpu/vm.py"]
-  N1 -->|151| N5
-  N6["coq/thielemachine/coqproofs/BellInequality.v"]
+  N1 -->|153| N5
   N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
-  N6 -->|148| N1
+  N6["thielecpu/receipts.py"]
+  N1 -->|143| N6
+  N6["thielecpu/receipts.py"]
   N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
-  N7["thielecpu/receipts.py"]
-  N1 -->|145| N7
-  N7["thielecpu/receipts.py"]
-  N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
-  N7 -->|145| N1
-  N6["coq/thielemachine/coqproofs/BellInequality.v"]
+  N6 -->|143| N1
+  N7["coq/thielemachine/coqproofs/BellInequality.v"]
   N2["thielecpu/cross_layer_manifest.py"]
-  N6 -->|140| N2
-  N6["coq/thielemachine/coqproofs/BellInequality.v"]
-  N8["experiments/qd3_literature_comparison.py"]
-  N6 -->|117| N8
+  N7 -->|140| N2
+  N7["coq/thielemachine/coqproofs/BellInequality.v"]
   N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
-  N6["coq/thielemachine/coqproofs/BellInequality.v"]
-  N1 -->|117| N6
+  N7 -->|133| N1
+  N7["coq/thielemachine/coqproofs/BellInequality.v"]
+  N8["experiments/qd3_literature_comparison.py"]
+  N7 -->|117| N8
+  N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
+  N7["coq/thielemachine/coqproofs/BellInequality.v"]
+  N1 -->|117| N7
   N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
   N9["coq/kernel/CrossLayerManifest.v"]
-  N1 -->|116| N9
+  N1 -->|113| N9
   N9["coq/kernel/CrossLayerManifest.v"]
   N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
-  N9 -->|113| N1
+  N9 -->|110| N1
   N8["experiments/qd3_literature_comparison.py"]
-  N6["coq/thielemachine/coqproofs/BellInequality.v"]
-  N8 -->|107| N6
+  N7["coq/thielemachine/coqproofs/BellInequality.v"]
+  N8 -->|107| N7
+  N2["thielecpu/cross_layer_manifest.py"]
+  N7["coq/thielemachine/coqproofs/BellInequality.v"]
+  N2 -->|101| N7
   N10["thielecpu/dsl/executor.py"]
   N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
-  N10 -->|102| N1
-  N2["thielecpu/cross_layer_manifest.py"]
-  N6["coq/thielemachine/coqproofs/BellInequality.v"]
-  N2 -->|101| N6
+  N10 -->|100| N1
   N1["thielecpu/hardware/rtl/thiele_cpu_unified.v"]
   N10["thielecpu/dsl/executor.py"]
   N1 -->|97| N10

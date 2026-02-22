@@ -244,9 +244,9 @@ class TestOpcodeEncoding:
         assert opcode == 0x0A  # XOR_LOAD
 
     def test_all_opcodes_have_entries(self):
-        """All 18 opcodes in cosim.OPCODES match isa.py."""
+        """All 26 opcodes in cosim.OPCODES match isa.py."""
         from thielecpu.hardware.cosim import OPCODES
-        assert len(OPCODES) == 18
+        assert len(OPCODES) == 26
         assert OPCODES["HALT"] == 0xFF
         assert OPCODES["PNEW"] == 0x00
 
@@ -431,13 +431,14 @@ class TestISAAlignment:
         vh = REPO_ROOT / "thielecpu" / "hardware" / "rtl" / "generated_opcodes.vh"
         assert vh.exists(), "generated_opcodes.vh not found"
 
-    def test_all_18_opcodes_in_cosim(self):
+    def test_all_26_opcodes_in_cosim(self):
         from thielecpu.hardware.cosim import OPCODES
-        assert len(OPCODES) == 18
+        assert len(OPCODES) == 26
         expected_names = {
             "PNEW", "PSPLIT", "PMERGE", "LASSERT", "LJOIN",
-            "MDLACC", "PDISCOVER", "XFER", "PYEXEC", "CHSH_TRIAL",
+            "MDLACC", "PDISCOVER", "XFER", "LOAD_IMM", "CHSH_TRIAL",
             "XOR_LOAD", "XOR_ADD", "XOR_SWAP", "XOR_RANK",
-            "EMIT", "REVEAL", "ORACLE_HALTS", "HALT",
+            "EMIT", "REVEAL", "ORACLE_HALTS",
+            "LOAD", "STORE", "ADD", "SUB", "JUMP", "JNEZ", "CALL", "RET", "HALT"
         }
         assert set(OPCODES.keys()) == expected_names

@@ -72,25 +72,23 @@ phase MERGE "sanity importing generated Python"
 python3 -c "from thielecpu.generated import generated_core as g; g.sanity_check(); print(len(g.COQ_INSTRUCTION_TAGS))" \
   >/dev/null
 
-phase VERIFY "compiling real RTL (thiele_cpu_unified + testbench)"
+phase VERIFY "compiling extracted RTL (thiele_cpu_kami + testbench)"
 pushd "$ROOT/thielecpu/hardware" >/dev/null
 iverilog -g2012 -I./rtl -o "$ROOT/build/thiele_cpu_tb.out" \
-  rtl/thiele_cpu_unified.v \
-  testbench/thiele_cpu_tb.v
+  rtl/thiele_cpu_kami.v \
+  testbench/thiele_cpu_kami_tb.v
 popd >/dev/null
 
 phase VERIFY "synthesizability check (yosys)"
 command -v yosys >/dev/null || die "yosys not found on PATH"
 
-# Create yosys script for unified CPU
 cat > "$ROOT/synth_cpu.ys" << EOF
-read_verilog -sv -DSYNTHESIS -DYOSYS_LITE $ROOT/thielecpu/hardware/rtl/thiele_cpu_unified.v
-prep -top thiele_cpu
+read_verilog -sv -DSYNTHESIS -DYOSYS_LITE $ROOT/thielecpu/hardware/rtl/thiele_cpu_kami.v
+prep -top mkModule1
 check
 stat
 EOF
 
-# Primary synth gate (CPU) - simplified check that doesn't hang
 yosys -q "$ROOT/synth_cpu.ys" >/dev/null
 
 phase VERIFY "running real RTL simulation (thiele_cpu_tb)"

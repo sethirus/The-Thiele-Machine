@@ -35,7 +35,7 @@ grep -E 'Number of cells|Number of wires' "$CLASSICAL_LOG" || true
 printf '\n'
 
 printf -- '--- Phase 2: Synthesising the Thiele geometric solver ---\n'
-if yosys -l "$THIELE_LOG" -p "read_verilog -sv hardware/synthesis_trap/reasoning_core.v hardware/synthesis_trap/thiele_graph_solver.v; synth -top thiele_graph_solver; stat; write_json $THIELE_JSON"; then
+if yosys -l "$THIELE_LOG" -p "read_verilog -sv thielecpu/hardware/rtl/thiele_cpu_kami.v; synth -top mkModule1; stat; write_json $THIELE_JSON"; then
     printf 'Synthesis completed. Extract from report:\n'
     grep -E 'Number of cells|Number of wires' "$THIELE_LOG" || true
 else

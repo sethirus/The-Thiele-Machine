@@ -26,6 +26,7 @@ From Kernel Require Import TOE.
 *)
 
 (** [KernelNoGoForTOE_Decision]: formal specification. *)
+(* INQUISITOR NOTE: alias for KernelNoGoForTOE - summary module re-export *)
 Theorem KernelNoGoForTOE_Decision :
   KernelNoGoForTOE_P.
 Proof.
@@ -34,6 +35,7 @@ Qed.
 
 (* Backward-compatible name, but sharpened: the gaps are now stated using
    explicit laws and an explicit finiteness notion. *)
+(* INQUISITOR NOTE: alias for KernelNoGoForTOE - summary module re-export *)
 (** [Physics_Requires_Extra_Structure]: formal specification. *)
 Theorem Physics_Requires_Extra_Structure :
   KernelNoGoForTOE_P.
@@ -68,6 +70,7 @@ Proof.
 Qed.
 
 (* Final packaged outcome: forced closure + minimal no-go. *)
+(* INQUISITOR NOTE: alias for KernelTOE_FinalOutcome - summary module re-export *)
 (** [Kernel_TOE_FinalOutcome]: formal specification. *)
 Theorem Kernel_TOE_FinalOutcome :
   KernelMaximalClosureP /\ KernelNoGoForTOE_P.

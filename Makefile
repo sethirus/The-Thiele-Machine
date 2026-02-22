@@ -199,7 +199,7 @@ atlas-audit:
 # three-way isomorphism is mechanically verified.
 #   1. Coq compiles clean (zero Admitted, all .vo present)
 #   2. Extraction artefacts are fresh and export the right symbols
-#   3. RTL synthesises with Yosys (non-empty design, top=thiele_cpu)
+#   3. Extracted RTL synthesises with Yosys (non-empty design, top=mkModule1)
 #   4. Co-simulation testbench runs without fatal errors
 #   5. Atlas score/DOD gate recalculated with all real toolchain results
 proof-complete-gate: coq-gate extraction-gate rtl-gate
@@ -233,12 +233,12 @@ extraction-gate:
 	@echo "[extraction-gate] PASS: extraction artefacts present and export correct symbols"
 
 rtl-gate:
-	@echo "[rtl-gate] Running Yosys lite synthesis..."
-	yosys -s thielecpu/hardware/rtl/synth_lite.ys 2>&1 | tee /tmp/rtl_gate.log
+	@echo "[rtl-gate] Running Yosys synthesis on extracted Kami RTL..."
+	yosys -p "read_verilog -sv -DSYNTHESIS thielecpu/hardware/rtl/thiele_cpu_kami.v; prep -top mkModule1; check; stat" 2>&1 | tee /tmp/rtl_gate.log
 	@if grep -q 'ERROR\|error:' /tmp/rtl_gate.log; then echo "FAIL: Yosys errors found"; exit 1; fi
 	@cells=$$(grep 'Number of cells:' /tmp/rtl_gate.log | awk '{print $$NF}'); \
 	 if [ -z "$$cells" ] || [ "$$cells" -eq 0 ]; then echo "FAIL: zero cells synthesised"; exit 1; fi
-	@echo "[rtl-gate] PASS: RTL synthesises cleanly"
+	@echo "[rtl-gate] PASS: extracted RTL synthesises cleanly"
 
 cosim-gate:
 	@echo "[cosim-gate] Running iverilog/vvp co-simulation..."
@@ -414,8 +414,9 @@ proofpack-phase3: coq/thielemachine/coqproofs/PhaseThree.vo
 # ============================================================================
 
 RTL_DIR := thielecpu/hardware/rtl
-RTL_UNIFIED := $(RTL_DIR)/thiele_cpu_unified.v
-SYNTH_SCRIPT := $(RTL_DIR)/synth_lite.ys
+RTL_CANONICAL := $(RTL_DIR)/thiele_cpu_kami.v
+RTL_TOP := mkModule1
+RTL_TESTBENCH := thielecpu/hardware/testbench/thiele_cpu_kami_tb.v
 SYNTH_LOG := $(RTL_DIR)/synth_lite_clean.log
 SYNTH_OUT := $(RTL_DIR)/synth_lite_out.v
 
@@ -424,29 +425,31 @@ SYNTH_OUT := $(RTL_DIR)/synth_lite_out.v
 # iverilog compilation check (simulation mode, all $display active)
 rtl-check:
 	@echo "=== RTL Compilation Check ==="
-	@iverilog -g2012 -Wall -o /dev/null $(RTL_UNIFIED) 2>&1
+	@iverilog -g2012 -Wall -o /dev/null $(RTL_CANONICAL) 2>&1
 	@echo "✓ iverilog: zero warnings, zero errors"
 
 # Full Yosys gate-level synthesis (YOSYS_LITE: same logic, smaller arrays)
-rtl-synth: $(RTL_UNIFIED) $(SYNTH_SCRIPT)
+rtl-synth: $(RTL_CANONICAL)
 	@echo "=== Yosys Gate-Level Synthesis ==="
-	@echo "    Source: $(RTL_UNIFIED)"
-	@echo "    Script: $(SYNTH_SCRIPT)"
-	@echo "    Defines: -DSYNTHESIS -DYOSYS_LITE"
+	@echo "    Source: $(RTL_CANONICAL)"
+	@echo "    Top:    $(RTL_TOP)"
+	@echo "    Defines: -DSYNTHESIS"
 	@echo "    Running (this takes ~5 minutes)..."
-	@cd $(RTL_DIR) && yosys -l synth_lite_clean.log -s synth_lite.ys 2>&1
+	@yosys -l $(SYNTH_LOG) -p "read_verilog -sv -DSYNTHESIS $(RTL_CANONICAL); prep -top $(RTL_TOP); check; stat; write_verilog $(SYNTH_OUT)" 2>&1
 	@echo ""
 	@echo "=== Synthesis Results ==="
 	@grep "Warnings:" $(SYNTH_LOG) | tail -1
 	@grep -c "ERROR" $(SYNTH_LOG) | xargs -I{} echo "Errors: {}"
 	@echo ""
-	@grep -A20 "=== thiele_cpu ===" $(SYNTH_LOG)
+	@grep -A20 "=== $(RTL_TOP) ===" $(SYNTH_LOG)
 	@echo ""
 	@echo "✓ Synthesis complete — netlist written to $(SYNTH_OUT)"
 
 # Run all cosim tests (bisimulation + accelerator)
 rtl-cosim:
 	@echo "=== Co-Simulation Tests ==="
+	@echo "    Canonical RTL: $(RTL_CANONICAL)"
+	@echo "    Testbench:     $(RTL_TESTBENCH)"
 	@pytest tests/test_bisimulation_complete.py tests/test_accelerator_cosim.py -v 2>&1
 	@echo "✓ All cosim tests passed"
 
@@ -484,7 +487,7 @@ synth-report:
 clean-synth: rtl-clean
 
 # Coq proof compilation
-.PHONY: coq-core coq-kernel coq-subsumption proof-undeniable isomorphism-bitlock
+.PHONY: coq-core coq-kernel coq-subsumption proof-undeniable isomorphism-bitlock parity-extracted-only proof-gate-repro synthesis-repro-gate final-claim-audit final-claim-all
 
 coq-core:
 	@echo "Building Coq core proofs..."
@@ -501,15 +504,23 @@ coq-subsumption:
 
 isomorphism-bitlock:
 	@echo "Running strict bit-for-bit Coq/Python/RTL lockstep gate..."
-	@pytest -q tests/test_rtl_compute_isomorphism.py -x --maxfail=1
-	@THIELE_EXHAUSTIVE=$${THIELE_EXHAUSTIVE:-1} \
-	pytest -q \
-	  tests/test_partition_isomorphism_minimal.py::test_partition_ops_pmerge_psplit_isomorphic \
-	  tests/test_partition_isomorphism_minimal.py::test_partition_ops_randomized_merge_split_isomorphic \
-	  tests/test_partition_isomorphism_minimal.py::test_pnew_dedup_singletons_isomorphic \
-	  tests/test_partition_isomorphism_minimal.py::test_pnew_randomized_sequences_isomorphic \
-	  -x --maxfail=1
+	@bash scripts/parity_extracted_only.sh
 	@echo "✓ Bit-for-bit runtime lockstep PASSED"
+
+parity-extracted-only:
+	@bash scripts/parity_extracted_only.sh
+
+proof-gate-repro:
+	@bash scripts/proof_gate_reproducible.sh
+
+synthesis-repro-gate:
+	@bash scripts/synthesis_repro_gate.sh
+
+final-claim-audit:
+	@bash scripts/repo_audit_trail.sh
+
+final-claim-all: parity-extracted-only proof-gate-repro synthesis-repro-gate final-claim-audit
+	@echo "✓ Final claim bundle generated under artifacts/"
 
 proof-undeniable:
 	@echo "Running formal proof gate (compile + audit + independent checker)..."

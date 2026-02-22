@@ -294,7 +294,15 @@ Module ThieleKernelCausality.
       | mod_mdlacc mu_mdlacc
       | mod_disc evidence mu_pdiscover
       | dst_xfer src_xfer mu_xfer
-      | payload_pyexec mu_pyexec
+      | dst_lim imm_lim mu_lim
+      | dst_load addr_load mu_load
+      | addr_store src_store mu_store
+      | dst_add rs1_add rs2_add mu_add
+      | dst_sub rs1_sub rs2_sub mu_sub
+      | target_jump mu_jump
+      | rs_jnez target_jnez mu_jnez
+      | target_call mu_call
+      | mu_ret
       | x_chsh y_chsh a_chsh b_chsh mu_chsh
       | dst_xor_load addr_xor_load mu_xor_load
       | dst_xor_add src_xor_add mu_xor_add
@@ -358,7 +366,23 @@ Module ThieleKernelCausality.
       exact Hneq.
     - (* xfer *)
       reflexivity.
-    - (* pyexec *)
+    - (* load_imm *)
+      reflexivity.
+    - (* load *)
+      reflexivity.
+    - (* store *)
+      reflexivity.
+    - (* add *)
+      reflexivity.
+    - (* sub *)
+      reflexivity.
+    - (* jump *)
+      reflexivity.
+    - (* jnez *)
+      destruct (Nat.eqb (VMState.read_reg s rs_jnez) 0); reflexivity.
+    - (* call *)
+      reflexivity.
+    - (* ret *)
       reflexivity.
     - (* chsh_trial *)
       destruct (chsh_bits_ok x_chsh y_chsh a_chsh b_chsh); reflexivity.

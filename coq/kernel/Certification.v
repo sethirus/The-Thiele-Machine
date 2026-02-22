@@ -300,22 +300,6 @@ Proof.
 
     Qed.
 
-(** Corollary: PYEXEC cannot forge CHSH trials
-    
-    Since extract_chsh_trials only looks at instr_chsh_trial instructions,
-    instr_pyexec cannot contribute to the trial list.
-    
-    This corresponds to Falsifier F3 / Lemma 1.1 (receipt non-forgeability).
-    *)
-
-Lemma pyexec_cannot_forge_chsh :
-  forall payload cost receipts,
-    In (instr_pyexec payload cost) receipts ->
-    extract_chsh_trials [instr_pyexec payload cost] = [].
-Proof.
-  intros. simpl. reflexivity.
-Qed.
-
 (** * no_free_insight_chsh: THE MAIN THEOREM
 
     THE CLAIM:

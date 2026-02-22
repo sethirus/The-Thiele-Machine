@@ -210,8 +210,8 @@ def execute_verilog(program: list[Instruction]) -> ProgramTrace:
         subprocess.run(
             [
                 "iverilog", "-g2012", "-Irtl", "-o", str(sim_out),
-                str(RTL_DIR / "thiele_cpu_unified.v"),
-                str(TB_DIR / "thiele_cpu_tb.v"),
+                str(RTL_DIR / "thiele_cpu_kami.v"),
+                str(TB_DIR / "thiele_cpu_kami_tb.v"),
             ],
             cwd=HARDWARE_DIR,
             capture_output=True,

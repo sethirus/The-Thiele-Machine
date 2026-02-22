@@ -103,7 +103,15 @@ Inductive vm_instruction :=
 | instr_mdlacc (module : ModuleID) (mu_delta : nat)
 | instr_pdiscover (module : ModuleID) (evidence : list VMAxiom) (mu_delta : nat)
 | instr_xfer (dst src : nat) (mu_delta : nat)
-| instr_pyexec (payload : string) (mu_delta : nat)
+| instr_load_imm (dst : nat) (imm : nat) (mu_delta : nat)
+| instr_load (dst : nat) (addr : nat) (mu_delta : nat)
+| instr_store (addr : nat) (src : nat) (mu_delta : nat)
+| instr_add (dst : nat) (rs1 : nat) (rs2 : nat) (mu_delta : nat)
+| instr_sub (dst : nat) (rs1 : nat) (rs2 : nat) (mu_delta : nat)
+| instr_jump (target : nat) (mu_delta : nat)
+| instr_jnez (rs : nat) (target : nat) (mu_delta : nat)
+| instr_call (target : nat) (mu_delta : nat)
+| instr_ret (mu_delta : nat)
 | instr_chsh_trial (x y a b : nat) (mu_delta : nat)
 | instr_xor_load (dst addr : nat) (mu_delta : nat)
 | instr_xor_add (dst src : nat) (mu_delta : nat)
@@ -124,7 +132,15 @@ Definition instruction_cost (instr : vm_instruction) : nat :=
   | instr_mdlacc _ cost => cost
   | instr_pdiscover _ _ cost => cost
   | instr_xfer _ _ cost => cost
-  | instr_pyexec _ cost => cost
+  | instr_load_imm _ _ cost => cost
+  | instr_load _ _ cost => cost
+  | instr_store _ _ cost => cost
+  | instr_add _ _ _ cost => cost
+  | instr_sub _ _ _ cost => cost
+  | instr_jump _ cost => cost
+  | instr_jnez _ _ cost => cost
+  | instr_call _ cost => cost
+  | instr_ret cost => cost
   | instr_chsh_trial _ _ _ _ cost => cost
   | instr_xor_load _ _ cost => cost
   | instr_xor_add _ _ cost => cost
@@ -219,6 +235,31 @@ Definition advance_state_rm (s : VMState) (instr : vm_instruction)
   vm_mu_tensor := s.(vm_mu_tensor);
   vm_err := err_flag |}.
 
+(** jump_state: Set PC to an arbitrary target instead of PC+1.
+    Used by JUMP and the taken branch of JNEZ. *)
+Definition jump_state (s : VMState) (instr : vm_instruction) (target : nat) : VMState :=
+  {| vm_graph := s.(vm_graph);
+     vm_csrs := s.(vm_csrs);
+     vm_regs := s.(vm_regs);
+     vm_mem := s.(vm_mem);
+     vm_pc := target;
+     vm_mu := apply_cost s instr;
+     vm_mu_tensor := s.(vm_mu_tensor);
+     vm_err := s.(vm_err) |}.
+
+(** jump_state_rm: Like jump_state but also updates registers and memory.
+    Used by CALL (saves return address to memory, decrements SP register). *)
+Definition jump_state_rm (s : VMState) (instr : vm_instruction)
+  (target : nat) (regs : list nat) (mem : list nat) : VMState :=
+  {| vm_graph := s.(vm_graph);
+     vm_csrs := s.(vm_csrs);
+     vm_regs := regs;
+     vm_mem := mem;
+     vm_pc := target;
+     vm_mu := apply_cost s instr;
+     vm_mu_tensor := s.(vm_mu_tensor);
+     vm_err := s.(vm_err) |}.
+
 Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
 | step_pnew : forall s region cost graph' mid,
     graph_pnew s.(vm_graph) region = (graph', mid) ->
@@ -288,10 +329,6 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     vm_step s (instr_pdiscover module evidence cost)
       (advance_state s (instr_pdiscover module evidence cost)
         graph' s.(vm_csrs) s.(vm_err))
-| step_pyexec : forall s payload cost,
-    vm_step s (instr_pyexec payload cost)
-      (advance_state s (instr_pyexec payload cost)
-        s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
 | step_chsh_trial_ok : forall s x y a b cost,
     chsh_bits_ok x y a b = true ->
     vm_step s (instr_chsh_trial x y a b cost)
@@ -307,6 +344,71 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     vm_step s (instr_xfer dst src cost)
       (advance_state_rm s (instr_xfer dst src cost)
         s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+(** ---------------------------------------------------------------
+    General-purpose compute instructions (compiler target)
+    --------------------------------------------------------------- *)
+| step_load_imm : forall s dst imm cost regs',
+    regs' = write_reg s dst (word32 imm) ->
+    vm_step s (instr_load_imm dst imm cost)
+      (advance_state_rm s (instr_load_imm dst imm cost)
+        s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+| step_load : forall s dst addr cost regs' value,
+    value = read_mem s addr ->
+    regs' = write_reg s dst value ->
+    vm_step s (instr_load dst addr cost)
+      (advance_state_rm s (instr_load dst addr cost)
+        s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+| step_store : forall s addr src cost mem' value,
+    value = read_reg s src ->
+    mem' = write_mem s addr value ->
+    vm_step s (instr_store addr src cost)
+      (advance_state_rm s (instr_store addr src cost)
+        s.(vm_graph) s.(vm_csrs) s.(vm_regs) mem' s.(vm_err))
+| step_add : forall s dst rs1 rs2 cost regs' v1 v2,
+    v1 = read_reg s rs1 ->
+    v2 = read_reg s rs2 ->
+    regs' = write_reg s dst (word32_add v1 v2) ->
+    vm_step s (instr_add dst rs1 rs2 cost)
+      (advance_state_rm s (instr_add dst rs1 rs2 cost)
+        s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+| step_sub : forall s dst rs1 rs2 cost regs' v1 v2,
+    v1 = read_reg s rs1 ->
+    v2 = read_reg s rs2 ->
+    regs' = write_reg s dst (word32_sub v1 v2) ->
+    vm_step s (instr_sub dst rs1 rs2 cost)
+      (advance_state_rm s (instr_sub dst rs1 rs2 cost)
+        s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+| step_jump : forall s target cost,
+    vm_step s (instr_jump target cost)
+      (jump_state s (instr_jump target cost) target)
+| step_jnez_taken : forall s rs target cost,
+    read_reg s rs <> 0 ->
+    vm_step s (instr_jnez rs target cost)
+      (jump_state s (instr_jnez rs target cost) target)
+| step_jnez_not_taken : forall s rs target cost,
+    read_reg s rs = 0 ->
+    vm_step s (instr_jnez rs target cost)
+      (advance_state s (instr_jnez rs target cost)
+        s.(vm_graph) s.(vm_csrs) s.(vm_err))
+(** CALL: push return address to stack (r31 = SP, ascending) then jump.
+    Stack convention: r31 is SP; mem[SP] = return addr; SP = SP + 1. *)
+| step_call : forall s target cost sp ret_addr mem' regs',
+    sp = read_reg s 31 ->
+    ret_addr = S s.(vm_pc) ->
+    mem' = write_mem s sp ret_addr ->
+    regs' = write_reg s 31 (word32_add sp 1) ->
+    vm_step s (instr_call target cost)
+      (jump_state_rm s (instr_call target cost) target regs' mem')
+(** RET: pop return address from stack; SP = SP - 1; PC = mem[SP]. *)
+| step_ret : forall s cost sp ret_pc regs',
+    sp = word32_sub (read_reg s 31) 1 ->
+    ret_pc = read_mem s sp ->
+    regs' = write_reg s 31 sp ->
+    vm_step s (instr_ret cost)
+      (jump_state_rm s (instr_ret cost) ret_pc regs' s.(vm_mem))
+(** ---------------------------------------------------------------
+    Bit-linear algebra (GF(2) operations for partition/info work)
+    --------------------------------------------------------------- *)
 | step_xor_load : forall s dst addr cost regs' value,
     value = read_mem s addr ->
     regs' = write_reg s dst value ->

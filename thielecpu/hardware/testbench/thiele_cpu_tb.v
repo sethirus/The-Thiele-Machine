@@ -43,17 +43,18 @@ reg [31:0] mem_rdata;
 wire mem_we;
 wire mem_en;
 
+// Mu-tensor and Bianchi alarm outputs
+wire [31:0] mu_tensor_0;
+wire [31:0] mu_tensor_1;
+wire [31:0] mu_tensor_2;
+wire [31:0] mu_tensor_3;
+wire        bianchi_alarm;
+
 // Logic engine interface
 wire logic_req;
 wire [31:0] logic_addr;
 reg logic_ack;
 reg [31:0] logic_data;
-
-// Python execution interface
-wire py_req;
-wire [31:0] py_code_addr;
-reg py_ack;
-reg [31:0] py_result;
 
 // Instruction memory
 reg [31:0] instr_memory [0:255];
@@ -86,6 +87,11 @@ thiele_cpu dut (
     .mdl_ops(mdl_ops),
     .info_gain(info_gain),
     .mu(mu),
+    .mu_tensor_0(mu_tensor_0),
+    .mu_tensor_1(mu_tensor_1),
+    .mu_tensor_2(mu_tensor_2),
+    .mu_tensor_3(mu_tensor_3),
+    .bianchi_alarm(bianchi_alarm),
     .mem_addr(mem_addr),
     .mem_wdata(mem_wdata),
     .mem_rdata(mem_rdata),
@@ -95,10 +101,6 @@ thiele_cpu dut (
     .logic_addr(logic_addr),
     .logic_ack(logic_ack),
     .logic_data(logic_data),
-    .py_req(py_req),
-    .py_code_addr(py_code_addr),
-    .py_ack(py_ack),
-    .py_result(py_result),
     .instr_data(instr_memory[pc[31:2]]), // Word-aligned access
     .pc(pc)
 );
@@ -203,17 +205,6 @@ always @(posedge clk) begin
     end
 end
 
-// Python execution simulation
-always @(posedge clk) begin
-    if (py_req && !py_ack) begin
-        // Simulate Python execution response
-        #15 py_result <= 32'h12345678;
-        py_ack <= 1'b1;
-    end else begin
-        py_ack <= 1'b0;
-    end
-end
-
 // ============================================================================
 // TEST SEQUENCE
 // ============================================================================
@@ -223,7 +214,6 @@ initial begin
     rst_n = 0;
     cycle_count = 0;
     logic_ack = 0;
-    py_ack = 0;
     mem_rdata = 32'h0;
     
     // Enable VCD dumping for waveform generation

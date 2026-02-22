@@ -118,7 +118,7 @@ Module ThieleSpaceland.
     | CoreSemantics.LJOIN => Some (@LCompute ModuleId)
     | CoreSemantics.MDLACC _ => Some (@LCompute ModuleId)
     | CoreSemantics.XFER => Some (@LCompute ModuleId)
-    | CoreSemantics.PYEXEC => Some (@LCompute ModuleId)
+    | CoreSemantics.LOAD_IMM => Some (@LCompute ModuleId)
     | CoreSemantics.XOR_LOAD => Some (@LCompute ModuleId)
     | CoreSemantics.XOR_ADD => Some (@LCompute ModuleId)
     | CoreSemantics.XOR_SWAP => Some (@LCompute ModuleId)
@@ -300,12 +300,12 @@ Module ThieleSpaceland.
           eauto; intros; discriminate.
       }
       rewrite Hpart. reflexivity.
-    - (* PYEXEC: Preserves partition *)
+    - (* LOAD_IMM: Preserves partition *)
       unfold is_in_footprint in Hfootprint. simpl in Hfootprint.
       unfold module_of, get_partition.
       assert (Hpart : CoreSemantics.partition s' = CoreSemantics.partition s).
       {
-        eapply CoreSemantics.partition_preserved_computational with (instr := CoreSemantics.PYEXEC);
+        eapply CoreSemantics.partition_preserved_computational with (instr := CoreSemantics.LOAD_IMM);
           eauto; intros; discriminate.
       }
       rewrite Hpart. reflexivity.

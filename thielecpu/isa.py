@@ -34,15 +34,23 @@ class Opcode(Enum):
     MDLACC = 0x05      # MDL: accumulate description length cost
     PDISCOVER = 0x06   # Partition: discover structure
     XFER = 0x07        # ALU: transfer data between registers
-    PYEXEC = 0x08      # Execute Python code
+    LOAD_IMM = 0x08    # Load immediate value (reclaimed from PYEXEC)
     CHSH_TRIAL = 0x09  # Certification: CHSH correlation test
     XOR_LOAD = 0x0A    # XOR matrix: load value
     XOR_ADD = 0x0B     # XOR matrix: add rows
     XOR_SWAP = 0x0C    # XOR matrix: swap rows
     XOR_RANK = 0x0D    # XOR matrix: compute rank
     EMIT = 0x0E        # Emit output event
-    REVEAL = 0x0F      # Reveal hidden info (costs μ-bits) - ADDED to fix isomorphism
-    ORACLE_HALTS = 0x10  # Oracle: query halting - MOVED from 0x0F to fix isomorphism
+    REVEAL = 0x0F      # Reveal hidden info (costs μ-bits)
+    ORACLE_HALTS = 0x10  # Oracle: query halting
+    LOAD = 0x11        # Load from memory
+    STORE = 0x12       # Store to memory
+    ADD = 0x13         # Integer addition
+    SUB = 0x14         # Integer subtraction
+    JUMP = 0x15        # Unconditional jump
+    JNEZ = 0x16        # Jump if not zero
+    CALL = 0x17        # Function call
+    RET = 0x18         # Return from function
     HALT = 0xFF        # Halt execution
 
 

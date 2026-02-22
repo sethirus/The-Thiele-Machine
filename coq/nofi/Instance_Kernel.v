@@ -59,19 +59,6 @@ Module KernelNoFI <: NO_FREE_INSIGHT_SYSTEM.
   Definition clean_start (s : S) : Prop :=
     s.(vm_csrs).(csr_cert_addr) = 0.
 
-  (** Non-forgeability (CHSH-free): PYEXEC cannot modify certification state. *)
-  Lemma pyexec_preserves_cert_addr :
-    forall s payload cost,
-      (vm_apply s (instr_pyexec payload cost)).(vm_csrs).(csr_cert_addr) =
-      s.(vm_csrs).(csr_cert_addr).
-  Proof.
-    intros s payload cost.
-    unfold vm_apply.
-    unfold advance_state.
-    simpl.
-    reflexivity.
-  Qed.
-
   (** [trace_run_mu_monotone]: formal specification. *)
   Lemma trace_run_mu_monotone :
     forall fuel tr s0 s1,

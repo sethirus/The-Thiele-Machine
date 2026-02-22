@@ -19,6 +19,7 @@
 -R catnet CatNet
 -R isomorphism Isomorphism
 -R thieleuniversal/coqproofs ThieleUniversal
+-R thieleuniversal/verification ThieleUniversal.verification
 -R test_vscoq TestVscoq
 -R theory Theory
 -R physics_exploration PhysicsExploration
@@ -50,6 +51,7 @@ kernel/Certification.v
 kernel/Closure.v
 kernel/ConeAlgebra.v
 kernel/ConeDerivation.v
+kernel/CPURefinement.v
 kernel/Definitions.v
 kernel/DerivedTime.v
 kernel/EntropyImpossibility.v
@@ -146,7 +148,6 @@ thiele_manifold/ThieleManifoldBridge.v
 thielemachine/coqproofs/AbstractLTS.v
 thielemachine/coqproofs/AlgebraicLaws.v
 thielemachine/coqproofs/AmortizedAnalysis.v
-thielemachine/coqproofs/Axioms.v
 thielemachine/coqproofs/BellArtifacts.v
 thielemachine/coqproofs/BellInequality.v
 thielemachine/coqproofs/BellCheck.v
@@ -161,19 +162,16 @@ thielemachine/coqproofs/ComputationIsomorphism.v
 thielemachine/coqproofs/Confluence.v
 thielemachine/coqproofs/CoreSemantics.v
 thielemachine/coqproofs/DiscoveryProof.v
-thielemachine/coqproofs/DissipativeEmbedding.v
 thielemachine/coqproofs/EfficientDiscovery.v
 thielemachine/coqproofs/Embedding_TM.v
 thielemachine/coqproofs/EncodingBridge.v
 thielemachine/coqproofs/GoldenVectors.v
 thielemachine/coqproofs/HardwareBridge.v
-thielemachine/coqproofs/HardwareVMHarness.v
 thielemachine/coqproofs/ThieleVMOpcodes.v
 thielemachine/coqproofs/Hash256.v
 thielemachine/coqproofs/HyperThiele.v
 thielemachine/coqproofs/HyperThiele_Halting.v
 thielemachine/coqproofs/HyperThiele_Oracle.v
-thielemachine/coqproofs/Impossibility.v
 thielemachine/coqproofs/InfoTheory.v
 thielemachine/coqproofs/LawCheck.v
 thielemachine/coqproofs/ListHelpers.v
@@ -186,7 +184,6 @@ thielemachine/coqproofs/OracleImpossibility.v
 thielemachine/coqproofs/PartitionDiscoveryIsomorphism.v
 thielemachine/coqproofs/PartitionLogic.v
 thielemachine/coqproofs/PhaseThree.v
-thielemachine/coqproofs/PhysicsEmbedding.v
 thielemachine/coqproofs/QHelpers.v
 thielemachine/coqproofs/QuantumAdmissibilityDeliverableB.v
 thielemachine/coqproofs/QuantumAdmissibilityTsirelson.v
@@ -194,7 +191,6 @@ thielemachine/coqproofs/QuantumTheorems.v
 thielemachine/coqproofs/RepresentationTheorem.v
 thielemachine/coqproofs/SemanticBridge.v
 thielemachine/coqproofs/Separation.v
-thielemachine/coqproofs/Simulation.v
 thielemachine/coqproofs/Spaceland.v
 thielemachine/coqproofs/SpacelandComplete.v
 thielemachine/coqproofs/SpacelandCore.v
@@ -219,13 +215,8 @@ thielemachine/coqproofs/ThieleUnificationDemo.v
 thielemachine/coqproofs/ThieleUnificationProtocol.v
 thielemachine/coqproofs/ThieleUnificationTensor.v
 thielemachine/coqproofs/TsirelsonBoundBridge.v
-thielemachine/coqproofs/UTMStaticCheck.v
 thielemachine/coqproofs/WaveCheck.v
-thielemachine/coqproofs/WaveEmbedding.v
 thielemachine/verification/Admissibility.v
-thielemachine/verification/BridgeCheckpoints.v
-thielemachine/verification/BridgeDefinitions.v
-thielemachine/verification/BridgeProof.v
 thielemachine/verification/Deliverable_CHSHSeparation.v
 thielemachine/verification/Deliverable_MuEntropy.v
 thielemachine/verification/Deliverable_MuEntropyNBits.v
@@ -239,9 +230,6 @@ thielemachine/verification/Prediction.v
 thielemachine/verification/PredictionNoFI.v
 thielemachine/verification/RandomnessNoFI.v
 thielemachine/verification/Symmetry.v
-thielemachine/verification/ThieleUniversalBridge.v
-thielemachine/verification/ThieleUniversalBridge_Axiom_Tests.v
-thielemachine/verification/modular/Bridge_BridgeCore.v
 thieleuniversal/coqproofs/CPU.v
 thieleuniversal/coqproofs/TM.v
 thieleuniversal/coqproofs/ThieleUniversal.v
@@ -280,6 +268,20 @@ kernel/ProperSubsumption.v
 kernel/SemidefiniteProgramming.v
 kernel/TsirelsonDerivation.v
 kernel/ConstantUnification.v
+thieleuniversal/coqproofs/Axioms.v
+thieleuniversal/coqproofs/Impossibility.v
+thieleuniversal/coqproofs/Simulation.v
+thieleuniversal/coqproofs/UTMStaticCheck.v
+thieleuniversal/verification/BridgeCheckpoints.v
+thieleuniversal/verification/BridgeDefinitions.v
+thieleuniversal/verification/BridgeProof.v
+thieleuniversal/verification/ThieleUniversalBridge.v
+thieleuniversal/verification/ThieleUniversalBridge_Axiom_Tests.v
+thieleuniversal/verification/modular/Bridge_BridgeCore.v
+physics_exploration/WaveEmbedding.v
+physics_exploration/PhysicsEmbedding.v
+physics_exploration/HardwareVMHarness.v
+physics_exploration/DissipativeEmbedding.v
 physics_exploration/EmergentSchrodinger.v
 physics_exploration/EmergentSpacetime.v
 physics_exploration/HolographicGravity.v
@@ -339,3 +341,4 @@ kernel/GeodesicCompleteness.v
 kernel/InverseSquareLaw.v
 kernel/LorentzSignature.v
 kernel/PoissonEquation.v
+kernel/DiscreteCalculus.v

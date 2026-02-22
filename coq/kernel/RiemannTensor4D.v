@@ -5,21 +5,20 @@
     ========================================================================
 
     THE GOAL:
-    Derive the full Riemann curvature tensor R^ρ_{σμν} from the metric
-    defined by μ-costs, with ZERO assumptions.
-
-    THE CHALLENGE:
-    Classical GR uses smooth manifolds with derivatives.
-    We have discrete simplicial complexes with finite differences.
+    Define the full Riemann curvature tensor R^ρ_{σμν} from the metric
+    defined by μ-costs.
 
     THE APPROACH:
     1. Define discrete Christoffel symbols from metric differences
-    2. Define Riemann tensor from Christoffel symbol differences
+    2. Define Riemann tensor from Christoffel differences + quadratic terms
     3. Contract to get Ricci tensor R_μν
     4. Contract again to get Ricci scalar R
     5. Build Einstein tensor G_μν = R_μν - (1/2)g_μν R
 
-    ZERO AXIOMS. ZERO ADMITS.
+    STATUS:
+    ✓ Definitions complete with proper connection curvature
+    ⚠ Proofs of Bianchi identities not yet completed
+    ⚠ Full tensor algebra infrastructure needed
     *)
 
 From Coq Require Import Reals List Arith.PeanoNat Lia Lra Bool.
@@ -109,6 +108,13 @@ Definition christoffel (s : VMState) (sc : SimplicialComplex4D)
 
     Classical definition:
     R^ρ_{σμν} = ∂_μ Γ^ρ_{νσ} - ∂_ν Γ^ρ_{μσ} + Γ^ρ_{μλ} Γ^λ_{νσ} - Γ^ρ_{νλ} Γ^λ_{μσ}
+    
+    CRITICAL: The quadratic Christoffel terms (Γ·Γ) are REQUIRED for:
+    - Correct geometric meaning (connection curvature, not just torsion)
+    - Bianchi identities to hold
+    - Einstein equations to be consistent
+    
+    These terms represent the non-commutation of parallel transport.
 *)
 
 Definition riemann_tensor (s : VMState) (sc : SimplicialComplex4D)
@@ -117,8 +123,15 @@ Definition riemann_tensor (s : VMState) (sc : SimplicialComplex4D)
     (fun w => christoffel s sc ρ ν σ w) μ v in
   let d_nu_gamma := discrete_derivative s sc
     (fun w => christoffel s sc ρ μ σ w) ν v in
-  (* Simplified version - full version requires Γ·Γ terms summing over λ *)
-  (d_mu_gamma - d_nu_gamma)%R.
+  (* Quadratic Christoffel terms: sum over λ *)
+  let gamma_gamma_1 := fold_left (fun acc λ =>
+    (acc + christoffel s sc ρ μ λ v * christoffel s sc λ ν σ v)%R
+  ) (sc4d_vertices sc) 0%R in
+  let gamma_gamma_2 := fold_left (fun acc λ =>
+    (acc + christoffel s sc ρ ν λ v * christoffel s sc λ μ σ v)%R
+  ) (sc4d_vertices sc) 0%R in
+  (* Full Riemann tensor with connection curvature *)
+  (d_mu_gamma - d_nu_gamma + gamma_gamma_1 - gamma_gamma_2)%R.
 
 (** ** Step 4: Ricci Curvature Tensor
 
@@ -166,24 +179,20 @@ Definition einstein_tensor (s : VMState) (sc : SimplicialComplex4D)
 (** ** Properties and Next Steps
 
     WHAT WE'VE DEFINED:
-    - Discrete metric from μ-costs
-    - Discrete Christoffel symbols (connection)
-    - Riemann curvature tensor (measures curvature)
-    - Ricci tensor (contracted Riemann)
-    - Ricci scalar (fully contracted)
-    - Einstein tensor G_μν
+    ✓ Discrete metric from μ-costs
+    ✓ Discrete Christoffel symbols (connection)
+    ✓ Riemann curvature tensor with full connection curvature (ΓΓ terms)
+    ✓ Ricci tensor (contracted Riemann)
+    ✓ Ricci scalar (fully contracted)
+    ✓ Einstein tensor G_μν
 
-    WHAT REMAINS:
-    - Prove Riemann tensor symmetries
-    - Prove Bianchi identities
-    - Complete metric inverse calculation
-    - Add Γ·Γ terms to Riemann tensor
+    WHAT REMAINS FOR RIGOROUS PROOFS:
+    - Riemann tensor symmetries (antisymmetry in last two indices, etc.)
+    - Bianchi identities (∇_[α R_{βγ]δε} = 0 and contracted form)
+    - Complete metric inverse calculation (currently using diagonal approximation)
+    - Explicit computation for specific components (e.g. R_0000 in terms of mass)
 
-    These are straightforward but tedious algebraic computations.
-    The STRUCTURE is complete - curvature emerges from μ-costs.
-*)
-
-(** NEXT STEPS:
+    These require substantial tensor calculus infrastructure.
     1. Add proper metric inverse calculation
     2. Complete Riemann tensor with Γ·Γ terms
     3. Prove symmetries (Bianchi identities)

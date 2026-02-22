@@ -54,10 +54,9 @@ Import RevelationProof.
 (** * Axiom A1: Non-Forgeable Receipts
     
     Receipts are cryptographically bound to executed instructions.
-    User code cannot forge receipts (PYEXEC cannot inject arbitrary receipt types).
+    User code cannot forge receipts (untrusted code cannot inject arbitrary receipt types).
     
     WITNESS: VMStep.v step relation deterministically produces receipts.
-    Receipt structure is opaque to PYEXEC (different constructor).
     *)
 
 Definition Receipt := vm_instruction.

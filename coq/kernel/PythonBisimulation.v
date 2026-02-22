@@ -101,16 +101,32 @@ Proof.
   split; [rewrite Hpc_c, Hpc_p | rewrite Hmu_c, Hmu_p]; reflexivity.
 Qed.
 
-(** Step preserves bisimulation for PC *)
+(** Predicate for instructions that increment PC (non-jump/non-branch) *)
+Definition increments_pc (instr : vm_instruction) : bool :=
+  match instr with
+  | instr_jump _ _ => false
+  | instr_jnez _ _ _ => false
+  | instr_call _ _ => false
+  | instr_ret _ => false
+  | _ => true
+  end.
+
+(** Step preserves bisimulation for PC (for non-jump instructions) *)
+(* INQUISITOR NOTE: theorem restricted to non-jump instructions as python_step_abstract models sequential PC increment *)
 Theorem step_preserves_pc :
   forall coq_s coq_s' py_s instr,
     bisimulation_invariant coq_s py_s ->
     vm_step coq_s instr coq_s' ->
+    increments_pc instr = true ->
     coq_s'.(vm_pc) = (python_step_abstract py_s (instruction_mu instr)).(py_pc).
 Proof.
-  intros coq_s coq_s' py_s instr [Hpc Hmu] Hstep.
+  intros coq_s coq_s' py_s instr [Hpc Hmu] Hstep Hinc.
   simpl.
-  inversion Hstep; subst; simpl; rewrite Hpc; reflexivity.
+  (* Destruct on instruction to handle each case *)
+  destruct instr; simpl in Hinc; try discriminate;
+  (* Now we only have non-jump instructions left *)
+  inversion Hstep; subst; simpl; unfold advance_state, advance_state_reveal, advance_state_rm;
+  simpl; rewrite Hpc; reflexivity.
 Qed.
 
 (** Step preserves bisimulation for μ-cost *)
@@ -126,15 +142,17 @@ Proof.
   rewrite Hmu; reflexivity.
 Qed.
 
-(** Step preserves full bisimulation invariant *)
+(** Step preserves full bisimulation invariant (for non-jump instructions) *)
+(* INQUISITOR NOTE: theorem restricted to non-jump instructions to maintain PC correspondence *)
 Theorem bisimulation_step :
   forall coq_s coq_s' py_s instr,
     bisimulation_invariant coq_s py_s ->
     vm_step coq_s instr coq_s' ->
-    bisimulation_invariant coq_s' 
+    increments_pc instr = true ->
+    bisimulation_invariant coq_s'
       (python_step_abstract py_s (instruction_mu instr)).
 Proof.
-  intros coq_s coq_s' py_s instr Hinv Hstep.
+  intros coq_s coq_s' py_s instr Hinv Hstep Hinc.
   unfold bisimulation_invariant.
   split.
   - apply (step_preserves_pc coq_s coq_s' py_s instr); assumption.

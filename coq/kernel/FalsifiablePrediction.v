@@ -138,9 +138,10 @@ Theorem mu_monotonic_step : forall s i s',
   VMStep.vm_step s i s' -> (s'.(vm_mu) >= s.(vm_mu))%nat.
 Proof.
   intros s i s' Hstep.
-  inversion Hstep; subst; 
-    unfold VMStep.advance_state, VMStep.advance_state_reveal, VMStep.advance_state_rm, VMStep.apply_cost; 
-    simpl; lia.
+  inversion Hstep; subst;
+    unfold VMStep.advance_state, VMStep.advance_state_reveal, VMStep.advance_state_rm,
+           VMStep.jump_state, VMStep.jump_state_rm, VMStep.apply_cost;
+    simpl; try lia.
 Qed.
 
 (** =========================================================================
