@@ -46,7 +46,7 @@ Definition op_pdiscover : nat := 6.
 Definition op_xfer : nat := 7.
 
 (** Python bridge execution: run sandboxed Python code within the VM. *)
-Definition op_pyexec : nat := 8.
+Definition op_load_imm : nat := 8.
 
 (** CHSH trial: record a Bell measurement outcome and check Tsirelson bound. *)
 Definition op_chsh_trial : nat := 9.
@@ -107,9 +107,9 @@ Proof. unfold op_pdiscover. lia. Qed.
 Lemma op_xfer_byte_range : op_xfer < 256.
 Proof. unfold op_xfer. lia. Qed.
 
-(** [op_pyexec] lies within the valid 8-bit opcode range. *)
-Lemma op_pyexec_byte_range : op_pyexec < 256.
-Proof. unfold op_pyexec. lia. Qed.
+(** [op_load_imm] lies within the valid 8-bit opcode range. *)
+Lemma op_load_imm_byte_range : op_load_imm < 256.
+Proof. unfold op_load_imm. lia. Qed.
 
 (** [op_chsh_trial] lies within the valid 8-bit opcode range. *)
 Lemma op_chsh_trial_byte_range : op_chsh_trial < 256.
@@ -159,8 +159,8 @@ Lemma opcodes_distinct :
   op_ljoin    <> op_mdlacc   /\
   op_mdlacc   <> op_pdiscover /\
   op_pdiscover <> op_xfer    /\
-  op_xfer     <> op_pyexec   /\
-  op_pyexec   <> op_chsh_trial /\
+  op_xfer     <> op_load_imm   /\
+  op_load_imm   <> op_chsh_trial /\
   op_chsh_trial <> op_xor_load /\
   op_xor_load <> op_xor_add  /\
   op_xor_add  <> op_xor_swap /\
@@ -171,7 +171,7 @@ Lemma opcodes_distinct :
   op_oracle   <> op_halt.
 Proof.
   unfold op_psplit, op_pmerge, op_lassert, op_ljoin, op_mdlacc,
-         op_pdiscover, op_xfer, op_pyexec, op_chsh_trial, op_xor_load,
+         op_pdiscover, op_xfer, op_load_imm, op_chsh_trial, op_xor_load,
          op_xor_add, op_xor_swap, op_xor_rank, op_emit, op_reveal,
          op_oracle, op_halt.
   repeat split; discriminate.

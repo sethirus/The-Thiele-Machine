@@ -1,10 +1,10 @@
 # INQUISITOR REPORT
-Generated: 2026-02-20 00:19:58Z (UTC)
-Scanned: 308 Coq files across the repo
+Generated: 2026-02-21 07:05:54Z (UTC)
+Scanned: 310 Coq files across the repo
 ## Summary
 - HIGH: 0
 - MEDIUM: 0
-- LOW: 0
+- LOW: 1
 
 ## Rules
 - `ADMITTED`: `Admitted.` (incomplete proof - FORBIDDEN)
@@ -25,6 +25,9 @@ Scanned: 308 Coq files across the repo
 - `LET_IN_TRUE_STMT`: statement ends with `let ... in True.`
 - `EXISTS_TRUE_STMT`: statement ends with `exists ..., True.`
 - `CIRCULAR_INTROS_ASSUMPTION`: tautology + `intros; assumption.`
+- `EXACT_ALIAS`: `Theorem A. Proof. exact B. Qed.` (pure alias — proves nothing new, just re-exports an existing proof under a new name)
+- `SCOPE_DRIFT_TIER1`: coq/kernel/ (Tier 1) file imports a Tier-2 or Tier-3 namespace — contaminates the extraction-critical kernel
+- `SCOPE_DRIFT_TIER2`: Thesis-essential Tier-2 file (nofi/, bridge/, etc.) imports a Tier-3 exploratory namespace
 - `TRIVIAL_EQUALITY`: theorem of form `X = X` with reflexivity-ish proof
 - `CONST_Q_FUN`: `Definition ... := fun _ => 0%Q` / `1%Q`
 - `EXISTS_CONST_Q`: `exists (fun _ => 0%Q)` / `exists (fun _ => 1%Q)`
@@ -78,5 +81,18 @@ Scanned: 308 Coq files across the repo
 - `MU_GRAVITY_VM_COMPATIBILITY`: MuGravity execution-facing theorem interfaces/declarations still rely on unresolved VM compatibility wrappers/assumptions instead of vm_apply/run_vm semantic derivations
 - `MU_GRAVITY_NO_ASSUMPTION_SURFACES`: MuGravity files may not use Axiom/Parameter/Hypothesis/Context/Variable(s); all such surfaces must be discharged as theorems
 
+## Vacuity Ranking (file-level)
+Files scored by trivially-true / placeholder / definitional-proof heuristics.
+Score >= 100 → MEDIUM finding (fails gate). Score >= 50 → LOW warning.
+
+| score | tags | file |
+|---:|---|---|
+| 65 | const-fun | `coq/thielemachine/coqproofs/SpectralApproximation.v` |
+
 ## Findings
-(none)
+### LOW
+
+#### `coq/thielemachine/coqproofs/SpectralApproximation.v`
+- L1: **VACUITY_SCORE** — Vacuity score 65 ≥ LOW threshold 50. Tags: const-fun. Review for trivially-true/placeholder/definitional proofs that don't advance the thesis goal.
+  - `(file-level vacuity scan)`
+

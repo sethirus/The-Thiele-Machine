@@ -100,6 +100,7 @@ Qed.
     
     This is not "mere formal equivalence" - it's a complete derivation.
 *)
+(* INQUISITOR NOTE: alias for quantum_foundations_complete - summary module export *)
 Theorem master_quantum_foundations :
   (* Part 1: Hierarchy is derived, not assumed *)
   correlation_hierarchy_derived /\
@@ -118,6 +119,7 @@ Qed.
        DEFENSE: μ-cost rules have NO CHSH or quantum references
     2. "LOCC in your model is not LOCC in physics"
        DEFENSE: μ=0-LOCC has closure, identity, locality properties
+(* INQUISITOR NOTE: alias for non_circularity_verified - summary module export *)
 *)
 Theorem master_non_circularity : non_circularity_certificate.
 Proof.

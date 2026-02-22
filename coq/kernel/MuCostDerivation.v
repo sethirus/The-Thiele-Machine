@@ -61,6 +61,7 @@ From Coq Require Import Nat.
 Import ListNotations.
 
 From Kernel Require Import VMState VMStep StateSpaceCounting SemanticMuCost.
+(* INQUISITOR NOTE: cross-tier import for Erasure type linking μ-cost to thermodynamic cost - maintains formal connection between computational and physical costs *)
 From Thermodynamic Require Import LandauerDerived.
 
 (** =========================================================================

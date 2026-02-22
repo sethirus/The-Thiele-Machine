@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-20T00:19:23.627011+00:00",
+  "generated_at": "2026-02-21T07:05:22.072203+00:00",
   "inquisitor": {
     "ran": true,
     "timed_out": false,
@@ -8,11 +8,16 @@
     "strict_pass": true,
     "report": {
       "report_found": true,
-      "scanned_files": 308,
+      "scanned_files": 310,
       "high": 0,
       "medium": 0,
-      "low": 0,
-      "top_rules": []
+      "low": 1,
+      "top_rules": [
+        {
+          "rule": "VACUITY_SCORE",
+          "count": 1
+        }
+      ]
     },
     "stdout_tail": "INQUISITOR: Compiling all Coq proofs...\nINQUISITOR: Compilation OK\nINQUISITOR: OK\nReport: /workspaces/The-Thiele-Machine/INQUISITOR_REPORT.md",
     "stderr_tail": "",
@@ -20,17 +25,18 @@
     "report_path": "INQUISITOR_REPORT.md"
   },
   "proof_quality_metrics": {
-    "proof_accuracy": 100.0,
+    "proof_accuracy": 99.97,
     "proof_quality_grade": "A+",
     "gate_rating": "PASS",
     "high": 0,
     "medium": 0,
-    "low": 0,
-    "scanned_files": 308,
-    "weighted_penalty": 0.0,
+    "low": 1,
+    "scanned_files": 310,
+    "weighted_penalty": 0.1,
     "strict_pass": true
   },
   "fragmented_correctness_flags": [
+    "RTL synthesis PASS but co-simulation FAIL: testbench errors or runtime bugs.",
     "Proof gate PASS but test gate FAIL: verified statements are not yet sufficiently exercised against runtime surfaces.",
     "Production symbol coverage by tests is below strict target; dynamic paths are under-verified."
   ]

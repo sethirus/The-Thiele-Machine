@@ -388,7 +388,7 @@ Definition init_state_for_algebraic_max : VMState :=
 Lemma algebraic_max_trace_mu_zero :
   mu_cost_of_trace 4 algebraic_max_trace 0 = 0%nat.
 Proof.
-  unfold mu_cost_of_trace. simpl. reflexivity.
+  native_compute. reflexivity.
 Qed.
 
 (** [algebraic_max_trials_chsh]: formal specification. *)
@@ -404,7 +404,7 @@ Lemma extract_algebraic_max_trials :
   extract_chsh_trials_from_trace 4 algebraic_max_trace init_state_for_algebraic_max =
   algebraic_max_trials.
 Proof.
-  unfold extract_chsh_trials_from_trace. simpl. reflexivity.
+  native_compute. reflexivity.
 Qed.
 
 (** [algebraic_max_trace_chsh]: formal specification. *)

@@ -304,9 +304,6 @@ Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
   | instr_pdiscover module evidence cost =>
       let graph' := graph_record_discovery s.(vm_graph) module evidence in
       advance_state s (instr_pdiscover module evidence cost) graph' s.(vm_csrs) s.(vm_err)
-  | instr_pyexec payload cost =>
-      advance_state s (instr_pyexec payload cost)
-        s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)
   | instr_chsh_trial x y a b cost =>
       if chsh_bits_ok x y a b then
         advance_state s (instr_chsh_trial x y a b cost)
@@ -318,6 +315,50 @@ Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
       let regs' := write_reg s dst (read_reg s src) in
       advance_state_rm s (instr_xfer dst src cost)
       s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
+    | instr_load_imm dst imm cost =>
+      let regs' := write_reg s dst (word32 imm) in
+      advance_state_rm s (instr_load_imm dst imm cost)
+      s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
+    | instr_load dst addr cost =>
+      let value := read_mem s addr in
+      let regs' := write_reg s dst value in
+      advance_state_rm s (instr_load dst addr cost)
+      s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
+    | instr_store addr src cost =>
+      let value := read_reg s src in
+      let mem' := write_mem s addr value in
+      advance_state_rm s (instr_store addr src cost)
+      s.(vm_graph) s.(vm_csrs) s.(vm_regs) mem' s.(vm_err)
+    | instr_add dst rs1 rs2 cost =>
+      let v1 := read_reg s rs1 in
+      let v2 := read_reg s rs2 in
+      let regs' := write_reg s dst (word32_add v1 v2) in
+      advance_state_rm s (instr_add dst rs1 rs2 cost)
+      s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
+    | instr_sub dst rs1 rs2 cost =>
+      let v1 := read_reg s rs1 in
+      let v2 := read_reg s rs2 in
+      let regs' := write_reg s dst (word32_sub v1 v2) in
+      advance_state_rm s (instr_sub dst rs1 rs2 cost)
+      s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
+    | instr_jump target cost =>
+      jump_state s (instr_jump target cost) target
+    | instr_jnez rs target cost =>
+      if Nat.eqb (read_reg s rs) 0 then
+        advance_state s (instr_jnez rs target cost) s.(vm_graph) s.(vm_csrs) s.(vm_err)
+      else
+        jump_state s (instr_jnez rs target cost) target
+    | instr_call target cost =>
+      let sp := read_reg s 31 in
+      let ret_addr := S s.(vm_pc) in
+      let mem' := write_mem s sp ret_addr in
+      let regs' := write_reg s 31 (word32_add sp 1) in
+      jump_state_rm s (instr_call target cost) target regs' mem'
+    | instr_ret cost =>
+      let sp := word32_sub (read_reg s 31) 1 in
+      let ret_pc := read_mem s sp in
+      let regs' := write_reg s 31 sp in
+      jump_state_rm s (instr_ret cost) ret_pc regs' s.(vm_mem)
     | instr_xor_load dst addr cost =>
       let value := read_mem s addr in
       let regs' := write_reg s dst value in
@@ -377,7 +418,12 @@ Proof.
         | H : check_model _ _ = true |- _ => cbn in H; discriminate H
         | H : check_lrat _ _ = true |- _ => cbn in H; discriminate H
         end;
+    (* Handle JNEZ boolean conditions *)
     repeat match goal with
+           | H : read_reg ?s ?rs <> 0 |- context[Nat.eqb (read_reg ?s ?rs) 0] =>
+               rewrite (proj2 (PeanoNat.Nat.eqb_neq _ _) H)
+           | H : read_reg ?s ?rs = 0 |- context[Nat.eqb (read_reg ?s ?rs) 0] =>
+               rewrite (proj2 (PeanoNat.Nat.eqb_eq _ _) H)
            | H : _ = _ |- _ => rewrite H
            end; reflexivity.
 Qed.
@@ -395,14 +441,18 @@ Proof.
   reflexivity.
 Qed.
 
-(** [vm_step_pc]: formal specification. *)
-Lemma vm_step_pc :
+(** [vm_step_pc]: For non-jump instructions, PC advances by 1.
+    Jump/branch/call/ret instructions set pc to an arbitrary target. *)
+Lemma vm_step_pc_advance :
   forall s instr s',
     vm_step s instr s' ->
-    s'.(vm_pc) = S s.(vm_pc).
+    (match instr with
+     | instr_jump _ _ | instr_jnez _ _ _ | instr_call _ _ | instr_ret _ => True
+     | _ => s'.(vm_pc) = S s.(vm_pc)
+     end).
 Proof.
   intros s instr s' Hstep.
-  inversion Hstep; subst; reflexivity.
+  inversion Hstep; subst; simpl; try reflexivity; exact I.
 Qed.
 
 (** [vm_step_mu]: formal specification. *)

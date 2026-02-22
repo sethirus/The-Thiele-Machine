@@ -1,0 +1,112 @@
+DIGEST 4b7ceb6e96ed5f7bad44e4c6b67e2e57
+FPhysicsExploration.HardwareVMHarness
+R395:398 Coq.Lists.List <> <> lib
+R400:405 Coq.NArith.NArith <> <> lib
+R407:409 Coq.micromega.Lia <> <> lib
+R439:445 Kernel.VMState <> <> lib
+R447:452 Kernel.VMStep <> <> lib
+R454:473 Kernel.MuLedgerConservation <> <> lib
+R475:489 Kernel.SimulationProof <> <> lib
+R526:539 ThieleMachine.HardwareBridge <> <> lib
+R577:596 ThieleManifold.ThieleManifoldBridge <> <> lib
+R607:619 Coq.Lists.List ListNotations <> mod
+def 927:940 <> rtl_step_total
+R947:969 ThieleMachine.HardwareBridge <> RTLState rec
+binder 943:943 <> s:1
+R974:996 ThieleMachine.HardwareBridge <> RTLState rec
+R1009:1031 ThieleMachine.HardwareBridge <> rtl_step def
+R1033:1033 PhysicsExploration.HardwareVMHarness <> s:1 var
+R1044:1047 Coq.Init.Datatypes <> Some constr
+R1049:1049 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1052:1053 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1055:1055 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1067:1070 Coq.Init.Datatypes <> None constr
+R1075:1075 PhysicsExploration.HardwareVMHarness <> s:1 var
+sec 1173:1186 <> WithRefinement
+var 1200:1207 WithRefinement vm_trace
+R1213:1216 Coq.Init.Datatypes <> list ind
+R1218:1231 Kernel.VMStep VMStep vm_instruction ind
+var 1245:1253 WithRefinement decode_vm
+R1281:1284 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1258:1280 ThieleMachine.HardwareBridge <> RTLState rec
+R1285:1291 Kernel.VMState <> VMState rec
+var 1305:1318 WithRefinement rtl_refines_vm
+binder 1329:1332 <> fuel:4
+binder 1334:1334 <> s:5
+R1384:1392 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1341:1349 PhysicsExploration.HardwareVMHarness <> WithRefinement.decode_vm var
+R1352:1360 ThieleManifold.ThieleManifoldBridge <> impl_iter def
+R1382:1382 PhysicsExploration.HardwareVMHarness <> s:5 var
+R1377:1380 PhysicsExploration.HardwareVMHarness <> fuel:4 var
+R1362:1375 PhysicsExploration.HardwareVMHarness <> rtl_step_total def
+R1393:1398 Kernel.SimulationProof <> run_vm def
+R1400:1403 PhysicsExploration.HardwareVMHarness <> fuel:4 var
+R1405:1412 PhysicsExploration.HardwareVMHarness <> WithRefinement.vm_trace var
+R1415:1423 PhysicsExploration.HardwareVMHarness <> WithRefinement.decode_vm var
+R1425:1425 PhysicsExploration.HardwareVMHarness <> s:5 var
+def 1443:1459 <> rtl_faithful_impl
+R1463:1484 ThieleManifold.ThieleManifoldBridge <> FaithfulImplementation rec
+R1496:1503 ThieleManifold.ThieleManifoldBridge <> hw_state proj
+R1496:1503 ThieleManifold.ThieleManifoldBridge <> hw_state proj
+R1496:1503 ThieleManifold.ThieleManifoldBridge <> hw_state proj
+R1540:1546 ThieleManifold.ThieleManifoldBridge <> hw_step proj
+R1540:1546 ThieleManifold.ThieleManifoldBridge <> hw_step proj
+R1574:1582 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
+R1574:1582 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
+R1605:1612 ThieleManifold.ThieleManifoldBridge <> hw_trace proj
+R1605:1612 ThieleManifold.ThieleManifoldBridge <> hw_trace proj
+R1634:1646 ThieleManifold.ThieleManifoldBridge <> hw_refines_vm proj
+R1634:1646 ThieleManifold.ThieleManifoldBridge <> hw_refines_vm proj
+R1508:1530 ThieleMachine.HardwareBridge <> RTLState rec
+R1551:1564 PhysicsExploration.HardwareVMHarness <> rtl_step_total def
+R1587:1595 PhysicsExploration.HardwareVMHarness <> WithRefinement.decode_vm var
+R1617:1624 PhysicsExploration.HardwareVMHarness <> WithRefinement.vm_trace var
+R1651:1664 PhysicsExploration.HardwareVMHarness <> WithRefinement.rtl_refines_vm var
+prf 1733:1751 <> rtl_mu_conservation
+binder 1766:1769 <> fuel:7
+binder 1771:1771 <> s:8
+R1833:1843 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1827:1831 Kernel.VMState <> vm_mu proj
+R1781:1789 PhysicsExploration.HardwareVMHarness <> WithRefinement.decode_vm var
+R1792:1800 ThieleManifold.ThieleManifoldBridge <> impl_iter def
+R1822:1822 PhysicsExploration.HardwareVMHarness <> s:8 var
+R1817:1820 PhysicsExploration.HardwareVMHarness <> fuel:7 var
+R1802:1815 PhysicsExploration.HardwareVMHarness <> rtl_step_total def
+R1865:1875 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1859:1863 Kernel.VMState <> vm_mu proj
+R1845:1853 PhysicsExploration.HardwareVMHarness <> WithRefinement.decode_vm var
+R1855:1855 PhysicsExploration.HardwareVMHarness <> s:8 var
+R1876:1885 Kernel.MuLedgerConservation <> ledger_sum def
+R1888:1901 Kernel.MuLedgerConservation <> ledger_entries def
+R1903:1906 PhysicsExploration.HardwareVMHarness <> fuel:7 var
+R1908:1915 PhysicsExploration.HardwareVMHarness <> WithRefinement.vm_trace var
+R1918:1926 PhysicsExploration.HardwareVMHarness <> WithRefinement.decode_vm var
+R1928:1928 PhysicsExploration.HardwareVMHarness <> s:8 var
+R1953:1981 ThieleManifold.ThieleManifoldBridge <> faithful_impl_mu_conservation thm
+R1983:1999 PhysicsExploration.HardwareVMHarness <> rtl_faithful_impl def
+R1953:1981 ThieleManifold.ThieleManifoldBridge <> faithful_impl_mu_conservation thm
+R1983:1999 PhysicsExploration.HardwareVMHarness <> rtl_faithful_impl def
+prf 2085:2115 <> rtl_irreversibility_lower_bound
+binder 2130:2133 <> fuel:9
+binder 2135:2135 <> s:10
+R2190:2201 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2144:2161 Kernel.MuLedgerConservation <> irreversible_count def
+R2163:2166 PhysicsExploration.HardwareVMHarness <> fuel:9 var
+R2168:2175 PhysicsExploration.HardwareVMHarness <> WithRefinement.vm_trace var
+R2178:2186 PhysicsExploration.HardwareVMHarness <> WithRefinement.decode_vm var
+R2188:2188 PhysicsExploration.HardwareVMHarness <> s:10 var
+R2255:2265 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R2249:2253 Kernel.VMState <> vm_mu proj
+R2203:2211 PhysicsExploration.HardwareVMHarness <> WithRefinement.decode_vm var
+R2214:2222 ThieleManifold.ThieleManifoldBridge <> impl_iter def
+R2244:2244 PhysicsExploration.HardwareVMHarness <> s:10 var
+R2239:2242 PhysicsExploration.HardwareVMHarness <> fuel:9 var
+R2224:2237 PhysicsExploration.HardwareVMHarness <> rtl_step_total def
+R2281:2285 Kernel.VMState <> vm_mu proj
+R2267:2275 PhysicsExploration.HardwareVMHarness <> WithRefinement.decode_vm var
+R2277:2277 PhysicsExploration.HardwareVMHarness <> s:10 var
+R2309:2349 ThieleManifold.ThieleManifoldBridge <> faithful_impl_irreversibility_lower_bound thm
+R2351:2367 PhysicsExploration.HardwareVMHarness <> rtl_faithful_impl def
+R2309:2349 ThieleManifold.ThieleManifoldBridge <> faithful_impl_irreversibility_lower_bound thm
+R2351:2367 PhysicsExploration.HardwareVMHarness <> rtl_faithful_impl def
+R2383:2396 PhysicsExploration.HardwareVMHarness WithRefinement <> sec

@@ -23,8 +23,8 @@
 //
 // INSTRUCTION ENCODING:  [31:24] opcode | [23:16] operand_a | [15:8] operand_b | [7:0] cost
 //
-// 18 OPCODES (hex values match Coq/Python ISA exactly):
-//   0x00 PNEW         Create partition module
+// 26 OPCODES (hex values match Coq/Python ISA exactly):
+//   0x00 PNEW          Create partition module
 //   0x01 PSPLIT        Split module by predicate
 //   0x02 PMERGE        Merge two modules
 //   0x03 LASSERT       Logic assertion with certificate
@@ -32,7 +32,7 @@
 //   0x05 MDLACC        MDL cost accumulation (uses μ-ALU)
 //   0x06 PDISCOVER     Partition discovery / info gain
 //   0x07 XFER          Register transfer
-//   0x08 PYEXEC        Python execution bridge
+//   0x08 LOAD_IMM      Load immediate value into register
 //   0x09 CHSH_TRIAL    CHSH measurement trial
 //   0x0A XOR_LOAD      Load XOR matrix row
 //   0x0B XOR_ADD       XOR matrix row addition
@@ -41,6 +41,14 @@
 //   0x0E EMIT          Emit value
 //   0x0F REVEAL        Reveal hidden info (extra μ-cost)
 //   0x10 ORACLE_HALTS  Hyper-Thiele oracle primitive
+//   0x11 LOAD          Load from memory to register
+//   0x12 STORE         Store from register to memory
+//   0x13 ADD           Integer addition (rd = rs1 + rs2)
+//   0x14 SUB           Integer subtraction (rd = rs1 - rs2)
+//   0x15 JUMP          Unconditional jump
+//   0x16 JNEZ          Jump if register not zero
+//   0x17 CALL          Function call (saves return address)
+//   0x18 RET           Return from function
 //   0xFF HALT          Halt execution
 //
 // ============================================================================
@@ -82,12 +90,6 @@ module thiele_cpu (
     input  wire        logic_ack,
     input  wire [31:0] logic_data,
 
-    // Python execution interface
-    output wire        py_req,
-    output wire [31:0] py_code_addr,
-    input  wire        py_ack,
-    input  wire [31:0] py_result,
-
     // Instruction memory interface
     input  wire [31:0] instr_data,
     output wire [31:0] pc
@@ -105,7 +107,7 @@ localparam [7:0] OPCODE_LJOIN        = 8'h04;
 localparam [7:0] OPCODE_MDLACC       = 8'h05;
 localparam [7:0] OPCODE_PDISCOVER    = 8'h06;
 localparam [7:0] OPCODE_XFER         = 8'h07;
-localparam [7:0] OPCODE_PYEXEC       = 8'h08;
+localparam [7:0] OPCODE_LOAD_IMM     = 8'h08;
 localparam [7:0] OPCODE_CHSH_TRIAL   = 8'h09;
 localparam [7:0] OPCODE_XOR_LOAD     = 8'h0A;
 localparam [7:0] OPCODE_XOR_ADD      = 8'h0B;
@@ -114,6 +116,14 @@ localparam [7:0] OPCODE_XOR_RANK     = 8'h0D;
 localparam [7:0] OPCODE_EMIT         = 8'h0E;
 localparam [7:0] OPCODE_REVEAL       = 8'h0F;
 localparam [7:0] OPCODE_ORACLE_HALTS = 8'h10;
+localparam [7:0] OPCODE_LOAD         = 8'h11;
+localparam [7:0] OPCODE_STORE        = 8'h12;
+localparam [7:0] OPCODE_ADD          = 8'h13;
+localparam [7:0] OPCODE_SUB          = 8'h14;
+localparam [7:0] OPCODE_JUMP         = 8'h15;
+localparam [7:0] OPCODE_JNEZ         = 8'h16;
+localparam [7:0] OPCODE_CALL         = 8'h17;
+localparam [7:0] OPCODE_RET          = 8'h18;
 localparam [7:0] OPCODE_HALT         = 8'hFF;
 
 // ============================================================================
@@ -227,8 +237,10 @@ assign mu_tensor_3 = mu_tensor_reg[12] + mu_tensor_reg[13] + mu_tensor_reg[14] +
 // If this invariant is violated, the processor halts — the "physics" of
 // computation has failed and no further progress is safe.
 
-wire [31:0] tensor_total = mu_tensor_0 + mu_tensor_1 + mu_tensor_2 + mu_tensor_3;
-assign bianchi_alarm = (tensor_total > mu_accumulator);
+// Use 34 bits to prevent silent overflow when summing four 32-bit values.
+wire [33:0] tensor_total = {2'b0, mu_tensor_0} + {2'b0, mu_tensor_1}
+                         + {2'b0, mu_tensor_2} + {2'b0, mu_tensor_3};
+assign bianchi_alarm = (tensor_total > {2'b0, mu_accumulator});
 
 // Deterministic μ temp for multi-step ops
 reg [31:0] pdiscover_mu_next;
@@ -320,7 +332,6 @@ localparam [3:0] STATE_DECODE            = 4'h1;
 localparam [3:0] STATE_EXECUTE           = 4'h2;
 localparam [3:0] STATE_MEMORY            = 4'h3;
 localparam [3:0] STATE_LOGIC             = 4'h4;
-localparam [3:0] STATE_PYTHON            = 4'h5;
 localparam [3:0] STATE_COMPLETE          = 4'h6;
 localparam [3:0] STATE_ALU_WAIT          = 4'h7;
 localparam [3:0] STATE_ALU_WAIT2         = 4'h8;
@@ -357,8 +368,6 @@ assign mu            = mu_accumulator;
 // Interface assignments
 assign logic_req     = (state == STATE_LOGIC);
 assign logic_addr    = {24'h0, operand_a, operand_b};
-assign py_req        = (state == STATE_PYTHON);
-assign py_code_addr  = {24'h0, operand_a, operand_b};
 assign mem_addr      = pc_reg;
 assign mem_wdata     = 32'h0;
 assign mem_we        = 1'b0;
@@ -571,9 +580,80 @@ always @(posedge clk or negedge rst_n) begin
                     end
 
                     // ---- External bridges ----
-                    OPCODE_PYEXEC: begin
+                    OPCODE_LOAD_IMM: begin
+                        reg_file[operand_a[4:0]] <= {24'h0, operand_b};
                         mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
-                        state <= STATE_PYTHON;
+                        pc_reg <= pc_reg + 4;
+                        state <= STATE_FETCH;
+                    end
+
+                    OPCODE_LOAD: begin
+                        // LOAD rd, addr, cost - load from memory to register
+                        reg_file[operand_a[4:0]] <= data_mem[operand_b];
+                        mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
+                        pc_reg <= pc_reg + 4;
+                        state <= STATE_FETCH;
+                    end
+
+                    OPCODE_STORE: begin
+                        // STORE addr, rs, cost - store from register to memory
+                        data_mem[operand_a] <= reg_file[operand_b[4:0]];
+                        mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
+                        pc_reg <= pc_reg + 4;
+                        state <= STATE_FETCH;
+                    end
+
+                    OPCODE_ADD: begin
+                        // ADD rd, rs1, rs2, cost - add two registers
+                        // operand_a = rd, operand_b[7:4] = rs1, operand_b[3:0] = rs2
+                        reg_file[operand_a[4:0]] <= reg_file[operand_b[7:4]] + reg_file[operand_b[3:0]];
+                        mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
+                        pc_reg <= pc_reg + 4;
+                        state <= STATE_FETCH;
+                    end
+
+                    OPCODE_SUB: begin
+                        // SUB rd, rs1, rs2, cost - subtract two registers
+                        reg_file[operand_a[4:0]] <= reg_file[operand_b[7:4]] - reg_file[operand_b[3:0]];
+                        mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
+                        pc_reg <= pc_reg + 4;
+                        state <= STATE_FETCH;
+                    end
+
+                    OPCODE_JUMP: begin
+                        // JUMP target, cost - unconditional jump
+                        pc_reg <= {operand_a, operand_b, 2'b00};  // Word-aligned address
+                        mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
+                        state <= STATE_FETCH;
+                    end
+
+                    OPCODE_JNEZ: begin
+                        // JNEZ rs, target, cost - jump if register not zero
+                        if (reg_file[operand_a[4:0]] != 32'h0)
+                            pc_reg <= {24'h0, operand_b};
+                        else
+                            pc_reg <= pc_reg + 4;
+                        mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
+                        state <= STATE_FETCH;
+                    end
+
+                    OPCODE_CALL: begin
+                        // CALL target, cost - save return address and jump
+                        // Use r31 as stack pointer
+                        data_mem[reg_file[31]] <= pc_reg + 4;  // Save return address
+                        reg_file[31] <= reg_file[31] + 1;      // Increment SP
+                        pc_reg <= {operand_a, operand_b, 2'b00};  // Jump to target
+                        mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
+                        state <= STATE_FETCH;
+                    end
+
+                    OPCODE_RET: begin
+                        // RET cost - return from function
+                        // Use r31 as stack pointer
+                        reg_file[31] <= reg_file[31] - 1;      // Decrement SP
+                        pc_reg <= data_mem[reg_file[31] - 1];  // Load return address
+                        mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
+                        state <= STATE_FETCH;
                     end
 
                     OPCODE_CHSH_TRIAL: begin
@@ -692,15 +772,6 @@ always @(posedge clk or negedge rst_n) begin
             STATE_LOGIC: begin
                 if (logic_ack) begin
                     csr_cert_addr <= logic_data;
-                    pc_reg <= pc_reg + 4;
-                    state <= STATE_FETCH;
-                end
-            end
-
-            // ----------------------------------------------------------
-            STATE_PYTHON: begin
-                if (py_ack) begin
-                    csr_status <= py_result;
                     pc_reg <= pc_reg + 4;
                     state <= STATE_FETCH;
                 end

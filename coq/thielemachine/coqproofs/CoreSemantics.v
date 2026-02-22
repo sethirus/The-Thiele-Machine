@@ -109,7 +109,7 @@ Inductive Instruction : Type :=
   | MDLACC : ModuleId -> Instruction          (* 0x05: Accumulate MDL *)
   | PDISCOVER : Instruction                   (* 0x06: Discover partition *)
   | XFER : Instruction                        (* 0x07: Transfer *)
-  | PYEXEC : Instruction                      (* 0x08: Python execution *)
+  | LOAD_IMM : Instruction                      (* 0x08: Python execution *)
   | XOR_LOAD : Instruction                    (* 0x0A: XOR load *)
   | XOR_ADD : Instruction                     (* 0x0B: XOR add *)
   | XOR_SWAP : Instruction                    (* 0x0C: XOR swap *)
@@ -211,7 +211,7 @@ Definition instr_tag (i : Instruction) : Z :=
   | MDLACC _ => 5
   | PDISCOVER => 6
   | XFER => 7
-  | PYEXEC => 8
+  | LOAD_IMM => 8
   | XOR_LOAD => 10
   | XOR_ADD => 11
   | XOR_SWAP => 12
@@ -659,7 +659,7 @@ Definition step (s : State) : option State :=
                     result := s.(result);
                     program := s.(program) |}
 
-        | PYEXEC =>
+        | LOAD_IMM =>
             (* Python execution *)
             let mu' := add_mu_operational s.(mu_ledger) mu_lassert_cost in
             Some {| partition := s.(partition);
@@ -925,7 +925,7 @@ Proof.
         simpl.
         apply add_mu_operational_mu_total_ge.
         apply mu_emit_cost_nonneg.
-      * (* PYEXEC *)
+      * (* LOAD_IMM *)
         inversion Hstep; subst; clear Hstep.
         simpl.
         apply add_mu_operational_mu_total_ge.
@@ -1007,7 +1007,7 @@ Proof.
     injection Hstep as Hstep; subst s'; reflexivity.
   - (* XFER *)
     injection Hstep as Hstep; subst s'; reflexivity.
-  - (* PYEXEC *)
+  - (* LOAD_IMM *)
     injection Hstep as Hstep; subst s'; reflexivity.
   - (* XOR_LOAD *)
     injection Hstep as Hstep; subst s'; reflexivity.
@@ -1199,7 +1199,7 @@ Proof.
     + (* MDLACC *) eexists; reflexivity.
     + (* PDISCOVER *) eexists; reflexivity.
     + (* XFER *) eexists; reflexivity.
-    + (* PYEXEC *) eexists; reflexivity.
+    + (* LOAD_IMM *) eexists; reflexivity.
     + (* XOR_LOAD *) eexists; reflexivity.
     + (* XOR_ADD *) eexists; reflexivity.
     + (* XOR_SWAP *) eexists; reflexivity.
@@ -1469,7 +1469,7 @@ Proof.
       simpl. split; [reflexivity | split; [reflexivity | split; [reflexivity | 
       split; [reflexivity | reflexivity]]]]. }
   
-  (* PYEXEC: Python execution instruction *)
+  (* LOAD_IMM: Python execution instruction *)
   - exists {| partition := partition s1;
               mu_ledger := add_mu_operational (mu_ledger s2) mu_lassert_cost;
               pc := S (pc s1); halted := false; result := result s1; program := program s1 |}.
@@ -1740,7 +1740,7 @@ Proof.
     injection Hstep1 as Eq1; injection Hstep2 as Eq2.
     rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_operational_total; ring.
   
-    + (* PYEXEC *)
+    + (* LOAD_IMM *)
     simpl in Hstep1, Hstep2.
     injection Hstep1 as Eq1; injection Hstep2 as Eq2.
     rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_operational_total; ring.

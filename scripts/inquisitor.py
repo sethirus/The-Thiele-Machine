@@ -58,6 +58,60 @@ CRITICAL_KERNEL_FILES = {
     "VMStep.v",
 }
 
+# ---------------------------------------------------------------------------
+# Tier system — from coq/_CoqProject (-R directory Namespace mappings)
+# Tier 1: Extraction-critical. Gets extracted to OCaml/Python VM + RTL CPU.
+#         Must ONLY import Kernel + Coq stdlib. Zero tolerance for outside deps.
+# Tier 2: Thesis-essential theory. Proofs ABOUT the machine, not extracted.
+#         May import Tier 1 + Tier 2. Must NOT import Tier 3 (exploratory).
+# Tier 3: Exploratory/speculative. Free to import from anywhere.
+# ---------------------------------------------------------------------------
+_TIER1_DIRS: frozenset[str] = frozenset({"kernel"})
+_TIER1_NAMESPACES: frozenset[str] = frozenset({"Kernel"})
+
+_TIER2_DIRS: frozenset[str] = frozenset({
+    "nofi", "bridge", "thielemachine", "kernel_toe", "modular_proofs", "isomorphism",
+})
+_TIER2_NAMESPACES: frozenset[str] = frozenset({
+    "NoFI", "Bridge", "ThieleMachine", "ThieleMachineVerification",
+    "KernelTOE", "ModularProofs", "Isomorphism",
+})
+
+_TIER3_DIRS: frozenset[str] = frozenset({
+    "physics", "self_reference", "shor_primitives", "spacetime_projection",
+    "thiele_manifold", "project_cerberus", "catnet", "thieleuniversal",
+    "theory", "physics_exploration", "quantum_derivation", "thermodynamic", "spacetime",
+})
+_TIER3_NAMESPACES: frozenset[str] = frozenset({
+    "Physics", "SelfReference", "ShorPrimitives", "SpacetimeProjection",
+    "ThieleManifold", "ProjectCerberus", "CatNet", "ThieleUniversal",
+    "Theory", "PhysicsExploration", "QuantumDerivation", "Thermodynamic", "Spacetime",
+})
+
+_NAMESPACE_TO_TIER: dict[str, int] = {}
+_NAMESPACE_TO_TIER.update({ns: 1 for ns in _TIER1_NAMESPACES})
+_NAMESPACE_TO_TIER.update({ns: 2 for ns in _TIER2_NAMESPACES})
+_NAMESPACE_TO_TIER.update({ns: 3 for ns in _TIER3_NAMESPACES})
+
+_STDLIB_NAMESPACES: frozenset[str] = frozenset({"Coq", "Stdlib"})
+
+
+def _path_to_tier(path: Path) -> int | None:
+    """Return the tier (1/2/3) for a .v file based on its coq/ subdirectory, or None."""
+    parts = path.parts
+    coq_idx = next((i for i, p in enumerate(parts) if p == "coq"), None)
+    if coq_idx is None or coq_idx + 1 >= len(parts):
+        return None  # Root coq/ files (Extraction.v etc.) — no tier enforcement
+    subdir = parts[coq_idx + 1]
+    if subdir in _TIER1_DIRS:
+        return 1
+    if subdir in _TIER2_DIRS:
+        return 2
+    if subdir in _TIER3_DIRS:
+        return 3
+    return None
+
+
 # Allowed locations for findings when allowlisting is explicitly enabled.
 # Default policy is *no allowlist*.
 ALLOWLIST_PATH_PARTS = (
@@ -1047,6 +1101,163 @@ def scan_trivial_equalities(path: Path) -> list[Finding]:
                     line=line,
                     snippet=snippet.strip(),
                     message="Theorem statement is X = X; proof likely reflexivity/easy.",
+                )
+            )
+
+    return findings
+
+
+def scan_exact_alias(path: Path) -> list[Finding]:
+    """Flag theorems whose entire proof body is `exact <identifier>.`
+
+    This pattern means the theorem is a pure alias: it proves nothing new,
+    it just re-publishes an existing proof under a different name.  A few
+    aliases are fine (backward-compatible exports, Summary modules), but
+    the inquisitor must surface them so the author can verify the aliased
+    result actually proves what the new name claims.
+
+    Severity: MEDIUM — aliases inflate the theorem count without adding
+    mathematical content.  The gate fails if any are present, forcing a
+    deliberate decision to either justify or remove each alias.
+    """
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    text = strip_coq_comments(raw)
+    raw_lines = raw.splitlines()
+    line_of = _line_map(text)
+    clean_lines = text.splitlines()
+    findings: list[Finding] = []
+
+    PROOF_BLOCK_RE = re.compile(
+        r'((?:Theorem|Lemma|Corollary|Proposition)\s+(\w+)[^.]{0,500}\.)\s*\nProof\.\s*\n(.*?)\nQed\.',
+        re.DOTALL,
+    )
+
+    for m in PROOF_BLOCK_RE.finditer(text):
+        name = m.group(2)
+        proof_body = m.group(3).strip()
+        proof_lines = [ln.strip() for ln in proof_body.splitlines() if ln.strip()]
+
+        if len(proof_lines) != 1:
+            continue
+        if not re.match(r'^exact\s+(\w+)\s*\.$', proof_lines[0]):
+            continue
+
+        # Allow if there's a SAFE comment nearby in the raw file
+        line = line_of[m.start()]
+        context = "\n".join(raw_lines[max(0, line - 3): line + 2])
+        if re.search(r'\(\*\s*SAFE:', context):
+            continue
+        # Allow if there's an INQUISITOR NOTE marking this as a deliberate alias
+        if re.search(r'INQUISITOR NOTE.*alias|INQUISITOR NOTE.*export|INQUISITOR NOTE.*compat', context, re.IGNORECASE):
+            continue
+
+        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else name
+        aliased = re.match(r'^exact\s+(\w+)\s*\.$', proof_lines[0]).group(1)
+        findings.append(
+            Finding(
+                rule_id="EXACT_ALIAS",
+                severity=_severity_for_path(path, "MEDIUM"),
+                file=path,
+                line=line,
+                snippet=snippet.strip(),
+                message=(
+                    f"Theorem `{name}` is a pure alias: its entire proof is `exact {aliased}.` "
+                    f"This proves nothing new — it just re-exports `{aliased}` under a new name. "
+                    "If intentional (backward-compat / summary module), add "
+                    "(* INQUISITOR NOTE: alias for <reason> *) above the theorem."
+                ),
+            )
+        )
+
+    return findings
+
+
+_FROM_REQUIRE_RE = re.compile(r'^From\s+([A-Za-z_][A-Za-z0-9_]*)\s+Require\b')
+
+
+def scan_scope_drift(path: Path) -> list[Finding]:
+    """Enforce tier-boundary separation for Coq imports.
+
+    Tier system (driven by coq/_CoqProject namespace mappings):
+      Tier 1 — Extraction core (coq/kernel/):
+        Gets extracted to OCaml/Python VM and RTL CPU.
+        Must ONLY use ``Kernel`` + Coq stdlib imports.
+        Any import of a Tier-2 or Tier-3 namespace contaminates the extraction.
+      Tier 2 — Thesis-essential theory (nofi/, bridge/, thielemachine/, ...):
+        Proofs ABOUT the machine — not extracted.
+        May import Tier-1 and Tier-2 namespaces.
+        Must NOT import Tier-3 (exploratory/speculative) namespaces.
+      Tier 3 — Exploratory / speculative (physics/, spacetime/, thermodynamic/, ...):
+        Free research. May import anything.
+
+    Rule IDs emitted:
+      ``SCOPE_DRIFT_TIER1`` (HIGH):  Tier-1 file imports a Tier-2 or Tier-3 namespace.
+      ``SCOPE_DRIFT_TIER2`` (MEDIUM): Tier-2 file imports a Tier-3 namespace.
+
+    Suppression: add ``(* INQUISITOR NOTE: cross-tier import for <reason> *)``
+    on the line immediately above the offending ``From … Require`` line.
+    """
+    file_tier = _path_to_tier(path)
+    if file_tier is None or file_tier == 3:
+        return []  # Root coq/ files and Tier 3 files are exempt from tier enforcement
+
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    raw_lines = raw.splitlines()
+    findings: list[Finding] = []
+
+    for i, line in enumerate(raw_lines, start=1):
+        m = _FROM_REQUIRE_RE.match(line.strip())
+        if not m:
+            continue
+        ns = m.group(1)
+        if ns in _STDLIB_NAMESPACES:
+            continue  # Coq / Stdlib is always allowed
+        if ns in _TIER1_NAMESPACES:
+            continue  # Kernel imports are always allowed in Tier 1 and 2
+
+        import_tier = _NAMESPACE_TO_TIER.get(ns)
+        if import_tier is None:
+            continue  # Unknown namespace — not our concern here
+
+        # Check for suppression comment anywhere in the 3 lines above
+        context = "\n".join(raw_lines[max(0, i - 4): i])
+        if re.search(r'INQUISITOR NOTE.*cross.tier|INQUISITOR NOTE.*tier', context, re.IGNORECASE):
+            continue
+        if re.search(r'\(\*\s*SAFE:', context):
+            continue
+
+        if file_tier == 1 and import_tier >= 2:
+            tier_label = "Tier 2 (thesis theory)" if import_tier == 2 else "Tier 3 (exploratory/speculative)"
+            findings.append(
+                Finding(
+                    rule_id="SCOPE_DRIFT_TIER1",
+                    severity="HIGH",
+                    file=path,
+                    line=i,
+                    snippet=line.strip(),
+                    message=(
+                        f"Extraction-critical coq/kernel/ file imports `{ns}` ({tier_label}). "
+                        "The kernel must be self-contained (only Kernel + Coq stdlib). "
+                        f"Either move the needed proof into coq/kernel/ under the Kernel namespace, "
+                        f"or relocate this file to a higher-tier directory. "
+                        "Suppress with: (* INQUISITOR NOTE: cross-tier import for <reason> *)"
+                    ),
+                )
+            )
+        elif file_tier == 2 and import_tier == 3:
+            findings.append(
+                Finding(
+                    rule_id="SCOPE_DRIFT_TIER2",
+                    severity="MEDIUM",
+                    file=path,
+                    line=i,
+                    snippet=line.strip(),
+                    message=(
+                        f"Thesis-essential Tier-2 file imports `{ns}` (Tier 3 exploratory). "
+                        "Speculative/exploratory modules should not be imported into thesis-essential proofs. "
+                        "Move the needed lemma into the Kernel or a shared Tier-2 module. "
+                        "Suppress with: (* INQUISITOR NOTE: cross-tier import for <reason> *)"
+                    ),
                 )
             )
 
@@ -4695,6 +4906,9 @@ def write_report(
     lines.append("- `LET_IN_TRUE_STMT`: statement ends with `let ... in True.`\n")
     lines.append("- `EXISTS_TRUE_STMT`: statement ends with `exists ..., True.`\n")
     lines.append("- `CIRCULAR_INTROS_ASSUMPTION`: tautology + `intros; assumption.`\n")
+    lines.append("- `EXACT_ALIAS`: `Theorem A. Proof. exact B. Qed.` (pure alias — proves nothing new, just re-exports an existing proof under a new name)\n")
+    lines.append("- `SCOPE_DRIFT_TIER1`: coq/kernel/ (Tier 1) file imports a Tier-2 or Tier-3 namespace — contaminates the extraction-critical kernel\n")
+    lines.append("- `SCOPE_DRIFT_TIER2`: Thesis-essential Tier-2 file (nofi/, bridge/, etc.) imports a Tier-3 exploratory namespace\n")
     lines.append("- `TRIVIAL_EQUALITY`: theorem of form `X = X` with reflexivity-ish proof\n")
     lines.append("- `CONST_Q_FUN`: `Definition ... := fun _ => 0%Q` / `1%Q`\n")
     lines.append("- `EXISTS_CONST_Q`: `exists (fun _ => 0%Q)` / `exists (fun _ => 1%Q)`\n")
@@ -4749,15 +4963,15 @@ def write_report(
     lines.append("- `MU_GRAVITY_NO_ASSUMPTION_SURFACES`: MuGravity files may not use Axiom/Parameter/Hypothesis/Context/Variable(s); all such surfaces must be discharged as theorems\n")
     lines.append("\n")
 
-    if not findings:
-        lines.append("## Findings\n")
-        lines.append("(none)\n")
-        report_path.write_text("".join(lines), encoding="utf-8")
-        return
-
+    # Always show the vacuity ranking — even on a clean PASS.  Previously this
+    # table was hidden behind the early-exit below, so a PASS run would never
+    # show which files had elevated vacuity scores.
     if vacuity_index:
         lines.append("## Vacuity Ranking (file-level)\n")
-        lines.append("Higher score = more likely unfinished/vacuous.\n\n")
+        lines.append(
+            "Files scored by trivially-true / placeholder / definitional-proof heuristics.\n"
+            "Score >= 100 → MEDIUM finding (fails gate). Score >= 50 → LOW warning.\n\n"
+        )
         lines.append("| score | tags | file |\n")
         lines.append("|---:|---|---|\n")
         for score, abs_path, tags in sorted(vacuity_index, key=lambda t: (-t[0], str(t[1]))):
@@ -4767,8 +4981,16 @@ def write_report(
                 rel = abs_path.as_posix()
             lines.append(f"| {score} | {', '.join(tags)} | `{esc(rel)}` |\n")
         lines.append("\n")
+    else:
+        lines.append("## Vacuity Ranking (file-level)\n")
+        lines.append("(no files scored above zero — no trivially-true or placeholder patterns detected)\n\n")
 
     lines.append("## Findings\n")
+    if not findings:
+        lines.append("(none)\n")
+        report_path.write_text("".join(lines), encoding="utf-8")
+        return
+
     for sev in ("HIGH", "MEDIUM", "LOW"):
         items = by_sev.get(sev, [])
         if not items:
@@ -4876,6 +5098,8 @@ def main(argv: list[str]) -> int:
             all_findings.extend(scan_file(vf))
             all_findings.extend(scan_trivial_equalities(vf))
             all_findings.extend(scan_exists_const_q(vf))
+            all_findings.extend(scan_exact_alias(vf))
+            all_findings.extend(scan_scope_drift(vf))
             all_findings.extend(scan_clamps(vf))
             all_findings.extend(scan_comment_smells(vf))
             all_findings.extend(scan_unused_hypotheses(vf))
@@ -4973,6 +5197,48 @@ def main(argv: list[str]) -> int:
             for f in all_findings
             if f.rule_id not in {"SECTION_BINDER", "MODULE_SIGNATURE_DECL"}
         ]
+
+    # ── Vacuity gate ──────────────────────────────────────────────────────────
+    # The vacuity SCORE (from inquisitor_rules.summarize_text) measures how
+    # "trivially true / definitional" a file looks.  Previously this was purely
+    # informational — it appeared in a ranking table but never failed the gate.
+    # That meant a file like `Theorem foo : True.` could score 140 on the
+    # vacuity index and STILL produce a clean PASS.  Fixed here:
+    #
+    #   score >= 100  → MEDIUM finding  (True conclusions, Prop:=True, placeholders)
+    #   score >=  50  → LOW finding     (const-fun, suspicious-but-mild patterns)
+    #
+    # Threshold 100 catches every genuine trivially-true theorem while allowing
+    # single const-fun definitions (score 65) to remain LOW warnings.
+    VACUITY_MEDIUM_THRESHOLD = 100
+    VACUITY_LOW_THRESHOLD = 50
+    for v_score, v_path, v_tags in vacuity_index:
+        if v_score >= VACUITY_MEDIUM_THRESHOLD:
+            sev = "MEDIUM"
+        elif v_score >= VACUITY_LOW_THRESHOLD:
+            sev = "LOW"
+        else:
+            continue
+        try:
+            v_rel = v_path.relative_to(repo_root).as_posix()
+        except Exception:
+            v_rel = str(v_path)
+        all_findings.append(
+            Finding(
+                rule_id="VACUITY_SCORE",
+                severity=sev,
+                file=v_path,
+                line=1,
+                snippet="(file-level vacuity scan)",
+                message=(
+                    f"Vacuity score {v_score} ≥ {'MEDIUM' if sev == 'MEDIUM' else 'LOW'} threshold "
+                    f"{VACUITY_MEDIUM_THRESHOLD if sev == 'MEDIUM' else VACUITY_LOW_THRESHOLD}. "
+                    f"Tags: {', '.join(v_tags)}. "
+                    "Review for trivially-true/placeholder/definitional proofs that don't "
+                    "advance the thesis goal."
+                ),
+            )
+        )
 
     write_report(
         report_path,

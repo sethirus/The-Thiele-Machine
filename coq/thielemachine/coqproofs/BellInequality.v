@@ -1541,9 +1541,9 @@ Definition tsirelson_program : list TM.ThieleInstr :=
 (** HELPER: Accessor/projection *)
 (** HELPER: Accessor/projection *)
   [TM.PNEW [0%nat; 1%nat];
-   TM.PYEXEC "prepare_shared_partition"%string;
-   TM.PYEXEC "alice_measurement"%string;
-   TM.PYEXEC "bob_measurement"%string;
+   TM.LOAD_IMM "prepare_shared_partition"%string;
+   TM.LOAD_IMM "alice_measurement"%string;
+   TM.LOAD_IMM "bob_measurement"%string;
    TM.EMIT "tsirelson_outcome"%string].
 
 Definition tsirelson_start : TM.ConcreteState := TM.default_concrete_state.
@@ -1691,7 +1691,7 @@ Qed.
 (** [tsirelson_program_nth1]: formal specification. *)
 Lemma tsirelson_program_nth1 :
   List.nth_error tsirelson_program 1 =
-  Some (TM.PYEXEC "prepare_shared_partition"%string).
+  Some (TM.LOAD_IMM "prepare_shared_partition"%string).
 Proof.
   reflexivity.
 Qed.
@@ -1699,7 +1699,7 @@ Qed.
 (** [tsirelson_program_nth2]: formal specification. *)
 Lemma tsirelson_program_nth2 :
   List.nth_error tsirelson_program 2 =
-  Some (TM.PYEXEC "alice_measurement"%string).
+  Some (TM.LOAD_IMM "alice_measurement"%string).
 Proof.
   reflexivity.
 Qed.
@@ -1707,7 +1707,7 @@ Qed.
 (** [tsirelson_program_nth3]: formal specification. *)
 Lemma tsirelson_program_nth3 :
   List.nth_error tsirelson_program 3 =
-  Some (TM.PYEXEC "bob_measurement"%string).
+  Some (TM.LOAD_IMM "bob_measurement"%string).
 Proof.
   reflexivity.
 Qed.
@@ -1821,7 +1821,7 @@ Proof.
 Qed.
 
 Definition tsirelson_alice_receipt : TM.ConcreteReceipt :=
-  {| TM.receipt_instr := TM.PYEXEC "alice_measurement"%string;
+  {| TM.receipt_instr := TM.LOAD_IMM "alice_measurement"%string;
      TM.receipt_pre := tsirelson_state 2%nat;
      TM.receipt_post := tsirelson_state 3%nat;
      TM.receipt_obs :=
@@ -1830,7 +1830,7 @@ Definition tsirelson_alice_receipt : TM.ConcreteReceipt :=
           TM.cert := tsirelson_alice_cert |} |}.
 
 Definition tsirelson_bob_receipt : TM.ConcreteReceipt :=
-  {| TM.receipt_instr := TM.PYEXEC "bob_measurement"%string;
+  {| TM.receipt_instr := TM.LOAD_IMM "bob_measurement"%string;
      TM.receipt_pre := tsirelson_state 3%nat;
      TM.receipt_post := tsirelson_state 4%nat;
      TM.receipt_obs :=
@@ -1902,7 +1902,7 @@ Qed.
 
 (** [tsirelson_alice_frame_instr]: formal specification. *)
 Lemma tsirelson_alice_frame_instr :
-  brf_instr tsirelson_alice_frame = TM.PYEXEC "alice_measurement"%string.
+  brf_instr tsirelson_alice_frame = TM.LOAD_IMM "alice_measurement"%string.
 Proof.
   reflexivity.
 Qed.
@@ -1986,7 +1986,7 @@ Qed.
 
 (** [tsirelson_bob_frame_instr]: formal specification. *)
 Lemma tsirelson_bob_frame_instr :
-  brf_instr tsirelson_bob_frame = TM.PYEXEC "bob_measurement"%string.
+  brf_instr tsirelson_bob_frame = TM.LOAD_IMM "bob_measurement"%string.
 Proof.
   reflexivity.
 Qed.
@@ -2079,9 +2079,9 @@ Qed.
 
 Definition supra_quantum_program : list TM.ThieleInstr :=
   [TM.PNEW [0%nat; 1%nat];
-   TM.PYEXEC "prepare_sighted_partition"%string;
-   TM.PYEXEC "alice_sighted_measurement"%string;
-   TM.PYEXEC "bob_sighted_measurement"%string;
+   TM.LOAD_IMM "prepare_sighted_partition"%string;
+   TM.LOAD_IMM "alice_sighted_measurement"%string;
+   TM.LOAD_IMM "bob_sighted_measurement"%string;
    TM.EMIT "supra_quantum_outcome"%string].
 
 Definition supra_quantum_start : TM.ConcreteState := TM.default_concrete_state.
@@ -2598,7 +2598,7 @@ Qed.
 
 Definition measurement_instruction (instr : TM.ThieleInstr) : bool :=
   match instr with
-  | TM.PYEXEC payload =>
+  | TM.LOAD_IMM payload =>
       if String.eqb payload "alice_measurement"%string then true
       else if String.eqb payload "bob_measurement"%string then true
       else false
@@ -3304,6 +3304,7 @@ Proof.
 Qed.
 
 (** [tsirelson_trials_receipts_sound]: formal specification. *)
+(* INQUISITOR NOTE: alias for tsirelson_measurements_sound - synonym for clarity *)
 Lemma tsirelson_trials_receipts_sound :
   @receipts_sound _ _ _ concrete_step_frame (tsirelson_state 2%nat)
     [tsirelson_alice_frame; tsirelson_bob_frame].
