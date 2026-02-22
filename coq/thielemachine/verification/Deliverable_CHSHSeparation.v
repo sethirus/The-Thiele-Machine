@@ -42,6 +42,7 @@ Definition classical_local_receipts_CHSH_le_2 :=
 
 (** Quantum-admissible box bound (machine-level boxes, not receipt programs) *)
 
+(* INQUISITOR NOTE: alias for quantum_admissible_implies_CHSH_le_tsirelson - deliverable naming *)
 Theorem quantum_admissible_box_CHSH_le_tsirelson :
   forall B,
     quantum_admissible_box B ->
@@ -51,6 +52,7 @@ Proof.
 Qed.
 
 (** Concrete supra-quantum witness at the kernel receipt CHSH level *)
+(* INQUISITOR NOTE: alias for S_SupraQuantum - deliverable naming *)
 
 Theorem witness_supra_16_5_CHSH :
   S SupraQuantum == 16#5.
@@ -58,6 +60,7 @@ Proof.
   exact S_SupraQuantum.
 Qed.
 
+(* INQUISITOR NOTE: alias for tsirelson_bound_strict_lt_partition - deliverable naming *)
 (** [witness_exceeds_tsirelson]: formal specification. *)
 Corollary witness_exceeds_tsirelson :
   kernel_tsirelson_bound_q < (16#5).

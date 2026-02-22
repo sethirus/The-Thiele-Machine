@@ -33,7 +33,7 @@ OPCODES: Dict[str, int] = {
     "MDLACC": 0x05,
     "PDISCOVER": 0x06,
     "XFER": 0x07,
-    "PYEXEC": 0x08,
+    "LOAD_IMM": 0x08,
     "CHSH_TRIAL": 0x09,
     "XOR_LOAD": 0x0A,
     "XOR_ADD": 0x0B,
@@ -42,6 +42,14 @@ OPCODES: Dict[str, int] = {
     "EMIT": 0x0E,
     "REVEAL": 0x0F,
     "ORACLE_HALTS": 0x10,
+    "LOAD": 0x11,
+    "STORE": 0x12,
+    "ADD": 0x13,
+    "SUB": 0x14,
+    "JUMP": 0x15,
+    "JNEZ": 0x16,
+    "CALL": 0x17,
+    "RET": 0x18,
     "HALT": 0xFF,
 }
 

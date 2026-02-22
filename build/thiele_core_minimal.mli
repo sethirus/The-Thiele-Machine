@@ -248,9 +248,15 @@ type vMState = { vm_graph : partitionGraph; vm_csrs : cSRState;
                  vm_regs : int list; vm_mem : int list; vm_pc : int;
                  vm_mu : int; vm_mu_tensor : int list; vm_err : bool }
 
+val word32_mask : int
+
 val word32 : int -> int
 
 val word32_xor : int -> int -> int
+
+val word32_add : int -> int -> int
+
+val word32_sub : int -> int -> int
 
 val word32_popcount : int -> int
 
@@ -263,6 +269,8 @@ val read_reg : vMState -> int -> int
 val write_reg : vMState -> int -> int -> int list
 
 val read_mem : vMState -> int -> int
+
+val write_mem : vMState -> int -> int -> int list
 
 val swap_regs : int list -> int -> int -> int list
 
@@ -393,7 +401,15 @@ module VMStep :
   | Coq_instr_mdlacc of moduleID * int
   | Coq_instr_pdiscover of moduleID * vMAxiom list * int
   | Coq_instr_xfer of int * int * int
-  | Coq_instr_pyexec of char list * int
+  | Coq_instr_load_imm of int * int * int
+  | Coq_instr_load of int * int * int
+  | Coq_instr_store of int * int * int
+  | Coq_instr_add of int * int * int * int
+  | Coq_instr_sub of int * int * int * int
+  | Coq_instr_jump of int * int
+  | Coq_instr_jnez of int * int * int
+  | Coq_instr_call of int * int
+  | Coq_instr_ret of int
   | Coq_instr_chsh_trial of int * int * int * int * int
   | Coq_instr_xor_load of int * int * int
   | Coq_instr_xor_add of int * int * int
@@ -428,6 +444,11 @@ module VMStep :
   val advance_state_rm :
     vMState -> vm_instruction -> partitionGraph -> cSRState -> int list ->
     int list -> bool -> vMState
+
+  val jump_state : vMState -> vm_instruction -> int -> vMState
+
+  val jump_state_rm :
+    vMState -> vm_instruction -> int -> int list -> int list -> vMState
  end
 
 val vm_apply : vMState -> VMStep.vm_instruction -> vMState

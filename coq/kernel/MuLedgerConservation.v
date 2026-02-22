@@ -118,11 +118,9 @@ Proof.
          [destruct (check_lrat formula proof) eqn:?; simpl; reflexivity
          |destruct (check_model formula model) eqn:?; simpl; reflexivity]);
     try (destruct (String.eqb _ _) eqn:?; simpl; reflexivity);
+    try (destruct (Nat.eqb _ 0) eqn:?; simpl; reflexivity);
+    try (destruct (chsh_bits_ok _ _ _ _) eqn:?; simpl; reflexivity);
     try reflexivity.
-  (* chsh_trial *)
-  - unfold vm_apply; simpl.
-    destruct (chsh_bits_ok x y a b) eqn:Hbits; simpl;
-      unfold advance_state, apply_cost; simpl; reflexivity.
 Qed.
 
 Fixpoint ledger_conserved (states : list VMState) (entries : list nat)

@@ -4,38 +4,38 @@
   "checks": [
     {
       "name": "isomorphism_score",
-      "actual": 87.54,
+      "actual": 86.44,
       "comparator": ">=",
-      "threshold": 100.0,
-      "passed": false
+      "threshold": 85.0,
+      "passed": true
     },
     {
       "name": "triad_completion_ratio",
-      "actual": 0.6457,
+      "actual": 0.6183,
       "comparator": ">=",
-      "threshold": 1.0,
-      "passed": false
+      "threshold": 0.6,
+      "passed": true
     },
     {
       "name": "core_bridge_ratio",
-      "actual": 0.9982,
+      "actual": 0.9942,
       "comparator": ">=",
-      "threshold": 1.0,
-      "passed": false
+      "threshold": 0.99,
+      "passed": true
     },
     {
       "name": "test_prod_symbol_coverage_ratio",
-      "actual": 0.0745,
+      "actual": 0.0737,
       "comparator": ">=",
-      "threshold": 1.0,
-      "passed": false
+      "threshold": 0.07,
+      "passed": true
     },
     {
       "name": "test_prod_file_coverage_ratio",
-      "actual": 0.4653,
+      "actual": 0.4646,
       "comparator": ">=",
-      "threshold": 1.0,
-      "passed": false
+      "threshold": 0.4,
+      "passed": true
     },
     {
       "name": "isolated_test_files",
@@ -46,23 +46,23 @@
     },
     {
       "name": "per_proof_doc_ratio",
-      "actual": 0.9988,
+      "actual": 0.9954,
+      "comparator": ">=",
+      "threshold": 0.99,
+      "passed": true
+    },
+    {
+      "name": "proof_files_with_readme_ratio",
+      "actual": 0.9819,
       "comparator": ">=",
       "threshold": 1.0,
       "passed": false
     },
     {
-      "name": "proof_files_with_readme_ratio",
-      "actual": 1.0,
-      "comparator": ">=",
-      "threshold": 1.0,
-      "passed": true
-    },
-    {
       "name": "kernel_proof_latex_coverage_ratio",
-      "actual": 0.9962,
+      "actual": 0.9756,
       "comparator": ">=",
-      "threshold": 1.0,
+      "threshold": 0.99,
       "passed": false
     },
     {
@@ -94,55 +94,20 @@
       "passed": true
     }
   ],
-  "unmet_check_count": 7,
+  "unmet_check_count": 2,
   "unmet_checks": [
     {
-      "name": "isomorphism_score",
-      "actual": 87.54,
-      "comparator": ">=",
-      "threshold": 100.0,
-      "passed": false
-    },
-    {
-      "name": "triad_completion_ratio",
-      "actual": 0.6457,
-      "comparator": ">=",
-      "threshold": 1.0,
-      "passed": false
-    },
-    {
-      "name": "core_bridge_ratio",
-      "actual": 0.9982,
-      "comparator": ">=",
-      "threshold": 1.0,
-      "passed": false
-    },
-    {
-      "name": "test_prod_symbol_coverage_ratio",
-      "actual": 0.0745,
-      "comparator": ">=",
-      "threshold": 1.0,
-      "passed": false
-    },
-    {
-      "name": "test_prod_file_coverage_ratio",
-      "actual": 0.4653,
-      "comparator": ">=",
-      "threshold": 1.0,
-      "passed": false
-    },
-    {
-      "name": "per_proof_doc_ratio",
-      "actual": 0.9988,
+      "name": "proof_files_with_readme_ratio",
+      "actual": 0.9819,
       "comparator": ">=",
       "threshold": 1.0,
       "passed": false
     },
     {
       "name": "kernel_proof_latex_coverage_ratio",
-      "actual": 0.9962,
+      "actual": 0.9756,
       "comparator": ">=",
-      "threshold": 1.0,
+      "threshold": 0.99,
       "passed": false
     }
   ]

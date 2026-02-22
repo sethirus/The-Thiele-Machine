@@ -154,6 +154,7 @@ Proof.
 Qed.
 
 (** Stronger form: all module IDs come from a bounded domain *)
+(* INQUISITOR NOTE: alias for graph_module_ids_finite - domain-specific naming *)
 Theorem interval_finiteness : forall g,
   well_formed_graph g ->
   forall mid, In mid (graph_module_ids g) -> mid < pg_next_id g.

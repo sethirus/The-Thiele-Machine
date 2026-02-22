@@ -435,8 +435,9 @@ Proof.
   intros s i s' Hstep.
   unfold mu_current.
   inversion Hstep; subst;
-    unfold advance_state, advance_state_reveal, advance_state_rm, apply_cost in *;
-    simpl; lia.
+    unfold advance_state, advance_state_reveal, advance_state_rm,
+           jump_state, jump_state_rm, apply_cost in *;
+    simpl; try lia.
 Qed.
 
 (** =========================================================================
@@ -767,13 +768,14 @@ Proof.
      econstructor finds the right constructor and unifies, reflexivity
      handles trivial equalities. *)
   inversion Hstep; subst; eexists; split.
-  (* All 23 cases: econstructor matches same constructor, then arithmetic *)
+  (* All cases: econstructor matches same constructor, then arithmetic *)
   all: try (econstructor; [reflexivity | reflexivity | reflexivity | idtac..]).
   all: try (econstructor; [reflexivity | reflexivity | idtac..]).
   all: try (econstructor; [reflexivity | idtac..]).
   all: try (econstructor; [eassumption | idtac..]).
   all: try econstructor.
-  all: unfold z_gauge_shift, advance_state, advance_state_reveal, advance_state_rm, apply_cost; simpl.
+  all: unfold z_gauge_shift, advance_state, advance_state_reveal, advance_state_rm,
+              jump_state, jump_state_rm, apply_cost; simpl.
   all: try (f_equal; symmetry; apply shift_cost_comm; assumption).
 Qed.
 

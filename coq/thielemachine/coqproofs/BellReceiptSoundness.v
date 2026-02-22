@@ -90,9 +90,9 @@ Proof.
   - (* LASSERT *) vm_compute. reflexivity.
   - (* MDLACC *) vm_compute. reflexivity.
   - (* PNEW *) vm_compute. reflexivity.
-  - (* PYEXEC *)
-    (* cert_for_pyexec always leaves metadata empty in this model. *)
-    rewrite cert_for_pyexec_metadata_empty.
+  - (* LOAD_IMM *)
+    (* cert_for_load_imm always leaves metadata empty in this model. *)
+    rewrite cert_for_load_imm_metadata_empty.
     vm_compute. reflexivity.
   - (* CHSH_TRIAL *)
     unfold trial_of_nat_params.
@@ -150,7 +150,7 @@ Proof.
   - (* LASSERT *) apply IH.
   - (* MDLACC *) apply IH.
   - (* PNEW *) apply IH.
-  - (* PYEXEC *) apply IH.
+  - (* LOAD_IMM *) apply IH.
   - (* CHSH_TRIAL *)
     destruct (trial_of_nat_params n n0 n1 n2) eqn:Ht; cbn;
       rewrite IH; reflexivity.

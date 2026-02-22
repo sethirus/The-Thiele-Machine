@@ -426,12 +426,12 @@ class TestCoqPythonAlignment:
         """Coq defines same instruction set as Python."""
         coq_path = REPO_ROOT / "coq" / "thielemachine" / "coqproofs" / "ThieleMachineConcrete.v"
         content = coq_path.read_text()
-        
+
         # Core instructions must be defined
         assert "LASSERT" in content
         assert "MDLACC" in content
         assert "PNEW" in content
-        assert "PYEXEC" in content
+        assert "LOAD_IMM" in content
         assert "EMIT" in content
     
     def test_coq_step_function_exists(self):
@@ -445,7 +445,7 @@ class TestCoqPythonAlignment:
         assert "| LASSERT" in content
         assert "| MDLACC" in content
         assert "| PNEW" in content
-        assert "| PYEXEC" in content
+        assert "| LOAD_IMM" in content
         assert "| EMIT" in content
     
     def test_coq_mu_delta_computation(self):

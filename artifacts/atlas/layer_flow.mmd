@@ -1,14 +1,14 @@
 flowchart LR
-  C["Coq\n6661 symbols"]
-  P["Python/VM\n4823 symbols"]
-  R["RTL/Verilog\n599 symbols"]
-  T["Tests/TB\n2908 symbols"]
-  C -->|17712| P
-  P -->|16640| C
-  C -->|4853| R
-  R -->|4158| C
-  P -->|4540| R
-  R -->|4139| P
+  C["Coq\n6715 symbols"]
+  P["Python/VM\n4839 symbols"]
+  R["RTL/Verilog\n668 symbols"]
+  T["Tests/TB\n2864 symbols"]
+  C -->|17809| P
+  P -->|16753| C
+  C -->|5307| R
+  R -->|4622| C
+  P -->|4767| R
+  R -->|4366| P
   T -. coverage .-> C
   T -. coverage .-> P
   T -. coverage .-> R

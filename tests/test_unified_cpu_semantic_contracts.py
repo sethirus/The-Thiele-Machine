@@ -26,13 +26,11 @@ module semantic_tb;
   reg rst_n = 0;
 
   wire [31:0] cert_addr, status, error_code, partition_ops, mdl_ops, info_gain, mu;
-  wire [31:0] mem_addr, mem_wdata, logic_addr, py_code_addr, pc;
+  wire [31:0] mem_addr, mem_wdata, logic_addr, pc;
   reg  [31:0] mem_rdata = 32'h0;
-  wire mem_we, mem_en, logic_req, py_req;
+  wire mem_we, mem_en, logic_req;
   reg logic_ack = 1'b0;
   reg [31:0] logic_data = 32'h0;
-  reg py_ack = 1'b0;
-  reg [31:0] py_result = 32'h0;
 
   reg [31:0] instr_mem [0:31];
   integer i;
@@ -44,7 +42,6 @@ module semantic_tb;
     .mu_tensor_0(), .mu_tensor_1(), .mu_tensor_2(), .mu_tensor_3(), .bianchi_alarm(),
     .mem_addr(mem_addr), .mem_wdata(mem_wdata), .mem_rdata(mem_rdata), .mem_we(mem_we), .mem_en(mem_en),
     .logic_req(logic_req), .logic_addr(logic_addr), .logic_ack(logic_ack), .logic_data(logic_data),
-    .py_req(py_req), .py_code_addr(py_code_addr), .py_ack(py_ack), .py_result(py_result),
     .instr_data(instr_mem[pc[31:2]]), .pc(pc)
   );
 

@@ -639,12 +639,12 @@ def _run_physics_embeddings() -> List[TestResult]:
     # PHYSICS EMBEDDING (Lattice Gas -> VM)
     # ==========================================================================
     embedding_theorems = [
-        ("thielemachine/coqproofs/PhysicsEmbedding.v", "thiele_implements_physics_step", "VM implements physics step"),
-        ("thielemachine/coqproofs/PhysicsEmbedding.v", "vm_preserves_particle_count", "VM preserves particle count"),
-        ("thielemachine/coqproofs/PhysicsEmbedding.v", "vm_preserves_momentum", "VM preserves momentum"),
-        ("thielemachine/coqproofs/PhysicsEmbedding.v", "lattice_vm_conserves_observables", "VM conserves observables"),
-        ("thielemachine/coqproofs/PhysicsEmbedding.v", "lattice_irreversible_count_zero", "Zero irreversible bits"),
-        ("thielemachine/coqproofs/PhysicsEmbedding.v", "lattice_gas_embeddable", "Lattice gas is embeddable"),
+        ("physics_exploration/PhysicsEmbedding.v", "thiele_implements_physics_step", "VM implements physics step"),
+        ("physics_exploration/PhysicsEmbedding.v", "vm_preserves_particle_count", "VM preserves particle count"),
+        ("physics_exploration/PhysicsEmbedding.v", "vm_preserves_momentum", "VM preserves momentum"),
+        ("physics_exploration/PhysicsEmbedding.v", "lattice_vm_conserves_observables", "VM conserves observables"),
+        ("physics_exploration/PhysicsEmbedding.v", "lattice_irreversible_count_zero", "Zero irreversible bits"),
+        ("physics_exploration/PhysicsEmbedding.v", "lattice_gas_embeddable", "Lattice gas is embeddable"),
     ]
     
     for file, theorem, description in embedding_theorems:
@@ -657,7 +657,7 @@ def _run_physics_embeddings() -> List[TestResult]:
         ))
     
     # Check no Admitted
-    no_admitted, admitted_lines = check_coq_no_admitted("thielemachine/coqproofs/PhysicsEmbedding.v")
+    no_admitted, admitted_lines = check_coq_no_admitted("physics_exploration/PhysicsEmbedding.v")
     results.append(TestResult(
         name="PhysicsEmbedding: No Admitted proofs",
         passed=no_admitted,
@@ -669,11 +669,11 @@ def _run_physics_embeddings() -> List[TestResult]:
     # WAVE EMBEDDING (Wave -> VM)
     # ==========================================================================
     wave_embedding_theorems = [
-        ("thielemachine/coqproofs/WaveEmbedding.v", "thiele_implements_wave_step", "VM implements wave step"),
-        ("thielemachine/coqproofs/WaveEmbedding.v", "vm_preserves_wave_energy", "VM preserves wave energy"),
-        ("thielemachine/coqproofs/WaveEmbedding.v", "vm_preserves_wave_momentum", "VM preserves wave momentum"),
-        ("thielemachine/coqproofs/WaveEmbedding.v", "wave_irreversible_count_zero", "Zero irreversible bits"),
-        ("thielemachine/coqproofs/WaveEmbedding.v", "wave_embeddable", "Wave is embeddable"),
+        ("physics_exploration/WaveEmbedding.v", "thiele_implements_wave_step", "VM implements wave step"),
+        ("physics_exploration/WaveEmbedding.v", "vm_preserves_wave_energy", "VM preserves wave energy"),
+        ("physics_exploration/WaveEmbedding.v", "vm_preserves_wave_momentum", "VM preserves wave momentum"),
+        ("physics_exploration/WaveEmbedding.v", "wave_irreversible_count_zero", "Zero irreversible bits"),
+        ("physics_exploration/WaveEmbedding.v", "wave_embeddable", "Wave is embeddable"),
     ]
     
     for file, theorem, description in wave_embedding_theorems:
@@ -686,7 +686,7 @@ def _run_physics_embeddings() -> List[TestResult]:
         ))
     
     # Check no Admitted
-    no_admitted, admitted_lines = check_coq_no_admitted("thielemachine/coqproofs/WaveEmbedding.v")
+    no_admitted, admitted_lines = check_coq_no_admitted("physics_exploration/WaveEmbedding.v")
     results.append(TestResult(
         name="WaveEmbedding: No Admitted proofs",
         passed=no_admitted,
@@ -698,8 +698,8 @@ def _run_physics_embeddings() -> List[TestResult]:
     # DISSIPATIVE EMBEDDING (Dissipative -> VM with μ-gap)
     # ==========================================================================
     dissipative_embedding_theorems = [
-        ("thielemachine/coqproofs/DissipativeEmbedding.v", "decode_encode_id", "Roundtrip identity"),
-        ("thielemachine/coqproofs/DissipativeEmbedding.v", "dissipative_embeddable", "Dissipative is embeddable"),
+        ("physics_exploration/DissipativeEmbedding.v", "decode_encode_id", "Roundtrip identity"),
+        ("physics_exploration/DissipativeEmbedding.v", "dissipative_embeddable", "Dissipative is embeddable"),
     ]
     
     for file, theorem, description in dissipative_embedding_theorems:
@@ -712,7 +712,7 @@ def _run_physics_embeddings() -> List[TestResult]:
         ))
     
     # Check no Admitted
-    no_admitted, admitted_lines = check_coq_no_admitted("thielemachine/coqproofs/DissipativeEmbedding.v")
+    no_admitted, admitted_lines = check_coq_no_admitted("physics_exploration/DissipativeEmbedding.v")
     results.append(TestResult(
         name="DissipativeEmbedding: No Admitted proofs",
         passed=no_admitted,

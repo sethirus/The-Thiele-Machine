@@ -1,0 +1,495 @@
+DIGEST ef4579644e2504a551889f6ad360e1f1
+FKamiHW.Abstraction
+R1151:1164 Coq.Lists.List <> <> lib
+R1182:1199 Coq.Arith.PeanoNat <> <> lib
+R1217:1233 Coq.micromega.Lia <> <> lib
+R1243:1255 Coq.Lists.List ListNotations <> mod
+R1274:1287 Kernel.VMState <> <> lib
+rec 1475:1486 <> KamiSnapshot
+proj 1495:1501 <> snap_pc
+proj 1524:1530 <> snap_mu
+proj 1553:1560 <> snap_err
+proj 1583:1593 <> snap_halted
+proj 1613:1621 <> snap_regs
+proj 1649:1656 <> snap_mem
+proj 1685:1702 <> snap_partition_ops
+proj 1714:1725 <> snap_mdl_ops
+proj 1743:1756 <> snap_info_gain
+proj 1772:1786 <> snap_error_code
+proj 1801:1814 <> snap_mu_tensor
+R1516:1518 Coq.Init.Datatypes <> nat ind
+R1545:1547 Coq.Init.Datatypes <> nat ind
+R1574:1577 Coq.Init.Datatypes <> bool ind
+R1604:1607 Coq.Init.Datatypes <> bool ind
+R1637:1640 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1634:1636 Coq.Init.Datatypes <> nat ind
+R1641:1643 Coq.Init.Datatypes <> nat ind
+R1673:1676 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1670:1672 Coq.Init.Datatypes <> nat ind
+R1677:1679 Coq.Init.Datatypes <> nat ind
+R1706:1708 Coq.Init.Datatypes <> nat ind
+R1735:1737 Coq.Init.Datatypes <> nat ind
+R1764:1766 Coq.Init.Datatypes <> nat ind
+R1793:1795 Coq.Init.Datatypes <> nat ind
+R1825:1828 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1822:1824 Coq.Init.Datatypes <> nat ind
+R1829:1831 Coq.Init.Datatypes <> nat ind
+def 1984:2004 <> snapshot_regs_to_list
+R2014:2017 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2011:2013 Coq.Init.Datatypes <> nat ind
+R2018:2020 Coq.Init.Datatypes <> nat ind
+binder 2007:2007 <> f:13
+R2025:2028 Coq.Init.Datatypes <> list ind
+R2030:2032 Coq.Init.Datatypes <> nat ind
+R2039:2046 Coq.Lists.List <> map def
+R2051:2058 Coq.Lists.List <> seq def
+R2048:2048 KamiHW.Abstraction <> f:13 var
+def 2079:2098 <> snapshot_mem_to_list
+R2108:2111 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2105:2107 Coq.Init.Datatypes <> nat ind
+R2112:2114 Coq.Init.Datatypes <> nat ind
+binder 2101:2101 <> f:14
+R2119:2122 Coq.Init.Datatypes <> list ind
+R2124:2126 Coq.Init.Datatypes <> nat ind
+R2133:2140 Coq.Lists.List <> map def
+R2145:2152 Coq.Lists.List <> seq def
+R2142:2142 KamiHW.Abstraction <> f:14 var
+def 2174:2196 <> snapshot_tensor_to_list
+R2206:2209 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2203:2205 Coq.Init.Datatypes <> nat ind
+R2210:2212 Coq.Init.Datatypes <> nat ind
+binder 2199:2199 <> f:15
+R2217:2220 Coq.Init.Datatypes <> list ind
+R2222:2224 Coq.Init.Datatypes <> nat ind
+R2231:2238 Coq.Lists.List <> map def
+R2243:2250 Coq.Lists.List <> seq def
+R2240:2240 KamiHW.Abstraction <> f:15 var
+def 2310:2321 <> default_csrs
+R2325:2332 Kernel.VMState <> CSRState rec
+R2342:2354 Kernel.VMState <> csr_cert_addr proj
+R2342:2354 Kernel.VMState <> csr_cert_addr proj
+R2342:2354 Kernel.VMState <> csr_cert_addr proj
+R2363:2372 Kernel.VMState <> csr_status proj
+R2363:2372 Kernel.VMState <> csr_status proj
+R2381:2387 Kernel.VMState <> csr_err proj
+R2381:2387 Kernel.VMState <> csr_err proj
+def 2604:2613 <> abs_phase1
+R2620:2631 KamiHW.Abstraction <> KamiSnapshot rec
+binder 2616:2616 <> s:16
+R2636:2642 Kernel.VMState <> VMState rec
+R2652:2659 Kernel.VMState <> vm_graph proj
+R2652:2659 Kernel.VMState <> vm_graph proj
+R2652:2659 Kernel.VMState <> vm_graph proj
+R2687:2693 Kernel.VMState <> vm_csrs proj
+R2687:2693 Kernel.VMState <> vm_csrs proj
+R2723:2729 Kernel.VMState <> vm_regs proj
+R2723:2729 Kernel.VMState <> vm_regs proj
+R2782:2787 Kernel.VMState <> vm_mem proj
+R2782:2787 Kernel.VMState <> vm_mem proj
+R2841:2845 Kernel.VMState <> vm_pc proj
+R2841:2845 Kernel.VMState <> vm_pc proj
+R2874:2878 Kernel.VMState <> vm_mu proj
+R2874:2878 Kernel.VMState <> vm_mu proj
+R2907:2918 Kernel.VMState <> vm_mu_tensor proj
+R2907:2918 Kernel.VMState <> vm_mu_tensor proj
+R2973:2978 Kernel.VMState <> vm_err proj
+R2973:2978 Kernel.VMState <> vm_err proj
+R2668:2678 Kernel.VMState <> empty_graph def
+R2703:2714 KamiHW.Abstraction <> default_csrs def
+R2739:2759 KamiHW.Abstraction <> snapshot_regs_to_list def
+R2762:2770 KamiHW.Abstraction <> snap_regs proj
+R2772:2772 KamiHW.Abstraction <> s:16 var
+R2798:2817 KamiHW.Abstraction <> snapshot_mem_to_list def
+R2821:2828 KamiHW.Abstraction <> snap_mem proj
+R2830:2830 KamiHW.Abstraction <> s:16 var
+R2857:2863 KamiHW.Abstraction <> snap_pc proj
+R2865:2865 KamiHW.Abstraction <> s:16 var
+R2890:2896 KamiHW.Abstraction <> snap_mu proj
+R2898:2898 KamiHW.Abstraction <> s:16 var
+R2923:2945 KamiHW.Abstraction <> snapshot_tensor_to_list def
+R2948:2961 KamiHW.Abstraction <> snap_mu_tensor proj
+R2963:2963 KamiHW.Abstraction <> s:16 var
+R2989:2996 KamiHW.Abstraction <> snap_err proj
+R2998:2998 KamiHW.Abstraction <> s:16 var
+def 3066:3073 <> abs_full
+R3078:3087 KamiHW.Abstraction <> abs_phase1 def
+def 3135:3151 <> cpu_preconditions
+R3158:3169 KamiHW.Abstraction <> KamiSnapshot rec
+binder 3154:3154 <> s:17
+R3203:3211 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3197:3199 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3184:3190 KamiHW.Abstraction <> snap_pc proj
+R3196:3196 KamiHW.Abstraction <> s:17 var
+R3232:3239 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3225:3227 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3212:3218 KamiHW.Abstraction <> snap_mu proj
+R3224:3224 KamiHW.Abstraction <> s:17 var
+R3229:3229 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R3261:3267 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3253:3255 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3240:3247 KamiHW.Abstraction <> snap_err proj
+R3252:3252 KamiHW.Abstraction <> s:17 var
+R3256:3260 Coq.Init.Datatypes <> false constr
+R3281:3283 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3268:3278 KamiHW.Abstraction <> snap_halted proj
+R3280:3280 KamiHW.Abstraction <> s:17 var
+R3284:3288 Coq.Init.Datatypes <> false constr
+prf 3326:3353 <> snapshot_regs_to_list_length
+binder 3364:3364 <> f:18
+R3403:3405 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3371:3376 Coq.Init.Datatypes <> length def
+R3379:3399 KamiHW.Abstraction <> snapshot_regs_to_list def
+R3401:3401 KamiHW.Abstraction <> f:18 var
+R3435:3455 KamiHW.Abstraction <> snapshot_regs_to_list def
+R3466:3475 Coq.Lists.List <> map_length thm
+R3478:3487 Coq.Lists.List <> seq_length thm
+R3466:3475 Coq.Lists.List <> map_length thm
+R3466:3475 Coq.Lists.List <> map_length thm
+R3478:3487 Coq.Lists.List <> seq_length thm
+R3478:3487 Coq.Lists.List <> seq_length thm
+prf 3515:3541 <> snapshot_mem_to_list_length
+binder 3552:3552 <> f:19
+R3590:3592 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3559:3564 Coq.Init.Datatypes <> length def
+R3567:3586 KamiHW.Abstraction <> snapshot_mem_to_list def
+R3588:3588 KamiHW.Abstraction <> f:19 var
+R3623:3642 KamiHW.Abstraction <> snapshot_mem_to_list def
+R3653:3662 Coq.Lists.List <> map_length thm
+R3665:3674 Coq.Lists.List <> seq_length thm
+R3653:3662 Coq.Lists.List <> map_length thm
+R3653:3662 Coq.Lists.List <> map_length thm
+R3665:3674 Coq.Lists.List <> seq_length thm
+R3665:3674 Coq.Lists.List <> seq_length thm
+prf 3702:3731 <> snapshot_tensor_to_list_length
+binder 3742:3742 <> f:20
+R3783:3785 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3749:3754 Coq.Init.Datatypes <> length def
+R3757:3779 KamiHW.Abstraction <> snapshot_tensor_to_list def
+R3781:3781 KamiHW.Abstraction <> f:20 var
+R3815:3837 KamiHW.Abstraction <> snapshot_tensor_to_list def
+R3848:3857 Coq.Lists.List <> map_length thm
+R3860:3869 Coq.Lists.List <> seq_length thm
+R3848:3857 Coq.Lists.List <> map_length thm
+R3848:3857 Coq.Lists.List <> map_length thm
+R3860:3869 Coq.Lists.List <> seq_length thm
+R3860:3869 Coq.Lists.List <> seq_length thm
+prf 4010:4023 <> seq_nth_helper
+binder 4034:4034 <> n:21
+binder 4036:4040 <> start:22
+binder 4042:4042 <> i:23
+R4054:4057 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4050:4052 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4049:4049 KamiHW.Abstraction <> i:23 var
+R4053:4053 KamiHW.Abstraction <> n:21 var
+R4089:4091 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4058:4065 Coq.Lists.List <> nth def
+R4070:4077 Coq.Lists.List <> seq def
+R4085:4085 KamiHW.Abstraction <> n:21 var
+R4079:4083 KamiHW.Abstraction <> start:22 var
+R4067:4067 KamiHW.Abstraction <> i:23 var
+R4097:4099 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4092:4096 KamiHW.Abstraction <> start:22 var
+R4100:4100 KamiHW.Abstraction <> i:23 var
+prf 4301:4314 <> nth_map_helper
+binder 4326:4326 <> A:24
+binder 4328:4328 <> B:25
+R4337:4340 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4336:4336 KamiHW.Abstraction <> A:24 var
+R4341:4341 KamiHW.Abstraction <> B:25 var
+binder 4332:4332 <> f:26
+R4349:4352 Coq.Init.Datatypes <> list ind
+R4354:4354 KamiHW.Abstraction <> A:24 var
+binder 4345:4345 <> l:27
+binder 4357:4357 <> i:28
+R4365:4365 KamiHW.Abstraction <> A:24 var
+binder 4360:4361 <> da:29
+R4374:4374 KamiHW.Abstraction <> B:25 var
+binder 4369:4370 <> db:30
+R4394:4401 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4383:4385 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4382:4382 KamiHW.Abstraction <> i:28 var
+R4386:4391 Coq.Init.Datatypes <> length def
+R4393:4393 KamiHW.Abstraction <> l:27 var
+R4430:4432 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4402:4409 Coq.Lists.List <> nth def
+R4428:4429 KamiHW.Abstraction <> db:30 var
+R4414:4421 Coq.Lists.List <> map def
+R4425:4425 KamiHW.Abstraction <> l:27 var
+R4423:4423 KamiHW.Abstraction <> f:26 var
+R4411:4411 KamiHW.Abstraction <> i:28 var
+R4433:4433 KamiHW.Abstraction <> f:26 var
+R4436:4443 Coq.Lists.List <> nth def
+R4449:4450 KamiHW.Abstraction <> da:29 var
+R4447:4447 KamiHW.Abstraction <> l:27 var
+R4445:4445 KamiHW.Abstraction <> i:28 var
+prf 4692:4705 <> map_update_gen
+R4724:4727 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4721:4723 Coq.Init.Datatypes <> nat ind
+R4728:4730 Coq.Init.Datatypes <> nat ind
+binder 4717:4717 <> f:31
+binder 4733:4733 <> n:32
+binder 4735:4739 <> start:33
+binder 4741:4743 <> dst:34
+binder 4745:4745 <> v:35
+R4759:4766 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4755:4757 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4752:4754 KamiHW.Abstraction <> dst:34 var
+R4758:4758 KamiHW.Abstraction <> n:32 var
+R4848:4854 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4767:4774 Coq.Lists.List <> map def
+R4831:4838 Coq.Lists.List <> seq def
+R4846:4846 KamiHW.Abstraction <> n:32 var
+R4840:4844 KamiHW.Abstraction <> start:33 var
+binder 4781:4781 <> j:36
+R4789:4795 Coq.Arith.PeanoNat Nat eqb def
+R4797:4797 KamiHW.Abstraction <> j:36 var
+R4805:4807 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4800:4804 KamiHW.Abstraction <> start:33 var
+R4808:4810 KamiHW.Abstraction <> dst:34 var
+R4825:4825 KamiHW.Abstraction <> f:31 var
+R4827:4827 KamiHW.Abstraction <> j:36 var
+R4818:4818 KamiHW.Abstraction <> v:35 var
+R4902:4905 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R4855:4865 Coq.Lists.List <> firstn def
+R4872:4879 Coq.Lists.List <> map def
+R4884:4891 Coq.Lists.List <> seq def
+R4899:4899 KamiHW.Abstraction <> n:32 var
+R4893:4897 KamiHW.Abstraction <> start:33 var
+R4881:4881 KamiHW.Abstraction <> f:31 var
+R4867:4869 KamiHW.Abstraction <> dst:34 var
+R4909:4916 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R4906:4906 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4908:4908 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4907:4907 KamiHW.Abstraction <> v:35 var
+R4917:4926 Coq.Lists.List <> skipn def
+R4937:4944 Coq.Lists.List <> map def
+R4949:4956 Coq.Lists.List <> seq def
+R4964:4964 KamiHW.Abstraction <> n:32 var
+R4958:4962 KamiHW.Abstraction <> start:33 var
+R4946:4946 KamiHW.Abstraction <> f:31 var
+R4929:4929 Coq.Init.Datatypes <> S constr
+R4931:4933 KamiHW.Abstraction <> dst:34 var
+R5096:5098 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5096:5098 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5140:5151 Coq.Arith.PeanoNat Nat eqb_refl thm
+R5140:5151 Coq.Arith.PeanoNat Nat eqb_refl thm
+R5140:5151 Coq.Arith.PeanoNat Nat eqb_refl thm
+R5173:5187 Coq.Lists.List <> map_ext_in thm
+R5173:5187 Coq.Lists.List <> map_ext_in thm
+R5206:5216 Coq.Lists.List <> in_seq thm
+R5206:5216 Coq.Lists.List <> in_seq thm
+R5257:5263 Coq.Arith.PeanoNat Nat eqb def
+R5257:5263 Coq.Arith.PeanoNat Nat eqb def
+R5294:5303 Coq.Arith.PeanoNat Nat eqb_eq thm
+R5294:5303 Coq.Arith.PeanoNat Nat eqb_eq thm
+R5380:5386 Coq.Arith.PeanoNat Nat eqb def
+R5400:5402 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5403:5403 Coq.Init.Datatypes <> S constr
+R5416:5420 Coq.Init.Datatypes <> false constr
+R5448:5458 Coq.Arith.PeanoNat Nat eqb_neq thm
+R5380:5386 Coq.Arith.PeanoNat Nat eqb def
+R5400:5402 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5403:5403 Coq.Init.Datatypes <> S constr
+R5416:5420 Coq.Init.Datatypes <> false constr
+R5448:5458 Coq.Arith.PeanoNat Nat eqb_neq thm
+R5505:5507 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5508:5508 Coq.Init.Datatypes <> S constr
+R5528:5530 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5521:5521 Coq.Init.Datatypes <> S constr
+R5505:5507 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5508:5508 Coq.Init.Datatypes <> S constr
+R5528:5530 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5521:5521 Coq.Init.Datatypes <> S constr
+prf 5629:5643 <> map_update_zero
+R5662:5665 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5659:5661 Coq.Init.Datatypes <> nat ind
+R5666:5668 Coq.Init.Datatypes <> nat ind
+binder 5655:5655 <> f:37
+binder 5671:5671 <> n:38
+binder 5673:5675 <> dst:39
+binder 5677:5677 <> v:40
+R5691:5698 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5687:5689 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5684:5686 KamiHW.Abstraction <> dst:39 var
+R5690:5690 KamiHW.Abstraction <> n:38 var
+R5766:5772 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5699:5706 Coq.Lists.List <> map def
+R5753:5760 Coq.Lists.List <> seq def
+R5764:5764 KamiHW.Abstraction <> n:38 var
+binder 5713:5713 <> j:41
+R5721:5727 Coq.Arith.PeanoNat Nat eqb def
+R5729:5729 KamiHW.Abstraction <> j:41 var
+R5731:5733 KamiHW.Abstraction <> dst:39 var
+R5747:5747 KamiHW.Abstraction <> f:37 var
+R5749:5749 KamiHW.Abstraction <> j:41 var
+R5740:5740 KamiHW.Abstraction <> v:40 var
+R5816:5819 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R5773:5783 Coq.Lists.List <> firstn def
+R5790:5797 Coq.Lists.List <> map def
+R5802:5809 Coq.Lists.List <> seq def
+R5813:5813 KamiHW.Abstraction <> n:38 var
+R5799:5799 KamiHW.Abstraction <> f:37 var
+R5785:5787 KamiHW.Abstraction <> dst:39 var
+R5823:5830 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R5820:5820 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5822:5822 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5821:5821 KamiHW.Abstraction <> v:40 var
+R5831:5840 Coq.Lists.List <> skipn def
+R5851:5858 Coq.Lists.List <> map def
+R5863:5870 Coq.Lists.List <> seq def
+R5874:5874 KamiHW.Abstraction <> n:38 var
+R5860:5860 KamiHW.Abstraction <> f:37 var
+R5843:5843 Coq.Init.Datatypes <> S constr
+R5845:5847 KamiHW.Abstraction <> dst:39 var
+R5923:5936 KamiHW.Abstraction <> map_update_gen thm
+R5923:5936 KamiHW.Abstraction <> map_update_gen thm
+R5970:5980 Coq.Arith.PeanoNat Nat add_0_l thm
+R5970:5980 Coq.Arith.PeanoNat Nat add_0_l thm
+R5970:5980 Coq.Arith.PeanoNat Nat add_0_l thm
+prf 6056:6072 <> snapshot_reg_read
+binder 6083:6083 <> f:42
+binder 6085:6085 <> i:43
+R6098:6105 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6093:6095 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6092:6092 KamiHW.Abstraction <> i:43 var
+R6144:6146 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6106:6113 Coq.Lists.List <> nth def
+R6118:6138 KamiHW.Abstraction <> snapshot_regs_to_list def
+R6140:6140 KamiHW.Abstraction <> f:42 var
+R6115:6115 KamiHW.Abstraction <> i:43 var
+R6147:6147 KamiHW.Abstraction <> f:42 var
+R6149:6149 KamiHW.Abstraction <> i:43 var
+R6183:6203 KamiHW.Abstraction <> snapshot_regs_to_list def
+R6258:6267 Coq.Lists.List <> seq_length thm
+R6216:6229 KamiHW.Abstraction <> nth_map_helper thm
+R6216:6229 KamiHW.Abstraction <> nth_map_helper thm
+R6258:6267 Coq.Lists.List <> seq_length thm
+R6258:6267 Coq.Lists.List <> seq_length thm
+R6216:6229 KamiHW.Abstraction <> nth_map_helper thm
+R6291:6304 KamiHW.Abstraction <> seq_nth_helper thm
+R6291:6304 KamiHW.Abstraction <> seq_nth_helper thm
+R6291:6304 KamiHW.Abstraction <> seq_nth_helper thm
+prf 6351:6367 <> snapshot_mem_read
+binder 6378:6378 <> f:44
+binder 6380:6380 <> i:45
+R6394:6401 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6388:6390 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6387:6387 KamiHW.Abstraction <> i:45 var
+R6439:6441 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6402:6409 Coq.Lists.List <> nth def
+R6414:6433 KamiHW.Abstraction <> snapshot_mem_to_list def
+R6435:6435 KamiHW.Abstraction <> f:44 var
+R6411:6411 KamiHW.Abstraction <> i:45 var
+R6442:6442 KamiHW.Abstraction <> f:44 var
+R6444:6444 KamiHW.Abstraction <> i:45 var
+R6478:6497 KamiHW.Abstraction <> snapshot_mem_to_list def
+R6552:6561 Coq.Lists.List <> seq_length thm
+R6510:6523 KamiHW.Abstraction <> nth_map_helper thm
+R6510:6523 KamiHW.Abstraction <> nth_map_helper thm
+R6552:6561 Coq.Lists.List <> seq_length thm
+R6552:6561 Coq.Lists.List <> seq_length thm
+R6510:6523 KamiHW.Abstraction <> nth_map_helper thm
+R6585:6598 KamiHW.Abstraction <> seq_nth_helper thm
+R6585:6598 KamiHW.Abstraction <> seq_nth_helper thm
+R6585:6598 KamiHW.Abstraction <> seq_nth_helper thm
+prf 6645:6664 <> snapshot_tensor_read
+binder 6675:6675 <> f:46
+binder 6677:6677 <> i:47
+R6690:6697 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6685:6687 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6684:6684 KamiHW.Abstraction <> i:47 var
+R6738:6740 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6698:6705 Coq.Lists.List <> nth def
+R6710:6732 KamiHW.Abstraction <> snapshot_tensor_to_list def
+R6734:6734 KamiHW.Abstraction <> f:46 var
+R6707:6707 KamiHW.Abstraction <> i:47 var
+R6741:6741 KamiHW.Abstraction <> f:46 var
+R6743:6743 KamiHW.Abstraction <> i:47 var
+R6777:6799 KamiHW.Abstraction <> snapshot_tensor_to_list def
+R6854:6863 Coq.Lists.List <> seq_length thm
+R6812:6825 KamiHW.Abstraction <> nth_map_helper thm
+R6812:6825 KamiHW.Abstraction <> nth_map_helper thm
+R6854:6863 Coq.Lists.List <> seq_length thm
+R6854:6863 Coq.Lists.List <> seq_length thm
+R6812:6825 KamiHW.Abstraction <> nth_map_helper thm
+R6887:6900 KamiHW.Abstraction <> seq_nth_helper thm
+R6887:6900 KamiHW.Abstraction <> seq_nth_helper thm
+R6887:6900 KamiHW.Abstraction <> seq_nth_helper thm
+def 6989:7003 <> mk_snap_vmstate
+R7010:7021 KamiHW.Abstraction <> KamiSnapshot rec
+binder 7006:7006 <> s:48
+R7026:7032 Kernel.VMState <> VMState rec
+R7039:7048 KamiHW.Abstraction <> abs_phase1 def
+R7050:7050 KamiHW.Abstraction <> s:48 var
+prf 7060:7077 <> snapshot_reg_write
+R7093:7104 KamiHW.Abstraction <> KamiSnapshot rec
+binder 7089:7089 <> s:49
+R7116:7118 Coq.Init.Datatypes <> nat ind
+binder 7108:7110 <> dst:50
+binder 7112:7112 <> v:51
+R7134:7141 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7129:7131 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R7126:7128 KamiHW.Abstraction <> dst:50 var
+R7224:7230 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7142:7162 KamiHW.Abstraction <> snapshot_regs_to_list def
+binder 7169:7169 <> j:52
+R7177:7183 Coq.Arith.PeanoNat Nat eqb def
+R7185:7185 KamiHW.Abstraction <> j:52 var
+R7187:7189 KamiHW.Abstraction <> dst:50 var
+R7210:7218 KamiHW.Abstraction <> snap_regs proj
+R7220:7220 KamiHW.Abstraction <> s:49 var
+R7222:7222 KamiHW.Abstraction <> j:52 var
+R7196:7201 Kernel.VMState <> word32 def
+R7203:7203 KamiHW.Abstraction <> v:51 var
+R7231:7239 Kernel.VMState <> write_reg def
+R7242:7251 KamiHW.Abstraction <> abs_phase1 def
+R7253:7253 KamiHW.Abstraction <> s:49 var
+R7256:7258 KamiHW.Abstraction <> dst:50 var
+R7260:7260 KamiHW.Abstraction <> v:51 var
+R7300:7308 Kernel.VMState <> write_reg def
+R7310:7318 Kernel.VMState <> reg_index def
+R7320:7328 Kernel.VMState <> REG_COUNT def
+R7330:7339 KamiHW.Abstraction <> abs_phase1 def
+R7341:7361 KamiHW.Abstraction <> snapshot_regs_to_list def
+R7379:7383 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R7417:7429 Coq.Arith.PeanoNat Nat mod_small def
+R7379:7383 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R7417:7429 Coq.Arith.PeanoNat Nat mod_small def
+R7453:7467 KamiHW.Abstraction <> map_update_zero thm
+R7453:7467 KamiHW.Abstraction <> map_update_zero thm
+prf 7494:7511 <> snapshot_mem_write
+R7527:7538 KamiHW.Abstraction <> KamiSnapshot rec
+binder 7523:7523 <> s:53
+R7551:7553 Coq.Init.Datatypes <> nat ind
+binder 7542:7545 <> addr:54
+binder 7547:7547 <> v:55
+R7571:7578 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7565:7567 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R7561:7564 KamiHW.Abstraction <> addr:54 var
+R7660:7666 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7579:7598 KamiHW.Abstraction <> snapshot_mem_to_list def
+binder 7605:7605 <> j:56
+R7613:7619 Coq.Arith.PeanoNat Nat eqb def
+R7621:7621 KamiHW.Abstraction <> j:56 var
+R7623:7626 KamiHW.Abstraction <> addr:54 var
+R7647:7654 KamiHW.Abstraction <> snap_mem proj
+R7656:7656 KamiHW.Abstraction <> s:53 var
+R7658:7658 KamiHW.Abstraction <> j:56 var
+R7633:7638 Kernel.VMState <> word32 def
+R7640:7640 KamiHW.Abstraction <> v:55 var
+R7667:7675 Kernel.VMState <> write_mem def
+R7678:7687 KamiHW.Abstraction <> abs_phase1 def
+R7689:7689 KamiHW.Abstraction <> s:53 var
+R7692:7695 KamiHW.Abstraction <> addr:54 var
+R7697:7697 KamiHW.Abstraction <> v:55 var
+R7739:7747 Kernel.VMState <> write_mem def
+R7749:7757 Kernel.VMState <> mem_index def
+R7759:7766 Kernel.VMState <> MEM_SIZE def
+R7768:7777 KamiHW.Abstraction <> abs_phase1 def
+R7779:7798 KamiHW.Abstraction <> snapshot_mem_to_list def
+R7817:7821 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R7857:7869 Coq.Arith.PeanoNat Nat mod_small def
+R7817:7821 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R7857:7869 Coq.Arith.PeanoNat Nat mod_small def
+R7894:7908 KamiHW.Abstraction <> map_update_zero thm
+R7894:7908 KamiHW.Abstraction <> map_update_zero thm

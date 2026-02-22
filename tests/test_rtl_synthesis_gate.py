@@ -7,9 +7,9 @@ What this enforces
 ------------------
 1. Yosys is installed and reachable.
 2. iverilog is installed and reachable (for simulation gate).
-3. ``thiele_cpu_unified.v`` parses and elaborates without syntax errors.
-4. Yosys lite-synthesis (``synth_lite.ys``) completes with exit code 0.
-5. The synthesised design has at least one top-level module named ``thiele_cpu``.
+3. ``thiele_cpu_kami.v`` parses and elaborates without syntax errors.
+4. Yosys synthesis on extracted RTL completes with exit code 0.
+5. The synthesised design has top-level module ``mkModule1``.
 6. Yosys reports a positive cell count (design is not empty).
 7. The synthesised Verilog output (``synth_lite_out.v``) is written and is
    non-empty.
@@ -19,8 +19,8 @@ What this enforces
 Important limitation
 --------------------
 These are structural/smoke checks. They do not prove end-to-end ISA semantics
-for the unified CPU FSM (HALT terminal behavior, receipt-gated commit ordering,
-or CHSH correlator correctness).
+for all execution behavior (HALT terminal behavior, receipt-gated commit
+ordering, or CHSH correlator correctness).
 
 Running
 -------
@@ -47,10 +47,10 @@ import pytest
 REPO_ROOT = Path(__file__).resolve().parents[1]
 RTL_DIR = REPO_ROOT / "thielecpu" / "hardware" / "rtl"
 TB_DIR = REPO_ROOT / "thielecpu" / "hardware" / "testbench"
-SYNTH_LITE_YS = RTL_DIR / "synth_lite.ys"
 SYNTH_OUT_V = RTL_DIR / "synth_lite_out.v"
-UNIFIED_V = RTL_DIR / "thiele_cpu_unified.v"
-TOP_MODULE = "thiele_cpu"
+KAMI_V = RTL_DIR / "thiele_cpu_kami.v"
+KAMI_TB = TB_DIR / "thiele_cpu_kami_tb.v"
+TOP_MODULE = "mkModule1"
 
 
 # ── helpers ───────────────────────────────────────────────────────────────────
@@ -96,20 +96,14 @@ def test_iverilog_available():
 
 @pytest.mark.hardware
 def test_rtl_source_exists():
-    """thiele_cpu_unified.v must exist."""
-    assert UNIFIED_V.exists(), f"RTL source missing: {UNIFIED_V}"
-
-
-@pytest.mark.hardware
-def test_synth_script_exists():
-    """synth_lite.ys must exist."""
-    assert SYNTH_LITE_YS.exists(), f"Synthesis script missing: {SYNTH_LITE_YS}"
+    """thiele_cpu_kami.v must exist."""
+    assert KAMI_V.exists(), f"RTL source missing: {KAMI_V}"
 
 
 @pytest.mark.hardware
 def test_verilog_parse_iverilog():
     """
-    iverilog must parse thiele_cpu_unified.v without errors.
+    iverilog must parse thiele_cpu_kami.v without errors.
 
     This is faster than Yosys and catches most syntax/type errors immediately.
     """
@@ -120,7 +114,7 @@ def test_verilog_parse_iverilog():
             "-g2012",
             "-DYOSYS_LITE",
             "-DSYNTHESIS",
-            str(UNIFIED_V),
+            str(KAMI_V),
         ],
         cwd=str(RTL_DIR),
         timeout=60,
@@ -142,11 +136,11 @@ def test_yosys_synthesis_succeeds():
     if os.environ.get("RTL_SKIP_SYNTHESIS"):
         pytest.skip("RTL_SKIP_SYNTHESIS=1 — skipping Yosys gate")
 
-    result = _run(
-        ["yosys", "-s", str(SYNTH_LITE_YS)],
-        cwd=str(RTL_DIR),
-        timeout=300,
-    )
+    result = _run([
+        "yosys",
+        "-p",
+        f"read_verilog -sv -DSYNTHESIS {KAMI_V}; hierarchy -check -top {TOP_MODULE}; stat",
+    ], cwd=str(REPO_ROOT), timeout=300)
     assert result.returncode == 0, (
         f"Yosys synthesis failed (exit {result.returncode}).\n"
         f"STDOUT (tail):\n{result.stdout[-3000:]}\n"
@@ -157,20 +151,24 @@ def test_yosys_synthesis_succeeds():
 @pytest.mark.hardware
 @pytest.mark.slow
 def test_yosys_top_module_present():
-    """After synthesis, yosys must report the ``thiele_cpu`` top module."""
+    """After synthesis, yosys must report the ``mkModule1`` top module."""
     if os.environ.get("RTL_SKIP_SYNTHESIS"):
         pytest.skip("RTL_SKIP_SYNTHESIS=1")
 
-    result = _run(
-        ["yosys", "-s", str(SYNTH_LITE_YS)],
-        cwd=str(RTL_DIR),
-        timeout=300,
-    )
+    result = _run([
+        "yosys",
+        "-p",
+        f"read_verilog -sv -DSYNTHESIS {KAMI_V}; hierarchy -check -top {TOP_MODULE}; stat",
+    ], cwd=str(REPO_ROOT), timeout=300)
     assert result.returncode == 0, "synthesis failed — cannot check module"
-    modules = _yosys_module_names(result.stdout)
-    assert TOP_MODULE in modules, (
-        f"Top module '{TOP_MODULE}' not found in yosys stat output.\n"
-        f"Found modules: {modules}"
+    output = result.stdout
+    has_top = (
+        f"Top module:  \\{TOP_MODULE}" in output
+        or f"=== {TOP_MODULE} ===" in output
+    )
+    assert has_top, (
+        f"Top module '{TOP_MODULE}' not found in yosys output.\n"
+        f"Output tail:\n{output[-2000:]}"
     )
 
 
@@ -181,11 +179,11 @@ def test_yosys_nonempty_design():
     if os.environ.get("RTL_SKIP_SYNTHESIS"):
         pytest.skip("RTL_SKIP_SYNTHESIS=1")
 
-    result = _run(
-        ["yosys", "-s", str(SYNTH_LITE_YS)],
-        cwd=str(RTL_DIR),
-        timeout=300,
-    )
+    result = _run([
+        "yosys",
+        "-p",
+        f"read_verilog -sv -DSYNTHESIS {KAMI_V}; hierarchy -check -top {TOP_MODULE}; stat",
+    ], cwd=str(REPO_ROOT), timeout=300)
     if result.returncode != 0:
         pytest.skip("synthesis failed — cannot check cell count")
     cells = _yosys_cell_count(result.stdout)
@@ -202,11 +200,11 @@ def test_synth_output_verilog_written():
     if os.environ.get("RTL_SKIP_SYNTHESIS"):
         pytest.skip("RTL_SKIP_SYNTHESIS=1")
 
-    result = _run(
-        ["yosys", "-s", str(SYNTH_LITE_YS)],
-        cwd=str(RTL_DIR),
-        timeout=300,
-    )
+    result = _run([
+        "yosys",
+        "-p",
+        f"read_verilog -sv -DSYNTHESIS {KAMI_V}; hierarchy -check -top {TOP_MODULE}; stat; write_verilog {SYNTH_OUT_V}",
+    ], cwd=str(REPO_ROOT), timeout=300)
     if result.returncode != 0:
         pytest.skip("synthesis failed — cannot check output file")
 
@@ -226,15 +224,8 @@ def test_verilog_cosim_testbench():
 
     Only runs if a testbench file exists in hardware/testbench/.
     """
-    tb_files = list(TB_DIR.glob("*.v")) if TB_DIR.exists() else []
-    if not tb_files:
-        pytest.skip(f"No testbench .v files found in {TB_DIR}")
-
-    # Use the first testbench found (prefer thiele_cpu_tb.v if it exists)
-    tb_main = next(
-        (f for f in tb_files if "thiele_cpu_tb" in f.name),
-        tb_files[0],
-    )
+    if not KAMI_TB.exists():
+        pytest.skip(f"Kami testbench missing: {KAMI_TB}")
 
     with tempfile.TemporaryDirectory() as tmp:
         sim_bin = Path(tmp) / "sim_out"
@@ -244,10 +235,10 @@ def test_verilog_cosim_testbench():
                 "-g2012",
                 "-DSIMULATION",
                 "-o", str(sim_bin),
-                str(tb_main),
-                str(UNIFIED_V),
+                str(KAMI_V),
+                str(KAMI_TB),
             ],
-            cwd=str(RTL_DIR),
+            cwd=str(REPO_ROOT),
             timeout=120,
         )
         assert compile_result.returncode == 0, (
@@ -257,7 +248,7 @@ def test_verilog_cosim_testbench():
 
         run_result = _run(
             ["vvp", str(sim_bin)],
-            cwd=str(RTL_DIR),
+            cwd=str(REPO_ROOT),
             timeout=60,
         )
         # vvp exit code 0 = clean finish; 1 = $fatal or compile error

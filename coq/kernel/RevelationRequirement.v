@@ -159,7 +159,16 @@ Proof.
   - (* mdlacc *) unfold advance_state. simpl. reflexivity.
   - (* pdiscover *) unfold advance_state. simpl. reflexivity.
   - (* xfer *) unfold advance_state_rm. simpl. reflexivity.
-  - (* pyexec *) unfold advance_state. simpl. reflexivity.
+  - (* load_imm *) unfold advance_state_rm. simpl. reflexivity.
+  - (* load *) unfold advance_state_rm. simpl. reflexivity.
+  - (* store *) unfold advance_state_rm. simpl. reflexivity.
+  - (* add *) unfold advance_state_rm. simpl. reflexivity.
+  - (* sub *) unfold advance_state_rm. simpl. reflexivity.
+  - (* jump *) unfold jump_state. simpl. reflexivity.
+  - (* jnez *) destruct (Nat.eqb (read_reg _ _)) eqn:?;
+      [unfold advance_state | unfold jump_state]; simpl; reflexivity.
+  - (* call *) unfold jump_state_rm. simpl. reflexivity.
+  - (* ret *) unfold jump_state_rm. simpl. reflexivity.
   - (* chsh_trial *) destruct (chsh_bits_ok _ _ _ _) eqn:?;
       unfold advance_state, csr_set_err; simpl; reflexivity.
   - (* xor_load *) unfold advance_state_rm. simpl. reflexivity.
@@ -222,9 +231,42 @@ Proof.
         -- exact Hrun.
         -- unfold advance_state_rm; simpl. exact Hinit.
         -- exact Hfinal.
-      * (* pyexec *) apply IH in Hrun.
+      * (* load_imm *) apply IH in Hrun.
         -- exact Hrun.
-        -- unfold advance_state; simpl. exact Hinit.
+        -- unfold advance_state_rm; simpl. exact Hinit.
+        -- exact Hfinal.
+      * (* load *) apply IH in Hrun.
+        -- exact Hrun.
+        -- unfold advance_state_rm; simpl. exact Hinit.
+        -- exact Hfinal.
+      * (* store *) apply IH in Hrun.
+        -- exact Hrun.
+        -- unfold advance_state_rm; simpl. exact Hinit.
+        -- exact Hfinal.
+      * (* add *) apply IH in Hrun.
+        -- exact Hrun.
+        -- unfold advance_state_rm; simpl. exact Hinit.
+        -- exact Hfinal.
+      * (* sub *) apply IH in Hrun.
+        -- exact Hrun.
+        -- unfold advance_state_rm; simpl. exact Hinit.
+        -- exact Hfinal.
+      * (* jump *) apply IH in Hrun.
+        -- exact Hrun.
+        -- unfold jump_state; simpl. exact Hinit.
+        -- exact Hfinal.
+      * (* jnez *) apply IH in Hrun.
+        -- exact Hrun.
+        -- destruct (Nat.eqb (read_reg _ _)) eqn:?;
+             [unfold advance_state | unfold jump_state]; simpl; exact Hinit.
+        -- exact Hfinal.
+      * (* call *) apply IH in Hrun.
+        -- exact Hrun.
+        -- unfold jump_state_rm; simpl. exact Hinit.
+        -- exact Hfinal.
+      * (* ret *) apply IH in Hrun.
+        -- exact Hrun.
+        -- unfold jump_state_rm; simpl. exact Hinit.
         -- exact Hfinal.
       * (* chsh_trial *) apply IH in Hrun.
         -- exact Hrun.

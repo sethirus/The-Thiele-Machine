@@ -28,7 +28,7 @@ Inductive ThieleInstr : Type :=
   | LASSERT : string -> ThieleInstr
   | MDLACC : ThieleInstr
   | PNEW : list nat -> ThieleInstr
-  | PYEXEC : string -> ThieleInstr
+  | LOAD_IMM : string -> ThieleInstr
   | CHSH_TRIAL : nat -> nat -> nat -> nat -> ThieleInstr
   | EMIT : string -> ThieleInstr.
 
@@ -85,7 +85,7 @@ Definition default_cert : ConcreteCert :=
      timestamp := 0;
      sequence := 0 |}.
 
-Definition cert_for_pyexec (code : string) : ConcreteCert :=
+Definition cert_for_load_imm (code : string) : ConcreteCert :=
   if String.eqb code "alice_measurement"%string then
     {| smt_query := EmptyString;
        solver_reply := EmptyString;
@@ -162,10 +162,10 @@ Proof. intros; reflexivity. Qed.
 (** HELPER: Base case property *)
 
 (** HELPER: Base case property *)
-Lemma cert_for_pyexec_metadata_empty : forall code, (cert_for_pyexec code).(metadata) = EmptyString.
+Lemma cert_for_load_imm_metadata_empty : forall code, (cert_for_load_imm code).(metadata) = EmptyString.
 Proof.
   intro code.
-  unfold cert_for_pyexec.
+  unfold cert_for_load_imm.
   destruct (String.eqb code "alice_measurement") eqn:Ha; [reflexivity|].
   destruct (String.eqb code "bob_measurement") eqn:Hb; reflexivity.
 Qed.
@@ -188,11 +188,11 @@ Definition concrete_step (instr : ThieleInstr) (s : ConcreteState) : StepResult 
          observation := {| ev := Some InferenceComplete;
                            mu_delta := 0;
                            cert := default_cert |} |}
-  | PYEXEC code =>
+  | LOAD_IMM code =>
       {| post_state := advance_pc s;
          observation := {| ev := Some (PolicyCheck code);
                            mu_delta := 0;
-                           cert := cert_for_pyexec code |} |}
+                           cert := cert_for_load_imm code |} |}
   | CHSH_TRIAL x y a b =>
       if (is_bit_nat x && is_bit_nat y && is_bit_nat a && is_bit_nat b)%bool then
         {| post_state := advance_pc s;
@@ -224,7 +224,7 @@ Proof.
   - (* LASSERT *) vm_compute in H. discriminate.
   - (* MDLACC *) vm_compute in H. discriminate.
   - (* PNEW *) vm_compute in H. discriminate.
-  - (* PYEXEC *) rewrite cert_for_pyexec_metadata_empty in H. vm_compute in H. discriminate.
+  - (* LOAD_IMM *) rewrite cert_for_load_imm_metadata_empty in H. vm_compute in H. discriminate.
   - (* CHSH_TRIAL *) eexists; eexists; eexists; eexists; reflexivity.
   - (* EMIT *) vm_compute in H. discriminate.
 Qed.
@@ -391,12 +391,12 @@ Fixpoint concrete_sum_bits (rs : list ConcreteReceipt) : Z :=
   | r :: tl => concrete_bitsize r.(receipt_obs).(cert) + concrete_sum_bits tl
   end.
 
-(** [concrete_bitsize_cert_for_pyexec]: formal specification. *)
-Lemma concrete_bitsize_cert_for_pyexec :
-  forall code, concrete_bitsize (cert_for_pyexec code) = 0.
+(** [concrete_bitsize_cert_for_load_imm]: formal specification. *)
+Lemma concrete_bitsize_cert_for_load_imm :
+  forall code, concrete_bitsize (cert_for_load_imm code) = 0.
 Proof.
   intros code.
-  unfold cert_for_pyexec.
+  unfold cert_for_load_imm.
   destruct (String.eqb code "alice_measurement"%string); simpl; try reflexivity.
   destruct (String.eqb code "bob_measurement"%string); simpl; reflexivity.
 Qed.
@@ -560,7 +560,7 @@ Proof.
   - simpl.
     rewrite (IH (advance_pc s)). reflexivity.
   - simpl.
-    rewrite concrete_bitsize_cert_for_pyexec.
+    rewrite concrete_bitsize_cert_for_load_imm.
     rewrite (IH (advance_pc s)). reflexivity.
   - simpl.
     destruct (is_bit_nat x && is_bit_nat y && is_bit_nat a && is_bit_nat b)%bool; simpl.

@@ -225,6 +225,18 @@ Lemma advance_state_rm_graph :
     (advance_state_rm s i g csrs regs mem err).(vm_graph) = g.
 Proof. intros. reflexivity. Qed.
 
+(** [jump_state_graph]: formal specification. *)
+Lemma jump_state_graph :
+  forall s i target,
+    (jump_state s i target).(vm_graph) = s.(vm_graph).
+Proof. intros. reflexivity. Qed.
+
+(** [jump_state_rm_graph]: formal specification. *)
+Lemma jump_state_rm_graph :
+  forall s i target regs mem,
+    (jump_state_rm s i target regs mem).(vm_graph) = s.(vm_graph).
+Proof. intros. reflexivity. Qed.
+
 (** =========================================================================
     PART 4: TARGET EXTRACTION
     ========================================================================= *)
@@ -239,7 +251,15 @@ Definition instr_targets (i : vm_instruction) : list ModuleID :=
   | instr_mdlacc mid _ => [mid]
   | instr_pdiscover mid _ _ => [mid]
   | instr_xfer _ _ _ => []
-  | instr_pyexec _ _ => []
+  | instr_load_imm _ _ _ => []
+  | instr_load _ _ _ => []
+  | instr_store _ _ _ => []
+  | instr_add _ _ _ _ => []
+  | instr_sub _ _ _ _ => []
+  | instr_jump _ _ => []
+  | instr_jnez _ _ _ => []
+  | instr_call _ _ => []
+  | instr_ret _ => []
   | instr_chsh_trial _ _ _ _ _ => []
   | instr_xor_load _ _ _ => []
   | instr_xor_add _ _ _ => []
@@ -417,10 +437,42 @@ Proof.
     inversion Hstep; subst.
     unfold states_agree_on_module, module_region_obs.
     rewrite advance_state_rm_graph. reflexivity.
-  - (* pyexec *)
+  - (* load_imm *)
     inversion Hstep; subst.
     unfold states_agree_on_module, module_region_obs.
-    rewrite advance_state_graph. reflexivity.
+    rewrite advance_state_rm_graph. reflexivity.
+  - (* load *)
+    inversion Hstep; subst.
+    unfold states_agree_on_module, module_region_obs.
+    rewrite advance_state_rm_graph. reflexivity.
+  - (* store *)
+    inversion Hstep; subst.
+    unfold states_agree_on_module, module_region_obs.
+    rewrite advance_state_rm_graph. reflexivity.
+  - (* add *)
+    inversion Hstep; subst.
+    unfold states_agree_on_module, module_region_obs.
+    rewrite advance_state_rm_graph. reflexivity.
+  - (* sub *)
+    inversion Hstep; subst.
+    unfold states_agree_on_module, module_region_obs.
+    rewrite advance_state_rm_graph. reflexivity.
+  - (* jump *)
+    inversion Hstep; subst.
+    unfold states_agree_on_module, module_region_obs.
+    rewrite jump_state_graph. reflexivity.
+  - (* jnez *)
+    inversion Hstep; subst;
+    unfold states_agree_on_module, module_region_obs;
+    [rewrite jump_state_graph | rewrite advance_state_graph]; reflexivity.
+  - (* call *)
+    inversion Hstep; subst.
+    unfold states_agree_on_module, module_region_obs.
+    rewrite jump_state_rm_graph. reflexivity.
+  - (* ret *)
+    inversion Hstep; subst.
+    unfold states_agree_on_module, module_region_obs.
+    rewrite jump_state_rm_graph. reflexivity.
   - (* chsh_trial *)
     inversion Hstep; subst;
     unfold states_agree_on_module, module_region_obs;
