@@ -16,6 +16,14 @@ Definition OpcodeSz := 8.
 Definition CostSz := 8.
 Definition MuTensorIdxSz := 4.  (* log2(16) — 4×4 flattened μ-tensor *)
 
+(** Partition table dimensions — must match VMState.NUM_MODULES = 64 and handwritten RTL NUM_MODULES *)
+Definition PTableIdxSz := 6.   (* log2(64) — 64 partition module slots *)
+Definition PTableSz := 64.     (* 2^6 module slots: IDs 0..63, starting use at ID 1 *)
+
+(** Initial value for pt_next_id: starts at 1 to match empty_graph.pg_next_id = 1 *)
+Definition PT_NEXT_ID_INIT : word WordSz :=
+  WO~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~1. (* 32-bit 1 *)
+
 (** Error code constants — must match handwritten RTL *)
 Definition ERR_CHSH_VAL    : word WordSz :=
   WO~0~0~0~0~1~0~1~1~1~0~1~0~1~1~0~1~1~1~0~0~0~1~0~0~0~1~0~1~1~1~0~0. (* 0x0BADC45C *)

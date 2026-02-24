@@ -1,0 +1,80 @@
+# Thiele Machine FPGA Build Makefile
+# Supports: ECP5 (recommended) and iCE40 targets
+#
+# Prerequisites:
+#   sudo apt-get install -y yosys nextpnr-ecp5 nextpnr-ice40 fpga-trellis fpga-icestorm
+#
+# Usage:
+#   make ecp5        # ECP5 bitstream (ULX3S / Colorlight-i5)
+#   make ice40       # iCE40 bitstream (iCEBreaker)
+#   make clean       # Remove build artifacts
+
+RTL_DIR  := ../thielecpu/hardware/rtl
+BUILD    := build
+FPGA_DIR := fpga
+
+# === ECP5 Target ===
+ECP5_JSON  := $(BUILD)/thiele_ecp5.json
+ECP5_CFG   := $(BUILD)/thiele_ecp5.config
+ECP5_BIT   := $(BUILD)/thiele_ecp5.bit
+ECP5_LPF   := $(FPGA_DIR)/thiele_ecp5.lpf
+
+$(ECP5_JSON): $(RTL_DIR)/thiele_cpu_kami_synth.v $(RTL_DIR)/synth_ecp5.ys
+	@mkdir -p $(BUILD)
+	cd $(RTL_DIR) && yosys synth_ecp5.ys 2>&1 | tee /tmp/ecp5_yosys.log
+	@echo "ECP5 synthesis: $$?"
+
+$(ECP5_CFG): $(ECP5_JSON) $(ECP5_LPF)
+	nextpnr-ecp5 --85k --package CABGA381 \
+	  --json $(ECP5_JSON) \
+	  --lpf $(ECP5_LPF) \
+	  --textcfg $(ECP5_CFG) \
+	  --report $(BUILD)/thiele_ecp5_utilization.json \
+	  2>&1 | tee /tmp/ecp5_pnr.log
+
+$(ECP5_BIT): $(ECP5_CFG)
+	ecppack $(ECP5_CFG) $(ECP5_BIT)
+	@echo ""
+	@echo "=== ECP5 Bitstream ready: $(ECP5_BIT) ==="
+	@ls -lh $(ECP5_BIT)
+
+ecp5: $(ECP5_BIT)
+
+# === iCE40 Target ===
+ICE40_JSON := $(BUILD)/thiele_ice40.json
+ICE40_ASC  := $(BUILD)/thiele_ice40.asc
+ICE40_BIN  := $(BUILD)/thiele_ice40.bin
+ICE40_PCF  := $(FPGA_DIR)/thiele_ice40.pcf
+
+$(ICE40_JSON): $(RTL_DIR)/thiele_cpu_kami_synth.v $(RTL_DIR)/synth_ice40.ys
+	@mkdir -p $(BUILD)
+	cd $(RTL_DIR) && yosys synth_ice40.ys 2>&1 | tee /tmp/ice40_yosys.log
+
+$(ICE40_ASC): $(ICE40_JSON) $(ICE40_PCF)
+	nextpnr-ice40 --hx8k --package bg121 \
+	  --json $(ICE40_JSON) \
+	  --pcf $(ICE40_PCF) \
+	  --asc $(ICE40_ASC) \
+	  2>&1 | tee /tmp/ice40_pnr.log
+
+$(ICE40_BIN): $(ICE40_ASC)
+	icepack $(ICE40_ASC) $(ICE40_BIN)
+	@echo ""
+	@echo "=== iCE40 Bitstream ready: $(ICE40_BIN) ==="
+	@ls -lh $(ICE40_BIN)
+
+ice40: $(ICE40_BIN)
+
+# === Timing Analysis ===
+timing-ecp5: $(ECP5_CFG)
+	@echo "Static timing analysis not directly available for ECP5 in open-source flow."
+	@echo "Check nextpnr output for critical path information."
+
+timing-ice40: $(ICE40_ASC)
+	icetime -tmd hx8k $(ICE40_ASC)
+
+# === Clean ===
+clean:
+	rm -f $(BUILD)/thiele_ecp5* $(BUILD)/thiele_ice40*
+
+.PHONY: ecp5 ice40 timing-ecp5 timing-ice40 clean

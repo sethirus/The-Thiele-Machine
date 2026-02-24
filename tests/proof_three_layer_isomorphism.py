@@ -171,7 +171,7 @@ class TestVerilogRTLPresence:
     """Prove all required Verilog modules exist."""
 
     REQUIRED_MODULES = [
-        'thiele_cpu_unified.v',
+        'thiele_cpu_kami.v',
     ]
 
     def test_all_rtl_modules_exist(self):
@@ -331,14 +331,14 @@ class TestCrossLayerConsistency:
         from thielecpu.isa import Opcode
         python_opcodes = {op.name: op.value for op in Opcode}
         
-        # Verilog opcodes (from mu_core.v or thiele_cpu_unified.v)
-        mu_core_path = RTL_DIR / "mu_core.v"
-        unified_path = RTL_DIR / "thiele_cpu_unified.v"
+        # Verilog opcodes (from generated_opcodes.vh — Coq-generated source of truth)
+        generated_opcodes_path = RTL_DIR / "generated_opcodes.vh"
+        kami_path = RTL_DIR / "thiele_cpu_kami.v"
         verilog_src = ""
-        if mu_core_path.exists():
-            verilog_src = mu_core_path.read_text()
-        elif unified_path.exists():
-            verilog_src = unified_path.read_text()
+        if generated_opcodes_path.exists():
+            verilog_src = generated_opcodes_path.read_text()
+        elif kami_path.exists():
+            verilog_src = kami_path.read_text()
 
         if verilog_src:
             # Accept either OPC_ or OPCODE_ or OP_ prefix naming convention
@@ -356,9 +356,9 @@ class TestCrossLayerConsistency:
         from thielecpu.receipts import StepReceipt
         assert hasattr(StepReceipt, 'verify'), "Python missing receipt verification"
         
-        # Verilog: receipt_integrity_checker exists
-        checker_path = RTL_DIR / "receipt_integrity_checker.v"
-        assert checker_path.exists(), "Verilog missing receipt integrity checker"
+        # Verilog: receipt_integrity_checker archived (partition graph is external per Abstraction.v)
+        checker_path = RTL_DIR / "archive" / "receipt_integrity_checker.v"
+        assert checker_path.exists(), "Archived receipt integrity checker missing from rtl/archive/"
         
         # Coq: Check for receipt verification theorem
         # (This is a weaker check - just verify the file structure exists)

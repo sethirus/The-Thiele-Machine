@@ -42,7 +42,7 @@ def _has_enough_memory(min_gb: int | None = None) -> bool:
 def test_openfpga_ecp5_bitstream_generation() -> None:
     repo_root = Path(__file__).resolve().parents[1]
     rtl_dir = repo_root / "thielecpu" / "hardware" / "rtl"
-    top_verilog = rtl_dir / "thiele_cpu_unified.v"
+    top_verilog = rtl_dir / "thiele_cpu_kami_synth.v"
 
     # Skip early on very small runners to avoid intermittent OOM / SIGTERM failures.
     if not _has_enough_memory():
@@ -60,8 +60,8 @@ def test_openfpga_ecp5_bitstream_generation() -> None:
         # Use simple synthesis script similar to CI
         ys_script = workdir / "synth.ys"
         ys_script.write_text(
-            f"read_verilog -sv -DSYNTHESIS -DYOSYS_LITE {top_verilog}\n"
-            f"prep -top thiele_cpu\n"
+            f"read_verilog -sv -DSYNTHESIS {top_verilog}\n"
+            f"prep -top mkModule1_synth\n"
             f"techmap; opt -fast\n"
             f"clean -purge\n"
             f"stat\n"

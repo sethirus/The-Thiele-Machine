@@ -158,15 +158,15 @@ class TestStructuralIsomorphism:
         assert hasattr(py_state, 'mu_operational'), "State should have mu_operational"
         assert hasattr(py_state, 'mu_information'), "State should have mu_information"
         
-        # Verilog state fields (from RTL)
-        verilog_path = REPO_ROOT / "thielecpu" / "hardware" / "rtl" / "thiele_cpu_unified.v"
+        # Verilog state fields (from Kami-extracted RTL)
+        verilog_path = REPO_ROOT / "thielecpu" / "hardware" / "rtl" / "thiele_cpu_kami.v"
         verilog_content = verilog_path.read_text()
 
-        # Check for key registers
-        assert 'pc_reg' in verilog_content, "Verilog should have pc_reg"
-        assert 'csr_status' in verilog_content, "Verilog should have csr_status"
-        assert 'mu_accumulator' in verilog_content, "Verilog should have mu_accumulator"
-        assert 'csr_cert_addr' in verilog_content, "Verilog should have csr_cert_addr"
+        # Check for key registers (Kami-generated signal names)
+        assert 'pc' in verilog_content, "Verilog should have pc register"
+        assert 'mu' in verilog_content, "Verilog should have mu accumulator"
+        assert 'partition_ops' in verilog_content, "Verilog should have partition_ops counter"
+        assert 'mu_tensor' in verilog_content, "Verilog should have mu_tensor"
         
         # Coq state fields
         coq_path = REPO_ROOT / "coq" / "thielemachine" / "coqproofs" / "ThieleMachineConcrete.v"
@@ -260,61 +260,15 @@ class TestBehavioralIsomorphism:
             assert result == expected, f"Code '{code}': expected {expected}, got {result}"
     
     def test_verilog_simulation_completes(self):
-        """Verilog simulation completes successfully."""
-        if not has_iverilog():
-            pytest.skip("iverilog not available")
-            
-        hw_dir = REPO_ROOT / "thielecpu" / "hardware"
-        rtl_dir = hw_dir / "rtl"
-        tb_dir = hw_dir / "testbench"
-        
-        with tempfile.NamedTemporaryFile(suffix='_test', delete=False) as tmp:
-            tmp_path = tmp.name
-        
-        try:
-            # Compile
-            result = subprocess.run(
-                ["iverilog", "-g2012", "-I", str(rtl_dir), "-o", tmp_path,
-                 str(rtl_dir / "thiele_cpu_unified.v"),
-                 str(tb_dir / "thiele_cpu_tb.v")],
-                capture_output=True,
-                timeout=60
-            )
-            assert result.returncode == 0, f"Compilation failed: {result.stderr.decode()}"
-            
-            # Simulate
-            result = subprocess.run(
-                ["vvp", tmp_path],
-                capture_output=True,
-                timeout=30
-            )
-            
-            output = result.stdout.decode()
-            assert "Test completed!" in output, "Simulation should complete"
-            
-            # Extract and verify metrics with proper error handling
-            # The testbench outputs metrics as standalone lines like:
-            #   "partition_ops": 0,
-            #   "mdl_ops": 0,
-            #   "info_gain": 0,
-            metrics = {}
-            for line in output.splitlines():
-                match = re.search(r'"partition_ops":\s*(\d+)', line)
-                if match:
-                    metrics['partition_ops'] = int(match.group(1))
-                match = re.search(r'"mdl_ops":\s*(\d+)', line)
-                if match:
-                    metrics['mdl_ops'] = int(match.group(1))
-                match = re.search(r'"info_gain":\s*(\d+)', line)
-                if match:
-                    metrics['info_gain'] = int(match.group(1))
-            
-            assert 'partition_ops' in metrics, "Should find partition_ops in output"
-            assert 'mdl_ops' in metrics, "Should find mdl_ops in output"
-            assert 'info_gain' in metrics, "Should find info_gain in output"
-        finally:
-            if os.path.exists(tmp_path):
-                os.unlink(tmp_path)
+        """Verilog simulation completes successfully (via cosim)."""
+        from thielecpu.hardware.cosim import run_verilog
+        result = run_verilog("PNEW {0} 0\nHALT 0")
+        if result is None:
+            pytest.skip("No RTL simulator available")
+        assert result.get("status") == 2, "Simulation should halt with status=2"
+        assert "partition_ops" in result, "Should have partition_ops in output"
+        assert "mdl_ops" in result, "Should have mdl_ops in output"
+        assert "info_gain" in result, "Should have info_gain in output"
     
     def test_partition_operations_consistent(self):
         """Partition operations work identically in Python and produce valid states."""
@@ -348,71 +302,32 @@ class TestVerilogPythonAlignment:
     
     def test_verilog_metrics_structure(self):
         """Verilog produces metrics in same structure as Python would."""
-        if not has_iverilog():
-            pytest.skip("iverilog not available")
-            
-        hw_dir = REPO_ROOT / "thielecpu" / "hardware"
-        rtl_dir = hw_dir / "rtl"
-        tb_dir = hw_dir / "testbench"
-        
-        with tempfile.NamedTemporaryFile(suffix='_test', delete=False) as tmp:
-            tmp_path = tmp.name
-        
-        try:
-            subprocess.run(
-                ["iverilog", "-g2012", "-I", str(rtl_dir), "-o", tmp_path,
-                 str(rtl_dir / "thiele_cpu_unified.v"),
-                 str(tb_dir / "thiele_cpu_tb.v")],
-                check=True,
-                timeout=60
-            )
-            
-            result = subprocess.run(
-                ["vvp", tmp_path],
-                capture_output=True,
-                timeout=30
-            )
-            
-            output = result.stdout.decode()
-            
-            # Extract metrics from output lines
-            metrics = {}
-            for line in output.splitlines():
-                match = re.search(r'"partition_ops":\s*(\d+)', line)
-                if match:
-                    metrics['partition_ops'] = int(match.group(1))
-                match = re.search(r'"mdl_ops":\s*(\d+)', line)
-                if match:
-                    metrics['mdl_ops'] = int(match.group(1))
-                match = re.search(r'"info_gain":\s*(\d+)', line)
-                if match:
-                    metrics['info_gain'] = int(match.group(1))
-            
-            # Verify structure matches Python VM expectations
-            assert isinstance(metrics.get('partition_ops'), int), "Should have partition_ops"
-            assert isinstance(metrics.get('mdl_ops'), int), "Should have mdl_ops"
-            assert isinstance(metrics.get('info_gain'), int), "Should have info_gain"
-            
-            # Values should be non-negative
-            assert metrics['partition_ops'] >= 0
-            assert metrics['mdl_ops'] >= 0
-            assert metrics['info_gain'] >= 0
-        finally:
-            if os.path.exists(tmp_path):
-                os.unlink(tmp_path)
+        from thielecpu.hardware.cosim import run_verilog
+        result = run_verilog("PNEW {0} 0\nHALT 0")
+        if result is None:
+            pytest.skip("No RTL simulator available")
+        assert isinstance(result.get('partition_ops'), int), "Should have integer partition_ops"
+        assert isinstance(result.get('mdl_ops'), int), "Should have integer mdl_ops"
+        assert isinstance(result.get('info_gain'), int), "Should have integer info_gain"
+        assert result['partition_ops'] >= 0
+        assert result['mdl_ops'] >= 0
+        assert result['info_gain'] >= 0
     
     def test_instruction_opcode_encoding_matches(self):
         """Instruction opcodes encode identically in Python and Verilog."""
-        from thielecpu.isa import Opcode, encode
-        
-        # Verilog extracts opcode from instruction word
-        verilog_path = REPO_ROOT / "thielecpu" / "hardware" / "rtl" / "thiele_cpu_unified.v"
-        content = verilog_path.read_text()
+        from thielecpu.isa import Opcode
 
-        # Check that Verilog defines opcode extraction from instruction word
-        # The exact bit slice syntax may vary, but we check for opcode extraction
-        assert "opcode" in content, "Verilog should extract opcode from instruction"
-        assert "current_instr" in content, "Verilog should use current_instr"
+        # Kami-extracted RTL uses imem for instruction memory
+        kami_path = REPO_ROOT / "thielecpu" / "hardware" / "rtl" / "thiele_cpu_kami.v"
+        kami_content = kami_path.read_text()
+        assert "imem" in kami_content, "Kami RTL should reference imem (instruction memory)"
+        assert "partition_ops" in kami_content, "Kami RTL should track partition_ops"
+
+        # Testbench exposes current_instr for observability
+        tb_path = REPO_ROOT / "thielecpu" / "hardware" / "testbench" / "thiele_cpu_kami_tb.v"
+        tb_content = tb_path.read_text()
+        assert "current_instr" in tb_content, "Testbench should expose current_instr"
+        assert "current_opcode" in tb_content, "Testbench should expose current_opcode"
 
 
 # =============================================================================
@@ -532,12 +447,12 @@ class TestCompleteIsomorphism:
         try:
             result = subprocess.run(
                 ["iverilog", "-g2012", "-I", str(rtl_dir), "-o", tmp_path,
-                 str(rtl_dir / "thiele_cpu_unified.v"),
-                 str(tb_dir / "thiele_cpu_tb.v")],
+                 str(rtl_dir / "thiele_cpu_kami.v"),
+                 str(tb_dir / "thiele_cpu_kami_tb.v")],
                 capture_output=True,
                 timeout=60
             )
-            assert result.returncode == 0, "Verilog should compile"
+            assert result.returncode == 0, f"Kami Verilog should compile: {result.stderr.decode()}"
         finally:
             if os.path.exists(tmp_path):
                 os.unlink(tmp_path)

@@ -1,0 +1,13 @@
+# ECP5 LPF — auto-pin assignment for synthesis validation
+#
+# This file constrains ONLY the clock frequency.  All port-to-pin assignments
+# are left to nextpnr (use --lpf-allow-unconstrained).  This is intentional:
+# the design has more interface ports than a single physical package exposes
+# (the Kami-generated mkModule1 exports full register bus, mu-tensor bus, etc.)
+# A production deployment would add a wrapper reducing external ports to
+# CLK/RST/UART/LEDs before pin-assigning to a specific board.
+#
+# This file is for synthesis + P&R validation only (confirms timing closure,
+# logic utilisation, routing congestion).
+
+FREQUENCY NET "CLK" 25 MHz;
