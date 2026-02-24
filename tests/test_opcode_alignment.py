@@ -14,7 +14,8 @@ import pytest
 from thielecpu.isa import Opcode
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-RTL_PATH = ROOT / "thielecpu" / "hardware" / "rtl" / "thiele_cpu_unified.v"
+# Opcode constants are generated from Coq extraction into this header
+RTL_PATH = ROOT / "thielecpu" / "hardware" / "rtl" / "generated_opcodes.vh"
 COQ_PATH = ROOT / "coq" / "thielemachine" / "coqproofs" / "HardwareBridge.v"
 
 

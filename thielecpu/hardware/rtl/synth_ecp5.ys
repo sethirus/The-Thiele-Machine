@@ -1,0 +1,34 @@
+# Yosys synthesis script for Thiele CPU → ECP5 85k
+# Uses the synthesizable wrapper (correct Verilog arrays)
+#
+# Target: Lattice ECP5-85k (83k LUTs, 128 × 18kb Block RAMs)
+# Board:  ULX3S or Colorlight-i5 (ECP5 LFE5U-85F)
+#
+# Run from thielecpu/hardware/rtl/:
+#   yosys synth_ecp5.ys
+#
+# Memory budget note:
+#   Full synth_ecp5 + ABC9 on this 43k-gate design requires >3 GB RAM.
+#   This script uses a two-phase approach that stays within 2 GB:
+#   Phase 1) synth_ecp5 -run begin:fine  — BRAM inference, DFF mapping, arith
+#   Phase 2) techmap cells_map.v         — rule-based LUT4 map (no ABC)
+#   nextpnr-ecp5 performs its own detailed optimisation during P&R.
+
+read_verilog -sv -DSYNTHESIS thiele_cpu_kami_synth.v
+read_verilog thiele_cpu_top.v
+
+# Phase 1: run through BRAM inference, DFF legalisation, and arith map.
+# Stops BEFORE the heavy ABC-based LUT mapping (map stage).
+# Top module is the 5-pin physical wrapper (CLK/RST_N/LED×3).
+synth_ecp5 -top thiele_cpu_top -run begin:fine
+
+# Phase 2: map residual logic cells to ECP5 LUT4/LUT2 without ABC.
+techmap -map +/ecp5/cells_map.v
+opt_lut
+clean
+
+stat
+
+# Write ECP5-native netlist for nextpnr-ecp5
+# Path from thielecpu/hardware/rtl/ : three levels up to project root, then into build/
+write_json ../../../build/thiele_ecp5.json

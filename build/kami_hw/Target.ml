@@ -730,6 +730,157 @@ let costSz =
 let muTensorIdxSz =
   Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))
 
+(** val pTableIdxSz : int **)
+
+let pTableIdxSz =
+  Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))))
+
+(** val pT_NEXT_ID_INIT : word **)
+
+let pT_NEXT_ID_INIT =
+  WS (true, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))))))))))))))))))))))))))))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)))))))))))))))))))))))))))))), (WS (false,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0))))))))))))))))))))))))))))), (WS (false,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0)))))))))))))))))))))))))))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0))))))))))))))))))))))))))), (WS
+    (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0)))))))))))))))))))))))))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))))))))))))))))))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))))))))))))))))), (WS (false,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))))))))))))))))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0)))))))))))))))))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))))))))))))))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))))))))))))), (WS (false,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))))))))))))))))))),
+    (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))))))))))),
+    (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0))))))))))))))))), (WS (false,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0)))))))))))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0))))))))))))))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)))))))))))))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))))))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))))), (WS (false,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))))))))))), (WS
+    (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))), (WS
+    (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0))))))))), (WS (false,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0)))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))), (WS (false,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)), (WS (false, (Stdlib.Int.succ 0), (WS (false, 0,
+    WO)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+
 (** val eRR_CHSH_VAL : word **)
 
 let eRR_CHSH_VAL =
@@ -1118,6 +1269,20 @@ let oP_LOAD_IMM =
     (Stdlib.Int.succ 0)), (WS (false, (Stdlib.Int.succ 0), (WS (false, 0,
     WO)))))))))))))))
 
+(** val oP_CHSH_TRIAL : word **)
+
+let oP_CHSH_TRIAL =
+  WS (true, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))), (WS (false,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0))))), (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)), (WS (false, (Stdlib.Int.succ 0), (WS (false, 0,
+    WO)))))))))))))))
+
 (** val oP_XOR_LOAD : word **)
 
 let oP_XOR_LOAD =
@@ -1389,8 +1554,15 @@ let thieleCore =
     ((MERegister { attrName =
     ('m'::('u'::('_'::('t'::('e'::('n'::('s'::('o'::('r'::[])))))))));
     attrType = (RegInitDefault (SyntaxKind (Vector ((Bit wordSz),
-    muTensorIdxSz)))) }), (ConsInModule ((MERule { attrName =
-    ('s'::('t'::('e'::('p'::[])))); attrType = (fun _ -> ReadReg
+    muTensorIdxSz)))) }), (ConsInModule ((MERegister { attrName =
+    ('p'::('t'::('_'::('s'::('i'::('z'::('e'::('s'::[])))))))); attrType =
+    (RegInitDefault (SyntaxKind (Vector ((Bit wordSz), pTableIdxSz)))) }),
+    (ConsInModule ((MERegister { attrName =
+    ('p'::('t'::('_'::('n'::('e'::('x'::('t'::('_'::('i'::('d'::[]))))))))));
+    attrType = (RegInitCustom (ExistT ((SyntaxKind (Bit wordSz)),
+    (makeConst (Bit wordSz) (ConstBit (wordSz, pT_NEXT_ID_INIT)))))) }),
+    (ConsInModule ((MERule { attrName = ('s'::('t'::('e'::('p'::[]))));
+    attrType = (fun _ -> ReadReg
     (('h'::('a'::('l'::('t'::('e'::('d'::[])))))), (SyntaxKind Bool),
     (fun halted_v -> Assert_ ((UniBool (NegB, (Var ((SyntaxKind Bool),
     halted_v)))), (ReadReg (('e'::('r'::('r'::[]))), (SyntaxKind Bool),
@@ -1412,143 +1584,146 @@ let thieleCore =
     (SyntaxKind (Bit wordSz)), (fun error_code_v -> ReadReg
     (('m'::('u'::('_'::('t'::('e'::('n'::('s'::('o'::('r'::[]))))))))),
     (SyntaxKind (Vector ((Bit wordSz), muTensorIdxSz))), (fun mu_tensor_v ->
-    Let_ ((SyntaxKind (Bit wordSz)), (ReadIndex ((Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (Bit wordSz),
-    (Const ((Bit (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ 0))))), (ConstBit ((Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (WS (false, (Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ 0))), (WS (false, (Stdlib.Int.succ
-    (Stdlib.Int.succ 0)), (WS (false, (Stdlib.Int.succ 0), (WS (false, 0,
-    WO)))))))))))), (Var ((SyntaxKind (Vector ((Bit wordSz),
-    muTensorIdxSz))), mu_tensor_v)))), (fun t1 -> Let_ ((SyntaxKind (Bit
-    wordSz)), (ReadIndex ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ 0)))), (Bit wordSz), (Const ((Bit (Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))))), (ConstBit
-    ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    0)))), (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    0))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ 0)), (WS (false,
-    (Stdlib.Int.succ 0), (WS (false, 0, WO)))))))))))), (Var ((SyntaxKind
-    (Vector ((Bit wordSz), muTensorIdxSz))), mu_tensor_v)))), (fun t2 -> Let_
-    ((SyntaxKind (Bit wordSz)), (ReadIndex ((Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (Bit wordSz), (Const ((Bit
-    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    0))))), (ConstBit ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ 0)))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ 0))), (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ 0)),
-    (WS (false, (Stdlib.Int.succ 0), (WS (false, 0, WO)))))))))))), (Var
-    ((SyntaxKind (Vector ((Bit wordSz), muTensorIdxSz))), mu_tensor_v)))),
-    (fun t3 -> Let_ ((SyntaxKind (Bit wordSz)), (ReadIndex ((Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (Bit wordSz),
-    (Const ((Bit (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ 0))))), (ConstBit ((Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (WS (true, (Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ 0))), (WS (true, (Stdlib.Int.succ
-    (Stdlib.Int.succ 0)), (WS (false, (Stdlib.Int.succ 0), (WS (false, 0,
-    WO)))))))))))), (Var ((SyntaxKind (Vector ((Bit wordSz),
-    muTensorIdxSz))), mu_tensor_v)))), (fun t4 -> Let_ ((SyntaxKind (Bit
+    ReadReg (('p'::('t'::('_'::('s'::('i'::('z'::('e'::('s'::[])))))))),
+    (SyntaxKind (Vector ((Bit wordSz), pTableIdxSz))), (fun pt_sizes_v ->
+    ReadReg
+    (('p'::('t'::('_'::('n'::('e'::('x'::('t'::('_'::('i'::('d'::[])))))))))),
+    (SyntaxKind (Bit wordSz)), (fun pt_next_id_v -> Let_ ((SyntaxKind (Bit
     wordSz)), (ReadIndex ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ 0)))), (Bit wordSz), (Const ((Bit (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))))), (ConstBit
     ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     0)))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    0))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ 0)), (WS (true,
+    0))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ 0)), (WS (false,
     (Stdlib.Int.succ 0), (WS (false, 0, WO)))))))))))), (Var ((SyntaxKind
-    (Vector ((Bit wordSz), muTensorIdxSz))), mu_tensor_v)))), (fun t5 -> Let_
+    (Vector ((Bit wordSz), muTensorIdxSz))), mu_tensor_v)))), (fun t1 -> Let_
     ((SyntaxKind (Bit wordSz)), (ReadIndex ((Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (Bit wordSz), (Const ((Bit
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     0))))), (ConstBit ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ 0)))), (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ 0))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ 0)),
-    (WS (true, (Stdlib.Int.succ 0), (WS (false, 0, WO)))))))))))), (Var
+    (WS (false, (Stdlib.Int.succ 0), (WS (false, 0, WO)))))))))))), (Var
     ((SyntaxKind (Vector ((Bit wordSz), muTensorIdxSz))), mu_tensor_v)))),
-    (fun t6 -> Let_ ((SyntaxKind (Bit wordSz)), (ReadIndex ((Stdlib.Int.succ
+    (fun t2 -> Let_ ((SyntaxKind (Bit wordSz)), (ReadIndex ((Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (Bit wordSz),
     (Const ((Bit (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ 0))))), (ConstBit ((Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (WS (false, (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ 0))), (WS (true, (Stdlib.Int.succ
-    (Stdlib.Int.succ 0)), (WS (true, (Stdlib.Int.succ 0), (WS (false, 0,
+    (Stdlib.Int.succ 0)), (WS (false, (Stdlib.Int.succ 0), (WS (false, 0,
     WO)))))))))))), (Var ((SyntaxKind (Vector ((Bit wordSz),
-    muTensorIdxSz))), mu_tensor_v)))), (fun t7 -> Let_ ((SyntaxKind (Bit
+    muTensorIdxSz))), mu_tensor_v)))), (fun t3 -> Let_ ((SyntaxKind (Bit
     wordSz)), (ReadIndex ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ 0)))), (Bit wordSz), (Const ((Bit (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))))), (ConstBit
     ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     0)))), (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    0))), (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ 0)), (WS (true,
+    0))), (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ 0)), (WS (false,
     (Stdlib.Int.succ 0), (WS (false, 0, WO)))))))))))), (Var ((SyntaxKind
-    (Vector ((Bit wordSz), muTensorIdxSz))), mu_tensor_v)))), (fun t8 -> Let_
+    (Vector ((Bit wordSz), muTensorIdxSz))), mu_tensor_v)))), (fun t4 -> Let_
     ((SyntaxKind (Bit wordSz)), (ReadIndex ((Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (Bit wordSz), (Const ((Bit
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     0))))), (ConstBit ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ 0)))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ 0))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ 0)),
-    (WS (false, (Stdlib.Int.succ 0), (WS (true, 0, WO)))))))))))), (Var
+    (WS (true, (Stdlib.Int.succ 0), (WS (false, 0, WO)))))))))))), (Var
     ((SyntaxKind (Vector ((Bit wordSz), muTensorIdxSz))), mu_tensor_v)))),
-    (fun t9 -> Let_ ((SyntaxKind (Bit wordSz)), (ReadIndex ((Stdlib.Int.succ
+    (fun t5 -> Let_ ((SyntaxKind (Bit wordSz)), (ReadIndex ((Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (Bit wordSz),
     (Const ((Bit (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ 0))))), (ConstBit ((Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (WS (true, (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ 0))), (WS (false, (Stdlib.Int.succ
-    (Stdlib.Int.succ 0)), (WS (false, (Stdlib.Int.succ 0), (WS (true, 0,
+    (Stdlib.Int.succ 0)), (WS (true, (Stdlib.Int.succ 0), (WS (false, 0,
     WO)))))))))))), (Var ((SyntaxKind (Vector ((Bit wordSz),
-    muTensorIdxSz))), mu_tensor_v)))), (fun t10 -> Let_ ((SyntaxKind (Bit
-    wordSz)), (ReadIndex ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ 0)))), (Bit wordSz), (Const ((Bit (Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))))), (ConstBit
-    ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    0)))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    0))), (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ 0)), (WS (false,
-    (Stdlib.Int.succ 0), (WS (true, 0, WO)))))))))))), (Var ((SyntaxKind
-    (Vector ((Bit wordSz), muTensorIdxSz))), mu_tensor_v)))), (fun t11 ->
-    Let_ ((SyntaxKind (Bit wordSz)), (ReadIndex ((Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (Bit wordSz),
-    (Const ((Bit (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ 0))))), (ConstBit ((Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (WS (true, (Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ 0))), (WS (true, (Stdlib.Int.succ
-    (Stdlib.Int.succ 0)), (WS (false, (Stdlib.Int.succ 0), (WS (true, 0,
-    WO)))))))))))), (Var ((SyntaxKind (Vector ((Bit wordSz),
-    muTensorIdxSz))), mu_tensor_v)))), (fun t12 -> Let_ ((SyntaxKind (Bit
-    wordSz)), (ReadIndex ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ 0)))), (Bit wordSz), (Const ((Bit (Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))))), (ConstBit
-    ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    0)))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    0))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ 0)), (WS (true,
-    (Stdlib.Int.succ 0), (WS (true, 0, WO)))))))))))), (Var ((SyntaxKind
-    (Vector ((Bit wordSz), muTensorIdxSz))), mu_tensor_v)))), (fun t13 ->
-    Let_ ((SyntaxKind (Bit wordSz)), (ReadIndex ((Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (Bit wordSz),
-    (Const ((Bit (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ 0))))), (ConstBit ((Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (WS (true, (Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ 0))), (WS (false, (Stdlib.Int.succ
-    (Stdlib.Int.succ 0)), (WS (true, (Stdlib.Int.succ 0), (WS (true, 0,
-    WO)))))))))))), (Var ((SyntaxKind (Vector ((Bit wordSz),
-    muTensorIdxSz))), mu_tensor_v)))), (fun t14 -> Let_ ((SyntaxKind (Bit
+    muTensorIdxSz))), mu_tensor_v)))), (fun t6 -> Let_ ((SyntaxKind (Bit
     wordSz)), (ReadIndex ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ 0)))), (Bit wordSz), (Const ((Bit (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))))), (ConstBit
     ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     0)))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     0))), (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ 0)), (WS (true,
+    (Stdlib.Int.succ 0), (WS (false, 0, WO)))))))))))), (Var ((SyntaxKind
+    (Vector ((Bit wordSz), muTensorIdxSz))), mu_tensor_v)))), (fun t7 -> Let_
+    ((SyntaxKind (Bit wordSz)), (ReadIndex ((Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (Bit wordSz), (Const ((Bit
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))), (ConstBit ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)))), (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0))), (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ 0)),
+    (WS (true, (Stdlib.Int.succ 0), (WS (false, 0, WO)))))))))))), (Var
+    ((SyntaxKind (Vector ((Bit wordSz), muTensorIdxSz))), mu_tensor_v)))),
+    (fun t8 -> Let_ ((SyntaxKind (Bit wordSz)), (ReadIndex ((Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (Bit wordSz),
+    (Const ((Bit (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0))))), (ConstBit ((Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)), (WS (false, (Stdlib.Int.succ 0), (WS (true, 0,
+    WO)))))))))))), (Var ((SyntaxKind (Vector ((Bit wordSz),
+    muTensorIdxSz))), mu_tensor_v)))), (fun t9 -> Let_ ((SyntaxKind (Bit
+    wordSz)), (ReadIndex ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)))), (Bit wordSz), (Const ((Bit (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))))), (ConstBit
+    ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0)))), (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ 0)), (WS (false,
     (Stdlib.Int.succ 0), (WS (true, 0, WO)))))))))))), (Var ((SyntaxKind
-    (Vector ((Bit wordSz), muTensorIdxSz))), mu_tensor_v)))), (fun t15 ->
+    (Vector ((Bit wordSz), muTensorIdxSz))), mu_tensor_v)))), (fun t10 ->
     Let_ ((SyntaxKind (Bit wordSz)), (ReadIndex ((Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (Bit wordSz),
     (Const ((Bit (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ 0))))), (ConstBit ((Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (WS (true, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0))), (WS (true, (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)), (WS (false, (Stdlib.Int.succ 0), (WS (true, 0,
+    WO)))))))))))), (Var ((SyntaxKind (Vector ((Bit wordSz),
+    muTensorIdxSz))), mu_tensor_v)))), (fun t11 -> Let_ ((SyntaxKind (Bit
+    wordSz)), (ReadIndex ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)))), (Bit wordSz), (Const ((Bit (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))))), (ConstBit
+    ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0)))), (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))), (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ 0)), (WS (false,
+    (Stdlib.Int.succ 0), (WS (true, 0, WO)))))))))))), (Var ((SyntaxKind
+    (Vector ((Bit wordSz), muTensorIdxSz))), mu_tensor_v)))), (fun t12 ->
+    Let_ ((SyntaxKind (Bit wordSz)), (ReadIndex ((Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (Bit wordSz),
+    (Const ((Bit (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0))))), (ConstBit ((Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)), (WS (true, (Stdlib.Int.succ 0), (WS (true, 0,
+    WO)))))))))))), (Var ((SyntaxKind (Vector ((Bit wordSz),
+    muTensorIdxSz))), mu_tensor_v)))), (fun t13 -> Let_ ((SyntaxKind (Bit
+    wordSz)), (ReadIndex ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)))), (Bit wordSz), (Const ((Bit (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))))), (ConstBit
+    ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0)))), (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ 0)), (WS (true,
+    (Stdlib.Int.succ 0), (WS (true, 0, WO)))))))))))), (Var ((SyntaxKind
+    (Vector ((Bit wordSz), muTensorIdxSz))), mu_tensor_v)))), (fun t14 ->
+    Let_ ((SyntaxKind (Bit wordSz)), (ReadIndex ((Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (Bit wordSz),
+    (Const ((Bit (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0))))), (ConstBit ((Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (WS (false, (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ 0))), (WS (true, (Stdlib.Int.succ
     (Stdlib.Int.succ 0)), (WS (true, (Stdlib.Int.succ 0), (WS (true, 0,
     WO)))))))))))), (Var ((SyntaxKind (Vector ((Bit wordSz),
-    muTensorIdxSz))), mu_tensor_v)))), (fun t16 -> Let_ ((SyntaxKind (Bit
-    wordSz)), (BinBit (wordSz, wordSz, wordSz, (Add wordSz), (BinBit (wordSz,
-    wordSz, wordSz, (Add wordSz), (BinBit (wordSz, wordSz, wordSz, (Add
+    muTensorIdxSz))), mu_tensor_v)))), (fun t15 -> Let_ ((SyntaxKind (Bit
+    wordSz)), (ReadIndex ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)))), (Bit wordSz), (Const ((Bit (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))))), (ConstBit
+    ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0)))), (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))), (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ 0)), (WS (true,
+    (Stdlib.Int.succ 0), (WS (true, 0, WO)))))))))))), (Var ((SyntaxKind
+    (Vector ((Bit wordSz), muTensorIdxSz))), mu_tensor_v)))), (fun t16 ->
+    Let_ ((SyntaxKind (Bit wordSz)), (BinBit (wordSz, wordSz, wordSz, (Add
     wordSz), (BinBit (wordSz, wordSz, wordSz, (Add wordSz), (BinBit (wordSz,
     wordSz, wordSz, (Add wordSz), (BinBit (wordSz, wordSz, wordSz, (Add
     wordSz), (BinBit (wordSz, wordSz, wordSz, (Add wordSz), (BinBit (wordSz,
@@ -1557,20 +1732,21 @@ let thieleCore =
     wordSz, wordSz, (Add wordSz), (BinBit (wordSz, wordSz, wordSz, (Add
     wordSz), (BinBit (wordSz, wordSz, wordSz, (Add wordSz), (BinBit (wordSz,
     wordSz, wordSz, (Add wordSz), (BinBit (wordSz, wordSz, wordSz, (Add
-    wordSz), (Var ((SyntaxKind (Bit wordSz)), t1)), (Var ((SyntaxKind (Bit
-    wordSz)), t2)))), (Var ((SyntaxKind (Bit wordSz)), t3)))), (Var
-    ((SyntaxKind (Bit wordSz)), t4)))), (Var ((SyntaxKind (Bit wordSz)),
-    t5)))), (Var ((SyntaxKind (Bit wordSz)), t6)))), (Var ((SyntaxKind (Bit
-    wordSz)), t7)))), (Var ((SyntaxKind (Bit wordSz)), t8)))), (Var
-    ((SyntaxKind (Bit wordSz)), t9)))), (Var ((SyntaxKind (Bit wordSz)),
-    t10)))), (Var ((SyntaxKind (Bit wordSz)), t11)))), (Var ((SyntaxKind (Bit
-    wordSz)), t12)))), (Var ((SyntaxKind (Bit wordSz)), t13)))), (Var
-    ((SyntaxKind (Bit wordSz)), t14)))), (Var ((SyntaxKind (Bit wordSz)),
-    t15)))), (Var ((SyntaxKind (Bit wordSz)), t16)))), (fun tensor_total ->
-    Let_ ((SyntaxKind Bool), (BinBitBool (wordSz, wordSz, (Lt wordSz), (Var
-    ((SyntaxKind (Bit wordSz)), mu_v)), (Var ((SyntaxKind (Bit wordSz)),
-    tensor_total)))), (fun bianchi_violation -> Let_ ((SyntaxKind (Bit
-    memAddrSz)), (UniBit
+    wordSz), (BinBit (wordSz, wordSz, wordSz, (Add wordSz), (BinBit (wordSz,
+    wordSz, wordSz, (Add wordSz), (Var ((SyntaxKind (Bit wordSz)), t1)), (Var
+    ((SyntaxKind (Bit wordSz)), t2)))), (Var ((SyntaxKind (Bit wordSz)),
+    t3)))), (Var ((SyntaxKind (Bit wordSz)), t4)))), (Var ((SyntaxKind (Bit
+    wordSz)), t5)))), (Var ((SyntaxKind (Bit wordSz)), t6)))), (Var
+    ((SyntaxKind (Bit wordSz)), t7)))), (Var ((SyntaxKind (Bit wordSz)),
+    t8)))), (Var ((SyntaxKind (Bit wordSz)), t9)))), (Var ((SyntaxKind (Bit
+    wordSz)), t10)))), (Var ((SyntaxKind (Bit wordSz)), t11)))), (Var
+    ((SyntaxKind (Bit wordSz)), t12)))), (Var ((SyntaxKind (Bit wordSz)),
+    t13)))), (Var ((SyntaxKind (Bit wordSz)), t14)))), (Var ((SyntaxKind (Bit
+    wordSz)), t15)))), (Var ((SyntaxKind (Bit wordSz)), t16)))),
+    (fun tensor_total -> Let_ ((SyntaxKind Bool), (BinBitBool (wordSz,
+    wordSz, (Lt wordSz), (Var ((SyntaxKind (Bit wordSz)), mu_v)), (Var
+    ((SyntaxKind (Bit wordSz)), tensor_total)))), (fun bianchi_violation ->
+    Let_ ((SyntaxKind (Bit memAddrSz)), (UniBit
     ((add memAddrSz (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
@@ -2938,29 +3114,220 @@ let thieleCore =
     (BinBool (OrB, (Var ((SyntaxKind Bool), bianchi_violation)), (Eq ((Bit
     opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit
     opcodeSz), (ConstBit (opcodeSz, oP_HALT)))))))), (fun new_halted -> Let_
-    ((SyntaxKind Bool), (Var ((SyntaxKind Bool), chsh_bits_bad)),
-    (fun new_err -> Let_ ((SyntaxKind (Bit wordSz)), (ITE ((SyntaxKind (Bit
-    wordSz)), (Var ((SyntaxKind Bool), bianchi_violation)), (Const ((Bit
-    wordSz), (ConstBit (wordSz, eRR_BIANCHI_VAL)))), (ITE ((SyntaxKind (Bit
-    wordSz)), (Var ((SyntaxKind Bool), chsh_bits_bad)), (Const ((Bit wordSz),
-    (ConstBit (wordSz, eRR_CHSH_VAL)))), (Var ((SyntaxKind (Bit wordSz)),
-    error_code_v)))))), (fun new_error_code -> Let_ ((SyntaxKind (Bit
-    wordSz)), (ITE ((SyntaxKind (Bit wordSz)), (Var ((SyntaxKind Bool),
-    bianchi_violation)), (Var ((SyntaxKind (Bit wordSz)), mu_v)), (Var
-    ((SyntaxKind (Bit wordSz)), new_mu)))), (fun final_mu -> Let_
-    ((SyntaxKind Bool), (BinBool (OrB, (BinBool (OrB, (Eq ((Bit opcodeSz),
-    (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit opcodeSz),
-    (ConstBit (opcodeSz, oP_PNEW)))))), (Eq ((Bit opcodeSz), (Var
+    ((SyntaxKind Bool), (BinBool (AndB, (Eq ((Bit opcodeSz), (Var
     ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit opcodeSz), (ConstBit
-    (opcodeSz, oP_PSPLIT)))))))), (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit
+    (opcodeSz, oP_CHSH_TRIAL)))))), (Var ((SyntaxKind Bool),
+    chsh_bits_bad)))), (fun new_err -> Let_ ((SyntaxKind (Bit wordSz)), (ITE
+    ((SyntaxKind (Bit wordSz)), (Var ((SyntaxKind Bool), bianchi_violation)),
+    (Const ((Bit wordSz), (ConstBit (wordSz, eRR_BIANCHI_VAL)))), (ITE
+    ((SyntaxKind (Bit wordSz)), (BinBool (AndB, (Eq ((Bit opcodeSz), (Var
+    ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit opcodeSz), (ConstBit
+    (opcodeSz, oP_CHSH_TRIAL)))))), (Var ((SyntaxKind Bool),
+    chsh_bits_bad)))), (Const ((Bit wordSz), (ConstBit (wordSz,
+    eRR_CHSH_VAL)))), (Var ((SyntaxKind (Bit wordSz)), error_code_v)))))),
+    (fun new_error_code -> Let_ ((SyntaxKind (Bit wordSz)), (ITE ((SyntaxKind
+    (Bit wordSz)), (Var ((SyntaxKind Bool), bianchi_violation)), (Var
+    ((SyntaxKind (Bit wordSz)), mu_v)), (Var ((SyntaxKind (Bit wordSz)),
+    new_mu)))), (fun final_mu -> Let_ ((SyntaxKind (Bit pTableIdxSz)),
+    (UniBit
+    ((add pTableIdxSz (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+       (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+       (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+       (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+       (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+       (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+       (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+       0))))))))))))))))))))))))))), pTableIdxSz, (Trunc (pTableIdxSz,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))))))))))))))))))))), (Var
+    ((SyntaxKind (Bit wordSz)), pt_next_id_v)))), (fun pt_slot -> Let_
+    ((SyntaxKind (Bit wordSz)), (UniBit ((Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))), wordSz, (ZeroExtendTrunc
+    ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0)))))))), wordSz)), (Var ((SyntaxKind (Bit (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))), op_a)))),
+    (fun pnew_region_size -> Let_ ((SyntaxKind (Vector ((Bit wordSz),
+    pTableIdxSz))), (UpdateVector (pTableIdxSz, (Bit wordSz), (Var
+    ((SyntaxKind (Vector ((Bit wordSz), pTableIdxSz))), pt_sizes_v)), (Var
+    ((SyntaxKind (Bit pTableIdxSz)), pt_slot)), (Var ((SyntaxKind (Bit
+    wordSz)), pnew_region_size)))), (fun pt_after_pnew -> Let_ ((SyntaxKind
+    (Bit wordSz)), (BinBit (wordSz, wordSz, wordSz, (Add wordSz), (Var
+    ((SyntaxKind (Bit wordSz)), pt_next_id_v)), (Const ((Bit wordSz),
+    (ConstBit (wordSz, (natToWord wordSz (Stdlib.Int.succ 0)))))))),
+    (fun next_after_pnew -> Let_ ((SyntaxKind (Bit pTableIdxSz)), (UniBit
+    ((add pTableIdxSz (Stdlib.Int.succ (Stdlib.Int.succ 0))), pTableIdxSz,
+    (Trunc (pTableIdxSz, (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (Var
+    ((SyntaxKind (Bit (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)))))))))), op_a)))), (fun psplit_id -> Let_
+    ((SyntaxKind (Bit wordSz)), (ReadIndex (pTableIdxSz, (Bit wordSz), (Var
+    ((SyntaxKind (Bit pTableIdxSz)), psplit_id)), (Var ((SyntaxKind (Vector
+    ((Bit wordSz), pTableIdxSz))), pt_sizes_v)))), (fun psplit_orig_sz ->
+    Let_ ((SyntaxKind (Bit wordSz)), (BinBit (wordSz, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))), wordSz, (Srl (wordSz, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))))))), (Var
+    ((SyntaxKind (Bit wordSz)), psplit_orig_sz)), (Const ((Bit
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)))))), (ConstBit ((Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))))), (WS (true,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0)))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ 0)), (WS (false,
+    (Stdlib.Int.succ 0), (WS (false, 0, WO)))))))))))))))),
+    (fun psplit_left_sz -> Let_ ((SyntaxKind (Bit wordSz)), (BinBit (wordSz,
+    wordSz, wordSz, (Sub wordSz), (Var ((SyntaxKind (Bit wordSz)),
+    psplit_orig_sz)), (Var ((SyntaxKind (Bit wordSz)), psplit_left_sz)))),
+    (fun psplit_right_sz -> Let_ ((SyntaxKind (Bit pTableIdxSz)), (UniBit
+    ((add pTableIdxSz (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+       (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+       (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+       (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+       (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+       (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+       (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+       0))))))))))))))))))))))))))), pTableIdxSz, (Trunc (pTableIdxSz,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))))))))))))))))))))), (Var
+    ((SyntaxKind (Bit wordSz)), pt_next_id_v)))), (fun psplit_slot1 -> Let_
+    ((SyntaxKind (Bit pTableIdxSz)), (UniBit
+    ((add pTableIdxSz (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+       (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+       (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+       (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+       (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+       (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+       (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+       0))))))))))))))))))))))))))), pTableIdxSz, (Trunc (pTableIdxSz,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))))))))))))))))))))), (BinBit
+    (wordSz, wordSz, wordSz, (Add wordSz), (Var ((SyntaxKind (Bit wordSz)),
+    pt_next_id_v)), (Const ((Bit wordSz), (ConstBit (wordSz,
+    (natToWord wordSz (Stdlib.Int.succ 0)))))))))), (fun psplit_slot2 -> Let_
+    ((SyntaxKind (Vector ((Bit wordSz), pTableIdxSz))), (UpdateVector
+    (pTableIdxSz, (Bit wordSz), (UpdateVector (pTableIdxSz, (Bit wordSz),
+    (UpdateVector (pTableIdxSz, (Bit wordSz), (Var ((SyntaxKind (Vector ((Bit
+    wordSz), pTableIdxSz))), pt_sizes_v)), (Var ((SyntaxKind (Bit
+    pTableIdxSz)), psplit_id)), (Const ((Bit wordSz), (ConstBit (wordSz,
+    (natToWord wordSz 0))))))), (Var ((SyntaxKind (Bit pTableIdxSz)),
+    psplit_slot1)), (Var ((SyntaxKind (Bit wordSz)), psplit_left_sz)))), (Var
+    ((SyntaxKind (Bit pTableIdxSz)), psplit_slot2)), (Var ((SyntaxKind (Bit
+    wordSz)), psplit_right_sz)))), (fun pt_after_psplit -> Let_ ((SyntaxKind
+    (Bit wordSz)), (BinBit (wordSz, wordSz, wordSz, (Add wordSz), (Var
+    ((SyntaxKind (Bit wordSz)), pt_next_id_v)), (Const ((Bit wordSz),
+    (ConstBit (wordSz,
+    (natToWord wordSz (Stdlib.Int.succ (Stdlib.Int.succ 0))))))))),
+    (fun next_after_psplit -> Let_ ((SyntaxKind (Bit pTableIdxSz)), (UniBit
+    ((add pTableIdxSz (Stdlib.Int.succ (Stdlib.Int.succ 0))), pTableIdxSz,
+    (Trunc (pTableIdxSz, (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (Var
+    ((SyntaxKind (Bit (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)))))))))), op_a)))), (fun pmerge_m1 -> Let_
+    ((SyntaxKind (Bit pTableIdxSz)), (UniBit
+    ((add pTableIdxSz (Stdlib.Int.succ (Stdlib.Int.succ 0))), pTableIdxSz,
+    (Trunc (pTableIdxSz, (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (Var
+    ((SyntaxKind (Bit (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)))))))))), op_b)))), (fun pmerge_m2 -> Let_
+    ((SyntaxKind (Bit wordSz)), (ReadIndex (pTableIdxSz, (Bit wordSz), (Var
+    ((SyntaxKind (Bit pTableIdxSz)), pmerge_m1)), (Var ((SyntaxKind (Vector
+    ((Bit wordSz), pTableIdxSz))), pt_sizes_v)))), (fun pmerge_m1_sz -> Let_
+    ((SyntaxKind (Bit wordSz)), (ReadIndex (pTableIdxSz, (Bit wordSz), (Var
+    ((SyntaxKind (Bit pTableIdxSz)), pmerge_m2)), (Var ((SyntaxKind (Vector
+    ((Bit wordSz), pTableIdxSz))), pt_sizes_v)))), (fun pmerge_m2_sz -> Let_
+    ((SyntaxKind (Bit wordSz)), (BinBit (wordSz, wordSz, wordSz, (Add
+    wordSz), (Var ((SyntaxKind (Bit wordSz)), pmerge_m1_sz)), (Var
+    ((SyntaxKind (Bit wordSz)), pmerge_m2_sz)))), (fun pmerge_merged_sz ->
+    Let_ ((SyntaxKind (Bit pTableIdxSz)), (UniBit
+    ((add pTableIdxSz (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+       (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+       (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+       (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+       (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+       (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+       (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+       0))))))))))))))))))))))))))), pTableIdxSz, (Trunc (pTableIdxSz,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))))))))))))))))))))), (Var
+    ((SyntaxKind (Bit wordSz)), pt_next_id_v)))), (fun pmerge_slot -> Let_
+    ((SyntaxKind (Vector ((Bit wordSz), pTableIdxSz))), (UpdateVector
+    (pTableIdxSz, (Bit wordSz), (UpdateVector (pTableIdxSz, (Bit wordSz),
+    (UpdateVector (pTableIdxSz, (Bit wordSz), (Var ((SyntaxKind (Vector ((Bit
+    wordSz), pTableIdxSz))), pt_sizes_v)), (Var ((SyntaxKind (Bit
+    pTableIdxSz)), pmerge_m1)), (Const ((Bit wordSz), (ConstBit (wordSz,
+    (natToWord wordSz 0))))))), (Var ((SyntaxKind (Bit pTableIdxSz)),
+    pmerge_m2)), (Const ((Bit wordSz), (ConstBit (wordSz,
+    (natToWord wordSz 0))))))), (Var ((SyntaxKind (Bit pTableIdxSz)),
+    pmerge_slot)), (Var ((SyntaxKind (Bit wordSz)), pmerge_merged_sz)))),
+    (fun pt_after_pmerge -> Let_ ((SyntaxKind (Bit wordSz)), (BinBit (wordSz,
+    wordSz, wordSz, (Add wordSz), (Var ((SyntaxKind (Bit wordSz)),
+    pt_next_id_v)), (Const ((Bit wordSz), (ConstBit (wordSz,
+    (natToWord wordSz (Stdlib.Int.succ 0)))))))), (fun next_after_pmerge ->
+    Let_ ((SyntaxKind (Vector ((Bit wordSz), pTableIdxSz))), (ITE
+    ((SyntaxKind (Vector ((Bit wordSz), pTableIdxSz))), (Var ((SyntaxKind
+    Bool), bianchi_violation)), (Var ((SyntaxKind (Vector ((Bit wordSz),
+    pTableIdxSz))), pt_sizes_v)), (ITE ((SyntaxKind (Vector ((Bit wordSz),
+    pTableIdxSz))), (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)),
+    opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz, oP_PNEW)))))),
+    (Var ((SyntaxKind (Vector ((Bit wordSz), pTableIdxSz))), pt_after_pnew)),
+    (ITE ((SyntaxKind (Vector ((Bit wordSz), pTableIdxSz))), (Eq ((Bit
+    opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit
+    opcodeSz), (ConstBit (opcodeSz, oP_PSPLIT)))))), (Var ((SyntaxKind
+    (Vector ((Bit wordSz), pTableIdxSz))), pt_after_psplit)), (ITE
+    ((SyntaxKind (Vector ((Bit wordSz), pTableIdxSz))), (Eq ((Bit opcodeSz),
+    (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit opcodeSz),
+    (ConstBit (opcodeSz, oP_PMERGE)))))), (Var ((SyntaxKind (Vector ((Bit
+    wordSz), pTableIdxSz))), pt_after_pmerge)), (Var ((SyntaxKind (Vector
+    ((Bit wordSz), pTableIdxSz))), pt_sizes_v)))))))))), (fun new_pt_sizes ->
+    Let_ ((SyntaxKind (Bit wordSz)), (ITE ((SyntaxKind (Bit wordSz)), (Var
+    ((SyntaxKind Bool), bianchi_violation)), (Var ((SyntaxKind (Bit wordSz)),
+    pt_next_id_v)), (ITE ((SyntaxKind (Bit wordSz)), (Eq ((Bit opcodeSz),
+    (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit opcodeSz),
+    (ConstBit (opcodeSz, oP_PNEW)))))), (Var ((SyntaxKind (Bit wordSz)),
+    next_after_pnew)), (ITE ((SyntaxKind (Bit wordSz)), (Eq ((Bit opcodeSz),
+    (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit opcodeSz),
+    (ConstBit (opcodeSz, oP_PSPLIT)))))), (Var ((SyntaxKind (Bit wordSz)),
+    next_after_psplit)), (ITE ((SyntaxKind (Bit wordSz)), (Eq ((Bit
+    opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit
+    opcodeSz), (ConstBit (opcodeSz, oP_PMERGE)))))), (Var ((SyntaxKind (Bit
+    wordSz)), next_after_pmerge)), (Var ((SyntaxKind (Bit wordSz)),
+    pt_next_id_v)))))))))), (fun new_pt_next_id -> Let_ ((SyntaxKind Bool),
+    (BinBool (OrB, (BinBool (OrB, (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit
     opcodeSz)), opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz,
-    oP_PMERGE)))))))), (fun is_partition_op -> Let_ ((SyntaxKind (Bit
-    wordSz)), (ITE ((SyntaxKind (Bit wordSz)), (BinBool (AndB, (Var
-    ((SyntaxKind Bool), is_partition_op)), (UniBool (NegB, (Var ((SyntaxKind
-    Bool), bianchi_violation)))))), (BinBit (wordSz, wordSz, wordSz, (Add
-    wordSz), (Var ((SyntaxKind (Bit wordSz)), partition_ops_v)), (Const ((Bit
-    wordSz), (ConstBit (wordSz, (natToWord wordSz (Stdlib.Int.succ 0)))))))),
-    (Var ((SyntaxKind (Bit wordSz)), partition_ops_v)))),
+    oP_PNEW)))))), (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)),
+    opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz, oP_PSPLIT)))))))),
+    (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const
+    ((Bit opcodeSz), (ConstBit (opcodeSz, oP_PMERGE)))))))),
+    (fun is_partition_op -> Let_ ((SyntaxKind (Bit wordSz)), (ITE
+    ((SyntaxKind (Bit wordSz)), (BinBool (AndB, (Var ((SyntaxKind Bool),
+    is_partition_op)), (UniBool (NegB, (Var ((SyntaxKind Bool),
+    bianchi_violation)))))), (BinBit (wordSz, wordSz, wordSz, (Add wordSz),
+    (Var ((SyntaxKind (Bit wordSz)), partition_ops_v)), (Const ((Bit wordSz),
+    (ConstBit (wordSz, (natToWord wordSz (Stdlib.Int.succ 0)))))))), (Var
+    ((SyntaxKind (Bit wordSz)), partition_ops_v)))),
     (fun new_partition_ops -> Let_ ((SyntaxKind (Bit wordSz)), (ITE
     ((SyntaxKind (Bit wordSz)), (BinBool (AndB, (Eq ((Bit opcodeSz), (Var
     ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit opcodeSz), (ConstBit
@@ -3021,9 +3388,14 @@ let thieleCore =
     new_info_gain)), (WriteReg
     (('m'::('u'::('_'::('t'::('e'::('n'::('s'::('o'::('r'::[]))))))))),
     (SyntaxKind (Vector ((Bit wordSz), muTensorIdxSz))), (Var ((SyntaxKind
-    (Vector ((Bit wordSz), muTensorIdxSz))), new_mu_tensor)), (Return (Const
-    (void,
-    (getDefaultConst void)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }),
+    (Vector ((Bit wordSz), muTensorIdxSz))), new_mu_tensor)), (WriteReg
+    (('p'::('t'::('_'::('s'::('i'::('z'::('e'::('s'::[])))))))), (SyntaxKind
+    (Vector ((Bit wordSz), pTableIdxSz))), (Var ((SyntaxKind (Vector ((Bit
+    wordSz), pTableIdxSz))), new_pt_sizes)), (WriteReg
+    (('p'::('t'::('_'::('n'::('e'::('x'::('t'::('_'::('i'::('d'::[])))))))))),
+    (SyntaxKind (Bit wordSz)), (Var ((SyntaxKind (Bit wordSz)),
+    new_pt_next_id)), (Return (Const (void,
+    (getDefaultConst void)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }),
     (ConsInModule ((MEMeth { attrName =
     ('l'::('o'::('a'::('d'::('I'::('n'::('s'::('t'::('r'::[])))))))));
     attrType = (ExistT ({ arg = (Struct ((Stdlib.Int.succ (Stdlib.Int.succ
@@ -3396,7 +3768,21 @@ let thieleCore =
     (Vector ((Bit wordSz), muTensorIdxSz))), t1)))))), (fun total -> Return
     (BinBitBool (wordSz, wordSz, (Lt wordSz), (Var ((SyntaxKind (Bit
     wordSz)), m)), (Var ((SyntaxKind (Bit wordSz)), total))))))))))))) }),
-    NilInModule))))))))))))))))))))))))))))))))))))))))))))))))))))))
+    (ConsInModule ((MEMeth { attrName =
+    ('g'::('e'::('t'::('P'::('t'::('N'::('e'::('x'::('t'::('I'::('d'::[])))))))))));
+    attrType = (ExistT ({ arg = void; ret = (Bit wordSz) }, (fun _ _ ->
+    ReadReg
+    (('p'::('t'::('_'::('n'::('e'::('x'::('t'::('_'::('i'::('d'::[])))))))))),
+    (SyntaxKind (Bit wordSz)), (fun v -> Return (Var ((SyntaxKind (Bit
+    wordSz)), v))))))) }), (ConsInModule ((MEMeth { attrName =
+    ('g'::('e'::('t'::('P'::('t'::('S'::('i'::('z'::('e'::[])))))))));
+    attrType = (ExistT ({ arg = (Bit pTableIdxSz); ret = (Bit wordSz) },
+    (fun _ idx -> ReadReg
+    (('p'::('t'::('_'::('s'::('i'::('z'::('e'::('s'::[])))))))), (SyntaxKind
+    (Vector ((Bit wordSz), pTableIdxSz))), (fun t1 -> Return (ReadIndex
+    (pTableIdxSz, (Bit wordSz), (Var ((SyntaxKind (Bit pTableIdxSz)), idx)),
+    (Var ((SyntaxKind (Vector ((Bit wordSz), pTableIdxSz))), t1))))))))) }),
+    NilInModule))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
 
 (** val thieleCoreS : modulesS **)
 

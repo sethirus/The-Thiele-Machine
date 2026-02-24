@@ -1,8 +1,7 @@
-# YOSYS_LITE synthesis script for Thiele CPU
+# YOSYS_LITE synthesis script for Thiele CPU (Kami-extracted)
 # Ultra-fast synthesis for CI/testing - syntax check + hierarchy only
-# Uses reduced parameters: NUM_MODULES=4, REGION_SIZE=16
-# For full synthesis, use synth.ys
-read_verilog -sv -DSYNTHESIS -DYOSYS_LITE thiele_cpu_unified.v
-hierarchy -top thiele_cpu -check
-# Skip proc, opt, and other passes - just verify parse + hierarchy
+# For full synthesis, use synth_full.ys
+read_verilog -sv -DSYNTHESIS thiele_cpu_kami.v
+prep -top mkModule1
+check
 stat

@@ -33,8 +33,8 @@ LAYER_FILES: Dict[str, List[Path]] = {
         REPO_ROOT / "scripts/verify_3layer.py",
     ],
     "rtl": [
-        REPO_ROOT / "thielecpu/hardware/rtl/thiele_cpu_unified.v",
-        REPO_ROOT / "thielecpu/hardware/testbench/thiele_cpu_tb.v",
+        REPO_ROOT / "thielecpu/hardware/rtl/thiele_cpu_kami.v",
+        REPO_ROOT / "thielecpu/hardware/testbench/thiele_cpu_kami_tb.v",
     ],
     "tests": [
         REPO_ROOT / "tests/test_rtl_compute_isomorphism.py",
@@ -751,7 +751,7 @@ def build_artifacts() -> None:
     stack_chart = """flowchart LR
     A[Coq Kernel Proofs\nVMState/VMStep/ThreeLayerIsomorphism] --> B[Bridges\nPythonMuLedgerBisimulation\nHardwareBisimulation]
     B --> C[Python VM\nstate.py + vm.py]
-    B --> D[RTL CPU\nthiele_cpu_unified.v]
+    B --> D[RTL CPU\nthiele_cpu_kami.v]
     C --> E[Runtime Isomorphism Tests]
     D --> E
     E --> F[Lockstep Verdict\nmake isomorphism-bitlock]

@@ -234,7 +234,7 @@ Definition vec_sum {n : nat} (x : Vec n) : R := FinSum.sumR n x.
 Definition dot {n : nat} (x y : Vec n) : R :=
   FinSum.sumR n (fun i => x i * y i).
 
-Definition ones {n : nat} : Vec n := fun _ => 1.
+Definition ones {n : nat} : Vec n := fun (_i : Fin.t n) => 1.
 
 (** [dot_ones_sum]: formal specification. *)
 Lemma dot_ones_sum : forall (n : nat) (x : Vec n), dot x (ones (n:=n)) = vec_sum x.

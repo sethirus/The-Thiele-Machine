@@ -5,7 +5,7 @@
 #
 # This script validates that the μ-cost calculation is consistent across:
 #   1. Python VM (thielecpu/mu.py)
-#   2. Verilog RTL (thielecpu/hardware/thiele_cpu.v)
+#   2. Verilog RTL (thielecpu/hardware/rtl/thiele_cpu_kami.v)
 #   3. Coq proofs (coq/thielemachine/coqproofs/)
 #
 # The validation is FALSIFIABLE by construction:
@@ -94,7 +94,7 @@ fi
 # -----------------------------------------------------------------------------
 echo ""
 echo "[3/5] Testing Verilog opcode alignment..."
-echo "    Source: thielecpu/hardware/rtl/thiele_cpu_unified.v"
+echo "    Source: thielecpu/hardware/rtl/thiele_cpu_kami.v"
 
 VERILOG_FILE="$REPO_ROOT/thielecpu/hardware/rtl/thiele_cpu_kami.v"
 
@@ -105,7 +105,7 @@ if [ -f "$VERILOG_FILE" ]; then
     if [ -n "$VERILOG_OPCODE" ]; then
         echo "  ✓ Verilog OPCODE_LASSERT = $VERILOG_OPCODE"
     else
-        echo "  ✗ OPCODE_LASSERT not found in thiele_cpu.v"
+        echo "  ✗ OPCODE_LASSERT not found in thiele_cpu_kami.v"
         FAILURES=$((FAILURES + 1))
     fi
     
@@ -140,7 +140,7 @@ echo "    Coq (HardwareBridge.v):  opcode_LASSERT = $COQ_OPCODE"
 
 # Extract Verilog opcode value (convert 8'h03 to decimal)
 VERILOG_DECIMAL=$(echo "$VERILOG_OPCODE" | sed "s/8'h//" | python3 -c "import sys; print(int(sys.stdin.read().strip(), 16))")
-echo "    Verilog (thiele_cpu.v): OPCODE_LASSERT = $VERILOG_DECIMAL (hex: $VERILOG_OPCODE)"
+echo "    Verilog (thiele_cpu_kami.v): OPCODE_LASSERT = $VERILOG_DECIMAL (hex: $VERILOG_OPCODE)"
 
 if [ "$PYTHON_OPCODE" = "$COQ_OPCODE" ] && [ "$PYTHON_OPCODE" = "$VERILOG_DECIMAL" ]; then
     echo "  ✓ All layers agree: LASSERT = $PYTHON_OPCODE"
@@ -207,7 +207,7 @@ if [ $FAILURES -eq 0 ]; then
     echo "✅ PASS: All layers agree on μ-cost = $VM_MU bits"
     echo ""
     echo "The alignment chain is validated:"
-    echo "  Python (mu.py) ←→ Verilog (thiele_cpu.v) ←→ Coq (MuAlignmentExample.v)"
+    echo "  Python (mu.py) ←→ Verilog (thiele_cpu_kami.v) ←→ Coq (MuAlignmentExample.v)"
     echo ""
     echo "For comprehensive testing with 50+ test cases, run:"
     echo "  PYTHONPATH=. python3 tests/alignment/test_comprehensive_alignment.py"

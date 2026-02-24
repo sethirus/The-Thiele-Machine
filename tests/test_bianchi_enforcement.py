@@ -225,64 +225,61 @@ class TestBianchiVerilogStructural:
     """Verify Verilog RTL has correct bianchi_alarm wiring."""
 
     def test_bianchi_alarm_is_output_port(self):
-        """Verify bianchi_alarm is declared as output port."""
-        rtl_path = Path(__file__).resolve().parents[1] / "thielecpu" / "hardware" / "rtl" / "thiele_cpu_unified.v"
+        """Verify getBianchiAlarm is an output port in the Kami-extracted CPU."""
+        rtl_path = Path(__file__).resolve().parents[1] / "thielecpu" / "hardware" / "rtl" / "thiele_cpu_kami.v"
         if not rtl_path.exists():
-            pytest.skip("Verilog RTL not found")
+            pytest.skip("Kami-extracted RTL not found")
         content = rtl_path.read_text()
-        assert "output" in content and "bianchi_alarm" in content, \
-            "bianchi_alarm must be declared as output port"
+        assert "getBianchiAlarm" in content, \
+            "getBianchiAlarm must be an output port in the Kami-extracted CPU"
 
     def test_bianchi_alarm_wired_to_comparator(self):
-        """Verify bianchi_alarm = (tensor_total > mu_accumulator)."""
-        rtl_path = Path(__file__).resolve().parents[1] / "thielecpu" / "hardware" / "rtl" / "thiele_cpu_unified.v"
+        """Verify getBianchiAlarm is assigned from the mu < tensor_total comparator."""
+        rtl_path = Path(__file__).resolve().parents[1] / "thielecpu" / "hardware" / "rtl" / "thiele_cpu_kami.v"
         if not rtl_path.exists():
-            pytest.skip("Verilog RTL not found")
+            pytest.skip("Kami-extracted RTL not found")
         content = rtl_path.read_text()
-        # Must have assign statement wiring bianchi_alarm
-        assert "assign bianchi_alarm" in content, \
-            "bianchi_alarm must be assigned (not dangling)"
-        assert "tensor_total" in content, \
-            "tensor_total wire must exist for Bianchi check"
-        assert "mu_accumulator" in content, \
-            "mu_accumulator must be referenced in Bianchi check"
+        assert "assign getBianchiAlarm" in content, \
+            "getBianchiAlarm must be combinatorially assigned"
+        assert "mu_ULT_mu_tensor" in content, \
+            "Bianchi comparator signal mu_ULT_mu_tensor must exist"
 
     def test_kill_switch_present(self):
-        """Verify CPU freezes on bianchi_alarm (kill switch)."""
-        rtl_path = Path(__file__).resolve().parents[1] / "thielecpu" / "hardware" / "rtl" / "thiele_cpu_unified.v"
+        """Verify CPU freezes on Bianchi alarm: mu$D_IN reverts to mu on violation."""
+        rtl_path = Path(__file__).resolve().parents[1] / "thielecpu" / "hardware" / "rtl" / "thiele_cpu_kami.v"
         if not rtl_path.exists():
-            pytest.skip("Verilog RTL not found")
+            pytest.skip("Kami-extracted RTL not found")
         content = rtl_path.read_text()
-        # Must have bianchi_alarm check in STATE_FETCH
-        assert "bianchi_alarm" in content, "Kill switch must reference bianchi_alarm"
-        # Must set error CSR on alarm
-        assert "B1A4C81" in content or "BIANCHI" in content.upper(), \
-            "Kill switch must set BIANCHI error code"
+        # Kami-extracted code: mu$D_IN = bianchi_violation ? mu : new_mu
+        assert "mu$D_IN" in content, "mu$D_IN update wire must exist"
+        assert "mu_ULT_mu_tensor" in content, "Kill switch must reference Bianchi comparator"
 
     def test_tensor_total_sums_row_0_through_3(self):
-        """Verify tensor_total = mu_tensor_0 + mu_tensor_1 + mu_tensor_2 + mu_tensor_3."""
-        rtl_path = Path(__file__).resolve().parents[1] / "thielecpu" / "hardware" / "rtl" / "thiele_cpu_unified.v"
+        """Verify all four mu_tensor row sums are exposed via getMuTensor0..3."""
+        rtl_path = Path(__file__).resolve().parents[1] / "thielecpu" / "hardware" / "rtl" / "thiele_cpu_kami.v"
         if not rtl_path.exists():
-            pytest.skip("Verilog RTL not found")
+            pytest.skip("Kami-extracted RTL not found")
         content = rtl_path.read_text()
-        assert "mu_tensor_0" in content and "mu_tensor_1" in content, \
-            "tensor_total must sum row registers"
-        assert "mu_tensor_2" in content and "mu_tensor_3" in content, \
-            "All 4 row sums must be included"
+        for i in range(4):
+            assert f"getMuTensor{i}" in content, \
+                f"getMuTensor{i} port must exist for tensor row {i}"
 
     def test_only_reveal_charges_tensor_registers(self):
-        """Verify that ONLY OP_REVEAL writes to mu_tensor_reg."""
-        rtl_path = Path(__file__).resolve().parents[1] / "thielecpu" / "hardware" / "rtl" / "thiele_cpu_unified.v"
+        """Verify mu_tensor$D_IN is conditionally updated (only REVEAL opcode 0x0F)."""
+        rtl_path = Path(__file__).resolve().parents[1] / "thielecpu" / "hardware" / "rtl" / "thiele_cpu_kami.v"
         if not rtl_path.exists():
-            pytest.skip("Verilog RTL not found")
+            pytest.skip("Kami-extracted RTL not found")
         content = rtl_path.read_text()
-        # Find all mu_tensor_reg write assignments in non-reset context
-        lines = content.split('\n')
+        assert "mu_tensor$D_IN" in content, "mu_tensor update wire must exist"
+        # The REVEAL opcode is 0x0F — the extracted file must gate mu_tensor on this
+        assert "8'h0F" in content, "REVEAL opcode 0x0F must appear in tensor update gating"
+        lines = content.splitlines()
         tensor_writes = []
         for i, line in enumerate(lines):
             stripped = line.strip()
-            # Look for non-reset writes to mu_tensor_reg
-            if 'mu_tensor_reg[' in stripped and '<=' in stripped and 'reset' not in stripped.lower():
+            # The Kami-extracted RTL uses $D_IN wire convention for register writes.
+            # Look for mu_tensor$D_IN assignment (the tensor update combinational wire).
+            if 'mu_tensor$D_IN' in stripped and ("<=" in stripped or "=" in stripped):
                 tensor_writes.append((i + 1, stripped))
         # Every tensor write should be within the REVEAL opcode handling block
         # Just verify at least one exists and it references reveal context

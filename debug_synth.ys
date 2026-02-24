@@ -1,6 +1,6 @@
-read_verilog -sv -DSYNTHESIS -DYOSYS_LITE /workspaces/The-Thiele-Machine/thielecpu/hardware/rtl/thiele_cpu_unified.v
-prep -top thiele_cpu
+read_verilog -sv -DSYNTHESIS /workspaces/The-Thiele-Machine/thielecpu/hardware/rtl/thiele_cpu_kami_synth.v
+prep -top mkModule1_synth
 techmap; opt -fast
 clean -purge
 stat
-write_json /tmp/tmpn600gz7_/thiele_cpu.json
+write_json /tmp/tmpqhfz_br6/thiele_cpu.json
