@@ -1662,7 +1662,7 @@ def _run_rtl_synthesis_gate() -> Dict[str, object]:
     """Run Yosys lite synthesis and report pass/fail, module count, and cell count."""
     rtl_dir = REPO_ROOT / "thielecpu" / "hardware" / "rtl"
     synth_script = rtl_dir / "synth_lite.ys"
-    unified_v = rtl_dir / "thiele_cpu_unified.v"
+    unified_v = rtl_dir / "thiele_cpu_kami.v"
 
     if not shutil.which("yosys"):
         return {"ran": False, "pass": False, "error": "yosys not found on PATH"}
@@ -1690,7 +1690,7 @@ def _run_rtl_synthesis_gate() -> Dict[str, object]:
     cell_match = _re.search(r"Number of cells:\s+(\d+)", stdout)
     cell_count = int(cell_match.group(1)) if cell_match else 0
     module_match = _re.findall(r"^===\s+([A-Za-z_]\w*)\s+===$", stdout, _re.MULTILINE)
-    top_present = "thiele_cpu" in module_match
+    top_present = "mkModule1" in module_match
 
     passed = result.returncode == 0 and cell_count > 0 and top_present
     return {
@@ -1709,7 +1709,7 @@ def _run_cosim_gate() -> Dict[str, object]:
     """Run the Verilog co-simulation testbench under iverilog/vvp."""
     rtl_dir = REPO_ROOT / "thielecpu" / "hardware" / "rtl"
     tb_dir = REPO_ROOT / "thielecpu" / "hardware" / "testbench"
-    unified_v = rtl_dir / "thiele_cpu_unified.v"
+    unified_v = rtl_dir / "thiele_cpu_kami.v"
 
     if not shutil.which("iverilog"):
         return {"ran": False, "pass": False, "error": "iverilog not found"}

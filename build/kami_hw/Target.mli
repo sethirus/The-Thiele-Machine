@@ -319,6 +319,10 @@ val costSz : int
 
 val muTensorIdxSz : int
 
+val pTableIdxSz : int
+
+val pT_NEXT_ID_INIT : word
+
 val eRR_CHSH_VAL : word
 
 val eRR_BIANCHI_VAL : word
@@ -336,6 +340,8 @@ val oP_PDISCOVER : word
 val oP_XFER : word
 
 val oP_LOAD_IMM : word
+
+val oP_CHSH_TRIAL : word
 
 val oP_XOR_LOAD : word
 

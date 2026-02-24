@@ -49,48 +49,44 @@ def normalize_trace(trace_entries):
 
 
 def run_verilog_trace():
-    """Compile and simulate the Verilog core, returning the JSON trace."""
-    BUILD_DIR.mkdir(parents=True, exist_ok=True)
-
-    subprocess.run(
-        [
-            "iverilog",
-            "-g2012",
-            "-o",
-            str(BUILD_DIR / "partition_core_tb"),
-            str(RTL_DIR / "partition_core.v"),
-            str(TB_DIR / "partition_core_tb.v"),
-        ],
-        check=True,
+    """Run the Kami RTL through a reference partition sequence and return the result."""
+    from thielecpu.hardware.cosim import (
+        _ensure_verilator_current, run_simulation_verilator,
+        _ensure_vvp_current, run_simulation_iverilog,
+        parse_verilog_output, _command_available,
     )
+    import tempfile
 
-    subprocess.run(
-        ["vvp", str(BUILD_DIR / "partition_core_tb")],
-        check=True,
-        cwd=BUILD_DIR,
-    )
+    # Canonical partition sequence: build {0,1,2}, split even/odd, merge back
+    def encode_word(opcode, a=0, b=0, cost=0):
+        return ((opcode & 0xFF) << 24) | ((a & 0xFF) << 16) | ((b & 0xFF) << 8) | (cost & 0xFF)
 
-    trace_file = BUILD_DIR / "hw_trace.json"
-    raw_lines = trace_file.read_text().splitlines()
+    words = [
+        encode_word(0x00, 0),    # PNEW {0} -> module 1
+        encode_word(0x00, 1),    # PNEW {1} -> module 2
+        encode_word(0x00, 2),    # PNEW {2} -> module 3
+        encode_word(0x02, 1, 2), # PMERGE 1 2 -> module 4 = {0,1}
+        encode_word(0x02, 4, 3), # PMERGE 4 3 -> module 5 = {0,1,2}
+        encode_word(0x01, 5, 0), # PSPLIT 5 pred=0x00 (even/odd) -> 6={0,2}, 7={1}
+        encode_word(0x02, 6, 7), # PMERGE 6 7 -> module 8 = {0,1,2}
+        encode_word(0xFF),       # HALT
+    ]
 
-    # The trace writer omits commas between objects; reassemble a valid JSON list
-    # by concatenating consecutive lines until we see a closing brace.
-    objects = []
-    current = ""
-    for line in raw_lines:
-        stripped = line.strip()
-        if stripped in {"[", "]", ""}:
-            continue
-        current = f"{current} {stripped}".strip()
-        if stripped.endswith("}"):
-            objects.append(current)
-            current = ""
+    with tempfile.TemporaryDirectory() as td:
+        prog_hex = Path(td) / "prog.hex"
+        data_hex = Path(td) / "data.hex"
+        prog_hex.write_text("\n".join(f"{w:08x}" for w in words) + "\n")
+        data_hex.write_text("00000000\n" * 256)
+        n = len(words)
 
-    # Replace Verilog 'x' (undefined) values with 0 for JSON compatibility
-    joined = f"[{','.join(objects)}]"
-    joined = re.sub(r':\s*x\b', ': 0', joined)
-    trace_data = json.loads(joined)
-    return normalize_trace(trace_data)
+        if _command_available("verilator"):
+            binary = _ensure_verilator_current()
+            stdout = run_simulation_verilator(binary, prog_hex, data_hex, n_instrs=n)
+        else:
+            vvp = _ensure_vvp_current()
+            stdout = run_simulation_iverilog(vvp, prog_hex, data_hex, n_instrs=n)
+
+        return parse_verilog_output(stdout)
 
 
 def vm_reference_trace():
@@ -217,45 +213,52 @@ class TestMuCostIsomorphism:
 
 @pytest.mark.skipif(not has_iverilog(), reason="iverilog not available")
 class TestVerilogTraceAlignment:
-    """Test Verilog trace alignment with Python VM."""
-    
-    def test_verilog_compiles(self):
-        """Verilog should compile without errors."""
-        BUILD_DIR.mkdir(parents=True, exist_ok=True)
+    """Test Kami RTL alignment with Python VM via cosim."""
 
-        result = subprocess.run(
-            ["iverilog", "-g2012", "-o", str(BUILD_DIR / "partition_core_tb"),
-             str(RTL_DIR / "partition_core.v"),
-             str(TB_DIR / "partition_core_tb.v")],
-            capture_output=True,
-            text=True
-        )
-        
-        assert result.returncode == 0, f"Compilation failed: {result.stderr}"
-    
+    def test_verilog_compiles(self):
+        """Kami RTL should compile (or cached binary should exist)."""
+        from thielecpu.hardware.cosim import _ensure_vvp_current
+        vvp_path = _ensure_vvp_current()
+        assert vvp_path.exists(), "Compiled VVP binary should exist"
+
     def test_verilog_simulation_runs(self):
-        """Verilog simulation should run and produce trace."""
-        trace = run_verilog_trace()
-        trace_file = BUILD_DIR / "hw_trace.json"
-        assert trace_file.exists(), "Trace file was not created"
-        assert trace, "Trace is empty"
+        """Kami RTL simulation should run and produce valid JSON with modules field."""
+        from thielecpu.hardware.cosim import run_verilog
+        result = run_verilog("PNEW {0} 0\nPNEW {1} 0\nPMERGE 1 2 0\nHALT 0")
+        if result is None:
+            pytest.skip("No RTL simulator available")
+        assert result["status"] == 2, f"Expected status=2 (halted), got {result['status']}"
+        assert "modules" in result, "Result must have 'modules' field"
+        assert isinstance(result["modules"], list), "'modules' must be a list"
 
     def test_vm_trace_matches_verilog_trace(self):
-        """Verilog JSON trace should match the Python VM reference trace structurally.
+        """RTL module regions match Python VM after PNEW+PMERGE+PSPLIT+PMERGE sequence.
 
-        partition_core.v is a standalone partition accelerator that does NOT
-        track μ-costs (those live in the unified CPU's mu_alu). We compare
-        only the structural fields: step, opcode, region, num_modules.
+        Verifies that the Kami RTL shadow partition tracker produces the same
+        module-to-region mapping as the Python VM for a canonical sequence.
         """
-        verilog_trace = run_verilog_trace()
-        python_trace = vm_reference_trace()
+        from thielecpu.state import State
 
-        structural_keys = ("step", "opcode", "region", "num_modules")
-        v_structural = [{k: e[k] for k in structural_keys} for e in verilog_trace]
-        p_structural = [{k: e[k] for k in structural_keys} for e in python_trace]
+        # Python VM: create {0,1,2}, split even/odd, merge back
+        state = State()
+        m0 = state.pnew({0})
+        m1 = state.pnew({1})
+        m2 = state.pnew({2})
+        m01 = state.pmerge(m0, m1)
+        m012 = state.pmerge(m01, m2)
+        ma, mb = state.psplit(m012, lambda x: x % 2 == 0)  # even → left
+        state.pmerge(ma, mb)
+        py_regions = sorted([sorted(r) for r in state.regions.modules.values() if r])
 
-        assert v_structural == p_structural, (
-            f"Trace mismatch\nVerilog: {v_structural}\nPython: {p_structural}"
+        # RTL: run the same sequence; shadow tracker returns module data
+        result = run_verilog_trace()
+        assert result is not None, "RTL simulation should return a result"
+        rtl_modules = result.get("modules", [])
+        rtl_regions = sorted([sorted(m["region"]) for m in rtl_modules if m.get("region")])
+
+        assert py_regions == rtl_regions, (
+            f"RTL module regions do not match Python VM.\n"
+            f"Python: {py_regions}\nRTL:    {rtl_regions}"
         )
 
 
@@ -292,16 +295,14 @@ class TestOpcodeEncodingAlignment:
                 pytest.skip(f"Opcode {name} not defined in Python")
     
     def test_verilog_opcodes_match_spec(self):
-        """Verilog opcodes should match spec."""
-        verilog_file = RTL_DIR / "partition_core.v"
-        content = verilog_file.read_text()
-        
-        import re
-        
+        """Verilog opcodes should match spec (read from generated_opcodes.vh)."""
+        opcodes_file = RTL_DIR / "generated_opcodes.vh"
+        content = opcodes_file.read_text()
+
         for name, expected_value in self.EXPECTED_OPCODES.items():
-            pattern = rf"OPC_{name}\s*=\s*8'h([0-9A-Fa-f]+)"
+            pattern = rf"OPCODE_{name}\s*=\s*8'h([0-9A-Fa-f]+)"
             match = re.search(pattern, content)
-            
+
             if match:
                 actual_value = int(match.group(1), 16)
                 assert actual_value == expected_value, \

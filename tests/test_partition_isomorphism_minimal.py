@@ -127,61 +127,34 @@ def _coq_regions_after_trace(trace_lines: list[str]) -> list[list[int]]:
 
 
 def _rtl_regions_after_words(program_words: list[int]) -> list[list[int]]:
+    """Run program_words through the Kami RTL (via Verilator/Icarus cosim).
+
+    Returns sorted list of sorted non-empty element-index lists, one per live module.
+    """
+    from thielecpu.hardware.cosim import (
+        _ensure_verilator_current, run_simulation_verilator,
+        _ensure_vvp_current, run_simulation_iverilog,
+        parse_verilog_output, _command_available,
+    )
+
     with tempfile.TemporaryDirectory() as td:
         td_path = Path(td)
-        sim_out = td_path / "tb.out"
         program_hex = td_path / "prog.hex"
         data_hex = td_path / "data.hex"
 
         _write_hex_words(program_hex, program_words)
         _write_hex_words(data_hex, [0] * 256)
 
-        subprocess.run(
-            [
-                "iverilog",
-                "-g2012",
-                "-Irtl",
-                "-o",
-                str(sim_out),
-                str(RTL_DIR / "thiele_cpu_unified.v"),
-                str(TESTBENCH_DIR / "thiele_cpu_tb.v"),
-            ],
-            cwd=str(HARDWARE_DIR),
-            capture_output=True,
-            text=True,
-            check=True,
-        )
+        n_instrs = len(program_words)
 
-        run = subprocess.run(
-            [
-                "vvp",
-                str(sim_out),
-                f"+PROGRAM={program_hex}",
-                f"+DATA={data_hex}",
-            ],
-            cwd=str(td_path),
-            capture_output=True,
-            text=True,
-            check=True,
-        )
+        if _command_available("verilator"):
+            binary = _ensure_verilator_current()
+            stdout = run_simulation_verilator(binary, program_hex, data_hex, n_instrs=n_instrs)
+        else:
+            vvp = _ensure_vvp_current()
+            stdout = run_simulation_iverilog(vvp, program_hex, data_hex, n_instrs=n_instrs)
 
-        out = run.stdout
-        # Find JSON start - look for opening brace followed by "status" or "partition_ops"
-        start = out.find('{\n  "status":')
-        if start == -1:
-            start = out.find('{ "status":')
-        if start == -1:
-            start = out.find('{"status":')
-        if start == -1:
-            start = out.find('{\n  "partition_ops":')
-        if start == -1:
-            start = out.find('{ "partition_ops":')
-        if start == -1:
-            start = out.find('{"partition_ops":')
-        if start == -1:
-            raise AssertionError(f"No JSON found in RTL stdout.\nSTDOUT:\n{out}\nSTDERR:\n{run.stderr}")
-        decoder = json.JSONDecoder()
-        payload, _end = decoder.raw_decode(out[start:])
+        payload = parse_verilog_output(stdout)
 
     regions = []
     for m in payload["modules"]:
@@ -255,75 +228,22 @@ def _coq_regions_after_pnew(indices: list[int]) -> list[list[int]]:
 
 
 def _rtl_regions_after_pnew(indices: list[int]) -> list[list[int]]:
-    program_words = [_encode_word(0x00, 0, 0)]  # PNEW {0}
+    """Run a PNEW-only program through Kami RTL and return module regions.
+
+    Builds: PNEW {0}, PNEW {indices[0]}, ..., HALT.
+    Deduplication is applied (matching Python VM / Coq extracted runner semantics).
+    Returns sorted list of sorted region lists for all live modules.
+    """
+    program_words = [_encode_word(0x00, 0, 0)]  # always start with PNEW {0}
     for idx in indices:
         program_words.append(_encode_word(0x00, idx, 0))
-    program_words.append(_encode_word(0xFF, 0, 0))
+    program_words.append(_encode_word(0xFF, 0, 0))  # HALT
 
-    with tempfile.TemporaryDirectory() as td:
-        td_path = Path(td)
-        sim_out = td_path / "tb.out"
-        program_hex = td_path / "prog.hex"
-        data_hex = td_path / "data.hex"
+    # Reuse _rtl_regions_after_words which already uses cosim
+    regions_filtered = _rtl_regions_after_words(program_words)
 
-        _write_hex_words(program_hex, program_words)
-        _write_hex_words(data_hex, [0] * 256)
-
-        subprocess.run(
-            [
-                "iverilog",
-                "-g2012",
-                "-Irtl",
-                "-o",
-                str(sim_out),
-                str(RTL_DIR / "thiele_cpu_unified.v"),
-                str(TESTBENCH_DIR / "thiele_cpu_tb.v"),
-            ],
-            cwd=str(HARDWARE_DIR),
-            capture_output=True,
-            text=True,
-            check=True,
-        )
-
-        run = subprocess.run(
-            [
-                "vvp",
-                str(sim_out),
-                f"+PROGRAM={program_hex}",
-                f"+DATA={data_hex}",
-            ],
-            cwd=str(td_path),
-            capture_output=True,
-            text=True,
-            check=True,
-        )
-
-        out = run.stdout
-        # Find JSON object start (has newline and spaces after opening brace)
-        # The RTL output may start with "status" or "partition_ops" field
-        start = out.find('{\n  "status":')
-        if start == -1:
-            start = out.find('{\n  "partition_ops":')
-        if start == -1:
-            # Try without newline
-            start = out.find('{ "status":')
-        if start == -1:
-            start = out.find('{ "partition_ops":')
-        if start == -1:
-            start = out.find('{"status":')
-        if start == -1:
-            start = out.find('{"partition_ops":')
-        decoder = json.JSONDecoder()
-        payload, _end = decoder.raw_decode(out[start:])
-
-    # Filter out the sentinel object id=-1
-    regions = []
-    for m in payload["modules"]:
-        if m.get("id") == -1:
-            continue
-        regions.append(sorted([int(x) for x in m.get("region", [])]))
-
-    return sorted(regions)
+    # For pnew-only programs, all modules are non-empty; include all (no extra filter)
+    return regions_filtered
 
 
 @pytest.mark.skipif(

@@ -49,7 +49,7 @@ The Thiele Machine has five components:
     \item \textbf{State Space $S$}: What the machine "remembers"---registers, memory, partition graph
     \item \textbf{Partition Graph $\Pi$}: How the state is \textit{decomposed} into independent modules
     \item \textbf{Axiom Set $A$}: What logical constraints each module satisfies
-    \item \textbf{Transition Rules $R$}: How the machine evolves---the 18-instruction ISA
+    \item \textbf{Transition Rules $R$}: How the machine evolves---the 26-instruction ISA
     \item \textbf{Logic Engine $L$}: The oracle that verifies logical consistency
 \end{enumerate}
 Each component corresponds to a concrete artifact in the formal development. The state and partition graph are defined in \path{coq/kernel/VMState.v}; the instruction set and step relation are defined in \path{coq/kernel/VMStep.v}; and the logic engine is represented by certificate checkers in \path{coq/kernel/CertCheck.v}. The point of the 5-tuple is not cosmetic: it is a decomposition that forces every later proof to say which resource it uses (state, partitions, axioms, transitions, or certificates), so that any implementation layer can mirror the same structure without guessing.
@@ -129,7 +129,7 @@ The state space $S$ is the complete instantaneous description of the machine. Un
     >=Stealth
 ]
 % Record box
-\node[draw, dashed, rounded corners=3pt, minimum width=3.6cm, minimum height=3.6cm] at (1.8, -1.4) {};
+\node[draw, dashed, rounded corners=3pt, minimum width=3.6cm, minimum height=4.1cm] at (1.8, -1.65) {};
 \node[font=\scriptsize\bfseries, anchor=south] at (1.8, 0.45) {VMState};
 
 % Fields
@@ -139,7 +139,8 @@ The state space $S$ is the complete instantaneous description of the machine. Un
 \node[field, fill=blue!10] (m) at (0, -1.5) {\texttt{vm\_mem} : list nat (256)};
 \node[field, fill=orange!10] (p) at (0, -2.0) {\texttt{vm\_pc} : nat};
 \node[field, fill=yellow!25, line width=1.2pt, draw=red!70] (mu) at (0, -2.5) {\texttt{vm\_mu} : nat \textbf{(\textmu-ledger)}};
-\node[field, fill=red!10] (e) at (0, -3.0) {\texttt{vm\_err} : bool};
+\node[field, fill=yellow!15] (mut) at (0, -3.0) {\texttt{vm\_mu\_tensor} : list nat (4$\times$4)};
+\node[field, fill=red!10] (e) at (0, -3.5) {\texttt{vm\_err} : bool};
 
 % Annotation for mu
 \draw[->, red!60, thick] (3.5, -2.5) -- (mu.east) node[anchor=west, font=\tiny, red!60!black] at (3.5, -2.5) {monotonic};
@@ -160,6 +161,7 @@ Record VMState := {
   vm_mem : list nat;
   vm_pc : nat;
   vm_mu : nat;
+  vm_mu_tensor : list nat;  (* Flattened 4x4 mu-tensor, row-major, 16 entries *)
   vm_err : bool
 }.
 \end{lstlisting}
@@ -174,6 +176,7 @@ Each component serves a specific purpose:
     \item \textbf{vm\_mem}: Data memory of 256 words
     \item \textbf{vm\_pc}: The program counter
     \item \textbf{vm\_mu}: The $\mu$-ledger accumulator
+    \item \textbf{vm\_mu\_tensor}: A flattened $4 \times 4$ cost tensor (16 entries, row-major). The \texttt{REVEAL} instruction charges specific tensor entries, and the Bianchi invariant ($\sum\text{tensor}[i] \le \mu$) is enforced every cycle in hardware. This connects $\mu$-accounting to metric-space geometry.
     \item \textbf{vm\_err}: Error flag (latching)
 \end{itemize}
 The sizes are not arbitrary: \texttt{REG\_COUNT} and \texttt{MEM\_SIZE} are defined in \path{coq/kernel/VMState.v} and are mirrored in the Python and RTL layers so that indexing and wrap-around are identical. Reads and writes use modular indexing (\texttt{reg\_index} and \texttt{mem\_index}) so that any out-of-range access deterministically folds back into the fixed-width state, matching the hardware behavior where wires have fixed width.
@@ -408,31 +411,47 @@ When modules are split, axioms are copied to both children. When modules are mer
 
 \subsection{Transition Rules $R$}
 
-The transition rules define how state evolves. The Thiele Machine has 18 instructions, defined in the formal step semantics.
+The transition rules define how state evolves. The Thiele Machine has 26 instructions, defined in the formal step semantics.
 Each instruction constructor in \path{coq/kernel/VMStep.v} includes an explicit \texttt{mu\_delta} parameter so that the ledger change is part of the semantics, not an external annotation. This makes the cost model part of the operational meaning of each instruction rather than a separate accounting layer.
 
 \subsubsection{Instruction Set}
 
 \begin{lstlisting}
 Inductive vm_instruction :=
+(* Partition operations *)
 | instr_pnew (region : list nat) (mu_delta : nat)
 | instr_psplit (module : ModuleID) (left right : list nat) (mu_delta : nat)
 | instr_pmerge (m1 m2 : ModuleID) (mu_delta : nat)
+(* Logic operations *)
 | instr_lassert (module : ModuleID) (formula : string)
     (cert : lassert_certificate) (mu_delta : nat)
 | instr_ljoin (cert1 cert2 : string) (mu_delta : nat)
 | instr_mdlacc (module : ModuleID) (mu_delta : nat)
 | instr_pdiscover (module : ModuleID) (evidence : list VMAxiom) (mu_delta : nat)
+(* Data transfer *)
 | instr_xfer (dst src : nat) (mu_delta : nat)
-| instr_pyexec (payload : string) (mu_delta : nat)
+| instr_load_imm (dst : nat) (imm : nat) (mu_delta : nat)
+(* Certification *)
 | instr_chsh_trial (x y a b : nat) (mu_delta : nat)
+(* XOR matrix operations *)
 | instr_xor_load (dst addr : nat) (mu_delta : nat)
 | instr_xor_add (dst src : nat) (mu_delta : nat)
 | instr_xor_swap (a b : nat) (mu_delta : nat)
 | instr_xor_rank (dst src : nat) (mu_delta : nat)
+(* Observation and revelation *)
 | instr_emit (module : ModuleID) (payload : string) (mu_delta : nat)
 | instr_reveal (module : ModuleID) (bits : nat) (cert : string) (mu_delta : nat)
 | instr_oracle_halts (payload : string) (mu_delta : nat)
+(* Memory and ALU *)
+| instr_load (dst : nat) (addr : nat) (mu_delta : nat)
+| instr_store (addr : nat) (src : nat) (mu_delta : nat)
+| instr_add (dst : nat) (rs1 : nat) (rs2 : nat) (mu_delta : nat)
+| instr_sub (dst : nat) (rs1 : nat) (rs2 : nat) (mu_delta : nat)
+(* Control flow *)
+| instr_jump (target : nat) (mu_delta : nat)
+| instr_jnez (rs : nat) (target : nat) (mu_delta : nat)
+| instr_call (target : nat) (mu_delta : nat)
+| instr_ret (mu_delta : nat)
 | instr_halt (mu_delta : nat).
 \end{lstlisting}
 
@@ -444,17 +463,19 @@ The key design choice: every instruction carries a \texttt{mu\_delta} field. The
 \begin{itemize}
     \item \textbf{\texttt{instr\_psplit}}: Takes a \texttt{ModuleID} (which module to split), two \texttt{list nat} (the two disjoint sub-regions), and a \texttt{mu\_delta} cost. Splitting a module reveals internal structure, and the cost reflects how much structural information is being exposed.
     \item \textbf{\texttt{instr\_pnew}}: Takes a \texttt{list nat} (the region to allocate) and a \texttt{mu\_delta} cost. Creating a new module is asserting new structure---that costs something.
-    \item \textbf{\texttt{instr\_xor\_reg}}: Takes three register indices and a \texttt{mu\_delta}. XOR is reversible, so its structural cost is zero, but the field is still there---the type system forces that.
+    \item \textbf{\texttt{instr\_xor\_swap}}: Takes two register indices and a \texttt{mu\_delta}. XOR is reversible, so its structural cost is zero, but the field is still there---the type system forces that.
 \end{itemize}
 
-The 18 instructions break into groups:
+The 26 instructions break into groups:
 \begin{itemize}
-    \item \textbf{Partition Ops} (4): Structure creation and manipulation (\texttt{PNEW}, \texttt{PSPLIT}, \texttt{PMERGE}, \texttt{PDELETE})
-    \item \textbf{Logic Ops} (2): Axiom assertion and certificate joining (\texttt{LASSERT}, \texttt{CERTJOIN})
-    \item \textbf{Information Ops} (3): MDL accounting, discovery, revelation (\texttt{MDLACC}, \texttt{DISCOVER}, \texttt{REVEAL})
-    \item \textbf{Data Movement} (4): Transfer, Python execution, CHSH trials (\texttt{DATAXFER}, \texttt{PYEXEC}, \texttt{CHSH\_TRIAL}, \texttt{ORACLE\_HALTS})
-    \item \textbf{XOR Ops} (4): Reversible computation primitives
-    \item \textbf{Control} (1): Halt instruction
+    \item \textbf{Partition Ops} (4): Structure creation, splitting, merging, and discovery (\texttt{PNEW}, \texttt{PSPLIT}, \texttt{PMERGE}, \texttt{PDISCOVER})
+    \item \textbf{Logic Ops} (3): Axiom assertion, certificate joining, and MDL accounting (\texttt{LASSERT}, \texttt{LJOIN}, \texttt{MDLACC})
+    \item \textbf{Data Transfer} (2): Register transfer and immediate loads (\texttt{XFER}, \texttt{LOAD\_IMM})
+    \item \textbf{Certification} (1): Bell test trials (\texttt{CHSH\_TRIAL})
+    \item \textbf{XOR Ops} (4): Reversible computation primitives (\texttt{XOR\_LOAD}, \texttt{XOR\_ADD}, \texttt{XOR\_SWAP}, \texttt{XOR\_RANK})
+    \item \textbf{Observation \& Revelation} (3): Output, information disclosure, oracle queries (\texttt{EMIT}, \texttt{REVEAL}, \texttt{ORACLE\_HALTS})
+    \item \textbf{Memory \& ALU} (4): Load, store, addition, subtraction (\texttt{LOAD}, \texttt{STORE}, \texttt{ADD}, \texttt{SUB})
+    \item \textbf{Control Flow} (5): Jumps, branches, subroutines, halt (\texttt{JUMP}, \texttt{JNEZ}, \texttt{CALL}, \texttt{RET}, \texttt{HALT})
 \end{itemize}
 The diagram below groups them by typical cost.
 
@@ -473,13 +494,13 @@ The instructions fall into several categories:
 
 % High-cost categories (top)
 \node[cat, fill=blue!15] (struct) at (-2.2, 1.4) {Structural\\PNEW, PSPLIT\\PMERGE, PDISCOVER};
-\node[cat, fill=green!15] (logic) at (0, 1.8) {Logical\\LASSERT, LJOIN};
-\node[cat, fill=orange!15] (cert) at (2.2, 1.4) {Certification\\REVEAL, EMIT};
+\node[cat, fill=green!15] (logic) at (0, 1.8) {Logical\\LASSERT, LJOIN\\MDLACC};
+\node[cat, fill=orange!15] (cert) at (2.2, 1.4) {Certification\\REVEAL, EMIT\\CHSH\_TRIAL};
 
 % Low-cost categories (bottom)
-\node[cat, fill=violet!10] (reg) at (-2.2, -1.4) {Register/Memory\\XFER, XOR\_*};
-\node[cat, fill=red!10] (ctrl) at (0, -1.8) {Control\\PYEXEC, HALT\\ORACLE\_HALTS};
-\node[cat, fill=yellow!10] (meas) at (2.2, -1.4) {Measurement\\CHSH\_TRIAL\\MDLACC};
+\node[cat, fill=violet!10] (reg) at (-2.2, -1.4) {Register/Memory\\XFER, LOAD\_IMM\\LOAD, STORE, XOR\_*};
+\node[cat, fill=red!10] (ctrl) at (0, -1.8) {Control\\JUMP, JNEZ, CALL\\RET, HALT};
+\node[cat, fill=yellow!10] (meas) at (2.2, -1.4) {Compute\\ADD, SUB\\ORACLE\_HALTS};
 
 % High-cost arrows (thick)
 \draw[->, thick, blue!60] (struct) -- (mu);
@@ -495,7 +516,7 @@ The instructions fall into several categories:
 \node[font=\tiny, gray!50!black] at (-2.6, 0) {high $\mu$};
 \node[font=\tiny, gray!50!black] at (2.6, 0) {low $\mu$};
 \end{tikzpicture}
-\caption{The 18 instructions grouped by category. Structural, logical, and certification operations have high $\mu$-cost (they add knowledge). Data movement and control operations have low or zero cost.}
+\caption{The 26 instructions grouped by category. Structural, logical, and certification operations have high $\mu$-cost (they add knowledge). Data movement, control, and compute operations have low or zero cost.}
 \label{fig:instruction-categories}
 \end{figure}
 
@@ -519,16 +540,25 @@ The instructions fall into several categories:
     \item \texttt{EMIT}: Emit output with information cost
 \end{itemize}
 
-\textbf{Register/Memory Operations:}
+\textbf{Data Transfer and Register/Memory Operations:}
 \begin{itemize}
     \item \texttt{XFER}: Transfer between registers
-    \item \texttt{XOR\_LOAD}, \texttt{XOR\_ADD}, \texttt{XOR\_SWAP}, \texttt{XOR\_RANK}: Bitwise operations
+    \item \texttt{LOAD\_IMM}: Load an 8-bit immediate value into a register
+    \item \texttt{LOAD}, \texttt{STORE}: Data memory access
+    \item \texttt{XOR\_LOAD}, \texttt{XOR\_ADD}, \texttt{XOR\_SWAP}, \texttt{XOR\_RANK}: Bitwise/matrix operations
 \end{itemize}
 
-\textbf{Control Operations:}
+\textbf{Compute Operations:}
 \begin{itemize}
-    \item \texttt{PYEXEC}: Execute Python code in sandbox
+    \item \texttt{ADD}, \texttt{SUB}: Integer arithmetic
     \item \texttt{ORACLE\_HALTS}: Query halting oracle
+\end{itemize}
+
+\textbf{Control Flow Operations:}
+\begin{itemize}
+    \item \texttt{JUMP}: Unconditional jump
+    \item \texttt{JNEZ}: Jump if register is not equal to zero
+    \item \texttt{CALL}, \texttt{RET}: Subroutine call and return (push/pop return address)
     \item \texttt{HALT}: Stop execution
 \end{itemize}
 
@@ -794,7 +824,7 @@ Theorem mu_conservation_kernel : forall s s' instr,
 
 \paragraph{What this theorem says:} For \emph{any} state, \emph{any} instruction, and \emph{any} resulting state: if the step is valid, the ledger didn't go down. That's it. No exceptions, no edge cases. Coq checked every branch of the step relation and confirmed the arithmetic.
 
-\textbf{Why it works:} Every instruction's cost is a \texttt{nat} (natural number, can't be negative), so the ledger can only go up or stay the same. The proof walks through each of the 23 step constructors and confirms that \texttt{advance\_state} adds \texttt{instruction\_cost instr} to the ledger, which is always $\geq 0$. This isn't ``probably true'' or ``true in tests''---it's checked for all possible executions.
+\textbf{Why it works:} Every instruction's cost is a \texttt{nat} (natural number, can't be negative), so the ledger can only go up or stay the same. The proof walks through each of the 32 step constructors (covering success and failure branches for all 26 instructions) and confirms that \texttt{advance\_state} adds \texttt{instruction\_cost instr} to the ledger, which is always $\geq 0$. This isn't ``probably true'' or ``true in tests''---it's checked for all possible executions.
 
 \textbf{What this guarantees:}
 \begin{enumerate}
@@ -804,7 +834,7 @@ Theorem mu_conservation_kernel : forall s s' instr,
     \item \textbf{No Rewinds}: Can't ``undo'' structural knowledge by stepping backward
 \end{enumerate}
 
-I had to learn how Coq handles this kind of proof the hard way: you do structural induction on the step relation, which means Coq generates one sub-goal per step constructor. All 23 of them. Each one boils down to showing that \texttt{advance\_state} adds a non-negative nat. It's tedious but airtight.
+I had to learn how Coq handles this kind of proof the hard way: you do structural induction on the step relation, which means Coq generates one sub-goal per step constructor. All 32 of them. Each one boils down to showing that \texttt{advance\_state} adds a non-negative nat. It's tedious but airtight.
 
 \subsubsection{Multi-Step Conservation}
 
@@ -1817,16 +1847,16 @@ The Tsirelson bound is the strongest result: genuine algebra from row-norm const
 \begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=\textbf{Coq-Verified Quantum Axioms}]
 All theorems in this section are machine-checked in Coq 8.18 with zero Admitted statements:
 \begin{itemize}
-    \item \path{coq/kernel/NoCloning.v}: 936 lines, 23 definitions/theorems
-    \item \path{coq/kernel/NoCloningFromMuMonotonicity.v}: 260 lines, 16 definitions/theorems (machine-native, \texttt{lia}-only)
-    \item \path{coq/kernel/Unitarity.v}: 583 lines, 27 definitions/theorems
-    \item \path{coq/kernel/BornRule.v}: 321 lines, 21 definitions/theorems
-    \item \path{coq/kernel/BornRuleFromSymmetry.v}: 966 lines, 42 definitions/theorems (non-circular, tensor consistency)
-    \item \path{coq/kernel/Purification.v}: 280 lines, 11 definitions/theorems
-    \item \path{coq/kernel/TsirelsonGeneral.v}: 315 lines, 28 definitions/theorems
-    \item \path{coq/kernel/TsirelsonFromAlgebra.v}: 327 lines, 13 definitions/theorems (self-contained algebraic)
+    \item \path{coq/kernel/NoCloning.v}: 940 lines, 23 definitions/theorems
+    \item \path{coq/kernel/NoCloningFromMuMonotonicity.v}: 261 lines, 16 definitions/theorems (machine-native, \texttt{lia}-only)
+    \item \path{coq/kernel/Unitarity.v}: 585 lines, 27 definitions/theorems
+    \item \path{coq/kernel/BornRule.v}: 326 lines, 21 definitions/theorems
+    \item \path{coq/kernel/BornRuleFromSymmetry.v}: 140 lines (refactored; non-circular, tensor consistency)
+    \item \path{coq/kernel/Purification.v}: 286 lines, 11 definitions/theorems
+    \item \path{coq/kernel/TsirelsonGeneral.v}: 320 lines, 28 definitions/theorems
+    \item \path{coq/kernel/TsirelsonFromAlgebra.v}: 331 lines, 13 definitions/theorems (self-contained algebraic)
 \end{itemize}
-Total: 3,988 lines of machine-verified proofs across eight files showing quantum axioms follow from conservation-shaped hypotheses.
+Total: 3,189 lines of machine-verified proofs across eight files showing quantum axioms follow from conservation-shaped hypotheses.
 \end{tcolorbox}
 
 \section{Chapter Summary}
@@ -1892,4 +1922,4 @@ This chapter defined the Thiele Machine as a formal 5-tuple $T = (S, \Pi, A, R, 
     \end{itemize}
 \end{enumerate}
 
-These formal foundations enable the implementation (Chapter 4), verification (Chapter 5), and evaluation (Chapter 6). The quantum axiom proofs (3,988 lines of Coq across eight files with zero Admitted statements) show that quantum mechanics is consistent with the $\mu$-accounting framework: each axiom follows from a conservation-shaped hypothesis. The physics is in the assumptions, but the structural connection between axioms---all flowing from conservation---is genuine and machine-verified. Importantly, under \emph{Total $\mu$-Accounting}, setting $\mu_{\text{total}} = 0$ requires all components ($\mu_{\text{inst}}$ and $\mu_{\text{corr}}$) to be zero, where $\mu_{\text{corr}} = 0$ is exactly the condition of \emph{Algebraic Coherence} required to recover the Tsirelson bound $S \le 2.8284...$. Without enforcing $\mu_{\text{corr}} = 0$, the system is only bounded by the algebraic limit $S \le 4$.
+These formal foundations enable the implementation (Chapter 4), verification (Chapter 5), and evaluation (Chapter 6). The quantum axiom proofs (3,189 lines of Coq across eight files with zero Admitted statements) show that quantum mechanics is consistent with the $\mu$-accounting framework: each axiom follows from a conservation-shaped hypothesis. The physics is in the assumptions, but the structural connection between axioms---all flowing from conservation---is genuine and machine-verified. Importantly, under \emph{Total $\mu$-Accounting}, setting $\mu_{\text{total}} = 0$ requires all components ($\mu_{\text{inst}}$ and $\mu_{\text{corr}}$) to be zero, where $\mu_{\text{corr}} = 0$ is exactly the condition of \emph{Algebraic Coherence} required to recover the Tsirelson bound $S \le 2.8284...$. Without enforcing $\mu_{\text{corr}} = 0$, the system is only bounded by the algebraic limit $S \le 4$.

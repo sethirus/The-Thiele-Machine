@@ -1,0 +1,17 @@
+# Yosys synthesis script for Thiele CPU → iCE40 HX8K
+# Uses the synthesizable wrapper (correct Verilog arrays)
+#
+# Target: iCE40 HX8K (8K LUTs, ~4K FFs, 16 × 4Kb Block RAMs)
+# Board:  iCEBreaker v1.0 (Lattice iCE40UP5K or HX8K)
+#
+# Run from thielecpu/hardware/rtl/:
+#   yosys synth_ice40.ys
+
+read_verilog -sv -DSYNTHESIS thiele_cpu_kami_synth.v
+
+# Target iCE40 with BRAM inference for memories
+synth_ice40 -top mkModule1 -json ../../build/thiele_ice40.json -blif ../../build/thiele_ice40.blif
+
+stat
+
+write_verilog -noattr ../../build/thiele_ice40_synth.v

@@ -1,0 +1,65 @@
+# ECP5 LPF Constraints for Thiele Machine CPU
+# Board: ULX3S (Lattice ECP5, LFE5U-85F-6BG381C)
+#
+# The Thiele CPU synthesizes cleanly for ECP5-85k.
+# This file provides minimal pin assignments for simulation bringup.
+#
+# Usage:
+#   nextpnr-ecp5 --85k --package CABGA381 \
+#     --json ../../build/thiele_ecp5.json \
+#     --lpf thiele_ecp5.lpf \
+#     --textcfg ../../build/thiele_ecp5.config
+#   ecppack ../../build/thiele_ecp5.config ../../build/thiele_ecp5.bit
+
+FREQUENCY NET "CLK" 25 MHz;
+
+# === Clock ===
+# ULX3S 25 MHz clock on pin "clk_25mhz"
+LOCATE COMP "CLK" SITE "G2";
+IOBUF PORT "CLK" IO_TYPE=LVCMOS33;
+
+# === Reset (active-low, BTN0) ===
+LOCATE COMP "RST_N" SITE "R1";
+IOBUF PORT "RST_N" IO_TYPE=LVCMOS33 PULLMODE=UP;
+
+# === Status LEDs ===
+# LED0 = halted
+LOCATE COMP "getHalted" SITE "B2";
+IOBUF PORT "getHalted" IO_TYPE=LVCMOS33 DRIVE=4;
+
+# LED1 = error flag
+LOCATE COMP "getErr" SITE "C2";
+IOBUF PORT "getErr" IO_TYPE=LVCMOS33 DRIVE=4;
+
+# LED2 = Bianchi conservation alarm
+LOCATE COMP "getBianchiAlarm" SITE "C1";
+IOBUF PORT "getBianchiAlarm" IO_TYPE=LVCMOS33 DRIVE=4;
+
+# === Enable signals — tied high to continuously sample state ===
+LOCATE COMP "EN_getPC"          SITE "F4"; IOBUF PORT "EN_getPC"          IO_TYPE=LVCMOS33 PULLMODE=UP;
+LOCATE COMP "EN_getMu"          SITE "F3"; IOBUF PORT "EN_getMu"          IO_TYPE=LVCMOS33 PULLMODE=UP;
+LOCATE COMP "EN_getErr"         SITE "G3"; IOBUF PORT "EN_getErr"         IO_TYPE=LVCMOS33 PULLMODE=UP;
+LOCATE COMP "EN_getHalted"      SITE "H4"; IOBUF PORT "EN_getHalted"      IO_TYPE=LVCMOS33 PULLMODE=UP;
+LOCATE COMP "EN_getPartitionOps" SITE "H3"; IOBUF PORT "EN_getPartitionOps" IO_TYPE=LVCMOS33 PULLMODE=UP;
+LOCATE COMP "EN_getMdlOps"      SITE "J4"; IOBUF PORT "EN_getMdlOps"      IO_TYPE=LVCMOS33 PULLMODE=UP;
+LOCATE COMP "EN_getInfoGain"    SITE "J5"; IOBUF PORT "EN_getInfoGain"    IO_TYPE=LVCMOS33 PULLMODE=UP;
+LOCATE COMP "EN_getErrorCode"   SITE "K3"; IOBUF PORT "EN_getErrorCode"   IO_TYPE=LVCMOS33 PULLMODE=UP;
+LOCATE COMP "EN_getMuTensor0"   SITE "K4"; IOBUF PORT "EN_getMuTensor0"   IO_TYPE=LVCMOS33 PULLMODE=UP;
+LOCATE COMP "EN_getMuTensor1"   SITE "L3"; IOBUF PORT "EN_getMuTensor1"   IO_TYPE=LVCMOS33 PULLMODE=UP;
+LOCATE COMP "EN_getMuTensor2"   SITE "L4"; IOBUF PORT "EN_getMuTensor2"   IO_TYPE=LVCMOS33 PULLMODE=UP;
+LOCATE COMP "EN_getMuTensor3"   SITE "M3"; IOBUF PORT "EN_getMuTensor3"   IO_TYPE=LVCMOS33 PULLMODE=UP;
+LOCATE COMP "EN_getBianchiAlarm" SITE "M4"; IOBUF PORT "EN_getBianchiAlarm" IO_TYPE=LVCMOS33 PULLMODE=UP;
+
+# === Instruction Load Interface (GPIO0 area) ===
+# Low 8 bits of the 40-bit instruction word
+LOCATE COMP "loadInstr_x_0[0]" SITE "B11"; IOBUF PORT "loadInstr_x_0[0]" IO_TYPE=LVCMOS33;
+LOCATE COMP "loadInstr_x_0[1]" SITE "C11"; IOBUF PORT "loadInstr_x_0[1]" IO_TYPE=LVCMOS33;
+LOCATE COMP "loadInstr_x_0[2]" SITE "A10"; IOBUF PORT "loadInstr_x_0[2]" IO_TYPE=LVCMOS33;
+LOCATE COMP "loadInstr_x_0[3]" SITE "A9";  IOBUF PORT "loadInstr_x_0[3]" IO_TYPE=LVCMOS33;
+LOCATE COMP "loadInstr_x_0[4]" SITE "B10"; IOBUF PORT "loadInstr_x_0[4]" IO_TYPE=LVCMOS33;
+LOCATE COMP "loadInstr_x_0[5]" SITE "B9";  IOBUF PORT "loadInstr_x_0[5]" IO_TYPE=LVCMOS33;
+LOCATE COMP "loadInstr_x_0[6]" SITE "C10"; IOBUF PORT "loadInstr_x_0[6]" IO_TYPE=LVCMOS33;
+LOCATE COMP "loadInstr_x_0[7]" SITE "C9";  IOBUF PORT "loadInstr_x_0[7]" IO_TYPE=LVCMOS33;
+
+# EN_loadInstr strobe pin
+LOCATE COMP "EN_loadInstr" SITE "D9"; IOBUF PORT "EN_loadInstr" IO_TYPE=LVCMOS33;

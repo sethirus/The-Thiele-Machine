@@ -16,4 +16,4 @@ Set Extraction Optimize.
 Set Extraction KeepSingleton.
 Unset Extraction AutoInline.
 
-Extraction "../build/kami_hw/Target.ml" thieleCoreB.
+Extraction "/workspaces/The-Thiele-Machine/build/kami_hw/Target.ml" thieleCoreB.

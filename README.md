@@ -4,7 +4,7 @@
 
 [![CI](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml/badge.svg)](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Coq](https://img.shields.io/badge/Coq-304%20Proof%20Files-blue)](coq/)
+[![Coq](https://img.shields.io/badge/Coq-318%20Proof%20Files-blue)](coq/)
 
 ---
 
@@ -24,6 +24,45 @@ cd The-Thiele-Machine
 pip install -r requirements.txt
 pip install -e . --no-deps
 pytest tests/
+```
+
+### Assemble and Run a Program
+
+```bash
+# Assemble an example program
+thiele-asm examples/fibonacci.asm -o fibonacci.hex
+
+# Run it in the interactive debugger
+thiele-debug fibonacci.hex
+```
+
+Debugger commands: `run`, `step`, `break <n>`, `print <reg|mu|tensor>`, `continue`, `quit`.
+See [DEBUGGER.md](DEBUGGER.md) for full reference.
+
+### Write Your Own Program
+
+```asm
+# hello.asm  —  μ-cost grows monotonically
+LOAD_IMM 0 42 1     # r0 = 42, cost 1
+LOAD_IMM 1 0  1     # r1 = 0,  cost 1
+ADD 2 0 1 1         # r2 = r0 + r1, cost 1
+HALT 0
+```
+
+```bash
+thiele-asm hello.asm -o hello.hex
+thiele-debug hello.hex
+# > run
+# HALTED  pc=3  mu=3  r2=42
+```
+
+See [ASM_REFERENCE.md](ASM_REFERENCE.md) for all 26 opcodes, encoding format, and examples.
+
+### Run All 20 Example Programs
+
+```bash
+python examples/run_all.py
+# 20/20 programs pass simulation — cycles, μ-cost, halted/error status
 ```
 
 ### Compile Coq Proofs (requires Coq 8.18+)
@@ -51,8 +90,37 @@ When using Python co-simulation (`thielecpu.hardware.cosim.run_verilog`), select
   - Python VM: Bianchi violations raise `BianchiViolationError` (fail-fast exception).
   - Verilog RTL: `bianchi_alarm` latches a kill-switch and freezes instruction progress in fetch.
 
-### FPGA Bitstream (Open-Source ECP5)
-The CI pipeline uses an open-source FPGA flow: `yosys` $\to$ `nextpnr-ecp5` $\to$ `ecppack` (fpga-trellis) to generate an ECP5 bitstream artifact. The flow builds the full CPU with `YOSYS_LITE` enabled to keep parameterized region sizes tractable for PnR, while preserving the full instruction set and control logic.
+### FPGA Synthesis and Bitstream (Open-Source Flow)
+
+**ECP5 target (recommended — ULX3S or Colorlight-i5):**
+```bash
+cd thielecpu/hardware/rtl
+yosys synth_ecp5.ys                             # → build/thiele_ecp5.json
+nextpnr-ecp5 --85k --package CABGA381 \
+  --json ../../../build/thiele_ecp5.json \
+  --lpf ../../../fpga/thiele_ecp5.lpf \
+  --textcfg ../../../build/thiele_ecp5.config \
+  --lpf-allow-unconstrained
+ecppack ../../../build/thiele_ecp5.config ../../../build/thiele_ecp5.bit
+```
+
+**Synthesis note:** `synth_ecp5.ys` targets `thiele_cpu_top` — a 5-pin physical
+wrapper (CLK/RST_N/LED\_HALTED/LED\_ERR/LED\_BIANCHI) over `mkModule1`. The
+full `mkModule1` synthesis (74 k ECP5 cells, logic-area validation) runs via
+`synth_full.ys`. Both flows have been validated; `build/thiele_ecp5.bit` exists.
+
+**iCE40 target (iCEBreaker):**
+```bash
+cd thielecpu/hardware/rtl
+yosys synth_ice40.ys                            # → build/thiele_ice40.json
+nextpnr-ice40 --hx8k --package bg121 \
+  --json ../../build/thiele_ice40.json \
+  --pcf fpga/thiele_ice40.pcf \
+  --asc ../../build/thiele_ice40.asc
+icepack ../../build/thiele_ice40.asc ../../build/thiele_ice40.bin
+```
+
+The CPU is built with `SYNTHESIS` defined to use compatible array primitives.
 
 ---
 
@@ -60,12 +128,12 @@ The CI pipeline uses an open-source FPGA flow: `yosys` $\to$ `nextpnr-ecp5` $\to
 
 | Component | Status |
 |-----------|--------|
-| **Coq proofs** | 310 files, ~90,350 lines, 2,268 theorems/lemmas, **zero admits**, **zero axioms** beyond foundational logic |
-| **Python VM** | 20,810 lines. Working reference implementation with cryptographic receipts |
+| **Coq proofs** | 318 files, ~92,680 lines, 2,921 theorems/lemmas, **zero admits**, **zero axioms** beyond foundational logic |
+| **Python VM** | 24,308 lines. Working reference implementation with cryptographic receipts |
 | **Verilog RTL** | 8 source files, ~2,500 hand-written lines (+ synthesis output). Synthesizable, FPGA-targetable |
-| **Test suite** | 891 tests across 108 test files |
+| **Test suite** | 1,094 tests across 120 test files |
 | **3-layer isomorphism** | Coq $=$ Python $=$ Verilog. Same program, same state, three layers |
-| **Inquisitor audit** | All 304 Coq files pass maximum-strictness static analysis with zero findings |
+| **Inquisitor audit** | All 318 Coq files pass maximum-strictness static analysis with zero findings |
 
 ---
 
@@ -264,7 +332,7 @@ If you find any of these, the Coq proofs won't compile.
 
 ```
 The-Thiele-Machine/
-+-- coq/                    # 310 Coq proof files (~90,350 lines)
++-- coq/                    # 318 Coq proof files (~92,680 lines)
 |   +-- kernel/             # Core theorems (MuInitiality, NoFreeInsight, etc.)
 |   +-- modular_proofs/     # Turing/Minsky simulation proofs
 |   +-- nofi/               # No Free Insight functor architecture
@@ -274,13 +342,13 @@ The-Thiele-Machine/
 |   +-- isomorphism/        # Categorical Universe proof
 |   +-- bridge/             # Domain-to-kernel bridges
 |   `-- ...                 # 26+ subdirectories total
-+-- thielecpu/              # Python VM (20,810 lines)
++-- thielecpu/              # Python VM (24,308 lines)
 |   +-- vm.py               # Core execution engine
 |   +-- state.py            # State machine, partitions, mu-ledger
 |   +-- isa.py              # 18-instruction ISA
 |   `-- hardware/           # Verilog RTL (8 source files)
 +-- build/                  # Compiled OCaml VM runner and artifacts
-+-- tests/                  # 891 tests across 108 test files
++-- tests/                  # 1,094 tests across 120 test files
 +-- scripts/                # Build, verification, inquisitor
 +-- tools/                  # mu-Profiler and extracted VM runner
 +-- verifier/               # Physics divergence verification
@@ -298,7 +366,7 @@ python scripts/inquisitor.py
 ```
 
 25+ lint rules enforced on every Coq file:
-- Zero `Admitted` / `admit` / `give_up` across all 304 proof files
+- Zero `Admitted` / `admit` / `give_up` across all 318 proof files
 - Zero custom axioms beyond `AssumptionBundle.v`
 - All proofs end with `Qed` or `Defined`
 - Standard library axioms only (functional extensionality, classical decidability)
