@@ -11,6 +11,9 @@
 
 module thiele_cpu_kami_tb;
 
+  // Shadow partition tracker: max distinct module IDs tracked in testbench
+  parameter NUM_SHADOW_MODS = 64;
+
   // Clock and reset
   reg clk = 0;
   reg rst_n = 0;
@@ -101,6 +104,20 @@ module thiele_cpu_kami_tb;
   integer num_instrs;
   reg [8191:0] mem_init_val;
 
+  // Shadow partition tracker: maps module_id -> 64-bit element bitmask.
+  // Maintained by the testbench monitor; mirrors Python VM and Coq extracted runner.
+  reg [63:0]   shadow_masks [0:NUM_SHADOW_MODS-1];
+  reg [7:0]    shadow_next_mid;   // next free module ID (1-based; 0 reserved)
+  reg          shadow_executing;  // gate: set after force/release, cleared post-halt
+  reg [31:0]   exec_word;         // instruction captured before each posedge
+  integer      exec_op_i, exec_a_i, exec_b_i;   // decoded fields
+  integer      sh_e, sh_m;                        // loop counters
+  integer      sh_pred_mode_i, sh_pred_param_i;  // PSPLIT predicate decode
+  reg [63:0]   sh_left, sh_right;                // PSPLIT left/right masks
+  integer      shadow_found_dup;                  // PNEW dedup flag
+  reg [63:0]   shadow_new_mask;                  // PNEW singleton mask
+  integer      mod_j, bit_b, first_mod, first_bit; // JSON dump loop vars
+
   // File paths from plusargs
   reg [1023:0] program_hex_path;
   reg [1023:0] data_hex_path;
@@ -118,6 +135,14 @@ module thiele_cpu_kami_tb;
       data_memory[i]  = 32'h00000000;
     end
 
+    // Initialize shadow partition tracker
+    for (i = 0; i < NUM_SHADOW_MODS; i = i + 1)
+      shadow_masks[i] = 64'd0;
+    shadow_next_mid  = 8'd1;
+    shadow_executing = 1'b0;
+    exec_word        = 32'd0;
+    shadow_found_dup = 0;
+
     // Load program and data from hex files
     if ($value$plusargs("PROGRAM=%s", program_hex_path)) begin
       $readmemh(program_hex_path, instr_memory);
@@ -130,8 +155,12 @@ module thiele_cpu_kami_tb;
       $readmemh(data_hex_path, data_memory);
     end
 
-    // Count actual instructions (find last non-zero)
-    num_instrs = 256;
+    // +N_INSTRS=N: only load N slots instead of all 256 (huge speedup for short programs).
+    // The Nth slot itself should be HALT (programs always end with HALT), so slots N..255
+    // retain their reset-default of 0 (PNEW 0 0 0 with 0 cost) but are never reached.
+    // Default: 256 (full load, backward-compatible).
+    if (!$value$plusargs("N_INSTRS=%d", num_instrs))
+      num_instrs = 256;
 
     // Phase 1: Reset (2 cycles)
     rst_n = 0;
@@ -140,9 +169,9 @@ module thiele_cpu_kami_tb;
     @(posedge clk);
     @(posedge clk);
 
-    // Phase 2: Release reset and load instructions via loadInstr
+    // Phase 2: Release reset and load instructions via loadInstr (only num_instrs slots)
     rst_n = 1;
-    for (i = 0; i < 256; i = i + 1) begin
+    for (i = 0; i < num_instrs; i = i + 1) begin
       load_data = {i[7:0], instr_memory[i]};
       load_en = 1;
       @(posedge clk);
@@ -187,10 +216,80 @@ module thiele_cpu_kami_tb;
     release dut.mu_tensor;
 
     // Phase 4: Let CPU execute and wait for halt
+    shadow_executing = 1'b1;
     cycle_count = 0;
     while (!halted_out && !err_out && cycle_count < 10000) begin
+      // Capture instruction executing THIS cycle (before posedge advances pc)
+      exec_word = dut.imem[pc_out[7:0] * 32 +: 32];
+
       @(posedge clk);
       cycle_count = cycle_count + 1;
+
+      // Shadow partition tracker: decode and apply instruction that just executed
+      exec_op_i = exec_word[31:24];
+      exec_a_i  = exec_word[23:16];
+      exec_b_i  = exec_word[15:8];
+      case (exec_op_i)
+        8'h00: begin  // PNEW: allocate singleton module for element exec_a_i
+          shadow_new_mask  = (64'h1 << (exec_a_i & 8'h3F));
+          shadow_found_dup = 0;
+          for (sh_m = 1; sh_m < shadow_next_mid; sh_m = sh_m + 1)
+            if (shadow_masks[sh_m] == shadow_new_mask) shadow_found_dup = 1;
+          if (!shadow_found_dup && shadow_next_mid < NUM_SHADOW_MODS) begin
+            shadow_masks[shadow_next_mid] = shadow_new_mask;
+            shadow_next_mid = shadow_next_mid + 1;
+          end
+        end
+        8'h02: begin  // PMERGE: merge modules exec_a_i and exec_b_i into new module
+          if (exec_a_i < shadow_next_mid && exec_b_i < shadow_next_mid &&
+              shadow_next_mid < NUM_SHADOW_MODS) begin
+            shadow_masks[shadow_next_mid] = shadow_masks[exec_a_i] | shadow_masks[exec_b_i];
+            shadow_masks[exec_a_i]        = 64'd0;
+            shadow_masks[exec_b_i]        = 64'd0;
+            shadow_next_mid               = shadow_next_mid + 1;
+          end
+        end
+        8'h01: begin  // PSPLIT: split module exec_a_i with predicate byte exec_b_i
+          if (exec_a_i < shadow_next_mid && (shadow_next_mid + 1) < NUM_SHADOW_MODS) begin
+            sh_pred_mode_i  = (exec_b_i >> 6) & 3;
+            sh_pred_param_i = exec_b_i & 8'h3F;
+            sh_left  = 64'd0;
+            sh_right = 64'd0;
+            for (sh_e = 0; sh_e < 64; sh_e = sh_e + 1) begin
+              if ((shadow_masks[exec_a_i] >> sh_e) & 64'h1) begin
+                case (sh_pred_mode_i)
+                  0: begin  // even/odd: (sh_e & 1) == (sh_pred_param_i & 1)
+                    if ((sh_e & 1) == (sh_pred_param_i & 1))
+                      sh_left  = sh_left  | (64'h1 << sh_e);
+                    else
+                      sh_right = sh_right | (64'h1 << sh_e);
+                  end
+                  1: begin  // threshold: sh_e >= sh_pred_param_i
+                    if (sh_e >= sh_pred_param_i)
+                      sh_left  = sh_left  | (64'h1 << sh_e);
+                    else
+                      sh_right = sh_right | (64'h1 << sh_e);
+                  end
+                  2: begin  // bitwise: bit sh_pred_param_i of element index sh_e
+                    if (((sh_e >> sh_pred_param_i) & 1) != 0)
+                      sh_left  = sh_left  | (64'h1 << sh_e);
+                    else
+                      sh_right = sh_right | (64'h1 << sh_e);
+                  end
+                  default: begin  // mode 11: route all to right (divisor, rarely tested)
+                    sh_right = sh_right | (64'h1 << sh_e);
+                  end
+                endcase
+              end
+            end
+            shadow_masks[shadow_next_mid]     = sh_left;
+            shadow_masks[shadow_next_mid + 1] = sh_right;
+            shadow_masks[exec_a_i]            = 64'd0;
+            shadow_next_mid                   = shadow_next_mid + 2;
+          end
+        end
+        // 8'hFF HALT and all other opcodes: no module-table change
+      endcase
 
       // CHSH trial tracing
       if (current_opcode == 8'h09) begin
@@ -243,10 +342,27 @@ module thiele_cpu_kami_tb;
     end
     $display("  ],");
 
-    // Modules (empty — partition table managed externally)
-    $display("  \"modules\": [");
-    $display("    {\"id\": -1, \"region\": []}");
-    $display("  ]");
+    // Modules — emit live (non-empty) modules from shadow partition tracker.
+    // Each entry: {"id": N, "region": [list of element indices]}.
+    $write("  \"modules\": [");
+    first_mod = 1;
+    for (mod_j = 1; mod_j < shadow_next_mid; mod_j = mod_j + 1) begin
+      if (shadow_masks[mod_j] != 64'd0) begin
+        if (!first_mod) $write(", ");
+        $write("{\"id\": %0d, \"region\": [", mod_j);
+        first_bit = 1;
+        for (bit_b = 0; bit_b < 64; bit_b = bit_b + 1) begin
+          if ((shadow_masks[mod_j] >> bit_b) & 64'h1) begin
+            if (!first_bit) $write(", ");
+            $write("%0d", bit_b);
+            first_bit = 0;
+          end
+        end
+        $write("]}");
+        first_mod = 0;
+      end
+    end
+    $display("]");
     $display("}");
 
     $finish;

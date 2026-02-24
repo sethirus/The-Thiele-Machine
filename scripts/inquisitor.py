@@ -268,14 +268,18 @@ def iter_v_files(coq_root: Path) -> Iterator[Path]:
 
 
 def iter_all_coq_files(repo_root: Path) -> Iterator[Path]:
-    """Iterate all Coq .v files, excluding archive directories."""
+    """Iterate all Coq .v files, excluding archive and vendor directories."""
     for p in repo_root.rglob("*.v"):
         if not p.is_file():
             continue
         # EXCLUDE ARCHIVE: archive/ contains old/iterative code kept for posterity only
         # These files are not part of the active proof corpus and should not be audited
+        # EXCLUDE VENDOR: vendor/ contains third-party libraries (Kami, BBV) whose
+        # proof style is outside our control and should not be audited
         relative_path = "/" + str(p.relative_to(repo_root).as_posix())
         if "/archive/" in relative_path:
+            continue
+        if "/vendor/" in relative_path:
             continue
         raw = p.read_text(encoding="utf-8", errors="replace")
         if _looks_like_coq(raw):

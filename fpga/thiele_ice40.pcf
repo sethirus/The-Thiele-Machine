@@ -1,0 +1,64 @@
+# iCE40 HX8K Pin Constraints for Thiele Machine CPU
+# Board: iCEBreaker v1.0 (Lattice iCE40HX8K-BG121)
+#
+# NOTE: The Thiele CPU design (~8k cells with BRAM inference) targets
+# the iCE40HX8K device. Connect UART or SPI bridge to the debug bus.
+#
+# Usage:
+#   nextpnr-ice40 --hx8k --package bg121 \
+#     --json ../../build/thiele_ice40.json \
+#     --pcf thiele_ice40.pcf \
+#     --asc ../../build/thiele_ice40.asc
+#   icepack ../../build/thiele_ice40.asc ../../build/thiele_ice40.bin
+
+# === Clock ===
+# iCEBreaker FTDI 12 MHz on-board clock
+set_io CLK       35
+
+# === Reset ===
+# BTN_N (active low) on iCEBreaker
+set_io RST_N     10
+
+# === LEDs (status outputs) ===
+# LED D1 = halted flag
+set_io getHalted  11
+# LED D2 = error flag
+set_io getErr     37
+
+# === Bianchi Alarm ===
+# LED D3 = conservation violation detected
+set_io getBianchiAlarm 38
+
+# === Enable signals (pull high via external logic or FPGA logic) ===
+# Tie all EN_get* pins high to continuously output state
+set_io EN_getPC        26
+set_io EN_getMu        27
+set_io EN_getErr       25
+set_io EN_getHalted    23
+set_io EN_getPartitionOps 21
+set_io EN_getMdlOps    20
+set_io EN_getInfoGain  19
+set_io EN_getErrorCode 18
+set_io EN_getMuTensor0 17
+set_io EN_getMuTensor1 16
+set_io EN_getMuTensor2 15
+set_io EN_getMuTensor3 14
+set_io EN_getBianchiAlarm 13
+
+# === Instruction Load Interface (PMOD connector PMODB) ===
+# loadInstr_x_0[39:0] — 40-bit instruction word
+# EN_loadInstr — strobe to load one instruction
+#
+# PMOD PMODB pins (8 bits at a time; needs 5 strobes or parallel iface)
+# Map the low 8 bits of loadInstr_x_0 to PMODB[0..7]
+set_io loadInstr_x_0[0]  43
+set_io loadInstr_x_0[1]  44
+set_io loadInstr_x_0[2]  48
+set_io loadInstr_x_0[3]  45
+set_io loadInstr_x_0[4]  47
+set_io loadInstr_x_0[5]  46
+set_io loadInstr_x_0[6]  2
+set_io loadInstr_x_0[7]  3
+# Upper bits [39:8] unconnected for minimal demo (tie to 0)
+# EN_loadInstr tied to PMOD pin
+set_io EN_loadInstr      4

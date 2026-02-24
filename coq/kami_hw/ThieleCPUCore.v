@@ -26,6 +26,14 @@
       PNEW/PSPLIT/PMERGE/PDISCOVER/LASSERT/LJOIN/MDLACC/EMIT/ORACLE_HALTS:
         charge mu + advance PC (partition graph managed externally per Abstraction.v)
 
+    HARDWARE ABSTRACTION NOTE:
+      The Kami hardware implements a simplified execution model where certificate
+      checking (LASSERT/LJOIN) and oracle operations (ORACLE_HALTS) are no-ops that
+      only charge μ and advance PC. The full semantics (partition graph updates,
+      certificate validation) are handled by the external environment as specified
+      in Abstraction.v. This separation allows the hardware to remain simple and
+      synthesizable while the proof layer maintains full semantic fidelity.
+
     Kami Vector notes: Vector K n stores 2^n elements, indexed by Bit n.
     So "regs" is Vector (Bit 32) 5 = 2^5 = 32 registers, indexed by Bit 5.
     And "mem" is Vector (Bit 32) 8 = 2^8 = 256 memory words, indexed by Bit 8.
@@ -73,6 +81,13 @@ Section ThieleCPU.
       (* μ-tensor: 4×4 flattened (16 entries) for revelation direction tracking *)
       with Register "mu_tensor"     : Vector (Bit WordSz) MuTensorIdxSz <- Default
 
+      (* Partition table — bounded to PTableSz = 64 slots, matching NUM_MODULES in VMState and RTL.
+         pt_sizes[id] = region_size for that module slot (0 = unallocated/invalid).
+         pt_next_id is the next free module ID to assign; initialized to 1 to match
+         empty_graph.pg_next_id = 1 from VMState.v. *)
+      with Register "pt_sizes"      : Vector (Bit WordSz) PTableIdxSz <- Default
+      with Register "pt_next_id"    : Bit WordSz <- PT_NEXT_ID_INIT
+
       (** The single step rule: fetch-decode-execute in one atomic action.
           This matches the Coq vm_step relation which is also atomic. *)
       with Rule "step" :=
@@ -93,6 +108,8 @@ Section ThieleCPU.
         Read info_gain_v : Bit WordSz <- "info_gain";
         Read error_code_v : Bit WordSz <- "error_code";
         Read mu_tensor_v : Vector (Bit WordSz) MuTensorIdxSz <- "mu_tensor";
+        Read pt_sizes_v   : Vector (Bit WordSz) PTableIdxSz <- "pt_sizes";
+        Read pt_next_id_v : Bit WordSz <- "pt_next_id";
 
         (* Bianchi conservation check: tensor_total must not exceed mu.
            Check BEFORE executing the instruction (matches handwritten RTL). *)
@@ -285,19 +302,91 @@ Section ThieleCPU.
         LET new_halted <- #bianchi_violation || (#opcode == $$(OP_HALT));
 
         (* Determine error state: latch (once set, stays set) *)
-        LET new_err <- #chsh_bits_bad;
+        LET new_err <- (#opcode == $$(OP_CHSH_TRIAL)) && #chsh_bits_bad;
 
         (* Determine error code *)
         LET new_error_code : Bit WordSz <-
           IF #bianchi_violation
           then $$(ERR_BIANCHI_VAL)
-          else (IF #chsh_bits_bad
+          else (IF ((#opcode == $$(OP_CHSH_TRIAL)) && #chsh_bits_bad)
                 then $$(ERR_CHSH_VAL)
                 else #error_code_v);
 
-        (* Determine new mu — only charge if not a bianchi violation *)
+        (* Determine new mu — only charge if not a bianchi violation.
+           ORACLE_HALTS (0x10) always charges 1,000,000 regardless of cost field. *)
         LET final_mu : Bit WordSz <-
-          IF #bianchi_violation then #mu_v else #new_mu;
+          IF #bianchi_violation
+          then #mu_v
+          else (IF (#opcode == $$(OP_ORACLE_HALTS))
+                then #mu_v + $1000000
+                else #new_mu);
+
+        (* ============================================================
+           Partition table updates (PNEW / PSPLIT / PMERGE)
+           Matches handwritten RTL module_table / region_table semantics.
+           pt_sizes[id] = region_size (0 = unallocated).
+           pt_next_id grows monotonically.
+           ============================================================ *)
+
+        (* Truncate pt_next_id to PTableIdxSz bits for vector indexing *)
+        LET pt_slot : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz _) #pt_next_id_v;
+
+        (* PNEW: allocate new slot at pt_next_id with region_size = op_a *)
+        LET pnew_region_size : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #op_a;
+        LET pt_after_pnew : Vector (Bit WordSz) PTableIdxSz <-
+          #pt_sizes_v@[#pt_slot <- #pnew_region_size];
+        LET next_after_pnew : Bit WordSz <- #pt_next_id_v + $1;
+
+        (* PSPLIT: split module op_a into two children at next two free slots.
+           Left child gets old_size >> 1, right child gets the remainder.
+           Original slot is zeroed (deallocated). *)
+        LET psplit_id : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz _) #op_a;
+        LET psplit_orig_sz : Bit WordSz <- #pt_sizes_v@[#psplit_id];
+        LET psplit_left_sz : Bit WordSz <-
+          BinBit (Srl _ _) #psplit_orig_sz ($$(WO~0~0~0~0~1));
+        LET psplit_right_sz : Bit WordSz <- #psplit_orig_sz - #psplit_left_sz;
+        LET psplit_slot1 : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz _) #pt_next_id_v;
+        LET psplit_slot2 : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz _) (#pt_next_id_v + $1);
+        LET pt_after_psplit : Vector (Bit WordSz) PTableIdxSz <-
+          ((#pt_sizes_v@[#psplit_id <- $0])@[#psplit_slot1 <- #psplit_left_sz])
+            @[#psplit_slot2 <- #psplit_right_sz];
+        LET next_after_psplit : Bit WordSz <- #pt_next_id_v + $2;
+
+        (* PMERGE: merge modules op_a and op_b.
+           Both source slots are zeroed; merged size allocated at pt_next_id. *)
+        LET pmerge_m1 : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz _) #op_a;
+        LET pmerge_m2 : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz _) #op_b;
+        LET pmerge_m1_sz : Bit WordSz <- #pt_sizes_v@[#pmerge_m1];
+        LET pmerge_m2_sz : Bit WordSz <- #pt_sizes_v@[#pmerge_m2];
+        LET pmerge_merged_sz : Bit WordSz <- #pmerge_m1_sz + #pmerge_m2_sz;
+        LET pmerge_slot : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz _) #pt_next_id_v;
+        LET pt_after_pmerge : Vector (Bit WordSz) PTableIdxSz <-
+          ((#pt_sizes_v@[#pmerge_m1 <- $0])@[#pmerge_m2 <- $0])
+            @[#pmerge_slot <- #pmerge_merged_sz];
+        LET next_after_pmerge : Bit WordSz <- #pt_next_id_v + $1;
+
+        (* Select partition table update based on opcode *)
+        LET new_pt_sizes : Vector (Bit WordSz) PTableIdxSz <-
+          IF #bianchi_violation
+          then #pt_sizes_v
+          else (IF (#opcode == $$(OP_PNEW))
+                then #pt_after_pnew
+                else (IF (#opcode == $$(OP_PSPLIT))
+                      then #pt_after_psplit
+                      else (IF (#opcode == $$(OP_PMERGE))
+                            then #pt_after_pmerge
+                            else #pt_sizes_v)));
+
+        LET new_pt_next_id : Bit WordSz <-
+          IF #bianchi_violation
+          then #pt_next_id_v
+          else (IF (#opcode == $$(OP_PNEW))
+                then #next_after_pnew
+                else (IF (#opcode == $$(OP_PSPLIT))
+                      then #next_after_psplit
+                      else (IF (#opcode == $$(OP_PMERGE))
+                            then #next_after_pmerge
+                            else #pt_next_id_v)));
 
         (* ============================================================
            Counter updates
@@ -343,6 +432,8 @@ Section ThieleCPU.
         Write "mdl_ops"        <- #new_mdl_ops;
         Write "info_gain"      <- #new_info_gain;
         Write "mu_tensor"      <- #new_mu_tensor;
+        Write "pt_sizes"       <- #new_pt_sizes;
+        Write "pt_next_id"     <- #new_pt_next_id;
         Retv
 
       (** Method to load a program word into instruction memory.
@@ -420,6 +511,14 @@ Section ThieleCPU.
           #t@[$$(WO~1~1~0~0)] + #t@[$$(WO~1~1~0~1)] +
           #t@[$$(WO~1~1~1~0)] + #t@[$$(WO~1~1~1~1)];
         Ret (#total > #m)
+
+      (** Partition table output methods — expose pt_next_id and slot sizes for verification *)
+      with Method "getPtNextId" () : Bit WordSz :=
+        Read v : Bit WordSz <- "pt_next_id"; Ret #v
+
+      with Method "getPtSize" (idx : Bit PTableIdxSz) : Bit WordSz :=
+        Read t : Vector (Bit WordSz) PTableIdxSz <- "pt_sizes";
+        Ret #t@[#idx]
     }.
 
   (** Extraction targets *)

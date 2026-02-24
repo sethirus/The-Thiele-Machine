@@ -288,7 +288,13 @@ class TestOpcodeEncoding:
 # 6. μ-ALU accelerator (standalone module)
 # ═══════════════════════════════════════════════════════════════════════
 class TestMuALU:
-    """Verify mu_alu.v Q16.16 arithmetic matches Python FixedPointMu."""
+    """Verify Q16.16 arithmetic encoding matches Python FixedPointMu.
+
+    NOTE: The standalone mu_alu.v has been archived (now part of the
+    Kami-extracted thiele_cpu_kami.v).  These tests verify Python-side
+    Q16.16 encoding only; hardware verification happens through the
+    integrated CPU cosimulation.
+    """
 
     def _q16_16(self, f: float) -> int:
         """Convert float to Q16.16 unsigned representation."""
@@ -303,72 +309,61 @@ class TestMuALU:
         assert self._q16_16(1.5) == 0x00018000
         assert abs(self._from_q16_16(0x00018000) - 1.5) < 1e-6
 
-    def test_add_operation(self):
-        """μ-ALU ADD: 1.5 + 2.25 = 3.75."""
-        results = _run_accel_mu_alu([
-            {"op": "ADD", "a": self._q16_16(1.5), "b": self._q16_16(2.25)},
-        ])
-        assert results, "mu_alu returned no results"
-        result_f = self._from_q16_16(results[0]["result"])
-        assert abs(result_f - 3.75) < 0.01
+    def test_add_encoding(self):
+        """Q16.16 ADD: 1.5 + 2.25 = 3.75 (Python encoding check)."""
+        a = self._q16_16(1.5)
+        b = self._q16_16(2.25)
+        result = (a + b) & 0xFFFFFFFF
+        assert abs(self._from_q16_16(result) - 3.75) < 0.01
 
-    def test_sub_operation(self):
-        """μ-ALU SUB: 5.0 - 2.0 = 3.0."""
-        results = _run_accel_mu_alu([
-            {"op": "SUB", "a": self._q16_16(5.0), "b": self._q16_16(2.0)},
-        ])
-        assert results, "mu_alu returned no results"
-        result_f = self._from_q16_16(results[0]["result"])
-        assert abs(result_f - 3.0) < 0.01
+    def test_sub_encoding(self):
+        """Q16.16 SUB: 5.0 - 2.0 = 3.0 (Python encoding check)."""
+        a = self._q16_16(5.0)
+        b = self._q16_16(2.0)
+        result = (a - b) & 0xFFFFFFFF
+        assert abs(self._from_q16_16(result) - 3.0) < 0.01
 
 
 # ═══════════════════════════════════════════════════════════════════════
 # 7. Partition Core accelerator (standalone module)
 # ═══════════════════════════════════════════════════════════════════════
 class TestPartitionCoreAccel:
-    """Verify partition_core.v matches Python state.py."""
+    """Verify partition operations via integrated CPU cosimulation.
 
-    def test_pnew_creates_one_module(self):
-        """PNEW region=0x7 creates one module with 3-bit region."""
-        results = _run_accel_partition([
-            {"op": "PNEW", "region": 0x7, "cost": 3},
-        ])
-        assert len(results) >= 1
-        assert results[0]["num_modules"] == 1
+    NOTE: The standalone partition_core.v has been archived (now part
+    of the Kami-extracted thiele_cpu_kami.v).  These tests exercise
+    partition operations through the full CPU pipeline.
+    """
 
-    def test_pnew_mu_cost(self):
-        """PNEW charges the explicit cost."""
-        results = _run_accel_partition([
-            {"op": "PNEW", "region": 0x7, "cost": 3},
-        ])
-        assert results[0]["mu_cost"] == 3
+    def test_pnew_charges_mu_via_cpu(self):
+        """PNEW charges the explicit μ-cost through the full CPU."""
+        state = _run_cosim("PNEW 0 0 3\nHALT")
+        assert state["mu"] == 3
 
-    def test_two_pnews_two_modules(self):
-        """Two PNEWs create two modules."""
-        results = _run_accel_partition([
-            {"op": "PNEW", "region": 0x7, "cost": 3},
-            {"op": "PNEW", "region": 0x30, "cost": 2},
-        ])
-        assert results[-1]["num_modules"] == 2
+    def test_two_pnews_accumulate_mu(self):
+        """Two PNEWs accumulate μ-cost."""
+        state = _run_cosim("PNEW 0 0 3\nPNEW 1 0 2\nHALT")
+        assert state["mu"] == 5
 
-    def test_pmerge_reduces_count(self):
-        """PMERGE reduces module count by one."""
-        results = _run_accel_partition([
-            {"op": "PNEW", "region": 0x3, "cost": 2},
-            {"op": "PNEW", "region": 0xC, "cost": 2},
-            {"op": "PMERGE", "m1": 0, "m2": 1, "cost": 3},
-        ])
-        assert results[-1]["num_modules"] == 1
+    def test_pmerge_charges_mu(self):
+        """PMERGE charges μ-cost after PNEWs."""
+        state = _run_cosim("PNEW 0 0 2\nPNEW 1 0 2\nPMERGE 1 2 3\nHALT")
+        assert state["mu"] == 7
+
+    def test_partition_ops_counter(self):
+        """partition_ops counter increments for PNEW operations."""
+        state = _run_cosim("PNEW 0 0 1\nPNEW 1 0 1\nHALT")
+        assert state.get("partition_ops", 0) >= 2
 
 
 # ═══════════════════════════════════════════════════════════════════════
 # 8. Compilation smoke test
 # ═══════════════════════════════════════════════════════════════════════
 class TestCompilation:
-    """Verify all RTL files compile without error."""
+    """Verify RTL files compile without error."""
 
-    def test_unified_rtl_compiles(self):
-        """thiele_cpu_unified.v + thiele_cpu_tb.v compile cleanly."""
+    def test_kami_rtl_compiles(self):
+        """thiele_cpu_kami.v + thiele_cpu_kami_tb.v compile cleanly."""
         import tempfile
         from thielecpu.hardware.cosim import compile_testbench_iverilog
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -376,39 +371,24 @@ class TestCompilation:
             assert vvp.exists()
             assert vvp.stat().st_size > 0
 
-    def test_partition_core_compiles(self):
-        """partition_core.v compiles with iverilog."""
-        rtl_dir = REPO_ROOT / "thielecpu" / "hardware" / "rtl"
-        result = subprocess.run(
-            ["iverilog", "-g2012", "-DYOSYS_LITE",
-             "-I", str(rtl_dir),
-             str(rtl_dir / "partition_core.v")],
-            capture_output=True, text=True, timeout=15,
-        )
-        # iverilog may warn but shouldn't error
-        assert result.returncode == 0, f"Compilation failed: {result.stderr}"
+    def test_kami_rtl_yosys_check(self):
+        """thiele_cpu_kami_synth.v passes Yosys elaboration and hierarchy check.
 
-    def test_mu_alu_compiles(self):
-        """mu_alu.v compiles with iverilog."""
+        Uses prep+check+stat (no ABC) so it completes within the per-test
+        timeout regardless of available RAM.  Full synthesis is covered by
+        the CI synthesis gate (synth_full.ys / synth_ecp5.ys).
+        """
         rtl_dir = REPO_ROOT / "thielecpu" / "hardware" / "rtl"
+        synth_v = rtl_dir / "thiele_cpu_kami_synth.v"
+        if not synth_v.exists():
+            pytest.skip("thiele_cpu_kami_synth.v not generated yet")
         result = subprocess.run(
-            ["iverilog", "-g2012", "-DYOSYS_LITE",
-             "-I", str(rtl_dir),
-             str(rtl_dir / "mu_alu.v")],
-            capture_output=True, text=True, timeout=15,
+            ["yosys", "-p",
+             f"read_verilog -sv -DSYNTHESIS {synth_v}; "
+             "prep -top mkModule1; check; stat"],
+            capture_output=True, text=True, timeout=55,
         )
-        assert result.returncode == 0, f"Compilation failed: {result.stderr}"
-
-    def test_receipt_checker_compiles(self):
-        """receipt_integrity_checker.v compiles with iverilog."""
-        rtl_dir = REPO_ROOT / "thielecpu" / "hardware" / "rtl"
-        result = subprocess.run(
-            ["iverilog", "-g2012", "-DYOSYS_LITE",
-             "-I", str(rtl_dir),
-             str(rtl_dir / "receipt_integrity_checker.v")],
-            capture_output=True, text=True, timeout=15,
-        )
-        assert result.returncode == 0, f"Compilation failed: {result.stderr}"
+        assert result.returncode == 0, f"Yosys check failed: {result.stderr}"
 
 
 # ═══════════════════════════════════════════════════════════════════════

@@ -436,7 +436,7 @@ Coq is the machine. It implements the Calculus of Inductive Constructions---a ty
 
 The trusted computing base is small---Coq's kernel is roughly 30,000 lines of OCaml. If you trust that kernel (and thousands of mathematicians do, daily), then you trust every proof it accepts. The alternative is trusting me, a car salesman. I know which one I would pick.
 
-For the Thiele Machine, this matters because the claims are not hand-waved. The Coq corpus---286 files, 79,741 lines, 2,329 theorem/lemma declarations---is checked by the compiler. Every property---$\mu$-monotonicity, $\mu$-initiality, No Free Insight, observational no-signaling, oracle impossibility---is established by a proof that the machine accepted, not by an argument I wrote in prose.
+For the Thiele Machine, this matters because the claims are not hand-waved. The Coq corpus---319 files, 93,451 lines, 4,259 theorem/lemma/definition declarations---is checked by the compiler. Every property---$\mu$-monotonicity, $\mu$-initiality, No Free Insight, observational no-signaling, oracle impossibility---is established by a proof that the machine accepted, not by an argument I wrote in prose.
 
 \subsection{The Inquisitor Standard}
 
@@ -448,7 +448,7 @@ For the Thiele Machine, the project enforces a strict methodology. No wiggle roo
     \item \textbf{Documented assumptions}: External mathematical results (e.g., Tsirelson's theorem, Fine's theorem, Bell's inequality) are formalized as a \texttt{HardMathFacts} record in \path{coq/kernel/AssumptionBundle.v}---6 facts total. These are not Coq \texttt{Axiom} declarations; they are bundled as a record type and threaded through proofs as explicit parameters. All 6 are \textit{mechanically proven from first principles} in \path{coq/kernel/HardMathFactsProven.v}. The assumption surface is zero.
 \end{enumerate}
 
-This is enforced by \path{scripts/inquisitor.py}---a static analyzer with 50+ finding codes that scans every Coq file in CI. It checks for \texttt{Admitted}, \texttt{admit}, custom axioms, circular definitions, tautological proofs, smuggled constraints, and more. If a theorem says ``Proven,'' it compiles to \texttt{Qed}.
+This is enforced by \path{scripts/inquisitor.py}---a static analyzer with 74 finding codes across 47 scan rules that scans every Coq file in CI. It checks for \texttt{Admitted}, \texttt{admit}, custom axioms, circular definitions, tautological proofs, smuggled constraints, mu-cost consistency, CHSH bounds, axiom dependencies, and more. If a theorem says ``Proven,'' it compiles to \texttt{Qed}.
 
 \subsection{Proof-Carrying Code}
 

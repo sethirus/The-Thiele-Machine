@@ -12,7 +12,7 @@ Demonstrates that Coq ↔ Python ↔ Verilog are all provably equivalent:
    - Reference implementation
    - Direct execution and testing
 
-3. VERILOG RTL (thielecpu/hardware/rtl/thiele_cpu_unified.v)
+3. VERILOG RTL (thielecpu/hardware/rtl/thiele_cpu_kami.v)
    - Hardware implementation
    - Synthesizable for FPGA/ASIC
 

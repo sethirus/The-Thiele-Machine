@@ -132,7 +132,7 @@ The binding constraint: for any instruction sequence $\tau$, the state projectio
 The formal kernel is organized around a small set of interlocking definitions:
 \begin{itemize}
     \item \textbf{State and partition structure}: the record that defines registers, memory, the partition graph, and the $\mu$-ledger.
-    \item \textbf{Step semantics}: the 18-instruction ISA and the inductive transition rules.
+    \item \textbf{Step semantics}: the 26-instruction ISA and the inductive transition rules.
     \item \textbf{Logical certificates}: checkers for proofs and models that allow deterministic verification.
     \item \textbf{Conservation and locality}: theorems that enforce $\mu$-monotonicity and observational no-signaling.
     \item \textbf{Receipts and simulation}: trace formats and cross-layer correspondence lemmas.
@@ -150,31 +150,33 @@ The goal is not to “encode” the implementation, but to define a minimal sema
     lbl/.style={font=\scriptsize\ttfamily, anchor=west},
 ]
 % Container
-\node[draw, thick, rounded corners=2pt, minimum width=5.2cm, minimum height=4.4cm, label={[font=\footnotesize\bfseries]above:VMState Record}] (container) at (2.6,1.8) {};
+\node[draw, thick, rounded corners=2pt, minimum width=5.2cm, minimum height=5.0cm, label={[font=\footnotesize\bfseries]above:VMState Record}] (container) at (2.6,1.8) {};
 
 % Fields
-\node[field, fill=blue!12] (graph) at (0.3,3.6) {vm\_graph : PartitionGraph};
-\node[field, fill=blue!12] (csrs) at (0.3,3.05) {vm\_csrs : CSRState};
-\node[field, fill=green!12] (regs) at (0.3,2.5) {vm\_regs : list nat};
-\node[field, fill=green!12] (mem) at (0.3,1.95) {vm\_mem : list nat};
-\node[field, fill=purple!12] (pc) at (0.3,1.4) {vm\_pc : nat};
-\node[field, fill=red!15, line width=1.2pt, draw=red!70] (mu) at (0.3,0.85) {vm\_mu : nat};
-\node[field, fill=gray!12] (err) at (0.3,0.3) {vm\_err : bool};
+\node[field, fill=blue!12] (graph) at (0.3,3.9) {vm\_graph : PartitionGraph};
+\node[field, fill=blue!12] (csrs) at (0.3,3.35) {vm\_csrs : CSRState};
+\node[field, fill=green!12] (regs) at (0.3,2.8) {vm\_regs : list nat};
+\node[field, fill=green!12] (mem) at (0.3,2.25) {vm\_mem : list nat};
+\node[field, fill=purple!12] (pc) at (0.3,1.7) {vm\_pc : nat};
+\node[field, fill=red!15, line width=1.2pt, draw=red!70] (mu) at (0.3,1.15) {vm\_mu : nat};
+\node[field, fill=red!8, draw=red!50] (mutensor) at (0.3,0.6) {vm\_mu\_tensor : list nat};
+\node[field, fill=gray!12] (err) at (0.3,0.05) {vm\_err : bool};
 
 % Annotations
-\node[font=\scriptsize, anchor=west] at (4.3,2.5) {32 regs};
-\node[font=\scriptsize, anchor=west] at (4.3,1.95) {256 words};
-\node[font=\scriptsize, anchor=west, red!70] at (4.3,0.85) {$\mu$-ledger};
+\node[font=\scriptsize, anchor=west] at (4.3,2.8) {32 regs};
+\node[font=\scriptsize, anchor=west] at (4.3,2.25) {256 words};
+\node[font=\scriptsize, anchor=west, red!70] at (4.3,1.15) {$\mu$-ledger};
+\node[font=\scriptsize, anchor=west, red!50] at (4.3,0.6) {4$\times$4 cost};
 
 % Data brace
-\draw[decorate, decoration={brace, amplitude=4pt}] (4.2,2.75) -- (4.2,1.7) node[midway, right=5pt, font=\scriptsize] {Data};
+\draw[decorate, decoration={brace, amplitude=4pt}] (4.2,3.05) -- (4.2,2.0) node[midway, right=5pt, font=\scriptsize] {Data};
 \end{tikzpicture}
-\caption{VMState record: seven fields, with \texttt{vm\_mu} (the $\mu$-ledger) as the central cost accumulator.}
+\caption{VMState record: eight fields, with \texttt{vm\_mu} (the $\mu$-ledger) and \texttt{vm\_mu\_tensor} (the 4$\times$4 cost tensor) as cost accumulators.}
 \end{figure}
 
 \subsection{The VMState Record}
 
-The state is defined as a record with seven components:
+The state is defined as a record with eight components:
 \begin{lstlisting}
 Record VMState := {
   vm_graph : PartitionGraph;
@@ -183,6 +185,7 @@ Record VMState := {
   vm_mem : list nat;
   vm_pc : nat;
   vm_mu : nat;
+  vm_mu_tensor : list nat;
   vm_err : bool
 }.
 \end{lstlisting}
@@ -190,10 +193,10 @@ Record VMState := {
 \paragraph{Understanding VMState Record:}
 
 \begin{quote}
-\textit{Author's Note (Devon): Look, I know what you're thinking. ``Seven fields? That's it?'' Yeah. That's it. Every computation this machine does boils down to shuffling values between these seven buckets. It's like a car---looks complicated under the hood, but at the end of the day it's just ``make explosions, turn wheels.'' Here it's ``move bits, track cost.''}
+\textit{Author's Note (Devon): Look, I know what you're thinking. ``Eight fields? That's it?'' Yeah. That's it. Every computation this machine does boils down to shuffling values between these eight buckets. It's like a car---looks complicated under the hood, but at the end of the day it's just ``make explosions, turn wheels.'' Here it's ``move bits, track cost.''}
 \end{quote}
 
-\textbf{This is the complete VM state} — everything needed to simulate one step.
+\textbf{This is the complete VM state} --- everything needed to simulate one step.
 
 \textbf{Field-by-Field Breakdown:}
 \begin{itemize}
@@ -231,6 +234,13 @@ Record VMState := {
         \item Cumulative information cost
         \item Monotonically increasing (never decreases)
         \item \textbf{Core Invariant}: Kernel proofs show this can only grow
+    \end{itemize}
+    \item \textbf{vm\_mu\_tensor : list nat}: The 4$\times$4 cost tensor
+    \begin{itemize}
+        \item Flattened 16-entry list representing a 4$\times$4 matrix
+        \item Tracks inter-category $\mu$-flow between partition, logic, compute, and transfer operations
+        \item Exported as \texttt{getMuTensor0}--\texttt{getMuTensor3} in the Kami-extracted RTL
+        \item \textbf{Core Invariant}: Tensor entries are monotonically non-decreasing
     \end{itemize}
     \item \textbf{vm\_err : bool}: Error flag
     \begin{itemize}
@@ -327,7 +337,7 @@ In the Python reference VM (\path{thielecpu/state.py}), these same operations ar
 
 \subsection{The Step Relation}
 
-The step relation is an inductive predicate with 23 constructors covering the 18 opcodes. Several opcodes have both success and failure constructors (e.g., \texttt{step\_psplit} and \texttt{step\_psplit\_failure}), so the constructor count exceeds the opcode count. Each constructor states exact preconditions and the resulting next state:
+The step relation is an inductive predicate with 32 constructors covering the 26 opcodes. Several opcodes have both success and failure constructors (e.g., \texttt{step\_psplit} and \texttt{step\_psplit\_failure}), so the constructor count exceeds the opcode count. Each constructor states exact preconditions and the resulting next state:
 \begin{lstlisting}
 Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop := 
 | step_pnew : forall s region cost graph' mid,
@@ -388,11 +398,14 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     \item \textbf{Proof Target}: Properties are proven about this relation (safety, progress)
 \end{itemize}
 
-\textbf{23 Constructors} covering the 18 opcodes (some have success/failure variants):
+\textbf{32 Constructors} covering the 26 opcodes (some have success/failure variants):
 \begin{itemize}
-    \item Partition ops: PNEW, PSPLIT, PMERGE
+    \item Partition ops: PNEW, PSPLIT, PMERGE, PDISCOVER
     \item Logic ops: LASSERT, LJOIN, REVEAL
-    \item Memory ops: XFER, XOR\_LOAD, etc.
+    \item Transfer \& XOR ops: XFER, XOR\_LOAD, XOR\_ADD, XOR\_SWAP, XOR\_RANK
+    \item Scalar ops: LOAD, STORE, ADD, SUB, LOAD\_IMM
+    \item Control flow: JUMP, JNEZ, CALL, RET, HALT
+    \item Measurement: MDLACC, CHSH\_TRIAL, EMIT, ORACLE\_HALTS
     \item Each constructor specifies exact preconditions (when instruction can execute) and postconditions (resulting state)
 \end{itemize}
 
@@ -406,6 +419,7 @@ Definition advance_state (s : VMState) (instr : vm_instruction)
      vm_mem := s.(vm_mem);
      vm_pc := s.(vm_pc) + 1;
      vm_mu := apply_cost s instr;
+     vm_mu_tensor := apply_tensor_cost s instr;
      vm_err := err' |}.
 \end{lstlisting}
 
@@ -428,7 +442,8 @@ Definition advance_state (s : VMState) (instr : vm_instruction)
     \item \textbf{vm\_regs := s.(vm\_regs)}: Preserve registers (unchanged by partition ops)
     \item \textbf{vm\_mem := s.(vm\_mem)}: Preserve memory
     \item \textbf{vm\_pc := s.(vm\_pc) + 1}: Increment program counter (fetch next instruction)
-    \item \textbf{vm\_mu := apply\_cost s instr}: Add instruction's $\mu$-cost to ledger
+    \item \textbf{vm\_mu := apply\_cost s instr}: Add instruction's $\mu$-cost to scalar ledger
+    \item \textbf{vm\_mu\_tensor := apply\_tensor\_cost s instr}: Update the 4$\times$4 inter-category cost tensor
     \item \textbf{vm\_err := err'}: Set error flag (used for undefined behavior)
 \end{enumerate}
 
@@ -547,7 +562,7 @@ The reference VM is optimized for correctness and observability rather than perf
 The reference VM is structured around:
 \begin{itemize}
     \item \textbf{State}: a dataclass mirroring the formal record (registers, memory, CSRs, partition graph, $\mu$-ledger).
-    \item \textbf{ISA decoding}: a compact representation of the 18 opcodes.
+    \item \textbf{ISA decoding}: a compact representation of the 26 opcodes.
     \item \textbf{Partition operations}: creation, split, merge, and discovery.
     \item \textbf{Receipt generation}: cryptographic receipts for each step.
 \end{itemize}

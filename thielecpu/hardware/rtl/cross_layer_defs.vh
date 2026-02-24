@@ -114,13 +114,13 @@ localparam [31:0] compute_geometric_signature = 128;
 
 // --- CHSH / Bell ---
 // Matches: Coq tsirelson_alice_setting / Python tsirelson_alice_setting
-localparam [31:0] tsirelson_alice_setting = 1;
+localparam [31:0] tsirelson_alice_setting = 0;
 // Matches: Coq tsirelson_bob_setting / Python tsirelson_bob_setting
 localparam [31:0] tsirelson_bob_setting = 1;
 // Matches: Coq tsirelson_alice_outcome / Python tsirelson_alice_outcome
-localparam [31:0] tsirelson_alice_outcome = 1;
+localparam [31:0] tsirelson_alice_outcome = 0;
 // Matches: Coq tsirelson_bob_outcome / Python tsirelson_bob_outcome
-localparam [31:0] tsirelson_bob_outcome = 1;
+localparam [31:0] tsirelson_bob_outcome = 0;
 // Matches: Coq classical_bound / Python classical_bound
 localparam [31:0] classical_bound = 32'h00020000;
 
