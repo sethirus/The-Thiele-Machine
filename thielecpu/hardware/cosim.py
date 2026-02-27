@@ -455,7 +455,8 @@ def _ensure_verilator_current() -> Path:
 def run_simulation_iverilog(vvp_binary: Path, program_hex: Path,
                             data_hex: Optional[Path] = None,
                             timeout: int = 30,
-                            n_instrs: Optional[int] = None) -> str:
+                            n_instrs: Optional[int] = None,
+                            logic_z3_bridge: bool = False) -> str:
     """Run the compiled testbench and return stdout."""
     cmd = ["vvp", str(vvp_binary)]
     plusargs = [f"+PROGRAM={program_hex}"]
@@ -463,6 +464,8 @@ def run_simulation_iverilog(vvp_binary: Path, program_hex: Path,
         plusargs.append(f"+DATA={data_hex}")
     if n_instrs is not None:
         plusargs.append(f"+N_INSTRS={n_instrs}")
+    if logic_z3_bridge:
+        plusargs.append("+LOGIC_Z3_BRIDGE=1")
     cmd.extend(plusargs)
 
     result = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
@@ -475,13 +478,16 @@ def run_simulation_iverilog(vvp_binary: Path, program_hex: Path,
 def run_simulation_verilator(binary: Path, program_hex: Path,
                              data_hex: Optional[Path] = None,
                              timeout: int = 30,
-                             n_instrs: Optional[int] = None) -> str:
+                             n_instrs: Optional[int] = None,
+                             logic_z3_bridge: bool = False) -> str:
     """Run the Verilator-built executable and return stdout."""
     cmd = [str(binary), f"+PROGRAM={program_hex}"]
     if data_hex:
         cmd.append(f"+DATA={data_hex}")
     if n_instrs is not None:
         cmd.append(f"+N_INSTRS={n_instrs}")
+    if logic_z3_bridge:
+        cmd.append("+LOGIC_Z3_BRIDGE=1")
     result = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
     return result.stdout
 
@@ -533,6 +539,7 @@ def run_verilog(
     program: str,
     timeout: int = 30,
     backend: Optional[str] = None,
+    logic_z3_bridge: bool = False,
 ) -> Optional[Dict[str, Any]]:
     """Run a program through Verilog simulation and return parsed state.
 
@@ -578,12 +585,14 @@ def run_verilog(
             compiled = _ensure_vvp_current()  # cached; compiles once per session
             stdout = run_simulation_iverilog(
                 compiled, prog_hex_path, data_hex_path,
-                timeout=timeout, n_instrs=n_instrs_to_load)
+                timeout=timeout, n_instrs=n_instrs_to_load,
+                logic_z3_bridge=logic_z3_bridge)
         else:
             compiled = _ensure_verilator_current()  # cached; recompiles only when stale
             stdout = run_simulation_verilator(
                 compiled, prog_hex_path, data_hex_path,
-                timeout=timeout, n_instrs=n_instrs_to_load)
+                timeout=timeout, n_instrs=n_instrs_to_load,
+                logic_z3_bridge=logic_z3_bridge)
 
         # Parse
         return parse_verilog_output(stdout)

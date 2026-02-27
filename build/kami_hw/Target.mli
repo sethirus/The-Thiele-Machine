@@ -12,9 +12,61 @@ type ('a, 'p) sigT =
 
 val projT1 : ('a1, 'a2) sigT -> 'a1
 
+type uint =
+| Nil
+| D0 of uint
+| D1 of uint
+| D2 of uint
+| D3 of uint
+| D4 of uint
+| D5 of uint
+| D6 of uint
+| D7 of uint
+| D8 of uint
+| D9 of uint
+
+type uint0 =
+| Nil0
+| D10 of uint0
+| D11 of uint0
+| D12 of uint0
+| D13 of uint0
+| D14 of uint0
+| D15 of uint0
+| D16 of uint0
+| D17 of uint0
+| D18 of uint0
+| D19 of uint0
+| Da of uint0
+| Db of uint0
+| Dc of uint0
+| Dd of uint0
+| De of uint0
+| Df of uint0
+
+type uint1 =
+| UIntDecimal of uint
+| UIntHexadecimal of uint0
+
 val pred : int -> int
 
 val add : int -> int -> int
+
+val tail_add : int -> int -> int
+
+val tail_addmul : int -> int -> int -> int
+
+val tail_mul : int -> int -> int
+
+val of_uint_acc : uint -> int -> int
+
+val of_uint : uint -> int
+
+val of_hex_uint_acc : uint0 -> int -> int
+
+val of_hex_uint : uint0 -> int
+
+val of_num_uint : uint1 -> int
 
 val eqb : bool -> bool -> bool
 
@@ -30,7 +82,7 @@ type t =
 | FS of int * t
 
 type 'a t0 =
-| Nil
+| Nil1
 | Cons of 'a * int * 'a t0
 
 val nth : int -> 'a1 t0 -> t -> 'a1
@@ -327,11 +379,19 @@ val eRR_CHSH_VAL : word
 
 val eRR_BIANCHI_VAL : word
 
+val eRR_LOGIC_VAL : word
+
+val cHSH_X1_SURCHARGE : word
+
 val oP_PNEW : word
 
 val oP_PSPLIT : word
 
 val oP_PMERGE : word
+
+val oP_LASSERT : word
+
+val oP_LJOIN : word
 
 val oP_MDLACC : word
 
@@ -355,6 +415,8 @@ val oP_EMIT : word
 
 val oP_REVEAL : word
 
+val oP_ORACLE_HALTS : word
+
 val oP_LOAD : word
 
 val oP_STORE : word
@@ -376,6 +438,8 @@ val oP_HALT : word
 val instrSz : int
 
 val loadInstrPort : kind attribute t0
+
+val logicRespPort : kind attribute t0
 
 val sP_IDX : word
 
