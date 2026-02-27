@@ -23,6 +23,13 @@ module thiele_cpu_kami_tb;
   reg [39:0] load_data;
   reg load_en;
 
+  // Logic coprocessor response drive (optional external Z3 bridge)
+  reg [33:0] logic_resp_in;
+  reg logic_resp_en;
+  wire logic_req_valid_out;
+  wire [7:0] logic_req_opcode_out;
+  wire [31:0] logic_req_payload_out;
+
   // Output ports from mkModule1
   wire [31:0] pc_out, mu_out;
   wire [31:0] partition_ops_out, mdl_ops_out, info_gain_out, error_code_out;
@@ -89,6 +96,22 @@ module thiele_cpu_kami_tb;
     .getMuTensor3(mu_tensor_3),
     .RDY_getMuTensor3(),
 
+    .EN_getLogicReqValid(1'b1),
+    .getLogicReqValid(logic_req_valid_out),
+    .RDY_getLogicReqValid(),
+
+    .EN_getLogicReqOpcode(1'b1),
+    .getLogicReqOpcode(logic_req_opcode_out),
+    .RDY_getLogicReqOpcode(),
+
+    .EN_getLogicReqPayload(1'b1),
+    .getLogicReqPayload(logic_req_payload_out),
+    .RDY_getLogicReqPayload(),
+
+    .setLogicResp_x_0(logic_resp_in),
+    .EN_setLogicResp(logic_resp_en),
+    .RDY_setLogicResp(),
+
     .EN_getBianchiAlarm(1'b1),
     .getBianchiAlarm(bianchi_alarm_out),
     .RDY_getBianchiAlarm()
@@ -118,6 +141,18 @@ module thiele_cpu_kami_tb;
   reg [63:0]   shadow_new_mask;                  // PNEW singleton mask
   integer      mod_j, bit_b, first_mod, first_bit; // JSON dump loop vars
 
+  // Optional external logic bridge controls
+  integer      logic_bridge_enable;
+  integer      logic_bridge_error;
+  integer      logic_bridge_value;
+  integer      logic_bridge_rc;
+  integer      logic_bridge_req_fd;
+  integer      logic_bridge_rsp_fd;
+  reg [1023:0] logic_bridge_req_path;
+  reg [1023:0] logic_bridge_rsp_path;
+  reg [2047:0] logic_bridge_cmd;
+  reg          logic_prev_req_valid;
+
   // File paths from plusargs
   reg [1023:0] program_hex_path;
   reg [1023:0] data_hex_path;
@@ -142,6 +177,16 @@ module thiele_cpu_kami_tb;
     shadow_executing = 1'b0;
     exec_word        = 32'd0;
     shadow_found_dup = 0;
+
+    logic_resp_in = 34'd0;
+    logic_resp_en = 1'b0;
+    logic_prev_req_valid = 1'b0;
+    logic_bridge_enable = 0;
+    logic_bridge_req_path = "build/logic_bridge_req.txt";
+    logic_bridge_rsp_path = "build/logic_bridge_rsp.txt";
+    if ($value$plusargs("LOGIC_Z3_BRIDGE=%d", logic_bridge_enable)) begin end
+    if ($value$plusargs("LOGIC_REQ_FILE=%s", logic_bridge_req_path)) begin end
+    if ($value$plusargs("LOGIC_RSP_FILE=%s", logic_bridge_rsp_path)) begin end
 
     // Load program and data from hex files
     if ($value$plusargs("PROGRAM=%s", program_hex_path)) begin
@@ -201,6 +246,13 @@ module thiele_cpu_kami_tb;
     force dut.info_gain = 32'd0;
     force dut.error_code = 32'd0;
     force dut.mu_tensor = {512{1'b0}};
+    force dut.logic_acc = 32'd0;
+    force dut.logic_req_valid = 1'b0;
+    force dut.logic_req_opcode = 8'd0;
+    force dut.logic_req_payload = 32'd0;
+    force dut.logic_resp_valid = 1'b0;
+    force dut.logic_resp_error = 1'b0;
+    force dut.logic_resp_value = 32'd0;
     @(posedge clk);
     @(negedge clk);
     release dut.pc;
@@ -214,6 +266,13 @@ module thiele_cpu_kami_tb;
     release dut.info_gain;
     release dut.error_code;
     release dut.mu_tensor;
+    release dut.logic_acc;
+    release dut.logic_req_valid;
+    release dut.logic_req_opcode;
+    release dut.logic_req_payload;
+    release dut.logic_resp_valid;
+    release dut.logic_resp_error;
+    release dut.logic_resp_value;
 
     // Phase 4: Let CPU execute and wait for halt
     shadow_executing = 1'b1;
@@ -222,7 +281,38 @@ module thiele_cpu_kami_tb;
       // Capture instruction executing THIS cycle (before posedge advances pc)
       exec_word = dut.imem[pc_out[7:0] * 32 +: 32];
 
+      // Logic bridge handshake: consume in-core request/response wires.
+      // The bridge check is deterministic and synth-independent for cosim.
+      logic_resp_en = 1'b0;
+      logic_resp_in = 34'd0;
+      if (logic_bridge_enable != 0 && logic_req_valid_out && !logic_prev_req_valid) begin
+        logic_bridge_error = 0;
+        logic_bridge_value = logic_req_payload_out;
+        case (logic_req_opcode_out)
+          8'h03: begin  // LASSERT: sat iff op_a >= op_b
+            if (logic_req_payload_out[15:8] < logic_req_payload_out[7:0]) begin
+              logic_bridge_error = 1;
+              logic_bridge_value = 0;
+            end
+          end
+          8'h04: begin  // LJOIN: sat iff both terms are non-zero
+            if (logic_req_payload_out[15:8] == 0 || logic_req_payload_out[7:0] == 0) begin
+              logic_bridge_error = 1;
+              logic_bridge_value = 0;
+            end
+          end
+          default: begin
+            logic_bridge_error = 1;
+            logic_bridge_value = 0;
+          end
+        endcase
+        logic_resp_in = {1'b1, logic_bridge_error[0], logic_bridge_value[31:0]};
+        logic_resp_en = 1'b1;
+      end
+      logic_prev_req_valid = logic_req_valid_out;
+
       @(posedge clk);
+
       cycle_count = cycle_count + 1;
 
       // Shadow partition tracker: decode and apply instruction that just executed
