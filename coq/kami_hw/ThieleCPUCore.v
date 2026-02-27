@@ -26,13 +26,6 @@
       PNEW/PSPLIT/PMERGE/PDISCOVER/LASSERT/LJOIN/MDLACC/EMIT/ORACLE_HALTS:
         charge mu + advance PC (partition graph managed externally per Abstraction.v)
 
-    HARDWARE ABSTRACTION NOTE:
-      The Kami hardware implements a simplified execution model where certificate
-      checking (LASSERT/LJOIN) and oracle operations (ORACLE_HALTS) are no-ops that
-      only charge μ and advance PC. The full semantics (partition graph updates,
-      certificate validation) are handled by the external environment as specified
-      in Abstraction.v. This separation allows the hardware to remain simple and
-      synthesizable while the proof layer maintains full semantic fidelity.
 
     Kami Vector notes: Vector K n stores 2^n elements, indexed by Bit n.
     So "regs" is Vector (Bit 32) 5 = 2^5 = 32 registers, indexed by Bit 5.
@@ -56,6 +49,13 @@ Section ThieleCPU.
       "data" :: Bit InstrSz
     }.
 
+  Definition LogicRespPort :=
+    STRUCT {
+      "valid" :: Bool ;
+      "error" :: Bool ;
+      "value" :: Bit WordSz
+    }.
+
   (** Stack pointer register index (r31) *)
   Definition SP_IDX : word RegIdxSz := WO~1~1~1~1~1.
 
@@ -77,6 +77,17 @@ Section ThieleCPU.
 
       (* Error code register — specific error condition identifier *)
       with Register "error_code"    : Bit WordSz <- Default
+
+      (* In-core logic engine accumulator: deterministic certificate/logic state. *)
+      with Register "logic_acc"     : Bit WordSz <- Default
+
+      (* Explicit L-coprocessor request/response interface state (in-core ports). *)
+      with Register "logic_req_valid"   : Bool <- false
+      with Register "logic_req_opcode"  : Bit OpcodeSz <- Default
+      with Register "logic_req_payload" : Bit WordSz <- Default
+      with Register "logic_resp_valid"  : Bool <- false
+      with Register "logic_resp_error"  : Bool <- false
+      with Register "logic_resp_value"  : Bit WordSz <- Default
 
       (* μ-tensor: 4×4 flattened (16 entries) for revelation direction tracking *)
       with Register "mu_tensor"     : Vector (Bit WordSz) MuTensorIdxSz <- Default
@@ -107,6 +118,13 @@ Section ThieleCPU.
         Read mdl_ops_v : Bit WordSz <- "mdl_ops";
         Read info_gain_v : Bit WordSz <- "info_gain";
         Read error_code_v : Bit WordSz <- "error_code";
+        Read logic_acc_v : Bit WordSz <- "logic_acc";
+        Read logic_req_valid_v : Bool <- "logic_req_valid";
+        Read logic_req_opcode_v : Bit OpcodeSz <- "logic_req_opcode";
+        Read logic_req_payload_v : Bit WordSz <- "logic_req_payload";
+        Read logic_resp_valid_v : Bool <- "logic_resp_valid";
+        Read logic_resp_error_v : Bool <- "logic_resp_error";
+        Read logic_resp_value_v : Bit WordSz <- "logic_resp_value";
         Read mu_tensor_v : Vector (Bit WordSz) MuTensorIdxSz <- "mu_tensor";
         Read pt_sizes_v   : Vector (Bit WordSz) PTableIdxSz <- "pt_sizes";
         Read pt_next_id_v : Bit WordSz <- "pt_next_id";
@@ -177,6 +195,10 @@ Section ThieleCPU.
         LET mem_addr_a : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) #op_a;
         LET mem_val : Bit WordSz <- #mem_v@[#mem_addr];
 
+        (* Partition-table indexed value probes for in-core PDISCOVER datapath *)
+        LET pt_probe_idx : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz _) #op_b;
+        LET pt_probe_size : Bit WordSz <- #pt_sizes_v@[#pt_probe_idx];
+
         (* JNEZ: target address from op_b zero-extended *)
         LET jnez_target : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #op_b;
 
@@ -224,10 +246,21 @@ Section ThieleCPU.
         LET pop_mask5 : Bit WordSz <- $$(WO~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~1~1~1~1~1~1~1~1~1~1~1~1~1~1~1~1);
         LET popcount : Bit WordSz <- (#pop_16 + (BinBit (Srl _ _) #pop_16 ($$(WO~1~0~0~0~0)))) ~& #pop_mask5;
 
-        (* CHSH_TRIAL: validate bits are in {0,1} *)
-        LET chsh_x : Bit 8 <- #op_a;
-        LET chsh_y : Bit 8 <- #op_b;
-        LET chsh_bits_bad <- (#chsh_x > $$(WO~0~0~0~0~0~0~0~1)) || (#chsh_y > $$(WO~0~0~0~0~0~0~0~1));
+        (* CHSH_TRIAL certificate gate:
+           - packed outcomes op_b are 2-bit values (0..3)
+           - x=1 settings (op_a[1]) require non-zero mu_tensor evidence from REVEAL *)
+        LET chsh_outcomes_bad <- #op_b > $$(WO~0~0~0~0~0~0~1~1);
+        LET chsh_x1 <- #op_a > $$(WO~0~0~0~0~0~0~0~1);
+        LET chsh_cert_missing <- (#chsh_x1) && (#tensor_total == $0);
+        LET chsh_bits_bad <- #chsh_outcomes_bad || #chsh_cert_missing;
+
+        (* L-coprocessor request/response interface semantics *)
+        LET is_logic_op <- (#opcode == $$(OP_LASSERT)) || (#opcode == $$(OP_LJOIN));
+        LET lpayload16 : Bit 16 <- {#op_a, #op_b};
+        LET lpayload32 : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #lpayload16;
+        LET logic_rsp_pending <- #logic_req_valid_v && !#logic_resp_valid_v;
+        LET logic_rsp_fire <- #logic_req_valid_v && #logic_resp_valid_v;
+        LET logic_issue <- #is_logic_op && !#logic_req_valid_v;
 
         (* REVEAL: tensor index from op_a[3:0] *)
         LET tensor_idx : Bit MuTensorIdxSz <- UniBit (Trunc MuTensorIdxSz _) #op_a;
@@ -238,19 +271,19 @@ Section ThieleCPU.
            Determine new PC
            ============================================================ *)
         LET new_pc : Bit WordSz <-
-          IF #bianchi_violation
+          IF (#bianchi_violation || #logic_rsp_pending)
           then #pc_v
           else (IF (#opcode == $$(OP_HALT))
-          then #pc_v
-          else (IF (#opcode == $$(OP_JUMP))
-                then #jump_target
-                else (IF (#opcode == $$(OP_CALL))
+                then #pc_v
+                else (IF (#opcode == $$(OP_JUMP))
                       then #jump_target
-                      else (IF (#opcode == $$(OP_RET))
-                            then #ret_pc
-                            else (IF ((#opcode == $$(OP_JNEZ)) && #jnez_taken)
-                                  then #jnez_target
-                                  else #pc_plus_1)))));
+                      else (IF (#opcode == $$(OP_CALL))
+                            then #jump_target
+                            else (IF (#opcode == $$(OP_RET))
+                                  then #ret_pc
+                                  else (IF ((#opcode == $$(OP_JNEZ)) && #jnez_taken)
+                                        then #jnez_target
+                                        else #pc_plus_1)))));
 
         (* Pre-compute XOR_SWAP result: write both dst<-src and src<-dst *)
         LET swap_regs : Vector (Bit WordSz) RegIdxSz <-
@@ -284,7 +317,9 @@ Section ThieleCPU.
                 then #regs_v@[$$(SP_IDX) <- #sp_inc]
           else (IF (#opcode == $$(OP_RET))
                 then #regs_v@[$$(SP_IDX) <- #sp_dec]
-          else #regs_v)))))))))));
+          else (IF (#opcode == $$(OP_PDISCOVER))
+                then #regs_v@[#dst_idx <- #pt_probe_size]
+          else #regs_v))))))))))));
 
         (* ============================================================
            Determine new memory
@@ -301,25 +336,32 @@ Section ThieleCPU.
         (* Determine halted state *)
         LET new_halted <- #bianchi_violation || (#opcode == $$(OP_HALT));
 
-        (* Determine error state: latch (once set, stays set) *)
-        LET new_err <- (#opcode == $$(OP_CHSH_TRIAL)) && #chsh_bits_bad;
+        (* Determine error state: protocol errors set err; logic errors come from coprocessor response. *)
+        LET logic_resp_fail <- #logic_rsp_fire && #logic_resp_error_v;
+        LET new_err <- ((#opcode == $$(OP_CHSH_TRIAL)) && #chsh_bits_bad) || #logic_resp_fail;
 
         (* Determine error code *)
         LET new_error_code : Bit WordSz <-
           IF #bianchi_violation
           then $$(ERR_BIANCHI_VAL)
-          else (IF ((#opcode == $$(OP_CHSH_TRIAL)) && #chsh_bits_bad)
-                then $$(ERR_CHSH_VAL)
-                else #error_code_v);
+          else (IF #logic_resp_fail
+                then $$(ERR_LOGIC_VAL)
+                else (IF ((#opcode == $$(OP_CHSH_TRIAL)) && #chsh_bits_bad)
+                      then $$(ERR_CHSH_VAL)
+                      else #error_code_v));
 
         (* Determine new mu — only charge if not a bianchi violation.
            ORACLE_HALTS (0x10) always charges 1,000,000 regardless of cost field. *)
         LET final_mu : Bit WordSz <-
           IF #bianchi_violation
           then #mu_v
-          else (IF (#opcode == $$(OP_ORACLE_HALTS))
-                then #mu_v + $1000000
-                else #new_mu);
+          else (IF #logic_rsp_pending
+                then #mu_v
+                else (IF (#opcode == $$(OP_ORACLE_HALTS))
+                      then #mu_v + $1000000
+                      else (IF ((#opcode == $$(OP_CHSH_TRIAL)) && (#chsh_x1))
+                            then #new_mu + $$(CHSH_X1_SURCHARGE)
+                            else #new_mu)));
 
         (* ============================================================
            Partition table updates (PNEW / PSPLIT / PMERGE)
@@ -420,6 +462,33 @@ Section ThieleCPU.
           then #mu_tensor_v@[#tensor_idx <- #tensor_new_val]
           else #mu_tensor_v;
 
+        LET new_logic_acc : Bit WordSz <-
+          IF #bianchi_violation
+          then #logic_acc_v
+          else (IF #logic_rsp_fire
+                then #logic_acc_v + #logic_resp_value_v
+                else (IF (#opcode == $$(OP_ORACLE_HALTS))
+                      then #logic_acc_v + $1
+                      else #logic_acc_v));
+
+        LET new_logic_req_valid <-
+          IF #bianchi_violation
+          then #logic_req_valid_v
+          else (IF #logic_rsp_fire
+                then $$false
+                else (IF #logic_issue then $$true else #logic_req_valid_v));
+
+        LET new_logic_req_opcode : Bit OpcodeSz <-
+          IF #logic_issue then #opcode else #logic_req_opcode_v;
+
+        LET new_logic_req_payload : Bit WordSz <-
+          IF #logic_issue then #lpayload32 else #logic_req_payload_v;
+
+        LET new_logic_resp_valid <-
+          IF #bianchi_violation
+          then #logic_resp_valid_v
+          else (IF #logic_rsp_fire then $$false else #logic_resp_valid_v);
+
         (* Write back *)
         Write "pc"             <- #new_pc;
         Write "mu"             <- #final_mu;
@@ -428,6 +497,11 @@ Section ThieleCPU.
         Write "halted"         <- #new_halted;
         Write "err"            <- #new_err;
         Write "error_code"     <- #new_error_code;
+        Write "logic_acc"      <- #new_logic_acc;
+        Write "logic_req_valid"   <- #new_logic_req_valid;
+        Write "logic_req_opcode"  <- #new_logic_req_opcode;
+        Write "logic_req_payload" <- #new_logic_req_payload;
+        Write "logic_resp_valid"  <- #new_logic_resp_valid;
         Write "partition_ops"  <- #new_partition_ops;
         Write "mdl_ops"        <- #new_mdl_ops;
         Write "info_gain"      <- #new_info_gain;
@@ -469,6 +543,27 @@ Section ThieleCPU.
 
       with Method "getErrorCode" () : Bit WordSz :=
         Read v : Bit WordSz <- "error_code"; Ret #v
+
+      with Method "getLogicAcc" () : Bit WordSz :=
+        Read v : Bit WordSz <- "logic_acc"; Ret #v
+
+      with Method "getLogicReqValid" () : Bool :=
+        Read v : Bool <- "logic_req_valid"; Ret #v
+
+      with Method "getLogicReqOpcode" () : Bit OpcodeSz :=
+        Read v : Bit OpcodeSz <- "logic_req_opcode"; Ret #v
+
+      with Method "getLogicReqPayload" () : Bit WordSz :=
+        Read v : Bit WordSz <- "logic_req_payload"; Ret #v
+
+      with Method "setLogicResp" (arg : Struct LogicRespPort) : Void :=
+        LET valid_v <- #arg!LogicRespPort@."valid";
+        LET error_v <- #arg!LogicRespPort@."error";
+        LET value_v <- #arg!LogicRespPort@."value";
+        Write "logic_resp_valid" <- #valid_v;
+        Write "logic_resp_error" <- #error_v;
+        Write "logic_resp_value" <- #value_v;
+        Retv
 
       with Method "getMuTensor0" () : Bit WordSz :=
         Read t : Vector (Bit WordSz) MuTensorIdxSz <- "mu_tensor";
