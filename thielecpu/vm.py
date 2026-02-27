@@ -72,6 +72,10 @@ from thielecpu.bell_semantics import (
 import os
 SAFE_COMBINATION_LIMIT = int(os.environ.get('THIELE_MAX_COMBINATIONS', 10_000_000))
 
+# Keep aligned with Coq/Kami hardware constant CHSH_X1_SURCHARGE in coq/kami_hw/ThieleTypes.v.
+CHSH_X1_SURCHARGE = 256
+BIANCHI_VIOLATION_ERROR_CODE = 0x0B1A4C81
+
 SAFE_IMPORTS = {"math", "json", "z3", "argparse", "fractions", "sys", "pathlib", "thielecpu"}
 SAFE_FUNCTIONS = {
     "abs",
@@ -1184,6 +1188,8 @@ class VM:
     step_receipts: List[StepReceipt] = field(default_factory=list)
     explicit_mdlacc_called: bool = field(default=False, init=False, repr=False)
     last_exit_code: int = field(default=0, init=False)
+    halted: bool = field(default=False, init=False)
+    error_code: int = field(default=0, init=False)
 
     def __post_init__(self):
         ensure_kernel_keys()
@@ -2219,6 +2225,9 @@ class VM:
         current_module = None
         step = 0
         self.step_receipts = []
+        self.halted = False
+        self.error_code = 0
+        self.last_exit_code = 0
         self.witness_state = WitnessState()
         physics = EmergentPhysicsState(program_length=len(program))
         bell_counts = BellCounts()
@@ -2562,7 +2571,34 @@ class VM:
                     # Bianchi guard: tensor sub-ledger must never exceed scalar mu.
                     # Mirrors Coq mu_conservation_implies_bianchi: every reachable
                     # state satisfies ∇_μ G^μν = 0.  A violation is a logical paradox.
-                    self.state.mu_ledger.check_bianchi_consistency()
+                    try:
+                        self.state.mu_ledger.check_bianchi_consistency()
+                    except BianchiViolationError as exc:
+                        # Mirror Kami RTL kill-switch behavior on Bianchi paradox:
+                        # latched halt + specific error code, while ERR remains for
+                        # protocol-level (e.g. CHSH) failures.
+                        self.halted = True
+                        self.error_code = BIANCHI_VIOLATION_ERROR_CODE
+                        self.last_exit_code = 1
+                        halt_after_receipt = True
+                        trace_lines.append(
+                            f"{step}: Bianchi violation detected - halting VM "
+                            f"(error_code=0x{BIANCHI_VIOLATION_ERROR_CODE:08X})"
+                        )
+                        try:
+                            logger.error(
+                                "vm.bianchi_violation",
+                                {
+                                    "step": step,
+                                    "ti": ti,
+                                    "tj": tj,
+                                    "bits": bits,
+                                    "error": str(exc),
+                                    "error_code": BIANCHI_VIOLATION_ERROR_CODE,
+                                },
+                            )
+                        except Exception:
+                            pass
                 ledger.append(
                     {
                         "step": step,
@@ -2881,6 +2917,21 @@ class VM:
                 # Canonical μ-ledger: drive cost from instruction stream when provided.
                 self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + (1 if explicit_cost is None else explicit_cost)) & 0xFFFFFFFF
 
+                # Coq/Kami-aligned CHSH gate and surcharge:
+                # - x=1 settings require non-zero mu_tensor evidence from REVEAL
+                # - x=1 settings always incur CHSH_X1_SURCHARGE
+                tensor_total = sum(sum(row) for row in self.state.mu_ledger.mu_tensor)
+                if x == 1:
+                    self.state.mu_ledger.mu_execution = (
+                        self.state.mu_ledger.mu_execution + CHSH_X1_SURCHARGE
+                    ) & 0xFFFFFFFF
+                if x == 1 and tensor_total == 0:
+                    self.state.csr[CSR.ERR] = 1
+                    trace_lines.append(
+                        f"{step}: CHSH x=1 requires REVEAL-backed mu_tensor evidence - setting ERR"
+                    )
+                    halt_after_receipt = True
+
                 bell_counts.update_trial(x=x, y=y, a=a, b=b)
                 if bell_counts.is_balanced(
                     min_trials_per_setting=DEFAULT_ENFORCEMENT_MIN_TRIALS_PER_SETTING
@@ -3002,6 +3053,9 @@ class VM:
             self._record_receipt(step, pre_witness, receipt_instruction)
 
             if self.state.csr[CSR.ERR] == 1 or halt_after_receipt:
+                self.halted = True
+                if self.state.csr[CSR.ERR] == 1 and self.error_code == 0:
+                    self.last_exit_code = 1
                 trace_lines.append(f"{step}: ERR flag set - halting VM")
                 break
         # Final accounting and output - only auto-charge if enabled and no explicit MDLACC executed.
@@ -3085,6 +3139,9 @@ class VM:
             "mu_operational": self.state.mu_operational,
             "mu_information": self.state.mu_information,
             "mu_total_legacy": self.state.mu,
+            "halted": self.halted,
+            "err": int(self.state.csr.get(CSR.ERR, 0)),
+            "error_code": self.error_code,
         }
         if trace_config and trace_config.enabled:
             finish_payload = {

@@ -23,8 +23,7 @@ let () =
   else
     let oc = open_out !arg_output_file_name in
     set_formatter_out_channel oc;
-    (* No header file needed — we generate clean BSV *)
-    let ic = open_in "/dev/null" in
+    let ic = open_in "bsv_imports.txt" in
     (match thieleCoreB with
      | Some bml -> ppBModulesFullDbg bml
                      { cfg_debug = false;

@@ -27,6 +27,42 @@ type ('a, 'p) sigT =
 let projT1 = function
 | ExistT (a, _) -> a
 
+type uint =
+| Nil
+| D0 of uint
+| D1 of uint
+| D2 of uint
+| D3 of uint
+| D4 of uint
+| D5 of uint
+| D6 of uint
+| D7 of uint
+| D8 of uint
+| D9 of uint
+
+type uint0 =
+| Nil0
+| D10 of uint0
+| D11 of uint0
+| D12 of uint0
+| D13 of uint0
+| D14 of uint0
+| D15 of uint0
+| D16 of uint0
+| D17 of uint0
+| D18 of uint0
+| D19 of uint0
+| Da of uint0
+| Db of uint0
+| Dc of uint0
+| Dd of uint0
+| De of uint0
+| Df of uint0
+
+type uint1 =
+| UIntDecimal of uint
+| UIntHexadecimal of uint0
+
 (** val pred : int -> int **)
 
 let pred = fun n -> Stdlib.max 0 (n-1)
@@ -34,6 +70,249 @@ let pred = fun n -> Stdlib.max 0 (n-1)
 (** val add : int -> int -> int **)
 
 let rec add = (+)
+
+(** val tail_add : int -> int -> int **)
+
+let rec tail_add n m =
+  (fun fO fS n -> if n=0 then fO () else fS (n-1))
+    (fun _ -> m)
+    (fun n0 -> tail_add n0 (Stdlib.Int.succ m))
+    n
+
+(** val tail_addmul : int -> int -> int -> int **)
+
+let rec tail_addmul r n m =
+  (fun fO fS n -> if n=0 then fO () else fS (n-1))
+    (fun _ -> r)
+    (fun n0 -> tail_addmul (tail_add m r) n0 m)
+    n
+
+(** val tail_mul : int -> int -> int **)
+
+let tail_mul n m =
+  tail_addmul 0 n m
+
+(** val of_uint_acc : uint -> int -> int **)
+
+let rec of_uint_acc d acc =
+  match d with
+  | Nil -> acc
+  | D0 d0 ->
+    of_uint_acc d0
+      (tail_mul (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))) acc)
+  | D1 d0 ->
+    of_uint_acc d0 (Stdlib.Int.succ
+      (tail_mul (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))) acc))
+  | D2 d0 ->
+    of_uint_acc d0 (Stdlib.Int.succ (Stdlib.Int.succ
+      (tail_mul (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))) acc)))
+  | D3 d0 ->
+    of_uint_acc d0 (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (tail_mul (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))) acc))))
+  | D4 d0 ->
+    of_uint_acc d0 (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ
+      (tail_mul (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))) acc)))))
+  | D5 d0 ->
+    of_uint_acc d0 (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ
+      (tail_mul (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))) acc))))))
+  | D6 d0 ->
+    of_uint_acc d0 (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (tail_mul (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))) acc)))))))
+  | D7 d0 ->
+    of_uint_acc d0 (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (tail_mul (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))) acc))))))))
+  | D8 d0 ->
+    of_uint_acc d0 (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ
+      (tail_mul (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))) acc)))))))))
+  | D9 d0 ->
+    of_uint_acc d0 (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ
+      (tail_mul (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))) acc))))))))))
+
+(** val of_uint : uint -> int **)
+
+let of_uint d =
+  of_uint_acc d 0
+
+(** val of_hex_uint_acc : uint0 -> int -> int **)
+
+let rec of_hex_uint_acc d acc =
+  match d with
+  | Nil0 -> acc
+  | D10 d0 ->
+    of_hex_uint_acc d0
+      (tail_mul (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ 0)))))))))))))))) acc)
+  | D11 d0 ->
+    of_hex_uint_acc d0 (Stdlib.Int.succ
+      (tail_mul (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ 0)))))))))))))))) acc))
+  | D12 d0 ->
+    of_hex_uint_acc d0 (Stdlib.Int.succ (Stdlib.Int.succ
+      (tail_mul (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ 0)))))))))))))))) acc)))
+  | D13 d0 ->
+    of_hex_uint_acc d0 (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (tail_mul (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ 0)))))))))))))))) acc))))
+  | D14 d0 ->
+    of_hex_uint_acc d0 (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ
+      (tail_mul (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ 0)))))))))))))))) acc)))))
+  | D15 d0 ->
+    of_hex_uint_acc d0 (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ
+      (tail_mul (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ 0)))))))))))))))) acc))))))
+  | D16 d0 ->
+    of_hex_uint_acc d0 (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (tail_mul (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ 0)))))))))))))))) acc)))))))
+  | D17 d0 ->
+    of_hex_uint_acc d0 (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (tail_mul (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ 0)))))))))))))))) acc))))))))
+  | D18 d0 ->
+    of_hex_uint_acc d0 (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ
+      (tail_mul (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ 0)))))))))))))))) acc)))))))))
+  | D19 d0 ->
+    of_hex_uint_acc d0 (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ
+      (tail_mul (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ 0)))))))))))))))) acc))))))))))
+  | Da d0 ->
+    of_hex_uint_acc d0 (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (tail_mul (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ 0)))))))))))))))) acc)))))))))))
+  | Db d0 ->
+    of_hex_uint_acc d0 (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (tail_mul (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ 0)))))))))))))))) acc))))))))))))
+  | Dc d0 ->
+    of_hex_uint_acc d0 (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ
+      (tail_mul (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ 0)))))))))))))))) acc)))))))))))))
+  | Dd d0 ->
+    of_hex_uint_acc d0 (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ
+      (tail_mul (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ 0)))))))))))))))) acc))))))))))))))
+  | De d0 ->
+    of_hex_uint_acc d0 (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (tail_mul (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ 0)))))))))))))))) acc)))))))))))))))
+  | Df d0 ->
+    of_hex_uint_acc d0 (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (tail_mul (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ 0)))))))))))))))) acc))))))))))))))))
+
+(** val of_hex_uint : uint0 -> int **)
+
+let of_hex_uint d =
+  of_hex_uint_acc d 0
+
+(** val of_num_uint : uint1 -> int **)
+
+let of_num_uint = function
+| UIntDecimal d0 -> of_uint d0
+| UIntHexadecimal d0 -> of_hex_uint d0
 
 (** val eqb : bool -> bool -> bool **)
 
@@ -58,14 +337,14 @@ type t =
 | FS of int * t
 
 type 'a t0 =
-| Nil
+| Nil1
 | Cons of 'a * int * 'a t0
 
 (** val nth : int -> 'a1 t0 -> t -> 'a1 **)
 
 let rec nth _ v p =
   match v with
-  | Nil -> assert false (* absurd case *)
+  | Nil1 -> assert false (* absurd case *)
   | Cons (x, _, v') ->
     (match p with
      | F1 _ -> x
@@ -74,7 +353,7 @@ let rec nth _ v p =
 (** val map0 : ('a1 -> 'a2) -> int -> 'a1 t0 -> 'a2 t0 **)
 
 let rec map0 f _ = function
-| Nil -> Nil
+| Nil1 -> Nil1
 | Cons (a, n0, v') -> Cons ((f a), n0, (map0 f n0 v'))
 
 (** val ascii_eq : char -> char -> bool **)
@@ -148,7 +427,7 @@ type 'a attribute = { attrName : char list; attrType : 'a }
 (** val vector_find' : ('a1 -> bool) -> int -> 'a1 t0 -> __ **)
 
 let rec vector_find' f _ = function
-| Nil -> Obj.magic ()
+| Nil1 -> Obj.magic ()
 | Cons (h, n1, t1) ->
   if f h
   then Obj.magic (F1 n1)
@@ -206,7 +485,7 @@ type constFullT =
 
 let rec vector_repeat n a =
   (fun fO fS n -> if n=0 then fO () else fS (n-1))
-    (fun _ -> Nil)
+    (fun _ -> Nil1)
     (fun m -> Cons (a, m, (vector_repeat m a)))
     n
 
@@ -219,7 +498,7 @@ let rec getDefaultConst = function
 | Struct (n, ls) ->
   ConstStruct (n, ls,
     (let rec help _ = function
-     | Nil -> Inil
+     | Nil1 -> Inil
      | Cons (x, m, xs) ->
        Icons (x, m, xs, (getDefaultConst x.attrType), (help m xs))
      in help n ls))
@@ -539,7 +818,7 @@ let rec bindVec _ = function
 (** val bindVector : int -> 'a1 option t0 -> 'a1 t0 option **)
 
 let rec bindVector _ = function
-| Nil -> Some Nil
+| Nil1 -> Some Nil1
 | Cons (a, n, vs) ->
   bind a (fun bv1 ->
     bind (bindVector n vs) (fun bv2 -> Some (Cons (bv1, n, bv2))))
@@ -1171,6 +1450,296 @@ let eRR_BIANCHI_VAL =
     (Stdlib.Int.succ 0)), (WS (false, (Stdlib.Int.succ 0), (WS (false, 0,
     WO)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
 
+(** val eRR_LOGIC_VAL : word **)
+
+let eRR_LOGIC_VAL =
+  WS (true, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))))))))))))))))))))))))))))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)))))))))))))))))))))))))))))), (WS (false,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0))))))))))))))))))))))))))))), (WS (false,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0)))))))))))))))))))))))))))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0))))))))))))))))))))))))))), (WS
+    (true, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0)))))))))))))))))))))))))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))))))))))))))))))))))), (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))))))))))))))))), (WS (true,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))))))))))))))))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0)))))))))))))))))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))))))))))))))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))))))))))))), (WS (true,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))))))))))))))))))),
+    (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))))))))))),
+    (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0))))))))))))))))), (WS (false,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0)))))))))))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0))))))))))))))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)))))))))))))), (WS (true, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))))))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))))), (WS (true,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))))))))))), (WS
+    (true, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))), (WS
+    (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0))))))))), (WS (false,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0)))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))), (WS (true,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)), (WS (true, (Stdlib.Int.succ 0), (WS (true, 0,
+    WO)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+
+(** val cHSH_X1_SURCHARGE : word **)
+
+let cHSH_X1_SURCHARGE =
+  WS (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))))))))))))))))))))))))))))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)))))))))))))))))))))))))))))), (WS (false,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0))))))))))))))))))))))))))))), (WS (false,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0)))))))))))))))))))))))))))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0))))))))))))))))))))))))))), (WS
+    (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0)))))))))))))))))))))))))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))))))))))))))))))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))))))))))))))))), (WS (true,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))))))))))))))))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0)))))))))))))))))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))))))))))))))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))))))))))))), (WS (false,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))))))))))))))))))),
+    (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))))))))))),
+    (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0))))))))))))))))), (WS (false,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0)))))))))))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0))))))))))))))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)))))))))))))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))))))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))))), (WS (false,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))))))))))), (WS
+    (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))), (WS
+    (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0))))))))), (WS (false,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0)))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))), (WS (false,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)), (WS (false, (Stdlib.Int.succ 0), (WS (false, 0,
+    WO)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+
 (** val oP_PNEW : word **)
 
 let oP_PNEW =
@@ -1206,6 +1775,34 @@ let oP_PMERGE =
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     0))))))), (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))), (WS (false,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)), (WS (false, (Stdlib.Int.succ 0), (WS (false, 0,
+    WO)))))))))))))))
+
+(** val oP_LASSERT : word **)
+
+let oP_LASSERT =
+  WS (true, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))))), (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))), (WS (false,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)), (WS (false, (Stdlib.Int.succ 0), (WS (false, 0,
+    WO)))))))))))))))
+
+(** val oP_LJOIN : word **)
+
+let oP_LJOIN =
+  WS (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))), (WS (true,
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ 0))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (WS (false, (Stdlib.Int.succ
@@ -1367,6 +1964,20 @@ let oP_REVEAL =
     (Stdlib.Int.succ 0)), (WS (false, (Stdlib.Int.succ 0), (WS (false, 0,
     WO)))))))))))))))
 
+(** val oP_ORACLE_HALTS : word **)
+
+let oP_ORACLE_HALTS =
+  WS (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))), (WS (false,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (WS (true, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)), (WS (false, (Stdlib.Int.succ 0), (WS (false, 0,
+    WO)))))))))))))))
+
 (** val oP_LOAD : word **)
 
 let oP_LOAD =
@@ -1511,7 +2122,17 @@ let instrSz =
 let loadInstrPort =
   Cons ({ attrName = ('a'::('d'::('d'::('r'::[])))); attrType = (Bit
     memAddrSz) }, (Stdlib.Int.succ 0), (Cons ({ attrName =
-    ('d'::('a'::('t'::('a'::[])))); attrType = (Bit instrSz) }, 0, Nil)))
+    ('d'::('a'::('t'::('a'::[])))); attrType = (Bit instrSz) }, 0, Nil1)))
+
+(** val logicRespPort : kind attribute t0 **)
+
+let logicRespPort =
+  Cons ({ attrName = ('v'::('a'::('l'::('i'::('d'::[]))))); attrType =
+    Bool }, (Stdlib.Int.succ (Stdlib.Int.succ 0)), (Cons ({ attrName =
+    ('e'::('r'::('r'::('o'::('r'::[]))))); attrType = Bool },
+    (Stdlib.Int.succ 0), (Cons ({ attrName =
+    ('v'::('a'::('l'::('u'::('e'::[]))))); attrType = (Bit wordSz) }, 0,
+    Nil1)))))
 
 (** val sP_IDX : word **)
 
@@ -1552,6 +2173,30 @@ let thieleCore =
     ('e'::('r'::('r'::('o'::('r'::('_'::('c'::('o'::('d'::('e'::[]))))))))));
     attrType = (RegInitDefault (SyntaxKind (Bit wordSz))) }), (ConsInModule
     ((MERegister { attrName =
+    ('l'::('o'::('g'::('i'::('c'::('_'::('a'::('c'::('c'::[])))))))));
+    attrType = (RegInitDefault (SyntaxKind (Bit wordSz))) }), (ConsInModule
+    ((MERegister { attrName =
+    ('l'::('o'::('g'::('i'::('c'::('_'::('r'::('e'::('q'::('_'::('v'::('a'::('l'::('i'::('d'::[])))))))))))))));
+    attrType = (RegInitCustom (ExistT ((SyntaxKind Bool),
+    (makeConst Bool (ConstBool false))))) }), (ConsInModule ((MERegister
+    { attrName =
+    ('l'::('o'::('g'::('i'::('c'::('_'::('r'::('e'::('q'::('_'::('o'::('p'::('c'::('o'::('d'::('e'::[]))))))))))))))));
+    attrType = (RegInitDefault (SyntaxKind (Bit opcodeSz))) }), (ConsInModule
+    ((MERegister { attrName =
+    ('l'::('o'::('g'::('i'::('c'::('_'::('r'::('e'::('q'::('_'::('p'::('a'::('y'::('l'::('o'::('a'::('d'::[])))))))))))))))));
+    attrType = (RegInitDefault (SyntaxKind (Bit wordSz))) }), (ConsInModule
+    ((MERegister { attrName =
+    ('l'::('o'::('g'::('i'::('c'::('_'::('r'::('e'::('s'::('p'::('_'::('v'::('a'::('l'::('i'::('d'::[]))))))))))))))));
+    attrType = (RegInitCustom (ExistT ((SyntaxKind Bool),
+    (makeConst Bool (ConstBool false))))) }), (ConsInModule ((MERegister
+    { attrName =
+    ('l'::('o'::('g'::('i'::('c'::('_'::('r'::('e'::('s'::('p'::('_'::('e'::('r'::('r'::('o'::('r'::[]))))))))))))))));
+    attrType = (RegInitCustom (ExistT ((SyntaxKind Bool),
+    (makeConst Bool (ConstBool false))))) }), (ConsInModule ((MERegister
+    { attrName =
+    ('l'::('o'::('g'::('i'::('c'::('_'::('r'::('e'::('s'::('p'::('_'::('v'::('a'::('l'::('u'::('e'::[]))))))))))))))));
+    attrType = (RegInitDefault (SyntaxKind (Bit wordSz))) }), (ConsInModule
+    ((MERegister { attrName =
     ('m'::('u'::('_'::('t'::('e'::('n'::('s'::('o'::('r'::[])))))))));
     attrType = (RegInitDefault (SyntaxKind (Vector ((Bit wordSz),
     muTensorIdxSz)))) }), (ConsInModule ((MERegister { attrName =
@@ -1582,6 +2227,20 @@ let thieleCore =
     (SyntaxKind (Bit wordSz)), (fun info_gain_v -> ReadReg
     (('e'::('r'::('r'::('o'::('r'::('_'::('c'::('o'::('d'::('e'::[])))))))))),
     (SyntaxKind (Bit wordSz)), (fun error_code_v -> ReadReg
+    (('l'::('o'::('g'::('i'::('c'::('_'::('a'::('c'::('c'::[]))))))))),
+    (SyntaxKind (Bit wordSz)), (fun logic_acc_v -> ReadReg
+    (('l'::('o'::('g'::('i'::('c'::('_'::('r'::('e'::('q'::('_'::('v'::('a'::('l'::('i'::('d'::[]))))))))))))))),
+    (SyntaxKind Bool), (fun logic_req_valid_v -> ReadReg
+    (('l'::('o'::('g'::('i'::('c'::('_'::('r'::('e'::('q'::('_'::('o'::('p'::('c'::('o'::('d'::('e'::[])))))))))))))))),
+    (SyntaxKind (Bit opcodeSz)), (fun logic_req_opcode_v -> ReadReg
+    (('l'::('o'::('g'::('i'::('c'::('_'::('r'::('e'::('q'::('_'::('p'::('a'::('y'::('l'::('o'::('a'::('d'::[]))))))))))))))))),
+    (SyntaxKind (Bit wordSz)), (fun logic_req_payload_v -> ReadReg
+    (('l'::('o'::('g'::('i'::('c'::('_'::('r'::('e'::('s'::('p'::('_'::('v'::('a'::('l'::('i'::('d'::[])))))))))))))))),
+    (SyntaxKind Bool), (fun logic_resp_valid_v -> ReadReg
+    (('l'::('o'::('g'::('i'::('c'::('_'::('r'::('e'::('s'::('p'::('_'::('e'::('r'::('r'::('o'::('r'::[])))))))))))))))),
+    (SyntaxKind Bool), (fun logic_resp_error_v -> ReadReg
+    (('l'::('o'::('g'::('i'::('c'::('_'::('r'::('e'::('s'::('p'::('_'::('v'::('a'::('l'::('u'::('e'::[])))))))))))))))),
+    (SyntaxKind (Bit wordSz)), (fun logic_resp_value_v -> ReadReg
     (('m'::('u'::('_'::('t'::('e'::('n'::('s'::('o'::('r'::[]))))))))),
     (SyntaxKind (Vector ((Bit wordSz), muTensorIdxSz))), (fun mu_tensor_v ->
     ReadReg (('p'::('t'::('_'::('s'::('i'::('z'::('e'::('s'::[])))))))),
@@ -1944,7 +2603,16 @@ let thieleCore =
     (fun mem_addr_a -> Let_ ((SyntaxKind (Bit wordSz)), (ReadIndex
     (memAddrSz, (Bit wordSz), (Var ((SyntaxKind (Bit memAddrSz)), mem_addr)),
     (Var ((SyntaxKind (Vector ((Bit wordSz), memAddrSz))), mem_v)))),
-    (fun mem_val -> Let_ ((SyntaxKind (Bit wordSz)), (UniBit
+    (fun mem_val -> Let_ ((SyntaxKind (Bit pTableIdxSz)), (UniBit
+    ((add pTableIdxSz (Stdlib.Int.succ (Stdlib.Int.succ 0))), pTableIdxSz,
+    (Trunc (pTableIdxSz, (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (Var
+    ((SyntaxKind (Bit (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)))))))))), op_b)))), (fun pt_probe_idx -> Let_
+    ((SyntaxKind (Bit wordSz)), (ReadIndex (pTableIdxSz, (Bit wordSz), (Var
+    ((SyntaxKind (Bit pTableIdxSz)), pt_probe_idx)), (Var ((SyntaxKind
+    (Vector ((Bit wordSz), pTableIdxSz))), pt_sizes_v)))),
+    (fun pt_probe_size -> Let_ ((SyntaxKind (Bit wordSz)), (UniBit
     ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     0)))))))), wordSz, (ZeroExtendTrunc ((Stdlib.Int.succ (Stdlib.Int.succ
@@ -2936,41 +3604,31 @@ let thieleCore =
     0))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ 0)), (WS (false,
     (Stdlib.Int.succ 0), (WS (true, 0, WO)))))))))))))))))), (Var
     ((SyntaxKind (Bit wordSz)), pop_mask5)))), (fun popcount -> Let_
-    ((SyntaxKind (Bit (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    ((SyntaxKind Bool), (BinBitBool ((Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ 0)))))))))), (Var ((SyntaxKind (Bit (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))), (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))), op_a)),
-    (fun chsh_x -> Let_ ((SyntaxKind (Bit (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))), (Var ((SyntaxKind (Bit
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))), (Lt
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    0)))))))))), op_b)), (fun chsh_y -> Let_ ((SyntaxKind Bool), (BinBool
-    (OrB, (BinBitBool ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))))))), (Const ((Bit (Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ 0)))))))), (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0))))))))), (ConstBit ((Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))), (Lt (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))), (WS (true,
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))))))))), (Const
-    ((Bit (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))))))), (WS (true,
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    0))))))))), (ConstBit ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))))), (WS (false, (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ 0)))))))), (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ 0)),
+    (WS (false, (Stdlib.Int.succ 0), (WS (false, 0, WO)))))))))))))))))))),
+    (Var ((SyntaxKind (Bit (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ 0))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    0)))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ 0))))), (WS (false, (Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (WS (false,
-    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))), (WS (false,
-    (Stdlib.Int.succ (Stdlib.Int.succ 0)), (WS (false, (Stdlib.Int.succ 0),
-    (WS (false, 0, WO)))))))))))))))))))), (Var ((SyntaxKind (Bit
-    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    0)))))))))), chsh_x)))), (BinBitBool ((Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)))))))))), op_b)))), (fun chsh_outcomes_bad -> Let_
+    ((SyntaxKind Bool), (BinBitBool ((Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))), (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
@@ -2993,8 +3651,65 @@ let thieleCore =
     (WS (false, (Stdlib.Int.succ 0), (WS (false, 0, WO)))))))))))))))))))),
     (Var ((SyntaxKind (Bit (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ 0)))))))))), chsh_y)))))), (fun chsh_bits_bad -> Let_
-    ((SyntaxKind (Bit muTensorIdxSz)), (UniBit
+    (Stdlib.Int.succ 0)))))))))), op_a)))), (fun chsh_x1 -> Let_ ((SyntaxKind
+    Bool), (BinBool (AndB, (Var ((SyntaxKind Bool), chsh_x1)), (Eq ((Bit
+    wordSz), (Var ((SyntaxKind (Bit wordSz)), tensor_total)), (Const ((Bit
+    wordSz), (ConstBit (wordSz, (natToWord wordSz 0))))))))),
+    (fun chsh_cert_missing -> Let_ ((SyntaxKind Bool), (BinBool (OrB, (Var
+    ((SyntaxKind Bool), chsh_outcomes_bad)), (Var ((SyntaxKind Bool),
+    chsh_cert_missing)))), (fun chsh_bits_bad -> Let_ ((SyntaxKind Bool),
+    (BinBool (OrB, (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)),
+    opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz, oP_LASSERT)))))),
+    (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const
+    ((Bit opcodeSz), (ConstBit (opcodeSz, oP_LJOIN)))))))),
+    (fun is_logic_op -> Let_ ((SyntaxKind (Bit (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))))))))))),
+    (BinBit ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)))))))), (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))),
+    (add (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      0)))))))) (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ 0))))))))), (Concat ((Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))), (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))), (Var
+    ((SyntaxKind (Bit (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)))))))))), op_a)), (Var ((SyntaxKind (Bit
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0)))))))))), op_b)))), (fun lpayload16 -> Let_ ((SyntaxKind (Bit
+    wordSz)), (UniBit ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)))))))))))))))), wordSz, (ZeroExtendTrunc
+    ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0)))))))))))))))), wordSz)), (Var ((SyntaxKind (Bit (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))))))))))),
+    lpayload16)))), (fun lpayload32 -> Let_ ((SyntaxKind Bool), (BinBool
+    (AndB, (Var ((SyntaxKind Bool), logic_req_valid_v)), (UniBool (NegB, (Var
+    ((SyntaxKind Bool), logic_resp_valid_v)))))), (fun logic_rsp_pending ->
+    Let_ ((SyntaxKind Bool), (BinBool (AndB, (Var ((SyntaxKind Bool),
+    logic_req_valid_v)), (Var ((SyntaxKind Bool), logic_resp_valid_v)))),
+    (fun logic_rsp_fire -> Let_ ((SyntaxKind Bool), (BinBool (AndB, (Var
+    ((SyntaxKind Bool), is_logic_op)), (UniBool (NegB, (Var ((SyntaxKind
+    Bool), logic_req_valid_v)))))), (fun logic_issue -> Let_ ((SyntaxKind
+    (Bit muTensorIdxSz)), (UniBit
     ((add muTensorIdxSz (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
        (Stdlib.Int.succ 0))))), muTensorIdxSz, (Trunc (muTensorIdxSz,
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
@@ -3008,7 +3723,8 @@ let thieleCore =
     (BinBit (wordSz, wordSz, wordSz, (Add wordSz), (Var ((SyntaxKind (Bit
     wordSz)), tensor_old)), (Var ((SyntaxKind (Bit wordSz)), cost32)))),
     (fun tensor_new_val -> Let_ ((SyntaxKind (Bit wordSz)), (ITE ((SyntaxKind
-    (Bit wordSz)), (Var ((SyntaxKind Bool), bianchi_violation)), (Var
+    (Bit wordSz)), (BinBool (OrB, (Var ((SyntaxKind Bool),
+    bianchi_violation)), (Var ((SyntaxKind Bool), logic_rsp_pending)))), (Var
     ((SyntaxKind (Bit wordSz)), pc_v)), (ITE ((SyntaxKind (Bit wordSz)), (Eq
     ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const
     ((Bit opcodeSz), (ConstBit (opcodeSz, oP_HALT)))))), (Var ((SyntaxKind
@@ -3093,42 +3809,67 @@ let thieleCore =
     (ConstBit (opcodeSz, oP_RET)))))), (UpdateVector (regIdxSz, (Bit wordSz),
     (Var ((SyntaxKind (Vector ((Bit wordSz), regIdxSz))), regs_v)), (Const
     ((Bit regIdxSz), (ConstBit (regIdxSz, sP_IDX)))), (Var ((SyntaxKind (Bit
-    wordSz)), sp_dec)))), (Var ((SyntaxKind (Vector ((Bit wordSz),
-    regIdxSz))), regs_v)))))))))))))))))))))))))), (fun new_regs -> Let_
-    ((SyntaxKind (Vector ((Bit wordSz), memAddrSz))), (ITE ((SyntaxKind
-    (Vector ((Bit wordSz), memAddrSz))), (Var ((SyntaxKind Bool),
-    bianchi_violation)), (Var ((SyntaxKind (Vector ((Bit wordSz),
-    memAddrSz))), mem_v)), (ITE ((SyntaxKind (Vector ((Bit wordSz),
-    memAddrSz))), (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)),
-    opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz, oP_STORE)))))),
-    (UpdateVector (memAddrSz, (Bit wordSz), (Var ((SyntaxKind (Vector ((Bit
-    wordSz), memAddrSz))), mem_v)), (Var ((SyntaxKind (Bit memAddrSz)),
-    mem_addr_a)), (Var ((SyntaxKind (Bit wordSz)), src_val)))), (ITE
+    wordSz)), sp_dec)))), (ITE ((SyntaxKind (Vector ((Bit wordSz),
+    regIdxSz))), (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)),
+    opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz,
+    oP_PDISCOVER)))))), (UpdateVector (regIdxSz, (Bit wordSz), (Var
+    ((SyntaxKind (Vector ((Bit wordSz), regIdxSz))), regs_v)), (Var
+    ((SyntaxKind (Bit regIdxSz)), dst_idx)), (Var ((SyntaxKind (Bit wordSz)),
+    pt_probe_size)))), (Var ((SyntaxKind (Vector ((Bit wordSz), regIdxSz))),
+    regs_v)))))))))))))))))))))))))))), (fun new_regs -> Let_ ((SyntaxKind
+    (Vector ((Bit wordSz), memAddrSz))), (ITE ((SyntaxKind (Vector ((Bit
+    wordSz), memAddrSz))), (Var ((SyntaxKind Bool), bianchi_violation)), (Var
+    ((SyntaxKind (Vector ((Bit wordSz), memAddrSz))), mem_v)), (ITE
     ((SyntaxKind (Vector ((Bit wordSz), memAddrSz))), (Eq ((Bit opcodeSz),
     (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit opcodeSz),
-    (ConstBit (opcodeSz, oP_CALL)))))), (UpdateVector (memAddrSz, (Bit
+    (ConstBit (opcodeSz, oP_STORE)))))), (UpdateVector (memAddrSz, (Bit
     wordSz), (Var ((SyntaxKind (Vector ((Bit wordSz), memAddrSz))), mem_v)),
-    (Var ((SyntaxKind (Bit memAddrSz)), sp_addr)), (Var ((SyntaxKind (Bit
-    wordSz)), pc_plus_1)))), (Var ((SyntaxKind (Vector ((Bit wordSz),
-    memAddrSz))), mem_v)))))))), (fun new_mem -> Let_ ((SyntaxKind Bool),
-    (BinBool (OrB, (Var ((SyntaxKind Bool), bianchi_violation)), (Eq ((Bit
-    opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit
-    opcodeSz), (ConstBit (opcodeSz, oP_HALT)))))))), (fun new_halted -> Let_
-    ((SyntaxKind Bool), (BinBool (AndB, (Eq ((Bit opcodeSz), (Var
+    (Var ((SyntaxKind (Bit memAddrSz)), mem_addr_a)), (Var ((SyntaxKind (Bit
+    wordSz)), src_val)))), (ITE ((SyntaxKind (Vector ((Bit wordSz),
+    memAddrSz))), (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)),
+    opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz, oP_CALL)))))),
+    (UpdateVector (memAddrSz, (Bit wordSz), (Var ((SyntaxKind (Vector ((Bit
+    wordSz), memAddrSz))), mem_v)), (Var ((SyntaxKind (Bit memAddrSz)),
+    sp_addr)), (Var ((SyntaxKind (Bit wordSz)), pc_plus_1)))), (Var
+    ((SyntaxKind (Vector ((Bit wordSz), memAddrSz))), mem_v)))))))),
+    (fun new_mem -> Let_ ((SyntaxKind Bool), (BinBool (OrB, (Var ((SyntaxKind
+    Bool), bianchi_violation)), (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit
+    opcodeSz)), opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz,
+    oP_HALT)))))))), (fun new_halted -> Let_ ((SyntaxKind Bool), (BinBool
+    (AndB, (Var ((SyntaxKind Bool), logic_rsp_fire)), (Var ((SyntaxKind
+    Bool), logic_resp_error_v)))), (fun logic_resp_fail -> Let_ ((SyntaxKind
+    Bool), (BinBool (OrB, (BinBool (AndB, (Eq ((Bit opcodeSz), (Var
     ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit opcodeSz), (ConstBit
     (opcodeSz, oP_CHSH_TRIAL)))))), (Var ((SyntaxKind Bool),
-    chsh_bits_bad)))), (fun new_err -> Let_ ((SyntaxKind (Bit wordSz)), (ITE
-    ((SyntaxKind (Bit wordSz)), (Var ((SyntaxKind Bool), bianchi_violation)),
-    (Const ((Bit wordSz), (ConstBit (wordSz, eRR_BIANCHI_VAL)))), (ITE
-    ((SyntaxKind (Bit wordSz)), (BinBool (AndB, (Eq ((Bit opcodeSz), (Var
-    ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit opcodeSz), (ConstBit
-    (opcodeSz, oP_CHSH_TRIAL)))))), (Var ((SyntaxKind Bool),
-    chsh_bits_bad)))), (Const ((Bit wordSz), (ConstBit (wordSz,
-    eRR_CHSH_VAL)))), (Var ((SyntaxKind (Bit wordSz)), error_code_v)))))),
-    (fun new_error_code -> Let_ ((SyntaxKind (Bit wordSz)), (ITE ((SyntaxKind
-    (Bit wordSz)), (Var ((SyntaxKind Bool), bianchi_violation)), (Var
-    ((SyntaxKind (Bit wordSz)), mu_v)), (Var ((SyntaxKind (Bit wordSz)),
-    new_mu)))), (fun final_mu -> Let_ ((SyntaxKind (Bit pTableIdxSz)),
+    chsh_bits_bad)))), (Var ((SyntaxKind Bool), logic_resp_fail)))),
+    (fun new_err -> Let_ ((SyntaxKind (Bit wordSz)), (ITE ((SyntaxKind (Bit
+    wordSz)), (Var ((SyntaxKind Bool), bianchi_violation)), (Const ((Bit
+    wordSz), (ConstBit (wordSz, eRR_BIANCHI_VAL)))), (ITE ((SyntaxKind (Bit
+    wordSz)), (Var ((SyntaxKind Bool), logic_resp_fail)), (Const ((Bit
+    wordSz), (ConstBit (wordSz, eRR_LOGIC_VAL)))), (ITE ((SyntaxKind (Bit
+    wordSz)), (BinBool (AndB, (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit
+    opcodeSz)), opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz,
+    oP_CHSH_TRIAL)))))), (Var ((SyntaxKind Bool), chsh_bits_bad)))), (Const
+    ((Bit wordSz), (ConstBit (wordSz, eRR_CHSH_VAL)))), (Var ((SyntaxKind
+    (Bit wordSz)), error_code_v)))))))), (fun new_error_code -> Let_
+    ((SyntaxKind (Bit wordSz)), (ITE ((SyntaxKind (Bit wordSz)), (Var
+    ((SyntaxKind Bool), bianchi_violation)), (Var ((SyntaxKind (Bit wordSz)),
+    mu_v)), (ITE ((SyntaxKind (Bit wordSz)), (Var ((SyntaxKind Bool),
+    logic_rsp_pending)), (Var ((SyntaxKind (Bit wordSz)), mu_v)), (ITE
+    ((SyntaxKind (Bit wordSz)), (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit
+    opcodeSz)), opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz,
+    oP_ORACLE_HALTS)))))), (BinBit (wordSz, wordSz, wordSz, (Add wordSz),
+    (Var ((SyntaxKind (Bit wordSz)), mu_v)), (Const ((Bit wordSz), (ConstBit
+    (wordSz,
+    (natToWord wordSz
+      (of_num_uint (UIntDecimal (D1 (D0 (D0 (D0 (D0 (D0 (D0 Nil)))))))))))))))),
+    (ITE ((SyntaxKind (Bit wordSz)), (BinBool (AndB, (Eq ((Bit opcodeSz),
+    (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit opcodeSz),
+    (ConstBit (opcodeSz, oP_CHSH_TRIAL)))))), (Var ((SyntaxKind Bool),
+    chsh_x1)))), (BinBit (wordSz, wordSz, wordSz, (Add wordSz), (Var
+    ((SyntaxKind (Bit wordSz)), new_mu)), (Const ((Bit wordSz), (ConstBit
+    (wordSz, cHSH_X1_SURCHARGE)))))), (Var ((SyntaxKind (Bit wordSz)),
+    new_mu)))))))))), (fun final_mu -> Let_ ((SyntaxKind (Bit pTableIdxSz)),
     (UniBit
     ((add pTableIdxSz (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
@@ -3363,7 +4104,37 @@ let thieleCore =
     ((SyntaxKind (Vector ((Bit wordSz), muTensorIdxSz))), mu_tensor_v)), (Var
     ((SyntaxKind (Bit muTensorIdxSz)), tensor_idx)), (Var ((SyntaxKind (Bit
     wordSz)), tensor_new_val)))), (Var ((SyntaxKind (Vector ((Bit wordSz),
-    muTensorIdxSz))), mu_tensor_v)))), (fun new_mu_tensor -> WriteReg
+    muTensorIdxSz))), mu_tensor_v)))), (fun new_mu_tensor -> Let_
+    ((SyntaxKind (Bit wordSz)), (ITE ((SyntaxKind (Bit wordSz)), (Var
+    ((SyntaxKind Bool), bianchi_violation)), (Var ((SyntaxKind (Bit wordSz)),
+    logic_acc_v)), (ITE ((SyntaxKind (Bit wordSz)), (Var ((SyntaxKind Bool),
+    logic_rsp_fire)), (BinBit (wordSz, wordSz, wordSz, (Add wordSz), (Var
+    ((SyntaxKind (Bit wordSz)), logic_acc_v)), (Var ((SyntaxKind (Bit
+    wordSz)), logic_resp_value_v)))), (ITE ((SyntaxKind (Bit wordSz)), (Eq
+    ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const
+    ((Bit opcodeSz), (ConstBit (opcodeSz, oP_ORACLE_HALTS)))))), (BinBit
+    (wordSz, wordSz, wordSz, (Add wordSz), (Var ((SyntaxKind (Bit wordSz)),
+    logic_acc_v)), (Const ((Bit wordSz), (ConstBit (wordSz,
+    (natToWord wordSz (Stdlib.Int.succ 0)))))))), (Var ((SyntaxKind (Bit
+    wordSz)), logic_acc_v)))))))), (fun new_logic_acc -> Let_ ((SyntaxKind
+    Bool), (ITE ((SyntaxKind Bool), (Var ((SyntaxKind Bool),
+    bianchi_violation)), (Var ((SyntaxKind Bool), logic_req_valid_v)), (ITE
+    ((SyntaxKind Bool), (Var ((SyntaxKind Bool), logic_rsp_fire)), (Const
+    (Bool, (ConstBool false))), (ITE ((SyntaxKind Bool), (Var ((SyntaxKind
+    Bool), logic_issue)), (Const (Bool, (ConstBool true))), (Var ((SyntaxKind
+    Bool), logic_req_valid_v)))))))), (fun new_logic_req_valid -> Let_
+    ((SyntaxKind (Bit opcodeSz)), (ITE ((SyntaxKind (Bit opcodeSz)), (Var
+    ((SyntaxKind Bool), logic_issue)), (Var ((SyntaxKind (Bit opcodeSz)),
+    opcode)), (Var ((SyntaxKind (Bit opcodeSz)), logic_req_opcode_v)))),
+    (fun new_logic_req_opcode -> Let_ ((SyntaxKind (Bit wordSz)), (ITE
+    ((SyntaxKind (Bit wordSz)), (Var ((SyntaxKind Bool), logic_issue)), (Var
+    ((SyntaxKind (Bit wordSz)), lpayload32)), (Var ((SyntaxKind (Bit
+    wordSz)), logic_req_payload_v)))), (fun new_logic_req_payload -> Let_
+    ((SyntaxKind Bool), (ITE ((SyntaxKind Bool), (Var ((SyntaxKind Bool),
+    bianchi_violation)), (Var ((SyntaxKind Bool), logic_resp_valid_v)), (ITE
+    ((SyntaxKind Bool), (Var ((SyntaxKind Bool), logic_rsp_fire)), (Const
+    (Bool, (ConstBool false))), (Var ((SyntaxKind Bool),
+    logic_resp_valid_v)))))), (fun new_logic_resp_valid -> WriteReg
     (('p'::('c'::[])), (SyntaxKind (Bit wordSz)), (Var ((SyntaxKind (Bit
     wordSz)), new_pc)), (WriteReg (('m'::('u'::[])), (SyntaxKind (Bit
     wordSz)), (Var ((SyntaxKind (Bit wordSz)), final_mu)), (WriteReg
@@ -3378,6 +4149,21 @@ let thieleCore =
     (('e'::('r'::('r'::('o'::('r'::('_'::('c'::('o'::('d'::('e'::[])))))))))),
     (SyntaxKind (Bit wordSz)), (Var ((SyntaxKind (Bit wordSz)),
     new_error_code)), (WriteReg
+    (('l'::('o'::('g'::('i'::('c'::('_'::('a'::('c'::('c'::[]))))))))),
+    (SyntaxKind (Bit wordSz)), (Var ((SyntaxKind (Bit wordSz)),
+    new_logic_acc)), (WriteReg
+    (('l'::('o'::('g'::('i'::('c'::('_'::('r'::('e'::('q'::('_'::('v'::('a'::('l'::('i'::('d'::[]))))))))))))))),
+    (SyntaxKind Bool), (Var ((SyntaxKind Bool), new_logic_req_valid)),
+    (WriteReg
+    (('l'::('o'::('g'::('i'::('c'::('_'::('r'::('e'::('q'::('_'::('o'::('p'::('c'::('o'::('d'::('e'::[])))))))))))))))),
+    (SyntaxKind (Bit opcodeSz)), (Var ((SyntaxKind (Bit opcodeSz)),
+    new_logic_req_opcode)), (WriteReg
+    (('l'::('o'::('g'::('i'::('c'::('_'::('r'::('e'::('q'::('_'::('p'::('a'::('y'::('l'::('o'::('a'::('d'::[]))))))))))))))))),
+    (SyntaxKind (Bit wordSz)), (Var ((SyntaxKind (Bit wordSz)),
+    new_logic_req_payload)), (WriteReg
+    (('l'::('o'::('g'::('i'::('c'::('_'::('r'::('e'::('s'::('p'::('_'::('v'::('a'::('l'::('i'::('d'::[])))))))))))))))),
+    (SyntaxKind Bool), (Var ((SyntaxKind Bool), new_logic_resp_valid)),
+    (WriteReg
     (('p'::('a'::('r'::('t'::('i'::('t'::('i'::('o'::('n'::('_'::('o'::('p'::('s'::[]))))))))))))),
     (SyntaxKind (Bit wordSz)), (Var ((SyntaxKind (Bit wordSz)),
     new_partition_ops)), (WriteReg
@@ -3395,7 +4181,7 @@ let thieleCore =
     (('p'::('t'::('_'::('n'::('e'::('x'::('t'::('_'::('i'::('d'::[])))))))))),
     (SyntaxKind (Bit wordSz)), (Var ((SyntaxKind (Bit wordSz)),
     new_pt_next_id)), (Return (Const (void,
-    (getDefaultConst void)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }),
+    (getDefaultConst void)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }),
     (ConsInModule ((MEMeth { attrName =
     ('l'::('o'::('a'::('d'::('I'::('n'::('s'::('t'::('r'::[])))))))));
     attrType = (ExistT ({ arg = (Struct ((Stdlib.Int.succ (Stdlib.Int.succ
@@ -3468,6 +4254,97 @@ let thieleCore =
     (('e'::('r'::('r'::('o'::('r'::('_'::('c'::('o'::('d'::('e'::[])))))))))),
     (SyntaxKind (Bit wordSz)), (fun v -> Return (Var ((SyntaxKind (Bit
     wordSz)), v))))))) }), (ConsInModule ((MEMeth { attrName =
+    ('g'::('e'::('t'::('L'::('o'::('g'::('i'::('c'::('A'::('c'::('c'::[])))))))))));
+    attrType = (ExistT ({ arg = void; ret = (Bit wordSz) }, (fun _ _ ->
+    ReadReg
+    (('l'::('o'::('g'::('i'::('c'::('_'::('a'::('c'::('c'::[]))))))))),
+    (SyntaxKind (Bit wordSz)), (fun v -> Return (Var ((SyntaxKind (Bit
+    wordSz)), v))))))) }), (ConsInModule ((MEMeth { attrName =
+    ('g'::('e'::('t'::('L'::('o'::('g'::('i'::('c'::('R'::('e'::('q'::('V'::('a'::('l'::('i'::('d'::[]))))))))))))))));
+    attrType = (ExistT ({ arg = void; ret = Bool }, (fun _ _ -> ReadReg
+    (('l'::('o'::('g'::('i'::('c'::('_'::('r'::('e'::('q'::('_'::('v'::('a'::('l'::('i'::('d'::[]))))))))))))))),
+    (SyntaxKind Bool), (fun v -> Return (Var ((SyntaxKind Bool), v))))))) }),
+    (ConsInModule ((MEMeth { attrName =
+    ('g'::('e'::('t'::('L'::('o'::('g'::('i'::('c'::('R'::('e'::('q'::('O'::('p'::('c'::('o'::('d'::('e'::[])))))))))))))))));
+    attrType = (ExistT ({ arg = void; ret = (Bit opcodeSz) }, (fun _ _ ->
+    ReadReg
+    (('l'::('o'::('g'::('i'::('c'::('_'::('r'::('e'::('q'::('_'::('o'::('p'::('c'::('o'::('d'::('e'::[])))))))))))))))),
+    (SyntaxKind (Bit opcodeSz)), (fun v -> Return (Var ((SyntaxKind (Bit
+    opcodeSz)), v))))))) }), (ConsInModule ((MEMeth { attrName =
+    ('g'::('e'::('t'::('L'::('o'::('g'::('i'::('c'::('R'::('e'::('q'::('P'::('a'::('y'::('l'::('o'::('a'::('d'::[]))))))))))))))))));
+    attrType = (ExistT ({ arg = void; ret = (Bit wordSz) }, (fun _ _ ->
+    ReadReg
+    (('l'::('o'::('g'::('i'::('c'::('_'::('r'::('e'::('q'::('_'::('p'::('a'::('y'::('l'::('o'::('a'::('d'::[]))))))))))))))))),
+    (SyntaxKind (Bit wordSz)), (fun v -> Return (Var ((SyntaxKind (Bit
+    wordSz)), v))))))) }), (ConsInModule ((MEMeth { attrName =
+    ('s'::('e'::('t'::('L'::('o'::('g'::('i'::('c'::('R'::('e'::('s'::('p'::[]))))))))))));
+    attrType = (ExistT ({ arg = (Struct ((Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0))), logicRespPort)); ret = void }, (fun _ arg0 -> Let_
+    ((SyntaxKind
+    (fieldKind (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))
+      logicRespPort
+      (vector_find (fieldAccessor ('v'::('a'::('l'::('i'::('d'::[]))))))
+        (Stdlib.Int.succ (Stdlib.Int.succ 0)) logicRespPort))), (ReadField
+    ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))), logicRespPort,
+    (vector_find (fieldAccessor ('v'::('a'::('l'::('i'::('d'::[]))))))
+      (Stdlib.Int.succ (Stdlib.Int.succ 0)) logicRespPort), (Var ((SyntaxKind
+    (Struct ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))),
+    logicRespPort))), arg0)))), (fun valid_v -> Let_ ((SyntaxKind
+    (fieldKind (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))
+      logicRespPort
+      (vector_find (fieldAccessor ('e'::('r'::('r'::('o'::('r'::[]))))))
+        (Stdlib.Int.succ (Stdlib.Int.succ 0)) logicRespPort))), (ReadField
+    ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))), logicRespPort,
+    (vector_find (fieldAccessor ('e'::('r'::('r'::('o'::('r'::[]))))))
+      (Stdlib.Int.succ (Stdlib.Int.succ 0)) logicRespPort), (Var ((SyntaxKind
+    (Struct ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))),
+    logicRespPort))), arg0)))), (fun error_v -> Let_ ((SyntaxKind
+    (fieldKind (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))
+      logicRespPort
+      (vector_find (fieldAccessor ('v'::('a'::('l'::('u'::('e'::[]))))))
+        (Stdlib.Int.succ (Stdlib.Int.succ 0)) logicRespPort))), (ReadField
+    ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))), logicRespPort,
+    (vector_find (fieldAccessor ('v'::('a'::('l'::('u'::('e'::[]))))))
+      (Stdlib.Int.succ (Stdlib.Int.succ 0)) logicRespPort), (Var ((SyntaxKind
+    (Struct ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))),
+    logicRespPort))), arg0)))), (fun value_v -> WriteReg
+    (('l'::('o'::('g'::('i'::('c'::('_'::('r'::('e'::('s'::('p'::('_'::('v'::('a'::('l'::('i'::('d'::[])))))))))))))))),
+    (SyntaxKind
+    (fieldKind (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))
+      logicRespPort
+      (vector_find (fieldAccessor ('v'::('a'::('l'::('i'::('d'::[]))))))
+        (Stdlib.Int.succ (Stdlib.Int.succ 0)) logicRespPort))), (Var
+    ((SyntaxKind
+    (fieldKind (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))
+      logicRespPort
+      (vector_find (fieldAccessor ('v'::('a'::('l'::('i'::('d'::[]))))))
+        (Stdlib.Int.succ (Stdlib.Int.succ 0)) logicRespPort))), valid_v)),
+    (WriteReg
+    (('l'::('o'::('g'::('i'::('c'::('_'::('r'::('e'::('s'::('p'::('_'::('e'::('r'::('r'::('o'::('r'::[])))))))))))))))),
+    (SyntaxKind
+    (fieldKind (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))
+      logicRespPort
+      (vector_find (fieldAccessor ('e'::('r'::('r'::('o'::('r'::[]))))))
+        (Stdlib.Int.succ (Stdlib.Int.succ 0)) logicRespPort))), (Var
+    ((SyntaxKind
+    (fieldKind (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))
+      logicRespPort
+      (vector_find (fieldAccessor ('e'::('r'::('r'::('o'::('r'::[]))))))
+        (Stdlib.Int.succ (Stdlib.Int.succ 0)) logicRespPort))), error_v)),
+    (WriteReg
+    (('l'::('o'::('g'::('i'::('c'::('_'::('r'::('e'::('s'::('p'::('_'::('v'::('a'::('l'::('u'::('e'::[])))))))))))))))),
+    (SyntaxKind
+    (fieldKind (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))
+      logicRespPort
+      (vector_find (fieldAccessor ('v'::('a'::('l'::('u'::('e'::[]))))))
+        (Stdlib.Int.succ (Stdlib.Int.succ 0)) logicRespPort))), (Var
+    ((SyntaxKind
+    (fieldKind (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))
+      logicRespPort
+      (vector_find (fieldAccessor ('v'::('a'::('l'::('u'::('e'::[]))))))
+        (Stdlib.Int.succ (Stdlib.Int.succ 0)) logicRespPort))), value_v)),
+    (Return (Const (void, (getDefaultConst void)))))))))))))))))) }),
+    (ConsInModule ((MEMeth { attrName =
     ('g'::('e'::('t'::('M'::('u'::('T'::('e'::('n'::('s'::('o'::('r'::('0'::[]))))))))))));
     attrType = (ExistT ({ arg = void; ret = (Bit wordSz) }, (fun _ _ ->
     ReadReg
@@ -3782,7 +4659,7 @@ let thieleCore =
     (Vector ((Bit wordSz), pTableIdxSz))), (fun t1 -> Return (ReadIndex
     (pTableIdxSz, (Bit wordSz), (Var ((SyntaxKind (Bit pTableIdxSz)), idx)),
     (Var ((SyntaxKind (Vector ((Bit wordSz), pTableIdxSz))), t1))))))))) }),
-    NilInModule))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+    NilInModule))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
 
 (** val thieleCoreS : modulesS **)
 

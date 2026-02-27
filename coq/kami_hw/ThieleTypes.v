@@ -29,6 +29,13 @@ Definition ERR_CHSH_VAL    : word WordSz :=
   WO~0~0~0~0~1~0~1~1~1~0~1~0~1~1~0~1~1~1~0~0~0~1~0~0~0~1~0~1~1~1~0~0. (* 0x0BADC45C *)
 Definition ERR_BIANCHI_VAL : word WordSz :=
   WO~0~0~0~0~1~0~1~1~0~0~0~1~1~0~1~0~0~1~0~0~1~1~0~0~1~0~0~0~0~0~0~1. (* 0x0B1A4C81 *)
+Definition ERR_LOGIC_VAL   : word WordSz :=
+  WO~1~1~0~0~0~1~0~0~0~0~1~1~0~1~0~0~0~1~1~1~0~0~0~1~1~0~1~0~0~0~0~1. (* 0xC43471A1 *)
+
+(** CHSH x=1 surcharge constant (μ-bits).
+    Kept as a named constant so Coq, generated RTL, and Python VM stay aligned. *)
+Definition CHSH_X1_SURCHARGE : word WordSz :=
+  WO~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~1~0~0~0~0~0~0~0~0. (* 0x00000100 = 256 *)
 
 (** Opcode encoding — must match generated_opcodes.vh *)
 Definition OP_PNEW         : word OpcodeSz := WO~0~0~0~0~0~0~0~0.
