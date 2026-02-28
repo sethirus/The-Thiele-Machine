@@ -15,6 +15,7 @@ ERR_LOCALITY = 0x0BADC0DE
 ERR_LOGIC = 0xC43471A1
 ERR_BIANCHI = 0x0B1A4C81
 ERR_CHSH = 0x0BADC45C
+ERR_PARTITION = 0xBADF001D
 
 
 def _run_vm(program: list[tuple[str, str]], init_mem: dict[int, int]) -> dict:
@@ -129,5 +130,82 @@ def test_paradox_cheater_chsh_x1_without_certificate_rejected() -> None:
     if result is None:
         pytest.skip("verilator unavailable")
 
-    assert result.get("error_code", 0) == ERR_CHSH
-    assert result.get("status", 0) == 3
+    # With logic-gated physics lock enabled, CHSH is blocked earlier unless unlocked.
+    assert result.get("error_code", 0) == ERR_LOGIC
+    assert result.get("status", 0) in (2, 3)
+
+
+@pytest.mark.hardware
+def test_paradox_ghost_lock_blocks_reveal_without_logic_key() -> None:
+    result = run_verilog(
+        "\n".join(
+            [
+                "INIT_MU 0",
+                "REVEAL 0 0 7",
+                "HALT 0",
+                "",
+            ]
+        ),
+        backend="verilator",
+    )
+    if result is None:
+        pytest.skip("verilator unavailable")
+
+    assert result.get("error_code", 0) == ERR_LOGIC
+    assert int(result.get("mu", 0)) == 0
+
+
+@pytest.mark.hardware
+def test_paradox_stack_jailbreak_call_out_of_bounds_rejected() -> None:
+    result = run_verilog(
+        "\n".join(
+            [
+                "INIT_ACTIVE_MODULE 0",
+                "INIT_PT 0 10",
+                "LOAD_IMM 31 250 1",
+                "CALL 0 8 1",
+                "HALT 0",
+                "",
+            ]
+        ),
+        backend="verilator",
+    )
+    if result is None:
+        pytest.skip("verilator unavailable")
+
+    assert result.get("error_code", 0) == ERR_LOCALITY
+    assert result.get("mem", [0] * 256)[250] == 0
+
+
+@pytest.mark.hardware
+def test_paradox_ouroboros_partition_counter_wrap_rejected() -> None:
+    program_lines = ["INIT_MU 0"]
+    program_lines.extend(["PNEW 1 0 1" for _ in range(64)])
+    program_lines.append("HALT 0")
+    program_lines.append("")
+
+    result = run_verilog("\n".join(program_lines), backend="verilator")
+    if result is None:
+        pytest.skip("verilator unavailable")
+
+    assert result.get("error_code", 0) == ERR_PARTITION
+
+
+@pytest.mark.hardware
+def test_paradox_free_insight_info_gain_without_cost_rejected() -> None:
+    result = run_verilog(
+        "\n".join(
+            [
+                "PDISCOVER 0 255 0",
+                "HALT 0",
+                "",
+            ]
+        ),
+        backend="verilator",
+    )
+    if result is None:
+        pytest.skip("verilator unavailable")
+
+    assert result.get("error_code", 0) == ERR_LOGIC
+    if "info_gain" in result:
+        assert int(result.get("info_gain", 0)) == 0

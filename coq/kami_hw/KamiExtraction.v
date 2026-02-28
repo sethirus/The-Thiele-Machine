@@ -7,7 +7,7 @@
 Require Import Kami.Kami.
 Require Import Kami.Synthesize.
 Require Import Kami.Ext.BSyntax.
-From KamiHW Require Import ThieleCPUCore.
+From KamiHW Require Import CanonicalCPUProof.
 
 Require Import ExtrOcamlBasic ExtrOcamlNatInt ExtrOcamlString.
 Extraction Language OCaml.
@@ -16,4 +16,4 @@ Set Extraction Optimize.
 Set Extraction KeepSingleton.
 Unset Extraction AutoInline.
 
-Extraction "/workspace/The-Thiele-Machine/build/kami_hw/Target.ml" thieleCoreB.
+Extraction "/workspace/The-Thiele-Machine/build/kami_hw/Target.ml" canonical_cpu_module.
