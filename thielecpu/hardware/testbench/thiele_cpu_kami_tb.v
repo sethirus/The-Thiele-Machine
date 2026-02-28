@@ -24,11 +24,11 @@ module thiele_cpu_kami_tb;
   reg load_en;
 
   // Logic coprocessor response drive (optional external Z3 bridge)
-  reg [33:0] logic_resp_in;
-  reg logic_resp_en;
-  wire logic_req_valid_out;
-  wire [7:0] logic_req_opcode_out;
-  wire [31:0] logic_req_payload_out;
+  reg [33:0] logic_resp_in /* verilator public */;
+  reg logic_resp_en /* verilator public */;
+  wire logic_req_valid_out /* verilator public */;
+  wire [7:0] logic_req_opcode_out /* verilator public */;
+  wire [31:0] logic_req_payload_out /* verilator public */;
 
   // Output ports from mkModule1
   wire [31:0] pc_out, mu_out;
@@ -152,10 +152,15 @@ module thiele_cpu_kami_tb;
   reg [1023:0] logic_bridge_rsp_path;
   reg [2047:0] logic_bridge_cmd;
   reg          logic_prev_req_valid;
+  integer      logic_bridge_external;
 
   // File paths from plusargs
   reg [1023:0] program_hex_path;
   reg [1023:0] data_hex_path;
+
+  // Physical assertion monitor state
+  reg [31:0] prev_mu;
+  reg        prev_mu_valid;
 
   // CHSH trial tracing
   wire [31:0] current_instr;
@@ -181,10 +186,14 @@ module thiele_cpu_kami_tb;
     logic_resp_in = 34'd0;
     logic_resp_en = 1'b0;
     logic_prev_req_valid = 1'b0;
+    prev_mu = 32'd0;
+    prev_mu_valid = 1'b0;
     logic_bridge_enable = 0;
+    logic_bridge_external = 0;
     logic_bridge_req_path = "build/logic_bridge_req.txt";
     logic_bridge_rsp_path = "build/logic_bridge_rsp.txt";
     if ($value$plusargs("LOGIC_Z3_BRIDGE=%d", logic_bridge_enable)) begin end
+    if ($value$plusargs("LOGIC_BRIDGE_EXTERNAL=%d", logic_bridge_external)) begin end
     if ($value$plusargs("LOGIC_REQ_FILE=%s", logic_bridge_req_path)) begin end
     if ($value$plusargs("LOGIC_RSP_FILE=%s", logic_bridge_rsp_path)) begin end
 
@@ -283,33 +292,35 @@ module thiele_cpu_kami_tb;
 
       // Logic bridge handshake: consume in-core request/response wires.
       // The bridge check is deterministic and synth-independent for cosim.
-      logic_resp_en = 1'b0;
-      logic_resp_in = 34'd0;
-      if (logic_bridge_enable != 0 && logic_req_valid_out && !logic_prev_req_valid) begin
-        logic_bridge_error = 0;
-        logic_bridge_value = logic_req_payload_out;
-        case (logic_req_opcode_out)
-          8'h03: begin  // LASSERT: sat iff op_a >= op_b
-            if (logic_req_payload_out[15:8] < logic_req_payload_out[7:0]) begin
+      if (logic_bridge_external == 0) begin
+        logic_resp_en = 1'b0;
+        logic_resp_in = 34'd0;
+        if (logic_bridge_enable != 0 && logic_req_valid_out && !logic_prev_req_valid) begin
+          logic_bridge_error = 0;
+          logic_bridge_value = logic_req_payload_out;
+          case (logic_req_opcode_out)
+            8'h03: begin  // LASSERT: sat iff op_a >= op_b
+              if (logic_req_payload_out[15:8] < logic_req_payload_out[7:0]) begin
+                logic_bridge_error = 1;
+                logic_bridge_value = 0;
+              end
+            end
+            8'h04: begin  // LJOIN: sat iff both terms are non-zero
+              if (logic_req_payload_out[15:8] == 0 || logic_req_payload_out[7:0] == 0) begin
+                logic_bridge_error = 1;
+                logic_bridge_value = 0;
+              end
+            end
+            default: begin
               logic_bridge_error = 1;
               logic_bridge_value = 0;
             end
-          end
-          8'h04: begin  // LJOIN: sat iff both terms are non-zero
-            if (logic_req_payload_out[15:8] == 0 || logic_req_payload_out[7:0] == 0) begin
-              logic_bridge_error = 1;
-              logic_bridge_value = 0;
-            end
-          end
-          default: begin
-            logic_bridge_error = 1;
-            logic_bridge_value = 0;
-          end
-        endcase
-        logic_resp_in = {1'b1, logic_bridge_error[0], logic_bridge_value[31:0]};
-        logic_resp_en = 1'b1;
+          endcase
+          logic_resp_in = {1'b1, logic_bridge_error[0], logic_bridge_value[31:0]};
+          logic_resp_en = 1'b1;
+        end
+        logic_prev_req_valid = logic_req_valid_out;
       end
-      logic_prev_req_valid = logic_req_valid_out;
 
       @(posedge clk);
 
@@ -456,6 +467,29 @@ module thiele_cpu_kami_tb;
     $display("}");
 
     $finish;
+  end
+
+  // Physical runtime assertions:
+  //  - μ ledger must be monotone non-decreasing
+  //  - halted must be caused by HALT opcode or bianchi alarm
+  always @(posedge clk) begin
+    if (!rst_n) begin
+      prev_mu_valid <= 1'b0;
+      prev_mu <= 32'd0;
+    end else if (shadow_executing) begin
+      if (prev_mu_valid) begin
+        assert (mu_out >= prev_mu)
+          else $fatal(1, "PHYS_ASSERT_FAIL: mu decreased (%0d -> %0d)", prev_mu, mu_out);
+      end
+
+      if (halted_out) begin
+        assert (bianchi_alarm_out || (current_opcode == 8'hFF))
+          else $fatal(1, "PHYS_ASSERT_FAIL: halted without HALT opcode or bianchi alarm");
+      end
+
+      prev_mu <= mu_out;
+      prev_mu_valid <= 1'b1;
+    end
   end
 
 endmodule

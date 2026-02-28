@@ -32,7 +32,7 @@ def test_chsh_x1_without_reveal_certificate_is_rejected() -> None:
 
 
 @pytest.mark.hardware
-def test_chsh_x1_with_reveal_certificate_currently_rejects_in_rtl() -> None:
+def test_chsh_x1_with_reveal_certificate_is_allowed_and_surcharged() -> None:
     result = run_verilog(
         "\n".join(
             [
@@ -48,8 +48,7 @@ def test_chsh_x1_with_reveal_certificate_currently_rejects_in_rtl() -> None:
     if result is None:
         pytest.skip("verilator unavailable")
 
-    # Current extracted RTL still rejects this path with CHSH protocol error.
-    assert result.get("error_code", 0) == 0x0BADC45C
-    assert result.get("status", 0) == 3
-    # μ still includes the executed REVEAL + CHSH base cost before ERR latch.
-    assert result.get("mu", -1) == 8
+    assert result.get("error_code", 0) == 0
+    assert result.get("status", 0) == 2
+    # μ includes REVEAL cost (1) + CHSH base cost (7) + x=1 surcharge (256).
+    assert result.get("mu", -1) == 264
