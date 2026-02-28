@@ -12,6 +12,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 COQ_DIR="$ROOT/coq"
+COQ_KAMI_DIR="$COQ_DIR/kami_hw"
 BUILD_DIR="$ROOT/build/kami_hw"
 VENDOR_KAMI="$ROOT/vendor/kami"
 VENDOR_BBV="$ROOT/vendor/bbv"
@@ -35,20 +36,35 @@ if ! command -v "$BSC" &>/dev/null; then
     BSC="bsc"
 fi
 
+if ! command -v "$BSC" &>/dev/null; then
+    echo "ERROR: bsc compiler not found (resolved BSC='$BSC'). Install Bluespec and/or set BSC explicitly."
+    exit 1
+fi
+
+export OCAMLRUNPARAM="${OCAMLRUNPARAM:-l=500M}"
+
 mkdir -p "$BUILD_DIR"
 
 echo "=== Phase 1: Compiling Kami modules in Coq ==="
-cd "$COQ_DIR"
-coqc -R kami_hw KamiHW \
+cd "$COQ_KAMI_DIR"
+coqc -R . KamiHW \
      -R "$VENDOR_KAMI/Kami" Kami \
      -Q "$VENDOR_BBV/src/bbv" bbv \
-     kami_hw/Blink.v
+     Blink.v
+coqc -R . KamiHW \
+     -R "$VENDOR_KAMI/Kami" Kami \
+     -Q "$VENDOR_BBV/src/bbv" bbv \
+     ThieleTypes.v
+coqc -R . KamiHW \
+     -R "$VENDOR_KAMI/Kami" Kami \
+     -Q "$VENDOR_BBV/src/bbv" bbv \
+     ThieleCPUCore.v
 
 echo "=== Phase 2: Extracting to OCaml (Target.ml) ==="
-coqc -R kami_hw KamiHW \
+coqc -R . KamiHW \
      -R "$VENDOR_KAMI/Kami" Kami \
      -Q "$VENDOR_BBV/src/bbv" bbv \
-     kami_hw/KamiExtraction.v
+     KamiExtraction.v
 
 echo "=== Phase 3: Compiling OCaml → Bluespec pretty-printer ==="
 cd "$BUILD_DIR"
@@ -86,11 +102,21 @@ with open('thiele_hw_clean.bsv', 'w') as f:
     f.write('\n'.join(clean))
 " 2>/dev/null || cp thiele_hw.bsv thiele_hw_clean.bsv
 
+# Bluespec 2024.07 in this environment does not resolve `vec(...)` constructors
+# emitted by Kami extraction; rewrite them to explicit unpacked concatenations.
+python3 - <<'PY'
+import re
+p='thiele_hw_clean.bsv'
+s=open(p).read()
+s=re.sub(r'vec\(([^()]*)\)', r'unpack({\1})', s)
+open(p,'w').write(s)
+PY
+
 echo "=== Phase 5: Compiling Bluespec → Verilog ==="
 # Compile each module found in the BSV
 for mod in $(grep -oP 'module (mk\w+)' thiele_hw_clean.bsv | awk '{print $2}'); do
     echo "  Compiling $mod..."
-    "$BSC" -verilog -g "$mod" -p "$BLUESPECDIR/Libraries" thiele_hw_clean.bsv 2>&1 || true
+    "$BSC" -verilog -g "$mod" -p "$BLUESPECDIR/Libraries" thiele_hw_clean.bsv 2>&1
 done
 
 if [ "${SKIP_YOSYS:-0}" = "1" ]; then

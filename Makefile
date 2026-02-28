@@ -595,6 +595,20 @@ purge: clean
 
 .PHONY: release release-toolchain-check proof extract synth sim
 
+.PHONY: vendor-bbv-build
+vendor-bbv-build:
+	@git submodule update --init --recursive vendor/bbv
+	@cd vendor/bbv && make -j4
+	@echo "✅ [vendor-bbv-build] vendor/bbv full build completed"
+
+.PHONY: vendor-kami-build
+vendor-kami-build:
+	@git submodule update --init --recursive vendor/kami
+	@./scripts/fix_kami_coq18.sh
+	@cd vendor/kami && make -j4
+	@echo "✅ [vendor-kami-build] vendor/kami full build completed"
+
+
 RELEASE_BLUESPECDIR ?= /tmp/bsc-2024.07-ubuntu-22.04/lib
 RELEASE_BSC ?= /tmp/bsc-2024.07-ubuntu-22.04/bin/bsc
 
@@ -607,7 +621,7 @@ release-toolchain-check:
 	@python3 -c "import z3; assert z3.get_version_string().startswith('4.'), 'require python z3-solver 4.x'; print('[release] z3 version', z3.get_version_string())"
 	@echo "[release] toolchain OK"
 
-proof: release-toolchain-check
+proof: release-toolchain-check vendor-bbv-build vendor-kami-build
 	@echo "[proof] compiling kami refinement contract..."
 	@cd coq && coqc -R kernel Kernel -R kami_hw KamiHW -R ../vendor/kami/Kami Kami -Q ../vendor/bbv/src/bbv bbv kami_hw/ThieleTypes.v
 	@cd coq && coqc -R kernel Kernel -R kami_hw KamiHW -R ../vendor/kami/Kami Kami -Q ../vendor/bbv/src/bbv bbv kami_hw/ThieleCPUCore.v
@@ -622,8 +636,8 @@ extract: release-toolchain-check
 	@echo "✅ [extract] canonical RTL refreshed: thielecpu/hardware/rtl/thiele_cpu_kami.v"
 
 synth: release-toolchain-check
-	@echo "[synth] checking RTL synthesizability..."
-	@yosys -p "read_verilog -sv -DSYNTHESIS thielecpu/hardware/rtl/thiele_cpu_kami.v; prep -top mkModule1; check; stat"
+	@echo "[synth] Final Audit: Counting every physical flip-flop bit..."
+	@yosys -p "read_verilog -sv -DSYNTHESIS thielecpu/hardware/rtl/thiele_cpu_kami.v; hierarchy -top mkModule1; proc; flatten; memory_unpack; memory_map; select -list t:\$dff t:\$adff t:\$sdff t:\$_DFF* t:\$_SDFF*; stat"
 	@echo "✅ [synth] RTL synthesizable"
 
 sim: release-toolchain-check

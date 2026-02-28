@@ -7,7 +7,7 @@
 Require Import Kami.Kami.
 Require Import Kami.Synthesize.
 Require Import Kami.Ext.BSyntax.
-Require Import KamiHW.ThieleCPUCore.
+From KamiHW Require Import ThieleCPUCore.
 
 Require Import ExtrOcamlBasic ExtrOcamlNatInt ExtrOcamlString.
 Extraction Language OCaml.
