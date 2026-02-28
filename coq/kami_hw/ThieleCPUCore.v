@@ -1183,19 +1183,44 @@ Section ThieleCPU.
         LET mem_addr_a : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) #op_a;
         LET mem_val : Bit WordSz <- read_mem #mem_addr #mem_v;
 
-        (* Partition wall enforcement: LOAD/STORE may only access active module region. *)
+        (* Stack pointer (r31) for CALL/RET *)
+        LET sp_val : Bit WordSz <- #regs_v@[$$(SP_IDX)];
+        LET sp_addr : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) #sp_val;
+        LET sp_inc : Bit WordSz <- #sp_val + $1;
+        LET sp_dec : Bit WordSz <- #sp_val - $1;
+        LET sp_dec_addr : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) #sp_dec;
+
+        (* Partition wall enforcement: LOAD/STORE/CALL/RET may only access active module region. *)
         LET active_region_size : Bit WordSz <- #pt_sizes_v@[#active_module_v];
         LET load_in_bounds <- check_bounds #mem_addr #active_region_size;
         LET store_in_bounds <- check_bounds #mem_addr_a #active_region_size;
+        LET call_in_bounds <- check_bounds #sp_addr #active_region_size;
+        LET ret_in_bounds <- check_bounds #sp_dec_addr #active_region_size;
         LET is_load_op <- (#opcode == $$(OP_LOAD)) || (#opcode == $$(OP_XOR_LOAD));
         LET is_store_op <- #opcode == $$(OP_STORE);
+        LET is_call_op <- #opcode == $$(OP_CALL);
+        LET is_ret_op <- #opcode == $$(OP_RET);
         LET load_locality_bad <- #is_load_op && !#load_in_bounds;
         LET store_locality_bad <- #is_store_op && !#store_in_bounds;
-        LET locality_violation <- #load_locality_bad || #store_locality_bad;
+        LET call_locality_bad <- #is_call_op && !#call_in_bounds;
+        LET ret_locality_bad <- #is_ret_op && !#ret_in_bounds;
+        LET locality_violation <-
+          #load_locality_bad || #store_locality_bad || #call_locality_bad || #ret_locality_bad;
 
         (* Logic-gated physics lock for high-value instructions. *)
         LET logic_key_ok <- #logic_acc_v == $$(LOGIC_GATE_KEY);
-        LET high_value_locked <- $$false;
+        LET is_high_value_op <-
+          (#opcode == $$(OP_REVEAL)) || (#opcode == $$(OP_PDISCOVER)) || (#opcode == $$(OP_CHSH_TRIAL));
+        LET high_value_locked <- #is_high_value_op && !#logic_key_ok;
+
+
+        (* Capacity guards: never wrap partition table indices. *)
+        LET ptable_room_one <- #pt_next_id_v < $64;
+        LET ptable_room_two <- (#pt_next_id_v + $1) < $64;
+        LET pnew_overflow <- (#opcode == $$(OP_PNEW)) && !#ptable_room_one;
+        LET psplit_overflow <- (#opcode == $$(OP_PSPLIT)) && !#ptable_room_two;
+        LET pmerge_overflow <- (#opcode == $$(OP_PMERGE)) && !#ptable_room_one;
+        LET ptable_overflow_violation <- #pnew_overflow || #psplit_overflow || #pmerge_overflow;
 
         (* Partition-table indexed value probes for in-core PDISCOVER datapath *)
         LET pt_probe_idx : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz _) #op_b;
@@ -1208,13 +1233,10 @@ Section ThieleCPU.
         LET jump_target_16 : Bit 16 <- {#op_a, #op_b};
         LET jump_target : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #jump_target_16;
 
-        (* Stack pointer (r31) for CALL/RET *)
-        LET sp_val : Bit WordSz <- #regs_v@[$$(SP_IDX)];
-        LET sp_addr : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) #sp_val;
-        LET sp_inc : Bit WordSz <- #sp_val + $1;
-        LET sp_dec : Bit WordSz <- #sp_val - $1;
-        LET sp_dec_addr : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) #sp_dec;
-        LET ret_pc : Bit WordSz <- read_mem #sp_dec_addr #mem_v;
+        LET ret_pc : Bit WordSz <-
+          IF #ret_in_bounds
+          then read_mem #sp_dec_addr #mem_v
+          else $0;
 
         (* Execute: compute all possible results *)
         LET add_result : Bit WordSz <- #rs1_val + #rs2_val;
@@ -1264,6 +1286,12 @@ Section ThieleCPU.
         LET logic_rsp_fire <- #logic_req_valid_v && #logic_resp_valid_v;
         LET logic_issue <- #is_logic_op && !#logic_req_valid_v;
 
+        (* No-Free-Insight guard for info-bearing instructions. *)
+        LET op_b_32 : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #op_b;
+        LET is_info_gain_op <-
+          (#opcode == $$(OP_PDISCOVER)) || (#opcode == $$(OP_EMIT));
+        LET nfi_violation <- #is_info_gain_op && (#cost32 < #op_b_32);
+
         (* REVEAL: tensor index from op_a[3:0] *)
         LET tensor_idx : Bit MuTensorIdxSz <- UniBit (Trunc MuTensorIdxSz _) #op_a;
         LET tensor_old : Bit WordSz <- #mu_tensor_v@[#tensor_idx];
@@ -1273,7 +1301,7 @@ Section ThieleCPU.
            Determine new PC
            ============================================================ *)
         LET new_pc : Bit WordSz <-
-          IF (#bianchi_violation || #locality_violation || #high_value_locked)
+          IF (#bianchi_violation || #locality_violation || #ptable_overflow_violation || #high_value_locked || #nfi_violation)
           then #trap_vector_v
           else (IF #logic_rsp_pending
                 then #pc_v
@@ -1297,7 +1325,7 @@ Section ThieleCPU.
            Determine new register file
            ============================================================ *)
         LET new_regs : Vector (Bit WordSz) RegIdxSz <-
-          IF (#bianchi_violation || #locality_violation || #high_value_locked)
+          IF (#bianchi_violation || #locality_violation || #ptable_overflow_violation || #high_value_locked || #nfi_violation)
           then #regs_v
           else (IF (#opcode == $$(OP_LOAD_IMM))
           then #regs_v@[#dst_idx <- #imm32]
@@ -1329,7 +1357,7 @@ Section ThieleCPU.
            Determine new memory
            ============================================================ *)
         LET new_mem : Vector (Bit WordSz) MemAddrSz <-
-          IF (#bianchi_violation || #locality_violation || #high_value_locked)
+          IF (#bianchi_violation || #locality_violation || #ptable_overflow_violation || #high_value_locked || #nfi_violation)
           then #mem_v
           else (IF (#opcode == $$(OP_STORE))
           then write_mem #mem_addr_a #src_val #mem_v
@@ -1338,11 +1366,14 @@ Section ThieleCPU.
           else #mem_v));
 
         (* Determine halted state *)
-        LET new_halted <- #locality_violation || #high_value_locked || (#opcode == $$(OP_HALT));
+        LET new_halted <-
+          #locality_violation || #ptable_overflow_violation || #high_value_locked || #nfi_violation || (#opcode == $$(OP_HALT));
 
         (* Determine error state: protocol errors set err; logic errors come from coprocessor response. *)
         LET logic_resp_fail <- #logic_rsp_fire && #logic_resp_error_v;
-        LET new_err <- #locality_violation || #high_value_locked || ((#opcode == $$(OP_CHSH_TRIAL)) && #chsh_bits_bad) || #logic_resp_fail;
+        LET new_err <-
+          #locality_violation || #ptable_overflow_violation || #high_value_locked || #nfi_violation ||
+          ((#opcode == $$(OP_CHSH_TRIAL)) && #chsh_bits_bad) || #logic_resp_fail;
 
         (* Determine error code *)
         LET new_error_code : Bit WordSz <-
@@ -1350,16 +1381,20 @@ Section ThieleCPU.
           then $$(ERR_BIANCHI_VAL)
           else (IF #locality_violation
                 then $$(ERR_LOCALITY_VAL)
-                else (IF (#high_value_locked || #logic_resp_fail)
-                      then $$(ERR_LOGIC_VAL)
-                      else (IF ((#opcode == $$(OP_CHSH_TRIAL)) && #chsh_bits_bad)
-                            then $$(ERR_CHSH_VAL)
-                            else #error_code_v)));
+                else (IF #ptable_overflow_violation
+                      then $$(ERR_PARTITION_VAL)
+                      else (IF #nfi_violation
+                            then $$(ERR_LOGIC_VAL)
+                            else (IF (#high_value_locked || #logic_resp_fail)
+                                  then $$(ERR_LOGIC_VAL)
+                                  else (IF ((#opcode == $$(OP_CHSH_TRIAL)) && #chsh_bits_bad)
+                                        then $$(ERR_CHSH_VAL)
+                                        else #error_code_v)))));
 
         (* Determine new mu — only charge if not a bianchi violation.
            ORACLE_HALTS (0x10) always charges 1,000,000 regardless of cost field. *)
         LET final_mu : Bit WordSz <-
-          IF (#bianchi_violation || #high_value_locked)
+          IF (#bianchi_violation || #ptable_overflow_violation || #high_value_locked || #nfi_violation)
           then #mu_v
           else (IF #logic_rsp_pending
                 then #mu_v
@@ -1415,7 +1450,7 @@ Section ThieleCPU.
 
         (* Select partition table update based on opcode *)
         LET new_pt_sizes : Vector (Bit WordSz) PTableIdxSz <-
-          IF #bianchi_violation
+          IF (#bianchi_violation || #ptable_overflow_violation)
           then #pt_sizes_v
           else (IF (#opcode == $$(OP_PNEW))
                 then #pt_after_pnew
@@ -1426,7 +1461,7 @@ Section ThieleCPU.
                             else #pt_sizes_v)));
 
         LET new_pt_next_id : Bit WordSz <-
-          IF #bianchi_violation
+          IF (#bianchi_violation || #ptable_overflow_violation)
           then #pt_next_id_v
           else (IF (#opcode == $$(OP_PNEW))
                 then #next_after_pnew
@@ -1451,12 +1486,10 @@ Section ThieleCPU.
           then #mdl_ops_v + $1
           else #mdl_ops_v;
 
-        (* Zero-extend op_b to 32 bits for info_gain increment *)
-        LET op_b_32 : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #op_b;
-        LET is_info_gain_op <-
-          (#opcode == $$(OP_PDISCOVER)) || (#opcode == $$(OP_EMIT));
+        (* info_gain increments only when No-Free-Insight bound is satisfied. *)
         LET new_info_gain : Bit WordSz <-
-          IF (#is_info_gain_op && !#bianchi_violation)
+          IF (#is_info_gain_op && !#bianchi_violation && !#locality_violation &&
+              !#ptable_overflow_violation && !#high_value_locked && !#nfi_violation)
           then #info_gain_v + #op_b_32
           else #info_gain_v;
 
@@ -1507,7 +1540,8 @@ Section ThieleCPU.
         LET mcycle_lo_wrap <- #mcycle_lo_next == $0;
         LET mcycle_hi_next : Bit WordSz <- IF #mcycle_lo_wrap then #mcycle_hi_v + $1 else #mcycle_hi_v;
 
-        LET retire_this_step <- !#logic_rsp_pending && !#locality_violation && !#high_value_locked;
+        LET retire_this_step <-
+          !#logic_rsp_pending && !#locality_violation && !#ptable_overflow_violation && !#high_value_locked && !#nfi_violation;
         LET minstret_lo_inc : Bit WordSz <- IF #retire_this_step then #minstret_lo_v + $1 else #minstret_lo_v;
         LET minstret_lo_wrap <- #retire_this_step && (#minstret_lo_inc == $0);
         LET minstret_hi_next : Bit WordSz <- IF #minstret_lo_wrap then #minstret_hi_v + $1 else #minstret_hi_v;

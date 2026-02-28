@@ -1,10 +1,12 @@
 # Coq logical paths - clean per-directory mappings (best practice)
 # Non-recursive root mapping for Extraction.v only (-Q prevents
 # subdirectories from being double-bound under Top.*)
--Q . Top
 -R kernel Kernel
 -R nofi NoFI
 -R bridge Bridge
+-R kami_hw KamiHW
+-R ../vendor/kami/Kami Kami
+-Q ../vendor/bbv/src/bbv bbv
 -R spacetime Spacetime
 -R thielemachine/coqproofs ThieleMachine
 -R thielemachine/verification ThieleMachineVerification
@@ -342,6 +344,14 @@ kernel/InverseSquareLaw.v
 kernel/LorentzSignature.v
 kernel/PoissonEquation.v
 kernel/VerilogRTLCorrespondence.v
+kernel/DiscreteCalculus.v
+
+# Kami HW
+kami_hw/Compatibility.v
+kami_hw/Blink.v
+kami_hw/ThieleTypes.v
+kami_hw/ThieleCPUCore.v
 kami_hw/Abstraction.v
 kami_hw/VerilogRefinement.v
-kernel/DiscreteCalculus.v
+kami_hw/CanonicalCPUProof.v
+kami_hw/KamiExtraction.v

@@ -37,6 +37,8 @@ Definition ERR_LOGIC_VAL   : word WordSz :=
   WO~1~1~0~0~0~1~0~0~0~0~1~1~0~1~0~0~0~1~1~1~0~0~0~1~1~0~1~0~0~0~0~1. (* 0xC43471A1 *)
 Definition ERR_LOCALITY_VAL : word WordSz :=
   WO~0~0~0~0~1~0~1~1~1~0~1~0~1~1~0~1~1~1~0~0~0~0~0~0~1~1~0~1~1~1~1~0. (* 0x0BADC0DE *)
+Definition ERR_PARTITION_VAL : word WordSz :=
+  WO~1~0~1~1~1~0~1~0~1~1~0~1~1~1~1~1~0~0~0~0~0~0~0~0~0~0~0~1~1~1~0~1. (* 0xBADF001D *)
 
 (** Logic-gated physics key required for REVEAL/CHSH_TRIAL unlock. *)
 Definition LOGIC_GATE_KEY : word WordSz :=
