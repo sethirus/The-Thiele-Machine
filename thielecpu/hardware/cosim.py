@@ -172,13 +172,15 @@ def _encode_instruction(op: str, operand_a: int = 0, operand_b: int = 0,
            ((operand_b & 0xFF) << 8) | (cost & 0xFF)
 
 
-def program_to_hex(program: str) -> Tuple[List[str], List[str]]:
+def program_to_hex(program: str) -> Tuple[List[str], List[str], Dict[str, int]]:
     """Convert text program to hex instruction and data memory images.
 
-    Returns (instr_hex_lines, data_hex_lines) suitable for $readmemh.
+    Returns (instr_hex_lines, data_hex_lines, init_state) where init_state
+    contains optional testbench prestate overrides.
     """
     instrs: List[int] = []
     data_mem: Dict[int, int] = {}
+    init_state: Dict[str, int] = {}
 
     for line in program.strip().split("\n"):
         line = line.strip()
@@ -199,6 +201,28 @@ def program_to_hex(program: str) -> Tuple[List[str], List[str]]:
         if op == "INIT_REG":
             # Verilog testbench doesn't support INIT_REG via hex file.
             # Registers are zero-initialized and set via XFER/XOR_LOAD.
+            continue
+        if op == "INIT_MU":
+            mu_parts = arg.split()
+            if mu_parts:
+                init_state["INIT_MU"] = int(mu_parts[0]) & 0xFFFFFFFF
+            continue
+        if op == "INIT_ACTIVE_MODULE":
+            am_parts = arg.split()
+            if am_parts:
+                init_state["INIT_ACTIVE_MODULE"] = int(am_parts[0]) & 0x3F
+            continue
+        if op == "INIT_PT":
+            pt_parts = arg.split()
+            if len(pt_parts) >= 2:
+                init_state["INIT_PT_IDX"] = int(pt_parts[0]) & 0xF
+                init_state["INIT_PT_VAL"] = int(pt_parts[1]) & 0xFFFFFFFF
+            continue
+        if op == "INIT_TENSOR":
+            t_parts = arg.split()
+            if len(t_parts) >= 2:
+                init_state["INIT_TENSOR_IDX"] = int(t_parts[0]) & 0xF
+                init_state["INIT_TENSOR_VAL"] = int(t_parts[1]) & 0xFFFFFFFF
             continue
 
         if op == "PNEW":
@@ -350,7 +374,7 @@ def program_to_hex(program: str) -> Tuple[List[str], List[str]]:
     for i in range(256):
         data_hex.append(f"{data_mem.get(i, 0):08X}")
 
-    return instr_hex, data_hex
+    return instr_hex, data_hex, init_state
 
 
 def compile_testbench_iverilog(work_dir: Path) -> Path:
@@ -439,7 +463,7 @@ def _ensure_verilator_current() -> Path:
         out_dir = _CACHED_VERILATOR_BIN.parent
         out_dir.mkdir(parents=True, exist_ok=True)
         cmd = [
-            "verilator", "--cc", "--timing", "-Wno-fatal", "--build",
+            "verilator", "--cc", "--timing", "--trace", "-Wno-fatal", "--build",
             f"-I{RTL_DIR}",
             "--top-module", "thiele_cpu_kami_tb",
             "--Mdir", str(out_dir),
@@ -460,7 +484,10 @@ def run_simulation_iverilog(vvp_binary: Path, program_hex: Path,
                             data_hex: Optional[Path] = None,
                             timeout: int = 30,
                             n_instrs: Optional[int] = None,
-                            logic_z3_bridge: bool = False) -> str:
+                            logic_z3_bridge: bool = False,
+                            init_state: Optional[Dict[str, int]] = None,
+                            trace_file: Optional[Path] = None,
+                            force_logic_error: bool = False) -> str:
     """Run the compiled testbench and return stdout."""
     cmd = ["vvp", str(vvp_binary)]
     plusargs = [f"+PROGRAM={program_hex}"]
@@ -470,6 +497,13 @@ def run_simulation_iverilog(vvp_binary: Path, program_hex: Path,
         plusargs.append(f"+N_INSTRS={n_instrs}")
     if logic_z3_bridge:
         plusargs.append("+LOGIC_Z3_BRIDGE=1")
+    if init_state:
+        for key, value in init_state.items():
+            plusargs.append(f"+{key}={int(value)}")
+    if trace_file is not None:
+        plusargs.append(f"+TRACE_FILE={trace_file}")
+    if force_logic_error:
+        plusargs.append("+LOGIC_FORCE_ERROR=1")
     cmd.extend(plusargs)
 
     result = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
@@ -483,7 +517,10 @@ def run_simulation_verilator(binary: Path, program_hex: Path,
                              data_hex: Optional[Path] = None,
                              timeout: int = 30,
                              n_instrs: Optional[int] = None,
-                             logic_z3_bridge: bool = False) -> str:
+                             logic_z3_bridge: bool = False,
+                             init_state: Optional[Dict[str, int]] = None,
+                             trace_file: Optional[Path] = None,
+                             force_logic_error: bool = False) -> str:
     """Run the Verilator-built executable and return stdout."""
     cmd = [str(binary), f"+PROGRAM={program_hex}"]
     if data_hex:
@@ -493,6 +530,13 @@ def run_simulation_verilator(binary: Path, program_hex: Path,
     if logic_z3_bridge:
         cmd.append("+LOGIC_Z3_BRIDGE=1")
         cmd.append("+LOGIC_BRIDGE_EXTERNAL=1")
+    if init_state:
+        for key, value in init_state.items():
+            cmd.append(f"+{key}={int(value)}")
+    if trace_file is not None:
+        cmd.append(f"+TRACE_FILE={trace_file}")
+    if force_logic_error:
+        cmd.append("+LOGIC_FORCE_ERROR=1")
     result = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
     return result.stdout
 
@@ -545,6 +589,8 @@ def run_verilog(
     timeout: int = 30,
     backend: Optional[str] = None,
     logic_z3_bridge: bool = False,
+    trace_file: Optional[Path] = None,
+    force_logic_error: bool = False,
 ) -> Optional[Dict[str, Any]]:
     """Run a program through Verilog simulation and return parsed state.
 
@@ -568,7 +614,7 @@ def run_verilog(
     if selected_backend == "verilator" and not _command_available("verilator"):
         return None
 
-    instr_hex, data_hex = program_to_hex(program)
+    instr_hex, data_hex, init_state = program_to_hex(program)
 
     with tempfile.TemporaryDirectory(prefix="thiele_cosim_") as tmpdir:
         work_dir = Path(tmpdir)
@@ -591,13 +637,19 @@ def run_verilog(
             stdout = run_simulation_iverilog(
                 compiled, prog_hex_path, data_hex_path,
                 timeout=timeout, n_instrs=n_instrs_to_load,
-                logic_z3_bridge=logic_z3_bridge)
+                logic_z3_bridge=logic_z3_bridge,
+                init_state=init_state,
+                trace_file=trace_file,
+                force_logic_error=force_logic_error)
         else:
             compiled = _ensure_verilator_current()  # cached; recompiles only when stale
             stdout = run_simulation_verilator(
                 compiled, prog_hex_path, data_hex_path,
                 timeout=timeout, n_instrs=n_instrs_to_load,
-                logic_z3_bridge=logic_z3_bridge)
+                logic_z3_bridge=logic_z3_bridge,
+                init_state=init_state,
+                trace_file=trace_file,
+                force_logic_error=force_logic_error)
 
         # Parse
         return parse_verilog_output(stdout)
@@ -637,7 +689,7 @@ def run_verilog_batch(
         manifest_lines: List[str] = []
 
         for idx, program in enumerate(programs):
-            instr_hex, data_hex_list = program_to_hex(program)
+            instr_hex, data_hex_list, _ = program_to_hex(program)
 
             # Compute actual instruction count (up to last HALT / non-zero entry)
             last_nonzero = 0

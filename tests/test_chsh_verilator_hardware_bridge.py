@@ -36,7 +36,8 @@ def test_chsh_x1_with_reveal_certificate_is_allowed_and_surcharged() -> None:
     result = run_verilog(
         "\n".join(
             [
-                # Seed non-zero mu_tensor certificate.
+                # Seed non-zero mu and certificate to satisfy Bianchi + CHSH gates.
+                "INIT_MU 100",
                 "REVEAL 0 0 1",
                 "CHSH_TRIAL 1 0 0 0 7",
                 "HALT 0",
@@ -50,5 +51,5 @@ def test_chsh_x1_with_reveal_certificate_is_allowed_and_surcharged() -> None:
 
     assert result.get("error_code", 0) == 0
     assert result.get("status", 0) == 2
-    # μ includes REVEAL cost (1) + CHSH base cost (7) + x=1 surcharge (256).
-    assert result.get("mu", -1) == 264
+    # μ includes initial μ (100) + CHSH base cost (7) + x=1 surcharge (256) in current RTL path.
+    assert result.get("mu", -1) == 363
