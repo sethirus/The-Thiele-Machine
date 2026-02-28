@@ -592,3 +592,49 @@ purge: clean
 	@echo "  make test-vm-rtl     - Test VM-RTL equivalence"
 	@echo "  make test-integration- Full integration test"
 	@echo ""
+
+.PHONY: release release-toolchain-check proof extract synth sim
+
+RELEASE_BLUESPECDIR ?= /tmp/bsc-2024.07-ubuntu-22.04/lib
+RELEASE_BSC ?= /tmp/bsc-2024.07-ubuntu-22.04/bin/bsc
+
+release-toolchain-check:
+	@echo "[release] checking pinned toolchain expectations..."
+	@coqc --version | grep -q "8.18" || (echo "FAIL: require Coq 8.18.x" && exit 1)
+	@verilator --version | grep -q "5\.020" || (echo "FAIL: require Verilator 5.020" && exit 1)
+	@iverilog -V | head -n1 | grep -q "12.0" || (echo "FAIL: require Icarus Verilog 12.0" && exit 1)
+	@yosys -V | grep -q "Yosys 0.33" || (echo "FAIL: require Yosys 0.33" && exit 1)
+	@python3 -c "import z3; assert z3.get_version_string().startswith('4.'), 'require python z3-solver 4.x'; print('[release] z3 version', z3.get_version_string())"
+	@echo "[release] toolchain OK"
+
+proof: release-toolchain-check
+	@echo "[proof] compiling kami refinement contract..."
+	@cd coq && coqc -R kernel Kernel -R kami_hw KamiHW -R ../vendor/kami/Kami Kami -Q ../vendor/bbv/src/bbv bbv kami_hw/ThieleTypes.v
+	@cd coq && coqc -R kernel Kernel -R kami_hw KamiHW -R ../vendor/kami/Kami Kami -Q ../vendor/bbv/src/bbv bbv kami_hw/ThieleCPUCore.v
+	@cd coq && coqc -R kernel Kernel -R kami_hw KamiHW -R ../vendor/kami/Kami Kami -Q ../vendor/bbv/src/bbv bbv kami_hw/Abstraction.v
+	@cd coq && coqc -R kernel Kernel -R kami_hw KamiHW -R ../vendor/kami/Kami Kami -Q ../vendor/bbv/src/bbv bbv kami_hw/VerilogRefinement.v
+	@echo "✅ [proof] VerilogRefinement checked"
+
+extract: release-toolchain-check
+	@echo "[extract] running Coq->Kami->BSV->Verilog extraction..."
+	@SKIP_YOSYS=1 BLUESPECDIR="$(RELEASE_BLUESPECDIR)" BSC="$(RELEASE_BSC)" ./scripts/kami_extract.sh ThieleCPU
+	@cp build/kami_hw/mkModule1.v thielecpu/hardware/rtl/thiele_cpu_kami.v
+	@echo "✅ [extract] canonical RTL refreshed: thielecpu/hardware/rtl/thiele_cpu_kami.v"
+
+synth: release-toolchain-check
+	@echo "[synth] checking RTL synthesizability..."
+	@yosys -p "read_verilog -sv -DSYNTHESIS thielecpu/hardware/rtl/thiele_cpu_kami.v; prep -top mkModule1; check; stat"
+	@echo "✅ [synth] RTL synthesizable"
+
+sim: release-toolchain-check
+	@echo "[sim] prebuilding Verilator binary cache..."
+	@python3 -c "from thielecpu.hardware.cosim import _ensure_verilator_current; _ensure_verilator_current(); print('[sim] verilator cache ready')"
+	@echo "[sim] running Verilator + external Z3 bridge tests..."
+	@THIELE_RTL_SIM=verilator pytest -q \
+		tests/test_logic_z3_verilator_bridge.py::test_lassert_bridge_prevents_stall_and_reaches_halt \
+		tests/test_chsh_verilator_hardware_bridge.py::test_chsh_x1_without_reveal_certificate_is_rejected \
+		tests/test_chsh_verilator_hardware_bridge.py::test_chsh_x1_with_reveal_certificate_is_allowed_and_surcharged
+	@echo "✅ [sim] runtime bridge + CHSH physics checks passed"
+
+release: proof extract synth sim
+	@echo "✅ release complete: proof + extraction + synthesis + runtime physics checks"

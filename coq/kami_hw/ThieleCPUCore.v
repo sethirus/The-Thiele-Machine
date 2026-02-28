@@ -81,6 +81,15 @@ Section ThieleCPU.
       (* In-core logic engine accumulator: deterministic certificate/logic state. *)
       with Register "logic_acc"     : Bit WordSz <- Default
 
+      (* Active module and CSR telemetry (RISC-V style management plane). *)
+      with Register "active_module" : Bit PTableIdxSz <- ACTIVE_MODULE_INIT
+      with Register "mstatus"       : Bit WordSz <- MSTATUS_THIELE
+      with Register "mcycle_lo"     : Bit WordSz <- Default
+      with Register "mcycle_hi"     : Bit WordSz <- Default
+      with Register "minstret_lo"   : Bit WordSz <- Default
+      with Register "minstret_hi"   : Bit WordSz <- Default
+      with Register "trap_vector"   : Bit WordSz <- TRAP_VEC_INIT
+
       (* Explicit L-coprocessor request/response interface state (in-core ports). *)
       with Register "logic_req_valid"   : Bool <- false
       with Register "logic_req_opcode"  : Bit OpcodeSz <- Default
@@ -119,6 +128,13 @@ Section ThieleCPU.
         Read info_gain_v : Bit WordSz <- "info_gain";
         Read error_code_v : Bit WordSz <- "error_code";
         Read logic_acc_v : Bit WordSz <- "logic_acc";
+        Read active_module_v : Bit PTableIdxSz <- "active_module";
+        Read mstatus_v : Bit WordSz <- "mstatus";
+        Read mcycle_lo_v : Bit WordSz <- "mcycle_lo";
+        Read mcycle_hi_v : Bit WordSz <- "mcycle_hi";
+        Read minstret_lo_v : Bit WordSz <- "minstret_lo";
+        Read minstret_hi_v : Bit WordSz <- "minstret_hi";
+        Read trap_vector_v : Bit WordSz <- "trap_vector";
         Read logic_req_valid_v : Bool <- "logic_req_valid";
         Read logic_req_opcode_v : Bit OpcodeSz <- "logic_req_opcode";
         Read logic_req_payload_v : Bit WordSz <- "logic_req_payload";
@@ -195,6 +211,20 @@ Section ThieleCPU.
         LET mem_addr_a : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) #op_a;
         LET mem_val : Bit WordSz <- #mem_v@[#mem_addr];
 
+        (* Partition wall enforcement: LOAD/STORE may only access active module region. *)
+        LET active_region_size : Bit WordSz <- #pt_sizes_v@[#active_module_v];
+        LET load_addr32 : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #mem_addr;
+        LET store_addr32 : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #mem_addr_a;
+        LET is_load_op <- (#opcode == $$(OP_LOAD)) || (#opcode == $$(OP_XOR_LOAD));
+        LET is_store_op <- #opcode == $$(OP_STORE);
+        LET load_locality_bad <- #is_load_op && (#load_addr32 >= #active_region_size);
+        LET store_locality_bad <- #is_store_op && (#store_addr32 >= #active_region_size);
+        LET locality_violation <- #load_locality_bad || #store_locality_bad;
+
+        (* Logic-gated physics lock for high-value instructions. *)
+        LET logic_key_ok <- #logic_acc_v == $$(LOGIC_GATE_KEY);
+        LET high_value_locked <- ((#opcode == $$(OP_REVEAL)) || (#opcode == $$(OP_CHSH_TRIAL))) && !#logic_key_ok;
+
         (* Partition-table indexed value probes for in-core PDISCOVER datapath *)
         LET pt_probe_idx : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz _) #op_b;
         LET pt_probe_size : Bit WordSz <- #pt_sizes_v@[#pt_probe_idx];
@@ -250,8 +280,8 @@ Section ThieleCPU.
            - packed outcomes op_b are 2-bit values (0..3)
            - x=1 settings (op_a[1]) require non-zero mu_tensor evidence from REVEAL *)
         LET chsh_outcomes_bad <- #op_b > $$(WO~0~0~0~0~0~0~1~1);
-        LET chsh_x1 <- #op_a > $$(WO~0~0~0~0~0~0~0~1);
-        LET chsh_cert_missing <- (#chsh_x1) && (#tensor_total == $0);
+        LET is_x1_trial <- #op_a > $$(WO~0~0~0~0~0~0~0~1);
+        LET chsh_cert_missing <- (#is_x1_trial) && (#tensor_total == $0);
         LET chsh_bits_bad <- #chsh_outcomes_bad || #chsh_cert_missing;
 
         (* L-coprocessor request/response interface semantics *)
@@ -271,8 +301,10 @@ Section ThieleCPU.
            Determine new PC
            ============================================================ *)
         LET new_pc : Bit WordSz <-
-          IF (#bianchi_violation || #logic_rsp_pending)
-          then #pc_v
+          IF (#bianchi_violation || #locality_violation || #high_value_locked)
+          then #trap_vector_v
+          else (IF #logic_rsp_pending
+                then #pc_v
           else (IF (#opcode == $$(OP_HALT))
                 then #pc_v
                 else (IF (#opcode == $$(OP_JUMP))
@@ -283,7 +315,7 @@ Section ThieleCPU.
                                   then #ret_pc
                                   else (IF ((#opcode == $$(OP_JNEZ)) && #jnez_taken)
                                         then #jnez_target
-                                        else #pc_plus_1)))));
+                                        else #pc_plus_1))))));
 
         (* Pre-compute XOR_SWAP result: write both dst<-src and src<-dst *)
         LET swap_regs : Vector (Bit WordSz) RegIdxSz <-
@@ -293,7 +325,7 @@ Section ThieleCPU.
            Determine new register file
            ============================================================ *)
         LET new_regs : Vector (Bit WordSz) RegIdxSz <-
-          IF #bianchi_violation
+          IF (#bianchi_violation || #locality_violation || #high_value_locked)
           then #regs_v
           else (IF (#opcode == $$(OP_LOAD_IMM))
           then #regs_v@[#dst_idx <- #imm32]
@@ -334,32 +366,34 @@ Section ThieleCPU.
           else #mem_v));
 
         (* Determine halted state *)
-        LET new_halted <- #bianchi_violation || (#opcode == $$(OP_HALT));
+        LET new_halted <- #locality_violation || #high_value_locked || (#opcode == $$(OP_HALT));
 
         (* Determine error state: protocol errors set err; logic errors come from coprocessor response. *)
         LET logic_resp_fail <- #logic_rsp_fire && #logic_resp_error_v;
-        LET new_err <- ((#opcode == $$(OP_CHSH_TRIAL)) && #chsh_bits_bad) || #logic_resp_fail;
+        LET new_err <- #locality_violation || #high_value_locked || ((#opcode == $$(OP_CHSH_TRIAL)) && #chsh_bits_bad) || #logic_resp_fail;
 
         (* Determine error code *)
         LET new_error_code : Bit WordSz <-
           IF #bianchi_violation
           then $$(ERR_BIANCHI_VAL)
-          else (IF #logic_resp_fail
-                then $$(ERR_LOGIC_VAL)
-                else (IF ((#opcode == $$(OP_CHSH_TRIAL)) && #chsh_bits_bad)
-                      then $$(ERR_CHSH_VAL)
-                      else #error_code_v));
+          else (IF #locality_violation
+                then $$(ERR_LOCALITY_VAL)
+                else (IF (#high_value_locked || #logic_resp_fail)
+                      then $$(ERR_LOGIC_VAL)
+                      else (IF ((#opcode == $$(OP_CHSH_TRIAL)) && #chsh_bits_bad)
+                            then $$(ERR_CHSH_VAL)
+                            else #error_code_v)));
 
         (* Determine new mu — only charge if not a bianchi violation.
            ORACLE_HALTS (0x10) always charges 1,000,000 regardless of cost field. *)
         LET final_mu : Bit WordSz <-
-          IF #bianchi_violation
+          IF (#bianchi_violation || #locality_violation || #high_value_locked)
           then #mu_v
           else (IF #logic_rsp_pending
                 then #mu_v
                 else (IF (#opcode == $$(OP_ORACLE_HALTS))
                       then #mu_v + $1000000
-                      else (IF ((#opcode == $$(OP_CHSH_TRIAL)) && (#chsh_x1))
+                      else (IF ((#opcode == $$(OP_CHSH_TRIAL)) && (#is_x1_trial))
                             then #new_mu + $$(CHSH_X1_SURCHARGE)
                             else #new_mu)));
 
@@ -463,13 +497,15 @@ Section ThieleCPU.
           else #mu_tensor_v;
 
         LET new_logic_acc : Bit WordSz <-
-          IF #bianchi_violation
+          IF (#bianchi_violation || #locality_violation)
           then #logic_acc_v
           else (IF #logic_rsp_fire
                 then #logic_acc_v + #logic_resp_value_v
-                else (IF (#opcode == $$(OP_ORACLE_HALTS))
-                      then #logic_acc_v + $1
-                      else #logic_acc_v));
+                else (IF (#opcode == $$(OP_LASSERT))
+                      then #logic_acc_v ~+ $$(LOGIC_GATE_KEY)
+                      else (IF (#opcode == $$(OP_ORACLE_HALTS))
+                            then #logic_acc_v + $1
+                            else #logic_acc_v)));
 
         LET new_logic_req_valid <-
           IF #bianchi_violation
@@ -489,6 +525,19 @@ Section ThieleCPU.
           then #logic_resp_valid_v
           else (IF #logic_rsp_fire then $$false else #logic_resp_valid_v);
 
+        (* CSR telemetry: cycle and retired instruction counters. *)
+        LET mcycle_lo_next : Bit WordSz <- #mcycle_lo_v + $1;
+        LET mcycle_lo_wrap <- #mcycle_lo_next == $0;
+        LET mcycle_hi_next : Bit WordSz <- IF #mcycle_lo_wrap then #mcycle_hi_v + $1 else #mcycle_hi_v;
+
+        LET retire_this_step <- !#logic_rsp_pending && !#locality_violation && !#high_value_locked;
+        LET minstret_lo_inc : Bit WordSz <- IF #retire_this_step then #minstret_lo_v + $1 else #minstret_lo_v;
+        LET minstret_lo_wrap <- #retire_this_step && (#minstret_lo_inc == $0);
+        LET minstret_hi_next : Bit WordSz <- IF #minstret_lo_wrap then #minstret_hi_v + $1 else #minstret_hi_v;
+
+        LET new_mstatus : Bit WordSz <-
+          IF #logic_key_ok then $$(MSTATUS_THIELE) else $$(MSTATUS_TURING);
+
         (* Write back *)
         Write "pc"             <- #new_pc;
         Write "mu"             <- #final_mu;
@@ -498,6 +547,11 @@ Section ThieleCPU.
         Write "err"            <- #new_err;
         Write "error_code"     <- #new_error_code;
         Write "logic_acc"      <- #new_logic_acc;
+        Write "mstatus"        <- #new_mstatus;
+        Write "mcycle_lo"      <- #mcycle_lo_next;
+        Write "mcycle_hi"      <- #mcycle_hi_next;
+        Write "minstret_lo"    <- #minstret_lo_inc;
+        Write "minstret_hi"    <- #minstret_hi_next;
         Write "logic_req_valid"   <- #new_logic_req_valid;
         Write "logic_req_opcode"  <- #new_logic_req_opcode;
         Write "logic_req_payload" <- #new_logic_req_payload;
@@ -543,6 +597,21 @@ Section ThieleCPU.
 
       with Method "getErrorCode" () : Bit WordSz :=
         Read v : Bit WordSz <- "error_code"; Ret #v
+
+      with Method "getMstatus" () : Bit WordSz :=
+        Read v : Bit WordSz <- "mstatus"; Ret #v
+
+      with Method "getMcycleLo" () : Bit WordSz :=
+        Read v : Bit WordSz <- "mcycle_lo"; Ret #v
+
+      with Method "getMcycleHi" () : Bit WordSz :=
+        Read v : Bit WordSz <- "mcycle_hi"; Ret #v
+
+      with Method "getMinstretLo" () : Bit WordSz :=
+        Read v : Bit WordSz <- "minstret_lo"; Ret #v
+
+      with Method "getMinstretHi" () : Bit WordSz :=
+        Read v : Bit WordSz <- "minstret_hi"; Ret #v
 
       with Method "getLogicAcc" () : Bit WordSz :=
         Read v : Bit WordSz <- "logic_acc"; Ret #v
@@ -592,6 +661,12 @@ Section ThieleCPU.
           #t@[$$(WO~1~1~0~0)] + #t@[$$(WO~1~1~0~1)] +
           #t@[$$(WO~1~1~1~0)] + #t@[$$(WO~1~1~1~1)];
         Ret #s
+
+      with Method "setActiveModule" (mid : Bit PTableIdxSz) : Void :=
+        Write "active_module" <- #mid; Retv
+
+      with Method "setTrapVector" (tv : Bit WordSz) : Void :=
+        Write "trap_vector" <- #tv; Retv
 
       with Method "getBianchiAlarm" () : Bool :=
         Read t : Vector (Bit WordSz) MuTensorIdxSz <- "mu_tensor";

@@ -78,8 +78,9 @@ def _ensure_vvp_current() -> Path:
 
     rtl = RTL_DIR / "thiele_cpu_kami.v"
     tb  = TB_DIR  / "thiele_cpu_kami_tb.v"
+    sim_main = TB_DIR / "sim_main.cpp"
 
-    for f in (rtl, tb):
+    for f in (rtl, tb, sim_main):
         if not f.exists():
             raise FileNotFoundError(f"RTL source missing: {f}")
 
@@ -115,7 +116,7 @@ def _ensure_batch_vvp_current() -> Path:
     rtl = RTL_DIR / "thiele_cpu_kami.v"
     tb  = TB_DIR  / "thiele_cpu_kami_batch_tb.v"
 
-    for f in (rtl, tb):
+    for f in (rtl, tb, sim_main):
         if not f.exists():
             raise FileNotFoundError(f"Batch RTL source missing: {f}")
 
@@ -421,8 +422,9 @@ def _ensure_verilator_current() -> Path:
 
     rtl = RTL_DIR / "thiele_cpu_kami.v"
     tb  = TB_DIR  / "thiele_cpu_kami_tb.v"
+    sim_main = TB_DIR / "sim_main.cpp"
 
-    for f in (rtl, tb):
+    for f in (rtl, tb, sim_main):
         if not f.exists():
             raise FileNotFoundError(f"RTL source missing: {f}")
 
@@ -430,19 +432,21 @@ def _ensure_verilator_current() -> Path:
         not _CACHED_VERILATOR_BIN.exists()
         or rtl.stat().st_mtime > _CACHED_VERILATOR_BIN.stat().st_mtime
         or tb.stat().st_mtime  > _CACHED_VERILATOR_BIN.stat().st_mtime
+        or sim_main.stat().st_mtime > _CACHED_VERILATOR_BIN.stat().st_mtime
     )
 
     if needs_compile:
         out_dir = _CACHED_VERILATOR_BIN.parent
         out_dir.mkdir(parents=True, exist_ok=True)
         cmd = [
-            "verilator", "--binary", "--timing", "-Wno-fatal",
+            "verilator", "--cc", "--timing", "-Wno-fatal", "--build",
             f"-I{RTL_DIR}",
             "--top-module", "thiele_cpu_kami_tb",
             "--Mdir", str(out_dir),
+            "--exe", str(sim_main),
             str(rtl), str(tb),
         ]
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=180)
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=240)
         if result.returncode != 0:
             raise RuntimeError(f"verilator compilation failed:\n{result.stderr}")
         if not _CACHED_VERILATOR_BIN.exists():
@@ -488,6 +492,7 @@ def run_simulation_verilator(binary: Path, program_hex: Path,
         cmd.append(f"+N_INSTRS={n_instrs}")
     if logic_z3_bridge:
         cmd.append("+LOGIC_Z3_BRIDGE=1")
+        cmd.append("+LOGIC_BRIDGE_EXTERNAL=1")
     result = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
     return result.stdout
 

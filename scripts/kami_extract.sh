@@ -53,6 +53,9 @@ coqc -R kami_hw KamiHW \
 echo "=== Phase 3: Compiling OCaml → Bluespec pretty-printer ==="
 cd "$BUILD_DIR"
 cp "$VENDOR_KAMI/Kami/Ext/Ocaml/PP.ml" .
+# Coq 8.18 extraction emits Nil1 in Target.ml while upstream PP.ml still matches Nil.
+# Normalize PP pattern matches for compatibility with extracted Target type constructors.
+perl -0777 -pe 's/\bNil\b/Nil1/g' -i PP.ml
 ocamlfind ocamlopt -package str -linkpkg \
     Target.mli Target.ml PP.ml Main.ml \
     -o kami_to_bsv
@@ -71,7 +74,7 @@ lines = content.split('\n')
 clean = []
 skip = False
 for line in lines:
-    if line.startswith('module mk$TOP_MODULE') or line.startswith('module mkTop'):
+    if line.startswith('module mkThieleCPU') or line.startswith('module mkTop') or line.startswith('module mk$TOP_MODULE'):
         skip = True
     if not skip:
         clean.append(line)
@@ -90,12 +93,16 @@ for mod in $(grep -oP 'module (mk\w+)' thiele_hw_clean.bsv | awk '{print $2}'); 
     "$BSC" -verilog -g "$mod" -p "$BLUESPECDIR/Libraries" thiele_hw_clean.bsv 2>&1 || true
 done
 
-echo "=== Phase 6: Verifying with Yosys ==="
-for vfile in *.v; do
-    [ -f "$vfile" ] || continue
-    echo "  Checking $vfile..."
-    yosys -q -p "read_verilog $vfile; synth" 2>&1 || echo "  WARNING: $vfile failed synthesis"
-done
+if [ "${SKIP_YOSYS:-0}" = "1" ]; then
+    echo "=== Phase 6: Verifying with Yosys (skipped: SKIP_YOSYS=1) ==="
+else
+    echo "=== Phase 6: Verifying with Yosys ==="
+    for vfile in *.v; do
+        [ -f "$vfile" ] || continue
+        echo "  Checking $vfile..."
+        yosys -q -p "read_verilog $vfile; synth" 2>&1 || echo "  WARNING: $vfile failed synthesis"
+    done
+fi
 
 echo ""
 echo "=== Pipeline complete ==="
