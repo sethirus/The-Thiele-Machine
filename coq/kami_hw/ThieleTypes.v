@@ -20,6 +20,10 @@ Definition MuTensorIdxSz := 4.  (* log2(16) — 4×4 flattened μ-tensor *)
 Definition PTableIdxSz := 6.   (* log2(64) — 64 partition module slots *)
 Definition PTableSz := 64.     (* 2^6 module slots: IDs 0..63, starting use at ID 1 *)
 
+(** Initial active module id (module slot 1). *)
+Definition ACTIVE_MODULE_INIT : word PTableIdxSz :=
+  WO~0~0~0~0~0~1.
+
 (** Initial value for pt_next_id: starts at 1 to match empty_graph.pg_next_id = 1 *)
 Definition PT_NEXT_ID_INIT : word WordSz :=
   WO~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~1. (* 32-bit 1 *)
@@ -31,6 +35,22 @@ Definition ERR_BIANCHI_VAL : word WordSz :=
   WO~0~0~0~0~1~0~1~1~0~0~0~1~1~0~1~0~0~1~0~0~1~1~0~0~1~0~0~0~0~0~0~1. (* 0x0B1A4C81 *)
 Definition ERR_LOGIC_VAL   : word WordSz :=
   WO~1~1~0~0~0~1~0~0~0~0~1~1~0~1~0~0~0~1~1~1~0~0~0~1~1~0~1~0~0~0~0~1. (* 0xC43471A1 *)
+Definition ERR_LOCALITY_VAL : word WordSz :=
+  WO~0~0~0~0~1~0~1~1~1~0~1~0~1~1~0~1~1~1~0~0~0~0~0~0~1~1~0~1~1~1~1~0. (* 0x0BADC0DE *)
+
+(** Logic-gated physics key required for REVEAL/CHSH_TRIAL unlock. *)
+Definition LOGIC_GATE_KEY : word WordSz :=
+  WO~1~1~0~0~1~0~1~0~1~1~1~1~1~1~1~0~1~1~1~0~1~0~1~0~1~1~0~0~1~1~1~0. (* 0xCAFEEACE *)
+
+(** Trap vector defaults (PC target for fault recovery code). *)
+Definition TRAP_VEC_INIT : word WordSz :=
+  WO~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~1~1~1~1~0~0~0~0~0~0~0~0. (* 0x00000F00 *)
+
+(** mstatus mode bits. *)
+Definition MSTATUS_TURING : word WordSz :=
+  WO~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0.
+Definition MSTATUS_THIELE : word WordSz :=
+  WO~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~1.
 
 (** CHSH x=1 surcharge constant (μ-bits).
     Kept as a named constant so Coq, generated RTL, and Python VM stay aligned. *)
