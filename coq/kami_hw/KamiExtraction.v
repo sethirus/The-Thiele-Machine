@@ -16,4 +16,4 @@ Set Extraction Optimize.
 Set Extraction KeepSingleton.
 Unset Extraction AutoInline.
 
-Extraction "/workspace/The-Thiele-Machine/build/kami_hw/Target.ml" canonical_cpu_module.
+Extraction "../build/kami_hw/Target.ml" canonical_cpu_module.

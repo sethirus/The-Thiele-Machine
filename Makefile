@@ -334,10 +334,10 @@ rtl-run:
 compare: vm-run rtl-run
 	python scripts/compare_vm_rtl.py outputs/vm_receipt.json outputs/rtl_log.log
 
-clean:
+clean-outputs:
 	rm -rf outputs/
 
-purge:
+purge-experiments:
 	find experiments -type d -mtime +1 -exec rm -rf {} +
 
 verify-end-to-end:
@@ -593,7 +593,12 @@ purge: clean
 	@echo "  make test-integration- Full integration test"
 	@echo ""
 
-.PHONY: release release-toolchain-check proof extract synth sim
+.PHONY: release release-toolchain-check proof extract synth sim source-of-truth coq-kami-reset
+
+coq-kami-reset:
+	@echo "[coq-kami-reset] removing stale kami_hw Coq artefacts to enforce canonical namespace"
+	@find coq/kami_hw -maxdepth 1 -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' \) -delete
+	@echo "[coq-kami-reset] done"
 
 .PHONY: vendor-bbv-build
 vendor-bbv-build:
@@ -621,15 +626,19 @@ release-toolchain-check:
 	@python3 -c "import z3; assert z3.get_version_string().startswith('4.'), 'require python z3-solver 4.x'; print('[release] z3 version', z3.get_version_string())"
 	@echo "[release] toolchain OK"
 
-proof: release-toolchain-check vendor-bbv-build vendor-kami-build
+proof: release-toolchain-check coq-kami-reset vendor-bbv-build vendor-kami-build
 	@echo "[proof] compiling kami refinement contract..."
 	@cd coq && coqc -R kernel Kernel -R kami_hw KamiHW -R ../vendor/kami/Kami Kami -Q ../vendor/bbv/src/bbv bbv kami_hw/ThieleTypes.v
 	@cd coq && coqc -R kernel Kernel -R kami_hw KamiHW -R ../vendor/kami/Kami Kami -Q ../vendor/bbv/src/bbv bbv kami_hw/ThieleCPUCore.v
+	@cd coq && coqc -R kernel Kernel -R kami_hw KamiHW -R ../vendor/kami/Kami Kami -Q ../vendor/bbv/src/bbv bbv kami_hw/Blink.v
+	@cd coq && coqc -R kernel Kernel -R kami_hw KamiHW -R ../vendor/kami/Kami Kami -Q ../vendor/bbv/src/bbv bbv kami_hw/Compatibility.v
+	@cd coq && coqc -R kernel Kernel -R kami_hw KamiHW -R ../vendor/kami/Kami Kami -Q ../vendor/bbv/src/bbv bbv kami_hw/CanonicalCPUProof.v
 	@cd coq && coqc -R kernel Kernel -R kami_hw KamiHW -R ../vendor/kami/Kami Kami -Q ../vendor/bbv/src/bbv bbv kami_hw/Abstraction.v
+	@cd coq && coqc -R kernel Kernel -R kami_hw KamiHW -R ../vendor/kami/Kami Kami -Q ../vendor/bbv/src/bbv bbv kami_hw/KamiExtraction.v
 	@cd coq && coqc -R kernel Kernel -R kami_hw KamiHW -R ../vendor/kami/Kami Kami -Q ../vendor/bbv/src/bbv bbv kami_hw/VerilogRefinement.v
 	@echo "✅ [proof] VerilogRefinement checked"
 
-extract: release-toolchain-check
+extract: release-toolchain-check coq-kami-reset
 	@echo "[extract] running Coq->Kami->BSV->Verilog extraction..."
 	@SKIP_YOSYS=1 BLUESPECDIR="$(RELEASE_BLUESPECDIR)" BSC="$(RELEASE_BSC)" ./scripts/kami_extract.sh ThieleCPU
 	@cp build/kami_hw/mkModule1.v thielecpu/hardware/rtl/thiele_cpu_kami.v
@@ -652,3 +661,6 @@ sim: release-toolchain-check
 
 release: proof extract synth sim
 	@echo "✅ release complete: proof + extraction + synthesis + runtime physics checks"
+
+source-of-truth: release
+	@echo "✅ source-of-truth complete: Coq -> Kami -> Bluespec -> Verilog -> synth -> sim"
