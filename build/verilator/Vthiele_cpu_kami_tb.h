@@ -9,9 +9,13 @@
 #define VERILATED_VTHIELE_CPU_KAMI_TB_H_  // guard
 
 #include "verilated.h"
+#include "svdpi.h"
 
 class Vthiele_cpu_kami_tb__Syms;
 class Vthiele_cpu_kami_tb___024root;
+class VerilatedVcdC;
+class Vthiele_cpu_kami_tb_thiele_cpu_kami_tb;
+
 
 // This class is the main interface to the Verilated model
 class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb VL_NOT_FINAL : public VerilatedModel {
@@ -28,6 +32,7 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb VL_NOT_FINAL : public Ver
     // CELLS
     // Public to allow access to /* verilator public */ items.
     // Otherwise the application code can consider these internals.
+    Vthiele_cpu_kami_tb_thiele_cpu_kami_tb* const thiele_cpu_kami_tb;
 
     // Root instance pointer to allow access to model internals,
     // including inlined /* verilator public_flat_* */ items.
@@ -75,6 +80,7 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb VL_NOT_FINAL : public Ver
     /// Re-init after cloning the model at the process level (e.g. fork in Linux)
     /// Re-allocate necessary resources. Called after cloning.
     void atClone() const;
+    std::unique_ptr<VerilatedTraceConfig> traceConfig() const override final;
 };
 
 #endif  // guard

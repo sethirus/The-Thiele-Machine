@@ -19,6 +19,7 @@
 
 
 #include "verilated.h"
+#include "verilated_dpi.h"
 
 #include "Vthiele_cpu_kami_tb__Syms.h"
 #include "Vthiele_cpu_kami_tb.h"
