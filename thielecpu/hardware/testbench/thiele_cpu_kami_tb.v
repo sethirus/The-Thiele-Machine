@@ -173,6 +173,8 @@ module thiele_cpu_kami_tb;
   integer init_active_module_en, init_active_module_value;
   integer init_pt_en, init_pt_idx, init_pt_value;
   integer init_tensor_en, init_tensor_idx, init_tensor_value;
+  integer init_logic_stall_en, init_logic_stall_value;
+  integer init_logic_req_valid_en, init_logic_req_valid_value;
 
   // Shadow partition tracker: maps module_id -> 64-bit element bitmask.
   // Maintained by the testbench monitor; mirrors Python VM and Coq extracted runner.
@@ -248,12 +250,16 @@ module thiele_cpu_kami_tb;
     init_active_module_en = 0;
     init_pt_en = 0;
     init_tensor_en = 0;
+    init_logic_stall_en = 0;
+    init_logic_req_valid_en = 0;
     if ($value$plusargs("INIT_MU=%d", init_mu_value)) init_mu_en = 1;
     if ($value$plusargs("INIT_ACTIVE_MODULE=%d", init_active_module_value)) init_active_module_en = 1;
     if ($value$plusargs("INIT_PT_IDX=%d", init_pt_idx)) init_pt_en = 1;
     if ($value$plusargs("INIT_PT_VAL=%d", init_pt_value)) init_pt_en = init_pt_en & 1;
     if ($value$plusargs("INIT_TENSOR_IDX=%d", init_tensor_idx)) init_tensor_en = 1;
     if ($value$plusargs("INIT_TENSOR_VAL=%d", init_tensor_value)) init_tensor_en = init_tensor_en & 1;
+    if ($value$plusargs("INIT_LOGIC_STALL=%d", init_logic_stall_value)) init_logic_stall_en = 1;
+    if ($value$plusargs("INIT_LOGIC_REQ_VALID=%d", init_logic_req_valid_value)) init_logic_req_valid_en = 1;
 
     // Load program and data from hex files
     if ($value$plusargs("PROGRAM=%s", program_hex_path)) begin
@@ -339,6 +345,7 @@ module thiele_cpu_kami_tb;
     force dut.mdl_ops = 32'd0;
     force dut.info_gain = 32'd0;
     force dut.error_code = 32'd0;
+    force dut.pt_next_id = 32'd1;
     force dut.mu_tensor = {512{1'b0}};
     force dut.logic_acc = 32'd0;
     force dut.logic_req_valid = 1'b0;
@@ -392,6 +399,7 @@ module thiele_cpu_kami_tb;
     release dut.mdl_ops;
     release dut.info_gain;
     release dut.error_code;
+    release dut.pt_next_id;
     release dut.mu_tensor;
     release dut.logic_acc;
     release dut.logic_req_valid;
@@ -406,7 +414,9 @@ module thiele_cpu_kami_tb;
     if (init_active_module_en != 0) force dut.active_module = init_active_module_value[5:0];
     if (init_pt_en != 0) force_pt_word(init_pt_idx, init_pt_value[31:0]);
     if (init_tensor_en != 0) force_tensor_word(init_tensor_idx, init_tensor_value[31:0]);
-    if (init_mu_en != 0 || init_active_module_en != 0 || init_pt_en != 0 || init_tensor_en != 0) begin
+    if (init_logic_stall_en != 0) force dut.logic_stall = init_logic_stall_value[0];
+    if (init_logic_req_valid_en != 0) force dut.logic_req_valid = init_logic_req_valid_value[0];
+    if (init_mu_en != 0 || init_active_module_en != 0 || init_pt_en != 0 || init_tensor_en != 0 || init_logic_stall_en != 0 || init_logic_req_valid_en != 0) begin
       @(posedge clk);
       @(negedge clk);
     end
@@ -414,6 +424,8 @@ module thiele_cpu_kami_tb;
     if (init_active_module_en != 0) release dut.active_module;
     if (init_pt_en != 0) release_pt_word(init_pt_idx);
     if (init_tensor_en != 0) release_tensor_word(init_tensor_idx);
+    if (init_logic_stall_en != 0) release dut.logic_stall;
+    if (init_logic_req_valid_en != 0) release dut.logic_req_valid;
 
     // Phase 4: Let CPU execute and wait for halt
     shadow_executing = 1'b1;
@@ -554,6 +566,10 @@ module thiele_cpu_kami_tb;
     $display("  \"cycles\": %0d,", cycle_count);
     $display("  \"pc\": %0d,", pc_out);
     $display("  \"err\": %0d,", err_out);
+    $display("  \"logic_stall\": %0d,", dut.logic_stall);
+    $display("  \"logic_req_valid\": %0d,", logic_req_valid_out);
+    $display("  \"pt0_size\": %0d,", pt_size_out);
+    $display("  \"pt_next_id\": %0d,", pt_next_id_out);
 
     // Dump registers
     $display("  \"regs\": [");
@@ -627,7 +643,7 @@ module thiele_cpu_kami_tb;
     $finish;
   end
 
-  task automatic force_pt_word(input integer idx, input [31:0] val);
+  task force_pt_word(input integer idx, input [31:0] val);
     begin
       case (idx)
         0: force dut.pt0 = val;
@@ -651,7 +667,7 @@ module thiele_cpu_kami_tb;
     end
   endtask
 
-  task automatic release_pt_word(input integer idx);
+  task release_pt_word(input integer idx);
     begin
       case (idx)
         0: release dut.pt0;
@@ -675,55 +691,40 @@ module thiele_cpu_kami_tb;
     end
   endtask
 
-  task automatic force_tensor_word(input integer idx, input [31:0] val);
+  task force_tensor_word(input integer idx, input [31:0] val);
+    reg [511:0] tensor_tmp;
     begin
+      tensor_tmp = dut.mu_tensor;
       case (idx)
-        0: force dut.mu_tensor[31:0] = val;
-        1: force dut.mu_tensor[63:32] = val;
-        2: force dut.mu_tensor[95:64] = val;
-        3: force dut.mu_tensor[127:96] = val;
-        4: force dut.mu_tensor[159:128] = val;
-        5: force dut.mu_tensor[191:160] = val;
-        6: force dut.mu_tensor[223:192] = val;
-        7: force dut.mu_tensor[255:224] = val;
-        8: force dut.mu_tensor[287:256] = val;
-        9: force dut.mu_tensor[319:288] = val;
-        10: force dut.mu_tensor[351:320] = val;
-        11: force dut.mu_tensor[383:352] = val;
-        12: force dut.mu_tensor[415:384] = val;
-        13: force dut.mu_tensor[447:416] = val;
-        14: force dut.mu_tensor[479:448] = val;
-        15: force dut.mu_tensor[511:480] = val;
+        0: tensor_tmp[31:0] = val;
+        1: tensor_tmp[63:32] = val;
+        2: tensor_tmp[95:64] = val;
+        3: tensor_tmp[127:96] = val;
+        4: tensor_tmp[159:128] = val;
+        5: tensor_tmp[191:160] = val;
+        6: tensor_tmp[223:192] = val;
+        7: tensor_tmp[255:224] = val;
+        8: tensor_tmp[287:256] = val;
+        9: tensor_tmp[319:288] = val;
+        10: tensor_tmp[351:320] = val;
+        11: tensor_tmp[383:352] = val;
+        12: tensor_tmp[415:384] = val;
+        13: tensor_tmp[447:416] = val;
+        14: tensor_tmp[479:448] = val;
+        15: tensor_tmp[511:480] = val;
         default: ;
       endcase
+      force dut.mu_tensor = tensor_tmp;
     end
   endtask
 
-  task automatic release_tensor_word(input integer idx);
+  task release_tensor_word(input integer idx);
     begin
-      case (idx)
-        0: release dut.mu_tensor[31:0];
-        1: release dut.mu_tensor[63:32];
-        2: release dut.mu_tensor[95:64];
-        3: release dut.mu_tensor[127:96];
-        4: release dut.mu_tensor[159:128];
-        5: release dut.mu_tensor[191:160];
-        6: release dut.mu_tensor[223:192];
-        7: release dut.mu_tensor[255:224];
-        8: release dut.mu_tensor[287:256];
-        9: release dut.mu_tensor[319:288];
-        10: release dut.mu_tensor[351:320];
-        11: release dut.mu_tensor[383:352];
-        12: release dut.mu_tensor[415:384];
-        13: release dut.mu_tensor[447:416];
-        14: release dut.mu_tensor[479:448];
-        15: release dut.mu_tensor[511:480];
-        default: ;
-      endcase
+      release dut.mu_tensor;
     end
   endtask
 
-  task automatic force_mem_word(input integer idx, input [31:0] val);
+  task force_mem_word(input integer idx, input [31:0] val);
     begin
       case (idx)
         0: force dut.mem0 = val;
@@ -987,7 +988,7 @@ module thiele_cpu_kami_tb;
     end
   endtask
 
-  task automatic release_mem_word(input integer idx);
+  task release_mem_word(input integer idx);
     begin
       case (idx)
         0: release dut.mem0;

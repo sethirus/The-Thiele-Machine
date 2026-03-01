@@ -224,6 +224,16 @@ def program_to_hex(program: str) -> Tuple[List[str], List[str], Dict[str, int]]:
                 init_state["INIT_TENSOR_IDX"] = int(t_parts[0]) & 0xF
                 init_state["INIT_TENSOR_VAL"] = int(t_parts[1]) & 0xFFFFFFFF
             continue
+        if op == "INIT_LOGIC_STALL":
+            ls_parts = arg.split()
+            if ls_parts:
+                init_state["INIT_LOGIC_STALL"] = int(ls_parts[0]) & 0x1
+            continue
+        if op == "INIT_LOGIC_REQ_VALID":
+            lq_parts = arg.split()
+            if lq_parts:
+                init_state["INIT_LOGIC_REQ_VALID"] = int(lq_parts[0]) & 0x1
+            continue
 
         if op == "PNEW":
             # PNEW {region} cost  OR  PNEW a b cost (numeric format)

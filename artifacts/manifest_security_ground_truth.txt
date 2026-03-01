@@ -1,0 +1,47 @@
+# Security Ground-Truth Artifact Manifest
+
+Generated: 2026-03-01T00:25:13Z
+Commit: ee22cdb1c6b0b47a41d977dea4876360a483fc29
+
+## 1) Coq object hash (requested)
+Command: sha256sum coq/kami_hw/ThieleCPUCore.vo
+Result: 389050f344e8798eb20f9b4d9ca12151bc86c203975156f599e73f371f0bc8f7  coq/kami_hw/ThieleCPUCore.vo
+
+## 2) Yosys synthesis stats (requested)
+Command: yosys -p 'read_verilog thielecpu/hardware/rtl/thiele_cpu_kami.v; hierarchy -top mkModule1; proc; opt; stat'
+Top module: mkModule1
+Cells: 9330
+Wire bits: 168051
+Cell breakdown excerpt: $mux=4111, $eq=882, $lt=1020, $sdffe=600, $add=48
+Source log: /tmp/yosys_stat.log
+
+## 3) Liveness + root safety evidence (requested)
+Liveness command: pytest -q tests/test_logic_stall_liveness.py --per-test-timeout=300
+Liveness result: 1 passed in 0.66s
+
+Runtime trace command:
+python - <<'PY'
+from thielecpu.hardware.cosim import run_verilog
+program='\n'.join([
+'INIT_MU 0',
+'INIT_TENSOR 0 1',
+'INIT_LOGIC_STALL 1',
+'INIT_LOGIC_REQ_VALID 1',
+'LOAD_IMM 0 1 0',
+'HALT 0',
+''
+])
+print(run_verilog(program, backend='verilator'))
+PY
+Trace assertions observed:
+- error_code == 186272897 (Bianchi violation)
+- logic_stall == 0
+- logic_req_valid == 0
+
+Root-overwrite boundary command:
+pytest -q tests/boundary_check.py tests/test_kami_core_not_abstracted.py --per-test-timeout=300
+Boundary result: 13 passed in 0.47s
+
+## 4) Full gate command
+Command: make proof-complete-gate
+Terminal tail: "proof-complete-gate: ALL GATES PASSED"

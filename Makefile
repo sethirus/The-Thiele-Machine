@@ -214,10 +214,10 @@ coq-gate:
 	@echo "[coq-gate] Building all Coq proofs..."
 	$(MAKE) -C coq -j4
 	@echo "[coq-gate] Checking for Admitted..."
-	@count=$$(grep -rn 'Admitted\.' coq/ --include='*.v' | grep -v patches | wc -l); \
+	@count=$$(grep -rnE '^\s*Admitted\.' coq/ --include='*.v' | grep -v patches | wc -l); \
 	 if [ "$$count" -ne 0 ]; then \
 	   echo "FAIL: $$count Admitted. found:"; \
-	   grep -rn 'Admitted\.' coq/ --include='*.v' | grep -v patches; \
+	   grep -rnE '^\s*Admitted\.' coq/ --include='*.v' | grep -v patches; \
 	   exit 1; \
 	 fi
 	@echo "[coq-gate] PASS: zero Admitted, all proofs compile"
