@@ -45,6 +45,10 @@ export OCAMLRUNPARAM="${OCAMLRUNPARAM:-l=500M}"
 
 mkdir -p "$BUILD_DIR"
 
+echo "=== Preflight: Reset stale kami_hw artifacts (namespace-safe rebuild) ==="
+find "$COQ_KAMI_DIR" -maxdepth 1 -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' \) -delete
+find "$BUILD_DIR" -maxdepth 1 -type f \( -name '*.v' -o -name '*.bsv' -o -name 'Target.*' -o -name 'Main.*' -o -name 'PP.*' -o -name 'kami_to_bsv*' \) -delete
+
 echo "=== Phase 1: Compiling Kami modules in Coq ==="
 cd "$COQ_KAMI_DIR"
 coqc -R . KamiHW \
@@ -59,12 +63,17 @@ coqc -R . KamiHW \
      -R "$VENDOR_KAMI/Kami" Kami \
      -Q "$VENDOR_BBV/src/bbv" bbv \
      ThieleCPUCore.v
+coqc -R . KamiHW \
+    -R "$VENDOR_KAMI/Kami" Kami \
+    -Q "$VENDOR_BBV/src/bbv" bbv \
+    CanonicalCPUProof.v
 
 echo "=== Phase 2: Extracting to OCaml (Target.ml) ==="
-coqc -R . KamiHW \
-     -R "$VENDOR_KAMI/Kami" Kami \
-     -Q "$VENDOR_BBV/src/bbv" bbv \
-     KamiExtraction.v
+cd "$COQ_DIR"
+coqc -R kami_hw KamiHW \
+    -R "$VENDOR_KAMI/Kami" Kami \
+    -Q "$VENDOR_BBV/src/bbv" bbv \
+    kami_hw/KamiExtraction.v
 
 echo "=== Phase 3: Compiling OCaml → Bluespec pretty-printer ==="
 cd "$BUILD_DIR"
