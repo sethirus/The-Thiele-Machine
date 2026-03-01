@@ -445,27 +445,12 @@ Section ThieleCPU.
       (* μ-tensor: 4×4 flattened (16 entries) for revelation direction tracking *)
       with Register "mu_tensor"     : Vector (Bit WordSz) MuTensorIdxSz <- Default
 
-      (* Partition table — bounded to PTableSz = 64 slots, matching NUM_MODULES in VMState and RTL.
+      (* Partition table — bounded to 16 slots by PTableIdxSz=4.
          pt_sizes[id] = region_size for that module slot (0 = unallocated/invalid).
          pt_next_id is the next free module ID to assign; initialized to 1 to match
          empty_graph.pg_next_id = 1 from VMState.v. *)
-      with Register "pt0"      : Bit WordSz <- Default
-      with Register "pt1"      : Bit WordSz <- Default
-      with Register "pt2"      : Bit WordSz <- Default
-      with Register "pt3"      : Bit WordSz <- Default
-      with Register "pt4"      : Bit WordSz <- Default
-      with Register "pt5"      : Bit WordSz <- Default
-      with Register "pt6"      : Bit WordSz <- Default
-      with Register "pt7"      : Bit WordSz <- Default
-      with Register "pt8"      : Bit WordSz <- Default
-      with Register "pt9"      : Bit WordSz <- Default
-      with Register "pt10"     : Bit WordSz <- Default
-      with Register "pt11"     : Bit WordSz <- Default
-      with Register "pt12"     : Bit WordSz <- Default
-      with Register "pt13"     : Bit WordSz <- Default
-      with Register "pt14"     : Bit WordSz <- Default
-      with Register "pt15"     : Bit WordSz <- Default
-      with Register "pt_next_id"    : Bit WordSz <- PT_NEXT_ID_INIT
+      with Register "ptTable"  : Vector (Bit WordSz) PTableIdxSz <- Default
+      with Register "pt_next_id"    : Bit PTableNextIdSz <- PT_NEXT_ID_INIT
 
       (** The single step rule: fetch-decode-execute in one atomic action.
           This matches the Coq vm_step relation which is also atomic. *)
@@ -1081,41 +1066,8 @@ Section ThieleCPU.
         Read logic_resp_error_v : Bool <- "logic_resp_error";
         Read logic_resp_value_v : Bit WordSz <- "logic_resp_value";
         Read mu_tensor_v : Vector (Bit WordSz) MuTensorIdxSz <- "mu_tensor";
-        Read pt0_v : Bit WordSz <- "pt0";
-        Read pt1_v : Bit WordSz <- "pt1";
-        Read pt2_v : Bit WordSz <- "pt2";
-        Read pt3_v : Bit WordSz <- "pt3";
-        Read pt4_v : Bit WordSz <- "pt4";
-        Read pt5_v : Bit WordSz <- "pt5";
-        Read pt6_v : Bit WordSz <- "pt6";
-        Read pt7_v : Bit WordSz <- "pt7";
-        Read pt8_v : Bit WordSz <- "pt8";
-        Read pt9_v : Bit WordSz <- "pt9";
-        Read pt10_v : Bit WordSz <- "pt10";
-        Read pt11_v : Bit WordSz <- "pt11";
-        Read pt12_v : Bit WordSz <- "pt12";
-        Read pt13_v : Bit WordSz <- "pt13";
-        Read pt14_v : Bit WordSz <- "pt14";
-        Read pt15_v : Bit WordSz <- "pt15";
-        Read pt_next_id_v : Bit WordSz <- "pt_next_id";
-
-        LET pt_sizes_v0 : Vector (Bit WordSz) PTableIdxSz <- $$Default@[$$(natToWord PTableIdxSz 0) <- #pt0_v];
-        LET pt_sizes_v1 : Vector (Bit WordSz) PTableIdxSz <- #pt_sizes_v0@[$$(natToWord PTableIdxSz 1) <- #pt1_v];
-        LET pt_sizes_v2 : Vector (Bit WordSz) PTableIdxSz <- #pt_sizes_v1@[$$(natToWord PTableIdxSz 2) <- #pt2_v];
-        LET pt_sizes_v3 : Vector (Bit WordSz) PTableIdxSz <- #pt_sizes_v2@[$$(natToWord PTableIdxSz 3) <- #pt3_v];
-        LET pt_sizes_v4 : Vector (Bit WordSz) PTableIdxSz <- #pt_sizes_v3@[$$(natToWord PTableIdxSz 4) <- #pt4_v];
-        LET pt_sizes_v5 : Vector (Bit WordSz) PTableIdxSz <- #pt_sizes_v4@[$$(natToWord PTableIdxSz 5) <- #pt5_v];
-        LET pt_sizes_v6 : Vector (Bit WordSz) PTableIdxSz <- #pt_sizes_v5@[$$(natToWord PTableIdxSz 6) <- #pt6_v];
-        LET pt_sizes_v7 : Vector (Bit WordSz) PTableIdxSz <- #pt_sizes_v6@[$$(natToWord PTableIdxSz 7) <- #pt7_v];
-        LET pt_sizes_v8 : Vector (Bit WordSz) PTableIdxSz <- #pt_sizes_v7@[$$(natToWord PTableIdxSz 8) <- #pt8_v];
-        LET pt_sizes_v9 : Vector (Bit WordSz) PTableIdxSz <- #pt_sizes_v8@[$$(natToWord PTableIdxSz 9) <- #pt9_v];
-        LET pt_sizes_v10 : Vector (Bit WordSz) PTableIdxSz <- #pt_sizes_v9@[$$(natToWord PTableIdxSz 10) <- #pt10_v];
-        LET pt_sizes_v11 : Vector (Bit WordSz) PTableIdxSz <- #pt_sizes_v10@[$$(natToWord PTableIdxSz 11) <- #pt11_v];
-        LET pt_sizes_v12 : Vector (Bit WordSz) PTableIdxSz <- #pt_sizes_v11@[$$(natToWord PTableIdxSz 12) <- #pt12_v];
-        LET pt_sizes_v13 : Vector (Bit WordSz) PTableIdxSz <- #pt_sizes_v12@[$$(natToWord PTableIdxSz 13) <- #pt13_v];
-        LET pt_sizes_v14 : Vector (Bit WordSz) PTableIdxSz <- #pt_sizes_v13@[$$(natToWord PTableIdxSz 14) <- #pt14_v];
-        LET pt_sizes_v15 : Vector (Bit WordSz) PTableIdxSz <- #pt_sizes_v14@[$$(natToWord PTableIdxSz 15) <- #pt15_v];
-        LET pt_sizes_v : Vector (Bit WordSz) PTableIdxSz <- #pt_sizes_v15;
+        Read pt_sizes_v : Vector (Bit WordSz) PTableIdxSz <- "ptTable";
+        Read pt_next_id_v : Bit PTableNextIdSz <- "pt_next_id";
 
         (* Bianchi conservation check: tensor_total must not exceed mu.
            Check BEFORE executing the instruction (matches handwritten RTL). *)
@@ -1215,8 +1167,9 @@ Section ThieleCPU.
 
 
         (* Capacity guards: never wrap partition table indices. *)
-        LET ptable_room_one <- #pt_next_id_v < $64;
-        LET ptable_room_two <- (#pt_next_id_v + $1) < $64;
+        LET ptable_full <- #pt_next_id_v >= $16;
+        LET ptable_room_one <- !#ptable_full;
+        LET ptable_room_two <- (#pt_next_id_v + $2) <= $16;
         LET pnew_overflow <- (#opcode == $$(OP_PNEW)) && !#ptable_room_one;
         LET psplit_overflow <- (#opcode == $$(OP_PSPLIT)) && !#ptable_room_two;
         LET pmerge_overflow <- (#opcode == $$(OP_PMERGE)) && !#ptable_room_one;
@@ -1418,7 +1371,7 @@ Section ThieleCPU.
         LET pnew_region_size : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #op_a;
         LET pt_after_pnew : Vector (Bit WordSz) PTableIdxSz <-
           #pt_sizes_v@[#pt_slot <- #pnew_region_size];
-        LET next_after_pnew : Bit WordSz <- #pt_next_id_v + $1;
+        LET next_after_pnew : Bit PTableNextIdSz <- #pt_next_id_v + $1;
 
         (* PSPLIT: split module op_a into two children at next two free slots.
            Left child gets old_size >> 1, right child gets the remainder.
@@ -1433,7 +1386,7 @@ Section ThieleCPU.
         LET pt_after_psplit : Vector (Bit WordSz) PTableIdxSz <-
           ((#pt_sizes_v@[#psplit_id <- $0])@[#psplit_slot1 <- #psplit_left_sz])
             @[#psplit_slot2 <- #psplit_right_sz];
-        LET next_after_psplit : Bit WordSz <- #pt_next_id_v + $2;
+        LET next_after_psplit : Bit PTableNextIdSz <- #pt_next_id_v + $2;
 
         (* PMERGE: merge modules op_a and op_b.
            Both source slots are zeroed; merged size allocated at pt_next_id. *)
@@ -1446,7 +1399,7 @@ Section ThieleCPU.
         LET pt_after_pmerge : Vector (Bit WordSz) PTableIdxSz <-
           ((#pt_sizes_v@[#pmerge_m1 <- $0])@[#pmerge_m2 <- $0])
             @[#pmerge_slot <- #pmerge_merged_sz];
-        LET next_after_pmerge : Bit WordSz <- #pt_next_id_v + $1;
+        LET next_after_pmerge : Bit PTableNextIdSz <- #pt_next_id_v + $1;
 
         (* Select partition table update based on opcode *)
         LET new_pt_sizes : Vector (Bit WordSz) PTableIdxSz <-
@@ -1460,7 +1413,7 @@ Section ThieleCPU.
                             then #pt_after_pmerge
                             else #pt_sizes_v)));
 
-        LET new_pt_next_id : Bit WordSz <-
+        LET new_pt_next_id : Bit PTableNextIdSz <-
           IF (#bianchi_violation || #ptable_overflow_violation)
           then #pt_next_id_v
           else (IF (#opcode == $$(OP_PNEW))
@@ -1515,11 +1468,11 @@ Section ThieleCPU.
 
         LET new_logic_stall <-
           IF #bianchi_violation
-          then #logic_stall_v
+          then $$false
           else (IF #logic_rsp_fire then $$false else (IF #logic_issue then $$true else #logic_stall_v));
         LET new_logic_req_valid <-
           IF #bianchi_violation
-          then #logic_req_valid_v
+          then $$false
           else (IF #logic_rsp_fire
                 then $$false
                 else (IF #logic_issue then $$true else #logic_req_valid_v));
@@ -1532,7 +1485,7 @@ Section ThieleCPU.
 
         LET new_logic_resp_valid <-
           IF #bianchi_violation
-          then #logic_resp_valid_v
+          then $$false
           else (IF #logic_rsp_fire then $$false else #logic_resp_valid_v);
 
         (* CSR telemetry: cycle and retired instruction counters. *)
@@ -1858,22 +1811,7 @@ Section ThieleCPU.
         Write "mdl_ops"        <- #new_mdl_ops;
         Write "info_gain"      <- #new_info_gain;
         Write "mu_tensor"      <- #new_mu_tensor;
-        Write "pt0"            <- #new_pt_sizes@[$$(natToWord PTableIdxSz 0)];
-        Write "pt1"            <- #new_pt_sizes@[$$(natToWord PTableIdxSz 1)];
-        Write "pt2"            <- #new_pt_sizes@[$$(natToWord PTableIdxSz 2)];
-        Write "pt3"            <- #new_pt_sizes@[$$(natToWord PTableIdxSz 3)];
-        Write "pt4"            <- #new_pt_sizes@[$$(natToWord PTableIdxSz 4)];
-        Write "pt5"            <- #new_pt_sizes@[$$(natToWord PTableIdxSz 5)];
-        Write "pt6"            <- #new_pt_sizes@[$$(natToWord PTableIdxSz 6)];
-        Write "pt7"            <- #new_pt_sizes@[$$(natToWord PTableIdxSz 7)];
-        Write "pt8"            <- #new_pt_sizes@[$$(natToWord PTableIdxSz 8)];
-        Write "pt9"            <- #new_pt_sizes@[$$(natToWord PTableIdxSz 9)];
-        Write "pt10"           <- #new_pt_sizes@[$$(natToWord PTableIdxSz 10)];
-        Write "pt11"           <- #new_pt_sizes@[$$(natToWord PTableIdxSz 11)];
-        Write "pt12"           <- #new_pt_sizes@[$$(natToWord PTableIdxSz 12)];
-        Write "pt13"           <- #new_pt_sizes@[$$(natToWord PTableIdxSz 13)];
-        Write "pt14"           <- #new_pt_sizes@[$$(natToWord PTableIdxSz 14)];
-        Write "pt15"           <- #new_pt_sizes@[$$(natToWord PTableIdxSz 15)];
+        Write "ptTable"        <- #new_pt_sizes;
         Write "pt_next_id"     <- #new_pt_next_id;
         Retv
 
@@ -1998,43 +1936,13 @@ Section ThieleCPU.
 
       (** Partition table output methods — expose pt_next_id and slot sizes for verification *)
       with Method "getPtNextId" () : Bit WordSz :=
-        Read v : Bit WordSz <- "pt_next_id"; Ret #v
+        Read v : Bit PTableNextIdSz <- "pt_next_id";
+        LET v32 : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #v;
+        Ret #v32
 
       with Method "getPtSize" (idx : Bit PTableIdxSz) : Bit WordSz :=
-        Read pt0_v : Bit WordSz <- "pt0";
-        Read pt1_v : Bit WordSz <- "pt1";
-        Read pt2_v : Bit WordSz <- "pt2";
-        Read pt3_v : Bit WordSz <- "pt3";
-        Read pt4_v : Bit WordSz <- "pt4";
-        Read pt5_v : Bit WordSz <- "pt5";
-        Read pt6_v : Bit WordSz <- "pt6";
-        Read pt7_v : Bit WordSz <- "pt7";
-        Read pt8_v : Bit WordSz <- "pt8";
-        Read pt9_v : Bit WordSz <- "pt9";
-        Read pt10_v : Bit WordSz <- "pt10";
-        Read pt11_v : Bit WordSz <- "pt11";
-        Read pt12_v : Bit WordSz <- "pt12";
-        Read pt13_v : Bit WordSz <- "pt13";
-        Read pt14_v : Bit WordSz <- "pt14";
-        Read pt15_v : Bit WordSz <- "pt15";
-        LET lo_idx : Bit 4 <- UniBit (Trunc 4 _) #idx;
-        LET v : Bit WordSz <-
-          IF (#lo_idx == $$(natToWord 4 0)) then #pt0_v else
-          IF (#lo_idx == $$(natToWord 4 1)) then #pt1_v else
-          IF (#lo_idx == $$(natToWord 4 2)) then #pt2_v else
-          IF (#lo_idx == $$(natToWord 4 3)) then #pt3_v else
-          IF (#lo_idx == $$(natToWord 4 4)) then #pt4_v else
-          IF (#lo_idx == $$(natToWord 4 5)) then #pt5_v else
-          IF (#lo_idx == $$(natToWord 4 6)) then #pt6_v else
-          IF (#lo_idx == $$(natToWord 4 7)) then #pt7_v else
-          IF (#lo_idx == $$(natToWord 4 8)) then #pt8_v else
-          IF (#lo_idx == $$(natToWord 4 9)) then #pt9_v else
-          IF (#lo_idx == $$(natToWord 4 10)) then #pt10_v else
-          IF (#lo_idx == $$(natToWord 4 11)) then #pt11_v else
-          IF (#lo_idx == $$(natToWord 4 12)) then #pt12_v else
-          IF (#lo_idx == $$(natToWord 4 13)) then #pt13_v else
-          IF (#lo_idx == $$(natToWord 4 14)) then #pt14_v else #pt15_v;
-        Ret #v
+        Read pt_sizes_v : Vector (Bit WordSz) PTableIdxSz <- "ptTable";
+        Ret (#pt_sizes_v@[#idx])
     }.
 
   (** Extraction targets *)
