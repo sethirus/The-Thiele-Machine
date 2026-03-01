@@ -5916,7 +5916,7 @@ module mkModule1(CLK,
   // register logic_req_valid
   assign logic_req_valid$D_IN =
 	     mu_ULT_mu_tensor_BITS_31_TO_0_PLUS_mu_tensor_B_ETC___d39 ?
-	       logic_req_valid :
+	       1'd0 :
 	       (!logic_req_valid || !logic_resp_valid) &&
 	       (SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___d300[31:24] ==
 		8'h03 ||
@@ -5943,7 +5943,7 @@ module mkModule1(CLK,
   // register logic_stall
   assign logic_stall$D_IN =
 	     mu_ULT_mu_tensor_BITS_31_TO_0_PLUS_mu_tensor_B_ETC___d39 ?
-	       logic_stall :
+	       1'd0 :
 	       NOT_logic_req_valid_86_630_OR_NOT_logic_resp_v_ETC___d7691 ;
   assign logic_stall$EN = MUX_logic_resp_valid$write_1__SEL_2 ;
 
@@ -22716,8 +22716,8 @@ module mkModule1(CLK,
   assign mu_ULT_mu_tensor_BITS_31_TO_0_PLUS_mu_tensor_B_ETC___d39 =
 	     mu < x_3__h127916 ;
   assign pt_next_id_54_PLUS_0x1_59_ULT_0x40___d360 =
-	     x_763__h43607 < 32'h00000040 ;
-  assign pt_next_id_54_ULT_0x40___d355 = pt_next_id < 32'h00000040 ;
+	     x_763__h43607 < 32'h00000010 ;
+  assign pt_next_id_54_ULT_0x40___d355 = pt_next_id < 32'h00000010 ;
   assign reg31_37_BITS_7_TO_0_38_ULT_0x10___d2606 = reg31[7:0] < 8'h10 ;
   assign reg31_37_BITS_7_TO_0_38_ULT_0x11___d2942 = reg31[7:0] < 8'h11 ;
   assign reg31_37_BITS_7_TO_0_38_ULT_0x12___d2941 = reg31[7:0] < 8'h12 ;
