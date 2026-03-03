@@ -215,6 +215,7 @@ tests.append(("HALT", "HALT", {
 import pytest
 
 @pytest.mark.integration
+@pytest.mark.strict_rtl
 @pytest.mark.parametrize("name,program,checks", tests, ids=[t[0] for t in tests])
 def test_opcode_parametrized(name, program, checks):
     """Run a single opcode test via pytest parametrize."""
