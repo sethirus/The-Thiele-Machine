@@ -52,13 +52,12 @@ if [ "$arg1" == "--clean" ] || [ "$arg1" == "-c" ] || [ "$arg1" == "clean" ]; th
     echo ""
 fi
 
-# Generate Makefile if needed (always use coq/_CoqProject; output in coq/)
+# Always regenerate Makefile.coq from _CoqProject to avoid stale
+# loadpath mappings (for example missing Kami.Kami bindings).
 COQ_PROJECT_PATH="coq/_CoqProject"
 COQ_MAKEFILE="coq/Makefile.coq"
-if [ ! -f "$COQ_MAKEFILE" ] || [ "$COQ_PROJECT_PATH" -nt "$COQ_MAKEFILE" ]; then
-    echo "📝 Generating Makefile.coq from $COQ_PROJECT_PATH..."
-    (cd coq && coq_makefile -f "_CoqProject" -o "Makefile.coq")
-fi
+echo "📝 Generating Makefile.coq from $COQ_PROJECT_PATH..."
+(cd coq && coq_makefile -f "_CoqProject" -o "Makefile.coq")
 
 # Ensure Makefile is discoverable by make (invoke from coq/)
 MAKE_CMD="make -C coq -f Makefile.coq"

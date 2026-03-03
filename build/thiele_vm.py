@@ -20,8 +20,24 @@ from typing import Any, Dict, List, Optional
 _RUNNER_PATH = Path(__file__).parent / "extracted_vm_runner"
 
 
+def _runner_launchable() -> bool:
+    if not _RUNNER_PATH.exists() or not _RUNNER_PATH.is_file() or not os.access(_RUNNER_PATH, os.X_OK):
+        return False
+
+    # Bytecode executables produced by ocamlc require ocamlrun.
+    try:
+        first_line = _RUNNER_PATH.read_bytes().splitlines()[0]
+        if first_line.startswith(b"#!/usr/bin/ocamlrun") and not Path("/usr/bin/ocamlrun").exists():
+            return False
+    except Exception:
+        # If inspection fails, let runtime execution decide.
+        pass
+
+    return True
+
+
 def _runner_available() -> bool:
-    return _RUNNER_PATH.exists()
+    return _runner_launchable()
 
 
 def _strict_backend_required() -> bool:
@@ -148,7 +164,12 @@ def run_vm_trace(instructions: List[str], fuel: int = 1000) -> VMState:
     instruction subset used in the test suite (PNEW, HALT).
     """
     if _runner_available():
-        return _run_extracted(instructions, fuel)
+        try:
+            return _run_extracted(instructions, fuel)
+        except (FileNotFoundError, PermissionError, OSError):
+            # Treat unlaunchable extracted binaries as unavailable in non-strict mode.
+            if _strict_backend_required():
+                raise
     if _strict_backend_required():
         raise RuntimeError(
             "Coq-extracted runner missing under strict backend policy. "

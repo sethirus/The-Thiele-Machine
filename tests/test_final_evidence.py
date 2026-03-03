@@ -5,6 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 import re
 import subprocess
+import shutil
 
 import pytest
 
@@ -106,6 +107,9 @@ def test_evidence_valid_quantum_physics_trace() -> None:
 
 
 def test_iron_regression_minimum_dff_count() -> None:
+    if shutil.which("yosys") is None:
+        pytest.skip("yosys unavailable")
+
     cmd = (
         "yosys -p \"read_verilog -sv -DSYNTHESIS thielecpu/hardware/rtl/thiele_cpu_kami.v; "
         "hierarchy -top mkModule1; proc; flatten; stat\""
