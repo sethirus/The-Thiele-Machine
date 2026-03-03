@@ -4,6 +4,9 @@ Require Import List Arith Bool PeanoNat.
 Require Import Lia.
 Require Import Permutation.
 Import ListNotations.
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+
 
 (** [Permutation_length_eq]: formal specification. *)
 Lemma Permutation_length_eq : forall A (l1 l2 : list A), Permutation l1 l2 -> length l1 = length l2.

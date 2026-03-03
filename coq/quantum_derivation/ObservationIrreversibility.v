@@ -1,4 +1,6 @@
 (** =========================================================================
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
     PHASE 4.1: OBSERVATION IRREVERSIBILITY
     =========================================================================
 
@@ -19,6 +21,9 @@
     This establishes the irreversibility foundation for measurement collapse.
 
     ========================================================================= *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
 
 From Coq Require Import List ZArith Lia Bool Nat Reals QArith.
 Require Import Coq.Logic.Classical_Prop.

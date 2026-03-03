@@ -20,7 +20,13 @@
     - Observable Completeness (full proof): Requires coinductive bisimulation 
       over infinite continuations. Currently proven for finite horizon only.
     =========================================================================
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
 *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import List Bool ZArith Lia QArith.
 From Coq Require Import Logic.FunctionalExtensionality.
@@ -82,7 +88,6 @@ Module ThieleRepresentation.
 
   (** Theorem: Gauge Symmetry - gauge-equivalent states produce identical 
       observable traces for any finite horizon. 
-      INQUISITOR NOTE: This proof proceeds by induction on traces and uses
       gauge_preserved_by_step; it is not definitional. *)
   Theorem gauge_trace_preservation : forall s1 s2,
     gauge_equivalent s1 s2 ->

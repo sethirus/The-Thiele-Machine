@@ -9,6 +9,7 @@ subset of instructions used in the test suite.
 """
 
 import json
+import os
 import re
 import subprocess
 import tempfile
@@ -17,6 +18,20 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 _RUNNER_PATH = Path(__file__).parent / "extracted_vm_runner"
+
+
+def _runner_available() -> bool:
+    return _RUNNER_PATH.exists()
+
+
+def _strict_backend_required() -> bool:
+    """Return True when fallback execution must be forbidden.
+
+    Set `THIELE_STRICT_VM_BACKEND=1` (or true/yes/on) to require the
+    Coq-extracted runner for `run_vm_trace`.
+    """
+    raw = os.getenv("THIELE_STRICT_VM_BACKEND", "0").strip().lower()
+    return raw in {"1", "true", "yes", "on"}
 
 
 # ---------------------------------------------------------------------------
@@ -132,8 +147,15 @@ def run_vm_trace(instructions: List[str], fuel: int = 1000) -> VMState:
     falls back to a pure-Python mini-interpreter that supports the
     instruction subset used in the test suite (PNEW, HALT).
     """
-    if _RUNNER_PATH.exists():
+    if _runner_available():
         return _run_extracted(instructions, fuel)
+    if _strict_backend_required():
+        raise RuntimeError(
+            "Coq-extracted runner missing under strict backend policy. "
+            f"Expected: {_RUNNER_PATH}. "
+            "Build with: ocamlc -I build -o build/extracted_vm_runner "
+            "build/thiele_core.mli build/thiele_core.ml tools/extracted_vm_runner.ml"
+        )
     return _run_python(instructions, fuel)
 
 

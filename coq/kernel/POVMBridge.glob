@@ -1,364 +1,365 @@
-DIGEST 19d500569dea24d5c945e1ea5ee4608f
+DIGEST 020e5767ca32bbc4751750ac3c6f37b9
 FKernel.POVMBridge
-R1534:1537 Coq.Lists.List <> <> lib
-R1539:1552 Coq.Arith.PeanoNat <> <> lib
-R1554:1556 Coq.micromega.Lia <> <> lib
-R1558:1561 Coq.Bool.Bool <> <> lib
-R1571:1583 Coq.Lists.List ListNotations <> mod
-R1614:1620 Kernel.VMState <> <> lib
-R1622:1627 Kernel.VMStep <> <> lib
-R1629:1641 Kernel.KernelPhysics <> <> lib
-rec 1973:1990 <> MeasurementOutcome
-proj 1999:2007 <> mo_module
-proj 2056:2062 <> mo_bits
-proj 2120:2126 <> mo_cost
-proj 2171:2185 <> mo_cost_ge_bits
-R2011:2013 Coq.Init.Datatypes <> nat ind
-R2066:2068 Coq.Init.Datatypes <> nat ind
-R2130:2132 Coq.Init.Datatypes <> nat ind
-R2196:2199 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R2189:2195 Kernel.POVMBridge <> mo_cost:4 meth
-R2200:2206 Kernel.POVMBridge <> mo_bits:3 meth
-rec 2451:2469 <> CompleteMeasurement
-proj 2478:2486 <> cm_module
-proj 2497:2507 <> cm_outcomes
-proj 2538:2555 <> cm_all_same_module
-proj 2616:2626 <> cm_nonempty
-R2490:2492 Coq.Init.Datatypes <> nat ind
-R2511:2514 Coq.Init.Datatypes <> list ind
-R2516:2533 Kernel.POVMBridge <> MeasurementOutcome rec
-binder 2566:2566 <> o:9
-R2585:2588 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2569:2570 Coq.Lists.List <> In def
-R2574:2584 Kernel.POVMBridge <> cm_outcomes:8 meth
-R2572:2572 Kernel.POVMBridge <> o:9 var
-R2600:2602 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2589:2597 Kernel.POVMBridge <> mo_module proj
-R2599:2599 Kernel.POVMBridge <> o:9 var
-R2603:2611 Kernel.POVMBridge <> cm_module:7 meth
-R2641:2644 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R2630:2640 Kernel.POVMBridge <> cm_outcomes:8 meth
-R2645:2646 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-def 2921:2930 <> total_bits
-R2938:2956 Kernel.POVMBridge <> CompleteMeasurement rec
-binder 2933:2934 <> cm:12
-R2961:2963 Coq.Init.Datatypes <> nat ind
-R2970:2978 Coq.Lists.List <> fold_left def
-R3012:3022 Kernel.POVMBridge <> cm_outcomes proj
-R3024:3025 Kernel.POVMBridge <> cm:12 var
-binder 2985:2987 <> acc:13
-binder 2989:2989 <> o:14
-R2997:2999 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R2994:2996 Kernel.POVMBridge <> acc:13 var
-R3000:3006 Kernel.POVMBridge <> mo_bits proj
-R3008:3008 Kernel.POVMBridge <> o:14 var
-def 3090:3099 <> total_cost
-R3107:3125 Kernel.POVMBridge <> CompleteMeasurement rec
-binder 3102:3103 <> cm:15
-R3130:3132 Coq.Init.Datatypes <> nat ind
-R3139:3147 Coq.Lists.List <> fold_left def
-R3181:3191 Kernel.POVMBridge <> cm_outcomes proj
-R3193:3194 Kernel.POVMBridge <> cm:15 var
-binder 3154:3156 <> acc:16
-binder 3158:3158 <> o:17
-R3166:3168 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R3163:3165 Kernel.POVMBridge <> acc:16 var
-R3169:3175 Kernel.POVMBridge <> mo_cost proj
-R3177:3177 Kernel.POVMBridge <> o:17 var
-prf 3261:3276 <> fold_left_add_ge
-R3310:3313 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3292:3309 Kernel.POVMBridge <> MeasurementOutcome rec
-R3314:3316 Coq.Init.Datatypes <> nat ind
-binder 3288:3288 <> f:18
-binder 3319:3319 <> l:19
-binder 3321:3323 <> acc:20
-R3364:3367 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R3328:3336 Coq.Lists.List <> fold_left def
-R3361:3363 Kernel.POVMBridge <> acc:20 var
-R3359:3359 Kernel.POVMBridge <> l:19 var
-binder 3343:3343 <> a:21
-binder 3345:3345 <> o:22
-R3351:3353 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R3350:3350 Kernel.POVMBridge <> a:21 var
-R3354:3354 Kernel.POVMBridge <> f:18 var
-R3356:3356 Kernel.POVMBridge <> o:22 var
-R3368:3370 Kernel.POVMBridge <> acc:20 var
-R3478:3480 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R3478:3480 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-prf 3634:3651 <> fold_left_add_mono
-R3687:3690 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3669:3686 Kernel.POVMBridge <> MeasurementOutcome rec
-R3691:3693 Coq.Init.Datatypes <> nat ind
-binder 3663:3663 <> f:23
-binder 3665:3665 <> g:24
-binder 3696:3696 <> l:25
-R3701:3701 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3732:3738 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 3709:3709 <> o:26
-R3718:3721 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3712:3713 Coq.Lists.List <> In def
-R3717:3717 Kernel.POVMBridge <> l:25 var
-R3715:3715 Kernel.POVMBridge <> o:26 var
-R3725:3728 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R3722:3722 Kernel.POVMBridge <> f:23 var
-R3724:3724 Kernel.POVMBridge <> o:26 var
-R3729:3729 Kernel.POVMBridge <> g:24 var
-R3731:3731 Kernel.POVMBridge <> o:26 var
-binder 3746:3749 <> acc1:27
-binder 3751:3754 <> acc2:28
-R3769:3774 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3761:3764 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R3757:3760 Kernel.POVMBridge <> acc1:27 var
-R3765:3768 Kernel.POVMBridge <> acc2:28 var
-R3812:3817 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R3775:3783 Coq.Lists.List <> fold_left def
-R3808:3811 Kernel.POVMBridge <> acc1:27 var
-R3806:3806 Kernel.POVMBridge <> l:25 var
-binder 3790:3790 <> a:29
-binder 3792:3792 <> o:30
-R3798:3800 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R3797:3797 Kernel.POVMBridge <> a:29 var
-R3801:3801 Kernel.POVMBridge <> f:23 var
-R3803:3803 Kernel.POVMBridge <> o:30 var
-R3818:3826 Coq.Lists.List <> fold_left def
-R3851:3854 Kernel.POVMBridge <> acc2:28 var
-R3849:3849 Kernel.POVMBridge <> l:25 var
-binder 3833:3833 <> a:31
-binder 3835:3835 <> o:32
-R3841:3843 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R3840:3840 Kernel.POVMBridge <> a:31 var
-R3844:3844 Kernel.POVMBridge <> g:24 var
-R3846:3846 Kernel.POVMBridge <> o:32 var
-R4042:4045 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R4042:4045 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-prf 4166:4193 <> measurement_cost_bounds_info
-binder 4204:4205 <> cm:33
-R4223:4226 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R4210:4219 Kernel.POVMBridge <> total_cost def
-R4221:4222 Kernel.POVMBridge <> cm:33 var
-R4227:4236 Kernel.POVMBridge <> total_bits def
-R4238:4239 Kernel.POVMBridge <> cm:33 var
-R4270:4279 Kernel.POVMBridge <> total_cost def
-R4282:4291 Kernel.POVMBridge <> total_bits def
-R4302:4319 Kernel.POVMBridge <> fold_left_add_mono thm
-R4302:4319 Kernel.POVMBridge <> fold_left_add_mono thm
-R4347:4361 Kernel.POVMBridge <> mo_cost_ge_bits proj
-R4347:4361 Kernel.POVMBridge <> mo_cost_ge_bits proj
-def 4726:4734 <> is_reveal
-R4741:4754 Kernel.VMStep VMStep vm_instruction ind
-binder 4737:4737 <> i:34
-R4759:4762 Coq.Init.Datatypes <> bool ind
-R4775:4775 Kernel.POVMBridge <> i:34 var
-R4786:4797 Kernel.VMStep VMStep instr_reveal constr
-R4810:4813 Coq.Init.Datatypes <> true constr
-R4824:4828 Coq.Init.Datatypes <> false constr
-def 4849:4859 <> reveal_bits
-R4866:4879 Kernel.VMStep VMStep vm_instruction ind
-binder 4862:4862 <> i:36
-R4884:4886 Coq.Init.Datatypes <> nat ind
-R4899:4899 Kernel.POVMBridge <> i:36 var
-R4910:4921 Kernel.VMStep VMStep instr_reveal constr
-def 4972:4982 <> reveal_cost
-R4989:5002 Kernel.VMStep VMStep vm_instruction ind
-binder 4985:4985 <> i:38
-R5007:5009 Coq.Init.Datatypes <> nat ind
-R5022:5022 Kernel.POVMBridge <> i:38 var
-R5033:5044 Kernel.VMStep VMStep instr_reveal constr
-def 5362:5378 <> reveal_trace_cost
-R5389:5392 Coq.Init.Datatypes <> list ind
-R5394:5407 Kernel.VMStep VMStep vm_instruction ind
-binder 5381:5385 <> trace:40
-R5412:5414 Coq.Init.Datatypes <> nat ind
-R5421:5429 Coq.Lists.List <> fold_left def
-R5495:5499 Kernel.POVMBridge <> trace:40 var
-binder 5436:5438 <> acc:41
-binder 5440:5440 <> i:42
-R5448:5456 Kernel.POVMBridge <> is_reveal def
-R5458:5458 Kernel.POVMBridge <> i:42 var
-R5490:5492 Kernel.POVMBridge <> acc:41 var
-R5468:5470 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R5465:5467 Kernel.POVMBridge <> acc:41 var
-R5471:5481 Kernel.POVMBridge <> reveal_cost def
-R5483:5483 Kernel.POVMBridge <> i:42 var
-def 5516:5532 <> reveal_trace_bits
-R5543:5546 Coq.Init.Datatypes <> list ind
-R5548:5561 Kernel.VMStep VMStep vm_instruction ind
-binder 5535:5539 <> trace:43
-R5566:5568 Coq.Init.Datatypes <> nat ind
-R5575:5583 Coq.Lists.List <> fold_left def
-R5649:5653 Kernel.POVMBridge <> trace:43 var
-binder 5590:5592 <> acc:44
-binder 5594:5594 <> i:45
-R5602:5610 Kernel.POVMBridge <> is_reveal def
-R5612:5612 Kernel.POVMBridge <> i:45 var
-R5644:5646 Kernel.POVMBridge <> acc:44 var
-R5622:5624 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R5619:5621 Kernel.POVMBridge <> acc:44 var
-R5625:5635 Kernel.POVMBridge <> reveal_bits def
-R5637:5637 Kernel.POVMBridge <> i:45 var
-prf 5719:5735 <> fold_left_cond_ge
-R5767:5770 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5753:5766 Kernel.VMStep VMStep vm_instruction ind
-R5771:5773 Coq.Init.Datatypes <> nat ind
-binder 5747:5747 <> f:46
-binder 5749:5749 <> g:47
-R5800:5803 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5786:5799 Kernel.VMStep VMStep vm_instruction ind
-R5804:5807 Coq.Init.Datatypes <> bool ind
-binder 5779:5782 <> pred:48
-binder 5810:5810 <> l:49
-binder 5812:5815 <> acc1:50
-binder 5817:5820 <> acc2:51
-R5837:5842 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5829:5832 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R5825:5828 Kernel.POVMBridge <> acc1:50 var
-R5833:5836 Kernel.POVMBridge <> acc2:51 var
-R5843:5843 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5881:5887 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 5851:5851 <> i:52
-R5867:5870 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5860:5862 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5854:5857 Kernel.POVMBridge <> pred:48 var
-R5859:5859 Kernel.POVMBridge <> i:52 var
-R5863:5866 Coq.Init.Datatypes <> true constr
-R5874:5877 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R5871:5871 Kernel.POVMBridge <> f:46 var
-R5873:5873 Kernel.POVMBridge <> i:52 var
-R5878:5878 Kernel.POVMBridge <> g:47 var
-R5880:5880 Kernel.POVMBridge <> i:52 var
-R5947:5952 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R5888:5896 Coq.Lists.List <> fold_left def
-R5943:5946 Kernel.POVMBridge <> acc1:50 var
-R5941:5941 Kernel.POVMBridge <> l:49 var
-binder 5903:5903 <> a:53
-binder 5905:5905 <> i:54
-R5913:5916 Kernel.POVMBridge <> pred:48 var
-R5918:5918 Kernel.POVMBridge <> i:54 var
-R5938:5938 Kernel.POVMBridge <> a:53 var
-R5926:5928 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R5925:5925 Kernel.POVMBridge <> a:53 var
-R5929:5929 Kernel.POVMBridge <> f:46 var
-R5931:5931 Kernel.POVMBridge <> i:54 var
-R5953:5961 Coq.Lists.List <> fold_left def
-R6008:6011 Kernel.POVMBridge <> acc2:51 var
-R6006:6006 Kernel.POVMBridge <> l:49 var
-binder 5968:5968 <> a:55
-binder 5970:5970 <> i:56
-R5978:5981 Kernel.POVMBridge <> pred:48 var
-R5983:5983 Kernel.POVMBridge <> i:56 var
-R6003:6003 Kernel.POVMBridge <> a:55 var
-R5991:5993 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R5990:5990 Kernel.POVMBridge <> a:55 var
-R5994:5994 Kernel.POVMBridge <> g:47 var
-R5996:5996 Kernel.POVMBridge <> i:56 var
-R6187:6190 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R6187:6190 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-prf 6349:6375 <> sequential_measurement_cost
-binder 6386:6390 <> trace:57
-R6395:6395 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6458:6464 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 6403:6403 <> i:58
-R6424:6427 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6417:6419 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6406:6414 Kernel.POVMBridge <> is_reveal def
-R6416:6416 Kernel.POVMBridge <> i:58 var
-R6420:6423 Coq.Init.Datatypes <> true constr
-R6441:6444 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R6428:6438 Kernel.POVMBridge <> reveal_cost def
-R6440:6440 Kernel.POVMBridge <> i:58 var
-R6445:6455 Kernel.POVMBridge <> reveal_bits def
-R6457:6457 Kernel.POVMBridge <> i:58 var
-R6488:6491 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R6465:6481 Kernel.POVMBridge <> reveal_trace_cost def
-R6483:6487 Kernel.POVMBridge <> trace:57 var
-R6492:6508 Kernel.POVMBridge <> reveal_trace_bits def
-R6510:6514 Kernel.POVMBridge <> trace:57 var
-R6555:6571 Kernel.POVMBridge <> reveal_trace_cost def
-R6574:6590 Kernel.POVMBridge <> reveal_trace_bits def
-R6601:6617 Kernel.POVMBridge <> fold_left_cond_ge thm
-R6601:6617 Kernel.POVMBridge <> fold_left_cond_ge thm
-def 7081:7098 <> is_complete_reveal
-R7132:7134 Coq.Init.Datatypes <> nat ind
-binder 7101:7114 <> bits_available:59
-binder 7116:7128 <> bits_revealed:60
-R7162:7164 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7149:7161 Kernel.POVMBridge <> bits_revealed:60 var
-R7165:7178 Kernel.POVMBridge <> bits_available:59 var
-prf 7400:7431 <> complete_reveal_determines_state
-binder 7444:7448 <> avail:61
-binder 7450:7457 <> revealed:62
-R7497:7504 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7464:7481 Kernel.POVMBridge <> is_complete_reveal def
-R7483:7487 Kernel.POVMBridge <> avail:61 var
-R7489:7496 Kernel.POVMBridge <> revealed:62 var
-R7513:7515 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7505:7512 Kernel.POVMBridge <> revealed:62 var
-R7516:7520 Kernel.POVMBridge <> avail:61 var
-prf 7887:7905 <> reveal_irreversible
-binder 7916:7919 <> bits:63
-binder 7921:7924 <> cost:64
-R7937:7942 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7933:7935 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R7929:7932 Kernel.POVMBridge <> bits:63 var
-R7955:7960 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7947:7950 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R7943:7946 Kernel.POVMBridge <> cost:64 var
-R7951:7954 Kernel.POVMBridge <> bits:63 var
-R7965:7967 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R7961:7964 Kernel.POVMBridge <> cost:64 var
-R8024:8034 Coq.Arith.PeanoNat Nat add_0_r thm
-R8024:8034 Coq.Arith.PeanoNat Nat add_0_r thm
-R8024:8034 Coq.Arith.PeanoNat Nat add_0_r thm
-R8052:8066 Coq.Arith.PeanoNat Nat lt_le_trans thm
-R8052:8066 Coq.Arith.PeanoNat Nat lt_le_trans thm
-R8098:8108 Coq.Arith.PeanoNat Nat add_0_r thm
-R8098:8108 Coq.Arith.PeanoNat Nat add_0_r thm
-R8098:8108 Coq.Arith.PeanoNat Nat add_0_r thm
-rec 8394:8413 <> POVMBridgeProperties
-proj 8490:8510 <> povm_cost_bounds_info
-proj 8626:8640 <> povm_sequential
-proj 8847:8863 <> povm_irreversible
-binder 8521:8522 <> cm:66
-R8538:8541 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8525:8534 Kernel.POVMBridge <> total_cost def
-R8536:8537 Kernel.POVMBridge <> cm:66 var
-R8542:8551 Kernel.POVMBridge <> total_bits def
-R8553:8554 Kernel.POVMBridge <> cm:66 var
-binder 8651:8655 <> trace:68
-R8662:8662 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8725:8733 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 8670:8670 <> i:69
-R8691:8694 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8684:8686 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8673:8681 Kernel.POVMBridge <> is_reveal def
-R8683:8683 Kernel.POVMBridge <> i:69 var
-R8687:8690 Coq.Init.Datatypes <> true constr
-R8708:8711 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8695:8705 Kernel.POVMBridge <> reveal_cost def
-R8707:8707 Kernel.POVMBridge <> i:69 var
-R8712:8722 Kernel.POVMBridge <> reveal_bits def
-R8724:8724 Kernel.POVMBridge <> i:69 var
-R8757:8760 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8734:8750 Kernel.POVMBridge <> reveal_trace_cost def
-R8752:8756 Kernel.POVMBridge <> trace:68 var
-R8761:8777 Kernel.POVMBridge <> reveal_trace_bits def
-R8779:8783 Kernel.POVMBridge <> trace:68 var
-binder 8874:8877 <> bits:71
-binder 8879:8882 <> cost:72
-R8897:8900 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8893:8895 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R8889:8892 Kernel.POVMBridge <> bits:71 var
-R8913:8916 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8905:8908 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8901:8904 Kernel.POVMBridge <> cost:72 var
-R8909:8912 Kernel.POVMBridge <> bits:71 var
-R8921:8923 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R8917:8920 Kernel.POVMBridge <> cost:72 var
-prf 9015:9042 <> reveal_satisfies_povm_bridge
-R9046:9065 Kernel.POVMBridge <> POVMBridgeProperties rec
-R9100:9127 Kernel.POVMBridge <> measurement_cost_bounds_info thm
-R9100:9127 Kernel.POVMBridge <> measurement_cost_bounds_info thm
-R9140:9166 Kernel.POVMBridge <> sequential_measurement_cost thm
-R9140:9166 Kernel.POVMBridge <> sequential_measurement_cost thm
-R9179:9197 Kernel.POVMBridge <> reveal_irreversible thm
-R9179:9197 Kernel.POVMBridge <> reveal_irreversible thm
+R1622:1632 Kernel.MuCostModel <> <> lib
+R1660:1663 Coq.Lists.List <> <> lib
+R1665:1678 Coq.Arith.PeanoNat <> <> lib
+R1680:1682 Coq.micromega.Lia <> <> lib
+R1684:1687 Coq.Bool.Bool <> <> lib
+R1697:1709 Coq.Lists.List ListNotations <> mod
+R1740:1746 Kernel.VMState <> <> lib
+R1748:1753 Kernel.VMStep <> <> lib
+R1755:1767 Kernel.KernelPhysics <> <> lib
+rec 2099:2116 <> MeasurementOutcome
+proj 2125:2133 <> mo_module
+proj 2182:2188 <> mo_bits
+proj 2246:2252 <> mo_cost
+proj 2297:2311 <> mo_cost_ge_bits
+R2137:2139 Coq.Init.Datatypes <> nat ind
+R2192:2194 Coq.Init.Datatypes <> nat ind
+R2256:2258 Coq.Init.Datatypes <> nat ind
+R2322:2325 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R2315:2321 Kernel.POVMBridge <> mo_cost:4 meth
+R2326:2332 Kernel.POVMBridge <> mo_bits:3 meth
+rec 2577:2595 <> CompleteMeasurement
+proj 2604:2612 <> cm_module
+proj 2623:2633 <> cm_outcomes
+proj 2664:2681 <> cm_all_same_module
+proj 2742:2752 <> cm_nonempty
+R2616:2618 Coq.Init.Datatypes <> nat ind
+R2637:2640 Coq.Init.Datatypes <> list ind
+R2642:2659 Kernel.POVMBridge <> MeasurementOutcome rec
+binder 2692:2692 <> o:9
+R2711:2714 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2695:2696 Coq.Lists.List <> In def
+R2700:2710 Kernel.POVMBridge <> cm_outcomes:8 meth
+R2698:2698 Kernel.POVMBridge <> o:9 var
+R2726:2728 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2715:2723 Kernel.POVMBridge <> mo_module proj
+R2725:2725 Kernel.POVMBridge <> o:9 var
+R2729:2737 Kernel.POVMBridge <> cm_module:7 meth
+R2767:2770 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R2756:2766 Kernel.POVMBridge <> cm_outcomes:8 meth
+R2771:2772 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+def 3047:3056 <> total_bits
+R3064:3082 Kernel.POVMBridge <> CompleteMeasurement rec
+binder 3059:3060 <> cm:12
+R3087:3089 Coq.Init.Datatypes <> nat ind
+R3096:3104 Coq.Lists.List <> fold_left def
+R3138:3148 Kernel.POVMBridge <> cm_outcomes proj
+R3150:3151 Kernel.POVMBridge <> cm:12 var
+binder 3111:3113 <> acc:13
+binder 3115:3115 <> o:14
+R3123:3125 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3120:3122 Kernel.POVMBridge <> acc:13 var
+R3126:3132 Kernel.POVMBridge <> mo_bits proj
+R3134:3134 Kernel.POVMBridge <> o:14 var
+def 3216:3225 <> total_cost
+R3233:3251 Kernel.POVMBridge <> CompleteMeasurement rec
+binder 3228:3229 <> cm:15
+R3256:3258 Coq.Init.Datatypes <> nat ind
+R3265:3273 Coq.Lists.List <> fold_left def
+R3307:3317 Kernel.POVMBridge <> cm_outcomes proj
+R3319:3320 Kernel.POVMBridge <> cm:15 var
+binder 3280:3282 <> acc:16
+binder 3284:3284 <> o:17
+R3292:3294 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3289:3291 Kernel.POVMBridge <> acc:16 var
+R3295:3301 Kernel.POVMBridge <> mo_cost proj
+R3303:3303 Kernel.POVMBridge <> o:17 var
+prf 3387:3402 <> fold_left_add_ge
+R3436:3439 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3418:3435 Kernel.POVMBridge <> MeasurementOutcome rec
+R3440:3442 Coq.Init.Datatypes <> nat ind
+binder 3414:3414 <> f:18
+binder 3445:3445 <> l:19
+binder 3447:3449 <> acc:20
+R3490:3493 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3454:3462 Coq.Lists.List <> fold_left def
+R3487:3489 Kernel.POVMBridge <> acc:20 var
+R3485:3485 Kernel.POVMBridge <> l:19 var
+binder 3469:3469 <> a:21
+binder 3471:3471 <> o:22
+R3477:3479 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3476:3476 Kernel.POVMBridge <> a:21 var
+R3480:3480 Kernel.POVMBridge <> f:18 var
+R3482:3482 Kernel.POVMBridge <> o:22 var
+R3494:3496 Kernel.POVMBridge <> acc:20 var
+R3604:3606 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3604:3606 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+prf 3760:3777 <> fold_left_add_mono
+R3813:3816 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3795:3812 Kernel.POVMBridge <> MeasurementOutcome rec
+R3817:3819 Coq.Init.Datatypes <> nat ind
+binder 3789:3789 <> f:23
+binder 3791:3791 <> g:24
+binder 3822:3822 <> l:25
+R3827:3827 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3858:3864 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 3835:3835 <> o:26
+R3844:3847 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3838:3839 Coq.Lists.List <> In def
+R3843:3843 Kernel.POVMBridge <> l:25 var
+R3841:3841 Kernel.POVMBridge <> o:26 var
+R3851:3854 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3848:3848 Kernel.POVMBridge <> f:23 var
+R3850:3850 Kernel.POVMBridge <> o:26 var
+R3855:3855 Kernel.POVMBridge <> g:24 var
+R3857:3857 Kernel.POVMBridge <> o:26 var
+binder 3872:3875 <> acc1:27
+binder 3877:3880 <> acc2:28
+R3895:3900 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3887:3890 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3883:3886 Kernel.POVMBridge <> acc1:27 var
+R3891:3894 Kernel.POVMBridge <> acc2:28 var
+R3938:3943 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3901:3909 Coq.Lists.List <> fold_left def
+R3934:3937 Kernel.POVMBridge <> acc1:27 var
+R3932:3932 Kernel.POVMBridge <> l:25 var
+binder 3916:3916 <> a:29
+binder 3918:3918 <> o:30
+R3924:3926 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3923:3923 Kernel.POVMBridge <> a:29 var
+R3927:3927 Kernel.POVMBridge <> f:23 var
+R3929:3929 Kernel.POVMBridge <> o:30 var
+R3944:3952 Coq.Lists.List <> fold_left def
+R3977:3980 Kernel.POVMBridge <> acc2:28 var
+R3975:3975 Kernel.POVMBridge <> l:25 var
+binder 3959:3959 <> a:31
+binder 3961:3961 <> o:32
+R3967:3969 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3966:3966 Kernel.POVMBridge <> a:31 var
+R3970:3970 Kernel.POVMBridge <> g:24 var
+R3972:3972 Kernel.POVMBridge <> o:32 var
+R4168:4171 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4168:4171 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+prf 4292:4319 <> measurement_cost_bounds_info
+binder 4330:4331 <> cm:33
+R4349:4352 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4336:4345 Kernel.POVMBridge <> total_cost def
+R4347:4348 Kernel.POVMBridge <> cm:33 var
+R4353:4362 Kernel.POVMBridge <> total_bits def
+R4364:4365 Kernel.POVMBridge <> cm:33 var
+R4396:4405 Kernel.POVMBridge <> total_cost def
+R4408:4417 Kernel.POVMBridge <> total_bits def
+R4428:4445 Kernel.POVMBridge <> fold_left_add_mono thm
+R4428:4445 Kernel.POVMBridge <> fold_left_add_mono thm
+R4473:4487 Kernel.POVMBridge <> mo_cost_ge_bits proj
+R4473:4487 Kernel.POVMBridge <> mo_cost_ge_bits proj
+def 4852:4860 <> is_reveal
+R4867:4880 Kernel.VMStep VMStep vm_instruction ind
+binder 4863:4863 <> i:34
+R4885:4888 Coq.Init.Datatypes <> bool ind
+R4901:4901 Kernel.POVMBridge <> i:34 var
+R4912:4923 Kernel.VMStep VMStep instr_reveal constr
+R4936:4939 Coq.Init.Datatypes <> true constr
+R4950:4954 Coq.Init.Datatypes <> false constr
+def 4975:4985 <> reveal_bits
+R4992:5005 Kernel.VMStep VMStep vm_instruction ind
+binder 4988:4988 <> i:36
+R5010:5012 Coq.Init.Datatypes <> nat ind
+R5025:5025 Kernel.POVMBridge <> i:36 var
+R5036:5047 Kernel.VMStep VMStep instr_reveal constr
+def 5098:5108 <> reveal_cost
+R5115:5128 Kernel.VMStep VMStep vm_instruction ind
+binder 5111:5111 <> i:38
+R5133:5135 Coq.Init.Datatypes <> nat ind
+R5148:5148 Kernel.POVMBridge <> i:38 var
+R5159:5170 Kernel.VMStep VMStep instr_reveal constr
+def 5488:5504 <> reveal_trace_cost
+R5515:5518 Coq.Init.Datatypes <> list ind
+R5520:5533 Kernel.VMStep VMStep vm_instruction ind
+binder 5507:5511 <> trace:40
+R5538:5540 Coq.Init.Datatypes <> nat ind
+R5547:5555 Coq.Lists.List <> fold_left def
+R5621:5625 Kernel.POVMBridge <> trace:40 var
+binder 5562:5564 <> acc:41
+binder 5566:5566 <> i:42
+R5574:5582 Kernel.POVMBridge <> is_reveal def
+R5584:5584 Kernel.POVMBridge <> i:42 var
+R5616:5618 Kernel.POVMBridge <> acc:41 var
+R5594:5596 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5591:5593 Kernel.POVMBridge <> acc:41 var
+R5597:5607 Kernel.POVMBridge <> reveal_cost def
+R5609:5609 Kernel.POVMBridge <> i:42 var
+def 5642:5658 <> reveal_trace_bits
+R5669:5672 Coq.Init.Datatypes <> list ind
+R5674:5687 Kernel.VMStep VMStep vm_instruction ind
+binder 5661:5665 <> trace:43
+R5692:5694 Coq.Init.Datatypes <> nat ind
+R5701:5709 Coq.Lists.List <> fold_left def
+R5775:5779 Kernel.POVMBridge <> trace:43 var
+binder 5716:5718 <> acc:44
+binder 5720:5720 <> i:45
+R5728:5736 Kernel.POVMBridge <> is_reveal def
+R5738:5738 Kernel.POVMBridge <> i:45 var
+R5770:5772 Kernel.POVMBridge <> acc:44 var
+R5748:5750 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5745:5747 Kernel.POVMBridge <> acc:44 var
+R5751:5761 Kernel.POVMBridge <> reveal_bits def
+R5763:5763 Kernel.POVMBridge <> i:45 var
+prf 5845:5861 <> fold_left_cond_ge
+R5893:5896 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5879:5892 Kernel.VMStep VMStep vm_instruction ind
+R5897:5899 Coq.Init.Datatypes <> nat ind
+binder 5873:5873 <> f:46
+binder 5875:5875 <> g:47
+R5926:5929 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5912:5925 Kernel.VMStep VMStep vm_instruction ind
+R5930:5933 Coq.Init.Datatypes <> bool ind
+binder 5905:5908 <> pred:48
+binder 5936:5936 <> l:49
+binder 5938:5941 <> acc1:50
+binder 5943:5946 <> acc2:51
+R5963:5968 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5955:5958 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5951:5954 Kernel.POVMBridge <> acc1:50 var
+R5959:5962 Kernel.POVMBridge <> acc2:51 var
+R5969:5969 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6007:6013 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 5977:5977 <> i:52
+R5993:5996 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5986:5988 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5980:5983 Kernel.POVMBridge <> pred:48 var
+R5985:5985 Kernel.POVMBridge <> i:52 var
+R5989:5992 Coq.Init.Datatypes <> true constr
+R6000:6003 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5997:5997 Kernel.POVMBridge <> f:46 var
+R5999:5999 Kernel.POVMBridge <> i:52 var
+R6004:6004 Kernel.POVMBridge <> g:47 var
+R6006:6006 Kernel.POVMBridge <> i:52 var
+R6073:6078 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6014:6022 Coq.Lists.List <> fold_left def
+R6069:6072 Kernel.POVMBridge <> acc1:50 var
+R6067:6067 Kernel.POVMBridge <> l:49 var
+binder 6029:6029 <> a:53
+binder 6031:6031 <> i:54
+R6039:6042 Kernel.POVMBridge <> pred:48 var
+R6044:6044 Kernel.POVMBridge <> i:54 var
+R6064:6064 Kernel.POVMBridge <> a:53 var
+R6052:6054 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6051:6051 Kernel.POVMBridge <> a:53 var
+R6055:6055 Kernel.POVMBridge <> f:46 var
+R6057:6057 Kernel.POVMBridge <> i:54 var
+R6079:6087 Coq.Lists.List <> fold_left def
+R6134:6137 Kernel.POVMBridge <> acc2:51 var
+R6132:6132 Kernel.POVMBridge <> l:49 var
+binder 6094:6094 <> a:55
+binder 6096:6096 <> i:56
+R6104:6107 Kernel.POVMBridge <> pred:48 var
+R6109:6109 Kernel.POVMBridge <> i:56 var
+R6129:6129 Kernel.POVMBridge <> a:55 var
+R6117:6119 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6116:6116 Kernel.POVMBridge <> a:55 var
+R6120:6120 Kernel.POVMBridge <> g:47 var
+R6122:6122 Kernel.POVMBridge <> i:56 var
+R6313:6316 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6313:6316 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+prf 6475:6501 <> sequential_measurement_cost
+binder 6512:6516 <> trace:57
+R6521:6521 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6584:6590 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 6529:6529 <> i:58
+R6550:6553 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6543:6545 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6532:6540 Kernel.POVMBridge <> is_reveal def
+R6542:6542 Kernel.POVMBridge <> i:58 var
+R6546:6549 Coq.Init.Datatypes <> true constr
+R6567:6570 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6554:6564 Kernel.POVMBridge <> reveal_cost def
+R6566:6566 Kernel.POVMBridge <> i:58 var
+R6571:6581 Kernel.POVMBridge <> reveal_bits def
+R6583:6583 Kernel.POVMBridge <> i:58 var
+R6614:6617 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6591:6607 Kernel.POVMBridge <> reveal_trace_cost def
+R6609:6613 Kernel.POVMBridge <> trace:57 var
+R6618:6634 Kernel.POVMBridge <> reveal_trace_bits def
+R6636:6640 Kernel.POVMBridge <> trace:57 var
+R6681:6697 Kernel.POVMBridge <> reveal_trace_cost def
+R6700:6716 Kernel.POVMBridge <> reveal_trace_bits def
+R6727:6743 Kernel.POVMBridge <> fold_left_cond_ge thm
+R6727:6743 Kernel.POVMBridge <> fold_left_cond_ge thm
+def 7207:7224 <> is_complete_reveal
+R7258:7260 Coq.Init.Datatypes <> nat ind
+binder 7227:7240 <> bits_available:59
+binder 7242:7254 <> bits_revealed:60
+R7288:7290 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7275:7287 Kernel.POVMBridge <> bits_revealed:60 var
+R7291:7304 Kernel.POVMBridge <> bits_available:59 var
+prf 7526:7557 <> complete_reveal_determines_state
+binder 7570:7574 <> avail:61
+binder 7576:7583 <> revealed:62
+R7623:7630 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7590:7607 Kernel.POVMBridge <> is_complete_reveal def
+R7609:7613 Kernel.POVMBridge <> avail:61 var
+R7615:7622 Kernel.POVMBridge <> revealed:62 var
+R7639:7641 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7631:7638 Kernel.POVMBridge <> revealed:62 var
+R7642:7646 Kernel.POVMBridge <> avail:61 var
+prf 8013:8031 <> reveal_irreversible
+binder 8042:8045 <> bits:63
+binder 8047:8050 <> cost:64
+R8063:8068 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8059:8061 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R8055:8058 Kernel.POVMBridge <> bits:63 var
+R8081:8086 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8073:8076 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8069:8072 Kernel.POVMBridge <> cost:64 var
+R8077:8080 Kernel.POVMBridge <> bits:63 var
+R8091:8093 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R8087:8090 Kernel.POVMBridge <> cost:64 var
+R8150:8160 Coq.Arith.PeanoNat Nat add_0_r thm
+R8150:8160 Coq.Arith.PeanoNat Nat add_0_r thm
+R8150:8160 Coq.Arith.PeanoNat Nat add_0_r thm
+R8178:8192 Coq.Arith.PeanoNat Nat lt_le_trans thm
+R8178:8192 Coq.Arith.PeanoNat Nat lt_le_trans thm
+R8224:8234 Coq.Arith.PeanoNat Nat add_0_r thm
+R8224:8234 Coq.Arith.PeanoNat Nat add_0_r thm
+R8224:8234 Coq.Arith.PeanoNat Nat add_0_r thm
+rec 8520:8539 <> POVMBridgeProperties
+proj 8616:8636 <> povm_cost_bounds_info
+proj 8752:8766 <> povm_sequential
+proj 8973:8989 <> povm_irreversible
+binder 8647:8648 <> cm:66
+R8664:8667 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8651:8660 Kernel.POVMBridge <> total_cost def
+R8662:8663 Kernel.POVMBridge <> cm:66 var
+R8668:8677 Kernel.POVMBridge <> total_bits def
+R8679:8680 Kernel.POVMBridge <> cm:66 var
+binder 8777:8781 <> trace:68
+R8788:8788 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8851:8859 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 8796:8796 <> i:69
+R8817:8820 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8810:8812 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8799:8807 Kernel.POVMBridge <> is_reveal def
+R8809:8809 Kernel.POVMBridge <> i:69 var
+R8813:8816 Coq.Init.Datatypes <> true constr
+R8834:8837 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8821:8831 Kernel.POVMBridge <> reveal_cost def
+R8833:8833 Kernel.POVMBridge <> i:69 var
+R8838:8848 Kernel.POVMBridge <> reveal_bits def
+R8850:8850 Kernel.POVMBridge <> i:69 var
+R8883:8886 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8860:8876 Kernel.POVMBridge <> reveal_trace_cost def
+R8878:8882 Kernel.POVMBridge <> trace:68 var
+R8887:8903 Kernel.POVMBridge <> reveal_trace_bits def
+R8905:8909 Kernel.POVMBridge <> trace:68 var
+binder 9000:9003 <> bits:71
+binder 9005:9008 <> cost:72
+R9023:9026 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9019:9021 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R9015:9018 Kernel.POVMBridge <> bits:71 var
+R9039:9042 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9031:9034 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R9027:9030 Kernel.POVMBridge <> cost:72 var
+R9035:9038 Kernel.POVMBridge <> bits:71 var
+R9047:9049 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R9043:9046 Kernel.POVMBridge <> cost:72 var
+prf 9141:9168 <> reveal_satisfies_povm_bridge
+R9172:9191 Kernel.POVMBridge <> POVMBridgeProperties rec
+R9226:9253 Kernel.POVMBridge <> measurement_cost_bounds_info thm
+R9226:9253 Kernel.POVMBridge <> measurement_cost_bounds_info thm
+R9266:9292 Kernel.POVMBridge <> sequential_measurement_cost thm
+R9266:9292 Kernel.POVMBridge <> sequential_measurement_cost thm
+R9305:9323 Kernel.POVMBridge <> reveal_irreversible thm
+R9305:9323 Kernel.POVMBridge <> reveal_irreversible thm

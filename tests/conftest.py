@@ -6,6 +6,8 @@ import os
 from pathlib import Path
 import signal
 from typing import Optional
+import shutil
+import pytest
 
 # Fix Windows console encoding for Unicode characters (μ, ✓, etc.)
 if sys.platform == "win32":
@@ -20,6 +22,7 @@ if sys.platform == "win32":
     os.environ.setdefault('PYTHONIOENCODING', 'utf-8')
 
 ROOT = Path(__file__).resolve().parent
+REPO_ROOT = ROOT.parent
 
 # Guarantee the repository root is importable even when pytest adjusts sys.path.
 if str(ROOT) not in sys.path:
@@ -51,6 +54,12 @@ def pytest_addoption(parser):
         default=None,
         help="Override per-test timeout in seconds (CLI)",
     )
+    parser.addoption(
+        "--strict-backends",
+        action="store_true",
+        default=False,
+        help="Fail (instead of skip) strict backend-marked tests when required backends are missing.",
+    )
 
 
 def _alarm_handler(signum, frame):
@@ -70,6 +79,30 @@ def _get_timeout(item) -> int:
 
 
 def pytest_runtest_setup(item):
+    # Shared strict backend policy for no-shortcuts TDD runs.
+    strict_mode = item.config.getoption("--strict-backends") or (
+        os.getenv("THIELE_STRICT_BACKENDS", "0").strip().lower() in {"1", "true", "yes", "on"}
+    )
+    need_extracted = item.get_closest_marker("strict_extracted") is not None
+    need_rtl = item.get_closest_marker("strict_rtl") is not None
+
+    if need_extracted:
+        runner = REPO_ROOT / "build" / "extracted_vm_runner"
+        if not runner.exists():
+            msg = f"strict_extracted requires {runner}"
+            if strict_mode:
+                pytest.fail(msg)
+            pytest.skip(msg)
+
+    if need_rtl:
+        has_iverilog = shutil.which("iverilog") is not None
+        has_verilator = shutil.which("verilator") is not None
+        if not (has_iverilog or has_verilator):
+            msg = "strict_rtl requires iverilog or verilator"
+            if strict_mode:
+                pytest.fail(msg)
+            pytest.skip(msg)
+
     timeout = _get_timeout(item)
     # SIGALRM is available on Unix and is reliable for per-test timeouts
     signal.signal(signal.SIGALRM, _alarm_handler)

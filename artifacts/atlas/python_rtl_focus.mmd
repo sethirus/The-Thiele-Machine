@@ -1,0 +1,55 @@
+flowchart LR
+  X1["thielecpu/debugger.py"]
+  X2["thielecpu/hardware/rtl/thiele_cpu_kami.v"]
+  X1 -->|149| X2
+  X3["thielecpu/vm.py"]
+  X4["thielecpu/hardware/rtl/cross_layer_defs.vh"]
+  X3 -->|115| X4
+  X5["scripts/inquisitor.py"]
+  X4["thielecpu/hardware/rtl/cross_layer_defs.vh"]
+  X5 -->|108| X4
+  X6["thielecpu/receipts.py"]
+  X7["thielecpu/hardware/rtl/generated_opcodes.vh"]
+  X6 -->|68| X7
+  X8["thielecpu/semantic_mu_coq_isomorphic.py"]
+  X4["thielecpu/hardware/rtl/cross_layer_defs.vh"]
+  X8 -->|64| X4
+  X9["thielecpu/discovery.py"]
+  X4["thielecpu/hardware/rtl/cross_layer_defs.vh"]
+  X9 -->|63| X4
+  X10["experiments/graph_isomorphism_partitions.py"]
+  X4["thielecpu/hardware/rtl/cross_layer_defs.vh"]
+  X10 -->|62| X4
+  X11["scripts/generate_full_mesh_audit.py"]
+  X4["thielecpu/hardware/rtl/cross_layer_defs.vh"]
+  X11 -->|60| X4
+  X12["thielecpu/isa.py"]
+  X7["thielecpu/hardware/rtl/generated_opcodes.vh"]
+  X12 -->|52| X7
+  X13["thielecpu/state.py"]
+  X4["thielecpu/hardware/rtl/cross_layer_defs.vh"]
+  X13 -->|41| X4
+  X14["thielecpu/thesis_verify.py"]
+  X4["thielecpu/hardware/rtl/cross_layer_defs.vh"]
+  X14 -->|41| X4
+  X15["thielecpu/canonical_encoding.py"]
+  X4["thielecpu/hardware/rtl/cross_layer_defs.vh"]
+  X15 -->|40| X4
+  X16["thielecpu/dsl/executor.py"]
+  X2["thielecpu/hardware/rtl/thiele_cpu_kami.v"]
+  X16 -->|38| X2
+  X17["scripts/validate_mu_gravity_calibration.py"]
+  X4["thielecpu/hardware/rtl/cross_layer_defs.vh"]
+  X17 -->|31| X4
+  X18["thielecpu/crypto.py"]
+  X4["thielecpu/hardware/rtl/cross_layer_defs.vh"]
+  X18 -->|29| X4
+  X19["thielecpu/dsl/verify.py"]
+  X4["thielecpu/hardware/rtl/cross_layer_defs.vh"]
+  X19 -->|27| X4
+  X6["thielecpu/receipts.py"]
+  X4["thielecpu/hardware/rtl/cross_layer_defs.vh"]
+  X6 -->|26| X4
+  X3["thielecpu/vm.py"]
+  X2["thielecpu/hardware/rtl/thiele_cpu_kami.v"]
+  X3 -->|24| X2

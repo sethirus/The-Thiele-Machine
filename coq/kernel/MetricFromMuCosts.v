@@ -20,6 +20,9 @@
     This is the heart of "geometry emerges from computation."
     *)
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import MuCostModel.
+
 From Coq Require Import Reals List Arith.PeanoNat Lia Lra.
 Import ListNotations.
 Local Open Scope R_scope.

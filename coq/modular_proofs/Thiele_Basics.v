@@ -12,6 +12,10 @@ From Coq Require Import Arith.
 
 From ModularProofs Require Import TM_Basics.
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 Record ModularThieleSemantics (tm : TMTransition) := {
   mts_state : Type;
   mts_encode : TMConfig -> mts_state;
@@ -60,4 +64,5 @@ Section HelperLemmas.
     rewrite mts_run_n_zero.
     reflexivity.
   Qed.
+
 End HelperLemmas.

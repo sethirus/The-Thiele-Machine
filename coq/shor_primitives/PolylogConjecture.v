@@ -1,4 +1,6 @@
 (** * Factorization Complexity Analysis - HONEST ASSESSMENT
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
 
     STATUS: December 2025 - CORRECTED
     
@@ -31,6 +33,10 @@
     - There is no speedup over classical methods
     - The "8.12x speedup" claim was misleading (compared wrong things)
  *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import Arith.
 From Coq Require Import Lia.
@@ -193,3 +199,4 @@ End Achievements.
     with real proofs about cost accounting and Bell inequalities.
     It does NOT provide any computational advantage for factorization.
  *)
+

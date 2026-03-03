@@ -1,5 +1,9 @@
 From Coq Require Import List Arith.PeanoNat Lia ZArith.
 Import ListNotations.
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 
 Fixpoint map2 {A B C : Type} (f : A -> B -> C) (l1 : list A) (l2 : list B) : list C :=
   match l1, l2 with

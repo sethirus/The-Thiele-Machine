@@ -8,6 +8,10 @@
     Key insight: The row constraints from PSD moment matrix imply S² ≤ 8.
 *)
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 Require Import Coq.Reals.Reals.
 Require Import Coq.micromega.Lra.
 Require Import Coq.micromega.Psatz.

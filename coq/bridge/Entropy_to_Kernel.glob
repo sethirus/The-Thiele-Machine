@@ -1,28 +1,31 @@
-DIGEST 49aab65bdbfde0632e9eaa7d68e41774
+DIGEST ae80e01d94f38a84ea2587bc699e466b
 FBridge.Entropy_to_Kernel
 R24:27 Coq.Lists.List <> <> lib
 R29:36 Coq.Arith.PeanoNat <> <> lib
 R46:58 Coq.Lists.List ListNotations <> mod
 R89:99 Kernel.ReceiptCore <> <> lib
-mod 110:126 <> Entropy_to_Kernel
-def 141:155 Entropy_to_Kernel COARSE_GRAIN_OP
-R159:161 Coq.Init.Datatypes <> nat ind
-def 184:197 Entropy_to_Kernel EntropyChannel
-R204:222 Kernel.ReceiptCore ReceiptCore Receipt rec
-binder 200:200 <> r:1
-R227:230 Coq.Init.Datatypes <> bool ind
-R237:243 Coq.Arith.PeanoNat Nat eqb def
-R246:261 Kernel.ReceiptCore ReceiptCore r_op proj
-R263:263 Bridge.Entropy_to_Kernel <> r:1 var
-R266:280 Bridge.Entropy_to_Kernel Entropy_to_Kernel COARSE_GRAIN_OP def
-prf 423:437 Entropy_to_Kernel decodes_to_self
-binder 450:451 <> tr:2
-R458:479 Kernel.ReceiptCore ReceiptCore decodes_to def
-R481:494 Bridge.Entropy_to_Kernel Entropy_to_Kernel EntropyChannel def
-R496:497 Bridge.Entropy_to_Kernel <> tr:2 var
-R500:517 Kernel.ReceiptCore ReceiptCore decode def
-R519:532 Bridge.Entropy_to_Kernel Entropy_to_Kernel EntropyChannel def
-R534:535 Bridge.Entropy_to_Kernel <> tr:2 var
-R562:588 Kernel.ReceiptCore ReceiptCore decodes_to_refl thm
-R562:588 Kernel.ReceiptCore ReceiptCore decodes_to_refl thm
-R601:617 Bridge.Entropy_to_Kernel Entropy_to_Kernel <> mod
+R215:221 Kernel.VMState <> <> lib
+R223:228 Kernel.VMStep <> <> lib
+R258:268 Kernel.MuCostModel <> <> lib
+mod 279:295 <> Entropy_to_Kernel
+def 310:324 Entropy_to_Kernel COARSE_GRAIN_OP
+R328:330 Coq.Init.Datatypes <> nat ind
+def 353:366 Entropy_to_Kernel EntropyChannel
+R373:391 Kernel.ReceiptCore ReceiptCore Receipt rec
+binder 369:369 <> r:1
+R396:399 Coq.Init.Datatypes <> bool ind
+R406:412 Coq.Arith.PeanoNat Nat eqb def
+R415:430 Kernel.ReceiptCore ReceiptCore r_op proj
+R432:432 Bridge.Entropy_to_Kernel <> r:1 var
+R435:449 Bridge.Entropy_to_Kernel Entropy_to_Kernel COARSE_GRAIN_OP def
+prf 592:606 Entropy_to_Kernel decodes_to_self
+binder 619:620 <> tr:2
+R627:648 Kernel.ReceiptCore ReceiptCore decodes_to def
+R650:663 Bridge.Entropy_to_Kernel Entropy_to_Kernel EntropyChannel def
+R665:666 Bridge.Entropy_to_Kernel <> tr:2 var
+R669:686 Kernel.ReceiptCore ReceiptCore decode def
+R688:701 Bridge.Entropy_to_Kernel Entropy_to_Kernel EntropyChannel def
+R703:704 Bridge.Entropy_to_Kernel <> tr:2 var
+R731:757 Kernel.ReceiptCore ReceiptCore decodes_to_refl thm
+R731:757 Kernel.ReceiptCore ReceiptCore decodes_to_refl thm
+R771:787 Bridge.Entropy_to_Kernel Entropy_to_Kernel <> mod

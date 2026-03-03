@@ -1,198 +1,201 @@
-DIGEST 40dc67cbd91e6e340a65f62edec72c39
+DIGEST ea962013d1cfddd3be9f8af0fd48c651
 FTheory.PhysRel
 R119:152 Coq.Logic.FunctionalExtensionality <> <> lib
 R170:197 Coq.Logic.PropExtensionality <> <> lib
 R215:225 Theory.Core <> <> lib
-mod 236:246 <> RelCategory
-def 335:337 RelCategory Rel
-binder 340:340 <> A:1
-binder 342:342 <> B:2
-R356:359 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R355:355 Theory.PhysRel <> A:1 var
-R361:364 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R360:360 Theory.PhysRel <> B:2 var
-def 439:444 RelCategory rel_id
-binder 447:447 <> A:3
-R459:461 Theory.PhysRel RelCategory Rel def
-R465:465 Theory.PhysRel <> A:3 var
-R463:463 Theory.PhysRel <> A:3 var
-binder 474:474 <> a:4
-binder 476:476 <> b:5
-R482:484 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R481:481 Theory.PhysRel <> a:4 var
-R485:485 Theory.PhysRel <> b:5 var
-def 502:509 RelCategory rel_comp
-binder 512:512 <> A:6
-binder 514:514 <> B:7
-binder 516:516 <> C:8
-R531:533 Theory.PhysRel RelCategory Rel def
-R537:537 Theory.PhysRel <> C:8 var
-R535:535 Theory.PhysRel <> B:7 var
-binder 527:527 <> R:9
-R545:547 Theory.PhysRel RelCategory Rel def
-R551:551 Theory.PhysRel <> B:7 var
-R549:549 Theory.PhysRel <> A:6 var
-binder 541:541 <> S:10
-R556:558 Theory.PhysRel RelCategory Rel def
-R562:562 Theory.PhysRel <> C:8 var
-R560:560 Theory.PhysRel <> A:6 var
-binder 575:575 <> a:11
-binder 577:577 <> c:12
-R582:588 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R594:595 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R593:593 Theory.PhysRel <> B:7 var
-binder 589:589 <> b:13
-R601:604 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R596:596 Theory.PhysRel <> S:10 var
-R598:598 Theory.PhysRel <> a:11 var
-R600:600 Theory.PhysRel <> b:13 var
-R605:605 Theory.PhysRel <> R:9 var
-R607:607 Theory.PhysRel <> b:13 var
-R609:609 Theory.PhysRel <> c:12 var
-prf 740:748 RelCategory iff_to_eq
-binder 751:751 <> P:14
-binder 753:753 <> Q:15
-R765:765 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R773:777 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R767:771 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R766:766 Theory.PhysRel <> P:14 var
-R772:772 Theory.PhysRel <> Q:15 var
-R779:781 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R778:778 Theory.PhysRel <> P:14 var
-R782:782 Theory.PhysRel <> Q:15 var
-R820:847 Coq.Logic.PropExtensionality <> propositional_extensionality prfax
-R820:847 Coq.Logic.PropExtensionality <> propositional_extensionality prfax
-prf 1038:1050 RelCategory rel_comp_id_l
-binder 1066:1066 <> A:16
-binder 1068:1068 <> B:17
-R1081:1083 Theory.PhysRel RelCategory Rel def
-R1087:1087 Theory.PhysRel <> B:17 var
-R1085:1085 Theory.PhysRel <> A:16 var
-binder 1077:1077 <> R:18
-R1113:1115 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1091:1098 Theory.PhysRel RelCategory rel_comp def
-R1112:1112 Theory.PhysRel <> R:18 var
-R1102:1107 Theory.PhysRel RelCategory rel_id def
-R1109:1109 Theory.PhysRel <> B:17 var
-R1116:1116 Theory.PhysRel <> R:18 var
-R1152:1180 Coq.Logic.FunctionalExtensionality <> functional_extensionality_dep prfax
-R1152:1180 Coq.Logic.FunctionalExtensionality <> functional_extensionality_dep prfax
-R1203:1231 Coq.Logic.FunctionalExtensionality <> functional_extensionality_dep prfax
-R1203:1231 Coq.Logic.FunctionalExtensionality <> functional_extensionality_dep prfax
-R1251:1258 Theory.PhysRel RelCategory rel_comp def
-R1261:1266 Theory.PhysRel RelCategory rel_id def
-R1279:1287 Theory.PhysRel RelCategory iff_to_eq thm
-R1279:1287 Theory.PhysRel RelCategory iff_to_eq thm
-prf 1470:1482 RelCategory rel_comp_id_r
-binder 1498:1498 <> A:19
-binder 1500:1500 <> B:20
-R1513:1515 Theory.PhysRel RelCategory Rel def
-R1519:1519 Theory.PhysRel <> B:20 var
-R1517:1517 Theory.PhysRel <> A:19 var
-binder 1509:1509 <> R:21
-R1545:1547 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1523:1530 Theory.PhysRel RelCategory rel_comp def
-R1536:1541 Theory.PhysRel RelCategory rel_id def
-R1543:1543 Theory.PhysRel <> A:19 var
-R1532:1532 Theory.PhysRel <> R:21 var
-R1548:1548 Theory.PhysRel <> R:21 var
-R1584:1612 Coq.Logic.FunctionalExtensionality <> functional_extensionality_dep prfax
-R1584:1612 Coq.Logic.FunctionalExtensionality <> functional_extensionality_dep prfax
-R1635:1663 Coq.Logic.FunctionalExtensionality <> functional_extensionality_dep prfax
-R1635:1663 Coq.Logic.FunctionalExtensionality <> functional_extensionality_dep prfax
-R1683:1690 Theory.PhysRel RelCategory rel_comp def
-R1693:1698 Theory.PhysRel RelCategory rel_id def
-R1711:1719 Theory.PhysRel RelCategory iff_to_eq thm
-R1711:1719 Theory.PhysRel RelCategory iff_to_eq thm
-prf 1902:1915 RelCategory rel_comp_assoc
-binder 1931:1931 <> A:22
-binder 1933:1933 <> B:23
-binder 1935:1935 <> C:24
-binder 1937:1937 <> D:25
-R1961:1963 Theory.PhysRel RelCategory Rel def
-R1967:1967 Theory.PhysRel <> D:25 var
-R1965:1965 Theory.PhysRel <> C:24 var
-binder 1957:1957 <> T:26
-R1975:1977 Theory.PhysRel RelCategory Rel def
-R1981:1981 Theory.PhysRel <> C:24 var
-R1979:1979 Theory.PhysRel <> B:23 var
-binder 1971:1971 <> R:27
-R1989:1991 Theory.PhysRel RelCategory Rel def
-R1995:1995 Theory.PhysRel <> B:23 var
-R1993:1993 Theory.PhysRel <> A:22 var
-binder 1985:1985 <> S:28
-R2030:2032 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2005:2012 Theory.PhysRel RelCategory rel_comp def
-R2017:2024 Theory.PhysRel RelCategory rel_comp def
-R2028:2028 Theory.PhysRel <> S:28 var
-R2026:2026 Theory.PhysRel <> R:27 var
-R2014:2014 Theory.PhysRel <> T:26 var
-R2033:2040 Theory.PhysRel RelCategory rel_comp def
-R2057:2057 Theory.PhysRel <> S:28 var
-R2043:2050 Theory.PhysRel RelCategory rel_comp def
-R2054:2054 Theory.PhysRel <> R:27 var
-R2052:2052 Theory.PhysRel <> T:26 var
-R2105:2133 Coq.Logic.FunctionalExtensionality <> functional_extensionality_dep prfax
-R2105:2133 Coq.Logic.FunctionalExtensionality <> functional_extensionality_dep prfax
-R2156:2184 Coq.Logic.FunctionalExtensionality <> functional_extensionality_dep prfax
-R2156:2184 Coq.Logic.FunctionalExtensionality <> functional_extensionality_dep prfax
-R2204:2211 Theory.PhysRel RelCategory rel_comp def
-R2224:2232 Theory.PhysRel RelCategory iff_to_eq thm
-R2224:2232 Theory.PhysRel RelCategory iff_to_eq thm
-def 2520:2525 RelCategory RelCat
-R2529:2531 Theory.Core <> Cat rec
-R2546:2554 Theory.Core <> Build_Cat constr
-R2561:2563 Theory.PhysRel RelCategory Rel def
-R2571:2576 Theory.PhysRel RelCategory rel_id def
-binder 2589:2589 <> A:29
-binder 2591:2591 <> B:30
-binder 2593:2593 <> C:31
-R2599:2606 Theory.PhysRel RelCategory rel_comp def
-R2608:2608 Theory.PhysRel <> A:29 var
-R2610:2610 Theory.PhysRel <> B:30 var
-R2612:2612 Theory.PhysRel <> C:31 var
-binder 2626:2626 <> A:32
-binder 2628:2628 <> B:33
-R2633:2635 Theory.PhysRel RelCategory Rel def
-R2639:2639 Theory.PhysRel <> B:33 var
-R2637:2637 Theory.PhysRel <> A:32 var
-binder 2631:2631 <> f:34
-R2646:2658 Theory.PhysRel RelCategory rel_comp_id_l thm
-R2660:2660 Theory.PhysRel <> A:32 var
-R2662:2662 Theory.PhysRel <> B:33 var
-R2664:2664 Theory.PhysRel <> f:34 var
-binder 2678:2678 <> A:35
-binder 2680:2680 <> B:36
-R2685:2687 Theory.PhysRel RelCategory Rel def
-R2691:2691 Theory.PhysRel <> B:36 var
-R2689:2689 Theory.PhysRel <> A:35 var
-binder 2683:2683 <> f:37
-R2698:2710 Theory.PhysRel RelCategory rel_comp_id_r thm
-R2712:2712 Theory.PhysRel <> A:35 var
-R2714:2714 Theory.PhysRel <> B:36 var
-R2716:2716 Theory.PhysRel <> f:37 var
-binder 2730:2730 <> A:38
-binder 2732:2732 <> B:39
-binder 2734:2734 <> C:40
-binder 2736:2736 <> D:41
-R2741:2743 Theory.PhysRel RelCategory Rel def
-R2747:2747 Theory.PhysRel <> D:41 var
-R2745:2745 Theory.PhysRel <> C:40 var
-binder 2739:2739 <> h:42
-R2753:2755 Theory.PhysRel RelCategory Rel def
-R2759:2759 Theory.PhysRel <> C:40 var
-R2757:2757 Theory.PhysRel <> B:39 var
-binder 2751:2751 <> g:43
-R2765:2767 Theory.PhysRel RelCategory Rel def
-R2771:2771 Theory.PhysRel <> B:39 var
-R2769:2769 Theory.PhysRel <> A:38 var
-binder 2763:2763 <> f:44
-R2778:2791 Theory.PhysRel RelCategory rel_comp_assoc thm
-R2793:2793 Theory.PhysRel <> A:38 var
-R2795:2795 Theory.PhysRel <> B:39 var
-R2797:2797 Theory.PhysRel <> C:40 var
-R2799:2799 Theory.PhysRel <> D:41 var
-R2801:2801 Theory.PhysRel <> h:42 var
-R2803:2803 Theory.PhysRel <> g:43 var
-R2805:2805 Theory.PhysRel <> f:44 var
-R2814:2824 Theory.PhysRel RelCategory <> mod
+R341:347 Kernel.VMState <> <> lib
+R349:354 Kernel.VMStep <> <> lib
+R384:394 Kernel.MuCostModel <> <> lib
+mod 405:415 <> RelCategory
+def 504:506 RelCategory Rel
+binder 509:509 <> A:1
+binder 511:511 <> B:2
+R525:528 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R524:524 Theory.PhysRel <> A:1 var
+R530:533 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R529:529 Theory.PhysRel <> B:2 var
+def 608:613 RelCategory rel_id
+binder 616:616 <> A:3
+R628:630 Theory.PhysRel RelCategory Rel def
+R634:634 Theory.PhysRel <> A:3 var
+R632:632 Theory.PhysRel <> A:3 var
+binder 643:643 <> a:4
+binder 645:645 <> b:5
+R651:653 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R650:650 Theory.PhysRel <> a:4 var
+R654:654 Theory.PhysRel <> b:5 var
+def 671:678 RelCategory rel_comp
+binder 681:681 <> A:6
+binder 683:683 <> B:7
+binder 685:685 <> C:8
+R700:702 Theory.PhysRel RelCategory Rel def
+R706:706 Theory.PhysRel <> C:8 var
+R704:704 Theory.PhysRel <> B:7 var
+binder 696:696 <> R:9
+R714:716 Theory.PhysRel RelCategory Rel def
+R720:720 Theory.PhysRel <> B:7 var
+R718:718 Theory.PhysRel <> A:6 var
+binder 710:710 <> S:10
+R725:727 Theory.PhysRel RelCategory Rel def
+R731:731 Theory.PhysRel <> C:8 var
+R729:729 Theory.PhysRel <> A:6 var
+binder 744:744 <> a:11
+binder 746:746 <> c:12
+R751:757 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R763:764 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R762:762 Theory.PhysRel <> B:7 var
+binder 758:758 <> b:13
+R770:773 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R765:765 Theory.PhysRel <> S:10 var
+R767:767 Theory.PhysRel <> a:11 var
+R769:769 Theory.PhysRel <> b:13 var
+R774:774 Theory.PhysRel <> R:9 var
+R776:776 Theory.PhysRel <> b:13 var
+R778:778 Theory.PhysRel <> c:12 var
+prf 909:917 RelCategory iff_to_eq
+binder 920:920 <> P:14
+binder 922:922 <> Q:15
+R934:934 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R942:946 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R936:940 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R935:935 Theory.PhysRel <> P:14 var
+R941:941 Theory.PhysRel <> Q:15 var
+R948:950 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R947:947 Theory.PhysRel <> P:14 var
+R951:951 Theory.PhysRel <> Q:15 var
+R989:1016 Coq.Logic.PropExtensionality <> propositional_extensionality prfax
+R989:1016 Coq.Logic.PropExtensionality <> propositional_extensionality prfax
+prf 1207:1219 RelCategory rel_comp_id_l
+binder 1235:1235 <> A:16
+binder 1237:1237 <> B:17
+R1250:1252 Theory.PhysRel RelCategory Rel def
+R1256:1256 Theory.PhysRel <> B:17 var
+R1254:1254 Theory.PhysRel <> A:16 var
+binder 1246:1246 <> R:18
+R1282:1284 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1260:1267 Theory.PhysRel RelCategory rel_comp def
+R1281:1281 Theory.PhysRel <> R:18 var
+R1271:1276 Theory.PhysRel RelCategory rel_id def
+R1278:1278 Theory.PhysRel <> B:17 var
+R1285:1285 Theory.PhysRel <> R:18 var
+R1321:1349 Coq.Logic.FunctionalExtensionality <> functional_extensionality_dep prfax
+R1321:1349 Coq.Logic.FunctionalExtensionality <> functional_extensionality_dep prfax
+R1372:1400 Coq.Logic.FunctionalExtensionality <> functional_extensionality_dep prfax
+R1372:1400 Coq.Logic.FunctionalExtensionality <> functional_extensionality_dep prfax
+R1420:1427 Theory.PhysRel RelCategory rel_comp def
+R1430:1435 Theory.PhysRel RelCategory rel_id def
+R1448:1456 Theory.PhysRel RelCategory iff_to_eq thm
+R1448:1456 Theory.PhysRel RelCategory iff_to_eq thm
+prf 1639:1651 RelCategory rel_comp_id_r
+binder 1667:1667 <> A:19
+binder 1669:1669 <> B:20
+R1682:1684 Theory.PhysRel RelCategory Rel def
+R1688:1688 Theory.PhysRel <> B:20 var
+R1686:1686 Theory.PhysRel <> A:19 var
+binder 1678:1678 <> R:21
+R1714:1716 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1692:1699 Theory.PhysRel RelCategory rel_comp def
+R1705:1710 Theory.PhysRel RelCategory rel_id def
+R1712:1712 Theory.PhysRel <> A:19 var
+R1701:1701 Theory.PhysRel <> R:21 var
+R1717:1717 Theory.PhysRel <> R:21 var
+R1753:1781 Coq.Logic.FunctionalExtensionality <> functional_extensionality_dep prfax
+R1753:1781 Coq.Logic.FunctionalExtensionality <> functional_extensionality_dep prfax
+R1804:1832 Coq.Logic.FunctionalExtensionality <> functional_extensionality_dep prfax
+R1804:1832 Coq.Logic.FunctionalExtensionality <> functional_extensionality_dep prfax
+R1852:1859 Theory.PhysRel RelCategory rel_comp def
+R1862:1867 Theory.PhysRel RelCategory rel_id def
+R1880:1888 Theory.PhysRel RelCategory iff_to_eq thm
+R1880:1888 Theory.PhysRel RelCategory iff_to_eq thm
+prf 2071:2084 RelCategory rel_comp_assoc
+binder 2100:2100 <> A:22
+binder 2102:2102 <> B:23
+binder 2104:2104 <> C:24
+binder 2106:2106 <> D:25
+R2130:2132 Theory.PhysRel RelCategory Rel def
+R2136:2136 Theory.PhysRel <> D:25 var
+R2134:2134 Theory.PhysRel <> C:24 var
+binder 2126:2126 <> T:26
+R2144:2146 Theory.PhysRel RelCategory Rel def
+R2150:2150 Theory.PhysRel <> C:24 var
+R2148:2148 Theory.PhysRel <> B:23 var
+binder 2140:2140 <> R:27
+R2158:2160 Theory.PhysRel RelCategory Rel def
+R2164:2164 Theory.PhysRel <> B:23 var
+R2162:2162 Theory.PhysRel <> A:22 var
+binder 2154:2154 <> S:28
+R2199:2201 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2174:2181 Theory.PhysRel RelCategory rel_comp def
+R2186:2193 Theory.PhysRel RelCategory rel_comp def
+R2197:2197 Theory.PhysRel <> S:28 var
+R2195:2195 Theory.PhysRel <> R:27 var
+R2183:2183 Theory.PhysRel <> T:26 var
+R2202:2209 Theory.PhysRel RelCategory rel_comp def
+R2226:2226 Theory.PhysRel <> S:28 var
+R2212:2219 Theory.PhysRel RelCategory rel_comp def
+R2223:2223 Theory.PhysRel <> R:27 var
+R2221:2221 Theory.PhysRel <> T:26 var
+R2274:2302 Coq.Logic.FunctionalExtensionality <> functional_extensionality_dep prfax
+R2274:2302 Coq.Logic.FunctionalExtensionality <> functional_extensionality_dep prfax
+R2325:2353 Coq.Logic.FunctionalExtensionality <> functional_extensionality_dep prfax
+R2325:2353 Coq.Logic.FunctionalExtensionality <> functional_extensionality_dep prfax
+R2373:2380 Theory.PhysRel RelCategory rel_comp def
+R2393:2401 Theory.PhysRel RelCategory iff_to_eq thm
+R2393:2401 Theory.PhysRel RelCategory iff_to_eq thm
+def 2689:2694 RelCategory RelCat
+R2698:2700 Theory.Core <> Cat rec
+R2715:2723 Theory.Core <> Build_Cat constr
+R2730:2732 Theory.PhysRel RelCategory Rel def
+R2740:2745 Theory.PhysRel RelCategory rel_id def
+binder 2758:2758 <> A:29
+binder 2760:2760 <> B:30
+binder 2762:2762 <> C:31
+R2768:2775 Theory.PhysRel RelCategory rel_comp def
+R2777:2777 Theory.PhysRel <> A:29 var
+R2779:2779 Theory.PhysRel <> B:30 var
+R2781:2781 Theory.PhysRel <> C:31 var
+binder 2795:2795 <> A:32
+binder 2797:2797 <> B:33
+R2802:2804 Theory.PhysRel RelCategory Rel def
+R2808:2808 Theory.PhysRel <> B:33 var
+R2806:2806 Theory.PhysRel <> A:32 var
+binder 2800:2800 <> f:34
+R2815:2827 Theory.PhysRel RelCategory rel_comp_id_l thm
+R2829:2829 Theory.PhysRel <> A:32 var
+R2831:2831 Theory.PhysRel <> B:33 var
+R2833:2833 Theory.PhysRel <> f:34 var
+binder 2847:2847 <> A:35
+binder 2849:2849 <> B:36
+R2854:2856 Theory.PhysRel RelCategory Rel def
+R2860:2860 Theory.PhysRel <> B:36 var
+R2858:2858 Theory.PhysRel <> A:35 var
+binder 2852:2852 <> f:37
+R2867:2879 Theory.PhysRel RelCategory rel_comp_id_r thm
+R2881:2881 Theory.PhysRel <> A:35 var
+R2883:2883 Theory.PhysRel <> B:36 var
+R2885:2885 Theory.PhysRel <> f:37 var
+binder 2899:2899 <> A:38
+binder 2901:2901 <> B:39
+binder 2903:2903 <> C:40
+binder 2905:2905 <> D:41
+R2910:2912 Theory.PhysRel RelCategory Rel def
+R2916:2916 Theory.PhysRel <> D:41 var
+R2914:2914 Theory.PhysRel <> C:40 var
+binder 2908:2908 <> h:42
+R2922:2924 Theory.PhysRel RelCategory Rel def
+R2928:2928 Theory.PhysRel <> C:40 var
+R2926:2926 Theory.PhysRel <> B:39 var
+binder 2920:2920 <> g:43
+R2934:2936 Theory.PhysRel RelCategory Rel def
+R2940:2940 Theory.PhysRel <> B:39 var
+R2938:2938 Theory.PhysRel <> A:38 var
+binder 2932:2932 <> f:44
+R2947:2960 Theory.PhysRel RelCategory rel_comp_assoc thm
+R2962:2962 Theory.PhysRel <> A:38 var
+R2964:2964 Theory.PhysRel <> B:39 var
+R2966:2966 Theory.PhysRel <> C:40 var
+R2968:2968 Theory.PhysRel <> D:41 var
+R2970:2970 Theory.PhysRel <> h:42 var
+R2972:2972 Theory.PhysRel <> g:43 var
+R2974:2974 Theory.PhysRel <> f:44 var
+R2984:2994 Theory.PhysRel RelCategory <> mod

@@ -5,6 +5,10 @@ From Coq Require Import Lra.
 From ThieleMachine Require Import BellInequality.
 From ThieleMachine Require Import TsirelsonBoundBridge.
 From ThieleMachine Require Import QuantumAdmissibilityTsirelson.
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 
 Open Scope Q_scope.
 

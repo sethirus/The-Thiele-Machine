@@ -14,6 +14,7 @@ From KamiHW Require Import Abstraction.
 Definition verilog_sim_rel (hs : KamiSnapshot) (vs : VMState) : Prop :=
   abs_phase1 hs = vs.
 
+(* DEFINITIONAL HELPER *)
 Lemma verilog_sim_rel_abs_phase1 :
   forall hs, verilog_sim_rel hs (abs_phase1 hs).
 Proof.

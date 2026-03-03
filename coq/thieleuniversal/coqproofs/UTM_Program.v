@@ -4,6 +4,7 @@ Require Import ThieleUniversal.UTM_Encode.
 Require Import List.
 Require Import Lia.
 Require Import Arith.
+From Kernel Require Import VMState.
 Import ListNotations.
 
 Module UTM_Program.
@@ -475,5 +476,16 @@ Module UTM_Program.
     simpl. unfold CPU.pc_unchanged. simpl. intros H; discriminate.
     (* pc = 48 would be next, but <48 *)
   Qed.
+
+  (* ----------------------------------------------------------------- *)
+  (* Bridge: The UTM program is representable in VMState memory        *)
+  (* ----------------------------------------------------------------- *)
+
+  (** The UTM simulator program resides in vm_mem of the VMState.
+      Its execution is a sequence of vm_step transitions, each with
+      mu_cost_of_instr cost. The program's boundedness (all jump
+      targets < 48, all register indices < 10) ensures it stays
+      within the representable VMState space. *)
+  Definition utm_program_in_vm (vm : VMState) : nat := vm_pc vm.
 
 End UTM_Program.

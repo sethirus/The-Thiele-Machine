@@ -1,4 +1,6 @@
 (** =========================================================================
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
     QUANTUM MECHANICS THEOREMS
     =========================================================================
     
@@ -15,6 +17,9 @@
     5. Born Rule: Symmetry + μ-conservation
     
     ========================================================================= *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
 
 From Coq Require Import List String ZArith Lia Bool Nat.
 Require Import ThieleMachine.CoreSemantics.

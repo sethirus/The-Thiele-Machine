@@ -1,317 +1,320 @@
-DIGEST 41204992c7fbb79b13f6074a53a24b48
+DIGEST 5661d1e1c0f0f376e0b42e08434338a3
 FThieleMachine.ThieleFoundations
 R15:32 Coq.Strings.String <> <> lib
 R50:63 Coq.Lists.List <> <> lib
 R81:92 Coq.Init.Nat <> <> lib
 R102:114 Coq.Lists.List ListNotations <> mod
 R133:159 ThieleMachine.CoreSemantics <> <> lib
-rec 446:458 <> TuringMachine
-proj 467:472 <> States
-proj 483:490 <> Alphabet
-proj 501:505 <> Blank
-proj 521:530 <> Transition
-proj 609:618 <> StartState
-proj 632:643 <> AcceptStates
-R509:516 ThieleMachine.ThieleFoundations <> Alphabet:3 meth
-R540:543 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R534:539 ThieleMachine.ThieleFoundations <> States:2 meth
-R552:556 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R581:581 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R544:551 ThieleMachine.ThieleFoundations <> Alphabet:3 meth
-R574:576 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R563:565 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R557:562 ThieleMachine.ThieleFoundations <> States:2 meth
-R566:573 ThieleMachine.ThieleFoundations <> Alphabet:3 meth
-R577:580 Coq.Init.Datatypes <> bool ind
-R622:627 ThieleMachine.ThieleFoundations <> States:2 meth
-R653:656 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R647:652 ThieleMachine.ThieleFoundations <> States:2 meth
-rec 673:689 <> CoreThieleMachine
-proj 698:708 <> TM_Skeleton
-proj 729:743 <> PartitionLabels
-proj 754:759 <> MuCost
-R712:724 ThieleMachine.ThieleFoundations <> TuringMachine rec
-R763:765 Coq.Init.Datatypes <> nat ind
-rec 834:846 <> Configuration
-proj 879:882 <> Tape
-proj 921:924 <> Head
-proj 935:939 <> State
-proj 969:977 <> Partition
-proj 1002:1003 <> Mu
-R853:869 ThieleMachine.ThieleFoundations <> CoreThieleMachine rec
-binder 849:849 <> T:12
-R886:889 Coq.Init.Datatypes <> list ind
-R892:899 ThieleMachine.ThieleFoundations <> Alphabet proj
-R902:912 ThieleMachine.ThieleFoundations <> TM_Skeleton proj
-R914:914 ThieleMachine.ThieleFoundations <> T:12 var
-R928:930 Coq.Init.Datatypes <> nat ind
-R943:948 ThieleMachine.ThieleFoundations <> States proj
-R951:961 ThieleMachine.ThieleFoundations <> TM_Skeleton proj
-R963:963 ThieleMachine.ThieleFoundations <> T:12 var
-R981:995 ThieleMachine.ThieleFoundations <> PartitionLabels proj
-R997:997 ThieleMachine.ThieleFoundations <> T:12 var
-R1007:1009 Coq.Init.Datatypes <> nat ind
-rec 1054:1072 <> TuringConfiguration
-proj 1101:1106 <> T_Tape
-proj 1131:1136 <> T_Head
-proj 1147:1153 <> T_State
-R1079:1091 ThieleMachine.ThieleFoundations <> TuringMachine rec
-binder 1075:1075 <> M:19
-R1110:1113 Coq.Init.Datatypes <> list ind
-R1116:1123 ThieleMachine.ThieleFoundations <> Alphabet proj
-R1125:1125 ThieleMachine.ThieleFoundations <> M:19 var
-R1140:1142 Coq.Init.Datatypes <> nat ind
-R1157:1162 ThieleMachine.ThieleFoundations <> States proj
-R1164:1164 ThieleMachine.ThieleFoundations <> M:19 var
-def 1181:1187 <> Project
-R1194:1210 ThieleMachine.ThieleFoundations <> CoreThieleMachine rec
-binder 1190:1190 <> T:24
-R1218:1230 ThieleMachine.ThieleFoundations <> Configuration rec
-R1232:1232 ThieleMachine.ThieleFoundations <> T:24 var
-binder 1214:1214 <> C:25
-R1237:1255 ThieleMachine.ThieleFoundations <> TuringConfiguration rec
-R1258:1268 ThieleMachine.ThieleFoundations <> TM_Skeleton proj
-R1270:1270 ThieleMachine.ThieleFoundations <> T:24 var
-R1281:1286 ThieleMachine.ThieleFoundations <> T_Tape proj
-R1281:1286 ThieleMachine.ThieleFoundations <> T_Tape proj
-R1281:1286 ThieleMachine.ThieleFoundations <> T_Tape proj
-R1306:1311 ThieleMachine.ThieleFoundations <> T_Head proj
-R1306:1311 ThieleMachine.ThieleFoundations <> T_Head proj
-R1331:1337 ThieleMachine.ThieleFoundations <> T_State proj
-R1331:1337 ThieleMachine.ThieleFoundations <> T_State proj
-R1291:1294 ThieleMachine.ThieleFoundations <> Tape proj
-R1296:1296 ThieleMachine.ThieleFoundations <> T:24 var
-R1298:1298 ThieleMachine.ThieleFoundations <> C:25 var
-R1316:1319 ThieleMachine.ThieleFoundations <> Head proj
-R1321:1321 ThieleMachine.ThieleFoundations <> T:24 var
-R1323:1323 ThieleMachine.ThieleFoundations <> C:25 var
-R1342:1346 ThieleMachine.ThieleFoundations <> State proj
-R1348:1348 ThieleMachine.ThieleFoundations <> T:24 var
-R1350:1350 ThieleMachine.ThieleFoundations <> C:25 var
-def 1587:1591 <> Embed
-R1598:1610 ThieleMachine.ThieleFoundations <> TuringMachine rec
-binder 1594:1594 <> M:26
-R1615:1631 ThieleMachine.ThieleFoundations <> CoreThieleMachine rec
-R1641:1651 ThieleMachine.ThieleFoundations <> TM_Skeleton proj
-R1641:1651 ThieleMachine.ThieleFoundations <> TM_Skeleton proj
-R1641:1651 ThieleMachine.ThieleFoundations <> TM_Skeleton proj
-R1664:1678 ThieleMachine.ThieleFoundations <> PartitionLabels proj
-R1664:1678 ThieleMachine.ThieleFoundations <> PartitionLabels proj
-R1722:1727 ThieleMachine.ThieleFoundations <> MuCost proj
-R1722:1727 ThieleMachine.ThieleFoundations <> MuCost proj
-R1656:1656 ThieleMachine.ThieleFoundations <> M:26 var
-R1683:1686 Coq.Init.Datatypes <> unit ind
-prf 1923:1949 <> Turing_Embedding_Properties
-R1965:1977 ThieleMachine.ThieleFoundations <> TuringMachine rec
-binder 1961:1961 <> M:27
-R1992:1996 ThieleMachine.ThieleFoundations <> Embed def
-R1998:1998 ThieleMachine.ThieleFoundations <> M:27 var
-binder 1987:1987 <> T:28
-R2022:2027 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2018:2020 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2005:2015 ThieleMachine.ThieleFoundations <> TM_Skeleton proj
-R2017:2017 ThieleMachine.ThieleFoundations <> T:28 var
-R2021:2021 ThieleMachine.ThieleFoundations <> M:27 var
-R2028:2028 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2077:2083 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2041:2053 ThieleMachine.ThieleFoundations <> Configuration rec
-R2055:2055 ThieleMachine.ThieleFoundations <> T:28 var
-binder 2037:2037 <> C:29
-R2072:2074 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2059:2067 ThieleMachine.ThieleFoundations <> Partition proj
-R2069:2069 ThieleMachine.ThieleFoundations <> T:28 var
-R2071:2071 ThieleMachine.ThieleFoundations <> C:29 var
-R2075:2076 Coq.Init.Datatypes <> tt constr
-R2092:2094 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2084:2089 ThieleMachine.ThieleFoundations <> MuCost proj
-R2091:2091 ThieleMachine.ThieleFoundations <> T:28 var
-R2193:2201 ThieleMachine.ThieleFoundations <> Partition proj
-R2204:2208 ThieleMachine.ThieleFoundations <> Embed def
-R2193:2201 ThieleMachine.ThieleFoundations <> Partition proj
-R2204:2208 ThieleMachine.ThieleFoundations <> Embed def
-def 2702:2706 <> Trace
-R2718:2720 Coq.Init.Datatypes <> nat ind
-def 2735:2744 <> Isomorphic
-R2757:2761 ThieleMachine.ThieleFoundations <> Trace def
-binder 2747:2749 <> _t1:30
-binder 2751:2753 <> _t2:31
-R2774:2778 Coq.Init.Logic <> False ind
-def 2793:2798 <> Shadow
-R2806:2810 ThieleMachine.ThieleFoundations <> Trace def
-binder 2801:2802 <> _t:32
-R2817:2820 Coq.Init.Datatypes <> list ind
-R2823:2841 ThieleMachine.ThieleFoundations <> TuringConfiguration rec
-R2856:2866 ThieleMachine.ThieleFoundations <> TM_Skeleton proj
-R2884:2888 ThieleMachine.ThieleFoundations <> Embed def
-R2891:2909 ThieleMachine.ThieleFoundations <> Build_TuringMachine constr
-R2911:2914 Coq.Init.Datatypes <> unit ind
-R2916:2919 Coq.Init.Datatypes <> unit ind
-R2921:2922 Coq.Init.Datatypes <> tt constr
-R2960:2960 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2963:2964 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2967:2968 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2973:2973 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2961:2962 Coq.Init.Datatypes <> tt constr
-R2965:2966 Coq.Init.Datatypes <> tt constr
-R2969:2972 Coq.Init.Datatypes <> true constr
-R2976:2977 Coq.Init.Datatypes <> tt constr
-R2989:2992 Coq.Init.Logic <> True ind
-R3004:3005 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-prf 3069:3087 <> Semantic_Strictness
-R3091:3098 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3144:3148 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3107:3123 ThieleMachine.ThieleFoundations <> CoreThieleMachine rec
-binder 3099:3100 <> T1:33
-R3107:3123 ThieleMachine.ThieleFoundations <> CoreThieleMachine rec
-binder 3102:3103 <> T2:34
-R3139:3143 ThieleMachine.ThieleFoundations <> Trace def
-binder 3127:3130 <> tau1:35
-R3139:3143 ThieleMachine.ThieleFoundations <> Trace def
-binder 3132:3135 <> tau2:36
-R3174:3177 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3160:3162 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3149:3154 ThieleMachine.ThieleFoundations <> Shadow def
-R3156:3159 ThieleMachine.ThieleFoundations <> tau1:35 var
-R3163:3168 ThieleMachine.ThieleFoundations <> Shadow def
-R3170:3173 ThieleMachine.ThieleFoundations <> tau2:36 var
-R3178:3179 Coq.Init.Logic <> ::type_scope:'~'_x not
-R3180:3189 ThieleMachine.ThieleFoundations <> Isomorphic def
-R3191:3194 ThieleMachine.ThieleFoundations <> tau1:35 var
-R3196:3199 ThieleMachine.ThieleFoundations <> tau2:36 var
-R3219:3223 ThieleMachine.ThieleFoundations <> Embed def
-R3226:3244 ThieleMachine.ThieleFoundations <> Build_TuringMachine constr
-R3246:3249 Coq.Init.Datatypes <> unit ind
-R3251:3254 Coq.Init.Datatypes <> unit ind
-R3256:3257 Coq.Init.Datatypes <> tt constr
-R3271:3271 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3274:3275 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3278:3279 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3284:3284 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3272:3273 Coq.Init.Datatypes <> tt constr
-R3276:3277 Coq.Init.Datatypes <> tt constr
-R3280:3283 Coq.Init.Datatypes <> true constr
-R3287:3288 Coq.Init.Datatypes <> tt constr
-R3300:3303 Coq.Init.Logic <> True ind
-R3219:3223 ThieleMachine.ThieleFoundations <> Embed def
-R3226:3244 ThieleMachine.ThieleFoundations <> Build_TuringMachine constr
-R3246:3249 Coq.Init.Datatypes <> unit ind
-R3251:3254 Coq.Init.Datatypes <> unit ind
-R3256:3257 Coq.Init.Datatypes <> tt constr
-R3271:3271 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3274:3275 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3278:3279 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3284:3284 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3272:3273 Coq.Init.Datatypes <> tt constr
-R3276:3277 Coq.Init.Datatypes <> tt constr
-R3280:3283 Coq.Init.Datatypes <> true constr
-R3287:3288 Coq.Init.Datatypes <> tt constr
-R3300:3303 Coq.Init.Logic <> True ind
-R3319:3323 ThieleMachine.ThieleFoundations <> Embed def
-R3326:3344 ThieleMachine.ThieleFoundations <> Build_TuringMachine constr
-R3346:3349 Coq.Init.Datatypes <> unit ind
-R3351:3354 Coq.Init.Datatypes <> unit ind
-R3356:3357 Coq.Init.Datatypes <> tt constr
-R3371:3371 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3374:3375 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3378:3379 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3384:3384 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3372:3373 Coq.Init.Datatypes <> tt constr
-R3376:3377 Coq.Init.Datatypes <> tt constr
-R3380:3383 Coq.Init.Datatypes <> true constr
-R3387:3388 Coq.Init.Datatypes <> tt constr
-R3400:3403 Coq.Init.Logic <> True ind
-R3319:3323 ThieleMachine.ThieleFoundations <> Embed def
-R3326:3344 ThieleMachine.ThieleFoundations <> Build_TuringMachine constr
-R3346:3349 Coq.Init.Datatypes <> unit ind
-R3351:3354 Coq.Init.Datatypes <> unit ind
-R3356:3357 Coq.Init.Datatypes <> tt constr
-R3371:3371 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3374:3375 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3378:3379 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3384:3384 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3372:3373 Coq.Init.Datatypes <> tt constr
-R3376:3377 Coq.Init.Datatypes <> tt constr
-R3380:3383 Coq.Init.Datatypes <> true constr
-R3387:3388 Coq.Init.Datatypes <> tt constr
-R3400:3403 Coq.Init.Logic <> True ind
-R3469:3478 ThieleMachine.ThieleFoundations <> Isomorphic def
-def 3774:3783 <> OracleCost
-R3787:3789 Coq.Init.Datatypes <> nat ind
-ind 4029:4043 <> HyperTransition
-constr 4121:4132 <> StandardStep
-constr 4238:4247 <> OracleStep
-R4050:4066 ThieleMachine.ThieleFoundations <> CoreThieleMachine rec
-binder 4046:4046 <> T:37
-R4086:4089 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4071:4083 ThieleMachine.ThieleFoundations <> Configuration rec
-R4105:4108 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4090:4102 ThieleMachine.ThieleFoundations <> Configuration rec
-binder 4143:4144 <> c1:40
-binder 4146:4147 <> c2:41
-R4210:4224 ThieleMachine.ThieleFoundations <> HyperTransition:38 ind
-R4231:4232 ThieleMachine.ThieleFoundations <> c2:41 var
-R4228:4229 ThieleMachine.ThieleFoundations <> c1:40 var
-R4226:4226 ThieleMachine.ThieleFoundations <> T:37 var
-binder 4258:4259 <> c1:42
-binder 4261:4262 <> c2:43
-R4368:4377 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4345:4347 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4338:4339 ThieleMachine.ThieleFoundations <> Mu proj
-R4341:4341 ThieleMachine.ThieleFoundations <> T:37 var
-R4343:4344 ThieleMachine.ThieleFoundations <> c2:43 var
-R4355:4357 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R4348:4349 ThieleMachine.ThieleFoundations <> Mu proj
-R4351:4351 ThieleMachine.ThieleFoundations <> T:37 var
-R4353:4354 ThieleMachine.ThieleFoundations <> c1:42 var
-R4358:4367 ThieleMachine.ThieleFoundations <> OracleCost def
-R4378:4392 ThieleMachine.ThieleFoundations <> HyperTransition:38 ind
-R4399:4400 ThieleMachine.ThieleFoundations <> c2:43 var
-R4396:4397 ThieleMachine.ThieleFoundations <> c1:42 var
-R4394:4394 ThieleMachine.ThieleFoundations <> T:37 var
-scheme 4029:4043 <> HyperTransition_ind
-scheme 4029:4043 <> HyperTransition_sind
-def 4733:4742 <> Computable
-R4752:4755 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4749:4751 Coq.Init.Datatypes <> nat ind
-R4756:4758 Coq.Init.Datatypes <> nat ind
-binder 4745:4745 <> f:44
-R4773:4780 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R4799:4801 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R4786:4798 ThieleMachine.ThieleFoundations <> TuringMachine rec
-binder 4781:4782 <> _M:45
-R4802:4805 Coq.Init.Logic <> True ind
-def 4820:4836 <> uses_ORACLE_HALTS
-R4846:4849 Coq.Init.Datatypes <> list ind
-R4851:4875 ThieleMachine.CoreSemantics <> Instruction ind
-binder 4839:4842 <> prog:46
-R4890:4891 Coq.Lists.List <> In def
-R4920:4923 ThieleMachine.ThieleFoundations <> prog:46 var
-R4893:4918 ThieleMachine.CoreSemantics <> ORACLE_HALTS constr
-def 4938:4952 <> HyperComputable
-R4962:4965 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4959:4961 Coq.Init.Datatypes <> nat ind
-R4966:4968 Coq.Init.Datatypes <> nat ind
-binder 4955:4955 <> f:47
-R4983:4990 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R5028:5034 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R4998:5001 Coq.Init.Datatypes <> list ind
-R5003:5027 ThieleMachine.CoreSemantics <> Instruction ind
-binder 4991:4994 <> prog:48
-R5057:5060 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5035:5051 ThieleMachine.ThieleFoundations <> uses_ORACLE_HALTS def
-R5053:5056 ThieleMachine.ThieleFoundations <> prog:48 var
-R5061:5070 ThieleMachine.ThieleFoundations <> Computable def
-R5072:5072 ThieleMachine.ThieleFoundations <> f:47 var
-prf 5135:5152 <> Strict_Containment
-binder 5165:5165 <> f:49
-R5180:5183 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5168:5177 ThieleMachine.ThieleFoundations <> Computable def
-R5179:5179 ThieleMachine.ThieleFoundations <> f:49 var
-R5184:5198 ThieleMachine.ThieleFoundations <> HyperComputable def
-R5200:5200 ThieleMachine.ThieleFoundations <> f:49 var
-R5234:5234 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R5261:5261 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R5235:5260 ThieleMachine.CoreSemantics <> ORACLE_HALTS constr
-R5234:5234 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R5261:5261 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R5235:5260 ThieleMachine.CoreSemantics <> ORACLE_HALTS constr
+R591:597 Kernel.VMState <> <> lib
+R599:604 Kernel.VMStep <> <> lib
+R634:644 Kernel.MuCostModel <> <> lib
+rec 699:711 <> TuringMachine
+proj 720:725 <> States
+proj 736:743 <> Alphabet
+proj 754:758 <> Blank
+proj 774:783 <> Transition
+proj 862:871 <> StartState
+proj 885:896 <> AcceptStates
+R762:769 ThieleMachine.ThieleFoundations <> Alphabet:3 meth
+R793:796 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R787:792 ThieleMachine.ThieleFoundations <> States:2 meth
+R805:809 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R834:834 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R797:804 ThieleMachine.ThieleFoundations <> Alphabet:3 meth
+R827:829 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R816:818 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R810:815 ThieleMachine.ThieleFoundations <> States:2 meth
+R819:826 ThieleMachine.ThieleFoundations <> Alphabet:3 meth
+R830:833 Coq.Init.Datatypes <> bool ind
+R875:880 ThieleMachine.ThieleFoundations <> States:2 meth
+R906:909 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R900:905 ThieleMachine.ThieleFoundations <> States:2 meth
+rec 926:942 <> CoreThieleMachine
+proj 951:961 <> TM_Skeleton
+proj 982:996 <> PartitionLabels
+proj 1007:1012 <> MuCost
+R965:977 ThieleMachine.ThieleFoundations <> TuringMachine rec
+R1016:1018 Coq.Init.Datatypes <> nat ind
+rec 1087:1099 <> Configuration
+proj 1132:1135 <> Tape
+proj 1174:1177 <> Head
+proj 1188:1192 <> State
+proj 1222:1230 <> Partition
+proj 1255:1256 <> Mu
+R1106:1122 ThieleMachine.ThieleFoundations <> CoreThieleMachine rec
+binder 1102:1102 <> T:12
+R1139:1142 Coq.Init.Datatypes <> list ind
+R1145:1152 ThieleMachine.ThieleFoundations <> Alphabet proj
+R1155:1165 ThieleMachine.ThieleFoundations <> TM_Skeleton proj
+R1167:1167 ThieleMachine.ThieleFoundations <> T:12 var
+R1181:1183 Coq.Init.Datatypes <> nat ind
+R1196:1201 ThieleMachine.ThieleFoundations <> States proj
+R1204:1214 ThieleMachine.ThieleFoundations <> TM_Skeleton proj
+R1216:1216 ThieleMachine.ThieleFoundations <> T:12 var
+R1234:1248 ThieleMachine.ThieleFoundations <> PartitionLabels proj
+R1250:1250 ThieleMachine.ThieleFoundations <> T:12 var
+R1260:1262 Coq.Init.Datatypes <> nat ind
+rec 1307:1325 <> TuringConfiguration
+proj 1354:1359 <> T_Tape
+proj 1384:1389 <> T_Head
+proj 1400:1406 <> T_State
+R1332:1344 ThieleMachine.ThieleFoundations <> TuringMachine rec
+binder 1328:1328 <> M:19
+R1363:1366 Coq.Init.Datatypes <> list ind
+R1369:1376 ThieleMachine.ThieleFoundations <> Alphabet proj
+R1378:1378 ThieleMachine.ThieleFoundations <> M:19 var
+R1393:1395 Coq.Init.Datatypes <> nat ind
+R1410:1415 ThieleMachine.ThieleFoundations <> States proj
+R1417:1417 ThieleMachine.ThieleFoundations <> M:19 var
+def 1434:1440 <> Project
+R1447:1463 ThieleMachine.ThieleFoundations <> CoreThieleMachine rec
+binder 1443:1443 <> T:24
+R1471:1483 ThieleMachine.ThieleFoundations <> Configuration rec
+R1485:1485 ThieleMachine.ThieleFoundations <> T:24 var
+binder 1467:1467 <> C:25
+R1490:1508 ThieleMachine.ThieleFoundations <> TuringConfiguration rec
+R1511:1521 ThieleMachine.ThieleFoundations <> TM_Skeleton proj
+R1523:1523 ThieleMachine.ThieleFoundations <> T:24 var
+R1534:1539 ThieleMachine.ThieleFoundations <> T_Tape proj
+R1534:1539 ThieleMachine.ThieleFoundations <> T_Tape proj
+R1534:1539 ThieleMachine.ThieleFoundations <> T_Tape proj
+R1559:1564 ThieleMachine.ThieleFoundations <> T_Head proj
+R1559:1564 ThieleMachine.ThieleFoundations <> T_Head proj
+R1584:1590 ThieleMachine.ThieleFoundations <> T_State proj
+R1584:1590 ThieleMachine.ThieleFoundations <> T_State proj
+R1544:1547 ThieleMachine.ThieleFoundations <> Tape proj
+R1549:1549 ThieleMachine.ThieleFoundations <> T:24 var
+R1551:1551 ThieleMachine.ThieleFoundations <> C:25 var
+R1569:1572 ThieleMachine.ThieleFoundations <> Head proj
+R1574:1574 ThieleMachine.ThieleFoundations <> T:24 var
+R1576:1576 ThieleMachine.ThieleFoundations <> C:25 var
+R1595:1599 ThieleMachine.ThieleFoundations <> State proj
+R1601:1601 ThieleMachine.ThieleFoundations <> T:24 var
+R1603:1603 ThieleMachine.ThieleFoundations <> C:25 var
+def 1840:1844 <> Embed
+R1851:1863 ThieleMachine.ThieleFoundations <> TuringMachine rec
+binder 1847:1847 <> M:26
+R1868:1884 ThieleMachine.ThieleFoundations <> CoreThieleMachine rec
+R1894:1904 ThieleMachine.ThieleFoundations <> TM_Skeleton proj
+R1894:1904 ThieleMachine.ThieleFoundations <> TM_Skeleton proj
+R1894:1904 ThieleMachine.ThieleFoundations <> TM_Skeleton proj
+R1917:1931 ThieleMachine.ThieleFoundations <> PartitionLabels proj
+R1917:1931 ThieleMachine.ThieleFoundations <> PartitionLabels proj
+R1975:1980 ThieleMachine.ThieleFoundations <> MuCost proj
+R1975:1980 ThieleMachine.ThieleFoundations <> MuCost proj
+R1909:1909 ThieleMachine.ThieleFoundations <> M:26 var
+R1936:1939 Coq.Init.Datatypes <> unit ind
+prf 2176:2202 <> Turing_Embedding_Properties
+R2218:2230 ThieleMachine.ThieleFoundations <> TuringMachine rec
+binder 2214:2214 <> M:27
+R2245:2249 ThieleMachine.ThieleFoundations <> Embed def
+R2251:2251 ThieleMachine.ThieleFoundations <> M:27 var
+binder 2240:2240 <> T:28
+R2275:2280 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2271:2273 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2258:2268 ThieleMachine.ThieleFoundations <> TM_Skeleton proj
+R2270:2270 ThieleMachine.ThieleFoundations <> T:28 var
+R2274:2274 ThieleMachine.ThieleFoundations <> M:27 var
+R2281:2281 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2330:2336 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2294:2306 ThieleMachine.ThieleFoundations <> Configuration rec
+R2308:2308 ThieleMachine.ThieleFoundations <> T:28 var
+binder 2290:2290 <> C:29
+R2325:2327 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2312:2320 ThieleMachine.ThieleFoundations <> Partition proj
+R2322:2322 ThieleMachine.ThieleFoundations <> T:28 var
+R2324:2324 ThieleMachine.ThieleFoundations <> C:29 var
+R2328:2329 Coq.Init.Datatypes <> tt constr
+R2345:2347 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2337:2342 ThieleMachine.ThieleFoundations <> MuCost proj
+R2344:2344 ThieleMachine.ThieleFoundations <> T:28 var
+R2446:2454 ThieleMachine.ThieleFoundations <> Partition proj
+R2457:2461 ThieleMachine.ThieleFoundations <> Embed def
+R2446:2454 ThieleMachine.ThieleFoundations <> Partition proj
+R2457:2461 ThieleMachine.ThieleFoundations <> Embed def
+def 2955:2959 <> Trace
+R2971:2973 Coq.Init.Datatypes <> nat ind
+def 2988:2997 <> Isomorphic
+R3010:3014 ThieleMachine.ThieleFoundations <> Trace def
+binder 3000:3002 <> _t1:30
+binder 3004:3006 <> _t2:31
+R3027:3031 Coq.Init.Logic <> False ind
+def 3046:3051 <> Shadow
+R3059:3063 ThieleMachine.ThieleFoundations <> Trace def
+binder 3054:3055 <> _t:32
+R3070:3073 Coq.Init.Datatypes <> list ind
+R3076:3094 ThieleMachine.ThieleFoundations <> TuringConfiguration rec
+R3109:3119 ThieleMachine.ThieleFoundations <> TM_Skeleton proj
+R3137:3141 ThieleMachine.ThieleFoundations <> Embed def
+R3144:3162 ThieleMachine.ThieleFoundations <> Build_TuringMachine constr
+R3164:3167 Coq.Init.Datatypes <> unit ind
+R3169:3172 Coq.Init.Datatypes <> unit ind
+R3174:3175 Coq.Init.Datatypes <> tt constr
+R3213:3213 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3216:3217 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3220:3221 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3226:3226 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3214:3215 Coq.Init.Datatypes <> tt constr
+R3218:3219 Coq.Init.Datatypes <> tt constr
+R3222:3225 Coq.Init.Datatypes <> true constr
+R3229:3230 Coq.Init.Datatypes <> tt constr
+R3242:3245 Coq.Init.Logic <> True ind
+R3257:3258 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+prf 3322:3340 <> Semantic_Strictness
+R3344:3351 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3397:3401 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3360:3376 ThieleMachine.ThieleFoundations <> CoreThieleMachine rec
+binder 3352:3353 <> T1:33
+R3360:3376 ThieleMachine.ThieleFoundations <> CoreThieleMachine rec
+binder 3355:3356 <> T2:34
+R3392:3396 ThieleMachine.ThieleFoundations <> Trace def
+binder 3380:3383 <> tau1:35
+R3392:3396 ThieleMachine.ThieleFoundations <> Trace def
+binder 3385:3388 <> tau2:36
+R3427:3430 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3413:3415 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3402:3407 ThieleMachine.ThieleFoundations <> Shadow def
+R3409:3412 ThieleMachine.ThieleFoundations <> tau1:35 var
+R3416:3421 ThieleMachine.ThieleFoundations <> Shadow def
+R3423:3426 ThieleMachine.ThieleFoundations <> tau2:36 var
+R3431:3432 Coq.Init.Logic <> ::type_scope:'~'_x not
+R3433:3442 ThieleMachine.ThieleFoundations <> Isomorphic def
+R3444:3447 ThieleMachine.ThieleFoundations <> tau1:35 var
+R3449:3452 ThieleMachine.ThieleFoundations <> tau2:36 var
+R3472:3476 ThieleMachine.ThieleFoundations <> Embed def
+R3479:3497 ThieleMachine.ThieleFoundations <> Build_TuringMachine constr
+R3499:3502 Coq.Init.Datatypes <> unit ind
+R3504:3507 Coq.Init.Datatypes <> unit ind
+R3509:3510 Coq.Init.Datatypes <> tt constr
+R3524:3524 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3527:3528 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3531:3532 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3537:3537 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3525:3526 Coq.Init.Datatypes <> tt constr
+R3529:3530 Coq.Init.Datatypes <> tt constr
+R3533:3536 Coq.Init.Datatypes <> true constr
+R3540:3541 Coq.Init.Datatypes <> tt constr
+R3553:3556 Coq.Init.Logic <> True ind
+R3472:3476 ThieleMachine.ThieleFoundations <> Embed def
+R3479:3497 ThieleMachine.ThieleFoundations <> Build_TuringMachine constr
+R3499:3502 Coq.Init.Datatypes <> unit ind
+R3504:3507 Coq.Init.Datatypes <> unit ind
+R3509:3510 Coq.Init.Datatypes <> tt constr
+R3524:3524 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3527:3528 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3531:3532 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3537:3537 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3525:3526 Coq.Init.Datatypes <> tt constr
+R3529:3530 Coq.Init.Datatypes <> tt constr
+R3533:3536 Coq.Init.Datatypes <> true constr
+R3540:3541 Coq.Init.Datatypes <> tt constr
+R3553:3556 Coq.Init.Logic <> True ind
+R3572:3576 ThieleMachine.ThieleFoundations <> Embed def
+R3579:3597 ThieleMachine.ThieleFoundations <> Build_TuringMachine constr
+R3599:3602 Coq.Init.Datatypes <> unit ind
+R3604:3607 Coq.Init.Datatypes <> unit ind
+R3609:3610 Coq.Init.Datatypes <> tt constr
+R3624:3624 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3627:3628 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3631:3632 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3637:3637 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3625:3626 Coq.Init.Datatypes <> tt constr
+R3629:3630 Coq.Init.Datatypes <> tt constr
+R3633:3636 Coq.Init.Datatypes <> true constr
+R3640:3641 Coq.Init.Datatypes <> tt constr
+R3653:3656 Coq.Init.Logic <> True ind
+R3572:3576 ThieleMachine.ThieleFoundations <> Embed def
+R3579:3597 ThieleMachine.ThieleFoundations <> Build_TuringMachine constr
+R3599:3602 Coq.Init.Datatypes <> unit ind
+R3604:3607 Coq.Init.Datatypes <> unit ind
+R3609:3610 Coq.Init.Datatypes <> tt constr
+R3624:3624 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3627:3628 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3631:3632 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3637:3637 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3625:3626 Coq.Init.Datatypes <> tt constr
+R3629:3630 Coq.Init.Datatypes <> tt constr
+R3633:3636 Coq.Init.Datatypes <> true constr
+R3640:3641 Coq.Init.Datatypes <> tt constr
+R3653:3656 Coq.Init.Logic <> True ind
+R3722:3731 ThieleMachine.ThieleFoundations <> Isomorphic def
+def 4027:4036 <> OracleCost
+R4040:4042 Coq.Init.Datatypes <> nat ind
+ind 4282:4296 <> HyperTransition
+constr 4374:4385 <> StandardStep
+constr 4491:4500 <> OracleStep
+R4303:4319 ThieleMachine.ThieleFoundations <> CoreThieleMachine rec
+binder 4299:4299 <> T:37
+R4339:4342 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4324:4336 ThieleMachine.ThieleFoundations <> Configuration rec
+R4358:4361 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4343:4355 ThieleMachine.ThieleFoundations <> Configuration rec
+binder 4396:4397 <> c1:40
+binder 4399:4400 <> c2:41
+R4463:4477 ThieleMachine.ThieleFoundations <> HyperTransition:38 ind
+R4484:4485 ThieleMachine.ThieleFoundations <> c2:41 var
+R4481:4482 ThieleMachine.ThieleFoundations <> c1:40 var
+R4479:4479 ThieleMachine.ThieleFoundations <> T:37 var
+binder 4511:4512 <> c1:42
+binder 4514:4515 <> c2:43
+R4621:4630 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4598:4600 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4591:4592 ThieleMachine.ThieleFoundations <> Mu proj
+R4594:4594 ThieleMachine.ThieleFoundations <> T:37 var
+R4596:4597 ThieleMachine.ThieleFoundations <> c2:43 var
+R4608:4610 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R4601:4602 ThieleMachine.ThieleFoundations <> Mu proj
+R4604:4604 ThieleMachine.ThieleFoundations <> T:37 var
+R4606:4607 ThieleMachine.ThieleFoundations <> c1:42 var
+R4611:4620 ThieleMachine.ThieleFoundations <> OracleCost def
+R4631:4645 ThieleMachine.ThieleFoundations <> HyperTransition:38 ind
+R4652:4653 ThieleMachine.ThieleFoundations <> c2:43 var
+R4649:4650 ThieleMachine.ThieleFoundations <> c1:42 var
+R4647:4647 ThieleMachine.ThieleFoundations <> T:37 var
+scheme 4282:4296 <> HyperTransition_ind
+scheme 4282:4296 <> HyperTransition_sind
+def 4986:4995 <> Computable
+R5005:5008 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5002:5004 Coq.Init.Datatypes <> nat ind
+R5009:5011 Coq.Init.Datatypes <> nat ind
+binder 4998:4998 <> f:44
+R5026:5033 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5052:5054 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5039:5051 ThieleMachine.ThieleFoundations <> TuringMachine rec
+binder 5034:5035 <> _M:45
+R5055:5058 Coq.Init.Logic <> True ind
+def 5073:5089 <> uses_ORACLE_HALTS
+R5099:5102 Coq.Init.Datatypes <> list ind
+R5104:5128 ThieleMachine.CoreSemantics <> Instruction ind
+binder 5092:5095 <> prog:46
+R5143:5144 Coq.Lists.List <> In def
+R5173:5176 ThieleMachine.ThieleFoundations <> prog:46 var
+R5146:5171 ThieleMachine.CoreSemantics <> ORACLE_HALTS constr
+def 5191:5205 <> HyperComputable
+R5215:5218 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5212:5214 Coq.Init.Datatypes <> nat ind
+R5219:5221 Coq.Init.Datatypes <> nat ind
+binder 5208:5208 <> f:47
+R5236:5243 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5281:5287 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5251:5254 Coq.Init.Datatypes <> list ind
+R5256:5280 ThieleMachine.CoreSemantics <> Instruction ind
+binder 5244:5247 <> prog:48
+R5310:5313 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5288:5304 ThieleMachine.ThieleFoundations <> uses_ORACLE_HALTS def
+R5306:5309 ThieleMachine.ThieleFoundations <> prog:48 var
+R5314:5323 ThieleMachine.ThieleFoundations <> Computable def
+R5325:5325 ThieleMachine.ThieleFoundations <> f:47 var
+prf 5388:5405 <> Strict_Containment
+binder 5418:5418 <> f:49
+R5433:5436 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5421:5430 ThieleMachine.ThieleFoundations <> Computable def
+R5432:5432 ThieleMachine.ThieleFoundations <> f:49 var
+R5437:5451 ThieleMachine.ThieleFoundations <> HyperComputable def
+R5453:5453 ThieleMachine.ThieleFoundations <> f:49 var
+R5487:5487 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5514:5514 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5488:5513 ThieleMachine.CoreSemantics <> ORACLE_HALTS constr
+R5487:5487 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5514:5514 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5488:5513 ThieleMachine.CoreSemantics <> ORACLE_HALTS constr

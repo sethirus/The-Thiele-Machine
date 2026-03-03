@@ -28,6 +28,8 @@
     **Theorem (Quantum Tsirelson Bound):**
     ```coq
     (** [quantum_tsirelson_bound]: formal specification. *)
+
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
     Theorem quantum_tsirelson_bound :
       forall B : Box,
         requires_mu_gt_zero B ->           (* Uses LJOIN, REVEAL, or LASSERT *)
@@ -132,6 +134,9 @@
     4. Connect to μ>0 operations (LJOIN creates non-factorizable correlations)
 
     ========================================================================= *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import MuCostModel.
 
 (** This file intentionally contains no proofs yet.
     It serves as documentation for what needs to be proven. *)

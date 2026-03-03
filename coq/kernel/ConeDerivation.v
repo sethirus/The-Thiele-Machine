@@ -5,6 +5,9 @@ From Kernel Require Import VMStep KernelPhysics.
 
 Import ListNotations.
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import MuCostModel.
+
 (** * ConeDerivation: The causal cone is uniquely determined by algebraic laws
 
     WHY THIS FILE EXISTS:

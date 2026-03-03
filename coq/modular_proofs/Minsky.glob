@@ -1,161 +1,164 @@
-DIGEST a6dc4e3a305de54613bd2db66c0f840b
+DIGEST d04809057d638cfe702e551cc2a44421
 FModularProofs.Minsky
 R595:598 Coq.Lists.List <> <> lib
 R600:604 Coq.Arith.Arith <> <> lib
 R606:608 Coq.micromega.Lia <> <> lib
 R618:630 Coq.Lists.List ListNotations <> mod
-mod 663:668 <> Minsky
-ind 838:842 Minsky instr
-constr 858:860 Minsky INC
-constr 878:880 Minsky DEC
-R869:871 Coq.Init.Datatypes <> nat ind
-binder 863:863 <> r:3
-binder 865:865 <> j:4
-R891:893 Coq.Init.Datatypes <> nat ind
-binder 883:883 <> r:5
-binder 885:885 <> j:6
-binder 887:887 <> k:7
-scheme 838:842 Minsky instr_rect
-scheme 838:842 Minsky instr_ind
-scheme 838:842 Minsky instr_rec
-scheme 838:842 Minsky instr_sind
-def 909:915 Minsky program
-R927:930 Coq.Init.Datatypes <> list ind
-R932:936 ModularProofs.Minsky Minsky instr ind
-def 950:955 Minsky config
-R971:973 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R968:970 Coq.Init.Datatypes <> nat ind
-R974:977 Coq.Init.Datatypes <> list ind
-R979:981 Coq.Init.Datatypes <> nat ind
-def 1206:1212 Minsky set_nth
-R1219:1222 Coq.Init.Datatypes <> list ind
-R1224:1226 Coq.Init.Datatypes <> nat ind
-binder 1215:1215 <> l:8
-R1236:1238 Coq.Init.Datatypes <> nat ind
-binder 1230:1232 <> idx:9
-R1246:1248 Coq.Init.Datatypes <> nat ind
-binder 1242:1242 <> v:10
-R1253:1256 Coq.Init.Datatypes <> list ind
-R1258:1260 Coq.Init.Datatypes <> nat ind
-R1276:1278 ModularProofs.Minsky <> idx:9 var
-R1273:1273 ModularProofs.Minsky <> l:8 var
-R1289:1290 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R1298:1299 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R1306:1309 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R1320:1323 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R1319:1319 ModularProofs.Minsky <> v:10 var
-R1333:1336 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R1341:1341 Coq.Init.Datatypes <> S constr
-R1350:1353 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R1354:1360 ModularProofs.Minsky <> set_nth:11 def
-R1367:1367 ModularProofs.Minsky <> v:10 var
-def 1388:1395 Minsky read_reg
-R1405:1408 Coq.Init.Datatypes <> list ind
-R1410:1412 Coq.Init.Datatypes <> nat ind
-binder 1398:1401 <> regs:14
-R1420:1422 Coq.Init.Datatypes <> nat ind
-binder 1416:1416 <> r:15
+R768:774 Kernel.VMState <> <> lib
+R776:781 Kernel.VMStep <> <> lib
+R811:821 Kernel.MuCostModel <> <> lib
+mod 832:837 <> Minsky
+ind 1007:1011 Minsky instr
+constr 1027:1029 Minsky INC
+constr 1047:1049 Minsky DEC
+R1038:1040 Coq.Init.Datatypes <> nat ind
+binder 1032:1032 <> r:3
+binder 1034:1034 <> j:4
+R1060:1062 Coq.Init.Datatypes <> nat ind
+binder 1052:1052 <> r:5
+binder 1054:1054 <> j:6
+binder 1056:1056 <> k:7
+scheme 1007:1011 Minsky instr_rect
+scheme 1007:1011 Minsky instr_ind
+scheme 1007:1011 Minsky instr_rec
+scheme 1007:1011 Minsky instr_sind
+def 1078:1084 Minsky program
+R1096:1099 Coq.Init.Datatypes <> list ind
+R1101:1105 ModularProofs.Minsky Minsky instr ind
+def 1119:1124 Minsky config
+R1140:1142 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1137:1139 Coq.Init.Datatypes <> nat ind
+R1143:1146 Coq.Init.Datatypes <> list ind
+R1148:1150 Coq.Init.Datatypes <> nat ind
+def 1375:1381 Minsky set_nth
+R1388:1391 Coq.Init.Datatypes <> list ind
+R1393:1395 Coq.Init.Datatypes <> nat ind
+binder 1384:1384 <> l:8
+R1405:1407 Coq.Init.Datatypes <> nat ind
+binder 1399:1401 <> idx:9
+R1415:1417 Coq.Init.Datatypes <> nat ind
+binder 1411:1411 <> v:10
+R1422:1425 Coq.Init.Datatypes <> list ind
 R1427:1429 Coq.Init.Datatypes <> nat ind
-R1434:1436 Coq.Lists.List <> nth def
-R1440:1443 ModularProofs.Minsky <> regs:14 var
-R1438:1438 ModularProofs.Minsky <> r:15 var
-prf 1502:1515 Minsky set_nth_length
-binder 1526:1526 <> l:16
-binder 1528:1530 <> idx:17
-binder 1532:1532 <> v:18
-R1559:1561 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1535:1540 Coq.Init.Datatypes <> length def
-R1543:1549 ModularProofs.Minsky Minsky set_nth def
-R1551:1551 ModularProofs.Minsky <> l:16 var
-R1553:1555 ModularProofs.Minsky <> idx:17 var
-R1557:1557 ModularProofs.Minsky <> v:18 var
-R1562:1567 Coq.Init.Datatypes <> length def
-R1569:1569 ModularProofs.Minsky <> l:16 var
-def 1868:1871 Minsky step
-R1878:1884 ModularProofs.Minsky Minsky program def
-binder 1874:1874 <> p:19
-R1894:1899 ModularProofs.Minsky Minsky config def
-binder 1888:1890 <> cfg:20
-R1904:1909 ModularProofs.Minsky Minsky config def
-R1935:1937 ModularProofs.Minsky <> cfg:20 var
-R1921:1921 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1924:1925 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1930:1930 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1957:1959 Coq.Lists.List <> nth def
-R1967:1969 ModularProofs.Minsky Minsky INC constr
-R1964:1964 ModularProofs.Minsky <> p:19 var
-binder 1948:1952 <> instr:22
-R1988:1992 ModularProofs.Minsky <> instr:22 var
-R2003:2005 ModularProofs.Minsky Minsky INC constr
-R2029:2029 Coq.Init.Datatypes <> S constr
-R2032:2039 ModularProofs.Minsky Minsky read_reg def
-binder 2024:2024 <> v:24
-R2058:2058 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2060:2061 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2078:2078 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2062:2068 ModularProofs.Minsky Minsky set_nth def
-R2077:2077 ModularProofs.Minsky <> v:24 var
-R2084:2086 ModularProofs.Minsky Minsky DEC constr
-R2106:2112 Coq.Arith.PeanoNat Nat eqb def
-R2115:2122 ModularProofs.Minsky Minsky read_reg def
-R2160:2160 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2162:2163 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2203:2203 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2164:2170 ModularProofs.Minsky Minsky set_nth def
-R2180:2183 Coq.Init.Peano <> pred abbrev
-R2186:2193 ModularProofs.Minsky Minsky read_reg def
-R2139:2139 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2141:2142 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2147:2147 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-def 2222:2226 Minsky run_n
-R2233:2239 ModularProofs.Minsky Minsky program def
-binder 2229:2229 <> p:25
-R2249:2254 ModularProofs.Minsky Minsky config def
-binder 2243:2245 <> cfg:26
-R2262:2264 Coq.Init.Datatypes <> nat ind
-binder 2258:2258 <> n:27
-R2269:2274 ModularProofs.Minsky Minsky config def
-R2287:2287 ModularProofs.Minsky <> n:27 var
-R2303:2305 ModularProofs.Minsky <> cfg:26 var
-R2311:2311 Coq.Init.Datatypes <> S constr
-R2319:2323 ModularProofs.Minsky <> run_n:28 def
-R2328:2331 ModularProofs.Minsky Minsky step def
-R2333:2333 ModularProofs.Minsky <> p:25 var
-R2335:2337 ModularProofs.Minsky <> cfg:26 var
-R2325:2325 ModularProofs.Minsky <> p:25 var
-prf 2400:2409 Minsky run_n_succ
-binder 2420:2420 <> p:30
-binder 2422:2424 <> cfg:31
-binder 2426:2426 <> n:32
-R2450:2452 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2433:2437 ModularProofs.Minsky Minsky run_n def
-R2439:2439 ModularProofs.Minsky <> p:30 var
-R2441:2443 ModularProofs.Minsky <> cfg:31 var
-R2446:2446 Coq.Init.Datatypes <> S constr
-R2448:2448 ModularProofs.Minsky <> n:32 var
-R2453:2457 ModularProofs.Minsky Minsky run_n def
-R2459:2459 ModularProofs.Minsky <> p:30 var
-R2462:2465 ModularProofs.Minsky Minsky step def
-R2467:2467 ModularProofs.Minsky <> p:30 var
-R2469:2471 ModularProofs.Minsky <> cfg:31 var
-R2474:2474 ModularProofs.Minsky <> n:32 var
-def 2691:2702 Minsky inc0_example
-R2717:2717 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R2725:2729 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R2718:2720 ModularProofs.Minsky Minsky INC constr
-R2730:2732 Coq.Init.Datatypes <> nil constr
-binder 2712:2712 <> p:33
-R2754:2756 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2739:2742 ModularProofs.Minsky Minsky step def
-R2744:2744 ModularProofs.Minsky <> p:33 var
-R2746:2746 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2748:2749 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2753:2753 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2750:2750 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R2752:2752 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R2757:2757 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2759:2760 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2764:2764 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2761:2761 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R2763:2763 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R2804:2809 ModularProofs.Minsky Minsky <> mod
+R1445:1447 ModularProofs.Minsky <> idx:9 var
+R1442:1442 ModularProofs.Minsky <> l:8 var
+R1458:1459 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1467:1468 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1475:1478 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1489:1492 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1488:1488 ModularProofs.Minsky <> v:10 var
+R1502:1505 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1510:1510 Coq.Init.Datatypes <> S constr
+R1519:1522 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1523:1529 ModularProofs.Minsky <> set_nth:11 def
+R1536:1536 ModularProofs.Minsky <> v:10 var
+def 1557:1564 Minsky read_reg
+R1574:1577 Coq.Init.Datatypes <> list ind
+R1579:1581 Coq.Init.Datatypes <> nat ind
+binder 1567:1570 <> regs:14
+R1589:1591 Coq.Init.Datatypes <> nat ind
+binder 1585:1585 <> r:15
+R1596:1598 Coq.Init.Datatypes <> nat ind
+R1603:1605 Coq.Lists.List <> nth def
+R1609:1612 ModularProofs.Minsky <> regs:14 var
+R1607:1607 ModularProofs.Minsky <> r:15 var
+prf 1671:1684 Minsky set_nth_length
+binder 1695:1695 <> l:16
+binder 1697:1699 <> idx:17
+binder 1701:1701 <> v:18
+R1728:1730 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1704:1709 Coq.Init.Datatypes <> length def
+R1712:1718 ModularProofs.Minsky Minsky set_nth def
+R1720:1720 ModularProofs.Minsky <> l:16 var
+R1722:1724 ModularProofs.Minsky <> idx:17 var
+R1726:1726 ModularProofs.Minsky <> v:18 var
+R1731:1736 Coq.Init.Datatypes <> length def
+R1738:1738 ModularProofs.Minsky <> l:16 var
+def 2037:2040 Minsky step
+R2047:2053 ModularProofs.Minsky Minsky program def
+binder 2043:2043 <> p:19
+R2063:2068 ModularProofs.Minsky Minsky config def
+binder 2057:2059 <> cfg:20
+R2073:2078 ModularProofs.Minsky Minsky config def
+R2104:2106 ModularProofs.Minsky <> cfg:20 var
+R2090:2090 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2093:2094 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2099:2099 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2126:2128 Coq.Lists.List <> nth def
+R2136:2138 ModularProofs.Minsky Minsky INC constr
+R2133:2133 ModularProofs.Minsky <> p:19 var
+binder 2117:2121 <> instr:22
+R2157:2161 ModularProofs.Minsky <> instr:22 var
+R2172:2174 ModularProofs.Minsky Minsky INC constr
+R2198:2198 Coq.Init.Datatypes <> S constr
+R2201:2208 ModularProofs.Minsky Minsky read_reg def
+binder 2193:2193 <> v:24
+R2227:2227 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2229:2230 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2247:2247 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2231:2237 ModularProofs.Minsky Minsky set_nth def
+R2246:2246 ModularProofs.Minsky <> v:24 var
+R2253:2255 ModularProofs.Minsky Minsky DEC constr
+R2275:2281 Coq.Arith.PeanoNat Nat eqb def
+R2284:2291 ModularProofs.Minsky Minsky read_reg def
+R2329:2329 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2331:2332 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2372:2372 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2333:2339 ModularProofs.Minsky Minsky set_nth def
+R2349:2352 Coq.Init.Peano <> pred abbrev
+R2355:2362 ModularProofs.Minsky Minsky read_reg def
+R2308:2308 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2310:2311 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2316:2316 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+def 2391:2395 Minsky run_n
+R2402:2408 ModularProofs.Minsky Minsky program def
+binder 2398:2398 <> p:25
+R2418:2423 ModularProofs.Minsky Minsky config def
+binder 2412:2414 <> cfg:26
+R2431:2433 Coq.Init.Datatypes <> nat ind
+binder 2427:2427 <> n:27
+R2438:2443 ModularProofs.Minsky Minsky config def
+R2456:2456 ModularProofs.Minsky <> n:27 var
+R2472:2474 ModularProofs.Minsky <> cfg:26 var
+R2480:2480 Coq.Init.Datatypes <> S constr
+R2488:2492 ModularProofs.Minsky <> run_n:28 def
+R2497:2500 ModularProofs.Minsky Minsky step def
+R2502:2502 ModularProofs.Minsky <> p:25 var
+R2504:2506 ModularProofs.Minsky <> cfg:26 var
+R2494:2494 ModularProofs.Minsky <> p:25 var
+prf 2569:2578 Minsky run_n_succ
+binder 2589:2589 <> p:30
+binder 2591:2593 <> cfg:31
+binder 2595:2595 <> n:32
+R2619:2621 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2602:2606 ModularProofs.Minsky Minsky run_n def
+R2608:2608 ModularProofs.Minsky <> p:30 var
+R2610:2612 ModularProofs.Minsky <> cfg:31 var
+R2615:2615 Coq.Init.Datatypes <> S constr
+R2617:2617 ModularProofs.Minsky <> n:32 var
+R2622:2626 ModularProofs.Minsky Minsky run_n def
+R2628:2628 ModularProofs.Minsky <> p:30 var
+R2631:2634 ModularProofs.Minsky Minsky step def
+R2636:2636 ModularProofs.Minsky <> p:30 var
+R2638:2640 ModularProofs.Minsky <> cfg:31 var
+R2643:2643 ModularProofs.Minsky <> n:32 var
+def 2860:2871 Minsky inc0_example
+R2886:2886 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2894:2898 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2887:2889 ModularProofs.Minsky Minsky INC constr
+R2899:2901 Coq.Init.Datatypes <> nil constr
+binder 2881:2881 <> p:33
+R2923:2925 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2908:2911 ModularProofs.Minsky Minsky step def
+R2913:2913 ModularProofs.Minsky <> p:33 var
+R2915:2915 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2917:2918 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2922:2922 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2919:2919 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2921:2921 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2926:2926 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2928:2929 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2933:2933 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2930:2930 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2932:2932 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2974:2979 ModularProofs.Minsky Minsky <> mod

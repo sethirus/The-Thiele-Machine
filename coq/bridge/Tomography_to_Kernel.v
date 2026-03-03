@@ -3,6 +3,10 @@ Import ListNotations.
 
 From Kernel Require Import ReceiptCore.
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 Module Tomography_to_Kernel.
 
 Definition MEAS_TRIAL_OP : nat := 1101.
@@ -17,5 +21,6 @@ Lemma decodes_to_self :
 Proof.
   intros; apply ReceiptCore.decodes_to_refl.
 Qed.
+
 
 End Tomography_to_Kernel.

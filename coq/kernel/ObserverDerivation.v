@@ -5,6 +5,9 @@ From Kernel Require Import VMState VMStep KernelPhysics.
 
 Import ListNotations.
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import MuCostModel.
+
 (** * Observer Derivation: Physics from Observational Equivalence
 
     WHY THIS FILE EXISTS:

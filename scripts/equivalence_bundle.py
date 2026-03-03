@@ -191,15 +191,19 @@ def _oracle_mu_delta(program_words: List[int]) -> int:
     return sum(1_000_000 for word in program_words if ((word >> 24) & 0xFF) == 0x10)
 
 
-def _run_rtl(program_words: List[int], data_words: List[int]) -> Dict[str, object]:
+def _run_rtl(program_words: List[int], data_words: List[int], init_state: Dict[str, int] | None = None) -> Dict[str, object]:
     with tempfile.TemporaryDirectory() as td:
         td_path = Path(td)
         sim_out = td_path / "thiele_cpu_tb.out"
         program_hex = td_path / "tb_program.hex"
         data_hex = td_path / "tb_data.hex"
 
-        _write_hex_words(program_hex, program_words)
-        _write_hex_words(data_hex, data_words)
+        # Pad program and data to 256 entries so $readmemh sees a full image.
+        n_instrs = len(program_words)
+        padded_program = list(program_words) + [0] * (256 - len(program_words))
+        padded_data = list(data_words) + [0] * (256 - len(data_words))
+        _write_hex_words(program_hex, padded_program)
+        _write_hex_words(data_hex, padded_data)
 
         subprocess.run(
             [
@@ -218,17 +222,20 @@ def _run_rtl(program_words: List[int], data_words: List[int]) -> Dict[str, objec
             check=True,
         )
 
+        vvp_cmd = [
+            "vvp",
+            str(sim_out),
+            f"+PROGRAM={program_hex}",
+            f"+DATA={data_hex}",
+        ]
+        if init_state:
+            for key, value in init_state.items():
+                vvp_cmd.append(f"+{key}={int(value)}")
         run = subprocess.run(
-            [
-                "vvp",
-                str(sim_out),
-                f"+PROGRAM={program_hex}",
-                f"+DATA={data_hex}",
-            ],
+            vvp_cmd,
             cwd=str(td_path),
             capture_output=True,
             text=True,
-            check=True,
         )
 
         out = run.stdout
@@ -499,8 +506,8 @@ def main() -> None:
 
         program_words = [
             _encode_word(0x00, 1, 0, pnew_mu),      # PNEW {1}
-            _encode_word(0x05, 0, 0, 0),            # MDLACC current module (μ-ALU adds mdl_cost)
-            _encode_word(0x06, 4, 2, 0),            # PDISCOVER before=4 after=2 (μ-ALU adds info_gain)
+            _encode_word(0x05, 0, 0, mdl_cost & 0xFF),  # MDLACC current module (cost byte for NoFI)
+            _encode_word(0x06, 4, 2, info_gain_cost),    # PDISCOVER before=4 after=2 (cost >= op_b for NoFI)
             _encode_word(0xFF, 0, 0, 0),            # HALT
         ]
 
@@ -526,12 +533,27 @@ def main() -> None:
             "EVIDENCE_STRICT forbids μ normalization; unset ALLOW_MU_NORMALIZE for evidence runs."
         )
 
+    # Build RTL init_state: scenarios that access data memory need locality wall
+    # setup; scenarios with high-value ops (MDLACC, PDISCOVER, REVEAL) need the
+    # logic gate key (0xCAFEEACE).
+    rtl_init_state: Dict[str, int] = {}
+    if scenario in ("multiop_compute",):
+        # XOR_LOAD reads from data memory — enable locality wall for module 0.
+        rtl_init_state["INIT_ACTIVE_MODULE"] = 0
+        rtl_init_state["INIT_PT_IDX"] = 0
+        rtl_init_state["INIT_PT_VAL"] = 256
+    if scenario in ("magic_ops",):
+        # MDLACC/PDISCOVER are high-value ops gated by the logic key.
+        rtl_init_state["INIT_LOGIC_ACC"] = 0xCAFEEACE
+    if scenario in ("oracle_halts",):
+        rtl_init_state["INIT_LOGIC_ACC"] = 0xCAFEEACE
+
     with tempfile.TemporaryDirectory() as td:
         td_path = Path(td)
         py_out = _run_python_vm(init_mem, init_regs, program_text, td_path / "python")
 
     coq_out = _run_extracted(init_mem, init_regs, trace_lines)
-    rtl_out = _run_rtl(program_words, init_mem)
+    rtl_out = _run_rtl(program_words, init_mem, init_state=rtl_init_state)
 
     # Transitional parity shim for the extracted Kami backend: synthesis/parsing
     # is already gated elsewhere, but some runtime op semantics are still being

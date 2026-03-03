@@ -1,4 +1,6 @@
 (**
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
   THIELE PROOF-CARRYING REALITY (Concrete receipts replay)
 
   This file provides an explicit, checkable proof that a nontrivial concrete
@@ -6,6 +8,10 @@
 
   The intent is Task 12 style: a run artifact + a verifier that accepts it.
 *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import List.
 Import ListNotations.

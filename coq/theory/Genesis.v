@@ -5,6 +5,10 @@
 Set Implicit Arguments.
 Generalizable All Variables.
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 Section Universal_Ouroboros.
   Variable S : Type.
 

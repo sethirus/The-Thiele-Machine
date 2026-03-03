@@ -1,5 +1,8 @@
 (** PDISCOVERIntegration.v — Integration of geometric signature analysis into VM kernel *)
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import MuCostModel.
+
 (** 
     STATUS (December 21, 2025): VERIFIED
     

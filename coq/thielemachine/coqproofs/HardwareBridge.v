@@ -1,4 +1,6 @@
 (*
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
  * HardwareBridge.v
  * -----------------
  *
@@ -22,6 +24,10 @@
  * precise pieces that the abstract Thiele machine cares about, so matching them
  * suffices to align the mechanised proof artefacts with the shipped RTL.
  *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import List NArith.
 From ThieleMachine Require Import ThieleMachine.

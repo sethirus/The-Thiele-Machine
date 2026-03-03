@@ -16,6 +16,10 @@
     - Optimality Postulate (Margolus-Levitin saturation).
     ========================================================================= *)
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 From Coq Require Import Reals Lra.
 Local Open Scope R_scope.
 

@@ -8,6 +8,11 @@ Require Import Coq.Lists.List.
 Require Import Coq.Reals.Reals.
 Require Import Coq.micromega.Lia.
 Require Import Coq.micromega.Lra.
+
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 Import ListNotations.
 
 Module GeometricSignature.
@@ -299,5 +304,6 @@ Module GeometricSignature.
     - destruct (classify_signature (compute_geometric_signature n));
         [left | right]; reflexivity.
   Qed.
+
 
 End GeometricSignature.

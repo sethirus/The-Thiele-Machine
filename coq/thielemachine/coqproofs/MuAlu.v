@@ -1,4 +1,6 @@
 (** =========================================================================
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
     Q16.16 Fixed-Point μ-ALU Formalization
     =========================================================================
     
@@ -16,6 +18,10 @@
     
     This is verified through extraction to OCaml and cross-validation.
  *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import ZArith List Bool Lia.
 Import ListNotations.

@@ -5,6 +5,10 @@ Require Import ZArith.
 Require Import Arith.
 Require Import Lia.
 Import ListNotations.
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 Open Scope Z_scope.
 Open Scope nat_scope.
 

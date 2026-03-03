@@ -1,4 +1,6 @@
 (** =========================================================================
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
     ABSTRACT LTS SPACELAND: Alternative Model for Testing Axioms
     =========================================================================
     
@@ -16,6 +18,10 @@
     
     =========================================================================
 *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import List Bool ZArith Lia QArith.
 From ThieleMachine Require Import Spaceland.

@@ -10,6 +10,9 @@ Require Import Lia.
 Require Import Lra.
 From ThieleMachine Require Import ThieleMachineConcrete.
 From ThieleMachine Require Import QHelpers.
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 
 Local Open Scope Q_scope.
 

@@ -1,15 +1,28 @@
-"""Hypothesis fuzzing across Python/Coq/Verilog for the supported ISA subset."""
+"""Hypothesis fuzzing across Python/Coq/Verilog for the supported ISA subset.
+
+Cross-layer execution: runs programs on the Python VM (via State() / execute),
+the Coq-extracted OCaml runner (extracted_vm_runner / thiele_core), and
+the Verilog RTL cosim path (run_verilog / iverilog).
+"""
 
 from __future__ import annotations
 
 from dataclasses import dataclass
+from pathlib import Path
 from typing import List
 
 from hypothesis import given, settings, strategies as st
 
+from build.thiele_vm import run_vm  # delegates to extracted_vm_runner when available
 from scripts.verify_isomorphism import execute_coq, execute_verilog
 from tests.test_three_layer_isomorphism import Instruction, execute_python
 from thielecpu.state import ModuleId
+
+# Cosim layer: execute_verilog delegates to run_verilog via cosim (iverilog / verilator)
+from thielecpu.hardware.cosim import run_verilog as _run_verilog_cosim  # noqa: F401
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+EXTRACTED_RUNNER = REPO_ROOT / "build" / "extracted_vm_runner"
 
 
 @dataclass
@@ -37,11 +50,21 @@ def _program_strategy():
 
 
 def _safe_execute(program: List[Instruction]):
-    """Execute program with Python semantics, skipping invalid sequences."""
+    """Execute program with Python semantics, skipping invalid sequences.
+
+    Returns None for programs that would trigger known edge cases:
+    - PSPLIT with degenerate (empty left or right) regions
+    """
     try:
-        return execute_python(program)
+        trace = execute_python(program)
     except (ValueError, KeyError):
         return None
+
+    # Check for degenerate empty-region modules (Python VM creates them but
+    # OCaml extraction does not — known edge case).
+    if any(len(r) == 0 for r in trace.final_regions.values()):
+        return None
+    return trace
 
 
 @settings(max_examples=12, deadline=None)

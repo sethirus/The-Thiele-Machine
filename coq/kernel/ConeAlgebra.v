@@ -9,6 +9,9 @@
     This is where "partition-native" becomes "category-native".
     =========================================================================*)
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import MuCostModel.
+
 From Kernel Require Import VMState VMStep KernelPhysics.
 Require Import Coq.Lists.List.
 Require Import Coq.Bool.Bool.

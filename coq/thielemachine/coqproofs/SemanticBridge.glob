@@ -1,319 +1,321 @@
-DIGEST 3b14b2e5a988929c5ac755469b3d78ce
+DIGEST aa4c456b9867bd3be4be97e86fa3cd71
 FThieleMachine.SemanticBridge
-R469:472 Coq.Lists.List <> <> lib
-R474:479 Coq.Strings.String <> <> lib
-R481:486 Coq.ZArith.ZArith <> <> lib
-R488:490 Coq.micromega.Lia <> <> lib
-R492:495 Coq.Bool.Bool <> <> lib
-R497:499 Coq.Init.Nat <> <> lib
-R509:521 Coq.Lists.List ListNotations <> mod
-R560:586 ThieleMachine.CoreSemantics <> <> lib
-R604:629 ThieleMachine.BlindSighted <> <> lib
-R647:673 ThieleMachine.ThieleMachine <> <> lib
-def 949:971 <> core_partition_to_blind
-R978:1000 ThieleMachine.CoreSemantics <> Partition rec
-binder 974:974 <> p:1
-R1005:1026 ThieleMachine.BlindSighted <> Partition rec
-R1036:1055 ThieleMachine.BlindSighted <> modules proj
-R1036:1055 ThieleMachine.BlindSighted <> modules proj
-R1036:1055 ThieleMachine.BlindSighted <> modules proj
-R1092:1111 ThieleMachine.BlindSighted <> next_id proj
-R1092:1111 ThieleMachine.BlindSighted <> next_id proj
-R1063:1083 ThieleMachine.CoreSemantics <> modules proj
-R1060:1060 ThieleMachine.SemanticBridge <> p:1 var
-R1119:1146 ThieleMachine.CoreSemantics <> next_module_id proj
-R1116:1116 ThieleMachine.SemanticBridge <> p:1 var
-def 1165:1187 <> blind_partition_to_core
-R1194:1215 ThieleMachine.BlindSighted <> Partition rec
-binder 1190:1190 <> p:2
-R1220:1242 ThieleMachine.CoreSemantics <> Partition rec
-R1252:1272 ThieleMachine.CoreSemantics <> modules proj
-R1252:1272 ThieleMachine.CoreSemantics <> modules proj
-R1252:1272 ThieleMachine.CoreSemantics <> modules proj
-R1308:1335 ThieleMachine.CoreSemantics <> next_module_id proj
-R1308:1335 ThieleMachine.CoreSemantics <> next_module_id proj
-R1280:1299 ThieleMachine.BlindSighted <> modules proj
-R1277:1277 ThieleMachine.SemanticBridge <> p:2 var
-R1343:1362 ThieleMachine.BlindSighted <> next_id proj
-R1340:1340 ThieleMachine.SemanticBridge <> p:2 var
-def 1451:1470 <> core_ledger_to_blind
-R1477:1498 ThieleMachine.CoreSemantics <> MuLedger rec
-binder 1473:1473 <> l:3
-R1503:1523 ThieleMachine.BlindSighted <> MuLedger rec
-R1533:1559 ThieleMachine.BlindSighted <> mu_operational proj
-R1533:1559 ThieleMachine.BlindSighted <> mu_operational proj
-R1533:1559 ThieleMachine.BlindSighted <> mu_operational proj
-R1603:1627 ThieleMachine.BlindSighted <> mu_discovery proj
-R1603:1627 ThieleMachine.BlindSighted <> mu_discovery proj
-R1671:1691 ThieleMachine.BlindSighted <> mu_total proj
-R1671:1691 ThieleMachine.BlindSighted <> mu_total proj
-R1729:1750 ThieleMachine.BlindSighted <> mu_tensor proj
-R1729:1750 ThieleMachine.BlindSighted <> mu_tensor proj
-R1567:1594 ThieleMachine.CoreSemantics <> mu_operational proj
-R1564:1564 ThieleMachine.SemanticBridge <> l:3 var
-R1635:1662 ThieleMachine.CoreSemantics <> mu_information proj
-R1632:1632 ThieleMachine.SemanticBridge <> l:3 var
-R1699:1720 ThieleMachine.CoreSemantics <> mu_total proj
-R1696:1696 ThieleMachine.SemanticBridge <> l:3 var
-R1758:1780 ThieleMachine.CoreSemantics <> mu_tensor proj
-R1755:1755 ThieleMachine.SemanticBridge <> l:3 var
-def 1799:1818 <> blind_ledger_to_core
-R1825:1845 ThieleMachine.BlindSighted <> MuLedger rec
-binder 1821:1821 <> l:4
-R1850:1871 ThieleMachine.CoreSemantics <> MuLedger rec
-R1881:1908 ThieleMachine.CoreSemantics <> mu_operational proj
-R1881:1908 ThieleMachine.CoreSemantics <> mu_operational proj
-R1881:1908 ThieleMachine.CoreSemantics <> mu_operational proj
-R1951:1978 ThieleMachine.CoreSemantics <> mu_information proj
-R1951:1978 ThieleMachine.CoreSemantics <> mu_information proj
-R2019:2040 ThieleMachine.CoreSemantics <> mu_total proj
-R2019:2040 ThieleMachine.CoreSemantics <> mu_total proj
-R2077:2099 ThieleMachine.CoreSemantics <> mu_tensor proj
-R2077:2099 ThieleMachine.CoreSemantics <> mu_tensor proj
-R1916:1942 ThieleMachine.BlindSighted <> mu_operational proj
-R1913:1913 ThieleMachine.SemanticBridge <> l:4 var
-R1986:2010 ThieleMachine.BlindSighted <> mu_discovery proj
-R1983:1983 ThieleMachine.SemanticBridge <> l:4 var
-R2048:2068 ThieleMachine.BlindSighted <> mu_total proj
-R2045:2045 ThieleMachine.SemanticBridge <> l:4 var
-R2107:2128 ThieleMachine.BlindSighted <> mu_tensor proj
-R2104:2104 ThieleMachine.SemanticBridge <> l:4 var
-def 2147:2159 <> core_to_blind
-R2166:2184 ThieleMachine.CoreSemantics <> State rec
-binder 2162:2162 <> s:5
-R2189:2212 ThieleMachine.BlindSighted <> ThieleState rec
-R2222:2243 ThieleMachine.BlindSighted <> partition proj
-R2222:2243 ThieleMachine.BlindSighted <> partition proj
-R2222:2243 ThieleMachine.BlindSighted <> partition proj
-R2306:2324 ThieleMachine.BlindSighted <> ledger proj
-R2306:2324 ThieleMachine.BlindSighted <> ledger proj
-R2384:2402 ThieleMachine.BlindSighted <> halted proj
-R2384:2402 ThieleMachine.BlindSighted <> halted proj
-R2438:2456 ThieleMachine.BlindSighted <> answer proj
-R2438:2456 ThieleMachine.BlindSighted <> answer proj
-R2248:2270 ThieleMachine.SemanticBridge <> core_partition_to_blind def
-R2275:2297 ThieleMachine.CoreSemantics <> partition proj
-R2272:2272 ThieleMachine.SemanticBridge <> s:5 var
-R2329:2348 ThieleMachine.SemanticBridge <> core_ledger_to_blind def
-R2353:2375 ThieleMachine.CoreSemantics <> mu_ledger proj
-R2350:2350 ThieleMachine.SemanticBridge <> s:5 var
-R2410:2429 ThieleMachine.CoreSemantics <> halted proj
-R2407:2407 ThieleMachine.SemanticBridge <> s:5 var
-R2464:2483 ThieleMachine.CoreSemantics <> result proj
-R2461:2461 ThieleMachine.SemanticBridge <> s:5 var
-def 2502:2514 <> blind_to_core
-R2521:2544 ThieleMachine.BlindSighted <> ThieleState rec
-binder 2517:2517 <> s:6
-R2553:2555 Coq.Init.Datatypes <> nat ind
-binder 2548:2549 <> pc:7
-R2566:2586 ThieleMachine.CoreSemantics <> Program def
-binder 2559:2562 <> prog:8
-R2591:2609 ThieleMachine.CoreSemantics <> State rec
-R2619:2641 ThieleMachine.CoreSemantics <> partition proj
-R2619:2641 ThieleMachine.CoreSemantics <> partition proj
-R2619:2641 ThieleMachine.CoreSemantics <> partition proj
-R2703:2725 ThieleMachine.CoreSemantics <> mu_ledger proj
-R2703:2725 ThieleMachine.CoreSemantics <> mu_ledger proj
-R2781:2796 ThieleMachine.CoreSemantics <> pc proj
-R2781:2796 ThieleMachine.CoreSemantics <> pc proj
-R2810:2829 ThieleMachine.CoreSemantics <> halted proj
-R2810:2829 ThieleMachine.CoreSemantics <> halted proj
-R2864:2883 ThieleMachine.CoreSemantics <> result proj
-R2864:2883 ThieleMachine.CoreSemantics <> result proj
-R2918:2938 ThieleMachine.CoreSemantics <> program proj
-R2918:2938 ThieleMachine.CoreSemantics <> program proj
-R2646:2668 ThieleMachine.SemanticBridge <> blind_partition_to_core def
-R2673:2694 ThieleMachine.BlindSighted <> partition proj
-R2670:2670 ThieleMachine.SemanticBridge <> s:6 var
-R2730:2749 ThieleMachine.SemanticBridge <> blind_ledger_to_core def
-R2754:2772 ThieleMachine.BlindSighted <> ledger proj
-R2751:2751 ThieleMachine.SemanticBridge <> s:6 var
-R2801:2802 ThieleMachine.SemanticBridge <> pc:7 var
-R2837:2855 ThieleMachine.BlindSighted <> halted proj
-R2834:2834 ThieleMachine.SemanticBridge <> s:6 var
-R2891:2909 ThieleMachine.BlindSighted <> answer proj
-R2888:2888 ThieleMachine.SemanticBridge <> s:6 var
-R2943:2946 ThieleMachine.SemanticBridge <> prog:8 var
-prf 3022:3051 <> partition_conversion_roundtrip
-R3069:3091 ThieleMachine.CoreSemantics <> Partition rec
-binder 3065:3065 <> p:9
-R3150:3152 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3099:3121 ThieleMachine.SemanticBridge <> blind_partition_to_core def
-R3124:3146 ThieleMachine.SemanticBridge <> core_partition_to_blind def
-R3148:3148 ThieleMachine.SemanticBridge <> p:9 var
-R3153:3153 ThieleMachine.SemanticBridge <> p:9 var
-R3184:3206 ThieleMachine.SemanticBridge <> core_partition_to_blind def
-R3209:3231 ThieleMachine.SemanticBridge <> blind_partition_to_core def
-prf 3340:3366 <> ledger_conversion_roundtrip
-R3384:3405 ThieleMachine.CoreSemantics <> MuLedger rec
-binder 3380:3380 <> l:10
-R3458:3460 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3413:3432 ThieleMachine.SemanticBridge <> blind_ledger_to_core def
-R3435:3454 ThieleMachine.SemanticBridge <> core_ledger_to_blind def
-R3456:3456 ThieleMachine.SemanticBridge <> l:10 var
-R3461:3461 ThieleMachine.SemanticBridge <> l:10 var
-R3492:3511 ThieleMachine.SemanticBridge <> core_ledger_to_blind def
-R3514:3533 ThieleMachine.SemanticBridge <> blind_ledger_to_core def
-prf 3635:3654 <> state_correspondence
-R3672:3690 ThieleMachine.CoreSemantics <> State rec
-binder 3668:3668 <> s:11
-R3708:3720 ThieleMachine.SemanticBridge <> core_to_blind def
-R3722:3722 ThieleMachine.SemanticBridge <> s:11 var
-binder 3702:3703 <> s':12
-R3742:3754 ThieleMachine.SemanticBridge <> blind_to_core def
-R3756:3757 ThieleMachine.SemanticBridge <> s':12 var
-R3762:3777 ThieleMachine.CoreSemantics <> pc proj
-R3759:3759 ThieleMachine.SemanticBridge <> s:11 var
-R3783:3803 ThieleMachine.CoreSemantics <> program proj
-R3780:3780 ThieleMachine.SemanticBridge <> s:11 var
-binder 3735:3737 <> s'':13
-R3872:3879 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3842:3844 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3818:3840 ThieleMachine.CoreSemantics <> partition proj
-R3813:3815 ThieleMachine.SemanticBridge <> s'':13 var
-R3848:3870 ThieleMachine.CoreSemantics <> partition proj
-R3845:3845 ThieleMachine.SemanticBridge <> s:11 var
-R3939:3946 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3909:3911 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3885:3907 ThieleMachine.CoreSemantics <> mu_ledger proj
-R3880:3882 ThieleMachine.SemanticBridge <> s'':13 var
-R3915:3937 ThieleMachine.CoreSemantics <> mu_ledger proj
-R3912:3912 ThieleMachine.SemanticBridge <> s:11 var
-R4000:4007 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3973:3975 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3952:3971 ThieleMachine.CoreSemantics <> halted proj
-R3947:3949 ThieleMachine.SemanticBridge <> s'':13 var
-R3979:3998 ThieleMachine.CoreSemantics <> halted proj
-R3976:3976 ThieleMachine.SemanticBridge <> s:11 var
-R4061:4068 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4034:4036 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4013:4032 ThieleMachine.CoreSemantics <> result proj
-R4008:4010 ThieleMachine.SemanticBridge <> s'':13 var
-R4040:4059 ThieleMachine.CoreSemantics <> result proj
-R4037:4037 ThieleMachine.SemanticBridge <> s:11 var
-R4096:4098 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4074:4094 ThieleMachine.CoreSemantics <> program proj
-R4069:4071 ThieleMachine.SemanticBridge <> s'':13 var
-R4102:4122 ThieleMachine.CoreSemantics <> program proj
-R4099:4099 ThieleMachine.SemanticBridge <> s:11 var
-R4161:4173 ThieleMachine.SemanticBridge <> core_to_blind def
-R4176:4188 ThieleMachine.SemanticBridge <> blind_to_core def
-R4221:4250 ThieleMachine.SemanticBridge <> partition_conversion_roundtrip thm
-R4221:4250 ThieleMachine.SemanticBridge <> partition_conversion_roundtrip thm
-R4271:4297 ThieleMachine.SemanticBridge <> ledger_conversion_roundtrip thm
-R4271:4297 ThieleMachine.SemanticBridge <> ledger_conversion_roundtrip thm
-def 4548:4560 <> core_mu_total
-R4567:4585 ThieleMachine.CoreSemantics <> State rec
-binder 4563:4563 <> s:14
-R4590:4590 Coq.Numbers.BinNums <> Z ind
-R4626:4647 ThieleMachine.CoreSemantics <> mu_total proj
-R4600:4622 ThieleMachine.CoreSemantics <> mu_ledger proj
-R4597:4597 ThieleMachine.SemanticBridge <> s:14 var
-def 4663:4676 <> blind_mu_total
-R4683:4706 ThieleMachine.BlindSighted <> ThieleState rec
-binder 4679:4679 <> s:15
-R4711:4711 Coq.Numbers.BinNums <> Z ind
-R4743:4763 ThieleMachine.BlindSighted <> mu_total proj
-R4721:4739 ThieleMachine.BlindSighted <> ledger proj
-R4718:4718 ThieleMachine.SemanticBridge <> s:15 var
-prf 4819:4830 <> mu_alignment
-R4848:4866 ThieleMachine.CoreSemantics <> State rec
-binder 4844:4844 <> s:16
-R4889:4891 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4874:4886 ThieleMachine.SemanticBridge <> core_mu_total def
-R4888:4888 ThieleMachine.SemanticBridge <> s:16 var
-R4892:4905 ThieleMachine.SemanticBridge <> blind_mu_total def
-R4908:4920 ThieleMachine.SemanticBridge <> core_to_blind def
-R4922:4922 ThieleMachine.SemanticBridge <> s:16 var
-R4954:4966 ThieleMachine.SemanticBridge <> core_mu_total def
-R4969:4982 ThieleMachine.SemanticBridge <> blind_mu_total def
-R4985:4997 ThieleMachine.SemanticBridge <> core_to_blind def
-prf 5222:5247 <> TM_embeds_in_CoreSemantics
-R5267:5291 ThieleMachine.BlindSighted <> TuringConfig rec
-binder 5261:5263 <> cfg:17
-R5299:5306 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R5365:5373 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R5314:5334 ThieleMachine.CoreSemantics <> Program def
-binder 5307:5310 <> prog:18
-R5346:5364 ThieleMachine.CoreSemantics <> State rec
-binder 5338:5342 <> final:19
-R5402:5404 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5381:5400 ThieleMachine.CoreSemantics <> result proj
-R5374:5378 ThieleMachine.SemanticBridge <> final:19 var
-R5405:5408 Coq.Init.Datatypes <> Some constr
-R5411:5432 ThieleMachine.BlindSighted <> tm_output def
-R5434:5436 ThieleMachine.SemanticBridge <> cfg:17 var
-R5472:5501 ThieleMachine.BlindSighted <> TM_as_BlindThiele thm
-R5472:5501 ThieleMachine.BlindSighted <> TM_as_BlindThiele thm
-R5571:5571 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5619:5620 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5639:5639 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5572:5589 ThieleMachine.CoreSemantics <> EMIT constr
-R5592:5613 ThieleMachine.BlindSighted <> tm_output def
-R5621:5638 ThieleMachine.CoreSemantics <> HALT constr
-R5571:5571 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5619:5620 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5639:5639 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5572:5589 ThieleMachine.CoreSemantics <> EMIT constr
-R5592:5613 ThieleMachine.BlindSighted <> tm_output def
-R5621:5638 ThieleMachine.CoreSemantics <> HALT constr
-R5670:5692 ThieleMachine.CoreSemantics <> partition proj
-R5670:5692 ThieleMachine.CoreSemantics <> partition proj
-R5670:5692 ThieleMachine.CoreSemantics <> partition proj
-R5770:5792 ThieleMachine.CoreSemantics <> mu_ledger proj
-R5770:5792 ThieleMachine.CoreSemantics <> mu_ledger proj
-R5856:5871 ThieleMachine.CoreSemantics <> pc proj
-R5856:5871 ThieleMachine.CoreSemantics <> pc proj
-R5895:5914 ThieleMachine.CoreSemantics <> halted proj
-R5895:5914 ThieleMachine.CoreSemantics <> halted proj
-R5937:5956 ThieleMachine.CoreSemantics <> result proj
-R5937:5956 ThieleMachine.CoreSemantics <> result proj
-R6008:6028 ThieleMachine.CoreSemantics <> program proj
-R6008:6028 ThieleMachine.CoreSemantics <> program proj
-R5697:5719 ThieleMachine.SemanticBridge <> blind_partition_to_core def
-R5722:5751 ThieleMachine.BlindSighted <> trivial_partition def
-R5753:5754 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R5797:5816 ThieleMachine.SemanticBridge <> blind_ledger_to_core def
-R5818:5841 ThieleMachine.BlindSighted <> zero_ledger def
-R5919:5922 Coq.Init.Datatypes <> true constr
-R5961:5964 Coq.Init.Datatypes <> Some constr
-R5967:5988 ThieleMachine.BlindSighted <> tm_output def
-R5670:5692 ThieleMachine.CoreSemantics <> partition proj
-R5670:5692 ThieleMachine.CoreSemantics <> partition proj
-R5670:5692 ThieleMachine.CoreSemantics <> partition proj
-R5770:5792 ThieleMachine.CoreSemantics <> mu_ledger proj
-R5770:5792 ThieleMachine.CoreSemantics <> mu_ledger proj
-R5856:5871 ThieleMachine.CoreSemantics <> pc proj
-R5856:5871 ThieleMachine.CoreSemantics <> pc proj
-R5895:5914 ThieleMachine.CoreSemantics <> halted proj
-R5895:5914 ThieleMachine.CoreSemantics <> halted proj
-R5937:5956 ThieleMachine.CoreSemantics <> result proj
-R5937:5956 ThieleMachine.CoreSemantics <> result proj
-R6008:6028 ThieleMachine.CoreSemantics <> program proj
-R6008:6028 ThieleMachine.CoreSemantics <> program proj
-R5697:5719 ThieleMachine.SemanticBridge <> blind_partition_to_core def
-R5722:5751 ThieleMachine.BlindSighted <> trivial_partition def
-R5753:5754 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R5797:5816 ThieleMachine.SemanticBridge <> blind_ledger_to_core def
-R5818:5841 ThieleMachine.BlindSighted <> zero_ledger def
-R5919:5922 Coq.Init.Datatypes <> true constr
-R5961:5964 Coq.Init.Datatypes <> Some constr
-R5967:5988 ThieleMachine.BlindSighted <> tm_output def
-prf 6260:6297 <> CoreSemantics_implements_ThieleMachine
-R6317:6341 ThieleMachine.BlindSighted <> TuringConfig rec
-binder 6311:6313 <> cfg:20
-R6349:6356 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R6385:6393 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R6364:6384 ThieleMachine.CoreSemantics <> Program def
-binder 6357:6360 <> prog:21
-R6394:6400 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R6406:6407 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 6401:6405 <> final:22
-R6436:6438 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6415:6434 ThieleMachine.CoreSemantics <> result proj
-R6408:6412 ThieleMachine.SemanticBridge <> final:22 var
-R6439:6442 Coq.Init.Datatypes <> Some constr
-R6445:6466 ThieleMachine.BlindSighted <> tm_output def
-R6468:6470 ThieleMachine.SemanticBridge <> cfg:20 var
-R6506:6531 ThieleMachine.SemanticBridge <> TM_embeds_in_CoreSemantics thm
-R6506:6531 ThieleMachine.SemanticBridge <> TM_embeds_in_CoreSemantics thm
+R641:647 Kernel.VMState <> <> lib
+R649:654 Kernel.VMStep <> <> lib
+R682:685 Coq.Lists.List <> <> lib
+R687:692 Coq.Strings.String <> <> lib
+R694:699 Coq.ZArith.ZArith <> <> lib
+R701:703 Coq.micromega.Lia <> <> lib
+R705:708 Coq.Bool.Bool <> <> lib
+R710:712 Coq.Init.Nat <> <> lib
+R722:734 Coq.Lists.List ListNotations <> mod
+R773:799 ThieleMachine.CoreSemantics <> <> lib
+R817:842 ThieleMachine.BlindSighted <> <> lib
+R860:886 ThieleMachine.ThieleMachine <> <> lib
+def 1162:1184 <> core_partition_to_blind
+R1191:1213 ThieleMachine.CoreSemantics <> Partition rec
+binder 1187:1187 <> p:1
+R1218:1239 ThieleMachine.BlindSighted <> Partition rec
+R1249:1268 ThieleMachine.BlindSighted <> modules proj
+R1249:1268 ThieleMachine.BlindSighted <> modules proj
+R1249:1268 ThieleMachine.BlindSighted <> modules proj
+R1305:1324 ThieleMachine.BlindSighted <> next_id proj
+R1305:1324 ThieleMachine.BlindSighted <> next_id proj
+R1276:1296 ThieleMachine.CoreSemantics <> modules proj
+R1273:1273 ThieleMachine.SemanticBridge <> p:1 var
+R1332:1359 ThieleMachine.CoreSemantics <> next_module_id proj
+R1329:1329 ThieleMachine.SemanticBridge <> p:1 var
+def 1378:1400 <> blind_partition_to_core
+R1407:1428 ThieleMachine.BlindSighted <> Partition rec
+binder 1403:1403 <> p:2
+R1433:1455 ThieleMachine.CoreSemantics <> Partition rec
+R1465:1485 ThieleMachine.CoreSemantics <> modules proj
+R1465:1485 ThieleMachine.CoreSemantics <> modules proj
+R1465:1485 ThieleMachine.CoreSemantics <> modules proj
+R1521:1548 ThieleMachine.CoreSemantics <> next_module_id proj
+R1521:1548 ThieleMachine.CoreSemantics <> next_module_id proj
+R1493:1512 ThieleMachine.BlindSighted <> modules proj
+R1490:1490 ThieleMachine.SemanticBridge <> p:2 var
+R1556:1575 ThieleMachine.BlindSighted <> next_id proj
+R1553:1553 ThieleMachine.SemanticBridge <> p:2 var
+def 1664:1683 <> core_ledger_to_blind
+R1690:1711 ThieleMachine.CoreSemantics <> MuLedger rec
+binder 1686:1686 <> l:3
+R1716:1736 ThieleMachine.BlindSighted <> MuLedger rec
+R1746:1772 ThieleMachine.BlindSighted <> mu_operational proj
+R1746:1772 ThieleMachine.BlindSighted <> mu_operational proj
+R1746:1772 ThieleMachine.BlindSighted <> mu_operational proj
+R1816:1840 ThieleMachine.BlindSighted <> mu_discovery proj
+R1816:1840 ThieleMachine.BlindSighted <> mu_discovery proj
+R1884:1904 ThieleMachine.BlindSighted <> mu_total proj
+R1884:1904 ThieleMachine.BlindSighted <> mu_total proj
+R1942:1963 ThieleMachine.BlindSighted <> mu_tensor proj
+R1942:1963 ThieleMachine.BlindSighted <> mu_tensor proj
+R1780:1807 ThieleMachine.CoreSemantics <> mu_operational proj
+R1777:1777 ThieleMachine.SemanticBridge <> l:3 var
+R1848:1875 ThieleMachine.CoreSemantics <> mu_information proj
+R1845:1845 ThieleMachine.SemanticBridge <> l:3 var
+R1912:1933 ThieleMachine.CoreSemantics <> mu_total proj
+R1909:1909 ThieleMachine.SemanticBridge <> l:3 var
+R1971:1993 ThieleMachine.CoreSemantics <> mu_tensor proj
+R1968:1968 ThieleMachine.SemanticBridge <> l:3 var
+def 2012:2031 <> blind_ledger_to_core
+R2038:2058 ThieleMachine.BlindSighted <> MuLedger rec
+binder 2034:2034 <> l:4
+R2063:2084 ThieleMachine.CoreSemantics <> MuLedger rec
+R2094:2121 ThieleMachine.CoreSemantics <> mu_operational proj
+R2094:2121 ThieleMachine.CoreSemantics <> mu_operational proj
+R2094:2121 ThieleMachine.CoreSemantics <> mu_operational proj
+R2164:2191 ThieleMachine.CoreSemantics <> mu_information proj
+R2164:2191 ThieleMachine.CoreSemantics <> mu_information proj
+R2232:2253 ThieleMachine.CoreSemantics <> mu_total proj
+R2232:2253 ThieleMachine.CoreSemantics <> mu_total proj
+R2290:2312 ThieleMachine.CoreSemantics <> mu_tensor proj
+R2290:2312 ThieleMachine.CoreSemantics <> mu_tensor proj
+R2129:2155 ThieleMachine.BlindSighted <> mu_operational proj
+R2126:2126 ThieleMachine.SemanticBridge <> l:4 var
+R2199:2223 ThieleMachine.BlindSighted <> mu_discovery proj
+R2196:2196 ThieleMachine.SemanticBridge <> l:4 var
+R2261:2281 ThieleMachine.BlindSighted <> mu_total proj
+R2258:2258 ThieleMachine.SemanticBridge <> l:4 var
+R2320:2341 ThieleMachine.BlindSighted <> mu_tensor proj
+R2317:2317 ThieleMachine.SemanticBridge <> l:4 var
+def 2360:2372 <> core_to_blind
+R2379:2397 ThieleMachine.CoreSemantics <> State rec
+binder 2375:2375 <> s:5
+R2402:2425 ThieleMachine.BlindSighted <> ThieleState rec
+R2435:2456 ThieleMachine.BlindSighted <> partition proj
+R2435:2456 ThieleMachine.BlindSighted <> partition proj
+R2435:2456 ThieleMachine.BlindSighted <> partition proj
+R2519:2537 ThieleMachine.BlindSighted <> ledger proj
+R2519:2537 ThieleMachine.BlindSighted <> ledger proj
+R2597:2615 ThieleMachine.BlindSighted <> halted proj
+R2597:2615 ThieleMachine.BlindSighted <> halted proj
+R2651:2669 ThieleMachine.BlindSighted <> answer proj
+R2651:2669 ThieleMachine.BlindSighted <> answer proj
+R2461:2483 ThieleMachine.SemanticBridge <> core_partition_to_blind def
+R2488:2510 ThieleMachine.CoreSemantics <> partition proj
+R2485:2485 ThieleMachine.SemanticBridge <> s:5 var
+R2542:2561 ThieleMachine.SemanticBridge <> core_ledger_to_blind def
+R2566:2588 ThieleMachine.CoreSemantics <> mu_ledger proj
+R2563:2563 ThieleMachine.SemanticBridge <> s:5 var
+R2623:2642 ThieleMachine.CoreSemantics <> halted proj
+R2620:2620 ThieleMachine.SemanticBridge <> s:5 var
+R2677:2696 ThieleMachine.CoreSemantics <> result proj
+R2674:2674 ThieleMachine.SemanticBridge <> s:5 var
+def 2715:2727 <> blind_to_core
+R2734:2757 ThieleMachine.BlindSighted <> ThieleState rec
+binder 2730:2730 <> s:6
+R2766:2768 Coq.Init.Datatypes <> nat ind
+binder 2761:2762 <> pc:7
+R2779:2799 ThieleMachine.CoreSemantics <> Program def
+binder 2772:2775 <> prog:8
+R2804:2822 ThieleMachine.CoreSemantics <> State rec
+R2832:2854 ThieleMachine.CoreSemantics <> partition proj
+R2832:2854 ThieleMachine.CoreSemantics <> partition proj
+R2832:2854 ThieleMachine.CoreSemantics <> partition proj
+R2916:2938 ThieleMachine.CoreSemantics <> mu_ledger proj
+R2916:2938 ThieleMachine.CoreSemantics <> mu_ledger proj
+R2994:3009 ThieleMachine.CoreSemantics <> pc proj
+R2994:3009 ThieleMachine.CoreSemantics <> pc proj
+R3023:3042 ThieleMachine.CoreSemantics <> halted proj
+R3023:3042 ThieleMachine.CoreSemantics <> halted proj
+R3077:3096 ThieleMachine.CoreSemantics <> result proj
+R3077:3096 ThieleMachine.CoreSemantics <> result proj
+R3131:3151 ThieleMachine.CoreSemantics <> program proj
+R3131:3151 ThieleMachine.CoreSemantics <> program proj
+R2859:2881 ThieleMachine.SemanticBridge <> blind_partition_to_core def
+R2886:2907 ThieleMachine.BlindSighted <> partition proj
+R2883:2883 ThieleMachine.SemanticBridge <> s:6 var
+R2943:2962 ThieleMachine.SemanticBridge <> blind_ledger_to_core def
+R2967:2985 ThieleMachine.BlindSighted <> ledger proj
+R2964:2964 ThieleMachine.SemanticBridge <> s:6 var
+R3014:3015 ThieleMachine.SemanticBridge <> pc:7 var
+R3050:3068 ThieleMachine.BlindSighted <> halted proj
+R3047:3047 ThieleMachine.SemanticBridge <> s:6 var
+R3104:3122 ThieleMachine.BlindSighted <> answer proj
+R3101:3101 ThieleMachine.SemanticBridge <> s:6 var
+R3156:3159 ThieleMachine.SemanticBridge <> prog:8 var
+prf 3235:3264 <> partition_conversion_roundtrip
+R3282:3304 ThieleMachine.CoreSemantics <> Partition rec
+binder 3278:3278 <> p:9
+R3363:3365 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3312:3334 ThieleMachine.SemanticBridge <> blind_partition_to_core def
+R3337:3359 ThieleMachine.SemanticBridge <> core_partition_to_blind def
+R3361:3361 ThieleMachine.SemanticBridge <> p:9 var
+R3366:3366 ThieleMachine.SemanticBridge <> p:9 var
+R3397:3419 ThieleMachine.SemanticBridge <> core_partition_to_blind def
+R3422:3444 ThieleMachine.SemanticBridge <> blind_partition_to_core def
+prf 3553:3579 <> ledger_conversion_roundtrip
+R3597:3618 ThieleMachine.CoreSemantics <> MuLedger rec
+binder 3593:3593 <> l:10
+R3671:3673 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3626:3645 ThieleMachine.SemanticBridge <> blind_ledger_to_core def
+R3648:3667 ThieleMachine.SemanticBridge <> core_ledger_to_blind def
+R3669:3669 ThieleMachine.SemanticBridge <> l:10 var
+R3674:3674 ThieleMachine.SemanticBridge <> l:10 var
+R3705:3724 ThieleMachine.SemanticBridge <> core_ledger_to_blind def
+R3727:3746 ThieleMachine.SemanticBridge <> blind_ledger_to_core def
+prf 3848:3867 <> state_correspondence
+R3885:3903 ThieleMachine.CoreSemantics <> State rec
+binder 3881:3881 <> s:11
+R3921:3933 ThieleMachine.SemanticBridge <> core_to_blind def
+R3935:3935 ThieleMachine.SemanticBridge <> s:11 var
+binder 3915:3916 <> s':12
+R3955:3967 ThieleMachine.SemanticBridge <> blind_to_core def
+R3969:3970 ThieleMachine.SemanticBridge <> s':12 var
+R3975:3990 ThieleMachine.CoreSemantics <> pc proj
+R3972:3972 ThieleMachine.SemanticBridge <> s:11 var
+R3996:4016 ThieleMachine.CoreSemantics <> program proj
+R3993:3993 ThieleMachine.SemanticBridge <> s:11 var
+binder 3948:3950 <> s'':13
+R4085:4092 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4055:4057 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4031:4053 ThieleMachine.CoreSemantics <> partition proj
+R4026:4028 ThieleMachine.SemanticBridge <> s'':13 var
+R4061:4083 ThieleMachine.CoreSemantics <> partition proj
+R4058:4058 ThieleMachine.SemanticBridge <> s:11 var
+R4152:4159 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4122:4124 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4098:4120 ThieleMachine.CoreSemantics <> mu_ledger proj
+R4093:4095 ThieleMachine.SemanticBridge <> s'':13 var
+R4128:4150 ThieleMachine.CoreSemantics <> mu_ledger proj
+R4125:4125 ThieleMachine.SemanticBridge <> s:11 var
+R4213:4220 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4186:4188 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4165:4184 ThieleMachine.CoreSemantics <> halted proj
+R4160:4162 ThieleMachine.SemanticBridge <> s'':13 var
+R4192:4211 ThieleMachine.CoreSemantics <> halted proj
+R4189:4189 ThieleMachine.SemanticBridge <> s:11 var
+R4274:4281 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4247:4249 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4226:4245 ThieleMachine.CoreSemantics <> result proj
+R4221:4223 ThieleMachine.SemanticBridge <> s'':13 var
+R4253:4272 ThieleMachine.CoreSemantics <> result proj
+R4250:4250 ThieleMachine.SemanticBridge <> s:11 var
+R4309:4311 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4287:4307 ThieleMachine.CoreSemantics <> program proj
+R4282:4284 ThieleMachine.SemanticBridge <> s'':13 var
+R4315:4335 ThieleMachine.CoreSemantics <> program proj
+R4312:4312 ThieleMachine.SemanticBridge <> s:11 var
+R4374:4386 ThieleMachine.SemanticBridge <> core_to_blind def
+R4389:4401 ThieleMachine.SemanticBridge <> blind_to_core def
+R4434:4463 ThieleMachine.SemanticBridge <> partition_conversion_roundtrip thm
+R4434:4463 ThieleMachine.SemanticBridge <> partition_conversion_roundtrip thm
+R4484:4510 ThieleMachine.SemanticBridge <> ledger_conversion_roundtrip thm
+R4484:4510 ThieleMachine.SemanticBridge <> ledger_conversion_roundtrip thm
+def 4761:4773 <> core_mu_total
+R4780:4798 ThieleMachine.CoreSemantics <> State rec
+binder 4776:4776 <> s:14
+R4803:4803 Coq.Numbers.BinNums <> Z ind
+R4839:4860 ThieleMachine.CoreSemantics <> mu_total proj
+R4813:4835 ThieleMachine.CoreSemantics <> mu_ledger proj
+R4810:4810 ThieleMachine.SemanticBridge <> s:14 var
+def 4876:4889 <> blind_mu_total
+R4896:4919 ThieleMachine.BlindSighted <> ThieleState rec
+binder 4892:4892 <> s:15
+R4924:4924 Coq.Numbers.BinNums <> Z ind
+R4956:4976 ThieleMachine.BlindSighted <> mu_total proj
+R4934:4952 ThieleMachine.BlindSighted <> ledger proj
+R4931:4931 ThieleMachine.SemanticBridge <> s:15 var
+prf 5032:5043 <> mu_alignment
+R5061:5079 ThieleMachine.CoreSemantics <> State rec
+binder 5057:5057 <> s:16
+R5102:5104 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5087:5099 ThieleMachine.SemanticBridge <> core_mu_total def
+R5101:5101 ThieleMachine.SemanticBridge <> s:16 var
+R5105:5118 ThieleMachine.SemanticBridge <> blind_mu_total def
+R5121:5133 ThieleMachine.SemanticBridge <> core_to_blind def
+R5135:5135 ThieleMachine.SemanticBridge <> s:16 var
+R5167:5179 ThieleMachine.SemanticBridge <> core_mu_total def
+R5182:5195 ThieleMachine.SemanticBridge <> blind_mu_total def
+R5198:5210 ThieleMachine.SemanticBridge <> core_to_blind def
+prf 5435:5460 <> TM_embeds_in_CoreSemantics
+R5480:5504 ThieleMachine.BlindSighted <> TuringConfig rec
+binder 5474:5476 <> cfg:17
+R5512:5519 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5578:5586 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5527:5547 ThieleMachine.CoreSemantics <> Program def
+binder 5520:5523 <> prog:18
+R5559:5577 ThieleMachine.CoreSemantics <> State rec
+binder 5551:5555 <> final:19
+R5615:5617 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5594:5613 ThieleMachine.CoreSemantics <> result proj
+R5587:5591 ThieleMachine.SemanticBridge <> final:19 var
+R5618:5621 Coq.Init.Datatypes <> Some constr
+R5624:5645 ThieleMachine.BlindSighted <> tm_output def
+R5647:5649 ThieleMachine.SemanticBridge <> cfg:17 var
+R5685:5714 ThieleMachine.BlindSighted <> TM_as_BlindThiele thm
+R5685:5714 ThieleMachine.BlindSighted <> TM_as_BlindThiele thm
+R5784:5784 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5832:5833 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5852:5852 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5785:5802 ThieleMachine.CoreSemantics <> EMIT constr
+R5805:5826 ThieleMachine.BlindSighted <> tm_output def
+R5834:5851 ThieleMachine.CoreSemantics <> HALT constr
+R5784:5784 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5832:5833 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5852:5852 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5785:5802 ThieleMachine.CoreSemantics <> EMIT constr
+R5805:5826 ThieleMachine.BlindSighted <> tm_output def
+R5834:5851 ThieleMachine.CoreSemantics <> HALT constr
+R5883:5905 ThieleMachine.CoreSemantics <> partition proj
+R5883:5905 ThieleMachine.CoreSemantics <> partition proj
+R5883:5905 ThieleMachine.CoreSemantics <> partition proj
+R5983:6005 ThieleMachine.CoreSemantics <> mu_ledger proj
+R5983:6005 ThieleMachine.CoreSemantics <> mu_ledger proj
+R6069:6084 ThieleMachine.CoreSemantics <> pc proj
+R6069:6084 ThieleMachine.CoreSemantics <> pc proj
+R6108:6127 ThieleMachine.CoreSemantics <> halted proj
+R6108:6127 ThieleMachine.CoreSemantics <> halted proj
+R6150:6169 ThieleMachine.CoreSemantics <> result proj
+R6150:6169 ThieleMachine.CoreSemantics <> result proj
+R6221:6241 ThieleMachine.CoreSemantics <> program proj
+R6221:6241 ThieleMachine.CoreSemantics <> program proj
+R5910:5932 ThieleMachine.SemanticBridge <> blind_partition_to_core def
+R5935:5964 ThieleMachine.BlindSighted <> trivial_partition def
+R5966:5967 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6010:6029 ThieleMachine.SemanticBridge <> blind_ledger_to_core def
+R6031:6054 ThieleMachine.BlindSighted <> zero_ledger def
+R6132:6135 Coq.Init.Datatypes <> true constr
+R6174:6177 Coq.Init.Datatypes <> Some constr
+R6180:6201 ThieleMachine.BlindSighted <> tm_output def
+R5883:5905 ThieleMachine.CoreSemantics <> partition proj
+R5883:5905 ThieleMachine.CoreSemantics <> partition proj
+R5883:5905 ThieleMachine.CoreSemantics <> partition proj
+R5983:6005 ThieleMachine.CoreSemantics <> mu_ledger proj
+R5983:6005 ThieleMachine.CoreSemantics <> mu_ledger proj
+R6069:6084 ThieleMachine.CoreSemantics <> pc proj
+R6069:6084 ThieleMachine.CoreSemantics <> pc proj
+R6108:6127 ThieleMachine.CoreSemantics <> halted proj
+R6108:6127 ThieleMachine.CoreSemantics <> halted proj
+R6150:6169 ThieleMachine.CoreSemantics <> result proj
+R6150:6169 ThieleMachine.CoreSemantics <> result proj
+R6221:6241 ThieleMachine.CoreSemantics <> program proj
+R6221:6241 ThieleMachine.CoreSemantics <> program proj
+R5910:5932 ThieleMachine.SemanticBridge <> blind_partition_to_core def
+R5935:5964 ThieleMachine.BlindSighted <> trivial_partition def
+R5966:5967 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6010:6029 ThieleMachine.SemanticBridge <> blind_ledger_to_core def
+R6031:6054 ThieleMachine.BlindSighted <> zero_ledger def
+R6132:6135 Coq.Init.Datatypes <> true constr
+R6174:6177 Coq.Init.Datatypes <> Some constr
+R6180:6201 ThieleMachine.BlindSighted <> tm_output def
+prf 6473:6510 <> CoreSemantics_implements_ThieleMachine
+R6530:6554 ThieleMachine.BlindSighted <> TuringConfig rec
+binder 6524:6526 <> cfg:20
+R6562:6569 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6598:6606 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6577:6597 ThieleMachine.CoreSemantics <> Program def
+binder 6570:6573 <> prog:21
+R6607:6613 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6619:6620 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 6614:6618 <> final:22
+R6649:6651 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6628:6647 ThieleMachine.CoreSemantics <> result proj
+R6621:6625 ThieleMachine.SemanticBridge <> final:22 var
+R6652:6655 Coq.Init.Datatypes <> Some constr
+R6658:6679 ThieleMachine.BlindSighted <> tm_output def
+R6681:6683 ThieleMachine.SemanticBridge <> cfg:20 var
+R6719:6744 ThieleMachine.SemanticBridge <> TM_embeds_in_CoreSemantics thm
+R6719:6744 ThieleMachine.SemanticBridge <> TM_embeds_in_CoreSemantics thm

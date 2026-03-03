@@ -7,15 +7,22 @@ Deep investigation into the discrete Gauss-Bonnet formula.
 import sys
 from pathlib import Path
 import math
+import pytest
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "tools"))
 sys.path.insert(0, str(Path(__file__).parent))
 
 from vm_wrapper import run_vm_trace
+from vm_wrapper import VM_RUNNER_PATH
 import test_2d_mesh_creation
 import test_mu_gravity_axioms
 
 PI = math.pi
+
+pytestmark = pytest.mark.skipif(
+    not VM_RUNNER_PATH.exists(),
+    reason="Coq-extracted runner not built (build/extracted_vm_runner)",
+)
 
 def test_weighted_gauss_bonnet():
     """

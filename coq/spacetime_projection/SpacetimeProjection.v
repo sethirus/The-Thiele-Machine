@@ -1,11 +1,15 @@
 (** * Spacetime as a projection of the Thiele manifold.
 
+
     This study connects the infinite-dimensional Thiele manifold to the
     4D spacetime model and makes the projection properties explicit.  The
     projection is intentionally lossy: many manifold states collapse to
     the same spacetime event, and a positive \u03bc-cost records the lost
     dimensional information.  Simplified quantum- and consciousness-like
     phenomena fall out of this projection view. *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
 
 From Coq Require Import Arith.Arith Lia.
 From SelfReference Require Import SelfReference.

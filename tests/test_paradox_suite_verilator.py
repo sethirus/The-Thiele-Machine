@@ -79,7 +79,8 @@ def test_paradox_liar_lassert_bridge_completes_without_hang() -> None:
     result = run_verilog(
         "\n".join(
             [
-                "LASSERT 0 1 0",
+                "INIT_LOGIC_ACC 0xCAFEEACE",
+                "LASSERT 0 1 1",
                 "HALT 0",
                 "",
             ]

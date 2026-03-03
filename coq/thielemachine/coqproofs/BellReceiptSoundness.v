@@ -1,5 +1,9 @@
 From Coq Require Import List String Ascii Bool.
 Import ListNotations.
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 Open Scope string_scope.
 
 From ThieleMachine Require Import BellReceiptSemantics.

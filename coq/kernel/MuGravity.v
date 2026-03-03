@@ -1824,7 +1824,7 @@ Proof.
     {
       unfold f, g.
       pose proof (modules_adjacent_by_region_pnew_preserved s region m id Hm Hid) as Hadj.
-      unfold vm_apply in Hadj.
+      unfold vm_apply, vm_apply_unsafe in Hadj.
       rewrite Hadj. reflexivity.
     }
     rewrite Hf_id.
@@ -1907,7 +1907,7 @@ Proof.
   { apply (Htris n1 n2). simpl. left. reflexivity. }
   destruct Hids as [Hn1 Hn2].
   pose proof (triangle_angle_pnew_preserved s region m n1 n2 Hm Hn1 Hn2) as Hangle.
-  unfold vm_apply in Hangle.
+  unfold vm_apply, vm_apply_unsafe in Hangle.
   rewrite Hangle.
   f_equal.
   apply IH.

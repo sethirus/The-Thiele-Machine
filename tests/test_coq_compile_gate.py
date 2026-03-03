@@ -292,7 +292,7 @@ def test_coqproject_count_matches_v_files():
     problems: list[str] = []
     if only_on_disk:
         problems.append(
-            "Files on disk but NOT in _CoqProject (add or move to archive/):\n"
+            "Files on disk but NOT in _CoqProject (add to _CoqProject or remove from active tree):\n"
             + "\n".join(f"  {f}" for f in sorted(only_on_disk))
         )
     if only_in_project:

@@ -1,28 +1,31 @@
-DIGEST 53b1d6f7fa87be48840a3d500f50c81c
+DIGEST 5089b6c4ccc82942561fa5bf2eb80646
 FBridge.Tomography_to_Kernel
 R24:27 Coq.Lists.List <> <> lib
 R29:36 Coq.Arith.PeanoNat <> <> lib
 R46:58 Coq.Lists.List ListNotations <> mod
 R89:99 Kernel.ReceiptCore <> <> lib
-mod 110:129 <> Tomography_to_Kernel
-def 144:156 Tomography_to_Kernel MEAS_TRIAL_OP
-R160:162 Coq.Init.Datatypes <> nat ind
-def 185:195 Tomography_to_Kernel TomoChannel
-R202:220 Kernel.ReceiptCore ReceiptCore Receipt rec
-binder 198:198 <> r:1
-R225:228 Coq.Init.Datatypes <> bool ind
-R235:241 Coq.Arith.PeanoNat Nat eqb def
-R244:259 Kernel.ReceiptCore ReceiptCore r_op proj
-R261:261 Bridge.Tomography_to_Kernel <> r:1 var
-R264:276 Bridge.Tomography_to_Kernel Tomography_to_Kernel MEAS_TRIAL_OP def
-prf 334:348 Tomography_to_Kernel decodes_to_self
-binder 361:362 <> tr:2
-R369:390 Kernel.ReceiptCore ReceiptCore decodes_to def
-R392:402 Bridge.Tomography_to_Kernel Tomography_to_Kernel TomoChannel def
-R404:405 Bridge.Tomography_to_Kernel <> tr:2 var
-R408:425 Kernel.ReceiptCore ReceiptCore decode def
-R427:437 Bridge.Tomography_to_Kernel Tomography_to_Kernel TomoChannel def
-R439:440 Bridge.Tomography_to_Kernel <> tr:2 var
-R467:493 Kernel.ReceiptCore ReceiptCore decodes_to_refl thm
-R467:493 Kernel.ReceiptCore ReceiptCore decodes_to_refl thm
-R506:525 Bridge.Tomography_to_Kernel Tomography_to_Kernel <> mod
+R215:221 Kernel.VMState <> <> lib
+R223:228 Kernel.VMStep <> <> lib
+R258:268 Kernel.MuCostModel <> <> lib
+mod 279:298 <> Tomography_to_Kernel
+def 313:325 Tomography_to_Kernel MEAS_TRIAL_OP
+R329:331 Coq.Init.Datatypes <> nat ind
+def 354:364 Tomography_to_Kernel TomoChannel
+R371:389 Kernel.ReceiptCore ReceiptCore Receipt rec
+binder 367:367 <> r:1
+R394:397 Coq.Init.Datatypes <> bool ind
+R404:410 Coq.Arith.PeanoNat Nat eqb def
+R413:428 Kernel.ReceiptCore ReceiptCore r_op proj
+R430:430 Bridge.Tomography_to_Kernel <> r:1 var
+R433:445 Bridge.Tomography_to_Kernel Tomography_to_Kernel MEAS_TRIAL_OP def
+prf 503:517 Tomography_to_Kernel decodes_to_self
+binder 530:531 <> tr:2
+R538:559 Kernel.ReceiptCore ReceiptCore decodes_to def
+R561:571 Bridge.Tomography_to_Kernel Tomography_to_Kernel TomoChannel def
+R573:574 Bridge.Tomography_to_Kernel <> tr:2 var
+R577:594 Kernel.ReceiptCore ReceiptCore decode def
+R596:606 Bridge.Tomography_to_Kernel Tomography_to_Kernel TomoChannel def
+R608:609 Bridge.Tomography_to_Kernel <> tr:2 var
+R636:662 Kernel.ReceiptCore ReceiptCore decodes_to_refl thm
+R636:662 Kernel.ReceiptCore ReceiptCore decodes_to_refl thm
+R676:695 Bridge.Tomography_to_Kernel Tomography_to_Kernel <> mod

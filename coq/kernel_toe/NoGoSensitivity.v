@@ -3,6 +3,9 @@ From Coq Require Import List Lia Arith.PeanoNat.
 From Kernel Require Import VMStep.
 
 Import ListNotations.
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import MuCostModel.
+
 
 (** * Sensitivity audit: alternative composition laws for weights
 

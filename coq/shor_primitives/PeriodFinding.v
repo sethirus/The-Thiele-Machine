@@ -1,4 +1,6 @@
 (** * Period-finding abstractions for Project Sovereign
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
 
     This module introduces the vocabulary required to reason about Shor-style
     period discovery inside the Thiele machine universe.  The actual reduction
@@ -125,6 +127,10 @@
         and Computation" — Caltech lecture notes
         Pedagogical treatment of Shor's algorithm
  *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import Arith.
 From Coq Require Import Lia.

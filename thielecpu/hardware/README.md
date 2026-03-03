@@ -39,8 +39,9 @@ flowchart LR
 ```
 
 Notes:
-- The open-source regression uses [testbench/thiele_cpu_tb.v](testbench/thiele_cpu_tb.v) to model the external interfaces.
-- The unified design lives in [rtl/thiele_cpu_unified.v](rtl/thiele_cpu_unified.v); synthesis output is [rtl/synth_lite_out.v](rtl/synth_lite_out.v).
+- The open-source regression uses [testbench/thiele_cpu_kami_tb.v](testbench/thiele_cpu_kami_tb.v) to model the external interfaces.
+- The canonical CPU RTL lives in [rtl/thiele_cpu_kami.v](rtl/thiele_cpu_kami.v); synthesis output is [rtl/synth_lite_out.v](rtl/synth_lite_out.v).
+- Legacy standalone accelerator RTL/testbenches were archived under `archive/hardware_legacy/`.
 
 ### Core Components
 
@@ -81,28 +82,22 @@ module mu_core (
 
 ```
 hardware/
-├── rtl/                        # Core RTL modules (synthesizable)
-│   ├── thiele_cpu_unified.v    # Single-file RTL (all modules, 1,413 lines)
-│   ├── mu_alu.v                # Q16.16 fixed-point μ-ALU
-│   ├── mu_core.v               # Partition isomorphism enforcement (μ-core)
-│   ├── partition_core.v        # Partition discovery engine
-│   ├── chsh_partition.v        # CHSH Bell inequality partition
-│   ├── receipt_integrity_checker.v  # Anti-tampering module
+├── rtl/                        # Active RTL modules (synthesizable)
+│   ├── thiele_cpu_kami.v       # Canonical Kami-generated CPU RTL
+│   ├── thiele_cpu_kami_synth.v # Synthesis wrapper for FPGA flows
+│   ├── thiele_cpu_top.v        # FPGA top wrapper
 │   ├── generated_opcodes.vh    # Opcode definitions (Coq-extracted)
-│   ├── synth_lite.ys           # Yosys synthesis script (YOSYS_LITE)
+│   ├── cross_layer_defs.vh     # Cross-layer shared constants
+│   ├── synth_lite.ys           # Yosys synthesis script (fast structural gate)
 │   ├── synth_full.ys           # Yosys synthesis script (full size)
-│   ├── synth_lite_out.v        # Generated gate-level netlist (261K lines)
-│   └── synth_lite_clean.log    # Synthesis log
+│   ├── synth_ecp5.ys           # ECP5 FPGA synthesis script
+│   ├── synth_ice40.ys          # iCE40 FPGA synthesis script
+│   └── synth_lite_out.v        # Generated gate-level netlist
 │
 ├── testbench/                  # Simulation testbenches
-│   ├── thiele_cpu_tb.v         # Main CPU testbench
-│   ├── mu_alu_tb.v             # μ-ALU unit tests
-│   ├── partition_core_tb.v     # Partition engine tests
-│   ├── thiele_cpu_engines_tb.v # Engine integration tests
-│   ├── thiele_cpu_genesis_compression_tb.v      # Genesis compression tests
-│   ├── thiele_cpu_genesis_compression_strict_tb.v # Strict compression tests
-│   ├── thiele_cpu_inverse_genesis_tb.v          # Inverse genesis tests
-│   └── fuzz_harness_simple.v   # Fuzz testing harness
+│   ├── thiele_cpu_kami_tb.v    # Canonical CPU testbench
+│   ├── thiele_cpu_kami_batch_tb.v # Batch multi-program testbench
+│   └── sim_main.cpp            # Verilator entrypoint for fast cosim
 │
 ├── cosim.py                    # Python co-simulation driver
 ├── accel_cosim.py              # Accelerated co-simulation
@@ -120,13 +115,11 @@ hardware/
 
 | File | Lines | Purpose |
 |------|-------|---------|  
-| `rtl/thiele_cpu_unified.v` | 1,413 | Unified CPU with partition logic, FSM, and all submodules |
-| `rtl/mu_alu.v` | 167 | Q16.16 fixed-point arithmetic (Coq isomorphic) |
-| `rtl/mu_core.v` | 188 | Partition enforcement "cost gate" |
-| `rtl/partition_core.v` | 251 | PDISCOVER hardware implementation |
-| `rtl/chsh_partition.v` | 330 | CHSH Bell inequality partition |
-| `rtl/receipt_integrity_checker.v` | 120 | Cryptographic anti-tampering |
+| `rtl/thiele_cpu_kami.v` | generated | Canonical CPU RTL used by cosim and gates |
+| `rtl/thiele_cpu_kami_synth.v` | generated | FPGA synthesis wrapper |
+| `rtl/thiele_cpu_top.v` | small | FPGA top wrapper |
 | `rtl/generated_opcodes.vh` | 26 | Opcode definitions (Coq-extracted) |
+| `rtl/cross_layer_defs.vh` | small | Shared constants across layers |
 
 - `constraints.xdc` - FPGA timing and placement constraints
 - `synthesis.tcl` - Vivado synthesis script
@@ -194,12 +187,8 @@ Direct RTL simulation (Icarus):
 
 ```bash
 cd thielecpu/hardware
-iverilog -g2012 -o tb_test -I./rtl rtl/thiele_cpu_unified.v rtl/mu_alu.v rtl/mu_core.v rtl/receipt_integrity_checker.v testbench/thiele_cpu_tb.v
+iverilog -g2012 -o tb_test -I./rtl rtl/thiele_cpu_kami.v testbench/thiele_cpu_kami_tb.v
 vvp tb_test
-
-# μ-ALU unit tests:
-iverilog -g2012 -o alu_test -I./rtl testbench/mu_alu_tb.v rtl/mu_alu.v
-vvp alu_test
 ```
 
 Co-simulation backend selection from Python:
@@ -215,7 +204,7 @@ THIELE_RTL_SIM=verilator pytest -q tests/test_emergent_geometry_proxies.py
 Layer semantics for Bianchi violation:
 
 - Python VM (`thielecpu/state.py`): raises `BianchiViolationError`.
-- Verilog RTL (`rtl/thiele_cpu_unified.v`): kill-switch freezes progress in `STATE_FETCH`.
+- Verilog RTL (`rtl/thiele_cpu_kami.v`): kill-switch freezes progress in fetch/decode state progression.
 
 ### End-to-end verification workflow
 
@@ -225,7 +214,7 @@ To cross-check the RTL, the audited Python VM, and the mechanised Coq semantics 
 make verify-end-to-end
 ```
 
-This orchestrates the core Coq build, runs a Yosys structural-elaboration check on the CPU RTL (using the lightweight `YOSYS_LITE` configuration baked into `thiele_cpu_unified.v`), reruns the Verilog regression, and feeds the log into `tools/verify_end_to_end.py`, which decodes every instruction word and rejects mismatches in partition counts, μ-cost, or final PC/state.
+This orchestrates the core Coq build, runs a Yosys structural-elaboration check on the canonical CPU RTL (`thiele_cpu_kami.v`), reruns the Verilog regression, and feeds the log into `tools/verify_end_to_end.py`, which decodes every instruction word and rejects mismatches in partition counts, μ-cost, or final PC/state.
 
 ### Test Program Sequence
 
@@ -257,8 +246,7 @@ The Thiele CPU is fully synthesizable using open-source tools:
 yosys rtl/synth_lite.ys
 
 # Or individual components:
-yosys -p "read_verilog rtl/mu_alu.v; synth -top mu_alu; stat"
-yosys -p "read_verilog -sv -DSYNTHESIS -DYOSYS_LITE rtl/thiele_cpu_unified.v; hierarchy -top thiele_cpu; proc; flatten; opt -full; stat"
+yosys -p "read_verilog -sv -DSYNTHESIS rtl/thiele_cpu_kami.v; prep -top mkModule1; check; stat"
 ```
 
 **Synthesis Results** (YOSYS_LITE configuration):

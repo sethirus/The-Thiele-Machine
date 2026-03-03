@@ -1,60 +1,83 @@
-DIGEST 4e714665a7d57a991ec9246242b69795
+DIGEST f8258431ff57a20b9ace89ad7a11d1d3
 FPhysicsExploration.ParticleMasses
 R49:53 Coq.Reals.Reals <> <> lib
 R55:57 Coq.micromega.Lra <> <> lib
 R99:114 PhysicsExploration.PlanckDerivation <> <> lib
 R116:132 PhysicsExploration.EmergentSpacetime <> <> lib
-def 211:220 <> m_electron
-R224:224 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-def 243:248 <> m_muon
-R252:252 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-def 320:327 <> m_proton
-R331:331 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-prf 473:487 <> masses_positive
-R505:508 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R501:503 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R491:500 PhysicsExploration.ParticleMasses <> m_electron def
-R519:522 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R515:517 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R509:514 PhysicsExploration.ParticleMasses <> m_muon def
-R531:533 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R523:530 PhysicsExploration.ParticleMasses <> m_proton def
-R551:560 PhysicsExploration.ParticleMasses <> m_electron def
-R563:568 PhysicsExploration.ParticleMasses <> m_muon def
-R571:578 PhysicsExploration.ParticleMasses <> m_proton def
-def 603:621 <> muon_electron_ratio
-R625:625 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R636:638 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R630:635 PhysicsExploration.ParticleMasses <> m_muon def
-R639:648 PhysicsExploration.ParticleMasses <> m_electron def
-def 662:682 <> proton_electron_ratio
-R686:686 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R699:701 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R691:698 PhysicsExploration.ParticleMasses <> m_proton def
-R702:711 PhysicsExploration.ParticleMasses <> m_electron def
-prf 991:1016 <> masses_are_free_parameters
-R1022:1029 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R1039:1041 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R1038:1038 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 1030:1031 <> r1:1
-R1038:1038 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 1033:1034 <> r2:2
-R1048:1051 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R1044:1046 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R1042:1043 PhysicsExploration.ParticleMasses <> r1:1 var
-R1054:1056 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R1052:1053 PhysicsExploration.ParticleMasses <> r2:2 var
-R1076:1094 PhysicsExploration.ParticleMasses <> muon_electron_ratio def
-R1097:1117 PhysicsExploration.ParticleMasses <> proton_electron_ratio def
-R1076:1094 PhysicsExploration.ParticleMasses <> muon_electron_ratio def
-R1097:1117 PhysicsExploration.ParticleMasses <> proton_electron_ratio def
-R1136:1154 PhysicsExploration.ParticleMasses <> muon_electron_ratio def
-R1157:1177 PhysicsExploration.ParticleMasses <> proton_electron_ratio def
-R1190:1205 Coq.Reals.RIneq <> Rdiv_lt_0_compat thm
-R1214:1228 PhysicsExploration.ParticleMasses <> masses_positive thm
-R1190:1205 Coq.Reals.RIneq <> Rdiv_lt_0_compat thm
-R1190:1205 Coq.Reals.RIneq <> Rdiv_lt_0_compat thm
-R1214:1228 PhysicsExploration.ParticleMasses <> masses_positive thm
-R1214:1228 PhysicsExploration.ParticleMasses <> masses_positive thm
-R1214:1228 PhysicsExploration.ParticleMasses <> masses_positive thm
-R1214:1228 PhysicsExploration.ParticleMasses <> masses_positive thm
+R162:168 Kernel.VMState <> <> lib
+R170:175 Kernel.VMStep <> <> lib
+R177:187 Kernel.MuCostModel <> <> lib
+R189:208 Kernel.MuLedgerConservation <> <> lib
+R210:222 Kernel.NoFreeInsight <> <> lib
+R224:235 Kernel.MuInitiality <> <> lib
+def 314:323 <> m_electron
+R327:327 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 346:351 <> m_muon
+R355:355 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 423:430 <> m_proton
+R434:434 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+prf 576:590 <> masses_positive
+R608:611 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R604:606 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R594:603 PhysicsExploration.ParticleMasses <> m_electron def
+R622:625 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R618:620 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R612:617 PhysicsExploration.ParticleMasses <> m_muon def
+R634:636 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R626:633 PhysicsExploration.ParticleMasses <> m_proton def
+R654:663 PhysicsExploration.ParticleMasses <> m_electron def
+R666:671 PhysicsExploration.ParticleMasses <> m_muon def
+R674:681 PhysicsExploration.ParticleMasses <> m_proton def
+def 706:724 <> muon_electron_ratio
+R728:728 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R739:741 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R733:738 PhysicsExploration.ParticleMasses <> m_muon def
+R742:751 PhysicsExploration.ParticleMasses <> m_electron def
+def 765:785 <> proton_electron_ratio
+R789:789 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R802:804 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R794:801 PhysicsExploration.ParticleMasses <> m_proton def
+R805:814 PhysicsExploration.ParticleMasses <> m_electron def
+prf 1094:1119 <> masses_are_free_parameters
+R1125:1132 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1142:1144 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1141:1141 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 1133:1134 <> r1:1
+R1141:1141 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 1136:1137 <> r2:2
+R1151:1154 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1147:1149 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R1145:1146 PhysicsExploration.ParticleMasses <> r1:1 var
+R1157:1159 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R1155:1156 PhysicsExploration.ParticleMasses <> r2:2 var
+R1179:1197 PhysicsExploration.ParticleMasses <> muon_electron_ratio def
+R1200:1220 PhysicsExploration.ParticleMasses <> proton_electron_ratio def
+R1179:1197 PhysicsExploration.ParticleMasses <> muon_electron_ratio def
+R1200:1220 PhysicsExploration.ParticleMasses <> proton_electron_ratio def
+R1239:1257 PhysicsExploration.ParticleMasses <> muon_electron_ratio def
+R1260:1280 PhysicsExploration.ParticleMasses <> proton_electron_ratio def
+R1293:1308 Coq.Reals.RIneq <> Rdiv_lt_0_compat thm
+R1317:1331 PhysicsExploration.ParticleMasses <> masses_positive thm
+R1293:1308 Coq.Reals.RIneq <> Rdiv_lt_0_compat thm
+R1293:1308 Coq.Reals.RIneq <> Rdiv_lt_0_compat thm
+R1317:1331 PhysicsExploration.ParticleMasses <> masses_positive thm
+R1317:1331 PhysicsExploration.ParticleMasses <> masses_positive thm
+R1317:1331 PhysicsExploration.ParticleMasses <> masses_positive thm
+R1317:1331 PhysicsExploration.ParticleMasses <> masses_positive thm
+prf 1490:1529 <> foundation_chain_witness_particle_masses
+R1535:1541 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1560:1565 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1546:1559 Kernel.VMState <> PartitionGraph rec
+binder 1542:1542 <> g:3
+R1585:1588 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1566:1582 Kernel.VMState <> well_formed_graph def
+R1584:1584 PhysicsExploration.ParticleMasses <> g:3 var
+R1603:1605 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1589:1602 Kernel.VMStep VMStep vm_instruction ind
+R1606:1619 Kernel.VMStep VMStep vm_instruction ind
+R1653:1666 Kernel.VMState <> PartitionGraph rec
+R1639:1649 Kernel.VMState <> empty_graph def
+R1653:1666 Kernel.VMState <> PartitionGraph rec
+R1639:1649 Kernel.VMState <> empty_graph def
+R1689:1711 Kernel.VMState <> empty_graph_well_formed thm
+R1689:1711 Kernel.VMState <> empty_graph_well_formed thm

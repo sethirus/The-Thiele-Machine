@@ -59,7 +59,7 @@ def test_verilog_opcode_match():
     #   Definition opcode_LASSERT : N := 3%N.
     coq_opcode = 3
     
-    # Verilog definition (from thiele_cpu.v):
+    # Verilog definition (from rtl/generated_opcodes.vh):
     #   localparam [7:0] OPCODE_LASSERT = 8'h03;
     verilog_opcode = 0x03
     

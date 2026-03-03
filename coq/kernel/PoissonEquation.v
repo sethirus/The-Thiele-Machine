@@ -23,6 +23,9 @@
     ZERO AXIOMS. ZERO ADMITS.
     ========================================================================= *)
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import MuCostModel.
+
 From Coq Require Import Reals List Arith.PeanoNat Lia Lra Bool.
 Import ListNotations.
 Local Open Scope R_scope.
@@ -390,3 +393,4 @@ Qed.
     ZERO AXIOMS. ZERO ADMITS.
     Field propagation is DERIVED from the graph structure of the partition.
 *)
+

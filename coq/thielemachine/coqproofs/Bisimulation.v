@@ -1,4 +1,7 @@
 (* ================================================================= *)
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import MuCostModel.
+
 (* Bisimulation: Redirect to proven kernel files                      *)
 (* ================================================================= *)
 

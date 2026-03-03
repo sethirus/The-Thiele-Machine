@@ -6,6 +6,10 @@ Import ListNotations.
 Require Import Arith.
 Require Import Coq.Strings.Ascii.
 Require Import Bool.
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 
 Fixpoint string_to_list (s : string) : list ascii :=
   match s with

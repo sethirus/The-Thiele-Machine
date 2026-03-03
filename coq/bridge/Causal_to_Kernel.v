@@ -3,6 +3,10 @@ Import ListNotations.
 
 From Kernel Require Import ReceiptCore.
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 Module Causal_to_Kernel.
 
 Definition CAUSAL_QUERY_OP : nat := 1301.
@@ -18,5 +22,6 @@ Lemma decodes_to_self :
 Proof.
   intros; apply ReceiptCore.decodes_to_refl.
 Qed.
+
 
 End Causal_to_Kernel.

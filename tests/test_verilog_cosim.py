@@ -1,6 +1,6 @@
 """Verilog ↔ Python co-simulation tests.
 
-Compiles thiele_cpu_unified.v with iverilog, runs programs through both
+Compiles the canonical Kami RTL (thiele_cpu_kami.v) with iverilog, runs programs through both
 the Verilog simulation and the Python cosim harness, and compares
 register / memory / μ-cost at halt.
 
@@ -203,6 +203,7 @@ HALT
     def test_reveal_charges_mu(self):
         """REVEAL with cost > 0 increases μ."""
         state = _run_cosim("""\
+INIT_LOGIC_ACC -889263410
 REVEAL 0 0 3
 HALT
 """)
@@ -218,13 +219,13 @@ class TestOpcodeEncoding:
     def test_halt_encoding(self):
         """HALT encodes to 0xFF000000."""
         from thielecpu.hardware.cosim import program_to_hex
-        instr, _ = program_to_hex("HALT")
+        instr, _, _ = program_to_hex("HALT")
         assert instr[0] == "FF000000"
 
     def test_pnew_encoding(self):
         """PNEW {1,2,3} 5 encodes operand_a=1, operand_b=3, cost=5."""
         from thielecpu.hardware.cosim import program_to_hex
-        instr, _ = program_to_hex("PNEW {1,2,3} 5")
+        instr, _, _ = program_to_hex("PNEW {1,2,3} 5")
         word = int(instr[0], 16)
         opcode = (word >> 24) & 0xFF
         op_a = (word >> 16) & 0xFF
@@ -238,7 +239,7 @@ class TestOpcodeEncoding:
     def test_xor_load_encoding(self):
         """XOR_LOAD 2 5 0 encodes correctly."""
         from thielecpu.hardware.cosim import program_to_hex
-        instr, _ = program_to_hex("XOR_LOAD 2 5 0")
+        instr, _, _ = program_to_hex("XOR_LOAD 2 5 0")
         word = int(instr[0], 16)
         opcode = (word >> 24) & 0xFF
         assert opcode == 0x0A  # XOR_LOAD
@@ -255,7 +256,7 @@ class TestOpcodeEncoding:
         from thielecpu.hardware.cosim import program_to_hex
 
         # x=1,y=0 -> operand_a=0b10=2 ; a=0,b=1 -> operand_b=0b01=1
-        instr, _ = program_to_hex("CHSH_TRIAL 1 0 0 1 6")
+        instr, _, _ = program_to_hex("CHSH_TRIAL 1 0 0 1 6")
         word = int(instr[0], 16)
         opcode = (word >> 24) & 0xFF
         op_a = (word >> 16) & 0xFF
@@ -271,7 +272,7 @@ class TestOpcodeEncoding:
         """Legacy CHSH_TRIAL a b cost form remains accepted."""
         from thielecpu.hardware.cosim import program_to_hex
 
-        instr, _ = program_to_hex("CHSH_TRIAL 2 1 6")
+        instr, _, _ = program_to_hex("CHSH_TRIAL 2 1 6")
         word = int(instr[0], 16)
         opcode = (word >> 24) & 0xFF
         op_a = (word >> 16) & 0xFF
@@ -290,10 +291,9 @@ class TestOpcodeEncoding:
 class TestMuALU:
     """Verify Q16.16 arithmetic encoding matches Python FixedPointMu.
 
-    NOTE: The standalone mu_alu.v has been archived (now part of the
-    Kami-extracted thiele_cpu_kami.v).  These tests verify Python-side
-    Q16.16 encoding only; hardware verification happens through the
-    integrated CPU cosimulation.
+    NOTE: Arithmetic behavior is validated through the integrated
+    thiele_cpu_kami.v cosimulation path; these checks focus on
+    Python-side Q16.16 encoding invariants.
     """
 
     def _q16_16(self, f: float) -> int:
@@ -330,9 +330,8 @@ class TestMuALU:
 class TestPartitionCoreAccel:
     """Verify partition operations via integrated CPU cosimulation.
 
-    NOTE: The standalone partition_core.v has been archived (now part
-    of the Kami-extracted thiele_cpu_kami.v).  These tests exercise
-    partition operations through the full CPU pipeline.
+    NOTE: Partition behavior is exercised through the full canonical
+    thiele_cpu_kami.v pipeline.
     """
 
     def test_pnew_charges_mu_via_cpu(self):

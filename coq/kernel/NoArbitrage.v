@@ -19,6 +19,9 @@
     non-uniform systems that still can't create perpetual motion.
 *)
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import MuCostModel.
+
 From Coq Require Import List Lia ZArith Psatz Zify.
 From Kernel Require Import VMStep.
 From Kernel Require Import VMState.

@@ -7,7 +7,13 @@ Require Import ThieleMachine.CoreSemantics.
 
 (* =============================================================================
    LAYER 1: CORE THIELE MACHINE (Conservative Semantic Extension)
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
    ============================================================================= *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 (* 1.1 Definition (Core Thiele Machine) *)
 

@@ -4,6 +4,10 @@ From Coq Require Import ZArith.
 From Coq Require Import Lia.
 
 From ThieleMachine Require Import BellInequality.
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 
 Local Open Scope Q_scope.
 

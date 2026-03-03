@@ -1,302 +1,305 @@
-DIGEST 504a7966d0c4a0db2d68f2be8f604ed0
+DIGEST 2206583f4bf1febf36fcedd1245c6fca
 FThieleMachine.AmortizedAnalysis
 R95:98 Coq.Lists.List <> <> lib
 R100:104 Coq.Arith.Arith <> <> lib
 R106:109 Coq.Bool.Bool <> <> lib
 R119:131 Coq.Lists.List ListNotations <> mod
 R149:151 Coq.micromega.Lia <> <> lib
-def 201:203 <> sum
-R210:213 Coq.Init.Datatypes <> list ind
-R215:217 Coq.Init.Datatypes <> nat ind
-binder 206:206 <> l:1
-R223:231 Coq.Lists.List <> fold_left def
-R241:241 ThieleMachine.AmortizedAnalysis <> l:1 var
-R233:239 Coq.Arith.PeanoNat Nat add def
-rec 292:299 <> Instance
-proj 308:311 <> size
-proj 322:330 <> structure
-R315:317 Coq.Init.Datatypes <> nat ind
-R334:336 Coq.Init.Datatypes <> nat ind
-rec 395:403 <> Partition
-proj 412:418 <> modules
-proj 441:450 <> interfaces
-proj 473:486 <> discovery_cost
-R422:425 Coq.Init.Datatypes <> list ind
-R428:431 Coq.Init.Datatypes <> list ind
-R433:435 Coq.Init.Datatypes <> nat ind
-R454:457 Coq.Init.Datatypes <> list ind
-R460:463 Coq.Init.Datatypes <> list ind
-R465:467 Coq.Init.Datatypes <> nat ind
-R490:492 Coq.Init.Datatypes <> nat ind
-def 557:573 <> mu_discovery_cost
-R583:590 ThieleMachine.AmortizedAnalysis <> Instance rec
-binder 576:579 <> inst:9
-R598:606 ThieleMachine.AmortizedAnalysis <> Partition rec
-binder 594:594 <> P:10
-R611:613 Coq.Init.Datatypes <> nat ind
-R691:693 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R675:688 ThieleMachine.AmortizedAnalysis <> discovery_cost proj
-R690:690 ThieleMachine.AmortizedAnalysis <> P:10 var
-R694:697 ThieleMachine.AmortizedAnalysis <> size proj
-R699:702 ThieleMachine.AmortizedAnalysis <> inst:9 var
-def 717:728 <> module_count
-R735:743 ThieleMachine.AmortizedAnalysis <> Partition rec
-binder 731:731 <> P:11
-R748:750 Coq.Init.Datatypes <> nat ind
-R757:765 Coq.Lists.List <> fold_left def
-R789:795 ThieleMachine.AmortizedAnalysis <> modules proj
-R797:797 ThieleMachine.AmortizedAnalysis <> P:11 var
-binder 772:774 <> acc:12
-R781:781 Coq.Init.Datatypes <> S constr
-R783:785 ThieleMachine.AmortizedAnalysis <> acc:12 var
-def 815:833 <> mu_operational_cost
-R843:850 ThieleMachine.AmortizedAnalysis <> Instance rec
-binder 836:839 <> inst:13
-R858:866 ThieleMachine.AmortizedAnalysis <> Partition rec
-binder 854:854 <> P:14
-R871:873 Coq.Init.Datatypes <> nat ind
-R952:954 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R938:949 ThieleMachine.AmortizedAnalysis <> module_count def
-R951:951 ThieleMachine.AmortizedAnalysis <> P:14 var
-R955:958 ThieleMachine.AmortizedAnalysis <> size proj
-R960:963 ThieleMachine.AmortizedAnalysis <> inst:13 var
-prf 1068:1085 <> basic_amortization
-R1103:1110 ThieleMachine.AmortizedAnalysis <> Instance rec
-binder 1099:1099 <> i:15
-R1127:1130 Coq.Init.Datatypes <> list ind
-R1132:1139 ThieleMachine.AmortizedAnalysis <> Instance rec
-binder 1114:1123 <> instances':16
-R1147:1155 ThieleMachine.AmortizedAnalysis <> Partition rec
-binder 1143:1143 <> P:17
-R1181:1184 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R1180:1180 ThieleMachine.AmortizedAnalysis <> i:15 var
-R1185:1194 ThieleMachine.AmortizedAnalysis <> instances':16 var
-binder 1167:1175 <> instances:18
-R1203:1203 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1274:1282 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 1211:1214 <> inst:19
-R1234:1237 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1217:1218 Coq.Lists.List <> In def
-R1225:1233 ThieleMachine.AmortizedAnalysis <> instances:18 var
-R1220:1223 ThieleMachine.AmortizedAnalysis <> inst:19 var
-R1252:1255 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R1238:1246 ThieleMachine.AmortizedAnalysis <> structure proj
-R1248:1251 ThieleMachine.AmortizedAnalysis <> inst:19 var
-R1256:1261 Coq.Init.Datatypes <> length def
-R1264:1270 ThieleMachine.AmortizedAnalysis <> modules proj
-R1272:1272 ThieleMachine.AmortizedAnalysis <> P:17 var
-R1299:1302 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R1283:1288 Coq.Init.Datatypes <> length def
-R1290:1298 ThieleMachine.AmortizedAnalysis <> instances:18 var
-prf 1509:1540 <> amortization_improves_with_reuse
-R1561:1564 Coq.Init.Datatypes <> list ind
-R1567:1570 Coq.Init.Datatypes <> list ind
-R1572:1579 ThieleMachine.AmortizedAnalysis <> Instance rec
-binder 1554:1557 <> runs:20
-R1588:1596 ThieleMachine.AmortizedAnalysis <> Partition rec
-binder 1584:1584 <> P:21
-R1674:1674 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1782:1790 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 1682:1686 <> batch:22
-R1702:1710 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1689:1690 Coq.Lists.List <> In def
-R1698:1701 ThieleMachine.AmortizedAnalysis <> runs:20 var
-R1692:1696 ThieleMachine.AmortizedAnalysis <> batch:22 var
-binder 1718:1721 <> inst:23
-R1737:1745 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1724:1725 Coq.Lists.List <> In def
-R1732:1736 ThieleMachine.AmortizedAnalysis <> batch:22 var
-R1727:1730 ThieleMachine.AmortizedAnalysis <> inst:23 var
-R1760:1763 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R1746:1754 ThieleMachine.AmortizedAnalysis <> structure proj
-R1756:1759 ThieleMachine.AmortizedAnalysis <> inst:23 var
-R1764:1769 Coq.Init.Datatypes <> length def
-R1772:1778 ThieleMachine.AmortizedAnalysis <> modules proj
-R1780:1780 ThieleMachine.AmortizedAnalysis <> P:21 var
-R1810:1815 Coq.Init.Datatypes <> length def
-R1817:1820 ThieleMachine.AmortizedAnalysis <> runs:20 var
-binder 1795:1805 <> num_batches:24
-R1852:1854 ThieleMachine.AmortizedAnalysis <> sum def
-R1857:1859 Coq.Lists.List <> map def
-R1880:1883 ThieleMachine.AmortizedAnalysis <> runs:20 var
-R1863:1868 Coq.Init.Datatypes <> length def
-R1870:1877 ThieleMachine.AmortizedAnalysis <> Instance rec
-binder 1833:1847 <> total_instances:25
-R1920:1936 ThieleMachine.AmortizedAnalysis <> mu_discovery_cost def
-R1939:1940 Coq.Lists.List <> hd def
-R1978:1979 Coq.Lists.List <> hd def
-R2003:2006 ThieleMachine.AmortizedAnalysis <> runs:20 var
-R2000:2001 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R1985:1988 Coq.Init.Datatypes <> list ind
-R1990:1997 ThieleMachine.AmortizedAnalysis <> Instance rec
-R1957:1970 ThieleMachine.AmortizedAnalysis <> Build_Instance constr
-R1946:1953 ThieleMachine.AmortizedAnalysis <> Instance rec
-R2010:2010 ThieleMachine.AmortizedAnalysis <> P:21 var
-binder 1897:1915 <> discovery_per_batch:26
-R2051:2069 ThieleMachine.AmortizedAnalysis <> mu_operational_cost def
-R2072:2073 Coq.Lists.List <> hd def
-R2111:2112 Coq.Lists.List <> hd def
-R2136:2139 ThieleMachine.AmortizedAnalysis <> runs:20 var
-R2133:2134 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R2118:2121 Coq.Init.Datatypes <> list ind
-R2123:2130 ThieleMachine.AmortizedAnalysis <> Instance rec
-R2090:2103 ThieleMachine.AmortizedAnalysis <> Build_Instance constr
-R2079:2086 ThieleMachine.AmortizedAnalysis <> Instance rec
-R2143:2143 ThieleMachine.AmortizedAnalysis <> P:21 var
-binder 2023:2046 <> operational_per_instance:27
-R2233:2256 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R2211:2213 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2200:2210 ThieleMachine.AmortizedAnalysis <> num_batches:24 var
-R2214:2232 ThieleMachine.AmortizedAnalysis <> discovery_per_batch:26 var
-R2272:2274 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2257:2271 ThieleMachine.AmortizedAnalysis <> total_instances:25 var
-R2275:2298 ThieleMachine.AmortizedAnalysis <> operational_per_instance:27 var
-binder 2186:2195 <> total_cost:28
-R2346:2348 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
-R2336:2345 ThieleMachine.AmortizedAnalysis <> total_cost:28 var
-R2349:2363 ThieleMachine.AmortizedAnalysis <> total_instances:25 var
-binder 2311:2331 <> avg_cost_per_instance:29
-R2471:2478 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2466:2469 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R2455:2465 ThieleMachine.AmortizedAnalysis <> num_batches:24 var
-R2489:2492 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R2479:2488 ThieleMachine.AmortizedAnalysis <> total_cost:28 var
-R2508:2510 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2493:2507 ThieleMachine.AmortizedAnalysis <> total_instances:25 var
-R2511:2534 ThieleMachine.AmortizedAnalysis <> operational_per_instance:27 var
-def 3121:3151 <> convergence_to_operational_cost
-R3160:3168 ThieleMachine.AmortizedAnalysis <> Partition rec
-binder 3156:3156 <> P:30
-R3179:3186 ThieleMachine.AmortizedAnalysis <> Instance rec
-binder 3172:3175 <> inst:31
-R3194:3196 Coq.Init.Datatypes <> nat ind
-binder 3190:3190 <> T:32
-R3227:3230 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R3213:3221 ThieleMachine.AmortizedAnalysis <> structure proj
-R3223:3226 ThieleMachine.AmortizedAnalysis <> inst:31 var
-R3231:3236 Coq.Init.Datatypes <> length def
-R3239:3245 ThieleMachine.AmortizedAnalysis <> modules proj
-R3247:3247 ThieleMachine.AmortizedAnalysis <> P:30 var
-binder 3202:3209 <> H_struct:33
-R3261:3264 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R3260:3260 ThieleMachine.AmortizedAnalysis <> T:32 var
-binder 3254:3256 <> H_T:34
-R3280:3280 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3348:3355 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3281:3281 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
-R3343:3346 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
-R3310:3312 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R3283:3285 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R3282:3282 ThieleMachine.AmortizedAnalysis <> T:32 var
-R3286:3302 ThieleMachine.AmortizedAnalysis <> mu_discovery_cost def
-R3304:3307 ThieleMachine.AmortizedAnalysis <> inst:31 var
-R3309:3309 ThieleMachine.AmortizedAnalysis <> P:30 var
-R3314:3316 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R3313:3313 ThieleMachine.AmortizedAnalysis <> T:32 var
-R3317:3335 ThieleMachine.AmortizedAnalysis <> mu_operational_cost def
-R3337:3340 ThieleMachine.AmortizedAnalysis <> inst:31 var
-R3342:3342 ThieleMachine.AmortizedAnalysis <> P:30 var
-R3347:3347 ThieleMachine.AmortizedAnalysis <> T:32 var
-R3382:3384 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R3356:3374 ThieleMachine.AmortizedAnalysis <> mu_operational_cost def
-R3376:3379 ThieleMachine.AmortizedAnalysis <> inst:31 var
-R3381:3381 ThieleMachine.AmortizedAnalysis <> P:30 var
-R3385:3401 ThieleMachine.AmortizedAnalysis <> mu_discovery_cost def
-R3403:3406 ThieleMachine.AmortizedAnalysis <> inst:31 var
-R3408:3408 ThieleMachine.AmortizedAnalysis <> P:30 var
-prf 3582:3610 <> practical_amortization_bounds
-R3616:3622 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3660:3665 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3657:3659 Coq.Init.Datatypes <> nat ind
-binder 3623:3636 <> discovery_cost:35
-R3657:3659 Coq.Init.Datatypes <> nat ind
-binder 3638:3653 <> operational_cost:36
-binder 3673:3673 <> T:37
-binder 3675:3693 <> instances_per_batch:38
-binder 3695:3705 <> batch_count:39
-R3784:3793 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3748:3750 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3747:3747 ThieleMachine.AmortizedAnalysis <> T:37 var
-R3770:3772 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R3751:3769 ThieleMachine.AmortizedAnalysis <> instances_per_batch:38 var
-R3773:3783 ThieleMachine.AmortizedAnalysis <> batch_count:39 var
-R3810:3819 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3805:3808 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R3794:3804 ThieleMachine.AmortizedAnalysis <> batch_count:39 var
-R3845:3854 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3839:3842 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R3820:3838 ThieleMachine.AmortizedAnalysis <> instances_per_batch:38 var
-R3856:3859 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R3855:3855 ThieleMachine.AmortizedAnalysis <> T:37 var
-prf 4484:4512 <> amortization_scales_with_size
-R4550:4557 ThieleMachine.AmortizedAnalysis <> Instance rec
-binder 4526:4535 <> small_inst:40
-binder 4537:4546 <> large_inst:41
-R4565:4573 ThieleMachine.AmortizedAnalysis <> Partition rec
-binder 4561:4561 <> P:42
-R4619:4626 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4596:4599 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R4581:4584 ThieleMachine.AmortizedAnalysis <> size proj
-R4586:4595 ThieleMachine.AmortizedAnalysis <> large_inst:41 var
-R4601:4603 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R4604:4607 ThieleMachine.AmortizedAnalysis <> size proj
-R4609:4618 ThieleMachine.AmortizedAnalysis <> small_inst:40 var
-R4669:4676 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4647:4650 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R4627:4635 ThieleMachine.AmortizedAnalysis <> structure proj
-R4637:4646 ThieleMachine.AmortizedAnalysis <> large_inst:41 var
-R4651:4656 Coq.Init.Datatypes <> length def
-R4659:4665 ThieleMachine.AmortizedAnalysis <> modules proj
-R4667:4667 ThieleMachine.AmortizedAnalysis <> P:42 var
-R4719:4726 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4697:4700 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R4677:4685 ThieleMachine.AmortizedAnalysis <> structure proj
-R4687:4696 ThieleMachine.AmortizedAnalysis <> small_inst:40 var
-R4701:4706 Coq.Init.Datatypes <> length def
-R4709:4715 ThieleMachine.AmortizedAnalysis <> modules proj
-R4717:4717 ThieleMachine.AmortizedAnalysis <> P:42 var
-R4742:4745 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R4727:4730 ThieleMachine.AmortizedAnalysis <> size proj
-R4732:4741 ThieleMachine.AmortizedAnalysis <> large_inst:41 var
-R4746:4749 ThieleMachine.AmortizedAnalysis <> size proj
-R4751:4760 ThieleMachine.AmortizedAnalysis <> small_inst:40 var
-prf 5051:5082 <> amortization_enables_scalability
-binder 5096:5109 <> problem_family:43
-R5150:5153 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5136:5149 ThieleMachine.AmortizedAnalysis <> problem_family:43 var
-R5154:5156 Coq.Init.Datatypes <> nat ind
-binder 5120:5132 <> thiele_solver:44
-R5224:5224 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5367:5446 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5225:5232 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R5246:5248 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R5237:5245 ThieleMachine.AmortizedAnalysis <> Partition rec
-binder 5233:5233 <> P:45
-binder 5256:5259 <> inst:46
-R5262:5268 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R5273:5340 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 5269:5272 <> cost:47
-R5359:5362 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5341:5353 ThieleMachine.AmortizedAnalysis <> thiele_solver:44 var
-R5355:5358 ThieleMachine.AmortizedAnalysis <> inst:46 var
-R5363:5366 ThieleMachine.AmortizedAnalysis <> cost:47 var
-R5447:5453 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R5472:5479 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R5469:5471 Coq.Init.Datatypes <> nat ind
-binder 5454:5465 <> optimal_cost:48
-R5492:5494 Coq.Init.Datatypes <> nat ind
-binder 5488:5488 <> T:49
-R5510:5513 Coq.Init.Datatypes <> list ind
-R5515:5528 ThieleMachine.AmortizedAnalysis <> problem_family:43 var
-binder 5498:5506 <> instances:50
-R5560:5571 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5556:5558 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5540:5545 Coq.Init.Datatypes <> length def
-R5547:5555 ThieleMachine.AmortizedAnalysis <> instances:50 var
-R5559:5559 ThieleMachine.AmortizedAnalysis <> T:49 var
-R5580:5591 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5573:5576 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R5572:5572 ThieleMachine.AmortizedAnalysis <> T:49 var
-R5608:5611 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R5592:5597 Coq.Init.Datatypes <> length def
-R5599:5607 ThieleMachine.AmortizedAnalysis <> instances:50 var
+R265:271 Kernel.VMState <> <> lib
+R273:278 Kernel.VMStep <> <> lib
+R308:318 Kernel.MuCostModel <> <> lib
+def 369:371 <> sum
+R378:381 Coq.Init.Datatypes <> list ind
+R383:385 Coq.Init.Datatypes <> nat ind
+binder 374:374 <> l:1
+R391:399 Coq.Lists.List <> fold_left def
+R409:409 ThieleMachine.AmortizedAnalysis <> l:1 var
+R401:407 Coq.Arith.PeanoNat Nat add def
+rec 460:467 <> Instance
+proj 476:479 <> size
+proj 490:498 <> structure
+R483:485 Coq.Init.Datatypes <> nat ind
+R502:504 Coq.Init.Datatypes <> nat ind
+rec 563:571 <> Partition
+proj 580:586 <> modules
+proj 609:618 <> interfaces
+proj 641:654 <> discovery_cost
+R590:593 Coq.Init.Datatypes <> list ind
+R596:599 Coq.Init.Datatypes <> list ind
+R601:603 Coq.Init.Datatypes <> nat ind
+R622:625 Coq.Init.Datatypes <> list ind
+R628:631 Coq.Init.Datatypes <> list ind
+R633:635 Coq.Init.Datatypes <> nat ind
+R658:660 Coq.Init.Datatypes <> nat ind
+def 725:741 <> mu_discovery_cost
+R751:758 ThieleMachine.AmortizedAnalysis <> Instance rec
+binder 744:747 <> inst:9
+R766:774 ThieleMachine.AmortizedAnalysis <> Partition rec
+binder 762:762 <> P:10
+R779:781 Coq.Init.Datatypes <> nat ind
+R859:861 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R843:856 ThieleMachine.AmortizedAnalysis <> discovery_cost proj
+R858:858 ThieleMachine.AmortizedAnalysis <> P:10 var
+R862:865 ThieleMachine.AmortizedAnalysis <> size proj
+R867:870 ThieleMachine.AmortizedAnalysis <> inst:9 var
+def 885:896 <> module_count
+R903:911 ThieleMachine.AmortizedAnalysis <> Partition rec
+binder 899:899 <> P:11
+R916:918 Coq.Init.Datatypes <> nat ind
+R925:933 Coq.Lists.List <> fold_left def
+R957:963 ThieleMachine.AmortizedAnalysis <> modules proj
+R965:965 ThieleMachine.AmortizedAnalysis <> P:11 var
+binder 940:942 <> acc:12
+R949:949 Coq.Init.Datatypes <> S constr
+R951:953 ThieleMachine.AmortizedAnalysis <> acc:12 var
+def 983:1001 <> mu_operational_cost
+R1011:1018 ThieleMachine.AmortizedAnalysis <> Instance rec
+binder 1004:1007 <> inst:13
+R1026:1034 ThieleMachine.AmortizedAnalysis <> Partition rec
+binder 1022:1022 <> P:14
+R1039:1041 Coq.Init.Datatypes <> nat ind
+R1120:1122 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R1106:1117 ThieleMachine.AmortizedAnalysis <> module_count def
+R1119:1119 ThieleMachine.AmortizedAnalysis <> P:14 var
+R1123:1126 ThieleMachine.AmortizedAnalysis <> size proj
+R1128:1131 ThieleMachine.AmortizedAnalysis <> inst:13 var
+prf 1236:1253 <> basic_amortization
+R1271:1278 ThieleMachine.AmortizedAnalysis <> Instance rec
+binder 1267:1267 <> i:15
+R1295:1298 Coq.Init.Datatypes <> list ind
+R1300:1307 ThieleMachine.AmortizedAnalysis <> Instance rec
+binder 1282:1291 <> instances':16
+R1315:1323 ThieleMachine.AmortizedAnalysis <> Partition rec
+binder 1311:1311 <> P:17
+R1349:1352 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1348:1348 ThieleMachine.AmortizedAnalysis <> i:15 var
+R1353:1362 ThieleMachine.AmortizedAnalysis <> instances':16 var
+binder 1335:1343 <> instances:18
+R1371:1371 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1442:1450 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 1379:1382 <> inst:19
+R1402:1405 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1385:1386 Coq.Lists.List <> In def
+R1393:1401 ThieleMachine.AmortizedAnalysis <> instances:18 var
+R1388:1391 ThieleMachine.AmortizedAnalysis <> inst:19 var
+R1420:1423 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1406:1414 ThieleMachine.AmortizedAnalysis <> structure proj
+R1416:1419 ThieleMachine.AmortizedAnalysis <> inst:19 var
+R1424:1429 Coq.Init.Datatypes <> length def
+R1432:1438 ThieleMachine.AmortizedAnalysis <> modules proj
+R1440:1440 ThieleMachine.AmortizedAnalysis <> P:17 var
+R1467:1470 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R1451:1456 Coq.Init.Datatypes <> length def
+R1458:1466 ThieleMachine.AmortizedAnalysis <> instances:18 var
+prf 1677:1708 <> amortization_improves_with_reuse
+R1729:1732 Coq.Init.Datatypes <> list ind
+R1735:1738 Coq.Init.Datatypes <> list ind
+R1740:1747 ThieleMachine.AmortizedAnalysis <> Instance rec
+binder 1722:1725 <> runs:20
+R1756:1764 ThieleMachine.AmortizedAnalysis <> Partition rec
+binder 1752:1752 <> P:21
+R1842:1842 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1950:1958 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 1850:1854 <> batch:22
+R1870:1878 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1857:1858 Coq.Lists.List <> In def
+R1866:1869 ThieleMachine.AmortizedAnalysis <> runs:20 var
+R1860:1864 ThieleMachine.AmortizedAnalysis <> batch:22 var
+binder 1886:1889 <> inst:23
+R1905:1913 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1892:1893 Coq.Lists.List <> In def
+R1900:1904 ThieleMachine.AmortizedAnalysis <> batch:22 var
+R1895:1898 ThieleMachine.AmortizedAnalysis <> inst:23 var
+R1928:1931 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1914:1922 ThieleMachine.AmortizedAnalysis <> structure proj
+R1924:1927 ThieleMachine.AmortizedAnalysis <> inst:23 var
+R1932:1937 Coq.Init.Datatypes <> length def
+R1940:1946 ThieleMachine.AmortizedAnalysis <> modules proj
+R1948:1948 ThieleMachine.AmortizedAnalysis <> P:21 var
+R1978:1983 Coq.Init.Datatypes <> length def
+R1985:1988 ThieleMachine.AmortizedAnalysis <> runs:20 var
+binder 1963:1973 <> num_batches:24
+R2020:2022 ThieleMachine.AmortizedAnalysis <> sum def
+R2025:2027 Coq.Lists.List <> map def
+R2048:2051 ThieleMachine.AmortizedAnalysis <> runs:20 var
+R2031:2036 Coq.Init.Datatypes <> length def
+R2038:2045 ThieleMachine.AmortizedAnalysis <> Instance rec
+binder 2001:2015 <> total_instances:25
+R2088:2104 ThieleMachine.AmortizedAnalysis <> mu_discovery_cost def
+R2107:2108 Coq.Lists.List <> hd def
+R2146:2147 Coq.Lists.List <> hd def
+R2171:2174 ThieleMachine.AmortizedAnalysis <> runs:20 var
+R2168:2169 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2153:2156 Coq.Init.Datatypes <> list ind
+R2158:2165 ThieleMachine.AmortizedAnalysis <> Instance rec
+R2125:2138 ThieleMachine.AmortizedAnalysis <> Build_Instance constr
+R2114:2121 ThieleMachine.AmortizedAnalysis <> Instance rec
+R2178:2178 ThieleMachine.AmortizedAnalysis <> P:21 var
+binder 2065:2083 <> discovery_per_batch:26
+R2219:2237 ThieleMachine.AmortizedAnalysis <> mu_operational_cost def
+R2240:2241 Coq.Lists.List <> hd def
+R2279:2280 Coq.Lists.List <> hd def
+R2304:2307 ThieleMachine.AmortizedAnalysis <> runs:20 var
+R2301:2302 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2286:2289 Coq.Init.Datatypes <> list ind
+R2291:2298 ThieleMachine.AmortizedAnalysis <> Instance rec
+R2258:2271 ThieleMachine.AmortizedAnalysis <> Build_Instance constr
+R2247:2254 ThieleMachine.AmortizedAnalysis <> Instance rec
+R2311:2311 ThieleMachine.AmortizedAnalysis <> P:21 var
+binder 2191:2214 <> operational_per_instance:27
+R2401:2424 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2379:2381 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2368:2378 ThieleMachine.AmortizedAnalysis <> num_batches:24 var
+R2382:2400 ThieleMachine.AmortizedAnalysis <> discovery_per_batch:26 var
+R2440:2442 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2425:2439 ThieleMachine.AmortizedAnalysis <> total_instances:25 var
+R2443:2466 ThieleMachine.AmortizedAnalysis <> operational_per_instance:27 var
+binder 2354:2363 <> total_cost:28
+R2514:2516 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R2504:2513 ThieleMachine.AmortizedAnalysis <> total_cost:28 var
+R2517:2531 ThieleMachine.AmortizedAnalysis <> total_instances:25 var
+binder 2479:2499 <> avg_cost_per_instance:29
+R2639:2646 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2634:2637 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R2623:2633 ThieleMachine.AmortizedAnalysis <> num_batches:24 var
+R2657:2660 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R2647:2656 ThieleMachine.AmortizedAnalysis <> total_cost:28 var
+R2676:2678 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2661:2675 ThieleMachine.AmortizedAnalysis <> total_instances:25 var
+R2679:2702 ThieleMachine.AmortizedAnalysis <> operational_per_instance:27 var
+def 3289:3319 <> convergence_to_operational_cost
+R3328:3336 ThieleMachine.AmortizedAnalysis <> Partition rec
+binder 3324:3324 <> P:30
+R3347:3354 ThieleMachine.AmortizedAnalysis <> Instance rec
+binder 3340:3343 <> inst:31
+R3362:3364 Coq.Init.Datatypes <> nat ind
+binder 3358:3358 <> T:32
+R3395:3398 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3381:3389 ThieleMachine.AmortizedAnalysis <> structure proj
+R3391:3394 ThieleMachine.AmortizedAnalysis <> inst:31 var
+R3399:3404 Coq.Init.Datatypes <> length def
+R3407:3413 ThieleMachine.AmortizedAnalysis <> modules proj
+R3415:3415 ThieleMachine.AmortizedAnalysis <> P:30 var
+binder 3370:3377 <> H_struct:33
+R3429:3432 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3428:3428 ThieleMachine.AmortizedAnalysis <> T:32 var
+binder 3422:3424 <> H_T:34
+R3448:3448 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3516:3523 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3449:3449 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R3511:3514 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R3478:3480 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3451:3453 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3450:3450 ThieleMachine.AmortizedAnalysis <> T:32 var
+R3454:3470 ThieleMachine.AmortizedAnalysis <> mu_discovery_cost def
+R3472:3475 ThieleMachine.AmortizedAnalysis <> inst:31 var
+R3477:3477 ThieleMachine.AmortizedAnalysis <> P:30 var
+R3482:3484 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3481:3481 ThieleMachine.AmortizedAnalysis <> T:32 var
+R3485:3503 ThieleMachine.AmortizedAnalysis <> mu_operational_cost def
+R3505:3508 ThieleMachine.AmortizedAnalysis <> inst:31 var
+R3510:3510 ThieleMachine.AmortizedAnalysis <> P:30 var
+R3515:3515 ThieleMachine.AmortizedAnalysis <> T:32 var
+R3550:3552 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3524:3542 ThieleMachine.AmortizedAnalysis <> mu_operational_cost def
+R3544:3547 ThieleMachine.AmortizedAnalysis <> inst:31 var
+R3549:3549 ThieleMachine.AmortizedAnalysis <> P:30 var
+R3553:3569 ThieleMachine.AmortizedAnalysis <> mu_discovery_cost def
+R3571:3574 ThieleMachine.AmortizedAnalysis <> inst:31 var
+R3576:3576 ThieleMachine.AmortizedAnalysis <> P:30 var
+prf 3750:3778 <> practical_amortization_bounds
+R3784:3790 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3828:3833 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3825:3827 Coq.Init.Datatypes <> nat ind
+binder 3791:3804 <> discovery_cost:35
+R3825:3827 Coq.Init.Datatypes <> nat ind
+binder 3806:3821 <> operational_cost:36
+binder 3841:3841 <> T:37
+binder 3843:3861 <> instances_per_batch:38
+binder 3863:3873 <> batch_count:39
+R3952:3961 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3916:3918 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3915:3915 ThieleMachine.AmortizedAnalysis <> T:37 var
+R3938:3940 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3919:3937 ThieleMachine.AmortizedAnalysis <> instances_per_batch:38 var
+R3941:3951 ThieleMachine.AmortizedAnalysis <> batch_count:39 var
+R3978:3987 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3973:3976 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3962:3972 ThieleMachine.AmortizedAnalysis <> batch_count:39 var
+R4013:4022 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4007:4010 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3988:4006 ThieleMachine.AmortizedAnalysis <> instances_per_batch:38 var
+R4024:4027 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4023:4023 ThieleMachine.AmortizedAnalysis <> T:37 var
+prf 4652:4680 <> amortization_scales_with_size
+R4718:4725 ThieleMachine.AmortizedAnalysis <> Instance rec
+binder 4694:4703 <> small_inst:40
+binder 4705:4714 <> large_inst:41
+R4733:4741 ThieleMachine.AmortizedAnalysis <> Partition rec
+binder 4729:4729 <> P:42
+R4787:4794 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4764:4767 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4749:4752 ThieleMachine.AmortizedAnalysis <> size proj
+R4754:4763 ThieleMachine.AmortizedAnalysis <> large_inst:41 var
+R4769:4771 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4772:4775 ThieleMachine.AmortizedAnalysis <> size proj
+R4777:4786 ThieleMachine.AmortizedAnalysis <> small_inst:40 var
+R4837:4844 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4815:4818 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4795:4803 ThieleMachine.AmortizedAnalysis <> structure proj
+R4805:4814 ThieleMachine.AmortizedAnalysis <> large_inst:41 var
+R4819:4824 Coq.Init.Datatypes <> length def
+R4827:4833 ThieleMachine.AmortizedAnalysis <> modules proj
+R4835:4835 ThieleMachine.AmortizedAnalysis <> P:42 var
+R4887:4894 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4865:4868 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4845:4853 ThieleMachine.AmortizedAnalysis <> structure proj
+R4855:4864 ThieleMachine.AmortizedAnalysis <> small_inst:40 var
+R4869:4874 Coq.Init.Datatypes <> length def
+R4877:4883 ThieleMachine.AmortizedAnalysis <> modules proj
+R4885:4885 ThieleMachine.AmortizedAnalysis <> P:42 var
+R4910:4913 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4895:4898 ThieleMachine.AmortizedAnalysis <> size proj
+R4900:4909 ThieleMachine.AmortizedAnalysis <> large_inst:41 var
+R4914:4917 ThieleMachine.AmortizedAnalysis <> size proj
+R4919:4928 ThieleMachine.AmortizedAnalysis <> small_inst:40 var
+prf 5219:5250 <> amortization_enables_scalability
+binder 5264:5277 <> problem_family:43
+R5318:5321 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5304:5317 ThieleMachine.AmortizedAnalysis <> problem_family:43 var
+R5322:5324 Coq.Init.Datatypes <> nat ind
+binder 5288:5300 <> thiele_solver:44
+R5392:5392 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5535:5614 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5393:5400 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5414:5416 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5405:5413 ThieleMachine.AmortizedAnalysis <> Partition rec
+binder 5401:5401 <> P:45
+binder 5424:5427 <> inst:46
+R5430:5436 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5441:5508 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5437:5440 <> cost:47
+R5527:5530 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5509:5521 ThieleMachine.AmortizedAnalysis <> thiele_solver:44 var
+R5523:5526 ThieleMachine.AmortizedAnalysis <> inst:46 var
+R5531:5534 ThieleMachine.AmortizedAnalysis <> cost:47 var
+R5615:5621 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5640:5647 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5637:5639 Coq.Init.Datatypes <> nat ind
+binder 5622:5633 <> optimal_cost:48
+R5660:5662 Coq.Init.Datatypes <> nat ind
+binder 5656:5656 <> T:49
+R5678:5681 Coq.Init.Datatypes <> list ind
+R5683:5696 ThieleMachine.AmortizedAnalysis <> problem_family:43 var
+binder 5666:5674 <> instances:50
+R5728:5739 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5724:5726 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5708:5713 Coq.Init.Datatypes <> length def
+R5715:5723 ThieleMachine.AmortizedAnalysis <> instances:50 var
+R5727:5727 ThieleMachine.AmortizedAnalysis <> T:49 var
+R5748:5759 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5741:5744 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5740:5740 ThieleMachine.AmortizedAnalysis <> T:49 var
+R5776:5779 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5760:5765 Coq.Init.Datatypes <> length def
+R5767:5775 ThieleMachine.AmortizedAnalysis <> instances:50 var

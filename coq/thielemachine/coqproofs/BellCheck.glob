@@ -1,4 +1,4 @@
-DIGEST 72d8b0a080ac7167f3749969de3c324a
+DIGEST 201b9720c628811c64790117448aba90
 FThieleMachine.BellCheck
 R15:31 Coq.QArith.QArith <> <> lib
 R49:63 Coq.QArith.Qabs <> <> lib
@@ -6,290 +6,293 @@ R81:97 Coq.ZArith.ZArith <> <> lib
 R115:132 Coq.Setoids.Setoid <> <> lib
 R150:166 Coq.micromega.Lia <> <> lib
 R203:216 ThieleMachine.BellInequality <> <> lib
-rec 254:269 <> SettingAggregate
-proj 278:287 <> agg_trials
-proj 303:312 <> agg_sum_xy
-R291:298 Coq.Numbers.BinNums <> positive ind
-R316:316 Coq.Numbers.BinNums <> Z ind
-def 333:343 <> aggregate_E
-R352:367 ThieleMachine.BellCheck <> SettingAggregate rec
-binder 346:348 <> agg:4
-R372:372 Coq.QArith.QArith_base <> Q rec
-R394:396 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
-R380:389 ThieleMachine.BellCheck <> agg_sum_xy proj
-R391:393 ThieleMachine.BellCheck <> agg:4 var
-R397:406 ThieleMachine.BellCheck <> agg_trials proj
-R408:410 ThieleMachine.BellCheck <> agg:4 var
-rec 422:432 <> BellSummary
-proj 441:449 <> summary00
-proj 473:481 <> summary01
-proj 505:513 <> summary10
-proj 537:545 <> summary11
-proj 569:578 <> measured_S
-proj 587:593 <> epsilon
-proj 602:612 <> classical_S
-proj 621:633 <> classical_gap
-proj 642:657 <> violation_margin
-R453:468 ThieleMachine.BellCheck <> SettingAggregate rec
-R485:500 ThieleMachine.BellCheck <> SettingAggregate rec
-R517:532 ThieleMachine.BellCheck <> SettingAggregate rec
-R549:564 ThieleMachine.BellCheck <> SettingAggregate rec
-R582:582 Coq.QArith.QArith_base <> Q rec
-R597:597 Coq.QArith.QArith_base <> Q rec
-R616:616 Coq.QArith.QArith_base <> Q rec
-R637:637 Coq.QArith.QArith_base <> Q rec
-R661:661 Coq.QArith.QArith_base <> Q rec
-def 678:687 <> computed_S
-R700:710 ThieleMachine.BellCheck <> BellSummary rec
-binder 690:696 <> summary:15
-R715:715 Coq.QArith.QArith_base <> Q rec
-R829:835 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
-R791:797 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
-R753:759 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
-R722:732 ThieleMachine.BellCheck <> aggregate_E def
-R735:743 ThieleMachine.BellCheck <> summary11 proj
-R745:751 ThieleMachine.BellCheck <> summary:15 var
-R760:770 ThieleMachine.BellCheck <> aggregate_E def
-R773:781 ThieleMachine.BellCheck <> summary10 proj
-R783:789 ThieleMachine.BellCheck <> summary:15 var
-R798:808 ThieleMachine.BellCheck <> aggregate_E def
-R811:819 ThieleMachine.BellCheck <> summary01 proj
-R821:827 ThieleMachine.BellCheck <> summary:15 var
-R836:846 ThieleMachine.BellCheck <> aggregate_E def
-R849:857 ThieleMachine.BellCheck <> summary00 proj
-R859:865 ThieleMachine.BellCheck <> summary:15 var
-def 881:898 <> summary_consistent
-R911:921 ThieleMachine.BellCheck <> BellSummary rec
-binder 901:907 <> summary:16
-R954:957 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
-R936:945 ThieleMachine.BellCheck <> measured_S proj
-R947:953 ThieleMachine.BellCheck <> summary:16 var
-R958:967 ThieleMachine.BellCheck <> computed_S def
-R969:975 ThieleMachine.BellCheck <> summary:16 var
-def 990:1010 <> classical_gap_witness
-R1023:1033 ThieleMachine.BellCheck <> BellSummary rec
-binder 1013:1019 <> summary:17
-R1069:1072 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
-R1048:1060 ThieleMachine.BellCheck <> classical_gap proj
-R1062:1068 ThieleMachine.BellCheck <> summary:17 var
-R1073:1073 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
-R1097:1100 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
-R1074:1074 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
-R1078:1081 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
-R1076:1076 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
-R1082:1088 ThieleMachine.BellCheck <> epsilon proj
-R1090:1096 ThieleMachine.BellCheck <> summary:17 var
-R1101:1111 ThieleMachine.BellCheck <> classical_S proj
-R1113:1119 ThieleMachine.BellCheck <> summary:17 var
-def 1134:1153 <> classical_gap_nonneg
-R1166:1176 ThieleMachine.BellCheck <> BellSummary rec
-binder 1156:1162 <> summary:18
-R1194:1197 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
-R1192:1192 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
-R1198:1210 ThieleMachine.BellCheck <> classical_gap proj
-R1212:1218 ThieleMachine.BellCheck <> summary:18 var
-def 1233:1256 <> violation_margin_witness
-R1269:1279 ThieleMachine.BellCheck <> BellSummary rec
-binder 1259:1265 <> summary:19
-R1318:1321 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
-R1294:1309 ThieleMachine.BellCheck <> violation_margin proj
-R1311:1317 ThieleMachine.BellCheck <> summary:19 var
-R1340:1343 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
-R1367:1367 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
-R1322:1331 ThieleMachine.BellCheck <> measured_S proj
-R1333:1339 ThieleMachine.BellCheck <> summary:19 var
-R1344:1344 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
-R1348:1351 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
-R1346:1346 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
-R1352:1358 ThieleMachine.BellCheck <> epsilon proj
-R1360:1366 ThieleMachine.BellCheck <> summary:19 var
-def 1382:1406 <> violation_margin_positive
-R1419:1429 ThieleMachine.BellCheck <> BellSummary rec
-binder 1409:1415 <> summary:20
-R1447:1449 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
-R1445:1445 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
-R1450:1465 ThieleMachine.BellCheck <> violation_margin proj
-R1467:1473 ThieleMachine.BellCheck <> summary:20 var
-def 1488:1502 <> classical_bound
-R1515:1525 ThieleMachine.BellCheck <> BellSummary rec
-binder 1505:1511 <> summary:21
-R1559:1562 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
-R1540:1550 ThieleMachine.BellCheck <> classical_S proj
-R1552:1558 ThieleMachine.BellCheck <> summary:21 var
-R1563:1563 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
-R1567:1570 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
-R1565:1565 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
-R1571:1577 ThieleMachine.BellCheck <> epsilon proj
-R1579:1585 ThieleMachine.BellCheck <> summary:21 var
-def 1600:1613 <> bell_violation
-R1626:1636 ThieleMachine.BellCheck <> BellSummary rec
-binder 1616:1622 <> summary:22
-R1674:1676 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
-R1651:1651 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
-R1655:1658 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
-R1653:1653 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
-R1659:1665 ThieleMachine.BellCheck <> epsilon proj
-R1667:1673 ThieleMachine.BellCheck <> summary:22 var
-R1677:1686 ThieleMachine.BellCheck <> measured_S proj
-R1688:1694 ThieleMachine.BellCheck <> summary:22 var
-prf 1755:1772 <> classical_gap_plus
-binder 1785:1791 <> summary:23
-R1827:1834 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1798:1818 ThieleMachine.BellCheck <> classical_gap_witness def
-R1820:1826 ThieleMachine.BellCheck <> summary:23 var
-R1878:1881 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
-R1854:1856 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
-R1835:1845 ThieleMachine.BellCheck <> classical_S proj
-R1847:1853 ThieleMachine.BellCheck <> summary:23 var
-R1857:1869 ThieleMachine.BellCheck <> classical_gap proj
-R1871:1877 ThieleMachine.BellCheck <> summary:23 var
-R1882:1882 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
-R1886:1889 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
-R1884:1884 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
-R1890:1896 ThieleMachine.BellCheck <> epsilon proj
-R1898:1904 ThieleMachine.BellCheck <> summary:23 var
-R1950:1970 ThieleMachine.BellCheck <> classical_gap_witness def
-R1994:2006 ThieleMachine.BellCheck <> classical_gap proj
-prf 2103:2123 <> violation_margin_plus
-binder 2136:2142 <> summary:24
-R2181:2188 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2149:2172 ThieleMachine.BellCheck <> violation_margin_witness def
-R2174:2180 ThieleMachine.BellCheck <> summary:24 var
-R2207:2210 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
-R2189:2198 ThieleMachine.BellCheck <> measured_S proj
-R2200:2206 ThieleMachine.BellCheck <> summary:24 var
-R2234:2236 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
-R2211:2211 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
-R2215:2218 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
-R2213:2213 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
-R2219:2225 ThieleMachine.BellCheck <> epsilon proj
-R2227:2233 ThieleMachine.BellCheck <> summary:24 var
-R2237:2252 ThieleMachine.BellCheck <> violation_margin proj
-R2254:2260 ThieleMachine.BellCheck <> summary:24 var
-R2306:2329 ThieleMachine.BellCheck <> violation_margin_witness def
-R2353:2368 ThieleMachine.BellCheck <> violation_margin proj
-prf 2489:2503 <> Qle_plus_nonneg
-R2522:2522 Coq.QArith.QArith_base <> Q rec
-binder 2516:2516 <> a:25
-binder 2518:2518 <> b:26
-R2537:2544 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2532:2535 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
-R2530:2530 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
-R2536:2536 ThieleMachine.BellCheck <> b:26 var
-R2546:2549 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
-R2545:2545 ThieleMachine.BellCheck <> a:25 var
-R2551:2553 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
-R2550:2550 ThieleMachine.BellCheck <> a:25 var
-R2554:2554 ThieleMachine.BellCheck <> b:26 var
-R2590:2592 Coq.QArith.QArith_base <> Qle def
-prf 2707:2718 <> Qlt_plus_pos
-R2737:2737 Coq.QArith.QArith_base <> Q rec
-binder 2731:2731 <> a:27
-binder 2733:2733 <> b:28
-R2751:2758 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2747:2749 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
-R2745:2745 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
-R2750:2750 ThieleMachine.BellCheck <> b:28 var
-R2760:2762 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
-R2759:2759 ThieleMachine.BellCheck <> a:27 var
-R2764:2766 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
-R2763:2763 ThieleMachine.BellCheck <> a:27 var
-R2767:2767 ThieleMachine.BellCheck <> b:28 var
-R2803:2805 Coq.QArith.QArith_base <> Qlt def
-prf 2997:3013 <> CHSH_receipt_to_S
-binder 3026:3032 <> summary:29
-R3065:3072 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3039:3056 ThieleMachine.BellCheck <> summary_consistent def
-R3058:3064 ThieleMachine.BellCheck <> summary:29 var
-R3091:3094 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
-R3073:3082 ThieleMachine.BellCheck <> measured_S proj
-R3084:3090 ThieleMachine.BellCheck <> summary:29 var
-R3095:3104 ThieleMachine.BellCheck <> computed_S def
-R3106:3112 ThieleMachine.BellCheck <> summary:29 var
-prf 3225:3251 <> classical_gap_implies_bound
-binder 3264:3270 <> summary:30
-R3306:3313 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3277:3297 ThieleMachine.BellCheck <> classical_gap_witness def
-R3299:3305 ThieleMachine.BellCheck <> summary:30 var
-R3342:3349 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3314:3333 ThieleMachine.BellCheck <> classical_gap_nonneg def
-R3335:3341 ThieleMachine.BellCheck <> summary:30 var
-R3350:3364 ThieleMachine.BellCheck <> classical_bound def
-R3366:3372 ThieleMachine.BellCheck <> summary:30 var
-R3426:3440 ThieleMachine.BellCheck <> classical_bound def
-R3464:3481 ThieleMachine.BellCheck <> classical_gap_plus thm
-R3464:3481 ThieleMachine.BellCheck <> classical_gap_plus thm
-R3464:3481 ThieleMachine.BellCheck <> classical_gap_plus thm
-R3464:3481 ThieleMachine.BellCheck <> classical_gap_plus thm
-R3464:3481 ThieleMachine.BellCheck <> classical_gap_plus thm
-R3464:3481 ThieleMachine.BellCheck <> classical_gap_plus thm
-R3464:3481 ThieleMachine.BellCheck <> classical_gap_plus thm
-R3510:3524 ThieleMachine.BellCheck <> Qle_plus_nonneg thm
-R3510:3524 ThieleMachine.BellCheck <> Qle_plus_nonneg thm
-prf 3623:3656 <> violation_margin_implies_violation
-binder 3669:3675 <> summary:31
-R3714:3721 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3682:3705 ThieleMachine.BellCheck <> violation_margin_witness def
-R3707:3713 ThieleMachine.BellCheck <> summary:31 var
-R3755:3762 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3722:3746 ThieleMachine.BellCheck <> violation_margin_positive def
-R3748:3754 ThieleMachine.BellCheck <> summary:31 var
-R3763:3776 ThieleMachine.BellCheck <> bell_violation def
-R3778:3784 ThieleMachine.BellCheck <> summary:31 var
-R3835:3848 ThieleMachine.BellCheck <> bell_violation def
-R3869:3889 ThieleMachine.BellCheck <> violation_margin_plus thm
-R3869:3889 ThieleMachine.BellCheck <> violation_margin_plus thm
-R3869:3889 ThieleMachine.BellCheck <> violation_margin_plus thm
-R3869:3889 ThieleMachine.BellCheck <> violation_margin_plus thm
-R3869:3889 ThieleMachine.BellCheck <> violation_margin_plus thm
-R3869:3889 ThieleMachine.BellCheck <> violation_margin_plus thm
-R3869:3889 ThieleMachine.BellCheck <> violation_margin_plus thm
-R3869:3889 ThieleMachine.BellCheck <> violation_margin_plus thm
-R3869:3889 ThieleMachine.BellCheck <> violation_margin_plus thm
-R3869:3889 ThieleMachine.BellCheck <> violation_margin_plus thm
-R3869:3889 ThieleMachine.BellCheck <> violation_margin_plus thm
-R3869:3889 ThieleMachine.BellCheck <> violation_margin_plus thm
-R3869:3889 ThieleMachine.BellCheck <> violation_margin_plus thm
-R3869:3889 ThieleMachine.BellCheck <> violation_margin_plus thm
-R3869:3889 ThieleMachine.BellCheck <> violation_margin_plus thm
-R3869:3889 ThieleMachine.BellCheck <> violation_margin_plus thm
-R3869:3889 ThieleMachine.BellCheck <> violation_margin_plus thm
-R3918:3929 ThieleMachine.BellCheck <> Qlt_plus_pos thm
-R3918:3929 ThieleMachine.BellCheck <> Qlt_plus_pos thm
-prf 4090:4109 <> CHSH_classical_bound
-binder 4122:4124 <> eps:32
-R4131:4133 ThieleMachine.BellInequality <> Box rec
-binder 4127:4127 <> B:33
-R4151:4158 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4144:4147 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
-R4142:4142 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
-R4148:4150 ThieleMachine.BellCheck <> eps:32 var
-R4166:4173 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4159:4163 ThieleMachine.BellInequality <> local def
-R4165:4165 ThieleMachine.BellCheck <> B:33 var
-R4177:4180 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
-R4174:4174 ThieleMachine.BellInequality <> S def
-R4176:4176 ThieleMachine.BellCheck <> B:33 var
-R4181:4181 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
-R4185:4188 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
-R4183:4183 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
-R4189:4191 ThieleMachine.BellCheck <> eps:32 var
-R4243:4258 ThieleMachine.BellInequality <> local_CHSH_bound thm
-R4243:4258 ThieleMachine.BellInequality <> local_CHSH_bound thm
-R4292:4295 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
-R4289:4289 ThieleMachine.BellInequality <> S def
-R4297:4297 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
-R4292:4295 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
-R4289:4289 ThieleMachine.BellInequality <> S def
-R4297:4297 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
-R4345:4345 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
-R4319:4331 ThieleMachine.BellInequality <> Qabs_le_upper thm
-R4345:4345 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
-R4319:4331 ThieleMachine.BellInequality <> Qabs_le_upper thm
-R4363:4365 Coq.QArith.QArith_base <> Qle def
-R4430:4430 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
-R4408:4416 Coq.QArith.QArith_base <> Qle_trans thm
-R4430:4430 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
-R4408:4416 Coq.QArith.QArith_base <> Qle_trans thm
-R4457:4471 ThieleMachine.BellCheck <> Qle_plus_nonneg thm
-R4457:4471 ThieleMachine.BellCheck <> Qle_plus_nonneg thm
+R246:252 Kernel.VMState <> <> lib
+R254:259 Kernel.VMStep <> <> lib
+R289:299 Kernel.MuCostModel <> <> lib
+rec 338:353 <> SettingAggregate
+proj 362:371 <> agg_trials
+proj 387:396 <> agg_sum_xy
+R375:382 Coq.Numbers.BinNums <> positive ind
+R400:400 Coq.Numbers.BinNums <> Z ind
+def 417:427 <> aggregate_E
+R436:451 ThieleMachine.BellCheck <> SettingAggregate rec
+binder 430:432 <> agg:4
+R456:456 Coq.QArith.QArith_base <> Q rec
+R478:480 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R464:473 ThieleMachine.BellCheck <> agg_sum_xy proj
+R475:477 ThieleMachine.BellCheck <> agg:4 var
+R481:490 ThieleMachine.BellCheck <> agg_trials proj
+R492:494 ThieleMachine.BellCheck <> agg:4 var
+rec 506:516 <> BellSummary
+proj 525:533 <> summary00
+proj 557:565 <> summary01
+proj 589:597 <> summary10
+proj 621:629 <> summary11
+proj 653:662 <> measured_S
+proj 671:677 <> epsilon
+proj 686:696 <> classical_S
+proj 705:717 <> classical_gap
+proj 726:741 <> violation_margin
+R537:552 ThieleMachine.BellCheck <> SettingAggregate rec
+R569:584 ThieleMachine.BellCheck <> SettingAggregate rec
+R601:616 ThieleMachine.BellCheck <> SettingAggregate rec
+R633:648 ThieleMachine.BellCheck <> SettingAggregate rec
+R666:666 Coq.QArith.QArith_base <> Q rec
+R681:681 Coq.QArith.QArith_base <> Q rec
+R700:700 Coq.QArith.QArith_base <> Q rec
+R721:721 Coq.QArith.QArith_base <> Q rec
+R745:745 Coq.QArith.QArith_base <> Q rec
+def 762:771 <> computed_S
+R784:794 ThieleMachine.BellCheck <> BellSummary rec
+binder 774:780 <> summary:15
+R799:799 Coq.QArith.QArith_base <> Q rec
+R913:919 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R875:881 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R837:843 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R806:816 ThieleMachine.BellCheck <> aggregate_E def
+R819:827 ThieleMachine.BellCheck <> summary11 proj
+R829:835 ThieleMachine.BellCheck <> summary:15 var
+R844:854 ThieleMachine.BellCheck <> aggregate_E def
+R857:865 ThieleMachine.BellCheck <> summary10 proj
+R867:873 ThieleMachine.BellCheck <> summary:15 var
+R882:892 ThieleMachine.BellCheck <> aggregate_E def
+R895:903 ThieleMachine.BellCheck <> summary01 proj
+R905:911 ThieleMachine.BellCheck <> summary:15 var
+R920:930 ThieleMachine.BellCheck <> aggregate_E def
+R933:941 ThieleMachine.BellCheck <> summary00 proj
+R943:949 ThieleMachine.BellCheck <> summary:15 var
+def 965:982 <> summary_consistent
+R995:1005 ThieleMachine.BellCheck <> BellSummary rec
+binder 985:991 <> summary:16
+R1038:1041 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R1020:1029 ThieleMachine.BellCheck <> measured_S proj
+R1031:1037 ThieleMachine.BellCheck <> summary:16 var
+R1042:1051 ThieleMachine.BellCheck <> computed_S def
+R1053:1059 ThieleMachine.BellCheck <> summary:16 var
+def 1074:1094 <> classical_gap_witness
+R1107:1117 ThieleMachine.BellCheck <> BellSummary rec
+binder 1097:1103 <> summary:17
+R1153:1156 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R1132:1144 ThieleMachine.BellCheck <> classical_gap proj
+R1146:1152 ThieleMachine.BellCheck <> summary:17 var
+R1157:1157 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R1181:1184 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R1158:1158 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R1162:1165 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R1160:1160 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R1166:1172 ThieleMachine.BellCheck <> epsilon proj
+R1174:1180 ThieleMachine.BellCheck <> summary:17 var
+R1185:1195 ThieleMachine.BellCheck <> classical_S proj
+R1197:1203 ThieleMachine.BellCheck <> summary:17 var
+def 1218:1237 <> classical_gap_nonneg
+R1250:1260 ThieleMachine.BellCheck <> BellSummary rec
+binder 1240:1246 <> summary:18
+R1278:1281 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R1276:1276 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R1282:1294 ThieleMachine.BellCheck <> classical_gap proj
+R1296:1302 ThieleMachine.BellCheck <> summary:18 var
+def 1317:1340 <> violation_margin_witness
+R1353:1363 ThieleMachine.BellCheck <> BellSummary rec
+binder 1343:1349 <> summary:19
+R1402:1405 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R1378:1393 ThieleMachine.BellCheck <> violation_margin proj
+R1395:1401 ThieleMachine.BellCheck <> summary:19 var
+R1424:1427 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R1451:1451 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R1406:1415 ThieleMachine.BellCheck <> measured_S proj
+R1417:1423 ThieleMachine.BellCheck <> summary:19 var
+R1428:1428 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R1432:1435 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R1430:1430 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R1436:1442 ThieleMachine.BellCheck <> epsilon proj
+R1444:1450 ThieleMachine.BellCheck <> summary:19 var
+def 1466:1490 <> violation_margin_positive
+R1503:1513 ThieleMachine.BellCheck <> BellSummary rec
+binder 1493:1499 <> summary:20
+R1531:1533 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
+R1529:1529 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R1534:1549 ThieleMachine.BellCheck <> violation_margin proj
+R1551:1557 ThieleMachine.BellCheck <> summary:20 var
+def 1572:1586 <> classical_bound
+R1599:1609 ThieleMachine.BellCheck <> BellSummary rec
+binder 1589:1595 <> summary:21
+R1643:1646 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R1624:1634 ThieleMachine.BellCheck <> classical_S proj
+R1636:1642 ThieleMachine.BellCheck <> summary:21 var
+R1647:1647 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R1651:1654 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R1649:1649 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R1655:1661 ThieleMachine.BellCheck <> epsilon proj
+R1663:1669 ThieleMachine.BellCheck <> summary:21 var
+def 1684:1697 <> bell_violation
+R1710:1720 ThieleMachine.BellCheck <> BellSummary rec
+binder 1700:1706 <> summary:22
+R1758:1760 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
+R1735:1735 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R1739:1742 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R1737:1737 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R1743:1749 ThieleMachine.BellCheck <> epsilon proj
+R1751:1757 ThieleMachine.BellCheck <> summary:22 var
+R1761:1770 ThieleMachine.BellCheck <> measured_S proj
+R1772:1778 ThieleMachine.BellCheck <> summary:22 var
+prf 1839:1856 <> classical_gap_plus
+binder 1869:1875 <> summary:23
+R1911:1918 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1882:1902 ThieleMachine.BellCheck <> classical_gap_witness def
+R1904:1910 ThieleMachine.BellCheck <> summary:23 var
+R1962:1965 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R1938:1940 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R1919:1929 ThieleMachine.BellCheck <> classical_S proj
+R1931:1937 ThieleMachine.BellCheck <> summary:23 var
+R1941:1953 ThieleMachine.BellCheck <> classical_gap proj
+R1955:1961 ThieleMachine.BellCheck <> summary:23 var
+R1966:1966 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R1970:1973 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R1968:1968 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R1974:1980 ThieleMachine.BellCheck <> epsilon proj
+R1982:1988 ThieleMachine.BellCheck <> summary:23 var
+R2034:2054 ThieleMachine.BellCheck <> classical_gap_witness def
+R2078:2090 ThieleMachine.BellCheck <> classical_gap proj
+prf 2187:2207 <> violation_margin_plus
+binder 2220:2226 <> summary:24
+R2265:2272 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2233:2256 ThieleMachine.BellCheck <> violation_margin_witness def
+R2258:2264 ThieleMachine.BellCheck <> summary:24 var
+R2291:2294 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R2273:2282 ThieleMachine.BellCheck <> measured_S proj
+R2284:2290 ThieleMachine.BellCheck <> summary:24 var
+R2318:2320 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R2295:2295 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R2299:2302 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R2297:2297 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R2303:2309 ThieleMachine.BellCheck <> epsilon proj
+R2311:2317 ThieleMachine.BellCheck <> summary:24 var
+R2321:2336 ThieleMachine.BellCheck <> violation_margin proj
+R2338:2344 ThieleMachine.BellCheck <> summary:24 var
+R2390:2413 ThieleMachine.BellCheck <> violation_margin_witness def
+R2437:2452 ThieleMachine.BellCheck <> violation_margin proj
+prf 2573:2587 <> Qle_plus_nonneg
+R2606:2606 Coq.QArith.QArith_base <> Q rec
+binder 2600:2600 <> a:25
+binder 2602:2602 <> b:26
+R2621:2628 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2616:2619 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R2614:2614 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R2620:2620 ThieleMachine.BellCheck <> b:26 var
+R2630:2633 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R2629:2629 ThieleMachine.BellCheck <> a:25 var
+R2635:2637 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R2634:2634 ThieleMachine.BellCheck <> a:25 var
+R2638:2638 ThieleMachine.BellCheck <> b:26 var
+R2674:2676 Coq.QArith.QArith_base <> Qle def
+prf 2791:2802 <> Qlt_plus_pos
+R2821:2821 Coq.QArith.QArith_base <> Q rec
+binder 2815:2815 <> a:27
+binder 2817:2817 <> b:28
+R2835:2842 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2831:2833 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
+R2829:2829 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R2834:2834 ThieleMachine.BellCheck <> b:28 var
+R2844:2846 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
+R2843:2843 ThieleMachine.BellCheck <> a:27 var
+R2848:2850 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R2847:2847 ThieleMachine.BellCheck <> a:27 var
+R2851:2851 ThieleMachine.BellCheck <> b:28 var
+R2887:2889 Coq.QArith.QArith_base <> Qlt def
+prf 3081:3097 <> CHSH_receipt_to_S
+binder 3110:3116 <> summary:29
+R3149:3156 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3123:3140 ThieleMachine.BellCheck <> summary_consistent def
+R3142:3148 ThieleMachine.BellCheck <> summary:29 var
+R3175:3178 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R3157:3166 ThieleMachine.BellCheck <> measured_S proj
+R3168:3174 ThieleMachine.BellCheck <> summary:29 var
+R3179:3188 ThieleMachine.BellCheck <> computed_S def
+R3190:3196 ThieleMachine.BellCheck <> summary:29 var
+prf 3309:3335 <> classical_gap_implies_bound
+binder 3348:3354 <> summary:30
+R3390:3397 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3361:3381 ThieleMachine.BellCheck <> classical_gap_witness def
+R3383:3389 ThieleMachine.BellCheck <> summary:30 var
+R3426:3433 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3398:3417 ThieleMachine.BellCheck <> classical_gap_nonneg def
+R3419:3425 ThieleMachine.BellCheck <> summary:30 var
+R3434:3448 ThieleMachine.BellCheck <> classical_bound def
+R3450:3456 ThieleMachine.BellCheck <> summary:30 var
+R3510:3524 ThieleMachine.BellCheck <> classical_bound def
+R3548:3565 ThieleMachine.BellCheck <> classical_gap_plus thm
+R3548:3565 ThieleMachine.BellCheck <> classical_gap_plus thm
+R3548:3565 ThieleMachine.BellCheck <> classical_gap_plus thm
+R3548:3565 ThieleMachine.BellCheck <> classical_gap_plus thm
+R3548:3565 ThieleMachine.BellCheck <> classical_gap_plus thm
+R3548:3565 ThieleMachine.BellCheck <> classical_gap_plus thm
+R3548:3565 ThieleMachine.BellCheck <> classical_gap_plus thm
+R3594:3608 ThieleMachine.BellCheck <> Qle_plus_nonneg thm
+R3594:3608 ThieleMachine.BellCheck <> Qle_plus_nonneg thm
+prf 3707:3740 <> violation_margin_implies_violation
+binder 3753:3759 <> summary:31
+R3798:3805 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3766:3789 ThieleMachine.BellCheck <> violation_margin_witness def
+R3791:3797 ThieleMachine.BellCheck <> summary:31 var
+R3839:3846 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3806:3830 ThieleMachine.BellCheck <> violation_margin_positive def
+R3832:3838 ThieleMachine.BellCheck <> summary:31 var
+R3847:3860 ThieleMachine.BellCheck <> bell_violation def
+R3862:3868 ThieleMachine.BellCheck <> summary:31 var
+R3919:3932 ThieleMachine.BellCheck <> bell_violation def
+R3953:3973 ThieleMachine.BellCheck <> violation_margin_plus thm
+R3953:3973 ThieleMachine.BellCheck <> violation_margin_plus thm
+R3953:3973 ThieleMachine.BellCheck <> violation_margin_plus thm
+R3953:3973 ThieleMachine.BellCheck <> violation_margin_plus thm
+R3953:3973 ThieleMachine.BellCheck <> violation_margin_plus thm
+R3953:3973 ThieleMachine.BellCheck <> violation_margin_plus thm
+R3953:3973 ThieleMachine.BellCheck <> violation_margin_plus thm
+R3953:3973 ThieleMachine.BellCheck <> violation_margin_plus thm
+R3953:3973 ThieleMachine.BellCheck <> violation_margin_plus thm
+R3953:3973 ThieleMachine.BellCheck <> violation_margin_plus thm
+R3953:3973 ThieleMachine.BellCheck <> violation_margin_plus thm
+R3953:3973 ThieleMachine.BellCheck <> violation_margin_plus thm
+R3953:3973 ThieleMachine.BellCheck <> violation_margin_plus thm
+R3953:3973 ThieleMachine.BellCheck <> violation_margin_plus thm
+R3953:3973 ThieleMachine.BellCheck <> violation_margin_plus thm
+R3953:3973 ThieleMachine.BellCheck <> violation_margin_plus thm
+R3953:3973 ThieleMachine.BellCheck <> violation_margin_plus thm
+R4002:4013 ThieleMachine.BellCheck <> Qlt_plus_pos thm
+R4002:4013 ThieleMachine.BellCheck <> Qlt_plus_pos thm
+prf 4174:4193 <> CHSH_classical_bound
+binder 4206:4208 <> eps:32
+R4215:4217 ThieleMachine.BellInequality <> Box rec
+binder 4211:4211 <> B:33
+R4235:4242 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4228:4231 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R4226:4226 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R4232:4234 ThieleMachine.BellCheck <> eps:32 var
+R4250:4257 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4243:4247 ThieleMachine.BellInequality <> local def
+R4249:4249 ThieleMachine.BellCheck <> B:33 var
+R4261:4264 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R4258:4258 ThieleMachine.BellInequality <> S def
+R4260:4260 ThieleMachine.BellCheck <> B:33 var
+R4265:4265 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R4269:4272 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R4267:4267 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R4273:4275 ThieleMachine.BellCheck <> eps:32 var
+R4327:4342 ThieleMachine.BellInequality <> local_CHSH_bound thm
+R4327:4342 ThieleMachine.BellInequality <> local_CHSH_bound thm
+R4376:4379 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R4373:4373 ThieleMachine.BellInequality <> S def
+R4381:4381 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R4376:4379 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R4373:4373 ThieleMachine.BellInequality <> S def
+R4381:4381 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R4429:4429 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R4403:4415 ThieleMachine.BellInequality <> Qabs_le_upper thm
+R4429:4429 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R4403:4415 ThieleMachine.BellInequality <> Qabs_le_upper thm
+R4447:4449 Coq.QArith.QArith_base <> Qle def
+R4514:4514 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R4492:4500 Coq.QArith.QArith_base <> Qle_trans thm
+R4514:4514 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R4492:4500 Coq.QArith.QArith_base <> Qle_trans thm
+R4541:4555 ThieleMachine.BellCheck <> Qle_plus_nonneg thm
+R4541:4555 ThieleMachine.BellCheck <> Qle_plus_nonneg thm

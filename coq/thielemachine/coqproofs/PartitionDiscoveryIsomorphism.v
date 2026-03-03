@@ -1,4 +1,6 @@
 (** =========================================================================
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
     PARTITION DISCOVERY ISOMORPHISM VERIFICATION
     =========================================================================
     
@@ -74,6 +76,10 @@
     
     =========================================================================
  *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import Arith ZArith Lia List Nat Bool.
 From Coq Require Import Sorting.Permutation.

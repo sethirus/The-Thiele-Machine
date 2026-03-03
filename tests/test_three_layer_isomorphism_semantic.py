@@ -14,6 +14,9 @@ Test strategy:
 """
 
 import pytest
+from pathlib import Path
+
+from build.thiele_vm import run_vm, VMState
 from thielecpu.semantic_mu_coq_isomorphic import (
     parse_and_compute_semantic_cost,
     semantic_complexity_bits,
@@ -24,6 +27,10 @@ from thielecpu.semantic_mu_coq_isomorphic import (
     CAtom, CAnd, COr, CNot, CTrue, CFalse,
     AVar, AConst,
 )
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+EXTRACTED_RUNNER = REPO_ROOT / "build" / "extracted_vm_runner"
+EXTRACTED_IR = REPO_ROOT / "build" / "thiele_core.ml"
 
 
 class TestLog2NatIsomorphism:
@@ -248,6 +255,41 @@ class TestRegressionPrevention:
             f"REGRESSION: Costs depend on string length! "
             f"short='{short}' ({cost_short} bits), "
             f"long='{long}' ({cost_long} bits)"
+        )
+
+
+class TestSemanticMuCrossLayer:
+    """Verify semantic mu-cost consistency across Python VM and Coq extraction."""
+
+    def test_semantic_cost_matches_vm_execution(self):
+        """Semantic complexity computed in Python should be consistent with VM execution.
+
+        Layer 1: Python VM execution via State() and run_vm
+        Layer 2: Coq extraction layer (extracted_vm_runner / thiele_core)
+        """
+        from thielecpu.state import State
+
+        # Layer 1: Compute semantic cost in Python
+        cost, ast = parse_and_compute_semantic_cost("x > 0")
+        assert cost > 0, "Semantic cost should be positive"
+
+        # Layer 1: Python VM execution to verify mu accounting
+        state = State()
+        state.pnew({0, 1}, charge_discovery=True)
+        py_mu = state.mu_ledger.total
+        assert py_mu > 0, "Python VM should charge mu"
+
+        # Layer 2: Coq-extracted runner via run_vm (delegates to extracted_vm_runner)
+        vm_state = run_vm(["PNEW {0,1} 2", "HALT 0"], fuel=256)
+        assert vm_state.mu == py_mu, (
+            f"Cross-layer mu mismatch: Python={py_mu}, extracted={vm_state.mu}"
+        )
+
+    def test_extraction_ir_semantic_alignment(self):
+        """Coq extraction IR (thiele_core.ml) must exist for semantic isomorphism."""
+        assert EXTRACTED_IR.exists(), (
+            f"Missing Coq extraction IR: {EXTRACTED_IR}. "
+            "Semantic mu isomorphism requires thiele_core for cross-layer verification."
         )
 
 

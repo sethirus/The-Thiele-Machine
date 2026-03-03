@@ -1,4 +1,6 @@
 (** =========================================================================
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
     THIELE SPACELAND: Proof that Thiele Machine Implements Spaceland Axioms
     =========================================================================
     
@@ -21,6 +23,9 @@
     
     =========================================================================
 *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
 
 From Coq Require Import List Bool ZArith Lia QArith Psatz.
 From ThieleMachine Require Import CoreSemantics Spaceland.

@@ -236,8 +236,11 @@ rtl-gate:
 	@echo "[rtl-gate] Running Yosys synthesis on extracted Kami RTL..."
 	yosys -p "read_verilog -sv -DSYNTHESIS thielecpu/hardware/rtl/thiele_cpu_kami.v; prep -top mkModule1; check; stat" 2>&1 | tee /tmp/rtl_gate.log
 	@if grep -q 'ERROR\|error:' /tmp/rtl_gate.log; then echo "FAIL: Yosys errors found"; exit 1; fi
-	@cells=$$(grep 'Number of cells:' /tmp/rtl_gate.log | awk '{print $$NF}'); \
-	 if [ -z "$$cells" ] || [ "$$cells" -eq 0 ]; then echo "FAIL: zero cells synthesised"; exit 1; fi
+	@cells=$$(grep 'Number of cells:' /tmp/rtl_gate.log | awk '{print $$NF}' | tail -n 1); \
+	 if ! echo "$$cells" | grep -Eq '^[0-9]+$$'; then \
+	   echo "FAIL: could not parse synthesized cell count (got '$$cells')"; exit 1; \
+	 fi; \
+	 if [ "$$cells" -eq 0 ]; then echo "FAIL: zero cells synthesised"; exit 1; fi
 	@echo "[rtl-gate] PASS: extracted RTL synthesises cleanly"
 
 cosim-gate:
@@ -341,12 +344,12 @@ purge-experiments:
 	find experiments -type d -mtime +1 -exec rm -rf {} +
 
 verify-end-to-end:
-	python3 tools/verify_end_to_end.py
+	python3 scripts/verify_3layer.py
 
 bell: coq/thielemachine/coqproofs/BellCheck.vo
 	python3 tools/make_bell_receipt.py --N 20000 --epsilon 0.01 --seed 1337
 	python3 tools/verify_bell_receipt.py artifacts/bell_receipt.jsonl $(if $(filter 1,$(BELL_SKIP_COQ)),--skip-coq,) --coqtop $(COQTOP)
-	python3 tools/verify_end_to_end.py --skip-hardware --skip-yosys
+	python3 scripts/verify_3layer.py
 
 law: coq/thielemachine/coqproofs/LawCheck.vo
 	python3 tools/make_law_receipt.py --sites 8 --steps 16 --seed 2025
@@ -420,7 +423,7 @@ RTL_TESTBENCH := thielecpu/hardware/testbench/thiele_cpu_kami_tb.v
 SYNTH_LOG := $(RTL_DIR)/synth_lite_clean.log
 SYNTH_OUT := $(RTL_DIR)/synth_lite_out.v
 
-.PHONY: rtl-check rtl-synth rtl-cosim rtl-verify rtl-clean
+.PHONY: rtl-check rtl-synth rtl-cosim rtl-verify rtl-clean archive-vm-verilog
 
 # iverilog compilation check (simulation mode, all $display active)
 rtl-check:
@@ -469,6 +472,33 @@ rtl-verify: rtl-check rtl-synth rtl-cosim
 rtl-clean:
 	@rm -f $(RTL_DIR)/synth*.log $(RTL_DIR)/synth*_out.v
 	@echo "✓ Synthesis artifacts cleaned"
+
+# Archive generated VM/Verilog byproducts out of active folders.
+# Usage: make archive-vm-verilog [ARCHIVE_TAG=YYYY-MM-DD_label]
+archive-vm-verilog:
+	@set -e; \
+	tag="$${ARCHIVE_TAG:-$$(date +%F)_vm_verilog_cleanup}"; \
+	archive_dir="archive/hardware_legacy/$$tag"; \
+	mkdir -p "$$archive_dir/rtl" "$$archive_dir/build"; \
+	for f in \
+		thielecpu/hardware/rtl/synth_full_out.v \
+		thielecpu/hardware/rtl/synth_lite_clean.log \
+		thielecpu/hardware/rtl/thiele_cpu_tb.vcd; do \
+		if [ -e "$$f" ]; then mv "$$f" "$$archive_dir/rtl/"; fi; \
+	done; \
+	for f in \
+		build/thiele_kami_batch.vvp \
+		build/thiele_kami_test.vvp \
+		build/thiele_cpu_kami_tb.out \
+		build/vm_runner \
+		build/extracted_vm_runner \
+		build/extracted_vm_runner_native \
+		build/verify_trace.txt \
+		build/hw_trace.json; do \
+		if [ -e "$$f" ]; then mv "$$f" "$$archive_dir/build/"; fi; \
+	done; \
+	if [ -d build/verilator ]; then mv build/verilator "$$archive_dir/build/"; fi; \
+	echo "✓ Archived VM/Verilog byproducts into $$archive_dir"
 
 # Legacy aliases
 synth-mu-alu: rtl-synth

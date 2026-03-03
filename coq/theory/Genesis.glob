@@ -1,131 +1,134 @@
-DIGEST 83a78e5f6fe949f420d0f965ac0aa269
+DIGEST 37a57651dcf89e65b8994f363a6fcc14
 FTheory.Genesis
-sec 198:216 <> Universal_Ouroboros
-var 230:230 Universal_Ouroboros S
-def 283:289 <> Process
-R296:299 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R295:295 Theory.Genesis <> Universal_Ouroboros.S var
-R300:300 Theory.Genesis <> Universal_Ouroboros.S var
-def 316:322 <> Auditor
-R329:332 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R328:328 Theory.Genesis <> Universal_Ouroboros.S var
-R334:337 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R333:333 Theory.Genesis <> Universal_Ouroboros.S var
-rec 434:437 <> Proc
-proj 448:451 <> step
-proj 471:472 <> ok
-proj 494:500 <> ok_step
-R458:464 Theory.Genesis <> Process def
-R481:487 Theory.Genesis <> Auditor def
-binder 511:511 <> s:5
-R514:515 Theory.Genesis <> ok:4 meth
-R520:523 Theory.Genesis <> step:3 meth
-R525:525 Theory.Genesis <> s:5 var
-R517:517 Theory.Genesis <> s:5 var
-rec 588:593 <> Thiele
-proj 604:611 <> proposer
-proj 628:634 <> auditor
-R615:621 Theory.Genesis <> Process def
-R639:645 Theory.Genesis <> Auditor def
-ind 762:771 <> ThieleStep
-constr 810:817 <> T_commit
-R778:783 Theory.Genesis <> Thiele rec
-binder 774:774 <> T:10
-R789:792 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R788:788 Theory.Genesis <> Universal_Ouroboros.S var
-R794:797 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R793:793 Theory.Genesis <> Universal_Ouroboros.S var
-binder 819:819 <> s:13
-R849:852 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R823:829 Theory.Genesis <> auditor proj
-R836:843 Theory.Genesis <> proposer proj
-R847:847 Theory.Genesis <> s:13 var
-R845:845 Theory.Genesis <> T:10 var
-R833:833 Theory.Genesis <> s:13 var
-R831:831 Theory.Genesis <> T:10 var
-R853:862 Theory.Genesis <> ThieleStep:11 ind
-R869:876 Theory.Genesis <> proposer proj
-R880:880 Theory.Genesis <> s:13 var
-R878:878 Theory.Genesis <> T:10 var
-R866:866 Theory.Genesis <> s:13 var
-R864:864 Theory.Genesis <> T:10 var
-scheme 762:771 <> ThieleStep_ind
-scheme 762:771 <> ThieleStep_sind
-def 978:991 <> proc_to_thiele
-R998:1001 Theory.Genesis <> Proc rec
-binder 994:994 <> P:14
-R1006:1011 Theory.Genesis <> Thiele rec
-R1023:1030 Theory.Genesis <> proposer proj
-R1023:1030 Theory.Genesis <> proposer proj
-R1023:1030 Theory.Genesis <> proposer proj
-R1043:1049 Theory.Genesis <> auditor proj
-R1043:1049 Theory.Genesis <> auditor proj
-R1035:1038 Theory.Genesis <> step proj
-R1040:1040 Theory.Genesis <> P:14 var
-R1054:1055 Theory.Genesis <> ok proj
-R1057:1057 Theory.Genesis <> P:14 var
-prf 1129:1148 <> proc_realises_thiele
-R1155:1158 Theory.Genesis <> Proc rec
-binder 1151:1151 <> P:15
-binder 1174:1174 <> s:16
-R1177:1186 Theory.Genesis <> ThieleStep ind
-R1210:1213 Theory.Genesis <> step proj
-R1217:1217 Theory.Genesis <> s:16 var
-R1215:1215 Theory.Genesis <> P:15 var
-R1207:1207 Theory.Genesis <> s:16 var
-R1189:1202 Theory.Genesis <> proc_to_thiele def
-R1204:1204 Theory.Genesis <> P:15 var
-R1258:1264 Theory.Genesis <> ok_step proj
-R1258:1264 Theory.Genesis <> ok_step proj
-def 1372:1385 <> thiele_to_proc
-R1392:1397 Theory.Genesis <> Thiele rec
-binder 1388:1388 <> T:17
-binder 1416:1416 <> s:18
-R1419:1425 Theory.Genesis <> auditor proj
-R1432:1439 Theory.Genesis <> proposer proj
-R1443:1443 Theory.Genesis <> s:18 var
-R1441:1441 Theory.Genesis <> T:17 var
-R1429:1429 Theory.Genesis <> s:18 var
-R1427:1427 Theory.Genesis <> T:17 var
-binder 1405:1405 <> H:19
-R1449:1452 Theory.Genesis <> Proc rec
-R1464:1467 Theory.Genesis <> step proj
-R1464:1467 Theory.Genesis <> step proj
-R1464:1467 Theory.Genesis <> step proj
-R1484:1485 Theory.Genesis <> ok proj
-R1484:1485 Theory.Genesis <> ok proj
-R1501:1507 Theory.Genesis <> ok_step proj
-R1501:1507 Theory.Genesis <> ok_step proj
-R1472:1479 Theory.Genesis <> proposer proj
-R1481:1481 Theory.Genesis <> T:17 var
-R1490:1496 Theory.Genesis <> auditor proj
-R1498:1498 Theory.Genesis <> T:17 var
-R1512:1512 Theory.Genesis <> H:19 var
-prf 1619:1628 <> to_from_id
-R1635:1638 Theory.Genesis <> Proc rec
-binder 1631:1631 <> P:20
-R1692:1694 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1647:1660 Theory.Genesis <> thiele_to_proc def
-R1682:1688 Theory.Genesis <> ok_step proj
-R1690:1690 Theory.Genesis <> P:20 var
-R1663:1676 Theory.Genesis <> proc_to_thiele def
-R1678:1678 Theory.Genesis <> P:20 var
-R1695:1695 Theory.Genesis <> P:20 var
-prf 1793:1802 <> from_to_id
-R1809:1814 Theory.Genesis <> Thiele rec
-binder 1805:1805 <> T:21
-binder 1829:1829 <> s:22
-R1832:1838 Theory.Genesis <> auditor proj
-R1845:1852 Theory.Genesis <> proposer proj
-R1856:1856 Theory.Genesis <> s:22 var
-R1854:1854 Theory.Genesis <> T:21 var
-R1842:1842 Theory.Genesis <> s:22 var
-R1840:1840 Theory.Genesis <> T:21 var
-binder 1818:1818 <> H:23
-R1901:1903 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1866:1879 Theory.Genesis <> proc_to_thiele def
-R1882:1895 Theory.Genesis <> thiele_to_proc def
-R1899:1899 Theory.Genesis <> H:23 var
-R1897:1897 Theory.Genesis <> T:21 var
-R1904:1904 Theory.Genesis <> T:21 var
-R1951:1969 Theory.Genesis Universal_Ouroboros <> sec
+R302:308 Kernel.VMState <> <> lib
+R310:315 Kernel.VMStep <> <> lib
+R345:355 Kernel.MuCostModel <> <> lib
+sec 367:385 <> Universal_Ouroboros
+var 399:399 Universal_Ouroboros S
+def 452:458 <> Process
+R465:468 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R464:464 Theory.Genesis <> Universal_Ouroboros.S var
+R469:469 Theory.Genesis <> Universal_Ouroboros.S var
+def 485:491 <> Auditor
+R498:501 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R497:497 Theory.Genesis <> Universal_Ouroboros.S var
+R503:506 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R502:502 Theory.Genesis <> Universal_Ouroboros.S var
+rec 603:606 <> Proc
+proj 617:620 <> step
+proj 640:641 <> ok
+proj 663:669 <> ok_step
+R627:633 Theory.Genesis <> Process def
+R650:656 Theory.Genesis <> Auditor def
+binder 680:680 <> s:5
+R683:684 Theory.Genesis <> ok:4 meth
+R689:692 Theory.Genesis <> step:3 meth
+R694:694 Theory.Genesis <> s:5 var
+R686:686 Theory.Genesis <> s:5 var
+rec 757:762 <> Thiele
+proj 773:780 <> proposer
+proj 797:803 <> auditor
+R784:790 Theory.Genesis <> Process def
+R808:814 Theory.Genesis <> Auditor def
+ind 931:940 <> ThieleStep
+constr 979:986 <> T_commit
+R947:952 Theory.Genesis <> Thiele rec
+binder 943:943 <> T:10
+R958:961 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R957:957 Theory.Genesis <> Universal_Ouroboros.S var
+R963:966 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R962:962 Theory.Genesis <> Universal_Ouroboros.S var
+binder 988:988 <> s:13
+R1018:1021 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R992:998 Theory.Genesis <> auditor proj
+R1005:1012 Theory.Genesis <> proposer proj
+R1016:1016 Theory.Genesis <> s:13 var
+R1014:1014 Theory.Genesis <> T:10 var
+R1002:1002 Theory.Genesis <> s:13 var
+R1000:1000 Theory.Genesis <> T:10 var
+R1022:1031 Theory.Genesis <> ThieleStep:11 ind
+R1038:1045 Theory.Genesis <> proposer proj
+R1049:1049 Theory.Genesis <> s:13 var
+R1047:1047 Theory.Genesis <> T:10 var
+R1035:1035 Theory.Genesis <> s:13 var
+R1033:1033 Theory.Genesis <> T:10 var
+scheme 931:940 <> ThieleStep_ind
+scheme 931:940 <> ThieleStep_sind
+def 1147:1160 <> proc_to_thiele
+R1167:1170 Theory.Genesis <> Proc rec
+binder 1163:1163 <> P:14
+R1175:1180 Theory.Genesis <> Thiele rec
+R1192:1199 Theory.Genesis <> proposer proj
+R1192:1199 Theory.Genesis <> proposer proj
+R1192:1199 Theory.Genesis <> proposer proj
+R1212:1218 Theory.Genesis <> auditor proj
+R1212:1218 Theory.Genesis <> auditor proj
+R1204:1207 Theory.Genesis <> step proj
+R1209:1209 Theory.Genesis <> P:14 var
+R1223:1224 Theory.Genesis <> ok proj
+R1226:1226 Theory.Genesis <> P:14 var
+prf 1298:1317 <> proc_realises_thiele
+R1324:1327 Theory.Genesis <> Proc rec
+binder 1320:1320 <> P:15
+binder 1343:1343 <> s:16
+R1346:1355 Theory.Genesis <> ThieleStep ind
+R1379:1382 Theory.Genesis <> step proj
+R1386:1386 Theory.Genesis <> s:16 var
+R1384:1384 Theory.Genesis <> P:15 var
+R1376:1376 Theory.Genesis <> s:16 var
+R1358:1371 Theory.Genesis <> proc_to_thiele def
+R1373:1373 Theory.Genesis <> P:15 var
+R1427:1433 Theory.Genesis <> ok_step proj
+R1427:1433 Theory.Genesis <> ok_step proj
+def 1541:1554 <> thiele_to_proc
+R1561:1566 Theory.Genesis <> Thiele rec
+binder 1557:1557 <> T:17
+binder 1585:1585 <> s:18
+R1588:1594 Theory.Genesis <> auditor proj
+R1601:1608 Theory.Genesis <> proposer proj
+R1612:1612 Theory.Genesis <> s:18 var
+R1610:1610 Theory.Genesis <> T:17 var
+R1598:1598 Theory.Genesis <> s:18 var
+R1596:1596 Theory.Genesis <> T:17 var
+binder 1574:1574 <> H:19
+R1618:1621 Theory.Genesis <> Proc rec
+R1633:1636 Theory.Genesis <> step proj
+R1633:1636 Theory.Genesis <> step proj
+R1633:1636 Theory.Genesis <> step proj
+R1653:1654 Theory.Genesis <> ok proj
+R1653:1654 Theory.Genesis <> ok proj
+R1670:1676 Theory.Genesis <> ok_step proj
+R1670:1676 Theory.Genesis <> ok_step proj
+R1641:1648 Theory.Genesis <> proposer proj
+R1650:1650 Theory.Genesis <> T:17 var
+R1659:1665 Theory.Genesis <> auditor proj
+R1667:1667 Theory.Genesis <> T:17 var
+R1681:1681 Theory.Genesis <> H:19 var
+prf 1788:1797 <> to_from_id
+R1804:1807 Theory.Genesis <> Proc rec
+binder 1800:1800 <> P:20
+R1861:1863 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1816:1829 Theory.Genesis <> thiele_to_proc def
+R1851:1857 Theory.Genesis <> ok_step proj
+R1859:1859 Theory.Genesis <> P:20 var
+R1832:1845 Theory.Genesis <> proc_to_thiele def
+R1847:1847 Theory.Genesis <> P:20 var
+R1864:1864 Theory.Genesis <> P:20 var
+prf 1962:1971 <> from_to_id
+R1978:1983 Theory.Genesis <> Thiele rec
+binder 1974:1974 <> T:21
+binder 1998:1998 <> s:22
+R2001:2007 Theory.Genesis <> auditor proj
+R2014:2021 Theory.Genesis <> proposer proj
+R2025:2025 Theory.Genesis <> s:22 var
+R2023:2023 Theory.Genesis <> T:21 var
+R2011:2011 Theory.Genesis <> s:22 var
+R2009:2009 Theory.Genesis <> T:21 var
+binder 1987:1987 <> H:23
+R2070:2072 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2035:2048 Theory.Genesis <> proc_to_thiele def
+R2051:2064 Theory.Genesis <> thiele_to_proc def
+R2068:2068 Theory.Genesis <> H:23 var
+R2066:2066 Theory.Genesis <> T:21 var
+R2073:2073 Theory.Genesis <> T:21 var
+R2120:2138 Theory.Genesis Universal_Ouroboros <> sec
