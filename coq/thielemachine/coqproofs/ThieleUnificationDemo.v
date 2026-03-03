@@ -21,7 +21,7 @@ Module Demo.
   Definition init_csrs : VMState.CSRState :=
     {| VMState.csr_cert_addr := 0;
        VMState.csr_status := 0;
-       VMState.csr_err := 0 |}.
+       VMState.csr_err := 0; csr_heap_base := 0 |}.
 
   Definition init_vm : VMState.VMState :=
     {| VMState.vm_graph := VMState.empty_graph;

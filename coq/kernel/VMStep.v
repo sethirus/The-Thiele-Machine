@@ -7,7 +7,7 @@ Require Import VMState.
 
 (** * VMStep: Operational semantics - how the machine actually executes
 
-    This file defines the 18-instruction ISA and the step relation that governs
+    This file defines the 26-instruction ISA and the step relation that governs
     all state transitions. Every operation has an explicit μ-cost. Every step
     either succeeds or sets the error flag - no undefined behavior.
 
@@ -17,15 +17,17 @@ Require Import VMState.
     is specified. The proofs show this behaves correctly. If you find a step
     that violates μ-monotonicity or observable locality, the whole thing breaks.
 
-    THE 18 INSTRUCTIONS:
+    THE 26 INSTRUCTIONS:
     Structural (partition operations):
       PNEW, PSPLIT, PMERGE, PDISCOVER
     Logical (assertion/revelation):
       LASSERT, LJOIN, REVEAL, EMIT
     Computational (reversible XOR-based):
       XFER, XOR_LOAD, XOR_ADD, XOR_SWAP, XOR_RANK
+    General-purpose compute (compiler target):
+      LOAD_IMM, LOAD, STORE, ADD, SUB, JUMP, JNEZ, CALL, RET
     Special:
-      MDLACC, PYEXEC, CHSH_TRIAL, ORACLE_HALTS, HALT
+      MDLACC, CHSH_TRIAL, ORACLE_HALTS, HALT
 
     KEY PROPERTIES (proven elsewhere):
     - Deterministic: Same input state + instruction → same output state
@@ -52,7 +54,7 @@ Inductive lassert_certificate :=
 | lassert_cert_unsat (proof : string)
 | lassert_cert_sat (model : string).
 
-(** vm_instruction: The complete 18-instruction ISA of the Thiele Machine.
+(** vm_instruction: The complete 26-instruction ISA of the Thiele Machine.
 
     Every instruction carries an explicit μ-cost (mu_delta). The step relation
     applies this cost via (vm_mu + mu_delta), forcing μ-monotonicity by construction.
@@ -77,10 +79,20 @@ Inductive lassert_certificate :=
     - XOR_SWAP: Swap two registers. Fredkin gate primitive.
     - XOR_RANK: Population count (number of 1-bits). Hamming weight.
 
+    GENERAL-PURPOSE COMPUTE (compiler target):
+    - LOAD_IMM: Load immediate value into register.
+    - LOAD: Load from memory into register.
+    - STORE: Store register value to memory.
+    - ADD: Integer addition (word32).
+    - SUB: Integer subtraction (word32).
+    - JUMP: Unconditional branch to target PC.
+    - JNEZ: Branch if register nonzero.
+    - CALL: Push return address, branch to target. r31 = SP.
+    - RET: Pop return address from stack, branch to it. r31 = SP.
+
     SPECIAL:
     - MDLACC: Module discovery accumulator. Charges μ for structural access.
     - CHSH_TRIAL: CHSH inequality trial. Validates bits ∈ {0,1}.
-    - PYEXEC: Python execution escape hatch. Always sets error (kernel doesn't run Python).
     - ORACLE_HALTS: Oracle call. Formal placeholder (undecidable).
     - HALT: Stop execution.
 
@@ -120,7 +132,14 @@ Inductive vm_instruction :=
 | instr_emit (module : ModuleID) (payload : string) (mu_delta : nat)
 | instr_reveal (module : ModuleID) (bits : nat) (cert : string) (mu_delta : nat)
 | instr_oracle_halts (payload : string) (mu_delta : nat)
-| instr_halt (mu_delta : nat).
+| instr_halt (mu_delta : nat)
+(** Phase 2 additions — proven Coq instructions *)
+| instr_checkpoint (label : string) (mu_delta : nat)
+| instr_read_port (dst : nat) (channel_idx : nat) (value : nat) (bits : nat) (mu_delta : nat)
+| instr_write_port (channel_idx : nat) (src : nat) (mu_delta : nat)
+(** Phase 3B — heap-relative memory access *)
+| instr_heap_load (dst : nat) (addr : nat) (mu_delta : nat)
+| instr_heap_store (addr : nat) (src : nat) (mu_delta : nat).
 
 Definition instruction_cost (instr : vm_instruction) : nat :=
   match instr with
@@ -150,6 +169,11 @@ Definition instruction_cost (instr : vm_instruction) : nat :=
   | instr_reveal _ _ _ cost => cost
   | instr_oracle_halts _ cost => cost
   | instr_halt cost => cost
+  | instr_checkpoint _ cost => cost
+  | instr_read_port _ _ _ _ cost => cost
+  | instr_write_port _ _ cost => cost
+  | instr_heap_load _ _ cost => cost
+  | instr_heap_store _ _ cost => cost
   end.
 
 (** Executable NoFreeInsight runtime policy:
@@ -160,6 +184,7 @@ Definition is_cert_setterb (instr : vm_instruction) : bool :=
   | instr_emit _ _ _ => true
   | instr_ljoin _ _ _ => true
   | instr_lassert _ _ _ _ => true
+  | instr_read_port _ _ _ _ _ => true
   | _ => false
   end.
 
@@ -315,6 +340,17 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     vm_step s (instr_lassert module formula (lassert_cert_unsat proof) cost)
       (advance_state s (instr_lassert module formula (lassert_cert_unsat proof) cost)
         s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
+(** Invalid certificate failure cases: relation is total — every LASSERT steps. *)
+| step_lassert_sat_failure : forall s module formula model cost,
+    check_model formula model = false ->
+    vm_step s (instr_lassert module formula (lassert_cert_sat model) cost)
+      (advance_state s (instr_lassert module formula (lassert_cert_sat model) cost)
+        s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
+| step_lassert_unsat_failure : forall s module formula proof cost,
+    check_lrat formula proof = false ->
+    vm_step s (instr_lassert module formula (lassert_cert_unsat proof) cost)
+      (advance_state s (instr_lassert module formula (lassert_cert_unsat proof) cost)
+        s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
 | step_ljoin_equal : forall s cert1 cert2 cost csrs',
     String.eqb cert1 cert2 = true ->
     csrs' = csr_set_err s.(vm_csrs) 0 ->
@@ -457,6 +493,32 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     vm_step s (instr_oracle_halts payload cost)
       (advance_state s (instr_oracle_halts payload cost)
         s.(vm_graph) s.(vm_csrs) s.(vm_err))
+(** Phase 2 step rules *)
+| step_checkpoint : forall s label cost,
+    vm_step s (instr_checkpoint label cost)
+      (advance_state s (instr_checkpoint label cost)
+        s.(vm_graph) s.(vm_csrs) s.(vm_err))
+| step_read_port : forall s dst channel_idx value bits cost regs',
+    regs' = write_reg s dst value ->
+    vm_step s (instr_read_port dst channel_idx value bits cost)
+      (advance_state_rm s (instr_read_port dst channel_idx value bits cost)
+        s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+| step_write_port : forall s channel_idx src cost,
+    vm_step s (instr_write_port channel_idx src cost)
+      (advance_state s (instr_write_port channel_idx src cost)
+        s.(vm_graph) s.(vm_csrs) s.(vm_err))
+| step_heap_load : forall s dst addr cost regs' value,
+    value = read_mem s (s.(vm_csrs).(csr_heap_base) + addr) ->
+    regs' = write_reg s dst value ->
+    vm_step s (instr_heap_load dst addr cost)
+      (advance_state_rm s (instr_heap_load dst addr cost)
+        s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+| step_heap_store : forall s addr src cost mem' value,
+    value = read_reg s src ->
+    mem' = write_mem s (s.(vm_csrs).(csr_heap_base) + addr) value ->
+    vm_step s (instr_heap_store addr src cost)
+      (advance_state_rm s (instr_heap_store addr src cost)
+        s.(vm_graph) s.(vm_csrs) s.(vm_regs) mem' s.(vm_err))
 | step_halt : forall s cost,
     vm_step s (instr_halt cost)
       (advance_state s (instr_halt cost)

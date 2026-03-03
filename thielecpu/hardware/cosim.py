@@ -50,6 +50,11 @@ OPCODES: Dict[str, int] = {
     "JNEZ": 0x16,
     "CALL": 0x17,
     "RET": 0x18,
+    "CHECKPOINT": 0x19,
+    "READ_PORT": 0x1A,
+    "WRITE_PORT": 0x1B,
+    "HEAP_LOAD": 0x1C,
+    "HEAP_STORE": 0x1D,
     "HALT": 0xFF,
 }
 

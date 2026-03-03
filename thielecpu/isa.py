@@ -51,6 +51,11 @@ class Opcode(Enum):
     JNEZ = 0x16        # Jump if not zero
     CALL = 0x17        # Function call
     RET = 0x18         # Return from function
+    CHECKPOINT = 0x19  # Checkpoint: serialize state to label (no-op semantically)
+    READ_PORT = 0x1A   # Read port: load value into register (cert-setter)
+    WRITE_PORT = 0x1B  # Write port: observe register value (side-effect)
+    HEAP_LOAD = 0x1C   # Heap load: read from heap-relative address into register
+    HEAP_STORE = 0x1D  # Heap store: write register to heap-relative address
     HALT = 0xFF        # Halt execution
 
 

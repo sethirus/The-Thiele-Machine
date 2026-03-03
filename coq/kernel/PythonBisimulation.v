@@ -159,6 +159,88 @@ Proof.
   - apply (step_preserves_mu coq_s coq_s' py_s instr); assumption.
 Qed.
 
+(** ** Jump/Branch Bisimulation
+
+    Control-flow instructions (JUMP, JNEZ, CALL, RET) change PC to a target
+    rather than PC+1. The μ-cost is still preserved identically.
+    We model the Python-side step as setting PC to the target value. *)
+
+Definition python_step_jump (py_s : PythonState) (target : nat) (cost : nat) : PythonState :=
+  {| py_pc := target;
+     py_mu := py_s.(py_mu) + cost;
+     py_err := py_s.(py_err);
+     py_graph_modules := py_s.(py_graph_modules)
+  |}.
+
+(** JUMP: unconditional branch to target *)
+Theorem bisimulation_step_jump :
+  forall coq_s coq_s' py_s target cost,
+    bisimulation_invariant coq_s py_s ->
+    vm_step coq_s (instr_jump target cost) coq_s' ->
+    coq_s'.(vm_pc) = (python_step_jump py_s target (instruction_mu (instr_jump target cost))).(py_pc) /\
+    coq_s'.(vm_mu) = (python_step_jump py_s target (instruction_mu (instr_jump target cost))).(py_mu).
+Proof.
+  intros coq_s coq_s' py_s target cost [Hpc Hmu] Hstep.
+  inversion Hstep; subst; simpl; unfold apply_cost, instruction_mu; simpl.
+  split; [reflexivity | rewrite Hmu; reflexivity].
+Qed.
+
+(** JNEZ taken: branch when register is nonzero *)
+Theorem bisimulation_step_jnez_taken :
+  forall coq_s coq_s' py_s rs target cost,
+    bisimulation_invariant coq_s py_s ->
+    vm_step coq_s (instr_jnez rs target cost) coq_s' ->
+    read_reg coq_s rs <> 0 ->
+    coq_s'.(vm_pc) = (python_step_jump py_s target (instruction_mu (instr_jnez rs target cost))).(py_pc) /\
+    coq_s'.(vm_mu) = (python_step_jump py_s target (instruction_mu (instr_jnez rs target cost))).(py_mu).
+Proof.
+  intros coq_s coq_s' py_s rs target cost [Hpc Hmu] Hstep Hne.
+  inversion Hstep; subst; simpl; unfold apply_cost, instruction_mu; simpl.
+  - split; [reflexivity | rewrite Hmu; reflexivity].
+  - contradiction.
+Qed.
+
+(** JNEZ not taken: fall through when register is zero *)
+Theorem bisimulation_step_jnez_not_taken :
+  forall coq_s coq_s' py_s rs target cost,
+    bisimulation_invariant coq_s py_s ->
+    vm_step coq_s (instr_jnez rs target cost) coq_s' ->
+    read_reg coq_s rs = 0 ->
+    coq_s'.(vm_pc) = (python_step_abstract py_s (instruction_mu (instr_jnez rs target cost))).(py_pc) /\
+    coq_s'.(vm_mu) = (python_step_abstract py_s (instruction_mu (instr_jnez rs target cost))).(py_mu).
+Proof.
+  intros coq_s coq_s' py_s rs target cost [Hpc Hmu] Hstep Heq.
+  inversion Hstep; subst; simpl; unfold apply_cost, instruction_mu, advance_state; simpl.
+  - contradiction.
+  - split; [rewrite Hpc; reflexivity | rewrite Hmu; reflexivity].
+Qed.
+
+(** CALL: push return address, jump to target *)
+Theorem bisimulation_step_call_mu :
+  forall coq_s coq_s' py_s target cost,
+    bisimulation_invariant coq_s py_s ->
+    vm_step coq_s (instr_call target cost) coq_s' ->
+    coq_s'.(vm_pc) = (python_step_jump py_s target (instruction_mu (instr_call target cost))).(py_pc) /\
+    coq_s'.(vm_mu) = (python_step_jump py_s target (instruction_mu (instr_call target cost))).(py_mu).
+Proof.
+  intros coq_s coq_s' py_s target cost [Hpc Hmu] Hstep.
+  inversion Hstep; subst; simpl; unfold apply_cost, instruction_mu; simpl.
+  split; [reflexivity | rewrite Hmu; reflexivity].
+Qed.
+
+(** RET: pop return address from stack, jump to it.
+    The target PC comes from memory, so we prove mu correspondence
+    and that PC equals the popped address. *)
+Theorem bisimulation_step_ret_mu :
+  forall coq_s coq_s' py_s cost,
+    bisimulation_invariant coq_s py_s ->
+    vm_step coq_s (instr_ret cost) coq_s' ->
+    coq_s'.(vm_mu) = py_s.(py_mu) + instruction_cost (instr_ret cost).
+Proof.
+  intros coq_s coq_s' py_s cost [Hpc Hmu] Hstep.
+  inversion Hstep; subst; simpl; unfold apply_cost; rewrite Hmu; reflexivity.
+Qed.
+
 (** ** Key Corollary: μ-Cost Consistency *)
 
 Corollary mu_cost_consistency :

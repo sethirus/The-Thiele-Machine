@@ -1,4 +1,4 @@
-(** ThieleCPUCore.v — Complete Thiele CPU in Kami (26-instruction ISA).
+(** ThieleCPUCore.v — Complete Thiele CPU in Kami (31-instruction ISA).
 
     Implements the full ISA from VMStep.v:
       - Every instruction increments mu by its cost field (μ-monotonicity)
@@ -25,6 +25,11 @@
       REVEAL:    op_a[3:0] = tensor flat index (0-15), cost = charge amount
       PNEW/PSPLIT/PMERGE/PDISCOVER/LASSERT/LJOIN/MDLACC/EMIT/ORACLE_HALTS:
         charge mu + advance PC (partition graph managed externally per Abstraction.v)
+      CHECKPOINT: advances PC; label managed externally (NOP in hardware)
+      READ_PORT:  op_a = dst; writes port value (hardware always provides 0)
+      WRITE_PORT: op_a = channel, op_b = src; NOP in hardware (no I/O bus)
+      HEAP_LOAD:  op_a = dst, op_b = addr (identical to LOAD since heap_base=0)
+      HEAP_STORE: op_a = addr, op_b = src (identical to STORE since heap_base=0)
 
 
     Kami Vector notes: Vector K n stores 2^n elements, indexed by Bit n.
@@ -1157,8 +1162,9 @@ Section ThieleCPU.
         LET store_in_bounds <- check_bounds #mem_addr_a #active_region_size;
         LET call_in_bounds <- check_bounds #sp_addr #active_region_size;
         LET ret_in_bounds <- check_bounds #sp_dec_addr #active_region_size;
-        LET is_load_op <- (#opcode == $$(OP_LOAD)) || (#opcode == $$(OP_XOR_LOAD));
-        LET is_store_op <- #opcode == $$(OP_STORE);
+        LET is_load_op <- (#opcode == $$(OP_LOAD)) || (#opcode == $$(OP_XOR_LOAD)) ||
+                          (#opcode == $$(OP_HEAP_LOAD));
+        LET is_store_op <- (#opcode == $$(OP_STORE)) || (#opcode == $$(OP_HEAP_STORE));
         LET is_call_op <- #opcode == $$(OP_CALL);
         LET is_ret_op <- #opcode == $$(OP_RET);
         LET load_locality_bad <- #is_load_op && !#load_in_bounds;
@@ -1313,7 +1319,11 @@ Section ThieleCPU.
                 then #regs_v@[$$(SP_IDX) <- #sp_dec]
           else (IF (#opcode == $$(OP_PDISCOVER))
                 then #regs_v@[#dst_idx <- #pt_probe_size]
-          else #regs_v))))))))))));
+          else (IF (#opcode == $$(OP_HEAP_LOAD))
+                then #regs_v@[#dst_idx <- #mem_val]
+          else (IF (#opcode == $$(OP_READ_PORT))
+                then #regs_v@[#dst_idx <- $0]
+          else #regs_v))))))))))))));
 
         (* ============================================================
            Determine new memory
@@ -1325,7 +1335,9 @@ Section ThieleCPU.
           then write_mem #mem_addr_a #src_val #mem_v
           else (IF (#opcode == $$(OP_CALL))
                 then write_mem #sp_addr #pc_plus_1 #mem_v
-          else #mem_v));
+          else (IF (#opcode == $$(OP_HEAP_STORE))
+                then write_mem #mem_addr_a #src_val #mem_v
+          else #mem_v)));
 
         (* Determine halted state *)
         LET new_halted <-

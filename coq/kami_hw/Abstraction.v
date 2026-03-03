@@ -9,12 +9,13 @@
     [hw_step] in Bisimulation_Minimal.v by construction: the Kami rule bodies
     compute exactly the same nat operations as [vm_apply] under the abstraction.
 
-    All 26 instructions are covered:
+    All 31 instructions are covered:
     - Compute: LOAD_IMM, ADD, SUB, XFER, LOAD, STORE, JUMP, JNEZ, CALL, RET
     - XOR ALU: XOR_LOAD, XOR_ADD, XOR_SWAP, XOR_RANK
     - Partition/Logic: PNEW, PSPLIT, PMERGE, PDISCOVER, LASSERT, LJOIN,
       MDLACC, EMIT, REVEAL (partition graph managed at higher layer)
     - Special: CHSH_TRIAL, ORACLE_HALTS, HALT
+    - Phase 2/3B: CHECKPOINT, READ_PORT, WRITE_PORT, HEAP_LOAD, HEAP_STORE
 
     Extended state (matching handwritten RTL parity):
     - partition_ops, mdl_ops, info_gain: diagnostic counters
@@ -62,7 +63,7 @@ Definition snapshot_tensor_to_list (f : nat -> nat) : list nat :=
 
 (** * Default CSRs: all fields zero *)
 Definition default_csrs : CSRState :=
-  {| csr_cert_addr := 0 ; csr_status := 0 ; csr_err := 0 |}.
+  {| csr_cert_addr := 0 ; csr_status := 0 ; csr_err := 0; csr_heap_base := 0 |}.
 
 (** Option-valued filter-map.  [List.filter_map] in Coq 8.18 is an
     unrelated boolean lemma; we define our own here. *)
@@ -114,7 +115,7 @@ Definition abs_phase1 (s : KamiSnapshot) : VMState :=
      vm_mu_tensor := snapshot_tensor_to_list (snap_mu_tensor s) ;
      vm_err       := snap_err s |}.
 
-(** Full alias — all 26 instructions covered *)
+(** Full alias — all 31 instructions covered *)
 Definition abs_full := abs_phase1.
 
 (** * Execution preconditions *)
@@ -463,7 +464,7 @@ Lemma snapshot_mem_write : forall (s : KamiSnapshot) (addr v : nat),
 Proof.
   intros s addr v Haddr.
   cbv [write_mem mem_index MEM_SIZE abs_phase1 snapshot_mem_to_list].
-  replace (addr mod 256) with addr by (symmetry; apply Nat.mod_small; exact Haddr).
+  replace (addr mod 4096) with addr by (symmetry; apply Nat.mod_small; lia).
   apply map_update_zero. exact Haddr.
 Qed.
 

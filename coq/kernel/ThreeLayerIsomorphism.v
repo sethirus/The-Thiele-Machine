@@ -64,6 +64,11 @@ Lemma instruction_exhaustive : forall (i : vm_instruction),
   | instr_reveal _ _ _ _        => True
   | instr_oracle_halts _ _      => True
   | instr_halt _                => True
+  | instr_checkpoint _ _        => True
+  | instr_read_port _ _ _ _ _   => True
+  | instr_write_port _ _ _      => True
+  | instr_heap_load _ _ _       => True
+  | instr_heap_store _ _ _      => True
   end.
 Proof. destruct i; exact I. Qed.
 

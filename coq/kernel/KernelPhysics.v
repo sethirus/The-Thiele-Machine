@@ -611,9 +611,9 @@ Lemma graph_pmerge_preserves_observables : forall g m1 m2 g' merged_id mid mu,
   mid <> m2 ->
   mid < g.(pg_next_id) ->
   graph_pmerge g m1 m2 = Some (g', merged_id) ->
-  Observable {| vm_regs := []; vm_mem := []; vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0 |};
+  Observable {| vm_regs := []; vm_mem := []; vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0; csr_heap_base := 0 |};
                 vm_pc := 0; vm_graph := g'; vm_mu := mu; vm_mu_tensor := vm_mu_tensor_default; vm_err := false |} mid =
-  Observable {| vm_regs := []; vm_mem := []; vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0 |};
+  Observable {| vm_regs := []; vm_mem := []; vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0; csr_heap_base := 0 |};
                 vm_pc := 0; vm_graph := g; vm_mu := mu; vm_mu_tensor := vm_mu_tensor_default; vm_err := false |} mid.
 
 (* NOTE: The previous version of this lemma (graph_pmerge_preserves_unrelated)
@@ -822,11 +822,11 @@ Proof.
     (* Use the proven pmerge observable preservation at fixed μ, then project regions. *)
     set (s_pre :=
       {| vm_regs := []; vm_mem := [];
-         vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0 |};
+         vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0; csr_heap_base := 0 |};
          vm_pc := 0; vm_graph := vm_graph s; vm_mu := 0; vm_mu_tensor := vm_mu_tensor_default; vm_err := false |}).
     set (s_post :=
       {| vm_regs := []; vm_mem := [];
-         vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0 |};
+         vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0; csr_heap_base := 0 |};
          vm_pc := 0; vm_graph := graph'; vm_mu := 0; vm_mu_tensor := vm_mu_tensor_default; vm_err := false |}).
     assert (Hobs:
       Observable s_post mid = Observable s_pre mid).

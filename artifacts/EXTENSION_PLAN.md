@@ -2,7 +2,7 @@
 ## External Memory, I/O, and Persistent Storage
 
 **Date:** 2026-03-03
-**Status:** Planning
+**Status:** Kami Hardware Layer Complete — 31 opcodes, all formally proven, hardware Coq source updated
 **Scope:** Extend the Thiele Machine with external memory access, I/O channels, and
 checkpoint/resume persistence without breaking the existing 1134-passing test suite
 or any Coq proofs.
@@ -112,11 +112,202 @@ programs using memory beyond address 255.
 
 ---
 
-## The Plan: Four Phases
+## The Plan: Five Phases
 
 ---
 
-### Phase 1 — Harness-Only Extensions
+### Phase 0 — Extraction Gap Closure (PREREQUISITE) ✅ COMPLETE
+**Completed 2026-03-03.** All gaps closed, gates passed:
+- `make -C coq -j4` — zero errors
+- Inquisitor — 0 HIGH, 0 MEDIUM
+- `pytest` — 1131 passed, 7 skipped, 0 failed
+
+**Summary of changes:**
+- Deleted stale `vm_instructions.py` and redundant `generate_python_from_coq.py`
+- Fixed `make generate-python` to invoke `forge.py` (the active pipeline)
+- Added all 9 missing opcode handlers to `thielecpu/vm.py`
+- Extended `PythonBisimulation.v` with jump/branch bisimulation theorems
+- Added per-instruction `vm_step` witnesses to `VerilogRefinement.v` (all 26 opcodes)
+- Connected `HardwareBisimulation.v` to `vm_step` via `hw_step_reflects_vm_cost`
+- Fixed `VMStep.v` header comment (18 → 26, removed PYEXEC)
+- Updated `CanonicalCPUProof.v` (removed reference to deleted duplicate theorem)
+
+#### Current Gaps
+
+| Layer | Gap |
+|---|---|
+| `thielecpu/generated/vm_instructions.py` | Has stale `InstrPyexec` (no Coq constructor). Missing 9 classes: Load_imm, Load, Store, Add, Sub, Jump, Jnez, Call, Ret. Says `INSTRUCTION_COUNT = 18`, should be 26. |
+| `scripts/generate_python_from_coq.py` | **Does not exist** — Makefile `generate-python` target is broken |
+| `thielecpu/vm.py` | No dispatch handlers for 9 opcodes (LOAD_IMM, LOAD, STORE, ADD, SUB, JUMP, JNEZ, CALL, RET) — they raise `ValueError`. Still handles dead `PYEXEC` and `PYTHON` opcodes with no Coq counterpart. |
+| `coq/kernel/PythonBisimulation.v` | Excludes JUMP/JNEZ/CALL/RET from PC bisimulation — `python_step_abstract` only models `pc := pc + 1` |
+| `coq/kami_hw/VerilogRefinement.v` | Only LOAD_IMM has a constructive `vm_step` simulation witness. 25 instructions unrefined. `verilog_oracle_halts_charge_sound` is a duplicate of `verilog_mu_non_decreasing_on_charge`. |
+| `coq/kernel/HardwareBisimulation.v` | Proves bisimulation between abstract `hardware_step`/`python_step` functions that are disconnected from actual `vm_step` or Kami abstraction. No theorem connects to any concrete instruction. |
+| `coq/kernel/VMStep.v` | Header comment says "18 instructions" and mentions PYEXEC in the special group, but actual inductive has 26 constructors and no PYEXEC. |
+
+#### 0A. Remove stale `vm_instructions.py` and fix `generate-python` Makefile target
+
+**Finding:** `thielecpu/generated/vm_instructions.py` is **unused** — nothing imports it.
+The ACTIVE generation pipeline is `scripts/forge.py`, which reads the OCaml extraction
+(`build/thiele_core.ml`) and produces `thielecpu/generated/generated_core.py` with all
+26 instruction tags. This is the correct proof-first flow: Coq → OCaml extraction → forge.py → Python.
+
+**What:**
+- Delete `thielecpu/generated/vm_instructions.py` (stale, unused, redundant)
+- Delete `scripts/generate_python_from_coq.py` (if present — duplicates forge.py's job)
+- Update Makefile `generate-python` target to invoke `scripts/forge_artifact.sh` instead
+  of the nonexistent/redundant script
+- Verify `generated_core.py` has all 26 instruction tags (it already does)
+
+**Files:**
+- `thielecpu/generated/vm_instructions.py` (delete)
+- `scripts/generate_python_from_coq.py` (delete if present)
+- `Makefile` (update `generate-python` target)
+
+#### 0C. Add missing opcode handlers to `thielecpu/vm.py`
+
+**What:** Add dispatch branches for all 9 missing opcodes, matching `vm_step`
+semantics from VMStep.v exactly:
+
+| Opcode | Semantics (from vm_step) |
+|---|---|
+| LOAD_IMM | `regs[dst] = imm & 0xFFFFFFFF` (word32), PC += 1 |
+| LOAD | `regs[dst] = mem[addr]`, PC += 1 |
+| STORE | `mem[addr] = regs[src]`, PC += 1 |
+| ADD | `regs[dst] = (regs[rs1] + regs[rs2]) & 0xFFFFFFFF`, PC += 1 |
+| SUB | `regs[dst] = (regs[rs1] - regs[rs2]) & 0xFFFFFFFF`, PC += 1 |
+| JUMP | PC = target (not PC+1) |
+| JNEZ | if regs[rs] != 0: PC = target, else PC += 1 |
+| CALL | mem[SP] = PC+1; SP += 1; PC = target (r31 = SP) |
+| RET | SP -= 1; PC = mem[SP] (r31 = SP) |
+
+Also deprecate PYEXEC and PYTHON handlers — they have no Coq counterparts.
+
+**Files:** `thielecpu/vm.py`
+
+#### 0D. Extend `PythonBisimulation.v` for jump instructions
+
+**What:** The current bisimulation only covers instructions where `increments_pc = true`.
+Add coverage for the 4 control-flow instructions:
+
+- Add `python_step_jump (target cost)` abstract function: `pc := target, mu := mu + cost`
+- Add `bisimulation_step_jump` theorem for JUMP
+- Add `bisimulation_step_jnez_taken` / `_not_taken` theorems for JNEZ
+- Add `bisimulation_step_call` / `_ret` theorems for CALL/RET
+- Keep existing `bisimulation_step` for non-jump instructions unchanged
+
+The key insight: JUMP/JNEZ-taken use `jump_state` (PC = target), JNEZ-not-taken uses
+`advance_state` (PC + 1), CALL/RET use `jump_state_rm` (PC = target, modified regs/mem).
+All charge mu identically via `apply_cost`.
+
+**Files:** `coq/kernel/PythonBisimulation.v`
+
+#### 0E. Add per-instruction witnesses to `VerilogRefinement.v`
+
+**What:** Add `verilog_simulates_vm_step_<opcode>` theorems for all 25 remaining
+instructions, following the same pattern as the existing `verilog_simulates_vm_step_load_imm`:
+
+```coq
+Theorem verilog_simulates_vm_step_<opcode> :
+  forall (hs : KamiSnapshot) <params>,
+    exists vs',
+      vm_step (abs_phase1 hs) (instr_<opcode> <params>) vs' /\ vs' = <state>.
+```
+
+Group by category:
+- Structural: PNEW, PSPLIT (success/failure), PMERGE (success/failure), PDISCOVER
+- Logical: LASSERT (SAT/UNSAT), LJOIN (equal/mismatch), EMIT, REVEAL
+- Compute: LOAD, STORE, ADD, SUB, XFER
+- Control: JUMP, JNEZ (taken/not-taken), CALL, RET
+- XOR: XOR_LOAD, XOR_ADD, XOR_SWAP, XOR_RANK
+- Special: MDLACC, CHSH_TRIAL (ok/badbits), ORACLE_HALTS, HALT
+
+Remove duplicate `verilog_oracle_halts_charge_sound`.
+
+**Files:** `coq/kami_hw/VerilogRefinement.v`
+
+#### 0F. Connect `HardwareBisimulation.v` to `vm_step`
+
+**What:** The current file proves bisimulation between abstract functions disconnected
+from `vm_step`. Add a bridging theorem:
+
+```coq
+Theorem hw_step_reflects_vm_cost :
+  forall coq_s coq_s' hw py instr,
+    bisimulation_invariant coq_s py ->
+    hw_bisimulation_invariant hw py ->
+    vm_step coq_s instr coq_s' ->
+    hw_bisimulation_invariant
+      (hardware_step hw (instruction_cost instr))
+      (python_step py (instruction_cost instr)).
+```
+
+This closes the formal chain: `vm_step` → `python_step` (via PythonBisimulation)
+→ `hardware_step` (via this theorem) → actual Kami hardware (via VerilogRefinement).
+
+**Files:** `coq/kernel/HardwareBisimulation.v`
+
+#### 0G. Fix VMStep.v header comment
+
+**What:** Update the header comment block (lines 8-44) to:
+- Say "26 instructions" instead of "18"
+- Replace PYEXEC in the Special group with: LOAD_IMM, LOAD, STORE, ADD, SUB,
+  JUMP, JNEZ, CALL, RET as a new "General-purpose compute" group
+- Update instruction counts in each group
+
+**Files:** `coq/kernel/VMStep.v`
+
+#### 0H. Build and verify
+
+**Gate:**
+1. `make -C coq -j4` — zero errors
+2. `python3 scripts/inquisitor.py --report INQUISITOR_REPORT.md` — 0 HIGH, 0 MEDIUM
+3. `make generate-python` — forge.py produces correct `generated_core.py` with 26 tags
+4. `python3 -m pytest tests/ -q` — all tests pass
+
+---
+
+### Phase 0.5 — VMStep Completeness Fix ✅ COMPLETE
+**Completed 2026-03-03.** Gates: `make -C coq -j4` zero errors, Inquisitor 0 HIGH / 0 MEDIUM, 1140 passed / 4 skipped / 0 failed.
+**Identified 2026-03-03.** Post-Phase-0 audit revealed a step-relation incompleteness.
+
+**Finding:** `vm_step` had no rules for invalid LASSERT certificates:
+- `step_lassert_sat` requires `check_model = true` — no rule for `= false`
+- `step_lassert_unsat` requires `check_lrat = true` — no rule for `= false`
+
+With an invalid certificate the relation was **stuck** (no applicable constructor), violating
+the header comment "every step either succeeds or sets the error flag." This is not undefined
+behavior in the C sense — a stuck state is well-defined in operational semantics — but it is an
+incompleteness that breaks the totality claim.
+
+**Fix:** Add two failure constructors to `vm_step` in `VMStep.v`:
+- `step_lassert_sat_failure` — guard `check_model = false`, sets error flag, graph unchanged
+- `step_lassert_unsat_failure` — guard `check_lrat = false`, sets error flag, graph unchanged
+
+Both mirror the existing `step_psplit_failure` / `step_pmerge_failure` pattern exactly.
+
+**Downstream proof repairs required:**
+- `coq/kernel/Locality.v:412` — add two `+ reflexivity` bullets (graph unchanged in failure)
+- `coq/kernel/LocalInfoLoss.v:211` — add two `+ reflexivity` bullets (same reason)
+- All other sites (`SpacetimeEmergence.v`, `KernelPhysics.v`, `PythonBisimulation.v`, etc.)
+  use `try lia / try exact Hwf / try reflexivity` tactics that auto-close the new goals
+  because both failure constructors leave the graph unchanged and use `advance_state`.
+
+**Gate:** `make -C coq -j4` zero errors, Inquisitor 0 HIGH / 0 MEDIUM, full pytest green.
+
+---
+
+### Phase 1 — Harness-Only Extensions ✅ COMPLETE
+**Completed 2026-03-03.** All four directives implemented, all tests pass.
+
+**Summary of changes:**
+- Added `CHECKPOINT <label>` directive: mid-execution state serialized to `<label>.json`, execution continues
+- Added `--resume <file>` flag: deserializes JSON state into `s0` before running program
+- Added `MEM_SIZE <n>` directive: overrides default 256-word memory at trace parse time
+- Added `WRITE_PORT <path> <reg>` directive: appends register value (decimal + newline) to file
+- Added `READ_PORT <dst_reg> <path>` directive: reads next line from file, parses as int, loads into register
+- All channels auto-closed at exit via `at_exit` handler
+- New tests in `tests/test_extracted_vm_runner.py` covering all four directives
+
 **No Coq changes. No proof impact. No test regressions.**
 
 #### 1A. Checkpoint / Resume
@@ -215,11 +406,25 @@ three-layer isomorphism. The Inquisitor and existing proofs remain valid.
 
 ---
 
-### Phase 2 — Proven Coq Instructions (Philosophy A)
+### Phase 2 — Proven Coq Instructions (Philosophy A) ✅ COMPLETE
 
-**Coq changes required. All 25+ exhaustive-match files updated. Proofs rebuilt.
-After each step: `make -C coq -j4` must pass with zero errors, Inquisitor must report
-0 HIGH / 0 MEDIUM.**
+**Completed 2026-03-03.** All three instructions promoted to full Coq constructors.
+Gates: `make -C coq -j4` zero errors, Inquisitor 0 HIGH / 0 MEDIUM, **1143 passed / 4 skipped / 0 failed**.
+
+**Summary of Phase 2 changes:**
+- **VMStep.v**: Added `instr_checkpoint`, `instr_read_port`, `instr_write_port` constructors
+  (total: 29 opcodes). Added `step_checkpoint`, `step_read_port`, `step_write_port` rules.
+  `instr_read_port` added to `is_cert_setterb` (NoFI-enforced cert-setter).
+- **Exhaustive-match cascade**: Updated VMEncoding.v, SimulationProof.v, CPURefinement.v,
+  RevelationRequirement.v, ModularObservation.v, Locality.v, LocalInfoLoss.v,
+  ThreeLayerIsomorphism.v, ThieleKernelCausality.v — all with correct arms/bullets.
+- **thielecpu/isa.py**: Added CHECKPOINT=0x19, READ_PORT=0x1A, WRITE_PORT=0x1B to Opcode enum.
+- **thielecpu/vm.py**: Added CHECKPOINT, READ_PORT, WRITE_PORT handlers to main dispatch and
+  `_simulate_witness_step`.
+- **tools/extracted_vm_runner.ml**: Added Phase 2 parse cases (3-token CHECKPOINT, 4-token
+  WRITE_PORT, 6-token READ_PORT) before Phase 1 harness catch-alls. Added checkpoint
+  side-effect (serializes state to `<label>.json`) in execution loop for Coq instr_checkpoint.
+- **build/extracted_vm_runner**: Rebuilt from updated runner + fresh .cmi from updated .mli.
 
 **Strategy for each new instruction:** Follow the REVEAL pattern exactly.
 REVEAL is the template for "instruction that carries external information with μ-cost."
@@ -407,17 +612,26 @@ The order matters — later phases depend on earlier ones being clean.
 
 | Step | Phase | Gate to pass |
 |---|---|---|
-| 1. Add checkpoint/resume to runner | 1A | Manual test + new pytest test |
-| 2. Add dynamic MEM_SIZE directive | 1B | Existing tests still pass |
-| 3. Add WRITE_PORT harness directive | 1C | Manual test |
-| 4. Add READ_PORT harness directive | 1D | Manual test, document no-proof coverage |
-| 5. Add CHECKPOINT as Coq instruction | 2A | `make -C coq`, Inquisitor, full pytest |
-| 6. Add READ_PORT as Coq instruction | 2B | `make -C coq`, Inquisitor, full pytest |
-| 7. Add WRITE_PORT as Coq instruction | 2C | `make -C coq`, Inquisitor, full pytest |
-| 8. Add `ocaml-runner` Makefile target | All | `make ocaml-runner` succeeds |
-| 9. Raise MEM_SIZE to 4096 (SW VM) | 3A | `make -C coq`, pytest (with mem-test gating) |
-| 10. Add csr_heap_base | 3B | `make -C coq`, Inquisitor, full pytest |
-| 11. Add HEAP_LOAD / HEAP_STORE opcodes | 3B | `make -C coq`, Inquisitor, full pytest |
+| ~~0a. Remove stale files, fix Makefile~~ | 0A | ✅ Done |
+| ~~0c. Add 9 missing opcode handlers to `vm.py`~~ | 0C | ✅ Done |
+| ~~0d. Extend `PythonBisimulation.v` for jumps~~ | 0D | ✅ Done |
+| ~~0e. Per-instruction witnesses in `VerilogRefinement.v`~~ | 0E | ✅ Done |
+| ~~0f. Connect `HardwareBisimulation.v` to `vm_step`~~ | 0F | ✅ Done |
+| ~~0g. Fix VMStep.v header comment~~ | 0G | ✅ Done |
+| ~~0h. Full build + test gate~~ | 0H | ✅ 1131 passed, 0 HIGH, 0 MEDIUM |
+| ~~0.5. Add LASSERT failure constructors~~ | 0.5 | ✅ VMStep total, Locality/LocalInfoLoss fixed, 1140 passed |
+| ~~1. Add checkpoint/resume to runner~~ | 1A | ✅ Done |
+| ~~2. Add dynamic MEM_SIZE directive~~ | 1B | ✅ Done |
+| ~~3. Add WRITE_PORT harness directive~~ | 1C | ✅ Done |
+| ~~4. Add READ_PORT harness directive~~ | 1D | ✅ Done |
+| ~~5. Add CHECKPOINT as Coq instruction~~ | 2A | ✅ Done — 1143 passed |
+| ~~6. Add READ_PORT as Coq instruction~~ | 2B | ✅ Done — 1143 passed |
+| ~~7. Add WRITE_PORT as Coq instruction~~ | 2C | ✅ Done — 1143 passed |
+| ~~8. Add `ocaml-runner` Makefile target~~ | All | ✅ Done — `make ocaml-runner` succeeds |
+| ~~9. Raise MEM_SIZE to 4096 (SW VM)~~ | 3A | ✅ Done — MEM_SIZE=4096 in Coq/OCaml/Python |
+| ~~10. Add csr_heap_base~~ | 3B | ✅ Done — CSRState has 4th field |
+| ~~11. Add HEAP_LOAD / HEAP_STORE opcodes~~ | 3B | ✅ Done — 31 opcodes, 1145 passed, HIGH: 0, MEDIUM: 0 |
+| ~~11.5. Kami hardware layer: add 5 new opcodes~~ | Kami | ✅ Done — ThieleTypes.v+ThieleCPUCore.v+VerilogRefinement.v+Abstraction.v updated, 1145 passed, HIGH: 0, MEDIUM: 0 |
 | 12. vm_heap second region (if needed) | 4 | `make -C coq`, Inquisitor, full pytest |
 
 After each step: zero `Admitted.`, Inquisitor 0 HIGH / 0 MEDIUM, all existing tests pass.
@@ -430,7 +644,7 @@ After each step: zero `Admitted.`, Inquisitor 0 HIGH / 0 MEDIUM, all existing te
 - The Verilog RTL stays at 256 memory cells and 32 registers unless explicitly retargeted
 - The NoFreeInsight theorem — any new cert-setting instruction pays μ
 - The μ-ledger monotonicity — all new instructions either charge μ ≥ 1 or are no-ops
-- The three-layer isomorphism — stays intact for the original 26 opcodes;
+- The three-layer isomorphism — Phase 0 closes the existing gaps; after that,
   new opcodes may not have RTL counterparts initially, which is acceptable
 
 ---

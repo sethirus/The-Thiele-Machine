@@ -75,6 +75,11 @@ Definition opcode_JUMP      : N := 21%N.
 Definition opcode_JNEZ      : N := 22%N.
 Definition opcode_CALL      : N := 23%N.
 Definition opcode_RET       : N := 24%N.
+Definition opcode_CHECKPOINT : N := 25%N.
+Definition opcode_READ_PORT  : N := 26%N.
+Definition opcode_WRITE_PORT : N := 27%N.
+Definition opcode_HEAP_LOAD  : N := 28%N.
+Definition opcode_HEAP_STORE : N := 29%N.
 Definition opcode_HALT      : N := 255%N.
 
 Definition decode_kind (opc : N) : TM.InstrKind :=

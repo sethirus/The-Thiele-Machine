@@ -2037,7 +2037,7 @@ Lemma pnew_zero_cost_not_universally_contractive :
     calibration_residual (vm_apply s (instr_pnew region 0)) m = calibration_residual s m.
 Proof.
   set (s0 := {| vm_graph := empty_graph;
-                vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0 |};
+                vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0; csr_heap_base := 0 |};
                 vm_regs := [];
                 vm_mem := [];
                 vm_pc := 0;

@@ -101,7 +101,7 @@ Definition init_graph : PartitionGraph := {|
 Definition init_csrs : CSRState := {|
   csr_cert_addr := 0;
   csr_status := 0;
-  csr_err := 0
+  csr_err := 0; csr_heap_base := 0
 |}.
 
 (** init_state: THE CANONICAL INITIAL VM STATE

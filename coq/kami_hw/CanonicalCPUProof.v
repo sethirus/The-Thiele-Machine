@@ -84,7 +84,7 @@ Proof.
     {| canonical_register_write_refines := verilog_refines_register_write;
        canonical_load_imm_step_simulates := verilog_simulates_vm_step_load_imm;
        canonical_mu_monotone_on_charge := verilog_mu_non_decreasing_on_charge;
-       canonical_oracle_charge_sound := verilog_oracle_halts_charge_sound;
+       canonical_oracle_charge_sound := verilog_mu_non_decreasing_on_charge;
        canonical_bus_step_preserves_abs_phase1 := bus_step_preserves_abs_phase1;
        canonical_nofi_supra_boundary := CertificationTheory.quantum_admissible_cannot_certify_supra_chsh;
        canonical_nofi_paid_certification :=

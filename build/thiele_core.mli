@@ -238,7 +238,8 @@ val graph_psplit :
 val graph_pmerge :
   partitionGraph -> moduleID -> moduleID -> (partitionGraph*moduleID) option
 
-type cSRState = { csr_cert_addr : int; csr_status : int; csr_err : int }
+type cSRState = { csr_cert_addr : int; csr_status : int; csr_err : int;
+                  csr_heap_base : int }
 
 val csr_set_status : cSRState -> int -> cSRState
 
@@ -421,6 +422,11 @@ module VMStep :
   | Coq_instr_reveal of moduleID * int * char list * int
   | Coq_instr_oracle_halts of char list * int
   | Coq_instr_halt of int
+  | Coq_instr_checkpoint of char list * int
+  | Coq_instr_read_port of int * int * int * int * int
+  | Coq_instr_write_port of int * int * int
+  | Coq_instr_heap_load of int * int * int
+  | Coq_instr_heap_store of int * int * int
 
   val instruction_cost : vm_instruction -> int
 
