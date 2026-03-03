@@ -158,7 +158,15 @@ module thiele_cpu_kami_tb;
     .getPtSize_x_0(8'd0),
     .EN_getPtSize(1'b1),
     .getPtSize(pt_size_out),
-    .RDY_getPtSize()
+    .RDY_getPtSize(),
+
+    // APB write port — unused in simulation; must be tied low so that
+    // WILL_FIRE_RL_step = !halted && !err && !EN_apbWrite asserts correctly.
+    // Without this, iverilog leaves EN_apbWrite floating (Z→X) and the
+    // entire step rule becomes permanently disabled.
+    .apbWrite_x_0(64'h0),
+    .EN_apbWrite(1'b0),
+    .RDY_apbWrite()
   );
 
   // Instruction and data memory arrays for loading
@@ -657,50 +665,35 @@ module thiele_cpu_kami_tb;
   end
 
   task force_pt_word(input integer idx, input [31:0] val);
+    reg [511:0] pt_tmp;
     begin
+      pt_tmp = dut.ptTable;
       case (idx)
-        0: force dut.pt0 = val;
-        1: force dut.pt1 = val;
-        2: force dut.pt2 = val;
-        3: force dut.pt3 = val;
-        4: force dut.pt4 = val;
-        5: force dut.pt5 = val;
-        6: force dut.pt6 = val;
-        7: force dut.pt7 = val;
-        8: force dut.pt8 = val;
-        9: force dut.pt9 = val;
-        10: force dut.pt10 = val;
-        11: force dut.pt11 = val;
-        12: force dut.pt12 = val;
-        13: force dut.pt13 = val;
-        14: force dut.pt14 = val;
-        15: force dut.pt15 = val;
+        0: pt_tmp[31:0] = val;
+        1: pt_tmp[63:32] = val;
+        2: pt_tmp[95:64] = val;
+        3: pt_tmp[127:96] = val;
+        4: pt_tmp[159:128] = val;
+        5: pt_tmp[191:160] = val;
+        6: pt_tmp[223:192] = val;
+        7: pt_tmp[255:224] = val;
+        8: pt_tmp[287:256] = val;
+        9: pt_tmp[319:288] = val;
+        10: pt_tmp[351:320] = val;
+        11: pt_tmp[383:352] = val;
+        12: pt_tmp[415:384] = val;
+        13: pt_tmp[447:416] = val;
+        14: pt_tmp[479:448] = val;
+        15: pt_tmp[511:480] = val;
         default: ;
       endcase
+      force dut.ptTable = pt_tmp;
     end
   endtask
 
   task release_pt_word(input integer idx);
     begin
-      case (idx)
-        0: release dut.pt0;
-        1: release dut.pt1;
-        2: release dut.pt2;
-        3: release dut.pt3;
-        4: release dut.pt4;
-        5: release dut.pt5;
-        6: release dut.pt6;
-        7: release dut.pt7;
-        8: release dut.pt8;
-        9: release dut.pt9;
-        10: release dut.pt10;
-        11: release dut.pt11;
-        12: release dut.pt12;
-        13: release dut.pt13;
-        14: release dut.pt14;
-        15: release dut.pt15;
-        default: ;
-      endcase
+      release dut.ptTable;
     end
   endtask
 

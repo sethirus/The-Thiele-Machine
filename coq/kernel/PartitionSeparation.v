@@ -316,7 +316,7 @@ Definition partition_structure_changed (before after : PartitionGraph) : bool :=
 *)
 Definition initial_vm_state : VMState := {|
   vm_graph := empty_graph;
-  vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0 |};
+  vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0; csr_heap_base := 0 |};
   vm_regs := repeat 0 REG_COUNT;
   vm_mem := repeat 0 MEM_SIZE;
   vm_pc := 0;

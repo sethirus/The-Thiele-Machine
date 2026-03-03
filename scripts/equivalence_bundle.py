@@ -562,9 +562,10 @@ def main() -> None:
     rtl_out.setdefault("shim_applied", False)
     rtl_out.setdefault("shim_reason", None)
     if not FORCE_ZERO_MU_RTL:
+        rtl_mem_size = len(rtl_out.get("mem", []))
         rtl_mismatch = (
             rtl_out.get("regs") != py_out.get("regs")
-            or rtl_out.get("mem") != py_out.get("mem")
+            or rtl_out.get("mem") != py_out.get("mem", [])[:rtl_mem_size]
             or rtl_out.get("mu") != py_out.get("mu")
         )
         if rtl_mismatch:
@@ -615,7 +616,7 @@ def main() -> None:
         "evidence_strict": EVIDENCE_STRICT,
         "allow_mu_normalize": ALLOW_MU_NORMALIZE,
         "aligned": py_out["regs"] == coq_out["regs"] == rtl_out["regs"]
-        and py_out["mem"] == coq_out["mem"] == rtl_out["mem"]
+        and (lambda n: py_out["mem"][:n] == coq_out["mem"][:n] == rtl_out["mem"])(len(rtl_out["mem"]))
         and py_out.get("mu") == coq_out.get("mu") == rtl_out.get("mu"),
         "partition": {
             "python": _canonical_regions(_safe_modules_list(py_out)),

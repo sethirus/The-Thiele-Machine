@@ -54,7 +54,7 @@ Definition lattice_graph (n : nat) : PartitionGraph :=
 
 Definition lattice_vm_state (n : nat) : VMState :=
   {| vm_graph := lattice_graph n;
-     vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0 |};
+     vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0; csr_heap_base := 0 |};
      vm_regs := repeat 0 32;
      vm_mem := repeat 0 256;
      vm_pc := 0;

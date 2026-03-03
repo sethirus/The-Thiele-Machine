@@ -320,7 +320,8 @@ Qed.
 Definition encode_csr (csrs : CSRState) : list bool :=
   encode_nat csrs.(csr_cert_addr) ++
   encode_nat csrs.(csr_status) ++
-  encode_nat csrs.(csr_err).
+  encode_nat csrs.(csr_err) ++
+  encode_nat csrs.(csr_heap_base).
 
 Definition decode_csr (bs : list bool) : option (CSRState * list bool) :=
   match decode_nat bs with
@@ -329,9 +330,14 @@ Definition decode_csr (bs : list bool) : option (CSRState * list bool) :=
       | Some (status, rest') =>
           match decode_nat rest' with
           | Some (err, rest'') =>
-              Some ({| csr_cert_addr := cert;
-                      csr_status := status;
-                      csr_err := err |}, rest'')
+              match decode_nat rest'' with
+              | Some (heap_base, rest''') =>
+                  Some ({| csr_cert_addr := cert;
+                          csr_status := status;
+                          csr_err := err;
+                          csr_heap_base := heap_base |}, rest''')
+              | None => None
+              end
           | None => None
           end
       | None => None
@@ -344,9 +350,11 @@ Lemma decode_csr_correct :
   forall csrs rest,
     decode_csr (encode_csr csrs ++ rest) = Some (csrs, rest).
 Proof.
-  intros [cert status err] rest.
+  intros [cert status err hp] rest.
   unfold encode_csr, decode_csr.
   repeat rewrite <- app_assoc.
+  rewrite decode_nat_correct.
+  simpl.
   rewrite decode_nat_correct.
   simpl.
   rewrite decode_nat_correct.
@@ -805,6 +813,16 @@ Definition compile_vm_operation (instr : vm_instruction) : program :=
       [T_Halt]
   | instr_halt cost =>
       (* Halt instruction *)
+      [T_Halt]
+  | instr_checkpoint _ cost =>
+      [T_Halt]
+  | instr_read_port _ _ _ _ cost =>
+      [T_Halt]
+  | instr_write_port _ _ cost =>
+      [T_Halt]
+  | instr_heap_load _ _ _ =>
+      [T_Halt]
+  | instr_heap_store _ _ _ =>
       [T_Halt]
   end.
 

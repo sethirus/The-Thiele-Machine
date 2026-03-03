@@ -81,6 +81,11 @@ Definition simple_cycles_per_instruction (i : vm_instruction) : nat :=
   | instr_reveal _ _ _ _ => 4
   | instr_oracle_halts _ _ => 5
   | instr_halt _ => 1
+  | instr_checkpoint _ _ => 1
+  | instr_read_port _ _ _ _ _ => 3
+  | instr_write_port _ _ _ => 3
+  | instr_heap_load _ _ _ => 3
+  | instr_heap_store _ _ _ => 3
   end.
 
 (* Execute one instruction on the simple CPU *)

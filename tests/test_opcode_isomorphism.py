@@ -53,6 +53,11 @@ EXPECTED_ISA = {
     "JNEZ": 0x16,          # Jump if not zero
     "CALL": 0x17,          # Function call
     "RET": 0x18,           # Return from function
+    "CHECKPOINT": 0x19,    # Checkpoint: serialize state snapshot
+    "READ_PORT": 0x1A,     # Read from I/O port into register (cert-setter)
+    "WRITE_PORT": 0x1B,    # Write register value to I/O port
+    "HEAP_LOAD": 0x1C,     # Heap load: read from heap-relative address
+    "HEAP_STORE": 0x1D,    # Heap store: write to heap-relative address
     "HALT": 0xFF,          # Halt execution
 }
 
@@ -141,7 +146,7 @@ def test_coq_isa_completeness():
                 coq_instructions.append(name)
     
     # Check count
-    assert len(coq_instructions) == 26, f"Coq has {len(coq_instructions)} instructions, expected 26"
+    assert len(coq_instructions) == 31, f"Coq has {len(coq_instructions)} instructions, expected 31"
     
     # Check all expected instructions are present
     coq_set = set(coq_instructions)
@@ -163,7 +168,7 @@ def test_three_way_isomorphism():
     from thielecpu.isa import Opcode
     
     # Verify count
-    assert len(Opcode) == 26, f"Expected 26 opcodes, got {len(Opcode)}"
+    assert len(Opcode) == 31, f"Expected 31 opcodes, got {len(Opcode)}"
     
     # Verify each opcode
     for name, expected_value in EXPECTED_ISA.items():

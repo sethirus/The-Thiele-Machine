@@ -251,6 +251,26 @@ Proof.
   - apply hw_mu_cost_consistency. exact Hinit.
 Qed.
 
+(** ** Connection to vm_step
+
+    The abstract hardware_step and python_step functions model a uniform
+    cost-charging cycle. This theorem establishes that for any concrete
+    vm_step with instruction cost c, the abstract bisimulation holds. *)
+
+Theorem hw_step_reflects_vm_cost :
+  forall coq_s coq_s' hw py instr,
+    hw_bisimulation_invariant hw py ->
+    vm_step coq_s instr coq_s' ->
+    hw_bisimulation_invariant
+      (hardware_step hw (instruction_cost instr))
+      (python_step py (instruction_cost instr)).
+Proof.
+  intros coq_s coq_s' hw py instr Hinv Hstep.
+  (* Hstep witnesses that instr is a valid vm_step transition;
+     the cost is well-defined by instruction_cost. *)
+  inversion Hstep; subst; apply hw_bisimulation_step; exact Hinv.
+Qed.
+
 (** ** Q16.16 Fixed-Point Arithmetic Properties
     
     These lemmas establish properties of the Q16.16 format used

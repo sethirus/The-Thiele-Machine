@@ -8,7 +8,7 @@
 .PHONY: proofpack-smoke proofpack-turbulence-high proofpack-phase3 bell law nusd headtohead turbulence-law turbulence-law-v2 turbulence-closure-v1 self-model-v1
 .PHONY: vm-run rtl-run compare clean purge verify-end-to-end
 .PHONY: showcase test-isomorphism test-alignment test-all test-ultra-smoke-isomorphism test-smoke-isomorphism test-full-isomorphism test-emergent-geometry test-emergent-geometry-verilator black-hole-demo atlas-audit proof-dag isomorphism-visual-audit isomorphism-roadmap heuristic-heatmaps inquisitor-visual-audit
-.PHONY: generate-python
+.PHONY: generate-python ocaml-runner
 .PHONY: deliverable-one-hour
 .PHONY: proof-complete-gate coq-gate extraction-gate rtl-gate cosim-gate
 
@@ -258,8 +258,24 @@ heuristic-heatmaps: atlas-audit
 
 inquisitor-visual-audit: atlas-audit
 
-generate-python:
-	python3 scripts/generate_python_from_coq.py
+generate-python: build/thiele_core.ml
+	python3 scripts/forge.py \
+		--input build/thiele_core.ml \
+		--out-python thielecpu/generated/generated_core.py \
+		--out-verilog thielecpu/hardware/rtl/generated_opcodes.vh
+
+# Build the Coq-extracted OCaml VM runner.
+# Depends on coq/Extraction.vo so the runner is always built from the current proof tree.
+ocaml-runner:
+	@echo "[ocaml-runner] Ensuring Coq extraction is current..."
+	@$(MAKE) -C coq Extraction.vo
+	@echo "[ocaml-runner] Compiling OCaml interface..."
+	@cd build && ocamlfind ocamlc -package str -c thiele_core.mli
+	@echo "[ocaml-runner] Linking extracted runner..."
+	@cd build && ocamlfind ocamlc -package str -linkpkg \
+		thiele_core.ml ../tools/extracted_vm_runner.ml \
+		-o extracted_vm_runner
+	@echo "✅ [ocaml-runner] build/extracted_vm_runner ready"
 
 coq/%.vo:
 	$(MAKE) -C coq $(patsubst coq/%,%,$@)

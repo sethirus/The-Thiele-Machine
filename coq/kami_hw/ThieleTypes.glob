@@ -1,4 +1,4 @@
-DIGEST 455b22a46415e36d8f41d2c65a918eba
+DIGEST e373aa7e4fec4624c3818b6da7cc439a
 FKamiHW.ThieleTypes
 R163:171 Kami.Kami <> <> lib
 def 299:306 <> RegCount
@@ -689,16 +689,76 @@ R4699:4700 Kami.Lib.Word <> ::word_scope:x_'~'_'0' not
 R4697:4698 Kami.Lib.Word <> ::word_scope:x_'~'_'0' not
 R4695:4696 Kami.Lib.Word <> ::word_scope:x_'~'_'0' not
 R4693:4694 Kami.Lib.Word <> WO constr
-def 4735:4741 <> OP_HALT
+def 4735:4747 <> OP_CHECKPOINT
 R4754:4757 Kami.Lib.Word <> word ind
 R4759:4766 KamiHW.ThieleTypes <> OpcodeSz def
 R4787:4788 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
-R4785:4786 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
-R4783:4784 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
+R4785:4786 Kami.Lib.Word <> ::word_scope:x_'~'_'0' not
+R4783:4784 Kami.Lib.Word <> ::word_scope:x_'~'_'0' not
 R4781:4782 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
 R4779:4780 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
-R4777:4778 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
-R4775:4776 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
-R4773:4774 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
+R4777:4778 Kami.Lib.Word <> ::word_scope:x_'~'_'0' not
+R4775:4776 Kami.Lib.Word <> ::word_scope:x_'~'_'0' not
+R4773:4774 Kami.Lib.Word <> ::word_scope:x_'~'_'0' not
 R4771:4772 Kami.Lib.Word <> WO constr
-def 4900:4906 <> InstrSz
+def 4813:4824 <> OP_READ_PORT
+R4832:4835 Kami.Lib.Word <> word ind
+R4837:4844 KamiHW.ThieleTypes <> OpcodeSz def
+R4865:4866 Kami.Lib.Word <> ::word_scope:x_'~'_'0' not
+R4863:4864 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
+R4861:4862 Kami.Lib.Word <> ::word_scope:x_'~'_'0' not
+R4859:4860 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
+R4857:4858 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
+R4855:4856 Kami.Lib.Word <> ::word_scope:x_'~'_'0' not
+R4853:4854 Kami.Lib.Word <> ::word_scope:x_'~'_'0' not
+R4851:4852 Kami.Lib.Word <> ::word_scope:x_'~'_'0' not
+R4849:4850 Kami.Lib.Word <> WO constr
+def 4891:4903 <> OP_WRITE_PORT
+R4910:4913 Kami.Lib.Word <> word ind
+R4915:4922 KamiHW.ThieleTypes <> OpcodeSz def
+R4943:4944 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
+R4941:4942 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
+R4939:4940 Kami.Lib.Word <> ::word_scope:x_'~'_'0' not
+R4937:4938 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
+R4935:4936 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
+R4933:4934 Kami.Lib.Word <> ::word_scope:x_'~'_'0' not
+R4931:4932 Kami.Lib.Word <> ::word_scope:x_'~'_'0' not
+R4929:4930 Kami.Lib.Word <> ::word_scope:x_'~'_'0' not
+R4927:4928 Kami.Lib.Word <> WO constr
+def 4969:4980 <> OP_HEAP_LOAD
+R4988:4991 Kami.Lib.Word <> word ind
+R4993:5000 KamiHW.ThieleTypes <> OpcodeSz def
+R5021:5022 Kami.Lib.Word <> ::word_scope:x_'~'_'0' not
+R5019:5020 Kami.Lib.Word <> ::word_scope:x_'~'_'0' not
+R5017:5018 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
+R5015:5016 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
+R5013:5014 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
+R5011:5012 Kami.Lib.Word <> ::word_scope:x_'~'_'0' not
+R5009:5010 Kami.Lib.Word <> ::word_scope:x_'~'_'0' not
+R5007:5008 Kami.Lib.Word <> ::word_scope:x_'~'_'0' not
+R5005:5006 Kami.Lib.Word <> WO constr
+def 5047:5059 <> OP_HEAP_STORE
+R5066:5069 Kami.Lib.Word <> word ind
+R5071:5078 KamiHW.ThieleTypes <> OpcodeSz def
+R5099:5100 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
+R5097:5098 Kami.Lib.Word <> ::word_scope:x_'~'_'0' not
+R5095:5096 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
+R5093:5094 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
+R5091:5092 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
+R5089:5090 Kami.Lib.Word <> ::word_scope:x_'~'_'0' not
+R5087:5088 Kami.Lib.Word <> ::word_scope:x_'~'_'0' not
+R5085:5086 Kami.Lib.Word <> ::word_scope:x_'~'_'0' not
+R5083:5084 Kami.Lib.Word <> WO constr
+def 5125:5131 <> OP_HALT
+R5144:5147 Kami.Lib.Word <> word ind
+R5149:5156 KamiHW.ThieleTypes <> OpcodeSz def
+R5177:5178 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
+R5175:5176 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
+R5173:5174 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
+R5171:5172 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
+R5169:5170 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
+R5167:5168 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
+R5165:5166 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
+R5163:5164 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
+R5161:5162 Kami.Lib.Word <> WO constr
+def 5290:5296 <> InstrSz
