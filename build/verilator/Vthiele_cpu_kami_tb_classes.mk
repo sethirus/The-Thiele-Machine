@@ -31,6 +31,7 @@ VM_CLASSES_FAST += \
 	Vthiele_cpu_kami_tb_thiele_cpu_kami_tb__DepSet_hbc6dacae__0 \
 	Vthiele_cpu_kami_tb_thiele_cpu_kami_tb__DepSet_hbc6dacae__1 \
 	Vthiele_cpu_kami_tb_thiele_cpu_kami_tb__DepSet_hbc6dacae__2 \
+	Vthiele_cpu_kami_tb_thiele_cpu_kami_tb__DepSet_hbc6dacae__3 \
 
 # Generated module classes, non-fast-path, compile with low/medium optimization
 VM_CLASSES_SLOW += \
@@ -41,6 +42,7 @@ VM_CLASSES_SLOW += \
 	Vthiele_cpu_kami_tb_thiele_cpu_kami_tb__Slow \
 	Vthiele_cpu_kami_tb_thiele_cpu_kami_tb__DepSet_hbc6dacae__0__Slow \
 	Vthiele_cpu_kami_tb_thiele_cpu_kami_tb__DepSet_hbc6dacae__1__Slow \
+	Vthiele_cpu_kami_tb_thiele_cpu_kami_tb__DepSet_hbc6dacae__2__Slow \
 
 # Generated support classes, fast-path, compile with highest optimization
 VM_SUPPORT_FAST += \

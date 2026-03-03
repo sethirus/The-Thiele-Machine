@@ -202,6 +202,11 @@ Proof.
   - (* reveal *) exfalso. eapply Hrev. reflexivity.
   - (* oracle_halts *) unfold advance_state. simpl. reflexivity.
   - (* halt *) unfold advance_state. simpl. reflexivity.
+  - (* checkpoint *) unfold advance_state. simpl. reflexivity.
+  - (* read_port *) unfold advance_state_rm. simpl. reflexivity.
+  - (* write_port *) unfold advance_state. simpl. reflexivity.
+  - (* heap_load *) unfold advance_state_rm. simpl. reflexivity.
+  - (* heap_store *) unfold advance_state_rm. simpl. reflexivity.
 Qed.
 
 (** * Main Theorem: Cert Must Come From Revelation-Class Instructions *)
@@ -364,6 +369,26 @@ Proof.
       * (* halt *) apply IH in Hrun.
         -- exact Hrun.
         -- unfold advance_state; simpl. exact Hinit.
+        -- exact Hfinal.
+      * (* checkpoint *) apply IH in Hrun.
+        -- exact Hrun.
+        -- unfold advance_state; simpl. exact Hinit.
+        -- exact Hfinal.
+      * (* read_port *) apply IH in Hrun.
+        -- exact Hrun.
+        -- unfold advance_state_rm; simpl. exact Hinit.
+        -- exact Hfinal.
+      * (* write_port *) apply IH in Hrun.
+        -- exact Hrun.
+        -- unfold advance_state; simpl. exact Hinit.
+        -- exact Hfinal.
+      * (* heap_load *) apply IH in Hrun.
+        -- exact Hrun.
+        -- unfold advance_state_rm; simpl. exact Hinit.
+        -- exact Hfinal.
+      * (* heap_store *) apply IH in Hrun.
+        -- exact Hrun.
+        -- unfold advance_state_rm; simpl. exact Hinit.
         -- exact Hfinal.
     + simpl in Hrun. injection Hrun as Heq. rewrite <- Heq in Hfinal.
       unfold has_supra_cert in Hfinal. contradiction.

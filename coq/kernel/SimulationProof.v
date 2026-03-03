@@ -384,6 +384,24 @@ Definition vm_apply_unsafe (s : VMState) (instr : vm_instruction) : VMState :=
       advance_state s (instr_oracle_halts payload cost) s.(vm_graph) s.(vm_csrs) s.(vm_err)
   | instr_halt cost =>
       advance_state s (instr_halt cost) s.(vm_graph) s.(vm_csrs) s.(vm_err)
+  | instr_checkpoint label cost =>
+      advance_state s (instr_checkpoint label cost) s.(vm_graph) s.(vm_csrs) s.(vm_err)
+  | instr_read_port dst channel_idx value bits cost =>
+      let regs' := write_reg s dst value in
+      advance_state_rm s (instr_read_port dst channel_idx value bits cost)
+        s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
+  | instr_write_port channel_idx src cost =>
+      advance_state s (instr_write_port channel_idx src cost) s.(vm_graph) s.(vm_csrs) s.(vm_err)
+  | instr_heap_load dst addr cost =>
+      let value := read_mem s (s.(vm_csrs).(csr_heap_base) + addr) in
+      let regs' := write_reg s dst value in
+      advance_state_rm s (instr_heap_load dst addr cost)
+        s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
+  | instr_heap_store addr src cost =>
+      let value := read_reg s src in
+      let mem' := write_mem s (s.(vm_csrs).(csr_heap_base) + addr) value in
+      advance_state_rm s (instr_heap_store addr src cost)
+        s.(vm_graph) s.(vm_csrs) s.(vm_regs) mem' s.(vm_err)
   end.
 
 (* Executable NoFI guard: cert-setting instructions must carry positive μ-cost. *)

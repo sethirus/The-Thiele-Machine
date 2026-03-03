@@ -1,4 +1,4 @@
-DIGEST 95335ea5b9e6452686020a2e670b5ff6
+DIGEST 00e25dfb94d2ae77d298cbc7db10b05a
 FKernel.NonCircularityAudit
 R904:907 Coq.Lists.List <> <> lib
 R909:912 Coq.Bool.Bool <> <> lib
@@ -104,7 +104,7 @@ R5539:5563 Kernel.ClassicalBound <> classical_program_mu_zero thm
 def 6507:6519 <> mu_zero_class
 R6530:6543 Kernel.VMStep VMStep vm_instruction ind
 binder 6522:6526 <> instr:11
-R6805:6807 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6825:6827 Coq.Init.Logic <> ::type_scope:x_'='_x not
 R6558:6573 Kernel.MuCostModel <> mu_cost_of_instr def
 R6575:6579 Kernel.NonCircularityAudit <> instr:11 var
 R6589:6596 Kernel.VMState <> vm_graph proj
@@ -112,18 +112,18 @@ R6589:6596 Kernel.VMState <> vm_graph proj
 R6589:6596 Kernel.VMState <> vm_graph proj
 R6621:6627 Kernel.VMState <> vm_csrs proj
 R6621:6627 Kernel.VMState <> vm_csrs proj
-R6696:6702 Kernel.VMState <> vm_regs proj
-R6696:6702 Kernel.VMState <> vm_regs proj
-R6711:6716 Kernel.VMState <> vm_mem proj
-R6711:6716 Kernel.VMState <> vm_mem proj
-R6725:6729 Kernel.VMState <> vm_pc proj
-R6725:6729 Kernel.VMState <> vm_pc proj
-R6737:6741 Kernel.VMState <> vm_mu proj
-R6737:6741 Kernel.VMState <> vm_mu proj
-R6749:6760 Kernel.VMState <> vm_mu_tensor proj
-R6749:6760 Kernel.VMState <> vm_mu_tensor proj
-R6787:6792 Kernel.VMState <> vm_err proj
-R6787:6792 Kernel.VMState <> vm_err proj
+R6716:6722 Kernel.VMState <> vm_regs proj
+R6716:6722 Kernel.VMState <> vm_regs proj
+R6731:6736 Kernel.VMState <> vm_mem proj
+R6731:6736 Kernel.VMState <> vm_mem proj
+R6745:6749 Kernel.VMState <> vm_pc proj
+R6745:6749 Kernel.VMState <> vm_pc proj
+R6757:6761 Kernel.VMState <> vm_mu proj
+R6757:6761 Kernel.VMState <> vm_mu proj
+R6769:6780 Kernel.VMState <> vm_mu_tensor proj
+R6769:6780 Kernel.VMState <> vm_mu_tensor proj
+R6807:6812 Kernel.VMState <> vm_err proj
+R6807:6812 Kernel.VMState <> vm_err proj
 R6601:6611 Kernel.VMState <> empty_graph def
 R6635:6647 Kernel.VMState <> csr_cert_addr proj
 R6635:6647 Kernel.VMState <> csr_cert_addr proj
@@ -132,220 +132,222 @@ R6655:6664 Kernel.VMState <> csr_status proj
 R6655:6664 Kernel.VMState <> csr_status proj
 R6672:6678 Kernel.VMState <> csr_err proj
 R6672:6678 Kernel.VMState <> csr_err proj
-R6707:6708 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R6721:6722 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R6765:6784 Kernel.VMState <> vm_mu_tensor_default def
-R6797:6801 Coq.Init.Datatypes <> false constr
-def 6905:6921 <> trace_all_mu_zero
-R6932:6935 Coq.Init.Datatypes <> list ind
-R6937:6950 Kernel.VMStep VMStep vm_instruction ind
-binder 6924:6928 <> trace:12
-binder 6972:6976 <> instr:13
-R6993:6996 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6979:6980 Coq.Lists.List <> In def
-R6988:6992 Kernel.NonCircularityAudit <> trace:12 var
-R6982:6986 Kernel.NonCircularityAudit <> instr:13 var
-R6997:7009 Kernel.NonCircularityAudit <> mu_zero_class def
-R7011:7015 Kernel.NonCircularityAudit <> instr:13 var
-prf 7075:7089 <> mu_zero_closure
-binder 7102:7107 <> trace1:14
-binder 7109:7114 <> trace2:15
-R7145:7152 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7121:7137 Kernel.NonCircularityAudit <> trace_all_mu_zero def
-R7139:7144 Kernel.NonCircularityAudit <> trace1:14 var
-R7177:7184 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7153:7169 Kernel.NonCircularityAudit <> trace_all_mu_zero def
-R7171:7176 Kernel.NonCircularityAudit <> trace2:15 var
-R7185:7201 Kernel.NonCircularityAudit <> trace_all_mu_zero def
-R7210:7213 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R7204:7209 Kernel.NonCircularityAudit <> trace1:14 var
-R7214:7219 Kernel.NonCircularityAudit <> trace2:15 var
-R7278:7286 Coq.Lists.List <> in_app_or thm
-R7278:7286 Coq.Lists.List <> in_app_or thm
-prf 7458:7473 <> mu_zero_identity
-R7479:7495 Kernel.NonCircularityAudit <> trace_all_mu_zero def
-R7497:7498 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R7517:7533 Kernel.NonCircularityAudit <> trace_all_mu_zero def
-prf 7629:7643 <> pnew_is_mu_zero
-binder 7656:7661 <> region:16
-binder 7663:7670 <> mu_delta:17
-R7693:7700 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7685:7687 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7677:7684 Kernel.NonCircularityAudit <> mu_delta:17 var
-R7701:7713 Kernel.NonCircularityAudit <> mu_zero_class def
-R7716:7725 Kernel.VMStep VMStep instr_pnew constr
-R7727:7732 Kernel.NonCircularityAudit <> region:16 var
-R7734:7741 Kernel.NonCircularityAudit <> mu_delta:17 var
-R7776:7788 Kernel.NonCircularityAudit <> mu_zero_class def
-R7791:7806 Kernel.MuCostModel <> mu_cost_of_instr def
-prf 7884:7900 <> psplit_is_mu_zero
-binder 7913:7915 <> mid:18
-binder 7917:7920 <> left:19
-binder 7922:7926 <> right:20
-binder 7928:7935 <> mu_delta:21
-R7958:7965 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7950:7952 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7942:7949 Kernel.NonCircularityAudit <> mu_delta:21 var
-R7966:7978 Kernel.NonCircularityAudit <> mu_zero_class def
-R7981:7992 Kernel.VMStep VMStep instr_psplit constr
-R7994:7996 Kernel.NonCircularityAudit <> mid:18 var
-R7998:8001 Kernel.NonCircularityAudit <> left:19 var
-R8003:8007 Kernel.NonCircularityAudit <> right:20 var
-R8009:8016 Kernel.NonCircularityAudit <> mu_delta:21 var
-R8051:8063 Kernel.NonCircularityAudit <> mu_zero_class def
-R8066:8081 Kernel.MuCostModel <> mu_cost_of_instr def
-prf 8159:8175 <> pmerge_is_mu_zero
-binder 8188:8189 <> m1:22
-binder 8191:8192 <> m2:23
-binder 8194:8201 <> mu_delta:24
-R8224:8231 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8216:8218 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8208:8215 Kernel.NonCircularityAudit <> mu_delta:24 var
-R8232:8244 Kernel.NonCircularityAudit <> mu_zero_class def
-R8247:8258 Kernel.VMStep VMStep instr_pmerge constr
-R8260:8261 Kernel.NonCircularityAudit <> m1:22 var
-R8263:8264 Kernel.NonCircularityAudit <> m2:23 var
-R8266:8273 Kernel.NonCircularityAudit <> mu_delta:24 var
-R8308:8320 Kernel.NonCircularityAudit <> mu_zero_class def
-R8323:8338 Kernel.MuCostModel <> mu_cost_of_instr def
-prf 8417:8434 <> reveal_not_mu_zero
-binder 8447:8449 <> mid:25
-binder 8451:8454 <> bits:26
-binder 8456:8459 <> cert:27
-binder 8461:8468 <> mu_delta:28
-R8475:8476 Coq.Init.Logic <> ::type_scope:'~'_x not
-R8528:8528 Coq.Init.Logic <> ::type_scope:'~'_x not
-R8477:8489 Kernel.NonCircularityAudit <> mu_zero_class def
-R8492:8503 Kernel.VMStep VMStep instr_reveal constr
-R8505:8507 Kernel.NonCircularityAudit <> mid:25 var
-R8509:8512 Kernel.NonCircularityAudit <> bits:26 var
-R8514:8517 Kernel.NonCircularityAudit <> cert:27 var
-R8519:8526 Kernel.NonCircularityAudit <> mu_delta:28 var
-R8580:8592 Kernel.NonCircularityAudit <> mu_zero_class def
-R8595:8610 Kernel.MuCostModel <> mu_cost_of_instr def
-prf 8700:8718 <> lassert_not_mu_zero
-binder 8731:8733 <> mid:29
-binder 8735:8741 <> formula:30
-binder 8743:8746 <> cert:31
-binder 8748:8755 <> mu_delta:32
-R8762:8763 Coq.Init.Logic <> ::type_scope:'~'_x not
-R8819:8819 Coq.Init.Logic <> ::type_scope:'~'_x not
-R8764:8776 Kernel.NonCircularityAudit <> mu_zero_class def
-R8779:8791 Kernel.VMStep VMStep instr_lassert constr
-R8793:8795 Kernel.NonCircularityAudit <> mid:29 var
-R8797:8803 Kernel.NonCircularityAudit <> formula:30 var
-R8805:8808 Kernel.NonCircularityAudit <> cert:31 var
-R8810:8817 Kernel.NonCircularityAudit <> mu_delta:32 var
-R8874:8886 Kernel.NonCircularityAudit <> mu_zero_class def
-R8889:8904 Kernel.MuCostModel <> mu_cost_of_instr def
-prf 8992:9008 <> ljoin_not_mu_zero
-binder 9021:9025 <> cert1:33
-binder 9027:9031 <> cert2:34
-binder 9033:9040 <> mu_delta:35
-R9047:9048 Coq.Init.Logic <> ::type_scope:'~'_x not
-R9097:9097 Coq.Init.Logic <> ::type_scope:'~'_x not
-R9049:9061 Kernel.NonCircularityAudit <> mu_zero_class def
-R9064:9074 Kernel.VMStep VMStep instr_ljoin constr
-R9076:9080 Kernel.NonCircularityAudit <> cert1:33 var
-R9082:9086 Kernel.NonCircularityAudit <> cert2:34 var
-R9088:9095 Kernel.NonCircularityAudit <> mu_delta:35 var
-R9147:9159 Kernel.NonCircularityAudit <> mu_zero_class def
-R9162:9177 Kernel.MuCostModel <> mu_cost_of_instr def
-prf 9263:9283 <> chsh_trial_is_mu_zero
-binder 9296:9296 <> x:36
-binder 9298:9298 <> y:37
-binder 9300:9300 <> a:38
-binder 9302:9302 <> b:39
-binder 9304:9311 <> mu_delta:40
-R9334:9341 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9326:9328 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9318:9325 Kernel.NonCircularityAudit <> mu_delta:40 var
-R9342:9354 Kernel.NonCircularityAudit <> mu_zero_class def
-R9357:9372 Kernel.VMStep VMStep instr_chsh_trial constr
-R9374:9374 Kernel.NonCircularityAudit <> x:36 var
-R9376:9376 Kernel.NonCircularityAudit <> y:37 var
-R9378:9378 Kernel.NonCircularityAudit <> a:38 var
-R9380:9380 Kernel.NonCircularityAudit <> b:39 var
-R9382:9389 Kernel.NonCircularityAudit <> mu_delta:40 var
-R9424:9436 Kernel.NonCircularityAudit <> mu_zero_class def
-R9439:9454 Kernel.MuCostModel <> mu_cost_of_instr def
-prf 9524:9538 <> xfer_is_mu_zero
-binder 9551:9553 <> dst:41
-binder 9555:9557 <> src:42
-binder 9559:9566 <> mu_delta:43
-R9589:9596 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9581:9583 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9573:9580 Kernel.NonCircularityAudit <> mu_delta:43 var
-R9597:9609 Kernel.NonCircularityAudit <> mu_zero_class def
-R9612:9621 Kernel.VMStep VMStep instr_xfer constr
-R9623:9625 Kernel.NonCircularityAudit <> dst:41 var
-R9627:9629 Kernel.NonCircularityAudit <> src:42 var
-R9631:9638 Kernel.NonCircularityAudit <> mu_delta:43 var
-R9673:9685 Kernel.NonCircularityAudit <> mu_zero_class def
-R9688:9703 Kernel.MuCostModel <> mu_cost_of_instr def
-def 11180:11206 <> mu_zero_locc_correspondence
-R11270:11270 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11354:11417 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 11278:11282 <> trace:44
-R11308:11349 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11285:11301 Kernel.NonCircularityAudit <> trace_all_mu_zero def
-R11303:11307 Kernel.NonCircularityAudit <> trace:44 var
-R11350:11353 Coq.Init.Logic <> True ind
-R11418:11418 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11469:11521 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11589:11589 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 11426:11431 <> region:45
-R11434:11446 Kernel.NonCircularityAudit <> mu_zero_class def
-R11449:11458 Kernel.VMStep VMStep instr_pnew constr
-R11460:11465 Kernel.NonCircularityAudit <> region:45 var
-binder 11529:11531 <> mid:46
-binder 11533:11536 <> bits:47
-binder 11538:11541 <> cert:48
-R11544:11544 Coq.Init.Logic <> ::type_scope:'~'_x not
-R11545:11557 Kernel.NonCircularityAudit <> mu_zero_class def
-R11560:11571 Kernel.VMStep VMStep instr_reveal constr
-R11573:11575 Kernel.NonCircularityAudit <> mid:46 var
-R11577:11580 Kernel.NonCircularityAudit <> bits:47 var
-R11582:11585 Kernel.NonCircularityAudit <> cert:48 var
-prf 11654:11673 <> mu_zero_is_locc_like
-R11677:11703 Kernel.NonCircularityAudit <> mu_zero_locc_correspondence def
-R11722:11748 Kernel.NonCircularityAudit <> mu_zero_locc_correspondence def
-R11797:11797 Coq.Init.Logic <> I constr
-R11797:11797 Coq.Init.Logic <> I constr
-R11824:11838 Kernel.NonCircularityAudit <> pnew_is_mu_zero thm
-R11824:11838 Kernel.NonCircularityAudit <> pnew_is_mu_zero thm
-R11886:11903 Kernel.NonCircularityAudit <> reveal_not_mu_zero thm
-R11886:11903 Kernel.NonCircularityAudit <> reveal_not_mu_zero thm
-def 13693:13719 <> non_circularity_certificate
-R13791:13791 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R13928:13987 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R13830:13836 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R13822:13824 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13792:13811 Kernel.NonCircularityAudit <> rule_references_chsh def
-R13813:13821 Kernel.NonCircularityAudit <> rule_pnew constr
-R13825:13829 Coq.Init.Datatypes <> false constr
-R13878:13884 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R13870:13872 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13837:13859 Kernel.NonCircularityAudit <> rule_references_quantum def
-R13861:13869 Kernel.NonCircularityAudit <> rule_pnew constr
-R13873:13877 Coq.Init.Datatypes <> false constr
-R13920:13922 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13885:13909 Kernel.NonCircularityAudit <> rule_references_tsirelson def
-R13911:13919 Kernel.NonCircularityAudit <> rule_pnew constr
-R13923:13927 Coq.Init.Datatypes <> false constr
-R14013:14085 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R13988:14012 Kernel.NonCircularityAudit <> chsh_formula_is_algebraic def
-R14123:14180 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R14086:14122 Kernel.NonCircularityAudit <> classical_bound_appears_as_achievable def
-R14181:14207 Kernel.NonCircularityAudit <> mu_zero_locc_correspondence def
-prf 14276:14299 <> non_circularity_verified
-R14303:14329 Kernel.NonCircularityAudit <> non_circularity_certificate def
-R14348:14374 Kernel.NonCircularityAudit <> non_circularity_certificate def
-R14418:14440 Kernel.NonCircularityAudit <> mu_cost_is_physics_free thm
-R14418:14440 Kernel.NonCircularityAudit <> mu_cost_is_physics_free thm
-R14453:14477 Kernel.NonCircularityAudit <> chsh_formula_physics_free thm
-R14453:14477 Kernel.NonCircularityAudit <> chsh_formula_physics_free thm
-R14490:14527 Kernel.NonCircularityAudit <> classical_bound_is_derived_not_assumed thm
-R14490:14527 Kernel.NonCircularityAudit <> classical_bound_is_derived_not_assumed thm
-R14540:14559 Kernel.NonCircularityAudit <> mu_zero_is_locc_like thm
-R14540:14559 Kernel.NonCircularityAudit <> mu_zero_is_locc_like thm
+R6686:6698 Kernel.VMState <> csr_heap_base proj
+R6686:6698 Kernel.VMState <> csr_heap_base proj
+R6727:6728 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6741:6742 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6785:6804 Kernel.VMState <> vm_mu_tensor_default def
+R6817:6821 Coq.Init.Datatypes <> false constr
+def 6925:6941 <> trace_all_mu_zero
+R6952:6955 Coq.Init.Datatypes <> list ind
+R6957:6970 Kernel.VMStep VMStep vm_instruction ind
+binder 6944:6948 <> trace:12
+binder 6992:6996 <> instr:13
+R7013:7016 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6999:7000 Coq.Lists.List <> In def
+R7008:7012 Kernel.NonCircularityAudit <> trace:12 var
+R7002:7006 Kernel.NonCircularityAudit <> instr:13 var
+R7017:7029 Kernel.NonCircularityAudit <> mu_zero_class def
+R7031:7035 Kernel.NonCircularityAudit <> instr:13 var
+prf 7095:7109 <> mu_zero_closure
+binder 7122:7127 <> trace1:14
+binder 7129:7134 <> trace2:15
+R7165:7172 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7141:7157 Kernel.NonCircularityAudit <> trace_all_mu_zero def
+R7159:7164 Kernel.NonCircularityAudit <> trace1:14 var
+R7197:7204 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7173:7189 Kernel.NonCircularityAudit <> trace_all_mu_zero def
+R7191:7196 Kernel.NonCircularityAudit <> trace2:15 var
+R7205:7221 Kernel.NonCircularityAudit <> trace_all_mu_zero def
+R7230:7233 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7224:7229 Kernel.NonCircularityAudit <> trace1:14 var
+R7234:7239 Kernel.NonCircularityAudit <> trace2:15 var
+R7298:7306 Coq.Lists.List <> in_app_or thm
+R7298:7306 Coq.Lists.List <> in_app_or thm
+prf 7478:7493 <> mu_zero_identity
+R7499:7515 Kernel.NonCircularityAudit <> trace_all_mu_zero def
+R7517:7518 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7537:7553 Kernel.NonCircularityAudit <> trace_all_mu_zero def
+prf 7649:7663 <> pnew_is_mu_zero
+binder 7676:7681 <> region:16
+binder 7683:7690 <> mu_delta:17
+R7713:7720 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7705:7707 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7697:7704 Kernel.NonCircularityAudit <> mu_delta:17 var
+R7721:7733 Kernel.NonCircularityAudit <> mu_zero_class def
+R7736:7745 Kernel.VMStep VMStep instr_pnew constr
+R7747:7752 Kernel.NonCircularityAudit <> region:16 var
+R7754:7761 Kernel.NonCircularityAudit <> mu_delta:17 var
+R7796:7808 Kernel.NonCircularityAudit <> mu_zero_class def
+R7811:7826 Kernel.MuCostModel <> mu_cost_of_instr def
+prf 7904:7920 <> psplit_is_mu_zero
+binder 7933:7935 <> mid:18
+binder 7937:7940 <> left:19
+binder 7942:7946 <> right:20
+binder 7948:7955 <> mu_delta:21
+R7978:7985 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7970:7972 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7962:7969 Kernel.NonCircularityAudit <> mu_delta:21 var
+R7986:7998 Kernel.NonCircularityAudit <> mu_zero_class def
+R8001:8012 Kernel.VMStep VMStep instr_psplit constr
+R8014:8016 Kernel.NonCircularityAudit <> mid:18 var
+R8018:8021 Kernel.NonCircularityAudit <> left:19 var
+R8023:8027 Kernel.NonCircularityAudit <> right:20 var
+R8029:8036 Kernel.NonCircularityAudit <> mu_delta:21 var
+R8071:8083 Kernel.NonCircularityAudit <> mu_zero_class def
+R8086:8101 Kernel.MuCostModel <> mu_cost_of_instr def
+prf 8179:8195 <> pmerge_is_mu_zero
+binder 8208:8209 <> m1:22
+binder 8211:8212 <> m2:23
+binder 8214:8221 <> mu_delta:24
+R8244:8251 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8236:8238 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8228:8235 Kernel.NonCircularityAudit <> mu_delta:24 var
+R8252:8264 Kernel.NonCircularityAudit <> mu_zero_class def
+R8267:8278 Kernel.VMStep VMStep instr_pmerge constr
+R8280:8281 Kernel.NonCircularityAudit <> m1:22 var
+R8283:8284 Kernel.NonCircularityAudit <> m2:23 var
+R8286:8293 Kernel.NonCircularityAudit <> mu_delta:24 var
+R8328:8340 Kernel.NonCircularityAudit <> mu_zero_class def
+R8343:8358 Kernel.MuCostModel <> mu_cost_of_instr def
+prf 8437:8454 <> reveal_not_mu_zero
+binder 8467:8469 <> mid:25
+binder 8471:8474 <> bits:26
+binder 8476:8479 <> cert:27
+binder 8481:8488 <> mu_delta:28
+R8495:8496 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8548:8548 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8497:8509 Kernel.NonCircularityAudit <> mu_zero_class def
+R8512:8523 Kernel.VMStep VMStep instr_reveal constr
+R8525:8527 Kernel.NonCircularityAudit <> mid:25 var
+R8529:8532 Kernel.NonCircularityAudit <> bits:26 var
+R8534:8537 Kernel.NonCircularityAudit <> cert:27 var
+R8539:8546 Kernel.NonCircularityAudit <> mu_delta:28 var
+R8600:8612 Kernel.NonCircularityAudit <> mu_zero_class def
+R8615:8630 Kernel.MuCostModel <> mu_cost_of_instr def
+prf 8720:8738 <> lassert_not_mu_zero
+binder 8751:8753 <> mid:29
+binder 8755:8761 <> formula:30
+binder 8763:8766 <> cert:31
+binder 8768:8775 <> mu_delta:32
+R8782:8783 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8839:8839 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8784:8796 Kernel.NonCircularityAudit <> mu_zero_class def
+R8799:8811 Kernel.VMStep VMStep instr_lassert constr
+R8813:8815 Kernel.NonCircularityAudit <> mid:29 var
+R8817:8823 Kernel.NonCircularityAudit <> formula:30 var
+R8825:8828 Kernel.NonCircularityAudit <> cert:31 var
+R8830:8837 Kernel.NonCircularityAudit <> mu_delta:32 var
+R8894:8906 Kernel.NonCircularityAudit <> mu_zero_class def
+R8909:8924 Kernel.MuCostModel <> mu_cost_of_instr def
+prf 9012:9028 <> ljoin_not_mu_zero
+binder 9041:9045 <> cert1:33
+binder 9047:9051 <> cert2:34
+binder 9053:9060 <> mu_delta:35
+R9067:9068 Coq.Init.Logic <> ::type_scope:'~'_x not
+R9117:9117 Coq.Init.Logic <> ::type_scope:'~'_x not
+R9069:9081 Kernel.NonCircularityAudit <> mu_zero_class def
+R9084:9094 Kernel.VMStep VMStep instr_ljoin constr
+R9096:9100 Kernel.NonCircularityAudit <> cert1:33 var
+R9102:9106 Kernel.NonCircularityAudit <> cert2:34 var
+R9108:9115 Kernel.NonCircularityAudit <> mu_delta:35 var
+R9167:9179 Kernel.NonCircularityAudit <> mu_zero_class def
+R9182:9197 Kernel.MuCostModel <> mu_cost_of_instr def
+prf 9283:9303 <> chsh_trial_is_mu_zero
+binder 9316:9316 <> x:36
+binder 9318:9318 <> y:37
+binder 9320:9320 <> a:38
+binder 9322:9322 <> b:39
+binder 9324:9331 <> mu_delta:40
+R9354:9361 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9346:9348 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9338:9345 Kernel.NonCircularityAudit <> mu_delta:40 var
+R9362:9374 Kernel.NonCircularityAudit <> mu_zero_class def
+R9377:9392 Kernel.VMStep VMStep instr_chsh_trial constr
+R9394:9394 Kernel.NonCircularityAudit <> x:36 var
+R9396:9396 Kernel.NonCircularityAudit <> y:37 var
+R9398:9398 Kernel.NonCircularityAudit <> a:38 var
+R9400:9400 Kernel.NonCircularityAudit <> b:39 var
+R9402:9409 Kernel.NonCircularityAudit <> mu_delta:40 var
+R9444:9456 Kernel.NonCircularityAudit <> mu_zero_class def
+R9459:9474 Kernel.MuCostModel <> mu_cost_of_instr def
+prf 9544:9558 <> xfer_is_mu_zero
+binder 9571:9573 <> dst:41
+binder 9575:9577 <> src:42
+binder 9579:9586 <> mu_delta:43
+R9609:9616 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9601:9603 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9593:9600 Kernel.NonCircularityAudit <> mu_delta:43 var
+R9617:9629 Kernel.NonCircularityAudit <> mu_zero_class def
+R9632:9641 Kernel.VMStep VMStep instr_xfer constr
+R9643:9645 Kernel.NonCircularityAudit <> dst:41 var
+R9647:9649 Kernel.NonCircularityAudit <> src:42 var
+R9651:9658 Kernel.NonCircularityAudit <> mu_delta:43 var
+R9693:9705 Kernel.NonCircularityAudit <> mu_zero_class def
+R9708:9723 Kernel.MuCostModel <> mu_cost_of_instr def
+def 11200:11226 <> mu_zero_locc_correspondence
+R11290:11290 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11374:11437 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 11298:11302 <> trace:44
+R11328:11369 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11305:11321 Kernel.NonCircularityAudit <> trace_all_mu_zero def
+R11323:11327 Kernel.NonCircularityAudit <> trace:44 var
+R11370:11373 Coq.Init.Logic <> True ind
+R11438:11438 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11489:11541 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11609:11609 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 11446:11451 <> region:45
+R11454:11466 Kernel.NonCircularityAudit <> mu_zero_class def
+R11469:11478 Kernel.VMStep VMStep instr_pnew constr
+R11480:11485 Kernel.NonCircularityAudit <> region:45 var
+binder 11549:11551 <> mid:46
+binder 11553:11556 <> bits:47
+binder 11558:11561 <> cert:48
+R11564:11564 Coq.Init.Logic <> ::type_scope:'~'_x not
+R11565:11577 Kernel.NonCircularityAudit <> mu_zero_class def
+R11580:11591 Kernel.VMStep VMStep instr_reveal constr
+R11593:11595 Kernel.NonCircularityAudit <> mid:46 var
+R11597:11600 Kernel.NonCircularityAudit <> bits:47 var
+R11602:11605 Kernel.NonCircularityAudit <> cert:48 var
+prf 11674:11693 <> mu_zero_is_locc_like
+R11697:11723 Kernel.NonCircularityAudit <> mu_zero_locc_correspondence def
+R11742:11768 Kernel.NonCircularityAudit <> mu_zero_locc_correspondence def
+R11817:11817 Coq.Init.Logic <> I constr
+R11817:11817 Coq.Init.Logic <> I constr
+R11844:11858 Kernel.NonCircularityAudit <> pnew_is_mu_zero thm
+R11844:11858 Kernel.NonCircularityAudit <> pnew_is_mu_zero thm
+R11906:11923 Kernel.NonCircularityAudit <> reveal_not_mu_zero thm
+R11906:11923 Kernel.NonCircularityAudit <> reveal_not_mu_zero thm
+def 13713:13739 <> non_circularity_certificate
+R13811:13811 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13948:14007 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13850:13856 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13842:13844 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13812:13831 Kernel.NonCircularityAudit <> rule_references_chsh def
+R13833:13841 Kernel.NonCircularityAudit <> rule_pnew constr
+R13845:13849 Coq.Init.Datatypes <> false constr
+R13898:13904 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13890:13892 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13857:13879 Kernel.NonCircularityAudit <> rule_references_quantum def
+R13881:13889 Kernel.NonCircularityAudit <> rule_pnew constr
+R13893:13897 Coq.Init.Datatypes <> false constr
+R13940:13942 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13905:13929 Kernel.NonCircularityAudit <> rule_references_tsirelson def
+R13931:13939 Kernel.NonCircularityAudit <> rule_pnew constr
+R13943:13947 Coq.Init.Datatypes <> false constr
+R14033:14105 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R14008:14032 Kernel.NonCircularityAudit <> chsh_formula_is_algebraic def
+R14143:14200 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R14106:14142 Kernel.NonCircularityAudit <> classical_bound_appears_as_achievable def
+R14201:14227 Kernel.NonCircularityAudit <> mu_zero_locc_correspondence def
+prf 14296:14319 <> non_circularity_verified
+R14323:14349 Kernel.NonCircularityAudit <> non_circularity_certificate def
+R14368:14394 Kernel.NonCircularityAudit <> non_circularity_certificate def
+R14438:14460 Kernel.NonCircularityAudit <> mu_cost_is_physics_free thm
+R14438:14460 Kernel.NonCircularityAudit <> mu_cost_is_physics_free thm
+R14473:14497 Kernel.NonCircularityAudit <> chsh_formula_physics_free thm
+R14473:14497 Kernel.NonCircularityAudit <> chsh_formula_physics_free thm
+R14510:14547 Kernel.NonCircularityAudit <> classical_bound_is_derived_not_assumed thm
+R14510:14547 Kernel.NonCircularityAudit <> classical_bound_is_derived_not_assumed thm
+R14560:14579 Kernel.NonCircularityAudit <> mu_zero_is_locc_like thm
+R14560:14579 Kernel.NonCircularityAudit <> mu_zero_is_locc_like thm

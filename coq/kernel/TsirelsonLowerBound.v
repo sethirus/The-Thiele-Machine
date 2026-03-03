@@ -100,7 +100,7 @@ Definition tsirelson_achieving_trace : list vm_instruction := [
 Definition init_state_for_tsirelson : VMState :=
   {| vm_regs := repeat 0%nat 32;
      vm_mem := [];
-     vm_csrs := {| csr_cert_addr := 0%nat; csr_status := 0%nat; csr_err := 0%nat |};
+     vm_csrs := {| csr_cert_addr := 0%nat; csr_status := 0%nat; csr_err := 0%nat; csr_heap_base := 0 |};
      vm_pc := 0%nat;
      vm_graph := empty_graph;
      vm_mu := 0%nat;

@@ -117,7 +117,7 @@ Fixpoint mu_cost_of_trace
       | Some instr =>
           mu_cost_of_instr instr 
             {| vm_graph := empty_graph;
-               vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0 |};
+               vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0; csr_heap_base := 0 |};
                vm_regs := [];
                vm_mem := [];
                vm_pc := pc;
@@ -219,7 +219,7 @@ Lemma mu_cost_of_trace_unfold :
   forall fuel' trace pc instr,
     nth_error trace pc = Some instr ->
     mu_cost_of_trace (S fuel') trace pc =
-    mu_cost_of_instr instr {| vm_graph := empty_graph; vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0 |};
+    mu_cost_of_instr instr {| vm_graph := empty_graph; vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0; csr_heap_base := 0 |};
                               vm_regs := []; vm_mem := []; vm_pc := pc; vm_mu := 0; vm_mu_tensor := vm_mu_tensor_default; vm_err := false |} 
     + mu_cost_of_trace fuel' trace (S pc).
 Proof.
@@ -260,7 +260,7 @@ Proof.
         (* Unfold cost using lemma *)
         rewrite (mu_cost_of_trace_unfold fuel' trace pc ipc Hpc) in Hcost.
         (* Case split on instruction cost *)
-        destruct (mu_cost_of_instr ipc {| vm_graph := empty_graph; vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0 |};
+        destruct (mu_cost_of_instr ipc {| vm_graph := empty_graph; vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0; csr_heap_base := 0 |};
                                           vm_regs := []; vm_mem := []; vm_pc := pc; vm_mu := 0; vm_mu_tensor := vm_mu_tensor_default; vm_err := false |}) eqn:Hcost_ipc.
         -- (* Cost 0: recurse *)
            simpl in Hcost.

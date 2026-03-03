@@ -77,6 +77,21 @@ VL_ATTR_COLD bool Vthiele_cpu_kami_tb___024root___eval_phase__stl(Vthiele_cpu_ka
 }
 
 #ifdef VL_DEBUG
+VL_ATTR_COLD void Vthiele_cpu_kami_tb___024root___dump_triggers__ico(Vthiele_cpu_kami_tb___024root* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    Vthiele_cpu_kami_tb__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vthiele_cpu_kami_tb___024root___dump_triggers__ico\n"); );
+    // Body
+    if ((1U & (~ (IData)(vlSelf->__VicoTriggered.any())))) {
+        VL_DBG_MSGF("         No triggers active\n");
+    }
+    if ((1ULL & vlSelf->__VicoTriggered.word(0U))) {
+        VL_DBG_MSGF("         'ico' region trigger index 0 is active: Internal 'ico' trigger - first iteration\n");
+    }
+}
+#endif  // VL_DEBUG
+
+#ifdef VL_DEBUG
 VL_ATTR_COLD void Vthiele_cpu_kami_tb___024root___dump_triggers__act(Vthiele_cpu_kami_tb___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vthiele_cpu_kami_tb__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;

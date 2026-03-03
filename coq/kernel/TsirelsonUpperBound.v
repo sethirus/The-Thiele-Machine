@@ -71,7 +71,7 @@ Definition quantum_tsirelson_bound : Q := (5657 # 2000)%Q.
 Definition instruction_is_mu_free (instr : vm_instruction) : Prop :=
   mu_cost_of_instr instr 
     {| vm_graph := empty_graph;
-       vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0 |};
+       vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0; csr_heap_base := 0 |};
        vm_regs := []; vm_mem := []; vm_pc := 0; vm_mu := 0; vm_mu_tensor := vm_mu_tensor_default; vm_err := false |} = 0%nat.
 
 Close Scope Q_scope.
@@ -100,7 +100,7 @@ Proof.
       * assert (Hpc_lt: pc < n) by lia.
         rewrite (mu_cost_of_trace_unfold fuel' trace pc ipc Hpc) in Hcost.
         destruct (mu_cost_of_instr ipc {| vm_graph := empty_graph; 
-                   vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0 |};
+                   vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0; csr_heap_base := 0 |};
                    vm_regs := []; vm_mem := []; vm_pc := pc; vm_mu := 0; vm_mu_tensor := vm_mu_tensor_default; vm_err := false |}) eqn:Hcost_ipc.
         -- simpl in Hcost.
            assert (Hbound: n >= S pc + fuel') by (eapply IH; [exact Hcost | exact Hnth | lia]).
@@ -151,7 +151,7 @@ Proof.
       * assert (Hpc_lt: pc < n) by lia.
         rewrite (mu_cost_of_trace_unfold fuel' trace pc ipc Hpc) in Hcost.
         destruct (mu_cost_of_instr ipc {| vm_graph := empty_graph;
-                   vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0 |};
+                   vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0; csr_heap_base := 0 |};
                    vm_regs := []; vm_mem := []; vm_pc := pc; vm_mu := 0; vm_mu_tensor := vm_mu_tensor_default; vm_err := false |}) eqn:Hcost_ipc.
         -- simpl in Hcost.
            assert (Hbound: n >= S pc + fuel') by (eapply IH; [exact Hcost | exact Hnth | lia]).
@@ -377,7 +377,7 @@ Definition init_state_for_algebraic_max : VMState :=
   {| vm_regs := repeat 0%nat 32;
      vm_mem := [];
 (** HELPER: Base case property *)
-     vm_csrs := {| csr_cert_addr := 0%nat; csr_status := 0%nat; csr_err := 0%nat |};
+     vm_csrs := {| csr_cert_addr := 0%nat; csr_status := 0%nat; csr_err := 0%nat; csr_heap_base := 0 |};
      vm_pc := 0%nat;
      vm_graph := empty_graph;
      vm_mu := 0%nat;

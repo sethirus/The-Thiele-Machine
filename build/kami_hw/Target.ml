@@ -2883,6 +2883,48 @@ let oP_RET =
     (Stdlib.Int.succ 0)), (WS (false, (Stdlib.Int.succ 0), (WS (false, 0,
     WO)))))))))))))))
 
+(** val oP_READ_PORT : word **)
+
+let oP_READ_PORT =
+  WS (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))))), (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))), (WS (false,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0))))), (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (WS (true, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)), (WS (false, (Stdlib.Int.succ 0), (WS (false, 0,
+    WO)))))))))))))))
+
+(** val oP_HEAP_LOAD : word **)
+
+let oP_HEAP_LOAD =
+  WS (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))), (WS (true,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0))))), (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (WS (true, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)), (WS (false, (Stdlib.Int.succ 0), (WS (false, 0,
+    WO)))))))))))))))
+
+(** val oP_HEAP_STORE : word **)
+
+let oP_HEAP_STORE =
+  WS (true, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))), (WS (true,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0))))), (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (WS (true, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)), (WS (false, (Stdlib.Int.succ 0), (WS (false, 0,
+    WO)))))))))))))))
+
 (** val oP_HALT : word **)
 
 let oP_HALT =
@@ -14416,23 +14458,27 @@ let thieleCore =
     (fun call_in_bounds -> Let_ ((SyntaxKind Bool),
     (check_bounds (Var ((SyntaxKind (Bit memAddrSz)), sp_dec_addr)) (Var
       ((SyntaxKind (Bit wordSz)), active_region_size))),
-    (fun ret_in_bounds -> Let_ ((SyntaxKind Bool), (BinBool (OrB, (Eq ((Bit
+    (fun ret_in_bounds -> Let_ ((SyntaxKind Bool), (BinBool (OrB, (BinBool
+    (OrB, (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)), opcode)),
+    (Const ((Bit opcodeSz), (ConstBit (opcodeSz, oP_LOAD)))))), (Eq ((Bit
     opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit
-    opcodeSz), (ConstBit (opcodeSz, oP_LOAD)))))), (Eq ((Bit opcodeSz), (Var
-    ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit opcodeSz), (ConstBit
-    (opcodeSz, oP_XOR_LOAD)))))))), (fun is_load_op -> Let_ ((SyntaxKind
-    Bool), (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)), opcode)),
-    (Const ((Bit opcodeSz), (ConstBit (opcodeSz, oP_STORE)))))),
-    (fun is_store_op -> Let_ ((SyntaxKind Bool), (Eq ((Bit opcodeSz), (Var
-    ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit opcodeSz), (ConstBit
-    (opcodeSz, oP_CALL)))))), (fun is_call_op -> Let_ ((SyntaxKind Bool), (Eq
+    opcodeSz), (ConstBit (opcodeSz, oP_XOR_LOAD)))))))), (Eq ((Bit opcodeSz),
+    (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit opcodeSz),
+    (ConstBit (opcodeSz, oP_HEAP_LOAD)))))))), (fun is_load_op -> Let_
+    ((SyntaxKind Bool), (BinBool (OrB, (Eq ((Bit opcodeSz), (Var ((SyntaxKind
+    (Bit opcodeSz)), opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz,
+    oP_STORE)))))), (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)),
+    opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz,
+    oP_HEAP_STORE)))))))), (fun is_store_op -> Let_ ((SyntaxKind Bool), (Eq
     ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const
-    ((Bit opcodeSz), (ConstBit (opcodeSz, oP_RET)))))), (fun is_ret_op ->
-    Let_ ((SyntaxKind Bool), (BinBool (AndB, (Var ((SyntaxKind Bool),
-    is_load_op)), (UniBool (NegB, (Var ((SyntaxKind Bool),
-    load_in_bounds)))))), (fun load_locality_bad -> Let_ ((SyntaxKind Bool),
-    (BinBool (AndB, (Var ((SyntaxKind Bool), is_store_op)), (UniBool (NegB,
-    (Var ((SyntaxKind Bool), store_in_bounds)))))),
+    ((Bit opcodeSz), (ConstBit (opcodeSz, oP_CALL)))))), (fun is_call_op ->
+    Let_ ((SyntaxKind Bool), (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit
+    opcodeSz)), opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz,
+    oP_RET)))))), (fun is_ret_op -> Let_ ((SyntaxKind Bool), (BinBool (AndB,
+    (Var ((SyntaxKind Bool), is_load_op)), (UniBool (NegB, (Var ((SyntaxKind
+    Bool), load_in_bounds)))))), (fun load_locality_bad -> Let_ ((SyntaxKind
+    Bool), (BinBool (AndB, (Var ((SyntaxKind Bool), is_store_op)), (UniBool
+    (NegB, (Var ((SyntaxKind Bool), store_in_bounds)))))),
     (fun store_locality_bad -> Let_ ((SyntaxKind Bool), (BinBool (AndB, (Var
     ((SyntaxKind Bool), is_call_op)), (UniBool (NegB, (Var ((SyntaxKind
     Bool), call_in_bounds)))))), (fun call_locality_bad -> Let_ ((SyntaxKind
@@ -15693,15 +15739,26 @@ let thieleCore =
     oP_PDISCOVER)))))), (UpdateVector (regIdxSz, (Bit wordSz), (Var
     ((SyntaxKind (Vector ((Bit wordSz), regIdxSz))), regs_v)), (Var
     ((SyntaxKind (Bit regIdxSz)), dst_idx)), (Var ((SyntaxKind (Bit wordSz)),
-    pt_probe_size)))), (Var ((SyntaxKind (Vector ((Bit wordSz), regIdxSz))),
-    regs_v)))))))))))))))))))))))))))), (fun new_regs -> Let_ ((SyntaxKind
-    (Vector ((Bit wordSz), memAddrSz))), (ITE ((SyntaxKind (Vector ((Bit
-    wordSz), memAddrSz))), (BinBool (OrB, (BinBool (OrB, (BinBool (OrB,
-    (BinBool (OrB, (Var ((SyntaxKind Bool), bianchi_violation)), (Var
-    ((SyntaxKind Bool), locality_violation)))), (Var ((SyntaxKind Bool),
-    ptable_overflow_violation)))), (Var ((SyntaxKind Bool),
-    high_value_locked)))), (Var ((SyntaxKind Bool), nfi_violation)))), (Var
-    ((SyntaxKind (Vector ((Bit wordSz), memAddrSz))), mem_v)), (ITE
+    pt_probe_size)))), (ITE ((SyntaxKind (Vector ((Bit wordSz), regIdxSz))),
+    (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const
+    ((Bit opcodeSz), (ConstBit (opcodeSz, oP_HEAP_LOAD)))))), (UpdateVector
+    (regIdxSz, (Bit wordSz), (Var ((SyntaxKind (Vector ((Bit wordSz),
+    regIdxSz))), regs_v)), (Var ((SyntaxKind (Bit regIdxSz)), dst_idx)), (Var
+    ((SyntaxKind (Bit wordSz)), mem_val)))), (ITE ((SyntaxKind (Vector ((Bit
+    wordSz), regIdxSz))), (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit
+    opcodeSz)), opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz,
+    oP_READ_PORT)))))), (UpdateVector (regIdxSz, (Bit wordSz), (Var
+    ((SyntaxKind (Vector ((Bit wordSz), regIdxSz))), regs_v)), (Var
+    ((SyntaxKind (Bit regIdxSz)), dst_idx)), (Const ((Bit wordSz), (ConstBit
+    (wordSz, (natToWord wordSz 0))))))), (Var ((SyntaxKind (Vector ((Bit
+    wordSz), regIdxSz))), regs_v)))))))))))))))))))))))))))))))),
+    (fun new_regs -> Let_ ((SyntaxKind (Vector ((Bit wordSz), memAddrSz))),
+    (ITE ((SyntaxKind (Vector ((Bit wordSz), memAddrSz))), (BinBool (OrB,
+    (BinBool (OrB, (BinBool (OrB, (BinBool (OrB, (Var ((SyntaxKind Bool),
+    bianchi_violation)), (Var ((SyntaxKind Bool), locality_violation)))),
+    (Var ((SyntaxKind Bool), ptable_overflow_violation)))), (Var ((SyntaxKind
+    Bool), high_value_locked)))), (Var ((SyntaxKind Bool), nfi_violation)))),
+    (Var ((SyntaxKind (Vector ((Bit wordSz), memAddrSz))), mem_v)), (ITE
     ((SyntaxKind (Vector ((Bit wordSz), memAddrSz))), (Eq ((Bit opcodeSz),
     (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit opcodeSz),
     (ConstBit (opcodeSz, oP_STORE)))))),
@@ -15713,8 +15770,14 @@ let thieleCore =
     oP_CALL)))))),
     (write_mem (Var ((SyntaxKind (Bit memAddrSz)), sp_addr)) (Var
       ((SyntaxKind (Bit wordSz)), pc_plus_1)) (Var ((SyntaxKind (Vector ((Bit
+      wordSz), memAddrSz))), mem_v))), (ITE ((SyntaxKind (Vector ((Bit
+    wordSz), memAddrSz))), (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit
+    opcodeSz)), opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz,
+    oP_HEAP_STORE)))))),
+    (write_mem (Var ((SyntaxKind (Bit memAddrSz)), mem_addr_a)) (Var
+      ((SyntaxKind (Bit wordSz)), src_val)) (Var ((SyntaxKind (Vector ((Bit
       wordSz), memAddrSz))), mem_v))), (Var ((SyntaxKind (Vector ((Bit
-    wordSz), memAddrSz))), mem_v)))))))), (fun new_mem -> Let_ ((SyntaxKind
+    wordSz), memAddrSz))), mem_v)))))))))), (fun new_mem -> Let_ ((SyntaxKind
     Bool), (BinBool (OrB, (BinBool (OrB, (BinBool (OrB, (BinBool (OrB, (Var
     ((SyntaxKind Bool), locality_violation)), (Var ((SyntaxKind Bool),
     ptable_overflow_violation)))), (Var ((SyntaxKind Bool),
@@ -27970,7 +28033,8 @@ type moduleState = { module_region : int list; module_axioms : axiomSet }
 type partitionGraph = { pg_next_id : moduleID;
                         pg_modules : (moduleID * moduleState) list }
 
-type cSRState = { csr_cert_addr : int; csr_status : int; csr_err : int }
+type cSRState = { csr_cert_addr : int; csr_status : int; csr_err : int;
+                  csr_heap_base : int }
 
 type vMState = { vm_graph : partitionGraph; vm_csrs : cSRState;
                  vm_regs : int list; vm_mem : int list; vm_pc : int;
@@ -28082,7 +28146,7 @@ let snapshot_tensor_to_list f =
 (** val default_csrs : cSRState **)
 
 let default_csrs =
-  { csr_cert_addr = 0; csr_status = 0; csr_err = 0 }
+  { csr_cert_addr = 0; csr_status = 0; csr_err = 0; csr_heap_base = 0 }
 
 (** val filtermap : ('a1 -> 'a2 option) -> 'a1 list -> 'a2 list **)
 
@@ -29134,3 +29198,6 @@ let canonical_snapshot_to_vm =
   abs_phase1
 
 type canonical_refinement_relation = __
+
+(** val targetB : int -> bModule list option **)
+let targetB _ = canonical_cpu_module

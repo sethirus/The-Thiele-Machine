@@ -1235,7 +1235,7 @@ class VM:
         # Minimal register file and scratch memory so hardware-style XOR opcodes
         # and HALT can execute alongside the existing partition/logical flow.
         self.register_file = [0] * 32
-        self.data_memory = [0] * 256
+        self.data_memory = [0] * 4096
 
     def _trace_call(
         self, config: Optional[TraceConfig], hook: str, payload: Mapping[str, Any]
@@ -1515,6 +1515,66 @@ class VM:
             )
             observation = StepObservation(
                 event={"tag": "OracleVerdict", "value": str(instruction.payload)},
+                mu_delta=0,
+                cert=_empty_cert(),
+            )
+        elif op == "CHECKPOINT":
+            post_state = WitnessState(
+                pc=pre_state.pc + 1,
+                status=pre_state.status,
+                mu_acc=pre_state.mu_acc,
+                cert_addr=pre_state.cert_addr,
+            )
+            observation = StepObservation(
+                event={"tag": "Checkpoint", "label": str(instruction.payload)},
+                mu_delta=0,
+                cert=_empty_cert(),
+            )
+        elif op == "READ_PORT":
+            post_state = WitnessState(
+                pc=pre_state.pc + 1,
+                status=pre_state.status,
+                mu_acc=pre_state.mu_acc,
+                cert_addr=pre_state.cert_addr,
+            )
+            observation = StepObservation(
+                event={"tag": "ReadPort", "value": instruction.payload},
+                mu_delta=0,
+                cert=_empty_cert(),
+            )
+        elif op == "WRITE_PORT":
+            post_state = WitnessState(
+                pc=pre_state.pc + 1,
+                status=pre_state.status,
+                mu_acc=pre_state.mu_acc,
+                cert_addr=pre_state.cert_addr,
+            )
+            observation = StepObservation(
+                event={"tag": "WritePort", "value": instruction.payload},
+                mu_delta=0,
+                cert=_empty_cert(),
+            )
+        elif op == "HEAP_LOAD":
+            post_state = WitnessState(
+                pc=pre_state.pc + 1,
+                status=pre_state.status,
+                mu_acc=pre_state.mu_acc,
+                cert_addr=pre_state.cert_addr,
+            )
+            observation = StepObservation(
+                event={"tag": "HeapLoad"},
+                mu_delta=0,
+                cert=_empty_cert(),
+            )
+        elif op == "HEAP_STORE":
+            post_state = WitnessState(
+                pc=pre_state.pc + 1,
+                status=pre_state.status,
+                mu_acc=pre_state.mu_acc,
+                cert_addr=pre_state.cert_addr,
+            )
+            observation = StepObservation(
+                event={"tag": "HeapStore"},
                 mu_delta=0,
                 cert=_empty_cert(),
             )
@@ -3011,6 +3071,149 @@ class VM:
 
                 receipt_instruction = InstructionWitness("ORACLE_HALTS", f"{desc} -> {verdict}")
 
+            # --- General-purpose compute instructions (from VMStep.v) ---
+            # These match the 9 instructions added to VMStep.v that replaced PYEXEC.
+            # Register/memory semantics match Coq exactly. Control flow (JUMP, JNEZ,
+            # CALL, RET) updates register/memory state and charges mu correctly, but
+            # actual branching requires the OCaml extracted runner — the Python VM
+            # iterates the program list sequentially (documented structural divergence).
+            elif op == "LOAD_IMM":
+                (dest, imm), explicit_cost = _parse_operands_and_cost(arg, expected=2)
+                self._write_register(dest, imm & 0xFFFFFFFF)
+                if explicit_cost is not None:
+                    self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + explicit_cost) & 0xFFFFFFFF
+                trace_lines.append(f"{step}: LOAD_IMM r{dest} <- {imm:#x}")
+                receipt_instruction = InstructionWitness("LOAD_IMM", {"dest": dest, "imm": imm})
+            elif op == "LOAD":
+                (dest, addr), explicit_cost = _parse_operands_and_cost(arg, expected=2)
+                addr = addr % len(self.data_memory)
+                value = self.data_memory[addr]
+                self._write_register(dest, value)
+                if explicit_cost is not None:
+                    self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + explicit_cost) & 0xFFFFFFFF
+                trace_lines.append(f"{step}: LOAD r{dest} <- mem[{addr}] (0x{value:08x})")
+                receipt_instruction = InstructionWitness("LOAD", {"dest": dest, "addr": addr})
+            elif op == "STORE":
+                (addr, src), explicit_cost = _parse_operands_and_cost(arg, expected=2)
+                addr = addr % len(self.data_memory)
+                value = self.register_file[src % len(self.register_file)]
+                self.data_memory[addr] = value & 0xFFFFFFFF
+                if explicit_cost is not None:
+                    self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + explicit_cost) & 0xFFFFFFFF
+                trace_lines.append(f"{step}: STORE mem[{addr}] <- r{src} (0x{value:08x})")
+                receipt_instruction = InstructionWitness("STORE", {"addr": addr, "src": src})
+            elif op == "ADD":
+                (dest, rs1, rs2), explicit_cost = _parse_operands_and_cost(arg, expected=3)
+                v1 = self.register_file[rs1 % len(self.register_file)]
+                v2 = self.register_file[rs2 % len(self.register_file)]
+                self._write_register(dest, (v1 + v2) & 0xFFFFFFFF)
+                if explicit_cost is not None:
+                    self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + explicit_cost) & 0xFFFFFFFF
+                trace_lines.append(f"{step}: ADD r{dest} <- r{rs1} + r{rs2}")
+                receipt_instruction = InstructionWitness("ADD", {"dest": dest, "rs1": rs1, "rs2": rs2})
+            elif op == "SUB":
+                (dest, rs1, rs2), explicit_cost = _parse_operands_and_cost(arg, expected=3)
+                v1 = self.register_file[rs1 % len(self.register_file)]
+                v2 = self.register_file[rs2 % len(self.register_file)]
+                self._write_register(dest, (v1 - v2) & 0xFFFFFFFF)
+                if explicit_cost is not None:
+                    self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + explicit_cost) & 0xFFFFFFFF
+                trace_lines.append(f"{step}: SUB r{dest} <- r{rs1} - r{rs2}")
+                receipt_instruction = InstructionWitness("SUB", {"dest": dest, "rs1": rs1, "rs2": rs2})
+            elif op == "JUMP":
+                # Charges mu; actual PC change requires OCaml extracted runner
+                (target,), explicit_cost = _parse_operands_and_cost(arg, expected=1)
+                if explicit_cost is not None:
+                    self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + explicit_cost) & 0xFFFFFFFF
+                trace_lines.append(f"{step}: JUMP -> {target}")
+                receipt_instruction = InstructionWitness("JUMP", {"target": target})
+            elif op == "JNEZ":
+                # Charges mu, evaluates condition; actual branching requires OCaml runner
+                (rs, target), explicit_cost = _parse_operands_and_cost(arg, expected=2)
+                rs_val = self.register_file[rs % len(self.register_file)]
+                if explicit_cost is not None:
+                    self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + explicit_cost) & 0xFFFFFFFF
+                taken = rs_val != 0
+                trace_lines.append(f"{step}: JNEZ r{rs}={'taken' if taken else 'not taken'} -> {target}")
+                receipt_instruction = InstructionWitness("JNEZ", {"rs": rs, "target": target, "taken": taken})
+            elif op == "CALL":
+                # Pushes return address and updates SP per Coq CALL convention
+                (target,), explicit_cost = _parse_operands_and_cost(arg, expected=1)
+                sp = self.register_file[31] & 0xFFFFFFFF
+                ret_addr = (pc_index + 1) & 0xFFFFFFFF
+                mem_idx = sp % len(self.data_memory)
+                self.data_memory[mem_idx] = ret_addr
+                self._write_register(31, (sp + 1) & 0xFFFFFFFF)
+                if explicit_cost is not None:
+                    self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + explicit_cost) & 0xFFFFFFFF
+                trace_lines.append(f"{step}: CALL -> {target} (ret={ret_addr}, sp={sp})")
+                receipt_instruction = InstructionWitness("CALL", {"target": target, "ret_addr": ret_addr})
+            elif op == "RET":
+                # Pops return address and updates SP per Coq RET convention
+                explicit_cost = None
+                tokens = (arg or "").split()
+                if len(tokens) == 1 and tokens[0].lstrip("-").isdigit():
+                    explicit_cost = int(tokens[0])
+                sp = self.register_file[31] & 0xFFFFFFFF
+                new_sp = (sp - 1) & 0xFFFFFFFF
+                ret_pc = self.data_memory[new_sp % len(self.data_memory)]
+                self._write_register(31, new_sp)
+                if explicit_cost is not None:
+                    self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + explicit_cost) & 0xFFFFFFFF
+                trace_lines.append(f"{step}: RET -> {ret_pc} (sp={new_sp})")
+                receipt_instruction = InstructionWitness("RET", {"ret_pc": ret_pc})
+            elif op == "CHECKPOINT":
+                # CHECKPOINT <label> [<cost>] — no-op semantically; serializes state
+                tokens = (arg or "").split()
+                label = tokens[0] if tokens else "checkpoint"
+                explicit_cost = int(tokens[1]) if len(tokens) >= 2 and tokens[1].lstrip("-").isdigit() else 0
+                if explicit_cost:
+                    self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + explicit_cost) & 0xFFFFFFFF
+                trace_lines.append(f"{step}: CHECKPOINT {label}")
+                receipt_instruction = InstructionWitness("CHECKPOINT", label)
+            elif op == "READ_PORT":
+                # READ_PORT <dst> <channel_idx> <value> <bits> <cost>
+                tokens = (arg or "").split()
+                dst_r = int(tokens[0]) if len(tokens) > 0 else 0
+                value_rp = int(tokens[2]) if len(tokens) > 2 else 0
+                explicit_cost = int(tokens[4]) if len(tokens) > 4 else 0
+                self._write_register(dst_r, value_rp & 0xFFFFFFFF)
+                if explicit_cost:
+                    self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + explicit_cost) & 0xFFFFFFFF
+                trace_lines.append(f"{step}: READ_PORT r{dst_r}={value_rp}")
+                receipt_instruction = InstructionWitness("READ_PORT", {"dst": dst_r, "value": value_rp})
+            elif op == "WRITE_PORT":
+                # WRITE_PORT <channel_idx> <src> [<cost>]
+                tokens = (arg or "").split()
+                src_r = int(tokens[1]) if len(tokens) > 1 else 0
+                explicit_cost = int(tokens[2]) if len(tokens) > 2 and tokens[2].lstrip("-").isdigit() else 0
+                val_wp = self.register_file[src_r % len(self.register_file)] if self.register_file else 0
+                if explicit_cost:
+                    self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + explicit_cost) & 0xFFFFFFFF
+                trace_lines.append(f"{step}: WRITE_PORT ch r{src_r}={val_wp}")
+                receipt_instruction = InstructionWitness("WRITE_PORT", {"src": src_r, "value": val_wp})
+            elif op == "HEAP_LOAD":
+                # HEAP_LOAD <dst> <addr> [<cost>]
+                (dest, addr), explicit_cost = _parse_operands_and_cost(arg, expected=2)
+                heap_base = getattr(self, "heap_base", 0)
+                eff_addr = (heap_base + addr) % len(self.data_memory)
+                value = self.data_memory[eff_addr]
+                self._write_register(dest, value)
+                if explicit_cost is not None:
+                    self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + explicit_cost) & 0xFFFFFFFF
+                trace_lines.append(f"{step}: HEAP_LOAD r{dest} <- heap[{addr}] (0x{value:08x})")
+                receipt_instruction = InstructionWitness("HEAP_LOAD", {"dest": dest, "addr": addr})
+            elif op == "HEAP_STORE":
+                # HEAP_STORE <addr> <src> [<cost>]
+                (addr, src), explicit_cost = _parse_operands_and_cost(arg, expected=2)
+                heap_base = getattr(self, "heap_base", 0)
+                eff_addr = (heap_base + addr) % len(self.data_memory)
+                value = self.register_file[src % len(self.register_file)]
+                self.data_memory[eff_addr] = value & 0xFFFFFFFF
+                if explicit_cost is not None:
+                    self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + explicit_cost) & 0xFFFFFFFF
+                trace_lines.append(f"{step}: HEAP_STORE heap[{addr}] <- r{src} (0x{value:08x})")
+                receipt_instruction = InstructionWitness("HEAP_STORE", {"addr": addr, "src": src, "value": value})
             else:
                 raise ValueError(f"unknown opcode {op}")
 
@@ -3049,7 +3252,7 @@ class VM:
                 self._trace_call(trace_config, "on_step", event_payload)
 
             if receipt_instruction is None:
-                receipt_instruction = InstructionWitness("PYEXEC", f"{op} {arg}".strip())
+                receipt_instruction = InstructionWitness(op, f"{op} {arg}".strip())
             self._record_receipt(step, pre_witness, receipt_instruction)
 
             if self.state.csr[CSR.ERR] == 1 or halt_after_receipt:

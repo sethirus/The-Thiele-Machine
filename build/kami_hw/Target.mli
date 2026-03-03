@@ -461,6 +461,12 @@ val oP_CALL : word
 
 val oP_RET : word
 
+val oP_READ_PORT : word
+
+val oP_HEAP_LOAD : word
+
+val oP_HEAP_STORE : word
+
 val oP_HALT : word
 
 val instrSz : int
@@ -501,7 +507,8 @@ type moduleState = { module_region : int list; module_axioms : axiomSet }
 type partitionGraph = { pg_next_id : moduleID;
                         pg_modules : (moduleID * moduleState) list }
 
-type cSRState = { csr_cert_addr : int; csr_status : int; csr_err : int }
+type cSRState = { csr_cert_addr : int; csr_status : int; csr_err : int;
+                  csr_heap_base : int }
 
 type vMState = { vm_graph : partitionGraph; vm_csrs : cSRState;
                  vm_regs : int list; vm_mem : int list; vm_pc : int;
@@ -616,3 +623,5 @@ val canonical_cpu_module : bModule list option
 val canonical_snapshot_to_vm : kamiSnapshot -> vMState
 
 type canonical_refinement_relation = __
+
+val targetB : int -> bModule list option

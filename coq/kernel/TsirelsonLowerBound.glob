@@ -1,4 +1,4 @@
-DIGEST a09909872bf064fd0bbc9e7d6508ebe7
+DIGEST b041905f9fa6c0ba72565c66d51aecd4
 FKernel.TsirelsonLowerBound
 R1505:1508 Coq.Lists.List <> <> lib
 R1510:1515 Coq.QArith.QArith <> <> lib
@@ -77,17 +77,17 @@ R3882:3887 Kernel.VMState <> vm_mem proj
 R3882:3887 Kernel.VMState <> vm_mem proj
 R3901:3907 Kernel.VMState <> vm_csrs proj
 R3901:3907 Kernel.VMState <> vm_csrs proj
-R3986:3990 Kernel.VMState <> vm_pc proj
-R3986:3990 Kernel.VMState <> vm_pc proj
-R4007:4014 Kernel.VMState <> vm_graph proj
-R4007:4014 Kernel.VMState <> vm_graph proj
-R4037:4041 Kernel.VMState <> vm_mu proj
-R4037:4041 Kernel.VMState <> vm_mu proj
-R4058:4069 Kernel.VMState <> vm_mu_tensor proj
-R4058:4069 Kernel.VMState <> vm_mu_tensor proj
-R4101:4106 Kernel.VMState <> vm_err proj
-R4101:4106 Kernel.VMState <> vm_err proj
-R4019:4029 Kernel.VMState <> empty_graph def
+R4006:4010 Kernel.VMState <> vm_pc proj
+R4006:4010 Kernel.VMState <> vm_pc proj
+R4027:4034 Kernel.VMState <> vm_graph proj
+R4027:4034 Kernel.VMState <> vm_graph proj
+R4057:4061 Kernel.VMState <> vm_mu proj
+R4057:4061 Kernel.VMState <> vm_mu proj
+R4078:4089 Kernel.VMState <> vm_mu_tensor proj
+R4078:4089 Kernel.VMState <> vm_mu_tensor proj
+R4121:4126 Kernel.VMState <> vm_err proj
+R4121:4126 Kernel.VMState <> vm_err proj
+R4039:4049 Kernel.VMState <> empty_graph def
 R3915:3927 Kernel.VMState <> csr_cert_addr proj
 R3915:3927 Kernel.VMState <> csr_cert_addr proj
 R3915:3927 Kernel.VMState <> csr_cert_addr proj
@@ -95,35 +95,37 @@ R3939:3948 Kernel.VMState <> csr_status proj
 R3939:3948 Kernel.VMState <> csr_status proj
 R3960:3966 Kernel.VMState <> csr_err proj
 R3960:3966 Kernel.VMState <> csr_err proj
+R3978:3990 Kernel.VMState <> csr_heap_base proj
+R3978:3990 Kernel.VMState <> csr_heap_base proj
 R3860:3865 Coq.Lists.List <> repeat def
 R3892:3893 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R4074:4093 Kernel.VMState <> vm_mu_tensor_default def
-R4111:4115 Coq.Init.Datatypes <> false constr
-prf 4155:4179 <> tsirelson_program_mu_zero
-R4232:4234 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4185:4200 Kernel.MuCostModel <> mu_cost_of_trace def
-R4205:4229 Kernel.TsirelsonLowerBound <> tsirelson_achieving_trace def
-R4258:4273 Kernel.MuCostModel <> mu_cost_of_trace def
-prf 4347:4367 <> tsirelson_lower_bound
-R4373:4380 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R4421:4453 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R4388:4390 Coq.Init.Datatypes <> nat ind
-binder 4381:4384 <> fuel:9
-R4402:4405 Coq.Init.Datatypes <> list ind
-R4407:4420 Kernel.VMStep VMStep vm_instruction ind
-binder 4394:4398 <> trace:10
-R4491:4594 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4483:4485 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4454:4469 Kernel.MuCostModel <> mu_cost_of_trace def
-R4471:4474 Kernel.TsirelsonLowerBound <> fuel:9 var
-R4476:4480 Kernel.TsirelsonLowerBound <> trace:10 var
-R4608:4611 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4599:4601 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4595:4598 Kernel.TsirelsonLowerBound <> fuel:9 var
-R4617:4619 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4612:4616 Kernel.TsirelsonLowerBound <> trace:10 var
-R4620:4644 Kernel.TsirelsonLowerBound <> tsirelson_achieving_trace def
-R4671:4695 Kernel.TsirelsonLowerBound <> tsirelson_achieving_trace def
-R4671:4695 Kernel.TsirelsonLowerBound <> tsirelson_achieving_trace def
-R4717:4741 Kernel.TsirelsonLowerBound <> tsirelson_program_mu_zero thm
-R4717:4741 Kernel.TsirelsonLowerBound <> tsirelson_program_mu_zero thm
+R4094:4113 Kernel.VMState <> vm_mu_tensor_default def
+R4131:4135 Coq.Init.Datatypes <> false constr
+prf 4175:4199 <> tsirelson_program_mu_zero
+R4252:4254 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4205:4220 Kernel.MuCostModel <> mu_cost_of_trace def
+R4225:4249 Kernel.TsirelsonLowerBound <> tsirelson_achieving_trace def
+R4278:4293 Kernel.MuCostModel <> mu_cost_of_trace def
+prf 4367:4387 <> tsirelson_lower_bound
+R4393:4400 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4441:4473 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4408:4410 Coq.Init.Datatypes <> nat ind
+binder 4401:4404 <> fuel:9
+R4422:4425 Coq.Init.Datatypes <> list ind
+R4427:4440 Kernel.VMStep VMStep vm_instruction ind
+binder 4414:4418 <> trace:10
+R4511:4614 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4503:4505 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4474:4489 Kernel.MuCostModel <> mu_cost_of_trace def
+R4491:4494 Kernel.TsirelsonLowerBound <> fuel:9 var
+R4496:4500 Kernel.TsirelsonLowerBound <> trace:10 var
+R4628:4631 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4619:4621 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4615:4618 Kernel.TsirelsonLowerBound <> fuel:9 var
+R4637:4639 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4632:4636 Kernel.TsirelsonLowerBound <> trace:10 var
+R4640:4664 Kernel.TsirelsonLowerBound <> tsirelson_achieving_trace def
+R4691:4715 Kernel.TsirelsonLowerBound <> tsirelson_achieving_trace def
+R4691:4715 Kernel.TsirelsonLowerBound <> tsirelson_achieving_trace def
+R4737:4761 Kernel.TsirelsonLowerBound <> tsirelson_program_mu_zero thm
+R4737:4761 Kernel.TsirelsonLowerBound <> tsirelson_program_mu_zero thm

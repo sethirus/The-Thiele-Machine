@@ -245,9 +245,9 @@ class TestOpcodeEncoding:
         assert opcode == 0x0A  # XOR_LOAD
 
     def test_all_opcodes_have_entries(self):
-        """All 26 opcodes in cosim.OPCODES match isa.py."""
+        """All 31 opcodes in cosim.OPCODES match isa.py."""
         from thielecpu.hardware.cosim import OPCODES
-        assert len(OPCODES) == 26
+        assert len(OPCODES) == 31
         assert OPCODES["HALT"] == 0xFF
         assert OPCODES["PNEW"] == 0x00
 
@@ -412,12 +412,13 @@ class TestISAAlignment:
 
     def test_all_26_opcodes_in_cosim(self):
         from thielecpu.hardware.cosim import OPCODES
-        assert len(OPCODES) == 26
+        assert len(OPCODES) == 31
         expected_names = {
             "PNEW", "PSPLIT", "PMERGE", "LASSERT", "LJOIN",
             "MDLACC", "PDISCOVER", "XFER", "LOAD_IMM", "CHSH_TRIAL",
             "XOR_LOAD", "XOR_ADD", "XOR_SWAP", "XOR_RANK",
             "EMIT", "REVEAL", "ORACLE_HALTS",
-            "LOAD", "STORE", "ADD", "SUB", "JUMP", "JNEZ", "CALL", "RET", "HALT"
+            "LOAD", "STORE", "ADD", "SUB", "JUMP", "JNEZ", "CALL", "RET",
+            "CHECKPOINT", "READ_PORT", "WRITE_PORT", "HEAP_LOAD", "HEAP_STORE", "HALT"
         }
         assert set(OPCODES.keys()) == expected_names

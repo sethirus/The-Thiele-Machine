@@ -265,6 +265,11 @@ Definition kernel_instr_targets (i : vm_instruction) : list ModuleID :=
   | instr_reveal mid _ _ _ => [mid]
   | instr_oracle_halts _ _ => []
   | instr_halt _ => []
+  | instr_checkpoint _ _ => []
+  | instr_read_port _ _ _ _ _ => []
+  | instr_write_port _ _ _ => []
+  | instr_heap_load _ _ _ => []
+  | instr_heap_store _ _ _ => []
   end.
 
 (** The key semantic claim (to be verified):

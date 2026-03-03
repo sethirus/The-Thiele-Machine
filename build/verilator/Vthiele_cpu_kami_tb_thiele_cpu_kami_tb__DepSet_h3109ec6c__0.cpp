@@ -44,8 +44,6 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
     __Vtask_force_tensor_word__3__idx = 0;
     IData/*31:0*/ __Vtask_force_tensor_word__3__val;
     __Vtask_force_tensor_word__3__val = 0;
-    IData/*31:0*/ __Vtask_release_pt_word__4__idx;
-    __Vtask_release_pt_word__4__idx = 0;
     VlWide<5>/*159:0*/ __Vtemp_2;
     VlWide<6>/*191:0*/ __Vtemp_3;
     VlWide<5>/*159:0*/ __Vtemp_4;
@@ -62,7 +60,8 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
     VlWide<3>/*95:0*/ __Vtemp_17;
     VlWide<3>/*95:0*/ __Vtemp_18;
     VlWide<16>/*511:0*/ __Vtemp_319;
-    VlWide<16>/*511:0*/ __Vtemp_348;
+    VlWide<16>/*511:0*/ __Vtemp_332;
+    VlWide<16>/*511:0*/ __Vtemp_336;
     // Body
     vlSelf->__PVT__i = 0U;
     while (VL_GTS_III(32, 0x100U, vlSelf->__PVT__i)) {
@@ -2288,7 +2287,7 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
     vlSelf->__PVT__dut__DOT__error_code__VforceEn = 0xffffffffU;
     vlSelf->__PVT__dut__DOT__error_code__VforceVal = 0U;
     vlSelf->__PVT__dut__DOT__error_code__VforceRd = 0U;
-    vlSelf->__PVT__dut__DOT__pt_next_id__VforceEn = 0xffffffffU;
+    vlSelf->__PVT__dut__DOT__pt_next_id__VforceEn = 0x1fU;
     vlSelf->__PVT__dut__DOT__pt_next_id__VforceVal = 1U;
     vlSelf->__PVT__dut__DOT__pt_next_id__VforceRd = 1U;
     vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0U] 
@@ -4604,10 +4603,10 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
                                            | ((~ vlSelf->__PVT__dut__DOT__error_code__VforceEn) 
                                               & vlSelf->__PVT__dut__DOT__error_code));
     vlSelf->__PVT__dut__DOT__error_code__VforceEn = 0U;
-    vlSelf->__PVT__dut__DOT__pt_next_id = ((vlSelf->__PVT__dut__DOT__pt_next_id__VforceEn 
-                                            & vlSelf->__PVT__dut__DOT__pt_next_id__VforceVal) 
-                                           | ((~ vlSelf->__PVT__dut__DOT__pt_next_id__VforceEn) 
-                                              & vlSelf->__PVT__dut__DOT__pt_next_id));
+    vlSelf->__PVT__dut__DOT__pt_next_id = (((IData)(vlSelf->__PVT__dut__DOT__pt_next_id__VforceEn) 
+                                            & (IData)(vlSelf->__PVT__dut__DOT__pt_next_id__VforceVal)) 
+                                           | ((~ (IData)(vlSelf->__PVT__dut__DOT__pt_next_id__VforceEn)) 
+                                              & (IData)(vlSelf->__PVT__dut__DOT__pt_next_id)));
     vlSelf->__PVT__dut__DOT__pt_next_id__VforceEn = 0U;
     __Vtemp_319[1U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[1U] 
                         & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[1U]) 
@@ -4759,15 +4758,47 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
         vlSelf->__PVT__dut__DOT__mu__VforceRd = vlSelf->__PVT__init_mu_value;
     }
     if ((0U != vlSelf->__PVT__init_active_module_en)) {
-        vlSelf->__PVT__dut__DOT__active_module__VforceEn = 0x3fU;
+        vlSelf->__PVT__dut__DOT__active_module__VforceEn = 0xfU;
         vlSelf->__PVT__dut__DOT__active_module__VforceVal 
-            = (0x3fU & vlSelf->__PVT__init_active_module_value);
+            = (0xfU & vlSelf->__PVT__init_active_module_value);
         vlSelf->__PVT__dut__DOT__active_module__VforceRd 
-            = (0x3fU & vlSelf->__PVT__init_active_module_value);
+            = (0xfU & vlSelf->__PVT__init_active_module_value);
     }
     if ((0U != vlSelf->__PVT__init_pt_en)) {
         __Vtask_force_pt_word__2__val = vlSelf->__PVT__init_pt_value;
         __Vtask_force_pt_word__2__idx = vlSelf->__PVT__init_pt_idx;
+        vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[0U] 
+            = vlSelf->__PVT__dut__DOT__ptTable__VforceRd[0U];
+        vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[1U] 
+            = vlSelf->__PVT__dut__DOT__ptTable__VforceRd[1U];
+        vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[2U] 
+            = vlSelf->__PVT__dut__DOT__ptTable__VforceRd[2U];
+        vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[3U] 
+            = vlSelf->__PVT__dut__DOT__ptTable__VforceRd[3U];
+        vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[4U] 
+            = vlSelf->__PVT__dut__DOT__ptTable__VforceRd[4U];
+        vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[5U] 
+            = vlSelf->__PVT__dut__DOT__ptTable__VforceRd[5U];
+        vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[6U] 
+            = vlSelf->__PVT__dut__DOT__ptTable__VforceRd[6U];
+        vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[7U] 
+            = vlSelf->__PVT__dut__DOT__ptTable__VforceRd[7U];
+        vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[8U] 
+            = vlSelf->__PVT__dut__DOT__ptTable__VforceRd[8U];
+        vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[9U] 
+            = vlSelf->__PVT__dut__DOT__ptTable__VforceRd[9U];
+        vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[0xaU] 
+            = vlSelf->__PVT__dut__DOT__ptTable__VforceRd[0xaU];
+        vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[0xbU] 
+            = vlSelf->__PVT__dut__DOT__ptTable__VforceRd[0xbU];
+        vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[0xcU] 
+            = vlSelf->__PVT__dut__DOT__ptTable__VforceRd[0xcU];
+        vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[0xdU] 
+            = vlSelf->__PVT__dut__DOT__ptTable__VforceRd[0xdU];
+        vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[0xeU] 
+            = vlSelf->__PVT__dut__DOT__ptTable__VforceRd[0xeU];
+        vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[0xfU] 
+            = vlSelf->__PVT__dut__DOT__ptTable__VforceRd[0xfU];
         if (((((((((0U == __Vtask_force_pt_word__2__idx) 
                    | (1U == __Vtask_force_pt_word__2__idx)) 
                   | (2U == __Vtask_force_pt_word__2__idx)) 
@@ -4777,52 +4808,28 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
               | (6U == __Vtask_force_pt_word__2__idx)) 
              | (7U == __Vtask_force_pt_word__2__idx))) {
             if ((0U == __Vtask_force_pt_word__2__idx)) {
-                vlSelf->__PVT__dut__DOT__pt0__VforceEn = 0xffffffffU;
-                vlSelf->__PVT__dut__DOT__pt0__VforceVal 
-                    = __Vtask_force_pt_word__2__val;
-                vlSelf->__PVT__dut__DOT__pt0__VforceRd 
+                vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[0U] 
                     = __Vtask_force_pt_word__2__val;
             } else if ((1U == __Vtask_force_pt_word__2__idx)) {
-                vlSelf->__PVT__dut__DOT__pt1__VforceEn = 0xffffffffU;
-                vlSelf->__PVT__dut__DOT__pt1__VforceVal 
-                    = __Vtask_force_pt_word__2__val;
-                vlSelf->__PVT__dut__DOT__pt1__VforceRd 
+                vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[1U] 
                     = __Vtask_force_pt_word__2__val;
             } else if ((2U == __Vtask_force_pt_word__2__idx)) {
-                vlSelf->__PVT__dut__DOT__pt2__VforceEn = 0xffffffffU;
-                vlSelf->__PVT__dut__DOT__pt2__VforceVal 
-                    = __Vtask_force_pt_word__2__val;
-                vlSelf->__PVT__dut__DOT__pt2__VforceRd 
+                vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[2U] 
                     = __Vtask_force_pt_word__2__val;
             } else if ((3U == __Vtask_force_pt_word__2__idx)) {
-                vlSelf->__PVT__dut__DOT__pt3__VforceEn = 0xffffffffU;
-                vlSelf->__PVT__dut__DOT__pt3__VforceVal 
-                    = __Vtask_force_pt_word__2__val;
-                vlSelf->__PVT__dut__DOT__pt3__VforceRd 
+                vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[3U] 
                     = __Vtask_force_pt_word__2__val;
             } else if ((4U == __Vtask_force_pt_word__2__idx)) {
-                vlSelf->__PVT__dut__DOT__pt4__VforceEn = 0xffffffffU;
-                vlSelf->__PVT__dut__DOT__pt4__VforceVal 
-                    = __Vtask_force_pt_word__2__val;
-                vlSelf->__PVT__dut__DOT__pt4__VforceRd 
+                vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[4U] 
                     = __Vtask_force_pt_word__2__val;
             } else if ((5U == __Vtask_force_pt_word__2__idx)) {
-                vlSelf->__PVT__dut__DOT__pt5__VforceEn = 0xffffffffU;
-                vlSelf->__PVT__dut__DOT__pt5__VforceVal 
-                    = __Vtask_force_pt_word__2__val;
-                vlSelf->__PVT__dut__DOT__pt5__VforceRd 
+                vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[5U] 
                     = __Vtask_force_pt_word__2__val;
             } else if ((6U == __Vtask_force_pt_word__2__idx)) {
-                vlSelf->__PVT__dut__DOT__pt6__VforceEn = 0xffffffffU;
-                vlSelf->__PVT__dut__DOT__pt6__VforceVal 
-                    = __Vtask_force_pt_word__2__val;
-                vlSelf->__PVT__dut__DOT__pt6__VforceRd 
+                vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[6U] 
                     = __Vtask_force_pt_word__2__val;
             } else {
-                vlSelf->__PVT__dut__DOT__pt7__VforceEn = 0xffffffffU;
-                vlSelf->__PVT__dut__DOT__pt7__VforceVal 
-                    = __Vtask_force_pt_word__2__val;
-                vlSelf->__PVT__dut__DOT__pt7__VforceRd 
+                vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[7U] 
                     = __Vtask_force_pt_word__2__val;
             }
         } else if (((((((((8U == __Vtask_force_pt_word__2__idx) 
@@ -4834,55 +4841,127 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
                      | (0xeU == __Vtask_force_pt_word__2__idx)) 
                     | (0xfU == __Vtask_force_pt_word__2__idx))) {
             if ((8U == __Vtask_force_pt_word__2__idx)) {
-                vlSelf->__PVT__dut__DOT__pt8__VforceEn = 0xffffffffU;
-                vlSelf->__PVT__dut__DOT__pt8__VforceVal 
-                    = __Vtask_force_pt_word__2__val;
-                vlSelf->__PVT__dut__DOT__pt8__VforceRd 
+                vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[8U] 
                     = __Vtask_force_pt_word__2__val;
             } else if ((9U == __Vtask_force_pt_word__2__idx)) {
-                vlSelf->__PVT__dut__DOT__pt9__VforceEn = 0xffffffffU;
-                vlSelf->__PVT__dut__DOT__pt9__VforceVal 
-                    = __Vtask_force_pt_word__2__val;
-                vlSelf->__PVT__dut__DOT__pt9__VforceRd 
+                vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[9U] 
                     = __Vtask_force_pt_word__2__val;
             } else if ((0xaU == __Vtask_force_pt_word__2__idx)) {
-                vlSelf->__PVT__dut__DOT__pt10__VforceEn = 0xffffffffU;
-                vlSelf->__PVT__dut__DOT__pt10__VforceVal 
-                    = __Vtask_force_pt_word__2__val;
-                vlSelf->__PVT__dut__DOT__pt10__VforceRd 
+                vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[0xaU] 
                     = __Vtask_force_pt_word__2__val;
             } else if ((0xbU == __Vtask_force_pt_word__2__idx)) {
-                vlSelf->__PVT__dut__DOT__pt11__VforceEn = 0xffffffffU;
-                vlSelf->__PVT__dut__DOT__pt11__VforceVal 
-                    = __Vtask_force_pt_word__2__val;
-                vlSelf->__PVT__dut__DOT__pt11__VforceRd 
+                vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[0xbU] 
                     = __Vtask_force_pt_word__2__val;
             } else if ((0xcU == __Vtask_force_pt_word__2__idx)) {
-                vlSelf->__PVT__dut__DOT__pt12__VforceEn = 0xffffffffU;
-                vlSelf->__PVT__dut__DOT__pt12__VforceVal 
-                    = __Vtask_force_pt_word__2__val;
-                vlSelf->__PVT__dut__DOT__pt12__VforceRd 
+                vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[0xcU] 
                     = __Vtask_force_pt_word__2__val;
             } else if ((0xdU == __Vtask_force_pt_word__2__idx)) {
-                vlSelf->__PVT__dut__DOT__pt13__VforceEn = 0xffffffffU;
-                vlSelf->__PVT__dut__DOT__pt13__VforceVal 
-                    = __Vtask_force_pt_word__2__val;
-                vlSelf->__PVT__dut__DOT__pt13__VforceRd 
+                vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[0xdU] 
                     = __Vtask_force_pt_word__2__val;
             } else if ((0xeU == __Vtask_force_pt_word__2__idx)) {
-                vlSelf->__PVT__dut__DOT__pt14__VforceEn = 0xffffffffU;
-                vlSelf->__PVT__dut__DOT__pt14__VforceVal 
-                    = __Vtask_force_pt_word__2__val;
-                vlSelf->__PVT__dut__DOT__pt14__VforceRd 
+                vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[0xeU] 
                     = __Vtask_force_pt_word__2__val;
             } else {
-                vlSelf->__PVT__dut__DOT__pt15__VforceEn = 0xffffffffU;
-                vlSelf->__PVT__dut__DOT__pt15__VforceVal 
-                    = __Vtask_force_pt_word__2__val;
-                vlSelf->__PVT__dut__DOT__pt15__VforceRd 
+                vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[0xfU] 
                     = __Vtask_force_pt_word__2__val;
             }
         }
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[0U] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h8b2d9f06_0[0U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[1U] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h8b2d9f06_0[1U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[2U] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h8b2d9f06_0[2U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[3U] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h8b2d9f06_0[3U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[4U] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h8b2d9f06_0[4U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[5U] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h8b2d9f06_0[5U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[6U] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h8b2d9f06_0[6U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[7U] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h8b2d9f06_0[7U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[8U] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h8b2d9f06_0[8U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[9U] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h8b2d9f06_0[9U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[0xaU] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h8b2d9f06_0[0xaU];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[0xbU] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h8b2d9f06_0[0xbU];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[0xcU] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h8b2d9f06_0[0xcU];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[0xdU] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h8b2d9f06_0[0xdU];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[0xeU] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h8b2d9f06_0[0xeU];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[0xfU] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h8b2d9f06_0[0xfU];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceVal[0U] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[0U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceVal[1U] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[1U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceVal[2U] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[2U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceVal[3U] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[3U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceVal[4U] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[4U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceVal[5U] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[5U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceVal[6U] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[6U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceVal[7U] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[7U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceVal[8U] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[8U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceVal[9U] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[9U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceVal[0xaU] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[0xaU];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceVal[0xbU] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[0xbU];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceVal[0xcU] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[0xcU];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceVal[0xdU] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[0xdU];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceVal[0xeU] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[0xeU];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceVal[0xfU] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[0xfU];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceRd[0U] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[0U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceRd[1U] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[1U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceRd[2U] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[2U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceRd[3U] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[3U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceRd[4U] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[4U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceRd[5U] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[5U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceRd[6U] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[6U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceRd[7U] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[7U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceRd[8U] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[8U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceRd[9U] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[9U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceRd[0xaU] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[0xaU];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceRd[0xbU] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[0xbU];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceRd[0xcU] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[0xcU];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceRd[0xdU] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[0xdU];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceRd[0xeU] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[0xeU];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceRd[0xfU] 
+            = vlSelf->__PVT__force_pt_word__Vstatic__pt_tmp[0xfU];
     }
     if ((0U != vlSelf->__PVT__init_tensor_en)) {
         __Vtask_force_tensor_word__3__val = vlSelf->__PVT__init_tensor_value;
@@ -5145,63 +5224,63 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
         vlSelf->__PVT__dut__DOT__logic_stall__VforceEn = 0U;
     }
     if ((0U != vlSelf->__PVT__init_tensor_en)) {
-        __Vtemp_348[1U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[1U] 
+        __Vtemp_336[1U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[1U] 
                             & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[1U]) 
                            | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[1U]) 
                               & vlSelf->__PVT__dut__DOT__mu_tensor[1U]));
-        __Vtemp_348[2U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[2U] 
+        __Vtemp_336[2U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[2U] 
                             & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[2U]) 
                            | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[2U]) 
                               & vlSelf->__PVT__dut__DOT__mu_tensor[2U]));
-        __Vtemp_348[3U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[3U] 
+        __Vtemp_336[3U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[3U] 
                             & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[3U]) 
                            | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[3U]) 
                               & vlSelf->__PVT__dut__DOT__mu_tensor[3U]));
-        __Vtemp_348[4U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[4U] 
+        __Vtemp_336[4U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[4U] 
                             & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[4U]) 
                            | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[4U]) 
                               & vlSelf->__PVT__dut__DOT__mu_tensor[4U]));
-        __Vtemp_348[5U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[5U] 
+        __Vtemp_336[5U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[5U] 
                             & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[5U]) 
                            | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[5U]) 
                               & vlSelf->__PVT__dut__DOT__mu_tensor[5U]));
-        __Vtemp_348[6U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[6U] 
+        __Vtemp_336[6U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[6U] 
                             & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[6U]) 
                            | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[6U]) 
                               & vlSelf->__PVT__dut__DOT__mu_tensor[6U]));
-        __Vtemp_348[7U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[7U] 
+        __Vtemp_336[7U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[7U] 
                             & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[7U]) 
                            | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[7U]) 
                               & vlSelf->__PVT__dut__DOT__mu_tensor[7U]));
-        __Vtemp_348[8U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[8U] 
+        __Vtemp_336[8U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[8U] 
                             & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[8U]) 
                            | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[8U]) 
                               & vlSelf->__PVT__dut__DOT__mu_tensor[8U]));
-        __Vtemp_348[9U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[9U] 
+        __Vtemp_336[9U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[9U] 
                             & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[9U]) 
                            | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[9U]) 
                               & vlSelf->__PVT__dut__DOT__mu_tensor[9U]));
-        __Vtemp_348[0xaU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xaU] 
+        __Vtemp_336[0xaU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xaU] 
                               & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[0xaU]) 
                              | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xaU]) 
                                 & vlSelf->__PVT__dut__DOT__mu_tensor[0xaU]));
-        __Vtemp_348[0xbU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xbU] 
+        __Vtemp_336[0xbU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xbU] 
                               & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[0xbU]) 
                              | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xbU]) 
                                 & vlSelf->__PVT__dut__DOT__mu_tensor[0xbU]));
-        __Vtemp_348[0xcU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xcU] 
+        __Vtemp_336[0xcU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xcU] 
                               & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[0xcU]) 
                              | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xcU]) 
                                 & vlSelf->__PVT__dut__DOT__mu_tensor[0xcU]));
-        __Vtemp_348[0xdU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xdU] 
+        __Vtemp_336[0xdU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xdU] 
                               & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[0xdU]) 
                              | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xdU]) 
                                 & vlSelf->__PVT__dut__DOT__mu_tensor[0xdU]));
-        __Vtemp_348[0xeU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xeU] 
+        __Vtemp_336[0xeU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xeU] 
                               & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[0xeU]) 
                              | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xeU]) 
                                 & vlSelf->__PVT__dut__DOT__mu_tensor[0xeU]));
-        __Vtemp_348[0xfU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xfU] 
+        __Vtemp_336[0xfU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xfU] 
                               & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[0xfU]) 
                              | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xfU]) 
                                 & vlSelf->__PVT__dut__DOT__mu_tensor[0xfU]));
@@ -5211,27 +5290,27 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
                                                   | ((~ 
                                                       vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0U]) 
                                                      & vlSelf->__PVT__dut__DOT__mu_tensor[0U]));
-        vlSelf->__PVT__dut__DOT__mu_tensor[1U] = __Vtemp_348[1U];
-        vlSelf->__PVT__dut__DOT__mu_tensor[2U] = __Vtemp_348[2U];
-        vlSelf->__PVT__dut__DOT__mu_tensor[3U] = __Vtemp_348[3U];
-        vlSelf->__PVT__dut__DOT__mu_tensor[4U] = __Vtemp_348[4U];
-        vlSelf->__PVT__dut__DOT__mu_tensor[5U] = __Vtemp_348[5U];
-        vlSelf->__PVT__dut__DOT__mu_tensor[6U] = __Vtemp_348[6U];
-        vlSelf->__PVT__dut__DOT__mu_tensor[7U] = __Vtemp_348[7U];
-        vlSelf->__PVT__dut__DOT__mu_tensor[8U] = __Vtemp_348[8U];
-        vlSelf->__PVT__dut__DOT__mu_tensor[9U] = __Vtemp_348[9U];
+        vlSelf->__PVT__dut__DOT__mu_tensor[1U] = __Vtemp_336[1U];
+        vlSelf->__PVT__dut__DOT__mu_tensor[2U] = __Vtemp_336[2U];
+        vlSelf->__PVT__dut__DOT__mu_tensor[3U] = __Vtemp_336[3U];
+        vlSelf->__PVT__dut__DOT__mu_tensor[4U] = __Vtemp_336[4U];
+        vlSelf->__PVT__dut__DOT__mu_tensor[5U] = __Vtemp_336[5U];
+        vlSelf->__PVT__dut__DOT__mu_tensor[6U] = __Vtemp_336[6U];
+        vlSelf->__PVT__dut__DOT__mu_tensor[7U] = __Vtemp_336[7U];
+        vlSelf->__PVT__dut__DOT__mu_tensor[8U] = __Vtemp_336[8U];
+        vlSelf->__PVT__dut__DOT__mu_tensor[9U] = __Vtemp_336[9U];
         vlSelf->__PVT__dut__DOT__mu_tensor[0xaU] = 
-            __Vtemp_348[0xaU];
+            __Vtemp_336[0xaU];
         vlSelf->__PVT__dut__DOT__mu_tensor[0xbU] = 
-            __Vtemp_348[0xbU];
+            __Vtemp_336[0xbU];
         vlSelf->__PVT__dut__DOT__mu_tensor[0xcU] = 
-            __Vtemp_348[0xcU];
+            __Vtemp_336[0xcU];
         vlSelf->__PVT__dut__DOT__mu_tensor[0xdU] = 
-            __Vtemp_348[0xdU];
+            __Vtemp_336[0xdU];
         vlSelf->__PVT__dut__DOT__mu_tensor[0xeU] = 
-            __Vtemp_348[0xeU];
+            __Vtemp_336[0xeU];
         vlSelf->__PVT__dut__DOT__mu_tensor[0xfU] = 
-            __Vtemp_348[0xfU];
+            __Vtemp_336[0xfU];
         vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0U] 
             = Vthiele_cpu_kami_tb__ConstPool__CONST_h93e1b771_0[0U];
         vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[1U] 
@@ -5266,122 +5345,118 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
             = Vthiele_cpu_kami_tb__ConstPool__CONST_h93e1b771_0[0xfU];
     }
     if ((0U != vlSelf->__PVT__init_pt_en)) {
-        __Vtask_release_pt_word__4__idx = vlSelf->__PVT__init_pt_idx;
-        if (((((((((0U == __Vtask_release_pt_word__4__idx) 
-                   | (1U == __Vtask_release_pt_word__4__idx)) 
-                  | (2U == __Vtask_release_pt_word__4__idx)) 
-                 | (3U == __Vtask_release_pt_word__4__idx)) 
-                | (4U == __Vtask_release_pt_word__4__idx)) 
-               | (5U == __Vtask_release_pt_word__4__idx)) 
-              | (6U == __Vtask_release_pt_word__4__idx)) 
-             | (7U == __Vtask_release_pt_word__4__idx))) {
-            if ((0U == __Vtask_release_pt_word__4__idx)) {
-                vlSelf->__PVT__dut__DOT__pt0 = ((vlSelf->__PVT__dut__DOT__pt0__VforceEn 
-                                                 & vlSelf->__PVT__dut__DOT__pt0__VforceVal) 
-                                                | ((~ vlSelf->__PVT__dut__DOT__pt0__VforceEn) 
-                                                   & vlSelf->__PVT__dut__DOT__pt0));
-                vlSelf->__PVT__dut__DOT__pt0__VforceEn = 0U;
-            } else if ((1U == __Vtask_release_pt_word__4__idx)) {
-                vlSelf->__PVT__dut__DOT__pt1 = ((vlSelf->__PVT__dut__DOT__pt1__VforceEn 
-                                                 & vlSelf->__PVT__dut__DOT__pt1__VforceVal) 
-                                                | ((~ vlSelf->__PVT__dut__DOT__pt1__VforceEn) 
-                                                   & vlSelf->__PVT__dut__DOT__pt1));
-                vlSelf->__PVT__dut__DOT__pt1__VforceEn = 0U;
-            } else if ((2U == __Vtask_release_pt_word__4__idx)) {
-                vlSelf->__PVT__dut__DOT__pt2 = ((vlSelf->__PVT__dut__DOT__pt2__VforceEn 
-                                                 & vlSelf->__PVT__dut__DOT__pt2__VforceVal) 
-                                                | ((~ vlSelf->__PVT__dut__DOT__pt2__VforceEn) 
-                                                   & vlSelf->__PVT__dut__DOT__pt2));
-                vlSelf->__PVT__dut__DOT__pt2__VforceEn = 0U;
-            } else if ((3U == __Vtask_release_pt_word__4__idx)) {
-                vlSelf->__PVT__dut__DOT__pt3 = ((vlSelf->__PVT__dut__DOT__pt3__VforceEn 
-                                                 & vlSelf->__PVT__dut__DOT__pt3__VforceVal) 
-                                                | ((~ vlSelf->__PVT__dut__DOT__pt3__VforceEn) 
-                                                   & vlSelf->__PVT__dut__DOT__pt3));
-                vlSelf->__PVT__dut__DOT__pt3__VforceEn = 0U;
-            } else if ((4U == __Vtask_release_pt_word__4__idx)) {
-                vlSelf->__PVT__dut__DOT__pt4 = ((vlSelf->__PVT__dut__DOT__pt4__VforceEn 
-                                                 & vlSelf->__PVT__dut__DOT__pt4__VforceVal) 
-                                                | ((~ vlSelf->__PVT__dut__DOT__pt4__VforceEn) 
-                                                   & vlSelf->__PVT__dut__DOT__pt4));
-                vlSelf->__PVT__dut__DOT__pt4__VforceEn = 0U;
-            } else if ((5U == __Vtask_release_pt_word__4__idx)) {
-                vlSelf->__PVT__dut__DOT__pt5 = ((vlSelf->__PVT__dut__DOT__pt5__VforceEn 
-                                                 & vlSelf->__PVT__dut__DOT__pt5__VforceVal) 
-                                                | ((~ vlSelf->__PVT__dut__DOT__pt5__VforceEn) 
-                                                   & vlSelf->__PVT__dut__DOT__pt5));
-                vlSelf->__PVT__dut__DOT__pt5__VforceEn = 0U;
-            } else if ((6U == __Vtask_release_pt_word__4__idx)) {
-                vlSelf->__PVT__dut__DOT__pt6 = ((vlSelf->__PVT__dut__DOT__pt6__VforceEn 
-                                                 & vlSelf->__PVT__dut__DOT__pt6__VforceVal) 
-                                                | ((~ vlSelf->__PVT__dut__DOT__pt6__VforceEn) 
-                                                   & vlSelf->__PVT__dut__DOT__pt6));
-                vlSelf->__PVT__dut__DOT__pt6__VforceEn = 0U;
-            } else {
-                vlSelf->__PVT__dut__DOT__pt7 = ((vlSelf->__PVT__dut__DOT__pt7__VforceEn 
-                                                 & vlSelf->__PVT__dut__DOT__pt7__VforceVal) 
-                                                | ((~ vlSelf->__PVT__dut__DOT__pt7__VforceEn) 
-                                                   & vlSelf->__PVT__dut__DOT__pt7));
-                vlSelf->__PVT__dut__DOT__pt7__VforceEn = 0U;
-            }
-        } else if (((((((((8U == __Vtask_release_pt_word__4__idx) 
-                          | (9U == __Vtask_release_pt_word__4__idx)) 
-                         | (0xaU == __Vtask_release_pt_word__4__idx)) 
-                        | (0xbU == __Vtask_release_pt_word__4__idx)) 
-                       | (0xcU == __Vtask_release_pt_word__4__idx)) 
-                      | (0xdU == __Vtask_release_pt_word__4__idx)) 
-                     | (0xeU == __Vtask_release_pt_word__4__idx)) 
-                    | (0xfU == __Vtask_release_pt_word__4__idx))) {
-            if ((8U == __Vtask_release_pt_word__4__idx)) {
-                vlSelf->__PVT__dut__DOT__pt8 = ((vlSelf->__PVT__dut__DOT__pt8__VforceEn 
-                                                 & vlSelf->__PVT__dut__DOT__pt8__VforceVal) 
-                                                | ((~ vlSelf->__PVT__dut__DOT__pt8__VforceEn) 
-                                                   & vlSelf->__PVT__dut__DOT__pt8));
-                vlSelf->__PVT__dut__DOT__pt8__VforceEn = 0U;
-            } else if ((9U == __Vtask_release_pt_word__4__idx)) {
-                vlSelf->__PVT__dut__DOT__pt9 = ((vlSelf->__PVT__dut__DOT__pt9__VforceEn 
-                                                 & vlSelf->__PVT__dut__DOT__pt9__VforceVal) 
-                                                | ((~ vlSelf->__PVT__dut__DOT__pt9__VforceEn) 
-                                                   & vlSelf->__PVT__dut__DOT__pt9));
-                vlSelf->__PVT__dut__DOT__pt9__VforceEn = 0U;
-            } else if ((0xaU == __Vtask_release_pt_word__4__idx)) {
-                vlSelf->__PVT__dut__DOT__pt10 = ((vlSelf->__PVT__dut__DOT__pt10__VforceEn 
-                                                  & vlSelf->__PVT__dut__DOT__pt10__VforceVal) 
-                                                 | ((~ vlSelf->__PVT__dut__DOT__pt10__VforceEn) 
-                                                    & vlSelf->__PVT__dut__DOT__pt10));
-                vlSelf->__PVT__dut__DOT__pt10__VforceEn = 0U;
-            } else if ((0xbU == __Vtask_release_pt_word__4__idx)) {
-                vlSelf->__PVT__dut__DOT__pt11 = ((vlSelf->__PVT__dut__DOT__pt11__VforceEn 
-                                                  & vlSelf->__PVT__dut__DOT__pt11__VforceVal) 
-                                                 | ((~ vlSelf->__PVT__dut__DOT__pt11__VforceEn) 
-                                                    & vlSelf->__PVT__dut__DOT__pt11));
-                vlSelf->__PVT__dut__DOT__pt11__VforceEn = 0U;
-            } else if ((0xcU == __Vtask_release_pt_word__4__idx)) {
-                vlSelf->__PVT__dut__DOT__pt12 = ((vlSelf->__PVT__dut__DOT__pt12__VforceEn 
-                                                  & vlSelf->__PVT__dut__DOT__pt12__VforceVal) 
-                                                 | ((~ vlSelf->__PVT__dut__DOT__pt12__VforceEn) 
-                                                    & vlSelf->__PVT__dut__DOT__pt12));
-                vlSelf->__PVT__dut__DOT__pt12__VforceEn = 0U;
-            } else if ((0xdU == __Vtask_release_pt_word__4__idx)) {
-                vlSelf->__PVT__dut__DOT__pt13 = ((vlSelf->__PVT__dut__DOT__pt13__VforceEn 
-                                                  & vlSelf->__PVT__dut__DOT__pt13__VforceVal) 
-                                                 | ((~ vlSelf->__PVT__dut__DOT__pt13__VforceEn) 
-                                                    & vlSelf->__PVT__dut__DOT__pt13));
-                vlSelf->__PVT__dut__DOT__pt13__VforceEn = 0U;
-            } else if ((0xeU == __Vtask_release_pt_word__4__idx)) {
-                vlSelf->__PVT__dut__DOT__pt14 = ((vlSelf->__PVT__dut__DOT__pt14__VforceEn 
-                                                  & vlSelf->__PVT__dut__DOT__pt14__VforceVal) 
-                                                 | ((~ vlSelf->__PVT__dut__DOT__pt14__VforceEn) 
-                                                    & vlSelf->__PVT__dut__DOT__pt14));
-                vlSelf->__PVT__dut__DOT__pt14__VforceEn = 0U;
-            } else {
-                vlSelf->__PVT__dut__DOT__pt15 = ((vlSelf->__PVT__dut__DOT__pt15__VforceEn 
-                                                  & vlSelf->__PVT__dut__DOT__pt15__VforceVal) 
-                                                 | ((~ vlSelf->__PVT__dut__DOT__pt15__VforceEn) 
-                                                    & vlSelf->__PVT__dut__DOT__pt15));
-                vlSelf->__PVT__dut__DOT__pt15__VforceEn = 0U;
-            }
-        }
+        __Vtemp_332[1U] = ((vlSelf->__PVT__dut__DOT__ptTable__VforceEn[1U] 
+                            & vlSelf->__PVT__dut__DOT__ptTable__VforceVal[1U]) 
+                           | ((~ vlSelf->__PVT__dut__DOT__ptTable__VforceEn[1U]) 
+                              & vlSelf->__PVT__dut__DOT__ptTable[1U]));
+        __Vtemp_332[2U] = ((vlSelf->__PVT__dut__DOT__ptTable__VforceEn[2U] 
+                            & vlSelf->__PVT__dut__DOT__ptTable__VforceVal[2U]) 
+                           | ((~ vlSelf->__PVT__dut__DOT__ptTable__VforceEn[2U]) 
+                              & vlSelf->__PVT__dut__DOT__ptTable[2U]));
+        __Vtemp_332[3U] = ((vlSelf->__PVT__dut__DOT__ptTable__VforceEn[3U] 
+                            & vlSelf->__PVT__dut__DOT__ptTable__VforceVal[3U]) 
+                           | ((~ vlSelf->__PVT__dut__DOT__ptTable__VforceEn[3U]) 
+                              & vlSelf->__PVT__dut__DOT__ptTable[3U]));
+        __Vtemp_332[4U] = ((vlSelf->__PVT__dut__DOT__ptTable__VforceEn[4U] 
+                            & vlSelf->__PVT__dut__DOT__ptTable__VforceVal[4U]) 
+                           | ((~ vlSelf->__PVT__dut__DOT__ptTable__VforceEn[4U]) 
+                              & vlSelf->__PVT__dut__DOT__ptTable[4U]));
+        __Vtemp_332[5U] = ((vlSelf->__PVT__dut__DOT__ptTable__VforceEn[5U] 
+                            & vlSelf->__PVT__dut__DOT__ptTable__VforceVal[5U]) 
+                           | ((~ vlSelf->__PVT__dut__DOT__ptTable__VforceEn[5U]) 
+                              & vlSelf->__PVT__dut__DOT__ptTable[5U]));
+        __Vtemp_332[6U] = ((vlSelf->__PVT__dut__DOT__ptTable__VforceEn[6U] 
+                            & vlSelf->__PVT__dut__DOT__ptTable__VforceVal[6U]) 
+                           | ((~ vlSelf->__PVT__dut__DOT__ptTable__VforceEn[6U]) 
+                              & vlSelf->__PVT__dut__DOT__ptTable[6U]));
+        __Vtemp_332[7U] = ((vlSelf->__PVT__dut__DOT__ptTable__VforceEn[7U] 
+                            & vlSelf->__PVT__dut__DOT__ptTable__VforceVal[7U]) 
+                           | ((~ vlSelf->__PVT__dut__DOT__ptTable__VforceEn[7U]) 
+                              & vlSelf->__PVT__dut__DOT__ptTable[7U]));
+        __Vtemp_332[8U] = ((vlSelf->__PVT__dut__DOT__ptTable__VforceEn[8U] 
+                            & vlSelf->__PVT__dut__DOT__ptTable__VforceVal[8U]) 
+                           | ((~ vlSelf->__PVT__dut__DOT__ptTable__VforceEn[8U]) 
+                              & vlSelf->__PVT__dut__DOT__ptTable[8U]));
+        __Vtemp_332[9U] = ((vlSelf->__PVT__dut__DOT__ptTable__VforceEn[9U] 
+                            & vlSelf->__PVT__dut__DOT__ptTable__VforceVal[9U]) 
+                           | ((~ vlSelf->__PVT__dut__DOT__ptTable__VforceEn[9U]) 
+                              & vlSelf->__PVT__dut__DOT__ptTable[9U]));
+        __Vtemp_332[0xaU] = ((vlSelf->__PVT__dut__DOT__ptTable__VforceEn[0xaU] 
+                              & vlSelf->__PVT__dut__DOT__ptTable__VforceVal[0xaU]) 
+                             | ((~ vlSelf->__PVT__dut__DOT__ptTable__VforceEn[0xaU]) 
+                                & vlSelf->__PVT__dut__DOT__ptTable[0xaU]));
+        __Vtemp_332[0xbU] = ((vlSelf->__PVT__dut__DOT__ptTable__VforceEn[0xbU] 
+                              & vlSelf->__PVT__dut__DOT__ptTable__VforceVal[0xbU]) 
+                             | ((~ vlSelf->__PVT__dut__DOT__ptTable__VforceEn[0xbU]) 
+                                & vlSelf->__PVT__dut__DOT__ptTable[0xbU]));
+        __Vtemp_332[0xcU] = ((vlSelf->__PVT__dut__DOT__ptTable__VforceEn[0xcU] 
+                              & vlSelf->__PVT__dut__DOT__ptTable__VforceVal[0xcU]) 
+                             | ((~ vlSelf->__PVT__dut__DOT__ptTable__VforceEn[0xcU]) 
+                                & vlSelf->__PVT__dut__DOT__ptTable[0xcU]));
+        __Vtemp_332[0xdU] = ((vlSelf->__PVT__dut__DOT__ptTable__VforceEn[0xdU] 
+                              & vlSelf->__PVT__dut__DOT__ptTable__VforceVal[0xdU]) 
+                             | ((~ vlSelf->__PVT__dut__DOT__ptTable__VforceEn[0xdU]) 
+                                & vlSelf->__PVT__dut__DOT__ptTable[0xdU]));
+        __Vtemp_332[0xeU] = ((vlSelf->__PVT__dut__DOT__ptTable__VforceEn[0xeU] 
+                              & vlSelf->__PVT__dut__DOT__ptTable__VforceVal[0xeU]) 
+                             | ((~ vlSelf->__PVT__dut__DOT__ptTable__VforceEn[0xeU]) 
+                                & vlSelf->__PVT__dut__DOT__ptTable[0xeU]));
+        __Vtemp_332[0xfU] = ((vlSelf->__PVT__dut__DOT__ptTable__VforceEn[0xfU] 
+                              & vlSelf->__PVT__dut__DOT__ptTable__VforceVal[0xfU]) 
+                             | ((~ vlSelf->__PVT__dut__DOT__ptTable__VforceEn[0xfU]) 
+                                & vlSelf->__PVT__dut__DOT__ptTable[0xfU]));
+        vlSelf->__PVT__dut__DOT__ptTable[0U] = ((vlSelf->__PVT__dut__DOT__ptTable__VforceEn[0U] 
+                                                 & vlSelf->__PVT__dut__DOT__ptTable__VforceVal[0U]) 
+                                                | ((~ 
+                                                    vlSelf->__PVT__dut__DOT__ptTable__VforceEn[0U]) 
+                                                   & vlSelf->__PVT__dut__DOT__ptTable[0U]));
+        vlSelf->__PVT__dut__DOT__ptTable[1U] = __Vtemp_332[1U];
+        vlSelf->__PVT__dut__DOT__ptTable[2U] = __Vtemp_332[2U];
+        vlSelf->__PVT__dut__DOT__ptTable[3U] = __Vtemp_332[3U];
+        vlSelf->__PVT__dut__DOT__ptTable[4U] = __Vtemp_332[4U];
+        vlSelf->__PVT__dut__DOT__ptTable[5U] = __Vtemp_332[5U];
+        vlSelf->__PVT__dut__DOT__ptTable[6U] = __Vtemp_332[6U];
+        vlSelf->__PVT__dut__DOT__ptTable[7U] = __Vtemp_332[7U];
+        vlSelf->__PVT__dut__DOT__ptTable[8U] = __Vtemp_332[8U];
+        vlSelf->__PVT__dut__DOT__ptTable[9U] = __Vtemp_332[9U];
+        vlSelf->__PVT__dut__DOT__ptTable[0xaU] = __Vtemp_332[0xaU];
+        vlSelf->__PVT__dut__DOT__ptTable[0xbU] = __Vtemp_332[0xbU];
+        vlSelf->__PVT__dut__DOT__ptTable[0xcU] = __Vtemp_332[0xcU];
+        vlSelf->__PVT__dut__DOT__ptTable[0xdU] = __Vtemp_332[0xdU];
+        vlSelf->__PVT__dut__DOT__ptTable[0xeU] = __Vtemp_332[0xeU];
+        vlSelf->__PVT__dut__DOT__ptTable[0xfU] = __Vtemp_332[0xfU];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[0U] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h93e1b771_0[0U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[1U] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h93e1b771_0[1U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[2U] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h93e1b771_0[2U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[3U] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h93e1b771_0[3U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[4U] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h93e1b771_0[4U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[5U] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h93e1b771_0[5U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[6U] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h93e1b771_0[6U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[7U] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h93e1b771_0[7U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[8U] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h93e1b771_0[8U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[9U] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h93e1b771_0[9U];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[0xaU] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h93e1b771_0[0xaU];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[0xbU] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h93e1b771_0[0xbU];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[0xcU] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h93e1b771_0[0xcU];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[0xdU] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h93e1b771_0[0xdU];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[0xeU] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h93e1b771_0[0xeU];
+        vlSelf->__PVT__dut__DOT__ptTable__VforceEn[0xfU] 
+            = Vthiele_cpu_kami_tb__ConstPool__CONST_h93e1b771_0[0xfU];
     }
     if ((0U != vlSelf->__PVT__init_active_module_en)) {
         vlSelf->__PVT__dut__DOT__active_module = (((IData)(vlSelf->__PVT__dut__DOT__active_module__VforceEn) 
@@ -7917,9 +7992,11 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
                             ? 3U : 0U)),32,vlSelf->__PVT__error_code_out,
               32,vlSelf->__PVT__partition_ops_out,32,
               vlSelf->__PVT__mdl_ops_out,32,vlSelf->__PVT__info_gain_out,
-              32,vlSelf->__PVT__mu_out,32,vlSelf->__PVT__dut__DOT__x___05Fh127960,
-              32,vlSelf->__PVT__mu_tensor_1,32,vlSelf->__PVT__mu_tensor_2,
-              32,vlSelf->__PVT__mu_tensor_3,1,(IData)(vlSelf->__PVT__dut__DOT__mu_ULT_mu_tensor_BITS_31_TO_0_PLUS_mu_tensor_B_ETC___05F_d39),
+              32,vlSelf->__PVT__mu_out,32,vlSelf->__PVT__dut__DOT__x_21___05Fh134402,
+              32,vlSelf->__PVT__dut__DOT__x_22___05Fh134403,
+              32,vlSelf->__PVT__dut__DOT__x_23___05Fh134404,
+              32,vlSelf->__PVT__dut__DOT__x_24___05Fh134405,
+              1,(IData)(vlSelf->__PVT__dut__DOT__mu_ULT_mu_tensor_BITS_31_TO_0_PLUS_mu_tensor_B_ETC___05F_d39),
               32,vlSelf->__PVT__cycle_count,32,vlSelf->__PVT__pc_out,
               1,(IData)(vlSelf->__PVT__err_out),1,vlSelf->__PVT__dut__DOT__logic_stall__VforceRd,
               1,(IData)(vlSelf->logic_req_valid_out),

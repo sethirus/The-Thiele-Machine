@@ -648,9 +648,10 @@ Proof.
   apply (all_ids_below_implies_lookup_none _ _ _ Hwf Hge).
 Qed.
 
-(** Architecture constants (matches Python state.py and RTL thiele_cpu_unified.v) *)
+(** Architecture constants. NOTE: MEM_SIZE=4096 for software VMs (Coq/OCaml/Python).
+    The Verilog RTL stays at 256 words; addresses ≥ 256 are inaccessible via RTL. *)
 Definition REG_COUNT : nat := 32.
-Definition MEM_SIZE : nat := 256.
+Definition MEM_SIZE : nat := 4096.
 Definition NUM_MODULES : nat := 64.  (* Maximum number of concurrent modules *)
 Definition REGION_SIZE : nat := 16.  (* Maximum region size (YOSYS_LITE synthesis config) *)
 
@@ -740,23 +741,33 @@ Definition graph_pmerge (g : PartitionGraph) (m1 m2 : ModuleID)
 Record CSRState := {
   csr_cert_addr : nat;
   csr_status : nat;
-  csr_err : nat
+  csr_err : nat;
+  csr_heap_base : nat
 }.
 
 Definition csr_set_status (csrs : CSRState) (status : nat) : CSRState :=
   {| csr_cert_addr := csrs.(csr_cert_addr);
      csr_status := status;
-     csr_err := csrs.(csr_err) |}.
+     csr_err := csrs.(csr_err);
+     csr_heap_base := csrs.(csr_heap_base) |}.
 
 Definition csr_set_err (csrs : CSRState) (err : nat) : CSRState :=
   {| csr_cert_addr := csrs.(csr_cert_addr);
      csr_status := csrs.(csr_status);
-     csr_err := err |}.
+     csr_err := err;
+     csr_heap_base := csrs.(csr_heap_base) |}.
 
 Definition csr_set_cert_addr (csrs : CSRState) (addr : nat) : CSRState :=
   {| csr_cert_addr := addr;
      csr_status := csrs.(csr_status);
-     csr_err := csrs.(csr_err) |}.
+     csr_err := csrs.(csr_err);
+     csr_heap_base := csrs.(csr_heap_base) |}.
+
+Definition csr_set_heap_base (csrs : CSRState) (base : nat) : CSRState :=
+  {| csr_cert_addr := csrs.(csr_cert_addr);
+     csr_status := csrs.(csr_status);
+     csr_err := csrs.(csr_err);
+     csr_heap_base := base |}.
 
 (** Accessors for CSR fields (matches Python/RTL naming) *)
 Definition cert_addr (csrs : CSRState) : nat := csrs.(csr_cert_addr).
@@ -795,8 +806,8 @@ Definition partitions (g : PartitionGraph) : list (ModuleID * ModuleState) := g.
     - Python: thielecpu/state.py VMState dataclass
     - Verilog: thielecpu/hardware/rtl/state_regs.v (distributed across registers)
 
-    SIZES: REG_COUNT=32, MEM_SIZE=256 defined below. Not arbitrary - matched
-    across all three layers for deterministic wraparound behavior.
+    SIZES: REG_COUNT=32, MEM_SIZE=4096 for software VMs (Coq/OCaml/Python).
+    The Verilog RTL retains MEM_SIZE=256; addresses ≥ 256 are inaccessible from RTL.
 
     FALSIFICATION: If any valid step decreases vm_mu, μ-monotonicity is violated.
     If state is incomplete, step function is undefined. Proofs won't compile.

@@ -24,6 +24,35 @@ void Vthiele_cpu_kami_tb___024root___eval_initial(Vthiele_cpu_kami_tb___024root*
 }
 
 #ifdef VL_DEBUG
+VL_ATTR_COLD void Vthiele_cpu_kami_tb___024root___dump_triggers__ico(Vthiele_cpu_kami_tb___024root* vlSelf);
+#endif  // VL_DEBUG
+
+void Vthiele_cpu_kami_tb___024root___eval_triggers__ico(Vthiele_cpu_kami_tb___024root* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    Vthiele_cpu_kami_tb__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vthiele_cpu_kami_tb___024root___eval_triggers__ico\n"); );
+    // Body
+    vlSelf->__VicoTriggered.set(0U, (IData)(vlSelf->__VicoFirstIteration));
+#ifdef VL_DEBUG
+    if (VL_UNLIKELY(vlSymsp->_vm_contextp__->debug())) {
+        Vthiele_cpu_kami_tb___024root___dump_triggers__ico(vlSelf);
+    }
+#endif
+}
+
+void Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___ico_sequent__TOP__thiele_cpu_kami_tb__0(Vthiele_cpu_kami_tb_thiele_cpu_kami_tb* vlSelf);
+
+void Vthiele_cpu_kami_tb___024root___eval_ico(Vthiele_cpu_kami_tb___024root* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    Vthiele_cpu_kami_tb__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vthiele_cpu_kami_tb___024root___eval_ico\n"); );
+    // Body
+    if ((1ULL & vlSelf->__VicoTriggered.word(0U))) {
+        Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___ico_sequent__TOP__thiele_cpu_kami_tb__0((&vlSymsp->TOP__thiele_cpu_kami_tb));
+    }
+}
+
+#ifdef VL_DEBUG
 VL_ATTR_COLD void Vthiele_cpu_kami_tb___024root___dump_triggers__act(Vthiele_cpu_kami_tb___024root* vlSelf);
 #endif  // VL_DEBUG
 
@@ -49,6 +78,7 @@ void Vthiele_cpu_kami_tb___024root___eval_triggers__act(Vthiele_cpu_kami_tb___02
 void Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___act_comb__TOP__thiele_cpu_kami_tb__0(Vthiele_cpu_kami_tb_thiele_cpu_kami_tb* vlSelf);
 void Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___act_comb__TOP__thiele_cpu_kami_tb__1(Vthiele_cpu_kami_tb_thiele_cpu_kami_tb* vlSelf);
 void Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___act_comb__TOP__thiele_cpu_kami_tb__2(Vthiele_cpu_kami_tb_thiele_cpu_kami_tb* vlSelf);
+void Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___act_comb__TOP__thiele_cpu_kami_tb__3(Vthiele_cpu_kami_tb_thiele_cpu_kami_tb* vlSelf);
 
 void Vthiele_cpu_kami_tb___024root___eval_act(Vthiele_cpu_kami_tb___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
@@ -60,11 +90,13 @@ void Vthiele_cpu_kami_tb___024root___eval_act(Vthiele_cpu_kami_tb___024root* vlS
         vlSelf->__Vm_traceActivity[2U] = 1U;
         Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___act_comb__TOP__thiele_cpu_kami_tb__1((&vlSymsp->TOP__thiele_cpu_kami_tb));
         Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___act_comb__TOP__thiele_cpu_kami_tb__2((&vlSymsp->TOP__thiele_cpu_kami_tb));
+        Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___act_comb__TOP__thiele_cpu_kami_tb__3((&vlSymsp->TOP__thiele_cpu_kami_tb));
     }
 }
 
 void Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___nba_sequent__TOP__thiele_cpu_kami_tb__0(Vthiele_cpu_kami_tb_thiele_cpu_kami_tb* vlSelf);
 void Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___nba_comb__TOP__thiele_cpu_kami_tb__0(Vthiele_cpu_kami_tb_thiele_cpu_kami_tb* vlSelf);
+void Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___nba_comb__TOP__thiele_cpu_kami_tb__1(Vthiele_cpu_kami_tb_thiele_cpu_kami_tb* vlSelf);
 
 void Vthiele_cpu_kami_tb___024root___eval_nba(Vthiele_cpu_kami_tb___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
@@ -78,7 +110,8 @@ void Vthiele_cpu_kami_tb___024root___eval_nba(Vthiele_cpu_kami_tb___024root* vlS
     if ((7ULL & vlSelf->__VnbaTriggered.word(0U))) {
         Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___nba_comb__TOP__thiele_cpu_kami_tb__0((&vlSymsp->TOP__thiele_cpu_kami_tb));
         vlSelf->__Vm_traceActivity[4U] = 1U;
-        Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___act_comb__TOP__thiele_cpu_kami_tb__1((&vlSymsp->TOP__thiele_cpu_kami_tb));
+        Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___nba_comb__TOP__thiele_cpu_kami_tb__1((&vlSymsp->TOP__thiele_cpu_kami_tb));
         Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___act_comb__TOP__thiele_cpu_kami_tb__2((&vlSymsp->TOP__thiele_cpu_kami_tb));
+        Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___act_comb__TOP__thiele_cpu_kami_tb__3((&vlSymsp->TOP__thiele_cpu_kami_tb));
     }
 }

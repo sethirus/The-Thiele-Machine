@@ -19,6 +19,7 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb___024root final : public 
 
     // DESIGN SPECIFIC STATE
     CData/*0:0*/ __VstlFirstIteration;
+    CData/*0:0*/ __VicoFirstIteration;
     CData/*0:0*/ __Vtrigprevexpr___TOP__thiele_cpu_kami_tb____PVT__clk__0;
     CData/*0:0*/ __VactContinue;
     IData/*31:0*/ __VactIterCount;
@@ -27,6 +28,7 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb___024root final : public 
     VlTriggerScheduler __VtrigSched_he4602a19__0;
     VlTriggerScheduler __VtrigSched_he4602ae8__0;
     VlTriggerVec<1> __VstlTriggered;
+    VlTriggerVec<1> __VicoTriggered;
     VlTriggerVec<3> __VactTriggered;
     VlTriggerVec<3> __VnbaTriggered;
 

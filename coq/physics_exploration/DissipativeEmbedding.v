@@ -29,7 +29,7 @@ Definition encoded_modules (l : PhysLattice) : list (ModuleID * ModuleState) :=
 Definition encode_lattice (l : PhysLattice) : VMState :=
   {| vm_graph := {| pg_next_id := S (List.length l);
                     pg_modules := encoded_modules l |};
-     vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0 |};
+     vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0; csr_heap_base := 0 |};
      vm_regs := repeat 0 32;
      vm_mem := repeat 0 256;
      vm_pc := 0;

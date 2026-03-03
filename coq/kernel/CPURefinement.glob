@@ -1,4 +1,4 @@
-DIGEST 5dcc555e02c55dcdfae522db1f7781b0
+DIGEST dfc4af7070c338a3c03c3f572ff03287
 FKernel.CPURefinement
 R419:432 Coq.Lists.List <> <> lib
 R450:467 Coq.Arith.PeanoNat <> <> lib
@@ -70,449 +70,454 @@ R2782:2791 Kernel.VMStep VMStep instr_emit constr
 R2808:2819 Kernel.VMStep VMStep instr_reveal constr
 R2838:2855 Kernel.VMStep VMStep instr_oracle_halts constr
 R2870:2879 Kernel.VMStep VMStep instr_halt constr
-def 2955:2980 CPURefinement simple_execute_instruction
-R2991:3004 Kernel.CPURefinement CPURefinement SimpleCPUState ind
-binder 2987:2987 <> s:7
-R3012:3025 Kernel.VMStep VMStep vm_instruction ind
-binder 3008:3008 <> i:8
-R3030:3043 Kernel.CPURefinement CPURefinement SimpleCPUState ind
-R3056:3056 Kernel.CPURefinement <> s:7 var
-R3067:3075 Kernel.CPURefinement CPURefinement SimpleCPU constr
-R3122:3129 Kernel.SimulationProof <> vm_apply def
-R3140:3140 Kernel.CPURefinement <> i:8 var
-binder 3106:3117 <> new_vm_state:10
-R3171:3199 Kernel.CPURefinement CPURefinement simple_cycles_per_instruction def
-R3201:3201 Kernel.CPURefinement <> i:8 var
-binder 3155:3166 <> instr_cycles:11
-R3212:3220 Kernel.CPURefinement CPURefinement SimpleCPU constr
-R3222:3233 Kernel.CPURefinement <> new_vm_state:10 var
-R3242:3244 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R3245:3256 Kernel.CPURefinement <> instr_cycles:11 var
-rec 3693:3705 CPURefinement PipelineStage
-proj 3729:3739 CPURefinement stage_valid
-proj 3751:3767 CPURefinement stage_instruction
-proj 3796:3806 CPURefinement stage_state
-R3743:3746 Coq.Init.Datatypes <> bool ind
-R3771:3776 Coq.Init.Datatypes <> option ind
-R3778:3791 Kernel.VMStep VMStep vm_instruction ind
-R3810:3816 Kernel.VMState <> VMState rec
-rec 3830:3846 CPURefinement OptimizedCPUState
-proj 3871:3885 CPURefinement opt_fetch_stage
-proj 3906:3921 CPURefinement opt_decode_stage
-proj 3942:3958 CPURefinement opt_execute_stage
-proj 3979:3997 CPURefinement opt_committed_state
-proj 4054:4063 CPURefinement opt_cycles
-proj 4074:4082 CPURefinement opt_stall
-R3889:3901 Kernel.CPURefinement CPURefinement PipelineStage rec
-R3925:3937 Kernel.CPURefinement CPURefinement PipelineStage rec
-R3962:3974 Kernel.CPURefinement CPURefinement PipelineStage rec
-R4001:4007 Kernel.VMState <> VMState rec
-R4067:4069 Coq.Init.Datatypes <> nat ind
-R4086:4089 Coq.Init.Datatypes <> bool ind
-def 4177:4187 CPURefinement empty_stage
-R4194:4200 Kernel.VMState <> VMState rec
-binder 4190:4190 <> s:23
-R4205:4217 Kernel.CPURefinement CPURefinement PipelineStage rec
-R4227:4237 Kernel.CPURefinement CPURefinement stage_valid proj
-R4227:4237 Kernel.CPURefinement CPURefinement stage_valid proj
-R4227:4237 Kernel.CPURefinement CPURefinement stage_valid proj
-R4254:4270 Kernel.CPURefinement CPURefinement stage_instruction proj
-R4254:4270 Kernel.CPURefinement CPURefinement stage_instruction proj
-R4286:4296 Kernel.CPURefinement CPURefinement stage_state proj
-R4286:4296 Kernel.CPURefinement CPURefinement stage_state proj
-R4242:4246 Coq.Init.Datatypes <> false constr
-R4275:4278 Coq.Init.Datatypes <> None constr
-R4301:4301 Kernel.CPURefinement <> s:23 var
-def 4319:4336 CPURefinement init_optimized_cpu
-R4343:4349 Kernel.VMState <> VMState rec
-binder 4339:4339 <> s:24
-R4354:4370 Kernel.CPURefinement CPURefinement OptimizedCPUState rec
-R4380:4394 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
-R4380:4394 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
-R4380:4394 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
-R4419:4434 Kernel.CPURefinement CPURefinement opt_decode_stage proj
-R4419:4434 Kernel.CPURefinement CPURefinement opt_decode_stage proj
-R4459:4475 Kernel.CPURefinement CPURefinement opt_execute_stage proj
-R4459:4475 Kernel.CPURefinement CPURefinement opt_execute_stage proj
-R4500:4518 Kernel.CPURefinement CPURefinement opt_committed_state proj
-R4500:4518 Kernel.CPURefinement CPURefinement opt_committed_state proj
-R4531:4540 Kernel.CPURefinement CPURefinement opt_cycles proj
-R4531:4540 Kernel.CPURefinement CPURefinement opt_cycles proj
-R4553:4561 Kernel.CPURefinement CPURefinement opt_stall proj
-R4553:4561 Kernel.CPURefinement CPURefinement opt_stall proj
-R4399:4409 Kernel.CPURefinement CPURefinement empty_stage def
-R4411:4411 Kernel.CPURefinement <> s:24 var
-R4439:4449 Kernel.CPURefinement CPURefinement empty_stage def
-R4451:4451 Kernel.CPURefinement <> s:24 var
-R4480:4490 Kernel.CPURefinement CPURefinement empty_stage def
-R4492:4492 Kernel.CPURefinement <> s:24 var
-R4523:4523 Kernel.CPURefinement <> s:24 var
-R4566:4570 Coq.Init.Datatypes <> false constr
-def 4630:4639 CPURefinement has_hazard
-R4658:4670 Kernel.CPURefinement CPURefinement PipelineStage rec
-binder 4642:4647 <> stage1:25
-binder 4649:4654 <> stage2:26
-R4675:4678 Coq.Init.Datatypes <> bool ind
-R4848:4851 Coq.Init.Datatypes <> andb def
-R4882:4892 Kernel.CPURefinement CPURefinement stage_valid proj
-R4874:4879 Kernel.CPURefinement <> stage2:26 var
-R4861:4871 Kernel.CPURefinement CPURefinement stage_valid proj
-R4853:4858 Kernel.CPURefinement <> stage1:25 var
-def 4944:4963 CPURefinement optimized_step_cycle
-R4972:4988 Kernel.CPURefinement CPURefinement OptimizedCPUState rec
-binder 4966:4968 <> cpu:27
-R5009:5014 Coq.Init.Datatypes <> option ind
-R5016:5029 Kernel.VMStep VMStep vm_instruction ind
-binder 4996:5005 <> next_instr:28
-R5034:5050 Kernel.CPURefinement CPURefinement OptimizedCPUState rec
-R5065:5073 Kernel.CPURefinement CPURefinement opt_stall proj
-R5060:5062 Kernel.CPURefinement <> cpu:27 var
-R5528:5543 Kernel.CPURefinement CPURefinement opt_decode_stage proj
-R5523:5525 Kernel.CPURefinement <> cpu:27 var
-binder 5511:5518 <> new_exec:29
-R5576:5590 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
-R5571:5573 Kernel.CPURefinement <> cpu:27 var
-binder 5557:5566 <> new_decode:30
-R5629:5638 Kernel.CPURefinement <> next_instr:28 var
-R5653:5656 Coq.Init.Datatypes <> Some constr
-R5666:5676 Kernel.CPURefinement CPURefinement stage_valid proj
-R5666:5676 Kernel.CPURefinement CPURefinement stage_valid proj
-R5666:5676 Kernel.CPURefinement CPURefinement stage_valid proj
-R5708:5724 Kernel.CPURefinement CPURefinement stage_instruction proj
-R5708:5724 Kernel.CPURefinement CPURefinement stage_instruction proj
-R5758:5768 Kernel.CPURefinement CPURefinement stage_state proj
-R5758:5768 Kernel.CPURefinement CPURefinement stage_state proj
-R5681:5684 Coq.Init.Datatypes <> true constr
-R5729:5732 Coq.Init.Datatypes <> Some constr
-R5778:5796 Kernel.CPURefinement CPURefinement opt_committed_state proj
-R5773:5775 Kernel.CPURefinement <> cpu:27 var
-R5810:5813 Coq.Init.Datatypes <> None constr
-R5818:5828 Kernel.CPURefinement CPURefinement empty_stage def
-R5835:5853 Kernel.CPURefinement CPURefinement opt_committed_state proj
-R5830:5832 Kernel.CPURefinement <> cpu:27 var
-binder 5604:5612 <> new_fetch:32
-R5913:5923 Kernel.CPURefinement CPURefinement stage_valid proj
-R5903:5910 Kernel.CPURefinement <> new_exec:29 var
-R6105:6123 Kernel.CPURefinement CPURefinement opt_committed_state proj
-R6100:6102 Kernel.CPURefinement <> cpu:27 var
-R5955:5971 Kernel.CPURefinement CPURefinement stage_instruction proj
-R5945:5952 Kernel.CPURefinement <> new_exec:29 var
-R5989:5992 Coq.Init.Datatypes <> Some constr
-R5999:6006 Kernel.SimulationProof <> vm_apply def
-R6018:6028 Kernel.CPURefinement CPURefinement stage_state proj
-R6008:6015 Kernel.CPURefinement <> new_exec:29 var
-R6043:6046 Coq.Init.Datatypes <> None constr
-R6056:6074 Kernel.CPURefinement CPURefinement opt_committed_state proj
-R6051:6053 Kernel.CPURefinement <> cpu:27 var
-binder 5877:5889 <> new_committed:33
-R6136:6150 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
-R6136:6150 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
-R6136:6150 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
-R6173:6188 Kernel.CPURefinement CPURefinement opt_decode_stage proj
-R6173:6188 Kernel.CPURefinement CPURefinement opt_decode_stage proj
-R6212:6228 Kernel.CPURefinement CPURefinement opt_execute_stage proj
-R6212:6228 Kernel.CPURefinement CPURefinement opt_execute_stage proj
-R6250:6268 Kernel.CPURefinement CPURefinement opt_committed_state proj
-R6250:6268 Kernel.CPURefinement CPURefinement opt_committed_state proj
-R6295:6304 Kernel.CPURefinement CPURefinement opt_cycles proj
-R6295:6304 Kernel.CPURefinement CPURefinement opt_cycles proj
-R6336:6344 Kernel.CPURefinement CPURefinement opt_stall proj
-R6336:6344 Kernel.CPURefinement CPURefinement opt_stall proj
-R6155:6163 Kernel.CPURefinement <> new_fetch:32 var
-R6193:6202 Kernel.CPURefinement <> new_decode:30 var
-R6233:6240 Kernel.CPURefinement <> new_exec:29 var
-R6273:6285 Kernel.CPURefinement <> new_committed:33 var
-R6309:6309 Coq.Init.Datatypes <> S constr
-R6316:6325 Kernel.CPURefinement CPURefinement opt_cycles proj
-R6311:6313 Kernel.CPURefinement <> cpu:27 var
-R6349:6358 Kernel.CPURefinement CPURefinement has_hazard def
-R6360:6369 Kernel.CPURefinement <> new_decode:30 var
-R6371:6378 Kernel.CPURefinement <> new_exec:29 var
-R5130:5144 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
-R5130:5144 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
-R5130:5144 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
-R5179:5194 Kernel.CPURefinement CPURefinement opt_decode_stage proj
-R5179:5194 Kernel.CPURefinement CPURefinement opt_decode_stage proj
-R5230:5246 Kernel.CPURefinement CPURefinement opt_execute_stage proj
-R5230:5246 Kernel.CPURefinement CPURefinement opt_execute_stage proj
-R5283:5301 Kernel.CPURefinement CPURefinement opt_committed_state proj
-R5283:5301 Kernel.CPURefinement CPURefinement opt_committed_state proj
-R5340:5349 Kernel.CPURefinement CPURefinement opt_cycles proj
-R5340:5349 Kernel.CPURefinement CPURefinement opt_cycles proj
-R5381:5389 Kernel.CPURefinement CPURefinement opt_stall proj
-R5381:5389 Kernel.CPURefinement CPURefinement opt_stall proj
-R5154:5168 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
-R5149:5151 Kernel.CPURefinement <> cpu:27 var
-R5204:5219 Kernel.CPURefinement CPURefinement opt_decode_stage proj
-R5199:5201 Kernel.CPURefinement <> cpu:27 var
-R5256:5272 Kernel.CPURefinement CPURefinement opt_execute_stage proj
-R5251:5253 Kernel.CPURefinement <> cpu:27 var
-R5311:5329 Kernel.CPURefinement CPURefinement opt_committed_state proj
-R5306:5308 Kernel.CPURefinement <> cpu:27 var
-R5354:5354 Coq.Init.Datatypes <> S constr
-R5361:5370 Kernel.CPURefinement CPURefinement opt_cycles proj
-R5356:5358 Kernel.CPURefinement <> cpu:27 var
-R5394:5397 Coq.Init.Datatypes <> negb def
-R5400:5409 Kernel.CPURefinement CPURefinement has_hazard def
-R5416:5431 Kernel.CPURefinement CPURefinement opt_decode_stage proj
+R2892:2907 Kernel.VMStep VMStep instr_checkpoint constr
+R2922:2936 Kernel.VMStep VMStep instr_read_port constr
+R2957:2972 Kernel.VMStep VMStep instr_write_port constr
+R2989:3003 Kernel.VMStep VMStep instr_heap_load constr
+R3020:3035 Kernel.VMStep VMStep instr_heap_store constr
+def 3115:3140 CPURefinement simple_execute_instruction
+R3151:3164 Kernel.CPURefinement CPURefinement SimpleCPUState ind
+binder 3147:3147 <> s:7
+R3172:3185 Kernel.VMStep VMStep vm_instruction ind
+binder 3168:3168 <> i:8
+R3190:3203 Kernel.CPURefinement CPURefinement SimpleCPUState ind
+R3216:3216 Kernel.CPURefinement <> s:7 var
+R3227:3235 Kernel.CPURefinement CPURefinement SimpleCPU constr
+R3282:3289 Kernel.SimulationProof <> vm_apply def
+R3300:3300 Kernel.CPURefinement <> i:8 var
+binder 3266:3277 <> new_vm_state:10
+R3331:3359 Kernel.CPURefinement CPURefinement simple_cycles_per_instruction def
+R3361:3361 Kernel.CPURefinement <> i:8 var
+binder 3315:3326 <> instr_cycles:11
+R3372:3380 Kernel.CPURefinement CPURefinement SimpleCPU constr
+R3382:3393 Kernel.CPURefinement <> new_vm_state:10 var
+R3402:3404 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3405:3416 Kernel.CPURefinement <> instr_cycles:11 var
+rec 3853:3865 CPURefinement PipelineStage
+proj 3889:3899 CPURefinement stage_valid
+proj 3911:3927 CPURefinement stage_instruction
+proj 3956:3966 CPURefinement stage_state
+R3903:3906 Coq.Init.Datatypes <> bool ind
+R3931:3936 Coq.Init.Datatypes <> option ind
+R3938:3951 Kernel.VMStep VMStep vm_instruction ind
+R3970:3976 Kernel.VMState <> VMState rec
+rec 3990:4006 CPURefinement OptimizedCPUState
+proj 4031:4045 CPURefinement opt_fetch_stage
+proj 4066:4081 CPURefinement opt_decode_stage
+proj 4102:4118 CPURefinement opt_execute_stage
+proj 4139:4157 CPURefinement opt_committed_state
+proj 4214:4223 CPURefinement opt_cycles
+proj 4234:4242 CPURefinement opt_stall
+R4049:4061 Kernel.CPURefinement CPURefinement PipelineStage rec
+R4085:4097 Kernel.CPURefinement CPURefinement PipelineStage rec
+R4122:4134 Kernel.CPURefinement CPURefinement PipelineStage rec
+R4161:4167 Kernel.VMState <> VMState rec
+R4227:4229 Coq.Init.Datatypes <> nat ind
+R4246:4249 Coq.Init.Datatypes <> bool ind
+def 4337:4347 CPURefinement empty_stage
+R4354:4360 Kernel.VMState <> VMState rec
+binder 4350:4350 <> s:23
+R4365:4377 Kernel.CPURefinement CPURefinement PipelineStage rec
+R4387:4397 Kernel.CPURefinement CPURefinement stage_valid proj
+R4387:4397 Kernel.CPURefinement CPURefinement stage_valid proj
+R4387:4397 Kernel.CPURefinement CPURefinement stage_valid proj
+R4414:4430 Kernel.CPURefinement CPURefinement stage_instruction proj
+R4414:4430 Kernel.CPURefinement CPURefinement stage_instruction proj
+R4446:4456 Kernel.CPURefinement CPURefinement stage_state proj
+R4446:4456 Kernel.CPURefinement CPURefinement stage_state proj
+R4402:4406 Coq.Init.Datatypes <> false constr
+R4435:4438 Coq.Init.Datatypes <> None constr
+R4461:4461 Kernel.CPURefinement <> s:23 var
+def 4479:4496 CPURefinement init_optimized_cpu
+R4503:4509 Kernel.VMState <> VMState rec
+binder 4499:4499 <> s:24
+R4514:4530 Kernel.CPURefinement CPURefinement OptimizedCPUState rec
+R4540:4554 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
+R4540:4554 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
+R4540:4554 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
+R4579:4594 Kernel.CPURefinement CPURefinement opt_decode_stage proj
+R4579:4594 Kernel.CPURefinement CPURefinement opt_decode_stage proj
+R4619:4635 Kernel.CPURefinement CPURefinement opt_execute_stage proj
+R4619:4635 Kernel.CPURefinement CPURefinement opt_execute_stage proj
+R4660:4678 Kernel.CPURefinement CPURefinement opt_committed_state proj
+R4660:4678 Kernel.CPURefinement CPURefinement opt_committed_state proj
+R4691:4700 Kernel.CPURefinement CPURefinement opt_cycles proj
+R4691:4700 Kernel.CPURefinement CPURefinement opt_cycles proj
+R4713:4721 Kernel.CPURefinement CPURefinement opt_stall proj
+R4713:4721 Kernel.CPURefinement CPURefinement opt_stall proj
+R4559:4569 Kernel.CPURefinement CPURefinement empty_stage def
+R4571:4571 Kernel.CPURefinement <> s:24 var
+R4599:4609 Kernel.CPURefinement CPURefinement empty_stage def
+R4611:4611 Kernel.CPURefinement <> s:24 var
+R4640:4650 Kernel.CPURefinement CPURefinement empty_stage def
+R4652:4652 Kernel.CPURefinement <> s:24 var
+R4683:4683 Kernel.CPURefinement <> s:24 var
+R4726:4730 Coq.Init.Datatypes <> false constr
+def 4790:4799 CPURefinement has_hazard
+R4818:4830 Kernel.CPURefinement CPURefinement PipelineStage rec
+binder 4802:4807 <> stage1:25
+binder 4809:4814 <> stage2:26
+R4835:4838 Coq.Init.Datatypes <> bool ind
+R5008:5011 Coq.Init.Datatypes <> andb def
+R5042:5052 Kernel.CPURefinement CPURefinement stage_valid proj
+R5034:5039 Kernel.CPURefinement <> stage2:26 var
+R5021:5031 Kernel.CPURefinement CPURefinement stage_valid proj
+R5013:5018 Kernel.CPURefinement <> stage1:25 var
+def 5104:5123 CPURefinement optimized_step_cycle
+R5132:5148 Kernel.CPURefinement CPURefinement OptimizedCPUState rec
+binder 5126:5128 <> cpu:27
+R5169:5174 Coq.Init.Datatypes <> option ind
+R5176:5189 Kernel.VMStep VMStep vm_instruction ind
+binder 5156:5165 <> next_instr:28
+R5194:5210 Kernel.CPURefinement CPURefinement OptimizedCPUState rec
+R5225:5233 Kernel.CPURefinement CPURefinement opt_stall proj
+R5220:5222 Kernel.CPURefinement <> cpu:27 var
+R5688:5703 Kernel.CPURefinement CPURefinement opt_decode_stage proj
+R5683:5685 Kernel.CPURefinement <> cpu:27 var
+binder 5671:5678 <> new_exec:29
+R5736:5750 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
+R5731:5733 Kernel.CPURefinement <> cpu:27 var
+binder 5717:5726 <> new_decode:30
+R5789:5798 Kernel.CPURefinement <> next_instr:28 var
+R5813:5816 Coq.Init.Datatypes <> Some constr
+R5826:5836 Kernel.CPURefinement CPURefinement stage_valid proj
+R5826:5836 Kernel.CPURefinement CPURefinement stage_valid proj
+R5826:5836 Kernel.CPURefinement CPURefinement stage_valid proj
+R5868:5884 Kernel.CPURefinement CPURefinement stage_instruction proj
+R5868:5884 Kernel.CPURefinement CPURefinement stage_instruction proj
+R5918:5928 Kernel.CPURefinement CPURefinement stage_state proj
+R5918:5928 Kernel.CPURefinement CPURefinement stage_state proj
+R5841:5844 Coq.Init.Datatypes <> true constr
+R5889:5892 Coq.Init.Datatypes <> Some constr
+R5938:5956 Kernel.CPURefinement CPURefinement opt_committed_state proj
+R5933:5935 Kernel.CPURefinement <> cpu:27 var
+R5970:5973 Coq.Init.Datatypes <> None constr
+R5978:5988 Kernel.CPURefinement CPURefinement empty_stage def
+R5995:6013 Kernel.CPURefinement CPURefinement opt_committed_state proj
+R5990:5992 Kernel.CPURefinement <> cpu:27 var
+binder 5764:5772 <> new_fetch:32
+R6073:6083 Kernel.CPURefinement CPURefinement stage_valid proj
+R6063:6070 Kernel.CPURefinement <> new_exec:29 var
+R6265:6283 Kernel.CPURefinement CPURefinement opt_committed_state proj
+R6260:6262 Kernel.CPURefinement <> cpu:27 var
+R6115:6131 Kernel.CPURefinement CPURefinement stage_instruction proj
+R6105:6112 Kernel.CPURefinement <> new_exec:29 var
+R6149:6152 Coq.Init.Datatypes <> Some constr
+R6159:6166 Kernel.SimulationProof <> vm_apply def
+R6178:6188 Kernel.CPURefinement CPURefinement stage_state proj
+R6168:6175 Kernel.CPURefinement <> new_exec:29 var
+R6203:6206 Coq.Init.Datatypes <> None constr
+R6216:6234 Kernel.CPURefinement CPURefinement opt_committed_state proj
+R6211:6213 Kernel.CPURefinement <> cpu:27 var
+binder 6037:6049 <> new_committed:33
+R6296:6310 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
+R6296:6310 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
+R6296:6310 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
+R6333:6348 Kernel.CPURefinement CPURefinement opt_decode_stage proj
+R6333:6348 Kernel.CPURefinement CPURefinement opt_decode_stage proj
+R6372:6388 Kernel.CPURefinement CPURefinement opt_execute_stage proj
+R6372:6388 Kernel.CPURefinement CPURefinement opt_execute_stage proj
+R6410:6428 Kernel.CPURefinement CPURefinement opt_committed_state proj
+R6410:6428 Kernel.CPURefinement CPURefinement opt_committed_state proj
+R6455:6464 Kernel.CPURefinement CPURefinement opt_cycles proj
+R6455:6464 Kernel.CPURefinement CPURefinement opt_cycles proj
+R6496:6504 Kernel.CPURefinement CPURefinement opt_stall proj
+R6496:6504 Kernel.CPURefinement CPURefinement opt_stall proj
+R6315:6323 Kernel.CPURefinement <> new_fetch:32 var
+R6353:6362 Kernel.CPURefinement <> new_decode:30 var
+R6393:6400 Kernel.CPURefinement <> new_exec:29 var
+R6433:6445 Kernel.CPURefinement <> new_committed:33 var
+R6469:6469 Coq.Init.Datatypes <> S constr
+R6476:6485 Kernel.CPURefinement CPURefinement opt_cycles proj
+R6471:6473 Kernel.CPURefinement <> cpu:27 var
+R6509:6518 Kernel.CPURefinement CPURefinement has_hazard def
+R6520:6529 Kernel.CPURefinement <> new_decode:30 var
+R6531:6538 Kernel.CPURefinement <> new_exec:29 var
+R5290:5304 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
+R5290:5304 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
+R5290:5304 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
+R5339:5354 Kernel.CPURefinement CPURefinement opt_decode_stage proj
+R5339:5354 Kernel.CPURefinement CPURefinement opt_decode_stage proj
+R5390:5406 Kernel.CPURefinement CPURefinement opt_execute_stage proj
+R5390:5406 Kernel.CPURefinement CPURefinement opt_execute_stage proj
+R5443:5461 Kernel.CPURefinement CPURefinement opt_committed_state proj
+R5443:5461 Kernel.CPURefinement CPURefinement opt_committed_state proj
+R5500:5509 Kernel.CPURefinement CPURefinement opt_cycles proj
+R5500:5509 Kernel.CPURefinement CPURefinement opt_cycles proj
+R5541:5549 Kernel.CPURefinement CPURefinement opt_stall proj
+R5541:5549 Kernel.CPURefinement CPURefinement opt_stall proj
+R5314:5328 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
+R5309:5311 Kernel.CPURefinement <> cpu:27 var
+R5364:5379 Kernel.CPURefinement CPURefinement opt_decode_stage proj
+R5359:5361 Kernel.CPURefinement <> cpu:27 var
+R5416:5432 Kernel.CPURefinement CPURefinement opt_execute_stage proj
 R5411:5413 Kernel.CPURefinement <> cpu:27 var
-R5439:5455 Kernel.CPURefinement CPURefinement opt_execute_stage proj
-R5434:5436 Kernel.CPURefinement <> cpu:27 var
-def 6800:6815 CPURefinement states_bisimilar
-R6827:6840 Kernel.CPURefinement CPURefinement SimpleCPUState ind
-binder 6818:6823 <> simple:34
-R6878:6894 Kernel.CPURefinement CPURefinement OptimizedCPUState rec
-binder 6872:6874 <> opt:35
-R6915:6920 Kernel.CPURefinement <> simple:34 var
-R6931:6939 Kernel.CPURefinement CPURefinement SimpleCPU constr
-R6969:6971 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6977:6995 Kernel.CPURefinement CPURefinement opt_committed_state proj
-R6972:6974 Kernel.CPURefinement <> opt:35 var
-prf 7338:7367 CPURefinement simple_exec_preserves_vm_state
-binder 7380:7386 <> program:37
-binder 7388:7397 <> initial_vm:38
-binder 7399:7412 <> initial_cycles:39
-R7579:7581 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7425:7433 Coq.Lists.List <> fold_left def
-R7491:7499 Kernel.CPURefinement CPURefinement SimpleCPU constr
-R7501:7510 Kernel.CPURefinement <> initial_vm:38 var
-R7512:7525 Kernel.CPURefinement <> initial_cycles:39 var
-R7462:7468 Kernel.CPURefinement <> program:37 var
-R7435:7460 Kernel.CPURefinement CPURefinement simple_execute_instruction def
-R7539:7547 Kernel.CPURefinement CPURefinement SimpleCPU constr
-R7582:7590 Coq.Lists.List <> fold_left def
-R7626:7635 Kernel.CPURefinement <> initial_vm:38 var
-R7618:7624 Kernel.CPURefinement <> program:37 var
-binder 7597:7597 <> s:40
-binder 7599:7599 <> i:41
-R7604:7611 Kernel.SimulationProof <> vm_apply def
-R7613:7613 Kernel.CPURefinement <> s:40 var
-R7615:7615 Kernel.CPURefinement <> i:41 var
-R7827:7852 Kernel.CPURefinement CPURefinement simple_execute_instruction def
-prf 8031:8048 CPURefinement simple_cpu_correct
-R8065:8071 Kernel.VMState <> VMState rec
-binder 8060:8061 <> vm:42
-R8079:8092 Kernel.VMStep VMStep vm_instruction ind
-binder 8075:8075 <> i:43
-R8102:8108 Kernel.VMState <> VMState rec
-binder 8096:8098 <> vm':44
-R8130:8135 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8114:8120 Kernel.VMStep VMStep vm_step ind
-R8122:8123 Kernel.CPURefinement <> vm:42 var
-R8125:8125 Kernel.CPURefinement <> i:43 var
-R8127:8129 Kernel.CPURefinement <> vm':44 var
-R8142:8167 Kernel.CPURefinement CPURefinement simple_execute_instruction def
-R8170:8178 Kernel.CPURefinement CPURefinement SimpleCPU constr
-R8180:8181 Kernel.CPURefinement <> vm:42 var
-R8186:8186 Kernel.CPURefinement <> i:43 var
-R8197:8205 Kernel.CPURefinement CPURefinement SimpleCPU constr
-R8231:8233 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8234:8236 Kernel.CPURefinement <> vm':44 var
-R8286:8311 Kernel.CPURefinement CPURefinement simple_execute_instruction def
-R8385:8400 Kernel.SimulationProof <> vm_step_vm_apply thm
-R8385:8400 Kernel.SimulationProof <> vm_step_vm_apply thm
-R8385:8400 Kernel.SimulationProof <> vm_step_vm_apply thm
-prf 8792:8812 CPURefinement optimized_cpu_correct
-R8829:8835 Kernel.VMState <> VMState rec
-binder 8824:8825 <> vm:45
-R8843:8856 Kernel.VMStep VMStep vm_instruction ind
-binder 8839:8839 <> i:46
-R8866:8872 Kernel.VMState <> VMState rec
-binder 8860:8862 <> vm':47
-R8894:8899 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8878:8884 Kernel.VMStep VMStep vm_step ind
-R8886:8887 Kernel.CPURefinement <> vm:45 var
-R8889:8889 Kernel.CPURefinement <> i:46 var
-R8891:8893 Kernel.CPURefinement <> vm':47 var
-R8900:8907 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R8915:8921 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R8912:8914 Coq.Init.Datatypes <> nat ind
-binder 8908:8908 <> n:48
-R8934:8951 Kernel.CPURefinement CPURefinement init_optimized_cpu def
-R8953:8954 Kernel.CPURefinement <> vm:45 var
-binder 8926:8929 <> cpu0:49
-R9053:9055 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9040:9047 Kernel.SimulationProof <> vm_apply def
-R9049:9050 Kernel.CPURefinement <> vm:45 var
-R9052:9052 Kernel.CPURefinement <> i:46 var
-R9056:9058 Kernel.CPURefinement <> vm':47 var
-R9232:9247 Kernel.SimulationProof <> vm_step_vm_apply thm
-R9232:9247 Kernel.SimulationProof <> vm_step_vm_apply thm
-prf 9404:9419 CPURefinement cpu_bisimulation
-R9443:9446 Coq.Init.Datatypes <> list ind
-R9448:9461 Kernel.VMStep VMStep vm_instruction ind
-binder 9433:9439 <> program:50
-R9481:9487 Kernel.VMState <> VMState rec
-binder 9465:9477 <> initial_state:51
-R9516:9529 Kernel.CPURefinement CPURefinement SimpleCPUState ind
-binder 9501:9512 <> simple_final:52
-R9545:9561 Kernel.CPURefinement CPURefinement OptimizedCPUState rec
-binder 9533:9541 <> opt_final:53
-R9722:9768 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9617:9619 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9605:9616 Kernel.CPURefinement <> simple_final:52 var
-R9620:9628 Coq.Lists.List <> fold_left def
-R9696:9704 Kernel.CPURefinement CPURefinement SimpleCPU constr
-R9706:9718 Kernel.CPURefinement <> initial_state:51 var
-R9657:9663 Kernel.CPURefinement <> program:50 var
-R9630:9655 Kernel.CPURefinement CPURefinement simple_execute_instruction def
-R9868:9923 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9800:9809 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9867:9867 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9780:9798 Kernel.CPURefinement CPURefinement opt_committed_state proj
-R9769:9777 Kernel.CPURefinement <> opt_final:53 var
-R9810:9818 Coq.Lists.List <> fold_left def
-R9854:9866 Kernel.CPURefinement <> initial_state:51 var
-R9846:9852 Kernel.CPURefinement <> program:50 var
-binder 9825:9825 <> s:54
-binder 9827:9827 <> i:55
-R9832:9839 Kernel.SimulationProof <> vm_apply def
-R9841:9841 Kernel.CPURefinement <> s:54 var
-R9843:9843 Kernel.CPURefinement <> i:55 var
-R9924:9939 Kernel.CPURefinement CPURefinement states_bisimilar def
-R9941:9952 Kernel.CPURefinement <> simple_final:52 var
-R9954:9962 Kernel.CPURefinement <> opt_final:53 var
-R10049:10064 Kernel.CPURefinement CPURefinement states_bisimilar def
-R10276:10278 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10279:10287 Coq.Lists.List <> fold_left def
-binder 10294:10294 <> s:56
-binder 10296:10296 <> i:57
-R10301:10308 Kernel.SimulationProof <> vm_apply def
-R10310:10310 Kernel.CPURefinement <> s:56 var
-R10312:10312 Kernel.CPURefinement <> i:57 var
-R10276:10278 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10279:10287 Coq.Lists.List <> fold_left def
-binder 10294:10294 <> s:58
-binder 10296:10296 <> i:59
-R10301:10308 Kernel.SimulationProof <> vm_apply def
-R10310:10310 Kernel.CPURefinement <> s:58 var
-R10312:10312 Kernel.CPURefinement <> i:59 var
-R10525:10554 Kernel.CPURefinement CPURefinement simple_exec_preserves_vm_state thm
-R10525:10554 Kernel.CPURefinement CPURefinement simple_exec_preserves_vm_state thm
-R10525:10554 Kernel.CPURefinement CPURefinement simple_exec_preserves_vm_state thm
-prf 10837:10868 CPURefinement performance_correctness_tradeoff
-R10886:10889 Coq.Init.Datatypes <> list ind
-R10891:10904 Kernel.VMStep VMStep vm_instruction ind
-binder 10882:10882 <> p:60
-R10912:10918 Kernel.VMState <> VMState rec
-binder 10908:10908 <> s:61
-R10952:10965 Kernel.CPURefinement CPURefinement SimpleCPUState ind
-binder 10931:10940 <> simple_cpu:62
-binder 10942:10948 <> opt_cpu:63
-R11068:11108 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11011:11013 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11001:11010 Kernel.CPURefinement <> simple_cpu:62 var
-R11014:11022 Coq.Lists.List <> fold_left def
-R11054:11062 Kernel.CPURefinement CPURefinement SimpleCPU constr
-R11064:11064 Kernel.CPURefinement <> s:61 var
-R11051:11051 Kernel.CPURefinement <> p:60 var
-R11024:11049 Kernel.CPURefinement CPURefinement simple_execute_instruction def
-R11109:11116 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R11136:11144 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R11133:11135 Coq.Init.Datatypes <> nat ind
-binder 11117:11129 <> cycle_speedup:64
-R11163:11211 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11158:11161 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R11145:11157 Kernel.CPURefinement <> cycle_speedup:64 var
-R11212:11219 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R11253:11263 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R11236:11252 Kernel.CPURefinement CPURefinement OptimizedCPUState rec
-binder 11220:11232 <> opt_cpu_state:65
-R11264:11279 Kernel.CPURefinement CPURefinement states_bisimilar def
-R11281:11290 Kernel.CPURefinement <> simple_cpu:62 var
-R11292:11304 Kernel.CPURefinement <> opt_cpu_state:65 var
-R11540:11554 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
-R11540:11554 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
-R11540:11554 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
-R11588:11603 Kernel.CPURefinement CPURefinement opt_decode_stage proj
-R11588:11603 Kernel.CPURefinement CPURefinement opt_decode_stage proj
-R11637:11653 Kernel.CPURefinement CPURefinement opt_execute_stage proj
-R11637:11653 Kernel.CPURefinement CPURefinement opt_execute_stage proj
-R11687:11705 Kernel.CPURefinement CPURefinement opt_committed_state proj
-R11687:11705 Kernel.CPURefinement CPURefinement opt_committed_state proj
-R11767:11776 Kernel.CPURefinement CPURefinement opt_cycles proj
-R11767:11776 Kernel.CPURefinement CPURefinement opt_cycles proj
-R11798:11806 Kernel.CPURefinement CPURefinement opt_stall proj
-R11798:11806 Kernel.CPURefinement CPURefinement opt_stall proj
-R11559:11569 Kernel.CPURefinement CPURefinement empty_stage def
-R11608:11618 Kernel.CPURefinement CPURefinement empty_stage def
-R11658:11668 Kernel.CPURefinement CPURefinement empty_stage def
-R11710:11718 Coq.Lists.List <> fold_left def
-binder 11725:11726 <> st:66
-binder 11728:11728 <> i:67
-R11733:11740 Kernel.SimulationProof <> vm_apply def
-R11742:11743 Kernel.CPURefinement <> st:66 var
-R11745:11745 Kernel.CPURefinement <> i:67 var
-R11811:11815 Coq.Init.Datatypes <> false constr
-R11540:11554 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
-R11540:11554 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
-R11540:11554 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
-R11588:11603 Kernel.CPURefinement CPURefinement opt_decode_stage proj
-R11588:11603 Kernel.CPURefinement CPURefinement opt_decode_stage proj
-R11637:11653 Kernel.CPURefinement CPURefinement opt_execute_stage proj
-R11637:11653 Kernel.CPURefinement CPURefinement opt_execute_stage proj
-R11687:11705 Kernel.CPURefinement CPURefinement opt_committed_state proj
-R11687:11705 Kernel.CPURefinement CPURefinement opt_committed_state proj
-R11767:11776 Kernel.CPURefinement CPURefinement opt_cycles proj
-R11767:11776 Kernel.CPURefinement CPURefinement opt_cycles proj
-R11798:11806 Kernel.CPURefinement CPURefinement opt_stall proj
-R11798:11806 Kernel.CPURefinement CPURefinement opt_stall proj
-R11559:11569 Kernel.CPURefinement CPURefinement empty_stage def
-R11608:11618 Kernel.CPURefinement CPURefinement empty_stage def
-R11658:11668 Kernel.CPURefinement CPURefinement empty_stage def
-R11710:11718 Coq.Lists.List <> fold_left def
-binder 11725:11726 <> st:68
-binder 11728:11728 <> i:69
-R11733:11740 Kernel.SimulationProof <> vm_apply def
-R11742:11743 Kernel.CPURefinement <> st:68 var
-R11745:11745 Kernel.CPURefinement <> i:69 var
-R11811:11815 Coq.Init.Datatypes <> false constr
-R11865:11880 Kernel.CPURefinement CPURefinement cpu_bisimulation thm
-R11865:11880 Kernel.CPURefinement CPURefinement cpu_bisimulation thm
-prf 12423:12448 CPURefinement implementation_equivalence
-R12467:12473 Kernel.VMState <> VMState rec
-binder 12462:12463 <> vm:70
-R12481:12494 Kernel.VMStep VMStep vm_instruction ind
-binder 12477:12477 <> i:71
-R12557:12582 Kernel.CPURefinement CPURefinement simple_execute_instruction def
-R12585:12593 Kernel.CPURefinement CPURefinement SimpleCPU constr
-R12595:12596 Kernel.CPURefinement <> vm:70 var
-R12601:12601 Kernel.CPURefinement <> i:71 var
-R12616:12624 Kernel.CPURefinement CPURefinement SimpleCPU constr
-binder 12528:12540 <> simple_result:72
-R12723:12730 Kernel.SimulationProof <> vm_apply def
-R12732:12733 Kernel.CPURefinement <> vm:70 var
-R12735:12735 Kernel.CPURefinement <> i:71 var
-binder 12709:12718 <> opt_result:73
-R12757:12759 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12744:12756 Kernel.CPURefinement <> simple_result:72 var
-R12760:12769 Kernel.CPURefinement <> opt_result:73 var
-R12803:12828 Kernel.CPURefinement CPURefinement simple_execute_instruction def
-prf 13012:13040 CPURefinement both_preserve_mu_monotonicity
-R13058:13064 Kernel.VMState <> VMState rec
-binder 13054:13054 <> s:74
-R13072:13085 Kernel.VMStep VMStep vm_instruction ind
-binder 13068:13068 <> i:75
-R13094:13100 Kernel.VMState <> VMState rec
-binder 13089:13090 <> s':76
-R13122:13129 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13108:13114 Kernel.VMStep VMStep vm_step ind
-R13116:13116 Kernel.CPURefinement <> s:74 var
-R13118:13118 Kernel.CPURefinement <> i:75 var
-R13120:13121 Kernel.CPURefinement <> s':76 var
-R13141:13144 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R13135:13139 Kernel.VMState <> vm_mu proj
-R13131:13132 Kernel.CPURefinement <> s':76 var
-R13148:13152 Kernel.VMState <> vm_mu proj
-R13145:13145 Kernel.CPURefinement <> s:74 var
-R13200:13216 Kernel.FalsifiablePrediction <> mu_monotonic_step thm
-R13200:13216 Kernel.FalsifiablePrediction <> mu_monotonic_step thm
-prf 13429:13447 CPURefinement receipt_equivalence
-R13466:13472 Kernel.VMState <> VMState rec
-binder 13461:13462 <> vm:77
-R13480:13493 Kernel.VMStep VMStep vm_instruction ind
-binder 13476:13476 <> i:78
-R13568:13571 Coq.Init.Logic <> True ind
-R13597:13597 Coq.Init.Logic <> I constr
-R13597:13597 Coq.Init.Logic <> I constr
-R13610:13622 Kernel.CPURefinement CPURefinement <> mod
+R5471:5489 Kernel.CPURefinement CPURefinement opt_committed_state proj
+R5466:5468 Kernel.CPURefinement <> cpu:27 var
+R5514:5514 Coq.Init.Datatypes <> S constr
+R5521:5530 Kernel.CPURefinement CPURefinement opt_cycles proj
+R5516:5518 Kernel.CPURefinement <> cpu:27 var
+R5554:5557 Coq.Init.Datatypes <> negb def
+R5560:5569 Kernel.CPURefinement CPURefinement has_hazard def
+R5576:5591 Kernel.CPURefinement CPURefinement opt_decode_stage proj
+R5571:5573 Kernel.CPURefinement <> cpu:27 var
+R5599:5615 Kernel.CPURefinement CPURefinement opt_execute_stage proj
+R5594:5596 Kernel.CPURefinement <> cpu:27 var
+def 6960:6975 CPURefinement states_bisimilar
+R6987:7000 Kernel.CPURefinement CPURefinement SimpleCPUState ind
+binder 6978:6983 <> simple:34
+R7038:7054 Kernel.CPURefinement CPURefinement OptimizedCPUState rec
+binder 7032:7034 <> opt:35
+R7075:7080 Kernel.CPURefinement <> simple:34 var
+R7091:7099 Kernel.CPURefinement CPURefinement SimpleCPU constr
+R7129:7131 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7137:7155 Kernel.CPURefinement CPURefinement opt_committed_state proj
+R7132:7134 Kernel.CPURefinement <> opt:35 var
+prf 7498:7527 CPURefinement simple_exec_preserves_vm_state
+binder 7540:7546 <> program:37
+binder 7548:7557 <> initial_vm:38
+binder 7559:7572 <> initial_cycles:39
+R7739:7741 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7585:7593 Coq.Lists.List <> fold_left def
+R7651:7659 Kernel.CPURefinement CPURefinement SimpleCPU constr
+R7661:7670 Kernel.CPURefinement <> initial_vm:38 var
+R7672:7685 Kernel.CPURefinement <> initial_cycles:39 var
+R7622:7628 Kernel.CPURefinement <> program:37 var
+R7595:7620 Kernel.CPURefinement CPURefinement simple_execute_instruction def
+R7699:7707 Kernel.CPURefinement CPURefinement SimpleCPU constr
+R7742:7750 Coq.Lists.List <> fold_left def
+R7786:7795 Kernel.CPURefinement <> initial_vm:38 var
+R7778:7784 Kernel.CPURefinement <> program:37 var
+binder 7757:7757 <> s:40
+binder 7759:7759 <> i:41
+R7764:7771 Kernel.SimulationProof <> vm_apply def
+R7773:7773 Kernel.CPURefinement <> s:40 var
+R7775:7775 Kernel.CPURefinement <> i:41 var
+R7987:8012 Kernel.CPURefinement CPURefinement simple_execute_instruction def
+prf 8191:8208 CPURefinement simple_cpu_correct
+R8225:8231 Kernel.VMState <> VMState rec
+binder 8220:8221 <> vm:42
+R8239:8252 Kernel.VMStep VMStep vm_instruction ind
+binder 8235:8235 <> i:43
+R8262:8268 Kernel.VMState <> VMState rec
+binder 8256:8258 <> vm':44
+R8290:8295 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8274:8280 Kernel.VMStep VMStep vm_step ind
+R8282:8283 Kernel.CPURefinement <> vm:42 var
+R8285:8285 Kernel.CPURefinement <> i:43 var
+R8287:8289 Kernel.CPURefinement <> vm':44 var
+R8302:8327 Kernel.CPURefinement CPURefinement simple_execute_instruction def
+R8330:8338 Kernel.CPURefinement CPURefinement SimpleCPU constr
+R8340:8341 Kernel.CPURefinement <> vm:42 var
+R8346:8346 Kernel.CPURefinement <> i:43 var
+R8357:8365 Kernel.CPURefinement CPURefinement SimpleCPU constr
+R8391:8393 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8394:8396 Kernel.CPURefinement <> vm':44 var
+R8446:8471 Kernel.CPURefinement CPURefinement simple_execute_instruction def
+R8545:8560 Kernel.SimulationProof <> vm_step_vm_apply thm
+R8545:8560 Kernel.SimulationProof <> vm_step_vm_apply thm
+R8545:8560 Kernel.SimulationProof <> vm_step_vm_apply thm
+prf 8952:8972 CPURefinement optimized_cpu_correct
+R8989:8995 Kernel.VMState <> VMState rec
+binder 8984:8985 <> vm:45
+R9003:9016 Kernel.VMStep VMStep vm_instruction ind
+binder 8999:8999 <> i:46
+R9026:9032 Kernel.VMState <> VMState rec
+binder 9020:9022 <> vm':47
+R9054:9059 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9038:9044 Kernel.VMStep VMStep vm_step ind
+R9046:9047 Kernel.CPURefinement <> vm:45 var
+R9049:9049 Kernel.CPURefinement <> i:46 var
+R9051:9053 Kernel.CPURefinement <> vm':47 var
+R9060:9067 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9075:9081 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9072:9074 Coq.Init.Datatypes <> nat ind
+binder 9068:9068 <> n:48
+R9094:9111 Kernel.CPURefinement CPURefinement init_optimized_cpu def
+R9113:9114 Kernel.CPURefinement <> vm:45 var
+binder 9086:9089 <> cpu0:49
+R9213:9215 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9200:9207 Kernel.SimulationProof <> vm_apply def
+R9209:9210 Kernel.CPURefinement <> vm:45 var
+R9212:9212 Kernel.CPURefinement <> i:46 var
+R9216:9218 Kernel.CPURefinement <> vm':47 var
+R9392:9407 Kernel.SimulationProof <> vm_step_vm_apply thm
+R9392:9407 Kernel.SimulationProof <> vm_step_vm_apply thm
+prf 9564:9579 CPURefinement cpu_bisimulation
+R9603:9606 Coq.Init.Datatypes <> list ind
+R9608:9621 Kernel.VMStep VMStep vm_instruction ind
+binder 9593:9599 <> program:50
+R9641:9647 Kernel.VMState <> VMState rec
+binder 9625:9637 <> initial_state:51
+R9676:9689 Kernel.CPURefinement CPURefinement SimpleCPUState ind
+binder 9661:9672 <> simple_final:52
+R9705:9721 Kernel.CPURefinement CPURefinement OptimizedCPUState rec
+binder 9693:9701 <> opt_final:53
+R9882:9928 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9777:9779 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9765:9776 Kernel.CPURefinement <> simple_final:52 var
+R9780:9788 Coq.Lists.List <> fold_left def
+R9856:9864 Kernel.CPURefinement CPURefinement SimpleCPU constr
+R9866:9878 Kernel.CPURefinement <> initial_state:51 var
+R9817:9823 Kernel.CPURefinement <> program:50 var
+R9790:9815 Kernel.CPURefinement CPURefinement simple_execute_instruction def
+R10028:10083 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9960:9969 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10027:10027 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9940:9958 Kernel.CPURefinement CPURefinement opt_committed_state proj
+R9929:9937 Kernel.CPURefinement <> opt_final:53 var
+R9970:9978 Coq.Lists.List <> fold_left def
+R10014:10026 Kernel.CPURefinement <> initial_state:51 var
+R10006:10012 Kernel.CPURefinement <> program:50 var
+binder 9985:9985 <> s:54
+binder 9987:9987 <> i:55
+R9992:9999 Kernel.SimulationProof <> vm_apply def
+R10001:10001 Kernel.CPURefinement <> s:54 var
+R10003:10003 Kernel.CPURefinement <> i:55 var
+R10084:10099 Kernel.CPURefinement CPURefinement states_bisimilar def
+R10101:10112 Kernel.CPURefinement <> simple_final:52 var
+R10114:10122 Kernel.CPURefinement <> opt_final:53 var
+R10209:10224 Kernel.CPURefinement CPURefinement states_bisimilar def
+R10436:10438 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10439:10447 Coq.Lists.List <> fold_left def
+binder 10454:10454 <> s:56
+binder 10456:10456 <> i:57
+R10461:10468 Kernel.SimulationProof <> vm_apply def
+R10470:10470 Kernel.CPURefinement <> s:56 var
+R10472:10472 Kernel.CPURefinement <> i:57 var
+R10436:10438 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10439:10447 Coq.Lists.List <> fold_left def
+binder 10454:10454 <> s:58
+binder 10456:10456 <> i:59
+R10461:10468 Kernel.SimulationProof <> vm_apply def
+R10470:10470 Kernel.CPURefinement <> s:58 var
+R10472:10472 Kernel.CPURefinement <> i:59 var
+R10685:10714 Kernel.CPURefinement CPURefinement simple_exec_preserves_vm_state thm
+R10685:10714 Kernel.CPURefinement CPURefinement simple_exec_preserves_vm_state thm
+R10685:10714 Kernel.CPURefinement CPURefinement simple_exec_preserves_vm_state thm
+prf 10997:11028 CPURefinement performance_correctness_tradeoff
+R11046:11049 Coq.Init.Datatypes <> list ind
+R11051:11064 Kernel.VMStep VMStep vm_instruction ind
+binder 11042:11042 <> p:60
+R11072:11078 Kernel.VMState <> VMState rec
+binder 11068:11068 <> s:61
+R11112:11125 Kernel.CPURefinement CPURefinement SimpleCPUState ind
+binder 11091:11100 <> simple_cpu:62
+binder 11102:11108 <> opt_cpu:63
+R11228:11268 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11171:11173 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11161:11170 Kernel.CPURefinement <> simple_cpu:62 var
+R11174:11182 Coq.Lists.List <> fold_left def
+R11214:11222 Kernel.CPURefinement CPURefinement SimpleCPU constr
+R11224:11224 Kernel.CPURefinement <> s:61 var
+R11211:11211 Kernel.CPURefinement <> p:60 var
+R11184:11209 Kernel.CPURefinement CPURefinement simple_execute_instruction def
+R11269:11276 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11296:11304 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11293:11295 Coq.Init.Datatypes <> nat ind
+binder 11277:11289 <> cycle_speedup:64
+R11323:11371 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11318:11321 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R11305:11317 Kernel.CPURefinement <> cycle_speedup:64 var
+R11372:11379 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11413:11423 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11396:11412 Kernel.CPURefinement CPURefinement OptimizedCPUState rec
+binder 11380:11392 <> opt_cpu_state:65
+R11424:11439 Kernel.CPURefinement CPURefinement states_bisimilar def
+R11441:11450 Kernel.CPURefinement <> simple_cpu:62 var
+R11452:11464 Kernel.CPURefinement <> opt_cpu_state:65 var
+R11700:11714 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
+R11700:11714 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
+R11700:11714 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
+R11748:11763 Kernel.CPURefinement CPURefinement opt_decode_stage proj
+R11748:11763 Kernel.CPURefinement CPURefinement opt_decode_stage proj
+R11797:11813 Kernel.CPURefinement CPURefinement opt_execute_stage proj
+R11797:11813 Kernel.CPURefinement CPURefinement opt_execute_stage proj
+R11847:11865 Kernel.CPURefinement CPURefinement opt_committed_state proj
+R11847:11865 Kernel.CPURefinement CPURefinement opt_committed_state proj
+R11927:11936 Kernel.CPURefinement CPURefinement opt_cycles proj
+R11927:11936 Kernel.CPURefinement CPURefinement opt_cycles proj
+R11958:11966 Kernel.CPURefinement CPURefinement opt_stall proj
+R11958:11966 Kernel.CPURefinement CPURefinement opt_stall proj
+R11719:11729 Kernel.CPURefinement CPURefinement empty_stage def
+R11768:11778 Kernel.CPURefinement CPURefinement empty_stage def
+R11818:11828 Kernel.CPURefinement CPURefinement empty_stage def
+R11870:11878 Coq.Lists.List <> fold_left def
+binder 11885:11886 <> st:66
+binder 11888:11888 <> i:67
+R11893:11900 Kernel.SimulationProof <> vm_apply def
+R11902:11903 Kernel.CPURefinement <> st:66 var
+R11905:11905 Kernel.CPURefinement <> i:67 var
+R11971:11975 Coq.Init.Datatypes <> false constr
+R11700:11714 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
+R11700:11714 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
+R11700:11714 Kernel.CPURefinement CPURefinement opt_fetch_stage proj
+R11748:11763 Kernel.CPURefinement CPURefinement opt_decode_stage proj
+R11748:11763 Kernel.CPURefinement CPURefinement opt_decode_stage proj
+R11797:11813 Kernel.CPURefinement CPURefinement opt_execute_stage proj
+R11797:11813 Kernel.CPURefinement CPURefinement opt_execute_stage proj
+R11847:11865 Kernel.CPURefinement CPURefinement opt_committed_state proj
+R11847:11865 Kernel.CPURefinement CPURefinement opt_committed_state proj
+R11927:11936 Kernel.CPURefinement CPURefinement opt_cycles proj
+R11927:11936 Kernel.CPURefinement CPURefinement opt_cycles proj
+R11958:11966 Kernel.CPURefinement CPURefinement opt_stall proj
+R11958:11966 Kernel.CPURefinement CPURefinement opt_stall proj
+R11719:11729 Kernel.CPURefinement CPURefinement empty_stage def
+R11768:11778 Kernel.CPURefinement CPURefinement empty_stage def
+R11818:11828 Kernel.CPURefinement CPURefinement empty_stage def
+R11870:11878 Coq.Lists.List <> fold_left def
+binder 11885:11886 <> st:68
+binder 11888:11888 <> i:69
+R11893:11900 Kernel.SimulationProof <> vm_apply def
+R11902:11903 Kernel.CPURefinement <> st:68 var
+R11905:11905 Kernel.CPURefinement <> i:69 var
+R11971:11975 Coq.Init.Datatypes <> false constr
+R12025:12040 Kernel.CPURefinement CPURefinement cpu_bisimulation thm
+R12025:12040 Kernel.CPURefinement CPURefinement cpu_bisimulation thm
+prf 12583:12608 CPURefinement implementation_equivalence
+R12627:12633 Kernel.VMState <> VMState rec
+binder 12622:12623 <> vm:70
+R12641:12654 Kernel.VMStep VMStep vm_instruction ind
+binder 12637:12637 <> i:71
+R12717:12742 Kernel.CPURefinement CPURefinement simple_execute_instruction def
+R12745:12753 Kernel.CPURefinement CPURefinement SimpleCPU constr
+R12755:12756 Kernel.CPURefinement <> vm:70 var
+R12761:12761 Kernel.CPURefinement <> i:71 var
+R12776:12784 Kernel.CPURefinement CPURefinement SimpleCPU constr
+binder 12688:12700 <> simple_result:72
+R12883:12890 Kernel.SimulationProof <> vm_apply def
+R12892:12893 Kernel.CPURefinement <> vm:70 var
+R12895:12895 Kernel.CPURefinement <> i:71 var
+binder 12869:12878 <> opt_result:73
+R12917:12919 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12904:12916 Kernel.CPURefinement <> simple_result:72 var
+R12920:12929 Kernel.CPURefinement <> opt_result:73 var
+R12963:12988 Kernel.CPURefinement CPURefinement simple_execute_instruction def
+prf 13172:13200 CPURefinement both_preserve_mu_monotonicity
+R13218:13224 Kernel.VMState <> VMState rec
+binder 13214:13214 <> s:74
+R13232:13245 Kernel.VMStep VMStep vm_instruction ind
+binder 13228:13228 <> i:75
+R13254:13260 Kernel.VMState <> VMState rec
+binder 13249:13250 <> s':76
+R13282:13289 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13268:13274 Kernel.VMStep VMStep vm_step ind
+R13276:13276 Kernel.CPURefinement <> s:74 var
+R13278:13278 Kernel.CPURefinement <> i:75 var
+R13280:13281 Kernel.CPURefinement <> s':76 var
+R13301:13304 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R13295:13299 Kernel.VMState <> vm_mu proj
+R13291:13292 Kernel.CPURefinement <> s':76 var
+R13308:13312 Kernel.VMState <> vm_mu proj
+R13305:13305 Kernel.CPURefinement <> s:74 var
+R13360:13376 Kernel.FalsifiablePrediction <> mu_monotonic_step thm
+R13360:13376 Kernel.FalsifiablePrediction <> mu_monotonic_step thm
+prf 13589:13607 CPURefinement receipt_equivalence
+R13626:13632 Kernel.VMState <> VMState rec
+binder 13621:13622 <> vm:77
+R13640:13653 Kernel.VMStep VMStep vm_instruction ind
+binder 13636:13636 <> i:78
+R13728:13731 Coq.Init.Logic <> True ind
+R13757:13757 Coq.Init.Logic <> I constr
+R13757:13757 Coq.Init.Logic <> I constr
+R13770:13782 Kernel.CPURefinement CPURefinement <> mod

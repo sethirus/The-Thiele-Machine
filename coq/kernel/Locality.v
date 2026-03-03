@@ -272,6 +272,11 @@ Definition instr_targets (i : vm_instruction) : list ModuleID :=
   | instr_reveal mid _ _ _ => [mid]
   | instr_oracle_halts _ _ => []
   | instr_halt _ => []
+  | instr_checkpoint _ _ => []
+  | instr_read_port _ _ _ _ _ => []
+  | instr_write_port _ _ _ => []
+  | instr_heap_load _ _ _ => []
+  | instr_heap_store _ _ _ => []
   end.
 
 (** =========================================================================
@@ -420,6 +425,10 @@ Proof.
       intros Heq. subst. apply Hnot_target. left. reflexivity.
     + (* Unsat case - graph unchanged *)
       reflexivity.
+    + (* sat_failure - graph unchanged *)
+      reflexivity.
+    + (* unsat_failure - graph unchanged *)
+      reflexivity.
   - (* ljoin *)
     inversion Hstep; subst;
     unfold states_agree_on_module, module_region_obs;
@@ -512,6 +521,26 @@ Proof.
     inversion Hstep; subst.
     unfold states_agree_on_module, module_region_obs.
     rewrite advance_state_graph. reflexivity.
+  - (* checkpoint *)
+    inversion Hstep; subst.
+    unfold states_agree_on_module, module_region_obs.
+    rewrite advance_state_graph. reflexivity.
+  - (* read_port *)
+    inversion Hstep; subst.
+    unfold states_agree_on_module, module_region_obs.
+    rewrite advance_state_rm_graph. reflexivity.
+  - (* write_port *)
+    inversion Hstep; subst.
+    unfold states_agree_on_module, module_region_obs.
+    rewrite advance_state_graph. reflexivity.
+  - (* heap_load *)
+    inversion Hstep; subst.
+    unfold states_agree_on_module, module_region_obs.
+    rewrite advance_state_rm_graph. reflexivity.
+  - (* heap_store *)
+    inversion Hstep; subst.
+    unfold states_agree_on_module, module_region_obs.
+    rewrite advance_state_rm_graph. reflexivity.
 Qed.
 
 (** =========================================================================

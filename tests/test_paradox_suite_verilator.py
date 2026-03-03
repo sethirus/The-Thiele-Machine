@@ -46,7 +46,9 @@ def test_positive_parity_vm_equals_rtl_for_compute_subset() -> None:
     vm = _run_vm([("HALT", "")], {})
 
     assert rtl["regs"] == vm["regs"]
-    assert rtl["mem"] == vm["mem"]
+    # RTL memory is 256 words; Python is 4096. Compare over RTL window only.
+    rtl_size = len(rtl["mem"])
+    assert rtl["mem"] == vm["mem"][:rtl_size]
     assert int(rtl["mu"]) == vm["mu"]
 
 

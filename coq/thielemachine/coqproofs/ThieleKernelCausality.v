@@ -312,6 +312,11 @@ Module ThieleKernelCausality.
       | mod_reveal bits_reveal cert_reveal mu_reveal
       | payload_oracle mu_oracle
       | mu_halt
+      | label_checkpoint mu_checkpoint
+      | dst_rp ch_rp val_rp bits_rp mu_rp
+      | ch_wp src_wp mu_wp
+      | dst_hl addr_hl mu_hl
+      | addr_hs src_hs mu_hs
       ]; simpl in *.
     - (* pnew *)
       destruct (VMState.graph_pnew (VMState.vm_graph s) region) as [g' mid] eqn:Hpnew.
@@ -401,6 +406,16 @@ Module ThieleKernelCausality.
     - (* oracle_halts *)
       reflexivity.
     - (* halt *)
+      reflexivity.
+    - (* checkpoint *)
+      reflexivity.
+    - (* read_port *)
+      reflexivity.
+    - (* write_port *)
+      reflexivity.
+    - (* heap_load *)
+      reflexivity.
+    - (* heap_store *)
       reflexivity.
   Qed.
 

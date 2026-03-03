@@ -1,3 +1,0 @@
-Vthiele_cpu_kami_tb___024root__DepSet_hc4f13ad1__0.o: \
- Vthiele_cpu_kami_tb___024root__DepSet_hc4f13ad1__0.cpp \
- Vthiele_cpu_kami_tb__pch.h Vthiele_cpu_kami_tb___024root.h
