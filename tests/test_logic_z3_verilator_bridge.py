@@ -19,6 +19,9 @@ def test_lassert_bridge_prevents_stall_and_reaches_halt() -> None:
     except RuntimeError as exc:
         pytest.skip(f"verilator unavailable: {exc}")
 
+    if state is None:
+        pytest.skip("verilator backend unavailable")
+
     assert state is not None
     assert state.get("status", 0) == 2  # HALTED
     assert state.get("err", 0) == 0

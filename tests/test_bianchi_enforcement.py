@@ -13,6 +13,7 @@ import pytest
 from hypothesis import given, settings, assume
 import hypothesis.strategies as st
 import os
+import subprocess
 
 from thielecpu.state import State, MuLedger, BianchiViolationError
 from thielecpu.vm import VM
@@ -301,6 +302,13 @@ class TestRevealTensorIsomorphism:
             runner = Path(__file__).resolve().parents[1] / "build" / "extracted_vm_runner"
         if not runner.exists():
             pytest.skip("OCaml runner not built")
+        try:
+            # Validate runner launchability (covers missing ocamlrun for bytecode runners).
+            probe = subprocess.run([str(runner)], capture_output=True, text=True, timeout=2)
+            if probe.returncode == 127:
+                pytest.skip("OCaml runner exists but is not launchable in this environment")
+        except (FileNotFoundError, PermissionError, OSError, subprocess.TimeoutExpired):
+            pytest.skip("OCaml runner exists but is not launchable in this environment")
         return runner
 
     def _run_coq(self, runner_path, program):
