@@ -1,4 +1,4 @@
-DIGEST 2c62c3a2204c88e965971b3408d5bf28
+DIGEST deac315cd815368ac89e962c7aefe365
 FKernel.SpacetimeEmergence
 R24:27 Coq.Lists.List <> <> lib
 R29:42 Coq.Arith.PeanoNat <> <> lib
@@ -8,817 +8,818 @@ R126:132 Kernel.VMState <> <> lib
 R134:139 Kernel.VMStep <> <> lib
 R141:153 Kernel.KernelPhysics <> <> lib
 R164:176 Coq.Lists.List ListNotations <> mod
-def 191:195 <> Event
-R207:213 Kernel.VMState <> VMState rec
-def 227:237 <> event_equiv
-R246:249 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R241:245 Kernel.SpacetimeEmergence <> Event def
-R255:258 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R250:254 Kernel.SpacetimeEmergence <> Event def
-R267:275 Kernel.KernelPhysics <> obs_equiv def
-inst 288:310 <> event_equiv_equivalence
-R314:324 Coq.Classes.RelationClasses <> Equivalence class
-R326:336 Kernel.SpacetimeEmergence <> event_equiv def
-R365:378 Kernel.KernelPhysics <> obs_equiv_refl thm
-R365:378 Kernel.KernelPhysics <> obs_equiv_refl thm
-R391:403 Kernel.KernelPhysics <> obs_equiv_sym thm
-R391:403 Kernel.KernelPhysics <> obs_equiv_sym thm
-R416:430 Kernel.KernelPhysics <> obs_equiv_trans thm
-R416:430 Kernel.KernelPhysics <> obs_equiv_trans thm
-def 450:457 <> step_rel
-R467:473 Kernel.VMState <> VMState rec
-binder 460:460 <> s:1
-binder 462:463 <> s':2
-R486:492 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R498:499 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 493:497 <> instr:3
-R500:506 Kernel.VMStep VMStep vm_step ind
-R508:508 Kernel.SpacetimeEmergence <> s:1 var
-R510:514 Kernel.SpacetimeEmergence <> instr:3 var
-R516:517 Kernel.SpacetimeEmergence <> s':2 var
-ind 531:537 <> reaches
-constr 573:584 <> reaches_refl
-constr 612:623 <> reaches_cons
-R548:551 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R541:547 Kernel.VMState <> VMState rec
-R559:562 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R552:558 Kernel.VMState <> VMState rec
-binder 595:595 <> s:6
-R598:604 Kernel.SpacetimeEmergence <> reaches:4 ind
-R608:608 Kernel.SpacetimeEmergence <> s:6 var
-R606:606 Kernel.SpacetimeEmergence <> s:6 var
-binder 634:635 <> s1:7
-binder 637:638 <> s2:8
-binder 640:641 <> s3:9
-R658:661 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R644:651 Kernel.SpacetimeEmergence <> step_rel def
-R653:654 Kernel.SpacetimeEmergence <> s1:7 var
-R656:657 Kernel.SpacetimeEmergence <> s2:8 var
-R675:678 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R662:668 Kernel.SpacetimeEmergence <> reaches:4 ind
-R673:674 Kernel.SpacetimeEmergence <> s3:9 var
-R670:671 Kernel.SpacetimeEmergence <> s2:8 var
-R679:685 Kernel.SpacetimeEmergence <> reaches:4 ind
-R690:691 Kernel.SpacetimeEmergence <> s3:9 var
-R687:688 Kernel.SpacetimeEmergence <> s1:7 var
-scheme 531:537 <> reaches_ind
-scheme 531:537 <> reaches_sind
-prf 745:755 <> reaches_one
-binder 766:766 <> s:10
-binder 768:769 <> s':11
-R785:788 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R772:779 Kernel.SpacetimeEmergence <> step_rel def
-R781:781 Kernel.SpacetimeEmergence <> s:10 var
-R783:784 Kernel.SpacetimeEmergence <> s':11 var
-R789:795 Kernel.SpacetimeEmergence <> reaches ind
-R797:797 Kernel.SpacetimeEmergence <> s:10 var
-R799:800 Kernel.SpacetimeEmergence <> s':11 var
-R836:847 Kernel.SpacetimeEmergence <> reaches_cons constr
-R836:847 Kernel.SpacetimeEmergence <> reaches_cons constr
-prf 938:950 <> reaches_trans
-binder 961:962 <> s1:12
-binder 964:965 <> s2:13
-binder 967:968 <> s3:14
-R984:987 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R971:977 Kernel.SpacetimeEmergence <> reaches ind
-R979:980 Kernel.SpacetimeEmergence <> s1:12 var
-R982:983 Kernel.SpacetimeEmergence <> s2:13 var
-R1001:1004 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R988:994 Kernel.SpacetimeEmergence <> reaches ind
-R996:997 Kernel.SpacetimeEmergence <> s2:13 var
-R999:1000 Kernel.SpacetimeEmergence <> s3:14 var
-R1005:1011 Kernel.SpacetimeEmergence <> reaches ind
-R1013:1014 Kernel.SpacetimeEmergence <> s1:12 var
-R1016:1017 Kernel.SpacetimeEmergence <> s3:14 var
-R1097:1108 Kernel.SpacetimeEmergence <> reaches_cons constr
-R1097:1108 Kernel.SpacetimeEmergence <> reaches_cons constr
-prf 1184:1204 <> step_rel_no_signaling
-binder 1217:1217 <> s:15
-binder 1219:1223 <> instr:16
-binder 1225:1226 <> s':17
-binder 1228:1230 <> mid:18
-R1267:1274 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1237:1253 Kernel.VMState <> well_formed_graph def
-R1258:1265 Kernel.VMState <> vm_graph proj
-R1255:1255 Kernel.SpacetimeEmergence <> s:15 var
-R1304:1311 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1278:1280 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R1275:1277 Kernel.SpacetimeEmergence <> mid:18 var
-R1281:1290 Kernel.VMState <> pg_next_id proj
-R1295:1302 Kernel.VMState <> vm_graph proj
-R1292:1292 Kernel.SpacetimeEmergence <> s:15 var
-R1330:1337 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1312:1318 Kernel.VMStep VMStep vm_step ind
-R1320:1320 Kernel.SpacetimeEmergence <> s:15 var
-R1322:1326 Kernel.SpacetimeEmergence <> instr:16 var
-R1328:1329 Kernel.SpacetimeEmergence <> s':17 var
-R1368:1375 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1338:1339 Coq.Init.Logic <> ::type_scope:'~'_x not
-R1340:1341 Coq.Lists.List <> In def
-R1348:1360 Kernel.KernelPhysics <> instr_targets def
-R1362:1366 Kernel.SpacetimeEmergence <> instr:16 var
-R1343:1345 Kernel.SpacetimeEmergence <> mid:18 var
-R1398:1400 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1376:1391 Kernel.KernelPhysics <> ObservableRegion def
-R1393:1393 Kernel.SpacetimeEmergence <> s:15 var
-R1395:1397 Kernel.SpacetimeEmergence <> mid:18 var
-R1401:1416 Kernel.KernelPhysics <> ObservableRegion def
-R1418:1419 Kernel.SpacetimeEmergence <> s':17 var
-R1421:1423 Kernel.SpacetimeEmergence <> mid:18 var
-R1487:1512 Kernel.KernelPhysics <> observational_no_signaling thm
-R1487:1512 Kernel.KernelPhysics <> observational_no_signaling thm
-prf 1601:1634 <> all_ids_below_graph_insert_modules
-binder 1647:1653 <> modules:19
-binder 1655:1659 <> bound:20
-binder 1661:1663 <> mid:21
-binder 1665:1665 <> m:22
-R1699:1706 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1672:1684 Kernel.VMState <> all_ids_below def
-R1686:1692 Kernel.SpacetimeEmergence <> modules:19 var
-R1694:1698 Kernel.SpacetimeEmergence <> bound:20 var
-R1718:1725 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1710:1712 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R1707:1709 Kernel.SpacetimeEmergence <> mid:21 var
-R1713:1717 Kernel.SpacetimeEmergence <> bound:20 var
-R1726:1738 Kernel.VMState <> all_ids_below def
-R1741:1760 Kernel.VMState <> graph_insert_modules def
-R1762:1768 Kernel.SpacetimeEmergence <> modules:19 var
-R1770:1772 Kernel.SpacetimeEmergence <> mid:21 var
-R1774:1774 Kernel.SpacetimeEmergence <> m:22 var
-R1777:1781 Kernel.SpacetimeEmergence <> bound:20 var
-R1899:1899 Coq.Init.Logic <> I constr
-R1899:1899 Coq.Init.Logic <> I constr
-R1973:1979 Coq.Arith.PeanoNat Nat eqb def
-R1973:1979 Coq.Arith.PeanoNat Nat eqb def
-prf 2169:2193 <> graph_update_preserves_wf
-binder 2204:2204 <> g:23
-binder 2206:2208 <> mid:24
-binder 2210:2210 <> m:25
-R2234:2239 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2215:2231 Kernel.VMState <> well_formed_graph def
-R2233:2233 Kernel.SpacetimeEmergence <> g:23 var
-R2258:2263 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2243:2245 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R2240:2242 Kernel.SpacetimeEmergence <> mid:24 var
-R2246:2255 Kernel.VMState <> pg_next_id proj
-R2257:2257 Kernel.SpacetimeEmergence <> g:23 var
-R2264:2280 Kernel.VMState <> well_formed_graph def
-R2283:2294 Kernel.VMState <> graph_update def
-R2296:2296 Kernel.SpacetimeEmergence <> g:23 var
-R2298:2300 Kernel.SpacetimeEmergence <> mid:24 var
-R2302:2302 Kernel.SpacetimeEmergence <> m:25 var
-R2348:2359 Kernel.VMState <> graph_update def
-R2362:2378 Kernel.VMState <> well_formed_graph def
-R2396:2429 Kernel.SpacetimeEmergence <> all_ids_below_graph_insert_modules thm
-R2396:2429 Kernel.SpacetimeEmergence <> all_ids_below_graph_insert_modules thm
-prf 2517:2544 <> graph_add_axiom_preserves_wf
-binder 2555:2555 <> g:26
-binder 2557:2559 <> mid:27
-binder 2561:2562 <> ax:28
-R2586:2591 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2567:2583 Kernel.VMState <> well_formed_graph def
-R2585:2585 Kernel.SpacetimeEmergence <> g:26 var
-R2592:2608 Kernel.VMState <> well_formed_graph def
-R2611:2625 Kernel.VMState <> graph_add_axiom def
-R2627:2627 Kernel.SpacetimeEmergence <> g:26 var
-R2629:2631 Kernel.SpacetimeEmergence <> mid:27 var
-R2633:2634 Kernel.SpacetimeEmergence <> ax:28 var
-R2677:2691 Kernel.VMState <> graph_add_axiom def
-R2706:2717 Kernel.VMState <> graph_lookup def
-R2706:2717 Kernel.VMState <> graph_lookup def
-R2749:2773 Kernel.SpacetimeEmergence <> graph_update_preserves_wf thm
-R2749:2773 Kernel.SpacetimeEmergence <> graph_update_preserves_wf thm
-R2805:2807 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R2808:2817 Kernel.VMState <> pg_next_id proj
-R2805:2807 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R2808:2817 Kernel.VMState <> pg_next_id proj
-R2846:2860 Coq.Arith.PeanoNat Nat lt_ge_cases thm
-R2867:2876 Kernel.VMState <> pg_next_id proj
-R2846:2860 Coq.Arith.PeanoNat Nat lt_ge_cases thm
-R2867:2876 Kernel.VMState <> pg_next_id proj
-R2928:2957 Kernel.VMState <> wf_graph_lookup_beyond_next_id thm
-R2928:2957 Kernel.VMState <> wf_graph_lookup_beyond_next_id thm
-prf 3136:3164 <> graph_add_axioms_preserves_wf
-binder 3175:3177 <> axs:29
-binder 3179:3179 <> g:30
-binder 3181:3183 <> mid:31
-R3207:3212 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3188:3204 Kernel.VMState <> well_formed_graph def
-R3206:3206 Kernel.SpacetimeEmergence <> g:30 var
-R3213:3229 Kernel.VMState <> well_formed_graph def
-R3232:3247 Kernel.VMState <> graph_add_axioms def
-R3249:3249 Kernel.SpacetimeEmergence <> g:30 var
-R3251:3253 Kernel.SpacetimeEmergence <> mid:31 var
-R3255:3257 Kernel.SpacetimeEmergence <> axs:29 var
-R3377:3404 Kernel.SpacetimeEmergence <> graph_add_axiom_preserves_wf thm
-R3377:3404 Kernel.SpacetimeEmergence <> graph_add_axiom_preserves_wf thm
-prf 3502:3536 <> graph_record_discovery_preserves_wf
-binder 3547:3547 <> g:32
-binder 3549:3551 <> mid:33
-binder 3553:3554 <> ev:34
-R3578:3583 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3559:3575 Kernel.VMState <> well_formed_graph def
-R3577:3577 Kernel.SpacetimeEmergence <> g:32 var
-R3584:3600 Kernel.VMState <> well_formed_graph def
-R3603:3624 Kernel.VMState <> graph_record_discovery def
-R3626:3626 Kernel.SpacetimeEmergence <> g:32 var
-R3628:3630 Kernel.SpacetimeEmergence <> mid:33 var
-R3632:3633 Kernel.SpacetimeEmergence <> ev:34 var
-R3676:3697 Kernel.VMState <> graph_record_discovery def
-R3708:3736 Kernel.SpacetimeEmergence <> graph_add_axioms_preserves_wf thm
-R3708:3736 Kernel.SpacetimeEmergence <> graph_add_axioms_preserves_wf thm
-prf 3820:3842 <> graph_pnew_preserves_wf
-binder 3853:3853 <> g:35
-binder 3855:3860 <> region:36
-R3884:3889 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3865:3881 Kernel.VMState <> well_formed_graph def
-R3883:3883 Kernel.SpacetimeEmergence <> g:35 var
-R3890:3906 Kernel.VMState <> well_formed_graph def
-R3909:3911 Coq.Init.Datatypes <> fst def
-R3914:3923 Kernel.VMState <> graph_pnew def
-R3925:3925 Kernel.SpacetimeEmergence <> g:35 var
-R3927:3932 Kernel.SpacetimeEmergence <> region:36 var
-R3976:3985 Kernel.VMState <> graph_pnew def
-R4000:4016 Kernel.VMState <> graph_find_region def
-R4021:4036 Kernel.VMState <> normalize_region def
-R4000:4016 Kernel.VMState <> graph_find_region def
-R4021:4036 Kernel.VMState <> normalize_region def
-R4097:4125 Kernel.VMState <> graph_add_module_preserves_wf thm
-R4097:4125 Kernel.VMState <> graph_add_module_preserves_wf thm
-prf 4209:4233 <> graph_psplit_preserves_wf
-binder 4244:4244 <> g:37
-binder 4246:4248 <> mid:38
-binder 4250:4253 <> left:39
-binder 4255:4259 <> right:40
-binder 4261:4262 <> g':41
-binder 4264:4267 <> l_id:42
-binder 4269:4272 <> r_id:43
-R4296:4301 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4277:4293 Kernel.VMState <> well_formed_graph def
-R4295:4295 Kernel.SpacetimeEmergence <> g:37 var
-R4355:4360 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4331:4333 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4302:4313 Kernel.VMState <> graph_psplit def
-R4315:4315 Kernel.SpacetimeEmergence <> g:37 var
-R4317:4319 Kernel.SpacetimeEmergence <> mid:38 var
-R4321:4324 Kernel.SpacetimeEmergence <> left:39 var
-R4326:4330 Kernel.SpacetimeEmergence <> right:40 var
-R4334:4337 Coq.Init.Datatypes <> Some constr
-R4339:4339 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4342:4343 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4348:4349 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4354:4354 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4340:4341 Kernel.SpacetimeEmergence <> g':41 var
-R4344:4347 Kernel.SpacetimeEmergence <> l_id:42 var
-R4350:4353 Kernel.SpacetimeEmergence <> r_id:43 var
-R4361:4377 Kernel.VMState <> well_formed_graph def
-R4379:4380 Kernel.SpacetimeEmergence <> g':41 var
-R4447:4458 Kernel.VMState <> graph_psplit def
-R4480:4491 Kernel.VMState <> graph_lookup def
-R4480:4491 Kernel.VMState <> graph_lookup def
-R4551:4566 Kernel.VMState <> normalize_region def
-R4551:4566 Kernel.VMState <> normalize_region def
-R4601:4616 Kernel.VMState <> normalize_region def
-R4601:4616 Kernel.VMState <> normalize_region def
-R4643:4645 Coq.Init.Datatypes <> orb def
-R4679:4685 Coq.Arith.PeanoNat Nat eqb def
-R4688:4693 Coq.Init.Datatypes <> length def
-R4648:4654 Coq.Arith.PeanoNat Nat eqb def
-R4657:4662 Coq.Init.Datatypes <> length def
-R4643:4645 Coq.Init.Datatypes <> orb def
-R4679:4685 Coq.Arith.PeanoNat Nat eqb def
-R4688:4693 Coq.Init.Datatypes <> length def
-R4648:4654 Coq.Arith.PeanoNat Nat eqb def
-R4657:4662 Coq.Init.Datatypes <> length def
-R4737:4752 Kernel.VMState <> graph_add_module def
-R4756:4757 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R4759:4760 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R4737:4752 Kernel.VMState <> graph_add_module def
-R4756:4757 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R4759:4760 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R4832:4860 Kernel.VMState <> graph_add_module_preserves_wf thm
-R4864:4865 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R4867:4868 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R4832:4860 Kernel.VMState <> graph_add_module_preserves_wf thm
-R4864:4865 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R4867:4868 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R4967:4981 Kernel.VMState <> partition_valid def
-R4984:4996 Kernel.VMState <> module_region proj
-R4967:4981 Kernel.VMState <> partition_valid def
-R4984:4996 Kernel.VMState <> module_region proj
-R5067:5078 Kernel.VMState <> graph_remove def
-R5067:5078 Kernel.VMState <> graph_remove def
-R5155:5170 Kernel.VMState <> graph_add_module def
-R5193:5205 Kernel.VMState <> module_axioms proj
-R5155:5170 Kernel.VMState <> graph_add_module def
-R5193:5205 Kernel.VMState <> module_axioms proj
-R5256:5271 Kernel.VMState <> graph_add_module def
-R5292:5304 Kernel.VMState <> module_axioms proj
-R5256:5271 Kernel.VMState <> graph_add_module def
-R5292:5304 Kernel.VMState <> module_axioms proj
-R5385:5409 Kernel.VMState <> graph_remove_preserves_wf thm
-R5385:5409 Kernel.VMState <> graph_remove_preserves_wf thm
-R5477:5505 Kernel.VMState <> graph_add_module_preserves_wf thm
-R5528:5540 Kernel.VMState <> module_axioms proj
-R5477:5505 Kernel.VMState <> graph_add_module_preserves_wf thm
-R5528:5540 Kernel.VMState <> module_axioms proj
-R5649:5677 Kernel.VMState <> graph_add_module_preserves_wf thm
-R5698:5710 Kernel.VMState <> module_axioms proj
-R5649:5677 Kernel.VMState <> graph_add_module_preserves_wf thm
-R5698:5710 Kernel.VMState <> module_axioms proj
-prf 5902:5926 <> graph_pmerge_preserves_wf
-binder 5937:5937 <> g:44
-binder 5939:5940 <> m1:45
-binder 5942:5943 <> m2:46
-binder 5945:5946 <> g':47
-binder 5948:5956 <> merged_id:48
-R5980:5985 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5961:5977 Kernel.VMState <> well_formed_graph def
-R5979:5979 Kernel.SpacetimeEmergence <> g:44 var
-R6029:6034 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6006:6008 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5986:5997 Kernel.VMState <> graph_pmerge def
-R5999:5999 Kernel.SpacetimeEmergence <> g:44 var
-R6001:6002 Kernel.SpacetimeEmergence <> m1:45 var
-R6004:6005 Kernel.SpacetimeEmergence <> m2:46 var
-R6009:6012 Coq.Init.Datatypes <> Some constr
-R6014:6014 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6017:6018 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6028:6028 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6015:6016 Kernel.SpacetimeEmergence <> g':47 var
-R6019:6027 Kernel.SpacetimeEmergence <> merged_id:48 var
-R6035:6051 Kernel.VMState <> well_formed_graph def
-R6053:6054 Kernel.SpacetimeEmergence <> g':47 var
-R6111:6122 Kernel.VMState <> graph_pmerge def
-R6143:6149 Coq.Arith.PeanoNat Nat eqb def
-R6143:6149 Coq.Arith.PeanoNat Nat eqb def
-R6197:6208 Kernel.VMState <> graph_remove def
-R6197:6208 Kernel.VMState <> graph_remove def
-R6284:6308 Kernel.VMState <> graph_remove_preserves_wf thm
-R6284:6308 Kernel.VMState <> graph_remove_preserves_wf thm
-R6364:6375 Kernel.VMState <> graph_remove def
-R6364:6375 Kernel.VMState <> graph_remove def
-R6464:6488 Kernel.VMState <> graph_remove_preserves_wf thm
-R6464:6488 Kernel.VMState <> graph_remove_preserves_wf thm
-R6558:6561 Coq.Init.Datatypes <> negb def
-R6564:6580 Kernel.VMState <> nat_list_disjoint def
-R6583:6595 Kernel.VMState <> module_region proj
-R6604:6616 Kernel.VMState <> module_region proj
-R6558:6561 Coq.Init.Datatypes <> negb def
-R6564:6580 Kernel.VMState <> nat_list_disjoint def
-R6583:6595 Kernel.VMState <> module_region proj
-R6604:6616 Kernel.VMState <> module_region proj
-R6671:6684 Kernel.VMState <> nat_list_union def
-R6687:6699 Kernel.VMState <> module_region proj
-R6708:6720 Kernel.VMState <> module_region proj
-R6671:6684 Kernel.VMState <> nat_list_union def
-R6687:6699 Kernel.VMState <> module_region proj
-R6708:6720 Kernel.VMState <> module_region proj
-R6779:6782 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R6761:6773 Kernel.VMState <> module_axioms proj
-R6783:6795 Kernel.VMState <> module_axioms proj
-R6779:6782 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R6761:6773 Kernel.VMState <> module_axioms proj
-R6783:6795 Kernel.VMState <> module_axioms proj
-R6821:6837 Kernel.VMState <> graph_find_region def
-R6821:6837 Kernel.VMState <> graph_find_region def
-R6908:6919 Kernel.VMState <> graph_lookup def
-R6908:6919 Kernel.VMState <> graph_lookup def
-R7003:7005 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R7006:7015 Kernel.VMState <> pg_next_id proj
-R7003:7005 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R7006:7015 Kernel.VMState <> pg_next_id proj
-R7057:7071 Coq.Arith.PeanoNat Nat lt_ge_cases thm
-R7086:7095 Kernel.VMState <> pg_next_id proj
-R7057:7071 Coq.Arith.PeanoNat Nat lt_ge_cases thm
-R7086:7095 Kernel.VMState <> pg_next_id proj
-R7160:7189 Kernel.VMState <> wf_graph_lookup_beyond_next_id thm
-R7160:7189 Kernel.VMState <> wf_graph_lookup_beyond_next_id thm
-R7321:7345 Kernel.SpacetimeEmergence <> graph_update_preserves_wf thm
-R7321:7345 Kernel.SpacetimeEmergence <> graph_update_preserves_wf thm
-R7400:7415 Kernel.VMState <> graph_add_module def
-R7400:7415 Kernel.VMState <> graph_add_module def
-R7526:7554 Kernel.VMState <> graph_add_module_preserves_wf thm
-R7526:7554 Kernel.VMState <> graph_add_module_preserves_wf thm
-prf 7770:7789 <> vm_step_preserves_wf
-binder 7800:7800 <> s:49
-binder 7802:7806 <> instr:50
-binder 7808:7809 <> s':51
-R7844:7849 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7814:7830 Kernel.VMState <> well_formed_graph def
-R7835:7842 Kernel.VMState <> vm_graph proj
-R7832:7832 Kernel.SpacetimeEmergence <> s:49 var
-R7868:7873 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7850:7856 Kernel.VMStep VMStep vm_step ind
-R7858:7858 Kernel.SpacetimeEmergence <> s:49 var
-R7860:7864 Kernel.SpacetimeEmergence <> instr:50 var
-R7866:7867 Kernel.SpacetimeEmergence <> s':51 var
-R7874:7890 Kernel.VMState <> well_formed_graph def
-R7896:7903 Kernel.VMState <> vm_graph proj
-R7892:7893 Kernel.SpacetimeEmergence <> s':51 var
-R8028:8050 Kernel.SpacetimeEmergence <> graph_pnew_preserves_wf thm
-R8055:8062 Kernel.VMState <> vm_graph proj
-R8028:8050 Kernel.SpacetimeEmergence <> graph_pnew_preserves_wf thm
-R8055:8062 Kernel.VMState <> vm_graph proj
-R8180:8204 Kernel.SpacetimeEmergence <> graph_psplit_preserves_wf thm
-R8180:8204 Kernel.SpacetimeEmergence <> graph_psplit_preserves_wf thm
-R8242:8266 Kernel.SpacetimeEmergence <> graph_pmerge_preserves_wf thm
-R8242:8266 Kernel.SpacetimeEmergence <> graph_pmerge_preserves_wf thm
-R8315:8342 Kernel.SpacetimeEmergence <> graph_add_axiom_preserves_wf thm
-R8315:8342 Kernel.SpacetimeEmergence <> graph_add_axiom_preserves_wf thm
-R8393:8427 Kernel.SpacetimeEmergence <> graph_record_discovery_preserves_wf thm
-R8393:8427 Kernel.SpacetimeEmergence <> graph_record_discovery_preserves_wf thm
-prf 8513:8539 <> graph_pnew_next_id_monotone
-binder 8550:8550 <> g:52
-binder 8552:8557 <> region:53
-R8574:8577 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R8562:8571 Kernel.VMState <> pg_next_id proj
-R8573:8573 Kernel.SpacetimeEmergence <> g:52 var
-R8578:8587 Kernel.VMState <> pg_next_id proj
-R8590:8592 Coq.Init.Datatypes <> fst def
-R8595:8604 Kernel.VMState <> graph_pnew def
-R8606:8606 Kernel.SpacetimeEmergence <> g:52 var
-R8608:8613 Kernel.SpacetimeEmergence <> region:53 var
-R8653:8662 Kernel.VMState <> graph_pnew def
-R8677:8693 Kernel.VMState <> graph_find_region def
-R8698:8713 Kernel.VMState <> normalize_region def
-R8677:8693 Kernel.VMState <> graph_find_region def
-R8698:8713 Kernel.VMState <> normalize_region def
-prf 8817:8841 <> graph_update_next_id_same
-binder 8852:8852 <> g:54
-binder 8854:8856 <> mid:55
-binder 8858:8858 <> m:56
-R8896:8898 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8863:8872 Kernel.VMState <> pg_next_id proj
-R8875:8886 Kernel.VMState <> graph_update def
-R8888:8888 Kernel.SpacetimeEmergence <> g:54 var
-R8890:8892 Kernel.SpacetimeEmergence <> mid:55 var
-R8894:8894 Kernel.SpacetimeEmergence <> m:56 var
-R8899:8908 Kernel.VMState <> pg_next_id proj
-R8910:8910 Kernel.SpacetimeEmergence <> g:54 var
-R8947:8958 Kernel.VMState <> graph_update def
-prf 9054:9081 <> graph_add_axiom_next_id_same
-binder 9092:9092 <> g:57
-binder 9094:9096 <> mid:58
-binder 9098:9099 <> ax:59
-R9141:9143 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9104:9113 Kernel.VMState <> pg_next_id proj
-R9116:9130 Kernel.VMState <> graph_add_axiom def
-R9132:9132 Kernel.SpacetimeEmergence <> g:57 var
-R9134:9136 Kernel.SpacetimeEmergence <> mid:58 var
-R9138:9139 Kernel.SpacetimeEmergence <> ax:59 var
-R9144:9153 Kernel.VMState <> pg_next_id proj
-R9155:9155 Kernel.SpacetimeEmergence <> g:57 var
-R9193:9207 Kernel.VMState <> graph_add_axiom def
-R9222:9233 Kernel.VMState <> graph_lookup def
-R9222:9233 Kernel.VMState <> graph_lookup def
-R9266:9277 Kernel.VMState <> graph_update def
-prf 9391:9419 <> graph_add_axioms_next_id_same
-binder 9430:9432 <> axs:60
-binder 9434:9434 <> g:61
-binder 9436:9438 <> mid:62
-R9482:9484 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9443:9452 Kernel.VMState <> pg_next_id proj
-R9455:9470 Kernel.VMState <> graph_add_axioms def
-R9472:9472 Kernel.SpacetimeEmergence <> g:61 var
-R9474:9476 Kernel.SpacetimeEmergence <> mid:62 var
-R9478:9480 Kernel.SpacetimeEmergence <> axs:60 var
-R9485:9494 Kernel.VMState <> pg_next_id proj
-R9496:9496 Kernel.SpacetimeEmergence <> g:61 var
-R9617:9644 Kernel.SpacetimeEmergence <> graph_add_axiom_next_id_same thm
-R9617:9644 Kernel.SpacetimeEmergence <> graph_add_axiom_next_id_same thm
-R9617:9644 Kernel.SpacetimeEmergence <> graph_add_axiom_next_id_same thm
-prf 9744:9778 <> graph_record_discovery_next_id_same
-binder 9789:9789 <> g:63
-binder 9791:9793 <> mid:64
-binder 9795:9796 <> ev:65
-R9845:9847 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9801:9810 Kernel.VMState <> pg_next_id proj
-R9813:9834 Kernel.VMState <> graph_record_discovery def
-R9836:9836 Kernel.SpacetimeEmergence <> g:63 var
-R9838:9840 Kernel.SpacetimeEmergence <> mid:64 var
-R9842:9843 Kernel.SpacetimeEmergence <> ev:65 var
-R9848:9857 Kernel.VMState <> pg_next_id proj
-R9859:9859 Kernel.SpacetimeEmergence <> g:63 var
-R9897:9918 Kernel.VMState <> graph_record_discovery def
-R9929:9957 Kernel.SpacetimeEmergence <> graph_add_axioms_next_id_same thm
-R9929:9957 Kernel.SpacetimeEmergence <> graph_add_axioms_next_id_same thm
-prf 10034:10062 <> graph_psplit_next_id_monotone
-binder 10073:10073 <> g:66
-binder 10075:10077 <> mid:67
-binder 10079:10082 <> left:68
-binder 10084:10088 <> right:69
-binder 10090:10091 <> g':70
-binder 10093:10096 <> l_id:71
-binder 10098:10101 <> r_id:72
-R10159:10164 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10135:10137 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10106:10117 Kernel.VMState <> graph_psplit def
-R10119:10119 Kernel.SpacetimeEmergence <> g:66 var
-R10121:10123 Kernel.SpacetimeEmergence <> mid:67 var
-R10125:10128 Kernel.SpacetimeEmergence <> left:68 var
-R10130:10134 Kernel.SpacetimeEmergence <> right:69 var
-R10138:10141 Coq.Init.Datatypes <> Some constr
-R10143:10143 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10146:10147 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10152:10153 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10158:10158 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10144:10145 Kernel.SpacetimeEmergence <> g':70 var
-R10148:10151 Kernel.SpacetimeEmergence <> l_id:71 var
-R10154:10157 Kernel.SpacetimeEmergence <> r_id:72 var
-R10177:10180 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R10165:10174 Kernel.VMState <> pg_next_id proj
-R10176:10176 Kernel.SpacetimeEmergence <> g:66 var
-R10181:10190 Kernel.VMState <> pg_next_id proj
-R10192:10193 Kernel.SpacetimeEmergence <> g':70 var
-R10256:10267 Kernel.VMState <> graph_psplit def
-R10289:10300 Kernel.VMState <> graph_lookup def
-R10289:10300 Kernel.VMState <> graph_lookup def
-R10360:10375 Kernel.VMState <> normalize_region def
-R10360:10375 Kernel.VMState <> normalize_region def
-R10410:10425 Kernel.VMState <> normalize_region def
-R10410:10425 Kernel.VMState <> normalize_region def
-R10452:10454 Coq.Init.Datatypes <> orb def
-R10488:10494 Coq.Arith.PeanoNat Nat eqb def
-R10497:10502 Coq.Init.Datatypes <> length def
-R10457:10463 Coq.Arith.PeanoNat Nat eqb def
-R10466:10471 Coq.Init.Datatypes <> length def
-R10452:10454 Coq.Init.Datatypes <> orb def
-R10488:10494 Coq.Arith.PeanoNat Nat eqb def
-R10497:10502 Coq.Init.Datatypes <> length def
-R10457:10463 Coq.Arith.PeanoNat Nat eqb def
-R10466:10471 Coq.Init.Datatypes <> length def
-R10546:10561 Kernel.VMState <> graph_add_module def
-R10565:10566 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R10568:10569 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R10546:10561 Kernel.VMState <> graph_add_module def
-R10565:10566 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R10568:10569 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R10647:10662 Kernel.VMState <> graph_add_module def
-R10726:10740 Kernel.VMState <> partition_valid def
-R10743:10755 Kernel.VMState <> module_region proj
-R10726:10740 Kernel.VMState <> partition_valid def
-R10743:10755 Kernel.VMState <> module_region proj
-R10826:10837 Kernel.VMState <> graph_remove def
-R10826:10837 Kernel.VMState <> graph_remove def
-R10914:10929 Kernel.VMState <> graph_add_module def
-R10952:10964 Kernel.VMState <> module_axioms proj
-R10914:10929 Kernel.VMState <> graph_add_module def
-R10952:10964 Kernel.VMState <> module_axioms proj
-R11015:11030 Kernel.VMState <> graph_add_module def
-R11051:11063 Kernel.VMState <> module_axioms proj
-R11015:11030 Kernel.VMState <> graph_add_module def
-R11051:11063 Kernel.VMState <> module_axioms proj
-R11139:11150 Kernel.VMState <> graph_remove def
-R11175:11194 Kernel.VMState <> graph_remove_modules def
-R11197:11206 Kernel.VMState <> pg_modules proj
-R11175:11194 Kernel.VMState <> graph_remove_modules def
-R11197:11206 Kernel.VMState <> pg_modules proj
-R11319:11334 Kernel.VMState <> graph_add_module def
-R11388:11403 Kernel.VMState <> graph_add_module def
-prf 11525:11549 <> graph_remove_next_id_same
-binder 11560:11560 <> g:73
-binder 11562:11564 <> mid:74
-binder 11566:11567 <> g':75
-binder 11569:11569 <> m:76
-R11607:11612 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11592:11594 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11574:11585 Kernel.VMState <> graph_remove def
-R11587:11587 Kernel.SpacetimeEmergence <> g:73 var
-R11589:11591 Kernel.SpacetimeEmergence <> mid:74 var
-R11595:11598 Coq.Init.Datatypes <> Some constr
-R11600:11600 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11603:11604 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11606:11606 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11601:11602 Kernel.SpacetimeEmergence <> g':75 var
-R11605:11605 Kernel.SpacetimeEmergence <> m:76 var
-R11626:11628 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11613:11622 Kernel.VMState <> pg_next_id proj
-R11624:11625 Kernel.SpacetimeEmergence <> g':75 var
-R11629:11638 Kernel.VMState <> pg_next_id proj
-R11640:11640 Kernel.SpacetimeEmergence <> g:73 var
-R11685:11696 Kernel.VMState <> graph_remove def
-R11719:11738 Kernel.VMState <> graph_remove_modules def
-R11741:11750 Kernel.VMState <> pg_modules proj
-R11719:11738 Kernel.VMState <> graph_remove_modules def
-R11741:11750 Kernel.VMState <> pg_modules proj
-prf 11946:11974 <> graph_pmerge_next_id_monotone
-binder 11985:11985 <> g:77
-binder 11987:11988 <> m1:78
-binder 11990:11991 <> m2:79
-binder 11993:11994 <> g':80
-binder 11996:12004 <> merged_id:81
-R12052:12057 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12029:12031 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12009:12020 Kernel.VMState <> graph_pmerge def
-R12022:12022 Kernel.SpacetimeEmergence <> g:77 var
-R12024:12025 Kernel.SpacetimeEmergence <> m1:78 var
-R12027:12028 Kernel.SpacetimeEmergence <> m2:79 var
-R12032:12035 Coq.Init.Datatypes <> Some constr
-R12037:12037 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R12040:12041 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R12051:12051 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R12038:12039 Kernel.SpacetimeEmergence <> g':80 var
-R12042:12050 Kernel.SpacetimeEmergence <> merged_id:81 var
-R12070:12073 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R12058:12067 Kernel.VMState <> pg_next_id proj
-R12069:12069 Kernel.SpacetimeEmergence <> g:77 var
-R12074:12083 Kernel.VMState <> pg_next_id proj
-R12085:12086 Kernel.SpacetimeEmergence <> g':80 var
-R12139:12150 Kernel.VMState <> graph_pmerge def
-R12171:12177 Coq.Arith.PeanoNat Nat eqb def
-R12171:12177 Coq.Arith.PeanoNat Nat eqb def
-R12225:12236 Kernel.VMState <> graph_remove def
-R12225:12236 Kernel.VMState <> graph_remove def
-R12331:12333 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12308:12317 Kernel.VMState <> pg_next_id proj
-R12334:12343 Kernel.VMState <> pg_next_id proj
-R12331:12333 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12308:12317 Kernel.VMState <> pg_next_id proj
-R12334:12343 Kernel.VMState <> pg_next_id proj
-R12369:12393 Kernel.SpacetimeEmergence <> graph_remove_next_id_same thm
-R12369:12393 Kernel.SpacetimeEmergence <> graph_remove_next_id_same thm
-R12417:12428 Kernel.VMState <> graph_remove def
-R12417:12428 Kernel.VMState <> graph_remove def
-R12538:12540 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12513:12522 Kernel.VMState <> pg_next_id proj
-R12541:12550 Kernel.VMState <> pg_next_id proj
-R12538:12540 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12513:12522 Kernel.VMState <> pg_next_id proj
-R12541:12550 Kernel.VMState <> pg_next_id proj
-R12587:12611 Kernel.SpacetimeEmergence <> graph_remove_next_id_same thm
-R12587:12611 Kernel.SpacetimeEmergence <> graph_remove_next_id_same thm
-R12635:12638 Coq.Init.Datatypes <> negb def
-R12641:12657 Kernel.VMState <> nat_list_disjoint def
-R12660:12672 Kernel.VMState <> module_region proj
-R12681:12693 Kernel.VMState <> module_region proj
-R12635:12638 Coq.Init.Datatypes <> negb def
-R12641:12657 Kernel.VMState <> nat_list_disjoint def
-R12660:12672 Kernel.VMState <> module_region proj
-R12681:12693 Kernel.VMState <> module_region proj
-R12748:12761 Kernel.VMState <> nat_list_union def
-R12764:12776 Kernel.VMState <> module_region proj
-R12785:12797 Kernel.VMState <> module_region proj
-R12748:12761 Kernel.VMState <> nat_list_union def
-R12764:12776 Kernel.VMState <> module_region proj
-R12785:12797 Kernel.VMState <> module_region proj
-R12856:12859 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R12838:12850 Kernel.VMState <> module_axioms proj
-R12860:12872 Kernel.VMState <> module_axioms proj
-R12856:12859 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R12838:12850 Kernel.VMState <> module_axioms proj
-R12860:12872 Kernel.VMState <> module_axioms proj
-R12898:12914 Kernel.VMState <> graph_find_region def
-R12898:12914 Kernel.VMState <> graph_find_region def
-R12963:12974 Kernel.VMState <> graph_lookup def
-R12963:12974 Kernel.VMState <> graph_lookup def
-R13061:13072 Kernel.VMState <> graph_update def
-R13131:13146 Kernel.VMState <> graph_add_module def
-R13131:13146 Kernel.VMState <> graph_add_module def
-R13252:13267 Kernel.VMState <> graph_add_module def
-prf 13412:13435 <> vm_step_next_id_monotone
-binder 13446:13446 <> s:82
-binder 13448:13452 <> instr:83
-binder 13454:13455 <> s':84
-R13478:13483 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13460:13466 Kernel.VMStep VMStep vm_step ind
-R13468:13468 Kernel.SpacetimeEmergence <> s:82 var
-R13470:13474 Kernel.SpacetimeEmergence <> instr:83 var
-R13476:13477 Kernel.SpacetimeEmergence <> s':84 var
-R13507:13510 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R13484:13493 Kernel.VMState <> pg_next_id proj
-R13498:13505 Kernel.VMState <> vm_graph proj
-R13495:13495 Kernel.SpacetimeEmergence <> s:82 var
-R13511:13520 Kernel.VMState <> pg_next_id proj
-R13526:13533 Kernel.VMState <> vm_graph proj
-R13522:13523 Kernel.SpacetimeEmergence <> s':84 var
-R13648:13674 Kernel.SpacetimeEmergence <> graph_pnew_next_id_monotone thm
-R13679:13686 Kernel.VMState <> vm_graph proj
-R13648:13674 Kernel.SpacetimeEmergence <> graph_pnew_next_id_monotone thm
-R13679:13686 Kernel.VMState <> vm_graph proj
-R13792:13820 Kernel.SpacetimeEmergence <> graph_psplit_next_id_monotone thm
-R13792:13820 Kernel.SpacetimeEmergence <> graph_psplit_next_id_monotone thm
-R13858:13886 Kernel.SpacetimeEmergence <> graph_pmerge_next_id_monotone thm
-R13858:13886 Kernel.SpacetimeEmergence <> graph_pmerge_next_id_monotone thm
-R13937:13964 Kernel.SpacetimeEmergence <> graph_add_axiom_next_id_same thm
-R13937:13964 Kernel.SpacetimeEmergence <> graph_add_axiom_next_id_same thm
-R13937:13964 Kernel.SpacetimeEmergence <> graph_add_axiom_next_id_same thm
-R14011:14045 Kernel.SpacetimeEmergence <> graph_record_discovery_next_id_same thm
-R14011:14045 Kernel.SpacetimeEmergence <> graph_record_discovery_next_id_same thm
-R14011:14045 Kernel.SpacetimeEmergence <> graph_record_discovery_next_id_same thm
-prf 14130:14161 <> vm_step_preserves_mid_lt_next_id
-binder 14172:14172 <> s:85
-binder 14174:14178 <> instr:86
-binder 14180:14181 <> s':87
-binder 14183:14185 <> mid:88
-R14219:14224 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14193:14195 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R14190:14192 Kernel.SpacetimeEmergence <> mid:88 var
-R14196:14205 Kernel.VMState <> pg_next_id proj
-R14210:14217 Kernel.VMState <> vm_graph proj
-R14207:14207 Kernel.SpacetimeEmergence <> s:85 var
-R14243:14248 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14225:14231 Kernel.VMStep VMStep vm_step ind
-R14233:14233 Kernel.SpacetimeEmergence <> s:85 var
-R14235:14239 Kernel.SpacetimeEmergence <> instr:86 var
-R14241:14242 Kernel.SpacetimeEmergence <> s':87 var
-R14252:14254 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R14249:14251 Kernel.SpacetimeEmergence <> mid:88 var
-R14255:14264 Kernel.VMState <> pg_next_id proj
-R14270:14277 Kernel.VMState <> vm_graph proj
-R14266:14267 Kernel.SpacetimeEmergence <> s':87 var
-R14337:14360 Kernel.SpacetimeEmergence <> vm_step_next_id_monotone thm
-R14337:14360 Kernel.SpacetimeEmergence <> vm_step_next_id_monotone thm
-ind 14413:14422 <> exec_trace
-constr 14481:14494 <> exec_trace_nil
-constr 14528:14542 <> exec_trace_cons
-R14433:14436 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14426:14432 Kernel.VMState <> VMState rec
-R14456:14459 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14437:14440 Coq.Init.Datatypes <> list ind
-R14442:14455 Kernel.VMStep VMStep vm_instruction ind
-R14467:14470 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14460:14466 Kernel.VMState <> VMState rec
-binder 14505:14505 <> s:91
-R14508:14517 Kernel.SpacetimeEmergence <> exec_trace:89 ind
-R14524:14524 Kernel.SpacetimeEmergence <> s:91 var
-R14521:14522 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R14519:14519 Kernel.SpacetimeEmergence <> s:91 var
-binder 14553:14554 <> s1:92
-binder 14556:14560 <> instr:93
-binder 14562:14563 <> s2:94
-binder 14565:14568 <> rest:95
-binder 14570:14571 <> s3:96
-R14597:14604 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14578:14584 Kernel.VMStep VMStep vm_step ind
-R14586:14587 Kernel.SpacetimeEmergence <> s1:92 var
-R14589:14593 Kernel.SpacetimeEmergence <> instr:93 var
-R14595:14596 Kernel.SpacetimeEmergence <> s2:94 var
-R14626:14633 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14605:14614 Kernel.SpacetimeEmergence <> exec_trace:89 ind
-R14624:14625 Kernel.SpacetimeEmergence <> s3:96 var
-R14619:14622 Kernel.SpacetimeEmergence <> rest:95 var
-R14616:14617 Kernel.SpacetimeEmergence <> s2:94 var
+R292:302 Kernel.MuCostModel <> <> lib
+def 317:321 <> Event
+R333:339 Kernel.VMState <> VMState rec
+def 353:363 <> event_equiv
+R372:375 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R367:371 Kernel.SpacetimeEmergence <> Event def
+R381:384 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R376:380 Kernel.SpacetimeEmergence <> Event def
+R393:401 Kernel.KernelPhysics <> obs_equiv def
+inst 414:436 <> event_equiv_equivalence
+R440:450 Coq.Classes.RelationClasses <> Equivalence class
+R452:462 Kernel.SpacetimeEmergence <> event_equiv def
+R491:504 Kernel.KernelPhysics <> obs_equiv_refl thm
+R491:504 Kernel.KernelPhysics <> obs_equiv_refl thm
+R517:529 Kernel.KernelPhysics <> obs_equiv_sym thm
+R517:529 Kernel.KernelPhysics <> obs_equiv_sym thm
+R542:556 Kernel.KernelPhysics <> obs_equiv_trans thm
+R542:556 Kernel.KernelPhysics <> obs_equiv_trans thm
+def 576:583 <> step_rel
+R593:599 Kernel.VMState <> VMState rec
+binder 586:586 <> s:1
+binder 588:589 <> s':2
+R612:618 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R624:625 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 619:623 <> instr:3
+R626:632 Kernel.VMStep VMStep vm_step ind
+R634:634 Kernel.SpacetimeEmergence <> s:1 var
+R636:640 Kernel.SpacetimeEmergence <> instr:3 var
+R642:643 Kernel.SpacetimeEmergence <> s':2 var
+ind 657:663 <> reaches
+constr 699:710 <> reaches_refl
+constr 738:749 <> reaches_cons
+R674:677 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R667:673 Kernel.VMState <> VMState rec
+R685:688 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R678:684 Kernel.VMState <> VMState rec
+binder 721:721 <> s:6
+R724:730 Kernel.SpacetimeEmergence <> reaches:4 ind
+R734:734 Kernel.SpacetimeEmergence <> s:6 var
+R732:732 Kernel.SpacetimeEmergence <> s:6 var
+binder 760:761 <> s1:7
+binder 763:764 <> s2:8
+binder 766:767 <> s3:9
+R784:787 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R770:777 Kernel.SpacetimeEmergence <> step_rel def
+R779:780 Kernel.SpacetimeEmergence <> s1:7 var
+R782:783 Kernel.SpacetimeEmergence <> s2:8 var
+R801:804 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R788:794 Kernel.SpacetimeEmergence <> reaches:4 ind
+R799:800 Kernel.SpacetimeEmergence <> s3:9 var
+R796:797 Kernel.SpacetimeEmergence <> s2:8 var
+R805:811 Kernel.SpacetimeEmergence <> reaches:4 ind
+R816:817 Kernel.SpacetimeEmergence <> s3:9 var
+R813:814 Kernel.SpacetimeEmergence <> s1:7 var
+scheme 657:663 <> reaches_ind
+scheme 657:663 <> reaches_sind
+prf 871:881 <> reaches_one
+binder 892:892 <> s:10
+binder 894:895 <> s':11
+R911:914 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R898:905 Kernel.SpacetimeEmergence <> step_rel def
+R907:907 Kernel.SpacetimeEmergence <> s:10 var
+R909:910 Kernel.SpacetimeEmergence <> s':11 var
+R915:921 Kernel.SpacetimeEmergence <> reaches ind
+R923:923 Kernel.SpacetimeEmergence <> s:10 var
+R925:926 Kernel.SpacetimeEmergence <> s':11 var
+R962:973 Kernel.SpacetimeEmergence <> reaches_cons constr
+R962:973 Kernel.SpacetimeEmergence <> reaches_cons constr
+prf 1064:1076 <> reaches_trans
+binder 1087:1088 <> s1:12
+binder 1090:1091 <> s2:13
+binder 1093:1094 <> s3:14
+R1110:1113 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1097:1103 Kernel.SpacetimeEmergence <> reaches ind
+R1105:1106 Kernel.SpacetimeEmergence <> s1:12 var
+R1108:1109 Kernel.SpacetimeEmergence <> s2:13 var
+R1127:1130 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1114:1120 Kernel.SpacetimeEmergence <> reaches ind
+R1122:1123 Kernel.SpacetimeEmergence <> s2:13 var
+R1125:1126 Kernel.SpacetimeEmergence <> s3:14 var
+R1131:1137 Kernel.SpacetimeEmergence <> reaches ind
+R1139:1140 Kernel.SpacetimeEmergence <> s1:12 var
+R1142:1143 Kernel.SpacetimeEmergence <> s3:14 var
+R1223:1234 Kernel.SpacetimeEmergence <> reaches_cons constr
+R1223:1234 Kernel.SpacetimeEmergence <> reaches_cons constr
+prf 1310:1330 <> step_rel_no_signaling
+binder 1343:1343 <> s:15
+binder 1345:1349 <> instr:16
+binder 1351:1352 <> s':17
+binder 1354:1356 <> mid:18
+R1393:1400 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1363:1379 Kernel.VMState <> well_formed_graph def
+R1384:1391 Kernel.VMState <> vm_graph proj
+R1381:1381 Kernel.SpacetimeEmergence <> s:15 var
+R1430:1437 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1404:1406 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R1401:1403 Kernel.SpacetimeEmergence <> mid:18 var
+R1407:1416 Kernel.VMState <> pg_next_id proj
+R1421:1428 Kernel.VMState <> vm_graph proj
+R1418:1418 Kernel.SpacetimeEmergence <> s:15 var
+R1456:1463 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1438:1444 Kernel.VMStep VMStep vm_step ind
+R1446:1446 Kernel.SpacetimeEmergence <> s:15 var
+R1448:1452 Kernel.SpacetimeEmergence <> instr:16 var
+R1454:1455 Kernel.SpacetimeEmergence <> s':17 var
+R1494:1501 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1464:1465 Coq.Init.Logic <> ::type_scope:'~'_x not
+R1466:1467 Coq.Lists.List <> In def
+R1474:1486 Kernel.KernelPhysics <> instr_targets def
+R1488:1492 Kernel.SpacetimeEmergence <> instr:16 var
+R1469:1471 Kernel.SpacetimeEmergence <> mid:18 var
+R1524:1526 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1502:1517 Kernel.KernelPhysics <> ObservableRegion def
+R1519:1519 Kernel.SpacetimeEmergence <> s:15 var
+R1521:1523 Kernel.SpacetimeEmergence <> mid:18 var
+R1527:1542 Kernel.KernelPhysics <> ObservableRegion def
+R1544:1545 Kernel.SpacetimeEmergence <> s':17 var
+R1547:1549 Kernel.SpacetimeEmergence <> mid:18 var
+R1613:1638 Kernel.KernelPhysics <> observational_no_signaling thm
+R1613:1638 Kernel.KernelPhysics <> observational_no_signaling thm
+prf 1727:1760 <> all_ids_below_graph_insert_modules
+binder 1773:1779 <> modules:19
+binder 1781:1785 <> bound:20
+binder 1787:1789 <> mid:21
+binder 1791:1791 <> m:22
+R1825:1832 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1798:1810 Kernel.VMState <> all_ids_below def
+R1812:1818 Kernel.SpacetimeEmergence <> modules:19 var
+R1820:1824 Kernel.SpacetimeEmergence <> bound:20 var
+R1844:1851 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1836:1838 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R1833:1835 Kernel.SpacetimeEmergence <> mid:21 var
+R1839:1843 Kernel.SpacetimeEmergence <> bound:20 var
+R1852:1864 Kernel.VMState <> all_ids_below def
+R1867:1886 Kernel.VMState <> graph_insert_modules def
+R1888:1894 Kernel.SpacetimeEmergence <> modules:19 var
+R1896:1898 Kernel.SpacetimeEmergence <> mid:21 var
+R1900:1900 Kernel.SpacetimeEmergence <> m:22 var
+R1903:1907 Kernel.SpacetimeEmergence <> bound:20 var
+R2025:2025 Coq.Init.Logic <> I constr
+R2025:2025 Coq.Init.Logic <> I constr
+R2099:2105 Coq.Arith.PeanoNat Nat eqb def
+R2099:2105 Coq.Arith.PeanoNat Nat eqb def
+prf 2295:2319 <> graph_update_preserves_wf
+binder 2330:2330 <> g:23
+binder 2332:2334 <> mid:24
+binder 2336:2336 <> m:25
+R2360:2365 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2341:2357 Kernel.VMState <> well_formed_graph def
+R2359:2359 Kernel.SpacetimeEmergence <> g:23 var
+R2384:2389 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2369:2371 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2366:2368 Kernel.SpacetimeEmergence <> mid:24 var
+R2372:2381 Kernel.VMState <> pg_next_id proj
+R2383:2383 Kernel.SpacetimeEmergence <> g:23 var
+R2390:2406 Kernel.VMState <> well_formed_graph def
+R2409:2420 Kernel.VMState <> graph_update def
+R2422:2422 Kernel.SpacetimeEmergence <> g:23 var
+R2424:2426 Kernel.SpacetimeEmergence <> mid:24 var
+R2428:2428 Kernel.SpacetimeEmergence <> m:25 var
+R2474:2485 Kernel.VMState <> graph_update def
+R2488:2504 Kernel.VMState <> well_formed_graph def
+R2522:2555 Kernel.SpacetimeEmergence <> all_ids_below_graph_insert_modules thm
+R2522:2555 Kernel.SpacetimeEmergence <> all_ids_below_graph_insert_modules thm
+prf 2643:2670 <> graph_add_axiom_preserves_wf
+binder 2681:2681 <> g:26
+binder 2683:2685 <> mid:27
+binder 2687:2688 <> ax:28
+R2712:2717 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2693:2709 Kernel.VMState <> well_formed_graph def
+R2711:2711 Kernel.SpacetimeEmergence <> g:26 var
+R2718:2734 Kernel.VMState <> well_formed_graph def
+R2737:2751 Kernel.VMState <> graph_add_axiom def
+R2753:2753 Kernel.SpacetimeEmergence <> g:26 var
+R2755:2757 Kernel.SpacetimeEmergence <> mid:27 var
+R2759:2760 Kernel.SpacetimeEmergence <> ax:28 var
+R2803:2817 Kernel.VMState <> graph_add_axiom def
+R2832:2843 Kernel.VMState <> graph_lookup def
+R2832:2843 Kernel.VMState <> graph_lookup def
+R2875:2899 Kernel.SpacetimeEmergence <> graph_update_preserves_wf thm
+R2875:2899 Kernel.SpacetimeEmergence <> graph_update_preserves_wf thm
+R2931:2933 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2934:2943 Kernel.VMState <> pg_next_id proj
+R2931:2933 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2934:2943 Kernel.VMState <> pg_next_id proj
+R2972:2986 Coq.Arith.PeanoNat Nat lt_ge_cases thm
+R2993:3002 Kernel.VMState <> pg_next_id proj
+R2972:2986 Coq.Arith.PeanoNat Nat lt_ge_cases thm
+R2993:3002 Kernel.VMState <> pg_next_id proj
+R3054:3083 Kernel.VMState <> wf_graph_lookup_beyond_next_id thm
+R3054:3083 Kernel.VMState <> wf_graph_lookup_beyond_next_id thm
+prf 3262:3290 <> graph_add_axioms_preserves_wf
+binder 3301:3303 <> axs:29
+binder 3305:3305 <> g:30
+binder 3307:3309 <> mid:31
+R3333:3338 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3314:3330 Kernel.VMState <> well_formed_graph def
+R3332:3332 Kernel.SpacetimeEmergence <> g:30 var
+R3339:3355 Kernel.VMState <> well_formed_graph def
+R3358:3373 Kernel.VMState <> graph_add_axioms def
+R3375:3375 Kernel.SpacetimeEmergence <> g:30 var
+R3377:3379 Kernel.SpacetimeEmergence <> mid:31 var
+R3381:3383 Kernel.SpacetimeEmergence <> axs:29 var
+R3503:3530 Kernel.SpacetimeEmergence <> graph_add_axiom_preserves_wf thm
+R3503:3530 Kernel.SpacetimeEmergence <> graph_add_axiom_preserves_wf thm
+prf 3628:3662 <> graph_record_discovery_preserves_wf
+binder 3673:3673 <> g:32
+binder 3675:3677 <> mid:33
+binder 3679:3680 <> ev:34
+R3704:3709 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3685:3701 Kernel.VMState <> well_formed_graph def
+R3703:3703 Kernel.SpacetimeEmergence <> g:32 var
+R3710:3726 Kernel.VMState <> well_formed_graph def
+R3729:3750 Kernel.VMState <> graph_record_discovery def
+R3752:3752 Kernel.SpacetimeEmergence <> g:32 var
+R3754:3756 Kernel.SpacetimeEmergence <> mid:33 var
+R3758:3759 Kernel.SpacetimeEmergence <> ev:34 var
+R3802:3823 Kernel.VMState <> graph_record_discovery def
+R3834:3862 Kernel.SpacetimeEmergence <> graph_add_axioms_preserves_wf thm
+R3834:3862 Kernel.SpacetimeEmergence <> graph_add_axioms_preserves_wf thm
+prf 3946:3968 <> graph_pnew_preserves_wf
+binder 3979:3979 <> g:35
+binder 3981:3986 <> region:36
+R4010:4015 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3991:4007 Kernel.VMState <> well_formed_graph def
+R4009:4009 Kernel.SpacetimeEmergence <> g:35 var
+R4016:4032 Kernel.VMState <> well_formed_graph def
+R4035:4037 Coq.Init.Datatypes <> fst def
+R4040:4049 Kernel.VMState <> graph_pnew def
+R4051:4051 Kernel.SpacetimeEmergence <> g:35 var
+R4053:4058 Kernel.SpacetimeEmergence <> region:36 var
+R4102:4111 Kernel.VMState <> graph_pnew def
+R4126:4142 Kernel.VMState <> graph_find_region def
+R4147:4162 Kernel.VMState <> normalize_region def
+R4126:4142 Kernel.VMState <> graph_find_region def
+R4147:4162 Kernel.VMState <> normalize_region def
+R4223:4251 Kernel.VMState <> graph_add_module_preserves_wf thm
+R4223:4251 Kernel.VMState <> graph_add_module_preserves_wf thm
+prf 4335:4359 <> graph_psplit_preserves_wf
+binder 4370:4370 <> g:37
+binder 4372:4374 <> mid:38
+binder 4376:4379 <> left:39
+binder 4381:4385 <> right:40
+binder 4387:4388 <> g':41
+binder 4390:4393 <> l_id:42
+binder 4395:4398 <> r_id:43
+R4422:4427 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4403:4419 Kernel.VMState <> well_formed_graph def
+R4421:4421 Kernel.SpacetimeEmergence <> g:37 var
+R4481:4486 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4457:4459 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4428:4439 Kernel.VMState <> graph_psplit def
+R4441:4441 Kernel.SpacetimeEmergence <> g:37 var
+R4443:4445 Kernel.SpacetimeEmergence <> mid:38 var
+R4447:4450 Kernel.SpacetimeEmergence <> left:39 var
+R4452:4456 Kernel.SpacetimeEmergence <> right:40 var
+R4460:4463 Coq.Init.Datatypes <> Some constr
+R4465:4465 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4468:4469 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4474:4475 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4480:4480 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4466:4467 Kernel.SpacetimeEmergence <> g':41 var
+R4470:4473 Kernel.SpacetimeEmergence <> l_id:42 var
+R4476:4479 Kernel.SpacetimeEmergence <> r_id:43 var
+R4487:4503 Kernel.VMState <> well_formed_graph def
+R4505:4506 Kernel.SpacetimeEmergence <> g':41 var
+R4573:4584 Kernel.VMState <> graph_psplit def
+R4606:4617 Kernel.VMState <> graph_lookup def
+R4606:4617 Kernel.VMState <> graph_lookup def
+R4677:4692 Kernel.VMState <> normalize_region def
+R4677:4692 Kernel.VMState <> normalize_region def
+R4727:4742 Kernel.VMState <> normalize_region def
+R4727:4742 Kernel.VMState <> normalize_region def
+R4769:4771 Coq.Init.Datatypes <> orb def
+R4805:4811 Coq.Arith.PeanoNat Nat eqb def
+R4814:4819 Coq.Init.Datatypes <> length def
+R4774:4780 Coq.Arith.PeanoNat Nat eqb def
+R4783:4788 Coq.Init.Datatypes <> length def
+R4769:4771 Coq.Init.Datatypes <> orb def
+R4805:4811 Coq.Arith.PeanoNat Nat eqb def
+R4814:4819 Coq.Init.Datatypes <> length def
+R4774:4780 Coq.Arith.PeanoNat Nat eqb def
+R4783:4788 Coq.Init.Datatypes <> length def
+R4863:4878 Kernel.VMState <> graph_add_module def
+R4882:4883 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4885:4886 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4863:4878 Kernel.VMState <> graph_add_module def
+R4882:4883 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4885:4886 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4958:4986 Kernel.VMState <> graph_add_module_preserves_wf thm
+R4990:4991 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4993:4994 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4958:4986 Kernel.VMState <> graph_add_module_preserves_wf thm
+R4990:4991 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4993:4994 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5093:5107 Kernel.VMState <> partition_valid def
+R5110:5122 Kernel.VMState <> module_region proj
+R5093:5107 Kernel.VMState <> partition_valid def
+R5110:5122 Kernel.VMState <> module_region proj
+R5193:5204 Kernel.VMState <> graph_remove def
+R5193:5204 Kernel.VMState <> graph_remove def
+R5281:5296 Kernel.VMState <> graph_add_module def
+R5319:5331 Kernel.VMState <> module_axioms proj
+R5281:5296 Kernel.VMState <> graph_add_module def
+R5319:5331 Kernel.VMState <> module_axioms proj
+R5382:5397 Kernel.VMState <> graph_add_module def
+R5418:5430 Kernel.VMState <> module_axioms proj
+R5382:5397 Kernel.VMState <> graph_add_module def
+R5418:5430 Kernel.VMState <> module_axioms proj
+R5511:5535 Kernel.VMState <> graph_remove_preserves_wf thm
+R5511:5535 Kernel.VMState <> graph_remove_preserves_wf thm
+R5603:5631 Kernel.VMState <> graph_add_module_preserves_wf thm
+R5654:5666 Kernel.VMState <> module_axioms proj
+R5603:5631 Kernel.VMState <> graph_add_module_preserves_wf thm
+R5654:5666 Kernel.VMState <> module_axioms proj
+R5775:5803 Kernel.VMState <> graph_add_module_preserves_wf thm
+R5824:5836 Kernel.VMState <> module_axioms proj
+R5775:5803 Kernel.VMState <> graph_add_module_preserves_wf thm
+R5824:5836 Kernel.VMState <> module_axioms proj
+prf 6028:6052 <> graph_pmerge_preserves_wf
+binder 6063:6063 <> g:44
+binder 6065:6066 <> m1:45
+binder 6068:6069 <> m2:46
+binder 6071:6072 <> g':47
+binder 6074:6082 <> merged_id:48
+R6106:6111 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6087:6103 Kernel.VMState <> well_formed_graph def
+R6105:6105 Kernel.SpacetimeEmergence <> g:44 var
+R6155:6160 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6132:6134 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6112:6123 Kernel.VMState <> graph_pmerge def
+R6125:6125 Kernel.SpacetimeEmergence <> g:44 var
+R6127:6128 Kernel.SpacetimeEmergence <> m1:45 var
+R6130:6131 Kernel.SpacetimeEmergence <> m2:46 var
+R6135:6138 Coq.Init.Datatypes <> Some constr
+R6140:6140 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6143:6144 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6154:6154 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6141:6142 Kernel.SpacetimeEmergence <> g':47 var
+R6145:6153 Kernel.SpacetimeEmergence <> merged_id:48 var
+R6161:6177 Kernel.VMState <> well_formed_graph def
+R6179:6180 Kernel.SpacetimeEmergence <> g':47 var
+R6237:6248 Kernel.VMState <> graph_pmerge def
+R6269:6275 Coq.Arith.PeanoNat Nat eqb def
+R6269:6275 Coq.Arith.PeanoNat Nat eqb def
+R6323:6334 Kernel.VMState <> graph_remove def
+R6323:6334 Kernel.VMState <> graph_remove def
+R6410:6434 Kernel.VMState <> graph_remove_preserves_wf thm
+R6410:6434 Kernel.VMState <> graph_remove_preserves_wf thm
+R6490:6501 Kernel.VMState <> graph_remove def
+R6490:6501 Kernel.VMState <> graph_remove def
+R6590:6614 Kernel.VMState <> graph_remove_preserves_wf thm
+R6590:6614 Kernel.VMState <> graph_remove_preserves_wf thm
+R6684:6687 Coq.Init.Datatypes <> negb def
+R6690:6706 Kernel.VMState <> nat_list_disjoint def
+R6709:6721 Kernel.VMState <> module_region proj
+R6730:6742 Kernel.VMState <> module_region proj
+R6684:6687 Coq.Init.Datatypes <> negb def
+R6690:6706 Kernel.VMState <> nat_list_disjoint def
+R6709:6721 Kernel.VMState <> module_region proj
+R6730:6742 Kernel.VMState <> module_region proj
+R6797:6810 Kernel.VMState <> nat_list_union def
+R6813:6825 Kernel.VMState <> module_region proj
+R6834:6846 Kernel.VMState <> module_region proj
+R6797:6810 Kernel.VMState <> nat_list_union def
+R6813:6825 Kernel.VMState <> module_region proj
+R6834:6846 Kernel.VMState <> module_region proj
+R6905:6908 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R6887:6899 Kernel.VMState <> module_axioms proj
+R6909:6921 Kernel.VMState <> module_axioms proj
+R6905:6908 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R6887:6899 Kernel.VMState <> module_axioms proj
+R6909:6921 Kernel.VMState <> module_axioms proj
+R6947:6963 Kernel.VMState <> graph_find_region def
+R6947:6963 Kernel.VMState <> graph_find_region def
+R7034:7045 Kernel.VMState <> graph_lookup def
+R7034:7045 Kernel.VMState <> graph_lookup def
+R7129:7131 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R7132:7141 Kernel.VMState <> pg_next_id proj
+R7129:7131 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R7132:7141 Kernel.VMState <> pg_next_id proj
+R7183:7197 Coq.Arith.PeanoNat Nat lt_ge_cases thm
+R7212:7221 Kernel.VMState <> pg_next_id proj
+R7183:7197 Coq.Arith.PeanoNat Nat lt_ge_cases thm
+R7212:7221 Kernel.VMState <> pg_next_id proj
+R7286:7315 Kernel.VMState <> wf_graph_lookup_beyond_next_id thm
+R7286:7315 Kernel.VMState <> wf_graph_lookup_beyond_next_id thm
+R7447:7471 Kernel.SpacetimeEmergence <> graph_update_preserves_wf thm
+R7447:7471 Kernel.SpacetimeEmergence <> graph_update_preserves_wf thm
+R7526:7541 Kernel.VMState <> graph_add_module def
+R7526:7541 Kernel.VMState <> graph_add_module def
+R7652:7680 Kernel.VMState <> graph_add_module_preserves_wf thm
+R7652:7680 Kernel.VMState <> graph_add_module_preserves_wf thm
+prf 7896:7915 <> vm_step_preserves_wf
+binder 7926:7926 <> s:49
+binder 7928:7932 <> instr:50
+binder 7934:7935 <> s':51
+R7970:7975 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7940:7956 Kernel.VMState <> well_formed_graph def
+R7961:7968 Kernel.VMState <> vm_graph proj
+R7958:7958 Kernel.SpacetimeEmergence <> s:49 var
+R7994:7999 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7976:7982 Kernel.VMStep VMStep vm_step ind
+R7984:7984 Kernel.SpacetimeEmergence <> s:49 var
+R7986:7990 Kernel.SpacetimeEmergence <> instr:50 var
+R7992:7993 Kernel.SpacetimeEmergence <> s':51 var
+R8000:8016 Kernel.VMState <> well_formed_graph def
+R8022:8029 Kernel.VMState <> vm_graph proj
+R8018:8019 Kernel.SpacetimeEmergence <> s':51 var
+R8154:8176 Kernel.SpacetimeEmergence <> graph_pnew_preserves_wf thm
+R8181:8188 Kernel.VMState <> vm_graph proj
+R8154:8176 Kernel.SpacetimeEmergence <> graph_pnew_preserves_wf thm
+R8181:8188 Kernel.VMState <> vm_graph proj
+R8306:8330 Kernel.SpacetimeEmergence <> graph_psplit_preserves_wf thm
+R8306:8330 Kernel.SpacetimeEmergence <> graph_psplit_preserves_wf thm
+R8368:8392 Kernel.SpacetimeEmergence <> graph_pmerge_preserves_wf thm
+R8368:8392 Kernel.SpacetimeEmergence <> graph_pmerge_preserves_wf thm
+R8441:8468 Kernel.SpacetimeEmergence <> graph_add_axiom_preserves_wf thm
+R8441:8468 Kernel.SpacetimeEmergence <> graph_add_axiom_preserves_wf thm
+R8519:8553 Kernel.SpacetimeEmergence <> graph_record_discovery_preserves_wf thm
+R8519:8553 Kernel.SpacetimeEmergence <> graph_record_discovery_preserves_wf thm
+prf 8639:8665 <> graph_pnew_next_id_monotone
+binder 8676:8676 <> g:52
+binder 8678:8683 <> region:53
+R8700:8703 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8688:8697 Kernel.VMState <> pg_next_id proj
+R8699:8699 Kernel.SpacetimeEmergence <> g:52 var
+R8704:8713 Kernel.VMState <> pg_next_id proj
+R8716:8718 Coq.Init.Datatypes <> fst def
+R8721:8730 Kernel.VMState <> graph_pnew def
+R8732:8732 Kernel.SpacetimeEmergence <> g:52 var
+R8734:8739 Kernel.SpacetimeEmergence <> region:53 var
+R8779:8788 Kernel.VMState <> graph_pnew def
+R8803:8819 Kernel.VMState <> graph_find_region def
+R8824:8839 Kernel.VMState <> normalize_region def
+R8803:8819 Kernel.VMState <> graph_find_region def
+R8824:8839 Kernel.VMState <> normalize_region def
+prf 8943:8967 <> graph_update_next_id_same
+binder 8978:8978 <> g:54
+binder 8980:8982 <> mid:55
+binder 8984:8984 <> m:56
+R9022:9024 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8989:8998 Kernel.VMState <> pg_next_id proj
+R9001:9012 Kernel.VMState <> graph_update def
+R9014:9014 Kernel.SpacetimeEmergence <> g:54 var
+R9016:9018 Kernel.SpacetimeEmergence <> mid:55 var
+R9020:9020 Kernel.SpacetimeEmergence <> m:56 var
+R9025:9034 Kernel.VMState <> pg_next_id proj
+R9036:9036 Kernel.SpacetimeEmergence <> g:54 var
+R9073:9084 Kernel.VMState <> graph_update def
+prf 9180:9207 <> graph_add_axiom_next_id_same
+binder 9218:9218 <> g:57
+binder 9220:9222 <> mid:58
+binder 9224:9225 <> ax:59
+R9267:9269 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9230:9239 Kernel.VMState <> pg_next_id proj
+R9242:9256 Kernel.VMState <> graph_add_axiom def
+R9258:9258 Kernel.SpacetimeEmergence <> g:57 var
+R9260:9262 Kernel.SpacetimeEmergence <> mid:58 var
+R9264:9265 Kernel.SpacetimeEmergence <> ax:59 var
+R9270:9279 Kernel.VMState <> pg_next_id proj
+R9281:9281 Kernel.SpacetimeEmergence <> g:57 var
+R9319:9333 Kernel.VMState <> graph_add_axiom def
+R9348:9359 Kernel.VMState <> graph_lookup def
+R9348:9359 Kernel.VMState <> graph_lookup def
+R9392:9403 Kernel.VMState <> graph_update def
+prf 9517:9545 <> graph_add_axioms_next_id_same
+binder 9556:9558 <> axs:60
+binder 9560:9560 <> g:61
+binder 9562:9564 <> mid:62
+R9608:9610 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9569:9578 Kernel.VMState <> pg_next_id proj
+R9581:9596 Kernel.VMState <> graph_add_axioms def
+R9598:9598 Kernel.SpacetimeEmergence <> g:61 var
+R9600:9602 Kernel.SpacetimeEmergence <> mid:62 var
+R9604:9606 Kernel.SpacetimeEmergence <> axs:60 var
+R9611:9620 Kernel.VMState <> pg_next_id proj
+R9622:9622 Kernel.SpacetimeEmergence <> g:61 var
+R9743:9770 Kernel.SpacetimeEmergence <> graph_add_axiom_next_id_same thm
+R9743:9770 Kernel.SpacetimeEmergence <> graph_add_axiom_next_id_same thm
+R9743:9770 Kernel.SpacetimeEmergence <> graph_add_axiom_next_id_same thm
+prf 9870:9904 <> graph_record_discovery_next_id_same
+binder 9915:9915 <> g:63
+binder 9917:9919 <> mid:64
+binder 9921:9922 <> ev:65
+R9971:9973 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9927:9936 Kernel.VMState <> pg_next_id proj
+R9939:9960 Kernel.VMState <> graph_record_discovery def
+R9962:9962 Kernel.SpacetimeEmergence <> g:63 var
+R9964:9966 Kernel.SpacetimeEmergence <> mid:64 var
+R9968:9969 Kernel.SpacetimeEmergence <> ev:65 var
+R9974:9983 Kernel.VMState <> pg_next_id proj
+R9985:9985 Kernel.SpacetimeEmergence <> g:63 var
+R10023:10044 Kernel.VMState <> graph_record_discovery def
+R10055:10083 Kernel.SpacetimeEmergence <> graph_add_axioms_next_id_same thm
+R10055:10083 Kernel.SpacetimeEmergence <> graph_add_axioms_next_id_same thm
+prf 10160:10188 <> graph_psplit_next_id_monotone
+binder 10199:10199 <> g:66
+binder 10201:10203 <> mid:67
+binder 10205:10208 <> left:68
+binder 10210:10214 <> right:69
+binder 10216:10217 <> g':70
+binder 10219:10222 <> l_id:71
+binder 10224:10227 <> r_id:72
+R10285:10290 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10261:10263 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10232:10243 Kernel.VMState <> graph_psplit def
+R10245:10245 Kernel.SpacetimeEmergence <> g:66 var
+R10247:10249 Kernel.SpacetimeEmergence <> mid:67 var
+R10251:10254 Kernel.SpacetimeEmergence <> left:68 var
+R10256:10260 Kernel.SpacetimeEmergence <> right:69 var
+R10264:10267 Coq.Init.Datatypes <> Some constr
+R10269:10269 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10272:10273 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10278:10279 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10284:10284 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10270:10271 Kernel.SpacetimeEmergence <> g':70 var
+R10274:10277 Kernel.SpacetimeEmergence <> l_id:71 var
+R10280:10283 Kernel.SpacetimeEmergence <> r_id:72 var
+R10303:10306 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R10291:10300 Kernel.VMState <> pg_next_id proj
+R10302:10302 Kernel.SpacetimeEmergence <> g:66 var
+R10307:10316 Kernel.VMState <> pg_next_id proj
+R10318:10319 Kernel.SpacetimeEmergence <> g':70 var
+R10382:10393 Kernel.VMState <> graph_psplit def
+R10415:10426 Kernel.VMState <> graph_lookup def
+R10415:10426 Kernel.VMState <> graph_lookup def
+R10486:10501 Kernel.VMState <> normalize_region def
+R10486:10501 Kernel.VMState <> normalize_region def
+R10536:10551 Kernel.VMState <> normalize_region def
+R10536:10551 Kernel.VMState <> normalize_region def
+R10578:10580 Coq.Init.Datatypes <> orb def
+R10614:10620 Coq.Arith.PeanoNat Nat eqb def
+R10623:10628 Coq.Init.Datatypes <> length def
+R10583:10589 Coq.Arith.PeanoNat Nat eqb def
+R10592:10597 Coq.Init.Datatypes <> length def
+R10578:10580 Coq.Init.Datatypes <> orb def
+R10614:10620 Coq.Arith.PeanoNat Nat eqb def
+R10623:10628 Coq.Init.Datatypes <> length def
+R10583:10589 Coq.Arith.PeanoNat Nat eqb def
+R10592:10597 Coq.Init.Datatypes <> length def
+R10672:10687 Kernel.VMState <> graph_add_module def
+R10691:10692 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R10694:10695 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R10672:10687 Kernel.VMState <> graph_add_module def
+R10691:10692 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R10694:10695 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R10773:10788 Kernel.VMState <> graph_add_module def
+R10852:10866 Kernel.VMState <> partition_valid def
+R10869:10881 Kernel.VMState <> module_region proj
+R10852:10866 Kernel.VMState <> partition_valid def
+R10869:10881 Kernel.VMState <> module_region proj
+R10952:10963 Kernel.VMState <> graph_remove def
+R10952:10963 Kernel.VMState <> graph_remove def
+R11040:11055 Kernel.VMState <> graph_add_module def
+R11078:11090 Kernel.VMState <> module_axioms proj
+R11040:11055 Kernel.VMState <> graph_add_module def
+R11078:11090 Kernel.VMState <> module_axioms proj
+R11141:11156 Kernel.VMState <> graph_add_module def
+R11177:11189 Kernel.VMState <> module_axioms proj
+R11141:11156 Kernel.VMState <> graph_add_module def
+R11177:11189 Kernel.VMState <> module_axioms proj
+R11265:11276 Kernel.VMState <> graph_remove def
+R11301:11320 Kernel.VMState <> graph_remove_modules def
+R11323:11332 Kernel.VMState <> pg_modules proj
+R11301:11320 Kernel.VMState <> graph_remove_modules def
+R11323:11332 Kernel.VMState <> pg_modules proj
+R11445:11460 Kernel.VMState <> graph_add_module def
+R11514:11529 Kernel.VMState <> graph_add_module def
+prf 11651:11675 <> graph_remove_next_id_same
+binder 11686:11686 <> g:73
+binder 11688:11690 <> mid:74
+binder 11692:11693 <> g':75
+binder 11695:11695 <> m:76
+R11733:11738 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11718:11720 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11700:11711 Kernel.VMState <> graph_remove def
+R11713:11713 Kernel.SpacetimeEmergence <> g:73 var
+R11715:11717 Kernel.SpacetimeEmergence <> mid:74 var
+R11721:11724 Coq.Init.Datatypes <> Some constr
+R11726:11726 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11729:11730 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11732:11732 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11727:11728 Kernel.SpacetimeEmergence <> g':75 var
+R11731:11731 Kernel.SpacetimeEmergence <> m:76 var
+R11752:11754 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11739:11748 Kernel.VMState <> pg_next_id proj
+R11750:11751 Kernel.SpacetimeEmergence <> g':75 var
+R11755:11764 Kernel.VMState <> pg_next_id proj
+R11766:11766 Kernel.SpacetimeEmergence <> g:73 var
+R11811:11822 Kernel.VMState <> graph_remove def
+R11845:11864 Kernel.VMState <> graph_remove_modules def
+R11867:11876 Kernel.VMState <> pg_modules proj
+R11845:11864 Kernel.VMState <> graph_remove_modules def
+R11867:11876 Kernel.VMState <> pg_modules proj
+prf 12072:12100 <> graph_pmerge_next_id_monotone
+binder 12111:12111 <> g:77
+binder 12113:12114 <> m1:78
+binder 12116:12117 <> m2:79
+binder 12119:12120 <> g':80
+binder 12122:12130 <> merged_id:81
+R12178:12183 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12155:12157 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12135:12146 Kernel.VMState <> graph_pmerge def
+R12148:12148 Kernel.SpacetimeEmergence <> g:77 var
+R12150:12151 Kernel.SpacetimeEmergence <> m1:78 var
+R12153:12154 Kernel.SpacetimeEmergence <> m2:79 var
+R12158:12161 Coq.Init.Datatypes <> Some constr
+R12163:12163 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12166:12167 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12177:12177 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12164:12165 Kernel.SpacetimeEmergence <> g':80 var
+R12168:12176 Kernel.SpacetimeEmergence <> merged_id:81 var
+R12196:12199 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R12184:12193 Kernel.VMState <> pg_next_id proj
+R12195:12195 Kernel.SpacetimeEmergence <> g:77 var
+R12200:12209 Kernel.VMState <> pg_next_id proj
+R12211:12212 Kernel.SpacetimeEmergence <> g':80 var
+R12265:12276 Kernel.VMState <> graph_pmerge def
+R12297:12303 Coq.Arith.PeanoNat Nat eqb def
+R12297:12303 Coq.Arith.PeanoNat Nat eqb def
+R12351:12362 Kernel.VMState <> graph_remove def
+R12351:12362 Kernel.VMState <> graph_remove def
+R12457:12459 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12434:12443 Kernel.VMState <> pg_next_id proj
+R12460:12469 Kernel.VMState <> pg_next_id proj
+R12457:12459 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12434:12443 Kernel.VMState <> pg_next_id proj
+R12460:12469 Kernel.VMState <> pg_next_id proj
+R12495:12519 Kernel.SpacetimeEmergence <> graph_remove_next_id_same thm
+R12495:12519 Kernel.SpacetimeEmergence <> graph_remove_next_id_same thm
+R12543:12554 Kernel.VMState <> graph_remove def
+R12543:12554 Kernel.VMState <> graph_remove def
+R12664:12666 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12639:12648 Kernel.VMState <> pg_next_id proj
+R12667:12676 Kernel.VMState <> pg_next_id proj
+R12664:12666 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12639:12648 Kernel.VMState <> pg_next_id proj
+R12667:12676 Kernel.VMState <> pg_next_id proj
+R12713:12737 Kernel.SpacetimeEmergence <> graph_remove_next_id_same thm
+R12713:12737 Kernel.SpacetimeEmergence <> graph_remove_next_id_same thm
+R12761:12764 Coq.Init.Datatypes <> negb def
+R12767:12783 Kernel.VMState <> nat_list_disjoint def
+R12786:12798 Kernel.VMState <> module_region proj
+R12807:12819 Kernel.VMState <> module_region proj
+R12761:12764 Coq.Init.Datatypes <> negb def
+R12767:12783 Kernel.VMState <> nat_list_disjoint def
+R12786:12798 Kernel.VMState <> module_region proj
+R12807:12819 Kernel.VMState <> module_region proj
+R12874:12887 Kernel.VMState <> nat_list_union def
+R12890:12902 Kernel.VMState <> module_region proj
+R12911:12923 Kernel.VMState <> module_region proj
+R12874:12887 Kernel.VMState <> nat_list_union def
+R12890:12902 Kernel.VMState <> module_region proj
+R12911:12923 Kernel.VMState <> module_region proj
+R12982:12985 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R12964:12976 Kernel.VMState <> module_axioms proj
+R12986:12998 Kernel.VMState <> module_axioms proj
+R12982:12985 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R12964:12976 Kernel.VMState <> module_axioms proj
+R12986:12998 Kernel.VMState <> module_axioms proj
+R13024:13040 Kernel.VMState <> graph_find_region def
+R13024:13040 Kernel.VMState <> graph_find_region def
+R13089:13100 Kernel.VMState <> graph_lookup def
+R13089:13100 Kernel.VMState <> graph_lookup def
+R13187:13198 Kernel.VMState <> graph_update def
+R13257:13272 Kernel.VMState <> graph_add_module def
+R13257:13272 Kernel.VMState <> graph_add_module def
+R13378:13393 Kernel.VMState <> graph_add_module def
+prf 13538:13561 <> vm_step_next_id_monotone
+binder 13572:13572 <> s:82
+binder 13574:13578 <> instr:83
+binder 13580:13581 <> s':84
+R13604:13609 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13586:13592 Kernel.VMStep VMStep vm_step ind
+R13594:13594 Kernel.SpacetimeEmergence <> s:82 var
+R13596:13600 Kernel.SpacetimeEmergence <> instr:83 var
+R13602:13603 Kernel.SpacetimeEmergence <> s':84 var
+R13633:13636 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R13610:13619 Kernel.VMState <> pg_next_id proj
+R13624:13631 Kernel.VMState <> vm_graph proj
+R13621:13621 Kernel.SpacetimeEmergence <> s:82 var
+R13637:13646 Kernel.VMState <> pg_next_id proj
+R13652:13659 Kernel.VMState <> vm_graph proj
+R13648:13649 Kernel.SpacetimeEmergence <> s':84 var
+R13774:13800 Kernel.SpacetimeEmergence <> graph_pnew_next_id_monotone thm
+R13805:13812 Kernel.VMState <> vm_graph proj
+R13774:13800 Kernel.SpacetimeEmergence <> graph_pnew_next_id_monotone thm
+R13805:13812 Kernel.VMState <> vm_graph proj
+R13918:13946 Kernel.SpacetimeEmergence <> graph_psplit_next_id_monotone thm
+R13918:13946 Kernel.SpacetimeEmergence <> graph_psplit_next_id_monotone thm
+R13984:14012 Kernel.SpacetimeEmergence <> graph_pmerge_next_id_monotone thm
+R13984:14012 Kernel.SpacetimeEmergence <> graph_pmerge_next_id_monotone thm
+R14063:14090 Kernel.SpacetimeEmergence <> graph_add_axiom_next_id_same thm
+R14063:14090 Kernel.SpacetimeEmergence <> graph_add_axiom_next_id_same thm
+R14063:14090 Kernel.SpacetimeEmergence <> graph_add_axiom_next_id_same thm
+R14137:14171 Kernel.SpacetimeEmergence <> graph_record_discovery_next_id_same thm
+R14137:14171 Kernel.SpacetimeEmergence <> graph_record_discovery_next_id_same thm
+R14137:14171 Kernel.SpacetimeEmergence <> graph_record_discovery_next_id_same thm
+prf 14256:14287 <> vm_step_preserves_mid_lt_next_id
+binder 14298:14298 <> s:85
+binder 14300:14304 <> instr:86
+binder 14306:14307 <> s':87
+binder 14309:14311 <> mid:88
+R14345:14350 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14319:14321 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R14316:14318 Kernel.SpacetimeEmergence <> mid:88 var
+R14322:14331 Kernel.VMState <> pg_next_id proj
+R14336:14343 Kernel.VMState <> vm_graph proj
+R14333:14333 Kernel.SpacetimeEmergence <> s:85 var
+R14369:14374 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14351:14357 Kernel.VMStep VMStep vm_step ind
+R14359:14359 Kernel.SpacetimeEmergence <> s:85 var
+R14361:14365 Kernel.SpacetimeEmergence <> instr:86 var
+R14367:14368 Kernel.SpacetimeEmergence <> s':87 var
+R14378:14380 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R14375:14377 Kernel.SpacetimeEmergence <> mid:88 var
+R14381:14390 Kernel.VMState <> pg_next_id proj
+R14396:14403 Kernel.VMState <> vm_graph proj
+R14392:14393 Kernel.SpacetimeEmergence <> s':87 var
+R14463:14486 Kernel.SpacetimeEmergence <> vm_step_next_id_monotone thm
+R14463:14486 Kernel.SpacetimeEmergence <> vm_step_next_id_monotone thm
+ind 14539:14548 <> exec_trace
+constr 14607:14620 <> exec_trace_nil
+constr 14654:14668 <> exec_trace_cons
+R14559:14562 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14552:14558 Kernel.VMState <> VMState rec
+R14582:14585 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14563:14566 Coq.Init.Datatypes <> list ind
+R14568:14581 Kernel.VMStep VMStep vm_instruction ind
+R14593:14596 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14586:14592 Kernel.VMState <> VMState rec
+binder 14631:14631 <> s:91
 R14634:14643 Kernel.SpacetimeEmergence <> exec_trace:89 ind
-R14664:14665 Kernel.SpacetimeEmergence <> s3:96 var
-R14654:14657 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R14649:14653 Kernel.SpacetimeEmergence <> instr:93 var
-R14658:14661 Kernel.SpacetimeEmergence <> rest:95 var
-R14645:14646 Kernel.SpacetimeEmergence <> s1:92 var
-scheme 14413:14422 <> exec_trace_ind
-scheme 14413:14422 <> exec_trace_sind
-prf 14744:14779 <> exec_trace_no_signaling_outside_cone
-binder 14792:14792 <> s:97
-binder 14794:14798 <> trace:98
-binder 14800:14801 <> s':99
-binder 14803:14805 <> mid:100
-R14833:14840 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14812:14821 Kernel.SpacetimeEmergence <> exec_trace ind
-R14823:14823 Kernel.SpacetimeEmergence <> s:97 var
-R14825:14829 Kernel.SpacetimeEmergence <> trace:98 var
-R14831:14832 Kernel.SpacetimeEmergence <> s':99 var
-R14871:14878 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14841:14857 Kernel.VMState <> well_formed_graph def
-R14862:14869 Kernel.VMState <> vm_graph proj
-R14859:14859 Kernel.SpacetimeEmergence <> s:97 var
-R14908:14915 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14882:14884 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R14879:14881 Kernel.SpacetimeEmergence <> mid:100 var
-R14885:14894 Kernel.VMState <> pg_next_id proj
-R14899:14906 Kernel.VMState <> vm_graph proj
-R14896:14896 Kernel.SpacetimeEmergence <> s:97 var
-R14944:14951 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14916:14917 Coq.Init.Logic <> ::type_scope:'~'_x not
-R14918:14919 Coq.Lists.List <> In def
-R14926:14936 Kernel.KernelPhysics <> causal_cone def
-R14938:14942 Kernel.SpacetimeEmergence <> trace:98 var
-R14921:14923 Kernel.SpacetimeEmergence <> mid:100 var
-R14974:14976 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14952:14967 Kernel.KernelPhysics <> ObservableRegion def
-R14969:14969 Kernel.SpacetimeEmergence <> s:97 var
-R14971:14973 Kernel.SpacetimeEmergence <> mid:100 var
-R14977:14992 Kernel.KernelPhysics <> ObservableRegion def
-R14994:14995 Kernel.SpacetimeEmergence <> s':99 var
-R14997:14999 Kernel.SpacetimeEmergence <> mid:100 var
-R15176:15177 Coq.Init.Logic <> ::type_scope:'~'_x not
-R15178:15179 Coq.Lists.List <> In def
-R15186:15198 Kernel.KernelPhysics <> instr_targets def
-R15176:15177 Coq.Init.Logic <> ::type_scope:'~'_x not
-R15178:15179 Coq.Lists.List <> In def
-R15186:15198 Kernel.KernelPhysics <> instr_targets def
-R15258:15266 Coq.Lists.List <> in_or_app thm
-R15258:15266 Coq.Lists.List <> in_or_app thm
-R15300:15301 Coq.Init.Logic <> ::type_scope:'~'_x not
-R15302:15303 Coq.Lists.List <> In def
-R15310:15320 Kernel.KernelPhysics <> causal_cone def
-R15300:15301 Coq.Init.Logic <> ::type_scope:'~'_x not
-R15302:15303 Coq.Lists.List <> In def
-R15310:15320 Kernel.KernelPhysics <> causal_cone def
-R15378:15386 Coq.Lists.List <> in_or_app thm
-R15378:15386 Coq.Lists.List <> in_or_app thm
-R15425:15445 Kernel.SpacetimeEmergence <> step_rel_no_signaling thm
-R15425:15445 Kernel.SpacetimeEmergence <> step_rel_no_signaling thm
-R15546:15565 Kernel.SpacetimeEmergence <> vm_step_preserves_wf thm
-R15546:15565 Kernel.SpacetimeEmergence <> vm_step_preserves_wf thm
-R15588:15619 Kernel.SpacetimeEmergence <> vm_step_preserves_mid_lt_next_id thm
-R15588:15619 Kernel.SpacetimeEmergence <> vm_step_preserves_mid_lt_next_id thm
+R14650:14650 Kernel.SpacetimeEmergence <> s:91 var
+R14647:14648 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R14645:14645 Kernel.SpacetimeEmergence <> s:91 var
+binder 14679:14680 <> s1:92
+binder 14682:14686 <> instr:93
+binder 14688:14689 <> s2:94
+binder 14691:14694 <> rest:95
+binder 14696:14697 <> s3:96
+R14723:14730 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14704:14710 Kernel.VMStep VMStep vm_step ind
+R14712:14713 Kernel.SpacetimeEmergence <> s1:92 var
+R14715:14719 Kernel.SpacetimeEmergence <> instr:93 var
+R14721:14722 Kernel.SpacetimeEmergence <> s2:94 var
+R14752:14759 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14731:14740 Kernel.SpacetimeEmergence <> exec_trace:89 ind
+R14750:14751 Kernel.SpacetimeEmergence <> s3:96 var
+R14745:14748 Kernel.SpacetimeEmergence <> rest:95 var
+R14742:14743 Kernel.SpacetimeEmergence <> s2:94 var
+R14760:14769 Kernel.SpacetimeEmergence <> exec_trace:89 ind
+R14790:14791 Kernel.SpacetimeEmergence <> s3:96 var
+R14780:14783 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R14775:14779 Kernel.SpacetimeEmergence <> instr:93 var
+R14784:14787 Kernel.SpacetimeEmergence <> rest:95 var
+R14771:14772 Kernel.SpacetimeEmergence <> s1:92 var
+scheme 14539:14548 <> exec_trace_ind
+scheme 14539:14548 <> exec_trace_sind
+prf 14870:14905 <> exec_trace_no_signaling_outside_cone
+binder 14918:14918 <> s:97
+binder 14920:14924 <> trace:98
+binder 14926:14927 <> s':99
+binder 14929:14931 <> mid:100
+R14959:14966 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14938:14947 Kernel.SpacetimeEmergence <> exec_trace ind
+R14949:14949 Kernel.SpacetimeEmergence <> s:97 var
+R14951:14955 Kernel.SpacetimeEmergence <> trace:98 var
+R14957:14958 Kernel.SpacetimeEmergence <> s':99 var
+R14997:15004 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14967:14983 Kernel.VMState <> well_formed_graph def
+R14988:14995 Kernel.VMState <> vm_graph proj
+R14985:14985 Kernel.SpacetimeEmergence <> s:97 var
+R15034:15041 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15008:15010 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15005:15007 Kernel.SpacetimeEmergence <> mid:100 var
+R15011:15020 Kernel.VMState <> pg_next_id proj
+R15025:15032 Kernel.VMState <> vm_graph proj
+R15022:15022 Kernel.SpacetimeEmergence <> s:97 var
+R15070:15077 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15042:15043 Coq.Init.Logic <> ::type_scope:'~'_x not
+R15044:15045 Coq.Lists.List <> In def
+R15052:15062 Kernel.KernelPhysics <> causal_cone def
+R15064:15068 Kernel.SpacetimeEmergence <> trace:98 var
+R15047:15049 Kernel.SpacetimeEmergence <> mid:100 var
+R15100:15102 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15078:15093 Kernel.KernelPhysics <> ObservableRegion def
+R15095:15095 Kernel.SpacetimeEmergence <> s:97 var
+R15097:15099 Kernel.SpacetimeEmergence <> mid:100 var
+R15103:15118 Kernel.KernelPhysics <> ObservableRegion def
+R15120:15121 Kernel.SpacetimeEmergence <> s':99 var
+R15123:15125 Kernel.SpacetimeEmergence <> mid:100 var
+R15302:15303 Coq.Init.Logic <> ::type_scope:'~'_x not
+R15304:15305 Coq.Lists.List <> In def
+R15312:15324 Kernel.KernelPhysics <> instr_targets def
+R15302:15303 Coq.Init.Logic <> ::type_scope:'~'_x not
+R15304:15305 Coq.Lists.List <> In def
+R15312:15324 Kernel.KernelPhysics <> instr_targets def
+R15384:15392 Coq.Lists.List <> in_or_app thm
+R15384:15392 Coq.Lists.List <> in_or_app thm
+R15426:15427 Coq.Init.Logic <> ::type_scope:'~'_x not
+R15428:15429 Coq.Lists.List <> In def
+R15436:15446 Kernel.KernelPhysics <> causal_cone def
+R15426:15427 Coq.Init.Logic <> ::type_scope:'~'_x not
+R15428:15429 Coq.Lists.List <> In def
+R15436:15446 Kernel.KernelPhysics <> causal_cone def
+R15504:15512 Coq.Lists.List <> in_or_app thm
+R15504:15512 Coq.Lists.List <> in_or_app thm
+R15551:15571 Kernel.SpacetimeEmergence <> step_rel_no_signaling thm
+R15551:15571 Kernel.SpacetimeEmergence <> step_rel_no_signaling thm
+R15672:15691 Kernel.SpacetimeEmergence <> vm_step_preserves_wf thm
+R15672:15691 Kernel.SpacetimeEmergence <> vm_step_preserves_wf thm
+R15714:15745 Kernel.SpacetimeEmergence <> vm_step_preserves_mid_lt_next_id thm
+R15714:15745 Kernel.SpacetimeEmergence <> vm_step_preserves_mid_lt_next_id thm

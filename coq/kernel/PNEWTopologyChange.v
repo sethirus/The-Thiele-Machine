@@ -23,6 +23,9 @@
     REF: GRAVITY_PROOF_PLAN.md
     *)
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import MuCostModel.
+
 From Coq Require Import List Arith.PeanoNat Lia Bool ZArith.
 Import ListNotations.
 

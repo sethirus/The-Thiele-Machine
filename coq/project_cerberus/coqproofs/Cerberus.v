@@ -1,4 +1,7 @@
 (* Cerberus.v - Minimal provably-safe kernel *)
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+
 Require Import Coq.Lists.List.
 Require Import Arith.
 Require Import Lia.

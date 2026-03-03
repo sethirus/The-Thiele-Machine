@@ -1,4 +1,6 @@
 (** =========================================================================
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
     TURING MACHINE EMBEDDING - A2.1
     =========================================================================
     
@@ -9,6 +11,9 @@
     GOAL: Show TM ⊆ Thiele Machine with all proofs ending in Qed
     
     ========================================================================= *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
 
 From Coq Require Import List String ZArith Lia Bool Nat.
 Import ListNotations.

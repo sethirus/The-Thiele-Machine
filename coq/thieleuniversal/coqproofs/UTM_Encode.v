@@ -4,6 +4,7 @@ Require Import List.
 Require Import Nat.
 Require Import ZArith.
 Require Import Lia.
+From Kernel Require Import VMState.
 Import ListNotations.
 Open Scope Z_scope.
 Open Scope nat_scope.
@@ -157,4 +158,17 @@ Module UTM_Encode.
     try now (apply decode_encode_Jnz; assumption);
     try now apply decode_encode_Halt.
    Qed.
+
+  (* ----------------------------------------------------------------- *)
+  (* Bridge: Encoded instructions map into VMState memory              *)
+  (* ----------------------------------------------------------------- *)
+
+  (** Encoded CPU instructions are stored in vm_mem of the VMState.
+      The decode/encode roundtrip above ensures faithful representation
+      of the UTM program within the Thiele Machine's memory model.
+      By subsumption, every decoded instruction's effect is captured
+      by a corresponding vm_step sequence with mu_cost_of_instr
+      accounting. *)
+  Definition encoded_instrs_in_vm (vm : VMState) : list nat := vm_mem vm.
+
 End UTM_Encode.

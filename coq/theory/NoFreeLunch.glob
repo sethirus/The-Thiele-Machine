@@ -1,82 +1,85 @@
-DIGEST ad44d4fc652767a518660a3a2349324c
+DIGEST 710e8e5c692699990105938a860beaa5
 FTheory.NoFreeLunch
-rec 122:134 <> PhysicalState
-proj 143:149 <> observe
-def 173:182 <> Represents
-R189:201 Theory.NoFreeLunch <> PhysicalState rec
-binder 185:185 <> s:3
-binder 205:205 <> p:4
-R234:236 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R225:231 Theory.NoFreeLunch <> observe proj
-R233:233 Theory.NoFreeLunch <> s:3 var
-R237:237 Theory.NoFreeLunch <> p:4 var
-def 252:259 <> state_of
-binder 262:262 <> p:5
-R274:286 Theory.NoFreeLunch <> PhysicalState rec
-R294:300 Theory.NoFreeLunch <> observe proj
-R294:300 Theory.NoFreeLunch <> observe proj
-R294:300 Theory.NoFreeLunch <> observe proj
-R305:305 Theory.NoFreeLunch <> p:5 var
-def 323:327 <> Ghost
-R341:347 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R358:363 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 348:348 <> p:6
-binder 350:350 <> q:7
-R370:374 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R433:433 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R365:368 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R364:364 Theory.NoFreeLunch <> p:6 var
-R369:369 Theory.NoFreeLunch <> q:7 var
-R386:398 Theory.NoFreeLunch <> PhysicalState rec
-binder 382:382 <> s:8
-R415:418 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R401:410 Theory.NoFreeLunch <> Represents def
-R414:414 Theory.NoFreeLunch <> p:6 var
-R412:412 Theory.NoFreeLunch <> s:8 var
-R419:428 Theory.NoFreeLunch <> Represents def
-R432:432 Theory.NoFreeLunch <> q:7 var
-R430:430 Theory.NoFreeLunch <> s:8 var
-prf 492:507 <> ghost_impossible
-R516:519 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R511:515 Theory.NoFreeLunch <> Ghost def
-R520:524 Coq.Init.Logic <> False ind
-R579:586 Theory.NoFreeLunch <> state_of def
-R579:586 Theory.NoFreeLunch <> state_of def
-R607:616 Theory.NoFreeLunch <> Represents def
-R607:616 Theory.NoFreeLunch <> Represents def
-R676:685 Theory.NoFreeLunch <> Represents def
-prf 786:796 <> NoFreeLunch
-binder 809:809 <> p:9
-binder 811:811 <> q:10
-R831:838 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R826:829 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R825:825 Theory.NoFreeLunch <> p:9 var
-R830:830 Theory.NoFreeLunch <> q:10 var
-R839:845 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R863:870 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R850:862 Theory.NoFreeLunch <> PhysicalState rec
-binder 846:846 <> s:11
-R871:871 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R906:917 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R952:952 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R886:889 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R872:881 Theory.NoFreeLunch <> Represents def
-R885:885 Theory.NoFreeLunch <> p:9 var
-R883:883 Theory.NoFreeLunch <> s:11 var
-R890:891 Coq.Init.Logic <> ::type_scope:'~'_x not
-R892:901 Theory.NoFreeLunch <> Represents def
-R905:905 Theory.NoFreeLunch <> q:10 var
-R903:903 Theory.NoFreeLunch <> s:11 var
-R934:937 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R918:919 Coq.Init.Logic <> ::type_scope:'~'_x not
-R920:929 Theory.NoFreeLunch <> Represents def
-R933:933 Theory.NoFreeLunch <> p:9 var
-R931:931 Theory.NoFreeLunch <> s:11 var
-R938:947 Theory.NoFreeLunch <> Represents def
-R951:951 Theory.NoFreeLunch <> q:10 var
-R949:949 Theory.NoFreeLunch <> s:11 var
-R991:998 Theory.NoFreeLunch <> state_of def
-R991:998 Theory.NoFreeLunch <> state_of def
-R1067:1069 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1067:1069 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1087:1096 Theory.NoFreeLunch <> Represents def
+R227:233 Kernel.VMState <> <> lib
+R235:240 Kernel.VMStep <> <> lib
+R270:280 Kernel.MuCostModel <> <> lib
+rec 291:303 <> PhysicalState
+proj 312:318 <> observe
+def 342:351 <> Represents
+R358:370 Theory.NoFreeLunch <> PhysicalState rec
+binder 354:354 <> s:3
+binder 374:374 <> p:4
+R403:405 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R394:400 Theory.NoFreeLunch <> observe proj
+R402:402 Theory.NoFreeLunch <> s:3 var
+R406:406 Theory.NoFreeLunch <> p:4 var
+def 421:428 <> state_of
+binder 431:431 <> p:5
+R443:455 Theory.NoFreeLunch <> PhysicalState rec
+R463:469 Theory.NoFreeLunch <> observe proj
+R463:469 Theory.NoFreeLunch <> observe proj
+R463:469 Theory.NoFreeLunch <> observe proj
+R474:474 Theory.NoFreeLunch <> p:5 var
+def 492:496 <> Ghost
+R510:516 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R527:532 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 517:517 <> p:6
+binder 519:519 <> q:7
+R539:543 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R602:602 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R534:537 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R533:533 Theory.NoFreeLunch <> p:6 var
+R538:538 Theory.NoFreeLunch <> q:7 var
+R555:567 Theory.NoFreeLunch <> PhysicalState rec
+binder 551:551 <> s:8
+R584:587 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R570:579 Theory.NoFreeLunch <> Represents def
+R583:583 Theory.NoFreeLunch <> p:6 var
+R581:581 Theory.NoFreeLunch <> s:8 var
+R588:597 Theory.NoFreeLunch <> Represents def
+R601:601 Theory.NoFreeLunch <> q:7 var
+R599:599 Theory.NoFreeLunch <> s:8 var
+prf 661:676 <> ghost_impossible
+R685:688 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R680:684 Theory.NoFreeLunch <> Ghost def
+R689:693 Coq.Init.Logic <> False ind
+R748:755 Theory.NoFreeLunch <> state_of def
+R748:755 Theory.NoFreeLunch <> state_of def
+R776:785 Theory.NoFreeLunch <> Represents def
+R776:785 Theory.NoFreeLunch <> Represents def
+R845:854 Theory.NoFreeLunch <> Represents def
+prf 955:965 <> NoFreeLunch
+binder 978:978 <> p:9
+binder 980:980 <> q:10
+R1000:1007 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R995:998 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R994:994 Theory.NoFreeLunch <> p:9 var
+R999:999 Theory.NoFreeLunch <> q:10 var
+R1008:1014 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1032:1039 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1019:1031 Theory.NoFreeLunch <> PhysicalState rec
+binder 1015:1015 <> s:11
+R1040:1040 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R1075:1086 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R1121:1121 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R1055:1058 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1041:1050 Theory.NoFreeLunch <> Represents def
+R1054:1054 Theory.NoFreeLunch <> p:9 var
+R1052:1052 Theory.NoFreeLunch <> s:11 var
+R1059:1060 Coq.Init.Logic <> ::type_scope:'~'_x not
+R1061:1070 Theory.NoFreeLunch <> Represents def
+R1074:1074 Theory.NoFreeLunch <> q:10 var
+R1072:1072 Theory.NoFreeLunch <> s:11 var
+R1103:1106 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1087:1088 Coq.Init.Logic <> ::type_scope:'~'_x not
+R1089:1098 Theory.NoFreeLunch <> Represents def
+R1102:1102 Theory.NoFreeLunch <> p:9 var
+R1100:1100 Theory.NoFreeLunch <> s:11 var
+R1107:1116 Theory.NoFreeLunch <> Represents def
+R1120:1120 Theory.NoFreeLunch <> q:10 var
+R1118:1118 Theory.NoFreeLunch <> s:11 var
+R1160:1167 Theory.NoFreeLunch <> state_of def
+R1160:1167 Theory.NoFreeLunch <> state_of def
+R1236:1238 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1236:1238 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1256:1265 Theory.NoFreeLunch <> Represents def

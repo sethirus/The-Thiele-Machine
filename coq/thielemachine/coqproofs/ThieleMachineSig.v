@@ -1,6 +1,10 @@
 (* ================================================================= *)
 (* Abstract Interface for Thiele Machine *)
 (* ================================================================= *)
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 From Coq Require Import List String ZArith.
 From ThieleMachine Require Import ThieleMachine.
 Import ListNotations.

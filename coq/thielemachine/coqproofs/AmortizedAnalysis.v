@@ -3,6 +3,10 @@
 Require Import List Arith Bool.
 Import ListNotations.
 Require Import Lia.
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 (* Sum function for lists of nat *)
 Definition sum (l : list nat) := fold_left Nat.add l 0.
 

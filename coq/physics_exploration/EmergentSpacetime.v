@@ -28,3 +28,4 @@ Theorem c_structure_proof :
 Proof.
   exists c. split; [apply c_positive | reflexivity].
 Qed.
+

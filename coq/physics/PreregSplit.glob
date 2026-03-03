@@ -1,146 +1,169 @@
-DIGEST 3967dfad68e2bcfe525658427e04e512
+DIGEST cb74de3322534d693f8bebcb33741f3d
 FPhysics.PreregSplit
 R24:27 Coq.Lists.List <> <> lib
 R29:33 Coq.Arith.Arith <> <> lib
 R35:37 Coq.micromega.Lia <> <> lib
 R48:60 Coq.Lists.List ListNotations <> mod
-mod 71:81 <> PreregSplit
-sec 93:101 PreregSplit SplitTail
-binder 115:115 <> A:1
-def 282:291 PreregSplit split_tail
-R303:305 Coq.Init.Datatypes <> nat ind
-binder 294:299 <> test_n:2
-R313:316 Coq.Init.Datatypes <> list ind
-R318:318 Physics.PreregSplit <> PreregSplit.SplitTail.A var
-binder 309:309 <> l:3
-R329:331 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R323:326 Coq.Init.Datatypes <> list ind
-R328:328 Physics.PreregSplit <> PreregSplit.SplitTail.A var
-R332:335 Coq.Init.Datatypes <> list ind
-R337:337 Physics.PreregSplit <> PreregSplit.SplitTail.A var
-R363:365 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R355:360 Coq.Init.Datatypes <> length def
-R362:362 Physics.PreregSplit <> l:3 var
-R366:371 Physics.PreregSplit <> test_n:2 var
-binder 350:350 <> k:4
-R380:380 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R391:392 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R402:402 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R381:386 Coq.Lists.List <> firstn def
-R390:390 Physics.PreregSplit <> l:3 var
-R388:388 Physics.PreregSplit <> k:4 var
-R393:397 Coq.Lists.List <> skipn def
-R401:401 Physics.PreregSplit <> l:3 var
-R399:399 Physics.PreregSplit <> k:4 var
-prf 463:476 PreregSplit split_tail_app
-R488:490 Coq.Init.Datatypes <> nat ind
-binder 479:484 <> test_n:5
-R498:501 Coq.Init.Datatypes <> list ind
-R503:503 Physics.PreregSplit <> PreregSplit.SplitTail.A var
-binder 494:494 <> l:6
-R515:517 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R514:514 Physics.PreregSplit <> l:6 var
-R543:546 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R518:520 Coq.Init.Datatypes <> fst def
-R523:532 Physics.PreregSplit PreregSplit split_tail def
-R534:539 Physics.PreregSplit <> test_n:5 var
-R541:541 Physics.PreregSplit <> l:6 var
-R547:549 Coq.Init.Datatypes <> snd def
-R552:561 Physics.PreregSplit PreregSplit split_tail def
-R563:568 Physics.PreregSplit <> test_n:5 var
-R570:570 Physics.PreregSplit <> l:6 var
-R594:603 Physics.PreregSplit PreregSplit split_tail def
-R628:630 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R620:625 Coq.Init.Datatypes <> length def
-R628:630 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R620:625 Coq.Init.Datatypes <> length def
-R663:674 Coq.Lists.List <> firstn_skipn thm
-R663:674 Coq.Lists.List <> firstn_skipn thm
-R663:674 Coq.Lists.List <> firstn_skipn thm
-prf 763:780 PreregSplit split_tail_lengths
-R792:794 Coq.Init.Datatypes <> nat ind
-binder 783:788 <> test_n:7
-R802:805 Coq.Init.Datatypes <> list ind
-R807:807 Physics.PreregSplit <> PreregSplit.SplitTail.A var
-binder 798:798 <> l:8
-R889:891 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R852:854 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R818:823 Coq.Init.Datatypes <> length def
-R826:828 Coq.Init.Datatypes <> fst def
-R831:840 Physics.PreregSplit PreregSplit split_tail def
-R842:847 Physics.PreregSplit <> test_n:7 var
-R849:849 Physics.PreregSplit <> l:8 var
-R855:860 Coq.Init.Datatypes <> length def
-R863:865 Coq.Init.Datatypes <> snd def
-R868:877 Physics.PreregSplit PreregSplit split_tail def
-R879:884 Physics.PreregSplit <> test_n:7 var
-R886:886 Physics.PreregSplit <> l:8 var
-R892:897 Coq.Init.Datatypes <> length def
-R899:899 Physics.PreregSplit <> l:8 var
-R926:935 Coq.Lists.List <> app_length thm
-R926:935 Coq.Lists.List <> app_length thm
-R926:935 Coq.Lists.List <> app_length thm
-R953:966 Physics.PreregSplit PreregSplit split_tail_app thm
-R953:966 Physics.PreregSplit PreregSplit split_tail_app thm
-R953:966 Physics.PreregSplit PreregSplit split_tail_app thm
-prf 1065:1092 PreregSplit split_tail_test_length_exact
-R1104:1106 Coq.Init.Datatypes <> nat ind
-binder 1095:1100 <> test_n:9
-R1114:1117 Coq.Init.Datatypes <> list ind
-R1119:1119 Physics.PreregSplit <> PreregSplit.SplitTail.A var
-binder 1110:1110 <> l:10
-R1148:1151 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1136:1139 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R1130:1135 Physics.PreregSplit <> test_n:9 var
-R1140:1145 Coq.Init.Datatypes <> length def
-R1147:1147 Physics.PreregSplit <> l:10 var
-R1186:1188 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1152:1157 Coq.Init.Datatypes <> length def
-R1160:1162 Coq.Init.Datatypes <> snd def
-R1165:1174 Physics.PreregSplit PreregSplit split_tail def
-R1176:1181 Physics.PreregSplit <> test_n:9 var
-R1183:1183 Physics.PreregSplit <> l:10 var
-R1189:1194 Physics.PreregSplit <> test_n:9 var
-R1232:1241 Physics.PreregSplit PreregSplit split_tail def
-R1266:1268 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R1258:1263 Coq.Init.Datatypes <> length def
-R1266:1268 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R1258:1263 Coq.Init.Datatypes <> length def
-R1301:1312 Coq.Lists.List <> skipn_length thm
-R1301:1312 Coq.Lists.List <> skipn_length thm
-R1301:1312 Coq.Lists.List <> skipn_length thm
-prf 1499:1527 PreregSplit split_tail_train_length_exact
-R1539:1541 Coq.Init.Datatypes <> nat ind
-binder 1530:1535 <> test_n:11
-R1549:1552 Coq.Init.Datatypes <> list ind
-R1554:1554 Physics.PreregSplit <> PreregSplit.SplitTail.A var
-binder 1545:1545 <> l:12
-R1583:1586 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1571:1574 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R1565:1570 Physics.PreregSplit <> test_n:11 var
-R1575:1580 Coq.Init.Datatypes <> length def
-R1582:1582 Physics.PreregSplit <> l:12 var
-R1621:1623 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1587:1592 Coq.Init.Datatypes <> length def
-R1595:1597 Coq.Init.Datatypes <> fst def
-R1600:1609 Physics.PreregSplit PreregSplit split_tail def
-R1611:1616 Physics.PreregSplit <> test_n:11 var
-R1618:1618 Physics.PreregSplit <> l:12 var
-R1632:1634 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R1624:1629 Coq.Init.Datatypes <> length def
-R1631:1631 Physics.PreregSplit <> l:12 var
-R1635:1640 Physics.PreregSplit <> test_n:11 var
-R1678:1687 Physics.PreregSplit PreregSplit split_tail def
-R1712:1714 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R1704:1709 Coq.Init.Datatypes <> length def
-R1712:1714 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R1704:1709 Coq.Init.Datatypes <> length def
-R1747:1759 Coq.Lists.List <> firstn_length thm
-R1747:1759 Coq.Lists.List <> firstn_length thm
-R1747:1759 Coq.Lists.List <> firstn_length thm
-R1852:1860 Coq.Arith.PeanoNat Nat min_l thm
-R1852:1860 Coq.Arith.PeanoNat Nat min_l thm
-R1852:1860 Coq.Arith.PeanoNat Nat min_l thm
-R1852:1860 Coq.Arith.PeanoNat Nat min_l thm
-R1905:1913 Physics.PreregSplit PreregSplit.SplitTail <> sec
-R1921:1931 Physics.PreregSplit PreregSplit <> mod
+R174:180 Kernel.VMState <> <> lib
+R182:187 Kernel.VMStep <> <> lib
+R217:227 Kernel.MuCostModel <> <> lib
+R257:276 Kernel.MuLedgerConservation <> <> lib
+R278:290 Kernel.NoFreeInsight <> <> lib
+R292:303 Kernel.MuInitiality <> <> lib
+mod 315:325 <> PreregSplit
+sec 337:345 PreregSplit SplitTail
+binder 359:359 <> A:1
+def 526:535 PreregSplit split_tail
+R547:549 Coq.Init.Datatypes <> nat ind
+binder 538:543 <> test_n:2
+R557:560 Coq.Init.Datatypes <> list ind
+R562:562 Physics.PreregSplit <> PreregSplit.SplitTail.A var
+binder 553:553 <> l:3
+R573:575 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R567:570 Coq.Init.Datatypes <> list ind
+R572:572 Physics.PreregSplit <> PreregSplit.SplitTail.A var
+R576:579 Coq.Init.Datatypes <> list ind
+R581:581 Physics.PreregSplit <> PreregSplit.SplitTail.A var
+R607:609 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R599:604 Coq.Init.Datatypes <> length def
+R606:606 Physics.PreregSplit <> l:3 var
+R610:615 Physics.PreregSplit <> test_n:2 var
+binder 594:594 <> k:4
+R624:624 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R635:636 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R646:646 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R625:630 Coq.Lists.List <> firstn def
+R634:634 Physics.PreregSplit <> l:3 var
+R632:632 Physics.PreregSplit <> k:4 var
+R637:641 Coq.Lists.List <> skipn def
+R645:645 Physics.PreregSplit <> l:3 var
+R643:643 Physics.PreregSplit <> k:4 var
+prf 707:720 PreregSplit split_tail_app
+R732:734 Coq.Init.Datatypes <> nat ind
+binder 723:728 <> test_n:5
+R742:745 Coq.Init.Datatypes <> list ind
+R747:747 Physics.PreregSplit <> PreregSplit.SplitTail.A var
+binder 738:738 <> l:6
+R759:761 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R758:758 Physics.PreregSplit <> l:6 var
+R787:790 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R762:764 Coq.Init.Datatypes <> fst def
+R767:776 Physics.PreregSplit PreregSplit split_tail def
+R778:783 Physics.PreregSplit <> test_n:5 var
+R785:785 Physics.PreregSplit <> l:6 var
+R791:793 Coq.Init.Datatypes <> snd def
+R796:805 Physics.PreregSplit PreregSplit split_tail def
+R807:812 Physics.PreregSplit <> test_n:5 var
+R814:814 Physics.PreregSplit <> l:6 var
+R838:847 Physics.PreregSplit PreregSplit split_tail def
+R872:874 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R864:869 Coq.Init.Datatypes <> length def
+R872:874 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R864:869 Coq.Init.Datatypes <> length def
+R907:918 Coq.Lists.List <> firstn_skipn thm
+R907:918 Coq.Lists.List <> firstn_skipn thm
+R907:918 Coq.Lists.List <> firstn_skipn thm
+prf 1007:1024 PreregSplit split_tail_lengths
+R1036:1038 Coq.Init.Datatypes <> nat ind
+binder 1027:1032 <> test_n:7
+R1046:1049 Coq.Init.Datatypes <> list ind
+R1051:1051 Physics.PreregSplit <> PreregSplit.SplitTail.A var
+binder 1042:1042 <> l:8
+R1133:1135 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1096:1098 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1062:1067 Coq.Init.Datatypes <> length def
+R1070:1072 Coq.Init.Datatypes <> fst def
+R1075:1084 Physics.PreregSplit PreregSplit split_tail def
+R1086:1091 Physics.PreregSplit <> test_n:7 var
+R1093:1093 Physics.PreregSplit <> l:8 var
+R1099:1104 Coq.Init.Datatypes <> length def
+R1107:1109 Coq.Init.Datatypes <> snd def
+R1112:1121 Physics.PreregSplit PreregSplit split_tail def
+R1123:1128 Physics.PreregSplit <> test_n:7 var
+R1130:1130 Physics.PreregSplit <> l:8 var
+R1136:1141 Coq.Init.Datatypes <> length def
+R1143:1143 Physics.PreregSplit <> l:8 var
+R1170:1179 Coq.Lists.List <> app_length thm
+R1170:1179 Coq.Lists.List <> app_length thm
+R1170:1179 Coq.Lists.List <> app_length thm
+R1197:1210 Physics.PreregSplit PreregSplit split_tail_app thm
+R1197:1210 Physics.PreregSplit PreregSplit split_tail_app thm
+R1197:1210 Physics.PreregSplit PreregSplit split_tail_app thm
+prf 1309:1336 PreregSplit split_tail_test_length_exact
+R1348:1350 Coq.Init.Datatypes <> nat ind
+binder 1339:1344 <> test_n:9
+R1358:1361 Coq.Init.Datatypes <> list ind
+R1363:1363 Physics.PreregSplit <> PreregSplit.SplitTail.A var
+binder 1354:1354 <> l:10
+R1392:1395 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1380:1383 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1374:1379 Physics.PreregSplit <> test_n:9 var
+R1384:1389 Coq.Init.Datatypes <> length def
+R1391:1391 Physics.PreregSplit <> l:10 var
+R1430:1432 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1396:1401 Coq.Init.Datatypes <> length def
+R1404:1406 Coq.Init.Datatypes <> snd def
+R1409:1418 Physics.PreregSplit PreregSplit split_tail def
+R1420:1425 Physics.PreregSplit <> test_n:9 var
+R1427:1427 Physics.PreregSplit <> l:10 var
+R1433:1438 Physics.PreregSplit <> test_n:9 var
+R1476:1485 Physics.PreregSplit PreregSplit split_tail def
+R1510:1512 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R1502:1507 Coq.Init.Datatypes <> length def
+R1510:1512 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R1502:1507 Coq.Init.Datatypes <> length def
+R1545:1556 Coq.Lists.List <> skipn_length thm
+R1545:1556 Coq.Lists.List <> skipn_length thm
+R1545:1556 Coq.Lists.List <> skipn_length thm
+prf 1743:1771 PreregSplit split_tail_train_length_exact
+R1783:1785 Coq.Init.Datatypes <> nat ind
+binder 1774:1779 <> test_n:11
+R1793:1796 Coq.Init.Datatypes <> list ind
+R1798:1798 Physics.PreregSplit <> PreregSplit.SplitTail.A var
+binder 1789:1789 <> l:12
+R1827:1830 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1815:1818 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1809:1814 Physics.PreregSplit <> test_n:11 var
+R1819:1824 Coq.Init.Datatypes <> length def
+R1826:1826 Physics.PreregSplit <> l:12 var
+R1865:1867 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1831:1836 Coq.Init.Datatypes <> length def
+R1839:1841 Coq.Init.Datatypes <> fst def
+R1844:1853 Physics.PreregSplit PreregSplit split_tail def
+R1855:1860 Physics.PreregSplit <> test_n:11 var
+R1862:1862 Physics.PreregSplit <> l:12 var
+R1876:1878 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R1868:1873 Coq.Init.Datatypes <> length def
+R1875:1875 Physics.PreregSplit <> l:12 var
+R1879:1884 Physics.PreregSplit <> test_n:11 var
+R1922:1931 Physics.PreregSplit PreregSplit split_tail def
+R1956:1958 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R1948:1953 Coq.Init.Datatypes <> length def
+R1956:1958 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R1948:1953 Coq.Init.Datatypes <> length def
+R1991:2003 Coq.Lists.List <> firstn_length thm
+R1991:2003 Coq.Lists.List <> firstn_length thm
+R1991:2003 Coq.Lists.List <> firstn_length thm
+R2096:2104 Coq.Arith.PeanoNat Nat min_l thm
+R2096:2104 Coq.Arith.PeanoNat Nat min_l thm
+R2096:2104 Coq.Arith.PeanoNat Nat min_l thm
+R2096:2104 Coq.Arith.PeanoNat Nat min_l thm
+R2149:2157 Physics.PreregSplit PreregSplit.SplitTail <> sec
+R2165:2175 Physics.PreregSplit PreregSplit <> mod
+prf 2328:2364 <> foundation_chain_witness_prereg_split
+R2370:2376 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2395:2400 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2381:2394 Kernel.VMState <> PartitionGraph rec
+binder 2377:2377 <> g:13
+R2420:2423 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2401:2417 Kernel.VMState <> well_formed_graph def
+R2419:2419 Physics.PreregSplit <> g:13 var
+R2438:2440 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2424:2437 Kernel.VMStep VMStep vm_instruction ind
+R2441:2454 Kernel.VMStep VMStep vm_instruction ind
+R2488:2501 Kernel.VMState <> PartitionGraph rec
+R2474:2484 Kernel.VMState <> empty_graph def
+R2488:2501 Kernel.VMState <> PartitionGraph rec
+R2474:2484 Kernel.VMState <> empty_graph def
+R2524:2546 Kernel.VMState <> empty_graph_well_formed thm
+R2524:2546 Kernel.VMState <> empty_graph_well_formed thm

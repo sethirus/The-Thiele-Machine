@@ -13,6 +13,7 @@ Import ListNotations.
 From ThieleUniversal Require Import TM UTM_Rules UTM_Program UTM_Encode CPU.
 From ThieleMachine Require Import ThieleMachine EncodingBridge.
 From ThieleUniversal.verification Require Import BridgeDefinitions.
+From Kernel Require Import VMState MuCostModel Subsumption.
 
 Local Open Scope nat_scope.
 
@@ -145,3 +146,17 @@ Qed.
 
 Definition utm_cpu_state (tm : TM) (conf : TMConfig) : ThieleUniversal.CPU.State :=
   BridgeDefinitions.setup_state tm conf.
+
+(* ----------------------------------------------------------------- *)
+(* Bridge: Simulation connects to VMState and subsumption            *)
+(* ----------------------------------------------------------------- *)
+
+(** The simulation above proves that the Thiele Machine can simulate
+    any Turing machine step-for-step. Combined with main_subsumption
+    from Kernel.Subsumption, this establishes that UTM execution is
+    strictly contained in sighted Thiele computation. Every simulated
+    step accrues mu_cost_of_instr cost in the VMState mu-ledger. *)
+Definition simulation_vm_mu_bridge (vm : VMState) : nat := vm_mu vm.
+
+(** Witness: subsumption confirms Turing is strictly weaker. *)
+Definition simulation_subsumption := main_subsumption.

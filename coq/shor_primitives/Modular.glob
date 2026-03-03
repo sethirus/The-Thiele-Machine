@@ -1,236 +1,239 @@
-DIGEST 040068b7378f4ba5ae1535b416e5a927
+DIGEST 102af7b9a97bf1f137caa465955e5d9b
 FShorPrimitives.Modular
-R436:440 Coq.Arith.Arith <> <> lib
-R564:566 Coq.Arith.PeanoNat Nat <> mod
-sec 578:594 <> ModularArithmetic
-var 608:608 ModularArithmetic n
-R612:614 Coq.Init.Datatypes <> nat ind
-def 631:637 <> mod_add
-R646:648 Coq.Init.Datatypes <> nat ind
-binder 640:640 <> a:2
-binder 642:642 <> b:3
-R653:655 Coq.Init.Datatypes <> nat ind
-R660:660 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
-R666:671 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
-R662:664 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R661:661 ShorPrimitives.Modular <> a:2 var
-R665:665 ShorPrimitives.Modular <> b:3 var
-R672:672 ShorPrimitives.Modular <> ModularArithmetic.n var
-def 688:694 <> mod_mul
-R703:705 Coq.Init.Datatypes <> nat ind
-binder 697:697 <> a:4
-binder 699:699 <> b:5
-R710:712 Coq.Init.Datatypes <> nat ind
-R717:717 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
-R723:728 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
-R719:721 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
-R718:718 ShorPrimitives.Modular <> a:4 var
-R722:722 ShorPrimitives.Modular <> b:5 var
-R729:729 ShorPrimitives.Modular <> ModularArithmetic.n var
-def 745:751 <> mod_pow
-R760:762 Coq.Init.Datatypes <> nat ind
-binder 754:754 <> a:6
-binder 756:756 <> k:7
-R767:769 Coq.Init.Datatypes <> nat ind
-R785:789 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
-R774:780 Coq.Arith.PeanoNat Nat pow def
-R782:782 ShorPrimitives.Modular <> a:6 var
-R784:784 ShorPrimitives.Modular <> k:7 var
-R790:790 ShorPrimitives.Modular <> ModularArithmetic.n var
-prf 849:860 <> mod_add_comm
-binder 871:871 <> a:8
-binder 873:873 <> b:9
-R887:889 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R876:882 ShorPrimitives.Modular <> mod_add def
-R884:884 ShorPrimitives.Modular <> a:8 var
-R886:886 ShorPrimitives.Modular <> b:9 var
-R890:896 ShorPrimitives.Modular <> mod_add def
-R898:898 ShorPrimitives.Modular <> b:9 var
-R900:900 ShorPrimitives.Modular <> a:8 var
-R935:941 ShorPrimitives.Modular <> mod_add def
-R956:967 Coq.Arith.PeanoNat Nat add_comm thm
-R956:967 Coq.Arith.PeanoNat Nat add_comm thm
-R956:967 Coq.Arith.PeanoNat Nat add_comm thm
-prf 1033:1044 <> mod_add_lift
-binder 1055:1055 <> a:10
-binder 1057:1057 <> b:11
-R1081:1083 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1060:1060 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
-R1074:1079 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
-R1062:1065 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R1073:1073 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R1061:1061 ShorPrimitives.Modular <> a:10 var
-R1067:1071 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
-R1066:1066 ShorPrimitives.Modular <> b:11 var
-R1072:1072 ShorPrimitives.Modular <> ModularArithmetic.n var
-R1080:1080 ShorPrimitives.Modular <> ModularArithmetic.n var
-R1084:1084 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
-R1090:1095 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
-R1086:1088 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R1085:1085 ShorPrimitives.Modular <> a:10 var
-R1089:1089 ShorPrimitives.Modular <> b:11 var
-R1096:1096 ShorPrimitives.Modular <> ModularArithmetic.n var
-R1131:1137 ShorPrimitives.Modular <> mod_add def
-R1146:1169 Coq.Arith.PeanoNat Nat.Div0 add_mod_idemp_r thm
-R1146:1169 Coq.Arith.PeanoNat Nat.Div0 add_mod_idemp_r thm
-prf 1236:1248 <> mod_add_assoc
-binder 1259:1259 <> a:12
-binder 1261:1261 <> b:13
-binder 1263:1263 <> c:14
-R1295:1297 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1272:1278 ShorPrimitives.Modular <> mod_add def
-R1280:1280 ShorPrimitives.Modular <> a:12 var
-R1283:1289 ShorPrimitives.Modular <> mod_add def
-R1291:1291 ShorPrimitives.Modular <> b:13 var
-R1293:1293 ShorPrimitives.Modular <> c:14 var
-R1298:1304 ShorPrimitives.Modular <> mod_add def
-R1307:1313 ShorPrimitives.Modular <> mod_add def
-R1315:1315 ShorPrimitives.Modular <> a:12 var
-R1317:1317 ShorPrimitives.Modular <> b:13 var
-R1320:1320 ShorPrimitives.Modular <> c:14 var
-R1357:1363 ShorPrimitives.Modular <> mod_add def
-R1378:1389 ShorPrimitives.Modular <> mod_add_lift thm
-R1378:1389 ShorPrimitives.Modular <> mod_add_lift thm
-R1378:1389 ShorPrimitives.Modular <> mod_add_lift thm
-R1404:1416 Coq.Arith.PeanoNat Nat add_assoc thm
-R1404:1416 Coq.Arith.PeanoNat Nat add_assoc thm
-R1404:1416 Coq.Arith.PeanoNat Nat add_assoc thm
-R1435:1458 Coq.Arith.PeanoNat Nat.Div0 add_mod_idemp_l thm
-R1462:1464 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R1470:1470 ShorPrimitives.Modular <> ModularArithmetic.n var
-R1435:1458 Coq.Arith.PeanoNat Nat.Div0 add_mod_idemp_l thm
-R1462:1464 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R1470:1470 ShorPrimitives.Modular <> ModularArithmetic.n var
-R1435:1458 Coq.Arith.PeanoNat Nat.Div0 add_mod_idemp_l thm
-R1462:1464 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R1470:1470 ShorPrimitives.Modular <> ModularArithmetic.n var
-prf 1554:1565 <> mod_mul_comm
-binder 1576:1576 <> a:15
-binder 1578:1578 <> b:16
-R1592:1594 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1581:1587 ShorPrimitives.Modular <> mod_mul def
-R1589:1589 ShorPrimitives.Modular <> a:15 var
-R1591:1591 ShorPrimitives.Modular <> b:16 var
-R1595:1601 ShorPrimitives.Modular <> mod_mul def
-R1603:1603 ShorPrimitives.Modular <> b:16 var
-R1605:1605 ShorPrimitives.Modular <> a:15 var
-R1640:1646 ShorPrimitives.Modular <> mod_mul def
-R1661:1672 Coq.Arith.PeanoNat Nat mul_comm thm
-R1661:1672 Coq.Arith.PeanoNat Nat mul_comm thm
-R1661:1672 Coq.Arith.PeanoNat Nat mul_comm thm
-prf 1738:1749 <> mod_mul_lift
-binder 1760:1760 <> a:17
-binder 1762:1762 <> b:18
-R1786:1788 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1765:1765 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
-R1779:1784 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
-R1767:1770 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
-R1778:1778 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
-R1766:1766 ShorPrimitives.Modular <> a:17 var
-R1772:1776 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
-R1771:1771 ShorPrimitives.Modular <> b:18 var
-R1777:1777 ShorPrimitives.Modular <> ModularArithmetic.n var
-R1785:1785 ShorPrimitives.Modular <> ModularArithmetic.n var
-R1789:1789 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
-R1795:1800 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
-R1791:1793 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
-R1790:1790 ShorPrimitives.Modular <> a:17 var
-R1794:1794 ShorPrimitives.Modular <> b:18 var
-R1801:1801 ShorPrimitives.Modular <> ModularArithmetic.n var
-R1836:1842 ShorPrimitives.Modular <> mod_mul def
-R1851:1874 Coq.Arith.PeanoNat Nat.Div0 mul_mod_idemp_r thm
-R1851:1874 Coq.Arith.PeanoNat Nat.Div0 mul_mod_idemp_r thm
-prf 1941:1953 <> mod_mul_assoc
-binder 1964:1964 <> a:19
-binder 1966:1966 <> b:20
-binder 1968:1968 <> c:21
-R2000:2002 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1977:1983 ShorPrimitives.Modular <> mod_mul def
-R1985:1985 ShorPrimitives.Modular <> a:19 var
-R1988:1994 ShorPrimitives.Modular <> mod_mul def
-R1996:1996 ShorPrimitives.Modular <> b:20 var
-R1998:1998 ShorPrimitives.Modular <> c:21 var
-R2003:2009 ShorPrimitives.Modular <> mod_mul def
-R2012:2018 ShorPrimitives.Modular <> mod_mul def
-R2020:2020 ShorPrimitives.Modular <> a:19 var
-R2022:2022 ShorPrimitives.Modular <> b:20 var
-R2025:2025 ShorPrimitives.Modular <> c:21 var
-R2062:2068 ShorPrimitives.Modular <> mod_mul def
-R2083:2094 ShorPrimitives.Modular <> mod_mul_lift thm
-R2083:2094 ShorPrimitives.Modular <> mod_mul_lift thm
-R2083:2094 ShorPrimitives.Modular <> mod_mul_lift thm
-R2109:2121 Coq.Arith.PeanoNat Nat mul_assoc thm
-R2109:2121 Coq.Arith.PeanoNat Nat mul_assoc thm
-R2109:2121 Coq.Arith.PeanoNat Nat mul_assoc thm
-R2140:2163 Coq.Arith.PeanoNat Nat.Div0 mul_mod_idemp_l thm
-R2167:2169 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
-R2175:2175 ShorPrimitives.Modular <> ModularArithmetic.n var
-R2140:2163 Coq.Arith.PeanoNat Nat.Div0 mul_mod_idemp_l thm
-R2167:2169 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
-R2175:2175 ShorPrimitives.Modular <> ModularArithmetic.n var
-R2140:2163 Coq.Arith.PeanoNat Nat.Div0 mul_mod_idemp_l thm
-R2167:2169 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
-R2175:2175 ShorPrimitives.Modular <> ModularArithmetic.n var
-prf 2259:2270 <> mod_pow_succ
-binder 2281:2281 <> a:22
-binder 2283:2283 <> k:23
-R2307:2309 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2292:2298 ShorPrimitives.Modular <> mod_pow def
-R2300:2300 ShorPrimitives.Modular <> a:22 var
-R2303:2303 Coq.Init.Datatypes <> S constr
-R2305:2305 ShorPrimitives.Modular <> k:23 var
-R2310:2316 ShorPrimitives.Modular <> mod_mul def
-R2319:2325 ShorPrimitives.Modular <> mod_pow def
-R2327:2327 ShorPrimitives.Modular <> a:22 var
-R2329:2329 ShorPrimitives.Modular <> k:23 var
-R2332:2332 ShorPrimitives.Modular <> a:22 var
-R2367:2373 ShorPrimitives.Modular <> mod_pow def
-R2376:2382 ShorPrimitives.Modular <> mod_mul def
-R2395:2401 Coq.Arith.PeanoNat Nat pow def
-R2416:2427 Coq.Arith.PeanoNat Nat mul_comm thm
-R2416:2427 Coq.Arith.PeanoNat Nat mul_comm thm
-R2416:2427 Coq.Arith.PeanoNat Nat mul_comm thm
-R2446:2469 Coq.Arith.PeanoNat Nat.Div0 mul_mod_idemp_l thm
-R2472:2478 Coq.Arith.PeanoNat Nat pow def
-R2487:2487 ShorPrimitives.Modular <> ModularArithmetic.n var
-R2446:2469 Coq.Arith.PeanoNat Nat.Div0 mul_mod_idemp_l thm
-R2472:2478 Coq.Arith.PeanoNat Nat pow def
-R2487:2487 ShorPrimitives.Modular <> ModularArithmetic.n var
-R2446:2469 Coq.Arith.PeanoNat Nat.Div0 mul_mod_idemp_l thm
-R2472:2478 Coq.Arith.PeanoNat Nat pow def
-R2487:2487 ShorPrimitives.Modular <> ModularArithmetic.n var
-prf 2570:2580 <> mod_pow_add
-binder 2591:2591 <> a:24
-binder 2593:2593 <> k:25
-binder 2595:2595 <> l:26
-R2621:2623 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2604:2610 ShorPrimitives.Modular <> mod_pow def
-R2612:2612 ShorPrimitives.Modular <> a:24 var
-R2616:2618 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R2615:2615 ShorPrimitives.Modular <> k:25 var
-R2619:2619 ShorPrimitives.Modular <> l:26 var
-R2624:2630 ShorPrimitives.Modular <> mod_mul def
-R2633:2639 ShorPrimitives.Modular <> mod_pow def
-R2641:2641 ShorPrimitives.Modular <> a:24 var
-R2643:2643 ShorPrimitives.Modular <> k:25 var
-R2647:2653 ShorPrimitives.Modular <> mod_pow def
-R2655:2655 ShorPrimitives.Modular <> a:24 var
-R2657:2657 ShorPrimitives.Modular <> l:26 var
-R2695:2701 ShorPrimitives.Modular <> mod_pow def
-R2704:2710 ShorPrimitives.Modular <> mod_mul def
-R2725:2737 Coq.Arith.PeanoNat Nat pow_add_r thm
-R2725:2737 Coq.Arith.PeanoNat Nat pow_add_r thm
-R2725:2737 Coq.Arith.PeanoNat Nat pow_add_r thm
-R2753:2768 Coq.Arith.PeanoNat Nat.Div0 mul_mod thm
-R2771:2777 Coq.Arith.PeanoNat Nat pow def
-R2785:2791 Coq.Arith.PeanoNat Nat pow def
-R2798:2798 ShorPrimitives.Modular <> ModularArithmetic.n var
-R2753:2768 Coq.Arith.PeanoNat Nat.Div0 mul_mod thm
-R2771:2777 Coq.Arith.PeanoNat Nat pow def
-R2785:2791 Coq.Arith.PeanoNat Nat pow def
-R2798:2798 ShorPrimitives.Modular <> ModularArithmetic.n var
-R2753:2768 Coq.Arith.PeanoNat Nat.Div0 mul_mod thm
-R2771:2777 Coq.Arith.PeanoNat Nat pow def
-R2785:2791 Coq.Arith.PeanoNat Nat pow def
-R2798:2798 ShorPrimitives.Modular <> ModularArithmetic.n var
-R2830:2846 ShorPrimitives.Modular ModularArithmetic <> sec
+R608:614 Kernel.VMState <> <> lib
+R616:621 Kernel.VMStep <> <> lib
+R651:661 Kernel.MuCostModel <> <> lib
+R689:693 Coq.Arith.Arith <> <> lib
+R817:819 Coq.Arith.PeanoNat Nat <> mod
+sec 831:847 <> ModularArithmetic
+var 861:861 ModularArithmetic n
+R865:867 Coq.Init.Datatypes <> nat ind
+def 884:890 <> mod_add
+R899:901 Coq.Init.Datatypes <> nat ind
+binder 893:893 <> a:2
+binder 895:895 <> b:3
+R906:908 Coq.Init.Datatypes <> nat ind
+R913:913 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
+R919:924 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
+R915:917 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R914:914 ShorPrimitives.Modular <> a:2 var
+R918:918 ShorPrimitives.Modular <> b:3 var
+R925:925 ShorPrimitives.Modular <> ModularArithmetic.n var
+def 941:947 <> mod_mul
+R956:958 Coq.Init.Datatypes <> nat ind
+binder 950:950 <> a:4
+binder 952:952 <> b:5
+R963:965 Coq.Init.Datatypes <> nat ind
+R970:970 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
+R976:981 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
+R972:974 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R971:971 ShorPrimitives.Modular <> a:4 var
+R975:975 ShorPrimitives.Modular <> b:5 var
+R982:982 ShorPrimitives.Modular <> ModularArithmetic.n var
+def 998:1004 <> mod_pow
+R1013:1015 Coq.Init.Datatypes <> nat ind
+binder 1007:1007 <> a:6
+binder 1009:1009 <> k:7
+R1020:1022 Coq.Init.Datatypes <> nat ind
+R1038:1042 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
+R1027:1033 Coq.Arith.PeanoNat Nat pow def
+R1035:1035 ShorPrimitives.Modular <> a:6 var
+R1037:1037 ShorPrimitives.Modular <> k:7 var
+R1043:1043 ShorPrimitives.Modular <> ModularArithmetic.n var
+prf 1102:1113 <> mod_add_comm
+binder 1124:1124 <> a:8
+binder 1126:1126 <> b:9
+R1140:1142 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1129:1135 ShorPrimitives.Modular <> mod_add def
+R1137:1137 ShorPrimitives.Modular <> a:8 var
+R1139:1139 ShorPrimitives.Modular <> b:9 var
+R1143:1149 ShorPrimitives.Modular <> mod_add def
+R1151:1151 ShorPrimitives.Modular <> b:9 var
+R1153:1153 ShorPrimitives.Modular <> a:8 var
+R1188:1194 ShorPrimitives.Modular <> mod_add def
+R1209:1220 Coq.Arith.PeanoNat Nat add_comm thm
+R1209:1220 Coq.Arith.PeanoNat Nat add_comm thm
+R1209:1220 Coq.Arith.PeanoNat Nat add_comm thm
+prf 1286:1297 <> mod_add_lift
+binder 1308:1308 <> a:10
+binder 1310:1310 <> b:11
+R1334:1336 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1313:1313 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
+R1327:1332 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
+R1315:1318 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R1326:1326 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R1314:1314 ShorPrimitives.Modular <> a:10 var
+R1320:1324 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
+R1319:1319 ShorPrimitives.Modular <> b:11 var
+R1325:1325 ShorPrimitives.Modular <> ModularArithmetic.n var
+R1333:1333 ShorPrimitives.Modular <> ModularArithmetic.n var
+R1337:1337 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
+R1343:1348 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
+R1339:1341 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R1338:1338 ShorPrimitives.Modular <> a:10 var
+R1342:1342 ShorPrimitives.Modular <> b:11 var
+R1349:1349 ShorPrimitives.Modular <> ModularArithmetic.n var
+R1384:1390 ShorPrimitives.Modular <> mod_add def
+R1399:1422 Coq.Arith.PeanoNat Nat.Div0 add_mod_idemp_r thm
+R1399:1422 Coq.Arith.PeanoNat Nat.Div0 add_mod_idemp_r thm
+prf 1489:1501 <> mod_add_assoc
+binder 1512:1512 <> a:12
+binder 1514:1514 <> b:13
+binder 1516:1516 <> c:14
+R1548:1550 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1525:1531 ShorPrimitives.Modular <> mod_add def
+R1533:1533 ShorPrimitives.Modular <> a:12 var
+R1536:1542 ShorPrimitives.Modular <> mod_add def
+R1544:1544 ShorPrimitives.Modular <> b:13 var
+R1546:1546 ShorPrimitives.Modular <> c:14 var
+R1551:1557 ShorPrimitives.Modular <> mod_add def
+R1560:1566 ShorPrimitives.Modular <> mod_add def
+R1568:1568 ShorPrimitives.Modular <> a:12 var
+R1570:1570 ShorPrimitives.Modular <> b:13 var
+R1573:1573 ShorPrimitives.Modular <> c:14 var
+R1610:1616 ShorPrimitives.Modular <> mod_add def
+R1631:1642 ShorPrimitives.Modular <> mod_add_lift thm
+R1631:1642 ShorPrimitives.Modular <> mod_add_lift thm
+R1631:1642 ShorPrimitives.Modular <> mod_add_lift thm
+R1657:1669 Coq.Arith.PeanoNat Nat add_assoc thm
+R1657:1669 Coq.Arith.PeanoNat Nat add_assoc thm
+R1657:1669 Coq.Arith.PeanoNat Nat add_assoc thm
+R1688:1711 Coq.Arith.PeanoNat Nat.Div0 add_mod_idemp_l thm
+R1715:1717 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R1723:1723 ShorPrimitives.Modular <> ModularArithmetic.n var
+R1688:1711 Coq.Arith.PeanoNat Nat.Div0 add_mod_idemp_l thm
+R1715:1717 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R1723:1723 ShorPrimitives.Modular <> ModularArithmetic.n var
+R1688:1711 Coq.Arith.PeanoNat Nat.Div0 add_mod_idemp_l thm
+R1715:1717 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R1723:1723 ShorPrimitives.Modular <> ModularArithmetic.n var
+prf 1807:1818 <> mod_mul_comm
+binder 1829:1829 <> a:15
+binder 1831:1831 <> b:16
+R1845:1847 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1834:1840 ShorPrimitives.Modular <> mod_mul def
+R1842:1842 ShorPrimitives.Modular <> a:15 var
+R1844:1844 ShorPrimitives.Modular <> b:16 var
+R1848:1854 ShorPrimitives.Modular <> mod_mul def
+R1856:1856 ShorPrimitives.Modular <> b:16 var
+R1858:1858 ShorPrimitives.Modular <> a:15 var
+R1893:1899 ShorPrimitives.Modular <> mod_mul def
+R1914:1925 Coq.Arith.PeanoNat Nat mul_comm thm
+R1914:1925 Coq.Arith.PeanoNat Nat mul_comm thm
+R1914:1925 Coq.Arith.PeanoNat Nat mul_comm thm
+prf 1991:2002 <> mod_mul_lift
+binder 2013:2013 <> a:17
+binder 2015:2015 <> b:18
+R2039:2041 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2018:2018 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
+R2032:2037 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
+R2020:2023 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R2031:2031 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R2019:2019 ShorPrimitives.Modular <> a:17 var
+R2025:2029 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
+R2024:2024 ShorPrimitives.Modular <> b:18 var
+R2030:2030 ShorPrimitives.Modular <> ModularArithmetic.n var
+R2038:2038 ShorPrimitives.Modular <> ModularArithmetic.n var
+R2042:2042 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
+R2048:2053 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
+R2044:2046 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R2043:2043 ShorPrimitives.Modular <> a:17 var
+R2047:2047 ShorPrimitives.Modular <> b:18 var
+R2054:2054 ShorPrimitives.Modular <> ModularArithmetic.n var
+R2089:2095 ShorPrimitives.Modular <> mod_mul def
+R2104:2127 Coq.Arith.PeanoNat Nat.Div0 mul_mod_idemp_r thm
+R2104:2127 Coq.Arith.PeanoNat Nat.Div0 mul_mod_idemp_r thm
+prf 2194:2206 <> mod_mul_assoc
+binder 2217:2217 <> a:19
+binder 2219:2219 <> b:20
+binder 2221:2221 <> c:21
+R2253:2255 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2230:2236 ShorPrimitives.Modular <> mod_mul def
+R2238:2238 ShorPrimitives.Modular <> a:19 var
+R2241:2247 ShorPrimitives.Modular <> mod_mul def
+R2249:2249 ShorPrimitives.Modular <> b:20 var
+R2251:2251 ShorPrimitives.Modular <> c:21 var
+R2256:2262 ShorPrimitives.Modular <> mod_mul def
+R2265:2271 ShorPrimitives.Modular <> mod_mul def
+R2273:2273 ShorPrimitives.Modular <> a:19 var
+R2275:2275 ShorPrimitives.Modular <> b:20 var
+R2278:2278 ShorPrimitives.Modular <> c:21 var
+R2315:2321 ShorPrimitives.Modular <> mod_mul def
+R2336:2347 ShorPrimitives.Modular <> mod_mul_lift thm
+R2336:2347 ShorPrimitives.Modular <> mod_mul_lift thm
+R2336:2347 ShorPrimitives.Modular <> mod_mul_lift thm
+R2362:2374 Coq.Arith.PeanoNat Nat mul_assoc thm
+R2362:2374 Coq.Arith.PeanoNat Nat mul_assoc thm
+R2362:2374 Coq.Arith.PeanoNat Nat mul_assoc thm
+R2393:2416 Coq.Arith.PeanoNat Nat.Div0 mul_mod_idemp_l thm
+R2420:2422 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R2428:2428 ShorPrimitives.Modular <> ModularArithmetic.n var
+R2393:2416 Coq.Arith.PeanoNat Nat.Div0 mul_mod_idemp_l thm
+R2420:2422 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R2428:2428 ShorPrimitives.Modular <> ModularArithmetic.n var
+R2393:2416 Coq.Arith.PeanoNat Nat.Div0 mul_mod_idemp_l thm
+R2420:2422 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R2428:2428 ShorPrimitives.Modular <> ModularArithmetic.n var
+prf 2512:2523 <> mod_pow_succ
+binder 2534:2534 <> a:22
+binder 2536:2536 <> k:23
+R2560:2562 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2545:2551 ShorPrimitives.Modular <> mod_pow def
+R2553:2553 ShorPrimitives.Modular <> a:22 var
+R2556:2556 Coq.Init.Datatypes <> S constr
+R2558:2558 ShorPrimitives.Modular <> k:23 var
+R2563:2569 ShorPrimitives.Modular <> mod_mul def
+R2572:2578 ShorPrimitives.Modular <> mod_pow def
+R2580:2580 ShorPrimitives.Modular <> a:22 var
+R2582:2582 ShorPrimitives.Modular <> k:23 var
+R2585:2585 ShorPrimitives.Modular <> a:22 var
+R2620:2626 ShorPrimitives.Modular <> mod_pow def
+R2629:2635 ShorPrimitives.Modular <> mod_mul def
+R2648:2654 Coq.Arith.PeanoNat Nat pow def
+R2669:2680 Coq.Arith.PeanoNat Nat mul_comm thm
+R2669:2680 Coq.Arith.PeanoNat Nat mul_comm thm
+R2669:2680 Coq.Arith.PeanoNat Nat mul_comm thm
+R2699:2722 Coq.Arith.PeanoNat Nat.Div0 mul_mod_idemp_l thm
+R2725:2731 Coq.Arith.PeanoNat Nat pow def
+R2740:2740 ShorPrimitives.Modular <> ModularArithmetic.n var
+R2699:2722 Coq.Arith.PeanoNat Nat.Div0 mul_mod_idemp_l thm
+R2725:2731 Coq.Arith.PeanoNat Nat pow def
+R2740:2740 ShorPrimitives.Modular <> ModularArithmetic.n var
+R2699:2722 Coq.Arith.PeanoNat Nat.Div0 mul_mod_idemp_l thm
+R2725:2731 Coq.Arith.PeanoNat Nat pow def
+R2740:2740 ShorPrimitives.Modular <> ModularArithmetic.n var
+prf 2823:2833 <> mod_pow_add
+binder 2844:2844 <> a:24
+binder 2846:2846 <> k:25
+binder 2848:2848 <> l:26
+R2874:2876 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2857:2863 ShorPrimitives.Modular <> mod_pow def
+R2865:2865 ShorPrimitives.Modular <> a:24 var
+R2869:2871 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R2868:2868 ShorPrimitives.Modular <> k:25 var
+R2872:2872 ShorPrimitives.Modular <> l:26 var
+R2877:2883 ShorPrimitives.Modular <> mod_mul def
+R2886:2892 ShorPrimitives.Modular <> mod_pow def
+R2894:2894 ShorPrimitives.Modular <> a:24 var
+R2896:2896 ShorPrimitives.Modular <> k:25 var
+R2900:2906 ShorPrimitives.Modular <> mod_pow def
+R2908:2908 ShorPrimitives.Modular <> a:24 var
+R2910:2910 ShorPrimitives.Modular <> l:26 var
+R2948:2954 ShorPrimitives.Modular <> mod_pow def
+R2957:2963 ShorPrimitives.Modular <> mod_mul def
+R2978:2990 Coq.Arith.PeanoNat Nat pow_add_r thm
+R2978:2990 Coq.Arith.PeanoNat Nat pow_add_r thm
+R2978:2990 Coq.Arith.PeanoNat Nat pow_add_r thm
+R3006:3021 Coq.Arith.PeanoNat Nat.Div0 mul_mod thm
+R3024:3030 Coq.Arith.PeanoNat Nat pow def
+R3038:3044 Coq.Arith.PeanoNat Nat pow def
+R3051:3051 ShorPrimitives.Modular <> ModularArithmetic.n var
+R3006:3021 Coq.Arith.PeanoNat Nat.Div0 mul_mod thm
+R3024:3030 Coq.Arith.PeanoNat Nat pow def
+R3038:3044 Coq.Arith.PeanoNat Nat pow def
+R3051:3051 ShorPrimitives.Modular <> ModularArithmetic.n var
+R3006:3021 Coq.Arith.PeanoNat Nat.Div0 mul_mod thm
+R3024:3030 Coq.Arith.PeanoNat Nat pow def
+R3038:3044 Coq.Arith.PeanoNat Nat pow def
+R3051:3051 ShorPrimitives.Modular <> ModularArithmetic.n var
+R3084:3100 ShorPrimitives.Modular ModularArithmetic <> sec

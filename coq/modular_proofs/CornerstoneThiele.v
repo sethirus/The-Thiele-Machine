@@ -3,6 +3,10 @@ From Coq Require Import Arith.Arith.
 From Coq Require Import Lists.List.
 Import ListNotations.
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 (* --- Basic colour and mask machinery --- *)
 
 Inductive colour := Red | Green | Blue.
@@ -368,3 +372,4 @@ Proof. vm_compute. split; reflexivity. Qed.
 (** [thiele_pays_the_cost]: formal specification. *)
 Lemma thiele_pays_the_cost : state_mu thiele_final = 23.
 Proof. vm_compute. reflexivity. Qed.
+

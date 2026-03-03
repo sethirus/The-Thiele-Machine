@@ -1,4 +1,6 @@
 (** =========================================================================
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
     PREDICTION - Falsifiable Experimental Claim
     =========================================================================
     
@@ -9,6 +11,10 @@
     This is the Popper test: make a prediction, wait for experiment.
     
     ========================================================================= *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import List ZArith Lia QArith.
 Import ListNotations.

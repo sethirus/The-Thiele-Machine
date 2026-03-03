@@ -1,4 +1,4 @@
-DIGEST 7cd64653033f8c17be67c513169dee78
+DIGEST 7323d6ae55de07248318dd6e7ee88f9c
 FTheory.GeometricSignature
 R133:147 Coq.Arith.Arith <> <> lib
 R165:182 Coq.Arith.PeanoNat <> <> lib
@@ -6,402 +6,405 @@ R200:213 Coq.Lists.List <> <> lib
 R231:245 Coq.Reals.Reals <> <> lib
 R263:279 Coq.micromega.Lia <> <> lib
 R297:313 Coq.micromega.Lra <> <> lib
-R323:335 Coq.Lists.List ListNotations <> mod
-mod 346:363 <> GeometricSignature
-def 469:477 GeometricSignature Partition
-R482:485 Coq.Init.Datatypes <> list ind
-R487:489 Coq.Init.Datatypes <> nat ind
-def 567:574 GeometricSignature Strategy
-R582:585 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R579:581 Coq.Init.Datatypes <> nat ind
-R586:594 Theory.GeometricSignature GeometricSignature Partition def
-def 956:979 GeometricSignature variation_of_information
-R990:998 Theory.GeometricSignature GeometricSignature Partition def
-binder 982:983 <> p1:1
-binder 985:986 <> p2:2
-R1003:1003 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-prf 1072:1086 GeometricSignature vi_non_negative
-binder 1097:1098 <> p1:3
-binder 1100:1101 <> p2:4
-R1141:1144 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R1111:1134 Theory.GeometricSignature GeometricSignature variation_of_information def
-R1139:1140 Theory.GeometricSignature <> p2:4 var
-R1136:1137 Theory.GeometricSignature <> p1:3 var
-R1185:1208 Theory.GeometricSignature GeometricSignature variation_of_information def
-R1217:1224 Coq.Reals.RIneq <> Rle_refl thm
-R1217:1224 Coq.Reals.RIneq <> Rle_refl thm
-prf 1366:1377 GeometricSignature vi_symmetric
-binder 1388:1389 <> p1:5
-binder 1391:1392 <> p2:6
-R1431:1433 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1401:1424 Theory.GeometricSignature GeometricSignature variation_of_information def
-R1429:1430 Theory.GeometricSignature <> p2:6 var
-R1426:1427 Theory.GeometricSignature <> p1:5 var
-R1434:1457 Theory.GeometricSignature GeometricSignature variation_of_information def
-R1462:1463 Theory.GeometricSignature <> p1:5 var
-R1459:1460 Theory.GeometricSignature <> p2:6 var
-R1500:1523 Theory.GeometricSignature GeometricSignature variation_of_information def
-prf 1652:1662 GeometricSignature vi_identity
-binder 1673:1673 <> p:7
-R1710:1712 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1682:1705 Theory.GeometricSignature GeometricSignature variation_of_information def
-R1709:1709 Theory.GeometricSignature <> p:7 var
-R1707:1707 Theory.GeometricSignature <> p:7 var
-R1747:1770 Theory.GeometricSignature GeometricSignature variation_of_information def
-prf 1915:1925 GeometricSignature vi_triangle
-binder 1936:1937 <> p1:8
-binder 1939:1940 <> p2:9
-binder 1942:1943 <> p3:10
-R1983:1993 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R1953:1976 Theory.GeometricSignature GeometricSignature variation_of_information def
-R1981:1982 Theory.GeometricSignature <> p3:10 var
-R1978:1979 Theory.GeometricSignature <> p1:8 var
-R2024:2026 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R1994:2017 Theory.GeometricSignature GeometricSignature variation_of_information def
-R2022:2023 Theory.GeometricSignature <> p2:9 var
-R2019:2020 Theory.GeometricSignature <> p1:8 var
-R2027:2050 Theory.GeometricSignature GeometricSignature variation_of_information def
-R2055:2056 Theory.GeometricSignature <> p3:10 var
-R2052:2053 Theory.GeometricSignature <> p2:9 var
-R2099:2122 Theory.GeometricSignature GeometricSignature variation_of_information def
-modtype 2677:2699 <> GeometricSignature.PARTITIONING_STRATEGIES
-ax 2803:2819 GeometricSignature.PARTITIONING_STRATEGIES louvain_partition
-R2823:2830 Theory.GeometricSignature GeometricSignature Strategy def
-ax 2930:2947 GeometricSignature.PARTITIONING_STRATEGIES spectral_partition
-R2951:2958 Theory.GeometricSignature GeometricSignature Strategy def
-ax 3043:3058 GeometricSignature.PARTITIONING_STRATEGIES degree_partition
-R3062:3069 Theory.GeometricSignature GeometricSignature Strategy def
-ax 3161:3178 GeometricSignature.PARTITIONING_STRATEGIES balanced_partition
-R3182:3189 Theory.GeometricSignature GeometricSignature Strategy def
-R3198:3220 Theory.GeometricSignature GeometricSignature.PARTITIONING_STRATEGIES <> modtype
-R3629:3651 Theory.GeometricSignature GeometricSignature.PARTITIONING_STRATEGIES <> mod
-mod 3609:3625 <> GeometricSignature.DefaultStrategies
-def 3717:3733 GeometricSignature.DefaultStrategies louvain_partition
-R3737:3744 Theory.GeometricSignature GeometricSignature Strategy def
-R3758:3759 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-def 3817:3834 GeometricSignature.DefaultStrategies spectral_partition
-R3838:3845 Theory.GeometricSignature GeometricSignature Strategy def
-R3859:3860 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-def 3921:3936 GeometricSignature.DefaultStrategies degree_partition
-R3940:3947 Theory.GeometricSignature GeometricSignature Strategy def
-R3961:3962 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-def 4023:4040 GeometricSignature.DefaultStrategies balanced_partition
-R4044:4051 Theory.GeometricSignature GeometricSignature Strategy def
-R4065:4066 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R4075:4091 Theory.GeometricSignature GeometricSignature.DefaultStrategies <> mod
-R4106:4122 Theory.GeometricSignature GeometricSignature.DefaultStrategies <> mod
-rec 4232:4251 GeometricSignature GeometricSignatureTy
-proj 4262:4280 GeometricSignature average_edge_weight
-proj 4291:4305 GeometricSignature max_edge_weight
-proj 4316:4333 GeometricSignature edge_weight_stddev
-proj 4344:4367 GeometricSignature min_spanning_tree_weight
-proj 4378:4396 GeometricSignature thresholded_density
-R4284:4284 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4309:4309 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4337:4337 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4371:4371 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4400:4400 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-def 4472:4488 GeometricSignature compute_vi_matrix
-R4495:4497 Coq.Init.Datatypes <> nat ind
-binder 4491:4491 <> n:21
-R4502:4505 Coq.Init.Datatypes <> list ind
-R4508:4511 Coq.Init.Datatypes <> list ind
-R4513:4513 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4534:4550 Theory.GeometricSignature GeometricSignature louvain_partition defax
-R4552:4552 Theory.GeometricSignature <> n:21 var
-binder 4527:4529 <> p_l:22
-R4572:4589 Theory.GeometricSignature GeometricSignature spectral_partition defax
-R4591:4591 Theory.GeometricSignature <> n:21 var
-binder 4565:4567 <> p_s:23
-R4611:4626 Theory.GeometricSignature GeometricSignature degree_partition defax
-R4628:4628 Theory.GeometricSignature <> n:21 var
-binder 4604:4606 <> p_d:24
-R4648:4665 Theory.GeometricSignature GeometricSignature balanced_partition defax
-R4667:4667 Theory.GeometricSignature <> n:21 var
-binder 4641:4643 <> p_b:25
-R4676:4676 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4819:4825 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4968:4974 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5117:5123 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5266:5266 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4677:4677 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4710:4711 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4744:4751 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4784:4785 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4818:4818 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4678:4701 Theory.GeometricSignature GeometricSignature variation_of_information def
-R4707:4709 Theory.GeometricSignature <> p_l:22 var
-R4703:4705 Theory.GeometricSignature <> p_l:22 var
-R4712:4735 Theory.GeometricSignature GeometricSignature variation_of_information def
-R4741:4743 Theory.GeometricSignature <> p_s:23 var
-R4737:4739 Theory.GeometricSignature <> p_l:22 var
-R4752:4775 Theory.GeometricSignature GeometricSignature variation_of_information def
-R4781:4783 Theory.GeometricSignature <> p_d:24 var
-R4777:4779 Theory.GeometricSignature <> p_l:22 var
-R4786:4809 Theory.GeometricSignature GeometricSignature variation_of_information def
-R4815:4817 Theory.GeometricSignature <> p_b:25 var
-R4811:4813 Theory.GeometricSignature <> p_l:22 var
-R4826:4826 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4859:4860 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4893:4900 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4933:4934 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4967:4967 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4827:4850 Theory.GeometricSignature GeometricSignature variation_of_information def
-R4856:4858 Theory.GeometricSignature <> p_l:22 var
-R4852:4854 Theory.GeometricSignature <> p_s:23 var
-R4861:4884 Theory.GeometricSignature GeometricSignature variation_of_information def
-R4890:4892 Theory.GeometricSignature <> p_s:23 var
-R4886:4888 Theory.GeometricSignature <> p_s:23 var
-R4901:4924 Theory.GeometricSignature GeometricSignature variation_of_information def
-R4930:4932 Theory.GeometricSignature <> p_d:24 var
-R4926:4928 Theory.GeometricSignature <> p_s:23 var
-R4935:4958 Theory.GeometricSignature GeometricSignature variation_of_information def
-R4964:4966 Theory.GeometricSignature <> p_b:25 var
-R4960:4962 Theory.GeometricSignature <> p_s:23 var
-R4975:4975 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5008:5009 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5042:5049 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5082:5083 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5116:5116 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4976:4999 Theory.GeometricSignature GeometricSignature variation_of_information def
-R5005:5007 Theory.GeometricSignature <> p_l:22 var
-R5001:5003 Theory.GeometricSignature <> p_d:24 var
-R5010:5033 Theory.GeometricSignature GeometricSignature variation_of_information def
-R5039:5041 Theory.GeometricSignature <> p_s:23 var
-R5035:5037 Theory.GeometricSignature <> p_d:24 var
-R5050:5073 Theory.GeometricSignature GeometricSignature variation_of_information def
-R5079:5081 Theory.GeometricSignature <> p_d:24 var
-R5075:5077 Theory.GeometricSignature <> p_d:24 var
-R5084:5107 Theory.GeometricSignature GeometricSignature variation_of_information def
-R5113:5115 Theory.GeometricSignature <> p_b:25 var
-R5109:5111 Theory.GeometricSignature <> p_d:24 var
-R5124:5124 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5157:5158 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5191:5198 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5231:5232 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5265:5265 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5125:5148 Theory.GeometricSignature GeometricSignature variation_of_information def
-R5154:5156 Theory.GeometricSignature <> p_l:22 var
-R5150:5152 Theory.GeometricSignature <> p_b:25 var
-R5159:5182 Theory.GeometricSignature GeometricSignature variation_of_information def
-R5188:5190 Theory.GeometricSignature <> p_s:23 var
-R5184:5186 Theory.GeometricSignature <> p_b:25 var
-R5199:5222 Theory.GeometricSignature GeometricSignature variation_of_information def
-R5228:5230 Theory.GeometricSignature <> p_d:24 var
-R5224:5226 Theory.GeometricSignature <> p_b:25 var
-R5233:5256 Theory.GeometricSignature GeometricSignature variation_of_information def
-R5262:5264 Theory.GeometricSignature <> p_b:25 var
-R5258:5260 Theory.GeometricSignature <> p_b:25 var
-modtype 6558:6588 <> GeometricSignature.GEOMETRIC_SIGNATURE_COMPUTATION
-ax 6605:6624 GeometricSignature.GEOMETRIC_SIGNATURE_COMPUTATION extract_edge_weights
-R6641:6644 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6628:6631 Coq.Init.Datatypes <> list ind
-R6634:6637 Coq.Init.Datatypes <> list ind
-R6639:6639 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R6645:6648 Coq.Init.Datatypes <> list ind
-R6650:6650 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-ax 6949:6975 GeometricSignature.GEOMETRIC_SIGNATURE_COMPUTATION compute_geometric_signature
-R6982:6985 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6979:6981 Coq.Init.Datatypes <> nat ind
-R6986:7005 Theory.GeometricSignature GeometricSignature GeometricSignatureTy rec
-R7014:7044 Theory.GeometricSignature GeometricSignature.GEOMETRIC_SIGNATURE_COMPUTATION <> modtype
-R7080:7110 Theory.GeometricSignature GeometricSignature.GEOMETRIC_SIGNATURE_COMPUTATION <> mod
-mod 7059:7076 <> GeometricSignature.DefaultComputation
-def 7128:7147 GeometricSignature.DefaultComputation extract_edge_weights
-R7164:7167 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7151:7154 Coq.Init.Datatypes <> list ind
-R7157:7160 Coq.Init.Datatypes <> list ind
-R7162:7162 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R7168:7171 Coq.Init.Datatypes <> list ind
-R7173:7173 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R7187:7188 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-def 7206:7232 GeometricSignature.DefaultComputation compute_geometric_signature
-R7239:7241 Coq.Init.Datatypes <> nat ind
-R7246:7265 Theory.GeometricSignature GeometricSignature GeometricSignatureTy rec
-R7279:7297 Theory.GeometricSignature GeometricSignature average_edge_weight proj
-R7279:7297 Theory.GeometricSignature GeometricSignature average_edge_weight proj
-R7279:7297 Theory.GeometricSignature GeometricSignature average_edge_weight proj
-R7316:7330 Theory.GeometricSignature GeometricSignature max_edge_weight proj
-R7316:7330 Theory.GeometricSignature GeometricSignature max_edge_weight proj
-R7349:7366 Theory.GeometricSignature GeometricSignature edge_weight_stddev proj
-R7349:7366 Theory.GeometricSignature GeometricSignature edge_weight_stddev proj
-R7385:7408 Theory.GeometricSignature GeometricSignature min_spanning_tree_weight proj
-R7385:7408 Theory.GeometricSignature GeometricSignature min_spanning_tree_weight proj
-R7427:7445 Theory.GeometricSignature GeometricSignature thresholded_density proj
-R7427:7445 Theory.GeometricSignature GeometricSignature thresholded_density proj
-R7464:7481 Theory.GeometricSignature GeometricSignature.DefaultComputation <> mod
-R7496:7513 Theory.GeometricSignature GeometricSignature.DefaultComputation <> mod
-ind 7598:7613 GeometricSignature ProblemStructure
-constr 7618:7627 GeometricSignature STRUCTURED
-constr 7631:7637 GeometricSignature CHAOTIC
-scheme 7598:7613 GeometricSignature ProblemStructure_rect
-scheme 7598:7613 GeometricSignature ProblemStructure_ind
-scheme 7598:7613 GeometricSignature ProblemStructure_rec
-scheme 7598:7613 GeometricSignature ProblemStructure_sind
-def 7696:7713 GeometricSignature classify_signature
-R7722:7741 Theory.GeometricSignature GeometricSignature GeometricSignatureTy rec
-binder 7716:7718 <> sig:30
-R7746:7761 Theory.GeometricSignature GeometricSignature ProblemStructure ind
-R7773:7779 Coq.Reals.RIneq <> Rlt_dec thm
-R7786:7804 Theory.GeometricSignature GeometricSignature average_edge_weight proj
-R7781:7783 Theory.GeometricSignature <> sig:30 var
-R7928:7934 Theory.GeometricSignature GeometricSignature CHAOTIC constr
-R7825:7831 Coq.Reals.RIneq <> Rlt_dec thm
-R7838:7855 Theory.GeometricSignature GeometricSignature edge_weight_stddev proj
-R7833:7835 Theory.GeometricSignature <> sig:30 var
-R7905:7911 Theory.GeometricSignature GeometricSignature CHAOTIC constr
-R7875:7884 Theory.GeometricSignature GeometricSignature STRUCTURED constr
-def 8031:8053 GeometricSignature is_structured_signature
-R8062:8081 Theory.GeometricSignature GeometricSignature GeometricSignatureTy rec
-binder 8056:8058 <> sig:31
-R8086:8089 Coq.Init.Datatypes <> bool ind
-R8104:8121 Theory.GeometricSignature GeometricSignature classify_signature def
-R8123:8125 Theory.GeometricSignature <> sig:31 var
-R8138:8147 Theory.GeometricSignature GeometricSignature STRUCTURED constr
-R8152:8155 Coq.Init.Datatypes <> true constr
-R8163:8169 Theory.GeometricSignature GeometricSignature CHAOTIC constr
-R8174:8178 Coq.Init.Datatypes <> false constr
-prf 8365:8400 GeometricSignature vi_matrix_has_symmetric_construction
-R8416:8418 Coq.Init.Datatypes <> nat ind
-binder 8412:8412 <> n:32
-binder 8421:8422 <> p1:33
-binder 8424:8425 <> p2:34
-R8462:8464 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8432:8455 Theory.GeometricSignature GeometricSignature variation_of_information def
-R8460:8461 Theory.GeometricSignature <> p2:34 var
-R8457:8458 Theory.GeometricSignature <> p1:33 var
-R8465:8488 Theory.GeometricSignature GeometricSignature variation_of_information def
-R8493:8494 Theory.GeometricSignature <> p1:33 var
-R8490:8491 Theory.GeometricSignature <> p2:34 var
-R8524:8535 Theory.GeometricSignature GeometricSignature vi_symmetric thm
-R8524:8535 Theory.GeometricSignature GeometricSignature vi_symmetric thm
-prf 8624:8649 GeometricSignature vi_matrix_diagonal_is_zero
-binder 8660:8660 <> p:35
-R8695:8697 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8667:8690 Theory.GeometricSignature GeometricSignature variation_of_information def
-R8694:8694 Theory.GeometricSignature <> p:35 var
-R8692:8692 Theory.GeometricSignature <> p:35 var
-R8729:8739 Theory.GeometricSignature GeometricSignature vi_identity thm
-R8729:8739 Theory.GeometricSignature GeometricSignature vi_identity thm
-def 8853:8868 GeometricSignature low_vi_variation
-R8877:8896 Theory.GeometricSignature GeometricSignature GeometricSignatureTy rec
-binder 8871:8873 <> sig:36
-R8948:8955 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R8939:8941 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R8919:8937 Theory.GeometricSignature GeometricSignature average_edge_weight proj
-R8914:8916 Theory.GeometricSignature <> sig:36 var
-R8981:8983 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R8962:8979 Theory.GeometricSignature GeometricSignature edge_weight_stddev proj
-R8957:8959 Theory.GeometricSignature <> sig:36 var
-def 9061:9077 GeometricSignature high_vi_variation
-R9086:9105 Theory.GeometricSignature GeometricSignature GeometricSignatureTy rec
-binder 9080:9082 <> sig:37
-R9158:9165 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R9148:9151 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R9128:9146 Theory.GeometricSignature GeometricSignature average_edge_weight proj
-R9123:9125 Theory.GeometricSignature <> sig:37 var
-R9191:9194 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R9172:9189 Theory.GeometricSignature GeometricSignature edge_weight_stddev proj
-R9167:9169 Theory.GeometricSignature <> sig:37 var
-prf 9270:9294 GeometricSignature classification_consistent
-binder 9305:9307 <> sig:38
-R9334:9338 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R9314:9329 Theory.GeometricSignature GeometricSignature low_vi_variation def
-R9331:9333 Theory.GeometricSignature <> sig:38 var
-R9361:9363 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9339:9356 Theory.GeometricSignature GeometricSignature classify_signature def
-R9358:9360 Theory.GeometricSignature <> sig:38 var
-R9364:9373 Theory.GeometricSignature GeometricSignature STRUCTURED constr
-R9411:9426 Theory.GeometricSignature GeometricSignature low_vi_variation def
-R9429:9446 Theory.GeometricSignature GeometricSignature classify_signature def
-R9518:9524 Coq.Reals.RIneq <> Rlt_dec thm
-R9527:9545 Theory.GeometricSignature GeometricSignature average_edge_weight proj
-R9518:9524 Coq.Reals.RIneq <> Rlt_dec thm
-R9527:9545 Theory.GeometricSignature GeometricSignature average_edge_weight proj
-R9583:9589 Coq.Reals.RIneq <> Rlt_dec thm
-R9592:9609 Theory.GeometricSignature GeometricSignature edge_weight_stddev proj
-R9583:9589 Coq.Reals.RIneq <> Rlt_dec thm
-R9592:9609 Theory.GeometricSignature GeometricSignature edge_weight_stddev proj
-R9666:9672 Coq.Reals.RIneq <> Rlt_dec thm
-R9675:9693 Theory.GeometricSignature GeometricSignature average_edge_weight proj
-R9666:9672 Coq.Reals.RIneq <> Rlt_dec thm
-R9675:9693 Theory.GeometricSignature GeometricSignature average_edge_weight proj
-R9740:9746 Coq.Reals.RIneq <> Rlt_dec thm
-R9749:9766 Theory.GeometricSignature GeometricSignature edge_weight_stddev proj
-R9740:9746 Coq.Reals.RIneq <> Rlt_dec thm
-R9749:9766 Theory.GeometricSignature GeometricSignature edge_weight_stddev proj
-prf 9939:9966 GeometricSignature pdiscover_computes_signature
-binder 9977:9977 <> n:39
-R9984:9990 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R9994:9995 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 9991:9993 <> sig:40
-R9999:10001 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9996:9998 Theory.GeometricSignature <> sig:40 var
-R10002:10028 Theory.GeometricSignature GeometricSignature compute_geometric_signature defax
-R10030:10030 Theory.GeometricSignature <> n:39 var
-R10067:10093 Theory.GeometricSignature GeometricSignature compute_geometric_signature defax
-R10067:10093 Theory.GeometricSignature GeometricSignature compute_geometric_signature defax
-prf 10192:10210 GeometricSignature pdiscern_classifies
-binder 10221:10223 <> sig:41
-R10265:10272 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R10252:10254 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10230:10247 Theory.GeometricSignature GeometricSignature classify_signature def
-R10249:10251 Theory.GeometricSignature <> sig:41 var
-R10255:10264 Theory.GeometricSignature GeometricSignature STRUCTURED constr
-R10295:10297 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10273:10290 Theory.GeometricSignature GeometricSignature classify_signature def
-R10292:10294 Theory.GeometricSignature <> sig:41 var
-R10298:10304 Theory.GeometricSignature GeometricSignature CHAOTIC constr
-R10342:10359 Theory.GeometricSignature GeometricSignature classify_signature def
-R10376:10382 Coq.Reals.RIneq <> Rlt_dec thm
-R10385:10403 Theory.GeometricSignature GeometricSignature average_edge_weight proj
-R10432:10438 Coq.Reals.RIneq <> Rlt_dec thm
-R10441:10458 Theory.GeometricSignature GeometricSignature edge_weight_stddev proj
-R10376:10382 Coq.Reals.RIneq <> Rlt_dec thm
-R10385:10403 Theory.GeometricSignature GeometricSignature average_edge_weight proj
-R10432:10438 Coq.Reals.RIneq <> Rlt_dec thm
-R10441:10458 Theory.GeometricSignature GeometricSignature edge_weight_stddev proj
-R10432:10438 Coq.Reals.RIneq <> Rlt_dec thm
-R10441:10458 Theory.GeometricSignature GeometricSignature edge_weight_stddev proj
-prf 10585:10612 GeometricSignature classification_deterministic
-binder 10623:10625 <> sig:42
-R10667:10674 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10654:10656 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10632:10649 Theory.GeometricSignature GeometricSignature classify_signature def
-R10651:10653 Theory.GeometricSignature <> sig:42 var
-R10657:10666 Theory.GeometricSignature GeometricSignature STRUCTURED constr
-R10697:10700 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R10675:10692 Theory.GeometricSignature GeometricSignature classify_signature def
-R10694:10696 Theory.GeometricSignature <> sig:42 var
-R10701:10707 Theory.GeometricSignature GeometricSignature CHAOTIC constr
-def 10927:10939 GeometricSignature self_aware_vm
-binder 10962:10962 <> n:43
-R10965:10971 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R10979:10986 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 10972:10978 <> verdict:44
-R11047:11057 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11099:11099 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10994:10996 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10987:10993 Theory.GeometricSignature <> verdict:44 var
-R10997:11014 Theory.GeometricSignature GeometricSignature classify_signature def
-R11017:11043 Theory.GeometricSignature GeometricSignature compute_geometric_signature defax
-R11045:11045 Theory.GeometricSignature <> n:43 var
-R11078:11081 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R11065:11067 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11058:11064 Theory.GeometricSignature <> verdict:44 var
-R11068:11077 Theory.GeometricSignature GeometricSignature STRUCTURED constr
-R11089:11091 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11082:11088 Theory.GeometricSignature <> verdict:44 var
-R11092:11098 Theory.GeometricSignature GeometricSignature CHAOTIC constr
-prf 11153:11178 GeometricSignature vm_achieves_self_awareness
-R11182:11194 Theory.GeometricSignature GeometricSignature self_aware_vm def
-R11217:11229 Theory.GeometricSignature GeometricSignature self_aware_vm def
-R11257:11274 Theory.GeometricSignature GeometricSignature classify_signature def
-R11277:11303 Theory.GeometricSignature GeometricSignature compute_geometric_signature defax
-R11257:11274 Theory.GeometricSignature GeometricSignature classify_signature def
-R11277:11303 Theory.GeometricSignature GeometricSignature compute_geometric_signature defax
-R11356:11373 Theory.GeometricSignature GeometricSignature classify_signature def
-R11376:11402 Theory.GeometricSignature GeometricSignature compute_geometric_signature defax
-R11356:11373 Theory.GeometricSignature GeometricSignature classify_signature def
-R11376:11402 Theory.GeometricSignature GeometricSignature compute_geometric_signature defax
-R11458:11475 Theory.GeometricSignature GeometricSignature <> mod
+R429:435 Kernel.VMState <> <> lib
+R437:442 Kernel.VMStep <> <> lib
+R472:482 Kernel.MuCostModel <> <> lib
+R493:505 Coq.Lists.List ListNotations <> mod
+mod 516:533 <> GeometricSignature
+def 639:647 GeometricSignature Partition
+R652:655 Coq.Init.Datatypes <> list ind
+R657:659 Coq.Init.Datatypes <> nat ind
+def 737:744 GeometricSignature Strategy
+R752:755 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R749:751 Coq.Init.Datatypes <> nat ind
+R756:764 Theory.GeometricSignature GeometricSignature Partition def
+def 1126:1149 GeometricSignature variation_of_information
+R1160:1168 Theory.GeometricSignature GeometricSignature Partition def
+binder 1152:1153 <> p1:1
+binder 1155:1156 <> p2:2
+R1173:1173 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+prf 1242:1256 GeometricSignature vi_non_negative
+binder 1267:1268 <> p1:3
+binder 1270:1271 <> p2:4
+R1311:1314 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R1281:1304 Theory.GeometricSignature GeometricSignature variation_of_information def
+R1309:1310 Theory.GeometricSignature <> p2:4 var
+R1306:1307 Theory.GeometricSignature <> p1:3 var
+R1355:1378 Theory.GeometricSignature GeometricSignature variation_of_information def
+R1387:1394 Coq.Reals.RIneq <> Rle_refl thm
+R1387:1394 Coq.Reals.RIneq <> Rle_refl thm
+prf 1536:1547 GeometricSignature vi_symmetric
+binder 1558:1559 <> p1:5
+binder 1561:1562 <> p2:6
+R1601:1603 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1571:1594 Theory.GeometricSignature GeometricSignature variation_of_information def
+R1599:1600 Theory.GeometricSignature <> p2:6 var
+R1596:1597 Theory.GeometricSignature <> p1:5 var
+R1604:1627 Theory.GeometricSignature GeometricSignature variation_of_information def
+R1632:1633 Theory.GeometricSignature <> p1:5 var
+R1629:1630 Theory.GeometricSignature <> p2:6 var
+R1670:1693 Theory.GeometricSignature GeometricSignature variation_of_information def
+prf 1822:1832 GeometricSignature vi_identity
+binder 1843:1843 <> p:7
+R1880:1882 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1852:1875 Theory.GeometricSignature GeometricSignature variation_of_information def
+R1879:1879 Theory.GeometricSignature <> p:7 var
+R1877:1877 Theory.GeometricSignature <> p:7 var
+R1917:1940 Theory.GeometricSignature GeometricSignature variation_of_information def
+prf 2085:2095 GeometricSignature vi_triangle
+binder 2106:2107 <> p1:8
+binder 2109:2110 <> p2:9
+binder 2112:2113 <> p3:10
+R2153:2163 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R2123:2146 Theory.GeometricSignature GeometricSignature variation_of_information def
+R2151:2152 Theory.GeometricSignature <> p3:10 var
+R2148:2149 Theory.GeometricSignature <> p1:8 var
+R2194:2196 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R2164:2187 Theory.GeometricSignature GeometricSignature variation_of_information def
+R2192:2193 Theory.GeometricSignature <> p2:9 var
+R2189:2190 Theory.GeometricSignature <> p1:8 var
+R2197:2220 Theory.GeometricSignature GeometricSignature variation_of_information def
+R2225:2226 Theory.GeometricSignature <> p3:10 var
+R2222:2223 Theory.GeometricSignature <> p2:9 var
+R2269:2292 Theory.GeometricSignature GeometricSignature variation_of_information def
+modtype 2847:2869 <> GeometricSignature.PARTITIONING_STRATEGIES
+ax 2973:2989 GeometricSignature.PARTITIONING_STRATEGIES louvain_partition
+R2993:3000 Theory.GeometricSignature GeometricSignature Strategy def
+ax 3100:3117 GeometricSignature.PARTITIONING_STRATEGIES spectral_partition
+R3121:3128 Theory.GeometricSignature GeometricSignature Strategy def
+ax 3213:3228 GeometricSignature.PARTITIONING_STRATEGIES degree_partition
+R3232:3239 Theory.GeometricSignature GeometricSignature Strategy def
+ax 3331:3348 GeometricSignature.PARTITIONING_STRATEGIES balanced_partition
+R3352:3359 Theory.GeometricSignature GeometricSignature Strategy def
+R3368:3390 Theory.GeometricSignature GeometricSignature.PARTITIONING_STRATEGIES <> modtype
+R3799:3821 Theory.GeometricSignature GeometricSignature.PARTITIONING_STRATEGIES <> mod
+mod 3779:3795 <> GeometricSignature.DefaultStrategies
+def 3887:3903 GeometricSignature.DefaultStrategies louvain_partition
+R3907:3914 Theory.GeometricSignature GeometricSignature Strategy def
+R3928:3929 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+def 3987:4004 GeometricSignature.DefaultStrategies spectral_partition
+R4008:4015 Theory.GeometricSignature GeometricSignature Strategy def
+R4029:4030 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+def 4091:4106 GeometricSignature.DefaultStrategies degree_partition
+R4110:4117 Theory.GeometricSignature GeometricSignature Strategy def
+R4131:4132 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+def 4193:4210 GeometricSignature.DefaultStrategies balanced_partition
+R4214:4221 Theory.GeometricSignature GeometricSignature Strategy def
+R4235:4236 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4245:4261 Theory.GeometricSignature GeometricSignature.DefaultStrategies <> mod
+R4276:4292 Theory.GeometricSignature GeometricSignature.DefaultStrategies <> mod
+rec 4402:4421 GeometricSignature GeometricSignatureTy
+proj 4432:4450 GeometricSignature average_edge_weight
+proj 4461:4475 GeometricSignature max_edge_weight
+proj 4486:4503 GeometricSignature edge_weight_stddev
+proj 4514:4537 GeometricSignature min_spanning_tree_weight
+proj 4548:4566 GeometricSignature thresholded_density
+R4454:4454 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4479:4479 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4507:4507 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4541:4541 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4570:4570 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 4642:4658 GeometricSignature compute_vi_matrix
+R4665:4667 Coq.Init.Datatypes <> nat ind
+binder 4661:4661 <> n:21
+R4672:4675 Coq.Init.Datatypes <> list ind
+R4678:4681 Coq.Init.Datatypes <> list ind
+R4683:4683 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4704:4720 Theory.GeometricSignature GeometricSignature louvain_partition defax
+R4722:4722 Theory.GeometricSignature <> n:21 var
+binder 4697:4699 <> p_l:22
+R4742:4759 Theory.GeometricSignature GeometricSignature spectral_partition defax
+R4761:4761 Theory.GeometricSignature <> n:21 var
+binder 4735:4737 <> p_s:23
+R4781:4796 Theory.GeometricSignature GeometricSignature degree_partition defax
+R4798:4798 Theory.GeometricSignature <> n:21 var
+binder 4774:4776 <> p_d:24
+R4818:4835 Theory.GeometricSignature GeometricSignature balanced_partition defax
+R4837:4837 Theory.GeometricSignature <> n:21 var
+binder 4811:4813 <> p_b:25
+R4846:4846 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4989:4995 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5138:5144 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5287:5293 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5436:5436 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4847:4847 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4880:4881 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4914:4921 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4954:4955 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4988:4988 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4848:4871 Theory.GeometricSignature GeometricSignature variation_of_information def
+R4877:4879 Theory.GeometricSignature <> p_l:22 var
+R4873:4875 Theory.GeometricSignature <> p_l:22 var
+R4882:4905 Theory.GeometricSignature GeometricSignature variation_of_information def
+R4911:4913 Theory.GeometricSignature <> p_s:23 var
+R4907:4909 Theory.GeometricSignature <> p_l:22 var
+R4922:4945 Theory.GeometricSignature GeometricSignature variation_of_information def
+R4951:4953 Theory.GeometricSignature <> p_d:24 var
+R4947:4949 Theory.GeometricSignature <> p_l:22 var
+R4956:4979 Theory.GeometricSignature GeometricSignature variation_of_information def
+R4985:4987 Theory.GeometricSignature <> p_b:25 var
+R4981:4983 Theory.GeometricSignature <> p_l:22 var
+R4996:4996 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5029:5030 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5063:5070 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5103:5104 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5137:5137 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4997:5020 Theory.GeometricSignature GeometricSignature variation_of_information def
+R5026:5028 Theory.GeometricSignature <> p_l:22 var
+R5022:5024 Theory.GeometricSignature <> p_s:23 var
+R5031:5054 Theory.GeometricSignature GeometricSignature variation_of_information def
+R5060:5062 Theory.GeometricSignature <> p_s:23 var
+R5056:5058 Theory.GeometricSignature <> p_s:23 var
+R5071:5094 Theory.GeometricSignature GeometricSignature variation_of_information def
+R5100:5102 Theory.GeometricSignature <> p_d:24 var
+R5096:5098 Theory.GeometricSignature <> p_s:23 var
+R5105:5128 Theory.GeometricSignature GeometricSignature variation_of_information def
+R5134:5136 Theory.GeometricSignature <> p_b:25 var
+R5130:5132 Theory.GeometricSignature <> p_s:23 var
+R5145:5145 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5178:5179 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5212:5219 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5252:5253 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5286:5286 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5146:5169 Theory.GeometricSignature GeometricSignature variation_of_information def
+R5175:5177 Theory.GeometricSignature <> p_l:22 var
+R5171:5173 Theory.GeometricSignature <> p_d:24 var
+R5180:5203 Theory.GeometricSignature GeometricSignature variation_of_information def
+R5209:5211 Theory.GeometricSignature <> p_s:23 var
+R5205:5207 Theory.GeometricSignature <> p_d:24 var
+R5220:5243 Theory.GeometricSignature GeometricSignature variation_of_information def
+R5249:5251 Theory.GeometricSignature <> p_d:24 var
+R5245:5247 Theory.GeometricSignature <> p_d:24 var
+R5254:5277 Theory.GeometricSignature GeometricSignature variation_of_information def
+R5283:5285 Theory.GeometricSignature <> p_b:25 var
+R5279:5281 Theory.GeometricSignature <> p_d:24 var
+R5294:5294 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5327:5328 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5361:5368 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5401:5402 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5435:5435 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5295:5318 Theory.GeometricSignature GeometricSignature variation_of_information def
+R5324:5326 Theory.GeometricSignature <> p_l:22 var
+R5320:5322 Theory.GeometricSignature <> p_b:25 var
+R5329:5352 Theory.GeometricSignature GeometricSignature variation_of_information def
+R5358:5360 Theory.GeometricSignature <> p_s:23 var
+R5354:5356 Theory.GeometricSignature <> p_b:25 var
+R5369:5392 Theory.GeometricSignature GeometricSignature variation_of_information def
+R5398:5400 Theory.GeometricSignature <> p_d:24 var
+R5394:5396 Theory.GeometricSignature <> p_b:25 var
+R5403:5426 Theory.GeometricSignature GeometricSignature variation_of_information def
+R5432:5434 Theory.GeometricSignature <> p_b:25 var
+R5428:5430 Theory.GeometricSignature <> p_b:25 var
+modtype 6728:6758 <> GeometricSignature.GEOMETRIC_SIGNATURE_COMPUTATION
+ax 6775:6794 GeometricSignature.GEOMETRIC_SIGNATURE_COMPUTATION extract_edge_weights
+R6811:6814 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6798:6801 Coq.Init.Datatypes <> list ind
+R6804:6807 Coq.Init.Datatypes <> list ind
+R6809:6809 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R6815:6818 Coq.Init.Datatypes <> list ind
+R6820:6820 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+ax 7119:7145 GeometricSignature.GEOMETRIC_SIGNATURE_COMPUTATION compute_geometric_signature
+R7152:7155 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7149:7151 Coq.Init.Datatypes <> nat ind
+R7156:7175 Theory.GeometricSignature GeometricSignature GeometricSignatureTy rec
+R7184:7214 Theory.GeometricSignature GeometricSignature.GEOMETRIC_SIGNATURE_COMPUTATION <> modtype
+R7250:7280 Theory.GeometricSignature GeometricSignature.GEOMETRIC_SIGNATURE_COMPUTATION <> mod
+mod 7229:7246 <> GeometricSignature.DefaultComputation
+def 7298:7317 GeometricSignature.DefaultComputation extract_edge_weights
+R7334:7337 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7321:7324 Coq.Init.Datatypes <> list ind
+R7327:7330 Coq.Init.Datatypes <> list ind
+R7332:7332 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R7338:7341 Coq.Init.Datatypes <> list ind
+R7343:7343 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R7357:7358 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+def 7376:7402 GeometricSignature.DefaultComputation compute_geometric_signature
+R7409:7411 Coq.Init.Datatypes <> nat ind
+R7416:7435 Theory.GeometricSignature GeometricSignature GeometricSignatureTy rec
+R7449:7467 Theory.GeometricSignature GeometricSignature average_edge_weight proj
+R7449:7467 Theory.GeometricSignature GeometricSignature average_edge_weight proj
+R7449:7467 Theory.GeometricSignature GeometricSignature average_edge_weight proj
+R7486:7500 Theory.GeometricSignature GeometricSignature max_edge_weight proj
+R7486:7500 Theory.GeometricSignature GeometricSignature max_edge_weight proj
+R7519:7536 Theory.GeometricSignature GeometricSignature edge_weight_stddev proj
+R7519:7536 Theory.GeometricSignature GeometricSignature edge_weight_stddev proj
+R7555:7578 Theory.GeometricSignature GeometricSignature min_spanning_tree_weight proj
+R7555:7578 Theory.GeometricSignature GeometricSignature min_spanning_tree_weight proj
+R7597:7615 Theory.GeometricSignature GeometricSignature thresholded_density proj
+R7597:7615 Theory.GeometricSignature GeometricSignature thresholded_density proj
+R7634:7651 Theory.GeometricSignature GeometricSignature.DefaultComputation <> mod
+R7666:7683 Theory.GeometricSignature GeometricSignature.DefaultComputation <> mod
+ind 7768:7783 GeometricSignature ProblemStructure
+constr 7788:7797 GeometricSignature STRUCTURED
+constr 7801:7807 GeometricSignature CHAOTIC
+scheme 7768:7783 GeometricSignature ProblemStructure_rect
+scheme 7768:7783 GeometricSignature ProblemStructure_ind
+scheme 7768:7783 GeometricSignature ProblemStructure_rec
+scheme 7768:7783 GeometricSignature ProblemStructure_sind
+def 7866:7883 GeometricSignature classify_signature
+R7892:7911 Theory.GeometricSignature GeometricSignature GeometricSignatureTy rec
+binder 7886:7888 <> sig:30
+R7916:7931 Theory.GeometricSignature GeometricSignature ProblemStructure ind
+R7943:7949 Coq.Reals.RIneq <> Rlt_dec thm
+R7956:7974 Theory.GeometricSignature GeometricSignature average_edge_weight proj
+R7951:7953 Theory.GeometricSignature <> sig:30 var
+R8098:8104 Theory.GeometricSignature GeometricSignature CHAOTIC constr
+R7995:8001 Coq.Reals.RIneq <> Rlt_dec thm
+R8008:8025 Theory.GeometricSignature GeometricSignature edge_weight_stddev proj
+R8003:8005 Theory.GeometricSignature <> sig:30 var
+R8075:8081 Theory.GeometricSignature GeometricSignature CHAOTIC constr
+R8045:8054 Theory.GeometricSignature GeometricSignature STRUCTURED constr
+def 8201:8223 GeometricSignature is_structured_signature
+R8232:8251 Theory.GeometricSignature GeometricSignature GeometricSignatureTy rec
+binder 8226:8228 <> sig:31
+R8256:8259 Coq.Init.Datatypes <> bool ind
+R8274:8291 Theory.GeometricSignature GeometricSignature classify_signature def
+R8293:8295 Theory.GeometricSignature <> sig:31 var
+R8308:8317 Theory.GeometricSignature GeometricSignature STRUCTURED constr
+R8322:8325 Coq.Init.Datatypes <> true constr
+R8333:8339 Theory.GeometricSignature GeometricSignature CHAOTIC constr
+R8344:8348 Coq.Init.Datatypes <> false constr
+prf 8535:8570 GeometricSignature vi_matrix_has_symmetric_construction
+R8586:8588 Coq.Init.Datatypes <> nat ind
+binder 8582:8582 <> n:32
+binder 8591:8592 <> p1:33
+binder 8594:8595 <> p2:34
+R8632:8634 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8602:8625 Theory.GeometricSignature GeometricSignature variation_of_information def
+R8630:8631 Theory.GeometricSignature <> p2:34 var
+R8627:8628 Theory.GeometricSignature <> p1:33 var
+R8635:8658 Theory.GeometricSignature GeometricSignature variation_of_information def
+R8663:8664 Theory.GeometricSignature <> p1:33 var
+R8660:8661 Theory.GeometricSignature <> p2:34 var
+R8694:8705 Theory.GeometricSignature GeometricSignature vi_symmetric thm
+R8694:8705 Theory.GeometricSignature GeometricSignature vi_symmetric thm
+prf 8794:8819 GeometricSignature vi_matrix_diagonal_is_zero
+binder 8830:8830 <> p:35
+R8865:8867 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8837:8860 Theory.GeometricSignature GeometricSignature variation_of_information def
+R8864:8864 Theory.GeometricSignature <> p:35 var
+R8862:8862 Theory.GeometricSignature <> p:35 var
+R8899:8909 Theory.GeometricSignature GeometricSignature vi_identity thm
+R8899:8909 Theory.GeometricSignature GeometricSignature vi_identity thm
+def 9023:9038 GeometricSignature low_vi_variation
+R9047:9066 Theory.GeometricSignature GeometricSignature GeometricSignatureTy rec
+binder 9041:9043 <> sig:36
+R9118:9125 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9109:9111 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R9089:9107 Theory.GeometricSignature GeometricSignature average_edge_weight proj
+R9084:9086 Theory.GeometricSignature <> sig:36 var
+R9151:9153 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R9132:9149 Theory.GeometricSignature GeometricSignature edge_weight_stddev proj
+R9127:9129 Theory.GeometricSignature <> sig:36 var
+def 9231:9247 GeometricSignature high_vi_variation
+R9256:9275 Theory.GeometricSignature GeometricSignature GeometricSignatureTy rec
+binder 9250:9252 <> sig:37
+R9328:9335 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R9318:9321 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R9298:9316 Theory.GeometricSignature GeometricSignature average_edge_weight proj
+R9293:9295 Theory.GeometricSignature <> sig:37 var
+R9361:9364 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R9342:9359 Theory.GeometricSignature GeometricSignature edge_weight_stddev proj
+R9337:9339 Theory.GeometricSignature <> sig:37 var
+prf 9440:9464 GeometricSignature classification_consistent
+binder 9475:9477 <> sig:38
+R9504:9508 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R9484:9499 Theory.GeometricSignature GeometricSignature low_vi_variation def
+R9501:9503 Theory.GeometricSignature <> sig:38 var
+R9531:9533 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9509:9526 Theory.GeometricSignature GeometricSignature classify_signature def
+R9528:9530 Theory.GeometricSignature <> sig:38 var
+R9534:9543 Theory.GeometricSignature GeometricSignature STRUCTURED constr
+R9581:9596 Theory.GeometricSignature GeometricSignature low_vi_variation def
+R9599:9616 Theory.GeometricSignature GeometricSignature classify_signature def
+R9688:9694 Coq.Reals.RIneq <> Rlt_dec thm
+R9697:9715 Theory.GeometricSignature GeometricSignature average_edge_weight proj
+R9688:9694 Coq.Reals.RIneq <> Rlt_dec thm
+R9697:9715 Theory.GeometricSignature GeometricSignature average_edge_weight proj
+R9753:9759 Coq.Reals.RIneq <> Rlt_dec thm
+R9762:9779 Theory.GeometricSignature GeometricSignature edge_weight_stddev proj
+R9753:9759 Coq.Reals.RIneq <> Rlt_dec thm
+R9762:9779 Theory.GeometricSignature GeometricSignature edge_weight_stddev proj
+R9836:9842 Coq.Reals.RIneq <> Rlt_dec thm
+R9845:9863 Theory.GeometricSignature GeometricSignature average_edge_weight proj
+R9836:9842 Coq.Reals.RIneq <> Rlt_dec thm
+R9845:9863 Theory.GeometricSignature GeometricSignature average_edge_weight proj
+R9910:9916 Coq.Reals.RIneq <> Rlt_dec thm
+R9919:9936 Theory.GeometricSignature GeometricSignature edge_weight_stddev proj
+R9910:9916 Coq.Reals.RIneq <> Rlt_dec thm
+R9919:9936 Theory.GeometricSignature GeometricSignature edge_weight_stddev proj
+prf 10109:10136 GeometricSignature pdiscover_computes_signature
+binder 10147:10147 <> n:39
+R10154:10160 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10164:10165 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 10161:10163 <> sig:40
+R10169:10171 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10166:10168 Theory.GeometricSignature <> sig:40 var
+R10172:10198 Theory.GeometricSignature GeometricSignature compute_geometric_signature defax
+R10200:10200 Theory.GeometricSignature <> n:39 var
+R10237:10263 Theory.GeometricSignature GeometricSignature compute_geometric_signature defax
+R10237:10263 Theory.GeometricSignature GeometricSignature compute_geometric_signature defax
+prf 10362:10380 GeometricSignature pdiscern_classifies
+binder 10391:10393 <> sig:41
+R10435:10442 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R10422:10424 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10400:10417 Theory.GeometricSignature GeometricSignature classify_signature def
+R10419:10421 Theory.GeometricSignature <> sig:41 var
+R10425:10434 Theory.GeometricSignature GeometricSignature STRUCTURED constr
+R10465:10467 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10443:10460 Theory.GeometricSignature GeometricSignature classify_signature def
+R10462:10464 Theory.GeometricSignature <> sig:41 var
+R10468:10474 Theory.GeometricSignature GeometricSignature CHAOTIC constr
+R10512:10529 Theory.GeometricSignature GeometricSignature classify_signature def
+R10546:10552 Coq.Reals.RIneq <> Rlt_dec thm
+R10555:10573 Theory.GeometricSignature GeometricSignature average_edge_weight proj
+R10602:10608 Coq.Reals.RIneq <> Rlt_dec thm
+R10611:10628 Theory.GeometricSignature GeometricSignature edge_weight_stddev proj
+R10546:10552 Coq.Reals.RIneq <> Rlt_dec thm
+R10555:10573 Theory.GeometricSignature GeometricSignature average_edge_weight proj
+R10602:10608 Coq.Reals.RIneq <> Rlt_dec thm
+R10611:10628 Theory.GeometricSignature GeometricSignature edge_weight_stddev proj
+R10602:10608 Coq.Reals.RIneq <> Rlt_dec thm
+R10611:10628 Theory.GeometricSignature GeometricSignature edge_weight_stddev proj
+prf 10755:10782 GeometricSignature classification_deterministic
+binder 10793:10795 <> sig:42
+R10837:10844 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10824:10826 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10802:10819 Theory.GeometricSignature GeometricSignature classify_signature def
+R10821:10823 Theory.GeometricSignature <> sig:42 var
+R10827:10836 Theory.GeometricSignature GeometricSignature STRUCTURED constr
+R10867:10870 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R10845:10862 Theory.GeometricSignature GeometricSignature classify_signature def
+R10864:10866 Theory.GeometricSignature <> sig:42 var
+R10871:10877 Theory.GeometricSignature GeometricSignature CHAOTIC constr
+def 11097:11109 GeometricSignature self_aware_vm
+binder 11132:11132 <> n:43
+R11135:11141 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11149:11156 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 11142:11148 <> verdict:44
+R11217:11227 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11269:11269 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11164:11166 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11157:11163 Theory.GeometricSignature <> verdict:44 var
+R11167:11184 Theory.GeometricSignature GeometricSignature classify_signature def
+R11187:11213 Theory.GeometricSignature GeometricSignature compute_geometric_signature defax
+R11215:11215 Theory.GeometricSignature <> n:43 var
+R11248:11251 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R11235:11237 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11228:11234 Theory.GeometricSignature <> verdict:44 var
+R11238:11247 Theory.GeometricSignature GeometricSignature STRUCTURED constr
+R11259:11261 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11252:11258 Theory.GeometricSignature <> verdict:44 var
+R11262:11268 Theory.GeometricSignature GeometricSignature CHAOTIC constr
+prf 11323:11348 GeometricSignature vm_achieves_self_awareness
+R11352:11364 Theory.GeometricSignature GeometricSignature self_aware_vm def
+R11387:11399 Theory.GeometricSignature GeometricSignature self_aware_vm def
+R11427:11444 Theory.GeometricSignature GeometricSignature classify_signature def
+R11447:11473 Theory.GeometricSignature GeometricSignature compute_geometric_signature defax
+R11427:11444 Theory.GeometricSignature GeometricSignature classify_signature def
+R11447:11473 Theory.GeometricSignature GeometricSignature compute_geometric_signature defax
+R11526:11543 Theory.GeometricSignature GeometricSignature classify_signature def
+R11546:11572 Theory.GeometricSignature GeometricSignature compute_geometric_signature defax
+R11526:11543 Theory.GeometricSignature GeometricSignature classify_signature def
+R11546:11572 Theory.GeometricSignature GeometricSignature compute_geometric_signature defax
+R11629:11646 Theory.GeometricSignature GeometricSignature <> mod

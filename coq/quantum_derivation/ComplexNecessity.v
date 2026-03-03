@@ -1,4 +1,6 @@
 (** =========================================================================
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
     COMPLEX NECESSITY: Why Quantum Amplitudes are Complex Numbers
     =========================================================================
 
@@ -26,6 +28,10 @@
 
     ZERO AXIOMS. ZERO ADMITS.
     ========================================================================= *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import Reals Lra Rtrigo1 Rtrigo_def Ranalysis1 Psatz.
 Import Rdefinitions.

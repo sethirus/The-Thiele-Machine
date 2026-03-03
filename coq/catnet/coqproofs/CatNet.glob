@@ -1,4 +1,4 @@
-DIGEST ac12a3d09b0d048ab1241e521a1df2b1
+DIGEST 56c206e74378537fe58d40616841b438
 FCatNet.coqproofs.CatNet
 R72:89 Coq.Strings.String <> <> lib
 R107:120 Coq.Lists.List <> <> lib
@@ -6,200 +6,203 @@ R130:142 Coq.Lists.List ListNotations <> mod
 R160:164 Coq.Arith.Arith <> <> lib
 R182:198 Coq.Strings.Ascii <> <> lib
 R216:219 Coq.Bool.Bool <> <> lib
-def 232:245 <> string_to_list
-R252:257 Coq.Strings.String <> string ind
-binder 248:248 <> s:1
-R262:265 Coq.Init.Datatypes <> list ind
-R267:271 Coq.Strings.Ascii <> ascii ind
-R284:284 CatNet.coqproofs.CatNet <> s:1 var
-R308:309 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R315:320 Coq.Strings.String <> String constr
-R331:334 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R335:348 CatNet.coqproofs.CatNet <> string_to_list:2 def
-rec 368:375 <> LogEntry
-proj 384:387 <> data
-proj 401:413 <> previous_hash
-R391:396 Coq.Strings.String <> string ind
-R417:419 Coq.Init.Datatypes <> nat ind
-def 436:445 <> hash_entry
-R452:459 CatNet.coqproofs.CatNet <> LogEntry rec
-binder 448:448 <> e:7
-R464:466 Coq.Init.Datatypes <> nat ind
-R473:473 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R506:509 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R474:479 Coq.Lists.List <> length abbrev
-R482:495 CatNet.coqproofs.CatNet <> string_to_list def
-R500:503 CatNet.coqproofs.CatNet <> data proj
-R497:497 CatNet.coqproofs.CatNet <> e:7 var
-R513:525 CatNet.coqproofs.CatNet <> previous_hash proj
-R510:510 CatNet.coqproofs.CatNet <> e:7 var
-def 618:629 <> logic_oracle
-R641:644 Coq.Init.Datatypes <> list ind
-R646:648 Coq.Init.Datatypes <> nat ind
-binder 632:637 <> axioms:8
-R653:656 Coq.Init.Datatypes <> bool ind
-R663:666 Coq.Init.Datatypes <> negb def
-R669:675 Coq.Lists.List <> existsb def
-R689:694 CatNet.coqproofs.CatNet <> axioms:8 var
-R678:684 Coq.Arith.PeanoNat Nat eqb def
-def 710:717 <> AuditLog
-R722:725 Coq.Init.Datatypes <> list ind
-R727:734 CatNet.coqproofs.CatNet <> LogEntry rec
-def 747:765 <> is_chain_valid_from
-R780:782 Coq.Init.Datatypes <> nat ind
-binder 768:776 <> prev_hash:9
-R792:799 CatNet.coqproofs.CatNet <> AuditLog def
-binder 786:788 <> log:10
-R820:822 CatNet.coqproofs.CatNet <> log:10 var
-R833:834 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R839:842 Coq.Init.Logic <> True ind
-R849:852 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R894:903 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R882:884 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R867:879 CatNet.coqproofs.CatNet <> previous_hash proj
-R885:893 CatNet.coqproofs.CatNet <> prev_hash:9 var
-R904:922 CatNet.coqproofs.CatNet <> is_chain_valid_from:11 def
-R925:934 CatNet.coqproofs.CatNet <> hash_entry def
-def 963:976 <> is_chain_valid
-R985:992 CatNet.coqproofs.CatNet <> AuditLog def
-binder 979:981 <> log:13
-R1007:1025 CatNet.coqproofs.CatNet <> is_chain_valid_from def
-R1029:1031 CatNet.coqproofs.CatNet <> log:13 var
-def 1044:1061 <> compute_hash_chain
-R1076:1078 Coq.Init.Datatypes <> nat ind
-binder 1064:1072 <> prev_hash:14
-R1088:1095 CatNet.coqproofs.CatNet <> AuditLog def
-binder 1082:1084 <> log:15
-R1100:1102 Coq.Init.Datatypes <> nat ind
-R1115:1117 CatNet.coqproofs.CatNet <> log:15 var
-R1128:1129 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R1134:1142 CatNet.coqproofs.CatNet <> prev_hash:14 var
-R1149:1152 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R1161:1178 CatNet.coqproofs.CatNet <> compute_hash_chain:16 def
-R1181:1190 CatNet.coqproofs.CatNet <> hash_entry def
-def 1219:1231 <> get_last_hash
-R1240:1247 CatNet.coqproofs.CatNet <> AuditLog def
-binder 1234:1236 <> log:18
-R1252:1254 Coq.Init.Datatypes <> nat ind
-R1261:1278 CatNet.coqproofs.CatNet <> compute_hash_chain def
-R1282:1284 CatNet.coqproofs.CatNet <> log:18 var
-def 1299:1307 <> add_entry
-R1316:1323 CatNet.coqproofs.CatNet <> AuditLog def
-binder 1310:1312 <> log:19
-R1338:1343 Coq.Strings.String <> string ind
-binder 1327:1334 <> new_data:20
-R1348:1355 CatNet.coqproofs.CatNet <> AuditLog def
-R1379:1391 CatNet.coqproofs.CatNet <> get_last_hash def
-R1393:1395 CatNet.coqproofs.CatNet <> log:19 var
-binder 1366:1374 <> prev_hash:21
-R1422:1425 CatNet.coqproofs.CatNet <> data proj
-R1422:1425 CatNet.coqproofs.CatNet <> data proj
-R1422:1425 CatNet.coqproofs.CatNet <> data proj
-R1440:1452 CatNet.coqproofs.CatNet <> previous_hash proj
-R1440:1452 CatNet.coqproofs.CatNet <> previous_hash proj
-R1430:1437 CatNet.coqproofs.CatNet <> new_data:20 var
-R1457:1465 CatNet.coqproofs.CatNet <> prev_hash:21 var
-binder 1406:1414 <> new_entry:22
-R1478:1481 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R1475:1477 CatNet.coqproofs.CatNet <> log:19 var
-R1482:1482 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R1492:1492 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R1483:1491 CatNet.coqproofs.CatNet <> new_entry:22 var
-prf 1564:1592 <> is_chain_valid_from_add_entry
-binder 1605:1607 <> log:23
-binder 1609:1617 <> prev_hash:24
-binder 1619:1626 <> new_data:25
-R1666:1673 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1633:1651 CatNet.coqproofs.CatNet <> is_chain_valid_from def
-R1653:1661 CatNet.coqproofs.CatNet <> prev_hash:24 var
-R1663:1665 CatNet.coqproofs.CatNet <> log:23 var
-R1674:1692 CatNet.coqproofs.CatNet <> is_chain_valid_from def
-R1694:1702 CatNet.coqproofs.CatNet <> prev_hash:24 var
-R1714:1717 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R1711:1713 CatNet.coqproofs.CatNet <> log:23 var
-R1718:1721 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R1806:1809 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R1722:1725 CatNet.coqproofs.CatNet <> data proj
-R1722:1725 CatNet.coqproofs.CatNet <> data proj
-R1722:1725 CatNet.coqproofs.CatNet <> data proj
-R1757:1769 CatNet.coqproofs.CatNet <> previous_hash proj
-R1757:1769 CatNet.coqproofs.CatNet <> previous_hash proj
-R1730:1737 CatNet.coqproofs.CatNet <> new_data:25 var
-R1774:1791 CatNet.coqproofs.CatNet <> compute_hash_chain def
-R1793:1801 CatNet.coqproofs.CatNet <> prev_hash:24 var
-R1803:1805 CatNet.coqproofs.CatNet <> log:23 var
-prf 2113:2146 <> add_entry_preserves_chain_validity
-binder 2159:2161 <> log:26
-binder 2163:2170 <> new_data:27
-R2195:2202 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2177:2190 CatNet.coqproofs.CatNet <> is_chain_valid def
-R2192:2194 CatNet.coqproofs.CatNet <> log:26 var
-R2203:2216 CatNet.coqproofs.CatNet <> is_chain_valid def
-R2219:2227 CatNet.coqproofs.CatNet <> add_entry def
-R2229:2231 CatNet.coqproofs.CatNet <> log:26 var
-R2233:2240 CatNet.coqproofs.CatNet <> new_data:27 var
-R2285:2293 CatNet.coqproofs.CatNet <> add_entry def
-R2296:2308 CatNet.coqproofs.CatNet <> get_last_hash def
-R2311:2324 CatNet.coqproofs.CatNet <> is_chain_valid def
-R2341:2369 CatNet.coqproofs.CatNet <> is_chain_valid_from_add_entry thm
-R2341:2369 CatNet.coqproofs.CatNet <> is_chain_valid_from_add_entry thm
-rec 2436:2450 <> ControlledState
-proj 2459:2461 <> log
-proj 2477:2492 <> paradox_detected
-R2465:2472 CatNet.coqproofs.CatNet <> AuditLog def
-R2496:2499 Coq.Init.Datatypes <> bool ind
-def 2516:2530 <> controlled_step
-R2538:2552 CatNet.coqproofs.CatNet <> ControlledState rec
-binder 2533:2534 <> st:31
-R2565:2568 Coq.Init.Datatypes <> list ind
-R2570:2572 Coq.Init.Datatypes <> nat ind
-binder 2556:2561 <> axioms:32
-R2583:2588 Coq.Strings.String <> string ind
-binder 2576:2579 <> data:33
-R2595:2609 CatNet.coqproofs.CatNet <> ControlledState rec
-R2637:2648 CatNet.coqproofs.CatNet <> logic_oracle def
-R2650:2655 CatNet.coqproofs.CatNet <> axioms:32 var
-binder 2620:2632 <> is_consistent:34
-R2665:2677 CatNet.coqproofs.CatNet <> is_consistent:34 var
-R2760:2762 CatNet.coqproofs.CatNet <> log proj
-R2760:2762 CatNet.coqproofs.CatNet <> log proj
-R2760:2762 CatNet.coqproofs.CatNet <> log proj
-R2777:2792 CatNet.coqproofs.CatNet <> paradox_detected proj
-R2777:2792 CatNet.coqproofs.CatNet <> paradox_detected proj
-R2771:2773 CatNet.coqproofs.CatNet <> log proj
-R2767:2768 CatNet.coqproofs.CatNet <> st:31 var
-R2797:2800 Coq.Init.Datatypes <> true constr
-R2689:2691 CatNet.coqproofs.CatNet <> log proj
-R2689:2691 CatNet.coqproofs.CatNet <> log proj
-R2689:2691 CatNet.coqproofs.CatNet <> log proj
-R2721:2736 CatNet.coqproofs.CatNet <> paradox_detected proj
-R2721:2736 CatNet.coqproofs.CatNet <> paradox_detected proj
-R2696:2704 CatNet.coqproofs.CatNet <> add_entry def
-R2710:2712 CatNet.coqproofs.CatNet <> log proj
-R2706:2707 CatNet.coqproofs.CatNet <> st:31 var
-R2715:2718 CatNet.coqproofs.CatNet <> data:33 var
-R2741:2745 Coq.Init.Datatypes <> false constr
-prf 2871:2893 <> paradox_halts_execution
-binder 2906:2907 <> st:35
-binder 2909:2914 <> axioms:36
-binder 2916:2919 <> data:37
-R2953:2960 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2945:2947 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2926:2937 CatNet.coqproofs.CatNet <> logic_oracle def
-R2939:2944 CatNet.coqproofs.CatNet <> axioms:36 var
-R2948:2952 Coq.Init.Datatypes <> false constr
-R2991:2996 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3038:3040 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2961:2975 CatNet.coqproofs.CatNet <> controlled_step def
-R2977:2978 CatNet.coqproofs.CatNet <> st:35 var
-R2980:2985 CatNet.coqproofs.CatNet <> axioms:36 var
-R2987:2990 CatNet.coqproofs.CatNet <> data:37 var
-R2997:2999 CatNet.coqproofs.CatNet <> log proj
-R2997:2999 CatNet.coqproofs.CatNet <> log proj
-R2997:2999 CatNet.coqproofs.CatNet <> log proj
-R3014:3029 CatNet.coqproofs.CatNet <> paradox_detected proj
-R3014:3029 CatNet.coqproofs.CatNet <> paradox_detected proj
-R3008:3010 CatNet.coqproofs.CatNet <> log proj
-R3004:3005 CatNet.coqproofs.CatNet <> st:35 var
-R3034:3037 Coq.Init.Datatypes <> true constr
-R3086:3100 CatNet.coqproofs.CatNet <> controlled_step def
+R333:339 Kernel.VMState <> <> lib
+R341:346 Kernel.VMStep <> <> lib
+R376:386 Kernel.MuCostModel <> <> lib
+def 400:413 <> string_to_list
+R420:425 Coq.Strings.String <> string ind
+binder 416:416 <> s:1
+R430:433 Coq.Init.Datatypes <> list ind
+R435:439 Coq.Strings.Ascii <> ascii ind
+R452:452 CatNet.coqproofs.CatNet <> s:1 var
+R476:477 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R483:488 Coq.Strings.String <> String constr
+R499:502 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R503:516 CatNet.coqproofs.CatNet <> string_to_list:2 def
+rec 536:543 <> LogEntry
+proj 552:555 <> data
+proj 569:581 <> previous_hash
+R559:564 Coq.Strings.String <> string ind
+R585:587 Coq.Init.Datatypes <> nat ind
+def 604:613 <> hash_entry
+R620:627 CatNet.coqproofs.CatNet <> LogEntry rec
+binder 616:616 <> e:7
+R632:634 Coq.Init.Datatypes <> nat ind
+R641:641 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R674:677 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R642:647 Coq.Lists.List <> length abbrev
+R650:663 CatNet.coqproofs.CatNet <> string_to_list def
+R668:671 CatNet.coqproofs.CatNet <> data proj
+R665:665 CatNet.coqproofs.CatNet <> e:7 var
+R681:693 CatNet.coqproofs.CatNet <> previous_hash proj
+R678:678 CatNet.coqproofs.CatNet <> e:7 var
+def 786:797 <> logic_oracle
+R809:812 Coq.Init.Datatypes <> list ind
+R814:816 Coq.Init.Datatypes <> nat ind
+binder 800:805 <> axioms:8
+R821:824 Coq.Init.Datatypes <> bool ind
+R831:834 Coq.Init.Datatypes <> negb def
+R837:843 Coq.Lists.List <> existsb def
+R857:862 CatNet.coqproofs.CatNet <> axioms:8 var
+R846:852 Coq.Arith.PeanoNat Nat eqb def
+def 878:885 <> AuditLog
+R890:893 Coq.Init.Datatypes <> list ind
+R895:902 CatNet.coqproofs.CatNet <> LogEntry rec
+def 915:933 <> is_chain_valid_from
+R948:950 Coq.Init.Datatypes <> nat ind
+binder 936:944 <> prev_hash:9
+R960:967 CatNet.coqproofs.CatNet <> AuditLog def
+binder 954:956 <> log:10
+R988:990 CatNet.coqproofs.CatNet <> log:10 var
+R1001:1002 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1007:1010 Coq.Init.Logic <> True ind
+R1017:1020 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1062:1071 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1050:1052 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1035:1047 CatNet.coqproofs.CatNet <> previous_hash proj
+R1053:1061 CatNet.coqproofs.CatNet <> prev_hash:9 var
+R1072:1090 CatNet.coqproofs.CatNet <> is_chain_valid_from:11 def
+R1093:1102 CatNet.coqproofs.CatNet <> hash_entry def
+def 1131:1144 <> is_chain_valid
+R1153:1160 CatNet.coqproofs.CatNet <> AuditLog def
+binder 1147:1149 <> log:13
+R1175:1193 CatNet.coqproofs.CatNet <> is_chain_valid_from def
+R1197:1199 CatNet.coqproofs.CatNet <> log:13 var
+def 1212:1229 <> compute_hash_chain
+R1244:1246 Coq.Init.Datatypes <> nat ind
+binder 1232:1240 <> prev_hash:14
+R1256:1263 CatNet.coqproofs.CatNet <> AuditLog def
+binder 1250:1252 <> log:15
+R1268:1270 Coq.Init.Datatypes <> nat ind
+R1283:1285 CatNet.coqproofs.CatNet <> log:15 var
+R1296:1297 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1302:1310 CatNet.coqproofs.CatNet <> prev_hash:14 var
+R1317:1320 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1329:1346 CatNet.coqproofs.CatNet <> compute_hash_chain:16 def
+R1349:1358 CatNet.coqproofs.CatNet <> hash_entry def
+def 1387:1399 <> get_last_hash
+R1408:1415 CatNet.coqproofs.CatNet <> AuditLog def
+binder 1402:1404 <> log:18
+R1420:1422 Coq.Init.Datatypes <> nat ind
+R1429:1446 CatNet.coqproofs.CatNet <> compute_hash_chain def
+R1450:1452 CatNet.coqproofs.CatNet <> log:18 var
+def 1467:1475 <> add_entry
+R1484:1491 CatNet.coqproofs.CatNet <> AuditLog def
+binder 1478:1480 <> log:19
+R1506:1511 Coq.Strings.String <> string ind
+binder 1495:1502 <> new_data:20
+R1516:1523 CatNet.coqproofs.CatNet <> AuditLog def
+R1547:1559 CatNet.coqproofs.CatNet <> get_last_hash def
+R1561:1563 CatNet.coqproofs.CatNet <> log:19 var
+binder 1534:1542 <> prev_hash:21
+R1590:1593 CatNet.coqproofs.CatNet <> data proj
+R1590:1593 CatNet.coqproofs.CatNet <> data proj
+R1590:1593 CatNet.coqproofs.CatNet <> data proj
+R1608:1620 CatNet.coqproofs.CatNet <> previous_hash proj
+R1608:1620 CatNet.coqproofs.CatNet <> previous_hash proj
+R1598:1605 CatNet.coqproofs.CatNet <> new_data:20 var
+R1625:1633 CatNet.coqproofs.CatNet <> prev_hash:21 var
+binder 1574:1582 <> new_entry:22
+R1646:1649 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R1643:1645 CatNet.coqproofs.CatNet <> log:19 var
+R1650:1650 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1660:1660 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1651:1659 CatNet.coqproofs.CatNet <> new_entry:22 var
+prf 1732:1760 <> is_chain_valid_from_add_entry
+binder 1773:1775 <> log:23
+binder 1777:1785 <> prev_hash:24
+binder 1787:1794 <> new_data:25
+R1834:1841 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1801:1819 CatNet.coqproofs.CatNet <> is_chain_valid_from def
+R1821:1829 CatNet.coqproofs.CatNet <> prev_hash:24 var
+R1831:1833 CatNet.coqproofs.CatNet <> log:23 var
+R1842:1860 CatNet.coqproofs.CatNet <> is_chain_valid_from def
+R1862:1870 CatNet.coqproofs.CatNet <> prev_hash:24 var
+R1882:1885 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R1879:1881 CatNet.coqproofs.CatNet <> log:23 var
+R1886:1889 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1974:1977 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1890:1893 CatNet.coqproofs.CatNet <> data proj
+R1890:1893 CatNet.coqproofs.CatNet <> data proj
+R1890:1893 CatNet.coqproofs.CatNet <> data proj
+R1925:1937 CatNet.coqproofs.CatNet <> previous_hash proj
+R1925:1937 CatNet.coqproofs.CatNet <> previous_hash proj
+R1898:1905 CatNet.coqproofs.CatNet <> new_data:25 var
+R1942:1959 CatNet.coqproofs.CatNet <> compute_hash_chain def
+R1961:1969 CatNet.coqproofs.CatNet <> prev_hash:24 var
+R1971:1973 CatNet.coqproofs.CatNet <> log:23 var
+prf 2281:2314 <> add_entry_preserves_chain_validity
+binder 2327:2329 <> log:26
+binder 2331:2338 <> new_data:27
+R2363:2370 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2345:2358 CatNet.coqproofs.CatNet <> is_chain_valid def
+R2360:2362 CatNet.coqproofs.CatNet <> log:26 var
+R2371:2384 CatNet.coqproofs.CatNet <> is_chain_valid def
+R2387:2395 CatNet.coqproofs.CatNet <> add_entry def
+R2397:2399 CatNet.coqproofs.CatNet <> log:26 var
+R2401:2408 CatNet.coqproofs.CatNet <> new_data:27 var
+R2453:2461 CatNet.coqproofs.CatNet <> add_entry def
+R2464:2476 CatNet.coqproofs.CatNet <> get_last_hash def
+R2479:2492 CatNet.coqproofs.CatNet <> is_chain_valid def
+R2509:2537 CatNet.coqproofs.CatNet <> is_chain_valid_from_add_entry thm
+R2509:2537 CatNet.coqproofs.CatNet <> is_chain_valid_from_add_entry thm
+rec 2604:2618 <> ControlledState
+proj 2627:2629 <> log
+proj 2645:2660 <> paradox_detected
+R2633:2640 CatNet.coqproofs.CatNet <> AuditLog def
+R2664:2667 Coq.Init.Datatypes <> bool ind
+def 2684:2698 <> controlled_step
+R2706:2720 CatNet.coqproofs.CatNet <> ControlledState rec
+binder 2701:2702 <> st:31
+R2733:2736 Coq.Init.Datatypes <> list ind
+R2738:2740 Coq.Init.Datatypes <> nat ind
+binder 2724:2729 <> axioms:32
+R2751:2756 Coq.Strings.String <> string ind
+binder 2744:2747 <> data:33
+R2763:2777 CatNet.coqproofs.CatNet <> ControlledState rec
+R2805:2816 CatNet.coqproofs.CatNet <> logic_oracle def
+R2818:2823 CatNet.coqproofs.CatNet <> axioms:32 var
+binder 2788:2800 <> is_consistent:34
+R2833:2845 CatNet.coqproofs.CatNet <> is_consistent:34 var
+R2928:2930 CatNet.coqproofs.CatNet <> log proj
+R2928:2930 CatNet.coqproofs.CatNet <> log proj
+R2928:2930 CatNet.coqproofs.CatNet <> log proj
+R2945:2960 CatNet.coqproofs.CatNet <> paradox_detected proj
+R2945:2960 CatNet.coqproofs.CatNet <> paradox_detected proj
+R2939:2941 CatNet.coqproofs.CatNet <> log proj
+R2935:2936 CatNet.coqproofs.CatNet <> st:31 var
+R2965:2968 Coq.Init.Datatypes <> true constr
+R2857:2859 CatNet.coqproofs.CatNet <> log proj
+R2857:2859 CatNet.coqproofs.CatNet <> log proj
+R2857:2859 CatNet.coqproofs.CatNet <> log proj
+R2889:2904 CatNet.coqproofs.CatNet <> paradox_detected proj
+R2889:2904 CatNet.coqproofs.CatNet <> paradox_detected proj
+R2864:2872 CatNet.coqproofs.CatNet <> add_entry def
+R2878:2880 CatNet.coqproofs.CatNet <> log proj
+R2874:2875 CatNet.coqproofs.CatNet <> st:31 var
+R2883:2886 CatNet.coqproofs.CatNet <> data:33 var
+R2909:2913 Coq.Init.Datatypes <> false constr
+prf 3039:3061 <> paradox_halts_execution
+binder 3074:3075 <> st:35
+binder 3077:3082 <> axioms:36
+binder 3084:3087 <> data:37
+R3121:3128 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3113:3115 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3094:3105 CatNet.coqproofs.CatNet <> logic_oracle def
+R3107:3112 CatNet.coqproofs.CatNet <> axioms:36 var
+R3116:3120 Coq.Init.Datatypes <> false constr
+R3159:3164 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3206:3208 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3129:3143 CatNet.coqproofs.CatNet <> controlled_step def
+R3145:3146 CatNet.coqproofs.CatNet <> st:35 var
+R3148:3153 CatNet.coqproofs.CatNet <> axioms:36 var
+R3155:3158 CatNet.coqproofs.CatNet <> data:37 var
+R3165:3167 CatNet.coqproofs.CatNet <> log proj
+R3165:3167 CatNet.coqproofs.CatNet <> log proj
+R3165:3167 CatNet.coqproofs.CatNet <> log proj
+R3182:3197 CatNet.coqproofs.CatNet <> paradox_detected proj
+R3182:3197 CatNet.coqproofs.CatNet <> paradox_detected proj
+R3176:3178 CatNet.coqproofs.CatNet <> log proj
+R3172:3173 CatNet.coqproofs.CatNet <> st:35 var
+R3202:3205 Coq.Init.Datatypes <> true constr
+R3254:3268 CatNet.coqproofs.CatNet <> controlled_step def

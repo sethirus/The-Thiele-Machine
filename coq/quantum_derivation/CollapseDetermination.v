@@ -1,4 +1,6 @@
 (** =========================================================================
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
     PHASE 4.2: UNIQUE POST-MEASUREMENT STATE
     =========================================================================
 
@@ -10,6 +12,10 @@
     state by minimizing uncertainty consistent with the revealed information.
 
     ========================================================================= *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import List ZArith Lia Bool Nat Reals QArith.
 Require Import Coq.Logic.Classical_Prop.

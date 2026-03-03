@@ -1,74 +1,77 @@
-DIGEST 90418ccd84d4bcb736dc8055edd8f588
+DIGEST fa8ca4c32ba8aef1cb4ff526bc49c094
 FThieleMachine.OracleImpossibility
-R305:308 Coq.Lists.List <> <> lib
-R310:314 Coq.Arith.Arith <> <> lib
-R316:319 Coq.Bool.Bool <> <> lib
-R321:323 Coq.Init.Nat <> <> lib
-R325:330 Coq.Strings.String <> <> lib
-R340:352 Coq.Lists.List ListNotations <> mod
-R390:402 ThieleMachine.ThieleMachine <> <> lib
-R412:438 ThieleMachine.ThieleMachine <> <> mod
-mod 449:467 <> OracleImpossibility
-sec 825:836 OracleImpossibility NaiveAttempt
-ind 914:920 OracleImpossibility TMState
-constr 925:931 OracleImpossibility Running
-constr 935:940 OracleImpossibility Halted
-constr 944:948 OracleImpossibility Error
-scheme 914:920 OracleImpossibility TMState_rect
-scheme 914:920 OracleImpossibility TMState_ind
-scheme 914:920 OracleImpossibility TMState_rec
-scheme 914:920 OracleImpossibility TMState_sind
-R1750:1761 ThieleMachine.OracleImpossibility OracleImpossibility.NaiveAttempt <> sec
-sec 1999:2016 OracleImpossibility WellFoundedAttempt
-R2784:2801 ThieleMachine.OracleImpossibility OracleImpossibility.WellFoundedAttempt <> sec
-sec 3039:3054 OracleImpossibility ClassicalAttempt
-R3610:3618 Coq.Logic.Classical <> <> lib
-def 3687:3696 OracleImpossibility halts_prop
-R3703:3706 ThieleMachine.ThieleMachine <> Prog rec
-binder 3699:3699 <> P:3
-R3725:3731 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3740:3741 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 3732:3733 <> s0:4
-binder 3735:3739 <> trace:5
-R3742:3745 ThieleMachine.ThieleMachine <> Exec ind
-R3747:3747 ThieleMachine.OracleImpossibility <> P:3 var
-R3749:3750 ThieleMachine.OracleImpossibility <> s0:4 var
-R3752:3756 ThieleMachine.OracleImpossibility <> trace:5 var
-prf 3862:3873 OracleImpossibility halts_or_not
-binder 3884:3884 <> P:6
-R3899:3902 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R3887:3896 ThieleMachine.OracleImpossibility OracleImpossibility halts_prop def
-R3898:3898 ThieleMachine.OracleImpossibility <> P:6 var
-R3903:3904 Coq.Init.Logic <> ::type_scope:'~'_x not
-R3905:3914 ThieleMachine.OracleImpossibility OracleImpossibility halts_prop def
-R3916:3916 ThieleMachine.OracleImpossibility <> P:6 var
-R3951:3957 Coq.Logic.Classical_Prop <> classic prfax
-R3951:3957 Coq.Logic.Classical_Prop <> classic prfax
-R4536:4551 ThieleMachine.OracleImpossibility OracleImpossibility.ClassicalAttempt <> sec
-sec 4789:4803 OracleImpossibility Diagonalization
-var 4877:4882 OracleImpossibility.Diagonalization oracle
-R4890:4893 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4886:4889 ThieleMachine.ThieleMachine <> Prog rec
-R4894:4897 Coq.Init.Datatypes <> bool ind
-def 4998:5015 OracleImpossibility oracle_correctness
-binder 5040:5040 <> P:8
-R5058:5062 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R5051:5053 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5043:5048 ThieleMachine.OracleImpossibility <> OracleImpossibility.Diagonalization.oracle var
-R5050:5050 ThieleMachine.OracleImpossibility <> P:8 var
-R5054:5057 Coq.Init.Datatypes <> true constr
-R5063:5072 ThieleMachine.OracleImpossibility OracleImpossibility halts_prop def
-R5074:5074 ThieleMachine.OracleImpossibility <> P:8 var
-R6095:6109 ThieleMachine.OracleImpossibility OracleImpossibility.Diagonalization <> sec
-sec 6347:6364 OracleImpossibility WhatWeActuallyHave
-R7311:7328 ThieleMachine.OracleImpossibility OracleImpossibility.WhatWeActuallyHave <> sec
-sec 7565:7578 OracleImpossibility WhatWeCanBuild
-def 7650:7663 OracleImpossibility bounded_oracle
-R7673:7675 Coq.Init.Datatypes <> nat ind
-binder 7666:7669 <> fuel:9
-R7689:7691 Coq.Init.Datatypes <> nat ind
-binder 7679:7685 <> timeout:10
-R7696:7699 Coq.Init.Datatypes <> bool ind
-R7806:7810 Coq.Init.Datatypes <> false constr
-R8415:8428 ThieleMachine.OracleImpossibility OracleImpossibility.WhatWeCanBuild <> sec
-R8436:8454 ThieleMachine.OracleImpossibility OracleImpossibility <> mod
+R393:399 Kernel.VMState <> <> lib
+R401:406 Kernel.VMStep <> <> lib
+R436:446 Kernel.MuCostModel <> <> lib
+R474:477 Coq.Lists.List <> <> lib
+R479:483 Coq.Arith.Arith <> <> lib
+R485:488 Coq.Bool.Bool <> <> lib
+R490:492 Coq.Init.Nat <> <> lib
+R494:499 Coq.Strings.String <> <> lib
+R509:521 Coq.Lists.List ListNotations <> mod
+R559:571 ThieleMachine.ThieleMachine <> <> lib
+R581:607 ThieleMachine.ThieleMachine <> <> mod
+mod 618:636 <> OracleImpossibility
+sec 994:1005 OracleImpossibility NaiveAttempt
+ind 1083:1089 OracleImpossibility TMState
+constr 1094:1100 OracleImpossibility Running
+constr 1104:1109 OracleImpossibility Halted
+constr 1113:1117 OracleImpossibility Error
+scheme 1083:1089 OracleImpossibility TMState_rect
+scheme 1083:1089 OracleImpossibility TMState_ind
+scheme 1083:1089 OracleImpossibility TMState_rec
+scheme 1083:1089 OracleImpossibility TMState_sind
+R1919:1930 ThieleMachine.OracleImpossibility OracleImpossibility.NaiveAttempt <> sec
+sec 2168:2185 OracleImpossibility WellFoundedAttempt
+R2953:2970 ThieleMachine.OracleImpossibility OracleImpossibility.WellFoundedAttempt <> sec
+sec 3208:3223 OracleImpossibility ClassicalAttempt
+R3691:3699 Coq.Logic.Classical <> <> lib
+def 3768:3777 OracleImpossibility halts_prop
+R3784:3787 ThieleMachine.ThieleMachine <> Prog rec
+binder 3780:3780 <> P:3
+R3806:3812 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3821:3822 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3813:3814 <> s0:4
+binder 3816:3820 <> trace:5
+R3823:3826 ThieleMachine.ThieleMachine <> Exec ind
+R3828:3828 ThieleMachine.OracleImpossibility <> P:3 var
+R3830:3831 ThieleMachine.OracleImpossibility <> s0:4 var
+R3833:3837 ThieleMachine.OracleImpossibility <> trace:5 var
+prf 3943:3954 OracleImpossibility halts_or_not
+binder 3965:3965 <> P:6
+R3980:3983 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R3968:3977 ThieleMachine.OracleImpossibility OracleImpossibility halts_prop def
+R3979:3979 ThieleMachine.OracleImpossibility <> P:6 var
+R3984:3985 Coq.Init.Logic <> ::type_scope:'~'_x not
+R3986:3995 ThieleMachine.OracleImpossibility OracleImpossibility halts_prop def
+R3997:3997 ThieleMachine.OracleImpossibility <> P:6 var
+R4032:4038 Coq.Logic.Classical_Prop <> classic prfax
+R4032:4038 Coq.Logic.Classical_Prop <> classic prfax
+R4617:4632 ThieleMachine.OracleImpossibility OracleImpossibility.ClassicalAttempt <> sec
+sec 4870:4884 OracleImpossibility Diagonalization
+var 4958:4963 OracleImpossibility.Diagonalization oracle
+R4971:4974 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4967:4970 ThieleMachine.ThieleMachine <> Prog rec
+R4975:4978 Coq.Init.Datatypes <> bool ind
+def 5079:5096 OracleImpossibility oracle_correctness
+binder 5121:5121 <> P:8
+R5139:5143 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R5132:5134 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5124:5129 ThieleMachine.OracleImpossibility <> OracleImpossibility.Diagonalization.oracle var
+R5131:5131 ThieleMachine.OracleImpossibility <> P:8 var
+R5135:5138 Coq.Init.Datatypes <> true constr
+R5144:5153 ThieleMachine.OracleImpossibility OracleImpossibility halts_prop def
+R5155:5155 ThieleMachine.OracleImpossibility <> P:8 var
+R6176:6190 ThieleMachine.OracleImpossibility OracleImpossibility.Diagonalization <> sec
+sec 6428:6445 OracleImpossibility WhatWeActuallyHave
+R7392:7409 ThieleMachine.OracleImpossibility OracleImpossibility.WhatWeActuallyHave <> sec
+sec 7646:7659 OracleImpossibility WhatWeCanBuild
+def 7731:7744 OracleImpossibility bounded_oracle
+R7754:7756 Coq.Init.Datatypes <> nat ind
+binder 7747:7750 <> fuel:9
+R7770:7772 Coq.Init.Datatypes <> nat ind
+binder 7760:7766 <> timeout:10
+R7777:7780 Coq.Init.Datatypes <> bool ind
+R7887:7891 Coq.Init.Datatypes <> false constr
+R8496:8509 ThieleMachine.OracleImpossibility OracleImpossibility.WhatWeCanBuild <> sec
+R8517:8535 ThieleMachine.OracleImpossibility OracleImpossibility <> mod

@@ -1,4 +1,4 @@
-DIGEST 5c18c61e28a92ef076df8afbe96ad737
+DIGEST e375a6a30ce60e5e4583b2a2ca308c4d
 FTop.Extraction
 R549:558 Coq.extraction.Extraction <> <> lib
 R585:598 Coq.extraction.ExtrOcamlBasic <> <> lib
@@ -7,9 +7,53 @@ R616:628 Coq.extraction.ExtrOcamlZInt <> <> lib
 R630:644 Coq.extraction.ExtrOcamlNatInt <> <> lib
 R675:681 Kernel.VMState <> <> lib
 R711:716 Kernel.VMStep <> <> lib
-R746:760 Kernel.SimulationProof <> <> lib
-R810:813 Coq.Init.Datatypes <> bool ind
-R863:868 Coq.Init.Datatypes <> option ind
-R919:922 Coq.Init.Datatypes <> list ind
-R969:972 Coq.Init.Datatypes <> prod ind
-R1013:1015 Coq.Init.Datatypes <> nat ind
+R746:755 Kernel.VMEncoding <> <> lib
+R757:764 Kernel.KernelTM <> <> lib
+R794:804 Kernel.MuCostModel <> <> lib
+R806:825 Kernel.MuLedgerConservation <> <> lib
+R827:838 Kernel.MuInitiality <> <> lib
+R840:852 Kernel.NoFreeInsight <> <> lib
+R882:896 Kernel.SimulationProof <> <> lib
+R926:938 Kernel.Certification <> <> lib
+R940:951 Kernel.QuantumBound <> <> lib
+R981:1001 Kernel.RevelationRequirement <> <> lib
+R1031:1041 KamiHW.Abstraction <> <> lib
+R1043:1057 KamiHW.ThieleCPUBusTop <> <> lib
+R1068:1080 Kernel.VMStep VMStep <> mod
+prf 1238:1274 <> extraction_nofi_supra_boundary_anchor
+R1296:1299 Coq.Init.Datatypes <> list ind
+R1301:1314 Kernel.VMStep VMStep vm_instruction ind
+binder 1288:1292 <> trace:1
+R1335:1341 Kernel.VMState <> VMState rec
+binder 1318:1323 <> s_init:2
+binder 1325:1331 <> s_final:3
+R1352:1354 Coq.Init.Datatypes <> nat ind
+binder 1345:1348 <> fuel:4
+R1420:1427 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1405:1407 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1362:1386 Kernel.RevelationRequirement RevelationProof trace_run def
+R1388:1391 Top.Extraction <> fuel:4 var
+R1393:1397 Top.Extraction <> trace:1 var
+R1399:1404 Top.Extraction <> s_init:2 var
+R1408:1411 Coq.Init.Datatypes <> Some constr
+R1413:1419 Top.Extraction <> s_final:3 var
+R1468:1475 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1460:1462 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1446:1458 Kernel.VMState <> csr_cert_addr proj
+R1436:1442 Kernel.VMState <> vm_csrs proj
+R1428:1433 Top.Extraction <> s_init:2 var
+R1513:1520 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1476:1506 Kernel.QuantumBound <> quantum_admissible def
+R1508:1512 Top.Extraction <> trace:1 var
+R1521:1522 Coq.Init.Logic <> ::type_scope:'~'_x not
+R1523:1551 Kernel.Certification CertificationTheory Certified def
+R1553:1559 Top.Extraction <> s_final:3 var
+R1561:1603 Kernel.Certification CertificationTheory supra_quantum_certified def
+R1605:1609 Top.Extraction <> trace:1 var
+R1627:1690 Kernel.Certification CertificationTheory quantum_admissible_cannot_certify_supra_chsh thm
+R1627:1690 Kernel.Certification CertificationTheory quantum_admissible_cannot_certify_supra_chsh thm
+R1745:1748 Coq.Init.Datatypes <> bool ind
+R1798:1803 Coq.Init.Datatypes <> option ind
+R1854:1857 Coq.Init.Datatypes <> list ind
+R1904:1907 Coq.Init.Datatypes <> prod ind
+R1948:1950 Coq.Init.Datatypes <> nat ind

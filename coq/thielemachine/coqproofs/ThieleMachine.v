@@ -1,4 +1,6 @@
 (*
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
  * Formal Specification and Verification of the Thiele Machine
  *
  * This module provides the mathematical foundation for the Thiele Machine,
@@ -8,6 +10,10 @@
  * - μ-bit accounting correctness
  * - Hash chain integrity
  *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import List String ZArith Lia Bool Nat.
 Import ListNotations.

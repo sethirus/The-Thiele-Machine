@@ -1,4 +1,4 @@
-DIGEST b92ac84b037424c6c56e5b669a835980
+DIGEST 89104436ccfffd36fc75dfb0875da9d6
 FModularProofs.ThieleInstance
 R1336:1339 Coq.Lists.List <> <> lib
 R1341:1345 Coq.Arith.Arith <> <> lib
@@ -10,579 +10,582 @@ R1445:1453 ModularProofs.TM_Basics <> <> lib
 R1455:1462 ModularProofs.Encoding <> <> lib
 R1464:1477 ModularProofs.EncodingBounds <> <> lib
 R1479:1491 ModularProofs.Thiele_Basics <> <> lib
-def 2054:2064 <> ThieleState
-R2069:2071 Coq.Init.Datatypes <> nat ind
-def 2334:2346 <> thiele_encode
-R2356:2363 ModularProofs.TM_Basics <> TMConfig def
-binder 2349:2352 <> conf:1
-R2368:2378 ModularProofs.ThieleInstance <> ThieleState def
-R2409:2412 ModularProofs.ThieleInstance <> conf:1 var
-R2390:2390 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2392:2393 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2398:2399 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2404:2404 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2419:2431 ModularProofs.Encoding <> encode_config def
-def 2458:2470 <> thiele_decode
-R2477:2487 ModularProofs.ThieleInstance <> ThieleState def
-binder 2473:2473 <> s:3
-R2492:2499 ModularProofs.TM_Basics <> TMConfig def
-R2506:2518 ModularProofs.Encoding <> decode_config def
-R2520:2520 ModularProofs.ThieleInstance <> s:3 var
-def 3069:3079 <> thiele_run1
-R3087:3098 ModularProofs.TM_Basics <> TMTransition def
-binder 3082:3083 <> tm:4
-R3106:3116 ModularProofs.ThieleInstance <> ThieleState def
-binder 3102:3102 <> s:5
-R3121:3131 ModularProofs.ThieleInstance <> ThieleState def
-R3150:3162 ModularProofs.ThieleInstance <> thiele_decode def
-R3164:3164 ModularProofs.ThieleInstance <> s:5 var
-binder 3142:3145 <> conf:6
-R3198:3204 ModularProofs.TM_Basics <> tm_step def
-R3206:3207 ModularProofs.ThieleInstance <> tm:4 var
-R3209:3212 ModularProofs.ThieleInstance <> conf:6 var
-R3176:3176 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3179:3180 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3186:3187 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3193:3193 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3219:3231 ModularProofs.Encoding <> encode_config def
-def 3298:3309 <> thiele_run_n
-R3317:3328 ModularProofs.TM_Basics <> TMTransition def
-binder 3312:3313 <> tm:7
-R3336:3346 ModularProofs.ThieleInstance <> ThieleState def
-binder 3332:3332 <> s:8
-R3354:3356 Coq.Init.Datatypes <> nat ind
-binder 3350:3350 <> n:9
-R3361:3371 ModularProofs.ThieleInstance <> ThieleState def
-R3384:3384 ModularProofs.ThieleInstance <> n:9 var
-R3400:3400 ModularProofs.ThieleInstance <> s:8 var
-R3406:3406 Coq.Init.Datatypes <> S constr
-R3414:3425 ModularProofs.ThieleInstance <> thiele_run_n:10 def
-R3431:3441 ModularProofs.ThieleInstance <> thiele_run1 def
-R3443:3444 ModularProofs.ThieleInstance <> tm:7 var
-R3446:3446 ModularProofs.ThieleInstance <> s:8 var
-R3427:3428 ModularProofs.ThieleInstance <> tm:7 var
-prf 3516:3532 <> thiele_run_n_zero
-binder 3543:3544 <> tm:12
-binder 3546:3546 <> s:13
-R3568:3570 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3549:3560 ModularProofs.ThieleInstance <> thiele_run_n def
-R3562:3563 ModularProofs.ThieleInstance <> tm:12 var
-R3565:3565 ModularProofs.ThieleInstance <> s:13 var
-R3571:3571 ModularProofs.ThieleInstance <> s:13 var
-prf 3656:3672 <> thiele_run_n_succ
-binder 3683:3684 <> tm:14
-binder 3686:3686 <> s:15
-binder 3688:3688 <> n:16
-R3716:3718 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3693:3704 ModularProofs.ThieleInstance <> thiele_run_n def
-R3706:3707 ModularProofs.ThieleInstance <> tm:14 var
-R3709:3709 ModularProofs.ThieleInstance <> s:15 var
-R3712:3712 Coq.Init.Datatypes <> S constr
-R3714:3714 ModularProofs.ThieleInstance <> n:16 var
-R3719:3730 ModularProofs.ThieleInstance <> thiele_run_n def
-R3732:3733 ModularProofs.ThieleInstance <> tm:14 var
-R3736:3746 ModularProofs.ThieleInstance <> thiele_run1 def
-R3748:3749 ModularProofs.ThieleInstance <> tm:14 var
-R3751:3751 ModularProofs.ThieleInstance <> s:15 var
-R3754:3754 ModularProofs.ThieleInstance <> n:16 var
-def 4200:4210 <> config_fits
-R4220:4227 ModularProofs.TM_Basics <> TMConfig def
-binder 4213:4216 <> conf:17
-R4266:4269 ModularProofs.ThieleInstance <> conf:17 var
-R4247:4247 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4249:4250 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4255:4256 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4261:4261 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4290:4295 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4276:4284 ModularProofs.Encoding <> digits_ok def
-R4329:4334 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4307:4310 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R4296:4301 Coq.Init.Datatypes <> length def
-R4311:4328 ModularProofs.Encoding <> SHIFT_LEN def
-R4339:4341 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R4342:4347 Coq.Init.Datatypes <> length def
-prf 4403:4416 <> config_fits_ok
-binder 4427:4430 <> conf:19
-R4451:4456 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4435:4445 ModularProofs.ThieleInstance <> config_fits def
-R4447:4450 ModularProofs.ThieleInstance <> conf:19 var
-R4457:4468 ModularProofs.TM_Basics <> tm_config_ok def
-R4470:4473 ModularProofs.ThieleInstance <> conf:19 var
-R4549:4559 ModularProofs.ThieleInstance <> config_fits def
-R4639:4650 ModularProofs.TM_Basics <> tm_config_ok def
-def 4789:4806 <> config_fits_strong
-R4816:4823 ModularProofs.TM_Basics <> TMConfig def
-binder 4809:4812 <> conf:20
-R4862:4865 ModularProofs.ThieleInstance <> conf:20 var
-R4843:4843 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4845:4846 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4851:4852 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4857:4857 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4886:4891 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4872:4880 ModularProofs.Encoding <> digits_ok def
-R4925:4930 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4903:4906 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R4892:4897 Coq.Init.Datatypes <> length def
-R4907:4924 ModularProofs.Encoding <> SHIFT_LEN def
-R4949:4954 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4935:4937 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R4938:4943 Coq.Init.Datatypes <> length def
-R4959:4961 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R4962:4979 ModularProofs.Encoding <> SHIFT_BIG def
-prf 5043:5063 <> config_fits_strong_ok
-binder 5074:5077 <> conf:22
-R5105:5110 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5082:5099 ModularProofs.ThieleInstance <> config_fits_strong def
-R5101:5104 ModularProofs.ThieleInstance <> conf:22 var
-R5111:5122 ModularProofs.TM_Basics <> tm_config_ok def
-R5124:5127 ModularProofs.ThieleInstance <> conf:22 var
-R5203:5220 ModularProofs.ThieleInstance <> config_fits_strong def
-R5307:5318 ModularProofs.TM_Basics <> tm_config_ok def
-prf 5458:5489 <> config_fits_strong_decode_encode
-binder 5500:5503 <> conf:23
-R5531:5536 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5508:5525 ModularProofs.ThieleInstance <> config_fits_strong def
-R5527:5530 ModularProofs.ThieleInstance <> conf:23 var
-R5571:5573 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5537:5549 ModularProofs.ThieleInstance <> thiele_decode def
-R5552:5564 ModularProofs.ThieleInstance <> thiele_encode def
-R5566:5569 ModularProofs.ThieleInstance <> conf:23 var
-R5574:5577 ModularProofs.ThieleInstance <> conf:23 var
-R5657:5669 ModularProofs.ThieleInstance <> thiele_decode def
-R5672:5684 ModularProofs.ThieleInstance <> thiele_encode def
-R5776:5795 ModularProofs.Encoding <> encode_decode_config thm
-R5776:5795 ModularProofs.Encoding <> encode_decode_config thm
-prf 6207:6229 <> thiele_one_step_correct
-binder 6242:6243 <> tm:24
-binder 6245:6248 <> conf:25
-R6278:6285 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6255:6272 ModularProofs.ThieleInstance <> config_fits_strong def
-R6274:6277 ModularProofs.ThieleInstance <> conf:25 var
-R6322:6329 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6286:6303 ModularProofs.ThieleInstance <> config_fits_strong def
-R6306:6312 ModularProofs.TM_Basics <> tm_step def
-R6314:6315 ModularProofs.ThieleInstance <> tm:24 var
-R6317:6320 ModularProofs.ThieleInstance <> conf:25 var
-R6381:6383 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6330:6342 ModularProofs.ThieleInstance <> thiele_decode def
-R6345:6355 ModularProofs.ThieleInstance <> thiele_run1 def
-R6357:6358 ModularProofs.ThieleInstance <> tm:24 var
-R6361:6373 ModularProofs.ThieleInstance <> thiele_encode def
-R6375:6378 ModularProofs.ThieleInstance <> conf:25 var
-R6384:6390 ModularProofs.TM_Basics <> tm_step def
-R6392:6393 ModularProofs.ThieleInstance <> tm:24 var
-R6395:6398 ModularProofs.ThieleInstance <> conf:25 var
-R6453:6463 ModularProofs.ThieleInstance <> thiele_run1 def
-R6476:6507 ModularProofs.ThieleInstance <> config_fits_strong_decode_encode thm
-R6476:6507 ModularProofs.ThieleInstance <> config_fits_strong_decode_encode thm
-R6476:6507 ModularProofs.ThieleInstance <> config_fits_strong_decode_encode thm
-R6670:6676 ModularProofs.TM_Basics <> tm_step def
-R6670:6676 ModularProofs.TM_Basics <> tm_step def
-R6729:6741 ModularProofs.ThieleInstance <> thiele_decode def
-R6878:6897 ModularProofs.Encoding <> encode_decode_config thm
-R6878:6897 ModularProofs.Encoding <> encode_decode_config thm
-def 7292:7308 <> bounded_execution
-R7316:7327 ModularProofs.TM_Basics <> TMTransition def
-binder 7311:7312 <> tm:26
-R7338:7345 ModularProofs.TM_Basics <> TMConfig def
-binder 7331:7334 <> conf:27
-R7353:7355 Coq.Init.Datatypes <> nat ind
-binder 7349:7349 <> n:28
-binder 7377:7377 <> k:29
-R7386:7389 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7381:7384 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R7380:7380 ModularProofs.ThieleInstance <> k:29 var
-R7385:7385 ModularProofs.ThieleInstance <> n:28 var
-R7390:7407 ModularProofs.ThieleInstance <> config_fits_strong def
-R7410:7417 ModularProofs.TM_Basics <> tm_run_n def
-R7419:7420 ModularProofs.ThieleInstance <> tm:26 var
-R7422:7425 ModularProofs.ThieleInstance <> conf:27 var
-R7427:7427 ModularProofs.ThieleInstance <> k:29 var
-prf 7490:7513 <> thiele_n_step_simulation
-binder 7526:7527 <> tm:30
-binder 7529:7532 <> conf:31
-binder 7534:7534 <> n:32
-R7564:7571 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7541:7558 ModularProofs.ThieleInstance <> config_fits_strong def
-R7560:7563 ModularProofs.ThieleInstance <> conf:31 var
-R7599:7606 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7572:7588 ModularProofs.ThieleInstance <> bounded_execution def
-R7590:7591 ModularProofs.ThieleInstance <> tm:30 var
-R7593:7596 ModularProofs.ThieleInstance <> conf:31 var
-R7598:7598 ModularProofs.ThieleInstance <> n:32 var
-R7661:7663 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7607:7619 ModularProofs.ThieleInstance <> thiele_decode def
-R7622:7633 ModularProofs.ThieleInstance <> thiele_run_n def
-R7635:7636 ModularProofs.ThieleInstance <> tm:30 var
-R7639:7651 ModularProofs.ThieleInstance <> thiele_encode def
-R7653:7656 ModularProofs.ThieleInstance <> conf:31 var
-R7659:7659 ModularProofs.ThieleInstance <> n:32 var
-R7664:7671 ModularProofs.TM_Basics <> tm_run_n def
-R7673:7674 ModularProofs.ThieleInstance <> tm:30 var
-R7676:7679 ModularProofs.ThieleInstance <> conf:31 var
-R7681:7681 ModularProofs.ThieleInstance <> n:32 var
-R7831:7862 ModularProofs.ThieleInstance <> config_fits_strong_decode_encode thm
-R7831:7862 ModularProofs.ThieleInstance <> config_fits_strong_decode_encode thm
-R7927:7943 ModularProofs.ThieleInstance <> thiele_run_n_succ thm
-R7927:7943 ModularProofs.ThieleInstance <> thiele_run_n_succ thm
-R7927:7943 ModularProofs.ThieleInstance <> thiele_run_n_succ thm
-R7956:7963 ModularProofs.TM_Basics <> tm_run_n def
-R8049:8066 ModularProofs.ThieleInstance <> config_fits_strong def
-R8069:8075 ModularProofs.TM_Basics <> tm_step def
-R8049:8066 ModularProofs.ThieleInstance <> config_fits_strong def
-R8069:8075 ModularProofs.TM_Basics <> tm_step def
-R8215:8235 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8180:8190 ModularProofs.ThieleInstance <> thiele_run1 def
-R8196:8208 ModularProofs.ThieleInstance <> thiele_encode def
-R8236:8248 ModularProofs.ThieleInstance <> thiele_encode def
-R8251:8257 ModularProofs.TM_Basics <> tm_step def
-R8215:8235 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8180:8190 ModularProofs.ThieleInstance <> thiele_run1 def
-R8196:8208 ModularProofs.ThieleInstance <> thiele_encode def
-R8236:8248 ModularProofs.ThieleInstance <> thiele_encode def
-R8251:8257 ModularProofs.TM_Basics <> tm_step def
-R8283:8293 ModularProofs.ThieleInstance <> thiele_run1 def
-R8310:8341 ModularProofs.ThieleInstance <> config_fits_strong_decode_encode thm
-R8310:8341 ModularProofs.ThieleInstance <> config_fits_strong_decode_encode thm
-R8310:8341 ModularProofs.ThieleInstance <> config_fits_strong_decode_encode thm
-R8372:8384 ModularProofs.ThieleInstance <> thiele_encode def
-R8403:8409 ModularProofs.TM_Basics <> tm_step def
-R8403:8409 ModularProofs.TM_Basics <> tm_step def
-R8642:8644 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8611:8618 ModularProofs.TM_Basics <> tm_run_n def
-R8624:8630 ModularProofs.TM_Basics <> tm_step def
-R8645:8652 ModularProofs.TM_Basics <> tm_run_n def
-R8663:8663 Coq.Init.Datatypes <> S constr
-R8642:8644 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8611:8618 ModularProofs.TM_Basics <> tm_run_n def
-R8624:8630 ModularProofs.TM_Basics <> tm_step def
-R8645:8652 ModularProofs.TM_Basics <> tm_run_n def
-R8663:8663 Coq.Init.Datatypes <> S constr
-sec 9185:9198 <> ConcreteThiele
-var 9212:9213 ConcreteThiele tm
-R9217:9228 ModularProofs.TM_Basics <> TMTransition def
-var 9842:9861 ConcreteThiele config_stays_bounded
-binder 9876:9879 <> conf:34
-R9905:9912 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9882:9899 ModularProofs.ThieleInstance <> config_fits_strong def
-R9901:9904 ModularProofs.ThieleInstance <> conf:34 var
-R9913:9930 ModularProofs.ThieleInstance <> config_fits_strong def
-R9933:9939 ModularProofs.TM_Basics <> tm_step def
-R9941:9942 ModularProofs.ThieleInstance <> ConcreteThiele.tm var
-R9944:9947 ModularProofs.ThieleInstance <> conf:34 var
-prf 10027:10058 <> bounded_execution_from_invariant
-binder 10073:10076 <> conf:36
-binder 10078:10078 <> n:37
-R10110:10119 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10087:10104 ModularProofs.ThieleInstance <> config_fits_strong def
-R10106:10109 ModularProofs.ThieleInstance <> conf:36 var
-R10120:10136 ModularProofs.ThieleInstance <> bounded_execution def
-R10138:10139 ModularProofs.ThieleInstance <> ConcreteThiele.tm var
-R10141:10144 ModularProofs.ThieleInstance <> conf:36 var
-R10146:10146 ModularProofs.ThieleInstance <> n:37 var
-R10335:10354 ModularProofs.ThieleInstance <> ConcreteThiele.config_stays_bounded var
-R10335:10354 ModularProofs.ThieleInstance <> ConcreteThiele.config_stays_bounded var
-def 10423:10447 <> concrete_thiele_semantics
-R10451:10472 ModularProofs.Thiele_Basics <> ModularThieleSemantics rec
-R10474:10475 ModularProofs.ThieleInstance <> ConcreteThiele.tm var
-R10508:10516 ModularProofs.Thiele_Basics <> mts_state proj
-R10508:10516 ModularProofs.Thiele_Basics <> mts_state proj
-R10508:10516 ModularProofs.Thiele_Basics <> mts_state proj
-R10540:10549 ModularProofs.Thiele_Basics <> mts_encode proj
-R10540:10549 ModularProofs.Thiele_Basics <> mts_encode proj
-R10575:10584 ModularProofs.Thiele_Basics <> mts_decode proj
-R10575:10584 ModularProofs.Thiele_Basics <> mts_decode proj
-R10610:10617 ModularProofs.Thiele_Basics <> mts_run1 proj
-R10610:10617 ModularProofs.Thiele_Basics <> mts_run1 proj
-R10644:10652 ModularProofs.Thiele_Basics <> mts_run_n proj
-R10644:10652 ModularProofs.Thiele_Basics <> mts_run_n proj
-R10680:10693 ModularProofs.Thiele_Basics <> mts_run_n_zero proj
-R10680:10693 ModularProofs.Thiele_Basics <> mts_run_n_zero proj
-R10726:10739 ModularProofs.Thiele_Basics <> mts_run_n_succ proj
-R10726:10739 ModularProofs.Thiele_Basics <> mts_run_n_succ proj
-R10772:10788 ModularProofs.Thiele_Basics <> mts_decode_encode proj
-R10772:10788 ModularProofs.Thiele_Basics <> mts_decode_encode proj
-R10802:10820 ModularProofs.Thiele_Basics <> mts_run_n_simulates proj
-R10802:10820 ModularProofs.Thiele_Basics <> mts_run_n_simulates proj
-R10521:10531 ModularProofs.ThieleInstance <> ThieleState def
-R10554:10566 ModularProofs.ThieleInstance <> thiele_encode def
-R10589:10601 ModularProofs.ThieleInstance <> thiele_decode def
-R10622:10632 ModularProofs.ThieleInstance <> thiele_run1 def
-R10634:10635 ModularProofs.ThieleInstance <> ConcreteThiele.tm var
-R10657:10668 ModularProofs.ThieleInstance <> thiele_run_n def
-R10670:10671 ModularProofs.ThieleInstance <> ConcreteThiele.tm var
-R10698:10714 ModularProofs.ThieleInstance <> thiele_run_n_zero thm
-R10716:10717 ModularProofs.ThieleInstance <> ConcreteThiele.tm var
-R10744:10760 ModularProofs.ThieleInstance <> thiele_run_n_succ thm
-R10762:10763 ModularProofs.ThieleInstance <> ConcreteThiele.tm var
-R10508:10516 ModularProofs.Thiele_Basics <> mts_state proj
-R10508:10516 ModularProofs.Thiele_Basics <> mts_state proj
-R10508:10516 ModularProofs.Thiele_Basics <> mts_state proj
-R10540:10549 ModularProofs.Thiele_Basics <> mts_encode proj
-R10540:10549 ModularProofs.Thiele_Basics <> mts_encode proj
-R10575:10584 ModularProofs.Thiele_Basics <> mts_decode proj
-R10575:10584 ModularProofs.Thiele_Basics <> mts_decode proj
-R10610:10617 ModularProofs.Thiele_Basics <> mts_run1 proj
-R10610:10617 ModularProofs.Thiele_Basics <> mts_run1 proj
-R10644:10652 ModularProofs.Thiele_Basics <> mts_run_n proj
-R10644:10652 ModularProofs.Thiele_Basics <> mts_run_n proj
-R10680:10693 ModularProofs.Thiele_Basics <> mts_run_n_zero proj
-R10680:10693 ModularProofs.Thiele_Basics <> mts_run_n_zero proj
-R10726:10739 ModularProofs.Thiele_Basics <> mts_run_n_succ proj
-R10726:10739 ModularProofs.Thiele_Basics <> mts_run_n_succ proj
-R10772:10788 ModularProofs.Thiele_Basics <> mts_decode_encode proj
-R10772:10788 ModularProofs.Thiele_Basics <> mts_decode_encode proj
-R10802:10820 ModularProofs.Thiele_Basics <> mts_run_n_simulates proj
-R10802:10820 ModularProofs.Thiele_Basics <> mts_run_n_simulates proj
-R10521:10531 ModularProofs.ThieleInstance <> ThieleState def
-R10554:10566 ModularProofs.ThieleInstance <> thiele_encode def
-R10589:10601 ModularProofs.ThieleInstance <> thiele_decode def
-R10622:10632 ModularProofs.ThieleInstance <> thiele_run1 def
-R10634:10635 ModularProofs.ThieleInstance <> ConcreteThiele.tm var
-R10657:10668 ModularProofs.ThieleInstance <> thiele_run_n def
-R10670:10671 ModularProofs.ThieleInstance <> ConcreteThiele.tm var
-R10698:10714 ModularProofs.ThieleInstance <> thiele_run_n_zero thm
-R10716:10717 ModularProofs.ThieleInstance <> ConcreteThiele.tm var
-R10744:10760 ModularProofs.ThieleInstance <> thiele_run_n_succ thm
-R10762:10763 ModularProofs.ThieleInstance <> ConcreteThiele.tm var
-R10942:10954 ModularProofs.ThieleInstance <> thiele_decode def
-R10957:10969 ModularProofs.ThieleInstance <> thiele_encode def
-R11116:11119 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R11120:11137 ModularProofs.Encoding <> SHIFT_LEN def
-R11116:11119 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R11120:11137 ModularProofs.Encoding <> SHIFT_LEN def
-R11166:11205 ModularProofs.EncodingBounds <> le_SHIFT_LEN_lt_SHIFT_BIG thm
-R11271:11293 ModularProofs.Encoding <> SHIFT_LEN_ge_1 thm
-R11252:11269 ModularProofs.Encoding <> BASE_ge_2 thm
-R11233:11250 ModularProofs.Encoding <> SHIFT_LEN def
-R11219:11231 ModularProofs.Encoding <> BASE def
-R11166:11205 ModularProofs.EncodingBounds <> le_SHIFT_LEN_lt_SHIFT_BIG thm
-R11271:11293 ModularProofs.Encoding <> SHIFT_LEN_ge_1 thm
-R11252:11269 ModularProofs.Encoding <> BASE_ge_2 thm
-R11233:11250 ModularProofs.Encoding <> SHIFT_LEN def
-R11219:11231 ModularProofs.Encoding <> BASE def
-R11348:11367 ModularProofs.Encoding <> encode_decode_config thm
-R11348:11367 ModularProofs.Encoding <> encode_decode_config thm
-R11523:11526 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R11527:11544 ModularProofs.Encoding <> SHIFT_LEN def
-R11523:11526 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R11527:11544 ModularProofs.Encoding <> SHIFT_LEN def
-R11573:11612 ModularProofs.EncodingBounds <> le_SHIFT_LEN_lt_SHIFT_BIG thm
-R11678:11700 ModularProofs.Encoding <> SHIFT_LEN_ge_1 thm
-R11659:11676 ModularProofs.Encoding <> BASE_ge_2 thm
-R11640:11657 ModularProofs.Encoding <> SHIFT_LEN def
-R11626:11638 ModularProofs.Encoding <> BASE def
-R11573:11612 ModularProofs.EncodingBounds <> le_SHIFT_LEN_lt_SHIFT_BIG thm
-R11678:11700 ModularProofs.Encoding <> SHIFT_LEN_ge_1 thm
-R11659:11676 ModularProofs.Encoding <> BASE_ge_2 thm
-R11640:11657 ModularProofs.Encoding <> SHIFT_LEN def
-R11626:11638 ModularProofs.Encoding <> BASE def
-R11765:11782 ModularProofs.ThieleInstance <> config_fits_strong def
-R11784:11784 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11786:11787 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11792:11793 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11798:11798 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11765:11782 ModularProofs.ThieleInstance <> config_fits_strong def
-R11784:11784 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11786:11787 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11792:11793 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11798:11798 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11817:11834 ModularProofs.ThieleInstance <> config_fits_strong def
-R11881:11904 ModularProofs.ThieleInstance <> thiele_n_step_simulation thm
-R11881:11904 ModularProofs.ThieleInstance <> thiele_n_step_simulation thm
-R11942:11973 ModularProofs.ThieleInstance <> bounded_execution_from_invariant thm
-R11942:11973 ModularProofs.ThieleInstance <> bounded_execution_from_invariant thm
-def 12063:12084 <> concrete_thiele_strong
-binder 12099:12102 <> conf:38
-binder 12104:12104 <> n:39
-R12136:12145 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12113:12130 ModularProofs.ThieleInstance <> config_fits_strong def
-R12132:12135 ModularProofs.ThieleInstance <> conf:38 var
-R12200:12202 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12146:12158 ModularProofs.ThieleInstance <> thiele_decode def
-R12161:12172 ModularProofs.ThieleInstance <> thiele_run_n def
-R12174:12175 ModularProofs.ThieleInstance <> ConcreteThiele.tm var
-R12178:12190 ModularProofs.ThieleInstance <> thiele_encode def
-R12192:12195 ModularProofs.ThieleInstance <> conf:38 var
-R12198:12198 ModularProofs.ThieleInstance <> n:39 var
-R12203:12210 ModularProofs.TM_Basics <> tm_run_n def
-R12212:12213 ModularProofs.ThieleInstance <> ConcreteThiele.tm var
-R12215:12218 ModularProofs.ThieleInstance <> conf:38 var
-R12220:12220 ModularProofs.ThieleInstance <> n:39 var
-R12267:12290 ModularProofs.ThieleInstance <> thiele_n_step_simulation thm
-R12267:12290 ModularProofs.ThieleInstance <> thiele_n_step_simulation thm
-R12324:12355 ModularProofs.ThieleInstance <> bounded_execution_from_invariant thm
-R12324:12355 ModularProofs.ThieleInstance <> bounded_execution_from_invariant thm
-R12383:12396 ModularProofs.ThieleInstance ConcreteThiele <> sec
-prf 12728:12754 <> thiele_subsumes_tm_complete
-R12773:12784 ModularProofs.TM_Basics <> TMTransition def
-binder 12768:12769 <> tm:40
-R12792:12792 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12887:12895 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 12800:12803 <> conf:41
-R12829:12850 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12806:12823 ModularProofs.ThieleInstance <> config_fits_strong def
-R12825:12828 ModularProofs.ThieleInstance <> conf:41 var
-R12851:12868 ModularProofs.ThieleInstance <> config_fits_strong def
-R12871:12877 ModularProofs.TM_Basics <> tm_step def
-R12879:12880 ModularProofs.ThieleInstance <> tm:40 var
-R12882:12885 ModularProofs.ThieleInstance <> conf:41 var
-binder 12903:12906 <> conf:42
-binder 12908:12908 <> n:43
-R12940:12949 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12917:12934 ModularProofs.ThieleInstance <> config_fits_strong def
-R12936:12939 ModularProofs.ThieleInstance <> conf:42 var
-R13004:13006 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12950:12962 ModularProofs.ThieleInstance <> thiele_decode def
-R12965:12976 ModularProofs.ThieleInstance <> thiele_run_n def
-R12978:12979 ModularProofs.ThieleInstance <> tm:40 var
-R12982:12994 ModularProofs.ThieleInstance <> thiele_encode def
-R12996:12999 ModularProofs.ThieleInstance <> conf:42 var
-R13002:13002 ModularProofs.ThieleInstance <> n:43 var
-R13007:13014 ModularProofs.TM_Basics <> tm_run_n def
-R13016:13017 ModularProofs.ThieleInstance <> tm:40 var
-R13019:13022 ModularProofs.ThieleInstance <> conf:42 var
-R13024:13024 ModularProofs.ThieleInstance <> n:43 var
-R13080:13101 ModularProofs.ThieleInstance <> concrete_thiele_strong def
-R13080:13101 ModularProofs.ThieleInstance <> concrete_thiele_strong def
-def 13480:13490 <> identity_tm
-R13494:13505 ModularProofs.TM_Basics <> TMTransition def
-binder 13516:13516 <> q:44
-binder 13518:13518 <> s:45
-R13523:13523 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R13525:13526 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R13528:13529 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R13531:13531 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R13524:13524 ModularProofs.ThieleInstance <> q:44 var
-R13527:13527 ModularProofs.ThieleInstance <> s:45 var
-prf 13646:13664 <> identity_tm_bounded
-binder 13677:13680 <> conf:46
-R13706:13711 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13683:13700 ModularProofs.ThieleInstance <> config_fits_strong def
-R13702:13705 ModularProofs.ThieleInstance <> conf:46 var
-R13712:13729 ModularProofs.ThieleInstance <> config_fits_strong def
-R13732:13738 ModularProofs.TM_Basics <> tm_step def
-R13740:13750 ModularProofs.ThieleInstance <> identity_tm def
-R13752:13755 ModularProofs.ThieleInstance <> conf:46 var
-R13836:13842 ModularProofs.TM_Basics <> tm_step def
-R13845:13855 ModularProofs.ThieleInstance <> identity_tm def
-R13874:13891 ModularProofs.ThieleInstance <> config_fits_strong def
-R13920:13937 ModularProofs.TM_Basics <> replace_nth_Forall thm
-R13920:13937 ModularProofs.TM_Basics <> replace_nth_Forall thm
-R13957:13965 ModularProofs.Encoding <> digits_ok def
-R14016:14018 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R13994:13996 Coq.Lists.List <> nth def
-R14008:14015 ModularProofs.TM_Basics <> tm_blank def
-R14019:14022 ModularProofs.Encoding <> BASE def
-R14016:14018 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R13994:13996 Coq.Lists.List <> nth def
-R14008:14015 ModularProofs.TM_Basics <> tm_blank def
-R14019:14022 ModularProofs.Encoding <> BASE def
-R14038:14047 Coq.Lists.List <> Forall_nth thm
-R14038:14047 Coq.Lists.List <> Forall_nth thm
-R14075:14082 ModularProofs.TM_Basics <> tm_blank def
-R14120:14137 ModularProofs.TM_Basics <> replace_nth_length thm
-R14120:14137 ModularProofs.TM_Basics <> replace_nth_length thm
-R14120:14137 ModularProofs.TM_Basics <> replace_nth_length thm
-R14164:14181 ModularProofs.TM_Basics <> replace_nth_length thm
-R14164:14181 ModularProofs.TM_Basics <> replace_nth_length thm
-R14164:14181 ModularProofs.TM_Basics <> replace_nth_length thm
-prf 14299:14327 <> identity_tm_thiele_simulation
-binder 14340:14343 <> conf:47
-binder 14345:14345 <> n:48
-R14375:14382 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14352:14369 ModularProofs.ThieleInstance <> config_fits_strong def
-R14371:14374 ModularProofs.ThieleInstance <> conf:47 var
-R14446:14452 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14383:14395 ModularProofs.ThieleInstance <> thiele_decode def
-R14398:14409 ModularProofs.ThieleInstance <> thiele_run_n def
-R14411:14421 ModularProofs.ThieleInstance <> identity_tm def
-R14424:14436 ModularProofs.ThieleInstance <> thiele_encode def
-R14438:14441 ModularProofs.ThieleInstance <> conf:47 var
-R14444:14444 ModularProofs.ThieleInstance <> n:48 var
-R14453:14460 ModularProofs.TM_Basics <> tm_run_n def
-R14462:14472 ModularProofs.ThieleInstance <> identity_tm def
-R14474:14477 ModularProofs.ThieleInstance <> conf:47 var
-R14479:14479 ModularProofs.ThieleInstance <> n:48 var
-R14520:14546 ModularProofs.ThieleInstance <> thiele_subsumes_tm_complete thm
-R14520:14546 ModularProofs.ThieleInstance <> thiele_subsumes_tm_complete thm
-R14559:14577 ModularProofs.ThieleInstance <> identity_tm_bounded thm
-R14559:14577 ModularProofs.ThieleInstance <> identity_tm_bounded thm
-def 14921:14927 <> flip_tm
-R14931:14942 ModularProofs.TM_Basics <> TMTransition def
-binder 14953:14953 <> q:49
-binder 14955:14955 <> s:50
-R14960:14960 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R14962:14963 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R14969:14970 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R14972:14972 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R14961:14961 ModularProofs.ThieleInstance <> q:49 var
-R14965:14967 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R14968:14968 ModularProofs.ThieleInstance <> s:50 var
-prf 15079:15093 <> flip_tm_bounded
-binder 15106:15109 <> conf:51
-R15135:15201 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15112:15129 ModularProofs.ThieleInstance <> config_fits_strong def
-R15131:15134 ModularProofs.ThieleInstance <> conf:51 var
-R15226:15229 ModularProofs.ThieleInstance <> conf:51 var
-R15207:15207 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R15209:15210 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R15215:15216 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R15221:15221 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R15256:15261 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15242:15244 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R15236:15236 Coq.Init.Datatypes <> S constr
-R15245:15250 Coq.Init.Datatypes <> length def
-R15262:15279 ModularProofs.ThieleInstance <> config_fits_strong def
-R15282:15288 ModularProofs.TM_Basics <> tm_step def
-R15290:15296 ModularProofs.ThieleInstance <> flip_tm def
-R15298:15301 ModularProofs.ThieleInstance <> conf:51 var
-R15518:15524 ModularProofs.TM_Basics <> tm_step def
-R15527:15533 ModularProofs.ThieleInstance <> flip_tm def
-R15536:15553 ModularProofs.ThieleInstance <> config_fits_strong def
-R15556:15564 ModularProofs.Encoding <> digits_ok def
-R15567:15575 ModularProofs.TM_Basics <> move_head def
-R15578:15585 ModularProofs.TM_Basics <> tm_blank def
-R15595:15597 Coq.Init.Datatypes <> fst def
-R15599:15601 Coq.Init.Datatypes <> snd def
-R15603:15609 Coq.Arith.PeanoNat Nat sub def
-R15652:15669 ModularProofs.TM_Basics <> replace_nth_Forall thm
-R15652:15669 ModularProofs.TM_Basics <> replace_nth_Forall thm
-R15727:15729 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R15709:15711 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R15712:15714 Coq.Lists.List <> nth def
-R15730:15733 ModularProofs.Encoding <> BASE def
-R15727:15729 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R15709:15711 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R15712:15714 Coq.Lists.List <> nth def
-R15730:15733 ModularProofs.Encoding <> BASE def
-R15768:15770 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R15753:15755 Coq.Lists.List <> nth def
-R15771:15774 ModularProofs.Encoding <> BASE def
-R15797:15806 Coq.Lists.List <> Forall_nth thm
-R15768:15770 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R15753:15755 Coq.Lists.List <> nth def
-R15771:15774 ModularProofs.Encoding <> BASE def
-R15797:15806 Coq.Lists.List <> Forall_nth thm
-R15856:15859 ModularProofs.Encoding <> BASE def
-R15902:15919 ModularProofs.TM_Basics <> replace_nth_length thm
-R15902:15919 ModularProofs.TM_Basics <> replace_nth_length thm
-R15902:15919 ModularProofs.TM_Basics <> replace_nth_length thm
-R15946:15963 ModularProofs.TM_Basics <> replace_nth_length thm
-R15946:15963 ModularProofs.TM_Basics <> replace_nth_length thm
-R15946:15963 ModularProofs.TM_Basics <> replace_nth_length thm
-R16167:16170 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R16161:16161 Coq.Init.Datatypes <> S constr
-R16171:16188 ModularProofs.Encoding <> SHIFT_LEN def
-R16227:16229 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R16209:16226 ModularProofs.Encoding <> SHIFT_LEN def
-R16230:16247 ModularProofs.Encoding <> SHIFT_BIG def
-R16272:16289 ModularProofs.Encoding <> SHIFT_BIG def
-R16292:16309 ModularProofs.Encoding <> SHIFT_LEN def
-R16312:16324 ModularProofs.Encoding <> BASE def
-R16167:16170 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R16161:16161 Coq.Init.Datatypes <> S constr
-R16171:16188 ModularProofs.Encoding <> SHIFT_LEN def
-R16227:16229 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R16209:16226 ModularProofs.Encoding <> SHIFT_LEN def
-R16230:16247 ModularProofs.Encoding <> SHIFT_BIG def
+R1607:1613 Kernel.VMState <> <> lib
+R1615:1620 Kernel.VMStep <> <> lib
+R1650:1660 Kernel.MuCostModel <> <> lib
+def 2223:2233 <> ThieleState
+R2238:2240 Coq.Init.Datatypes <> nat ind
+def 2503:2515 <> thiele_encode
+R2525:2532 ModularProofs.TM_Basics <> TMConfig def
+binder 2518:2521 <> conf:1
+R2537:2547 ModularProofs.ThieleInstance <> ThieleState def
+R2578:2581 ModularProofs.ThieleInstance <> conf:1 var
+R2559:2559 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2561:2562 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2567:2568 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2573:2573 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2588:2600 ModularProofs.Encoding <> encode_config def
+def 2627:2639 <> thiele_decode
+R2646:2656 ModularProofs.ThieleInstance <> ThieleState def
+binder 2642:2642 <> s:3
+R2661:2668 ModularProofs.TM_Basics <> TMConfig def
+R2675:2687 ModularProofs.Encoding <> decode_config def
+R2689:2689 ModularProofs.ThieleInstance <> s:3 var
+def 3238:3248 <> thiele_run1
+R3256:3267 ModularProofs.TM_Basics <> TMTransition def
+binder 3251:3252 <> tm:4
+R3275:3285 ModularProofs.ThieleInstance <> ThieleState def
+binder 3271:3271 <> s:5
+R3290:3300 ModularProofs.ThieleInstance <> ThieleState def
+R3319:3331 ModularProofs.ThieleInstance <> thiele_decode def
+R3333:3333 ModularProofs.ThieleInstance <> s:5 var
+binder 3311:3314 <> conf:6
+R3367:3373 ModularProofs.TM_Basics <> tm_step def
+R3375:3376 ModularProofs.ThieleInstance <> tm:4 var
+R3378:3381 ModularProofs.ThieleInstance <> conf:6 var
+R3345:3345 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3348:3349 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3355:3356 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3362:3362 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3388:3400 ModularProofs.Encoding <> encode_config def
+def 3467:3478 <> thiele_run_n
+R3486:3497 ModularProofs.TM_Basics <> TMTransition def
+binder 3481:3482 <> tm:7
+R3505:3515 ModularProofs.ThieleInstance <> ThieleState def
+binder 3501:3501 <> s:8
+R3523:3525 Coq.Init.Datatypes <> nat ind
+binder 3519:3519 <> n:9
+R3530:3540 ModularProofs.ThieleInstance <> ThieleState def
+R3553:3553 ModularProofs.ThieleInstance <> n:9 var
+R3569:3569 ModularProofs.ThieleInstance <> s:8 var
+R3575:3575 Coq.Init.Datatypes <> S constr
+R3583:3594 ModularProofs.ThieleInstance <> thiele_run_n:10 def
+R3600:3610 ModularProofs.ThieleInstance <> thiele_run1 def
+R3612:3613 ModularProofs.ThieleInstance <> tm:7 var
+R3615:3615 ModularProofs.ThieleInstance <> s:8 var
+R3596:3597 ModularProofs.ThieleInstance <> tm:7 var
+prf 3685:3701 <> thiele_run_n_zero
+binder 3712:3713 <> tm:12
+binder 3715:3715 <> s:13
+R3737:3739 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3718:3729 ModularProofs.ThieleInstance <> thiele_run_n def
+R3731:3732 ModularProofs.ThieleInstance <> tm:12 var
+R3734:3734 ModularProofs.ThieleInstance <> s:13 var
+R3740:3740 ModularProofs.ThieleInstance <> s:13 var
+prf 3825:3841 <> thiele_run_n_succ
+binder 3852:3853 <> tm:14
+binder 3855:3855 <> s:15
+binder 3857:3857 <> n:16
+R3885:3887 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3862:3873 ModularProofs.ThieleInstance <> thiele_run_n def
+R3875:3876 ModularProofs.ThieleInstance <> tm:14 var
+R3878:3878 ModularProofs.ThieleInstance <> s:15 var
+R3881:3881 Coq.Init.Datatypes <> S constr
+R3883:3883 ModularProofs.ThieleInstance <> n:16 var
+R3888:3899 ModularProofs.ThieleInstance <> thiele_run_n def
+R3901:3902 ModularProofs.ThieleInstance <> tm:14 var
+R3905:3915 ModularProofs.ThieleInstance <> thiele_run1 def
+R3917:3918 ModularProofs.ThieleInstance <> tm:14 var
+R3920:3920 ModularProofs.ThieleInstance <> s:15 var
+R3923:3923 ModularProofs.ThieleInstance <> n:16 var
+def 4369:4379 <> config_fits
+R4389:4396 ModularProofs.TM_Basics <> TMConfig def
+binder 4382:4385 <> conf:17
+R4435:4438 ModularProofs.ThieleInstance <> conf:17 var
+R4416:4416 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4418:4419 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4424:4425 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4430:4430 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4459:4464 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4445:4453 ModularProofs.Encoding <> digits_ok def
+R4498:4503 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4476:4479 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4465:4470 Coq.Init.Datatypes <> length def
+R4480:4497 ModularProofs.Encoding <> SHIFT_LEN def
+R4508:4510 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4511:4516 Coq.Init.Datatypes <> length def
+prf 4572:4585 <> config_fits_ok
+binder 4596:4599 <> conf:19
+R4620:4625 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4604:4614 ModularProofs.ThieleInstance <> config_fits def
+R4616:4619 ModularProofs.ThieleInstance <> conf:19 var
+R4626:4637 ModularProofs.TM_Basics <> tm_config_ok def
+R4639:4642 ModularProofs.ThieleInstance <> conf:19 var
+R4718:4728 ModularProofs.ThieleInstance <> config_fits def
+R4808:4819 ModularProofs.TM_Basics <> tm_config_ok def
+def 4958:4975 <> config_fits_strong
+R4985:4992 ModularProofs.TM_Basics <> TMConfig def
+binder 4978:4981 <> conf:20
+R5031:5034 ModularProofs.ThieleInstance <> conf:20 var
+R5012:5012 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5014:5015 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5020:5021 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5026:5026 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5055:5060 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5041:5049 ModularProofs.Encoding <> digits_ok def
+R5094:5099 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5072:5075 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5061:5066 Coq.Init.Datatypes <> length def
+R5076:5093 ModularProofs.Encoding <> SHIFT_LEN def
+R5118:5123 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5104:5106 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5107:5112 Coq.Init.Datatypes <> length def
+R5128:5130 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5131:5148 ModularProofs.Encoding <> SHIFT_BIG def
+prf 5212:5232 <> config_fits_strong_ok
+binder 5243:5246 <> conf:22
+R5274:5279 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5251:5268 ModularProofs.ThieleInstance <> config_fits_strong def
+R5270:5273 ModularProofs.ThieleInstance <> conf:22 var
+R5280:5291 ModularProofs.TM_Basics <> tm_config_ok def
+R5293:5296 ModularProofs.ThieleInstance <> conf:22 var
+R5372:5389 ModularProofs.ThieleInstance <> config_fits_strong def
+R5476:5487 ModularProofs.TM_Basics <> tm_config_ok def
+prf 5627:5658 <> config_fits_strong_decode_encode
+binder 5669:5672 <> conf:23
+R5700:5705 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5677:5694 ModularProofs.ThieleInstance <> config_fits_strong def
+R5696:5699 ModularProofs.ThieleInstance <> conf:23 var
+R5740:5742 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5706:5718 ModularProofs.ThieleInstance <> thiele_decode def
+R5721:5733 ModularProofs.ThieleInstance <> thiele_encode def
+R5735:5738 ModularProofs.ThieleInstance <> conf:23 var
+R5743:5746 ModularProofs.ThieleInstance <> conf:23 var
+R5826:5838 ModularProofs.ThieleInstance <> thiele_decode def
+R5841:5853 ModularProofs.ThieleInstance <> thiele_encode def
+R5945:5964 ModularProofs.Encoding <> encode_decode_config thm
+R5945:5964 ModularProofs.Encoding <> encode_decode_config thm
+prf 6376:6398 <> thiele_one_step_correct
+binder 6411:6412 <> tm:24
+binder 6414:6417 <> conf:25
+R6447:6454 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6424:6441 ModularProofs.ThieleInstance <> config_fits_strong def
+R6443:6446 ModularProofs.ThieleInstance <> conf:25 var
+R6491:6498 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6455:6472 ModularProofs.ThieleInstance <> config_fits_strong def
+R6475:6481 ModularProofs.TM_Basics <> tm_step def
+R6483:6484 ModularProofs.ThieleInstance <> tm:24 var
+R6486:6489 ModularProofs.ThieleInstance <> conf:25 var
+R6550:6552 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6499:6511 ModularProofs.ThieleInstance <> thiele_decode def
+R6514:6524 ModularProofs.ThieleInstance <> thiele_run1 def
+R6526:6527 ModularProofs.ThieleInstance <> tm:24 var
+R6530:6542 ModularProofs.ThieleInstance <> thiele_encode def
+R6544:6547 ModularProofs.ThieleInstance <> conf:25 var
+R6553:6559 ModularProofs.TM_Basics <> tm_step def
+R6561:6562 ModularProofs.ThieleInstance <> tm:24 var
+R6564:6567 ModularProofs.ThieleInstance <> conf:25 var
+R6622:6632 ModularProofs.ThieleInstance <> thiele_run1 def
+R6645:6676 ModularProofs.ThieleInstance <> config_fits_strong_decode_encode thm
+R6645:6676 ModularProofs.ThieleInstance <> config_fits_strong_decode_encode thm
+R6645:6676 ModularProofs.ThieleInstance <> config_fits_strong_decode_encode thm
+R6839:6845 ModularProofs.TM_Basics <> tm_step def
+R6839:6845 ModularProofs.TM_Basics <> tm_step def
+R6898:6910 ModularProofs.ThieleInstance <> thiele_decode def
+R7047:7066 ModularProofs.Encoding <> encode_decode_config thm
+R7047:7066 ModularProofs.Encoding <> encode_decode_config thm
+def 7461:7477 <> bounded_execution
+R7485:7496 ModularProofs.TM_Basics <> TMTransition def
+binder 7480:7481 <> tm:26
+R7507:7514 ModularProofs.TM_Basics <> TMConfig def
+binder 7500:7503 <> conf:27
+R7522:7524 Coq.Init.Datatypes <> nat ind
+binder 7518:7518 <> n:28
+binder 7546:7546 <> k:29
+R7555:7558 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7550:7553 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7549:7549 ModularProofs.ThieleInstance <> k:29 var
+R7554:7554 ModularProofs.ThieleInstance <> n:28 var
+R7559:7576 ModularProofs.ThieleInstance <> config_fits_strong def
+R7579:7586 ModularProofs.TM_Basics <> tm_run_n def
+R7588:7589 ModularProofs.ThieleInstance <> tm:26 var
+R7591:7594 ModularProofs.ThieleInstance <> conf:27 var
+R7596:7596 ModularProofs.ThieleInstance <> k:29 var
+prf 7659:7682 <> thiele_n_step_simulation
+binder 7695:7696 <> tm:30
+binder 7698:7701 <> conf:31
+binder 7703:7703 <> n:32
+R7733:7740 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7710:7727 ModularProofs.ThieleInstance <> config_fits_strong def
+R7729:7732 ModularProofs.ThieleInstance <> conf:31 var
+R7768:7775 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7741:7757 ModularProofs.ThieleInstance <> bounded_execution def
+R7759:7760 ModularProofs.ThieleInstance <> tm:30 var
+R7762:7765 ModularProofs.ThieleInstance <> conf:31 var
+R7767:7767 ModularProofs.ThieleInstance <> n:32 var
+R7830:7832 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7776:7788 ModularProofs.ThieleInstance <> thiele_decode def
+R7791:7802 ModularProofs.ThieleInstance <> thiele_run_n def
+R7804:7805 ModularProofs.ThieleInstance <> tm:30 var
+R7808:7820 ModularProofs.ThieleInstance <> thiele_encode def
+R7822:7825 ModularProofs.ThieleInstance <> conf:31 var
+R7828:7828 ModularProofs.ThieleInstance <> n:32 var
+R7833:7840 ModularProofs.TM_Basics <> tm_run_n def
+R7842:7843 ModularProofs.ThieleInstance <> tm:30 var
+R7845:7848 ModularProofs.ThieleInstance <> conf:31 var
+R7850:7850 ModularProofs.ThieleInstance <> n:32 var
+R8000:8031 ModularProofs.ThieleInstance <> config_fits_strong_decode_encode thm
+R8000:8031 ModularProofs.ThieleInstance <> config_fits_strong_decode_encode thm
+R8096:8112 ModularProofs.ThieleInstance <> thiele_run_n_succ thm
+R8096:8112 ModularProofs.ThieleInstance <> thiele_run_n_succ thm
+R8096:8112 ModularProofs.ThieleInstance <> thiele_run_n_succ thm
+R8125:8132 ModularProofs.TM_Basics <> tm_run_n def
+R8218:8235 ModularProofs.ThieleInstance <> config_fits_strong def
+R8238:8244 ModularProofs.TM_Basics <> tm_step def
+R8218:8235 ModularProofs.ThieleInstance <> config_fits_strong def
+R8238:8244 ModularProofs.TM_Basics <> tm_step def
+R8384:8404 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8349:8359 ModularProofs.ThieleInstance <> thiele_run1 def
+R8365:8377 ModularProofs.ThieleInstance <> thiele_encode def
+R8405:8417 ModularProofs.ThieleInstance <> thiele_encode def
+R8420:8426 ModularProofs.TM_Basics <> tm_step def
+R8384:8404 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8349:8359 ModularProofs.ThieleInstance <> thiele_run1 def
+R8365:8377 ModularProofs.ThieleInstance <> thiele_encode def
+R8405:8417 ModularProofs.ThieleInstance <> thiele_encode def
+R8420:8426 ModularProofs.TM_Basics <> tm_step def
+R8452:8462 ModularProofs.ThieleInstance <> thiele_run1 def
+R8479:8510 ModularProofs.ThieleInstance <> config_fits_strong_decode_encode thm
+R8479:8510 ModularProofs.ThieleInstance <> config_fits_strong_decode_encode thm
+R8479:8510 ModularProofs.ThieleInstance <> config_fits_strong_decode_encode thm
+R8541:8553 ModularProofs.ThieleInstance <> thiele_encode def
+R8572:8578 ModularProofs.TM_Basics <> tm_step def
+R8572:8578 ModularProofs.TM_Basics <> tm_step def
+R8811:8813 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8780:8787 ModularProofs.TM_Basics <> tm_run_n def
+R8793:8799 ModularProofs.TM_Basics <> tm_step def
+R8814:8821 ModularProofs.TM_Basics <> tm_run_n def
+R8832:8832 Coq.Init.Datatypes <> S constr
+R8811:8813 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8780:8787 ModularProofs.TM_Basics <> tm_run_n def
+R8793:8799 ModularProofs.TM_Basics <> tm_step def
+R8814:8821 ModularProofs.TM_Basics <> tm_run_n def
+R8832:8832 Coq.Init.Datatypes <> S constr
+sec 9354:9367 <> ConcreteThiele
+var 9381:9382 ConcreteThiele tm
+R9386:9397 ModularProofs.TM_Basics <> TMTransition def
+var 10011:10030 ConcreteThiele config_stays_bounded
+binder 10045:10048 <> conf:34
+R10074:10081 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10051:10068 ModularProofs.ThieleInstance <> config_fits_strong def
+R10070:10073 ModularProofs.ThieleInstance <> conf:34 var
+R10082:10099 ModularProofs.ThieleInstance <> config_fits_strong def
+R10102:10108 ModularProofs.TM_Basics <> tm_step def
+R10110:10111 ModularProofs.ThieleInstance <> ConcreteThiele.tm var
+R10113:10116 ModularProofs.ThieleInstance <> conf:34 var
+prf 10196:10227 <> bounded_execution_from_invariant
+binder 10242:10245 <> conf:36
+binder 10247:10247 <> n:37
+R10279:10288 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10256:10273 ModularProofs.ThieleInstance <> config_fits_strong def
+R10275:10278 ModularProofs.ThieleInstance <> conf:36 var
+R10289:10305 ModularProofs.ThieleInstance <> bounded_execution def
+R10307:10308 ModularProofs.ThieleInstance <> ConcreteThiele.tm var
+R10310:10313 ModularProofs.ThieleInstance <> conf:36 var
+R10315:10315 ModularProofs.ThieleInstance <> n:37 var
+R10504:10523 ModularProofs.ThieleInstance <> ConcreteThiele.config_stays_bounded var
+R10504:10523 ModularProofs.ThieleInstance <> ConcreteThiele.config_stays_bounded var
+def 10592:10616 <> concrete_thiele_semantics
+R10620:10641 ModularProofs.Thiele_Basics <> ModularThieleSemantics rec
+R10643:10644 ModularProofs.ThieleInstance <> ConcreteThiele.tm var
+R10677:10685 ModularProofs.Thiele_Basics <> mts_state proj
+R10677:10685 ModularProofs.Thiele_Basics <> mts_state proj
+R10677:10685 ModularProofs.Thiele_Basics <> mts_state proj
+R10709:10718 ModularProofs.Thiele_Basics <> mts_encode proj
+R10709:10718 ModularProofs.Thiele_Basics <> mts_encode proj
+R10744:10753 ModularProofs.Thiele_Basics <> mts_decode proj
+R10744:10753 ModularProofs.Thiele_Basics <> mts_decode proj
+R10779:10786 ModularProofs.Thiele_Basics <> mts_run1 proj
+R10779:10786 ModularProofs.Thiele_Basics <> mts_run1 proj
+R10813:10821 ModularProofs.Thiele_Basics <> mts_run_n proj
+R10813:10821 ModularProofs.Thiele_Basics <> mts_run_n proj
+R10849:10862 ModularProofs.Thiele_Basics <> mts_run_n_zero proj
+R10849:10862 ModularProofs.Thiele_Basics <> mts_run_n_zero proj
+R10895:10908 ModularProofs.Thiele_Basics <> mts_run_n_succ proj
+R10895:10908 ModularProofs.Thiele_Basics <> mts_run_n_succ proj
+R10941:10957 ModularProofs.Thiele_Basics <> mts_decode_encode proj
+R10941:10957 ModularProofs.Thiele_Basics <> mts_decode_encode proj
+R10971:10989 ModularProofs.Thiele_Basics <> mts_run_n_simulates proj
+R10971:10989 ModularProofs.Thiele_Basics <> mts_run_n_simulates proj
+R10690:10700 ModularProofs.ThieleInstance <> ThieleState def
+R10723:10735 ModularProofs.ThieleInstance <> thiele_encode def
+R10758:10770 ModularProofs.ThieleInstance <> thiele_decode def
+R10791:10801 ModularProofs.ThieleInstance <> thiele_run1 def
+R10803:10804 ModularProofs.ThieleInstance <> ConcreteThiele.tm var
+R10826:10837 ModularProofs.ThieleInstance <> thiele_run_n def
+R10839:10840 ModularProofs.ThieleInstance <> ConcreteThiele.tm var
+R10867:10883 ModularProofs.ThieleInstance <> thiele_run_n_zero thm
+R10885:10886 ModularProofs.ThieleInstance <> ConcreteThiele.tm var
+R10913:10929 ModularProofs.ThieleInstance <> thiele_run_n_succ thm
+R10931:10932 ModularProofs.ThieleInstance <> ConcreteThiele.tm var
+R10677:10685 ModularProofs.Thiele_Basics <> mts_state proj
+R10677:10685 ModularProofs.Thiele_Basics <> mts_state proj
+R10677:10685 ModularProofs.Thiele_Basics <> mts_state proj
+R10709:10718 ModularProofs.Thiele_Basics <> mts_encode proj
+R10709:10718 ModularProofs.Thiele_Basics <> mts_encode proj
+R10744:10753 ModularProofs.Thiele_Basics <> mts_decode proj
+R10744:10753 ModularProofs.Thiele_Basics <> mts_decode proj
+R10779:10786 ModularProofs.Thiele_Basics <> mts_run1 proj
+R10779:10786 ModularProofs.Thiele_Basics <> mts_run1 proj
+R10813:10821 ModularProofs.Thiele_Basics <> mts_run_n proj
+R10813:10821 ModularProofs.Thiele_Basics <> mts_run_n proj
+R10849:10862 ModularProofs.Thiele_Basics <> mts_run_n_zero proj
+R10849:10862 ModularProofs.Thiele_Basics <> mts_run_n_zero proj
+R10895:10908 ModularProofs.Thiele_Basics <> mts_run_n_succ proj
+R10895:10908 ModularProofs.Thiele_Basics <> mts_run_n_succ proj
+R10941:10957 ModularProofs.Thiele_Basics <> mts_decode_encode proj
+R10941:10957 ModularProofs.Thiele_Basics <> mts_decode_encode proj
+R10971:10989 ModularProofs.Thiele_Basics <> mts_run_n_simulates proj
+R10971:10989 ModularProofs.Thiele_Basics <> mts_run_n_simulates proj
+R10690:10700 ModularProofs.ThieleInstance <> ThieleState def
+R10723:10735 ModularProofs.ThieleInstance <> thiele_encode def
+R10758:10770 ModularProofs.ThieleInstance <> thiele_decode def
+R10791:10801 ModularProofs.ThieleInstance <> thiele_run1 def
+R10803:10804 ModularProofs.ThieleInstance <> ConcreteThiele.tm var
+R10826:10837 ModularProofs.ThieleInstance <> thiele_run_n def
+R10839:10840 ModularProofs.ThieleInstance <> ConcreteThiele.tm var
+R10867:10883 ModularProofs.ThieleInstance <> thiele_run_n_zero thm
+R10885:10886 ModularProofs.ThieleInstance <> ConcreteThiele.tm var
+R10913:10929 ModularProofs.ThieleInstance <> thiele_run_n_succ thm
+R10931:10932 ModularProofs.ThieleInstance <> ConcreteThiele.tm var
+R11111:11123 ModularProofs.ThieleInstance <> thiele_decode def
+R11126:11138 ModularProofs.ThieleInstance <> thiele_encode def
+R11285:11288 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11289:11306 ModularProofs.Encoding <> SHIFT_LEN def
+R11285:11288 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11289:11306 ModularProofs.Encoding <> SHIFT_LEN def
+R11335:11374 ModularProofs.EncodingBounds <> le_SHIFT_LEN_lt_SHIFT_BIG thm
+R11440:11462 ModularProofs.Encoding <> SHIFT_LEN_ge_1 thm
+R11421:11438 ModularProofs.Encoding <> BASE_ge_2 thm
+R11402:11419 ModularProofs.Encoding <> SHIFT_LEN def
+R11388:11400 ModularProofs.Encoding <> BASE def
+R11335:11374 ModularProofs.EncodingBounds <> le_SHIFT_LEN_lt_SHIFT_BIG thm
+R11440:11462 ModularProofs.Encoding <> SHIFT_LEN_ge_1 thm
+R11421:11438 ModularProofs.Encoding <> BASE_ge_2 thm
+R11402:11419 ModularProofs.Encoding <> SHIFT_LEN def
+R11388:11400 ModularProofs.Encoding <> BASE def
+R11517:11536 ModularProofs.Encoding <> encode_decode_config thm
+R11517:11536 ModularProofs.Encoding <> encode_decode_config thm
+R11692:11695 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11696:11713 ModularProofs.Encoding <> SHIFT_LEN def
+R11692:11695 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11696:11713 ModularProofs.Encoding <> SHIFT_LEN def
+R11742:11781 ModularProofs.EncodingBounds <> le_SHIFT_LEN_lt_SHIFT_BIG thm
+R11847:11869 ModularProofs.Encoding <> SHIFT_LEN_ge_1 thm
+R11828:11845 ModularProofs.Encoding <> BASE_ge_2 thm
+R11809:11826 ModularProofs.Encoding <> SHIFT_LEN def
+R11795:11807 ModularProofs.Encoding <> BASE def
+R11742:11781 ModularProofs.EncodingBounds <> le_SHIFT_LEN_lt_SHIFT_BIG thm
+R11847:11869 ModularProofs.Encoding <> SHIFT_LEN_ge_1 thm
+R11828:11845 ModularProofs.Encoding <> BASE_ge_2 thm
+R11809:11826 ModularProofs.Encoding <> SHIFT_LEN def
+R11795:11807 ModularProofs.Encoding <> BASE def
+R11934:11951 ModularProofs.ThieleInstance <> config_fits_strong def
+R11953:11953 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11955:11956 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11961:11962 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11967:11967 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11934:11951 ModularProofs.ThieleInstance <> config_fits_strong def
+R11953:11953 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11955:11956 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11961:11962 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11967:11967 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11986:12003 ModularProofs.ThieleInstance <> config_fits_strong def
+R12050:12073 ModularProofs.ThieleInstance <> thiele_n_step_simulation thm
+R12050:12073 ModularProofs.ThieleInstance <> thiele_n_step_simulation thm
+R12111:12142 ModularProofs.ThieleInstance <> bounded_execution_from_invariant thm
+R12111:12142 ModularProofs.ThieleInstance <> bounded_execution_from_invariant thm
+def 12232:12253 <> concrete_thiele_strong
+binder 12268:12271 <> conf:38
+binder 12273:12273 <> n:39
+R12305:12314 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12282:12299 ModularProofs.ThieleInstance <> config_fits_strong def
+R12301:12304 ModularProofs.ThieleInstance <> conf:38 var
+R12369:12371 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12315:12327 ModularProofs.ThieleInstance <> thiele_decode def
+R12330:12341 ModularProofs.ThieleInstance <> thiele_run_n def
+R12343:12344 ModularProofs.ThieleInstance <> ConcreteThiele.tm var
+R12347:12359 ModularProofs.ThieleInstance <> thiele_encode def
+R12361:12364 ModularProofs.ThieleInstance <> conf:38 var
+R12367:12367 ModularProofs.ThieleInstance <> n:39 var
+R12372:12379 ModularProofs.TM_Basics <> tm_run_n def
+R12381:12382 ModularProofs.ThieleInstance <> ConcreteThiele.tm var
+R12384:12387 ModularProofs.ThieleInstance <> conf:38 var
+R12389:12389 ModularProofs.ThieleInstance <> n:39 var
+R12436:12459 ModularProofs.ThieleInstance <> thiele_n_step_simulation thm
+R12436:12459 ModularProofs.ThieleInstance <> thiele_n_step_simulation thm
+R12493:12524 ModularProofs.ThieleInstance <> bounded_execution_from_invariant thm
+R12493:12524 ModularProofs.ThieleInstance <> bounded_execution_from_invariant thm
+R12552:12565 ModularProofs.ThieleInstance ConcreteThiele <> sec
+prf 12897:12923 <> thiele_subsumes_tm_complete
+R12942:12953 ModularProofs.TM_Basics <> TMTransition def
+binder 12937:12938 <> tm:40
+R12961:12961 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13056:13064 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 12969:12972 <> conf:41
+R12998:13019 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12975:12992 ModularProofs.ThieleInstance <> config_fits_strong def
+R12994:12997 ModularProofs.ThieleInstance <> conf:41 var
+R13020:13037 ModularProofs.ThieleInstance <> config_fits_strong def
+R13040:13046 ModularProofs.TM_Basics <> tm_step def
+R13048:13049 ModularProofs.ThieleInstance <> tm:40 var
+R13051:13054 ModularProofs.ThieleInstance <> conf:41 var
+binder 13072:13075 <> conf:42
+binder 13077:13077 <> n:43
+R13109:13118 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13086:13103 ModularProofs.ThieleInstance <> config_fits_strong def
+R13105:13108 ModularProofs.ThieleInstance <> conf:42 var
+R13173:13175 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13119:13131 ModularProofs.ThieleInstance <> thiele_decode def
+R13134:13145 ModularProofs.ThieleInstance <> thiele_run_n def
+R13147:13148 ModularProofs.ThieleInstance <> tm:40 var
+R13151:13163 ModularProofs.ThieleInstance <> thiele_encode def
+R13165:13168 ModularProofs.ThieleInstance <> conf:42 var
+R13171:13171 ModularProofs.ThieleInstance <> n:43 var
+R13176:13183 ModularProofs.TM_Basics <> tm_run_n def
+R13185:13186 ModularProofs.ThieleInstance <> tm:40 var
+R13188:13191 ModularProofs.ThieleInstance <> conf:42 var
+R13193:13193 ModularProofs.ThieleInstance <> n:43 var
+R13249:13270 ModularProofs.ThieleInstance <> concrete_thiele_strong def
+R13249:13270 ModularProofs.ThieleInstance <> concrete_thiele_strong def
+def 13649:13659 <> identity_tm
+R13663:13674 ModularProofs.TM_Basics <> TMTransition def
+binder 13685:13685 <> q:44
+binder 13687:13687 <> s:45
+R13692:13692 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13694:13695 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13697:13698 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13700:13700 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13693:13693 ModularProofs.ThieleInstance <> q:44 var
+R13696:13696 ModularProofs.ThieleInstance <> s:45 var
+prf 13815:13833 <> identity_tm_bounded
+binder 13846:13849 <> conf:46
+R13875:13880 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13852:13869 ModularProofs.ThieleInstance <> config_fits_strong def
+R13871:13874 ModularProofs.ThieleInstance <> conf:46 var
+R13881:13898 ModularProofs.ThieleInstance <> config_fits_strong def
+R13901:13907 ModularProofs.TM_Basics <> tm_step def
+R13909:13919 ModularProofs.ThieleInstance <> identity_tm def
+R13921:13924 ModularProofs.ThieleInstance <> conf:46 var
+R14005:14011 ModularProofs.TM_Basics <> tm_step def
+R14014:14024 ModularProofs.ThieleInstance <> identity_tm def
+R14043:14060 ModularProofs.ThieleInstance <> config_fits_strong def
+R14089:14106 ModularProofs.TM_Basics <> replace_nth_Forall thm
+R14089:14106 ModularProofs.TM_Basics <> replace_nth_Forall thm
+R14126:14134 ModularProofs.Encoding <> digits_ok def
+R14185:14187 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R14163:14165 Coq.Lists.List <> nth def
+R14177:14184 ModularProofs.TM_Basics <> tm_blank def
+R14188:14191 ModularProofs.Encoding <> BASE def
+R14185:14187 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R14163:14165 Coq.Lists.List <> nth def
+R14177:14184 ModularProofs.TM_Basics <> tm_blank def
+R14188:14191 ModularProofs.Encoding <> BASE def
+R14207:14216 Coq.Lists.List <> Forall_nth thm
+R14207:14216 Coq.Lists.List <> Forall_nth thm
+R14244:14251 ModularProofs.TM_Basics <> tm_blank def
+R14289:14306 ModularProofs.TM_Basics <> replace_nth_length thm
+R14289:14306 ModularProofs.TM_Basics <> replace_nth_length thm
+R14289:14306 ModularProofs.TM_Basics <> replace_nth_length thm
+R14333:14350 ModularProofs.TM_Basics <> replace_nth_length thm
+R14333:14350 ModularProofs.TM_Basics <> replace_nth_length thm
+R14333:14350 ModularProofs.TM_Basics <> replace_nth_length thm
+prf 14468:14496 <> identity_tm_thiele_simulation
+binder 14509:14512 <> conf:47
+binder 14514:14514 <> n:48
+R14544:14551 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14521:14538 ModularProofs.ThieleInstance <> config_fits_strong def
+R14540:14543 ModularProofs.ThieleInstance <> conf:47 var
+R14615:14621 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14552:14564 ModularProofs.ThieleInstance <> thiele_decode def
+R14567:14578 ModularProofs.ThieleInstance <> thiele_run_n def
+R14580:14590 ModularProofs.ThieleInstance <> identity_tm def
+R14593:14605 ModularProofs.ThieleInstance <> thiele_encode def
+R14607:14610 ModularProofs.ThieleInstance <> conf:47 var
+R14613:14613 ModularProofs.ThieleInstance <> n:48 var
+R14622:14629 ModularProofs.TM_Basics <> tm_run_n def
+R14631:14641 ModularProofs.ThieleInstance <> identity_tm def
+R14643:14646 ModularProofs.ThieleInstance <> conf:47 var
+R14648:14648 ModularProofs.ThieleInstance <> n:48 var
+R14689:14715 ModularProofs.ThieleInstance <> thiele_subsumes_tm_complete thm
+R14689:14715 ModularProofs.ThieleInstance <> thiele_subsumes_tm_complete thm
+R14728:14746 ModularProofs.ThieleInstance <> identity_tm_bounded thm
+R14728:14746 ModularProofs.ThieleInstance <> identity_tm_bounded thm
+def 15090:15096 <> flip_tm
+R15100:15111 ModularProofs.TM_Basics <> TMTransition def
+binder 15122:15122 <> q:49
+binder 15124:15124 <> s:50
+R15129:15129 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15131:15132 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15138:15139 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15141:15141 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15130:15130 ModularProofs.ThieleInstance <> q:49 var
+R15134:15136 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R15137:15137 ModularProofs.ThieleInstance <> s:50 var
+prf 15248:15262 <> flip_tm_bounded
+binder 15275:15278 <> conf:51
+R15304:15370 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15281:15298 ModularProofs.ThieleInstance <> config_fits_strong def
+R15300:15303 ModularProofs.ThieleInstance <> conf:51 var
+R15395:15398 ModularProofs.ThieleInstance <> conf:51 var
+R15376:15376 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15378:15379 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15384:15385 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15390:15390 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15425:15430 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15411:15413 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15405:15405 Coq.Init.Datatypes <> S constr
+R15414:15419 Coq.Init.Datatypes <> length def
+R15431:15448 ModularProofs.ThieleInstance <> config_fits_strong def
+R15451:15457 ModularProofs.TM_Basics <> tm_step def
+R15459:15465 ModularProofs.ThieleInstance <> flip_tm def
+R15467:15470 ModularProofs.ThieleInstance <> conf:51 var
+R15687:15693 ModularProofs.TM_Basics <> tm_step def
+R15696:15702 ModularProofs.ThieleInstance <> flip_tm def
+R15705:15722 ModularProofs.ThieleInstance <> config_fits_strong def
+R15725:15733 ModularProofs.Encoding <> digits_ok def
+R15736:15744 ModularProofs.TM_Basics <> move_head def
+R15747:15754 ModularProofs.TM_Basics <> tm_blank def
+R15764:15766 Coq.Init.Datatypes <> fst def
+R15768:15770 Coq.Init.Datatypes <> snd def
+R15772:15778 Coq.Arith.PeanoNat Nat sub def
+R15821:15838 ModularProofs.TM_Basics <> replace_nth_Forall thm
+R15821:15838 ModularProofs.TM_Basics <> replace_nth_Forall thm
+R15896:15898 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15878:15880 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R15881:15883 Coq.Lists.List <> nth def
+R15899:15902 ModularProofs.Encoding <> BASE def
+R15896:15898 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15878:15880 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R15881:15883 Coq.Lists.List <> nth def
+R15899:15902 ModularProofs.Encoding <> BASE def
+R15937:15939 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15922:15924 Coq.Lists.List <> nth def
+R15940:15943 ModularProofs.Encoding <> BASE def
+R15966:15975 Coq.Lists.List <> Forall_nth thm
+R15937:15939 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15922:15924 Coq.Lists.List <> nth def
+R15940:15943 ModularProofs.Encoding <> BASE def
+R15966:15975 Coq.Lists.List <> Forall_nth thm
+R16025:16028 ModularProofs.Encoding <> BASE def
+R16071:16088 ModularProofs.TM_Basics <> replace_nth_length thm
+R16071:16088 ModularProofs.TM_Basics <> replace_nth_length thm
+R16071:16088 ModularProofs.TM_Basics <> replace_nth_length thm
+R16115:16132 ModularProofs.TM_Basics <> replace_nth_length thm
+R16115:16132 ModularProofs.TM_Basics <> replace_nth_length thm
+R16115:16132 ModularProofs.TM_Basics <> replace_nth_length thm
+R16336:16339 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R16330:16330 Coq.Init.Datatypes <> S constr
+R16340:16357 ModularProofs.Encoding <> SHIFT_LEN def
+R16396:16398 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R16378:16395 ModularProofs.Encoding <> SHIFT_LEN def
+R16399:16416 ModularProofs.Encoding <> SHIFT_BIG def
+R16441:16458 ModularProofs.Encoding <> SHIFT_BIG def
+R16461:16478 ModularProofs.Encoding <> SHIFT_LEN def
+R16481:16493 ModularProofs.Encoding <> BASE def
+R16336:16339 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R16330:16330 Coq.Init.Datatypes <> S constr
+R16340:16357 ModularProofs.Encoding <> SHIFT_LEN def
+R16396:16398 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R16378:16395 ModularProofs.Encoding <> SHIFT_LEN def
+R16399:16416 ModularProofs.Encoding <> SHIFT_BIG def

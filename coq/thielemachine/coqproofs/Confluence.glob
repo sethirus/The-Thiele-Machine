@@ -1,77 +1,80 @@
-DIGEST 28de73f422f90fda106055e0f127f216
+DIGEST 84deb07a3139093348ea65f0bc616492
 FThieleMachine.Confluence
-R81:89 Coq.Relations.Relations <> <> lib
-R107:117 Coq.Sorting.Permutation <> <> lib
-R135:139 Coq.Arith.Arith <> <> lib
-R157:160 Coq.Lists.List <> <> lib
-R170:182 Coq.Lists.List ListNotations <> mod
-R200:222 ThieleMachine.SpecSound <> <> lib
-def 290:306 <> certs_independent
-R317:320 ThieleMachine.SpecSound <> Cert rec
-binder 309:310 <> c1:1
-binder 312:313 <> c2:2
-R341:344 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R335:337 ThieleMachine.SpecSound <> cnf proj
-R339:340 ThieleMachine.Confluence <> c1:1 var
-R345:347 ThieleMachine.SpecSound <> cnf proj
-R349:350 ThieleMachine.Confluence <> c2:2 var
-prf 423:450 <> independent_steps_confluence
-binder 463:463 <> s:3
-binder 465:466 <> c1:4
-binder 468:469 <> s1:5
-binder 471:472 <> c2:6
-binder 474:475 <> s2:7
-R502:509 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R482:493 ThieleMachine.SpecSound <> audited_step ind
-R495:495 ThieleMachine.Confluence <> s:3 var
-R497:498 ThieleMachine.Confluence <> c1:4 var
-R500:501 ThieleMachine.Confluence <> s1:5 var
-R530:537 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R510:521 ThieleMachine.SpecSound <> audited_step ind
-R523:523 ThieleMachine.Confluence <> s:3 var
-R525:526 ThieleMachine.Confluence <> c2:6 var
-R528:529 ThieleMachine.Confluence <> s2:7 var
-R561:568 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R538:554 ThieleMachine.Confluence <> certs_independent def
-R556:557 ThieleMachine.Confluence <> c1:4 var
-R559:560 ThieleMachine.Confluence <> c2:6 var
-R580:587 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R569:576 ThieleMachine.SpecSound <> proof_ok def
-R578:579 ThieleMachine.Confluence <> c1:4 var
-R599:606 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R588:595 ThieleMachine.SpecSound <> proof_ok def
-R597:598 ThieleMachine.Confluence <> c2:6 var
-R618:627 ThieleMachine.SpecSound <> step_apply def
-R629:630 ThieleMachine.Confluence <> s1:5 var
-R632:633 ThieleMachine.Confluence <> c2:6 var
-binder 611:613 <> s12:8
-R653:662 ThieleMachine.SpecSound <> step_apply def
-R664:665 ThieleMachine.Confluence <> s2:7 var
-R667:668 ThieleMachine.Confluence <> c1:4 var
-binder 646:648 <> s21:9
-R699:706 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R677:688 ThieleMachine.SpecSound <> audited_step ind
-R690:691 ThieleMachine.Confluence <> s1:5 var
+R177:183 Kernel.VMState <> <> lib
+R185:190 Kernel.VMStep <> <> lib
+R220:230 Kernel.MuCostModel <> <> lib
+R249:257 Coq.Relations.Relations <> <> lib
+R275:285 Coq.Sorting.Permutation <> <> lib
+R303:307 Coq.Arith.Arith <> <> lib
+R325:328 Coq.Lists.List <> <> lib
+R338:350 Coq.Lists.List ListNotations <> mod
+R368:390 ThieleMachine.SpecSound <> <> lib
+def 458:474 <> certs_independent
+R485:488 ThieleMachine.SpecSound <> Cert rec
+binder 477:478 <> c1:1
+binder 480:481 <> c2:2
+R509:512 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R503:505 ThieleMachine.SpecSound <> cnf proj
+R507:508 ThieleMachine.Confluence <> c1:1 var
+R513:515 ThieleMachine.SpecSound <> cnf proj
+R517:518 ThieleMachine.Confluence <> c2:2 var
+prf 591:618 <> independent_steps_confluence
+binder 631:631 <> s:3
+binder 633:634 <> c1:4
+binder 636:637 <> s1:5
+binder 639:640 <> c2:6
+binder 642:643 <> s2:7
+R670:677 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R650:661 ThieleMachine.SpecSound <> audited_step ind
+R663:663 ThieleMachine.Confluence <> s:3 var
+R665:666 ThieleMachine.Confluence <> c1:4 var
+R668:669 ThieleMachine.Confluence <> s1:5 var
+R698:705 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R678:689 ThieleMachine.SpecSound <> audited_step ind
+R691:691 ThieleMachine.Confluence <> s:3 var
 R693:694 ThieleMachine.Confluence <> c2:6 var
-R696:698 ThieleMachine.Confluence <> s12:8 var
-R729:736 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R707:718 ThieleMachine.SpecSound <> audited_step ind
-R720:721 ThieleMachine.Confluence <> s2:7 var
-R723:724 ThieleMachine.Confluence <> c1:4 var
-R726:728 ThieleMachine.Confluence <> s21:9 var
-R746:748 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R737:741 ThieleMachine.SpecSound <> mu_of proj
-R743:745 ThieleMachine.Confluence <> s12:8 var
-R749:753 ThieleMachine.SpecSound <> mu_of proj
-R755:757 ThieleMachine.Confluence <> s21:9 var
-R969:978 ThieleMachine.SpecSound <> step_apply def
-R1004:1008 ThieleMachine.SpecSound <> mu_of proj
-R1032:1039 ThieleMachine.SpecSound <> mu_delta proj
-R1065:1072 ThieleMachine.SpecSound <> mu_delta proj
-R1004:1008 ThieleMachine.SpecSound <> mu_of proj
-R1032:1039 ThieleMachine.SpecSound <> mu_delta proj
-R1032:1039 ThieleMachine.SpecSound <> mu_delta proj
-R1065:1072 ThieleMachine.SpecSound <> mu_delta proj
-R1065:1072 ThieleMachine.SpecSound <> mu_delta proj
-R1065:1072 ThieleMachine.SpecSound <> mu_delta proj
-R1065:1072 ThieleMachine.SpecSound <> mu_delta proj
+R696:697 ThieleMachine.Confluence <> s2:7 var
+R729:736 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R706:722 ThieleMachine.Confluence <> certs_independent def
+R724:725 ThieleMachine.Confluence <> c1:4 var
+R727:728 ThieleMachine.Confluence <> c2:6 var
+R748:755 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R737:744 ThieleMachine.SpecSound <> proof_ok def
+R746:747 ThieleMachine.Confluence <> c1:4 var
+R767:774 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R756:763 ThieleMachine.SpecSound <> proof_ok def
+R765:766 ThieleMachine.Confluence <> c2:6 var
+R786:795 ThieleMachine.SpecSound <> step_apply def
+R797:798 ThieleMachine.Confluence <> s1:5 var
+R800:801 ThieleMachine.Confluence <> c2:6 var
+binder 779:781 <> s12:8
+R821:830 ThieleMachine.SpecSound <> step_apply def
+R832:833 ThieleMachine.Confluence <> s2:7 var
+R835:836 ThieleMachine.Confluence <> c1:4 var
+binder 814:816 <> s21:9
+R867:874 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R845:856 ThieleMachine.SpecSound <> audited_step ind
+R858:859 ThieleMachine.Confluence <> s1:5 var
+R861:862 ThieleMachine.Confluence <> c2:6 var
+R864:866 ThieleMachine.Confluence <> s12:8 var
+R897:904 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R875:886 ThieleMachine.SpecSound <> audited_step ind
+R888:889 ThieleMachine.Confluence <> s2:7 var
+R891:892 ThieleMachine.Confluence <> c1:4 var
+R894:896 ThieleMachine.Confluence <> s21:9 var
+R914:916 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R905:909 ThieleMachine.SpecSound <> mu_of proj
+R911:913 ThieleMachine.Confluence <> s12:8 var
+R917:921 ThieleMachine.SpecSound <> mu_of proj
+R923:925 ThieleMachine.Confluence <> s21:9 var
+R1137:1146 ThieleMachine.SpecSound <> step_apply def
+R1172:1176 ThieleMachine.SpecSound <> mu_of proj
+R1200:1207 ThieleMachine.SpecSound <> mu_delta proj
+R1233:1240 ThieleMachine.SpecSound <> mu_delta proj
+R1172:1176 ThieleMachine.SpecSound <> mu_of proj
+R1200:1207 ThieleMachine.SpecSound <> mu_delta proj
+R1200:1207 ThieleMachine.SpecSound <> mu_delta proj
+R1233:1240 ThieleMachine.SpecSound <> mu_delta proj
+R1233:1240 ThieleMachine.SpecSound <> mu_delta proj
+R1233:1240 ThieleMachine.SpecSound <> mu_delta proj
+R1233:1240 ThieleMachine.SpecSound <> mu_delta proj

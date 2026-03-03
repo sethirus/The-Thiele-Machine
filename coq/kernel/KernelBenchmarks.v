@@ -40,6 +40,9 @@
     NO AXIOMS. PROVEN BOUNDS ONLY.
     =========================================================================*)
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import MuCostModel.
+
 Require Import VMState VMStep KernelPhysics FalsifiablePrediction.
 Require Import Coq.Lists.List.
 Require Import Coq.Arith.PeanoNat.

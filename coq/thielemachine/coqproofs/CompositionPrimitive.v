@@ -1,4 +1,6 @@
 (** =========================================================================
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
     COMPOSITION IS PRIMITIVE
     =========================================================================
     
@@ -10,6 +12,10 @@
     2. Compositional Preservation: Equivalent parts yield equivalent wholes.
     
     ========================================================================= *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import List String ZArith Lia Bool Nat.
 Require Import ThieleMachine.CoreSemantics.

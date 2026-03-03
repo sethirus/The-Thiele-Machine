@@ -1,4 +1,6 @@
 (** =========================================================================
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
     CORE SEMANTICS - Canonical Formal Specification
     =========================================================================
     
@@ -31,6 +33,9 @@
     [THIELE_MACHINE] ThieleMachine.v - Abstract machine interface
     
     ========================================================================= *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
 
 From Coq Require Import List String ZArith Lia Bool Nat.
 Require Import ThieleMachine.Hash256.

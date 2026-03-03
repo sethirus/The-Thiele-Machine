@@ -138,7 +138,7 @@ tests.append(("EMIT", "EMIT 0 15 7\nHALT", {
 }))
 
 # 16. REVEAL
-tests.append(("REVEAL", "REVEAL 0 0 0 5\nHALT", {
+tests.append(("REVEAL", "REVEAL 0 0 5\nHALT", {
     "charges_mu": lambda r: r["mu"] == 5,
     "charges_tensor": lambda r: r["mu_tensor_0"] == 5,
     "halts": lambda r: r["status"] == 2,

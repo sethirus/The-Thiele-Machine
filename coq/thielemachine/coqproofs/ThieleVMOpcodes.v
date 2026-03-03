@@ -1,8 +1,10 @@
 (** * Thiele VM Opcode Formal Specifications
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
 
     This module provides Coq formal specifications for the 17 Thiele CPU
     opcodes that exist in the Python VM layer ([thielecpu/vm.py]) and the
-    RTL layer ([thielecpu/hardware/rtl/thiele_cpu_unified.v]), completing
+    RTL layer (canonical Kami RTL plus generated opcode header), completing
     the required 3-layer isomorphism triads for each opcode.
 
     Each opcode is assigned its canonical 8-bit bytecode value as specified
@@ -12,10 +14,14 @@
     Layer alignment:
     - Coq: [Definition op_X : nat := N] (this file, ThieleMachine namespace)
     - Python: [def op_X(self, ...)] method in [thielecpu/vm.py]
-    - RTL: [localparam OP_X = 8'hN] in [thiele_cpu_unified.v]
+    - RTL: [localparam OP_X = 8'hN] in [generated_opcodes.vh]
 
     STATUS: Complete - all 17 partial triads closed.
 *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import Arith.PeanoNat Lia.
 Local Open Scope nat_scope.

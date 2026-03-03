@@ -14,15 +14,21 @@ KEY INSIGHT from failures:
 
 import sys
 from pathlib import Path
+import pytest
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "tools"))
 sys.path.insert(0, str(Path(__file__).parent))
 
-from vm_wrapper import create_test_state_with_modules, VMState
+from vm_wrapper import create_test_state_with_modules, VMState, VM_RUNNER_PATH
 import test_mu_gravity_axioms
 import math
 
 PI = math.pi
+
+pytestmark = pytest.mark.skipif(
+    not VM_RUNNER_PATH.exists(),
+    reason="Coq-extracted runner not built (build/extracted_vm_runner)",
+)
 
 
 def analyze_module_graph_topology():

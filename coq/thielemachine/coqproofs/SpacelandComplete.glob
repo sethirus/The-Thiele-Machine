@@ -1,900 +1,902 @@
-DIGEST c4cbf8ce39ea520ab76d9911c834143c
+DIGEST a7b6fb54e626b6af541481e1e4afba6f
 FThieleMachine.SpacelandComplete
-R590:593 Coq.Lists.List <> <> lib
-R595:598 Coq.Bool.Bool <> <> lib
-R600:605 Coq.ZArith.ZArith <> <> lib
-R607:609 Coq.micromega.Lia <> <> lib
-R619:631 Coq.Lists.List ListNotations <> mod
-mod 642:656 <> SimpleSpaceland
-def 672:680 SimpleSpaceland Partition
-R685:688 Coq.Init.Datatypes <> list ind
-R691:694 Coq.Init.Datatypes <> list ind
-R696:698 Coq.Init.Datatypes <> nat ind
-def 715:719 SimpleSpaceland State
-R734:736 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R725:733 ThieleMachine.SpacelandComplete SimpleSpaceland Partition def
-R737:737 Coq.Numbers.BinNums <> Z ind
-ind 761:765 SimpleSpaceland Label
-constr 776:783 SimpleSpaceland LCompute
-constr 799:804 SimpleSpaceland LSplit
-R787:791 ThieleMachine.SpacelandComplete <> Label:1 ind
-R811:814 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R808:810 Coq.Init.Datatypes <> nat ind
-R815:819 ThieleMachine.SpacelandComplete <> Label:1 ind
-scheme 761:765 SimpleSpaceland Label_rect
-scheme 761:765 SimpleSpaceland Label_ind
-scheme 761:765 SimpleSpaceland Label_rec
-scheme 761:765 SimpleSpaceland Label_sind
-def 836:847 SimpleSpaceland split_module
-R854:862 ThieleMachine.SpacelandComplete SimpleSpaceland Partition def
-binder 850:850 <> p:3
-R872:874 Coq.Init.Datatypes <> nat ind
-binder 866:868 <> idx:4
-R879:887 ThieleMachine.SpacelandComplete SimpleSpaceland Partition def
-R905:907 ThieleMachine.SpacelandComplete <> idx:4 var
-R902:902 ThieleMachine.SpacelandComplete <> p:3 var
-R920:921 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R929:930 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R939:942 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R949:949 Coq.Init.Datatypes <> O constr
-R973:979 Coq.Arith.PeanoNat Nat div def
-R982:987 Coq.Init.Datatypes <> length def
-binder 966:968 <> mid:8
-R1005:1005 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R1018:1022 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R1006:1011 Coq.Lists.List <> firstn def
-R1013:1015 ThieleMachine.SpacelandComplete <> mid:8 var
-R1023:1023 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R1035:1039 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R1024:1028 Coq.Lists.List <> skipn def
-R1030:1032 ThieleMachine.SpacelandComplete <> mid:8 var
-R1052:1055 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R1062:1062 Coq.Init.Datatypes <> S constr
-R1071:1074 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R1075:1086 ThieleMachine.SpacelandComplete <> split_module:5 def
-ind 1120:1123 SimpleSpaceland step
-constr 1168:1175 SimpleSpaceland SCompute
-constr 1236:1241 SimpleSpaceland SSplit
-R1132:1135 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1127:1131 ThieleMachine.SpacelandComplete SimpleSpaceland State def
-R1141:1144 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1136:1140 ThieleMachine.SpacelandComplete SimpleSpaceland Label ind
-R1150:1153 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1145:1149 ThieleMachine.SpacelandComplete SimpleSpaceland State def
-binder 1186:1186 <> p:11
-binder 1188:1189 <> mu:12
-R1200:1203 ThieleMachine.SpacelandComplete <> step:9 ind
-R1222:1222 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1224:1225 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1228:1228 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1223:1223 ThieleMachine.SpacelandComplete <> p:11 var
-R1226:1227 ThieleMachine.SpacelandComplete <> mu:12 var
-R1213:1220 ThieleMachine.SpacelandComplete SimpleSpaceland LCompute constr
-R1205:1205 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1207:1208 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1211:1211 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1206:1206 ThieleMachine.SpacelandComplete <> p:11 var
-R1209:1210 ThieleMachine.SpacelandComplete <> mu:12 var
-binder 1252:1252 <> p:13
-binder 1254:1255 <> mu:14
-binder 1257:1257 <> i:15
-R1268:1271 ThieleMachine.SpacelandComplete <> step:9 ind
-R1292:1292 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1309:1310 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1321:1321 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1293:1304 ThieleMachine.SpacelandComplete SimpleSpaceland split_module def
-R1306:1306 ThieleMachine.SpacelandComplete <> p:13 var
-R1308:1308 ThieleMachine.SpacelandComplete <> i:15 var
-R1314:1316 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R1312:1313 ThieleMachine.SpacelandComplete <> mu:14 var
-R1282:1287 ThieleMachine.SpacelandComplete SimpleSpaceland LSplit constr
-R1289:1289 ThieleMachine.SpacelandComplete <> i:15 var
-R1273:1273 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1275:1276 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1279:1279 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1274:1274 ThieleMachine.SpacelandComplete <> p:13 var
-R1277:1278 ThieleMachine.SpacelandComplete <> mu:14 var
-scheme 1120:1123 SimpleSpaceland step_ind
-scheme 1120:1123 SimpleSpaceland step_sind
-def 1340:1346 SimpleSpaceland mu_cost
-R1353:1357 ThieleMachine.SpacelandComplete SimpleSpaceland State def
-binder 1349:1349 <> s:16
-R1365:1369 ThieleMachine.SpacelandComplete SimpleSpaceland Label ind
-binder 1361:1361 <> l:17
-R1378:1382 ThieleMachine.SpacelandComplete SimpleSpaceland State def
-binder 1373:1374 <> s':18
-R1387:1387 Coq.Numbers.BinNums <> Z ind
-R1403:1405 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
-R1397:1399 Coq.Init.Datatypes <> snd def
-R1401:1402 ThieleMachine.SpacelandComplete <> s':18 var
-R1406:1408 Coq.Init.Datatypes <> snd def
-R1410:1410 ThieleMachine.SpacelandComplete <> s:16 var
-prf 1470:1477 SimpleSpaceland step_det
-binder 1488:1488 <> s:19
-binder 1490:1490 <> l:20
-binder 1492:1493 <> s1:21
-binder 1495:1496 <> s2:22
-R1514:1517 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1503:1506 ThieleMachine.SpacelandComplete SimpleSpaceland step ind
-R1508:1508 ThieleMachine.SpacelandComplete <> s:19 var
-R1510:1510 ThieleMachine.SpacelandComplete <> l:20 var
-R1512:1513 ThieleMachine.SpacelandComplete <> s1:21 var
-R1529:1532 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1518:1521 ThieleMachine.SpacelandComplete SimpleSpaceland step ind
-R1523:1523 ThieleMachine.SpacelandComplete <> s:19 var
-R1525:1525 ThieleMachine.SpacelandComplete <> l:20 var
-R1527:1528 ThieleMachine.SpacelandComplete <> s2:22 var
-R1535:1537 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1533:1534 ThieleMachine.SpacelandComplete <> s1:21 var
-R1538:1539 ThieleMachine.SpacelandComplete <> s2:22 var
-prf 1658:1666 SimpleSpaceland mu_nonneg
-binder 1677:1677 <> s:23
-binder 1679:1679 <> l:24
-binder 1681:1682 <> s':25
-R1700:1703 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1689:1692 ThieleMachine.SpacelandComplete SimpleSpaceland step ind
-R1694:1694 ThieleMachine.SpacelandComplete <> s:23 var
-R1696:1696 ThieleMachine.SpacelandComplete <> l:24 var
-R1698:1699 ThieleMachine.SpacelandComplete <> s':25 var
-R1719:1722 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
-R1705:1711 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
-R1713:1713 ThieleMachine.SpacelandComplete <> s:23 var
-R1715:1715 ThieleMachine.SpacelandComplete <> l:24 var
-R1717:1718 ThieleMachine.SpacelandComplete <> s':25 var
-R1753:1759 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
-R1796:1810 ThieleMachine.SpacelandComplete SimpleSpaceland <> mod
-mod 2008:2015 <> Dynamics
-R2027:2041 ThieleMachine.SpacelandComplete SimpleSpaceland <> mod
-ind 2059:2063 Dynamics Trace
-constr 2074:2077 Dynamics TNil
-constr 2102:2106 Dynamics TCons
-R2086:2089 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2081:2085 ThieleMachine.SpacelandComplete SimpleSpaceland State def
-R2090:2094 ThieleMachine.SpacelandComplete <> Trace:26 ind
-R2115:2118 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2110:2114 ThieleMachine.SpacelandComplete SimpleSpaceland State def
-R2124:2127 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2119:2123 ThieleMachine.SpacelandComplete SimpleSpaceland Label ind
-R2133:2136 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2128:2132 ThieleMachine.SpacelandComplete <> Trace:26 ind
-R2137:2141 ThieleMachine.SpacelandComplete <> Trace:26 ind
-scheme 2059:2063 Dynamics Trace_rect
-scheme 2059:2063 Dynamics Trace_ind
-scheme 2059:2063 Dynamics Trace_rec
-scheme 2059:2063 Dynamics Trace_sind
-def 2206:2216 Dynamics valid_trace
-R2223:2227 ThieleMachine.SpacelandComplete Dynamics Trace ind
-binder 2219:2219 <> t:28
-R2250:2250 ThieleMachine.SpacelandComplete <> t:28 var
-R2263:2266 ThieleMachine.SpacelandComplete Dynamics TNil constr
-R2273:2276 Coq.Init.Logic <> True ind
-R2284:2288 ThieleMachine.SpacelandComplete Dynamics TCons constr
-R2332:2335 ThieleMachine.SpacelandComplete Dynamics TNil constr
-R2343:2346 ThieleMachine.SpacelandComplete SimpleSpaceland step ind
-R2365:2369 ThieleMachine.SpacelandComplete Dynamics TCons constr
-R2392:2395 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2381:2384 ThieleMachine.SpacelandComplete SimpleSpaceland step ind
-R2396:2406 ThieleMachine.SpacelandComplete <> valid_trace:29 def
-def 2482:2491 Dynamics trace_init
-R2498:2502 ThieleMachine.SpacelandComplete Dynamics Trace ind
-binder 2494:2494 <> t:32
-R2507:2511 ThieleMachine.SpacelandComplete SimpleSpaceland State def
-R2526:2526 ThieleMachine.SpacelandComplete <> t:32 var
-R2539:2542 ThieleMachine.SpacelandComplete Dynamics TNil constr
-R2557:2561 ThieleMachine.SpacelandComplete Dynamics TCons constr
-def 2597:2607 Dynamics trace_final
-R2614:2618 ThieleMachine.SpacelandComplete Dynamics Trace ind
-binder 2610:2610 <> t:34
-R2623:2627 ThieleMachine.SpacelandComplete SimpleSpaceland State def
-R2642:2642 ThieleMachine.SpacelandComplete <> t:34 var
-R2655:2658 ThieleMachine.SpacelandComplete Dynamics TNil constr
-R2673:2677 ThieleMachine.SpacelandComplete Dynamics TCons constr
-R2691:2701 ThieleMachine.SpacelandComplete <> trace_final:35 def
-def 2755:2763 Dynamics reachable
-R2774:2778 ThieleMachine.SpacelandComplete SimpleSpaceland State def
-binder 2766:2767 <> s1:37
-binder 2769:2770 <> s2:38
-R2795:2801 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2803:2804 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 2802:2802 <> t:39
-R2818:2821 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2805:2815 ThieleMachine.SpacelandComplete Dynamics valid_trace def
-R2817:2817 ThieleMachine.SpacelandComplete <> t:39 var
-R2839:2842 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2834:2836 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2822:2831 ThieleMachine.SpacelandComplete Dynamics trace_init def
-R2833:2833 ThieleMachine.SpacelandComplete <> t:39 var
-R2837:2838 ThieleMachine.SpacelandComplete <> s1:37 var
-R2856:2858 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2843:2853 ThieleMachine.SpacelandComplete Dynamics trace_final def
-R2855:2855 ThieleMachine.SpacelandComplete <> t:39 var
-R2859:2860 ThieleMachine.SpacelandComplete <> s2:38 var
-def 2908:2913 Dynamics labels
-R2920:2924 ThieleMachine.SpacelandComplete Dynamics Trace ind
-binder 2916:2916 <> t:40
-R2929:2932 Coq.Init.Datatypes <> list ind
-R2934:2938 ThieleMachine.SpacelandComplete SimpleSpaceland Label ind
-R2953:2953 ThieleMachine.SpacelandComplete <> t:40 var
-R2966:2969 ThieleMachine.SpacelandComplete Dynamics TNil constr
-R2976:2977 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R2985:2989 ThieleMachine.SpacelandComplete Dynamics TCons constr
-R3002:3005 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3006:3011 ThieleMachine.SpacelandComplete <> labels:41 def
-def 3039:3052 Dynamics next_partition
-R3059:3067 ThieleMachine.SpacelandComplete SimpleSpaceland Partition def
-binder 3055:3055 <> p:43
-R3075:3079 ThieleMachine.SpacelandComplete SimpleSpaceland Label ind
-binder 3071:3071 <> l:44
-R3084:3092 ThieleMachine.SpacelandComplete SimpleSpaceland Partition def
-R3107:3107 ThieleMachine.SpacelandComplete <> l:44 var
-R3120:3127 ThieleMachine.SpacelandComplete SimpleSpaceland LCompute constr
-R3132:3132 ThieleMachine.SpacelandComplete <> p:43 var
-R3140:3145 ThieleMachine.SpacelandComplete SimpleSpaceland LSplit constr
-R3152:3163 ThieleMachine.SpacelandComplete SimpleSpaceland split_module def
-R3165:3165 ThieleMachine.SpacelandComplete <> p:43 var
-def 3192:3204 Dynamics cost_of_label
-R3211:3215 ThieleMachine.SpacelandComplete SimpleSpaceland Label ind
-binder 3207:3207 <> l:46
-R3220:3220 Coq.Numbers.BinNums <> Z ind
-R3235:3235 ThieleMachine.SpacelandComplete <> l:46 var
-R3248:3255 ThieleMachine.SpacelandComplete SimpleSpaceland LCompute constr
-R3270:3275 ThieleMachine.SpacelandComplete SimpleSpaceland LSplit constr
-def 3307:3321 Dynamics partitions_from
-R3328:3336 ThieleMachine.SpacelandComplete SimpleSpaceland Partition def
-binder 3324:3324 <> p:48
-R3345:3348 Coq.Init.Datatypes <> list ind
-R3350:3354 ThieleMachine.SpacelandComplete SimpleSpaceland Label ind
-binder 3340:3341 <> ls:49
-R3359:3362 Coq.Init.Datatypes <> list ind
-R3364:3372 ThieleMachine.SpacelandComplete SimpleSpaceland Partition def
-R3387:3388 ThieleMachine.SpacelandComplete <> ls:49 var
-R3401:3402 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R3407:3407 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R3409:3409 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R3408:3408 ThieleMachine.SpacelandComplete <> p:48 var
-R3418:3421 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3430:3433 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3429:3429 ThieleMachine.SpacelandComplete <> p:48 var
-R3434:3448 ThieleMachine.SpacelandComplete <> partitions_from:50 def
-R3451:3464 ThieleMachine.SpacelandComplete Dynamics next_partition def
-R3466:3466 ThieleMachine.SpacelandComplete <> p:48 var
-def 3496:3502 Dynamics mu_from
-R3510:3513 Coq.Init.Datatypes <> list ind
-R3515:3519 ThieleMachine.SpacelandComplete SimpleSpaceland Label ind
-binder 3505:3506 <> ls:52
-R3524:3527 Coq.Init.Datatypes <> list ind
-R3529:3529 Coq.Numbers.BinNums <> Z ind
-R3544:3545 ThieleMachine.SpacelandComplete <> ls:52 var
-R3558:3559 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R3564:3565 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R3574:3577 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3600:3603 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3585:3597 ThieleMachine.SpacelandComplete Dynamics cost_of_label def
-R3604:3610 ThieleMachine.SpacelandComplete <> mu_from:53 def
-def 3637:3649 Dynamics partition_seq
-R3656:3660 ThieleMachine.SpacelandComplete Dynamics Trace ind
-binder 3652:3652 <> t:55
-R3665:3668 Coq.Init.Datatypes <> list ind
-R3670:3678 ThieleMachine.SpacelandComplete SimpleSpaceland Partition def
-R3693:3693 ThieleMachine.SpacelandComplete <> t:55 var
-R3706:3709 ThieleMachine.SpacelandComplete Dynamics TNil constr
-R3716:3716 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R3722:3722 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R3717:3719 Coq.Init.Datatypes <> fst def
-R3730:3734 ThieleMachine.SpacelandComplete Dynamics TCons constr
-R3751:3754 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3746:3748 Coq.Init.Datatypes <> fst def
-R3755:3767 ThieleMachine.SpacelandComplete <> partition_seq:56 def
-def 3795:3800 Dynamics mu_seq
-R3807:3811 ThieleMachine.SpacelandComplete Dynamics Trace ind
-binder 3803:3803 <> t:58
-R3816:3819 Coq.Init.Datatypes <> list ind
-R3821:3821 Coq.Numbers.BinNums <> Z ind
-R3836:3836 ThieleMachine.SpacelandComplete <> t:58 var
-R3849:3852 ThieleMachine.SpacelandComplete Dynamics TNil constr
-R3859:3860 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R3868:3872 ThieleMachine.SpacelandComplete Dynamics TCons constr
-R3879:3882 ThieleMachine.SpacelandComplete Dynamics TNil constr
-R3891:3891 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R3906:3906 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R3892:3898 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
-R3914:3918 ThieleMachine.SpacelandComplete Dynamics TCons constr
-R3926:3930 ThieleMachine.SpacelandComplete Dynamics TCons constr
+R762:768 Kernel.VMState <> <> lib
+R770:775 Kernel.VMStep <> <> lib
+R803:806 Coq.Lists.List <> <> lib
+R808:811 Coq.Bool.Bool <> <> lib
+R813:818 Coq.ZArith.ZArith <> <> lib
+R820:822 Coq.micromega.Lia <> <> lib
+R832:844 Coq.Lists.List ListNotations <> mod
+mod 855:869 <> SimpleSpaceland
+def 885:893 SimpleSpaceland Partition
+R898:901 Coq.Init.Datatypes <> list ind
+R904:907 Coq.Init.Datatypes <> list ind
+R909:911 Coq.Init.Datatypes <> nat ind
+def 928:932 SimpleSpaceland State
+R947:949 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R938:946 ThieleMachine.SpacelandComplete SimpleSpaceland Partition def
+R950:950 Coq.Numbers.BinNums <> Z ind
+ind 974:978 SimpleSpaceland Label
+constr 989:996 SimpleSpaceland LCompute
+constr 1012:1017 SimpleSpaceland LSplit
+R1000:1004 ThieleMachine.SpacelandComplete <> Label:1 ind
+R1024:1027 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1021:1023 Coq.Init.Datatypes <> nat ind
+R1028:1032 ThieleMachine.SpacelandComplete <> Label:1 ind
+scheme 974:978 SimpleSpaceland Label_rect
+scheme 974:978 SimpleSpaceland Label_ind
+scheme 974:978 SimpleSpaceland Label_rec
+scheme 974:978 SimpleSpaceland Label_sind
+def 1049:1060 SimpleSpaceland split_module
+R1067:1075 ThieleMachine.SpacelandComplete SimpleSpaceland Partition def
+binder 1063:1063 <> p:3
+R1085:1087 Coq.Init.Datatypes <> nat ind
+binder 1079:1081 <> idx:4
+R1092:1100 ThieleMachine.SpacelandComplete SimpleSpaceland Partition def
+R1118:1120 ThieleMachine.SpacelandComplete <> idx:4 var
+R1115:1115 ThieleMachine.SpacelandComplete <> p:3 var
+R1133:1134 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1142:1143 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1152:1155 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1162:1162 Coq.Init.Datatypes <> O constr
+R1186:1192 Coq.Arith.PeanoNat Nat div def
+R1195:1200 Coq.Init.Datatypes <> length def
+binder 1179:1181 <> mid:8
+R1218:1218 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1231:1235 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1219:1224 Coq.Lists.List <> firstn def
+R1226:1228 ThieleMachine.SpacelandComplete <> mid:8 var
+R1236:1236 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1248:1252 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1237:1241 Coq.Lists.List <> skipn def
+R1243:1245 ThieleMachine.SpacelandComplete <> mid:8 var
+R1265:1268 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1275:1275 Coq.Init.Datatypes <> S constr
+R1284:1287 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1288:1299 ThieleMachine.SpacelandComplete <> split_module:5 def
+ind 1333:1336 SimpleSpaceland step
+constr 1381:1388 SimpleSpaceland SCompute
+constr 1449:1454 SimpleSpaceland SSplit
+R1345:1348 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1340:1344 ThieleMachine.SpacelandComplete SimpleSpaceland State def
+R1354:1357 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1349:1353 ThieleMachine.SpacelandComplete SimpleSpaceland Label ind
+R1363:1366 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1358:1362 ThieleMachine.SpacelandComplete SimpleSpaceland State def
+binder 1399:1399 <> p:11
+binder 1401:1402 <> mu:12
+R1413:1416 ThieleMachine.SpacelandComplete <> step:9 ind
+R1435:1435 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1437:1438 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1441:1441 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1436:1436 ThieleMachine.SpacelandComplete <> p:11 var
+R1439:1440 ThieleMachine.SpacelandComplete <> mu:12 var
+R1426:1433 ThieleMachine.SpacelandComplete SimpleSpaceland LCompute constr
+R1418:1418 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1420:1421 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1424:1424 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1419:1419 ThieleMachine.SpacelandComplete <> p:11 var
+R1422:1423 ThieleMachine.SpacelandComplete <> mu:12 var
+binder 1465:1465 <> p:13
+binder 1467:1468 <> mu:14
+binder 1470:1470 <> i:15
+R1481:1484 ThieleMachine.SpacelandComplete <> step:9 ind
+R1505:1505 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1522:1523 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1534:1534 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1506:1517 ThieleMachine.SpacelandComplete SimpleSpaceland split_module def
+R1519:1519 ThieleMachine.SpacelandComplete <> p:13 var
+R1521:1521 ThieleMachine.SpacelandComplete <> i:15 var
+R1527:1529 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R1525:1526 ThieleMachine.SpacelandComplete <> mu:14 var
+R1495:1500 ThieleMachine.SpacelandComplete SimpleSpaceland LSplit constr
+R1502:1502 ThieleMachine.SpacelandComplete <> i:15 var
+R1486:1486 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1488:1489 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1492:1492 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1487:1487 ThieleMachine.SpacelandComplete <> p:13 var
+R1490:1491 ThieleMachine.SpacelandComplete <> mu:14 var
+scheme 1333:1336 SimpleSpaceland step_ind
+scheme 1333:1336 SimpleSpaceland step_sind
+def 1553:1559 SimpleSpaceland mu_cost
+R1566:1570 ThieleMachine.SpacelandComplete SimpleSpaceland State def
+binder 1562:1562 <> s:16
+R1578:1582 ThieleMachine.SpacelandComplete SimpleSpaceland Label ind
+binder 1574:1574 <> l:17
+R1591:1595 ThieleMachine.SpacelandComplete SimpleSpaceland State def
+binder 1586:1587 <> s':18
+R1600:1600 Coq.Numbers.BinNums <> Z ind
+R1616:1618 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R1610:1612 Coq.Init.Datatypes <> snd def
+R1614:1615 ThieleMachine.SpacelandComplete <> s':18 var
+R1619:1621 Coq.Init.Datatypes <> snd def
+R1623:1623 ThieleMachine.SpacelandComplete <> s:16 var
+prf 1683:1690 SimpleSpaceland step_det
+binder 1701:1701 <> s:19
+binder 1703:1703 <> l:20
+binder 1705:1706 <> s1:21
+binder 1708:1709 <> s2:22
+R1727:1730 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1716:1719 ThieleMachine.SpacelandComplete SimpleSpaceland step ind
+R1721:1721 ThieleMachine.SpacelandComplete <> s:19 var
+R1723:1723 ThieleMachine.SpacelandComplete <> l:20 var
+R1725:1726 ThieleMachine.SpacelandComplete <> s1:21 var
+R1742:1745 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1731:1734 ThieleMachine.SpacelandComplete SimpleSpaceland step ind
+R1736:1736 ThieleMachine.SpacelandComplete <> s:19 var
+R1738:1738 ThieleMachine.SpacelandComplete <> l:20 var
+R1740:1741 ThieleMachine.SpacelandComplete <> s2:22 var
+R1748:1750 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1746:1747 ThieleMachine.SpacelandComplete <> s1:21 var
+R1751:1752 ThieleMachine.SpacelandComplete <> s2:22 var
+prf 1871:1879 SimpleSpaceland mu_nonneg
+binder 1890:1890 <> s:23
+binder 1892:1892 <> l:24
+binder 1894:1895 <> s':25
+R1913:1916 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1902:1905 ThieleMachine.SpacelandComplete SimpleSpaceland step ind
+R1907:1907 ThieleMachine.SpacelandComplete <> s:23 var
+R1909:1909 ThieleMachine.SpacelandComplete <> l:24 var
+R1911:1912 ThieleMachine.SpacelandComplete <> s':25 var
+R1932:1935 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
+R1918:1924 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
+R1926:1926 ThieleMachine.SpacelandComplete <> s:23 var
+R1928:1928 ThieleMachine.SpacelandComplete <> l:24 var
+R1930:1931 ThieleMachine.SpacelandComplete <> s':25 var
+R1966:1972 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
+R2009:2023 ThieleMachine.SpacelandComplete SimpleSpaceland <> mod
+mod 2221:2228 <> Dynamics
+R2240:2254 ThieleMachine.SpacelandComplete SimpleSpaceland <> mod
+ind 2272:2276 Dynamics Trace
+constr 2287:2290 Dynamics TNil
+constr 2315:2319 Dynamics TCons
+R2299:2302 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2294:2298 ThieleMachine.SpacelandComplete SimpleSpaceland State def
+R2303:2307 ThieleMachine.SpacelandComplete <> Trace:26 ind
+R2328:2331 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2323:2327 ThieleMachine.SpacelandComplete SimpleSpaceland State def
+R2337:2340 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2332:2336 ThieleMachine.SpacelandComplete SimpleSpaceland Label ind
+R2346:2349 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2341:2345 ThieleMachine.SpacelandComplete <> Trace:26 ind
+R2350:2354 ThieleMachine.SpacelandComplete <> Trace:26 ind
+scheme 2272:2276 Dynamics Trace_rect
+scheme 2272:2276 Dynamics Trace_ind
+scheme 2272:2276 Dynamics Trace_rec
+scheme 2272:2276 Dynamics Trace_sind
+def 2419:2429 Dynamics valid_trace
+R2436:2440 ThieleMachine.SpacelandComplete Dynamics Trace ind
+binder 2432:2432 <> t:28
+R2463:2463 ThieleMachine.SpacelandComplete <> t:28 var
+R2476:2479 ThieleMachine.SpacelandComplete Dynamics TNil constr
+R2486:2489 Coq.Init.Logic <> True ind
+R2497:2501 ThieleMachine.SpacelandComplete Dynamics TCons constr
+R2545:2548 ThieleMachine.SpacelandComplete Dynamics TNil constr
+R2556:2559 ThieleMachine.SpacelandComplete SimpleSpaceland step ind
+R2578:2582 ThieleMachine.SpacelandComplete Dynamics TCons constr
+R2605:2608 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2594:2597 ThieleMachine.SpacelandComplete SimpleSpaceland step ind
+R2609:2619 ThieleMachine.SpacelandComplete <> valid_trace:29 def
+def 2695:2704 Dynamics trace_init
+R2711:2715 ThieleMachine.SpacelandComplete Dynamics Trace ind
+binder 2707:2707 <> t:32
+R2720:2724 ThieleMachine.SpacelandComplete SimpleSpaceland State def
+R2739:2739 ThieleMachine.SpacelandComplete <> t:32 var
+R2752:2755 ThieleMachine.SpacelandComplete Dynamics TNil constr
+R2770:2774 ThieleMachine.SpacelandComplete Dynamics TCons constr
+def 2810:2820 Dynamics trace_final
+R2827:2831 ThieleMachine.SpacelandComplete Dynamics Trace ind
+binder 2823:2823 <> t:34
+R2836:2840 ThieleMachine.SpacelandComplete SimpleSpaceland State def
+R2855:2855 ThieleMachine.SpacelandComplete <> t:34 var
+R2868:2871 ThieleMachine.SpacelandComplete Dynamics TNil constr
+R2886:2890 ThieleMachine.SpacelandComplete Dynamics TCons constr
+R2904:2914 ThieleMachine.SpacelandComplete <> trace_final:35 def
+def 2968:2976 Dynamics reachable
+R2987:2991 ThieleMachine.SpacelandComplete SimpleSpaceland State def
+binder 2979:2980 <> s1:37
+binder 2982:2983 <> s2:38
+R3008:3014 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3016:3017 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3015:3015 <> t:39
+R3031:3034 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3018:3028 ThieleMachine.SpacelandComplete Dynamics valid_trace def
+R3030:3030 ThieleMachine.SpacelandComplete <> t:39 var
+R3052:3055 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3047:3049 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3035:3044 ThieleMachine.SpacelandComplete Dynamics trace_init def
+R3046:3046 ThieleMachine.SpacelandComplete <> t:39 var
+R3050:3051 ThieleMachine.SpacelandComplete <> s1:37 var
+R3069:3071 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3056:3066 ThieleMachine.SpacelandComplete Dynamics trace_final def
+R3068:3068 ThieleMachine.SpacelandComplete <> t:39 var
+R3072:3073 ThieleMachine.SpacelandComplete <> s2:38 var
+def 3121:3126 Dynamics labels
+R3133:3137 ThieleMachine.SpacelandComplete Dynamics Trace ind
+binder 3129:3129 <> t:40
+R3142:3145 Coq.Init.Datatypes <> list ind
+R3147:3151 ThieleMachine.SpacelandComplete SimpleSpaceland Label ind
+R3166:3166 ThieleMachine.SpacelandComplete <> t:40 var
+R3179:3182 ThieleMachine.SpacelandComplete Dynamics TNil constr
+R3189:3190 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3198:3202 ThieleMachine.SpacelandComplete Dynamics TCons constr
+R3215:3218 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3219:3224 ThieleMachine.SpacelandComplete <> labels:41 def
+def 3252:3265 Dynamics next_partition
+R3272:3280 ThieleMachine.SpacelandComplete SimpleSpaceland Partition def
+binder 3268:3268 <> p:43
+R3288:3292 ThieleMachine.SpacelandComplete SimpleSpaceland Label ind
+binder 3284:3284 <> l:44
+R3297:3305 ThieleMachine.SpacelandComplete SimpleSpaceland Partition def
+R3320:3320 ThieleMachine.SpacelandComplete <> l:44 var
+R3333:3340 ThieleMachine.SpacelandComplete SimpleSpaceland LCompute constr
+R3345:3345 ThieleMachine.SpacelandComplete <> p:43 var
+R3353:3358 ThieleMachine.SpacelandComplete SimpleSpaceland LSplit constr
+R3365:3376 ThieleMachine.SpacelandComplete SimpleSpaceland split_module def
+R3378:3378 ThieleMachine.SpacelandComplete <> p:43 var
+def 3405:3417 Dynamics cost_of_label
+R3424:3428 ThieleMachine.SpacelandComplete SimpleSpaceland Label ind
+binder 3420:3420 <> l:46
+R3433:3433 Coq.Numbers.BinNums <> Z ind
+R3448:3448 ThieleMachine.SpacelandComplete <> l:46 var
+R3461:3468 ThieleMachine.SpacelandComplete SimpleSpaceland LCompute constr
+R3483:3488 ThieleMachine.SpacelandComplete SimpleSpaceland LSplit constr
+def 3520:3534 Dynamics partitions_from
+R3541:3549 ThieleMachine.SpacelandComplete SimpleSpaceland Partition def
+binder 3537:3537 <> p:48
+R3558:3561 Coq.Init.Datatypes <> list ind
+R3563:3567 ThieleMachine.SpacelandComplete SimpleSpaceland Label ind
+binder 3553:3554 <> ls:49
+R3572:3575 Coq.Init.Datatypes <> list ind
+R3577:3585 ThieleMachine.SpacelandComplete SimpleSpaceland Partition def
+R3600:3601 ThieleMachine.SpacelandComplete <> ls:49 var
+R3614:3615 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3620:3620 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3622:3622 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3621:3621 ThieleMachine.SpacelandComplete <> p:48 var
+R3631:3634 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3643:3646 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3642:3642 ThieleMachine.SpacelandComplete <> p:48 var
+R3647:3661 ThieleMachine.SpacelandComplete <> partitions_from:50 def
+R3664:3677 ThieleMachine.SpacelandComplete Dynamics next_partition def
+R3679:3679 ThieleMachine.SpacelandComplete <> p:48 var
+def 3709:3715 Dynamics mu_from
+R3723:3726 Coq.Init.Datatypes <> list ind
+R3728:3732 ThieleMachine.SpacelandComplete SimpleSpaceland Label ind
+binder 3718:3719 <> ls:52
+R3737:3740 Coq.Init.Datatypes <> list ind
+R3742:3742 Coq.Numbers.BinNums <> Z ind
+R3757:3758 ThieleMachine.SpacelandComplete <> ls:52 var
+R3771:3772 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3777:3778 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3787:3790 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3813:3816 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3798:3810 ThieleMachine.SpacelandComplete Dynamics cost_of_label def
+R3817:3823 ThieleMachine.SpacelandComplete <> mu_from:53 def
+def 3850:3862 Dynamics partition_seq
+R3869:3873 ThieleMachine.SpacelandComplete Dynamics Trace ind
+binder 3865:3865 <> t:55
+R3878:3881 Coq.Init.Datatypes <> list ind
+R3883:3891 ThieleMachine.SpacelandComplete SimpleSpaceland Partition def
+R3906:3906 ThieleMachine.SpacelandComplete <> t:55 var
+R3919:3922 ThieleMachine.SpacelandComplete Dynamics TNil constr
+R3929:3929 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3935:3935 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3930:3932 Coq.Init.Datatypes <> fst def
+R3943:3947 ThieleMachine.SpacelandComplete Dynamics TCons constr
 R3964:3967 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3950:3956 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
-R3968:3973 ThieleMachine.SpacelandComplete <> mu_seq:59 def
-def 4003:4012 Dynamics observable
-R4019:4023 ThieleMachine.SpacelandComplete Dynamics Trace ind
-binder 4015:4015 <> t:61
-R4029:4029 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4045:4046 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4055:4055 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4030:4042 ThieleMachine.SpacelandComplete Dynamics partition_seq def
-R4044:4044 ThieleMachine.SpacelandComplete <> t:61 var
-R4047:4052 ThieleMachine.SpacelandComplete Dynamics mu_seq def
-R4054:4054 ThieleMachine.SpacelandComplete <> t:61 var
-prf 4118:4133 Dynamics valid_trace_cons
-binder 4144:4144 <> s:62
-binder 4146:4146 <> l:63
-binder 4148:4149 <> t':64
-R4182:4185 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4156:4166 ThieleMachine.SpacelandComplete Dynamics valid_trace def
-R4169:4173 ThieleMachine.SpacelandComplete Dynamics TCons constr
-R4175:4175 ThieleMachine.SpacelandComplete <> s:62 var
-R4177:4177 ThieleMachine.SpacelandComplete <> l:63 var
-R4179:4180 ThieleMachine.SpacelandComplete <> t':64 var
-R4210:4213 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4186:4189 ThieleMachine.SpacelandComplete SimpleSpaceland step ind
-R4191:4191 ThieleMachine.SpacelandComplete <> s:62 var
-R4193:4193 ThieleMachine.SpacelandComplete <> l:63 var
-R4196:4205 ThieleMachine.SpacelandComplete Dynamics trace_init def
-R4207:4208 ThieleMachine.SpacelandComplete <> t':64 var
-R4214:4224 ThieleMachine.SpacelandComplete Dynamics valid_trace def
-R4226:4227 ThieleMachine.SpacelandComplete <> t':64 var
-R4344:4344 Coq.Init.Logic <> I constr
-R4344:4344 Coq.Init.Logic <> I constr
-prf 4423:4430 Dynamics step_fst
-binder 4441:4441 <> s:65
-binder 4443:4443 <> l:66
-binder 4445:4446 <> s':67
-R4464:4467 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4453:4456 ThieleMachine.SpacelandComplete SimpleSpaceland step ind
-R4458:4458 ThieleMachine.SpacelandComplete <> s:65 var
-R4460:4460 ThieleMachine.SpacelandComplete <> l:66 var
-R4462:4463 ThieleMachine.SpacelandComplete <> s':67 var
-R4474:4476 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4468:4470 Coq.Init.Datatypes <> fst def
-R4472:4473 ThieleMachine.SpacelandComplete <> s':67 var
-R4477:4490 ThieleMachine.SpacelandComplete Dynamics next_partition def
-R4493:4495 Coq.Init.Datatypes <> fst def
-R4497:4497 ThieleMachine.SpacelandComplete <> s:65 var
-R4500:4500 ThieleMachine.SpacelandComplete <> l:66 var
-prf 4660:4668 Dynamics step_cost
-binder 4679:4679 <> s:68
-binder 4681:4681 <> l:69
-binder 4683:4684 <> s':70
-R4702:4705 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4691:4694 ThieleMachine.SpacelandComplete SimpleSpaceland step ind
-R4696:4696 ThieleMachine.SpacelandComplete <> s:68 var
-R4698:4698 ThieleMachine.SpacelandComplete <> l:69 var
-R4700:4701 ThieleMachine.SpacelandComplete <> s':70 var
-R4720:4722 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4706:4712 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
-R4714:4714 ThieleMachine.SpacelandComplete <> s:68 var
-R4716:4716 ThieleMachine.SpacelandComplete <> l:69 var
-R4718:4719 ThieleMachine.SpacelandComplete <> s':70 var
-R4723:4735 ThieleMachine.SpacelandComplete Dynamics cost_of_label def
-R4737:4737 ThieleMachine.SpacelandComplete <> l:69 var
-R4824:4830 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
-prf 4919:4941 Dynamics partition_seq_by_labels
-binder 4952:4952 <> t:71
-R4972:4975 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4959:4969 ThieleMachine.SpacelandComplete Dynamics valid_trace def
-R4971:4971 ThieleMachine.SpacelandComplete <> t:71 var
-R4991:4993 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4976:4988 ThieleMachine.SpacelandComplete Dynamics partition_seq def
-R4990:4990 ThieleMachine.SpacelandComplete <> t:71 var
-R4994:5008 ThieleMachine.SpacelandComplete Dynamics partitions_from def
-R5011:5013 Coq.Init.Datatypes <> fst def
-R5016:5025 ThieleMachine.SpacelandComplete Dynamics trace_init def
-R5027:5027 ThieleMachine.SpacelandComplete <> t:71 var
-R5032:5037 ThieleMachine.SpacelandComplete Dynamics labels def
-R5039:5039 ThieleMachine.SpacelandComplete <> t:71 var
-R5152:5167 ThieleMachine.SpacelandComplete Dynamics valid_trace_cons thm
-R5152:5167 ThieleMachine.SpacelandComplete Dynamics valid_trace_cons thm
-R5235:5242 ThieleMachine.SpacelandComplete Dynamics step_fst thm
-R5235:5242 ThieleMachine.SpacelandComplete Dynamics step_fst thm
-R5235:5242 ThieleMachine.SpacelandComplete Dynamics step_fst thm
-prf 5344:5359 Dynamics mu_seq_by_labels
-binder 5370:5370 <> t:72
-R5390:5393 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5377:5387 ThieleMachine.SpacelandComplete Dynamics valid_trace def
-R5389:5389 ThieleMachine.SpacelandComplete <> t:72 var
-R5402:5404 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5394:5399 ThieleMachine.SpacelandComplete Dynamics mu_seq def
-R5401:5401 ThieleMachine.SpacelandComplete <> t:72 var
-R5405:5411 ThieleMachine.SpacelandComplete Dynamics mu_from def
-R5414:5419 ThieleMachine.SpacelandComplete Dynamics labels def
-R5421:5421 ThieleMachine.SpacelandComplete <> t:72 var
-R5586:5594 ThieleMachine.SpacelandComplete Dynamics step_cost thm
-R5586:5594 ThieleMachine.SpacelandComplete Dynamics step_cost thm
-R5586:5594 ThieleMachine.SpacelandComplete Dynamics step_cost thm
-R5673:5681 ThieleMachine.SpacelandComplete Dynamics step_cost thm
-R5673:5681 ThieleMachine.SpacelandComplete Dynamics step_cost thm
-R5673:5681 ThieleMachine.SpacelandComplete Dynamics step_cost thm
-prf 6054:6079 Dynamics mu_gauge_freedom_multistep
-binder 6090:6090 <> p:73
-binder 6092:6094 <> mu1:74
-binder 6096:6098 <> mu2:75
-binder 6100:6101 <> t1:76
-binder 6103:6104 <> t2:77
-R6121:6121 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6123:6124 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6128:6128 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6122:6122 ThieleMachine.SpacelandComplete <> p:73 var
-R6125:6127 ThieleMachine.SpacelandComplete <> mu1:74 var
-binder 6115:6116 <> s1:78
-R6147:6147 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6149:6150 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6154:6154 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6148:6148 ThieleMachine.SpacelandComplete <> p:73 var
-R6151:6153 ThieleMachine.SpacelandComplete <> mu2:75 var
-binder 6141:6142 <> s2:79
-R6177:6180 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6163:6173 ThieleMachine.SpacelandComplete Dynamics valid_trace def
-R6175:6176 ThieleMachine.SpacelandComplete <> t1:76 var
-R6195:6202 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6181:6191 ThieleMachine.SpacelandComplete Dynamics valid_trace def
-R6193:6194 ThieleMachine.SpacelandComplete <> t2:77 var
-R6221:6228 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6216:6218 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6203:6212 ThieleMachine.SpacelandComplete Dynamics trace_init def
-R6214:6215 ThieleMachine.SpacelandComplete <> t1:76 var
-R6219:6220 ThieleMachine.SpacelandComplete <> s1:78 var
-R6247:6284 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6242:6244 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6229:6238 ThieleMachine.SpacelandComplete Dynamics trace_init def
-R6240:6241 ThieleMachine.SpacelandComplete <> t2:77 var
-R6245:6246 ThieleMachine.SpacelandComplete <> s2:79 var
-R6306:6374 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6294:6296 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6285:6290 ThieleMachine.SpacelandComplete Dynamics labels def
-R6292:6293 ThieleMachine.SpacelandComplete <> t1:76 var
-R6297:6302 ThieleMachine.SpacelandComplete Dynamics labels def
-R6304:6305 ThieleMachine.SpacelandComplete <> t2:77 var
-R6410:6417 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6391:6393 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6375:6387 ThieleMachine.SpacelandComplete Dynamics partition_seq def
-R6389:6390 ThieleMachine.SpacelandComplete <> t1:76 var
-R6394:6406 ThieleMachine.SpacelandComplete Dynamics partition_seq def
-R6408:6409 ThieleMachine.SpacelandComplete <> t2:77 var
-R6427:6429 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6418:6423 ThieleMachine.SpacelandComplete Dynamics mu_seq def
-R6425:6426 ThieleMachine.SpacelandComplete <> t2:77 var
-R6430:6435 ThieleMachine.SpacelandComplete Dynamics mu_seq def
-R6437:6438 ThieleMachine.SpacelandComplete <> t1:76 var
-R6579:6601 ThieleMachine.SpacelandComplete Dynamics partition_seq_by_labels thm
-R6579:6601 ThieleMachine.SpacelandComplete Dynamics partition_seq_by_labels thm
-R6579:6601 ThieleMachine.SpacelandComplete Dynamics partition_seq_by_labels thm
-R6627:6649 ThieleMachine.SpacelandComplete Dynamics partition_seq_by_labels thm
-R6627:6649 ThieleMachine.SpacelandComplete Dynamics partition_seq_by_labels thm
-R6627:6649 ThieleMachine.SpacelandComplete Dynamics partition_seq_by_labels thm
-R6764:6779 ThieleMachine.SpacelandComplete Dynamics mu_seq_by_labels thm
-R6764:6779 ThieleMachine.SpacelandComplete Dynamics mu_seq_by_labels thm
-R6764:6779 ThieleMachine.SpacelandComplete Dynamics mu_seq_by_labels thm
-R6805:6820 ThieleMachine.SpacelandComplete Dynamics mu_seq_by_labels thm
-R6805:6820 ThieleMachine.SpacelandComplete Dynamics mu_seq_by_labels thm
-R6805:6820 ThieleMachine.SpacelandComplete Dynamics mu_seq_by_labels thm
-prf 7095:7125 Dynamics partition_determines_observable
-binder 7136:7137 <> s1:80
-binder 7139:7140 <> s2:81
-R7163:7170 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7153:7156 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R7147:7149 Coq.Init.Datatypes <> fst def
-R7151:7152 ThieleMachine.SpacelandComplete <> s1:80 var
-R7157:7159 Coq.Init.Datatypes <> fst def
-R7161:7162 ThieleMachine.SpacelandComplete <> s2:81 var
-binder 7178:7179 <> t1:82
-binder 7181:7182 <> t2:83
-R7205:7208 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7191:7201 ThieleMachine.SpacelandComplete Dynamics valid_trace def
-R7203:7204 ThieleMachine.SpacelandComplete <> t1:82 var
-R7223:7232 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7209:7219 ThieleMachine.SpacelandComplete Dynamics valid_trace def
-R7221:7222 ThieleMachine.SpacelandComplete <> t2:83 var
-R7251:7260 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7246:7248 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7233:7242 ThieleMachine.SpacelandComplete Dynamics trace_init def
-R7244:7245 ThieleMachine.SpacelandComplete <> t1:82 var
-R7249:7250 ThieleMachine.SpacelandComplete <> s1:80 var
-R7279:7288 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7274:7276 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7261:7270 ThieleMachine.SpacelandComplete Dynamics trace_init def
-R7272:7273 ThieleMachine.SpacelandComplete <> t2:83 var
-R7277:7278 ThieleMachine.SpacelandComplete <> s2:81 var
-R7305:7308 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R7289:7301 ThieleMachine.SpacelandComplete Dynamics partition_seq def
-R7303:7304 ThieleMachine.SpacelandComplete <> t1:82 var
-R7309:7321 ThieleMachine.SpacelandComplete Dynamics partition_seq def
-R7323:7324 ThieleMachine.SpacelandComplete <> t2:83 var
-prf 8094:8107 Dynamics split_costs_mu
-binder 8118:8118 <> p:84
-binder 8120:8121 <> mu:85
-binder 8123:8123 <> i:86
-R8139:8139 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8141:8142 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8145:8145 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8140:8140 ThieleMachine.SpacelandComplete <> p:84 var
-R8143:8144 ThieleMachine.SpacelandComplete <> mu:85 var
-binder 8134:8134 <> s:87
-R8164:8164 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8181:8182 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8193:8193 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8165:8176 ThieleMachine.SpacelandComplete SimpleSpaceland split_module def
-R8178:8178 ThieleMachine.SpacelandComplete <> p:84 var
-R8180:8180 ThieleMachine.SpacelandComplete <> i:86 var
-R8186:8188 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R8184:8185 ThieleMachine.SpacelandComplete <> mu:85 var
-binder 8158:8159 <> s':88
-R8222:8229 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R8202:8205 ThieleMachine.SpacelandComplete SimpleSpaceland step ind
-R8207:8207 ThieleMachine.SpacelandComplete <> s:87 var
-R8210:8215 ThieleMachine.SpacelandComplete SimpleSpaceland LSplit constr
-R8217:8217 ThieleMachine.SpacelandComplete <> i:86 var
-R8220:8221 ThieleMachine.SpacelandComplete <> s':88 var
-R8253:8255 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8230:8236 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
-R8238:8238 ThieleMachine.SpacelandComplete <> s:87 var
-R8241:8246 ThieleMachine.SpacelandComplete SimpleSpaceland LSplit constr
-R8248:8248 ThieleMachine.SpacelandComplete <> i:86 var
-R8251:8252 ThieleMachine.SpacelandComplete <> s':88 var
-R8328:8334 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
-prf 8415:8427 Dynamics blind_is_free
-binder 8438:8438 <> p:89
-binder 8440:8441 <> mu:90
-R8457:8457 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8459:8460 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8463:8463 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8458:8458 ThieleMachine.SpacelandComplete <> p:89 var
-R8461:8462 ThieleMachine.SpacelandComplete <> mu:90 var
-binder 8452:8452 <> s:91
-R8482:8482 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8484:8485 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8488:8488 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8483:8483 ThieleMachine.SpacelandComplete <> p:89 var
-R8486:8487 ThieleMachine.SpacelandComplete <> mu:90 var
-binder 8476:8477 <> s':92
-R8515:8522 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R8497:8500 ThieleMachine.SpacelandComplete SimpleSpaceland step ind
-R8502:8502 ThieleMachine.SpacelandComplete <> s:91 var
-R8504:8511 ThieleMachine.SpacelandComplete SimpleSpaceland LCompute constr
-R8513:8514 ThieleMachine.SpacelandComplete <> s':92 var
-R8544:8546 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8523:8529 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
-R8531:8531 ThieleMachine.SpacelandComplete <> s:91 var
-R8533:8540 ThieleMachine.SpacelandComplete SimpleSpaceland LCompute constr
-R8542:8543 ThieleMachine.SpacelandComplete <> s':92 var
-R8619:8625 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
-prf 8718:8740 Dynamics mu_observable_in_splits
-binder 8751:8752 <> p1:93
-binder 8754:8755 <> p2:94
-binder 8757:8758 <> mu:95
-R8773:8780 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8767:8770 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R8765:8766 ThieleMachine.SpacelandComplete <> p1:93 var
-R8771:8772 ThieleMachine.SpacelandComplete <> p2:94 var
-R8791:8791 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8794:8795 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8798:8798 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8792:8793 ThieleMachine.SpacelandComplete <> p1:93 var
-R8796:8797 ThieleMachine.SpacelandComplete <> mu:95 var
-binder 8785:8786 <> s1:96
-R8817:8817 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8820:8821 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8824:8824 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8818:8819 ThieleMachine.SpacelandComplete <> p2:94 var
-R8822:8823 ThieleMachine.SpacelandComplete <> mu:95 var
-binder 8811:8812 <> s2:97
-R8844:8844 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8862:8863 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8874:8874 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8845:8856 ThieleMachine.SpacelandComplete SimpleSpaceland split_module def
-R8858:8859 ThieleMachine.SpacelandComplete <> p1:93 var
-R8867:8869 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R8865:8866 ThieleMachine.SpacelandComplete <> mu:95 var
-binder 8837:8839 <> s1':98
-R8894:8894 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8912:8913 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8924:8924 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8895:8906 ThieleMachine.SpacelandComplete SimpleSpaceland split_module def
-R8908:8909 ThieleMachine.SpacelandComplete <> p2:94 var
-R8917:8919 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R8915:8916 ThieleMachine.SpacelandComplete <> mu:95 var
-binder 8887:8889 <> s2':99
-R8943:8947 ThieleMachine.SpacelandComplete Dynamics TCons constr
-R8949:8950 ThieleMachine.SpacelandComplete <> s1:96 var
-R8953:8958 ThieleMachine.SpacelandComplete SimpleSpaceland LSplit constr
-R8964:8967 ThieleMachine.SpacelandComplete Dynamics TNil constr
-R8969:8971 ThieleMachine.SpacelandComplete <> s1':98 var
-binder 8937:8938 <> t1:100
-R8991:8995 ThieleMachine.SpacelandComplete Dynamics TCons constr
-R8997:8998 ThieleMachine.SpacelandComplete <> s2:97 var
-R9001:9006 ThieleMachine.SpacelandComplete SimpleSpaceland LSplit constr
-R9012:9015 ThieleMachine.SpacelandComplete Dynamics TNil constr
-R9017:9019 ThieleMachine.SpacelandComplete <> s2':99 var
-binder 8985:8986 <> t2:101
-R9043:9046 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9029:9039 ThieleMachine.SpacelandComplete Dynamics valid_trace def
-R9041:9042 ThieleMachine.SpacelandComplete <> t1:100 var
-R9061:9068 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9047:9057 ThieleMachine.SpacelandComplete Dynamics valid_trace def
-R9059:9060 ThieleMachine.SpacelandComplete <> t2:101 var
-R9086:9089 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9078:9080 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9069:9074 ThieleMachine.SpacelandComplete Dynamics mu_seq def
-R9076:9077 ThieleMachine.SpacelandComplete <> t1:100 var
-R9081:9081 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R9085:9085 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R9099:9101 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9090:9095 ThieleMachine.SpacelandComplete Dynamics mu_seq def
-R9097:9098 ThieleMachine.SpacelandComplete <> t2:101 var
-R9102:9102 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R9106:9106 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R9265:9270 ThieleMachine.SpacelandComplete Dynamics mu_seq def
-R9273:9279 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
-R9316:9321 ThieleMachine.SpacelandComplete Dynamics mu_seq def
-R9324:9330 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
-R9366:9373 ThieleMachine.SpacelandComplete Dynamics <> mod
-mod 9575:9598 <> ObservationalEquivalence
-R9610:9624 ThieleMachine.SpacelandComplete SimpleSpaceland <> mod
-R9626:9633 ThieleMachine.SpacelandComplete Dynamics <> mod
-def 9771:9779 ObservationalEquivalence obs_equiv
-R9790:9794 ThieleMachine.SpacelandComplete SimpleSpaceland State def
-binder 9782:9783 <> s1:102
-binder 9785:9786 <> s2:103
-binder 9818:9819 <> t1:104
-R9842:9851 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9828:9838 ThieleMachine.SpacelandComplete Dynamics valid_trace def
-R9840:9841 ThieleMachine.SpacelandComplete <> t1:104 var
-R9870:9879 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9865:9867 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9852:9861 ThieleMachine.SpacelandComplete Dynamics trace_init def
-R9863:9864 ThieleMachine.SpacelandComplete <> t1:104 var
-R9868:9869 ThieleMachine.SpacelandComplete <> s1:102 var
-R9880:9886 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R9889:9898 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 9887:9888 <> t2:105
-R9913:9924 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9899:9909 ThieleMachine.SpacelandComplete Dynamics valid_trace def
-R9911:9912 ThieleMachine.SpacelandComplete <> t2:105 var
-R9943:9954 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9938:9940 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9925:9934 ThieleMachine.SpacelandComplete Dynamics trace_init def
-R9936:9937 ThieleMachine.SpacelandComplete <> t2:105 var
-R9941:9942 ThieleMachine.SpacelandComplete <> s2:103 var
-R9968:9970 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9955:9964 ThieleMachine.SpacelandComplete Dynamics observable def
-R9966:9967 ThieleMachine.SpacelandComplete <> t1:104 var
-R9971:9980 ThieleMachine.SpacelandComplete Dynamics observable def
-R9982:9983 ThieleMachine.SpacelandComplete <> t2:105 var
-def 10046:10056 ObservationalEquivalence shift_trace
-R10063:10067 ThieleMachine.SpacelandComplete Dynamics Trace ind
-binder 10059:10059 <> t:106
-R10075:10075 Coq.Numbers.BinNums <> Z ind
-binder 10071:10071 <> k:107
-R10080:10084 ThieleMachine.SpacelandComplete Dynamics Trace ind
-R10099:10099 ThieleMachine.SpacelandComplete <> t:106 var
-R10112:10115 ThieleMachine.SpacelandComplete Dynamics TNil constr
-R10117:10117 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10119:10120 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10122:10122 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10127:10130 ThieleMachine.SpacelandComplete Dynamics TNil constr
-R10132:10132 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10134:10135 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10145:10145 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10138:10140 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R10141:10141 ThieleMachine.SpacelandComplete <> k:107 var
-R10153:10157 ThieleMachine.SpacelandComplete Dynamics TCons constr
-R10159:10159 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10161:10162 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10164:10164 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10174:10178 ThieleMachine.SpacelandComplete Dynamics TCons constr
-R10180:10180 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10182:10183 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10193:10193 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10186:10188 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R10189:10189 ThieleMachine.SpacelandComplete <> k:107 var
-R10198:10208 ThieleMachine.SpacelandComplete <> shift_trace:108 def
-R10213:10213 ThieleMachine.SpacelandComplete <> k:107 var
-prf 10279:10288 ObservationalEquivalence step_shift
-binder 10299:10299 <> p:110
-binder 10301:10301 <> m:111
-binder 10303:10303 <> l:112
-binder 10305:10306 <> p':113
-binder 10308:10309 <> m':114
-binder 10311:10311 <> k:115
-R10340:10347 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10318:10321 ThieleMachine.SpacelandComplete SimpleSpaceland step ind
-R10323:10323 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10325:10326 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10328:10328 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10324:10324 ThieleMachine.SpacelandComplete <> p:110 var
-R10327:10327 ThieleMachine.SpacelandComplete <> m:111 var
-R10330:10330 ThieleMachine.SpacelandComplete <> l:112 var
-R10332:10332 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10335:10336 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10339:10339 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10333:10334 ThieleMachine.SpacelandComplete <> p':113 var
-R10337:10338 ThieleMachine.SpacelandComplete <> m':114 var
-R10348:10351 ThieleMachine.SpacelandComplete SimpleSpaceland step ind
-R10353:10353 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10355:10356 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10366:10366 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10354:10354 ThieleMachine.SpacelandComplete <> p:110 var
-R10359:10361 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R10358:10358 ThieleMachine.SpacelandComplete <> m:111 var
-R10362:10362 ThieleMachine.SpacelandComplete <> k:115 var
-R10368:10368 ThieleMachine.SpacelandComplete <> l:112 var
-R10370:10370 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10373:10374 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10385:10385 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10371:10372 ThieleMachine.SpacelandComplete <> p':113 var
-R10378:10380 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R10376:10377 ThieleMachine.SpacelandComplete <> m':114 var
-R10381:10381 ThieleMachine.SpacelandComplete <> k:115 var
-R10468:10470 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R10464:10466 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R10487:10489 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R10483:10485 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R10468:10470 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R10464:10466 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R10487:10489 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R10483:10485 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-prf 10590:10606 ObservationalEquivalence shift_trace_valid
-binder 10617:10617 <> t:116
-binder 10619:10619 <> k:117
-R10639:10642 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10626:10636 ThieleMachine.SpacelandComplete Dynamics valid_trace def
-R10638:10638 ThieleMachine.SpacelandComplete <> t:116 var
-R10643:10653 ThieleMachine.SpacelandComplete Dynamics valid_trace def
-R10656:10666 ThieleMachine.SpacelandComplete ObservationalEquivalence shift_trace def
-R10668:10668 ThieleMachine.SpacelandComplete <> t:116 var
-R10670:10670 ThieleMachine.SpacelandComplete <> k:117 var
-R10873:10882 ThieleMachine.SpacelandComplete ObservationalEquivalence step_shift thm
-R10873:10882 ThieleMachine.SpacelandComplete ObservationalEquivalence step_shift thm
-R11005:11014 ThieleMachine.SpacelandComplete ObservationalEquivalence step_shift thm
-R11005:11014 ThieleMachine.SpacelandComplete ObservationalEquivalence step_shift thm
-prf 11150:11165 ObservationalEquivalence shift_trace_init
-binder 11176:11176 <> t:118
-binder 11178:11178 <> k:119
-R11213:11220 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11185:11194 ThieleMachine.SpacelandComplete Dynamics trace_init def
-R11197:11207 ThieleMachine.SpacelandComplete ObservationalEquivalence shift_trace def
-R11209:11209 ThieleMachine.SpacelandComplete <> t:118 var
-R11211:11211 ThieleMachine.SpacelandComplete <> k:119 var
-R11235:11244 ThieleMachine.SpacelandComplete Dynamics trace_init def
-R11246:11246 ThieleMachine.SpacelandComplete <> t:118 var
-binder 11226:11226 <> p:120
-binder 11229:11229 <> m:121
-R11251:11251 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11253:11254 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11264:11264 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11252:11252 ThieleMachine.SpacelandComplete <> p:120 var
-R11257:11259 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R11256:11256 ThieleMachine.SpacelandComplete <> m:121 var
-R11260:11260 ThieleMachine.SpacelandComplete <> k:119 var
-prf 11405:11426 ObservationalEquivalence shift_trace_observable
-binder 11437:11437 <> t:122
-binder 11439:11439 <> k:123
-R11459:11466 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11446:11456 ThieleMachine.SpacelandComplete Dynamics valid_trace def
-R11458:11458 ThieleMachine.SpacelandComplete <> t:122 var
-R11495:11497 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11467:11476 ThieleMachine.SpacelandComplete Dynamics observable def
-R11479:11489 ThieleMachine.SpacelandComplete ObservationalEquivalence shift_trace def
-R11491:11491 ThieleMachine.SpacelandComplete <> t:122 var
-R11493:11493 ThieleMachine.SpacelandComplete <> k:123 var
-R11498:11507 ThieleMachine.SpacelandComplete Dynamics observable def
-R11509:11509 ThieleMachine.SpacelandComplete <> t:122 var
-R11551:11560 ThieleMachine.SpacelandComplete Dynamics observable def
-R12182:12188 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
-R12236:12242 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
-R12383:12389 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
-R12424:12430 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
-prf 12845:12863 ObservationalEquivalence obs_equiv_iff_gauge
-binder 12874:12875 <> s1:124
-binder 12877:12878 <> s2:125
-R12900:12909 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R12962:12962 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R12885:12893 ThieleMachine.SpacelandComplete ObservationalEquivalence obs_equiv def
-R12895:12896 ThieleMachine.SpacelandComplete <> s1:124 var
-R12898:12899 ThieleMachine.SpacelandComplete <> s2:125 var
-R12925:12928 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R12916:12918 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12910:12912 Coq.Init.Datatypes <> fst def
-R12914:12915 ThieleMachine.SpacelandComplete <> s1:124 var
-R12919:12921 Coq.Init.Datatypes <> fst def
-R12923:12924 ThieleMachine.SpacelandComplete <> s2:125 var
-R12929:12935 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R12937:12938 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 12936:12936 <> k:126
-R12945:12947 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12939:12941 Coq.Init.Datatypes <> snd def
-R12943:12944 ThieleMachine.SpacelandComplete <> s2:125 var
-R12955:12957 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R12949:12951 Coq.Init.Datatypes <> snd def
-R12953:12954 ThieleMachine.SpacelandComplete <> s1:124 var
-R12958:12958 ThieleMachine.SpacelandComplete <> k:126 var
-R13103:13111 ThieleMachine.SpacelandComplete ObservationalEquivalence obs_equiv def
-R13214:13224 Coq.Lists.List <> list_eq_dec thm
-R13227:13237 Coq.Lists.List <> list_eq_dec thm
-R13239:13248 Coq.Arith.PeanoNat Nat eq_dec thm
-R13214:13224 Coq.Lists.List <> list_eq_dec thm
-R13227:13237 Coq.Lists.List <> list_eq_dec thm
-R13239:13248 Coq.Arith.PeanoNat Nat eq_dec thm
-R13337:13339 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
-R13337:13339 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
-R13441:13444 ThieleMachine.SpacelandComplete Dynamics TNil constr
-R13446:13446 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R13449:13450 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R13453:13453 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R13441:13444 ThieleMachine.SpacelandComplete Dynamics TNil constr
-R13446:13446 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R13449:13450 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R13453:13453 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R13479:13489 ThieleMachine.SpacelandComplete Dynamics valid_trace def
-R13492:13495 ThieleMachine.SpacelandComplete Dynamics TNil constr
-R13497:13497 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R13500:13501 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R13504:13504 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R13479:13489 ThieleMachine.SpacelandComplete Dynamics valid_trace def
-R13492:13495 ThieleMachine.SpacelandComplete Dynamics TNil constr
-R13497:13497 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R13500:13501 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R13504:13504 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R13571:13573 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13545:13554 ThieleMachine.SpacelandComplete Dynamics trace_init def
-R13557:13560 ThieleMachine.SpacelandComplete Dynamics TNil constr
-R13562:13562 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R13565:13566 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R13569:13569 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R13574:13574 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R13577:13578 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R13581:13581 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R13571:13573 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13545:13554 ThieleMachine.SpacelandComplete Dynamics trace_init def
-R13557:13560 ThieleMachine.SpacelandComplete Dynamics TNil constr
-R13562:13562 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R13565:13566 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R13569:13569 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R13574:13574 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R13577:13578 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R13581:13581 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R13758:13767 ThieleMachine.SpacelandComplete Dynamics observable def
-R13868:13877 ThieleMachine.SpacelandComplete Dynamics observable def
-R14056:14064 ThieleMachine.SpacelandComplete ObservationalEquivalence obs_equiv def
-R14164:14174 ThieleMachine.SpacelandComplete ObservationalEquivalence shift_trace def
-R14164:14174 ThieleMachine.SpacelandComplete ObservationalEquivalence shift_trace def
-R14217:14233 ThieleMachine.SpacelandComplete ObservationalEquivalence shift_trace_valid thm
-R14217:14233 ThieleMachine.SpacelandComplete ObservationalEquivalence shift_trace_valid thm
-R14264:14279 ThieleMachine.SpacelandComplete ObservationalEquivalence shift_trace_init thm
-R14264:14279 ThieleMachine.SpacelandComplete ObservationalEquivalence shift_trace_init thm
-R14264:14279 ThieleMachine.SpacelandComplete ObservationalEquivalence shift_trace_init thm
-R14324:14345 ThieleMachine.SpacelandComplete ObservationalEquivalence shift_trace_observable thm
-R14324:14345 ThieleMachine.SpacelandComplete ObservationalEquivalence shift_trace_observable thm
-R14324:14345 ThieleMachine.SpacelandComplete ObservationalEquivalence shift_trace_observable thm
-R14324:14345 ThieleMachine.SpacelandComplete ObservationalEquivalence shift_trace_observable thm
-prf 14868:14889 ObservationalEquivalence representation_theorem
-binder 14900:14901 <> s1:127
-binder 14903:14904 <> s2:128
-R14926:14933 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14911:14919 ThieleMachine.SpacelandComplete ObservationalEquivalence obs_equiv def
-R14921:14922 ThieleMachine.SpacelandComplete <> s1:127 var
-R14924:14925 ThieleMachine.SpacelandComplete <> s2:128 var
-R14940:14942 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14934:14936 Coq.Init.Datatypes <> fst def
-R14938:14939 ThieleMachine.SpacelandComplete <> s1:127 var
-R14943:14945 Coq.Init.Datatypes <> fst def
-R14947:14948 ThieleMachine.SpacelandComplete <> s2:128 var
-R15023:15041 ThieleMachine.SpacelandComplete ObservationalEquivalence obs_equiv_iff_gauge thm
-R15023:15041 ThieleMachine.SpacelandComplete ObservationalEquivalence obs_equiv_iff_gauge thm
-prf 15157:15169 ObservationalEquivalence mu_gauge_only
-binder 15180:15181 <> s1:129
-binder 15183:15184 <> s2:130
-R15206:15213 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15191:15199 ThieleMachine.SpacelandComplete ObservationalEquivalence obs_equiv def
-R15201:15202 ThieleMachine.SpacelandComplete <> s1:129 var
-R15204:15205 ThieleMachine.SpacelandComplete <> s2:130 var
-R15214:15220 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R15222:15223 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 15221:15221 <> k:131
-R15230:15232 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15224:15226 Coq.Init.Datatypes <> snd def
-R15228:15229 ThieleMachine.SpacelandComplete <> s2:130 var
-R15240:15242 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R15234:15236 Coq.Init.Datatypes <> snd def
-R15238:15239 ThieleMachine.SpacelandComplete <> s1:129 var
-R15243:15243 ThieleMachine.SpacelandComplete <> k:131 var
-R15320:15338 ThieleMachine.SpacelandComplete ObservationalEquivalence obs_equiv_iff_gauge thm
-R15320:15338 ThieleMachine.SpacelandComplete ObservationalEquivalence obs_equiv_iff_gauge thm
-R15397:15420 ThieleMachine.SpacelandComplete ObservationalEquivalence <> mod
+R3959:3961 Coq.Init.Datatypes <> fst def
+R3968:3980 ThieleMachine.SpacelandComplete <> partition_seq:56 def
+def 4008:4013 Dynamics mu_seq
+R4020:4024 ThieleMachine.SpacelandComplete Dynamics Trace ind
+binder 4016:4016 <> t:58
+R4029:4032 Coq.Init.Datatypes <> list ind
+R4034:4034 Coq.Numbers.BinNums <> Z ind
+R4049:4049 ThieleMachine.SpacelandComplete <> t:58 var
+R4062:4065 ThieleMachine.SpacelandComplete Dynamics TNil constr
+R4072:4073 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4081:4085 ThieleMachine.SpacelandComplete Dynamics TCons constr
+R4092:4095 ThieleMachine.SpacelandComplete Dynamics TNil constr
+R4104:4104 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4119:4119 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4105:4111 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
+R4127:4131 ThieleMachine.SpacelandComplete Dynamics TCons constr
+R4139:4143 ThieleMachine.SpacelandComplete Dynamics TCons constr
+R4177:4180 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4163:4169 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
+R4181:4186 ThieleMachine.SpacelandComplete <> mu_seq:59 def
+def 4216:4225 Dynamics observable
+R4232:4236 ThieleMachine.SpacelandComplete Dynamics Trace ind
+binder 4228:4228 <> t:61
+R4242:4242 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4258:4259 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4268:4268 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4243:4255 ThieleMachine.SpacelandComplete Dynamics partition_seq def
+R4257:4257 ThieleMachine.SpacelandComplete <> t:61 var
+R4260:4265 ThieleMachine.SpacelandComplete Dynamics mu_seq def
+R4267:4267 ThieleMachine.SpacelandComplete <> t:61 var
+prf 4331:4346 Dynamics valid_trace_cons
+binder 4357:4357 <> s:62
+binder 4359:4359 <> l:63
+binder 4361:4362 <> t':64
+R4395:4398 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4369:4379 ThieleMachine.SpacelandComplete Dynamics valid_trace def
+R4382:4386 ThieleMachine.SpacelandComplete Dynamics TCons constr
+R4388:4388 ThieleMachine.SpacelandComplete <> s:62 var
+R4390:4390 ThieleMachine.SpacelandComplete <> l:63 var
+R4392:4393 ThieleMachine.SpacelandComplete <> t':64 var
+R4423:4426 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4399:4402 ThieleMachine.SpacelandComplete SimpleSpaceland step ind
+R4404:4404 ThieleMachine.SpacelandComplete <> s:62 var
+R4406:4406 ThieleMachine.SpacelandComplete <> l:63 var
+R4409:4418 ThieleMachine.SpacelandComplete Dynamics trace_init def
+R4420:4421 ThieleMachine.SpacelandComplete <> t':64 var
+R4427:4437 ThieleMachine.SpacelandComplete Dynamics valid_trace def
+R4439:4440 ThieleMachine.SpacelandComplete <> t':64 var
+R4557:4557 Coq.Init.Logic <> I constr
+R4557:4557 Coq.Init.Logic <> I constr
+prf 4636:4643 Dynamics step_fst
+binder 4654:4654 <> s:65
+binder 4656:4656 <> l:66
+binder 4658:4659 <> s':67
+R4677:4680 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4666:4669 ThieleMachine.SpacelandComplete SimpleSpaceland step ind
+R4671:4671 ThieleMachine.SpacelandComplete <> s:65 var
+R4673:4673 ThieleMachine.SpacelandComplete <> l:66 var
+R4675:4676 ThieleMachine.SpacelandComplete <> s':67 var
+R4687:4689 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4681:4683 Coq.Init.Datatypes <> fst def
+R4685:4686 ThieleMachine.SpacelandComplete <> s':67 var
+R4690:4703 ThieleMachine.SpacelandComplete Dynamics next_partition def
+R4706:4708 Coq.Init.Datatypes <> fst def
+R4710:4710 ThieleMachine.SpacelandComplete <> s:65 var
+R4713:4713 ThieleMachine.SpacelandComplete <> l:66 var
+prf 4873:4881 Dynamics step_cost
+binder 4892:4892 <> s:68
+binder 4894:4894 <> l:69
+binder 4896:4897 <> s':70
+R4915:4918 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4904:4907 ThieleMachine.SpacelandComplete SimpleSpaceland step ind
+R4909:4909 ThieleMachine.SpacelandComplete <> s:68 var
+R4911:4911 ThieleMachine.SpacelandComplete <> l:69 var
+R4913:4914 ThieleMachine.SpacelandComplete <> s':70 var
+R4933:4935 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4919:4925 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
+R4927:4927 ThieleMachine.SpacelandComplete <> s:68 var
+R4929:4929 ThieleMachine.SpacelandComplete <> l:69 var
+R4931:4932 ThieleMachine.SpacelandComplete <> s':70 var
+R4936:4948 ThieleMachine.SpacelandComplete Dynamics cost_of_label def
+R4950:4950 ThieleMachine.SpacelandComplete <> l:69 var
+R5037:5043 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
+prf 5132:5154 Dynamics partition_seq_by_labels
+binder 5165:5165 <> t:71
+R5185:5188 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5172:5182 ThieleMachine.SpacelandComplete Dynamics valid_trace def
+R5184:5184 ThieleMachine.SpacelandComplete <> t:71 var
+R5204:5206 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5189:5201 ThieleMachine.SpacelandComplete Dynamics partition_seq def
+R5203:5203 ThieleMachine.SpacelandComplete <> t:71 var
+R5207:5221 ThieleMachine.SpacelandComplete Dynamics partitions_from def
+R5224:5226 Coq.Init.Datatypes <> fst def
+R5229:5238 ThieleMachine.SpacelandComplete Dynamics trace_init def
+R5240:5240 ThieleMachine.SpacelandComplete <> t:71 var
+R5245:5250 ThieleMachine.SpacelandComplete Dynamics labels def
+R5252:5252 ThieleMachine.SpacelandComplete <> t:71 var
+R5365:5380 ThieleMachine.SpacelandComplete Dynamics valid_trace_cons thm
+R5365:5380 ThieleMachine.SpacelandComplete Dynamics valid_trace_cons thm
+R5448:5455 ThieleMachine.SpacelandComplete Dynamics step_fst thm
+R5448:5455 ThieleMachine.SpacelandComplete Dynamics step_fst thm
+R5448:5455 ThieleMachine.SpacelandComplete Dynamics step_fst thm
+prf 5557:5572 Dynamics mu_seq_by_labels
+binder 5583:5583 <> t:72
+R5603:5606 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5590:5600 ThieleMachine.SpacelandComplete Dynamics valid_trace def
+R5602:5602 ThieleMachine.SpacelandComplete <> t:72 var
+R5615:5617 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5607:5612 ThieleMachine.SpacelandComplete Dynamics mu_seq def
+R5614:5614 ThieleMachine.SpacelandComplete <> t:72 var
+R5618:5624 ThieleMachine.SpacelandComplete Dynamics mu_from def
+R5627:5632 ThieleMachine.SpacelandComplete Dynamics labels def
+R5634:5634 ThieleMachine.SpacelandComplete <> t:72 var
+R5799:5807 ThieleMachine.SpacelandComplete Dynamics step_cost thm
+R5799:5807 ThieleMachine.SpacelandComplete Dynamics step_cost thm
+R5799:5807 ThieleMachine.SpacelandComplete Dynamics step_cost thm
+R5886:5894 ThieleMachine.SpacelandComplete Dynamics step_cost thm
+R5886:5894 ThieleMachine.SpacelandComplete Dynamics step_cost thm
+R5886:5894 ThieleMachine.SpacelandComplete Dynamics step_cost thm
+prf 6267:6292 Dynamics mu_gauge_freedom_multistep
+binder 6303:6303 <> p:73
+binder 6305:6307 <> mu1:74
+binder 6309:6311 <> mu2:75
+binder 6313:6314 <> t1:76
+binder 6316:6317 <> t2:77
+R6334:6334 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6336:6337 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6341:6341 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6335:6335 ThieleMachine.SpacelandComplete <> p:73 var
+R6338:6340 ThieleMachine.SpacelandComplete <> mu1:74 var
+binder 6328:6329 <> s1:78
+R6360:6360 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6362:6363 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6367:6367 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6361:6361 ThieleMachine.SpacelandComplete <> p:73 var
+R6364:6366 ThieleMachine.SpacelandComplete <> mu2:75 var
+binder 6354:6355 <> s2:79
+R6390:6393 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6376:6386 ThieleMachine.SpacelandComplete Dynamics valid_trace def
+R6388:6389 ThieleMachine.SpacelandComplete <> t1:76 var
+R6408:6415 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6394:6404 ThieleMachine.SpacelandComplete Dynamics valid_trace def
+R6406:6407 ThieleMachine.SpacelandComplete <> t2:77 var
+R6434:6441 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6429:6431 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6416:6425 ThieleMachine.SpacelandComplete Dynamics trace_init def
+R6427:6428 ThieleMachine.SpacelandComplete <> t1:76 var
+R6432:6433 ThieleMachine.SpacelandComplete <> s1:78 var
+R6460:6497 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6455:6457 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6442:6451 ThieleMachine.SpacelandComplete Dynamics trace_init def
+R6453:6454 ThieleMachine.SpacelandComplete <> t2:77 var
+R6458:6459 ThieleMachine.SpacelandComplete <> s2:79 var
+R6519:6587 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6507:6509 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6498:6503 ThieleMachine.SpacelandComplete Dynamics labels def
+R6505:6506 ThieleMachine.SpacelandComplete <> t1:76 var
+R6510:6515 ThieleMachine.SpacelandComplete Dynamics labels def
+R6517:6518 ThieleMachine.SpacelandComplete <> t2:77 var
+R6623:6630 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6604:6606 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6588:6600 ThieleMachine.SpacelandComplete Dynamics partition_seq def
+R6602:6603 ThieleMachine.SpacelandComplete <> t1:76 var
+R6607:6619 ThieleMachine.SpacelandComplete Dynamics partition_seq def
+R6621:6622 ThieleMachine.SpacelandComplete <> t2:77 var
+R6640:6642 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6631:6636 ThieleMachine.SpacelandComplete Dynamics mu_seq def
+R6638:6639 ThieleMachine.SpacelandComplete <> t2:77 var
+R6643:6648 ThieleMachine.SpacelandComplete Dynamics mu_seq def
+R6650:6651 ThieleMachine.SpacelandComplete <> t1:76 var
+R6792:6814 ThieleMachine.SpacelandComplete Dynamics partition_seq_by_labels thm
+R6792:6814 ThieleMachine.SpacelandComplete Dynamics partition_seq_by_labels thm
+R6792:6814 ThieleMachine.SpacelandComplete Dynamics partition_seq_by_labels thm
+R6840:6862 ThieleMachine.SpacelandComplete Dynamics partition_seq_by_labels thm
+R6840:6862 ThieleMachine.SpacelandComplete Dynamics partition_seq_by_labels thm
+R6840:6862 ThieleMachine.SpacelandComplete Dynamics partition_seq_by_labels thm
+R6977:6992 ThieleMachine.SpacelandComplete Dynamics mu_seq_by_labels thm
+R6977:6992 ThieleMachine.SpacelandComplete Dynamics mu_seq_by_labels thm
+R6977:6992 ThieleMachine.SpacelandComplete Dynamics mu_seq_by_labels thm
+R7018:7033 ThieleMachine.SpacelandComplete Dynamics mu_seq_by_labels thm
+R7018:7033 ThieleMachine.SpacelandComplete Dynamics mu_seq_by_labels thm
+R7018:7033 ThieleMachine.SpacelandComplete Dynamics mu_seq_by_labels thm
+prf 7308:7338 Dynamics partition_determines_observable
+binder 7349:7350 <> s1:80
+binder 7352:7353 <> s2:81
+R7376:7383 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7366:7369 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R7360:7362 Coq.Init.Datatypes <> fst def
+R7364:7365 ThieleMachine.SpacelandComplete <> s1:80 var
+R7370:7372 Coq.Init.Datatypes <> fst def
+R7374:7375 ThieleMachine.SpacelandComplete <> s2:81 var
+binder 7391:7392 <> t1:82
+binder 7394:7395 <> t2:83
+R7418:7421 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7404:7414 ThieleMachine.SpacelandComplete Dynamics valid_trace def
+R7416:7417 ThieleMachine.SpacelandComplete <> t1:82 var
+R7436:7445 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7422:7432 ThieleMachine.SpacelandComplete Dynamics valid_trace def
+R7434:7435 ThieleMachine.SpacelandComplete <> t2:83 var
+R7464:7473 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7459:7461 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7446:7455 ThieleMachine.SpacelandComplete Dynamics trace_init def
+R7457:7458 ThieleMachine.SpacelandComplete <> t1:82 var
+R7462:7463 ThieleMachine.SpacelandComplete <> s1:80 var
+R7492:7501 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7487:7489 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7474:7483 ThieleMachine.SpacelandComplete Dynamics trace_init def
+R7485:7486 ThieleMachine.SpacelandComplete <> t2:83 var
+R7490:7491 ThieleMachine.SpacelandComplete <> s2:81 var
+R7518:7521 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R7502:7514 ThieleMachine.SpacelandComplete Dynamics partition_seq def
+R7516:7517 ThieleMachine.SpacelandComplete <> t1:82 var
+R7522:7534 ThieleMachine.SpacelandComplete Dynamics partition_seq def
+R7536:7537 ThieleMachine.SpacelandComplete <> t2:83 var
+prf 8307:8320 Dynamics split_costs_mu
+binder 8331:8331 <> p:84
+binder 8333:8334 <> mu:85
+binder 8336:8336 <> i:86
+R8352:8352 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8354:8355 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8358:8358 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8353:8353 ThieleMachine.SpacelandComplete <> p:84 var
+R8356:8357 ThieleMachine.SpacelandComplete <> mu:85 var
+binder 8347:8347 <> s:87
+R8377:8377 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8394:8395 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8406:8406 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8378:8389 ThieleMachine.SpacelandComplete SimpleSpaceland split_module def
+R8391:8391 ThieleMachine.SpacelandComplete <> p:84 var
+R8393:8393 ThieleMachine.SpacelandComplete <> i:86 var
+R8399:8401 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R8397:8398 ThieleMachine.SpacelandComplete <> mu:85 var
+binder 8371:8372 <> s':88
+R8435:8442 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8415:8418 ThieleMachine.SpacelandComplete SimpleSpaceland step ind
+R8420:8420 ThieleMachine.SpacelandComplete <> s:87 var
+R8423:8428 ThieleMachine.SpacelandComplete SimpleSpaceland LSplit constr
+R8430:8430 ThieleMachine.SpacelandComplete <> i:86 var
+R8433:8434 ThieleMachine.SpacelandComplete <> s':88 var
+R8466:8468 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8443:8449 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
+R8451:8451 ThieleMachine.SpacelandComplete <> s:87 var
+R8454:8459 ThieleMachine.SpacelandComplete SimpleSpaceland LSplit constr
+R8461:8461 ThieleMachine.SpacelandComplete <> i:86 var
+R8464:8465 ThieleMachine.SpacelandComplete <> s':88 var
+R8541:8547 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
+prf 8628:8640 Dynamics blind_is_free
+binder 8651:8651 <> p:89
+binder 8653:8654 <> mu:90
+R8670:8670 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8672:8673 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8676:8676 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8671:8671 ThieleMachine.SpacelandComplete <> p:89 var
+R8674:8675 ThieleMachine.SpacelandComplete <> mu:90 var
+binder 8665:8665 <> s:91
+R8695:8695 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8697:8698 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8701:8701 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8696:8696 ThieleMachine.SpacelandComplete <> p:89 var
+R8699:8700 ThieleMachine.SpacelandComplete <> mu:90 var
+binder 8689:8690 <> s':92
+R8728:8735 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8710:8713 ThieleMachine.SpacelandComplete SimpleSpaceland step ind
+R8715:8715 ThieleMachine.SpacelandComplete <> s:91 var
+R8717:8724 ThieleMachine.SpacelandComplete SimpleSpaceland LCompute constr
+R8726:8727 ThieleMachine.SpacelandComplete <> s':92 var
+R8757:8759 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8736:8742 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
+R8744:8744 ThieleMachine.SpacelandComplete <> s:91 var
+R8746:8753 ThieleMachine.SpacelandComplete SimpleSpaceland LCompute constr
+R8755:8756 ThieleMachine.SpacelandComplete <> s':92 var
+R8832:8838 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
+prf 8931:8953 Dynamics mu_observable_in_splits
+binder 8964:8965 <> p1:93
+binder 8967:8968 <> p2:94
+binder 8970:8971 <> mu:95
+R8986:8993 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8980:8983 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R8978:8979 ThieleMachine.SpacelandComplete <> p1:93 var
+R8984:8985 ThieleMachine.SpacelandComplete <> p2:94 var
+R9004:9004 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9007:9008 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9011:9011 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9005:9006 ThieleMachine.SpacelandComplete <> p1:93 var
+R9009:9010 ThieleMachine.SpacelandComplete <> mu:95 var
+binder 8998:8999 <> s1:96
+R9030:9030 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9033:9034 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9037:9037 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9031:9032 ThieleMachine.SpacelandComplete <> p2:94 var
+R9035:9036 ThieleMachine.SpacelandComplete <> mu:95 var
+binder 9024:9025 <> s2:97
+R9057:9057 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9075:9076 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9087:9087 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9058:9069 ThieleMachine.SpacelandComplete SimpleSpaceland split_module def
+R9071:9072 ThieleMachine.SpacelandComplete <> p1:93 var
+R9080:9082 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R9078:9079 ThieleMachine.SpacelandComplete <> mu:95 var
+binder 9050:9052 <> s1':98
+R9107:9107 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9125:9126 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9137:9137 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9108:9119 ThieleMachine.SpacelandComplete SimpleSpaceland split_module def
+R9121:9122 ThieleMachine.SpacelandComplete <> p2:94 var
+R9130:9132 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R9128:9129 ThieleMachine.SpacelandComplete <> mu:95 var
+binder 9100:9102 <> s2':99
+R9156:9160 ThieleMachine.SpacelandComplete Dynamics TCons constr
+R9162:9163 ThieleMachine.SpacelandComplete <> s1:96 var
+R9166:9171 ThieleMachine.SpacelandComplete SimpleSpaceland LSplit constr
+R9177:9180 ThieleMachine.SpacelandComplete Dynamics TNil constr
+R9182:9184 ThieleMachine.SpacelandComplete <> s1':98 var
+binder 9150:9151 <> t1:100
+R9204:9208 ThieleMachine.SpacelandComplete Dynamics TCons constr
+R9210:9211 ThieleMachine.SpacelandComplete <> s2:97 var
+R9214:9219 ThieleMachine.SpacelandComplete SimpleSpaceland LSplit constr
+R9225:9228 ThieleMachine.SpacelandComplete Dynamics TNil constr
+R9230:9232 ThieleMachine.SpacelandComplete <> s2':99 var
+binder 9198:9199 <> t2:101
+R9256:9259 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9242:9252 ThieleMachine.SpacelandComplete Dynamics valid_trace def
+R9254:9255 ThieleMachine.SpacelandComplete <> t1:100 var
+R9274:9281 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9260:9270 ThieleMachine.SpacelandComplete Dynamics valid_trace def
+R9272:9273 ThieleMachine.SpacelandComplete <> t2:101 var
+R9299:9302 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9291:9293 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9282:9287 ThieleMachine.SpacelandComplete Dynamics mu_seq def
+R9289:9290 ThieleMachine.SpacelandComplete <> t1:100 var
+R9294:9294 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9298:9298 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9312:9314 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9303:9308 ThieleMachine.SpacelandComplete Dynamics mu_seq def
+R9310:9311 ThieleMachine.SpacelandComplete <> t2:101 var
+R9315:9315 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9319:9319 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9478:9483 ThieleMachine.SpacelandComplete Dynamics mu_seq def
+R9486:9492 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
+R9529:9534 ThieleMachine.SpacelandComplete Dynamics mu_seq def
+R9537:9543 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
+R9579:9586 ThieleMachine.SpacelandComplete Dynamics <> mod
+mod 9788:9811 <> ObservationalEquivalence
+R9823:9837 ThieleMachine.SpacelandComplete SimpleSpaceland <> mod
+R9839:9846 ThieleMachine.SpacelandComplete Dynamics <> mod
+def 9984:9992 ObservationalEquivalence obs_equiv
+R10003:10007 ThieleMachine.SpacelandComplete SimpleSpaceland State def
+binder 9995:9996 <> s1:102
+binder 9998:9999 <> s2:103
+binder 10031:10032 <> t1:104
+R10055:10064 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10041:10051 ThieleMachine.SpacelandComplete Dynamics valid_trace def
+R10053:10054 ThieleMachine.SpacelandComplete <> t1:104 var
+R10083:10092 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10078:10080 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10065:10074 ThieleMachine.SpacelandComplete Dynamics trace_init def
+R10076:10077 ThieleMachine.SpacelandComplete <> t1:104 var
+R10081:10082 ThieleMachine.SpacelandComplete <> s1:102 var
+R10093:10099 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10102:10111 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 10100:10101 <> t2:105
+R10126:10137 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10112:10122 ThieleMachine.SpacelandComplete Dynamics valid_trace def
+R10124:10125 ThieleMachine.SpacelandComplete <> t2:105 var
+R10156:10167 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10151:10153 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10138:10147 ThieleMachine.SpacelandComplete Dynamics trace_init def
+R10149:10150 ThieleMachine.SpacelandComplete <> t2:105 var
+R10154:10155 ThieleMachine.SpacelandComplete <> s2:103 var
+R10181:10183 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10168:10177 ThieleMachine.SpacelandComplete Dynamics observable def
+R10179:10180 ThieleMachine.SpacelandComplete <> t1:104 var
+R10184:10193 ThieleMachine.SpacelandComplete Dynamics observable def
+R10195:10196 ThieleMachine.SpacelandComplete <> t2:105 var
+def 10259:10269 ObservationalEquivalence shift_trace
+R10276:10280 ThieleMachine.SpacelandComplete Dynamics Trace ind
+binder 10272:10272 <> t:106
+R10288:10288 Coq.Numbers.BinNums <> Z ind
+binder 10284:10284 <> k:107
+R10293:10297 ThieleMachine.SpacelandComplete Dynamics Trace ind
+R10312:10312 ThieleMachine.SpacelandComplete <> t:106 var
+R10325:10328 ThieleMachine.SpacelandComplete Dynamics TNil constr
+R10330:10330 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10332:10333 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10335:10335 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10340:10343 ThieleMachine.SpacelandComplete Dynamics TNil constr
+R10345:10345 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10347:10348 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10358:10358 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10351:10353 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R10354:10354 ThieleMachine.SpacelandComplete <> k:107 var
+R10366:10370 ThieleMachine.SpacelandComplete Dynamics TCons constr
+R10372:10372 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10374:10375 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10377:10377 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10387:10391 ThieleMachine.SpacelandComplete Dynamics TCons constr
+R10393:10393 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10395:10396 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10406:10406 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10399:10401 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R10402:10402 ThieleMachine.SpacelandComplete <> k:107 var
+R10411:10421 ThieleMachine.SpacelandComplete <> shift_trace:108 def
+R10426:10426 ThieleMachine.SpacelandComplete <> k:107 var
+prf 10492:10501 ObservationalEquivalence step_shift
+binder 10512:10512 <> p:110
+binder 10514:10514 <> m:111
+binder 10516:10516 <> l:112
+binder 10518:10519 <> p':113
+binder 10521:10522 <> m':114
+binder 10524:10524 <> k:115
+R10553:10560 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10531:10534 ThieleMachine.SpacelandComplete SimpleSpaceland step ind
+R10536:10536 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10538:10539 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10541:10541 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10537:10537 ThieleMachine.SpacelandComplete <> p:110 var
+R10540:10540 ThieleMachine.SpacelandComplete <> m:111 var
+R10543:10543 ThieleMachine.SpacelandComplete <> l:112 var
+R10545:10545 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10548:10549 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10552:10552 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10546:10547 ThieleMachine.SpacelandComplete <> p':113 var
+R10550:10551 ThieleMachine.SpacelandComplete <> m':114 var
+R10561:10564 ThieleMachine.SpacelandComplete SimpleSpaceland step ind
+R10566:10566 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10568:10569 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10579:10579 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10567:10567 ThieleMachine.SpacelandComplete <> p:110 var
+R10572:10574 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R10571:10571 ThieleMachine.SpacelandComplete <> m:111 var
+R10575:10575 ThieleMachine.SpacelandComplete <> k:115 var
+R10581:10581 ThieleMachine.SpacelandComplete <> l:112 var
+R10583:10583 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10586:10587 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10598:10598 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10584:10585 ThieleMachine.SpacelandComplete <> p':113 var
+R10591:10593 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R10589:10590 ThieleMachine.SpacelandComplete <> m':114 var
+R10594:10594 ThieleMachine.SpacelandComplete <> k:115 var
+R10681:10683 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R10677:10679 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R10700:10702 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R10696:10698 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R10681:10683 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R10677:10679 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R10700:10702 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R10696:10698 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+prf 10803:10819 ObservationalEquivalence shift_trace_valid
+binder 10830:10830 <> t:116
+binder 10832:10832 <> k:117
+R10852:10855 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10839:10849 ThieleMachine.SpacelandComplete Dynamics valid_trace def
+R10851:10851 ThieleMachine.SpacelandComplete <> t:116 var
+R10856:10866 ThieleMachine.SpacelandComplete Dynamics valid_trace def
+R10869:10879 ThieleMachine.SpacelandComplete ObservationalEquivalence shift_trace def
+R10881:10881 ThieleMachine.SpacelandComplete <> t:116 var
+R10883:10883 ThieleMachine.SpacelandComplete <> k:117 var
+R11086:11095 ThieleMachine.SpacelandComplete ObservationalEquivalence step_shift thm
+R11086:11095 ThieleMachine.SpacelandComplete ObservationalEquivalence step_shift thm
+R11218:11227 ThieleMachine.SpacelandComplete ObservationalEquivalence step_shift thm
+R11218:11227 ThieleMachine.SpacelandComplete ObservationalEquivalence step_shift thm
+prf 11363:11378 ObservationalEquivalence shift_trace_init
+binder 11389:11389 <> t:118
+binder 11391:11391 <> k:119
+R11426:11433 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11398:11407 ThieleMachine.SpacelandComplete Dynamics trace_init def
+R11410:11420 ThieleMachine.SpacelandComplete ObservationalEquivalence shift_trace def
+R11422:11422 ThieleMachine.SpacelandComplete <> t:118 var
+R11424:11424 ThieleMachine.SpacelandComplete <> k:119 var
+R11448:11457 ThieleMachine.SpacelandComplete Dynamics trace_init def
+R11459:11459 ThieleMachine.SpacelandComplete <> t:118 var
+binder 11439:11439 <> p:120
+binder 11442:11442 <> m:121
+R11464:11464 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11466:11467 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11477:11477 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11465:11465 ThieleMachine.SpacelandComplete <> p:120 var
+R11470:11472 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R11469:11469 ThieleMachine.SpacelandComplete <> m:121 var
+R11473:11473 ThieleMachine.SpacelandComplete <> k:119 var
+prf 11618:11639 ObservationalEquivalence shift_trace_observable
+binder 11650:11650 <> t:122
+binder 11652:11652 <> k:123
+R11672:11679 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11659:11669 ThieleMachine.SpacelandComplete Dynamics valid_trace def
+R11671:11671 ThieleMachine.SpacelandComplete <> t:122 var
+R11708:11710 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11680:11689 ThieleMachine.SpacelandComplete Dynamics observable def
+R11692:11702 ThieleMachine.SpacelandComplete ObservationalEquivalence shift_trace def
+R11704:11704 ThieleMachine.SpacelandComplete <> t:122 var
+R11706:11706 ThieleMachine.SpacelandComplete <> k:123 var
+R11711:11720 ThieleMachine.SpacelandComplete Dynamics observable def
+R11722:11722 ThieleMachine.SpacelandComplete <> t:122 var
+R11764:11773 ThieleMachine.SpacelandComplete Dynamics observable def
+R12395:12401 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
+R12449:12455 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
+R12596:12602 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
+R12637:12643 ThieleMachine.SpacelandComplete SimpleSpaceland mu_cost def
+prf 13058:13076 ObservationalEquivalence obs_equiv_iff_gauge
+binder 13087:13088 <> s1:124
+binder 13090:13091 <> s2:125
+R13113:13122 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R13175:13175 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R13098:13106 ThieleMachine.SpacelandComplete ObservationalEquivalence obs_equiv def
+R13108:13109 ThieleMachine.SpacelandComplete <> s1:124 var
+R13111:13112 ThieleMachine.SpacelandComplete <> s2:125 var
+R13138:13141 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13129:13131 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13123:13125 Coq.Init.Datatypes <> fst def
+R13127:13128 ThieleMachine.SpacelandComplete <> s1:124 var
+R13132:13134 Coq.Init.Datatypes <> fst def
+R13136:13137 ThieleMachine.SpacelandComplete <> s2:125 var
+R13142:13148 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R13150:13151 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 13149:13149 <> k:126
+R13158:13160 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13152:13154 Coq.Init.Datatypes <> snd def
+R13156:13157 ThieleMachine.SpacelandComplete <> s2:125 var
+R13168:13170 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R13162:13164 Coq.Init.Datatypes <> snd def
+R13166:13167 ThieleMachine.SpacelandComplete <> s1:124 var
+R13171:13171 ThieleMachine.SpacelandComplete <> k:126 var
+R13316:13324 ThieleMachine.SpacelandComplete ObservationalEquivalence obs_equiv def
+R13427:13437 Coq.Lists.List <> list_eq_dec thm
+R13440:13450 Coq.Lists.List <> list_eq_dec thm
+R13452:13461 Coq.Arith.PeanoNat Nat eq_dec thm
+R13427:13437 Coq.Lists.List <> list_eq_dec thm
+R13440:13450 Coq.Lists.List <> list_eq_dec thm
+R13452:13461 Coq.Arith.PeanoNat Nat eq_dec thm
+R13550:13552 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R13550:13552 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R13654:13657 ThieleMachine.SpacelandComplete Dynamics TNil constr
+R13659:13659 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13662:13663 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13666:13666 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13654:13657 ThieleMachine.SpacelandComplete Dynamics TNil constr
+R13659:13659 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13662:13663 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13666:13666 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13692:13702 ThieleMachine.SpacelandComplete Dynamics valid_trace def
+R13705:13708 ThieleMachine.SpacelandComplete Dynamics TNil constr
+R13710:13710 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13713:13714 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13717:13717 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13692:13702 ThieleMachine.SpacelandComplete Dynamics valid_trace def
+R13705:13708 ThieleMachine.SpacelandComplete Dynamics TNil constr
+R13710:13710 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13713:13714 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13717:13717 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13784:13786 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13758:13767 ThieleMachine.SpacelandComplete Dynamics trace_init def
+R13770:13773 ThieleMachine.SpacelandComplete Dynamics TNil constr
+R13775:13775 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13778:13779 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13782:13782 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13787:13787 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13790:13791 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13794:13794 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13784:13786 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13758:13767 ThieleMachine.SpacelandComplete Dynamics trace_init def
+R13770:13773 ThieleMachine.SpacelandComplete Dynamics TNil constr
+R13775:13775 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13778:13779 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13782:13782 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13787:13787 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13790:13791 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13794:13794 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13971:13980 ThieleMachine.SpacelandComplete Dynamics observable def
+R14081:14090 ThieleMachine.SpacelandComplete Dynamics observable def
+R14269:14277 ThieleMachine.SpacelandComplete ObservationalEquivalence obs_equiv def
+R14377:14387 ThieleMachine.SpacelandComplete ObservationalEquivalence shift_trace def
+R14377:14387 ThieleMachine.SpacelandComplete ObservationalEquivalence shift_trace def
+R14430:14446 ThieleMachine.SpacelandComplete ObservationalEquivalence shift_trace_valid thm
+R14430:14446 ThieleMachine.SpacelandComplete ObservationalEquivalence shift_trace_valid thm
+R14477:14492 ThieleMachine.SpacelandComplete ObservationalEquivalence shift_trace_init thm
+R14477:14492 ThieleMachine.SpacelandComplete ObservationalEquivalence shift_trace_init thm
+R14477:14492 ThieleMachine.SpacelandComplete ObservationalEquivalence shift_trace_init thm
+R14537:14558 ThieleMachine.SpacelandComplete ObservationalEquivalence shift_trace_observable thm
+R14537:14558 ThieleMachine.SpacelandComplete ObservationalEquivalence shift_trace_observable thm
+R14537:14558 ThieleMachine.SpacelandComplete ObservationalEquivalence shift_trace_observable thm
+R14537:14558 ThieleMachine.SpacelandComplete ObservationalEquivalence shift_trace_observable thm
+prf 15081:15102 ObservationalEquivalence representation_theorem
+binder 15113:15114 <> s1:127
+binder 15116:15117 <> s2:128
+R15139:15146 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15124:15132 ThieleMachine.SpacelandComplete ObservationalEquivalence obs_equiv def
+R15134:15135 ThieleMachine.SpacelandComplete <> s1:127 var
+R15137:15138 ThieleMachine.SpacelandComplete <> s2:128 var
+R15153:15155 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15147:15149 Coq.Init.Datatypes <> fst def
+R15151:15152 ThieleMachine.SpacelandComplete <> s1:127 var
+R15156:15158 Coq.Init.Datatypes <> fst def
+R15160:15161 ThieleMachine.SpacelandComplete <> s2:128 var
+R15236:15254 ThieleMachine.SpacelandComplete ObservationalEquivalence obs_equiv_iff_gauge thm
+R15236:15254 ThieleMachine.SpacelandComplete ObservationalEquivalence obs_equiv_iff_gauge thm
+prf 15370:15382 ObservationalEquivalence mu_gauge_only
+binder 15393:15394 <> s1:129
+binder 15396:15397 <> s2:130
+R15419:15426 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15404:15412 ThieleMachine.SpacelandComplete ObservationalEquivalence obs_equiv def
+R15414:15415 ThieleMachine.SpacelandComplete <> s1:129 var
+R15417:15418 ThieleMachine.SpacelandComplete <> s2:130 var
+R15427:15433 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R15435:15436 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 15434:15434 <> k:131
+R15443:15445 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15437:15439 Coq.Init.Datatypes <> snd def
+R15441:15442 ThieleMachine.SpacelandComplete <> s2:130 var
+R15453:15455 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R15447:15449 Coq.Init.Datatypes <> snd def
+R15451:15452 ThieleMachine.SpacelandComplete <> s1:129 var
+R15456:15456 ThieleMachine.SpacelandComplete <> k:131 var
+R15533:15551 ThieleMachine.SpacelandComplete ObservationalEquivalence obs_equiv_iff_gauge thm
+R15533:15551 ThieleMachine.SpacelandComplete ObservationalEquivalence obs_equiv_iff_gauge thm
+R15610:15633 ThieleMachine.SpacelandComplete ObservationalEquivalence <> mod

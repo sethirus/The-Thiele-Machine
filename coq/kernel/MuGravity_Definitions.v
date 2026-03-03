@@ -3,6 +3,9 @@ Import ListNotations.
 
 From Kernel Require Import MuGravity.
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import MuCostModel.
+
 (** Layer 1: definitions and totality-facing helpers. *)
 
 Definition module_neighbors_physical_only := module_neighbors_physical.

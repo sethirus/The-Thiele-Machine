@@ -13,8 +13,12 @@ specification for key properties.
 import pytest
 from pathlib import Path
 
+from build.thiele_vm import run_vm, VMState
+
 REPO_ROOT = Path(__file__).parent.parent
 COQ_DIR = REPO_ROOT / "coq" / "thielemachine" / "coqproofs"
+EXTRACTED_RUNNER = REPO_ROOT / "build" / "extracted_vm_runner"
+EXTRACTED_IR = REPO_ROOT / "build" / "thiele_core.ml"
 
 
 class TestCoqSpecificationExists:
@@ -157,46 +161,97 @@ class TestOpcodeIsomorphism:
 
 class TestTMExecutionIsomorphism:
     """Test that Python VM execution matches Coq TM semantics for concrete cases."""
-    
+
     def test_simple_tm_increment(self):
         """Test a simple TM that increments a binary number."""
         from thielecpu.vm import VM
         from thielecpu.state import State
-        
+
         # This would require implementing a TM simulator in Python
         # For now, test that the VM can execute basic operations
         vm = VM(State())
-        
+
         # Test basic state setup
         assert vm.state.mu_ledger.total == 0
-        
+
         # Execute a simple program
         result, output = vm.execute_python("__result__ = 1 + 1")
         assert result == 2
-        
-        # Verify μ-cost was charged
+
+        # Verify mu-cost was charged
         assert vm.state.mu_ledger.total > 0
-    
+
     def test_tm_state_preservation(self):
         """Test that TM state is preserved correctly through operations."""
         from thielecpu.vm import VM
         from thielecpu.state import State
-        
+
         vm = VM(State())
-        
+
         # Create a partition (simulating TM state)
         m1 = vm.state.pnew({0, 1, 2})
-        
+
         # Verify state preservation
         assert m1 in vm.state.regions
         assert vm.state.regions[m1] == {0, 1, 2}
-        
+
         # Split the partition (simulating TM transition)
         m2, m3 = vm.state.psplit(m1, lambda x: x % 2 == 0)
-        
+
         # Verify split preserved total elements
         assert vm.state.regions[m2] | vm.state.regions[m3] == {0, 1, 2}
         assert vm.state.regions[m2] & vm.state.regions[m3] == set()
+
+
+class TestVMvsCoqExtractedExecution:
+    """Cross-layer tests: Python VM vs Coq-extracted runner (run_extracted path)."""
+
+    def test_pnew_vm_vs_extracted_runner(self):
+        """Python VM PNEW result must match Coq-extracted OCaml runner."""
+        from thielecpu.state import State
+
+        # Layer 1: Python VM execution via State()
+        state = State()
+        state.pnew({0, 1, 2}, charge_discovery=True)
+        py_mu = state.mu_ledger.total
+        py_modules = state.num_modules
+
+        # Layer 2: Coq-extracted runner via run_vm (delegates to extracted_vm_runner)
+        vm_state = run_vm(["PNEW {0,1,2} 3", "HALT 0"], fuel=256)
+
+        # Cross-layer assertions
+        assert py_mu == vm_state.mu, (
+            f"mu mismatch: Python VM={py_mu}, extracted={vm_state.mu}"
+        )
+        assert py_modules >= 1
+        assert len(vm_state.modules) >= 1
+
+    @pytest.mark.skipif(
+        not (Path(__file__).parent.parent / "build" / "extracted_vm_runner").exists(),
+        reason="Coq-extracted runner not built (build/extracted_vm_runner)",
+    )
+    def test_mu_monotonicity_cross_layer(self):
+        """mu-monotonicity holds in both Python VM and extracted runner."""
+        from thielecpu.state import State
+
+        # Layer 1: Python VM
+        state = State()
+        state.pnew({0}, charge_discovery=True)
+        mu_after_first = state.mu_ledger.total
+        state.pnew({1}, charge_discovery=True)
+        mu_after_second = state.mu_ledger.total
+        assert mu_after_second >= mu_after_first
+
+        # Layer 2: Coq-extracted runner (thiele_core extraction)
+        vm_state = run_vm(["PNEW {0} 1", "PNEW {1} 1", "HALT 0"], fuel=256)
+        assert vm_state.mu >= 2, "Extracted runner should accumulate mu for both PNEWs"
+
+    def test_extraction_ir_exists(self):
+        """Coq extraction IR (thiele_core.ml) must exist for isomorphism."""
+        assert EXTRACTED_IR.exists(), (
+            f"Missing Coq extraction IR: {EXTRACTED_IR}. "
+            "Build with: make -C coq Extraction.vo"
+        )
 
 
 if __name__ == "__main__":

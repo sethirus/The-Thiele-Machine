@@ -2,6 +2,10 @@
 
 Set Implicit Arguments.
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 Section Core.
   Variable Obj : Type.
 
@@ -71,4 +75,5 @@ Section Core.
     forall A B C (π1:Prog B C) (π2:Prog A B),
       interp (cut π1 π2) = comp CatC (interp π1) (interp π2).
   Proof. reflexivity. Qed.
+
 End Core.

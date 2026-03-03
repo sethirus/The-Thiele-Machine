@@ -1,4 +1,4 @@
-DIGEST 5fad33684a60eaa54d15ceaf51d2c5ab
+DIGEST 93f851a3f8bfaa2fa2eeed522a8fd83f
 FThieleUniversal.UTMStaticCheck
 R139:142 Coq.Lists.List <> <> lib
 R144:149 Coq.ZArith.ZArith <> <> lib
@@ -8,69 +8,76 @@ R196:204 ThieleUniversal.UTM_Rules <> <> lib
 R206:215 ThieleUniversal.UTM_Encode <> <> lib
 R217:227 ThieleUniversal.UTM_Program <> <> lib
 R264:271 ModularProofs.Encoding <> <> lib
-R282:294 Coq.Lists.List ListNotations <> mod
-def 309:332 <> rule_write_lt_base_check
-R365:367 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R359:361 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R353:355 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R347:349 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R344:346 Coq.Init.Datatypes <> nat ind
-R350:352 Coq.Init.Datatypes <> nat ind
-R356:358 Coq.Init.Datatypes <> nat ind
-R362:364 Coq.Init.Datatypes <> nat ind
-R368:368 Coq.Numbers.BinNums <> Z ind
-binder 337:340 <> rule:1
-R373:376 Coq.Init.Datatypes <> bool ind
-R411:414 ThieleUniversal.UTMStaticCheck <> rule:1 var
-R388:388 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R390:391 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R393:394 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R396:397 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R403:404 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R406:406 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R419:425 Coq.Arith.PeanoNat Nat ltb def
-R433:445 ModularProofs.Encoding <> BASE def
-def 460:481 <> rule_move_le_one_check
-R514:516 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R508:510 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R502:504 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R496:498 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R493:495 Coq.Init.Datatypes <> nat ind
-R499:501 Coq.Init.Datatypes <> nat ind
-R505:507 Coq.Init.Datatypes <> nat ind
-R511:513 Coq.Init.Datatypes <> nat ind
-R517:517 Coq.Numbers.BinNums <> Z ind
-binder 486:489 <> rule:3
-R522:525 Coq.Init.Datatypes <> bool ind
-R623:626 ThieleUniversal.UTMStaticCheck <> rule:3 var
-R601:601 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R603:604 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R606:607 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R609:610 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R612:613 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R618:618 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R631:635 Coq.ZArith.BinInt Z leb def
-R638:642 Coq.ZArith.BinInt Z abs def
-def 667:688 <> catalogue_static_check
-R696:697 ThieleUniversal.TM <> TM rec
-binder 691:692 <> tm:5
-R702:705 Coq.Init.Datatypes <> bool ind
-R799:804 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R747:752 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R712:718 Coq.Arith.PeanoNat Nat ltb def
-R721:728 ThieleUniversal.TM <> tm_blank proj
-R730:731 ThieleUniversal.UTMStaticCheck <> tm:5 var
-R734:746 ModularProofs.Encoding <> BASE def
-R753:759 Coq.Lists.List <> forallb def
-R787:794 ThieleUniversal.TM <> tm_rules proj
-R796:797 ThieleUniversal.UTMStaticCheck <> tm:5 var
-R761:784 ThieleUniversal.UTMStaticCheck <> rule_write_lt_base_check def
-R805:811 Coq.Lists.List <> forallb def
-R837:844 ThieleUniversal.TM <> tm_rules proj
-R846:847 ThieleUniversal.UTMStaticCheck <> tm:5 var
-R813:834 ThieleUniversal.UTMStaticCheck <> rule_move_le_one_check def
-prf 924:956 <> utm_catalogue_static_check_proved
-R991:993 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R962:983 ThieleUniversal.UTMStaticCheck <> catalogue_static_check def
-R985:990 ThieleUniversal.UTM_Rules <> utm_tm def
-R994:997 Coq.Init.Datatypes <> true constr
+R301:307 Kernel.VMState <> <> lib
+R318:330 Coq.Lists.List ListNotations <> mod
+def 345:368 <> rule_write_lt_base_check
+R401:403 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R395:397 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R389:391 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R383:385 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R380:382 Coq.Init.Datatypes <> nat ind
+R386:388 Coq.Init.Datatypes <> nat ind
+R392:394 Coq.Init.Datatypes <> nat ind
+R398:400 Coq.Init.Datatypes <> nat ind
+R404:404 Coq.Numbers.BinNums <> Z ind
+binder 373:376 <> rule:1
+R409:412 Coq.Init.Datatypes <> bool ind
+R447:450 ThieleUniversal.UTMStaticCheck <> rule:1 var
+R424:424 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R426:427 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R429:430 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R432:433 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R439:440 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R442:442 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R455:461 Coq.Arith.PeanoNat Nat ltb def
+R469:481 ModularProofs.Encoding <> BASE def
+def 496:517 <> rule_move_le_one_check
+R550:552 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R544:546 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R538:540 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R532:534 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R529:531 Coq.Init.Datatypes <> nat ind
+R535:537 Coq.Init.Datatypes <> nat ind
+R541:543 Coq.Init.Datatypes <> nat ind
+R547:549 Coq.Init.Datatypes <> nat ind
+R553:553 Coq.Numbers.BinNums <> Z ind
+binder 522:525 <> rule:3
+R558:561 Coq.Init.Datatypes <> bool ind
+R659:662 ThieleUniversal.UTMStaticCheck <> rule:3 var
+R637:637 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R639:640 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R642:643 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R645:646 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R648:649 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R654:654 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R667:671 Coq.ZArith.BinInt Z leb def
+R674:678 Coq.ZArith.BinInt Z abs def
+def 703:724 <> catalogue_static_check
+R732:733 ThieleUniversal.TM <> TM rec
+binder 727:728 <> tm:5
+R738:741 Coq.Init.Datatypes <> bool ind
+R835:840 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R783:788 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R748:754 Coq.Arith.PeanoNat Nat ltb def
+R757:764 ThieleUniversal.TM <> tm_blank proj
+R766:767 ThieleUniversal.UTMStaticCheck <> tm:5 var
+R770:782 ModularProofs.Encoding <> BASE def
+R789:795 Coq.Lists.List <> forallb def
+R823:830 ThieleUniversal.TM <> tm_rules proj
+R832:833 ThieleUniversal.UTMStaticCheck <> tm:5 var
+R797:820 ThieleUniversal.UTMStaticCheck <> rule_write_lt_base_check def
+R841:847 Coq.Lists.List <> forallb def
+R873:880 ThieleUniversal.TM <> tm_rules proj
+R882:883 ThieleUniversal.UTMStaticCheck <> tm:5 var
+R849:870 ThieleUniversal.UTMStaticCheck <> rule_move_le_one_check def
+prf 960:992 <> utm_catalogue_static_check_proved
+R1027:1029 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R998:1019 ThieleUniversal.UTMStaticCheck <> catalogue_static_check def
+R1021:1026 ThieleUniversal.UTM_Rules <> utm_tm def
+R1030:1033 Coq.Init.Datatypes <> true constr
+def 1573:1595 <> static_check_vm_witness
+R1603:1609 Kernel.VMState <> VMState rec
+binder 1598:1599 <> vm:6
+R1614:1616 Coq.Init.Datatypes <> nat ind
+R1621:1625 Kernel.VMState <> vm_mu proj
+R1627:1628 ThieleUniversal.UTMStaticCheck <> vm:6 var

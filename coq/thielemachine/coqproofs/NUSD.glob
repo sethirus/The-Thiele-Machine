@@ -1,35 +1,58 @@
-DIGEST ef922dc2f18c0813db538bc98dac0833
+DIGEST adac19431ceb267cbfdb6be68fdc5284
 FThieleMachine.NUSD
 R15:28 Coq.Lists.List <> <> lib
 R38:50 Coq.Lists.List ListNotations <> mod
-prf 382:398 <> app_rev_singleton
-binder 409:409 <> A:1
-R416:419 Coq.Init.Datatypes <> list ind
-R421:421 ThieleMachine.NUSD <> A:1 var
-binder 412:412 <> l:2
-R429:429 ThieleMachine.NUSD <> A:1 var
-binder 425:425 <> x:3
-R449:451 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R435:437 Coq.Lists.List <> rev def
-R441:444 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R440:440 ThieleMachine.NUSD <> l:2 var
-R445:445 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R447:447 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R446:446 ThieleMachine.NUSD <> x:3 var
-R453:456 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R452:452 ThieleMachine.NUSD <> x:3 var
-R457:459 Coq.Lists.List <> rev def
-R461:461 ThieleMachine.NUSD <> l:2 var
-prf 702:708 <> rev_rev
-binder 720:720 <> A:4
-R735:738 Coq.Init.Datatypes <> list ind
-R740:740 ThieleMachine.NUSD <> A:4 var
-binder 731:731 <> l:5
-R757:759 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R746:748 Coq.Lists.List <> rev def
-R751:753 Coq.Lists.List <> rev def
-R755:755 ThieleMachine.NUSD <> l:5 var
-R760:760 ThieleMachine.NUSD <> l:5 var
-R857:873 ThieleMachine.NUSD <> app_rev_singleton thm
-R857:873 ThieleMachine.NUSD <> app_rev_singleton thm
-R857:873 ThieleMachine.NUSD <> app_rev_singleton thm
+R164:170 Kernel.VMState <> <> lib
+R172:177 Kernel.VMStep <> <> lib
+R207:217 Kernel.MuCostModel <> <> lib
+R247:266 Kernel.MuLedgerConservation <> <> lib
+R268:280 Kernel.NoFreeInsight <> <> lib
+R282:293 Kernel.MuInitiality <> <> lib
+prf 626:642 <> app_rev_singleton
+binder 653:653 <> A:1
+R660:663 Coq.Init.Datatypes <> list ind
+R665:665 ThieleMachine.NUSD <> A:1 var
+binder 656:656 <> l:2
+R673:673 ThieleMachine.NUSD <> A:1 var
+binder 669:669 <> x:3
+R693:695 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R679:681 Coq.Lists.List <> rev def
+R685:688 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R684:684 ThieleMachine.NUSD <> l:2 var
+R689:689 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R691:691 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R690:690 ThieleMachine.NUSD <> x:3 var
+R697:700 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R696:696 ThieleMachine.NUSD <> x:3 var
+R701:703 Coq.Lists.List <> rev def
+R705:705 ThieleMachine.NUSD <> l:2 var
+prf 946:952 <> rev_rev
+binder 964:964 <> A:4
+R979:982 Coq.Init.Datatypes <> list ind
+R984:984 ThieleMachine.NUSD <> A:4 var
+binder 975:975 <> l:5
+R1001:1003 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R990:992 Coq.Lists.List <> rev def
+R995:997 Coq.Lists.List <> rev def
+R999:999 ThieleMachine.NUSD <> l:5 var
+R1004:1004 ThieleMachine.NUSD <> l:5 var
+R1101:1117 ThieleMachine.NUSD <> app_rev_singleton thm
+R1101:1117 ThieleMachine.NUSD <> app_rev_singleton thm
+R1101:1117 ThieleMachine.NUSD <> app_rev_singleton thm
+prf 1313:1341 <> foundation_chain_witness_nusd
+R1347:1353 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1372:1377 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1358:1371 Kernel.VMState <> PartitionGraph rec
+binder 1354:1354 <> g:6
+R1397:1400 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1378:1394 Kernel.VMState <> well_formed_graph def
+R1396:1396 ThieleMachine.NUSD <> g:6 var
+R1415:1417 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1401:1414 Kernel.VMStep VMStep vm_instruction ind
+R1418:1431 Kernel.VMStep VMStep vm_instruction ind
+R1465:1478 Kernel.VMState <> PartitionGraph rec
+R1451:1461 Kernel.VMState <> empty_graph def
+R1465:1478 Kernel.VMState <> PartitionGraph rec
+R1451:1461 Kernel.VMState <> empty_graph def
+R1501:1523 Kernel.VMState <> empty_graph_well_formed thm
+R1501:1523 Kernel.VMState <> empty_graph_well_formed thm

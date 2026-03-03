@@ -1,66 +1,69 @@
-DIGEST 539cebfd6fb4fc3d21e69bb0a141456f
+DIGEST ebf44716e17f97e2d78e524eb471f4e3
 FModularProofs.Simulation
 R610:613 Coq.Lists.List <> <> lib
 R615:619 Coq.Arith.Arith <> <> lib
 R629:641 Coq.Lists.List ListNotations <> mod
 R679:687 ModularProofs.TM_Basics <> <> lib
 R689:701 ModularProofs.Thiele_Basics <> <> lib
-sec 713:722 <> Simulation
-R741:752 ModularProofs.TM_Basics <> TMTransition def
-binder 736:737 <> tm:1
-R773:794 ModularProofs.Thiele_Basics <> ModularThieleSemantics rec
-R796:797 ModularProofs.Simulation <> Simulation.tm var
-binder 767:769 <> sem:2
-abbrev 819:824 <> encode
-R830:839 ModularProofs.Thiele_Basics <> mts_encode proj
-R841:843 ModularProofs.Simulation <> Simulation.sem var
-abbrev 864:869 <> decode
-R875:884 ModularProofs.Thiele_Basics <> mts_decode proj
-R886:888 ModularProofs.Simulation <> Simulation.sem var
-abbrev 909:913 <> run_n
-R919:927 ModularProofs.Thiele_Basics <> mts_run_n proj
-R929:931 ModularProofs.Simulation <> Simulation.sem var
-prf 998:1016 <> thiele_simulates_tm
-binder 1031:1031 <> n:3
-binder 1033:1036 <> conf:4
-R1062:1071 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1045:1056 ModularProofs.TM_Basics <> tm_config_ok def
-R1058:1061 ModularProofs.Simulation <> conf:4 var
-R1102:1104 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1072:1077 ModularProofs.Simulation <> decode abbrev
-R1080:1084 ModularProofs.Simulation <> run_n abbrev
-R1100:1100 ModularProofs.Simulation <> n:3 var
-R1087:1092 ModularProofs.Simulation <> encode abbrev
-R1094:1097 ModularProofs.Simulation <> conf:4 var
-R1105:1112 ModularProofs.TM_Basics <> tm_run_n def
-R1114:1115 ModularProofs.Simulation <> Simulation.tm var
-R1117:1120 ModularProofs.Simulation <> conf:4 var
-R1122:1122 ModularProofs.Simulation <> n:3 var
-R1167:1185 ModularProofs.Thiele_Basics <> mts_run_n_simulates proj
-R1167:1185 ModularProofs.Thiele_Basics <> mts_run_n_simulates proj
-R1210:1219 ModularProofs.Simulation Simulation <> sec
-prf 1302:1339 <> thiele_machine_subsumes_turing_modular
-binder 1352:1353 <> tm:5
-R1362:1383 ModularProofs.Thiele_Basics <> ModularThieleSemantics rec
-R1385:1386 ModularProofs.Simulation <> tm:5 var
-binder 1356:1358 <> sem:6
-binder 1389:1392 <> conf:7
-binder 1394:1394 <> n:8
-R1418:1425 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1401:1412 ModularProofs.TM_Basics <> tm_config_ok def
-R1414:1417 ModularProofs.Simulation <> conf:7 var
-R1480:1486 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1426:1435 ModularProofs.Thiele_Basics <> mts_decode proj
-R1442:1450 ModularProofs.Thiele_Basics <> mts_run_n proj
-R1478:1478 ModularProofs.Simulation <> n:8 var
-R1457:1466 ModularProofs.Thiele_Basics <> mts_encode proj
-R1472:1475 ModularProofs.Simulation <> conf:7 var
-R1468:1470 ModularProofs.Simulation <> sem:6 var
-R1452:1454 ModularProofs.Simulation <> sem:6 var
-R1437:1439 ModularProofs.Simulation <> sem:6 var
-R1487:1494 ModularProofs.TM_Basics <> tm_run_n def
-R1496:1497 ModularProofs.Simulation <> tm:5 var
-R1499:1502 ModularProofs.Simulation <> conf:7 var
-R1504:1504 ModularProofs.Simulation <> n:8 var
-R1551:1569 ModularProofs.Simulation <> thiele_simulates_tm thm
-R1551:1569 ModularProofs.Simulation <> thiele_simulates_tm thm
+R817:823 Kernel.VMState <> <> lib
+R825:830 Kernel.VMStep <> <> lib
+R860:870 Kernel.MuCostModel <> <> lib
+sec 882:891 <> Simulation
+R910:921 ModularProofs.TM_Basics <> TMTransition def
+binder 905:906 <> tm:1
+R942:963 ModularProofs.Thiele_Basics <> ModularThieleSemantics rec
+R965:966 ModularProofs.Simulation <> Simulation.tm var
+binder 936:938 <> sem:2
+abbrev 988:993 <> encode
+R999:1008 ModularProofs.Thiele_Basics <> mts_encode proj
+R1010:1012 ModularProofs.Simulation <> Simulation.sem var
+abbrev 1033:1038 <> decode
+R1044:1053 ModularProofs.Thiele_Basics <> mts_decode proj
+R1055:1057 ModularProofs.Simulation <> Simulation.sem var
+abbrev 1078:1082 <> run_n
+R1088:1096 ModularProofs.Thiele_Basics <> mts_run_n proj
+R1098:1100 ModularProofs.Simulation <> Simulation.sem var
+prf 1167:1185 <> thiele_simulates_tm
+binder 1200:1200 <> n:3
+binder 1202:1205 <> conf:4
+R1231:1240 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1214:1225 ModularProofs.TM_Basics <> tm_config_ok def
+R1227:1230 ModularProofs.Simulation <> conf:4 var
+R1271:1273 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1241:1246 ModularProofs.Simulation <> decode abbrev
+R1249:1253 ModularProofs.Simulation <> run_n abbrev
+R1269:1269 ModularProofs.Simulation <> n:3 var
+R1256:1261 ModularProofs.Simulation <> encode abbrev
+R1263:1266 ModularProofs.Simulation <> conf:4 var
+R1274:1281 ModularProofs.TM_Basics <> tm_run_n def
+R1283:1284 ModularProofs.Simulation <> Simulation.tm var
+R1286:1289 ModularProofs.Simulation <> conf:4 var
+R1291:1291 ModularProofs.Simulation <> n:3 var
+R1336:1354 ModularProofs.Thiele_Basics <> mts_run_n_simulates proj
+R1336:1354 ModularProofs.Thiele_Basics <> mts_run_n_simulates proj
+R1380:1389 ModularProofs.Simulation Simulation <> sec
+prf 1472:1509 <> thiele_machine_subsumes_turing_modular
+binder 1522:1523 <> tm:5
+R1532:1553 ModularProofs.Thiele_Basics <> ModularThieleSemantics rec
+R1555:1556 ModularProofs.Simulation <> tm:5 var
+binder 1526:1528 <> sem:6
+binder 1559:1562 <> conf:7
+binder 1564:1564 <> n:8
+R1588:1595 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1571:1582 ModularProofs.TM_Basics <> tm_config_ok def
+R1584:1587 ModularProofs.Simulation <> conf:7 var
+R1650:1656 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1596:1605 ModularProofs.Thiele_Basics <> mts_decode proj
+R1612:1620 ModularProofs.Thiele_Basics <> mts_run_n proj
+R1648:1648 ModularProofs.Simulation <> n:8 var
+R1627:1636 ModularProofs.Thiele_Basics <> mts_encode proj
+R1642:1645 ModularProofs.Simulation <> conf:7 var
+R1638:1640 ModularProofs.Simulation <> sem:6 var
+R1622:1624 ModularProofs.Simulation <> sem:6 var
+R1607:1609 ModularProofs.Simulation <> sem:6 var
+R1657:1664 ModularProofs.TM_Basics <> tm_run_n def
+R1666:1667 ModularProofs.Simulation <> tm:5 var
+R1669:1672 ModularProofs.Simulation <> conf:7 var
+R1674:1674 ModularProofs.Simulation <> n:8 var
+R1721:1739 ModularProofs.Simulation <> thiele_simulates_tm thm
+R1721:1739 ModularProofs.Simulation <> thiele_simulates_tm thm

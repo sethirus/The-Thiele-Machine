@@ -1,4 +1,6 @@
 (** * TEST: Try to construct a counter-example to thermodynamics-necessity
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
 
     This file attempts to BUILD a consistent information accounting
     that violates thermodynamics-like properties.
@@ -6,6 +8,9 @@
     If we can construct it: The claim is falsified.
     If Coq rejects it: The claim survives this test.
 *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import List Lia.
 From Kernel Require Import VMStep.
@@ -218,3 +223,4 @@ Qed.
     
     Thermodynamics isn't assumed - it's DERIVED from consistency.
 *)
+

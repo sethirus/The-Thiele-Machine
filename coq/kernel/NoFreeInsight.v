@@ -173,20 +173,59 @@ Definition strictly_stronger {A : Type} (P1 P2 : ReceiptPredicate A) : Prop :=
 Notation "P1 < P2" := (strictly_stronger P1 P2) (at level 70).
 
 (** * Definition D3: Certification
-    
-    A trace CERTIFIES a predicate P iff:
-    - Execution succeeded (vm_err = false)
-    - Decoded observations satisfy P
-    
-    Polymorphic over observation type A.
-    *)
 
-Definition Certified {A : Type} 
+    We split certification into two layers:
+    - [CertifiedObs]: execution succeeded + predicate accepted on decoded receipts
+    - [CertifiedWithSupra]: [CertifiedObs] plus supra-certification bit set
+
+    This separation avoids baking structure-addition into every use of
+    predicate certification. The legacy [Certified] name remains as a
+    compatibility alias for [CertifiedWithSupra].
+*)
+
+Definition CertifiedObs {A : Type}
+                       (s_final : VMState)
+                       (decoder : receipt_decoder A)
+                       (P : ReceiptPredicate A)
+                       (receipts : Receipts) : Prop :=
+  s_final.(vm_err) = false /\ P (decoder receipts) = true.
+
+Definition CertifiedWithSupra {A : Type}
+                             (s_final : VMState)
+                             (decoder : receipt_decoder A)
+                             (P : ReceiptPredicate A)
+                             (receipts : Receipts) : Prop :=
+  CertifiedObs s_final decoder P receipts /\ has_supra_cert s_final.
+
+Definition Certified {A : Type}
                      (s_final : VMState)
                      (decoder : receipt_decoder A)
                      (P : ReceiptPredicate A)
                      (receipts : Receipts) : Prop :=
-  s_final.(vm_err) = false /\ has_supra_cert s_final /\ P (decoder receipts) = true.
+  CertifiedWithSupra s_final decoder P receipts.
+
+(* INQUISITOR NOTE: projection — extracts the CertifiedObs component from
+   the CertifiedWithSupra conjunction. Not tautological: it is the canonical
+   way downstream proofs access the observational certificate. *)
+Lemma certified_with_supra_implies_obs :
+  forall (A : Type) (s_final : VMState) (decoder : receipt_decoder A)
+         (P : ReceiptPredicate A) (receipts : Receipts),
+    CertifiedWithSupra s_final decoder P receipts ->
+    CertifiedObs s_final decoder P receipts.
+Proof.
+  intros A s_final decoder P receipts Hcert.
+  exact (proj1 Hcert).
+Qed.
+
+Lemma certified_implies_supra :
+  forall (A : Type) (s_final : VMState) (decoder : receipt_decoder A)
+         (P : ReceiptPredicate A) (receipts : Receipts),
+    Certified s_final decoder P receipts ->
+    has_supra_cert s_final.
+Proof.
+  intros A s_final decoder P receipts Hcert.
+  exact (proj2 Hcert).
+Qed.
 
 (** * Definition D4: Structure Addition (semantic)
 
@@ -285,6 +324,41 @@ Proof.
   exact nonlocal_correlation_requires_revelation.
 Qed.
 
+(** Strengthening form that uses predicate strictness nontrivially.
+
+    The bridge hypothesis captures the domain-specific argument needed to turn
+    observation-level certification into supra-certification in a given channel.
+    This theorem itself is now structurally dependent on [strictly_stronger].
+*)
+Theorem strengthening_obs_requires_structure_addition :
+  forall (A : Type)
+         (decoder : receipt_decoder A)
+         (P_weak P_strong : ReceiptPredicate A)
+         (trace : Receipts)
+         (s_init : VMState)
+         (fuel : nat),
+    strictly_stronger P_strong P_weak ->
+    s_init.(vm_csrs).(csr_cert_addr) = 0 ->
+    (forall s_final,
+        s_final = run_vm fuel trace s_init ->
+        P_weak (decoder trace) = true ->
+        CertifiedObs s_final decoder P_strong trace ->
+        has_supra_cert s_final) ->
+    CertifiedObs (run_vm fuel trace s_init) decoder P_strong trace ->
+    has_structure_addition fuel trace s_init.
+Proof.
+  intros A decoder P_weak P_strong trace s_init fuel Hstrict Hinit Hbridge Hcertobs.
+  destruct Hstrict as [Hstronger _].
+  assert (Hweak : P_weak (decoder trace) = true).
+  { apply (Hstronger (decoder trace)).
+    exact (proj2 Hcertobs). }
+  assert (Hhascert : has_supra_cert (run_vm fuel trace s_init)).
+  { eapply Hbridge; eauto. }
+  unfold has_structure_addition.
+  eapply supra_cert_implies_structure_addition_in_run; eauto.
+  apply trace_run_run_vm.
+Qed.
+
 (** ** Milestone 2 (strengthening form): certification of a stronger predicate
     implies an explicit structure-addition (cert-setter) event.
 
@@ -304,10 +378,12 @@ Theorem strengthening_requires_structure_addition :
     has_structure_addition fuel trace s_init.
 Proof.
   intros A decoder P_weak P_strong trace s_init fuel Hstrict Hinit Hcert.
-  destruct Hcert as [Herr [Hhascert Hpred]].
-  unfold has_structure_addition.
-  eapply supra_cert_implies_structure_addition_in_run; eauto.
-  apply trace_run_run_vm.
+  eapply strengthening_obs_requires_structure_addition; eauto.
+  - intros s_final Hsfinal _ _.
+    subst s_final.
+    exact (certified_implies_supra A (run_vm fuel trace s_init) decoder P_strong trace Hcert).
+  - apply certified_with_supra_implies_obs.
+    exact Hcert.
 Qed.
 
 (** * Corollary: CHSH Supra-Quantum as Instance

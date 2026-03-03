@@ -1,6 +1,10 @@
 From Coq Require Import QArith.QArith_base.
 From Coq Require Import ZArith.
 From Coq Require Import ZArith.Zorder.
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 
 Open Scope Q_scope.
 

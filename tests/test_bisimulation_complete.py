@@ -42,6 +42,8 @@ from typing import Dict, Any, List, Tuple, Optional
 from dataclasses import dataclass
 import pytest
 
+pytestmark = [pytest.mark.strict_extracted, pytest.mark.strict_rtl]
+
 # Repository paths
 REPO_ROOT = Path(__file__).resolve().parents[1]
 EXTRACTED_RUNNER = REPO_ROOT / "build" / "extracted_vm_runner"
@@ -236,6 +238,10 @@ def parse_program_to_python_instructions(program: str) -> Tuple[List[Tuple[str, 
             mem_parts = arg.split()
             if len(mem_parts) >= 2:
                 init_mem[int(mem_parts[0])] = int(mem_parts[1])
+            continue
+        if op in {"INIT_MU", "INIT_ACTIVE_MODULE", "INIT_PT", "INIT_TENSOR", "INIT_LOGIC_STALL", "INIT_LOGIC_REQ_VALID", "INIT_LOGIC_ACC"}:
+            # Verilog-only prestate directives consumed by the cosim harness.
+            # Python VM has no direct equivalent and should ignore them.
             continue
         
         # Convert OCaml format to Python VM format
@@ -442,6 +448,8 @@ class TestBisimulationVerilog:
     def test_xor_operations_verilog_vs_python(self):
         """XOR operations must produce identical register state in Python and Verilog."""
         program = """\
+    INIT_ACTIVE_MODULE 0
+    INIT_PT 0 256
 INIT_MEM 0 42
 INIT_MEM 1 17
 XOR_LOAD 0 0 1
@@ -465,6 +473,8 @@ HALT 0
     def test_xor_swap_verilog_vs_python(self):
         """XOR_SWAP must produce identical register state in Python and Verilog."""
         program = """\
+    INIT_ACTIVE_MODULE 0
+    INIT_PT 0 256
 INIT_MEM 0 100
 INIT_MEM 1 200
 XOR_LOAD 0 0 1
@@ -488,6 +498,8 @@ HALT 0
     def test_xfer_verilog_vs_python(self):
         """XFER must produce identical register state in Python and Verilog."""
         program = """\
+    INIT_ACTIVE_MODULE 0
+    INIT_PT 0 256
 INIT_MEM 0 42
 XOR_LOAD 0 0 1
 XFER 5 0 1
@@ -507,6 +519,8 @@ HALT 0
     def test_mu_cost_accumulation_verilog(self):
         """μ-cost accumulation across multiple instructions must match Python."""
         program = """\
+    INIT_ACTIVE_MODULE 0
+    INIT_PT 0 256
 XOR_LOAD 0 0 10
 XOR_LOAD 1 1 20
 XOR_ADD 0 1 30
@@ -609,7 +623,7 @@ class TestMissingOpcodesCosim:
     def test_reveal_verilog_mu(self):
         """REVEAL in Verilog: charges operand_cost + (operand_a << 8).
         With operand_a=0, cost=4 → μ=4."""
-        program = "REVEAL 0 0 4\nHALT 0\n"
+        program = "INIT_LOGIC_ACC -889263410\nREVEAL 0 0 4\nHALT 0\n"
         vl_state = run_verilog_simulation(program)
         if vl_state is None:
             pytest.skip("Verilog simulator not available")
@@ -625,7 +639,7 @@ class TestMissingOpcodesCosim:
     def test_reveal_nonzero_a_verilog_tensor_index(self):
         """REVEAL with operand_a>0 in Verilog selects tensor index but does NOT add extra
         scalar μ cost. operand_a=2 (flat tensor idx 2), cost=4 → μ=4, mu_tensor_reg[2]+=4."""
-        program = "REVEAL 2 0 4\nHALT 0\n"
+        program = "INIT_LOGIC_ACC -889263410\nREVEAL 2 0 4\nHALT 0\n"
         vl_state = run_verilog_simulation(program)
         if vl_state is None:
             pytest.skip("Verilog simulator not available")
@@ -668,7 +682,7 @@ class TestMissingOpcodesCosim:
         Use 4 args + cost for Python, but Verilog only sees first 3 bytes.
         Test each layer independently."""
         # Verilog: CHSH_TRIAL a=0 b=0 cost=6
-        program_vl = "CHSH_TRIAL 0 0 6\nHALT 0\n"
+        program_vl = "INIT_LOGIC_ACC -889263410\nCHSH_TRIAL 0 0 6\nHALT 0\n"
         vl_state = run_verilog_simulation(program_vl)
         if vl_state is None:
             pytest.skip("Verilog simulator not available")
@@ -716,6 +730,8 @@ class TestFullStateEquivalence:
     def test_register_state_complete(self):
         """All 32 registers must match between Python and Verilog after XOR/XFER ops."""
         program = """\
+INIT_ACTIVE_MODULE 0
+INIT_PT 0 256
 INIT_MEM 0 100
 INIT_MEM 1 200
 INIT_MEM 2 300
@@ -743,6 +759,8 @@ HALT 0
     def test_memory_state_preserved(self):
         """Data memory must be identical between Python and Verilog."""
         program = """\
+INIT_ACTIVE_MODULE 0
+INIT_PT 0 256
 INIT_MEM 0 42
 INIT_MEM 1 99
 INIT_MEM 10 255
@@ -813,6 +831,8 @@ HALT 0
     def test_xor_rank_popcount(self):
         """XOR_RANK popcount must match between Python and Verilog."""
         program = """\
+    INIT_ACTIVE_MODULE 0
+    INIT_PT 0 256
 INIT_MEM 0 255
 XOR_LOAD 0 0 1
 XOR_RANK 1 0 1
@@ -833,6 +853,8 @@ PNEW {5} 3
 PNEW {10} 3
 PMERGE 1 2 4
 XFER 0 1 2
+    INIT_ACTIVE_MODULE 0
+    INIT_PT 0 256
 XOR_LOAD 0 0 1
 XOR_RANK 1 0 1
 HALT 0

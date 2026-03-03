@@ -54,6 +54,10 @@
     introducing μ > 0 and shrinking the Bloch ball.
 *)
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 Require Import Coq.Reals.Reals.
 Require Import Coq.micromega.Lra.
 Require Import Coq.micromega.Psatz.

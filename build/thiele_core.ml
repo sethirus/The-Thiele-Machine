@@ -40,9 +40,13 @@ module Coq__1 = struct
 end
 include Coq__1
 
-(** val eqb : bool -> bool -> bool **)
+(** val eqb : int -> int -> bool **)
 
-let eqb b1 b2 =
+let rec eqb = (=)
+
+(** val eqb0 : bool -> bool -> bool **)
+
+let eqb0 b1 b2 =
   if b1 then b2 else if b2 then false else true
 
 module Nat =
@@ -629,9 +633,9 @@ module Z =
       n0
  end
 
-(** val eqb0 : char list -> char list -> bool **)
+(** val eqb1 : char list -> char list -> bool **)
 
-let rec eqb0 s1 s2 =
+let rec eqb1 s1 s2 =
   match s1 with
   | [] -> (match s2 with
            | [] -> true
@@ -639,7 +643,7 @@ let rec eqb0 s1 s2 =
   | c1::s1' ->
     (match s2 with
      | [] -> false
-     | c2::s2' -> if (=) c1 c2 then eqb0 s1' s2' else false)
+     | c2::s2' -> if (=) c1 c2 then eqb1 s1' s2' else false)
 
 (** val append : char list -> char list -> char list **)
 
@@ -1735,13 +1739,13 @@ module CertCheck =
 
   let value_is_false s =
     let t = trim_left s in
-    (||) (eqb0 t ('0'::[]))
-      ((||) (eqb0 t ('f'::('a'::('l'::('s'::('e'::[])))))) (eqb0 t ('f'::[])))
+    (||) (eqb1 t ('0'::[]))
+      ((||) (eqb1 t ('f'::('a'::('l'::('s'::('e'::[])))))) (eqb1 t ('f'::[])))
 
   (** val parse_assignment_token : char list -> (int*bool) option **)
 
   let parse_assignment_token tok =
-    if eqb0 tok ('0'::[])
+    if eqb1 tok ('0'::[])
     then None
     else (match split_on_eq tok with
           | Some p ->
@@ -1778,7 +1782,7 @@ module CertCheck =
     let var = Z.to_nat (Z.abs lit) in
     (match lookup_bool var asgn with
      | Some b ->
-       if eqb b (Z.gtb lit 0) then true else clause_satisfied asgn lits'
+       if eqb0 b (Z.gtb lit 0) then true else clause_satisfied asgn lits'
      | None -> false)
 
   (** val check_model : char list -> char list -> bool **)
@@ -1813,7 +1817,7 @@ module CertCheck =
       | lit::lits' ->
         let var = Z.to_nat (Z.abs lit) in
         (match lookup_bool var asgn with
-         | Some b -> if eqb b (Z.gtb lit 0) then true,[] else go lits' undec
+         | Some b -> if eqb0 b (Z.gtb lit 0) then true,[] else go lits' undec
          | None -> go lits' (lit::undec))
     in go cl []
 
@@ -1831,7 +1835,7 @@ module CertCheck =
         let value = Z.gtb lit 0 in
         (match lookup_bool var asgn with
          | Some b ->
-           if eqb b value
+           if eqb0 b value
            then unit_conflict_fuel fuel' num_vars clauses asgn queue'
            else true
          | None ->
@@ -1934,13 +1938,13 @@ module CertCheck =
 
   let rec drop_until_zero = function
   | [] -> []
-  | t::ts' -> if eqb0 t ('0'::[]) then ts' else drop_until_zero ts'
+  | t::ts' -> if eqb1 t ('0'::[]) then ts' else drop_until_zero ts'
 
   (** val parse_lrat_line : char list -> lrat_step option **)
 
   let parse_lrat_line line =
     let t = trim_left line in
-    if eqb0 t []
+    if eqb1 t []
     then None
     else if starts_with_char
               (ascii_of_nat ((fun x -> x + 1) ((fun x -> x + 1)
@@ -1984,7 +1988,7 @@ module CertCheck =
               (match toks with
                | [] -> None
                | first::rest ->
-                 if eqb0 first ('d'::[])
+                 if eqb1 first ('d'::[])
                  then (match parse_nat_list rest with
                        | Some dels ->
                          Some { lrat_id = 0; lrat_clause = [];
@@ -2127,6 +2131,27 @@ module VMStep =
   | Coq_instr_oracle_halts (_, cost) -> cost
   | Coq_instr_halt cost -> cost
 
+  (** val is_cert_setterb : vm_instruction -> bool **)
+
+  let is_cert_setterb = function
+  | Coq_instr_lassert (_, _, _, _) -> true
+  | Coq_instr_ljoin (_, _, _) -> true
+  | Coq_instr_emit (_, _, _) -> true
+  | Coq_instr_reveal (_, _, _, _) -> true
+  | _ -> false
+
+  (** val nofi_step_cost_okb : vm_instruction -> bool **)
+
+  let nofi_step_cost_okb instr =
+    if is_cert_setterb instr
+    then (<=) ((fun x -> x + 1) 0) (instruction_cost instr)
+    else true
+
+  (** val nofi_trace_cost_okb : vm_instruction list -> bool **)
+
+  let nofi_trace_cost_okb trace =
+    forallb nofi_step_cost_okb trace
+
   (** val is_bit : int -> bool **)
 
   let is_bit n0 =
@@ -2208,9 +2233,9 @@ module VMStep =
       s.vm_mu_tensor; vm_err = s.vm_err }
  end
 
-(** val vm_apply : vMState -> VMStep.vm_instruction -> vMState **)
+(** val vm_apply_unsafe : vMState -> VMStep.vm_instruction -> vMState **)
 
-let vm_apply s = function
+let vm_apply_unsafe s = function
 | VMStep.Coq_instr_pnew (region, cost) ->
   let graph',_ = graph_pnew s.vm_graph region in
   VMStep.advance_state s (VMStep.Coq_instr_pnew (region, cost)) graph'
@@ -2256,7 +2281,7 @@ let vm_apply s = function
             (csr_set_err s.vm_csrs ((fun x -> x + 1) 0))
             (VMStep.latch_err s true))
 | VMStep.Coq_instr_ljoin (cert1, cert2, cost) ->
-  if eqb0 cert1 cert2
+  if eqb1 cert1 cert2
   then let csrs' = csr_set_err s.vm_csrs 0 in
        VMStep.advance_state s (VMStep.Coq_instr_ljoin (cert1, cert2, cost))
          s.vm_graph
@@ -2400,3 +2425,1034 @@ let vm_apply s = function
   VMStep.advance_state_reveal s (VMStep.Coq_instr_reveal (module0, bits,
     cert, cost)) module0 bits s.vm_graph csrs' s.vm_err
 | x -> VMStep.advance_state s x s.vm_graph s.vm_csrs s.vm_err
+
+(** val vm_apply_nofi : vMState -> VMStep.vm_instruction -> vMState **)
+
+let vm_apply_nofi s instr =
+  if VMStep.nofi_step_cost_okb instr
+  then vm_apply_unsafe s instr
+  else { vm_graph = s.vm_graph; vm_csrs =
+         (csr_set_err s.vm_csrs ((fun x -> x + 1) 0)); vm_regs = s.vm_regs;
+         vm_mem = s.vm_mem; vm_pc = s.vm_pc; vm_mu = s.vm_mu; vm_mu_tensor =
+         s.vm_mu_tensor; vm_err = (VMStep.latch_err s true) }
+
+(** val vm_apply_runtime : vMState -> VMStep.vm_instruction -> vMState **)
+
+let vm_apply_runtime =
+  vm_apply_nofi
+
+(** val vm_apply : vMState -> VMStep.vm_instruction -> vMState **)
+
+let vm_apply = vm_apply_runtime
+
+type kamiSnapshot = { snap_pc : int; snap_mu : int; snap_err : bool;
+                      snap_halted : bool; snap_regs : (int -> int);
+                      snap_mem : (int -> int); snap_partition_ops : int;
+                      snap_mdl_ops : int; snap_info_gain : int;
+                      snap_error_code : int; snap_mu_tensor : (int -> int);
+                      snap_pt_sizes : (int -> int); snap_pt_next_id : 
+                      int }
+
+type busReg =
+| BusRegPc
+| BusRegMu
+| BusRegErr
+| BusRegHalted
+| BusRegPartitionOps
+| BusRegMdlOps
+| BusRegInfoGain
+| BusRegErrorCode
+| BusRegMstatus
+| BusRegMcycleLo
+| BusRegMcycleHi
+| BusRegMinstretLo
+| BusRegMinstretHi
+| BusRegLogicAcc
+| BusRegLogicReqValid
+| BusRegLogicReqOpcode
+| BusRegLogicReqPayload
+| BusRegMuTensor0
+| BusRegMuTensor1
+| BusRegMuTensor2
+| BusRegMuTensor3
+| BusRegBianchiAlarm
+| BusRegPtNextId
+| BusRegPtSize
+| BusRegLoadInstrAddr
+| BusRegLoadInstrData
+| BusRegLoadInstrKick
+| BusRegSetLogicRespValid
+| BusRegSetLogicRespError
+| BusRegSetLogicRespValue
+| BusRegSetActiveModule
+| BusRegSetTrapVector
+
+(** val decodeBusReg : int -> busReg option **)
+
+let decodeBusReg addr =
+  (fun zero succ n -> if n=0 then zero () else succ (n-1))
+    (fun _ -> Some BusRegPc)
+    (fun n0 ->
+    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+      (fun _ -> None)
+      (fun n1 ->
+      (fun zero succ n -> if n=0 then zero () else succ (n-1))
+        (fun _ -> None)
+        (fun n2 ->
+        (fun zero succ n -> if n=0 then zero () else succ (n-1))
+          (fun _ -> None)
+          (fun n3 ->
+          (fun zero succ n -> if n=0 then zero () else succ (n-1))
+            (fun _ -> Some BusRegMu)
+            (fun n4 ->
+            (fun zero succ n -> if n=0 then zero () else succ (n-1))
+              (fun _ -> None)
+              (fun n5 ->
+              (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                (fun _ -> None)
+                (fun n6 ->
+                (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                  (fun _ -> None)
+                  (fun n7 ->
+                  (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                    (fun _ -> Some BusRegErr)
+                    (fun n8 ->
+                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                      (fun _ -> None)
+                      (fun n9 ->
+                      (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                        (fun _ -> None)
+                        (fun n10 ->
+                        (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                          (fun _ -> None)
+                          (fun n11 ->
+                          (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                            (fun _ -> Some BusRegHalted)
+                            (fun n12 ->
+                            (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                              (fun _ -> None)
+                              (fun n13 ->
+                              (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                (fun _ -> None)
+                                (fun n14 ->
+                                (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                  (fun _ -> None)
+                                  (fun n15 ->
+                                  (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                    (fun _ -> Some
+                                    BusRegPartitionOps)
+                                    (fun n16 ->
+                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                      (fun _ -> None)
+                                      (fun n17 ->
+                                      (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                        (fun _ -> None)
+                                        (fun n18 ->
+                                        (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                          (fun _ -> None)
+                                          (fun n19 ->
+                                          (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                            (fun _ -> Some
+                                            BusRegMdlOps)
+                                            (fun n20 ->
+                                            (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                              (fun _ -> None)
+                                              (fun n21 ->
+                                              (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                (fun _ -> None)
+                                                (fun n22 ->
+                                                (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                  (fun _ -> None)
+                                                  (fun n23 ->
+                                                  (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                    (fun _ -> Some
+                                                    BusRegInfoGain)
+                                                    (fun n24 ->
+                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                      (fun _ ->
+                                                      None)
+                                                      (fun n25 ->
+                                                      (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                        (fun _ ->
+                                                        None)
+                                                        (fun n26 ->
+                                                        (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                          (fun _ ->
+                                                          None)
+                                                          (fun n27 ->
+                                                          (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                            (fun _ -> Some
+                                                            BusRegErrorCode)
+                                                            (fun n28 ->
+                                                            (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                              (fun _ ->
+                                                              None)
+                                                              (fun n29 ->
+                                                              (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                (fun _ ->
+                                                                None)
+                                                                (fun n30 ->
+                                                                (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                  (fun _ ->
+                                                                  None)
+                                                                  (fun n31 ->
+                                                                  (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    Some
+                                                                    BusRegMstatus)
+                                                                    (fun n32 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n33 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n34 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n35 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    Some
+                                                                    BusRegMcycleLo)
+                                                                    (fun n36 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n37 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n38 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n39 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    Some
+                                                                    BusRegMcycleHi)
+                                                                    (fun n40 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n41 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n42 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n43 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    Some
+                                                                    BusRegMinstretLo)
+                                                                    (fun n44 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n45 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n46 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n47 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    Some
+                                                                    BusRegMinstretHi)
+                                                                    (fun n48 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n49 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n50 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n51 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    Some
+                                                                    BusRegLogicAcc)
+                                                                    (fun n52 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n53 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n54 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n55 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    Some
+                                                                    BusRegLogicReqValid)
+                                                                    (fun n56 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n57 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n58 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n59 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    Some
+                                                                    BusRegLogicReqOpcode)
+                                                                    (fun n60 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n61 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n62 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n63 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    Some
+                                                                    BusRegLogicReqPayload)
+                                                                    (fun n64 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n65 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n66 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n67 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    Some
+                                                                    BusRegMuTensor0)
+                                                                    (fun n68 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n69 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n70 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n71 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    Some
+                                                                    BusRegMuTensor1)
+                                                                    (fun n72 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n73 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n74 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n75 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    Some
+                                                                    BusRegMuTensor2)
+                                                                    (fun n76 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n77 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n78 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n79 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    Some
+                                                                    BusRegMuTensor3)
+                                                                    (fun n80 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n81 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n82 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n83 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    Some
+                                                                    BusRegBianchiAlarm)
+                                                                    (fun n84 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n85 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n86 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n87 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    Some
+                                                                    BusRegPtNextId)
+                                                                    (fun n88 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n89 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n90 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n91 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    Some
+                                                                    BusRegPtSize)
+                                                                    (fun n92 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n93 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n94 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n95 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n96 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n97 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n98 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n99 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n100 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n101 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n102 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n103 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n104 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n105 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n106 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n107 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n108 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n109 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n110 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n111 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n112 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n113 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n114 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n115 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n116 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n117 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n118 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n119 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n120 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n121 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n122 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n123 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n124 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n125 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n126 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n127 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    Some
+                                                                    BusRegLoadInstrAddr)
+                                                                    (fun n128 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n129 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n130 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n131 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    Some
+                                                                    BusRegLoadInstrData)
+                                                                    (fun n132 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n133 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n134 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n135 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    Some
+                                                                    BusRegLoadInstrKick)
+                                                                    (fun n136 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n137 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n138 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n139 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    Some
+                                                                    BusRegSetLogicRespValid)
+                                                                    (fun n140 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n141 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n142 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n143 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    Some
+                                                                    BusRegSetLogicRespError)
+                                                                    (fun n144 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n145 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n146 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n147 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    Some
+                                                                    BusRegSetLogicRespValue)
+                                                                    (fun n148 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n149 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n150 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n151 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    Some
+                                                                    BusRegSetActiveModule)
+                                                                    (fun n152 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n153 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n154 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    (fun n155 ->
+                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+                                                                    (fun _ ->
+                                                                    Some
+                                                                    BusRegSetTrapVector)
+                                                                    (fun _ ->
+                                                                    None)
+                                                                    n155)
+                                                                    n154)
+                                                                    n153)
+                                                                    n152)
+                                                                    n151)
+                                                                    n150)
+                                                                    n149)
+                                                                    n148)
+                                                                    n147)
+                                                                    n146)
+                                                                    n145)
+                                                                    n144)
+                                                                    n143)
+                                                                    n142)
+                                                                    n141)
+                                                                    n140)
+                                                                    n139)
+                                                                    n138)
+                                                                    n137)
+                                                                    n136)
+                                                                    n135)
+                                                                    n134)
+                                                                    n133)
+                                                                    n132)
+                                                                    n131)
+                                                                    n130)
+                                                                    n129)
+                                                                    n128)
+                                                                    n127)
+                                                                    n126)
+                                                                    n125)
+                                                                    n124)
+                                                                    n123)
+                                                                    n122)
+                                                                    n121)
+                                                                    n120)
+                                                                    n119)
+                                                                    n118)
+                                                                    n117)
+                                                                    n116)
+                                                                    n115)
+                                                                    n114)
+                                                                    n113)
+                                                                    n112)
+                                                                    n111)
+                                                                    n110)
+                                                                    n109)
+                                                                    n108)
+                                                                    n107)
+                                                                    n106)
+                                                                    n105)
+                                                                    n104)
+                                                                    n103)
+                                                                    n102)
+                                                                    n101)
+                                                                    n100)
+                                                                    n99)
+                                                                    n98)
+                                                                    n97)
+                                                                    n96)
+                                                                    n95)
+                                                                    n94)
+                                                                    n93)
+                                                                    n92)
+                                                                    n91)
+                                                                    n90)
+                                                                    n89)
+                                                                    n88)
+                                                                    n87)
+                                                                    n86)
+                                                                    n85)
+                                                                    n84)
+                                                                    n83)
+                                                                    n82)
+                                                                    n81)
+                                                                    n80)
+                                                                    n79)
+                                                                    n78)
+                                                                    n77)
+                                                                    n76)
+                                                                    n75)
+                                                                    n74)
+                                                                    n73)
+                                                                    n72)
+                                                                    n71)
+                                                                    n70)
+                                                                    n69)
+                                                                    n68)
+                                                                    n67)
+                                                                    n66)
+                                                                    n65)
+                                                                    n64)
+                                                                    n63)
+                                                                    n62)
+                                                                    n61)
+                                                                    n60)
+                                                                    n59)
+                                                                    n58)
+                                                                    n57)
+                                                                    n56)
+                                                                    n55)
+                                                                    n54)
+                                                                    n53)
+                                                                    n52)
+                                                                    n51)
+                                                                    n50)
+                                                                    n49)
+                                                                    n48)
+                                                                    n47)
+                                                                    n46)
+                                                                    n45)
+                                                                    n44)
+                                                                    n43)
+                                                                    n42)
+                                                                    n41)
+                                                                    n40)
+                                                                    n39)
+                                                                    n38)
+                                                                    n37)
+                                                                    n36)
+                                                                    n35)
+                                                                    n34)
+                                                                    n33)
+                                                                    n32)
+                                                                    n31)
+                                                                  n30)
+                                                                n29)
+                                                              n28)
+                                                            n27)
+                                                          n26)
+                                                        n25)
+                                                      n24)
+                                                    n23)
+                                                  n22)
+                                                n21)
+                                              n20)
+                                            n19)
+                                          n18)
+                                        n17)
+                                      n16)
+                                    n15)
+                                  n14)
+                                n13)
+                              n12)
+                            n11)
+                          n10)
+                        n9)
+                      n8)
+                    n7)
+                  n6)
+                n5)
+              n4)
+            n3)
+          n2)
+        n1)
+      n0)
+    addr
+
+(** val busRegReadable : busReg -> bool **)
+
+let busRegReadable = function
+| BusRegLoadInstrAddr -> false
+| BusRegLoadInstrData -> false
+| BusRegLoadInstrKick -> false
+| BusRegSetLogicRespValid -> false
+| BusRegSetLogicRespError -> false
+| BusRegSetLogicRespValue -> false
+| BusRegSetActiveModule -> false
+| BusRegSetTrapVector -> false
+| _ -> true
+
+(** val busRegWritable : busReg -> bool **)
+
+let busRegWritable r =
+  negb (busRegReadable r)
+
+type busCoreView = { view_pc : int; view_mu : int; view_err : bool;
+                     view_halted : bool; view_partition_ops : int;
+                     view_mdl_ops : int; view_info_gain : int;
+                     view_error_code : int; view_mstatus : int;
+                     view_mcycle_lo : int; view_mcycle_hi : int;
+                     view_minstret_lo : int; view_minstret_hi : int;
+                     view_logic_acc : int; view_logic_req_valid : bool;
+                     view_logic_req_opcode : int;
+                     view_logic_req_payload : int; view_mu_tensor0 : 
+                     int; view_mu_tensor1 : int; view_mu_tensor2 : int;
+                     view_mu_tensor3 : int; view_bianchi_alarm : bool;
+                     view_pt_next_id : int; view_pt_size : (int -> int) }
+
+(** val bool_to_nat : bool -> int **)
+
+let bool_to_nat = function
+| true -> (fun x -> x + 1) 0
+| false -> 0
+
+(** val busRegReadValue : busCoreView -> busReg -> int option **)
+
+let busRegReadValue v = function
+| BusRegPc -> Some v.view_pc
+| BusRegMu -> Some v.view_mu
+| BusRegErr -> Some (bool_to_nat v.view_err)
+| BusRegHalted -> Some (bool_to_nat v.view_halted)
+| BusRegPartitionOps -> Some v.view_partition_ops
+| BusRegMdlOps -> Some v.view_mdl_ops
+| BusRegInfoGain -> Some v.view_info_gain
+| BusRegErrorCode -> Some v.view_error_code
+| BusRegMstatus -> Some v.view_mstatus
+| BusRegMcycleLo -> Some v.view_mcycle_lo
+| BusRegMcycleHi -> Some v.view_mcycle_hi
+| BusRegMinstretLo -> Some v.view_minstret_lo
+| BusRegMinstretHi -> Some v.view_minstret_hi
+| BusRegLogicAcc -> Some v.view_logic_acc
+| BusRegLogicReqValid -> Some (bool_to_nat v.view_logic_req_valid)
+| BusRegLogicReqOpcode -> Some v.view_logic_req_opcode
+| BusRegLogicReqPayload -> Some v.view_logic_req_payload
+| BusRegMuTensor0 -> Some v.view_mu_tensor0
+| BusRegMuTensor1 -> Some v.view_mu_tensor1
+| BusRegMuTensor2 -> Some v.view_mu_tensor2
+| BusRegMuTensor3 -> Some v.view_mu_tensor3
+| BusRegBianchiAlarm -> Some (bool_to_nat v.view_bianchi_alarm)
+| BusRegPtNextId -> Some v.view_pt_next_id
+| BusRegPtSize -> Some (v.view_pt_size 0)
+| _ -> None
+
+(** val busRead : busCoreView -> int -> int option **)
+
+let busRead v addr =
+  match decodeBusReg addr with
+  | Some r -> if busRegReadable r then busRegReadValue v r else None
+  | None -> None
+
+type busShadowRegs = { sh_load_instr_addr : int; sh_load_instr_data : 
+                       int; sh_load_instr_kick : bool;
+                       sh_logic_resp_valid : bool;
+                       sh_logic_resp_error : bool; sh_logic_resp_value : 
+                       int; sh_active_module : int; sh_trap_vector : 
+                       int }
+
+type busWrapperState = { bw_core : kamiSnapshot; bw_shadow : busShadowRegs }
+
+(** val busWriteShadow : busShadowRegs -> busReg -> int -> busShadowRegs **)
+
+let busWriteShadow s r data =
+  match r with
+  | BusRegLoadInstrAddr ->
+    { sh_load_instr_addr = data; sh_load_instr_data = s.sh_load_instr_data;
+      sh_load_instr_kick = s.sh_load_instr_kick; sh_logic_resp_valid =
+      s.sh_logic_resp_valid; sh_logic_resp_error = s.sh_logic_resp_error;
+      sh_logic_resp_value = s.sh_logic_resp_value; sh_active_module =
+      s.sh_active_module; sh_trap_vector = s.sh_trap_vector }
+  | BusRegLoadInstrData ->
+    { sh_load_instr_addr = s.sh_load_instr_addr; sh_load_instr_data = data;
+      sh_load_instr_kick = s.sh_load_instr_kick; sh_logic_resp_valid =
+      s.sh_logic_resp_valid; sh_logic_resp_error = s.sh_logic_resp_error;
+      sh_logic_resp_value = s.sh_logic_resp_value; sh_active_module =
+      s.sh_active_module; sh_trap_vector = s.sh_trap_vector }
+  | BusRegLoadInstrKick ->
+    { sh_load_instr_addr = s.sh_load_instr_addr; sh_load_instr_data =
+      s.sh_load_instr_data; sh_load_instr_kick = (negb (eqb data 0));
+      sh_logic_resp_valid = s.sh_logic_resp_valid; sh_logic_resp_error =
+      s.sh_logic_resp_error; sh_logic_resp_value = s.sh_logic_resp_value;
+      sh_active_module = s.sh_active_module; sh_trap_vector =
+      s.sh_trap_vector }
+  | BusRegSetLogicRespValid ->
+    { sh_load_instr_addr = s.sh_load_instr_addr; sh_load_instr_data =
+      s.sh_load_instr_data; sh_load_instr_kick = s.sh_load_instr_kick;
+      sh_logic_resp_valid = (negb (eqb data 0)); sh_logic_resp_error =
+      s.sh_logic_resp_error; sh_logic_resp_value = s.sh_logic_resp_value;
+      sh_active_module = s.sh_active_module; sh_trap_vector =
+      s.sh_trap_vector }
+  | BusRegSetLogicRespError ->
+    { sh_load_instr_addr = s.sh_load_instr_addr; sh_load_instr_data =
+      s.sh_load_instr_data; sh_load_instr_kick = s.sh_load_instr_kick;
+      sh_logic_resp_valid = s.sh_logic_resp_valid; sh_logic_resp_error =
+      (negb (eqb data 0)); sh_logic_resp_value = s.sh_logic_resp_value;
+      sh_active_module = s.sh_active_module; sh_trap_vector =
+      s.sh_trap_vector }
+  | BusRegSetLogicRespValue ->
+    { sh_load_instr_addr = s.sh_load_instr_addr; sh_load_instr_data =
+      s.sh_load_instr_data; sh_load_instr_kick = s.sh_load_instr_kick;
+      sh_logic_resp_valid = s.sh_logic_resp_valid; sh_logic_resp_error =
+      s.sh_logic_resp_error; sh_logic_resp_value = data; sh_active_module =
+      s.sh_active_module; sh_trap_vector = s.sh_trap_vector }
+  | BusRegSetActiveModule ->
+    { sh_load_instr_addr = s.sh_load_instr_addr; sh_load_instr_data =
+      s.sh_load_instr_data; sh_load_instr_kick = s.sh_load_instr_kick;
+      sh_logic_resp_valid = s.sh_logic_resp_valid; sh_logic_resp_error =
+      s.sh_logic_resp_error; sh_logic_resp_value = s.sh_logic_resp_value;
+      sh_active_module = data; sh_trap_vector = s.sh_trap_vector }
+  | BusRegSetTrapVector ->
+    { sh_load_instr_addr = s.sh_load_instr_addr; sh_load_instr_data =
+      s.sh_load_instr_data; sh_load_instr_kick = s.sh_load_instr_kick;
+      sh_logic_resp_valid = s.sh_logic_resp_valid; sh_logic_resp_error =
+      s.sh_logic_resp_error; sh_logic_resp_value = s.sh_logic_resp_value;
+      sh_active_module = s.sh_active_module; sh_trap_vector = data }
+  | _ -> s
+
+(** val busWrite : busWrapperState -> int -> int -> busWrapperState **)
+
+let busWrite st addr data =
+  match decodeBusReg addr with
+  | Some r ->
+    if busRegWritable r
+    then { bw_core = st.bw_core; bw_shadow =
+           (busWriteShadow st.bw_shadow r data) }
+    else st
+  | None -> st
+
+(** val coreViewOfSnapshot : kamiSnapshot -> busCoreView **)
+
+let coreViewOfSnapshot s =
+  { view_pc = s.snap_pc; view_mu = s.snap_mu; view_err = s.snap_err;
+    view_halted = s.snap_halted; view_partition_ops = s.snap_partition_ops;
+    view_mdl_ops = s.snap_mdl_ops; view_info_gain = s.snap_info_gain;
+    view_error_code = s.snap_error_code; view_mstatus = 0; view_mcycle_lo =
+    0; view_mcycle_hi = 0; view_minstret_lo = 0; view_minstret_hi = 0;
+    view_logic_acc = 0; view_logic_req_valid = false; view_logic_req_opcode =
+    0; view_logic_req_payload = 0; view_mu_tensor0 = (s.snap_mu_tensor 0);
+    view_mu_tensor1 = (s.snap_mu_tensor ((fun x -> x + 1) 0));
+    view_mu_tensor2 =
+    (s.snap_mu_tensor ((fun x -> x + 1) ((fun x -> x + 1) 0)));
+    view_mu_tensor3 =
+    (s.snap_mu_tensor ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      0)))); view_bianchi_alarm = false; view_pt_next_id = s.snap_pt_next_id;
+    view_pt_size = s.snap_pt_sizes }
+
+type busOp =
+| BusOpRead of int
+| BusOpWrite of int * int
+
+(** val bus_step : busWrapperState -> busOp -> busWrapperState **)
+
+let bus_step st = function
+| BusOpRead _ -> st
+| BusOpWrite (addr, data) -> busWrite st addr data

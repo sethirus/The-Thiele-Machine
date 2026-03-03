@@ -1,4 +1,6 @@
 (** =========================================================================
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
     PHASE 4: PROJECTION FROM PARTITION FILTERING
     =========================================================================
     
@@ -21,6 +23,10 @@
     RESULT: Measurement projection = partition filter by revealed module ID.
     
     ========================================================================= *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import List ZArith Lia Bool Nat.
 Import ListNotations.

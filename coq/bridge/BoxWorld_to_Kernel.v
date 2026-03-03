@@ -5,6 +5,9 @@ Open Scope Q_scope.
 Require Import VMStep.
 Require Import CHSH.
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState MuCostModel.
+
 (** * Bridge: finite box-world predictions -> kernel receipts
 
     This file makes the slogan “physics embeds into the kernel” *meaningful* in the

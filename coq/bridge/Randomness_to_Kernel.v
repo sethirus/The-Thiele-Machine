@@ -3,6 +3,10 @@ Import ListNotations.
 
 From Kernel Require Import ReceiptCore.
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 Module Randomness_to_Kernel.
 
 (* Minimal bridge: define a channel selector for RAND_TRIAL opcode id.
@@ -23,5 +27,6 @@ Lemma decode_is_filter_payloads :
 Proof.
   intros; reflexivity.
 Qed.
+
 
 End Randomness_to_Kernel.

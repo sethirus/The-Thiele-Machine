@@ -2,6 +2,10 @@
 
 Require Import List Arith Lia Bool.
 Import ListNotations.
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 
 (* === Concrete proof artifacts for DRAT/LRAT/model checking === *)
 

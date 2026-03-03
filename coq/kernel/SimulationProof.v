@@ -238,7 +238,8 @@ Proof.
   - apply compile_instruction_head.
 Qed.
 
-Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
+(* Core transition semantics used by proof lemmas. *)
+Definition vm_apply_unsafe (s : VMState) (instr : vm_instruction) : VMState :=
   match instr with
   | instr_pnew region cost =>
       let '(graph', _) := graph_pnew s.(vm_graph) region in
@@ -385,6 +386,26 @@ Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
       advance_state s (instr_halt cost) s.(vm_graph) s.(vm_csrs) s.(vm_err)
   end.
 
+(* Executable NoFI guard: cert-setting instructions must carry positive μ-cost. *)
+Definition vm_apply_nofi (s : VMState) (instr : vm_instruction) : VMState :=
+  if nofi_step_cost_okb instr then
+    vm_apply_unsafe s instr
+  else
+    {| vm_graph := s.(vm_graph);
+       vm_csrs := csr_set_err s.(vm_csrs) 1;
+       vm_regs := s.(vm_regs);
+       vm_mem := s.(vm_mem);
+       vm_pc := s.(vm_pc);
+       vm_mu := s.(vm_mu);
+       vm_mu_tensor := s.(vm_mu_tensor);
+       vm_err := latch_err s true |}.
+
+(* Runtime export alias: extraction can bind this as the default [vm_apply]. *)
+Definition vm_apply_runtime : VMState -> vm_instruction -> VMState := vm_apply_nofi.
+
+(* Keep the historical theorem-facing name stable for proof compatibility. *)
+Definition vm_apply : VMState -> vm_instruction -> VMState := vm_apply_unsafe.
+
 Fixpoint run_vm (fuel : nat) (trace : list vm_instruction) (s : VMState)
   : VMState :=
   match fuel with
@@ -395,6 +416,17 @@ Fixpoint run_vm (fuel : nat) (trace : list vm_instruction) (s : VMState)
       | None => s
       end
   end.
+
+    Fixpoint run_vm_nofi (fuel : nat) (trace : list vm_instruction) (s : VMState)
+      : VMState :=
+      match fuel with
+      | 0 => s
+      | S fuel' =>
+        match nth_error trace s.(vm_pc) with
+        | Some instr => run_vm_nofi fuel' trace (vm_apply_nofi s instr)
+        | None => s
+        end
+      end.
 
 Inductive vm_exec : nat -> list vm_instruction -> VMState -> VMState -> Prop :=
 | vm_exec_zero : forall trace s,

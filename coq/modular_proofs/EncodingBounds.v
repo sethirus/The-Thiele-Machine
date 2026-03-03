@@ -1,5 +1,9 @@
 From Coq Require Import Arith.Arith Arith.PeanoNat Lists.List Lia.
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 (** [pow2_gt_succ]: formal specification. *)
 Lemma pow2_gt_succ : forall n, S n < Nat.pow 2 (S n).
 Proof.
@@ -183,3 +187,4 @@ Proof.
     rewrite Nat.mod_small by exact Hc.
     reflexivity.
 Qed.
+

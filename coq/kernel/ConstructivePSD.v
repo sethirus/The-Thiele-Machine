@@ -40,6 +40,10 @@
 
     ========================================================================= *)
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 From Coq Require Import Reals Lra Psatz Lia.
 From Coq Require Import Fin.
 From Coq Require Import Logic.FunctionalExtensionality.

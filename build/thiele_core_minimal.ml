@@ -2208,9 +2208,9 @@ module VMStep =
       s.vm_mu_tensor; vm_err = s.vm_err }
  end
 
-(** val vm_apply : vMState -> VMStep.vm_instruction -> vMState **)
+(** val vm_apply_unsafe : vMState -> VMStep.vm_instruction -> vMState **)
 
-let vm_apply s = function
+let vm_apply_unsafe s = function
 | VMStep.Coq_instr_pnew (region, cost) ->
   let graph',_ = graph_pnew s.vm_graph region in
   VMStep.advance_state s (VMStep.Coq_instr_pnew (region, cost)) graph'
@@ -2400,3 +2400,8 @@ let vm_apply s = function
   VMStep.advance_state_reveal s (VMStep.Coq_instr_reveal (module0, bits,
     cert, cost)) module0 bits s.vm_graph csrs' s.vm_err
 | x -> VMStep.advance_state s x s.vm_graph s.vm_csrs s.vm_err
+
+(** val vm_apply : vMState -> VMStep.vm_instruction -> vMState **)
+
+let vm_apply =
+  vm_apply_unsafe

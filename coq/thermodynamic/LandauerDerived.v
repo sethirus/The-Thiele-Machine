@@ -1,4 +1,5 @@
 (* ========================================================================
+
    LANDAUER'S PRINCIPLE: INFORMATION-THEORETIC DERIVATION
    ========================================================================
    
@@ -24,6 +25,10 @@
    Date: December 2024
    Status: AXIOM-FREE, ADMIT-FREE
 *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 Require Import Coq.Arith.Arith.
 Require Import Coq.NArith.NArith.

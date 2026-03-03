@@ -85,30 +85,56 @@ PRUNABLE_DIRS: Set[str] = {
 }
 
 DOD_THRESHOLDS: Dict[str, float] = {
+    # ══════════════════════════════════════════════════════════════════════════
+    # NO THRESHOLD GAMING POLICY:
+    # Thresholds are set to enforce REAL completion, not to pass current state.
+    # If a threshold fails, fix the underlying issue — do not lower the bar.
+    # ══════════════════════════════════════════════════════════════════════════
+
     # ── Tier A: Hard gates — must always pass ──
-    # These reflect real toolchain health and must never regress.
-    "min_coq_compile_pass": 1.0,            # All Coq proofs compile (currently: PASS)
-    "min_extraction_freshness_pass": 1.0,   # Extracted OCaml is current (currently: PASS)
-    "min_rtl_synthesis_pass": 1.0,          # RTL synthesises cleanly (currently: PASS)
-    # ── Tier B: Core connectivity health ──
-    # Calibrated to the project's actual state. These reflect genuine cross-layer
-    # integration of the kernel, not aspirational 100% perfection.
-    # Advance these only when the metric genuinely improves; never chase paper coverage.
-    "min_isomorphism_score": 85.0,          # Was 100 — current actual: 87.54 ✓
-    "min_triad_completion_ratio": 0.60,     # Was 1.0  — current actual: 0.6457 ✓
-    "min_core_bridge_ratio": 0.99,          # Was 1.0  — current actual: 0.9982 ✓
-    # ── Tier C: Test coverage — core files only ──
-    # A research VM does not need 100% symbol coverage of every helper script.
-    # Target: core layer (thielecpu/) is exercised, experiments are not penalised.
-    "min_test_prod_symbol_coverage_ratio": 0.07,   # Was 1.0 — current: 0.0745 ✓
-    "min_test_prod_file_coverage_ratio": 0.40,     # Was 1.0 — current: 0.4653 ✓
-    "max_isolated_test_files": 0.0,                # current: 0.0 ✓ (already passes)
-    # ── Tier D: Documentation — near-complete is good enough ──
-    # The project is already at 99.x% on both. 100% perfectionism blocks COMPLETED.
-    "min_per_proof_doc_ratio": 0.99,               # Was 1.0 — current: 0.9988 ✓
-    "min_proof_files_with_readme_ratio": 1.0,      # current: 1.0 ✓ (already passes)
-    "min_kernel_proof_latex_coverage_ratio": 0.99, # Was 1.0 — current: 0.9962 ✓
+    "min_coq_compile_pass": 1.0,            # All Coq proofs compile
+    "min_ocaml_extraction_build_pass": 1.0, # Extraction entrypoints build and emit OCaml VM core
+    "min_extraction_freshness_pass": 1.0,   # Extracted OCaml is current
+    "min_rtl_synthesis_pass": 1.0,          # RTL synthesises cleanly
+    "max_proof_connectivity_gaps": 0.0,     # Every proof-bearing file MUST connect to machine semantics
+    "max_cross_layer_foundation_disconnects": 0.0,  # Every runtime/hardware surface MUST link to proof foundations
+
+    # ── Tier B: Isomorphism enforcement ──
+    # These enforce genuine cross-layer integration. The isomorphism score MUST
+    # reach 95+ for COMPLETED status — anything less means proven gaps exist.
+    "min_isomorphism_score": 95.0,          # Strict: real isomorphism requires near-perfect alignment
+    "min_triad_completion_ratio": 0.85,     # 85% of symbols must appear in all 3 layers
+    "min_core_bridge_ratio": 0.99,          # Core+bridge symbols must be production, not stubs
+
+    # ── Tier C: Test verification coverage ──
+    # Tests must actually exercise the code they claim to verify.
+    "min_test_prod_symbol_coverage_ratio": 0.15,   # At least 15% of production symbols tested
+    "min_test_prod_file_coverage_ratio": 0.50,     # At least 50% of production files tested
+    "max_isolated_test_files": 0.0,                # No orphan tests
+
+    # ── Tier D: Documentation completeness ──
+    "min_per_proof_doc_ratio": 0.99,
+    "min_proof_files_with_readme_ratio": 1.0,
+    "min_kernel_proof_latex_coverage_ratio": 0.99,
 }
+
+# Canonical proof-to-runtime chain used for atlas reporting and visual audits.
+# This is intentionally linear: each stage must be constructively linked to
+# the previous stage to claim end-to-end isomorphism from foundations.
+FOUNDATION_CHAIN_STAGES: List[Tuple[str, str]] = [
+    ("coq/kernel/VMState.v", "Bottom layer: machine state and partition graph"),
+    ("coq/kernel/VMStep.v", "Operational semantics and instruction step relation"),
+    ("coq/kernel/MuCostModel.v", "Operational mu-cost definition"),
+    ("coq/kernel/MuLedgerConservation.v", "Ledger conservation and monotonicity"),
+    ("coq/kernel/NoFreeInsight.v", "Central impossibility theorem"),
+    ("coq/kernel/MuInitiality.v", "Uniqueness/initiality of mu ledger"),
+    ("coq/Extraction.v", "OCaml extraction entrypoint wired to foundations"),
+    ("tools/extracted_vm_runner.ml", "Runner over extracted semantics"),
+    ("build/thiele_vm.py", "Python wrapper with strict extracted backend mode"),
+    ("coq/kami_hw/CanonicalCPUProof.v", "Canonical Kami refinement proof surface"),
+    ("coq/kami_hw/KamiExtraction.v", "Kami module extraction for RTL flow"),
+    ("thielecpu/hardware/cosim.py", "Canonical RTL co-simulation harness"),
+]
 
 COQ_DECL_RE = re.compile(
     r"^\s*(?:Local\s+|Global\s+|#\[.*?\]\s*)?"
@@ -1434,6 +1460,8 @@ def _parse_inquisitor_report(report_path: Path) -> Dict[str, object]:
             "high": 0,
             "medium": 0,
             "low": 0,
+            "proof_connectivity_gaps": 0,
+            "cross_layer_foundation_disconnects": 0,
             "top_rules": [],
         }
 
@@ -1445,6 +1473,11 @@ def _parse_inquisitor_report(report_path: Path) -> Dict[str, object]:
 
     rule_hits = Counter(re.findall(r"\*\*([A-Z0-9_]+)\*\*", text))
     top_rules = [{"rule": rule, "count": count} for rule, count in rule_hits.most_common(20)]
+    proof_connectivity_gaps = _as_int(rule_hits.get("PROOF_CONNECTIVITY_GAP", 0))
+    cross_layer_foundation_disconnects = _as_int(rule_hits.get("CROSS_LAYER_FOUNDATION_DISCONNECT", 0))
+
+    # Build a complete rule → count mapping for DOD gate checks
+    findings_by_rule: Dict[str, int] = dict(rule_hits)
 
     return {
         "report_found": True,
@@ -1452,15 +1485,18 @@ def _parse_inquisitor_report(report_path: Path) -> Dict[str, object]:
         "high": _as_int(high_match.group(1) if high_match else 0),
         "medium": _as_int(medium_match.group(1) if medium_match else 0),
         "low": _as_int(low_match.group(1) if low_match else 0),
+        "proof_connectivity_gaps": proof_connectivity_gaps,
+        "cross_layer_foundation_disconnects": cross_layer_foundation_disconnects,
         "top_rules": top_rules,
+        "findings_by_rule": findings_by_rule,
     }
 
 
 def _run_inquisitor() -> Dict[str, object]:
-    """Run Inquisitor proof analyzer with 120 second timeout."""
+    """Run Inquisitor proof analyzer with a configurable timeout."""
     report_path = REPO_ROOT / "INQUISITOR_REPORT.md"
     cmd = ["python3", "scripts/inquisitor.py", "--report", "INQUISITOR_REPORT.md"]
-    timeout_sec = int(os.environ.get("INQUISITOR_TIMEOUT", "120"))  # 120s timeout to allow full Coq compilation
+    timeout_sec = int(os.environ.get("INQUISITOR_TIMEOUT", "600"))
     
     try:
         proc = subprocess.run(
@@ -1478,6 +1514,7 @@ def _run_inquisitor() -> Dict[str, object]:
             "returncode": 124,
             "status": "TIMEOUT",
             "strict_pass": False,
+            "failure_reason": "timeout",
             "report": _parse_inquisitor_report(report_path),
             "stdout_tail": "",
             "stderr_tail": f"Inquisitor timed out after {timeout_sec} seconds.",
@@ -1491,6 +1528,7 @@ def _run_inquisitor() -> Dict[str, object]:
             "returncode": 127,
             "status": "ERROR",
             "strict_pass": False,
+            "failure_reason": "runtime_error",
             "report": _parse_inquisitor_report(report_path),
             "stdout_tail": "",
             "stderr_tail": str(exc),
@@ -1503,6 +1541,14 @@ def _run_inquisitor() -> Dict[str, object]:
     medium = _as_int(parsed.get("medium"))
     strict_pass = proc.returncode == 0 and high == 0 and medium == 0
     status = "PASS" if strict_pass else "FAIL"
+    failure_reason = "none"
+    if not strict_pass:
+        if high > 0 or medium > 0:
+            failure_reason = "findings"
+        elif proc.returncode != 0:
+            failure_reason = "nonzero_exit"
+        else:
+            failure_reason = "unknown"
 
     return {
         "ran": True,
@@ -1510,6 +1556,7 @@ def _run_inquisitor() -> Dict[str, object]:
         "returncode": proc.returncode,
         "status": status,
         "strict_pass": strict_pass,
+        "failure_reason": failure_reason,
         "report": parsed,
         "stdout_tail": "\n".join(proc.stdout.splitlines()[-40:]),
         "stderr_tail": "\n".join(proc.stderr.splitlines()[-40:]),
@@ -1526,6 +1573,8 @@ def _compute_proof_quality_metrics(inquisitor_result: Dict[str, object]) -> Dict
     high = _as_int(report.get("high"))
     medium = _as_int(report.get("medium"))
     low = _as_int(report.get("low"))
+    proof_connectivity_gaps = _as_int(report.get("proof_connectivity_gaps"))
+    cross_layer_foundation_disconnects = _as_int(report.get("cross_layer_foundation_disconnects"))
 
     weighted_penalty = (1.0 * high) + (0.35 * medium) + (0.1 * low)
     raw_accuracy = max(0.0, min(100.0, (1.0 - (weighted_penalty / scanned)) * 100.0))
@@ -1553,9 +1602,14 @@ def _compute_proof_quality_metrics(inquisitor_result: Dict[str, object]) -> Dict
         "high": high,
         "medium": medium,
         "low": low,
+        "proof_connectivity_gaps": proof_connectivity_gaps,
+        "cross_layer_foundation_disconnects": cross_layer_foundation_disconnects,
         "scanned_files": _as_int(report.get("scanned_files")),
         "weighted_penalty": round(weighted_penalty, 3),
         "strict_pass": bool(inquisitor_result.get("strict_pass", False)),
+        "inquisitor_failure_reason": str(inquisitor_result.get("failure_reason", "none")),
+        "inquisitor_timed_out": bool(inquisitor_result.get("timed_out", False)),
+        "findings_by_rule": report.get("findings_by_rule", {}),
     }
 
 
@@ -1588,11 +1642,34 @@ def _run_coq_compile_gate() -> Dict[str, object]:
     total_vo = len(vo_files)
     compile_ratio = (total_vo / total_v) if total_v else 0.0
 
-    # Scan sources for any Admitted. (gate integrity check)
+    def _strip_coq_comments(text: str) -> str:
+        # Coq comments are nested: (* ... *). Strip them so keyword checks only
+        # inspect proof terms, not banner/documentation comments.
+        out: List[str] = []
+        i = 0
+        depth = 0
+        n = len(text)
+        while i < n:
+            pair = text[i:i + 2]
+            if pair == "(*":
+                depth += 1
+                i += 2
+                continue
+            if pair == "*)" and depth > 0:
+                depth -= 1
+                i += 2
+                continue
+            if depth == 0:
+                out.append(text[i])
+            i += 1
+        return "".join(out)
+
+    # Scan sources for any real Admitted. (gate integrity check)
     admitted_count = 0
     for vf in v_files:
         txt = vf.read_text(encoding="utf-8", errors="replace")
-        admitted_count += txt.count("Admitted.")
+        code_only = _strip_coq_comments(txt)
+        admitted_count += len(re.findall(r"\bAdmitted\.", code_only))
 
     passed = result.returncode == 0 and admitted_count == 0
     return {
@@ -1658,6 +1735,65 @@ def _run_extraction_freshness_gate() -> Dict[str, object]:
     }
 
 
+def _run_ocaml_extraction_build_gate() -> Dict[str, object]:
+    """Build Extraction.vo/MinimalExtraction.vo and validate emitted OCaml artifacts."""
+    coq_dir = REPO_ROOT / "coq"
+    build_dir = REPO_ROOT / "build"
+
+    try:
+        build_result = subprocess.run(
+            ["make", "-j4", "Extraction.vo", "MinimalExtraction.vo"],
+            cwd=str(coq_dir),
+            capture_output=True,
+            text=True,
+            check=False,
+            timeout=1800,
+        )
+    except FileNotFoundError:
+        return {"ran": False, "pass": False, "error": "make not found"}
+    except subprocess.TimeoutExpired:
+        return {"ran": True, "pass": False, "error": "OCaml extraction build timed out"}
+
+    artifacts = {
+        "Extraction.v": build_dir / "thiele_core.ml",
+        "MinimalExtraction.v": build_dir / "thiele_core_minimal.ml",
+    }
+    required_symbols = ["vm_instruction", "vm_apply", "vMState"]
+
+    files: Dict[str, object] = {}
+    all_pass = build_result.returncode == 0
+    for src_name, out_path in artifacts.items():
+        if not out_path.exists():
+            files[src_name] = {
+                "exists": False,
+                "symbols_ok": False,
+                "pass": False,
+            }
+            all_pass = False
+            continue
+
+        content = out_path.read_text(encoding="utf-8", errors="replace")
+        missing = [s for s in required_symbols if s not in content]
+        symbols_ok = len(missing) == 0
+        file_ok = symbols_ok
+        files[src_name] = {
+            "exists": True,
+            "symbols_ok": symbols_ok,
+            "missing_symbols": missing,
+            "pass": file_ok,
+        }
+        if not file_ok:
+            all_pass = False
+
+    return {
+        "ran": True,
+        "pass": all_pass,
+        "returncode": build_result.returncode,
+        "stderr_tail": build_result.stderr[-500:] if build_result.stderr else "",
+        "files": files,
+    }
+
+
 def _run_rtl_synthesis_gate() -> Dict[str, object]:
     """Run Yosys lite synthesis and report pass/fail, module count, and cell count."""
     rtl_dir = REPO_ROOT / "thielecpu" / "hardware" / "rtl"
@@ -1716,50 +1852,73 @@ def _run_cosim_gate() -> Dict[str, object]:
     if not unified_v.exists():
         return {"ran": False, "pass": False, "error": f"{unified_v} not found"}
 
-    tb_files = list(tb_dir.glob("*.v")) if tb_dir.exists() else []
+    tb_files = sorted(tb_dir.glob("*.v")) if tb_dir.exists() else []
     if not tb_files:
         return {"ran": False, "pass": False, "error": "no testbench .v files found"}
 
-    tb_main = next((f for f in tb_files if "thiele_cpu_tb" in f.name), tb_files[0])
+    # Prefer the canonical Kami smoke TB used by the hardware pytest gate.
+    preferred_order = [
+        "thiele_cpu_kami_tb.v",
+        "thiele_cpu_tb.v",
+    ]
+    ordered_tb_files: List[Path] = []
+    by_name = {f.name: f for f in tb_files}
+    for name in preferred_order:
+        if name in by_name:
+            ordered_tb_files.append(by_name[name])
+    for f in tb_files:
+        if f not in ordered_tb_files and "batch" not in f.name:
+            ordered_tb_files.append(f)
+    for f in tb_files:
+        if f not in ordered_tb_files:
+            ordered_tb_files.append(f)
 
     import tempfile
     with tempfile.TemporaryDirectory() as tmp:
-        sim_bin = str(Path(tmp) / "sim_out")
-        try:
-            compile_result = subprocess.run(
-                ["iverilog", "-g2012", "-DSIMULATION",
-                 "-o", sim_bin, str(tb_main), str(unified_v)],
-                cwd=str(rtl_dir),
-                capture_output=True, text=True, check=False, timeout=120,
-            )
-        except subprocess.TimeoutExpired:
-            return {"ran": True, "pass": False, "error": "iverilog timed out"}
+        last_compile_err = ""
+        for tb_main in ordered_tb_files:
+            sim_bin = str(Path(tmp) / f"sim_out_{tb_main.stem}")
+            try:
+                compile_result = subprocess.run(
+                    ["iverilog", "-g2012", "-DSIMULATION",
+                     "-o", sim_bin, str(tb_main), str(unified_v)],
+                    cwd=str(rtl_dir),
+                    capture_output=True, text=True, check=False, timeout=120,
+                )
+            except subprocess.TimeoutExpired:
+                return {"ran": True, "pass": False, "error": "iverilog timed out"}
 
-        if compile_result.returncode != 0:
+            if compile_result.returncode != 0:
+                last_compile_err = compile_result.stderr[-400:] if compile_result.stderr else ""
+                continue
+
+            try:
+                run_result = subprocess.run(
+                    ["vvp", sim_bin],
+                    cwd=str(rtl_dir),
+                    capture_output=True, text=True, check=False, timeout=60,
+                )
+            except subprocess.TimeoutExpired:
+                return {"ran": True, "pass": False, "error": "vvp timed out", "testbench": tb_main.name}
+
+            output = run_result.stdout + run_result.stderr
+            has_fail = "FAILED" in output.upper() and "0 FAILED" not in output.upper()
+            passed = run_result.returncode == 0 and not has_fail
             return {
-                "ran": True, "pass": False,
-                "stage": "compile",
-                "stderr_tail": compile_result.stderr[-400:],
+                "ran": True,
+                "pass": passed,
+                "returncode": run_result.returncode,
+                "has_fail_marker": has_fail,
+                "stdout_tail": run_result.stdout[-400:],
+                "testbench": tb_main.name,
             }
 
-        try:
-            run_result = subprocess.run(
-                ["vvp", sim_bin],
-                cwd=str(rtl_dir),
-                capture_output=True, text=True, check=False, timeout=60,
-            )
-        except subprocess.TimeoutExpired:
-            return {"ran": True, "pass": False, "error": "vvp timed out"}
-
-        output = run_result.stdout + run_result.stderr
-        has_fail = "FAILED" in output.upper() and "0 FAILED" not in output.upper()
-        passed = run_result.returncode == 0 and not has_fail
         return {
             "ran": True,
-            "pass": passed,
-            "returncode": run_result.returncode,
-            "has_fail_marker": has_fail,
-            "stdout_tail": run_result.stdout[-400:],
+            "pass": False,
+            "stage": "compile",
+            "stderr_tail": last_compile_err,
+            "testbench": ordered_tb_files[0].name if ordered_tb_files else "",
         }
 
 
@@ -1937,6 +2096,7 @@ def _fragmented_correctness_flags(
     # Check toolchain gates if provided
     if toolchain_gates:
         coq_pass = toolchain_gates.get("coq_compile", {}).get("pass", False)
+        ocaml_build_pass = toolchain_gates.get("ocaml_extraction_build", {}).get("pass", False)
         extraction_pass = toolchain_gates.get("extraction_freshness", {}).get("pass", False)
         rtl_pass = toolchain_gates.get("rtl_synthesis", {}).get("pass", False)
         cosim_pass = toolchain_gates.get("cosim", {}).get("pass", False)
@@ -1945,6 +2105,8 @@ def _fragmented_correctness_flags(
             flags.append("Proof analysis PASS but Coq compile FAIL: possible proof bugs or build issues.")
         if coq_pass and not extraction_pass:
             flags.append("Coq compile PASS but extraction FAIL: stale or missing extracted OCaml/Python code.")
+        if coq_pass and not ocaml_build_pass:
+            flags.append("Coq compile PASS but OCaml extraction build FAIL: Extraction.v/MinimalExtraction.v are not producing valid OCaml VM artifacts.")
         if extraction_pass and not rtl_pass:
             flags.append("Extraction PASS but RTL synthesis FAIL: Verilog may not match extracted semantics.")
         if rtl_pass and not cosim_pass:
@@ -1954,6 +2116,16 @@ def _fragmented_correctness_flags(
         flags.append("Proof gate PASS but test gate FAIL: verified statements are not yet sufficiently exercised against runtime surfaces.")
     if proof_pass and bridge_ratio < 0.15:
         flags.append("Proof hygiene is high while bridge ratio is low: risk of decorative proofs disconnected from implementation layers.")
+    if _as_int(proof_metrics.get("proof_connectivity_gaps")) > 0:
+        flags.append(
+            "Inquisitor found proof-connectivity gaps: some proof-bearing files are not connected "
+            "to core Thiele machine foundations; iterate bridge closure until all are connected."
+        )
+    if _as_int(proof_metrics.get("cross_layer_foundation_disconnects")) > 0:
+        flags.append(
+            "Cross-layer foundation disconnects detected: Coq->OCaml->VM->RTL chain has missing links "
+            "to foundational proofs and must be repaired end-to-end."
+        )
     if triad_ratio < 0.20:
         flags.append("Triad completion is low: most candidate concepts still lack full Coq↔Python↔RTL closure.")
     if _as_float(test_metrics.get("prod_symbol_coverage_ratio")) < 0.30:
@@ -2125,14 +2297,29 @@ def _compute_definition_of_done(
     add_check("per_proof_doc_ratio", _as_float(proof_doc_metrics.get("per_proof_doc_ratio")), ">=", DOD_THRESHOLDS["min_per_proof_doc_ratio"])
     add_check("proof_files_with_readme_ratio", _as_float(proof_doc_metrics.get("proof_files_with_readme_ratio")), ">=", DOD_THRESHOLDS["min_proof_files_with_readme_ratio"])
     add_check("kernel_proof_latex_coverage_ratio", _as_float(latex_metrics.get("kernel_proof_latex_coverage_ratio")), ">=", DOD_THRESHOLDS["min_kernel_proof_latex_coverage_ratio"])
+    add_check(
+        "proof_connectivity_gaps",
+        float(_as_int(proof_metrics.get("proof_connectivity_gaps"))),
+        "<=",
+        DOD_THRESHOLDS["max_proof_connectivity_gaps"],
+    )
+    add_check(
+        "cross_layer_foundation_disconnects",
+        float(_as_int(proof_metrics.get("cross_layer_foundation_disconnects"))),
+        "<=",
+        DOD_THRESHOLDS["max_cross_layer_foundation_disconnects"],
+    )
 
     # Real toolchain gates
     if toolchain_gates:
         coq_gate = toolchain_gates.get("coq_compile") or {}
+        ocaml_gate = toolchain_gates.get("ocaml_extraction_build") or {}
         ext_gate = toolchain_gates.get("extraction_freshness") or {}
         rtl_gate = toolchain_gates.get("rtl_synthesis") or {}
         if coq_gate.get("ran", False):
             add_check("coq_compile_pass", 1.0 if bool(coq_gate.get("pass")) else 0.0, ">=", DOD_THRESHOLDS["min_coq_compile_pass"])
+        if ocaml_gate.get("ran", False):
+            add_check("ocaml_extraction_build_pass", 1.0 if bool(ocaml_gate.get("pass")) else 0.0, ">=", DOD_THRESHOLDS["min_ocaml_extraction_build_pass"])
         if ext_gate.get("ran", False):
             add_check("extraction_freshness_pass", 1.0 if bool(ext_gate.get("pass")) else 0.0, ">=", DOD_THRESHOLDS["min_extraction_freshness_pass"])
         if rtl_gate.get("ran", False):
@@ -2149,14 +2336,96 @@ def _compute_definition_of_done(
         }
     )
 
+    # ── New enforcement gates (no-shortcuts policy) ──
+    # These check specific inquisitor rule categories that MUST pass.
+    inquisitor_findings = proof_metrics.get("findings_by_rule", {})
+    if isinstance(inquisitor_findings, dict):
+        iso_chain_gaps = inquisitor_findings.get("ISOMORPHISM_PROOF_CHAIN_GAP", 0)
+        opcode_violations = inquisitor_findings.get("OPCODE_PARITY_VIOLATION", 0)
+        test_lockstep_violations = inquisitor_findings.get("TEST_PROOF_LOCKSTEP_VIOLATION", 0)
+        extraction_unfaithful = inquisitor_findings.get("EXTRACTION_SEMANTIC_UNFAITHFUL", 0)
+
+        foundation_gaps = inquisitor_findings.get("FOUNDATION_UTILIZATION_GAP", 0)
+
+        add_check("isomorphism_proof_chain_gaps", float(iso_chain_gaps), "<=", 0.0)
+        add_check("opcode_parity_violations", float(opcode_violations), "<=", 0.0)
+        add_check("test_proof_lockstep_violations", float(test_lockstep_violations), "<=", 0.0)
+        add_check("extraction_semantic_violations", float(extraction_unfaithful), "<=", 0.0)
+        add_check("foundation_utilization_gaps", float(foundation_gaps), "<=", 0.0)
+
     completed = all(bool(c.get("passed")) for c in checks)
     unmet = [c for c in checks if not bool(c.get("passed"))]
+
+    # ── Counterexample mode ──
+    # For each failing check, explain WHY it fails and what to fix.
+    counterexamples: List[str] = []
+    for c in unmet:
+        name = c.get("name", "unknown")
+        actual = c.get("actual", 0)
+        threshold = c.get("threshold", 0)
+        if name == "isomorphism_score":
+            counterexamples.append(
+                f"isomorphism_score={actual:.1f} < {threshold}: Symbols exist in some layers "
+                "but not all three. Find partial triads and add the missing layer implementation."
+            )
+        elif name == "triad_completion_ratio":
+            counterexamples.append(
+                f"triad_completion_ratio={actual:.4f} < {threshold}: Too many symbols appear "
+                "in only 1-2 layers. Each proven concept must appear in Coq, Python, AND RTL."
+            )
+        elif name == "proof_connectivity_gaps":
+            counterexamples.append(
+                f"proof_connectivity_gaps={int(actual)} > 0: Coq files with proofs are not "
+                "transitively connected to VM foundation modules (VMState, VMStep, etc). "
+                "Add 'From Kernel Require Import' or bridge lemmas."
+            )
+        elif name == "isomorphism_proof_chain_gaps":
+            counterexamples.append(
+                f"isomorphism_proof_chain_gaps={int(actual)}: The Coq→Python→RTL bisimulation "
+                "proof chain has missing or incomplete proofs. Check ThreeLayerIsomorphism.v, "
+                "PythonBisimulation.v, HardwareBisimulation.v, VerilogRefinement.v."
+            )
+        elif name == "opcode_parity_violations":
+            counterexamples.append(
+                f"opcode_parity_violations={int(actual)}: Not all 26 VM opcodes are consistently "
+                "defined across Coq, extracted OCaml, Python VM, and Verilog RTL. "
+                "Ensure extraction preserves all instruction cases."
+            )
+        elif name == "test_proof_lockstep_violations":
+            counterexamples.append(
+                f"test_proof_lockstep_violations={int(actual)}: Tests claiming to verify "
+                "isomorphism don't actually execute on multiple layers. They must run programs "
+                "on 2+ implementations and compare results."
+            )
+        elif name == "inquisitor_strict_pass":
+            reason = str(proof_metrics.get("inquisitor_failure_reason", "unknown"))
+            if reason == "timeout":
+                counterexamples.append(
+                    "inquisitor_strict_pass=FAIL: The Inquisitor timed out before completing a strict gate run. "
+                    "Increase INQUISITOR_TIMEOUT or optimize scan scope, then rerun atlas/inquisitor."
+                )
+            elif reason == "findings":
+                counterexamples.append(
+                    "inquisitor_strict_pass=FAIL: The Inquisitor found HIGH or MEDIUM severity "
+                    "issues in Coq proofs. See INQUISITOR_REPORT.md for details."
+                )
+            elif reason == "nonzero_exit":
+                counterexamples.append(
+                    "inquisitor_strict_pass=FAIL: Inquisitor exited non-zero without HIGH/MEDIUM findings in report. "
+                    "Treat as tooling/runtime failure and inspect atlas_inquisitor_summary.json stderr/stdout tails."
+                )
+            else:
+                counterexamples.append(
+                    "inquisitor_strict_pass=FAIL: Inquisitor strict gate did not pass; inspect INQUISITOR_REPORT.md and atlas_inquisitor_summary.json."
+                )
+
     return {
         "status": "COMPLETED" if completed else "NOT_COMPLETED",
         "completed": completed,
         "checks": checks,
         "unmet_check_count": len(unmet),
         "unmet_checks": unmet,
+        "counterexamples": counterexamples,
     }
 
 
@@ -2281,6 +2550,17 @@ def _mermaid_python_rtl_focus(symbols: List[Symbol], edges: List[Edge], limit: i
         lines.append(f'  {rtl_id}["{rtl_file}"]')
         lines.append(f"  {py_id} -->|{weight}| {rtl_id}")
 
+    return "\n".join(lines)
+
+
+def _mermaid_foundation_chain() -> str:
+    lines = ["flowchart TD"]
+    for idx, (path, role) in enumerate(FOUNDATION_CHAIN_STAGES, start=1):
+        node = f"F{idx}"
+        label = f"{path}\\n{role}".replace('"', "")
+        lines.append(f"  {node}[\"{label}\"]")
+        if idx > 1:
+            lines.append(f"  F{idx - 1} --> {node}")
     return "\n".join(lines)
 
 
@@ -2417,6 +2697,7 @@ def _terminal_deep_analysis(bundle: Dict[str, List[str]]) -> None:
     if isinstance(raw_tc, dict) and raw_tc:
         gate_names = [
             ("coq_compile",          "Coq compile"),
+            ("ocaml_extraction_build", "OCaml extraction build"),
             ("extraction_freshness", "Extraction"),
             ("rtl_synthesis",        "RTL synth"),
             ("cosim",                "Co-sim"),
@@ -2844,6 +3125,7 @@ def _write_analysis_bundle(
         "symbol_class_breakdown.mmd": _mermaid_class_breakdown(cls),
         "file_action_breakdown.mmd": _mermaid_action_breakdown(file_metrics),
         "python_rtl_focus.mmd": _mermaid_python_rtl_focus(symbols, edges),
+        "foundation_chain.mmd": _mermaid_foundation_chain(),
     }
 
     exported: List[str] = []
@@ -2929,9 +3211,25 @@ def _guidance_actions(
                     continue
                 rule = str(item.get("rule", "UNKNOWN_RULE"))
                 count = _as_int(item.get("count"))
-                actions.append(
-                    f"Reduce Inquisitor rule {rule} occurrences (current count: {count}) to raise proof gate accuracy"
-                )
+                if rule == "PROOF_CONNECTIVITY_GAP":
+                    actions.append(
+                        f"Iterate proof-foundation closure for {count} disconnected proof files: "
+                        "add imports/bridge lemmas until each proof is transitively connected to VM/cost foundation"
+                    )
+                elif rule == "KAMI_OCAML_FOUNDATION_MISMATCH":
+                    actions.append(
+                        f"Align Kami and OCaml build foundations ({count} mismatch finding): "
+                        "iterate imports/re-exports so both extraction and kami_hw flows share the same kernel foundation modules"
+                    )
+                elif rule == "CROSS_LAYER_FOUNDATION_DISCONNECT":
+                    actions.append(
+                        f"Repair cross-layer foundation chain ({count} disconnect findings): "
+                        "ensure Coq foundation proofs, OCaml extraction, runner/wrapper, and canonical Kami RTL cosim wiring remain connected"
+                    )
+                else:
+                    actions.append(
+                        f"Reduce Inquisitor rule {rule} occurrences (current count: {count}) to raise proof gate accuracy"
+                    )
 
     if not bool(proof_metrics.get("strict_pass", False)):
         actions.append("Proof gate is FAIL: eliminate all HIGH and MEDIUM Inquisitor findings before claiming isomorphic completion")
@@ -3043,6 +3341,7 @@ def _md_report(
         "| Gate | Status |",
         "|---|---|",
         f"| Coq kernel compiles | {'✓ PASS' if bool((toolchain_gates or {}).get('coq_compile', {}).get('pass')) else '– not run' if not bool((toolchain_gates or {}).get('coq_compile', {}).get('ran')) else '✗ FAIL'} |",
+        f"| OCaml extraction build | {'✓ PASS' if bool((toolchain_gates or {}).get('ocaml_extraction_build', {}).get('pass')) else '– not run' if not bool((toolchain_gates or {}).get('ocaml_extraction_build', {}).get('ran')) else '✗ FAIL'} |",
         f"| Extraction freshness | {'✓ PASS' if bool((toolchain_gates or {}).get('extraction_freshness', {}).get('pass')) else '– not run' if not bool((toolchain_gates or {}).get('extraction_freshness', {}).get('ran')) else '✗ FAIL'} |",
         f"| RTL synthesis | {'✓ PASS' if bool((toolchain_gates or {}).get('rtl_synthesis', {}).get('pass')) else '– not run' if not bool((toolchain_gates or {}).get('rtl_synthesis', {}).get('ran')) else '✗ FAIL'} |",
         f"| Kernel triads (3-layer coverage) | {_as_float(iso_metrics.get('triad_completion_ratio')):.1%}  ({_as_int(iso_metrics.get('triad_count'))} complete / {_as_int(iso_metrics.get('partial_triad_count'))} partial) |",
@@ -3079,6 +3378,8 @@ def _md_report(
         f"| HIGH findings | {_as_int(proof_metrics.get('high'))} |",
         f"| MEDIUM findings | {_as_int(proof_metrics.get('medium'))} |",
         f"| LOW findings | {_as_int(proof_metrics.get('low'))} |",
+        f"| Proof connectivity gaps | {_as_int(proof_metrics.get('proof_connectivity_gaps'))} |",
+        f"| Cross-layer foundation disconnects | {_as_int(proof_metrics.get('cross_layer_foundation_disconnects'))} |",
         f"| Inquisitor return code | {_as_int(inquisitor_result.get('returncode'))} |",
         "",
         "Top failing rule families from Inquisitor:",
@@ -3103,6 +3404,24 @@ def _md_report(
         f"- Kernel Coq files: **{len(kernel_coq_rows)}**, average connectivity **{kernel_connectivity:.0%}**",
         f"- Non-kernel Coq files: **{len(non_kernel_coq_rows)}**, average connectivity **{non_kernel_connectivity:.0%}**",
         f"- Guidance: {kernel_guidance}",
+        "",
+        "## Canonical Foundation Chain",
+        "",
+        "Bottom-most layer is `coq/kernel/VMState.v` (state, partition graph, canonical normalization).",
+        "Every higher theorem/runtime surface must be constructively connected through this chain:",
+        "",
+        "| Order | Stage | Role |",
+        "|---|---|---|",
+    ]
+
+    for idx, (path, role) in enumerate(FOUNDATION_CHAIN_STAGES, start=1):
+        lines.append(f"| {idx} | {path} | {role} |")
+
+    lines += [
+        "",
+        "```mermaid",
+        _mermaid_foundation_chain(),
+        "```",
         "",
         "## Isomorphism Guidance Scorecard",
         "",
@@ -3158,12 +3477,25 @@ def _md_report(
                 f"- {check.get('name')}: actual={check.get('actual')} target {check.get('comparator')} {check.get('threshold')}"
             )
 
+    counterexamples = dod_status.get("counterexamples")
+    if isinstance(counterexamples, list) and counterexamples:
+        lines += [
+            "",
+            "### Why NOT_COMPLETED (Counterexamples)",
+            "",
+            "Each failing gate has a specific, actionable root cause:",
+            "",
+        ]
+        for i, ce in enumerate(counterexamples, 1):
+            lines.append(f"{i}. {ce}")
+        lines.append("")
+
     lines += [
         "",
         "## Toolchain Reality Gates",
         "",
         "These gates verify **actual compilation, extraction, and synthesis** — not just",
-        "static graph analysis. All four must PASS for the isomorphism to be mechanically",
+        "static graph analysis. All five must PASS for the isomorphism to be mechanically",
         "checkable end-to-end.",
         "",
         "| Gate | Ran | Pass | Detail |",
@@ -3195,6 +3527,7 @@ def _md_report(
     if toolchain_gates:
         gate_defs = [
             ("coq_compile",          "Coq compile (make -C coq, zero Admitted)"),
+            ("ocaml_extraction_build", "OCaml extraction build (Extraction.vo + MinimalExtraction.vo)"),
             ("extraction_freshness", "Extraction freshness (thiele_core.ml ≥ Extraction.v)"),
             ("rtl_synthesis",        "RTL synthesis (Yosys lite, top=thiele_cpu, cells>0)"),
             ("cosim",                "Co-simulation (iverilog/vvp testbench)"),
@@ -3206,6 +3539,8 @@ def _md_report(
             detail_parts = []
             if key == "coq_compile" and g.get("ran"):
                 detail_parts.append(f"{g.get('total_vo_files')}/{g.get('total_v_files')} .vo, admits={g.get('admitted_count')}")
+            elif key == "ocaml_extraction_build" and g.get("ran"):
+                detail_parts.append(f"rc={g.get('returncode')}")
             elif key == "extraction_freshness" and g.get("ran"):
                 file_checks = g.get("files") or {}
                 for fname, fc in file_checks.items():
@@ -3683,13 +4018,15 @@ def main() -> int:
     inquisitor_result = _run_inquisitor()
     proof_metrics = _compute_proof_quality_metrics(inquisitor_result)
 
-    print("Running real toolchain gates (Coq compile, extraction freshness, RTL synthesis, co-sim)...")
+    print("Running real toolchain gates (Coq compile, OCaml extraction build, extraction freshness, RTL synthesis, co-sim)...")
     coq_gate = _run_coq_compile_gate()
+    ocaml_build_gate = _run_ocaml_extraction_build_gate()
     ext_gate = _run_extraction_freshness_gate()
     rtl_gate = _run_rtl_synthesis_gate()
     cosim_gate = _run_cosim_gate()
     toolchain_gates: Dict[str, object] = {
         "coq_compile": coq_gate,
+        "ocaml_extraction_build": ocaml_build_gate,
         "extraction_freshness": ext_gate,
         "rtl_synthesis": rtl_gate,
         "cosim": cosim_gate,

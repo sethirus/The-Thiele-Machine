@@ -1,30 +1,53 @@
-DIGEST b4e12d232dceae77dc5478086a808ebd
+DIGEST 04b0ff03529c9bd60dccdad77cfee746
 FKernel.TsirelsonComputation
-R246:262 Coq.QArith.QArith <> <> lib
-R280:294 Coq.QArith.Qabs <> <> lib
-R312:325 Coq.Lists.List <> <> lib
-R335:347 Coq.Lists.List ListNotations <> mod
-def 406:417 <> sqrt2_approx
-R421:421 Coq.QArith.QArith_base <> Q rec
-R431:433 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
-def 470:478 <> inv_sqrt2
-R482:482 Coq.QArith.QArith_base <> Q rec
-R491:493 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
-def 535:543 <> tsirelson
-R547:547 Coq.QArith.QArith_base <> Q rec
-R557:559 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
-prf 639:652 <> four_inv_sqrt2
-R669:672 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
-R657:659 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
-R660:668 Kernel.TsirelsonComputation <> inv_sqrt2 def
-R678:680 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
-R702:710 Kernel.TsirelsonComputation <> inv_sqrt2 def
-def 1074:1097 <> min_eigenvalue_symmetric
-R1104:1104 Coq.QArith.QArith_base <> Q rec
-binder 1100:1100 <> e:1
-R1109:1109 Coq.QArith.QArith_base <> Q rec
-R1117:1119 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
-R1125:1127 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
-R1121:1123 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
-R1124:1124 Kernel.TsirelsonComputation <> e:1 var
-R1128:1128 Kernel.TsirelsonComputation <> e:1 var
+R343:349 Kernel.VMState <> <> lib
+R351:356 Kernel.VMStep <> <> lib
+R386:396 Kernel.MuCostModel <> <> lib
+R426:445 Kernel.MuLedgerConservation <> <> lib
+R447:459 Kernel.NoFreeInsight <> <> lib
+R461:472 Kernel.MuInitiality <> <> lib
+R491:507 Coq.QArith.QArith <> <> lib
+R525:539 Coq.QArith.Qabs <> <> lib
+R557:570 Coq.Lists.List <> <> lib
+R580:592 Coq.Lists.List ListNotations <> mod
+def 651:662 <> sqrt2_approx
+R666:666 Coq.QArith.QArith_base <> Q rec
+R676:678 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+def 715:723 <> inv_sqrt2
+R727:727 Coq.QArith.QArith_base <> Q rec
+R736:738 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+def 780:788 <> tsirelson
+R792:792 Coq.QArith.QArith_base <> Q rec
+R802:804 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+prf 884:897 <> four_inv_sqrt2
+R914:917 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R902:904 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R905:913 Kernel.TsirelsonComputation <> inv_sqrt2 def
+R923:925 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R947:955 Kernel.TsirelsonComputation <> inv_sqrt2 def
+def 1319:1342 <> min_eigenvalue_symmetric
+R1349:1349 Coq.QArith.QArith_base <> Q rec
+binder 1345:1345 <> e:1
+R1354:1354 Coq.QArith.QArith_base <> Q rec
+R1362:1364 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R1370:1372 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R1366:1368 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R1369:1369 Kernel.TsirelsonComputation <> e:1 var
+R1373:1373 Kernel.TsirelsonComputation <> e:1 var
+prf 1702:1747 <> foundation_chain_witness_tsirelson_computation
+R1753:1759 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1778:1783 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1764:1777 Kernel.VMState <> PartitionGraph rec
+binder 1760:1760 <> g:2
+R1803:1806 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1784:1800 Kernel.VMState <> well_formed_graph def
+R1802:1802 Kernel.TsirelsonComputation <> g:2 var
+R1821:1823 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1807:1820 Kernel.VMStep VMStep vm_instruction ind
+R1824:1837 Kernel.VMStep VMStep vm_instruction ind
+R1871:1884 Kernel.VMState <> PartitionGraph rec
+R1857:1867 Kernel.VMState <> empty_graph def
+R1871:1884 Kernel.VMState <> PartitionGraph rec
+R1857:1867 Kernel.VMState <> empty_graph def
+R1907:1929 Kernel.VMState <> empty_graph_well_formed thm
+R1907:1929 Kernel.VMState <> empty_graph_well_formed thm

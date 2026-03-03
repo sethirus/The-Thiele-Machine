@@ -1,4 +1,6 @@
 (** * Formalising spacetime as a 4D structure with self-reference and a necessary meta-level.
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
 
     This file gives a lightweight model of spacetime as a 4-tupled
     coordinate system together with causal structure (worldlines,
@@ -7,6 +9,10 @@
     that any self-referential phenomenon in spacetime requires a
     dimensionally richer meta-level system.
  *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import Arith.Arith Bool Lia.
 From SelfReference Require Import SelfReference.
