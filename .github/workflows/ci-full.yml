@@ -21,11 +21,21 @@ jobs:
     needs: fast-verify
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Install synthesis tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends iverilog yosys
+          sudo apt-get install -y --no-install-recommends \
+            coq coinor-csdp ocaml ocaml-findlib \
+            iverilog verilator yosys
+
+      - name: Build vendored deps (bbv + kami)
+        run: |
+          git submodule update --init --recursive vendor/bbv vendor/kami
+          cd vendor/bbv && make -j4
+          cd ../kami && make -j4
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -93,12 +103,22 @@ jobs:
     continue-on-error: true
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Install FPGA tools
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
-            yosys nextpnr-ecp5 fpga-trellis ecppack
+            coq coinor-csdp ocaml ocaml-findlib \
+            iverilog verilator yosys \
+            nextpnr-ecp5 fpga-trellis ecppack
+
+      - name: Build vendored deps (bbv + kami)
+        run: |
+          git submodule update --init --recursive vendor/bbv vendor/kami
+          cd vendor/bbv && make -j4
+          cd ../kami && make -j4
 
       - name: Set up Python
         uses: actions/setup-python@v5
