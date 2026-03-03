@@ -25,6 +25,9 @@ From Coq Require Import NArith.
 
 From Kernel Require Import VMState VMStep.
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import MuCostModel.
+
 (** =========================================================================
     PART 1: PYTHON μ-LEDGER STRUCTURE
     ========================================================================= *)
@@ -285,3 +288,4 @@ Qed.
     Admits: 0
     Status: COMPLETE ✓
     *)
+

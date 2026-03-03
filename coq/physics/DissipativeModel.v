@@ -1,5 +1,9 @@
 From Coq Require Import List Lia Arith.PeanoNat.
 Import ListNotations.
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 
 (** * A dissipative lattice model
 

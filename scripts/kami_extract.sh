@@ -1,5 +1,5 @@
 #!/bin/bash
-# kami_extract.sh — Full pipeline: Coq (Kami) → OCaml → Bluespec → Verilog
+# kami_extract.sh — Full pipeline: Coq (Kami) -> OCaml -> Bluespec -> Verilog
 #
 # Usage: ./scripts/kami_extract.sh [--top MODULE_NAME]
 #
@@ -64,9 +64,25 @@ coqc -R . KamiHW \
      -Q "$VENDOR_BBV/src/bbv" bbv \
      ThieleCPUCore.v
 coqc -R . KamiHW \
-    -R "$VENDOR_KAMI/Kami" Kami \
-    -Q "$VENDOR_BBV/src/bbv" bbv \
-    CanonicalCPUProof.v
+     -R "$VENDOR_KAMI/Kami" Kami \
+     -Q "$VENDOR_BBV/src/bbv" bbv \
+     Compatibility.v
+coqc -R . KamiHW \
+     -R "$VENDOR_KAMI/Kami" Kami \
+     -Q "$VENDOR_BBV/src/bbv" bbv \
+     Abstraction.v
+coqc -R . KamiHW \
+     -R "$VENDOR_KAMI/Kami" Kami \
+     -Q "$VENDOR_BBV/src/bbv" bbv \
+     ThieleCPUBusTop.v
+coqc -R . KamiHW \
+     -R "$VENDOR_KAMI/Kami" Kami \
+     -Q "$VENDOR_BBV/src/bbv" bbv \
+     VerilogRefinement.v
+coqc -R . KamiHW \
+     -R "$VENDOR_KAMI/Kami" Kami \
+     -Q "$VENDOR_BBV/src/bbv" bbv \
+     CanonicalCPUProof.v
 
 echo "=== Phase 2: Extracting to OCaml (Target.ml) ==="
 cd "$COQ_DIR"
@@ -75,7 +91,7 @@ coqc -R kami_hw KamiHW \
     -Q "$VENDOR_BBV/src/bbv" bbv \
     kami_hw/KamiExtraction.v
 
-echo "=== Phase 3: Compiling OCaml → Bluespec pretty-printer ==="
+echo "=== Phase 3: Compiling OCaml -> Bluespec pretty-printer ==="
 cd "$BUILD_DIR"
 cp "$VENDOR_KAMI/Kami/Ext/Ocaml/PP.ml" .
 # Coq 8.18 extraction emits Nil1 in Target.ml while upstream PP.ml still matches Nil.
@@ -95,7 +111,7 @@ import re
 with open('thiele_hw.bsv') as f:
     content = f.read()
 # Find and remove the top-level wrapper module that references undefined interfaces
-lines = content.split('\n')
+lines = content.split('\\n')
 clean = []
 skip = False
 for line in lines:
@@ -107,8 +123,8 @@ for line in lines:
         skip = False
 with open('thiele_hw_clean.bsv', 'w') as f:
     # Add Vector import needed for mu_tensor and register arrays
-    f.write('import Vector::*;\n')
-    f.write('\n'.join(clean))
+    f.write('import Vector::*;\\n')
+    f.write('\\n'.join(clean))
 " 2>/dev/null || cp thiele_hw.bsv thiele_hw_clean.bsv
 
 # Bluespec 2024.07 in this environment does not resolve `vec(...)` constructors
@@ -121,18 +137,29 @@ s=re.sub(r'vec\(([^()]*)\)', r'unpack({\1})', s)
 open(p,'w').write(s)
 PY
 
-echo "=== Phase 5: Compiling Bluespec → Verilog ==="
+echo "=== Phase 5: Compiling Bluespec -> Verilog ==="
 # Compile each module found in the BSV
 for mod in $(grep -oP 'module (mk\w+)' thiele_hw_clean.bsv | awk '{print $2}'); do
     echo "  Compiling $mod..."
     "$BSC" -verilog -g "$mod" -p "$BLUESPECDIR/Libraries" thiele_hw_clean.bsv 2>&1
 done
 
+echo "=== Phase 5b: Post-processing for synthesis (flat regs → arrays) ==="
+# The BSC output flattens Kami vectors into individual scalar registers or
+# wide bit-vectors. The synth transform replaces these with proper Verilog
+# arrays while preserving all logic exactly.
+for vfile in *.v; do
+    [ -f "$vfile" ] || continue
+    synth_out="${vfile%.v}_synth.v"
+    echo "  Transforming $vfile → $synth_out..."
+    python3 "$ROOT/scripts/verilog_synth_transform.py" "$vfile" "$synth_out" 2>&1
+done
+
 if [ "${SKIP_YOSYS:-0}" = "1" ]; then
     echo "=== Phase 6: Verifying with Yosys (skipped: SKIP_YOSYS=1) ==="
 else
     echo "=== Phase 6: Verifying with Yosys ==="
-    for vfile in *.v; do
+    for vfile in *_synth.v; do
         [ -f "$vfile" ] || continue
         echo "  Checking $vfile..."
         yosys -q -p "read_verilog $vfile; synth" 2>&1 || echo "  WARNING: $vfile failed synthesis"
@@ -143,3 +170,6 @@ echo ""
 echo "=== Pipeline complete ==="
 echo "Generated files in $BUILD_DIR:"
 ls -la "$BUILD_DIR"/*.v 2>/dev/null || echo "  (no Verilog files)"
+echo ""
+echo "Synthesis-ready files:"
+ls -la "$BUILD_DIR"/*_synth.v 2>/dev/null || echo "  (none)"

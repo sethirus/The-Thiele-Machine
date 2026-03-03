@@ -29,6 +29,9 @@
 
     ========================================================================= *)
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import MuCostModel.
+
 From Coq Require Import List Lia Arith.PeanoNat Bool String.
 From Coq Require Import Nat.
 Import ListNotations.

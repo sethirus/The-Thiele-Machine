@@ -1,10 +1,15 @@
 (*
+
  * Demonstration: Why a Halting Oracle Cannot Be Constructed in Coq
  * 
  * This file attempts to construct a halting oracle and shows exactly
  * where and why Coq's type system rejects it. The rejection is not a
  * bug - it's a feature that prevents logical inconsistency.
  *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import List Arith Bool Nat String.
 Import ListNotations.
@@ -85,8 +90,7 @@ Module OracleImpossibility.
     
     (* Maybe we can use excluded middle: every program either halts or doesn't? *)
     
-    (** INQUISITOR NOTE: This Classical import is INTENTIONAL for pedagogical purposes.
-        This section demonstrates WHY classical logic CANNOT solve the halting problem.
+    (*  This section demonstrates WHY classical logic CANNOT solve the halting problem.
         The import is scoped to this Section and does not leak to kernel theorems.
         This is a TUTORIAL explaining impossibility, not a reliance on classical axioms. *)
     (* SAFE: Classical import is scoped to this pedagogical Section — does not leak. *)

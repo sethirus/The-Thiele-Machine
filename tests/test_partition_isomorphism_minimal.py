@@ -34,7 +34,7 @@ def _region_token(indices: set[int]) -> str:
 def _predicate_matches(pred_byte: int, x: int) -> bool:
     # Keep this exactly aligned with the predicate-byte split logic in:
     # - thielecpu/vm.py (PSPLIT predicate-byte mode)
-    # - thielecpu/hardware/thiele_cpu.v (execute_psplit)
+    # - thielecpu/hardware/rtl/thiele_cpu_kami.v (execute_psplit)
     predicate = pred_byte & 0xFF
     pred_mode = (predicate >> 6) & 0x3
     pred_param = predicate & 0x3F

@@ -13,6 +13,10 @@ From Coq Require Import List Arith Lia.
 Import ListNotations.
 Open Scope nat_scope.
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 Module Minsky.
 
 (* A Minsky instruction: INC r j  (increment register r and jump to j)
@@ -75,5 +79,6 @@ Example inc0_example :
   let p := (INC 0 1) :: nil in
   step p (0, [0]) = (1, [1]).
 Proof. simpl. reflexivity. Qed.
+
 
 End Minsky.

@@ -1,0 +1,982 @@
+{
+  "generated_at": "2026-03-01T18:29:38.957673+00:00",
+  "counts": {
+    "symbols": 15711,
+    "edges": 100672,
+    "triads": 92,
+    "files": 654
+  },
+  "class_counts": {
+    "duplicate": 2939,
+    "orphan": 402,
+    "bridge": 7032,
+    "core": 2190,
+    "island": 184,
+    "test_only": 2964
+  },
+  "edge_kind_counts": {
+    "coq_ref": 17294,
+    "py_ref": 24587,
+    "rtl_ref": 3,
+    "cross_name": 1156,
+    "cross_norm": 432,
+    "cross_opcode": 34,
+    "cross_stem": 7826,
+    "test_covers": 16321,
+    "cross_ref": 29568,
+    "cross_transitive": 3451
+  },
+  "cross_layer_matrix": {
+    "coq->python": 18881,
+    "coq->rtl": 2347,
+    "python->coq": 17653,
+    "python->rtl": 1025,
+    "rtl->coq": 1768,
+    "rtl->python": 793
+  },
+  "top_cross_file_links": [
+    {
+      "src": "coq/kami_hw/ThieleCPUCore.v",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_kami.v",
+      "weight": 312
+    },
+    {
+      "src": "thielecpu/hardware/rtl/thiele_cpu_kami.v",
+      "dst": "coq/kami_hw/ThieleCPUCore.v",
+      "weight": 312
+    },
+    {
+      "src": "coq/kernel/MuGravity.v",
+      "dst": "thielecpu/hardware/rtl/cross_layer_defs.vh",
+      "weight": 182
+    },
+    {
+      "src": "thielecpu/hardware/rtl/cross_layer_defs.vh",
+      "dst": "coq/kernel/MuGravity.v",
+      "weight": 163
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/BellInequality.v",
+      "dst": "thielecpu/cross_layer_manifest.py",
+      "weight": 142
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/BellInequality.v",
+      "dst": "experiments/qd3_literature_comparison.py",
+      "weight": 117
+    },
+    {
+      "src": "experiments/qd3_literature_comparison.py",
+      "dst": "coq/thielemachine/coqproofs/BellInequality.v",
+      "weight": 107
+    },
+    {
+      "src": "thielecpu/cross_layer_manifest.py",
+      "dst": "coq/thielemachine/coqproofs/BellInequality.v",
+      "weight": 101
+    },
+    {
+      "src": "coq/kernel/MuGravity.v",
+      "dst": "scripts/validate_mu_gravity_calibration.py",
+      "weight": 86
+    },
+    {
+      "src": "coq/kernel/VMState.v",
+      "dst": "thielecpu/hardware/rtl/cross_layer_defs.vh",
+      "weight": 82
+    },
+    {
+      "src": "thielecpu/hardware/rtl/cross_layer_defs.vh",
+      "dst": "coq/kernel/VMState.v",
+      "weight": 81
+    },
+    {
+      "src": "coq/isomorphism/coqproofs/Universe.v",
+      "dst": "scripts/inquisitor.py",
+      "weight": 79
+    },
+    {
+      "src": "scripts/inquisitor.py",
+      "dst": "coq/isomorphism/coqproofs/Universe.v",
+      "weight": 79
+    },
+    {
+      "src": "coq/kernel/SemanticMuCost.v",
+      "dst": "thielecpu/semantic_mu_coq_isomorphic.py",
+      "weight": 78
+    },
+    {
+      "src": "thielecpu/semantic_mu_coq_isomorphic.py",
+      "dst": "coq/kernel/SemanticMuCost.v",
+      "weight": 78
+    },
+    {
+      "src": "coq/thieleuniversal/verification/BridgeDefinitions.v",
+      "dst": "thielecpu/cross_layer_manifest.py",
+      "weight": 77
+    },
+    {
+      "src": "scripts/validate_mu_gravity_calibration.py",
+      "dst": "coq/kernel/MuGravity.v",
+      "weight": 77
+    },
+    {
+      "src": "thielecpu/debugger.py",
+      "dst": "thielecpu/hardware/rtl/thiele_cpu_kami.v",
+      "weight": 76
+    },
+    {
+      "src": "thielecpu/hardware/rtl/thiele_cpu_kami.v",
+      "dst": "thielecpu/debugger.py",
+      "weight": 73
+    },
+    {
+      "src": "thielecpu/cross_layer_manifest.py",
+      "dst": "coq/thieleuniversal/verification/BridgeDefinitions.v",
+      "weight": 72
+    },
+    {
+      "src": "thielecpu/vm.py",
+      "dst": "thielecpu/hardware/rtl/cross_layer_defs.vh",
+      "weight": 70
+    },
+    {
+      "src": "coq/kernel/VMEncoding.v",
+      "dst": "thielecpu/hardware/rtl/cross_layer_defs.vh",
+      "weight": 69
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/Oracle.v",
+      "dst": "thielecpu/cross_layer_manifest.py",
+      "weight": 60
+    },
+    {
+      "src": "thielecpu/hardware/rtl/cross_layer_defs.vh",
+      "dst": "coq/kernel/VMEncoding.v",
+      "weight": 60
+    },
+    {
+      "src": "coq/kernel/CrossLayerManifest.v",
+      "dst": "thielecpu/cross_layer_manifest.py",
+      "weight": 59
+    },
+    {
+      "src": "thielecpu/cross_layer_manifest.py",
+      "dst": "coq/kernel/CrossLayerManifest.v",
+      "weight": 59
+    },
+    {
+      "src": "coq/kernel/VMEncoding.v",
+      "dst": "thielecpu/isa.py",
+      "weight": 57
+    },
+    {
+      "src": "coq/thieleuniversal/coqproofs/UTM_Program.v",
+      "dst": "thielecpu/cross_layer_manifest.py",
+      "weight": 54
+    },
+    {
+      "src": "scripts/inquisitor.py",
+      "dst": "thielecpu/hardware/rtl/cross_layer_defs.vh",
+      "weight": 54
+    },
+    {
+      "src": "thielecpu/cross_layer_manifest.py",
+      "dst": "coq/thieleuniversal/coqproofs/UTM_Program.v",
+      "weight": 54
+    },
+    {
+      "src": "thielecpu/hardware/rtl/cross_layer_defs.vh",
+      "dst": "scripts/inquisitor.py",
+      "weight": 54
+    },
+    {
+      "src": "coq/bridge/BoxWorld_to_Kernel.v",
+      "dst": "scripts/inquisitor.py",
+      "weight": 53
+    },
+    {
+      "src": "coq/bridge/FiniteQuantum_to_Kernel.v",
+      "dst": "scripts/inquisitor.py",
+      "weight": 53
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/HyperThiele_Oracle.v",
+      "dst": "scripts/inquisitor.py",
+      "weight": 53
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/SpectralApproximation.v",
+      "dst": "thielecpu/cross_layer_manifest.py",
+      "weight": 53
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/ThieleMachine.v",
+      "dst": "thielecpu/dsl/executor.py",
+      "weight": 53
+    },
+    {
+      "src": "scripts/inquisitor.py",
+      "dst": "coq/bridge/BoxWorld_to_Kernel.v",
+      "weight": 53
+    },
+    {
+      "src": "scripts/inquisitor.py",
+      "dst": "coq/bridge/FiniteQuantum_to_Kernel.v",
+      "weight": 53
+    },
+    {
+      "src": "scripts/inquisitor.py",
+      "dst": "coq/thielemachine/coqproofs/HyperThiele_Oracle.v",
+      "weight": 53
+    },
+    {
+      "src": "thielecpu/isa.py",
+      "dst": "coq/kernel/VMEncoding.v",
+      "weight": 52
+    },
+    {
+      "src": "coq/kernel/MuGravity.v",
+      "dst": "experiments/vm_reference.py",
+      "weight": 51
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/BellInequality.v",
+      "dst": "experiments/mu_audited_bell_test.py",
+      "weight": 50
+    },
+    {
+      "src": "coq/kernel/SemanticComplexityIsomorphism.v",
+      "dst": "thielecpu/hardware/rtl/cross_layer_defs.vh",
+      "weight": 49
+    },
+    {
+      "src": "coq/physics_exploration/PlanckEmergenceClean.v",
+      "dst": "experiments/quantum_gravity_predictions.py",
+      "weight": 49
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/CoreSemantics.v",
+      "dst": "thielecpu/state.py",
+      "weight": 49
+    },
+    {
+      "src": "experiments/quantum_gravity_predictions.py",
+      "dst": "coq/physics_exploration/PlanckEmergenceClean.v",
+      "weight": 49
+    },
+    {
+      "src": "thielecpu/dsl/executor.py",
+      "dst": "coq/thielemachine/coqproofs/ThieleMachine.v",
+      "weight": 49
+    },
+    {
+      "src": "experiments/vm_reference.py",
+      "dst": "coq/kernel/MuGravity.v",
+      "weight": 48
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/CoreSemantics.v",
+      "dst": "thielecpu/isa.py",
+      "weight": 47
+    },
+    {
+      "src": "thielecpu/hardware/rtl/cross_layer_defs.vh",
+      "dst": "coq/kernel/SemanticComplexityIsomorphism.v",
+      "weight": 47
+    },
+    {
+      "src": "thielecpu/isa.py",
+      "dst": "coq/thielemachine/coqproofs/CoreSemantics.v",
+      "weight": 47
+    },
+    {
+      "src": "coq/kernel/VMState.v",
+      "dst": "experiments/graph_isomorphism_partitions.py",
+      "weight": 46
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/ThieleSpaceland.v",
+      "dst": "thielecpu/cross_layer_manifest.py",
+      "weight": 46
+    },
+    {
+      "src": "coq/kernel/EinsteinEquations4D.v",
+      "dst": "thielecpu/hardware/rtl/cross_layer_defs.vh",
+      "weight": 45
+    },
+    {
+      "src": "coq/kernel/MuGravity.v",
+      "dst": "build/thiele_vm.py",
+      "weight": 45
+    },
+    {
+      "src": "experiments/graph_isomorphism_partitions.py",
+      "dst": "coq/kernel/VMState.v",
+      "weight": 45
+    },
+    {
+      "src": "thielecpu/hardware/rtl/cross_layer_defs.vh",
+      "dst": "thielecpu/vm.py",
+      "weight": 45
+    },
+    {
+      "src": "thielecpu/state.py",
+      "dst": "coq/thielemachine/coqproofs/CoreSemantics.v",
+      "weight": 45
+    },
+    {
+      "src": "coq/kernel/ConstructivePSD.v",
+      "dst": "thielecpu/cross_layer_manifest.py",
+      "weight": 44
+    },
+    {
+      "src": "coq/modular_proofs/Encoding.v",
+      "dst": "thielecpu/cross_layer_manifest.py",
+      "weight": 44
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/MuAlu.v",
+      "dst": "thielecpu/mu_fixed.py",
+      "weight": 44
+    },
+    {
+      "src": "experiments/mu_audited_bell_test.py",
+      "dst": "coq/thielemachine/coqproofs/BellInequality.v",
+      "weight": 44
+    },
+    {
+      "src": "thielecpu/cross_layer_manifest.py",
+      "dst": "coq/kernel/ConstructivePSD.v",
+      "weight": 44
+    },
+    {
+      "src": "thielecpu/cross_layer_manifest.py",
+      "dst": "coq/modular_proofs/Encoding.v",
+      "weight": 44
+    },
+    {
+      "src": "thielecpu/mu_fixed.py",
+      "dst": "coq/thielemachine/coqproofs/MuAlu.v",
+      "weight": 44
+    },
+    {
+      "src": "thielecpu/cross_layer_manifest.py",
+      "dst": "coq/thielemachine/coqproofs/Oracle.v",
+      "weight": 43
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/EfficientDiscovery.v",
+      "dst": "thielecpu/discovery.py",
+      "weight": 42
+    },
+    {
+      "src": "thielecpu/discovery.py",
+      "dst": "coq/thielemachine/coqproofs/EfficientDiscovery.v",
+      "weight": 42
+    },
+    {
+      "src": "thielecpu/dsl/ir.py",
+      "dst": "coq/kernel/CrossLayerManifest.v",
+      "weight": 42
+    },
+    {
+      "src": "build/thiele_vm.py",
+      "dst": "coq/kernel/MuGravity.v",
+      "weight": 41
+    },
+    {
+      "src": "coq/kernel/EinsteinEquations4D.v",
+      "dst": "thielecpu/cross_layer_manifest.py",
+      "weight": 39
+    },
+    {
+      "src": "coq/kernel/SemanticComplexityIsomorphism.v",
+      "dst": "thielecpu/semantic_mu_coq_isomorphic.py",
+      "weight": 39
+    },
+    {
+      "src": "coq/thielemachine/coqproofs/AbstractLTS.v",
+      "dst": "thielecpu/cross_layer_manifest.py",
+      "weight": 39
+    },
+    {
+      "src": "thielecpu/semantic_mu_coq_isomorphic.py",
+      "dst": "coq/kernel/SemanticComplexityIsomorphism.v",
+      "weight": 39
+    },
+    {
+      "src": "thielecpu/vm.py",
+      "dst": "coq/kernel/CrossLayerManifest.v",
+      "weight": 39
+    },
+    {
+      "src": "coq/kernel/CrossLayerManifest.v",
+      "dst": "thielecpu/dsl/ir.py",
+      "weight": 38
+    },
+    {
+      "src": "thielecpu/cross_layer_manifest.py",
+      "dst": "coq/thielemachine/coqproofs/ThieleSpaceland.v",
+      "weight": 38
+    },
+    {
+      "src": "coq/kernel/SemidefiniteProgramming.v",
+      "dst": "thielecpu/cross_layer_manifest.py",
+      "weight": 37
+    },
+    {
+      "src": "coq/modular_proofs/EncodingBounds.v",
+      "dst": "thielecpu/cross_layer_manifest.py",
+      "weight": 37
+    },
+    {
+      "src": "thielecpu/cross_layer_manifest.py",
+      "dst": "coq/modular_proofs/EncodingBounds.v",
+      "weight": 37
+    }
+  ],
+  "isomorphism_metrics": {
+    "isomorphism_score": 78.49,
+    "core_bridge_ratio": 0.9555,
+    "triad_completion_ratio": 0.4299,
+    "directional_coverage_ratio": 1.0,
+    "integrate_file_ratio": 0.0,
+    "prod_symbol_count": 9153,
+    "core_bridge_count": 8746,
+    "triad_count": 92,
+    "partial_triad_count": 122,
+    "active_direction_count": 6,
+    "direction_count": 6,
+    "integrate_file_count": 0,
+    "prod_file_count": 517
+  },
+  "trend_delta": {
+    "has_previous": true,
+    "score_delta": -0.01,
+    "triad_delta": 0,
+    "partial_triad_delta": 0,
+    "integrate_file_delta": 0,
+    "core_bridge_ratio_delta": -0.0002
+  },
+  "history_length": 116,
+  "inquisitor": {
+    "ran": true,
+    "timed_out": false,
+    "returncode": 0,
+    "status": "PASS",
+    "strict_pass": true,
+    "failure_reason": "none",
+    "report": {
+      "report_found": true,
+      "scanned_files": 319,
+      "high": 0,
+      "medium": 0,
+      "low": 0,
+      "proof_connectivity_gaps": 0,
+      "cross_layer_foundation_disconnects": 0,
+      "top_rules": [],
+      "findings_by_rule": {}
+    },
+    "stdout_tail": "INQUISITOR: Compiling all Coq proofs...\nINQUISITOR: Compilation OK\nINQUISITOR: OK\nReport: /workspaces/The-Thiele-Machine/INQUISITOR_REPORT.md",
+    "stderr_tail": "",
+    "command": "python3 scripts/inquisitor.py --report INQUISITOR_REPORT.md",
+    "report_path": "INQUISITOR_REPORT.md"
+  },
+  "proof_quality_metrics": {
+    "proof_accuracy": 100.0,
+    "proof_quality_grade": "A+",
+    "gate_rating": "PASS",
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "proof_connectivity_gaps": 0,
+    "cross_layer_foundation_disconnects": 0,
+    "scanned_files": 319,
+    "weighted_penalty": 0.0,
+    "strict_pass": true,
+    "inquisitor_failure_reason": "none",
+    "inquisitor_timed_out": false,
+    "findings_by_rule": {}
+  },
+  "test_verification_metrics": {
+    "test_gate": "FAIL",
+    "strict_pass": false,
+    "test_file_count": 137,
+    "isolated_test_file_count": 0,
+    "prod_symbol_coverage_ratio": 0.0669,
+    "prod_file_coverage_ratio": 0.4584,
+    "covered_prod_symbol_count": 853,
+    "prod_symbol_count": 12747,
+    "covered_prod_file_count": 237,
+    "prod_file_count": 517,
+    "uncovered_prod_files_top": [
+      "coq/Extraction.v",
+      "coq/MinimalExtraction.v",
+      "coq/bridge/Randomness_to_Kernel.v",
+      "coq/kami_hw/Abstraction.v",
+      "coq/kami_hw/Blink.v",
+      "coq/kami_hw/CanonicalCPUProof.v",
+      "coq/kami_hw/Compatibility.v",
+      "coq/kami_hw/KamiExtraction.v",
+      "coq/kami_hw/ThieleCPUCore.v",
+      "coq/kami_hw/VerilogRefinement.v",
+      "coq/kernel/AlgebraicCoherence.v",
+      "coq/kernel/ArrowOfTimeSynthesis.v",
+      "coq/kernel/AssumptionBundle.v",
+      "coq/kernel/BornRule.v",
+      "coq/kernel/BornRuleFromSymmetry.v",
+      "coq/kernel/CHSH.v",
+      "coq/kernel/CHSHExtraction.v",
+      "coq/kernel/CPURefinement.v",
+      "coq/kernel/CausalSetAxioms.v",
+      "coq/kernel/Certification.v",
+      "coq/kernel/ClassicalBound.v",
+      "coq/kernel/Closure.v",
+      "coq/kernel/Composition.v",
+      "coq/kernel/ConeAlgebra.v",
+      "coq/kernel/ConeDerivation.v",
+      "coq/kernel/ConstantDerivationStrength.v",
+      "coq/kernel/CrossLayerManifest.v",
+      "coq/kernel/DerivedTime.v",
+      "coq/kernel/DiscreteCalculus.v",
+      "coq/kernel/EinsteinEmergence.v"
+    ]
+  },
+  "priority_plan": [
+    {
+      "type": "close_partial_triad",
+      "priority": 1,
+      "task": "Complete triad 'energy'",
+      "details": "missing=rtl present=coq,python",
+      "estimated_score_gain": 0.16
+    },
+    {
+      "type": "close_partial_triad",
+      "priority": 1,
+      "task": "Complete triad 'hash'",
+      "details": "missing=rtl present=coq,python",
+      "estimated_score_gain": 0.16
+    },
+    {
+      "type": "close_partial_triad",
+      "priority": 1,
+      "task": "Complete triad 'instr'",
+      "details": "missing=rtl present=coq,python",
+      "estimated_score_gain": 0.16
+    },
+    {
+      "type": "close_partial_triad",
+      "priority": 1,
+      "task": "Complete triad 'instruction'",
+      "details": "missing=rtl present=coq,python",
+      "estimated_score_gain": 0.16
+    },
+    {
+      "type": "close_partial_triad",
+      "priority": 1,
+      "task": "Complete triad 'mu_cost'",
+      "details": "missing=rtl present=coq,python",
+      "estimated_score_gain": 0.16
+    },
+    {
+      "type": "close_partial_triad",
+      "priority": 1,
+      "task": "Complete triad 'mu_total'",
+      "details": "missing=rtl present=coq,python",
+      "estimated_score_gain": 0.16
+    },
+    {
+      "type": "close_partial_triad",
+      "priority": 1,
+      "task": "Complete triad 'muledger'",
+      "details": "missing=rtl present=coq,python",
+      "estimated_score_gain": 0.16
+    },
+    {
+      "type": "close_partial_triad",
+      "priority": 1,
+      "task": "Complete triad 'num_modules'",
+      "details": "missing=rtl present=coq,python",
+      "estimated_score_gain": 0.16
+    },
+    {
+      "type": "close_partial_triad",
+      "priority": 1,
+      "task": "Complete triad 'op_halt'",
+      "details": "missing=rtl present=coq,python",
+      "estimated_score_gain": 0.16
+    },
+    {
+      "type": "close_partial_triad",
+      "priority": 1,
+      "task": "Complete triad 'op_lassert'",
+      "details": "missing=rtl present=coq,python",
+      "estimated_score_gain": 0.16
+    }
+  ],
+  "fragmented_correctness_flags": [
+    "Proof gate PASS but test gate FAIL: verified statements are not yet sufficiently exercised against runtime surfaces.",
+    "Production symbol coverage by tests is below strict target; dynamic paths are under-verified."
+  ],
+  "latex_coverage_metrics": {
+    "tex_file_count": 20,
+    "kernel_proof_symbol_count": 1071,
+    "kernel_proof_symbol_mentioned_count": 1039,
+    "kernel_proof_latex_coverage_ratio": 0.9701,
+    "kernel_proof_missing_top": [
+      "alpha_fundamental",
+      "bianchi_identity_vacuum",
+      "both_preserve_mu_monotonicity",
+      "complete_three_layer_isomorphism",
+      "cpu_bisimulation",
+      "discrete_divergence_uniform",
+      "discrete_divergence_vacuum",
+      "fold_left_add_zero",
+      "general_bianchi_identity",
+      "implementation_equivalence",
+      "jump_state_graph",
+      "jump_state_rm_graph",
+      "optimized_cpu_correct",
+      "p_13_equals_101",
+      "p_14_equals_135",
+      "p_15_equals_176",
+      "pair_sum_cancel",
+      "performance_correctness_tradeoff",
+      "receipt_equivalence",
+      "rtl_coq_single_step_bisimulation",
+      "rtl_coq_trace_bisimulation",
+      "rtl_err_correspondence",
+      "rtl_mu_cost_correspondence",
+      "rtl_pc_correspondence",
+      "simple_cpu_correct",
+      "simple_exec_preserves_vm_state",
+      "stress_energy_divergence_structure",
+      "stress_energy_divergence_uniform",
+      "stress_energy_divergence_vacuum",
+      "tensor_divergence_at_vertex_uniform",
+      "tensor_divergence_at_vertex_zero",
+      "vm_step_pc_advance"
+    ],
+    "triad_norm_count": 92,
+    "triad_norm_mentioned_count": 54,
+    "triad_norm_latex_coverage_ratio": 0.587
+  },
+  "proof_documentation_metrics": {
+    "proof_file_count": 282,
+    "total_proof_count": 2643,
+    "documented_proof_count": 2622,
+    "per_proof_doc_ratio": 0.9921,
+    "fully_documented_file_count": 277,
+    "fully_documented_file_ratio": 0.9823,
+    "proof_files_with_readme_count": 274,
+    "proof_files_with_comment_blocks_count": 282,
+    "proof_files_documented_count": 272,
+    "proof_files_with_readme_ratio": 0.9716,
+    "proof_files_with_comment_ratio": 1.0,
+    "proof_files_documented_ratio": 0.9645,
+    "missing_readme_proof_files_top": [
+      "coq/kami_hw/CanonicalCPUProof.v",
+      "coq/kami_hw/Abstraction.v",
+      "coq/kami_hw/VerilogRefinement.v",
+      "coq/thieleuniversal/verification/BridgeDefinitions.v",
+      "coq/thieleuniversal/verification/BridgeProof.v",
+      "coq/thieleuniversal/verification/ThieleUniversalBridge.v",
+      "coq/thieleuniversal/verification/ThieleUniversalBridge_Axiom_Tests.v",
+      "coq/thieleuniversal/verification/modular/Bridge_BridgeCore.v"
+    ],
+    "underdocumented_proof_files_top": [
+      "coq/kami_hw/CanonicalCPUProof.v",
+      "coq/kernel/CPURefinement.v",
+      "coq/kernel/AlphaDerivation.v",
+      "coq/kami_hw/Abstraction.v",
+      "coq/kami_hw/VerilogRefinement.v"
+    ]
+  },
+  "definition_of_done": {
+    "status": "NOT_COMPLETED",
+    "completed": false,
+    "checks": [
+      {
+        "name": "isomorphism_score",
+        "actual": 78.49,
+        "comparator": ">=",
+        "threshold": 95.0,
+        "passed": false
+      },
+      {
+        "name": "triad_completion_ratio",
+        "actual": 0.4299,
+        "comparator": ">=",
+        "threshold": 0.85,
+        "passed": false
+      },
+      {
+        "name": "core_bridge_ratio",
+        "actual": 0.9555,
+        "comparator": ">=",
+        "threshold": 0.99,
+        "passed": false
+      },
+      {
+        "name": "test_prod_symbol_coverage_ratio",
+        "actual": 0.0669,
+        "comparator": ">=",
+        "threshold": 0.15,
+        "passed": false
+      },
+      {
+        "name": "test_prod_file_coverage_ratio",
+        "actual": 0.4584,
+        "comparator": ">=",
+        "threshold": 0.5,
+        "passed": false
+      },
+      {
+        "name": "isolated_test_files",
+        "actual": 0.0,
+        "comparator": "<=",
+        "threshold": 0.0,
+        "passed": true
+      },
+      {
+        "name": "per_proof_doc_ratio",
+        "actual": 0.9921,
+        "comparator": ">=",
+        "threshold": 0.99,
+        "passed": true
+      },
+      {
+        "name": "proof_files_with_readme_ratio",
+        "actual": 0.9716,
+        "comparator": ">=",
+        "threshold": 1.0,
+        "passed": false
+      },
+      {
+        "name": "kernel_proof_latex_coverage_ratio",
+        "actual": 0.9701,
+        "comparator": ">=",
+        "threshold": 0.99,
+        "passed": false
+      },
+      {
+        "name": "proof_connectivity_gaps",
+        "actual": 0.0,
+        "comparator": "<=",
+        "threshold": 0.0,
+        "passed": true
+      },
+      {
+        "name": "cross_layer_foundation_disconnects",
+        "actual": 0.0,
+        "comparator": "<=",
+        "threshold": 0.0,
+        "passed": true
+      },
+      {
+        "name": "coq_compile_pass",
+        "actual": 1.0,
+        "comparator": ">=",
+        "threshold": 1.0,
+        "passed": true
+      },
+      {
+        "name": "ocaml_extraction_build_pass",
+        "actual": 1.0,
+        "comparator": ">=",
+        "threshold": 1.0,
+        "passed": true
+      },
+      {
+        "name": "extraction_freshness_pass",
+        "actual": 1.0,
+        "comparator": ">=",
+        "threshold": 1.0,
+        "passed": true
+      },
+      {
+        "name": "rtl_synthesis_pass",
+        "actual": 1.0,
+        "comparator": ">=",
+        "threshold": 1.0,
+        "passed": true
+      },
+      {
+        "name": "inquisitor_strict_pass",
+        "actual": 1.0,
+        "comparator": "==",
+        "threshold": 1.0,
+        "passed": true
+      },
+      {
+        "name": "isomorphism_proof_chain_gaps",
+        "actual": 0.0,
+        "comparator": "<=",
+        "threshold": 0.0,
+        "passed": true
+      },
+      {
+        "name": "opcode_parity_violations",
+        "actual": 0.0,
+        "comparator": "<=",
+        "threshold": 0.0,
+        "passed": true
+      },
+      {
+        "name": "test_proof_lockstep_violations",
+        "actual": 0.0,
+        "comparator": "<=",
+        "threshold": 0.0,
+        "passed": true
+      },
+      {
+        "name": "extraction_semantic_violations",
+        "actual": 0.0,
+        "comparator": "<=",
+        "threshold": 0.0,
+        "passed": true
+      },
+      {
+        "name": "foundation_utilization_gaps",
+        "actual": 0.0,
+        "comparator": "<=",
+        "threshold": 0.0,
+        "passed": true
+      }
+    ],
+    "unmet_check_count": 7,
+    "unmet_checks": [
+      {
+        "name": "isomorphism_score",
+        "actual": 78.49,
+        "comparator": ">=",
+        "threshold": 95.0,
+        "passed": false
+      },
+      {
+        "name": "triad_completion_ratio",
+        "actual": 0.4299,
+        "comparator": ">=",
+        "threshold": 0.85,
+        "passed": false
+      },
+      {
+        "name": "core_bridge_ratio",
+        "actual": 0.9555,
+        "comparator": ">=",
+        "threshold": 0.99,
+        "passed": false
+      },
+      {
+        "name": "test_prod_symbol_coverage_ratio",
+        "actual": 0.0669,
+        "comparator": ">=",
+        "threshold": 0.15,
+        "passed": false
+      },
+      {
+        "name": "test_prod_file_coverage_ratio",
+        "actual": 0.4584,
+        "comparator": ">=",
+        "threshold": 0.5,
+        "passed": false
+      },
+      {
+        "name": "proof_files_with_readme_ratio",
+        "actual": 0.9716,
+        "comparator": ">=",
+        "threshold": 1.0,
+        "passed": false
+      },
+      {
+        "name": "kernel_proof_latex_coverage_ratio",
+        "actual": 0.9701,
+        "comparator": ">=",
+        "threshold": 0.99,
+        "passed": false
+      }
+    ],
+    "counterexamples": [
+      "isomorphism_score=78.5 < 95.0: Symbols exist in some layers but not all three. Find partial triads and add the missing layer implementation.",
+      "triad_completion_ratio=0.4299 < 0.85: Too many symbols appear in only 1-2 layers. Each proven concept must appear in Coq, Python, AND RTL."
+    ]
+  },
+  "isomorphism_violations": [],
+  "isomorphism_violation_count": 0,
+  "toolchain_gates": {
+    "coq_compile": {
+      "ran": true,
+      "pass": true,
+      "returncode": 0,
+      "stderr_tail": "",
+      "total_v_files": 322,
+      "total_vo_files": 321,
+      "compile_ratio": 0.9969,
+      "admitted_count": 0
+    },
+    "ocaml_extraction_build": {
+      "ran": true,
+      "pass": true,
+      "returncode": 0,
+      "stderr_tail": "",
+      "files": {
+        "Extraction.v": {
+          "exists": true,
+          "symbols_ok": true,
+          "missing_symbols": [],
+          "pass": true
+        },
+        "MinimalExtraction.v": {
+          "exists": true,
+          "symbols_ok": true,
+          "missing_symbols": [],
+          "pass": true
+        }
+      }
+    },
+    "extraction_freshness": {
+      "ran": true,
+      "pass": true,
+      "files": {
+        "Extraction.v": {
+          "exists": true,
+          "nonempty": true,
+          "symbols_ok": true,
+          "missing_symbols": [],
+          "fresh": true,
+          "pass": true
+        },
+        "MinimalExtraction.v": {
+          "exists": true,
+          "nonempty": true,
+          "symbols_ok": true,
+          "missing_symbols": [],
+          "fresh": true,
+          "pass": true
+        }
+      }
+    },
+    "rtl_synthesis": {
+      "ran": true,
+      "pass": true,
+      "mode": "full_synthesis",
+      "returncode": 0,
+      "cell_count": 8409,
+      "top_module_present": true,
+      "modules_found": [
+        "mkModule1",
+        "mkModule1"
+      ],
+      "stderr_tail": ""
+    },
+    "cosim": {
+      "ran": true,
+      "pass": true,
+      "returncode": 0,
+      "has_fail_marker": false,
+      "stdout_tail": "\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0,\n    0\n  ],\n  \"modules\": []\n}\n/workspaces/The-Thiele-Machine/thielecpu/hardware/testbench/thiele_cpu_kami_tb.v:648: $finish called at 2606000 (1ps)\n",
+      "testbench": "thiele_cpu_kami_tb.v"
+    }
+  }
+}

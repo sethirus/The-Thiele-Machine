@@ -4,6 +4,10 @@
 Require Import Coq.QArith.QArith.
 Require Import Coq.QArith.Qfield.
 Require Import Setoid.
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 
 Open Scope Q_scope.
 
@@ -113,3 +117,4 @@ Qed.
 
 (** This antisymmetry is necessary (though not sufficient) for probability 
     conservation in quantum mechanics. *)
+

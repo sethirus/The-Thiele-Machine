@@ -1,133 +1,136 @@
-DIGEST bca8d29016e93b4c48290785c6666a21
+DIGEST 644b307bf7bb924203c0b5ee49913d62
 FPhysics.DissipativeModel
 R24:27 Coq.Lists.List <> <> lib
 R29:31 Coq.micromega.Lia <> <> lib
 R33:46 Coq.Arith.PeanoNat <> <> lib
 R56:68 Coq.Lists.List ListNotations <> mod
-ind 450:453 <> Cell
-constr 458:460 <> Vac
-constr 464:466 <> Hot
-scheme 450:453 <> Cell_rect
-scheme 450:453 <> Cell_ind
-scheme 450:453 <> Cell_rec
-scheme 450:453 <> Cell_sind
-def 480:486 <> Lattice
-R491:494 Coq.Init.Datatypes <> list ind
-R496:499 Physics.DissipativeModel <> Cell ind
-def 514:519 <> energy
-R526:532 Physics.DissipativeModel <> Lattice def
-binder 522:522 <> l:3
-R537:539 Coq.Init.Datatypes <> nat ind
-R544:549 Coq.Init.Datatypes <> length def
-R552:557 Coq.Lists.List <> filter def
-R612:612 Physics.DissipativeModel <> l:3 var
-binder 564:564 <> c:4
-R575:575 Physics.DissipativeModel <> c:4 var
-R582:584 Physics.DissipativeModel <> Hot constr
-R589:592 Coq.Init.Datatypes <> true constr
-R601:605 Coq.Init.Datatypes <> false constr
-def 628:643 <> dissipative_step
-R650:656 Physics.DissipativeModel <> Lattice def
-binder 646:646 <> l:6
-R661:667 Physics.DissipativeModel <> Lattice def
-R672:674 Coq.Lists.List <> map def
-R691:691 Physics.DissipativeModel <> l:6 var
-R686:688 Physics.DissipativeModel <> Vac constr
-prf 762:789 <> dissipative_step_energy_zero
-binder 802:802 <> l:7
-R832:834 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R805:810 Physics.DissipativeModel <> energy def
-R813:828 Physics.DissipativeModel <> dissipative_step def
-R830:830 Physics.DissipativeModel <> l:7 var
-R863:868 Physics.DissipativeModel <> energy def
-R871:886 Physics.DissipativeModel <> dissipative_step def
-prf 1008:1039 <> dissipative_energy_nonincreasing
-binder 1052:1052 <> l:8
-R1082:1085 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R1055:1060 Physics.DissipativeModel <> energy def
-R1063:1078 Physics.DissipativeModel <> dissipative_step def
-R1080:1080 Physics.DissipativeModel <> l:8 var
-R1086:1091 Physics.DissipativeModel <> energy def
-R1093:1093 Physics.DissipativeModel <> l:8 var
-R1121:1126 Physics.DissipativeModel <> energy def
-R1129:1144 Physics.DissipativeModel <> dissipative_step def
-prf 1294:1327 <> dissipative_energy_strict_when_hot
-binder 1340:1340 <> l:9
-R1355:1358 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1351:1353 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R1343:1348 Physics.DissipativeModel <> energy def
-R1350:1350 Physics.DissipativeModel <> l:9 var
-R1386:1388 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R1359:1364 Physics.DissipativeModel <> energy def
-R1367:1382 Physics.DissipativeModel <> dissipative_step def
-R1384:1384 Physics.DissipativeModel <> l:9 var
-R1389:1394 Physics.DissipativeModel <> energy def
-R1396:1396 Physics.DissipativeModel <> l:9 var
-R1433:1460 Physics.DissipativeModel <> dissipative_step_energy_zero thm
-R1433:1460 Physics.DissipativeModel <> dissipative_step_energy_zero thm
-R1433:1460 Physics.DissipativeModel <> dissipative_step_energy_zero thm
-prf 1600:1637 <> dissipative_energy_strictly_decreasing
-binder 1650:1650 <> l:10
-R1665:1668 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1661:1663 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R1653:1658 Physics.DissipativeModel <> energy def
-R1660:1660 Physics.DissipativeModel <> l:10 var
-R1696:1698 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R1669:1674 Physics.DissipativeModel <> energy def
-R1677:1692 Physics.DissipativeModel <> dissipative_step def
-R1694:1694 Physics.DissipativeModel <> l:10 var
-R1699:1704 Physics.DissipativeModel <> energy def
-R1706:1706 Physics.DissipativeModel <> l:10 var
-R1722:1755 Physics.DissipativeModel <> dissipative_energy_strict_when_hot thm
-R1722:1755 Physics.DissipativeModel <> dissipative_energy_strict_when_hot thm
-sec 1906:1914 <> Embedding
-var 1928:1934 Embedding Encoded
-var 1955:1960 Embedding encode
-R1971:1974 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1964:1970 Physics.DissipativeModel <> Lattice def
-R1975:1981 Physics.DissipativeModel <> Embedding.Encoded var
-var 1995:2000 Embedding decode
-R2011:2014 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2004:2010 Physics.DissipativeModel <> Embedding.Encoded var
-R2015:2021 Physics.DissipativeModel <> Lattice def
-var 2035:2043 Embedding impl_step
-R2054:2057 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2047:2053 Physics.DissipativeModel <> Embedding.Encoded var
-R2058:2064 Physics.DissipativeModel <> Embedding.Encoded var
-var 2079:2094 Embedding decode_encode_id
-binder 2105:2105 <> l:15
-R2125:2127 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2108:2113 Physics.DissipativeModel <> Embedding.decode var
-R2116:2121 Physics.DissipativeModel <> Embedding.encode var
-R2123:2123 Physics.DissipativeModel <> l:15 var
-R2128:2128 Physics.DissipativeModel <> l:15 var
-var 2142:2165 Embedding impl_refines_dissipative
-binder 2180:2180 <> l:17
-R2212:2214 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2183:2188 Physics.DissipativeModel <> Embedding.decode var
-R2191:2199 Physics.DissipativeModel <> Embedding.impl_step var
-R2202:2207 Physics.DissipativeModel <> Embedding.encode var
-R2209:2209 Physics.DissipativeModel <> l:17 var
-R2215:2230 Physics.DissipativeModel <> dissipative_step def
-R2232:2232 Physics.DissipativeModel <> l:17 var
-prf 2308:2336 <> embedded_energy_nonincreasing
-binder 2351:2351 <> l:19
-R2392:2395 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R2354:2359 Physics.DissipativeModel <> energy def
-R2362:2367 Physics.DissipativeModel <> Embedding.decode var
-R2370:2378 Physics.DissipativeModel <> Embedding.impl_step var
-R2381:2386 Physics.DissipativeModel <> Embedding.encode var
-R2388:2388 Physics.DissipativeModel <> l:19 var
-R2396:2401 Physics.DissipativeModel <> energy def
-R2404:2409 Physics.DissipativeModel <> Embedding.decode var
-R2412:2417 Physics.DissipativeModel <> Embedding.encode var
-R2419:2419 Physics.DissipativeModel <> l:19 var
-R2455:2478 Physics.DissipativeModel <> Embedding.impl_refines_dissipative var
-R2481:2496 Physics.DissipativeModel <> Embedding.decode_encode_id var
-R2455:2478 Physics.DissipativeModel <> Embedding.impl_refines_dissipative var
-R2455:2478 Physics.DissipativeModel <> Embedding.impl_refines_dissipative var
-R2481:2496 Physics.DissipativeModel <> Embedding.decode_encode_id var
-R2481:2496 Physics.DissipativeModel <> Embedding.decode_encode_id var
-R2509:2540 Physics.DissipativeModel <> dissipative_energy_nonincreasing thm
-R2509:2540 Physics.DissipativeModel <> dissipative_energy_nonincreasing thm
-R2554:2562 Physics.DissipativeModel Embedding <> sec
+R182:188 Kernel.VMState <> <> lib
+R190:195 Kernel.VMStep <> <> lib
+R225:235 Kernel.MuCostModel <> <> lib
+ind 618:621 <> Cell
+constr 626:628 <> Vac
+constr 632:634 <> Hot
+scheme 618:621 <> Cell_rect
+scheme 618:621 <> Cell_ind
+scheme 618:621 <> Cell_rec
+scheme 618:621 <> Cell_sind
+def 648:654 <> Lattice
+R659:662 Coq.Init.Datatypes <> list ind
+R664:667 Physics.DissipativeModel <> Cell ind
+def 682:687 <> energy
+R694:700 Physics.DissipativeModel <> Lattice def
+binder 690:690 <> l:3
+R705:707 Coq.Init.Datatypes <> nat ind
+R712:717 Coq.Init.Datatypes <> length def
+R720:725 Coq.Lists.List <> filter def
+R780:780 Physics.DissipativeModel <> l:3 var
+binder 732:732 <> c:4
+R743:743 Physics.DissipativeModel <> c:4 var
+R750:752 Physics.DissipativeModel <> Hot constr
+R757:760 Coq.Init.Datatypes <> true constr
+R769:773 Coq.Init.Datatypes <> false constr
+def 796:811 <> dissipative_step
+R818:824 Physics.DissipativeModel <> Lattice def
+binder 814:814 <> l:6
+R829:835 Physics.DissipativeModel <> Lattice def
+R840:842 Coq.Lists.List <> map def
+R859:859 Physics.DissipativeModel <> l:6 var
+R854:856 Physics.DissipativeModel <> Vac constr
+prf 930:957 <> dissipative_step_energy_zero
+binder 970:970 <> l:7
+R1000:1002 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R973:978 Physics.DissipativeModel <> energy def
+R981:996 Physics.DissipativeModel <> dissipative_step def
+R998:998 Physics.DissipativeModel <> l:7 var
+R1031:1036 Physics.DissipativeModel <> energy def
+R1039:1054 Physics.DissipativeModel <> dissipative_step def
+prf 1176:1207 <> dissipative_energy_nonincreasing
+binder 1220:1220 <> l:8
+R1250:1253 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1223:1228 Physics.DissipativeModel <> energy def
+R1231:1246 Physics.DissipativeModel <> dissipative_step def
+R1248:1248 Physics.DissipativeModel <> l:8 var
+R1254:1259 Physics.DissipativeModel <> energy def
+R1261:1261 Physics.DissipativeModel <> l:8 var
+R1289:1294 Physics.DissipativeModel <> energy def
+R1297:1312 Physics.DissipativeModel <> dissipative_step def
+prf 1462:1495 <> dissipative_energy_strict_when_hot
+binder 1508:1508 <> l:9
+R1523:1526 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1519:1521 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R1511:1516 Physics.DissipativeModel <> energy def
+R1518:1518 Physics.DissipativeModel <> l:9 var
+R1554:1556 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R1527:1532 Physics.DissipativeModel <> energy def
+R1535:1550 Physics.DissipativeModel <> dissipative_step def
+R1552:1552 Physics.DissipativeModel <> l:9 var
+R1557:1562 Physics.DissipativeModel <> energy def
+R1564:1564 Physics.DissipativeModel <> l:9 var
+R1601:1628 Physics.DissipativeModel <> dissipative_step_energy_zero thm
+R1601:1628 Physics.DissipativeModel <> dissipative_step_energy_zero thm
+R1601:1628 Physics.DissipativeModel <> dissipative_step_energy_zero thm
+prf 1768:1805 <> dissipative_energy_strictly_decreasing
+binder 1818:1818 <> l:10
+R1833:1836 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1829:1831 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R1821:1826 Physics.DissipativeModel <> energy def
+R1828:1828 Physics.DissipativeModel <> l:10 var
+R1864:1866 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R1837:1842 Physics.DissipativeModel <> energy def
+R1845:1860 Physics.DissipativeModel <> dissipative_step def
+R1862:1862 Physics.DissipativeModel <> l:10 var
+R1867:1872 Physics.DissipativeModel <> energy def
+R1874:1874 Physics.DissipativeModel <> l:10 var
+R1890:1923 Physics.DissipativeModel <> dissipative_energy_strict_when_hot thm
+R1890:1923 Physics.DissipativeModel <> dissipative_energy_strict_when_hot thm
+sec 2074:2082 <> Embedding
+var 2096:2102 Embedding Encoded
+var 2123:2128 Embedding encode
+R2139:2142 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2132:2138 Physics.DissipativeModel <> Lattice def
+R2143:2149 Physics.DissipativeModel <> Embedding.Encoded var
+var 2163:2168 Embedding decode
+R2179:2182 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2172:2178 Physics.DissipativeModel <> Embedding.Encoded var
+R2183:2189 Physics.DissipativeModel <> Lattice def
+var 2203:2211 Embedding impl_step
+R2222:2225 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2215:2221 Physics.DissipativeModel <> Embedding.Encoded var
+R2226:2232 Physics.DissipativeModel <> Embedding.Encoded var
+var 2247:2262 Embedding decode_encode_id
+binder 2273:2273 <> l:15
+R2293:2295 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2276:2281 Physics.DissipativeModel <> Embedding.decode var
+R2284:2289 Physics.DissipativeModel <> Embedding.encode var
+R2291:2291 Physics.DissipativeModel <> l:15 var
+R2296:2296 Physics.DissipativeModel <> l:15 var
+var 2310:2333 Embedding impl_refines_dissipative
+binder 2348:2348 <> l:17
+R2380:2382 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2351:2356 Physics.DissipativeModel <> Embedding.decode var
+R2359:2367 Physics.DissipativeModel <> Embedding.impl_step var
+R2370:2375 Physics.DissipativeModel <> Embedding.encode var
+R2377:2377 Physics.DissipativeModel <> l:17 var
+R2383:2398 Physics.DissipativeModel <> dissipative_step def
+R2400:2400 Physics.DissipativeModel <> l:17 var
+prf 2476:2504 <> embedded_energy_nonincreasing
+binder 2519:2519 <> l:19
+R2560:2563 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2522:2527 Physics.DissipativeModel <> energy def
+R2530:2535 Physics.DissipativeModel <> Embedding.decode var
+R2538:2546 Physics.DissipativeModel <> Embedding.impl_step var
+R2549:2554 Physics.DissipativeModel <> Embedding.encode var
+R2556:2556 Physics.DissipativeModel <> l:19 var
+R2564:2569 Physics.DissipativeModel <> energy def
+R2572:2577 Physics.DissipativeModel <> Embedding.decode var
+R2580:2585 Physics.DissipativeModel <> Embedding.encode var
+R2587:2587 Physics.DissipativeModel <> l:19 var
+R2623:2646 Physics.DissipativeModel <> Embedding.impl_refines_dissipative var
+R2649:2664 Physics.DissipativeModel <> Embedding.decode_encode_id var
+R2623:2646 Physics.DissipativeModel <> Embedding.impl_refines_dissipative var
+R2623:2646 Physics.DissipativeModel <> Embedding.impl_refines_dissipative var
+R2649:2664 Physics.DissipativeModel <> Embedding.decode_encode_id var
+R2649:2664 Physics.DissipativeModel <> Embedding.decode_encode_id var
+R2677:2708 Physics.DissipativeModel <> dissipative_energy_nonincreasing thm
+R2677:2708 Physics.DissipativeModel <> dissipative_energy_nonincreasing thm
+R2722:2730 Physics.DissipativeModel Embedding <> sec

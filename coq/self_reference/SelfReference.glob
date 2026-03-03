@@ -1,117 +1,120 @@
-DIGEST e57ff2dc2c3d2c2a01089fa6ef0c7368
+DIGEST cac9ef1d0f06b9b64722bea824b885de
 FSelfReference.SelfReference
-R366:376 Coq.Arith.Arith <> <> lib
-R378:380 Coq.micromega.Lia <> <> lib
-rec 391:396 <> System
-proj 485:493 <> dimension
-proj 578:586 <> sentences
-R497:499 Coq.Init.Datatypes <> nat ind
-R594:597 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-def 846:868 <> contains_self_reference
-R875:880 SelfReference.SelfReference <> System rec
-binder 871:871 <> S:4
-R895:901 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R910:911 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 902:902 <> P:5
-R925:928 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R912:920 SelfReference.SelfReference <> sentences proj
-R922:922 SelfReference.SelfReference <> S:4 var
-R924:924 SelfReference.SelfReference <> P:5 var
-R929:929 SelfReference.SelfReference <> P:5 var
-def 1061:1080 <> dimensionally_richer
-R1092:1097 SelfReference.SelfReference <> System rec
-binder 1083:1086 <> Meta:6
-binder 1088:1088 <> S:7
-R1121:1123 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R1110:1118 SelfReference.SelfReference <> dimension proj
-R1120:1120 SelfReference.SelfReference <> S:7 var
-R1124:1132 SelfReference.SelfReference <> dimension proj
-R1134:1137 SelfReference.SelfReference <> Meta:6 var
-def 1257:1272 <> can_reason_about
-R1284:1289 SelfReference.SelfReference <> System rec
-binder 1275:1278 <> Meta:8
-binder 1280:1280 <> S:9
-binder 1311:1311 <> P:10
-R1327:1330 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1314:1322 SelfReference.SelfReference <> sentences proj
-R1324:1324 SelfReference.SelfReference <> S:9 var
-R1326:1326 SelfReference.SelfReference <> P:10 var
-R1331:1339 SelfReference.SelfReference <> sentences proj
-R1341:1344 SelfReference.SelfReference <> Meta:8 var
-R1346:1346 SelfReference.SelfReference <> P:10 var
-def 1573:1583 <> meta_system
-R1590:1595 SelfReference.SelfReference <> System rec
-binder 1586:1586 <> S:11
-R1600:1605 SelfReference.SelfReference <> System rec
-R1615:1623 SelfReference.SelfReference <> dimension proj
-R1615:1623 SelfReference.SelfReference <> dimension proj
-R1615:1623 SelfReference.SelfReference <> dimension proj
-R1652:1660 SelfReference.SelfReference <> sentences proj
-R1652:1660 SelfReference.SelfReference <> sentences proj
-R1641:1643 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R1631:1639 SelfReference.SelfReference <> dimension proj
-R1628:1628 SelfReference.SelfReference <> S:11 var
-binder 1669:1669 <> P:12
-R1687:1690 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R1674:1682 SelfReference.SelfReference <> sentences proj
-R1684:1684 SelfReference.SelfReference <> S:11 var
-R1686:1686 SelfReference.SelfReference <> P:12 var
-R1692:1694 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1691:1691 SelfReference.SelfReference <> P:12 var
-R1695:1717 SelfReference.SelfReference <> contains_self_reference def
-R1719:1719 SelfReference.SelfReference <> S:11 var
-prf 1849:1866 <> meta_system_richer
-binder 1877:1877 <> S:13
-R1880:1899 SelfReference.SelfReference <> dimensionally_richer def
-R1902:1912 SelfReference.SelfReference <> meta_system def
-R1914:1914 SelfReference.SelfReference <> S:13 var
-R1917:1917 SelfReference.SelfReference <> S:13 var
-R1946:1965 SelfReference.SelfReference <> dimensionally_richer def
-R1968:1978 SelfReference.SelfReference <> meta_system def
-prf 2143:2170 <> meta_system_can_reason_about
-binder 2181:2181 <> S:14
-R2184:2199 SelfReference.SelfReference <> can_reason_about def
-R2202:2212 SelfReference.SelfReference <> meta_system def
-R2214:2214 SelfReference.SelfReference <> S:14 var
-R2217:2217 SelfReference.SelfReference <> S:14 var
-R2251:2266 SelfReference.SelfReference <> can_reason_about def
-R2269:2279 SelfReference.SelfReference <> meta_system def
-prf 2538:2565 <> meta_system_self_referential
-binder 2578:2578 <> S:15
-R2606:2609 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2581:2603 SelfReference.SelfReference <> contains_self_reference def
-R2605:2605 SelfReference.SelfReference <> S:15 var
-R2610:2632 SelfReference.SelfReference <> contains_self_reference def
-R2635:2645 SelfReference.SelfReference <> meta_system def
-R2647:2647 SelfReference.SelfReference <> S:15 var
-R2716:2738 SelfReference.SelfReference <> contains_self_reference def
-R2716:2738 SelfReference.SelfReference <> contains_self_reference def
-R2764:2774 SelfReference.SelfReference <> meta_system def
-prf 3045:3077 <> self_reference_requires_metalevel
-R3095:3100 SelfReference.SelfReference <> System rec
-binder 3091:3091 <> S:16
-R3133:3140 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3108:3130 SelfReference.SelfReference <> contains_self_reference def
-R3132:3132 SelfReference.SelfReference <> S:16 var
-R3141:3148 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3164:3172 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3158:3163 SelfReference.SelfReference <> System rec
-binder 3149:3154 <> Meta_S:17
-R3198:3207 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3173:3188 SelfReference.SelfReference <> can_reason_about def
-R3190:3195 SelfReference.SelfReference <> Meta_S:17 var
-R3197:3197 SelfReference.SelfReference <> S:16 var
-R3237:3246 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3208:3227 SelfReference.SelfReference <> dimensionally_richer def
-R3229:3234 SelfReference.SelfReference <> Meta_S:17 var
-R3236:3236 SelfReference.SelfReference <> S:16 var
-R3247:3269 SelfReference.SelfReference <> contains_self_reference def
-R3271:3276 SelfReference.SelfReference <> Meta_S:17 var
-R3311:3321 SelfReference.SelfReference <> meta_system def
-R3311:3321 SelfReference.SelfReference <> meta_system def
-R3353:3380 SelfReference.SelfReference <> meta_system_can_reason_about thm
-R3353:3380 SelfReference.SelfReference <> meta_system_can_reason_about thm
-R3393:3410 SelfReference.SelfReference <> meta_system_richer thm
-R3393:3410 SelfReference.SelfReference <> meta_system_richer thm
-R3423:3450 SelfReference.SelfReference <> meta_system_self_referential thm
-R3423:3450 SelfReference.SelfReference <> meta_system_self_referential thm
+R538:544 Kernel.VMState <> <> lib
+R546:551 Kernel.VMStep <> <> lib
+R581:591 Kernel.MuCostModel <> <> lib
+R619:629 Coq.Arith.Arith <> <> lib
+R631:633 Coq.micromega.Lia <> <> lib
+rec 644:649 <> System
+proj 738:746 <> dimension
+proj 831:839 <> sentences
+R750:752 Coq.Init.Datatypes <> nat ind
+R847:850 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+def 1099:1121 <> contains_self_reference
+R1128:1133 SelfReference.SelfReference <> System rec
+binder 1124:1124 <> S:4
+R1148:1154 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1163:1164 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 1155:1155 <> P:5
+R1178:1181 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1165:1173 SelfReference.SelfReference <> sentences proj
+R1175:1175 SelfReference.SelfReference <> S:4 var
+R1177:1177 SelfReference.SelfReference <> P:5 var
+R1182:1182 SelfReference.SelfReference <> P:5 var
+def 1314:1333 <> dimensionally_richer
+R1345:1350 SelfReference.SelfReference <> System rec
+binder 1336:1339 <> Meta:6
+binder 1341:1341 <> S:7
+R1374:1376 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R1363:1371 SelfReference.SelfReference <> dimension proj
+R1373:1373 SelfReference.SelfReference <> S:7 var
+R1377:1385 SelfReference.SelfReference <> dimension proj
+R1387:1390 SelfReference.SelfReference <> Meta:6 var
+def 1510:1525 <> can_reason_about
+R1537:1542 SelfReference.SelfReference <> System rec
+binder 1528:1531 <> Meta:8
+binder 1533:1533 <> S:9
+binder 1564:1564 <> P:10
+R1580:1583 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1567:1575 SelfReference.SelfReference <> sentences proj
+R1577:1577 SelfReference.SelfReference <> S:9 var
+R1579:1579 SelfReference.SelfReference <> P:10 var
+R1584:1592 SelfReference.SelfReference <> sentences proj
+R1594:1597 SelfReference.SelfReference <> Meta:8 var
+R1599:1599 SelfReference.SelfReference <> P:10 var
+def 1826:1836 <> meta_system
+R1843:1848 SelfReference.SelfReference <> System rec
+binder 1839:1839 <> S:11
+R1853:1858 SelfReference.SelfReference <> System rec
+R1868:1876 SelfReference.SelfReference <> dimension proj
+R1868:1876 SelfReference.SelfReference <> dimension proj
+R1868:1876 SelfReference.SelfReference <> dimension proj
+R1905:1913 SelfReference.SelfReference <> sentences proj
+R1905:1913 SelfReference.SelfReference <> sentences proj
+R1894:1896 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1884:1892 SelfReference.SelfReference <> dimension proj
+R1881:1881 SelfReference.SelfReference <> S:11 var
+binder 1922:1922 <> P:12
+R1940:1943 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R1927:1935 SelfReference.SelfReference <> sentences proj
+R1937:1937 SelfReference.SelfReference <> S:11 var
+R1939:1939 SelfReference.SelfReference <> P:12 var
+R1945:1947 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1944:1944 SelfReference.SelfReference <> P:12 var
+R1948:1970 SelfReference.SelfReference <> contains_self_reference def
+R1972:1972 SelfReference.SelfReference <> S:11 var
+prf 2102:2119 <> meta_system_richer
+binder 2130:2130 <> S:13
+R2133:2152 SelfReference.SelfReference <> dimensionally_richer def
+R2155:2165 SelfReference.SelfReference <> meta_system def
+R2167:2167 SelfReference.SelfReference <> S:13 var
+R2170:2170 SelfReference.SelfReference <> S:13 var
+R2199:2218 SelfReference.SelfReference <> dimensionally_richer def
+R2221:2231 SelfReference.SelfReference <> meta_system def
+prf 2396:2423 <> meta_system_can_reason_about
+binder 2434:2434 <> S:14
+R2437:2452 SelfReference.SelfReference <> can_reason_about def
+R2455:2465 SelfReference.SelfReference <> meta_system def
+R2467:2467 SelfReference.SelfReference <> S:14 var
+R2470:2470 SelfReference.SelfReference <> S:14 var
+R2504:2519 SelfReference.SelfReference <> can_reason_about def
+R2522:2532 SelfReference.SelfReference <> meta_system def
+prf 2791:2818 <> meta_system_self_referential
+binder 2831:2831 <> S:15
+R2859:2862 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2834:2856 SelfReference.SelfReference <> contains_self_reference def
+R2858:2858 SelfReference.SelfReference <> S:15 var
+R2863:2885 SelfReference.SelfReference <> contains_self_reference def
+R2888:2898 SelfReference.SelfReference <> meta_system def
+R2900:2900 SelfReference.SelfReference <> S:15 var
+R2969:2991 SelfReference.SelfReference <> contains_self_reference def
+R2969:2991 SelfReference.SelfReference <> contains_self_reference def
+R3017:3027 SelfReference.SelfReference <> meta_system def
+prf 3298:3330 <> self_reference_requires_metalevel
+R3348:3353 SelfReference.SelfReference <> System rec
+binder 3344:3344 <> S:16
+R3386:3393 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3361:3383 SelfReference.SelfReference <> contains_self_reference def
+R3385:3385 SelfReference.SelfReference <> S:16 var
+R3394:3401 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3417:3425 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3411:3416 SelfReference.SelfReference <> System rec
+binder 3402:3407 <> Meta_S:17
+R3451:3460 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3426:3441 SelfReference.SelfReference <> can_reason_about def
+R3443:3448 SelfReference.SelfReference <> Meta_S:17 var
+R3450:3450 SelfReference.SelfReference <> S:16 var
+R3490:3499 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3461:3480 SelfReference.SelfReference <> dimensionally_richer def
+R3482:3487 SelfReference.SelfReference <> Meta_S:17 var
+R3489:3489 SelfReference.SelfReference <> S:16 var
+R3500:3522 SelfReference.SelfReference <> contains_self_reference def
+R3524:3529 SelfReference.SelfReference <> Meta_S:17 var
+R3564:3574 SelfReference.SelfReference <> meta_system def
+R3564:3574 SelfReference.SelfReference <> meta_system def
+R3606:3633 SelfReference.SelfReference <> meta_system_can_reason_about thm
+R3606:3633 SelfReference.SelfReference <> meta_system_can_reason_about thm
+R3646:3663 SelfReference.SelfReference <> meta_system_richer thm
+R3646:3663 SelfReference.SelfReference <> meta_system_richer thm
+R3676:3703 SelfReference.SelfReference <> meta_system_self_referential thm
+R3676:3703 SelfReference.SelfReference <> meta_system_self_referential thm

@@ -476,6 +476,9 @@ module mkModule1(CLK,
   reg logic_resp_error;
   wire logic_resp_error$D_IN, logic_resp_error$EN;
 
+	// NoFreeInsight runtime violation flag (cert-setting opcode with zero cost)
+	wire nofi_cost_violation;
+
   // register logic_resp_valid
   reg logic_resp_valid;
   wire logic_resp_valid$D_IN, logic_resp_valid$EN;
@@ -5060,6 +5063,14 @@ module mkModule1(CLK,
 	       logic_resp_valid :
 	       !logic_req_valid && logic_resp_valid ;
 
+  assign nofi_cost_violation =
+	     !halted && !err &&
+	     (SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___d300[31:24] == 8'h03 ||
+	      SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___d300[31:24] == 8'h04 ||
+	      SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___d300[31:24] == 8'h0E ||
+	      SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___d300[31:24] == 8'h0F) &&
+	     (SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___d300[7:0] == 8'h00);
+
   // register active_module
   assign active_module$D_IN = setActiveModule_x_0 ;
   assign active_module$EN = EN_setActiveModule ;
@@ -5067,11 +5078,14 @@ module mkModule1(CLK,
   // register err
   assign err$D_IN =
 	     SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___d7566 ||
+	     nofi_cost_violation ||
 	     logic_req_valid && logic_resp_valid && logic_resp_error ;
   assign err$EN = MUX_logic_resp_valid$write_1__SEL_2 ;
 
   // register error_code
   assign error_code$D_IN =
+	     nofi_cost_violation ?
+	       32'h4E4F4649 :
 	     mu_ULT_mu_tensor_BITS_31_TO_0_PLUS_mu_tensor_B_ETC___d39 ?
 	       32'h0B1A4C81 :
 	       IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___d7577 ;
@@ -5080,6 +5094,7 @@ module mkModule1(CLK,
   // register halted
   assign halted$D_IN =
 	     SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___d7560 ||
+	     nofi_cost_violation ||
 	     (SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___d300[31:24] ==
 	      8'h06 ||
 	      SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___d300[31:24] ==

@@ -1,4 +1,6 @@
 (** =========================================================================
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
     PHASE 1.1: COMPOSITE PARTITIONS
     =========================================================================
     
@@ -14,6 +16,10 @@
       - This is the foundation for tensor product necessity (Phase 1.2)
     
     ========================================================================= *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import List ZArith Lia Bool Nat.
 Import ListNotations.

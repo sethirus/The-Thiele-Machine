@@ -1,369 +1,372 @@
-DIGEST 63fe2a833624d72d7a525753bf268175
+DIGEST db3e480c6caeee27003565a8070415a5
 FModularProofs.EncodingBounds
 R24:34 Coq.Arith.Arith <> <> lib
 R36:49 Coq.Arith.PeanoNat <> <> lib
 R51:60 Coq.Lists.List <> <> lib
 R62:64 Coq.micromega.Lia <> <> lib
-prf 119:130 <> pow2_gt_succ
-binder 141:141 <> n:1
-R147:149 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R144:144 Coq.Init.Datatypes <> S constr
-R146:146 ModularProofs.EncodingBounds <> n:1 var
-R150:156 Coq.Arith.PeanoNat Nat pow def
-R161:161 Coq.Init.Datatypes <> S constr
-R163:163 ModularProofs.EncodingBounds <> n:1 var
-R249:252 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R242:242 Coq.Init.Datatypes <> S constr
-R245:245 Coq.Init.Datatypes <> S constr
-R254:256 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R257:257 Coq.Init.Datatypes <> S constr
-R249:252 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R242:242 Coq.Init.Datatypes <> S constr
-R245:245 Coq.Init.Datatypes <> S constr
-R254:256 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R257:257 Coq.Init.Datatypes <> S constr
-R293:295 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R287:289 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R290:290 Coq.Init.Datatypes <> S constr
-R297:299 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R300:306 Coq.Arith.PeanoNat Nat pow def
-R311:311 Coq.Init.Datatypes <> S constr
-R293:295 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R287:289 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R290:290 Coq.Init.Datatypes <> S constr
-R297:299 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R300:306 Coq.Arith.PeanoNat Nat pow def
-R311:311 Coq.Init.Datatypes <> S constr
-R328:348 Coq.Arith.PeanoNat Nat mul_lt_mono_pos_l thm
-R328:348 Coq.Arith.PeanoNat Nat mul_lt_mono_pos_l thm
-R378:392 Coq.Arith.PeanoNat Nat le_lt_trans thm
-R378:392 Coq.Arith.PeanoNat Nat le_lt_trans thm
-prf 508:514 <> pow_pos
-binder 525:525 <> a:2
-binder 527:527 <> n:3
-R536:539 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R531:534 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R535:535 ModularProofs.EncodingBounds <> a:2 var
-R541:543 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R544:550 Coq.Arith.PeanoNat Nat pow def
-R552:552 ModularProofs.EncodingBounds <> a:2 var
-R554:554 ModularProofs.EncodingBounds <> n:3 var
-R630:644 Coq.Arith.PeanoNat Nat mul_pos_pos thm
-R630:644 Coq.Arith.PeanoNat Nat mul_pos_pos thm
-sec 677:690 <> EncodingBounds
-R721:723 Coq.Init.Datatypes <> nat ind
-binder 704:707 <> BASE:4
-binder 709:717 <> SHIFT_LEN:5
-def 741:751 <> SHIFT_SMALL
-R756:762 Coq.Arith.PeanoNat Nat pow def
-R764:767 ModularProofs.EncodingBounds <> EncodingBounds.BASE var
-R769:777 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
-def 793:801 <> SHIFT_BIG
-R806:812 Coq.Arith.PeanoNat Nat pow def
-R814:817 ModularProofs.EncodingBounds <> EncodingBounds.BASE var
-R821:823 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R824:832 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
-R861:864 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R865:868 ModularProofs.EncodingBounds <> EncodingBounds.BASE var
-binder 848:856 <> BASE_ge_2:6
-R901:904 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R905:913 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
-binder 883:896 <> SHIFT_LEN_ge_1:7
-prf 969:976 <> BASE_pos
-R981:983 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R984:987 ModularProofs.EncodingBounds <> EncodingBounds.BASE var
-prf 1068:1082 <> SHIFT_SMALL_pos
-R1087:1089 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R1090:1100 ModularProofs.EncodingBounds <> SHIFT_SMALL def
-R1123:1133 ModularProofs.EncodingBounds <> SHIFT_SMALL def
-R1146:1152 ModularProofs.EncodingBounds <> pow_pos thm
-R1146:1152 ModularProofs.EncodingBounds <> pow_pos thm
-prf 1230:1248 <> SHIFT_SMALL_nonzero
-R1263:1266 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R1252:1262 ModularProofs.EncodingBounds <> SHIFT_SMALL def
-R1294:1308 ModularProofs.EncodingBounds <> SHIFT_SMALL_pos thm
-R1294:1308 ModularProofs.EncodingBounds <> SHIFT_SMALL_pos thm
-prf 1401:1422 <> shiftlen_lt_shiftsmall
-R1435:1437 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R1426:1434 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
-R1438:1448 ModularProofs.EncodingBounds <> SHIFT_SMALL def
-R1473:1481 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
-R1522:1532 ModularProofs.EncodingBounds <> SHIFT_SMALL def
-R1562:1573 ModularProofs.EncodingBounds <> pow2_gt_succ thm
-R1562:1573 ModularProofs.EncodingBounds <> pow2_gt_succ thm
-R1626:1629 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R1609:1615 Coq.Arith.PeanoNat Nat pow def
-R1620:1620 Coq.Init.Datatypes <> S constr
-R1630:1636 Coq.Arith.PeanoNat Nat pow def
-R1638:1641 ModularProofs.EncodingBounds <> EncodingBounds.BASE var
-R1644:1644 Coq.Init.Datatypes <> S constr
-R1626:1629 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R1609:1615 Coq.Arith.PeanoNat Nat pow def
-R1620:1620 Coq.Init.Datatypes <> S constr
-R1630:1636 Coq.Arith.PeanoNat Nat pow def
-R1638:1641 ModularProofs.EncodingBounds <> EncodingBounds.BASE var
-R1644:1644 Coq.Init.Datatypes <> S constr
-R1666:1682 Coq.Arith.PeanoNat Nat pow_le_mono_l thm
-R1686:1689 ModularProofs.EncodingBounds <> EncodingBounds.BASE var
-R1692:1692 Coq.Init.Datatypes <> S constr
-R1666:1682 Coq.Arith.PeanoNat Nat pow_le_mono_l thm
-R1686:1689 ModularProofs.EncodingBounds <> EncodingBounds.BASE var
-R1692:1692 Coq.Init.Datatypes <> S constr
-R1742:1756 Coq.Arith.PeanoNat Nat lt_le_trans thm
-R1742:1756 Coq.Arith.PeanoNat Nat lt_le_trans thm
-prf 1854:1871 <> len_lt_SHIFT_SMALL
-binder 1882:1884 <> len:8
-R1903:1906 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1890:1893 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R1887:1889 ModularProofs.EncodingBounds <> len:8 var
-R1894:1902 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
-R1910:1912 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R1907:1909 ModularProofs.EncodingBounds <> len:8 var
-R1913:1923 ModularProofs.EncodingBounds <> SHIFT_SMALL def
-R1966:1980 Coq.Arith.PeanoNat Nat le_lt_trans thm
-R2000:2021 ModularProofs.EncodingBounds <> shiftlen_lt_shiftsmall thm
-R1966:1980 Coq.Arith.PeanoNat Nat le_lt_trans thm
-R2000:2021 ModularProofs.EncodingBounds <> shiftlen_lt_shiftsmall thm
-prf 2096:2115 <> SHIFT_BIG_as_product
-R2128:2130 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2119:2127 ModularProofs.EncodingBounds <> SHIFT_BIG def
-R2142:2144 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2131:2141 ModularProofs.EncodingBounds <> SHIFT_SMALL def
-R2145:2155 ModularProofs.EncodingBounds <> SHIFT_SMALL def
-R2178:2186 ModularProofs.EncodingBounds <> SHIFT_BIG def
-R2189:2199 ModularProofs.EncodingBounds <> SHIFT_SMALL def
-R2216:2218 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2219:2227 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
-R2245:2247 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R2236:2244 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
-R2248:2256 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
-R2216:2218 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2219:2227 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
-R2245:2247 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R2236:2244 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
-R2248:2256 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
-R2279:2291 Coq.Arith.PeanoNat Nat pow_add_r thm
-R2279:2291 Coq.Arith.PeanoNat Nat pow_add_r thm
-R2279:2291 Coq.Arith.PeanoNat Nat pow_add_r thm
-prf 2391:2419 <> SHIFT_SMALL_ge_succ_SHIFT_LEN
-R2434:2437 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R2423:2423 Coq.Init.Datatypes <> S constr
-R2425:2433 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
-R2438:2448 ModularProofs.EncodingBounds <> SHIFT_SMALL def
-R2481:2483 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R2472:2480 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
-R2484:2494 ModularProofs.EncodingBounds <> SHIFT_SMALL def
-R2506:2527 ModularProofs.EncodingBounds <> shiftlen_lt_shiftsmall thm
-R2481:2483 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R2472:2480 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
-R2484:2494 ModularProofs.EncodingBounds <> SHIFT_SMALL def
-R2506:2527 ModularProofs.EncodingBounds <> shiftlen_lt_shiftsmall thm
-prf 2614:2637 <> SHIFT_SMALL_le_SHIFT_BIG
-R2652:2655 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R2641:2651 ModularProofs.EncodingBounds <> SHIFT_SMALL def
-R2656:2664 ModularProofs.EncodingBounds <> SHIFT_BIG def
-R2688:2707 ModularProofs.EncodingBounds <> SHIFT_BIG_as_product thm
-R2688:2707 ModularProofs.EncodingBounds <> SHIFT_BIG_as_product thm
-R2688:2707 ModularProofs.EncodingBounds <> SHIFT_BIG_as_product thm
-R2723:2733 ModularProofs.EncodingBounds <> SHIFT_SMALL def
-R2723:2733 ModularProofs.EncodingBounds <> SHIFT_SMALL def
-R2796:2810 ModularProofs.EncodingBounds <> SHIFT_SMALL_pos thm
-R2796:2810 ModularProofs.EncodingBounds <> SHIFT_SMALL_pos thm
-R2843:2856 Coq.Arith.PeanoNat Nat mul_succ_r thm
-R2843:2856 Coq.Arith.PeanoNat Nat mul_succ_r thm
-R2843:2856 Coq.Arith.PeanoNat Nat mul_succ_r thm
-prf 2941:2962 <> SHIFT_LEN_lt_SHIFT_BIG
-R2975:2977 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R2966:2974 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
-R2978:2986 ModularProofs.EncodingBounds <> SHIFT_BIG def
-R3009:3023 Coq.Arith.PeanoNat Nat lt_le_trans thm
-R3033:3054 ModularProofs.EncodingBounds <> shiftlen_lt_shiftsmall thm
-R3062:3085 ModularProofs.EncodingBounds <> SHIFT_SMALL_le_SHIFT_BIG thm
-R3009:3023 Coq.Arith.PeanoNat Nat lt_le_trans thm
-R3033:3054 ModularProofs.EncodingBounds <> shiftlen_lt_shiftsmall thm
-R3062:3085 ModularProofs.EncodingBounds <> SHIFT_SMALL_le_SHIFT_BIG thm
-prf 3165:3189 <> le_SHIFT_LEN_lt_SHIFT_BIG
-binder 3204:3204 <> x:9
-R3221:3224 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3208:3211 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R3207:3207 ModularProofs.EncodingBounds <> x:9 var
-R3212:3220 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
-R3226:3228 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R3225:3225 ModularProofs.EncodingBounds <> x:9 var
-R3229:3237 ModularProofs.EncodingBounds <> SHIFT_BIG def
-R3304:3304 Coq.Init.Datatypes <> S constr
-R3306:3314 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
-R3277:3291 Coq.Arith.PeanoNat Nat lt_le_trans thm
-R3304:3304 Coq.Init.Datatypes <> S constr
-R3306:3314 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
-R3277:3291 Coq.Arith.PeanoNat Nat lt_le_trans thm
-R3342:3353 Coq.Arith.PeanoNat Nat le_trans thm
-R3363:3391 ModularProofs.EncodingBounds <> SHIFT_SMALL_ge_succ_SHIFT_LEN thm
-R3399:3422 ModularProofs.EncodingBounds <> SHIFT_SMALL_le_SHIFT_BIG thm
-R3342:3353 Coq.Arith.PeanoNat Nat le_trans thm
-R3363:3391 ModularProofs.EncodingBounds <> SHIFT_SMALL_ge_succ_SHIFT_LEN thm
-R3399:3422 ModularProofs.EncodingBounds <> SHIFT_SMALL_le_SHIFT_BIG thm
-prf 3507:3536 <> lt_SHIFT_LEN_succ_lt_SHIFT_BIG
-binder 3551:3551 <> x:10
-R3567:3570 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3555:3557 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R3554:3554 ModularProofs.EncodingBounds <> x:10 var
-R3558:3566 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
-R3574:3576 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R3571:3571 Coq.Init.Datatypes <> S constr
-R3573:3573 ModularProofs.EncodingBounds <> x:10 var
-R3577:3585 ModularProofs.EncodingBounds <> SHIFT_BIG def
-R3652:3652 Coq.Init.Datatypes <> S constr
-R3654:3662 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
-R3625:3639 Coq.Arith.PeanoNat Nat lt_le_trans thm
-R3652:3652 Coq.Init.Datatypes <> S constr
-R3654:3662 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
-R3625:3639 Coq.Arith.PeanoNat Nat lt_le_trans thm
-R3690:3701 Coq.Arith.PeanoNat Nat le_trans thm
-R3711:3739 ModularProofs.EncodingBounds <> SHIFT_SMALL_ge_succ_SHIFT_LEN thm
-R3747:3770 ModularProofs.EncodingBounds <> SHIFT_SMALL_le_SHIFT_BIG thm
-R3690:3701 Coq.Arith.PeanoNat Nat le_trans thm
-R3711:3739 ModularProofs.EncodingBounds <> SHIFT_SMALL_ge_succ_SHIFT_LEN thm
-R3747:3770 ModularProofs.EncodingBounds <> SHIFT_SMALL_le_SHIFT_BIG thm
-prf 3838:3850 <> SHIFT_BIG_pos
-R3855:3857 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R3858:3866 ModularProofs.EncodingBounds <> SHIFT_BIG def
-R3890:3909 ModularProofs.EncodingBounds <> SHIFT_BIG_as_product thm
-R3890:3909 ModularProofs.EncodingBounds <> SHIFT_BIG_as_product thm
-R3890:3909 ModularProofs.EncodingBounds <> SHIFT_BIG_as_product thm
-R3922:3936 Coq.Arith.PeanoNat Nat mul_pos_pos thm
-R3945:3959 ModularProofs.EncodingBounds <> SHIFT_SMALL_pos thm
-R3922:3936 Coq.Arith.PeanoNat Nat mul_pos_pos thm
-R3945:3959 ModularProofs.EncodingBounds <> SHIFT_SMALL_pos thm
-R3945:3959 ModularProofs.EncodingBounds <> SHIFT_SMALL_pos thm
-prf 4030:4046 <> SHIFT_BIG_nonzero
-R4059:4062 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R4050:4058 ModularProofs.EncodingBounds <> SHIFT_BIG def
-R4090:4102 ModularProofs.EncodingBounds <> SHIFT_BIG_pos thm
-R4090:4102 ModularProofs.EncodingBounds <> SHIFT_BIG_pos thm
-prf 4187:4200 <> pack_lt_square
-binder 4211:4211 <> k:11
-binder 4213:4213 <> a:12
-binder 4215:4215 <> c:13
-R4223:4226 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4219:4221 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R4222:4222 ModularProofs.EncodingBounds <> k:11 var
-R4232:4235 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4228:4230 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R4227:4227 ModularProofs.EncodingBounds <> a:12 var
-R4231:4231 ModularProofs.EncodingBounds <> k:11 var
-R4241:4244 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4237:4239 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R4236:4236 ModularProofs.EncodingBounds <> c:13 var
-R4240:4240 ModularProofs.EncodingBounds <> k:11 var
-R4254:4256 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R4250:4252 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4246:4248 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R4245:4245 ModularProofs.EncodingBounds <> a:12 var
-R4249:4249 ModularProofs.EncodingBounds <> k:11 var
-R4253:4253 ModularProofs.EncodingBounds <> c:13 var
-R4258:4260 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R4257:4257 ModularProofs.EncodingBounds <> k:11 var
-R4261:4261 ModularProofs.EncodingBounds <> k:11 var
-R4342:4344 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4338:4340 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R4310:4324 Coq.Arith.PeanoNat Nat lt_le_trans thm
-R4342:4344 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4338:4340 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R4310:4324 Coq.Arith.PeanoNat Nat lt_le_trans thm
-R4361:4377 Coq.Arith.PeanoNat Nat add_lt_mono_l thm
-R4361:4377 Coq.Arith.PeanoNat Nat add_lt_mono_l thm
-R4412:4414 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4408:4410 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R4424:4424 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R4428:4431 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R4425:4425 Coq.Init.Datatypes <> S constr
-R4447:4460 Coq.Arith.PeanoNat Nat mul_succ_l thm
-R4412:4414 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4408:4410 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R4424:4424 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R4428:4431 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R4425:4425 Coq.Init.Datatypes <> S constr
-R4447:4460 Coq.Arith.PeanoNat Nat mul_succ_l thm
-R4447:4460 Coq.Arith.PeanoNat Nat mul_succ_l thm
-R4481:4501 Coq.Arith.PeanoNat Nat mul_le_mono_pos_r thm
-R4481:4501 Coq.Arith.PeanoNat Nat mul_le_mono_pos_r thm
-prf 4582:4603 <> pair_fits_in_SHIFT_BIG
-binder 4618:4620 <> len:14
-binder 4622:4625 <> code:15
-R4651:4660 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4637:4639 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R4634:4636 ModularProofs.EncodingBounds <> len:14 var
-R4640:4650 ModularProofs.EncodingBounds <> SHIFT_SMALL def
-R4679:4688 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4665:4667 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R4661:4664 ModularProofs.EncodingBounds <> code:15 var
-R4668:4678 ModularProofs.EncodingBounds <> SHIFT_SMALL def
-R4713:4715 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R4706:4708 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4692:4694 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R4689:4691 ModularProofs.EncodingBounds <> len:14 var
-R4695:4705 ModularProofs.EncodingBounds <> SHIFT_SMALL def
-R4709:4712 ModularProofs.EncodingBounds <> code:15 var
-R4716:4724 ModularProofs.EncodingBounds <> SHIFT_BIG def
-R4780:4799 ModularProofs.EncodingBounds <> SHIFT_BIG_as_product thm
-R4780:4799 ModularProofs.EncodingBounds <> SHIFT_BIG_as_product thm
-R4780:4799 ModularProofs.EncodingBounds <> SHIFT_BIG_as_product thm
-R4812:4825 ModularProofs.EncodingBounds <> pack_lt_square thm
-R4838:4852 ModularProofs.EncodingBounds <> SHIFT_SMALL_pos thm
-R4812:4825 ModularProofs.EncodingBounds <> pack_lt_square thm
-R4838:4852 ModularProofs.EncodingBounds <> SHIFT_SMALL_pos thm
-R4838:4852 ModularProofs.EncodingBounds <> SHIFT_SMALL_pos thm
-R4838:4852 ModularProofs.EncodingBounds <> SHIFT_SMALL_pos thm
-R5196:5209 ModularProofs.EncodingBounds EncodingBounds <> sec
-prf 5269:5285 <> div_mul_add_small
-binder 5298:5298 <> k:16
-binder 5300:5300 <> a:17
-binder 5302:5302 <> c:18
-R5314:5321 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5310:5312 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R5313:5313 ModularProofs.EncodingBounds <> k:16 var
-R5327:5334 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5323:5325 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R5322:5322 ModularProofs.EncodingBounds <> c:18 var
-R5326:5326 ModularProofs.EncodingBounds <> k:16 var
-R5335:5335 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5355:5364 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5386:5386 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5351:5353 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5336:5336 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
-R5346:5349 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
-R5342:5344 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R5338:5340 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R5337:5337 ModularProofs.EncodingBounds <> a:17 var
-R5341:5341 ModularProofs.EncodingBounds <> k:16 var
-R5345:5345 ModularProofs.EncodingBounds <> c:18 var
-R5350:5350 ModularProofs.EncodingBounds <> k:16 var
-R5354:5354 ModularProofs.EncodingBounds <> a:17 var
-R5382:5384 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5365:5365 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R5375:5380 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R5371:5373 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R5367:5369 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R5366:5366 ModularProofs.EncodingBounds <> a:17 var
-R5370:5370 ModularProofs.EncodingBounds <> k:16 var
-R5374:5374 ModularProofs.EncodingBounds <> c:18 var
-R5381:5381 ModularProofs.EncodingBounds <> k:16 var
-R5385:5385 ModularProofs.EncodingBounds <> c:18 var
-R5446:5449 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R5446:5449 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R5474:5486 Coq.Arith.PeanoNat Nat div_add_l def
-R5474:5486 Coq.Arith.PeanoNat Nat div_add_l def
-R5474:5486 Coq.Arith.PeanoNat Nat div_add_l def
-R5522:5534 Coq.Arith.PeanoNat Nat div_small def
-R5522:5534 Coq.Arith.PeanoNat Nat div_small def
-R5522:5534 Coq.Arith.PeanoNat Nat div_small def
-R5575:5586 Coq.Arith.PeanoNat Nat add_comm thm
-R5575:5586 Coq.Arith.PeanoNat Nat add_comm thm
-R5575:5586 Coq.Arith.PeanoNat Nat add_comm thm
-R5601:5616 Coq.Arith.PeanoNat Nat.Div0 mod_add thm
-R5601:5616 Coq.Arith.PeanoNat Nat.Div0 mod_add thm
-R5601:5616 Coq.Arith.PeanoNat Nat.Div0 mod_add thm
-R5631:5643 Coq.Arith.PeanoNat Nat mod_small def
-R5631:5643 Coq.Arith.PeanoNat Nat mod_small def
-R5631:5643 Coq.Arith.PeanoNat Nat mod_small def
+R180:186 Kernel.VMState <> <> lib
+R188:193 Kernel.VMStep <> <> lib
+R223:233 Kernel.MuCostModel <> <> lib
+prf 288:299 <> pow2_gt_succ
+binder 310:310 <> n:1
+R316:318 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R313:313 Coq.Init.Datatypes <> S constr
+R315:315 ModularProofs.EncodingBounds <> n:1 var
+R319:325 Coq.Arith.PeanoNat Nat pow def
+R330:330 Coq.Init.Datatypes <> S constr
+R332:332 ModularProofs.EncodingBounds <> n:1 var
+R418:421 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R411:411 Coq.Init.Datatypes <> S constr
+R414:414 Coq.Init.Datatypes <> S constr
+R423:425 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R426:426 Coq.Init.Datatypes <> S constr
+R418:421 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R411:411 Coq.Init.Datatypes <> S constr
+R414:414 Coq.Init.Datatypes <> S constr
+R423:425 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R426:426 Coq.Init.Datatypes <> S constr
+R462:464 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R456:458 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R459:459 Coq.Init.Datatypes <> S constr
+R466:468 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R469:475 Coq.Arith.PeanoNat Nat pow def
+R480:480 Coq.Init.Datatypes <> S constr
+R462:464 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R456:458 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R459:459 Coq.Init.Datatypes <> S constr
+R466:468 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R469:475 Coq.Arith.PeanoNat Nat pow def
+R480:480 Coq.Init.Datatypes <> S constr
+R497:517 Coq.Arith.PeanoNat Nat mul_lt_mono_pos_l thm
+R497:517 Coq.Arith.PeanoNat Nat mul_lt_mono_pos_l thm
+R547:561 Coq.Arith.PeanoNat Nat le_lt_trans thm
+R547:561 Coq.Arith.PeanoNat Nat le_lt_trans thm
+prf 677:683 <> pow_pos
+binder 694:694 <> a:2
+binder 696:696 <> n:3
+R705:708 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R700:703 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R704:704 ModularProofs.EncodingBounds <> a:2 var
+R710:712 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R713:719 Coq.Arith.PeanoNat Nat pow def
+R721:721 ModularProofs.EncodingBounds <> a:2 var
+R723:723 ModularProofs.EncodingBounds <> n:3 var
+R799:813 Coq.Arith.PeanoNat Nat mul_pos_pos thm
+R799:813 Coq.Arith.PeanoNat Nat mul_pos_pos thm
+sec 846:859 <> EncodingBounds
+R890:892 Coq.Init.Datatypes <> nat ind
+binder 873:876 <> BASE:4
+binder 878:886 <> SHIFT_LEN:5
+def 910:920 <> SHIFT_SMALL
+R925:931 Coq.Arith.PeanoNat Nat pow def
+R933:936 ModularProofs.EncodingBounds <> EncodingBounds.BASE var
+R938:946 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
+def 962:970 <> SHIFT_BIG
+R975:981 Coq.Arith.PeanoNat Nat pow def
+R983:986 ModularProofs.EncodingBounds <> EncodingBounds.BASE var
+R990:992 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R993:1001 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
+R1030:1033 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1034:1037 ModularProofs.EncodingBounds <> EncodingBounds.BASE var
+binder 1017:1025 <> BASE_ge_2:6
+R1070:1073 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1074:1082 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
+binder 1052:1065 <> SHIFT_LEN_ge_1:7
+prf 1138:1145 <> BASE_pos
+R1150:1152 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R1153:1156 ModularProofs.EncodingBounds <> EncodingBounds.BASE var
+prf 1237:1251 <> SHIFT_SMALL_pos
+R1256:1258 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R1259:1269 ModularProofs.EncodingBounds <> SHIFT_SMALL def
+R1292:1302 ModularProofs.EncodingBounds <> SHIFT_SMALL def
+R1315:1321 ModularProofs.EncodingBounds <> pow_pos thm
+R1315:1321 ModularProofs.EncodingBounds <> pow_pos thm
+prf 1399:1417 <> SHIFT_SMALL_nonzero
+R1432:1435 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R1421:1431 ModularProofs.EncodingBounds <> SHIFT_SMALL def
+R1463:1477 ModularProofs.EncodingBounds <> SHIFT_SMALL_pos thm
+R1463:1477 ModularProofs.EncodingBounds <> SHIFT_SMALL_pos thm
+prf 1570:1591 <> shiftlen_lt_shiftsmall
+R1604:1606 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R1595:1603 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
+R1607:1617 ModularProofs.EncodingBounds <> SHIFT_SMALL def
+R1642:1650 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
+R1691:1701 ModularProofs.EncodingBounds <> SHIFT_SMALL def
+R1731:1742 ModularProofs.EncodingBounds <> pow2_gt_succ thm
+R1731:1742 ModularProofs.EncodingBounds <> pow2_gt_succ thm
+R1795:1798 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1778:1784 Coq.Arith.PeanoNat Nat pow def
+R1789:1789 Coq.Init.Datatypes <> S constr
+R1799:1805 Coq.Arith.PeanoNat Nat pow def
+R1807:1810 ModularProofs.EncodingBounds <> EncodingBounds.BASE var
+R1813:1813 Coq.Init.Datatypes <> S constr
+R1795:1798 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1778:1784 Coq.Arith.PeanoNat Nat pow def
+R1789:1789 Coq.Init.Datatypes <> S constr
+R1799:1805 Coq.Arith.PeanoNat Nat pow def
+R1807:1810 ModularProofs.EncodingBounds <> EncodingBounds.BASE var
+R1813:1813 Coq.Init.Datatypes <> S constr
+R1835:1851 Coq.Arith.PeanoNat Nat pow_le_mono_l thm
+R1855:1858 ModularProofs.EncodingBounds <> EncodingBounds.BASE var
+R1861:1861 Coq.Init.Datatypes <> S constr
+R1835:1851 Coq.Arith.PeanoNat Nat pow_le_mono_l thm
+R1855:1858 ModularProofs.EncodingBounds <> EncodingBounds.BASE var
+R1861:1861 Coq.Init.Datatypes <> S constr
+R1911:1925 Coq.Arith.PeanoNat Nat lt_le_trans thm
+R1911:1925 Coq.Arith.PeanoNat Nat lt_le_trans thm
+prf 2023:2040 <> len_lt_SHIFT_SMALL
+binder 2051:2053 <> len:8
+R2072:2075 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2059:2062 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2056:2058 ModularProofs.EncodingBounds <> len:8 var
+R2063:2071 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
+R2079:2081 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2076:2078 ModularProofs.EncodingBounds <> len:8 var
+R2082:2092 ModularProofs.EncodingBounds <> SHIFT_SMALL def
+R2135:2149 Coq.Arith.PeanoNat Nat le_lt_trans thm
+R2169:2190 ModularProofs.EncodingBounds <> shiftlen_lt_shiftsmall thm
+R2135:2149 Coq.Arith.PeanoNat Nat le_lt_trans thm
+R2169:2190 ModularProofs.EncodingBounds <> shiftlen_lt_shiftsmall thm
+prf 2265:2284 <> SHIFT_BIG_as_product
+R2297:2299 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2288:2296 ModularProofs.EncodingBounds <> SHIFT_BIG def
+R2311:2313 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2300:2310 ModularProofs.EncodingBounds <> SHIFT_SMALL def
+R2314:2324 ModularProofs.EncodingBounds <> SHIFT_SMALL def
+R2347:2355 ModularProofs.EncodingBounds <> SHIFT_BIG def
+R2358:2368 ModularProofs.EncodingBounds <> SHIFT_SMALL def
+R2385:2387 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2388:2396 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
+R2414:2416 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2405:2413 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
+R2417:2425 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
+R2385:2387 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2388:2396 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
+R2414:2416 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2405:2413 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
+R2417:2425 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
+R2448:2460 Coq.Arith.PeanoNat Nat pow_add_r thm
+R2448:2460 Coq.Arith.PeanoNat Nat pow_add_r thm
+R2448:2460 Coq.Arith.PeanoNat Nat pow_add_r thm
+prf 2560:2588 <> SHIFT_SMALL_ge_succ_SHIFT_LEN
+R2603:2606 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2592:2592 Coq.Init.Datatypes <> S constr
+R2594:2602 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
+R2607:2617 ModularProofs.EncodingBounds <> SHIFT_SMALL def
+R2650:2652 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2641:2649 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
+R2653:2663 ModularProofs.EncodingBounds <> SHIFT_SMALL def
+R2675:2696 ModularProofs.EncodingBounds <> shiftlen_lt_shiftsmall thm
+R2650:2652 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2641:2649 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
+R2653:2663 ModularProofs.EncodingBounds <> SHIFT_SMALL def
+R2675:2696 ModularProofs.EncodingBounds <> shiftlen_lt_shiftsmall thm
+prf 2783:2806 <> SHIFT_SMALL_le_SHIFT_BIG
+R2821:2824 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2810:2820 ModularProofs.EncodingBounds <> SHIFT_SMALL def
+R2825:2833 ModularProofs.EncodingBounds <> SHIFT_BIG def
+R2857:2876 ModularProofs.EncodingBounds <> SHIFT_BIG_as_product thm
+R2857:2876 ModularProofs.EncodingBounds <> SHIFT_BIG_as_product thm
+R2857:2876 ModularProofs.EncodingBounds <> SHIFT_BIG_as_product thm
+R2892:2902 ModularProofs.EncodingBounds <> SHIFT_SMALL def
+R2892:2902 ModularProofs.EncodingBounds <> SHIFT_SMALL def
+R2965:2979 ModularProofs.EncodingBounds <> SHIFT_SMALL_pos thm
+R2965:2979 ModularProofs.EncodingBounds <> SHIFT_SMALL_pos thm
+R3012:3025 Coq.Arith.PeanoNat Nat mul_succ_r thm
+R3012:3025 Coq.Arith.PeanoNat Nat mul_succ_r thm
+R3012:3025 Coq.Arith.PeanoNat Nat mul_succ_r thm
+prf 3110:3131 <> SHIFT_LEN_lt_SHIFT_BIG
+R3144:3146 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3135:3143 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
+R3147:3155 ModularProofs.EncodingBounds <> SHIFT_BIG def
+R3178:3192 Coq.Arith.PeanoNat Nat lt_le_trans thm
+R3202:3223 ModularProofs.EncodingBounds <> shiftlen_lt_shiftsmall thm
+R3231:3254 ModularProofs.EncodingBounds <> SHIFT_SMALL_le_SHIFT_BIG thm
+R3178:3192 Coq.Arith.PeanoNat Nat lt_le_trans thm
+R3202:3223 ModularProofs.EncodingBounds <> shiftlen_lt_shiftsmall thm
+R3231:3254 ModularProofs.EncodingBounds <> SHIFT_SMALL_le_SHIFT_BIG thm
+prf 3334:3358 <> le_SHIFT_LEN_lt_SHIFT_BIG
+binder 3373:3373 <> x:9
+R3390:3393 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3377:3380 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3376:3376 ModularProofs.EncodingBounds <> x:9 var
+R3381:3389 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
+R3395:3397 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3394:3394 ModularProofs.EncodingBounds <> x:9 var
+R3398:3406 ModularProofs.EncodingBounds <> SHIFT_BIG def
+R3473:3473 Coq.Init.Datatypes <> S constr
+R3475:3483 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
+R3446:3460 Coq.Arith.PeanoNat Nat lt_le_trans thm
+R3473:3473 Coq.Init.Datatypes <> S constr
+R3475:3483 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
+R3446:3460 Coq.Arith.PeanoNat Nat lt_le_trans thm
+R3511:3522 Coq.Arith.PeanoNat Nat le_trans thm
+R3532:3560 ModularProofs.EncodingBounds <> SHIFT_SMALL_ge_succ_SHIFT_LEN thm
+R3568:3591 ModularProofs.EncodingBounds <> SHIFT_SMALL_le_SHIFT_BIG thm
+R3511:3522 Coq.Arith.PeanoNat Nat le_trans thm
+R3532:3560 ModularProofs.EncodingBounds <> SHIFT_SMALL_ge_succ_SHIFT_LEN thm
+R3568:3591 ModularProofs.EncodingBounds <> SHIFT_SMALL_le_SHIFT_BIG thm
+prf 3676:3705 <> lt_SHIFT_LEN_succ_lt_SHIFT_BIG
+binder 3720:3720 <> x:10
+R3736:3739 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3724:3726 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3723:3723 ModularProofs.EncodingBounds <> x:10 var
+R3727:3735 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
+R3743:3745 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3740:3740 Coq.Init.Datatypes <> S constr
+R3742:3742 ModularProofs.EncodingBounds <> x:10 var
+R3746:3754 ModularProofs.EncodingBounds <> SHIFT_BIG def
+R3821:3821 Coq.Init.Datatypes <> S constr
+R3823:3831 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
+R3794:3808 Coq.Arith.PeanoNat Nat lt_le_trans thm
+R3821:3821 Coq.Init.Datatypes <> S constr
+R3823:3831 ModularProofs.EncodingBounds <> EncodingBounds.SHIFT_LEN var
+R3794:3808 Coq.Arith.PeanoNat Nat lt_le_trans thm
+R3859:3870 Coq.Arith.PeanoNat Nat le_trans thm
+R3880:3908 ModularProofs.EncodingBounds <> SHIFT_SMALL_ge_succ_SHIFT_LEN thm
+R3916:3939 ModularProofs.EncodingBounds <> SHIFT_SMALL_le_SHIFT_BIG thm
+R3859:3870 Coq.Arith.PeanoNat Nat le_trans thm
+R3880:3908 ModularProofs.EncodingBounds <> SHIFT_SMALL_ge_succ_SHIFT_LEN thm
+R3916:3939 ModularProofs.EncodingBounds <> SHIFT_SMALL_le_SHIFT_BIG thm
+prf 4007:4019 <> SHIFT_BIG_pos
+R4024:4026 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4027:4035 ModularProofs.EncodingBounds <> SHIFT_BIG def
+R4059:4078 ModularProofs.EncodingBounds <> SHIFT_BIG_as_product thm
+R4059:4078 ModularProofs.EncodingBounds <> SHIFT_BIG_as_product thm
+R4059:4078 ModularProofs.EncodingBounds <> SHIFT_BIG_as_product thm
+R4091:4105 Coq.Arith.PeanoNat Nat mul_pos_pos thm
+R4114:4128 ModularProofs.EncodingBounds <> SHIFT_SMALL_pos thm
+R4091:4105 Coq.Arith.PeanoNat Nat mul_pos_pos thm
+R4114:4128 ModularProofs.EncodingBounds <> SHIFT_SMALL_pos thm
+R4114:4128 ModularProofs.EncodingBounds <> SHIFT_SMALL_pos thm
+prf 4199:4215 <> SHIFT_BIG_nonzero
+R4228:4231 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4219:4227 ModularProofs.EncodingBounds <> SHIFT_BIG def
+R4259:4271 ModularProofs.EncodingBounds <> SHIFT_BIG_pos thm
+R4259:4271 ModularProofs.EncodingBounds <> SHIFT_BIG_pos thm
+prf 4356:4369 <> pack_lt_square
+binder 4380:4380 <> k:11
+binder 4382:4382 <> a:12
+binder 4384:4384 <> c:13
+R4392:4395 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4388:4390 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4391:4391 ModularProofs.EncodingBounds <> k:11 var
+R4401:4404 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4397:4399 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4396:4396 ModularProofs.EncodingBounds <> a:12 var
+R4400:4400 ModularProofs.EncodingBounds <> k:11 var
+R4410:4413 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4406:4408 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4405:4405 ModularProofs.EncodingBounds <> c:13 var
+R4409:4409 ModularProofs.EncodingBounds <> k:11 var
+R4423:4425 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4419:4421 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4415:4417 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4414:4414 ModularProofs.EncodingBounds <> a:12 var
+R4418:4418 ModularProofs.EncodingBounds <> k:11 var
+R4422:4422 ModularProofs.EncodingBounds <> c:13 var
+R4427:4429 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4426:4426 ModularProofs.EncodingBounds <> k:11 var
+R4430:4430 ModularProofs.EncodingBounds <> k:11 var
+R4511:4513 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4507:4509 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4479:4493 Coq.Arith.PeanoNat Nat lt_le_trans thm
+R4511:4513 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4507:4509 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4479:4493 Coq.Arith.PeanoNat Nat lt_le_trans thm
+R4530:4546 Coq.Arith.PeanoNat Nat add_lt_mono_l thm
+R4530:4546 Coq.Arith.PeanoNat Nat add_lt_mono_l thm
+R4581:4583 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4577:4579 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4593:4593 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4597:4600 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4594:4594 Coq.Init.Datatypes <> S constr
+R4616:4629 Coq.Arith.PeanoNat Nat mul_succ_l thm
+R4581:4583 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4577:4579 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4593:4593 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4597:4600 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4594:4594 Coq.Init.Datatypes <> S constr
+R4616:4629 Coq.Arith.PeanoNat Nat mul_succ_l thm
+R4616:4629 Coq.Arith.PeanoNat Nat mul_succ_l thm
+R4650:4670 Coq.Arith.PeanoNat Nat mul_le_mono_pos_r thm
+R4650:4670 Coq.Arith.PeanoNat Nat mul_le_mono_pos_r thm
+prf 4751:4772 <> pair_fits_in_SHIFT_BIG
+binder 4787:4789 <> len:14
+binder 4791:4794 <> code:15
+R4820:4829 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4806:4808 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4803:4805 ModularProofs.EncodingBounds <> len:14 var
+R4809:4819 ModularProofs.EncodingBounds <> SHIFT_SMALL def
+R4848:4857 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4834:4836 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4830:4833 ModularProofs.EncodingBounds <> code:15 var
+R4837:4847 ModularProofs.EncodingBounds <> SHIFT_SMALL def
+R4882:4884 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4875:4877 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4861:4863 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4858:4860 ModularProofs.EncodingBounds <> len:14 var
+R4864:4874 ModularProofs.EncodingBounds <> SHIFT_SMALL def
+R4878:4881 ModularProofs.EncodingBounds <> code:15 var
+R4885:4893 ModularProofs.EncodingBounds <> SHIFT_BIG def
+R4949:4968 ModularProofs.EncodingBounds <> SHIFT_BIG_as_product thm
+R4949:4968 ModularProofs.EncodingBounds <> SHIFT_BIG_as_product thm
+R4949:4968 ModularProofs.EncodingBounds <> SHIFT_BIG_as_product thm
+R4981:4994 ModularProofs.EncodingBounds <> pack_lt_square thm
+R5007:5021 ModularProofs.EncodingBounds <> SHIFT_SMALL_pos thm
+R4981:4994 ModularProofs.EncodingBounds <> pack_lt_square thm
+R5007:5021 ModularProofs.EncodingBounds <> SHIFT_SMALL_pos thm
+R5007:5021 ModularProofs.EncodingBounds <> SHIFT_SMALL_pos thm
+R5007:5021 ModularProofs.EncodingBounds <> SHIFT_SMALL_pos thm
+R5365:5378 ModularProofs.EncodingBounds EncodingBounds <> sec
+prf 5438:5454 <> div_mul_add_small
+binder 5467:5467 <> k:16
+binder 5469:5469 <> a:17
+binder 5471:5471 <> c:18
+R5483:5490 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5479:5481 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5482:5482 ModularProofs.EncodingBounds <> k:16 var
+R5496:5503 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5492:5494 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5491:5491 ModularProofs.EncodingBounds <> c:18 var
+R5495:5495 ModularProofs.EncodingBounds <> k:16 var
+R5504:5504 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5524:5533 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5555:5555 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5520:5522 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5505:5505 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R5515:5518 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R5511:5513 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5507:5509 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R5506:5506 ModularProofs.EncodingBounds <> a:17 var
+R5510:5510 ModularProofs.EncodingBounds <> k:16 var
+R5514:5514 ModularProofs.EncodingBounds <> c:18 var
+R5519:5519 ModularProofs.EncodingBounds <> k:16 var
+R5523:5523 ModularProofs.EncodingBounds <> a:17 var
+R5551:5553 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5534:5534 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R5544:5549 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R5540:5542 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5536:5538 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R5535:5535 ModularProofs.EncodingBounds <> a:17 var
+R5539:5539 ModularProofs.EncodingBounds <> k:16 var
+R5543:5543 ModularProofs.EncodingBounds <> c:18 var
+R5550:5550 ModularProofs.EncodingBounds <> k:16 var
+R5554:5554 ModularProofs.EncodingBounds <> c:18 var
+R5615:5618 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5615:5618 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5643:5655 Coq.Arith.PeanoNat Nat div_add_l def
+R5643:5655 Coq.Arith.PeanoNat Nat div_add_l def
+R5643:5655 Coq.Arith.PeanoNat Nat div_add_l def
+R5691:5703 Coq.Arith.PeanoNat Nat div_small def
+R5691:5703 Coq.Arith.PeanoNat Nat div_small def
+R5691:5703 Coq.Arith.PeanoNat Nat div_small def
+R5744:5755 Coq.Arith.PeanoNat Nat add_comm thm
+R5744:5755 Coq.Arith.PeanoNat Nat add_comm thm
+R5744:5755 Coq.Arith.PeanoNat Nat add_comm thm
+R5770:5785 Coq.Arith.PeanoNat Nat.Div0 mod_add thm
+R5770:5785 Coq.Arith.PeanoNat Nat.Div0 mod_add thm
+R5770:5785 Coq.Arith.PeanoNat Nat.Div0 mod_add thm
+R5800:5812 Coq.Arith.PeanoNat Nat mod_small def
+R5800:5812 Coq.Arith.PeanoNat Nat mod_small def
+R5800:5812 Coq.Arith.PeanoNat Nat mod_small def

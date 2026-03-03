@@ -1,0 +1,62 @@
+{
+  "coq": {
+    "source": "coq/kernel/VMStep.v",
+    "instruction_type": "vm_instruction",
+    "state_type": "VMState",
+    "step_relation": "vm_step",
+    "cost_function": "instruction_cost"
+  },
+  "python": {
+    "source": "thielecpu/isa.py",
+    "instruction_type": "Opcode",
+    "state_type": "VMState",
+    "step_function": "vm_step",
+    "cost_function": "instruction_cost"
+  },
+  "rtl": {
+    "source": "thielecpu/hardware/rtl/thiele_cpu_kami.v",
+    "opcode_header": "thielecpu/hardware/rtl/generated_opcodes.vh",
+    "instruction_width": 32,
+    "opcode_field": "[31:24]"
+  },
+  "csr": {
+    "CERT_ADDR": 0,
+    "ERR": 2,
+    "STATUS": 1
+  },
+  "memory_words": 256,
+  "opcodes": {
+    "ADD": 19,
+    "CALL": 23,
+    "CHSH_TRIAL": 9,
+    "EMIT": 14,
+    "HALT": 255,
+    "JNEZ": 22,
+    "JUMP": 21,
+    "LASSERT": 3,
+    "LJOIN": 4,
+    "LOAD": 17,
+    "LOAD_IMM": 8,
+    "MDLACC": 5,
+    "ORACLE_HALTS": 16,
+    "PDISCOVER": 6,
+    "PMERGE": 2,
+    "PNEW": 0,
+    "PSPLIT": 1,
+    "RET": 24,
+    "REVEAL": 15,
+    "STORE": 18,
+    "SUB": 20,
+    "XFER": 7,
+    "XOR_ADD": 11,
+    "XOR_LOAD": 10,
+    "XOR_RANK": 13,
+    "XOR_SWAP": 12
+  },
+  "registers": {
+    "r0": 0, "r1": 1, "r2": 2, "r3": 3, "r4": 4, "r5": 5, "r6": 6, "r7": 7,
+    "r8": 8, "r9": 9, "r10": 10, "r11": 11, "r12": 12, "r13": 13, "r14": 14, "r15": 15,
+    "r16": 16, "r17": 17, "r18": 18, "r19": 19, "r20": 20, "r21": 21, "r22": 22, "r23": 23,
+    "r24": 24, "r25": 25, "r26": 26, "r27": 27, "r28": 28, "r29": 29, "r30": 30, "r31": 31
+  }
+}

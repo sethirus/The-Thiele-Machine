@@ -1,6 +1,6 @@
 # INQUISITOR REPORT
-Generated: 2026-02-24 01:40:26Z (UTC)
-Scanned: 316 Coq files across the repo
+Generated: 2026-03-02 06:04:20Z (UTC)
+Scanned: 323 Coq files across the repo
 ## Summary
 - HIGH: 0
 - MEDIUM: 0
@@ -27,6 +27,11 @@ Scanned: 316 Coq files across the repo
 - `CIRCULAR_INTROS_ASSUMPTION`: tautology + `intros; assumption.`
 - `EXACT_ALIAS`: `Theorem A. Proof. exact B. Qed.` (pure alias — proves nothing new, just re-exports an existing proof under a new name)
 - `SCOPE_DRIFT_TIER1`: coq/kernel/ (Tier 1) file imports a Tier-2 or Tier-3 namespace — contaminates the extraction-critical kernel
+- `ISOMORPHISM_PROOF_CHAIN_GAP`: A required proof in the isomorphism chain (Coq↔Python↔RTL) is missing or incomplete
+- `OPCODE_PARITY_VIOLATION`: VM opcodes are not consistently defined across Coq, OCaml, Python, and RTL layers
+- `TEST_PROOF_LOCKSTEP_VIOLATION`: A test claiming isomorphism does not actually execute cross-layer comparisons
+- `EXTRACTION_SEMANTIC_UNFAITHFUL`: Extracted artifacts do not faithfully preserve Coq VM semantics
+- `FOUNDATION_UTILIZATION_GAP`: Tier-1 kernel proof does not reference VM foundation types in any theorem statement
 - `SCOPE_DRIFT_TIER2`: Thesis-essential Tier-2 file (nofi/, bridge/, etc.) imports a Tier-3 exploratory namespace
 - `TRIVIAL_EQUALITY`: theorem of form `X = X` with reflexivity-ish proof
 - `CONST_Q_FUN`: `Definition ... := fun _ => 0%Q` / `1%Q`
@@ -80,6 +85,11 @@ Scanned: 316 Coq files across the repo
 - `MU_GRAVITY_DERIVATION_INCOMPLETE`: MuGravity theorem interfaces/declarations still expose unfinished derivation assumptions, including the six major obligations (geometric calibration, source normalization, horizon defect-area, active-step descent, semantic gap window, VM compatibility surfaces)
 - `MU_GRAVITY_VM_COMPATIBILITY`: MuGravity execution-facing theorem interfaces/declarations still rely on unresolved VM compatibility wrappers/assumptions instead of vm_apply/run_vm semantic derivations
 - `MU_GRAVITY_NO_ASSUMPTION_SURFACES`: MuGravity files may not use Axiom/Parameter/Hypothesis/Context/Variable(s); all such surfaces must be discharged as theorems
+- `PROOF_CONNECTIVITY_GAP`: proof-bearing file is not connected to required foundation chain groups; remediation is to iterate with bridge lemmas/imports until connected
+- `KAMI_OCAML_FOUNDATION_MISMATCH`: Kami and OCaml extraction build surfaces are not grounded in the same kernel foundation modules
+- `OCAML_EXTRACTION_BUILD_FAIL`: OCaml extraction build/check failed (Extraction.v / MinimalExtraction.v must build and expose core VM symbols)
+- `CROSS_LAYER_FOUNDATION_DISCONNECT`: end-to-end chain (Coq foundations -> OCaml extraction -> VM wrapper -> canonical Kami RTL/cosim/build flow) is missing a required link
+- `PROOF_BODY_FOUNDATION_DISCONNECT`: theorem-body dependency graph shows a Coq proof file does not transitively reach the canonical foundation theorem chain
 
 ## Vacuity Ranking (file-level)
 (no files scored above zero — no trivially-true or placeholder patterns detected)

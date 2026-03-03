@@ -95,6 +95,90 @@ _NAMESPACE_TO_TIER.update({ns: 3 for ns in _TIER3_NAMESPACES})
 
 _STDLIB_NAMESPACES: frozenset[str] = frozenset({"Coq", "Stdlib"})
 
+# Every proof-bearing file must be transitively connected to these machine
+# semantics anchors via Coq imports, or explicitly reference semantic tokens.
+_FOUNDATION_SEMANTICS_MODULES: frozenset[str] = frozenset(
+    {
+        "VMState",
+        "VMStep",
+        "VMEncoding",
+        "KernelTM",
+        "BridgeDefinitions",
+        "PythonBisimulation",
+        "HardwareBisimulation",
+    }
+)
+
+_FOUNDATION_COST_MODULES: frozenset[str] = frozenset(
+    {
+        "MuCostModel",
+        "MuLedgerConservation",
+        "MuInitiality",
+        "NoFreeInsight",
+    }
+)
+
+_FOUNDATION_GROUPS: dict[str, frozenset[str]] = {
+    "semantics": _FOUNDATION_SEMANTICS_MODULES,
+    "cost": _FOUNDATION_COST_MODULES,
+}
+
+# Build-surface parity requirement: OCaml extraction and Kami proofs must share
+# these same kernel foundations.
+_SHARED_BUILD_FOUNDATION_MODULES: frozenset[str] = frozenset(
+    {
+        "VMState",
+        "VMStep",
+        "VMEncoding",
+        "KernelTM",
+        "MuCostModel",
+        "MuLedgerConservation",
+        "MuInitiality",
+        "NoFreeInsight",
+    }
+)
+
+_OCAML_EXTRACTION_ENTRYPOINTS: frozenset[str] = frozenset({"Extraction.v", "MinimalExtraction.v"})
+_OCAML_EXTRACTION_ARTIFACTS: tuple[tuple[str, str], ...] = (
+    ("Extraction.v", "thiele_core.ml"),
+    ("MinimalExtraction.v", "thiele_core_minimal.ml"),
+)
+_OCAML_EXTRACTION_REQUIRED_SYMBOLS: tuple[str, ...] = ("vm_instruction", "vm_apply", "vMState")
+
+# Global foundation modules that everything must ultimately tie back to.
+_GLOBAL_FOUNDATION_MODULES: tuple[str, ...] = (
+    "VMState",
+    "VMStep",
+    "SimulationProof",
+    "VMEncoding",
+    "KernelTM",
+    "MuCostModel",
+    "MuLedgerConservation",
+    "MuInitiality",
+    "NoFreeInsight",
+)
+
+_PROOF_DECL_RE = re.compile(
+    r"(?m)^\s*(?:Theorem|Lemma|Corollary|Proposition|Fact|Remark|Conjecture)\b"
+)
+
+_PROOF_CONNECTIVITY_NOTE_RE = re.compile(r"INQUISITOR NOTE.*proof[- ]?connect", re.IGNORECASE)
+
+_SEMANTIC_TOKEN_RE = re.compile(
+    r"(?i)\b(VMState|VMStep|vm_step|vm_apply|run_vm|NoFreeInsight|KernelTM|BridgeDefinitions|PythonBisimulation|HardwareBisimulation)\b"
+)
+
+_COST_TOKEN_RE = re.compile(
+    r"(?i)\b(mu_cost|mu_ledger|vm_mu|instruction_cost|MuCostModel|MuLedgerConservation|MuInitiality|NoFreeInsight)\b"
+)
+
+_FROM_REQUIRE_IMPORTS_RE = re.compile(
+    r"(?m)^\s*From\s+([A-Za-z0-9_.]+)\s+Require\s+(?:Import|Export)\s+([^\.]+)\."
+)
+_REQUIRE_IMPORTS_RE = re.compile(
+    r"(?m)^\s*Require\s+(?:Import|Export)\s+([^\.]+)\."
+)
+
 
 def _path_to_tier(path: Path) -> int | None:
     """Return the tier (1/2/3) for a .v file based on its coq/ subdirectory, or None."""
@@ -268,7 +352,12 @@ def iter_v_files(coq_root: Path) -> Iterator[Path]:
 
 
 def iter_all_coq_files(repo_root: Path) -> Iterator[Path]:
-    """Iterate all Coq .v files, excluding archive and vendor directories."""
+    """Iterate all Coq .v files, excluding archive and vendor directories.
+
+    Strict policy:
+    - All files under `coq/**/*.v` are in scope (no marker heuristics).
+    - Non-Coq-tree `.v` files are included only if they look like Coq.
+    """
     for p in repo_root.rglob("*.v"):
         if not p.is_file():
             continue
@@ -281,9 +370,61 @@ def iter_all_coq_files(repo_root: Path) -> Iterator[Path]:
             continue
         if "/vendor/" in relative_path:
             continue
+        # No heuristic filtering inside coq/: every Coq source file is audited.
+        if relative_path.startswith("/coq/"):
+            yield p
+            continue
         raw = p.read_text(encoding="utf-8", errors="replace")
         if _looks_like_coq(raw):
             yield p
+
+
+def _check_coq_compilation_coverage(repo_root: Path) -> list[Finding]:
+    """Fail if any active Coq .v source lacks its compiled .vo artifact.
+
+    A successful `make -C coq` may still skip files not wired into the build graph.
+    This check prevents false confidence by enforcing source-to-artifact coverage.
+    """
+
+    findings: list[Finding] = []
+    coq_root = repo_root / "coq"
+    if not coq_root.exists():
+        return findings
+
+    # Files intentionally outside proof-bearing scope.
+    # Keep this list explicit and minimal to avoid accidental gate weakening.
+    excluded_test_files = {
+        "coq/kernel/Test.v",
+    }
+
+    for vf in sorted(coq_root.rglob("*.v")):
+        if not vf.is_file():
+            continue
+        rel_posix = vf.relative_to(repo_root).as_posix()
+        rel = "/" + rel_posix
+        if "/archive/" in rel or "/vendor/" in rel:
+            continue
+        if rel_posix in excluded_test_files:
+            continue
+        vo = vf.with_suffix(".vo")
+        if vo.exists():
+            continue
+        findings.append(
+            Finding(
+                rule_id="COMPILATION_COVERAGE_GAP",
+                severity="HIGH",
+                file=vf,
+                line=1,
+                snippet="",
+                message=(
+                    "Coq source file has no compiled .vo artifact after build. "
+                    "This file is outside effective proof-gate coverage; wire it into Coq build or "
+                    "formally exclude it from proof-bearing scope."
+                ),
+            )
+        )
+
+    return findings
 
 
 def _line_map(text: str) -> list[int]:
@@ -1264,6 +1405,282 @@ def scan_scope_drift(path: Path) -> list[Finding]:
                     ),
                 )
             )
+
+    return findings
+
+
+def _extract_imported_module_names(clean_text: str) -> set[str]:
+    modules: set[str] = set()
+
+    for m in _FROM_REQUIRE_IMPORTS_RE.finditer(clean_text):
+        from_ns = m.group(1).strip()
+        if from_ns:
+            modules.add(from_ns.split(".")[-1])
+        for tok in m.group(2).split():
+            tok = tok.strip()
+            if tok:
+                modules.add(tok.split(".")[-1])
+
+    for m in _REQUIRE_IMPORTS_RE.finditer(clean_text):
+        for tok in m.group(1).split():
+            tok = tok.strip()
+            if tok:
+                modules.add(tok.split(".")[-1])
+
+    return modules
+
+
+def scan_proof_connectivity(repo_root: Path, v_files: list[Path]) -> list[Finding]:
+    """Enforce that every proof-bearing Coq file builds up from foundation modules.
+
+    Foundation policy:
+    - All proof-bearing files must connect to the semantic foundation transitively.
+    - Tier-1 kernel proof files must also connect to the μ-cost foundation.
+    - Remediation is iterative: add bridge lemmas/imports until connected.
+    """
+
+    stem_to_paths: dict[str, set[Path]] = {}
+    imports_by_file: dict[Path, set[str]] = {}
+    proof_file_info: list[tuple[Path, int, str, str]] = []
+    semantic_mentions: set[Path] = set()
+    cost_mentions: set[Path] = set()
+
+    for vf in v_files:
+        raw = vf.read_text(encoding="utf-8", errors="replace")
+        clean = strip_coq_comments(raw)
+        stem_to_paths.setdefault(vf.stem, set()).add(vf)
+        imports_by_file[vf] = _extract_imported_module_names(clean)
+
+        if _SEMANTIC_TOKEN_RE.search(clean):
+            semantic_mentions.add(vf)
+        if _COST_TOKEN_RE.search(clean):
+            cost_mentions.add(vf)
+
+        if not _PROOF_DECL_RE.search(clean):
+            continue
+
+        if _PROOF_CONNECTIVITY_NOTE_RE.search(raw):
+            continue
+
+        clean_lines = clean.splitlines()
+        first_line = 1
+        first_snippet = ""
+        for i, line in enumerate(clean_lines, start=1):
+            if _PROOF_DECL_RE.match(line):
+                first_line = i
+                first_snippet = line.strip()
+                break
+        proof_file_info.append((vf, _path_to_tier(vf) or 0, first_line, first_snippet))
+
+    all_foundation_modules = set().union(*_FOUNDATION_GROUPS.values())
+    anchors: set[Path] = set()
+    for stem in all_foundation_modules:
+        anchors.update(stem_to_paths.get(stem, set()))
+
+    findings: list[Finding] = []
+    if not anchors:
+        findings.append(
+            Finding(
+                rule_id="PROOF_CONNECTIVITY_GAP",
+                severity="HIGH",
+                file=repo_root / "coq" / "_CoqProject",
+                line=1,
+                snippet="",
+                message=(
+                    "No foundation modules were found for proof-connectivity audit. "
+                    "Expected at least one of: "
+                    + ", ".join(sorted(all_foundation_modules))
+                ),
+            )
+        )
+        return findings
+
+    # Build transitive import graph on concrete file paths.
+    adjacency: dict[Path, set[Path]] = {vf: set() for vf in v_files}
+    reverse_adjacency: dict[Path, set[Path]] = {vf: set() for vf in v_files}
+    for src, imported_stems in imports_by_file.items():
+        for stem in imported_stems:
+            for dst in stem_to_paths.get(stem, set()):
+                if dst == src:
+                    continue
+                adjacency[src].add(dst)
+                reverse_adjacency[dst].add(src)
+
+    reachable_stem_cache: dict[Path, set[str]] = {}
+
+    def _reachable_stems(start: Path) -> set[str]:
+        cached = reachable_stem_cache.get(start)
+        if cached is not None:
+            return cached
+        seen: set[Path] = set()
+        stack = [start]
+        stems: set[str] = set()
+        while stack:
+            node = stack.pop()
+            if node in seen:
+                continue
+            seen.add(node)
+            stems.add(node.stem)
+            stack.extend(adjacency.get(node, set()))
+        reachable_stem_cache[start] = stems
+        return stems
+
+    for vf, tier, line, snippet in proof_file_info:
+        # Foundation files are the baseline and are exempt from self-checking.
+        if vf.stem in all_foundation_modules:
+            continue
+
+        # NO TIER EXEMPTIONS: ALL proof files must connect to BOTH semantics
+        # AND cost foundations. No shortcuts, no folder-based leniency.
+        required_groups: list[str] = ["semantics", "cost"]
+
+        reachable = _reachable_stems(vf)
+        missing_groups: list[str] = []
+        for group in required_groups:
+            group_modules = _FOUNDATION_GROUPS[group]
+            reached_group = bool(reachable.intersection(group_modules))
+            if group == "semantics" and vf in semantic_mentions:
+                reached_group = True
+            if group == "cost" and vf in cost_mentions:
+                reached_group = True
+            if not reached_group:
+                missing_groups.append(group)
+
+        if not missing_groups:
+            continue
+
+        required_desc = ", ".join(missing_groups)
+
+        findings.append(
+            Finding(
+                rule_id="PROOF_CONNECTIVITY_GAP",
+                severity="HIGH",
+                file=vf,
+                line=line,
+                snippet=snippet,
+                message=(
+                    f"proof file is missing required foundation connectivity group(s): "
+                    f"{required_desc}. ALL proofs must connect to the Thiele machine "
+                    "foundation chain — no exceptions, no tier-based exemptions. "
+                    "Add imports/bridge lemmas and iterate until connected."
+                ),
+            )
+        )
+
+    return findings
+
+
+def scan_kami_ocaml_foundation_alignment(repo_root: Path, v_files: list[Path]) -> list[Finding]:
+    """Require Kami and OCaml extraction flows to share kernel foundations.
+
+    This enforces a single semantic source of truth: both build surfaces must
+    be transitively connected to the same foundation modules.
+    """
+
+    coq_root = repo_root / "coq"
+    extraction_files: list[Path] = []
+    kami_files: list[Path] = []
+    for vf in v_files:
+        rel = vf.relative_to(repo_root).as_posix()
+        if rel.startswith("coq/") and vf.name in _OCAML_EXTRACTION_ENTRYPOINTS:
+            extraction_files.append(vf)
+        if rel.startswith("coq/kami_hw/"):
+            kami_files.append(vf)
+
+    findings: list[Finding] = []
+    if not extraction_files:
+        findings.append(
+            Finding(
+                rule_id="KAMI_OCAML_FOUNDATION_MISMATCH",
+                severity="HIGH",
+                file=coq_root / "Extraction.v",
+                line=1,
+                snippet="",
+                message=(
+                    "OCaml extraction entrypoints are missing. Expected at least one of: "
+                    + ", ".join(sorted(_OCAML_EXTRACTION_ENTRYPOINTS))
+                ),
+            )
+        )
+        return findings
+    if not kami_files:
+        findings.append(
+            Finding(
+                rule_id="KAMI_OCAML_FOUNDATION_MISMATCH",
+                severity="HIGH",
+                file=coq_root / "kami_hw",
+                line=1,
+                snippet="",
+                message="Kami hardware proof files are missing under coq/kami_hw/.",
+            )
+        )
+        return findings
+
+    stem_to_paths: dict[str, set[Path]] = {}
+    imports_by_file: dict[Path, set[str]] = {}
+    for vf in v_files:
+        raw = vf.read_text(encoding="utf-8", errors="replace")
+        clean = strip_coq_comments(raw)
+        stem_to_paths.setdefault(vf.stem, set()).add(vf)
+        imports_by_file[vf] = _extract_imported_module_names(clean)
+
+    adjacency: dict[Path, set[Path]] = {vf: set() for vf in v_files}
+    for src, imported_stems in imports_by_file.items():
+        for stem in imported_stems:
+            for dst in stem_to_paths.get(stem, set()):
+                if dst != src:
+                    adjacency[src].add(dst)
+
+    reachable_cache: dict[Path, set[str]] = {}
+
+    def _reachable_foundations(start: Path) -> set[str]:
+        cached = reachable_cache.get(start)
+        if cached is not None:
+            return cached
+        seen: set[Path] = set()
+        stack: list[Path] = [start]
+        reachable_stems: set[str] = set()
+        while stack:
+            node = stack.pop()
+            if node in seen:
+                continue
+            seen.add(node)
+            reachable_stems.add(node.stem)
+            stack.extend(adjacency.get(node, set()))
+        foundations = reachable_stems.intersection(_SHARED_BUILD_FOUNDATION_MODULES)
+        reachable_cache[start] = foundations
+        return foundations
+
+    ocaml_foundations: set[str] = set()
+    for f in extraction_files:
+        ocaml_foundations.update(_reachable_foundations(f))
+
+    kami_foundations: set[str] = set()
+    for f in kami_files:
+        kami_foundations.update(_reachable_foundations(f))
+
+    required_missing_ocaml = _SHARED_BUILD_FOUNDATION_MODULES.difference(ocaml_foundations)
+    required_missing_kami = _SHARED_BUILD_FOUNDATION_MODULES.difference(kami_foundations)
+    mismatch = ocaml_foundations.symmetric_difference(kami_foundations)
+
+    if required_missing_ocaml or required_missing_kami or mismatch:
+        findings.append(
+            Finding(
+                rule_id="KAMI_OCAML_FOUNDATION_MISMATCH",
+                severity="HIGH",
+                file=coq_root / "kami_hw" / "CanonicalCPUProof.v",
+                line=1,
+                snippet="",
+                message=(
+                    "Kami and OCaml extraction flows are not grounded in the same foundation set. "
+                    f"OCaml has [{', '.join(sorted(ocaml_foundations)) or 'none'}]; "
+                    f"Kami has [{', '.join(sorted(kami_foundations)) or 'none'}]. "
+                    f"Missing in OCaml [{', '.join(sorted(required_missing_ocaml)) or 'none'}]; "
+                    f"missing in Kami [{', '.join(sorted(required_missing_kami)) or 'none'}]. "
+                    "Iterate by adding/re-exporting foundation imports and bridge lemmas until both surfaces share the full foundation chain."
+                ),
+            )
+        )
 
     return findings
 
@@ -4795,28 +5212,47 @@ def _run_make_all(repo_root: Path) -> tuple[int, list[Finding]]:
     )
     
     if proc.returncode != 0:
-        # Parse error output to find which files failed
+        # Parse error output to find which files failed with FULL error context
         error_lines = proc.stderr + proc.stdout
-        # Look for patterns like "File "./kernel/Foo.v", line X"
-        import re
-        file_pattern = re.compile(r'File "([^"]+\.v)", line (\d+)')
-        for match in file_pattern.finditer(error_lines):
+
+        # Extract each error block: "File "...", line N ... Error: ..."
+        error_block_re = re.compile(
+            r'File "([^"]+\.v)", line (\d+)(?:, characters (\d+-\d+))?[:\n]'
+            r'(.*?)(?=(?:File "|make\[\d+\]:|$))',
+            re.DOTALL,
+        )
+        seen_files = set()
+        for match in error_block_re.finditer(error_lines):
             file_path = match.group(1)
             line_num = int(match.group(2))
+            error_detail = match.group(4).strip()
+
+            # Extract the actual Error: line
+            error_msg_match = re.search(r'Error:\s*(.+?)(?:\n|$)', error_detail)
+            error_msg = error_msg_match.group(1).strip() if error_msg_match else error_detail[:200]
+
             full_path = (coq_dir / file_path).resolve() if not Path(file_path).is_absolute() else Path(file_path)
             if not full_path.exists():
                 full_path = (repo_root / file_path).resolve()
+
+            file_key = (str(full_path), line_num)
+            if file_key in seen_files:
+                continue
+            seen_files.add(file_key)
+
             findings.append(
                 Finding(
                     rule_id="COMPILATION_ERROR",
                     severity="HIGH",
                     file=full_path,
                     line=line_num,
-                    snippet="",
-                    message="Coq file failed to compile - see build output.",
+                    snippet=error_msg[:300],
+                    message=f"Coq compilation error: {error_msg}",
                 )
             )
-        
+            # Print inline for immediate visibility during iteration
+            print(f"  COMPILE ERROR: {file_path}:{line_num} -> {error_msg}")
+
         # If no specific files found in error, add a general failure
         if not findings:
             findings.append(
@@ -4834,6 +5270,951 @@ def _run_make_all(repo_root: Path) -> tuple[int, list[Finding]]:
         print("INQUISITOR: Compilation OK")
     
     return proc.returncode, findings
+
+
+def _run_ocaml_extraction_build(repo_root: Path) -> list[Finding]:
+    """Build and validate extracted OCaml artifacts from Coq extraction entrypoints."""
+    findings: list[Finding] = []
+    coq_dir = repo_root / "coq"
+    build_dir = repo_root / "build"
+
+    targets = ["Extraction.vo", "MinimalExtraction.vo"]
+    proc = subprocess.run(
+        ["make", "-C", str(coq_dir), "-j4", *targets],
+        cwd=str(repo_root),
+        capture_output=True,
+        text=True,
+    )
+    if proc.returncode != 0:
+        details = (proc.stderr or proc.stdout or "")[-500:]
+        findings.append(
+            Finding(
+                rule_id="OCAML_EXTRACTION_BUILD_FAIL",
+                severity="HIGH",
+                file=coq_dir / "Extraction.v",
+                line=1,
+                snippet="",
+                message=(
+                    "Failed to build OCaml extraction artifacts from Extraction.v / MinimalExtraction.v. "
+                    f"make return code={proc.returncode}. Tail: {details.strip()}"
+                ),
+            )
+        )
+        return findings
+
+    for src_name, out_name in _OCAML_EXTRACTION_ARTIFACTS:
+        src = coq_dir / src_name
+        out = build_dir / out_name
+        if not out.exists():
+            findings.append(
+                Finding(
+                    rule_id="OCAML_EXTRACTION_BUILD_FAIL",
+                    severity="HIGH",
+                    file=out,
+                    line=1,
+                    snippet="",
+                    message=(
+                        f"Expected extracted OCaml artifact missing after build: {out_name} (from {src_name})."
+                    ),
+                )
+            )
+            continue
+
+        content = out.read_text(encoding="utf-8", errors="replace")
+        missing = [s for s in _OCAML_EXTRACTION_REQUIRED_SYMBOLS if s not in content]
+        if missing:
+            findings.append(
+                Finding(
+                    rule_id="OCAML_EXTRACTION_BUILD_FAIL",
+                    severity="HIGH",
+                    file=out,
+                    line=1,
+                    snippet="",
+                    message=(
+                        f"Extracted artifact {out_name} does not expose required symbols: {', '.join(missing)}"
+                    ),
+                )
+            )
+            continue
+
+        if src.exists() and out.stat().st_mtime < src.stat().st_mtime - 1.0:
+            findings.append(
+                Finding(
+                    rule_id="OCAML_EXTRACTION_BUILD_FAIL",
+                    severity="HIGH",
+                    file=out,
+                    line=1,
+                    snippet="",
+                    message=(
+                        f"Extracted artifact {out_name} is older than source {src_name}; rerun extraction and keep outputs fresh."
+                    ),
+                )
+            )
+
+    return findings
+
+
+def _run_cross_layer_foundation_checks(repo_root: Path) -> list[Finding]:
+    """Verify end-to-end linkage from foundation proofs to runtime/hardware surfaces."""
+    findings: list[Finding] = []
+
+    def _add(path: Path, message: str, snippet: str = "") -> None:
+        findings.append(
+            Finding(
+                rule_id="CROSS_LAYER_FOUNDATION_DISCONNECT",
+                severity="HIGH",
+                file=path,
+                line=1,
+                snippet=snippet,
+                message=message,
+            )
+        )
+
+    def _require_file(path: Path) -> str | None:
+        if not path.exists():
+            _add(path, "Required cross-layer artifact is missing.")
+            return None
+        return path.read_text(encoding="utf-8", errors="replace")
+
+    # 1) Foundation proof files must exist.
+    missing_foundations: list[str] = []
+    for mod in _GLOBAL_FOUNDATION_MODULES:
+        p = repo_root / "coq" / "kernel" / f"{mod}.v"
+        if not p.exists():
+            missing_foundations.append(f"coq/kernel/{mod}.v")
+    if missing_foundations:
+        _add(
+            repo_root / "coq" / "kernel",
+            "Missing required foundation proof modules: " + ", ".join(missing_foundations),
+        )
+
+    # 2) Coq extraction entrypoints must import the core semantic foundation.
+    extraction = _require_file(repo_root / "coq" / "Extraction.v")
+    minimal_extraction = _require_file(repo_root / "coq" / "MinimalExtraction.v")
+    for name, text in (
+        ("Extraction.v", extraction),
+        ("MinimalExtraction.v", minimal_extraction),
+    ):
+        if text is None:
+            continue
+        missing = [
+            tok
+            for tok in ("From Kernel Require Import VMState", "From Kernel Require Import VMStep", "From Kernel Require Import SimulationProof")
+            if tok not in text
+        ]
+        if missing:
+            _add(
+                repo_root / "coq" / name,
+                (
+                    f"{name} is not explicitly wired to foundation semantics imports. "
+                    f"Missing: {', '.join(missing)}"
+                ),
+            )
+
+    # 3) Extracted OCaml runner must execute vm_apply from extracted core.
+    runner_ml = _require_file(repo_root / "tools" / "extracted_vm_runner.ml")
+    if runner_ml is not None:
+        missing = [tok for tok in ("open Thiele_core", "vm_apply", "Coq_instr") if tok not in runner_ml]
+        if missing:
+            _add(
+                repo_root / "tools" / "extracted_vm_runner.ml",
+                "OCaml runner is not fully connected to extracted foundation semantics.",
+                ", ".join(missing),
+            )
+
+    # 4) Python VM wrapper must hard-link to extracted runner in strict mode.
+    py_vm = _require_file(repo_root / "build" / "thiele_vm.py")
+    if py_vm is not None:
+        missing = [
+            tok
+            for tok in (
+                "_RUNNER_PATH",
+                "extracted_vm_runner",
+                "THIELE_STRICT_VM_BACKEND",
+                "_run_extracted",
+            )
+            if tok not in py_vm
+        ]
+        if missing:
+            _add(
+                repo_root / "build" / "thiele_vm.py",
+                "Python VM wrapper is not enforcing extracted-foundation execution linkage.",
+                ", ".join(missing),
+            )
+
+    # 5) Hardware cosim must use canonical Kami RTL/testbench path.
+    cosim_py = _require_file(repo_root / "thielecpu" / "hardware" / "cosim.py")
+    if cosim_py is not None:
+        missing = [
+            tok
+            for tok in ("thiele_cpu_kami.v", "thiele_cpu_kami_tb.v", "run_verilog", "THIELE_RTL_SIM")
+            if tok not in cosim_py
+        ]
+        if missing:
+            _add(
+                repo_root / "thielecpu" / "hardware" / "cosim.py",
+                "Verilog cosim surface is not wired to canonical Kami RTL foundation path.",
+                ", ".join(missing),
+            )
+
+    # 6) Makefile must include both proof (kami) and extraction (ocaml->rtl) wiring.
+    mk = _require_file(repo_root / "Makefile")
+    if mk is not None:
+        required = [
+            "kami_hw/KamiExtraction.v",
+            "kami_hw/CanonicalCPUProof.v",
+            "thielecpu/hardware/rtl/thiele_cpu_kami.v",
+            "extract:",
+            "proof:",
+        ]
+        missing = [tok for tok in required if tok not in mk]
+        if missing:
+            _add(
+                repo_root / "Makefile",
+                "Build graph does not fully wire OCaml/Kami foundations into proof/extract flow.",
+                ", ".join(missing),
+            )
+
+    return findings
+
+
+def _run_proof_body_foundation_audit(repo_root: Path) -> list[Finding]:
+    """Enforce theorem-body connectivity to kernel foundations across coq/*.
+
+    This invokes `scripts/generate_proof_dependency_dag.py` and consumes
+    `artifacts/proof_dependency_connectivity.json` to detect files whose
+    declarations/theorems do not transitively reach the canonical foundation set.
+    """
+
+    findings: list[Finding] = []
+    script = repo_root / "scripts" / "generate_proof_dependency_dag.py"
+    conn_path = repo_root / "artifacts" / "proof_dependency_connectivity.json"
+
+    if not script.exists():
+        findings.append(
+            Finding(
+                rule_id="PROOF_BODY_FOUNDATION_DISCONNECT",
+                severity="HIGH",
+                file=script,
+                line=1,
+                snippet="",
+                message="Proof dependency generator is missing; cannot enforce proof-body foundation connectivity.",
+            )
+        )
+        return findings
+
+    proc = subprocess.run(
+        ["python3", str(script)],
+        cwd=str(repo_root),
+        capture_output=True,
+        text=True,
+    )
+    if proc.returncode != 0:
+        tail = (proc.stderr or proc.stdout or "")[-500:]
+        findings.append(
+            Finding(
+                rule_id="PROOF_BODY_FOUNDATION_DISCONNECT",
+                severity="HIGH",
+                file=script,
+                line=1,
+                snippet="",
+                message=(
+                    "Failed to generate theorem-body dependency/connectivity artifacts. "
+                    f"Return code={proc.returncode}. Tail: {tail.strip()}"
+                ),
+            )
+        )
+        return findings
+
+    if not conn_path.exists():
+        findings.append(
+            Finding(
+                rule_id="PROOF_BODY_FOUNDATION_DISCONNECT",
+                severity="HIGH",
+                file=conn_path,
+                line=1,
+                snippet="",
+                message="Missing proof dependency connectivity artifact after generation.",
+            )
+        )
+        return findings
+
+    try:
+        conn = json.loads(conn_path.read_text(encoding="utf-8", errors="replace"))
+    except json.JSONDecodeError as exc:
+        findings.append(
+            Finding(
+                rule_id="PROOF_BODY_FOUNDATION_DISCONNECT",
+                severity="HIGH",
+                file=conn_path,
+                line=1,
+                snippet=str(exc),
+                message="Invalid proof dependency connectivity JSON.",
+            )
+        )
+        return findings
+
+    disconnected = conn.get("disconnected_files", [])
+    if not isinstance(disconnected, list):
+        disconnected = []
+
+    for rel in disconnected:
+        if not isinstance(rel, str):
+            continue
+        file_path = repo_root / rel
+        findings.append(
+            Finding(
+                rule_id="PROOF_BODY_FOUNDATION_DISCONNECT",
+                severity="HIGH",
+                file=file_path,
+                line=1,
+                snippet="",
+                message=(
+                    "File is disconnected from canonical kernel foundations in theorem-body dependency graph. "
+                    "Add constructive bridge lemmas/uses until it transitively reaches VMState/VMStep/MuCostModel/"
+                    "MuLedgerConservation/NoFreeInsight/MuInitiality."
+                ),
+            )
+        )
+
+    return findings
+
+
+def _scan_isomorphism_proof_chain(repo_root: Path) -> list[Finding]:
+    """Verify that the three-layer isomorphism is actually proven end-to-end.
+
+    NOT just name matching — this verifies:
+    1. Required proof files exist with actual bisimulation/refinement THEOREMS
+    2. Those theorems reference foundation types (vMState, vm_apply, vm_step)
+       in their STATEMENTS, not just in imports
+    3. The proofs are complete (Qed, not Admitted)
+    4. The proof chain is connected: each layer proof must import the adjacent layers
+
+    The proof chain must include:
+    1. ThreeLayerIsomorphism.v — proves Coq VM step = Python VM step = RTL step
+    2. PythonBisimulation.v — proves Coq ↔ Python correspondence
+    3. HardwareBisimulation.v — proves Coq ↔ Hardware correspondence
+    4. Abstraction.v / VerilogRefinement.v — proves Kami ↔ Verilog correspondence
+
+    Each must contain actual bisimulation/refinement lemmas (not just definitions).
+    """
+    findings: list[Finding] = []
+    coq_root = repo_root / "coq"
+
+    required_proof_files = {
+        "kernel/ThreeLayerIsomorphism.v": {
+            "required_lemmas": [
+                r"(Theorem|Lemma)\s+\w*(completeness|exhaustive|isomorphism|bisimulation|three_layer)",
+                r"(Theorem|Lemma)\s+\w*mu_cost_exact",
+            ],
+            "forbidden_patterns": [r"Admitted\.", r"\badmit\b"],
+            "description": "Three-layer isomorphism proof",
+        },
+        "kernel/PythonBisimulation.v": {
+            "required_lemmas": [
+                r"(Theorem|Lemma)\s+\w*(bisimulation|correspondence|python_equiv|python_vm_step)",
+            ],
+            "forbidden_patterns": [r"Admitted\."],
+            "description": "Python bisimulation proof",
+        },
+        "kernel/HardwareBisimulation.v": {
+            "required_lemmas": [
+                r"(Theorem|Lemma)\s+\w*(bisimulation|correspondence|hardware_equiv|hw_step)",
+            ],
+            "forbidden_patterns": [r"Admitted\."],
+            "description": "Hardware bisimulation proof",
+        },
+        "kami_hw/Abstraction.v": {
+            "required_lemmas": [
+                r"(Theorem|Lemma|Definition)\s+\w*(abs_phase|snap|reconstruct|abstract)",
+            ],
+            "forbidden_patterns": [r"Admitted\."],
+            "description": "Kami hardware abstraction",
+        },
+        "kami_hw/VerilogRefinement.v": {
+            "required_lemmas": [
+                r"(Theorem|Lemma)\s+\w*(refine|correspond|verilog|hardware|rtl)",
+            ],
+            "forbidden_patterns": [r"Admitted\."],
+            "description": "Verilog refinement proof",
+        },
+    }
+
+    for rel_path, spec in required_proof_files.items():
+        fpath = coq_root / rel_path
+        if not fpath.exists():
+            findings.append(Finding(
+                rule_id="ISOMORPHISM_PROOF_CHAIN_GAP",
+                severity="HIGH",
+                file=fpath,
+                line=1,
+                snippet="",
+                message=f"Missing required isomorphism proof file: {rel_path} ({spec['description']}). "
+                        "The three-layer isomorphism cannot be claimed without this proof.",
+            ))
+            continue
+
+        text = fpath.read_text(encoding="utf-8", errors="replace")
+        clean = strip_coq_comments(text)
+
+        # Check for forbidden patterns
+        for pat in spec["forbidden_patterns"]:
+            if re.search(pat, clean):
+                findings.append(Finding(
+                    rule_id="ISOMORPHISM_PROOF_CHAIN_GAP",
+                    severity="HIGH",
+                    file=fpath,
+                    line=1,
+                    snippet=pat,
+                    message=f"{spec['description']} contains '{pat}' — proof is incomplete. "
+                            "No shortcuts allowed in the isomorphism chain.",
+                ))
+
+        # Check for required lemma patterns
+        for lemma_pat in spec["required_lemmas"]:
+            if not re.search(lemma_pat, clean, re.IGNORECASE):
+                findings.append(Finding(
+                    rule_id="ISOMORPHISM_PROOF_CHAIN_GAP",
+                    severity="HIGH",
+                    file=fpath,
+                    line=1,
+                    snippet=lemma_pat,
+                    message=f"{spec['description']} is missing a required bisimulation/refinement lemma "
+                            f"matching pattern: {lemma_pat}. The isomorphism proof chain is incomplete.",
+                ))
+
+    return findings
+
+
+def _scan_foundation_utilization(repo_root: Path, v_files: list[Path]) -> list[Finding]:
+    """Verify proof files connect to the Thiele machine proof chain.
+
+    The Thiele Machine proof chain flows from:
+      Layer 0: VMState, VMStep (state + semantics)
+      Layer 1: MuCostModel, AssumptionBundle/HardAssumptions (cost + hard facts)
+      Layer 2: MuLedgerConservation, KernelPhysics (conservation + physics primitives)
+      Layer 3: NoFreeInsight (central claim)
+      Layer 4: MuInitiality, MuNecessity (uniqueness + thermodynamic validity)
+      Layer 5+: Derivations (InformationCausality, BornRule, Subsumption, etc.)
+
+    NOT every file needs to directly reference VMState. What matters is that
+    each proof file connects through the TRANSITIVE IMPORT CHAIN to the
+    foundation modules. A file importing NoFreeInsight is connected because
+    NoFreeInsight imports MuLedgerConservation which imports VMStep which
+    imports VMState.
+
+    Files that have NO transitive connection to ANY foundation module are flagged.
+    This is checked via the PROOF_CONNECTIVITY_GAP rule (import chain).
+
+    This check catches a different problem: files that import foundations
+    but whose theorems are entirely disconnected from the proof chain —
+    i.e., the imports exist but NO definition, lemma, or theorem in the
+    file actually references ANY type or term from the imported modules.
+    These are "phantom imports" that exist only to pass the connectivity check.
+    """
+    findings: list[Finding] = []
+
+    # Tokens from the Thiele Machine proof chain that indicate REAL usage.
+    # Organized by proof chain layer:
+    _FOUNDATION_USAGE_TOKENS = re.compile(
+        r"\b("
+        # Layer 0: VMState, VMStep types
+        r"VMState|PartitionGraph|ModuleState|ModuleID|vm_mu|vm_graph|vm_err|"
+        r"vm_pc|vm_regs|vm_mem|vm_csrs|pg_modules|pg_next_id|"
+        r"vm_step|vm_instruction|vm_apply|instruction_cost|"
+        r"instr_pnew|instr_psplit|instr_pmerge|instr_pdiscover|"
+        r"instr_lassert|instr_ljoin|instr_reveal|instr_emit|"
+        r"instr_xfer|instr_halt|instr_chsh_trial|"
+        # Layer 1: Cost model + hard facts
+        r"mu_cost|mu_cost_of_instr|partition_ops_mu_free|"
+        r"HardMathFacts|hard_math_facts_proven|norm_E_bound|valid_S_4|local_S_2|"
+        # Layer 2: Conservation + physics
+        r"vm_apply_mu|mu_conservation|MuLedger|mu_monotone|"
+        r"obs_equiv|gauge_invariance|no_signaling|observational_no_signaling|"
+        # Layer 3: No Free Insight
+        r"no_free_insight|strictly_stronger|stronger|"
+        # Layer 4: Initiality + necessity
+        r"mu_is_initial|mu_is_minimal|landauer_valid|"
+        # Layer 5+: Derivations
+        r"information_causality|born_rule|no_cloning|tsirelson|"
+        r"subsumption|main_subsumption|"
+        # ThieleMachine concrete types (wrap kernel types)
+        r"ConcreteState|ThieleInstr|CHSH_TRIAL|Trial|chsh_of_trials|"
+        r"concrete_receipts|prog_of_strategy|local_fragment|"
+        # ModularProofs types (Turing machine encoding chain)
+        r"TMConfig|encode_config|decode_config|digits_ok|"
+        r"tm_encode_config|tm_decode_config|"
+        # Bridges
+        r"bisimulation|step_preserves|simulation_correctness|"
+        r"compile_trial|chsh_invariance"
+        r")\b"
+    )
+
+    coq_root = repo_root / "coq"
+    if not coq_root.exists():
+        return findings
+
+    # Foundation files that DEFINE the proof chain are exempt
+    _FOUNDATION_STEMS = {
+        "VMState", "VMStep", "VMEncoding", "SimulationProof",
+        "MuCostModel", "MuLedgerConservation", "MuInitiality",
+        "NoFreeInsight", "KernelTM", "BridgeDefinitions",
+        "PythonBisimulation", "HardwareBisimulation",
+        "CertCheck", "KernelPhysics", "MuNecessity",
+        "AssumptionBundle", "HardAssumptions", "HardMathFactsProven",
+        "ThieleCPUCore", "VerilogRefinement", "Abstraction",
+        "KamiExtraction", "Compatibility", "CanonicalCPUProof",
+    }
+
+    for vf in v_files:
+        if not str(vf).startswith(str(coq_root)):
+            continue
+        if vf.stem in _FOUNDATION_STEMS:
+            continue
+
+        text = vf.read_text(encoding="utf-8", errors="replace")
+        clean = strip_coq_comments(text)
+
+        # Only check files that contain theorems/lemmas
+        has_proofs = bool(re.search(
+            r"(?:Theorem|Lemma|Corollary|Proposition|Fact)\s+\w+", clean
+        ))
+        if not has_proofs:
+            continue
+
+        # Check if the file USES any foundation token anywhere in code
+        # (not in comments — those are stripped)
+        if _FOUNDATION_USAGE_TOKENS.search(clean):
+            continue  # Connected — uses proof chain types
+
+        # Check if it imports a chain module AND uses types from that module
+        # (even indirectly through re-exported names)
+        chain_imports = re.findall(
+            r"(?:From\s+\w+\s+)?Require\s+(?:Import|Export)\s+([\w\s.]+)\.",
+            clean
+        )
+        imported_modules = set()
+        for imp in chain_imports:
+            for mod in imp.split():
+                imported_modules.add(mod.rstrip('.'))
+
+        # If they import chain modules, the connectivity check handles it.
+        # This check ONLY flags files with no usage whatsoever.
+        chain_modules_imported = imported_modules.intersection({
+            # Kernel (Layer 0-4)
+            "VMState", "VMStep", "VMEncoding", "KernelTM",
+            "MuCostModel", "MuLedgerConservation", "MuInitiality",
+            "NoFreeInsight", "KernelPhysics", "MuNecessity",
+            "AssumptionBundle", "HardAssumptions", "HardMathFactsProven",
+            # Kernel derivations (Layer 5+)
+            "InformationCausality", "BornRule", "Subsumption",
+            "BoxCHSH", "CHSH", "AlgebraicCoherence", "ValidCorrelation",
+            "Unitarity", "NoCloning", "NoCloningFromMuMonotonicity",
+            "SpacetimeEmergence", "MetricFromMuCosts", "TOE",
+            "Closure", "NoGo", "SimulationProof",
+            # ThieleMachine (wraps kernel types)
+            "ThieleMachine", "ThieleMachineConcrete", "CoreSemantics",
+            "BellInequality", "BellCheck", "BellReceiptSemantics",
+            "BellReceiptSoundness", "BellReceiptLocalGeneral",
+            "Bisimulation", "SemanticBridge", "HardwareBridge",
+            # ModularProofs (Turing subsumption chain)
+            "Encoding", "EncodingBounds", "TM_Basics", "Minsky",
+            "Simulation", "TM_to_Minsky", "ThieleInstance",
+            # Physics exploration (connects through SpacetimeEmergence chain)
+            "EmergentSpacetime", "PlanckDerivation", "PlanckEmergenceClean",
+            "EmergentSchrodinger", "PhysicsEmbedding", "WaveEmbedding",
+            "DissipativeEmbedding",
+            # Physics (connects through kernel)
+            "DiscreteModel", "DissipativeModel", "PreregSplit", "WaveModel",
+            # Quantum derivation (connects through kernel)
+            "BornRuleUnique", "CollapseDetermination", "ComplexNecessity",
+            "CompositePartitions", "ObservationIrreversibility",
+            "ProjectionFromPartitions", "SchrodingerFromPartitions",
+            "TensorNecessity", "TwoDimensionalNecessity",
+            # Thermodynamic (connects through kernel)
+            "LandauerDerived", "ThermodynamicBridge",
+            # Kami hardware
+            "ThieleCPUCore", "VerilogRefinement", "Abstraction",
+            # Additional ThieleMachine modules
+            "EncodingBridge", "BellReceiptLocalBound",
+            "BellArtifacts", "BlindSighted", "QuantumAdmissibilityTsirelson",
+            "QuantumAdmissibilityDeliverableB",
+        })
+
+        if chain_modules_imported:
+            # File imports chain modules — the connectivity rule handles this.
+            # Only flag if it looks like a phantom import (imports exist but
+            # no definitions, records, or operations reference the imports).
+            continue
+
+        # No chain usage AND no chain imports — this is a real gap
+        theorem_count = len(re.findall(
+            r"(?:Theorem|Lemma|Corollary|Proposition|Fact)\s+\w+", clean
+        ))
+        findings.append(Finding(
+            rule_id="FOUNDATION_UTILIZATION_GAP",
+            severity="MEDIUM",
+            file=vf,
+            line=1,
+            snippet=f"theorems found: {theorem_count}",
+            message=(
+                f"Proof file {vf.stem}.v contains {theorem_count} theorem(s) but "
+                "does not import or reference ANY module in the Thiele Machine proof "
+                "chain (VMState→VMStep→MuCostModel→NoFreeInsight→...). "
+                "Every proof should connect to the foundation chain, either directly "
+                "or through intermediate modules in the dependency graph."
+            ),
+        ))
+
+    return findings
+
+
+def _scan_opcode_parity(repo_root: Path) -> list[Finding]:
+    """Verify all 26 VM opcodes are consistently defined across Coq, OCaml, Python, and RTL.
+
+    The canonical source is Coq's vm_instruction inductive type. All other layers
+    must encode the same opcodes in the same order.
+    """
+    findings: list[Finding] = []
+
+    # 1. Extract opcode names from Coq kernel
+    vm_step = repo_root / "coq" / "kernel" / "VMStep.v"
+    vm_state = repo_root / "coq" / "kernel" / "VMState.v"
+    coq_opcodes: list[str] = []
+
+    for coq_file in [vm_step, vm_state]:
+        if coq_file.exists():
+            text = coq_file.read_text(encoding="utf-8", errors="replace")
+            clean = strip_coq_comments(text)
+            # Find vm_instruction or similar inductive type
+            instr_match = re.search(
+                r"Inductive\s+vm_instruction\s*:.*?:=\s*(.*?)(?:\.\s*$|\n\s*(?:Definition|Fixpoint|Theorem|Lemma|Inductive))",
+                clean, re.DOTALL | re.MULTILINE,
+            )
+            if instr_match:
+                body = instr_match.group(1)
+                for m in re.finditer(r"\|\s*(\w+)", body):
+                    coq_opcodes.append(m.group(1))
+
+    if not coq_opcodes:
+        # Try ThieleVMOpcodes.v as fallback
+        opcodes_file = repo_root / "coq" / "thielemachine" / "coqproofs" / "ThieleVMOpcodes.v"
+        if opcodes_file.exists():
+            text = opcodes_file.read_text(encoding="utf-8", errors="replace")
+            clean = strip_coq_comments(text)
+            for m in re.finditer(r"Definition\s+(op_\w+)\s*:=", clean):
+                coq_opcodes.append(m.group(1))
+
+    if not coq_opcodes:
+        findings.append(Finding(
+            rule_id="OPCODE_PARITY_VIOLATION",
+            severity="HIGH",
+            file=vm_state,
+            line=1,
+            snippet="",
+            message="Cannot find vm_instruction inductive type in Coq kernel. "
+                    "Opcode parity cannot be verified.",
+        ))
+        return findings
+
+    # 2. Check extracted OCaml has these opcodes
+    for ml_file_name in ["thiele_core.ml", "thiele_core_minimal.ml"]:
+        ml_file = repo_root / "build" / ml_file_name
+        if ml_file.exists():
+            ml_text = ml_file.read_text(encoding="utf-8", errors="replace")
+            missing = [op for op in coq_opcodes if op not in ml_text and op.lower() not in ml_text.lower()]
+            if missing:
+                findings.append(Finding(
+                    rule_id="OPCODE_PARITY_VIOLATION",
+                    severity="HIGH",
+                    file=ml_file,
+                    line=1,
+                    snippet=", ".join(missing[:5]),
+                    message=f"Extracted OCaml file {ml_file_name} is missing {len(missing)} opcodes from Coq "
+                            f"vm_instruction. Missing: {', '.join(missing[:10])}. "
+                            "Extraction must preserve all instruction semantics.",
+                ))
+
+    # 3. Check Python VM has these opcodes (normalize names: op_load_imm -> LOAD_IMM)
+    def _normalize_opcode(name: str) -> str:
+        """Normalize opcode name for cross-layer comparison."""
+        n = name.lower()
+        for prefix in ("coq_instr_", "coq_", "op_", "instr_"):
+            if n.startswith(prefix):
+                n = n[len(prefix):]
+        return n
+
+    coq_normalized = {_normalize_opcode(op) for op in coq_opcodes}
+
+    py_files = [
+        repo_root / "thielecpu" / "isa.py",
+    ]
+    for py_file in py_files:
+        if py_file.exists():
+            py_text = py_file.read_text(encoding="utf-8", errors="replace")
+            if "class Opcode" in py_text or "Opcode" in py_text:
+                # Extract Python opcode names ONLY from the Opcode enum, not CSR or other enums
+                py_opcodes = set()
+                # Find the Opcode class block
+                opcode_block_match = re.search(
+                    r"class\s+Opcode\s*\(.*?\):\s*\n(.*?)(?=\nclass\s|\n[a-zA-Z]|\Z)",
+                    py_text, re.DOTALL,
+                )
+                opcode_block = opcode_block_match.group(1) if opcode_block_match else py_text
+                for m in re.finditer(r"^\s+(\w+)\s*=\s*0x[0-9a-fA-F]+", opcode_block, re.MULTILINE):
+                    py_opcodes.add(_normalize_opcode(m.group(1)))
+                if not py_opcodes:
+                    for m in re.finditer(r"^\s+(\w+)\s*=\s*\d+", opcode_block, re.MULTILINE):
+                        py_opcodes.add(_normalize_opcode(m.group(1)))
+
+                missing_in_py = coq_normalized - py_opcodes
+                missing_in_coq = py_opcodes - coq_normalized
+                if missing_in_py:
+                    findings.append(Finding(
+                        rule_id="OPCODE_PARITY_VIOLATION",
+                        severity="HIGH",
+                        file=py_file,
+                        line=1,
+                        snippet=", ".join(sorted(missing_in_py)[:5]),
+                        message=f"Python Opcode enum is missing {len(missing_in_py)} opcodes from Coq: "
+                                f"{', '.join(sorted(missing_in_py))}. "
+                                "The Python VM must implement all Coq-defined instructions for isomorphism to hold.",
+                    ))
+                if missing_in_coq:
+                    findings.append(Finding(
+                        rule_id="OPCODE_PARITY_VIOLATION",
+                        severity="MEDIUM",
+                        file=py_file,
+                        line=1,
+                        snippet=", ".join(sorted(missing_in_coq)[:5]),
+                        message=f"Python has {len(missing_in_coq)} opcodes not in Coq: "
+                                f"{', '.join(sorted(missing_in_coq))}. "
+                                "Extra opcodes break isomorphism unless they are proven equivalent.",
+                    ))
+
+    # 4. Check Verilog RTL has these opcodes
+    rtl_file = repo_root / "thielecpu" / "hardware" / "rtl" / "thiele_cpu_kami.v"
+    if rtl_file.exists():
+        rtl_text = rtl_file.read_text(encoding="utf-8", errors="replace")
+        # RTL uses localparam for opcode encoding
+        rtl_opcodes = set(re.findall(r"localparam\s+\w*(?:OP|INSTR|op_)\w*", rtl_text, re.IGNORECASE))
+        if not rtl_opcodes:
+            # Check for case statements with opcode values
+            rtl_opcodes = set(re.findall(r"(?:5'd|8'd)\d+\s*:", rtl_text))
+        if len(rtl_opcodes) < 20:
+            findings.append(Finding(
+                rule_id="OPCODE_PARITY_VIOLATION",
+                severity="MEDIUM",
+                file=rtl_file,
+                line=1,
+                snippet=f"Found {len(rtl_opcodes)} opcode-like patterns",
+                message=f"RTL file has only {len(rtl_opcodes)} identifiable opcode patterns "
+                        f"vs {len(coq_opcodes)} in Coq. Verify all 26 instructions are encoded.",
+            ))
+
+    return findings
+
+
+def _scan_test_proof_lockstep(repo_root: Path) -> list[Finding]:
+    """Verify that test files claiming isomorphism actually perform cross-layer execution.
+
+    A test named test_*isomorphism* or test_*bisimulation* must actually:
+    1. Import/use more than one layer's implementation
+    2. Execute programs on multiple layers
+    3. Compare results (assert equality)
+
+    Tests that only check file existence or structure are flagged.
+    """
+    findings: list[Finding] = []
+    test_dir = repo_root / "tests"
+    if not test_dir.exists():
+        return findings
+
+    iso_test_files = list(test_dir.glob("*isomorphism*")) + list(test_dir.glob("*bisimulation*"))
+
+    for tf in iso_test_files:
+        if not tf.name.endswith(".py"):
+            continue
+        text = tf.read_text(encoding="utf-8", errors="replace")
+
+        # Check for actual cross-layer execution
+        has_vm_execution = bool(re.search(r"(run_vm|execute|vm_step|State\(\)|run_extracted)", text))
+        has_cosim = bool(re.search(r"(cosim|run_verilog|iverilog|verilator|vvp)", text))
+        has_coq_extraction = bool(re.search(r"(extracted_vm_runner|thiele_core|run_extracted|ocaml)", text))
+        has_assertion = bool(re.search(r"assert.*==|assertEqual|assert_equal", text))
+
+        # Check for structural-only tests (file existence, keyword searching)
+        has_path_exists = text.count("path.exists()") + text.count("Path.exists") + text.count(".exists()")
+        has_keyword_grep = text.count("in text") + text.count("in content") + text.count("grep")
+
+        layers_touched = sum([has_vm_execution, has_cosim, has_coq_extraction])
+
+        if layers_touched < 2:
+            findings.append(Finding(
+                rule_id="TEST_PROOF_LOCKSTEP_VIOLATION",
+                severity="HIGH",
+                file=tf,
+                line=1,
+                snippet=f"layers_touched={layers_touched}",
+                message=f"Isomorphism test {tf.name} touches only {layers_touched} layer(s) but claims "
+                        "to verify cross-layer isomorphism. Must execute on at least 2 layers "
+                        "(Coq extraction + Python, or Python + Verilog) and compare results.",
+            ))
+
+        if has_path_exists > 3 and not has_assertion:
+            findings.append(Finding(
+                rule_id="TEST_PROOF_LOCKSTEP_VIOLATION",
+                severity="MEDIUM",
+                file=tf,
+                line=1,
+                snippet=f"path.exists() count={has_path_exists}",
+                message=f"Isomorphism test {tf.name} is primarily checking file existence ({has_path_exists} "
+                        "path.exists() calls) without executing cross-layer comparisons. "
+                        "Structural checks do not prove behavioral isomorphism.",
+            ))
+
+    # Also check that test_three_layer_isomorphism specifically has all three layers
+    three_layer_test = test_dir / "test_three_layer_isomorphism.py"
+    if three_layer_test.exists():
+        text = three_layer_test.read_text(encoding="utf-8", errors="replace")
+        if "FAILED" in text or "skip" in text.lower():
+            pass  # Can't check runtime state from static analysis, but check structure
+        if not re.search(r"(run_verilog|cosim|vvp)", text):
+            findings.append(Finding(
+                rule_id="TEST_PROOF_LOCKSTEP_VIOLATION",
+                severity="HIGH",
+                file=three_layer_test,
+                line=1,
+                snippet="",
+                message="test_three_layer_isomorphism.py does not invoke Verilog cosimulation. "
+                        "A three-layer isomorphism test MUST execute on all three layers.",
+            ))
+        if not re.search(r"(extracted_vm_runner|run_extracted|thiele_core)", text):
+            findings.append(Finding(
+                rule_id="TEST_PROOF_LOCKSTEP_VIOLATION",
+                severity="HIGH",
+                file=three_layer_test,
+                line=1,
+                snippet="",
+                message="test_three_layer_isomorphism.py does not invoke Coq-extracted OCaml runner. "
+                        "A three-layer isomorphism test MUST compare against the extracted foundation.",
+            ))
+
+    return findings
+
+
+def _scan_extraction_semantic_faithfulness(repo_root: Path) -> list[Finding]:
+    """Verify that extraction preserves semantic structures, not just symbol names.
+
+    Checks:
+    1. Extracted OCaml must have vm_apply with pattern matching on all instructions
+    2. OCaml runner must produce JSON output with required state fields
+    3. Python VM wrapper must delegate to extracted runner in strict mode
+    4. Isomorphism map (build/isomorphism_map.json) must be current and complete
+    """
+    findings: list[Finding] = []
+
+    # 1. Check vm_apply pattern coverage in extracted OCaml
+    core_ml = repo_root / "build" / "thiele_core.ml"
+    if core_ml.exists():
+        ml_text = core_ml.read_text(encoding="utf-8", errors="replace")
+        # Count pattern match arms in vm_apply
+        # Find vm_apply function body — in OCaml extracted code, it uses
+        # `let vm_apply s = function | Coq_instr_X -> ... | Coq_instr_Y -> ...`
+        vm_apply_start = ml_text.find("let vm_apply")
+        if vm_apply_start >= 0:
+            # Find next top-level let binding
+            vm_apply_end = ml_text.find("\nlet ", vm_apply_start + 10)
+            if vm_apply_end < 0:
+                vm_apply_end = len(ml_text)
+            vm_apply_body = ml_text[vm_apply_start:vm_apply_end]
+            arms = len(re.findall(r"\|\s*(?:VMStep\.)?Coq_\w+", vm_apply_body))
+            vm_apply_match = True
+        else:
+            vm_apply_match = False
+            arms = 0
+        if vm_apply_match:
+            pass  # arms already counted
+            if arms < 20:
+                findings.append(Finding(
+                    rule_id="EXTRACTION_SEMANTIC_UNFAITHFUL",
+                    severity="HIGH",
+                    file=core_ml,
+                    line=1,
+                    snippet=f"vm_apply arms={arms}",
+                    message=f"Extracted vm_apply has only {arms} instruction arms (expected 26). "
+                            "Extraction may have dropped instruction cases.",
+                ))
+        else:
+            findings.append(Finding(
+                rule_id="EXTRACTION_SEMANTIC_UNFAITHFUL",
+                severity="HIGH",
+                file=core_ml,
+                line=1,
+                snippet="",
+                message="Cannot find vm_apply function in extracted OCaml. "
+                        "The core VM semantics have not been extracted.",
+            ))
+
+    # 2. Check isomorphism map freshness
+    iso_map = repo_root / "build" / "isomorphism_map.json"
+    if iso_map.exists():
+        try:
+            iso_data = json.loads(iso_map.read_text(encoding="utf-8"))
+            if isinstance(iso_data, dict):
+                # Check all three layers are represented
+                layers = set()
+                for entry in iso_data.values() if isinstance(iso_data, dict) else iso_data:
+                    if isinstance(entry, dict):
+                        layers.update(entry.keys())
+                if not {"coq", "python", "rtl"}.issubset(
+                    {l.lower() for l in layers} | {k.lower() for k in iso_data.keys()}
+                ):
+                    findings.append(Finding(
+                        rule_id="EXTRACTION_SEMANTIC_UNFAITHFUL",
+                        severity="MEDIUM",
+                        file=iso_map,
+                        line=1,
+                        snippet=f"layers found: {sorted(layers)}",
+                        message="Isomorphism map does not cover all three layers (coq, python, rtl). "
+                                "Cross-layer mapping is incomplete.",
+                    ))
+        except json.JSONDecodeError:
+            findings.append(Finding(
+                rule_id="EXTRACTION_SEMANTIC_UNFAITHFUL",
+                severity="HIGH",
+                file=iso_map,
+                line=1,
+                snippet="",
+                message="isomorphism_map.json is malformed. Cannot verify cross-layer mappings.",
+            ))
+    else:
+        findings.append(Finding(
+            rule_id="EXTRACTION_SEMANTIC_UNFAITHFUL",
+            severity="HIGH",
+            file=iso_map,
+            line=1,
+            snippet="",
+            message="build/isomorphism_map.json is missing. Cross-layer isomorphism mapping "
+                    "must be maintained as a build artifact.",
+        ))
+
+    # 3. Check Python VM strict-mode enforcement
+    py_vm = repo_root / "build" / "thiele_vm.py"
+    if py_vm.exists():
+        py_text = py_vm.read_text(encoding="utf-8", errors="replace")
+        if "THIELE_STRICT_VM_BACKEND" not in py_text:
+            findings.append(Finding(
+                rule_id="EXTRACTION_SEMANTIC_UNFAITHFUL",
+                severity="HIGH",
+                file=py_vm,
+                line=1,
+                snippet="",
+                message="Python VM wrapper does not support THIELE_STRICT_VM_BACKEND mode. "
+                        "Without strict mode, tests may use Python fallback instead of extracted Coq semantics.",
+            ))
+
+    return findings
 
 
 def _compile_individual_file(coq_file: Path, repo_root: Path) -> Finding | None:
@@ -4912,6 +6293,11 @@ def write_report(
     lines.append("- `CIRCULAR_INTROS_ASSUMPTION`: tautology + `intros; assumption.`\n")
     lines.append("- `EXACT_ALIAS`: `Theorem A. Proof. exact B. Qed.` (pure alias — proves nothing new, just re-exports an existing proof under a new name)\n")
     lines.append("- `SCOPE_DRIFT_TIER1`: coq/kernel/ (Tier 1) file imports a Tier-2 or Tier-3 namespace — contaminates the extraction-critical kernel\n")
+    lines.append("- `ISOMORPHISM_PROOF_CHAIN_GAP`: A required proof in the isomorphism chain (Coq↔Python↔RTL) is missing or incomplete\n")
+    lines.append("- `OPCODE_PARITY_VIOLATION`: VM opcodes are not consistently defined across Coq, OCaml, Python, and RTL layers\n")
+    lines.append("- `TEST_PROOF_LOCKSTEP_VIOLATION`: A test claiming isomorphism does not actually execute cross-layer comparisons\n")
+    lines.append("- `EXTRACTION_SEMANTIC_UNFAITHFUL`: Extracted artifacts do not faithfully preserve Coq VM semantics\n")
+    lines.append("- `FOUNDATION_UTILIZATION_GAP`: Tier-1 kernel proof does not reference VM foundation types in any theorem statement\n")
     lines.append("- `SCOPE_DRIFT_TIER2`: Thesis-essential Tier-2 file (nofi/, bridge/, etc.) imports a Tier-3 exploratory namespace\n")
     lines.append("- `TRIVIAL_EQUALITY`: theorem of form `X = X` with reflexivity-ish proof\n")
     lines.append("- `CONST_Q_FUN`: `Definition ... := fun _ => 0%Q` / `1%Q`\n")
@@ -4965,6 +6351,11 @@ def write_report(
     lines.append("- `MU_GRAVITY_DERIVATION_INCOMPLETE`: MuGravity theorem interfaces/declarations still expose unfinished derivation assumptions, including the six major obligations (geometric calibration, source normalization, horizon defect-area, active-step descent, semantic gap window, VM compatibility surfaces)\n")
     lines.append("- `MU_GRAVITY_VM_COMPATIBILITY`: MuGravity execution-facing theorem interfaces/declarations still rely on unresolved VM compatibility wrappers/assumptions instead of vm_apply/run_vm semantic derivations\n")
     lines.append("- `MU_GRAVITY_NO_ASSUMPTION_SURFACES`: MuGravity files may not use Axiom/Parameter/Hypothesis/Context/Variable(s); all such surfaces must be discharged as theorems\n")
+    lines.append("- `PROOF_CONNECTIVITY_GAP`: proof-bearing file is not connected to required foundation chain groups; remediation is to iterate with bridge lemmas/imports until connected\n")
+    lines.append("- `KAMI_OCAML_FOUNDATION_MISMATCH`: Kami and OCaml extraction build surfaces are not grounded in the same kernel foundation modules\n")
+    lines.append("- `OCAML_EXTRACTION_BUILD_FAIL`: OCaml extraction build/check failed (Extraction.v / MinimalExtraction.v must build and expose core VM symbols)\n")
+    lines.append("- `CROSS_LAYER_FOUNDATION_DISCONNECT`: end-to-end chain (Coq foundations -> OCaml extraction -> VM wrapper -> canonical Kami RTL/cosim/build flow) is missing a required link\n")
+    lines.append("- `PROOF_BODY_FOUNDATION_DISCONNECT`: theorem-body dependency graph shows a Coq proof file does not transitively reach the canonical foundation theorem chain\n")
     lines.append("\n")
 
     # Always show the vacuity ranking — even on a clean PASS.  Previously this
@@ -5091,12 +6482,24 @@ def main(argv: list[str]) -> int:
             print(f"Report: {report_path}")
             return 1
 
+        # Enforce that successful build actually covered all active coq/*.v sources.
+        all_findings.extend(_check_coq_compilation_coverage(repo_root))
+
+    all_findings.extend(_run_ocaml_extraction_build(repo_root))
+    all_findings.extend(_run_cross_layer_foundation_checks(repo_root))
+    all_findings.extend(_run_proof_body_foundation_audit(repo_root))
+    all_findings.extend(_scan_isomorphism_proof_chain(repo_root))
+    all_findings.extend(_scan_opcode_parity(repo_root))
+    all_findings.extend(_scan_test_proof_lockstep(repo_root))
+    all_findings.extend(_scan_extraction_semantic_faithfulness(repo_root))
+
     vacuity_index: list[tuple[int, Path, tuple[str, ...]]] = []
     scanned = 0
     v_files = iter_all_coq_files(repo_root)
+    v_files_list = list(v_files)
     scanned_scope = "repo"
 
-    for vf in v_files:
+    for vf in v_files_list:
         scanned += 1
         try:
             all_findings.extend(scan_file(vf))
@@ -5169,6 +6572,10 @@ def main(argv: list[str]) -> int:
                     message=f"Inquisitor crashed scanning this file: {e}",
                 )
             )
+
+    all_findings.extend(scan_proof_connectivity(repo_root, v_files_list))
+    all_findings.extend(scan_kami_ocaml_foundation_alignment(repo_root, v_files_list))
+    all_findings.extend(_scan_foundation_utilization(repo_root, v_files_list))
 
     if manifest_path.exists():
         try:

@@ -29,6 +29,26 @@ from typing import Any, Dict, List, Optional, Tuple
 
 RTL_DIR = Path(__file__).resolve().parent / "rtl"
 TB_DIR = Path(__file__).resolve().parent / "testbench"
+_REPO_ROOT = Path(__file__).resolve().parent.parent.parent
+
+
+def _legacy_rtl_file(name: str) -> Path:
+    """Resolve legacy standalone RTL modules moved into archives.
+
+    Legacy accelerator modules were intentionally pruned from active rtl/
+    and moved into archive/hardware_legacy. This resolver keeps standalone
+    accelerator cosim working without restoring stale files into active trees.
+    """
+    candidates = [
+        RTL_DIR / "archive" / name,
+        _REPO_ROOT / "archive" / "hardware_legacy" /
+        "2026-03-01_vm_verilog_prune_phase2" / "thielecpu" /
+        "hardware" / "rtl" / "archive" / name,
+    ]
+    for path in candidates:
+        if path.exists():
+            return path
+    raise FileNotFoundError(f"Legacy RTL module not found: {name}")
 
 
 def _compile_module(rtl_files: List[Path], tb_file: Path,
@@ -197,7 +217,7 @@ def run_partition_core(operations: List[Dict]) -> List[Dict]:
         work_dir = Path(tmpdir)
         tb_path = _write_partition_core_tb(work_dir, operations)
         vvp_path = _compile_module(
-            [RTL_DIR / "archive" / "partition_core.v"],
+            [_legacy_rtl_file("partition_core.v")],
             tb_path, work_dir,
             include_dirs=[RTL_DIR]
         )
@@ -293,9 +313,8 @@ def run_receipt_checker(receipts: List[Dict]) -> List[Dict]:
     with tempfile.TemporaryDirectory(prefix="rc_cosim_") as tmpdir:
         work_dir = Path(tmpdir)
         tb_path = _write_receipt_checker_tb(work_dir, receipts)
-        # receipt_integrity_checker is defined in the archived unified CPU
         vvp_path = _compile_module(
-            [RTL_DIR / "archive" / "thiele_cpu_unified.v"],
+            [_legacy_rtl_file("thiele_cpu_unified.v")],
             tb_path, work_dir,
             include_dirs=[RTL_DIR]
         )
@@ -378,9 +397,8 @@ def run_mu_alu(operations: List[Dict]) -> List[Dict]:
     with tempfile.TemporaryDirectory(prefix="alu_cosim_") as tmpdir:
         work_dir = Path(tmpdir)
         tb_path = _write_mu_alu_tb(work_dir, operations)
-        # mu_alu is defined in the archived unified CPU
         vvp_path = _compile_module(
-            [RTL_DIR / "archive" / "thiele_cpu_unified.v"],
+            [_legacy_rtl_file("thiele_cpu_unified.v")],
             tb_path, work_dir,
             include_dirs=[RTL_DIR]
         )
@@ -398,7 +416,7 @@ def run_chsh_partition(settings: List[Tuple[int, int]]) -> Optional[List[Dict]]:
     settings: list of (x, y) measurement setting pairs.
     Returns None if module doesn't compile.
     """
-    chsh_file = RTL_DIR / "archive" / "chsh_partition.v"
+    chsh_file = _legacy_rtl_file("chsh_partition.v")
     if not chsh_file.exists():
         return None
 

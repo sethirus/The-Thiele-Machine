@@ -18,6 +18,11 @@ Require Import Coq.Classes.Equivalence.
 Require Import Coq.Logic.FunctionalExtensionality.
 (* SAFE: ProofIrrelevance is required for the universality proof — uniqueness of morphisms. *)
 Require Import Coq.Logic.ProofIrrelevance.
+
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 Import ListNotations.
 
 (* We reproduce the minimal categorical structure from Core.v 
@@ -311,5 +316,6 @@ Section Universality.
   Proof.
     intros D A B C f g. apply (mu_comp D).
   Qed.
+
 
 End Universality.

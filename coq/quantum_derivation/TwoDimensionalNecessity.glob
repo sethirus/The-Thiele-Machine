@@ -1,302 +1,305 @@
-DIGEST 8a020181b5787ff184cc9692b2d720dd
+DIGEST 6ef39c847da1b8f81fd4c0ad56ffe67a
 FQuantumDerivation.TwoDimensionalNecessity
-R943:946 Coq.Lists.List <> <> lib
-R948:953 Coq.ZArith.ZArith <> <> lib
-R955:957 Coq.micromega.Lia <> <> lib
-R959:962 Coq.Bool.Bool <> <> lib
-R964:966 Coq.Init.Nat <> <> lib
-R968:972 Coq.Reals.Reals <> <> lib
-R974:976 Coq.micromega.Lra <> <> lib
-R986:998 Coq.Lists.List ListNotations <> mod
-R1069:1095 ThieleMachine.CoreSemantics <> <> lib
-R1113:1149 QuantumDerivation.CompositePartitions <> <> lib
-ind 1605:1624 <> PartitionBinaryState
-constr 1633:1639 <> PState0
-constr 1685:1691 <> PState1
-R1643:1662 QuantumDerivation.TwoDimensionalNecessity <> PartitionBinaryState:1 ind
-R1695:1714 QuantumDerivation.TwoDimensionalNecessity <> PartitionBinaryState:1 ind
-scheme 1605:1624 <> PartitionBinaryState_rect
-scheme 1605:1624 <> PartitionBinaryState_ind
-scheme 1605:1624 <> PartitionBinaryState_rec
-scheme 1605:1624 <> PartitionBinaryState_sind
-def 1783:1803 <> partition_state_space
-R1808:1827 QuantumDerivation.TwoDimensionalNecessity <> PartitionBinaryState ind
-def 1874:1895 <> binary_state_dimension
-R1899:1901 Coq.Init.Datatypes <> nat ind
-prf 2058:2081 <> partition_has_two_states
-R2109:2111 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2087:2108 QuantumDerivation.TwoDimensionalNecessity <> binary_state_dimension def
-rec 2701:2714 <> AmplitudeState
-proj 2723:2732 <> amp_state0
-proj 2771:2780 <> amp_state1
-proj 2819:2832 <> amp_normalized
-R2736:2736 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R2784:2784 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R2886:2888 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2860:2862 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R2847:2849 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2837:2846 QuantumDerivation.TwoDimensionalNecessity <> amp_state0:4 meth
-R2850:2859 QuantumDerivation.TwoDimensionalNecessity <> amp_state0:4 meth
-R2873:2875 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2863:2872 QuantumDerivation.TwoDimensionalNecessity <> amp_state1:5 meth
-R2876:2885 QuantumDerivation.TwoDimensionalNecessity <> amp_state1:5 meth
-def 2946:2957 <> pure_state_0
-R2961:2974 QuantumDerivation.TwoDimensionalNecessity <> AmplitudeState rec
-R2996:3005 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
-R2996:3005 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
-R2996:3005 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
-R3015:3024 QuantumDerivation.TwoDimensionalNecessity <> amp_state1 proj
-R3015:3024 QuantumDerivation.TwoDimensionalNecessity <> amp_state1 proj
-R2996:3005 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
-R2996:3005 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
-R2996:3005 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
-R3015:3024 QuantumDerivation.TwoDimensionalNecessity <> amp_state1 proj
-R3015:3024 QuantumDerivation.TwoDimensionalNecessity <> amp_state1 proj
-def 3065:3076 <> pure_state_1
-R3080:3093 QuantumDerivation.TwoDimensionalNecessity <> AmplitudeState rec
-R3115:3124 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
-R3115:3124 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
-R3115:3124 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
-R3134:3143 QuantumDerivation.TwoDimensionalNecessity <> amp_state1 proj
-R3134:3143 QuantumDerivation.TwoDimensionalNecessity <> amp_state1 proj
-R3115:3124 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
-R3115:3124 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
-R3115:3124 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
-R3134:3143 QuantumDerivation.TwoDimensionalNecessity <> amp_state1 proj
-R3134:3143 QuantumDerivation.TwoDimensionalNecessity <> amp_state1 proj
-def 3234:3252 <> equal_superposition
-R3256:3269 QuantumDerivation.TwoDimensionalNecessity <> AmplitudeState rec
-R3291:3300 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
-R3291:3300 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
-R3291:3300 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
-R3319:3328 QuantumDerivation.TwoDimensionalNecessity <> amp_state1 proj
-R3319:3328 QuantumDerivation.TwoDimensionalNecessity <> amp_state1 proj
-R3306:3307 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R3308:3311 Coq.Reals.R_sqrt <> sqrt def
-R3334:3335 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R3336:3339 Coq.Reals.R_sqrt <> sqrt def
-R3291:3300 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
-R3291:3300 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
-R3291:3300 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
-R3319:3328 QuantumDerivation.TwoDimensionalNecessity <> amp_state1 proj
-R3319:3328 QuantumDerivation.TwoDimensionalNecessity <> amp_state1 proj
-R3306:3307 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R3308:3311 Coq.Reals.R_sqrt <> sqrt def
-R3334:3335 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R3336:3339 Coq.Reals.R_sqrt <> sqrt def
-binder 3456:3456 <> x:7
-R3465:3468 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3461:3463 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R3460:3460 QuantumDerivation.TwoDimensionalNecessity <> x:7 var
-R3478:3480 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3472:3474 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3469:3470 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R3471:3471 QuantumDerivation.TwoDimensionalNecessity <> x:7 var
+R1031:1037 Kernel.VMState <> <> lib
+R1039:1044 Kernel.VMStep <> <> lib
+R1074:1084 Kernel.MuCostModel <> <> lib
+R1112:1115 Coq.Lists.List <> <> lib
+R1117:1122 Coq.ZArith.ZArith <> <> lib
+R1124:1126 Coq.micromega.Lia <> <> lib
+R1128:1131 Coq.Bool.Bool <> <> lib
+R1133:1135 Coq.Init.Nat <> <> lib
+R1137:1141 Coq.Reals.Reals <> <> lib
+R1143:1145 Coq.micromega.Lra <> <> lib
+R1155:1167 Coq.Lists.List ListNotations <> mod
+R1238:1264 ThieleMachine.CoreSemantics <> <> lib
+R1282:1318 QuantumDerivation.CompositePartitions <> <> lib
+ind 1774:1793 <> PartitionBinaryState
+constr 1802:1808 <> PState0
+constr 1854:1860 <> PState1
+R1812:1831 QuantumDerivation.TwoDimensionalNecessity <> PartitionBinaryState:1 ind
+R1864:1883 QuantumDerivation.TwoDimensionalNecessity <> PartitionBinaryState:1 ind
+scheme 1774:1793 <> PartitionBinaryState_rect
+scheme 1774:1793 <> PartitionBinaryState_ind
+scheme 1774:1793 <> PartitionBinaryState_rec
+scheme 1774:1793 <> PartitionBinaryState_sind
+def 1952:1972 <> partition_state_space
+R1977:1996 QuantumDerivation.TwoDimensionalNecessity <> PartitionBinaryState ind
+def 2043:2064 <> binary_state_dimension
+R2068:2070 Coq.Init.Datatypes <> nat ind
+prf 2227:2250 <> partition_has_two_states
+R2278:2280 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2256:2277 QuantumDerivation.TwoDimensionalNecessity <> binary_state_dimension def
+rec 2870:2883 <> AmplitudeState
+proj 2892:2901 <> amp_state0
+proj 2940:2949 <> amp_state1
+proj 2988:3001 <> amp_normalized
+R2905:2905 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2953:2953 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3055:3057 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3029:3031 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R3016:3018 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3006:3015 QuantumDerivation.TwoDimensionalNecessity <> amp_state0:4 meth
+R3019:3028 QuantumDerivation.TwoDimensionalNecessity <> amp_state0:4 meth
+R3042:3044 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3032:3041 QuantumDerivation.TwoDimensionalNecessity <> amp_state1:5 meth
+R3045:3054 QuantumDerivation.TwoDimensionalNecessity <> amp_state1:5 meth
+def 3115:3126 <> pure_state_0
+R3130:3143 QuantumDerivation.TwoDimensionalNecessity <> AmplitudeState rec
+R3165:3174 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
+R3165:3174 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
+R3165:3174 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
+R3184:3193 QuantumDerivation.TwoDimensionalNecessity <> amp_state1 proj
+R3184:3193 QuantumDerivation.TwoDimensionalNecessity <> amp_state1 proj
+R3165:3174 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
+R3165:3174 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
+R3165:3174 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
+R3184:3193 QuantumDerivation.TwoDimensionalNecessity <> amp_state1 proj
+R3184:3193 QuantumDerivation.TwoDimensionalNecessity <> amp_state1 proj
+def 3234:3245 <> pure_state_1
+R3249:3262 QuantumDerivation.TwoDimensionalNecessity <> AmplitudeState rec
+R3284:3293 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
+R3284:3293 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
+R3284:3293 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
+R3303:3312 QuantumDerivation.TwoDimensionalNecessity <> amp_state1 proj
+R3303:3312 QuantumDerivation.TwoDimensionalNecessity <> amp_state1 proj
+R3284:3293 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
+R3284:3293 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
+R3284:3293 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
+R3303:3312 QuantumDerivation.TwoDimensionalNecessity <> amp_state1 proj
+R3303:3312 QuantumDerivation.TwoDimensionalNecessity <> amp_state1 proj
+def 3403:3421 <> equal_superposition
+R3425:3438 QuantumDerivation.TwoDimensionalNecessity <> AmplitudeState rec
+R3460:3469 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
+R3460:3469 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
+R3460:3469 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
+R3488:3497 QuantumDerivation.TwoDimensionalNecessity <> amp_state1 proj
+R3488:3497 QuantumDerivation.TwoDimensionalNecessity <> amp_state1 proj
 R3475:3476 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R3477:3477 QuantumDerivation.TwoDimensionalNecessity <> x:7 var
-R3481:3483 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R3489:3489 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R3485:3487 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3484:3484 QuantumDerivation.TwoDimensionalNecessity <> x:7 var
-R3488:3488 QuantumDerivation.TwoDimensionalNecessity <> x:7 var
-binder 3456:3456 <> x:8
-R3465:3468 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3461:3463 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R3460:3460 QuantumDerivation.TwoDimensionalNecessity <> x:8 var
-R3478:3480 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3472:3474 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3469:3470 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R3471:3471 QuantumDerivation.TwoDimensionalNecessity <> x:8 var
+R3477:3480 Coq.Reals.R_sqrt <> sqrt def
+R3503:3504 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R3505:3508 Coq.Reals.R_sqrt <> sqrt def
+R3460:3469 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
+R3460:3469 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
+R3460:3469 QuantumDerivation.TwoDimensionalNecessity <> amp_state0 proj
+R3488:3497 QuantumDerivation.TwoDimensionalNecessity <> amp_state1 proj
+R3488:3497 QuantumDerivation.TwoDimensionalNecessity <> amp_state1 proj
 R3475:3476 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R3477:3477 QuantumDerivation.TwoDimensionalNecessity <> x:8 var
-R3481:3483 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R3489:3489 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R3485:3487 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3484:3484 QuantumDerivation.TwoDimensionalNecessity <> x:8 var
-R3488:3488 QuantumDerivation.TwoDimensionalNecessity <> x:8 var
-R3543:3545 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R3537:3540 Coq.Reals.R_sqrt <> sqrt def
-R3543:3545 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R3537:3540 Coq.Reals.R_sqrt <> sqrt def
-R3563:3572 Coq.Reals.R_sqrt <> sqrt_lt_R0 thm
-R3563:3572 Coq.Reals.R_sqrt <> sqrt_lt_R0 thm
-R3611:3618 Coq.Reals.R_sqrt <> sqrt_def thm
-R3611:3618 Coq.Reals.R_sqrt <> sqrt_def thm
-R3611:3618 Coq.Reals.R_sqrt <> sqrt_def thm
-R3611:3618 Coq.Reals.R_sqrt <> sqrt_def thm
-rec 4297:4319 <> OneDimensionalAmplitude
-proj 4328:4339 <> amplitude_1d
-proj 4348:4360 <> normalized_1d
-R4343:4343 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4392:4394 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4377:4379 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4365:4376 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d:10 meth
-R4380:4391 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d:10 meth
-prf 4444:4466 <> one_d_amplitude_is_sign
-R4483:4505 QuantumDerivation.TwoDimensionalNecessity <> OneDimensionalAmplitude rec
-binder 4479:4479 <> a:12
-R4533:4536 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R4529:4531 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4516:4527 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d proj
-R4513:4513 QuantumDerivation.TwoDimensionalNecessity <> a:12 var
-R4553:4555 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4540:4551 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d proj
-R4537:4537 QuantumDerivation.TwoDimensionalNecessity <> a:12 var
-R4626:4628 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4609:4611 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4595:4606 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d proj
-R4612:4623 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d proj
-R4626:4628 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4609:4611 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4595:4606 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d proj
-R4612:4623 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d proj
-R4647:4659 QuantumDerivation.TwoDimensionalNecessity <> normalized_1d proj
-R4647:4659 QuantumDerivation.TwoDimensionalNecessity <> normalized_1d proj
-R4766:4768 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4723:4723 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4742:4746 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4765:4765 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4738:4740 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R4724:4735 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d proj
-R4761:4763 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R4747:4758 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d proj
-R4766:4768 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4723:4723 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4742:4746 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4765:4765 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4738:4740 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R4724:4735 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d proj
-R4761:4763 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R4747:4758 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d proj
-R4795:4808 Coq.Reals.RIneq <> Rmult_integral thm
-R4795:4808 Coq.Reals.RIneq <> Rmult_integral thm
-prf 4939:4984 <> one_dimensional_insufficient_for_superposition
-R5001:5023 QuantumDerivation.TwoDimensionalNecessity <> OneDimensionalAmplitude rec
-binder 4997:4997 <> a:13
-R5086:5089 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R5082:5084 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5069:5080 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d proj
-R5066:5066 QuantumDerivation.TwoDimensionalNecessity <> a:13 var
-R5106:5108 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5093:5104 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d proj
-R5090:5090 QuantumDerivation.TwoDimensionalNecessity <> a:13 var
-R5131:5153 QuantumDerivation.TwoDimensionalNecessity <> one_d_amplitude_is_sign thm
-R5131:5153 QuantumDerivation.TwoDimensionalNecessity <> one_d_amplitude_is_sign thm
-prf 5234:5261 <> one_d_no_intermediate_states
-R5267:5268 Coq.Init.Logic <> ::type_scope:'~'_x not
-R5269:5276 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R5304:5312 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R5281:5303 QuantumDerivation.TwoDimensionalNecessity <> OneDimensionalAmplitude rec
-binder 5277:5277 <> a:14
-R5333:5336 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5328:5331 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R5314:5325 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d proj
-R5327:5327 QuantumDerivation.TwoDimensionalNecessity <> a:14 var
-R5351:5354 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R5337:5348 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d proj
-R5350:5350 QuantumDerivation.TwoDimensionalNecessity <> a:14 var
-R5425:5447 QuantumDerivation.TwoDimensionalNecessity <> one_d_amplitude_is_sign thm
-R5425:5447 QuantumDerivation.TwoDimensionalNecessity <> one_d_amplitude_is_sign thm
-rec 5976:5998 <> TwoDimensionalAmplitude
-proj 6007:6017 <> amplitude_x
-proj 6026:6036 <> amplitude_y
-proj 6045:6057 <> normalized_2d
-R6021:6021 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R6040:6040 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R6115:6117 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6087:6089 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R6073:6075 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6062:6072 QuantumDerivation.TwoDimensionalNecessity <> amplitude_x:16 meth
-R6076:6086 QuantumDerivation.TwoDimensionalNecessity <> amplitude_x:16 meth
-R6101:6103 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6090:6100 QuantumDerivation.TwoDimensionalNecessity <> amplitude_y:17 meth
-R6104:6114 QuantumDerivation.TwoDimensionalNecessity <> amplitude_y:17 meth
-prf 6178:6196 <> two_d_has_continuum
-R6218:6218 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 6210:6214 <> theta:19
-R6226:6233 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R6261:6269 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R6238:6260 QuantumDerivation.TwoDimensionalNecessity <> TwoDimensionalAmplitude rec
-binder 6234:6234 <> a:20
-R6296:6306 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3477:3480 Coq.Reals.R_sqrt <> sqrt def
+R3503:3504 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R3505:3508 Coq.Reals.R_sqrt <> sqrt def
+binder 3625:3625 <> x:7
+R3634:3637 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3630:3632 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R3629:3629 QuantumDerivation.TwoDimensionalNecessity <> x:7 var
+R3647:3649 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3641:3643 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3638:3639 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R3640:3640 QuantumDerivation.TwoDimensionalNecessity <> x:7 var
+R3644:3645 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R3646:3646 QuantumDerivation.TwoDimensionalNecessity <> x:7 var
+R3650:3652 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R3658:3658 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R3654:3656 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3653:3653 QuantumDerivation.TwoDimensionalNecessity <> x:7 var
+R3657:3657 QuantumDerivation.TwoDimensionalNecessity <> x:7 var
+binder 3625:3625 <> x:8
+R3634:3637 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3630:3632 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R3629:3629 QuantumDerivation.TwoDimensionalNecessity <> x:8 var
+R3647:3649 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3641:3643 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3638:3639 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R3640:3640 QuantumDerivation.TwoDimensionalNecessity <> x:8 var
+R3644:3645 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R3646:3646 QuantumDerivation.TwoDimensionalNecessity <> x:8 var
+R3650:3652 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R3658:3658 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R3654:3656 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3653:3653 QuantumDerivation.TwoDimensionalNecessity <> x:8 var
+R3657:3657 QuantumDerivation.TwoDimensionalNecessity <> x:8 var
+R3712:3714 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R3706:3709 Coq.Reals.R_sqrt <> sqrt def
+R3712:3714 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R3706:3709 Coq.Reals.R_sqrt <> sqrt def
+R3732:3741 Coq.Reals.R_sqrt <> sqrt_lt_R0 thm
+R3732:3741 Coq.Reals.R_sqrt <> sqrt_lt_R0 thm
+R3780:3787 Coq.Reals.R_sqrt <> sqrt_def thm
+R3780:3787 Coq.Reals.R_sqrt <> sqrt_def thm
+R3780:3787 Coq.Reals.R_sqrt <> sqrt_def thm
+R3780:3787 Coq.Reals.R_sqrt <> sqrt_def thm
+rec 4466:4488 <> OneDimensionalAmplitude
+proj 4497:4508 <> amplitude_1d
+proj 4517:4529 <> normalized_1d
+R4512:4512 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4561:4563 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4546:4548 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4534:4545 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d:10 meth
+R4549:4560 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d:10 meth
+prf 4613:4635 <> one_d_amplitude_is_sign
+R4652:4674 QuantumDerivation.TwoDimensionalNecessity <> OneDimensionalAmplitude rec
+binder 4648:4648 <> a:12
+R4702:4705 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R4698:4700 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4685:4696 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d proj
+R4682:4682 QuantumDerivation.TwoDimensionalNecessity <> a:12 var
+R4722:4724 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4709:4720 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d proj
+R4706:4706 QuantumDerivation.TwoDimensionalNecessity <> a:12 var
+R4795:4797 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4778:4780 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4764:4775 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d proj
+R4781:4792 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d proj
+R4795:4797 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4778:4780 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4764:4775 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d proj
+R4781:4792 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d proj
+R4816:4828 QuantumDerivation.TwoDimensionalNecessity <> normalized_1d proj
+R4816:4828 QuantumDerivation.TwoDimensionalNecessity <> normalized_1d proj
+R4935:4937 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4892:4892 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4911:4915 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4934:4934 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4907:4909 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R4893:4904 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d proj
+R4930:4932 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4916:4927 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d proj
+R4935:4937 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4892:4892 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4911:4915 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4934:4934 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4907:4909 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R4893:4904 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d proj
+R4930:4932 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4916:4927 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d proj
+R4964:4977 Coq.Reals.RIneq <> Rmult_integral thm
+R4964:4977 Coq.Reals.RIneq <> Rmult_integral thm
+prf 5108:5153 <> one_dimensional_insufficient_for_superposition
+R5170:5192 QuantumDerivation.TwoDimensionalNecessity <> OneDimensionalAmplitude rec
+binder 5166:5166 <> a:13
+R5255:5258 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R5251:5253 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5238:5249 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d proj
+R5235:5235 QuantumDerivation.TwoDimensionalNecessity <> a:13 var
+R5275:5277 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5262:5273 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d proj
+R5259:5259 QuantumDerivation.TwoDimensionalNecessity <> a:13 var
+R5300:5322 QuantumDerivation.TwoDimensionalNecessity <> one_d_amplitude_is_sign thm
+R5300:5322 QuantumDerivation.TwoDimensionalNecessity <> one_d_amplitude_is_sign thm
+prf 5403:5430 <> one_d_no_intermediate_states
+R5436:5437 Coq.Init.Logic <> ::type_scope:'~'_x not
+R5438:5445 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5473:5481 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5450:5472 QuantumDerivation.TwoDimensionalNecessity <> OneDimensionalAmplitude rec
+binder 5446:5446 <> a:14
+R5502:5505 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5497:5500 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5483:5494 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d proj
+R5496:5496 QuantumDerivation.TwoDimensionalNecessity <> a:14 var
+R5520:5523 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5506:5517 QuantumDerivation.TwoDimensionalNecessity <> amplitude_1d proj
+R5519:5519 QuantumDerivation.TwoDimensionalNecessity <> a:14 var
+R5594:5616 QuantumDerivation.TwoDimensionalNecessity <> one_d_amplitude_is_sign thm
+R5594:5616 QuantumDerivation.TwoDimensionalNecessity <> one_d_amplitude_is_sign thm
+rec 6145:6167 <> TwoDimensionalAmplitude
+proj 6176:6186 <> amplitude_x
+proj 6195:6205 <> amplitude_y
+proj 6214:6226 <> normalized_2d
+R6190:6190 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R6209:6209 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
 R6284:6286 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6271:6281 QuantumDerivation.TwoDimensionalNecessity <> amplitude_x proj
-R6283:6283 QuantumDerivation.TwoDimensionalNecessity <> a:20 var
-R6287:6289 Coq.Reals.Rtrigo_def <> cos def
-R6291:6295 QuantumDerivation.TwoDimensionalNecessity <> theta:19 var
-R6320:6322 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6307:6317 QuantumDerivation.TwoDimensionalNecessity <> amplitude_y proj
-R6319:6319 QuantumDerivation.TwoDimensionalNecessity <> a:20 var
-R6323:6325 Coq.Reals.Rtrigo_def <> sin def
-R6327:6331 QuantumDerivation.TwoDimensionalNecessity <> theta:19 var
-R6422:6424 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6398:6400 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R6386:6388 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6377:6379 Coq.Reals.Rtrigo_def <> cos def
-R6389:6391 Coq.Reals.Rtrigo_def <> cos def
-R6410:6412 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6401:6403 Coq.Reals.Rtrigo_def <> sin def
-R6413:6415 Coq.Reals.Rtrigo_def <> sin def
-R6422:6424 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6398:6400 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R6386:6388 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6377:6379 Coq.Reals.Rtrigo_def <> cos def
-R6389:6391 Coq.Reals.Rtrigo_def <> cos def
-R6410:6412 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6401:6403 Coq.Reals.Rtrigo_def <> sin def
-R6413:6415 Coq.Reals.Rtrigo_def <> sin def
-R6444:6453 Coq.Reals.Raxioms <> Rplus_comm thm
-R6444:6453 Coq.Reals.Raxioms <> Rplus_comm thm
-R6444:6453 Coq.Reals.Raxioms <> Rplus_comm thm
-R6462:6470 Coq.Reals.Rtrigo1 <> sin2_cos2 thm
-R6462:6470 Coq.Reals.Rtrigo1 <> sin2_cos2 thm
-R6487:6497 QuantumDerivation.TwoDimensionalNecessity <> amplitude_x proj
-R6487:6497 QuantumDerivation.TwoDimensionalNecessity <> amplitude_x proj
-R6487:6497 QuantumDerivation.TwoDimensionalNecessity <> amplitude_x proj
-R6525:6535 QuantumDerivation.TwoDimensionalNecessity <> amplitude_y proj
-R6525:6535 QuantumDerivation.TwoDimensionalNecessity <> amplitude_y proj
-R6563:6575 QuantumDerivation.TwoDimensionalNecessity <> normalized_2d proj
-R6563:6575 QuantumDerivation.TwoDimensionalNecessity <> normalized_2d proj
-R6502:6504 Coq.Reals.Rtrigo_def <> cos def
-R6540:6542 Coq.Reals.Rtrigo_def <> sin def
-R6487:6497 QuantumDerivation.TwoDimensionalNecessity <> amplitude_x proj
-R6487:6497 QuantumDerivation.TwoDimensionalNecessity <> amplitude_x proj
-R6487:6497 QuantumDerivation.TwoDimensionalNecessity <> amplitude_x proj
-R6525:6535 QuantumDerivation.TwoDimensionalNecessity <> amplitude_y proj
-R6525:6535 QuantumDerivation.TwoDimensionalNecessity <> amplitude_y proj
-R6563:6575 QuantumDerivation.TwoDimensionalNecessity <> normalized_2d proj
-R6563:6575 QuantumDerivation.TwoDimensionalNecessity <> normalized_2d proj
-R6502:6504 Coq.Reals.Rtrigo_def <> cos def
-R6540:6542 Coq.Reals.Rtrigo_def <> sin def
-prf 6782:6806 <> two_dimensional_necessary
-R6911:6913 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6889:6910 QuantumDerivation.TwoDimensionalNecessity <> binary_state_dimension def
-R7008:7029 QuantumDerivation.TwoDimensionalNecessity <> binary_state_dimension def
-def 7773:7794 <> partition_module_state
-R7799:7821 QuantumDerivation.TwoDimensionalNecessity <> TwoDimensionalAmplitude rec
-prf 7890:7923 <> partition_state_is_two_dimensional
-R7951:7953 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7929:7950 QuantumDerivation.TwoDimensionalNecessity <> binary_state_dimension def
-R7976:7999 QuantumDerivation.TwoDimensionalNecessity <> partition_has_two_states thm
-R7976:7999 QuantumDerivation.TwoDimensionalNecessity <> partition_has_two_states thm
-prf 8073:8093 <> two_d_from_partitions
-R8173:8181 ThieleMachine.CoreSemantics <> Partition rec
-binder 8169:8169 <> p:21
-R8219:8219 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8257:8302 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8220:8226 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R8232:8233 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 8227:8229 <> mid:22
-binder 8231:8231 <> r:23
-R8234:8235 Coq.Lists.List <> In def
-R8249:8255 ThieleMachine.CoreSemantics <> modules proj
-R8246:8246 QuantumDerivation.TwoDimensionalNecessity <> p:21 var
-R8237:8237 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8241:8242 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8244:8244 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8238:8240 QuantumDerivation.TwoDimensionalNecessity <> mid:22 var
-R8243:8243 QuantumDerivation.TwoDimensionalNecessity <> r:23 var
-R8325:8327 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8303:8324 QuantumDerivation.TwoDimensionalNecessity <> binary_state_dimension def
-R8364:8397 QuantumDerivation.TwoDimensionalNecessity <> partition_state_is_two_dimensional thm
-R8364:8397 QuantumDerivation.TwoDimensionalNecessity <> partition_state_is_two_dimensional thm
+R6256:6258 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6242:6244 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6231:6241 QuantumDerivation.TwoDimensionalNecessity <> amplitude_x:16 meth
+R6245:6255 QuantumDerivation.TwoDimensionalNecessity <> amplitude_x:16 meth
+R6270:6272 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6259:6269 QuantumDerivation.TwoDimensionalNecessity <> amplitude_y:17 meth
+R6273:6283 QuantumDerivation.TwoDimensionalNecessity <> amplitude_y:17 meth
+prf 6347:6365 <> two_d_has_continuum
+R6387:6387 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 6379:6383 <> theta:19
+R6395:6402 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6430:6438 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6407:6429 QuantumDerivation.TwoDimensionalNecessity <> TwoDimensionalAmplitude rec
+binder 6403:6403 <> a:20
+R6465:6475 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6453:6455 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6440:6450 QuantumDerivation.TwoDimensionalNecessity <> amplitude_x proj
+R6452:6452 QuantumDerivation.TwoDimensionalNecessity <> a:20 var
+R6456:6458 Coq.Reals.Rtrigo_def <> cos def
+R6460:6464 QuantumDerivation.TwoDimensionalNecessity <> theta:19 var
+R6489:6491 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6476:6486 QuantumDerivation.TwoDimensionalNecessity <> amplitude_y proj
+R6488:6488 QuantumDerivation.TwoDimensionalNecessity <> a:20 var
+R6492:6494 Coq.Reals.Rtrigo_def <> sin def
+R6496:6500 QuantumDerivation.TwoDimensionalNecessity <> theta:19 var
+R6591:6593 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6567:6569 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6555:6557 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6546:6548 Coq.Reals.Rtrigo_def <> cos def
+R6558:6560 Coq.Reals.Rtrigo_def <> cos def
+R6579:6581 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6570:6572 Coq.Reals.Rtrigo_def <> sin def
+R6582:6584 Coq.Reals.Rtrigo_def <> sin def
+R6591:6593 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6567:6569 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6555:6557 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6546:6548 Coq.Reals.Rtrigo_def <> cos def
+R6558:6560 Coq.Reals.Rtrigo_def <> cos def
+R6579:6581 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6570:6572 Coq.Reals.Rtrigo_def <> sin def
+R6582:6584 Coq.Reals.Rtrigo_def <> sin def
+R6613:6622 Coq.Reals.Raxioms <> Rplus_comm thm
+R6613:6622 Coq.Reals.Raxioms <> Rplus_comm thm
+R6613:6622 Coq.Reals.Raxioms <> Rplus_comm thm
+R6631:6639 Coq.Reals.Rtrigo1 <> sin2_cos2 thm
+R6631:6639 Coq.Reals.Rtrigo1 <> sin2_cos2 thm
+R6656:6666 QuantumDerivation.TwoDimensionalNecessity <> amplitude_x proj
+R6656:6666 QuantumDerivation.TwoDimensionalNecessity <> amplitude_x proj
+R6656:6666 QuantumDerivation.TwoDimensionalNecessity <> amplitude_x proj
+R6694:6704 QuantumDerivation.TwoDimensionalNecessity <> amplitude_y proj
+R6694:6704 QuantumDerivation.TwoDimensionalNecessity <> amplitude_y proj
+R6732:6744 QuantumDerivation.TwoDimensionalNecessity <> normalized_2d proj
+R6732:6744 QuantumDerivation.TwoDimensionalNecessity <> normalized_2d proj
+R6671:6673 Coq.Reals.Rtrigo_def <> cos def
+R6709:6711 Coq.Reals.Rtrigo_def <> sin def
+R6656:6666 QuantumDerivation.TwoDimensionalNecessity <> amplitude_x proj
+R6656:6666 QuantumDerivation.TwoDimensionalNecessity <> amplitude_x proj
+R6656:6666 QuantumDerivation.TwoDimensionalNecessity <> amplitude_x proj
+R6694:6704 QuantumDerivation.TwoDimensionalNecessity <> amplitude_y proj
+R6694:6704 QuantumDerivation.TwoDimensionalNecessity <> amplitude_y proj
+R6732:6744 QuantumDerivation.TwoDimensionalNecessity <> normalized_2d proj
+R6732:6744 QuantumDerivation.TwoDimensionalNecessity <> normalized_2d proj
+R6671:6673 Coq.Reals.Rtrigo_def <> cos def
+R6709:6711 Coq.Reals.Rtrigo_def <> sin def
+prf 6951:6975 <> two_dimensional_necessary
+R7080:7082 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7058:7079 QuantumDerivation.TwoDimensionalNecessity <> binary_state_dimension def
+R7177:7198 QuantumDerivation.TwoDimensionalNecessity <> binary_state_dimension def
+def 7942:7963 <> partition_module_state
+R7968:7990 QuantumDerivation.TwoDimensionalNecessity <> TwoDimensionalAmplitude rec
+prf 8059:8092 <> partition_state_is_two_dimensional
+R8120:8122 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8098:8119 QuantumDerivation.TwoDimensionalNecessity <> binary_state_dimension def
+R8145:8168 QuantumDerivation.TwoDimensionalNecessity <> partition_has_two_states thm
+R8145:8168 QuantumDerivation.TwoDimensionalNecessity <> partition_has_two_states thm
+prf 8242:8262 <> two_d_from_partitions
+R8342:8350 ThieleMachine.CoreSemantics <> Partition rec
+binder 8338:8338 <> p:21
+R8388:8388 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8426:8471 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8389:8395 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8401:8402 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 8396:8398 <> mid:22
+binder 8400:8400 <> r:23
+R8403:8404 Coq.Lists.List <> In def
+R8418:8424 ThieleMachine.CoreSemantics <> modules proj
+R8415:8415 QuantumDerivation.TwoDimensionalNecessity <> p:21 var
+R8406:8406 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8410:8411 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8413:8413 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8407:8409 QuantumDerivation.TwoDimensionalNecessity <> mid:22 var
+R8412:8412 QuantumDerivation.TwoDimensionalNecessity <> r:23 var
+R8494:8496 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8472:8493 QuantumDerivation.TwoDimensionalNecessity <> binary_state_dimension def
+R8533:8566 QuantumDerivation.TwoDimensionalNecessity <> partition_state_is_two_dimensional thm
+R8533:8566 QuantumDerivation.TwoDimensionalNecessity <> partition_state_is_two_dimensional thm

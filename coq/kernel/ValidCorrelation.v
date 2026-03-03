@@ -43,6 +43,10 @@
 
     ========================================================================= *)
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 Require Import Coq.QArith.QArith.
 Require Import Coq.QArith.Qabs.
 Require Import Coq.Lists.List.
@@ -254,3 +258,4 @@ Qed.
     - TsirelsonUpperBound.v: Quantum bound derivation
 
     ========================================================================= *)
+

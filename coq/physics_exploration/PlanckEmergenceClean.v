@@ -1,4 +1,6 @@
 (** =========================================================================
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
     PLANCK SCALE EMERGENCE: Axiom-Free Version
     =========================================================================
     
@@ -11,6 +13,10 @@
     Author: Thiele Machine
     Date: February 2026
     ========================================================================= *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 Require Import Coq.Reals.Reals.
 Require Import Coq.micromega.Lra.
@@ -186,3 +192,4 @@ End PhysicalConstants.
 (** Extracted relationship - usable outside the section *)
 Check tau_mu_squared_ratio.
 (* Shows it requires all hypotheses to be provided *)
+

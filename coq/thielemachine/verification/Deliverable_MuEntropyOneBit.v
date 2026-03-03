@@ -1,5 +1,8 @@
 From Coq Require Import QArith Lia Arith.PeanoNat.
 Import QArith.
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+
 Open Scope Q_scope.
 
 From ThieleMachine Require Import InfoTheory.

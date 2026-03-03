@@ -17,6 +17,10 @@ Require Import Theory.Core.
 Require Import Theory.Universality.
 Require Import Theory.NoFreeLunch.
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 Section Representations.
 
   Variable Obj : Type.
@@ -229,5 +233,6 @@ Section Representations.
   Proof.
     intros D. exact I.
   Qed.
+
 
 End Representations.

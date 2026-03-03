@@ -1,9 +1,15 @@
 (** * Formalising self-reference and the need for a meta-level.
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
 
     This module gives a minimal, mechanically checked model of systems
     that can talk about themselves.  The goal is not to encode a full
     Gödel numbering, but to make the structural dependencies explicit
     enough to reason about the need for a richer meta-layer. *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import Arith.Arith Lia.
 

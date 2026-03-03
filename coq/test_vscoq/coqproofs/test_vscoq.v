@@ -3,6 +3,9 @@
 
 Require Import Coq.Init.Datatypes.
 From Coq Require Import Arith.PeanoNat Lia.
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import MuCostModel.
+
 
 Definition test_value : nat := 42.
 

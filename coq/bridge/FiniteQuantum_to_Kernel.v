@@ -5,6 +5,9 @@ Open Scope Q_scope.
 Require Import VMStep.
 Require Import CHSH.
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState MuCostModel.
+
 (** * Bridge: finite “quantum-admissible” prediction engine -> kernel receipts
 
     This bridge mirrors [bridge/BoxWorld_to_Kernel.v], but targets a finite

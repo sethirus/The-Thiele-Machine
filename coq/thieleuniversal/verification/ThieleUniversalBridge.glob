@@ -1,4 +1,4 @@
-DIGEST 8f7a809683d3b8b86159b7ad30e47ea6
+DIGEST ee5a426de694af9f16cfebfee0f08141
 FThieleUniversal.verification.ThieleUniversalBridge
 R25:28 Coq.Lists.List <> <> lib
 R30:34 Coq.Arith.Arith <> <> lib
@@ -15,12 +15,22 @@ R134:143 ThieleUniversal.UTM_Encode <> <> lib
 R195:211 ThieleUniversal.verification.BridgeDefinitions <> <> lib
 R263:279 ThieleUniversal.verification.BridgeCheckpoints <> <> lib
 R331:341 ThieleUniversal.verification.BridgeProof <> <> lib
-R351:363 Coq.Lists.List ListNotations <> mod
-abbrev 410:415 <> length
-R420:430 Coq.Lists.List <> length abbrev
-prf 1132:1150 <> concrete_trace_0_19
-R1200:1202 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1154:1169 ThieleUniversal.verification.BridgeDefinitions <> check_transition def
-R1171:1182 ThieleUniversal.verification.BridgeCheckpoints <> checkpoint_0 def
-R1184:1196 ThieleUniversal.verification.BridgeCheckpoints <> checkpoint_19 def
-R1203:1206 Coq.Init.Datatypes <> true constr
+R371:377 Kernel.VMState <> <> lib
+R379:389 Kernel.Subsumption <> <> lib
+R399:411 Coq.Lists.List ListNotations <> mod
+abbrev 458:463 <> length
+R468:478 Coq.Lists.List <> length abbrev
+prf 1180:1198 <> concrete_trace_0_19
+R1248:1250 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1202:1217 ThieleUniversal.verification.BridgeDefinitions <> check_transition def
+R1219:1230 ThieleUniversal.verification.BridgeCheckpoints <> checkpoint_0 def
+R1232:1244 ThieleUniversal.verification.BridgeCheckpoints <> checkpoint_19 def
+R1251:1254 Coq.Init.Datatypes <> true constr
+def 2280:2291 <> bridge_vm_mu
+R2299:2305 Kernel.VMState <> VMState rec
+binder 2294:2295 <> vm:1
+R2310:2312 Coq.Init.Datatypes <> nat ind
+R2317:2321 Kernel.VMState <> vm_mu proj
+R2323:2324 ThieleUniversal.verification.ThieleUniversalBridge <> vm:1 var
+def 2403:2420 <> bridge_subsumption
+R2425:2440 Kernel.Subsumption <> main_subsumption thm

@@ -1,0 +1,24 @@
+flowchart TD
+  F1["coq/kernel/VMState.v\nBottom layer: machine state and partition graph"]
+  F2["coq/kernel/VMStep.v\nOperational semantics and instruction step relation"]
+  F1 --> F2
+  F3["coq/kernel/MuCostModel.v\nOperational mu-cost definition"]
+  F2 --> F3
+  F4["coq/kernel/MuLedgerConservation.v\nLedger conservation and monotonicity"]
+  F3 --> F4
+  F5["coq/kernel/NoFreeInsight.v\nCentral impossibility theorem"]
+  F4 --> F5
+  F6["coq/kernel/MuInitiality.v\nUniqueness/initiality of mu ledger"]
+  F5 --> F6
+  F7["coq/Extraction.v\nOCaml extraction entrypoint wired to foundations"]
+  F6 --> F7
+  F8["tools/extracted_vm_runner.ml\nRunner over extracted semantics"]
+  F7 --> F8
+  F9["build/thiele_vm.py\nPython wrapper with strict extracted backend mode"]
+  F8 --> F9
+  F10["coq/kami_hw/CanonicalCPUProof.v\nCanonical Kami refinement proof surface"]
+  F9 --> F10
+  F11["coq/kami_hw/KamiExtraction.v\nKami module extraction for RTL flow"]
+  F10 --> F11
+  F12["thielecpu/hardware/cosim.py\nCanonical RTL co-simulation harness"]
+  F11 --> F12

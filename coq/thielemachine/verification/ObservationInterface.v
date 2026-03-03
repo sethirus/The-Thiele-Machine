@@ -1,4 +1,5 @@
 (** =========================================================================
+
     OBSERVATION INTERFACE - Reality Functor
     =========================================================================
     
@@ -9,6 +10,10 @@
     observables (what experiments measure). Physics lives in the observables.
     
     ========================================================================= *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import List ZArith Lia QArith.
 From Coq Require Import ClassicalDescription.

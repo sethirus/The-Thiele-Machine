@@ -1,10 +1,16 @@
 (** * Euclidean algorithm utilities for Project Sovereign
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
 
     The Thiele-machine version of Shor's algorithm relies on a trustworthy
     implementation of the Euclidean algorithm.  This module provides a
     structurally recursive definition over natural numbers together with a
     standard correctness proof that relates it to Coq's reference [Nat.gcd].
  *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import Arith.
 From Coq Require Import PeanoNat.

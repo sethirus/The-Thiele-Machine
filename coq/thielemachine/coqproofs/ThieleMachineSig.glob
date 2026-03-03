@@ -1,379 +1,382 @@
-DIGEST 5b3f386d46782afd3c3e3d75a04b0108
+DIGEST 54e688828b19bd1e3b31ffcf8a02cbef
 FThieleMachine.ThieleMachineSig
-R212:215 Coq.Lists.List <> <> lib
-R217:222 Coq.Strings.String <> <> lib
-R224:229 Coq.ZArith.ZArith <> <> lib
-R266:278 ThieleMachine.ThieleMachine <> <> lib
-R288:300 Coq.Lists.List ListNotations <> mod
-mod 535:554 <> MinimalThieleMachine
-R572:584 ThieleMachine.ThieleMachine <> <> modtype
-mod 566:567 <> MinimalThieleMachine.TM
-def 601:605 MinimalThieleMachine Instr
-R617:624 ThieleMachine.ThieleMachineSig MinimalThieleMachine Instr rec
-def 640:644 MinimalThieleMachine State
-R656:663 ThieleMachine.ThieleMachineSig MinimalThieleMachine State rec
-def 679:683 MinimalThieleMachine Event
-R695:702 ThieleMachine.ThieleMachineSig MinimalThieleMachine Event def
-def 718:721 MinimalThieleMachine Cert
-R733:739 ThieleMachine.ThieleMachineSig MinimalThieleMachine Cert def
-def 755:758 MinimalThieleMachine Hash
-R770:776 ThieleMachine.ThieleMachineSig MinimalThieleMachine Hash def
-def 793:802 MinimalThieleMachine is_LASSERT
-R809:813 ThieleMachine.ThieleMachineSig MinimalThieleMachine Instr def
-binder 805:805 <> i:1
-R818:821 Coq.Init.Datatypes <> bool ind
-R826:838 ThieleMachine.ThieleMachineSig MinimalThieleMachine is_LASSERT def
-R840:840 ThieleMachine.ThieleMachineSig <> i:1 var
-def 856:864 MinimalThieleMachine is_MDLACC
-R871:875 ThieleMachine.ThieleMachineSig MinimalThieleMachine Instr def
-binder 867:867 <> i:2
-R880:883 Coq.Init.Datatypes <> bool ind
-R888:899 ThieleMachine.ThieleMachineSig MinimalThieleMachine is_MDLACC def
-R901:901 ThieleMachine.ThieleMachineSig <> i:2 var
-rec 914:920 MinimalThieleMachine StepObs
-proj 931:932 MinimalThieleMachine ev
-proj 960:967 MinimalThieleMachine mu_delta
-proj 978:981 MinimalThieleMachine cert
-R942:947 Coq.Init.Datatypes <> option ind
-R949:953 ThieleMachine.ThieleMachineSig MinimalThieleMachine Event def
-R971:971 Coq.Numbers.BinNums <> Z ind
-R989:992 ThieleMachine.ThieleMachineSig MinimalThieleMachine Cert def
-def 1014:1020 MinimalThieleMachine mk_prog
-R1030:1033 Coq.Init.Datatypes <> list ind
-R1035:1039 ThieleMachine.ThieleMachineSig MinimalThieleMachine Instr def
-binder 1023:1026 <> code:7
-R1044:1050 ThieleMachine.ThieleMachineSig MinimalThieleMachine Prog rec
-R1058:1064 ThieleMachine.ThieleMachineSig MinimalThieleMachine code proj
-R1058:1064 ThieleMachine.ThieleMachineSig MinimalThieleMachine code proj
-R1058:1064 ThieleMachine.ThieleMachineSig MinimalThieleMachine code proj
-R1069:1072 ThieleMachine.ThieleMachineSig <> code:7 var
-def 1092:1104 MinimalThieleMachine to_TM_StepObs
-R1113:1119 ThieleMachine.ThieleMachineSig MinimalThieleMachine StepObs rec
-binder 1107:1109 <> obs:8
-R1124:1133 ThieleMachine.ThieleMachineSig MinimalThieleMachine StepObs rec
-R1145:1149 ThieleMachine.ThieleMachineSig MinimalThieleMachine ev proj
-R1145:1149 ThieleMachine.ThieleMachineSig MinimalThieleMachine ev proj
-R1145:1149 ThieleMachine.ThieleMachineSig MinimalThieleMachine ev proj
-R1164:1174 ThieleMachine.ThieleMachineSig MinimalThieleMachine mu_delta proj
-R1164:1174 ThieleMachine.ThieleMachineSig MinimalThieleMachine mu_delta proj
-R1195:1201 ThieleMachine.ThieleMachineSig MinimalThieleMachine cert proj
-R1195:1201 ThieleMachine.ThieleMachineSig MinimalThieleMachine cert proj
-R1159:1160 ThieleMachine.ThieleMachineSig MinimalThieleMachine ev proj
-R1154:1156 ThieleMachine.ThieleMachineSig <> obs:8 var
-R1184:1191 ThieleMachine.ThieleMachineSig MinimalThieleMachine mu_delta proj
-R1179:1181 ThieleMachine.ThieleMachineSig <> obs:8 var
-R1211:1214 ThieleMachine.ThieleMachineSig MinimalThieleMachine cert proj
-R1206:1208 ThieleMachine.ThieleMachineSig <> obs:8 var
-def 1235:1249 MinimalThieleMachine from_TM_StepObs
-R1261:1270 ThieleMachine.ThieleMachineSig MinimalThieleMachine StepObs rec
-binder 1252:1257 <> tm_obs:9
-R1275:1281 ThieleMachine.ThieleMachineSig MinimalThieleMachine StepObs rec
-R1293:1294 ThieleMachine.ThieleMachineSig MinimalThieleMachine ev proj
-R1293:1294 ThieleMachine.ThieleMachineSig MinimalThieleMachine ev proj
-R1293:1294 ThieleMachine.ThieleMachineSig MinimalThieleMachine ev proj
-R1315:1322 ThieleMachine.ThieleMachineSig MinimalThieleMachine mu_delta proj
-R1315:1322 ThieleMachine.ThieleMachineSig MinimalThieleMachine mu_delta proj
-R1349:1352 ThieleMachine.ThieleMachineSig MinimalThieleMachine cert proj
-R1349:1352 ThieleMachine.ThieleMachineSig MinimalThieleMachine cert proj
-R1307:1311 ThieleMachine.ThieleMachineSig MinimalThieleMachine ev proj
-R1299:1304 ThieleMachine.ThieleMachineSig <> tm_obs:9 var
-R1335:1345 ThieleMachine.ThieleMachineSig MinimalThieleMachine mu_delta proj
-R1327:1332 ThieleMachine.ThieleMachineSig <> tm_obs:9 var
-R1365:1371 ThieleMachine.ThieleMachineSig MinimalThieleMachine cert proj
-R1357:1362 ThieleMachine.ThieleMachineSig <> tm_obs:9 var
-def 1392:1395 MinimalThieleMachine step
-R1402:1405 Coq.Init.Datatypes <> list ind
-R1407:1411 ThieleMachine.ThieleMachineSig MinimalThieleMachine Instr def
-binder 1398:1398 <> P:10
-R1422:1426 ThieleMachine.ThieleMachineSig MinimalThieleMachine State def
-binder 1415:1415 <> s:11
-binder 1417:1418 <> s':12
-R1436:1442 ThieleMachine.ThieleMachineSig MinimalThieleMachine StepObs rec
-binder 1430:1432 <> obs:13
-R1459:1465 ThieleMachine.ThieleMachineSig MinimalThieleMachine step ind
-R1468:1474 ThieleMachine.ThieleMachineSig MinimalThieleMachine mk_prog def
-R1476:1476 ThieleMachine.ThieleMachineSig <> P:10 var
-R1479:1479 ThieleMachine.ThieleMachineSig <> s:11 var
-R1481:1482 ThieleMachine.ThieleMachineSig <> s':12 var
-R1485:1497 ThieleMachine.ThieleMachineSig MinimalThieleMachine to_TM_StepObs def
-R1499:1501 ThieleMachine.ThieleMachineSig <> obs:13 var
-def 1519:1528 MinimalThieleMachine check_step
-R1539:1542 Coq.Init.Datatypes <> list ind
-R1544:1548 ThieleMachine.ThieleMachineSig MinimalThieleMachine Instr def
-binder 1535:1535 <> P:14
-R1565:1569 ThieleMachine.ThieleMachineSig MinimalThieleMachine State def
-binder 1552:1555 <> spre:15
-binder 1557:1561 <> spost:16
-R1579:1584 Coq.Init.Datatypes <> option ind
-R1586:1590 ThieleMachine.ThieleMachineSig MinimalThieleMachine Event def
-binder 1573:1575 <> oev:17
-R1598:1601 ThieleMachine.ThieleMachineSig MinimalThieleMachine Cert def
-binder 1594:1594 <> c:18
-R1606:1609 Coq.Init.Datatypes <> bool ind
-R1618:1630 ThieleMachine.ThieleMachineSig MinimalThieleMachine check_step def
-R1633:1639 ThieleMachine.ThieleMachineSig MinimalThieleMachine mk_prog def
-R1641:1641 ThieleMachine.ThieleMachineSig <> P:14 var
-R1644:1647 ThieleMachine.ThieleMachineSig <> spre:15 var
-R1649:1653 ThieleMachine.ThieleMachineSig <> spost:16 var
-R1655:1657 ThieleMachine.ThieleMachineSig <> oev:17 var
-R1659:1659 ThieleMachine.ThieleMachineSig <> c:18 var
-def 1676:1682 MinimalThieleMachine bitsize
-R1689:1692 ThieleMachine.ThieleMachineSig MinimalThieleMachine Cert def
-binder 1685:1685 <> c:19
-R1697:1697 Coq.Numbers.BinNums <> Z ind
-R1702:1711 ThieleMachine.ThieleMachineSig MinimalThieleMachine bitsize def
-R1713:1713 ThieleMachine.ThieleMachineSig <> c:19 var
-def 1730:1738 MinimalThieleMachine state_eqb
-R1749:1753 ThieleMachine.ThieleMachineSig MinimalThieleMachine State def
-binder 1741:1742 <> s1:20
-binder 1744:1745 <> s2:21
-R1758:1761 Coq.Init.Datatypes <> bool ind
-R1766:1776 ThieleMachine.ThieleMachineSig MinimalThieleMachine state_eq def
-R1778:1779 ThieleMachine.ThieleMachineSig <> s1:20 var
-R1781:1782 ThieleMachine.ThieleMachineSig <> s2:21 var
-def 1799:1800 MinimalThieleMachine H0
-R1804:1807 ThieleMachine.ThieleMachineSig MinimalThieleMachine Hash def
-R1812:1816 ThieleMachine.ThieleMachineSig MinimalThieleMachine H0 def
-def 1832:1841 MinimalThieleMachine hash_state
-R1848:1852 ThieleMachine.ThieleMachineSig MinimalThieleMachine State def
-binder 1844:1844 <> s:22
-R1857:1860 ThieleMachine.ThieleMachineSig MinimalThieleMachine Hash def
-R1865:1877 ThieleMachine.ThieleMachineSig MinimalThieleMachine hash_state def
-R1879:1879 ThieleMachine.ThieleMachineSig <> s:22 var
-def 1895:1903 MinimalThieleMachine hash_cert
-R1910:1913 ThieleMachine.ThieleMachineSig MinimalThieleMachine Cert def
-binder 1906:1906 <> c:23
-R1918:1921 ThieleMachine.ThieleMachineSig MinimalThieleMachine Hash def
-R1926:1937 ThieleMachine.ThieleMachineSig MinimalThieleMachine hash_cert def
-R1939:1939 ThieleMachine.ThieleMachineSig <> c:23 var
-def 1955:1962 MinimalThieleMachine hcombine
-R1973:1976 ThieleMachine.ThieleMachineSig MinimalThieleMachine Hash def
-binder 1965:1966 <> h1:24
-binder 1968:1969 <> h2:25
-R1981:1984 ThieleMachine.ThieleMachineSig MinimalThieleMachine Hash def
-R1989:1999 ThieleMachine.ThieleMachineSig MinimalThieleMachine hcombine def
-R2001:2002 ThieleMachine.ThieleMachineSig <> h1:24 var
-R2004:2005 ThieleMachine.ThieleMachineSig <> h2:25 var
-prf 2068:2083 MinimalThieleMachine check_step_sound
-binder 2098:2098 <> P:26
-binder 2100:2100 <> s:27
-binder 2102:2103 <> s':28
-binder 2105:2107 <> obs:29
-R2131:2140 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2116:2119 ThieleMachine.ThieleMachineSig MinimalThieleMachine step def
-R2121:2121 ThieleMachine.ThieleMachineSig <> P:26 var
-R2123:2123 ThieleMachine.ThieleMachineSig <> s:27 var
-R2125:2126 ThieleMachine.ThieleMachineSig <> s':28 var
-R2128:2130 ThieleMachine.ThieleMachineSig <> obs:29 var
-R2178:2180 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2141:2150 ThieleMachine.ThieleMachineSig MinimalThieleMachine check_step def
-R2152:2152 ThieleMachine.ThieleMachineSig <> P:26 var
-R2154:2154 ThieleMachine.ThieleMachineSig <> s:27 var
-R2156:2157 ThieleMachine.ThieleMachineSig <> s':28 var
-R2164:2165 ThieleMachine.ThieleMachineSig MinimalThieleMachine ev proj
-R2159:2161 ThieleMachine.ThieleMachineSig <> obs:29 var
-R2173:2176 ThieleMachine.ThieleMachineSig MinimalThieleMachine cert proj
-R2168:2170 ThieleMachine.ThieleMachineSig <> obs:29 var
-R2181:2184 Coq.Init.Datatypes <> true constr
-R2236:2239 ThieleMachine.ThieleMachineSig MinimalThieleMachine step def
-R2242:2251 ThieleMachine.ThieleMachineSig MinimalThieleMachine check_step def
-R2319:2331 ThieleMachine.ThieleMachineSig MinimalThieleMachine to_TM_StepObs def
-R2369:2387 ThieleMachine.ThieleMachineSig MinimalThieleMachine check_step_sound thm
-R2369:2387 ThieleMachine.ThieleMachineSig MinimalThieleMachine check_step_sound thm
-prf 2501:2514 MinimalThieleMachine mu_lower_bound
-binder 2529:2529 <> P:30
-binder 2531:2531 <> s:31
-binder 2533:2534 <> s':32
-binder 2536:2538 <> obs:33
-R2562:2571 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2547:2550 ThieleMachine.ThieleMachineSig MinimalThieleMachine step def
-R2552:2552 ThieleMachine.ThieleMachineSig <> P:30 var
-R2554:2554 ThieleMachine.ThieleMachineSig <> s:31 var
-R2556:2557 ThieleMachine.ThieleMachineSig <> s':32 var
-R2559:2561 ThieleMachine.ThieleMachineSig <> obs:33 var
-R2572:2575 Coq.ZArith.BinInt Z le def
-R2578:2584 ThieleMachine.ThieleMachineSig MinimalThieleMachine bitsize def
-R2591:2594 ThieleMachine.ThieleMachineSig MinimalThieleMachine cert proj
-R2586:2588 ThieleMachine.ThieleMachineSig <> obs:33 var
-R2603:2610 ThieleMachine.ThieleMachineSig MinimalThieleMachine mu_delta proj
-R2598:2600 ThieleMachine.ThieleMachineSig <> obs:33 var
-R2663:2666 ThieleMachine.ThieleMachineSig MinimalThieleMachine step def
-R2669:2675 ThieleMachine.ThieleMachineSig MinimalThieleMachine bitsize def
-R2710:2726 ThieleMachine.ThieleMachineSig MinimalThieleMachine mu_lower_bound thm
-R2729:2735 ThieleMachine.ThieleMachineSig MinimalThieleMachine mk_prog def
-R2746:2758 ThieleMachine.ThieleMachineSig MinimalThieleMachine to_TM_StepObs def
-R2710:2726 ThieleMachine.ThieleMachineSig MinimalThieleMachine mu_lower_bound thm
-R2729:2735 ThieleMachine.ThieleMachineSig MinimalThieleMachine mk_prog def
-R2746:2758 ThieleMachine.ThieleMachineSig MinimalThieleMachine to_TM_StepObs def
-prf 2854:2872 MinimalThieleMachine check_step_complete
-binder 2887:2887 <> P:34
-binder 2889:2889 <> s:35
-binder 2891:2892 <> s':36
-binder 2894:2896 <> oev:37
-binder 2898:2898 <> c:38
-R2937:2946 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2930:2932 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2907:2916 ThieleMachine.ThieleMachineSig MinimalThieleMachine check_step def
-R2918:2918 ThieleMachine.ThieleMachineSig <> P:34 var
-R2920:2920 ThieleMachine.ThieleMachineSig <> s:35 var
-R2922:2923 ThieleMachine.ThieleMachineSig <> s':36 var
-R2925:2927 ThieleMachine.ThieleMachineSig <> oev:37 var
-R2929:2929 ThieleMachine.ThieleMachineSig <> c:38 var
-R2933:2936 Coq.Init.Datatypes <> true constr
-R2947:2953 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2957:2958 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 2954:2956 <> obs:39
-R2974:2977 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2959:2962 ThieleMachine.ThieleMachineSig MinimalThieleMachine step def
-R2964:2964 ThieleMachine.ThieleMachineSig <> P:34 var
-R2966:2966 ThieleMachine.ThieleMachineSig <> s:35 var
-R2968:2969 ThieleMachine.ThieleMachineSig <> s':36 var
-R2971:2973 ThieleMachine.ThieleMachineSig <> obs:39 var
-R2992:2995 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2986:2988 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2983:2984 ThieleMachine.ThieleMachineSig MinimalThieleMachine ev proj
-R2978:2980 ThieleMachine.ThieleMachineSig <> obs:39 var
-R2989:2991 ThieleMachine.ThieleMachineSig <> oev:37 var
-R3006:3008 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3001:3004 ThieleMachine.ThieleMachineSig MinimalThieleMachine cert proj
-R2996:2998 ThieleMachine.ThieleMachineSig <> obs:39 var
-R3009:3009 ThieleMachine.ThieleMachineSig <> c:38 var
-R3062:3065 ThieleMachine.ThieleMachineSig MinimalThieleMachine step def
-R3068:3077 ThieleMachine.ThieleMachineSig MinimalThieleMachine check_step def
-R3095:3116 ThieleMachine.ThieleMachineSig MinimalThieleMachine check_step_complete thm
-R3095:3116 ThieleMachine.ThieleMachineSig MinimalThieleMachine check_step_complete thm
-R3190:3204 ThieleMachine.ThieleMachineSig MinimalThieleMachine from_TM_StepObs def
-R3190:3204 ThieleMachine.ThieleMachineSig MinimalThieleMachine from_TM_StepObs def
-R3226:3240 ThieleMachine.ThieleMachineSig MinimalThieleMachine from_TM_StepObs def
-R3274:3277 ThieleMachine.ThieleMachineSig MinimalThieleMachine step def
-R3280:3292 ThieleMachine.ThieleMachineSig MinimalThieleMachine to_TM_StepObs def
-prf 3468:3481 MinimalThieleMachine state_eqb_refl
-binder 3492:3492 <> s:40
-R3508:3510 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3495:3503 ThieleMachine.ThieleMachineSig MinimalThieleMachine state_eqb def
-R3505:3505 ThieleMachine.ThieleMachineSig <> s:40 var
-R3507:3507 ThieleMachine.ThieleMachineSig <> s:40 var
-R3511:3514 Coq.Init.Datatypes <> true constr
-R3550:3558 ThieleMachine.ThieleMachineSig MinimalThieleMachine state_eqb def
-R3571:3587 ThieleMachine.ThieleMachineSig MinimalThieleMachine state_eqb_refl thm
-R3571:3587 ThieleMachine.ThieleMachineSig MinimalThieleMachine state_eqb_refl thm
-def 3611:3626 MinimalThieleMachine well_formed_prog
-R3633:3636 Coq.Init.Datatypes <> list ind
-R3638:3642 ThieleMachine.ThieleMachineSig MinimalThieleMachine Instr def
-binder 3629:3629 <> P:41
-R3647:3650 Coq.Init.Datatypes <> bool ind
-R3659:3665 Coq.Lists.List <> forallb def
-R3711:3711 ThieleMachine.ThieleMachineSig <> P:41 var
-binder 3672:3672 <> i:42
-R3677:3679 Coq.Init.Datatypes <> orb def
-R3697:3705 ThieleMachine.ThieleMachineSig MinimalThieleMachine is_MDLACC def
-R3707:3707 ThieleMachine.ThieleMachineSig <> i:42 var
-R3682:3691 ThieleMachine.ThieleMachineSig MinimalThieleMachine is_LASSERT def
-R3693:3693 ThieleMachine.ThieleMachineSig <> i:42 var
-def 3728:3734 MinimalThieleMachine Receipt
-R3768:3770 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R3753:3755 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R3745:3747 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R3740:3744 ThieleMachine.ThieleMachineSig MinimalThieleMachine State def
-R3748:3752 ThieleMachine.ThieleMachineSig MinimalThieleMachine State def
-R3756:3761 Coq.Init.Datatypes <> option ind
-R3763:3767 ThieleMachine.ThieleMachineSig MinimalThieleMachine Event def
-R3771:3774 ThieleMachine.ThieleMachineSig MinimalThieleMachine Cert def
-def 3795:3803 MinimalThieleMachine replay_ok
-R3808:3811 Coq.Init.Datatypes <> list ind
-R3813:3817 ThieleMachine.ThieleMachineSig MinimalThieleMachine Instr def
-binder 3806:3806 <> P:43
-R3824:3828 ThieleMachine.ThieleMachineSig MinimalThieleMachine State def
-binder 3821:3822 <> s0:44
-R3835:3838 Coq.Init.Datatypes <> list ind
-R3840:3846 ThieleMachine.ThieleMachineSig MinimalThieleMachine Receipt def
-binder 3832:3833 <> rs:45
-R3851:3854 Coq.Init.Datatypes <> bool ind
-R3869:3870 ThieleMachine.ThieleMachineSig <> rs:45 var
-R3883:3884 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R3889:3892 Coq.Init.Datatypes <> true constr
-R3921:3922 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3900:3900 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3905:3906 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3912:3913 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3917:3918 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3920:3920 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3940:3943 Coq.Init.Datatypes <> negb def
-R3946:3954 ThieleMachine.ThieleMachineSig MinimalThieleMachine state_eqb def
-R3961:3962 ThieleMachine.ThieleMachineSig <> s0:44 var
-R3992:4001 ThieleMachine.ThieleMachineSig MinimalThieleMachine check_step def
-R4003:4003 ThieleMachine.ThieleMachineSig <> P:43 var
-R4079:4083 Coq.Init.Datatypes <> false constr
-R4040:4048 ThieleMachine.ThieleMachineSig <> replay_ok:46 def
-R4050:4050 ThieleMachine.ThieleMachineSig <> P:43 var
-R3970:3974 Coq.Init.Datatypes <> false constr
-def 4106:4116 MinimalThieleMachine receipts_of
-R4121:4124 Coq.Init.Datatypes <> list ind
-R4126:4130 ThieleMachine.ThieleMachineSig MinimalThieleMachine Instr def
-binder 4119:4119 <> P:48
-R4137:4141 ThieleMachine.ThieleMachineSig MinimalThieleMachine State def
-binder 4134:4135 <> s0:49
-R4157:4160 Coq.Init.Datatypes <> list ind
-R4168:4168 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R4163:4167 ThieleMachine.ThieleMachineSig MinimalThieleMachine State def
-R4169:4175 ThieleMachine.ThieleMachineSig MinimalThieleMachine StepObs rec
-binder 4154:4155 <> tr:50
-R4181:4184 Coq.Init.Datatypes <> list ind
-R4186:4192 ThieleMachine.ThieleMachineSig MinimalThieleMachine Receipt def
-R4207:4208 ThieleMachine.ThieleMachineSig <> tr:50 var
-R4221:4222 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R4227:4228 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R4244:4245 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R4236:4236 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4239:4239 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4243:4243 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4287:4290 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R4260:4260 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4263:4263 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4266:4266 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4275:4275 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4286:4286 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4261:4262 ThieleMachine.ThieleMachineSig <> s0:49 var
-R4272:4273 ThieleMachine.ThieleMachineSig MinimalThieleMachine ev proj
-R4281:4284 ThieleMachine.ThieleMachineSig MinimalThieleMachine cert proj
-R4291:4301 ThieleMachine.ThieleMachineSig <> receipts_of:51 def
-R4303:4303 ThieleMachine.ThieleMachineSig <> P:48 var
-def 4334:4339 MinimalThieleMachine sum_mu
-R4346:4349 Coq.Init.Datatypes <> list ind
-R4357:4357 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R4352:4356 ThieleMachine.ThieleMachineSig MinimalThieleMachine State def
-R4358:4364 ThieleMachine.ThieleMachineSig MinimalThieleMachine StepObs rec
-binder 4342:4343 <> tr:53
-R4370:4370 Coq.Numbers.BinNums <> Z ind
-R4379:4387 Coq.Lists.List <> fold_left def
-R4436:4437 ThieleMachine.ThieleMachineSig <> tr:53 var
-binder 4394:4396 <> acc:54
-R4399:4399 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4401:4401 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4405:4405 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-binder 4402:4404 <> obs:55
-binder 4399:4405 <> pat:56
-R4410:4414 Coq.ZArith.BinInt Z add def
-R4416:4418 ThieleMachine.ThieleMachineSig <> acc:54 var
-R4425:4432 ThieleMachine.ThieleMachineSig MinimalThieleMachine mu_delta proj
-R4420:4422 ThieleMachine.ThieleMachineSig <> obs:55 var
-def 4458:4465 MinimalThieleMachine sum_bits
-R4472:4475 Coq.Init.Datatypes <> list ind
-R4477:4483 ThieleMachine.ThieleMachineSig MinimalThieleMachine Receipt def
-binder 4468:4469 <> rs:57
-R4488:4488 Coq.Numbers.BinNums <> Z ind
-R4497:4505 Coq.Lists.List <> fold_left def
-R4553:4554 ThieleMachine.ThieleMachineSig <> rs:57 var
-binder 4512:4514 <> acc:58
-R4517:4517 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4519:4519 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4521:4521 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4523:4523 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4525:4525 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-binder 4524:4524 <> c:59
-binder 4517:4525 <> pat:60
-R4530:4534 Coq.ZArith.BinInt Z add def
-R4536:4538 ThieleMachine.ThieleMachineSig <> acc:58 var
-R4541:4547 ThieleMachine.ThieleMachineSig MinimalThieleMachine bitsize def
-R4549:4549 ThieleMachine.ThieleMachineSig <> c:59 var
-R4566:4585 ThieleMachine.ThieleMachineSig MinimalThieleMachine <> mod
+R299:305 Kernel.VMState <> <> lib
+R307:312 Kernel.VMStep <> <> lib
+R342:352 Kernel.MuCostModel <> <> lib
+R380:383 Coq.Lists.List <> <> lib
+R385:390 Coq.Strings.String <> <> lib
+R392:397 Coq.ZArith.ZArith <> <> lib
+R434:446 ThieleMachine.ThieleMachine <> <> lib
+R456:468 Coq.Lists.List ListNotations <> mod
+mod 703:722 <> MinimalThieleMachine
+R740:752 ThieleMachine.ThieleMachine <> <> modtype
+mod 734:735 <> MinimalThieleMachine.TM
+def 769:773 MinimalThieleMachine Instr
+R785:792 ThieleMachine.ThieleMachineSig MinimalThieleMachine Instr rec
+def 808:812 MinimalThieleMachine State
+R824:831 ThieleMachine.ThieleMachineSig MinimalThieleMachine State rec
+def 847:851 MinimalThieleMachine Event
+R863:870 ThieleMachine.ThieleMachineSig MinimalThieleMachine Event def
+def 886:889 MinimalThieleMachine Cert
+R901:907 ThieleMachine.ThieleMachineSig MinimalThieleMachine Cert def
+def 923:926 MinimalThieleMachine Hash
+R938:944 ThieleMachine.ThieleMachineSig MinimalThieleMachine Hash def
+def 961:970 MinimalThieleMachine is_LASSERT
+R977:981 ThieleMachine.ThieleMachineSig MinimalThieleMachine Instr def
+binder 973:973 <> i:1
+R986:989 Coq.Init.Datatypes <> bool ind
+R994:1006 ThieleMachine.ThieleMachineSig MinimalThieleMachine is_LASSERT def
+R1008:1008 ThieleMachine.ThieleMachineSig <> i:1 var
+def 1024:1032 MinimalThieleMachine is_MDLACC
+R1039:1043 ThieleMachine.ThieleMachineSig MinimalThieleMachine Instr def
+binder 1035:1035 <> i:2
+R1048:1051 Coq.Init.Datatypes <> bool ind
+R1056:1067 ThieleMachine.ThieleMachineSig MinimalThieleMachine is_MDLACC def
+R1069:1069 ThieleMachine.ThieleMachineSig <> i:2 var
+rec 1082:1088 MinimalThieleMachine StepObs
+proj 1099:1100 MinimalThieleMachine ev
+proj 1128:1135 MinimalThieleMachine mu_delta
+proj 1146:1149 MinimalThieleMachine cert
+R1110:1115 Coq.Init.Datatypes <> option ind
+R1117:1121 ThieleMachine.ThieleMachineSig MinimalThieleMachine Event def
+R1139:1139 Coq.Numbers.BinNums <> Z ind
+R1157:1160 ThieleMachine.ThieleMachineSig MinimalThieleMachine Cert def
+def 1182:1188 MinimalThieleMachine mk_prog
+R1198:1201 Coq.Init.Datatypes <> list ind
+R1203:1207 ThieleMachine.ThieleMachineSig MinimalThieleMachine Instr def
+binder 1191:1194 <> code:7
+R1212:1218 ThieleMachine.ThieleMachineSig MinimalThieleMachine Prog rec
+R1226:1232 ThieleMachine.ThieleMachineSig MinimalThieleMachine code proj
+R1226:1232 ThieleMachine.ThieleMachineSig MinimalThieleMachine code proj
+R1226:1232 ThieleMachine.ThieleMachineSig MinimalThieleMachine code proj
+R1237:1240 ThieleMachine.ThieleMachineSig <> code:7 var
+def 1260:1272 MinimalThieleMachine to_TM_StepObs
+R1281:1287 ThieleMachine.ThieleMachineSig MinimalThieleMachine StepObs rec
+binder 1275:1277 <> obs:8
+R1292:1301 ThieleMachine.ThieleMachineSig MinimalThieleMachine StepObs rec
+R1313:1317 ThieleMachine.ThieleMachineSig MinimalThieleMachine ev proj
+R1313:1317 ThieleMachine.ThieleMachineSig MinimalThieleMachine ev proj
+R1313:1317 ThieleMachine.ThieleMachineSig MinimalThieleMachine ev proj
+R1332:1342 ThieleMachine.ThieleMachineSig MinimalThieleMachine mu_delta proj
+R1332:1342 ThieleMachine.ThieleMachineSig MinimalThieleMachine mu_delta proj
+R1363:1369 ThieleMachine.ThieleMachineSig MinimalThieleMachine cert proj
+R1363:1369 ThieleMachine.ThieleMachineSig MinimalThieleMachine cert proj
+R1327:1328 ThieleMachine.ThieleMachineSig MinimalThieleMachine ev proj
+R1322:1324 ThieleMachine.ThieleMachineSig <> obs:8 var
+R1352:1359 ThieleMachine.ThieleMachineSig MinimalThieleMachine mu_delta proj
+R1347:1349 ThieleMachine.ThieleMachineSig <> obs:8 var
+R1379:1382 ThieleMachine.ThieleMachineSig MinimalThieleMachine cert proj
+R1374:1376 ThieleMachine.ThieleMachineSig <> obs:8 var
+def 1403:1417 MinimalThieleMachine from_TM_StepObs
+R1429:1438 ThieleMachine.ThieleMachineSig MinimalThieleMachine StepObs rec
+binder 1420:1425 <> tm_obs:9
+R1443:1449 ThieleMachine.ThieleMachineSig MinimalThieleMachine StepObs rec
+R1461:1462 ThieleMachine.ThieleMachineSig MinimalThieleMachine ev proj
+R1461:1462 ThieleMachine.ThieleMachineSig MinimalThieleMachine ev proj
+R1461:1462 ThieleMachine.ThieleMachineSig MinimalThieleMachine ev proj
+R1483:1490 ThieleMachine.ThieleMachineSig MinimalThieleMachine mu_delta proj
+R1483:1490 ThieleMachine.ThieleMachineSig MinimalThieleMachine mu_delta proj
+R1517:1520 ThieleMachine.ThieleMachineSig MinimalThieleMachine cert proj
+R1517:1520 ThieleMachine.ThieleMachineSig MinimalThieleMachine cert proj
+R1475:1479 ThieleMachine.ThieleMachineSig MinimalThieleMachine ev proj
+R1467:1472 ThieleMachine.ThieleMachineSig <> tm_obs:9 var
+R1503:1513 ThieleMachine.ThieleMachineSig MinimalThieleMachine mu_delta proj
+R1495:1500 ThieleMachine.ThieleMachineSig <> tm_obs:9 var
+R1533:1539 ThieleMachine.ThieleMachineSig MinimalThieleMachine cert proj
+R1525:1530 ThieleMachine.ThieleMachineSig <> tm_obs:9 var
+def 1560:1563 MinimalThieleMachine step
+R1570:1573 Coq.Init.Datatypes <> list ind
+R1575:1579 ThieleMachine.ThieleMachineSig MinimalThieleMachine Instr def
+binder 1566:1566 <> P:10
+R1590:1594 ThieleMachine.ThieleMachineSig MinimalThieleMachine State def
+binder 1583:1583 <> s:11
+binder 1585:1586 <> s':12
+R1604:1610 ThieleMachine.ThieleMachineSig MinimalThieleMachine StepObs rec
+binder 1598:1600 <> obs:13
+R1627:1633 ThieleMachine.ThieleMachineSig MinimalThieleMachine step ind
+R1636:1642 ThieleMachine.ThieleMachineSig MinimalThieleMachine mk_prog def
+R1644:1644 ThieleMachine.ThieleMachineSig <> P:10 var
+R1647:1647 ThieleMachine.ThieleMachineSig <> s:11 var
+R1649:1650 ThieleMachine.ThieleMachineSig <> s':12 var
+R1653:1665 ThieleMachine.ThieleMachineSig MinimalThieleMachine to_TM_StepObs def
+R1667:1669 ThieleMachine.ThieleMachineSig <> obs:13 var
+def 1687:1696 MinimalThieleMachine check_step
+R1707:1710 Coq.Init.Datatypes <> list ind
+R1712:1716 ThieleMachine.ThieleMachineSig MinimalThieleMachine Instr def
+binder 1703:1703 <> P:14
+R1733:1737 ThieleMachine.ThieleMachineSig MinimalThieleMachine State def
+binder 1720:1723 <> spre:15
+binder 1725:1729 <> spost:16
+R1747:1752 Coq.Init.Datatypes <> option ind
+R1754:1758 ThieleMachine.ThieleMachineSig MinimalThieleMachine Event def
+binder 1741:1743 <> oev:17
+R1766:1769 ThieleMachine.ThieleMachineSig MinimalThieleMachine Cert def
+binder 1762:1762 <> c:18
+R1774:1777 Coq.Init.Datatypes <> bool ind
+R1786:1798 ThieleMachine.ThieleMachineSig MinimalThieleMachine check_step def
+R1801:1807 ThieleMachine.ThieleMachineSig MinimalThieleMachine mk_prog def
+R1809:1809 ThieleMachine.ThieleMachineSig <> P:14 var
+R1812:1815 ThieleMachine.ThieleMachineSig <> spre:15 var
+R1817:1821 ThieleMachine.ThieleMachineSig <> spost:16 var
+R1823:1825 ThieleMachine.ThieleMachineSig <> oev:17 var
+R1827:1827 ThieleMachine.ThieleMachineSig <> c:18 var
+def 1844:1850 MinimalThieleMachine bitsize
+R1857:1860 ThieleMachine.ThieleMachineSig MinimalThieleMachine Cert def
+binder 1853:1853 <> c:19
+R1865:1865 Coq.Numbers.BinNums <> Z ind
+R1870:1879 ThieleMachine.ThieleMachineSig MinimalThieleMachine bitsize def
+R1881:1881 ThieleMachine.ThieleMachineSig <> c:19 var
+def 1898:1906 MinimalThieleMachine state_eqb
+R1917:1921 ThieleMachine.ThieleMachineSig MinimalThieleMachine State def
+binder 1909:1910 <> s1:20
+binder 1912:1913 <> s2:21
+R1926:1929 Coq.Init.Datatypes <> bool ind
+R1934:1944 ThieleMachine.ThieleMachineSig MinimalThieleMachine state_eq def
+R1946:1947 ThieleMachine.ThieleMachineSig <> s1:20 var
+R1949:1950 ThieleMachine.ThieleMachineSig <> s2:21 var
+def 1967:1968 MinimalThieleMachine H0
+R1972:1975 ThieleMachine.ThieleMachineSig MinimalThieleMachine Hash def
+R1980:1984 ThieleMachine.ThieleMachineSig MinimalThieleMachine H0 def
+def 2000:2009 MinimalThieleMachine hash_state
+R2016:2020 ThieleMachine.ThieleMachineSig MinimalThieleMachine State def
+binder 2012:2012 <> s:22
+R2025:2028 ThieleMachine.ThieleMachineSig MinimalThieleMachine Hash def
+R2033:2045 ThieleMachine.ThieleMachineSig MinimalThieleMachine hash_state def
+R2047:2047 ThieleMachine.ThieleMachineSig <> s:22 var
+def 2063:2071 MinimalThieleMachine hash_cert
+R2078:2081 ThieleMachine.ThieleMachineSig MinimalThieleMachine Cert def
+binder 2074:2074 <> c:23
+R2086:2089 ThieleMachine.ThieleMachineSig MinimalThieleMachine Hash def
+R2094:2105 ThieleMachine.ThieleMachineSig MinimalThieleMachine hash_cert def
+R2107:2107 ThieleMachine.ThieleMachineSig <> c:23 var
+def 2123:2130 MinimalThieleMachine hcombine
+R2141:2144 ThieleMachine.ThieleMachineSig MinimalThieleMachine Hash def
+binder 2133:2134 <> h1:24
+binder 2136:2137 <> h2:25
+R2149:2152 ThieleMachine.ThieleMachineSig MinimalThieleMachine Hash def
+R2157:2167 ThieleMachine.ThieleMachineSig MinimalThieleMachine hcombine def
+R2169:2170 ThieleMachine.ThieleMachineSig <> h1:24 var
+R2172:2173 ThieleMachine.ThieleMachineSig <> h2:25 var
+prf 2236:2251 MinimalThieleMachine check_step_sound
+binder 2266:2266 <> P:26
+binder 2268:2268 <> s:27
+binder 2270:2271 <> s':28
+binder 2273:2275 <> obs:29
+R2299:2308 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2284:2287 ThieleMachine.ThieleMachineSig MinimalThieleMachine step def
+R2289:2289 ThieleMachine.ThieleMachineSig <> P:26 var
+R2291:2291 ThieleMachine.ThieleMachineSig <> s:27 var
+R2293:2294 ThieleMachine.ThieleMachineSig <> s':28 var
+R2296:2298 ThieleMachine.ThieleMachineSig <> obs:29 var
+R2346:2348 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2309:2318 ThieleMachine.ThieleMachineSig MinimalThieleMachine check_step def
+R2320:2320 ThieleMachine.ThieleMachineSig <> P:26 var
+R2322:2322 ThieleMachine.ThieleMachineSig <> s:27 var
+R2324:2325 ThieleMachine.ThieleMachineSig <> s':28 var
+R2332:2333 ThieleMachine.ThieleMachineSig MinimalThieleMachine ev proj
+R2327:2329 ThieleMachine.ThieleMachineSig <> obs:29 var
+R2341:2344 ThieleMachine.ThieleMachineSig MinimalThieleMachine cert proj
+R2336:2338 ThieleMachine.ThieleMachineSig <> obs:29 var
+R2349:2352 Coq.Init.Datatypes <> true constr
+R2404:2407 ThieleMachine.ThieleMachineSig MinimalThieleMachine step def
+R2410:2419 ThieleMachine.ThieleMachineSig MinimalThieleMachine check_step def
+R2487:2499 ThieleMachine.ThieleMachineSig MinimalThieleMachine to_TM_StepObs def
+R2537:2555 ThieleMachine.ThieleMachineSig MinimalThieleMachine check_step_sound thm
+R2537:2555 ThieleMachine.ThieleMachineSig MinimalThieleMachine check_step_sound thm
+prf 2669:2682 MinimalThieleMachine mu_lower_bound
+binder 2697:2697 <> P:30
+binder 2699:2699 <> s:31
+binder 2701:2702 <> s':32
+binder 2704:2706 <> obs:33
+R2730:2739 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2715:2718 ThieleMachine.ThieleMachineSig MinimalThieleMachine step def
+R2720:2720 ThieleMachine.ThieleMachineSig <> P:30 var
+R2722:2722 ThieleMachine.ThieleMachineSig <> s:31 var
+R2724:2725 ThieleMachine.ThieleMachineSig <> s':32 var
+R2727:2729 ThieleMachine.ThieleMachineSig <> obs:33 var
+R2740:2743 Coq.ZArith.BinInt Z le def
+R2746:2752 ThieleMachine.ThieleMachineSig MinimalThieleMachine bitsize def
+R2759:2762 ThieleMachine.ThieleMachineSig MinimalThieleMachine cert proj
+R2754:2756 ThieleMachine.ThieleMachineSig <> obs:33 var
+R2771:2778 ThieleMachine.ThieleMachineSig MinimalThieleMachine mu_delta proj
+R2766:2768 ThieleMachine.ThieleMachineSig <> obs:33 var
+R2831:2834 ThieleMachine.ThieleMachineSig MinimalThieleMachine step def
+R2837:2843 ThieleMachine.ThieleMachineSig MinimalThieleMachine bitsize def
+R2878:2894 ThieleMachine.ThieleMachineSig MinimalThieleMachine mu_lower_bound thm
+R2897:2903 ThieleMachine.ThieleMachineSig MinimalThieleMachine mk_prog def
+R2914:2926 ThieleMachine.ThieleMachineSig MinimalThieleMachine to_TM_StepObs def
+R2878:2894 ThieleMachine.ThieleMachineSig MinimalThieleMachine mu_lower_bound thm
+R2897:2903 ThieleMachine.ThieleMachineSig MinimalThieleMachine mk_prog def
+R2914:2926 ThieleMachine.ThieleMachineSig MinimalThieleMachine to_TM_StepObs def
+prf 3022:3040 MinimalThieleMachine check_step_complete
+binder 3055:3055 <> P:34
+binder 3057:3057 <> s:35
+binder 3059:3060 <> s':36
+binder 3062:3064 <> oev:37
+binder 3066:3066 <> c:38
+R3105:3114 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3098:3100 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3075:3084 ThieleMachine.ThieleMachineSig MinimalThieleMachine check_step def
+R3086:3086 ThieleMachine.ThieleMachineSig <> P:34 var
+R3088:3088 ThieleMachine.ThieleMachineSig <> s:35 var
+R3090:3091 ThieleMachine.ThieleMachineSig <> s':36 var
+R3093:3095 ThieleMachine.ThieleMachineSig <> oev:37 var
+R3097:3097 ThieleMachine.ThieleMachineSig <> c:38 var
+R3101:3104 Coq.Init.Datatypes <> true constr
+R3115:3121 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3125:3126 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3122:3124 <> obs:39
+R3142:3145 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3127:3130 ThieleMachine.ThieleMachineSig MinimalThieleMachine step def
+R3132:3132 ThieleMachine.ThieleMachineSig <> P:34 var
+R3134:3134 ThieleMachine.ThieleMachineSig <> s:35 var
+R3136:3137 ThieleMachine.ThieleMachineSig <> s':36 var
+R3139:3141 ThieleMachine.ThieleMachineSig <> obs:39 var
+R3160:3163 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3154:3156 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3151:3152 ThieleMachine.ThieleMachineSig MinimalThieleMachine ev proj
+R3146:3148 ThieleMachine.ThieleMachineSig <> obs:39 var
+R3157:3159 ThieleMachine.ThieleMachineSig <> oev:37 var
+R3174:3176 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3169:3172 ThieleMachine.ThieleMachineSig MinimalThieleMachine cert proj
+R3164:3166 ThieleMachine.ThieleMachineSig <> obs:39 var
+R3177:3177 ThieleMachine.ThieleMachineSig <> c:38 var
+R3230:3233 ThieleMachine.ThieleMachineSig MinimalThieleMachine step def
+R3236:3245 ThieleMachine.ThieleMachineSig MinimalThieleMachine check_step def
+R3263:3284 ThieleMachine.ThieleMachineSig MinimalThieleMachine check_step_complete thm
+R3263:3284 ThieleMachine.ThieleMachineSig MinimalThieleMachine check_step_complete thm
+R3358:3372 ThieleMachine.ThieleMachineSig MinimalThieleMachine from_TM_StepObs def
+R3358:3372 ThieleMachine.ThieleMachineSig MinimalThieleMachine from_TM_StepObs def
+R3394:3408 ThieleMachine.ThieleMachineSig MinimalThieleMachine from_TM_StepObs def
+R3442:3445 ThieleMachine.ThieleMachineSig MinimalThieleMachine step def
+R3448:3460 ThieleMachine.ThieleMachineSig MinimalThieleMachine to_TM_StepObs def
+prf 3636:3649 MinimalThieleMachine state_eqb_refl
+binder 3660:3660 <> s:40
+R3676:3678 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3663:3671 ThieleMachine.ThieleMachineSig MinimalThieleMachine state_eqb def
+R3673:3673 ThieleMachine.ThieleMachineSig <> s:40 var
+R3675:3675 ThieleMachine.ThieleMachineSig <> s:40 var
+R3679:3682 Coq.Init.Datatypes <> true constr
+R3718:3726 ThieleMachine.ThieleMachineSig MinimalThieleMachine state_eqb def
+R3739:3755 ThieleMachine.ThieleMachineSig MinimalThieleMachine state_eqb_refl thm
+R3739:3755 ThieleMachine.ThieleMachineSig MinimalThieleMachine state_eqb_refl thm
+def 3779:3794 MinimalThieleMachine well_formed_prog
+R3801:3804 Coq.Init.Datatypes <> list ind
+R3806:3810 ThieleMachine.ThieleMachineSig MinimalThieleMachine Instr def
+binder 3797:3797 <> P:41
+R3815:3818 Coq.Init.Datatypes <> bool ind
+R3827:3833 Coq.Lists.List <> forallb def
+R3879:3879 ThieleMachine.ThieleMachineSig <> P:41 var
+binder 3840:3840 <> i:42
+R3845:3847 Coq.Init.Datatypes <> orb def
+R3865:3873 ThieleMachine.ThieleMachineSig MinimalThieleMachine is_MDLACC def
+R3875:3875 ThieleMachine.ThieleMachineSig <> i:42 var
+R3850:3859 ThieleMachine.ThieleMachineSig MinimalThieleMachine is_LASSERT def
+R3861:3861 ThieleMachine.ThieleMachineSig <> i:42 var
+def 3896:3902 MinimalThieleMachine Receipt
+R3936:3938 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3921:3923 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3913:3915 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3908:3912 ThieleMachine.ThieleMachineSig MinimalThieleMachine State def
+R3916:3920 ThieleMachine.ThieleMachineSig MinimalThieleMachine State def
+R3924:3929 Coq.Init.Datatypes <> option ind
+R3931:3935 ThieleMachine.ThieleMachineSig MinimalThieleMachine Event def
+R3939:3942 ThieleMachine.ThieleMachineSig MinimalThieleMachine Cert def
+def 3963:3971 MinimalThieleMachine replay_ok
+R3976:3979 Coq.Init.Datatypes <> list ind
+R3981:3985 ThieleMachine.ThieleMachineSig MinimalThieleMachine Instr def
+binder 3974:3974 <> P:43
+R3992:3996 ThieleMachine.ThieleMachineSig MinimalThieleMachine State def
+binder 3989:3990 <> s0:44
+R4003:4006 Coq.Init.Datatypes <> list ind
+R4008:4014 ThieleMachine.ThieleMachineSig MinimalThieleMachine Receipt def
+binder 4000:4001 <> rs:45
+R4019:4022 Coq.Init.Datatypes <> bool ind
+R4037:4038 ThieleMachine.ThieleMachineSig <> rs:45 var
+R4051:4052 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4057:4060 Coq.Init.Datatypes <> true constr
+R4089:4090 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4068:4068 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4073:4074 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4080:4081 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4085:4086 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4088:4088 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4108:4111 Coq.Init.Datatypes <> negb def
+R4114:4122 ThieleMachine.ThieleMachineSig MinimalThieleMachine state_eqb def
+R4129:4130 ThieleMachine.ThieleMachineSig <> s0:44 var
+R4160:4169 ThieleMachine.ThieleMachineSig MinimalThieleMachine check_step def
+R4171:4171 ThieleMachine.ThieleMachineSig <> P:43 var
+R4247:4251 Coq.Init.Datatypes <> false constr
+R4208:4216 ThieleMachine.ThieleMachineSig <> replay_ok:46 def
+R4218:4218 ThieleMachine.ThieleMachineSig <> P:43 var
+R4138:4142 Coq.Init.Datatypes <> false constr
+def 4274:4284 MinimalThieleMachine receipts_of
+R4289:4292 Coq.Init.Datatypes <> list ind
+R4294:4298 ThieleMachine.ThieleMachineSig MinimalThieleMachine Instr def
+binder 4287:4287 <> P:48
+R4305:4309 ThieleMachine.ThieleMachineSig MinimalThieleMachine State def
+binder 4302:4303 <> s0:49
+R4325:4328 Coq.Init.Datatypes <> list ind
+R4336:4336 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R4331:4335 ThieleMachine.ThieleMachineSig MinimalThieleMachine State def
+R4337:4343 ThieleMachine.ThieleMachineSig MinimalThieleMachine StepObs rec
+binder 4322:4323 <> tr:50
+R4349:4352 Coq.Init.Datatypes <> list ind
+R4354:4360 ThieleMachine.ThieleMachineSig MinimalThieleMachine Receipt def
+R4375:4376 ThieleMachine.ThieleMachineSig <> tr:50 var
+R4389:4390 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4395:4396 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4412:4413 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4404:4404 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4407:4407 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4411:4411 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4455:4458 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4428:4428 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4431:4431 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4434:4434 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4443:4443 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4454:4454 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4429:4430 ThieleMachine.ThieleMachineSig <> s0:49 var
+R4440:4441 ThieleMachine.ThieleMachineSig MinimalThieleMachine ev proj
+R4449:4452 ThieleMachine.ThieleMachineSig MinimalThieleMachine cert proj
+R4459:4469 ThieleMachine.ThieleMachineSig <> receipts_of:51 def
+R4471:4471 ThieleMachine.ThieleMachineSig <> P:48 var
+def 4502:4507 MinimalThieleMachine sum_mu
+R4514:4517 Coq.Init.Datatypes <> list ind
+R4525:4525 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R4520:4524 ThieleMachine.ThieleMachineSig MinimalThieleMachine State def
+R4526:4532 ThieleMachine.ThieleMachineSig MinimalThieleMachine StepObs rec
+binder 4510:4511 <> tr:53
+R4538:4538 Coq.Numbers.BinNums <> Z ind
+R4547:4555 Coq.Lists.List <> fold_left def
+R4604:4605 ThieleMachine.ThieleMachineSig <> tr:53 var
+binder 4562:4564 <> acc:54
+R4567:4567 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4569:4569 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4573:4573 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 4570:4572 <> obs:55
+binder 4567:4573 <> pat:56
+R4578:4582 Coq.ZArith.BinInt Z add def
+R4584:4586 ThieleMachine.ThieleMachineSig <> acc:54 var
+R4593:4600 ThieleMachine.ThieleMachineSig MinimalThieleMachine mu_delta proj
+R4588:4590 ThieleMachine.ThieleMachineSig <> obs:55 var
+def 4626:4633 MinimalThieleMachine sum_bits
+R4640:4643 Coq.Init.Datatypes <> list ind
+R4645:4651 ThieleMachine.ThieleMachineSig MinimalThieleMachine Receipt def
+binder 4636:4637 <> rs:57
+R4656:4656 Coq.Numbers.BinNums <> Z ind
+R4665:4673 Coq.Lists.List <> fold_left def
+R4721:4722 ThieleMachine.ThieleMachineSig <> rs:57 var
+binder 4680:4682 <> acc:58
+R4685:4685 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4687:4687 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4689:4689 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4691:4691 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4693:4693 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 4692:4692 <> c:59
+binder 4685:4693 <> pat:60
+R4698:4702 Coq.ZArith.BinInt Z add def
+R4704:4706 ThieleMachine.ThieleMachineSig <> acc:58 var
+R4709:4715 ThieleMachine.ThieleMachineSig MinimalThieleMachine bitsize def
+R4717:4717 ThieleMachine.ThieleMachineSig <> c:59 var
+R4734:4753 ThieleMachine.ThieleMachineSig MinimalThieleMachine <> mod

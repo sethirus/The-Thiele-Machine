@@ -77,8 +77,8 @@ iverilog thielecpu/hardware/rtl/*.v -o thiele_cpu
 # optional alternate simulator
 verilator --binary --timing -Ithielecpu/hardware/rtl \
   -DYOSYS_LITE --top-module thiele_cpu_tb \
-  thielecpu/hardware/rtl/thiele_cpu_unified.v \
-  thielecpu/hardware/testbench/thiele_cpu_tb.v
+  thielecpu/hardware/rtl/thiele_cpu_kami.v \
+  thielecpu/hardware/testbench/thiele_cpu_kami_tb.v
 ```
 
 When using Python co-simulation (`thielecpu.hardware.cosim.run_verilog`), select backend with `THIELE_RTL_SIM=iverilog|verilator`.

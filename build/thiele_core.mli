@@ -16,7 +16,9 @@ type comparison =
 
 val add : int -> int -> int
 
-val eqb : bool -> bool -> bool
+val eqb : int -> int -> bool
+
+val eqb0 : bool -> bool -> bool
 
 module Nat :
  sig
@@ -156,7 +158,7 @@ module Z :
   val of_nat : int -> int
  end
 
-val eqb0 : char list -> char list -> bool
+val eqb1 : char list -> char list -> bool
 
 val append : char list -> char list -> char list
 
@@ -422,6 +424,12 @@ module VMStep :
 
   val instruction_cost : vm_instruction -> int
 
+  val is_cert_setterb : vm_instruction -> bool
+
+  val nofi_step_cost_okb : vm_instruction -> bool
+
+  val nofi_trace_cost_okb : vm_instruction list -> bool
+
   val is_bit : int -> bool
 
   val chsh_bits_ok : int -> int -> int -> int -> bool
@@ -451,4 +459,98 @@ module VMStep :
     vMState -> vm_instruction -> int -> int list -> int list -> vMState
  end
 
+val vm_apply_unsafe : vMState -> VMStep.vm_instruction -> vMState
+
+val vm_apply_nofi : vMState -> VMStep.vm_instruction -> vMState
+
+val vm_apply_runtime : vMState -> VMStep.vm_instruction -> vMState
+
 val vm_apply : vMState -> VMStep.vm_instruction -> vMState
+
+type kamiSnapshot = { snap_pc : int; snap_mu : int; snap_err : bool;
+                      snap_halted : bool; snap_regs : (int -> int);
+                      snap_mem : (int -> int); snap_partition_ops : int;
+                      snap_mdl_ops : int; snap_info_gain : int;
+                      snap_error_code : int; snap_mu_tensor : (int -> int);
+                      snap_pt_sizes : (int -> int); snap_pt_next_id : 
+                      int }
+
+type busReg =
+| BusRegPc
+| BusRegMu
+| BusRegErr
+| BusRegHalted
+| BusRegPartitionOps
+| BusRegMdlOps
+| BusRegInfoGain
+| BusRegErrorCode
+| BusRegMstatus
+| BusRegMcycleLo
+| BusRegMcycleHi
+| BusRegMinstretLo
+| BusRegMinstretHi
+| BusRegLogicAcc
+| BusRegLogicReqValid
+| BusRegLogicReqOpcode
+| BusRegLogicReqPayload
+| BusRegMuTensor0
+| BusRegMuTensor1
+| BusRegMuTensor2
+| BusRegMuTensor3
+| BusRegBianchiAlarm
+| BusRegPtNextId
+| BusRegPtSize
+| BusRegLoadInstrAddr
+| BusRegLoadInstrData
+| BusRegLoadInstrKick
+| BusRegSetLogicRespValid
+| BusRegSetLogicRespError
+| BusRegSetLogicRespValue
+| BusRegSetActiveModule
+| BusRegSetTrapVector
+
+val decodeBusReg : int -> busReg option
+
+val busRegReadable : busReg -> bool
+
+val busRegWritable : busReg -> bool
+
+type busCoreView = { view_pc : int; view_mu : int; view_err : bool;
+                     view_halted : bool; view_partition_ops : int;
+                     view_mdl_ops : int; view_info_gain : int;
+                     view_error_code : int; view_mstatus : int;
+                     view_mcycle_lo : int; view_mcycle_hi : int;
+                     view_minstret_lo : int; view_minstret_hi : int;
+                     view_logic_acc : int; view_logic_req_valid : bool;
+                     view_logic_req_opcode : int;
+                     view_logic_req_payload : int; view_mu_tensor0 : 
+                     int; view_mu_tensor1 : int; view_mu_tensor2 : int;
+                     view_mu_tensor3 : int; view_bianchi_alarm : bool;
+                     view_pt_next_id : int; view_pt_size : (int -> int) }
+
+val bool_to_nat : bool -> int
+
+val busRegReadValue : busCoreView -> busReg -> int option
+
+val busRead : busCoreView -> int -> int option
+
+type busShadowRegs = { sh_load_instr_addr : int; sh_load_instr_data : 
+                       int; sh_load_instr_kick : bool;
+                       sh_logic_resp_valid : bool;
+                       sh_logic_resp_error : bool; sh_logic_resp_value : 
+                       int; sh_active_module : int; sh_trap_vector : 
+                       int }
+
+type busWrapperState = { bw_core : kamiSnapshot; bw_shadow : busShadowRegs }
+
+val busWriteShadow : busShadowRegs -> busReg -> int -> busShadowRegs
+
+val busWrite : busWrapperState -> int -> int -> busWrapperState
+
+val coreViewOfSnapshot : kamiSnapshot -> busCoreView
+
+type busOp =
+| BusOpRead of int
+| BusOpWrite of int * int
+
+val bus_step : busWrapperState -> busOp -> busWrapperState

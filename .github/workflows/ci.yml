@@ -6,150 +6,90 @@ on:
   pull_request:
     branches: [main, master]
   workflow_dispatch:
-  schedule:
-    - cron: "0 3 * * *"
 
 permissions:
   contents: read
 
 jobs:
-  prepare-toolchain:
-    name: Prepare toolchain
+  # Phase 1: Prepare common toolchain
+  toolchain:
+    name: Setup toolchain
     runs-on: ubuntu-latest
     outputs:
-      coq: ${{ steps.check_tools.outputs.coq }}
-      iverilog: ${{ steps.check_tools.outputs.iverilog }}
-      yosys: ${{ steps.check_tools.outputs.yosys }}
-      ocamlc: ${{ steps.check_tools.outputs.ocamlc }}
+      cache-key: ${{ steps.cache-key.outputs.key }}
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install toolchain packages
+      - name: Generate cache key
+        id: cache-key
         run: |
-          set -euo pipefail
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends coq coinor-csdp ocaml iverilog yosys
+          KEY="toolchain-${{ runner.os }}-coq-ocaml-$(date +%Y-%m)"
+          echo "key=$KEY" >> $GITHUB_OUTPUT
 
-      - name: Write toolchain diagnostics
-        run: |
-          set -euo pipefail
-          echo "Toolchain diagnostics" > toolchain_diagnostics.txt
-          echo "Date: $(date -u)" >> toolchain_diagnostics.txt
-          echo "PATH=$PATH" >> toolchain_diagnostics.txt
-          echo "which coqc: $(command -v coqc || true)" >> toolchain_diagnostics.txt
-          echo "coqc --version: $(coqc --version 2>&1 || true)" >> toolchain_diagnostics.txt
-          echo "which ocamlc: $(command -v ocamlc || true)" >> toolchain_diagnostics.txt
-          echo "ocamlc -vnum: $(ocamlc -vnum 2>&1 || true)" >> toolchain_diagnostics.txt
-          echo "which iverilog: $(command -v iverilog || true)" >> toolchain_diagnostics.txt
-          echo "iverilog -v: $(iverilog -v 2>&1 || true)" >> toolchain_diagnostics.txt
-          echo "which yosys: $(command -v yosys || true)" >> toolchain_diagnostics.txt
-          echo "yosys -V: $(yosys -V 2>&1 || true)" >> toolchain_diagnostics.txt
-          cat toolchain_diagnostics.txt
-      - name: Ensure diagnostics file exists
-        if: always()
-        run: touch toolchain_diagnostics.txt
-
-      - name: Upload toolchain diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
+      - name: Check tool cache
+        id: cache-check
+        uses: actions/cache@v4
         with:
-          name: toolchain-diagnostics
-          path: toolchain_diagnostics.txt
+          path: /tmp/thiele-tools-cache
+          key: ${{ steps.cache-key.outputs.key }}
+          lookup-only: true
 
-      - name: Check tool availability
-        id: check_tools
+      - name: Install and cache toolchain (if not cached)
+        if: steps.cache-check.outputs.cache-hit != 'true'
         run: |
-          coq=false
-          iverilog=false
-          yosys=false
-          ocamlc=false
-          if command -v coqc >/dev/null 2>&1; then coq=true; fi
-          if command -v iverilog >/dev/null 2>&1; then iverilog=true; fi
-          if command -v yosys >/dev/null 2>&1; then yosys=true; fi
-          if command -v ocamlc >/dev/null 2>&1; then ocamlc=true; fi
-          echo "coq=$coq" >> $GITHUB_OUTPUT
-          echo "iverilog=$iverilog" >> $GITHUB_OUTPUT
-          echo "yosys=$yosys" >> $GITHUB_OUTPUT
-          echo "ocamlc=$ocamlc" >> $GITHUB_OUTPUT
-  tests:
-    name: Python tests
+          set -euo pipefail
+          mkdir -p /tmp/thiele-tools-cache
+          
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            coq coinor-csdp ocaml \
+            ocaml-findlib \
+            python3-pip
+          
+          # Verify installations
+          which coqc && coqc --version > /tmp/thiele-tools-cache/coq-version.txt
+          which ocamlc && ocamlc -vnum > /tmp/thiele-tools-cache/ocaml-version.txt
+
+      - name: Save tool cache
+        if: steps.cache-check.outputs.cache-hit != 'true'
+        uses: actions/cache@v4
+        with:
+          path: /tmp/thiele-tools-cache
+          key: ${{ steps.cache-key.outputs.key }}
+
+  # Phase 2: Proof verification (Coq + Inquisitor)
+  proof-check:
+    name: Proof verification
     runs-on: ubuntu-latest
-    timeout-minutes: 20
-    needs: prepare-toolchain
+    needs: toolchain
     env:
-      PYTHONPATH: ${{ github.workspace }}
       OCAMLRUNPARAM: "l=64M"
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download toolchain diagnostics
-        uses: actions/download-artifact@v4
-        with:
-          name: toolchain-diagnostics
-          path: ./artifacts/toolchain || true
-
-      - name: Show toolchain diagnostics
-        run: |
-          if [ -f ./artifacts/toolchain/toolchain_diagnostics.txt ]; then
-            sed -n '1,200p' ./artifacts/toolchain/toolchain_diagnostics.txt || true
-          else
-            echo "No toolchain diagnostics available"
-          fi
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install -e . --no-deps
-
-      - name: Run pytest
-        run: timeout 15m pytest -v --tb=short -m "not coq"
-
-  proof-audit:
-    name: Proof audit (Inquisitor)
-    runs-on: ubuntu-latest
-    needs: prepare-toolchain
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Download toolchain diagnostics
-        uses: actions/download-artifact@v4
-        with:
-          name: toolchain-diagnostics
-          path: ./artifacts/toolchain || true
-
-      - name: Show toolchain diagnostics
-        run: |
-          if [ -f ./artifacts/toolchain/toolchain_diagnostics.txt ]; then
-            sed -n '1,200p' ./artifacts/toolchain/toolchain_diagnostics.txt || true
-          else
-            echo "No toolchain diagnostics available"
-          fi
-
-      - name: Install Coq and dependencies
+      - name: Install Coq + OCaml
         run: |
           sudo apt-get update
-          sudo apt-get install -y coq coinor-csdp ocaml
+          sudo apt-get install -y --no-install-recommends coq coinor-csdp ocaml ocaml-findlib
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Install audit dependencies
+      - name: Build Coq proof tree
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          cd coq
+          coq_makefile -f _CoqProject -o Makefile 2>&1 | grep -v "Warning:"
+          make -j4
 
-      - name: Run Inquisitor
-        run: python scripts/inquisitor.py --report INQUISITOR_REPORT.md
+      - name: Run Inquisitor proof audit
+        run: |
+          python -m pip install --quiet --upgrade pip
+          pip install --quiet -r requirements.txt
+          python scripts/inquisitor.py --report INQUISITOR_REPORT.md
 
-      - name: Run reproducible proof gate (clean build + coqchk)
+      - name: Run reproducible proof gate
         run: bash scripts/proof_gate_reproducible.sh
 
       - name: Upload Inquisitor report
@@ -158,203 +98,131 @@ jobs:
         with:
           name: inquisitor-report
           path: INQUISITOR_REPORT.md
+          retention-days: 7
 
-  coq-kernel:
-    name: Coq full compile + 3-layer bisimulation
+  # Phase 3: OCaml extraction (depends on proof passing)
+  extraction:
+    name: OCaml extraction & 3-layer bisimulation
     runs-on: ubuntu-latest
-    needs: prepare-toolchain
+    needs: proof-check
+    env:
+      OCAMLRUNPARAM: "l=64M"
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download toolchain diagnostics
-        uses: actions/download-artifact@v4
-        with:
-          name: toolchain-diagnostics
-          path: ./artifacts/toolchain || true
-
-      - name: Show toolchain diagnostics
-        run: |
-          if [ -f ./artifacts/toolchain/toolchain_diagnostics.txt ]; then
-            sed -n '1,200p' ./artifacts/toolchain/toolchain_diagnostics.txt || true
-          else
-            echo "No toolchain diagnostics available"
-          fi
-
-      - name: Install Coq + OCaml + Verilog tooling
+      - name: Install Coq + OCaml
         run: |
           sudo apt-get update
-          sudo apt-get install -y coq coinor-csdp ocaml iverilog
+          sudo apt-get install -y --no-install-recommends coq coinor-csdp ocaml ocaml-findlib
 
-      - name: Build full Coq proof tree
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Extract Coq to OCaml
         run: |
           cd coq
           coq_makefile -f _CoqProject -o Makefile 2>&1 | grep -v "Warning:"
-          make -j2
-
-      - name: Extract Coq semantics to OCaml IR
-        run: make -C coq Extraction.vo
+          make -j4
+          make Extraction.vo
 
       - name: Compile extracted runner
         run: |
-          ocamlc -I build -o build/extracted_vm_runner \
+          ocamlfind ocamlc -I build -package str -linkpkg \
+            -o build/extracted_vm_runner \
             build/thiele_core.mli \
             build/thiele_core.ml \
             tools/extracted_vm_runner.ml
 
       - name: Run 3-layer bisimulation tests
-        env:
-          OCAMLRUNPARAM: "l=64M"
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install -e . --no-deps
+          python -m pip install --quiet --upgrade pip
+          pip install --quiet -r requirements.txt
+          pip install --quiet -e . --no-deps
           bash scripts/parity_extracted_only.sh
 
-  dependency-scan:
-    name: Dependency scan
+  # Phase 4: Python tests (independent, can run in parallel with extraction)
+  python-tests:
+    name: Python unit tests
     runs-on: ubuntu-latest
+    needs: toolchain
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --quiet --upgrade pip
+          pip install --quiet -r requirements.txt
+          pip install --quiet -e . --no-deps
+
+      - name: Run pytest
+        run: python -m pytest tests/ -q --tb=short -m "not coq"
+
+  # Phase 5: Dependency audit (independent)
+  dependencies:
+    name: Dependency security scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
       - name: Install pip-audit
         run: |
-          python -m pip install --upgrade pip
-          pip install pip-audit
+          python -m pip install --quiet --upgrade pip
+          pip install --quiet pip-audit
+
       - name: Run pip-audit
         run: |
-          # CVE-2025-53000 is a Windows-specific vulnerability (SVG->PDF unsafe search path)
-          # and is not applicable to Linux CI runners. Already documented in SECURITY.md.
+          # CVE-2025-53000: Windows-specific SVG->PDF vulnerability (not applicable to Linux CI)
+          # Documented in SECURITY.md
           pip-audit -r requirements.txt --progress=off --ignore-vuln CVE-2025-53000
 
-  hardware-verification:
-    name: Hardware synthesis + simulation
+  # Summary
+  verify-summary:
+    name: Verification Summary
     runs-on: ubuntu-latest
-    needs: prepare-toolchain
+    needs: [proof-check, extraction, python-tests, dependencies]
+    if: always()
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Download toolchain diagnostics
-        uses: actions/download-artifact@v4
-        with:
-          name: toolchain-diagnostics
-          path: ./artifacts/toolchain || true
-
-      - name: Show toolchain diagnostics
+      - name: Check job results
         run: |
-          if [ -f ./artifacts/toolchain/toolchain_diagnostics.txt ]; then
-            sed -n '1,200p' ./artifacts/toolchain/toolchain_diagnostics.txt || true
-          else
-            echo "No toolchain diagnostics available"
-          fi
+          cat > /tmp/summary.md << 'EOF'
+          ## ✅ Verification Summary
+          
+          | Component | Result |
+          |-----------|--------|
+          | Proof (Coq + Inquisitor) | ${{ needs.proof-check.result }} |
+          | Extraction (OCaml + Bisimulation) | ${{ needs.extraction.result }} |
+          | Python Tests | ${{ needs.python-tests.result }} |
+          | Dependency Scan | ${{ needs.dependencies.result }} |
+          
+          **Verification Status:** ${{ job.status }}
+          
+          > **Note:** This is the fast verification path (proof + extraction + tests).
+          > For full verification including hardware synthesis, see the nightly run or use:
+          > ```
+          > ./scripts/quick_verify.sh full
+          > ```
+          EOF
+          cat /tmp/summary.md >> $GITHUB_STEP_SUMMARY
 
-      - name: Install Verilog + synthesis tools
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y iverilog yosys coq coinor-csdp ocaml
+      - name: Fail if any check failed
+        if: |
+          needs.proof-check.result == 'failure' ||
+          needs.extraction.result == 'failure' ||
+          needs.python-tests.result == 'failure' ||
+          needs.dependencies.result == 'failure'
+        run: exit 1
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install -e . --no-deps
-
-      - name: Run forge pipeline (generate Verilog + compile)
-        run: bash scripts/forge_artifact.sh
-
-      - name: Synthesize with Yosys
-        run: |
-          yosys -p "read_verilog -sv -DSYNTHESIS thielecpu/hardware/rtl/thiele_cpu_kami.v; prep -top mkModule1; check; stat" > synthesis.log 2>&1
-
-      - name: Simulate hardware
-        run: |
-          vvp build/thiele_cpu_tb.out +VCD=build/thiele_cpu_tb.vcd > simulation.log 2>&1
-
-      - name: Analyze waveforms
-        run: python scripts/analyze_waveforms.py build/thiele_cpu_tb.vcd > waveform_analysis.txt
-
-      - name: Reproducible synthesis gate (double-run stats + sim payload)
-        run: bash scripts/synthesis_repro_gate.sh
-
-      - name: Verify synthesis stats
-        run: |
-          if ! grep -q "Number of cells:" synthesis.log; then
-            echo "Synthesis failed - no cell count"
-            exit 1
-          fi
-          echo "Synthesis successful"
-
-      - name: Verify simulation
-        run: |
-          if ! grep -q "Test completed" simulation.log; then
-            echo "Simulation failed"
-            exit 1
-          fi
-          echo "Simulation successful"
-
-      - name: Upload logs
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: hardware-logs
-          path: |
-            synthesis.log
-            simulation.log
-            build/thiele_cpu_tb.vcd
-            waveform_analysis.txt
-            artifacts/synthesis_gate/
-
-  full-verification:
-    name: Full automated verification pipeline
-    runs-on: ubuntu-latest
-    needs: prepare-toolchain
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Download toolchain diagnostics
-        uses: actions/download-artifact@v4
-        with:
-          name: toolchain-diagnostics
-          path: ./artifacts/toolchain || true
-
-      - name: Show toolchain diagnostics
-        run: |
-          if [ -f ./artifacts/toolchain/toolchain_diagnostics.txt ]; then
-            sed -n '1,200p' ./artifacts/toolchain/toolchain_diagnostics.txt || true
-          else
-            echo "No toolchain diagnostics available"
-          fi
-
-      - name: Install all required tools
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y coq coinor-csdp ocaml iverilog yosys nextpnr-ecp5 fpga-trellis
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install -e . --no-deps
-
-      - name: Run full automated verification
-        run: bash scripts/automated_verification.sh
-
-      - name: Upload verification reports
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: verification-reports
-          path: verification_reports/
 

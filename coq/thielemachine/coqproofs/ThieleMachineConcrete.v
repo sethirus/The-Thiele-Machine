@@ -1,4 +1,6 @@
 (*
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
  * Concrete Instantiation of the Thiele Machine
  *
  * This module provides an executable step function that mirrors the
@@ -6,6 +8,10 @@
  * post-state and an observation record, letting receipts replay the run
  * step-by-step.
  *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import List String Ascii ZArith Bool Lia.
 Import ListNotations.

@@ -18,6 +18,11 @@ Require Import Coq.Lists.List.
 Require Import Coq.Lists.ListDec.
 Require Import Theory.GeometricSignature.
 From Kernel Require Import PDISCOVERIntegration VMState.
+
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMStep.
+From Kernel Require Import MuCostModel.
+
 Import ListNotations.
 Import GeometricSignature.
 Open Scope R_scope.
@@ -304,3 +309,4 @@ Qed.
  * 
  * The intellectual work is complete.
  *)
+

@@ -1,868 +1,871 @@
-DIGEST a81fe24df2843df6550f361f2b25500a
+DIGEST c6a22572f93863e998806e7b3cdd08dc
 FPhysics.WaveModel
 R24:27 Coq.Lists.List <> <> lib
 R29:42 Coq.Arith.PeanoNat <> <> lib
 R44:46 Coq.micromega.Lia <> <> lib
 R48:53 Coq.ZArith.ZArith <> <> lib
 R63:75 Coq.Lists.List ListNotations <> mod
-def 88:91 <> map2
-binder 94:94 <> A:1
-binder 96:96 <> B:2
-binder 98:98 <> C:3
-R114:117 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R113:113 Physics.WaveModel <> A:1 var
-R119:122 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R118:118 Physics.WaveModel <> B:2 var
-R123:123 Physics.WaveModel <> C:3 var
-binder 109:109 <> f:4
-R132:135 Coq.Init.Datatypes <> list ind
-R137:137 Physics.WaveModel <> A:1 var
-binder 127:128 <> l1:5
-R146:149 Coq.Init.Datatypes <> list ind
-R151:151 Physics.WaveModel <> B:2 var
-binder 141:142 <> l2:6
-R156:159 Coq.Init.Datatypes <> list ind
-R161:161 Physics.WaveModel <> C:3 var
-R178:179 Physics.WaveModel <> l2:6 var
-R174:175 Physics.WaveModel <> l1:5 var
-R192:195 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R202:205 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R219:222 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R212:212 Physics.WaveModel <> f:4 var
-R223:226 Physics.WaveModel <> map2:7 def
-R228:228 Physics.WaveModel <> f:4 var
-R248:249 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-prf 309:319 <> map2_length
-binder 330:330 <> A:10
-binder 332:332 <> B:11
-binder 334:334 <> C:12
-R342:345 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R341:341 Physics.WaveModel <> A:10 var
-R347:350 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R346:346 Physics.WaveModel <> B:11 var
-R351:351 Physics.WaveModel <> C:12 var
-binder 337:337 <> f:13
-binder 354:355 <> l1:14
-binder 357:358 <> l2:15
-R450:452 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R429:434 Coq.Init.Datatypes <> length def
-R437:440 Physics.WaveModel <> map2 def
-R447:448 Physics.WaveModel <> l2:15 var
-R444:445 Physics.WaveModel <> l1:14 var
-R442:442 Physics.WaveModel <> f:13 var
-R453:459 Coq.Arith.PeanoNat Nat min def
-R462:467 Coq.Init.Datatypes <> length def
-R469:470 Physics.WaveModel <> l1:14 var
-R474:479 Coq.Init.Datatypes <> length def
-R481:482 Physics.WaveModel <> l2:15 var
-rec 976:983 <> WaveCell
-proj 992:999 <> left_amp
-proj 1010:1018 <> right_amp
-R1003:1005 Coq.Init.Datatypes <> nat ind
-R1022:1024 Coq.Init.Datatypes <> nat ind
-def 1041:1049 <> WaveState
-R1054:1057 Coq.Init.Datatypes <> list ind
-R1059:1066 Physics.WaveModel <> WaveCell rec
-def 1128:1135 <> sum_list
-R1142:1145 Coq.Init.Datatypes <> list ind
-R1147:1149 Coq.Init.Datatypes <> nat ind
-binder 1138:1138 <> l:19
-R1154:1156 Coq.Init.Datatypes <> nat ind
-R1169:1169 Physics.WaveModel <> l:19 var
-R1180:1181 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R1193:1196 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R1204:1206 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R1207:1214 Physics.WaveModel <> sum_list:20 def
-prf 1278:1289 <> sum_list_app
-binder 1300:1300 <> a:22
-binder 1302:1302 <> b:23
-R1322:1324 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1305:1312 Physics.WaveModel <> sum_list def
-R1316:1319 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R1315:1315 Physics.WaveModel <> a:22 var
-R1320:1320 Physics.WaveModel <> b:23 var
-R1335:1337 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R1325:1332 Physics.WaveModel <> sum_list def
-R1334:1334 Physics.WaveModel <> a:22 var
-R1338:1345 Physics.WaveModel <> sum_list def
-R1347:1347 Physics.WaveModel <> b:23 var
-def 1445:1455 <> rotate_left
-binder 1458:1458 <> A:24
-R1466:1469 Coq.Init.Datatypes <> list ind
-R1471:1471 Physics.WaveModel <> A:24 var
-binder 1462:1462 <> l:25
-R1476:1479 Coq.Init.Datatypes <> list ind
-R1481:1481 Physics.WaveModel <> A:24 var
-R1494:1494 Physics.WaveModel <> l:25 var
-R1505:1506 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R1511:1512 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R1519:1522 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R1531:1534 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R1535:1535 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R1537:1537 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-def 1558:1569 <> rotate_right
-binder 1572:1572 <> A:27
-R1580:1583 Coq.Init.Datatypes <> list ind
-R1585:1585 Physics.WaveModel <> A:27 var
-binder 1576:1576 <> l:28
-R1590:1593 Coq.Init.Datatypes <> list ind
-R1595:1595 Physics.WaveModel <> A:27 var
-R1608:1610 Coq.Lists.List <> rev def
-R1612:1612 Physics.WaveModel <> l:28 var
-R1623:1624 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R1629:1630 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R1637:1640 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R1648:1651 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R1652:1654 Coq.Lists.List <> rev def
-prf 1724:1741 <> rotate_left_length
-binder 1752:1752 <> A:29
-R1759:1762 Coq.Init.Datatypes <> list ind
-R1764:1764 Physics.WaveModel <> A:29 var
-binder 1755:1755 <> l:30
-R1790:1792 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1768:1773 Coq.Init.Datatypes <> length def
-R1776:1786 Physics.WaveModel <> rotate_left def
-R1788:1788 Physics.WaveModel <> l:30 var
-R1793:1798 Coq.Init.Datatypes <> length def
-R1800:1800 Physics.WaveModel <> l:30 var
-R1859:1868 Coq.Lists.List <> app_length thm
-R1859:1868 Coq.Lists.List <> app_length thm
-R1859:1868 Coq.Lists.List <> app_length thm
-prf 1947:1965 <> rotate_right_length
-binder 1976:1976 <> A:31
-R1983:1986 Coq.Init.Datatypes <> list ind
-R1988:1988 Physics.WaveModel <> A:31 var
-binder 1979:1979 <> l:32
-R2015:2017 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1992:1997 Coq.Init.Datatypes <> length def
-R2000:2011 Physics.WaveModel <> rotate_right def
-R2013:2013 Physics.WaveModel <> l:32 var
-R2018:2023 Coq.Init.Datatypes <> length def
-R2025:2025 Physics.WaveModel <> l:32 var
-R2056:2067 Physics.WaveModel <> rotate_right def
-R2082:2084 Coq.Lists.List <> rev def
-R2082:2084 Coq.Lists.List <> rev def
-R2133:2142 Coq.Lists.List <> rev_length thm
-R2133:2142 Coq.Lists.List <> rev_length thm
-R2133:2142 Coq.Lists.List <> rev_length thm
-R2191:2200 Coq.Lists.List <> rev_length thm
-R2191:2200 Coq.Lists.List <> rev_length thm
-R2191:2200 Coq.Lists.List <> rev_length thm
-R2239:2248 Coq.Lists.List <> rev_length thm
-R2239:2248 Coq.Lists.List <> rev_length thm
-R2239:2248 Coq.Lists.List <> rev_length thm
-prf 2329:2348 <> sum_list_rotate_left
-binder 2359:2359 <> l:33
-R2386:2388 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2362:2369 Physics.WaveModel <> sum_list def
-R2372:2382 Physics.WaveModel <> rotate_left def
-R2384:2384 Physics.WaveModel <> l:33 var
-R2389:2396 Physics.WaveModel <> sum_list def
-R2398:2398 Physics.WaveModel <> l:33 var
-R2457:2468 Physics.WaveModel <> sum_list_app thm
-R2473:2473 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R2475:2475 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R2457:2468 Physics.WaveModel <> sum_list_app thm
-R2473:2473 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R2475:2475 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R2457:2468 Physics.WaveModel <> sum_list_app thm
-R2473:2473 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R2475:2475 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-prf 2557:2577 <> sum_list_rotate_right
-binder 2588:2588 <> l:34
-R2616:2618 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2591:2598 Physics.WaveModel <> sum_list def
-R2601:2612 Physics.WaveModel <> rotate_right def
-R2614:2614 Physics.WaveModel <> l:34 var
-R2619:2626 Physics.WaveModel <> sum_list def
-R2628:2628 Physics.WaveModel <> l:34 var
-R2658:2669 Physics.WaveModel <> rotate_right def
-R2684:2686 Coq.Lists.List <> rev def
-R2684:2686 Coq.Lists.List <> rev def
-R2745:2747 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2737:2742 Coq.Init.Datatypes <> length def
-R2766:2775 Coq.Lists.List <> rev_length thm
-R2745:2747 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2737:2742 Coq.Init.Datatypes <> length def
-R2766:2775 Coq.Lists.List <> rev_length thm
-R2766:2775 Coq.Lists.List <> rev_length thm
-R2808:2826 Coq.Lists.List <> length_zero_iff_nil thm
-R2808:2826 Coq.Lists.List <> length_zero_iff_nil thm
-R2870:2883 Coq.Lists.List <> rev_involutive thm
-R2870:2883 Coq.Lists.List <> rev_involutive thm
-R2967:2978 Physics.WaveModel <> sum_list_app thm
-R2967:2978 Physics.WaveModel <> sum_list_app thm
-R2967:2978 Physics.WaveModel <> sum_list_app thm
-prf 3059:3079 <> rotate_right_left_inv
-binder 3090:3090 <> A:35
-R3097:3100 Coq.Init.Datatypes <> list ind
-R3102:3102 Physics.WaveModel <> A:35 var
-binder 3093:3093 <> l:36
-R3134:3136 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3106:3117 Physics.WaveModel <> rotate_right def
-R3120:3130 Physics.WaveModel <> rotate_left def
-R3132:3132 Physics.WaveModel <> l:36 var
-R3137:3137 Physics.WaveModel <> l:36 var
-R3203:3214 Physics.WaveModel <> rotate_right def
-R3234:3246 Coq.Lists.List <> rev_app_distr thm
-R3234:3246 Coq.Lists.List <> rev_app_distr thm
-R3234:3246 Coq.Lists.List <> rev_app_distr thm
-R3268:3281 Coq.Lists.List <> rev_involutive thm
-R3268:3281 Coq.Lists.List <> rev_involutive thm
-R3268:3281 Coq.Lists.List <> rev_involutive thm
-prf 3350:3370 <> rotate_left_right_inv
-binder 3381:3381 <> A:37
-R3388:3391 Coq.Init.Datatypes <> list ind
-R3393:3393 Physics.WaveModel <> A:37 var
-binder 3384:3384 <> l:38
-R3425:3427 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3397:3407 Physics.WaveModel <> rotate_left def
-R3410:3421 Physics.WaveModel <> rotate_right def
-R3423:3423 Physics.WaveModel <> l:38 var
-R3428:3428 Physics.WaveModel <> l:38 var
-R3459:3470 Physics.WaveModel <> rotate_right def
-R3485:3487 Coq.Lists.List <> rev def
-R3485:3487 Coq.Lists.List <> rev def
-R3546:3548 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3538:3543 Coq.Init.Datatypes <> length def
-R3567:3576 Coq.Lists.List <> rev_length thm
-R3546:3548 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3538:3543 Coq.Init.Datatypes <> length def
-R3567:3576 Coq.Lists.List <> rev_length thm
-R3567:3576 Coq.Lists.List <> rev_length thm
-R3609:3627 Coq.Lists.List <> length_zero_iff_nil thm
-R3609:3627 Coq.Lists.List <> length_zero_iff_nil thm
-R3680:3682 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3673:3676 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R3667:3669 Coq.Lists.List <> rev def
-R3677:3677 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R3679:3679 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R3702:3715 Coq.Lists.List <> rev_involutive thm
-R3680:3682 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3673:3676 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R3667:3669 Coq.Lists.List <> rev def
-R3677:3677 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R3679:3679 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R3702:3715 Coq.Lists.List <> rev_involutive thm
-prf 3850:3862 <> map2_map_both
-binder 3874:3874 <> X:39
-binder 3876:3876 <> A:40
-binder 3878:3878 <> B:41
-binder 3880:3880 <> C:42
-R3896:3899 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3895:3895 Physics.WaveModel <> A:40 var
-R3901:3904 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3900:3900 Physics.WaveModel <> B:41 var
-R3905:3905 Physics.WaveModel <> C:42 var
-binder 3891:3891 <> f:43
-R3914:3917 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3913:3913 Physics.WaveModel <> X:39 var
-R3918:3918 Physics.WaveModel <> A:40 var
-binder 3909:3909 <> g:44
-R3927:3930 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3926:3926 Physics.WaveModel <> X:39 var
-R3931:3931 Physics.WaveModel <> B:41 var
-binder 3922:3922 <> h:45
-R3940:3943 Coq.Init.Datatypes <> list ind
-R3945:3945 Physics.WaveModel <> X:39 var
-binder 3935:3936 <> xs:46
-R3981:3983 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3953:3956 Physics.WaveModel <> map2 def
-R3972:3974 Coq.Lists.List <> map def
-R3978:3979 Physics.WaveModel <> xs:46 var
-R3976:3976 Physics.WaveModel <> h:45 var
-R3961:3963 Coq.Lists.List <> map def
-R3967:3968 Physics.WaveModel <> xs:46 var
-R3965:3965 Physics.WaveModel <> g:44 var
-R3958:3958 Physics.WaveModel <> f:43 var
-R3984:3986 Coq.Lists.List <> map def
-R4013:4014 Physics.WaveModel <> xs:46 var
-binder 3993:3993 <> x:47
-R3998:3998 Physics.WaveModel <> f:43 var
-R4007:4007 Physics.WaveModel <> h:45 var
-R4009:4009 Physics.WaveModel <> x:47 var
-R4001:4001 Physics.WaveModel <> g:44 var
-R4003:4003 Physics.WaveModel <> x:47 var
-prf 4147:4163 <> map_left_of_cells
-binder 4174:4175 <> l1:48
-binder 4177:4178 <> l2:49
-R4206:4213 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4194:4196 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4185:4190 Coq.Init.Datatypes <> length def
-R4192:4193 Physics.WaveModel <> l1:48 var
-R4197:4202 Coq.Init.Datatypes <> length def
-R4204:4205 Physics.WaveModel <> l2:49 var
-R4288:4290 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4214:4216 Coq.Lists.List <> map def
-R4228:4231 Physics.WaveModel <> map2 def
-R4285:4286 Physics.WaveModel <> l2:49 var
-R4282:4283 Physics.WaveModel <> l1:48 var
-binder 4238:4238 <> l:50
-binder 4240:4240 <> r:51
-R4248:4255 Physics.WaveModel <> left_amp proj
-R4248:4255 Physics.WaveModel <> left_amp proj
-R4248:4255 Physics.WaveModel <> left_amp proj
-R4263:4271 Physics.WaveModel <> right_amp proj
-R4263:4271 Physics.WaveModel <> right_amp proj
-R4260:4260 Physics.WaveModel <> l:50 var
-R4276:4276 Physics.WaveModel <> r:51 var
-R4218:4225 Physics.WaveModel <> left_amp proj
-R4291:4292 Physics.WaveModel <> l1:48 var
-prf 4523:4540 <> map_right_of_cells
-binder 4551:4552 <> l1:52
-binder 4554:4555 <> l2:53
-R4583:4590 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4571:4573 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4562:4567 Coq.Init.Datatypes <> length def
-R4569:4570 Physics.WaveModel <> l1:52 var
-R4574:4579 Coq.Init.Datatypes <> length def
-R4581:4582 Physics.WaveModel <> l2:53 var
-R4666:4668 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4591:4593 Coq.Lists.List <> map def
-R4606:4609 Physics.WaveModel <> map2 def
-R4663:4664 Physics.WaveModel <> l2:53 var
-R4660:4661 Physics.WaveModel <> l1:52 var
-binder 4616:4616 <> l:54
-binder 4618:4618 <> r:55
-R4626:4633 Physics.WaveModel <> left_amp proj
-R4626:4633 Physics.WaveModel <> left_amp proj
-R4626:4633 Physics.WaveModel <> left_amp proj
-R4641:4649 Physics.WaveModel <> right_amp proj
-R4641:4649 Physics.WaveModel <> right_amp proj
-R4638:4638 Physics.WaveModel <> l:54 var
-R4654:4654 Physics.WaveModel <> r:55 var
-R4595:4603 Physics.WaveModel <> right_amp proj
-R4669:4670 Physics.WaveModel <> l2:53 var
-prf 4896:4908 <> rebuild_cells
-binder 4919:4919 <> s:56
-R4997:4999 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4926:4928 Coq.Lists.List <> map def
-R4996:4996 Physics.WaveModel <> s:56 var
-binder 4935:4935 <> c:57
-R4943:4950 Physics.WaveModel <> left_amp proj
-R4943:4950 Physics.WaveModel <> left_amp proj
-R4943:4950 Physics.WaveModel <> left_amp proj
-R4967:4975 Physics.WaveModel <> right_amp proj
-R4967:4975 Physics.WaveModel <> right_amp proj
-R4955:4962 Physics.WaveModel <> left_amp proj
-R4964:4964 Physics.WaveModel <> c:57 var
-R4980:4988 Physics.WaveModel <> right_amp proj
-R4990:4990 Physics.WaveModel <> c:57 var
-R5000:5000 Physics.WaveModel <> s:56 var
-def 5142:5150 <> wave_step
-R5157:5165 Physics.WaveModel <> WaveState def
-binder 5153:5153 <> s:58
-R5170:5178 Physics.WaveModel <> WaveState def
-R5198:5208 Physics.WaveModel <> rotate_left def
-R5211:5213 Coq.Lists.List <> map def
-R5224:5224 Physics.WaveModel <> s:58 var
-R5215:5222 Physics.WaveModel <> left_amp proj
-binder 5189:5193 <> lefts:59
-R5246:5257 Physics.WaveModel <> rotate_right def
-R5260:5262 Coq.Lists.List <> map def
-R5274:5274 Physics.WaveModel <> s:58 var
-R5264:5272 Physics.WaveModel <> right_amp proj
-binder 5236:5241 <> rights:60
-R5282:5285 Physics.WaveModel <> map2 def
-R5342:5347 Physics.WaveModel <> rights:60 var
-R5336:5340 Physics.WaveModel <> lefts:59 var
-binder 5292:5292 <> l:61
-binder 5294:5294 <> r:62
-R5302:5309 Physics.WaveModel <> left_amp proj
-R5302:5309 Physics.WaveModel <> left_amp proj
-R5302:5309 Physics.WaveModel <> left_amp proj
-R5317:5325 Physics.WaveModel <> right_amp proj
-R5317:5325 Physics.WaveModel <> right_amp proj
-R5314:5314 Physics.WaveModel <> l:61 var
-R5330:5330 Physics.WaveModel <> r:62 var
-def 5362:5374 <> wave_step_inv
-R5381:5389 Physics.WaveModel <> WaveState def
-binder 5377:5377 <> s:63
-R5394:5402 Physics.WaveModel <> WaveState def
-R5422:5433 Physics.WaveModel <> rotate_right def
-R5436:5438 Coq.Lists.List <> map def
-R5449:5449 Physics.WaveModel <> s:63 var
-R5440:5447 Physics.WaveModel <> left_amp proj
-binder 5413:5417 <> lefts:64
-R5471:5481 Physics.WaveModel <> rotate_left def
-R5484:5486 Coq.Lists.List <> map def
-R5498:5498 Physics.WaveModel <> s:63 var
-R5488:5496 Physics.WaveModel <> right_amp proj
-binder 5461:5466 <> rights:65
-R5506:5509 Physics.WaveModel <> map2 def
-R5566:5571 Physics.WaveModel <> rights:65 var
-R5560:5564 Physics.WaveModel <> lefts:64 var
-binder 5516:5516 <> l:66
-binder 5518:5518 <> r:67
-R5526:5533 Physics.WaveModel <> left_amp proj
-R5526:5533 Physics.WaveModel <> left_amp proj
-R5526:5533 Physics.WaveModel <> left_amp proj
-R5541:5549 Physics.WaveModel <> right_amp proj
-R5541:5549 Physics.WaveModel <> right_amp proj
-R5538:5538 Physics.WaveModel <> l:66 var
-R5554:5554 Physics.WaveModel <> r:67 var
-def 5586:5595 <> total_left
-R5602:5610 Physics.WaveModel <> WaveState def
-binder 5598:5598 <> s:68
-R5615:5617 Coq.Init.Datatypes <> nat ind
-R5622:5629 Physics.WaveModel <> sum_list def
-R5632:5634 Coq.Lists.List <> map def
-R5645:5645 Physics.WaveModel <> s:68 var
-R5636:5643 Physics.WaveModel <> left_amp proj
-def 5660:5670 <> total_right
-R5677:5685 Physics.WaveModel <> WaveState def
-binder 5673:5673 <> s:69
-R5690:5692 Coq.Init.Datatypes <> nat ind
-R5697:5704 Physics.WaveModel <> sum_list def
-R5707:5709 Coq.Lists.List <> map def
-R5721:5721 Physics.WaveModel <> s:69 var
-R5711:5719 Physics.WaveModel <> right_amp proj
-def 5736:5746 <> wave_energy
-R5753:5761 Physics.WaveModel <> WaveState def
-binder 5749:5749 <> s:70
-R5766:5768 Coq.Init.Datatypes <> nat ind
-R5785:5787 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R5773:5782 Physics.WaveModel <> total_left def
-R5784:5784 Physics.WaveModel <> s:70 var
-R5788:5798 Physics.WaveModel <> total_right def
-R5800:5800 Physics.WaveModel <> s:70 var
-def 5814:5826 <> wave_momentum
-R5833:5841 Physics.WaveModel <> WaveState def
-binder 5829:5829 <> s:71
-R5846:5846 Coq.Numbers.BinNums <> Z ind
-R5877:5879 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
-R5853:5860 Coq.ZArith.BinInt Z of_nat def
-R5863:5873 Physics.WaveModel <> total_right def
-R5875:5875 Physics.WaveModel <> s:71 var
-R5880:5887 Coq.ZArith.BinInt Z of_nat def
-R5890:5899 Physics.WaveModel <> total_left def
-R5901:5901 Physics.WaveModel <> s:71 var
-prf 5961:5976 <> wave_step_length
-binder 5987:5987 <> s:72
-R6010:6012 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5990:5995 Coq.Init.Datatypes <> length def
-R5998:6006 Physics.WaveModel <> wave_step def
-R6008:6008 Physics.WaveModel <> s:72 var
-R6013:6018 Coq.Init.Datatypes <> length def
-R6020:6020 Physics.WaveModel <> s:72 var
-R6048:6056 Physics.WaveModel <> wave_step def
-R6072:6074 Coq.Lists.List <> map def
-R6076:6083 Physics.WaveModel <> left_amp proj
-R6072:6074 Coq.Lists.List <> map def
-R6076:6083 Physics.WaveModel <> left_amp proj
-R6102:6104 Coq.Lists.List <> map def
-R6106:6114 Physics.WaveModel <> right_amp proj
-R6102:6104 Coq.Lists.List <> map def
-R6106:6114 Physics.WaveModel <> right_amp proj
-R6139:6149 Physics.WaveModel <> map2_length thm
-R6139:6149 Physics.WaveModel <> map2_length thm
-R6139:6149 Physics.WaveModel <> map2_length thm
-R6162:6179 Physics.WaveModel <> rotate_left_length thm
-R6182:6200 Physics.WaveModel <> rotate_right_length thm
-R6162:6179 Physics.WaveModel <> rotate_left_length thm
-R6162:6179 Physics.WaveModel <> rotate_left_length thm
-R6182:6200 Physics.WaveModel <> rotate_right_length thm
-R6182:6200 Physics.WaveModel <> rotate_right_length thm
-R6227:6236 Coq.Lists.List <> map_length thm
-R6227:6236 Coq.Lists.List <> map_length thm
-R6227:6236 Coq.Lists.List <> map_length thm
-R6227:6236 Coq.Lists.List <> map_length thm
-R6227:6236 Coq.Lists.List <> map_length thm
-R6247:6264 Coq.Arith.PeanoNat Nat min_idempotent abbrev
-R6247:6264 Coq.Arith.PeanoNat Nat min_idempotent abbrev
-R6247:6264 Coq.Arith.PeanoNat Nat min_idempotent abbrev
-prf 6345:6364 <> wave_step_inv_length
-binder 6375:6375 <> s:73
-R6402:6404 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6378:6383 Coq.Init.Datatypes <> length def
-R6386:6398 Physics.WaveModel <> wave_step_inv def
-R6400:6400 Physics.WaveModel <> s:73 var
-R6405:6410 Coq.Init.Datatypes <> length def
-R6412:6412 Physics.WaveModel <> s:73 var
-R6440:6452 Physics.WaveModel <> wave_step_inv def
-R6468:6470 Coq.Lists.List <> map def
-R6472:6479 Physics.WaveModel <> left_amp proj
-R6468:6470 Coq.Lists.List <> map def
-R6472:6479 Physics.WaveModel <> left_amp proj
-R6498:6500 Coq.Lists.List <> map def
-R6502:6510 Physics.WaveModel <> right_amp proj
-R6498:6500 Coq.Lists.List <> map def
-R6502:6510 Physics.WaveModel <> right_amp proj
-R6535:6545 Physics.WaveModel <> map2_length thm
-R6535:6545 Physics.WaveModel <> map2_length thm
-R6535:6545 Physics.WaveModel <> map2_length thm
-R6558:6576 Physics.WaveModel <> rotate_right_length thm
-R6579:6596 Physics.WaveModel <> rotate_left_length thm
-R6558:6576 Physics.WaveModel <> rotate_right_length thm
-R6558:6576 Physics.WaveModel <> rotate_right_length thm
-R6579:6596 Physics.WaveModel <> rotate_left_length thm
-R6579:6596 Physics.WaveModel <> rotate_left_length thm
-R6623:6632 Coq.Lists.List <> map_length thm
-R6623:6632 Coq.Lists.List <> map_length thm
-R6623:6632 Coq.Lists.List <> map_length thm
-R6623:6632 Coq.Lists.List <> map_length thm
-R6623:6632 Coq.Lists.List <> map_length thm
-R6643:6660 Coq.Arith.PeanoNat Nat min_idempotent abbrev
-R6643:6660 Coq.Arith.PeanoNat Nat min_idempotent abbrev
-R6643:6660 Coq.Arith.PeanoNat Nat min_idempotent abbrev
-prf 6738:6754 <> wave_step_inverse
-binder 6765:6765 <> s:74
-R6795:6797 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6768:6780 Physics.WaveModel <> wave_step_inv def
-R6783:6791 Physics.WaveModel <> wave_step def
-R6793:6793 Physics.WaveModel <> s:74 var
-R6798:6798 Physics.WaveModel <> s:74 var
-R6828:6836 Physics.WaveModel <> wave_step def
-R6839:6851 Physics.WaveModel <> wave_step_inv def
-R6867:6869 Coq.Lists.List <> map def
-R6871:6878 Physics.WaveModel <> left_amp proj
-R6867:6869 Coq.Lists.List <> map def
-R6871:6878 Physics.WaveModel <> left_amp proj
-R6897:6899 Coq.Lists.List <> map def
-R6901:6909 Physics.WaveModel <> right_amp proj
-R6897:6899 Coq.Lists.List <> map def
-R6901:6909 Physics.WaveModel <> right_amp proj
-R6950:6952 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6941:6946 Coq.Init.Datatypes <> length def
-R6953:6958 Coq.Init.Datatypes <> length def
-R6950:6952 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6941:6946 Coq.Init.Datatypes <> length def
-R6953:6958 Coq.Init.Datatypes <> length def
-R6997:7006 Coq.Lists.List <> map_length thm
-R6997:7006 Coq.Lists.List <> map_length thm
-R6997:7006 Coq.Lists.List <> map_length thm
-R6997:7006 Coq.Lists.List <> map_length thm
-R6997:7006 Coq.Lists.List <> map_length thm
-R6997:7006 Coq.Lists.List <> map_length thm
-R7145:7147 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7042:7044 Coq.Lists.List <> map def
-R7056:7059 Physics.WaveModel <> map2 def
-R7128:7139 Physics.WaveModel <> rotate_right def
-R7111:7121 Physics.WaveModel <> rotate_left def
-binder 7066:7066 <> l:75
-binder 7068:7068 <> r:76
-R7076:7083 Physics.WaveModel <> left_amp proj
-R7076:7083 Physics.WaveModel <> left_amp proj
-R7076:7083 Physics.WaveModel <> left_amp proj
-R7091:7099 Physics.WaveModel <> right_amp proj
-R7091:7099 Physics.WaveModel <> right_amp proj
-R7088:7088 Physics.WaveModel <> l:75 var
-R7104:7104 Physics.WaveModel <> r:76 var
-R7046:7053 Physics.WaveModel <> left_amp proj
-R7148:7158 Physics.WaveModel <> rotate_left def
-R7145:7147 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7042:7044 Coq.Lists.List <> map def
-R7056:7059 Physics.WaveModel <> map2 def
-R7128:7139 Physics.WaveModel <> rotate_right def
-R7111:7121 Physics.WaveModel <> rotate_left def
-binder 7066:7066 <> l:77
-binder 7068:7068 <> r:78
-R7076:7083 Physics.WaveModel <> left_amp proj
-R7076:7083 Physics.WaveModel <> left_amp proj
-R7076:7083 Physics.WaveModel <> left_amp proj
-R7091:7099 Physics.WaveModel <> right_amp proj
-R7091:7099 Physics.WaveModel <> right_amp proj
-R7088:7088 Physics.WaveModel <> l:77 var
-R7104:7104 Physics.WaveModel <> r:78 var
-R7046:7053 Physics.WaveModel <> left_amp proj
-R7148:7158 Physics.WaveModel <> rotate_left def
-R7175:7191 Physics.WaveModel <> map_left_of_cells thm
-R7175:7191 Physics.WaveModel <> map_left_of_cells thm
-R7206:7223 Physics.WaveModel <> rotate_left_length thm
-R7226:7244 Physics.WaveModel <> rotate_right_length thm
-R7206:7223 Physics.WaveModel <> rotate_left_length thm
-R7206:7223 Physics.WaveModel <> rotate_left_length thm
-R7226:7244 Physics.WaveModel <> rotate_right_length thm
-R7226:7244 Physics.WaveModel <> rotate_right_length thm
-R7384:7386 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7280:7282 Coq.Lists.List <> map def
-R7295:7298 Physics.WaveModel <> map2 def
-R7367:7378 Physics.WaveModel <> rotate_right def
-R7350:7360 Physics.WaveModel <> rotate_left def
-binder 7305:7305 <> l:79
-binder 7307:7307 <> r:80
-R7315:7322 Physics.WaveModel <> left_amp proj
-R7315:7322 Physics.WaveModel <> left_amp proj
-R7315:7322 Physics.WaveModel <> left_amp proj
-R7330:7338 Physics.WaveModel <> right_amp proj
-R7330:7338 Physics.WaveModel <> right_amp proj
-R7327:7327 Physics.WaveModel <> l:79 var
-R7343:7343 Physics.WaveModel <> r:80 var
-R7284:7292 Physics.WaveModel <> right_amp proj
-R7387:7398 Physics.WaveModel <> rotate_right def
-R7384:7386 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7280:7282 Coq.Lists.List <> map def
-R7295:7298 Physics.WaveModel <> map2 def
-R7367:7378 Physics.WaveModel <> rotate_right def
-R7350:7360 Physics.WaveModel <> rotate_left def
-binder 7305:7305 <> l:81
-binder 7307:7307 <> r:82
-R7315:7322 Physics.WaveModel <> left_amp proj
-R7315:7322 Physics.WaveModel <> left_amp proj
-R7315:7322 Physics.WaveModel <> left_amp proj
-R7330:7338 Physics.WaveModel <> right_amp proj
-R7330:7338 Physics.WaveModel <> right_amp proj
-R7327:7327 Physics.WaveModel <> l:81 var
-R7343:7343 Physics.WaveModel <> r:82 var
-R7284:7292 Physics.WaveModel <> right_amp proj
-R7387:7398 Physics.WaveModel <> rotate_right def
-R7415:7432 Physics.WaveModel <> map_right_of_cells thm
-R7415:7432 Physics.WaveModel <> map_right_of_cells thm
-R7447:7464 Physics.WaveModel <> rotate_left_length thm
-R7467:7485 Physics.WaveModel <> rotate_right_length thm
-R7447:7464 Physics.WaveModel <> rotate_left_length thm
-R7447:7464 Physics.WaveModel <> rotate_left_length thm
-R7467:7485 Physics.WaveModel <> rotate_right_length thm
-R7467:7485 Physics.WaveModel <> rotate_right_length thm
-R7563:7583 Physics.WaveModel <> rotate_right_left_inv thm
-R7586:7606 Physics.WaveModel <> rotate_left_right_inv thm
-R7563:7583 Physics.WaveModel <> rotate_right_left_inv thm
-R7563:7583 Physics.WaveModel <> rotate_right_left_inv thm
-R7586:7606 Physics.WaveModel <> rotate_left_right_inv thm
-R7586:7606 Physics.WaveModel <> rotate_left_right_inv thm
-R7634:7646 Physics.WaveModel <> map2_map_both thm
-R7634:7646 Physics.WaveModel <> map2_map_both thm
-R7634:7646 Physics.WaveModel <> map2_map_both thm
-R7664:7676 Physics.WaveModel <> rebuild_cells thm
-R7664:7676 Physics.WaveModel <> rebuild_cells thm
-prf 7748:7771 <> wave_step_preserves_left
-binder 7782:7782 <> s:83
-R7809:7811 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7785:7794 Physics.WaveModel <> total_left def
-R7797:7805 Physics.WaveModel <> wave_step def
-R7807:7807 Physics.WaveModel <> s:83 var
-R7812:7821 Physics.WaveModel <> total_left def
-R7823:7823 Physics.WaveModel <> s:83 var
-R7851:7859 Physics.WaveModel <> wave_step def
-R7862:7871 Physics.WaveModel <> total_left def
-R7887:7889 Coq.Lists.List <> map def
-R7891:7898 Physics.WaveModel <> left_amp proj
-R7887:7889 Coq.Lists.List <> map def
-R7891:7898 Physics.WaveModel <> left_amp proj
-R7917:7919 Coq.Lists.List <> map def
-R7921:7929 Physics.WaveModel <> right_amp proj
-R7917:7919 Coq.Lists.List <> map def
-R7921:7929 Physics.WaveModel <> right_amp proj
-R7984:7986 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7961:7966 Coq.Init.Datatypes <> length def
-R7969:7979 Physics.WaveModel <> rotate_left def
-R7987:7992 Coq.Init.Datatypes <> length def
-R7995:8006 Physics.WaveModel <> rotate_right def
-R7984:7986 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7961:7966 Coq.Init.Datatypes <> length def
-R7969:7979 Physics.WaveModel <> rotate_left def
-R7987:7992 Coq.Init.Datatypes <> length def
-R7995:8006 Physics.WaveModel <> rotate_right def
-R8039:8056 Physics.WaveModel <> rotate_left_length thm
-R8059:8077 Physics.WaveModel <> rotate_right_length thm
-R8039:8056 Physics.WaveModel <> rotate_left_length thm
-R8039:8056 Physics.WaveModel <> rotate_left_length thm
-R8059:8077 Physics.WaveModel <> rotate_right_length thm
-R8059:8077 Physics.WaveModel <> rotate_right_length thm
-R8095:8104 Coq.Lists.List <> map_length thm
-R8095:8104 Coq.Lists.List <> map_length thm
-R8095:8104 Coq.Lists.List <> map_length thm
-R8095:8104 Coq.Lists.List <> map_length thm
-R8095:8104 Coq.Lists.List <> map_length thm
-R8095:8104 Coq.Lists.List <> map_length thm
-R8136:8152 Physics.WaveModel <> map_left_of_cells thm
-R8155:8165 Physics.WaveModel <> rotate_left def
-R8172:8183 Physics.WaveModel <> rotate_right def
-R8136:8152 Physics.WaveModel <> map_left_of_cells thm
-R8155:8165 Physics.WaveModel <> rotate_left def
-R8172:8183 Physics.WaveModel <> rotate_right def
-R8243:8262 Physics.WaveModel <> sum_list_rotate_left thm
-R8243:8262 Physics.WaveModel <> sum_list_rotate_left thm
-R8243:8262 Physics.WaveModel <> sum_list_rotate_left thm
-prf 8348:8372 <> wave_step_preserves_right
-binder 8383:8383 <> s:84
-R8411:8413 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8386:8396 Physics.WaveModel <> total_right def
-R8399:8407 Physics.WaveModel <> wave_step def
-R8409:8409 Physics.WaveModel <> s:84 var
-R8414:8424 Physics.WaveModel <> total_right def
-R8426:8426 Physics.WaveModel <> s:84 var
-R8454:8462 Physics.WaveModel <> wave_step def
-R8465:8475 Physics.WaveModel <> total_right def
-R8491:8493 Coq.Lists.List <> map def
-R8495:8502 Physics.WaveModel <> left_amp proj
-R8491:8493 Coq.Lists.List <> map def
-R8495:8502 Physics.WaveModel <> left_amp proj
-R8521:8523 Coq.Lists.List <> map def
-R8525:8533 Physics.WaveModel <> right_amp proj
-R8521:8523 Coq.Lists.List <> map def
-R8525:8533 Physics.WaveModel <> right_amp proj
-R8588:8590 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8565:8570 Coq.Init.Datatypes <> length def
-R8573:8583 Physics.WaveModel <> rotate_left def
-R8591:8596 Coq.Init.Datatypes <> length def
-R8599:8610 Physics.WaveModel <> rotate_right def
-R8588:8590 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8565:8570 Coq.Init.Datatypes <> length def
-R8573:8583 Physics.WaveModel <> rotate_left def
-R8591:8596 Coq.Init.Datatypes <> length def
-R8599:8610 Physics.WaveModel <> rotate_right def
-R8643:8660 Physics.WaveModel <> rotate_left_length thm
-R8663:8681 Physics.WaveModel <> rotate_right_length thm
-R8643:8660 Physics.WaveModel <> rotate_left_length thm
-R8643:8660 Physics.WaveModel <> rotate_left_length thm
-R8663:8681 Physics.WaveModel <> rotate_right_length thm
-R8663:8681 Physics.WaveModel <> rotate_right_length thm
-R8699:8708 Coq.Lists.List <> map_length thm
-R8699:8708 Coq.Lists.List <> map_length thm
-R8699:8708 Coq.Lists.List <> map_length thm
-R8699:8708 Coq.Lists.List <> map_length thm
-R8699:8708 Coq.Lists.List <> map_length thm
-R8699:8708 Coq.Lists.List <> map_length thm
-R8740:8757 Physics.WaveModel <> map_right_of_cells thm
-R8760:8770 Physics.WaveModel <> rotate_left def
-R8777:8788 Physics.WaveModel <> rotate_right def
-R8740:8757 Physics.WaveModel <> map_right_of_cells thm
-R8760:8770 Physics.WaveModel <> rotate_left def
-R8777:8788 Physics.WaveModel <> rotate_right def
-R8850:8870 Physics.WaveModel <> sum_list_rotate_right thm
-R8850:8870 Physics.WaveModel <> sum_list_rotate_right thm
-R8850:8870 Physics.WaveModel <> sum_list_rotate_right thm
-prf 8954:8974 <> wave_energy_conserved
-binder 8985:8985 <> s:85
-R9013:9015 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8988:8998 Physics.WaveModel <> wave_energy def
-R9001:9009 Physics.WaveModel <> wave_step def
-R9011:9011 Physics.WaveModel <> s:85 var
-R9016:9026 Physics.WaveModel <> wave_energy def
-R9028:9028 Physics.WaveModel <> s:85 var
-R9056:9066 Physics.WaveModel <> wave_energy def
-R9079:9102 Physics.WaveModel <> wave_step_preserves_left thm
-R9105:9129 Physics.WaveModel <> wave_step_preserves_right thm
-R9079:9102 Physics.WaveModel <> wave_step_preserves_left thm
-R9079:9102 Physics.WaveModel <> wave_step_preserves_left thm
-R9105:9129 Physics.WaveModel <> wave_step_preserves_right thm
-R9105:9129 Physics.WaveModel <> wave_step_preserves_right thm
-prf 9215:9237 <> wave_momentum_conserved
-binder 9248:9248 <> s:86
-R9278:9280 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9251:9263 Physics.WaveModel <> wave_momentum def
-R9266:9274 Physics.WaveModel <> wave_step def
-R9276:9276 Physics.WaveModel <> s:86 var
-R9281:9293 Physics.WaveModel <> wave_momentum def
-R9295:9295 Physics.WaveModel <> s:86 var
-R9323:9335 Physics.WaveModel <> wave_momentum def
-R9348:9371 Physics.WaveModel <> wave_step_preserves_left thm
-R9374:9398 Physics.WaveModel <> wave_step_preserves_right thm
-R9348:9371 Physics.WaveModel <> wave_step_preserves_left thm
-R9348:9371 Physics.WaveModel <> wave_step_preserves_left thm
-R9374:9398 Physics.WaveModel <> wave_step_preserves_right thm
-R9374:9398 Physics.WaveModel <> wave_step_preserves_right thm
-prf 9473:9492 <> wave_step_reversible
-binder 9503:9503 <> s:87
-R9533:9535 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9506:9518 Physics.WaveModel <> wave_step_inv def
-R9521:9529 Physics.WaveModel <> wave_step def
-R9531:9531 Physics.WaveModel <> s:87 var
-R9536:9536 Physics.WaveModel <> s:87 var
-R9552:9568 Physics.WaveModel <> wave_step_inverse thm
-R9552:9568 Physics.WaveModel <> wave_step_inverse thm
-prf 9644:9667 <> wave_conservation_bundle
-binder 9680:9680 <> s:88
-R9718:9725 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9714:9716 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9687:9699 Physics.WaveModel <> wave_step_inv def
-R9702:9710 Physics.WaveModel <> wave_step def
-R9712:9712 Physics.WaveModel <> s:88 var
-R9717:9717 Physics.WaveModel <> s:88 var
-R9767:9774 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9751:9753 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9726:9736 Physics.WaveModel <> wave_energy def
-R9739:9747 Physics.WaveModel <> wave_step def
-R9749:9749 Physics.WaveModel <> s:88 var
-R9754:9764 Physics.WaveModel <> wave_energy def
-R9766:9766 Physics.WaveModel <> s:88 var
-R9802:9804 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9775:9787 Physics.WaveModel <> wave_momentum def
-R9790:9798 Physics.WaveModel <> wave_step def
-R9800:9800 Physics.WaveModel <> s:88 var
-R9805:9817 Physics.WaveModel <> wave_momentum def
-R9819:9819 Physics.WaveModel <> s:88 var
-R9865:9881 Physics.WaveModel <> wave_step_inverse thm
-R9884:9904 Physics.WaveModel <> wave_energy_conserved thm
-R9907:9929 Physics.WaveModel <> wave_momentum_conserved thm
-R9865:9881 Physics.WaveModel <> wave_step_inverse thm
-R9865:9881 Physics.WaveModel <> wave_step_inverse thm
-R9865:9881 Physics.WaveModel <> wave_step_inverse thm
-R9884:9904 Physics.WaveModel <> wave_energy_conserved thm
-R9907:9929 Physics.WaveModel <> wave_momentum_conserved thm
-R9884:9904 Physics.WaveModel <> wave_energy_conserved thm
-R9907:9929 Physics.WaveModel <> wave_momentum_conserved thm
-R9884:9904 Physics.WaveModel <> wave_energy_conserved thm
-R9907:9929 Physics.WaveModel <> wave_momentum_conserved thm
-sec 10012:10020 <> Embedding
-var 10034:10040 Embedding Encoded
-var 10061:10066 Embedding encode
-R10079:10082 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10070:10078 Physics.WaveModel <> WaveState def
-R10083:10089 Physics.WaveModel <> Embedding.Encoded var
-var 10103:10108 Embedding decode
-R10119:10122 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10112:10118 Physics.WaveModel <> Embedding.Encoded var
-R10123:10131 Physics.WaveModel <> WaveState def
-var 10145:10153 Embedding impl_step
-R10164:10167 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10157:10163 Physics.WaveModel <> Embedding.Encoded var
-R10168:10174 Physics.WaveModel <> Embedding.Encoded var
-var 10189:10204 Embedding decode_encode_id
-binder 10215:10215 <> s:93
-R10235:10237 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10218:10223 Physics.WaveModel <> Embedding.decode var
-R10226:10231 Physics.WaveModel <> Embedding.encode var
-R10233:10233 Physics.WaveModel <> s:93 var
-R10238:10238 Physics.WaveModel <> s:93 var
-var 10252:10268 Embedding impl_refines_wave
-binder 10279:10279 <> s:95
-R10311:10313 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10282:10287 Physics.WaveModel <> Embedding.decode var
-R10290:10298 Physics.WaveModel <> Embedding.impl_step var
-R10301:10306 Physics.WaveModel <> Embedding.encode var
-R10308:10308 Physics.WaveModel <> s:95 var
-R10314:10322 Physics.WaveModel <> wave_step def
-R10324:10324 Physics.WaveModel <> s:95 var
-prf 10396:10420 <> embedded_energy_conserved
-binder 10435:10435 <> s:97
-R10481:10483 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10438:10448 Physics.WaveModel <> wave_energy def
-R10451:10456 Physics.WaveModel <> Embedding.decode var
-R10459:10467 Physics.WaveModel <> Embedding.impl_step var
-R10470:10475 Physics.WaveModel <> Embedding.encode var
-R10477:10477 Physics.WaveModel <> s:97 var
-R10484:10494 Physics.WaveModel <> wave_energy def
-R10497:10502 Physics.WaveModel <> Embedding.decode var
-R10505:10510 Physics.WaveModel <> Embedding.encode var
-R10512:10512 Physics.WaveModel <> s:97 var
-R10547:10563 Physics.WaveModel <> Embedding.impl_refines_wave var
-R10566:10581 Physics.WaveModel <> Embedding.decode_encode_id var
-R10547:10563 Physics.WaveModel <> Embedding.impl_refines_wave var
-R10547:10563 Physics.WaveModel <> Embedding.impl_refines_wave var
-R10566:10581 Physics.WaveModel <> Embedding.decode_encode_id var
-R10566:10581 Physics.WaveModel <> Embedding.decode_encode_id var
-R10594:10614 Physics.WaveModel <> wave_energy_conserved thm
-R10594:10614 Physics.WaveModel <> wave_energy_conserved thm
-prf 10695:10721 <> embedded_momentum_conserved
-binder 10736:10736 <> s:98
-R10784:10786 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10739:10751 Physics.WaveModel <> wave_momentum def
-R10754:10759 Physics.WaveModel <> Embedding.decode var
-R10762:10770 Physics.WaveModel <> Embedding.impl_step var
-R10773:10778 Physics.WaveModel <> Embedding.encode var
-R10780:10780 Physics.WaveModel <> s:98 var
-R10787:10799 Physics.WaveModel <> wave_momentum def
-R10802:10807 Physics.WaveModel <> Embedding.decode var
-R10810:10815 Physics.WaveModel <> Embedding.encode var
-R10817:10817 Physics.WaveModel <> s:98 var
-R10852:10868 Physics.WaveModel <> Embedding.impl_refines_wave var
-R10871:10886 Physics.WaveModel <> Embedding.decode_encode_id var
-R10852:10868 Physics.WaveModel <> Embedding.impl_refines_wave var
-R10852:10868 Physics.WaveModel <> Embedding.impl_refines_wave var
-R10871:10886 Physics.WaveModel <> Embedding.decode_encode_id var
-R10871:10886 Physics.WaveModel <> Embedding.decode_encode_id var
-R10899:10921 Physics.WaveModel <> wave_momentum_conserved thm
-R10899:10921 Physics.WaveModel <> wave_momentum_conserved thm
-R10935:10943 Physics.WaveModel Embedding <> sec
+R189:195 Kernel.VMState <> <> lib
+R197:202 Kernel.VMStep <> <> lib
+R232:242 Kernel.MuCostModel <> <> lib
+def 256:259 <> map2
+binder 262:262 <> A:1
+binder 264:264 <> B:2
+binder 266:266 <> C:3
+R282:285 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R281:281 Physics.WaveModel <> A:1 var
+R287:290 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R286:286 Physics.WaveModel <> B:2 var
+R291:291 Physics.WaveModel <> C:3 var
+binder 277:277 <> f:4
+R300:303 Coq.Init.Datatypes <> list ind
+R305:305 Physics.WaveModel <> A:1 var
+binder 295:296 <> l1:5
+R314:317 Coq.Init.Datatypes <> list ind
+R319:319 Physics.WaveModel <> B:2 var
+binder 309:310 <> l2:6
+R324:327 Coq.Init.Datatypes <> list ind
+R329:329 Physics.WaveModel <> C:3 var
+R346:347 Physics.WaveModel <> l2:6 var
+R342:343 Physics.WaveModel <> l1:5 var
+R360:363 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R370:373 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R387:390 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R380:380 Physics.WaveModel <> f:4 var
+R391:394 Physics.WaveModel <> map2:7 def
+R396:396 Physics.WaveModel <> f:4 var
+R416:417 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+prf 477:487 <> map2_length
+binder 498:498 <> A:10
+binder 500:500 <> B:11
+binder 502:502 <> C:12
+R510:513 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R509:509 Physics.WaveModel <> A:10 var
+R515:518 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R514:514 Physics.WaveModel <> B:11 var
+R519:519 Physics.WaveModel <> C:12 var
+binder 505:505 <> f:13
+binder 522:523 <> l1:14
+binder 525:526 <> l2:15
+R618:620 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R597:602 Coq.Init.Datatypes <> length def
+R605:608 Physics.WaveModel <> map2 def
+R615:616 Physics.WaveModel <> l2:15 var
+R612:613 Physics.WaveModel <> l1:14 var
+R610:610 Physics.WaveModel <> f:13 var
+R621:627 Coq.Arith.PeanoNat Nat min def
+R630:635 Coq.Init.Datatypes <> length def
+R637:638 Physics.WaveModel <> l1:14 var
+R642:647 Coq.Init.Datatypes <> length def
+R649:650 Physics.WaveModel <> l2:15 var
+rec 1144:1151 <> WaveCell
+proj 1160:1167 <> left_amp
+proj 1178:1186 <> right_amp
+R1171:1173 Coq.Init.Datatypes <> nat ind
+R1190:1192 Coq.Init.Datatypes <> nat ind
+def 1209:1217 <> WaveState
+R1222:1225 Coq.Init.Datatypes <> list ind
+R1227:1234 Physics.WaveModel <> WaveCell rec
+def 1296:1303 <> sum_list
+R1310:1313 Coq.Init.Datatypes <> list ind
+R1315:1317 Coq.Init.Datatypes <> nat ind
+binder 1306:1306 <> l:19
+R1322:1324 Coq.Init.Datatypes <> nat ind
+R1337:1337 Physics.WaveModel <> l:19 var
+R1348:1349 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1361:1364 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1372:1374 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1375:1382 Physics.WaveModel <> sum_list:20 def
+prf 1446:1457 <> sum_list_app
+binder 1468:1468 <> a:22
+binder 1470:1470 <> b:23
+R1490:1492 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1473:1480 Physics.WaveModel <> sum_list def
+R1484:1487 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R1483:1483 Physics.WaveModel <> a:22 var
+R1488:1488 Physics.WaveModel <> b:23 var
+R1503:1505 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1493:1500 Physics.WaveModel <> sum_list def
+R1502:1502 Physics.WaveModel <> a:22 var
+R1506:1513 Physics.WaveModel <> sum_list def
+R1515:1515 Physics.WaveModel <> b:23 var
+def 1613:1623 <> rotate_left
+binder 1626:1626 <> A:24
+R1634:1637 Coq.Init.Datatypes <> list ind
+R1639:1639 Physics.WaveModel <> A:24 var
+binder 1630:1630 <> l:25
+R1644:1647 Coq.Init.Datatypes <> list ind
+R1649:1649 Physics.WaveModel <> A:24 var
+R1662:1662 Physics.WaveModel <> l:25 var
+R1673:1674 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1679:1680 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1687:1690 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1699:1702 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R1703:1703 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1705:1705 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+def 1726:1737 <> rotate_right
+binder 1740:1740 <> A:27
+R1748:1751 Coq.Init.Datatypes <> list ind
+R1753:1753 Physics.WaveModel <> A:27 var
+binder 1744:1744 <> l:28
+R1758:1761 Coq.Init.Datatypes <> list ind
+R1763:1763 Physics.WaveModel <> A:27 var
+R1776:1778 Coq.Lists.List <> rev def
+R1780:1780 Physics.WaveModel <> l:28 var
+R1791:1792 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1797:1798 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1805:1808 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1816:1819 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1820:1822 Coq.Lists.List <> rev def
+prf 1892:1909 <> rotate_left_length
+binder 1920:1920 <> A:29
+R1927:1930 Coq.Init.Datatypes <> list ind
+R1932:1932 Physics.WaveModel <> A:29 var
+binder 1923:1923 <> l:30
+R1958:1960 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1936:1941 Coq.Init.Datatypes <> length def
+R1944:1954 Physics.WaveModel <> rotate_left def
+R1956:1956 Physics.WaveModel <> l:30 var
+R1961:1966 Coq.Init.Datatypes <> length def
+R1968:1968 Physics.WaveModel <> l:30 var
+R2027:2036 Coq.Lists.List <> app_length thm
+R2027:2036 Coq.Lists.List <> app_length thm
+R2027:2036 Coq.Lists.List <> app_length thm
+prf 2115:2133 <> rotate_right_length
+binder 2144:2144 <> A:31
+R2151:2154 Coq.Init.Datatypes <> list ind
+R2156:2156 Physics.WaveModel <> A:31 var
+binder 2147:2147 <> l:32
+R2183:2185 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2160:2165 Coq.Init.Datatypes <> length def
+R2168:2179 Physics.WaveModel <> rotate_right def
+R2181:2181 Physics.WaveModel <> l:32 var
+R2186:2191 Coq.Init.Datatypes <> length def
+R2193:2193 Physics.WaveModel <> l:32 var
+R2224:2235 Physics.WaveModel <> rotate_right def
+R2250:2252 Coq.Lists.List <> rev def
+R2250:2252 Coq.Lists.List <> rev def
+R2301:2310 Coq.Lists.List <> rev_length thm
+R2301:2310 Coq.Lists.List <> rev_length thm
+R2301:2310 Coq.Lists.List <> rev_length thm
+R2359:2368 Coq.Lists.List <> rev_length thm
+R2359:2368 Coq.Lists.List <> rev_length thm
+R2359:2368 Coq.Lists.List <> rev_length thm
+R2407:2416 Coq.Lists.List <> rev_length thm
+R2407:2416 Coq.Lists.List <> rev_length thm
+R2407:2416 Coq.Lists.List <> rev_length thm
+prf 2497:2516 <> sum_list_rotate_left
+binder 2527:2527 <> l:33
+R2554:2556 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2530:2537 Physics.WaveModel <> sum_list def
+R2540:2550 Physics.WaveModel <> rotate_left def
+R2552:2552 Physics.WaveModel <> l:33 var
+R2557:2564 Physics.WaveModel <> sum_list def
+R2566:2566 Physics.WaveModel <> l:33 var
+R2625:2636 Physics.WaveModel <> sum_list_app thm
+R2641:2641 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2643:2643 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2625:2636 Physics.WaveModel <> sum_list_app thm
+R2641:2641 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2643:2643 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2625:2636 Physics.WaveModel <> sum_list_app thm
+R2641:2641 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2643:2643 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+prf 2725:2745 <> sum_list_rotate_right
+binder 2756:2756 <> l:34
+R2784:2786 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2759:2766 Physics.WaveModel <> sum_list def
+R2769:2780 Physics.WaveModel <> rotate_right def
+R2782:2782 Physics.WaveModel <> l:34 var
+R2787:2794 Physics.WaveModel <> sum_list def
+R2796:2796 Physics.WaveModel <> l:34 var
+R2826:2837 Physics.WaveModel <> rotate_right def
+R2852:2854 Coq.Lists.List <> rev def
+R2852:2854 Coq.Lists.List <> rev def
+R2913:2915 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2905:2910 Coq.Init.Datatypes <> length def
+R2934:2943 Coq.Lists.List <> rev_length thm
+R2913:2915 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2905:2910 Coq.Init.Datatypes <> length def
+R2934:2943 Coq.Lists.List <> rev_length thm
+R2934:2943 Coq.Lists.List <> rev_length thm
+R2976:2994 Coq.Lists.List <> length_zero_iff_nil thm
+R2976:2994 Coq.Lists.List <> length_zero_iff_nil thm
+R3038:3051 Coq.Lists.List <> rev_involutive thm
+R3038:3051 Coq.Lists.List <> rev_involutive thm
+R3135:3146 Physics.WaveModel <> sum_list_app thm
+R3135:3146 Physics.WaveModel <> sum_list_app thm
+R3135:3146 Physics.WaveModel <> sum_list_app thm
+prf 3227:3247 <> rotate_right_left_inv
+binder 3258:3258 <> A:35
+R3265:3268 Coq.Init.Datatypes <> list ind
+R3270:3270 Physics.WaveModel <> A:35 var
+binder 3261:3261 <> l:36
+R3302:3304 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3274:3285 Physics.WaveModel <> rotate_right def
+R3288:3298 Physics.WaveModel <> rotate_left def
+R3300:3300 Physics.WaveModel <> l:36 var
+R3305:3305 Physics.WaveModel <> l:36 var
+R3371:3382 Physics.WaveModel <> rotate_right def
+R3402:3414 Coq.Lists.List <> rev_app_distr thm
+R3402:3414 Coq.Lists.List <> rev_app_distr thm
+R3402:3414 Coq.Lists.List <> rev_app_distr thm
+R3436:3449 Coq.Lists.List <> rev_involutive thm
+R3436:3449 Coq.Lists.List <> rev_involutive thm
+R3436:3449 Coq.Lists.List <> rev_involutive thm
+prf 3518:3538 <> rotate_left_right_inv
+binder 3549:3549 <> A:37
+R3556:3559 Coq.Init.Datatypes <> list ind
+R3561:3561 Physics.WaveModel <> A:37 var
+binder 3552:3552 <> l:38
+R3593:3595 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3565:3575 Physics.WaveModel <> rotate_left def
+R3578:3589 Physics.WaveModel <> rotate_right def
+R3591:3591 Physics.WaveModel <> l:38 var
+R3596:3596 Physics.WaveModel <> l:38 var
+R3627:3638 Physics.WaveModel <> rotate_right def
+R3653:3655 Coq.Lists.List <> rev def
+R3653:3655 Coq.Lists.List <> rev def
+R3714:3716 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3706:3711 Coq.Init.Datatypes <> length def
+R3735:3744 Coq.Lists.List <> rev_length thm
+R3714:3716 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3706:3711 Coq.Init.Datatypes <> length def
+R3735:3744 Coq.Lists.List <> rev_length thm
+R3735:3744 Coq.Lists.List <> rev_length thm
+R3777:3795 Coq.Lists.List <> length_zero_iff_nil thm
+R3777:3795 Coq.Lists.List <> length_zero_iff_nil thm
+R3848:3850 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3841:3844 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R3835:3837 Coq.Lists.List <> rev def
+R3845:3845 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3847:3847 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3870:3883 Coq.Lists.List <> rev_involutive thm
+R3848:3850 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3841:3844 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R3835:3837 Coq.Lists.List <> rev def
+R3845:3845 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3847:3847 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3870:3883 Coq.Lists.List <> rev_involutive thm
+prf 4018:4030 <> map2_map_both
+binder 4042:4042 <> X:39
+binder 4044:4044 <> A:40
+binder 4046:4046 <> B:41
+binder 4048:4048 <> C:42
+R4064:4067 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4063:4063 Physics.WaveModel <> A:40 var
+R4069:4072 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4068:4068 Physics.WaveModel <> B:41 var
+R4073:4073 Physics.WaveModel <> C:42 var
+binder 4059:4059 <> f:43
+R4082:4085 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4081:4081 Physics.WaveModel <> X:39 var
+R4086:4086 Physics.WaveModel <> A:40 var
+binder 4077:4077 <> g:44
+R4095:4098 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4094:4094 Physics.WaveModel <> X:39 var
+R4099:4099 Physics.WaveModel <> B:41 var
+binder 4090:4090 <> h:45
+R4108:4111 Coq.Init.Datatypes <> list ind
+R4113:4113 Physics.WaveModel <> X:39 var
+binder 4103:4104 <> xs:46
+R4149:4151 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4121:4124 Physics.WaveModel <> map2 def
+R4140:4142 Coq.Lists.List <> map def
+R4146:4147 Physics.WaveModel <> xs:46 var
+R4144:4144 Physics.WaveModel <> h:45 var
+R4129:4131 Coq.Lists.List <> map def
+R4135:4136 Physics.WaveModel <> xs:46 var
+R4133:4133 Physics.WaveModel <> g:44 var
+R4126:4126 Physics.WaveModel <> f:43 var
+R4152:4154 Coq.Lists.List <> map def
+R4181:4182 Physics.WaveModel <> xs:46 var
+binder 4161:4161 <> x:47
+R4166:4166 Physics.WaveModel <> f:43 var
+R4175:4175 Physics.WaveModel <> h:45 var
+R4177:4177 Physics.WaveModel <> x:47 var
+R4169:4169 Physics.WaveModel <> g:44 var
+R4171:4171 Physics.WaveModel <> x:47 var
+prf 4315:4331 <> map_left_of_cells
+binder 4342:4343 <> l1:48
+binder 4345:4346 <> l2:49
+R4374:4381 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4362:4364 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4353:4358 Coq.Init.Datatypes <> length def
+R4360:4361 Physics.WaveModel <> l1:48 var
+R4365:4370 Coq.Init.Datatypes <> length def
+R4372:4373 Physics.WaveModel <> l2:49 var
+R4456:4458 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4382:4384 Coq.Lists.List <> map def
+R4396:4399 Physics.WaveModel <> map2 def
+R4453:4454 Physics.WaveModel <> l2:49 var
+R4450:4451 Physics.WaveModel <> l1:48 var
+binder 4406:4406 <> l:50
+binder 4408:4408 <> r:51
+R4416:4423 Physics.WaveModel <> left_amp proj
+R4416:4423 Physics.WaveModel <> left_amp proj
+R4416:4423 Physics.WaveModel <> left_amp proj
+R4431:4439 Physics.WaveModel <> right_amp proj
+R4431:4439 Physics.WaveModel <> right_amp proj
+R4428:4428 Physics.WaveModel <> l:50 var
+R4444:4444 Physics.WaveModel <> r:51 var
+R4386:4393 Physics.WaveModel <> left_amp proj
+R4459:4460 Physics.WaveModel <> l1:48 var
+prf 4691:4708 <> map_right_of_cells
+binder 4719:4720 <> l1:52
+binder 4722:4723 <> l2:53
+R4751:4758 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4739:4741 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4730:4735 Coq.Init.Datatypes <> length def
+R4737:4738 Physics.WaveModel <> l1:52 var
+R4742:4747 Coq.Init.Datatypes <> length def
+R4749:4750 Physics.WaveModel <> l2:53 var
+R4834:4836 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4759:4761 Coq.Lists.List <> map def
+R4774:4777 Physics.WaveModel <> map2 def
+R4831:4832 Physics.WaveModel <> l2:53 var
+R4828:4829 Physics.WaveModel <> l1:52 var
+binder 4784:4784 <> l:54
+binder 4786:4786 <> r:55
+R4794:4801 Physics.WaveModel <> left_amp proj
+R4794:4801 Physics.WaveModel <> left_amp proj
+R4794:4801 Physics.WaveModel <> left_amp proj
+R4809:4817 Physics.WaveModel <> right_amp proj
+R4809:4817 Physics.WaveModel <> right_amp proj
+R4806:4806 Physics.WaveModel <> l:54 var
+R4822:4822 Physics.WaveModel <> r:55 var
+R4763:4771 Physics.WaveModel <> right_amp proj
+R4837:4838 Physics.WaveModel <> l2:53 var
+prf 5064:5076 <> rebuild_cells
+binder 5087:5087 <> s:56
+R5165:5167 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5094:5096 Coq.Lists.List <> map def
+R5164:5164 Physics.WaveModel <> s:56 var
+binder 5103:5103 <> c:57
+R5111:5118 Physics.WaveModel <> left_amp proj
+R5111:5118 Physics.WaveModel <> left_amp proj
+R5111:5118 Physics.WaveModel <> left_amp proj
+R5135:5143 Physics.WaveModel <> right_amp proj
+R5135:5143 Physics.WaveModel <> right_amp proj
+R5123:5130 Physics.WaveModel <> left_amp proj
+R5132:5132 Physics.WaveModel <> c:57 var
+R5148:5156 Physics.WaveModel <> right_amp proj
+R5158:5158 Physics.WaveModel <> c:57 var
+R5168:5168 Physics.WaveModel <> s:56 var
+def 5310:5318 <> wave_step
+R5325:5333 Physics.WaveModel <> WaveState def
+binder 5321:5321 <> s:58
+R5338:5346 Physics.WaveModel <> WaveState def
+R5366:5376 Physics.WaveModel <> rotate_left def
+R5379:5381 Coq.Lists.List <> map def
+R5392:5392 Physics.WaveModel <> s:58 var
+R5383:5390 Physics.WaveModel <> left_amp proj
+binder 5357:5361 <> lefts:59
+R5414:5425 Physics.WaveModel <> rotate_right def
+R5428:5430 Coq.Lists.List <> map def
+R5442:5442 Physics.WaveModel <> s:58 var
+R5432:5440 Physics.WaveModel <> right_amp proj
+binder 5404:5409 <> rights:60
+R5450:5453 Physics.WaveModel <> map2 def
+R5510:5515 Physics.WaveModel <> rights:60 var
+R5504:5508 Physics.WaveModel <> lefts:59 var
+binder 5460:5460 <> l:61
+binder 5462:5462 <> r:62
+R5470:5477 Physics.WaveModel <> left_amp proj
+R5470:5477 Physics.WaveModel <> left_amp proj
+R5470:5477 Physics.WaveModel <> left_amp proj
+R5485:5493 Physics.WaveModel <> right_amp proj
+R5485:5493 Physics.WaveModel <> right_amp proj
+R5482:5482 Physics.WaveModel <> l:61 var
+R5498:5498 Physics.WaveModel <> r:62 var
+def 5530:5542 <> wave_step_inv
+R5549:5557 Physics.WaveModel <> WaveState def
+binder 5545:5545 <> s:63
+R5562:5570 Physics.WaveModel <> WaveState def
+R5590:5601 Physics.WaveModel <> rotate_right def
+R5604:5606 Coq.Lists.List <> map def
+R5617:5617 Physics.WaveModel <> s:63 var
+R5608:5615 Physics.WaveModel <> left_amp proj
+binder 5581:5585 <> lefts:64
+R5639:5649 Physics.WaveModel <> rotate_left def
+R5652:5654 Coq.Lists.List <> map def
+R5666:5666 Physics.WaveModel <> s:63 var
+R5656:5664 Physics.WaveModel <> right_amp proj
+binder 5629:5634 <> rights:65
+R5674:5677 Physics.WaveModel <> map2 def
+R5734:5739 Physics.WaveModel <> rights:65 var
+R5728:5732 Physics.WaveModel <> lefts:64 var
+binder 5684:5684 <> l:66
+binder 5686:5686 <> r:67
+R5694:5701 Physics.WaveModel <> left_amp proj
+R5694:5701 Physics.WaveModel <> left_amp proj
+R5694:5701 Physics.WaveModel <> left_amp proj
+R5709:5717 Physics.WaveModel <> right_amp proj
+R5709:5717 Physics.WaveModel <> right_amp proj
+R5706:5706 Physics.WaveModel <> l:66 var
+R5722:5722 Physics.WaveModel <> r:67 var
+def 5754:5763 <> total_left
+R5770:5778 Physics.WaveModel <> WaveState def
+binder 5766:5766 <> s:68
+R5783:5785 Coq.Init.Datatypes <> nat ind
+R5790:5797 Physics.WaveModel <> sum_list def
+R5800:5802 Coq.Lists.List <> map def
+R5813:5813 Physics.WaveModel <> s:68 var
+R5804:5811 Physics.WaveModel <> left_amp proj
+def 5828:5838 <> total_right
+R5845:5853 Physics.WaveModel <> WaveState def
+binder 5841:5841 <> s:69
+R5858:5860 Coq.Init.Datatypes <> nat ind
+R5865:5872 Physics.WaveModel <> sum_list def
+R5875:5877 Coq.Lists.List <> map def
+R5889:5889 Physics.WaveModel <> s:69 var
+R5879:5887 Physics.WaveModel <> right_amp proj
+def 5904:5914 <> wave_energy
+R5921:5929 Physics.WaveModel <> WaveState def
+binder 5917:5917 <> s:70
+R5934:5936 Coq.Init.Datatypes <> nat ind
+R5953:5955 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5941:5950 Physics.WaveModel <> total_left def
+R5952:5952 Physics.WaveModel <> s:70 var
+R5956:5966 Physics.WaveModel <> total_right def
+R5968:5968 Physics.WaveModel <> s:70 var
+def 5982:5994 <> wave_momentum
+R6001:6009 Physics.WaveModel <> WaveState def
+binder 5997:5997 <> s:71
+R6014:6014 Coq.Numbers.BinNums <> Z ind
+R6045:6047 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R6021:6028 Coq.ZArith.BinInt Z of_nat def
+R6031:6041 Physics.WaveModel <> total_right def
+R6043:6043 Physics.WaveModel <> s:71 var
+R6048:6055 Coq.ZArith.BinInt Z of_nat def
+R6058:6067 Physics.WaveModel <> total_left def
+R6069:6069 Physics.WaveModel <> s:71 var
+prf 6129:6144 <> wave_step_length
+binder 6155:6155 <> s:72
+R6178:6180 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6158:6163 Coq.Init.Datatypes <> length def
+R6166:6174 Physics.WaveModel <> wave_step def
+R6176:6176 Physics.WaveModel <> s:72 var
+R6181:6186 Coq.Init.Datatypes <> length def
+R6188:6188 Physics.WaveModel <> s:72 var
+R6216:6224 Physics.WaveModel <> wave_step def
+R6240:6242 Coq.Lists.List <> map def
+R6244:6251 Physics.WaveModel <> left_amp proj
+R6240:6242 Coq.Lists.List <> map def
+R6244:6251 Physics.WaveModel <> left_amp proj
+R6270:6272 Coq.Lists.List <> map def
+R6274:6282 Physics.WaveModel <> right_amp proj
+R6270:6272 Coq.Lists.List <> map def
+R6274:6282 Physics.WaveModel <> right_amp proj
+R6307:6317 Physics.WaveModel <> map2_length thm
+R6307:6317 Physics.WaveModel <> map2_length thm
+R6307:6317 Physics.WaveModel <> map2_length thm
+R6330:6347 Physics.WaveModel <> rotate_left_length thm
+R6350:6368 Physics.WaveModel <> rotate_right_length thm
+R6330:6347 Physics.WaveModel <> rotate_left_length thm
+R6330:6347 Physics.WaveModel <> rotate_left_length thm
+R6350:6368 Physics.WaveModel <> rotate_right_length thm
+R6350:6368 Physics.WaveModel <> rotate_right_length thm
+R6395:6404 Coq.Lists.List <> map_length thm
+R6395:6404 Coq.Lists.List <> map_length thm
+R6395:6404 Coq.Lists.List <> map_length thm
+R6395:6404 Coq.Lists.List <> map_length thm
+R6395:6404 Coq.Lists.List <> map_length thm
+R6415:6432 Coq.Arith.PeanoNat Nat min_idempotent abbrev
+R6415:6432 Coq.Arith.PeanoNat Nat min_idempotent abbrev
+R6415:6432 Coq.Arith.PeanoNat Nat min_idempotent abbrev
+prf 6513:6532 <> wave_step_inv_length
+binder 6543:6543 <> s:73
+R6570:6572 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6546:6551 Coq.Init.Datatypes <> length def
+R6554:6566 Physics.WaveModel <> wave_step_inv def
+R6568:6568 Physics.WaveModel <> s:73 var
+R6573:6578 Coq.Init.Datatypes <> length def
+R6580:6580 Physics.WaveModel <> s:73 var
+R6608:6620 Physics.WaveModel <> wave_step_inv def
+R6636:6638 Coq.Lists.List <> map def
+R6640:6647 Physics.WaveModel <> left_amp proj
+R6636:6638 Coq.Lists.List <> map def
+R6640:6647 Physics.WaveModel <> left_amp proj
+R6666:6668 Coq.Lists.List <> map def
+R6670:6678 Physics.WaveModel <> right_amp proj
+R6666:6668 Coq.Lists.List <> map def
+R6670:6678 Physics.WaveModel <> right_amp proj
+R6703:6713 Physics.WaveModel <> map2_length thm
+R6703:6713 Physics.WaveModel <> map2_length thm
+R6703:6713 Physics.WaveModel <> map2_length thm
+R6726:6744 Physics.WaveModel <> rotate_right_length thm
+R6747:6764 Physics.WaveModel <> rotate_left_length thm
+R6726:6744 Physics.WaveModel <> rotate_right_length thm
+R6726:6744 Physics.WaveModel <> rotate_right_length thm
+R6747:6764 Physics.WaveModel <> rotate_left_length thm
+R6747:6764 Physics.WaveModel <> rotate_left_length thm
+R6791:6800 Coq.Lists.List <> map_length thm
+R6791:6800 Coq.Lists.List <> map_length thm
+R6791:6800 Coq.Lists.List <> map_length thm
+R6791:6800 Coq.Lists.List <> map_length thm
+R6791:6800 Coq.Lists.List <> map_length thm
+R6811:6828 Coq.Arith.PeanoNat Nat min_idempotent abbrev
+R6811:6828 Coq.Arith.PeanoNat Nat min_idempotent abbrev
+R6811:6828 Coq.Arith.PeanoNat Nat min_idempotent abbrev
+prf 6906:6922 <> wave_step_inverse
+binder 6933:6933 <> s:74
+R6963:6965 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6936:6948 Physics.WaveModel <> wave_step_inv def
+R6951:6959 Physics.WaveModel <> wave_step def
+R6961:6961 Physics.WaveModel <> s:74 var
+R6966:6966 Physics.WaveModel <> s:74 var
+R6996:7004 Physics.WaveModel <> wave_step def
+R7007:7019 Physics.WaveModel <> wave_step_inv def
+R7035:7037 Coq.Lists.List <> map def
+R7039:7046 Physics.WaveModel <> left_amp proj
+R7035:7037 Coq.Lists.List <> map def
+R7039:7046 Physics.WaveModel <> left_amp proj
+R7065:7067 Coq.Lists.List <> map def
+R7069:7077 Physics.WaveModel <> right_amp proj
+R7065:7067 Coq.Lists.List <> map def
+R7069:7077 Physics.WaveModel <> right_amp proj
+R7118:7120 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7109:7114 Coq.Init.Datatypes <> length def
+R7121:7126 Coq.Init.Datatypes <> length def
+R7118:7120 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7109:7114 Coq.Init.Datatypes <> length def
+R7121:7126 Coq.Init.Datatypes <> length def
+R7165:7174 Coq.Lists.List <> map_length thm
+R7165:7174 Coq.Lists.List <> map_length thm
+R7165:7174 Coq.Lists.List <> map_length thm
+R7165:7174 Coq.Lists.List <> map_length thm
+R7165:7174 Coq.Lists.List <> map_length thm
+R7165:7174 Coq.Lists.List <> map_length thm
+R7313:7315 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7210:7212 Coq.Lists.List <> map def
+R7224:7227 Physics.WaveModel <> map2 def
+R7296:7307 Physics.WaveModel <> rotate_right def
+R7279:7289 Physics.WaveModel <> rotate_left def
+binder 7234:7234 <> l:75
+binder 7236:7236 <> r:76
+R7244:7251 Physics.WaveModel <> left_amp proj
+R7244:7251 Physics.WaveModel <> left_amp proj
+R7244:7251 Physics.WaveModel <> left_amp proj
+R7259:7267 Physics.WaveModel <> right_amp proj
+R7259:7267 Physics.WaveModel <> right_amp proj
+R7256:7256 Physics.WaveModel <> l:75 var
+R7272:7272 Physics.WaveModel <> r:76 var
+R7214:7221 Physics.WaveModel <> left_amp proj
+R7316:7326 Physics.WaveModel <> rotate_left def
+R7313:7315 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7210:7212 Coq.Lists.List <> map def
+R7224:7227 Physics.WaveModel <> map2 def
+R7296:7307 Physics.WaveModel <> rotate_right def
+R7279:7289 Physics.WaveModel <> rotate_left def
+binder 7234:7234 <> l:77
+binder 7236:7236 <> r:78
+R7244:7251 Physics.WaveModel <> left_amp proj
+R7244:7251 Physics.WaveModel <> left_amp proj
+R7244:7251 Physics.WaveModel <> left_amp proj
+R7259:7267 Physics.WaveModel <> right_amp proj
+R7259:7267 Physics.WaveModel <> right_amp proj
+R7256:7256 Physics.WaveModel <> l:77 var
+R7272:7272 Physics.WaveModel <> r:78 var
+R7214:7221 Physics.WaveModel <> left_amp proj
+R7316:7326 Physics.WaveModel <> rotate_left def
+R7343:7359 Physics.WaveModel <> map_left_of_cells thm
+R7343:7359 Physics.WaveModel <> map_left_of_cells thm
+R7374:7391 Physics.WaveModel <> rotate_left_length thm
+R7394:7412 Physics.WaveModel <> rotate_right_length thm
+R7374:7391 Physics.WaveModel <> rotate_left_length thm
+R7374:7391 Physics.WaveModel <> rotate_left_length thm
+R7394:7412 Physics.WaveModel <> rotate_right_length thm
+R7394:7412 Physics.WaveModel <> rotate_right_length thm
+R7552:7554 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7448:7450 Coq.Lists.List <> map def
+R7463:7466 Physics.WaveModel <> map2 def
+R7535:7546 Physics.WaveModel <> rotate_right def
+R7518:7528 Physics.WaveModel <> rotate_left def
+binder 7473:7473 <> l:79
+binder 7475:7475 <> r:80
+R7483:7490 Physics.WaveModel <> left_amp proj
+R7483:7490 Physics.WaveModel <> left_amp proj
+R7483:7490 Physics.WaveModel <> left_amp proj
+R7498:7506 Physics.WaveModel <> right_amp proj
+R7498:7506 Physics.WaveModel <> right_amp proj
+R7495:7495 Physics.WaveModel <> l:79 var
+R7511:7511 Physics.WaveModel <> r:80 var
+R7452:7460 Physics.WaveModel <> right_amp proj
+R7555:7566 Physics.WaveModel <> rotate_right def
+R7552:7554 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7448:7450 Coq.Lists.List <> map def
+R7463:7466 Physics.WaveModel <> map2 def
+R7535:7546 Physics.WaveModel <> rotate_right def
+R7518:7528 Physics.WaveModel <> rotate_left def
+binder 7473:7473 <> l:81
+binder 7475:7475 <> r:82
+R7483:7490 Physics.WaveModel <> left_amp proj
+R7483:7490 Physics.WaveModel <> left_amp proj
+R7483:7490 Physics.WaveModel <> left_amp proj
+R7498:7506 Physics.WaveModel <> right_amp proj
+R7498:7506 Physics.WaveModel <> right_amp proj
+R7495:7495 Physics.WaveModel <> l:81 var
+R7511:7511 Physics.WaveModel <> r:82 var
+R7452:7460 Physics.WaveModel <> right_amp proj
+R7555:7566 Physics.WaveModel <> rotate_right def
+R7583:7600 Physics.WaveModel <> map_right_of_cells thm
+R7583:7600 Physics.WaveModel <> map_right_of_cells thm
+R7615:7632 Physics.WaveModel <> rotate_left_length thm
+R7635:7653 Physics.WaveModel <> rotate_right_length thm
+R7615:7632 Physics.WaveModel <> rotate_left_length thm
+R7615:7632 Physics.WaveModel <> rotate_left_length thm
+R7635:7653 Physics.WaveModel <> rotate_right_length thm
+R7635:7653 Physics.WaveModel <> rotate_right_length thm
+R7731:7751 Physics.WaveModel <> rotate_right_left_inv thm
+R7754:7774 Physics.WaveModel <> rotate_left_right_inv thm
+R7731:7751 Physics.WaveModel <> rotate_right_left_inv thm
+R7731:7751 Physics.WaveModel <> rotate_right_left_inv thm
+R7754:7774 Physics.WaveModel <> rotate_left_right_inv thm
+R7754:7774 Physics.WaveModel <> rotate_left_right_inv thm
+R7802:7814 Physics.WaveModel <> map2_map_both thm
+R7802:7814 Physics.WaveModel <> map2_map_both thm
+R7802:7814 Physics.WaveModel <> map2_map_both thm
+R7832:7844 Physics.WaveModel <> rebuild_cells thm
+R7832:7844 Physics.WaveModel <> rebuild_cells thm
+prf 7916:7939 <> wave_step_preserves_left
+binder 7950:7950 <> s:83
+R7977:7979 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7953:7962 Physics.WaveModel <> total_left def
+R7965:7973 Physics.WaveModel <> wave_step def
+R7975:7975 Physics.WaveModel <> s:83 var
+R7980:7989 Physics.WaveModel <> total_left def
+R7991:7991 Physics.WaveModel <> s:83 var
+R8019:8027 Physics.WaveModel <> wave_step def
+R8030:8039 Physics.WaveModel <> total_left def
+R8055:8057 Coq.Lists.List <> map def
+R8059:8066 Physics.WaveModel <> left_amp proj
+R8055:8057 Coq.Lists.List <> map def
+R8059:8066 Physics.WaveModel <> left_amp proj
+R8085:8087 Coq.Lists.List <> map def
+R8089:8097 Physics.WaveModel <> right_amp proj
+R8085:8087 Coq.Lists.List <> map def
+R8089:8097 Physics.WaveModel <> right_amp proj
+R8152:8154 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8129:8134 Coq.Init.Datatypes <> length def
+R8137:8147 Physics.WaveModel <> rotate_left def
+R8155:8160 Coq.Init.Datatypes <> length def
+R8163:8174 Physics.WaveModel <> rotate_right def
+R8152:8154 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8129:8134 Coq.Init.Datatypes <> length def
+R8137:8147 Physics.WaveModel <> rotate_left def
+R8155:8160 Coq.Init.Datatypes <> length def
+R8163:8174 Physics.WaveModel <> rotate_right def
+R8207:8224 Physics.WaveModel <> rotate_left_length thm
+R8227:8245 Physics.WaveModel <> rotate_right_length thm
+R8207:8224 Physics.WaveModel <> rotate_left_length thm
+R8207:8224 Physics.WaveModel <> rotate_left_length thm
+R8227:8245 Physics.WaveModel <> rotate_right_length thm
+R8227:8245 Physics.WaveModel <> rotate_right_length thm
+R8263:8272 Coq.Lists.List <> map_length thm
+R8263:8272 Coq.Lists.List <> map_length thm
+R8263:8272 Coq.Lists.List <> map_length thm
+R8263:8272 Coq.Lists.List <> map_length thm
+R8263:8272 Coq.Lists.List <> map_length thm
+R8263:8272 Coq.Lists.List <> map_length thm
+R8304:8320 Physics.WaveModel <> map_left_of_cells thm
+R8323:8333 Physics.WaveModel <> rotate_left def
+R8340:8351 Physics.WaveModel <> rotate_right def
+R8304:8320 Physics.WaveModel <> map_left_of_cells thm
+R8323:8333 Physics.WaveModel <> rotate_left def
+R8340:8351 Physics.WaveModel <> rotate_right def
+R8411:8430 Physics.WaveModel <> sum_list_rotate_left thm
+R8411:8430 Physics.WaveModel <> sum_list_rotate_left thm
+R8411:8430 Physics.WaveModel <> sum_list_rotate_left thm
+prf 8516:8540 <> wave_step_preserves_right
+binder 8551:8551 <> s:84
+R8579:8581 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8554:8564 Physics.WaveModel <> total_right def
+R8567:8575 Physics.WaveModel <> wave_step def
+R8577:8577 Physics.WaveModel <> s:84 var
+R8582:8592 Physics.WaveModel <> total_right def
+R8594:8594 Physics.WaveModel <> s:84 var
+R8622:8630 Physics.WaveModel <> wave_step def
+R8633:8643 Physics.WaveModel <> total_right def
+R8659:8661 Coq.Lists.List <> map def
+R8663:8670 Physics.WaveModel <> left_amp proj
+R8659:8661 Coq.Lists.List <> map def
+R8663:8670 Physics.WaveModel <> left_amp proj
+R8689:8691 Coq.Lists.List <> map def
+R8693:8701 Physics.WaveModel <> right_amp proj
+R8689:8691 Coq.Lists.List <> map def
+R8693:8701 Physics.WaveModel <> right_amp proj
+R8756:8758 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8733:8738 Coq.Init.Datatypes <> length def
+R8741:8751 Physics.WaveModel <> rotate_left def
+R8759:8764 Coq.Init.Datatypes <> length def
+R8767:8778 Physics.WaveModel <> rotate_right def
+R8756:8758 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8733:8738 Coq.Init.Datatypes <> length def
+R8741:8751 Physics.WaveModel <> rotate_left def
+R8759:8764 Coq.Init.Datatypes <> length def
+R8767:8778 Physics.WaveModel <> rotate_right def
+R8811:8828 Physics.WaveModel <> rotate_left_length thm
+R8831:8849 Physics.WaveModel <> rotate_right_length thm
+R8811:8828 Physics.WaveModel <> rotate_left_length thm
+R8811:8828 Physics.WaveModel <> rotate_left_length thm
+R8831:8849 Physics.WaveModel <> rotate_right_length thm
+R8831:8849 Physics.WaveModel <> rotate_right_length thm
+R8867:8876 Coq.Lists.List <> map_length thm
+R8867:8876 Coq.Lists.List <> map_length thm
+R8867:8876 Coq.Lists.List <> map_length thm
+R8867:8876 Coq.Lists.List <> map_length thm
+R8867:8876 Coq.Lists.List <> map_length thm
+R8867:8876 Coq.Lists.List <> map_length thm
+R8908:8925 Physics.WaveModel <> map_right_of_cells thm
+R8928:8938 Physics.WaveModel <> rotate_left def
+R8945:8956 Physics.WaveModel <> rotate_right def
+R8908:8925 Physics.WaveModel <> map_right_of_cells thm
+R8928:8938 Physics.WaveModel <> rotate_left def
+R8945:8956 Physics.WaveModel <> rotate_right def
+R9018:9038 Physics.WaveModel <> sum_list_rotate_right thm
+R9018:9038 Physics.WaveModel <> sum_list_rotate_right thm
+R9018:9038 Physics.WaveModel <> sum_list_rotate_right thm
+prf 9122:9142 <> wave_energy_conserved
+binder 9153:9153 <> s:85
+R9181:9183 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9156:9166 Physics.WaveModel <> wave_energy def
+R9169:9177 Physics.WaveModel <> wave_step def
+R9179:9179 Physics.WaveModel <> s:85 var
+R9184:9194 Physics.WaveModel <> wave_energy def
+R9196:9196 Physics.WaveModel <> s:85 var
+R9224:9234 Physics.WaveModel <> wave_energy def
+R9247:9270 Physics.WaveModel <> wave_step_preserves_left thm
+R9273:9297 Physics.WaveModel <> wave_step_preserves_right thm
+R9247:9270 Physics.WaveModel <> wave_step_preserves_left thm
+R9247:9270 Physics.WaveModel <> wave_step_preserves_left thm
+R9273:9297 Physics.WaveModel <> wave_step_preserves_right thm
+R9273:9297 Physics.WaveModel <> wave_step_preserves_right thm
+prf 9383:9405 <> wave_momentum_conserved
+binder 9416:9416 <> s:86
+R9446:9448 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9419:9431 Physics.WaveModel <> wave_momentum def
+R9434:9442 Physics.WaveModel <> wave_step def
+R9444:9444 Physics.WaveModel <> s:86 var
+R9449:9461 Physics.WaveModel <> wave_momentum def
+R9463:9463 Physics.WaveModel <> s:86 var
+R9491:9503 Physics.WaveModel <> wave_momentum def
+R9516:9539 Physics.WaveModel <> wave_step_preserves_left thm
+R9542:9566 Physics.WaveModel <> wave_step_preserves_right thm
+R9516:9539 Physics.WaveModel <> wave_step_preserves_left thm
+R9516:9539 Physics.WaveModel <> wave_step_preserves_left thm
+R9542:9566 Physics.WaveModel <> wave_step_preserves_right thm
+R9542:9566 Physics.WaveModel <> wave_step_preserves_right thm
+prf 9641:9660 <> wave_step_reversible
+binder 9671:9671 <> s:87
+R9701:9703 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9674:9686 Physics.WaveModel <> wave_step_inv def
+R9689:9697 Physics.WaveModel <> wave_step def
+R9699:9699 Physics.WaveModel <> s:87 var
+R9704:9704 Physics.WaveModel <> s:87 var
+R9720:9736 Physics.WaveModel <> wave_step_inverse thm
+R9720:9736 Physics.WaveModel <> wave_step_inverse thm
+prf 9812:9835 <> wave_conservation_bundle
+binder 9848:9848 <> s:88
+R9886:9893 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9882:9884 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9855:9867 Physics.WaveModel <> wave_step_inv def
+R9870:9878 Physics.WaveModel <> wave_step def
+R9880:9880 Physics.WaveModel <> s:88 var
+R9885:9885 Physics.WaveModel <> s:88 var
+R9935:9942 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9919:9921 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9894:9904 Physics.WaveModel <> wave_energy def
+R9907:9915 Physics.WaveModel <> wave_step def
+R9917:9917 Physics.WaveModel <> s:88 var
+R9922:9932 Physics.WaveModel <> wave_energy def
+R9934:9934 Physics.WaveModel <> s:88 var
+R9970:9972 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9943:9955 Physics.WaveModel <> wave_momentum def
+R9958:9966 Physics.WaveModel <> wave_step def
+R9968:9968 Physics.WaveModel <> s:88 var
+R9973:9985 Physics.WaveModel <> wave_momentum def
+R9987:9987 Physics.WaveModel <> s:88 var
+R10033:10049 Physics.WaveModel <> wave_step_inverse thm
+R10052:10072 Physics.WaveModel <> wave_energy_conserved thm
+R10075:10097 Physics.WaveModel <> wave_momentum_conserved thm
+R10033:10049 Physics.WaveModel <> wave_step_inverse thm
+R10033:10049 Physics.WaveModel <> wave_step_inverse thm
+R10033:10049 Physics.WaveModel <> wave_step_inverse thm
+R10052:10072 Physics.WaveModel <> wave_energy_conserved thm
+R10075:10097 Physics.WaveModel <> wave_momentum_conserved thm
+R10052:10072 Physics.WaveModel <> wave_energy_conserved thm
+R10075:10097 Physics.WaveModel <> wave_momentum_conserved thm
+R10052:10072 Physics.WaveModel <> wave_energy_conserved thm
+R10075:10097 Physics.WaveModel <> wave_momentum_conserved thm
+sec 10180:10188 <> Embedding
+var 10202:10208 Embedding Encoded
+var 10229:10234 Embedding encode
+R10247:10250 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10238:10246 Physics.WaveModel <> WaveState def
+R10251:10257 Physics.WaveModel <> Embedding.Encoded var
+var 10271:10276 Embedding decode
+R10287:10290 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10280:10286 Physics.WaveModel <> Embedding.Encoded var
+R10291:10299 Physics.WaveModel <> WaveState def
+var 10313:10321 Embedding impl_step
+R10332:10335 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10325:10331 Physics.WaveModel <> Embedding.Encoded var
+R10336:10342 Physics.WaveModel <> Embedding.Encoded var
+var 10357:10372 Embedding decode_encode_id
+binder 10383:10383 <> s:93
+R10403:10405 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10386:10391 Physics.WaveModel <> Embedding.decode var
+R10394:10399 Physics.WaveModel <> Embedding.encode var
+R10401:10401 Physics.WaveModel <> s:93 var
+R10406:10406 Physics.WaveModel <> s:93 var
+var 10420:10436 Embedding impl_refines_wave
+binder 10447:10447 <> s:95
+R10479:10481 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10450:10455 Physics.WaveModel <> Embedding.decode var
+R10458:10466 Physics.WaveModel <> Embedding.impl_step var
+R10469:10474 Physics.WaveModel <> Embedding.encode var
+R10476:10476 Physics.WaveModel <> s:95 var
+R10482:10490 Physics.WaveModel <> wave_step def
+R10492:10492 Physics.WaveModel <> s:95 var
+prf 10564:10588 <> embedded_energy_conserved
+binder 10603:10603 <> s:97
+R10649:10651 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10606:10616 Physics.WaveModel <> wave_energy def
+R10619:10624 Physics.WaveModel <> Embedding.decode var
+R10627:10635 Physics.WaveModel <> Embedding.impl_step var
+R10638:10643 Physics.WaveModel <> Embedding.encode var
+R10645:10645 Physics.WaveModel <> s:97 var
+R10652:10662 Physics.WaveModel <> wave_energy def
+R10665:10670 Physics.WaveModel <> Embedding.decode var
+R10673:10678 Physics.WaveModel <> Embedding.encode var
+R10680:10680 Physics.WaveModel <> s:97 var
+R10715:10731 Physics.WaveModel <> Embedding.impl_refines_wave var
+R10734:10749 Physics.WaveModel <> Embedding.decode_encode_id var
+R10715:10731 Physics.WaveModel <> Embedding.impl_refines_wave var
+R10715:10731 Physics.WaveModel <> Embedding.impl_refines_wave var
+R10734:10749 Physics.WaveModel <> Embedding.decode_encode_id var
+R10734:10749 Physics.WaveModel <> Embedding.decode_encode_id var
+R10762:10782 Physics.WaveModel <> wave_energy_conserved thm
+R10762:10782 Physics.WaveModel <> wave_energy_conserved thm
+prf 10863:10889 <> embedded_momentum_conserved
+binder 10904:10904 <> s:98
+R10952:10954 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10907:10919 Physics.WaveModel <> wave_momentum def
+R10922:10927 Physics.WaveModel <> Embedding.decode var
+R10930:10938 Physics.WaveModel <> Embedding.impl_step var
+R10941:10946 Physics.WaveModel <> Embedding.encode var
+R10948:10948 Physics.WaveModel <> s:98 var
+R10955:10967 Physics.WaveModel <> wave_momentum def
+R10970:10975 Physics.WaveModel <> Embedding.decode var
+R10978:10983 Physics.WaveModel <> Embedding.encode var
+R10985:10985 Physics.WaveModel <> s:98 var
+R11020:11036 Physics.WaveModel <> Embedding.impl_refines_wave var
+R11039:11054 Physics.WaveModel <> Embedding.decode_encode_id var
+R11020:11036 Physics.WaveModel <> Embedding.impl_refines_wave var
+R11020:11036 Physics.WaveModel <> Embedding.impl_refines_wave var
+R11039:11054 Physics.WaveModel <> Embedding.decode_encode_id var
+R11039:11054 Physics.WaveModel <> Embedding.decode_encode_id var
+R11067:11089 Physics.WaveModel <> wave_momentum_conserved thm
+R11067:11089 Physics.WaveModel <> wave_momentum_conserved thm
+R11103:11111 Physics.WaveModel Embedding <> sec

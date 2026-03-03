@@ -3,6 +3,10 @@ From Coq Require Import QArith Lia.
 From ThieleMachine Require Import BellInequality.
 
 Import QArith.
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 Open Scope Q_scope.
 
 (** Bridge lemma: the concrete [TsirelsonApprox] box in [BellInequality]

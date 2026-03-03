@@ -47,6 +47,10 @@
     4. tsirelson_from_algebraic_coherence: Algebraic coherence → |S| ≤ 4
 
     ========================================================================= *)
+
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
     
 Require Import Coq.QArith.QArith.
 Require Import Coq.QArith.Qabs.

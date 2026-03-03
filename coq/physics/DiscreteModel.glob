@@ -1,4 +1,4 @@
-DIGEST 533346eba5b8e8cef86774c4e27314e4
+DIGEST 3590fd7a292b60951075581c98031e99
 FPhysics.DiscreteModel
 R24:27 Coq.Lists.List <> <> lib
 R29:32 Coq.Bool.Bool <> <> lib
@@ -6,365 +6,368 @@ R34:36 Coq.micromega.Lia <> <> lib
 R38:51 Coq.Arith.PeanoNat <> <> lib
 R53:58 Coq.ZArith.ZArith <> <> lib
 R68:80 Coq.Lists.List ListNotations <> mod
-ind 433:436 <> Cell
-constr 441:445 <> Empty
-constr 449:457 <> LeftMover
-constr 461:470 <> RightMover
-scheme 433:436 <> Cell_rect
-scheme 433:436 <> Cell_ind
-scheme 433:436 <> Cell_rec
-scheme 433:436 <> Cell_sind
-def 485:491 <> Lattice
-R496:499 Coq.Init.Datatypes <> list ind
-R501:504 Physics.DiscreteModel <> Cell ind
-def 593:603 <> is_particle
-R610:613 Physics.DiscreteModel <> Cell ind
-binder 606:606 <> c:3
-R618:621 Coq.Init.Datatypes <> bool ind
-R634:634 Physics.DiscreteModel <> c:3 var
-R645:649 Physics.DiscreteModel <> Empty constr
-R654:658 Coq.Init.Datatypes <> false constr
-R669:672 Coq.Init.Datatypes <> true constr
-def 693:706 <> particle_count
-R713:719 Physics.DiscreteModel <> Lattice def
-binder 709:709 <> l:5
-R724:726 Coq.Init.Datatypes <> nat ind
-R733:738 Coq.Init.Datatypes <> length def
-R741:746 Coq.Lists.List <> filter def
-R760:760 Physics.DiscreteModel <> l:5 var
-R748:758 Physics.DiscreteModel <> is_particle def
-prf 823:841 <> particle_count_cons
-binder 854:854 <> c:6
-binder 856:857 <> xs:7
-R888:890 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R864:877 Physics.DiscreteModel <> particle_count def
-R881:884 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R880:880 Physics.DiscreteModel <> c:6 var
-R885:886 Physics.DiscreteModel <> xs:7 var
-R891:891 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R922:925 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R895:905 Physics.DiscreteModel <> is_particle def
-R907:907 Physics.DiscreteModel <> c:6 var
-R926:939 Physics.DiscreteModel <> particle_count def
-R941:942 Physics.DiscreteModel <> xs:7 var
-R974:987 Physics.DiscreteModel <> particle_count def
-def 1048:1060 <> cell_momentum
-R1067:1070 Physics.DiscreteModel <> Cell ind
-binder 1063:1063 <> c:8
-R1075:1075 Coq.Numbers.BinNums <> Z ind
-R1088:1088 Physics.DiscreteModel <> c:8 var
-R1099:1103 Physics.DiscreteModel <> Empty constr
-R1116:1124 Physics.DiscreteModel <> LeftMover constr
-R1140:1149 Physics.DiscreteModel <> RightMover constr
-def 1175:1182 <> momentum
-R1189:1195 Physics.DiscreteModel <> Lattice def
-binder 1185:1185 <> l:10
-R1200:1200 Coq.Numbers.BinNums <> Z ind
-R1213:1213 Physics.DiscreteModel <> l:10 var
-R1224:1225 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R1239:1242 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R1264:1266 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R1249:1261 Physics.DiscreteModel <> cell_momentum def
-R1267:1274 Physics.DiscreteModel <> momentum:11 def
-def 1483:1493 <> pair_update
-R1504:1507 Physics.DiscreteModel <> Cell ind
-binder 1496:1497 <> c1:13
-binder 1499:1500 <> c2:14
-R1516:1518 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R1512:1515 Physics.DiscreteModel <> Cell ind
-R1519:1522 Physics.DiscreteModel <> Cell ind
-R1527:1527 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1530:1531 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1534:1534 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1528:1529 Physics.DiscreteModel <> c2:14 var
-R1532:1533 Physics.DiscreteModel <> c1:13 var
-def 1547:1558 <> physics_step
-R1565:1571 Physics.DiscreteModel <> Lattice def
-binder 1561:1561 <> L:15
-R1576:1582 Physics.DiscreteModel <> Lattice def
-R1595:1595 Physics.DiscreteModel <> L:15 var
-R1608:1611 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R1614:1617 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R1647:1657 Physics.DiscreteModel <> pair_update def
-R1635:1635 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1638:1639 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1642:1642 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1670:1673 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R1676:1679 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R1680:1691 Physics.DiscreteModel <> physics_step:16 def
-R1700:1700 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R1702:1702 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R1707:1707 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R1709:1709 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R1715:1716 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R1721:1722 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-prf 1793:1814 <> pair_update_involutive
-binder 1827:1828 <> c1:18
-binder 1830:1831 <> c2:19
-R1897:1899 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1834:1844 Physics.DiscreteModel <> pair_update def
-R1847:1849 Coq.Init.Datatypes <> fst def
-R1852:1862 Physics.DiscreteModel <> pair_update def
-R1864:1865 Physics.DiscreteModel <> c1:18 var
-R1867:1868 Physics.DiscreteModel <> c2:19 var
-R1873:1875 Coq.Init.Datatypes <> snd def
-R1878:1888 Physics.DiscreteModel <> pair_update def
-R1890:1891 Physics.DiscreteModel <> c1:18 var
-R1893:1894 Physics.DiscreteModel <> c2:19 var
-R1900:1900 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1903:1904 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1907:1907 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1901:1902 Physics.DiscreteModel <> c1:18 var
-R1905:1906 Physics.DiscreteModel <> c2:19 var
-prf 2032:2050 <> particle_count_swap
-binder 2063:2064 <> c1:20
-binder 2066:2067 <> c2:21
-binder 2069:2070 <> xs:22
-R2108:2110 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2077:2090 Physics.DiscreteModel <> particle_count def
-R2095:2098 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R2093:2094 Physics.DiscreteModel <> c1:20 var
-R2101:2104 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R2099:2100 Physics.DiscreteModel <> c2:21 var
-R2105:2106 Physics.DiscreteModel <> xs:22 var
-R2111:2124 Physics.DiscreteModel <> particle_count def
-R2129:2132 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R2127:2128 Physics.DiscreteModel <> c2:21 var
-R2135:2138 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R2133:2134 Physics.DiscreteModel <> c1:20 var
-R2139:2140 Physics.DiscreteModel <> xs:22 var
-prf 2263:2275 <> momentum_swap
-binder 2288:2289 <> c1:23
-binder 2291:2292 <> c2:24
-binder 2294:2295 <> xs:25
-R2327:2329 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2302:2309 Physics.DiscreteModel <> momentum def
-R2314:2317 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R2312:2313 Physics.DiscreteModel <> c1:23 var
-R2320:2323 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R2318:2319 Physics.DiscreteModel <> c2:24 var
-R2324:2325 Physics.DiscreteModel <> xs:25 var
-R2330:2337 Physics.DiscreteModel <> momentum def
-R2342:2345 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R2340:2341 Physics.DiscreteModel <> c2:24 var
-R2348:2351 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R2346:2347 Physics.DiscreteModel <> c1:23 var
-R2352:2353 Physics.DiscreteModel <> xs:25 var
-prf 2461:2483 <> physics_step_involutive
-binder 2496:2496 <> L:26
-R2528:2530 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2499:2510 Physics.DiscreteModel <> physics_step def
-R2513:2524 Physics.DiscreteModel <> physics_step def
-R2526:2526 Physics.DiscreteModel <> L:26 var
-R2531:2531 Physics.DiscreteModel <> L:26 var
-prf 2769:2804 <> pair_update_preserves_particle_count
-binder 2817:2818 <> c1:27
-binder 2820:2821 <> c2:28
-R2893:2899 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2828:2841 Physics.DiscreteModel <> particle_count def
-R2843:2843 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2867:2868 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2892:2892 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2844:2846 Coq.Init.Datatypes <> fst def
-R2849:2859 Physics.DiscreteModel <> pair_update def
-R2861:2862 Physics.DiscreteModel <> c1:27 var
-R2864:2865 Physics.DiscreteModel <> c2:28 var
-R2869:2871 Coq.Init.Datatypes <> snd def
-R2874:2884 Physics.DiscreteModel <> pair_update def
-R2886:2887 Physics.DiscreteModel <> c1:27 var
-R2889:2890 Physics.DiscreteModel <> c2:28 var
-R2900:2913 Physics.DiscreteModel <> particle_count def
-R2915:2915 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2918:2919 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2922:2922 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2916:2917 Physics.DiscreteModel <> c1:27 var
-R2920:2921 Physics.DiscreteModel <> c2:28 var
-R2955:2965 Physics.DiscreteModel <> pair_update def
-R2968:2981 Physics.DiscreteModel <> particle_count def
-prf 3121:3152 <> physics_preserves_particle_count
-binder 3165:3165 <> L:29
-R3199:3201 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3168:3181 Physics.DiscreteModel <> particle_count def
-R3184:3195 Physics.DiscreteModel <> physics_step def
-R3197:3197 Physics.DiscreteModel <> L:29 var
-R3202:3215 Physics.DiscreteModel <> particle_count def
-R3217:3217 Physics.DiscreteModel <> L:29 var
-R3343:3361 Physics.DiscreteModel <> particle_count_cons thm
-R3343:3361 Physics.DiscreteModel <> particle_count_cons thm
-R3343:3361 Physics.DiscreteModel <> particle_count_cons thm
-R3343:3361 Physics.DiscreteModel <> particle_count_cons thm
-R3343:3361 Physics.DiscreteModel <> particle_count_cons thm
-R3343:3361 Physics.DiscreteModel <> particle_count_cons thm
-R3343:3361 Physics.DiscreteModel <> particle_count_cons thm
-R3343:3361 Physics.DiscreteModel <> particle_count_cons thm
-R3343:3361 Physics.DiscreteModel <> particle_count_cons thm
-R3343:3361 Physics.DiscreteModel <> particle_count_cons thm
-prf 3483:3512 <> pair_update_preserves_momentum
-binder 3525:3526 <> c1:30
-binder 3528:3529 <> c2:31
-R3595:3601 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3536:3543 Physics.DiscreteModel <> momentum def
-R3545:3545 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R3569:3570 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R3594:3594 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R3546:3548 Coq.Init.Datatypes <> fst def
-R3551:3561 Physics.DiscreteModel <> pair_update def
-R3563:3564 Physics.DiscreteModel <> c1:30 var
-R3566:3567 Physics.DiscreteModel <> c2:31 var
-R3571:3573 Coq.Init.Datatypes <> snd def
-R3576:3586 Physics.DiscreteModel <> pair_update def
-R3588:3589 Physics.DiscreteModel <> c1:30 var
-R3591:3592 Physics.DiscreteModel <> c2:31 var
-R3602:3609 Physics.DiscreteModel <> momentum def
-R3611:3611 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R3614:3615 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R3618:3618 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R3612:3613 Physics.DiscreteModel <> c1:30 var
-R3616:3617 Physics.DiscreteModel <> c2:31 var
-R3651:3661 Physics.DiscreteModel <> pair_update def
-R3664:3671 Physics.DiscreteModel <> momentum def
-prf 3801:3826 <> physics_preserves_momentum
-binder 3839:3839 <> L:32
-R3867:3869 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3842:3849 Physics.DiscreteModel <> momentum def
-R3852:3863 Physics.DiscreteModel <> physics_step def
-R3865:3865 Physics.DiscreteModel <> L:32 var
-R3870:3877 Physics.DiscreteModel <> momentum def
-R3879:3879 Physics.DiscreteModel <> L:32 var
-prf 4133:4159 <> lattice_particles_conserved
-binder 4172:4172 <> L:33
-R4206:4208 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4175:4188 Physics.DiscreteModel <> particle_count def
-R4191:4202 Physics.DiscreteModel <> physics_step def
-R4204:4204 Physics.DiscreteModel <> L:33 var
-R4209:4222 Physics.DiscreteModel <> particle_count def
-R4224:4224 Physics.DiscreteModel <> L:33 var
-R4240:4271 Physics.DiscreteModel <> physics_preserves_particle_count thm
-R4240:4271 Physics.DiscreteModel <> physics_preserves_particle_count thm
-prf 4347:4372 <> lattice_momentum_conserved
-binder 4385:4385 <> L:34
-R4413:4415 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4388:4395 Physics.DiscreteModel <> momentum def
-R4398:4409 Physics.DiscreteModel <> physics_step def
-R4411:4411 Physics.DiscreteModel <> L:34 var
-R4416:4423 Physics.DiscreteModel <> momentum def
-R4425:4425 Physics.DiscreteModel <> L:34 var
-R4441:4466 Physics.DiscreteModel <> physics_preserves_momentum thm
-R4441:4466 Physics.DiscreteModel <> physics_preserves_momentum thm
-prf 4539:4561 <> lattice_step_involutive
-binder 4574:4574 <> L:35
-R4606:4608 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4577:4588 Physics.DiscreteModel <> physics_step def
-R4591:4602 Physics.DiscreteModel <> physics_step def
-R4604:4604 Physics.DiscreteModel <> L:35 var
-R4609:4609 Physics.DiscreteModel <> L:35 var
-R4625:4647 Physics.DiscreteModel <> physics_step_involutive thm
-R4625:4647 Physics.DiscreteModel <> physics_step_involutive thm
-def 4782:4808 <> physics_conserves_particles
-R4813:4844 Physics.DiscreteModel <> physics_preserves_particle_count thm
-def 4858:4883 <> physics_conserves_momentum
-R4888:4913 Physics.DiscreteModel <> physics_preserves_momentum thm
-prf 4987:5013 <> physics_conservation_bundle
-binder 5026:5026 <> L:36
-R5066:5073 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5062:5064 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5033:5044 Physics.DiscreteModel <> physics_step def
-R5047:5058 Physics.DiscreteModel <> physics_step def
-R5060:5060 Physics.DiscreteModel <> L:36 var
-R5065:5065 Physics.DiscreteModel <> L:36 var
-R5124:5131 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5105:5107 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5074:5087 Physics.DiscreteModel <> particle_count def
-R5090:5101 Physics.DiscreteModel <> physics_step def
-R5103:5103 Physics.DiscreteModel <> L:36 var
-R5108:5121 Physics.DiscreteModel <> particle_count def
-R5123:5123 Physics.DiscreteModel <> L:36 var
-R5157:5159 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5132:5139 Physics.DiscreteModel <> momentum def
-R5142:5153 Physics.DiscreteModel <> physics_step def
-R5155:5155 Physics.DiscreteModel <> L:36 var
-R5160:5167 Physics.DiscreteModel <> momentum def
-R5169:5169 Physics.DiscreteModel <> L:36 var
-R5216:5238 Physics.DiscreteModel <> physics_step_involutive thm
-R5245:5276 Physics.DiscreteModel <> physics_preserves_particle_count thm
-R5279:5304 Physics.DiscreteModel <> physics_preserves_momentum thm
-R5216:5238 Physics.DiscreteModel <> physics_step_involutive thm
-R5216:5238 Physics.DiscreteModel <> physics_step_involutive thm
-R5216:5238 Physics.DiscreteModel <> physics_step_involutive thm
-R5245:5276 Physics.DiscreteModel <> physics_preserves_particle_count thm
-R5279:5304 Physics.DiscreteModel <> physics_preserves_momentum thm
-R5245:5276 Physics.DiscreteModel <> physics_preserves_particle_count thm
-R5279:5304 Physics.DiscreteModel <> physics_preserves_momentum thm
-R5245:5276 Physics.DiscreteModel <> physics_preserves_particle_count thm
-R5279:5304 Physics.DiscreteModel <> physics_preserves_momentum thm
-sec 5647:5655 <> Embedding
-var 5669:5675 Embedding Encoded
-var 5696:5701 Embedding encode
-R5712:5715 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5705:5711 Physics.DiscreteModel <> Lattice def
-R5716:5722 Physics.DiscreteModel <> Embedding.Encoded var
-var 5736:5741 Embedding decode
-R5752:5755 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5745:5751 Physics.DiscreteModel <> Embedding.Encoded var
-R5756:5762 Physics.DiscreteModel <> Lattice def
-var 5776:5784 Embedding impl_step
-R5795:5798 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5788:5794 Physics.DiscreteModel <> Embedding.Encoded var
-R5799:5805 Physics.DiscreteModel <> Embedding.Encoded var
-var 5820:5835 Embedding decode_encode_id
-binder 5846:5846 <> L:41
-R5866:5868 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5849:5854 Physics.DiscreteModel <> Embedding.decode var
-R5857:5862 Physics.DiscreteModel <> Embedding.encode var
-R5864:5864 Physics.DiscreteModel <> L:41 var
-R5869:5869 Physics.DiscreteModel <> L:41 var
-var 5883:5902 Embedding impl_refines_physics
-binder 5917:5917 <> L:43
-R5949:5951 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5920:5925 Physics.DiscreteModel <> Embedding.decode var
-R5928:5936 Physics.DiscreteModel <> Embedding.impl_step var
-R5939:5944 Physics.DiscreteModel <> Embedding.encode var
-R5946:5946 Physics.DiscreteModel <> L:43 var
-R5952:5963 Physics.DiscreteModel <> physics_step def
-R5965:5965 Physics.DiscreteModel <> L:43 var
-prf 6045:6077 <> embedded_particle_count_conserved
-binder 6092:6092 <> L:45
-R6147:6149 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6101:6114 Physics.DiscreteModel <> particle_count def
-R6117:6122 Physics.DiscreteModel <> Embedding.decode var
-R6125:6133 Physics.DiscreteModel <> Embedding.impl_step var
-R6136:6141 Physics.DiscreteModel <> Embedding.encode var
-R6143:6143 Physics.DiscreteModel <> L:45 var
-R6150:6163 Physics.DiscreteModel <> particle_count def
-R6166:6171 Physics.DiscreteModel <> Embedding.decode var
-R6174:6179 Physics.DiscreteModel <> Embedding.encode var
-R6181:6181 Physics.DiscreteModel <> L:45 var
-R6217:6236 Physics.DiscreteModel <> Embedding.impl_refines_physics var
-R6239:6254 Physics.DiscreteModel <> Embedding.decode_encode_id var
-R6217:6236 Physics.DiscreteModel <> Embedding.impl_refines_physics var
-R6217:6236 Physics.DiscreteModel <> Embedding.impl_refines_physics var
-R6239:6254 Physics.DiscreteModel <> Embedding.decode_encode_id var
-R6239:6254 Physics.DiscreteModel <> Embedding.decode_encode_id var
-R6267:6298 Physics.DiscreteModel <> physics_preserves_particle_count thm
-R6267:6298 Physics.DiscreteModel <> physics_preserves_particle_count thm
-prf 6379:6405 <> embedded_momentum_conserved
-binder 6420:6420 <> L:46
-R6469:6471 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6429:6436 Physics.DiscreteModel <> momentum def
-R6439:6444 Physics.DiscreteModel <> Embedding.decode var
-R6447:6455 Physics.DiscreteModel <> Embedding.impl_step var
-R6458:6463 Physics.DiscreteModel <> Embedding.encode var
-R6465:6465 Physics.DiscreteModel <> L:46 var
-R6472:6479 Physics.DiscreteModel <> momentum def
-R6482:6487 Physics.DiscreteModel <> Embedding.decode var
-R6490:6495 Physics.DiscreteModel <> Embedding.encode var
-R6497:6497 Physics.DiscreteModel <> L:46 var
-R6533:6552 Physics.DiscreteModel <> Embedding.impl_refines_physics var
-R6555:6570 Physics.DiscreteModel <> Embedding.decode_encode_id var
-R6533:6552 Physics.DiscreteModel <> Embedding.impl_refines_physics var
-R6533:6552 Physics.DiscreteModel <> Embedding.impl_refines_physics var
-R6555:6570 Physics.DiscreteModel <> Embedding.decode_encode_id var
-R6555:6570 Physics.DiscreteModel <> Embedding.decode_encode_id var
-R6583:6608 Physics.DiscreteModel <> physics_preserves_momentum thm
-R6583:6608 Physics.DiscreteModel <> physics_preserves_momentum thm
-R6622:6630 Physics.DiscreteModel Embedding <> sec
+R194:200 Kernel.VMState <> <> lib
+R202:207 Kernel.VMStep <> <> lib
+R237:247 Kernel.MuCostModel <> <> lib
+ind 601:604 <> Cell
+constr 609:613 <> Empty
+constr 617:625 <> LeftMover
+constr 629:638 <> RightMover
+scheme 601:604 <> Cell_rect
+scheme 601:604 <> Cell_ind
+scheme 601:604 <> Cell_rec
+scheme 601:604 <> Cell_sind
+def 653:659 <> Lattice
+R664:667 Coq.Init.Datatypes <> list ind
+R669:672 Physics.DiscreteModel <> Cell ind
+def 761:771 <> is_particle
+R778:781 Physics.DiscreteModel <> Cell ind
+binder 774:774 <> c:3
+R786:789 Coq.Init.Datatypes <> bool ind
+R802:802 Physics.DiscreteModel <> c:3 var
+R813:817 Physics.DiscreteModel <> Empty constr
+R822:826 Coq.Init.Datatypes <> false constr
+R837:840 Coq.Init.Datatypes <> true constr
+def 861:874 <> particle_count
+R881:887 Physics.DiscreteModel <> Lattice def
+binder 877:877 <> l:5
+R892:894 Coq.Init.Datatypes <> nat ind
+R901:906 Coq.Init.Datatypes <> length def
+R909:914 Coq.Lists.List <> filter def
+R928:928 Physics.DiscreteModel <> l:5 var
+R916:926 Physics.DiscreteModel <> is_particle def
+prf 991:1009 <> particle_count_cons
+binder 1022:1022 <> c:6
+binder 1024:1025 <> xs:7
+R1056:1058 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1032:1045 Physics.DiscreteModel <> particle_count def
+R1049:1052 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1048:1048 Physics.DiscreteModel <> c:6 var
+R1053:1054 Physics.DiscreteModel <> xs:7 var
+R1059:1059 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1090:1093 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1063:1073 Physics.DiscreteModel <> is_particle def
+R1075:1075 Physics.DiscreteModel <> c:6 var
+R1094:1107 Physics.DiscreteModel <> particle_count def
+R1109:1110 Physics.DiscreteModel <> xs:7 var
+R1142:1155 Physics.DiscreteModel <> particle_count def
+def 1216:1228 <> cell_momentum
+R1235:1238 Physics.DiscreteModel <> Cell ind
+binder 1231:1231 <> c:8
+R1243:1243 Coq.Numbers.BinNums <> Z ind
+R1256:1256 Physics.DiscreteModel <> c:8 var
+R1267:1271 Physics.DiscreteModel <> Empty constr
+R1284:1292 Physics.DiscreteModel <> LeftMover constr
+R1308:1317 Physics.DiscreteModel <> RightMover constr
+def 1343:1350 <> momentum
+R1357:1363 Physics.DiscreteModel <> Lattice def
+binder 1353:1353 <> l:10
+R1368:1368 Coq.Numbers.BinNums <> Z ind
+R1381:1381 Physics.DiscreteModel <> l:10 var
+R1392:1393 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1407:1410 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1432:1434 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R1417:1429 Physics.DiscreteModel <> cell_momentum def
+R1435:1442 Physics.DiscreteModel <> momentum:11 def
+def 1651:1661 <> pair_update
+R1672:1675 Physics.DiscreteModel <> Cell ind
+binder 1664:1665 <> c1:13
+binder 1667:1668 <> c2:14
+R1684:1686 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1680:1683 Physics.DiscreteModel <> Cell ind
+R1687:1690 Physics.DiscreteModel <> Cell ind
+R1695:1695 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1698:1699 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1702:1702 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1696:1697 Physics.DiscreteModel <> c2:14 var
+R1700:1701 Physics.DiscreteModel <> c1:13 var
+def 1715:1726 <> physics_step
+R1733:1739 Physics.DiscreteModel <> Lattice def
+binder 1729:1729 <> L:15
+R1744:1750 Physics.DiscreteModel <> Lattice def
+R1763:1763 Physics.DiscreteModel <> L:15 var
+R1776:1779 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1782:1785 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1815:1825 Physics.DiscreteModel <> pair_update def
+R1803:1803 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1806:1807 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1810:1810 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1838:1841 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1844:1847 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1848:1859 Physics.DiscreteModel <> physics_step:16 def
+R1868:1868 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1870:1870 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1875:1875 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1877:1877 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1883:1884 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1889:1890 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+prf 1961:1982 <> pair_update_involutive
+binder 1995:1996 <> c1:18
+binder 1998:1999 <> c2:19
+R2065:2067 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2002:2012 Physics.DiscreteModel <> pair_update def
+R2015:2017 Coq.Init.Datatypes <> fst def
+R2020:2030 Physics.DiscreteModel <> pair_update def
+R2032:2033 Physics.DiscreteModel <> c1:18 var
+R2035:2036 Physics.DiscreteModel <> c2:19 var
+R2041:2043 Coq.Init.Datatypes <> snd def
+R2046:2056 Physics.DiscreteModel <> pair_update def
+R2058:2059 Physics.DiscreteModel <> c1:18 var
+R2061:2062 Physics.DiscreteModel <> c2:19 var
+R2068:2068 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2071:2072 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2075:2075 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2069:2070 Physics.DiscreteModel <> c1:18 var
+R2073:2074 Physics.DiscreteModel <> c2:19 var
+prf 2200:2218 <> particle_count_swap
+binder 2231:2232 <> c1:20
+binder 2234:2235 <> c2:21
+binder 2237:2238 <> xs:22
+R2276:2278 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2245:2258 Physics.DiscreteModel <> particle_count def
+R2263:2266 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2261:2262 Physics.DiscreteModel <> c1:20 var
+R2269:2272 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2267:2268 Physics.DiscreteModel <> c2:21 var
+R2273:2274 Physics.DiscreteModel <> xs:22 var
+R2279:2292 Physics.DiscreteModel <> particle_count def
+R2297:2300 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2295:2296 Physics.DiscreteModel <> c2:21 var
+R2303:2306 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2301:2302 Physics.DiscreteModel <> c1:20 var
+R2307:2308 Physics.DiscreteModel <> xs:22 var
+prf 2431:2443 <> momentum_swap
+binder 2456:2457 <> c1:23
+binder 2459:2460 <> c2:24
+binder 2462:2463 <> xs:25
+R2495:2497 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2470:2477 Physics.DiscreteModel <> momentum def
+R2482:2485 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2480:2481 Physics.DiscreteModel <> c1:23 var
+R2488:2491 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2486:2487 Physics.DiscreteModel <> c2:24 var
+R2492:2493 Physics.DiscreteModel <> xs:25 var
+R2498:2505 Physics.DiscreteModel <> momentum def
+R2510:2513 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2508:2509 Physics.DiscreteModel <> c2:24 var
+R2516:2519 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2514:2515 Physics.DiscreteModel <> c1:23 var
+R2520:2521 Physics.DiscreteModel <> xs:25 var
+prf 2629:2651 <> physics_step_involutive
+binder 2664:2664 <> L:26
+R2696:2698 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2667:2678 Physics.DiscreteModel <> physics_step def
+R2681:2692 Physics.DiscreteModel <> physics_step def
+R2694:2694 Physics.DiscreteModel <> L:26 var
+R2699:2699 Physics.DiscreteModel <> L:26 var
+prf 2937:2972 <> pair_update_preserves_particle_count
+binder 2985:2986 <> c1:27
+binder 2988:2989 <> c2:28
+R3061:3067 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2996:3009 Physics.DiscreteModel <> particle_count def
+R3011:3011 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3035:3036 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3060:3060 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3012:3014 Coq.Init.Datatypes <> fst def
+R3017:3027 Physics.DiscreteModel <> pair_update def
+R3029:3030 Physics.DiscreteModel <> c1:27 var
+R3032:3033 Physics.DiscreteModel <> c2:28 var
+R3037:3039 Coq.Init.Datatypes <> snd def
+R3042:3052 Physics.DiscreteModel <> pair_update def
+R3054:3055 Physics.DiscreteModel <> c1:27 var
+R3057:3058 Physics.DiscreteModel <> c2:28 var
+R3068:3081 Physics.DiscreteModel <> particle_count def
+R3083:3083 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3086:3087 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3090:3090 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3084:3085 Physics.DiscreteModel <> c1:27 var
+R3088:3089 Physics.DiscreteModel <> c2:28 var
+R3123:3133 Physics.DiscreteModel <> pair_update def
+R3136:3149 Physics.DiscreteModel <> particle_count def
+prf 3289:3320 <> physics_preserves_particle_count
+binder 3333:3333 <> L:29
+R3367:3369 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3336:3349 Physics.DiscreteModel <> particle_count def
+R3352:3363 Physics.DiscreteModel <> physics_step def
+R3365:3365 Physics.DiscreteModel <> L:29 var
+R3370:3383 Physics.DiscreteModel <> particle_count def
+R3385:3385 Physics.DiscreteModel <> L:29 var
+R3511:3529 Physics.DiscreteModel <> particle_count_cons thm
+R3511:3529 Physics.DiscreteModel <> particle_count_cons thm
+R3511:3529 Physics.DiscreteModel <> particle_count_cons thm
+R3511:3529 Physics.DiscreteModel <> particle_count_cons thm
+R3511:3529 Physics.DiscreteModel <> particle_count_cons thm
+R3511:3529 Physics.DiscreteModel <> particle_count_cons thm
+R3511:3529 Physics.DiscreteModel <> particle_count_cons thm
+R3511:3529 Physics.DiscreteModel <> particle_count_cons thm
+R3511:3529 Physics.DiscreteModel <> particle_count_cons thm
+R3511:3529 Physics.DiscreteModel <> particle_count_cons thm
+prf 3651:3680 <> pair_update_preserves_momentum
+binder 3693:3694 <> c1:30
+binder 3696:3697 <> c2:31
+R3763:3769 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3704:3711 Physics.DiscreteModel <> momentum def
+R3713:3713 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3737:3738 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3762:3762 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3714:3716 Coq.Init.Datatypes <> fst def
+R3719:3729 Physics.DiscreteModel <> pair_update def
+R3731:3732 Physics.DiscreteModel <> c1:30 var
+R3734:3735 Physics.DiscreteModel <> c2:31 var
+R3739:3741 Coq.Init.Datatypes <> snd def
+R3744:3754 Physics.DiscreteModel <> pair_update def
+R3756:3757 Physics.DiscreteModel <> c1:30 var
+R3759:3760 Physics.DiscreteModel <> c2:31 var
+R3770:3777 Physics.DiscreteModel <> momentum def
+R3779:3779 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3782:3783 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3786:3786 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3780:3781 Physics.DiscreteModel <> c1:30 var
+R3784:3785 Physics.DiscreteModel <> c2:31 var
+R3819:3829 Physics.DiscreteModel <> pair_update def
+R3832:3839 Physics.DiscreteModel <> momentum def
+prf 3969:3994 <> physics_preserves_momentum
+binder 4007:4007 <> L:32
+R4035:4037 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4010:4017 Physics.DiscreteModel <> momentum def
+R4020:4031 Physics.DiscreteModel <> physics_step def
+R4033:4033 Physics.DiscreteModel <> L:32 var
+R4038:4045 Physics.DiscreteModel <> momentum def
+R4047:4047 Physics.DiscreteModel <> L:32 var
+prf 4301:4327 <> lattice_particles_conserved
+binder 4340:4340 <> L:33
+R4374:4376 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4343:4356 Physics.DiscreteModel <> particle_count def
+R4359:4370 Physics.DiscreteModel <> physics_step def
+R4372:4372 Physics.DiscreteModel <> L:33 var
+R4377:4390 Physics.DiscreteModel <> particle_count def
+R4392:4392 Physics.DiscreteModel <> L:33 var
+R4408:4439 Physics.DiscreteModel <> physics_preserves_particle_count thm
+R4408:4439 Physics.DiscreteModel <> physics_preserves_particle_count thm
+prf 4515:4540 <> lattice_momentum_conserved
+binder 4553:4553 <> L:34
+R4581:4583 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4556:4563 Physics.DiscreteModel <> momentum def
+R4566:4577 Physics.DiscreteModel <> physics_step def
+R4579:4579 Physics.DiscreteModel <> L:34 var
+R4584:4591 Physics.DiscreteModel <> momentum def
+R4593:4593 Physics.DiscreteModel <> L:34 var
+R4609:4634 Physics.DiscreteModel <> physics_preserves_momentum thm
+R4609:4634 Physics.DiscreteModel <> physics_preserves_momentum thm
+prf 4707:4729 <> lattice_step_involutive
+binder 4742:4742 <> L:35
+R4774:4776 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4745:4756 Physics.DiscreteModel <> physics_step def
+R4759:4770 Physics.DiscreteModel <> physics_step def
+R4772:4772 Physics.DiscreteModel <> L:35 var
+R4777:4777 Physics.DiscreteModel <> L:35 var
+R4793:4815 Physics.DiscreteModel <> physics_step_involutive thm
+R4793:4815 Physics.DiscreteModel <> physics_step_involutive thm
+def 4950:4976 <> physics_conserves_particles
+R4981:5012 Physics.DiscreteModel <> physics_preserves_particle_count thm
+def 5026:5051 <> physics_conserves_momentum
+R5056:5081 Physics.DiscreteModel <> physics_preserves_momentum thm
+prf 5155:5181 <> physics_conservation_bundle
+binder 5194:5194 <> L:36
+R5234:5241 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5230:5232 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5201:5212 Physics.DiscreteModel <> physics_step def
+R5215:5226 Physics.DiscreteModel <> physics_step def
+R5228:5228 Physics.DiscreteModel <> L:36 var
+R5233:5233 Physics.DiscreteModel <> L:36 var
+R5292:5299 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5273:5275 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5242:5255 Physics.DiscreteModel <> particle_count def
+R5258:5269 Physics.DiscreteModel <> physics_step def
+R5271:5271 Physics.DiscreteModel <> L:36 var
+R5276:5289 Physics.DiscreteModel <> particle_count def
+R5291:5291 Physics.DiscreteModel <> L:36 var
+R5325:5327 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5300:5307 Physics.DiscreteModel <> momentum def
+R5310:5321 Physics.DiscreteModel <> physics_step def
+R5323:5323 Physics.DiscreteModel <> L:36 var
+R5328:5335 Physics.DiscreteModel <> momentum def
+R5337:5337 Physics.DiscreteModel <> L:36 var
+R5384:5406 Physics.DiscreteModel <> physics_step_involutive thm
+R5413:5444 Physics.DiscreteModel <> physics_preserves_particle_count thm
+R5447:5472 Physics.DiscreteModel <> physics_preserves_momentum thm
+R5384:5406 Physics.DiscreteModel <> physics_step_involutive thm
+R5384:5406 Physics.DiscreteModel <> physics_step_involutive thm
+R5384:5406 Physics.DiscreteModel <> physics_step_involutive thm
+R5413:5444 Physics.DiscreteModel <> physics_preserves_particle_count thm
+R5447:5472 Physics.DiscreteModel <> physics_preserves_momentum thm
+R5413:5444 Physics.DiscreteModel <> physics_preserves_particle_count thm
+R5447:5472 Physics.DiscreteModel <> physics_preserves_momentum thm
+R5413:5444 Physics.DiscreteModel <> physics_preserves_particle_count thm
+R5447:5472 Physics.DiscreteModel <> physics_preserves_momentum thm
+sec 5815:5823 <> Embedding
+var 5837:5843 Embedding Encoded
+var 5864:5869 Embedding encode
+R5880:5883 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5873:5879 Physics.DiscreteModel <> Lattice def
+R5884:5890 Physics.DiscreteModel <> Embedding.Encoded var
+var 5904:5909 Embedding decode
+R5920:5923 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5913:5919 Physics.DiscreteModel <> Embedding.Encoded var
+R5924:5930 Physics.DiscreteModel <> Lattice def
+var 5944:5952 Embedding impl_step
+R5963:5966 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5956:5962 Physics.DiscreteModel <> Embedding.Encoded var
+R5967:5973 Physics.DiscreteModel <> Embedding.Encoded var
+var 5988:6003 Embedding decode_encode_id
+binder 6014:6014 <> L:41
+R6034:6036 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6017:6022 Physics.DiscreteModel <> Embedding.decode var
+R6025:6030 Physics.DiscreteModel <> Embedding.encode var
+R6032:6032 Physics.DiscreteModel <> L:41 var
+R6037:6037 Physics.DiscreteModel <> L:41 var
+var 6051:6070 Embedding impl_refines_physics
+binder 6085:6085 <> L:43
+R6117:6119 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6088:6093 Physics.DiscreteModel <> Embedding.decode var
+R6096:6104 Physics.DiscreteModel <> Embedding.impl_step var
+R6107:6112 Physics.DiscreteModel <> Embedding.encode var
+R6114:6114 Physics.DiscreteModel <> L:43 var
+R6120:6131 Physics.DiscreteModel <> physics_step def
+R6133:6133 Physics.DiscreteModel <> L:43 var
+prf 6213:6245 <> embedded_particle_count_conserved
+binder 6260:6260 <> L:45
+R6315:6317 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6269:6282 Physics.DiscreteModel <> particle_count def
+R6285:6290 Physics.DiscreteModel <> Embedding.decode var
+R6293:6301 Physics.DiscreteModel <> Embedding.impl_step var
+R6304:6309 Physics.DiscreteModel <> Embedding.encode var
+R6311:6311 Physics.DiscreteModel <> L:45 var
+R6318:6331 Physics.DiscreteModel <> particle_count def
+R6334:6339 Physics.DiscreteModel <> Embedding.decode var
+R6342:6347 Physics.DiscreteModel <> Embedding.encode var
+R6349:6349 Physics.DiscreteModel <> L:45 var
+R6385:6404 Physics.DiscreteModel <> Embedding.impl_refines_physics var
+R6407:6422 Physics.DiscreteModel <> Embedding.decode_encode_id var
+R6385:6404 Physics.DiscreteModel <> Embedding.impl_refines_physics var
+R6385:6404 Physics.DiscreteModel <> Embedding.impl_refines_physics var
+R6407:6422 Physics.DiscreteModel <> Embedding.decode_encode_id var
+R6407:6422 Physics.DiscreteModel <> Embedding.decode_encode_id var
+R6435:6466 Physics.DiscreteModel <> physics_preserves_particle_count thm
+R6435:6466 Physics.DiscreteModel <> physics_preserves_particle_count thm
+prf 6547:6573 <> embedded_momentum_conserved
+binder 6588:6588 <> L:46
+R6637:6639 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6597:6604 Physics.DiscreteModel <> momentum def
+R6607:6612 Physics.DiscreteModel <> Embedding.decode var
+R6615:6623 Physics.DiscreteModel <> Embedding.impl_step var
+R6626:6631 Physics.DiscreteModel <> Embedding.encode var
+R6633:6633 Physics.DiscreteModel <> L:46 var
+R6640:6647 Physics.DiscreteModel <> momentum def
+R6650:6655 Physics.DiscreteModel <> Embedding.decode var
+R6658:6663 Physics.DiscreteModel <> Embedding.encode var
+R6665:6665 Physics.DiscreteModel <> L:46 var
+R6701:6720 Physics.DiscreteModel <> Embedding.impl_refines_physics var
+R6723:6738 Physics.DiscreteModel <> Embedding.decode_encode_id var
+R6701:6720 Physics.DiscreteModel <> Embedding.impl_refines_physics var
+R6701:6720 Physics.DiscreteModel <> Embedding.impl_refines_physics var
+R6723:6738 Physics.DiscreteModel <> Embedding.decode_encode_id var
+R6723:6738 Physics.DiscreteModel <> Embedding.decode_encode_id var
+R6751:6776 Physics.DiscreteModel <> physics_preserves_momentum thm
+R6751:6776 Physics.DiscreteModel <> physics_preserves_momentum thm
+R6790:6798 Physics.DiscreteModel Embedding <> sec

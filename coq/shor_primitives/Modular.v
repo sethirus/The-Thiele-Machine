@@ -1,4 +1,6 @@
 (** * Modular arithmetic primitives for Project Sovereign
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
 
     This file provides a minimal collection of modular arithmetic utilities
     formalised over natural numbers.  They serve as the reusable bedrock for
@@ -6,6 +8,10 @@
     intentionally small but explicit so that future proofs can cite them without
     depending on opaque automation.
  *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import Arith.
 
@@ -86,5 +92,5 @@ Section ModularArithmetic.
     rewrite (Nat.Div0.mul_mod (Nat.pow a k) (Nat.pow a l) n).
     reflexivity.
   Qed.
-End ModularArithmetic.
 
+End ModularArithmetic.

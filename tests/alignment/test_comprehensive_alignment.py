@@ -192,7 +192,7 @@ def _run_opcode_alignment() -> List[TestResult]:
             results.append(TestResult(
                 name=f"Opcode {py_name} in Verilog",
                 passed=False,
-                message=f"OPCODE_{py_name} not found in thiele_cpu.v",
+                message=f"OPCODE_{py_name} not found in thiele_cpu_kami.v/generated_opcodes.vh",
                 details={"python": py_value}
             ))
         elif verilog_value != py_value:

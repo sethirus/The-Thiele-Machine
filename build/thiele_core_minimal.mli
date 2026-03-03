@@ -451,4 +451,6 @@ module VMStep :
     vMState -> vm_instruction -> int -> int list -> int list -> vMState
  end
 
+val vm_apply_unsafe : vMState -> VMStep.vm_instruction -> vMState
+
 val vm_apply : vMState -> VMStep.vm_instruction -> vMState

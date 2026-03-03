@@ -371,6 +371,171 @@ Proof.
     try assumption.
 Qed.
 
+(** Bridge theorem: route the generic strengthening theorem from
+    [NoFreeInsight] into this production module so downstream proofs can
+    depend on a load-bearing NoFI entrypoint.
+*)
+Theorem no_free_insight_from_strengthening_bridge :
+  forall (A : Type)
+         (decoder : NoFreeInsight.receipt_decoder A)
+         (P_weak P_strong : NoFreeInsight.ReceiptPredicate A)
+         (trace : NoFreeInsight.Receipts)
+         (s_init : VMState)
+         (fuel : nat),
+    NoFreeInsight.strictly_stronger P_strong P_weak ->
+    s_init.(vm_csrs).(csr_cert_addr) = 0%nat ->
+    (forall s_final,
+        s_final = run_vm fuel trace s_init ->
+        P_weak (decoder trace) = true ->
+        NoFreeInsight.CertifiedObs s_final decoder P_strong trace ->
+        has_supra_cert s_final) ->
+    NoFreeInsight.CertifiedObs (run_vm fuel trace s_init) decoder P_strong trace ->
+    NoFreeInsight.has_structure_addition fuel trace s_init.
+Proof.
+  intros A decoder P_weak P_strong trace s_init fuel Hstrict Hinit Hbridge Hcertobs.
+  eapply NoFreeInsight.strengthening_obs_requires_structure_addition; eauto.
+Qed.
+
+Lemma quantum_admissible_implies_no_structure_addition_in_run :
+  forall (trace : Trace) (s_init : VMState) (fuel : nat),
+    s_init.(vm_csrs).(csr_cert_addr) = 0%nat ->
+    QuantumBound.quantum_admissible trace ->
+    ~ NoFreeInsight.has_structure_addition fuel trace s_init.
+Proof.
+  intros trace s_init fuel.
+  revert s_init.
+  induction fuel as [|fuel IH]; intros s_init Hinit Hadm Hsa.
+  - unfold NoFreeInsight.has_structure_addition in Hsa.
+    simpl in Hsa.
+    exact Hsa.
+  - unfold NoFreeInsight.has_structure_addition in Hsa.
+    simpl in Hsa.
+    destruct (nth_error trace (vm_pc s_init)) as [instr|] eqn:Hnth.
+    + assert (Hin : In instr trace).
+      { apply nth_error_In with (n := vm_pc s_init). exact Hnth. }
+      assert (Hnot : is_not_cert_setter instr).
+      { eapply quantum_admissible_all_not_cert_setters; eauto. }
+      assert (Hpres :
+        (vm_apply s_init instr).(vm_csrs).(csr_cert_addr) =
+        s_init.(vm_csrs).(csr_cert_addr)).
+      { apply vm_apply_preserves_cert_addr. exact Hnot. }
+      destruct Hsa as [[_ Hnz] | Hrest].
+      * rewrite Hpres in Hnz.
+        rewrite Hinit in Hnz.
+        contradiction.
+      * eapply IH.
+        -- rewrite Hpres. exact Hinit.
+        -- exact Hadm.
+        -- exact Hrest.
+    + exact Hsa.
+Qed.
+
+Lemma supra_certified_implies_structure_addition_via_bridge :
+  forall (trace : Trace) (s_init s_final : VMState) (fuel : nat),
+    trace_run fuel trace s_init = Some s_final ->
+    s_init.(vm_csrs).(csr_cert_addr) = 0%nat ->
+    Certified s_final supra_quantum_certified trace ->
+    NoFreeInsight.has_structure_addition fuel trace s_init.
+Proof.
+  intros trace s_init s_final fuel Hrun Hinit Hcert.
+  destruct Hcert as [Herr [_ Hhascert]].
+  set (decoder0 := (fun (_ : Trace) => [0%nat]) : NoFreeInsight.receipt_decoder nat).
+  set (P_weak0 := (fun (_ : list nat) => true) : NoFreeInsight.ReceiptPredicate nat).
+  set (P_strong0 := (fun obs : list nat =>
+                       match obs with
+                       | [0%nat] => true
+                       | _ => false
+                       end) : NoFreeInsight.ReceiptPredicate nat).
+  assert (Hstrict0 : NoFreeInsight.strictly_stronger P_strong0 P_weak0).
+  {
+    unfold NoFreeInsight.strictly_stronger, NoFreeInsight.stronger, P_strong0, P_weak0.
+    split.
+    - intros obs _. reflexivity.
+    - exists []. simpl. split; reflexivity.
+  }
+  assert (Hcertobs0 : NoFreeInsight.CertifiedObs (run_vm fuel trace s_init) decoder0 P_strong0 trace).
+  {
+    unfold NoFreeInsight.CertifiedObs, decoder0, P_strong0.
+    split.
+    - assert (Hsfinal : s_final = run_vm fuel trace s_init).
+      { pose proof (NoFreeInsight.trace_run_run_vm fuel trace s_init) as Heq.
+        rewrite Hrun in Heq.
+        inversion Heq; reflexivity. }
+      rewrite <- Hsfinal. exact Herr.
+    - reflexivity.
+  }
+  assert (Hbridge0 :
+    forall sf,
+      sf = run_vm fuel trace s_init ->
+      P_weak0 (decoder0 trace) = true ->
+      NoFreeInsight.CertifiedObs sf decoder0 P_strong0 trace ->
+      has_supra_cert sf).
+  {
+    intros sf Hsf _ _.
+    subst sf.
+    assert (Hsfinal : s_final = run_vm fuel trace s_init).
+    { pose proof (NoFreeInsight.trace_run_run_vm fuel trace s_init) as Heq.
+      rewrite Hrun in Heq.
+      inversion Heq; reflexivity. }
+    rewrite <- Hsfinal.
+    exact Hhascert.
+  }
+  eapply no_free_insight_from_strengthening_bridge; eauto.
+Qed.
+
+Lemma chsh_claim_certified_implies_structure_addition_via_bridge :
+  forall (q : Q) (trace : Trace) (s_init s_final : VMState) (fuel : nat),
+    trace_run fuel trace s_init = Some s_final ->
+    s_init.(vm_csrs).(csr_cert_addr) = 0%nat ->
+    Certified s_final (chsh_claim_certified q) trace ->
+    NoFreeInsight.has_structure_addition fuel trace s_init.
+Proof.
+  intros q trace s_init s_final fuel Hrun Hinit Hcert.
+  destruct Hcert as [Herr [_ Hhascert]].
+  set (decoder0 := (fun (_ : Trace) => [0%nat]) : NoFreeInsight.receipt_decoder nat).
+  set (P_weak0 := (fun (_ : list nat) => true) : NoFreeInsight.ReceiptPredicate nat).
+  set (P_strong0 := (fun obs : list nat =>
+                       match obs with
+                       | [0%nat] => true
+                       | _ => false
+                       end) : NoFreeInsight.ReceiptPredicate nat).
+  assert (Hstrict0 : NoFreeInsight.strictly_stronger P_strong0 P_weak0).
+  {
+    unfold NoFreeInsight.strictly_stronger, NoFreeInsight.stronger, P_strong0, P_weak0.
+    split.
+    - intros obs _. reflexivity.
+    - exists []. simpl. split; reflexivity.
+  }
+  assert (Hcertobs0 : NoFreeInsight.CertifiedObs (run_vm fuel trace s_init) decoder0 P_strong0 trace).
+  {
+    unfold NoFreeInsight.CertifiedObs, decoder0, P_strong0.
+    split.
+    - assert (Hsfinal : s_final = run_vm fuel trace s_init).
+      { pose proof (NoFreeInsight.trace_run_run_vm fuel trace s_init) as Heq.
+        rewrite Hrun in Heq.
+        inversion Heq; reflexivity. }
+      rewrite <- Hsfinal. exact Herr.
+    - reflexivity.
+  }
+  assert (Hbridge0 :
+    forall sf,
+      sf = run_vm fuel trace s_init ->
+      P_weak0 (decoder0 trace) = true ->
+      NoFreeInsight.CertifiedObs sf decoder0 P_strong0 trace ->
+      has_supra_cert sf).
+  {
+    intros sf Hsf _ _.
+    subst sf.
+    assert (Hsfinal : s_final = run_vm fuel trace s_init).
+    { pose proof (NoFreeInsight.trace_run_run_vm fuel trace s_init) as Heq.
+      rewrite Hrun in Heq.
+      inversion Heq; reflexivity. }
+    rewrite <- Hsfinal.
+    exact Hhascert.
+  }
+  eapply no_free_insight_from_strengthening_bridge; eauto.
+Qed.
+
 (** Quantitative strengthening: certified supra-CHSH implies a paid μ-cost.
 
     This is the Phase I “μ lower bound” phrased directly in the certification
@@ -381,14 +546,21 @@ Theorem certified_supra_chsh_implies_mu_lower_bound :
     trace_run fuel trace s_init = Some s_final ->
     s_init.(vm_csrs).(csr_cert_addr) = 0%nat ->
     Certified s_final supra_quantum_certified trace ->
+    NoFreeInsight.has_structure_addition fuel trace s_init /\
     exists instr,
       MuNoFreeInsightQuantitative.is_cert_setter instr /\
       (s_final.(vm_mu) >= s_init.(vm_mu) + instruction_cost instr)%nat.
 Proof.
   intros trace s_init s_final fuel Hrun Hinit Hcert.
+  assert (Hstruct : NoFreeInsight.has_structure_addition fuel trace s_init).
+  { eapply supra_certified_implies_structure_addition_via_bridge; eauto. }
   destruct Hcert as [_ Hsupra].
   destruct Hsupra as [_ Hhascert].
-  eapply MuNoFreeInsightQuantitative.supra_cert_implies_mu_lower_bound_trace_run; eauto.
+  pose proof
+    (MuNoFreeInsightQuantitative.supra_cert_implies_mu_lower_bound_trace_run
+       fuel trace s_init s_final Hrun Hinit Hhascert)
+    as Hmu.
+  split; [exact Hstruct|exact Hmu].
 Qed.
 
 (** ------------------------------------------------------------------------- *)
@@ -411,10 +583,11 @@ Theorem quantum_admissible_cannot_certify_supra_chsh :
     ~ Certified s_final supra_quantum_certified trace.
 Proof.
   intros trace s_init s_final fuel Hrun Hinit Hadm Hcert.
-  destruct Hcert as [_ Hsupra].
-  destruct Hsupra as [_ Hhascert].
-  (* QuantumBound: admissible traces cannot set certification. *)
-  eapply QuantumBound.quantum_admissible_implies_no_supra_cert; eauto.
+  assert (Hstruct : NoFreeInsight.has_structure_addition fuel trace s_init).
+  { eapply supra_certified_implies_structure_addition_via_bridge; eauto. }
+  assert (Hnostruct : ~ NoFreeInsight.has_structure_addition fuel trace s_init).
+  { eapply quantum_admissible_implies_no_structure_addition_in_run; eauto. }
+  contradiction.
 Qed.
 
 (** A more general admissibility boundary:
@@ -433,9 +606,11 @@ Theorem quantum_admissible_cannot_certify_chsh_claim :
     ~ Certified s_final (chsh_claim_certified q) trace.
 Proof.
   intros q trace s_init s_final fuel Hrun Hinit Hadm Hcert.
-  destruct Hcert as [_ Hclaim].
-  destruct Hclaim as [_ Hhascert].
-  eapply QuantumBound.quantum_admissible_implies_no_supra_cert; eauto.
+  assert (Hstruct : NoFreeInsight.has_structure_addition fuel trace s_init).
+  { eapply chsh_claim_certified_implies_structure_addition_via_bridge; eauto. }
+  assert (Hnostruct : ~ NoFreeInsight.has_structure_addition fuel trace s_init).
+  { eapply quantum_admissible_implies_no_structure_addition_in_run; eauto. }
+  contradiction.
 Qed.
 
 (** ------------------------------------------------------------------------- *)
@@ -451,14 +626,21 @@ Theorem certified_chsh_claim_implies_mu_lower_bound :
     trace_run fuel trace s_init = Some s_final ->
     s_init.(vm_csrs).(csr_cert_addr) = 0%nat ->
     Certified s_final (chsh_claim_certified q) trace ->
+    NoFreeInsight.has_structure_addition fuel trace s_init /\
     exists instr,
       MuNoFreeInsightQuantitative.is_cert_setter instr /\
       (s_final.(vm_mu) >= s_init.(vm_mu) + instruction_cost instr)%nat.
 Proof.
   intros q trace s_init s_final fuel Hrun Hinit Hcert.
+  assert (Hstruct : NoFreeInsight.has_structure_addition fuel trace s_init).
+  { eapply chsh_claim_certified_implies_structure_addition_via_bridge; eauto. }
   destruct Hcert as [_ Hclaim].
   destruct Hclaim as [_ Hhascert].
-  eapply MuNoFreeInsightQuantitative.supra_cert_implies_mu_lower_bound_trace_run; eauto.
+  pose proof
+    (MuNoFreeInsightQuantitative.supra_cert_implies_mu_lower_bound_trace_run
+       fuel trace s_init s_final Hrun Hinit Hhascert)
+    as Hmu.
+  split; [exact Hstruct|exact Hmu].
 Qed.
 
 (** [certified_bell_violation_implies_mu_lower_bound]: formal specification. *)
@@ -467,6 +649,7 @@ Corollary certified_bell_violation_implies_mu_lower_bound :
     trace_run fuel trace s_init = Some s_final ->
     s_init.(vm_csrs).(csr_cert_addr) = 0%nat ->
     Certified s_final (chsh_claim_certified (2#1)) trace ->
+    NoFreeInsight.has_structure_addition fuel trace s_init /\
     exists instr,
       MuNoFreeInsightQuantitative.is_cert_setter instr /\
       (s_final.(vm_mu) >= s_init.(vm_mu) + instruction_cost instr)%nat.
@@ -493,7 +676,7 @@ Theorem certified_supra_chsh_implies_mu_info_z_lower_bound :
 Proof.
   intros trace s_init s_final fuel Hrun Hinit Hcert.
   destruct (certified_supra_chsh_implies_mu_lower_bound trace s_init s_final fuel Hrun Hinit Hcert)
-    as [instr [Hsetter Hmu_nat]].
+    as [_ [instr [Hsetter Hmu_nat]]].
   exists instr.
   split; [exact Hsetter|].
   pose proof (proj1 (Nat2Z.inj_le (vm_mu s_init + instruction_cost instr) (vm_mu s_final)) Hmu_nat)

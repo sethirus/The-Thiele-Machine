@@ -7,6 +7,9 @@ Require Import VMStep.
 Require Import KernelPhysics.
 Require Import SimulationProof.
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import MuCostModel.
+
 (** Decidable equality for vm_instruction (needed for discriminate). *)
 Definition vm_instruction_eq_dec : forall (x y : vm_instruction), {x = y} + {x <> y}.
 Proof.
@@ -148,11 +151,23 @@ Lemma non_cert_setter_preserves_cert :
     (vm_apply s i).(vm_csrs).(csr_cert_addr) = s.(vm_csrs).(csr_cert_addr).
 Proof.
   intros s i Hrev Hemit Hljoin Hlassert.
-  destruct i; unfold vm_apply.
-  - (* pnew *) destruct (graph_pnew _ _). unfold advance_state. simpl. reflexivity.
-  - (* psplit *) destruct (graph_psplit _ _ _ _) as [[[? ?] ?]|];
+  destruct i; unfold vm_apply, vm_apply_unsafe.
+  - (* pnew *)
+    match goal with
+    | |- context [graph_pnew ?g ?r] => destruct (graph_pnew g r)
+    end.
+    unfold advance_state. simpl. reflexivity.
+  - (* psplit *)
+    match goal with
+    | |- context [graph_psplit ?g ?m ?l ?r] =>
+        destruct (graph_psplit g m l r) as [[[? ?] ?]|]
+    end;
       unfold advance_state, csr_set_err; simpl; reflexivity.
-  - (* pmerge *) destruct (graph_pmerge _ _ _) as [[? ?]|];
+  - (* pmerge *)
+    match goal with
+    | |- context [graph_pmerge ?g ?m1 ?m2] =>
+        destruct (graph_pmerge g m1 m2) as [[? ?]|]
+    end;
       unfold advance_state, csr_set_err; simpl; reflexivity.
   - (* lassert *) exfalso. eapply Hlassert. reflexivity.
   - (* ljoin *) exfalso. eapply Hljoin. reflexivity.
@@ -165,11 +180,19 @@ Proof.
   - (* add *) unfold advance_state_rm. simpl. reflexivity.
   - (* sub *) unfold advance_state_rm. simpl. reflexivity.
   - (* jump *) unfold jump_state. simpl. reflexivity.
-  - (* jnez *) destruct (Nat.eqb (read_reg _ _)) eqn:?;
+  - (* jnez *)
+    match goal with
+    | |- context [Nat.eqb (read_reg ?st ?rs) 0] =>
+        destruct (Nat.eqb (read_reg st rs) 0) eqn:?
+    end;
       [unfold advance_state | unfold jump_state]; simpl; reflexivity.
   - (* call *) unfold jump_state_rm. simpl. reflexivity.
   - (* ret *) unfold jump_state_rm. simpl. reflexivity.
-  - (* chsh_trial *) destruct (chsh_bits_ok _ _ _ _) eqn:?;
+  - (* chsh_trial *)
+    match goal with
+    | |- context [chsh_bits_ok ?x ?y ?a ?b] =>
+        destruct (chsh_bits_ok x y a b) eqn:?
+    end;
       unfold advance_state, csr_set_err; simpl; reflexivity.
   - (* xor_load *) unfold advance_state_rm. simpl. reflexivity.
   - (* xor_add *) unfold advance_state_rm. simpl. reflexivity.
@@ -208,14 +231,31 @@ Proof.
     unfold has_supra_cert in Hfinal. contradiction.
   - simpl in Hrun.
     destruct (nth_error trace (vm_pc s_init)) as [instr|] eqn:Hnth.
-    + destruct instr; unfold vm_apply in Hrun.
-      * (* pnew *) destruct (graph_pnew _ _). apply IH in Hrun.
+    + destruct instr; unfold vm_apply, vm_apply_unsafe in Hrun.
+      * (* pnew *)
+        match goal with
+        | |- _ =>
+            match type of Hrun with
+            | context [graph_pnew ?g ?r] => destruct (graph_pnew g r)
+            end
+        end.
+        apply IH in Hrun.
         -- exact Hrun.
         -- unfold advance_state; simpl. exact Hinit.
         -- exact Hfinal.
-      * (* psplit *) destruct (graph_psplit _ _ _ _) as [[[g' l] r]|]; apply IH in Hrun;
+      * (* psplit *)
+        match type of Hrun with
+        | context [graph_psplit ?g ?m ?l ?r] =>
+          destruct (graph_psplit g m l r) as [[[g' l_mid] r_mid]|]
+        end;
+        apply IH in Hrun;
           try exact Hrun; try exact Hfinal; unfold advance_state, csr_set_err; simpl; exact Hinit.
-      * (* pmerge *) destruct (graph_pmerge _ _ _) as [[g' m]|]; apply IH in Hrun;
+      * (* pmerge *)
+        match type of Hrun with
+        | context [graph_pmerge ?g ?m1 ?m2] =>
+          destruct (graph_pmerge g m1 m2) as [[g' merged_mid]|]
+        end;
+        apply IH in Hrun;
           try exact Hrun; try exact Hfinal; unfold advance_state, csr_set_err; simpl; exact Hinit.
       * (* lassert *) right. right. right. eexists _, _, _, _, _. exact Hnth.
       * (* ljoin *) right. right. left. eexists _, _, _, _. exact Hnth.
@@ -255,9 +295,12 @@ Proof.
         -- exact Hrun.
         -- unfold jump_state; simpl. exact Hinit.
         -- exact Hfinal.
-      * (* jnez *) apply IH in Hrun.
+       * (* jnez *) apply IH in Hrun.
         -- exact Hrun.
-        -- destruct (Nat.eqb (read_reg _ _)) eqn:?;
+         -- match goal with
+         | |- context [Nat.eqb (read_reg ?st ?rs) 0] =>
+          destruct (Nat.eqb (read_reg st rs) 0) eqn:?
+         end;
              [unfold advance_state | unfold jump_state]; simpl; exact Hinit.
         -- exact Hfinal.
       * (* call *) apply IH in Hrun.
@@ -268,9 +311,12 @@ Proof.
         -- exact Hrun.
         -- unfold jump_state_rm; simpl. exact Hinit.
         -- exact Hfinal.
-      * (* chsh_trial *) apply IH in Hrun.
+       * (* chsh_trial *) apply IH in Hrun.
         -- exact Hrun.
-        -- destruct (chsh_bits_ok _ _ _ _) eqn:?;
+         -- match goal with
+         | |- context [chsh_bits_ok ?x ?y ?a ?b] =>
+          destruct (chsh_bits_ok x y a b) eqn:?
+         end;
              unfold advance_state, csr_set_err; simpl; exact Hinit.
         -- exact Hfinal.
       * (* xor_load *) apply IH in Hrun.

@@ -5,6 +5,9 @@ From Kernel Require Import SpacetimeEmergence.
 
 Import ListNotations.
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import MuCostModel.
+
 (** * DerivedTime: Time is not fundamental
 
     WHY THIS FILE EXISTS:

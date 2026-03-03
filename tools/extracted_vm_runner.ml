@@ -249,15 +249,22 @@ let initial_state () : vMState =
    even with modest fuel values (256). This iterative version is safe. *)
 let run_vm_iterative (max_fuel : int) (prog : VMStep.vm_instruction list) (initial : vMState) : vMState =
   let rec loop fuel s =
-    if fuel <= 0 then s
+    if fuel <= 0 || s.vm_err then s
     else
       match list_nth_opt prog s.vm_pc with
       | None -> s  (* PC out of bounds, halt *)
       | Some instr ->
-          let s' = vm_apply s instr in
+          let s' = vm_apply_nofi s instr in
           loop (fuel - 1) s'
   in
   loop max_fuel initial
+
+let nofi_violation_state (s : vMState) : vMState =
+  {
+    s with
+    vm_err = true;
+    vm_csrs = { s.vm_csrs with csr_err = 1 };
+  }
 
 let () =
   try
@@ -275,7 +282,12 @@ let () =
     let s0 = { s0 with vm_regs = regs0; vm_mem = mem0 } in
     eprintf "[DEBUG] Initial PC=%d MU=%d\n%!" s0.vm_pc s0.vm_mu;
     eprintf "[DEBUG] Calling run_vm_iterative...\n%!";
-    let final_state = run_vm_iterative fuel prog s0 in
+    let final_state, exit_code =
+      if VMStep.nofi_trace_cost_okb prog then
+        (run_vm_iterative fuel prog s0, 0)
+      else
+        (nofi_violation_state s0, 5)
+    in
     eprintf "[DEBUG] Run completed: PC=%d MU=%d\n%!" final_state.vm_pc final_state.vm_mu;
     let modules_json =
       final_state.vm_graph.pg_modules
@@ -300,8 +312,10 @@ let () =
       final_state.vm_csrs.csr_err
       final_state.vm_graph.pg_next_id
       modules_json;
+    if exit_code = 5 then
+      eprintf "[ERROR] NoFI policy violation: cert-setting instruction with non-positive cost\n%!";
     eprintf "[DEBUG] Output complete\n%!";
-    exit 0  (* Explicit exit to bypass GC finalization *)
+    exit exit_code  (* Explicit exit to bypass GC finalization *)
   with
   | Stack_overflow ->
       eprintf "[ERROR] Stack overflow during execution\n%!";

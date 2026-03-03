@@ -1,4 +1,6 @@
 (** =========================================================================
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
     PHASE 5.3: SCHRÖDINGER DYNAMICS FROM LEDGER DISCOVERY
     =========================================================================
     
@@ -12,6 +14,10 @@
     Hypothesis: μ-conservation in the continuous limit forces unitary evolution.
     
     ========================================================================= *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import List ZArith Lia Bool Nat Reals QArith.
 Require Import Coq.Logic.Classical_Prop.

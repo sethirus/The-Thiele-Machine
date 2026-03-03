@@ -24,6 +24,8 @@ import json
 
 import pytest
 
+pytestmark = [pytest.mark.strict_extracted, pytest.mark.strict_rtl]
+
 from thielecpu.state import State, ModuleId, MAX_MODULES
 from thielecpu.isa import Opcode
 
@@ -212,69 +214,48 @@ def execute_coq(program: List[Instruction]) -> Optional[ProgramTrace]:
 # =============================================================================
 
 def execute_verilog(program: List[Instruction]) -> Optional[ProgramTrace]:
-    """Execute partition operations on Verilog partition_core via iverilog.
-
-    Uses accel_cosim infrastructure to run partition_core.v and compare
-    resulting partition state with Python.
-    """
+    """Execute program on canonical Kami RTL via cosim.run_verilog."""
     if shutil.which("iverilog") is None:
         pytest.skip("iverilog not installed")
         return None
 
-    partition_core = RTL_DIR / "partition_core.v"
-    if not partition_core.exists():
-        pytest.skip("partition_core.v not found")
-        return None
+    from thielecpu.hardware.cosim import run_verilog
 
-    from thielecpu.hardware.accel_cosim import run_partition_core
-
-    operations = []
+    lines = ["FUEL 256"]
     for instr in program:
         if instr.opcode == "PNEW":
             region = instr.operands[0]
             if isinstance(region, set):
-                region_bits = 0
-                for bit in region:
-                    region_bits |= (1 << bit)
+                region_str = "{" + ",".join(str(x) for x in sorted(region)) + "}"
             else:
-                region_bits = (1 << region)
-            operations.append({"op": "PNEW", "region": region_bits, "cost": instr.cost})
-        elif instr.opcode == "PSPLIT":
-            # partition_core PSPLIT needs explicit module_id and left/right masks.
-            # Since the test passes a predicate (not explicit masks), we cannot
-            # translate this to Verilog without first running Python to know the split.
-            return None
+                region_str = "{" + str(region) + "}"
+            lines.append(f"PNEW {region_str} {instr.cost}")
         elif instr.opcode == "PMERGE":
             m1, m2 = instr.operands
-            # partition_core uses 0-based module indices; Python State uses 1-based.
-            m1_val = int(m1) - 1
-            m2_val = int(m2) - 1
-            operations.append({"op": "PMERGE", "m1": m1_val, "m2": m2_val, "cost": instr.cost})
+            lines.append(f"PMERGE {int(m1)} {int(m2)} {instr.cost}")
+        elif instr.opcode == "HALT":
+            lines.append("HALT")
         else:
-            return None  # Unsupported opcode for partition_core
+            # Skip unsupported instruction encodings for this Verilog path.
+            return None
 
-    if not operations:
+    # Always terminate with HALT so imem zeros beyond the program don't execute.
+    if lines[-1] != "HALT":
+        lines.append("HALT")
+
+    payload = run_verilog("\n".join(lines), timeout=45)
+    if payload is None:
         return None
 
-    try:
-        results = run_partition_core(operations)
-    except Exception:
-        return None
-
-    if not results:
-        return None
-
-    # mu_cost in partition_core is cumulative — final value is the total
-    last = results[-1]
-    total_mu = last.get("mu_cost", 0)
-    module_count = last.get("num_modules", 0)
+    total_mu = int(payload.get("mu", 0))
+    module_count = len(payload.get("modules", []))
 
     return ProgramTrace(
         program=program,
         final_mu=total_mu,
         final_modules=module_count,
-        final_regions={},  # partition_core reports module count, not regions
-        step_mu=[r.get("mu_cost", 0) for r in results],
+        final_regions={},
+        step_mu=[],
     )
 
 

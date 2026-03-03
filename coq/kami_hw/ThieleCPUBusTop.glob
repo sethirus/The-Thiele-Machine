@@ -1,0 +1,1089 @@
+DIGEST ea4984aa1ae652c0b83e4ab3abe44ee0
+FKamiHW.ThieleCPUBusTop
+R508:520 KamiHW.ThieleCPUCore <> <> lib
+R550:560 KamiHW.Abstraction <> <> lib
+R578:590 Coq.Bool.Bool <> <> lib
+R694:699 Kernel.VMStep <> <> lib
+R729:739 Kernel.MuCostModel <> <> lib
+ind 958:963 <> BusReg
+constr 977:984 <> BusRegPc
+constr 988:995 <> BusRegMu
+constr 999:1007 <> BusRegErr
+constr 1011:1022 <> BusRegHalted
+constr 1026:1043 <> BusRegPartitionOps
+constr 1047:1058 <> BusRegMdlOps
+constr 1062:1075 <> BusRegInfoGain
+constr 1079:1093 <> BusRegErrorCode
+constr 1097:1109 <> BusRegMstatus
+constr 1113:1126 <> BusRegMcycleLo
+constr 1130:1143 <> BusRegMcycleHi
+constr 1147:1162 <> BusRegMinstretLo
+constr 1166:1181 <> BusRegMinstretHi
+constr 1185:1198 <> BusRegLogicAcc
+constr 1202:1220 <> BusRegLogicReqValid
+constr 1224:1243 <> BusRegLogicReqOpcode
+constr 1247:1267 <> BusRegLogicReqPayload
+constr 1271:1285 <> BusRegMuTensor0
+constr 1289:1303 <> BusRegMuTensor1
+constr 1307:1321 <> BusRegMuTensor2
+constr 1325:1339 <> BusRegMuTensor3
+constr 1343:1360 <> BusRegBianchiAlarm
+constr 1364:1377 <> BusRegPtNextId
+constr 1381:1392 <> BusRegPtSize
+constr 1396:1414 <> BusRegLoadInstrAddr
+constr 1418:1436 <> BusRegLoadInstrData
+constr 1440:1458 <> BusRegLoadInstrKick
+constr 1462:1484 <> BusRegSetLogicRespValid
+constr 1488:1510 <> BusRegSetLogicRespError
+constr 1514:1536 <> BusRegSetLogicRespValue
+constr 1540:1560 <> BusRegSetActiveModule
+constr 1564:1582 <> BusRegSetTrapVector
+scheme 958:963 <> BusReg_rect
+scheme 958:963 <> BusReg_ind
+scheme 958:963 <> BusReg_rec
+scheme 958:963 <> BusReg_sind
+def 1657:1665 <> busAddrPc
+R1669:1671 Coq.Init.Datatypes <> nat ind
+def 1690:1698 <> busAddrMu
+R1702:1704 Coq.Init.Datatypes <> nat ind
+def 1723:1732 <> busAddrErr
+R1736:1738 Coq.Init.Datatypes <> nat ind
+def 1757:1769 <> busAddrHalted
+R1773:1775 Coq.Init.Datatypes <> nat ind
+def 1795:1813 <> busAddrPartitionOps
+R1817:1819 Coq.Init.Datatypes <> nat ind
+def 1839:1851 <> busAddrMdlOps
+R1855:1857 Coq.Init.Datatypes <> nat ind
+def 1877:1891 <> busAddrInfoGain
+R1895:1897 Coq.Init.Datatypes <> nat ind
+def 1917:1932 <> busAddrErrorCode
+R1936:1938 Coq.Init.Datatypes <> nat ind
+def 1958:1971 <> busAddrMstatus
+R1975:1977 Coq.Init.Datatypes <> nat ind
+def 1997:2011 <> busAddrMcycleLo
+R2015:2017 Coq.Init.Datatypes <> nat ind
+def 2037:2051 <> busAddrMcycleHi
+R2055:2057 Coq.Init.Datatypes <> nat ind
+def 2077:2093 <> busAddrMinstretLo
+R2097:2099 Coq.Init.Datatypes <> nat ind
+def 2119:2135 <> busAddrMinstretHi
+R2139:2141 Coq.Init.Datatypes <> nat ind
+def 2161:2175 <> busAddrLogicAcc
+R2179:2181 Coq.Init.Datatypes <> nat ind
+def 2201:2220 <> busAddrLogicReqValid
+R2224:2226 Coq.Init.Datatypes <> nat ind
+def 2246:2266 <> busAddrLogicReqOpcode
+R2270:2272 Coq.Init.Datatypes <> nat ind
+def 2292:2313 <> busAddrLogicReqPayload
+R2317:2319 Coq.Init.Datatypes <> nat ind
+def 2339:2354 <> busAddrMuTensor0
+R2358:2360 Coq.Init.Datatypes <> nat ind
+def 2380:2395 <> busAddrMuTensor1
+R2399:2401 Coq.Init.Datatypes <> nat ind
+def 2421:2436 <> busAddrMuTensor2
+R2440:2442 Coq.Init.Datatypes <> nat ind
+def 2462:2477 <> busAddrMuTensor3
+R2481:2483 Coq.Init.Datatypes <> nat ind
+def 2503:2521 <> busAddrBianchiAlarm
+R2525:2527 Coq.Init.Datatypes <> nat ind
+def 2547:2561 <> busAddrPtNextId
+R2565:2567 Coq.Init.Datatypes <> nat ind
+def 2587:2599 <> busAddrPtSize
+R2603:2605 Coq.Init.Datatypes <> nat ind
+def 2626:2645 <> busAddrLoadInstrAddr
+R2649:2651 Coq.Init.Datatypes <> nat ind
+def 2672:2691 <> busAddrLoadInstrData
+R2695:2697 Coq.Init.Datatypes <> nat ind
+def 2718:2737 <> busAddrLoadInstrKick
+R2741:2743 Coq.Init.Datatypes <> nat ind
+def 2764:2787 <> busAddrSetLogicRespValid
+R2791:2793 Coq.Init.Datatypes <> nat ind
+def 2814:2837 <> busAddrSetLogicRespError
+R2841:2843 Coq.Init.Datatypes <> nat ind
+def 2864:2887 <> busAddrSetLogicRespValue
+R2891:2893 Coq.Init.Datatypes <> nat ind
+def 2914:2935 <> busAddrSetActiveModule
+R2939:2941 Coq.Init.Datatypes <> nat ind
+def 2962:2981 <> busAddrSetTrapVector
+R2985:2987 Coq.Init.Datatypes <> nat ind
+def 3009:3020 <> decodeBusReg
+R3030:3032 Coq.Init.Datatypes <> nat ind
+binder 3023:3026 <> addr:3
+R3037:3042 Coq.Init.Datatypes <> option ind
+R3044:3049 KamiHW.ThieleCPUBusTop <> BusReg ind
+R3062:3065 KamiHW.ThieleCPUBusTop <> addr:3 var
+R3081:3084 Coq.Init.Datatypes <> Some constr
+R3086:3093 KamiHW.ThieleCPUBusTop <> BusRegPc constr
+R3104:3107 Coq.Init.Datatypes <> Some constr
+R3109:3116 KamiHW.ThieleCPUBusTop <> BusRegMu constr
+R3127:3130 Coq.Init.Datatypes <> Some constr
+R3132:3140 KamiHW.ThieleCPUBusTop <> BusRegErr constr
+R3152:3155 Coq.Init.Datatypes <> Some constr
+R3157:3168 KamiHW.ThieleCPUBusTop <> BusRegHalted constr
+R3180:3183 Coq.Init.Datatypes <> Some constr
+R3185:3202 KamiHW.ThieleCPUBusTop <> BusRegPartitionOps constr
+R3214:3217 Coq.Init.Datatypes <> Some constr
+R3219:3230 KamiHW.ThieleCPUBusTop <> BusRegMdlOps constr
+R3242:3245 Coq.Init.Datatypes <> Some constr
+R3247:3260 KamiHW.ThieleCPUBusTop <> BusRegInfoGain constr
+R3272:3275 Coq.Init.Datatypes <> Some constr
+R3277:3291 KamiHW.ThieleCPUBusTop <> BusRegErrorCode constr
+R3303:3306 Coq.Init.Datatypes <> Some constr
+R3308:3320 KamiHW.ThieleCPUBusTop <> BusRegMstatus constr
+R3332:3335 Coq.Init.Datatypes <> Some constr
+R3337:3350 KamiHW.ThieleCPUBusTop <> BusRegMcycleLo constr
+R3362:3365 Coq.Init.Datatypes <> Some constr
+R3367:3380 KamiHW.ThieleCPUBusTop <> BusRegMcycleHi constr
+R3392:3395 Coq.Init.Datatypes <> Some constr
+R3397:3412 KamiHW.ThieleCPUBusTop <> BusRegMinstretLo constr
+R3424:3427 Coq.Init.Datatypes <> Some constr
+R3429:3444 KamiHW.ThieleCPUBusTop <> BusRegMinstretHi constr
+R3456:3459 Coq.Init.Datatypes <> Some constr
+R3461:3474 KamiHW.ThieleCPUBusTop <> BusRegLogicAcc constr
+R3486:3489 Coq.Init.Datatypes <> Some constr
+R3491:3509 KamiHW.ThieleCPUBusTop <> BusRegLogicReqValid constr
+R3521:3524 Coq.Init.Datatypes <> Some constr
+R3526:3545 KamiHW.ThieleCPUBusTop <> BusRegLogicReqOpcode constr
+R3557:3560 Coq.Init.Datatypes <> Some constr
+R3562:3582 KamiHW.ThieleCPUBusTop <> BusRegLogicReqPayload constr
+R3594:3597 Coq.Init.Datatypes <> Some constr
+R3599:3613 KamiHW.ThieleCPUBusTop <> BusRegMuTensor0 constr
+R3625:3628 Coq.Init.Datatypes <> Some constr
+R3630:3644 KamiHW.ThieleCPUBusTop <> BusRegMuTensor1 constr
+R3656:3659 Coq.Init.Datatypes <> Some constr
+R3661:3675 KamiHW.ThieleCPUBusTop <> BusRegMuTensor2 constr
+R3687:3690 Coq.Init.Datatypes <> Some constr
+R3692:3706 KamiHW.ThieleCPUBusTop <> BusRegMuTensor3 constr
+R3718:3721 Coq.Init.Datatypes <> Some constr
+R3723:3740 KamiHW.ThieleCPUBusTop <> BusRegBianchiAlarm constr
+R3752:3755 Coq.Init.Datatypes <> Some constr
+R3757:3770 KamiHW.ThieleCPUBusTop <> BusRegPtNextId constr
+R3782:3785 Coq.Init.Datatypes <> Some constr
+R3787:3798 KamiHW.ThieleCPUBusTop <> BusRegPtSize constr
+R3811:3814 Coq.Init.Datatypes <> Some constr
+R3816:3834 KamiHW.ThieleCPUBusTop <> BusRegLoadInstrAddr constr
+R3847:3850 Coq.Init.Datatypes <> Some constr
+R3852:3870 KamiHW.ThieleCPUBusTop <> BusRegLoadInstrData constr
+R3883:3886 Coq.Init.Datatypes <> Some constr
+R3888:3906 KamiHW.ThieleCPUBusTop <> BusRegLoadInstrKick constr
+R3919:3922 Coq.Init.Datatypes <> Some constr
+R3924:3946 KamiHW.ThieleCPUBusTop <> BusRegSetLogicRespValid constr
+R3959:3962 Coq.Init.Datatypes <> Some constr
+R3964:3986 KamiHW.ThieleCPUBusTop <> BusRegSetLogicRespError constr
+R3999:4002 Coq.Init.Datatypes <> Some constr
+R4004:4026 KamiHW.ThieleCPUBusTop <> BusRegSetLogicRespValue constr
+R4039:4042 Coq.Init.Datatypes <> Some constr
+R4044:4064 KamiHW.ThieleCPUBusTop <> BusRegSetActiveModule constr
+R4077:4080 Coq.Init.Datatypes <> Some constr
+R4082:4100 KamiHW.ThieleCPUBusTop <> BusRegSetTrapVector constr
+R4111:4114 Coq.Init.Datatypes <> None constr
+def 4135:4148 <> busRegReadable
+R4155:4160 KamiHW.ThieleCPUBusTop <> BusReg ind
+binder 4151:4151 <> r:5
+R4165:4168 Coq.Init.Datatypes <> bool ind
+R4181:4181 KamiHW.ThieleCPUBusTop <> r:5 var
+R4192:4210 KamiHW.ThieleCPUBusTop <> BusRegLoadInstrAddr constr
+R4216:4234 KamiHW.ThieleCPUBusTop <> BusRegLoadInstrData constr
+R4240:4258 KamiHW.ThieleCPUBusTop <> BusRegLoadInstrKick constr
+R4264:4286 KamiHW.ThieleCPUBusTop <> BusRegSetLogicRespValid constr
+R4292:4314 KamiHW.ThieleCPUBusTop <> BusRegSetLogicRespError constr
+R4320:4342 KamiHW.ThieleCPUBusTop <> BusRegSetLogicRespValue constr
+R4348:4368 KamiHW.ThieleCPUBusTop <> BusRegSetActiveModule constr
+R4374:4392 KamiHW.ThieleCPUBusTop <> BusRegSetTrapVector constr
+R4397:4401 Coq.Init.Datatypes <> false constr
+R4397:4401 Coq.Init.Datatypes <> false constr
+R4397:4401 Coq.Init.Datatypes <> false constr
+R4397:4401 Coq.Init.Datatypes <> false constr
+R4397:4401 Coq.Init.Datatypes <> false constr
+R4397:4401 Coq.Init.Datatypes <> false constr
+R4397:4401 Coq.Init.Datatypes <> false constr
+R4397:4401 Coq.Init.Datatypes <> false constr
+R4412:4415 Coq.Init.Datatypes <> true constr
+def 4436:4449 <> busRegWritable
+R4456:4461 KamiHW.ThieleCPUBusTop <> BusReg ind
+binder 4452:4452 <> r:7
+R4466:4469 Coq.Init.Datatypes <> bool ind
+R4476:4479 Coq.Init.Datatypes <> negb def
+R4482:4495 KamiHW.ThieleCPUBusTop <> busRegReadable def
+R4497:4497 KamiHW.ThieleCPUBusTop <> r:7 var
+prf 4508:4526 <> busReg_rw_exclusive
+binder 4539:4539 <> r:8
+R4565:4568 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4558:4560 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4542:4555 KamiHW.ThieleCPUBusTop <> busRegReadable def
+R4557:4557 KamiHW.ThieleCPUBusTop <> r:8 var
+R4561:4564 Coq.Init.Datatypes <> true constr
+R4585:4587 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4569:4582 KamiHW.ThieleCPUBusTop <> busRegWritable def
+R4584:4584 KamiHW.ThieleCPUBusTop <> r:8 var
+R4588:4592 Coq.Init.Datatypes <> false constr
+R4625:4638 KamiHW.ThieleCPUBusTop <> busRegWritable def
+prf 4681:4699 <> bus_decode_examples
+R4743:4748 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4727:4729 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4705:4716 KamiHW.ThieleCPUBusTop <> decodeBusReg def
+R4718:4726 KamiHW.ThieleCPUBusTop <> busAddrPc def
+R4730:4733 Coq.Init.Datatypes <> Some constr
+R4735:4742 KamiHW.ThieleCPUBusTop <> BusRegPc constr
+R4809:4814 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4782:4784 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4749:4760 KamiHW.ThieleCPUBusTop <> decodeBusReg def
+R4762:4781 KamiHW.ThieleCPUBusTop <> busAddrLoadInstrKick def
+R4785:4788 Coq.Init.Datatypes <> Some constr
+R4790:4808 KamiHW.ThieleCPUBusTop <> BusRegLoadInstrKick constr
+R4831:4833 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4815:4826 KamiHW.ThieleCPUBusTop <> decodeBusReg def
+R4834:4837 Coq.Init.Datatypes <> None constr
+rec 5220:5230 <> BusCoreView
+proj 5246:5252 <> view_pc
+proj 5263:5269 <> view_mu
+proj 5280:5287 <> view_err
+proj 5299:5309 <> view_halted
+proj 5321:5338 <> view_partition_ops
+proj 5349:5360 <> view_mdl_ops
+proj 5371:5384 <> view_info_gain
+proj 5395:5409 <> view_error_code
+proj 5420:5431 <> view_mstatus
+proj 5442:5455 <> view_mcycle_lo
+proj 5466:5479 <> view_mcycle_hi
+proj 5490:5505 <> view_minstret_lo
+proj 5516:5531 <> view_minstret_hi
+proj 5542:5555 <> view_logic_acc
+proj 5566:5585 <> view_logic_req_valid
+proj 5597:5617 <> view_logic_req_opcode
+proj 5628:5649 <> view_logic_req_payload
+proj 5660:5674 <> view_mu_tensor0
+proj 5685:5699 <> view_mu_tensor1
+proj 5710:5724 <> view_mu_tensor2
+proj 5735:5749 <> view_mu_tensor3
+proj 5760:5777 <> view_bianchi_alarm
+proj 5789:5803 <> view_pt_next_id
+proj 5814:5825 <> view_pt_size
+R5256:5258 Coq.Init.Datatypes <> nat ind
+R5273:5275 Coq.Init.Datatypes <> nat ind
+R5291:5294 Coq.Init.Datatypes <> bool ind
+R5313:5316 Coq.Init.Datatypes <> bool ind
+R5342:5344 Coq.Init.Datatypes <> nat ind
+R5364:5366 Coq.Init.Datatypes <> nat ind
+R5388:5390 Coq.Init.Datatypes <> nat ind
+R5413:5415 Coq.Init.Datatypes <> nat ind
+R5435:5437 Coq.Init.Datatypes <> nat ind
+R5459:5461 Coq.Init.Datatypes <> nat ind
+R5483:5485 Coq.Init.Datatypes <> nat ind
+R5509:5511 Coq.Init.Datatypes <> nat ind
+R5535:5537 Coq.Init.Datatypes <> nat ind
+R5559:5561 Coq.Init.Datatypes <> nat ind
+R5589:5592 Coq.Init.Datatypes <> bool ind
+R5621:5623 Coq.Init.Datatypes <> nat ind
+R5653:5655 Coq.Init.Datatypes <> nat ind
+R5678:5680 Coq.Init.Datatypes <> nat ind
+R5703:5705 Coq.Init.Datatypes <> nat ind
+R5728:5730 Coq.Init.Datatypes <> nat ind
+R5753:5755 Coq.Init.Datatypes <> nat ind
+R5781:5784 Coq.Init.Datatypes <> bool ind
+R5807:5809 Coq.Init.Datatypes <> nat ind
+R5832:5835 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5829:5831 Coq.Init.Datatypes <> nat ind
+R5836:5838 Coq.Init.Datatypes <> nat ind
+def 5855:5865 <> bool_to_nat
+R5872:5875 Coq.Init.Datatypes <> bool ind
+binder 5868:5868 <> b:34
+R5880:5882 Coq.Init.Datatypes <> nat ind
+R5890:5890 KamiHW.ThieleCPUBusTop <> b:34 var
+def 5919:5933 <> busRegReadValue
+R5940:5950 KamiHW.ThieleCPUBusTop <> BusCoreView rec
+binder 5936:5936 <> v:35
+R5958:5963 KamiHW.ThieleCPUBusTop <> BusReg ind
+binder 5954:5954 <> r:36
+R5968:5973 Coq.Init.Datatypes <> option ind
+R5975:5977 Coq.Init.Datatypes <> nat ind
+R5990:5990 KamiHW.ThieleCPUBusTop <> r:36 var
+R6001:6008 KamiHW.ThieleCPUBusTop <> BusRegPc constr
+R6013:6016 Coq.Init.Datatypes <> Some constr
+R6021:6027 KamiHW.ThieleCPUBusTop <> view_pc proj
+R6018:6018 KamiHW.ThieleCPUBusTop <> v:35 var
+R6034:6041 KamiHW.ThieleCPUBusTop <> BusRegMu constr
+R6046:6049 Coq.Init.Datatypes <> Some constr
+R6054:6060 KamiHW.ThieleCPUBusTop <> view_mu proj
+R6051:6051 KamiHW.ThieleCPUBusTop <> v:35 var
+R6067:6075 KamiHW.ThieleCPUBusTop <> BusRegErr constr
+R6080:6083 Coq.Init.Datatypes <> Some constr
+R6086:6096 KamiHW.ThieleCPUBusTop <> bool_to_nat def
+R6101:6108 KamiHW.ThieleCPUBusTop <> view_err proj
+R6098:6098 KamiHW.ThieleCPUBusTop <> v:35 var
+R6116:6127 KamiHW.ThieleCPUBusTop <> BusRegHalted constr
+R6132:6135 Coq.Init.Datatypes <> Some constr
+R6138:6148 KamiHW.ThieleCPUBusTop <> bool_to_nat def
+R6153:6163 KamiHW.ThieleCPUBusTop <> view_halted proj
+R6150:6150 KamiHW.ThieleCPUBusTop <> v:35 var
+R6171:6188 KamiHW.ThieleCPUBusTop <> BusRegPartitionOps constr
+R6193:6196 Coq.Init.Datatypes <> Some constr
+R6201:6218 KamiHW.ThieleCPUBusTop <> view_partition_ops proj
+R6198:6198 KamiHW.ThieleCPUBusTop <> v:35 var
+R6225:6236 KamiHW.ThieleCPUBusTop <> BusRegMdlOps constr
+R6241:6244 Coq.Init.Datatypes <> Some constr
+R6249:6260 KamiHW.ThieleCPUBusTop <> view_mdl_ops proj
+R6246:6246 KamiHW.ThieleCPUBusTop <> v:35 var
+R6267:6280 KamiHW.ThieleCPUBusTop <> BusRegInfoGain constr
+R6285:6288 Coq.Init.Datatypes <> Some constr
+R6293:6306 KamiHW.ThieleCPUBusTop <> view_info_gain proj
+R6290:6290 KamiHW.ThieleCPUBusTop <> v:35 var
+R6313:6327 KamiHW.ThieleCPUBusTop <> BusRegErrorCode constr
+R6332:6335 Coq.Init.Datatypes <> Some constr
+R6340:6354 KamiHW.ThieleCPUBusTop <> view_error_code proj
+R6337:6337 KamiHW.ThieleCPUBusTop <> v:35 var
+R6361:6373 KamiHW.ThieleCPUBusTop <> BusRegMstatus constr
+R6378:6381 Coq.Init.Datatypes <> Some constr
+R6386:6397 KamiHW.ThieleCPUBusTop <> view_mstatus proj
+R6383:6383 KamiHW.ThieleCPUBusTop <> v:35 var
+R6404:6417 KamiHW.ThieleCPUBusTop <> BusRegMcycleLo constr
+R6422:6425 Coq.Init.Datatypes <> Some constr
+R6430:6443 KamiHW.ThieleCPUBusTop <> view_mcycle_lo proj
+R6427:6427 KamiHW.ThieleCPUBusTop <> v:35 var
+R6450:6463 KamiHW.ThieleCPUBusTop <> BusRegMcycleHi constr
+R6468:6471 Coq.Init.Datatypes <> Some constr
+R6476:6489 KamiHW.ThieleCPUBusTop <> view_mcycle_hi proj
+R6473:6473 KamiHW.ThieleCPUBusTop <> v:35 var
+R6496:6511 KamiHW.ThieleCPUBusTop <> BusRegMinstretLo constr
+R6516:6519 Coq.Init.Datatypes <> Some constr
+R6524:6539 KamiHW.ThieleCPUBusTop <> view_minstret_lo proj
+R6521:6521 KamiHW.ThieleCPUBusTop <> v:35 var
+R6546:6561 KamiHW.ThieleCPUBusTop <> BusRegMinstretHi constr
+R6566:6569 Coq.Init.Datatypes <> Some constr
+R6574:6589 KamiHW.ThieleCPUBusTop <> view_minstret_hi proj
+R6571:6571 KamiHW.ThieleCPUBusTop <> v:35 var
+R6596:6609 KamiHW.ThieleCPUBusTop <> BusRegLogicAcc constr
+R6614:6617 Coq.Init.Datatypes <> Some constr
+R6622:6635 KamiHW.ThieleCPUBusTop <> view_logic_acc proj
+R6619:6619 KamiHW.ThieleCPUBusTop <> v:35 var
+R6642:6660 KamiHW.ThieleCPUBusTop <> BusRegLogicReqValid constr
+R6665:6668 Coq.Init.Datatypes <> Some constr
+R6671:6681 KamiHW.ThieleCPUBusTop <> bool_to_nat def
+R6686:6705 KamiHW.ThieleCPUBusTop <> view_logic_req_valid proj
+R6683:6683 KamiHW.ThieleCPUBusTop <> v:35 var
+R6713:6732 KamiHW.ThieleCPUBusTop <> BusRegLogicReqOpcode constr
+R6737:6740 Coq.Init.Datatypes <> Some constr
+R6745:6765 KamiHW.ThieleCPUBusTop <> view_logic_req_opcode proj
+R6742:6742 KamiHW.ThieleCPUBusTop <> v:35 var
+R6772:6792 KamiHW.ThieleCPUBusTop <> BusRegLogicReqPayload constr
+R6797:6800 Coq.Init.Datatypes <> Some constr
+R6805:6826 KamiHW.ThieleCPUBusTop <> view_logic_req_payload proj
+R6802:6802 KamiHW.ThieleCPUBusTop <> v:35 var
+R6833:6847 KamiHW.ThieleCPUBusTop <> BusRegMuTensor0 constr
+R6852:6855 Coq.Init.Datatypes <> Some constr
+R6860:6874 KamiHW.ThieleCPUBusTop <> view_mu_tensor0 proj
+R6857:6857 KamiHW.ThieleCPUBusTop <> v:35 var
+R6881:6895 KamiHW.ThieleCPUBusTop <> BusRegMuTensor1 constr
+R6900:6903 Coq.Init.Datatypes <> Some constr
+R6908:6922 KamiHW.ThieleCPUBusTop <> view_mu_tensor1 proj
+R6905:6905 KamiHW.ThieleCPUBusTop <> v:35 var
+R6929:6943 KamiHW.ThieleCPUBusTop <> BusRegMuTensor2 constr
+R6948:6951 Coq.Init.Datatypes <> Some constr
+R6956:6970 KamiHW.ThieleCPUBusTop <> view_mu_tensor2 proj
+R6953:6953 KamiHW.ThieleCPUBusTop <> v:35 var
+R6977:6991 KamiHW.ThieleCPUBusTop <> BusRegMuTensor3 constr
+R6996:6999 Coq.Init.Datatypes <> Some constr
+R7004:7018 KamiHW.ThieleCPUBusTop <> view_mu_tensor3 proj
+R7001:7001 KamiHW.ThieleCPUBusTop <> v:35 var
+R7025:7042 KamiHW.ThieleCPUBusTop <> BusRegBianchiAlarm constr
+R7047:7050 Coq.Init.Datatypes <> Some constr
+R7053:7063 KamiHW.ThieleCPUBusTop <> bool_to_nat def
+R7068:7085 KamiHW.ThieleCPUBusTop <> view_bianchi_alarm proj
+R7065:7065 KamiHW.ThieleCPUBusTop <> v:35 var
+R7093:7106 KamiHW.ThieleCPUBusTop <> BusRegPtNextId constr
+R7111:7114 Coq.Init.Datatypes <> Some constr
+R7119:7133 KamiHW.ThieleCPUBusTop <> view_pt_next_id proj
+R7116:7116 KamiHW.ThieleCPUBusTop <> v:35 var
+R7140:7151 KamiHW.ThieleCPUBusTop <> BusRegPtSize constr
+R7156:7159 Coq.Init.Datatypes <> Some constr
+R7165:7176 KamiHW.ThieleCPUBusTop <> view_pt_size proj
+R7162:7162 KamiHW.ThieleCPUBusTop <> v:35 var
+R7186:7204 KamiHW.ThieleCPUBusTop <> BusRegLoadInstrAddr constr
+R7210:7228 KamiHW.ThieleCPUBusTop <> BusRegLoadInstrData constr
+R7234:7252 KamiHW.ThieleCPUBusTop <> BusRegLoadInstrKick constr
+R7258:7280 KamiHW.ThieleCPUBusTop <> BusRegSetLogicRespValid constr
+R7286:7308 KamiHW.ThieleCPUBusTop <> BusRegSetLogicRespError constr
+R7314:7336 KamiHW.ThieleCPUBusTop <> BusRegSetLogicRespValue constr
+R7342:7362 KamiHW.ThieleCPUBusTop <> BusRegSetActiveModule constr
+R7368:7386 KamiHW.ThieleCPUBusTop <> BusRegSetTrapVector constr
+R7391:7394 Coq.Init.Datatypes <> None constr
+R7391:7394 Coq.Init.Datatypes <> None constr
+R7391:7394 Coq.Init.Datatypes <> None constr
+R7391:7394 Coq.Init.Datatypes <> None constr
+R7391:7394 Coq.Init.Datatypes <> None constr
+R7391:7394 Coq.Init.Datatypes <> None constr
+R7391:7394 Coq.Init.Datatypes <> None constr
+R7391:7394 Coq.Init.Datatypes <> None constr
+def 7415:7421 <> busRead
+R7428:7438 KamiHW.ThieleCPUBusTop <> BusCoreView rec
+binder 7424:7424 <> v:38
+R7449:7451 Coq.Init.Datatypes <> nat ind
+binder 7442:7445 <> addr:39
+R7456:7461 Coq.Init.Datatypes <> option ind
+R7463:7465 Coq.Init.Datatypes <> nat ind
+R7478:7489 KamiHW.ThieleCPUBusTop <> decodeBusReg def
+R7491:7494 KamiHW.ThieleCPUBusTop <> addr:39 var
+R7505:7508 Coq.Init.Datatypes <> Some constr
+R7524:7537 KamiHW.ThieleCPUBusTop <> busRegReadable def
+R7585:7588 Coq.Init.Datatypes <> None constr
+R7554:7568 KamiHW.ThieleCPUBusTop <> busRegReadValue def
+R7570:7570 KamiHW.ThieleCPUBusTop <> v:38 var
+R7594:7597 Coq.Init.Datatypes <> None constr
+R7602:7605 Coq.Init.Datatypes <> None constr
+rec 7622:7634 <> BusShadowRegs
+proj 7650:7667 <> sh_load_instr_addr
+proj 7678:7695 <> sh_load_instr_data
+proj 7706:7723 <> sh_load_instr_kick
+proj 7735:7753 <> sh_logic_resp_valid
+proj 7765:7783 <> sh_logic_resp_error
+proj 7795:7813 <> sh_logic_resp_value
+proj 7824:7839 <> sh_active_module
+proj 7850:7863 <> sh_trap_vector
+R7671:7673 Coq.Init.Datatypes <> nat ind
+R7699:7701 Coq.Init.Datatypes <> nat ind
+R7727:7730 Coq.Init.Datatypes <> bool ind
+R7757:7760 Coq.Init.Datatypes <> bool ind
+R7787:7790 Coq.Init.Datatypes <> bool ind
+R7817:7819 Coq.Init.Datatypes <> nat ind
+R7843:7845 Coq.Init.Datatypes <> nat ind
+R7867:7869 Coq.Init.Datatypes <> nat ind
+def 7886:7898 <> busShadowInit
+R7902:7914 KamiHW.ThieleCPUBusTop <> BusShadowRegs rec
+R7924:7941 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R7924:7941 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R7924:7941 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R7954:7971 KamiHW.ThieleCPUBusTop <> sh_load_instr_data proj
+R7954:7971 KamiHW.ThieleCPUBusTop <> sh_load_instr_data proj
+R7984:8001 KamiHW.ThieleCPUBusTop <> sh_load_instr_kick proj
+R7984:8001 KamiHW.ThieleCPUBusTop <> sh_load_instr_kick proj
+R8018:8036 KamiHW.ThieleCPUBusTop <> sh_logic_resp_valid proj
+R8018:8036 KamiHW.ThieleCPUBusTop <> sh_logic_resp_valid proj
+R8053:8071 KamiHW.ThieleCPUBusTop <> sh_logic_resp_error proj
+R8053:8071 KamiHW.ThieleCPUBusTop <> sh_logic_resp_error proj
+R8088:8106 KamiHW.ThieleCPUBusTop <> sh_logic_resp_value proj
+R8088:8106 KamiHW.ThieleCPUBusTop <> sh_logic_resp_value proj
+R8119:8134 KamiHW.ThieleCPUBusTop <> sh_active_module proj
+R8119:8134 KamiHW.ThieleCPUBusTop <> sh_active_module proj
+R8147:8160 KamiHW.ThieleCPUBusTop <> sh_trap_vector proj
+R8147:8160 KamiHW.ThieleCPUBusTop <> sh_trap_vector proj
+R8006:8010 Coq.Init.Datatypes <> false constr
+R8041:8045 Coq.Init.Datatypes <> false constr
+R8076:8080 Coq.Init.Datatypes <> false constr
+rec 8179:8193 <> BusWrapperState
+proj 8209:8215 <> bw_core
+proj 8235:8243 <> bw_shadow
+R8219:8230 KamiHW.Abstraction <> KamiSnapshot rec
+R8247:8259 KamiHW.ThieleCPUBusTop <> BusShadowRegs rec
+def 8276:8289 <> busWriteShadow
+R8296:8308 KamiHW.ThieleCPUBusTop <> BusShadowRegs rec
+binder 8292:8292 <> s:52
+R8316:8321 KamiHW.ThieleCPUBusTop <> BusReg ind
+binder 8312:8312 <> r:53
+R8332:8334 Coq.Init.Datatypes <> nat ind
+binder 8325:8328 <> data:54
+R8339:8351 KamiHW.ThieleCPUBusTop <> BusShadowRegs rec
+R8364:8364 KamiHW.ThieleCPUBusTop <> r:53 var
+R8375:8393 KamiHW.ThieleCPUBusTop <> BusRegLoadInstrAddr constr
+R8407:8424 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R8407:8424 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R8407:8424 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R8444:8461 KamiHW.ThieleCPUBusTop <> sh_load_instr_data proj
+R8444:8461 KamiHW.ThieleCPUBusTop <> sh_load_instr_data proj
+R8499:8516 KamiHW.ThieleCPUBusTop <> sh_load_instr_kick proj
+R8499:8516 KamiHW.ThieleCPUBusTop <> sh_load_instr_kick proj
+R8554:8572 KamiHW.ThieleCPUBusTop <> sh_logic_resp_valid proj
+R8554:8572 KamiHW.ThieleCPUBusTop <> sh_logic_resp_valid proj
+R8611:8629 KamiHW.ThieleCPUBusTop <> sh_logic_resp_error proj
+R8611:8629 KamiHW.ThieleCPUBusTop <> sh_logic_resp_error proj
+R8668:8686 KamiHW.ThieleCPUBusTop <> sh_logic_resp_value proj
+R8668:8686 KamiHW.ThieleCPUBusTop <> sh_logic_resp_value proj
+R8725:8740 KamiHW.ThieleCPUBusTop <> sh_active_module proj
+R8725:8740 KamiHW.ThieleCPUBusTop <> sh_active_module proj
+R8776:8789 KamiHW.ThieleCPUBusTop <> sh_trap_vector proj
+R8776:8789 KamiHW.ThieleCPUBusTop <> sh_trap_vector proj
+R8429:8432 KamiHW.ThieleCPUBusTop <> data:54 var
+R8469:8486 KamiHW.ThieleCPUBusTop <> sh_load_instr_data proj
+R8466:8466 KamiHW.ThieleCPUBusTop <> s:52 var
+R8524:8541 KamiHW.ThieleCPUBusTop <> sh_load_instr_kick proj
+R8521:8521 KamiHW.ThieleCPUBusTop <> s:52 var
+R8580:8598 KamiHW.ThieleCPUBusTop <> sh_logic_resp_valid proj
+R8577:8577 KamiHW.ThieleCPUBusTop <> s:52 var
+R8637:8655 KamiHW.ThieleCPUBusTop <> sh_logic_resp_error proj
+R8634:8634 KamiHW.ThieleCPUBusTop <> s:52 var
+R8694:8712 KamiHW.ThieleCPUBusTop <> sh_logic_resp_value proj
+R8691:8691 KamiHW.ThieleCPUBusTop <> s:52 var
+R8748:8763 KamiHW.ThieleCPUBusTop <> sh_active_module proj
+R8745:8745 KamiHW.ThieleCPUBusTop <> s:52 var
+R8797:8810 KamiHW.ThieleCPUBusTop <> sh_trap_vector proj
+R8794:8794 KamiHW.ThieleCPUBusTop <> s:52 var
+R8820:8838 KamiHW.ThieleCPUBusTop <> BusRegLoadInstrData constr
+R8852:8869 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R8852:8869 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R8852:8869 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R8907:8924 KamiHW.ThieleCPUBusTop <> sh_load_instr_data proj
+R8907:8924 KamiHW.ThieleCPUBusTop <> sh_load_instr_data proj
+R8944:8961 KamiHW.ThieleCPUBusTop <> sh_load_instr_kick proj
+R8944:8961 KamiHW.ThieleCPUBusTop <> sh_load_instr_kick proj
+R8999:9017 KamiHW.ThieleCPUBusTop <> sh_logic_resp_valid proj
+R8999:9017 KamiHW.ThieleCPUBusTop <> sh_logic_resp_valid proj
+R9056:9074 KamiHW.ThieleCPUBusTop <> sh_logic_resp_error proj
+R9056:9074 KamiHW.ThieleCPUBusTop <> sh_logic_resp_error proj
+R9113:9131 KamiHW.ThieleCPUBusTop <> sh_logic_resp_value proj
+R9113:9131 KamiHW.ThieleCPUBusTop <> sh_logic_resp_value proj
+R9170:9185 KamiHW.ThieleCPUBusTop <> sh_active_module proj
+R9170:9185 KamiHW.ThieleCPUBusTop <> sh_active_module proj
+R9221:9234 KamiHW.ThieleCPUBusTop <> sh_trap_vector proj
+R9221:9234 KamiHW.ThieleCPUBusTop <> sh_trap_vector proj
+R8877:8894 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R8874:8874 KamiHW.ThieleCPUBusTop <> s:52 var
+R8929:8932 KamiHW.ThieleCPUBusTop <> data:54 var
+R8969:8986 KamiHW.ThieleCPUBusTop <> sh_load_instr_kick proj
+R8966:8966 KamiHW.ThieleCPUBusTop <> s:52 var
+R9025:9043 KamiHW.ThieleCPUBusTop <> sh_logic_resp_valid proj
+R9022:9022 KamiHW.ThieleCPUBusTop <> s:52 var
+R9082:9100 KamiHW.ThieleCPUBusTop <> sh_logic_resp_error proj
+R9079:9079 KamiHW.ThieleCPUBusTop <> s:52 var
+R9139:9157 KamiHW.ThieleCPUBusTop <> sh_logic_resp_value proj
+R9136:9136 KamiHW.ThieleCPUBusTop <> s:52 var
+R9193:9208 KamiHW.ThieleCPUBusTop <> sh_active_module proj
+R9190:9190 KamiHW.ThieleCPUBusTop <> s:52 var
+R9242:9255 KamiHW.ThieleCPUBusTop <> sh_trap_vector proj
+R9239:9239 KamiHW.ThieleCPUBusTop <> s:52 var
+R9265:9283 KamiHW.ThieleCPUBusTop <> BusRegLoadInstrKick constr
+R9297:9314 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R9297:9314 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R9297:9314 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R9352:9369 KamiHW.ThieleCPUBusTop <> sh_load_instr_data proj
+R9352:9369 KamiHW.ThieleCPUBusTop <> sh_load_instr_data proj
+R9407:9424 KamiHW.ThieleCPUBusTop <> sh_load_instr_kick proj
+R9407:9424 KamiHW.ThieleCPUBusTop <> sh_load_instr_kick proj
+R9461:9479 KamiHW.ThieleCPUBusTop <> sh_logic_resp_valid proj
+R9461:9479 KamiHW.ThieleCPUBusTop <> sh_logic_resp_valid proj
+R9518:9536 KamiHW.ThieleCPUBusTop <> sh_logic_resp_error proj
+R9518:9536 KamiHW.ThieleCPUBusTop <> sh_logic_resp_error proj
+R9575:9593 KamiHW.ThieleCPUBusTop <> sh_logic_resp_value proj
+R9575:9593 KamiHW.ThieleCPUBusTop <> sh_logic_resp_value proj
+R9632:9647 KamiHW.ThieleCPUBusTop <> sh_active_module proj
+R9632:9647 KamiHW.ThieleCPUBusTop <> sh_active_module proj
+R9683:9696 KamiHW.ThieleCPUBusTop <> sh_trap_vector proj
+R9683:9696 KamiHW.ThieleCPUBusTop <> sh_trap_vector proj
+R9322:9339 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R9319:9319 KamiHW.ThieleCPUBusTop <> s:52 var
+R9377:9394 KamiHW.ThieleCPUBusTop <> sh_load_instr_data proj
+R9374:9374 KamiHW.ThieleCPUBusTop <> s:52 var
+R9429:9432 Coq.Init.Datatypes <> negb def
+R9435:9441 Coq.Init.Nat <> eqb def
+R9443:9446 KamiHW.ThieleCPUBusTop <> data:54 var
+R9487:9505 KamiHW.ThieleCPUBusTop <> sh_logic_resp_valid proj
+R9484:9484 KamiHW.ThieleCPUBusTop <> s:52 var
+R9544:9562 KamiHW.ThieleCPUBusTop <> sh_logic_resp_error proj
+R9541:9541 KamiHW.ThieleCPUBusTop <> s:52 var
+R9601:9619 KamiHW.ThieleCPUBusTop <> sh_logic_resp_value proj
+R9598:9598 KamiHW.ThieleCPUBusTop <> s:52 var
+R9655:9670 KamiHW.ThieleCPUBusTop <> sh_active_module proj
+R9652:9652 KamiHW.ThieleCPUBusTop <> s:52 var
+R9704:9717 KamiHW.ThieleCPUBusTop <> sh_trap_vector proj
+R9701:9701 KamiHW.ThieleCPUBusTop <> s:52 var
+R9727:9749 KamiHW.ThieleCPUBusTop <> BusRegSetLogicRespValid constr
+R9763:9780 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R9763:9780 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R9763:9780 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R9818:9835 KamiHW.ThieleCPUBusTop <> sh_load_instr_data proj
+R9818:9835 KamiHW.ThieleCPUBusTop <> sh_load_instr_data proj
+R9873:9890 KamiHW.ThieleCPUBusTop <> sh_load_instr_kick proj
+R9873:9890 KamiHW.ThieleCPUBusTop <> sh_load_instr_kick proj
+R9928:9946 KamiHW.ThieleCPUBusTop <> sh_logic_resp_valid proj
+R9928:9946 KamiHW.ThieleCPUBusTop <> sh_logic_resp_valid proj
+R9983:10001 KamiHW.ThieleCPUBusTop <> sh_logic_resp_error proj
+R9983:10001 KamiHW.ThieleCPUBusTop <> sh_logic_resp_error proj
+R10040:10058 KamiHW.ThieleCPUBusTop <> sh_logic_resp_value proj
+R10040:10058 KamiHW.ThieleCPUBusTop <> sh_logic_resp_value proj
+R10097:10112 KamiHW.ThieleCPUBusTop <> sh_active_module proj
+R10097:10112 KamiHW.ThieleCPUBusTop <> sh_active_module proj
+R10148:10161 KamiHW.ThieleCPUBusTop <> sh_trap_vector proj
+R10148:10161 KamiHW.ThieleCPUBusTop <> sh_trap_vector proj
+R9788:9805 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R9785:9785 KamiHW.ThieleCPUBusTop <> s:52 var
+R9843:9860 KamiHW.ThieleCPUBusTop <> sh_load_instr_data proj
+R9840:9840 KamiHW.ThieleCPUBusTop <> s:52 var
+R9898:9915 KamiHW.ThieleCPUBusTop <> sh_load_instr_kick proj
+R9895:9895 KamiHW.ThieleCPUBusTop <> s:52 var
+R9951:9954 Coq.Init.Datatypes <> negb def
+R9957:9963 Coq.Init.Nat <> eqb def
+R9965:9968 KamiHW.ThieleCPUBusTop <> data:54 var
+R10009:10027 KamiHW.ThieleCPUBusTop <> sh_logic_resp_error proj
+R10006:10006 KamiHW.ThieleCPUBusTop <> s:52 var
+R10066:10084 KamiHW.ThieleCPUBusTop <> sh_logic_resp_value proj
+R10063:10063 KamiHW.ThieleCPUBusTop <> s:52 var
+R10120:10135 KamiHW.ThieleCPUBusTop <> sh_active_module proj
+R10117:10117 KamiHW.ThieleCPUBusTop <> s:52 var
+R10169:10182 KamiHW.ThieleCPUBusTop <> sh_trap_vector proj
+R10166:10166 KamiHW.ThieleCPUBusTop <> s:52 var
+R10192:10214 KamiHW.ThieleCPUBusTop <> BusRegSetLogicRespError constr
+R10228:10245 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R10228:10245 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R10228:10245 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R10283:10300 KamiHW.ThieleCPUBusTop <> sh_load_instr_data proj
+R10283:10300 KamiHW.ThieleCPUBusTop <> sh_load_instr_data proj
+R10338:10355 KamiHW.ThieleCPUBusTop <> sh_load_instr_kick proj
+R10338:10355 KamiHW.ThieleCPUBusTop <> sh_load_instr_kick proj
+R10393:10411 KamiHW.ThieleCPUBusTop <> sh_logic_resp_valid proj
+R10393:10411 KamiHW.ThieleCPUBusTop <> sh_logic_resp_valid proj
+R10450:10468 KamiHW.ThieleCPUBusTop <> sh_logic_resp_error proj
+R10450:10468 KamiHW.ThieleCPUBusTop <> sh_logic_resp_error proj
+R10505:10523 KamiHW.ThieleCPUBusTop <> sh_logic_resp_value proj
+R10505:10523 KamiHW.ThieleCPUBusTop <> sh_logic_resp_value proj
+R10562:10577 KamiHW.ThieleCPUBusTop <> sh_active_module proj
+R10562:10577 KamiHW.ThieleCPUBusTop <> sh_active_module proj
+R10613:10626 KamiHW.ThieleCPUBusTop <> sh_trap_vector proj
+R10613:10626 KamiHW.ThieleCPUBusTop <> sh_trap_vector proj
+R10253:10270 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R10250:10250 KamiHW.ThieleCPUBusTop <> s:52 var
+R10308:10325 KamiHW.ThieleCPUBusTop <> sh_load_instr_data proj
+R10305:10305 KamiHW.ThieleCPUBusTop <> s:52 var
+R10363:10380 KamiHW.ThieleCPUBusTop <> sh_load_instr_kick proj
+R10360:10360 KamiHW.ThieleCPUBusTop <> s:52 var
+R10419:10437 KamiHW.ThieleCPUBusTop <> sh_logic_resp_valid proj
+R10416:10416 KamiHW.ThieleCPUBusTop <> s:52 var
+R10473:10476 Coq.Init.Datatypes <> negb def
+R10479:10485 Coq.Init.Nat <> eqb def
+R10487:10490 KamiHW.ThieleCPUBusTop <> data:54 var
+R10531:10549 KamiHW.ThieleCPUBusTop <> sh_logic_resp_value proj
+R10528:10528 KamiHW.ThieleCPUBusTop <> s:52 var
+R10585:10600 KamiHW.ThieleCPUBusTop <> sh_active_module proj
+R10582:10582 KamiHW.ThieleCPUBusTop <> s:52 var
+R10634:10647 KamiHW.ThieleCPUBusTop <> sh_trap_vector proj
+R10631:10631 KamiHW.ThieleCPUBusTop <> s:52 var
+R10657:10679 KamiHW.ThieleCPUBusTop <> BusRegSetLogicRespValue constr
+R10693:10710 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R10693:10710 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R10693:10710 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R10748:10765 KamiHW.ThieleCPUBusTop <> sh_load_instr_data proj
+R10748:10765 KamiHW.ThieleCPUBusTop <> sh_load_instr_data proj
+R10803:10820 KamiHW.ThieleCPUBusTop <> sh_load_instr_kick proj
+R10803:10820 KamiHW.ThieleCPUBusTop <> sh_load_instr_kick proj
+R10858:10876 KamiHW.ThieleCPUBusTop <> sh_logic_resp_valid proj
+R10858:10876 KamiHW.ThieleCPUBusTop <> sh_logic_resp_valid proj
+R10915:10933 KamiHW.ThieleCPUBusTop <> sh_logic_resp_error proj
+R10915:10933 KamiHW.ThieleCPUBusTop <> sh_logic_resp_error proj
+R10972:10990 KamiHW.ThieleCPUBusTop <> sh_logic_resp_value proj
+R10972:10990 KamiHW.ThieleCPUBusTop <> sh_logic_resp_value proj
+R11010:11025 KamiHW.ThieleCPUBusTop <> sh_active_module proj
+R11010:11025 KamiHW.ThieleCPUBusTop <> sh_active_module proj
+R11061:11074 KamiHW.ThieleCPUBusTop <> sh_trap_vector proj
+R11061:11074 KamiHW.ThieleCPUBusTop <> sh_trap_vector proj
+R10718:10735 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R10715:10715 KamiHW.ThieleCPUBusTop <> s:52 var
+R10773:10790 KamiHW.ThieleCPUBusTop <> sh_load_instr_data proj
+R10770:10770 KamiHW.ThieleCPUBusTop <> s:52 var
+R10828:10845 KamiHW.ThieleCPUBusTop <> sh_load_instr_kick proj
+R10825:10825 KamiHW.ThieleCPUBusTop <> s:52 var
+R10884:10902 KamiHW.ThieleCPUBusTop <> sh_logic_resp_valid proj
+R10881:10881 KamiHW.ThieleCPUBusTop <> s:52 var
+R10941:10959 KamiHW.ThieleCPUBusTop <> sh_logic_resp_error proj
+R10938:10938 KamiHW.ThieleCPUBusTop <> s:52 var
+R10995:10998 KamiHW.ThieleCPUBusTop <> data:54 var
+R11033:11048 KamiHW.ThieleCPUBusTop <> sh_active_module proj
+R11030:11030 KamiHW.ThieleCPUBusTop <> s:52 var
+R11082:11095 KamiHW.ThieleCPUBusTop <> sh_trap_vector proj
+R11079:11079 KamiHW.ThieleCPUBusTop <> s:52 var
+R11105:11125 KamiHW.ThieleCPUBusTop <> BusRegSetActiveModule constr
+R11139:11156 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R11139:11156 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R11139:11156 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R11194:11211 KamiHW.ThieleCPUBusTop <> sh_load_instr_data proj
+R11194:11211 KamiHW.ThieleCPUBusTop <> sh_load_instr_data proj
+R11249:11266 KamiHW.ThieleCPUBusTop <> sh_load_instr_kick proj
+R11249:11266 KamiHW.ThieleCPUBusTop <> sh_load_instr_kick proj
+R11304:11322 KamiHW.ThieleCPUBusTop <> sh_logic_resp_valid proj
+R11304:11322 KamiHW.ThieleCPUBusTop <> sh_logic_resp_valid proj
+R11361:11379 KamiHW.ThieleCPUBusTop <> sh_logic_resp_error proj
+R11361:11379 KamiHW.ThieleCPUBusTop <> sh_logic_resp_error proj
+R11418:11436 KamiHW.ThieleCPUBusTop <> sh_logic_resp_value proj
+R11418:11436 KamiHW.ThieleCPUBusTop <> sh_logic_resp_value proj
+R11475:11490 KamiHW.ThieleCPUBusTop <> sh_active_module proj
+R11475:11490 KamiHW.ThieleCPUBusTop <> sh_active_module proj
+R11510:11523 KamiHW.ThieleCPUBusTop <> sh_trap_vector proj
+R11510:11523 KamiHW.ThieleCPUBusTop <> sh_trap_vector proj
+R11164:11181 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R11161:11161 KamiHW.ThieleCPUBusTop <> s:52 var
+R11219:11236 KamiHW.ThieleCPUBusTop <> sh_load_instr_data proj
+R11216:11216 KamiHW.ThieleCPUBusTop <> s:52 var
+R11274:11291 KamiHW.ThieleCPUBusTop <> sh_load_instr_kick proj
+R11271:11271 KamiHW.ThieleCPUBusTop <> s:52 var
+R11330:11348 KamiHW.ThieleCPUBusTop <> sh_logic_resp_valid proj
+R11327:11327 KamiHW.ThieleCPUBusTop <> s:52 var
+R11387:11405 KamiHW.ThieleCPUBusTop <> sh_logic_resp_error proj
+R11384:11384 KamiHW.ThieleCPUBusTop <> s:52 var
+R11444:11462 KamiHW.ThieleCPUBusTop <> sh_logic_resp_value proj
+R11441:11441 KamiHW.ThieleCPUBusTop <> s:52 var
+R11495:11498 KamiHW.ThieleCPUBusTop <> data:54 var
+R11531:11544 KamiHW.ThieleCPUBusTop <> sh_trap_vector proj
+R11528:11528 KamiHW.ThieleCPUBusTop <> s:52 var
+R11554:11572 KamiHW.ThieleCPUBusTop <> BusRegSetTrapVector constr
+R11586:11603 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R11586:11603 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R11586:11603 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R11641:11658 KamiHW.ThieleCPUBusTop <> sh_load_instr_data proj
+R11641:11658 KamiHW.ThieleCPUBusTop <> sh_load_instr_data proj
+R11696:11713 KamiHW.ThieleCPUBusTop <> sh_load_instr_kick proj
+R11696:11713 KamiHW.ThieleCPUBusTop <> sh_load_instr_kick proj
+R11751:11769 KamiHW.ThieleCPUBusTop <> sh_logic_resp_valid proj
+R11751:11769 KamiHW.ThieleCPUBusTop <> sh_logic_resp_valid proj
+R11808:11826 KamiHW.ThieleCPUBusTop <> sh_logic_resp_error proj
+R11808:11826 KamiHW.ThieleCPUBusTop <> sh_logic_resp_error proj
+R11865:11883 KamiHW.ThieleCPUBusTop <> sh_logic_resp_value proj
+R11865:11883 KamiHW.ThieleCPUBusTop <> sh_logic_resp_value proj
+R11922:11937 KamiHW.ThieleCPUBusTop <> sh_active_module proj
+R11922:11937 KamiHW.ThieleCPUBusTop <> sh_active_module proj
+R11973:11986 KamiHW.ThieleCPUBusTop <> sh_trap_vector proj
+R11973:11986 KamiHW.ThieleCPUBusTop <> sh_trap_vector proj
+R11611:11628 KamiHW.ThieleCPUBusTop <> sh_load_instr_addr proj
+R11608:11608 KamiHW.ThieleCPUBusTop <> s:52 var
+R11666:11683 KamiHW.ThieleCPUBusTop <> sh_load_instr_data proj
+R11663:11663 KamiHW.ThieleCPUBusTop <> s:52 var
+R11721:11738 KamiHW.ThieleCPUBusTop <> sh_load_instr_kick proj
+R11718:11718 KamiHW.ThieleCPUBusTop <> s:52 var
+R11777:11795 KamiHW.ThieleCPUBusTop <> sh_logic_resp_valid proj
+R11774:11774 KamiHW.ThieleCPUBusTop <> s:52 var
+R11834:11852 KamiHW.ThieleCPUBusTop <> sh_logic_resp_error proj
+R11831:11831 KamiHW.ThieleCPUBusTop <> s:52 var
+R11891:11909 KamiHW.ThieleCPUBusTop <> sh_logic_resp_value proj
+R11888:11888 KamiHW.ThieleCPUBusTop <> s:52 var
+R11945:11960 KamiHW.ThieleCPUBusTop <> sh_active_module proj
+R11942:11942 KamiHW.ThieleCPUBusTop <> s:52 var
+R11991:11994 KamiHW.ThieleCPUBusTop <> data:54 var
+R12008:12008 KamiHW.ThieleCPUBusTop <> s:52 var
+def 12029:12036 <> busWrite
+R12044:12058 KamiHW.ThieleCPUBusTop <> BusWrapperState rec
+binder 12039:12040 <> st:56
+R12074:12076 Coq.Init.Datatypes <> nat ind
+binder 12062:12065 <> addr:57
+binder 12067:12070 <> data:58
+R12081:12095 KamiHW.ThieleCPUBusTop <> BusWrapperState rec
+R12108:12119 KamiHW.ThieleCPUBusTop <> decodeBusReg def
+R12121:12124 KamiHW.ThieleCPUBusTop <> addr:57 var
+R12135:12138 Coq.Init.Datatypes <> Some constr
+R12154:12167 KamiHW.ThieleCPUBusTop <> busRegWritable def
+R12287:12288 KamiHW.ThieleCPUBusTop <> st:56 var
+R12187:12193 KamiHW.ThieleCPUBusTop <> bw_core proj
+R12187:12193 KamiHW.ThieleCPUBusTop <> bw_core proj
+R12187:12193 KamiHW.ThieleCPUBusTop <> bw_core proj
+R12223:12231 KamiHW.ThieleCPUBusTop <> bw_shadow proj
+R12223:12231 KamiHW.ThieleCPUBusTop <> bw_shadow proj
+R12202:12208 KamiHW.ThieleCPUBusTop <> bw_core proj
+R12198:12199 KamiHW.ThieleCPUBusTop <> st:56 var
+R12236:12249 KamiHW.ThieleCPUBusTop <> busWriteShadow def
+R12255:12263 KamiHW.ThieleCPUBusTop <> bw_shadow proj
+R12251:12252 KamiHW.ThieleCPUBusTop <> st:56 var
+R12268:12271 KamiHW.ThieleCPUBusTop <> data:58 var
+R12294:12297 Coq.Init.Datatypes <> None constr
+R12302:12303 KamiHW.ThieleCPUBusTop <> st:56 var
+prf 12319:12338 <> busRead_decode_sound
+binder 12351:12351 <> v:59
+binder 12353:12356 <> addr:60
+binder 12358:12358 <> r:61
+R12391:12398 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12382:12384 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12365:12376 KamiHW.ThieleCPUBusTop <> decodeBusReg def
+R12378:12381 KamiHW.ThieleCPUBusTop <> addr:60 var
+R12385:12388 Coq.Init.Datatypes <> Some constr
+R12390:12390 KamiHW.ThieleCPUBusTop <> r:61 var
+R12422:12429 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12415:12417 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12399:12412 KamiHW.ThieleCPUBusTop <> busRegReadable def
+R12414:12414 KamiHW.ThieleCPUBusTop <> r:61 var
+R12418:12421 Coq.Init.Datatypes <> true constr
+R12444:12446 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12430:12436 KamiHW.ThieleCPUBusTop <> busRead def
+R12438:12438 KamiHW.ThieleCPUBusTop <> v:59 var
+R12440:12443 KamiHW.ThieleCPUBusTop <> addr:60 var
+R12447:12461 KamiHW.ThieleCPUBusTop <> busRegReadValue def
+R12463:12463 KamiHW.ThieleCPUBusTop <> v:59 var
+R12465:12465 KamiHW.ThieleCPUBusTop <> r:61 var
+R12511:12517 KamiHW.ThieleCPUBusTop <> busRead def
+prf 12577:12599 <> busWrite_preserves_core
+binder 12612:12613 <> st:62
+binder 12615:12618 <> addr:63
+binder 12620:12623 <> data:64
+R12661:12663 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12630:12636 KamiHW.ThieleCPUBusTop <> bw_core proj
+R12639:12646 KamiHW.ThieleCPUBusTop <> busWrite def
+R12648:12649 KamiHW.ThieleCPUBusTop <> st:62 var
+R12651:12654 KamiHW.ThieleCPUBusTop <> addr:63 var
+R12656:12659 KamiHW.ThieleCPUBusTop <> data:64 var
+R12664:12670 KamiHW.ThieleCPUBusTop <> bw_core proj
+R12672:12673 KamiHW.ThieleCPUBusTop <> st:62 var
+R12715:12722 KamiHW.ThieleCPUBusTop <> busWrite def
+R12737:12748 KamiHW.ThieleCPUBusTop <> decodeBusReg def
+R12737:12748 KamiHW.ThieleCPUBusTop <> decodeBusReg def
+R12788:12801 KamiHW.ThieleCPUBusTop <> busRegWritable def
+R12788:12801 KamiHW.ThieleCPUBusTop <> busRegWritable def
+prf 12856:12877 <> busWrite_unmapped_noop
+binder 12890:12891 <> st:65
+binder 12893:12896 <> addr:66
+binder 12898:12901 <> data:67
+R12932:12939 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12925:12927 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12908:12919 KamiHW.ThieleCPUBusTop <> decodeBusReg def
+R12921:12924 KamiHW.ThieleCPUBusTop <> addr:66 var
+R12928:12931 Coq.Init.Datatypes <> None constr
+R12961:12963 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12940:12947 KamiHW.ThieleCPUBusTop <> busWrite def
+R12949:12950 KamiHW.ThieleCPUBusTop <> st:65 var
+R12952:12955 KamiHW.ThieleCPUBusTop <> addr:66 var
+R12957:12960 KamiHW.ThieleCPUBusTop <> data:67 var
+R12964:12965 KamiHW.ThieleCPUBusTop <> st:65 var
+R13012:13019 KamiHW.ThieleCPUBusTop <> busWrite def
+prf 13065:13086 <> busWrite_readonly_noop
+binder 13099:13100 <> st:68
+binder 13102:13105 <> addr:69
+binder 13107:13110 <> data:70
+binder 13112:13112 <> r:71
+R13145:13152 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13136:13138 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13119:13130 KamiHW.ThieleCPUBusTop <> decodeBusReg def
+R13132:13135 KamiHW.ThieleCPUBusTop <> addr:69 var
+R13139:13142 Coq.Init.Datatypes <> Some constr
+R13144:13144 KamiHW.ThieleCPUBusTop <> r:71 var
+R13176:13183 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13169:13171 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13153:13166 KamiHW.ThieleCPUBusTop <> busRegReadable def
+R13168:13168 KamiHW.ThieleCPUBusTop <> r:71 var
+R13172:13175 Coq.Init.Datatypes <> true constr
+R13205:13207 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13184:13191 KamiHW.ThieleCPUBusTop <> busWrite def
+R13193:13194 KamiHW.ThieleCPUBusTop <> st:68 var
+R13196:13199 KamiHW.ThieleCPUBusTop <> addr:69 var
+R13201:13204 KamiHW.ThieleCPUBusTop <> data:70 var
+R13208:13209 KamiHW.ThieleCPUBusTop <> st:68 var
+R13261:13268 KamiHW.ThieleCPUBusTop <> busWrite def
+R13296:13309 KamiHW.ThieleCPUBusTop <> busRegWritable def
+def 13358:13375 <> coreViewOfSnapshot
+R13382:13393 KamiHW.Abstraction <> KamiSnapshot rec
+binder 13378:13378 <> s:72
+R13398:13408 KamiHW.ThieleCPUBusTop <> BusCoreView rec
+R13418:13424 KamiHW.ThieleCPUBusTop <> view_pc proj
+R13418:13424 KamiHW.ThieleCPUBusTop <> view_pc proj
+R13418:13424 KamiHW.ThieleCPUBusTop <> view_pc proj
+R13445:13451 KamiHW.ThieleCPUBusTop <> view_mu proj
+R13445:13451 KamiHW.ThieleCPUBusTop <> view_mu proj
+R13472:13479 KamiHW.ThieleCPUBusTop <> view_err proj
+R13472:13479 KamiHW.ThieleCPUBusTop <> view_err proj
+R13501:13511 KamiHW.ThieleCPUBusTop <> view_halted proj
+R13501:13511 KamiHW.ThieleCPUBusTop <> view_halted proj
+R13536:13553 KamiHW.ThieleCPUBusTop <> view_partition_ops proj
+R13536:13553 KamiHW.ThieleCPUBusTop <> view_partition_ops proj
+R13585:13596 KamiHW.ThieleCPUBusTop <> view_mdl_ops proj
+R13585:13596 KamiHW.ThieleCPUBusTop <> view_mdl_ops proj
+R13622:13635 KamiHW.ThieleCPUBusTop <> view_info_gain proj
+R13622:13635 KamiHW.ThieleCPUBusTop <> view_info_gain proj
+R13663:13677 KamiHW.ThieleCPUBusTop <> view_error_code proj
+R13663:13677 KamiHW.ThieleCPUBusTop <> view_error_code proj
+R13706:13717 KamiHW.ThieleCPUBusTop <> view_mstatus proj
+R13706:13717 KamiHW.ThieleCPUBusTop <> view_mstatus proj
+R13730:13743 KamiHW.ThieleCPUBusTop <> view_mcycle_lo proj
+R13730:13743 KamiHW.ThieleCPUBusTop <> view_mcycle_lo proj
+R13756:13769 KamiHW.ThieleCPUBusTop <> view_mcycle_hi proj
+R13756:13769 KamiHW.ThieleCPUBusTop <> view_mcycle_hi proj
+R13782:13797 KamiHW.ThieleCPUBusTop <> view_minstret_lo proj
+R13782:13797 KamiHW.ThieleCPUBusTop <> view_minstret_lo proj
+R13810:13825 KamiHW.ThieleCPUBusTop <> view_minstret_hi proj
+R13810:13825 KamiHW.ThieleCPUBusTop <> view_minstret_hi proj
+R13838:13851 KamiHW.ThieleCPUBusTop <> view_logic_acc proj
+R13838:13851 KamiHW.ThieleCPUBusTop <> view_logic_acc proj
+R13864:13883 KamiHW.ThieleCPUBusTop <> view_logic_req_valid proj
+R13864:13883 KamiHW.ThieleCPUBusTop <> view_logic_req_valid proj
+R13900:13920 KamiHW.ThieleCPUBusTop <> view_logic_req_opcode proj
+R13900:13920 KamiHW.ThieleCPUBusTop <> view_logic_req_opcode proj
+R13933:13954 KamiHW.ThieleCPUBusTop <> view_logic_req_payload proj
+R13933:13954 KamiHW.ThieleCPUBusTop <> view_logic_req_payload proj
+R13967:13981 KamiHW.ThieleCPUBusTop <> view_mu_tensor0 proj
+R13967:13981 KamiHW.ThieleCPUBusTop <> view_mu_tensor0 proj
+R14011:14025 KamiHW.ThieleCPUBusTop <> view_mu_tensor1 proj
+R14011:14025 KamiHW.ThieleCPUBusTop <> view_mu_tensor1 proj
+R14055:14069 KamiHW.ThieleCPUBusTop <> view_mu_tensor2 proj
+R14055:14069 KamiHW.ThieleCPUBusTop <> view_mu_tensor2 proj
+R14099:14113 KamiHW.ThieleCPUBusTop <> view_mu_tensor3 proj
+R14099:14113 KamiHW.ThieleCPUBusTop <> view_mu_tensor3 proj
+R14143:14160 KamiHW.ThieleCPUBusTop <> view_bianchi_alarm proj
+R14143:14160 KamiHW.ThieleCPUBusTop <> view_bianchi_alarm proj
+R14177:14191 KamiHW.ThieleCPUBusTop <> view_pt_next_id proj
+R14177:14191 KamiHW.ThieleCPUBusTop <> view_pt_next_id proj
+R14220:14231 KamiHW.ThieleCPUBusTop <> view_pt_size proj
+R14220:14231 KamiHW.ThieleCPUBusTop <> view_pt_size proj
+R13429:13435 KamiHW.Abstraction <> snap_pc proj
+R13437:13437 KamiHW.ThieleCPUBusTop <> s:72 var
+R13456:13462 KamiHW.Abstraction <> snap_mu proj
+R13464:13464 KamiHW.ThieleCPUBusTop <> s:72 var
+R13484:13491 KamiHW.Abstraction <> snap_err proj
+R13493:13493 KamiHW.ThieleCPUBusTop <> s:72 var
+R13516:13526 KamiHW.Abstraction <> snap_halted proj
+R13528:13528 KamiHW.ThieleCPUBusTop <> s:72 var
+R13558:13575 KamiHW.Abstraction <> snap_partition_ops proj
+R13577:13577 KamiHW.ThieleCPUBusTop <> s:72 var
+R13601:13612 KamiHW.Abstraction <> snap_mdl_ops proj
+R13614:13614 KamiHW.ThieleCPUBusTop <> s:72 var
+R13640:13653 KamiHW.Abstraction <> snap_info_gain proj
+R13655:13655 KamiHW.ThieleCPUBusTop <> s:72 var
+R13682:13696 KamiHW.Abstraction <> snap_error_code proj
+R13698:13698 KamiHW.ThieleCPUBusTop <> s:72 var
+R13888:13892 Coq.Init.Datatypes <> false constr
+R13986:13999 KamiHW.Abstraction <> snap_mu_tensor proj
+R14001:14001 KamiHW.ThieleCPUBusTop <> s:72 var
+R14030:14043 KamiHW.Abstraction <> snap_mu_tensor proj
+R14045:14045 KamiHW.ThieleCPUBusTop <> s:72 var
+R14074:14087 KamiHW.Abstraction <> snap_mu_tensor proj
+R14089:14089 KamiHW.ThieleCPUBusTop <> s:72 var
+R14118:14131 KamiHW.Abstraction <> snap_mu_tensor proj
+R14133:14133 KamiHW.ThieleCPUBusTop <> s:72 var
+R14165:14169 Coq.Init.Datatypes <> false constr
+R14196:14210 KamiHW.Abstraction <> snap_pt_next_id proj
+R14212:14212 KamiHW.ThieleCPUBusTop <> s:72 var
+R14236:14248 KamiHW.Abstraction <> snap_pt_sizes proj
+R14250:14250 KamiHW.ThieleCPUBusTop <> s:72 var
+prf 14337:14355 <> busRead_snapshot_pc
+binder 14368:14368 <> s:73
+R14415:14417 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14375:14381 KamiHW.ThieleCPUBusTop <> busRead def
+R14384:14401 KamiHW.ThieleCPUBusTop <> coreViewOfSnapshot def
+R14403:14403 KamiHW.ThieleCPUBusTop <> s:73 var
+R14406:14414 KamiHW.ThieleCPUBusTop <> busAddrPc def
+R14418:14421 Coq.Init.Datatypes <> Some constr
+R14424:14430 KamiHW.Abstraction <> snap_pc proj
+R14432:14432 KamiHW.ThieleCPUBusTop <> s:73 var
+R14463:14471 KamiHW.ThieleCPUBusTop <> busAddrPc def
+R14483:14489 KamiHW.ThieleCPUBusTop <> busRead def
+prf 14602:14620 <> busRead_snapshot_mu
+binder 14633:14633 <> s:74
+R14680:14682 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14640:14646 KamiHW.ThieleCPUBusTop <> busRead def
+R14649:14666 KamiHW.ThieleCPUBusTop <> coreViewOfSnapshot def
+R14668:14668 KamiHW.ThieleCPUBusTop <> s:74 var
+R14671:14679 KamiHW.ThieleCPUBusTop <> busAddrMu def
+R14683:14686 Coq.Init.Datatypes <> Some constr
+R14689:14695 KamiHW.Abstraction <> snap_mu proj
+R14697:14697 KamiHW.ThieleCPUBusTop <> s:74 var
+R14728:14736 KamiHW.ThieleCPUBusTop <> busAddrMu def
+R14748:14754 KamiHW.ThieleCPUBusTop <> busRead def
+prf 14878:14907 <> busRead_snapshot_partition_ops
+binder 14920:14920 <> s:75
+R14977:14979 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14927:14933 KamiHW.ThieleCPUBusTop <> busRead def
+R14936:14953 KamiHW.ThieleCPUBusTop <> coreViewOfSnapshot def
+R14955:14955 KamiHW.ThieleCPUBusTop <> s:75 var
+R14958:14976 KamiHW.ThieleCPUBusTop <> busAddrPartitionOps def
+R14980:14983 Coq.Init.Datatypes <> Some constr
+R14986:15003 KamiHW.Abstraction <> snap_partition_ops proj
+R15005:15005 KamiHW.ThieleCPUBusTop <> s:75 var
+R15036:15054 KamiHW.ThieleCPUBusTop <> busAddrPartitionOps def
+R15066:15072 KamiHW.ThieleCPUBusTop <> busRead def
+prf 15111:15147 <> busWrite_stage12_abs_phase1_preserved
+binder 15160:15161 <> st:76
+binder 15163:15166 <> addr:77
+binder 15168:15171 <> data:78
+R15222:15224 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15178:15187 KamiHW.Abstraction <> abs_phase1 def
+R15190:15196 KamiHW.ThieleCPUBusTop <> bw_core proj
+R15199:15206 KamiHW.ThieleCPUBusTop <> busWrite def
+R15208:15209 KamiHW.ThieleCPUBusTop <> st:76 var
+R15211:15214 KamiHW.ThieleCPUBusTop <> addr:77 var
+R15216:15219 KamiHW.ThieleCPUBusTop <> data:78 var
+R15225:15234 KamiHW.Abstraction <> abs_phase1 def
+R15237:15243 KamiHW.ThieleCPUBusTop <> bw_core proj
+R15245:15246 KamiHW.ThieleCPUBusTop <> st:76 var
+R15290:15312 KamiHW.ThieleCPUBusTop <> busWrite_preserves_core thm
+R15290:15312 KamiHW.ThieleCPUBusTop <> busWrite_preserves_core thm
+R15290:15312 KamiHW.ThieleCPUBusTop <> busWrite_preserves_core thm
+prf 15342:15369 <> busWrite_shadow_updates_kick
+binder 15382:15383 <> sh:79
+R15458:15465 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15450:15452 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15390:15407 KamiHW.ThieleCPUBusTop <> sh_load_instr_kick proj
+R15410:15423 KamiHW.ThieleCPUBusTop <> busWriteShadow def
+R15425:15426 KamiHW.ThieleCPUBusTop <> sh:79 var
+R15428:15446 KamiHW.ThieleCPUBusTop <> BusRegLoadInstrKick constr
+R15453:15457 Coq.Init.Datatypes <> false constr
+R15526:15528 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15466:15483 KamiHW.ThieleCPUBusTop <> sh_load_instr_kick proj
+R15486:15499 KamiHW.ThieleCPUBusTop <> busWriteShadow def
+R15501:15502 KamiHW.ThieleCPUBusTop <> sh:79 var
+R15504:15522 KamiHW.ThieleCPUBusTop <> BusRegLoadInstrKick constr
+R15529:15532 Coq.Init.Datatypes <> true constr
+ind 15599:15603 <> BusOp
+constr 15617:15625 <> BusOpRead
+constr 15642:15651 <> BusOpWrite
+R15635:15637 Coq.Init.Datatypes <> nat ind
+binder 15628:15631 <> addr:82
+R15666:15668 Coq.Init.Datatypes <> nat ind
+binder 15654:15657 <> addr:83
+binder 15659:15662 <> data:84
+scheme 15599:15603 <> BusOp_rect
+scheme 15599:15603 <> BusOp_ind
+scheme 15599:15603 <> BusOp_rec
+scheme 15599:15603 <> BusOp_sind
+def 15684:15691 <> bus_step
+R15699:15713 KamiHW.ThieleCPUBusTop <> BusWrapperState rec
+binder 15694:15695 <> st:85
+R15722:15726 KamiHW.ThieleCPUBusTop <> BusOp ind
+binder 15717:15718 <> op:86
+R15731:15745 KamiHW.ThieleCPUBusTop <> BusWrapperState rec
+R15758:15759 KamiHW.ThieleCPUBusTop <> op:86 var
+R15770:15778 KamiHW.ThieleCPUBusTop <> BusOpRead constr
+R15785:15786 KamiHW.ThieleCPUBusTop <> st:85 var
+R15792:15801 KamiHW.ThieleCPUBusTop <> BusOpWrite constr
+R15816:15823 KamiHW.ThieleCPUBusTop <> busWrite def
+R15825:15826 KamiHW.ThieleCPUBusTop <> st:85 var
+prf 15854:15876 <> bus_step_preserves_core
+binder 15889:15890 <> st:88
+binder 15892:15893 <> op:89
+R15924:15926 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15900:15906 KamiHW.ThieleCPUBusTop <> bw_core proj
+R15909:15916 KamiHW.ThieleCPUBusTop <> bus_step def
+R15918:15919 KamiHW.ThieleCPUBusTop <> st:88 var
+R15921:15922 KamiHW.ThieleCPUBusTop <> op:89 var
+R15927:15933 KamiHW.ThieleCPUBusTop <> bw_core proj
+R15935:15936 KamiHW.ThieleCPUBusTop <> st:88 var
+R16027:16034 KamiHW.ThieleCPUBusTop <> bus_step def
+R16047:16069 KamiHW.ThieleCPUBusTop <> busWrite_preserves_core thm
+R16047:16069 KamiHW.ThieleCPUBusTop <> busWrite_preserves_core thm
+prf 16086:16114 <> bus_step_preserves_abs_phase1
+binder 16127:16128 <> st:90
+binder 16130:16131 <> op:91
+R16175:16177 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16138:16147 KamiHW.Abstraction <> abs_phase1 def
+R16150:16156 KamiHW.ThieleCPUBusTop <> bw_core proj
+R16159:16166 KamiHW.ThieleCPUBusTop <> bus_step def
+R16168:16169 KamiHW.ThieleCPUBusTop <> st:90 var
+R16171:16172 KamiHW.ThieleCPUBusTop <> op:91 var
+R16178:16187 KamiHW.Abstraction <> abs_phase1 def
+R16190:16196 KamiHW.ThieleCPUBusTop <> bw_core proj
+R16198:16199 KamiHW.ThieleCPUBusTop <> st:90 var
+R16236:16258 KamiHW.ThieleCPUBusTop <> bus_step_preserves_core thm
+R16236:16258 KamiHW.ThieleCPUBusTop <> bus_step_preserves_core thm
+R16236:16258 KamiHW.ThieleCPUBusTop <> bus_step_preserves_core thm
+def 16374:16386 <> thieleBusTopB
+R16391:16401 KamiHW.ThieleCPUCore <> thieleCoreB def
+def 16415:16427 <> thieleBusTopS
+R16432:16442 KamiHW.ThieleCPUCore <> thieleCoreS def
+prf 16564:16588 <> thieleBusTop_stage1_equiv
+R16605:16607 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16592:16604 KamiHW.ThieleCPUBusTop <> thieleBusTopB def
+R16608:16618 KamiHW.ThieleCPUCore <> thieleCoreB def
+prf 16799:16844 <> bus_step_preserves_instruction_cost_accounting
+binder 16857:16858 <> st:92
+binder 16860:16861 <> op:93
+R16905:16907 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16868:16877 KamiHW.Abstraction <> abs_phase1 def
+R16880:16886 KamiHW.ThieleCPUBusTop <> bw_core proj
+R16889:16896 KamiHW.ThieleCPUBusTop <> bus_step def
+R16898:16899 KamiHW.ThieleCPUBusTop <> st:92 var
+R16901:16902 KamiHW.ThieleCPUBusTop <> op:93 var
+R16908:16917 KamiHW.Abstraction <> abs_phase1 def
+R16920:16926 KamiHW.ThieleCPUBusTop <> bw_core proj
+R16928:16929 KamiHW.ThieleCPUBusTop <> st:92 var
+R16966:16988 KamiHW.ThieleCPUBusTop <> bus_step_preserves_core thm
+R16966:16988 KamiHW.ThieleCPUBusTop <> bus_step_preserves_core thm
+R16966:16988 KamiHW.ThieleCPUBusTop <> bus_step_preserves_core thm
+def 17148:17170 <> bus_vm_instruction_type
+R17175:17188 Kernel.VMStep VMStep vm_instruction ind

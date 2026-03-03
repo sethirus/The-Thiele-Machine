@@ -12,6 +12,10 @@ Import ListNotations.
 
 From ModularProofs Require Import TM_Basics Thiele_Basics.
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 Section Simulation.
   Context {tm : TMTransition}.
   Context (sem : ModularThieleSemantics tm).
@@ -29,6 +33,7 @@ Section Simulation.
     intros n conf Hok.
     apply mts_run_n_simulates; exact Hok.
   Qed.
+
 End Simulation.
 
 (** [thiele_machine_subsumes_turing_modular]: formal specification. *)

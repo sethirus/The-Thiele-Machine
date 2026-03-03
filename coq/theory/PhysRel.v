@@ -6,6 +6,10 @@ Require Import Coq.Logic.FunctionalExtensionality.
 Require Import Coq.Logic.PropExtensionality.
 Require Import Theory.Core.
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 Module RelCategory.
   (* Objects are types; morphisms are binary relations as predicates. *)
   Definition Rel (A B : Type) := A -> B -> Prop.
@@ -71,5 +75,6 @@ Module RelCategory.
       (fun A B (f:Rel A B) => @rel_comp_id_l A B f)
       (fun A B (f:Rel A B) => @rel_comp_id_r A B f)
       (fun A B C D (h:Rel C D) (g:Rel B C) (f:Rel A B) => @rel_comp_assoc A B C D h g f).
+
 
 End RelCategory.

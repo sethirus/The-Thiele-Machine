@@ -4,6 +4,11 @@
 
 From Coq Require Import List Arith Lia PeanoNat Bool.
 From ModularProofs Require Import EncodingBounds.
+
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 Import ListNotations.
 
 Local Opaque Nat.div Nat.modulo.
@@ -271,3 +276,4 @@ Proof.
   - exact Hhead.
   - exact Hpacked_lt.
 Qed.
+

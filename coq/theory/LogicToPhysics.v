@@ -5,6 +5,10 @@ Set Implicit Arguments.
 Require Import Theory.Core.
 Require Import Theory.PhysRel.
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 Section LogicToPhysics.
   Variable Gen : Type -> Type -> Type.
 
@@ -24,5 +28,6 @@ Section LogicToPhysics.
       interp (cut π1 π2) =
       RelCategory.rel_comp (interp π1) (interp π2).
   Proof. intros. apply cut_is_composition. Qed.
+
 
 End LogicToPhysics.

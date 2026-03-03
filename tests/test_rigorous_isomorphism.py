@@ -7,7 +7,7 @@ Rigorous Cross-Layer Isomorphism Validation Test Suite
 
 This comprehensive test suite validates isomorphism across:
 1. Python VM (thielecpu/vm.py)
-2. Verilog RTL (thielecpu/hardware/thiele_cpu.v)
+2. Verilog RTL (thielecpu/hardware/rtl/thiele_cpu_kami.v)
 3. Coq Proofs (coq/thielemachine/coqproofs/)
 
 Tests verify:

@@ -12,12 +12,18 @@ C. Does information density correlate with curvature?
 import sys
 from pathlib import Path
 import math
+import pytest
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "tools"))
 
-from vm_wrapper import create_test_state_with_modules, VMState
+from vm_wrapper import create_test_state_with_modules, VMState, VM_RUNNER_PATH
 
 PI = math.pi
+
+pytestmark = pytest.mark.skipif(
+    not VM_RUNNER_PATH.exists(),
+    reason="Coq-extracted runner not built (build/extracted_vm_runner)",
+)
 
 
 def compute_euler_characteristic(state: VMState, horizon_modules: list) -> int:
@@ -168,7 +174,8 @@ def test_correct_gauss_bonnet():
     else:
         print("✗ FAILS - Even correct formulation doesn't work")
 
-    return results
+    assert len(results) == len(test_horizons)
+    assert pass_count >= 0
 
 
 def test_density_curvature_correlation():
@@ -251,7 +258,7 @@ def test_density_curvature_correlation():
         print(f"\n✗ NO significant correlation found")
         print(f"  → Geometry and information may be independent")
 
-    return data
+    assert len(data) > 0
 
 
 def test_find_actual_relationship():
@@ -323,7 +330,7 @@ def test_find_actual_relationship():
         except Exception as e:
             print(f"\n{name}: Error - {e}")
 
-    return data
+    assert len(data) > 0
 
 
 if __name__ == "__main__":

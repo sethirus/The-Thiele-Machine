@@ -58,10 +58,11 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
     VlWide<5>/*159:0*/ __Vtemp_12;
     VlWide<5>/*159:0*/ __Vtemp_14;
     VlWide<6>/*191:0*/ __Vtemp_15;
-    VlWide<3>/*95:0*/ __Vtemp_16;
+    VlWide<5>/*159:0*/ __Vtemp_16;
     VlWide<3>/*95:0*/ __Vtemp_17;
-    VlWide<16>/*511:0*/ __Vtemp_318;
-    VlWide<16>/*511:0*/ __Vtemp_347;
+    VlWide<3>/*95:0*/ __Vtemp_18;
+    VlWide<16>/*511:0*/ __Vtemp_319;
+    VlWide<16>/*511:0*/ __Vtemp_348;
     // Body
     vlSelf->__PVT__i = 0U;
     while (VL_GTS_III(32, 0x100U, vlSelf->__PVT__i)) {
@@ -189,6 +190,7 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
     vlSelf->__PVT__init_tensor_en = 0U;
     vlSelf->__PVT__init_logic_stall_en = 0U;
     vlSelf->__PVT__init_logic_req_valid_en = 0U;
+    vlSelf->__PVT__init_logic_acc_en = 0U;
     __Vtemp_6[0U] = 0x553d2564U;
     __Vtemp_6[1U] = 0x49545f4dU;
     __Vtemp_6[2U] = 0x494eU;
@@ -259,10 +261,19 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
                              vlSelf->__PVT__init_logic_req_valid_value)) {
         vlSelf->__PVT__init_logic_req_valid_en = 1U;
     }
-    __Vtemp_16[0U] = 0x4d3d2573U;
-    __Vtemp_16[1U] = 0x4f475241U;
-    __Vtemp_16[2U] = 0x5052U;
-    if (VL_UNLIKELY(VL_VALUEPLUSARGS_INW(1024, VL_CVT_PACK_STR_NW(3, __Vtemp_16), 
+    __Vtemp_16[0U] = 0x433d2564U;
+    __Vtemp_16[1U] = 0x435f4143U;
+    __Vtemp_16[2U] = 0x4c4f4749U;
+    __Vtemp_16[3U] = 0x4e49545fU;
+    __Vtemp_16[4U] = 0x49U;
+    if (VL_VALUEPLUSARGS_INI(32, VL_CVT_PACK_STR_NW(5, __Vtemp_16), 
+                             vlSelf->__PVT__init_logic_acc_value)) {
+        vlSelf->__PVT__init_logic_acc_en = 1U;
+    }
+    __Vtemp_17[0U] = 0x4d3d2573U;
+    __Vtemp_17[1U] = 0x4f475241U;
+    __Vtemp_17[2U] = 0x5052U;
+    if (VL_UNLIKELY(VL_VALUEPLUSARGS_INW(1024, VL_CVT_PACK_STR_NW(3, __Vtemp_17), 
                                          vlSelf->__PVT__program_hex_path))) {
         VL_READMEM_N(true, 32, 256, 0, VL_CVT_PACK_STR_NW(32, vlSelf->__PVT__program_hex_path)
                      ,  &(vlSelf->__PVT__instr_memory)
@@ -276,10 +287,10 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
                      ,  &(vlSelf->__PVT__data_memory)
                      , 0, ~0ULL);
     }
-    __Vtemp_17[0U] = 0x533d2564U;
-    __Vtemp_17[1U] = 0x4e535452U;
-    __Vtemp_17[2U] = 0x4e5f49U;
-    if ((! VL_VALUEPLUSARGS_INI(32, VL_CVT_PACK_STR_NW(3, __Vtemp_17), 
+    __Vtemp_18[0U] = 0x533d2564U;
+    __Vtemp_18[1U] = 0x4e535452U;
+    __Vtemp_18[2U] = 0x4e5f49U;
+    if ((! VL_VALUEPLUSARGS_INI(32, VL_CVT_PACK_STR_NW(3, __Vtemp_18), 
                                 vlSelf->__PVT__num_instrs))) {
         vlSelf->__PVT__num_instrs = 0x100U;
     }
@@ -290,13 +301,13 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
                                                             nullptr, 
                                                             "@(posedge thiele_cpu_kami_tb.clk)", 
                                                             "/workspaces/The-Thiele-Machine/thielecpu/hardware/testbench/thiele_cpu_kami_tb.v", 
-                                                            287);
+                                                            290);
     vlSymsp->TOP.__Vm_traceActivity[6U] = 1U;
     co_await vlSymsp->TOP.__VtrigSched_he4602a19__0.trigger(0U, 
                                                             nullptr, 
                                                             "@(posedge thiele_cpu_kami_tb.clk)", 
                                                             "/workspaces/The-Thiele-Machine/thielecpu/hardware/testbench/thiele_cpu_kami_tb.v", 
-                                                            288);
+                                                            291);
     vlSymsp->TOP.__Vm_traceActivity[6U] = 1U;
     vlSelf->__PVT__rst_n = 1U;
     vlSelf->__PVT__i = 0U;
@@ -314,7 +325,7 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
                                                                 nullptr, 
                                                                 "@(posedge thiele_cpu_kami_tb.clk)", 
                                                                 "/workspaces/The-Thiele-Machine/thielecpu/hardware/testbench/thiele_cpu_kami_tb.v", 
-                                                                295);
+                                                                298);
         vlSymsp->TOP.__Vm_traceActivity[6U] = 1U;
         vlSelf->__PVT__i = ((IData)(1U) + vlSelf->__PVT__i);
     }
@@ -323,7 +334,7 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
                                                             nullptr, 
                                                             "@(negedge thiele_cpu_kami_tb.clk)", 
                                                             "/workspaces/The-Thiele-Machine/thielecpu/hardware/testbench/thiele_cpu_kami_tb.v", 
-                                                            304);
+                                                            307);
     vlSymsp->TOP.__Vm_traceActivity[6U] = 1U;
     vlSelf->__PVT__dut__DOT__pc__VforceEn = 0xffffffffU;
     vlSelf->__PVT__dut__DOT__pc__VforceVal = 0U;
@@ -2401,13 +2412,13 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
                                                             nullptr, 
                                                             "@(posedge thiele_cpu_kami_tb.clk)", 
                                                             "/workspaces/The-Thiele-Machine/thielecpu/hardware/testbench/thiele_cpu_kami_tb.v", 
-                                                            357);
+                                                            360);
     vlSymsp->TOP.__Vm_traceActivity[6U] = 1U;
     co_await vlSymsp->TOP.__VtrigSched_he4602ae8__0.trigger(0U, 
                                                             nullptr, 
                                                             "@(negedge thiele_cpu_kami_tb.clk)", 
                                                             "/workspaces/The-Thiele-Machine/thielecpu/hardware/testbench/thiele_cpu_kami_tb.v", 
-                                                            358);
+                                                            361);
     vlSymsp->TOP.__Vm_traceActivity[6U] = 1U;
     vlSelf->__PVT__dut__DOT__pc = ((vlSelf->__PVT__dut__DOT__pc__VforceEn 
                                     & vlSelf->__PVT__dut__DOT__pc__VforceVal) 
@@ -4598,63 +4609,63 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
                                            | ((~ vlSelf->__PVT__dut__DOT__pt_next_id__VforceEn) 
                                               & vlSelf->__PVT__dut__DOT__pt_next_id));
     vlSelf->__PVT__dut__DOT__pt_next_id__VforceEn = 0U;
-    __Vtemp_318[1U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[1U] 
+    __Vtemp_319[1U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[1U] 
                         & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[1U]) 
                        | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[1U]) 
                           & vlSelf->__PVT__dut__DOT__mu_tensor[1U]));
-    __Vtemp_318[2U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[2U] 
+    __Vtemp_319[2U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[2U] 
                         & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[2U]) 
                        | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[2U]) 
                           & vlSelf->__PVT__dut__DOT__mu_tensor[2U]));
-    __Vtemp_318[3U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[3U] 
+    __Vtemp_319[3U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[3U] 
                         & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[3U]) 
                        | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[3U]) 
                           & vlSelf->__PVT__dut__DOT__mu_tensor[3U]));
-    __Vtemp_318[4U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[4U] 
+    __Vtemp_319[4U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[4U] 
                         & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[4U]) 
                        | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[4U]) 
                           & vlSelf->__PVT__dut__DOT__mu_tensor[4U]));
-    __Vtemp_318[5U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[5U] 
+    __Vtemp_319[5U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[5U] 
                         & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[5U]) 
                        | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[5U]) 
                           & vlSelf->__PVT__dut__DOT__mu_tensor[5U]));
-    __Vtemp_318[6U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[6U] 
+    __Vtemp_319[6U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[6U] 
                         & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[6U]) 
                        | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[6U]) 
                           & vlSelf->__PVT__dut__DOT__mu_tensor[6U]));
-    __Vtemp_318[7U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[7U] 
+    __Vtemp_319[7U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[7U] 
                         & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[7U]) 
                        | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[7U]) 
                           & vlSelf->__PVT__dut__DOT__mu_tensor[7U]));
-    __Vtemp_318[8U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[8U] 
+    __Vtemp_319[8U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[8U] 
                         & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[8U]) 
                        | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[8U]) 
                           & vlSelf->__PVT__dut__DOT__mu_tensor[8U]));
-    __Vtemp_318[9U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[9U] 
+    __Vtemp_319[9U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[9U] 
                         & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[9U]) 
                        | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[9U]) 
                           & vlSelf->__PVT__dut__DOT__mu_tensor[9U]));
-    __Vtemp_318[0xaU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xaU] 
+    __Vtemp_319[0xaU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xaU] 
                           & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[0xaU]) 
                          | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xaU]) 
                             & vlSelf->__PVT__dut__DOT__mu_tensor[0xaU]));
-    __Vtemp_318[0xbU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xbU] 
+    __Vtemp_319[0xbU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xbU] 
                           & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[0xbU]) 
                          | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xbU]) 
                             & vlSelf->__PVT__dut__DOT__mu_tensor[0xbU]));
-    __Vtemp_318[0xcU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xcU] 
+    __Vtemp_319[0xcU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xcU] 
                           & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[0xcU]) 
                          | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xcU]) 
                             & vlSelf->__PVT__dut__DOT__mu_tensor[0xcU]));
-    __Vtemp_318[0xdU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xdU] 
+    __Vtemp_319[0xdU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xdU] 
                           & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[0xdU]) 
                          | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xdU]) 
                             & vlSelf->__PVT__dut__DOT__mu_tensor[0xdU]));
-    __Vtemp_318[0xeU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xeU] 
+    __Vtemp_319[0xeU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xeU] 
                           & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[0xeU]) 
                          | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xeU]) 
                             & vlSelf->__PVT__dut__DOT__mu_tensor[0xeU]));
-    __Vtemp_318[0xfU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xfU] 
+    __Vtemp_319[0xfU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xfU] 
                           & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[0xfU]) 
                          | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xfU]) 
                             & vlSelf->__PVT__dut__DOT__mu_tensor[0xfU]));
@@ -4663,21 +4674,21 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
                                               | ((~ 
                                                   vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0U]) 
                                                  & vlSelf->__PVT__dut__DOT__mu_tensor[0U]));
-    vlSelf->__PVT__dut__DOT__mu_tensor[1U] = __Vtemp_318[1U];
-    vlSelf->__PVT__dut__DOT__mu_tensor[2U] = __Vtemp_318[2U];
-    vlSelf->__PVT__dut__DOT__mu_tensor[3U] = __Vtemp_318[3U];
-    vlSelf->__PVT__dut__DOT__mu_tensor[4U] = __Vtemp_318[4U];
-    vlSelf->__PVT__dut__DOT__mu_tensor[5U] = __Vtemp_318[5U];
-    vlSelf->__PVT__dut__DOT__mu_tensor[6U] = __Vtemp_318[6U];
-    vlSelf->__PVT__dut__DOT__mu_tensor[7U] = __Vtemp_318[7U];
-    vlSelf->__PVT__dut__DOT__mu_tensor[8U] = __Vtemp_318[8U];
-    vlSelf->__PVT__dut__DOT__mu_tensor[9U] = __Vtemp_318[9U];
-    vlSelf->__PVT__dut__DOT__mu_tensor[0xaU] = __Vtemp_318[0xaU];
-    vlSelf->__PVT__dut__DOT__mu_tensor[0xbU] = __Vtemp_318[0xbU];
-    vlSelf->__PVT__dut__DOT__mu_tensor[0xcU] = __Vtemp_318[0xcU];
-    vlSelf->__PVT__dut__DOT__mu_tensor[0xdU] = __Vtemp_318[0xdU];
-    vlSelf->__PVT__dut__DOT__mu_tensor[0xeU] = __Vtemp_318[0xeU];
-    vlSelf->__PVT__dut__DOT__mu_tensor[0xfU] = __Vtemp_318[0xfU];
+    vlSelf->__PVT__dut__DOT__mu_tensor[1U] = __Vtemp_319[1U];
+    vlSelf->__PVT__dut__DOT__mu_tensor[2U] = __Vtemp_319[2U];
+    vlSelf->__PVT__dut__DOT__mu_tensor[3U] = __Vtemp_319[3U];
+    vlSelf->__PVT__dut__DOT__mu_tensor[4U] = __Vtemp_319[4U];
+    vlSelf->__PVT__dut__DOT__mu_tensor[5U] = __Vtemp_319[5U];
+    vlSelf->__PVT__dut__DOT__mu_tensor[6U] = __Vtemp_319[6U];
+    vlSelf->__PVT__dut__DOT__mu_tensor[7U] = __Vtemp_319[7U];
+    vlSelf->__PVT__dut__DOT__mu_tensor[8U] = __Vtemp_319[8U];
+    vlSelf->__PVT__dut__DOT__mu_tensor[9U] = __Vtemp_319[9U];
+    vlSelf->__PVT__dut__DOT__mu_tensor[0xaU] = __Vtemp_319[0xaU];
+    vlSelf->__PVT__dut__DOT__mu_tensor[0xbU] = __Vtemp_319[0xbU];
+    vlSelf->__PVT__dut__DOT__mu_tensor[0xcU] = __Vtemp_319[0xcU];
+    vlSelf->__PVT__dut__DOT__mu_tensor[0xdU] = __Vtemp_319[0xdU];
+    vlSelf->__PVT__dut__DOT__mu_tensor[0xeU] = __Vtemp_319[0xeU];
+    vlSelf->__PVT__dut__DOT__mu_tensor[0xfU] = __Vtemp_319[0xfU];
     vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0U] 
         = Vthiele_cpu_kami_tb__ConstPool__CONST_h93e1b771_0[0U];
     vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[1U] 
@@ -5086,24 +5097,39 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
         vlSelf->__PVT__dut__DOT__logic_req_valid__VforceRd 
             = (1U & vlSelf->__PVT__init_logic_req_valid_value);
     }
-    if (((((((0U != vlSelf->__PVT__init_mu_en) | (0U 
-                                                  != vlSelf->__PVT__init_active_module_en)) 
-            | (0U != vlSelf->__PVT__init_pt_en)) | 
-           (0U != vlSelf->__PVT__init_tensor_en)) | 
-          (0U != vlSelf->__PVT__init_logic_stall_en)) 
-         | (0U != vlSelf->__PVT__init_logic_req_valid_en))) {
+    if ((0U != vlSelf->__PVT__init_logic_acc_en)) {
+        vlSelf->__PVT__dut__DOT__logic_acc__VforceEn = 0xffffffffU;
+        vlSelf->__PVT__dut__DOT__logic_acc__VforceVal 
+            = vlSelf->__PVT__init_logic_acc_value;
+        vlSelf->__PVT__dut__DOT__logic_acc__VforceRd 
+            = vlSelf->__PVT__init_logic_acc_value;
+    }
+    if ((((((((0U != vlSelf->__PVT__init_mu_en) | (0U 
+                                                   != vlSelf->__PVT__init_active_module_en)) 
+             | (0U != vlSelf->__PVT__init_pt_en)) | 
+            (0U != vlSelf->__PVT__init_tensor_en)) 
+           | (0U != vlSelf->__PVT__init_logic_stall_en)) 
+          | (0U != vlSelf->__PVT__init_logic_req_valid_en)) 
+         | (0U != vlSelf->__PVT__init_logic_acc_en))) {
         co_await vlSymsp->TOP.__VtrigSched_he4602a19__0.trigger(0U, 
                                                                 nullptr, 
                                                                 "@(posedge thiele_cpu_kami_tb.clk)", 
                                                                 "/workspaces/The-Thiele-Machine/thielecpu/hardware/testbench/thiele_cpu_kami_tb.v", 
-                                                                420);
+                                                                424);
         vlSymsp->TOP.__Vm_traceActivity[6U] = 1U;
         co_await vlSymsp->TOP.__VtrigSched_he4602ae8__0.trigger(0U, 
                                                                 nullptr, 
                                                                 "@(negedge thiele_cpu_kami_tb.clk)", 
                                                                 "/workspaces/The-Thiele-Machine/thielecpu/hardware/testbench/thiele_cpu_kami_tb.v", 
-                                                                421);
+                                                                425);
         vlSymsp->TOP.__Vm_traceActivity[6U] = 1U;
+    }
+    if ((0U != vlSelf->__PVT__init_logic_acc_en)) {
+        vlSelf->__PVT__dut__DOT__logic_acc = ((vlSelf->__PVT__dut__DOT__logic_acc__VforceEn 
+                                               & vlSelf->__PVT__dut__DOT__logic_acc__VforceVal) 
+                                              | ((~ vlSelf->__PVT__dut__DOT__logic_acc__VforceEn) 
+                                                 & vlSelf->__PVT__dut__DOT__logic_acc));
+        vlSelf->__PVT__dut__DOT__logic_acc__VforceEn = 0U;
     }
     if ((0U != vlSelf->__PVT__init_logic_req_valid_en)) {
         vlSelf->__PVT__dut__DOT__logic_req_valid = 
@@ -5119,63 +5145,63 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
         vlSelf->__PVT__dut__DOT__logic_stall__VforceEn = 0U;
     }
     if ((0U != vlSelf->__PVT__init_tensor_en)) {
-        __Vtemp_347[1U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[1U] 
+        __Vtemp_348[1U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[1U] 
                             & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[1U]) 
                            | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[1U]) 
                               & vlSelf->__PVT__dut__DOT__mu_tensor[1U]));
-        __Vtemp_347[2U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[2U] 
+        __Vtemp_348[2U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[2U] 
                             & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[2U]) 
                            | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[2U]) 
                               & vlSelf->__PVT__dut__DOT__mu_tensor[2U]));
-        __Vtemp_347[3U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[3U] 
+        __Vtemp_348[3U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[3U] 
                             & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[3U]) 
                            | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[3U]) 
                               & vlSelf->__PVT__dut__DOT__mu_tensor[3U]));
-        __Vtemp_347[4U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[4U] 
+        __Vtemp_348[4U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[4U] 
                             & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[4U]) 
                            | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[4U]) 
                               & vlSelf->__PVT__dut__DOT__mu_tensor[4U]));
-        __Vtemp_347[5U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[5U] 
+        __Vtemp_348[5U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[5U] 
                             & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[5U]) 
                            | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[5U]) 
                               & vlSelf->__PVT__dut__DOT__mu_tensor[5U]));
-        __Vtemp_347[6U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[6U] 
+        __Vtemp_348[6U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[6U] 
                             & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[6U]) 
                            | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[6U]) 
                               & vlSelf->__PVT__dut__DOT__mu_tensor[6U]));
-        __Vtemp_347[7U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[7U] 
+        __Vtemp_348[7U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[7U] 
                             & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[7U]) 
                            | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[7U]) 
                               & vlSelf->__PVT__dut__DOT__mu_tensor[7U]));
-        __Vtemp_347[8U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[8U] 
+        __Vtemp_348[8U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[8U] 
                             & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[8U]) 
                            | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[8U]) 
                               & vlSelf->__PVT__dut__DOT__mu_tensor[8U]));
-        __Vtemp_347[9U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[9U] 
+        __Vtemp_348[9U] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[9U] 
                             & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[9U]) 
                            | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[9U]) 
                               & vlSelf->__PVT__dut__DOT__mu_tensor[9U]));
-        __Vtemp_347[0xaU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xaU] 
+        __Vtemp_348[0xaU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xaU] 
                               & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[0xaU]) 
                              | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xaU]) 
                                 & vlSelf->__PVT__dut__DOT__mu_tensor[0xaU]));
-        __Vtemp_347[0xbU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xbU] 
+        __Vtemp_348[0xbU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xbU] 
                               & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[0xbU]) 
                              | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xbU]) 
                                 & vlSelf->__PVT__dut__DOT__mu_tensor[0xbU]));
-        __Vtemp_347[0xcU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xcU] 
+        __Vtemp_348[0xcU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xcU] 
                               & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[0xcU]) 
                              | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xcU]) 
                                 & vlSelf->__PVT__dut__DOT__mu_tensor[0xcU]));
-        __Vtemp_347[0xdU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xdU] 
+        __Vtemp_348[0xdU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xdU] 
                               & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[0xdU]) 
                              | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xdU]) 
                                 & vlSelf->__PVT__dut__DOT__mu_tensor[0xdU]));
-        __Vtemp_347[0xeU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xeU] 
+        __Vtemp_348[0xeU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xeU] 
                               & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[0xeU]) 
                              | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xeU]) 
                                 & vlSelf->__PVT__dut__DOT__mu_tensor[0xeU]));
-        __Vtemp_347[0xfU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xfU] 
+        __Vtemp_348[0xfU] = ((vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xfU] 
                               & vlSelf->__PVT__dut__DOT__mu_tensor__VforceVal[0xfU]) 
                              | ((~ vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0xfU]) 
                                 & vlSelf->__PVT__dut__DOT__mu_tensor[0xfU]));
@@ -5185,27 +5211,27 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
                                                   | ((~ 
                                                       vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0U]) 
                                                      & vlSelf->__PVT__dut__DOT__mu_tensor[0U]));
-        vlSelf->__PVT__dut__DOT__mu_tensor[1U] = __Vtemp_347[1U];
-        vlSelf->__PVT__dut__DOT__mu_tensor[2U] = __Vtemp_347[2U];
-        vlSelf->__PVT__dut__DOT__mu_tensor[3U] = __Vtemp_347[3U];
-        vlSelf->__PVT__dut__DOT__mu_tensor[4U] = __Vtemp_347[4U];
-        vlSelf->__PVT__dut__DOT__mu_tensor[5U] = __Vtemp_347[5U];
-        vlSelf->__PVT__dut__DOT__mu_tensor[6U] = __Vtemp_347[6U];
-        vlSelf->__PVT__dut__DOT__mu_tensor[7U] = __Vtemp_347[7U];
-        vlSelf->__PVT__dut__DOT__mu_tensor[8U] = __Vtemp_347[8U];
-        vlSelf->__PVT__dut__DOT__mu_tensor[9U] = __Vtemp_347[9U];
+        vlSelf->__PVT__dut__DOT__mu_tensor[1U] = __Vtemp_348[1U];
+        vlSelf->__PVT__dut__DOT__mu_tensor[2U] = __Vtemp_348[2U];
+        vlSelf->__PVT__dut__DOT__mu_tensor[3U] = __Vtemp_348[3U];
+        vlSelf->__PVT__dut__DOT__mu_tensor[4U] = __Vtemp_348[4U];
+        vlSelf->__PVT__dut__DOT__mu_tensor[5U] = __Vtemp_348[5U];
+        vlSelf->__PVT__dut__DOT__mu_tensor[6U] = __Vtemp_348[6U];
+        vlSelf->__PVT__dut__DOT__mu_tensor[7U] = __Vtemp_348[7U];
+        vlSelf->__PVT__dut__DOT__mu_tensor[8U] = __Vtemp_348[8U];
+        vlSelf->__PVT__dut__DOT__mu_tensor[9U] = __Vtemp_348[9U];
         vlSelf->__PVT__dut__DOT__mu_tensor[0xaU] = 
-            __Vtemp_347[0xaU];
+            __Vtemp_348[0xaU];
         vlSelf->__PVT__dut__DOT__mu_tensor[0xbU] = 
-            __Vtemp_347[0xbU];
+            __Vtemp_348[0xbU];
         vlSelf->__PVT__dut__DOT__mu_tensor[0xcU] = 
-            __Vtemp_347[0xcU];
+            __Vtemp_348[0xcU];
         vlSelf->__PVT__dut__DOT__mu_tensor[0xdU] = 
-            __Vtemp_347[0xdU];
+            __Vtemp_348[0xdU];
         vlSelf->__PVT__dut__DOT__mu_tensor[0xeU] = 
-            __Vtemp_347[0xeU];
+            __Vtemp_348[0xeU];
         vlSelf->__PVT__dut__DOT__mu_tensor[0xfU] = 
-            __Vtemp_347[0xfU];
+            __Vtemp_348[0xfU];
         vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[0U] 
             = Vthiele_cpu_kami_tb__ConstPool__CONST_h93e1b771_0[0U];
         vlSelf->__PVT__dut__DOT__mu_tensor__VforceEn[1U] 
@@ -5442,7 +5468,7 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
                                                                 nullptr, 
                                                                 "@(posedge thiele_cpu_kami_tb.clk)", 
                                                                 "/workspaces/The-Thiele-Machine/thielecpu/hardware/testbench/thiele_cpu_kami_tb.v", 
-                                                                469);
+                                                                474);
         vlSymsp->TOP.__Vm_traceActivity[6U] = 1U;
         vlSelf->__PVT__cycle_count = ((IData)(1U) + vlSelf->__PVT__cycle_count);
         vlSelf->__PVT__exec_op_i = (vlSelf->__PVT__exec_word 
@@ -5451,6 +5477,18 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
                                             >> 0x10U));
         vlSelf->__PVT__exec_b_i = (0xffU & (vlSelf->__PVT__exec_word 
                                             >> 8U));
+        if (VL_UNLIKELY((((((3U == vlSelf->__PVT__exec_op_i) 
+                            | (4U == vlSelf->__PVT__exec_op_i)) 
+                           | (0xeU == vlSelf->__PVT__exec_op_i)) 
+                          | (0xfU == vlSelf->__PVT__exec_op_i)) 
+                         & (0U == (0xffU & vlSelf->__PVT__exec_word))))) {
+            VL_WRITEF("[NOFI] policy violation at cycle %0d pc=%0# opcode=0x%0x cost=0\n[%0t] %%Fatal: thiele_cpu_kami_tb.v:487: Assertion failed in %Nthiele_cpu_kami_tb: NoFreeInsight runtime policy violated: cert-setting opcode with zero cost\n",
+                      32,vlSelf->__PVT__cycle_count,
+                      32,vlSelf->__PVT__pc_out,32,vlSelf->__PVT__exec_op_i,
+                      64,VL_TIME_UNITED_Q(1000),-9,
+                      vlSymsp->name());
+            VL_STOP_MT("/workspaces/The-Thiele-Machine/thielecpu/hardware/testbench/thiele_cpu_kami_tb.v", 487, "");
+        }
         if ((0U == vlSelf->__PVT__exec_op_i)) {
             vlSelf->__PVT__shadow_new_mask = VL_SHIFTL_QQI(64,64,32, 1ULL, 
                                                            (0x3fU 
@@ -7871,7 +7909,7 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
     co_await vlSymsp->TOP.__VdlySched.delay(0x3e8ULL, 
                                             nullptr, 
                                             "/workspaces/The-Thiele-Machine/thielecpu/hardware/testbench/thiele_cpu_kami_tb.v", 
-                                            551);
+                                            564);
     vlSymsp->TOP.__Vm_traceActivity[6U] = 1U;
     VL_WRITEF("{\n  \"status\": %0#,\n  \"error_code\": %0#,\n  \"partition_ops\": %0#,\n  \"mdl_ops\": %0#,\n  \"info_gain\": %0#,\n  \"mu\": %0#,\n  \"mu_tensor_0\": %0#,\n  \"mu_tensor_1\": %0#,\n  \"mu_tensor_2\": %0#,\n  \"mu_tensor_3\": %0#,\n  \"bianchi_alarm\": %0#,\n  \"cycles\": %0d,\n  \"pc\": %0#,\n  \"err\": %0#,\n  \"logic_stall\": %0#,\n  \"logic_req_valid\": %0#,\n  \"pt0_size\": %0#,\n  \"pt_next_id\": %0#,\n  \"regs\": [\n    %0#,\n    %0#,\n    %0#,\n    %0#,\n    %0#,\n    %0#,\n    %0#,\n    %0#,\n    %0#,\n    %0#,\n    %0#,\n    %0#,\n    %0#,\n    %0#,\n",
               32,((IData)(vlSelf->__PVT__halted_out)

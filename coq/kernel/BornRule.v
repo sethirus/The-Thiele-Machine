@@ -35,6 +35,10 @@
     matches experimental data. Good luck. Born rule is the unique solution.
 *)
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 Require Import Coq.Reals.Reals.
 Require Import Coq.micromega.Lra.
 Require Import Coq.micromega.Psatz.

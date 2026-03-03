@@ -1,4 +1,4 @@
-DIGEST e7cfbdb88d1de834b5b27c795c8824c0
+DIGEST 8c3f3e019e6fc77cbd9751b05b430551
 FModularProofs.TM_to_Minsky
 R1324:1327 Coq.Lists.List <> <> lib
 R1329:1333 Coq.Arith.Arith <> <> lib
@@ -8,496 +8,499 @@ R1348:1351 Coq.Bool.Bool <> <> lib
 R1361:1373 Coq.Lists.List ListNotations <> mod
 R1433:1441 ModularProofs.TM_Basics <> <> lib
 R1443:1448 ModularProofs.Minsky <> <> lib
-rec 3106:3115 <> TMasMinsky
-proj 3124:3134 <> minsky_left
-proj 3180:3191 <> minsky_right
-proj 3237:3248 <> minsky_state
-R3138:3140 Coq.Init.Datatypes <> nat ind
-R3195:3197 Coq.Init.Datatypes <> nat ind
-R3252:3254 Coq.Init.Datatypes <> nat ind
-def 3463:3475 <> encode_binary
-R3483:3486 Coq.Init.Datatypes <> list ind
-R3488:3490 Coq.Init.Datatypes <> nat ind
-binder 3478:3479 <> xs:5
-R3495:3497 Coq.Init.Datatypes <> nat ind
-R3510:3511 ModularProofs.TM_to_Minsky <> xs:5 var
-R3522:3523 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R3535:3538 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3569:3571 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R3565:3567 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R3547:3559 ModularProofs.TM_to_Minsky <> encode_binary:6 def
-def 3659:3668 <> split_tape
-R3678:3681 Coq.Init.Datatypes <> list ind
-R3683:3685 Coq.Init.Datatypes <> nat ind
-binder 3671:3674 <> tape:8
-R3696:3698 Coq.Init.Datatypes <> nat ind
-binder 3689:3692 <> head:9
-R3711:3713 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R3703:3706 Coq.Init.Datatypes <> list ind
-R3708:3710 Coq.Init.Datatypes <> nat ind
-R3714:3717 Coq.Init.Datatypes <> list ind
-R3719:3721 Coq.Init.Datatypes <> nat ind
-R3728:3728 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3751:3752 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3768:3768 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3729:3731 Coq.Lists.List <> rev def
-R3734:3739 Coq.Lists.List <> firstn def
-R3746:3749 ModularProofs.TM_to_Minsky <> tape:8 var
-R3741:3744 ModularProofs.TM_to_Minsky <> head:9 var
-R3753:3757 Coq.Lists.List <> skipn def
-R3764:3767 ModularProofs.TM_to_Minsky <> tape:8 var
-R3759:3762 ModularProofs.TM_to_Minsky <> head:9 var
-def 3856:3867 <> tm_to_minsky
-R3877:3884 ModularProofs.TM_Basics <> TMConfig def
-binder 3870:3873 <> conf:10
-R3889:3898 ModularProofs.TM_to_Minsky <> TMasMinsky rec
-R3929:3932 ModularProofs.TM_to_Minsky <> conf:10 var
-R3910:3910 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3912:3913 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3918:3919 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3924:3924 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3965:3974 ModularProofs.TM_to_Minsky <> split_tape def
-R3944:3944 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3953:3954 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3960:3960 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3994:4004 ModularProofs.TM_to_Minsky <> minsky_left proj
-R3994:4004 ModularProofs.TM_to_Minsky <> minsky_left proj
-R3994:4004 ModularProofs.TM_to_Minsky <> minsky_left proj
-R4039:4050 ModularProofs.TM_to_Minsky <> minsky_right proj
-R4039:4050 ModularProofs.TM_to_Minsky <> minsky_right proj
-R4081:4092 ModularProofs.TM_to_Minsky <> minsky_state proj
-R4081:4092 ModularProofs.TM_to_Minsky <> minsky_state proj
-R4010:4022 ModularProofs.TM_to_Minsky <> encode_binary def
-R4055:4067 ModularProofs.TM_to_Minsky <> encode_binary def
-prf 4312:4328 <> encode_binary_nil
-R4348:4350 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4332:4344 ModularProofs.TM_to_Minsky <> encode_binary def
-R4346:4347 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-prf 4437:4454 <> encode_binary_cons
-binder 4465:4465 <> x:12
-binder 4467:4468 <> xs:13
-R4496:4498 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4473:4485 ModularProofs.TM_to_Minsky <> encode_binary def
-R4489:4492 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R4488:4488 ModularProofs.TM_to_Minsky <> x:12 var
-R4493:4494 ModularProofs.TM_to_Minsky <> xs:13 var
-R4519:4521 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4515:4517 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R4499:4511 ModularProofs.TM_to_Minsky <> encode_binary def
-R4513:4514 ModularProofs.TM_to_Minsky <> xs:13 var
-R4522:4522 ModularProofs.TM_to_Minsky <> x:12 var
-prf 4628:4649 <> head_symbol_from_right
-binder 4660:4660 <> x:14
-binder 4662:4663 <> xs:15
-R4673:4678 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4669:4671 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R4668:4668 ModularProofs.TM_to_Minsky <> x:14 var
-R4708:4710 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4702:4706 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R4679:4691 ModularProofs.TM_to_Minsky <> encode_binary def
-R4695:4698 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R4694:4694 ModularProofs.TM_to_Minsky <> x:14 var
-R4699:4700 ModularProofs.TM_to_Minsky <> xs:15 var
-R4711:4711 ModularProofs.TM_to_Minsky <> x:14 var
-R4749:4766 ModularProofs.TM_to_Minsky <> encode_binary_cons thm
-R4749:4766 ModularProofs.TM_to_Minsky <> encode_binary_cons thm
-R4749:4766 ModularProofs.TM_to_Minsky <> encode_binary_cons thm
-R4846:4848 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4842:4844 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R4826:4838 ModularProofs.TM_to_Minsky <> encode_binary def
-R4859:4861 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4878:4880 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R4862:4874 ModularProofs.TM_to_Minsky <> encode_binary def
-R4846:4848 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4842:4844 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R4826:4838 ModularProofs.TM_to_Minsky <> encode_binary def
-R4859:4861 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4878:4880 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R4862:4874 ModularProofs.TM_to_Minsky <> encode_binary def
-R4902:4917 Coq.Arith.PeanoNat Nat.Div0 mod_add thm
-R4902:4917 Coq.Arith.PeanoNat Nat.Div0 mod_add thm
-R4902:4917 Coq.Arith.PeanoNat Nat.Div0 mod_add thm
-R4935:4947 Coq.Arith.PeanoNat Nat mod_small def
-R4935:4947 Coq.Arith.PeanoNat Nat mod_small def
-prf 5018:5035 <> encode_binary_div2
-binder 5046:5046 <> x:16
-binder 5048:5049 <> xs:17
-R5059:5064 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5055:5057 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R5054:5054 ModularProofs.TM_to_Minsky <> x:16 var
-R5092:5094 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5088:5090 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
-R5065:5077 ModularProofs.TM_to_Minsky <> encode_binary def
-R5081:5084 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R5080:5080 ModularProofs.TM_to_Minsky <> x:16 var
-R5085:5086 ModularProofs.TM_to_Minsky <> xs:17 var
-R5095:5107 ModularProofs.TM_to_Minsky <> encode_binary def
-R5109:5110 ModularProofs.TM_to_Minsky <> xs:17 var
-R5148:5165 ModularProofs.TM_to_Minsky <> encode_binary_cons thm
-R5148:5165 ModularProofs.TM_to_Minsky <> encode_binary_cons thm
-R5148:5165 ModularProofs.TM_to_Minsky <> encode_binary_cons thm
-R5199:5201 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R5195:5197 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R5179:5191 ModularProofs.TM_to_Minsky <> encode_binary def
-R5212:5214 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R5231:5233 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R5215:5227 ModularProofs.TM_to_Minsky <> encode_binary def
-R5199:5201 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R5195:5197 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R5179:5191 ModularProofs.TM_to_Minsky <> encode_binary def
-R5212:5214 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R5231:5233 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R5215:5227 ModularProofs.TM_to_Minsky <> encode_binary def
-R5255:5265 Coq.Arith.PeanoNat Nat div_add def
-R5255:5265 Coq.Arith.PeanoNat Nat div_add def
-R5255:5265 Coq.Arith.PeanoNat Nat div_add def
-R5285:5297 Coq.Arith.PeanoNat Nat div_small def
-R5285:5297 Coq.Arith.PeanoNat Nat div_small def
-R5285:5297 Coq.Arith.PeanoNat Nat div_small def
-def 5774:5785 <> sim_relation
-R5795:5802 ModularProofs.TM_Basics <> TMConfig def
-binder 5788:5791 <> conf:18
-R5810:5819 ModularProofs.TM_to_Minsky <> TMasMinsky rec
-binder 5806:5806 <> m:19
-R5858:5861 ModularProofs.TM_to_Minsky <> conf:18 var
-R5839:5839 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5841:5842 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5847:5848 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5853:5853 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5886:5891 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5882:5884 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5868:5879 ModularProofs.TM_to_Minsky <> minsky_state proj
-R5881:5881 ModularProofs.TM_to_Minsky <> m:19 var
-R5918:5927 ModularProofs.TM_to_Minsky <> split_tape def
-R5897:5897 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5906:5907 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5913:5913 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5982:5987 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5957:5959 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5944:5954 ModularProofs.TM_to_Minsky <> minsky_left proj
-R5956:5956 ModularProofs.TM_to_Minsky <> m:19 var
-R5960:5972 ModularProofs.TM_to_Minsky <> encode_binary def
-R6002:6004 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5988:5999 ModularProofs.TM_to_Minsky <> minsky_right proj
-R6001:6001 ModularProofs.TM_to_Minsky <> m:19 var
-R6005:6017 ModularProofs.TM_to_Minsky <> encode_binary def
-prf 6189:6216 <> tm_to_minsky_establishes_sim
-binder 6229:6232 <> conf:21
-R6235:6246 ModularProofs.TM_to_Minsky <> sim_relation def
-R6248:6251 ModularProofs.TM_to_Minsky <> conf:21 var
-R6254:6265 ModularProofs.TM_to_Minsky <> tm_to_minsky def
-R6267:6270 ModularProofs.TM_to_Minsky <> conf:21 var
-R6316:6327 ModularProofs.TM_to_Minsky <> sim_relation def
-R6330:6341 ModularProofs.TM_to_Minsky <> tm_to_minsky def
-R6344:6353 ModularProofs.TM_to_Minsky <> split_tape def
-def 6906:6925 <> abstract_minsky_step
-R6933:6944 ModularProofs.TM_Basics <> TMTransition def
-binder 6928:6929 <> tm:22
-R6952:6961 ModularProofs.TM_to_Minsky <> TMasMinsky rec
-binder 6948:6948 <> m:23
-R6966:6975 ModularProofs.TM_to_Minsky <> TMasMinsky rec
-R6991:7002 ModularProofs.TM_to_Minsky <> minsky_state proj
-R7004:7004 ModularProofs.TM_to_Minsky <> m:23 var
-binder 6986:6986 <> q:24
-R7039:7043 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R7025:7036 ModularProofs.TM_to_Minsky <> minsky_right proj
-R7038:7038 ModularProofs.TM_to_Minsky <> m:23 var
-binder 7015:7020 <> symbol:25
-R7081:7082 ModularProofs.TM_to_Minsky <> tm:22 var
-R7084:7084 ModularProofs.TM_to_Minsky <> q:24 var
-R7086:7091 ModularProofs.TM_to_Minsky <> symbol:25 var
-R7056:7056 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7059:7060 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7066:7067 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7076:7076 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7130:7132 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
-R7116:7127 ModularProofs.TM_to_Minsky <> minsky_right proj
-R7129:7129 ModularProofs.TM_to_Minsky <> m:23 var
-binder 7102:7111 <> right_tail:26
-R7171:7173 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R7167:7169 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R7157:7166 ModularProofs.TM_to_Minsky <> right_tail:26 var
-binder 7144:7152 <> new_right:27
-R7232:7242 ModularProofs.TM_to_Minsky <> minsky_left proj
-R7232:7242 ModularProofs.TM_to_Minsky <> minsky_left proj
-R7232:7242 ModularProofs.TM_to_Minsky <> minsky_left proj
-R7269:7280 ModularProofs.TM_to_Minsky <> minsky_right proj
-R7269:7280 ModularProofs.TM_to_Minsky <> minsky_right proj
-R7303:7314 ModularProofs.TM_to_Minsky <> minsky_state proj
-R7303:7314 ModularProofs.TM_to_Minsky <> minsky_state proj
-R7247:7257 ModularProofs.TM_to_Minsky <> minsky_left proj
-R7259:7259 ModularProofs.TM_to_Minsky <> m:23 var
-R7285:7293 ModularProofs.TM_to_Minsky <> new_right:27 var
-R7358:7368 ModularProofs.TM_to_Minsky <> minsky_left proj
-R7358:7368 ModularProofs.TM_to_Minsky <> minsky_left proj
-R7358:7368 ModularProofs.TM_to_Minsky <> minsky_left proj
-R7407:7418 ModularProofs.TM_to_Minsky <> minsky_right proj
-R7407:7418 ModularProofs.TM_to_Minsky <> minsky_right proj
-R7442:7453 ModularProofs.TM_to_Minsky <> minsky_state proj
-R7442:7453 ModularProofs.TM_to_Minsky <> minsky_state proj
-R7390:7392 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R7386:7388 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R7373:7383 ModularProofs.TM_to_Minsky <> minsky_left proj
-R7385:7385 ModularProofs.TM_to_Minsky <> m:23 var
-R7423:7432 ModularProofs.TM_to_Minsky <> right_tail:26 var
-R7522:7526 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R7509:7519 ModularProofs.TM_to_Minsky <> minsky_left proj
-R7521:7521 ModularProofs.TM_to_Minsky <> m:23 var
-binder 7497:7504 <> left_bit:29
-R7539:7549 ModularProofs.TM_to_Minsky <> minsky_left proj
-R7539:7549 ModularProofs.TM_to_Minsky <> minsky_left proj
-R7539:7549 ModularProofs.TM_to_Minsky <> minsky_left proj
-R7580:7591 ModularProofs.TM_to_Minsky <> minsky_right proj
-R7580:7591 ModularProofs.TM_to_Minsky <> minsky_right proj
-R7629:7640 ModularProofs.TM_to_Minsky <> minsky_state proj
-R7629:7640 ModularProofs.TM_to_Minsky <> minsky_state proj
-R7567:7569 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
-R7554:7564 ModularProofs.TM_to_Minsky <> minsky_left proj
-R7566:7566 ModularProofs.TM_to_Minsky <> m:23 var
-R7609:7611 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R7605:7607 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R7596:7604 ModularProofs.TM_to_Minsky <> new_right:27 var
-R7612:7619 ModularProofs.TM_to_Minsky <> left_bit:29 var
-def 8032:8052 <> abstract_minsky_run_n
-R8060:8071 ModularProofs.TM_Basics <> TMTransition def
-binder 8055:8056 <> tm:30
-R8079:8088 ModularProofs.TM_to_Minsky <> TMasMinsky rec
-binder 8075:8075 <> m:31
-R8096:8098 Coq.Init.Datatypes <> nat ind
-binder 8092:8092 <> n:32
-R8103:8112 ModularProofs.TM_to_Minsky <> TMasMinsky rec
-R8125:8125 ModularProofs.TM_to_Minsky <> n:32 var
-R8141:8141 ModularProofs.TM_to_Minsky <> m:31 var
-R8147:8147 Coq.Init.Datatypes <> S constr
-R8155:8175 ModularProofs.TM_to_Minsky <> abstract_minsky_run_n:33 def
-R8181:8200 ModularProofs.TM_to_Minsky <> abstract_minsky_step def
-R8202:8203 ModularProofs.TM_to_Minsky <> tm:30 var
-R8205:8205 ModularProofs.TM_to_Minsky <> m:31 var
-R8177:8178 ModularProofs.TM_to_Minsky <> tm:30 var
-prf 8284:8309 <> abstract_minsky_run_n_zero
-binder 8322:8323 <> tm:35
-binder 8325:8325 <> m:36
-R8356:8358 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8328:8348 ModularProofs.TM_to_Minsky <> abstract_minsky_run_n def
-R8350:8351 ModularProofs.TM_to_Minsky <> tm:35 var
-R8353:8353 ModularProofs.TM_to_Minsky <> m:36 var
-R8359:8359 ModularProofs.TM_to_Minsky <> m:36 var
-prf 8453:8478 <> abstract_minsky_run_n_succ
-binder 8491:8492 <> tm:37
-binder 8494:8494 <> m:38
-binder 8496:8496 <> n:39
-R8535:8537 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8503:8523 ModularProofs.TM_to_Minsky <> abstract_minsky_run_n def
-R8525:8526 ModularProofs.TM_to_Minsky <> tm:37 var
-R8528:8528 ModularProofs.TM_to_Minsky <> m:38 var
-R8531:8531 Coq.Init.Datatypes <> S constr
-R8533:8533 ModularProofs.TM_to_Minsky <> n:39 var
-R8538:8558 ModularProofs.TM_to_Minsky <> abstract_minsky_run_n def
-R8560:8561 ModularProofs.TM_to_Minsky <> tm:37 var
-R8564:8583 ModularProofs.TM_to_Minsky <> abstract_minsky_step def
-R8585:8586 ModularProofs.TM_to_Minsky <> tm:37 var
-R8588:8588 ModularProofs.TM_to_Minsky <> m:38 var
-R8591:8591 ModularProofs.TM_to_Minsky <> n:39 var
-prf 8684:8702 <> abstract_step_state
-binder 8715:8716 <> tm:40
-binder 8718:8718 <> m:41
-R8734:8745 ModularProofs.TM_to_Minsky <> minsky_state proj
-R8747:8747 ModularProofs.TM_to_Minsky <> m:41 var
-binder 8729:8729 <> q:42
-R8784:8788 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R8770:8781 ModularProofs.TM_to_Minsky <> minsky_right proj
-R8783:8783 ModularProofs.TM_to_Minsky <> m:41 var
-binder 8760:8765 <> symbol:43
-R8817:8818 ModularProofs.TM_to_Minsky <> tm:40 var
-R8820:8820 ModularProofs.TM_to_Minsky <> q:42 var
-R8822:8827 ModularProofs.TM_to_Minsky <> symbol:43 var
-R8803:8803 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8806:8807 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8809:8810 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8812:8812 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8876:8878 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8836:8847 ModularProofs.TM_to_Minsky <> minsky_state proj
-R8850:8869 ModularProofs.TM_to_Minsky <> abstract_minsky_step def
-R8871:8872 ModularProofs.TM_to_Minsky <> tm:40 var
-R8874:8874 ModularProofs.TM_to_Minsky <> m:41 var
-R8914:8933 ModularProofs.TM_to_Minsky <> abstract_minsky_step def
-R8952:8963 ModularProofs.TM_to_Minsky <> minsky_state proj
-R8983:8987 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R8969:8980 ModularProofs.TM_to_Minsky <> minsky_right proj
-R8952:8963 ModularProofs.TM_to_Minsky <> minsky_state proj
-R8983:8987 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R8969:8980 ModularProofs.TM_to_Minsky <> minsky_right proj
-prf 9788:9795 <> hd_skipn
-binder 9807:9807 <> A:44
-R9822:9822 ModularProofs.TM_to_Minsky <> A:44 var
-binder 9818:9818 <> d:45
-R9830:9832 Coq.Init.Datatypes <> nat ind
-binder 9826:9826 <> n:46
-R9840:9843 Coq.Init.Datatypes <> list ind
-R9845:9845 ModularProofs.TM_to_Minsky <> A:44 var
-binder 9836:9836 <> l:47
-R9863:9868 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9852:9854 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R9851:9851 ModularProofs.TM_to_Minsky <> n:46 var
-R9855:9860 Coq.Init.Datatypes <> length def
-R9862:9862 ModularProofs.TM_to_Minsky <> l:47 var
-R9885:9887 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9869:9870 Coq.Lists.List <> hd def
-R9875:9879 Coq.Lists.List <> skipn def
-R9883:9883 ModularProofs.TM_to_Minsky <> l:47 var
-R9881:9881 ModularProofs.TM_to_Minsky <> n:46 var
-R9872:9872 ModularProofs.TM_to_Minsky <> d:45 var
-R9888:9890 Coq.Lists.List <> nth def
-R9896:9896 ModularProofs.TM_to_Minsky <> d:45 var
-R9894:9894 ModularProofs.TM_to_Minsky <> l:47 var
-R9892:9892 ModularProofs.TM_to_Minsky <> n:46 var
-prf 10229:10247 <> head_symbol_encoded
-binder 10260:10263 <> tape:48
-binder 10265:10268 <> head:49
-R10289:10296 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10275:10283 ModularProofs.TM_Basics <> digits_ok def
-R10285:10288 ModularProofs.TM_to_Minsky <> tape:48 var
-R10315:10322 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10301:10303 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R10297:10300 ModularProofs.TM_to_Minsky <> head:49 var
-R10304:10309 Coq.Init.Datatypes <> length def
-R10311:10314 ModularProofs.TM_to_Minsky <> tape:48 var
-R10360:10362 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10354:10358 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R10323:10335 ModularProofs.TM_to_Minsky <> encode_binary def
-R10338:10342 Coq.Lists.List <> skipn def
-R10349:10352 ModularProofs.TM_to_Minsky <> tape:48 var
-R10344:10347 ModularProofs.TM_to_Minsky <> head:49 var
-R10363:10365 Coq.Lists.List <> nth def
-R10372:10375 ModularProofs.TM_to_Minsky <> tape:48 var
-R10367:10370 ModularProofs.TM_to_Minsky <> head:49 var
-R10428:10432 Coq.Lists.List <> skipn def
-R10428:10432 Coq.Lists.List <> skipn def
-R10594:10596 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10570:10575 Coq.Init.Datatypes <> length def
-R10578:10582 Coq.Lists.List <> skipn def
-R10608:10610 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R10597:10602 Coq.Init.Datatypes <> length def
-R10594:10596 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10570:10575 Coq.Init.Datatypes <> length def
-R10578:10582 Coq.Lists.List <> skipn def
-R10608:10610 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R10597:10602 Coq.Init.Datatypes <> length def
-R10630:10641 Coq.Lists.List <> skipn_length thm
-R10630:10641 Coq.Lists.List <> skipn_length thm
-R10742:10744 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R10742:10744 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R10837:10839 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10840:10841 Coq.Lists.List <> hd def
-R10846:10850 Coq.Lists.List <> skipn def
-R10837:10839 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10840:10841 Coq.Lists.List <> hd def
-R10846:10850 Coq.Lists.List <> skipn def
-R10932:10939 ModularProofs.TM_to_Minsky <> hd_skipn thm
-R10932:10939 ModularProofs.TM_to_Minsky <> hd_skipn thm
-R10932:10939 ModularProofs.TM_to_Minsky <> hd_skipn thm
-R10969:10977 ModularProofs.TM_Basics <> digits_ok def
-R10996:11008 Coq.Lists.List <> Forall_forall thm
-R10996:11008 Coq.Lists.List <> Forall_forall thm
-R10996:11008 Coq.Lists.List <> Forall_forall thm
-R11043:11048 Coq.Lists.List <> nth_In thm
-R11043:11048 Coq.Lists.List <> nth_In thm
-R11077:11098 ModularProofs.TM_to_Minsky <> head_symbol_from_right thm
-R11077:11098 ModularProofs.TM_to_Minsky <> head_symbol_from_right thm
-R11077:11098 ModularProofs.TM_to_Minsky <> head_symbol_from_right thm
-R11197:11199 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11182:11184 Coq.Lists.List <> nth def
-R11197:11199 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11182:11184 Coq.Lists.List <> nth def
-R11222:11229 ModularProofs.TM_to_Minsky <> hd_skipn thm
-R11231:11233 Coq.Init.Datatypes <> nat ind
-R11222:11229 ModularProofs.TM_to_Minsky <> hd_skipn thm
-R11231:11233 Coq.Init.Datatypes <> nat ind
-R11222:11229 ModularProofs.TM_to_Minsky <> hd_skipn thm
-R11231:11233 Coq.Init.Datatypes <> nat ind
-R11394:11403 Coq.Arith.PeanoNat Nat modulo def
-R11405:11411 Coq.Arith.PeanoNat Nat div def
-prf 11482:11507 <> tm_minsky_state_simulation
-R11526:11537 ModularProofs.TM_Basics <> TMTransition def
-binder 11521:11522 <> tm:50
-R11548:11555 ModularProofs.TM_Basics <> TMConfig def
-binder 11541:11544 <> conf:51
-R11580:11587 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11563:11574 ModularProofs.TM_Basics <> tm_config_ok def
-R11576:11579 ModularProofs.TM_to_Minsky <> conf:51 var
-R11646:11652 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11588:11599 ModularProofs.TM_to_Minsky <> minsky_state proj
-R11602:11621 ModularProofs.TM_to_Minsky <> abstract_minsky_step def
-R11623:11624 ModularProofs.TM_to_Minsky <> tm:50 var
-R11627:11638 ModularProofs.TM_to_Minsky <> tm_to_minsky def
-R11640:11643 ModularProofs.TM_to_Minsky <> conf:51 var
-R11672:11678 ModularProofs.TM_Basics <> tm_step def
-R11680:11681 ModularProofs.TM_to_Minsky <> tm:50 var
-R11683:11686 ModularProofs.TM_to_Minsky <> conf:51 var
-R11658:11658 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11661:11662 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11664:11665 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11667:11667 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11780:11799 ModularProofs.TM_to_Minsky <> abstract_minsky_step def
-R11802:11813 ModularProofs.TM_to_Minsky <> tm_to_minsky def
-R11816:11825 ModularProofs.TM_to_Minsky <> split_tape def
-R11828:11834 ModularProofs.TM_Basics <> tm_step def
-R11845:11856 ModularProofs.TM_to_Minsky <> minsky_right proj
-R11865:11876 ModularProofs.TM_to_Minsky <> minsky_state proj
-R11885:11895 ModularProofs.TM_to_Minsky <> minsky_left proj
-R11909:11927 ModularProofs.TM_to_Minsky <> head_symbol_encoded thm
-R11909:11927 ModularProofs.TM_to_Minsky <> head_symbol_encoded thm
-R11909:11927 ModularProofs.TM_to_Minsky <> head_symbol_encoded thm
-R12099:12101 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12091:12098 ModularProofs.TM_Basics <> tm_blank def
-R12099:12101 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12091:12098 ModularProofs.TM_Basics <> tm_blank def
-R12157:12159 Coq.Lists.List <> nth def
-R12157:12159 Coq.Lists.List <> nth def
-R12277:12286 Coq.Arith.PeanoNat Nat modulo def
-R12288:12294 Coq.Arith.PeanoNat Nat div def
-prf 12449:12467 <> tm_to_minsky_exists
-R12486:12497 ModularProofs.TM_Basics <> TMTransition def
-binder 12481:12482 <> tm:52
-R12505:12512 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R12591:12599 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R12530:12533 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12522:12529 ModularProofs.TM_Basics <> TMConfig def
-R12534:12543 ModularProofs.TM_to_Minsky <> TMasMinsky rec
-binder 12513:12518 <> encode:53
-R12577:12580 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12567:12576 ModularProofs.TM_to_Minsky <> TMasMinsky rec
-R12581:12590 ModularProofs.TM_to_Minsky <> TMasMinsky rec
-binder 12558:12563 <> step_m:54
-R12600:12600 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R12737:12748 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R12801:12801 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 12608:12611 <> conf:55
-R12639:12650 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12622:12633 ModularProofs.TM_Basics <> tm_config_ok def
-R12635:12638 ModularProofs.TM_to_Minsky <> conf:55 var
-R12686:12696 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12651:12662 ModularProofs.TM_to_Minsky <> minsky_state proj
-R12665:12670 ModularProofs.TM_to_Minsky <> step_m:54 var
-R12673:12678 ModularProofs.TM_to_Minsky <> encode:53 var
-R12680:12683 ModularProofs.TM_to_Minsky <> conf:55 var
-R12716:12722 ModularProofs.TM_Basics <> tm_step def
-R12724:12725 ModularProofs.TM_to_Minsky <> tm:52 var
-R12727:12730 ModularProofs.TM_to_Minsky <> conf:55 var
-R12702:12702 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R12705:12706 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R12708:12709 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R12711:12711 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-binder 12756:12759 <> conf:56
-R12770:12781 ModularProofs.TM_to_Minsky <> sim_relation def
-R12783:12786 ModularProofs.TM_to_Minsky <> conf:56 var
-R12789:12794 ModularProofs.TM_to_Minsky <> encode:53 var
-R12796:12799 ModularProofs.TM_to_Minsky <> conf:56 var
-R12833:12844 ModularProofs.TM_to_Minsky <> tm_to_minsky def
-R12833:12844 ModularProofs.TM_to_Minsky <> tm_to_minsky def
-R12857:12876 ModularProofs.TM_to_Minsky <> abstract_minsky_step def
-R12857:12876 ModularProofs.TM_to_Minsky <> abstract_minsky_step def
-R12919:12944 ModularProofs.TM_to_Minsky <> tm_minsky_state_simulation thm
-R12919:12944 ModularProofs.TM_to_Minsky <> tm_minsky_state_simulation thm
-R12981:13008 ModularProofs.TM_to_Minsky <> tm_to_minsky_establishes_sim thm
-R12981:13008 ModularProofs.TM_to_Minsky <> tm_to_minsky_establishes_sim thm
+R1564:1570 Kernel.VMState <> <> lib
+R1572:1577 Kernel.VMStep <> <> lib
+R1607:1617 Kernel.MuCostModel <> <> lib
+rec 3275:3284 <> TMasMinsky
+proj 3293:3303 <> minsky_left
+proj 3349:3360 <> minsky_right
+proj 3406:3417 <> minsky_state
+R3307:3309 Coq.Init.Datatypes <> nat ind
+R3364:3366 Coq.Init.Datatypes <> nat ind
+R3421:3423 Coq.Init.Datatypes <> nat ind
+def 3632:3644 <> encode_binary
+R3652:3655 Coq.Init.Datatypes <> list ind
+R3657:3659 Coq.Init.Datatypes <> nat ind
+binder 3647:3648 <> xs:5
+R3664:3666 Coq.Init.Datatypes <> nat ind
+R3679:3680 ModularProofs.TM_to_Minsky <> xs:5 var
+R3691:3692 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3704:3707 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3738:3740 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3734:3736 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3716:3728 ModularProofs.TM_to_Minsky <> encode_binary:6 def
+def 3828:3837 <> split_tape
+R3847:3850 Coq.Init.Datatypes <> list ind
+R3852:3854 Coq.Init.Datatypes <> nat ind
+binder 3840:3843 <> tape:8
+R3865:3867 Coq.Init.Datatypes <> nat ind
+binder 3858:3861 <> head:9
+R3880:3882 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3872:3875 Coq.Init.Datatypes <> list ind
+R3877:3879 Coq.Init.Datatypes <> nat ind
+R3883:3886 Coq.Init.Datatypes <> list ind
+R3888:3890 Coq.Init.Datatypes <> nat ind
+R3897:3897 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3920:3921 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3937:3937 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3898:3900 Coq.Lists.List <> rev def
+R3903:3908 Coq.Lists.List <> firstn def
+R3915:3918 ModularProofs.TM_to_Minsky <> tape:8 var
+R3910:3913 ModularProofs.TM_to_Minsky <> head:9 var
+R3922:3926 Coq.Lists.List <> skipn def
+R3933:3936 ModularProofs.TM_to_Minsky <> tape:8 var
+R3928:3931 ModularProofs.TM_to_Minsky <> head:9 var
+def 4025:4036 <> tm_to_minsky
+R4046:4053 ModularProofs.TM_Basics <> TMConfig def
+binder 4039:4042 <> conf:10
+R4058:4067 ModularProofs.TM_to_Minsky <> TMasMinsky rec
+R4098:4101 ModularProofs.TM_to_Minsky <> conf:10 var
+R4079:4079 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4081:4082 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4087:4088 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4093:4093 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4134:4143 ModularProofs.TM_to_Minsky <> split_tape def
+R4113:4113 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4122:4123 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4129:4129 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4163:4173 ModularProofs.TM_to_Minsky <> minsky_left proj
+R4163:4173 ModularProofs.TM_to_Minsky <> minsky_left proj
+R4163:4173 ModularProofs.TM_to_Minsky <> minsky_left proj
+R4208:4219 ModularProofs.TM_to_Minsky <> minsky_right proj
+R4208:4219 ModularProofs.TM_to_Minsky <> minsky_right proj
+R4250:4261 ModularProofs.TM_to_Minsky <> minsky_state proj
+R4250:4261 ModularProofs.TM_to_Minsky <> minsky_state proj
+R4179:4191 ModularProofs.TM_to_Minsky <> encode_binary def
+R4224:4236 ModularProofs.TM_to_Minsky <> encode_binary def
+prf 4481:4497 <> encode_binary_nil
+R4517:4519 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4501:4513 ModularProofs.TM_to_Minsky <> encode_binary def
+R4515:4516 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+prf 4606:4623 <> encode_binary_cons
+binder 4634:4634 <> x:12
+binder 4636:4637 <> xs:13
+R4665:4667 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4642:4654 ModularProofs.TM_to_Minsky <> encode_binary def
+R4658:4661 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4657:4657 ModularProofs.TM_to_Minsky <> x:12 var
+R4662:4663 ModularProofs.TM_to_Minsky <> xs:13 var
+R4688:4690 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4684:4686 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4668:4680 ModularProofs.TM_to_Minsky <> encode_binary def
+R4682:4683 ModularProofs.TM_to_Minsky <> xs:13 var
+R4691:4691 ModularProofs.TM_to_Minsky <> x:12 var
+prf 4797:4818 <> head_symbol_from_right
+binder 4829:4829 <> x:14
+binder 4831:4832 <> xs:15
+R4842:4847 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4838:4840 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4837:4837 ModularProofs.TM_to_Minsky <> x:14 var
+R4877:4879 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4871:4875 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R4848:4860 ModularProofs.TM_to_Minsky <> encode_binary def
+R4864:4867 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4863:4863 ModularProofs.TM_to_Minsky <> x:14 var
+R4868:4869 ModularProofs.TM_to_Minsky <> xs:15 var
+R4880:4880 ModularProofs.TM_to_Minsky <> x:14 var
+R4918:4935 ModularProofs.TM_to_Minsky <> encode_binary_cons thm
+R4918:4935 ModularProofs.TM_to_Minsky <> encode_binary_cons thm
+R4918:4935 ModularProofs.TM_to_Minsky <> encode_binary_cons thm
+R5015:5017 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5011:5013 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4995:5007 ModularProofs.TM_to_Minsky <> encode_binary def
+R5028:5030 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5047:5049 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R5031:5043 ModularProofs.TM_to_Minsky <> encode_binary def
+R5015:5017 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5011:5013 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4995:5007 ModularProofs.TM_to_Minsky <> encode_binary def
+R5028:5030 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5047:5049 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R5031:5043 ModularProofs.TM_to_Minsky <> encode_binary def
+R5071:5086 Coq.Arith.PeanoNat Nat.Div0 mod_add thm
+R5071:5086 Coq.Arith.PeanoNat Nat.Div0 mod_add thm
+R5071:5086 Coq.Arith.PeanoNat Nat.Div0 mod_add thm
+R5104:5116 Coq.Arith.PeanoNat Nat mod_small def
+R5104:5116 Coq.Arith.PeanoNat Nat mod_small def
+prf 5187:5204 <> encode_binary_div2
+binder 5215:5215 <> x:16
+binder 5217:5218 <> xs:17
+R5228:5233 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5224:5226 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5223:5223 ModularProofs.TM_to_Minsky <> x:16 var
+R5261:5263 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5257:5259 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R5234:5246 ModularProofs.TM_to_Minsky <> encode_binary def
+R5250:5253 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5249:5249 ModularProofs.TM_to_Minsky <> x:16 var
+R5254:5255 ModularProofs.TM_to_Minsky <> xs:17 var
+R5264:5276 ModularProofs.TM_to_Minsky <> encode_binary def
+R5278:5279 ModularProofs.TM_to_Minsky <> xs:17 var
+R5317:5334 ModularProofs.TM_to_Minsky <> encode_binary_cons thm
+R5317:5334 ModularProofs.TM_to_Minsky <> encode_binary_cons thm
+R5317:5334 ModularProofs.TM_to_Minsky <> encode_binary_cons thm
+R5368:5370 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5364:5366 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R5348:5360 ModularProofs.TM_to_Minsky <> encode_binary def
+R5381:5383 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5400:5402 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R5384:5396 ModularProofs.TM_to_Minsky <> encode_binary def
+R5368:5370 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5364:5366 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R5348:5360 ModularProofs.TM_to_Minsky <> encode_binary def
+R5381:5383 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5400:5402 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R5384:5396 ModularProofs.TM_to_Minsky <> encode_binary def
+R5424:5434 Coq.Arith.PeanoNat Nat div_add def
+R5424:5434 Coq.Arith.PeanoNat Nat div_add def
+R5424:5434 Coq.Arith.PeanoNat Nat div_add def
+R5454:5466 Coq.Arith.PeanoNat Nat div_small def
+R5454:5466 Coq.Arith.PeanoNat Nat div_small def
+R5454:5466 Coq.Arith.PeanoNat Nat div_small def
+def 5943:5954 <> sim_relation
+R5964:5971 ModularProofs.TM_Basics <> TMConfig def
+binder 5957:5960 <> conf:18
+R5979:5988 ModularProofs.TM_to_Minsky <> TMasMinsky rec
+binder 5975:5975 <> m:19
+R6027:6030 ModularProofs.TM_to_Minsky <> conf:18 var
+R6008:6008 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6010:6011 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6016:6017 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6022:6022 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6055:6060 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6051:6053 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6037:6048 ModularProofs.TM_to_Minsky <> minsky_state proj
+R6050:6050 ModularProofs.TM_to_Minsky <> m:19 var
+R6087:6096 ModularProofs.TM_to_Minsky <> split_tape def
+R6066:6066 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6075:6076 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6082:6082 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6151:6156 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6126:6128 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6113:6123 ModularProofs.TM_to_Minsky <> minsky_left proj
+R6125:6125 ModularProofs.TM_to_Minsky <> m:19 var
+R6129:6141 ModularProofs.TM_to_Minsky <> encode_binary def
+R6171:6173 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6157:6168 ModularProofs.TM_to_Minsky <> minsky_right proj
+R6170:6170 ModularProofs.TM_to_Minsky <> m:19 var
+R6174:6186 ModularProofs.TM_to_Minsky <> encode_binary def
+prf 6358:6385 <> tm_to_minsky_establishes_sim
+binder 6398:6401 <> conf:21
+R6404:6415 ModularProofs.TM_to_Minsky <> sim_relation def
+R6417:6420 ModularProofs.TM_to_Minsky <> conf:21 var
+R6423:6434 ModularProofs.TM_to_Minsky <> tm_to_minsky def
+R6436:6439 ModularProofs.TM_to_Minsky <> conf:21 var
+R6485:6496 ModularProofs.TM_to_Minsky <> sim_relation def
+R6499:6510 ModularProofs.TM_to_Minsky <> tm_to_minsky def
+R6513:6522 ModularProofs.TM_to_Minsky <> split_tape def
+def 7075:7094 <> abstract_minsky_step
+R7102:7113 ModularProofs.TM_Basics <> TMTransition def
+binder 7097:7098 <> tm:22
+R7121:7130 ModularProofs.TM_to_Minsky <> TMasMinsky rec
+binder 7117:7117 <> m:23
+R7135:7144 ModularProofs.TM_to_Minsky <> TMasMinsky rec
+R7160:7171 ModularProofs.TM_to_Minsky <> minsky_state proj
+R7173:7173 ModularProofs.TM_to_Minsky <> m:23 var
+binder 7155:7155 <> q:24
+R7208:7212 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R7194:7205 ModularProofs.TM_to_Minsky <> minsky_right proj
+R7207:7207 ModularProofs.TM_to_Minsky <> m:23 var
+binder 7184:7189 <> symbol:25
+R7250:7251 ModularProofs.TM_to_Minsky <> tm:22 var
+R7253:7253 ModularProofs.TM_to_Minsky <> q:24 var
+R7255:7260 ModularProofs.TM_to_Minsky <> symbol:25 var
+R7225:7225 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7228:7229 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7235:7236 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7245:7245 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7299:7301 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R7285:7296 ModularProofs.TM_to_Minsky <> minsky_right proj
+R7298:7298 ModularProofs.TM_to_Minsky <> m:23 var
+binder 7271:7280 <> right_tail:26
+R7340:7342 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7336:7338 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R7326:7335 ModularProofs.TM_to_Minsky <> right_tail:26 var
+binder 7313:7321 <> new_right:27
+R7401:7411 ModularProofs.TM_to_Minsky <> minsky_left proj
+R7401:7411 ModularProofs.TM_to_Minsky <> minsky_left proj
+R7401:7411 ModularProofs.TM_to_Minsky <> minsky_left proj
+R7438:7449 ModularProofs.TM_to_Minsky <> minsky_right proj
+R7438:7449 ModularProofs.TM_to_Minsky <> minsky_right proj
+R7472:7483 ModularProofs.TM_to_Minsky <> minsky_state proj
+R7472:7483 ModularProofs.TM_to_Minsky <> minsky_state proj
+R7416:7426 ModularProofs.TM_to_Minsky <> minsky_left proj
+R7428:7428 ModularProofs.TM_to_Minsky <> m:23 var
+R7454:7462 ModularProofs.TM_to_Minsky <> new_right:27 var
+R7527:7537 ModularProofs.TM_to_Minsky <> minsky_left proj
+R7527:7537 ModularProofs.TM_to_Minsky <> minsky_left proj
+R7527:7537 ModularProofs.TM_to_Minsky <> minsky_left proj
+R7576:7587 ModularProofs.TM_to_Minsky <> minsky_right proj
+R7576:7587 ModularProofs.TM_to_Minsky <> minsky_right proj
+R7611:7622 ModularProofs.TM_to_Minsky <> minsky_state proj
+R7611:7622 ModularProofs.TM_to_Minsky <> minsky_state proj
+R7559:7561 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7555:7557 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R7542:7552 ModularProofs.TM_to_Minsky <> minsky_left proj
+R7554:7554 ModularProofs.TM_to_Minsky <> m:23 var
+R7592:7601 ModularProofs.TM_to_Minsky <> right_tail:26 var
+R7691:7695 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R7678:7688 ModularProofs.TM_to_Minsky <> minsky_left proj
+R7690:7690 ModularProofs.TM_to_Minsky <> m:23 var
+binder 7666:7673 <> left_bit:29
+R7708:7718 ModularProofs.TM_to_Minsky <> minsky_left proj
+R7708:7718 ModularProofs.TM_to_Minsky <> minsky_left proj
+R7708:7718 ModularProofs.TM_to_Minsky <> minsky_left proj
+R7749:7760 ModularProofs.TM_to_Minsky <> minsky_right proj
+R7749:7760 ModularProofs.TM_to_Minsky <> minsky_right proj
+R7798:7809 ModularProofs.TM_to_Minsky <> minsky_state proj
+R7798:7809 ModularProofs.TM_to_Minsky <> minsky_state proj
+R7736:7738 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R7723:7733 ModularProofs.TM_to_Minsky <> minsky_left proj
+R7735:7735 ModularProofs.TM_to_Minsky <> m:23 var
+R7778:7780 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7774:7776 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R7765:7773 ModularProofs.TM_to_Minsky <> new_right:27 var
+R7781:7788 ModularProofs.TM_to_Minsky <> left_bit:29 var
+def 8201:8221 <> abstract_minsky_run_n
+R8229:8240 ModularProofs.TM_Basics <> TMTransition def
+binder 8224:8225 <> tm:30
+R8248:8257 ModularProofs.TM_to_Minsky <> TMasMinsky rec
+binder 8244:8244 <> m:31
+R8265:8267 Coq.Init.Datatypes <> nat ind
+binder 8261:8261 <> n:32
+R8272:8281 ModularProofs.TM_to_Minsky <> TMasMinsky rec
+R8294:8294 ModularProofs.TM_to_Minsky <> n:32 var
+R8310:8310 ModularProofs.TM_to_Minsky <> m:31 var
+R8316:8316 Coq.Init.Datatypes <> S constr
+R8324:8344 ModularProofs.TM_to_Minsky <> abstract_minsky_run_n:33 def
+R8350:8369 ModularProofs.TM_to_Minsky <> abstract_minsky_step def
+R8371:8372 ModularProofs.TM_to_Minsky <> tm:30 var
+R8374:8374 ModularProofs.TM_to_Minsky <> m:31 var
+R8346:8347 ModularProofs.TM_to_Minsky <> tm:30 var
+prf 8453:8478 <> abstract_minsky_run_n_zero
+binder 8491:8492 <> tm:35
+binder 8494:8494 <> m:36
+R8525:8527 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8497:8517 ModularProofs.TM_to_Minsky <> abstract_minsky_run_n def
+R8519:8520 ModularProofs.TM_to_Minsky <> tm:35 var
+R8522:8522 ModularProofs.TM_to_Minsky <> m:36 var
+R8528:8528 ModularProofs.TM_to_Minsky <> m:36 var
+prf 8622:8647 <> abstract_minsky_run_n_succ
+binder 8660:8661 <> tm:37
+binder 8663:8663 <> m:38
+binder 8665:8665 <> n:39
+R8704:8706 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8672:8692 ModularProofs.TM_to_Minsky <> abstract_minsky_run_n def
+R8694:8695 ModularProofs.TM_to_Minsky <> tm:37 var
+R8697:8697 ModularProofs.TM_to_Minsky <> m:38 var
+R8700:8700 Coq.Init.Datatypes <> S constr
+R8702:8702 ModularProofs.TM_to_Minsky <> n:39 var
+R8707:8727 ModularProofs.TM_to_Minsky <> abstract_minsky_run_n def
+R8729:8730 ModularProofs.TM_to_Minsky <> tm:37 var
+R8733:8752 ModularProofs.TM_to_Minsky <> abstract_minsky_step def
+R8754:8755 ModularProofs.TM_to_Minsky <> tm:37 var
+R8757:8757 ModularProofs.TM_to_Minsky <> m:38 var
+R8760:8760 ModularProofs.TM_to_Minsky <> n:39 var
+prf 8853:8871 <> abstract_step_state
+binder 8884:8885 <> tm:40
+binder 8887:8887 <> m:41
+R8903:8914 ModularProofs.TM_to_Minsky <> minsky_state proj
+R8916:8916 ModularProofs.TM_to_Minsky <> m:41 var
+binder 8898:8898 <> q:42
+R8953:8957 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R8939:8950 ModularProofs.TM_to_Minsky <> minsky_right proj
+R8952:8952 ModularProofs.TM_to_Minsky <> m:41 var
+binder 8929:8934 <> symbol:43
+R8986:8987 ModularProofs.TM_to_Minsky <> tm:40 var
+R8989:8989 ModularProofs.TM_to_Minsky <> q:42 var
+R8991:8996 ModularProofs.TM_to_Minsky <> symbol:43 var
+R8972:8972 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8975:8976 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8978:8979 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8981:8981 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9045:9047 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9005:9016 ModularProofs.TM_to_Minsky <> minsky_state proj
+R9019:9038 ModularProofs.TM_to_Minsky <> abstract_minsky_step def
+R9040:9041 ModularProofs.TM_to_Minsky <> tm:40 var
+R9043:9043 ModularProofs.TM_to_Minsky <> m:41 var
+R9083:9102 ModularProofs.TM_to_Minsky <> abstract_minsky_step def
+R9121:9132 ModularProofs.TM_to_Minsky <> minsky_state proj
+R9152:9156 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R9138:9149 ModularProofs.TM_to_Minsky <> minsky_right proj
+R9121:9132 ModularProofs.TM_to_Minsky <> minsky_state proj
+R9152:9156 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R9138:9149 ModularProofs.TM_to_Minsky <> minsky_right proj
+prf 9957:9964 <> hd_skipn
+binder 9976:9976 <> A:44
+R9991:9991 ModularProofs.TM_to_Minsky <> A:44 var
+binder 9987:9987 <> d:45
+R9999:10001 Coq.Init.Datatypes <> nat ind
+binder 9995:9995 <> n:46
+R10009:10012 Coq.Init.Datatypes <> list ind
+R10014:10014 ModularProofs.TM_to_Minsky <> A:44 var
+binder 10005:10005 <> l:47
+R10032:10037 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10021:10023 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R10020:10020 ModularProofs.TM_to_Minsky <> n:46 var
+R10024:10029 Coq.Init.Datatypes <> length def
+R10031:10031 ModularProofs.TM_to_Minsky <> l:47 var
+R10054:10056 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10038:10039 Coq.Lists.List <> hd def
+R10044:10048 Coq.Lists.List <> skipn def
+R10052:10052 ModularProofs.TM_to_Minsky <> l:47 var
+R10050:10050 ModularProofs.TM_to_Minsky <> n:46 var
+R10041:10041 ModularProofs.TM_to_Minsky <> d:45 var
+R10057:10059 Coq.Lists.List <> nth def
+R10065:10065 ModularProofs.TM_to_Minsky <> d:45 var
+R10063:10063 ModularProofs.TM_to_Minsky <> l:47 var
+R10061:10061 ModularProofs.TM_to_Minsky <> n:46 var
+prf 10398:10416 <> head_symbol_encoded
+binder 10429:10432 <> tape:48
+binder 10434:10437 <> head:49
+R10458:10465 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10444:10452 ModularProofs.TM_Basics <> digits_ok def
+R10454:10457 ModularProofs.TM_to_Minsky <> tape:48 var
+R10484:10491 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10470:10472 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R10466:10469 ModularProofs.TM_to_Minsky <> head:49 var
+R10473:10478 Coq.Init.Datatypes <> length def
+R10480:10483 ModularProofs.TM_to_Minsky <> tape:48 var
+R10529:10531 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10523:10527 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R10492:10504 ModularProofs.TM_to_Minsky <> encode_binary def
+R10507:10511 Coq.Lists.List <> skipn def
+R10518:10521 ModularProofs.TM_to_Minsky <> tape:48 var
+R10513:10516 ModularProofs.TM_to_Minsky <> head:49 var
+R10532:10534 Coq.Lists.List <> nth def
+R10541:10544 ModularProofs.TM_to_Minsky <> tape:48 var
+R10536:10539 ModularProofs.TM_to_Minsky <> head:49 var
+R10597:10601 Coq.Lists.List <> skipn def
+R10597:10601 Coq.Lists.List <> skipn def
+R10763:10765 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10739:10744 Coq.Init.Datatypes <> length def
+R10747:10751 Coq.Lists.List <> skipn def
+R10777:10779 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R10766:10771 Coq.Init.Datatypes <> length def
+R10763:10765 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10739:10744 Coq.Init.Datatypes <> length def
+R10747:10751 Coq.Lists.List <> skipn def
+R10777:10779 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R10766:10771 Coq.Init.Datatypes <> length def
+R10799:10810 Coq.Lists.List <> skipn_length thm
+R10799:10810 Coq.Lists.List <> skipn_length thm
+R10911:10913 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R10911:10913 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R11006:11008 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11009:11010 Coq.Lists.List <> hd def
+R11015:11019 Coq.Lists.List <> skipn def
+R11006:11008 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11009:11010 Coq.Lists.List <> hd def
+R11015:11019 Coq.Lists.List <> skipn def
+R11101:11108 ModularProofs.TM_to_Minsky <> hd_skipn thm
+R11101:11108 ModularProofs.TM_to_Minsky <> hd_skipn thm
+R11101:11108 ModularProofs.TM_to_Minsky <> hd_skipn thm
+R11138:11146 ModularProofs.TM_Basics <> digits_ok def
+R11165:11177 Coq.Lists.List <> Forall_forall thm
+R11165:11177 Coq.Lists.List <> Forall_forall thm
+R11165:11177 Coq.Lists.List <> Forall_forall thm
+R11212:11217 Coq.Lists.List <> nth_In thm
+R11212:11217 Coq.Lists.List <> nth_In thm
+R11246:11267 ModularProofs.TM_to_Minsky <> head_symbol_from_right thm
+R11246:11267 ModularProofs.TM_to_Minsky <> head_symbol_from_right thm
+R11246:11267 ModularProofs.TM_to_Minsky <> head_symbol_from_right thm
+R11366:11368 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11351:11353 Coq.Lists.List <> nth def
+R11366:11368 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11351:11353 Coq.Lists.List <> nth def
+R11391:11398 ModularProofs.TM_to_Minsky <> hd_skipn thm
+R11400:11402 Coq.Init.Datatypes <> nat ind
+R11391:11398 ModularProofs.TM_to_Minsky <> hd_skipn thm
+R11400:11402 Coq.Init.Datatypes <> nat ind
+R11391:11398 ModularProofs.TM_to_Minsky <> hd_skipn thm
+R11400:11402 Coq.Init.Datatypes <> nat ind
+R11563:11572 Coq.Arith.PeanoNat Nat modulo def
+R11574:11580 Coq.Arith.PeanoNat Nat div def
+prf 11651:11676 <> tm_minsky_state_simulation
+R11695:11706 ModularProofs.TM_Basics <> TMTransition def
+binder 11690:11691 <> tm:50
+R11717:11724 ModularProofs.TM_Basics <> TMConfig def
+binder 11710:11713 <> conf:51
+R11749:11756 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11732:11743 ModularProofs.TM_Basics <> tm_config_ok def
+R11745:11748 ModularProofs.TM_to_Minsky <> conf:51 var
+R11815:11821 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11757:11768 ModularProofs.TM_to_Minsky <> minsky_state proj
+R11771:11790 ModularProofs.TM_to_Minsky <> abstract_minsky_step def
+R11792:11793 ModularProofs.TM_to_Minsky <> tm:50 var
+R11796:11807 ModularProofs.TM_to_Minsky <> tm_to_minsky def
+R11809:11812 ModularProofs.TM_to_Minsky <> conf:51 var
+R11841:11847 ModularProofs.TM_Basics <> tm_step def
+R11849:11850 ModularProofs.TM_to_Minsky <> tm:50 var
+R11852:11855 ModularProofs.TM_to_Minsky <> conf:51 var
+R11827:11827 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11830:11831 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11833:11834 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11836:11836 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11949:11968 ModularProofs.TM_to_Minsky <> abstract_minsky_step def
+R11971:11982 ModularProofs.TM_to_Minsky <> tm_to_minsky def
+R11985:11994 ModularProofs.TM_to_Minsky <> split_tape def
+R11997:12003 ModularProofs.TM_Basics <> tm_step def
+R12014:12025 ModularProofs.TM_to_Minsky <> minsky_right proj
+R12034:12045 ModularProofs.TM_to_Minsky <> minsky_state proj
+R12054:12064 ModularProofs.TM_to_Minsky <> minsky_left proj
+R12078:12096 ModularProofs.TM_to_Minsky <> head_symbol_encoded thm
+R12078:12096 ModularProofs.TM_to_Minsky <> head_symbol_encoded thm
+R12078:12096 ModularProofs.TM_to_Minsky <> head_symbol_encoded thm
+R12268:12270 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12260:12267 ModularProofs.TM_Basics <> tm_blank def
+R12268:12270 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12260:12267 ModularProofs.TM_Basics <> tm_blank def
+R12326:12328 Coq.Lists.List <> nth def
+R12326:12328 Coq.Lists.List <> nth def
+R12446:12455 Coq.Arith.PeanoNat Nat modulo def
+R12457:12463 Coq.Arith.PeanoNat Nat div def
+prf 12618:12636 <> tm_to_minsky_exists
+R12655:12666 ModularProofs.TM_Basics <> TMTransition def
+binder 12650:12651 <> tm:52
+R12674:12681 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R12760:12768 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R12699:12702 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12691:12698 ModularProofs.TM_Basics <> TMConfig def
+R12703:12712 ModularProofs.TM_to_Minsky <> TMasMinsky rec
+binder 12682:12687 <> encode:53
+R12746:12749 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12736:12745 ModularProofs.TM_to_Minsky <> TMasMinsky rec
+R12750:12759 ModularProofs.TM_to_Minsky <> TMasMinsky rec
+binder 12727:12732 <> step_m:54
+R12769:12769 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12906:12917 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12970:12970 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 12777:12780 <> conf:55
+R12808:12819 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12791:12802 ModularProofs.TM_Basics <> tm_config_ok def
+R12804:12807 ModularProofs.TM_to_Minsky <> conf:55 var
+R12855:12865 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12820:12831 ModularProofs.TM_to_Minsky <> minsky_state proj
+R12834:12839 ModularProofs.TM_to_Minsky <> step_m:54 var
+R12842:12847 ModularProofs.TM_to_Minsky <> encode:53 var
+R12849:12852 ModularProofs.TM_to_Minsky <> conf:55 var
+R12885:12891 ModularProofs.TM_Basics <> tm_step def
+R12893:12894 ModularProofs.TM_to_Minsky <> tm:52 var
+R12896:12899 ModularProofs.TM_to_Minsky <> conf:55 var
+R12871:12871 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12874:12875 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12877:12878 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12880:12880 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 12925:12928 <> conf:56
+R12939:12950 ModularProofs.TM_to_Minsky <> sim_relation def
+R12952:12955 ModularProofs.TM_to_Minsky <> conf:56 var
+R12958:12963 ModularProofs.TM_to_Minsky <> encode:53 var
+R12965:12968 ModularProofs.TM_to_Minsky <> conf:56 var
+R13002:13013 ModularProofs.TM_to_Minsky <> tm_to_minsky def
+R13002:13013 ModularProofs.TM_to_Minsky <> tm_to_minsky def
+R13026:13045 ModularProofs.TM_to_Minsky <> abstract_minsky_step def
+R13026:13045 ModularProofs.TM_to_Minsky <> abstract_minsky_step def
+R13088:13113 ModularProofs.TM_to_Minsky <> tm_minsky_state_simulation thm
+R13088:13113 ModularProofs.TM_to_Minsky <> tm_minsky_state_simulation thm
+R13150:13177 ModularProofs.TM_to_Minsky <> tm_to_minsky_establishes_sim thm
+R13150:13177 ModularProofs.TM_to_Minsky <> tm_to_minsky_establishes_sim thm

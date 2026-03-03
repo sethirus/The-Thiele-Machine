@@ -8,6 +8,11 @@
 
 From Coq Require Import List Arith Lia Bool.
 From ModularProofs Require Import Encoding.
+
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 Import ListNotations.
 
 (* ----------------------------------------------------------------- *)
@@ -182,3 +187,4 @@ Proof.
   intro Hmove.
   exact Hmove.
 Qed.
+

@@ -1,95 +1,98 @@
-DIGEST 390e1465d3b1896e5f1e8f84a3781525
+DIGEST 9bd1906fe6d2555ea3c488c338d03045
 FKernel.AlphaDerivation
-R565:579 Coq.Reals.Reals <> <> lib
-R597:610 Coq.Lists.List <> <> lib
-R628:642 Coq.Arith.Arith <> <> lib
-R660:676 Coq.micromega.Lia <> <> lib
-R686:698 Coq.Lists.List ListNotations <> mod
-def 871:882 <> is_partition
-R889:891 Coq.Init.Datatypes <> nat ind
-binder 885:885 <> n:1
-R899:902 Coq.Init.Datatypes <> list ind
-R904:906 Coq.Init.Datatypes <> nat ind
-binder 895:895 <> p:2
-R950:955 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R946:948 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R921:929 Coq.Lists.List <> fold_left def
-R939:939 Kernel.AlphaDerivation <> p:2 var
-R931:937 Coq.Arith.PeanoNat Nat add def
-R949:949 Kernel.AlphaDerivation <> n:1 var
-R956:956 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R988:995 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R1070:1070 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 964:964 <> x:3
-R973:976 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R967:968 Coq.Lists.List <> In def
-R972:972 Kernel.AlphaDerivation <> p:2 var
-R970:970 Kernel.AlphaDerivation <> x:3 var
-R979:981 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R978:978 Kernel.AlphaDerivation <> x:3 var
-binder 1003:1003 <> i:4
-binder 1005:1005 <> j:5
-R1030:1033 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1010:1012 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<'_x not
-R1014:1016 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<'_x not
-R1009:1009 Kernel.AlphaDerivation <> i:4 var
-R1013:1013 Kernel.AlphaDerivation <> j:5 var
-R1013:1013 Kernel.AlphaDerivation <> j:5 var
-R1017:1022 Coq.Init.Datatypes <> length def
-R1024:1024 Kernel.AlphaDerivation <> p:2 var
-R1048:1051 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R1035:1037 Coq.Lists.List <> nth def
-R1041:1041 Kernel.AlphaDerivation <> p:2 var
-R1039:1039 Kernel.AlphaDerivation <> i:4 var
-R1052:1054 Coq.Lists.List <> nth def
-R1058:1058 Kernel.AlphaDerivation <> p:2 var
-R1056:1056 Kernel.AlphaDerivation <> j:5 var
-def 1142:1161 <> partition_count_slow
-R1173:1175 Coq.Init.Datatypes <> nat ind
-binder 1164:1164 <> n:6
-binder 1166:1169 <> fuel:7
-R1180:1182 Coq.Init.Datatypes <> nat ind
-R1195:1198 Kernel.AlphaDerivation <> fuel:7 var
-R1220:1220 Coq.Init.Datatypes <> S constr
-R1306:1306 Kernel.AlphaDerivation <> n:6 var
-def 1665:1665 <> p
-R1672:1674 Coq.Init.Datatypes <> nat ind
-binder 1668:1668 <> n:11
-R1679:1681 Coq.Init.Datatypes <> nat ind
-R1686:1705 Kernel.AlphaDerivation <> partition_count_slow def
-R1707:1707 Kernel.AlphaDerivation <> n:11 var
-prf 1777:1791 <> p_14_equals_135
-R1799:1801 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1795:1795 Kernel.AlphaDerivation <> p def
-prf 1843:1857 <> p_13_equals_101
-R1865:1867 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1861:1861 Kernel.AlphaDerivation <> p def
-prf 1909:1923 <> p_15_equals_176
-R1931:1933 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1927:1927 Kernel.AlphaDerivation <> p def
-def 2060:2075 <> alpha_em_inverse
-R2079:2079 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-def 2110:2117 <> alpha_em
-R2121:2121 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R2126:2129 Coq.Reals.Rdefinitions <> Rdiv def
-R2131:2132 Coq.Reals.Rdefinitions RbaseSymbolsImpl R1 defax
-R2134:2149 Kernel.AlphaDerivation <> alpha_em_inverse def
-def 2210:2224 <> alpha_partition
-R2228:2228 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R2233:2236 Coq.Reals.Rdefinitions <> Rdiv def
-R2238:2239 Coq.Reals.Rdefinitions RbaseSymbolsImpl R1 defax
-R2242:2244 Coq.Reals.Raxioms <> INR def
-R2247:2247 Kernel.AlphaDerivation <> p def
-def 2315:2325 <> alpha_error
-R2329:2329 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R2336:2339 Coq.Reals.Rbasic_fun <> Rabs def
-R2342:2347 Coq.Reals.Rdefinitions <> Rminus def
-R2349:2363 Kernel.AlphaDerivation <> alpha_partition def
-R2365:2372 Kernel.AlphaDerivation <> alpha_em def
-def 2388:2406 <> alpha_error_percent
-R2410:2410 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R2417:2420 Coq.Reals.Rdefinitions <> Rdiv def
-R2423:2427 Coq.Reals.Rdefinitions RbaseSymbolsImpl Rmult defax
-R2429:2439 Kernel.AlphaDerivation <> alpha_error def
-R2442:2444 Coq.Reals.Raxioms <> INR def
-R2452:2459 Kernel.AlphaDerivation <> alpha_em def
+R662:668 Kernel.VMState <> <> lib
+R670:675 Kernel.VMStep <> <> lib
+R705:715 Kernel.MuCostModel <> <> lib
+R734:748 Coq.Reals.Reals <> <> lib
+R766:779 Coq.Lists.List <> <> lib
+R797:811 Coq.Arith.Arith <> <> lib
+R829:845 Coq.micromega.Lia <> <> lib
+R855:867 Coq.Lists.List ListNotations <> mod
+def 1040:1051 <> is_partition
+R1058:1060 Coq.Init.Datatypes <> nat ind
+binder 1054:1054 <> n:1
+R1068:1071 Coq.Init.Datatypes <> list ind
+R1073:1075 Coq.Init.Datatypes <> nat ind
+binder 1064:1064 <> p:2
+R1119:1124 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1115:1117 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1090:1098 Coq.Lists.List <> fold_left def
+R1108:1108 Kernel.AlphaDerivation <> p:2 var
+R1100:1106 Coq.Arith.PeanoNat Nat add def
+R1118:1118 Kernel.AlphaDerivation <> n:1 var
+R1125:1125 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1157:1164 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1239:1239 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 1133:1133 <> x:3
+R1142:1145 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1136:1137 Coq.Lists.List <> In def
+R1141:1141 Kernel.AlphaDerivation <> p:2 var
+R1139:1139 Kernel.AlphaDerivation <> x:3 var
+R1148:1150 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R1147:1147 Kernel.AlphaDerivation <> x:3 var
+binder 1172:1172 <> i:4
+binder 1174:1174 <> j:5
+R1199:1202 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1179:1181 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<'_x not
+R1183:1185 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<'_x not
+R1178:1178 Kernel.AlphaDerivation <> i:4 var
+R1182:1182 Kernel.AlphaDerivation <> j:5 var
+R1182:1182 Kernel.AlphaDerivation <> j:5 var
+R1186:1191 Coq.Init.Datatypes <> length def
+R1193:1193 Kernel.AlphaDerivation <> p:2 var
+R1217:1220 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R1204:1206 Coq.Lists.List <> nth def
+R1210:1210 Kernel.AlphaDerivation <> p:2 var
+R1208:1208 Kernel.AlphaDerivation <> i:4 var
+R1221:1223 Coq.Lists.List <> nth def
+R1227:1227 Kernel.AlphaDerivation <> p:2 var
+R1225:1225 Kernel.AlphaDerivation <> j:5 var
+def 1311:1330 <> partition_count_slow
+R1342:1344 Coq.Init.Datatypes <> nat ind
+binder 1333:1333 <> n:6
+binder 1335:1338 <> fuel:7
+R1349:1351 Coq.Init.Datatypes <> nat ind
+R1364:1367 Kernel.AlphaDerivation <> fuel:7 var
+R1389:1389 Coq.Init.Datatypes <> S constr
+R1475:1475 Kernel.AlphaDerivation <> n:6 var
+def 1834:1834 <> p
+R1841:1843 Coq.Init.Datatypes <> nat ind
+binder 1837:1837 <> n:11
+R1848:1850 Coq.Init.Datatypes <> nat ind
+R1855:1874 Kernel.AlphaDerivation <> partition_count_slow def
+R1876:1876 Kernel.AlphaDerivation <> n:11 var
+prf 1946:1960 <> p_14_equals_135
+R1968:1970 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1964:1964 Kernel.AlphaDerivation <> p def
+prf 2012:2026 <> p_13_equals_101
+R2034:2036 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2030:2030 Kernel.AlphaDerivation <> p def
+prf 2078:2092 <> p_15_equals_176
+R2100:2102 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2096:2096 Kernel.AlphaDerivation <> p def
+def 2229:2244 <> alpha_em_inverse
+R2248:2248 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 2279:2286 <> alpha_em
+R2290:2290 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2295:2298 Coq.Reals.Rdefinitions <> Rdiv def
+R2300:2301 Coq.Reals.Rdefinitions RbaseSymbolsImpl R1 defax
+R2303:2318 Kernel.AlphaDerivation <> alpha_em_inverse def
+def 2379:2393 <> alpha_partition
+R2397:2397 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2402:2405 Coq.Reals.Rdefinitions <> Rdiv def
+R2407:2408 Coq.Reals.Rdefinitions RbaseSymbolsImpl R1 defax
+R2411:2413 Coq.Reals.Raxioms <> INR def
+R2416:2416 Kernel.AlphaDerivation <> p def
+def 2484:2494 <> alpha_error
+R2498:2498 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2505:2508 Coq.Reals.Rbasic_fun <> Rabs def
+R2511:2516 Coq.Reals.Rdefinitions <> Rminus def
+R2518:2532 Kernel.AlphaDerivation <> alpha_partition def
+R2534:2541 Kernel.AlphaDerivation <> alpha_em def
+def 2557:2575 <> alpha_error_percent
+R2579:2579 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2586:2589 Coq.Reals.Rdefinitions <> Rdiv def
+R2592:2596 Coq.Reals.Rdefinitions RbaseSymbolsImpl Rmult defax
+R2598:2608 Kernel.AlphaDerivation <> alpha_error def
+R2611:2613 Coq.Reals.Raxioms <> INR def
+R2621:2628 Kernel.AlphaDerivation <> alpha_em def

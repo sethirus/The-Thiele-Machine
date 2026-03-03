@@ -1,4 +1,6 @@
 (* ========================================================================
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
    THERMODYNAMIC BRIDGE: FORMAL COQ PROOF
    ========================================================================
    
@@ -13,6 +15,10 @@
    Author: Thiele Machine Project
    Date: December 2024
 *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 Require Import Coq.Arith.Arith.
 Require Import Coq.Lists.List.

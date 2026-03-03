@@ -1,4 +1,4 @@
-DIGEST 918be5c6c80b438d4873c12684609017
+DIGEST a3509d0ac973365c777faed581f8ae27
 FThieleUniversal.Axioms
 R144:146 Coq.micromega.Lia <> <> lib
 R148:150 Coq.Init.Nat <> <> lib
@@ -9,163 +9,180 @@ R218:230 ThieleMachine.ThieleMachine <> <> lib
 R269:282 ThieleUniversal.UTMStaticCheck <> <> lib
 R312:320 ModularProofs.TM_Basics <> <> lib
 R359:367 ThieleUniversal.UTM_Rules <> <> lib
-R384:410 ThieleMachine.ThieleMachine <> <> modtype
-mod 378:379 <> TM
-def 423:432 <> tm_iterate
-R439:446 ThieleUniversal.Axioms <> State rec
-binder 435:435 <> s:1
-R454:456 Coq.Init.Datatypes <> nat ind
-binder 450:450 <> n:2
-R461:468 ThieleUniversal.Axioms <> State rec
-R481:481 ThieleUniversal.Axioms <> n:2 var
-R497:497 ThieleUniversal.Axioms <> s:1 var
-R503:503 Coq.Init.Datatypes <> S constr
-R510:519 ThieleUniversal.Axioms <> tm_iterate:3 def
-R522:537 ThieleUniversal.Axioms <> advance_state def
-R539:539 ThieleUniversal.Axioms <> s:1 var
-prf 604:616 <> tm_iterate_pc
-binder 629:629 <> s:5
-binder 631:631 <> n:6
-R660:662 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R638:642 ThieleUniversal.Axioms <> pc proj
-R645:654 ThieleUniversal.Axioms <> tm_iterate def
-R656:656 ThieleUniversal.Axioms <> s:5 var
-R658:658 ThieleUniversal.Axioms <> n:6 var
-R671:673 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R664:668 ThieleUniversal.Axioms <> pc proj
-R670:670 ThieleUniversal.Axioms <> s:5 var
-R674:674 ThieleUniversal.Axioms <> n:6 var
-R756:766 Coq.Arith.PeanoNat Nat add_0_r thm
-R756:766 Coq.Arith.PeanoNat Nat add_0_r thm
-R756:766 Coq.Arith.PeanoNat Nat add_0_r thm
-R806:821 ThieleUniversal.Axioms <> advance_state def
-R806:821 ThieleUniversal.Axioms <> advance_state def
-R806:821 ThieleUniversal.Axioms <> advance_state def
-prf 907:922 <> decode_encode_id
-binder 935:938 <> conf:7
-R962:969 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R945:956 ThieleMachine.EncodingBridge <> tm_config_ok def
-R958:961 ThieleUniversal.Axioms <> conf:7 var
-R1010:1012 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R970:985 ThieleMachine.EncodingBridge <> tm_decode_config def
-R988:1003 ThieleMachine.EncodingBridge <> tm_encode_config def
-R1005:1008 ThieleUniversal.Axioms <> conf:7 var
-R1013:1016 ThieleUniversal.Axioms <> conf:7 var
-R1034:1059 ThieleMachine.EncodingBridge <> tm_decode_encode_roundtrip thm
-R1034:1059 ThieleMachine.EncodingBridge <> tm_decode_encode_roundtrip thm
-prf 1135:1160 <> utm_catalogue_static_check
-R1195:1197 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1166:1187 ThieleUniversal.UTMStaticCheck <> catalogue_static_check def
-R1189:1194 ThieleUniversal.UTM_Rules <> utm_tm def
-R1198:1201 Coq.Init.Datatypes <> true constr
-R1352:1384 ThieleUniversal.UTMStaticCheck <> utm_catalogue_static_check_proved thm
-R1352:1384 ThieleUniversal.UTMStaticCheck <> utm_catalogue_static_check_proved thm
-def 1404:1417 <> tm_config_head
-R1427:1444 ModularProofs.TM_Basics <> TMConfig def
-binder 1420:1423 <> conf:8
-R1449:1451 Coq.Init.Datatypes <> nat ind
-R1482:1485 ThieleUniversal.Axioms <> conf:8 var
-R1463:1463 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1465:1466 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1471:1472 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1477:1477 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-prf 1557:1577 <> utm_head_lt_shift_len
-binder 1590:1593 <> conf:10
-R1617:1624 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1600:1611 ThieleMachine.EncodingBridge <> tm_config_ok def
-R1613:1616 ThieleUniversal.Axioms <> conf:10 var
-R1645:1647 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R1626:1639 ThieleUniversal.Axioms <> tm_config_head def
-R1641:1644 ThieleUniversal.Axioms <> conf:10 var
-R1648:1665 ModularProofs.Encoding <> SHIFT_LEN def
-prf 1926:1945 <> utm_simulation_steps
-binder 1958:1958 <> s:11
-binder 1960:1960 <> n:12
-R1989:1991 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1967:1971 ThieleUniversal.Axioms <> pc proj
-R1974:1983 ThieleUniversal.Axioms <> tm_iterate def
-R1985:1985 ThieleUniversal.Axioms <> s:11 var
-R1987:1987 ThieleUniversal.Axioms <> n:12 var
-R2000:2002 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R1993:1997 ThieleUniversal.Axioms <> pc proj
-R1999:1999 ThieleUniversal.Axioms <> s:11 var
-R2003:2003 ThieleUniversal.Axioms <> n:12 var
-R2217:2229 ThieleUniversal.Axioms <> tm_iterate_pc thm
-R2217:2229 ThieleUniversal.Axioms <> tm_iterate_pc thm
-prf 2295:2310 <> check_step_sound
-binder 2323:2323 <> P:13
-binder 2325:2325 <> s:14
-binder 2327:2328 <> s':15
-binder 2330:2332 <> obs:16
-R2357:2364 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2339:2345 ThieleUniversal.Axioms <> step ind
-R2347:2347 ThieleUniversal.Axioms <> P:13 var
-R2349:2349 ThieleUniversal.Axioms <> s:14 var
-R2351:2352 ThieleUniversal.Axioms <> s':15 var
-R2354:2356 ThieleUniversal.Axioms <> obs:16 var
-R2411:2413 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2365:2377 ThieleUniversal.Axioms <> check_step def
-R2379:2379 ThieleUniversal.Axioms <> P:13 var
-R2381:2381 ThieleUniversal.Axioms <> s:14 var
-R2383:2384 ThieleUniversal.Axioms <> s':15 var
-R2391:2395 ThieleUniversal.Axioms <> ev proj
-R2386:2388 ThieleUniversal.Axioms <> obs:16 var
-R2403:2409 ThieleUniversal.Axioms <> cert proj
-R2398:2400 ThieleUniversal.Axioms <> obs:16 var
-R2414:2417 Coq.Init.Datatypes <> true constr
-R2524:2542 ThieleUniversal.Axioms <> check_step_sound thm
-R2524:2542 ThieleUniversal.Axioms <> check_step_sound thm
-prf 2611:2629 <> check_step_complete
-binder 2642:2642 <> P:17
-binder 2644:2644 <> s:18
-binder 2646:2647 <> s':19
-binder 2649:2651 <> oev:20
-binder 2653:2653 <> c:21
-R2693:2700 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2686:2688 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2660:2672 ThieleUniversal.Axioms <> check_step def
-R2674:2674 ThieleUniversal.Axioms <> P:17 var
-R2676:2676 ThieleUniversal.Axioms <> s:18 var
-R2678:2679 ThieleUniversal.Axioms <> s':19 var
-R2681:2683 ThieleUniversal.Axioms <> oev:20 var
-R2685:2685 ThieleUniversal.Axioms <> c:21 var
-R2689:2692 Coq.Init.Datatypes <> true constr
-R2701:2707 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2711:2712 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 2708:2710 <> obs:22
-R2731:2734 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2713:2719 ThieleUniversal.Axioms <> step ind
-R2721:2721 ThieleUniversal.Axioms <> P:17 var
-R2723:2723 ThieleUniversal.Axioms <> s:18 var
-R2725:2726 ThieleUniversal.Axioms <> s':19 var
-R2728:2730 ThieleUniversal.Axioms <> obs:22 var
-R2752:2755 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R397:403 Kernel.VMState <> <> lib
+R405:415 Kernel.MuCostModel <> <> lib
+R417:427 Kernel.Subsumption <> <> lib
+R444:470 ThieleMachine.ThieleMachine <> <> modtype
+mod 438:439 <> TM
+def 483:492 <> tm_iterate
+R499:506 ThieleUniversal.Axioms <> State rec
+binder 495:495 <> s:1
+R514:516 Coq.Init.Datatypes <> nat ind
+binder 510:510 <> n:2
+R521:528 ThieleUniversal.Axioms <> State rec
+R541:541 ThieleUniversal.Axioms <> n:2 var
+R557:557 ThieleUniversal.Axioms <> s:1 var
+R563:563 Coq.Init.Datatypes <> S constr
+R570:579 ThieleUniversal.Axioms <> tm_iterate:3 def
+R582:597 ThieleUniversal.Axioms <> advance_state def
+R599:599 ThieleUniversal.Axioms <> s:1 var
+prf 664:676 <> tm_iterate_pc
+binder 689:689 <> s:5
+binder 691:691 <> n:6
+R720:722 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R698:702 ThieleUniversal.Axioms <> pc proj
+R705:714 ThieleUniversal.Axioms <> tm_iterate def
+R716:716 ThieleUniversal.Axioms <> s:5 var
+R718:718 ThieleUniversal.Axioms <> n:6 var
+R731:733 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R724:728 ThieleUniversal.Axioms <> pc proj
+R730:730 ThieleUniversal.Axioms <> s:5 var
+R734:734 ThieleUniversal.Axioms <> n:6 var
+R816:826 Coq.Arith.PeanoNat Nat add_0_r thm
+R816:826 Coq.Arith.PeanoNat Nat add_0_r thm
+R816:826 Coq.Arith.PeanoNat Nat add_0_r thm
+R866:881 ThieleUniversal.Axioms <> advance_state def
+R866:881 ThieleUniversal.Axioms <> advance_state def
+R866:881 ThieleUniversal.Axioms <> advance_state def
+prf 967:982 <> decode_encode_id
+binder 995:998 <> conf:7
+R1022:1029 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1005:1016 ThieleMachine.EncodingBridge <> tm_config_ok def
+R1018:1021 ThieleUniversal.Axioms <> conf:7 var
+R1070:1072 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1030:1045 ThieleMachine.EncodingBridge <> tm_decode_config def
+R1048:1063 ThieleMachine.EncodingBridge <> tm_encode_config def
+R1065:1068 ThieleUniversal.Axioms <> conf:7 var
+R1073:1076 ThieleUniversal.Axioms <> conf:7 var
+R1094:1119 ThieleMachine.EncodingBridge <> tm_decode_encode_roundtrip thm
+R1094:1119 ThieleMachine.EncodingBridge <> tm_decode_encode_roundtrip thm
+prf 1195:1220 <> utm_catalogue_static_check
+R1255:1257 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1226:1247 ThieleUniversal.UTMStaticCheck <> catalogue_static_check def
+R1249:1254 ThieleUniversal.UTM_Rules <> utm_tm def
+R1258:1261 Coq.Init.Datatypes <> true constr
+R1412:1444 ThieleUniversal.UTMStaticCheck <> utm_catalogue_static_check_proved thm
+R1412:1444 ThieleUniversal.UTMStaticCheck <> utm_catalogue_static_check_proved thm
+def 1464:1477 <> tm_config_head
+R1487:1504 ModularProofs.TM_Basics <> TMConfig def
+binder 1480:1483 <> conf:8
+R1509:1511 Coq.Init.Datatypes <> nat ind
+R1542:1545 ThieleUniversal.Axioms <> conf:8 var
+R1523:1523 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1525:1526 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1531:1532 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1537:1537 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+prf 1617:1637 <> utm_head_lt_shift_len
+binder 1650:1653 <> conf:10
+R1677:1684 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1660:1671 ThieleMachine.EncodingBridge <> tm_config_ok def
+R1673:1676 ThieleUniversal.Axioms <> conf:10 var
+R1705:1707 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R1686:1699 ThieleUniversal.Axioms <> tm_config_head def
+R1701:1704 ThieleUniversal.Axioms <> conf:10 var
+R1708:1725 ModularProofs.Encoding <> SHIFT_LEN def
+prf 1986:2005 <> utm_simulation_steps
+binder 2018:2018 <> s:11
+binder 2020:2020 <> n:12
+R2049:2051 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2027:2031 ThieleUniversal.Axioms <> pc proj
+R2034:2043 ThieleUniversal.Axioms <> tm_iterate def
+R2045:2045 ThieleUniversal.Axioms <> s:11 var
+R2047:2047 ThieleUniversal.Axioms <> n:12 var
+R2060:2062 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R2053:2057 ThieleUniversal.Axioms <> pc proj
+R2059:2059 ThieleUniversal.Axioms <> s:11 var
+R2063:2063 ThieleUniversal.Axioms <> n:12 var
+R2277:2289 ThieleUniversal.Axioms <> tm_iterate_pc thm
+R2277:2289 ThieleUniversal.Axioms <> tm_iterate_pc thm
+prf 2355:2370 <> check_step_sound
+binder 2383:2383 <> P:13
+binder 2385:2385 <> s:14
+binder 2387:2388 <> s':15
+binder 2390:2392 <> obs:16
+R2417:2424 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2399:2405 ThieleUniversal.Axioms <> step ind
+R2407:2407 ThieleUniversal.Axioms <> P:13 var
+R2409:2409 ThieleUniversal.Axioms <> s:14 var
+R2411:2412 ThieleUniversal.Axioms <> s':15 var
+R2414:2416 ThieleUniversal.Axioms <> obs:16 var
+R2471:2473 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2425:2437 ThieleUniversal.Axioms <> check_step def
+R2439:2439 ThieleUniversal.Axioms <> P:13 var
+R2441:2441 ThieleUniversal.Axioms <> s:14 var
+R2443:2444 ThieleUniversal.Axioms <> s':15 var
+R2451:2455 ThieleUniversal.Axioms <> ev proj
+R2446:2448 ThieleUniversal.Axioms <> obs:16 var
+R2463:2469 ThieleUniversal.Axioms <> cert proj
+R2458:2460 ThieleUniversal.Axioms <> obs:16 var
+R2474:2477 Coq.Init.Datatypes <> true constr
+R2584:2602 ThieleUniversal.Axioms <> check_step_sound thm
+R2584:2602 ThieleUniversal.Axioms <> check_step_sound thm
+prf 2671:2689 <> check_step_complete
+binder 2702:2702 <> P:17
+binder 2704:2704 <> s:18
+binder 2706:2707 <> s':19
+binder 2709:2711 <> oev:20
+binder 2713:2713 <> c:21
+R2753:2760 Coq.Init.Logic <> ::type_scope:x_'->'_x not
 R2746:2748 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2740:2744 ThieleUniversal.Axioms <> ev proj
-R2735:2737 ThieleUniversal.Axioms <> obs:22 var
-R2749:2751 ThieleUniversal.Axioms <> oev:20 var
-R2769:2771 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2761:2767 ThieleUniversal.Axioms <> cert proj
-R2756:2758 ThieleUniversal.Axioms <> obs:22 var
-R2772:2772 ThieleUniversal.Axioms <> c:21 var
-R2957:2978 ThieleUniversal.Axioms <> check_step_complete thm
-R2957:2978 ThieleUniversal.Axioms <> check_step_complete thm
-prf 3042:3055 <> mu_lower_bound
-binder 3068:3068 <> P:23
-binder 3070:3070 <> s:24
-binder 3072:3073 <> s':25
-binder 3075:3077 <> obs:26
-R3102:3109 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3084:3090 ThieleUniversal.Axioms <> step ind
-R3092:3092 ThieleUniversal.Axioms <> P:23 var
-R3094:3094 ThieleUniversal.Axioms <> s:24 var
-R3096:3097 ThieleUniversal.Axioms <> s':25 var
-R3099:3101 ThieleUniversal.Axioms <> obs:26 var
-R3110:3113 Coq.ZArith.BinInt Z le def
-R3116:3125 ThieleUniversal.Axioms <> bitsize def
-R3132:3138 ThieleUniversal.Axioms <> cert proj
-R3127:3129 ThieleUniversal.Axioms <> obs:26 var
-R3147:3157 ThieleUniversal.Axioms <> mu_delta proj
-R3142:3144 ThieleUniversal.Axioms <> obs:26 var
-R3345:3361 ThieleUniversal.Axioms <> mu_lower_bound thm
-R3345:3361 ThieleUniversal.Axioms <> mu_lower_bound thm
+R2720:2732 ThieleUniversal.Axioms <> check_step def
+R2734:2734 ThieleUniversal.Axioms <> P:17 var
+R2736:2736 ThieleUniversal.Axioms <> s:18 var
+R2738:2739 ThieleUniversal.Axioms <> s':19 var
+R2741:2743 ThieleUniversal.Axioms <> oev:20 var
+R2745:2745 ThieleUniversal.Axioms <> c:21 var
+R2749:2752 Coq.Init.Datatypes <> true constr
+R2761:2767 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2771:2772 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2768:2770 <> obs:22
+R2791:2794 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2773:2779 ThieleUniversal.Axioms <> step ind
+R2781:2781 ThieleUniversal.Axioms <> P:17 var
+R2783:2783 ThieleUniversal.Axioms <> s:18 var
+R2785:2786 ThieleUniversal.Axioms <> s':19 var
+R2788:2790 ThieleUniversal.Axioms <> obs:22 var
+R2812:2815 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2806:2808 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2800:2804 ThieleUniversal.Axioms <> ev proj
+R2795:2797 ThieleUniversal.Axioms <> obs:22 var
+R2809:2811 ThieleUniversal.Axioms <> oev:20 var
+R2829:2831 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2821:2827 ThieleUniversal.Axioms <> cert proj
+R2816:2818 ThieleUniversal.Axioms <> obs:22 var
+R2832:2832 ThieleUniversal.Axioms <> c:21 var
+R3017:3038 ThieleUniversal.Axioms <> check_step_complete thm
+R3017:3038 ThieleUniversal.Axioms <> check_step_complete thm
+prf 3102:3115 <> mu_lower_bound
+binder 3128:3128 <> P:23
+binder 3130:3130 <> s:24
+binder 3132:3133 <> s':25
+binder 3135:3137 <> obs:26
+R3162:3169 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3144:3150 ThieleUniversal.Axioms <> step ind
+R3152:3152 ThieleUniversal.Axioms <> P:23 var
+R3154:3154 ThieleUniversal.Axioms <> s:24 var
+R3156:3157 ThieleUniversal.Axioms <> s':25 var
+R3159:3161 ThieleUniversal.Axioms <> obs:26 var
+R3170:3173 Coq.ZArith.BinInt Z le def
+R3176:3185 ThieleUniversal.Axioms <> bitsize def
+R3192:3198 ThieleUniversal.Axioms <> cert proj
+R3187:3189 ThieleUniversal.Axioms <> obs:26 var
+R3207:3217 ThieleUniversal.Axioms <> mu_delta proj
+R3202:3204 ThieleUniversal.Axioms <> obs:26 var
+R3405:3421 ThieleUniversal.Axioms <> mu_lower_bound thm
+R3405:3421 ThieleUniversal.Axioms <> mu_lower_bound thm
+def 4025:4043 <> axioms_vm_mu_bridge
+R4051:4057 Kernel.VMState <> VMState rec
+binder 4046:4047 <> vm:27
+R4062:4064 Coq.Init.Datatypes <> nat ind
+R4069:4073 Kernel.VMState <> vm_mu proj
+R4075:4076 ThieleUniversal.Axioms <> vm:27 var
+def 4193:4211 <> axioms_vm_pc_bridge
+R4219:4225 Kernel.VMState <> VMState rec
+binder 4214:4215 <> vm:28
+R4230:4232 Coq.Init.Datatypes <> nat ind
+R4237:4241 Kernel.VMState <> vm_pc proj
+R4243:4244 ThieleUniversal.Axioms <> vm:28 var
+def 4440:4465 <> axioms_subsumption_witness
+R4470:4485 Kernel.Subsumption <> main_subsumption thm

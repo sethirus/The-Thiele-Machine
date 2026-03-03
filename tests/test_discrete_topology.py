@@ -76,9 +76,7 @@ def test_discrete_topology():
     # Create 2D mesh (from test_2d_mesh_creation.py)
     state, is_2d = test_2d_mesh_creation.test_2d_mesh_creation()
 
-    if not is_2d:
-        print("ERROR: Failed to create 2D mesh")
-        return False
+    assert is_2d, "Failed to create 2D mesh"
 
     print("\nComputing topological properties...")
 
@@ -167,14 +165,18 @@ def test_discrete_topology():
         print(f"  [✓] Verified empirically on 2D mesh")
         print(f"  [→] Next: Phase 2 - Prove Gauss-Bonnet")
 
-        return True
+        assert all_triangles, "Expected triangular modules for reference mesh"
+        assert chi == 1, f"Expected chi=1 for reference mesh, got {chi}"
+        return
     else:
         print(f"⚠ Topology differs from test mesh")
         print(f"  Expected: V=7, E=15, F=9, χ=1")
         print(f"  Got: V={V}, E={E}, F={F}, χ={chi}")
         print(f"\nThis is OK if you're testing a different mesh.")
         print(f"Topology definitions are still correct.")
-        return True
+        assert V > 0 and E > 0 and F > 0, "Topology extraction produced empty counts"
+        assert all_triangles, "Expected all modules to be triangles"
+        assert compute_euler_characteristic(V, E, F) == chi
 
 
 def test_topology_invariance():
@@ -186,9 +188,7 @@ def test_topology_invariance():
     # Create two different 2D meshes
     state1, is_2d1 = test_2d_mesh_creation.test_2d_mesh_creation()
 
-    if not is_2d1:
-        print("ERROR: Failed to create first mesh")
-        return False
+    assert is_2d1, "Failed to create first mesh"
 
     # Compute χ for first mesh
     V1 = len(compute_vertices(state1))
@@ -206,7 +206,8 @@ def test_topology_invariance():
     print(f"  they must have the same Euler characteristic χ")
     print(f"\n  This will be formalized in Phase 1.4")
 
-    return True
+    assert V1 > 0 and E1 > 0 and F1 > 0
+    assert isinstance(chi1, int)
 
 
 def test_triangulation_properties():
@@ -217,9 +218,7 @@ def test_triangulation_properties():
 
     state, is_2d = test_2d_mesh_creation.test_2d_mesh_creation()
 
-    if not is_2d:
-        print("ERROR: Failed to create mesh")
-        return False
+    assert is_2d, "Failed to create mesh"
 
     vertices = compute_vertices(state)
     edges = compute_edges(state)
@@ -274,7 +273,13 @@ def test_triangulation_properties():
 
     print(f"\n✓ Triangulation properties analyzed")
 
-    return True
+    assert V > 0 and E > 0 and F > 0
+    assert all(len(m.region) == 3 for m in state.modules), "Mesh should be triangular"
+    # Non-manifold simplicial complexes (from partition operations) can have edges
+    # shared by >2 faces, yielding 3F > 2E (negative boundary estimate).
+    # Only assert manifold if the mesh was explicitly constructed as manifold.
+    if boundary_edges_estimate < 0:
+        print(f"  → Non-manifold topology detected (edges shared by >2 faces)")
 
 
 if __name__ == "__main__":

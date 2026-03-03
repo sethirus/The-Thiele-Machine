@@ -1,306 +1,309 @@
-DIGEST 40eb7dbac5181aa0ce5c7edf9ee8919d
+DIGEST b60d523886f77f23d636fe62cd98a284
 FThieleMachine.HardwareBridge
-R1365:1368 Coq.Lists.List <> <> lib
-R1370:1375 Coq.NArith.NArith <> <> lib
-R1412:1424 ThieleMachine.ThieleMachine <> <> lib
-R1434:1446 Coq.Lists.List ListNotations <> mod
-R1463:1475 ThieleMachine.ThieleMachine <> <> modtype
-mod 1457:1458 <> TM
-def 1752:1756 <> mask8
-R1760:1760 Coq.Numbers.BinNums <> N ind
-def 1784:1790 <> byte_at
-R1797:1797 Coq.Numbers.BinNums <> N ind
-binder 1793:1793 <> w:1
-R1809:1809 Coq.Numbers.BinNums <> N ind
-binder 1801:1805 <> shift:2
-R1814:1814 Coq.Numbers.BinNums <> N ind
-R1821:1826 Coq.NArith.BinNat N land def
-R1829:1836 Coq.NArith.BinNat N shiftr def
-R1838:1838 ThieleMachine.HardwareBridge <> w:1 var
-R1840:1844 ThieleMachine.HardwareBridge <> shift:2 var
-R1847:1851 ThieleMachine.HardwareBridge <> mask8 def
-def 1866:1874 <> opcode_of
-R1881:1881 Coq.Numbers.BinNums <> N ind
-binder 1877:1877 <> w:3
-R1886:1886 Coq.Numbers.BinNums <> N ind
-R1891:1897 ThieleMachine.HardwareBridge <> byte_at def
-R1899:1899 ThieleMachine.HardwareBridge <> w:3 var
-def 1916:1927 <> operand_a_of
-R1934:1934 Coq.Numbers.BinNums <> N ind
-binder 1930:1930 <> w:4
-R1939:1939 Coq.Numbers.BinNums <> N ind
-R1944:1950 ThieleMachine.HardwareBridge <> byte_at def
-R1952:1952 ThieleMachine.HardwareBridge <> w:4 var
-def 1969:1980 <> operand_b_of
-R1987:1987 Coq.Numbers.BinNums <> N ind
-binder 1983:1983 <> w:5
-R1992:1992 Coq.Numbers.BinNums <> N ind
-R1997:2003 ThieleMachine.HardwareBridge <> byte_at def
-R2005:2005 ThieleMachine.HardwareBridge <> w:5 var
-def 2022:2032 <> opcode_PNEW
-R2041:2041 Coq.Numbers.BinNums <> N ind
-def 2062:2074 <> opcode_PSPLIT
-R2081:2081 Coq.Numbers.BinNums <> N ind
-def 2102:2114 <> opcode_PMERGE
-R2121:2121 Coq.Numbers.BinNums <> N ind
-def 2142:2155 <> opcode_LASSERT
-R2161:2161 Coq.Numbers.BinNums <> N ind
-def 2182:2193 <> opcode_LJOIN
-R2201:2201 Coq.Numbers.BinNums <> N ind
-def 2222:2234 <> opcode_MDLACC
-R2241:2241 Coq.Numbers.BinNums <> N ind
-def 2262:2277 <> opcode_PDISCOVER
-R2281:2281 Coq.Numbers.BinNums <> N ind
-def 2302:2312 <> opcode_EMIT
-R2321:2321 Coq.Numbers.BinNums <> N ind
-def 2378:2390 <> opcode_REVEAL
-R2397:2397 Coq.Numbers.BinNums <> N ind
-def 2477:2487 <> opcode_XFER
-R2496:2496 Coq.Numbers.BinNums <> N ind
-def 2517:2531 <> opcode_LOAD_IMM
-R2536:2536 Coq.Numbers.BinNums <> N ind
-def 2557:2573 <> opcode_CHSH_TRIAL
-R2577:2577 Coq.Numbers.BinNums <> N ind
-def 2598:2612 <> opcode_XOR_LOAD
-R2617:2617 Coq.Numbers.BinNums <> N ind
-def 2639:2652 <> opcode_XOR_ADD
-R2658:2658 Coq.Numbers.BinNums <> N ind
-def 2680:2694 <> opcode_XOR_SWAP
-R2699:2699 Coq.Numbers.BinNums <> N ind
-def 2721:2735 <> opcode_XOR_RANK
-R2740:2740 Coq.Numbers.BinNums <> N ind
-def 2762:2780 <> opcode_ORACLE_HALTS
-R2784:2784 Coq.Numbers.BinNums <> N ind
-def 2806:2816 <> opcode_LOAD
-R2825:2825 Coq.Numbers.BinNums <> N ind
-def 2847:2858 <> opcode_STORE
-R2866:2866 Coq.Numbers.BinNums <> N ind
-def 2888:2897 <> opcode_ADD
-R2907:2907 Coq.Numbers.BinNums <> N ind
-def 2929:2938 <> opcode_SUB
-R2948:2948 Coq.Numbers.BinNums <> N ind
-def 2970:2980 <> opcode_JUMP
-R2989:2989 Coq.Numbers.BinNums <> N ind
-def 3011:3021 <> opcode_JNEZ
-R3030:3030 Coq.Numbers.BinNums <> N ind
-def 3052:3062 <> opcode_CALL
-R3071:3071 Coq.Numbers.BinNums <> N ind
-def 3093:3102 <> opcode_RET
-R3112:3112 Coq.Numbers.BinNums <> N ind
-def 3134:3144 <> opcode_HALT
-R3153:3153 Coq.Numbers.BinNums <> N ind
-def 3177:3187 <> decode_kind
-R3196:3196 Coq.Numbers.BinNums <> N ind
-binder 3190:3192 <> opc:6
-R3201:3212 ThieleMachine.HardwareBridge <> InstrKind ind
-R3222:3226 Coq.NArith.BinNat N eqb def
-R3228:3230 ThieleMachine.HardwareBridge <> opc:6 var
-R3232:3245 ThieleMachine.HardwareBridge <> opcode_LASSERT def
-R3278:3282 Coq.NArith.BinNat N eqb def
-R3284:3286 ThieleMachine.HardwareBridge <> opc:6 var
-R3288:3300 ThieleMachine.HardwareBridge <> opcode_MDLACC def
-R3329:3341 ThieleMachine.HardwareBridge <> InstrOther constr
-R3307:3320 ThieleMachine.HardwareBridge <> InstrMDLACC constr
-R3252:3266 ThieleMachine.HardwareBridge <> InstrLASSERT constr
-def 3356:3367 <> decode_event
-R3376:3376 Coq.Numbers.BinNums <> N ind
-binder 3370:3372 <> opc:7
-R3387:3387 Coq.Numbers.BinNums <> N ind
-binder 3380:3383 <> op_a:8
-R3392:3397 Coq.Init.Datatypes <> option ind
-R3399:3406 ThieleMachine.HardwareBridge <> Event def
-R3416:3420 Coq.NArith.BinNat N eqb def
-R3422:3424 ThieleMachine.HardwareBridge <> opc:7 var
-R3426:3439 ThieleMachine.HardwareBridge <> opcode_LASSERT def
-R3477:3481 Coq.NArith.BinNat N eqb def
-R3483:3485 ThieleMachine.HardwareBridge <> opc:7 var
-R3487:3497 ThieleMachine.HardwareBridge <> opcode_EMIT def
-R3532:3535 Coq.Init.Datatypes <> None constr
-R3504:3507 Coq.Init.Datatypes <> Some constr
-R3510:3517 Coq.NArith.BinNat N to_nat def
-R3519:3522 ThieleMachine.HardwareBridge <> op_a:8 var
-R3446:3449 Coq.Init.Datatypes <> Some constr
-R3452:3459 Coq.NArith.BinNat N to_nat def
-R3461:3464 ThieleMachine.HardwareBridge <> op_a:8 var
-def 3550:3560 <> decode_cert
-R3569:3569 Coq.Numbers.BinNums <> N ind
-binder 3563:3565 <> opc:9
-R3580:3580 Coq.Numbers.BinNums <> N ind
-binder 3573:3576 <> op_b:10
-R3585:3591 ThieleMachine.HardwareBridge <> Cert def
-R3884:3888 Coq.NArith.BinNat N eqb def
-R3890:3892 ThieleMachine.HardwareBridge <> opc:9 var
-R3894:3904 ThieleMachine.HardwareBridge <> opcode_EMIT def
-R3911:3918 Coq.NArith.BinNat N to_nat def
-R3920:3923 ThieleMachine.HardwareBridge <> op_b:10 var
-def 3949:3960 <> decode_instr
-R3970:3970 Coq.Numbers.BinNums <> N ind
-binder 3963:3966 <> word:11
-R3975:3982 ThieleMachine.HardwareBridge <> Instr rec
-R4000:4008 ThieleMachine.HardwareBridge <> opcode_of def
-R4010:4013 ThieleMachine.HardwareBridge <> word:11 var
-binder 3993:3995 <> opc:12
-R4032:4043 ThieleMachine.HardwareBridge <> operand_a_of def
-R4045:4048 ThieleMachine.HardwareBridge <> word:11 var
-binder 4024:4027 <> op_a:13
-R4067:4078 ThieleMachine.HardwareBridge <> operand_b_of def
-R4080:4083 ThieleMachine.HardwareBridge <> word:11 var
-binder 4059:4062 <> op_b:14
-R4093:4105 ThieleMachine.HardwareBridge <> instr_kind proj
-R4093:4105 ThieleMachine.HardwareBridge <> instr_kind proj
-R4093:4105 ThieleMachine.HardwareBridge <> instr_kind proj
-R4133:4146 ThieleMachine.HardwareBridge <> instr_event proj
-R4133:4146 ThieleMachine.HardwareBridge <> instr_event proj
-R4179:4191 ThieleMachine.HardwareBridge <> instr_cert proj
-R4179:4191 ThieleMachine.HardwareBridge <> instr_cert proj
-R4111:4121 ThieleMachine.HardwareBridge <> decode_kind def
-R4123:4125 ThieleMachine.HardwareBridge <> opc:12 var
-R4151:4162 ThieleMachine.HardwareBridge <> decode_event def
-R4164:4166 ThieleMachine.HardwareBridge <> opc:12 var
-R4168:4171 ThieleMachine.HardwareBridge <> op_a:13 var
-R4197:4207 ThieleMachine.HardwareBridge <> decode_cert def
-R4209:4211 ThieleMachine.HardwareBridge <> opc:12 var
-R4213:4216 ThieleMachine.HardwareBridge <> op_b:14 var
-def 4234:4247 <> decode_program
-R4257:4260 Coq.Init.Datatypes <> list ind
-R4262:4262 Coq.Numbers.BinNums <> N ind
-binder 4250:4253 <> prog:15
-R4267:4270 Coq.Init.Datatypes <> list ind
-R4272:4279 ThieleMachine.HardwareBridge <> Instr rec
-R4286:4288 Coq.Lists.List <> map def
-R4303:4306 ThieleMachine.HardwareBridge <> prog:15 var
-R4290:4301 ThieleMachine.HardwareBridge <> decode_instr def
-def 4321:4335 <> partition_delta
-R4344:4344 Coq.Numbers.BinNums <> N ind
-binder 4338:4340 <> opc:16
-R4349:4351 Coq.Init.Datatypes <> nat ind
-R4361:4365 Coq.NArith.BinNat N eqb def
-R4367:4369 ThieleMachine.HardwareBridge <> opc:16 var
-R4371:4384 ThieleMachine.HardwareBridge <> opcode_XOR_ADD def
-R4407:4411 Coq.NArith.BinNat N eqb def
-R4413:4415 ThieleMachine.HardwareBridge <> opc:16 var
-R4417:4431 ThieleMachine.HardwareBridge <> opcode_XOR_SWAP def
-def 4468:4491 <> partition_ops_of_program
-R4501:4504 Coq.Init.Datatypes <> list ind
-R4506:4506 Coq.Numbers.BinNums <> N ind
-binder 4494:4497 <> prog:17
-R4511:4513 Coq.Init.Datatypes <> nat ind
-R4526:4529 ThieleMachine.HardwareBridge <> prog:17 var
-R4540:4541 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R4560:4563 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R4602:4604 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4570:4584 ThieleMachine.HardwareBridge <> partition_delta def
-R4587:4595 ThieleMachine.HardwareBridge <> opcode_of def
-R4605:4628 ThieleMachine.HardwareBridge <> partition_ops_of_program:18 def
-rec 4889:4896 <> RTLState
-proj 4905:4910 <> rtl_pc
-proj 4984:4991 <> rtl_prog
-R4916:4918 Coq.Init.Datatypes <> nat ind
-R4995:4998 Coq.Init.Datatypes <> list ind
-R5000:5000 Coq.Numbers.BinNums <> N ind
-def 5076:5084 <> rtl_fetch
-R5091:5098 ThieleMachine.HardwareBridge <> RTLState rec
-binder 5087:5087 <> s:23
-R5103:5108 Coq.Init.Datatypes <> option ind
-R5110:5110 Coq.Numbers.BinNums <> N ind
-R5117:5125 Coq.Lists.List <> nth_error def
-R5143:5148 ThieleMachine.HardwareBridge <> rtl_pc proj
-R5140:5140 ThieleMachine.HardwareBridge <> s:23 var
-R5130:5137 ThieleMachine.HardwareBridge <> rtl_prog proj
-R5127:5127 ThieleMachine.HardwareBridge <> s:23 var
-def 5164:5171 <> rtl_step
-R5178:5185 ThieleMachine.HardwareBridge <> RTLState rec
-binder 5174:5174 <> s:24
-R5190:5195 Coq.Init.Datatypes <> option ind
-R5206:5208 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R5198:5205 ThieleMachine.HardwareBridge <> RTLState rec
-R5209:5218 ThieleMachine.HardwareBridge <> StepObs rec
-R5232:5240 ThieleMachine.HardwareBridge <> rtl_fetch def
-R5242:5242 ThieleMachine.HardwareBridge <> s:24 var
-R5253:5256 Coq.Init.Datatypes <> None constr
-R5261:5264 Coq.Init.Datatypes <> None constr
-R5270:5273 Coq.Init.Datatypes <> Some constr
-R5302:5313 ThieleMachine.HardwareBridge <> decode_instr def
-binder 5293:5297 <> instr:25
-R5340:5354 ThieleMachine.HardwareBridge <> obs_of_instr def
-R5356:5360 ThieleMachine.HardwareBridge <> instr:25 var
-binder 5333:5335 <> obs:26
-R5371:5374 Coq.Init.Datatypes <> Some constr
-R5376:5379 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5428:5432 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5436:5436 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5380:5385 ThieleMachine.HardwareBridge <> rtl_pc proj
-R5380:5385 ThieleMachine.HardwareBridge <> rtl_pc proj
-R5380:5385 ThieleMachine.HardwareBridge <> rtl_pc proj
-R5404:5411 ThieleMachine.HardwareBridge <> rtl_prog proj
-R5404:5411 ThieleMachine.HardwareBridge <> rtl_prog proj
-R5390:5390 Coq.Init.Datatypes <> S constr
-R5395:5400 ThieleMachine.HardwareBridge <> rtl_pc proj
-R5392:5392 ThieleMachine.HardwareBridge <> s:24 var
-R5419:5426 ThieleMachine.HardwareBridge <> rtl_prog proj
-R5416:5416 ThieleMachine.HardwareBridge <> s:24 var
-R5433:5435 ThieleMachine.HardwareBridge <> obs:26 var
-def 5457:5469 <> project_state
-R5476:5483 ThieleMachine.HardwareBridge <> RTLState rec
-binder 5472:5472 <> s:27
-R5488:5495 ThieleMachine.HardwareBridge <> State rec
-R5505:5509 ThieleMachine.HardwareBridge <> pc proj
-R5505:5509 ThieleMachine.HardwareBridge <> pc proj
-R5505:5509 ThieleMachine.HardwareBridge <> pc proj
-R5517:5522 ThieleMachine.HardwareBridge <> rtl_pc proj
-R5514:5514 ThieleMachine.HardwareBridge <> s:27 var
-def 5541:5555 <> project_program
-R5562:5569 ThieleMachine.HardwareBridge <> RTLState rec
-binder 5558:5558 <> s:28
-R5574:5580 ThieleMachine.HardwareBridge <> Prog rec
-R5590:5596 ThieleMachine.HardwareBridge <> code proj
-R5590:5596 ThieleMachine.HardwareBridge <> code proj
-R5590:5596 ThieleMachine.HardwareBridge <> code proj
-R5601:5614 ThieleMachine.HardwareBridge <> decode_program def
-R5619:5626 ThieleMachine.HardwareBridge <> rtl_prog proj
-R5616:5616 ThieleMachine.HardwareBridge <> s:28 var
-prf 5699:5724 <> rtl_step_preserves_program
-binder 5735:5735 <> s:29
-binder 5737:5738 <> s':30
-binder 5740:5742 <> obs:31
-R5774:5777 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5757:5759 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5747:5754 ThieleMachine.HardwareBridge <> rtl_step def
-R5756:5756 ThieleMachine.HardwareBridge <> s:29 var
-R5760:5763 Coq.Init.Datatypes <> Some constr
-R5765:5765 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5768:5769 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5773:5773 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5766:5767 ThieleMachine.HardwareBridge <> s':30 var
-R5770:5772 ThieleMachine.HardwareBridge <> obs:31 var
-R5791:5793 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5782:5789 ThieleMachine.HardwareBridge <> rtl_prog proj
-R5778:5779 ThieleMachine.HardwareBridge <> s':30 var
-R5797:5804 ThieleMachine.HardwareBridge <> rtl_prog proj
-R5794:5794 ThieleMachine.HardwareBridge <> s:29 var
-R5849:5856 ThieleMachine.HardwareBridge <> rtl_step def
-R5880:5888 ThieleMachine.HardwareBridge <> rtl_fetch def
-R5880:5888 ThieleMachine.HardwareBridge <> rtl_fetch def
-prf 6036:6053 <> decode_program_nth
-binder 6064:6067 <> prog:32
-binder 6069:6071 <> idx:33
-binder 6073:6076 <> word:34
-R6111:6116 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6099:6101 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6081:6089 Coq.Lists.List <> nth_error def
-R6096:6098 ThieleMachine.HardwareBridge <> idx:33 var
-R6091:6094 ThieleMachine.HardwareBridge <> prog:32 var
-R6102:6105 Coq.Init.Datatypes <> Some constr
-R6107:6110 ThieleMachine.HardwareBridge <> word:34 var
-R6152:6154 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6117:6125 Coq.Lists.List <> nth_error def
-R6149:6151 ThieleMachine.HardwareBridge <> idx:33 var
-R6128:6141 ThieleMachine.HardwareBridge <> decode_program def
-R6143:6146 ThieleMachine.HardwareBridge <> prog:32 var
-R6155:6158 Coq.Init.Datatypes <> Some constr
-R6161:6172 ThieleMachine.HardwareBridge <> decode_instr def
-R6174:6177 ThieleMachine.HardwareBridge <> word:34 var
-R6226:6239 ThieleMachine.HardwareBridge <> decode_program def
-R6252:6264 Coq.Lists.List <> nth_error_map thm
-R6252:6264 Coq.Lists.List <> nth_error_map thm
-R6252:6264 Coq.Lists.List <> nth_error_map thm
+R1537:1543 Kernel.VMState <> <> lib
+R1545:1550 Kernel.VMStep <> <> lib
+R1580:1590 Kernel.MuCostModel <> <> lib
+R1618:1621 Coq.Lists.List <> <> lib
+R1623:1628 Coq.NArith.NArith <> <> lib
+R1665:1677 ThieleMachine.ThieleMachine <> <> lib
+R1687:1699 Coq.Lists.List ListNotations <> mod
+R1716:1728 ThieleMachine.ThieleMachine <> <> modtype
+mod 1710:1711 <> TM
+def 2005:2009 <> mask8
+R2013:2013 Coq.Numbers.BinNums <> N ind
+def 2037:2043 <> byte_at
+R2050:2050 Coq.Numbers.BinNums <> N ind
+binder 2046:2046 <> w:1
+R2062:2062 Coq.Numbers.BinNums <> N ind
+binder 2054:2058 <> shift:2
+R2067:2067 Coq.Numbers.BinNums <> N ind
+R2074:2079 Coq.NArith.BinNat N land def
+R2082:2089 Coq.NArith.BinNat N shiftr def
+R2091:2091 ThieleMachine.HardwareBridge <> w:1 var
+R2093:2097 ThieleMachine.HardwareBridge <> shift:2 var
+R2100:2104 ThieleMachine.HardwareBridge <> mask8 def
+def 2119:2127 <> opcode_of
+R2134:2134 Coq.Numbers.BinNums <> N ind
+binder 2130:2130 <> w:3
+R2139:2139 Coq.Numbers.BinNums <> N ind
+R2144:2150 ThieleMachine.HardwareBridge <> byte_at def
+R2152:2152 ThieleMachine.HardwareBridge <> w:3 var
+def 2169:2180 <> operand_a_of
+R2187:2187 Coq.Numbers.BinNums <> N ind
+binder 2183:2183 <> w:4
+R2192:2192 Coq.Numbers.BinNums <> N ind
+R2197:2203 ThieleMachine.HardwareBridge <> byte_at def
+R2205:2205 ThieleMachine.HardwareBridge <> w:4 var
+def 2222:2233 <> operand_b_of
+R2240:2240 Coq.Numbers.BinNums <> N ind
+binder 2236:2236 <> w:5
+R2245:2245 Coq.Numbers.BinNums <> N ind
+R2250:2256 ThieleMachine.HardwareBridge <> byte_at def
+R2258:2258 ThieleMachine.HardwareBridge <> w:5 var
+def 2275:2285 <> opcode_PNEW
+R2294:2294 Coq.Numbers.BinNums <> N ind
+def 2315:2327 <> opcode_PSPLIT
+R2334:2334 Coq.Numbers.BinNums <> N ind
+def 2355:2367 <> opcode_PMERGE
+R2374:2374 Coq.Numbers.BinNums <> N ind
+def 2395:2408 <> opcode_LASSERT
+R2414:2414 Coq.Numbers.BinNums <> N ind
+def 2435:2446 <> opcode_LJOIN
+R2454:2454 Coq.Numbers.BinNums <> N ind
+def 2475:2487 <> opcode_MDLACC
+R2494:2494 Coq.Numbers.BinNums <> N ind
+def 2515:2530 <> opcode_PDISCOVER
+R2534:2534 Coq.Numbers.BinNums <> N ind
+def 2555:2565 <> opcode_EMIT
+R2574:2574 Coq.Numbers.BinNums <> N ind
+def 2631:2643 <> opcode_REVEAL
+R2650:2650 Coq.Numbers.BinNums <> N ind
+def 2730:2740 <> opcode_XFER
+R2749:2749 Coq.Numbers.BinNums <> N ind
+def 2770:2784 <> opcode_LOAD_IMM
+R2789:2789 Coq.Numbers.BinNums <> N ind
+def 2810:2826 <> opcode_CHSH_TRIAL
+R2830:2830 Coq.Numbers.BinNums <> N ind
+def 2851:2865 <> opcode_XOR_LOAD
+R2870:2870 Coq.Numbers.BinNums <> N ind
+def 2892:2905 <> opcode_XOR_ADD
+R2911:2911 Coq.Numbers.BinNums <> N ind
+def 2933:2947 <> opcode_XOR_SWAP
+R2952:2952 Coq.Numbers.BinNums <> N ind
+def 2974:2988 <> opcode_XOR_RANK
+R2993:2993 Coq.Numbers.BinNums <> N ind
+def 3015:3033 <> opcode_ORACLE_HALTS
+R3037:3037 Coq.Numbers.BinNums <> N ind
+def 3059:3069 <> opcode_LOAD
+R3078:3078 Coq.Numbers.BinNums <> N ind
+def 3100:3111 <> opcode_STORE
+R3119:3119 Coq.Numbers.BinNums <> N ind
+def 3141:3150 <> opcode_ADD
+R3160:3160 Coq.Numbers.BinNums <> N ind
+def 3182:3191 <> opcode_SUB
+R3201:3201 Coq.Numbers.BinNums <> N ind
+def 3223:3233 <> opcode_JUMP
+R3242:3242 Coq.Numbers.BinNums <> N ind
+def 3264:3274 <> opcode_JNEZ
+R3283:3283 Coq.Numbers.BinNums <> N ind
+def 3305:3315 <> opcode_CALL
+R3324:3324 Coq.Numbers.BinNums <> N ind
+def 3346:3355 <> opcode_RET
+R3365:3365 Coq.Numbers.BinNums <> N ind
+def 3387:3397 <> opcode_HALT
+R3406:3406 Coq.Numbers.BinNums <> N ind
+def 3430:3440 <> decode_kind
+R3449:3449 Coq.Numbers.BinNums <> N ind
+binder 3443:3445 <> opc:6
+R3454:3465 ThieleMachine.HardwareBridge <> InstrKind ind
+R3475:3479 Coq.NArith.BinNat N eqb def
+R3481:3483 ThieleMachine.HardwareBridge <> opc:6 var
+R3485:3498 ThieleMachine.HardwareBridge <> opcode_LASSERT def
+R3531:3535 Coq.NArith.BinNat N eqb def
+R3537:3539 ThieleMachine.HardwareBridge <> opc:6 var
+R3541:3553 ThieleMachine.HardwareBridge <> opcode_MDLACC def
+R3582:3594 ThieleMachine.HardwareBridge <> InstrOther constr
+R3560:3573 ThieleMachine.HardwareBridge <> InstrMDLACC constr
+R3505:3519 ThieleMachine.HardwareBridge <> InstrLASSERT constr
+def 3609:3620 <> decode_event
+R3629:3629 Coq.Numbers.BinNums <> N ind
+binder 3623:3625 <> opc:7
+R3640:3640 Coq.Numbers.BinNums <> N ind
+binder 3633:3636 <> op_a:8
+R3645:3650 Coq.Init.Datatypes <> option ind
+R3652:3659 ThieleMachine.HardwareBridge <> Event def
+R3669:3673 Coq.NArith.BinNat N eqb def
+R3675:3677 ThieleMachine.HardwareBridge <> opc:7 var
+R3679:3692 ThieleMachine.HardwareBridge <> opcode_LASSERT def
+R3730:3734 Coq.NArith.BinNat N eqb def
+R3736:3738 ThieleMachine.HardwareBridge <> opc:7 var
+R3740:3750 ThieleMachine.HardwareBridge <> opcode_EMIT def
+R3785:3788 Coq.Init.Datatypes <> None constr
+R3757:3760 Coq.Init.Datatypes <> Some constr
+R3763:3770 Coq.NArith.BinNat N to_nat def
+R3772:3775 ThieleMachine.HardwareBridge <> op_a:8 var
+R3699:3702 Coq.Init.Datatypes <> Some constr
+R3705:3712 Coq.NArith.BinNat N to_nat def
+R3714:3717 ThieleMachine.HardwareBridge <> op_a:8 var
+def 3803:3813 <> decode_cert
+R3822:3822 Coq.Numbers.BinNums <> N ind
+binder 3816:3818 <> opc:9
+R3833:3833 Coq.Numbers.BinNums <> N ind
+binder 3826:3829 <> op_b:10
+R3838:3844 ThieleMachine.HardwareBridge <> Cert def
+R4137:4141 Coq.NArith.BinNat N eqb def
+R4143:4145 ThieleMachine.HardwareBridge <> opc:9 var
+R4147:4157 ThieleMachine.HardwareBridge <> opcode_EMIT def
+R4164:4171 Coq.NArith.BinNat N to_nat def
+R4173:4176 ThieleMachine.HardwareBridge <> op_b:10 var
+def 4202:4213 <> decode_instr
+R4223:4223 Coq.Numbers.BinNums <> N ind
+binder 4216:4219 <> word:11
+R4228:4235 ThieleMachine.HardwareBridge <> Instr rec
+R4253:4261 ThieleMachine.HardwareBridge <> opcode_of def
+R4263:4266 ThieleMachine.HardwareBridge <> word:11 var
+binder 4246:4248 <> opc:12
+R4285:4296 ThieleMachine.HardwareBridge <> operand_a_of def
+R4298:4301 ThieleMachine.HardwareBridge <> word:11 var
+binder 4277:4280 <> op_a:13
+R4320:4331 ThieleMachine.HardwareBridge <> operand_b_of def
+R4333:4336 ThieleMachine.HardwareBridge <> word:11 var
+binder 4312:4315 <> op_b:14
+R4346:4358 ThieleMachine.HardwareBridge <> instr_kind proj
+R4346:4358 ThieleMachine.HardwareBridge <> instr_kind proj
+R4346:4358 ThieleMachine.HardwareBridge <> instr_kind proj
+R4386:4399 ThieleMachine.HardwareBridge <> instr_event proj
+R4386:4399 ThieleMachine.HardwareBridge <> instr_event proj
+R4432:4444 ThieleMachine.HardwareBridge <> instr_cert proj
+R4432:4444 ThieleMachine.HardwareBridge <> instr_cert proj
+R4364:4374 ThieleMachine.HardwareBridge <> decode_kind def
+R4376:4378 ThieleMachine.HardwareBridge <> opc:12 var
+R4404:4415 ThieleMachine.HardwareBridge <> decode_event def
+R4417:4419 ThieleMachine.HardwareBridge <> opc:12 var
+R4421:4424 ThieleMachine.HardwareBridge <> op_a:13 var
+R4450:4460 ThieleMachine.HardwareBridge <> decode_cert def
+R4462:4464 ThieleMachine.HardwareBridge <> opc:12 var
+R4466:4469 ThieleMachine.HardwareBridge <> op_b:14 var
+def 4487:4500 <> decode_program
+R4510:4513 Coq.Init.Datatypes <> list ind
+R4515:4515 Coq.Numbers.BinNums <> N ind
+binder 4503:4506 <> prog:15
+R4520:4523 Coq.Init.Datatypes <> list ind
+R4525:4532 ThieleMachine.HardwareBridge <> Instr rec
+R4539:4541 Coq.Lists.List <> map def
+R4556:4559 ThieleMachine.HardwareBridge <> prog:15 var
+R4543:4554 ThieleMachine.HardwareBridge <> decode_instr def
+def 4574:4588 <> partition_delta
+R4597:4597 Coq.Numbers.BinNums <> N ind
+binder 4591:4593 <> opc:16
+R4602:4604 Coq.Init.Datatypes <> nat ind
+R4614:4618 Coq.NArith.BinNat N eqb def
+R4620:4622 ThieleMachine.HardwareBridge <> opc:16 var
+R4624:4637 ThieleMachine.HardwareBridge <> opcode_XOR_ADD def
+R4660:4664 Coq.NArith.BinNat N eqb def
+R4666:4668 ThieleMachine.HardwareBridge <> opc:16 var
+R4670:4684 ThieleMachine.HardwareBridge <> opcode_XOR_SWAP def
+def 4721:4744 <> partition_ops_of_program
+R4754:4757 Coq.Init.Datatypes <> list ind
+R4759:4759 Coq.Numbers.BinNums <> N ind
+binder 4747:4750 <> prog:17
+R4764:4766 Coq.Init.Datatypes <> nat ind
+R4779:4782 ThieleMachine.HardwareBridge <> prog:17 var
+R4793:4794 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4813:4816 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4855:4857 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4823:4837 ThieleMachine.HardwareBridge <> partition_delta def
+R4840:4848 ThieleMachine.HardwareBridge <> opcode_of def
+R4858:4881 ThieleMachine.HardwareBridge <> partition_ops_of_program:18 def
+rec 5142:5149 <> RTLState
+proj 5158:5163 <> rtl_pc
+proj 5237:5244 <> rtl_prog
+R5169:5171 Coq.Init.Datatypes <> nat ind
+R5248:5251 Coq.Init.Datatypes <> list ind
+R5253:5253 Coq.Numbers.BinNums <> N ind
+def 5329:5337 <> rtl_fetch
+R5344:5351 ThieleMachine.HardwareBridge <> RTLState rec
+binder 5340:5340 <> s:23
+R5356:5361 Coq.Init.Datatypes <> option ind
+R5363:5363 Coq.Numbers.BinNums <> N ind
+R5370:5378 Coq.Lists.List <> nth_error def
+R5396:5401 ThieleMachine.HardwareBridge <> rtl_pc proj
+R5393:5393 ThieleMachine.HardwareBridge <> s:23 var
+R5383:5390 ThieleMachine.HardwareBridge <> rtl_prog proj
+R5380:5380 ThieleMachine.HardwareBridge <> s:23 var
+def 5417:5424 <> rtl_step
+R5431:5438 ThieleMachine.HardwareBridge <> RTLState rec
+binder 5427:5427 <> s:24
+R5443:5448 Coq.Init.Datatypes <> option ind
+R5459:5461 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R5451:5458 ThieleMachine.HardwareBridge <> RTLState rec
+R5462:5471 ThieleMachine.HardwareBridge <> StepObs rec
+R5485:5493 ThieleMachine.HardwareBridge <> rtl_fetch def
+R5495:5495 ThieleMachine.HardwareBridge <> s:24 var
+R5506:5509 Coq.Init.Datatypes <> None constr
+R5514:5517 Coq.Init.Datatypes <> None constr
+R5523:5526 Coq.Init.Datatypes <> Some constr
+R5555:5566 ThieleMachine.HardwareBridge <> decode_instr def
+binder 5546:5550 <> instr:25
+R5593:5607 ThieleMachine.HardwareBridge <> obs_of_instr def
+R5609:5613 ThieleMachine.HardwareBridge <> instr:25 var
+binder 5586:5588 <> obs:26
+R5624:5627 Coq.Init.Datatypes <> Some constr
+R5629:5632 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5681:5685 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5689:5689 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5633:5638 ThieleMachine.HardwareBridge <> rtl_pc proj
+R5633:5638 ThieleMachine.HardwareBridge <> rtl_pc proj
+R5633:5638 ThieleMachine.HardwareBridge <> rtl_pc proj
+R5657:5664 ThieleMachine.HardwareBridge <> rtl_prog proj
+R5657:5664 ThieleMachine.HardwareBridge <> rtl_prog proj
+R5643:5643 Coq.Init.Datatypes <> S constr
+R5648:5653 ThieleMachine.HardwareBridge <> rtl_pc proj
+R5645:5645 ThieleMachine.HardwareBridge <> s:24 var
+R5672:5679 ThieleMachine.HardwareBridge <> rtl_prog proj
+R5669:5669 ThieleMachine.HardwareBridge <> s:24 var
+R5686:5688 ThieleMachine.HardwareBridge <> obs:26 var
+def 5710:5722 <> project_state
+R5729:5736 ThieleMachine.HardwareBridge <> RTLState rec
+binder 5725:5725 <> s:27
+R5741:5748 ThieleMachine.HardwareBridge <> State rec
+R5758:5762 ThieleMachine.HardwareBridge <> pc proj
+R5758:5762 ThieleMachine.HardwareBridge <> pc proj
+R5758:5762 ThieleMachine.HardwareBridge <> pc proj
+R5770:5775 ThieleMachine.HardwareBridge <> rtl_pc proj
+R5767:5767 ThieleMachine.HardwareBridge <> s:27 var
+def 5794:5808 <> project_program
+R5815:5822 ThieleMachine.HardwareBridge <> RTLState rec
+binder 5811:5811 <> s:28
+R5827:5833 ThieleMachine.HardwareBridge <> Prog rec
+R5843:5849 ThieleMachine.HardwareBridge <> code proj
+R5843:5849 ThieleMachine.HardwareBridge <> code proj
+R5843:5849 ThieleMachine.HardwareBridge <> code proj
+R5854:5867 ThieleMachine.HardwareBridge <> decode_program def
+R5872:5879 ThieleMachine.HardwareBridge <> rtl_prog proj
+R5869:5869 ThieleMachine.HardwareBridge <> s:28 var
+prf 5952:5977 <> rtl_step_preserves_program
+binder 5988:5988 <> s:29
+binder 5990:5991 <> s':30
+binder 5993:5995 <> obs:31
+R6027:6030 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6010:6012 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6000:6007 ThieleMachine.HardwareBridge <> rtl_step def
+R6009:6009 ThieleMachine.HardwareBridge <> s:29 var
+R6013:6016 Coq.Init.Datatypes <> Some constr
+R6018:6018 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6021:6022 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6026:6026 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6019:6020 ThieleMachine.HardwareBridge <> s':30 var
+R6023:6025 ThieleMachine.HardwareBridge <> obs:31 var
+R6044:6046 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6035:6042 ThieleMachine.HardwareBridge <> rtl_prog proj
+R6031:6032 ThieleMachine.HardwareBridge <> s':30 var
+R6050:6057 ThieleMachine.HardwareBridge <> rtl_prog proj
+R6047:6047 ThieleMachine.HardwareBridge <> s:29 var
+R6102:6109 ThieleMachine.HardwareBridge <> rtl_step def
+R6133:6141 ThieleMachine.HardwareBridge <> rtl_fetch def
+R6133:6141 ThieleMachine.HardwareBridge <> rtl_fetch def
+prf 6289:6306 <> decode_program_nth
+binder 6317:6320 <> prog:32
+binder 6322:6324 <> idx:33
+binder 6326:6329 <> word:34
+R6364:6369 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6352:6354 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6334:6342 Coq.Lists.List <> nth_error def
+R6349:6351 ThieleMachine.HardwareBridge <> idx:33 var
+R6344:6347 ThieleMachine.HardwareBridge <> prog:32 var
+R6355:6358 Coq.Init.Datatypes <> Some constr
+R6360:6363 ThieleMachine.HardwareBridge <> word:34 var
+R6405:6407 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6370:6378 Coq.Lists.List <> nth_error def
+R6402:6404 ThieleMachine.HardwareBridge <> idx:33 var
+R6381:6394 ThieleMachine.HardwareBridge <> decode_program def
+R6396:6399 ThieleMachine.HardwareBridge <> prog:32 var
+R6408:6411 Coq.Init.Datatypes <> Some constr
+R6414:6425 ThieleMachine.HardwareBridge <> decode_instr def
+R6427:6430 ThieleMachine.HardwareBridge <> word:34 var
+R6479:6492 ThieleMachine.HardwareBridge <> decode_program def
+R6505:6517 Coq.Lists.List <> nth_error_map thm
+R6505:6517 Coq.Lists.List <> nth_error_map thm
+R6505:6517 Coq.Lists.List <> nth_error_map thm

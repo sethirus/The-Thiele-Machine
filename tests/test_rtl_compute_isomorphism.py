@@ -6,6 +6,8 @@ from pathlib import Path
 
 import pytest
 
+pytestmark = [pytest.mark.strict_extracted, pytest.mark.strict_rtl]
+
 from thielecpu.state import State
 from thielecpu.vm import VM
 
@@ -67,54 +69,33 @@ def _run_extracted(init_mem: list[int], init_regs: list[int], trace_lines: list[
 
 
 def _run_rtl(program_words: list[int], data_words: list[int]) -> tuple[list[int], list[int]]:
-    with tempfile.TemporaryDirectory() as td:
-        td_path = Path(td)
-        sim_out = td_path / "thiele_cpu_tb.out"
-        program_hex = td_path / "tb_program.hex"
-        data_hex = td_path / "tb_data.hex"
+    from thielecpu.hardware.cosim import run_verilog
 
-        _write_hex_words(program_hex, program_words)
-        _write_hex_words(data_hex, data_words)
+    opnames = {
+        0x0A: "XOR_LOAD",
+        0xFF: "HALT",
+    }
+    lines = ["INIT_ACTIVE_MODULE 0", "INIT_PT 0 256"]
+    for addr, val in enumerate(data_words):
+        if (val & 0xFFFFFFFF) != 0:
+            lines.append(f"INIT_MEM {addr} {val & 0xFFFFFFFF}")
+    for w in program_words:
+        op = (w >> 24) & 0xFF
+        a = (w >> 16) & 0xFF
+        b = (w >> 8) & 0xFF
+        cost = w & 0xFF
+        if op not in opnames:
+            raise AssertionError(f"Unsupported opcode in compute isomorphism test: 0x{op:02X}")
+        if op == 0xFF:
+            lines.append(f"HALT {cost}")
+        else:
+            lines.append(f"{opnames[op]} {a} {b} {cost}")
 
-        subprocess.run(
-            [
-                "iverilog",
-                "-g2012",
-                "-Irtl",
-                "-o",
-                str(sim_out),
-                str(RTL_DIR / "thiele_cpu_kami.v"),
-                str(TESTBENCH_DIR / "thiele_cpu_kami_tb.v"),
-            ],
-            cwd=str(HARDWARE_DIR),
-            capture_output=True,
-            text=True,
-            check=True,
-        )
-
-        run = subprocess.run(
-            [
-                "vvp",
-                str(sim_out),
-                f"+PROGRAM={program_hex}",
-                f"+DATA={data_hex}",
-            ],
-            cwd=str(td_path),
-            capture_output=True,
-            text=True,
-            check=True,
-        )
-
-        # The tb prints a JSON object at the end.
-        out = run.stdout
-        start = out.find("{")
-        if start == -1:
-            raise AssertionError(f"No JSON found in RTL stdout.\nSTDOUT:\n{out}\nSTDERR:\n{run.stderr}")
-        decoder = json.JSONDecoder()
-        payload, _end = decoder.raw_decode(out[start:])
-
-    regs = [int(v) & 0xFFFFFFFF for v in payload["regs"]]
-    mem = [int(v) & 0xFFFFFFFF for v in payload["mem"]]
+    payload = run_verilog("\n".join(lines) + "\n", backend="verilator")
+    if payload is None:
+        raise AssertionError("RTL simulation unavailable")
+    regs = [int(v) & 0xFFFFFFFF for v in payload.get("regs", [])]
+    mem = [int(v) & 0xFFFFFFFF for v in payload.get("mem", [])]
     return regs, mem
 
 

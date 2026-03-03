@@ -30,7 +30,7 @@ DEFAULT_SIGNING_KEY_PATH = "kernel_secret.key"
 DEFAULT_VERIFY_KEY_PATH = "kernel_public.key"
 
 
-# Opcode constants — must match Verilog thiele_cpu_unified.v
+# Opcode constants — must match generated opcode definitions (generated_opcodes.vh)
 OP_PNEW      = 0x00
 OP_PSPLIT     = 0x01
 OP_PMERGE     = 0x02
@@ -82,8 +82,9 @@ def _compute_instruction_cost(opcode: int, operand: int) -> int:
     """Compute μ-cost for an instruction, mirroring Verilog compute_instruction_cost.
 
     This is the standalone, opcode-level cost function used by the
-    receipt_integrity_checker hardware module.  The Verilog definition lives in
-    ``thiele_cpu_unified.v`` (``compute_instruction_cost`` function).
+    receipt_integrity_checker hardware module. The canonical RTL path uses
+    ``thiele_cpu_kami.v`` for CPU execution, while this exact cost function
+    semantics come from the archived standalone receipt checker design.
 
     Returns:
         Non-negative cost for known opcodes, or 0xFFFFFFFF for unknown opcodes.

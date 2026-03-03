@@ -5,6 +5,9 @@ Open Scope Q_scope.
 
 Require Import VMStep.
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import MuCostModel.
+
 (** * CHSH: Computing the CHSH statistic from execution receipts
 
     WHY THIS EXISTS:

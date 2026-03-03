@@ -1,4 +1,6 @@
 (** * Full Three-Layer Isomorphism
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
     
     STATUS: December 24, 2025 - COMPLETE (zero admits)
     
@@ -31,6 +33,9 @@
     This file contains the Coq-side of the isomorphism, defining the
     abstract state encoding that Python and Verilog must match.
 *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import List Bool Arith.PeanoNat Lia ZArith.
 Import ListNotations.

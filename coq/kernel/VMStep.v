@@ -152,6 +152,26 @@ Definition instruction_cost (instr : vm_instruction) : nat :=
   | instr_halt cost => cost
   end.
 
+(** Executable NoFreeInsight runtime policy:
+    cert-setting instructions must carry strictly positive μ-cost. *)
+Definition is_cert_setterb (instr : vm_instruction) : bool :=
+  match instr with
+  | instr_reveal _ _ _ _ => true
+  | instr_emit _ _ _ => true
+  | instr_ljoin _ _ _ => true
+  | instr_lassert _ _ _ _ => true
+  | _ => false
+  end.
+
+Definition nofi_step_cost_okb (instr : vm_instruction) : bool :=
+  match is_cert_setterb instr with
+  | true => Nat.leb 1 (instruction_cost instr)
+  | false => true
+  end.
+
+Definition nofi_trace_cost_okb (trace : list vm_instruction) : bool :=
+  forallb nofi_step_cost_okb trace.
+
 Definition is_bit (n : nat) : bool :=
   orb (Nat.eqb n 0) (Nat.eqb n 1).
 

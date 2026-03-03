@@ -10,9 +10,14 @@ isomorphism under all conditions.
 from hypothesis import given, strategies as st, settings, example, assume, HealthCheck
 from hypothesis.stateful import RuleBasedStateMachine, rule, invariant, precondition
 from typing import List, Set
+from pathlib import Path
 import pytest
 
 from thielecpu.state import State, ModuleId, MAX_MODULES
+from build.thiele_vm import run_vm, VMState
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+EXTRACTED_RUNNER = REPO_ROOT / "build" / "extracted_vm_runner"
 
 
 # =============================================================================
@@ -390,6 +395,34 @@ class TestLargeScaleFuzzing:
                             if ModuleId(i+1) in state.regions.modules)
         assert state.mu_ledger.mu_discovery == total_elements, \
             f"μ-discovery should equal total elements: expected {total_elements}, got {state.mu_ledger.mu_discovery}"
+
+
+class TestCrossLayerFuzz:
+    """Fuzz Python VM against Coq-extracted runner (run_extracted path)."""
+
+    @given(region=region_strategy())
+    @settings(max_examples=30, deadline=None)
+    def test_pnew_python_vs_extracted(self, region):
+        """Property: PNEW produces consistent results across Python VM and extracted runner."""
+        assume(len(region) > 0 and len(region) <= 8)
+
+        # Layer 1: Python VM execution via State()
+        state = State()
+        state.pnew(region, charge_discovery=True)
+        py_mu = state.mu_ledger.total
+
+        # Layer 2: Coq-extracted OCaml runner via run_vm (delegates to extracted_vm_runner)
+        region_str = ",".join(str(x) for x in sorted(region))
+        cost = len(region)
+        vm_state = run_vm([f"PNEW {{{region_str}}} {cost}", "HALT 0"], fuel=256)
+
+        # Cross-layer assertion: mu must be positive in both
+        assert py_mu > 0, "Python VM mu should be positive after PNEW"
+        assert vm_state.mu > 0, "Extracted runner mu should be positive after PNEW"
+        # Both should agree on cost
+        assert py_mu == vm_state.mu, (
+            f"mu mismatch: Python={py_mu}, extracted={vm_state.mu}"
+        )
 
 
 if __name__ == "__main__":

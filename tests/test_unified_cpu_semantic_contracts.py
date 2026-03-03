@@ -93,8 +93,14 @@ def test_chsh_supra_quantum_sets_error() -> None:
     This is what the Kami err bit and BADC45C error_code gate on.
     """
     from thielecpu.hardware.cosim import run_verilog
-    # x=1 → op_a = (1<<1)|0 = 2 > 1 → err=1, error_code=0x0BADC45C
-    result = run_verilog("CHSH_TRIAL 1 0 0 0 0\nHALT 0\n")
+    # CHSH validation is reachable only when logic_acc is primed to CAFEEACE.
+    # Otherwise a higher-priority policy gate emits C43471A1.
+    # x=1 -> op_a = (1<<1)|0 = 2 > 1 -> err=1, error_code=0x0BADC45C
+    result = run_verilog(
+        "INIT_LOGIC_ACC 0xCAFEEACE\n"
+        "CHSH_TRIAL 1 0 0 0 0\n"
+        "HALT 0\n"
+    )
     if result is None:
         pytest.skip("iverilog not available")
     assert result.get("error_code", 0) == 0x0BADC45C, (
@@ -109,8 +115,11 @@ def test_chsh_classical_pattern_no_error() -> None:
     With x=0: op_a = (0<<1)|y = y \u22641, which passes the Kami bit-validity check.
     """
     from thielecpu.hardware.cosim import run_verilog
-    # x=0 in both trials → op_a \u22641 → no bit-bad error
+    # CHSH path requires logic_acc priming. With valid bit operands there
+    # should be no error.
+    # x=0 in both trials -> op_a <= 1 -> no bit-bad error
     result = run_verilog(
+        "INIT_LOGIC_ACC 0xCAFEEACE\n"
         "CHSH_TRIAL 0 0 0 0 0\n"
         "CHSH_TRIAL 0 1 0 0 0\n"
         "HALT 0\n"
@@ -119,6 +128,18 @@ def test_chsh_classical_pattern_no_error() -> None:
         pytest.skip("iverilog not available")
     assert result.get("error_code", 0) == 0, (
         f"Valid-bit CHSH_TRIAL must not set error, got {result.get('error_code', 0):08X}"
+    )
+
+
+def test_chsh_requires_logic_acc_priming_policy_gate() -> None:
+    """Without logic_acc priming, CHSH path must trip policy gate C43471A1."""
+    from thielecpu.hardware.cosim import run_verilog
+
+    result = run_verilog("CHSH_TRIAL 0 0 0 0 0\nHALT 0\n")
+    if result is None:
+        pytest.skip("iverilog not available")
+    assert result.get("error_code", 0) == 0xC43471A1, (
+        f"Expected C43471A1 policy gate without priming, got {result.get('error_code', 0):08X}"
     )
 
 

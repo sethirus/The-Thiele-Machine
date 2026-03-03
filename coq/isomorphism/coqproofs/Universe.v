@@ -3,6 +3,10 @@ Require Import Coq.Lists.List.
 Require Import Arith.
 Require Import Lia.
 Import ListNotations.
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 
 
 

@@ -1,381 +1,384 @@
-DIGEST 7e3a5875c519223395b7d0ae4249d58d
+DIGEST 22643e9ae62cca9c056626d48a10d441
 FThieleMachine.BellReceiptSoundness
 R24:27 Coq.Lists.List <> <> lib
 R29:34 Coq.Strings.String <> <> lib
 R36:40 Coq.Strings.Ascii <> <> lib
 R42:45 Coq.Bool.Bool <> <> lib
 R55:67 Coq.Lists.List ListNotations <> mod
-R130:149 ThieleMachine.BellReceiptSemantics <> <> lib
-R186:199 ThieleMachine.BellInequality <> <> lib
-R236:256 ThieleMachine.ThieleMachineConcrete <> <> lib
-def 657:668 <> bit_of_nat01
-R675:677 Coq.Init.Datatypes <> nat ind
-binder 671:671 <> n:1
-R682:684 ThieleMachine.BellInequality <> Bit ind
-R694:700 Coq.Init.Nat <> eqb def
-R702:702 ThieleMachine.BellReceiptSoundness <> n:1 var
-R719:720 ThieleMachine.BellInequality <> B1 constr
-R711:712 ThieleMachine.BellInequality <> B0 constr
-def 735:753 <> trial_of_nat_params
-R766:768 Coq.Init.Datatypes <> nat ind
-binder 756:756 <> x:2
-binder 758:758 <> y:3
-binder 760:760 <> a:4
-binder 762:762 <> b:5
-R773:778 Coq.Init.Datatypes <> option ind
-R780:784 ThieleMachine.BellReceiptSemantics <> Trial rec
-R839:842 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R823:826 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R807:810 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R795:804 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R806:806 ThieleMachine.BellReceiptSoundness <> x:2 var
-R811:820 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R822:822 ThieleMachine.BellReceiptSoundness <> y:3 var
-R827:836 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R838:838 ThieleMachine.BellReceiptSoundness <> a:4 var
-R843:852 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R854:854 ThieleMachine.BellReceiptSoundness <> b:5 var
-R1016:1019 Coq.Init.Datatypes <> None constr
-R871:874 Coq.Init.Datatypes <> Some constr
-R879:881 ThieleMachine.BellReceiptSemantics <> t_x proj
-R879:881 ThieleMachine.BellReceiptSemantics <> t_x proj
-R879:881 ThieleMachine.BellReceiptSemantics <> t_x proj
-R914:916 ThieleMachine.BellReceiptSemantics <> t_y proj
-R914:916 ThieleMachine.BellReceiptSemantics <> t_y proj
-R949:951 ThieleMachine.BellReceiptSemantics <> t_a proj
-R949:951 ThieleMachine.BellReceiptSemantics <> t_a proj
-R984:986 ThieleMachine.BellReceiptSemantics <> t_b proj
-R984:986 ThieleMachine.BellReceiptSemantics <> t_b proj
-R886:897 ThieleMachine.BellReceiptSoundness <> bit_of_nat01 def
-R899:899 ThieleMachine.BellReceiptSoundness <> x:2 var
-R921:932 ThieleMachine.BellReceiptSoundness <> bit_of_nat01 def
-R934:934 ThieleMachine.BellReceiptSoundness <> y:3 var
-R956:967 ThieleMachine.BellReceiptSoundness <> bit_of_nat01 def
-R969:969 ThieleMachine.BellReceiptSoundness <> a:4 var
-R991:1002 ThieleMachine.BellReceiptSoundness <> bit_of_nat01 def
-R1004:1004 ThieleMachine.BellReceiptSoundness <> b:5 var
-prf 1083:1103 <> is_bit_nat_true_cases
-binder 1116:1116 <> n:6
-R1138:1141 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1131:1133 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1119:1128 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R1130:1130 ThieleMachine.BellReceiptSoundness <> n:6 var
-R1134:1137 Coq.Init.Datatypes <> true constr
-R1147:1150 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R1143:1145 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1142:1142 ThieleMachine.BellReceiptSoundness <> n:6 var
-R1152:1154 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1151:1151 ThieleMachine.BellReceiptSoundness <> n:6 var
+R181:187 Kernel.VMState <> <> lib
+R189:194 Kernel.VMStep <> <> lib
+R224:234 Kernel.MuCostModel <> <> lib
+R298:317 ThieleMachine.BellReceiptSemantics <> <> lib
+R354:367 ThieleMachine.BellInequality <> <> lib
+R404:424 ThieleMachine.ThieleMachineConcrete <> <> lib
+def 825:836 <> bit_of_nat01
+R843:845 Coq.Init.Datatypes <> nat ind
+binder 839:839 <> n:1
+R850:852 ThieleMachine.BellInequality <> Bit ind
+R862:868 Coq.Init.Nat <> eqb def
+R870:870 ThieleMachine.BellReceiptSoundness <> n:1 var
+R887:888 ThieleMachine.BellInequality <> B1 constr
+R879:880 ThieleMachine.BellInequality <> B0 constr
+def 903:921 <> trial_of_nat_params
+R934:936 Coq.Init.Datatypes <> nat ind
+binder 924:924 <> x:2
+binder 926:926 <> y:3
+binder 928:928 <> a:4
+binder 930:930 <> b:5
+R941:946 Coq.Init.Datatypes <> option ind
+R948:952 ThieleMachine.BellReceiptSemantics <> Trial rec
+R1007:1010 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R991:994 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R975:978 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R963:972 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R974:974 ThieleMachine.BellReceiptSoundness <> x:2 var
+R979:988 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R990:990 ThieleMachine.BellReceiptSoundness <> y:3 var
+R995:1004 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R1006:1006 ThieleMachine.BellReceiptSoundness <> a:4 var
+R1011:1020 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R1022:1022 ThieleMachine.BellReceiptSoundness <> b:5 var
+R1184:1187 Coq.Init.Datatypes <> None constr
+R1039:1042 Coq.Init.Datatypes <> Some constr
+R1047:1049 ThieleMachine.BellReceiptSemantics <> t_x proj
+R1047:1049 ThieleMachine.BellReceiptSemantics <> t_x proj
+R1047:1049 ThieleMachine.BellReceiptSemantics <> t_x proj
+R1082:1084 ThieleMachine.BellReceiptSemantics <> t_y proj
+R1082:1084 ThieleMachine.BellReceiptSemantics <> t_y proj
+R1117:1119 ThieleMachine.BellReceiptSemantics <> t_a proj
+R1117:1119 ThieleMachine.BellReceiptSemantics <> t_a proj
+R1152:1154 ThieleMachine.BellReceiptSemantics <> t_b proj
+R1152:1154 ThieleMachine.BellReceiptSemantics <> t_b proj
+R1054:1065 ThieleMachine.BellReceiptSoundness <> bit_of_nat01 def
+R1067:1067 ThieleMachine.BellReceiptSoundness <> x:2 var
+R1089:1100 ThieleMachine.BellReceiptSoundness <> bit_of_nat01 def
+R1102:1102 ThieleMachine.BellReceiptSoundness <> y:3 var
+R1124:1135 ThieleMachine.BellReceiptSoundness <> bit_of_nat01 def
+R1137:1137 ThieleMachine.BellReceiptSoundness <> a:4 var
+R1159:1170 ThieleMachine.BellReceiptSoundness <> bit_of_nat01 def
+R1172:1172 ThieleMachine.BellReceiptSoundness <> b:5 var
+prf 1251:1271 <> is_bit_nat_true_cases
+binder 1284:1284 <> n:6
+R1306:1309 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1299:1301 Coq.Init.Logic <> ::type_scope:x_'='_x not
 R1287:1296 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-prf 1397:1406 <> andb4_true
-binder 1419:1420 <> b1:7
-binder 1422:1423 <> b2:8
-binder 1425:1426 <> b3:9
-binder 1428:1429 <> b4:10
-R1470:1477 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1463:1465 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1451:1454 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R1445:1448 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R1439:1442 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R1437:1438 ThieleMachine.BellReceiptSoundness <> b1:7 var
-R1443:1444 ThieleMachine.BellReceiptSoundness <> b2:8 var
-R1449:1450 ThieleMachine.BellReceiptSoundness <> b3:9 var
-R1455:1456 ThieleMachine.BellReceiptSoundness <> b4:10 var
-R1466:1469 Coq.Init.Datatypes <> true constr
-R1487:1490 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R1480:1482 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1478:1479 ThieleMachine.BellReceiptSoundness <> b1:7 var
-R1483:1486 Coq.Init.Datatypes <> true constr
-R1500:1503 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R1493:1495 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1491:1492 ThieleMachine.BellReceiptSoundness <> b2:8 var
-R1496:1499 Coq.Init.Datatypes <> true constr
-R1513:1516 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R1506:1508 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1504:1505 ThieleMachine.BellReceiptSoundness <> b3:9 var
-R1509:1512 Coq.Init.Datatypes <> true constr
-R1519:1521 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1517:1518 ThieleMachine.BellReceiptSoundness <> b4:10 var
-R1522:1525 Coq.Init.Datatypes <> true constr
-prf 1725:1761 <> trial_of_metadata_cert_for_chsh_trial
-binder 1774:1774 <> x:11
-binder 1776:1776 <> y:12
-binder 1778:1778 <> a:13
-binder 1780:1780 <> b:14
-R1806:1813 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1799:1801 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1787:1796 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R1798:1798 ThieleMachine.BellReceiptSoundness <> x:11 var
-R1802:1805 Coq.Init.Datatypes <> true constr
-R1833:1840 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1826:1828 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1814:1823 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R1825:1825 ThieleMachine.BellReceiptSoundness <> y:12 var
-R1829:1832 Coq.Init.Datatypes <> true constr
-R1860:1867 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1853:1855 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1841:1850 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R1852:1852 ThieleMachine.BellReceiptSoundness <> a:13 var
-R1856:1859 Coq.Init.Datatypes <> true constr
-R1887:1894 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1880:1882 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1868:1877 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R1879:1879 ThieleMachine.BellReceiptSoundness <> b:14 var
-R1883:1886 Coq.Init.Datatypes <> true constr
-R1953:1961 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1895:1911 ThieleMachine.BellReceiptSemantics <> trial_of_metadata def
-R1944:1951 ThieleMachine.ThieleMachineConcrete <> metadata proj
-R1914:1932 ThieleMachine.ThieleMachineConcrete <> cert_for_chsh_trial def
-R1934:1934 ThieleMachine.BellReceiptSoundness <> x:11 var
-R1936:1936 ThieleMachine.BellReceiptSoundness <> y:12 var
-R1938:1938 ThieleMachine.BellReceiptSoundness <> a:13 var
-R1940:1940 ThieleMachine.BellReceiptSoundness <> b:14 var
-R1962:1965 Coq.Init.Datatypes <> Some constr
-R1970:1972 ThieleMachine.BellReceiptSemantics <> t_x proj
-R1970:1972 ThieleMachine.BellReceiptSemantics <> t_x proj
-R1970:1972 ThieleMachine.BellReceiptSemantics <> t_x proj
-R2007:2009 ThieleMachine.BellReceiptSemantics <> t_y proj
-R2007:2009 ThieleMachine.BellReceiptSemantics <> t_y proj
-R2044:2046 ThieleMachine.BellReceiptSemantics <> t_a proj
-R2044:2046 ThieleMachine.BellReceiptSemantics <> t_a proj
-R2081:2083 ThieleMachine.BellReceiptSemantics <> t_b proj
-R2081:2083 ThieleMachine.BellReceiptSemantics <> t_b proj
-R1977:1988 ThieleMachine.BellReceiptSoundness <> bit_of_nat01 def
-R1990:1990 ThieleMachine.BellReceiptSoundness <> x:11 var
-R2014:2025 ThieleMachine.BellReceiptSoundness <> bit_of_nat01 def
-R2027:2027 ThieleMachine.BellReceiptSoundness <> y:12 var
-R2051:2062 ThieleMachine.BellReceiptSoundness <> bit_of_nat01 def
-R2064:2064 ThieleMachine.BellReceiptSoundness <> a:13 var
-R2088:2099 ThieleMachine.BellReceiptSoundness <> bit_of_nat01 def
-R2101:2101 ThieleMachine.BellReceiptSoundness <> b:14 var
-R2153:2169 ThieleMachine.BellReceiptSemantics <> trial_of_metadata def
-R2352:2372 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R2408:2428 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R2464:2484 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R1298:1298 ThieleMachine.BellReceiptSoundness <> n:6 var
+R1302:1305 Coq.Init.Datatypes <> true constr
+R1315:1318 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R1311:1313 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1310:1310 ThieleMachine.BellReceiptSoundness <> n:6 var
+R1320:1322 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1319:1319 ThieleMachine.BellReceiptSoundness <> n:6 var
+R1455:1464 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+prf 1565:1574 <> andb4_true
+binder 1587:1588 <> b1:7
+binder 1590:1591 <> b2:8
+binder 1593:1594 <> b3:9
+binder 1596:1597 <> b4:10
+R1638:1645 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1631:1633 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1619:1622 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R1613:1616 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R1607:1610 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R1605:1606 ThieleMachine.BellReceiptSoundness <> b1:7 var
+R1611:1612 ThieleMachine.BellReceiptSoundness <> b2:8 var
+R1617:1618 ThieleMachine.BellReceiptSoundness <> b3:9 var
+R1623:1624 ThieleMachine.BellReceiptSoundness <> b4:10 var
+R1634:1637 Coq.Init.Datatypes <> true constr
+R1655:1658 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1648:1650 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1646:1647 ThieleMachine.BellReceiptSoundness <> b1:7 var
+R1651:1654 Coq.Init.Datatypes <> true constr
+R1668:1671 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1661:1663 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1659:1660 ThieleMachine.BellReceiptSoundness <> b2:8 var
+R1664:1667 Coq.Init.Datatypes <> true constr
+R1681:1684 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1674:1676 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1672:1673 ThieleMachine.BellReceiptSoundness <> b3:9 var
+R1677:1680 Coq.Init.Datatypes <> true constr
+R1687:1689 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1685:1686 ThieleMachine.BellReceiptSoundness <> b4:10 var
+R1690:1693 Coq.Init.Datatypes <> true constr
+prf 1893:1929 <> trial_of_metadata_cert_for_chsh_trial
+binder 1942:1942 <> x:11
+binder 1944:1944 <> y:12
+binder 1946:1946 <> a:13
+binder 1948:1948 <> b:14
+R1974:1981 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1967:1969 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1955:1964 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R1966:1966 ThieleMachine.BellReceiptSoundness <> x:11 var
+R1970:1973 Coq.Init.Datatypes <> true constr
+R2001:2008 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1994:1996 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1982:1991 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R1993:1993 ThieleMachine.BellReceiptSoundness <> y:12 var
+R1997:2000 Coq.Init.Datatypes <> true constr
+R2028:2035 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2021:2023 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2009:2018 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R2020:2020 ThieleMachine.BellReceiptSoundness <> a:13 var
+R2024:2027 Coq.Init.Datatypes <> true constr
+R2055:2062 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2048:2050 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2036:2045 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R2047:2047 ThieleMachine.BellReceiptSoundness <> b:14 var
+R2051:2054 Coq.Init.Datatypes <> true constr
+R2121:2129 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2063:2079 ThieleMachine.BellReceiptSemantics <> trial_of_metadata def
+R2112:2119 ThieleMachine.ThieleMachineConcrete <> metadata proj
+R2082:2100 ThieleMachine.ThieleMachineConcrete <> cert_for_chsh_trial def
+R2102:2102 ThieleMachine.BellReceiptSoundness <> x:11 var
+R2104:2104 ThieleMachine.BellReceiptSoundness <> y:12 var
+R2106:2106 ThieleMachine.BellReceiptSoundness <> a:13 var
+R2108:2108 ThieleMachine.BellReceiptSoundness <> b:14 var
+R2130:2133 Coq.Init.Datatypes <> Some constr
+R2138:2140 ThieleMachine.BellReceiptSemantics <> t_x proj
+R2138:2140 ThieleMachine.BellReceiptSemantics <> t_x proj
+R2138:2140 ThieleMachine.BellReceiptSemantics <> t_x proj
+R2175:2177 ThieleMachine.BellReceiptSemantics <> t_y proj
+R2175:2177 ThieleMachine.BellReceiptSemantics <> t_y proj
+R2212:2214 ThieleMachine.BellReceiptSemantics <> t_a proj
+R2212:2214 ThieleMachine.BellReceiptSemantics <> t_a proj
+R2249:2251 ThieleMachine.BellReceiptSemantics <> t_b proj
+R2249:2251 ThieleMachine.BellReceiptSemantics <> t_b proj
+R2145:2156 ThieleMachine.BellReceiptSoundness <> bit_of_nat01 def
+R2158:2158 ThieleMachine.BellReceiptSoundness <> x:11 var
+R2182:2193 ThieleMachine.BellReceiptSoundness <> bit_of_nat01 def
+R2195:2195 ThieleMachine.BellReceiptSoundness <> y:12 var
+R2219:2230 ThieleMachine.BellReceiptSoundness <> bit_of_nat01 def
+R2232:2232 ThieleMachine.BellReceiptSoundness <> a:13 var
+R2256:2267 ThieleMachine.BellReceiptSoundness <> bit_of_nat01 def
+R2269:2269 ThieleMachine.BellReceiptSoundness <> b:14 var
+R2321:2337 ThieleMachine.BellReceiptSemantics <> trial_of_metadata def
 R2520:2540 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R2352:2372 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R2408:2428 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R2408:2428 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R2464:2484 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R2464:2484 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R2464:2484 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R2464:2484 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R2576:2596 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R2632:2652 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R2688:2708 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
 R2520:2540 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R2520:2540 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R2520:2540 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R2520:2540 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R2520:2540 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R2520:2540 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R2520:2540 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R2520:2540 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-prf 2674:2704 <> trial_of_metadata_concrete_step
-binder 2717:2721 <> instr:15
-binder 2723:2723 <> s:16
-R2805:2813 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2730:2746 ThieleMachine.BellReceiptSemantics <> trial_of_metadata def
-R2795:2802 ThieleMachine.ThieleMachineConcrete <> metadata proj
-R2788:2791 ThieleMachine.ThieleMachineConcrete <> cert proj
-R2774:2784 ThieleMachine.ThieleMachineConcrete <> observation proj
-R2750:2762 ThieleMachine.ThieleMachineConcrete <> concrete_step def
-R2764:2768 ThieleMachine.BellReceiptSoundness <> instr:15 var
-R2770:2770 ThieleMachine.BellReceiptSoundness <> s:16 var
-R2820:2824 ThieleMachine.BellReceiptSoundness <> instr:15 var
-R2839:2848 ThieleMachine.ThieleMachineConcrete <> CHSH_TRIAL constr
-R2861:2879 ThieleMachine.BellReceiptSoundness <> trial_of_nat_params def
-R2902:2905 Coq.Init.Datatypes <> None constr
-R3194:3225 ThieleMachine.ThieleMachineConcrete <> cert_for_load_imm_metadata_empty thm
-R3194:3225 ThieleMachine.ThieleMachineConcrete <> cert_for_load_imm_metadata_empty thm
-R3194:3225 ThieleMachine.ThieleMachineConcrete <> cert_for_load_imm_metadata_empty thm
-R3289:3307 ThieleMachine.BellReceiptSoundness <> trial_of_nat_params def
-R3370:3373 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R3353:3356 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R3336:3339 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R3324:3333 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R3340:3349 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R3357:3366 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R3374:3383 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R3370:3373 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R3353:3356 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R3336:3339 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R3324:3333 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R3340:3349 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R3357:3366 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R3374:3383 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R3492:3501 ThieleMachine.BellReceiptSoundness <> andb4_true thm
-R3504:3513 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R3519:3528 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R3535:3544 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R3551:3560 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R3492:3501 ThieleMachine.BellReceiptSoundness <> andb4_true thm
-R3504:3513 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R3519:3528 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R3535:3544 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R3551:3560 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R3619:3639 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R3675:3695 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R3734:3754 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R3793:3813 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R3619:3639 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R3675:3695 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R3675:3695 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R3734:3754 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R3734:3754 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R3734:3754 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R3734:3754 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R3793:3813 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R3793:3813 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R3793:3813 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R3793:3813 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R3793:3813 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R3793:3813 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R3793:3813 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-R3793:3813 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
-def 4048:4074 <> trials_of_concrete_receipts
-R4082:4085 Coq.Init.Datatypes <> list ind
-R4087:4101 ThieleMachine.ThieleMachineConcrete <> ConcreteReceipt rec
-binder 4077:4078 <> rs:18
-R4106:4109 Coq.Init.Datatypes <> list ind
-R4111:4115 ThieleMachine.BellReceiptSemantics <> Trial rec
-R4128:4129 ThieleMachine.BellReceiptSoundness <> rs:18 var
-R4140:4141 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R4146:4147 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R4154:4157 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R4176:4192 ThieleMachine.BellReceiptSemantics <> trial_of_metadata def
-R4219:4226 ThieleMachine.ThieleMachineConcrete <> metadata proj
-R4212:4215 ThieleMachine.ThieleMachineConcrete <> cert proj
-R4198:4208 ThieleMachine.ThieleMachineConcrete <> receipt_obs proj
-R4243:4246 Coq.Init.Datatypes <> Some constr
-R4254:4257 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R4258:4284 ThieleMachine.BellReceiptSoundness <> trials_of_concrete_receipts:19 def
-R4297:4300 Coq.Init.Datatypes <> None constr
-R4305:4331 ThieleMachine.BellReceiptSoundness <> trials_of_concrete_receipts:19 def
-def 4363:4376 <> trials_of_prog
-R4386:4389 Coq.Init.Datatypes <> list ind
-R4391:4401 ThieleMachine.ThieleMachineConcrete <> ThieleInstr ind
-binder 4379:4382 <> prog:21
-R4406:4409 Coq.Init.Datatypes <> list ind
-R4411:4415 ThieleMachine.BellReceiptSemantics <> Trial rec
-R4428:4431 ThieleMachine.BellReceiptSoundness <> prog:21 var
-R4442:4443 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R4448:4449 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R4460:4463 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R4501:4510 ThieleMachine.ThieleMachineConcrete <> CHSH_TRIAL constr
-R4539:4557 ThieleMachine.BellReceiptSoundness <> trial_of_nat_params def
-R4584:4587 Coq.Init.Datatypes <> Some constr
-R4595:4598 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R4599:4612 ThieleMachine.BellReceiptSoundness <> trials_of_prog:22 def
-R4629:4632 Coq.Init.Datatypes <> None constr
-R4637:4650 ThieleMachine.BellReceiptSoundness <> trials_of_prog:22 def
-R4682:4695 ThieleMachine.BellReceiptSoundness <> trials_of_prog:22 def
-prf 4789:4818 <> trials_of_concrete_receipts_of
-binder 4831:4831 <> s:25
-binder 4833:4836 <> prog:26
-R4900:4906 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4843:4869 ThieleMachine.BellReceiptSoundness <> trials_of_concrete_receipts def
-R4872:4891 ThieleMachine.ThieleMachineConcrete <> concrete_receipts_of def
-R4893:4893 ThieleMachine.BellReceiptSoundness <> s:25 var
-R4895:4898 ThieleMachine.BellReceiptSoundness <> prog:26 var
-R4907:4920 ThieleMachine.BellReceiptSoundness <> trials_of_prog def
-R4922:4925 ThieleMachine.BellReceiptSoundness <> prog:26 var
-R5104:5134 ThieleMachine.BellReceiptSoundness <> trial_of_metadata_concrete_step thm
-R5104:5134 ThieleMachine.BellReceiptSoundness <> trial_of_metadata_concrete_step thm
-R5104:5134 ThieleMachine.BellReceiptSoundness <> trial_of_metadata_concrete_step thm
-R5304:5322 ThieleMachine.BellReceiptSoundness <> trial_of_nat_params def
-R5304:5322 ThieleMachine.BellReceiptSoundness <> trial_of_nat_params def
-prf 5491:5529 <> trials_from_concrete_receipts_are_sound
-binder 5542:5546 <> instr:27
-binder 5548:5548 <> s:28
-binder 5550:5550 <> t:29
-R5641:5648 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5632:5634 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5557:5573 ThieleMachine.BellReceiptSemantics <> trial_of_metadata def
-R5622:5629 ThieleMachine.ThieleMachineConcrete <> metadata proj
-R5615:5618 ThieleMachine.ThieleMachineConcrete <> cert proj
-R5601:5611 ThieleMachine.ThieleMachineConcrete <> observation proj
-R5577:5589 ThieleMachine.ThieleMachineConcrete <> concrete_step def
-R5591:5595 ThieleMachine.BellReceiptSoundness <> instr:27 var
-R5597:5597 ThieleMachine.BellReceiptSoundness <> s:28 var
-R5635:5638 Coq.Init.Datatypes <> Some constr
-R5640:5640 ThieleMachine.BellReceiptSoundness <> t:29 var
-R5649:5655 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R5663:5670 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 5656:5656 <> x:30
-binder 5658:5658 <> y:31
-binder 5660:5660 <> a:32
-binder 5662:5662 <> b:33
-R5697:5706 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5676:5678 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5671:5675 ThieleMachine.BellReceiptSoundness <> instr:27 var
-R5679:5688 ThieleMachine.ThieleMachineConcrete <> CHSH_TRIAL constr
-R5690:5690 ThieleMachine.BellReceiptSoundness <> x:30 var
-R5692:5692 ThieleMachine.BellReceiptSoundness <> y:31 var
-R5694:5694 ThieleMachine.BellReceiptSoundness <> a:32 var
-R5696:5696 ThieleMachine.BellReceiptSoundness <> b:33 var
-R5726:5729 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5719:5721 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5707:5716 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R5718:5718 ThieleMachine.BellReceiptSoundness <> x:30 var
-R5722:5725 Coq.Init.Datatypes <> true constr
-R5749:5752 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5742:5744 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5730:5739 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R5741:5741 ThieleMachine.BellReceiptSoundness <> y:31 var
-R5745:5748 Coq.Init.Datatypes <> true constr
-R5772:5775 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5765:5767 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5753:5762 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R5764:5764 ThieleMachine.BellReceiptSoundness <> a:32 var
-R5768:5771 Coq.Init.Datatypes <> true constr
-R5795:5804 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5788:5790 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5776:5785 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R5787:5787 ThieleMachine.BellReceiptSoundness <> b:33 var
-R5791:5794 Coq.Init.Datatypes <> true constr
-R5806:5811 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5941:5943 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5805:5805 ThieleMachine.BellReceiptSoundness <> t:29 var
-R5812:5814 ThieleMachine.BellReceiptSemantics <> t_x proj
-R5812:5814 ThieleMachine.BellReceiptSemantics <> t_x proj
-R5812:5814 ThieleMachine.BellReceiptSemantics <> t_x proj
-R5848:5850 ThieleMachine.BellReceiptSemantics <> t_y proj
-R5848:5850 ThieleMachine.BellReceiptSemantics <> t_y proj
-R5884:5886 ThieleMachine.BellReceiptSemantics <> t_a proj
-R5884:5886 ThieleMachine.BellReceiptSemantics <> t_a proj
-R5920:5922 ThieleMachine.BellReceiptSemantics <> t_b proj
-R5920:5922 ThieleMachine.BellReceiptSemantics <> t_b proj
-R5819:5830 ThieleMachine.BellReceiptSoundness <> bit_of_nat01 def
-R5832:5832 ThieleMachine.BellReceiptSoundness <> x:30 var
-R5855:5866 ThieleMachine.BellReceiptSoundness <> bit_of_nat01 def
-R5868:5868 ThieleMachine.BellReceiptSoundness <> y:31 var
-R5891:5902 ThieleMachine.BellReceiptSoundness <> bit_of_nat01 def
-R5904:5904 ThieleMachine.BellReceiptSoundness <> a:32 var
-R5927:5938 ThieleMachine.BellReceiptSoundness <> bit_of_nat01 def
-R5940:5940 ThieleMachine.BellReceiptSoundness <> b:33 var
-R5986:6016 ThieleMachine.BellReceiptSoundness <> trial_of_metadata_concrete_step thm
-R5986:6016 ThieleMachine.BellReceiptSoundness <> trial_of_metadata_concrete_step thm
-R5986:6016 ThieleMachine.BellReceiptSoundness <> trial_of_metadata_concrete_step thm
-R6070:6088 ThieleMachine.BellReceiptSoundness <> trial_of_nat_params def
-R6155:6158 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R6138:6141 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R6121:6124 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R6109:6118 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R6125:6134 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R6142:6151 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R6159:6168 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R6155:6158 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R6138:6141 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R6121:6124 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R6109:6118 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R6125:6134 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R6142:6151 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R6159:6168 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R6247:6256 ThieleMachine.BellReceiptSoundness <> andb4_true thm
-R6259:6268 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R6274:6283 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R6290:6299 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R6306:6315 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R6247:6256 ThieleMachine.BellReceiptSoundness <> andb4_true thm
-R6259:6268 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R6274:6283 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R6290:6299 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
-R6306:6315 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R2576:2596 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R2576:2596 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R2632:2652 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R2632:2652 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R2632:2652 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R2632:2652 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R2688:2708 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R2688:2708 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R2688:2708 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R2688:2708 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R2688:2708 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R2688:2708 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R2688:2708 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R2688:2708 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+prf 2842:2872 <> trial_of_metadata_concrete_step
+binder 2885:2889 <> instr:15
+binder 2891:2891 <> s:16
+R2973:2981 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2898:2914 ThieleMachine.BellReceiptSemantics <> trial_of_metadata def
+R2963:2970 ThieleMachine.ThieleMachineConcrete <> metadata proj
+R2956:2959 ThieleMachine.ThieleMachineConcrete <> cert proj
+R2942:2952 ThieleMachine.ThieleMachineConcrete <> observation proj
+R2918:2930 ThieleMachine.ThieleMachineConcrete <> concrete_step def
+R2932:2936 ThieleMachine.BellReceiptSoundness <> instr:15 var
+R2938:2938 ThieleMachine.BellReceiptSoundness <> s:16 var
+R2988:2992 ThieleMachine.BellReceiptSoundness <> instr:15 var
+R3007:3016 ThieleMachine.ThieleMachineConcrete <> CHSH_TRIAL constr
+R3029:3047 ThieleMachine.BellReceiptSoundness <> trial_of_nat_params def
+R3070:3073 Coq.Init.Datatypes <> None constr
+R3362:3393 ThieleMachine.ThieleMachineConcrete <> cert_for_load_imm_metadata_empty thm
+R3362:3393 ThieleMachine.ThieleMachineConcrete <> cert_for_load_imm_metadata_empty thm
+R3362:3393 ThieleMachine.ThieleMachineConcrete <> cert_for_load_imm_metadata_empty thm
+R3457:3475 ThieleMachine.BellReceiptSoundness <> trial_of_nat_params def
+R3538:3541 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R3521:3524 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R3504:3507 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R3492:3501 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R3508:3517 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R3525:3534 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R3542:3551 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R3538:3541 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R3521:3524 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R3504:3507 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R3492:3501 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R3508:3517 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R3525:3534 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R3542:3551 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R3660:3669 ThieleMachine.BellReceiptSoundness <> andb4_true thm
+R3672:3681 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R3687:3696 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R3703:3712 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R3719:3728 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R3660:3669 ThieleMachine.BellReceiptSoundness <> andb4_true thm
+R3672:3681 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R3687:3696 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R3703:3712 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R3719:3728 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R3787:3807 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R3843:3863 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R3902:3922 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R3961:3981 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R3787:3807 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R3843:3863 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R3843:3863 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R3902:3922 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R3902:3922 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R3902:3922 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R3902:3922 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R3961:3981 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R3961:3981 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R3961:3981 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R3961:3981 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R3961:3981 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R3961:3981 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R3961:3981 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+R3961:3981 ThieleMachine.BellReceiptSoundness <> is_bit_nat_true_cases thm
+def 4216:4242 <> trials_of_concrete_receipts
+R4250:4253 Coq.Init.Datatypes <> list ind
+R4255:4269 ThieleMachine.ThieleMachineConcrete <> ConcreteReceipt rec
+binder 4245:4246 <> rs:18
+R4274:4277 Coq.Init.Datatypes <> list ind
+R4279:4283 ThieleMachine.BellReceiptSemantics <> Trial rec
+R4296:4297 ThieleMachine.BellReceiptSoundness <> rs:18 var
+R4308:4309 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4314:4315 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4322:4325 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4344:4360 ThieleMachine.BellReceiptSemantics <> trial_of_metadata def
+R4387:4394 ThieleMachine.ThieleMachineConcrete <> metadata proj
+R4380:4383 ThieleMachine.ThieleMachineConcrete <> cert proj
+R4366:4376 ThieleMachine.ThieleMachineConcrete <> receipt_obs proj
+R4411:4414 Coq.Init.Datatypes <> Some constr
+R4422:4425 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4426:4452 ThieleMachine.BellReceiptSoundness <> trials_of_concrete_receipts:19 def
+R4465:4468 Coq.Init.Datatypes <> None constr
+R4473:4499 ThieleMachine.BellReceiptSoundness <> trials_of_concrete_receipts:19 def
+def 4531:4544 <> trials_of_prog
+R4554:4557 Coq.Init.Datatypes <> list ind
+R4559:4569 ThieleMachine.ThieleMachineConcrete <> ThieleInstr ind
+binder 4547:4550 <> prog:21
+R4574:4577 Coq.Init.Datatypes <> list ind
+R4579:4583 ThieleMachine.BellReceiptSemantics <> Trial rec
+R4596:4599 ThieleMachine.BellReceiptSoundness <> prog:21 var
+R4610:4611 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4616:4617 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4628:4631 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4669:4678 ThieleMachine.ThieleMachineConcrete <> CHSH_TRIAL constr
+R4707:4725 ThieleMachine.BellReceiptSoundness <> trial_of_nat_params def
+R4752:4755 Coq.Init.Datatypes <> Some constr
+R4763:4766 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4767:4780 ThieleMachine.BellReceiptSoundness <> trials_of_prog:22 def
+R4797:4800 Coq.Init.Datatypes <> None constr
+R4805:4818 ThieleMachine.BellReceiptSoundness <> trials_of_prog:22 def
+R4850:4863 ThieleMachine.BellReceiptSoundness <> trials_of_prog:22 def
+prf 4957:4986 <> trials_of_concrete_receipts_of
+binder 4999:4999 <> s:25
+binder 5001:5004 <> prog:26
+R5068:5074 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5011:5037 ThieleMachine.BellReceiptSoundness <> trials_of_concrete_receipts def
+R5040:5059 ThieleMachine.ThieleMachineConcrete <> concrete_receipts_of def
+R5061:5061 ThieleMachine.BellReceiptSoundness <> s:25 var
+R5063:5066 ThieleMachine.BellReceiptSoundness <> prog:26 var
+R5075:5088 ThieleMachine.BellReceiptSoundness <> trials_of_prog def
+R5090:5093 ThieleMachine.BellReceiptSoundness <> prog:26 var
+R5272:5302 ThieleMachine.BellReceiptSoundness <> trial_of_metadata_concrete_step thm
+R5272:5302 ThieleMachine.BellReceiptSoundness <> trial_of_metadata_concrete_step thm
+R5272:5302 ThieleMachine.BellReceiptSoundness <> trial_of_metadata_concrete_step thm
+R5472:5490 ThieleMachine.BellReceiptSoundness <> trial_of_nat_params def
+R5472:5490 ThieleMachine.BellReceiptSoundness <> trial_of_nat_params def
+prf 5659:5697 <> trials_from_concrete_receipts_are_sound
+binder 5710:5714 <> instr:27
+binder 5716:5716 <> s:28
+binder 5718:5718 <> t:29
+R5809:5816 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5800:5802 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5725:5741 ThieleMachine.BellReceiptSemantics <> trial_of_metadata def
+R5790:5797 ThieleMachine.ThieleMachineConcrete <> metadata proj
+R5783:5786 ThieleMachine.ThieleMachineConcrete <> cert proj
+R5769:5779 ThieleMachine.ThieleMachineConcrete <> observation proj
+R5745:5757 ThieleMachine.ThieleMachineConcrete <> concrete_step def
+R5759:5763 ThieleMachine.BellReceiptSoundness <> instr:27 var
+R5765:5765 ThieleMachine.BellReceiptSoundness <> s:28 var
+R5803:5806 Coq.Init.Datatypes <> Some constr
+R5808:5808 ThieleMachine.BellReceiptSoundness <> t:29 var
+R5817:5823 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5831:5838 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5824:5824 <> x:30
+binder 5826:5826 <> y:31
+binder 5828:5828 <> a:32
+binder 5830:5830 <> b:33
+R5865:5874 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5844:5846 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5839:5843 ThieleMachine.BellReceiptSoundness <> instr:27 var
+R5847:5856 ThieleMachine.ThieleMachineConcrete <> CHSH_TRIAL constr
+R5858:5858 ThieleMachine.BellReceiptSoundness <> x:30 var
+R5860:5860 ThieleMachine.BellReceiptSoundness <> y:31 var
+R5862:5862 ThieleMachine.BellReceiptSoundness <> a:32 var
+R5864:5864 ThieleMachine.BellReceiptSoundness <> b:33 var
+R5894:5897 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5887:5889 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5875:5884 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R5886:5886 ThieleMachine.BellReceiptSoundness <> x:30 var
+R5890:5893 Coq.Init.Datatypes <> true constr
+R5917:5920 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5910:5912 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5898:5907 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R5909:5909 ThieleMachine.BellReceiptSoundness <> y:31 var
+R5913:5916 Coq.Init.Datatypes <> true constr
+R5940:5943 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5933:5935 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5921:5930 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R5932:5932 ThieleMachine.BellReceiptSoundness <> a:32 var
+R5936:5939 Coq.Init.Datatypes <> true constr
+R5963:5972 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5956:5958 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5944:5953 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R5955:5955 ThieleMachine.BellReceiptSoundness <> b:33 var
+R5959:5962 Coq.Init.Datatypes <> true constr
+R5974:5979 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6109:6111 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5973:5973 ThieleMachine.BellReceiptSoundness <> t:29 var
+R5980:5982 ThieleMachine.BellReceiptSemantics <> t_x proj
+R5980:5982 ThieleMachine.BellReceiptSemantics <> t_x proj
+R5980:5982 ThieleMachine.BellReceiptSemantics <> t_x proj
+R6016:6018 ThieleMachine.BellReceiptSemantics <> t_y proj
+R6016:6018 ThieleMachine.BellReceiptSemantics <> t_y proj
+R6052:6054 ThieleMachine.BellReceiptSemantics <> t_a proj
+R6052:6054 ThieleMachine.BellReceiptSemantics <> t_a proj
+R6088:6090 ThieleMachine.BellReceiptSemantics <> t_b proj
+R6088:6090 ThieleMachine.BellReceiptSemantics <> t_b proj
+R5987:5998 ThieleMachine.BellReceiptSoundness <> bit_of_nat01 def
+R6000:6000 ThieleMachine.BellReceiptSoundness <> x:30 var
+R6023:6034 ThieleMachine.BellReceiptSoundness <> bit_of_nat01 def
+R6036:6036 ThieleMachine.BellReceiptSoundness <> y:31 var
+R6059:6070 ThieleMachine.BellReceiptSoundness <> bit_of_nat01 def
+R6072:6072 ThieleMachine.BellReceiptSoundness <> a:32 var
+R6095:6106 ThieleMachine.BellReceiptSoundness <> bit_of_nat01 def
+R6108:6108 ThieleMachine.BellReceiptSoundness <> b:33 var
+R6154:6184 ThieleMachine.BellReceiptSoundness <> trial_of_metadata_concrete_step thm
+R6154:6184 ThieleMachine.BellReceiptSoundness <> trial_of_metadata_concrete_step thm
+R6154:6184 ThieleMachine.BellReceiptSoundness <> trial_of_metadata_concrete_step thm
+R6238:6256 ThieleMachine.BellReceiptSoundness <> trial_of_nat_params def
+R6323:6326 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R6306:6309 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R6289:6292 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R6277:6286 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R6293:6302 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R6310:6319 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R6327:6336 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R6323:6326 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R6306:6309 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R6289:6292 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R6277:6286 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R6293:6302 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R6310:6319 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R6327:6336 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R6415:6424 ThieleMachine.BellReceiptSoundness <> andb4_true thm
+R6427:6436 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R6442:6451 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R6458:6467 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R6474:6483 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R6415:6424 ThieleMachine.BellReceiptSoundness <> andb4_true thm
+R6427:6436 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R6442:6451 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R6458:6467 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def
+R6474:6483 ThieleMachine.ThieleMachineConcrete <> is_bit_nat def

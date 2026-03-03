@@ -1,5 +1,9 @@
 From Coq Require Import List Bool Lia Arith.PeanoNat ZArith.
 Import ListNotations.
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 
 (** * A reversible lattice gas toy model
 

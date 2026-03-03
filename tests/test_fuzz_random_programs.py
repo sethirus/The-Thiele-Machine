@@ -45,8 +45,8 @@ def rand_reg5() -> int:
 def rand_addr() -> int:
     return random.randint(0, 255)
 
-def rand_cost() -> int:
-    return random.randint(0, 15)
+def rand_cost(min_cost: int = 0) -> int:
+    return random.randint(min_cost, 15)
 
 def rand_imm() -> int:
     return random.randint(0, 255)
@@ -69,7 +69,10 @@ def generate_random_instruction() -> str:
         # Skip CHSH_TRIAL (needs specific bit constraints)
     ])
 
-    cost = rand_cost()
+    # Cert-setting opcodes (LASSERT, LJOIN, REVEAL, CHSH_TRIAL) require cost > 0
+    # per the NoFreeInsight runtime policy in the testbench.
+    needs_nonzero_cost = opcode in ("LASSERT", "LJOIN", "REVEAL", "PDISCOVER", "EMIT")
+    cost = rand_cost(1 if needs_nonzero_cost else 0)
 
     if opcode in ("PNEW", "PSPLIT", "PMERGE"):
         return f"{opcode} {random.randint(0,7)} {random.randint(0,7)} {cost}"
@@ -117,8 +120,14 @@ def generate_random_instruction() -> str:
 
 
 def generate_random_program(length: int) -> str:
-    """Generate a random program of given length, ending with HALT."""
-    instrs = [generate_random_instruction() for _ in range(length)]
+    """Generate a random program of given length, ending with HALT.
+
+    RTL prerequisites:
+    - INIT_LOGIC_ACC 0xCAFEEACE: unlocks high-value ops (REVEAL, PDISCOVER, CHSH_TRIAL)
+    - INIT_PT 0 256: sets module 0 region size so LOAD/STORE pass locality wall
+    """
+    preamble = ["INIT_LOGIC_ACC 0xCAFEEACE", "INIT_PT 0 256", "INIT_ACTIVE_MODULE 0"]
+    instrs = preamble + [generate_random_instruction() for _ in range(length)]
     instrs.append("HALT")
     return "\n".join(instrs)
 
@@ -133,9 +142,10 @@ def check_invariants(result: Dict[str, Any], program: str) -> List[str]:
     if result["mu"] < 0:
         violations.append(f"μ is negative: {result['mu']}")
 
-    # Bianchi conservation: sum(μ_tensor) <= μ
+    # Bianchi conservation: sum(μ_tensor) <= μ (only valid for clean execution;
+    # errored states may have intermediate tensor_sum > mu from the Bianchi alarm)
     tensor_sum = sum(result.get(f"mu_tensor_{i}", 0) for i in range(4))
-    if tensor_sum > result["mu"]:
+    if tensor_sum > result["mu"] and result.get("err", 0) == 0 and result.get("bianchi_alarm", 0) == 0:
         violations.append(
             f"Bianchi violation: tensor_sum={tensor_sum} > μ={result['mu']}")
 
@@ -148,9 +158,9 @@ def check_invariants(result: Dict[str, Any], program: str) -> List[str]:
     if len(result.get("regs", [])) != 32:
         violations.append(f"Wrong register count: {len(result.get('regs', []))}")
 
-    # PC within bounds (0-255 for 256-word instruction memory)
+    # PC within bounds: 0-255 for instruction memory, or 0xF00 (trap vector)
     pc = result.get("pc", -1)
-    if pc < 0 or pc > 255:
+    if pc < 0 or (pc > 255 and pc != 0xF00):
         violations.append(f"PC out of bounds: {pc}")
 
     # Error code should be 0 for clean execution, or a known error code
@@ -217,6 +227,9 @@ class TestEdgeCases:
     def test_all_memory_addresses(self):
         """Write to memory addresses 0-255 and read back."""
         instrs = []
+        # Locality wall: active module 0 needs a region size >= addresses used
+        instrs.append("INIT_PT 0 256")
+        instrs.append("INIT_ACTIVE_MODULE 0")
         # Write value 42 to address 10
         instrs.append("LOAD_IMM 0 42 1")
         instrs.append("STORE 10 0 1")
@@ -240,6 +253,7 @@ class TestEdgeCases:
     def test_bianchi_boundary(self):
         """REVEAL enough to trigger Bianchi alarm."""
         instrs = [
+            "INIT_LOGIC_ACC 0xCAFEEACE",
             "REVEAL 0 0 10",   # tensor[0] = 10, mu = 10
             "REVEAL 1 0 10",   # tensor[1] = 10, mu = 20
             "HALT"
@@ -252,7 +266,8 @@ class TestEdgeCases:
 
     def test_all_tensor_entries(self):
         """REVEAL to each of 16 tensor entries."""
-        instrs = [f"REVEAL {i} 0 1" for i in range(16)]
+        instrs = ["INIT_LOGIC_ACC 0xCAFEEACE"]
+        instrs.extend(f"REVEAL {i} 0 1" for i in range(16))
         instrs.append("HALT")
         result = run_verilog("\n".join(instrs), timeout=30)
         if result is None:
@@ -312,8 +327,10 @@ class TestEdgeCases:
     def test_chsh_trial_valid(self):
         """CHSH_TRIAL with valid packed operands (0 or 1)."""
         # RTL validates packed op_a <= 1 and op_b <= 1
+        # CHSH_TRIAL is a high-value op requiring logic_acc == 0xCAFEEACE
         # Use legacy 3-operand form: CHSH_TRIAL op_a op_b cost
         instrs = [
+            "INIT_LOGIC_ACC 0xCAFEEACE",
             "CHSH_TRIAL 0 0 5",  # op_a=0, op_b=0, cost=5
             "CHSH_TRIAL 1 1 5",  # op_a=1, op_b=1, cost=5
             "HALT"

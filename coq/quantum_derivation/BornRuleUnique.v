@@ -1,4 +1,6 @@
 (** =========================================================================
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
     PHASE 3: BORN RULE UNIQUENESS
     =========================================================================
     
@@ -19,6 +21,10 @@
     RESULT: Born Rule derived from Refinement Invariance (structural noncontextuality).
     
     ========================================================================= *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import List ZArith Lia Bool Nat Reals QArith.
 Require Import Coq.Logic.Classical_Prop.

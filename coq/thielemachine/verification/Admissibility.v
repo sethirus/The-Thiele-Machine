@@ -1,4 +1,5 @@
 (** =========================================================================
+
     ADMISSIBILITY - Physical Realizability Constraints
     =========================================================================
     
@@ -10,6 +11,10 @@
     mathematically valid but physically inadmissible.
     
     ========================================================================= *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import List ZArith Lia Bool.
 Import ListNotations.

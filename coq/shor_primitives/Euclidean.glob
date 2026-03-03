@@ -1,90 +1,93 @@
-DIGEST 3d251fc581c9da74923cc2c4ba6989f2
+DIGEST 20268d87a3ff38fe14e8a951ee410dfd
 FShorPrimitives.Euclidean
-R386:390 Coq.Arith.Arith <> <> lib
-R417:424 Coq.Arith.PeanoNat <> <> lib
-R451:456 Coq.Arith.Wf_nat <> <> lib
-R483:485 Coq.micromega.Lia <> <> lib
-R583:589 ShorPrimitives.Modular <> <> lib
-def 602:611 <> gcd_euclid
-R620:622 Coq.Init.Datatypes <> nat ind
-binder 614:614 <> a:1
-binder 616:616 <> b:2
-R627:629 Coq.Init.Datatypes <> nat ind
-R642:642 ShorPrimitives.Euclidean <> a:1 var
-R658:658 ShorPrimitives.Euclidean <> b:2 var
-R664:664 Coq.Init.Datatypes <> S constr
-R672:681 ShorPrimitives.Euclidean <> gcd_euclid:3 def
-R697:697 Coq.Init.Datatypes <> S constr
-R685:689 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
-R684:684 ShorPrimitives.Euclidean <> b:2 var
-R690:690 Coq.Init.Datatypes <> S constr
-prf 770:787 <> gcd_euclid_correct
-binder 800:800 <> a:5
-binder 802:802 <> b:6
-R819:821 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R805:814 ShorPrimitives.Euclidean <> gcd_euclid def
-R816:816 ShorPrimitives.Euclidean <> a:5 var
-R818:818 ShorPrimitives.Euclidean <> b:6 var
-R822:828 Coq.Arith.PeanoNat Nat gcd def
-R830:830 ShorPrimitives.Euclidean <> a:5 var
-R832:832 ShorPrimitives.Euclidean <> b:6 var
-R851:877 Coq.Init.Wf <> well_founded_induction_type thm
-binder 897:897 <> a:7
-binder 909:909 <> b:8
-R926:928 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R912:921 ShorPrimitives.Euclidean <> gcd_euclid def
-R923:923 ShorPrimitives.Euclidean <> a:7 var
-R925:925 ShorPrimitives.Euclidean <> b:8 var
-R929:935 Coq.Arith.PeanoNat Nat gcd def
-R937:937 ShorPrimitives.Euclidean <> a:7 var
-R939:939 ShorPrimitives.Euclidean <> b:8 var
-R879:890 Coq.Arith.Wf_nat <> lt_wf thm
-R851:877 Coq.Init.Wf <> well_founded_induction_type thm
-binder 897:897 <> a:9
-binder 909:909 <> b:10
-R926:928 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R912:921 ShorPrimitives.Euclidean <> gcd_euclid def
-R923:923 ShorPrimitives.Euclidean <> a:9 var
-R925:925 ShorPrimitives.Euclidean <> b:10 var
-R929:935 Coq.Arith.PeanoNat Nat gcd def
-R937:937 ShorPrimitives.Euclidean <> a:9 var
-R939:939 ShorPrimitives.Euclidean <> b:10 var
-R879:890 Coq.Arith.Wf_nat <> lt_wf thm
-R1040:1042 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R1031:1035 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
-R1036:1036 Coq.Init.Datatypes <> S constr
-R1043:1043 Coq.Init.Datatypes <> S constr
-R1059:1077 Coq.Arith.PeanoNat Nat mod_upper_bound def
-R1040:1042 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R1031:1035 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
-R1036:1036 Coq.Init.Datatypes <> S constr
-R1043:1043 Coq.Init.Datatypes <> S constr
-R1059:1077 Coq.Arith.PeanoNat Nat mod_upper_bound def
-R1112:1112 Coq.Init.Datatypes <> S constr
-R1112:1112 Coq.Init.Datatypes <> S constr
-prf 1206:1228 <> gcd_euclid_divides_left
-binder 1241:1241 <> a:11
-binder 1243:1243 <> b:12
-R1246:1255 Coq.Arith.PeanoNat Nat divide def
-R1258:1267 ShorPrimitives.Euclidean <> gcd_euclid def
-R1269:1269 ShorPrimitives.Euclidean <> a:11 var
-R1271:1271 ShorPrimitives.Euclidean <> b:12 var
-R1274:1274 ShorPrimitives.Euclidean <> a:11 var
-R1306:1323 ShorPrimitives.Euclidean <> gcd_euclid_correct thm
-R1332:1347 Coq.Arith.PeanoNat Nat gcd_divide_l thm
-R1306:1323 ShorPrimitives.Euclidean <> gcd_euclid_correct thm
-R1306:1323 ShorPrimitives.Euclidean <> gcd_euclid_correct thm
-R1332:1347 Coq.Arith.PeanoNat Nat gcd_divide_l thm
-prf 1423:1446 <> gcd_euclid_divides_right
-binder 1459:1459 <> a:13
-binder 1461:1461 <> b:14
-R1464:1473 Coq.Arith.PeanoNat Nat divide def
-R1476:1485 ShorPrimitives.Euclidean <> gcd_euclid def
-R1487:1487 ShorPrimitives.Euclidean <> a:13 var
-R1489:1489 ShorPrimitives.Euclidean <> b:14 var
-R1492:1492 ShorPrimitives.Euclidean <> b:14 var
-R1524:1541 ShorPrimitives.Euclidean <> gcd_euclid_correct thm
-R1550:1565 Coq.Arith.PeanoNat Nat gcd_divide_r thm
-R1524:1541 ShorPrimitives.Euclidean <> gcd_euclid_correct thm
-R1524:1541 ShorPrimitives.Euclidean <> gcd_euclid_correct thm
-R1550:1565 Coq.Arith.PeanoNat Nat gcd_divide_r thm
+R558:564 Kernel.VMState <> <> lib
+R566:571 Kernel.VMStep <> <> lib
+R601:611 Kernel.MuCostModel <> <> lib
+R639:643 Coq.Arith.Arith <> <> lib
+R670:677 Coq.Arith.PeanoNat <> <> lib
+R704:709 Coq.Arith.Wf_nat <> <> lib
+R736:738 Coq.micromega.Lia <> <> lib
+R836:842 ShorPrimitives.Modular <> <> lib
+def 855:864 <> gcd_euclid
+R873:875 Coq.Init.Datatypes <> nat ind
+binder 867:867 <> a:1
+binder 869:869 <> b:2
+R880:882 Coq.Init.Datatypes <> nat ind
+R895:895 ShorPrimitives.Euclidean <> a:1 var
+R911:911 ShorPrimitives.Euclidean <> b:2 var
+R917:917 Coq.Init.Datatypes <> S constr
+R925:934 ShorPrimitives.Euclidean <> gcd_euclid:3 def
+R950:950 Coq.Init.Datatypes <> S constr
+R938:942 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
+R937:937 ShorPrimitives.Euclidean <> b:2 var
+R943:943 Coq.Init.Datatypes <> S constr
+prf 1023:1040 <> gcd_euclid_correct
+binder 1053:1053 <> a:5
+binder 1055:1055 <> b:6
+R1072:1074 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1058:1067 ShorPrimitives.Euclidean <> gcd_euclid def
+R1069:1069 ShorPrimitives.Euclidean <> a:5 var
+R1071:1071 ShorPrimitives.Euclidean <> b:6 var
+R1075:1081 Coq.Arith.PeanoNat Nat gcd def
+R1083:1083 ShorPrimitives.Euclidean <> a:5 var
+R1085:1085 ShorPrimitives.Euclidean <> b:6 var
+R1104:1130 Coq.Init.Wf <> well_founded_induction_type thm
+binder 1150:1150 <> a:7
+binder 1162:1162 <> b:8
+R1179:1181 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1165:1174 ShorPrimitives.Euclidean <> gcd_euclid def
+R1176:1176 ShorPrimitives.Euclidean <> a:7 var
+R1178:1178 ShorPrimitives.Euclidean <> b:8 var
+R1182:1188 Coq.Arith.PeanoNat Nat gcd def
+R1190:1190 ShorPrimitives.Euclidean <> a:7 var
+R1192:1192 ShorPrimitives.Euclidean <> b:8 var
+R1132:1143 Coq.Arith.Wf_nat <> lt_wf thm
+R1104:1130 Coq.Init.Wf <> well_founded_induction_type thm
+binder 1150:1150 <> a:9
+binder 1162:1162 <> b:10
+R1179:1181 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1165:1174 ShorPrimitives.Euclidean <> gcd_euclid def
+R1176:1176 ShorPrimitives.Euclidean <> a:9 var
+R1178:1178 ShorPrimitives.Euclidean <> b:10 var
+R1182:1188 Coq.Arith.PeanoNat Nat gcd def
+R1190:1190 ShorPrimitives.Euclidean <> a:9 var
+R1192:1192 ShorPrimitives.Euclidean <> b:10 var
+R1132:1143 Coq.Arith.Wf_nat <> lt_wf thm
+R1293:1295 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R1284:1288 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
+R1289:1289 Coq.Init.Datatypes <> S constr
+R1296:1296 Coq.Init.Datatypes <> S constr
+R1312:1330 Coq.Arith.PeanoNat Nat mod_upper_bound def
+R1293:1295 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R1284:1288 Coq.Init.Nat <> ::nat_scope:x_'mod'_x not
+R1289:1289 Coq.Init.Datatypes <> S constr
+R1296:1296 Coq.Init.Datatypes <> S constr
+R1312:1330 Coq.Arith.PeanoNat Nat mod_upper_bound def
+R1365:1365 Coq.Init.Datatypes <> S constr
+R1365:1365 Coq.Init.Datatypes <> S constr
+prf 1459:1481 <> gcd_euclid_divides_left
+binder 1494:1494 <> a:11
+binder 1496:1496 <> b:12
+R1499:1508 Coq.Arith.PeanoNat Nat divide def
+R1511:1520 ShorPrimitives.Euclidean <> gcd_euclid def
+R1522:1522 ShorPrimitives.Euclidean <> a:11 var
+R1524:1524 ShorPrimitives.Euclidean <> b:12 var
+R1527:1527 ShorPrimitives.Euclidean <> a:11 var
+R1559:1576 ShorPrimitives.Euclidean <> gcd_euclid_correct thm
+R1585:1600 Coq.Arith.PeanoNat Nat gcd_divide_l thm
+R1559:1576 ShorPrimitives.Euclidean <> gcd_euclid_correct thm
+R1559:1576 ShorPrimitives.Euclidean <> gcd_euclid_correct thm
+R1585:1600 Coq.Arith.PeanoNat Nat gcd_divide_l thm
+prf 1676:1699 <> gcd_euclid_divides_right
+binder 1712:1712 <> a:13
+binder 1714:1714 <> b:14
+R1717:1726 Coq.Arith.PeanoNat Nat divide def
+R1729:1738 ShorPrimitives.Euclidean <> gcd_euclid def
+R1740:1740 ShorPrimitives.Euclidean <> a:13 var
+R1742:1742 ShorPrimitives.Euclidean <> b:14 var
+R1745:1745 ShorPrimitives.Euclidean <> b:14 var
+R1777:1794 ShorPrimitives.Euclidean <> gcd_euclid_correct thm
+R1803:1818 Coq.Arith.PeanoNat Nat gcd_divide_r thm
+R1777:1794 ShorPrimitives.Euclidean <> gcd_euclid_correct thm
+R1777:1794 ShorPrimitives.Euclidean <> gcd_euclid_correct thm
+R1803:1818 Coq.Arith.PeanoNat Nat gcd_divide_r thm

@@ -1,401 +1,404 @@
-DIGEST 7c6021365c93f9ffe122869b79c3f048
+DIGEST 60b8e46e0105ef9d20e1a6d2c58b5081
 FKernel.NoCloning
-R2056:2070 Coq.Reals.Reals <> <> lib
-R2088:2104 Coq.micromega.Lra <> <> lib
-R2122:2140 Coq.micromega.Psatz <> <> lib
-def 3602:3611 <> state_info
-R3622:3622 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 3614:3614 <> x:1
-binder 3616:3616 <> y:2
-binder 3618:3618 <> z:3
-R3627:3627 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R3643:3645 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R3637:3639 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R3635:3635 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3634:3634 Kernel.NoCloning <> x:1 var
-R3636:3636 Kernel.NoCloning <> x:1 var
-R3641:3641 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3640:3640 Kernel.NoCloning <> y:2 var
-R3642:3642 Kernel.NoCloning <> y:2 var
-R3647:3647 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3646:3646 Kernel.NoCloning <> z:3 var
-R3648:3648 Kernel.NoCloning <> z:3 var
-rec 5393:5408 <> CloningOperation
-proj 5417:5432 <> clone_input_info
-proj 5481:5498 <> clone_output1_info
-proj 5547:5564 <> clone_output2_info
-proj 5614:5626 <> clone_mu_cost
-R5436:5436 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R5502:5502 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R5568:5568 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R5630:5630 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-def 7431:7451 <> respects_conservation
-R7459:7474 Kernel.NoCloning <> CloningOperation rec
-binder 7454:7455 <> op:9
-R7538:7543 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R7512:7514 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R7493:7510 Kernel.NoCloning <> clone_output1_info proj
-R7489:7490 Kernel.NoCloning <> op:9 var
-R7519:7536 Kernel.NoCloning <> clone_output2_info proj
-R7515:7516 Kernel.NoCloning <> op:9 var
-R7565:7567 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R7548:7563 Kernel.NoCloning <> clone_input_info proj
-R7544:7545 Kernel.NoCloning <> op:9 var
-R7572:7584 Kernel.NoCloning <> clone_mu_cost proj
-R7568:7569 Kernel.NoCloning <> op:9 var
-def 9175:9190 <> is_perfect_clone
-R9198:9213 Kernel.NoCloning <> CloningOperation rec
-binder 9193:9194 <> op:10
-R9275:9280 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9251:9253 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9232:9249 Kernel.NoCloning <> clone_output1_info proj
-R9228:9229 Kernel.NoCloning <> op:10 var
-R9258:9273 Kernel.NoCloning <> clone_input_info proj
-R9254:9255 Kernel.NoCloning <> op:10 var
-R9304:9306 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9285:9302 Kernel.NoCloning <> clone_output2_info proj
-R9281:9282 Kernel.NoCloning <> op:10 var
-R9311:9326 Kernel.NoCloning <> clone_input_info proj
-R9307:9308 Kernel.NoCloning <> op:10 var
-def 10623:10634 <> is_zero_cost
-R10642:10657 Kernel.NoCloning <> CloningOperation rec
-binder 10637:10638 <> op:11
-R10690:10692 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10676:10688 Kernel.NoCloning <> clone_mu_cost proj
-R10672:10673 Kernel.NoCloning <> op:11 var
-def 11894:11909 <> nontrivial_input
-R11917:11932 Kernel.NoCloning <> CloningOperation rec
-binder 11912:11913 <> op:12
-R11968:11970 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R11951:11966 Kernel.NoCloning <> clone_input_info proj
-R11947:11948 Kernel.NoCloning <> op:12 var
-prf 14904:14931 <> no_cloning_from_conservation
-R14949:14964 Kernel.NoCloning <> CloningOperation rec
-binder 14944:14945 <> op:13
-R14990:14997 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14971:14986 Kernel.NoCloning <> nontrivial_input def
-R14988:14989 Kernel.NoCloning <> op:13 var
-R15022:15029 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14998:15018 Kernel.NoCloning <> respects_conservation def
-R15020:15021 Kernel.NoCloning <> op:13 var
-R15049:15056 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15030:15045 Kernel.NoCloning <> is_perfect_clone def
-R15047:15048 Kernel.NoCloning <> op:13 var
-R15057:15058 Coq.Init.Logic <> ::type_scope:'~'_x not
-R15059:15070 Kernel.NoCloning <> is_zero_cost def
-R15072:15073 Kernel.NoCloning <> op:13 var
-R15138:15153 Kernel.NoCloning <> nontrivial_input def
-R15156:15176 Kernel.NoCloning <> respects_conservation def
-R15179:15194 Kernel.NoCloning <> is_perfect_clone def
-R15197:15208 Kernel.NoCloning <> is_zero_cost def
-prf 17289:17307 <> cloning_requires_mu
-R17325:17340 Kernel.NoCloning <> CloningOperation rec
-binder 17320:17321 <> op:14
-R17366:17373 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17347:17362 Kernel.NoCloning <> nontrivial_input def
-R17364:17365 Kernel.NoCloning <> op:14 var
-R17398:17405 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17374:17394 Kernel.NoCloning <> respects_conservation def
-R17396:17397 Kernel.NoCloning <> op:14 var
-R17425:17432 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17406:17421 Kernel.NoCloning <> is_perfect_clone def
-R17423:17424 Kernel.NoCloning <> op:14 var
-R17451:17454 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R17437:17449 Kernel.NoCloning <> clone_mu_cost proj
-R17433:17434 Kernel.NoCloning <> op:14 var
-R17459:17474 Kernel.NoCloning <> clone_input_info proj
-R17455:17456 Kernel.NoCloning <> op:14 var
-R17534:17549 Kernel.NoCloning <> nontrivial_input def
-R17552:17572 Kernel.NoCloning <> respects_conservation def
+R2153:2159 Kernel.VMState <> <> lib
+R2161:2166 Kernel.VMStep <> <> lib
+R2196:2206 Kernel.MuCostModel <> <> lib
+R2225:2239 Coq.Reals.Reals <> <> lib
+R2257:2273 Coq.micromega.Lra <> <> lib
+R2291:2309 Coq.micromega.Psatz <> <> lib
+def 3771:3780 <> state_info
+R3791:3791 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 3783:3783 <> x:1
+binder 3785:3785 <> y:2
+binder 3787:3787 <> z:3
+R3796:3796 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3812:3814 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R3806:3808 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R3804:3804 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3803:3803 Kernel.NoCloning <> x:1 var
+R3805:3805 Kernel.NoCloning <> x:1 var
+R3810:3810 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3809:3809 Kernel.NoCloning <> y:2 var
+R3811:3811 Kernel.NoCloning <> y:2 var
+R3816:3816 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3815:3815 Kernel.NoCloning <> z:3 var
+R3817:3817 Kernel.NoCloning <> z:3 var
+rec 5562:5577 <> CloningOperation
+proj 5586:5601 <> clone_input_info
+proj 5650:5667 <> clone_output1_info
+proj 5716:5733 <> clone_output2_info
+proj 5783:5795 <> clone_mu_cost
+R5605:5605 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5671:5671 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5737:5737 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5799:5799 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 7600:7620 <> respects_conservation
+R7628:7643 Kernel.NoCloning <> CloningOperation rec
+binder 7623:7624 <> op:9
+R7707:7712 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R7681:7683 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R7662:7679 Kernel.NoCloning <> clone_output1_info proj
+R7658:7659 Kernel.NoCloning <> op:9 var
+R7688:7705 Kernel.NoCloning <> clone_output2_info proj
+R7684:7685 Kernel.NoCloning <> op:9 var
+R7734:7736 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R7717:7732 Kernel.NoCloning <> clone_input_info proj
+R7713:7714 Kernel.NoCloning <> op:9 var
+R7741:7753 Kernel.NoCloning <> clone_mu_cost proj
+R7737:7738 Kernel.NoCloning <> op:9 var
+def 9344:9359 <> is_perfect_clone
+R9367:9382 Kernel.NoCloning <> CloningOperation rec
+binder 9362:9363 <> op:10
+R9444:9449 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9420:9422 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9401:9418 Kernel.NoCloning <> clone_output1_info proj
+R9397:9398 Kernel.NoCloning <> op:10 var
+R9427:9442 Kernel.NoCloning <> clone_input_info proj
+R9423:9424 Kernel.NoCloning <> op:10 var
+R9473:9475 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9454:9471 Kernel.NoCloning <> clone_output2_info proj
+R9450:9451 Kernel.NoCloning <> op:10 var
+R9480:9495 Kernel.NoCloning <> clone_input_info proj
+R9476:9477 Kernel.NoCloning <> op:10 var
+def 10792:10803 <> is_zero_cost
+R10811:10826 Kernel.NoCloning <> CloningOperation rec
+binder 10806:10807 <> op:11
+R10859:10861 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10845:10857 Kernel.NoCloning <> clone_mu_cost proj
+R10841:10842 Kernel.NoCloning <> op:11 var
+def 12063:12078 <> nontrivial_input
+R12086:12101 Kernel.NoCloning <> CloningOperation rec
+binder 12081:12082 <> op:12
+R12137:12139 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R12120:12135 Kernel.NoCloning <> clone_input_info proj
+R12116:12117 Kernel.NoCloning <> op:12 var
+prf 15073:15100 <> no_cloning_from_conservation
+R15118:15133 Kernel.NoCloning <> CloningOperation rec
+binder 15113:15114 <> op:13
+R15159:15166 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15140:15155 Kernel.NoCloning <> nontrivial_input def
+R15157:15158 Kernel.NoCloning <> op:13 var
+R15191:15198 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15167:15187 Kernel.NoCloning <> respects_conservation def
+R15189:15190 Kernel.NoCloning <> op:13 var
+R15218:15225 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15199:15214 Kernel.NoCloning <> is_perfect_clone def
+R15216:15217 Kernel.NoCloning <> op:13 var
+R15226:15227 Coq.Init.Logic <> ::type_scope:'~'_x not
+R15228:15239 Kernel.NoCloning <> is_zero_cost def
+R15241:15242 Kernel.NoCloning <> op:13 var
+R15307:15322 Kernel.NoCloning <> nontrivial_input def
+R15325:15345 Kernel.NoCloning <> respects_conservation def
+R15348:15363 Kernel.NoCloning <> is_perfect_clone def
+R15366:15377 Kernel.NoCloning <> is_zero_cost def
+prf 17458:17476 <> cloning_requires_mu
+R17494:17509 Kernel.NoCloning <> CloningOperation rec
+binder 17489:17490 <> op:14
+R17535:17542 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17516:17531 Kernel.NoCloning <> nontrivial_input def
+R17533:17534 Kernel.NoCloning <> op:14 var
+R17567:17574 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17543:17563 Kernel.NoCloning <> respects_conservation def
+R17565:17566 Kernel.NoCloning <> op:14 var
+R17594:17601 Coq.Init.Logic <> ::type_scope:x_'->'_x not
 R17575:17590 Kernel.NoCloning <> is_perfect_clone def
-def 19194:19207 <> clone_fidelity
-R19228:19228 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 19210:19217 <> original:15
-binder 19219:19224 <> copied:16
-R19233:19233 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R19243:19249 Coq.Reals.RIneq <> Rle_dec thm
-R19251:19256 Kernel.NoCloning <> copied:16 var
-R19258:19265 Kernel.NoCloning <> original:15 var
-R19278:19280 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R19272:19277 Kernel.NoCloning <> copied:16 var
-R19281:19288 Kernel.NoCloning <> original:15 var
-def 20609:20625 <> approximate_clone
-R20633:20648 Kernel.NoCloning <> CloningOperation rec
-binder 20628:20629 <> op:17
-R20660:20660 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 20652:20653 <> f1:18
-binder 20655:20656 <> f2:19
-R20687:20692 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R20676:20679 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
-R20682:20685 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
-R20680:20681 Kernel.NoCloning <> f1:18 var
-R20680:20681 Kernel.NoCloning <> f1:18 var
-R20705:20710 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R20694:20697 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
-R20700:20703 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
-R20698:20699 Kernel.NoCloning <> f2:19 var
-R20698:20699 Kernel.NoCloning <> f2:19 var
-R20763:20768 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R20734:20736 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R20715:20732 Kernel.NoCloning <> clone_output1_info proj
-R20711:20712 Kernel.NoCloning <> op:17 var
-R20739:20741 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R20737:20738 Kernel.NoCloning <> f1:18 var
-R20746:20761 Kernel.NoCloning <> clone_input_info proj
-R20742:20743 Kernel.NoCloning <> op:17 var
-R20792:20794 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R20773:20790 Kernel.NoCloning <> clone_output2_info proj
-R20769:20770 Kernel.NoCloning <> op:17 var
-R20797:20799 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R20795:20796 Kernel.NoCloning <> f2:19 var
-R20804:20819 Kernel.NoCloning <> clone_input_info proj
-R20800:20801 Kernel.NoCloning <> op:17 var
-prf 22934:22958 <> approximate_cloning_bound
-binder 22971:22972 <> op:20
-binder 22974:22975 <> f1:21
-binder 22977:22978 <> f2:22
-R23004:23011 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R22985:23000 Kernel.NoCloning <> nontrivial_input def
-R23002:23003 Kernel.NoCloning <> op:20 var
-R23036:23043 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R23012:23032 Kernel.NoCloning <> respects_conservation def
-R23034:23035 Kernel.NoCloning <> op:20 var
-R23070:23077 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R23044:23060 Kernel.NoCloning <> approximate_clone def
-R23062:23063 Kernel.NoCloning <> op:20 var
-R23065:23066 Kernel.NoCloning <> f1:21 var
-R23068:23069 Kernel.NoCloning <> f2:22 var
-R23085:23088 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R23080:23082 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R23078:23079 Kernel.NoCloning <> f1:21 var
-R23083:23084 Kernel.NoCloning <> f2:22 var
-R23090:23092 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R23111:23113 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R23097:23109 Kernel.NoCloning <> clone_mu_cost proj
-R23093:23094 Kernel.NoCloning <> op:20 var
-R23118:23133 Kernel.NoCloning <> clone_input_info proj
-R23114:23115 Kernel.NoCloning <> op:20 var
-R23198:23213 Kernel.NoCloning <> nontrivial_input def
-R23216:23236 Kernel.NoCloning <> respects_conservation def
-R23239:23255 Kernel.NoCloning <> approximate_clone def
-R23465:23467 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R23448:23463 Kernel.NoCloning <> clone_input_info proj
-R23465:23467 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R23448:23463 Kernel.NoCloning <> clone_input_info proj
-R23531:23546 Kernel.NoCloning <> clone_input_info proj
-R23501:23514 Coq.Reals.RIneq <> Rmult_le_reg_r thm
-R23531:23546 Kernel.NoCloning <> clone_input_info proj
-R23501:23514 Coq.Reals.RIneq <> Rmult_le_reg_r thm
-R23580:23583 Coq.Reals.Rdefinitions <> Rdiv def
-R23599:23599 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R23607:23610 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R23602:23604 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R23615:23630 Kernel.NoCloning <> clone_input_info proj
-R23672:23674 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R23648:23650 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R23655:23670 Kernel.NoCloning <> clone_input_info proj
-R23677:23679 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R23684:23699 Kernel.NoCloning <> clone_input_info proj
-R23599:23599 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R23607:23610 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R23602:23604 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R23615:23630 Kernel.NoCloning <> clone_input_info proj
-R23672:23674 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R23648:23650 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R23655:23670 Kernel.NoCloning <> clone_input_info proj
-R23677:23679 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R23684:23699 Kernel.NoCloning <> clone_input_info proj
-R23725:23725 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R23774:23777 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R23727:23729 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R23748:23750 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R23734:23746 Kernel.NoCloning <> clone_mu_cost proj
-R23751:23752 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R23757:23772 Kernel.NoCloning <> clone_input_info proj
-R23782:23797 Kernel.NoCloning <> clone_input_info proj
-R23834:23836 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R23817:23832 Kernel.NoCloning <> clone_input_info proj
-R23841:23853 Kernel.NoCloning <> clone_mu_cost proj
-R23725:23725 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R23774:23777 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R23727:23729 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R23748:23750 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R23734:23746 Kernel.NoCloning <> clone_mu_cost proj
-R23751:23752 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R23757:23772 Kernel.NoCloning <> clone_input_info proj
-R23782:23797 Kernel.NoCloning <> clone_input_info proj
-R23834:23836 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R23817:23832 Kernel.NoCloning <> clone_input_info proj
-R23841:23853 Kernel.NoCloning <> clone_mu_cost proj
-prf 26419:26445 <> optimal_approximate_cloning
-binder 26458:26459 <> op:23
-binder 26461:26462 <> f1:24
-binder 26464:26465 <> f2:25
-R26491:26498 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R26472:26487 Kernel.NoCloning <> nontrivial_input def
-R26489:26490 Kernel.NoCloning <> op:23 var
-R26523:26530 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R26499:26519 Kernel.NoCloning <> respects_conservation def
-R26521:26522 Kernel.NoCloning <> op:23 var
-R26546:26553 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R26531:26542 Kernel.NoCloning <> is_zero_cost def
-R26544:26545 Kernel.NoCloning <> op:23 var
-R26580:26587 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R26554:26570 Kernel.NoCloning <> approximate_clone def
-R26572:26573 Kernel.NoCloning <> op:23 var
-R26575:26576 Kernel.NoCloning <> f1:24 var
-R26578:26579 Kernel.NoCloning <> f2:25 var
-R26595:26598 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R26590:26592 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R26588:26589 Kernel.NoCloning <> f1:24 var
-R26593:26594 Kernel.NoCloning <> f2:25 var
-R26666:26690 Kernel.NoCloning <> approximate_cloning_bound thm
-R26666:26690 Kernel.NoCloning <> approximate_cloning_bound thm
-R26740:26751 Kernel.NoCloning <> is_zero_cost def
-R26799:26802 Coq.Reals.Rdefinitions <> Rdiv def
-R26827:26829 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R26830:26831 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R26836:26851 Kernel.NoCloning <> clone_input_info proj
-R26827:26829 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R26830:26831 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R26836:26851 Kernel.NoCloning <> clone_input_info proj
-prf 28783:28807 <> symmetric_optimal_cloning
-binder 28820:28821 <> op:26
-R28847:28854 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R28828:28843 Kernel.NoCloning <> nontrivial_input def
-R28845:28846 Kernel.NoCloning <> op:26 var
-R28879:28886 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R28855:28875 Kernel.NoCloning <> respects_conservation def
-R28877:28878 Kernel.NoCloning <> op:26 var
-R28902:28909 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R28887:28898 Kernel.NoCloning <> is_zero_cost def
-R28900:28901 Kernel.NoCloning <> op:26 var
-R28942:28949 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R28910:28926 Kernel.NoCloning <> approximate_clone def
-R28928:28929 Kernel.NoCloning <> op:26 var
-R28933:28933 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R28939:28939 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R28960:28963 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R28954:28956 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R28952:28952 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R28958:28958 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-def 30429:30438 <> bloch_info
-R30449:30449 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 30441:30441 <> x:27
-binder 30443:30443 <> y:28
-binder 30445:30445 <> z:29
-R30454:30454 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R30468:30470 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R30462:30464 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R30460:30460 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R30459:30459 Kernel.NoCloning <> x:27 var
-R30461:30461 Kernel.NoCloning <> x:27 var
-R30466:30466 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R30465:30465 Kernel.NoCloning <> y:28 var
-R30467:30467 Kernel.NoCloning <> y:28 var
-R30472:30472 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R30471:30471 Kernel.NoCloning <> z:29 var
-R30473:30473 Kernel.NoCloning <> z:29 var
-def 31441:31453 <> is_pure_state
-R31464:31464 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 31456:31456 <> x:30
-binder 31458:31458 <> y:31
-binder 31460:31460 <> z:32
-R31493:31495 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R31477:31486 Kernel.NoCloning <> bloch_info def
-R31488:31488 Kernel.NoCloning <> x:30 var
-R31490:31490 Kernel.NoCloning <> y:31 var
-R31492:31492 Kernel.NoCloning <> z:32 var
-prf 33931:33946 <> no_cloning_bloch
-R33967:33967 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 33959:33959 <> x:33
-binder 33961:33961 <> y:34
-binder 33963:33963 <> z:35
-R33993:34000 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R33974:33986 Kernel.NoCloning <> is_pure_state def
-R33988:33988 Kernel.NoCloning <> x:33 var
-R33990:33990 Kernel.NoCloning <> y:34 var
-R33992:33992 Kernel.NoCloning <> z:35 var
-R34013:34028 Kernel.NoCloning <> CloningOperation rec
-binder 34008:34009 <> op:36
-R34077:34086 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R34058:34060 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R34041:34056 Kernel.NoCloning <> clone_input_info proj
-R34037:34038 Kernel.NoCloning <> op:36 var
-R34061:34070 Kernel.NoCloning <> bloch_info def
-R34072:34072 Kernel.NoCloning <> x:33 var
-R34074:34074 Kernel.NoCloning <> y:34 var
-R34076:34076 Kernel.NoCloning <> z:35 var
-R34111:34120 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R34087:34107 Kernel.NoCloning <> respects_conservation def
-R34109:34110 Kernel.NoCloning <> op:36 var
-R34140:34149 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R34121:34136 Kernel.NoCloning <> is_perfect_clone def
-R34138:34139 Kernel.NoCloning <> op:36 var
-R34168:34171 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R34154:34166 Kernel.NoCloning <> clone_mu_cost proj
-R34150:34151 Kernel.NoCloning <> op:36 var
-R34238:34250 Kernel.NoCloning <> is_pure_state def
-R34253:34262 Kernel.NoCloning <> bloch_info def
-R34311:34329 Kernel.NoCloning <> cloning_requires_mu thm
-R34311:34329 Kernel.NoCloning <> cloning_requires_mu thm
-R34360:34375 Kernel.NoCloning <> nontrivial_input def
-R34360:34375 Kernel.NoCloning <> nontrivial_input def
-R34393:34408 Kernel.NoCloning <> nontrivial_input def
-rec 36727:36743 <> DeletionOperation
-proj 36752:36766 <> del_input1_info
-proj 36775:36789 <> del_input2_info
-proj 36798:36812 <> del_output_info
-proj 36821:36831 <> del_mu_cost
-R36770:36770 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R36793:36793 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R36816:36816 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R36835:36835 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-def 38826:38850 <> del_respects_conservation
-R38858:38874 Kernel.NoCloning <> DeletionOperation rec
-binder 38853:38854 <> op:42
-R38928:38933 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R38909:38911 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R38893:38907 Kernel.NoCloning <> del_output_info proj
-R38889:38890 Kernel.NoCloning <> op:42 var
-R38916:38926 Kernel.NoCloning <> del_mu_cost proj
-R38912:38913 Kernel.NoCloning <> op:42 var
-R38954:38956 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R38938:38952 Kernel.NoCloning <> del_input1_info proj
-R38934:38935 Kernel.NoCloning <> op:42 var
-R38961:38975 Kernel.NoCloning <> del_input2_info proj
-R38957:38958 Kernel.NoCloning <> op:42 var
-def 40814:40832 <> is_perfect_deletion
-R40840:40856 Kernel.NoCloning <> DeletionOperation rec
-binder 40835:40836 <> op:43
-R40914:40919 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R40891:40893 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R40875:40889 Kernel.NoCloning <> del_output_info proj
-R40871:40872 Kernel.NoCloning <> op:43 var
-R40898:40912 Kernel.NoCloning <> del_input1_info proj
-R40894:40895 Kernel.NoCloning <> op:43 var
-R40940:40942 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R40924:40938 Kernel.NoCloning <> del_input1_info proj
-R40920:40921 Kernel.NoCloning <> op:43 var
-R40947:40961 Kernel.NoCloning <> del_input2_info proj
-R40943:40944 Kernel.NoCloning <> op:43 var
-prf 43839:43862 <> no_deletion_without_cost
-R43880:43896 Kernel.NoCloning <> DeletionOperation rec
-binder 43875:43876 <> op:44
-R43927:43934 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R43923:43925 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R43907:43921 Kernel.NoCloning <> del_input1_info proj
-R43903:43904 Kernel.NoCloning <> op:44 var
-R43963:43970 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R43935:43959 Kernel.NoCloning <> del_respects_conservation def
-R43961:43962 Kernel.NoCloning <> op:44 var
-R43993:44000 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R43971:43989 Kernel.NoCloning <> is_perfect_deletion def
-R43991:43992 Kernel.NoCloning <> op:44 var
-R44017:44020 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R44005:44015 Kernel.NoCloning <> del_mu_cost proj
-R44001:44002 Kernel.NoCloning <> op:44 var
-R44025:44039 Kernel.NoCloning <> del_input1_info proj
-R44021:44022 Kernel.NoCloning <> op:44 var
-R44088:44112 Kernel.NoCloning <> del_respects_conservation def
-R44115:44133 Kernel.NoCloning <> is_perfect_deletion def
+R17592:17593 Kernel.NoCloning <> op:14 var
+R17620:17623 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R17606:17618 Kernel.NoCloning <> clone_mu_cost proj
+R17602:17603 Kernel.NoCloning <> op:14 var
+R17628:17643 Kernel.NoCloning <> clone_input_info proj
+R17624:17625 Kernel.NoCloning <> op:14 var
+R17703:17718 Kernel.NoCloning <> nontrivial_input def
+R17721:17741 Kernel.NoCloning <> respects_conservation def
+R17744:17759 Kernel.NoCloning <> is_perfect_clone def
+def 19363:19376 <> clone_fidelity
+R19397:19397 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 19379:19386 <> original:15
+binder 19388:19393 <> copied:16
+R19402:19402 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R19412:19418 Coq.Reals.RIneq <> Rle_dec thm
+R19420:19425 Kernel.NoCloning <> copied:16 var
+R19427:19434 Kernel.NoCloning <> original:15 var
+R19447:19449 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R19441:19446 Kernel.NoCloning <> copied:16 var
+R19450:19457 Kernel.NoCloning <> original:15 var
+def 20778:20794 <> approximate_clone
+R20802:20817 Kernel.NoCloning <> CloningOperation rec
+binder 20797:20798 <> op:17
+R20829:20829 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 20821:20822 <> f1:18
+binder 20824:20825 <> f2:19
+R20856:20861 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20845:20848 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R20851:20854 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R20849:20850 Kernel.NoCloning <> f1:18 var
+R20849:20850 Kernel.NoCloning <> f1:18 var
+R20874:20879 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20863:20866 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R20869:20872 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R20867:20868 Kernel.NoCloning <> f2:19 var
+R20867:20868 Kernel.NoCloning <> f2:19 var
+R20932:20937 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20903:20905 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20884:20901 Kernel.NoCloning <> clone_output1_info proj
+R20880:20881 Kernel.NoCloning <> op:17 var
+R20908:20910 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R20906:20907 Kernel.NoCloning <> f1:18 var
+R20915:20930 Kernel.NoCloning <> clone_input_info proj
+R20911:20912 Kernel.NoCloning <> op:17 var
+R20961:20963 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20942:20959 Kernel.NoCloning <> clone_output2_info proj
+R20938:20939 Kernel.NoCloning <> op:17 var
+R20966:20968 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R20964:20965 Kernel.NoCloning <> f2:19 var
+R20973:20988 Kernel.NoCloning <> clone_input_info proj
+R20969:20970 Kernel.NoCloning <> op:17 var
+prf 23103:23127 <> approximate_cloning_bound
+binder 23140:23141 <> op:20
+binder 23143:23144 <> f1:21
+binder 23146:23147 <> f2:22
+R23173:23180 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23154:23169 Kernel.NoCloning <> nontrivial_input def
+R23171:23172 Kernel.NoCloning <> op:20 var
+R23205:23212 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23181:23201 Kernel.NoCloning <> respects_conservation def
+R23203:23204 Kernel.NoCloning <> op:20 var
+R23239:23246 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23213:23229 Kernel.NoCloning <> approximate_clone def
+R23231:23232 Kernel.NoCloning <> op:20 var
+R23234:23235 Kernel.NoCloning <> f1:21 var
+R23237:23238 Kernel.NoCloning <> f2:22 var
+R23254:23257 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R23249:23251 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R23247:23248 Kernel.NoCloning <> f1:21 var
+R23252:23253 Kernel.NoCloning <> f2:22 var
+R23259:23261 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R23280:23282 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R23266:23278 Kernel.NoCloning <> clone_mu_cost proj
+R23262:23263 Kernel.NoCloning <> op:20 var
+R23287:23302 Kernel.NoCloning <> clone_input_info proj
+R23283:23284 Kernel.NoCloning <> op:20 var
+R23367:23382 Kernel.NoCloning <> nontrivial_input def
+R23385:23405 Kernel.NoCloning <> respects_conservation def
+R23408:23424 Kernel.NoCloning <> approximate_clone def
+R23634:23636 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R23617:23632 Kernel.NoCloning <> clone_input_info proj
+R23634:23636 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R23617:23632 Kernel.NoCloning <> clone_input_info proj
+R23700:23715 Kernel.NoCloning <> clone_input_info proj
+R23670:23683 Coq.Reals.RIneq <> Rmult_le_reg_r thm
+R23700:23715 Kernel.NoCloning <> clone_input_info proj
+R23670:23683 Coq.Reals.RIneq <> Rmult_le_reg_r thm
+R23749:23752 Coq.Reals.Rdefinitions <> Rdiv def
+R23768:23768 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R23776:23779 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R23771:23773 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R23784:23799 Kernel.NoCloning <> clone_input_info proj
+R23841:23843 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R23817:23819 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R23824:23839 Kernel.NoCloning <> clone_input_info proj
+R23846:23848 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R23853:23868 Kernel.NoCloning <> clone_input_info proj
+R23768:23768 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R23776:23779 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R23771:23773 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R23784:23799 Kernel.NoCloning <> clone_input_info proj
+R23841:23843 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R23817:23819 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R23824:23839 Kernel.NoCloning <> clone_input_info proj
+R23846:23848 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R23853:23868 Kernel.NoCloning <> clone_input_info proj
+R23894:23894 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R23943:23946 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R23896:23898 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R23917:23919 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R23903:23915 Kernel.NoCloning <> clone_mu_cost proj
+R23920:23921 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R23926:23941 Kernel.NoCloning <> clone_input_info proj
+R23951:23966 Kernel.NoCloning <> clone_input_info proj
+R24003:24005 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R23986:24001 Kernel.NoCloning <> clone_input_info proj
+R24010:24022 Kernel.NoCloning <> clone_mu_cost proj
+R23894:23894 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R23943:23946 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R23896:23898 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R23917:23919 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R23903:23915 Kernel.NoCloning <> clone_mu_cost proj
+R23920:23921 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R23926:23941 Kernel.NoCloning <> clone_input_info proj
+R23951:23966 Kernel.NoCloning <> clone_input_info proj
+R24003:24005 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R23986:24001 Kernel.NoCloning <> clone_input_info proj
+R24010:24022 Kernel.NoCloning <> clone_mu_cost proj
+prf 26588:26614 <> optimal_approximate_cloning
+binder 26627:26628 <> op:23
+binder 26630:26631 <> f1:24
+binder 26633:26634 <> f2:25
+R26660:26667 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26641:26656 Kernel.NoCloning <> nontrivial_input def
+R26658:26659 Kernel.NoCloning <> op:23 var
+R26692:26699 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26668:26688 Kernel.NoCloning <> respects_conservation def
+R26690:26691 Kernel.NoCloning <> op:23 var
+R26715:26722 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26700:26711 Kernel.NoCloning <> is_zero_cost def
+R26713:26714 Kernel.NoCloning <> op:23 var
+R26749:26756 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26723:26739 Kernel.NoCloning <> approximate_clone def
+R26741:26742 Kernel.NoCloning <> op:23 var
+R26744:26745 Kernel.NoCloning <> f1:24 var
+R26747:26748 Kernel.NoCloning <> f2:25 var
+R26764:26767 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R26759:26761 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R26757:26758 Kernel.NoCloning <> f1:24 var
+R26762:26763 Kernel.NoCloning <> f2:25 var
+R26835:26859 Kernel.NoCloning <> approximate_cloning_bound thm
+R26835:26859 Kernel.NoCloning <> approximate_cloning_bound thm
+R26909:26920 Kernel.NoCloning <> is_zero_cost def
+R26968:26971 Coq.Reals.Rdefinitions <> Rdiv def
+R26996:26998 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R26999:27000 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R27005:27020 Kernel.NoCloning <> clone_input_info proj
+R26996:26998 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R26999:27000 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R27005:27020 Kernel.NoCloning <> clone_input_info proj
+prf 28952:28976 <> symmetric_optimal_cloning
+binder 28989:28990 <> op:26
+R29016:29023 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R28997:29012 Kernel.NoCloning <> nontrivial_input def
+R29014:29015 Kernel.NoCloning <> op:26 var
+R29048:29055 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R29024:29044 Kernel.NoCloning <> respects_conservation def
+R29046:29047 Kernel.NoCloning <> op:26 var
+R29071:29078 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R29056:29067 Kernel.NoCloning <> is_zero_cost def
+R29069:29070 Kernel.NoCloning <> op:26 var
+R29111:29118 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R29079:29095 Kernel.NoCloning <> approximate_clone def
+R29097:29098 Kernel.NoCloning <> op:26 var
+R29102:29102 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R29108:29108 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R29129:29132 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R29123:29125 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R29121:29121 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R29127:29127 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+def 30598:30607 <> bloch_info
+R30618:30618 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 30610:30610 <> x:27
+binder 30612:30612 <> y:28
+binder 30614:30614 <> z:29
+R30623:30623 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R30637:30639 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R30631:30633 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R30629:30629 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R30628:30628 Kernel.NoCloning <> x:27 var
+R30630:30630 Kernel.NoCloning <> x:27 var
+R30635:30635 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R30634:30634 Kernel.NoCloning <> y:28 var
+R30636:30636 Kernel.NoCloning <> y:28 var
+R30641:30641 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R30640:30640 Kernel.NoCloning <> z:29 var
+R30642:30642 Kernel.NoCloning <> z:29 var
+def 31610:31622 <> is_pure_state
+R31633:31633 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 31625:31625 <> x:30
+binder 31627:31627 <> y:31
+binder 31629:31629 <> z:32
+R31662:31664 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R31646:31655 Kernel.NoCloning <> bloch_info def
+R31657:31657 Kernel.NoCloning <> x:30 var
+R31659:31659 Kernel.NoCloning <> y:31 var
+R31661:31661 Kernel.NoCloning <> z:32 var
+prf 34100:34115 <> no_cloning_bloch
+R34136:34136 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 34128:34128 <> x:33
+binder 34130:34130 <> y:34
+binder 34132:34132 <> z:35
+R34162:34169 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R34143:34155 Kernel.NoCloning <> is_pure_state def
+R34157:34157 Kernel.NoCloning <> x:33 var
+R34159:34159 Kernel.NoCloning <> y:34 var
+R34161:34161 Kernel.NoCloning <> z:35 var
+R34182:34197 Kernel.NoCloning <> CloningOperation rec
+binder 34177:34178 <> op:36
+R34246:34255 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R34227:34229 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R34210:34225 Kernel.NoCloning <> clone_input_info proj
+R34206:34207 Kernel.NoCloning <> op:36 var
+R34230:34239 Kernel.NoCloning <> bloch_info def
+R34241:34241 Kernel.NoCloning <> x:33 var
+R34243:34243 Kernel.NoCloning <> y:34 var
+R34245:34245 Kernel.NoCloning <> z:35 var
+R34280:34289 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R34256:34276 Kernel.NoCloning <> respects_conservation def
+R34278:34279 Kernel.NoCloning <> op:36 var
+R34309:34318 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R34290:34305 Kernel.NoCloning <> is_perfect_clone def
+R34307:34308 Kernel.NoCloning <> op:36 var
+R34337:34340 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R34323:34335 Kernel.NoCloning <> clone_mu_cost proj
+R34319:34320 Kernel.NoCloning <> op:36 var
+R34407:34419 Kernel.NoCloning <> is_pure_state def
+R34422:34431 Kernel.NoCloning <> bloch_info def
+R34480:34498 Kernel.NoCloning <> cloning_requires_mu thm
+R34480:34498 Kernel.NoCloning <> cloning_requires_mu thm
+R34529:34544 Kernel.NoCloning <> nontrivial_input def
+R34529:34544 Kernel.NoCloning <> nontrivial_input def
+R34562:34577 Kernel.NoCloning <> nontrivial_input def
+rec 36896:36912 <> DeletionOperation
+proj 36921:36935 <> del_input1_info
+proj 36944:36958 <> del_input2_info
+proj 36967:36981 <> del_output_info
+proj 36990:37000 <> del_mu_cost
+R36939:36939 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R36962:36962 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R36985:36985 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R37004:37004 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 38995:39019 <> del_respects_conservation
+R39027:39043 Kernel.NoCloning <> DeletionOperation rec
+binder 39022:39023 <> op:42
+R39097:39102 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R39078:39080 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R39062:39076 Kernel.NoCloning <> del_output_info proj
+R39058:39059 Kernel.NoCloning <> op:42 var
+R39085:39095 Kernel.NoCloning <> del_mu_cost proj
+R39081:39082 Kernel.NoCloning <> op:42 var
+R39123:39125 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R39107:39121 Kernel.NoCloning <> del_input1_info proj
+R39103:39104 Kernel.NoCloning <> op:42 var
+R39130:39144 Kernel.NoCloning <> del_input2_info proj
+R39126:39127 Kernel.NoCloning <> op:42 var
+def 40983:41001 <> is_perfect_deletion
+R41009:41025 Kernel.NoCloning <> DeletionOperation rec
+binder 41004:41005 <> op:43
+R41083:41088 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R41060:41062 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R41044:41058 Kernel.NoCloning <> del_output_info proj
+R41040:41041 Kernel.NoCloning <> op:43 var
+R41067:41081 Kernel.NoCloning <> del_input1_info proj
+R41063:41064 Kernel.NoCloning <> op:43 var
+R41109:41111 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R41093:41107 Kernel.NoCloning <> del_input1_info proj
+R41089:41090 Kernel.NoCloning <> op:43 var
+R41116:41130 Kernel.NoCloning <> del_input2_info proj
+R41112:41113 Kernel.NoCloning <> op:43 var
+prf 44008:44031 <> no_deletion_without_cost
+R44049:44065 Kernel.NoCloning <> DeletionOperation rec
+binder 44044:44045 <> op:44
+R44096:44103 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R44092:44094 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R44076:44090 Kernel.NoCloning <> del_input1_info proj
+R44072:44073 Kernel.NoCloning <> op:44 var
+R44132:44139 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R44104:44128 Kernel.NoCloning <> del_respects_conservation def
+R44130:44131 Kernel.NoCloning <> op:44 var
+R44162:44169 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R44140:44158 Kernel.NoCloning <> is_perfect_deletion def
+R44160:44161 Kernel.NoCloning <> op:44 var
+R44186:44189 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R44174:44184 Kernel.NoCloning <> del_mu_cost proj
+R44170:44171 Kernel.NoCloning <> op:44 var
+R44194:44208 Kernel.NoCloning <> del_input1_info proj
+R44190:44191 Kernel.NoCloning <> op:44 var
+R44257:44281 Kernel.NoCloning <> del_respects_conservation def
+R44284:44302 Kernel.NoCloning <> is_perfect_deletion def

@@ -1,124 +1,127 @@
-DIGEST fe15c87a90cf2065745214a8c5c9422a
+DIGEST 6fe315d7a241fdb82865165a0be184db
 FThieleMachine.PhaseThree
 R15:31 Coq.QArith.QArith <> <> lib
 R49:66 Coq.Setoids.Setoid <> <> lib
 R84:100 Coq.micromega.Lia <> <> lib
-rec 138:154 <> HeadToHeadSummary
-proj 163:175 <> hh_sighted_mu
-proj 184:194 <> hh_blind_mu
-proj 203:208 <> hh_gap
-R179:179 Coq.QArith.QArith_base <> Q rec
-R198:198 Coq.QArith.QArith_base <> Q rec
-R212:212 Coq.QArith.QArith_base <> Q rec
-def 229:251 <> head_to_head_consistent
-R264:280 ThieleMachine.PhaseThree <> HeadToHeadSummary rec
-binder 254:260 <> summary:5
-R309:312 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
-R295:300 ThieleMachine.PhaseThree <> hh_gap proj
-R302:308 ThieleMachine.PhaseThree <> summary:5 var
-R332:334 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
-R313:323 ThieleMachine.PhaseThree <> hh_blind_mu proj
-R325:331 ThieleMachine.PhaseThree <> summary:5 var
-R335:347 ThieleMachine.PhaseThree <> hh_sighted_mu proj
-R349:355 ThieleMachine.PhaseThree <> summary:5 var
-def 370:394 <> head_to_head_gap_positive
-R407:423 ThieleMachine.PhaseThree <> HeadToHeadSummary rec
-binder 397:403 <> summary:6
-R441:443 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
-R439:439 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
-R444:449 ThieleMachine.PhaseThree <> hh_gap proj
-R451:457 ThieleMachine.PhaseThree <> summary:6 var
-def 472:498 <> head_to_head_sighted_better
-R511:527 ThieleMachine.PhaseThree <> HeadToHeadSummary rec
-binder 501:507 <> summary:7
-R563:565 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
-R542:554 ThieleMachine.PhaseThree <> hh_sighted_mu proj
-R556:562 ThieleMachine.PhaseThree <> summary:7 var
-R566:576 ThieleMachine.PhaseThree <> hh_blind_mu proj
-R578:584 ThieleMachine.PhaseThree <> summary:7 var
-prf 639:650 <> Qlt_plus_pos
-R669:669 Coq.QArith.QArith_base <> Q rec
-binder 663:663 <> a:8
-binder 665:665 <> b:9
-R683:690 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R679:681 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
-R677:677 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
-R682:682 ThieleMachine.PhaseThree <> b:9 var
-R692:694 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
-R691:691 ThieleMachine.PhaseThree <> a:8 var
-R696:698 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
-R695:695 ThieleMachine.PhaseThree <> a:8 var
-R699:699 ThieleMachine.PhaseThree <> b:9 var
-R735:737 Coq.QArith.QArith_base <> Qlt def
-prf 830:852 <> head_to_head_gap_cancel
-binder 865:871 <> summary:10
-R947:954 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
-R899:902 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
-R946:946 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
-R878:890 ThieleMachine.PhaseThree <> hh_sighted_mu proj
-R892:898 ThieleMachine.PhaseThree <> summary:10 var
-R922:924 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
-R903:913 ThieleMachine.PhaseThree <> hh_blind_mu proj
-R915:921 ThieleMachine.PhaseThree <> summary:10 var
-R925:937 ThieleMachine.PhaseThree <> hh_sighted_mu proj
-R939:945 ThieleMachine.PhaseThree <> summary:10 var
-R955:965 ThieleMachine.PhaseThree <> hh_blind_mu proj
-R967:973 ThieleMachine.PhaseThree <> summary:10 var
-R1010:1015 Coq.QArith.QArith_base <> Qminus def
-R1028:1038 Coq.QArith.QArith_base <> Qplus_assoc thm
-R1028:1038 Coq.QArith.QArith_base <> Qplus_assoc thm
-R1028:1038 Coq.QArith.QArith_base <> Qplus_assoc thm
-R1052:1061 Coq.QArith.QArith_base <> Qplus_comm thm
-R1064:1076 ThieleMachine.PhaseThree <> hh_sighted_mu proj
-R1088:1098 ThieleMachine.PhaseThree <> hh_blind_mu proj
-R1052:1061 Coq.QArith.QArith_base <> Qplus_comm thm
-R1064:1076 ThieleMachine.PhaseThree <> hh_sighted_mu proj
-R1088:1098 ThieleMachine.PhaseThree <> hh_blind_mu proj
-R1052:1061 Coq.QArith.QArith_base <> Qplus_comm thm
-R1064:1076 ThieleMachine.PhaseThree <> hh_sighted_mu proj
-R1088:1098 ThieleMachine.PhaseThree <> hh_blind_mu proj
-R1124:1134 Coq.QArith.QArith_base <> Qplus_assoc thm
-R1124:1134 Coq.QArith.QArith_base <> Qplus_assoc thm
-R1124:1134 Coq.QArith.QArith_base <> Qplus_assoc thm
-R1147:1157 Coq.QArith.QArith_base <> Qplus_opp_r thm
-R1147:1157 Coq.QArith.QArith_base <> Qplus_opp_r thm
-R1147:1157 Coq.QArith.QArith_base <> Qplus_opp_r thm
-R1170:1178 Coq.QArith.QArith_base <> Qplus_0_r thm
-R1170:1178 Coq.QArith.QArith_base <> Qplus_0_r thm
-R1170:1178 Coq.QArith.QArith_base <> Qplus_0_r thm
-prf 1272:1302 <> head_to_head_gap_implies_better
-binder 1315:1321 <> summary:11
-R1359:1366 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1328:1350 ThieleMachine.PhaseThree <> head_to_head_consistent def
-R1352:1358 ThieleMachine.PhaseThree <> summary:11 var
-R1400:1407 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1367:1391 ThieleMachine.PhaseThree <> head_to_head_gap_positive def
-R1393:1399 ThieleMachine.PhaseThree <> summary:11 var
-R1408:1434 ThieleMachine.PhaseThree <> head_to_head_sighted_better def
-R1436:1442 ThieleMachine.PhaseThree <> summary:11 var
-R1501:1523 ThieleMachine.PhaseThree <> head_to_head_consistent def
-R1550:1574 ThieleMachine.PhaseThree <> head_to_head_gap_positive def
-R1599:1625 ThieleMachine.PhaseThree <> head_to_head_sighted_better def
-R1637:1642 Coq.QArith.QArith_base <> Qminus def
-R1659:1670 ThieleMachine.PhaseThree <> Qlt_plus_pos thm
-R1673:1685 ThieleMachine.PhaseThree <> hh_sighted_mu proj
-R1697:1702 ThieleMachine.PhaseThree <> hh_gap proj
-R1659:1670 ThieleMachine.PhaseThree <> Qlt_plus_pos thm
-R1673:1685 ThieleMachine.PhaseThree <> hh_sighted_mu proj
-R1697:1702 ThieleMachine.PhaseThree <> hh_gap proj
-R1810:1813 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
-R1857:1857 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
-R1789:1801 ThieleMachine.PhaseThree <> hh_sighted_mu proj
-R1833:1835 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
-R1814:1824 ThieleMachine.PhaseThree <> hh_blind_mu proj
-R1836:1848 ThieleMachine.PhaseThree <> hh_sighted_mu proj
-R1870:1880 ThieleMachine.PhaseThree <> hh_blind_mu proj
-R1913:1935 ThieleMachine.PhaseThree <> head_to_head_gap_cancel thm
-R1810:1813 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
-R1857:1857 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
-R1789:1801 ThieleMachine.PhaseThree <> hh_sighted_mu proj
-R1833:1835 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
-R1814:1824 ThieleMachine.PhaseThree <> hh_blind_mu proj
-R1836:1848 ThieleMachine.PhaseThree <> hh_sighted_mu proj
-R1870:1880 ThieleMachine.PhaseThree <> hh_blind_mu proj
-R1913:1935 ThieleMachine.PhaseThree <> head_to_head_gap_cancel thm
+R214:220 Kernel.VMState <> <> lib
+R222:227 Kernel.VMStep <> <> lib
+R257:267 Kernel.MuCostModel <> <> lib
+rec 306:322 <> HeadToHeadSummary
+proj 331:343 <> hh_sighted_mu
+proj 352:362 <> hh_blind_mu
+proj 371:376 <> hh_gap
+R347:347 Coq.QArith.QArith_base <> Q rec
+R366:366 Coq.QArith.QArith_base <> Q rec
+R380:380 Coq.QArith.QArith_base <> Q rec
+def 397:419 <> head_to_head_consistent
+R432:448 ThieleMachine.PhaseThree <> HeadToHeadSummary rec
+binder 422:428 <> summary:5
+R477:480 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R463:468 ThieleMachine.PhaseThree <> hh_gap proj
+R470:476 ThieleMachine.PhaseThree <> summary:5 var
+R500:502 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R481:491 ThieleMachine.PhaseThree <> hh_blind_mu proj
+R493:499 ThieleMachine.PhaseThree <> summary:5 var
+R503:515 ThieleMachine.PhaseThree <> hh_sighted_mu proj
+R517:523 ThieleMachine.PhaseThree <> summary:5 var
+def 538:562 <> head_to_head_gap_positive
+R575:591 ThieleMachine.PhaseThree <> HeadToHeadSummary rec
+binder 565:571 <> summary:6
+R609:611 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
+R607:607 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R612:617 ThieleMachine.PhaseThree <> hh_gap proj
+R619:625 ThieleMachine.PhaseThree <> summary:6 var
+def 640:666 <> head_to_head_sighted_better
+R679:695 ThieleMachine.PhaseThree <> HeadToHeadSummary rec
+binder 669:675 <> summary:7
+R731:733 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
+R710:722 ThieleMachine.PhaseThree <> hh_sighted_mu proj
+R724:730 ThieleMachine.PhaseThree <> summary:7 var
+R734:744 ThieleMachine.PhaseThree <> hh_blind_mu proj
+R746:752 ThieleMachine.PhaseThree <> summary:7 var
+prf 807:818 <> Qlt_plus_pos
+R837:837 Coq.QArith.QArith_base <> Q rec
+binder 831:831 <> a:8
+binder 833:833 <> b:9
+R851:858 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R847:849 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
+R845:845 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R850:850 ThieleMachine.PhaseThree <> b:9 var
+R860:862 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
+R859:859 ThieleMachine.PhaseThree <> a:8 var
+R864:866 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R863:863 ThieleMachine.PhaseThree <> a:8 var
+R867:867 ThieleMachine.PhaseThree <> b:9 var
+R903:905 Coq.QArith.QArith_base <> Qlt def
+prf 998:1020 <> head_to_head_gap_cancel
+binder 1033:1039 <> summary:10
+R1115:1122 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R1067:1070 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R1114:1114 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R1046:1058 ThieleMachine.PhaseThree <> hh_sighted_mu proj
+R1060:1066 ThieleMachine.PhaseThree <> summary:10 var
+R1090:1092 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R1071:1081 ThieleMachine.PhaseThree <> hh_blind_mu proj
+R1083:1089 ThieleMachine.PhaseThree <> summary:10 var
+R1093:1105 ThieleMachine.PhaseThree <> hh_sighted_mu proj
+R1107:1113 ThieleMachine.PhaseThree <> summary:10 var
+R1123:1133 ThieleMachine.PhaseThree <> hh_blind_mu proj
+R1135:1141 ThieleMachine.PhaseThree <> summary:10 var
+R1178:1183 Coq.QArith.QArith_base <> Qminus def
+R1196:1206 Coq.QArith.QArith_base <> Qplus_assoc thm
+R1196:1206 Coq.QArith.QArith_base <> Qplus_assoc thm
+R1196:1206 Coq.QArith.QArith_base <> Qplus_assoc thm
+R1220:1229 Coq.QArith.QArith_base <> Qplus_comm thm
+R1232:1244 ThieleMachine.PhaseThree <> hh_sighted_mu proj
+R1256:1266 ThieleMachine.PhaseThree <> hh_blind_mu proj
+R1220:1229 Coq.QArith.QArith_base <> Qplus_comm thm
+R1232:1244 ThieleMachine.PhaseThree <> hh_sighted_mu proj
+R1256:1266 ThieleMachine.PhaseThree <> hh_blind_mu proj
+R1220:1229 Coq.QArith.QArith_base <> Qplus_comm thm
+R1232:1244 ThieleMachine.PhaseThree <> hh_sighted_mu proj
+R1256:1266 ThieleMachine.PhaseThree <> hh_blind_mu proj
+R1292:1302 Coq.QArith.QArith_base <> Qplus_assoc thm
+R1292:1302 Coq.QArith.QArith_base <> Qplus_assoc thm
+R1292:1302 Coq.QArith.QArith_base <> Qplus_assoc thm
+R1315:1325 Coq.QArith.QArith_base <> Qplus_opp_r thm
+R1315:1325 Coq.QArith.QArith_base <> Qplus_opp_r thm
+R1315:1325 Coq.QArith.QArith_base <> Qplus_opp_r thm
+R1338:1346 Coq.QArith.QArith_base <> Qplus_0_r thm
+R1338:1346 Coq.QArith.QArith_base <> Qplus_0_r thm
+R1338:1346 Coq.QArith.QArith_base <> Qplus_0_r thm
+prf 1440:1470 <> head_to_head_gap_implies_better
+binder 1483:1489 <> summary:11
+R1527:1534 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1496:1518 ThieleMachine.PhaseThree <> head_to_head_consistent def
+R1520:1526 ThieleMachine.PhaseThree <> summary:11 var
+R1568:1575 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1535:1559 ThieleMachine.PhaseThree <> head_to_head_gap_positive def
+R1561:1567 ThieleMachine.PhaseThree <> summary:11 var
+R1576:1602 ThieleMachine.PhaseThree <> head_to_head_sighted_better def
+R1604:1610 ThieleMachine.PhaseThree <> summary:11 var
+R1669:1691 ThieleMachine.PhaseThree <> head_to_head_consistent def
+R1718:1742 ThieleMachine.PhaseThree <> head_to_head_gap_positive def
+R1767:1793 ThieleMachine.PhaseThree <> head_to_head_sighted_better def
+R1805:1810 Coq.QArith.QArith_base <> Qminus def
+R1827:1838 ThieleMachine.PhaseThree <> Qlt_plus_pos thm
+R1841:1853 ThieleMachine.PhaseThree <> hh_sighted_mu proj
+R1865:1870 ThieleMachine.PhaseThree <> hh_gap proj
+R1827:1838 ThieleMachine.PhaseThree <> Qlt_plus_pos thm
+R1841:1853 ThieleMachine.PhaseThree <> hh_sighted_mu proj
+R1865:1870 ThieleMachine.PhaseThree <> hh_gap proj
+R1978:1981 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R2025:2025 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R1957:1969 ThieleMachine.PhaseThree <> hh_sighted_mu proj
+R2001:2003 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R1982:1992 ThieleMachine.PhaseThree <> hh_blind_mu proj
+R2004:2016 ThieleMachine.PhaseThree <> hh_sighted_mu proj
+R2038:2048 ThieleMachine.PhaseThree <> hh_blind_mu proj
+R2081:2103 ThieleMachine.PhaseThree <> head_to_head_gap_cancel thm
+R1978:1981 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R2025:2025 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R1957:1969 ThieleMachine.PhaseThree <> hh_sighted_mu proj
+R2001:2003 Coq.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R1982:1992 ThieleMachine.PhaseThree <> hh_blind_mu proj
+R2004:2016 ThieleMachine.PhaseThree <> hh_sighted_mu proj
+R2038:2048 ThieleMachine.PhaseThree <> hh_blind_mu proj
+R2081:2103 ThieleMachine.PhaseThree <> head_to_head_gap_cancel thm

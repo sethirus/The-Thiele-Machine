@@ -1,205 +1,208 @@
-DIGEST b404d1fb4cb67415b146c6f01ed860de
-FThieleMachine.shor_primitives.PolylogConjecture
-R1340:1344 Coq.Arith.Arith <> <> lib
-R1371:1373 Coq.micromega.Lia <> <> lib
-R1400:1405 Coq.Strings.String <> <> lib
-sec 1643:1653 <> ProvenFacts
-def 1728:1734 <> pow_mod
-R1745:1747 Coq.Init.Datatypes <> nat ind
-binder 1737:1737 <> n:1
-binder 1739:1739 <> a:2
-binder 1741:1741 <> x:3
-R1752:1754 Coq.Init.Datatypes <> nat ind
-R1770:1774 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R1759:1765 Coq.Arith.PeanoNat Nat pow def
-R1767:1767 ThieleMachine.shor_primitives.PolylogConjecture <> a:2 var
-R1769:1769 ThieleMachine.shor_primitives.PolylogConjecture <> x:3 var
-R1775:1775 ThieleMachine.shor_primitives.PolylogConjecture <> n:1 var
-def 1794:1802 <> is_period
-R1813:1815 Coq.Init.Datatypes <> nat ind
-binder 1805:1805 <> n:4
-binder 1807:1807 <> a:5
-binder 1809:1809 <> r:6
-R1837:1840 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R1833:1835 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R1832:1832 ThieleMachine.shor_primitives.PolylogConjecture <> r:6 var
-binder 1848:1848 <> k:7
-R1870:1872 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1851:1857 ThieleMachine.shor_primitives.PolylogConjecture <> pow_mod def
-R1859:1859 ThieleMachine.shor_primitives.PolylogConjecture <> n:4 var
-R1861:1861 ThieleMachine.shor_primitives.PolylogConjecture <> a:5 var
-R1865:1867 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R1864:1864 ThieleMachine.shor_primitives.PolylogConjecture <> k:7 var
-R1868:1868 ThieleMachine.shor_primitives.PolylogConjecture <> r:6 var
-R1873:1879 ThieleMachine.shor_primitives.PolylogConjecture <> pow_mod def
-R1881:1881 ThieleMachine.shor_primitives.PolylogConjecture <> n:4 var
-R1883:1883 ThieleMachine.shor_primitives.PolylogConjecture <> a:5 var
-R1885:1885 ThieleMachine.shor_primitives.PolylogConjecture <> k:7 var
-def 1904:1917 <> minimal_period
-R1928:1930 Coq.Init.Datatypes <> nat ind
-binder 1920:1920 <> n:8
-binder 1922:1922 <> a:9
-binder 1924:1924 <> r:10
-R1962:1965 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R1947:1955 ThieleMachine.shor_primitives.PolylogConjecture <> is_period def
-R1957:1957 ThieleMachine.shor_primitives.PolylogConjecture <> n:8 var
-R1959:1959 ThieleMachine.shor_primitives.PolylogConjecture <> a:9 var
-R1961:1961 ThieleMachine.shor_primitives.PolylogConjecture <> r:10 var
-binder 1973:1974 <> r':11
-R1993:1996 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1977:1985 ThieleMachine.shor_primitives.PolylogConjecture <> is_period def
-R1987:1987 ThieleMachine.shor_primitives.PolylogConjecture <> n:8 var
-R1989:1989 ThieleMachine.shor_primitives.PolylogConjecture <> a:9 var
-R1991:1992 ThieleMachine.shor_primitives.PolylogConjecture <> r':11 var
-R1999:2002 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R1997:1998 ThieleMachine.shor_primitives.PolylogConjecture <> r':11 var
-R2003:2003 ThieleMachine.shor_primitives.PolylogConjecture <> r:10 var
-def 2223:2240 <> period_divides_phi
-R2253:2255 Coq.Init.Datatypes <> nat ind
-binder 2243:2243 <> n:12
-binder 2245:2245 <> p:13
-binder 2247:2247 <> q:14
-binder 2249:2249 <> r:15
-R2281:2284 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2273:2275 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2272:2272 ThieleMachine.shor_primitives.PolylogConjecture <> n:12 var
-R2277:2279 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2276:2276 ThieleMachine.shor_primitives.PolylogConjecture <> p:13 var
-R2280:2280 ThieleMachine.shor_primitives.PolylogConjecture <> q:14 var
-R2290:2293 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2286:2288 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R2285:2285 ThieleMachine.shor_primitives.PolylogConjecture <> p:13 var
-R2299:2302 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2295:2297 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R2294:2294 ThieleMachine.shor_primitives.PolylogConjecture <> q:14 var
-R2308:2316 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2379:2379 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2304:2306 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R2303:2303 ThieleMachine.shor_primitives.PolylogConjecture <> r:15 var
-R2346:2349 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R2342:2344 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2318:2323 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R2341:2341 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R2317:2317 ThieleMachine.shor_primitives.PolylogConjecture <> r:15 var
-R2324:2324 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2330:2334 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2340:2340 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2326:2328 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R2325:2325 ThieleMachine.shor_primitives.PolylogConjecture <> p:13 var
-R2336:2338 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R2335:2335 ThieleMachine.shor_primitives.PolylogConjecture <> q:14 var
-R2375:2377 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2350:2350 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R2368:2373 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R2351:2351 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2357:2361 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2367:2367 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2353:2355 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R2352:2352 ThieleMachine.shor_primitives.PolylogConjecture <> p:13 var
-R2363:2365 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R2362:2362 ThieleMachine.shor_primitives.PolylogConjecture <> q:14 var
-R2374:2374 ThieleMachine.shor_primitives.PolylogConjecture <> r:15 var
-prf 2601:2636 <> period_from_known_factors_complexity
-binder 2651:2651 <> n:16
-binder 2653:2653 <> p:17
-binder 2655:2655 <> q:18
-R2673:2676 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2665:2667 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2664:2664 ThieleMachine.shor_primitives.PolylogConjecture <> n:16 var
-R2669:2671 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2668:2668 ThieleMachine.shor_primitives.PolylogConjecture <> p:17 var
-R2672:2672 ThieleMachine.shor_primitives.PolylogConjecture <> q:18 var
-R2682:2685 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2678:2680 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R2677:2677 ThieleMachine.shor_primitives.PolylogConjecture <> p:17 var
-R2691:2780 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2687:2689 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R2686:2686 ThieleMachine.shor_primitives.PolylogConjecture <> q:18 var
-R2781:2787 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2791:2792 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 2788:2790 <> phi:19
-R2816:2819 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2796:2798 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2793:2795 ThieleMachine.shor_primitives.PolylogConjecture <> phi:19 var
-R2799:2799 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2805:2809 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2815:2815 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2801:2803 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R2800:2800 ThieleMachine.shor_primitives.PolylogConjecture <> p:17 var
-R2811:2813 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R2810:2810 ThieleMachine.shor_primitives.PolylogConjecture <> q:18 var
-R2823:2825 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R2820:2822 ThieleMachine.shor_primitives.PolylogConjecture <> phi:19 var
-R2877:2877 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2883:2887 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2893:2893 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2879:2881 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R2889:2891 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R2877:2877 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2883:2887 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2893:2893 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2879:2881 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R2889:2891 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R3102:3113 Coq.Arith.PeanoNat Nat lt_0_mul thm
-R3102:3113 Coq.Arith.PeanoNat Nat lt_0_mul thm
-R3133:3143 ThieleMachine.shor_primitives.PolylogConjecture ProvenFacts <> sec
-sec 3358:3373 <> HonestComplexity
-def 3733:3757 <> trial_division_complexity
-R3764:3766 Coq.Init.Datatypes <> nat ind
-binder 3760:3760 <> n:20
-R3771:3773 Coq.Init.Datatypes <> nat ind
-R3811:3818 Coq.Arith.PeanoNat Nat sqrt def
-R3820:3820 ThieleMachine.shor_primitives.PolylogConjecture <> n:20 var
-def 4389:4411 <> honest_speedup_analysis
-R4415:4420 Coq.Strings.String <> string ind
-R4512:4527 ThieleMachine.shor_primitives.PolylogConjecture HonestComplexity <> sec
-sec 4738:4749 <> Achievements
-def 5053:5074 <> shor_reduction_correct
-binder 5097:5097 <> n:21
-binder 5099:5099 <> a:22
-binder 5101:5101 <> r:23
-binder 5103:5103 <> p:24
-R5117:5120 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5113:5115 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R5112:5112 ThieleMachine.shor_primitives.PolylogConjecture <> n:21 var
-R5126:5129 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5122:5124 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R5121:5121 ThieleMachine.shor_primitives.PolylogConjecture <> r:23 var
-R5141:5150 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5137:5139 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5131:5135 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R5130:5130 ThieleMachine.shor_primitives.PolylogConjecture <> r:23 var
-R5188:5197 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5152:5154 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5151:5151 ThieleMachine.shor_primitives.PolylogConjecture <> p:24 var
-R5155:5161 Coq.Arith.PeanoNat Nat gcd def
-R5181:5183 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R5164:5170 Coq.Arith.PeanoNat Nat pow def
-R5172:5172 ThieleMachine.shor_primitives.PolylogConjecture <> a:22 var
-R5176:5178 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
-R5175:5175 ThieleMachine.shor_primitives.PolylogConjecture <> r:23 var
-R5187:5187 ThieleMachine.shor_primitives.PolylogConjecture <> n:21 var
-R5207:5216 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5199:5201 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<'_x not
-R5203:5205 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<'_x not
-R5202:5202 ThieleMachine.shor_primitives.PolylogConjecture <> p:24 var
-R5202:5202 ThieleMachine.shor_primitives.PolylogConjecture <> p:24 var
-R5206:5206 ThieleMachine.shor_primitives.PolylogConjecture <> n:21 var
-R5224:5226 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5218:5222 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R5217:5217 ThieleMachine.shor_primitives.PolylogConjecture <> n:21 var
-R5223:5223 ThieleMachine.shor_primitives.PolylogConjecture <> p:24 var
-def 5650:5668 <> mu_ledger_monotonic
-R5808:5810 Coq.Init.Datatypes <> nat ind
-binder 5775:5784 <> initial_mu:25
-binder 5786:5793 <> final_mu:26
-binder 5795:5804 <> trace_cost:27
-R5835:5838 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5830:5833 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R5820:5829 ThieleMachine.shor_primitives.PolylogConjecture <> trace_cost:27 var
-R5862:5865 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R5849:5851 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R5839:5848 ThieleMachine.shor_primitives.PolylogConjecture <> initial_mu:25 var
-R5852:5861 ThieleMachine.shor_primitives.PolylogConjecture <> trace_cost:27 var
-R5866:5875 ThieleMachine.shor_primitives.PolylogConjecture <> initial_mu:25 var
-R6254:6265 ThieleMachine.shor_primitives.PolylogConjecture Achievements <> sec
+DIGEST 9cb12cb862ec258e1b05aad7476132e9
+FShorPrimitives.PolylogConjecture
+R1512:1518 Kernel.VMState <> <> lib
+R1520:1525 Kernel.VMStep <> <> lib
+R1555:1565 Kernel.MuCostModel <> <> lib
+R1593:1597 Coq.Arith.Arith <> <> lib
+R1624:1626 Coq.micromega.Lia <> <> lib
+R1653:1658 Coq.Strings.String <> <> lib
+sec 1896:1906 <> ProvenFacts
+def 1981:1987 <> pow_mod
+R1998:2000 Coq.Init.Datatypes <> nat ind
+binder 1990:1990 <> n:1
+binder 1992:1992 <> a:2
+binder 1994:1994 <> x:3
+R2005:2007 Coq.Init.Datatypes <> nat ind
+R2023:2027 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R2012:2018 Coq.Arith.PeanoNat Nat pow def
+R2020:2020 ShorPrimitives.PolylogConjecture <> a:2 var
+R2022:2022 ShorPrimitives.PolylogConjecture <> x:3 var
+R2028:2028 ShorPrimitives.PolylogConjecture <> n:1 var
+def 2047:2055 <> is_period
+R2066:2068 Coq.Init.Datatypes <> nat ind
+binder 2058:2058 <> n:4
+binder 2060:2060 <> a:5
+binder 2062:2062 <> r:6
+R2090:2093 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2086:2088 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R2085:2085 ShorPrimitives.PolylogConjecture <> r:6 var
+binder 2101:2101 <> k:7
+R2123:2125 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2104:2110 ShorPrimitives.PolylogConjecture <> pow_mod def
+R2112:2112 ShorPrimitives.PolylogConjecture <> n:4 var
+R2114:2114 ShorPrimitives.PolylogConjecture <> a:5 var
+R2118:2120 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2117:2117 ShorPrimitives.PolylogConjecture <> k:7 var
+R2121:2121 ShorPrimitives.PolylogConjecture <> r:6 var
+R2126:2132 ShorPrimitives.PolylogConjecture <> pow_mod def
+R2134:2134 ShorPrimitives.PolylogConjecture <> n:4 var
+R2136:2136 ShorPrimitives.PolylogConjecture <> a:5 var
+R2138:2138 ShorPrimitives.PolylogConjecture <> k:7 var
+def 2157:2170 <> minimal_period
+R2181:2183 Coq.Init.Datatypes <> nat ind
+binder 2173:2173 <> n:8
+binder 2175:2175 <> a:9
+binder 2177:2177 <> r:10
+R2215:2218 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2200:2208 ShorPrimitives.PolylogConjecture <> is_period def
+R2210:2210 ShorPrimitives.PolylogConjecture <> n:8 var
+R2212:2212 ShorPrimitives.PolylogConjecture <> a:9 var
+R2214:2214 ShorPrimitives.PolylogConjecture <> r:10 var
+binder 2226:2227 <> r':11
+R2246:2249 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2230:2238 ShorPrimitives.PolylogConjecture <> is_period def
+R2240:2240 ShorPrimitives.PolylogConjecture <> n:8 var
+R2242:2242 ShorPrimitives.PolylogConjecture <> a:9 var
+R2244:2245 ShorPrimitives.PolylogConjecture <> r':11 var
+R2252:2255 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R2250:2251 ShorPrimitives.PolylogConjecture <> r':11 var
+R2256:2256 ShorPrimitives.PolylogConjecture <> r:10 var
+def 2476:2493 <> period_divides_phi
+R2506:2508 Coq.Init.Datatypes <> nat ind
+binder 2496:2496 <> n:12
+binder 2498:2498 <> p:13
+binder 2500:2500 <> q:14
+binder 2502:2502 <> r:15
+R2534:2537 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2526:2528 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2525:2525 ShorPrimitives.PolylogConjecture <> n:12 var
+R2530:2532 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2529:2529 ShorPrimitives.PolylogConjecture <> p:13 var
+R2533:2533 ShorPrimitives.PolylogConjecture <> q:14 var
+R2543:2546 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2539:2541 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R2538:2538 ShorPrimitives.PolylogConjecture <> p:13 var
+R2552:2555 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2548:2550 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R2547:2547 ShorPrimitives.PolylogConjecture <> q:14 var
+R2561:2569 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2632:2632 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2557:2559 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R2556:2556 ShorPrimitives.PolylogConjecture <> r:15 var
+R2599:2602 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R2595:2597 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2571:2576 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R2594:2594 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R2570:2570 ShorPrimitives.PolylogConjecture <> r:15 var
+R2577:2577 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2583:2587 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2593:2593 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2579:2581 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R2578:2578 ShorPrimitives.PolylogConjecture <> p:13 var
+R2589:2591 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R2588:2588 ShorPrimitives.PolylogConjecture <> q:14 var
+R2628:2630 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2603:2603 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R2621:2626 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R2604:2604 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2610:2614 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2620:2620 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2606:2608 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R2605:2605 ShorPrimitives.PolylogConjecture <> p:13 var
+R2616:2618 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R2615:2615 ShorPrimitives.PolylogConjecture <> q:14 var
+R2627:2627 ShorPrimitives.PolylogConjecture <> r:15 var
+prf 2854:2889 <> period_from_known_factors_complexity
+binder 2904:2904 <> n:16
+binder 2906:2906 <> p:17
+binder 2908:2908 <> q:18
+R2926:2929 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2918:2920 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2917:2917 ShorPrimitives.PolylogConjecture <> n:16 var
+R2922:2924 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2921:2921 ShorPrimitives.PolylogConjecture <> p:17 var
+R2925:2925 ShorPrimitives.PolylogConjecture <> q:18 var
+R2935:2938 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2931:2933 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R2930:2930 ShorPrimitives.PolylogConjecture <> p:17 var
+R2944:3033 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2940:2942 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R2939:2939 ShorPrimitives.PolylogConjecture <> q:18 var
+R3034:3040 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3044:3045 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3041:3043 <> phi:19
+R3069:3072 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3049:3051 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3046:3048 ShorPrimitives.PolylogConjecture <> phi:19 var
+R3052:3052 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3058:3062 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3068:3068 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3054:3056 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R3053:3053 ShorPrimitives.PolylogConjecture <> p:17 var
+R3064:3066 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R3063:3063 ShorPrimitives.PolylogConjecture <> q:18 var
+R3076:3078 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R3073:3075 ShorPrimitives.PolylogConjecture <> phi:19 var
+R3130:3130 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3136:3140 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3146:3146 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3132:3134 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R3142:3144 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R3130:3130 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3136:3140 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3146:3146 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3132:3134 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R3142:3144 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R3355:3366 Coq.Arith.PeanoNat Nat lt_0_mul thm
+R3355:3366 Coq.Arith.PeanoNat Nat lt_0_mul thm
+R3386:3396 ShorPrimitives.PolylogConjecture ProvenFacts <> sec
+sec 3611:3626 <> HonestComplexity
+def 3986:4010 <> trial_division_complexity
+R4017:4019 Coq.Init.Datatypes <> nat ind
+binder 4013:4013 <> n:20
+R4024:4026 Coq.Init.Datatypes <> nat ind
+R4064:4071 Coq.Arith.PeanoNat Nat sqrt def
+R4073:4073 ShorPrimitives.PolylogConjecture <> n:20 var
+def 4642:4664 <> honest_speedup_analysis
+R4668:4673 Coq.Strings.String <> string ind
+R4765:4780 ShorPrimitives.PolylogConjecture HonestComplexity <> sec
+sec 4991:5002 <> Achievements
+def 5306:5327 <> shor_reduction_correct
+binder 5350:5350 <> n:21
+binder 5352:5352 <> a:22
+binder 5354:5354 <> r:23
+binder 5356:5356 <> p:24
+R5370:5373 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5366:5368 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R5365:5365 ShorPrimitives.PolylogConjecture <> n:21 var
+R5379:5382 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5375:5377 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R5374:5374 ShorPrimitives.PolylogConjecture <> r:23 var
+R5394:5403 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5390:5392 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5384:5388 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R5383:5383 ShorPrimitives.PolylogConjecture <> r:23 var
+R5441:5450 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5405:5407 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5404:5404 ShorPrimitives.PolylogConjecture <> p:24 var
+R5408:5414 Coq.Arith.PeanoNat Nat gcd def
+R5434:5436 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R5417:5423 Coq.Arith.PeanoNat Nat pow def
+R5425:5425 ShorPrimitives.PolylogConjecture <> a:22 var
+R5429:5431 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R5428:5428 ShorPrimitives.PolylogConjecture <> r:23 var
+R5440:5440 ShorPrimitives.PolylogConjecture <> n:21 var
+R5460:5469 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5452:5454 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<'_x not
+R5456:5458 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<'_x not
+R5455:5455 ShorPrimitives.PolylogConjecture <> p:24 var
+R5455:5455 ShorPrimitives.PolylogConjecture <> p:24 var
+R5459:5459 ShorPrimitives.PolylogConjecture <> n:21 var
+R5477:5479 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5471:5475 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R5470:5470 ShorPrimitives.PolylogConjecture <> n:21 var
+R5476:5476 ShorPrimitives.PolylogConjecture <> p:24 var
+def 5903:5921 <> mu_ledger_monotonic
+R6061:6063 Coq.Init.Datatypes <> nat ind
+binder 6028:6037 <> initial_mu:25
+binder 6039:6046 <> final_mu:26
+binder 6048:6057 <> trace_cost:27
+R6088:6091 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6083:6086 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6073:6082 ShorPrimitives.PolylogConjecture <> trace_cost:27 var
+R6115:6118 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6102:6104 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6092:6101 ShorPrimitives.PolylogConjecture <> initial_mu:25 var
+R6105:6114 ShorPrimitives.PolylogConjecture <> trace_cost:27 var
+R6119:6128 ShorPrimitives.PolylogConjecture <> initial_mu:25 var
+R6507:6518 ShorPrimitives.PolylogConjecture Achievements <> sec

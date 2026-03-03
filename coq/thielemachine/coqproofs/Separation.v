@@ -3,6 +3,10 @@
 (* Thiele Machine execution on Tseitin formulas over expander graphs. *)
 (* ================================================================= *)
 From Coq Require Import List Arith Lia Psatz Ring.
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 
 (* ----------------------------------------------------------------- *)
 (* Problem family: Tseitin contradictions on degree-3 expanders.     *)

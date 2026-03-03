@@ -1,827 +1,829 @@
-DIGEST adbbf46837bb8d51248f776879f39287
+DIGEST b0b74524040682db8a265afa01c685cf
 FProjectCerberus.coqproofs.Cerberus
-R63:76 Coq.Lists.List <> <> lib
-R94:98 Coq.Arith.Arith <> <> lib
-R116:118 Coq.micromega.Lia <> <> lib
-R136:139 Coq.Bool.Bool <> <> lib
-R149:161 Coq.Lists.List ListNotations <> mod
-rec 217:228 <> MachineState
-proj 237:238 <> pc
-proj 271:273 <> mem
-proj 313:316 <> regs
-proj 352:358 <> mu_cost
-proj 411:426 <> paradox_detected
-R242:244 Coq.Init.Datatypes <> nat ind
-R277:280 Coq.Init.Datatypes <> list ind
-R282:284 Coq.Init.Datatypes <> nat ind
-R320:323 Coq.Init.Datatypes <> list ind
-R325:327 Coq.Init.Datatypes <> nat ind
-R362:364 Coq.Init.Datatypes <> nat ind
-R430:433 Coq.Init.Datatypes <> bool ind
-def 512:519 <> read_reg
-R526:528 Coq.Init.Datatypes <> nat ind
-binder 522:522 <> r:7
-R537:540 Coq.Init.Datatypes <> list ind
-R542:544 Coq.Init.Datatypes <> nat ind
-binder 532:533 <> rs:8
-R549:551 Coq.Init.Datatypes <> nat ind
-R556:558 Coq.Lists.List <> nth def
-R562:563 ProjectCerberus.coqproofs.Cerberus <> rs:8 var
-R560:560 ProjectCerberus.coqproofs.Cerberus <> r:7 var
-def 578:586 <> write_reg
-R595:597 Coq.Init.Datatypes <> nat ind
-binder 589:589 <> r:9
-binder 591:591 <> v:10
-R606:609 Coq.Init.Datatypes <> list ind
-R611:613 Coq.Init.Datatypes <> nat ind
-binder 601:602 <> rs:11
-R618:621 Coq.Init.Datatypes <> list ind
-R623:625 Coq.Init.Datatypes <> nat ind
-R641:642 ProjectCerberus.coqproofs.Cerberus <> rs:11 var
-R638:638 ProjectCerberus.coqproofs.Cerberus <> r:9 var
-R657:660 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R668:671 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R667:667 ProjectCerberus.coqproofs.Cerberus <> v:10 var
-R679:679 Coq.Init.Datatypes <> S constr
-R687:690 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R699:702 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R703:711 ProjectCerberus.coqproofs.Cerberus <> write_reg:12 def
-R716:716 ProjectCerberus.coqproofs.Cerberus <> v:10 var
-R728:729 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R734:735 ProjectCerberus.coqproofs.Cerberus <> rs:11 var
-ind 832:836 <> Instr
-constr 845:848 <> Load
-constr 867:871 <> Store
-constr 902:907 <> AddReg
-constr 932:937 <> SubReg
-constr 962:968 <> CopyReg
-constr 988:990 <> Jmp
-constr 1011:1012 <> Jz
-constr 1036:1038 <> Jnz
-constr 1062:1065 <> Halt
-R858:860 Coq.Init.Datatypes <> nat ind
-binder 851:854 <> addr:17
-R881:883 Coq.Init.Datatypes <> nat ind
-binder 874:877 <> addr:18
-R893:895 Coq.Init.Datatypes <> nat ind
-binder 887:889 <> val:19
-R923:925 Coq.Init.Datatypes <> nat ind
-binder 910:911 <> rd:20
-binder 913:915 <> rs1:21
-binder 917:919 <> rs2:22
-R953:955 Coq.Init.Datatypes <> nat ind
-binder 940:941 <> rd:23
-binder 943:945 <> rs1:24
-binder 947:949 <> rs2:25
-R979:981 Coq.Init.Datatypes <> nat ind
-binder 971:972 <> rd:26
-binder 974:975 <> rs:27
-R1002:1004 Coq.Init.Datatypes <> nat ind
-binder 993:998 <> target:28
-R1027:1029 Coq.Init.Datatypes <> nat ind
-binder 1015:1016 <> rs:29
-binder 1018:1023 <> target:30
-R1053:1055 Coq.Init.Datatypes <> nat ind
-binder 1041:1042 <> rs:31
-binder 1044:1049 <> target:32
-scheme 832:836 <> Instr_rect
-scheme 832:836 <> Instr_ind
-scheme 832:836 <> Instr_rec
-scheme 832:836 <> Instr_sind
-def 1105:1119 <> is_target_valid
-R1143:1145 Coq.Init.Datatypes <> nat ind
-binder 1122:1132 <> program_len:33
-binder 1134:1139 <> target:34
-R1150:1153 Coq.Init.Datatypes <> bool ind
-R1158:1164 Coq.Arith.PeanoNat Nat ltb def
-R1166:1171 ProjectCerberus.coqproofs.Cerberus <> target:34 var
-R1173:1183 ProjectCerberus.coqproofs.Cerberus <> program_len:33 var
-def 1198:1213 <> is_instr_pc_safe
-R1230:1232 Coq.Init.Datatypes <> nat ind
-binder 1216:1226 <> program_len:35
-R1240:1244 ProjectCerberus.coqproofs.Cerberus <> Instr ind
-binder 1236:1236 <> i:36
-R1249:1252 Coq.Init.Datatypes <> bool ind
-R1265:1265 ProjectCerberus.coqproofs.Cerberus <> i:36 var
-R1276:1278 ProjectCerberus.coqproofs.Cerberus <> Jmp constr
-R1285:1299 ProjectCerberus.coqproofs.Cerberus <> is_target_valid def
-R1301:1311 ProjectCerberus.coqproofs.Cerberus <> program_len:35 var
-R1319:1320 ProjectCerberus.coqproofs.Cerberus <> Jz constr
-R1329:1343 ProjectCerberus.coqproofs.Cerberus <> is_target_valid def
-R1345:1355 ProjectCerberus.coqproofs.Cerberus <> program_len:35 var
-R1363:1365 ProjectCerberus.coqproofs.Cerberus <> Jnz constr
-R1374:1388 ProjectCerberus.coqproofs.Cerberus <> is_target_valid def
-R1390:1400 ProjectCerberus.coqproofs.Cerberus <> program_len:35 var
-R1413:1416 Coq.Init.Datatypes <> true constr
-def 1464:1478 <> is_safe_accessb
-R1496:1498 Coq.Init.Datatypes <> nat ind
-binder 1481:1487 <> mem_len:38
-binder 1489:1492 <> addr:39
-R1503:1506 Coq.Init.Datatypes <> bool ind
-R1511:1517 Coq.Arith.PeanoNat Nat ltb def
-R1519:1522 ProjectCerberus.coqproofs.Cerberus <> addr:39 var
-R1524:1530 ProjectCerberus.coqproofs.Cerberus <> mem_len:38 var
-def 1545:1561 <> is_instr_mem_safe
-R1574:1576 Coq.Init.Datatypes <> nat ind
-binder 1564:1570 <> mem_len:40
-R1584:1588 ProjectCerberus.coqproofs.Cerberus <> Instr ind
-binder 1580:1580 <> i:41
-R1593:1596 Coq.Init.Datatypes <> bool ind
-R1609:1609 ProjectCerberus.coqproofs.Cerberus <> i:41 var
-R1620:1623 ProjectCerberus.coqproofs.Cerberus <> Load constr
-R1633:1647 ProjectCerberus.coqproofs.Cerberus <> is_safe_accessb def
-R1649:1655 ProjectCerberus.coqproofs.Cerberus <> mem_len:40 var
-R1666:1670 ProjectCerberus.coqproofs.Cerberus <> Store constr
-R1682:1696 ProjectCerberus.coqproofs.Cerberus <> is_safe_accessb def
-R1698:1704 ProjectCerberus.coqproofs.Cerberus <> mem_len:40 var
-R1720:1723 Coq.Init.Datatypes <> true constr
-prf 1785:1797 <> succ_le_of_lt
-binder 1808:1808 <> a:43
-binder 1810:1810 <> b:44
-R1818:1821 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1814:1816 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R1813:1813 ProjectCerberus.coqproofs.Cerberus <> a:43 var
-R1817:1817 ProjectCerberus.coqproofs.Cerberus <> b:44 var
-R1825:1828 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R1822:1822 Coq.Init.Datatypes <> S constr
-R1824:1824 ProjectCerberus.coqproofs.Cerberus <> a:43 var
-R1829:1829 ProjectCerberus.coqproofs.Cerberus <> b:44 var
-def 1938:1950 <> ProgramAxioms
-R1955:1958 Coq.Init.Datatypes <> list ind
-R1960:1962 Coq.Init.Datatypes <> nat ind
-def 2005:2011 <> Program
-R2027:2029 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R2017:2020 Coq.Init.Datatypes <> list ind
-R2022:2026 ProjectCerberus.coqproofs.Cerberus <> Instr ind
-R2030:2042 ProjectCerberus.coqproofs.Cerberus <> ProgramAxioms def
-def 2177:2188 <> logic_oracle
-R2200:2203 Coq.Init.Datatypes <> list ind
-R2205:2207 Coq.Init.Datatypes <> nat ind
-binder 2191:2196 <> axioms:45
-R2212:2215 Coq.Init.Datatypes <> bool ind
-R2222:2225 Coq.Init.Datatypes <> negb def
-R2228:2234 Coq.Lists.List <> existsb def
-R2248:2253 ProjectCerberus.coqproofs.Cerberus <> axioms:45 var
-R2237:2243 Coq.Arith.PeanoNat Nat eqb def
-def 2269:2284 <> mem_safe_program
-R2297:2299 Coq.Init.Datatypes <> nat ind
-binder 2287:2293 <> mem_len:46
-R2307:2313 ProjectCerberus.coqproofs.Cerberus <> Program def
-binder 2303:2303 <> p:47
-binder 2335:2335 <> i:48
-R2350:2353 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2338:2339 Coq.Lists.List <> In def
-R2344:2346 Coq.Init.Datatypes <> fst def
-R2348:2348 ProjectCerberus.coqproofs.Cerberus <> p:47 var
-R2341:2341 ProjectCerberus.coqproofs.Cerberus <> i:48 var
-R2381:2383 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2354:2370 ProjectCerberus.coqproofs.Cerberus <> is_instr_mem_safe def
-R2372:2378 ProjectCerberus.coqproofs.Cerberus <> mem_len:46 var
-R2380:2380 ProjectCerberus.coqproofs.Cerberus <> i:48 var
-R2384:2387 Coq.Init.Datatypes <> true constr
-def 2510:2529 <> encode_safety_axioms
-R2540:2544 ProjectCerberus.coqproofs.Cerberus <> Instr ind
-binder 2532:2536 <> instr:49
-R2562:2564 Coq.Init.Datatypes <> nat ind
-binder 2548:2558 <> program_len:50
-R2578:2580 Coq.Init.Datatypes <> nat ind
-binder 2568:2574 <> mem_len:51
-R2585:2588 Coq.Init.Datatypes <> list ind
-R2590:2592 Coq.Init.Datatypes <> nat ind
-R2605:2609 ProjectCerberus.coqproofs.Cerberus <> instr:49 var
-R2620:2623 ProjectCerberus.coqproofs.Cerberus <> Load constr
-R2633:2633 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2635:2636 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2641:2642 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2680:2680 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2646:2652 Coq.Arith.PeanoNat Nat ltb def
-R2659:2665 ProjectCerberus.coqproofs.Cerberus <> mem_len:51 var
-R2686:2690 ProjectCerberus.coqproofs.Cerberus <> Store constr
-R2702:2702 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2704:2705 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2710:2711 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2749:2749 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2715:2721 Coq.Arith.PeanoNat Nat ltb def
-R2728:2734 ProjectCerberus.coqproofs.Cerberus <> mem_len:51 var
-R2755:2760 ProjectCerberus.coqproofs.Cerberus <> AddReg constr
-R2776:2776 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2778:2779 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2782:2783 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2787:2788 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2792:2793 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2795:2795 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2801:2806 ProjectCerberus.coqproofs.Cerberus <> SubReg constr
-R2822:2822 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2824:2825 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2828:2829 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2833:2834 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R159:165 Kernel.VMState <> <> lib
+R167:172 Kernel.VMStep <> <> lib
+R191:204 Coq.Lists.List <> <> lib
+R222:226 Coq.Arith.Arith <> <> lib
+R244:246 Coq.micromega.Lia <> <> lib
+R264:267 Coq.Bool.Bool <> <> lib
+R277:289 Coq.Lists.List ListNotations <> mod
+rec 345:356 <> MachineState
+proj 365:366 <> pc
+proj 399:401 <> mem
+proj 441:444 <> regs
+proj 480:486 <> mu_cost
+proj 539:554 <> paradox_detected
+R370:372 Coq.Init.Datatypes <> nat ind
+R405:408 Coq.Init.Datatypes <> list ind
+R410:412 Coq.Init.Datatypes <> nat ind
+R448:451 Coq.Init.Datatypes <> list ind
+R453:455 Coq.Init.Datatypes <> nat ind
+R490:492 Coq.Init.Datatypes <> nat ind
+R558:561 Coq.Init.Datatypes <> bool ind
+def 640:647 <> read_reg
+R654:656 Coq.Init.Datatypes <> nat ind
+binder 650:650 <> r:7
+R665:668 Coq.Init.Datatypes <> list ind
+R670:672 Coq.Init.Datatypes <> nat ind
+binder 660:661 <> rs:8
+R677:679 Coq.Init.Datatypes <> nat ind
+R684:686 Coq.Lists.List <> nth def
+R690:691 ProjectCerberus.coqproofs.Cerberus <> rs:8 var
+R688:688 ProjectCerberus.coqproofs.Cerberus <> r:7 var
+def 706:714 <> write_reg
+R723:725 Coq.Init.Datatypes <> nat ind
+binder 717:717 <> r:9
+binder 719:719 <> v:10
+R734:737 Coq.Init.Datatypes <> list ind
+R739:741 Coq.Init.Datatypes <> nat ind
+binder 729:730 <> rs:11
+R746:749 Coq.Init.Datatypes <> list ind
+R751:753 Coq.Init.Datatypes <> nat ind
+R769:770 ProjectCerberus.coqproofs.Cerberus <> rs:11 var
+R766:766 ProjectCerberus.coqproofs.Cerberus <> r:9 var
+R785:788 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R796:799 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R795:795 ProjectCerberus.coqproofs.Cerberus <> v:10 var
+R807:807 Coq.Init.Datatypes <> S constr
+R815:818 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R827:830 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R831:839 ProjectCerberus.coqproofs.Cerberus <> write_reg:12 def
+R844:844 ProjectCerberus.coqproofs.Cerberus <> v:10 var
+R856:857 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R862:863 ProjectCerberus.coqproofs.Cerberus <> rs:11 var
+ind 960:964 <> Instr
+constr 973:976 <> Load
+constr 995:999 <> Store
+constr 1030:1035 <> AddReg
+constr 1060:1065 <> SubReg
+constr 1090:1096 <> CopyReg
+constr 1116:1118 <> Jmp
+constr 1139:1140 <> Jz
+constr 1164:1166 <> Jnz
+constr 1190:1193 <> Halt
+R986:988 Coq.Init.Datatypes <> nat ind
+binder 979:982 <> addr:17
+R1009:1011 Coq.Init.Datatypes <> nat ind
+binder 1002:1005 <> addr:18
+R1021:1023 Coq.Init.Datatypes <> nat ind
+binder 1015:1017 <> val:19
+R1051:1053 Coq.Init.Datatypes <> nat ind
+binder 1038:1039 <> rd:20
+binder 1041:1043 <> rs1:21
+binder 1045:1047 <> rs2:22
+R1081:1083 Coq.Init.Datatypes <> nat ind
+binder 1068:1069 <> rd:23
+binder 1071:1073 <> rs1:24
+binder 1075:1077 <> rs2:25
+R1107:1109 Coq.Init.Datatypes <> nat ind
+binder 1099:1100 <> rd:26
+binder 1102:1103 <> rs:27
+R1130:1132 Coq.Init.Datatypes <> nat ind
+binder 1121:1126 <> target:28
+R1155:1157 Coq.Init.Datatypes <> nat ind
+binder 1143:1144 <> rs:29
+binder 1146:1151 <> target:30
+R1181:1183 Coq.Init.Datatypes <> nat ind
+binder 1169:1170 <> rs:31
+binder 1172:1177 <> target:32
+scheme 960:964 <> Instr_rect
+scheme 960:964 <> Instr_ind
+scheme 960:964 <> Instr_rec
+scheme 960:964 <> Instr_sind
+def 1233:1247 <> is_target_valid
+R1271:1273 Coq.Init.Datatypes <> nat ind
+binder 1250:1260 <> program_len:33
+binder 1262:1267 <> target:34
+R1278:1281 Coq.Init.Datatypes <> bool ind
+R1286:1292 Coq.Arith.PeanoNat Nat ltb def
+R1294:1299 ProjectCerberus.coqproofs.Cerberus <> target:34 var
+R1301:1311 ProjectCerberus.coqproofs.Cerberus <> program_len:33 var
+def 1326:1341 <> is_instr_pc_safe
+R1358:1360 Coq.Init.Datatypes <> nat ind
+binder 1344:1354 <> program_len:35
+R1368:1372 ProjectCerberus.coqproofs.Cerberus <> Instr ind
+binder 1364:1364 <> i:36
+R1377:1380 Coq.Init.Datatypes <> bool ind
+R1393:1393 ProjectCerberus.coqproofs.Cerberus <> i:36 var
+R1404:1406 ProjectCerberus.coqproofs.Cerberus <> Jmp constr
+R1413:1427 ProjectCerberus.coqproofs.Cerberus <> is_target_valid def
+R1429:1439 ProjectCerberus.coqproofs.Cerberus <> program_len:35 var
+R1447:1448 ProjectCerberus.coqproofs.Cerberus <> Jz constr
+R1457:1471 ProjectCerberus.coqproofs.Cerberus <> is_target_valid def
+R1473:1483 ProjectCerberus.coqproofs.Cerberus <> program_len:35 var
+R1491:1493 ProjectCerberus.coqproofs.Cerberus <> Jnz constr
+R1502:1516 ProjectCerberus.coqproofs.Cerberus <> is_target_valid def
+R1518:1528 ProjectCerberus.coqproofs.Cerberus <> program_len:35 var
+R1541:1544 Coq.Init.Datatypes <> true constr
+def 1592:1606 <> is_safe_accessb
+R1624:1626 Coq.Init.Datatypes <> nat ind
+binder 1609:1615 <> mem_len:38
+binder 1617:1620 <> addr:39
+R1631:1634 Coq.Init.Datatypes <> bool ind
+R1639:1645 Coq.Arith.PeanoNat Nat ltb def
+R1647:1650 ProjectCerberus.coqproofs.Cerberus <> addr:39 var
+R1652:1658 ProjectCerberus.coqproofs.Cerberus <> mem_len:38 var
+def 1673:1689 <> is_instr_mem_safe
+R1702:1704 Coq.Init.Datatypes <> nat ind
+binder 1692:1698 <> mem_len:40
+R1712:1716 ProjectCerberus.coqproofs.Cerberus <> Instr ind
+binder 1708:1708 <> i:41
+R1721:1724 Coq.Init.Datatypes <> bool ind
+R1737:1737 ProjectCerberus.coqproofs.Cerberus <> i:41 var
+R1748:1751 ProjectCerberus.coqproofs.Cerberus <> Load constr
+R1761:1775 ProjectCerberus.coqproofs.Cerberus <> is_safe_accessb def
+R1777:1783 ProjectCerberus.coqproofs.Cerberus <> mem_len:40 var
+R1794:1798 ProjectCerberus.coqproofs.Cerberus <> Store constr
+R1810:1824 ProjectCerberus.coqproofs.Cerberus <> is_safe_accessb def
+R1826:1832 ProjectCerberus.coqproofs.Cerberus <> mem_len:40 var
+R1848:1851 Coq.Init.Datatypes <> true constr
+prf 1913:1925 <> succ_le_of_lt
+binder 1936:1936 <> a:43
+binder 1938:1938 <> b:44
+R1946:1949 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1942:1944 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R1941:1941 ProjectCerberus.coqproofs.Cerberus <> a:43 var
+R1945:1945 ProjectCerberus.coqproofs.Cerberus <> b:44 var
+R1953:1956 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1950:1950 Coq.Init.Datatypes <> S constr
+R1952:1952 ProjectCerberus.coqproofs.Cerberus <> a:43 var
+R1957:1957 ProjectCerberus.coqproofs.Cerberus <> b:44 var
+def 2066:2078 <> ProgramAxioms
+R2083:2086 Coq.Init.Datatypes <> list ind
+R2088:2090 Coq.Init.Datatypes <> nat ind
+def 2133:2139 <> Program
+R2155:2157 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2145:2148 Coq.Init.Datatypes <> list ind
+R2150:2154 ProjectCerberus.coqproofs.Cerberus <> Instr ind
+R2158:2170 ProjectCerberus.coqproofs.Cerberus <> ProgramAxioms def
+def 2305:2316 <> logic_oracle
+R2328:2331 Coq.Init.Datatypes <> list ind
+R2333:2335 Coq.Init.Datatypes <> nat ind
+binder 2319:2324 <> axioms:45
+R2340:2343 Coq.Init.Datatypes <> bool ind
+R2350:2353 Coq.Init.Datatypes <> negb def
+R2356:2362 Coq.Lists.List <> existsb def
+R2376:2381 ProjectCerberus.coqproofs.Cerberus <> axioms:45 var
+R2365:2371 Coq.Arith.PeanoNat Nat eqb def
+def 2397:2412 <> mem_safe_program
+R2425:2427 Coq.Init.Datatypes <> nat ind
+binder 2415:2421 <> mem_len:46
+R2435:2441 ProjectCerberus.coqproofs.Cerberus <> Program def
+binder 2431:2431 <> p:47
+binder 2463:2463 <> i:48
+R2478:2481 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2466:2467 Coq.Lists.List <> In def
+R2472:2474 Coq.Init.Datatypes <> fst def
+R2476:2476 ProjectCerberus.coqproofs.Cerberus <> p:47 var
+R2469:2469 ProjectCerberus.coqproofs.Cerberus <> i:48 var
+R2509:2511 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2482:2498 ProjectCerberus.coqproofs.Cerberus <> is_instr_mem_safe def
+R2500:2506 ProjectCerberus.coqproofs.Cerberus <> mem_len:46 var
+R2508:2508 ProjectCerberus.coqproofs.Cerberus <> i:48 var
+R2512:2515 Coq.Init.Datatypes <> true constr
+def 2638:2657 <> encode_safety_axioms
+R2668:2672 ProjectCerberus.coqproofs.Cerberus <> Instr ind
+binder 2660:2664 <> instr:49
+R2690:2692 Coq.Init.Datatypes <> nat ind
+binder 2676:2686 <> program_len:50
+R2706:2708 Coq.Init.Datatypes <> nat ind
+binder 2696:2702 <> mem_len:51
+R2713:2716 Coq.Init.Datatypes <> list ind
+R2718:2720 Coq.Init.Datatypes <> nat ind
+R2733:2737 ProjectCerberus.coqproofs.Cerberus <> instr:49 var
+R2748:2751 ProjectCerberus.coqproofs.Cerberus <> Load constr
+R2761:2761 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2763:2764 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2769:2770 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2808:2808 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2774:2780 Coq.Arith.PeanoNat Nat ltb def
+R2787:2793 ProjectCerberus.coqproofs.Cerberus <> mem_len:51 var
+R2814:2818 ProjectCerberus.coqproofs.Cerberus <> Store constr
+R2830:2830 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2832:2833 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
 R2838:2839 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2841:2841 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2847:2853 ProjectCerberus.coqproofs.Cerberus <> CopyReg constr
-R2864:2864 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2866:2867 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2870:2871 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2874:2875 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
 R2877:2877 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2883:2885 ProjectCerberus.coqproofs.Cerberus <> Jmp constr
-R2892:2892 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2894:2895 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2897:2898 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2937:2937 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2902:2908 Coq.Arith.PeanoNat Nat ltb def
-R2912:2922 ProjectCerberus.coqproofs.Cerberus <> program_len:50 var
-R2943:2944 ProjectCerberus.coqproofs.Cerberus <> Jz constr
-R2954:2954 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2843:2849 Coq.Arith.PeanoNat Nat ltb def
+R2856:2862 ProjectCerberus.coqproofs.Cerberus <> mem_len:51 var
+R2883:2888 ProjectCerberus.coqproofs.Cerberus <> AddReg constr
+R2904:2904 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2906:2907 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2910:2911 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2915:2916 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2920:2921 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2923:2923 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2929:2934 ProjectCerberus.coqproofs.Cerberus <> SubReg constr
+R2950:2950 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2952:2953 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
 R2956:2957 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2960:2961 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2963:2964 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R3003:3003 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R2968:2974 Coq.Arith.PeanoNat Nat ltb def
-R2978:2988 ProjectCerberus.coqproofs.Cerberus <> program_len:50 var
-R3009:3011 ProjectCerberus.coqproofs.Cerberus <> Jnz constr
-R3021:3021 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R3023:3024 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R3027:3028 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R3030:3031 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R3070:3070 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R3035:3041 Coq.Arith.PeanoNat Nat ltb def
-R3045:3055 ProjectCerberus.coqproofs.Cerberus <> program_len:50 var
-R3076:3079 ProjectCerberus.coqproofs.Cerberus <> Halt constr
-R3084:3084 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R3086:3087 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R3089:3089 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-def 3430:3440 <> kernel_step
-R3459:3465 ProjectCerberus.coqproofs.Cerberus <> Program def
-binder 3443:3455 <> p_with_axioms:53
-R3474:3485 ProjectCerberus.coqproofs.Cerberus <> MachineState rec
-binder 3469:3470 <> st:54
-R3490:3501 ProjectCerberus.coqproofs.Cerberus <> MachineState rec
-R3537:3549 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:53 var
-R3513:3513 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3522:3523 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3532:3532 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3563:3578 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
-R3559:3560 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R3646:3654 Coq.Lists.List <> nth_error def
-R3669:3670 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R3665:3666 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R3682:3685 Coq.Init.Datatypes <> None constr
-R3690:3691 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R3735:3738 Coq.Init.Datatypes <> Some constr
-R3774:3779 Coq.Init.Datatypes <> length def
-R3785:3787 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R3781:3782 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-binder 3763:3769 <> mem_len:56
-R3814:3829 ProjectCerberus.coqproofs.Cerberus <> is_instr_pc_safe def
-R3832:3837 Coq.Init.Datatypes <> length def
-binder 3803:3809 <> pc_safe:57
-R3884:3900 ProjectCerberus.coqproofs.Cerberus <> is_instr_mem_safe def
-R3902:3908 ProjectCerberus.coqproofs.Cerberus <> mem_len:56 var
-binder 3872:3879 <> mem_safe:58
-R3958:3977 ProjectCerberus.coqproofs.Cerberus <> encode_safety_axioms def
-R3990:3995 Coq.Init.Datatypes <> length def
-R4007:4013 ProjectCerberus.coqproofs.Cerberus <> mem_len:56 var
-binder 3933:3953 <> current_safety_axioms:59
-R4055:4066 ProjectCerberus.coqproofs.Cerberus <> logic_oracle def
-R4077:4080 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R4081:4101 ProjectCerberus.coqproofs.Cerberus <> current_safety_axioms:59 var
-binder 4028:4050 <> is_consistent_by_oracle:60
-R4113:4115 Coq.Init.Datatypes <> orb def
-R4155:4158 Coq.Init.Datatypes <> negb def
-R4160:4182 ProjectCerberus.coqproofs.Cerberus <> is_consistent_by_oracle:60 var
-R4118:4120 Coq.Init.Datatypes <> orb def
-R4138:4141 Coq.Init.Datatypes <> negb def
-R4143:4150 ProjectCerberus.coqproofs.Cerberus <> mem_safe:58 var
-R4123:4126 Coq.Init.Datatypes <> negb def
-R4128:4134 ProjectCerberus.coqproofs.Cerberus <> pc_safe:57 var
-R4366:4369 ProjectCerberus.coqproofs.Cerberus <> Halt constr
-R4374:4375 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R4387:4390 ProjectCerberus.coqproofs.Cerberus <> Load constr
-R4400:4401 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R4400:4401 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R4400:4401 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R4417:4419 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R4417:4419 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R4434:4437 ProjectCerberus.coqproofs.Cerberus <> regs proj
-R4434:4437 ProjectCerberus.coqproofs.Cerberus <> regs proj
-R4453:4459 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
-R4453:4459 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
-R4480:4495 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
-R4480:4495 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
-R4406:4406 Coq.Init.Datatypes <> S constr
-R4412:4413 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R4408:4409 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R4428:4430 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R4424:4425 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R4446:4449 ProjectCerberus.coqproofs.Cerberus <> regs proj
-R4442:4443 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R4464:4464 Coq.Init.Datatypes <> S constr
-R4470:4476 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
-R4466:4467 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R4500:4504 Coq.Init.Datatypes <> false constr
-R4519:4523 ProjectCerberus.coqproofs.Cerberus <> Store constr
-R4535:4536 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R4535:4536 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R4535:4536 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R4552:4554 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R4552:4554 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R4569:4572 ProjectCerberus.coqproofs.Cerberus <> regs proj
-R4569:4572 ProjectCerberus.coqproofs.Cerberus <> regs proj
-R4588:4594 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
-R4588:4594 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
-R4615:4630 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
-R4615:4630 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
-R4541:4541 Coq.Init.Datatypes <> S constr
-R4547:4548 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R4543:4544 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R4563:4565 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R4559:4560 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R4581:4584 ProjectCerberus.coqproofs.Cerberus <> regs proj
-R4577:4578 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R4599:4599 Coq.Init.Datatypes <> S constr
-R4605:4611 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
-R4601:4602 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R4635:4639 Coq.Init.Datatypes <> false constr
-R4654:4659 ProjectCerberus.coqproofs.Cerberus <> AddReg constr
-R4673:4674 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R4673:4674 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R4673:4674 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R4690:4692 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R4690:4692 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R4707:4710 ProjectCerberus.coqproofs.Cerberus <> regs proj
-R4707:4710 ProjectCerberus.coqproofs.Cerberus <> regs proj
-R4726:4732 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
-R4726:4732 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
-R4753:4768 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
-R4753:4768 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
-R4679:4679 Coq.Init.Datatypes <> S constr
-R4685:4686 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R4681:4682 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R4701:4703 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R4697:4698 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R4719:4722 ProjectCerberus.coqproofs.Cerberus <> regs proj
-R4715:4716 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R4737:4737 Coq.Init.Datatypes <> S constr
-R4743:4749 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
-R4739:4740 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R4773:4777 Coq.Init.Datatypes <> false constr
-R4792:4797 ProjectCerberus.coqproofs.Cerberus <> SubReg constr
-R4811:4812 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R4811:4812 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R4811:4812 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R4828:4830 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R4828:4830 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R4845:4848 ProjectCerberus.coqproofs.Cerberus <> regs proj
-R4845:4848 ProjectCerberus.coqproofs.Cerberus <> regs proj
-R4864:4870 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
-R4864:4870 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
-R4891:4906 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
-R4891:4906 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
-R4817:4817 Coq.Init.Datatypes <> S constr
-R4823:4824 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R4819:4820 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R4839:4841 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R4835:4836 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R4857:4860 ProjectCerberus.coqproofs.Cerberus <> regs proj
-R4853:4854 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R4875:4875 Coq.Init.Datatypes <> S constr
-R4881:4887 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
-R4877:4878 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R4911:4915 Coq.Init.Datatypes <> false constr
-R4930:4936 ProjectCerberus.coqproofs.Cerberus <> CopyReg constr
-R4948:4949 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R4948:4949 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R4948:4949 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R4965:4967 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R4965:4967 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R4982:4985 ProjectCerberus.coqproofs.Cerberus <> regs proj
-R4982:4985 ProjectCerberus.coqproofs.Cerberus <> regs proj
-R5001:5007 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
-R5001:5007 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
-R5028:5043 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
-R5028:5043 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
-R4954:4954 Coq.Init.Datatypes <> S constr
-R4960:4961 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R4956:4957 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R4976:4978 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R4972:4973 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R4994:4997 ProjectCerberus.coqproofs.Cerberus <> regs proj
-R4990:4991 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R5012:5012 Coq.Init.Datatypes <> S constr
-R5018:5024 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
-R5014:5015 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R5048:5052 Coq.Init.Datatypes <> false constr
-R5067:5069 ProjectCerberus.coqproofs.Cerberus <> Jmp constr
-R5079:5080 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R5079:5080 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R5079:5080 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R5096:5098 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R5096:5098 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R5113:5116 ProjectCerberus.coqproofs.Cerberus <> regs proj
-R5113:5116 ProjectCerberus.coqproofs.Cerberus <> regs proj
-R5132:5138 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
-R5132:5138 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
-R5159:5174 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
-R5159:5174 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
-R5085:5085 Coq.Init.Datatypes <> S constr
-R5091:5092 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R5087:5088 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R5107:5109 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R5103:5104 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R5125:5128 ProjectCerberus.coqproofs.Cerberus <> regs proj
-R5121:5122 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R5143:5143 Coq.Init.Datatypes <> S constr
-R5149:5155 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
-R5145:5146 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R5179:5183 Coq.Init.Datatypes <> false constr
-R5198:5199 ProjectCerberus.coqproofs.Cerberus <> Jz constr
-R5211:5212 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R5211:5212 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R5211:5212 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R5228:5230 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R5228:5230 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R5245:5248 ProjectCerberus.coqproofs.Cerberus <> regs proj
-R5245:5248 ProjectCerberus.coqproofs.Cerberus <> regs proj
-R5264:5270 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
-R5264:5270 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
-R5291:5306 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
-R5291:5306 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
-R5217:5217 Coq.Init.Datatypes <> S constr
-R5223:5224 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R5219:5220 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R5239:5241 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R5235:5236 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R5257:5260 ProjectCerberus.coqproofs.Cerberus <> regs proj
-R5253:5254 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R5275:5275 Coq.Init.Datatypes <> S constr
-R5281:5287 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
-R5277:5278 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R5311:5315 Coq.Init.Datatypes <> false constr
-R5330:5332 ProjectCerberus.coqproofs.Cerberus <> Jnz constr
-R5344:5345 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R5344:5345 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R5344:5345 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R5361:5363 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R5361:5363 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R5378:5381 ProjectCerberus.coqproofs.Cerberus <> regs proj
-R5378:5381 ProjectCerberus.coqproofs.Cerberus <> regs proj
-R5397:5403 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
-R5397:5403 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
-R5424:5439 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
-R5424:5439 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
-R5350:5350 Coq.Init.Datatypes <> S constr
-R5356:5357 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R5352:5353 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R5372:5374 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R5368:5369 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R5390:5393 ProjectCerberus.coqproofs.Cerberus <> regs proj
-R5386:5387 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R5408:5408 Coq.Init.Datatypes <> S constr
-R5414:5420 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
-R5410:5411 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R5444:5448 Coq.Init.Datatypes <> false constr
-R4201:4202 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R4201:4202 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R4201:4202 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R4216:4218 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R4216:4218 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R4233:4236 ProjectCerberus.coqproofs.Cerberus <> regs proj
-R4233:4236 ProjectCerberus.coqproofs.Cerberus <> regs proj
-R4263:4269 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
-R4263:4269 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
-R4288:4303 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
-R4288:4303 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
-R4211:4212 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R4207:4208 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R4227:4229 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R4223:4224 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R4245:4248 ProjectCerberus.coqproofs.Cerberus <> regs proj
-R4241:4242 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R4278:4284 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
-R4274:4275 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-R4308:4311 Coq.Init.Datatypes <> true constr
-R3586:3587 ProjectCerberus.coqproofs.Cerberus <> st:54 var
-def 5482:5493 <> run_kernel_n
-R5500:5506 ProjectCerberus.coqproofs.Cerberus <> Program def
-binder 5496:5496 <> p:62
-R5515:5526 ProjectCerberus.coqproofs.Cerberus <> MachineState rec
-binder 5510:5511 <> st:63
-R5534:5536 Coq.Init.Datatypes <> nat ind
-binder 5530:5530 <> n:64
-R5541:5552 ProjectCerberus.coqproofs.Cerberus <> MachineState rec
-R5565:5565 ProjectCerberus.coqproofs.Cerberus <> n:64 var
-R5581:5582 ProjectCerberus.coqproofs.Cerberus <> st:63 var
-R5588:5588 Coq.Init.Datatypes <> S constr
-R5595:5606 ProjectCerberus.coqproofs.Cerberus <> run_kernel_n:65 def
-R5611:5621 ProjectCerberus.coqproofs.Cerberus <> kernel_step def
-R5623:5623 ProjectCerberus.coqproofs.Cerberus <> p:62 var
-R5625:5626 ProjectCerberus.coqproofs.Cerberus <> st:63 var
-R5608:5608 ProjectCerberus.coqproofs.Cerberus <> p:62 var
-prf 5746:5767 <> kernel_step_mem_length
-binder 5780:5780 <> p:67
-binder 5782:5783 <> st:68
-R5821:5823 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5790:5795 Coq.Init.Datatypes <> length def
-R5798:5800 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R5803:5813 ProjectCerberus.coqproofs.Cerberus <> kernel_step def
-R5815:5815 ProjectCerberus.coqproofs.Cerberus <> p:67 var
-R5817:5818 ProjectCerberus.coqproofs.Cerberus <> st:68 var
-R5824:5829 Coq.Init.Datatypes <> length def
-R5835:5837 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R5831:5832 ProjectCerberus.coqproofs.Cerberus <> st:68 var
-R5896:5911 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
-R5896:5911 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
-R5943:5951 Coq.Lists.List <> nth_error def
-R5961:5962 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R5943:5951 Coq.Lists.List <> nth_error def
-R5961:5962 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R6001:6016 ProjectCerberus.coqproofs.Cerberus <> is_instr_pc_safe def
-R6019:6024 Coq.Init.Datatypes <> length def
-R6050:6066 ProjectCerberus.coqproofs.Cerberus <> is_instr_mem_safe def
-R6069:6074 Coq.Init.Datatypes <> length def
-R6077:6079 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R6102:6113 ProjectCerberus.coqproofs.Cerberus <> logic_oracle def
-R6122:6125 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R6126:6145 ProjectCerberus.coqproofs.Cerberus <> encode_safety_axioms def
-R6150:6155 Coq.Init.Datatypes <> length def
-R6166:6171 Coq.Init.Datatypes <> length def
-R6174:6176 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R6001:6016 ProjectCerberus.coqproofs.Cerberus <> is_instr_pc_safe def
-R6019:6024 Coq.Init.Datatypes <> length def
-R6050:6066 ProjectCerberus.coqproofs.Cerberus <> is_instr_mem_safe def
-R6069:6074 Coq.Init.Datatypes <> length def
-R6077:6079 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R6050:6066 ProjectCerberus.coqproofs.Cerberus <> is_instr_mem_safe def
-R6069:6074 Coq.Init.Datatypes <> length def
-R6077:6079 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R6102:6113 ProjectCerberus.coqproofs.Cerberus <> logic_oracle def
-R6122:6125 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R6126:6145 ProjectCerberus.coqproofs.Cerberus <> encode_safety_axioms def
-R6150:6155 Coq.Init.Datatypes <> length def
-R6166:6171 Coq.Init.Datatypes <> length def
-R6174:6176 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R6102:6113 ProjectCerberus.coqproofs.Cerberus <> logic_oracle def
-R6122:6125 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R6126:6145 ProjectCerberus.coqproofs.Cerberus <> encode_safety_axioms def
-R6150:6155 Coq.Init.Datatypes <> length def
-R6166:6171 Coq.Init.Datatypes <> length def
-R6174:6176 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R6102:6113 ProjectCerberus.coqproofs.Cerberus <> logic_oracle def
-R6122:6125 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R6126:6145 ProjectCerberus.coqproofs.Cerberus <> encode_safety_axioms def
-R6150:6155 Coq.Init.Datatypes <> length def
-R6166:6171 Coq.Init.Datatypes <> length def
-R6174:6176 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R6102:6113 ProjectCerberus.coqproofs.Cerberus <> logic_oracle def
-R6122:6125 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R6126:6145 ProjectCerberus.coqproofs.Cerberus <> encode_safety_axioms def
-R6150:6155 Coq.Init.Datatypes <> length def
-R6166:6171 Coq.Init.Datatypes <> length def
-R6174:6176 ProjectCerberus.coqproofs.Cerberus <> mem proj
-prf 6293:6312 <> kernel_step_pc_bound
-binder 6325:6325 <> p:69
-binder 6327:6328 <> st:70
-R6364:6371 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6356:6358 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6339:6354 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
-R6335:6336 ProjectCerberus.coqproofs.Cerberus <> st:70 var
-R6359:6363 Coq.Init.Datatypes <> false constr
-R6397:6404 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6379:6382 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R6376:6377 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R6372:6373 ProjectCerberus.coqproofs.Cerberus <> st:70 var
-R6383:6388 Coq.Init.Datatypes <> length def
-R6391:6393 Coq.Init.Datatypes <> fst def
-R6395:6395 ProjectCerberus.coqproofs.Cerberus <> p:69 var
-R6405:6405 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6548:6556 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 6413:6417 <> instr:71
-R6444:6455 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6428:6429 Coq.Lists.List <> In def
-R6438:6440 Coq.Init.Datatypes <> fst def
-R6442:6442 ProjectCerberus.coqproofs.Cerberus <> p:69 var
-R6431:6435 ProjectCerberus.coqproofs.Cerberus <> instr:71 var
-R6541:6543 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6456:6467 ProjectCerberus.coqproofs.Cerberus <> logic_oracle def
-R6475:6478 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R6470:6472 Coq.Init.Datatypes <> snd def
-R6474:6474 ProjectCerberus.coqproofs.Cerberus <> p:69 var
-R6479:6498 ProjectCerberus.coqproofs.Cerberus <> encode_safety_axioms def
-R6500:6504 ProjectCerberus.coqproofs.Cerberus <> instr:71 var
-R6507:6512 Coq.Init.Datatypes <> length def
-R6515:6517 Coq.Init.Datatypes <> fst def
-R6519:6519 ProjectCerberus.coqproofs.Cerberus <> p:69 var
-R6524:6529 Coq.Init.Datatypes <> length def
-R6535:6537 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R6531:6532 ProjectCerberus.coqproofs.Cerberus <> st:70 var
-R6544:6547 Coq.Init.Datatypes <> true constr
-R6580:6583 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R6577:6578 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R6558:6568 ProjectCerberus.coqproofs.Cerberus <> kernel_step def
+R2961:2962 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2966:2967 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2969:2969 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2975:2981 ProjectCerberus.coqproofs.Cerberus <> CopyReg constr
+R2992:2992 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2994:2995 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2998:2999 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3002:3003 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3005:3005 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3011:3013 ProjectCerberus.coqproofs.Cerberus <> Jmp constr
+R3020:3020 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3022:3023 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3025:3026 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3065:3065 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3030:3036 Coq.Arith.PeanoNat Nat ltb def
+R3040:3050 ProjectCerberus.coqproofs.Cerberus <> program_len:50 var
+R3071:3072 ProjectCerberus.coqproofs.Cerberus <> Jz constr
+R3082:3082 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3084:3085 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3088:3089 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3091:3092 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3131:3131 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3096:3102 Coq.Arith.PeanoNat Nat ltb def
+R3106:3116 ProjectCerberus.coqproofs.Cerberus <> program_len:50 var
+R3137:3139 ProjectCerberus.coqproofs.Cerberus <> Jnz constr
+R3149:3149 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3151:3152 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3155:3156 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3158:3159 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3198:3198 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3163:3169 Coq.Arith.PeanoNat Nat ltb def
+R3173:3183 ProjectCerberus.coqproofs.Cerberus <> program_len:50 var
+R3204:3207 ProjectCerberus.coqproofs.Cerberus <> Halt constr
+R3212:3212 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3214:3215 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3217:3217 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+def 3558:3568 <> kernel_step
+R3587:3593 ProjectCerberus.coqproofs.Cerberus <> Program def
+binder 3571:3583 <> p_with_axioms:53
+R3602:3613 ProjectCerberus.coqproofs.Cerberus <> MachineState rec
+binder 3597:3598 <> st:54
+R3618:3629 ProjectCerberus.coqproofs.Cerberus <> MachineState rec
+R3665:3677 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:53 var
+R3641:3641 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3650:3651 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3660:3660 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3691:3706 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
+R3687:3688 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R3774:3782 Coq.Lists.List <> nth_error def
+R3797:3798 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R3793:3794 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R3810:3813 Coq.Init.Datatypes <> None constr
+R3818:3819 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R3863:3866 Coq.Init.Datatypes <> Some constr
+R3902:3907 Coq.Init.Datatypes <> length def
+R3913:3915 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R3909:3910 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+binder 3891:3897 <> mem_len:56
+R3942:3957 ProjectCerberus.coqproofs.Cerberus <> is_instr_pc_safe def
+R3960:3965 Coq.Init.Datatypes <> length def
+binder 3931:3937 <> pc_safe:57
+R4012:4028 ProjectCerberus.coqproofs.Cerberus <> is_instr_mem_safe def
+R4030:4036 ProjectCerberus.coqproofs.Cerberus <> mem_len:56 var
+binder 4000:4007 <> mem_safe:58
+R4086:4105 ProjectCerberus.coqproofs.Cerberus <> encode_safety_axioms def
+R4118:4123 Coq.Init.Datatypes <> length def
+R4135:4141 ProjectCerberus.coqproofs.Cerberus <> mem_len:56 var
+binder 4061:4081 <> current_safety_axioms:59
+R4183:4194 ProjectCerberus.coqproofs.Cerberus <> logic_oracle def
+R4205:4208 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R4209:4229 ProjectCerberus.coqproofs.Cerberus <> current_safety_axioms:59 var
+binder 4156:4178 <> is_consistent_by_oracle:60
+R4241:4243 Coq.Init.Datatypes <> orb def
+R4283:4286 Coq.Init.Datatypes <> negb def
+R4288:4310 ProjectCerberus.coqproofs.Cerberus <> is_consistent_by_oracle:60 var
+R4246:4248 Coq.Init.Datatypes <> orb def
+R4266:4269 Coq.Init.Datatypes <> negb def
+R4271:4278 ProjectCerberus.coqproofs.Cerberus <> mem_safe:58 var
+R4251:4254 Coq.Init.Datatypes <> negb def
+R4256:4262 ProjectCerberus.coqproofs.Cerberus <> pc_safe:57 var
+R4494:4497 ProjectCerberus.coqproofs.Cerberus <> Halt constr
+R4502:4503 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R4515:4518 ProjectCerberus.coqproofs.Cerberus <> Load constr
+R4528:4529 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R4528:4529 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R4528:4529 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R4545:4547 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R4545:4547 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R4562:4565 ProjectCerberus.coqproofs.Cerberus <> regs proj
+R4562:4565 ProjectCerberus.coqproofs.Cerberus <> regs proj
+R4581:4587 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
+R4581:4587 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
+R4608:4623 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
+R4608:4623 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
+R4534:4534 Coq.Init.Datatypes <> S constr
+R4540:4541 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R4536:4537 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R4556:4558 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R4552:4553 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R4574:4577 ProjectCerberus.coqproofs.Cerberus <> regs proj
+R4570:4571 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R4592:4592 Coq.Init.Datatypes <> S constr
+R4598:4604 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
+R4594:4595 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R4628:4632 Coq.Init.Datatypes <> false constr
+R4647:4651 ProjectCerberus.coqproofs.Cerberus <> Store constr
+R4663:4664 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R4663:4664 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R4663:4664 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R4680:4682 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R4680:4682 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R4697:4700 ProjectCerberus.coqproofs.Cerberus <> regs proj
+R4697:4700 ProjectCerberus.coqproofs.Cerberus <> regs proj
+R4716:4722 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
+R4716:4722 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
+R4743:4758 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
+R4743:4758 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
+R4669:4669 Coq.Init.Datatypes <> S constr
+R4675:4676 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R4671:4672 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R4691:4693 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R4687:4688 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R4709:4712 ProjectCerberus.coqproofs.Cerberus <> regs proj
+R4705:4706 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R4727:4727 Coq.Init.Datatypes <> S constr
+R4733:4739 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
+R4729:4730 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R4763:4767 Coq.Init.Datatypes <> false constr
+R4782:4787 ProjectCerberus.coqproofs.Cerberus <> AddReg constr
+R4801:4802 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R4801:4802 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R4801:4802 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R4818:4820 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R4818:4820 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R4835:4838 ProjectCerberus.coqproofs.Cerberus <> regs proj
+R4835:4838 ProjectCerberus.coqproofs.Cerberus <> regs proj
+R4854:4860 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
+R4854:4860 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
+R4881:4896 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
+R4881:4896 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
+R4807:4807 Coq.Init.Datatypes <> S constr
+R4813:4814 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R4809:4810 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R4829:4831 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R4825:4826 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R4847:4850 ProjectCerberus.coqproofs.Cerberus <> regs proj
+R4843:4844 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R4865:4865 Coq.Init.Datatypes <> S constr
+R4871:4877 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
+R4867:4868 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R4901:4905 Coq.Init.Datatypes <> false constr
+R4920:4925 ProjectCerberus.coqproofs.Cerberus <> SubReg constr
+R4939:4940 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R4939:4940 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R4939:4940 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R4956:4958 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R4956:4958 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R4973:4976 ProjectCerberus.coqproofs.Cerberus <> regs proj
+R4973:4976 ProjectCerberus.coqproofs.Cerberus <> regs proj
+R4992:4998 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
+R4992:4998 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
+R5019:5034 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
+R5019:5034 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
+R4945:4945 Coq.Init.Datatypes <> S constr
+R4951:4952 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R4947:4948 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R4967:4969 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R4963:4964 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R4985:4988 ProjectCerberus.coqproofs.Cerberus <> regs proj
+R4981:4982 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R5003:5003 Coq.Init.Datatypes <> S constr
+R5009:5015 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
+R5005:5006 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R5039:5043 Coq.Init.Datatypes <> false constr
+R5058:5064 ProjectCerberus.coqproofs.Cerberus <> CopyReg constr
+R5076:5077 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R5076:5077 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R5076:5077 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R5093:5095 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R5093:5095 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R5110:5113 ProjectCerberus.coqproofs.Cerberus <> regs proj
+R5110:5113 ProjectCerberus.coqproofs.Cerberus <> regs proj
+R5129:5135 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
+R5129:5135 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
+R5156:5171 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
+R5156:5171 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
+R5082:5082 Coq.Init.Datatypes <> S constr
+R5088:5089 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R5084:5085 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R5104:5106 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R5100:5101 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R5122:5125 ProjectCerberus.coqproofs.Cerberus <> regs proj
+R5118:5119 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R5140:5140 Coq.Init.Datatypes <> S constr
+R5146:5152 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
+R5142:5143 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R5176:5180 Coq.Init.Datatypes <> false constr
+R5195:5197 ProjectCerberus.coqproofs.Cerberus <> Jmp constr
+R5207:5208 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R5207:5208 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R5207:5208 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R5224:5226 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R5224:5226 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R5241:5244 ProjectCerberus.coqproofs.Cerberus <> regs proj
+R5241:5244 ProjectCerberus.coqproofs.Cerberus <> regs proj
+R5260:5266 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
+R5260:5266 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
+R5287:5302 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
+R5287:5302 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
+R5213:5213 Coq.Init.Datatypes <> S constr
+R5219:5220 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R5215:5216 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R5235:5237 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R5231:5232 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R5253:5256 ProjectCerberus.coqproofs.Cerberus <> regs proj
+R5249:5250 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R5271:5271 Coq.Init.Datatypes <> S constr
+R5277:5283 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
+R5273:5274 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R5307:5311 Coq.Init.Datatypes <> false constr
+R5326:5327 ProjectCerberus.coqproofs.Cerberus <> Jz constr
+R5339:5340 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R5339:5340 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R5339:5340 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R5356:5358 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R5356:5358 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R5373:5376 ProjectCerberus.coqproofs.Cerberus <> regs proj
+R5373:5376 ProjectCerberus.coqproofs.Cerberus <> regs proj
+R5392:5398 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
+R5392:5398 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
+R5419:5434 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
+R5419:5434 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
+R5345:5345 Coq.Init.Datatypes <> S constr
+R5351:5352 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R5347:5348 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R5367:5369 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R5363:5364 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R5385:5388 ProjectCerberus.coqproofs.Cerberus <> regs proj
+R5381:5382 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R5403:5403 Coq.Init.Datatypes <> S constr
+R5409:5415 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
+R5405:5406 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R5439:5443 Coq.Init.Datatypes <> false constr
+R5458:5460 ProjectCerberus.coqproofs.Cerberus <> Jnz constr
+R5472:5473 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R5472:5473 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R5472:5473 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R5489:5491 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R5489:5491 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R5506:5509 ProjectCerberus.coqproofs.Cerberus <> regs proj
+R5506:5509 ProjectCerberus.coqproofs.Cerberus <> regs proj
+R5525:5531 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
+R5525:5531 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
+R5552:5567 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
+R5552:5567 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
+R5478:5478 Coq.Init.Datatypes <> S constr
+R5484:5485 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R5480:5481 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R5500:5502 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R5496:5497 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R5518:5521 ProjectCerberus.coqproofs.Cerberus <> regs proj
+R5514:5515 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R5536:5536 Coq.Init.Datatypes <> S constr
+R5542:5548 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
+R5538:5539 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R5572:5576 Coq.Init.Datatypes <> false constr
+R4329:4330 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R4329:4330 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R4329:4330 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R4344:4346 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R4344:4346 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R4361:4364 ProjectCerberus.coqproofs.Cerberus <> regs proj
+R4361:4364 ProjectCerberus.coqproofs.Cerberus <> regs proj
+R4391:4397 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
+R4391:4397 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
+R4416:4431 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
+R4416:4431 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
+R4339:4340 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R4335:4336 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R4355:4357 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R4351:4352 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R4373:4376 ProjectCerberus.coqproofs.Cerberus <> regs proj
+R4369:4370 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R4406:4412 ProjectCerberus.coqproofs.Cerberus <> mu_cost proj
+R4402:4403 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+R4436:4439 Coq.Init.Datatypes <> true constr
+R3714:3715 ProjectCerberus.coqproofs.Cerberus <> st:54 var
+def 5610:5621 <> run_kernel_n
+R5628:5634 ProjectCerberus.coqproofs.Cerberus <> Program def
+binder 5624:5624 <> p:62
+R5643:5654 ProjectCerberus.coqproofs.Cerberus <> MachineState rec
+binder 5638:5639 <> st:63
+R5662:5664 Coq.Init.Datatypes <> nat ind
+binder 5658:5658 <> n:64
+R5669:5680 ProjectCerberus.coqproofs.Cerberus <> MachineState rec
+R5693:5693 ProjectCerberus.coqproofs.Cerberus <> n:64 var
+R5709:5710 ProjectCerberus.coqproofs.Cerberus <> st:63 var
+R5716:5716 Coq.Init.Datatypes <> S constr
+R5723:5734 ProjectCerberus.coqproofs.Cerberus <> run_kernel_n:65 def
+R5739:5749 ProjectCerberus.coqproofs.Cerberus <> kernel_step def
+R5751:5751 ProjectCerberus.coqproofs.Cerberus <> p:62 var
+R5753:5754 ProjectCerberus.coqproofs.Cerberus <> st:63 var
+R5736:5736 ProjectCerberus.coqproofs.Cerberus <> p:62 var
+prf 5874:5895 <> kernel_step_mem_length
+binder 5908:5908 <> p:67
+binder 5910:5911 <> st:68
+R5949:5951 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5918:5923 Coq.Init.Datatypes <> length def
+R5926:5928 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R5931:5941 ProjectCerberus.coqproofs.Cerberus <> kernel_step def
+R5943:5943 ProjectCerberus.coqproofs.Cerberus <> p:67 var
+R5945:5946 ProjectCerberus.coqproofs.Cerberus <> st:68 var
+R5952:5957 Coq.Init.Datatypes <> length def
+R5963:5965 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R5959:5960 ProjectCerberus.coqproofs.Cerberus <> st:68 var
+R6024:6039 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
+R6024:6039 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
+R6071:6079 Coq.Lists.List <> nth_error def
+R6089:6090 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R6071:6079 Coq.Lists.List <> nth_error def
+R6089:6090 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R6129:6144 ProjectCerberus.coqproofs.Cerberus <> is_instr_pc_safe def
+R6147:6152 Coq.Init.Datatypes <> length def
+R6178:6194 ProjectCerberus.coqproofs.Cerberus <> is_instr_mem_safe def
+R6197:6202 Coq.Init.Datatypes <> length def
+R6205:6207 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R6230:6241 ProjectCerberus.coqproofs.Cerberus <> logic_oracle def
+R6250:6253 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R6254:6273 ProjectCerberus.coqproofs.Cerberus <> encode_safety_axioms def
+R6278:6283 Coq.Init.Datatypes <> length def
+R6294:6299 Coq.Init.Datatypes <> length def
+R6302:6304 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R6129:6144 ProjectCerberus.coqproofs.Cerberus <> is_instr_pc_safe def
+R6147:6152 Coq.Init.Datatypes <> length def
+R6178:6194 ProjectCerberus.coqproofs.Cerberus <> is_instr_mem_safe def
+R6197:6202 Coq.Init.Datatypes <> length def
+R6205:6207 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R6178:6194 ProjectCerberus.coqproofs.Cerberus <> is_instr_mem_safe def
+R6197:6202 Coq.Init.Datatypes <> length def
+R6205:6207 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R6230:6241 ProjectCerberus.coqproofs.Cerberus <> logic_oracle def
+R6250:6253 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R6254:6273 ProjectCerberus.coqproofs.Cerberus <> encode_safety_axioms def
+R6278:6283 Coq.Init.Datatypes <> length def
+R6294:6299 Coq.Init.Datatypes <> length def
+R6302:6304 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R6230:6241 ProjectCerberus.coqproofs.Cerberus <> logic_oracle def
+R6250:6253 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R6254:6273 ProjectCerberus.coqproofs.Cerberus <> encode_safety_axioms def
+R6278:6283 Coq.Init.Datatypes <> length def
+R6294:6299 Coq.Init.Datatypes <> length def
+R6302:6304 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R6230:6241 ProjectCerberus.coqproofs.Cerberus <> logic_oracle def
+R6250:6253 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R6254:6273 ProjectCerberus.coqproofs.Cerberus <> encode_safety_axioms def
+R6278:6283 Coq.Init.Datatypes <> length def
+R6294:6299 Coq.Init.Datatypes <> length def
+R6302:6304 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R6230:6241 ProjectCerberus.coqproofs.Cerberus <> logic_oracle def
+R6250:6253 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R6254:6273 ProjectCerberus.coqproofs.Cerberus <> encode_safety_axioms def
+R6278:6283 Coq.Init.Datatypes <> length def
+R6294:6299 Coq.Init.Datatypes <> length def
+R6302:6304 ProjectCerberus.coqproofs.Cerberus <> mem proj
+prf 6421:6440 <> kernel_step_pc_bound
+binder 6453:6453 <> p:69
+binder 6455:6456 <> st:70
+R6492:6499 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6484:6486 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6467:6482 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
+R6463:6464 ProjectCerberus.coqproofs.Cerberus <> st:70 var
+R6487:6491 Coq.Init.Datatypes <> false constr
+R6525:6532 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6507:6510 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6504:6505 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R6500:6501 ProjectCerberus.coqproofs.Cerberus <> st:70 var
+R6511:6516 Coq.Init.Datatypes <> length def
+R6519:6521 Coq.Init.Datatypes <> fst def
+R6523:6523 ProjectCerberus.coqproofs.Cerberus <> p:69 var
+R6533:6533 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6676:6684 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 6541:6545 <> instr:71
+R6572:6583 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6556:6557 Coq.Lists.List <> In def
+R6566:6568 Coq.Init.Datatypes <> fst def
 R6570:6570 ProjectCerberus.coqproofs.Cerberus <> p:69 var
-R6572:6573 ProjectCerberus.coqproofs.Cerberus <> st:70 var
-R6584:6589 Coq.Init.Datatypes <> length def
-R6592:6594 Coq.Init.Datatypes <> fst def
-R6596:6596 ProjectCerberus.coqproofs.Cerberus <> p:69 var
-R6683:6691 Coq.Lists.List <> nth_error def
-R6701:6702 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R6683:6691 Coq.Lists.List <> nth_error def
-R6701:6702 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R6743:6745 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R6738:6739 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R6746:6751 Coq.Init.Datatypes <> length def
-R6743:6745 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R6738:6739 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R6746:6751 Coq.Init.Datatypes <> length def
-R6781:6794 Coq.Lists.List <> nth_error_Some thm
-R6781:6794 Coq.Lists.List <> nth_error_Some thm
-R6841:6856 ProjectCerberus.coqproofs.Cerberus <> is_instr_pc_safe def
-R6859:6864 Coq.Init.Datatypes <> length def
-R6841:6856 ProjectCerberus.coqproofs.Cerberus <> is_instr_pc_safe def
-R6859:6864 Coq.Init.Datatypes <> length def
-R6903:6919 ProjectCerberus.coqproofs.Cerberus <> is_instr_mem_safe def
-R6922:6927 Coq.Init.Datatypes <> length def
-R6930:6932 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R6903:6919 ProjectCerberus.coqproofs.Cerberus <> is_instr_mem_safe def
-R6922:6927 Coq.Init.Datatypes <> length def
-R6930:6932 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R6969:6980 ProjectCerberus.coqproofs.Cerberus <> logic_oracle def
-R6989:6992 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R6993:7012 ProjectCerberus.coqproofs.Cerberus <> encode_safety_axioms def
-R7017:7022 Coq.Init.Datatypes <> length def
-R7033:7038 Coq.Init.Datatypes <> length def
-R7041:7043 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R6969:6980 ProjectCerberus.coqproofs.Cerberus <> logic_oracle def
-R6989:6992 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R6993:7012 ProjectCerberus.coqproofs.Cerberus <> encode_safety_axioms def
-R7017:7022 Coq.Init.Datatypes <> length def
-R7033:7038 Coq.Init.Datatypes <> length def
-R7041:7043 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R7185:7197 ProjectCerberus.coqproofs.Cerberus <> succ_le_of_lt thm
-R7185:7197 ProjectCerberus.coqproofs.Cerberus <> succ_le_of_lt thm
-R7185:7197 ProjectCerberus.coqproofs.Cerberus <> succ_le_of_lt thm
-R7185:7197 ProjectCerberus.coqproofs.Cerberus <> succ_le_of_lt thm
-R7185:7197 ProjectCerberus.coqproofs.Cerberus <> succ_le_of_lt thm
-R7185:7197 ProjectCerberus.coqproofs.Cerberus <> succ_le_of_lt thm
-R7185:7197 ProjectCerberus.coqproofs.Cerberus <> succ_le_of_lt thm
-R7185:7197 ProjectCerberus.coqproofs.Cerberus <> succ_le_of_lt thm
-R7185:7197 ProjectCerberus.coqproofs.Cerberus <> succ_le_of_lt thm
-R7185:7197 ProjectCerberus.coqproofs.Cerberus <> succ_le_of_lt thm
-prf 7290:7307 <> run_kernel_paradox
-binder 7320:7320 <> p:72
-binder 7322:7323 <> st:73
-binder 7325:7325 <> n:74
-R7358:7365 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7351:7353 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7332:7347 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
-R7349:7350 ProjectCerberus.coqproofs.Cerberus <> st:73 var
-R7354:7357 Coq.Init.Datatypes <> true constr
-R7385:7387 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7366:7377 ProjectCerberus.coqproofs.Cerberus <> run_kernel_n def
-R7379:7379 ProjectCerberus.coqproofs.Cerberus <> p:72 var
-R7381:7382 ProjectCerberus.coqproofs.Cerberus <> st:73 var
-R7384:7384 ProjectCerberus.coqproofs.Cerberus <> n:74 var
-R7388:7389 ProjectCerberus.coqproofs.Cerberus <> st:73 var
-prf 7714:7751 <> pc_never_exceeds_program_bounds_thiele
-R7781:7787 ProjectCerberus.coqproofs.Cerberus <> Program def
-binder 7765:7777 <> p_with_axioms:75
-R7796:7807 ProjectCerberus.coqproofs.Cerberus <> MachineState rec
-binder 7791:7792 <> st:76
-R7815:7817 Coq.Init.Datatypes <> nat ind
-binder 7811:7811 <> n:77
-R7862:7869 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7832:7835 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R7829:7830 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R7825:7826 ProjectCerberus.coqproofs.Cerberus <> st:76 var
-R7836:7841 Coq.Init.Datatypes <> length def
-R7844:7846 Coq.Init.Datatypes <> fst def
-R7848:7860 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:75 var
-R7899:7906 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7891:7893 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7874:7889 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
-R7870:7871 ProjectCerberus.coqproofs.Cerberus <> st:76 var
-R7894:7898 Coq.Init.Datatypes <> false constr
-R7907:7907 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8082:8090 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 7915:7919 <> instr:78
-R7956:7965 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7928:7929 Coq.Lists.List <> In def
-R7938:7940 Coq.Init.Datatypes <> fst def
-R7942:7954 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:75 var
-R7931:7935 ProjectCerberus.coqproofs.Cerberus <> instr:78 var
-R8075:8077 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7966:7977 ProjectCerberus.coqproofs.Cerberus <> logic_oracle def
-R7997:8000 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R7980:7982 Coq.Init.Datatypes <> snd def
-R7984:7996 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:75 var
-R8001:8020 ProjectCerberus.coqproofs.Cerberus <> encode_safety_axioms def
-R8022:8026 ProjectCerberus.coqproofs.Cerberus <> instr:78 var
-R8029:8034 Coq.Init.Datatypes <> length def
-R8037:8039 Coq.Init.Datatypes <> fst def
-R8041:8053 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:75 var
-R8058:8063 Coq.Init.Datatypes <> length def
-R8069:8071 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R8065:8066 ProjectCerberus.coqproofs.Cerberus <> st:76 var
-R8078:8081 Coq.Init.Datatypes <> true constr
-R8129:8132 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R8126:8127 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R8092:8103 ProjectCerberus.coqproofs.Cerberus <> run_kernel_n def
-R8105:8117 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:75 var
-R8119:8120 ProjectCerberus.coqproofs.Cerberus <> st:76 var
-R8122:8122 ProjectCerberus.coqproofs.Cerberus <> n:77 var
-R8133:8138 Coq.Init.Datatypes <> length def
-R8141:8143 Coq.Init.Datatypes <> fst def
-R8145:8157 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:75 var
-R8313:8332 ProjectCerberus.coqproofs.Cerberus <> kernel_step_pc_bound thm
-R8313:8332 ProjectCerberus.coqproofs.Cerberus <> kernel_step_pc_bound thm
-R8373:8388 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
-R8391:8401 ProjectCerberus.coqproofs.Cerberus <> kernel_step def
-R8373:8388 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
-R8391:8401 ProjectCerberus.coqproofs.Cerberus <> kernel_step def
-R8434:8451 ProjectCerberus.coqproofs.Cerberus <> run_kernel_paradox thm
-R8456:8466 ProjectCerberus.coqproofs.Cerberus <> kernel_step def
-R8434:8451 ProjectCerberus.coqproofs.Cerberus <> run_kernel_paradox thm
-R8456:8466 ProjectCerberus.coqproofs.Cerberus <> kernel_step def
-R8434:8451 ProjectCerberus.coqproofs.Cerberus <> run_kernel_paradox thm
-R8456:8466 ProjectCerberus.coqproofs.Cerberus <> kernel_step def
-R8624:8645 ProjectCerberus.coqproofs.Cerberus <> kernel_step_mem_length thm
-R8624:8645 ProjectCerberus.coqproofs.Cerberus <> kernel_step_mem_length thm
-R8624:8645 ProjectCerberus.coqproofs.Cerberus <> kernel_step_mem_length thm
-prf 8754:8780 <> mem_safety_preserved_thiele
-R8810:8816 ProjectCerberus.coqproofs.Cerberus <> Program def
-binder 8794:8806 <> p_with_axioms:79
-R8830:8841 ProjectCerberus.coqproofs.Cerberus <> MachineState rec
-binder 8820:8826 <> st_init:80
-R8849:8851 Coq.Init.Datatypes <> nat ind
-binder 8845:8845 <> n:81
-R8859:8859 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9039:9047 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 8867:8871 <> instr:82
-R8908:8917 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8880:8881 Coq.Lists.List <> In def
-R8890:8892 Coq.Init.Datatypes <> fst def
-R8894:8906 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:79 var
-R8883:8887 ProjectCerberus.coqproofs.Cerberus <> instr:82 var
-R9032:9034 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8918:8929 ProjectCerberus.coqproofs.Cerberus <> logic_oracle def
-R8949:8952 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R8932:8934 Coq.Init.Datatypes <> snd def
-R8936:8948 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:79 var
-R8953:8972 ProjectCerberus.coqproofs.Cerberus <> encode_safety_axioms def
-R8974:8978 ProjectCerberus.coqproofs.Cerberus <> instr:82 var
-R8981:8986 Coq.Init.Datatypes <> length def
-R8989:8991 Coq.Init.Datatypes <> fst def
-R8993:9005 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:79 var
-R9010:9015 Coq.Init.Datatypes <> length def
-R9026:9028 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R9017:9023 ProjectCerberus.coqproofs.Cerberus <> st_init:80 var
-R9035:9038 Coq.Init.Datatypes <> true constr
-binder 9055:9055 <> k:83
-R9136:9145 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9107:9109 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R9104:9105 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R9065:9076 ProjectCerberus.coqproofs.Cerberus <> run_kernel_n def
-R9078:9090 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:79 var
-R9092:9098 ProjectCerberus.coqproofs.Cerberus <> st_init:80 var
-R9100:9100 ProjectCerberus.coqproofs.Cerberus <> k:83 var
-R9110:9115 Coq.Init.Datatypes <> length def
-R9118:9120 Coq.Init.Datatypes <> fst def
-R9122:9134 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:79 var
-R9159:9161 Coq.Lists.List <> nth def
-R9227:9230 ProjectCerberus.coqproofs.Cerberus <> Halt constr
-R9208:9210 Coq.Init.Datatypes <> fst def
-R9212:9224 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:79 var
-R9203:9204 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R9164:9175 ProjectCerberus.coqproofs.Cerberus <> run_kernel_n def
-R9177:9189 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:79 var
-R9191:9197 ProjectCerberus.coqproofs.Cerberus <> st_init:80 var
-R9199:9199 ProjectCerberus.coqproofs.Cerberus <> k:83 var
-binder 9150:9154 <> instr:84
-R9355:9357 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9241:9252 ProjectCerberus.coqproofs.Cerberus <> logic_oracle def
-R9272:9275 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R9255:9257 Coq.Init.Datatypes <> snd def
-R9259:9271 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:79 var
-R9276:9295 ProjectCerberus.coqproofs.Cerberus <> encode_safety_axioms def
-R9297:9301 ProjectCerberus.coqproofs.Cerberus <> instr:84 var
-R9304:9309 Coq.Init.Datatypes <> length def
-R9312:9314 Coq.Init.Datatypes <> fst def
-R9316:9328 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:79 var
-R9333:9338 Coq.Init.Datatypes <> length def
-R9349:9351 ProjectCerberus.coqproofs.Cerberus <> mem proj
-R9340:9346 ProjectCerberus.coqproofs.Cerberus <> st_init:80 var
-R9358:9361 Coq.Init.Datatypes <> true constr
-R9416:9418 Coq.Init.Datatypes <> fst def
-R9416:9418 Coq.Init.Datatypes <> fst def
-R9440:9442 Coq.Lists.List <> nth def
-R9478:9481 ProjectCerberus.coqproofs.Cerberus <> Halt constr
-R9445:9446 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R9449:9460 ProjectCerberus.coqproofs.Cerberus <> run_kernel_n def
-R9440:9442 Coq.Lists.List <> nth def
-R9478:9481 ProjectCerberus.coqproofs.Cerberus <> Halt constr
-R9445:9446 ProjectCerberus.coqproofs.Cerberus <> pc proj
-R9449:9460 ProjectCerberus.coqproofs.Cerberus <> run_kernel_n def
-R9495:9496 Coq.Lists.List <> In def
-R9495:9496 Coq.Lists.List <> In def
-R9550:9555 Coq.Lists.List <> nth_In thm
-R9550:9555 Coq.Lists.List <> nth_In thm
+R6559:6563 ProjectCerberus.coqproofs.Cerberus <> instr:71 var
+R6669:6671 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6584:6595 ProjectCerberus.coqproofs.Cerberus <> logic_oracle def
+R6603:6606 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R6598:6600 Coq.Init.Datatypes <> snd def
+R6602:6602 ProjectCerberus.coqproofs.Cerberus <> p:69 var
+R6607:6626 ProjectCerberus.coqproofs.Cerberus <> encode_safety_axioms def
+R6628:6632 ProjectCerberus.coqproofs.Cerberus <> instr:71 var
+R6635:6640 Coq.Init.Datatypes <> length def
+R6643:6645 Coq.Init.Datatypes <> fst def
+R6647:6647 ProjectCerberus.coqproofs.Cerberus <> p:69 var
+R6652:6657 Coq.Init.Datatypes <> length def
+R6663:6665 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R6659:6660 ProjectCerberus.coqproofs.Cerberus <> st:70 var
+R6672:6675 Coq.Init.Datatypes <> true constr
+R6708:6711 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6705:6706 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R6686:6696 ProjectCerberus.coqproofs.Cerberus <> kernel_step def
+R6698:6698 ProjectCerberus.coqproofs.Cerberus <> p:69 var
+R6700:6701 ProjectCerberus.coqproofs.Cerberus <> st:70 var
+R6712:6717 Coq.Init.Datatypes <> length def
+R6720:6722 Coq.Init.Datatypes <> fst def
+R6724:6724 ProjectCerberus.coqproofs.Cerberus <> p:69 var
+R6811:6819 Coq.Lists.List <> nth_error def
+R6829:6830 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R6811:6819 Coq.Lists.List <> nth_error def
+R6829:6830 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R6871:6873 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6866:6867 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R6874:6879 Coq.Init.Datatypes <> length def
+R6871:6873 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6866:6867 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R6874:6879 Coq.Init.Datatypes <> length def
+R6909:6922 Coq.Lists.List <> nth_error_Some thm
+R6909:6922 Coq.Lists.List <> nth_error_Some thm
+R6969:6984 ProjectCerberus.coqproofs.Cerberus <> is_instr_pc_safe def
+R6987:6992 Coq.Init.Datatypes <> length def
+R6969:6984 ProjectCerberus.coqproofs.Cerberus <> is_instr_pc_safe def
+R6987:6992 Coq.Init.Datatypes <> length def
+R7031:7047 ProjectCerberus.coqproofs.Cerberus <> is_instr_mem_safe def
+R7050:7055 Coq.Init.Datatypes <> length def
+R7058:7060 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R7031:7047 ProjectCerberus.coqproofs.Cerberus <> is_instr_mem_safe def
+R7050:7055 Coq.Init.Datatypes <> length def
+R7058:7060 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R7097:7108 ProjectCerberus.coqproofs.Cerberus <> logic_oracle def
+R7117:7120 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7121:7140 ProjectCerberus.coqproofs.Cerberus <> encode_safety_axioms def
+R7145:7150 Coq.Init.Datatypes <> length def
+R7161:7166 Coq.Init.Datatypes <> length def
+R7169:7171 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R7097:7108 ProjectCerberus.coqproofs.Cerberus <> logic_oracle def
+R7117:7120 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7121:7140 ProjectCerberus.coqproofs.Cerberus <> encode_safety_axioms def
+R7145:7150 Coq.Init.Datatypes <> length def
+R7161:7166 Coq.Init.Datatypes <> length def
+R7169:7171 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R7313:7325 ProjectCerberus.coqproofs.Cerberus <> succ_le_of_lt thm
+R7313:7325 ProjectCerberus.coqproofs.Cerberus <> succ_le_of_lt thm
+R7313:7325 ProjectCerberus.coqproofs.Cerberus <> succ_le_of_lt thm
+R7313:7325 ProjectCerberus.coqproofs.Cerberus <> succ_le_of_lt thm
+R7313:7325 ProjectCerberus.coqproofs.Cerberus <> succ_le_of_lt thm
+R7313:7325 ProjectCerberus.coqproofs.Cerberus <> succ_le_of_lt thm
+R7313:7325 ProjectCerberus.coqproofs.Cerberus <> succ_le_of_lt thm
+R7313:7325 ProjectCerberus.coqproofs.Cerberus <> succ_le_of_lt thm
+R7313:7325 ProjectCerberus.coqproofs.Cerberus <> succ_le_of_lt thm
+R7313:7325 ProjectCerberus.coqproofs.Cerberus <> succ_le_of_lt thm
+prf 7418:7435 <> run_kernel_paradox
+binder 7448:7448 <> p:72
+binder 7450:7451 <> st:73
+binder 7453:7453 <> n:74
+R7486:7493 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7479:7481 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7460:7475 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
+R7477:7478 ProjectCerberus.coqproofs.Cerberus <> st:73 var
+R7482:7485 Coq.Init.Datatypes <> true constr
+R7513:7515 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7494:7505 ProjectCerberus.coqproofs.Cerberus <> run_kernel_n def
+R7507:7507 ProjectCerberus.coqproofs.Cerberus <> p:72 var
+R7509:7510 ProjectCerberus.coqproofs.Cerberus <> st:73 var
+R7512:7512 ProjectCerberus.coqproofs.Cerberus <> n:74 var
+R7516:7517 ProjectCerberus.coqproofs.Cerberus <> st:73 var
+prf 7842:7879 <> pc_never_exceeds_program_bounds_thiele
+R7909:7915 ProjectCerberus.coqproofs.Cerberus <> Program def
+binder 7893:7905 <> p_with_axioms:75
+R7924:7935 ProjectCerberus.coqproofs.Cerberus <> MachineState rec
+binder 7919:7920 <> st:76
+R7943:7945 Coq.Init.Datatypes <> nat ind
+binder 7939:7939 <> n:77
+R7990:7997 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7960:7963 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7957:7958 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R7953:7954 ProjectCerberus.coqproofs.Cerberus <> st:76 var
+R7964:7969 Coq.Init.Datatypes <> length def
+R7972:7974 Coq.Init.Datatypes <> fst def
+R7976:7988 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:75 var
+R8027:8034 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8019:8021 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8002:8017 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
+R7998:7999 ProjectCerberus.coqproofs.Cerberus <> st:76 var
+R8022:8026 Coq.Init.Datatypes <> false constr
+R8035:8035 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8210:8218 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 8043:8047 <> instr:78
+R8084:8093 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8056:8057 Coq.Lists.List <> In def
+R8066:8068 Coq.Init.Datatypes <> fst def
+R8070:8082 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:75 var
+R8059:8063 ProjectCerberus.coqproofs.Cerberus <> instr:78 var
+R8203:8205 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8094:8105 ProjectCerberus.coqproofs.Cerberus <> logic_oracle def
+R8125:8128 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R8108:8110 Coq.Init.Datatypes <> snd def
+R8112:8124 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:75 var
+R8129:8148 ProjectCerberus.coqproofs.Cerberus <> encode_safety_axioms def
+R8150:8154 ProjectCerberus.coqproofs.Cerberus <> instr:78 var
+R8157:8162 Coq.Init.Datatypes <> length def
+R8165:8167 Coq.Init.Datatypes <> fst def
+R8169:8181 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:75 var
+R8186:8191 Coq.Init.Datatypes <> length def
+R8197:8199 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R8193:8194 ProjectCerberus.coqproofs.Cerberus <> st:76 var
+R8206:8209 Coq.Init.Datatypes <> true constr
+R8257:8260 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8254:8255 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R8220:8231 ProjectCerberus.coqproofs.Cerberus <> run_kernel_n def
+R8233:8245 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:75 var
+R8247:8248 ProjectCerberus.coqproofs.Cerberus <> st:76 var
+R8250:8250 ProjectCerberus.coqproofs.Cerberus <> n:77 var
+R8261:8266 Coq.Init.Datatypes <> length def
+R8269:8271 Coq.Init.Datatypes <> fst def
+R8273:8285 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:75 var
+R8441:8460 ProjectCerberus.coqproofs.Cerberus <> kernel_step_pc_bound thm
+R8441:8460 ProjectCerberus.coqproofs.Cerberus <> kernel_step_pc_bound thm
+R8501:8516 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
+R8519:8529 ProjectCerberus.coqproofs.Cerberus <> kernel_step def
+R8501:8516 ProjectCerberus.coqproofs.Cerberus <> paradox_detected proj
+R8519:8529 ProjectCerberus.coqproofs.Cerberus <> kernel_step def
+R8562:8579 ProjectCerberus.coqproofs.Cerberus <> run_kernel_paradox thm
+R8584:8594 ProjectCerberus.coqproofs.Cerberus <> kernel_step def
+R8562:8579 ProjectCerberus.coqproofs.Cerberus <> run_kernel_paradox thm
+R8584:8594 ProjectCerberus.coqproofs.Cerberus <> kernel_step def
+R8562:8579 ProjectCerberus.coqproofs.Cerberus <> run_kernel_paradox thm
+R8584:8594 ProjectCerberus.coqproofs.Cerberus <> kernel_step def
+R8752:8773 ProjectCerberus.coqproofs.Cerberus <> kernel_step_mem_length thm
+R8752:8773 ProjectCerberus.coqproofs.Cerberus <> kernel_step_mem_length thm
+R8752:8773 ProjectCerberus.coqproofs.Cerberus <> kernel_step_mem_length thm
+prf 8882:8908 <> mem_safety_preserved_thiele
+R8938:8944 ProjectCerberus.coqproofs.Cerberus <> Program def
+binder 8922:8934 <> p_with_axioms:79
+R8958:8969 ProjectCerberus.coqproofs.Cerberus <> MachineState rec
+binder 8948:8954 <> st_init:80
+R8977:8979 Coq.Init.Datatypes <> nat ind
+binder 8973:8973 <> n:81
+R8987:8987 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9167:9175 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 8995:8999 <> instr:82
+R9036:9045 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9008:9009 Coq.Lists.List <> In def
+R9018:9020 Coq.Init.Datatypes <> fst def
+R9022:9034 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:79 var
+R9011:9015 ProjectCerberus.coqproofs.Cerberus <> instr:82 var
+R9160:9162 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9046:9057 ProjectCerberus.coqproofs.Cerberus <> logic_oracle def
+R9077:9080 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R9060:9062 Coq.Init.Datatypes <> snd def
+R9064:9076 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:79 var
+R9081:9100 ProjectCerberus.coqproofs.Cerberus <> encode_safety_axioms def
+R9102:9106 ProjectCerberus.coqproofs.Cerberus <> instr:82 var
+R9109:9114 Coq.Init.Datatypes <> length def
+R9117:9119 Coq.Init.Datatypes <> fst def
+R9121:9133 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:79 var
+R9138:9143 Coq.Init.Datatypes <> length def
+R9154:9156 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R9145:9151 ProjectCerberus.coqproofs.Cerberus <> st_init:80 var
+R9163:9166 Coq.Init.Datatypes <> true constr
+binder 9183:9183 <> k:83
+R9264:9273 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9235:9237 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R9232:9233 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R9193:9204 ProjectCerberus.coqproofs.Cerberus <> run_kernel_n def
+R9206:9218 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:79 var
+R9220:9226 ProjectCerberus.coqproofs.Cerberus <> st_init:80 var
+R9228:9228 ProjectCerberus.coqproofs.Cerberus <> k:83 var
+R9238:9243 Coq.Init.Datatypes <> length def
+R9246:9248 Coq.Init.Datatypes <> fst def
+R9250:9262 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:79 var
+R9287:9289 Coq.Lists.List <> nth def
+R9355:9358 ProjectCerberus.coqproofs.Cerberus <> Halt constr
+R9336:9338 Coq.Init.Datatypes <> fst def
+R9340:9352 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:79 var
+R9331:9332 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R9292:9303 ProjectCerberus.coqproofs.Cerberus <> run_kernel_n def
+R9305:9317 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:79 var
+R9319:9325 ProjectCerberus.coqproofs.Cerberus <> st_init:80 var
+R9327:9327 ProjectCerberus.coqproofs.Cerberus <> k:83 var
+binder 9278:9282 <> instr:84
+R9483:9485 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9369:9380 ProjectCerberus.coqproofs.Cerberus <> logic_oracle def
+R9400:9403 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R9383:9385 Coq.Init.Datatypes <> snd def
+R9387:9399 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:79 var
+R9404:9423 ProjectCerberus.coqproofs.Cerberus <> encode_safety_axioms def
+R9425:9429 ProjectCerberus.coqproofs.Cerberus <> instr:84 var
+R9432:9437 Coq.Init.Datatypes <> length def
+R9440:9442 Coq.Init.Datatypes <> fst def
+R9444:9456 ProjectCerberus.coqproofs.Cerberus <> p_with_axioms:79 var
+R9461:9466 Coq.Init.Datatypes <> length def
+R9477:9479 ProjectCerberus.coqproofs.Cerberus <> mem proj
+R9468:9474 ProjectCerberus.coqproofs.Cerberus <> st_init:80 var
+R9486:9489 Coq.Init.Datatypes <> true constr
+R9544:9546 Coq.Init.Datatypes <> fst def
+R9544:9546 Coq.Init.Datatypes <> fst def
+R9568:9570 Coq.Lists.List <> nth def
+R9606:9609 ProjectCerberus.coqproofs.Cerberus <> Halt constr
+R9573:9574 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R9577:9588 ProjectCerberus.coqproofs.Cerberus <> run_kernel_n def
+R9568:9570 Coq.Lists.List <> nth def
+R9606:9609 ProjectCerberus.coqproofs.Cerberus <> Halt constr
+R9573:9574 ProjectCerberus.coqproofs.Cerberus <> pc proj
+R9577:9588 ProjectCerberus.coqproofs.Cerberus <> run_kernel_n def
+R9623:9624 Coq.Lists.List <> In def
+R9623:9624 Coq.Lists.List <> In def
+R9678:9683 Coq.Lists.List <> nth_In thm
+R9678:9683 Coq.Lists.List <> nth_In thm

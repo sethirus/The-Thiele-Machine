@@ -40,6 +40,8 @@
     independently by multiple sources.
 *)
 
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
 Require Import Coq.QArith.QArith.
 Require Import Coq.QArith.Qabs.
 From Kernel Require Import ValidCorrelation.
@@ -167,7 +169,6 @@ End ExampleUsage.
     - hard_math_facts_proven : the concrete proven instance (ZERO axioms)
 
     IMPORT:
-      From Kernel Require Import HardMathFactsProven.
       (* Then use hard_math_facts_proven.(c_norm_E_bound), etc. *)
 
     STATUS: The bundle above is DEPRECATED. Use HardMathFactsCorrected

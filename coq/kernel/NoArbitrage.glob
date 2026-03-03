@@ -1,331 +1,332 @@
-DIGEST 8d65d34814df48a67dd68834339eca71
+DIGEST 2abdb8d6c128f91a319c1b68bc723190
 FKernel.NoArbitrage
-R760:763 Coq.Lists.List <> <> lib
-R765:767 Coq.micromega.Lia <> <> lib
-R769:774 Coq.ZArith.ZArith <> <> lib
-R776:780 Coq.micromega.Psatz <> <> lib
-R782:785 Coq.micromega.Zify <> <> lib
-R815:820 Kernel.VMStep <> <> lib
-R850:856 Kernel.VMState <> <> lib
-R867:879 Coq.Lists.List ListNotations <> mod
-def 979:983 <> Trace
-R988:991 Coq.Init.Datatypes <> list ind
-R993:1006 Kernel.VMStep VMStep vm_instruction ind
-def 1135:1146 <> SignedWeight
-R1156:1159 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1151:1155 Kernel.NoArbitrage <> Trace def
-R1160:1160 Coq.Numbers.BinNums <> Z ind
-def 1223:1237 <> signed_additive
-R1244:1255 Kernel.NoArbitrage <> SignedWeight def
-binder 1240:1240 <> w:1
-R1278:1281 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R1274:1276 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1270:1270 Kernel.NoArbitrage <> w:1 var
-R1272:1273 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-binder 1289:1290 <> t1:2
-binder 1292:1293 <> t2:3
-R1308:1310 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1296:1296 Kernel.NoArbitrage <> w:1 var
-R1301:1304 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R1299:1300 Kernel.NoArbitrage <> t1:2 var
-R1305:1306 Kernel.NoArbitrage <> t2:3 var
-R1315:1317 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R1311:1311 Kernel.NoArbitrage <> w:1 var
-R1313:1314 Kernel.NoArbitrage <> t1:2 var
-R1318:1318 Kernel.NoArbitrage <> w:1 var
-R1320:1321 Kernel.NoArbitrage <> t2:3 var
-sec 1390:1403 <> GeneralTheorem
-binder 1416:1420 <> State:4
-def 1443:1455 <> is_cycle_from
-R1477:1480 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1472:1476 Kernel.NoArbitrage <> Trace def
-R1486:1489 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1481:1485 Kernel.NoArbitrage <> GeneralTheorem.State var
-R1490:1494 Kernel.NoArbitrage <> GeneralTheorem.State var
-binder 1458:1468 <> apply_trace:5
-R1502:1506 Kernel.NoArbitrage <> Trace def
-binder 1498:1498 <> t:6
-R1514:1518 Kernel.NoArbitrage <> GeneralTheorem.State var
-binder 1510:1510 <> s:7
-R1548:1550 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1533:1543 Kernel.NoArbitrage <> apply_trace:5 var
-R1547:1547 Kernel.NoArbitrage <> s:7 var
-R1545:1545 Kernel.NoArbitrage <> t:6 var
-R1551:1551 Kernel.NoArbitrage <> s:7 var
-def 1566:1577 <> no_arbitrage
-R1599:1602 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1594:1598 Kernel.NoArbitrage <> Trace def
-R1608:1611 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1603:1607 Kernel.NoArbitrage <> GeneralTheorem.State var
-R1612:1616 Kernel.NoArbitrage <> GeneralTheorem.State var
-binder 1580:1590 <> apply_trace:8
-R1624:1635 Kernel.NoArbitrage <> SignedWeight def
-binder 1620:1620 <> w:9
-binder 1657:1657 <> t:10
-binder 1659:1659 <> s:11
-R1691:1694 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1662:1674 Kernel.NoArbitrage <> is_cycle_from def
-R1676:1686 Kernel.NoArbitrage <> apply_trace:8 var
-R1688:1688 Kernel.NoArbitrage <> t:10 var
-R1690:1690 Kernel.NoArbitrage <> s:11 var
-R1698:1701 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
-R1695:1695 Kernel.NoArbitrage <> w:9 var
-R1697:1697 Kernel.NoArbitrage <> t:10 var
-def 1717:1725 <> Potential
-R1735:1738 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1730:1734 Kernel.NoArbitrage <> GeneralTheorem.State var
-R1739:1739 Coq.Numbers.BinNums <> Z ind
-def 1754:1773 <> bounded_by_potential
-R1795:1798 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1790:1794 Kernel.NoArbitrage <> Trace def
-R1804:1807 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1799:1803 Kernel.NoArbitrage <> GeneralTheorem.State var
-R1808:1812 Kernel.NoArbitrage <> GeneralTheorem.State var
-binder 1776:1786 <> apply_trace:12
-R1820:1831 Kernel.NoArbitrage <> SignedWeight def
-binder 1816:1816 <> w:13
-R1841:1849 Kernel.NoArbitrage <> Potential def
-binder 1835:1837 <> phi:14
-binder 1871:1871 <> t:15
-binder 1873:1873 <> s:16
-R1879:1882 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
-R1876:1876 Kernel.NoArbitrage <> w:13 var
-R1878:1878 Kernel.NoArbitrage <> t:15 var
-R1904:1906 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
-R1883:1885 Kernel.NoArbitrage <> phi:14 var
-R1888:1898 Kernel.NoArbitrage <> apply_trace:12 var
-R1902:1902 Kernel.NoArbitrage <> s:16 var
-R1900:1900 Kernel.NoArbitrage <> t:15 var
-R1907:1909 Kernel.NoArbitrage <> phi:14 var
-R1911:1911 Kernel.NoArbitrage <> s:16 var
-def 1926:1932 <> reaches
-R1954:1957 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1949:1953 Kernel.NoArbitrage <> Trace def
-R1963:1966 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1958:1962 Kernel.NoArbitrage <> GeneralTheorem.State var
-R1967:1971 Kernel.NoArbitrage <> GeneralTheorem.State var
-binder 1935:1945 <> apply_trace:17
-R1983:1987 Kernel.NoArbitrage <> GeneralTheorem.State var
-binder 1975:1976 <> s1:18
-binder 1978:1979 <> s2:19
-R1995:1999 Kernel.NoArbitrage <> Trace def
-binder 1991:1991 <> t:20
-R2030:2032 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2014:2024 Kernel.NoArbitrage <> apply_trace:17 var
-R2028:2029 Kernel.NoArbitrage <> s1:18 var
-R2026:2026 Kernel.NoArbitrage <> t:20 var
-R2033:2034 Kernel.NoArbitrage <> s2:19 var
-prf 2135:2156 <> Potential_from_MinCost
-R2186:2190 Kernel.NoArbitrage <> GeneralTheorem.State var
-binder 2170:2182 <> initial_state:21
-R2222:2225 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2217:2221 Kernel.NoArbitrage <> Trace def
-R2231:2234 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2226:2230 Kernel.NoArbitrage <> GeneralTheorem.State var
-R2235:2239 Kernel.NoArbitrage <> GeneralTheorem.State var
-binder 2203:2213 <> apply_trace:22
-binder 2284:2285 <> t1:23
-binder 2287:2288 <> t2:24
-binder 2290:2290 <> s:25
-R2330:2332 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2306:2316 Kernel.NoArbitrage <> apply_trace:22 var
-R2329:2329 Kernel.NoArbitrage <> s:25 var
-R2321:2324 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R2319:2320 Kernel.NoArbitrage <> t1:23 var
-R2325:2326 Kernel.NoArbitrage <> t2:24 var
-R2333:2343 Kernel.NoArbitrage <> apply_trace:22 var
-R2349:2359 Kernel.NoArbitrage <> apply_trace:22 var
-R2364:2364 Kernel.NoArbitrage <> s:25 var
-R2361:2362 Kernel.NoArbitrage <> t1:23 var
-R2345:2346 Kernel.NoArbitrage <> t2:24 var
-binder 2252:2273 <> apply_trace_sequential:26
-R2382:2393 Kernel.NoArbitrage <> SignedWeight def
-binder 2378:2378 <> w:27
-R2413:2416 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2408:2412 Kernel.NoArbitrage <> GeneralTheorem.State var
-R2417:2417 Coq.Numbers.BinNums <> Z ind
-binder 2397:2404 <> min_cost:28
-R2442:2449 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2425:2439 Kernel.NoArbitrage <> signed_additive def
-R2441:2441 Kernel.NoArbitrage <> w:27 var
-R2450:2450 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2528:2536 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 2458:2458 <> s:29
-R2461:2467 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2469:2470 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 2468:2468 <> t:30
-R2508:2511 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2471:2477 Kernel.NoArbitrage <> reaches def
-R2479:2489 Kernel.NoArbitrage <> apply_trace:22 var
-R2491:2503 Kernel.NoArbitrage <> initial_state:21 var
-R2505:2505 Kernel.NoArbitrage <> s:29 var
-R2507:2507 Kernel.NoArbitrage <> t:30 var
-R2515:2517 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2512:2512 Kernel.NoArbitrage <> w:27 var
-R2514:2514 Kernel.NoArbitrage <> t:30 var
-R2518:2525 Kernel.NoArbitrage <> min_cost:28 var
-R2527:2527 Kernel.NoArbitrage <> s:29 var
-R2537:2537 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2608:2616 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 2545:2545 <> s:31
-binder 2547:2547 <> t:32
-R2587:2590 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2550:2556 Kernel.NoArbitrage <> reaches def
-R2558:2568 Kernel.NoArbitrage <> apply_trace:22 var
-R2570:2582 Kernel.NoArbitrage <> initial_state:21 var
-R2584:2584 Kernel.NoArbitrage <> s:31 var
-R2586:2586 Kernel.NoArbitrage <> t:32 var
-R2594:2597 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
-R2591:2591 Kernel.NoArbitrage <> w:27 var
-R2593:2593 Kernel.NoArbitrage <> t:32 var
-R2598:2605 Kernel.NoArbitrage <> min_cost:28 var
-R2607:2607 Kernel.NoArbitrage <> s:31 var
-R2617:2636 Kernel.NoArbitrage <> bounded_by_potential def
-R2638:2648 Kernel.NoArbitrage <> apply_trace:22 var
-R2650:2650 Kernel.NoArbitrage <> w:27 var
-R2652:2659 Kernel.NoArbitrage <> min_cost:28 var
-R2733:2752 Kernel.NoArbitrage <> bounded_by_potential def
-R2853:2856 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R2853:2856 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R2880:2886 Kernel.NoArbitrage <> reaches def
-R2924:2927 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R2880:2886 Kernel.NoArbitrage <> reaches def
-R2924:2927 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R2944:2950 Kernel.NoArbitrage <> reaches def
-R3138:3151 Kernel.NoArbitrage GeneralTheorem <> sec
-mod 3365:3377 <> ConcreteModel
-def 3392:3397 ConcreteModel CState
-R3402:3404 Coq.Init.Datatypes <> nat ind
-def 3508:3516 ConcreteModel c_initial
-R3520:3525 Kernel.NoArbitrage ConcreteModel CState def
-ind 3590:3592 ConcreteModel COp
-constr 3597:3601 ConcreteModel c_inc
-constr 3605:3609 ConcreteModel c_dec
-scheme 3590:3592 ConcreteModel COp_rect
-scheme 3590:3592 ConcreteModel COp_ind
-scheme 3590:3592 ConcreteModel COp_rec
-scheme 3590:3592 ConcreteModel COp_sind
-def 3623:3628 ConcreteModel CTrace
-R3633:3636 Coq.Init.Datatypes <> list ind
-R3638:3640 Kernel.NoArbitrage ConcreteModel COp ind
-def 3655:3664 ConcreteModel c_apply_op
-R3672:3674 Kernel.NoArbitrage ConcreteModel COp ind
-binder 3667:3668 <> op:35
-R3682:3687 Kernel.NoArbitrage ConcreteModel CState def
-binder 3678:3678 <> s:36
-R3692:3697 Kernel.NoArbitrage ConcreteModel CState def
-R3710:3711 Kernel.NoArbitrage <> op:35 var
-R3722:3726 Kernel.NoArbitrage ConcreteModel c_inc constr
-R3731:3731 Coq.Init.Datatypes <> S constr
-R3733:3733 Kernel.NoArbitrage <> s:36 var
-R3739:3743 Kernel.NoArbitrage ConcreteModel c_dec constr
-R3748:3751 Coq.Init.Peano <> pred abbrev
-R3753:3753 Kernel.NoArbitrage <> s:36 var
-def 3772:3784 ConcreteModel c_apply_trace
-R3791:3796 Kernel.NoArbitrage ConcreteModel CTrace def
-binder 3787:3787 <> t:38
-R3804:3809 Kernel.NoArbitrage ConcreteModel CState def
-binder 3800:3800 <> s:39
-R3814:3819 Kernel.NoArbitrage ConcreteModel CState def
-R3832:3832 Kernel.NoArbitrage <> t:38 var
-R3843:3844 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R3849:3849 Kernel.NoArbitrage <> s:39 var
-R3857:3860 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3869:3881 Kernel.NoArbitrage <> c_apply_trace:40 def
-R3889:3898 Kernel.NoArbitrage ConcreteModel c_apply_op def
-R3903:3903 Kernel.NoArbitrage <> s:39 var
-def 3925:3931 ConcreteModel CWeight
-R3942:3945 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3936:3941 Kernel.NoArbitrage ConcreteModel CTrace def
-R3946:3946 Coq.Numbers.BinNums <> Z ind
-def 3961:3970 ConcreteModel c_additive
-R3977:3983 Kernel.NoArbitrage ConcreteModel CWeight def
-binder 3973:3973 <> w:42
-R4006:4009 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4002:4004 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3998:3998 Kernel.NoArbitrage <> w:42 var
-R4000:4001 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-binder 4017:4018 <> t1:43
-binder 4020:4021 <> t2:44
-R4036:4039 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4051:4051 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4024:4024 Kernel.NoArbitrage <> w:42 var
-R4029:4032 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R4027:4028 Kernel.NoArbitrage <> t1:43 var
-R4033:4034 Kernel.NoArbitrage <> t2:44 var
-R4044:4046 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R4040:4040 Kernel.NoArbitrage <> w:42 var
-R4042:4043 Kernel.NoArbitrage <> t1:43 var
-R4047:4047 Kernel.NoArbitrage <> w:42 var
-R4049:4050 Kernel.NoArbitrage <> t2:44 var
-def 4066:4072 ConcreteModel op_cost
-R4080:4082 Kernel.NoArbitrage ConcreteModel COp ind
-binder 4075:4076 <> op:45
-R4087:4087 Coq.Numbers.BinNums <> Z ind
-R4100:4101 Kernel.NoArbitrage <> op:45 var
-R4112:4116 Kernel.NoArbitrage ConcreteModel c_inc constr
-R4127:4131 Kernel.NoArbitrage ConcreteModel c_dec constr
-def 4155:4169 ConcreteModel asymmetric_cost
-R4176:4181 Kernel.NoArbitrage ConcreteModel CTrace def
-binder 4172:4172 <> t:47
-R4186:4186 Coq.Numbers.BinNums <> Z ind
-R4199:4199 Kernel.NoArbitrage <> t:47 var
-R4210:4211 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R4224:4227 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R4246:4248 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R4236:4242 Kernel.NoArbitrage ConcreteModel op_cost def
-R4249:4263 Kernel.NoArbitrage <> asymmetric_cost:48 def
-prf 4336:4354 ConcreteModel asymmetric_additive
-R4358:4367 Kernel.NoArbitrage ConcreteModel c_additive def
-R4369:4383 Kernel.NoArbitrage ConcreteModel asymmetric_cost def
-R4494:4504 Coq.ZArith.BinInt Z add_assoc thm
-R4494:4504 Coq.ZArith.BinInt Z add_assoc thm
-R4494:4504 Coq.ZArith.BinInt Z add_assoc thm
-prf 4845:4863 ConcreteModel asymmetric_cost_pos
-binder 4874:4874 <> t:50
-R4878:4881 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R4882:4896 Kernel.NoArbitrage ConcreteModel asymmetric_cost def
-R4898:4898 Kernel.NoArbitrage <> t:50 var
-R5073:5079 Kernel.NoArbitrage ConcreteModel op_cost def
-def 5104:5106 ConcreteModel phi
-R5113:5118 Kernel.NoArbitrage ConcreteModel CState def
-binder 5109:5109 <> s:51
-R5123:5123 Coq.Numbers.BinNums <> Z ind
-R5128:5135 Coq.ZArith.BinInt Z of_nat def
-R5137:5137 Kernel.NoArbitrage <> s:51 var
-prf 5196:5217 ConcreteModel step_cost_bounds_delta
-binder 5228:5229 <> op:52
-binder 5231:5231 <> s:53
-R5246:5249 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
-R5236:5242 Kernel.NoArbitrage ConcreteModel op_cost def
-R5244:5245 Kernel.NoArbitrage <> op:52 var
-R5271:5273 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
-R5250:5252 Kernel.NoArbitrage ConcreteModel phi def
-R5255:5264 Kernel.NoArbitrage ConcreteModel c_apply_op def
-R5266:5267 Kernel.NoArbitrage <> op:52 var
-R5269:5269 Kernel.NoArbitrage <> s:53 var
-R5274:5276 Kernel.NoArbitrage ConcreteModel phi def
-R5278:5278 Kernel.NoArbitrage <> s:53 var
-R5310:5316 Kernel.NoArbitrage ConcreteModel op_cost def
-R5319:5321 Kernel.NoArbitrage ConcreteModel phi def
-R5324:5333 Kernel.NoArbitrage ConcreteModel c_apply_op def
-prf 6045:6069 ConcreteModel asymmetric_bounded_by_phi
-binder 6080:6080 <> t:54
-binder 6082:6082 <> s:55
-R6104:6107 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
-R6087:6101 Kernel.NoArbitrage ConcreteModel asymmetric_cost def
-R6103:6103 Kernel.NoArbitrage <> t:54 var
-R6131:6133 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
-R6108:6110 Kernel.NoArbitrage ConcreteModel phi def
-R6113:6125 Kernel.NoArbitrage ConcreteModel c_apply_trace def
-R6127:6127 Kernel.NoArbitrage <> t:54 var
-R6129:6129 Kernel.NoArbitrage <> s:55 var
-R6134:6136 Kernel.NoArbitrage ConcreteModel phi def
-R6138:6138 Kernel.NoArbitrage <> s:55 var
-R6209:6211 Kernel.NoArbitrage ConcreteModel phi def
-R6239:6248 Kernel.NoArbitrage ConcreteModel c_apply_op def
-R6239:6248 Kernel.NoArbitrage ConcreteModel c_apply_op def
-R6274:6295 Kernel.NoArbitrage ConcreteModel step_cost_bounds_delta thm
-R6274:6295 Kernel.NoArbitrage ConcreteModel step_cost_bounds_delta thm
-R6340:6354 Kernel.NoArbitrage ConcreteModel asymmetric_cost def
-R6362:6374 Kernel.NoArbitrage ConcreteModel <> mod
+R848:858 Kernel.MuCostModel <> <> lib
+R886:889 Coq.Lists.List <> <> lib
+R891:893 Coq.micromega.Lia <> <> lib
+R895:900 Coq.ZArith.ZArith <> <> lib
+R902:906 Coq.micromega.Psatz <> <> lib
+R908:911 Coq.micromega.Zify <> <> lib
+R941:946 Kernel.VMStep <> <> lib
+R976:982 Kernel.VMState <> <> lib
+R993:1005 Coq.Lists.List ListNotations <> mod
+def 1105:1109 <> Trace
+R1114:1117 Coq.Init.Datatypes <> list ind
+R1119:1132 Kernel.VMStep VMStep vm_instruction ind
+def 1261:1272 <> SignedWeight
+R1282:1285 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1277:1281 Kernel.NoArbitrage <> Trace def
+R1286:1286 Coq.Numbers.BinNums <> Z ind
+def 1349:1363 <> signed_additive
+R1370:1381 Kernel.NoArbitrage <> SignedWeight def
+binder 1366:1366 <> w:1
+R1404:1407 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1400:1402 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1396:1396 Kernel.NoArbitrage <> w:1 var
+R1398:1399 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+binder 1415:1416 <> t1:2
+binder 1418:1419 <> t2:3
+R1434:1436 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1422:1422 Kernel.NoArbitrage <> w:1 var
+R1427:1430 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R1425:1426 Kernel.NoArbitrage <> t1:2 var
+R1431:1432 Kernel.NoArbitrage <> t2:3 var
+R1441:1443 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R1437:1437 Kernel.NoArbitrage <> w:1 var
+R1439:1440 Kernel.NoArbitrage <> t1:2 var
+R1444:1444 Kernel.NoArbitrage <> w:1 var
+R1446:1447 Kernel.NoArbitrage <> t2:3 var
+sec 1516:1529 <> GeneralTheorem
+binder 1542:1546 <> State:4
+def 1569:1581 <> is_cycle_from
+R1603:1606 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1598:1602 Kernel.NoArbitrage <> Trace def
+R1612:1615 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1607:1611 Kernel.NoArbitrage <> GeneralTheorem.State var
+R1616:1620 Kernel.NoArbitrage <> GeneralTheorem.State var
+binder 1584:1594 <> apply_trace:5
+R1628:1632 Kernel.NoArbitrage <> Trace def
+binder 1624:1624 <> t:6
+R1640:1644 Kernel.NoArbitrage <> GeneralTheorem.State var
+binder 1636:1636 <> s:7
+R1674:1676 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1659:1669 Kernel.NoArbitrage <> apply_trace:5 var
+R1673:1673 Kernel.NoArbitrage <> s:7 var
+R1671:1671 Kernel.NoArbitrage <> t:6 var
+R1677:1677 Kernel.NoArbitrage <> s:7 var
+def 1692:1703 <> no_arbitrage
+R1725:1728 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1720:1724 Kernel.NoArbitrage <> Trace def
+R1734:1737 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1729:1733 Kernel.NoArbitrage <> GeneralTheorem.State var
+R1738:1742 Kernel.NoArbitrage <> GeneralTheorem.State var
+binder 1706:1716 <> apply_trace:8
+R1750:1761 Kernel.NoArbitrage <> SignedWeight def
+binder 1746:1746 <> w:9
+binder 1783:1783 <> t:10
+binder 1785:1785 <> s:11
+R1817:1820 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1788:1800 Kernel.NoArbitrage <> is_cycle_from def
+R1802:1812 Kernel.NoArbitrage <> apply_trace:8 var
+R1814:1814 Kernel.NoArbitrage <> t:10 var
+R1816:1816 Kernel.NoArbitrage <> s:11 var
+R1824:1827 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
+R1821:1821 Kernel.NoArbitrage <> w:9 var
+R1823:1823 Kernel.NoArbitrage <> t:10 var
+def 1843:1851 <> Potential
+R1861:1864 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1856:1860 Kernel.NoArbitrage <> GeneralTheorem.State var
+R1865:1865 Coq.Numbers.BinNums <> Z ind
+def 1880:1899 <> bounded_by_potential
+R1921:1924 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1916:1920 Kernel.NoArbitrage <> Trace def
+R1930:1933 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1925:1929 Kernel.NoArbitrage <> GeneralTheorem.State var
+R1934:1938 Kernel.NoArbitrage <> GeneralTheorem.State var
+binder 1902:1912 <> apply_trace:12
+R1946:1957 Kernel.NoArbitrage <> SignedWeight def
+binder 1942:1942 <> w:13
+R1967:1975 Kernel.NoArbitrage <> Potential def
+binder 1961:1963 <> phi:14
+binder 1997:1997 <> t:15
+binder 1999:1999 <> s:16
+R2005:2008 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
+R2002:2002 Kernel.NoArbitrage <> w:13 var
+R2004:2004 Kernel.NoArbitrage <> t:15 var
+R2030:2032 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R2009:2011 Kernel.NoArbitrage <> phi:14 var
+R2014:2024 Kernel.NoArbitrage <> apply_trace:12 var
+R2028:2028 Kernel.NoArbitrage <> s:16 var
+R2026:2026 Kernel.NoArbitrage <> t:15 var
+R2033:2035 Kernel.NoArbitrage <> phi:14 var
+R2037:2037 Kernel.NoArbitrage <> s:16 var
+def 2052:2058 <> reaches
+R2080:2083 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2075:2079 Kernel.NoArbitrage <> Trace def
+R2089:2092 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2084:2088 Kernel.NoArbitrage <> GeneralTheorem.State var
+R2093:2097 Kernel.NoArbitrage <> GeneralTheorem.State var
+binder 2061:2071 <> apply_trace:17
+R2109:2113 Kernel.NoArbitrage <> GeneralTheorem.State var
+binder 2101:2102 <> s1:18
+binder 2104:2105 <> s2:19
+R2121:2125 Kernel.NoArbitrage <> Trace def
+binder 2117:2117 <> t:20
+R2156:2158 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2140:2150 Kernel.NoArbitrage <> apply_trace:17 var
+R2154:2155 Kernel.NoArbitrage <> s1:18 var
+R2152:2152 Kernel.NoArbitrage <> t:20 var
+R2159:2160 Kernel.NoArbitrage <> s2:19 var
+prf 2261:2282 <> Potential_from_MinCost
+R2312:2316 Kernel.NoArbitrage <> GeneralTheorem.State var
+binder 2296:2308 <> initial_state:21
+R2348:2351 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2343:2347 Kernel.NoArbitrage <> Trace def
+R2357:2360 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2352:2356 Kernel.NoArbitrage <> GeneralTheorem.State var
+R2361:2365 Kernel.NoArbitrage <> GeneralTheorem.State var
+binder 2329:2339 <> apply_trace:22
+binder 2410:2411 <> t1:23
+binder 2413:2414 <> t2:24
+binder 2416:2416 <> s:25
+R2456:2458 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2432:2442 Kernel.NoArbitrage <> apply_trace:22 var
+R2455:2455 Kernel.NoArbitrage <> s:25 var
+R2447:2450 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R2445:2446 Kernel.NoArbitrage <> t1:23 var
+R2451:2452 Kernel.NoArbitrage <> t2:24 var
+R2459:2469 Kernel.NoArbitrage <> apply_trace:22 var
+R2475:2485 Kernel.NoArbitrage <> apply_trace:22 var
+R2490:2490 Kernel.NoArbitrage <> s:25 var
+R2487:2488 Kernel.NoArbitrage <> t1:23 var
+R2471:2472 Kernel.NoArbitrage <> t2:24 var
+binder 2378:2399 <> apply_trace_sequential:26
+R2508:2519 Kernel.NoArbitrage <> SignedWeight def
+binder 2504:2504 <> w:27
+R2539:2542 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2534:2538 Kernel.NoArbitrage <> GeneralTheorem.State var
+R2543:2543 Coq.Numbers.BinNums <> Z ind
+binder 2523:2530 <> min_cost:28
+R2568:2575 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2551:2565 Kernel.NoArbitrage <> signed_additive def
+R2567:2567 Kernel.NoArbitrage <> w:27 var
+R2576:2576 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2654:2662 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 2584:2584 <> s:29
+R2587:2593 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2595:2596 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2594:2594 <> t:30
+R2634:2637 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2597:2603 Kernel.NoArbitrage <> reaches def
+R2605:2615 Kernel.NoArbitrage <> apply_trace:22 var
+R2617:2629 Kernel.NoArbitrage <> initial_state:21 var
+R2631:2631 Kernel.NoArbitrage <> s:29 var
+R2633:2633 Kernel.NoArbitrage <> t:30 var
+R2641:2643 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2638:2638 Kernel.NoArbitrage <> w:27 var
+R2640:2640 Kernel.NoArbitrage <> t:30 var
+R2644:2651 Kernel.NoArbitrage <> min_cost:28 var
+R2653:2653 Kernel.NoArbitrage <> s:29 var
+R2663:2663 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2734:2742 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 2671:2671 <> s:31
+binder 2673:2673 <> t:32
+R2713:2716 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2676:2682 Kernel.NoArbitrage <> reaches def
+R2684:2694 Kernel.NoArbitrage <> apply_trace:22 var
+R2696:2708 Kernel.NoArbitrage <> initial_state:21 var
+R2710:2710 Kernel.NoArbitrage <> s:31 var
+R2712:2712 Kernel.NoArbitrage <> t:32 var
+R2720:2723 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
+R2717:2717 Kernel.NoArbitrage <> w:27 var
+R2719:2719 Kernel.NoArbitrage <> t:32 var
+R2724:2731 Kernel.NoArbitrage <> min_cost:28 var
+R2733:2733 Kernel.NoArbitrage <> s:31 var
+R2743:2762 Kernel.NoArbitrage <> bounded_by_potential def
+R2764:2774 Kernel.NoArbitrage <> apply_trace:22 var
+R2776:2776 Kernel.NoArbitrage <> w:27 var
+R2778:2785 Kernel.NoArbitrage <> min_cost:28 var
+R2859:2878 Kernel.NoArbitrage <> bounded_by_potential def
+R2979:2982 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R2979:2982 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R3006:3012 Kernel.NoArbitrage <> reaches def
+R3050:3053 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R3006:3012 Kernel.NoArbitrage <> reaches def
+R3050:3053 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R3070:3076 Kernel.NoArbitrage <> reaches def
+R3264:3277 Kernel.NoArbitrage GeneralTheorem <> sec
+mod 3491:3503 <> ConcreteModel
+def 3518:3523 ConcreteModel CState
+R3528:3530 Coq.Init.Datatypes <> nat ind
+def 3634:3642 ConcreteModel c_initial
+R3646:3651 Kernel.NoArbitrage ConcreteModel CState def
+ind 3716:3718 ConcreteModel COp
+constr 3723:3727 ConcreteModel c_inc
+constr 3731:3735 ConcreteModel c_dec
+scheme 3716:3718 ConcreteModel COp_rect
+scheme 3716:3718 ConcreteModel COp_ind
+scheme 3716:3718 ConcreteModel COp_rec
+scheme 3716:3718 ConcreteModel COp_sind
+def 3749:3754 ConcreteModel CTrace
+R3759:3762 Coq.Init.Datatypes <> list ind
+R3764:3766 Kernel.NoArbitrage ConcreteModel COp ind
+def 3781:3790 ConcreteModel c_apply_op
+R3798:3800 Kernel.NoArbitrage ConcreteModel COp ind
+binder 3793:3794 <> op:35
+R3808:3813 Kernel.NoArbitrage ConcreteModel CState def
+binder 3804:3804 <> s:36
+R3818:3823 Kernel.NoArbitrage ConcreteModel CState def
+R3836:3837 Kernel.NoArbitrage <> op:35 var
+R3848:3852 Kernel.NoArbitrage ConcreteModel c_inc constr
+R3857:3857 Coq.Init.Datatypes <> S constr
+R3859:3859 Kernel.NoArbitrage <> s:36 var
+R3865:3869 Kernel.NoArbitrage ConcreteModel c_dec constr
+R3874:3877 Coq.Init.Peano <> pred abbrev
+R3879:3879 Kernel.NoArbitrage <> s:36 var
+def 3898:3910 ConcreteModel c_apply_trace
+R3917:3922 Kernel.NoArbitrage ConcreteModel CTrace def
+binder 3913:3913 <> t:38
+R3930:3935 Kernel.NoArbitrage ConcreteModel CState def
+binder 3926:3926 <> s:39
+R3940:3945 Kernel.NoArbitrage ConcreteModel CState def
+R3958:3958 Kernel.NoArbitrage <> t:38 var
+R3969:3970 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3975:3975 Kernel.NoArbitrage <> s:39 var
+R3983:3986 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3995:4007 Kernel.NoArbitrage <> c_apply_trace:40 def
+R4015:4024 Kernel.NoArbitrage ConcreteModel c_apply_op def
+R4029:4029 Kernel.NoArbitrage <> s:39 var
+def 4051:4057 ConcreteModel CWeight
+R4068:4071 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4062:4067 Kernel.NoArbitrage ConcreteModel CTrace def
+R4072:4072 Coq.Numbers.BinNums <> Z ind
+def 4087:4096 ConcreteModel c_additive
+R4103:4109 Kernel.NoArbitrage ConcreteModel CWeight def
+binder 4099:4099 <> w:42
+R4132:4135 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4128:4130 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4124:4124 Kernel.NoArbitrage <> w:42 var
+R4126:4127 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+binder 4143:4144 <> t1:43
+binder 4146:4147 <> t2:44
+R4162:4165 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4177:4177 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4150:4150 Kernel.NoArbitrage <> w:42 var
+R4155:4158 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R4153:4154 Kernel.NoArbitrage <> t1:43 var
+R4159:4160 Kernel.NoArbitrage <> t2:44 var
+R4170:4172 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R4166:4166 Kernel.NoArbitrage <> w:42 var
+R4168:4169 Kernel.NoArbitrage <> t1:43 var
+R4173:4173 Kernel.NoArbitrage <> w:42 var
+R4175:4176 Kernel.NoArbitrage <> t2:44 var
+def 4192:4198 ConcreteModel op_cost
+R4206:4208 Kernel.NoArbitrage ConcreteModel COp ind
+binder 4201:4202 <> op:45
+R4213:4213 Coq.Numbers.BinNums <> Z ind
+R4226:4227 Kernel.NoArbitrage <> op:45 var
+R4238:4242 Kernel.NoArbitrage ConcreteModel c_inc constr
+R4253:4257 Kernel.NoArbitrage ConcreteModel c_dec constr
+def 4281:4295 ConcreteModel asymmetric_cost
+R4302:4307 Kernel.NoArbitrage ConcreteModel CTrace def
+binder 4298:4298 <> t:47
+R4312:4312 Coq.Numbers.BinNums <> Z ind
+R4325:4325 Kernel.NoArbitrage <> t:47 var
+R4336:4337 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4350:4353 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4372:4374 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R4362:4368 Kernel.NoArbitrage ConcreteModel op_cost def
+R4375:4389 Kernel.NoArbitrage <> asymmetric_cost:48 def
+prf 4462:4480 ConcreteModel asymmetric_additive
+R4484:4493 Kernel.NoArbitrage ConcreteModel c_additive def
+R4495:4509 Kernel.NoArbitrage ConcreteModel asymmetric_cost def
+R4620:4630 Coq.ZArith.BinInt Z add_assoc thm
+R4620:4630 Coq.ZArith.BinInt Z add_assoc thm
+R4620:4630 Coq.ZArith.BinInt Z add_assoc thm
+prf 4971:4989 ConcreteModel asymmetric_cost_pos
+binder 5000:5000 <> t:50
+R5004:5007 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R5008:5022 Kernel.NoArbitrage ConcreteModel asymmetric_cost def
+R5024:5024 Kernel.NoArbitrage <> t:50 var
+R5199:5205 Kernel.NoArbitrage ConcreteModel op_cost def
+def 5230:5232 ConcreteModel phi
+R5239:5244 Kernel.NoArbitrage ConcreteModel CState def
+binder 5235:5235 <> s:51
+R5249:5249 Coq.Numbers.BinNums <> Z ind
+R5254:5261 Coq.ZArith.BinInt Z of_nat def
+R5263:5263 Kernel.NoArbitrage <> s:51 var
+prf 5322:5343 ConcreteModel step_cost_bounds_delta
+binder 5354:5355 <> op:52
+binder 5357:5357 <> s:53
+R5372:5375 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
+R5362:5368 Kernel.NoArbitrage ConcreteModel op_cost def
+R5370:5371 Kernel.NoArbitrage <> op:52 var
+R5397:5399 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R5376:5378 Kernel.NoArbitrage ConcreteModel phi def
+R5381:5390 Kernel.NoArbitrage ConcreteModel c_apply_op def
+R5392:5393 Kernel.NoArbitrage <> op:52 var
+R5395:5395 Kernel.NoArbitrage <> s:53 var
+R5400:5402 Kernel.NoArbitrage ConcreteModel phi def
+R5404:5404 Kernel.NoArbitrage <> s:53 var
+R5436:5442 Kernel.NoArbitrage ConcreteModel op_cost def
+R5445:5447 Kernel.NoArbitrage ConcreteModel phi def
+R5450:5459 Kernel.NoArbitrage ConcreteModel c_apply_op def
+prf 6171:6195 ConcreteModel asymmetric_bounded_by_phi
+binder 6206:6206 <> t:54
+binder 6208:6208 <> s:55
+R6230:6233 Coq.ZArith.BinInt <> ::Z_scope:x_'>='_x not
+R6213:6227 Kernel.NoArbitrage ConcreteModel asymmetric_cost def
+R6229:6229 Kernel.NoArbitrage <> t:54 var
+R6257:6259 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R6234:6236 Kernel.NoArbitrage ConcreteModel phi def
+R6239:6251 Kernel.NoArbitrage ConcreteModel c_apply_trace def
+R6253:6253 Kernel.NoArbitrage <> t:54 var
+R6255:6255 Kernel.NoArbitrage <> s:55 var
+R6260:6262 Kernel.NoArbitrage ConcreteModel phi def
+R6264:6264 Kernel.NoArbitrage <> s:55 var
+R6335:6337 Kernel.NoArbitrage ConcreteModel phi def
+R6365:6374 Kernel.NoArbitrage ConcreteModel c_apply_op def
+R6365:6374 Kernel.NoArbitrage ConcreteModel c_apply_op def
+R6400:6421 Kernel.NoArbitrage ConcreteModel step_cost_bounds_delta thm
+R6400:6421 Kernel.NoArbitrage ConcreteModel step_cost_bounds_delta thm
+R6466:6480 Kernel.NoArbitrage ConcreteModel asymmetric_cost def
+R6488:6500 Kernel.NoArbitrage ConcreteModel <> mod

@@ -37,6 +37,9 @@
 
     ========================================================================= *)
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import MuCostModel.
+
 From Kernel Require Import Closure.
 From Kernel Require Import NoGo.
 

@@ -31,6 +31,10 @@
     FALSIFICATION:
     Find a valid box violating any bound. The proofs are machine-checked.
 *)
+
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
     
 Require Import Coq.QArith.QArith.
 Require Import Coq.QArith.Qabs.

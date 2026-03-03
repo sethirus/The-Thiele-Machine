@@ -1,152 +1,155 @@
-DIGEST 8fec6fd49693a1cd26f2fafc7ce35590
+DIGEST 705a3d1eb80154adf99c859bb94a6567
 FQuantumDerivation.TensorNecessity
-R1044:1047 Coq.Lists.List <> <> lib
-R1049:1054 Coq.ZArith.ZArith <> <> lib
-R1056:1058 Coq.micromega.Lia <> <> lib
-R1060:1063 Coq.Bool.Bool <> <> lib
-R1065:1067 Coq.Init.Nat <> <> lib
-R1077:1089 Coq.Lists.List ListNotations <> mod
-R1134:1160 ThieleMachine.CoreSemantics <> <> lib
-R1178:1211 ThieleMachine.CompositionPrimitive <> <> lib
-R1229:1265 QuantumDerivation.CompositePartitions <> <> lib
-def 1721:1742 <> direct_sum_information
-R1753:1761 ThieleMachine.CoreSemantics <> Partition rec
-binder 1745:1746 <> p1:1
-binder 1748:1749 <> p2:2
-R1766:1768 Coq.Init.Datatypes <> nat ind
-R1798:1800 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R1776:1794 QuantumDerivation.CompositePartitions <> partition_state_dim def
-R1796:1797 QuantumDerivation.TensorNecessity <> p1:1 var
-R1801:1819 QuantumDerivation.CompositePartitions <> partition_state_dim def
-R1821:1822 QuantumDerivation.TensorNecessity <> p2:2 var
-prf 1998:2029 <> direct_sum_violates_independence
-binder 2040:2041 <> p1:3
-binder 2043:2044 <> p2:4
-R2074:2137 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2049:2067 QuantumDerivation.CompositePartitions <> partitions_disjoint def
-R2069:2070 QuantumDerivation.TensorNecessity <> p1:3 var
-R2072:2073 QuantumDerivation.TensorNecessity <> p2:4 var
-R2138:2145 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2163:2232 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2160:2162 Coq.Init.Datatypes <> nat ind
-binder 2146:2156 <> observation:5
-R2244:2246 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2233:2243 QuantumDerivation.TensorNecessity <> observation:5 var
-R2247:2268 QuantumDerivation.TensorNecessity <> direct_sum_information def
-R2270:2271 QuantumDerivation.TensorNecessity <> p1:3 var
-R2273:2274 QuantumDerivation.TensorNecessity <> p2:4 var
-R2312:2333 QuantumDerivation.TensorNecessity <> direct_sum_information def
-R2312:2333 QuantumDerivation.TensorNecessity <> direct_sum_information def
-def 2877:2900 <> tensor_product_dimension
-R2911:2919 ThieleMachine.CoreSemantics <> Partition rec
-binder 2903:2904 <> p1:6
-binder 2906:2907 <> p2:7
-R2924:2926 Coq.Init.Datatypes <> nat ind
-R2956:2958 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
-R2934:2952 QuantumDerivation.CompositePartitions <> partition_state_dim def
-R2954:2955 QuantumDerivation.TensorNecessity <> p1:6 var
-R2959:2977 QuantumDerivation.CompositePartitions <> partition_state_dim def
-R2979:2980 QuantumDerivation.TensorNecessity <> p2:7 var
-prf 3057:3080 <> tensor_matches_composite
-binder 3091:3092 <> p1:8
-binder 3094:3095 <> p2:9
-R3125:3130 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3100:3118 QuantumDerivation.CompositePartitions <> partitions_disjoint def
-R3120:3121 QuantumDerivation.TensorNecessity <> p1:8 var
-R3123:3124 QuantumDerivation.TensorNecessity <> p2:9 var
-R3176:3183 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3131:3149 QuantumDerivation.CompositePartitions <> partition_state_dim def
-R3152:3168 QuantumDerivation.CompositePartitions <> partition_compose def
-R3170:3171 QuantumDerivation.TensorNecessity <> p1:8 var
-R3173:3174 QuantumDerivation.TensorNecessity <> p2:9 var
-R3184:3207 QuantumDerivation.TensorNecessity <> tensor_product_dimension def
-R3209:3210 QuantumDerivation.TensorNecessity <> p1:8 var
-R3212:3213 QuantumDerivation.TensorNecessity <> p2:9 var
-R3254:3277 QuantumDerivation.TensorNecessity <> tensor_product_dimension def
-R3346:3381 QuantumDerivation.CompositePartitions <> composite_state_space_multiplicative thm
-R3346:3381 QuantumDerivation.CompositePartitions <> composite_state_space_multiplicative thm
-prf 4379:4409 <> tensor_product_enables_locality
-binder 4420:4421 <> p1:10
-binder 4423:4424 <> p2:11
-R4454:4502 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4429:4447 QuantumDerivation.CompositePartitions <> partitions_disjoint def
-R4449:4450 QuantumDerivation.TensorNecessity <> p1:10 var
-R4452:4453 QuantumDerivation.TensorNecessity <> p2:11 var
-R4609:4835 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4548:4555 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4503:4521 QuantumDerivation.CompositePartitions <> partition_state_dim def
-R4524:4540 QuantumDerivation.CompositePartitions <> partition_compose def
-R4542:4543 QuantumDerivation.TensorNecessity <> p1:10 var
-R4545:4546 QuantumDerivation.TensorNecessity <> p2:11 var
-R4579:4581 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
-R4557:4575 QuantumDerivation.CompositePartitions <> partition_state_dim def
-R4577:4578 QuantumDerivation.TensorNecessity <> p1:10 var
-R4582:4600 QuantumDerivation.CompositePartitions <> partition_state_dim def
-R4602:4603 QuantumDerivation.TensorNecessity <> p2:11 var
-R4836:4839 Coq.Init.Logic <> True ind
-R5207:5207 Coq.Init.Logic <> I constr
-R5207:5207 Coq.Init.Logic <> I constr
-def 5756:5771 <> composition_rule
-R5785:5788 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5776:5784 ThieleMachine.CoreSemantics <> Partition rec
-R5798:5801 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5789:5797 ThieleMachine.CoreSemantics <> Partition rec
-R5802:5804 Coq.Init.Datatypes <> nat ind
-def 5864:5897 <> satisfies_dimension_multiplication
-R5907:5922 QuantumDerivation.TensorNecessity <> composition_rule def
-binder 5900:5903 <> comp:12
-binder 5944:5945 <> p1:13
-binder 5947:5948 <> p2:14
-R5980:5987 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5955:5973 QuantumDerivation.CompositePartitions <> partitions_disjoint def
-R5975:5976 QuantumDerivation.TensorNecessity <> p1:13 var
-R5978:5979 QuantumDerivation.TensorNecessity <> p2:14 var
-R5998:6000 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5988:5991 QuantumDerivation.TensorNecessity <> comp:12 var
-R5993:5994 QuantumDerivation.TensorNecessity <> p1:13 var
-R5996:5997 QuantumDerivation.TensorNecessity <> p2:14 var
-R6002:6002 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
-R6025:6029 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
-R6052:6052 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
-R6003:6021 QuantumDerivation.CompositePartitions <> partition_state_dim def
-R6023:6024 QuantumDerivation.TensorNecessity <> p1:13 var
-R6030:6048 QuantumDerivation.CompositePartitions <> partition_state_dim def
-R6050:6051 QuantumDerivation.TensorNecessity <> p2:14 var
-prf 6148:6168 <> tensor_product_unique
-R6187:6202 QuantumDerivation.TensorNecessity <> composition_rule def
-binder 6180:6183 <> comp:15
-R6247:6309 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6208:6241 QuantumDerivation.TensorNecessity <> satisfies_dimension_multiplication def
-R6243:6246 QuantumDerivation.TensorNecessity <> comp:15 var
-binder 6317:6318 <> p1:16
-binder 6320:6321 <> p2:17
-R6353:6360 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6328:6346 QuantumDerivation.CompositePartitions <> partitions_disjoint def
-R6348:6349 QuantumDerivation.TensorNecessity <> p1:16 var
-R6351:6352 QuantumDerivation.TensorNecessity <> p2:17 var
-R6371:6373 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6361:6364 QuantumDerivation.TensorNecessity <> comp:15 var
-R6366:6367 QuantumDerivation.TensorNecessity <> p1:16 var
-R6369:6370 QuantumDerivation.TensorNecessity <> p2:17 var
-R6374:6397 QuantumDerivation.TensorNecessity <> tensor_product_dimension def
-R6399:6400 QuantumDerivation.TensorNecessity <> p1:16 var
-R6402:6403 QuantumDerivation.TensorNecessity <> p2:17 var
-R6526:6559 QuantumDerivation.TensorNecessity <> satisfies_dimension_multiplication def
-R6579:6602 QuantumDerivation.TensorNecessity <> tensor_product_dimension def
-prf 7347:7389 <> partition_accounting_forces_tensor_products
-binder 7631:7632 <> p1:18
-binder 7634:7635 <> p2:19
-R7667:7674 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7642:7660 QuantumDerivation.CompositePartitions <> partitions_disjoint def
-R7662:7663 QuantumDerivation.TensorNecessity <> p1:18 var
-R7665:7666 QuantumDerivation.TensorNecessity <> p2:19 var
-R7720:7729 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7675:7693 QuantumDerivation.CompositePartitions <> partition_state_dim def
-R7696:7712 QuantumDerivation.CompositePartitions <> partition_compose def
-R7714:7715 QuantumDerivation.TensorNecessity <> p1:18 var
-R7717:7718 QuantumDerivation.TensorNecessity <> p2:19 var
-R7730:7753 QuantumDerivation.TensorNecessity <> tensor_product_dimension def
-R7755:7756 QuantumDerivation.TensorNecessity <> p1:18 var
-R7758:7759 QuantumDerivation.TensorNecessity <> p2:19 var
-R7830:7853 QuantumDerivation.TensorNecessity <> tensor_matches_composite thm
-R7830:7853 QuantumDerivation.TensorNecessity <> tensor_matches_composite thm
+R1216:1222 Kernel.VMState <> <> lib
+R1224:1229 Kernel.VMStep <> <> lib
+R1259:1269 Kernel.MuCostModel <> <> lib
+R1297:1300 Coq.Lists.List <> <> lib
+R1302:1307 Coq.ZArith.ZArith <> <> lib
+R1309:1311 Coq.micromega.Lia <> <> lib
+R1313:1316 Coq.Bool.Bool <> <> lib
+R1318:1320 Coq.Init.Nat <> <> lib
+R1330:1342 Coq.Lists.List ListNotations <> mod
+R1387:1413 ThieleMachine.CoreSemantics <> <> lib
+R1431:1464 ThieleMachine.CompositionPrimitive <> <> lib
+R1482:1518 QuantumDerivation.CompositePartitions <> <> lib
+def 1974:1995 <> direct_sum_information
+R2006:2014 ThieleMachine.CoreSemantics <> Partition rec
+binder 1998:1999 <> p1:1
+binder 2001:2002 <> p2:2
+R2019:2021 Coq.Init.Datatypes <> nat ind
+R2051:2053 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R2029:2047 QuantumDerivation.CompositePartitions <> partition_state_dim def
+R2049:2050 QuantumDerivation.TensorNecessity <> p1:1 var
+R2054:2072 QuantumDerivation.CompositePartitions <> partition_state_dim def
+R2074:2075 QuantumDerivation.TensorNecessity <> p2:2 var
+prf 2251:2282 <> direct_sum_violates_independence
+binder 2293:2294 <> p1:3
+binder 2296:2297 <> p2:4
+R2327:2390 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2302:2320 QuantumDerivation.CompositePartitions <> partitions_disjoint def
+R2322:2323 QuantumDerivation.TensorNecessity <> p1:3 var
+R2325:2326 QuantumDerivation.TensorNecessity <> p2:4 var
+R2391:2398 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2416:2485 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2413:2415 Coq.Init.Datatypes <> nat ind
+binder 2399:2409 <> observation:5
+R2497:2499 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2486:2496 QuantumDerivation.TensorNecessity <> observation:5 var
+R2500:2521 QuantumDerivation.TensorNecessity <> direct_sum_information def
+R2523:2524 QuantumDerivation.TensorNecessity <> p1:3 var
+R2526:2527 QuantumDerivation.TensorNecessity <> p2:4 var
+R2565:2586 QuantumDerivation.TensorNecessity <> direct_sum_information def
+R2565:2586 QuantumDerivation.TensorNecessity <> direct_sum_information def
+def 3130:3153 <> tensor_product_dimension
+R3164:3172 ThieleMachine.CoreSemantics <> Partition rec
+binder 3156:3157 <> p1:6
+binder 3159:3160 <> p2:7
+R3177:3179 Coq.Init.Datatypes <> nat ind
+R3209:3211 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R3187:3205 QuantumDerivation.CompositePartitions <> partition_state_dim def
+R3207:3208 QuantumDerivation.TensorNecessity <> p1:6 var
+R3212:3230 QuantumDerivation.CompositePartitions <> partition_state_dim def
+R3232:3233 QuantumDerivation.TensorNecessity <> p2:7 var
+prf 3310:3333 <> tensor_matches_composite
+binder 3344:3345 <> p1:8
+binder 3347:3348 <> p2:9
+R3378:3383 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3353:3371 QuantumDerivation.CompositePartitions <> partitions_disjoint def
+R3373:3374 QuantumDerivation.TensorNecessity <> p1:8 var
+R3376:3377 QuantumDerivation.TensorNecessity <> p2:9 var
+R3429:3436 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3384:3402 QuantumDerivation.CompositePartitions <> partition_state_dim def
+R3405:3421 QuantumDerivation.CompositePartitions <> partition_compose def
+R3423:3424 QuantumDerivation.TensorNecessity <> p1:8 var
+R3426:3427 QuantumDerivation.TensorNecessity <> p2:9 var
+R3437:3460 QuantumDerivation.TensorNecessity <> tensor_product_dimension def
+R3462:3463 QuantumDerivation.TensorNecessity <> p1:8 var
+R3465:3466 QuantumDerivation.TensorNecessity <> p2:9 var
+R3507:3530 QuantumDerivation.TensorNecessity <> tensor_product_dimension def
+R3599:3634 QuantumDerivation.CompositePartitions <> composite_state_space_multiplicative thm
+R3599:3634 QuantumDerivation.CompositePartitions <> composite_state_space_multiplicative thm
+prf 4632:4662 <> tensor_product_enables_locality
+binder 4673:4674 <> p1:10
+binder 4676:4677 <> p2:11
+R4707:4755 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4682:4700 QuantumDerivation.CompositePartitions <> partitions_disjoint def
+R4702:4703 QuantumDerivation.TensorNecessity <> p1:10 var
+R4705:4706 QuantumDerivation.TensorNecessity <> p2:11 var
+R4862:5088 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4801:4808 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4756:4774 QuantumDerivation.CompositePartitions <> partition_state_dim def
+R4777:4793 QuantumDerivation.CompositePartitions <> partition_compose def
+R4795:4796 QuantumDerivation.TensorNecessity <> p1:10 var
+R4798:4799 QuantumDerivation.TensorNecessity <> p2:11 var
+R4832:4834 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R4810:4828 QuantumDerivation.CompositePartitions <> partition_state_dim def
+R4830:4831 QuantumDerivation.TensorNecessity <> p1:10 var
+R4835:4853 QuantumDerivation.CompositePartitions <> partition_state_dim def
+R4855:4856 QuantumDerivation.TensorNecessity <> p2:11 var
+R5089:5092 Coq.Init.Logic <> True ind
+R5460:5460 Coq.Init.Logic <> I constr
+R5460:5460 Coq.Init.Logic <> I constr
+def 6009:6024 <> composition_rule
+R6038:6041 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6029:6037 ThieleMachine.CoreSemantics <> Partition rec
+R6051:6054 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6042:6050 ThieleMachine.CoreSemantics <> Partition rec
+R6055:6057 Coq.Init.Datatypes <> nat ind
+def 6117:6150 <> satisfies_dimension_multiplication
+R6160:6175 QuantumDerivation.TensorNecessity <> composition_rule def
+binder 6153:6156 <> comp:12
+binder 6197:6198 <> p1:13
+binder 6200:6201 <> p2:14
+R6233:6240 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6208:6226 QuantumDerivation.CompositePartitions <> partitions_disjoint def
+R6228:6229 QuantumDerivation.TensorNecessity <> p1:13 var
+R6231:6232 QuantumDerivation.TensorNecessity <> p2:14 var
+R6251:6253 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6241:6244 QuantumDerivation.TensorNecessity <> comp:12 var
+R6246:6247 QuantumDerivation.TensorNecessity <> p1:13 var
+R6249:6250 QuantumDerivation.TensorNecessity <> p2:14 var
+R6255:6255 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R6278:6282 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R6305:6305 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R6256:6274 QuantumDerivation.CompositePartitions <> partition_state_dim def
+R6276:6277 QuantumDerivation.TensorNecessity <> p1:13 var
+R6283:6301 QuantumDerivation.CompositePartitions <> partition_state_dim def
+R6303:6304 QuantumDerivation.TensorNecessity <> p2:14 var
+prf 6401:6421 <> tensor_product_unique
+R6440:6455 QuantumDerivation.TensorNecessity <> composition_rule def
+binder 6433:6436 <> comp:15
+R6500:6562 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6461:6494 QuantumDerivation.TensorNecessity <> satisfies_dimension_multiplication def
+R6496:6499 QuantumDerivation.TensorNecessity <> comp:15 var
+binder 6570:6571 <> p1:16
+binder 6573:6574 <> p2:17
+R6606:6613 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6581:6599 QuantumDerivation.CompositePartitions <> partitions_disjoint def
+R6601:6602 QuantumDerivation.TensorNecessity <> p1:16 var
+R6604:6605 QuantumDerivation.TensorNecessity <> p2:17 var
+R6624:6626 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6614:6617 QuantumDerivation.TensorNecessity <> comp:15 var
+R6619:6620 QuantumDerivation.TensorNecessity <> p1:16 var
+R6622:6623 QuantumDerivation.TensorNecessity <> p2:17 var
+R6627:6650 QuantumDerivation.TensorNecessity <> tensor_product_dimension def
+R6652:6653 QuantumDerivation.TensorNecessity <> p1:16 var
+R6655:6656 QuantumDerivation.TensorNecessity <> p2:17 var
+R6779:6812 QuantumDerivation.TensorNecessity <> satisfies_dimension_multiplication def
+R6832:6855 QuantumDerivation.TensorNecessity <> tensor_product_dimension def
+prf 7600:7642 <> partition_accounting_forces_tensor_products
+binder 7884:7885 <> p1:18
+binder 7887:7888 <> p2:19
+R7920:7927 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7895:7913 QuantumDerivation.CompositePartitions <> partitions_disjoint def
+R7915:7916 QuantumDerivation.TensorNecessity <> p1:18 var
+R7918:7919 QuantumDerivation.TensorNecessity <> p2:19 var
+R7973:7982 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7928:7946 QuantumDerivation.CompositePartitions <> partition_state_dim def
+R7949:7965 QuantumDerivation.CompositePartitions <> partition_compose def
+R7967:7968 QuantumDerivation.TensorNecessity <> p1:18 var
+R7970:7971 QuantumDerivation.TensorNecessity <> p2:19 var
+R7983:8006 QuantumDerivation.TensorNecessity <> tensor_product_dimension def
+R8008:8009 QuantumDerivation.TensorNecessity <> p1:18 var
+R8011:8012 QuantumDerivation.TensorNecessity <> p2:19 var
+R8083:8106 QuantumDerivation.TensorNecessity <> tensor_matches_composite thm
+R8083:8106 QuantumDerivation.TensorNecessity <> tensor_matches_composite thm

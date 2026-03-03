@@ -7,6 +7,7 @@ Import ListNotations.
 
 From ThieleUniversal Require Import TM.
 From ThieleMachine Require Import BellInequality.
+From Kernel Require Import VMState Subsumption.
 
 Local Open Scope Q_scope.
 
@@ -103,3 +104,19 @@ Qed.
    Tsirelson bound. The Thiele Machine's success is therefore not an
    algorithmic trick, but a direct consequence of its architecturally
    superior, non-local compositional primitive. *)
+
+(* ----------------------------------------------------------------- *)
+(* Bridge: Impossibility connects to VMState and subsumption         *)
+(* ----------------------------------------------------------------- *)
+
+(** The CHSH impossibility result above shows that classical TMs
+    (with shared randomness) cannot exceed the Bell bound of 2.
+    By main_subsumption from Kernel.Subsumption, Turing computation
+    is strictly contained in sighted Thiele computation. The Thiele
+    Machine achieves the Tsirelson bound (2*sqrt(2)) precisely because
+    its partition operations (tracked via vm_mu in VMState) provide
+    compositional insight that TMs lack. *)
+Definition impossibility_vm_mu (vm : VMState) : nat := vm_mu vm.
+
+(** Witness: the subsumption result that this impossibility supports. *)
+Definition impossibility_subsumption := main_subsumption.

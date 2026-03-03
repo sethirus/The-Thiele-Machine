@@ -1,218 +1,219 @@
-DIGEST afea393fa2dce0b6a9c846f7f03b37c2
+DIGEST 8d1d67b97ec081efdc1726267c04176e
 FKernel.QuantumBound
-R6343:6346 Coq.Lists.List <> <> lib
-R6348:6351 Coq.Bool.Bool <> <> lib
-R6353:6355 Coq.micromega.Lia <> <> lib
-R6365:6377 Coq.Lists.List ListNotations <> mod
-R6396:6402 Kernel.VMState <> <> lib
-R6420:6425 Kernel.VMStep <> <> lib
-R6443:6463 Kernel.RevelationRequirement <> <> lib
-R6481:6495 Kernel.SimulationProof <> <> lib
-R6506:6520 Kernel.RevelationRequirement RevelationProof <> mod
-def 7042:7059 <> quantum_admissible
-R7070:7073 Coq.Init.Datatypes <> list ind
-R7075:7088 Kernel.VMStep VMStep vm_instruction ind
-binder 7062:7066 <> trace:1
-binder 7110:7114 <> instr:2
-R7131:7138 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7117:7118 Coq.Lists.List <> In def
-R7126:7130 Kernel.QuantumBound <> trace:1 var
-R7120:7124 Kernel.QuantumBound <> instr:2 var
-R7145:7149 Kernel.QuantumBound <> instr:2 var
-R7162:7173 Kernel.VMStep VMStep instr_reveal constr
-R7186:7190 Coq.Init.Logic <> False ind
-R7198:7207 Kernel.VMStep VMStep instr_emit constr
-R7218:7222 Coq.Init.Logic <> False ind
-R7230:7240 Kernel.VMStep VMStep instr_ljoin constr
-R7251:7255 Coq.Init.Logic <> False ind
-R7263:7275 Kernel.VMStep VMStep instr_lassert constr
-R7288:7292 Coq.Init.Logic <> False ind
-R7305:7308 Coq.Init.Logic <> True ind
-def 7405:7418 <> has_supra_cert
-R7425:7431 Kernel.VMState <> VMState rec
-binder 7421:7421 <> s:4
-R7473:7476 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R7459:7471 Kernel.VMState <> csr_cert_addr proj
-R7449:7455 Kernel.VMState <> vm_csrs proj
-R7446:7446 Kernel.QuantumBound <> s:4 var
-def 7601:7618 <> is_not_cert_setter
-R7629:7642 Kernel.VMStep VMStep vm_instruction ind
-binder 7621:7625 <> instr:5
-R7663:7667 Kernel.QuantumBound <> instr:5 var
-R7678:7689 Kernel.VMStep VMStep instr_reveal constr
-R7702:7706 Coq.Init.Logic <> False ind
-R7712:7721 Kernel.VMStep VMStep instr_emit constr
-R7732:7736 Coq.Init.Logic <> False ind
-R7742:7752 Kernel.VMStep VMStep instr_ljoin constr
-R7763:7767 Coq.Init.Logic <> False ind
-R7773:7785 Kernel.VMStep VMStep instr_lassert constr
-R7798:7802 Coq.Init.Logic <> False ind
-R7813:7816 Coq.Init.Logic <> True ind
-prf 7871:7901 <> csr_set_err_preserves_cert_addr
-binder 7912:7915 <> csrs:7
-binder 7917:7919 <> err:8
-R7962:7964 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7948:7960 Kernel.VMState <> csr_cert_addr proj
-R7925:7935 Kernel.VMState <> csr_set_err def
-R7937:7940 Kernel.QuantumBound <> csrs:7 var
-R7942:7944 Kernel.QuantumBound <> err:8 var
-R7971:7983 Kernel.VMState <> csr_cert_addr proj
-R7965:7968 Kernel.QuantumBound <> csrs:7 var
-R8020:8030 Kernel.VMState <> csr_set_err def
-prf 8107:8140 <> csr_set_status_preserves_cert_addr
-binder 8151:8154 <> csrs:9
-binder 8156:8161 <> status:10
-R8210:8212 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8196:8208 Kernel.VMState <> csr_cert_addr proj
-R8167:8180 Kernel.VMState <> csr_set_status def
-R8182:8185 Kernel.QuantumBound <> csrs:9 var
-R8187:8192 Kernel.QuantumBound <> status:10 var
-R8219:8231 Kernel.VMState <> csr_cert_addr proj
-R8213:8216 Kernel.QuantumBound <> csrs:9 var
-R8271:8284 Kernel.VMState <> csr_set_status def
-prf 8380:8402 <> advance_state_cert_addr
-binder 8413:8413 <> s:11
-binder 8415:8419 <> instr:12
-binder 8421:8425 <> graph:13
-binder 8427:8430 <> csrs:14
-binder 8432:8434 <> err:15
-R8503:8508 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8489:8501 Kernel.VMState <> csr_cert_addr proj
-R8479:8485 Kernel.VMState <> vm_csrs proj
-R8440:8452 Kernel.VMStep VMStep advance_state def
-R8454:8454 Kernel.QuantumBound <> s:11 var
-R8456:8460 Kernel.QuantumBound <> instr:12 var
-R8462:8466 Kernel.QuantumBound <> graph:13 var
-R8468:8471 Kernel.QuantumBound <> csrs:14 var
-R8473:8475 Kernel.QuantumBound <> err:15 var
-R8515:8527 Kernel.VMState <> csr_cert_addr proj
-R8509:8512 Kernel.QuantumBound <> csrs:14 var
-R8555:8567 Kernel.VMStep VMStep advance_state def
-prf 8666:8691 <> advance_state_rm_cert_addr
-binder 8702:8702 <> s:16
-binder 8704:8708 <> instr:17
-binder 8710:8714 <> graph:18
-binder 8716:8719 <> csrs:19
-binder 8721:8724 <> regs:20
-binder 8726:8728 <> mem:21
-binder 8730:8732 <> err:22
-R8813:8818 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8799:8811 Kernel.VMState <> csr_cert_addr proj
-R8789:8795 Kernel.VMState <> vm_csrs proj
-R8738:8753 Kernel.VMStep VMStep advance_state_rm def
-R8755:8755 Kernel.QuantumBound <> s:16 var
-R8757:8761 Kernel.QuantumBound <> instr:17 var
-R8763:8767 Kernel.QuantumBound <> graph:18 var
-R8769:8772 Kernel.QuantumBound <> csrs:19 var
-R8774:8777 Kernel.QuantumBound <> regs:20 var
-R8779:8781 Kernel.QuantumBound <> mem:21 var
-R8783:8785 Kernel.QuantumBound <> err:22 var
-R8825:8837 Kernel.VMState <> csr_cert_addr proj
-R8819:8822 Kernel.QuantumBound <> csrs:19 var
-R8865:8880 Kernel.VMStep VMStep advance_state_rm def
-prf 8991:9018 <> vm_apply_preserves_cert_addr
-binder 9029:9029 <> s:23
-binder 9031:9035 <> instr:24
-R9064:9069 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9040:9057 Kernel.QuantumBound <> is_not_cert_setter def
-R9059:9063 Kernel.QuantumBound <> instr:24 var
-R9114:9116 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9100:9112 Kernel.VMState <> csr_cert_addr proj
-R9090:9096 Kernel.VMState <> vm_csrs proj
-R9071:9078 Kernel.SimulationProof <> vm_apply def
-R9080:9080 Kernel.QuantumBound <> s:23 var
-R9082:9086 Kernel.QuantumBound <> instr:24 var
-R9130:9142 Kernel.VMState <> csr_cert_addr proj
-R9120:9126 Kernel.VMState <> vm_csrs proj
-R9117:9117 Kernel.QuantumBound <> s:23 var
-R9475:9477 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9461:9473 Kernel.VMState <> csr_cert_addr proj
-R9451:9457 Kernel.VMState <> vm_csrs proj
-R9421:9433 Kernel.VMStep VMStep advance_state def
-R9475:9477 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9461:9473 Kernel.VMState <> csr_cert_addr proj
-R9451:9457 Kernel.VMState <> vm_csrs proj
-R9421:9433 Kernel.VMStep VMStep advance_state def
-R9608:9610 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9594:9606 Kernel.VMState <> csr_cert_addr proj
-R9584:9590 Kernel.VMState <> vm_csrs proj
-R9547:9562 Kernel.VMStep VMStep advance_state_rm def
-R9608:9610 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9594:9606 Kernel.VMState <> csr_cert_addr proj
-R9584:9590 Kernel.VMState <> vm_csrs proj
-R9547:9562 Kernel.VMStep VMStep advance_state_rm def
-R9639:9664 Kernel.QuantumBound <> advance_state_rm_cert_addr thm
-R9506:9528 Kernel.QuantumBound <> advance_state_cert_addr thm
-R9796:9826 Kernel.QuantumBound <> csr_set_err_preserves_cert_addr thm
-prf 9925:9963 <> quantum_admissible_all_not_cert_setters
-binder 9974:9978 <> trace:25
-binder 9980:9984 <> instr:26
-R10013:10018 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9989:10006 Kernel.QuantumBound <> quantum_admissible def
-R10008:10012 Kernel.QuantumBound <> trace:25 var
-R10033:10038 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10019:10020 Coq.Lists.List <> In def
-R10028:10032 Kernel.QuantumBound <> trace:25 var
-R10022:10026 Kernel.QuantumBound <> instr:26 var
-R10039:10056 Kernel.QuantumBound <> is_not_cert_setter def
-R10058:10062 Kernel.QuantumBound <> instr:26 var
-R10111:10128 Kernel.QuantumBound <> quantum_admissible def
-prf 10290:10329 <> quantum_admissible_implies_no_supra_cert
-R10351:10354 Coq.Init.Datatypes <> list ind
-R10356:10369 Kernel.VMStep VMStep vm_instruction ind
-binder 10343:10347 <> trace:27
-R10390:10396 Kernel.VMState <> VMState rec
-binder 10373:10378 <> s_init:28
-binder 10380:10386 <> s_final:29
-R10407:10409 Coq.Init.Datatypes <> nat ind
-binder 10400:10403 <> fuel:30
-R10457:10464 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10449:10451 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10435:10447 Kernel.VMState <> csr_cert_addr proj
-R10425:10431 Kernel.VMState <> vm_csrs proj
-R10417:10422 Kernel.QuantumBound <> s_init:28 var
-R10489:10496 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10465:10482 Kernel.QuantumBound <> quantum_admissible def
-R10484:10488 Kernel.QuantumBound <> trace:27 var
-R10539:10546 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10524:10526 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10497:10505 Kernel.RevelationRequirement RevelationProof trace_run def
-R10507:10510 Kernel.QuantumBound <> fuel:30 var
-R10512:10516 Kernel.QuantumBound <> trace:27 var
-R10518:10523 Kernel.QuantumBound <> s_init:28 var
-R10527:10530 Coq.Init.Datatypes <> Some constr
-R10532:10538 Kernel.QuantumBound <> s_final:29 var
-R10547:10548 Coq.Init.Logic <> ::type_scope:'~'_x not
-R10549:10562 Kernel.QuantumBound <> has_supra_cert def
-R10564:10570 Kernel.QuantumBound <> s_final:29 var
-R10640:10653 Kernel.QuantumBound <> has_supra_cert def
-R10964:10972 Coq.Lists.List <> nth_error def
-R10981:10985 Kernel.VMState <> vm_pc proj
-R10964:10972 Coq.Lists.List <> nth_error def
-R10981:10985 Kernel.VMState <> vm_pc proj
-R11144:11145 Coq.Lists.List <> In def
-R11144:11145 Coq.Lists.List <> In def
-R11194:11198 Kernel.VMState <> vm_pc proj
-R11175:11186 Coq.Lists.List <> nth_error_In thm
-R11194:11198 Kernel.VMState <> vm_pc proj
-R11175:11186 Coq.Lists.List <> nth_error_In thm
-R11243:11260 Kernel.QuantumBound <> is_not_cert_setter def
-R11243:11260 Kernel.QuantumBound <> is_not_cert_setter def
-R11284:11322 Kernel.QuantumBound <> quantum_admissible_all_not_cert_setters thm
-R11284:11322 Kernel.QuantumBound <> quantum_admissible_all_not_cert_setters thm
-R11455:11479 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11441:11453 Kernel.VMState <> csr_cert_addr proj
-R11431:11437 Kernel.VMState <> vm_csrs proj
-R11407:11414 Kernel.SimulationProof <> vm_apply def
-R11498:11510 Kernel.VMState <> csr_cert_addr proj
-R11488:11494 Kernel.VMState <> vm_csrs proj
-R11455:11479 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11441:11453 Kernel.VMState <> csr_cert_addr proj
-R11431:11437 Kernel.VMState <> vm_csrs proj
-R11407:11414 Kernel.SimulationProof <> vm_apply def
-R11498:11510 Kernel.VMState <> csr_cert_addr proj
-R11488:11494 Kernel.VMState <> vm_csrs proj
-R11529:11556 Kernel.QuantumBound <> vm_apply_preserves_cert_addr thm
-R11529:11556 Kernel.QuantumBound <> vm_apply_preserves_cert_addr thm
-R11615:11622 Kernel.SimulationProof <> vm_apply def
-R11615:11622 Kernel.SimulationProof <> vm_apply def
+R5899:5909 Kernel.MuCostModel <> <> lib
+R6554:6557 Coq.Lists.List <> <> lib
+R6559:6562 Coq.Bool.Bool <> <> lib
+R6564:6566 Coq.micromega.Lia <> <> lib
+R6576:6588 Coq.Lists.List ListNotations <> mod
+R6607:6613 Kernel.VMState <> <> lib
+R6631:6636 Kernel.VMStep <> <> lib
+R6654:6674 Kernel.RevelationRequirement <> <> lib
+R6692:6706 Kernel.SimulationProof <> <> lib
+R6717:6731 Kernel.RevelationRequirement RevelationProof <> mod
+def 7253:7270 <> quantum_admissible
+R7281:7284 Coq.Init.Datatypes <> list ind
+R7286:7299 Kernel.VMStep VMStep vm_instruction ind
+binder 7273:7277 <> trace:1
+binder 7321:7325 <> instr:2
+R7342:7349 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7328:7329 Coq.Lists.List <> In def
+R7337:7341 Kernel.QuantumBound <> trace:1 var
+R7331:7335 Kernel.QuantumBound <> instr:2 var
+R7356:7360 Kernel.QuantumBound <> instr:2 var
+R7373:7384 Kernel.VMStep VMStep instr_reveal constr
+R7397:7401 Coq.Init.Logic <> False ind
+R7409:7418 Kernel.VMStep VMStep instr_emit constr
+R7429:7433 Coq.Init.Logic <> False ind
+R7441:7451 Kernel.VMStep VMStep instr_ljoin constr
+R7462:7466 Coq.Init.Logic <> False ind
+R7474:7486 Kernel.VMStep VMStep instr_lassert constr
+R7499:7503 Coq.Init.Logic <> False ind
+R7516:7519 Coq.Init.Logic <> True ind
+def 7616:7629 <> has_supra_cert
+R7636:7642 Kernel.VMState <> VMState rec
+binder 7632:7632 <> s:4
+R7684:7687 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R7670:7682 Kernel.VMState <> csr_cert_addr proj
+R7660:7666 Kernel.VMState <> vm_csrs proj
+R7657:7657 Kernel.QuantumBound <> s:4 var
+def 7812:7829 <> is_not_cert_setter
+R7840:7853 Kernel.VMStep VMStep vm_instruction ind
+binder 7832:7836 <> instr:5
+R7874:7878 Kernel.QuantumBound <> instr:5 var
+R7889:7900 Kernel.VMStep VMStep instr_reveal constr
+R7913:7917 Coq.Init.Logic <> False ind
+R7923:7932 Kernel.VMStep VMStep instr_emit constr
+R7943:7947 Coq.Init.Logic <> False ind
+R7953:7963 Kernel.VMStep VMStep instr_ljoin constr
+R7974:7978 Coq.Init.Logic <> False ind
+R7984:7996 Kernel.VMStep VMStep instr_lassert constr
+R8009:8013 Coq.Init.Logic <> False ind
+R8024:8027 Coq.Init.Logic <> True ind
+prf 8082:8112 <> csr_set_err_preserves_cert_addr
+binder 8123:8126 <> csrs:7
+binder 8128:8130 <> err:8
+R8173:8175 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8159:8171 Kernel.VMState <> csr_cert_addr proj
+R8136:8146 Kernel.VMState <> csr_set_err def
+R8148:8151 Kernel.QuantumBound <> csrs:7 var
+R8153:8155 Kernel.QuantumBound <> err:8 var
+R8182:8194 Kernel.VMState <> csr_cert_addr proj
+R8176:8179 Kernel.QuantumBound <> csrs:7 var
+R8231:8241 Kernel.VMState <> csr_set_err def
+prf 8318:8351 <> csr_set_status_preserves_cert_addr
+binder 8362:8365 <> csrs:9
+binder 8367:8372 <> status:10
+R8421:8423 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8407:8419 Kernel.VMState <> csr_cert_addr proj
+R8378:8391 Kernel.VMState <> csr_set_status def
+R8393:8396 Kernel.QuantumBound <> csrs:9 var
+R8398:8403 Kernel.QuantumBound <> status:10 var
+R8430:8442 Kernel.VMState <> csr_cert_addr proj
+R8424:8427 Kernel.QuantumBound <> csrs:9 var
+R8482:8495 Kernel.VMState <> csr_set_status def
+prf 8591:8613 <> advance_state_cert_addr
+binder 8624:8624 <> s:11
+binder 8626:8630 <> instr:12
+binder 8632:8636 <> graph:13
+binder 8638:8641 <> csrs:14
+binder 8643:8645 <> err:15
+R8714:8719 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8700:8712 Kernel.VMState <> csr_cert_addr proj
+R8690:8696 Kernel.VMState <> vm_csrs proj
+R8651:8663 Kernel.VMStep VMStep advance_state def
+R8665:8665 Kernel.QuantumBound <> s:11 var
+R8667:8671 Kernel.QuantumBound <> instr:12 var
+R8673:8677 Kernel.QuantumBound <> graph:13 var
+R8679:8682 Kernel.QuantumBound <> csrs:14 var
+R8684:8686 Kernel.QuantumBound <> err:15 var
+R8726:8738 Kernel.VMState <> csr_cert_addr proj
+R8720:8723 Kernel.QuantumBound <> csrs:14 var
+R8766:8778 Kernel.VMStep VMStep advance_state def
+prf 8877:8902 <> advance_state_rm_cert_addr
+binder 8913:8913 <> s:16
+binder 8915:8919 <> instr:17
+binder 8921:8925 <> graph:18
+binder 8927:8930 <> csrs:19
+binder 8932:8935 <> regs:20
+binder 8937:8939 <> mem:21
+binder 8941:8943 <> err:22
+R9024:9029 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9010:9022 Kernel.VMState <> csr_cert_addr proj
+R9000:9006 Kernel.VMState <> vm_csrs proj
+R8949:8964 Kernel.VMStep VMStep advance_state_rm def
+R8966:8966 Kernel.QuantumBound <> s:16 var
+R8968:8972 Kernel.QuantumBound <> instr:17 var
+R8974:8978 Kernel.QuantumBound <> graph:18 var
+R8980:8983 Kernel.QuantumBound <> csrs:19 var
+R8985:8988 Kernel.QuantumBound <> regs:20 var
+R8990:8992 Kernel.QuantumBound <> mem:21 var
+R8994:8996 Kernel.QuantumBound <> err:22 var
+R9036:9048 Kernel.VMState <> csr_cert_addr proj
+R9030:9033 Kernel.QuantumBound <> csrs:19 var
+R9076:9091 Kernel.VMStep VMStep advance_state_rm def
+prf 9202:9229 <> vm_apply_preserves_cert_addr
+binder 9240:9240 <> s:23
+binder 9242:9246 <> instr:24
+R9275:9280 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9251:9268 Kernel.QuantumBound <> is_not_cert_setter def
+R9270:9274 Kernel.QuantumBound <> instr:24 var
+R9325:9327 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9311:9323 Kernel.VMState <> csr_cert_addr proj
+R9301:9307 Kernel.VMState <> vm_csrs proj
+R9282:9289 Kernel.SimulationProof <> vm_apply def
+R9291:9291 Kernel.QuantumBound <> s:23 var
+R9293:9297 Kernel.QuantumBound <> instr:24 var
+R9341:9353 Kernel.VMState <> csr_cert_addr proj
+R9331:9337 Kernel.VMState <> vm_csrs proj
+R9328:9328 Kernel.QuantumBound <> s:23 var
+R9686:9688 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9672:9684 Kernel.VMState <> csr_cert_addr proj
+R9662:9668 Kernel.VMState <> vm_csrs proj
+R9632:9644 Kernel.VMStep VMStep advance_state def
+R9686:9688 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9672:9684 Kernel.VMState <> csr_cert_addr proj
+R9662:9668 Kernel.VMState <> vm_csrs proj
+R9632:9644 Kernel.VMStep VMStep advance_state def
+R9819:9821 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9805:9817 Kernel.VMState <> csr_cert_addr proj
+R9795:9801 Kernel.VMState <> vm_csrs proj
+R9758:9773 Kernel.VMStep VMStep advance_state_rm def
+R9819:9821 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9805:9817 Kernel.VMState <> csr_cert_addr proj
+R9795:9801 Kernel.VMState <> vm_csrs proj
+R9758:9773 Kernel.VMStep VMStep advance_state_rm def
+R9850:9875 Kernel.QuantumBound <> advance_state_rm_cert_addr thm
+R9717:9739 Kernel.QuantumBound <> advance_state_cert_addr thm
+R10007:10037 Kernel.QuantumBound <> csr_set_err_preserves_cert_addr thm
+prf 10136:10174 <> quantum_admissible_all_not_cert_setters
+binder 10185:10189 <> trace:25
+binder 10191:10195 <> instr:26
+R10224:10229 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10200:10217 Kernel.QuantumBound <> quantum_admissible def
+R10219:10223 Kernel.QuantumBound <> trace:25 var
+R10244:10249 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10230:10231 Coq.Lists.List <> In def
+R10239:10243 Kernel.QuantumBound <> trace:25 var
+R10233:10237 Kernel.QuantumBound <> instr:26 var
+R10250:10267 Kernel.QuantumBound <> is_not_cert_setter def
+R10269:10273 Kernel.QuantumBound <> instr:26 var
+R10322:10339 Kernel.QuantumBound <> quantum_admissible def
+prf 10501:10540 <> quantum_admissible_implies_no_supra_cert
+R10562:10565 Coq.Init.Datatypes <> list ind
+R10567:10580 Kernel.VMStep VMStep vm_instruction ind
+binder 10554:10558 <> trace:27
+R10601:10607 Kernel.VMState <> VMState rec
+binder 10584:10589 <> s_init:28
+binder 10591:10597 <> s_final:29
+R10618:10620 Coq.Init.Datatypes <> nat ind
+binder 10611:10614 <> fuel:30
+R10668:10675 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10660:10662 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10646:10658 Kernel.VMState <> csr_cert_addr proj
+R10636:10642 Kernel.VMState <> vm_csrs proj
+R10628:10633 Kernel.QuantumBound <> s_init:28 var
+R10700:10707 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10676:10693 Kernel.QuantumBound <> quantum_admissible def
+R10695:10699 Kernel.QuantumBound <> trace:27 var
+R10750:10757 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10735:10737 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10708:10716 Kernel.RevelationRequirement RevelationProof trace_run def
+R10718:10721 Kernel.QuantumBound <> fuel:30 var
+R10723:10727 Kernel.QuantumBound <> trace:27 var
+R10729:10734 Kernel.QuantumBound <> s_init:28 var
+R10738:10741 Coq.Init.Datatypes <> Some constr
+R10743:10749 Kernel.QuantumBound <> s_final:29 var
+R10758:10759 Coq.Init.Logic <> ::type_scope:'~'_x not
+R10760:10773 Kernel.QuantumBound <> has_supra_cert def
+R10775:10781 Kernel.QuantumBound <> s_final:29 var
+R10851:10864 Kernel.QuantumBound <> has_supra_cert def
+R11175:11183 Coq.Lists.List <> nth_error def
+R11192:11196 Kernel.VMState <> vm_pc proj
+R11175:11183 Coq.Lists.List <> nth_error def
+R11192:11196 Kernel.VMState <> vm_pc proj
+R11355:11356 Coq.Lists.List <> In def
+R11355:11356 Coq.Lists.List <> In def
+R11405:11409 Kernel.VMState <> vm_pc proj
+R11386:11397 Coq.Lists.List <> nth_error_In thm
+R11405:11409 Kernel.VMState <> vm_pc proj
+R11386:11397 Coq.Lists.List <> nth_error_In thm
+R11454:11471 Kernel.QuantumBound <> is_not_cert_setter def
+R11454:11471 Kernel.QuantumBound <> is_not_cert_setter def
+R11495:11533 Kernel.QuantumBound <> quantum_admissible_all_not_cert_setters thm
+R11495:11533 Kernel.QuantumBound <> quantum_admissible_all_not_cert_setters thm
+R11666:11690 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11652:11664 Kernel.VMState <> csr_cert_addr proj
+R11642:11648 Kernel.VMState <> vm_csrs proj
+R11618:11625 Kernel.SimulationProof <> vm_apply def
+R11709:11721 Kernel.VMState <> csr_cert_addr proj
+R11699:11705 Kernel.VMState <> vm_csrs proj
+R11666:11690 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11652:11664 Kernel.VMState <> csr_cert_addr proj
+R11642:11648 Kernel.VMState <> vm_csrs proj
+R11618:11625 Kernel.SimulationProof <> vm_apply def
+R11709:11721 Kernel.VMState <> csr_cert_addr proj
+R11699:11705 Kernel.VMState <> vm_csrs proj
+R11740:11767 Kernel.QuantumBound <> vm_apply_preserves_cert_addr thm
+R11740:11767 Kernel.QuantumBound <> vm_apply_preserves_cert_addr thm
+R11826:11833 Kernel.SimulationProof <> vm_apply def
+R11826:11833 Kernel.SimulationProof <> vm_apply def

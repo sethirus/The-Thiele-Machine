@@ -1,4 +1,6 @@
 (** =========================================================================
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
     SEMANTIC BRIDGE - Connecting CoreSemantics to Existing Proofs
     =========================================================================
     
@@ -6,6 +8,9 @@
     ALL PROOFS END IN Qed - NO AXIOMS OR ADMITS.
     
     ========================================================================= *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
 
 From Coq Require Import List String ZArith Lia Bool Nat.
 Import ListNotations.

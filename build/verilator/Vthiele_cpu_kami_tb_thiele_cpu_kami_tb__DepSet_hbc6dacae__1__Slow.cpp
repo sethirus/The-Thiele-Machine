@@ -23,6 +23,20 @@ VL_ATTR_COLD void Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___stl_sequent__TOP__thi
     CData/*0:0*/ dut__DOT____VdfgTmp_h068922c6__0;
     dut__DOT____VdfgTmp_h068922c6__0 = 0;
     // Body
+    vlSelf->__PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d3157 
+        = (((0x1aU > (0xffU & (vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d300 
+                               >> 0x10U))) | (0x1bU 
+                                              > (0xffU 
+                                                 & (vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d300 
+                                                    >> 0x10U))))
+            ? vlSelf->__PVT__dut__DOT__mem27__VforceRd
+            : vlSelf->__PVT__dut__DOT__x_673___05Fh43524);
+    vlSelf->__PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d3384 
+        = ((IData)(vlSelf->dut__DOT____VdfgTmp_h549f1fda__0)
+            ? vlSelf->__PVT__dut__DOT__mem38__VforceRd
+            : ((0x27U > (0xffU & (vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d300 
+                                  >> 0x10U))) ? vlSelf->__PVT__dut__DOT__x_673___05Fh43524
+                : vlSelf->__PVT__dut__DOT__mem38__VforceRd));
     vlSelf->__PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d3404 
         = (((IData)(vlSelf->dut__DOT____VdfgTmp_h549f1fda__0) 
             | (0x27U > (0xffU & (vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d300 
@@ -1486,38 +1500,6 @@ VL_ATTR_COLD void Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___stl_sequent__TOP__thi
         vlSelf->__PVT__dut__DOT__logic_req_payload__024D_IN 
             = vlSelf->__PVT__dut__DOT__logic_req_payload__VforceRd;
     }
-    vlSelf->dut__DOT____VdfgTmp_h9c40a94c__0 = ((IData)(vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d343) 
-                                                | ((~ (IData)(vlSelf->__PVT__dut__DOT___0_CONCAT_reg31_37_MINUS_0x1_45_BITS_7_TO_0_46___05FETC___05F_d348)) 
-                                                   & (0x18U 
-                                                      == 
-                                                      (vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d300 
-                                                       >> 0x18U))));
-    vlSelf->__PVT__dut__DOT__info_gain__024D_IN = (
-                                                   ((IData)(vlSelf->dut__DOT____VdfgTmp_h5dda65f7__0) 
-                                                    & ((~ (IData)(vlSelf->__PVT__dut__DOT__mu_ULT_mu_tensor_BITS_31_TO_0_PLUS_mu_tensor_B_ETC___05F_d39)) 
-                                                       & ((IData)(vlSelf->__PVT__dut__DOT__NOT_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS___05FETC___05F_d7641) 
-                                                          & ((IData)(vlSelf->dut__DOT____VdfgTmp_hfce34967__0) 
-                                                             & ((~ (IData)(vlSelf->__PVT__dut__DOT___0_CONCAT_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0___05FETC___05F_d382)) 
-                                                                & (IData)(vlSelf->dut__DOT____VdfgTmp_h53e6f0ff__0))))))
-                                                    ? 
-                                                   (vlSelf->__PVT__dut__DOT__info_gain__VforceRd 
-                                                    + 
-                                                    (0xffU 
-                                                     & (vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d300 
-                                                        >> 8U)))
-                                                    : vlSelf->__PVT__dut__DOT__info_gain__VforceRd);
-    vlSelf->__PVT__dut__DOT__NOT_logic_req_valid_86_630_OR_logic_resp_valid_ETC___05F_d7654 
-        = ((((~ (IData)(vlSelf->__PVT__dut__DOT__logic_req_valid__VforceRd)) 
-             | (IData)(vlSelf->__PVT__dut__DOT__logic_resp_valid__VforceRd)) 
-            & ((IData)(vlSelf->__PVT__dut__DOT__NOT_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS___05FETC___05F_d7641) 
-               & (IData)(vlSelf->dut__DOT____VdfgTmp_hfce34967__0))) 
-           & (((0U != (vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d300 
-                       >> 0x18U)) | (0x10U > vlSelf->__PVT__dut__DOT__pt_next_id__VforceRd)) 
-              & (((1U != (vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d300 
-                          >> 0x18U)) | (0x10U > ((IData)(1U) 
-                                                 + vlSelf->__PVT__dut__DOT__pt_next_id__VforceRd))) 
-                 & ((2U != (vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d300 
-                            >> 0x18U)) | (0x10U > vlSelf->__PVT__dut__DOT__pt_next_id__VforceRd)))));
     if ((0x70U > (0xffU & (vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d300 
                            >> 0x10U)))) {
         vlSelf->__PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d4838 
@@ -1584,6 +1566,38 @@ VL_ATTR_COLD void Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___stl_sequent__TOP__thi
             : ((0xefU > (0xffU & (vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d300 
                                   >> 0x10U))) ? vlSelf->__PVT__dut__DOT__x_673___05Fh43524
                 : vlSelf->__PVT__dut__DOT__mem238__VforceRd));
+    vlSelf->dut__DOT____VdfgTmp_h9c40a94c__0 = ((IData)(vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d343) 
+                                                | ((~ (IData)(vlSelf->__PVT__dut__DOT___0_CONCAT_reg31_37_MINUS_0x1_45_BITS_7_TO_0_46___05FETC___05F_d348)) 
+                                                   & (0x18U 
+                                                      == 
+                                                      (vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d300 
+                                                       >> 0x18U))));
+    vlSelf->__PVT__dut__DOT__info_gain__024D_IN = (
+                                                   ((IData)(vlSelf->dut__DOT____VdfgTmp_h5dda65f7__0) 
+                                                    & ((~ (IData)(vlSelf->__PVT__dut__DOT__mu_ULT_mu_tensor_BITS_31_TO_0_PLUS_mu_tensor_B_ETC___05F_d39)) 
+                                                       & ((IData)(vlSelf->__PVT__dut__DOT__NOT_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS___05FETC___05F_d7641) 
+                                                          & ((IData)(vlSelf->dut__DOT____VdfgTmp_hfce34967__0) 
+                                                             & ((~ (IData)(vlSelf->__PVT__dut__DOT___0_CONCAT_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0___05FETC___05F_d382)) 
+                                                                & (IData)(vlSelf->dut__DOT____VdfgTmp_h53e6f0ff__0))))))
+                                                    ? 
+                                                   (vlSelf->__PVT__dut__DOT__info_gain__VforceRd 
+                                                    + 
+                                                    (0xffU 
+                                                     & (vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d300 
+                                                        >> 8U)))
+                                                    : vlSelf->__PVT__dut__DOT__info_gain__VforceRd);
+    vlSelf->__PVT__dut__DOT__NOT_logic_req_valid_86_630_OR_logic_resp_valid_ETC___05F_d7654 
+        = ((((~ (IData)(vlSelf->__PVT__dut__DOT__logic_req_valid__VforceRd)) 
+             | (IData)(vlSelf->__PVT__dut__DOT__logic_resp_valid__VforceRd)) 
+            & ((IData)(vlSelf->__PVT__dut__DOT__NOT_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS___05FETC___05F_d7641) 
+               & (IData)(vlSelf->dut__DOT____VdfgTmp_hfce34967__0))) 
+           & (((0U != (vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d300 
+                       >> 0x18U)) | (0x10U > vlSelf->__PVT__dut__DOT__pt_next_id__VforceRd)) 
+              & (((1U != (vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d300 
+                          >> 0x18U)) | (0x10U > ((IData)(1U) 
+                                                 + vlSelf->__PVT__dut__DOT__pt_next_id__VforceRd))) 
+                 & ((2U != (vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d300 
+                            >> 0x18U)) | (0x10U > vlSelf->__PVT__dut__DOT__pt_next_id__VforceRd)))));
     vlSelf->__PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6703 
         = ((IData)(vlSelf->dut__DOT____VdfgTmp_he98c2d35__0)
             ? vlSelf->__PVT__dut__DOT__mem206__VforceRd
@@ -4367,13 +4381,13 @@ VL_ATTR_COLD void Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___stl_sequent__TOP__thi
                                                         | (3U 
                                                            & (vlSelf->__PVT__dut__DOT___0_CONCAT_SEL_ARR_reg0_164_reg1_165_reg2_166_re_ETC___05F_d1822 
                                                               >> 2U))))))))));
-    vlSelf->dut__DOT____VdfgTmp_h654cc7dd__0 = ((((IData)(vlSelf->dut__DOT____VdfgTmp_h9c40a94c__0) 
-                                                  | (IData)(vlSelf->dut__DOT____VdfgTmp_h21d94a8e__0)) 
-                                                 | (IData)(vlSelf->dut__DOT____VdfgTmp_he40e3305__0)) 
-                                                | (IData)(vlSelf->dut__DOT____VdfgTmp_h141391ee__0));
     vlSelf->__PVT__dut__DOT__mu_ULT_mu_tensor_BITS_31_TO_0_PLUS_mu_tensor_B_ETC___05F_d352 
         = ((IData)(vlSelf->__PVT__dut__DOT__mu_ULT_mu_tensor_BITS_31_TO_0_PLUS_mu_tensor_B_ETC___05F_d39) 
            | (IData)(vlSelf->dut__DOT____VdfgTmp_h9c40a94c__0));
+    vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d7560 
+        = (((IData)(vlSelf->dut__DOT____VdfgTmp_h9c40a94c__0) 
+            | (IData)(vlSelf->dut__DOT____VdfgTmp_h21d94a8e__0)) 
+           | (IData)(vlSelf->dut__DOT____VdfgTmp_he40e3305__0));
     vlSelf->dut__DOT____VdfgTmp_h0c4c9f5d__0 = (((IData)(vlSelf->__PVT__dut__DOT__NOT_logic_req_valid_86_630_OR_logic_resp_valid_ETC___05F_d7654) 
                                                  & (IData)(vlSelf->dut__DOT____VdfgTmp_h53e6f0ff__0)) 
                                                 & ((~ (IData)(vlSelf->__PVT__dut__DOT___0_CONCAT_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0___05FETC___05F_d382)) 
@@ -7540,6 +7554,13 @@ VL_ATTR_COLD void Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___stl_sequent__TOP__thi
                                                   | (IData)(vlSelf->dut__DOT____VdfgTmp_h21d94a8e__0)) 
                                                  | (IData)(vlSelf->dut__DOT____VdfgTmp_he40e3305__0)) 
                                                 | (IData)(vlSelf->dut__DOT____VdfgTmp_h141391ee__0));
+    vlSelf->__PVT__dut__DOT__halted__024D_IN = ((IData)(vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d7560) 
+                                                | ((IData)(vlSelf->__PVT__dut__DOT__nofi_cost_violation) 
+                                                   | ((IData)(vlSelf->dut__DOT____VdfgTmp_h141391ee__0) 
+                                                      | (0xffU 
+                                                         == 
+                                                         (vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d300 
+                                                          >> 0x18U)))));
     vlSelf->__PVT__dut__DOT__minstret_lo__024D_IN = 
         (vlSelf->__PVT__dut__DOT__minstret_lo + (IData)(vlSelf->dut__DOT____VdfgTmp_h0c4c9f5d__0));
     vlSelf->__PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d7738[0U] 
@@ -7776,6 +7797,8 @@ VL_ATTR_COLD void Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___ctor_var_reset(Vthiel
     vlSelf->__PVT__init_logic_stall_value = VL_RAND_RESET_I(32);
     vlSelf->__PVT__init_logic_req_valid_en = VL_RAND_RESET_I(32);
     vlSelf->__PVT__init_logic_req_valid_value = VL_RAND_RESET_I(32);
+    vlSelf->__PVT__init_logic_acc_en = VL_RAND_RESET_I(32);
+    vlSelf->__PVT__init_logic_acc_value = VL_RAND_RESET_I(32);
     for (int __Vi0 = 0; __Vi0 < 64; ++__Vi0) {
         vlSelf->__PVT__shadow_masks[__Vi0] = VL_RAND_RESET_Q(64);
     }
@@ -7831,6 +7854,7 @@ VL_ATTR_COLD void Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___ctor_var_reset(Vthiel
     vlSelf->__PVT__dut__DOT__halted__VforceRd = VL_RAND_RESET_I(1);
     vlSelf->__PVT__dut__DOT__halted__VforceEn = VL_RAND_RESET_I(1);
     vlSelf->__PVT__dut__DOT__halted__VforceVal = VL_RAND_RESET_I(1);
+    vlSelf->__PVT__dut__DOT__halted__024D_IN = VL_RAND_RESET_I(1);
     VL_RAND_RESET_W(8192, vlSelf->__PVT__dut__DOT__imem);
     VL_RAND_RESET_W(8192, vlSelf->__PVT__dut__DOT__imem__024D_IN);
     vlSelf->__PVT__dut__DOT__info_gain = VL_RAND_RESET_I(32);
@@ -7860,6 +7884,7 @@ VL_ATTR_COLD void Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___ctor_var_reset(Vthiel
     vlSelf->__PVT__dut__DOT__logic_resp_error__VforceRd = VL_RAND_RESET_I(1);
     vlSelf->__PVT__dut__DOT__logic_resp_error__VforceEn = VL_RAND_RESET_I(1);
     vlSelf->__PVT__dut__DOT__logic_resp_error__VforceVal = VL_RAND_RESET_I(1);
+    vlSelf->__PVT__dut__DOT__nofi_cost_violation = VL_RAND_RESET_I(1);
     vlSelf->__PVT__dut__DOT__logic_resp_valid = VL_RAND_RESET_I(1);
     vlSelf->__PVT__dut__DOT__logic_resp_valid__VforceRd = VL_RAND_RESET_I(1);
     vlSelf->__PVT__dut__DOT__logic_resp_valid__VforceEn = VL_RAND_RESET_I(1);
@@ -10416,6 +10441,7 @@ VL_ATTR_COLD void Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___ctor_var_reset(Vthiel
     vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d7489 = VL_RAND_RESET_I(1);
     vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d7525 = VL_RAND_RESET_I(1);
     vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d7545 = VL_RAND_RESET_I(1);
+    vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d7560 = VL_RAND_RESET_I(1);
     vlSelf->__PVT__dut__DOT___0_CONCAT_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0___05FETC___05F_d382 = VL_RAND_RESET_I(1);
     vlSelf->__PVT__dut__DOT___0_CONCAT_reg31_37_MINUS_0x1_45_BITS_7_TO_0_46___05FETC___05F_d348 = VL_RAND_RESET_I(1);
     vlSelf->__PVT__dut__DOT__mu_ULT_mu_tensor_BITS_31_TO_0_PLUS_mu_tensor_B_ETC___05F_d1207 = VL_RAND_RESET_I(1);
@@ -10426,7 +10452,8 @@ VL_ATTR_COLD void Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___ctor_var_reset(Vthiel
     vlSelf->__PVT__dut__DOT__reg31_37_BITS_7_TO_0_38_ULT_0x80_603_OR_reg31___05FETC___05F_d7315 = VL_RAND_RESET_I(1);
     vlSelf->__PVT__dut__DOT__reg31_37_BITS_7_TO_0_38_ULT_0xA0_147_OR_reg31___05FETC___05F_d6365 = VL_RAND_RESET_I(1);
     vlSelf->__PVT__dut__DOT__reg31_37_BITS_7_TO_0_38_ULT_0xC0_146_OR_reg31___05FETC___05F_d7440 = VL_RAND_RESET_I(1);
-    vlSelf->dut__DOT____VdfgTmp_h654cc7dd__0 = 0;
+    vlSelf->dut__DOT____VdfgTmp_hbee31ca0__0 = 0;
+    vlSelf->dut__DOT____VdfgTmp_h141391ee__0 = 0;
     vlSelf->dut__DOT____VdfgTmp_h48ff2e59__0 = 0;
     vlSelf->dut__DOT____VdfgTmp_h4492611c__0 = 0;
     vlSelf->dut__DOT____VdfgTmp_h9c40a94c__0 = 0;
@@ -10437,10 +10464,8 @@ VL_ATTR_COLD void Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___ctor_var_reset(Vthiel
     vlSelf->dut__DOT____VdfgTmp_h9e381661__0 = 0;
     vlSelf->dut__DOT____VdfgTmp_h0d9dec51__0 = 0;
     vlSelf->dut__DOT____VdfgTmp_ha2ea2d04__0 = 0;
-    vlSelf->dut__DOT____VdfgTmp_hbee31ca0__0 = 0;
     vlSelf->dut__DOT____VdfgTmp_h3cd5dbb7__0 = 0;
     vlSelf->dut__DOT____VdfgTmp_h0c4c9f5d__0 = 0;
-    vlSelf->dut__DOT____VdfgTmp_h141391ee__0 = 0;
     vlSelf->dut__DOT____VdfgTmp_h2a175ffe__0 = 0;
     vlSelf->dut__DOT____VdfgTmp_h6db553ad__0 = 0;
     vlSelf->dut__DOT____VdfgTmp_h21d94a8e__0 = 0;

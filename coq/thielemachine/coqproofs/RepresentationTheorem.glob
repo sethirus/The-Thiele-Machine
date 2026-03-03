@@ -1,243 +1,246 @@
-DIGEST 1117b135b053cfeca5ad03cab9cb7611
+DIGEST 1727e6c97ec5d38fd5d29d16376fb403
 FThieleMachine.RepresentationTheorem
-R1204:1207 Coq.Lists.List <> <> lib
-R1209:1212 Coq.Bool.Bool <> <> lib
-R1214:1219 Coq.ZArith.ZArith <> <> lib
-R1221:1223 Coq.micromega.Lia <> <> lib
-R1225:1230 Coq.QArith.QArith <> <> lib
-R1257:1286 Coq.Logic.FunctionalExtensionality <> <> lib
-R1313:1334 Coq.Logic.ProofIrrelevance <> <> lib
-R1371:1379 ThieleMachine.Spaceland <> <> lib
-R1381:1393 ThieleMachine.CoreSemantics <> <> lib
-R1395:1409 ThieleMachine.ThieleSpaceland <> <> lib
-R1419:1431 Coq.Lists.List ListNotations <> mod
-mod 1462:1481 <> ThieleRepresentation
-R1493:1507 ThieleMachine.ThieleSpaceland ThieleSpaceland <> mod
-def 1869:1884 ThieleRepresentation gauge_equivalent
-R1895:1899 ThieleMachine.ThieleSpaceland ThieleSpaceland State def
-binder 1887:1888 <> s1:1
-binder 1890:1891 <> s2:2
-R1975:1982 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R1944:1946 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1920:1942 ThieleMachine.CoreSemantics <> partition proj
-R1916:1917 ThieleMachine.RepresentationTheorem <> s1:1 var
-R1951:1973 ThieleMachine.CoreSemantics <> partition proj
-R1947:1948 ThieleMachine.RepresentationTheorem <> s2:2 var
-R2028:2035 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2004:2006 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1987:2002 ThieleMachine.CoreSemantics <> pc proj
-R1983:1984 ThieleMachine.RepresentationTheorem <> s1:1 var
-R2011:2026 ThieleMachine.CoreSemantics <> pc proj
-R2007:2008 ThieleMachine.RepresentationTheorem <> s2:2 var
-R2089:2096 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2061:2063 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2040:2059 ThieleMachine.CoreSemantics <> halted proj
-R2036:2037 ThieleMachine.RepresentationTheorem <> s1:1 var
-R2068:2087 ThieleMachine.CoreSemantics <> halted proj
-R2064:2065 ThieleMachine.RepresentationTheorem <> s2:2 var
-R2150:2157 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2122:2124 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2101:2120 ThieleMachine.CoreSemantics <> result proj
-R2097:2098 ThieleMachine.RepresentationTheorem <> s1:1 var
-R2129:2148 ThieleMachine.CoreSemantics <> result proj
-R2125:2126 ThieleMachine.RepresentationTheorem <> s2:2 var
-R2184:2186 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2162:2182 ThieleMachine.CoreSemantics <> program proj
-R2158:2159 ThieleMachine.RepresentationTheorem <> s1:1 var
-R2191:2211 ThieleMachine.CoreSemantics <> program proj
-R2187:2188 ThieleMachine.RepresentationTheorem <> s2:2 var
-prf 2287:2309 ThieleRepresentation gauge_preserved_by_step
-binder 2320:2321 <> s1:3
-binder 2323:2324 <> s2:4
-binder 2326:2326 <> l:5
-binder 2328:2330 <> s1':6
-R2359:2366 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2337:2352 ThieleMachine.RepresentationTheorem ThieleRepresentation gauge_equivalent def
-R2354:2355 ThieleMachine.RepresentationTheorem <> s1:3 var
-R2357:2358 ThieleMachine.RepresentationTheorem <> s2:4 var
-R2380:2387 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2367:2370 ThieleMachine.ThieleSpaceland ThieleSpaceland step def
-R2372:2373 ThieleMachine.RepresentationTheorem <> s1:3 var
-R2375:2375 ThieleMachine.RepresentationTheorem <> l:5 var
-R2377:2379 ThieleMachine.RepresentationTheorem <> s1':6 var
-R2388:2394 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2398:2405 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 2395:2397 <> s2':7
-R2419:2428 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2406:2409 ThieleMachine.ThieleSpaceland ThieleSpaceland step def
-R2411:2412 ThieleMachine.RepresentationTheorem <> s2:4 var
-R2414:2414 ThieleMachine.RepresentationTheorem <> l:5 var
-R2416:2418 ThieleMachine.RepresentationTheorem <> s2':7 var
-R2453:2462 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2429:2444 ThieleMachine.RepresentationTheorem ThieleRepresentation gauge_equivalent def
-R2446:2448 ThieleMachine.RepresentationTheorem <> s1':6 var
-R2450:2452 ThieleMachine.RepresentationTheorem <> s2':7 var
-R2474:2476 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2463:2464 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
-R2466:2467 ThieleMachine.RepresentationTheorem <> s1:3 var
-R2469:2469 ThieleMachine.RepresentationTheorem <> l:5 var
-R2471:2473 ThieleMachine.RepresentationTheorem <> s1':6 var
-R2477:2478 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
-R2480:2481 ThieleMachine.RepresentationTheorem <> s2:4 var
-R2483:2483 ThieleMachine.RepresentationTheorem <> l:5 var
-R2485:2487 ThieleMachine.RepresentationTheorem <> s2':7 var
-R2545:2560 ThieleMachine.RepresentationTheorem ThieleRepresentation gauge_equivalent def
-R2642:2645 ThieleMachine.ThieleSpaceland ThieleSpaceland step def
-R2795:2827 ThieleMachine.CoreSemantics <> step_mu_independent thm
-R2795:2827 ThieleMachine.CoreSemantics <> step_mu_independent thm
-R3038:3041 ThieleMachine.ThieleSpaceland ThieleSpaceland step def
-R3210:3225 ThieleMachine.RepresentationTheorem ThieleRepresentation gauge_equivalent def
-R3288:3289 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
-R3344:3376 ThieleMachine.CoreSemantics <> step_mu_delta_equal thm
-R3344:3376 ThieleMachine.CoreSemantics <> step_mu_delta_equal thm
-prf 3712:3735 ThieleRepresentation gauge_trace_preservation
-binder 3746:3747 <> s1:8
-binder 3749:3750 <> s2:9
-R3779:3786 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3757:3772 ThieleMachine.RepresentationTheorem ThieleRepresentation gauge_equivalent def
-R3774:3775 ThieleMachine.RepresentationTheorem <> s1:8 var
-R3777:3778 ThieleMachine.RepresentationTheorem <> s2:9 var
-binder 3794:3795 <> t1:10
-R3818:3827 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3804:3814 ThieleMachine.ThieleSpaceland ThieleSpaceland valid_trace def
-R3816:3817 ThieleMachine.RepresentationTheorem <> t1:10 var
-R3846:3855 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3841:3843 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3828:3837 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_init def
-R3839:3840 ThieleMachine.RepresentationTheorem <> t1:10 var
-R3844:3845 ThieleMachine.RepresentationTheorem <> s1:8 var
-R3856:3862 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3865:3874 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 3863:3864 <> t2:11
-R3889:3900 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3875:3885 ThieleMachine.ThieleSpaceland ThieleSpaceland valid_trace def
-R3887:3888 ThieleMachine.RepresentationTheorem <> t2:11 var
-R3919:3930 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3914:3916 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3901:3910 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_init def
-R3912:3913 ThieleMachine.RepresentationTheorem <> t2:11 var
-R3917:3918 ThieleMachine.RepresentationTheorem <> s2:9 var
-R3964:3975 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3946:3948 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3931:3942 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_labels def
-R3944:3945 ThieleMachine.RepresentationTheorem <> t1:10 var
-R3949:3960 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_labels def
-R3962:3963 ThieleMachine.RepresentationTheorem <> t2:11 var
-R3987:3989 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3976:3983 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_mu def
-R3985:3986 ThieleMachine.RepresentationTheorem <> t1:10 var
-R3990:3997 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_mu def
-R3999:4000 ThieleMachine.RepresentationTheorem <> t2:11 var
-R4236:4239 ThieleMachine.ThieleSpaceland ThieleSpaceland TNil constr
-R4236:4239 ThieleMachine.ThieleSpaceland ThieleSpaceland TNil constr
-R4294:4294 Coq.Init.Logic <> I constr
-R4294:4294 Coq.Init.Logic <> I constr
-R4611:4633 ThieleMachine.RepresentationTheorem ThieleRepresentation gauge_preserved_by_step thm
-R4644:4653 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_init def
-R4611:4633 ThieleMachine.RepresentationTheorem ThieleRepresentation gauge_preserved_by_step thm
-R4644:4653 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_init def
-R4798:4807 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_init def
-R4832:4838 Coq.Init.Logic <> eq_refl constr
-R4798:4807 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_init def
-R4832:4838 Coq.Init.Logic <> eq_refl constr
-R4966:4970 ThieleMachine.ThieleSpaceland ThieleSpaceland TCons constr
-R4966:4970 ThieleMachine.ThieleSpaceland ThieleSpaceland TCons constr
-prf 6144:6167 ThieleRepresentation instr_to_label_injective
-binder 6178:6179 <> i1:12
-binder 6181:6182 <> i2:13
-binder 6184:6184 <> l:14
-R6217:6224 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6208:6210 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6191:6204 ThieleMachine.ThieleSpaceland ThieleSpaceland instr_to_label def
-R6206:6207 ThieleMachine.RepresentationTheorem <> i1:12 var
-R6211:6214 Coq.Init.Datatypes <> Some constr
-R6216:6216 ThieleMachine.RepresentationTheorem <> l:14 var
-R6251:6344 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6242:6244 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6225:6238 ThieleMachine.ThieleSpaceland ThieleSpaceland instr_to_label def
-R6240:6241 ThieleMachine.RepresentationTheorem <> i2:13 var
-R6245:6248 Coq.Init.Datatypes <> Some constr
-R6250:6250 ThieleMachine.RepresentationTheorem <> l:14 var
-R6352:6356 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R6394:6394 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R6347:6349 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6345:6346 ThieleMachine.RepresentationTheorem <> i1:12 var
-R6350:6351 ThieleMachine.RepresentationTheorem <> i2:13 var
-R6374:6376 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6357:6370 ThieleMachine.ThieleSpaceland ThieleSpaceland instr_to_label def
-R6372:6373 ThieleMachine.RepresentationTheorem <> i1:12 var
-R6377:6390 ThieleMachine.ThieleSpaceland ThieleSpaceland instr_to_label def
-R6392:6393 ThieleMachine.RepresentationTheorem <> i2:13 var
-prf 7326:7355 ThieleRepresentation observable_completeness_finite
-binder 7366:7367 <> s1:15
-binder 7369:7370 <> s2:16
-R7377:7379 Coq.Init.Datatypes <> nat ind
-binder 7373:7373 <> N:17
-R7393:7400 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7388:7391 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R7387:7387 ThieleMachine.RepresentationTheorem <> N:17 var
-R7423:7430 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7401:7416 ThieleMachine.RepresentationTheorem ThieleRepresentation gauge_equivalent def
-R7418:7419 ThieleMachine.RepresentationTheorem <> s1:15 var
-R7421:7422 ThieleMachine.RepresentationTheorem <> s2:16 var
-R7431:7431 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7735:7743 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7444:7446 Coq.Init.Datatypes <> nat ind
-binder 7440:7440 <> n:18
-R7456:7466 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7451:7454 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R7450:7450 ThieleMachine.RepresentationTheorem <> n:18 var
-R7455:7455 ThieleMachine.RepresentationTheorem <> N:17 var
-R7467:7473 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R7479:7488 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 7474:7475 <> t1:19
-binder 7477:7478 <> t2:20
-R7503:7506 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7489:7499 ThieleMachine.ThieleSpaceland ThieleSpaceland valid_trace def
-R7501:7502 ThieleMachine.RepresentationTheorem <> t1:19 var
-R7521:7532 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7507:7517 ThieleMachine.ThieleSpaceland ThieleSpaceland valid_trace def
-R7519:7520 ThieleMachine.RepresentationTheorem <> t2:20 var
-R7551:7554 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7546:7548 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7533:7542 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_init def
-R7544:7545 ThieleMachine.RepresentationTheorem <> t1:19 var
-R7549:7550 ThieleMachine.RepresentationTheorem <> s1:15 var
-R7573:7584 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7568:7570 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7555:7564 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_init def
-R7566:7567 ThieleMachine.RepresentationTheorem <> t2:20 var
-R7571:7572 ThieleMachine.RepresentationTheorem <> s2:16 var
-R7613:7624 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7609:7611 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7585:7590 Coq.Init.Datatypes <> length def
-R7593:7604 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_labels def
-R7606:7607 ThieleMachine.RepresentationTheorem <> t1:19 var
-R7612:7612 ThieleMachine.RepresentationTheorem <> n:18 var
-R7653:7664 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7649:7651 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7625:7630 Coq.Init.Datatypes <> length def
-R7633:7644 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_labels def
-R7646:7647 ThieleMachine.RepresentationTheorem <> t2:20 var
-R7652:7652 ThieleMachine.RepresentationTheorem <> n:18 var
-R7698:7709 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7680:7682 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7665:7676 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_labels def
-R7678:7679 ThieleMachine.RepresentationTheorem <> t1:19 var
-R7683:7694 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_labels def
-R7696:7697 ThieleMachine.RepresentationTheorem <> t2:20 var
-R7721:7723 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7710:7717 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_mu def
-R7719:7720 ThieleMachine.RepresentationTheorem <> t1:19 var
-R7724:7731 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_mu def
-R7733:7734 ThieleMachine.RepresentationTheorem <> t2:20 var
-R7744:7744 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7751:7755 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7746:7749 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R7745:7745 ThieleMachine.RepresentationTheorem <> N:17 var
-R7756:7771 ThieleMachine.RepresentationTheorem ThieleRepresentation gauge_equivalent def
-R7773:7774 ThieleMachine.RepresentationTheorem <> s1:15 var
-R7776:7777 ThieleMachine.RepresentationTheorem <> s2:16 var
-R7834:7837 Coq.Init.Logic <> conj constr
-R7834:7837 Coq.Init.Logic <> conj constr
-R7865:7884 ThieleMachine.RepresentationTheorem ThieleRepresentation <> mod
+R1376:1382 Kernel.VMState <> <> lib
+R1384:1389 Kernel.VMStep <> <> lib
+R1419:1429 Kernel.MuCostModel <> <> lib
+R1457:1460 Coq.Lists.List <> <> lib
+R1462:1465 Coq.Bool.Bool <> <> lib
+R1467:1472 Coq.ZArith.ZArith <> <> lib
+R1474:1476 Coq.micromega.Lia <> <> lib
+R1478:1483 Coq.QArith.QArith <> <> lib
+R1510:1539 Coq.Logic.FunctionalExtensionality <> <> lib
+R1566:1587 Coq.Logic.ProofIrrelevance <> <> lib
+R1624:1632 ThieleMachine.Spaceland <> <> lib
+R1634:1646 ThieleMachine.CoreSemantics <> <> lib
+R1648:1662 ThieleMachine.ThieleSpaceland <> <> lib
+R1672:1684 Coq.Lists.List ListNotations <> mod
+mod 1715:1734 <> ThieleRepresentation
+R1746:1760 ThieleMachine.ThieleSpaceland ThieleSpaceland <> mod
+def 2122:2137 ThieleRepresentation gauge_equivalent
+R2148:2152 ThieleMachine.ThieleSpaceland ThieleSpaceland State def
+binder 2140:2141 <> s1:1
+binder 2143:2144 <> s2:2
+R2228:2235 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2197:2199 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2173:2195 ThieleMachine.CoreSemantics <> partition proj
+R2169:2170 ThieleMachine.RepresentationTheorem <> s1:1 var
+R2204:2226 ThieleMachine.CoreSemantics <> partition proj
+R2200:2201 ThieleMachine.RepresentationTheorem <> s2:2 var
+R2281:2288 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2257:2259 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2240:2255 ThieleMachine.CoreSemantics <> pc proj
+R2236:2237 ThieleMachine.RepresentationTheorem <> s1:1 var
+R2264:2279 ThieleMachine.CoreSemantics <> pc proj
+R2260:2261 ThieleMachine.RepresentationTheorem <> s2:2 var
+R2342:2349 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2314:2316 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2293:2312 ThieleMachine.CoreSemantics <> halted proj
+R2289:2290 ThieleMachine.RepresentationTheorem <> s1:1 var
+R2321:2340 ThieleMachine.CoreSemantics <> halted proj
+R2317:2318 ThieleMachine.RepresentationTheorem <> s2:2 var
+R2403:2410 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2375:2377 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2354:2373 ThieleMachine.CoreSemantics <> result proj
+R2350:2351 ThieleMachine.RepresentationTheorem <> s1:1 var
+R2382:2401 ThieleMachine.CoreSemantics <> result proj
+R2378:2379 ThieleMachine.RepresentationTheorem <> s2:2 var
+R2437:2439 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2415:2435 ThieleMachine.CoreSemantics <> program proj
+R2411:2412 ThieleMachine.RepresentationTheorem <> s1:1 var
+R2444:2464 ThieleMachine.CoreSemantics <> program proj
+R2440:2441 ThieleMachine.RepresentationTheorem <> s2:2 var
+prf 2540:2562 ThieleRepresentation gauge_preserved_by_step
+binder 2573:2574 <> s1:3
+binder 2576:2577 <> s2:4
+binder 2579:2579 <> l:5
+binder 2581:2583 <> s1':6
+R2612:2619 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2590:2605 ThieleMachine.RepresentationTheorem ThieleRepresentation gauge_equivalent def
+R2607:2608 ThieleMachine.RepresentationTheorem <> s1:3 var
+R2610:2611 ThieleMachine.RepresentationTheorem <> s2:4 var
+R2633:2640 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2620:2623 ThieleMachine.ThieleSpaceland ThieleSpaceland step def
+R2625:2626 ThieleMachine.RepresentationTheorem <> s1:3 var
+R2628:2628 ThieleMachine.RepresentationTheorem <> l:5 var
+R2630:2632 ThieleMachine.RepresentationTheorem <> s1':6 var
+R2641:2647 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2651:2658 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2648:2650 <> s2':7
+R2672:2681 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2659:2662 ThieleMachine.ThieleSpaceland ThieleSpaceland step def
+R2664:2665 ThieleMachine.RepresentationTheorem <> s2:4 var
+R2667:2667 ThieleMachine.RepresentationTheorem <> l:5 var
+R2669:2671 ThieleMachine.RepresentationTheorem <> s2':7 var
+R2706:2715 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2682:2697 ThieleMachine.RepresentationTheorem ThieleRepresentation gauge_equivalent def
+R2699:2701 ThieleMachine.RepresentationTheorem <> s1':6 var
+R2703:2705 ThieleMachine.RepresentationTheorem <> s2':7 var
+R2727:2729 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2716:2717 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R2719:2720 ThieleMachine.RepresentationTheorem <> s1:3 var
+R2722:2722 ThieleMachine.RepresentationTheorem <> l:5 var
+R2724:2726 ThieleMachine.RepresentationTheorem <> s1':6 var
+R2730:2731 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R2733:2734 ThieleMachine.RepresentationTheorem <> s2:4 var
+R2736:2736 ThieleMachine.RepresentationTheorem <> l:5 var
+R2738:2740 ThieleMachine.RepresentationTheorem <> s2':7 var
+R2798:2813 ThieleMachine.RepresentationTheorem ThieleRepresentation gauge_equivalent def
+R2895:2898 ThieleMachine.ThieleSpaceland ThieleSpaceland step def
+R3048:3080 ThieleMachine.CoreSemantics <> step_mu_independent thm
+R3048:3080 ThieleMachine.CoreSemantics <> step_mu_independent thm
+R3291:3294 ThieleMachine.ThieleSpaceland ThieleSpaceland step def
+R3463:3478 ThieleMachine.RepresentationTheorem ThieleRepresentation gauge_equivalent def
+R3541:3542 ThieleMachine.ThieleSpaceland ThieleSpaceland mu def
+R3597:3629 ThieleMachine.CoreSemantics <> step_mu_delta_equal thm
+R3597:3629 ThieleMachine.CoreSemantics <> step_mu_delta_equal thm
+prf 3890:3913 ThieleRepresentation gauge_trace_preservation
+binder 3924:3925 <> s1:8
+binder 3927:3928 <> s2:9
+R3957:3964 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3935:3950 ThieleMachine.RepresentationTheorem ThieleRepresentation gauge_equivalent def
+R3952:3953 ThieleMachine.RepresentationTheorem <> s1:8 var
+R3955:3956 ThieleMachine.RepresentationTheorem <> s2:9 var
+binder 3972:3973 <> t1:10
+R3996:4005 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3982:3992 ThieleMachine.ThieleSpaceland ThieleSpaceland valid_trace def
+R3994:3995 ThieleMachine.RepresentationTheorem <> t1:10 var
+R4024:4033 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4019:4021 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4006:4015 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_init def
+R4017:4018 ThieleMachine.RepresentationTheorem <> t1:10 var
+R4022:4023 ThieleMachine.RepresentationTheorem <> s1:8 var
+R4034:4040 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4043:4052 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4041:4042 <> t2:11
+R4067:4078 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4053:4063 ThieleMachine.ThieleSpaceland ThieleSpaceland valid_trace def
+R4065:4066 ThieleMachine.RepresentationTheorem <> t2:11 var
+R4097:4108 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4092:4094 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4079:4088 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_init def
+R4090:4091 ThieleMachine.RepresentationTheorem <> t2:11 var
+R4095:4096 ThieleMachine.RepresentationTheorem <> s2:9 var
+R4142:4153 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4124:4126 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4109:4120 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_labels def
+R4122:4123 ThieleMachine.RepresentationTheorem <> t1:10 var
+R4127:4138 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_labels def
+R4140:4141 ThieleMachine.RepresentationTheorem <> t2:11 var
+R4165:4167 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4154:4161 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_mu def
+R4163:4164 ThieleMachine.RepresentationTheorem <> t1:10 var
+R4168:4175 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_mu def
+R4177:4178 ThieleMachine.RepresentationTheorem <> t2:11 var
+R4414:4417 ThieleMachine.ThieleSpaceland ThieleSpaceland TNil constr
+R4414:4417 ThieleMachine.ThieleSpaceland ThieleSpaceland TNil constr
+R4472:4472 Coq.Init.Logic <> I constr
+R4472:4472 Coq.Init.Logic <> I constr
+R4789:4811 ThieleMachine.RepresentationTheorem ThieleRepresentation gauge_preserved_by_step thm
+R4822:4831 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_init def
+R4789:4811 ThieleMachine.RepresentationTheorem ThieleRepresentation gauge_preserved_by_step thm
+R4822:4831 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_init def
+R4976:4985 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_init def
+R5010:5016 Coq.Init.Logic <> eq_refl constr
+R4976:4985 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_init def
+R5010:5016 Coq.Init.Logic <> eq_refl constr
+R5144:5148 ThieleMachine.ThieleSpaceland ThieleSpaceland TCons constr
+R5144:5148 ThieleMachine.ThieleSpaceland ThieleSpaceland TCons constr
+prf 6322:6345 ThieleRepresentation instr_to_label_injective
+binder 6356:6357 <> i1:12
+binder 6359:6360 <> i2:13
+binder 6362:6362 <> l:14
+R6395:6402 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6386:6388 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6369:6382 ThieleMachine.ThieleSpaceland ThieleSpaceland instr_to_label def
+R6384:6385 ThieleMachine.RepresentationTheorem <> i1:12 var
+R6389:6392 Coq.Init.Datatypes <> Some constr
+R6394:6394 ThieleMachine.RepresentationTheorem <> l:14 var
+R6429:6522 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6420:6422 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6403:6416 ThieleMachine.ThieleSpaceland ThieleSpaceland instr_to_label def
+R6418:6419 ThieleMachine.RepresentationTheorem <> i2:13 var
+R6423:6426 Coq.Init.Datatypes <> Some constr
+R6428:6428 ThieleMachine.RepresentationTheorem <> l:14 var
+R6530:6534 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R6572:6572 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R6525:6527 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6523:6524 ThieleMachine.RepresentationTheorem <> i1:12 var
+R6528:6529 ThieleMachine.RepresentationTheorem <> i2:13 var
+R6552:6554 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6535:6548 ThieleMachine.ThieleSpaceland ThieleSpaceland instr_to_label def
+R6550:6551 ThieleMachine.RepresentationTheorem <> i1:12 var
+R6555:6568 ThieleMachine.ThieleSpaceland ThieleSpaceland instr_to_label def
+R6570:6571 ThieleMachine.RepresentationTheorem <> i2:13 var
+prf 7504:7533 ThieleRepresentation observable_completeness_finite
+binder 7544:7545 <> s1:15
+binder 7547:7548 <> s2:16
+R7555:7557 Coq.Init.Datatypes <> nat ind
+binder 7551:7551 <> N:17
+R7571:7578 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7566:7569 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R7565:7565 ThieleMachine.RepresentationTheorem <> N:17 var
+R7601:7608 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7579:7594 ThieleMachine.RepresentationTheorem ThieleRepresentation gauge_equivalent def
+R7596:7597 ThieleMachine.RepresentationTheorem <> s1:15 var
+R7599:7600 ThieleMachine.RepresentationTheorem <> s2:16 var
+R7609:7609 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7913:7921 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7622:7624 Coq.Init.Datatypes <> nat ind
+binder 7618:7618 <> n:18
+R7634:7644 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7629:7632 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7628:7628 ThieleMachine.RepresentationTheorem <> n:18 var
+R7633:7633 ThieleMachine.RepresentationTheorem <> N:17 var
+R7645:7651 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7657:7666 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 7652:7653 <> t1:19
+binder 7655:7656 <> t2:20
+R7681:7684 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7667:7677 ThieleMachine.ThieleSpaceland ThieleSpaceland valid_trace def
+R7679:7680 ThieleMachine.RepresentationTheorem <> t1:19 var
+R7699:7710 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7685:7695 ThieleMachine.ThieleSpaceland ThieleSpaceland valid_trace def
+R7697:7698 ThieleMachine.RepresentationTheorem <> t2:20 var
+R7729:7732 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7724:7726 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7711:7720 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_init def
+R7722:7723 ThieleMachine.RepresentationTheorem <> t1:19 var
+R7727:7728 ThieleMachine.RepresentationTheorem <> s1:15 var
+R7751:7762 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7746:7748 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7733:7742 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_init def
+R7744:7745 ThieleMachine.RepresentationTheorem <> t2:20 var
+R7749:7750 ThieleMachine.RepresentationTheorem <> s2:16 var
+R7791:7802 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7787:7789 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7763:7768 Coq.Init.Datatypes <> length def
+R7771:7782 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_labels def
+R7784:7785 ThieleMachine.RepresentationTheorem <> t1:19 var
+R7790:7790 ThieleMachine.RepresentationTheorem <> n:18 var
+R7831:7842 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7827:7829 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7803:7808 Coq.Init.Datatypes <> length def
+R7811:7822 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_labels def
+R7824:7825 ThieleMachine.RepresentationTheorem <> t2:20 var
+R7830:7830 ThieleMachine.RepresentationTheorem <> n:18 var
+R7876:7887 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7858:7860 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7843:7854 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_labels def
+R7856:7857 ThieleMachine.RepresentationTheorem <> t1:19 var
+R7861:7872 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_labels def
+R7874:7875 ThieleMachine.RepresentationTheorem <> t2:20 var
+R7899:7901 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7888:7895 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_mu def
+R7897:7898 ThieleMachine.RepresentationTheorem <> t1:19 var
+R7902:7909 ThieleMachine.ThieleSpaceland ThieleSpaceland trace_mu def
+R7911:7912 ThieleMachine.RepresentationTheorem <> t2:20 var
+R7922:7922 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7929:7933 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7924:7927 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R7923:7923 ThieleMachine.RepresentationTheorem <> N:17 var
+R7934:7949 ThieleMachine.RepresentationTheorem ThieleRepresentation gauge_equivalent def
+R7951:7952 ThieleMachine.RepresentationTheorem <> s1:15 var
+R7954:7955 ThieleMachine.RepresentationTheorem <> s2:16 var
+R8012:8015 Coq.Init.Logic <> conj constr
+R8012:8015 Coq.Init.Logic <> conj constr
+R8043:8062 ThieleMachine.RepresentationTheorem ThieleRepresentation <> mod

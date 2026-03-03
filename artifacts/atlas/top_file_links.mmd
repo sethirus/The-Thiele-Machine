@@ -1,0 +1,67 @@
+flowchart LR
+  N1["coq/kami_hw/ThieleCPUCore.v"]
+  N2["thielecpu/hardware/rtl/thiele_cpu_kami.v"]
+  N1 -->|312| N2
+  N2["thielecpu/hardware/rtl/thiele_cpu_kami.v"]
+  N1["coq/kami_hw/ThieleCPUCore.v"]
+  N2 -->|312| N1
+  N3["coq/kernel/MuGravity.v"]
+  N4["thielecpu/hardware/rtl/cross_layer_defs.vh"]
+  N3 -->|182| N4
+  N4["thielecpu/hardware/rtl/cross_layer_defs.vh"]
+  N3["coq/kernel/MuGravity.v"]
+  N4 -->|163| N3
+  N5["coq/thielemachine/coqproofs/BellInequality.v"]
+  N6["thielecpu/cross_layer_manifest.py"]
+  N5 -->|142| N6
+  N5["coq/thielemachine/coqproofs/BellInequality.v"]
+  N7["experiments/qd3_literature_comparison.py"]
+  N5 -->|117| N7
+  N7["experiments/qd3_literature_comparison.py"]
+  N5["coq/thielemachine/coqproofs/BellInequality.v"]
+  N7 -->|107| N5
+  N6["thielecpu/cross_layer_manifest.py"]
+  N5["coq/thielemachine/coqproofs/BellInequality.v"]
+  N6 -->|101| N5
+  N3["coq/kernel/MuGravity.v"]
+  N8["scripts/validate_mu_gravity_calibration.py"]
+  N3 -->|86| N8
+  N9["coq/kernel/VMState.v"]
+  N4["thielecpu/hardware/rtl/cross_layer_defs.vh"]
+  N9 -->|82| N4
+  N4["thielecpu/hardware/rtl/cross_layer_defs.vh"]
+  N9["coq/kernel/VMState.v"]
+  N4 -->|81| N9
+  N10["coq/isomorphism/coqproofs/Universe.v"]
+  N11["scripts/inquisitor.py"]
+  N10 -->|79| N11
+  N11["scripts/inquisitor.py"]
+  N10["coq/isomorphism/coqproofs/Universe.v"]
+  N11 -->|79| N10
+  N12["coq/kernel/SemanticMuCost.v"]
+  N13["thielecpu/semantic_mu_coq_isomorphic.py"]
+  N12 -->|78| N13
+  N13["thielecpu/semantic_mu_coq_isomorphic.py"]
+  N12["coq/kernel/SemanticMuCost.v"]
+  N13 -->|78| N12
+  N14["coq/thieleuniversal/verification/BridgeDefinitions.v"]
+  N6["thielecpu/cross_layer_manifest.py"]
+  N14 -->|77| N6
+  N8["scripts/validate_mu_gravity_calibration.py"]
+  N3["coq/kernel/MuGravity.v"]
+  N8 -->|77| N3
+  N15["thielecpu/debugger.py"]
+  N2["thielecpu/hardware/rtl/thiele_cpu_kami.v"]
+  N15 -->|76| N2
+  N2["thielecpu/hardware/rtl/thiele_cpu_kami.v"]
+  N15["thielecpu/debugger.py"]
+  N2 -->|73| N15
+  N6["thielecpu/cross_layer_manifest.py"]
+  N14["coq/thieleuniversal/verification/BridgeDefinitions.v"]
+  N6 -->|72| N14
+  N16["thielecpu/vm.py"]
+  N4["thielecpu/hardware/rtl/cross_layer_defs.vh"]
+  N16 -->|70| N4
+  N17["coq/kernel/VMEncoding.v"]
+  N4["thielecpu/hardware/rtl/cross_layer_defs.vh"]
+  N17 -->|69| N4

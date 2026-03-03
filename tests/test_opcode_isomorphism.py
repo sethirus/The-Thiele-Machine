@@ -16,6 +16,12 @@ import re
 from pathlib import Path
 import pytest
 
+from build.thiele_vm import run_vm, VMState
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+EXTRACTED_RUNNER = REPO_ROOT / "build" / "extracted_vm_runner"
+EXTRACTED_IR = REPO_ROOT / "build" / "thiele_core.ml"
+
 
 # CANONICAL ISA REFERENCE
 # This is the single source of truth for the Thiele Machine ISA.
@@ -170,10 +176,55 @@ def test_three_way_isomorphism():
     print(f"✓ All opcode values match bit-for-bit")
 
 
+def test_opcode_execution_cross_layer():
+    """Verify opcode execution produces consistent results across VM and extraction layers.
+
+    Layer 1: Python VM execution via run_vm (State() + execute path)
+    Layer 2: Coq-extracted runner (extracted_vm_runner / thiele_core)
+    """
+    from thielecpu.state import State
+
+    # Layer 1: Python VM - execute PNEW opcode
+    state = State()
+    state.pnew({0, 1}, charge_discovery=True)
+    py_mu = state.mu_ledger.total
+    assert py_mu == 2, f"Python PNEW of {{0,1}} should cost 2, got {py_mu}"
+
+    # Layer 2: Coq-extracted runner via run_vm (delegates to extracted_vm_runner)
+    vm_state = run_vm(["PNEW {0,1} 2", "HALT 0"], fuel=256)
+    assert vm_state.mu == py_mu, (
+        f"Extracted runner mu ({vm_state.mu}) != Python mu ({py_mu})"
+    )
+
+
+@pytest.mark.skipif(
+    not (Path(__file__).parent.parent / "build" / "extracted_vm_runner").exists(),
+    reason="Coq-extracted runner not built (build/extracted_vm_runner)",
+)
+def test_halt_opcode_cross_layer():
+    """Verify HALT opcode behavior is consistent across layers.
+
+    Layer 1: Python VM execution
+    Layer 2: Coq-extracted OCaml runner
+    """
+    from thielecpu.state import State
+
+    # Layer 1: Python VM - just HALT should leave mu at 0
+    state = State()
+    assert state.mu_ledger.total == 0
+
+    # Layer 2: extracted runner - HALT with no prior instructions
+    vm_state = run_vm(["HALT 0"], fuel=256)
+    assert vm_state.mu == 0, f"HALT-only program should have mu=0, got {vm_state.mu}"
+    assert vm_state.err is False, "HALT-only program should not error"
+
+
 if __name__ == "__main__":
     # Run tests standalone
     test_coq_isa_completeness()
     test_python_isa_completeness()
     test_verilog_isa_completeness()
     test_three_way_isomorphism()
-    print("\n✅ All isomorphism tests passed!")
+    test_opcode_execution_cross_layer()
+    test_halt_opcode_cross_layer()
+    print("\nAll isomorphism tests passed!")

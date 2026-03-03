@@ -9,7 +9,7 @@ void Vthiele_cpu_kami_tb___024root__trace_chg_0_sub_1(Vthiele_cpu_kami_tb___024r
     Vthiele_cpu_kami_tb__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vthiele_cpu_kami_tb___024root__trace_chg_0_sub_1\n"); );
     // Init
-    uint32_t* const oldp VL_ATTR_UNUSED = bufp->oldp(vlSymsp->__Vm_baseCode + 3292);
+    uint32_t* const oldp VL_ATTR_UNUSED = bufp->oldp(vlSymsp->__Vm_baseCode + 3293);
     // Body
     if (VL_UNLIKELY(((vlSelf->__Vm_traceActivity[2U] 
                       | vlSelf->__Vm_traceActivity[4U]) 
@@ -9193,7 +9193,7 @@ void Vthiele_cpu_kami_tb___024root__trace_chg_0_sub_2(Vthiele_cpu_kami_tb___024r
     Vthiele_cpu_kami_tb__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vthiele_cpu_kami_tb___024root__trace_chg_0_sub_2\n"); );
     // Init
-    uint32_t* const oldp VL_ATTR_UNUSED = bufp->oldp(vlSymsp->__Vm_baseCode + 3832);
+    uint32_t* const oldp VL_ATTR_UNUSED = bufp->oldp(vlSymsp->__Vm_baseCode + 3833);
     // Body
     if (VL_UNLIKELY(((vlSelf->__Vm_traceActivity[2U] 
                       | vlSelf->__Vm_traceActivity[4U]) 
@@ -9535,41 +9535,43 @@ void Vthiele_cpu_kami_tb___024root__trace_chg_0_sub_2(Vthiele_cpu_kami_tb___024r
         bufp->chgIData(oldp+286,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__init_logic_stall_value),32);
         bufp->chgIData(oldp+287,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__init_logic_req_valid_en),32);
         bufp->chgIData(oldp+288,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__init_logic_req_valid_value),32);
-        bufp->chgCData(oldp+289,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__shadow_next_mid),8);
-        bufp->chgBit(oldp+290,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__shadow_executing));
-        bufp->chgIData(oldp+291,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__exec_word),32);
-        bufp->chgIData(oldp+292,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__exec_op_i),32);
-        bufp->chgIData(oldp+293,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__exec_a_i),32);
-        bufp->chgIData(oldp+294,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__exec_b_i),32);
-        bufp->chgIData(oldp+295,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__sh_e),32);
-        bufp->chgIData(oldp+296,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__sh_m),32);
-        bufp->chgIData(oldp+297,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__sh_pred_mode_i),32);
-        bufp->chgIData(oldp+298,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__sh_pred_param_i),32);
-        bufp->chgQData(oldp+299,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__sh_left),64);
-        bufp->chgQData(oldp+301,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__sh_right),64);
-        bufp->chgIData(oldp+303,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__shadow_found_dup),32);
-        bufp->chgQData(oldp+304,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__shadow_new_mask),64);
-        bufp->chgIData(oldp+306,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__logic_bridge_enable),32);
-        bufp->chgIData(oldp+307,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__logic_bridge_error),32);
-        bufp->chgIData(oldp+308,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__logic_bridge_value),32);
-        bufp->chgWData(oldp+309,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__logic_bridge_req_path),1024);
-        bufp->chgWData(oldp+341,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__logic_bridge_rsp_path),1024);
-        bufp->chgBit(oldp+373,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__logic_prev_req_valid));
-        bufp->chgIData(oldp+374,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__logic_bridge_external),32);
-        bufp->chgWData(oldp+375,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__program_hex_path),1024);
-        bufp->chgWData(oldp+407,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__data_hex_path),1024);
-        bufp->chgWData(oldp+439,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__force_tensor_word__Vstatic__tensor_tmp),512);
+        bufp->chgIData(oldp+289,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__init_logic_acc_en),32);
+        bufp->chgIData(oldp+290,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__init_logic_acc_value),32);
+        bufp->chgCData(oldp+291,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__shadow_next_mid),8);
+        bufp->chgBit(oldp+292,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__shadow_executing));
+        bufp->chgIData(oldp+293,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__exec_word),32);
+        bufp->chgIData(oldp+294,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__exec_op_i),32);
+        bufp->chgIData(oldp+295,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__exec_a_i),32);
+        bufp->chgIData(oldp+296,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__exec_b_i),32);
+        bufp->chgIData(oldp+297,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__sh_e),32);
+        bufp->chgIData(oldp+298,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__sh_m),32);
+        bufp->chgIData(oldp+299,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__sh_pred_mode_i),32);
+        bufp->chgIData(oldp+300,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__sh_pred_param_i),32);
+        bufp->chgQData(oldp+301,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__sh_left),64);
+        bufp->chgQData(oldp+303,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__sh_right),64);
+        bufp->chgIData(oldp+305,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__shadow_found_dup),32);
+        bufp->chgQData(oldp+306,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__shadow_new_mask),64);
+        bufp->chgIData(oldp+308,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__logic_bridge_enable),32);
+        bufp->chgIData(oldp+309,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__logic_bridge_error),32);
+        bufp->chgIData(oldp+310,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__logic_bridge_value),32);
+        bufp->chgWData(oldp+311,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__logic_bridge_req_path),1024);
+        bufp->chgWData(oldp+343,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__logic_bridge_rsp_path),1024);
+        bufp->chgBit(oldp+375,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__logic_prev_req_valid));
+        bufp->chgIData(oldp+376,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__logic_bridge_external),32);
+        bufp->chgWData(oldp+377,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__program_hex_path),1024);
+        bufp->chgWData(oldp+409,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__data_hex_path),1024);
+        bufp->chgWData(oldp+441,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__force_tensor_word__Vstatic__tensor_tmp),512);
     }
-    bufp->chgBit(oldp+455,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__clk));
-    bufp->chgQData(oldp+456,(vlSymsp->TOP__thiele_cpu_kami_tb.logic_resp_in),34);
-    bufp->chgBit(oldp+458,(vlSymsp->TOP__thiele_cpu_kami_tb.logic_resp_en));
-    bufp->chgBit(oldp+459,(vlSymsp->TOP__thiele_cpu_kami_tb.logic_req_valid_out));
-    bufp->chgCData(oldp+460,(vlSymsp->TOP__thiele_cpu_kami_tb.logic_req_opcode_out),8);
-    bufp->chgIData(oldp+461,(vlSymsp->TOP__thiele_cpu_kami_tb.logic_req_payload_out),32);
-    bufp->chgIData(oldp+462,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__i),32);
-    bufp->chgIData(oldp+463,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__prev_mu),32);
-    bufp->chgBit(oldp+464,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__prev_mu_valid));
-    bufp->chgIData(oldp+465,((((0U == (0x1fU & VL_SHIFTL_III(13,32,32, 
+    bufp->chgBit(oldp+457,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__clk));
+    bufp->chgQData(oldp+458,(vlSymsp->TOP__thiele_cpu_kami_tb.logic_resp_in),34);
+    bufp->chgBit(oldp+460,(vlSymsp->TOP__thiele_cpu_kami_tb.logic_resp_en));
+    bufp->chgBit(oldp+461,(vlSymsp->TOP__thiele_cpu_kami_tb.logic_req_valid_out));
+    bufp->chgCData(oldp+462,(vlSymsp->TOP__thiele_cpu_kami_tb.logic_req_opcode_out),8);
+    bufp->chgIData(oldp+463,(vlSymsp->TOP__thiele_cpu_kami_tb.logic_req_payload_out),32);
+    bufp->chgIData(oldp+464,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__i),32);
+    bufp->chgIData(oldp+465,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__prev_mu),32);
+    bufp->chgBit(oldp+466,(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__prev_mu_valid));
+    bufp->chgIData(oldp+467,((((0U == (0x1fU & VL_SHIFTL_III(13,32,32, 
                                                              (0xffU 
                                                               & vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__dut__DOT__pc__VforceRd), 5U)))
                                 ? 0U : (vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__dut__DOT__imem[
@@ -9592,7 +9594,7 @@ void Vthiele_cpu_kami_tb___024root__trace_chg_0_sub_2(Vthiele_cpu_kami_tb___024r
                                  >> (0x1fU & VL_SHIFTL_III(13,32,32, 
                                                            (0xffU 
                                                             & vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__dut__DOT__pc__VforceRd), 5U))))),32);
-    bufp->chgCData(oldp+466,((0xffU & (((0U == (0x1fU 
+    bufp->chgCData(oldp+468,((0xffU & (((0U == (0x1fU 
                                                 & ((IData)(0x18U) 
                                                    + 
                                                    (0x1fffU 
@@ -9631,22 +9633,22 @@ void Vthiele_cpu_kami_tb___024root__trace_chg_0_sub_2(Vthiele_cpu_kami_tb___024r
                                                   & VL_SHIFTL_III(13,32,32, 
                                                                   (0xffU 
                                                                    & vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__dut__DOT__pc__VforceRd), 5U)))))))),8);
-    bufp->chgBit(oldp+467,((1U & (IData)((vlSymsp->TOP__thiele_cpu_kami_tb.logic_resp_in 
+    bufp->chgBit(oldp+469,((1U & (IData)((vlSymsp->TOP__thiele_cpu_kami_tb.logic_resp_in 
                                           >> 0x20U)))));
-    bufp->chgBit(oldp+468,((1U & ((IData)(vlSymsp->TOP__thiele_cpu_kami_tb.logic_resp_en)
+    bufp->chgBit(oldp+470,((1U & ((IData)(vlSymsp->TOP__thiele_cpu_kami_tb.logic_resp_en)
                                    ? (IData)((vlSymsp->TOP__thiele_cpu_kami_tb.logic_resp_in 
                                               >> 0x21U))
                                    : ((IData)(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__dut__DOT__mu_ULT_mu_tensor_BITS_31_TO_0_PLUS_mu_tensor_B_ETC___05F_d39)
                                        ? (IData)(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__dut__DOT__logic_resp_valid__VforceRd)
                                        : ((~ (IData)(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__dut__DOT__logic_req_valid__VforceRd)) 
                                           & (IData)(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__dut__DOT__logic_resp_valid__VforceRd)))))));
-    bufp->chgBit(oldp+469,(((IData)(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__dut__DOT__err__024EN) 
+    bufp->chgBit(oldp+471,(((IData)(vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__dut__DOT__err__024EN) 
                             | (IData)(vlSymsp->TOP__thiele_cpu_kami_tb.logic_resp_en))));
-    bufp->chgIData(oldp+470,((IData)(vlSymsp->TOP__thiele_cpu_kami_tb.logic_resp_in)),32);
-    bufp->chgIData(oldp+471,((vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__dut__DOT__minstret_hi 
+    bufp->chgIData(oldp+472,((IData)(vlSymsp->TOP__thiele_cpu_kami_tb.logic_resp_in)),32);
+    bufp->chgIData(oldp+473,((vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__dut__DOT__minstret_hi 
                               + ((IData)(vlSymsp->TOP__thiele_cpu_kami_tb.dut__DOT____VdfgTmp_h0c4c9f5d__0) 
                                  & (0U == vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__dut__DOT__minstret_lo__024D_IN)))),32);
-    bufp->chgIData(oldp+472,(((IData)(vlSymsp->TOP__thiele_cpu_kami_tb.dut__DOT____VdfgTmp_h3cd5dbb7__0)
+    bufp->chgIData(oldp+474,(((IData)(vlSymsp->TOP__thiele_cpu_kami_tb.dut__DOT____VdfgTmp_h3cd5dbb7__0)
                                ? vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__dut__DOT__trap_vector
                                : vlSymsp->TOP__thiele_cpu_kami_tb.__PVT__dut__DOT__IF_logic_req_valid_86_AND_NOT_logic_resp_valid_ETC___05F_d1205)),32);
 }

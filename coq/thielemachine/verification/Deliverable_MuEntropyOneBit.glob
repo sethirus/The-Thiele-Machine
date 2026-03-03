@@ -1,42 +1,44 @@
-DIGEST 4c0eb29442f2e0e62072adeb0fae3893
+DIGEST 2e2dfe1e36edf4ff319bdcdcedfdf6a6
 FThieleMachineVerification.Deliverable_MuEntropyOneBit
 R24:29 Coq.QArith.QArith <> <> lib
 R31:33 Coq.micromega.Lia <> <> lib
 R35:48 Coq.Arith.PeanoNat <> <> lib
 R58:63 Coq.QArith.QArith <> <> mod
-R121:130 ThieleMachine.InfoTheory <> <> lib
-mod 532:557 <> DeliverableMuEntropyOneBit
-prf 634:667 DeliverableMuEntropyOneBit state_reduction_entropy_two_to_one
-R718:721 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R725:725 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R673:695 ThieleMachine.InfoTheory <> state_reduction_entropy def
-prf 892:918 DeliverableMuEntropyOneBit information_cost_two_to_one
-R962:965 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R969:969 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R924:939 ThieleMachine.InfoTheory <> information_cost def
-R988:1003 ThieleMachine.InfoTheory <> information_cost def
-R1014:1047 ThieleMachineVerification.Deliverable_MuEntropyOneBit DeliverableMuEntropyOneBit state_reduction_entropy_two_to_one thm
-R1014:1047 ThieleMachineVerification.Deliverable_MuEntropyOneBit DeliverableMuEntropyOneBit state_reduction_entropy_two_to_one thm
-prf 1115:1132 DeliverableMuEntropyOneBit mu_cost_ge_one_bit
-R1160:1162 Coq.Init.Datatypes <> nat ind
-binder 1146:1156 <> query_bytes:1
-R1174:1177 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
-R1178:1184 ThieleMachine.InfoTheory <> mu_cost def
-R1186:1196 ThieleMachineVerification.Deliverable_MuEntropyOneBit <> query_bytes:1 var
-R1279:1281 Coq.PArith.BinPos <> ::positive_scope:x_'<'_x not
-R1279:1281 Coq.PArith.BinPos <> ::positive_scope:x_'<'_x not
-R1334:1358 ThieleMachine.InfoTheory <> mu_bounds_shannon_entropy thm
-R1334:1358 ThieleMachine.InfoTheory <> mu_bounds_shannon_entropy thm
-R1473:1499 ThieleMachineVerification.Deliverable_MuEntropyOneBit DeliverableMuEntropyOneBit information_cost_two_to_one thm
-R1473:1499 ThieleMachineVerification.Deliverable_MuEntropyOneBit DeliverableMuEntropyOneBit information_cost_two_to_one thm
-R1473:1499 ThieleMachineVerification.Deliverable_MuEntropyOneBit DeliverableMuEntropyOneBit information_cost_two_to_one thm
-prf 1607:1636 DeliverableMuEntropyOneBit mu_cost_tight_when_query_empty
-R1673:1676 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1680:1680 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1642:1648 ThieleMachine.InfoTheory <> mu_cost def
-R1699:1705 ThieleMachine.InfoTheory <> mu_cost def
-R1718:1744 ThieleMachineVerification.Deliverable_MuEntropyOneBit DeliverableMuEntropyOneBit information_cost_two_to_one thm
-R1718:1744 ThieleMachineVerification.Deliverable_MuEntropyOneBit DeliverableMuEntropyOneBit information_cost_two_to_one thm
-R1718:1744 ThieleMachineVerification.Deliverable_MuEntropyOneBit DeliverableMuEntropyOneBit information_cost_two_to_one thm
-R1756:1768 ThieleMachine.InfoTheory <> question_cost def
-R1810:1835 ThieleMachineVerification.Deliverable_MuEntropyOneBit DeliverableMuEntropyOneBit <> mod
+R177:183 Kernel.VMState <> <> lib
+R185:190 Kernel.VMStep <> <> lib
+R249:258 ThieleMachine.InfoTheory <> <> lib
+mod 660:685 <> DeliverableMuEntropyOneBit
+prf 762:795 DeliverableMuEntropyOneBit state_reduction_entropy_two_to_one
+R846:849 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R853:853 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R801:823 ThieleMachine.InfoTheory <> state_reduction_entropy def
+prf 1020:1046 DeliverableMuEntropyOneBit information_cost_two_to_one
+R1090:1093 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1097:1097 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1052:1067 ThieleMachine.InfoTheory <> information_cost def
+R1116:1131 ThieleMachine.InfoTheory <> information_cost def
+R1142:1175 ThieleMachineVerification.Deliverable_MuEntropyOneBit DeliverableMuEntropyOneBit state_reduction_entropy_two_to_one thm
+R1142:1175 ThieleMachineVerification.Deliverable_MuEntropyOneBit DeliverableMuEntropyOneBit state_reduction_entropy_two_to_one thm
+prf 1243:1260 DeliverableMuEntropyOneBit mu_cost_ge_one_bit
+R1288:1290 Coq.Init.Datatypes <> nat ind
+binder 1274:1284 <> query_bytes:1
+R1302:1305 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R1306:1312 ThieleMachine.InfoTheory <> mu_cost def
+R1314:1324 ThieleMachineVerification.Deliverable_MuEntropyOneBit <> query_bytes:1 var
+R1407:1409 Coq.PArith.BinPos <> ::positive_scope:x_'<'_x not
+R1407:1409 Coq.PArith.BinPos <> ::positive_scope:x_'<'_x not
+R1462:1486 ThieleMachine.InfoTheory <> mu_bounds_shannon_entropy thm
+R1462:1486 ThieleMachine.InfoTheory <> mu_bounds_shannon_entropy thm
+R1601:1627 ThieleMachineVerification.Deliverable_MuEntropyOneBit DeliverableMuEntropyOneBit information_cost_two_to_one thm
+R1601:1627 ThieleMachineVerification.Deliverable_MuEntropyOneBit DeliverableMuEntropyOneBit information_cost_two_to_one thm
+R1601:1627 ThieleMachineVerification.Deliverable_MuEntropyOneBit DeliverableMuEntropyOneBit information_cost_two_to_one thm
+prf 1735:1764 DeliverableMuEntropyOneBit mu_cost_tight_when_query_empty
+R1801:1804 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1808:1808 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1770:1776 ThieleMachine.InfoTheory <> mu_cost def
+R1827:1833 ThieleMachine.InfoTheory <> mu_cost def
+R1846:1872 ThieleMachineVerification.Deliverable_MuEntropyOneBit DeliverableMuEntropyOneBit information_cost_two_to_one thm
+R1846:1872 ThieleMachineVerification.Deliverable_MuEntropyOneBit DeliverableMuEntropyOneBit information_cost_two_to_one thm
+R1846:1872 ThieleMachineVerification.Deliverable_MuEntropyOneBit DeliverableMuEntropyOneBit information_cost_two_to_one thm
+R1884:1896 ThieleMachine.InfoTheory <> question_cost def
+R1938:1963 ThieleMachineVerification.Deliverable_MuEntropyOneBit DeliverableMuEntropyOneBit <> mod

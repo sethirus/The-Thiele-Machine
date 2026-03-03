@@ -1,799 +1,813 @@
-DIGEST a8f8f0c16ce8b6e032f20f59c09e2831
+DIGEST 1ad440b6275072965bd1957bcd0c8356
 FThieleUniversal.CPU
 R15:18 Coq.Lists.List <> <> lib
 R36:38 Coq.Init.Nat <> <> lib
 R56:61 Coq.ZArith.ZArith <> <> lib
 R79:96 ThieleUniversal.TM <> <> lib
-R106:118 Coq.Lists.List ListNotations <> mod
-def 223:228 <> REG_PC
-R235:241 Coq.Arith.PeanoNat Nat sub def
-def 261:265 <> REG_Q
-def 289:296 <> REG_HEAD
-def 317:323 <> REG_SYM
-def 345:350 <> REG_Q'
-def 373:381 <> REG_WRITE
-def 401:408 <> REG_MOVE
-def 429:436 <> REG_ADDR
-def 457:465 <> REG_TEMP1
-def 485:493 <> REG_TEMP2
-ind 550:554 <> Instr
-constr 572:580 <> LoadConst
-constr 603:614 <> LoadIndirect
-constr 636:648 <> StoreIndirect
-constr 670:676 <> CopyReg
-constr 698:705 <> AddConst
-constr 728:733 <> AddReg
-constr 760:765 <> SubReg
-constr 792:793 <> Jz
-constr 819:821 <> Jnz
-constr 847:850 <> Halt
-R592:594 Coq.Init.Datatypes <> nat ind
-binder 583:584 <> rd:3
-binder 586:588 <> val:4
-R625:627 Coq.Init.Datatypes <> nat ind
-binder 617:618 <> rd:5
-binder 620:621 <> ra:6
-R659:661 Coq.Init.Datatypes <> nat ind
-binder 651:652 <> ra:7
-binder 654:655 <> rv:8
-R687:689 Coq.Init.Datatypes <> nat ind
-binder 679:680 <> rd:9
-binder 682:683 <> rs:10
-R717:719 Coq.Init.Datatypes <> nat ind
-binder 708:709 <> rd:11
-binder 711:713 <> val:12
-R749:751 Coq.Init.Datatypes <> nat ind
-binder 736:737 <> rd:13
-binder 739:741 <> rs1:14
-binder 743:745 <> rs2:15
-R781:783 Coq.Init.Datatypes <> nat ind
-binder 768:769 <> rd:16
-binder 771:773 <> rs1:17
-binder 775:777 <> rs2:18
-R808:810 Coq.Init.Datatypes <> nat ind
-binder 796:797 <> rc:19
-binder 799:804 <> target:20
-R836:838 Coq.Init.Datatypes <> nat ind
-binder 824:825 <> rc:21
-binder 827:832 <> target:22
-scheme 550:554 <> Instr_rect
-scheme 550:554 <> Instr_ind
-scheme 550:554 <> Instr_rec
-scheme 550:554 <> Instr_sind
-rec 919:923 <> State
-proj 930:933 <> regs
-proj 947:949 <> mem
-proj 963:966 <> cost
-R937:940 Coq.Init.Datatypes <> list ind
-R942:944 Coq.Init.Datatypes <> nat ind
-R953:956 Coq.Init.Datatypes <> list ind
-R958:960 Coq.Init.Datatypes <> nat ind
-R970:972 Coq.Init.Datatypes <> nat ind
-def 1028:1035 <> read_reg
-R1042:1044 Coq.Init.Datatypes <> nat ind
-binder 1038:1038 <> r:27
-R1053:1057 ThieleUniversal.CPU <> State rec
-binder 1048:1049 <> st:28
-R1062:1064 Coq.Init.Datatypes <> nat ind
-R1069:1071 Coq.Lists.List <> nth def
-R1079:1082 ThieleUniversal.CPU <> regs proj
-R1075:1076 ThieleUniversal.CPU <> st:28 var
-R1073:1073 ThieleUniversal.CPU <> r:27 var
-def 1101:1109 <> write_reg
-R1118:1120 Coq.Init.Datatypes <> nat ind
-binder 1112:1112 <> r:29
-binder 1114:1114 <> v:30
-R1129:1133 ThieleUniversal.CPU <> State rec
-binder 1124:1125 <> st:31
-R1138:1142 ThieleUniversal.CPU <> State rec
-R1154:1157 ThieleUniversal.CPU <> regs proj
-R1154:1157 ThieleUniversal.CPU <> regs proj
-R1154:1157 ThieleUniversal.CPU <> regs proj
-R1214:1216 ThieleUniversal.CPU <> mem proj
-R1214:1216 ThieleUniversal.CPU <> mem proj
-R1231:1234 ThieleUniversal.CPU <> cost proj
-R1231:1234 ThieleUniversal.CPU <> cost proj
-R1180:1183 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R1162:1167 Coq.Lists.List <> firstn def
-R1175:1178 ThieleUniversal.CPU <> regs proj
-R1171:1172 ThieleUniversal.CPU <> st:31 var
-R1169:1169 ThieleUniversal.CPU <> r:29 var
-R1187:1190 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R1184:1184 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R1186:1186 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R1185:1185 ThieleUniversal.CPU <> v:30 var
-R1191:1195 Coq.Lists.List <> skipn def
-R1207:1210 ThieleUniversal.CPU <> regs proj
-R1203:1204 ThieleUniversal.CPU <> st:31 var
-R1198:1198 Coq.Init.Datatypes <> S constr
-R1200:1200 ThieleUniversal.CPU <> r:29 var
-R1225:1227 ThieleUniversal.CPU <> mem proj
-R1221:1222 ThieleUniversal.CPU <> st:31 var
-R1243:1246 ThieleUniversal.CPU <> cost proj
+R126:132 Kernel.VMState <> <> lib
+R142:154 Coq.Lists.List ListNotations <> mod
+def 259:264 <> REG_PC
+R271:277 Coq.Arith.PeanoNat Nat sub def
+def 297:301 <> REG_Q
+def 325:332 <> REG_HEAD
+def 353:359 <> REG_SYM
+def 381:386 <> REG_Q'
+def 409:417 <> REG_WRITE
+def 437:444 <> REG_MOVE
+def 465:472 <> REG_ADDR
+def 493:501 <> REG_TEMP1
+def 521:529 <> REG_TEMP2
+ind 586:590 <> Instr
+constr 608:616 <> LoadConst
+constr 639:650 <> LoadIndirect
+constr 672:684 <> StoreIndirect
+constr 706:712 <> CopyReg
+constr 734:741 <> AddConst
+constr 764:769 <> AddReg
+constr 796:801 <> SubReg
+constr 828:829 <> Jz
+constr 855:857 <> Jnz
+constr 883:886 <> Halt
+R628:630 Coq.Init.Datatypes <> nat ind
+binder 619:620 <> rd:3
+binder 622:624 <> val:4
+R661:663 Coq.Init.Datatypes <> nat ind
+binder 653:654 <> rd:5
+binder 656:657 <> ra:6
+R695:697 Coq.Init.Datatypes <> nat ind
+binder 687:688 <> ra:7
+binder 690:691 <> rv:8
+R723:725 Coq.Init.Datatypes <> nat ind
+binder 715:716 <> rd:9
+binder 718:719 <> rs:10
+R753:755 Coq.Init.Datatypes <> nat ind
+binder 744:745 <> rd:11
+binder 747:749 <> val:12
+R785:787 Coq.Init.Datatypes <> nat ind
+binder 772:773 <> rd:13
+binder 775:777 <> rs1:14
+binder 779:781 <> rs2:15
+R817:819 Coq.Init.Datatypes <> nat ind
+binder 804:805 <> rd:16
+binder 807:809 <> rs1:17
+binder 811:813 <> rs2:18
+R844:846 Coq.Init.Datatypes <> nat ind
+binder 832:833 <> rc:19
+binder 835:840 <> target:20
+R872:874 Coq.Init.Datatypes <> nat ind
+binder 860:861 <> rc:21
+binder 863:868 <> target:22
+scheme 586:590 <> Instr_rect
+scheme 586:590 <> Instr_ind
+scheme 586:590 <> Instr_rec
+scheme 586:590 <> Instr_sind
+rec 955:959 <> State
+proj 966:969 <> regs
+proj 983:985 <> mem
+proj 999:1002 <> cost
+R973:976 Coq.Init.Datatypes <> list ind
+R978:980 Coq.Init.Datatypes <> nat ind
+R989:992 Coq.Init.Datatypes <> list ind
+R994:996 Coq.Init.Datatypes <> nat ind
+R1006:1008 Coq.Init.Datatypes <> nat ind
+def 1064:1071 <> read_reg
+R1078:1080 Coq.Init.Datatypes <> nat ind
+binder 1074:1074 <> r:27
+R1089:1093 ThieleUniversal.CPU <> State rec
+binder 1084:1085 <> st:28
+R1098:1100 Coq.Init.Datatypes <> nat ind
+R1105:1107 Coq.Lists.List <> nth def
+R1115:1118 ThieleUniversal.CPU <> regs proj
+R1111:1112 ThieleUniversal.CPU <> st:28 var
+R1109:1109 ThieleUniversal.CPU <> r:27 var
+def 1137:1145 <> write_reg
+R1154:1156 Coq.Init.Datatypes <> nat ind
+binder 1148:1148 <> r:29
+binder 1150:1150 <> v:30
+R1165:1169 ThieleUniversal.CPU <> State rec
+binder 1160:1161 <> st:31
+R1174:1178 ThieleUniversal.CPU <> State rec
+R1190:1193 ThieleUniversal.CPU <> regs proj
+R1190:1193 ThieleUniversal.CPU <> regs proj
+R1190:1193 ThieleUniversal.CPU <> regs proj
+R1250:1252 ThieleUniversal.CPU <> mem proj
+R1250:1252 ThieleUniversal.CPU <> mem proj
+R1267:1270 ThieleUniversal.CPU <> cost proj
+R1267:1270 ThieleUniversal.CPU <> cost proj
+R1216:1219 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R1198:1203 Coq.Lists.List <> firstn def
+R1211:1214 ThieleUniversal.CPU <> regs proj
+R1207:1208 ThieleUniversal.CPU <> st:31 var
+R1205:1205 ThieleUniversal.CPU <> r:29 var
+R1223:1226 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R1220:1220 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1222:1222 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1221:1221 ThieleUniversal.CPU <> v:30 var
+R1227:1231 Coq.Lists.List <> skipn def
+R1243:1246 ThieleUniversal.CPU <> regs proj
 R1239:1240 ThieleUniversal.CPU <> st:31 var
-def 1267:1274 <> read_mem
-R1284:1286 Coq.Init.Datatypes <> nat ind
-binder 1277:1280 <> addr:32
-R1295:1299 ThieleUniversal.CPU <> State rec
-binder 1290:1291 <> st:33
-R1304:1306 Coq.Init.Datatypes <> nat ind
-R1311:1313 Coq.Lists.List <> nth def
-R1324:1326 ThieleUniversal.CPU <> mem proj
-R1320:1321 ThieleUniversal.CPU <> st:33 var
-R1315:1318 ThieleUniversal.CPU <> addr:32 var
-def 1345:1353 <> write_mem
-R1365:1367 Coq.Init.Datatypes <> nat ind
-binder 1356:1359 <> addr:34
-binder 1361:1361 <> v:35
-R1376:1380 ThieleUniversal.CPU <> State rec
-binder 1371:1372 <> st:36
-R1385:1389 ThieleUniversal.CPU <> State rec
-R1401:1404 ThieleUniversal.CPU <> regs proj
-R1401:1404 ThieleUniversal.CPU <> regs proj
-R1401:1404 ThieleUniversal.CPU <> regs proj
-R1420:1422 ThieleUniversal.CPU <> mem proj
-R1420:1422 ThieleUniversal.CPU <> mem proj
-R1483:1486 ThieleUniversal.CPU <> cost proj
-R1483:1486 ThieleUniversal.CPU <> cost proj
-R1413:1416 ThieleUniversal.CPU <> regs proj
-R1409:1410 ThieleUniversal.CPU <> st:36 var
-R1447:1450 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R1427:1432 Coq.Lists.List <> firstn def
-R1443:1445 ThieleUniversal.CPU <> mem proj
-R1439:1440 ThieleUniversal.CPU <> st:36 var
-R1434:1437 ThieleUniversal.CPU <> addr:34 var
-R1454:1457 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R1451:1451 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R1453:1453 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R1452:1452 ThieleUniversal.CPU <> v:35 var
-R1458:1462 Coq.Lists.List <> skipn def
-R1477:1479 ThieleUniversal.CPU <> mem proj
-R1473:1474 ThieleUniversal.CPU <> st:36 var
-R1465:1465 Coq.Init.Datatypes <> S constr
-R1467:1470 ThieleUniversal.CPU <> addr:34 var
-R1495:1498 ThieleUniversal.CPU <> cost proj
-R1491:1492 ThieleUniversal.CPU <> st:36 var
-def 1579:1588 <> instr_cost
-R1595:1599 ThieleUniversal.CPU <> Instr ind
-binder 1591:1591 <> i:37
-R1604:1606 Coq.Init.Datatypes <> nat ind
-R1621:1621 ThieleUniversal.CPU <> i:37 var
-R1634:1642 ThieleUniversal.CPU <> LoadConst constr
-R1659:1670 ThieleUniversal.CPU <> LoadIndirect constr
-R1687:1699 ThieleUniversal.CPU <> StoreIndirect constr
-R1754:1760 ThieleUniversal.CPU <> CopyReg constr
-R1777:1784 ThieleUniversal.CPU <> AddConst constr
-R1801:1806 ThieleUniversal.CPU <> AddReg constr
-R1825:1830 ThieleUniversal.CPU <> SubReg constr
-R1849:1850 ThieleUniversal.CPU <> Jz constr
-R1867:1869 ThieleUniversal.CPU <> Jnz constr
-R1886:1889 ThieleUniversal.CPU <> Halt constr
-def 1957:1960 <> step
-R1967:1971 ThieleUniversal.CPU <> Instr ind
-binder 1963:1963 <> i:39
-R1980:1984 ThieleUniversal.CPU <> State rec
-binder 1975:1976 <> st:40
-R1989:1993 ThieleUniversal.CPU <> State rec
-R2012:2019 ThieleUniversal.CPU <> read_reg def
-R2021:2026 ThieleUniversal.CPU <> REG_PC def
-R2028:2029 ThieleUniversal.CPU <> st:40 var
-binder 2006:2007 <> pc:41
-R2049:2057 ThieleUniversal.CPU <> write_reg def
-R2059:2064 ThieleUniversal.CPU <> REG_PC def
-R2067:2067 Coq.Init.Datatypes <> S constr
-R2069:2070 ThieleUniversal.CPU <> pc:41 var
-R2073:2074 ThieleUniversal.CPU <> st:40 var
-binder 2042:2044 <> st':42
-R2101:2101 ThieleUniversal.CPU <> i:39 var
-R2114:2122 ThieleUniversal.CPU <> LoadConst constr
-R2135:2143 ThieleUniversal.CPU <> write_reg def
-R2150:2152 ThieleUniversal.CPU <> st':42 var
-R2160:2171 ThieleUniversal.CPU <> LoadIndirect constr
-R2183:2191 ThieleUniversal.CPU <> write_reg def
-R2197:2204 ThieleUniversal.CPU <> read_mem def
-R2207:2214 ThieleUniversal.CPU <> read_reg def
-R2219:2220 ThieleUniversal.CPU <> st:40 var
-R2223:2224 ThieleUniversal.CPU <> st:40 var
-R2227:2229 ThieleUniversal.CPU <> st':42 var
-R2237:2249 ThieleUniversal.CPU <> StoreIndirect constr
-R2260:2268 ThieleUniversal.CPU <> write_mem def
-R2271:2278 ThieleUniversal.CPU <> read_reg def
-R2283:2284 ThieleUniversal.CPU <> st:40 var
-R2288:2295 ThieleUniversal.CPU <> read_reg def
-R2300:2301 ThieleUniversal.CPU <> st:40 var
-R2304:2306 ThieleUniversal.CPU <> st':42 var
-R2314:2320 ThieleUniversal.CPU <> CopyReg constr
-R2335:2343 ThieleUniversal.CPU <> write_reg def
-R2349:2356 ThieleUniversal.CPU <> read_reg def
-R2361:2362 ThieleUniversal.CPU <> st:40 var
-R2365:2367 ThieleUniversal.CPU <> st':42 var
-R2375:2382 ThieleUniversal.CPU <> AddConst constr
-R2396:2404 ThieleUniversal.CPU <> write_reg def
-R2424:2426 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R2410:2417 ThieleUniversal.CPU <> read_reg def
-R2422:2423 ThieleUniversal.CPU <> st:40 var
-R2430:2432 ThieleUniversal.CPU <> st':42 var
-R2440:2445 ThieleUniversal.CPU <> AddReg constr
-R2461:2469 ThieleUniversal.CPU <> write_reg def
-R2490:2492 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R2475:2482 ThieleUniversal.CPU <> read_reg def
-R2488:2489 ThieleUniversal.CPU <> st:40 var
-R2493:2500 ThieleUniversal.CPU <> read_reg def
-R2506:2507 ThieleUniversal.CPU <> st:40 var
-R2510:2512 ThieleUniversal.CPU <> st':42 var
-R2520:2525 ThieleUniversal.CPU <> SubReg constr
-R2541:2549 ThieleUniversal.CPU <> write_reg def
-R2570:2572 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
-R2555:2562 ThieleUniversal.CPU <> read_reg def
-R2568:2569 ThieleUniversal.CPU <> st:40 var
-R2573:2580 ThieleUniversal.CPU <> read_reg def
-R2586:2587 ThieleUniversal.CPU <> st:40 var
-R2590:2592 ThieleUniversal.CPU <> st':42 var
-R2600:2601 ThieleUniversal.CPU <> Jz constr
-R2624:2630 Coq.Arith.PeanoNat Nat eqb def
-R2633:2640 ThieleUniversal.CPU <> read_reg def
-R2645:2646 ThieleUniversal.CPU <> st:40 var
-R2688:2690 ThieleUniversal.CPU <> st':42 var
-R2656:2664 ThieleUniversal.CPU <> write_reg def
-R2666:2671 ThieleUniversal.CPU <> REG_PC def
-R2680:2681 ThieleUniversal.CPU <> st:40 var
-R2698:2700 ThieleUniversal.CPU <> Jnz constr
-R2722:2728 Coq.Arith.PeanoNat Nat eqb def
-R2731:2738 ThieleUniversal.CPU <> read_reg def
-R2743:2744 ThieleUniversal.CPU <> st:40 var
-R2763:2771 ThieleUniversal.CPU <> write_reg def
-R2773:2778 ThieleUniversal.CPU <> REG_PC def
-R2787:2788 ThieleUniversal.CPU <> st:40 var
-R2754:2756 ThieleUniversal.CPU <> st':42 var
-R2796:2799 ThieleUniversal.CPU <> Halt constr
-R2817:2818 ThieleUniversal.CPU <> st:40 var
-binder 2087:2090 <> st'':44
-R2838:2841 ThieleUniversal.CPU <> regs proj
-R2838:2841 ThieleUniversal.CPU <> regs proj
-R2838:2841 ThieleUniversal.CPU <> regs proj
-R2859:2861 ThieleUniversal.CPU <> mem proj
-R2859:2861 ThieleUniversal.CPU <> mem proj
-R2878:2881 ThieleUniversal.CPU <> cost proj
-R2878:2881 ThieleUniversal.CPU <> cost proj
-R2852:2855 ThieleUniversal.CPU <> regs proj
-R2846:2849 ThieleUniversal.CPU <> st'':44 var
-R2872:2874 ThieleUniversal.CPU <> mem proj
-R2866:2869 ThieleUniversal.CPU <> st'':44 var
-R2897:2899 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R2892:2895 ThieleUniversal.CPU <> cost proj
-R2886:2889 ThieleUniversal.CPU <> st'':44 var
-R2900:2909 ThieleUniversal.CPU <> instr_cost def
-R2911:2911 ThieleUniversal.CPU <> i:39 var
-prf 3139:3154 <> read_pc_write_pc
-binder 3165:3165 <> v:45
-binder 3167:3168 <> st:46
-R3214:3216 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3175:3182 ThieleUniversal.CPU <> read_reg def
-R3184:3189 ThieleUniversal.CPU <> REG_PC def
-R3192:3200 ThieleUniversal.CPU <> write_reg def
-R3202:3207 ThieleUniversal.CPU <> REG_PC def
-R3209:3209 ThieleUniversal.CPU <> v:45 var
-R3211:3212 ThieleUniversal.CPU <> st:46 var
-R3217:3217 ThieleUniversal.CPU <> v:45 var
-R3253:3260 ThieleUniversal.CPU <> read_reg def
-R3263:3271 ThieleUniversal.CPU <> write_reg def
-prf 3364:3382 <> read_pc_write_nonpc
-binder 3393:3394 <> rd:47
-binder 3396:3396 <> v:48
-binder 3398:3399 <> st:49
-R3418:3421 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3408:3411 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R3406:3407 ThieleUniversal.CPU <> rd:47 var
-R3412:3417 ThieleUniversal.CPU <> REG_PC def
-R3435:3442 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3429:3432 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R3422:3425 ThieleUniversal.CPU <> regs proj
-R3427:3428 ThieleUniversal.CPU <> st:49 var
-R3433:3434 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R3478:3480 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3443:3450 ThieleUniversal.CPU <> read_reg def
-R3452:3457 ThieleUniversal.CPU <> REG_PC def
-R3460:3468 ThieleUniversal.CPU <> write_reg def
-R3470:3471 ThieleUniversal.CPU <> rd:47 var
-R3473:3473 ThieleUniversal.CPU <> v:48 var
-R3475:3476 ThieleUniversal.CPU <> st:49 var
-R3481:3488 ThieleUniversal.CPU <> read_reg def
-R3490:3495 ThieleUniversal.CPU <> REG_PC def
-R3497:3498 ThieleUniversal.CPU <> st:49 var
-R3547:3554 ThieleUniversal.CPU <> read_reg def
-R3557:3565 ThieleUniversal.CPU <> write_reg def
-R3634:3637 ThieleUniversal.CPU <> regs proj
-R3634:3637 ThieleUniversal.CPU <> regs proj
-prf 3816:3832 <> read_pc_write_mem
-binder 3843:3846 <> addr:50
-binder 3848:3848 <> v:51
-binder 3850:3851 <> st:52
-R3895:3897 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3858:3865 ThieleUniversal.CPU <> read_reg def
-R3867:3872 ThieleUniversal.CPU <> REG_PC def
-R3875:3883 ThieleUniversal.CPU <> write_mem def
-R3885:3888 ThieleUniversal.CPU <> addr:50 var
-R3890:3890 ThieleUniversal.CPU <> v:51 var
-R3892:3893 ThieleUniversal.CPU <> st:52 var
-R3898:3905 ThieleUniversal.CPU <> read_reg def
-R3907:3912 ThieleUniversal.CPU <> REG_PC def
-R3914:3915 ThieleUniversal.CPU <> st:52 var
-R3956:3963 ThieleUniversal.CPU <> read_reg def
-R3966:3974 ThieleUniversal.CPU <> write_mem def
-def 4079:4090 <> pc_unchanged
-R4095:4099 ThieleUniversal.CPU <> Instr ind
-binder 4093:4093 <> i:53
-R4122:4122 ThieleUniversal.CPU <> i:53 var
-R4135:4143 ThieleUniversal.CPU <> LoadConst constr
-R4152:4163 ThieleUniversal.CPU <> LoadIndirect constr
-R4172:4178 ThieleUniversal.CPU <> CopyReg constr
-R4191:4198 ThieleUniversal.CPU <> AddConst constr
-R4207:4212 ThieleUniversal.CPU <> AddReg constr
-R4223:4228 ThieleUniversal.CPU <> SubReg constr
-R4242:4245 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R4246:4251 ThieleUniversal.CPU <> REG_PC def
-R4242:4245 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R4246:4251 ThieleUniversal.CPU <> REG_PC def
-R4242:4245 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R4246:4251 ThieleUniversal.CPU <> REG_PC def
-R4242:4245 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R4246:4251 ThieleUniversal.CPU <> REG_PC def
-R4242:4245 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R4246:4251 ThieleUniversal.CPU <> REG_PC def
-R4242:4245 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R4246:4251 ThieleUniversal.CPU <> REG_PC def
-R4259:4271 ThieleUniversal.CPU <> StoreIndirect constr
-R4280:4283 Coq.Init.Logic <> True ind
-R4296:4300 Coq.Init.Logic <> False ind
-prf 4367:4378 <> step_pc_succ
-binder 4389:4389 <> i:55
-binder 4391:4392 <> st:56
-R4413:4420 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4399:4410 ThieleUniversal.CPU <> pc_unchanged def
-R4412:4412 ThieleUniversal.CPU <> i:55 var
-R4448:4450 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4421:4428 ThieleUniversal.CPU <> read_reg def
-R4430:4435 ThieleUniversal.CPU <> REG_PC def
-R4438:4441 ThieleUniversal.CPU <> step def
-R4443:4443 ThieleUniversal.CPU <> i:55 var
-R4445:4446 ThieleUniversal.CPU <> st:56 var
-R4451:4451 Coq.Init.Datatypes <> S constr
-R4454:4461 ThieleUniversal.CPU <> read_reg def
-R4463:4468 ThieleUniversal.CPU <> REG_PC def
-R4470:4471 ThieleUniversal.CPU <> st:56 var
-R4707:4710 ThieleUniversal.CPU <> step def
-R4801:4804 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R4750:4753 ThieleUniversal.CPU <> regs proj
-R4756:4764 ThieleUniversal.CPU <> write_reg def
-R4766:4771 ThieleUniversal.CPU <> REG_PC def
-R4774:4774 Coq.Init.Datatypes <> S constr
-R4777:4784 ThieleUniversal.CPU <> read_reg def
-R4786:4791 ThieleUniversal.CPU <> REG_PC def
-R4805:4806 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R4829:4837 ThieleUniversal.CPU <> write_reg def
-R4801:4804 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R4750:4753 ThieleUniversal.CPU <> regs proj
-R4756:4764 ThieleUniversal.CPU <> write_reg def
-R4766:4771 ThieleUniversal.CPU <> REG_PC def
-R4774:4774 Coq.Init.Datatypes <> S constr
-R4777:4784 ThieleUniversal.CPU <> read_reg def
-R4786:4791 ThieleUniversal.CPU <> REG_PC def
-R4805:4806 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R4889:4896 ThieleUniversal.CPU <> read_reg def
-R4898:4903 ThieleUniversal.CPU <> REG_PC def
-R4906:4914 ThieleUniversal.CPU <> write_reg def
-R4916:4921 ThieleUniversal.CPU <> REG_PC def
-R4924:4924 Coq.Init.Datatypes <> S constr
-R4927:4934 ThieleUniversal.CPU <> read_reg def
-R4936:4941 ThieleUniversal.CPU <> REG_PC def
-R4874:4881 Coq.Init.Logic <> eq_trans thm
-R4889:4896 ThieleUniversal.CPU <> read_reg def
-R4898:4903 ThieleUniversal.CPU <> REG_PC def
-R4906:4914 ThieleUniversal.CPU <> write_reg def
-R4916:4921 ThieleUniversal.CPU <> REG_PC def
-R4924:4924 Coq.Init.Datatypes <> S constr
-R4927:4934 ThieleUniversal.CPU <> read_reg def
-R4936:4941 ThieleUniversal.CPU <> REG_PC def
-R4874:4881 Coq.Init.Logic <> eq_trans thm
-R4967:4985 ThieleUniversal.CPU <> read_pc_write_nonpc thm
-R5003:5011 ThieleUniversal.CPU <> write_reg def
-R5013:5018 ThieleUniversal.CPU <> REG_PC def
-R5021:5021 Coq.Init.Datatypes <> S constr
-R5024:5031 ThieleUniversal.CPU <> read_reg def
-R5033:5038 ThieleUniversal.CPU <> REG_PC def
-R4967:4985 ThieleUniversal.CPU <> read_pc_write_nonpc thm
-R5003:5011 ThieleUniversal.CPU <> write_reg def
-R5013:5018 ThieleUniversal.CPU <> REG_PC def
-R5021:5021 Coq.Init.Datatypes <> S constr
-R5024:5031 ThieleUniversal.CPU <> read_reg def
-R5033:5038 ThieleUniversal.CPU <> REG_PC def
-R5075:5090 ThieleUniversal.CPU <> read_pc_write_pc thm
-R5075:5090 ThieleUniversal.CPU <> read_pc_write_pc thm
-R5075:5090 ThieleUniversal.CPU <> read_pc_write_pc thm
-R5190:5193 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R5139:5142 ThieleUniversal.CPU <> regs proj
-R5145:5153 ThieleUniversal.CPU <> write_reg def
-R5155:5160 ThieleUniversal.CPU <> REG_PC def
-R5163:5163 Coq.Init.Datatypes <> S constr
-R5166:5173 ThieleUniversal.CPU <> read_reg def
-R5175:5180 ThieleUniversal.CPU <> REG_PC def
-R5194:5195 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R5218:5226 ThieleUniversal.CPU <> write_reg def
-R5190:5193 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R5139:5142 ThieleUniversal.CPU <> regs proj
-R5145:5153 ThieleUniversal.CPU <> write_reg def
-R5155:5160 ThieleUniversal.CPU <> REG_PC def
-R5163:5163 Coq.Init.Datatypes <> S constr
-R5166:5173 ThieleUniversal.CPU <> read_reg def
-R5175:5180 ThieleUniversal.CPU <> REG_PC def
-R5194:5195 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R5278:5285 ThieleUniversal.CPU <> read_reg def
-R5287:5292 ThieleUniversal.CPU <> REG_PC def
-R5295:5303 ThieleUniversal.CPU <> write_reg def
-R5305:5310 ThieleUniversal.CPU <> REG_PC def
-R5313:5313 Coq.Init.Datatypes <> S constr
-R5316:5323 ThieleUniversal.CPU <> read_reg def
-R5325:5330 ThieleUniversal.CPU <> REG_PC def
-R5263:5270 Coq.Init.Logic <> eq_trans thm
-R5278:5285 ThieleUniversal.CPU <> read_reg def
-R5287:5292 ThieleUniversal.CPU <> REG_PC def
-R5295:5303 ThieleUniversal.CPU <> write_reg def
-R5305:5310 ThieleUniversal.CPU <> REG_PC def
-R5313:5313 Coq.Init.Datatypes <> S constr
-R5316:5323 ThieleUniversal.CPU <> read_reg def
-R5325:5330 ThieleUniversal.CPU <> REG_PC def
-R5263:5270 Coq.Init.Logic <> eq_trans thm
-R5356:5374 ThieleUniversal.CPU <> read_pc_write_nonpc thm
-R5393:5400 ThieleUniversal.CPU <> read_mem def
-R5403:5410 ThieleUniversal.CPU <> read_reg def
-R5424:5432 ThieleUniversal.CPU <> write_reg def
-R5434:5439 ThieleUniversal.CPU <> REG_PC def
-R5442:5442 Coq.Init.Datatypes <> S constr
-R5445:5452 ThieleUniversal.CPU <> read_reg def
-R5454:5459 ThieleUniversal.CPU <> REG_PC def
-R5356:5374 ThieleUniversal.CPU <> read_pc_write_nonpc thm
-R5393:5400 ThieleUniversal.CPU <> read_mem def
-R5403:5410 ThieleUniversal.CPU <> read_reg def
-R5424:5432 ThieleUniversal.CPU <> write_reg def
-R5434:5439 ThieleUniversal.CPU <> REG_PC def
-R5442:5442 Coq.Init.Datatypes <> S constr
-R5445:5452 ThieleUniversal.CPU <> read_reg def
-R5454:5459 ThieleUniversal.CPU <> REG_PC def
-R5496:5511 ThieleUniversal.CPU <> read_pc_write_pc thm
-R5496:5511 ThieleUniversal.CPU <> read_pc_write_pc thm
-R5496:5511 ThieleUniversal.CPU <> read_pc_write_pc thm
-R5574:5581 ThieleUniversal.CPU <> read_reg def
-R5583:5588 ThieleUniversal.CPU <> REG_PC def
-R5591:5599 ThieleUniversal.CPU <> write_reg def
-R5601:5606 ThieleUniversal.CPU <> REG_PC def
-R5609:5609 Coq.Init.Datatypes <> S constr
-R5612:5619 ThieleUniversal.CPU <> read_reg def
-R5621:5626 ThieleUniversal.CPU <> REG_PC def
-R5559:5566 Coq.Init.Logic <> eq_trans thm
-R5574:5581 ThieleUniversal.CPU <> read_reg def
-R5583:5588 ThieleUniversal.CPU <> REG_PC def
-R5591:5599 ThieleUniversal.CPU <> write_reg def
-R5601:5606 ThieleUniversal.CPU <> REG_PC def
-R5609:5609 Coq.Init.Datatypes <> S constr
-R5612:5619 ThieleUniversal.CPU <> read_reg def
-R5621:5626 ThieleUniversal.CPU <> REG_PC def
-R5559:5566 Coq.Init.Logic <> eq_trans thm
-R5652:5668 ThieleUniversal.CPU <> read_pc_write_mem thm
-R5671:5678 ThieleUniversal.CPU <> read_reg def
-R5694:5701 ThieleUniversal.CPU <> read_reg def
-R5711:5719 ThieleUniversal.CPU <> write_reg def
-R5721:5726 ThieleUniversal.CPU <> REG_PC def
-R5729:5729 Coq.Init.Datatypes <> S constr
-R5732:5739 ThieleUniversal.CPU <> read_reg def
-R5741:5746 ThieleUniversal.CPU <> REG_PC def
-R5652:5668 ThieleUniversal.CPU <> read_pc_write_mem thm
-R5671:5678 ThieleUniversal.CPU <> read_reg def
-R5694:5701 ThieleUniversal.CPU <> read_reg def
-R5711:5719 ThieleUniversal.CPU <> write_reg def
-R5721:5726 ThieleUniversal.CPU <> REG_PC def
-R5729:5729 Coq.Init.Datatypes <> S constr
-R5732:5739 ThieleUniversal.CPU <> read_reg def
-R5741:5746 ThieleUniversal.CPU <> REG_PC def
-R5773:5788 ThieleUniversal.CPU <> read_pc_write_pc thm
-R5773:5788 ThieleUniversal.CPU <> read_pc_write_pc thm
-R5773:5788 ThieleUniversal.CPU <> read_pc_write_pc thm
-R5883:5886 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R5832:5835 ThieleUniversal.CPU <> regs proj
-R5838:5846 ThieleUniversal.CPU <> write_reg def
-R5848:5853 ThieleUniversal.CPU <> REG_PC def
-R5856:5856 Coq.Init.Datatypes <> S constr
-R5859:5866 ThieleUniversal.CPU <> read_reg def
-R5868:5873 ThieleUniversal.CPU <> REG_PC def
-R5887:5888 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R5911:5919 ThieleUniversal.CPU <> write_reg def
-R5883:5886 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R5832:5835 ThieleUniversal.CPU <> regs proj
-R5838:5846 ThieleUniversal.CPU <> write_reg def
-R5848:5853 ThieleUniversal.CPU <> REG_PC def
-R5856:5856 Coq.Init.Datatypes <> S constr
-R5859:5866 ThieleUniversal.CPU <> read_reg def
-R5868:5873 ThieleUniversal.CPU <> REG_PC def
-R5887:5888 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R5971:5978 ThieleUniversal.CPU <> read_reg def
-R5980:5985 ThieleUniversal.CPU <> REG_PC def
-R5988:5996 ThieleUniversal.CPU <> write_reg def
-R5998:6003 ThieleUniversal.CPU <> REG_PC def
-R6006:6006 Coq.Init.Datatypes <> S constr
-R6009:6016 ThieleUniversal.CPU <> read_reg def
-R6018:6023 ThieleUniversal.CPU <> REG_PC def
-R5956:5963 Coq.Init.Logic <> eq_trans thm
-R5971:5978 ThieleUniversal.CPU <> read_reg def
-R5980:5985 ThieleUniversal.CPU <> REG_PC def
-R5988:5996 ThieleUniversal.CPU <> write_reg def
-R5998:6003 ThieleUniversal.CPU <> REG_PC def
-R6006:6006 Coq.Init.Datatypes <> S constr
-R6009:6016 ThieleUniversal.CPU <> read_reg def
-R6018:6023 ThieleUniversal.CPU <> REG_PC def
-R5956:5963 Coq.Init.Logic <> eq_trans thm
-R6049:6067 ThieleUniversal.CPU <> read_pc_write_nonpc thm
-R6078:6085 ThieleUniversal.CPU <> read_reg def
-R6095:6103 ThieleUniversal.CPU <> write_reg def
-R6105:6110 ThieleUniversal.CPU <> REG_PC def
-R6113:6113 Coq.Init.Datatypes <> S constr
-R6116:6123 ThieleUniversal.CPU <> read_reg def
-R6125:6130 ThieleUniversal.CPU <> REG_PC def
-R6049:6067 ThieleUniversal.CPU <> read_pc_write_nonpc thm
-R6078:6085 ThieleUniversal.CPU <> read_reg def
-R6095:6103 ThieleUniversal.CPU <> write_reg def
-R6105:6110 ThieleUniversal.CPU <> REG_PC def
-R6113:6113 Coq.Init.Datatypes <> S constr
-R6116:6123 ThieleUniversal.CPU <> read_reg def
-R6125:6130 ThieleUniversal.CPU <> REG_PC def
-R6167:6182 ThieleUniversal.CPU <> read_pc_write_pc thm
-R6167:6182 ThieleUniversal.CPU <> read_pc_write_pc thm
-R6167:6182 ThieleUniversal.CPU <> read_pc_write_pc thm
-R6278:6281 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R6227:6230 ThieleUniversal.CPU <> regs proj
-R6233:6241 ThieleUniversal.CPU <> write_reg def
-R6243:6248 ThieleUniversal.CPU <> REG_PC def
-R6251:6251 Coq.Init.Datatypes <> S constr
-R6254:6261 ThieleUniversal.CPU <> read_reg def
-R6263:6268 ThieleUniversal.CPU <> REG_PC def
-R6282:6283 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R6306:6314 ThieleUniversal.CPU <> write_reg def
-R6278:6281 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R6227:6230 ThieleUniversal.CPU <> regs proj
-R6233:6241 ThieleUniversal.CPU <> write_reg def
-R6243:6248 ThieleUniversal.CPU <> REG_PC def
-R6251:6251 Coq.Init.Datatypes <> S constr
-R6254:6261 ThieleUniversal.CPU <> read_reg def
-R6263:6268 ThieleUniversal.CPU <> REG_PC def
-R6282:6283 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R6366:6373 ThieleUniversal.CPU <> read_reg def
-R6375:6380 ThieleUniversal.CPU <> REG_PC def
-R6383:6391 ThieleUniversal.CPU <> write_reg def
-R6393:6398 ThieleUniversal.CPU <> REG_PC def
-R6401:6401 Coq.Init.Datatypes <> S constr
-R6404:6411 ThieleUniversal.CPU <> read_reg def
-R6413:6418 ThieleUniversal.CPU <> REG_PC def
-R6351:6358 Coq.Init.Logic <> eq_trans thm
-R6366:6373 ThieleUniversal.CPU <> read_reg def
-R6375:6380 ThieleUniversal.CPU <> REG_PC def
-R6383:6391 ThieleUniversal.CPU <> write_reg def
-R6393:6398 ThieleUniversal.CPU <> REG_PC def
-R6401:6401 Coq.Init.Datatypes <> S constr
-R6404:6411 ThieleUniversal.CPU <> read_reg def
-R6413:6418 ThieleUniversal.CPU <> REG_PC def
-R6351:6358 Coq.Init.Logic <> eq_trans thm
-R6444:6462 ThieleUniversal.CPU <> read_pc_write_nonpc thm
-R6490:6492 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R6472:6479 ThieleUniversal.CPU <> read_reg def
-R6501:6509 ThieleUniversal.CPU <> write_reg def
-R6511:6516 ThieleUniversal.CPU <> REG_PC def
-R6519:6519 Coq.Init.Datatypes <> S constr
-R6522:6529 ThieleUniversal.CPU <> read_reg def
-R6531:6536 ThieleUniversal.CPU <> REG_PC def
-R6444:6462 ThieleUniversal.CPU <> read_pc_write_nonpc thm
-R6490:6492 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R6472:6479 ThieleUniversal.CPU <> read_reg def
-R6501:6509 ThieleUniversal.CPU <> write_reg def
-R6511:6516 ThieleUniversal.CPU <> REG_PC def
-R6519:6519 Coq.Init.Datatypes <> S constr
-R6522:6529 ThieleUniversal.CPU <> read_reg def
-R6531:6536 ThieleUniversal.CPU <> REG_PC def
-R6573:6588 ThieleUniversal.CPU <> read_pc_write_pc thm
-R6573:6588 ThieleUniversal.CPU <> read_pc_write_pc thm
-R6573:6588 ThieleUniversal.CPU <> read_pc_write_pc thm
-R6682:6685 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R6631:6634 ThieleUniversal.CPU <> regs proj
-R6637:6645 ThieleUniversal.CPU <> write_reg def
-R6647:6652 ThieleUniversal.CPU <> REG_PC def
-R6655:6655 Coq.Init.Datatypes <> S constr
-R6658:6665 ThieleUniversal.CPU <> read_reg def
-R6667:6672 ThieleUniversal.CPU <> REG_PC def
-R6686:6687 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R6710:6718 ThieleUniversal.CPU <> write_reg def
-R6682:6685 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R6631:6634 ThieleUniversal.CPU <> regs proj
-R6637:6645 ThieleUniversal.CPU <> write_reg def
-R6647:6652 ThieleUniversal.CPU <> REG_PC def
-R6655:6655 Coq.Init.Datatypes <> S constr
-R6658:6665 ThieleUniversal.CPU <> read_reg def
-R6667:6672 ThieleUniversal.CPU <> REG_PC def
-R6686:6687 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R6770:6777 ThieleUniversal.CPU <> read_reg def
-R6779:6784 ThieleUniversal.CPU <> REG_PC def
-R6787:6795 ThieleUniversal.CPU <> write_reg def
-R6797:6802 ThieleUniversal.CPU <> REG_PC def
-R6805:6805 Coq.Init.Datatypes <> S constr
-R6808:6815 ThieleUniversal.CPU <> read_reg def
-R6817:6822 ThieleUniversal.CPU <> REG_PC def
-R6755:6762 Coq.Init.Logic <> eq_trans thm
-R6770:6777 ThieleUniversal.CPU <> read_reg def
-R6779:6784 ThieleUniversal.CPU <> REG_PC def
-R6787:6795 ThieleUniversal.CPU <> write_reg def
-R6797:6802 ThieleUniversal.CPU <> REG_PC def
-R6805:6805 Coq.Init.Datatypes <> S constr
-R6808:6815 ThieleUniversal.CPU <> read_reg def
-R6817:6822 ThieleUniversal.CPU <> REG_PC def
-R6755:6762 Coq.Init.Logic <> eq_trans thm
-R6848:6866 ThieleUniversal.CPU <> read_pc_write_nonpc thm
-R6893:6895 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R6879:6886 ThieleUniversal.CPU <> read_reg def
-R6896:6903 ThieleUniversal.CPU <> read_reg def
-R6913:6921 ThieleUniversal.CPU <> write_reg def
-R6923:6928 ThieleUniversal.CPU <> REG_PC def
-R6931:6931 Coq.Init.Datatypes <> S constr
-R6934:6941 ThieleUniversal.CPU <> read_reg def
-R6943:6948 ThieleUniversal.CPU <> REG_PC def
-R6848:6866 ThieleUniversal.CPU <> read_pc_write_nonpc thm
-R6893:6895 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R6879:6886 ThieleUniversal.CPU <> read_reg def
-R6896:6903 ThieleUniversal.CPU <> read_reg def
-R6913:6921 ThieleUniversal.CPU <> write_reg def
-R6923:6928 ThieleUniversal.CPU <> REG_PC def
-R6931:6931 Coq.Init.Datatypes <> S constr
-R6934:6941 ThieleUniversal.CPU <> read_reg def
-R6943:6948 ThieleUniversal.CPU <> REG_PC def
-R6985:7000 ThieleUniversal.CPU <> read_pc_write_pc thm
-R6985:7000 ThieleUniversal.CPU <> read_pc_write_pc thm
-R6985:7000 ThieleUniversal.CPU <> read_pc_write_pc thm
-R7094:7097 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R7043:7046 ThieleUniversal.CPU <> regs proj
-R7049:7057 ThieleUniversal.CPU <> write_reg def
-R7059:7064 ThieleUniversal.CPU <> REG_PC def
-R7067:7067 Coq.Init.Datatypes <> S constr
-R7070:7077 ThieleUniversal.CPU <> read_reg def
-R7079:7084 ThieleUniversal.CPU <> REG_PC def
-R7098:7099 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R7122:7130 ThieleUniversal.CPU <> write_reg def
-R7094:7097 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R7043:7046 ThieleUniversal.CPU <> regs proj
-R7049:7057 ThieleUniversal.CPU <> write_reg def
-R7059:7064 ThieleUniversal.CPU <> REG_PC def
-R7067:7067 Coq.Init.Datatypes <> S constr
-R7070:7077 ThieleUniversal.CPU <> read_reg def
-R7079:7084 ThieleUniversal.CPU <> REG_PC def
-R7098:7099 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R7182:7189 ThieleUniversal.CPU <> read_reg def
-R7191:7196 ThieleUniversal.CPU <> REG_PC def
-R7199:7207 ThieleUniversal.CPU <> write_reg def
-R7209:7214 ThieleUniversal.CPU <> REG_PC def
-R7217:7217 Coq.Init.Datatypes <> S constr
-R7220:7227 ThieleUniversal.CPU <> read_reg def
-R7229:7234 ThieleUniversal.CPU <> REG_PC def
-R7167:7174 Coq.Init.Logic <> eq_trans thm
-R7182:7189 ThieleUniversal.CPU <> read_reg def
-R7191:7196 ThieleUniversal.CPU <> REG_PC def
-R7199:7207 ThieleUniversal.CPU <> write_reg def
-R7209:7214 ThieleUniversal.CPU <> REG_PC def
-R7217:7217 Coq.Init.Datatypes <> S constr
-R7220:7227 ThieleUniversal.CPU <> read_reg def
-R7229:7234 ThieleUniversal.CPU <> REG_PC def
-R7167:7174 Coq.Init.Logic <> eq_trans thm
-R7260:7278 ThieleUniversal.CPU <> read_pc_write_nonpc thm
-R7302:7304 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
-R7288:7295 ThieleUniversal.CPU <> read_reg def
-R7305:7312 ThieleUniversal.CPU <> read_reg def
-R7322:7330 ThieleUniversal.CPU <> write_reg def
-R7332:7337 ThieleUniversal.CPU <> REG_PC def
-R7340:7340 Coq.Init.Datatypes <> S constr
-R7343:7350 ThieleUniversal.CPU <> read_reg def
-R7352:7357 ThieleUniversal.CPU <> REG_PC def
-R7260:7278 ThieleUniversal.CPU <> read_pc_write_nonpc thm
-R7302:7304 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
-R7288:7295 ThieleUniversal.CPU <> read_reg def
-R7305:7312 ThieleUniversal.CPU <> read_reg def
-R7322:7330 ThieleUniversal.CPU <> write_reg def
-R7332:7337 ThieleUniversal.CPU <> REG_PC def
-R7340:7340 Coq.Init.Datatypes <> S constr
-R7343:7350 ThieleUniversal.CPU <> read_reg def
-R7352:7357 ThieleUniversal.CPU <> REG_PC def
-R7394:7409 ThieleUniversal.CPU <> read_pc_write_pc thm
-R7394:7409 ThieleUniversal.CPU <> read_pc_write_pc thm
-R7394:7409 ThieleUniversal.CPU <> read_pc_write_pc thm
-prf 7625:7636 <> step_jz_true
-binder 7647:7648 <> rc:57
-binder 7650:7655 <> target:58
-binder 7657:7658 <> st:59
-R7698:7705 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7691:7693 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7665:7671 Coq.Arith.PeanoNat Nat eqb def
-R7674:7681 ThieleUniversal.CPU <> read_reg def
-R7683:7684 ThieleUniversal.CPU <> rc:57 var
-R7686:7687 ThieleUniversal.CPU <> st:59 var
-R7694:7697 Coq.Init.Datatypes <> true constr
-R7746:7748 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7706:7713 ThieleUniversal.CPU <> read_reg def
-R7715:7720 ThieleUniversal.CPU <> REG_PC def
-R7723:7726 ThieleUniversal.CPU <> step def
-R7729:7730 ThieleUniversal.CPU <> Jz constr
-R7732:7733 ThieleUniversal.CPU <> rc:57 var
-R7735:7740 ThieleUniversal.CPU <> target:58 var
-R7743:7744 ThieleUniversal.CPU <> st:59 var
-R7749:7754 ThieleUniversal.CPU <> target:58 var
-R7806:7809 ThieleUniversal.CPU <> step def
-prf 7909:7921 <> step_jz_false
-binder 7932:7933 <> rc:60
-binder 7935:7940 <> target:61
-binder 7942:7943 <> st:62
-R7984:7991 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7976:7978 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7950:7956 Coq.Arith.PeanoNat Nat eqb def
-R7959:7966 ThieleUniversal.CPU <> read_reg def
-R7968:7969 ThieleUniversal.CPU <> rc:60 var
-R7971:7972 ThieleUniversal.CPU <> st:62 var
-R7979:7983 Coq.Init.Datatypes <> false constr
-R8032:8034 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7992:7999 ThieleUniversal.CPU <> read_reg def
-R8001:8006 ThieleUniversal.CPU <> REG_PC def
-R8009:8012 ThieleUniversal.CPU <> step def
-R8015:8016 ThieleUniversal.CPU <> Jz constr
-R8018:8019 ThieleUniversal.CPU <> rc:60 var
-R8021:8026 ThieleUniversal.CPU <> target:61 var
-R8029:8030 ThieleUniversal.CPU <> st:62 var
-R8035:8035 Coq.Init.Datatypes <> S constr
-R8038:8045 ThieleUniversal.CPU <> read_reg def
-R8047:8052 ThieleUniversal.CPU <> REG_PC def
-R8054:8055 ThieleUniversal.CPU <> st:62 var
-R8108:8111 ThieleUniversal.CPU <> step def
-prf 8211:8223 <> step_jnz_true
-binder 8234:8235 <> rc:63
-binder 8237:8242 <> target:64
-binder 8244:8245 <> st:65
-R8285:8292 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8278:8280 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8252:8258 Coq.Arith.PeanoNat Nat eqb def
-R8261:8268 ThieleUniversal.CPU <> read_reg def
-R8270:8271 ThieleUniversal.CPU <> rc:63 var
-R8273:8274 ThieleUniversal.CPU <> st:65 var
-R8281:8284 Coq.Init.Datatypes <> true constr
-R8334:8336 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8293:8300 ThieleUniversal.CPU <> read_reg def
-R8302:8307 ThieleUniversal.CPU <> REG_PC def
-R8310:8313 ThieleUniversal.CPU <> step def
-R8316:8318 ThieleUniversal.CPU <> Jnz constr
-R8320:8321 ThieleUniversal.CPU <> rc:63 var
-R8323:8328 ThieleUniversal.CPU <> target:64 var
-R8331:8332 ThieleUniversal.CPU <> st:65 var
-R8337:8337 Coq.Init.Datatypes <> S constr
-R8340:8347 ThieleUniversal.CPU <> read_reg def
-R8349:8354 ThieleUniversal.CPU <> REG_PC def
-R8356:8357 ThieleUniversal.CPU <> st:65 var
-R8410:8413 ThieleUniversal.CPU <> step def
-prf 8514:8527 <> step_jnz_false
-binder 8538:8539 <> rc:66
-binder 8541:8546 <> target:67
-binder 8548:8549 <> st:68
-R8590:8597 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8582:8584 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8556:8562 Coq.Arith.PeanoNat Nat eqb def
-R8565:8572 ThieleUniversal.CPU <> read_reg def
-R8574:8575 ThieleUniversal.CPU <> rc:66 var
-R8577:8578 ThieleUniversal.CPU <> st:68 var
-R8585:8589 Coq.Init.Datatypes <> false constr
-R8639:8641 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8598:8605 ThieleUniversal.CPU <> read_reg def
-R8607:8612 ThieleUniversal.CPU <> REG_PC def
-R8615:8618 ThieleUniversal.CPU <> step def
-R8621:8623 ThieleUniversal.CPU <> Jnz constr
-R8625:8626 ThieleUniversal.CPU <> rc:66 var
-R8628:8633 ThieleUniversal.CPU <> target:67 var
-R8636:8637 ThieleUniversal.CPU <> st:68 var
-R8642:8647 ThieleUniversal.CPU <> target:67 var
-R8699:8702 ThieleUniversal.CPU <> step def
+R1234:1234 Coq.Init.Datatypes <> S constr
+R1236:1236 ThieleUniversal.CPU <> r:29 var
+R1261:1263 ThieleUniversal.CPU <> mem proj
+R1257:1258 ThieleUniversal.CPU <> st:31 var
+R1279:1282 ThieleUniversal.CPU <> cost proj
+R1275:1276 ThieleUniversal.CPU <> st:31 var
+def 1303:1310 <> read_mem
+R1320:1322 Coq.Init.Datatypes <> nat ind
+binder 1313:1316 <> addr:32
+R1331:1335 ThieleUniversal.CPU <> State rec
+binder 1326:1327 <> st:33
+R1340:1342 Coq.Init.Datatypes <> nat ind
+R1347:1349 Coq.Lists.List <> nth def
+R1360:1362 ThieleUniversal.CPU <> mem proj
+R1356:1357 ThieleUniversal.CPU <> st:33 var
+R1351:1354 ThieleUniversal.CPU <> addr:32 var
+def 1381:1389 <> write_mem
+R1401:1403 Coq.Init.Datatypes <> nat ind
+binder 1392:1395 <> addr:34
+binder 1397:1397 <> v:35
+R1412:1416 ThieleUniversal.CPU <> State rec
+binder 1407:1408 <> st:36
+R1421:1425 ThieleUniversal.CPU <> State rec
+R1437:1440 ThieleUniversal.CPU <> regs proj
+R1437:1440 ThieleUniversal.CPU <> regs proj
+R1437:1440 ThieleUniversal.CPU <> regs proj
+R1456:1458 ThieleUniversal.CPU <> mem proj
+R1456:1458 ThieleUniversal.CPU <> mem proj
+R1519:1522 ThieleUniversal.CPU <> cost proj
+R1519:1522 ThieleUniversal.CPU <> cost proj
+R1449:1452 ThieleUniversal.CPU <> regs proj
+R1445:1446 ThieleUniversal.CPU <> st:36 var
+R1483:1486 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R1463:1468 Coq.Lists.List <> firstn def
+R1479:1481 ThieleUniversal.CPU <> mem proj
+R1475:1476 ThieleUniversal.CPU <> st:36 var
+R1470:1473 ThieleUniversal.CPU <> addr:34 var
+R1490:1493 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R1487:1487 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1489:1489 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1488:1488 ThieleUniversal.CPU <> v:35 var
+R1494:1498 Coq.Lists.List <> skipn def
+R1513:1515 ThieleUniversal.CPU <> mem proj
+R1509:1510 ThieleUniversal.CPU <> st:36 var
+R1501:1501 Coq.Init.Datatypes <> S constr
+R1503:1506 ThieleUniversal.CPU <> addr:34 var
+R1531:1534 ThieleUniversal.CPU <> cost proj
+R1527:1528 ThieleUniversal.CPU <> st:36 var
+def 1615:1624 <> instr_cost
+R1631:1635 ThieleUniversal.CPU <> Instr ind
+binder 1627:1627 <> i:37
+R1640:1642 Coq.Init.Datatypes <> nat ind
+R1657:1657 ThieleUniversal.CPU <> i:37 var
+R1670:1678 ThieleUniversal.CPU <> LoadConst constr
+R1695:1706 ThieleUniversal.CPU <> LoadIndirect constr
+R1723:1735 ThieleUniversal.CPU <> StoreIndirect constr
+R1790:1796 ThieleUniversal.CPU <> CopyReg constr
+R1813:1820 ThieleUniversal.CPU <> AddConst constr
+R1837:1842 ThieleUniversal.CPU <> AddReg constr
+R1861:1866 ThieleUniversal.CPU <> SubReg constr
+R1885:1886 ThieleUniversal.CPU <> Jz constr
+R1903:1905 ThieleUniversal.CPU <> Jnz constr
+R1922:1925 ThieleUniversal.CPU <> Halt constr
+def 1993:1996 <> step
+R2003:2007 ThieleUniversal.CPU <> Instr ind
+binder 1999:1999 <> i:39
+R2016:2020 ThieleUniversal.CPU <> State rec
+binder 2011:2012 <> st:40
+R2025:2029 ThieleUniversal.CPU <> State rec
+R2048:2055 ThieleUniversal.CPU <> read_reg def
+R2057:2062 ThieleUniversal.CPU <> REG_PC def
+R2064:2065 ThieleUniversal.CPU <> st:40 var
+binder 2042:2043 <> pc:41
+R2085:2093 ThieleUniversal.CPU <> write_reg def
+R2095:2100 ThieleUniversal.CPU <> REG_PC def
+R2103:2103 Coq.Init.Datatypes <> S constr
+R2105:2106 ThieleUniversal.CPU <> pc:41 var
+R2109:2110 ThieleUniversal.CPU <> st:40 var
+binder 2078:2080 <> st':42
+R2137:2137 ThieleUniversal.CPU <> i:39 var
+R2150:2158 ThieleUniversal.CPU <> LoadConst constr
+R2171:2179 ThieleUniversal.CPU <> write_reg def
+R2186:2188 ThieleUniversal.CPU <> st':42 var
+R2196:2207 ThieleUniversal.CPU <> LoadIndirect constr
+R2219:2227 ThieleUniversal.CPU <> write_reg def
+R2233:2240 ThieleUniversal.CPU <> read_mem def
+R2243:2250 ThieleUniversal.CPU <> read_reg def
+R2255:2256 ThieleUniversal.CPU <> st:40 var
+R2259:2260 ThieleUniversal.CPU <> st:40 var
+R2263:2265 ThieleUniversal.CPU <> st':42 var
+R2273:2285 ThieleUniversal.CPU <> StoreIndirect constr
+R2296:2304 ThieleUniversal.CPU <> write_mem def
+R2307:2314 ThieleUniversal.CPU <> read_reg def
+R2319:2320 ThieleUniversal.CPU <> st:40 var
+R2324:2331 ThieleUniversal.CPU <> read_reg def
+R2336:2337 ThieleUniversal.CPU <> st:40 var
+R2340:2342 ThieleUniversal.CPU <> st':42 var
+R2350:2356 ThieleUniversal.CPU <> CopyReg constr
+R2371:2379 ThieleUniversal.CPU <> write_reg def
+R2385:2392 ThieleUniversal.CPU <> read_reg def
+R2397:2398 ThieleUniversal.CPU <> st:40 var
+R2401:2403 ThieleUniversal.CPU <> st':42 var
+R2411:2418 ThieleUniversal.CPU <> AddConst constr
+R2432:2440 ThieleUniversal.CPU <> write_reg def
+R2460:2462 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R2446:2453 ThieleUniversal.CPU <> read_reg def
+R2458:2459 ThieleUniversal.CPU <> st:40 var
+R2466:2468 ThieleUniversal.CPU <> st':42 var
+R2476:2481 ThieleUniversal.CPU <> AddReg constr
+R2497:2505 ThieleUniversal.CPU <> write_reg def
+R2526:2528 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R2511:2518 ThieleUniversal.CPU <> read_reg def
+R2524:2525 ThieleUniversal.CPU <> st:40 var
+R2529:2536 ThieleUniversal.CPU <> read_reg def
+R2542:2543 ThieleUniversal.CPU <> st:40 var
+R2546:2548 ThieleUniversal.CPU <> st':42 var
+R2556:2561 ThieleUniversal.CPU <> SubReg constr
+R2577:2585 ThieleUniversal.CPU <> write_reg def
+R2606:2608 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R2591:2598 ThieleUniversal.CPU <> read_reg def
+R2604:2605 ThieleUniversal.CPU <> st:40 var
+R2609:2616 ThieleUniversal.CPU <> read_reg def
+R2622:2623 ThieleUniversal.CPU <> st:40 var
+R2626:2628 ThieleUniversal.CPU <> st':42 var
+R2636:2637 ThieleUniversal.CPU <> Jz constr
+R2660:2666 Coq.Arith.PeanoNat Nat eqb def
+R2669:2676 ThieleUniversal.CPU <> read_reg def
+R2681:2682 ThieleUniversal.CPU <> st:40 var
+R2724:2726 ThieleUniversal.CPU <> st':42 var
+R2692:2700 ThieleUniversal.CPU <> write_reg def
+R2702:2707 ThieleUniversal.CPU <> REG_PC def
+R2716:2717 ThieleUniversal.CPU <> st:40 var
+R2734:2736 ThieleUniversal.CPU <> Jnz constr
+R2758:2764 Coq.Arith.PeanoNat Nat eqb def
+R2767:2774 ThieleUniversal.CPU <> read_reg def
+R2779:2780 ThieleUniversal.CPU <> st:40 var
+R2799:2807 ThieleUniversal.CPU <> write_reg def
+R2809:2814 ThieleUniversal.CPU <> REG_PC def
+R2823:2824 ThieleUniversal.CPU <> st:40 var
+R2790:2792 ThieleUniversal.CPU <> st':42 var
+R2832:2835 ThieleUniversal.CPU <> Halt constr
+R2853:2854 ThieleUniversal.CPU <> st:40 var
+binder 2123:2126 <> st'':44
+R2874:2877 ThieleUniversal.CPU <> regs proj
+R2874:2877 ThieleUniversal.CPU <> regs proj
+R2874:2877 ThieleUniversal.CPU <> regs proj
+R2895:2897 ThieleUniversal.CPU <> mem proj
+R2895:2897 ThieleUniversal.CPU <> mem proj
+R2914:2917 ThieleUniversal.CPU <> cost proj
+R2914:2917 ThieleUniversal.CPU <> cost proj
+R2888:2891 ThieleUniversal.CPU <> regs proj
+R2882:2885 ThieleUniversal.CPU <> st'':44 var
+R2908:2910 ThieleUniversal.CPU <> mem proj
+R2902:2905 ThieleUniversal.CPU <> st'':44 var
+R2933:2935 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R2928:2931 ThieleUniversal.CPU <> cost proj
+R2922:2925 ThieleUniversal.CPU <> st'':44 var
+R2936:2945 ThieleUniversal.CPU <> instr_cost def
+R2947:2947 ThieleUniversal.CPU <> i:39 var
+prf 3175:3190 <> read_pc_write_pc
+binder 3201:3201 <> v:45
+binder 3203:3204 <> st:46
+R3250:3252 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3211:3218 ThieleUniversal.CPU <> read_reg def
+R3220:3225 ThieleUniversal.CPU <> REG_PC def
+R3228:3236 ThieleUniversal.CPU <> write_reg def
+R3238:3243 ThieleUniversal.CPU <> REG_PC def
+R3245:3245 ThieleUniversal.CPU <> v:45 var
+R3247:3248 ThieleUniversal.CPU <> st:46 var
+R3253:3253 ThieleUniversal.CPU <> v:45 var
+R3289:3296 ThieleUniversal.CPU <> read_reg def
+R3299:3307 ThieleUniversal.CPU <> write_reg def
+prf 3400:3418 <> read_pc_write_nonpc
+binder 3429:3430 <> rd:47
+binder 3432:3432 <> v:48
+binder 3434:3435 <> st:49
+R3454:3457 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3444:3447 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3442:3443 ThieleUniversal.CPU <> rd:47 var
+R3448:3453 ThieleUniversal.CPU <> REG_PC def
+R3471:3478 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3465:3468 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3458:3461 ThieleUniversal.CPU <> regs proj
+R3463:3464 ThieleUniversal.CPU <> st:49 var
+R3469:3470 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3514:3516 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3479:3486 ThieleUniversal.CPU <> read_reg def
+R3488:3493 ThieleUniversal.CPU <> REG_PC def
+R3496:3504 ThieleUniversal.CPU <> write_reg def
+R3506:3507 ThieleUniversal.CPU <> rd:47 var
+R3509:3509 ThieleUniversal.CPU <> v:48 var
+R3511:3512 ThieleUniversal.CPU <> st:49 var
+R3517:3524 ThieleUniversal.CPU <> read_reg def
+R3526:3531 ThieleUniversal.CPU <> REG_PC def
+R3533:3534 ThieleUniversal.CPU <> st:49 var
+R3583:3590 ThieleUniversal.CPU <> read_reg def
+R3593:3601 ThieleUniversal.CPU <> write_reg def
+R3670:3673 ThieleUniversal.CPU <> regs proj
+R3670:3673 ThieleUniversal.CPU <> regs proj
+prf 3852:3868 <> read_pc_write_mem
+binder 3879:3882 <> addr:50
+binder 3884:3884 <> v:51
+binder 3886:3887 <> st:52
+R3931:3933 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3894:3901 ThieleUniversal.CPU <> read_reg def
+R3903:3908 ThieleUniversal.CPU <> REG_PC def
+R3911:3919 ThieleUniversal.CPU <> write_mem def
+R3921:3924 ThieleUniversal.CPU <> addr:50 var
+R3926:3926 ThieleUniversal.CPU <> v:51 var
+R3928:3929 ThieleUniversal.CPU <> st:52 var
+R3934:3941 ThieleUniversal.CPU <> read_reg def
+R3943:3948 ThieleUniversal.CPU <> REG_PC def
+R3950:3951 ThieleUniversal.CPU <> st:52 var
+R3992:3999 ThieleUniversal.CPU <> read_reg def
+R4002:4010 ThieleUniversal.CPU <> write_mem def
+def 4115:4126 <> pc_unchanged
+R4131:4135 ThieleUniversal.CPU <> Instr ind
+binder 4129:4129 <> i:53
+R4158:4158 ThieleUniversal.CPU <> i:53 var
+R4171:4179 ThieleUniversal.CPU <> LoadConst constr
+R4188:4199 ThieleUniversal.CPU <> LoadIndirect constr
+R4208:4214 ThieleUniversal.CPU <> CopyReg constr
+R4227:4234 ThieleUniversal.CPU <> AddConst constr
+R4243:4248 ThieleUniversal.CPU <> AddReg constr
+R4259:4264 ThieleUniversal.CPU <> SubReg constr
+R4278:4281 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4282:4287 ThieleUniversal.CPU <> REG_PC def
+R4278:4281 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4282:4287 ThieleUniversal.CPU <> REG_PC def
+R4278:4281 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4282:4287 ThieleUniversal.CPU <> REG_PC def
+R4278:4281 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4282:4287 ThieleUniversal.CPU <> REG_PC def
+R4278:4281 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4282:4287 ThieleUniversal.CPU <> REG_PC def
+R4278:4281 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4282:4287 ThieleUniversal.CPU <> REG_PC def
+R4295:4307 ThieleUniversal.CPU <> StoreIndirect constr
+R4316:4319 Coq.Init.Logic <> True ind
+R4332:4336 Coq.Init.Logic <> False ind
+prf 4403:4414 <> step_pc_succ
+binder 4425:4425 <> i:55
+binder 4427:4428 <> st:56
+R4449:4456 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4435:4446 ThieleUniversal.CPU <> pc_unchanged def
+R4448:4448 ThieleUniversal.CPU <> i:55 var
+R4484:4486 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4457:4464 ThieleUniversal.CPU <> read_reg def
+R4466:4471 ThieleUniversal.CPU <> REG_PC def
+R4474:4477 ThieleUniversal.CPU <> step def
+R4479:4479 ThieleUniversal.CPU <> i:55 var
+R4481:4482 ThieleUniversal.CPU <> st:56 var
+R4487:4487 Coq.Init.Datatypes <> S constr
+R4490:4497 ThieleUniversal.CPU <> read_reg def
+R4499:4504 ThieleUniversal.CPU <> REG_PC def
+R4506:4507 ThieleUniversal.CPU <> st:56 var
+R4743:4746 ThieleUniversal.CPU <> step def
+R4837:4840 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4786:4789 ThieleUniversal.CPU <> regs proj
+R4792:4800 ThieleUniversal.CPU <> write_reg def
+R4802:4807 ThieleUniversal.CPU <> REG_PC def
+R4810:4810 Coq.Init.Datatypes <> S constr
+R4813:4820 ThieleUniversal.CPU <> read_reg def
+R4822:4827 ThieleUniversal.CPU <> REG_PC def
+R4841:4842 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4865:4873 ThieleUniversal.CPU <> write_reg def
+R4837:4840 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4786:4789 ThieleUniversal.CPU <> regs proj
+R4792:4800 ThieleUniversal.CPU <> write_reg def
+R4802:4807 ThieleUniversal.CPU <> REG_PC def
+R4810:4810 Coq.Init.Datatypes <> S constr
+R4813:4820 ThieleUniversal.CPU <> read_reg def
+R4822:4827 ThieleUniversal.CPU <> REG_PC def
+R4841:4842 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4925:4932 ThieleUniversal.CPU <> read_reg def
+R4934:4939 ThieleUniversal.CPU <> REG_PC def
+R4942:4950 ThieleUniversal.CPU <> write_reg def
+R4952:4957 ThieleUniversal.CPU <> REG_PC def
+R4960:4960 Coq.Init.Datatypes <> S constr
+R4963:4970 ThieleUniversal.CPU <> read_reg def
+R4972:4977 ThieleUniversal.CPU <> REG_PC def
+R4910:4917 Coq.Init.Logic <> eq_trans thm
+R4925:4932 ThieleUniversal.CPU <> read_reg def
+R4934:4939 ThieleUniversal.CPU <> REG_PC def
+R4942:4950 ThieleUniversal.CPU <> write_reg def
+R4952:4957 ThieleUniversal.CPU <> REG_PC def
+R4960:4960 Coq.Init.Datatypes <> S constr
+R4963:4970 ThieleUniversal.CPU <> read_reg def
+R4972:4977 ThieleUniversal.CPU <> REG_PC def
+R4910:4917 Coq.Init.Logic <> eq_trans thm
+R5003:5021 ThieleUniversal.CPU <> read_pc_write_nonpc thm
+R5039:5047 ThieleUniversal.CPU <> write_reg def
+R5049:5054 ThieleUniversal.CPU <> REG_PC def
+R5057:5057 Coq.Init.Datatypes <> S constr
+R5060:5067 ThieleUniversal.CPU <> read_reg def
+R5069:5074 ThieleUniversal.CPU <> REG_PC def
+R5003:5021 ThieleUniversal.CPU <> read_pc_write_nonpc thm
+R5039:5047 ThieleUniversal.CPU <> write_reg def
+R5049:5054 ThieleUniversal.CPU <> REG_PC def
+R5057:5057 Coq.Init.Datatypes <> S constr
+R5060:5067 ThieleUniversal.CPU <> read_reg def
+R5069:5074 ThieleUniversal.CPU <> REG_PC def
+R5111:5126 ThieleUniversal.CPU <> read_pc_write_pc thm
+R5111:5126 ThieleUniversal.CPU <> read_pc_write_pc thm
+R5111:5126 ThieleUniversal.CPU <> read_pc_write_pc thm
+R5226:5229 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5175:5178 ThieleUniversal.CPU <> regs proj
+R5181:5189 ThieleUniversal.CPU <> write_reg def
+R5191:5196 ThieleUniversal.CPU <> REG_PC def
+R5199:5199 Coq.Init.Datatypes <> S constr
+R5202:5209 ThieleUniversal.CPU <> read_reg def
+R5211:5216 ThieleUniversal.CPU <> REG_PC def
+R5230:5231 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5254:5262 ThieleUniversal.CPU <> write_reg def
+R5226:5229 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5175:5178 ThieleUniversal.CPU <> regs proj
+R5181:5189 ThieleUniversal.CPU <> write_reg def
+R5191:5196 ThieleUniversal.CPU <> REG_PC def
+R5199:5199 Coq.Init.Datatypes <> S constr
+R5202:5209 ThieleUniversal.CPU <> read_reg def
+R5211:5216 ThieleUniversal.CPU <> REG_PC def
+R5230:5231 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5314:5321 ThieleUniversal.CPU <> read_reg def
+R5323:5328 ThieleUniversal.CPU <> REG_PC def
+R5331:5339 ThieleUniversal.CPU <> write_reg def
+R5341:5346 ThieleUniversal.CPU <> REG_PC def
+R5349:5349 Coq.Init.Datatypes <> S constr
+R5352:5359 ThieleUniversal.CPU <> read_reg def
+R5361:5366 ThieleUniversal.CPU <> REG_PC def
+R5299:5306 Coq.Init.Logic <> eq_trans thm
+R5314:5321 ThieleUniversal.CPU <> read_reg def
+R5323:5328 ThieleUniversal.CPU <> REG_PC def
+R5331:5339 ThieleUniversal.CPU <> write_reg def
+R5341:5346 ThieleUniversal.CPU <> REG_PC def
+R5349:5349 Coq.Init.Datatypes <> S constr
+R5352:5359 ThieleUniversal.CPU <> read_reg def
+R5361:5366 ThieleUniversal.CPU <> REG_PC def
+R5299:5306 Coq.Init.Logic <> eq_trans thm
+R5392:5410 ThieleUniversal.CPU <> read_pc_write_nonpc thm
+R5429:5436 ThieleUniversal.CPU <> read_mem def
+R5439:5446 ThieleUniversal.CPU <> read_reg def
+R5460:5468 ThieleUniversal.CPU <> write_reg def
+R5470:5475 ThieleUniversal.CPU <> REG_PC def
+R5478:5478 Coq.Init.Datatypes <> S constr
+R5481:5488 ThieleUniversal.CPU <> read_reg def
+R5490:5495 ThieleUniversal.CPU <> REG_PC def
+R5392:5410 ThieleUniversal.CPU <> read_pc_write_nonpc thm
+R5429:5436 ThieleUniversal.CPU <> read_mem def
+R5439:5446 ThieleUniversal.CPU <> read_reg def
+R5460:5468 ThieleUniversal.CPU <> write_reg def
+R5470:5475 ThieleUniversal.CPU <> REG_PC def
+R5478:5478 Coq.Init.Datatypes <> S constr
+R5481:5488 ThieleUniversal.CPU <> read_reg def
+R5490:5495 ThieleUniversal.CPU <> REG_PC def
+R5532:5547 ThieleUniversal.CPU <> read_pc_write_pc thm
+R5532:5547 ThieleUniversal.CPU <> read_pc_write_pc thm
+R5532:5547 ThieleUniversal.CPU <> read_pc_write_pc thm
+R5610:5617 ThieleUniversal.CPU <> read_reg def
+R5619:5624 ThieleUniversal.CPU <> REG_PC def
+R5627:5635 ThieleUniversal.CPU <> write_reg def
+R5637:5642 ThieleUniversal.CPU <> REG_PC def
+R5645:5645 Coq.Init.Datatypes <> S constr
+R5648:5655 ThieleUniversal.CPU <> read_reg def
+R5657:5662 ThieleUniversal.CPU <> REG_PC def
+R5595:5602 Coq.Init.Logic <> eq_trans thm
+R5610:5617 ThieleUniversal.CPU <> read_reg def
+R5619:5624 ThieleUniversal.CPU <> REG_PC def
+R5627:5635 ThieleUniversal.CPU <> write_reg def
+R5637:5642 ThieleUniversal.CPU <> REG_PC def
+R5645:5645 Coq.Init.Datatypes <> S constr
+R5648:5655 ThieleUniversal.CPU <> read_reg def
+R5657:5662 ThieleUniversal.CPU <> REG_PC def
+R5595:5602 Coq.Init.Logic <> eq_trans thm
+R5688:5704 ThieleUniversal.CPU <> read_pc_write_mem thm
+R5707:5714 ThieleUniversal.CPU <> read_reg def
+R5730:5737 ThieleUniversal.CPU <> read_reg def
+R5747:5755 ThieleUniversal.CPU <> write_reg def
+R5757:5762 ThieleUniversal.CPU <> REG_PC def
+R5765:5765 Coq.Init.Datatypes <> S constr
+R5768:5775 ThieleUniversal.CPU <> read_reg def
+R5777:5782 ThieleUniversal.CPU <> REG_PC def
+R5688:5704 ThieleUniversal.CPU <> read_pc_write_mem thm
+R5707:5714 ThieleUniversal.CPU <> read_reg def
+R5730:5737 ThieleUniversal.CPU <> read_reg def
+R5747:5755 ThieleUniversal.CPU <> write_reg def
+R5757:5762 ThieleUniversal.CPU <> REG_PC def
+R5765:5765 Coq.Init.Datatypes <> S constr
+R5768:5775 ThieleUniversal.CPU <> read_reg def
+R5777:5782 ThieleUniversal.CPU <> REG_PC def
+R5809:5824 ThieleUniversal.CPU <> read_pc_write_pc thm
+R5809:5824 ThieleUniversal.CPU <> read_pc_write_pc thm
+R5809:5824 ThieleUniversal.CPU <> read_pc_write_pc thm
+R5919:5922 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5868:5871 ThieleUniversal.CPU <> regs proj
+R5874:5882 ThieleUniversal.CPU <> write_reg def
+R5884:5889 ThieleUniversal.CPU <> REG_PC def
+R5892:5892 Coq.Init.Datatypes <> S constr
+R5895:5902 ThieleUniversal.CPU <> read_reg def
+R5904:5909 ThieleUniversal.CPU <> REG_PC def
+R5923:5924 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5947:5955 ThieleUniversal.CPU <> write_reg def
+R5919:5922 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5868:5871 ThieleUniversal.CPU <> regs proj
+R5874:5882 ThieleUniversal.CPU <> write_reg def
+R5884:5889 ThieleUniversal.CPU <> REG_PC def
+R5892:5892 Coq.Init.Datatypes <> S constr
+R5895:5902 ThieleUniversal.CPU <> read_reg def
+R5904:5909 ThieleUniversal.CPU <> REG_PC def
+R5923:5924 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6007:6014 ThieleUniversal.CPU <> read_reg def
+R6016:6021 ThieleUniversal.CPU <> REG_PC def
+R6024:6032 ThieleUniversal.CPU <> write_reg def
+R6034:6039 ThieleUniversal.CPU <> REG_PC def
+R6042:6042 Coq.Init.Datatypes <> S constr
+R6045:6052 ThieleUniversal.CPU <> read_reg def
+R6054:6059 ThieleUniversal.CPU <> REG_PC def
+R5992:5999 Coq.Init.Logic <> eq_trans thm
+R6007:6014 ThieleUniversal.CPU <> read_reg def
+R6016:6021 ThieleUniversal.CPU <> REG_PC def
+R6024:6032 ThieleUniversal.CPU <> write_reg def
+R6034:6039 ThieleUniversal.CPU <> REG_PC def
+R6042:6042 Coq.Init.Datatypes <> S constr
+R6045:6052 ThieleUniversal.CPU <> read_reg def
+R6054:6059 ThieleUniversal.CPU <> REG_PC def
+R5992:5999 Coq.Init.Logic <> eq_trans thm
+R6085:6103 ThieleUniversal.CPU <> read_pc_write_nonpc thm
+R6114:6121 ThieleUniversal.CPU <> read_reg def
+R6131:6139 ThieleUniversal.CPU <> write_reg def
+R6141:6146 ThieleUniversal.CPU <> REG_PC def
+R6149:6149 Coq.Init.Datatypes <> S constr
+R6152:6159 ThieleUniversal.CPU <> read_reg def
+R6161:6166 ThieleUniversal.CPU <> REG_PC def
+R6085:6103 ThieleUniversal.CPU <> read_pc_write_nonpc thm
+R6114:6121 ThieleUniversal.CPU <> read_reg def
+R6131:6139 ThieleUniversal.CPU <> write_reg def
+R6141:6146 ThieleUniversal.CPU <> REG_PC def
+R6149:6149 Coq.Init.Datatypes <> S constr
+R6152:6159 ThieleUniversal.CPU <> read_reg def
+R6161:6166 ThieleUniversal.CPU <> REG_PC def
+R6203:6218 ThieleUniversal.CPU <> read_pc_write_pc thm
+R6203:6218 ThieleUniversal.CPU <> read_pc_write_pc thm
+R6203:6218 ThieleUniversal.CPU <> read_pc_write_pc thm
+R6314:6317 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R6263:6266 ThieleUniversal.CPU <> regs proj
+R6269:6277 ThieleUniversal.CPU <> write_reg def
+R6279:6284 ThieleUniversal.CPU <> REG_PC def
+R6287:6287 Coq.Init.Datatypes <> S constr
+R6290:6297 ThieleUniversal.CPU <> read_reg def
+R6299:6304 ThieleUniversal.CPU <> REG_PC def
+R6318:6319 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6342:6350 ThieleUniversal.CPU <> write_reg def
+R6314:6317 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R6263:6266 ThieleUniversal.CPU <> regs proj
+R6269:6277 ThieleUniversal.CPU <> write_reg def
+R6279:6284 ThieleUniversal.CPU <> REG_PC def
+R6287:6287 Coq.Init.Datatypes <> S constr
+R6290:6297 ThieleUniversal.CPU <> read_reg def
+R6299:6304 ThieleUniversal.CPU <> REG_PC def
+R6318:6319 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6402:6409 ThieleUniversal.CPU <> read_reg def
+R6411:6416 ThieleUniversal.CPU <> REG_PC def
+R6419:6427 ThieleUniversal.CPU <> write_reg def
+R6429:6434 ThieleUniversal.CPU <> REG_PC def
+R6437:6437 Coq.Init.Datatypes <> S constr
+R6440:6447 ThieleUniversal.CPU <> read_reg def
+R6449:6454 ThieleUniversal.CPU <> REG_PC def
+R6387:6394 Coq.Init.Logic <> eq_trans thm
+R6402:6409 ThieleUniversal.CPU <> read_reg def
+R6411:6416 ThieleUniversal.CPU <> REG_PC def
+R6419:6427 ThieleUniversal.CPU <> write_reg def
+R6429:6434 ThieleUniversal.CPU <> REG_PC def
+R6437:6437 Coq.Init.Datatypes <> S constr
+R6440:6447 ThieleUniversal.CPU <> read_reg def
+R6449:6454 ThieleUniversal.CPU <> REG_PC def
+R6387:6394 Coq.Init.Logic <> eq_trans thm
+R6480:6498 ThieleUniversal.CPU <> read_pc_write_nonpc thm
+R6526:6528 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R6508:6515 ThieleUniversal.CPU <> read_reg def
+R6537:6545 ThieleUniversal.CPU <> write_reg def
+R6547:6552 ThieleUniversal.CPU <> REG_PC def
+R6555:6555 Coq.Init.Datatypes <> S constr
+R6558:6565 ThieleUniversal.CPU <> read_reg def
+R6567:6572 ThieleUniversal.CPU <> REG_PC def
+R6480:6498 ThieleUniversal.CPU <> read_pc_write_nonpc thm
+R6526:6528 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R6508:6515 ThieleUniversal.CPU <> read_reg def
+R6537:6545 ThieleUniversal.CPU <> write_reg def
+R6547:6552 ThieleUniversal.CPU <> REG_PC def
+R6555:6555 Coq.Init.Datatypes <> S constr
+R6558:6565 ThieleUniversal.CPU <> read_reg def
+R6567:6572 ThieleUniversal.CPU <> REG_PC def
+R6609:6624 ThieleUniversal.CPU <> read_pc_write_pc thm
+R6609:6624 ThieleUniversal.CPU <> read_pc_write_pc thm
+R6609:6624 ThieleUniversal.CPU <> read_pc_write_pc thm
+R6718:6721 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R6667:6670 ThieleUniversal.CPU <> regs proj
+R6673:6681 ThieleUniversal.CPU <> write_reg def
+R6683:6688 ThieleUniversal.CPU <> REG_PC def
+R6691:6691 Coq.Init.Datatypes <> S constr
+R6694:6701 ThieleUniversal.CPU <> read_reg def
+R6703:6708 ThieleUniversal.CPU <> REG_PC def
+R6722:6723 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6746:6754 ThieleUniversal.CPU <> write_reg def
+R6718:6721 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R6667:6670 ThieleUniversal.CPU <> regs proj
+R6673:6681 ThieleUniversal.CPU <> write_reg def
+R6683:6688 ThieleUniversal.CPU <> REG_PC def
+R6691:6691 Coq.Init.Datatypes <> S constr
+R6694:6701 ThieleUniversal.CPU <> read_reg def
+R6703:6708 ThieleUniversal.CPU <> REG_PC def
+R6722:6723 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6806:6813 ThieleUniversal.CPU <> read_reg def
+R6815:6820 ThieleUniversal.CPU <> REG_PC def
+R6823:6831 ThieleUniversal.CPU <> write_reg def
+R6833:6838 ThieleUniversal.CPU <> REG_PC def
+R6841:6841 Coq.Init.Datatypes <> S constr
+R6844:6851 ThieleUniversal.CPU <> read_reg def
+R6853:6858 ThieleUniversal.CPU <> REG_PC def
+R6791:6798 Coq.Init.Logic <> eq_trans thm
+R6806:6813 ThieleUniversal.CPU <> read_reg def
+R6815:6820 ThieleUniversal.CPU <> REG_PC def
+R6823:6831 ThieleUniversal.CPU <> write_reg def
+R6833:6838 ThieleUniversal.CPU <> REG_PC def
+R6841:6841 Coq.Init.Datatypes <> S constr
+R6844:6851 ThieleUniversal.CPU <> read_reg def
+R6853:6858 ThieleUniversal.CPU <> REG_PC def
+R6791:6798 Coq.Init.Logic <> eq_trans thm
+R6884:6902 ThieleUniversal.CPU <> read_pc_write_nonpc thm
+R6929:6931 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R6915:6922 ThieleUniversal.CPU <> read_reg def
+R6932:6939 ThieleUniversal.CPU <> read_reg def
+R6949:6957 ThieleUniversal.CPU <> write_reg def
+R6959:6964 ThieleUniversal.CPU <> REG_PC def
+R6967:6967 Coq.Init.Datatypes <> S constr
+R6970:6977 ThieleUniversal.CPU <> read_reg def
+R6979:6984 ThieleUniversal.CPU <> REG_PC def
+R6884:6902 ThieleUniversal.CPU <> read_pc_write_nonpc thm
+R6929:6931 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R6915:6922 ThieleUniversal.CPU <> read_reg def
+R6932:6939 ThieleUniversal.CPU <> read_reg def
+R6949:6957 ThieleUniversal.CPU <> write_reg def
+R6959:6964 ThieleUniversal.CPU <> REG_PC def
+R6967:6967 Coq.Init.Datatypes <> S constr
+R6970:6977 ThieleUniversal.CPU <> read_reg def
+R6979:6984 ThieleUniversal.CPU <> REG_PC def
+R7021:7036 ThieleUniversal.CPU <> read_pc_write_pc thm
+R7021:7036 ThieleUniversal.CPU <> read_pc_write_pc thm
+R7021:7036 ThieleUniversal.CPU <> read_pc_write_pc thm
+R7130:7133 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R7079:7082 ThieleUniversal.CPU <> regs proj
+R7085:7093 ThieleUniversal.CPU <> write_reg def
+R7095:7100 ThieleUniversal.CPU <> REG_PC def
+R7103:7103 Coq.Init.Datatypes <> S constr
+R7106:7113 ThieleUniversal.CPU <> read_reg def
+R7115:7120 ThieleUniversal.CPU <> REG_PC def
+R7134:7135 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7158:7166 ThieleUniversal.CPU <> write_reg def
+R7130:7133 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R7079:7082 ThieleUniversal.CPU <> regs proj
+R7085:7093 ThieleUniversal.CPU <> write_reg def
+R7095:7100 ThieleUniversal.CPU <> REG_PC def
+R7103:7103 Coq.Init.Datatypes <> S constr
+R7106:7113 ThieleUniversal.CPU <> read_reg def
+R7115:7120 ThieleUniversal.CPU <> REG_PC def
+R7134:7135 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7218:7225 ThieleUniversal.CPU <> read_reg def
+R7227:7232 ThieleUniversal.CPU <> REG_PC def
+R7235:7243 ThieleUniversal.CPU <> write_reg def
+R7245:7250 ThieleUniversal.CPU <> REG_PC def
+R7253:7253 Coq.Init.Datatypes <> S constr
+R7256:7263 ThieleUniversal.CPU <> read_reg def
+R7265:7270 ThieleUniversal.CPU <> REG_PC def
+R7203:7210 Coq.Init.Logic <> eq_trans thm
+R7218:7225 ThieleUniversal.CPU <> read_reg def
+R7227:7232 ThieleUniversal.CPU <> REG_PC def
+R7235:7243 ThieleUniversal.CPU <> write_reg def
+R7245:7250 ThieleUniversal.CPU <> REG_PC def
+R7253:7253 Coq.Init.Datatypes <> S constr
+R7256:7263 ThieleUniversal.CPU <> read_reg def
+R7265:7270 ThieleUniversal.CPU <> REG_PC def
+R7203:7210 Coq.Init.Logic <> eq_trans thm
+R7296:7314 ThieleUniversal.CPU <> read_pc_write_nonpc thm
+R7338:7340 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R7324:7331 ThieleUniversal.CPU <> read_reg def
+R7341:7348 ThieleUniversal.CPU <> read_reg def
+R7358:7366 ThieleUniversal.CPU <> write_reg def
+R7368:7373 ThieleUniversal.CPU <> REG_PC def
+R7376:7376 Coq.Init.Datatypes <> S constr
+R7379:7386 ThieleUniversal.CPU <> read_reg def
+R7388:7393 ThieleUniversal.CPU <> REG_PC def
+R7296:7314 ThieleUniversal.CPU <> read_pc_write_nonpc thm
+R7338:7340 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R7324:7331 ThieleUniversal.CPU <> read_reg def
+R7341:7348 ThieleUniversal.CPU <> read_reg def
+R7358:7366 ThieleUniversal.CPU <> write_reg def
+R7368:7373 ThieleUniversal.CPU <> REG_PC def
+R7376:7376 Coq.Init.Datatypes <> S constr
+R7379:7386 ThieleUniversal.CPU <> read_reg def
+R7388:7393 ThieleUniversal.CPU <> REG_PC def
+R7430:7445 ThieleUniversal.CPU <> read_pc_write_pc thm
+R7430:7445 ThieleUniversal.CPU <> read_pc_write_pc thm
+R7430:7445 ThieleUniversal.CPU <> read_pc_write_pc thm
+prf 7661:7672 <> step_jz_true
+binder 7683:7684 <> rc:57
+binder 7686:7691 <> target:58
+binder 7693:7694 <> st:59
+R7734:7741 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7727:7729 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7701:7707 Coq.Arith.PeanoNat Nat eqb def
+R7710:7717 ThieleUniversal.CPU <> read_reg def
+R7719:7720 ThieleUniversal.CPU <> rc:57 var
+R7722:7723 ThieleUniversal.CPU <> st:59 var
+R7730:7733 Coq.Init.Datatypes <> true constr
+R7782:7784 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7742:7749 ThieleUniversal.CPU <> read_reg def
+R7751:7756 ThieleUniversal.CPU <> REG_PC def
+R7759:7762 ThieleUniversal.CPU <> step def
+R7765:7766 ThieleUniversal.CPU <> Jz constr
+R7768:7769 ThieleUniversal.CPU <> rc:57 var
+R7771:7776 ThieleUniversal.CPU <> target:58 var
+R7779:7780 ThieleUniversal.CPU <> st:59 var
+R7785:7790 ThieleUniversal.CPU <> target:58 var
+R7842:7845 ThieleUniversal.CPU <> step def
+prf 7945:7957 <> step_jz_false
+binder 7968:7969 <> rc:60
+binder 7971:7976 <> target:61
+binder 7978:7979 <> st:62
+R8020:8027 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8012:8014 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7986:7992 Coq.Arith.PeanoNat Nat eqb def
+R7995:8002 ThieleUniversal.CPU <> read_reg def
+R8004:8005 ThieleUniversal.CPU <> rc:60 var
+R8007:8008 ThieleUniversal.CPU <> st:62 var
+R8015:8019 Coq.Init.Datatypes <> false constr
+R8068:8070 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8028:8035 ThieleUniversal.CPU <> read_reg def
+R8037:8042 ThieleUniversal.CPU <> REG_PC def
+R8045:8048 ThieleUniversal.CPU <> step def
+R8051:8052 ThieleUniversal.CPU <> Jz constr
+R8054:8055 ThieleUniversal.CPU <> rc:60 var
+R8057:8062 ThieleUniversal.CPU <> target:61 var
+R8065:8066 ThieleUniversal.CPU <> st:62 var
+R8071:8071 Coq.Init.Datatypes <> S constr
+R8074:8081 ThieleUniversal.CPU <> read_reg def
+R8083:8088 ThieleUniversal.CPU <> REG_PC def
+R8090:8091 ThieleUniversal.CPU <> st:62 var
+R8144:8147 ThieleUniversal.CPU <> step def
+prf 8247:8259 <> step_jnz_true
+binder 8270:8271 <> rc:63
+binder 8273:8278 <> target:64
+binder 8280:8281 <> st:65
+R8321:8328 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8314:8316 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8288:8294 Coq.Arith.PeanoNat Nat eqb def
+R8297:8304 ThieleUniversal.CPU <> read_reg def
+R8306:8307 ThieleUniversal.CPU <> rc:63 var
+R8309:8310 ThieleUniversal.CPU <> st:65 var
+R8317:8320 Coq.Init.Datatypes <> true constr
+R8370:8372 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8329:8336 ThieleUniversal.CPU <> read_reg def
+R8338:8343 ThieleUniversal.CPU <> REG_PC def
+R8346:8349 ThieleUniversal.CPU <> step def
+R8352:8354 ThieleUniversal.CPU <> Jnz constr
+R8356:8357 ThieleUniversal.CPU <> rc:63 var
+R8359:8364 ThieleUniversal.CPU <> target:64 var
+R8367:8368 ThieleUniversal.CPU <> st:65 var
+R8373:8373 Coq.Init.Datatypes <> S constr
+R8376:8383 ThieleUniversal.CPU <> read_reg def
+R8385:8390 ThieleUniversal.CPU <> REG_PC def
+R8392:8393 ThieleUniversal.CPU <> st:65 var
+R8446:8449 ThieleUniversal.CPU <> step def
+prf 8550:8563 <> step_jnz_false
+binder 8574:8575 <> rc:66
+binder 8577:8582 <> target:67
+binder 8584:8585 <> st:68
+R8626:8633 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8618:8620 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8592:8598 Coq.Arith.PeanoNat Nat eqb def
+R8601:8608 ThieleUniversal.CPU <> read_reg def
+R8610:8611 ThieleUniversal.CPU <> rc:66 var
+R8613:8614 ThieleUniversal.CPU <> st:68 var
+R8621:8625 Coq.Init.Datatypes <> false constr
+R8675:8677 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8634:8641 ThieleUniversal.CPU <> read_reg def
+R8643:8648 ThieleUniversal.CPU <> REG_PC def
+R8651:8654 ThieleUniversal.CPU <> step def
+R8657:8659 ThieleUniversal.CPU <> Jnz constr
+R8661:8662 ThieleUniversal.CPU <> rc:66 var
+R8664:8669 ThieleUniversal.CPU <> target:67 var
+R8672:8673 ThieleUniversal.CPU <> st:68 var
+R8678:8683 ThieleUniversal.CPU <> target:67 var
+R8735:8738 ThieleUniversal.CPU <> step def
+def 9439:9455 <> cpu_state_mu_cost
+R9463:9469 Kernel.VMState <> VMState rec
+binder 9458:9459 <> vm:69
+R9474:9476 Coq.Init.Datatypes <> nat ind
+R9481:9485 Kernel.VMState <> vm_mu proj
+R9487:9488 ThieleUniversal.CPU <> vm:69 var
+def 9628:9645 <> cpu_regs_in_vm_mem
+R9653:9659 Kernel.VMState <> VMState rec
+binder 9648:9649 <> vm:70
+R9664:9667 Coq.Init.Datatypes <> list ind
+R9669:9671 Coq.Init.Datatypes <> nat ind
+R9676:9681 Kernel.VMState <> vm_mem proj
+R9683:9684 ThieleUniversal.CPU <> vm:70 var

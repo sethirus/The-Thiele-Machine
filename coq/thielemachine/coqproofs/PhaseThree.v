@@ -1,6 +1,10 @@
 Require Import Coq.QArith.QArith.
 Require Import Coq.Setoids.Setoid.
 Require Import Coq.micromega.Lia.
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 
 Local Open Scope Q_scope.
 

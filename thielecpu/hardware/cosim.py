@@ -234,6 +234,11 @@ def program_to_hex(program: str) -> Tuple[List[str], List[str], Dict[str, int]]:
             if lq_parts:
                 init_state["INIT_LOGIC_REQ_VALID"] = int(lq_parts[0]) & 0x1
             continue
+        if op == "INIT_LOGIC_ACC":
+            la_parts = arg.split()
+            if la_parts:
+                init_state["INIT_LOGIC_ACC"] = int(la_parts[0], 0) & 0xFFFFFFFF
+            continue
 
         if op == "PNEW":
             # PNEW {region} cost  OR  PNEW a b cost (numeric format)

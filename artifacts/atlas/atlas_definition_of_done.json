@@ -1,0 +1,209 @@
+{
+  "status": "NOT_COMPLETED",
+  "completed": false,
+  "checks": [
+    {
+      "name": "isomorphism_score",
+      "actual": 78.49,
+      "comparator": ">=",
+      "threshold": 95.0,
+      "passed": false
+    },
+    {
+      "name": "triad_completion_ratio",
+      "actual": 0.4299,
+      "comparator": ">=",
+      "threshold": 0.85,
+      "passed": false
+    },
+    {
+      "name": "core_bridge_ratio",
+      "actual": 0.9555,
+      "comparator": ">=",
+      "threshold": 0.99,
+      "passed": false
+    },
+    {
+      "name": "test_prod_symbol_coverage_ratio",
+      "actual": 0.0669,
+      "comparator": ">=",
+      "threshold": 0.15,
+      "passed": false
+    },
+    {
+      "name": "test_prod_file_coverage_ratio",
+      "actual": 0.4584,
+      "comparator": ">=",
+      "threshold": 0.5,
+      "passed": false
+    },
+    {
+      "name": "isolated_test_files",
+      "actual": 0.0,
+      "comparator": "<=",
+      "threshold": 0.0,
+      "passed": true
+    },
+    {
+      "name": "per_proof_doc_ratio",
+      "actual": 0.9921,
+      "comparator": ">=",
+      "threshold": 0.99,
+      "passed": true
+    },
+    {
+      "name": "proof_files_with_readme_ratio",
+      "actual": 0.9716,
+      "comparator": ">=",
+      "threshold": 1.0,
+      "passed": false
+    },
+    {
+      "name": "kernel_proof_latex_coverage_ratio",
+      "actual": 0.9701,
+      "comparator": ">=",
+      "threshold": 0.99,
+      "passed": false
+    },
+    {
+      "name": "proof_connectivity_gaps",
+      "actual": 0.0,
+      "comparator": "<=",
+      "threshold": 0.0,
+      "passed": true
+    },
+    {
+      "name": "cross_layer_foundation_disconnects",
+      "actual": 0.0,
+      "comparator": "<=",
+      "threshold": 0.0,
+      "passed": true
+    },
+    {
+      "name": "coq_compile_pass",
+      "actual": 1.0,
+      "comparator": ">=",
+      "threshold": 1.0,
+      "passed": true
+    },
+    {
+      "name": "ocaml_extraction_build_pass",
+      "actual": 1.0,
+      "comparator": ">=",
+      "threshold": 1.0,
+      "passed": true
+    },
+    {
+      "name": "extraction_freshness_pass",
+      "actual": 1.0,
+      "comparator": ">=",
+      "threshold": 1.0,
+      "passed": true
+    },
+    {
+      "name": "rtl_synthesis_pass",
+      "actual": 1.0,
+      "comparator": ">=",
+      "threshold": 1.0,
+      "passed": true
+    },
+    {
+      "name": "inquisitor_strict_pass",
+      "actual": 1.0,
+      "comparator": "==",
+      "threshold": 1.0,
+      "passed": true
+    },
+    {
+      "name": "isomorphism_proof_chain_gaps",
+      "actual": 0.0,
+      "comparator": "<=",
+      "threshold": 0.0,
+      "passed": true
+    },
+    {
+      "name": "opcode_parity_violations",
+      "actual": 0.0,
+      "comparator": "<=",
+      "threshold": 0.0,
+      "passed": true
+    },
+    {
+      "name": "test_proof_lockstep_violations",
+      "actual": 0.0,
+      "comparator": "<=",
+      "threshold": 0.0,
+      "passed": true
+    },
+    {
+      "name": "extraction_semantic_violations",
+      "actual": 0.0,
+      "comparator": "<=",
+      "threshold": 0.0,
+      "passed": true
+    },
+    {
+      "name": "foundation_utilization_gaps",
+      "actual": 0.0,
+      "comparator": "<=",
+      "threshold": 0.0,
+      "passed": true
+    }
+  ],
+  "unmet_check_count": 7,
+  "unmet_checks": [
+    {
+      "name": "isomorphism_score",
+      "actual": 78.49,
+      "comparator": ">=",
+      "threshold": 95.0,
+      "passed": false
+    },
+    {
+      "name": "triad_completion_ratio",
+      "actual": 0.4299,
+      "comparator": ">=",
+      "threshold": 0.85,
+      "passed": false
+    },
+    {
+      "name": "core_bridge_ratio",
+      "actual": 0.9555,
+      "comparator": ">=",
+      "threshold": 0.99,
+      "passed": false
+    },
+    {
+      "name": "test_prod_symbol_coverage_ratio",
+      "actual": 0.0669,
+      "comparator": ">=",
+      "threshold": 0.15,
+      "passed": false
+    },
+    {
+      "name": "test_prod_file_coverage_ratio",
+      "actual": 0.4584,
+      "comparator": ">=",
+      "threshold": 0.5,
+      "passed": false
+    },
+    {
+      "name": "proof_files_with_readme_ratio",
+      "actual": 0.9716,
+      "comparator": ">=",
+      "threshold": 1.0,
+      "passed": false
+    },
+    {
+      "name": "kernel_proof_latex_coverage_ratio",
+      "actual": 0.9701,
+      "comparator": ">=",
+      "threshold": 0.99,
+      "passed": false
+    }
+  ],
+  "counterexamples": [
+    "isomorphism_score=78.5 < 95.0: Symbols exist in some layers but not all three. Find partial triads and add the missing layer implementation.",
+    "triad_completion_ratio=0.4299 < 0.85: Too many symbols appear in only 1-2 layers. Each proven concept must appear in Coq, Python, AND RTL."
+  ]
+}

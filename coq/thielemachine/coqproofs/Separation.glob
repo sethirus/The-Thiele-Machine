@@ -1,459 +1,462 @@
-DIGEST 90ca130f37e42708246f40689731cc83
+DIGEST 1a033a3bd5b444002b3ac785dd5b27ce
 FThieleMachine.Separation
 R314:317 Coq.Lists.List <> <> lib
 R319:323 Coq.Arith.Arith <> <> lib
 R325:327 Coq.micromega.Lia <> <> lib
 R329:333 Coq.micromega.Psatz <> <> lib
 R335:338 Coq.setoid_ring.Ring <> <> lib
-rec 785:797 <> ExpanderGraph
-proj 806:817 <> vertex_count
-proj 828:833 <> degree
-R821:823 Coq.Init.Datatypes <> nat ind
-R837:839 Coq.Init.Datatypes <> nat ind
-rec 907:921 <> TseitinInstance
-proj 930:938 <> exp_graph
-proj 959:964 <> charge
-R942:954 ThieleMachine.Separation <> ExpanderGraph rec
-R971:974 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R968:970 Coq.Init.Datatypes <> nat ind
-R975:978 Coq.Init.Datatypes <> bool ind
-def 996:1008 <> instance_size
-R1018:1032 ThieleMachine.Separation <> TseitinInstance rec
-binder 1011:1014 <> inst:7
-R1037:1039 Coq.Init.Datatypes <> nat ind
-R1046:1057 ThieleMachine.Separation <> vertex_count proj
-R1060:1068 ThieleMachine.Separation <> exp_graph proj
-R1070:1073 ThieleMachine.Separation <> inst:7 var
-def 1385:1400 <> canonical_charge
-R1407:1409 Coq.Init.Datatypes <> nat ind
-binder 1403:1403 <> n:8
-R1417:1420 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1414:1416 Coq.Init.Datatypes <> nat ind
-R1421:1424 Coq.Init.Datatypes <> bool ind
-binder 1435:1435 <> v:9
-R1440:1446 Coq.Arith.PeanoNat Nat odd def
-R1450:1452 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R1449:1449 ThieleMachine.Separation <> v:9 var
-R1453:1453 ThieleMachine.Separation <> n:8 var
-def 1469:1482 <> tseitin_family
-R1489:1491 Coq.Init.Datatypes <> nat ind
-binder 1485:1485 <> n:10
-R1496:1510 ThieleMachine.Separation <> TseitinInstance rec
-R1584:1592 ThieleMachine.Separation <> exp_graph proj
-R1584:1592 ThieleMachine.Separation <> exp_graph proj
-R1584:1592 ThieleMachine.Separation <> exp_graph proj
-R1650:1655 ThieleMachine.Separation <> charge proj
-R1650:1655 ThieleMachine.Separation <> charge proj
-R1600:1611 ThieleMachine.Separation <> vertex_count proj
-R1600:1611 ThieleMachine.Separation <> vertex_count proj
-R1600:1611 ThieleMachine.Separation <> vertex_count proj
-R1629:1634 ThieleMachine.Separation <> degree proj
-R1629:1634 ThieleMachine.Separation <> degree proj
-R1616:1622 Coq.Arith.PeanoNat Nat max def
-R1626:1626 ThieleMachine.Separation <> n:10 var
-R1660:1675 ThieleMachine.Separation <> canonical_charge def
-R1677:1677 ThieleMachine.Separation <> n:10 var
-def 1913:1930 <> turing_blind_steps
-R1940:1954 ThieleMachine.Separation <> TseitinInstance rec
-binder 1933:1936 <> inst:11
-R1959:1961 Coq.Init.Datatypes <> nat ind
-R1968:1974 Coq.Arith.PeanoNat Nat pow def
-R1979:1991 ThieleMachine.Separation <> instance_size def
-R1993:1996 ThieleMachine.Separation <> inst:11 var
-def 2012:2032 <> partitions_discovered
-R2039:2041 Coq.Init.Datatypes <> nat ind
-binder 2035:2035 <> n:12
-R2046:2048 Coq.Init.Datatypes <> nat ind
-R2054:2056 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2057:2057 ThieleMachine.Separation <> n:12 var
-def 2071:2084 <> partition_cost
-R2091:2093 Coq.Init.Datatypes <> nat ind
-binder 2087:2087 <> n:13
-R2098:2100 Coq.Init.Datatypes <> nat ind
-R2105:2125 ThieleMachine.Separation <> partitions_discovered def
-R2127:2127 ThieleMachine.Separation <> n:13 var
-def 2142:2152 <> mdlacc_cost
-R2159:2161 Coq.Init.Datatypes <> nat ind
-binder 2155:2155 <> n:14
-R2166:2168 Coq.Init.Datatypes <> nat ind
-R2174:2176 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2177:2177 ThieleMachine.Separation <> n:14 var
-def 2192:2207 <> local_assertions
+R452:458 Kernel.VMState <> <> lib
+R460:465 Kernel.VMStep <> <> lib
+R495:505 Kernel.MuCostModel <> <> lib
+rec 953:965 <> ExpanderGraph
+proj 974:985 <> vertex_count
+proj 996:1001 <> degree
+R989:991 Coq.Init.Datatypes <> nat ind
+R1005:1007 Coq.Init.Datatypes <> nat ind
+rec 1075:1089 <> TseitinInstance
+proj 1098:1106 <> exp_graph
+proj 1127:1132 <> charge
+R1110:1122 ThieleMachine.Separation <> ExpanderGraph rec
+R1139:1142 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1136:1138 Coq.Init.Datatypes <> nat ind
+R1143:1146 Coq.Init.Datatypes <> bool ind
+def 1164:1176 <> instance_size
+R1186:1200 ThieleMachine.Separation <> TseitinInstance rec
+binder 1179:1182 <> inst:7
+R1205:1207 Coq.Init.Datatypes <> nat ind
+R1214:1225 ThieleMachine.Separation <> vertex_count proj
+R1228:1236 ThieleMachine.Separation <> exp_graph proj
+R1238:1241 ThieleMachine.Separation <> inst:7 var
+def 1553:1568 <> canonical_charge
+R1575:1577 Coq.Init.Datatypes <> nat ind
+binder 1571:1571 <> n:8
+R1585:1588 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1582:1584 Coq.Init.Datatypes <> nat ind
+R1589:1592 Coq.Init.Datatypes <> bool ind
+binder 1603:1603 <> v:9
+R1608:1614 Coq.Arith.PeanoNat Nat odd def
+R1618:1620 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1617:1617 ThieleMachine.Separation <> v:9 var
+R1621:1621 ThieleMachine.Separation <> n:8 var
+def 1637:1650 <> tseitin_family
+R1657:1659 Coq.Init.Datatypes <> nat ind
+binder 1653:1653 <> n:10
+R1664:1678 ThieleMachine.Separation <> TseitinInstance rec
+R1752:1760 ThieleMachine.Separation <> exp_graph proj
+R1752:1760 ThieleMachine.Separation <> exp_graph proj
+R1752:1760 ThieleMachine.Separation <> exp_graph proj
+R1818:1823 ThieleMachine.Separation <> charge proj
+R1818:1823 ThieleMachine.Separation <> charge proj
+R1768:1779 ThieleMachine.Separation <> vertex_count proj
+R1768:1779 ThieleMachine.Separation <> vertex_count proj
+R1768:1779 ThieleMachine.Separation <> vertex_count proj
+R1797:1802 ThieleMachine.Separation <> degree proj
+R1797:1802 ThieleMachine.Separation <> degree proj
+R1784:1790 Coq.Arith.PeanoNat Nat max def
+R1794:1794 ThieleMachine.Separation <> n:10 var
+R1828:1843 ThieleMachine.Separation <> canonical_charge def
+R1845:1845 ThieleMachine.Separation <> n:10 var
+def 2081:2098 <> turing_blind_steps
+R2108:2122 ThieleMachine.Separation <> TseitinInstance rec
+binder 2101:2104 <> inst:11
+R2127:2129 Coq.Init.Datatypes <> nat ind
+R2136:2142 Coq.Arith.PeanoNat Nat pow def
+R2147:2159 ThieleMachine.Separation <> instance_size def
+R2161:2164 ThieleMachine.Separation <> inst:11 var
+def 2180:2200 <> partitions_discovered
+R2207:2209 Coq.Init.Datatypes <> nat ind
+binder 2203:2203 <> n:12
 R2214:2216 Coq.Init.Datatypes <> nat ind
-binder 2210:2210 <> n:15
-R2221:2223 Coq.Init.Datatypes <> nat ind
-R2229:2231 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2232:2232 ThieleMachine.Separation <> n:15 var
-def 2246:2262 <> local_assert_cost
-R2269:2271 Coq.Init.Datatypes <> nat ind
-binder 2265:2265 <> n:16
-R2276:2278 Coq.Init.Datatypes <> nat ind
-R2284:2286 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2287:2287 ThieleMachine.Separation <> n:16 var
-def 2302:2327 <> gaussian_elimination_steps
+R2222:2224 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2225:2225 ThieleMachine.Separation <> n:12 var
+def 2239:2252 <> partition_cost
+R2259:2261 Coq.Init.Datatypes <> nat ind
+binder 2255:2255 <> n:13
+R2266:2268 Coq.Init.Datatypes <> nat ind
+R2273:2293 ThieleMachine.Separation <> partitions_discovered def
+R2295:2295 ThieleMachine.Separation <> n:13 var
+def 2310:2320 <> mdlacc_cost
+R2327:2329 Coq.Init.Datatypes <> nat ind
+binder 2323:2323 <> n:14
 R2334:2336 Coq.Init.Datatypes <> nat ind
-binder 2330:2330 <> n:17
-R2341:2343 Coq.Init.Datatypes <> nat ind
-R2353:2355 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2349:2351 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2348:2348 ThieleMachine.Separation <> n:17 var
-R2352:2352 ThieleMachine.Separation <> n:17 var
-R2356:2356 ThieleMachine.Separation <> n:17 var
-def 2370:2387 <> consistency_checks
-R2394:2396 Coq.Init.Datatypes <> nat ind
-binder 2390:2390 <> n:18
-R2401:2403 Coq.Init.Datatypes <> nat ind
-R2413:2415 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2409:2411 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2412:2412 ThieleMachine.Separation <> n:18 var
-R2416:2416 ThieleMachine.Separation <> n:18 var
-def 2431:2450 <> thiele_sighted_steps
-R2460:2474 ThieleMachine.Separation <> TseitinInstance rec
-binder 2453:2456 <> inst:19
-R2479:2481 Coq.Init.Datatypes <> nat ind
-R2497:2509 ThieleMachine.Separation <> instance_size def
-R2511:2514 ThieleMachine.Separation <> inst:19 var
-binder 2492:2492 <> n:20
-R2612:2616 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R2579:2583 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R2555:2559 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R2537:2541 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R2521:2534 ThieleMachine.Separation <> partition_cost def
-R2536:2536 ThieleMachine.Separation <> n:20 var
-R2542:2552 ThieleMachine.Separation <> mdlacc_cost def
-R2554:2554 ThieleMachine.Separation <> n:20 var
-R2560:2576 ThieleMachine.Separation <> local_assert_cost def
-R2578:2578 ThieleMachine.Separation <> n:20 var
-R2584:2609 ThieleMachine.Separation <> gaussian_elimination_steps def
-R2611:2611 ThieleMachine.Separation <> n:20 var
-R2617:2634 ThieleMachine.Separation <> consistency_checks def
-R2636:2636 ThieleMachine.Separation <> n:20 var
-def 2651:2664 <> thiele_mu_cost
-R2674:2688 ThieleMachine.Separation <> TseitinInstance rec
-binder 2667:2670 <> inst:21
-R2693:2695 Coq.Init.Datatypes <> nat ind
-R2711:2723 ThieleMachine.Separation <> instance_size def
-R2725:2728 ThieleMachine.Separation <> inst:21 var
-binder 2706:2706 <> n:22
-R2735:2735 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R2749:2753 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R2763:2763 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R2736:2746 ThieleMachine.Separation <> mdlacc_cost def
-R2748:2748 ThieleMachine.Separation <> n:22 var
-R2759:2761 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2755:2757 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2758:2758 ThieleMachine.Separation <> n:22 var
-R2762:2762 ThieleMachine.Separation <> n:22 var
-def 2778:2782 <> cubic
-R2789:2791 Coq.Init.Datatypes <> nat ind
-binder 2785:2785 <> n:23
-R2796:2798 Coq.Init.Datatypes <> nat ind
-R2816:2819 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2823:2823 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2803:2803 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2807:2811 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2815:2815 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2804:2804 Coq.Init.Datatypes <> S constr
-R2806:2806 ThieleMachine.Separation <> n:23 var
-R2812:2812 Coq.Init.Datatypes <> S constr
-R2814:2814 ThieleMachine.Separation <> n:23 var
-R2820:2820 Coq.Init.Datatypes <> S constr
-R2822:2822 ThieleMachine.Separation <> n:23 var
-def 2837:2845 <> quadratic
-R2852:2854 Coq.Init.Datatypes <> nat ind
-binder 2848:2848 <> n:24
-R2859:2861 Coq.Init.Datatypes <> nat ind
-R2866:2866 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2870:2874 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2878:2878 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2867:2867 Coq.Init.Datatypes <> S constr
-R2869:2869 ThieleMachine.Separation <> n:24 var
-R2875:2875 Coq.Init.Datatypes <> S constr
-R2877:2877 ThieleMachine.Separation <> n:24 var
-def 2950:2957 <> thiele_C
-R2961:2963 Coq.Init.Datatypes <> nat ind
-def 2983:2990 <> thiele_D
-R2994:2996 Coq.Init.Datatypes <> nat ind
-R3020:3025 Coq.ZArith.ZArith <> <> lib
-prf 3128:3167 <> thiele_sighted_steps_polynomial_forall_Z
-R3183:3185 Coq.Init.Datatypes <> nat ind
-binder 3179:3179 <> n:25
-R3241:3244 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R3191:3198 Coq.ZArith.BinInt Z of_nat def
-R3201:3220 ThieleMachine.Separation <> thiele_sighted_steps def
-R3223:3236 ThieleMachine.Separation <> tseitin_family def
-R3238:3238 ThieleMachine.Separation <> n:25 var
-R3245:3252 Coq.ZArith.BinInt Z of_nat def
-R3263:3265 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R3255:3262 ThieleMachine.Separation <> thiele_C def
-R3266:3270 ThieleMachine.Separation <> cubic def
-R3273:3285 ThieleMachine.Separation <> instance_size def
-R3288:3301 ThieleMachine.Separation <> tseitin_family def
-R3303:3303 ThieleMachine.Separation <> n:25 var
-R3336:3347 Coq.ZArith.Znat Nat2Z inj_le thm
-R3336:3347 Coq.ZArith.Znat Nat2Z inj_le thm
-R3362:3376 Coq.Arith.PeanoNat Nat le_ge_cases thm
-R3362:3376 Coq.Arith.PeanoNat Nat le_ge_cases thm
-R3456:3475 ThieleMachine.Separation <> thiele_sighted_steps def
-R3478:3490 ThieleMachine.Separation <> instance_size def
-R3493:3506 ThieleMachine.Separation <> partition_cost def
-R3509:3519 ThieleMachine.Separation <> mdlacc_cost def
-R3522:3538 ThieleMachine.Separation <> local_assert_cost def
-R3541:3566 ThieleMachine.Separation <> gaussian_elimination_steps def
-R3569:3586 ThieleMachine.Separation <> consistency_checks def
-R3589:3593 ThieleMachine.Separation <> cubic def
-R3596:3603 ThieleMachine.Separation <> thiele_C def
-R3606:3619 ThieleMachine.Separation <> tseitin_family def
-R3634:3642 Coq.Arith.PeanoNat Nat max_r thm
-R3634:3642 Coq.Arith.PeanoNat Nat max_r thm
-R3634:3642 Coq.Arith.PeanoNat Nat max_r thm
-R3668:3678 Coq.Arith.PeanoNat Nat sub_add thm
-R3668:3678 Coq.Arith.PeanoNat Nat sub_add thm
-R3668:3678 Coq.Arith.PeanoNat Nat sub_add thm
-R3703:3709 Coq.Arith.PeanoNat Nat sub def
-R3703:3709 Coq.Arith.PeanoNat Nat sub def
-R3802:3821 ThieleMachine.Separation <> thiele_sighted_steps def
-R3824:3836 ThieleMachine.Separation <> instance_size def
-R3839:3852 ThieleMachine.Separation <> partition_cost def
-R3855:3865 ThieleMachine.Separation <> mdlacc_cost def
-R3868:3884 ThieleMachine.Separation <> local_assert_cost def
-R3887:3912 ThieleMachine.Separation <> gaussian_elimination_steps def
-R3915:3932 ThieleMachine.Separation <> consistency_checks def
-R3935:3939 ThieleMachine.Separation <> cubic def
-R3942:3949 ThieleMachine.Separation <> thiele_C def
-R3952:3965 ThieleMachine.Separation <> tseitin_family def
-R3980:3988 Coq.Arith.PeanoNat Nat max_l thm
-R3980:3988 Coq.Arith.PeanoNat Nat max_l thm
-R3980:3988 Coq.Arith.PeanoNat Nat max_l thm
-prf 4092:4124 <> thiele_mu_cost_quadratic_forall_Z
-R4140:4142 Coq.Init.Datatypes <> nat ind
-binder 4136:4136 <> n:26
-R4192:4195 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R4148:4155 Coq.ZArith.BinInt Z of_nat def
-R4158:4171 ThieleMachine.Separation <> thiele_mu_cost def
-R4174:4187 ThieleMachine.Separation <> tseitin_family def
-R4189:4189 ThieleMachine.Separation <> n:26 var
-R4196:4203 Coq.ZArith.BinInt Z of_nat def
-R4214:4216 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R4206:4213 ThieleMachine.Separation <> thiele_D def
-R4217:4225 ThieleMachine.Separation <> quadratic def
-R4228:4240 ThieleMachine.Separation <> instance_size def
-R4243:4256 ThieleMachine.Separation <> tseitin_family def
-R4258:4258 ThieleMachine.Separation <> n:26 var
-R4291:4302 Coq.ZArith.Znat Nat2Z inj_le thm
-R4291:4302 Coq.ZArith.Znat Nat2Z inj_le thm
-R4317:4331 Coq.Arith.PeanoNat Nat le_ge_cases thm
-R4317:4331 Coq.Arith.PeanoNat Nat le_ge_cases thm
-R4359:4372 ThieleMachine.Separation <> thiele_mu_cost def
-R4375:4387 ThieleMachine.Separation <> instance_size def
-R4390:4400 ThieleMachine.Separation <> mdlacc_cost def
-R4403:4411 ThieleMachine.Separation <> quadratic def
-R4414:4421 ThieleMachine.Separation <> thiele_D def
-R4424:4437 ThieleMachine.Separation <> tseitin_family def
-R4452:4460 Coq.Arith.PeanoNat Nat max_r thm
-R4452:4460 Coq.Arith.PeanoNat Nat max_r thm
-R4452:4460 Coq.Arith.PeanoNat Nat max_r thm
-R4486:4496 Coq.Arith.PeanoNat Nat sub_add thm
-R4486:4496 Coq.Arith.PeanoNat Nat sub_add thm
-R4486:4496 Coq.Arith.PeanoNat Nat sub_add thm
-R4521:4527 Coq.Arith.PeanoNat Nat sub def
-R4521:4527 Coq.Arith.PeanoNat Nat sub def
-R4569:4582 ThieleMachine.Separation <> thiele_mu_cost def
-R4585:4597 ThieleMachine.Separation <> instance_size def
-R4600:4610 ThieleMachine.Separation <> mdlacc_cost def
-R4613:4621 ThieleMachine.Separation <> quadratic def
-R4624:4631 ThieleMachine.Separation <> thiele_D def
-R4634:4647 ThieleMachine.Separation <> tseitin_family def
-R4662:4670 Coq.Arith.PeanoNat Nat max_l thm
-R4662:4670 Coq.Arith.PeanoNat Nat max_l thm
-R4662:4670 Coq.Arith.PeanoNat Nat max_l thm
-prf 4856:4893 <> thiele_sighted_steps_polynomial_forall
-R4909:4911 Coq.Init.Datatypes <> nat ind
-binder 4905:4905 <> n:27
-R4957:4960 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R4918:4937 ThieleMachine.Separation <> thiele_sighted_steps def
-R4940:4953 ThieleMachine.Separation <> tseitin_family def
-R4955:4955 ThieleMachine.Separation <> n:27 var
-R4969:4971 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R4961:4968 ThieleMachine.Separation <> thiele_C def
-R4972:4976 ThieleMachine.Separation <> cubic def
-R4979:4991 ThieleMachine.Separation <> instance_size def
-R4994:5007 ThieleMachine.Separation <> tseitin_family def
-R5009:5009 ThieleMachine.Separation <> n:27 var
-R5050:5064 Coq.Arith.PeanoNat Nat le_ge_cases thm
-R5050:5064 Coq.Arith.PeanoNat Nat le_ge_cases thm
-R5092:5111 ThieleMachine.Separation <> thiele_sighted_steps def
-R5114:5126 ThieleMachine.Separation <> instance_size def
-R5129:5142 ThieleMachine.Separation <> partition_cost def
-R5145:5155 ThieleMachine.Separation <> mdlacc_cost def
-R5158:5174 ThieleMachine.Separation <> local_assert_cost def
-R5177:5202 ThieleMachine.Separation <> gaussian_elimination_steps def
-R5205:5222 ThieleMachine.Separation <> consistency_checks def
-R5225:5229 ThieleMachine.Separation <> cubic def
-R5232:5239 ThieleMachine.Separation <> thiele_C def
-R5242:5255 ThieleMachine.Separation <> tseitin_family def
-R5270:5278 Coq.Arith.PeanoNat Nat max_r thm
-R5270:5278 Coq.Arith.PeanoNat Nat max_r thm
-R5270:5278 Coq.Arith.PeanoNat Nat max_r thm
-R5304:5314 Coq.Arith.PeanoNat Nat sub_add thm
-R5304:5314 Coq.Arith.PeanoNat Nat sub_add thm
-R5304:5314 Coq.Arith.PeanoNat Nat sub_add thm
-R5339:5345 Coq.Arith.PeanoNat Nat sub def
-R5339:5345 Coq.Arith.PeanoNat Nat sub def
-R5387:5406 ThieleMachine.Separation <> thiele_sighted_steps def
-R5409:5421 ThieleMachine.Separation <> instance_size def
-R5424:5437 ThieleMachine.Separation <> partition_cost def
-R5440:5450 ThieleMachine.Separation <> mdlacc_cost def
-R5453:5469 ThieleMachine.Separation <> local_assert_cost def
-R5472:5497 ThieleMachine.Separation <> gaussian_elimination_steps def
-R5500:5517 ThieleMachine.Separation <> consistency_checks def
-R5520:5524 ThieleMachine.Separation <> cubic def
-R5527:5534 ThieleMachine.Separation <> thiele_C def
-R5537:5550 ThieleMachine.Separation <> tseitin_family def
-R5565:5573 Coq.Arith.PeanoNat Nat max_l thm
-R5565:5573 Coq.Arith.PeanoNat Nat max_l thm
-R5565:5573 Coq.Arith.PeanoNat Nat max_l thm
-prf 5675:5705 <> thiele_mu_cost_quadratic_forall
-R5721:5723 Coq.Init.Datatypes <> nat ind
-binder 5717:5717 <> n:28
-R5763:5766 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5730:5743 ThieleMachine.Separation <> thiele_mu_cost def
-R5746:5759 ThieleMachine.Separation <> tseitin_family def
-R5761:5761 ThieleMachine.Separation <> n:28 var
-R5775:5777 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R5767:5774 ThieleMachine.Separation <> thiele_D def
-R5778:5786 ThieleMachine.Separation <> quadratic def
-R5789:5801 ThieleMachine.Separation <> instance_size def
-R5804:5817 ThieleMachine.Separation <> tseitin_family def
-R5819:5819 ThieleMachine.Separation <> n:28 var
-R5860:5874 Coq.Arith.PeanoNat Nat le_ge_cases thm
-R5860:5874 Coq.Arith.PeanoNat Nat le_ge_cases thm
-R5902:5915 ThieleMachine.Separation <> thiele_mu_cost def
-R5918:5930 ThieleMachine.Separation <> instance_size def
-R5933:5943 ThieleMachine.Separation <> mdlacc_cost def
+R2342:2344 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2345:2345 ThieleMachine.Separation <> n:14 var
+def 2360:2375 <> local_assertions
+R2382:2384 Coq.Init.Datatypes <> nat ind
+binder 2378:2378 <> n:15
+R2389:2391 Coq.Init.Datatypes <> nat ind
+R2397:2399 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2400:2400 ThieleMachine.Separation <> n:15 var
+def 2414:2430 <> local_assert_cost
+R2437:2439 Coq.Init.Datatypes <> nat ind
+binder 2433:2433 <> n:16
+R2444:2446 Coq.Init.Datatypes <> nat ind
+R2452:2454 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2455:2455 ThieleMachine.Separation <> n:16 var
+def 2470:2495 <> gaussian_elimination_steps
+R2502:2504 Coq.Init.Datatypes <> nat ind
+binder 2498:2498 <> n:17
+R2509:2511 Coq.Init.Datatypes <> nat ind
+R2521:2523 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2517:2519 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2516:2516 ThieleMachine.Separation <> n:17 var
+R2520:2520 ThieleMachine.Separation <> n:17 var
+R2524:2524 ThieleMachine.Separation <> n:17 var
+def 2538:2555 <> consistency_checks
+R2562:2564 Coq.Init.Datatypes <> nat ind
+binder 2558:2558 <> n:18
+R2569:2571 Coq.Init.Datatypes <> nat ind
+R2581:2583 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2577:2579 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2580:2580 ThieleMachine.Separation <> n:18 var
+R2584:2584 ThieleMachine.Separation <> n:18 var
+def 2599:2618 <> thiele_sighted_steps
+R2628:2642 ThieleMachine.Separation <> TseitinInstance rec
+binder 2621:2624 <> inst:19
+R2647:2649 Coq.Init.Datatypes <> nat ind
+R2665:2677 ThieleMachine.Separation <> instance_size def
+R2679:2682 ThieleMachine.Separation <> inst:19 var
+binder 2660:2660 <> n:20
+R2780:2784 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2747:2751 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2723:2727 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2705:2709 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2689:2702 ThieleMachine.Separation <> partition_cost def
+R2704:2704 ThieleMachine.Separation <> n:20 var
+R2710:2720 ThieleMachine.Separation <> mdlacc_cost def
+R2722:2722 ThieleMachine.Separation <> n:20 var
+R2728:2744 ThieleMachine.Separation <> local_assert_cost def
+R2746:2746 ThieleMachine.Separation <> n:20 var
+R2752:2777 ThieleMachine.Separation <> gaussian_elimination_steps def
+R2779:2779 ThieleMachine.Separation <> n:20 var
+R2785:2802 ThieleMachine.Separation <> consistency_checks def
+R2804:2804 ThieleMachine.Separation <> n:20 var
+def 2819:2832 <> thiele_mu_cost
+R2842:2856 ThieleMachine.Separation <> TseitinInstance rec
+binder 2835:2838 <> inst:21
+R2861:2863 Coq.Init.Datatypes <> nat ind
+R2879:2891 ThieleMachine.Separation <> instance_size def
+R2893:2896 ThieleMachine.Separation <> inst:21 var
+binder 2874:2874 <> n:22
+R2903:2903 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2917:2921 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2931:2931 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2904:2914 ThieleMachine.Separation <> mdlacc_cost def
+R2916:2916 ThieleMachine.Separation <> n:22 var
+R2927:2929 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2923:2925 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2926:2926 ThieleMachine.Separation <> n:22 var
+R2930:2930 ThieleMachine.Separation <> n:22 var
+def 2946:2950 <> cubic
+R2957:2959 Coq.Init.Datatypes <> nat ind
+binder 2953:2953 <> n:23
+R2964:2966 Coq.Init.Datatypes <> nat ind
+R2984:2987 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2991:2991 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2971:2971 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2975:2979 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2983:2983 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2972:2972 Coq.Init.Datatypes <> S constr
+R2974:2974 ThieleMachine.Separation <> n:23 var
+R2980:2980 Coq.Init.Datatypes <> S constr
+R2982:2982 ThieleMachine.Separation <> n:23 var
+R2988:2988 Coq.Init.Datatypes <> S constr
+R2990:2990 ThieleMachine.Separation <> n:23 var
+def 3005:3013 <> quadratic
+R3020:3022 Coq.Init.Datatypes <> nat ind
+binder 3016:3016 <> n:24
+R3027:3029 Coq.Init.Datatypes <> nat ind
+R3034:3034 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3038:3042 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3046:3046 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3035:3035 Coq.Init.Datatypes <> S constr
+R3037:3037 ThieleMachine.Separation <> n:24 var
+R3043:3043 Coq.Init.Datatypes <> S constr
+R3045:3045 ThieleMachine.Separation <> n:24 var
+def 3118:3125 <> thiele_C
+R3129:3131 Coq.Init.Datatypes <> nat ind
+def 3151:3158 <> thiele_D
+R3162:3164 Coq.Init.Datatypes <> nat ind
+R3188:3193 Coq.ZArith.ZArith <> <> lib
+prf 3296:3335 <> thiele_sighted_steps_polynomial_forall_Z
+R3351:3353 Coq.Init.Datatypes <> nat ind
+binder 3347:3347 <> n:25
+R3409:3412 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R3359:3366 Coq.ZArith.BinInt Z of_nat def
+R3369:3388 ThieleMachine.Separation <> thiele_sighted_steps def
+R3391:3404 ThieleMachine.Separation <> tseitin_family def
+R3406:3406 ThieleMachine.Separation <> n:25 var
+R3413:3420 Coq.ZArith.BinInt Z of_nat def
+R3431:3433 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3423:3430 ThieleMachine.Separation <> thiele_C def
+R3434:3438 ThieleMachine.Separation <> cubic def
+R3441:3453 ThieleMachine.Separation <> instance_size def
+R3456:3469 ThieleMachine.Separation <> tseitin_family def
+R3471:3471 ThieleMachine.Separation <> n:25 var
+R3504:3515 Coq.ZArith.Znat Nat2Z inj_le thm
+R3504:3515 Coq.ZArith.Znat Nat2Z inj_le thm
+R3530:3544 Coq.Arith.PeanoNat Nat le_ge_cases thm
+R3530:3544 Coq.Arith.PeanoNat Nat le_ge_cases thm
+R3624:3643 ThieleMachine.Separation <> thiele_sighted_steps def
+R3646:3658 ThieleMachine.Separation <> instance_size def
+R3661:3674 ThieleMachine.Separation <> partition_cost def
+R3677:3687 ThieleMachine.Separation <> mdlacc_cost def
+R3690:3706 ThieleMachine.Separation <> local_assert_cost def
+R3709:3734 ThieleMachine.Separation <> gaussian_elimination_steps def
+R3737:3754 ThieleMachine.Separation <> consistency_checks def
+R3757:3761 ThieleMachine.Separation <> cubic def
+R3764:3771 ThieleMachine.Separation <> thiele_C def
+R3774:3787 ThieleMachine.Separation <> tseitin_family def
+R3802:3810 Coq.Arith.PeanoNat Nat max_r thm
+R3802:3810 Coq.Arith.PeanoNat Nat max_r thm
+R3802:3810 Coq.Arith.PeanoNat Nat max_r thm
+R3836:3846 Coq.Arith.PeanoNat Nat sub_add thm
+R3836:3846 Coq.Arith.PeanoNat Nat sub_add thm
+R3836:3846 Coq.Arith.PeanoNat Nat sub_add thm
+R3871:3877 Coq.Arith.PeanoNat Nat sub def
+R3871:3877 Coq.Arith.PeanoNat Nat sub def
+R3970:3989 ThieleMachine.Separation <> thiele_sighted_steps def
+R3992:4004 ThieleMachine.Separation <> instance_size def
+R4007:4020 ThieleMachine.Separation <> partition_cost def
+R4023:4033 ThieleMachine.Separation <> mdlacc_cost def
+R4036:4052 ThieleMachine.Separation <> local_assert_cost def
+R4055:4080 ThieleMachine.Separation <> gaussian_elimination_steps def
+R4083:4100 ThieleMachine.Separation <> consistency_checks def
+R4103:4107 ThieleMachine.Separation <> cubic def
+R4110:4117 ThieleMachine.Separation <> thiele_C def
+R4120:4133 ThieleMachine.Separation <> tseitin_family def
+R4148:4156 Coq.Arith.PeanoNat Nat max_l thm
+R4148:4156 Coq.Arith.PeanoNat Nat max_l thm
+R4148:4156 Coq.Arith.PeanoNat Nat max_l thm
+prf 4260:4292 <> thiele_mu_cost_quadratic_forall_Z
+R4308:4310 Coq.Init.Datatypes <> nat ind
+binder 4304:4304 <> n:26
+R4360:4363 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R4316:4323 Coq.ZArith.BinInt Z of_nat def
+R4326:4339 ThieleMachine.Separation <> thiele_mu_cost def
+R4342:4355 ThieleMachine.Separation <> tseitin_family def
+R4357:4357 ThieleMachine.Separation <> n:26 var
+R4364:4371 Coq.ZArith.BinInt Z of_nat def
+R4382:4384 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4374:4381 ThieleMachine.Separation <> thiele_D def
+R4385:4393 ThieleMachine.Separation <> quadratic def
+R4396:4408 ThieleMachine.Separation <> instance_size def
+R4411:4424 ThieleMachine.Separation <> tseitin_family def
+R4426:4426 ThieleMachine.Separation <> n:26 var
+R4459:4470 Coq.ZArith.Znat Nat2Z inj_le thm
+R4459:4470 Coq.ZArith.Znat Nat2Z inj_le thm
+R4485:4499 Coq.Arith.PeanoNat Nat le_ge_cases thm
+R4485:4499 Coq.Arith.PeanoNat Nat le_ge_cases thm
+R4527:4540 ThieleMachine.Separation <> thiele_mu_cost def
+R4543:4555 ThieleMachine.Separation <> instance_size def
+R4558:4568 ThieleMachine.Separation <> mdlacc_cost def
+R4571:4579 ThieleMachine.Separation <> quadratic def
+R4582:4589 ThieleMachine.Separation <> thiele_D def
+R4592:4605 ThieleMachine.Separation <> tseitin_family def
+R4620:4628 Coq.Arith.PeanoNat Nat max_r thm
+R4620:4628 Coq.Arith.PeanoNat Nat max_r thm
+R4620:4628 Coq.Arith.PeanoNat Nat max_r thm
+R4654:4664 Coq.Arith.PeanoNat Nat sub_add thm
+R4654:4664 Coq.Arith.PeanoNat Nat sub_add thm
+R4654:4664 Coq.Arith.PeanoNat Nat sub_add thm
+R4689:4695 Coq.Arith.PeanoNat Nat sub def
+R4689:4695 Coq.Arith.PeanoNat Nat sub def
+R4737:4750 ThieleMachine.Separation <> thiele_mu_cost def
+R4753:4765 ThieleMachine.Separation <> instance_size def
+R4768:4778 ThieleMachine.Separation <> mdlacc_cost def
+R4781:4789 ThieleMachine.Separation <> quadratic def
+R4792:4799 ThieleMachine.Separation <> thiele_D def
+R4802:4815 ThieleMachine.Separation <> tseitin_family def
+R4830:4838 Coq.Arith.PeanoNat Nat max_l thm
+R4830:4838 Coq.Arith.PeanoNat Nat max_l thm
+R4830:4838 Coq.Arith.PeanoNat Nat max_l thm
+prf 5024:5061 <> thiele_sighted_steps_polynomial_forall
+R5077:5079 Coq.Init.Datatypes <> nat ind
+binder 5073:5073 <> n:27
+R5125:5128 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5086:5105 ThieleMachine.Separation <> thiele_sighted_steps def
+R5108:5121 ThieleMachine.Separation <> tseitin_family def
+R5123:5123 ThieleMachine.Separation <> n:27 var
+R5137:5139 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R5129:5136 ThieleMachine.Separation <> thiele_C def
+R5140:5144 ThieleMachine.Separation <> cubic def
+R5147:5159 ThieleMachine.Separation <> instance_size def
+R5162:5175 ThieleMachine.Separation <> tseitin_family def
+R5177:5177 ThieleMachine.Separation <> n:27 var
+R5218:5232 Coq.Arith.PeanoNat Nat le_ge_cases thm
+R5218:5232 Coq.Arith.PeanoNat Nat le_ge_cases thm
+R5260:5279 ThieleMachine.Separation <> thiele_sighted_steps def
+R5282:5294 ThieleMachine.Separation <> instance_size def
+R5297:5310 ThieleMachine.Separation <> partition_cost def
+R5313:5323 ThieleMachine.Separation <> mdlacc_cost def
+R5326:5342 ThieleMachine.Separation <> local_assert_cost def
+R5345:5370 ThieleMachine.Separation <> gaussian_elimination_steps def
+R5373:5390 ThieleMachine.Separation <> consistency_checks def
+R5393:5397 ThieleMachine.Separation <> cubic def
+R5400:5407 ThieleMachine.Separation <> thiele_C def
+R5410:5423 ThieleMachine.Separation <> tseitin_family def
+R5438:5446 Coq.Arith.PeanoNat Nat max_r thm
+R5438:5446 Coq.Arith.PeanoNat Nat max_r thm
+R5438:5446 Coq.Arith.PeanoNat Nat max_r thm
+R5472:5482 Coq.Arith.PeanoNat Nat sub_add thm
+R5472:5482 Coq.Arith.PeanoNat Nat sub_add thm
+R5472:5482 Coq.Arith.PeanoNat Nat sub_add thm
+R5507:5513 Coq.Arith.PeanoNat Nat sub def
+R5507:5513 Coq.Arith.PeanoNat Nat sub def
+R5555:5574 ThieleMachine.Separation <> thiele_sighted_steps def
+R5577:5589 ThieleMachine.Separation <> instance_size def
+R5592:5605 ThieleMachine.Separation <> partition_cost def
+R5608:5618 ThieleMachine.Separation <> mdlacc_cost def
+R5621:5637 ThieleMachine.Separation <> local_assert_cost def
+R5640:5665 ThieleMachine.Separation <> gaussian_elimination_steps def
+R5668:5685 ThieleMachine.Separation <> consistency_checks def
+R5688:5692 ThieleMachine.Separation <> cubic def
+R5695:5702 ThieleMachine.Separation <> thiele_C def
+R5705:5718 ThieleMachine.Separation <> tseitin_family def
+R5733:5741 Coq.Arith.PeanoNat Nat max_l thm
+R5733:5741 Coq.Arith.PeanoNat Nat max_l thm
+R5733:5741 Coq.Arith.PeanoNat Nat max_l thm
+prf 5843:5873 <> thiele_mu_cost_quadratic_forall
+R5889:5891 Coq.Init.Datatypes <> nat ind
+binder 5885:5885 <> n:28
+R5931:5934 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5898:5911 ThieleMachine.Separation <> thiele_mu_cost def
+R5914:5927 ThieleMachine.Separation <> tseitin_family def
+R5929:5929 ThieleMachine.Separation <> n:28 var
+R5943:5945 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R5935:5942 ThieleMachine.Separation <> thiele_D def
 R5946:5954 ThieleMachine.Separation <> quadratic def
-R5957:5964 ThieleMachine.Separation <> thiele_D def
-R5967:5980 ThieleMachine.Separation <> tseitin_family def
-R5995:6003 Coq.Arith.PeanoNat Nat max_r thm
-R5995:6003 Coq.Arith.PeanoNat Nat max_r thm
-R5995:6003 Coq.Arith.PeanoNat Nat max_r thm
-R6029:6039 Coq.Arith.PeanoNat Nat sub_add thm
-R6029:6039 Coq.Arith.PeanoNat Nat sub_add thm
-R6029:6039 Coq.Arith.PeanoNat Nat sub_add thm
-R6064:6070 Coq.Arith.PeanoNat Nat sub def
-R6064:6070 Coq.Arith.PeanoNat Nat sub def
-R6112:6125 ThieleMachine.Separation <> thiele_mu_cost def
-R6128:6140 ThieleMachine.Separation <> instance_size def
-R6143:6153 ThieleMachine.Separation <> mdlacc_cost def
-R6156:6164 ThieleMachine.Separation <> quadratic def
-R6167:6174 ThieleMachine.Separation <> thiele_D def
-R6177:6190 ThieleMachine.Separation <> tseitin_family def
-R6205:6213 Coq.Arith.PeanoNat Nat max_l thm
-R6205:6213 Coq.Arith.PeanoNat Nat max_l thm
-R6205:6213 Coq.Arith.PeanoNat Nat max_l thm
-prf 6315:6343 <> thiele_exponential_separation
-R6349:6356 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R6368:6370 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R6365:6367 Coq.Init.Datatypes <> nat ind
-binder 6357:6357 <> N:29
-R6365:6367 Coq.Init.Datatypes <> nat ind
-binder 6359:6359 <> C:30
-R6365:6367 Coq.Init.Datatypes <> nat ind
-binder 6361:6361 <> D:31
-R6383:6385 Coq.Init.Datatypes <> nat ind
-binder 6379:6379 <> n:32
-R6401:6408 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6391:6394 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R6390:6390 ThieleMachine.Separation <> n:32 var
-R6395:6395 ThieleMachine.Separation <> N:29 var
-R6469:6476 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6449:6452 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R6410:6429 ThieleMachine.Separation <> thiele_sighted_steps def
-R6432:6445 ThieleMachine.Separation <> tseitin_family def
-R6447:6447 ThieleMachine.Separation <> n:32 var
-R6454:6456 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R6453:6453 ThieleMachine.Separation <> C:30 var
-R6457:6461 ThieleMachine.Separation <> cubic def
-R6463:6463 ThieleMachine.Separation <> n:32 var
-R6535:6542 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6511:6514 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R6478:6491 ThieleMachine.Separation <> thiele_mu_cost def
-R6494:6507 ThieleMachine.Separation <> tseitin_family def
-R6509:6509 ThieleMachine.Separation <> n:32 var
-R6516:6518 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R6515:6515 ThieleMachine.Separation <> D:31 var
-R6519:6527 ThieleMachine.Separation <> quadratic def
-R6529:6529 ThieleMachine.Separation <> n:32 var
-R6581:6584 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R6544:6561 ThieleMachine.Separation <> turing_blind_steps def
-R6564:6577 ThieleMachine.Separation <> tseitin_family def
-R6579:6579 ThieleMachine.Separation <> n:32 var
-R6585:6591 Coq.Arith.PeanoNat Nat pow def
-R6595:6595 ThieleMachine.Separation <> n:32 var
-R6633:6640 ThieleMachine.Separation <> thiele_C def
-R6650:6657 ThieleMachine.Separation <> thiele_D def
-R6633:6640 ThieleMachine.Separation <> thiele_C def
-R6650:6657 ThieleMachine.Separation <> thiele_D def
-R6753:6765 ThieleMachine.Separation <> instance_size def
-R6768:6781 ThieleMachine.Separation <> tseitin_family def
-R6803:6817 Coq.Arith.PeanoNat Nat le_ge_cases thm
-R6803:6817 Coq.Arith.PeanoNat Nat le_ge_cases thm
-R6989:7026 ThieleMachine.Separation <> thiele_sighted_steps_polynomial_forall thm
-R6989:7026 ThieleMachine.Separation <> thiele_sighted_steps_polynomial_forall thm
-R7051:7063 ThieleMachine.Separation <> instance_size def
-R7066:7079 ThieleMachine.Separation <> tseitin_family def
-R7102:7110 Coq.Arith.PeanoNat Nat max_r thm
-R7102:7110 Coq.Arith.PeanoNat Nat max_r thm
-R7102:7110 Coq.Arith.PeanoNat Nat max_r thm
-R7140:7148 Coq.Arith.PeanoNat Nat max_r thm
-R7140:7148 Coq.Arith.PeanoNat Nat max_r thm
-R7140:7148 Coq.Arith.PeanoNat Nat max_r thm
-R7272:7280 Coq.Arith.PeanoNat Nat max_l thm
-R7272:7280 Coq.Arith.PeanoNat Nat max_l thm
-R7272:7280 Coq.Arith.PeanoNat Nat max_l thm
-R7303:7322 ThieleMachine.Separation <> thiele_sighted_steps def
-R7325:7338 ThieleMachine.Separation <> partition_cost def
-R7341:7351 ThieleMachine.Separation <> mdlacc_cost def
-R7354:7370 ThieleMachine.Separation <> local_assert_cost def
-R7373:7398 ThieleMachine.Separation <> gaussian_elimination_steps def
-R7401:7418 ThieleMachine.Separation <> consistency_checks def
-R7482:7494 ThieleMachine.Separation <> instance_size def
-R7497:7510 ThieleMachine.Separation <> tseitin_family def
-R7532:7546 Coq.Arith.PeanoNat Nat le_ge_cases thm
-R7532:7546 Coq.Arith.PeanoNat Nat le_ge_cases thm
-R7654:7684 ThieleMachine.Separation <> thiele_mu_cost_quadratic_forall thm
-R7654:7684 ThieleMachine.Separation <> thiele_mu_cost_quadratic_forall thm
-R7709:7721 ThieleMachine.Separation <> instance_size def
-R7724:7737 ThieleMachine.Separation <> tseitin_family def
-R7760:7768 Coq.Arith.PeanoNat Nat max_r thm
-R7760:7768 Coq.Arith.PeanoNat Nat max_r thm
-R7760:7768 Coq.Arith.PeanoNat Nat max_r thm
-R7798:7806 Coq.Arith.PeanoNat Nat max_r thm
-R7798:7806 Coq.Arith.PeanoNat Nat max_r thm
-R7798:7806 Coq.Arith.PeanoNat Nat max_r thm
-R7870:7878 Coq.Arith.PeanoNat Nat max_l thm
-R7870:7878 Coq.Arith.PeanoNat Nat max_l thm
-R7870:7878 Coq.Arith.PeanoNat Nat max_l thm
-R7901:7914 ThieleMachine.Separation <> thiele_mu_cost def
-R7917:7927 ThieleMachine.Separation <> mdlacc_cost def
-R8017:8034 ThieleMachine.Separation <> turing_blind_steps def
-R8037:8050 ThieleMachine.Separation <> tseitin_family def
-R8053:8065 ThieleMachine.Separation <> instance_size def
-R8082:8096 Coq.Arith.PeanoNat Nat le_ge_cases thm
-R8082:8096 Coq.Arith.PeanoNat Nat le_ge_cases thm
-R8133:8141 Coq.Arith.PeanoNat Nat max_r thm
-R8133:8141 Coq.Arith.PeanoNat Nat max_r thm
-R8133:8141 Coq.Arith.PeanoNat Nat max_r thm
-R8157:8167 Coq.Arith.PeanoNat Nat le_refl thm
-R8157:8167 Coq.Arith.PeanoNat Nat le_refl thm
-R8184:8192 Coq.Arith.PeanoNat Nat max_l thm
-R8184:8192 Coq.Arith.PeanoNat Nat max_l thm
-R8184:8192 Coq.Arith.PeanoNat Nat max_l thm
-R8258:8261 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8258:8261 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8292:8295 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8292:8295 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8326:8329 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8326:8329 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8360:8362 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8360:8362 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5957:5969 ThieleMachine.Separation <> instance_size def
+R5972:5985 ThieleMachine.Separation <> tseitin_family def
+R5987:5987 ThieleMachine.Separation <> n:28 var
+R6028:6042 Coq.Arith.PeanoNat Nat le_ge_cases thm
+R6028:6042 Coq.Arith.PeanoNat Nat le_ge_cases thm
+R6070:6083 ThieleMachine.Separation <> thiele_mu_cost def
+R6086:6098 ThieleMachine.Separation <> instance_size def
+R6101:6111 ThieleMachine.Separation <> mdlacc_cost def
+R6114:6122 ThieleMachine.Separation <> quadratic def
+R6125:6132 ThieleMachine.Separation <> thiele_D def
+R6135:6148 ThieleMachine.Separation <> tseitin_family def
+R6163:6171 Coq.Arith.PeanoNat Nat max_r thm
+R6163:6171 Coq.Arith.PeanoNat Nat max_r thm
+R6163:6171 Coq.Arith.PeanoNat Nat max_r thm
+R6197:6207 Coq.Arith.PeanoNat Nat sub_add thm
+R6197:6207 Coq.Arith.PeanoNat Nat sub_add thm
+R6197:6207 Coq.Arith.PeanoNat Nat sub_add thm
+R6232:6238 Coq.Arith.PeanoNat Nat sub def
+R6232:6238 Coq.Arith.PeanoNat Nat sub def
+R6280:6293 ThieleMachine.Separation <> thiele_mu_cost def
+R6296:6308 ThieleMachine.Separation <> instance_size def
+R6311:6321 ThieleMachine.Separation <> mdlacc_cost def
+R6324:6332 ThieleMachine.Separation <> quadratic def
+R6335:6342 ThieleMachine.Separation <> thiele_D def
+R6345:6358 ThieleMachine.Separation <> tseitin_family def
+R6373:6381 Coq.Arith.PeanoNat Nat max_l thm
+R6373:6381 Coq.Arith.PeanoNat Nat max_l thm
+R6373:6381 Coq.Arith.PeanoNat Nat max_l thm
+prf 6483:6511 <> thiele_exponential_separation
+R6517:6524 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6536:6538 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6533:6535 Coq.Init.Datatypes <> nat ind
+binder 6525:6525 <> N:29
+R6533:6535 Coq.Init.Datatypes <> nat ind
+binder 6527:6527 <> C:30
+R6533:6535 Coq.Init.Datatypes <> nat ind
+binder 6529:6529 <> D:31
+R6551:6553 Coq.Init.Datatypes <> nat ind
+binder 6547:6547 <> n:32
+R6569:6576 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6559:6562 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6558:6558 ThieleMachine.Separation <> n:32 var
+R6563:6563 ThieleMachine.Separation <> N:29 var
+R6637:6644 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6617:6620 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6578:6597 ThieleMachine.Separation <> thiele_sighted_steps def
+R6600:6613 ThieleMachine.Separation <> tseitin_family def
+R6615:6615 ThieleMachine.Separation <> n:32 var
+R6622:6624 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R6621:6621 ThieleMachine.Separation <> C:30 var
+R6625:6629 ThieleMachine.Separation <> cubic def
+R6631:6631 ThieleMachine.Separation <> n:32 var
+R6703:6710 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6679:6682 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6646:6659 ThieleMachine.Separation <> thiele_mu_cost def
+R6662:6675 ThieleMachine.Separation <> tseitin_family def
+R6677:6677 ThieleMachine.Separation <> n:32 var
+R6684:6686 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R6683:6683 ThieleMachine.Separation <> D:31 var
+R6687:6695 ThieleMachine.Separation <> quadratic def
+R6697:6697 ThieleMachine.Separation <> n:32 var
+R6749:6752 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6712:6729 ThieleMachine.Separation <> turing_blind_steps def
+R6732:6745 ThieleMachine.Separation <> tseitin_family def
+R6747:6747 ThieleMachine.Separation <> n:32 var
+R6753:6759 Coq.Arith.PeanoNat Nat pow def
+R6763:6763 ThieleMachine.Separation <> n:32 var
+R6801:6808 ThieleMachine.Separation <> thiele_C def
+R6818:6825 ThieleMachine.Separation <> thiele_D def
+R6801:6808 ThieleMachine.Separation <> thiele_C def
+R6818:6825 ThieleMachine.Separation <> thiele_D def
+R6921:6933 ThieleMachine.Separation <> instance_size def
+R6936:6949 ThieleMachine.Separation <> tseitin_family def
+R6971:6985 Coq.Arith.PeanoNat Nat le_ge_cases thm
+R6971:6985 Coq.Arith.PeanoNat Nat le_ge_cases thm
+R7157:7194 ThieleMachine.Separation <> thiele_sighted_steps_polynomial_forall thm
+R7157:7194 ThieleMachine.Separation <> thiele_sighted_steps_polynomial_forall thm
+R7219:7231 ThieleMachine.Separation <> instance_size def
+R7234:7247 ThieleMachine.Separation <> tseitin_family def
+R7270:7278 Coq.Arith.PeanoNat Nat max_r thm
+R7270:7278 Coq.Arith.PeanoNat Nat max_r thm
+R7270:7278 Coq.Arith.PeanoNat Nat max_r thm
+R7308:7316 Coq.Arith.PeanoNat Nat max_r thm
+R7308:7316 Coq.Arith.PeanoNat Nat max_r thm
+R7308:7316 Coq.Arith.PeanoNat Nat max_r thm
+R7440:7448 Coq.Arith.PeanoNat Nat max_l thm
+R7440:7448 Coq.Arith.PeanoNat Nat max_l thm
+R7440:7448 Coq.Arith.PeanoNat Nat max_l thm
+R7471:7490 ThieleMachine.Separation <> thiele_sighted_steps def
+R7493:7506 ThieleMachine.Separation <> partition_cost def
+R7509:7519 ThieleMachine.Separation <> mdlacc_cost def
+R7522:7538 ThieleMachine.Separation <> local_assert_cost def
+R7541:7566 ThieleMachine.Separation <> gaussian_elimination_steps def
+R7569:7586 ThieleMachine.Separation <> consistency_checks def
+R7650:7662 ThieleMachine.Separation <> instance_size def
+R7665:7678 ThieleMachine.Separation <> tseitin_family def
+R7700:7714 Coq.Arith.PeanoNat Nat le_ge_cases thm
+R7700:7714 Coq.Arith.PeanoNat Nat le_ge_cases thm
+R7822:7852 ThieleMachine.Separation <> thiele_mu_cost_quadratic_forall thm
+R7822:7852 ThieleMachine.Separation <> thiele_mu_cost_quadratic_forall thm
+R7877:7889 ThieleMachine.Separation <> instance_size def
+R7892:7905 ThieleMachine.Separation <> tseitin_family def
+R7928:7936 Coq.Arith.PeanoNat Nat max_r thm
+R7928:7936 Coq.Arith.PeanoNat Nat max_r thm
+R7928:7936 Coq.Arith.PeanoNat Nat max_r thm
+R7966:7974 Coq.Arith.PeanoNat Nat max_r thm
+R7966:7974 Coq.Arith.PeanoNat Nat max_r thm
+R7966:7974 Coq.Arith.PeanoNat Nat max_r thm
+R8038:8046 Coq.Arith.PeanoNat Nat max_l thm
+R8038:8046 Coq.Arith.PeanoNat Nat max_l thm
+R8038:8046 Coq.Arith.PeanoNat Nat max_l thm
+R8069:8082 ThieleMachine.Separation <> thiele_mu_cost def
+R8085:8095 ThieleMachine.Separation <> mdlacc_cost def
+R8185:8202 ThieleMachine.Separation <> turing_blind_steps def
+R8205:8218 ThieleMachine.Separation <> tseitin_family def
+R8221:8233 ThieleMachine.Separation <> instance_size def
+R8250:8264 Coq.Arith.PeanoNat Nat le_ge_cases thm
+R8250:8264 Coq.Arith.PeanoNat Nat le_ge_cases thm
+R8301:8309 Coq.Arith.PeanoNat Nat max_r thm
+R8301:8309 Coq.Arith.PeanoNat Nat max_r thm
+R8301:8309 Coq.Arith.PeanoNat Nat max_r thm
+R8325:8335 Coq.Arith.PeanoNat Nat le_refl thm
+R8325:8335 Coq.Arith.PeanoNat Nat le_refl thm
+R8352:8360 Coq.Arith.PeanoNat Nat max_l thm
+R8352:8360 Coq.Arith.PeanoNat Nat max_l thm
+R8352:8360 Coq.Arith.PeanoNat Nat max_l thm
+R8426:8429 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8426:8429 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8460:8463 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8460:8463 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8494:8497 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8494:8497 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8528:8530 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8528:8530 Coq.Init.Logic <> ::type_scope:x_'='_x not

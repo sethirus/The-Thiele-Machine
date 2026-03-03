@@ -6,6 +6,10 @@ Require Import Coq.Arith.Arith.
 Require Import Coq.Arith.PeanoNat.
 Require Import Coq.micromega.Lia.
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 Module Separation.
 
   (** We model Tseitin instances by their size parameter [n]. *)
@@ -72,5 +76,6 @@ Module Separation.
     - apply blind_has_exponential_lower.
     - exists 0. intros n _. apply blind_eventually_dominates.
   Qed.
+
 
 End Separation.

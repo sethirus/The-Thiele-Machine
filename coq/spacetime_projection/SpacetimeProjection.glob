@@ -1,277 +1,279 @@
-DIGEST 235520e9c58d9bce2dd163524c29acc6
+DIGEST ffd8bbf7e62da1275987ab5cb6844844
 FSpacetimeProjection.SpacetimeProjection
-R498:508 Coq.Arith.Arith <> <> lib
-R510:512 Coq.micromega.Lia <> <> lib
-R549:561 SelfReference.SelfReference <> <> lib
-R594:602 Spacetime.Spacetime <> <> lib
-R640:653 ThieleManifold.ThieleManifold <> <> lib
-rec 734:744 <> ThieleState
-proj 753:763 <> state_level
-proj 820:832 <> state_payload
-R767:769 Coq.Init.Datatypes <> nat ind
-R836:838 Coq.Init.Datatypes <> nat ind
-def 1091:1103 <> project_event
-R1110:1120 SpacetimeProjection.SpacetimeProjection <> ThieleState rec
-binder 1106:1106 <> s:4
-R1125:1129 Spacetime.Spacetime <> Event rec
-R1139:1139 Spacetime.Spacetime <> x proj
-R1139:1139 Spacetime.Spacetime <> x proj
-R1139:1139 Spacetime.Spacetime <> x proj
-R1166:1166 Spacetime.Spacetime <> y proj
-R1166:1166 Spacetime.Spacetime <> y proj
-R1179:1179 Spacetime.Spacetime <> z proj
-R1179:1179 Spacetime.Spacetime <> z proj
-R1192:1192 Spacetime.Spacetime <> t proj
-R1192:1192 Spacetime.Spacetime <> t proj
-R1144:1156 SpacetimeProjection.SpacetimeProjection <> state_payload proj
-R1158:1158 SpacetimeProjection.SpacetimeProjection <> s:4 var
-def 1215:1231 <> project_operation
-R1245:1255 SpacetimeProjection.SpacetimeProjection <> ThieleState rec
-binder 1234:1236 <> pre:5
-binder 1238:1241 <> post:6
-R1265:1267 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R1260:1264 Spacetime.Spacetime <> Event rec
-R1268:1272 Spacetime.Spacetime <> Event rec
-R1279:1279 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1297:1298 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1317:1317 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1280:1292 SpacetimeProjection.SpacetimeProjection <> project_event def
-R1294:1296 SpacetimeProjection.SpacetimeProjection <> pre:5 var
-R1299:1311 SpacetimeProjection.SpacetimeProjection <> project_event def
-R1313:1316 SpacetimeProjection.SpacetimeProjection <> post:6 var
-prf 1382:1403 <> projection_many_to_one
-R1409:1415 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R1421:1422 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 1416:1417 <> s1:7
-binder 1419:1420 <> s2:8
-R1431:1434 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R1425:1428 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R1423:1424 SpacetimeProjection.SpacetimeProjection <> s1:7 var
-R1429:1430 SpacetimeProjection.SpacetimeProjection <> s2:8 var
-R1451:1453 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1435:1447 SpacetimeProjection.SpacetimeProjection <> project_event def
-R1449:1450 SpacetimeProjection.SpacetimeProjection <> s1:7 var
-R1454:1466 SpacetimeProjection.SpacetimeProjection <> project_event def
-R1468:1469 SpacetimeProjection.SpacetimeProjection <> s2:8 var
-R1489:1496 Coq.Init.Logic <> ex_intro constr
-R1503:1513 SpacetimeProjection.SpacetimeProjection <> state_level proj
-R1503:1513 SpacetimeProjection.SpacetimeProjection <> state_level proj
-R1503:1513 SpacetimeProjection.SpacetimeProjection <> state_level proj
-R1521:1533 SpacetimeProjection.SpacetimeProjection <> state_payload proj
-R1521:1533 SpacetimeProjection.SpacetimeProjection <> state_payload proj
-R1489:1496 Coq.Init.Logic <> ex_intro constr
-R1503:1513 SpacetimeProjection.SpacetimeProjection <> state_level proj
-R1503:1513 SpacetimeProjection.SpacetimeProjection <> state_level proj
-R1503:1513 SpacetimeProjection.SpacetimeProjection <> state_level proj
-R1521:1533 SpacetimeProjection.SpacetimeProjection <> state_payload proj
-R1521:1533 SpacetimeProjection.SpacetimeProjection <> state_payload proj
-R1557:1564 Coq.Init.Logic <> ex_intro constr
-R1571:1581 SpacetimeProjection.SpacetimeProjection <> state_level proj
-R1571:1581 SpacetimeProjection.SpacetimeProjection <> state_level proj
-R1571:1581 SpacetimeProjection.SpacetimeProjection <> state_level proj
-R1589:1601 SpacetimeProjection.SpacetimeProjection <> state_payload proj
-R1589:1601 SpacetimeProjection.SpacetimeProjection <> state_payload proj
-R1557:1564 Coq.Init.Logic <> ex_intro constr
-R1571:1581 SpacetimeProjection.SpacetimeProjection <> state_level proj
-R1571:1581 SpacetimeProjection.SpacetimeProjection <> state_level proj
-R1571:1581 SpacetimeProjection.SpacetimeProjection <> state_level proj
-R1589:1601 SpacetimeProjection.SpacetimeProjection <> state_payload proj
-R1589:1601 SpacetimeProjection.SpacetimeProjection <> state_payload proj
-def 1710:1737 <> manifold_to_spacetime_system
-R1744:1757 ThieleManifold.ThieleManifold <> ThieleManifold rec
-binder 1740:1740 <> M:9
-R1762:1767 SelfReference.SelfReference <> System rec
-R1772:1774 ThieleManifold.ThieleManifold <> pi4 def
-R1776:1776 SpacetimeProjection.SpacetimeProjection <> M:9 var
-prf 1843:1866 <> projection_dimension_gap
-R1884:1897 ThieleManifold.ThieleManifold <> ThieleManifold rec
-binder 1880:1880 <> M:10
-binder 1900:1900 <> n:11
-R1912:1915 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1908:1910 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R1907:1907 SpacetimeProjection.SpacetimeProjection <> n:11 var
-R1916:1935 SelfReference.SelfReference <> dimensionally_richer def
-R1938:1942 ThieleManifold.ThieleManifold <> level proj
-R1944:1944 SpacetimeProjection.SpacetimeProjection <> M:10 var
-R1946:1946 SpacetimeProjection.SpacetimeProjection <> n:11 var
-R1950:1977 SpacetimeProjection.SpacetimeProjection <> manifold_to_spacetime_system def
-R1979:1979 SpacetimeProjection.SpacetimeProjection <> M:10 var
-R2014:2041 SpacetimeProjection.SpacetimeProjection <> manifold_to_spacetime_system def
-R2052:2078 ThieleManifold.ThieleManifold <> pi4_lossy_for_higher_levels thm
-R2052:2078 ThieleManifold.ThieleManifold <> pi4_lossy_for_higher_levels thm
-prf 2158:2184 <> projection_mu_cost_positive
-R2202:2215 ThieleManifold.ThieleManifold <> ThieleManifold rec
-binder 2198:2198 <> M:12
-binder 2218:2218 <> n:13
-R2230:2233 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2226:2228 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R2225:2225 SpacetimeProjection.SpacetimeProjection <> n:13 var
-R2286:2288 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R2234:2240 ThieleManifold.ThieleManifold <> mu_cost def
-R2243:2247 ThieleManifold.ThieleManifold <> level proj
-R2249:2249 SpacetimeProjection.SpacetimeProjection <> M:12 var
-R2251:2251 SpacetimeProjection.SpacetimeProjection <> n:13 var
-R2255:2282 SpacetimeProjection.SpacetimeProjection <> manifold_to_spacetime_system def
-R2284:2284 SpacetimeProjection.SpacetimeProjection <> M:12 var
-R2323:2350 SpacetimeProjection.SpacetimeProjection <> manifold_to_spacetime_system def
-R2361:2391 ThieleManifold.ThieleManifold <> mu_cost_positive_for_projection thm
-R2361:2391 ThieleManifold.ThieleManifold <> mu_cost_positive_for_projection thm
-prf 2550:2580 <> canonical_projection_can_reason
-R2586:2601 SelfReference.SelfReference <> can_reason_about def
-R2604:2631 SpacetimeProjection.SpacetimeProjection <> manifold_to_spacetime_system def
-R2633:2650 ThieleManifold.ThieleManifold <> canonical_manifold def
-R2653:2668 Spacetime.Spacetime <> spacetime_system def
-R2687:2702 SelfReference.SelfReference <> can_reason_about def
-R2727:2754 SpacetimeProjection.SpacetimeProjection <> manifold_to_spacetime_system def
-R2757:2759 ThieleManifold.ThieleManifold <> pi4 def
-R2778:2795 ThieleManifold.ThieleManifold <> canonical_manifold def
-R2798:2812 ThieleManifold.ThieleManifold <> canonical_level def
-R2848:2863 Spacetime.Spacetime <> spacetime_system def
-R2894:2912 Spacetime.Spacetime <> spacetime_sentences def
-R2967:2974 Spacetime.Spacetime <> at_event def
-def 3119:3131 <> superposition
-R3142:3152 SpacetimeProjection.SpacetimeProjection <> ThieleState rec
-binder 3134:3135 <> s1:14
-binder 3137:3138 <> s2:15
-R3167:3170 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R3165:3166 SpacetimeProjection.SpacetimeProjection <> s1:14 var
-R3171:3172 SpacetimeProjection.SpacetimeProjection <> s2:15 var
-def 3187:3197 <> measurement
-R3208:3218 SpacetimeProjection.SpacetimeProjection <> ThieleState rec
-binder 3200:3201 <> s1:16
-binder 3203:3204 <> s2:17
-R3223:3227 Spacetime.Spacetime <> Event rec
-R3232:3244 SpacetimeProjection.SpacetimeProjection <> project_event def
-R3246:3247 SpacetimeProjection.SpacetimeProjection <> s1:16 var
-prf 3325:3359 <> measurement_collapses_superposition
-binder 3372:3373 <> s1:18
-binder 3375:3376 <> s2:19
-R3398:3401 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3379:3391 SpacetimeProjection.SpacetimeProjection <> superposition def
-R3393:3394 SpacetimeProjection.SpacetimeProjection <> s1:18 var
-R3396:3397 SpacetimeProjection.SpacetimeProjection <> s2:19 var
-R3419:3421 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3402:3412 SpacetimeProjection.SpacetimeProjection <> measurement def
-R3414:3415 SpacetimeProjection.SpacetimeProjection <> s1:18 var
-R3417:3418 SpacetimeProjection.SpacetimeProjection <> s2:19 var
-R3422:3434 SpacetimeProjection.SpacetimeProjection <> project_event def
-R3436:3437 SpacetimeProjection.SpacetimeProjection <> s1:18 var
-prf 3560:3606 <> superposed_states_can_coincide_after_projection
-R3612:3618 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3624:3625 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 3619:3620 <> s1:20
-binder 3622:3623 <> s2:21
-R3645:3648 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3626:3638 SpacetimeProjection.SpacetimeProjection <> superposition def
-R3640:3641 SpacetimeProjection.SpacetimeProjection <> s1:20 var
-R3643:3644 SpacetimeProjection.SpacetimeProjection <> s2:21 var
-R3666:3668 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3649:3659 SpacetimeProjection.SpacetimeProjection <> measurement def
-R3661:3662 SpacetimeProjection.SpacetimeProjection <> s1:20 var
-R3664:3665 SpacetimeProjection.SpacetimeProjection <> s2:21 var
-R3669:3681 SpacetimeProjection.SpacetimeProjection <> project_event def
-R3683:3684 SpacetimeProjection.SpacetimeProjection <> s2:21 var
-R3705:3726 SpacetimeProjection.SpacetimeProjection <> projection_many_to_one thm
-R3801:3811 SpacetimeProjection.SpacetimeProjection <> measurement def
-def 3848:3856 <> entangled
-R3867:3877 SpacetimeProjection.SpacetimeProjection <> ThieleState rec
-binder 3859:3860 <> sA:22
-binder 3862:3863 <> sB:23
-R3906:3908 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3890:3902 SpacetimeProjection.SpacetimeProjection <> state_payload proj
-R3904:3905 SpacetimeProjection.SpacetimeProjection <> sA:22 var
-R3909:3921 SpacetimeProjection.SpacetimeProjection <> state_payload proj
-R3923:3924 SpacetimeProjection.SpacetimeProjection <> sB:23 var
-prf 4084:4115 <> entanglement_survives_projection
-binder 4128:4129 <> sA:24
-binder 4131:4132 <> sB:25
-R4150:4153 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4135:4143 SpacetimeProjection.SpacetimeProjection <> entangled def
-R4145:4146 SpacetimeProjection.SpacetimeProjection <> sA:24 var
-R4148:4149 SpacetimeProjection.SpacetimeProjection <> sB:25 var
-R4170:4172 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4154:4166 SpacetimeProjection.SpacetimeProjection <> project_event def
-R4168:4169 SpacetimeProjection.SpacetimeProjection <> sA:24 var
-R4173:4185 SpacetimeProjection.SpacetimeProjection <> project_event def
-R4187:4188 SpacetimeProjection.SpacetimeProjection <> sB:25 var
-R4223:4231 SpacetimeProjection.SpacetimeProjection <> entangled def
-R4246:4258 SpacetimeProjection.SpacetimeProjection <> project_event def
-def 4336:4352 <> observer_at_level
-R4359:4372 ThieleManifold.ThieleManifold <> ThieleManifold rec
-binder 4355:4355 <> M:26
-R4380:4382 Coq.Init.Datatypes <> nat ind
-binder 4376:4376 <> n:27
-R4387:4392 SelfReference.SelfReference <> System rec
-R4397:4401 ThieleManifold.ThieleManifold <> level proj
-R4403:4403 SpacetimeProjection.SpacetimeProjection <> M:26 var
-R4405:4405 SpacetimeProjection.SpacetimeProjection <> n:27 var
-def 4420:4434 <> can_access_meta
-R4441:4454 ThieleManifold.ThieleManifold <> ThieleManifold rec
-binder 4437:4437 <> M:28
-R4462:4464 Coq.Init.Datatypes <> nat ind
-binder 4458:4458 <> n:29
-R4479:4494 SelfReference.SelfReference <> can_reason_about def
-R4497:4513 SpacetimeProjection.SpacetimeProjection <> observer_at_level def
-R4515:4515 SpacetimeProjection.SpacetimeProjection <> M:28 var
-R4518:4518 Coq.Init.Datatypes <> S constr
-R4520:4520 SpacetimeProjection.SpacetimeProjection <> n:29 var
-R4525:4541 SpacetimeProjection.SpacetimeProjection <> observer_at_level def
-R4543:4543 SpacetimeProjection.SpacetimeProjection <> M:28 var
-R4545:4545 SpacetimeProjection.SpacetimeProjection <> n:29 var
-prf 4700:4725 <> observers_have_meta_access
-R4743:4756 ThieleManifold.ThieleManifold <> ThieleManifold rec
-binder 4739:4739 <> M:30
-binder 4759:4759 <> n:31
-R4762:4776 SpacetimeProjection.SpacetimeProjection <> can_access_meta def
-R4778:4778 SpacetimeProjection.SpacetimeProjection <> M:30 var
-R4780:4780 SpacetimeProjection.SpacetimeProjection <> n:31 var
-R4807:4821 SpacetimeProjection.SpacetimeProjection <> can_access_meta def
-R4824:4840 SpacetimeProjection.SpacetimeProjection <> observer_at_level def
-R4849:4864 ThieleManifold.ThieleManifold <> level_can_reason proj
-R4849:4864 ThieleManifold.ThieleManifold <> level_can_reason proj
-prf 4941:4969 <> free_will_as_partition_choice
-R4987:5000 ThieleManifold.ThieleManifold <> ThieleManifold rec
-binder 4983:4983 <> M:32
-binder 5003:5003 <> n:33
-R5029:5036 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5010:5024 SpacetimeProjection.SpacetimeProjection <> can_access_meta def
-R5026:5026 SpacetimeProjection.SpacetimeProjection <> M:32 var
-R5028:5028 SpacetimeProjection.SpacetimeProjection <> n:33 var
-R5037:5043 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R5050:5051 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 5044:5049 <> richer:34
-R5052:5071 SelfReference.SelfReference <> dimensionally_richer def
-R5073:5078 SpacetimeProjection.SpacetimeProjection <> richer:34 var
-R5081:5097 SpacetimeProjection.SpacetimeProjection <> observer_at_level def
-R5099:5099 SpacetimeProjection.SpacetimeProjection <> M:32 var
-R5101:5101 SpacetimeProjection.SpacetimeProjection <> n:33 var
-R5136:5152 SpacetimeProjection.SpacetimeProjection <> observer_at_level def
-R5157:5157 Coq.Init.Datatypes <> S constr
-R5136:5152 SpacetimeProjection.SpacetimeProjection <> observer_at_level def
-R5157:5157 Coq.Init.Datatypes <> S constr
-R5173:5189 SpacetimeProjection.SpacetimeProjection <> observer_at_level def
-R5198:5218 ThieleManifold.ThieleManifold <> level_strictly_richer proj
-R5198:5218 ThieleManifold.ThieleManifold <> level_strictly_richer proj
-prf 5296:5325 <> spacetime_is_projection_shadow
-R5414:5420 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5542:5542 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5331:5346 SelfReference.SelfReference <> can_reason_about def
-R5349:5376 SpacetimeProjection.SpacetimeProjection <> manifold_to_spacetime_system def
-R5378:5395 ThieleManifold.ThieleManifold <> canonical_manifold def
-R5398:5413 Spacetime.Spacetime <> spacetime_system def
-binder 5428:5428 <> n:35
-R5436:5439 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5432:5434 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R5431:5431 SpacetimeProjection.SpacetimeProjection <> n:35 var
-R5538:5540 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R5440:5446 ThieleManifold.ThieleManifold <> mu_cost def
-R5449:5465 SpacetimeProjection.SpacetimeProjection <> observer_at_level def
-R5467:5484 ThieleManifold.ThieleManifold <> canonical_manifold def
-R5486:5486 SpacetimeProjection.SpacetimeProjection <> n:35 var
-R5490:5517 SpacetimeProjection.SpacetimeProjection <> manifold_to_spacetime_system def
-R5519:5536 ThieleManifold.ThieleManifold <> canonical_manifold def
-R5571:5601 SpacetimeProjection.SpacetimeProjection <> canonical_projection_can_reason thm
-R5571:5601 SpacetimeProjection.SpacetimeProjection <> canonical_projection_can_reason thm
-R5628:5644 SpacetimeProjection.SpacetimeProjection <> observer_at_level def
-R5653:5679 SpacetimeProjection.SpacetimeProjection <> projection_mu_cost_positive thm
-R5653:5679 SpacetimeProjection.SpacetimeProjection <> projection_mu_cost_positive thm
+R586:592 Kernel.VMState <> <> lib
+R594:599 Kernel.VMStep <> <> lib
+R627:637 Coq.Arith.Arith <> <> lib
+R639:641 Coq.micromega.Lia <> <> lib
+R678:690 SelfReference.SelfReference <> <> lib
+R723:731 Spacetime.Spacetime <> <> lib
+R769:782 ThieleManifold.ThieleManifold <> <> lib
+rec 863:873 <> ThieleState
+proj 882:892 <> state_level
+proj 949:961 <> state_payload
+R896:898 Coq.Init.Datatypes <> nat ind
+R965:967 Coq.Init.Datatypes <> nat ind
+def 1220:1232 <> project_event
+R1239:1249 SpacetimeProjection.SpacetimeProjection <> ThieleState rec
+binder 1235:1235 <> s:4
+R1254:1258 Spacetime.Spacetime <> Event rec
+R1268:1268 Spacetime.Spacetime <> x proj
+R1268:1268 Spacetime.Spacetime <> x proj
+R1268:1268 Spacetime.Spacetime <> x proj
+R1295:1295 Spacetime.Spacetime <> y proj
+R1295:1295 Spacetime.Spacetime <> y proj
+R1308:1308 Spacetime.Spacetime <> z proj
+R1308:1308 Spacetime.Spacetime <> z proj
+R1321:1321 Spacetime.Spacetime <> t proj
+R1321:1321 Spacetime.Spacetime <> t proj
+R1273:1285 SpacetimeProjection.SpacetimeProjection <> state_payload proj
+R1287:1287 SpacetimeProjection.SpacetimeProjection <> s:4 var
+def 1344:1360 <> project_operation
+R1374:1384 SpacetimeProjection.SpacetimeProjection <> ThieleState rec
+binder 1363:1365 <> pre:5
+binder 1367:1370 <> post:6
+R1394:1396 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1389:1393 Spacetime.Spacetime <> Event rec
+R1397:1401 Spacetime.Spacetime <> Event rec
+R1408:1408 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1426:1427 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1446:1446 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1409:1421 SpacetimeProjection.SpacetimeProjection <> project_event def
+R1423:1425 SpacetimeProjection.SpacetimeProjection <> pre:5 var
+R1428:1440 SpacetimeProjection.SpacetimeProjection <> project_event def
+R1442:1445 SpacetimeProjection.SpacetimeProjection <> post:6 var
+prf 1511:1532 <> projection_many_to_one
+R1538:1544 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1550:1551 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 1545:1546 <> s1:7
+binder 1548:1549 <> s2:8
+R1560:1563 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1554:1557 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R1552:1553 SpacetimeProjection.SpacetimeProjection <> s1:7 var
+R1558:1559 SpacetimeProjection.SpacetimeProjection <> s2:8 var
+R1580:1582 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1564:1576 SpacetimeProjection.SpacetimeProjection <> project_event def
+R1578:1579 SpacetimeProjection.SpacetimeProjection <> s1:7 var
+R1583:1595 SpacetimeProjection.SpacetimeProjection <> project_event def
+R1597:1598 SpacetimeProjection.SpacetimeProjection <> s2:8 var
+R1618:1625 Coq.Init.Logic <> ex_intro constr
+R1632:1642 SpacetimeProjection.SpacetimeProjection <> state_level proj
+R1632:1642 SpacetimeProjection.SpacetimeProjection <> state_level proj
+R1632:1642 SpacetimeProjection.SpacetimeProjection <> state_level proj
+R1650:1662 SpacetimeProjection.SpacetimeProjection <> state_payload proj
+R1650:1662 SpacetimeProjection.SpacetimeProjection <> state_payload proj
+R1618:1625 Coq.Init.Logic <> ex_intro constr
+R1632:1642 SpacetimeProjection.SpacetimeProjection <> state_level proj
+R1632:1642 SpacetimeProjection.SpacetimeProjection <> state_level proj
+R1632:1642 SpacetimeProjection.SpacetimeProjection <> state_level proj
+R1650:1662 SpacetimeProjection.SpacetimeProjection <> state_payload proj
+R1650:1662 SpacetimeProjection.SpacetimeProjection <> state_payload proj
+R1686:1693 Coq.Init.Logic <> ex_intro constr
+R1700:1710 SpacetimeProjection.SpacetimeProjection <> state_level proj
+R1700:1710 SpacetimeProjection.SpacetimeProjection <> state_level proj
+R1700:1710 SpacetimeProjection.SpacetimeProjection <> state_level proj
+R1718:1730 SpacetimeProjection.SpacetimeProjection <> state_payload proj
+R1718:1730 SpacetimeProjection.SpacetimeProjection <> state_payload proj
+R1686:1693 Coq.Init.Logic <> ex_intro constr
+R1700:1710 SpacetimeProjection.SpacetimeProjection <> state_level proj
+R1700:1710 SpacetimeProjection.SpacetimeProjection <> state_level proj
+R1700:1710 SpacetimeProjection.SpacetimeProjection <> state_level proj
+R1718:1730 SpacetimeProjection.SpacetimeProjection <> state_payload proj
+R1718:1730 SpacetimeProjection.SpacetimeProjection <> state_payload proj
+def 1839:1866 <> manifold_to_spacetime_system
+R1873:1886 ThieleManifold.ThieleManifold <> ThieleManifold rec
+binder 1869:1869 <> M:9
+R1891:1896 SelfReference.SelfReference <> System rec
+R1901:1903 ThieleManifold.ThieleManifold <> pi4 def
+R1905:1905 SpacetimeProjection.SpacetimeProjection <> M:9 var
+prf 1972:1995 <> projection_dimension_gap
+R2013:2026 ThieleManifold.ThieleManifold <> ThieleManifold rec
+binder 2009:2009 <> M:10
+binder 2029:2029 <> n:11
+R2041:2044 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2037:2039 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R2036:2036 SpacetimeProjection.SpacetimeProjection <> n:11 var
+R2045:2064 SelfReference.SelfReference <> dimensionally_richer def
+R2067:2071 ThieleManifold.ThieleManifold <> level proj
+R2073:2073 SpacetimeProjection.SpacetimeProjection <> M:10 var
+R2075:2075 SpacetimeProjection.SpacetimeProjection <> n:11 var
+R2079:2106 SpacetimeProjection.SpacetimeProjection <> manifold_to_spacetime_system def
+R2108:2108 SpacetimeProjection.SpacetimeProjection <> M:10 var
+R2143:2170 SpacetimeProjection.SpacetimeProjection <> manifold_to_spacetime_system def
+R2181:2207 ThieleManifold.ThieleManifold <> pi4_lossy_for_higher_levels thm
+R2181:2207 ThieleManifold.ThieleManifold <> pi4_lossy_for_higher_levels thm
+prf 2287:2313 <> projection_mu_cost_positive
+R2331:2344 ThieleManifold.ThieleManifold <> ThieleManifold rec
+binder 2327:2327 <> M:12
+binder 2347:2347 <> n:13
+R2359:2362 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2355:2357 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R2354:2354 SpacetimeProjection.SpacetimeProjection <> n:13 var
+R2415:2417 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R2363:2369 ThieleManifold.ThieleManifold <> mu_cost def
+R2372:2376 ThieleManifold.ThieleManifold <> level proj
+R2378:2378 SpacetimeProjection.SpacetimeProjection <> M:12 var
+R2380:2380 SpacetimeProjection.SpacetimeProjection <> n:13 var
+R2384:2411 SpacetimeProjection.SpacetimeProjection <> manifold_to_spacetime_system def
+R2413:2413 SpacetimeProjection.SpacetimeProjection <> M:12 var
+R2452:2479 SpacetimeProjection.SpacetimeProjection <> manifold_to_spacetime_system def
+R2490:2520 ThieleManifold.ThieleManifold <> mu_cost_positive_for_projection thm
+R2490:2520 ThieleManifold.ThieleManifold <> mu_cost_positive_for_projection thm
+prf 2679:2709 <> canonical_projection_can_reason
+R2715:2730 SelfReference.SelfReference <> can_reason_about def
+R2733:2760 SpacetimeProjection.SpacetimeProjection <> manifold_to_spacetime_system def
+R2762:2779 ThieleManifold.ThieleManifold <> canonical_manifold def
+R2782:2797 Spacetime.Spacetime <> spacetime_system def
+R2816:2831 SelfReference.SelfReference <> can_reason_about def
+R2856:2883 SpacetimeProjection.SpacetimeProjection <> manifold_to_spacetime_system def
+R2886:2888 ThieleManifold.ThieleManifold <> pi4 def
+R2907:2924 ThieleManifold.ThieleManifold <> canonical_manifold def
+R2927:2941 ThieleManifold.ThieleManifold <> canonical_level def
+R2977:2992 Spacetime.Spacetime <> spacetime_system def
+R3023:3041 Spacetime.Spacetime <> spacetime_sentences def
+R3096:3103 Spacetime.Spacetime <> at_event def
+def 3248:3260 <> superposition
+R3271:3281 SpacetimeProjection.SpacetimeProjection <> ThieleState rec
+binder 3263:3264 <> s1:14
+binder 3266:3267 <> s2:15
+R3296:3299 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3294:3295 SpacetimeProjection.SpacetimeProjection <> s1:14 var
+R3300:3301 SpacetimeProjection.SpacetimeProjection <> s2:15 var
+def 3316:3326 <> measurement
+R3337:3347 SpacetimeProjection.SpacetimeProjection <> ThieleState rec
+binder 3329:3330 <> s1:16
+binder 3332:3333 <> s2:17
+R3352:3356 Spacetime.Spacetime <> Event rec
+R3361:3373 SpacetimeProjection.SpacetimeProjection <> project_event def
+R3375:3376 SpacetimeProjection.SpacetimeProjection <> s1:16 var
+prf 3454:3488 <> measurement_collapses_superposition
+binder 3501:3502 <> s1:18
+binder 3504:3505 <> s2:19
+R3527:3530 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3508:3520 SpacetimeProjection.SpacetimeProjection <> superposition def
+R3522:3523 SpacetimeProjection.SpacetimeProjection <> s1:18 var
+R3525:3526 SpacetimeProjection.SpacetimeProjection <> s2:19 var
+R3548:3550 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3531:3541 SpacetimeProjection.SpacetimeProjection <> measurement def
+R3543:3544 SpacetimeProjection.SpacetimeProjection <> s1:18 var
+R3546:3547 SpacetimeProjection.SpacetimeProjection <> s2:19 var
+R3551:3563 SpacetimeProjection.SpacetimeProjection <> project_event def
+R3565:3566 SpacetimeProjection.SpacetimeProjection <> s1:18 var
+prf 3689:3735 <> superposed_states_can_coincide_after_projection
+R3741:3747 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3753:3754 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3748:3749 <> s1:20
+binder 3751:3752 <> s2:21
+R3774:3777 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3755:3767 SpacetimeProjection.SpacetimeProjection <> superposition def
+R3769:3770 SpacetimeProjection.SpacetimeProjection <> s1:20 var
+R3772:3773 SpacetimeProjection.SpacetimeProjection <> s2:21 var
+R3795:3797 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3778:3788 SpacetimeProjection.SpacetimeProjection <> measurement def
+R3790:3791 SpacetimeProjection.SpacetimeProjection <> s1:20 var
+R3793:3794 SpacetimeProjection.SpacetimeProjection <> s2:21 var
+R3798:3810 SpacetimeProjection.SpacetimeProjection <> project_event def
+R3812:3813 SpacetimeProjection.SpacetimeProjection <> s2:21 var
+R3834:3855 SpacetimeProjection.SpacetimeProjection <> projection_many_to_one thm
+R3930:3940 SpacetimeProjection.SpacetimeProjection <> measurement def
+def 3977:3985 <> entangled
+R3996:4006 SpacetimeProjection.SpacetimeProjection <> ThieleState rec
+binder 3988:3989 <> sA:22
+binder 3991:3992 <> sB:23
+R4035:4037 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4019:4031 SpacetimeProjection.SpacetimeProjection <> state_payload proj
+R4033:4034 SpacetimeProjection.SpacetimeProjection <> sA:22 var
+R4038:4050 SpacetimeProjection.SpacetimeProjection <> state_payload proj
+R4052:4053 SpacetimeProjection.SpacetimeProjection <> sB:23 var
+prf 4213:4244 <> entanglement_survives_projection
+binder 4257:4258 <> sA:24
+binder 4260:4261 <> sB:25
+R4279:4282 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4264:4272 SpacetimeProjection.SpacetimeProjection <> entangled def
+R4274:4275 SpacetimeProjection.SpacetimeProjection <> sA:24 var
+R4277:4278 SpacetimeProjection.SpacetimeProjection <> sB:25 var
+R4299:4301 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4283:4295 SpacetimeProjection.SpacetimeProjection <> project_event def
+R4297:4298 SpacetimeProjection.SpacetimeProjection <> sA:24 var
+R4302:4314 SpacetimeProjection.SpacetimeProjection <> project_event def
+R4316:4317 SpacetimeProjection.SpacetimeProjection <> sB:25 var
+R4352:4360 SpacetimeProjection.SpacetimeProjection <> entangled def
+R4375:4387 SpacetimeProjection.SpacetimeProjection <> project_event def
+def 4465:4481 <> observer_at_level
+R4488:4501 ThieleManifold.ThieleManifold <> ThieleManifold rec
+binder 4484:4484 <> M:26
+R4509:4511 Coq.Init.Datatypes <> nat ind
+binder 4505:4505 <> n:27
+R4516:4521 SelfReference.SelfReference <> System rec
+R4526:4530 ThieleManifold.ThieleManifold <> level proj
+R4532:4532 SpacetimeProjection.SpacetimeProjection <> M:26 var
+R4534:4534 SpacetimeProjection.SpacetimeProjection <> n:27 var
+def 4549:4563 <> can_access_meta
+R4570:4583 ThieleManifold.ThieleManifold <> ThieleManifold rec
+binder 4566:4566 <> M:28
+R4591:4593 Coq.Init.Datatypes <> nat ind
+binder 4587:4587 <> n:29
+R4608:4623 SelfReference.SelfReference <> can_reason_about def
+R4626:4642 SpacetimeProjection.SpacetimeProjection <> observer_at_level def
+R4644:4644 SpacetimeProjection.SpacetimeProjection <> M:28 var
+R4647:4647 Coq.Init.Datatypes <> S constr
+R4649:4649 SpacetimeProjection.SpacetimeProjection <> n:29 var
+R4654:4670 SpacetimeProjection.SpacetimeProjection <> observer_at_level def
+R4672:4672 SpacetimeProjection.SpacetimeProjection <> M:28 var
+R4674:4674 SpacetimeProjection.SpacetimeProjection <> n:29 var
+prf 4829:4854 <> observers_have_meta_access
+R4872:4885 ThieleManifold.ThieleManifold <> ThieleManifold rec
+binder 4868:4868 <> M:30
+binder 4888:4888 <> n:31
+R4891:4905 SpacetimeProjection.SpacetimeProjection <> can_access_meta def
+R4907:4907 SpacetimeProjection.SpacetimeProjection <> M:30 var
+R4909:4909 SpacetimeProjection.SpacetimeProjection <> n:31 var
+R4936:4950 SpacetimeProjection.SpacetimeProjection <> can_access_meta def
+R4953:4969 SpacetimeProjection.SpacetimeProjection <> observer_at_level def
+R4978:4993 ThieleManifold.ThieleManifold <> level_can_reason proj
+R4978:4993 ThieleManifold.ThieleManifold <> level_can_reason proj
+prf 5070:5098 <> free_will_as_partition_choice
+R5116:5129 ThieleManifold.ThieleManifold <> ThieleManifold rec
+binder 5112:5112 <> M:32
+binder 5132:5132 <> n:33
+R5158:5165 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5139:5153 SpacetimeProjection.SpacetimeProjection <> can_access_meta def
+R5155:5155 SpacetimeProjection.SpacetimeProjection <> M:32 var
+R5157:5157 SpacetimeProjection.SpacetimeProjection <> n:33 var
+R5166:5172 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5179:5180 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5173:5178 <> richer:34
+R5181:5200 SelfReference.SelfReference <> dimensionally_richer def
+R5202:5207 SpacetimeProjection.SpacetimeProjection <> richer:34 var
+R5210:5226 SpacetimeProjection.SpacetimeProjection <> observer_at_level def
+R5228:5228 SpacetimeProjection.SpacetimeProjection <> M:32 var
+R5230:5230 SpacetimeProjection.SpacetimeProjection <> n:33 var
+R5265:5281 SpacetimeProjection.SpacetimeProjection <> observer_at_level def
+R5286:5286 Coq.Init.Datatypes <> S constr
+R5265:5281 SpacetimeProjection.SpacetimeProjection <> observer_at_level def
+R5286:5286 Coq.Init.Datatypes <> S constr
+R5302:5318 SpacetimeProjection.SpacetimeProjection <> observer_at_level def
+R5327:5347 ThieleManifold.ThieleManifold <> level_strictly_richer proj
+R5327:5347 ThieleManifold.ThieleManifold <> level_strictly_richer proj
+prf 5425:5454 <> spacetime_is_projection_shadow
+R5543:5549 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5671:5671 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5460:5475 SelfReference.SelfReference <> can_reason_about def
+R5478:5505 SpacetimeProjection.SpacetimeProjection <> manifold_to_spacetime_system def
+R5507:5524 ThieleManifold.ThieleManifold <> canonical_manifold def
+R5527:5542 Spacetime.Spacetime <> spacetime_system def
+binder 5557:5557 <> n:35
+R5565:5568 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5561:5563 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R5560:5560 SpacetimeProjection.SpacetimeProjection <> n:35 var
+R5667:5669 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R5569:5575 ThieleManifold.ThieleManifold <> mu_cost def
+R5578:5594 SpacetimeProjection.SpacetimeProjection <> observer_at_level def
+R5596:5613 ThieleManifold.ThieleManifold <> canonical_manifold def
+R5615:5615 SpacetimeProjection.SpacetimeProjection <> n:35 var
+R5619:5646 SpacetimeProjection.SpacetimeProjection <> manifold_to_spacetime_system def
+R5648:5665 ThieleManifold.ThieleManifold <> canonical_manifold def
+R5700:5730 SpacetimeProjection.SpacetimeProjection <> canonical_projection_can_reason thm
+R5700:5730 SpacetimeProjection.SpacetimeProjection <> canonical_projection_can_reason thm
+R5757:5773 SpacetimeProjection.SpacetimeProjection <> observer_at_level def
+R5782:5808 SpacetimeProjection.SpacetimeProjection <> projection_mu_cost_positive thm
+R5782:5808 SpacetimeProjection.SpacetimeProjection <> projection_mu_cost_positive thm

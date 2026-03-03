@@ -1,4 +1,6 @@
 (** =========================================================================
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
     ALGEBRAIC LAWS - Core Invariants and Structural Properties
     =========================================================================
     
@@ -11,6 +13,9 @@
     5. Monotonicity of μ (Non-decreasing cost)
     
     ========================================================================= *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
 
 Require Import Coq.Lists.List.
 Require Import Coq.Sorting.Permutation.

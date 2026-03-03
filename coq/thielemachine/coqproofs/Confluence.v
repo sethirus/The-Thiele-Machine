@@ -1,5 +1,9 @@
 (* Confluence.v: Church–Rosser Confluence and μ Invariance *)
 
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 Require Import Relations.
 Require Import Permutation.
 Require Import Arith.

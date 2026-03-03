@@ -7,6 +7,10 @@ From Coq Require Import Bool.Bool.
 From Coq Require Import Arith.PeanoNat.
 From Coq Require Import micromega.Lia.
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 Import ListNotations.
 
 (* -------------------------------------------------------------------------- *)
@@ -106,3 +110,4 @@ Proof.
   unfold mu_bits, prefix_free_complexity.
   lia.
 Qed.
+

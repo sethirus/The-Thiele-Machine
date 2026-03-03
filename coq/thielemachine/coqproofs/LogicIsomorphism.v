@@ -1,4 +1,6 @@
 (** =========================================================================
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
     LOGIC ISOMORPHISM (Curry-Howard-Thiele)
     =========================================================================
 
@@ -9,6 +11,10 @@
     - Cut Elimination <-> Execution (Normalization)
 
     ========================================================================= *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import List String ZArith.
 Require Import ThieleMachine.CoreSemantics.

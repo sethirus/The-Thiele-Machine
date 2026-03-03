@@ -192,7 +192,7 @@ class TestVerilogIsomorphismViolation:
         # This test documents the requirement
         # Actual hardware testing in test_hardware.py
 
-        # Verilog mu_core.v MUST enforce:
+        # Canonical Verilog cost-gating logic MUST enforce:
         # cost_gate_open <= (proposed_cost >= current_mu_cost)
 
         # If cost decreases, gate blocks execution

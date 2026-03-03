@@ -112,3 +112,4 @@ Proof.
   unfold tau_mu, tau_min.
   field. apply Rgt_not_eq. apply E_landauer_positive.
 Qed.
+

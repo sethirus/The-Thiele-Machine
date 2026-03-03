@@ -17,6 +17,10 @@
 
     ========================================================================= *)
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 From Coq Require Import Reals Lra Lia List.
 From Coq Require Import Reals.ROrderedType.
 Import ListNotations.

@@ -1,182 +1,183 @@
-DIGEST 83eb0320650d95ecc9f5525eaf7149e4
+DIGEST be10940ffc01ea0c8c84cbff17911f03
 FKernel.KernelBenchmarks
-R2191:2197 Kernel.VMState <> <> lib
-R2199:2204 Kernel.VMStep <> <> lib
-R2206:2218 Kernel.KernelPhysics <> <> lib
-R2220:2240 Kernel.FalsifiablePrediction <> <> lib
-R2258:2271 Coq.Lists.List <> <> lib
-R2289:2306 Coq.Arith.PeanoNat <> <> lib
-R2324:2340 Coq.micromega.Lia <> <> lib
-R2350:2362 Coq.Lists.List ListNotations <> mod
-R2372:2374 Coq.Arith.PeanoNat Nat <> mod
-def 2604:2617 <> linear_time_op
-R2645:2647 Coq.Init.Datatypes <> nat ind
-binder 2620:2629 <> input_size:1
-binder 2631:2641 <> output_cost:2
-R2662:2668 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2670:2671 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 2669:2669 <> C:3
-R2684:2687 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R2673:2683 Kernel.KernelBenchmarks <> output_cost:2 var
-R2689:2691 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
-R2688:2688 Kernel.KernelBenchmarks <> C:3 var
-R2692:2701 Kernel.KernelBenchmarks <> input_size:1 var
-def 2750:2762 <> nlogn_time_op
-R2790:2792 Coq.Init.Datatypes <> nat ind
-binder 2765:2774 <> input_size:4
-binder 2776:2786 <> output_cost:5
-R2807:2813 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2815:2816 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 2814:2814 <> C:6
-R2829:2832 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R2818:2828 Kernel.KernelBenchmarks <> output_cost:5 var
-R2847:2850 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
-R2870:2870 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
-R2834:2836 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
-R2833:2833 Kernel.KernelBenchmarks <> C:6 var
-R2837:2846 Kernel.KernelBenchmarks <> input_size:4 var
-R2866:2868 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R2851:2854 Coq.Arith.PeanoNat Nat log2 def
-R2856:2865 Kernel.KernelBenchmarks <> input_size:4 var
-def 2915:2931 <> quadratic_time_op
-R2959:2961 Coq.Init.Datatypes <> nat ind
-binder 2934:2943 <> input_size:7
-binder 2945:2955 <> output_cost:8
-R2976:2982 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2984:2985 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 2983:2983 <> C:9
-R2998:3001 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R2987:2997 Kernel.KernelBenchmarks <> output_cost:8 var
-R3016:3018 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
-R3003:3005 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
-R3002:3002 Kernel.KernelBenchmarks <> C:9 var
-R3006:3015 Kernel.KernelBenchmarks <> input_size:7 var
-R3019:3028 Kernel.KernelBenchmarks <> input_size:7 var
-prf 3308:3318 <> pnew_linear
-binder 3329:3334 <> region:10
-binder 3336:3339 <> cost:11
-R3373:3378 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3348:3350 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3344:3347 Kernel.KernelBenchmarks <> cost:11 var
-R3351:3365 Kernel.FalsifiablePrediction <> pnew_cost_bound def
-R3367:3372 Kernel.KernelBenchmarks <> region:10 var
-R3379:3392 Kernel.KernelBenchmarks <> linear_time_op def
-R3395:3405 Kernel.FalsifiablePrediction <> region_size def
-R3407:3412 Kernel.KernelBenchmarks <> region:10 var
-R3415:3418 Kernel.KernelBenchmarks <> cost:11 var
-R3473:3487 Kernel.FalsifiablePrediction <> pnew_cost_bound def
-R3519:3529 Kernel.FalsifiablePrediction <> region_size def
-prf 3598:3610 <> psplit_linear
-binder 3621:3624 <> left:12
-binder 3626:3630 <> right:13
-binder 3632:3635 <> cost:14
-R3675:3680 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3644:3646 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3640:3643 Kernel.KernelBenchmarks <> cost:14 var
-R3647:3663 Kernel.FalsifiablePrediction <> psplit_cost_bound def
-R3665:3668 Kernel.KernelBenchmarks <> left:12 var
-R3670:3674 Kernel.KernelBenchmarks <> right:13 var
-R3681:3694 Kernel.KernelBenchmarks <> linear_time_op def
-R3713:3715 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R3697:3707 Kernel.FalsifiablePrediction <> region_size def
-R3709:3712 Kernel.KernelBenchmarks <> left:12 var
-R3716:3726 Kernel.FalsifiablePrediction <> region_size def
-R3728:3732 Kernel.KernelBenchmarks <> right:13 var
-R3735:3738 Kernel.KernelBenchmarks <> cost:14 var
-R3797:3813 Kernel.FalsifiablePrediction <> psplit_cost_bound def
-R3845:3855 Kernel.FalsifiablePrediction <> region_size def
-prf 3919:3937 <> pmerge_linear_worst
-binder 3948:3949 <> r1:15
-binder 3951:3952 <> r2:16
-binder 3954:3957 <> cost:17
-R3992:3997 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3966:3968 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3962:3965 Kernel.KernelBenchmarks <> cost:17 var
-R3969:3985 Kernel.FalsifiablePrediction <> pmerge_cost_bound def
-R3987:3988 Kernel.KernelBenchmarks <> r1:15 var
-R3990:3991 Kernel.KernelBenchmarks <> r2:16 var
-R3998:4011 Kernel.KernelBenchmarks <> linear_time_op def
-R4028:4030 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R4014:4024 Kernel.FalsifiablePrediction <> region_size def
-R4026:4027 Kernel.KernelBenchmarks <> r1:15 var
-R4031:4041 Kernel.FalsifiablePrediction <> region_size def
-R4043:4044 Kernel.KernelBenchmarks <> r2:16 var
-R4047:4050 Kernel.KernelBenchmarks <> cost:17 var
-R4104:4120 Kernel.FalsifiablePrediction <> pmerge_cost_bound def
-R4152:4162 Kernel.FalsifiablePrediction <> region_size def
-def 4415:4425 <> space_bound
-R4438:4441 Coq.Init.Datatypes <> list ind
-R4452:4454 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R4444:4451 Kernel.VMState <> ModuleID def
-R4455:4465 Kernel.VMState <> ModuleState rec
-binder 4428:4434 <> modules:18
-R4471:4473 Coq.Init.Datatypes <> nat ind
-R4480:4488 Coq.Lists.List <> fold_left def
-R4577:4583 Kernel.KernelBenchmarks <> modules:18 var
-binder 4495:4497 <> acc:19
-binder 4499:4499 <> m:20
-R4510:4510 Kernel.KernelBenchmarks <> m:20 var
-R4517:4517 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4519:4520 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4523:4523 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4531:4533 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R4528:4530 Kernel.KernelBenchmarks <> acc:19 var
-R4534:4539 Coq.Init.Datatypes <> length def
-R4545:4557 Kernel.VMState <> module_region proj
-prf 4654:4665 <> space_linear
-binder 4676:4682 <> modules:22
-binder 4684:4697 <> total_elements:23
-R4738:4743 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4716:4718 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4702:4715 Kernel.KernelBenchmarks <> total_elements:23 var
-R4719:4729 Kernel.KernelBenchmarks <> space_bound def
-R4731:4737 Kernel.KernelBenchmarks <> modules:22 var
-R4744:4757 Kernel.KernelBenchmarks <> linear_time_op def
-R4759:4772 Kernel.KernelBenchmarks <> total_elements:23 var
-R4774:4787 Kernel.KernelBenchmarks <> total_elements:23 var
-rec 5098:5110 <> BenchmarkPNEW
-proj 5119:5133 <> bench_pnew_size
-proj 5144:5167 <> bench_pnew_expected_cost
-proj 5178:5193 <> bench_pnew_bound
-R5137:5139 Coq.Init.Datatypes <> nat ind
-R5171:5173 Coq.Init.Datatypes <> nat ind
-R5221:5224 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5197:5220 Kernel.KernelBenchmarks <> bench_pnew_expected_cost:26 meth
-R5225:5239 Kernel.KernelBenchmarks <> bench_pnew_size:25 meth
-rec 5291:5305 <> BenchmarkPSPLIT
-proj 5314:5335 <> bench_psplit_left_size
-proj 5346:5368 <> bench_psplit_right_size
-proj 5379:5404 <> bench_psplit_expected_cost
-proj 5415:5432 <> bench_psplit_bound
-R5339:5341 Coq.Init.Datatypes <> nat ind
-R5372:5374 Coq.Init.Datatypes <> nat ind
-R5408:5410 Coq.Init.Datatypes <> nat ind
-R5462:5489 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5436:5461 Kernel.KernelBenchmarks <> bench_psplit_expected_cost:31 meth
-R5512:5514 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R5490:5511 Kernel.KernelBenchmarks <> bench_psplit_left_size:29 meth
-R5515:5537 Kernel.KernelBenchmarks <> bench_psplit_right_size:30 meth
-def 5896:5911 <> total_cost_bound
-R5939:5941 Coq.Init.Datatypes <> nat ind
-binder 5914:5920 <> num_ops:33
-binder 5922:5935 <> partition_size:34
-R5946:5948 Coq.Init.Datatypes <> nat ind
-R5962:5964 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
-R5955:5961 Kernel.KernelBenchmarks <> num_ops:33 var
-R5965:5978 Kernel.KernelBenchmarks <> partition_size:34 var
-prf 6038:6052 <> workload_linear
-binder 6063:6063 <> N:35
-binder 6065:6065 <> M:36
-binder 6067:6071 <> total:37
-R6104:6109 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6081:6083 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6076:6080 Kernel.KernelBenchmarks <> total:37 var
-R6084:6099 Kernel.KernelBenchmarks <> total_cost_bound def
-R6101:6101 Kernel.KernelBenchmarks <> N:35 var
-R6103:6103 Kernel.KernelBenchmarks <> M:36 var
-R6110:6123 Kernel.KernelBenchmarks <> linear_time_op def
-R6127:6129 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
-R6126:6126 Kernel.KernelBenchmarks <> N:35 var
-R6130:6130 Kernel.KernelBenchmarks <> M:36 var
-R6133:6137 Kernel.KernelBenchmarks <> total:37 var
-R6203:6218 Kernel.KernelBenchmarks <> total_cost_bound def
+R2288:2298 Kernel.MuCostModel <> <> lib
+R2317:2323 Kernel.VMState <> <> lib
+R2325:2330 Kernel.VMStep <> <> lib
+R2332:2344 Kernel.KernelPhysics <> <> lib
+R2346:2366 Kernel.FalsifiablePrediction <> <> lib
+R2384:2397 Coq.Lists.List <> <> lib
+R2415:2432 Coq.Arith.PeanoNat <> <> lib
+R2450:2466 Coq.micromega.Lia <> <> lib
+R2476:2488 Coq.Lists.List ListNotations <> mod
+R2498:2500 Coq.Arith.PeanoNat Nat <> mod
+def 2730:2743 <> linear_time_op
+R2771:2773 Coq.Init.Datatypes <> nat ind
+binder 2746:2755 <> input_size:1
+binder 2757:2767 <> output_cost:2
+R2788:2794 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2796:2797 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2795:2795 <> C:3
+R2810:2813 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2799:2809 Kernel.KernelBenchmarks <> output_cost:2 var
+R2815:2817 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R2814:2814 Kernel.KernelBenchmarks <> C:3 var
+R2818:2827 Kernel.KernelBenchmarks <> input_size:1 var
+def 2876:2888 <> nlogn_time_op
+R2916:2918 Coq.Init.Datatypes <> nat ind
+binder 2891:2900 <> input_size:4
+binder 2902:2912 <> output_cost:5
+R2933:2939 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2941:2942 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2940:2940 <> C:6
+R2955:2958 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2944:2954 Kernel.KernelBenchmarks <> output_cost:5 var
+R2973:2976 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R2996:2996 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R2960:2962 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R2959:2959 Kernel.KernelBenchmarks <> C:6 var
+R2963:2972 Kernel.KernelBenchmarks <> input_size:4 var
+R2992:2994 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R2977:2980 Coq.Arith.PeanoNat Nat log2 def
+R2982:2991 Kernel.KernelBenchmarks <> input_size:4 var
+def 3041:3057 <> quadratic_time_op
+R3085:3087 Coq.Init.Datatypes <> nat ind
+binder 3060:3069 <> input_size:7
+binder 3071:3081 <> output_cost:8
+R3102:3108 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3110:3111 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3109:3109 <> C:9
+R3124:3127 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3113:3123 Kernel.KernelBenchmarks <> output_cost:8 var
+R3142:3144 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R3129:3131 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R3128:3128 Kernel.KernelBenchmarks <> C:9 var
+R3132:3141 Kernel.KernelBenchmarks <> input_size:7 var
+R3145:3154 Kernel.KernelBenchmarks <> input_size:7 var
+prf 3434:3444 <> pnew_linear
+binder 3455:3460 <> region:10
+binder 3462:3465 <> cost:11
+R3499:3504 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3474:3476 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3470:3473 Kernel.KernelBenchmarks <> cost:11 var
+R3477:3491 Kernel.FalsifiablePrediction <> pnew_cost_bound def
+R3493:3498 Kernel.KernelBenchmarks <> region:10 var
+R3505:3518 Kernel.KernelBenchmarks <> linear_time_op def
+R3521:3531 Kernel.FalsifiablePrediction <> region_size def
+R3533:3538 Kernel.KernelBenchmarks <> region:10 var
+R3541:3544 Kernel.KernelBenchmarks <> cost:11 var
+R3599:3613 Kernel.FalsifiablePrediction <> pnew_cost_bound def
+R3645:3655 Kernel.FalsifiablePrediction <> region_size def
+prf 3724:3736 <> psplit_linear
+binder 3747:3750 <> left:12
+binder 3752:3756 <> right:13
+binder 3758:3761 <> cost:14
+R3801:3806 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3770:3772 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3766:3769 Kernel.KernelBenchmarks <> cost:14 var
+R3773:3789 Kernel.FalsifiablePrediction <> psplit_cost_bound def
+R3791:3794 Kernel.KernelBenchmarks <> left:12 var
+R3796:3800 Kernel.KernelBenchmarks <> right:13 var
+R3807:3820 Kernel.KernelBenchmarks <> linear_time_op def
+R3839:3841 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R3823:3833 Kernel.FalsifiablePrediction <> region_size def
+R3835:3838 Kernel.KernelBenchmarks <> left:12 var
+R3842:3852 Kernel.FalsifiablePrediction <> region_size def
+R3854:3858 Kernel.KernelBenchmarks <> right:13 var
+R3861:3864 Kernel.KernelBenchmarks <> cost:14 var
+R3923:3939 Kernel.FalsifiablePrediction <> psplit_cost_bound def
+R3971:3981 Kernel.FalsifiablePrediction <> region_size def
+prf 4045:4063 <> pmerge_linear_worst
+binder 4074:4075 <> r1:15
+binder 4077:4078 <> r2:16
+binder 4080:4083 <> cost:17
+R4118:4123 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4092:4094 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4088:4091 Kernel.KernelBenchmarks <> cost:17 var
+R4095:4111 Kernel.FalsifiablePrediction <> pmerge_cost_bound def
+R4113:4114 Kernel.KernelBenchmarks <> r1:15 var
+R4116:4117 Kernel.KernelBenchmarks <> r2:16 var
+R4124:4137 Kernel.KernelBenchmarks <> linear_time_op def
+R4154:4156 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R4140:4150 Kernel.FalsifiablePrediction <> region_size def
+R4152:4153 Kernel.KernelBenchmarks <> r1:15 var
+R4157:4167 Kernel.FalsifiablePrediction <> region_size def
+R4169:4170 Kernel.KernelBenchmarks <> r2:16 var
+R4173:4176 Kernel.KernelBenchmarks <> cost:17 var
+R4230:4246 Kernel.FalsifiablePrediction <> pmerge_cost_bound def
+R4278:4288 Kernel.FalsifiablePrediction <> region_size def
+def 4541:4551 <> space_bound
+R4564:4567 Coq.Init.Datatypes <> list ind
+R4578:4580 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R4570:4577 Kernel.VMState <> ModuleID def
+R4581:4591 Kernel.VMState <> ModuleState rec
+binder 4554:4560 <> modules:18
+R4597:4599 Coq.Init.Datatypes <> nat ind
+R4606:4614 Coq.Lists.List <> fold_left def
+R4703:4709 Kernel.KernelBenchmarks <> modules:18 var
+binder 4621:4623 <> acc:19
+binder 4625:4625 <> m:20
+R4636:4636 Kernel.KernelBenchmarks <> m:20 var
+R4643:4643 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4645:4646 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4649:4649 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4657:4659 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R4654:4656 Kernel.KernelBenchmarks <> acc:19 var
+R4660:4665 Coq.Init.Datatypes <> length def
+R4671:4683 Kernel.VMState <> module_region proj
+prf 4780:4791 <> space_linear
+binder 4802:4808 <> modules:22
+binder 4810:4823 <> total_elements:23
+R4864:4869 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4842:4844 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4828:4841 Kernel.KernelBenchmarks <> total_elements:23 var
+R4845:4855 Kernel.KernelBenchmarks <> space_bound def
+R4857:4863 Kernel.KernelBenchmarks <> modules:22 var
+R4870:4883 Kernel.KernelBenchmarks <> linear_time_op def
+R4885:4898 Kernel.KernelBenchmarks <> total_elements:23 var
+R4900:4913 Kernel.KernelBenchmarks <> total_elements:23 var
+rec 5224:5236 <> BenchmarkPNEW
+proj 5245:5259 <> bench_pnew_size
+proj 5270:5293 <> bench_pnew_expected_cost
+proj 5304:5319 <> bench_pnew_bound
+R5263:5265 Coq.Init.Datatypes <> nat ind
+R5297:5299 Coq.Init.Datatypes <> nat ind
+R5347:5350 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5323:5346 Kernel.KernelBenchmarks <> bench_pnew_expected_cost:26 meth
+R5351:5365 Kernel.KernelBenchmarks <> bench_pnew_size:25 meth
+rec 5417:5431 <> BenchmarkPSPLIT
+proj 5440:5461 <> bench_psplit_left_size
+proj 5472:5494 <> bench_psplit_right_size
+proj 5505:5530 <> bench_psplit_expected_cost
+proj 5541:5558 <> bench_psplit_bound
+R5465:5467 Coq.Init.Datatypes <> nat ind
+R5498:5500 Coq.Init.Datatypes <> nat ind
+R5534:5536 Coq.Init.Datatypes <> nat ind
+R5588:5615 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5562:5587 Kernel.KernelBenchmarks <> bench_psplit_expected_cost:31 meth
+R5638:5640 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5616:5637 Kernel.KernelBenchmarks <> bench_psplit_left_size:29 meth
+R5641:5663 Kernel.KernelBenchmarks <> bench_psplit_right_size:30 meth
+def 6022:6037 <> total_cost_bound
+R6065:6067 Coq.Init.Datatypes <> nat ind
+binder 6040:6046 <> num_ops:33
+binder 6048:6061 <> partition_size:34
+R6072:6074 Coq.Init.Datatypes <> nat ind
+R6088:6090 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R6081:6087 Kernel.KernelBenchmarks <> num_ops:33 var
+R6091:6104 Kernel.KernelBenchmarks <> partition_size:34 var
+prf 6164:6178 <> workload_linear
+binder 6189:6189 <> N:35
+binder 6191:6191 <> M:36
+binder 6193:6197 <> total:37
+R6230:6235 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6207:6209 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6202:6206 Kernel.KernelBenchmarks <> total:37 var
+R6210:6225 Kernel.KernelBenchmarks <> total_cost_bound def
+R6227:6227 Kernel.KernelBenchmarks <> N:35 var
+R6229:6229 Kernel.KernelBenchmarks <> M:36 var
+R6236:6249 Kernel.KernelBenchmarks <> linear_time_op def
+R6253:6255 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R6252:6252 Kernel.KernelBenchmarks <> N:35 var
+R6256:6256 Kernel.KernelBenchmarks <> M:36 var
+R6259:6263 Kernel.KernelBenchmarks <> total:37 var
+R6329:6344 Kernel.KernelBenchmarks <> total_cost_bound def

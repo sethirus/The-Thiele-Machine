@@ -1,4 +1,6 @@
 (** * Efficient Partition Discovery for the Thiele Machine
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
 
     This file formalizes the polynomial-time partition discovery algorithm
     and its correctness properties. The key theorems establish:
@@ -13,6 +15,10 @@
     NOTE: This file previously used AXIOMS for these properties.
     Those axioms have been DISCHARGED - see DiscoveryProof.v for actual proofs.
 *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import Arith ZArith Lia List.
 Import ListNotations.

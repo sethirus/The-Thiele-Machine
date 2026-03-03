@@ -1,513 +1,514 @@
-DIGEST 387b3fb861886dfa6a6e99a2b35e4ba8
+DIGEST da782503ca9a1c79fc59ecd4f6e0b3a3
 FThieleMachineVerification.FullIsomorphism
-R1353:1356 Coq.Lists.List <> <> lib
-R1358:1361 Coq.Bool.Bool <> <> lib
-R1363:1376 Coq.Arith.PeanoNat <> <> lib
-R1378:1380 Coq.micromega.Lia <> <> lib
-R1382:1387 Coq.ZArith.ZArith <> <> lib
-R1397:1409 Coq.Lists.List ListNotations <> mod
-rec 1688:1702 <> ObservableState
-proj 1711:1716 <> obs_mu
-proj 1759:1764 <> obs_pc
-proj 1807:1825 <> obs_partition_count
-proj 1861:1870 <> obs_halted
-R1720:1722 Coq.Init.Datatypes <> nat ind
-R1768:1770 Coq.Init.Datatypes <> nat ind
-R1829:1831 Coq.Init.Datatypes <> nat ind
-R1874:1877 Coq.Init.Datatypes <> bool ind
-def 1974:1986 <> obs_state_eqb
-R1997:2011 ThieleMachineVerification.FullIsomorphism <> ObservableState rec
-binder 1989:1990 <> s1:6
-binder 1992:1993 <> s2:7
-R2016:2019 Coq.Init.Datatypes <> bool ind
-R2157:2162 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R2094:2099 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R2057:2062 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R2026:2032 Coq.Arith.PeanoNat Nat eqb def
-R2038:2043 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R2034:2035 ThieleMachineVerification.FullIsomorphism <> s1:6 var
-R2050:2055 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R2046:2047 ThieleMachineVerification.FullIsomorphism <> s2:7 var
-R2063:2069 Coq.Arith.PeanoNat Nat eqb def
-R2075:2080 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
-R2071:2072 ThieleMachineVerification.FullIsomorphism <> s1:6 var
-R2087:2092 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
-R2083:2084 ThieleMachineVerification.FullIsomorphism <> s2:7 var
-R2100:2106 Coq.Arith.PeanoNat Nat eqb def
-R2112:2130 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
-R2108:2109 ThieleMachineVerification.FullIsomorphism <> s1:6 var
-R2137:2155 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
-R2133:2134 ThieleMachineVerification.FullIsomorphism <> s2:7 var
-R2163:2170 Coq.Bool.Bool <> eqb def
-R2176:2185 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
-R2172:2173 ThieleMachineVerification.FullIsomorphism <> s1:6 var
-R2192:2201 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
-R2188:2189 ThieleMachineVerification.FullIsomorphism <> s2:7 var
-prf 2263:2280 <> obs_state_eqb_refl
-binder 2291:2291 <> s:8
-R2311:2313 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2294:2306 ThieleMachineVerification.FullIsomorphism <> obs_state_eqb def
-R2308:2308 ThieleMachineVerification.FullIsomorphism <> s:8 var
-R2310:2310 ThieleMachineVerification.FullIsomorphism <> s:8 var
-R2314:2317 Coq.Init.Datatypes <> true constr
-R2345:2357 ThieleMachineVerification.FullIsomorphism <> obs_state_eqb def
-R2391:2402 Coq.Arith.PeanoNat Nat eqb_refl thm
-R2391:2402 Coq.Arith.PeanoNat Nat eqb_refl thm
-R2391:2402 Coq.Arith.PeanoNat Nat eqb_refl thm
-R2415:2426 Coq.Arith.PeanoNat Nat eqb_refl thm
-R2415:2426 Coq.Arith.PeanoNat Nat eqb_refl thm
-R2415:2426 Coq.Arith.PeanoNat Nat eqb_refl thm
-R2439:2450 Coq.Arith.PeanoNat Nat eqb_refl thm
-R2439:2450 Coq.Arith.PeanoNat Nat eqb_refl thm
-R2439:2450 Coq.Arith.PeanoNat Nat eqb_refl thm
-prf 2556:2576 <> obs_state_eqb_correct
-binder 2587:2588 <> s1:9
-binder 2590:2591 <> s2:10
-R2622:2626 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R2615:2617 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2596:2608 ThieleMachineVerification.FullIsomorphism <> obs_state_eqb def
-R2610:2611 ThieleMachineVerification.FullIsomorphism <> s1:9 var
-R2613:2614 ThieleMachineVerification.FullIsomorphism <> s2:10 var
-R2618:2621 Coq.Init.Datatypes <> true constr
-R2629:2631 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2627:2628 ThieleMachineVerification.FullIsomorphism <> s1:9 var
-R2632:2633 ThieleMachineVerification.FullIsomorphism <> s2:10 var
-R2690:2702 ThieleMachineVerification.FullIsomorphism <> obs_state_eqb def
-R2740:2757 Coq.Bool.Bool <> andb_true_iff thm
-R2740:2757 Coq.Bool.Bool <> andb_true_iff thm
-R2798:2815 Coq.Bool.Bool <> andb_true_iff thm
-R2798:2815 Coq.Bool.Bool <> andb_true_iff thm
-R2858:2875 Coq.Bool.Bool <> andb_true_iff thm
-R2858:2875 Coq.Bool.Bool <> andb_true_iff thm
-R2918:2927 Coq.Arith.PeanoNat Nat eqb_eq thm
-R2918:2927 Coq.Arith.PeanoNat Nat eqb_eq thm
-R2946:2955 Coq.Arith.PeanoNat Nat eqb_eq thm
-R2946:2955 Coq.Arith.PeanoNat Nat eqb_eq thm
-R2974:2983 Coq.Arith.PeanoNat Nat eqb_eq thm
-R2974:2983 Coq.Arith.PeanoNat Nat eqb_eq thm
-R3002:3014 Coq.Bool.Bool <> eqb_prop thm
-R3002:3014 Coq.Bool.Bool <> eqb_prop thm
-R3093:3104 Coq.Arith.PeanoNat Nat eqb_refl thm
-R3093:3104 Coq.Arith.PeanoNat Nat eqb_refl thm
-R3093:3104 Coq.Arith.PeanoNat Nat eqb_refl thm
-R3093:3104 Coq.Arith.PeanoNat Nat eqb_refl thm
-R3093:3104 Coq.Arith.PeanoNat Nat eqb_refl thm
-ind 3388:3406 <> AbstractInstruction
-constr 3415:3421 <> AI_PNEW
-constr 3447:3455 <> AI_PSPLIT
-constr 3479:3487 <> AI_PMERGE
-constr 3507:3515 <> AI_MDLACC
-constr 3535:3546 <> AI_PDISCOVER
-constr 3574:3580 <> AI_HALT
-R3438:3440 Coq.Init.Datatypes <> nat ind
-binder 3424:3434 <> region_size:13
-R3470:3472 Coq.Init.Datatypes <> nat ind
-binder 3458:3466 <> module_id:14
-R3498:3500 Coq.Init.Datatypes <> nat ind
-binder 3490:3491 <> m1:15
-binder 3493:3494 <> m2:16
-R3526:3528 Coq.Init.Datatypes <> nat ind
-binder 3518:3522 <> delta:17
-R3565:3567 Coq.Init.Datatypes <> nat ind
-binder 3549:3561 <> evidence_size:18
-scheme 3388:3406 <> AbstractInstruction_rect
-scheme 3388:3406 <> AbstractInstruction_ind
-scheme 3388:3406 <> AbstractInstruction_rec
-scheme 3388:3406 <> AbstractInstruction_sind
-def 3645:3660 <> abstract_mu_cost
-R3667:3685 ThieleMachineVerification.FullIsomorphism <> AbstractInstruction ind
-binder 3663:3663 <> i:19
-R3690:3692 Coq.Init.Datatypes <> nat ind
-R3705:3705 ThieleMachineVerification.FullIsomorphism <> i:19 var
-R3716:3722 ThieleMachineVerification.FullIsomorphism <> AI_PNEW constr
-R3735:3743 ThieleMachineVerification.FullIsomorphism <> AI_PSPLIT constr
-R3756:3764 ThieleMachineVerification.FullIsomorphism <> AI_PMERGE constr
-R3779:3787 ThieleMachineVerification.FullIsomorphism <> AI_MDLACC constr
-R3800:3811 ThieleMachineVerification.FullIsomorphism <> AI_PDISCOVER constr
-R3824:3830 ThieleMachineVerification.FullIsomorphism <> AI_HALT constr
-def 4180:4192 <> abstract_step
-R4199:4213 ThieleMachineVerification.FullIsomorphism <> ObservableState rec
-binder 4195:4195 <> s:21
-R4221:4239 ThieleMachineVerification.FullIsomorphism <> AbstractInstruction ind
-binder 4217:4217 <> i:22
-R4249:4263 ThieleMachineVerification.FullIsomorphism <> ObservableState rec
-R4276:4276 ThieleMachineVerification.FullIsomorphism <> i:22 var
-R4287:4293 ThieleMachineVerification.FullIsomorphism <> AI_PNEW constr
-R4309:4314 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R4309:4314 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R4309:4314 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R4344:4349 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
-R4344:4349 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
-R4377:4395 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
-R4377:4395 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
-R4436:4445 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
-R4436:4445 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
-R4329:4331 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4322:4327 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R4319:4319 ThieleMachineVerification.FullIsomorphism <> s:21 var
-R4354:4354 Coq.Init.Datatypes <> S constr
-R4359:4364 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
-R4356:4356 ThieleMachineVerification.FullIsomorphism <> s:21 var
-R4400:4400 Coq.Init.Datatypes <> S constr
-R4405:4423 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
-R4402:4402 ThieleMachineVerification.FullIsomorphism <> s:21 var
-R4450:4454 Coq.Init.Datatypes <> false constr
-R4463:4471 ThieleMachineVerification.FullIsomorphism <> AI_PSPLIT constr
-R4487:4492 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R4487:4492 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R4487:4492 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R4522:4527 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
-R4522:4527 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
-R4555:4573 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
-R4555:4573 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
-R4636:4645 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
-R4636:4645 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
-R4507:4509 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4500:4505 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R4497:4497 ThieleMachineVerification.FullIsomorphism <> s:21 var
-R4532:4532 Coq.Init.Datatypes <> S constr
-R4537:4542 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
-R4534:4534 ThieleMachineVerification.FullIsomorphism <> s:21 var
-R4578:4578 Coq.Init.Datatypes <> S constr
-R4583:4601 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
-R4580:4580 ThieleMachineVerification.FullIsomorphism <> s:21 var
-R4650:4654 Coq.Init.Datatypes <> false constr
-R4663:4671 ThieleMachineVerification.FullIsomorphism <> AI_PMERGE constr
-R4689:4694 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R4689:4694 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R4689:4694 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R4724:4729 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
-R4724:4729 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
-R4757:4775 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
-R4757:4775 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
-R4844:4853 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
-R4844:4853 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
-R4709:4711 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4702:4707 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R4699:4699 ThieleMachineVerification.FullIsomorphism <> s:21 var
-R4734:4734 Coq.Init.Datatypes <> S constr
-R4739:4744 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
-R4736:4736 ThieleMachineVerification.FullIsomorphism <> s:21 var
-R4780:4783 Coq.Init.Peano <> pred abbrev
-R4788:4806 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
-R4785:4785 ThieleMachineVerification.FullIsomorphism <> s:21 var
-R4858:4862 Coq.Init.Datatypes <> false constr
-R4871:4879 ThieleMachineVerification.FullIsomorphism <> AI_MDLACC constr
-R4895:4900 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R4895:4900 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R4895:4900 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R4930:4935 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
-R4930:4935 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
-R4963:4981 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
-R4963:4981 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
-R5020:5029 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
-R5020:5029 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
-R4915:4917 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4908:4913 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R4905:4905 ThieleMachineVerification.FullIsomorphism <> s:21 var
-R4940:4940 Coq.Init.Datatypes <> S constr
-R4945:4950 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
-R4942:4942 ThieleMachineVerification.FullIsomorphism <> s:21 var
-R4989:5007 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
-R4986:4986 ThieleMachineVerification.FullIsomorphism <> s:21 var
-R5034:5038 Coq.Init.Datatypes <> false constr
-R5047:5058 ThieleMachineVerification.FullIsomorphism <> AI_PDISCOVER constr
-R5074:5079 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R5074:5079 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R5074:5079 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R5109:5114 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
-R5109:5114 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
-R5142:5160 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
-R5142:5160 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
-R5199:5208 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
-R5199:5208 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
-R5094:5096 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R5087:5092 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R5084:5084 ThieleMachineVerification.FullIsomorphism <> s:21 var
-R5119:5119 Coq.Init.Datatypes <> S constr
-R5124:5129 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
-R5121:5121 ThieleMachineVerification.FullIsomorphism <> s:21 var
-R5168:5186 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
-R5165:5165 ThieleMachineVerification.FullIsomorphism <> s:21 var
-R5213:5217 Coq.Init.Datatypes <> false constr
-R5226:5232 ThieleMachineVerification.FullIsomorphism <> AI_HALT constr
-R5246:5251 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R5246:5251 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R5246:5251 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R5277:5282 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
-R5277:5282 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
-R5308:5326 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
-R5308:5326 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
-R5365:5374 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
-R5365:5374 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
-R5259:5264 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R5256:5256 ThieleMachineVerification.FullIsomorphism <> s:21 var
-R5290:5295 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
-R5287:5287 ThieleMachineVerification.FullIsomorphism <> s:21 var
-R5334:5352 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
+R1525:1535 Kernel.MuCostModel <> <> lib
+R1563:1566 Coq.Lists.List <> <> lib
+R1568:1571 Coq.Bool.Bool <> <> lib
+R1573:1586 Coq.Arith.PeanoNat <> <> lib
+R1588:1590 Coq.micromega.Lia <> <> lib
+R1592:1597 Coq.ZArith.ZArith <> <> lib
+R1607:1619 Coq.Lists.List ListNotations <> mod
+rec 1898:1912 <> ObservableState
+proj 1921:1926 <> obs_mu
+proj 1969:1974 <> obs_pc
+proj 2017:2035 <> obs_partition_count
+proj 2071:2080 <> obs_halted
+R1930:1932 Coq.Init.Datatypes <> nat ind
+R1978:1980 Coq.Init.Datatypes <> nat ind
+R2039:2041 Coq.Init.Datatypes <> nat ind
+R2084:2087 Coq.Init.Datatypes <> bool ind
+def 2184:2196 <> obs_state_eqb
+R2207:2221 ThieleMachineVerification.FullIsomorphism <> ObservableState rec
+binder 2199:2200 <> s1:6
+binder 2202:2203 <> s2:7
+R2226:2229 Coq.Init.Datatypes <> bool ind
+R2367:2372 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R2304:2309 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R2267:2272 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R2236:2242 Coq.Arith.PeanoNat Nat eqb def
+R2248:2253 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R2244:2245 ThieleMachineVerification.FullIsomorphism <> s1:6 var
+R2260:2265 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R2256:2257 ThieleMachineVerification.FullIsomorphism <> s2:7 var
+R2273:2279 Coq.Arith.PeanoNat Nat eqb def
+R2285:2290 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
+R2281:2282 ThieleMachineVerification.FullIsomorphism <> s1:6 var
+R2297:2302 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
+R2293:2294 ThieleMachineVerification.FullIsomorphism <> s2:7 var
+R2310:2316 Coq.Arith.PeanoNat Nat eqb def
+R2322:2340 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
+R2318:2319 ThieleMachineVerification.FullIsomorphism <> s1:6 var
+R2347:2365 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
+R2343:2344 ThieleMachineVerification.FullIsomorphism <> s2:7 var
+R2373:2380 Coq.Bool.Bool <> eqb def
+R2386:2395 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
+R2382:2383 ThieleMachineVerification.FullIsomorphism <> s1:6 var
+R2402:2411 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
+R2398:2399 ThieleMachineVerification.FullIsomorphism <> s2:7 var
+prf 2473:2490 <> obs_state_eqb_refl
+binder 2501:2501 <> s:8
+R2521:2523 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2504:2516 ThieleMachineVerification.FullIsomorphism <> obs_state_eqb def
+R2518:2518 ThieleMachineVerification.FullIsomorphism <> s:8 var
+R2520:2520 ThieleMachineVerification.FullIsomorphism <> s:8 var
+R2524:2527 Coq.Init.Datatypes <> true constr
+R2555:2567 ThieleMachineVerification.FullIsomorphism <> obs_state_eqb def
+R2601:2612 Coq.Arith.PeanoNat Nat eqb_refl thm
+R2601:2612 Coq.Arith.PeanoNat Nat eqb_refl thm
+R2601:2612 Coq.Arith.PeanoNat Nat eqb_refl thm
+R2625:2636 Coq.Arith.PeanoNat Nat eqb_refl thm
+R2625:2636 Coq.Arith.PeanoNat Nat eqb_refl thm
+R2625:2636 Coq.Arith.PeanoNat Nat eqb_refl thm
+R2649:2660 Coq.Arith.PeanoNat Nat eqb_refl thm
+R2649:2660 Coq.Arith.PeanoNat Nat eqb_refl thm
+R2649:2660 Coq.Arith.PeanoNat Nat eqb_refl thm
+prf 2766:2786 <> obs_state_eqb_correct
+binder 2797:2798 <> s1:9
+binder 2800:2801 <> s2:10
+R2832:2836 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R2825:2827 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2806:2818 ThieleMachineVerification.FullIsomorphism <> obs_state_eqb def
+R2820:2821 ThieleMachineVerification.FullIsomorphism <> s1:9 var
+R2823:2824 ThieleMachineVerification.FullIsomorphism <> s2:10 var
+R2828:2831 Coq.Init.Datatypes <> true constr
+R2839:2841 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2837:2838 ThieleMachineVerification.FullIsomorphism <> s1:9 var
+R2842:2843 ThieleMachineVerification.FullIsomorphism <> s2:10 var
+R2900:2912 ThieleMachineVerification.FullIsomorphism <> obs_state_eqb def
+R2950:2967 Coq.Bool.Bool <> andb_true_iff thm
+R2950:2967 Coq.Bool.Bool <> andb_true_iff thm
+R3008:3025 Coq.Bool.Bool <> andb_true_iff thm
+R3008:3025 Coq.Bool.Bool <> andb_true_iff thm
+R3068:3085 Coq.Bool.Bool <> andb_true_iff thm
+R3068:3085 Coq.Bool.Bool <> andb_true_iff thm
+R3128:3137 Coq.Arith.PeanoNat Nat eqb_eq thm
+R3128:3137 Coq.Arith.PeanoNat Nat eqb_eq thm
+R3156:3165 Coq.Arith.PeanoNat Nat eqb_eq thm
+R3156:3165 Coq.Arith.PeanoNat Nat eqb_eq thm
+R3184:3193 Coq.Arith.PeanoNat Nat eqb_eq thm
+R3184:3193 Coq.Arith.PeanoNat Nat eqb_eq thm
+R3212:3224 Coq.Bool.Bool <> eqb_prop thm
+R3212:3224 Coq.Bool.Bool <> eqb_prop thm
+R3303:3314 Coq.Arith.PeanoNat Nat eqb_refl thm
+R3303:3314 Coq.Arith.PeanoNat Nat eqb_refl thm
+R3303:3314 Coq.Arith.PeanoNat Nat eqb_refl thm
+R3303:3314 Coq.Arith.PeanoNat Nat eqb_refl thm
+R3303:3314 Coq.Arith.PeanoNat Nat eqb_refl thm
+ind 3598:3616 <> AbstractInstruction
+constr 3625:3631 <> AI_PNEW
+constr 3657:3665 <> AI_PSPLIT
+constr 3689:3697 <> AI_PMERGE
+constr 3717:3725 <> AI_MDLACC
+constr 3745:3756 <> AI_PDISCOVER
+constr 3784:3790 <> AI_HALT
+R3648:3650 Coq.Init.Datatypes <> nat ind
+binder 3634:3644 <> region_size:13
+R3680:3682 Coq.Init.Datatypes <> nat ind
+binder 3668:3676 <> module_id:14
+R3708:3710 Coq.Init.Datatypes <> nat ind
+binder 3700:3701 <> m1:15
+binder 3703:3704 <> m2:16
+R3736:3738 Coq.Init.Datatypes <> nat ind
+binder 3728:3732 <> delta:17
+R3775:3777 Coq.Init.Datatypes <> nat ind
+binder 3759:3771 <> evidence_size:18
+scheme 3598:3616 <> AbstractInstruction_rect
+scheme 3598:3616 <> AbstractInstruction_ind
+scheme 3598:3616 <> AbstractInstruction_rec
+scheme 3598:3616 <> AbstractInstruction_sind
+def 3855:3870 <> abstract_mu_cost
+R3877:3895 ThieleMachineVerification.FullIsomorphism <> AbstractInstruction ind
+binder 3873:3873 <> i:19
+R3900:3902 Coq.Init.Datatypes <> nat ind
+R3915:3915 ThieleMachineVerification.FullIsomorphism <> i:19 var
+R3926:3932 ThieleMachineVerification.FullIsomorphism <> AI_PNEW constr
+R3945:3953 ThieleMachineVerification.FullIsomorphism <> AI_PSPLIT constr
+R3966:3974 ThieleMachineVerification.FullIsomorphism <> AI_PMERGE constr
+R3989:3997 ThieleMachineVerification.FullIsomorphism <> AI_MDLACC constr
+R4010:4021 ThieleMachineVerification.FullIsomorphism <> AI_PDISCOVER constr
+R4034:4040 ThieleMachineVerification.FullIsomorphism <> AI_HALT constr
+def 4390:4402 <> abstract_step
+R4409:4423 ThieleMachineVerification.FullIsomorphism <> ObservableState rec
+binder 4405:4405 <> s:21
+R4431:4449 ThieleMachineVerification.FullIsomorphism <> AbstractInstruction ind
+binder 4427:4427 <> i:22
+R4459:4473 ThieleMachineVerification.FullIsomorphism <> ObservableState rec
+R4486:4486 ThieleMachineVerification.FullIsomorphism <> i:22 var
+R4497:4503 ThieleMachineVerification.FullIsomorphism <> AI_PNEW constr
+R4519:4524 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R4519:4524 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R4519:4524 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R4554:4559 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
+R4554:4559 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
+R4587:4605 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
+R4587:4605 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
+R4646:4655 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
+R4646:4655 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
+R4539:4541 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4532:4537 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R4529:4529 ThieleMachineVerification.FullIsomorphism <> s:21 var
+R4564:4564 Coq.Init.Datatypes <> S constr
+R4569:4574 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
+R4566:4566 ThieleMachineVerification.FullIsomorphism <> s:21 var
+R4610:4610 Coq.Init.Datatypes <> S constr
+R4615:4633 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
+R4612:4612 ThieleMachineVerification.FullIsomorphism <> s:21 var
+R4660:4664 Coq.Init.Datatypes <> false constr
+R4673:4681 ThieleMachineVerification.FullIsomorphism <> AI_PSPLIT constr
+R4697:4702 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R4697:4702 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R4697:4702 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R4732:4737 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
+R4732:4737 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
+R4765:4783 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
+R4765:4783 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
+R4846:4855 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
+R4846:4855 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
+R4717:4719 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4710:4715 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R4707:4707 ThieleMachineVerification.FullIsomorphism <> s:21 var
+R4742:4742 Coq.Init.Datatypes <> S constr
+R4747:4752 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
+R4744:4744 ThieleMachineVerification.FullIsomorphism <> s:21 var
+R4788:4788 Coq.Init.Datatypes <> S constr
+R4793:4811 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
+R4790:4790 ThieleMachineVerification.FullIsomorphism <> s:21 var
+R4860:4864 Coq.Init.Datatypes <> false constr
+R4873:4881 ThieleMachineVerification.FullIsomorphism <> AI_PMERGE constr
+R4899:4904 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R4899:4904 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R4899:4904 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R4934:4939 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
+R4934:4939 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
+R4967:4985 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
+R4967:4985 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
+R5054:5063 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
+R5054:5063 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
+R4919:4921 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4912:4917 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R4909:4909 ThieleMachineVerification.FullIsomorphism <> s:21 var
+R4944:4944 Coq.Init.Datatypes <> S constr
+R4949:4954 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
+R4946:4946 ThieleMachineVerification.FullIsomorphism <> s:21 var
+R4990:4993 Coq.Init.Peano <> pred abbrev
+R4998:5016 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
+R4995:4995 ThieleMachineVerification.FullIsomorphism <> s:21 var
+R5068:5072 Coq.Init.Datatypes <> false constr
+R5081:5089 ThieleMachineVerification.FullIsomorphism <> AI_MDLACC constr
+R5105:5110 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R5105:5110 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R5105:5110 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R5140:5145 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
+R5140:5145 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
+R5173:5191 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
+R5173:5191 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
+R5230:5239 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
+R5230:5239 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
+R5125:5127 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5118:5123 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R5115:5115 ThieleMachineVerification.FullIsomorphism <> s:21 var
+R5150:5150 Coq.Init.Datatypes <> S constr
+R5155:5160 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
+R5152:5152 ThieleMachineVerification.FullIsomorphism <> s:21 var
+R5199:5217 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
+R5196:5196 ThieleMachineVerification.FullIsomorphism <> s:21 var
+R5244:5248 Coq.Init.Datatypes <> false constr
+R5257:5268 ThieleMachineVerification.FullIsomorphism <> AI_PDISCOVER constr
+R5284:5289 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R5284:5289 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R5284:5289 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R5319:5324 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
+R5319:5324 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
+R5352:5370 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
+R5352:5370 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
+R5409:5418 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
+R5409:5418 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
+R5304:5306 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5297:5302 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R5294:5294 ThieleMachineVerification.FullIsomorphism <> s:21 var
+R5329:5329 Coq.Init.Datatypes <> S constr
+R5334:5339 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
 R5331:5331 ThieleMachineVerification.FullIsomorphism <> s:21 var
-R5379:5382 Coq.Init.Datatypes <> true constr
-def 5432:5443 <> abstract_run
-R5450:5464 ThieleMachineVerification.FullIsomorphism <> ObservableState rec
-binder 5446:5446 <> s:24
-R5476:5479 Coq.Init.Datatypes <> list ind
-R5481:5499 ThieleMachineVerification.FullIsomorphism <> AbstractInstruction ind
-binder 5468:5472 <> trace:25
-R5509:5523 ThieleMachineVerification.FullIsomorphism <> ObservableState rec
-R5536:5540 ThieleMachineVerification.FullIsomorphism <> trace:25 var
-R5551:5552 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R5557:5557 ThieleMachineVerification.FullIsomorphism <> s:24 var
-R5564:5567 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R5576:5587 ThieleMachineVerification.FullIsomorphism <> abstract_run:26 def
-R5590:5602 ThieleMachineVerification.FullIsomorphism <> abstract_step def
-R5604:5604 ThieleMachineVerification.FullIsomorphism <> s:24 var
-prf 5881:5901 <> abstract_mu_monotonic
-binder 5914:5914 <> s:28
-binder 5916:5916 <> i:29
-R5949:5952 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R5923:5928 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R5931:5943 ThieleMachineVerification.FullIsomorphism <> abstract_step def
-R5945:5945 ThieleMachineVerification.FullIsomorphism <> s:28 var
-R5947:5947 ThieleMachineVerification.FullIsomorphism <> i:29 var
-R5953:5958 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R5960:5960 ThieleMachineVerification.FullIsomorphism <> s:28 var
-prf 6083:6106 <> abstract_mu_cost_correct
-binder 6119:6119 <> s:30
-binder 6121:6121 <> i:31
-R6154:6156 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6128:6133 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R6136:6148 ThieleMachineVerification.FullIsomorphism <> abstract_step def
-R6150:6150 ThieleMachineVerification.FullIsomorphism <> s:30 var
-R6152:6152 ThieleMachineVerification.FullIsomorphism <> i:31 var
-R6165:6167 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R6157:6162 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R6164:6164 ThieleMachineVerification.FullIsomorphism <> s:30 var
-R6168:6183 ThieleMachineVerification.FullIsomorphism <> abstract_mu_cost def
-R6185:6185 ThieleMachineVerification.FullIsomorphism <> i:31 var
-prf 6299:6323 <> abstract_run_mu_monotonic
-binder 6336:6340 <> trace:32
-binder 6342:6342 <> s:33
-R6378:6381 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R6349:6354 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R6357:6368 ThieleMachineVerification.FullIsomorphism <> abstract_run def
-R6370:6370 ThieleMachineVerification.FullIsomorphism <> s:33 var
-R6372:6376 ThieleMachineVerification.FullIsomorphism <> trace:32 var
-R6382:6387 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R6389:6389 ThieleMachineVerification.FullIsomorphism <> s:33 var
-R6492:6504 ThieleMachineVerification.FullIsomorphism <> abstract_step def
-R6492:6504 ThieleMachineVerification.FullIsomorphism <> abstract_step def
-R6538:6558 ThieleMachineVerification.FullIsomorphism <> abstract_mu_monotonic thm
-R6538:6558 ThieleMachineVerification.FullIsomorphism <> abstract_mu_monotonic thm
-def 6663:6678 <> trace_total_cost
-R6689:6692 Coq.Init.Datatypes <> list ind
-R6694:6712 ThieleMachineVerification.FullIsomorphism <> AbstractInstruction ind
-binder 6681:6685 <> trace:34
-R6717:6719 Coq.Init.Datatypes <> nat ind
-R6732:6736 ThieleMachineVerification.FullIsomorphism <> trace:34 var
-R6747:6748 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R6760:6763 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R6790:6792 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R6772:6787 ThieleMachineVerification.FullIsomorphism <> abstract_mu_cost def
-R6793:6808 ThieleMachineVerification.FullIsomorphism <> trace_total_cost:35 def
-prf 6887:6909 <> abstract_run_mu_correct
-binder 6922:6926 <> trace:37
-binder 6928:6928 <> s:38
-R6964:6966 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6935:6940 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R6943:6954 ThieleMachineVerification.FullIsomorphism <> abstract_run def
-R6956:6956 ThieleMachineVerification.FullIsomorphism <> s:38 var
-R6958:6962 ThieleMachineVerification.FullIsomorphism <> trace:37 var
-R6975:6977 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R6967:6972 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R6974:6974 ThieleMachineVerification.FullIsomorphism <> s:38 var
-R6978:6993 ThieleMachineVerification.FullIsomorphism <> trace_total_cost def
-R6995:6999 ThieleMachineVerification.FullIsomorphism <> trace:37 var
-R7109:7132 ThieleMachineVerification.FullIsomorphism <> abstract_mu_cost_correct thm
-R7109:7132 ThieleMachineVerification.FullIsomorphism <> abstract_mu_cost_correct thm
-R7109:7132 ThieleMachineVerification.FullIsomorphism <> abstract_mu_cost_correct thm
-prf 7227:7243 <> halt_is_absorbing
-binder 7256:7256 <> s:39
-R7282:7289 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7275:7277 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7263:7272 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
-R7274:7274 ThieleMachineVerification.FullIsomorphism <> s:39 var
-R7278:7281 Coq.Init.Datatypes <> true constr
-R7326:7328 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7290:7299 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
-R7302:7314 ThieleMachineVerification.FullIsomorphism <> abstract_step def
-R7316:7316 ThieleMachineVerification.FullIsomorphism <> s:39 var
-R7318:7324 ThieleMachineVerification.FullIsomorphism <> AI_HALT constr
-R7329:7332 Coq.Init.Datatypes <> true constr
-prf 7434:7453 <> halt_preserves_state
-binder 7466:7466 <> s:40
-R7516:7523 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7505:7507 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7473:7478 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R7481:7493 ThieleMachineVerification.FullIsomorphism <> abstract_step def
-R7495:7495 ThieleMachineVerification.FullIsomorphism <> s:40 var
-R7497:7503 ThieleMachineVerification.FullIsomorphism <> AI_HALT constr
-R7508:7513 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R7515:7515 ThieleMachineVerification.FullIsomorphism <> s:40 var
-R7567:7574 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7556:7558 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7524:7529 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
-R7532:7544 ThieleMachineVerification.FullIsomorphism <> abstract_step def
-R7546:7546 ThieleMachineVerification.FullIsomorphism <> s:40 var
-R7548:7554 ThieleMachineVerification.FullIsomorphism <> AI_HALT constr
-R7559:7564 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
-R7566:7566 ThieleMachineVerification.FullIsomorphism <> s:40 var
-R7620:7622 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7575:7593 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
-R7596:7608 ThieleMachineVerification.FullIsomorphism <> abstract_step def
-R7610:7610 ThieleMachineVerification.FullIsomorphism <> s:40 var
-R7612:7618 ThieleMachineVerification.FullIsomorphism <> AI_HALT constr
-R7623:7641 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
-R7643:7643 ThieleMachineVerification.FullIsomorphism <> s:40 var
-def 7985:7997 <> mu_equivalent
-R8008:8011 Coq.Init.Datatypes <> list ind
-R8013:8031 ThieleMachineVerification.FullIsomorphism <> AbstractInstruction ind
-binder 8000:8001 <> t1:41
-binder 8003:8004 <> t2:42
-binder 8053:8053 <> s:43
-R8082:8084 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8056:8061 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R8064:8075 ThieleMachineVerification.FullIsomorphism <> abstract_run def
-R8077:8077 ThieleMachineVerification.FullIsomorphism <> s:43 var
-R8079:8080 ThieleMachineVerification.FullIsomorphism <> t1:41 var
-R8085:8090 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R8093:8104 ThieleMachineVerification.FullIsomorphism <> abstract_run def
-R8106:8106 ThieleMachineVerification.FullIsomorphism <> s:43 var
-R8108:8109 ThieleMachineVerification.FullIsomorphism <> t2:42 var
-prf 8168:8185 <> mu_equiv_same_cost
-binder 8198:8199 <> t1:44
-binder 8201:8202 <> t2:45
-R8228:8235 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8209:8221 ThieleMachineVerification.FullIsomorphism <> mu_equivalent def
-R8223:8224 ThieleMachineVerification.FullIsomorphism <> t1:44 var
-R8226:8227 ThieleMachineVerification.FullIsomorphism <> t2:45 var
-R8255:8257 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8236:8251 ThieleMachineVerification.FullIsomorphism <> trace_total_cost def
-R8253:8254 ThieleMachineVerification.FullIsomorphism <> t1:44 var
-R8258:8273 ThieleMachineVerification.FullIsomorphism <> trace_total_cost def
-R8275:8276 ThieleMachineVerification.FullIsomorphism <> t2:45 var
-R8318:8330 ThieleMachineVerification.FullIsomorphism <> mu_equivalent def
-R8367:8372 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R8367:8372 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R8367:8372 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R8380:8385 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
-R8380:8385 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
-R8418:8436 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
-R8418:8436 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
-R8444:8453 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
-R8444:8453 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
-R8458:8462 Coq.Init.Datatypes <> false constr
-R8367:8372 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R8367:8372 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R8367:8372 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
-R8380:8385 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
-R8380:8385 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
-R8418:8436 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
-R8418:8436 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
-R8444:8453 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
-R8444:8453 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
-R8458:8462 Coq.Init.Datatypes <> false constr
-R8500:8522 ThieleMachineVerification.FullIsomorphism <> abstract_run_mu_correct thm
-R8500:8522 ThieleMachineVerification.FullIsomorphism <> abstract_run_mu_correct thm
-R8500:8522 ThieleMachineVerification.FullIsomorphism <> abstract_run_mu_correct thm
-R8500:8522 ThieleMachineVerification.FullIsomorphism <> abstract_run_mu_correct thm
-def 8988:9000 <> PythonAligned
-R9015:9018 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9012:9014 Coq.Init.Datatypes <> nat ind
-R9022:9025 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9019:9021 Coq.Init.Datatypes <> nat ind
-R9029:9032 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9026:9028 Coq.Init.Datatypes <> nat ind
-R9037:9040 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9033:9036 Coq.Init.Datatypes <> bool ind
-R9041:9055 ThieleMachineVerification.FullIsomorphism <> ObservableState rec
-binder 9003:9008 <> decode:46
-R9091:9093 Coq.Init.Datatypes <> nat ind
-binder 9063:9067 <> py_mu:47
-binder 9069:9073 <> py_pc:48
-binder 9075:9087 <> py_partitions:49
-R9109:9112 Coq.Init.Datatypes <> bool ind
-binder 9097:9105 <> py_halted:50
-R9124:9138 ThieleMachineVerification.FullIsomorphism <> ObservableState rec
-binder 9116:9120 <> coq_s:51
-R9195:9197 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9153:9158 ThieleMachineVerification.FullIsomorphism <> decode:46 var
-R9186:9194 ThieleMachineVerification.FullIsomorphism <> py_halted:50 var
-R9172:9184 ThieleMachineVerification.FullIsomorphism <> py_partitions:49 var
-R9166:9170 ThieleMachineVerification.FullIsomorphism <> py_pc:48 var
-R9160:9164 ThieleMachineVerification.FullIsomorphism <> py_mu:47 var
-R9198:9202 ThieleMachineVerification.FullIsomorphism <> coq_s:51 var
-def 9281:9294 <> VerilogAligned
-R9314:9317 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9306:9309 Coq.Init.Datatypes <> list ind
-R9311:9313 Coq.Init.Datatypes <> nat ind
-R9318:9332 ThieleMachineVerification.FullIsomorphism <> ObservableState rec
-binder 9297:9302 <> decode:52
-R9352:9355 Coq.Init.Datatypes <> list ind
-R9357:9359 Coq.Init.Datatypes <> nat ind
-binder 9340:9348 <> registers:53
-R9371:9385 ThieleMachineVerification.FullIsomorphism <> ObservableState rec
-binder 9363:9367 <> coq_s:54
-R9416:9418 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9400:9405 ThieleMachineVerification.FullIsomorphism <> decode:52 var
-R9407:9415 ThieleMachineVerification.FullIsomorphism <> registers:53 var
-R9419:9423 ThieleMachineVerification.FullIsomorphism <> coq_s:54 var
-def 9486:9500 <> FullIsomorphism
-R9516:9530 ThieleMachineVerification.FullIsomorphism <> ObservableState rec
-binder 9508:9512 <> coq_s:55
-R9553:9556 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9550:9552 Coq.Init.Datatypes <> nat ind
-R9560:9563 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9557:9559 Coq.Init.Datatypes <> nat ind
-R9567:9570 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9564:9566 Coq.Init.Datatypes <> nat ind
-R9575:9578 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9571:9574 Coq.Init.Datatypes <> bool ind
-R9579:9593 ThieleMachineVerification.FullIsomorphism <> ObservableState rec
-binder 9538:9546 <> py_decode:56
-R9629:9631 Coq.Init.Datatypes <> nat ind
-binder 9601:9605 <> py_mu:57
-binder 9607:9611 <> py_pc:58
-binder 9613:9625 <> py_partitions:59
-R9647:9650 Coq.Init.Datatypes <> bool ind
-binder 9635:9643 <> py_halted:60
-R9677:9680 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9669:9672 Coq.Init.Datatypes <> list ind
-R9674:9676 Coq.Init.Datatypes <> nat ind
-R9681:9695 ThieleMachineVerification.FullIsomorphism <> ObservableState rec
-binder 9658:9665 <> v_decode:61
-R9717:9720 Coq.Init.Datatypes <> list ind
-R9722:9724 Coq.Init.Datatypes <> nat ind
-binder 9703:9713 <> v_registers:62
-R9804:9809 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9739:9751 ThieleMachineVerification.FullIsomorphism <> PythonAligned def
-R9753:9761 ThieleMachineVerification.FullIsomorphism <> py_decode:56 var
-R9763:9767 ThieleMachineVerification.FullIsomorphism <> py_mu:57 var
-R9769:9773 ThieleMachineVerification.FullIsomorphism <> py_pc:58 var
-R9775:9787 ThieleMachineVerification.FullIsomorphism <> py_partitions:59 var
-R9789:9797 ThieleMachineVerification.FullIsomorphism <> py_halted:60 var
-R9799:9803 ThieleMachineVerification.FullIsomorphism <> coq_s:55 var
-R9810:9823 ThieleMachineVerification.FullIsomorphism <> VerilogAligned def
-R9825:9832 ThieleMachineVerification.FullIsomorphism <> v_decode:61 var
-R9834:9844 ThieleMachineVerification.FullIsomorphism <> v_registers:62 var
-R9846:9850 ThieleMachineVerification.FullIsomorphism <> coq_s:55 var
-prf 9963:9984 <> isomorphism_transitive
-R10015:10029 ThieleMachineVerification.FullIsomorphism <> ObservableState rec
-binder 9998:10002 <> coq_s:63
-binder 10004:10007 <> py_s:64
-binder 10009:10011 <> v_s:65
-R10049:10056 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10042:10044 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10037:10041 ThieleMachineVerification.FullIsomorphism <> coq_s:63 var
-R10045:10048 ThieleMachineVerification.FullIsomorphism <> py_s:64 var
-R10067:10074 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10061:10063 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10057:10060 ThieleMachineVerification.FullIsomorphism <> py_s:64 var
-R10064:10066 ThieleMachineVerification.FullIsomorphism <> v_s:65 var
-R10080:10082 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10075:10079 ThieleMachineVerification.FullIsomorphism <> coq_s:63 var
-R10083:10085 ThieleMachineVerification.FullIsomorphism <> v_s:65 var
+R5378:5396 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
+R5375:5375 ThieleMachineVerification.FullIsomorphism <> s:21 var
+R5423:5427 Coq.Init.Datatypes <> false constr
+R5436:5442 ThieleMachineVerification.FullIsomorphism <> AI_HALT constr
+R5456:5461 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R5456:5461 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R5456:5461 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R5487:5492 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
+R5487:5492 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
+R5518:5536 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
+R5518:5536 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
+R5575:5584 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
+R5575:5584 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
+R5469:5474 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R5466:5466 ThieleMachineVerification.FullIsomorphism <> s:21 var
+R5500:5505 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
+R5497:5497 ThieleMachineVerification.FullIsomorphism <> s:21 var
+R5544:5562 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
+R5541:5541 ThieleMachineVerification.FullIsomorphism <> s:21 var
+R5589:5592 Coq.Init.Datatypes <> true constr
+def 5642:5653 <> abstract_run
+R5660:5674 ThieleMachineVerification.FullIsomorphism <> ObservableState rec
+binder 5656:5656 <> s:24
+R5686:5689 Coq.Init.Datatypes <> list ind
+R5691:5709 ThieleMachineVerification.FullIsomorphism <> AbstractInstruction ind
+binder 5678:5682 <> trace:25
+R5719:5733 ThieleMachineVerification.FullIsomorphism <> ObservableState rec
+R5746:5750 ThieleMachineVerification.FullIsomorphism <> trace:25 var
+R5761:5762 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5767:5767 ThieleMachineVerification.FullIsomorphism <> s:24 var
+R5774:5777 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5786:5797 ThieleMachineVerification.FullIsomorphism <> abstract_run:26 def
+R5800:5812 ThieleMachineVerification.FullIsomorphism <> abstract_step def
+R5814:5814 ThieleMachineVerification.FullIsomorphism <> s:24 var
+prf 6091:6111 <> abstract_mu_monotonic
+binder 6124:6124 <> s:28
+binder 6126:6126 <> i:29
+R6159:6162 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6133:6138 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R6141:6153 ThieleMachineVerification.FullIsomorphism <> abstract_step def
+R6155:6155 ThieleMachineVerification.FullIsomorphism <> s:28 var
+R6157:6157 ThieleMachineVerification.FullIsomorphism <> i:29 var
+R6163:6168 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R6170:6170 ThieleMachineVerification.FullIsomorphism <> s:28 var
+prf 6293:6316 <> abstract_mu_cost_correct
+binder 6329:6329 <> s:30
+binder 6331:6331 <> i:31
+R6364:6366 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6338:6343 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R6346:6358 ThieleMachineVerification.FullIsomorphism <> abstract_step def
+R6360:6360 ThieleMachineVerification.FullIsomorphism <> s:30 var
+R6362:6362 ThieleMachineVerification.FullIsomorphism <> i:31 var
+R6375:6377 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6367:6372 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R6374:6374 ThieleMachineVerification.FullIsomorphism <> s:30 var
+R6378:6393 ThieleMachineVerification.FullIsomorphism <> abstract_mu_cost def
+R6395:6395 ThieleMachineVerification.FullIsomorphism <> i:31 var
+prf 6509:6533 <> abstract_run_mu_monotonic
+binder 6546:6550 <> trace:32
+binder 6552:6552 <> s:33
+R6588:6591 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6559:6564 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R6567:6578 ThieleMachineVerification.FullIsomorphism <> abstract_run def
+R6580:6580 ThieleMachineVerification.FullIsomorphism <> s:33 var
+R6582:6586 ThieleMachineVerification.FullIsomorphism <> trace:32 var
+R6592:6597 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R6599:6599 ThieleMachineVerification.FullIsomorphism <> s:33 var
+R6702:6714 ThieleMachineVerification.FullIsomorphism <> abstract_step def
+R6702:6714 ThieleMachineVerification.FullIsomorphism <> abstract_step def
+R6748:6768 ThieleMachineVerification.FullIsomorphism <> abstract_mu_monotonic thm
+R6748:6768 ThieleMachineVerification.FullIsomorphism <> abstract_mu_monotonic thm
+def 6873:6888 <> trace_total_cost
+R6899:6902 Coq.Init.Datatypes <> list ind
+R6904:6922 ThieleMachineVerification.FullIsomorphism <> AbstractInstruction ind
+binder 6891:6895 <> trace:34
+R6927:6929 Coq.Init.Datatypes <> nat ind
+R6942:6946 ThieleMachineVerification.FullIsomorphism <> trace:34 var
+R6957:6958 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6970:6973 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7000:7002 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6982:6997 ThieleMachineVerification.FullIsomorphism <> abstract_mu_cost def
+R7003:7018 ThieleMachineVerification.FullIsomorphism <> trace_total_cost:35 def
+prf 7097:7119 <> abstract_run_mu_correct
+binder 7132:7136 <> trace:37
+binder 7138:7138 <> s:38
+R7174:7176 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7145:7150 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R7153:7164 ThieleMachineVerification.FullIsomorphism <> abstract_run def
+R7166:7166 ThieleMachineVerification.FullIsomorphism <> s:38 var
+R7168:7172 ThieleMachineVerification.FullIsomorphism <> trace:37 var
+R7185:7187 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7177:7182 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R7184:7184 ThieleMachineVerification.FullIsomorphism <> s:38 var
+R7188:7203 ThieleMachineVerification.FullIsomorphism <> trace_total_cost def
+R7205:7209 ThieleMachineVerification.FullIsomorphism <> trace:37 var
+R7319:7342 ThieleMachineVerification.FullIsomorphism <> abstract_mu_cost_correct thm
+R7319:7342 ThieleMachineVerification.FullIsomorphism <> abstract_mu_cost_correct thm
+R7319:7342 ThieleMachineVerification.FullIsomorphism <> abstract_mu_cost_correct thm
+prf 7437:7453 <> halt_is_absorbing
+binder 7466:7466 <> s:39
+R7492:7499 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7485:7487 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7473:7482 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
+R7484:7484 ThieleMachineVerification.FullIsomorphism <> s:39 var
+R7488:7491 Coq.Init.Datatypes <> true constr
+R7536:7538 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7500:7509 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
+R7512:7524 ThieleMachineVerification.FullIsomorphism <> abstract_step def
+R7526:7526 ThieleMachineVerification.FullIsomorphism <> s:39 var
+R7528:7534 ThieleMachineVerification.FullIsomorphism <> AI_HALT constr
+R7539:7542 Coq.Init.Datatypes <> true constr
+prf 7644:7663 <> halt_preserves_state
+binder 7676:7676 <> s:40
+R7726:7733 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7715:7717 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7683:7688 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R7691:7703 ThieleMachineVerification.FullIsomorphism <> abstract_step def
+R7705:7705 ThieleMachineVerification.FullIsomorphism <> s:40 var
+R7707:7713 ThieleMachineVerification.FullIsomorphism <> AI_HALT constr
+R7718:7723 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R7725:7725 ThieleMachineVerification.FullIsomorphism <> s:40 var
+R7777:7784 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7766:7768 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7734:7739 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
+R7742:7754 ThieleMachineVerification.FullIsomorphism <> abstract_step def
+R7756:7756 ThieleMachineVerification.FullIsomorphism <> s:40 var
+R7758:7764 ThieleMachineVerification.FullIsomorphism <> AI_HALT constr
+R7769:7774 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
+R7776:7776 ThieleMachineVerification.FullIsomorphism <> s:40 var
+R7830:7832 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7785:7803 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
+R7806:7818 ThieleMachineVerification.FullIsomorphism <> abstract_step def
+R7820:7820 ThieleMachineVerification.FullIsomorphism <> s:40 var
+R7822:7828 ThieleMachineVerification.FullIsomorphism <> AI_HALT constr
+R7833:7851 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
+R7853:7853 ThieleMachineVerification.FullIsomorphism <> s:40 var
+def 8195:8207 <> mu_equivalent
+R8218:8221 Coq.Init.Datatypes <> list ind
+R8223:8241 ThieleMachineVerification.FullIsomorphism <> AbstractInstruction ind
+binder 8210:8211 <> t1:41
+binder 8213:8214 <> t2:42
+binder 8263:8263 <> s:43
+R8292:8294 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8266:8271 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R8274:8285 ThieleMachineVerification.FullIsomorphism <> abstract_run def
+R8287:8287 ThieleMachineVerification.FullIsomorphism <> s:43 var
+R8289:8290 ThieleMachineVerification.FullIsomorphism <> t1:41 var
+R8295:8300 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R8303:8314 ThieleMachineVerification.FullIsomorphism <> abstract_run def
+R8316:8316 ThieleMachineVerification.FullIsomorphism <> s:43 var
+R8318:8319 ThieleMachineVerification.FullIsomorphism <> t2:42 var
+prf 8378:8395 <> mu_equiv_same_cost
+binder 8408:8409 <> t1:44
+binder 8411:8412 <> t2:45
+R8438:8445 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8419:8431 ThieleMachineVerification.FullIsomorphism <> mu_equivalent def
+R8433:8434 ThieleMachineVerification.FullIsomorphism <> t1:44 var
+R8436:8437 ThieleMachineVerification.FullIsomorphism <> t2:45 var
+R8465:8467 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8446:8461 ThieleMachineVerification.FullIsomorphism <> trace_total_cost def
+R8463:8464 ThieleMachineVerification.FullIsomorphism <> t1:44 var
+R8468:8483 ThieleMachineVerification.FullIsomorphism <> trace_total_cost def
+R8485:8486 ThieleMachineVerification.FullIsomorphism <> t2:45 var
+R8528:8540 ThieleMachineVerification.FullIsomorphism <> mu_equivalent def
+R8577:8582 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R8577:8582 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R8577:8582 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R8590:8595 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
+R8590:8595 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
+R8628:8646 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
+R8628:8646 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
+R8654:8663 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
+R8654:8663 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
+R8668:8672 Coq.Init.Datatypes <> false constr
+R8577:8582 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R8577:8582 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R8577:8582 ThieleMachineVerification.FullIsomorphism <> obs_mu proj
+R8590:8595 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
+R8590:8595 ThieleMachineVerification.FullIsomorphism <> obs_pc proj
+R8628:8646 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
+R8628:8646 ThieleMachineVerification.FullIsomorphism <> obs_partition_count proj
+R8654:8663 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
+R8654:8663 ThieleMachineVerification.FullIsomorphism <> obs_halted proj
+R8668:8672 Coq.Init.Datatypes <> false constr
+R8710:8732 ThieleMachineVerification.FullIsomorphism <> abstract_run_mu_correct thm
+R8710:8732 ThieleMachineVerification.FullIsomorphism <> abstract_run_mu_correct thm
+R8710:8732 ThieleMachineVerification.FullIsomorphism <> abstract_run_mu_correct thm
+R8710:8732 ThieleMachineVerification.FullIsomorphism <> abstract_run_mu_correct thm
+def 9198:9210 <> PythonAligned
+R9225:9228 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9222:9224 Coq.Init.Datatypes <> nat ind
+R9232:9235 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9229:9231 Coq.Init.Datatypes <> nat ind
+R9239:9242 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9236:9238 Coq.Init.Datatypes <> nat ind
+R9247:9250 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9243:9246 Coq.Init.Datatypes <> bool ind
+R9251:9265 ThieleMachineVerification.FullIsomorphism <> ObservableState rec
+binder 9213:9218 <> decode:46
+R9301:9303 Coq.Init.Datatypes <> nat ind
+binder 9273:9277 <> py_mu:47
+binder 9279:9283 <> py_pc:48
+binder 9285:9297 <> py_partitions:49
+R9319:9322 Coq.Init.Datatypes <> bool ind
+binder 9307:9315 <> py_halted:50
+R9334:9348 ThieleMachineVerification.FullIsomorphism <> ObservableState rec
+binder 9326:9330 <> coq_s:51
+R9405:9407 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9363:9368 ThieleMachineVerification.FullIsomorphism <> decode:46 var
+R9396:9404 ThieleMachineVerification.FullIsomorphism <> py_halted:50 var
+R9382:9394 ThieleMachineVerification.FullIsomorphism <> py_partitions:49 var
+R9376:9380 ThieleMachineVerification.FullIsomorphism <> py_pc:48 var
+R9370:9374 ThieleMachineVerification.FullIsomorphism <> py_mu:47 var
+R9408:9412 ThieleMachineVerification.FullIsomorphism <> coq_s:51 var
+def 9491:9504 <> VerilogAligned
+R9524:9527 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9516:9519 Coq.Init.Datatypes <> list ind
+R9521:9523 Coq.Init.Datatypes <> nat ind
+R9528:9542 ThieleMachineVerification.FullIsomorphism <> ObservableState rec
+binder 9507:9512 <> decode:52
+R9562:9565 Coq.Init.Datatypes <> list ind
+R9567:9569 Coq.Init.Datatypes <> nat ind
+binder 9550:9558 <> registers:53
+R9581:9595 ThieleMachineVerification.FullIsomorphism <> ObservableState rec
+binder 9573:9577 <> coq_s:54
+R9626:9628 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9610:9615 ThieleMachineVerification.FullIsomorphism <> decode:52 var
+R9617:9625 ThieleMachineVerification.FullIsomorphism <> registers:53 var
+R9629:9633 ThieleMachineVerification.FullIsomorphism <> coq_s:54 var
+def 9696:9710 <> FullIsomorphism
+R9726:9740 ThieleMachineVerification.FullIsomorphism <> ObservableState rec
+binder 9718:9722 <> coq_s:55
+R9763:9766 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9760:9762 Coq.Init.Datatypes <> nat ind
+R9770:9773 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9767:9769 Coq.Init.Datatypes <> nat ind
+R9777:9780 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9774:9776 Coq.Init.Datatypes <> nat ind
+R9785:9788 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9781:9784 Coq.Init.Datatypes <> bool ind
+R9789:9803 ThieleMachineVerification.FullIsomorphism <> ObservableState rec
+binder 9748:9756 <> py_decode:56
+R9839:9841 Coq.Init.Datatypes <> nat ind
+binder 9811:9815 <> py_mu:57
+binder 9817:9821 <> py_pc:58
+binder 9823:9835 <> py_partitions:59
+R9857:9860 Coq.Init.Datatypes <> bool ind
+binder 9845:9853 <> py_halted:60
+R9887:9890 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9879:9882 Coq.Init.Datatypes <> list ind
+R9884:9886 Coq.Init.Datatypes <> nat ind
+R9891:9905 ThieleMachineVerification.FullIsomorphism <> ObservableState rec
+binder 9868:9875 <> v_decode:61
+R9927:9930 Coq.Init.Datatypes <> list ind
+R9932:9934 Coq.Init.Datatypes <> nat ind
+binder 9913:9923 <> v_registers:62
+R10014:10019 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9949:9961 ThieleMachineVerification.FullIsomorphism <> PythonAligned def
+R9963:9971 ThieleMachineVerification.FullIsomorphism <> py_decode:56 var
+R9973:9977 ThieleMachineVerification.FullIsomorphism <> py_mu:57 var
+R9979:9983 ThieleMachineVerification.FullIsomorphism <> py_pc:58 var
+R9985:9997 ThieleMachineVerification.FullIsomorphism <> py_partitions:59 var
+R9999:10007 ThieleMachineVerification.FullIsomorphism <> py_halted:60 var
+R10009:10013 ThieleMachineVerification.FullIsomorphism <> coq_s:55 var
+R10020:10033 ThieleMachineVerification.FullIsomorphism <> VerilogAligned def
+R10035:10042 ThieleMachineVerification.FullIsomorphism <> v_decode:61 var
+R10044:10054 ThieleMachineVerification.FullIsomorphism <> v_registers:62 var
+R10056:10060 ThieleMachineVerification.FullIsomorphism <> coq_s:55 var
+prf 10173:10194 <> isomorphism_transitive
+R10225:10239 ThieleMachineVerification.FullIsomorphism <> ObservableState rec
+binder 10208:10212 <> coq_s:63
+binder 10214:10217 <> py_s:64
+binder 10219:10221 <> v_s:65
+R10259:10266 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10252:10254 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10247:10251 ThieleMachineVerification.FullIsomorphism <> coq_s:63 var
+R10255:10258 ThieleMachineVerification.FullIsomorphism <> py_s:64 var
+R10277:10284 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10271:10273 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10267:10270 ThieleMachineVerification.FullIsomorphism <> py_s:64 var
+R10274:10276 ThieleMachineVerification.FullIsomorphism <> v_s:65 var
+R10290:10292 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10285:10289 ThieleMachineVerification.FullIsomorphism <> coq_s:63 var
+R10293:10295 ThieleMachineVerification.FullIsomorphism <> v_s:65 var

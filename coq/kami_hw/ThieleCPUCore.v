@@ -56,6 +56,12 @@ Section ThieleCPU.
       "value" :: Bit WordSz
     }.
 
+  Definition APBBusWritePort :=
+    STRUCT {
+      "addr" :: Bit WordSz ;
+      "data" :: Bit WordSz
+    }.
+
   (** Stack pointer register index (r31) *)
   Definition SP_IDX : word RegIdxSz := WO~1~1~1~1~1.
 
@@ -441,6 +447,9 @@ Section ThieleCPU.
       with Register "logic_resp_error"  : Bool <- false
       with Register "logic_resp_value"  : Bit WordSz <- Default
       with Register "logic_stall"       : Bool <- false
+      with Register "bus_load_instr_addr" : Bit MemAddrSz <- Default
+      with Register "bus_load_instr_data" : Bit InstrSz <- Default
+      with Register "bus_load_instr_kick" : Bool <- false
 
       (* μ-tensor: 4×4 flattened (16 entries) for revelation direction tracking *)
       with Register "mu_tensor"     : Vector (Bit WordSz) MuTensorIdxSz <- Default
@@ -1919,6 +1928,165 @@ Section ThieleCPU.
 
       with Method "setTrapVector" (tv : Bit WordSz) : Void :=
         Write "trap_vector" <- #tv; Retv
+
+      with Method "apbReadData" (addr : Bit WordSz) : Bit WordSz :=
+        Read pc_v : Bit WordSz <- "pc";
+        Read mu_v : Bit WordSz <- "mu";
+        Read err_v : Bool <- "err";
+        Read halted_v : Bool <- "halted";
+        Read partition_ops_v : Bit WordSz <- "partition_ops";
+        Read mdl_ops_v : Bit WordSz <- "mdl_ops";
+        Read info_gain_v : Bit WordSz <- "info_gain";
+        Read error_code_v : Bit WordSz <- "error_code";
+        Read mstatus_v : Bit WordSz <- "mstatus";
+        Read mcycle_lo_v : Bit WordSz <- "mcycle_lo";
+        Read mcycle_hi_v : Bit WordSz <- "mcycle_hi";
+        Read minstret_lo_v : Bit WordSz <- "minstret_lo";
+        Read minstret_hi_v : Bit WordSz <- "minstret_hi";
+        Read logic_acc_v : Bit WordSz <- "logic_acc";
+        Read logic_req_valid_v : Bool <- "logic_req_valid";
+        Read logic_req_opcode_v : Bit OpcodeSz <- "logic_req_opcode";
+        Read logic_req_payload_v : Bit WordSz <- "logic_req_payload";
+        Read mu_tensor_v : Vector (Bit WordSz) MuTensorIdxSz <- "mu_tensor";
+        Read pt_next_id_v : Bit PTableNextIdSz <- "pt_next_id";
+        Read pt_sizes_v : Vector (Bit WordSz) PTableIdxSz <- "ptTable";
+        LET mu_tensor0 : Bit WordSz <-
+          #mu_tensor_v@[$$(WO~0~0~0~0)] + #mu_tensor_v@[$$(WO~0~0~0~1)] +
+          #mu_tensor_v@[$$(WO~0~0~1~0)] + #mu_tensor_v@[$$(WO~0~0~1~1)];
+        LET mu_tensor1 : Bit WordSz <-
+          #mu_tensor_v@[$$(WO~0~1~0~0)] + #mu_tensor_v@[$$(WO~0~1~0~1)] +
+          #mu_tensor_v@[$$(WO~0~1~1~0)] + #mu_tensor_v@[$$(WO~0~1~1~1)];
+        LET mu_tensor2 : Bit WordSz <-
+          #mu_tensor_v@[$$(WO~1~0~0~0)] + #mu_tensor_v@[$$(WO~1~0~0~1)] +
+          #mu_tensor_v@[$$(WO~1~0~1~0)] + #mu_tensor_v@[$$(WO~1~0~1~1)];
+        LET mu_tensor3 : Bit WordSz <-
+          #mu_tensor_v@[$$(WO~1~1~0~0)] + #mu_tensor_v@[$$(WO~1~1~0~1)] +
+          #mu_tensor_v@[$$(WO~1~1~1~0)] + #mu_tensor_v@[$$(WO~1~1~1~1)];
+        LET tensor_total : Bit WordSz <- #mu_tensor0 + #mu_tensor1 + #mu_tensor2 + #mu_tensor3;
+        LET bianchi_alarm_v <- #tensor_total > #mu_v;
+        LET pt_next_id32 : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #pt_next_id_v;
+        LET pt_size0 : Bit WordSz <- #pt_sizes_v@[$$(natToWord PTableIdxSz 0)];
+        LET logic_req_opcode32 : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #logic_req_opcode_v;
+        LET rdata : Bit WordSz <-
+          IF (#addr == $$(natToWord WordSz 0)) then #pc_v
+          else (IF (#addr == $$(natToWord WordSz 4)) then #mu_v
+          else (IF (#addr == $$(natToWord WordSz 8)) then (IF #err_v then $1 else $0)
+          else (IF (#addr == $$(natToWord WordSz 12)) then (IF #halted_v then $1 else $0)
+          else (IF (#addr == $$(natToWord WordSz 16)) then #partition_ops_v
+          else (IF (#addr == $$(natToWord WordSz 20)) then #mdl_ops_v
+          else (IF (#addr == $$(natToWord WordSz 24)) then #info_gain_v
+          else (IF (#addr == $$(natToWord WordSz 28)) then #error_code_v
+          else (IF (#addr == $$(natToWord WordSz 32)) then #mstatus_v
+          else (IF (#addr == $$(natToWord WordSz 36)) then #mcycle_lo_v
+          else (IF (#addr == $$(natToWord WordSz 40)) then #mcycle_hi_v
+          else (IF (#addr == $$(natToWord WordSz 44)) then #minstret_lo_v
+          else (IF (#addr == $$(natToWord WordSz 48)) then #minstret_hi_v
+          else (IF (#addr == $$(natToWord WordSz 52)) then #logic_acc_v
+          else (IF (#addr == $$(natToWord WordSz 56)) then (IF #logic_req_valid_v then $1 else $0)
+          else (IF (#addr == $$(natToWord WordSz 60)) then #logic_req_opcode32
+          else (IF (#addr == $$(natToWord WordSz 64)) then #logic_req_payload_v
+          else (IF (#addr == $$(natToWord WordSz 68)) then #mu_tensor0
+          else (IF (#addr == $$(natToWord WordSz 72)) then #mu_tensor1
+          else (IF (#addr == $$(natToWord WordSz 76)) then #mu_tensor2
+          else (IF (#addr == $$(natToWord WordSz 80)) then #mu_tensor3
+          else (IF (#addr == $$(natToWord WordSz 84)) then (IF #bianchi_alarm_v then $1 else $0)
+          else (IF (#addr == $$(natToWord WordSz 88)) then #pt_next_id32
+          else (IF (#addr == $$(natToWord WordSz 92)) then #pt_size0 else $0)))))))))))))))))))))));
+        Ret #rdata
+
+      with Method "apbReadErr" (addr : Bit WordSz) : Bool :=
+        LET is_readable <-
+          (#addr == $$(natToWord WordSz 0)) ||
+          (#addr == $$(natToWord WordSz 4)) ||
+          (#addr == $$(natToWord WordSz 8)) ||
+          (#addr == $$(natToWord WordSz 12)) ||
+          (#addr == $$(natToWord WordSz 16)) ||
+          (#addr == $$(natToWord WordSz 20)) ||
+          (#addr == $$(natToWord WordSz 24)) ||
+          (#addr == $$(natToWord WordSz 28)) ||
+          (#addr == $$(natToWord WordSz 32)) ||
+          (#addr == $$(natToWord WordSz 36)) ||
+          (#addr == $$(natToWord WordSz 40)) ||
+          (#addr == $$(natToWord WordSz 44)) ||
+          (#addr == $$(natToWord WordSz 48)) ||
+          (#addr == $$(natToWord WordSz 52)) ||
+          (#addr == $$(natToWord WordSz 56)) ||
+          (#addr == $$(natToWord WordSz 60)) ||
+          (#addr == $$(natToWord WordSz 64)) ||
+          (#addr == $$(natToWord WordSz 68)) ||
+          (#addr == $$(natToWord WordSz 72)) ||
+          (#addr == $$(natToWord WordSz 76)) ||
+          (#addr == $$(natToWord WordSz 80)) ||
+          (#addr == $$(natToWord WordSz 84)) ||
+          (#addr == $$(natToWord WordSz 88)) ||
+          (#addr == $$(natToWord WordSz 92));
+        Ret (!#is_readable)
+
+      with Method "apbWrite" (arg : Struct APBBusWritePort) : Bool :=
+        Read imem_v : Vector (Bit InstrSz) MemAddrSz <- "imem";
+        Read logic_resp_valid_v : Bool <- "logic_resp_valid";
+        Read logic_resp_error_v : Bool <- "logic_resp_error";
+        Read logic_resp_value_v : Bit WordSz <- "logic_resp_value";
+        Read active_module_v : Bit PTableIdxSz <- "active_module";
+        Read trap_vector_v : Bit WordSz <- "trap_vector";
+        Read bus_load_instr_addr_v : Bit MemAddrSz <- "bus_load_instr_addr";
+        Read bus_load_instr_data_v : Bit InstrSz <- "bus_load_instr_data";
+        Read bus_load_instr_kick_v : Bool <- "bus_load_instr_kick";
+        LET addr <- #arg!APBBusWritePort@."addr";
+        LET data <- #arg!APBBusWritePort@."data";
+        LET wr_load_instr_addr <- #addr == $$(natToWord WordSz 128);
+        LET wr_load_instr_data <- #addr == $$(natToWord WordSz 132);
+        LET wr_load_instr_kick <- #addr == $$(natToWord WordSz 136);
+        LET wr_set_logic_resp_valid <- #addr == $$(natToWord WordSz 140);
+        LET wr_set_logic_resp_error <- #addr == $$(natToWord WordSz 144);
+        LET wr_set_logic_resp_value <- #addr == $$(natToWord WordSz 148);
+        LET wr_set_active_module <- #addr == $$(natToWord WordSz 152);
+        LET wr_set_trap_vector <- #addr == $$(natToWord WordSz 156);
+        LET wr_any <-
+          #wr_load_instr_addr ||
+          #wr_load_instr_data ||
+          #wr_load_instr_kick ||
+          #wr_set_logic_resp_valid ||
+          #wr_set_logic_resp_error ||
+          #wr_set_logic_resp_value ||
+          #wr_set_active_module ||
+          #wr_set_trap_vector;
+        LET data_mem_addr : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) #data;
+        LET data_instr : Bit InstrSz <- UniBit (Trunc InstrSz _) #data;
+        LET data_nonzero <- #data != $0;
+        LET next_load_instr_addr : Bit MemAddrSz <-
+          IF #wr_load_instr_addr then #data_mem_addr else #bus_load_instr_addr_v;
+        LET next_load_instr_data : Bit InstrSz <-
+          IF #wr_load_instr_data then #data_instr else #bus_load_instr_data_v;
+        LET next_load_instr_kick <-
+          IF #wr_load_instr_kick then #data_nonzero else #bus_load_instr_kick_v;
+        LET do_instr_commit <- #wr_load_instr_kick && #data_nonzero;
+        LET next_imem : Vector (Bit InstrSz) MemAddrSz <-
+          IF #do_instr_commit
+          then #imem_v@[#next_load_instr_addr <- #next_load_instr_data]
+          else #imem_v;
+        LET next_logic_resp_valid <-
+          IF #wr_set_logic_resp_valid then #data_nonzero else #logic_resp_valid_v;
+        LET next_logic_resp_error <-
+          IF #wr_set_logic_resp_error then #data_nonzero else #logic_resp_error_v;
+        LET next_logic_resp_value : Bit WordSz <-
+          IF #wr_set_logic_resp_value then #data else #logic_resp_value_v;
+        LET next_active_module : Bit PTableIdxSz <-
+          IF #wr_set_active_module
+          then UniBit (Trunc PTableIdxSz _) #data
+          else #active_module_v;
+        LET next_trap_vector : Bit WordSz <-
+          IF #wr_set_trap_vector then #data else #trap_vector_v;
+        Write "imem" <- #next_imem;
+        Write "bus_load_instr_addr" <- #next_load_instr_addr;
+        Write "bus_load_instr_data" <- #next_load_instr_data;
+        Write "bus_load_instr_kick" <- #next_load_instr_kick;
+        Write "logic_resp_valid" <- #next_logic_resp_valid;
+        Write "logic_resp_error" <- #next_logic_resp_error;
+        Write "logic_resp_value" <- #next_logic_resp_value;
+        Write "active_module" <- #next_active_module;
+        Write "trap_vector" <- #next_trap_vector;
+        Ret (!#wr_any)
 
       with Method "getBianchiAlarm" () : Bool :=
         Read t : Vector (Bit WordSz) MuTensorIdxSz <- "mu_tensor";

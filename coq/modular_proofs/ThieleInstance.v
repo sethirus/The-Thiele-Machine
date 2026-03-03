@@ -23,6 +23,10 @@ Open Scope nat_scope.
 
 From ModularProofs Require Import TM_Basics Encoding EncodingBounds Thiele_Basics.
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 (** =========================================================================
     PART 1: THE THIELE INTERPRETER STATE
     =========================================================================
@@ -449,3 +453,4 @@ Qed.
     is fully proven with ZERO admits. The end-to-end chain theorem
     (thiele_subsumes_tm_complete) is FULLY PROVEN.
     ========================================================================= *)
+

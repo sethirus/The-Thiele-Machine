@@ -18,12 +18,23 @@ Test different VM operations:
 
 import sys
 from pathlib import Path
+import pytest
 sys.path.insert(0, str(Path(__file__).parent.parent / "tools"))
 
-from vm_wrapper import run_vm_trace, VMState
+from vm_wrapper import run_vm_trace, VMState, VM_RUNNER_PATH
+
+
+def _require_extracted_runner() -> None:
+    if not VM_RUNNER_PATH.exists():
+        pytest.skip(
+            f"Coq-extracted runner not built: {VM_RUNNER_PATH}. "
+            "Build with: ocamlc -I build -o build/extracted_vm_runner "
+            "build/thiele_core.mli build/thiele_core.ml tools/extracted_vm_runner.ml"
+        )
 
 def test_2d_mesh_creation():
     """Try to create a 2D mesh structure"""
+    _require_extracted_runner()
     print("=" * 80)
     print("TEST: Creating 2D Mesh with PNEW")
     print("=" * 80)
@@ -99,6 +110,7 @@ def test_2d_mesh_creation():
 
 def test_computational_trace():
     """Test a real computational trace with splits and merges"""
+    _require_extracted_runner()
     print("\n" + "=" * 80)
     print("TEST: Real Computation with PSPLIT/PMERGE")
     print("=" * 80)

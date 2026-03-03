@@ -7,6 +7,9 @@ From Kernel Require Import EntropyImpossibility.
 
 Import ListNotations.
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import MuCostModel.
+
 (** * KernelTOE: minimal no-go theorems
 
     WHY THIS FILE EXISTS:

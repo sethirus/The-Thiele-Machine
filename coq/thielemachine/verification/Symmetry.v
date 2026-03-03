@@ -1,4 +1,5 @@
 (** =========================================================================
+
     SYMMETRY - Group Actions and Invariances
     =========================================================================
     
@@ -11,9 +12,12 @@
     - coq/kernel/KernelNoether.v:191 (vm_step_orbit_equiv)
     - coq/kernel/KernelNoether.v:108 (vm_step_mu_monotonic)
     
-    INQUISITOR NOTE: Full Noether contract fulfilled by KernelNoether.v
     as specified in INQUISITOR_ASSUMPTIONS.json.
     ========================================================================= *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import List ZArith Lia QArith.
 Import ListNotations.

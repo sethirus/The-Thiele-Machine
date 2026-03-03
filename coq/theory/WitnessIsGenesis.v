@@ -7,6 +7,10 @@ From Coq Require Import Arith.PeanoNat.
 
 Require Import Theory.Genesis.
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 Record CreatorState := {
   creator_hash : nat;
   embedded_child_hash : nat;
@@ -96,3 +100,4 @@ Corollary Logos_Auditor_Sees_True :
 Proof.
   apply auditor_func_accepts.
 Qed.
+

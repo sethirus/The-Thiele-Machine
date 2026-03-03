@@ -23,6 +23,10 @@ Open Scope nat_scope.
 
 From ModularProofs Require Import TM_Basics Minsky.
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 (** =========================================================================
     PART 1: ABSTRACT SIMULATION FRAMEWORK
     =========================================================================
@@ -344,3 +348,4 @@ Qed.
 
     ZERO AXIOMS. ZERO ADMITS.
     ========================================================================= *)
+

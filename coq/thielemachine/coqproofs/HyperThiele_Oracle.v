@@ -1,5 +1,9 @@
 From Coq Require Import List Arith Bool Nat.
 Import ListNotations.
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 
 (* Minimal oracle-to-instruction embedding for the Thiele machine.
    This file provides a small high-level language with `Ask` and

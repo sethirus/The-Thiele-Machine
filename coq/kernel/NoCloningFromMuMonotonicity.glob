@@ -1,184 +1,207 @@
-DIGEST 4d09b0c2ab03a8fe7a0dc004c9750f4f
+DIGEST 900a20d276a4082f51d6bb3164634f65
 FKernel.NoCloningFromMuMonotonicity
-R1243:1256 Coq.Arith.PeanoNat <> <> lib
-R1258:1260 Coq.micromega.Lia <> <> lib
-def 2389:2406 <> structural_content
-R2411:2413 Coq.Init.Datatypes <> nat ind
-rec 2995:3008 <> MachineCloneOp
-proj 3017:3026 <> mc_content
-proj 3087:3094 <> mc_copy1
-proj 3148:3155 <> mc_copy2
-proj 3210:3220 <> mc_delta_mu
-R3030:3032 Coq.Init.Datatypes <> nat ind
-R3100:3102 Coq.Init.Datatypes <> nat ind
-R3161:3163 Coq.Init.Datatypes <> nat ind
-R3224:3226 Coq.Init.Datatypes <> nat ind
-def 4116:4129 <> mc_respects_mu
-R4137:4150 Kernel.NoCloningFromMuMonotonicity <> MachineCloneOp rec
-binder 4132:4133 <> op:6
-R4191:4194 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R4177:4179 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4166:4173 Kernel.NoCloningFromMuMonotonicity <> mc_copy1 proj
-R4175:4176 Kernel.NoCloningFromMuMonotonicity <> op:6 var
-R4180:4187 Kernel.NoCloningFromMuMonotonicity <> mc_copy2 proj
-R4189:4190 Kernel.NoCloningFromMuMonotonicity <> op:6 var
-R4208:4210 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4195:4204 Kernel.NoCloningFromMuMonotonicity <> mc_content proj
-R4206:4207 Kernel.NoCloningFromMuMonotonicity <> op:6 var
-R4211:4221 Kernel.NoCloningFromMuMonotonicity <> mc_delta_mu proj
-R4223:4224 Kernel.NoCloningFromMuMonotonicity <> op:6 var
-def 4298:4310 <> mc_is_perfect
-R4318:4331 Kernel.NoCloningFromMuMonotonicity <> MachineCloneOp rec
-binder 4313:4314 <> op:7
-R4373:4376 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4357:4359 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4346:4353 Kernel.NoCloningFromMuMonotonicity <> mc_copy1 proj
-R4355:4356 Kernel.NoCloningFromMuMonotonicity <> op:7 var
-R4360:4369 Kernel.NoCloningFromMuMonotonicity <> mc_content proj
-R4371:4372 Kernel.NoCloningFromMuMonotonicity <> op:7 var
-R4388:4390 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4377:4384 Kernel.NoCloningFromMuMonotonicity <> mc_copy2 proj
-R4386:4387 Kernel.NoCloningFromMuMonotonicity <> op:7 var
-R4391:4400 Kernel.NoCloningFromMuMonotonicity <> mc_content proj
-R4402:4403 Kernel.NoCloningFromMuMonotonicity <> op:7 var
-def 4485:4499 <> mc_is_zero_cost
-R4507:4520 Kernel.NoCloningFromMuMonotonicity <> MachineCloneOp rec
-binder 4502:4503 <> op:8
-R4549:4551 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4535:4545 Kernel.NoCloningFromMuMonotonicity <> mc_delta_mu proj
-R4547:4548 Kernel.NoCloningFromMuMonotonicity <> op:8 var
-def 4627:4639 <> mc_nontrivial
-R4647:4660 Kernel.NoCloningFromMuMonotonicity <> MachineCloneOp rec
-binder 4642:4643 <> op:9
-R4689:4691 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R4676:4685 Kernel.NoCloningFromMuMonotonicity <> mc_content proj
-R4687:4688 Kernel.NoCloningFromMuMonotonicity <> op:9 var
-prf 5557:5582 <> no_cloning_mu_monotonicity
-R5600:5613 Kernel.NoCloningFromMuMonotonicity <> MachineCloneOp rec
-binder 5595:5596 <> op:10
-R5636:5643 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5620:5632 Kernel.NoCloningFromMuMonotonicity <> mc_nontrivial def
-R5634:5635 Kernel.NoCloningFromMuMonotonicity <> op:10 var
-R5661:5668 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5644:5657 Kernel.NoCloningFromMuMonotonicity <> mc_respects_mu def
-R5659:5660 Kernel.NoCloningFromMuMonotonicity <> op:10 var
-R5685:5692 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5669:5681 Kernel.NoCloningFromMuMonotonicity <> mc_is_perfect def
-R5683:5684 Kernel.NoCloningFromMuMonotonicity <> op:10 var
-R5693:5694 Coq.Init.Logic <> ::type_scope:'~'_x not
-R5695:5709 Kernel.NoCloningFromMuMonotonicity <> mc_is_zero_cost def
-R5711:5712 Kernel.NoCloningFromMuMonotonicity <> op:10 var
-R5758:5770 Kernel.NoCloningFromMuMonotonicity <> mc_nontrivial def
-R5773:5786 Kernel.NoCloningFromMuMonotonicity <> mc_respects_mu def
-R5789:5801 Kernel.NoCloningFromMuMonotonicity <> mc_is_perfect def
-R5804:5818 Kernel.NoCloningFromMuMonotonicity <> mc_is_zero_cost def
-prf 6246:6268 <> cloning_requires_mu_nat
-R6286:6299 Kernel.NoCloningFromMuMonotonicity <> MachineCloneOp rec
-binder 6281:6282 <> op:11
-R6322:6329 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6306:6318 Kernel.NoCloningFromMuMonotonicity <> mc_nontrivial def
-R6320:6321 Kernel.NoCloningFromMuMonotonicity <> op:11 var
-R6347:6354 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6330:6343 Kernel.NoCloningFromMuMonotonicity <> mc_respects_mu def
-R6345:6346 Kernel.NoCloningFromMuMonotonicity <> op:11 var
-R6371:6378 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6355:6367 Kernel.NoCloningFromMuMonotonicity <> mc_is_perfect def
-R6369:6370 Kernel.NoCloningFromMuMonotonicity <> op:11 var
-R6394:6397 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R6380:6390 Kernel.NoCloningFromMuMonotonicity <> mc_delta_mu proj
-R6392:6393 Kernel.NoCloningFromMuMonotonicity <> op:11 var
-R6398:6407 Kernel.NoCloningFromMuMonotonicity <> mc_content proj
-R6409:6410 Kernel.NoCloningFromMuMonotonicity <> op:11 var
-R6458:6470 Kernel.NoCloningFromMuMonotonicity <> mc_nontrivial def
-R6473:6486 Kernel.NoCloningFromMuMonotonicity <> mc_respects_mu def
-R6489:6501 Kernel.NoCloningFromMuMonotonicity <> mc_is_perfect def
-def 7002:7021 <> mc_approximate_clone
-R7029:7042 Kernel.NoCloningFromMuMonotonicity <> MachineCloneOp rec
-binder 7024:7025 <> op:12
-R7091:7096 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7069:7072 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R7058:7065 Kernel.NoCloningFromMuMonotonicity <> mc_copy1 proj
-R7067:7068 Kernel.NoCloningFromMuMonotonicity <> op:12 var
-R7073:7082 Kernel.NoCloningFromMuMonotonicity <> mc_content proj
-R7084:7085 Kernel.NoCloningFromMuMonotonicity <> op:12 var
-R7109:7112 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R7098:7105 Kernel.NoCloningFromMuMonotonicity <> mc_copy2 proj
-R7107:7108 Kernel.NoCloningFromMuMonotonicity <> op:12 var
-R7113:7122 Kernel.NoCloningFromMuMonotonicity <> mc_content proj
-R7124:7125 Kernel.NoCloningFromMuMonotonicity <> op:12 var
-prf 7207:7235 <> approximate_cloning_zero_cost
-R7253:7266 Kernel.NoCloningFromMuMonotonicity <> MachineCloneOp rec
-binder 7248:7249 <> op:13
-R7290:7297 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7273:7286 Kernel.NoCloningFromMuMonotonicity <> mc_respects_mu def
-R7288:7289 Kernel.NoCloningFromMuMonotonicity <> op:13 var
-R7316:7323 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7298:7312 Kernel.NoCloningFromMuMonotonicity <> mc_is_zero_cost def
-R7314:7315 Kernel.NoCloningFromMuMonotonicity <> op:13 var
-R7350:7353 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R7336:7338 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R7325:7332 Kernel.NoCloningFromMuMonotonicity <> mc_copy1 proj
-R7334:7335 Kernel.NoCloningFromMuMonotonicity <> op:13 var
-R7339:7346 Kernel.NoCloningFromMuMonotonicity <> mc_copy2 proj
-R7348:7349 Kernel.NoCloningFromMuMonotonicity <> op:13 var
-R7354:7363 Kernel.NoCloningFromMuMonotonicity <> mc_content proj
-R7365:7366 Kernel.NoCloningFromMuMonotonicity <> op:13 var
-R7410:7423 Kernel.NoCloningFromMuMonotonicity <> mc_respects_mu def
-R7426:7440 Kernel.NoCloningFromMuMonotonicity <> mc_is_zero_cost def
-rec 7854:7868 <> MachineDeleteOp
-proj 7877:7885 <> md_input1
-proj 7939:7947 <> md_input2
-proj 8002:8010 <> md_output
-proj 8062:8072 <> md_delta_mu
-R7890:7892 Coq.Init.Datatypes <> nat ind
-R7952:7954 Coq.Init.Datatypes <> nat ind
-R8015:8017 Coq.Init.Datatypes <> nat ind
-R8076:8078 Coq.Init.Datatypes <> nat ind
-def 8190:8203 <> md_respects_mu
-R8211:8225 Kernel.NoCloningFromMuMonotonicity <> MachineDeleteOp rec
-binder 8206:8207 <> op:19
-R8270:8273 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8253:8255 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R8241:8249 Kernel.NoCloningFromMuMonotonicity <> md_output proj
-R8251:8252 Kernel.NoCloningFromMuMonotonicity <> op:19 var
-R8256:8266 Kernel.NoCloningFromMuMonotonicity <> md_delta_mu proj
-R8268:8269 Kernel.NoCloningFromMuMonotonicity <> op:19 var
-R8286:8288 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R8274:8282 Kernel.NoCloningFromMuMonotonicity <> md_input1 proj
-R8284:8285 Kernel.NoCloningFromMuMonotonicity <> op:19 var
-R8289:8297 Kernel.NoCloningFromMuMonotonicity <> md_input2 proj
-R8299:8300 Kernel.NoCloningFromMuMonotonicity <> op:19 var
-def 8388:8400 <> md_is_perfect
-R8408:8422 Kernel.NoCloningFromMuMonotonicity <> MachineDeleteOp rec
-binder 8403:8404 <> op:20
-R8464:8467 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R8449:8451 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8437:8445 Kernel.NoCloningFromMuMonotonicity <> md_output proj
-R8447:8448 Kernel.NoCloningFromMuMonotonicity <> op:20 var
-R8452:8460 Kernel.NoCloningFromMuMonotonicity <> md_input1 proj
-R8462:8463 Kernel.NoCloningFromMuMonotonicity <> op:20 var
-R8480:8482 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8468:8476 Kernel.NoCloningFromMuMonotonicity <> md_input1 proj
-R8478:8479 Kernel.NoCloningFromMuMonotonicity <> op:20 var
-R8483:8491 Kernel.NoCloningFromMuMonotonicity <> md_input2 proj
-R8493:8494 Kernel.NoCloningFromMuMonotonicity <> op:20 var
-prf 8553:8566 <> no_deletion_mu
-R8584:8598 Kernel.NoCloningFromMuMonotonicity <> MachineDeleteOp rec
-binder 8579:8580 <> op:21
-R8627:8634 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8618:8620 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R8606:8614 Kernel.NoCloningFromMuMonotonicity <> md_input1 proj
-R8616:8617 Kernel.NoCloningFromMuMonotonicity <> op:21 var
-R8652:8659 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8635:8648 Kernel.NoCloningFromMuMonotonicity <> md_respects_mu def
-R8650:8651 Kernel.NoCloningFromMuMonotonicity <> op:21 var
-R8676:8683 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8660:8672 Kernel.NoCloningFromMuMonotonicity <> md_is_perfect def
-R8674:8675 Kernel.NoCloningFromMuMonotonicity <> op:21 var
-R8699:8702 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8685:8695 Kernel.NoCloningFromMuMonotonicity <> md_delta_mu proj
-R8697:8698 Kernel.NoCloningFromMuMonotonicity <> op:21 var
-R8703:8711 Kernel.NoCloningFromMuMonotonicity <> md_input1 proj
-R8713:8714 Kernel.NoCloningFromMuMonotonicity <> op:21 var
-R8762:8775 Kernel.NoCloningFromMuMonotonicity <> md_respects_mu def
-R8778:8790 Kernel.NoCloningFromMuMonotonicity <> md_is_perfect def
+R1331:1337 Kernel.VMState <> <> lib
+R1339:1344 Kernel.VMStep <> <> lib
+R1374:1384 Kernel.MuCostModel <> <> lib
+R1414:1433 Kernel.MuLedgerConservation <> <> lib
+R1435:1447 Kernel.NoFreeInsight <> <> lib
+R1449:1460 Kernel.MuInitiality <> <> lib
+R1488:1501 Coq.Arith.PeanoNat <> <> lib
+R1503:1505 Coq.micromega.Lia <> <> lib
+def 2634:2651 <> structural_content
+R2656:2658 Coq.Init.Datatypes <> nat ind
+rec 3240:3253 <> MachineCloneOp
+proj 3262:3271 <> mc_content
+proj 3332:3339 <> mc_copy1
+proj 3393:3400 <> mc_copy2
+proj 3455:3465 <> mc_delta_mu
+R3275:3277 Coq.Init.Datatypes <> nat ind
+R3345:3347 Coq.Init.Datatypes <> nat ind
+R3406:3408 Coq.Init.Datatypes <> nat ind
+R3469:3471 Coq.Init.Datatypes <> nat ind
+def 4361:4374 <> mc_respects_mu
+R4382:4395 Kernel.NoCloningFromMuMonotonicity <> MachineCloneOp rec
+binder 4377:4378 <> op:6
+R4436:4439 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4422:4424 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4411:4418 Kernel.NoCloningFromMuMonotonicity <> mc_copy1 proj
+R4420:4421 Kernel.NoCloningFromMuMonotonicity <> op:6 var
+R4425:4432 Kernel.NoCloningFromMuMonotonicity <> mc_copy2 proj
+R4434:4435 Kernel.NoCloningFromMuMonotonicity <> op:6 var
+R4453:4455 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4440:4449 Kernel.NoCloningFromMuMonotonicity <> mc_content proj
+R4451:4452 Kernel.NoCloningFromMuMonotonicity <> op:6 var
+R4456:4466 Kernel.NoCloningFromMuMonotonicity <> mc_delta_mu proj
+R4468:4469 Kernel.NoCloningFromMuMonotonicity <> op:6 var
+def 4543:4555 <> mc_is_perfect
+R4563:4576 Kernel.NoCloningFromMuMonotonicity <> MachineCloneOp rec
+binder 4558:4559 <> op:7
+R4618:4621 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4602:4604 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4591:4598 Kernel.NoCloningFromMuMonotonicity <> mc_copy1 proj
+R4600:4601 Kernel.NoCloningFromMuMonotonicity <> op:7 var
+R4605:4614 Kernel.NoCloningFromMuMonotonicity <> mc_content proj
+R4616:4617 Kernel.NoCloningFromMuMonotonicity <> op:7 var
+R4633:4635 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4622:4629 Kernel.NoCloningFromMuMonotonicity <> mc_copy2 proj
+R4631:4632 Kernel.NoCloningFromMuMonotonicity <> op:7 var
+R4636:4645 Kernel.NoCloningFromMuMonotonicity <> mc_content proj
+R4647:4648 Kernel.NoCloningFromMuMonotonicity <> op:7 var
+def 4730:4744 <> mc_is_zero_cost
+R4752:4765 Kernel.NoCloningFromMuMonotonicity <> MachineCloneOp rec
+binder 4747:4748 <> op:8
+R4794:4796 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4780:4790 Kernel.NoCloningFromMuMonotonicity <> mc_delta_mu proj
+R4792:4793 Kernel.NoCloningFromMuMonotonicity <> op:8 var
+def 4872:4884 <> mc_nontrivial
+R4892:4905 Kernel.NoCloningFromMuMonotonicity <> MachineCloneOp rec
+binder 4887:4888 <> op:9
+R4934:4936 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R4921:4930 Kernel.NoCloningFromMuMonotonicity <> mc_content proj
+R4932:4933 Kernel.NoCloningFromMuMonotonicity <> op:9 var
+prf 5802:5827 <> no_cloning_mu_monotonicity
+R5845:5858 Kernel.NoCloningFromMuMonotonicity <> MachineCloneOp rec
+binder 5840:5841 <> op:10
+R5881:5888 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5865:5877 Kernel.NoCloningFromMuMonotonicity <> mc_nontrivial def
+R5879:5880 Kernel.NoCloningFromMuMonotonicity <> op:10 var
+R5906:5913 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5889:5902 Kernel.NoCloningFromMuMonotonicity <> mc_respects_mu def
+R5904:5905 Kernel.NoCloningFromMuMonotonicity <> op:10 var
+R5930:5937 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5914:5926 Kernel.NoCloningFromMuMonotonicity <> mc_is_perfect def
+R5928:5929 Kernel.NoCloningFromMuMonotonicity <> op:10 var
+R5938:5939 Coq.Init.Logic <> ::type_scope:'~'_x not
+R5940:5954 Kernel.NoCloningFromMuMonotonicity <> mc_is_zero_cost def
+R5956:5957 Kernel.NoCloningFromMuMonotonicity <> op:10 var
+R6003:6015 Kernel.NoCloningFromMuMonotonicity <> mc_nontrivial def
+R6018:6031 Kernel.NoCloningFromMuMonotonicity <> mc_respects_mu def
+R6034:6046 Kernel.NoCloningFromMuMonotonicity <> mc_is_perfect def
+R6049:6063 Kernel.NoCloningFromMuMonotonicity <> mc_is_zero_cost def
+prf 6491:6513 <> cloning_requires_mu_nat
+R6531:6544 Kernel.NoCloningFromMuMonotonicity <> MachineCloneOp rec
+binder 6526:6527 <> op:11
+R6567:6574 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6551:6563 Kernel.NoCloningFromMuMonotonicity <> mc_nontrivial def
+R6565:6566 Kernel.NoCloningFromMuMonotonicity <> op:11 var
+R6592:6599 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6575:6588 Kernel.NoCloningFromMuMonotonicity <> mc_respects_mu def
+R6590:6591 Kernel.NoCloningFromMuMonotonicity <> op:11 var
+R6616:6623 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6600:6612 Kernel.NoCloningFromMuMonotonicity <> mc_is_perfect def
+R6614:6615 Kernel.NoCloningFromMuMonotonicity <> op:11 var
+R6639:6642 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6625:6635 Kernel.NoCloningFromMuMonotonicity <> mc_delta_mu proj
+R6637:6638 Kernel.NoCloningFromMuMonotonicity <> op:11 var
+R6643:6652 Kernel.NoCloningFromMuMonotonicity <> mc_content proj
+R6654:6655 Kernel.NoCloningFromMuMonotonicity <> op:11 var
+R6703:6715 Kernel.NoCloningFromMuMonotonicity <> mc_nontrivial def
+R6718:6731 Kernel.NoCloningFromMuMonotonicity <> mc_respects_mu def
+R6734:6746 Kernel.NoCloningFromMuMonotonicity <> mc_is_perfect def
+def 7247:7266 <> mc_approximate_clone
+R7274:7287 Kernel.NoCloningFromMuMonotonicity <> MachineCloneOp rec
+binder 7269:7270 <> op:12
+R7336:7341 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7314:7317 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7303:7310 Kernel.NoCloningFromMuMonotonicity <> mc_copy1 proj
+R7312:7313 Kernel.NoCloningFromMuMonotonicity <> op:12 var
+R7318:7327 Kernel.NoCloningFromMuMonotonicity <> mc_content proj
+R7329:7330 Kernel.NoCloningFromMuMonotonicity <> op:12 var
+R7354:7357 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7343:7350 Kernel.NoCloningFromMuMonotonicity <> mc_copy2 proj
+R7352:7353 Kernel.NoCloningFromMuMonotonicity <> op:12 var
+R7358:7367 Kernel.NoCloningFromMuMonotonicity <> mc_content proj
+R7369:7370 Kernel.NoCloningFromMuMonotonicity <> op:12 var
+prf 7452:7480 <> approximate_cloning_zero_cost
+R7498:7511 Kernel.NoCloningFromMuMonotonicity <> MachineCloneOp rec
+binder 7493:7494 <> op:13
+R7535:7542 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7518:7531 Kernel.NoCloningFromMuMonotonicity <> mc_respects_mu def
+R7533:7534 Kernel.NoCloningFromMuMonotonicity <> op:13 var
+R7561:7568 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7543:7557 Kernel.NoCloningFromMuMonotonicity <> mc_is_zero_cost def
+R7559:7560 Kernel.NoCloningFromMuMonotonicity <> op:13 var
+R7595:7598 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7581:7583 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7570:7577 Kernel.NoCloningFromMuMonotonicity <> mc_copy1 proj
+R7579:7580 Kernel.NoCloningFromMuMonotonicity <> op:13 var
+R7584:7591 Kernel.NoCloningFromMuMonotonicity <> mc_copy2 proj
+R7593:7594 Kernel.NoCloningFromMuMonotonicity <> op:13 var
+R7599:7608 Kernel.NoCloningFromMuMonotonicity <> mc_content proj
+R7610:7611 Kernel.NoCloningFromMuMonotonicity <> op:13 var
+R7655:7668 Kernel.NoCloningFromMuMonotonicity <> mc_respects_mu def
+R7671:7685 Kernel.NoCloningFromMuMonotonicity <> mc_is_zero_cost def
+rec 8099:8113 <> MachineDeleteOp
+proj 8122:8130 <> md_input1
+proj 8184:8192 <> md_input2
+proj 8247:8255 <> md_output
+proj 8307:8317 <> md_delta_mu
+R8135:8137 Coq.Init.Datatypes <> nat ind
+R8197:8199 Coq.Init.Datatypes <> nat ind
+R8260:8262 Coq.Init.Datatypes <> nat ind
+R8321:8323 Coq.Init.Datatypes <> nat ind
+def 8435:8448 <> md_respects_mu
+R8456:8470 Kernel.NoCloningFromMuMonotonicity <> MachineDeleteOp rec
+binder 8451:8452 <> op:19
+R8515:8518 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8498:8500 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8486:8494 Kernel.NoCloningFromMuMonotonicity <> md_output proj
+R8496:8497 Kernel.NoCloningFromMuMonotonicity <> op:19 var
+R8501:8511 Kernel.NoCloningFromMuMonotonicity <> md_delta_mu proj
+R8513:8514 Kernel.NoCloningFromMuMonotonicity <> op:19 var
+R8531:8533 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8519:8527 Kernel.NoCloningFromMuMonotonicity <> md_input1 proj
+R8529:8530 Kernel.NoCloningFromMuMonotonicity <> op:19 var
+R8534:8542 Kernel.NoCloningFromMuMonotonicity <> md_input2 proj
+R8544:8545 Kernel.NoCloningFromMuMonotonicity <> op:19 var
+def 8633:8645 <> md_is_perfect
+R8653:8667 Kernel.NoCloningFromMuMonotonicity <> MachineDeleteOp rec
+binder 8648:8649 <> op:20
+R8709:8712 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8694:8696 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8682:8690 Kernel.NoCloningFromMuMonotonicity <> md_output proj
+R8692:8693 Kernel.NoCloningFromMuMonotonicity <> op:20 var
+R8697:8705 Kernel.NoCloningFromMuMonotonicity <> md_input1 proj
+R8707:8708 Kernel.NoCloningFromMuMonotonicity <> op:20 var
+R8725:8727 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8713:8721 Kernel.NoCloningFromMuMonotonicity <> md_input1 proj
+R8723:8724 Kernel.NoCloningFromMuMonotonicity <> op:20 var
+R8728:8736 Kernel.NoCloningFromMuMonotonicity <> md_input2 proj
+R8738:8739 Kernel.NoCloningFromMuMonotonicity <> op:20 var
+prf 8798:8811 <> no_deletion_mu
+R8829:8843 Kernel.NoCloningFromMuMonotonicity <> MachineDeleteOp rec
+binder 8824:8825 <> op:21
+R8872:8879 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8863:8865 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R8851:8859 Kernel.NoCloningFromMuMonotonicity <> md_input1 proj
+R8861:8862 Kernel.NoCloningFromMuMonotonicity <> op:21 var
+R8897:8904 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8880:8893 Kernel.NoCloningFromMuMonotonicity <> md_respects_mu def
+R8895:8896 Kernel.NoCloningFromMuMonotonicity <> op:21 var
+R8921:8928 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8905:8917 Kernel.NoCloningFromMuMonotonicity <> md_is_perfect def
+R8919:8920 Kernel.NoCloningFromMuMonotonicity <> op:21 var
+R8944:8947 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8930:8940 Kernel.NoCloningFromMuMonotonicity <> md_delta_mu proj
+R8942:8943 Kernel.NoCloningFromMuMonotonicity <> op:21 var
+R8948:8956 Kernel.NoCloningFromMuMonotonicity <> md_input1 proj
+R8958:8959 Kernel.NoCloningFromMuMonotonicity <> op:21 var
+R9007:9020 Kernel.NoCloningFromMuMonotonicity <> md_respects_mu def
+R9023:9035 Kernel.NoCloningFromMuMonotonicity <> md_is_perfect def
+prf 11045:11079 <> foundation_chain_witness_no_cloning
+R11085:11091 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11110:11115 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11096:11109 Kernel.VMState <> PartitionGraph rec
+binder 11092:11092 <> g:22
+R11135:11138 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11116:11132 Kernel.VMState <> well_formed_graph def
+R11134:11134 Kernel.NoCloningFromMuMonotonicity <> g:22 var
+R11153:11155 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11139:11152 Kernel.VMStep VMStep vm_instruction ind
+R11156:11169 Kernel.VMStep VMStep vm_instruction ind
+R11203:11216 Kernel.VMState <> PartitionGraph rec
+R11189:11199 Kernel.VMState <> empty_graph def
+R11203:11216 Kernel.VMState <> PartitionGraph rec
+R11189:11199 Kernel.VMState <> empty_graph def
+R11239:11261 Kernel.VMState <> empty_graph_well_formed thm
+R11239:11261 Kernel.VMState <> empty_graph_well_formed thm

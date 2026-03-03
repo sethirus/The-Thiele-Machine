@@ -4,6 +4,9 @@ From Kernel Require Import VMStep.
 
 Import ListNotations.
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import MuCostModel.
+
 (** * Sensitivity audit: alternative composition laws for weights
 
     The goal is to test whether the no-go result (non-uniqueness of a

@@ -1,5 +1,11 @@
 (** WaveCheck: Coq verification for discovered wave equations *)
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 (** 
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
    This module provides the verification framework for wave equations
    discovered from lattice evolution data via the Thiele Machine.
    

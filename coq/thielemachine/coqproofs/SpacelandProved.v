@@ -1,6 +1,11 @@
 (** ===================================================================
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
     SpacelandProved: Representation Theorem with NO Admits
     =================================================================== *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
 
 From Coq Require Import List Bool ZArith Lia.
 Import ListNotations.

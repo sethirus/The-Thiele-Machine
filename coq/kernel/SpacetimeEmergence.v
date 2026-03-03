@@ -5,6 +5,9 @@ From Kernel Require Import VMState VMStep KernelPhysics.
 
 Import ListNotations.
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import MuCostModel.
+
 Definition Event : Type := VMState.
 Definition event_equiv : Event -> Event -> Prop := obs_equiv.
 

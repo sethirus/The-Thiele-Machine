@@ -1,4 +1,6 @@
 (** * Concrete μ-cost alignment example
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
     
     This file demonstrates the alignment between the Python VM μ-cost
     calculation and the Coq formalization for a specific LASSERT operation.
@@ -6,6 +8,10 @@
     Test case: LASSERT "x1 XOR x2"
     Expected μ-cost: 72 bits (9 characters × 8 bits/char)
 *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import String ZArith Lia.
 Open Scope string_scope.

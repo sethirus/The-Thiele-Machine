@@ -1,4 +1,4 @@
-DIGEST bb522990760486112a252062029f8922
+DIGEST 4dfea42ea4e0a2b3056f021062108465
 FKernelTOE.NoGo
 R24:27 Coq.Lists.List <> <> lib
 R29:31 Coq.micromega.Lia <> <> lib
@@ -8,294 +8,295 @@ R120:125 Kernel.VMStep <> <> lib
 R155:161 Kernel.VMState <> <> lib
 R191:210 Kernel.EntropyImpossibility <> <> lib
 R221:233 Coq.Lists.List ListNotations <> mod
-def 430:436 <> w_scale
-R443:445 Coq.Init.Datatypes <> nat ind
-binder 439:439 <> k:1
-R450:455 KernelTOE.Definitions <> Weight def
-binder 466:466 <> t:2
-R472:474 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R471:471 KernelTOE.NoGo <> k:1 var
-R475:480 Coq.Init.Datatypes <> length def
-R482:482 KernelTOE.NoGo <> t:2 var
-prf 560:572 <> w_scale_empty
-binder 583:583 <> k:3
-R586:597 KernelTOE.Definitions <> weight_empty def
-R600:606 KernelTOE.NoGo <> w_scale def
-R608:608 KernelTOE.NoGo <> k:3 var
-R637:648 KernelTOE.Definitions <> weight_empty def
-R651:657 KernelTOE.NoGo <> w_scale def
-prf 735:752 <> w_scale_sequential
-binder 763:763 <> k:4
-R766:782 KernelTOE.Definitions <> weight_sequential def
-R785:791 KernelTOE.NoGo <> w_scale def
-R793:793 KernelTOE.NoGo <> k:4 var
-R822:838 KernelTOE.Definitions <> weight_sequential def
-R841:847 KernelTOE.NoGo <> w_scale def
-R874:883 Coq.Lists.List <> app_length thm
-R874:883 Coq.Lists.List <> app_length thm
-R874:883 Coq.Lists.List <> app_length thm
-prf 961:985 <> w_scale_disjoint_commutes
-binder 996:996 <> k:5
-R999:1022 KernelTOE.Definitions <> weight_disjoint_commutes def
-R1025:1031 KernelTOE.NoGo <> w_scale def
-R1033:1033 KernelTOE.NoGo <> k:5 var
-R1062:1085 KernelTOE.Definitions <> weight_disjoint_commutes def
-R1088:1094 KernelTOE.NoGo <> w_scale def
-R1126:1135 Coq.Lists.List <> app_length thm
-R1126:1135 Coq.Lists.List <> app_length thm
-R1126:1135 Coq.Lists.List <> app_length thm
-R1126:1135 Coq.Lists.List <> app_length thm
-R1126:1135 Coq.Lists.List <> app_length thm
-prf 1200:1211 <> w_scale_laws
-binder 1222:1222 <> k:6
-R1225:1235 KernelTOE.Definitions <> weight_laws def
-R1238:1244 KernelTOE.NoGo <> w_scale def
-R1246:1246 KernelTOE.NoGo <> k:6 var
-R1277:1287 KernelTOE.Definitions <> weight_laws def
-R1309:1321 KernelTOE.NoGo <> w_scale_empty thm
-R1309:1321 KernelTOE.NoGo <> w_scale_empty thm
-R1347:1364 KernelTOE.NoGo <> w_scale_sequential thm
-R1347:1364 KernelTOE.NoGo <> w_scale_sequential thm
-R1379:1403 KernelTOE.NoGo <> w_scale_disjoint_commutes thm
-R1379:1403 KernelTOE.NoGo <> w_scale_disjoint_commutes thm
-prf 1561:1594 <> CompositionalWeightFamily_Infinite
-R1600:1606 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R1624:1629 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R1614:1617 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1611:1613 Coq.Init.Datatypes <> nat ind
-R1618:1623 KernelTOE.Definitions <> Weight def
-binder 1607:1607 <> w:7
-R1630:1630 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R1658:1667 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R1720:1720 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 1638:1638 <> k:8
-R1641:1651 KernelTOE.Definitions <> weight_laws def
-R1654:1654 KernelTOE.NoGo <> w:7 var
-R1656:1656 KernelTOE.NoGo <> k:8 var
-binder 1675:1676 <> k1:9
-binder 1678:1679 <> k2:10
-R1690:1693 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1684:1687 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R1682:1683 KernelTOE.NoGo <> k1:9 var
-R1688:1689 KernelTOE.NoGo <> k2:10 var
-R1694:1700 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R1702:1703 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 1701:1701 <> t:11
-R1710:1713 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R1704:1704 KernelTOE.NoGo <> w:7 var
-R1709:1709 KernelTOE.NoGo <> t:11 var
-R1706:1707 KernelTOE.NoGo <> k1:9 var
-R1714:1714 KernelTOE.NoGo <> w:7 var
-R1719:1719 KernelTOE.NoGo <> t:11 var
-R1716:1717 KernelTOE.NoGo <> k2:10 var
-R1739:1745 KernelTOE.NoGo <> w_scale def
-R1739:1745 KernelTOE.NoGo <> w_scale def
-R1776:1787 KernelTOE.NoGo <> w_scale_laws thm
-R1776:1787 KernelTOE.NoGo <> w_scale_laws thm
-R1824:1824 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R1837:1837 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R1825:1834 Kernel.VMStep VMStep instr_halt constr
-R1824:1824 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R1837:1837 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R1825:1834 Kernel.VMStep VMStep instr_halt constr
-R1851:1857 KernelTOE.NoGo <> w_scale def
-def 2007:2036 <> KernelNoGo_UniqueWeight_FailsP
-R2050:2056 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2062:2067 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 2057:2058 <> w1:12
-binder 2060:2061 <> w2:13
-R2082:2089 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2068:2078 KernelTOE.Definitions <> weight_laws def
-R2080:2081 KernelTOE.NoGo <> w1:12 var
-R2104:2112 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2135:2135 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2090:2100 KernelTOE.Definitions <> weight_laws def
-R2102:2103 KernelTOE.NoGo <> w2:13 var
-R2113:2119 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2121:2122 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 2120:2120 <> t:14
-R2127:2130 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R2123:2124 KernelTOE.NoGo <> w1:12 var
-R2126:2126 KernelTOE.NoGo <> t:14 var
-R2131:2132 KernelTOE.NoGo <> w2:13 var
-R2134:2134 KernelTOE.NoGo <> t:14 var
-prf 2209:2237 <> KernelNoGo_UniqueWeight_Fails
-R2241:2270 KernelTOE.NoGo <> KernelNoGo_UniqueWeight_FailsP def
-R2349:2355 KernelTOE.NoGo <> w_scale def
-R2362:2368 KernelTOE.NoGo <> w_scale def
-R2349:2355 KernelTOE.NoGo <> w_scale def
-R2362:2368 KernelTOE.NoGo <> w_scale def
-R2393:2404 KernelTOE.NoGo <> w_scale_laws thm
-R2393:2404 KernelTOE.NoGo <> w_scale_laws thm
-R2430:2441 KernelTOE.NoGo <> w_scale_laws thm
-R2430:2441 KernelTOE.NoGo <> w_scale_laws thm
-R2457:2457 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R2470:2470 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R2458:2467 Kernel.VMStep VMStep instr_halt constr
-R2457:2457 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R2470:2470 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R2458:2467 Kernel.VMStep VMStep instr_halt constr
-R2486:2492 KernelTOE.NoGo <> w_scale def
-prf 2809:2845 <> Weight_Unique_Under_UniformSingletons
-binder 2858:2858 <> w:15
-R2878:2885 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2865:2875 KernelTOE.Definitions <> weight_laws def
-R2877:2877 KernelTOE.NoGo <> w:15 var
-R2905:2912 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2886:2902 KernelTOE.Definitions <> singleton_uniform def
-R2904:2904 KernelTOE.NoGo <> w:15 var
-R2933:2940 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2913:2930 KernelTOE.Definitions <> unit_normalization def
-R2932:2932 KernelTOE.NoGo <> w:15 var
-binder 2948:2948 <> t:16
-R2954:2956 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2951:2951 KernelTOE.NoGo <> w:15 var
-R2953:2953 KernelTOE.NoGo <> t:16 var
-R2957:2962 Coq.Init.Datatypes <> length def
-R2964:2964 KernelTOE.NoGo <> t:16 var
-R3160:3163 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3179:3182 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R3176:3176 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R3178:3178 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R3160:3163 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3179:3182 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R3176:3176 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R3178:3178 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R3248:3257 Kernel.VMStep VMStep instr_halt constr
-R3248:3257 Kernel.VMStep VMStep instr_halt constr
-prf 3438:3473 <> region_equiv_class_dedekind_infinite
-binder 3484:3484 <> s:17
-R3489:3495 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3514:3519 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3503:3506 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3500:3502 Coq.Init.Datatypes <> nat ind
-R3507:3513 Kernel.VMState <> VMState rec
-binder 3496:3496 <> f:18
-R3520:3520 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3551:3560 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3597:3597 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 3528:3528 <> n:19
-R3531:3542 Kernel.EntropyImpossibility <> region_equiv def
-R3544:3544 KernelTOE.NoGo <> s:17 var
-R3547:3547 KernelTOE.NoGo <> f:18 var
-R3549:3549 KernelTOE.NoGo <> n:19 var
-binder 3568:3569 <> n1:20
-binder 3571:3572 <> n2:21
-R3586:3589 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3579:3581 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3575:3575 KernelTOE.NoGo <> f:18 var
-R3577:3578 KernelTOE.NoGo <> n1:20 var
-R3582:3582 KernelTOE.NoGo <> f:18 var
-R3584:3585 KernelTOE.NoGo <> n2:21 var
-R3592:3594 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3590:3591 KernelTOE.NoGo <> n1:20 var
-R3595:3596 KernelTOE.NoGo <> n2:21 var
-R3686:3712 Kernel.EntropyImpossibility <> region_equiv_class_infinite thm
-R3686:3712 Kernel.EntropyImpossibility <> region_equiv_class_infinite thm
-prf 3824:3836 <> NoDup_map_inj
-binder 3850:3850 <> A:22
-binder 3852:3852 <> B:23
-R3868:3871 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3867:3867 KernelTOE.NoGo <> A:22 var
-R3872:3872 KernelTOE.NoGo <> B:23 var
-binder 3863:3863 <> f:24
-R3880:3883 Coq.Init.Datatypes <> list ind
-R3885:3885 KernelTOE.NoGo <> A:22 var
-binder 3876:3876 <> l:25
-R3900:3907 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3893:3897 Coq.Lists.List <> NoDup ind
-R3899:3899 KernelTOE.NoGo <> l:25 var
-R3908:3908 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3959:3967 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 3916:3916 <> x:26
-binder 3918:3918 <> y:27
-R3927:3930 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3921:3922 Coq.Lists.List <> In def
-R3926:3926 KernelTOE.NoGo <> l:25 var
-R3924:3924 KernelTOE.NoGo <> x:26 var
-R3937:3940 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3931:3932 Coq.Lists.List <> In def
-R3936:3936 KernelTOE.NoGo <> l:25 var
-R3934:3934 KernelTOE.NoGo <> y:27 var
-R3950:3953 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3944:3946 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3941:3941 KernelTOE.NoGo <> f:24 var
-R3943:3943 KernelTOE.NoGo <> x:26 var
-R3947:3947 KernelTOE.NoGo <> f:24 var
-R3949:3949 KernelTOE.NoGo <> y:27 var
-R3955:3957 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3954:3954 KernelTOE.NoGo <> x:26 var
-R3958:3958 KernelTOE.NoGo <> y:27 var
-R3968:3972 Coq.Lists.List <> NoDup ind
-R3975:3977 Coq.Lists.List <> map def
-R3981:3981 KernelTOE.NoGo <> l:25 var
-R3979:3979 KernelTOE.NoGo <> f:24 var
-R4162:4171 Coq.Lists.List <> in_map_iff thm
-R4162:4171 Coq.Lists.List <> in_map_iff thm
-R4247:4255 Coq.Init.Logic <> or_introl constr
-R4257:4263 Coq.Init.Logic <> eq_refl constr
-R4267:4275 Coq.Init.Logic <> or_intror constr
-R4284:4289 Coq.Init.Logic <> eq_sym thm
-R4247:4255 Coq.Init.Logic <> or_introl constr
-R4257:4263 Coq.Init.Logic <> eq_refl constr
-R4267:4275 Coq.Init.Logic <> or_intror constr
-R4284:4289 Coq.Init.Logic <> eq_sym thm
-R4414:4422 Coq.Init.Logic <> or_intror constr
-R4429:4437 Coq.Init.Logic <> or_intror constr
-R4414:4422 Coq.Init.Logic <> or_intror constr
-R4429:4437 Coq.Init.Logic <> or_intror constr
-prf 4525:4553 <> region_equiv_class_not_finite
-binder 4566:4566 <> s:28
-R4573:4574 Coq.Init.Logic <> ::type_scope:'~'_x not
-R4575:4599 KernelTOE.Definitions <> finite_region_equiv_class def
-R4601:4601 KernelTOE.NoGo <> s:28 var
-R4631:4655 KernelTOE.Definitions <> finite_region_equiv_class def
-R4670:4705 KernelTOE.NoGo <> region_equiv_class_dedekind_infinite thm
-R4670:4705 KernelTOE.NoGo <> region_equiv_class_dedekind_infinite thm
-R4873:4873 Coq.Init.Datatypes <> S constr
-R4876:4881 Coq.Init.Datatypes <> length def
-R4873:4873 Coq.Init.Datatypes <> S constr
-R4876:4881 Coq.Init.Datatypes <> length def
-R4902:4904 Coq.Lists.List <> map def
-R4909:4911 Coq.Lists.List <> seq def
-R4902:4904 Coq.Lists.List <> map def
-R4909:4911 Coq.Lists.List <> seq def
-R4942:4946 Coq.Lists.List <> NoDup ind
-R4942:4946 Coq.Lists.List <> NoDup ind
-R4983:4995 KernelTOE.NoGo <> NoDup_map_inj thm
-R4997:4999 Coq.Init.Datatypes <> nat ind
-R5001:5007 Kernel.VMState <> VMState rec
-R5012:5014 Coq.Lists.List <> seq def
-R4983:4995 KernelTOE.NoGo <> NoDup_map_inj thm
-R4997:4999 Coq.Init.Datatypes <> nat ind
-R5001:5007 Kernel.VMState <> VMState rec
-R5012:5014 Coq.Lists.List <> seq def
-R5035:5043 Coq.Lists.List <> seq_NoDup thm
-R5035:5043 Coq.Lists.List <> seq_NoDup thm
-R5136:5139 Coq.Lists.List <> incl def
-R5136:5139 Coq.Lists.List <> incl def
-R5163:5166 Coq.Lists.List <> incl def
-R5201:5210 Coq.Lists.List <> in_map_iff thm
-R5201:5210 Coq.Lists.List <> in_map_iff thm
-R5375:5391 Coq.Lists.List <> NoDup_incl_length thm
-R5375:5391 Coq.Lists.List <> NoDup_incl_length thm
-R5450:5459 Coq.Lists.List <> map_length thm
-R5462:5471 Coq.Lists.List <> seq_length thm
-R5450:5459 Coq.Lists.List <> map_length thm
-R5450:5459 Coq.Lists.List <> map_length thm
-R5462:5471 Coq.Lists.List <> seq_length thm
-R5462:5471 Coq.Lists.List <> seq_length thm
-def 5636:5653 <> KernelNoGoForTOE_P
-R5697:5705 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5745:5745 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5667:5696 KernelTOE.NoGo <> KernelNoGo_UniqueWeight_FailsP def
-binder 5713:5713 <> s:29
-R5716:5717 Coq.Init.Logic <> ::type_scope:'~'_x not
-R5718:5742 KernelTOE.Definitions <> finite_region_equiv_class def
-R5744:5744 KernelTOE.NoGo <> s:29 var
-prf 5806:5821 <> KernelNoGoForTOE
-R5825:5842 KernelTOE.NoGo <> KernelNoGoForTOE_P def
-R5871:5899 KernelTOE.NoGo <> KernelNoGo_UniqueWeight_Fails thm
-R5871:5899 KernelTOE.NoGo <> KernelNoGo_UniqueWeight_Fails thm
-R5925:5953 KernelTOE.NoGo <> region_equiv_class_not_finite thm
-R5925:5953 KernelTOE.NoGo <> region_equiv_class_not_finite thm
+R347:357 Kernel.MuCostModel <> <> lib
+def 555:561 <> w_scale
+R568:570 Coq.Init.Datatypes <> nat ind
+binder 564:564 <> k:1
+R575:580 KernelTOE.Definitions <> Weight def
+binder 591:591 <> t:2
+R597:599 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R596:596 KernelTOE.NoGo <> k:1 var
+R600:605 Coq.Init.Datatypes <> length def
+R607:607 KernelTOE.NoGo <> t:2 var
+prf 685:697 <> w_scale_empty
+binder 708:708 <> k:3
+R711:722 KernelTOE.Definitions <> weight_empty def
+R725:731 KernelTOE.NoGo <> w_scale def
+R733:733 KernelTOE.NoGo <> k:3 var
+R762:773 KernelTOE.Definitions <> weight_empty def
+R776:782 KernelTOE.NoGo <> w_scale def
+prf 860:877 <> w_scale_sequential
+binder 888:888 <> k:4
+R891:907 KernelTOE.Definitions <> weight_sequential def
+R910:916 KernelTOE.NoGo <> w_scale def
+R918:918 KernelTOE.NoGo <> k:4 var
+R947:963 KernelTOE.Definitions <> weight_sequential def
+R966:972 KernelTOE.NoGo <> w_scale def
+R999:1008 Coq.Lists.List <> app_length thm
+R999:1008 Coq.Lists.List <> app_length thm
+R999:1008 Coq.Lists.List <> app_length thm
+prf 1086:1110 <> w_scale_disjoint_commutes
+binder 1121:1121 <> k:5
+R1124:1147 KernelTOE.Definitions <> weight_disjoint_commutes def
+R1150:1156 KernelTOE.NoGo <> w_scale def
+R1158:1158 KernelTOE.NoGo <> k:5 var
+R1187:1210 KernelTOE.Definitions <> weight_disjoint_commutes def
+R1213:1219 KernelTOE.NoGo <> w_scale def
+R1251:1260 Coq.Lists.List <> app_length thm
+R1251:1260 Coq.Lists.List <> app_length thm
+R1251:1260 Coq.Lists.List <> app_length thm
+R1251:1260 Coq.Lists.List <> app_length thm
+R1251:1260 Coq.Lists.List <> app_length thm
+prf 1325:1336 <> w_scale_laws
+binder 1347:1347 <> k:6
+R1350:1360 KernelTOE.Definitions <> weight_laws def
+R1363:1369 KernelTOE.NoGo <> w_scale def
+R1371:1371 KernelTOE.NoGo <> k:6 var
+R1402:1412 KernelTOE.Definitions <> weight_laws def
+R1434:1446 KernelTOE.NoGo <> w_scale_empty thm
+R1434:1446 KernelTOE.NoGo <> w_scale_empty thm
+R1472:1489 KernelTOE.NoGo <> w_scale_sequential thm
+R1472:1489 KernelTOE.NoGo <> w_scale_sequential thm
+R1504:1528 KernelTOE.NoGo <> w_scale_disjoint_commutes thm
+R1504:1528 KernelTOE.NoGo <> w_scale_disjoint_commutes thm
+prf 1686:1719 <> CompositionalWeightFamily_Infinite
+R1725:1731 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1749:1754 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1739:1742 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1736:1738 Coq.Init.Datatypes <> nat ind
+R1743:1748 KernelTOE.Definitions <> Weight def
+binder 1732:1732 <> w:7
+R1755:1755 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1783:1792 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1845:1845 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 1763:1763 <> k:8
+R1766:1776 KernelTOE.Definitions <> weight_laws def
+R1779:1779 KernelTOE.NoGo <> w:7 var
+R1781:1781 KernelTOE.NoGo <> k:8 var
+binder 1800:1801 <> k1:9
+binder 1803:1804 <> k2:10
+R1815:1818 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1809:1812 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R1807:1808 KernelTOE.NoGo <> k1:9 var
+R1813:1814 KernelTOE.NoGo <> k2:10 var
+R1819:1825 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1827:1828 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 1826:1826 <> t:11
+R1835:1838 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R1829:1829 KernelTOE.NoGo <> w:7 var
+R1834:1834 KernelTOE.NoGo <> t:11 var
+R1831:1832 KernelTOE.NoGo <> k1:9 var
+R1839:1839 KernelTOE.NoGo <> w:7 var
+R1844:1844 KernelTOE.NoGo <> t:11 var
+R1841:1842 KernelTOE.NoGo <> k2:10 var
+R1864:1870 KernelTOE.NoGo <> w_scale def
+R1864:1870 KernelTOE.NoGo <> w_scale def
+R1901:1912 KernelTOE.NoGo <> w_scale_laws thm
+R1901:1912 KernelTOE.NoGo <> w_scale_laws thm
+R1949:1949 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1962:1962 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1950:1959 Kernel.VMStep VMStep instr_halt constr
+R1949:1949 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1962:1962 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1950:1959 Kernel.VMStep VMStep instr_halt constr
+R1976:1982 KernelTOE.NoGo <> w_scale def
+def 2132:2161 <> KernelNoGo_UniqueWeight_FailsP
+R2175:2181 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2187:2192 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2182:2183 <> w1:12
+binder 2185:2186 <> w2:13
+R2207:2214 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2193:2203 KernelTOE.Definitions <> weight_laws def
+R2205:2206 KernelTOE.NoGo <> w1:12 var
+R2229:2237 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2260:2260 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2215:2225 KernelTOE.Definitions <> weight_laws def
+R2227:2228 KernelTOE.NoGo <> w2:13 var
+R2238:2244 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2246:2247 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2245:2245 <> t:14
+R2252:2255 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R2248:2249 KernelTOE.NoGo <> w1:12 var
+R2251:2251 KernelTOE.NoGo <> t:14 var
+R2256:2257 KernelTOE.NoGo <> w2:13 var
+R2259:2259 KernelTOE.NoGo <> t:14 var
+prf 2334:2362 <> KernelNoGo_UniqueWeight_Fails
+R2366:2395 KernelTOE.NoGo <> KernelNoGo_UniqueWeight_FailsP def
+R2474:2480 KernelTOE.NoGo <> w_scale def
+R2487:2493 KernelTOE.NoGo <> w_scale def
+R2474:2480 KernelTOE.NoGo <> w_scale def
+R2487:2493 KernelTOE.NoGo <> w_scale def
+R2518:2529 KernelTOE.NoGo <> w_scale_laws thm
+R2518:2529 KernelTOE.NoGo <> w_scale_laws thm
+R2555:2566 KernelTOE.NoGo <> w_scale_laws thm
+R2555:2566 KernelTOE.NoGo <> w_scale_laws thm
+R2582:2582 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2595:2595 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2583:2592 Kernel.VMStep VMStep instr_halt constr
+R2582:2582 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2595:2595 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2583:2592 Kernel.VMStep VMStep instr_halt constr
+R2611:2617 KernelTOE.NoGo <> w_scale def
+prf 2934:2970 <> Weight_Unique_Under_UniformSingletons
+binder 2983:2983 <> w:15
+R3003:3010 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2990:3000 KernelTOE.Definitions <> weight_laws def
+R3002:3002 KernelTOE.NoGo <> w:15 var
+R3030:3037 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3011:3027 KernelTOE.Definitions <> singleton_uniform def
+R3029:3029 KernelTOE.NoGo <> w:15 var
+R3058:3065 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3038:3055 KernelTOE.Definitions <> unit_normalization def
+R3057:3057 KernelTOE.NoGo <> w:15 var
+binder 3073:3073 <> t:16
+R3079:3081 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3076:3076 KernelTOE.NoGo <> w:15 var
+R3078:3078 KernelTOE.NoGo <> t:16 var
+R3082:3087 Coq.Init.Datatypes <> length def
+R3089:3089 KernelTOE.NoGo <> t:16 var
+R3285:3288 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3304:3307 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R3301:3301 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3303:3303 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3285:3288 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3304:3307 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R3301:3301 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3303:3303 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3373:3382 Kernel.VMStep VMStep instr_halt constr
+R3373:3382 Kernel.VMStep VMStep instr_halt constr
+prf 3563:3598 <> region_equiv_class_dedekind_infinite
+binder 3609:3609 <> s:17
+R3614:3620 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3639:3644 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3628:3631 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3625:3627 Coq.Init.Datatypes <> nat ind
+R3632:3638 Kernel.VMState <> VMState rec
+binder 3621:3621 <> f:18
+R3645:3645 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3676:3685 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3722:3722 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 3653:3653 <> n:19
+R3656:3667 Kernel.EntropyImpossibility <> region_equiv def
+R3669:3669 KernelTOE.NoGo <> s:17 var
+R3672:3672 KernelTOE.NoGo <> f:18 var
+R3674:3674 KernelTOE.NoGo <> n:19 var
+binder 3693:3694 <> n1:20
+binder 3696:3697 <> n2:21
+R3711:3714 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3704:3706 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3700:3700 KernelTOE.NoGo <> f:18 var
+R3702:3703 KernelTOE.NoGo <> n1:20 var
+R3707:3707 KernelTOE.NoGo <> f:18 var
+R3709:3710 KernelTOE.NoGo <> n2:21 var
+R3717:3719 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3715:3716 KernelTOE.NoGo <> n1:20 var
+R3720:3721 KernelTOE.NoGo <> n2:21 var
+R3811:3837 Kernel.EntropyImpossibility <> region_equiv_class_infinite thm
+R3811:3837 Kernel.EntropyImpossibility <> region_equiv_class_infinite thm
+prf 3949:3961 <> NoDup_map_inj
+binder 3975:3975 <> A:22
+binder 3977:3977 <> B:23
+R3993:3996 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3992:3992 KernelTOE.NoGo <> A:22 var
+R3997:3997 KernelTOE.NoGo <> B:23 var
+binder 3988:3988 <> f:24
+R4005:4008 Coq.Init.Datatypes <> list ind
+R4010:4010 KernelTOE.NoGo <> A:22 var
+binder 4001:4001 <> l:25
+R4025:4032 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4018:4022 Coq.Lists.List <> NoDup ind
+R4024:4024 KernelTOE.NoGo <> l:25 var
+R4033:4033 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4084:4092 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 4041:4041 <> x:26
+binder 4043:4043 <> y:27
+R4052:4055 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4046:4047 Coq.Lists.List <> In def
+R4051:4051 KernelTOE.NoGo <> l:25 var
+R4049:4049 KernelTOE.NoGo <> x:26 var
+R4062:4065 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4056:4057 Coq.Lists.List <> In def
+R4061:4061 KernelTOE.NoGo <> l:25 var
+R4059:4059 KernelTOE.NoGo <> y:27 var
+R4075:4078 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4069:4071 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4066:4066 KernelTOE.NoGo <> f:24 var
+R4068:4068 KernelTOE.NoGo <> x:26 var
+R4072:4072 KernelTOE.NoGo <> f:24 var
+R4074:4074 KernelTOE.NoGo <> y:27 var
+R4080:4082 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4079:4079 KernelTOE.NoGo <> x:26 var
+R4083:4083 KernelTOE.NoGo <> y:27 var
+R4093:4097 Coq.Lists.List <> NoDup ind
+R4100:4102 Coq.Lists.List <> map def
+R4106:4106 KernelTOE.NoGo <> l:25 var
+R4104:4104 KernelTOE.NoGo <> f:24 var
+R4287:4296 Coq.Lists.List <> in_map_iff thm
+R4287:4296 Coq.Lists.List <> in_map_iff thm
+R4372:4380 Coq.Init.Logic <> or_introl constr
+R4382:4388 Coq.Init.Logic <> eq_refl constr
+R4392:4400 Coq.Init.Logic <> or_intror constr
+R4409:4414 Coq.Init.Logic <> eq_sym thm
+R4372:4380 Coq.Init.Logic <> or_introl constr
+R4382:4388 Coq.Init.Logic <> eq_refl constr
+R4392:4400 Coq.Init.Logic <> or_intror constr
+R4409:4414 Coq.Init.Logic <> eq_sym thm
+R4539:4547 Coq.Init.Logic <> or_intror constr
+R4554:4562 Coq.Init.Logic <> or_intror constr
+R4539:4547 Coq.Init.Logic <> or_intror constr
+R4554:4562 Coq.Init.Logic <> or_intror constr
+prf 4650:4678 <> region_equiv_class_not_finite
+binder 4691:4691 <> s:28
+R4698:4699 Coq.Init.Logic <> ::type_scope:'~'_x not
+R4700:4724 KernelTOE.Definitions <> finite_region_equiv_class def
+R4726:4726 KernelTOE.NoGo <> s:28 var
+R4756:4780 KernelTOE.Definitions <> finite_region_equiv_class def
+R4795:4830 KernelTOE.NoGo <> region_equiv_class_dedekind_infinite thm
+R4795:4830 KernelTOE.NoGo <> region_equiv_class_dedekind_infinite thm
+R4998:4998 Coq.Init.Datatypes <> S constr
+R5001:5006 Coq.Init.Datatypes <> length def
+R4998:4998 Coq.Init.Datatypes <> S constr
+R5001:5006 Coq.Init.Datatypes <> length def
+R5027:5029 Coq.Lists.List <> map def
+R5034:5036 Coq.Lists.List <> seq def
+R5027:5029 Coq.Lists.List <> map def
+R5034:5036 Coq.Lists.List <> seq def
+R5067:5071 Coq.Lists.List <> NoDup ind
+R5067:5071 Coq.Lists.List <> NoDup ind
+R5108:5120 KernelTOE.NoGo <> NoDup_map_inj thm
+R5122:5124 Coq.Init.Datatypes <> nat ind
+R5126:5132 Kernel.VMState <> VMState rec
+R5137:5139 Coq.Lists.List <> seq def
+R5108:5120 KernelTOE.NoGo <> NoDup_map_inj thm
+R5122:5124 Coq.Init.Datatypes <> nat ind
+R5126:5132 Kernel.VMState <> VMState rec
+R5137:5139 Coq.Lists.List <> seq def
+R5160:5168 Coq.Lists.List <> seq_NoDup thm
+R5160:5168 Coq.Lists.List <> seq_NoDup thm
+R5261:5264 Coq.Lists.List <> incl def
+R5261:5264 Coq.Lists.List <> incl def
+R5288:5291 Coq.Lists.List <> incl def
+R5326:5335 Coq.Lists.List <> in_map_iff thm
+R5326:5335 Coq.Lists.List <> in_map_iff thm
+R5500:5516 Coq.Lists.List <> NoDup_incl_length thm
+R5500:5516 Coq.Lists.List <> NoDup_incl_length thm
+R5575:5584 Coq.Lists.List <> map_length thm
+R5587:5596 Coq.Lists.List <> seq_length thm
+R5575:5584 Coq.Lists.List <> map_length thm
+R5575:5584 Coq.Lists.List <> map_length thm
+R5587:5596 Coq.Lists.List <> seq_length thm
+R5587:5596 Coq.Lists.List <> seq_length thm
+def 5761:5778 <> KernelNoGoForTOE_P
+R5822:5830 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5870:5870 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5792:5821 KernelTOE.NoGo <> KernelNoGo_UniqueWeight_FailsP def
+binder 5838:5838 <> s:29
+R5841:5842 Coq.Init.Logic <> ::type_scope:'~'_x not
+R5843:5867 KernelTOE.Definitions <> finite_region_equiv_class def
+R5869:5869 KernelTOE.NoGo <> s:29 var
+prf 5931:5946 <> KernelNoGoForTOE
+R5950:5967 KernelTOE.NoGo <> KernelNoGoForTOE_P def
+R5996:6024 KernelTOE.NoGo <> KernelNoGo_UniqueWeight_Fails thm
+R5996:6024 KernelTOE.NoGo <> KernelNoGo_UniqueWeight_Fails thm
+R6050:6078 KernelTOE.NoGo <> region_equiv_class_not_finite thm
+R6050:6078 KernelTOE.NoGo <> region_equiv_class_not_finite thm

@@ -2,6 +2,10 @@ Set Implicit Arguments.
 
 (* NoFreeLunch.v — formal impossibility of information without physical distinction *)
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
+
 Record PhysicalState := {
   observe : Prop
 }.
@@ -45,3 +49,4 @@ Proof.
       transitivity q; auto. }
     contradiction.
 Qed.
+

@@ -60,7 +60,8 @@ def test_evidence_logic_paradox_trace() -> None:
     result = run_verilog(
         "\n".join(
             [
-                "LASSERT 0 1 0",
+                "INIT_LOGIC_ACC 0xCAFEEACE",
+                "LASSERT 0 1 1",
                 "HALT 0",
                 "",
             ]
@@ -86,6 +87,7 @@ def test_evidence_valid_quantum_physics_trace() -> None:
         "\n".join(
             [
                 "INIT_MU 100",
+                "INIT_LOGIC_ACC 0xCAFEEACE",
                 "REVEAL 0 0 1",
                 "CHSH_TRIAL 1 0 0 0 7",
                 "HALT 0",

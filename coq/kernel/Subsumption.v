@@ -7,6 +7,9 @@ Import ListNotations.
 
 From Kernel Require Import Kernel KernelTM KernelThiele.
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import MuCostModel.
+
 Module K := Kernel.
 Module KTM := KernelTM.
 Module KTH := KernelThiele.

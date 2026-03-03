@@ -1,4 +1,4 @@
-DIGEST 81260a1e2759aaf4ef52c0b9d05cdd95
+DIGEST a5c5a60fd48738153ab4c58e18ef67a1
 FBridge.BoxWorld_to_Kernel
 R24:27 Coq.Lists.List <> <> lib
 R29:32 Coq.Bool.Bool <> <> lib
@@ -9,227 +9,229 @@ R60:65 Coq.ZArith.ZArith <> <> lib
 R75:87 Coq.Lists.List ListNotations <> mod
 R126:131 Kernel.VMStep <> <> lib
 R149:152 Kernel.CHSH <> <> lib
-mod 803:818 <> BoxWorldToKernel
-R835:844 Kernel.CHSH KernelCHSH <> modtype
-mod 829:830 <> BoxWorldToKernel.KC
-R854:866 Kernel.VMStep VMStep <> mod
-def 881:891 BoxWorldToKernel TheoryTrial
-R903:910 Bridge.BoxWorld_to_Kernel BoxWorldToKernel Trial rec
-def 924:936 BoxWorldToKernel TheoryProgram
-R948:951 Coq.Init.Datatypes <> list ind
-R953:963 Bridge.BoxWorld_to_Kernel BoxWorldToKernel TheoryTrial def
-def 978:990 BoxWorldToKernel trial_bits_ok
-R997:1007 Bridge.BoxWorld_to_Kernel BoxWorldToKernel TheoryTrial def
-binder 993:993 <> t:1
-R1046:1051 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R1039:1041 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1022:1027 Kernel.VMStep VMStep is_bit def
-R1032:1037 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
-R1029:1029 Bridge.BoxWorld_to_Kernel <> t:1 var
-R1042:1045 Coq.Init.Datatypes <> true constr
-R1076:1081 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R1069:1071 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1052:1057 Kernel.VMStep VMStep is_bit def
-R1062:1067 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
-R1059:1059 Bridge.BoxWorld_to_Kernel <> t:1 var
-R1072:1075 Coq.Init.Datatypes <> true constr
-R1106:1111 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R1099:1101 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1082:1087 Kernel.VMStep VMStep is_bit def
-R1092:1097 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
-R1089:1089 Bridge.BoxWorld_to_Kernel <> t:1 var
-R1102:1105 Coq.Init.Datatypes <> true constr
-R1129:1131 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1112:1117 Kernel.VMStep VMStep is_bit def
-R1122:1127 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
-R1119:1119 Bridge.BoxWorld_to_Kernel <> t:1 var
-R1132:1135 Coq.Init.Datatypes <> true constr
-def 1150:1164 BoxWorldToKernel program_bits_ok
-R1171:1183 Bridge.BoxWorld_to_Kernel BoxWorldToKernel TheoryProgram def
-binder 1167:1167 <> p:2
-R1198:1203 Coq.Lists.List <> Forall ind
-R1219:1219 Bridge.BoxWorld_to_Kernel <> p:2 var
-R1205:1217 Bridge.BoxWorld_to_Kernel BoxWorldToKernel trial_bits_ok def
-def 1234:1246 BoxWorldToKernel compile_trial
-R1253:1263 Bridge.BoxWorld_to_Kernel BoxWorldToKernel TheoryTrial def
-binder 1249:1249 <> t:3
-R1268:1281 Kernel.VMStep VMStep vm_instruction ind
-R1288:1303 Kernel.VMStep VMStep instr_chsh_trial constr
-R1308:1313 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
-R1305:1305 Bridge.BoxWorld_to_Kernel <> t:3 var
-R1319:1324 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
-R1316:1316 Bridge.BoxWorld_to_Kernel <> t:3 var
-R1330:1335 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
-R1327:1327 Bridge.BoxWorld_to_Kernel <> t:3 var
-R1341:1346 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
-R1338:1338 Bridge.BoxWorld_to_Kernel <> t:3 var
-def 1368:1374 BoxWorldToKernel compile
-R1381:1393 Bridge.BoxWorld_to_Kernel BoxWorldToKernel TheoryProgram def
-binder 1377:1377 <> p:4
-R1398:1401 Coq.Init.Datatypes <> list ind
-R1403:1416 Kernel.VMStep VMStep vm_instruction ind
-R1423:1425 Coq.Lists.List <> map def
-R1441:1441 Bridge.BoxWorld_to_Kernel <> p:4 var
-R1427:1439 Bridge.BoxWorld_to_Kernel BoxWorldToKernel compile_trial def
-prf 1518:1551 BoxWorldToKernel trial_bits_ok_implies_chsh_bits_ok
-binder 1564:1564 <> t:5
-R1586:1593 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1571:1583 Bridge.BoxWorld_to_Kernel BoxWorldToKernel trial_bits_ok def
-R1585:1585 Bridge.BoxWorld_to_Kernel <> t:5 var
-R1650:1652 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1594:1605 Kernel.VMStep VMStep chsh_bits_ok def
-R1610:1615 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
-R1607:1607 Bridge.BoxWorld_to_Kernel <> t:5 var
-R1621:1626 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
-R1618:1618 Bridge.BoxWorld_to_Kernel <> t:5 var
-R1632:1637 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
-R1629:1629 Bridge.BoxWorld_to_Kernel <> t:5 var
-R1643:1648 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
-R1640:1640 Bridge.BoxWorld_to_Kernel <> t:5 var
-R1653:1656 Coq.Init.Datatypes <> true constr
-R1705:1716 Kernel.VMStep VMStep chsh_bits_ok def
-prf 1908:1936 BoxWorldToKernel simulation_correctness_trials
-binder 1949:1949 <> p:6
-R1973:1980 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1956:1970 Bridge.BoxWorld_to_Kernel BoxWorldToKernel program_bits_ok def
-R1972:1972 Bridge.BoxWorld_to_Kernel <> p:6 var
-R2014:2016 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1981:2001 Bridge.BoxWorld_to_Kernel BoxWorldToKernel trials_of_receipts def
-R2004:2010 Bridge.BoxWorld_to_Kernel BoxWorldToKernel compile def
-R2012:2012 Bridge.BoxWorld_to_Kernel <> p:6 var
-R2017:2017 Bridge.BoxWorld_to_Kernel <> p:6 var
-R2155:2171 Bridge.BoxWorld_to_Kernel BoxWorldToKernel is_trial_instr def
-R2198:2231 Bridge.BoxWorld_to_Kernel BoxWorldToKernel trial_bits_ok_implies_chsh_bits_ok thm
-R2198:2231 Bridge.BoxWorld_to_Kernel BoxWorldToKernel trial_bits_ok_implies_chsh_bits_ok thm
-R2198:2231 Bridge.BoxWorld_to_Kernel BoxWorldToKernel trial_bits_ok_implies_chsh_bits_ok thm
-prf 2493:2525 BoxWorldToKernel simulation_correctness_chsh_value
-binder 2538:2538 <> p:7
-R2562:2569 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2545:2559 Bridge.BoxWorld_to_Kernel BoxWorldToKernel program_bits_ok def
-R2561:2561 Bridge.BoxWorld_to_Kernel <> p:7 var
-R2613:2615 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2570:2576 Bridge.BoxWorld_to_Kernel BoxWorldToKernel chsh def
-R2579:2599 Bridge.BoxWorld_to_Kernel BoxWorldToKernel trials_of_receipts def
-R2602:2608 Bridge.BoxWorld_to_Kernel BoxWorldToKernel compile def
-R2610:2610 Bridge.BoxWorld_to_Kernel <> p:7 var
-R2616:2622 Bridge.BoxWorld_to_Kernel BoxWorldToKernel chsh def
-R2624:2624 Bridge.BoxWorld_to_Kernel <> p:7 var
-R2660:2688 Bridge.BoxWorld_to_Kernel BoxWorldToKernel simulation_correctness_trials thm
-R2660:2688 Bridge.BoxWorld_to_Kernel BoxWorldToKernel simulation_correctness_trials thm
-R2660:2688 Bridge.BoxWorld_to_Kernel BoxWorldToKernel simulation_correctness_trials thm
-R2660:2688 Bridge.BoxWorld_to_Kernel BoxWorldToKernel simulation_correctness_trials thm
-prf 3629:3654 BoxWorldToKernel simulation_chsh_invariance
-binder 3667:3667 <> p:8
-R3691:3770 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3674:3688 Bridge.BoxWorld_to_Kernel BoxWorldToKernel program_bits_ok def
-R3690:3690 Bridge.BoxWorld_to_Kernel <> p:8 var
-R3780:3782 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3771:3777 Bridge.BoxWorld_to_Kernel BoxWorldToKernel chsh def
-R3779:3779 Bridge.BoxWorld_to_Kernel <> p:8 var
-R3783:3789 Bridge.BoxWorld_to_Kernel BoxWorldToKernel chsh def
-R3792:3812 Bridge.BoxWorld_to_Kernel BoxWorldToKernel trials_of_receipts def
-R3815:3821 Bridge.BoxWorld_to_Kernel BoxWorldToKernel compile def
-R3823:3823 Bridge.BoxWorld_to_Kernel <> p:8 var
-R3871:3903 Bridge.BoxWorld_to_Kernel BoxWorldToKernel simulation_correctness_chsh_value thm
-R3871:3903 Bridge.BoxWorld_to_Kernel BoxWorldToKernel simulation_correctness_chsh_value thm
-def 4526:4543 BoxWorldToKernel supra_16_5_program
-R4547:4559 Bridge.BoxWorld_to_Kernel BoxWorldToKernel TheoryProgram def
-R4566:4586 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4637:4664 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4715:4742 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4793:4858 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4909:4920 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4971:4982 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5033:5044 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5095:5106 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5157:5163 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4587:4592 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
-R4587:4592 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
-R4587:4592 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
-R4600:4605 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
-R4600:4605 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
-R4613:4618 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
-R4613:4618 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
-R4626:4631 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
-R4626:4631 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
-R4665:4670 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
-R4665:4670 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
-R4665:4670 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
-R4678:4683 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
-R4678:4683 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
-R4691:4696 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
-R4691:4696 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
-R4704:4709 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
-R4704:4709 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
-R4743:4748 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
-R4743:4748 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
-R4743:4748 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
-R4756:4761 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
-R4756:4761 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
-R4769:4774 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
-R4769:4774 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
-R4782:4787 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
-R4782:4787 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
-R4859:4864 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
-R4859:4864 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
-R4859:4864 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
-R4872:4877 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
-R4872:4877 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
-R4885:4890 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
-R4885:4890 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
-R4898:4903 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
-R4898:4903 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
-R4921:4926 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
-R4921:4926 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
-R4921:4926 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
-R4934:4939 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
-R4934:4939 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
-R4947:4952 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
-R4947:4952 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
-R4960:4965 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
-R4960:4965 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
-R4983:4988 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
-R4983:4988 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
-R4983:4988 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
-R4996:5001 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
-R4996:5001 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
-R5009:5014 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
-R5009:5014 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
-R5022:5027 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
-R5022:5027 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
-R5045:5050 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
-R5045:5050 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
-R5045:5050 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
-R5058:5063 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
-R5058:5063 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
-R5071:5076 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
-R5071:5076 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
-R5084:5089 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
-R5084:5089 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
-R5107:5112 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
-R5107:5112 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
-R5107:5112 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
-R5120:5125 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
-R5120:5125 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
-R5133:5138 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
-R5133:5138 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
-R5146:5151 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
-R5146:5151 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
-prf 5232:5257 BoxWorldToKernel supra_16_5_program_bits_ok
-R5261:5275 Bridge.BoxWorld_to_Kernel BoxWorldToKernel program_bits_ok def
-R5277:5294 Bridge.BoxWorld_to_Kernel BoxWorldToKernel supra_16_5_program def
-R5333:5345 Bridge.BoxWorld_to_Kernel BoxWorldToKernel trial_bits_ok def
-R5348:5353 Kernel.VMStep VMStep is_bit def
-prf 5902:5924 BoxWorldToKernel supra_16_5_program_chsh
-R5956:5959 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5964:5964 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5930:5936 Bridge.BoxWorld_to_Kernel BoxWorldToKernel chsh def
-R5938:5955 Bridge.BoxWorld_to_Kernel BoxWorldToKernel supra_16_5_program def
-R5962:5962 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
-prf 7038:7079 BoxWorldToKernel supra_program_chsh_definitional_invariance
-R7184:7186 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7158:7164 Bridge.BoxWorld_to_Kernel BoxWorldToKernel chsh def
-R7166:7183 Bridge.BoxWorld_to_Kernel BoxWorldToKernel supra_16_5_program def
-R7187:7193 Bridge.BoxWorld_to_Kernel BoxWorldToKernel chsh def
-R7195:7212 Bridge.BoxWorld_to_Kernel BoxWorldToKernel supra_16_5_program def
-R7247:7262 Bridge.BoxWorld_to_Kernel BoxWorldToKernel <> mod
+R268:274 Kernel.VMState <> <> lib
+R276:286 Kernel.MuCostModel <> <> lib
+mod 937:952 <> BoxWorldToKernel
+R969:978 Kernel.CHSH KernelCHSH <> modtype
+mod 963:964 <> BoxWorldToKernel.KC
+R988:1000 Kernel.VMStep VMStep <> mod
+def 1015:1025 BoxWorldToKernel TheoryTrial
+R1037:1044 Bridge.BoxWorld_to_Kernel BoxWorldToKernel Trial rec
+def 1058:1070 BoxWorldToKernel TheoryProgram
+R1082:1085 Coq.Init.Datatypes <> list ind
+R1087:1097 Bridge.BoxWorld_to_Kernel BoxWorldToKernel TheoryTrial def
+def 1112:1124 BoxWorldToKernel trial_bits_ok
+R1131:1141 Bridge.BoxWorld_to_Kernel BoxWorldToKernel TheoryTrial def
+binder 1127:1127 <> t:1
+R1180:1185 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1173:1175 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1156:1161 Kernel.VMStep VMStep is_bit def
+R1166:1171 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
+R1163:1163 Bridge.BoxWorld_to_Kernel <> t:1 var
+R1176:1179 Coq.Init.Datatypes <> true constr
+R1210:1215 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1203:1205 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1186:1191 Kernel.VMStep VMStep is_bit def
+R1196:1201 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
+R1193:1193 Bridge.BoxWorld_to_Kernel <> t:1 var
+R1206:1209 Coq.Init.Datatypes <> true constr
+R1240:1245 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1233:1235 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1216:1221 Kernel.VMStep VMStep is_bit def
+R1226:1231 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
+R1223:1223 Bridge.BoxWorld_to_Kernel <> t:1 var
+R1236:1239 Coq.Init.Datatypes <> true constr
+R1263:1265 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1246:1251 Kernel.VMStep VMStep is_bit def
+R1256:1261 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
+R1253:1253 Bridge.BoxWorld_to_Kernel <> t:1 var
+R1266:1269 Coq.Init.Datatypes <> true constr
+def 1284:1298 BoxWorldToKernel program_bits_ok
+R1305:1317 Bridge.BoxWorld_to_Kernel BoxWorldToKernel TheoryProgram def
+binder 1301:1301 <> p:2
+R1332:1337 Coq.Lists.List <> Forall ind
+R1353:1353 Bridge.BoxWorld_to_Kernel <> p:2 var
+R1339:1351 Bridge.BoxWorld_to_Kernel BoxWorldToKernel trial_bits_ok def
+def 1368:1380 BoxWorldToKernel compile_trial
+R1387:1397 Bridge.BoxWorld_to_Kernel BoxWorldToKernel TheoryTrial def
+binder 1383:1383 <> t:3
+R1402:1415 Kernel.VMStep VMStep vm_instruction ind
+R1422:1437 Kernel.VMStep VMStep instr_chsh_trial constr
+R1442:1447 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
+R1439:1439 Bridge.BoxWorld_to_Kernel <> t:3 var
+R1453:1458 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
+R1450:1450 Bridge.BoxWorld_to_Kernel <> t:3 var
+R1464:1469 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
+R1461:1461 Bridge.BoxWorld_to_Kernel <> t:3 var
+R1475:1480 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
+R1472:1472 Bridge.BoxWorld_to_Kernel <> t:3 var
+def 1502:1508 BoxWorldToKernel compile
+R1515:1527 Bridge.BoxWorld_to_Kernel BoxWorldToKernel TheoryProgram def
+binder 1511:1511 <> p:4
+R1532:1535 Coq.Init.Datatypes <> list ind
+R1537:1550 Kernel.VMStep VMStep vm_instruction ind
+R1557:1559 Coq.Lists.List <> map def
+R1575:1575 Bridge.BoxWorld_to_Kernel <> p:4 var
+R1561:1573 Bridge.BoxWorld_to_Kernel BoxWorldToKernel compile_trial def
+prf 1652:1685 BoxWorldToKernel trial_bits_ok_implies_chsh_bits_ok
+binder 1698:1698 <> t:5
+R1720:1727 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1705:1717 Bridge.BoxWorld_to_Kernel BoxWorldToKernel trial_bits_ok def
+R1719:1719 Bridge.BoxWorld_to_Kernel <> t:5 var
+R1784:1786 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1728:1739 Kernel.VMStep VMStep chsh_bits_ok def
+R1744:1749 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
+R1741:1741 Bridge.BoxWorld_to_Kernel <> t:5 var
+R1755:1760 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
+R1752:1752 Bridge.BoxWorld_to_Kernel <> t:5 var
+R1766:1771 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
+R1763:1763 Bridge.BoxWorld_to_Kernel <> t:5 var
+R1777:1782 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
+R1774:1774 Bridge.BoxWorld_to_Kernel <> t:5 var
+R1787:1790 Coq.Init.Datatypes <> true constr
+R1839:1850 Kernel.VMStep VMStep chsh_bits_ok def
+prf 2042:2070 BoxWorldToKernel simulation_correctness_trials
+binder 2083:2083 <> p:6
+R2107:2114 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2090:2104 Bridge.BoxWorld_to_Kernel BoxWorldToKernel program_bits_ok def
+R2106:2106 Bridge.BoxWorld_to_Kernel <> p:6 var
+R2148:2150 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2115:2135 Bridge.BoxWorld_to_Kernel BoxWorldToKernel trials_of_receipts def
+R2138:2144 Bridge.BoxWorld_to_Kernel BoxWorldToKernel compile def
+R2146:2146 Bridge.BoxWorld_to_Kernel <> p:6 var
+R2151:2151 Bridge.BoxWorld_to_Kernel <> p:6 var
+R2289:2305 Bridge.BoxWorld_to_Kernel BoxWorldToKernel is_trial_instr def
+R2332:2365 Bridge.BoxWorld_to_Kernel BoxWorldToKernel trial_bits_ok_implies_chsh_bits_ok thm
+R2332:2365 Bridge.BoxWorld_to_Kernel BoxWorldToKernel trial_bits_ok_implies_chsh_bits_ok thm
+R2332:2365 Bridge.BoxWorld_to_Kernel BoxWorldToKernel trial_bits_ok_implies_chsh_bits_ok thm
+prf 2627:2659 BoxWorldToKernel simulation_correctness_chsh_value
+binder 2672:2672 <> p:7
+R2696:2703 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2679:2693 Bridge.BoxWorld_to_Kernel BoxWorldToKernel program_bits_ok def
+R2695:2695 Bridge.BoxWorld_to_Kernel <> p:7 var
+R2747:2749 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2704:2710 Bridge.BoxWorld_to_Kernel BoxWorldToKernel chsh def
+R2713:2733 Bridge.BoxWorld_to_Kernel BoxWorldToKernel trials_of_receipts def
+R2736:2742 Bridge.BoxWorld_to_Kernel BoxWorldToKernel compile def
+R2744:2744 Bridge.BoxWorld_to_Kernel <> p:7 var
+R2750:2756 Bridge.BoxWorld_to_Kernel BoxWorldToKernel chsh def
+R2758:2758 Bridge.BoxWorld_to_Kernel <> p:7 var
+R2794:2822 Bridge.BoxWorld_to_Kernel BoxWorldToKernel simulation_correctness_trials thm
+R2794:2822 Bridge.BoxWorld_to_Kernel BoxWorldToKernel simulation_correctness_trials thm
+R2794:2822 Bridge.BoxWorld_to_Kernel BoxWorldToKernel simulation_correctness_trials thm
+R2794:2822 Bridge.BoxWorld_to_Kernel BoxWorldToKernel simulation_correctness_trials thm
+prf 3763:3788 BoxWorldToKernel simulation_chsh_invariance
+binder 3801:3801 <> p:8
+R3825:3904 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3808:3822 Bridge.BoxWorld_to_Kernel BoxWorldToKernel program_bits_ok def
+R3824:3824 Bridge.BoxWorld_to_Kernel <> p:8 var
+R3914:3916 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3905:3911 Bridge.BoxWorld_to_Kernel BoxWorldToKernel chsh def
+R3913:3913 Bridge.BoxWorld_to_Kernel <> p:8 var
+R3917:3923 Bridge.BoxWorld_to_Kernel BoxWorldToKernel chsh def
+R3926:3946 Bridge.BoxWorld_to_Kernel BoxWorldToKernel trials_of_receipts def
+R3949:3955 Bridge.BoxWorld_to_Kernel BoxWorldToKernel compile def
+R3957:3957 Bridge.BoxWorld_to_Kernel <> p:8 var
+R4005:4037 Bridge.BoxWorld_to_Kernel BoxWorldToKernel simulation_correctness_chsh_value thm
+R4005:4037 Bridge.BoxWorld_to_Kernel BoxWorldToKernel simulation_correctness_chsh_value thm
+def 4660:4677 BoxWorldToKernel supra_16_5_program
+R4681:4693 Bridge.BoxWorld_to_Kernel BoxWorldToKernel TheoryProgram def
+R4700:4720 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4771:4798 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4849:4876 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4927:4992 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5043:5054 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5105:5116 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5167:5178 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5229:5240 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5291:5297 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4721:4726 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
+R4721:4726 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
+R4721:4726 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
+R4734:4739 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
+R4734:4739 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
+R4747:4752 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
+R4747:4752 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
+R4760:4765 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
+R4760:4765 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
+R4799:4804 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
+R4799:4804 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
+R4799:4804 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
+R4812:4817 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
+R4812:4817 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
+R4825:4830 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
+R4825:4830 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
+R4838:4843 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
+R4838:4843 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
+R4877:4882 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
+R4877:4882 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
+R4877:4882 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
+R4890:4895 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
+R4890:4895 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
+R4903:4908 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
+R4903:4908 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
+R4916:4921 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
+R4916:4921 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
+R4993:4998 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
+R4993:4998 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
+R4993:4998 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
+R5006:5011 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
+R5006:5011 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
+R5019:5024 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
+R5019:5024 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
+R5032:5037 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
+R5032:5037 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
+R5055:5060 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
+R5055:5060 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
+R5055:5060 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
+R5068:5073 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
+R5068:5073 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
+R5081:5086 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
+R5081:5086 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
+R5094:5099 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
+R5094:5099 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
+R5117:5122 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
+R5117:5122 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
+R5117:5122 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
+R5130:5135 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
+R5130:5135 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
+R5143:5148 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
+R5143:5148 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
+R5156:5161 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
+R5156:5161 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
+R5179:5184 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
+R5179:5184 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
+R5179:5184 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
+R5192:5197 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
+R5192:5197 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
+R5205:5210 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
+R5205:5210 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
+R5218:5223 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
+R5218:5223 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
+R5241:5246 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
+R5241:5246 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
+R5241:5246 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_x proj
+R5254:5259 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
+R5254:5259 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_y proj
+R5267:5272 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
+R5267:5272 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_a proj
+R5280:5285 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
+R5280:5285 Bridge.BoxWorld_to_Kernel BoxWorldToKernel t_b proj
+prf 5366:5391 BoxWorldToKernel supra_16_5_program_bits_ok
+R5395:5409 Bridge.BoxWorld_to_Kernel BoxWorldToKernel program_bits_ok def
+R5411:5428 Bridge.BoxWorld_to_Kernel BoxWorldToKernel supra_16_5_program def
+R5467:5479 Bridge.BoxWorld_to_Kernel BoxWorldToKernel trial_bits_ok def
+R5482:5487 Kernel.VMStep VMStep is_bit def
+prf 6036:6058 BoxWorldToKernel supra_16_5_program_chsh
+R6090:6093 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6098:6098 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6064:6070 Bridge.BoxWorld_to_Kernel BoxWorldToKernel chsh def
+R6072:6089 Bridge.BoxWorld_to_Kernel BoxWorldToKernel supra_16_5_program def
+R6096:6096 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+prf 7172:7213 BoxWorldToKernel supra_program_chsh_definitional_invariance
+R7318:7320 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7292:7298 Bridge.BoxWorld_to_Kernel BoxWorldToKernel chsh def
+R7300:7317 Bridge.BoxWorld_to_Kernel BoxWorldToKernel supra_16_5_program def
+R7321:7327 Bridge.BoxWorld_to_Kernel BoxWorldToKernel chsh def
+R7329:7346 Bridge.BoxWorld_to_Kernel BoxWorldToKernel supra_16_5_program def
+R7381:7396 Bridge.BoxWorld_to_Kernel BoxWorldToKernel <> mod

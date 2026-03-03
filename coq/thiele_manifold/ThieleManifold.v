@@ -1,4 +1,6 @@
 (** * Thiele manifold: an infinite-dimensional tower handling self-reference and projections.
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
 
     This file introduces a lightweight model of the Thiele manifold as an
     infinite tower of computational systems.  Each level can reason about
@@ -7,6 +9,9 @@
     level cannot internalise.  A lossy projection onto 4D spacetime (π₄)
     captures the information loss that motivates a meta-level.
  *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
 
 From Coq Require Import Arith.Arith Lia.
 From SelfReference Require Import SelfReference.

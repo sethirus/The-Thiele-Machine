@@ -1,4 +1,5 @@
 (** =========================================================================
+
     PHYSICS PILLARS - The Six Headline Theorems
     =========================================================================
     
@@ -13,9 +14,12 @@
     - coq/kernel/KernelNoether.v:191 (vm_step_orbit_equiv)
     - coq/kernel/KernelNoether.v:108 (vm_step_mu_monotonic)
     
-    INQUISITOR NOTE: Symmetry contract for "noether" tag is fulfilled by
     KernelNoether.v as specified in INQUISITOR_ASSUMPTIONS.json.
     ========================================================================= *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuCostModel.
 
 From Coq Require Import List ZArith Lia QArith Reals.
 Import ListNotations.

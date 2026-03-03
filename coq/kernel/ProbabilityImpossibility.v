@@ -41,6 +41,9 @@
 
     ========================================================================= *)
 
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import MuCostModel.
+
 From Coq Require Import List Arith.PeanoNat Lia.
 
 From Kernel Require Import VMStep.

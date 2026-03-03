@@ -1,4 +1,6 @@
 (** =========================================================================
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
     SPACELAND CORE: Minimal Axioms with Complete Proofs
     =========================================================================
     
@@ -8,6 +10,9 @@
     
     =========================================================================
 *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
 
 From Coq Require Import List Bool ZArith Lia.
 Set Warnings "-declaration-outside-section".

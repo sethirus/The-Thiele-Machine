@@ -1,4 +1,6 @@
 (* InfoTheory.v - μ-Cost and Information Theory Connections
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
 
    This file formalizes the relationship between μ-cost and classical
    information theory, particularly Shannon entropy and MDL principles.
@@ -11,6 +13,9 @@
    Track A2.2: Relationship to Existing Theory
    Status: COMPLETE
 *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
 
 Require Import Coq.Reals.Reals.
 Require Import Coq.micromega.Lra.

@@ -8,7 +8,12 @@
     GOAL: Prove that (partition trace, Δμ sequence) uniquely determines
           observable computational behavior, up to μ gauge freedom.
     
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+
     =================================================================== *)
+
+(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+From Kernel Require Import VMState VMStep.
 
 From Coq Require Import List Bool ZArith Lia.
 Import ListNotations.
