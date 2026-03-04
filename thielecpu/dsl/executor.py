@@ -454,9 +454,10 @@ class IRExecutor:
             )
             self.call_stack.append(frame)
             
-            # Set up new locals with arguments
-            self.locals = {}
-            # TODO: Map arguments to parameter names
+            # Set up new locals with positional arguments.
+            # IRInstruction carries no parameter-name registry, so arguments
+            # are bound as arg_0, arg_1, … and callee code accesses them by index.
+            self.locals = {f"arg_{i}": v for i, v in enumerate(args)}
             
             # Jump to function
             self.pc = self.module.labels[label]
@@ -577,14 +578,30 @@ class IRExecutor:
         self.stack.append(region)
     
     def _exec_PARTITION_SPLIT(self, instr: IRInstruction) -> None:
-        # TODO: Integrate with VM partition state
-        self.stack.append((set(), set()))
+        """Split a region into two halves at the midpoint."""
+        region = self.stack.pop() if self.stack else set()
+        if isinstance(region, (set, frozenset)):
+            items = sorted(region)
+        elif isinstance(region, (list, tuple)):
+            items = list(region)
+        else:
+            items = [region] if region is not None else []
+        mid = len(items) // 2
+        left = set(items[:mid])
+        right = set(items[mid:])
+        self.stack.append((left, right))
     
     def _exec_PARTITION_MERGE(self, instr: IRInstruction) -> None:
-        # TODO: Integrate with VM partition state
-        p2 = self.stack.pop()
-        p1 = self.stack.pop()
-        self.stack.append(p1 | p2 if isinstance(p1, set) and isinstance(p2, set) else p1)
+        """Merge two regions by taking their union."""
+        p2 = self.stack.pop() if self.stack else set()
+        p1 = self.stack.pop() if self.stack else set()
+        def to_set(v: Any) -> set:
+            if isinstance(v, (set, frozenset)):
+                return set(v)
+            if isinstance(v, (list, tuple)):
+                return set(v)
+            return {v} if v is not None else set()
+        self.stack.append(to_set(p1) | to_set(p2))
 
 
 def execute_ir(module: IRModule, builtins: Optional[Dict[str, Any]] = None) -> ExecutionResult:

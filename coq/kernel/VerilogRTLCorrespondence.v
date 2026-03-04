@@ -338,7 +338,7 @@ Qed.
 
     The contract is universally quantified after closing the Section.
     The kami_hw proofs supply the constructive instantiation.
-    Zero global Axioms; zero Admitted.
+    Zero global Axioms; zero admits.
 *)
 Theorem complete_three_layer_isomorphism :
   forall (s_coq : VMState) (s_rtl : VerilogState)

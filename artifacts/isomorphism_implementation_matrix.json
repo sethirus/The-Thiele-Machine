@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-04T00:09:07.837325+00:00",
+  "generated_at": "2026-03-04T01:20:26.446191+00:00",
   "layers": [
     "coq",
     "python",
@@ -13,10 +13,15 @@
       "per_layer": {
         "coq": true,
         "python": true,
-        "rtl": false,
+        "rtl": true,
         "tests": true
       },
-      "aligned_surface": false
+      "aligned_surface": true,
+      "declared_coverage_files": {
+        "rtl": [
+          "tests/test_rtl_structural_coverage.py"
+        ]
+      }
     },
     {
       "element": "opcode_alignment",
@@ -24,10 +29,15 @@
       "per_layer": {
         "coq": true,
         "python": true,
-        "rtl": false,
+        "rtl": true,
         "tests": true
       },
-      "aligned_surface": false
+      "aligned_surface": true,
+      "declared_coverage_files": {
+        "rtl": [
+          "tests/test_rtl_structural_coverage.py"
+        ]
+      }
     },
     {
       "element": "mu_accounting",
@@ -35,10 +45,15 @@
       "per_layer": {
         "coq": true,
         "python": true,
-        "rtl": false,
+        "rtl": true,
         "tests": true
       },
-      "aligned_surface": false
+      "aligned_surface": true,
+      "declared_coverage_files": {
+        "rtl": [
+          "tests/test_rtl_structural_coverage.py"
+        ]
+      }
     },
     {
       "element": "mu_tensor_bianchi",
@@ -46,10 +61,15 @@
       "per_layer": {
         "coq": true,
         "python": true,
-        "rtl": false,
+        "rtl": true,
         "tests": true
       },
-      "aligned_surface": false
+      "aligned_surface": true,
+      "declared_coverage_files": {
+        "rtl": [
+          "tests/test_rtl_structural_coverage.py"
+        ]
+      }
     },
     {
       "element": "partition_semantics",
@@ -57,10 +77,15 @@
       "per_layer": {
         "coq": true,
         "python": true,
-        "rtl": false,
+        "rtl": true,
         "tests": true
       },
-      "aligned_surface": false
+      "aligned_surface": true,
+      "declared_coverage_files": {
+        "rtl": [
+          "tests/test_rtl_structural_coverage.py"
+        ]
+      }
     },
     {
       "element": "receipts_integrity",
@@ -68,10 +93,15 @@
       "per_layer": {
         "coq": true,
         "python": true,
-        "rtl": false,
+        "rtl": true,
         "tests": true
       },
-      "aligned_surface": false
+      "aligned_surface": true,
+      "declared_coverage_files": {
+        "rtl": [
+          "tests/test_rtl_structural_coverage.py"
+        ]
+      }
     },
     {
       "element": "cross_layer_bisim",
@@ -79,22 +109,27 @@
       "per_layer": {
         "coq": true,
         "python": true,
-        "rtl": false,
+        "rtl": true,
         "tests": true
       },
-      "aligned_surface": false
+      "aligned_surface": true,
+      "declared_coverage_files": {
+        "rtl": [
+          "tests/test_rtl_structural_coverage.py"
+        ]
+      }
     }
   ],
   "summary": {
-    "aligned_elements": 0,
+    "aligned_elements": 7,
     "total_elements": 7
   },
   "counts": {
     "coq_file_count": 323,
     "theorem_like_count": 2709,
-    "admit_count": 1,
+    "admit_count": 0,
     "axiom_decl_count": 24,
-    "isomorphism_related_test_files": 26
+    "isomorphism_related_test_files": 27
   },
   "proof_dag_meta": {
     "coqRoot": "coq",
@@ -725,6 +760,7 @@
         "tests/test_rsa_scaling.py",
         "tests/test_rtl_compute_isomorphism.py",
         "tests/test_rtl_mu_charging.py",
+        "tests/test_rtl_structural_coverage.py",
         "tests/test_rtl_synthesis_gate.py",
         "tests/test_security_monitor.py",
         "tests/test_shor_demo.py",
@@ -771,9 +807,9 @@
       },
       "tests": {
         "declared": 5,
-        "discovered": 131,
-        "declared_coverage_ratio": 0.0382,
-        "semantic_unmapped_count": 117
+        "discovered": 132,
+        "declared_coverage_ratio": 0.0379,
+        "semantic_unmapped_count": 118
       }
     },
     "semantic_unmapped_by_layer": {
@@ -5324,6 +5360,15 @@
         },
         {
           "path": "tests/test_rtl_mu_charging.py",
+          "nearby_declared": [
+            "tests/test_bisimulation_complete.py",
+            "tests/test_partition_isomorphism_minimal.py",
+            "tests/test_receipt_chain.py"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "tests/test_rtl_structural_coverage.py",
           "nearby_declared": [
             "tests/test_bisimulation_complete.py",
             "tests/test_partition_isomorphism_minimal.py",

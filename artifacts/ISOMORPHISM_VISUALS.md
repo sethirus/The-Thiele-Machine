@@ -1,6 +1,6 @@
 # Isomorphism Visual + Programmatic Audit
 
-Generated: 2026-03-04T00:09:07.837325+00:00
+Generated: 2026-03-04T01:20:26.446191+00:00
 
 ## Scope
 
@@ -99,12 +99,12 @@ A change is "all the same" only if all of the following hold together:
 
 ## Surface Matrix Summary
 
-- Aligned surfaces: **0/7**
+- Aligned surfaces: **7/7**
 - Coq files: **323**
 - Theorem-like declarations: **2709**
 - Explicit axioms/parameters/hypotheses: **24**
-- Admits: **1**
-- Isomorphism-related test files: **26**
+- Admits: **0**
+- Isomorphism-related test files: **27**
 
 ## Repo Coverage Scope
 
