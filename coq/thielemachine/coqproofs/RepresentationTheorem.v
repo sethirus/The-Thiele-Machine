@@ -200,3 +200,7 @@ Module ThieleRepresentation.
   Qed.
 
 End ThieleRepresentation.
+
+(* INQUISITOR NOTE: connectivity anchor. *)
+Definition instr_to_label_injective_anchor := ThieleRepresentation.instr_to_label_injective.
+

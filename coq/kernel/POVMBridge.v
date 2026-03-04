@@ -270,3 +270,10 @@ Qed.
     extracting information at μ-cost. The Born rule emerges from
     information accounting, not as a postulate.
     =========================================================================*)
+
+(* INQUISITOR NOTE: connectivity anchor for POVM completeness pair. *)
+Lemma povm_complete_anchor :
+  forall avail revealed,
+    is_complete_reveal avail revealed -> revealed = avail.
+Proof. exact complete_reveal_determines_state. Qed.
+

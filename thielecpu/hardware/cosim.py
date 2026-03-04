@@ -177,12 +177,15 @@ def _encode_instruction(op: str, operand_a: int = 0, operand_b: int = 0,
            ((operand_b & 0xFF) << 8) | (cost & 0xFF)
 
 
-def program_to_hex(program: str) -> Tuple[List[str], List[str], Dict[str, int]]:
+def program_to_hex(program, **_kwargs) -> Tuple[List[str], List[str], Dict[str, int]]:
     """Convert text program to hex instruction and data memory images.
 
+    Accepts either a plain string or a list/tuple of instruction strings.
     Returns (instr_hex_lines, data_hex_lines, init_state) where init_state
     contains optional testbench prestate overrides.
     """
+    if isinstance(program, (list, tuple)):
+        program = "\n".join(str(line) for line in program)
     instrs: List[int] = []
     data_mem: Dict[int, int] = {}
     init_state: Dict[str, int] = {}
@@ -372,6 +375,24 @@ def program_to_hex(program: str) -> Tuple[List[str], List[str], Dict[str, int]]:
                 b = int(ch_parts[1]) if len(ch_parts) > 1 else 0
                 cost = int(ch_parts[2]) if len(ch_parts) > 2 else 0
                 instrs.append(_encode_instruction("CHSH_TRIAL", a, b, cost))
+        elif op == "ADD":
+            # ADD dst rs1 rs2 cost — op_b packs rs1[7:4]|rs2[3:0] (RTL encoding)
+            add_parts = arg.split()
+            dst  = int(add_parts[0]) if len(add_parts) > 0 else 0
+            rs1  = int(add_parts[1]) if len(add_parts) > 1 else 0
+            rs2  = int(add_parts[2]) if len(add_parts) > 2 else 0
+            cost = int(add_parts[3]) if len(add_parts) > 3 else 0
+            packed_b = ((rs1 & 0xF) << 4) | (rs2 & 0xF)
+            instrs.append(_encode_instruction("ADD", dst, packed_b, cost))
+        elif op == "SUB":
+            # SUB dst rs1 rs2 cost — same packed op_b encoding as ADD
+            sub_parts = arg.split()
+            dst  = int(sub_parts[0]) if len(sub_parts) > 0 else 0
+            rs1  = int(sub_parts[1]) if len(sub_parts) > 1 else 0
+            rs2  = int(sub_parts[2]) if len(sub_parts) > 2 else 0
+            cost = int(sub_parts[3]) if len(sub_parts) > 3 else 0
+            packed_b = ((rs1 & 0xF) << 4) | (rs2 & 0xF)
+            instrs.append(_encode_instruction("SUB", dst, packed_b, cost))
         elif op == "HALT":
             h_parts = arg.split()
             cost = int(h_parts[0]) if len(h_parts) > 0 else 0
@@ -598,14 +619,18 @@ def parse_verilog_output(stdout: str) -> Dict[str, Any]:
     json_text = re.sub(r",\s*\}", "}", json_text)
 
     try:
-        return json.loads(json_text)
+        result = json.loads(json_text)
+        # Normalize err to bool (testbench emits 0/1 as JSON integers)
+        if "err" in result and not isinstance(result["err"], bool):
+            result["err"] = bool(result["err"])
+        return result
     except json.JSONDecodeError as e:
         raise ValueError(f"Failed to parse Verilog JSON output: {e}\n"
                          f"Cleaned JSON:\n{json_text[:2000]}") from e
 
 
 def run_verilog(
-    program: str,
+    program,
     timeout: int = 30,
     backend: Optional[str] = None,
     logic_z3_bridge: bool = False,

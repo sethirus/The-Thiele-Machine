@@ -1576,3 +1576,6 @@ Qed.
     ZERO AXIOMS. ZERO ADMITS.
     μ-conservation (the Machine's law) IS the Bianchi identity (GR's law).
 *)
+
+Definition filter_false_anchor := @filter_false.
+

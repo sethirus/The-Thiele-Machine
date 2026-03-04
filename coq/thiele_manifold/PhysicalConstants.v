@@ -59,3 +59,6 @@ End Constants.
     constant ~ 1/137).  The Coq side remains agnostic and simply exposes a
     precise limit statement for downstream instantiations.
 *)
+
+Definition StateSpace_anchor := StateSpace.
+

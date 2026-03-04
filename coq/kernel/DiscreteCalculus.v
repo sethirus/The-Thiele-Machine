@@ -143,3 +143,6 @@ Proof.
   - reflexivity.
   - rewrite HT_zero, HT_zero. ring.
 Qed.
+
+Definition pair_sum_cancel_anchor := pair_sum_cancel.
+

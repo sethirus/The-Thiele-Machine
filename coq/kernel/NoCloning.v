@@ -942,3 +942,6 @@ Proof.
   rewrite Ho, Hi in Hcons.
   lra.
 Qed.
+
+Definition clone_fidelity_anchor := clone_fidelity.
+

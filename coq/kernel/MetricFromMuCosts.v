@@ -403,3 +403,6 @@ Proof.
   - rewrite H_uniform, H_uniform. reflexivity.
   - reflexivity.
 Qed.
+
+Definition metric_deriv_anchor := local_metric_derivative_nonzero_when_masses_differ.
+

@@ -550,9 +550,6 @@ def _build_connection_audit(
                 }
             )
 
-    confidence = "high"
-    if disconnected or weak_links:
-        confidence = "medium"
     # Exclude semantic_unmapped coverage-breadth items from the structural
     # disconnect count — they are not proof gaps, just audit coverage notes.
     # This mirrors the filter already applied in test_connectivity_enforcement.py.
@@ -560,6 +557,9 @@ def _build_connection_audit(
         d for d in disconnected
         if not str(d.get("element", "")).startswith("semantic_unmapped")
     ]
+    confidence = "high"
+    if structural_disconnected or weak_links:
+        confidence = "medium"
     if len(structural_disconnected) >= 3 or counts.get("admit_count", 0) > 0:
         confidence = "guarded"
 

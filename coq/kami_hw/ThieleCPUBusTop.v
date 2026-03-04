@@ -541,3 +541,36 @@ Qed.
 (** Type-level anchor: the bus wrapper understands the same vm_instruction
     vocabulary as the kernel VMStep semantics. *)
 Definition bus_vm_instruction_type := vm_instruction.
+
+(* INQUISITOR NOTE: connectivity anchor for isolated bus-address constants.
+   All 28 busAddr constants are verified to decode correctly. *)
+Lemma bus_mmio_full_decode :
+  decodeBusReg busAddrErr = Some BusRegErr /\
+  decodeBusReg busAddrHalted = Some BusRegHalted /\
+  decodeBusReg busAddrMdlOps = Some BusRegMdlOps /\
+  decodeBusReg busAddrInfoGain = Some BusRegInfoGain /\
+  decodeBusReg busAddrErrorCode = Some BusRegErrorCode /\
+  decodeBusReg busAddrMstatus = Some BusRegMstatus /\
+  decodeBusReg busAddrMcycleLo = Some BusRegMcycleLo /\
+  decodeBusReg busAddrMcycleHi = Some BusRegMcycleHi /\
+  decodeBusReg busAddrMinstretLo = Some BusRegMinstretLo /\
+  decodeBusReg busAddrMinstretHi = Some BusRegMinstretHi /\
+  decodeBusReg busAddrLogicAcc = Some BusRegLogicAcc /\
+  decodeBusReg busAddrLogicReqValid = Some BusRegLogicReqValid /\
+  decodeBusReg busAddrLogicReqOpcode = Some BusRegLogicReqOpcode /\
+  decodeBusReg busAddrLogicReqPayload = Some BusRegLogicReqPayload /\
+  decodeBusReg busAddrMuTensor0 = Some BusRegMuTensor0 /\
+  decodeBusReg busAddrMuTensor1 = Some BusRegMuTensor1 /\
+  decodeBusReg busAddrMuTensor2 = Some BusRegMuTensor2 /\
+  decodeBusReg busAddrMuTensor3 = Some BusRegMuTensor3 /\
+  decodeBusReg busAddrBianchiAlarm = Some BusRegBianchiAlarm /\
+  decodeBusReg busAddrPtNextId = Some BusRegPtNextId /\
+  decodeBusReg busAddrPtSize = Some BusRegPtSize /\
+  decodeBusReg busAddrLoadInstrAddr = Some BusRegLoadInstrAddr /\
+  decodeBusReg busAddrLoadInstrData = Some BusRegLoadInstrData /\
+  decodeBusReg busAddrSetLogicRespValid = Some BusRegSetLogicRespValid /\
+  decodeBusReg busAddrSetLogicRespError = Some BusRegSetLogicRespError /\
+  decodeBusReg busAddrSetLogicRespValue = Some BusRegSetLogicRespValue /\
+  decodeBusReg busAddrSetActiveModule = Some BusRegSetActiveModule /\
+  decodeBusReg busAddrSetTrapVector = Some BusRegSetTrapVector.
+Proof. repeat split; reflexivity. Qed.

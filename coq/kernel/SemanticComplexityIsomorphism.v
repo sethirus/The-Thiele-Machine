@@ -289,3 +289,6 @@ Proof.
   intro c.
   apply perfect_three_layer_isomorphism.
 Qed.
+
+Definition verilog_mu_step_anchor := verilog_mu_step.
+

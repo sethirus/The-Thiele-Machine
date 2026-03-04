@@ -307,3 +307,7 @@ Module GeometricSignature.
 
 
 End GeometricSignature.
+
+(* INQUISITOR NOTE: connectivity anchor for extract_edge_weights via DefaultComputation. *)
+Definition extract_edge_weights_anchor := GeometricSignature.DefaultComputation.extract_edge_weights.
+

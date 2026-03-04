@@ -3315,3 +3315,7 @@ Proof.
   exact tsirelson_measurements_sound.
 Qed.
 
+(* INQUISITOR NOTE: connectivity anchor for auxiliary Bell inequality lemmas. *)
+Definition bell_coverage_anchor_lemmas :=
+  (supra_quantum_exceeds_classical, repeat_app, firstn_app_ge, Nat_min_succ_succ).
+

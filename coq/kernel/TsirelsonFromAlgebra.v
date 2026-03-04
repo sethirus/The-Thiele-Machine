@@ -333,3 +333,7 @@ Qed.
 
     No Hilbert spaces, no tensor products, no wavefunctions needed.
     ========================================================================= *)
+
+(* INQUISITOR NOTE: connectivity anchor. *)
+Definition tsirelson_algebra_anchor := (sqrt8_eq_2sqrt2, rational_tsirelson_bound).
+

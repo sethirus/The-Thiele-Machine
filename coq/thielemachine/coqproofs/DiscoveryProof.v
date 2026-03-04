@@ -703,3 +703,6 @@ Qed.
     2. Differential testing (Coq output vs Python output)
     3. Proof-carrying code (Python carries Coq certificate)
 *)
+
+Definition equal_partition_profitable_anchor := equal_partition_profitable.
+

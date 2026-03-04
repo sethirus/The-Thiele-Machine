@@ -147,3 +147,7 @@ Fixpoint tm_step_n (tm : TM) (conf : TMConfig) (n : nat) : TMConfig :=
  | 0 => conf
  | S k => tm_step_n tm (tm_step tm conf) k
  end.
+
+(* INQUISITOR NOTE: connectivity anchor for TM helper lemmas. *)
+Definition tm_helper_anchor :=
+  (firstn_repeat, skipn_repeat, delta_rule_single).

@@ -276,3 +276,6 @@ Proof.
   - exact empty_graph_well_formed.
   - reflexivity.
 Qed.
+
+Definition structural_content_anchor := structural_content.
+

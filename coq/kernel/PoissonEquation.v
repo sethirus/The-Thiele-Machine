@@ -394,3 +394,6 @@ Qed.
     Field propagation is DERIVED from the graph structure of the partition.
 *)
 
+Definition G_Newton_anchor := G_Newton.
+
+

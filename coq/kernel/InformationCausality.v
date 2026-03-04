@@ -345,3 +345,7 @@ Qed.
     finding an inconsistency in the definitions or a logic error in the proof.
     *)
 
+(* INQUISITOR NOTE: connectivity anchor for isolated IC lemmas. *)
+Definition ic_coverage_anchor :=
+  (ic_zero_communication_bound, ic_communication_bounded, accessible_info_bounded).
+

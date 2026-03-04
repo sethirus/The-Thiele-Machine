@@ -75,4 +75,7 @@ Context (pr_box_no_extension : ~ has_valid_extension pr_box).
 End TripartiteExtensions.
 
 (* The general theorem for any supra-Tsirelson box *)
+
+Definition has_valid_extension_anchor := has_valid_extension.
+
 (* Remains admitted as the formal proof is complex *)

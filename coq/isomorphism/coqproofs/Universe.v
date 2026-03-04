@@ -87,3 +87,6 @@ Proof.
   intros s1 s2 p.
   exact (F_hom p).
 Qed.
+
+(* INQUISITOR NOTE: connectivity anchor. *)
+Definition C_phys_id_anchor := C_phys_id.

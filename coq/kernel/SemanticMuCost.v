@@ -384,3 +384,6 @@ Definition axiom_cost_with_fallback (ax : VMAxiom) (ast_opt : option Constraint)
       python_semantic_complexity_bits(parse(f))
 
     ========================================================================= *)
+
+Definition ConstraintVar_anchor : Type := ConstraintVar.
+

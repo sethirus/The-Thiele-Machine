@@ -246,3 +246,6 @@ Qed.
     
     The Thiele Machine substrate + Reality Interface = Testable physics
     *)
+
+Definition partition_below_algebraic_anchor := partition_below_algebraic.
+

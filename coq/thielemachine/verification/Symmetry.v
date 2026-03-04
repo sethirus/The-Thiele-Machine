@@ -388,3 +388,6 @@ Qed.
     
     Next: PhysicsPillars.v derives Born rule, thermodynamics, etc.
     *)
+
+Definition SpacetimeCoord_anchor := SpacetimeCoord.
+

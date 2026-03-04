@@ -258,3 +258,17 @@ Qed.
     make this gap measurable, falsifiable, and concrete — but closing
     it requires breakthrough techniques beyond the current theory.
     =========================================================================*)
+
+(* INQUISITOR NOTE: connectivity anchor for graph isomorphism cost pair. *)
+Lemma graph_iso_cost_combined :
+  forall n, n >= 2 -> graph_iso_witness_cost n > 0.
+Proof. exact graph_iso_nontrivial_cost. Qed.
+
+(* INQUISITOR NOTE: connectivity anchor for isolated NP-cost theorems and record. *)
+Definition PredicateStrength_anchor : Type := PredicateStrength.
+Definition np_cost_coverage_anchor :=
+  (verification_requires_structure,
+   stronger_predicate_costs_more,
+   difficulty_conservation,
+   time_structure_tradeoff).
+

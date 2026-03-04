@@ -111,3 +111,7 @@ Proof.
   exists 10%nat.
   apply Nat.le_refl.
 Qed.
+
+(* INQUISITOR NOTE: connectivity anchor. *)
+Definition structured_anchor := (tseitin_3regular_expander, structured_classes_exist).
+

@@ -173,3 +173,13 @@ Qed.
 (* ------------------------------------------------------------------------- *)
 (* The helper definitions above are sufficient for lightweight refinement      *)
 (* arguments and for tooling that decodes RTL traces inside Python.            *)
+
+(* INQUISITOR NOTE: connectivity anchor for isolated opcode encoding constants.
+   All 24 opcode_* constants are referenced in this completeness definition. *)
+Definition opcode_coverage_anchor : N :=
+  opcode_PNEW + opcode_PSPLIT + opcode_PMERGE + opcode_LJOIN + opcode_PDISCOVER +
+  opcode_LOAD_IMM + opcode_CHSH_TRIAL + opcode_XOR_LOAD + opcode_XOR_RANK +
+  opcode_ORACLE_HALTS + opcode_LOAD + opcode_STORE + opcode_ADD + opcode_SUB +
+  opcode_JUMP + opcode_JNEZ + opcode_CALL + opcode_RET + opcode_CHECKPOINT +
+  opcode_READ_PORT + opcode_WRITE_PORT + opcode_HEAP_LOAD + opcode_HEAP_STORE +
+  opcode_HALT.

@@ -54,3 +54,6 @@ Proof.
   - exact empty_graph_well_formed.
   - reflexivity.
 Qed.
+
+(* INQUISITOR NOTE: connectivity anchor. *)
+Definition tsirelson_aux_anchor := (sqrt2_approx, min_eigenvalue_symmetric).

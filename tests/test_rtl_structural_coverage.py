@@ -140,7 +140,7 @@ class TestOpcodeAlignment:
             "INIT_PT 0 256",
             "INIT_ACTIVE_MODULE 0",
             "PNEW {0,256} 1",
-            "LOAD_IMM 1 0xFF 0",
+            "LOAD_IMM 1 255 0",
             "XFER 0 1 0",
             "XOR_ADD 0 1 0",
             "XOR_RANK 2 0 0",
