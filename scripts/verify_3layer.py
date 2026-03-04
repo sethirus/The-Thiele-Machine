@@ -267,7 +267,7 @@ def verify_opcode_alignment() -> bool:
     python_opcodes = {
         "PNEW": 0x00, "PSPLIT": 0x01, "PMERGE": 0x02, "LASSERT": 0x03,
         "LJOIN": 0x04, "MDLACC": 0x05, "PDISCOVER": 0x06, "XFER": 0x07,
-        "PYEXEC": 0x08, "CHSH_TRIAL": 0x09, "XOR_LOAD": 0x0A, "XOR_ADD": 0x0B,
+        "LOAD_IMM": 0x08, "CHSH_TRIAL": 0x09, "XOR_LOAD": 0x0A, "XOR_ADD": 0x0B,
         "XOR_SWAP": 0x0C, "XOR_RANK": 0x0D, "EMIT": 0x0E, "REVEAL": 0x0F,
         "ORACLE_HALTS": 0x10,
         "HALT": 0xFF,

@@ -1,13 +1,61 @@
 {
-  "generated_at": "2026-02-19T01:17:07.068085+00:00",
+  "generated_at": "2026-03-04T00:09:07.837353+00:00",
   "gaps": [
     {
-      "element": "fullwirespec_discharge",
-      "label": "Concrete FullWireSpec discharge beyond Coq self-spec",
+      "element": "state_shape",
+      "label": "State shape (graph/csr/regs/mem/pc/mu)",
       "missing_layers": [
-        "coq(instantiation)"
+        "rtl"
       ],
-      "next_action": "Add machine-checked FullWireSpec instantiation/proof for concrete implementation model, or keep runtime lockstep as evidence and track this as an explicit theorem gap."
+      "next_action": "Add or tighten implementation/tests in missing layers and re-run isomorphism gates."
+    },
+    {
+      "element": "opcode_alignment",
+      "label": "Opcode alignment (ISA parity)",
+      "missing_layers": [
+        "rtl"
+      ],
+      "next_action": "Add or tighten implementation/tests in missing layers and re-run isomorphism gates."
+    },
+    {
+      "element": "mu_accounting",
+      "label": "\u03bc accounting conservation",
+      "missing_layers": [
+        "rtl"
+      ],
+      "next_action": "Add or tighten implementation/tests in missing layers and re-run isomorphism gates."
+    },
+    {
+      "element": "mu_tensor_bianchi",
+      "label": "\u03bc-tensor + Bianchi enforcement",
+      "missing_layers": [
+        "rtl"
+      ],
+      "next_action": "Add or tighten implementation/tests in missing layers and re-run isomorphism gates."
+    },
+    {
+      "element": "partition_semantics",
+      "label": "Partition semantics (PNEW/PSPLIT/PMERGE)",
+      "missing_layers": [
+        "rtl"
+      ],
+      "next_action": "Add or tighten implementation/tests in missing layers and re-run isomorphism gates."
+    },
+    {
+      "element": "receipts_integrity",
+      "label": "Receipt integrity binding",
+      "missing_layers": [
+        "rtl"
+      ],
+      "next_action": "Add or tighten implementation/tests in missing layers and re-run isomorphism gates."
+    },
+    {
+      "element": "cross_layer_bisim",
+      "label": "Cross-layer bisimulation statements",
+      "missing_layers": [
+        "rtl"
+      ],
+      "next_action": "Add or tighten implementation/tests in missing layers and re-run isomorphism gates."
     }
   ],
   "notes": [

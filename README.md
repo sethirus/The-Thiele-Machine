@@ -56,7 +56,7 @@ thiele-debug hello.hex
 # HALTED  pc=3  mu=3  r2=42
 ```
 
-See [ASM_REFERENCE.md](ASM_REFERENCE.md) for all 26 opcodes, encoding format, and examples.
+See [ASM_REFERENCE.md](ASM_REFERENCE.md) for all 31 opcodes, encoding format, and examples.
 
 ### Run All 20 Example Programs
 
