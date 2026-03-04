@@ -300,13 +300,13 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
                                                             nullptr, 
                                                             "@(posedge thiele_cpu_kami_tb.clk)", 
                                                             "/workspaces/The-Thiele-Machine/thielecpu/hardware/testbench/thiele_cpu_kami_tb.v", 
-                                                            290);
+                                                            298);
     vlSymsp->TOP.__Vm_traceActivity[6U] = 1U;
     co_await vlSymsp->TOP.__VtrigSched_he4602a19__0.trigger(0U, 
                                                             nullptr, 
                                                             "@(posedge thiele_cpu_kami_tb.clk)", 
                                                             "/workspaces/The-Thiele-Machine/thielecpu/hardware/testbench/thiele_cpu_kami_tb.v", 
-                                                            291);
+                                                            299);
     vlSymsp->TOP.__Vm_traceActivity[6U] = 1U;
     vlSelf->__PVT__rst_n = 1U;
     vlSelf->__PVT__i = 0U;
@@ -324,7 +324,7 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
                                                                 nullptr, 
                                                                 "@(posedge thiele_cpu_kami_tb.clk)", 
                                                                 "/workspaces/The-Thiele-Machine/thielecpu/hardware/testbench/thiele_cpu_kami_tb.v", 
-                                                                298);
+                                                                306);
         vlSymsp->TOP.__Vm_traceActivity[6U] = 1U;
         vlSelf->__PVT__i = ((IData)(1U) + vlSelf->__PVT__i);
     }
@@ -333,7 +333,7 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
                                                             nullptr, 
                                                             "@(negedge thiele_cpu_kami_tb.clk)", 
                                                             "/workspaces/The-Thiele-Machine/thielecpu/hardware/testbench/thiele_cpu_kami_tb.v", 
-                                                            307);
+                                                            315);
     vlSymsp->TOP.__Vm_traceActivity[6U] = 1U;
     vlSelf->__PVT__dut__DOT__pc__VforceEn = 0xffffffffU;
     vlSelf->__PVT__dut__DOT__pc__VforceVal = 0U;
@@ -2411,13 +2411,13 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
                                                             nullptr, 
                                                             "@(posedge thiele_cpu_kami_tb.clk)", 
                                                             "/workspaces/The-Thiele-Machine/thielecpu/hardware/testbench/thiele_cpu_kami_tb.v", 
-                                                            360);
+                                                            368);
     vlSymsp->TOP.__Vm_traceActivity[6U] = 1U;
     co_await vlSymsp->TOP.__VtrigSched_he4602ae8__0.trigger(0U, 
                                                             nullptr, 
                                                             "@(negedge thiele_cpu_kami_tb.clk)", 
                                                             "/workspaces/The-Thiele-Machine/thielecpu/hardware/testbench/thiele_cpu_kami_tb.v", 
-                                                            361);
+                                                            369);
     vlSymsp->TOP.__Vm_traceActivity[6U] = 1U;
     vlSelf->__PVT__dut__DOT__pc = ((vlSelf->__PVT__dut__DOT__pc__VforceEn 
                                     & vlSelf->__PVT__dut__DOT__pc__VforceVal) 
@@ -5194,13 +5194,13 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
                                                                 nullptr, 
                                                                 "@(posedge thiele_cpu_kami_tb.clk)", 
                                                                 "/workspaces/The-Thiele-Machine/thielecpu/hardware/testbench/thiele_cpu_kami_tb.v", 
-                                                                424);
+                                                                432);
         vlSymsp->TOP.__Vm_traceActivity[6U] = 1U;
         co_await vlSymsp->TOP.__VtrigSched_he4602ae8__0.trigger(0U, 
                                                                 nullptr, 
                                                                 "@(negedge thiele_cpu_kami_tb.clk)", 
                                                                 "/workspaces/The-Thiele-Machine/thielecpu/hardware/testbench/thiele_cpu_kami_tb.v", 
-                                                                425);
+                                                                433);
         vlSymsp->TOP.__Vm_traceActivity[6U] = 1U;
     }
     if ((0U != vlSelf->__PVT__init_logic_acc_en)) {
@@ -5543,7 +5543,7 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
                                                                 nullptr, 
                                                                 "@(posedge thiele_cpu_kami_tb.clk)", 
                                                                 "/workspaces/The-Thiele-Machine/thielecpu/hardware/testbench/thiele_cpu_kami_tb.v", 
-                                                                474);
+                                                                482);
         vlSymsp->TOP.__Vm_traceActivity[6U] = 1U;
         vlSelf->__PVT__cycle_count = ((IData)(1U) + vlSelf->__PVT__cycle_count);
         vlSelf->__PVT__exec_op_i = (vlSelf->__PVT__exec_word 
@@ -5557,12 +5557,12 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
                            | (0xeU == vlSelf->__PVT__exec_op_i)) 
                           | (0xfU == vlSelf->__PVT__exec_op_i)) 
                          & (0U == (0xffU & vlSelf->__PVT__exec_word))))) {
-            VL_WRITEF("[NOFI] policy violation at cycle %0d pc=%0# opcode=0x%0x cost=0\n[%0t] %%Fatal: thiele_cpu_kami_tb.v:487: Assertion failed in %Nthiele_cpu_kami_tb: NoFreeInsight runtime policy violated: cert-setting opcode with zero cost\n",
+            VL_WRITEF("[NOFI] policy violation at cycle %0d pc=%0# opcode=0x%0x cost=0\n[%0t] %%Fatal: thiele_cpu_kami_tb.v:495: Assertion failed in %Nthiele_cpu_kami_tb: NoFreeInsight runtime policy violated: cert-setting opcode with zero cost\n",
                       32,vlSelf->__PVT__cycle_count,
                       32,vlSelf->__PVT__pc_out,32,vlSelf->__PVT__exec_op_i,
                       64,VL_TIME_UNITED_Q(1000),-9,
                       vlSymsp->name());
-            VL_STOP_MT("/workspaces/The-Thiele-Machine/thielecpu/hardware/testbench/thiele_cpu_kami_tb.v", 487, "");
+            VL_STOP_MT("/workspaces/The-Thiele-Machine/thielecpu/hardware/testbench/thiele_cpu_kami_tb.v", 495, "");
         }
         if ((0U == vlSelf->__PVT__exec_op_i)) {
             vlSelf->__PVT__shadow_new_mask = VL_SHIFTL_QQI(64,64,32, 1ULL, 
@@ -7984,7 +7984,7 @@ VlCoroutine Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___eval_initial__TOP__thiele_c
     co_await vlSymsp->TOP.__VdlySched.delay(0x3e8ULL, 
                                             nullptr, 
                                             "/workspaces/The-Thiele-Machine/thielecpu/hardware/testbench/thiele_cpu_kami_tb.v", 
-                                            564);
+                                            572);
     vlSymsp->TOP.__Vm_traceActivity[6U] = 1U;
     VL_WRITEF("{\n  \"status\": %0#,\n  \"error_code\": %0#,\n  \"partition_ops\": %0#,\n  \"mdl_ops\": %0#,\n  \"info_gain\": %0#,\n  \"mu\": %0#,\n  \"mu_tensor_0\": %0#,\n  \"mu_tensor_1\": %0#,\n  \"mu_tensor_2\": %0#,\n  \"mu_tensor_3\": %0#,\n  \"bianchi_alarm\": %0#,\n  \"cycles\": %0d,\n  \"pc\": %0#,\n  \"err\": %0#,\n  \"logic_stall\": %0#,\n  \"logic_req_valid\": %0#,\n  \"pt0_size\": %0#,\n  \"pt_next_id\": %0#,\n  \"regs\": [\n    %0#,\n    %0#,\n    %0#,\n    %0#,\n    %0#,\n    %0#,\n    %0#,\n    %0#,\n    %0#,\n    %0#,\n    %0#,\n    %0#,\n    %0#,\n    %0#,\n",
               32,((IData)(vlSelf->__PVT__halted_out)

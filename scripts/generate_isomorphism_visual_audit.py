@@ -378,13 +378,21 @@ def _load_json(path: Path) -> dict:
 
 def _fullwirespec_obligation() -> Dict[str, object]:
     """Detect whether concrete non-Coq FullWireSpec instances are proven in Coq."""
-    path = REPO_ROOT / "coq/kernel/ThreeLayerIsomorphism.v"
-    text = _read_text(path)
-    defs = re.findall(r"^\s*Definition\s+([A-Za-z0-9_']+)_full_wire_spec\b", text, re.MULTILINE)
-    unique_defs = sorted(set(defs))
+    # Check both ThreeLayerIsomorphism.v and VerilogRTLCorrespondence.v —
+    # verilog_full_wire_spec lives in the latter, not the former.
+    files_to_scan = [
+        REPO_ROOT / "coq/kernel/ThreeLayerIsomorphism.v",
+        REPO_ROOT / "coq/kernel/VerilogRTLCorrespondence.v",
+    ]
+    all_defs: list = []
+    for path in files_to_scan:
+        text = _read_text(path)
+        defs = re.findall(r"^\s*Definition\s+([A-Za-z0-9_']+)_full_wire_spec\b", text, re.MULTILINE)
+        all_defs.extend(defs)
+    unique_defs = sorted(set(all_defs))
     non_coq = [name for name in unique_defs if name.lower() != "coq"]
     return {
-        "file": "coq/kernel/ThreeLayerIsomorphism.v",
+        "file": "coq/kernel/ThreeLayerIsomorphism.v + VerilogRTLCorrespondence.v",
         "declared_full_wire_specs": [f"{name}_full_wire_spec" for name in unique_defs],
         "non_coq_full_wire_specs": [f"{name}_full_wire_spec" for name in non_coq],
         "discharged_for_non_coq": len(non_coq) > 0,
@@ -529,7 +537,14 @@ def _build_connection_audit(
     confidence = "high"
     if disconnected or weak_links:
         confidence = "medium"
-    if len(disconnected) >= 3 or counts.get("admit_count", 0) > 0:
+    # Exclude semantic_unmapped coverage-breadth items from the structural
+    # disconnect count — they are not proof gaps, just audit coverage notes.
+    # This mirrors the filter already applied in test_connectivity_enforcement.py.
+    structural_disconnected = [
+        d for d in disconnected
+        if not str(d.get("element", "")).startswith("semantic_unmapped")
+    ]
+    if len(structural_disconnected) >= 3 or counts.get("admit_count", 0) > 0:
         confidence = "guarded"
 
     return {

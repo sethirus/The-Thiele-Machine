@@ -32,7 +32,7 @@ def parse(lines: Iterable[str], base: Path) -> List[Instruction]:
         if arg.startswith('"') and arg.endswith('"'):
             arg = arg[1:-1]
         # Only resolve paths for opcodes that expect file arguments
-        if op in ["LASSERT", "PYEXEC"]:
+        if op in ["LASSERT"]:
             if arg and not Path(arg).is_absolute():
                 # Only resolve if it actually exists as a file
                 candidate = base / arg

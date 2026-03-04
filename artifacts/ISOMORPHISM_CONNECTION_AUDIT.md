@@ -1,17 +1,23 @@
 # Isomorphism Connection Audit
 
-Generated: 2026-02-19T01:17:07.069167+00:00
+Generated: 2026-03-04T00:09:07.838103+00:00
 
 ## Summary
 
-- Connected elements: **7**
-- Disconnected items: **5**
+- Connected elements: **0**
+- Disconnected items: **11**
 - Weak links: **2**
 - Confidence: **guarded**
 
 ## Disconnected (Actionable)
 
-- `fullwirespec_discharge` [formalize]: missing=['coq(instantiation)'] → Add machine-checked FullWireSpec instantiation/proof for concrete implementation model, or keep runtime lockstep as evidence and track this as an explicit theorem gap.
+- `state_shape` [reintegrate]: missing=['rtl'] → Add or tighten implementation/tests in missing layers and re-run isomorphism gates.
+- `opcode_alignment` [reintegrate]: missing=['rtl'] → Add or tighten implementation/tests in missing layers and re-run isomorphism gates.
+- `mu_accounting` [reintegrate]: missing=['rtl'] → Add or tighten implementation/tests in missing layers and re-run isomorphism gates.
+- `mu_tensor_bianchi` [reintegrate]: missing=['rtl'] → Add or tighten implementation/tests in missing layers and re-run isomorphism gates.
+- `partition_semantics` [reintegrate]: missing=['rtl'] → Add or tighten implementation/tests in missing layers and re-run isomorphism gates.
+- `receipts_integrity` [reintegrate]: missing=['rtl'] → Add or tighten implementation/tests in missing layers and re-run isomorphism gates.
+- `cross_layer_bisim` [reintegrate]: missing=['rtl'] → Add or tighten implementation/tests in missing layers and re-run isomorphism gates.
 - `semantic_unmapped::coq` [reintegrate]: missing=['coq', 'matrix-coverage'] → Promote critical nearby files into declared layer set or explicitly archive them.
 - `semantic_unmapped::python` [reintegrate]: missing=['python', 'matrix-coverage'] → Promote critical nearby files into declared layer set or explicitly archive them.
 - `semantic_unmapped::rtl` [reintegrate]: missing=['rtl', 'matrix-coverage'] → Promote critical nearby files into declared layer set or explicitly archive them.
@@ -19,19 +25,18 @@ Generated: 2026-02-19T01:17:07.069167+00:00
 
 ## Weak Links
 
-- `proof-isolated-declarations` [reintegrate]: count=619 → Review declarations for dead-end proofs or unhooked lemmas; reintegrate or archive.
-- `formal-obligation-open` [formalize]: count=1 → Discharge non-Coq FullWireSpec in Coq to remove runtime-only closure dependence.
+- `proof-isolated-declarations` [reintegrate]: count=130 → Review declarations for dead-end proofs or unhooked lemmas; reintegrate or archive.
+- `proof-tiny-components` [move_or_archive]: count=5 → Small disconnected clusters may indicate proof islands; connect to main theorem spine or move to archive.
 
 ## Coverage Scope
 
-- `coq`: declared=6, discovered=308, coverage=0.0195, semantic_unmapped=261
-- `python`: declared=4, discovered=124, coverage=0.0323, semantic_unmapped=107
-- `rtl`: declared=2, discovered=15, coverage=0.1333, semantic_unmapped=13
-- `tests`: declared=5, discovered=111, coverage=0.045, semantic_unmapped=98
+- `coq`: declared=6, discovered=323, coverage=0.0186, semantic_unmapped=302
+- `python`: declared=4, discovered=132, coverage=0.0303, semantic_unmapped=115
+- `rtl`: declared=2, discovered=6, coverage=0.3333, semantic_unmapped=4
+- `tests`: declared=5, discovered=131, coverage=0.0382, semantic_unmapped=117
 
 ## Outside Main Body
 
-- `archive/SPECULATIVE_PHYSICS_MAPPING.md` markers=['archive']
 - `archive/coq_with_axioms/TsirelsonBoundProof.v` markers=['archive']
 - `archive/kernel_exploratory/MinorConstraints.v` markers=['archive']
 - `archive/kernel_exploratory/MuInformationTheoreticBounds.v` markers=['archive']
@@ -61,10 +66,11 @@ Generated: 2026-02-19T01:17:07.069167+00:00
 - `archive/tests_disabled/disabled/test_schema.py` markers=['archive', 'disabled']
 - `archive/tests_disabled/disabled/test_showcase_programs.py` markers=['archive', 'disabled']
 - `archive/tests_disabled/disabled/test_structural_heat_experiment.py` markers=['archive', 'disabled']
+- `archive/tests_disabled/disabled/test_thermo_experiment.py` markers=['archive', 'disabled']
 
 ## Iterated/Similar Groups
 
-- `.md:readme` count=4 sample=['coq/README.md', 'coq/physics_exploration/README.md', 'coq/quantum_derivation/README.md', 'scripts/README.md']
+- `.md:readme` count=18 sample=['coq/README.md', 'coq/bridge/README.md', 'coq/isomorphism/coqproofs/README.md', 'coq/kernel/README.md', 'coq/kernel_toe/README.md']
 - `.py:test_three_layer_isomorphism` count=2 sample=['scripts/test_three_layer_isomorphism.py', 'tests/test_three_layer_isomorphism.py']
 - `.v:closure` count=2 sample=['coq/kernel/Closure.v', 'coq/kernel_toe/Closure.v']
 - `.v:definitions` count=2 sample=['coq/kernel/Definitions.v', 'coq/kernel_toe/Definitions.v']
@@ -73,11 +79,11 @@ Generated: 2026-02-19T01:17:07.069167+00:00
 - `.v:nogosensitivity` count=2 sample=['coq/kernel/NoGoSensitivity.v', 'coq/kernel_toe/NoGoSensitivity.v']
 - `.v:oracleimpossibility` count=2 sample=['coq/kernel/OracleImpossibility.v', 'coq/thielemachine/coqproofs/OracleImpossibility.v']
 - `.v:persistence` count=2 sample=['coq/kernel/Persistence.v', 'coq/kernel_toe/Persistence.v']
-- `.v:simulation` count=2 sample=['coq/modular_proofs/Simulation.v', 'coq/thielemachine/coqproofs/Simulation.v']
+- `.v:separation` count=2 sample=['coq/theory/Separation.v', 'coq/thielemachine/coqproofs/Separation.v']
+- `.v:simulation` count=2 sample=['coq/modular_proofs/Simulation.v', 'coq/thieleuniversal/coqproofs/Simulation.v']
 
 ## Stale/Superfluous Candidates
 
-- `archive/SPECULATIVE_PHYSICS_MAPPING.md` → Path marker indicates likely stale/externalized component.
 - `archive/coq_with_axioms/TsirelsonBoundProof.v` → Path marker indicates likely stale/externalized component.
 - `archive/kernel_exploratory/MinorConstraints.v` → Path marker indicates likely stale/externalized component.
 - `archive/kernel_exploratory/MuInformationTheoreticBounds.v` → Path marker indicates likely stale/externalized component.
@@ -107,6 +113,7 @@ Generated: 2026-02-19T01:17:07.069167+00:00
 - `archive/tests_disabled/disabled/test_schema.py` → Path marker indicates likely stale/externalized component.
 - `archive/tests_disabled/disabled/test_showcase_programs.py` → Path marker indicates likely stale/externalized component.
 - `archive/tests_disabled/disabled/test_structural_heat_experiment.py` → Path marker indicates likely stale/externalized component.
+- `archive/tests_disabled/disabled/test_thermo_experiment.py` → Path marker indicates likely stale/externalized component.
 
 ## Visualization
 

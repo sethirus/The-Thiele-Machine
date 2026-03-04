@@ -55,4 +55,4 @@ def test_opcodes_header_has_all_opcodes() -> None:
     """generated_opcodes.vh must define at least 26 OPCODE_* constants."""
     hdr = OPCODES_HDR.read_text(encoding="utf-8")
     names = _opcode_names_from_header(hdr)
-    assert len(names) >= 26, f"Expected >=26 opcodes in header, found {len(names)}: {sorted(names)}"
+    assert len(names) >= 31, f"Expected >=31 opcodes in header, found {len(names)}: {sorted(names)}"

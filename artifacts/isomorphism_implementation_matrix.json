@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-19T01:17:07.068050+00:00",
+  "generated_at": "2026-03-04T00:09:07.837325+00:00",
   "layers": [
     "coq",
     "python",
@@ -13,10 +13,10 @@
       "per_layer": {
         "coq": true,
         "python": true,
-        "rtl": true,
+        "rtl": false,
         "tests": true
       },
-      "aligned_surface": true
+      "aligned_surface": false
     },
     {
       "element": "opcode_alignment",
@@ -24,10 +24,10 @@
       "per_layer": {
         "coq": true,
         "python": true,
-        "rtl": true,
+        "rtl": false,
         "tests": true
       },
-      "aligned_surface": true
+      "aligned_surface": false
     },
     {
       "element": "mu_accounting",
@@ -35,10 +35,10 @@
       "per_layer": {
         "coq": true,
         "python": true,
-        "rtl": true,
+        "rtl": false,
         "tests": true
       },
-      "aligned_surface": true
+      "aligned_surface": false
     },
     {
       "element": "mu_tensor_bianchi",
@@ -46,10 +46,10 @@
       "per_layer": {
         "coq": true,
         "python": true,
-        "rtl": true,
+        "rtl": false,
         "tests": true
       },
-      "aligned_surface": true
+      "aligned_surface": false
     },
     {
       "element": "partition_semantics",
@@ -57,10 +57,10 @@
       "per_layer": {
         "coq": true,
         "python": true,
-        "rtl": true,
+        "rtl": false,
         "tests": true
       },
-      "aligned_surface": true
+      "aligned_surface": false
     },
     {
       "element": "receipts_integrity",
@@ -68,10 +68,10 @@
       "per_layer": {
         "coq": true,
         "python": true,
-        "rtl": true,
+        "rtl": false,
         "tests": true
       },
-      "aligned_surface": true
+      "aligned_surface": false
     },
     {
       "element": "cross_layer_bisim",
@@ -79,37 +79,45 @@
       "per_layer": {
         "coq": true,
         "python": true,
-        "rtl": true,
+        "rtl": false,
         "tests": true
       },
-      "aligned_surface": true
+      "aligned_surface": false
     }
   ],
   "summary": {
-    "aligned_elements": 7,
+    "aligned_elements": 0,
     "total_elements": 7
   },
   "counts": {
-    "coq_file_count": 308,
-    "theorem_like_count": 2564,
-    "admit_count": 0,
+    "coq_file_count": 323,
+    "theorem_like_count": 2709,
+    "admit_count": 1,
     "axiom_decl_count": 24,
-    "isomorphism_related_test_files": 23
+    "isomorphism_related_test_files": 26
   },
   "proof_dag_meta": {
     "coqRoot": "coq",
-    "nodeCount": 2277,
-    "edgeCount": 1744,
-    "note": "Edges are symbol-reference dependencies inferred from proof bodies."
+    "nodeCount": 5358,
+    "edgeCount": 26611,
+    "note": "Edges are symbol-reference dependencies inferred from theorem statements and proof bodies.",
+    "buildStats": {
+      "ambiguous_token_hits": 4856,
+      "self_token_hits_skipped": 5358,
+      "multi_target_token_edges": 11467
+    }
   },
   "isomorphism_validation": {},
   "formal_obligation": {
-    "file": "coq/kernel/ThreeLayerIsomorphism.v",
+    "file": "coq/kernel/ThreeLayerIsomorphism.v + VerilogRTLCorrespondence.v",
     "declared_full_wire_specs": [
-      "coq_full_wire_spec"
+      "coq_full_wire_spec",
+      "verilog_full_wire_spec"
     ],
-    "non_coq_full_wire_specs": [],
-    "discharged_for_non_coq": false,
+    "non_coq_full_wire_specs": [
+      "verilog_full_wire_spec"
+    ],
+    "discharged_for_non_coq": true,
     "note": "ThreeLayer full-state theorem relies on fws_step_correct. If only coq_full_wire_spec is present, concrete implementation discharge remains via runtime verification, not in-file Coq instantiation."
   },
   "repo_surface_coverage": {
@@ -129,8 +137,8 @@
         "thielecpu/vm.py"
       ],
       "rtl": [
-        "thielecpu/hardware/rtl/thiele_cpu_unified.v",
-        "thielecpu/hardware/testbench/thiele_cpu_tb.v"
+        "thielecpu/hardware/rtl/thiele_cpu_kami.v",
+        "thielecpu/hardware/testbench/thiele_cpu_kami_tb.v"
       ],
       "tests": [
         "tests/test_bisimulation_complete.py",
@@ -153,7 +161,17 @@
         "coq/bridge/Tomography_to_Kernel.v",
         "coq/catnet/coqproofs/CatNet.v",
         "coq/isomorphism/coqproofs/Universe.v",
+        "coq/kami_hw/Abstraction.v",
+        "coq/kami_hw/Blink.v",
+        "coq/kami_hw/CanonicalCPUProof.v",
+        "coq/kami_hw/Compatibility.v",
+        "coq/kami_hw/KamiExtraction.v",
+        "coq/kami_hw/ThieleCPUBusTop.v",
+        "coq/kami_hw/ThieleCPUCore.v",
+        "coq/kami_hw/ThieleTypes.v",
+        "coq/kami_hw/VerilogRefinement.v",
         "coq/kernel/AlgebraicCoherence.v",
+        "coq/kernel/AlphaDerivation.v",
         "coq/kernel/ArrowOfTimeSynthesis.v",
         "coq/kernel/AssumptionBundle.v",
         "coq/kernel/BornRule.v",
@@ -161,6 +179,7 @@
         "coq/kernel/BoxCHSH.v",
         "coq/kernel/CHSH.v",
         "coq/kernel/CHSHExtraction.v",
+        "coq/kernel/CPURefinement.v",
         "coq/kernel/CausalSetAxioms.v",
         "coq/kernel/CertCheck.v",
         "coq/kernel/Certification.v",
@@ -172,8 +191,10 @@
         "coq/kernel/ConstantDerivationStrength.v",
         "coq/kernel/ConstantUnification.v",
         "coq/kernel/ConstructivePSD.v",
+        "coq/kernel/CrossLayerManifest.v",
         "coq/kernel/Definitions.v",
         "coq/kernel/DerivedTime.v",
+        "coq/kernel/DiscreteCalculus.v",
         "coq/kernel/DiscreteGaussBonnet.v",
         "coq/kernel/DiscreteTopology.v",
         "coq/kernel/EinsteinEmergence.v",
@@ -257,7 +278,6 @@
         "coq/kernel/Subsumption.v",
         "coq/kernel/TOE.v",
         "coq/kernel/TOEDecision.v",
-        "coq/kernel/Test.v",
         "coq/kernel/TestTripartite.v",
         "coq/kernel/ThreeLayerIsomorphism.v",
         "coq/kernel/Tier1Proofs.v",
@@ -274,6 +294,7 @@
         "coq/kernel/VMState.v",
         "coq/kernel/VMStep.v",
         "coq/kernel/ValidCorrelation.v",
+        "coq/kernel/VerilogRTLCorrespondence.v",
         "coq/kernel_toe/Closure.v",
         "coq/kernel_toe/Definitions.v",
         "coq/kernel_toe/NoGo.v",
@@ -300,12 +321,16 @@
         "coq/physics/PreregSplit.v",
         "coq/physics/TriangularLattice.v",
         "coq/physics/WaveModel.v",
+        "coq/physics_exploration/DissipativeEmbedding.v",
         "coq/physics_exploration/EmergentSchrodinger.v",
         "coq/physics_exploration/EmergentSpacetime.v",
+        "coq/physics_exploration/HardwareVMHarness.v",
         "coq/physics_exploration/HolographicGravity.v",
         "coq/physics_exploration/ParticleMasses.v",
+        "coq/physics_exploration/PhysicsEmbedding.v",
         "coq/physics_exploration/PlanckDerivation.v",
         "coq/physics_exploration/PlanckEmergenceClean.v",
+        "coq/physics_exploration/WaveEmbedding.v",
         "coq/project_cerberus/coqproofs/Cerberus.v",
         "coq/quantum_derivation/BornRuleUnique.v",
         "coq/quantum_derivation/CollapseDetermination.v",
@@ -325,6 +350,7 @@
         "coq/spacetime_projection/SpacetimeProjection.v",
         "coq/test_vscoq/coqproofs/test_vscoq.v",
         "coq/tests/TestNecessity.v",
+        "coq/tests/verify_nofi_load_bearing.v",
         "coq/tests/verify_zero_admits.v",
         "coq/theory/ArchTheorem.v",
         "coq/theory/Core.v",
@@ -348,7 +374,6 @@
         "coq/thielemachine/coqproofs/AbstractLTS.v",
         "coq/thielemachine/coqproofs/AlgebraicLaws.v",
         "coq/thielemachine/coqproofs/AmortizedAnalysis.v",
-        "coq/thielemachine/coqproofs/Axioms.v",
         "coq/thielemachine/coqproofs/BellArtifacts.v",
         "coq/thielemachine/coqproofs/BellCheck.v",
         "coq/thielemachine/coqproofs/BellInequality.v",
@@ -363,18 +388,15 @@
         "coq/thielemachine/coqproofs/Confluence.v",
         "coq/thielemachine/coqproofs/CoreSemantics.v",
         "coq/thielemachine/coqproofs/DiscoveryProof.v",
-        "coq/thielemachine/coqproofs/DissipativeEmbedding.v",
         "coq/thielemachine/coqproofs/EfficientDiscovery.v",
         "coq/thielemachine/coqproofs/Embedding_TM.v",
         "coq/thielemachine/coqproofs/EncodingBridge.v",
         "coq/thielemachine/coqproofs/GoldenVectors.v",
         "coq/thielemachine/coqproofs/HardwareBridge.v",
-        "coq/thielemachine/coqproofs/HardwareVMHarness.v",
         "coq/thielemachine/coqproofs/Hash256.v",
         "coq/thielemachine/coqproofs/HyperThiele.v",
         "coq/thielemachine/coqproofs/HyperThiele_Halting.v",
         "coq/thielemachine/coqproofs/HyperThiele_Oracle.v",
-        "coq/thielemachine/coqproofs/Impossibility.v",
         "coq/thielemachine/coqproofs/InfoTheory.v",
         "coq/thielemachine/coqproofs/LawCheck.v",
         "coq/thielemachine/coqproofs/ListHelpers.v",
@@ -387,7 +409,6 @@
         "coq/thielemachine/coqproofs/PartitionDiscoveryIsomorphism.v",
         "coq/thielemachine/coqproofs/PartitionLogic.v",
         "coq/thielemachine/coqproofs/PhaseThree.v",
-        "coq/thielemachine/coqproofs/PhysicsEmbedding.v",
         "coq/thielemachine/coqproofs/QHelpers.v",
         "coq/thielemachine/coqproofs/QuantumAdmissibilityDeliverableB.v",
         "coq/thielemachine/coqproofs/QuantumAdmissibilityTsirelson.v",
@@ -395,7 +416,6 @@
         "coq/thielemachine/coqproofs/RepresentationTheorem.v",
         "coq/thielemachine/coqproofs/SemanticBridge.v",
         "coq/thielemachine/coqproofs/Separation.v",
-        "coq/thielemachine/coqproofs/Simulation.v",
         "coq/thielemachine/coqproofs/Spaceland.v",
         "coq/thielemachine/coqproofs/SpacelandComplete.v",
         "coq/thielemachine/coqproofs/SpacelandCore.v",
@@ -419,14 +439,10 @@
         "coq/thielemachine/coqproofs/ThieleUnificationDemo.v",
         "coq/thielemachine/coqproofs/ThieleUnificationProtocol.v",
         "coq/thielemachine/coqproofs/ThieleUnificationTensor.v",
+        "coq/thielemachine/coqproofs/ThieleVMOpcodes.v",
         "coq/thielemachine/coqproofs/TsirelsonBoundBridge.v",
-        "coq/thielemachine/coqproofs/UTMStaticCheck.v",
         "coq/thielemachine/coqproofs/WaveCheck.v",
-        "coq/thielemachine/coqproofs/WaveEmbedding.v",
         "coq/thielemachine/verification/Admissibility.v",
-        "coq/thielemachine/verification/BridgeCheckpoints.v",
-        "coq/thielemachine/verification/BridgeDefinitions.v",
-        "coq/thielemachine/verification/BridgeProof.v",
         "coq/thielemachine/verification/Deliverable_CHSHSeparation.v",
         "coq/thielemachine/verification/Deliverable_MuEntropy.v",
         "coq/thielemachine/verification/Deliverable_MuEntropyNBits.v",
@@ -440,21 +456,29 @@
         "coq/thielemachine/verification/PredictionNoFI.v",
         "coq/thielemachine/verification/RandomnessNoFI.v",
         "coq/thielemachine/verification/Symmetry.v",
-        "coq/thielemachine/verification/ThieleUniversalBridge.v",
-        "coq/thielemachine/verification/ThieleUniversalBridge_Axiom_Tests.v",
-        "coq/thielemachine/verification/modular/Bridge_BridgeCore.v",
+        "coq/thieleuniversal/coqproofs/Axioms.v",
         "coq/thieleuniversal/coqproofs/CPU.v",
+        "coq/thieleuniversal/coqproofs/Impossibility.v",
+        "coq/thieleuniversal/coqproofs/Simulation.v",
         "coq/thieleuniversal/coqproofs/TM.v",
         "coq/thieleuniversal/coqproofs/ThieleUniversal.v",
+        "coq/thieleuniversal/coqproofs/UTMStaticCheck.v",
         "coq/thieleuniversal/coqproofs/UTM_CoreLemmas.v",
         "coq/thieleuniversal/coqproofs/UTM_Encode.v",
         "coq/thieleuniversal/coqproofs/UTM_Program.v",
-        "coq/thieleuniversal/coqproofs/UTM_Rules.v"
+        "coq/thieleuniversal/coqproofs/UTM_Rules.v",
+        "coq/thieleuniversal/verification/BridgeCheckpoints.v",
+        "coq/thieleuniversal/verification/BridgeDefinitions.v",
+        "coq/thieleuniversal/verification/BridgeProof.v",
+        "coq/thieleuniversal/verification/ThieleUniversalBridge.v",
+        "coq/thieleuniversal/verification/ThieleUniversalBridge_Axiom_Tests.v",
+        "coq/thieleuniversal/verification/modular/Bridge_BridgeCore.v"
       ],
       "python": [
         "thielecpu/__init__.py",
         "thielecpu/_types.py",
         "thielecpu/assemble.py",
+        "thielecpu/assembler.py",
         "thielecpu/audit_demo.py",
         "thielecpu/bell_semantics.py",
         "thielecpu/benchmarks/__init__.py",
@@ -465,7 +489,9 @@
         "thielecpu/certs.py",
         "thielecpu/cnf.py",
         "thielecpu/coq_bridge.py",
+        "thielecpu/cross_layer_manifest.py",
         "thielecpu/crypto.py",
+        "thielecpu/debugger.py",
         "thielecpu/discovery.py",
         "thielecpu/dsl/__init__.py",
         "thielecpu/dsl/compiler.py",
@@ -476,13 +502,13 @@
         "thielecpu/factoring.py",
         "thielecpu/generated/__init__.py",
         "thielecpu/generated/generated_core.py",
-        "thielecpu/generated/vm_instructions.py",
         "thielecpu/genesis.py",
         "thielecpu/genesis_wave.py",
         "thielecpu/geometric_factorization.py",
         "thielecpu/geometric_oracle.py",
         "thielecpu/hardware/accel_cosim.py",
         "thielecpu/hardware/cosim.py",
+        "thielecpu/hardware/logic_z3_bridge.py",
         "thielecpu/hardware/pyexec_bridge.py",
         "thielecpu/isa.py",
         "thielecpu/logger.py",
@@ -510,6 +536,7 @@
         "thielecpu/structural_verify.py",
         "thielecpu/thesis_verify.py",
         "thielecpu/vm.py",
+        "scripts/add_proof_docstrings.py",
         "scripts/analyze_admits.py",
         "scripts/analyze_mu_gravity_physics.py",
         "scripts/analyze_waveforms.py",
@@ -531,12 +558,14 @@
         "scripts/generate_impact_deliverable.py",
         "scripts/generate_isomorphism_visual_audit.py",
         "scripts/generate_proof_dependency_dag.py",
+        "scripts/generate_proof_readmes.py",
         "scripts/generate_tsirelson_receipts.py",
         "scripts/genesis.py",
         "scripts/genesis_wave.py",
         "scripts/halting_trap.py",
         "scripts/inquisitor.py",
         "scripts/inquisitor_rules.py",
+        "scripts/kami_verilog_synth_transform.py",
         "scripts/keys.py",
         "scripts/make_synthesizable.py",
         "scripts/measurement_and_fuzzing_suite.py",
@@ -546,6 +575,7 @@
         "scripts/run_experiment.py",
         "scripts/run_logging_smoke.py",
         "scripts/run_mu_gravity_random_trace.py",
+        "scripts/run_tests_with_timeout.py",
         "scripts/static_coq_check.py",
         "scripts/stress_test_verifier.py",
         "scripts/structural_heat_experiment.py",
@@ -564,6 +594,7 @@
         "scripts/verify_receipt.py",
         "scripts/verify_thiele_machine.py",
         "scripts/verify_truth.py",
+        "scripts/verilog_synth_transform.py",
         "tools/__init__.py",
         "tools/busybeaver.py",
         "tools/dialogue_engine.py",
@@ -578,21 +609,12 @@
         "verifier/receipt_protocol.py"
       ],
       "rtl": [
-        "thielecpu/hardware/rtl/chsh_partition.v",
-        "thielecpu/hardware/rtl/mu_alu.v",
-        "thielecpu/hardware/rtl/mu_core.v",
-        "thielecpu/hardware/rtl/partition_core.v",
-        "thielecpu/hardware/rtl/receipt_integrity_checker.v",
         "thielecpu/hardware/rtl/synth_lite_out.v",
-        "thielecpu/hardware/rtl/thiele_cpu_unified.v",
-        "thielecpu/hardware/testbench/fuzz_harness_simple.v",
-        "thielecpu/hardware/testbench/mu_alu_tb.v",
-        "thielecpu/hardware/testbench/partition_core_tb.v",
-        "thielecpu/hardware/testbench/thiele_cpu_engines_tb.v",
-        "thielecpu/hardware/testbench/thiele_cpu_genesis_compression_strict_tb.v",
-        "thielecpu/hardware/testbench/thiele_cpu_genesis_compression_tb.v",
-        "thielecpu/hardware/testbench/thiele_cpu_inverse_genesis_tb.v",
-        "thielecpu/hardware/testbench/thiele_cpu_tb.v"
+        "thielecpu/hardware/rtl/thiele_cpu_kami.v",
+        "thielecpu/hardware/rtl/thiele_cpu_kami_synth.v",
+        "thielecpu/hardware/rtl/thiele_cpu_top.v",
+        "thielecpu/hardware/testbench/thiele_cpu_kami_batch_tb.v",
+        "thielecpu/hardware/testbench/thiele_cpu_kami_tb.v"
       ],
       "tests": [
         "tests/alignment/test_comprehensive_alignment.py",
@@ -601,12 +623,14 @@
         "tests/test_accelerator_cosim.py",
         "tests/test_actual_truth_simplified.py",
         "tests/test_advantage_benchmarks.py",
+        "tests/test_all_26_opcodes_comprehensive.py",
         "tests/test_alpha_refinement.py",
         "tests/test_axiom_geometric_calibration.py",
         "tests/test_axiom_horizon_cycle.py",
         "tests/test_axiom_source_normalization.py",
         "tests/test_benchmark_suite.py",
         "tests/test_bianchi_enforcement.py",
+        "tests/test_bianchi_vm_runtime_halt.py",
         "tests/test_bisimulation.py",
         "tests/test_bisimulation_complete.py",
         "tests/test_c1_physics_divergence_verifier.py",
@@ -621,7 +645,12 @@
         "tests/test_christoffel_flat_spacetime.py",
         "tests/test_christoffel_v3_metric.py",
         "tests/test_chsh_manifold.py",
+        "tests/test_chsh_verilator_hardware_bridge.py",
+        "tests/test_chsh_vm_certificate_gate.py",
+        "tests/test_connectivity_enforcement.py",
         "tests/test_coq_available.py",
+        "tests/test_coq_bridge_coverage_links.py",
+        "tests/test_coq_compile_gate.py",
         "tests/test_cross_layer_comprehensive.py",
         "tests/test_cross_platform_isomorphism.py",
         "tests/test_crypto_isomorphism.py",
@@ -637,17 +666,24 @@
         "tests/test_equivalence_bundle.py",
         "tests/test_even_factor.py",
         "tests/test_extracted_vm_runner.py",
+        "tests/test_extraction_freshness.py",
         "tests/test_falsifiable_predictions.py",
+        "tests/test_final_evidence.py",
         "tests/test_find_actual_truth.py",
         "tests/test_fine_structure.py",
         "tests/test_foundry_generated_surface.py",
         "tests/test_full_stack_geometric_factorization.py",
         "tests/test_fuzz_isomorphism.py",
+        "tests/test_fuzz_random_programs.py",
         "tests/test_gauss_bonnet_2d.py",
         "tests/test_geometric_factorization_claim.py",
         "tests/test_isomorphism_violation_detection.py",
         "tests/test_isomorphism_vm_vs_coq.py",
         "tests/test_isomorphism_vm_vs_verilog.py",
+        "tests/test_kami_core_not_abstracted.py",
+        "tests/test_kami_tuple_wiring.py",
+        "tests/test_logic_stall_liveness.py",
+        "tests/test_logic_z3_verilator_bridge.py",
         "tests/test_metric_diagnosis.py",
         "tests/test_metric_position_dependent.py",
         "tests/test_mu.py",
@@ -660,12 +696,14 @@
         "tests/test_mu_gravity_physics_analysis.py",
         "tests/test_mu_profiler_universality.py",
         "tests/test_mu_signaling_lower_bound.py",
+        "tests/test_no_shortcuts_proof_connectivity.py",
         "tests/test_nofi_pyexec_nonforgeability.py",
         "tests/test_nofi_semantic_structure_event.py",
         "tests/test_observational_no_signaling.py",
         "tests/test_opcode_alignment.py",
         "tests/test_opcode_isomorphism.py",
         "tests/test_openfpga_flow.py",
+        "tests/test_paradox_suite_verilator.py",
         "tests/test_partition_boundary.py",
         "tests/test_partition_isomorphism_minimal.py",
         "tests/test_partition_rsa_factorization.py",
@@ -687,9 +725,11 @@
         "tests/test_rsa_scaling.py",
         "tests/test_rtl_compute_isomorphism.py",
         "tests/test_rtl_mu_charging.py",
+        "tests/test_rtl_synthesis_gate.py",
         "tests/test_security_monitor.py",
         "tests/test_shor_demo.py",
         "tests/test_stress_energy_pnew.py",
+        "tests/test_strict_vm_backend_policy.py",
         "tests/test_structural_verifier.py",
         "tests/test_structure_period_finding.py",
         "tests/test_thesis_verify.py",
@@ -698,6 +738,8 @@
         "tests/test_three_layer_isomorphism_semantic.py",
         "tests/test_topology_curvature_bridge.py",
         "tests/test_transition_logic.py",
+        "tests/test_unified_cpu_semantic_contracts.py",
+        "tests/test_unified_cpu_semantic_invariants.py",
         "tests/test_utm_program_validation.py",
         "tests/test_verification_fuzz.py",
         "tests/test_verilog_cosim.py",
@@ -711,27 +753,27 @@
     "coverage": {
       "coq": {
         "declared": 6,
-        "discovered": 308,
-        "declared_coverage_ratio": 0.0195,
-        "semantic_unmapped_count": 261
+        "discovered": 323,
+        "declared_coverage_ratio": 0.0186,
+        "semantic_unmapped_count": 302
       },
       "python": {
         "declared": 4,
-        "discovered": 124,
-        "declared_coverage_ratio": 0.0323,
-        "semantic_unmapped_count": 107
+        "discovered": 132,
+        "declared_coverage_ratio": 0.0303,
+        "semantic_unmapped_count": 115
       },
       "rtl": {
         "declared": 2,
-        "discovered": 15,
-        "declared_coverage_ratio": 0.1333,
-        "semantic_unmapped_count": 13
+        "discovered": 6,
+        "declared_coverage_ratio": 0.3333,
+        "semantic_unmapped_count": 4
       },
       "tests": {
         "declared": 5,
-        "discovered": 111,
-        "declared_coverage_ratio": 0.045,
-        "semantic_unmapped_count": 98
+        "discovered": 131,
+        "declared_coverage_ratio": 0.0382,
+        "semantic_unmapped_count": 117
       }
     },
     "semantic_unmapped_by_layer": {
@@ -809,6 +851,15 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
+          "path": "coq/catnet/coqproofs/CatNet.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
           "path": "coq/isomorphism/coqproofs/Universe.v",
           "nearby_declared": [
             "coq/bridge/PythonMuLedgerBisimulation.v",
@@ -818,7 +869,70 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
+          "path": "coq/kami_hw/Abstraction.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/kami_hw/CanonicalCPUProof.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/kami_hw/ThieleCPUBusTop.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/kami_hw/ThieleCPUCore.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/kami_hw/ThieleTypes.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/kami_hw/VerilogRefinement.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
           "path": "coq/kernel/AlgebraicCoherence.v",
+          "nearby_declared": [
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v",
+            "coq/kernel/ThreeLayerIsomorphism.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/kernel/AlphaDerivation.v",
           "nearby_declared": [
             "coq/kernel/HardwareBisimulation.v",
             "coq/kernel/ReceiptIntegrity.v",
@@ -863,6 +977,15 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
+          "path": "coq/kernel/BoxCHSH.v",
+          "nearby_declared": [
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v",
+            "coq/kernel/ThreeLayerIsomorphism.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
           "path": "coq/kernel/CHSH.v",
           "nearby_declared": [
             "coq/kernel/HardwareBisimulation.v",
@@ -873,6 +996,15 @@
         },
         {
           "path": "coq/kernel/CHSHExtraction.v",
+          "nearby_declared": [
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v",
+            "coq/kernel/ThreeLayerIsomorphism.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/kernel/CPURefinement.v",
           "nearby_declared": [
             "coq/kernel/HardwareBisimulation.v",
             "coq/kernel/ReceiptIntegrity.v",
@@ -980,6 +1112,15 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
+          "path": "coq/kernel/CrossLayerManifest.v",
+          "nearby_declared": [
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v",
+            "coq/kernel/ThreeLayerIsomorphism.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
           "path": "coq/kernel/Definitions.v",
           "nearby_declared": [
             "coq/kernel/HardwareBisimulation.v",
@@ -990,6 +1131,15 @@
         },
         {
           "path": "coq/kernel/DerivedTime.v",
+          "nearby_declared": [
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v",
+            "coq/kernel/ThreeLayerIsomorphism.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/kernel/DiscreteCalculus.v",
           "nearby_declared": [
             "coq/kernel/HardwareBisimulation.v",
             "coq/kernel/ReceiptIntegrity.v",
@@ -1071,6 +1221,15 @@
         },
         {
           "path": "coq/kernel/GeodesicCompleteness.v",
+          "nearby_declared": [
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v",
+            "coq/kernel/ThreeLayerIsomorphism.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/kernel/HardAssumptions.v",
           "nearby_declared": [
             "coq/kernel/HardwareBisimulation.v",
             "coq/kernel/ReceiptIntegrity.v",
@@ -1691,6 +1850,15 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
+          "path": "coq/kernel/Subsumption.v",
+          "nearby_declared": [
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v",
+            "coq/kernel/ThreeLayerIsomorphism.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
           "path": "coq/kernel/TOE.v",
           "nearby_declared": [
             "coq/kernel/HardwareBisimulation.v",
@@ -1701,15 +1869,6 @@
         },
         {
           "path": "coq/kernel/TOEDecision.v",
-          "nearby_declared": [
-            "coq/kernel/HardwareBisimulation.v",
-            "coq/kernel/ReceiptIntegrity.v",
-            "coq/kernel/ThreeLayerIsomorphism.v"
-          ],
-          "why": "Semantic content found outside declared audit file set."
-        },
-        {
-          "path": "coq/kernel/Test.v",
           "nearby_declared": [
             "coq/kernel/HardwareBisimulation.v",
             "coq/kernel/ReceiptIntegrity.v",
@@ -1835,6 +1994,15 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
+          "path": "coq/kernel/VerilogRTLCorrespondence.v",
+          "nearby_declared": [
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v",
+            "coq/kernel/ThreeLayerIsomorphism.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
           "path": "coq/kernel_toe/Closure.v",
           "nearby_declared": [
             "coq/kernel/HardwareBisimulation.v",
@@ -1899,6 +2067,15 @@
         },
         {
           "path": "coq/modular_proofs/EncodingBounds.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/modular_proofs/Minsky.v",
           "nearby_declared": [
             "coq/bridge/PythonMuLedgerBisimulation.v",
             "coq/kernel/HardwareBisimulation.v",
@@ -1997,7 +2174,25 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
+          "path": "coq/physics/DissipativeModel.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
           "path": "coq/physics/LandauerBridge.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/physics/PreregSplit.v",
           "nearby_declared": [
             "coq/bridge/PythonMuLedgerBisimulation.v",
             "coq/kernel/HardwareBisimulation.v",
@@ -2015,6 +2210,33 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
+          "path": "coq/physics/WaveModel.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/physics_exploration/DissipativeEmbedding.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/physics_exploration/EmergentSchrodinger.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
           "path": "coq/physics_exploration/EmergentSpacetime.v",
           "nearby_declared": [
             "coq/bridge/PythonMuLedgerBisimulation.v",
@@ -2024,7 +2246,25 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
+          "path": "coq/physics_exploration/HardwareVMHarness.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
           "path": "coq/physics_exploration/ParticleMasses.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/physics_exploration/PhysicsEmbedding.v",
           "nearby_declared": [
             "coq/bridge/PythonMuLedgerBisimulation.v",
             "coq/kernel/HardwareBisimulation.v",
@@ -2043,6 +2283,15 @@
         },
         {
           "path": "coq/physics_exploration/PlanckEmergenceClean.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/physics_exploration/WaveEmbedding.v",
           "nearby_declared": [
             "coq/bridge/PythonMuLedgerBisimulation.v",
             "coq/kernel/HardwareBisimulation.v",
@@ -2141,6 +2390,24 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
+          "path": "coq/self_reference/SelfReference.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/shor_primitives/Euclidean.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
           "path": "coq/shor_primitives/Modular.v",
           "nearby_declared": [
             "coq/bridge/PythonMuLedgerBisimulation.v",
@@ -2168,6 +2435,15 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
+          "path": "coq/spacetime/Spacetime.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
           "path": "coq/spacetime_projection/SpacetimeProjection.v",
           "nearby_declared": [
             "coq/bridge/PythonMuLedgerBisimulation.v",
@@ -2177,7 +2453,25 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
+          "path": "coq/test_vscoq/coqproofs/test_vscoq.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
           "path": "coq/tests/TestNecessity.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/tests/verify_nofi_load_bearing.v",
           "nearby_declared": [
             "coq/bridge/PythonMuLedgerBisimulation.v",
             "coq/kernel/HardwareBisimulation.v",
@@ -2196,6 +2490,15 @@
         },
         {
           "path": "coq/theory/ArchTheorem.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/theory/Core.v",
           "nearby_declared": [
             "coq/bridge/PythonMuLedgerBisimulation.v",
             "coq/kernel/HardwareBisimulation.v",
@@ -2240,6 +2543,33 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
+          "path": "coq/theory/LogicToPhysics.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/theory/NoFreeLunch.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/theory/PhysRel.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
           "path": "coq/theory/Representations.v",
           "nearby_declared": [
             "coq/bridge/PythonMuLedgerBisimulation.v",
@@ -2249,7 +2579,25 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
+          "path": "coq/theory/Separation.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
           "path": "coq/theory/Universality.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/theory/WitnessIsGenesis.v",
           "nearby_declared": [
             "coq/bridge/PythonMuLedgerBisimulation.v",
             "coq/kernel/HardwareBisimulation.v",
@@ -2322,15 +2670,6 @@
         },
         {
           "path": "coq/thielemachine/coqproofs/AmortizedAnalysis.v",
-          "nearby_declared": [
-            "coq/bridge/PythonMuLedgerBisimulation.v",
-            "coq/kernel/HardwareBisimulation.v",
-            "coq/kernel/ReceiptIntegrity.v"
-          ],
-          "why": "Semantic content found outside declared audit file set."
-        },
-        {
-          "path": "coq/thielemachine/coqproofs/Axioms.v",
           "nearby_declared": [
             "coq/bridge/PythonMuLedgerBisimulation.v",
             "coq/kernel/HardwareBisimulation.v",
@@ -2465,15 +2804,6 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
-          "path": "coq/thielemachine/coqproofs/DissipativeEmbedding.v",
-          "nearby_declared": [
-            "coq/bridge/PythonMuLedgerBisimulation.v",
-            "coq/kernel/HardwareBisimulation.v",
-            "coq/kernel/ReceiptIntegrity.v"
-          ],
-          "why": "Semantic content found outside declared audit file set."
-        },
-        {
           "path": "coq/thielemachine/coqproofs/EfficientDiscovery.v",
           "nearby_declared": [
             "coq/bridge/PythonMuLedgerBisimulation.v",
@@ -2510,15 +2840,6 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
-          "path": "coq/thielemachine/coqproofs/HardwareVMHarness.v",
-          "nearby_declared": [
-            "coq/bridge/PythonMuLedgerBisimulation.v",
-            "coq/kernel/HardwareBisimulation.v",
-            "coq/kernel/ReceiptIntegrity.v"
-          ],
-          "why": "Semantic content found outside declared audit file set."
-        },
-        {
           "path": "coq/thielemachine/coqproofs/HyperThiele_Halting.v",
           "nearby_declared": [
             "coq/bridge/PythonMuLedgerBisimulation.v",
@@ -2528,7 +2849,7 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
-          "path": "coq/thielemachine/coqproofs/Impossibility.v",
+          "path": "coq/thielemachine/coqproofs/HyperThiele_Oracle.v",
           "nearby_declared": [
             "coq/bridge/PythonMuLedgerBisimulation.v",
             "coq/kernel/HardwareBisimulation.v",
@@ -2582,6 +2903,15 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
+          "path": "coq/thielemachine/coqproofs/NUSD.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
           "path": "coq/thielemachine/coqproofs/Oracle.v",
           "nearby_declared": [
             "coq/bridge/PythonMuLedgerBisimulation.v",
@@ -2627,7 +2957,7 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
-          "path": "coq/thielemachine/coqproofs/PhysicsEmbedding.v",
+          "path": "coq/thielemachine/coqproofs/QHelpers.v",
           "nearby_declared": [
             "coq/bridge/PythonMuLedgerBisimulation.v",
             "coq/kernel/HardwareBisimulation.v",
@@ -2636,7 +2966,16 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
-          "path": "coq/thielemachine/coqproofs/QHelpers.v",
+          "path": "coq/thielemachine/coqproofs/QuantumAdmissibilityDeliverableB.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/thielemachine/coqproofs/QuantumAdmissibilityTsirelson.v",
           "nearby_declared": [
             "coq/bridge/PythonMuLedgerBisimulation.v",
             "coq/kernel/HardwareBisimulation.v",
@@ -2673,15 +3012,6 @@
         },
         {
           "path": "coq/thielemachine/coqproofs/Separation.v",
-          "nearby_declared": [
-            "coq/bridge/PythonMuLedgerBisimulation.v",
-            "coq/kernel/HardwareBisimulation.v",
-            "coq/kernel/ReceiptIntegrity.v"
-          ],
-          "why": "Semantic content found outside declared audit file set."
-        },
-        {
-          "path": "coq/thielemachine/coqproofs/Simulation.v",
           "nearby_declared": [
             "coq/bridge/PythonMuLedgerBisimulation.v",
             "coq/kernel/HardwareBisimulation.v",
@@ -2870,6 +3200,15 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
+          "path": "coq/thielemachine/coqproofs/ThieleVMOpcodes.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
           "path": "coq/thielemachine/coqproofs/TsirelsonBoundBridge.v",
           "nearby_declared": [
             "coq/bridge/PythonMuLedgerBisimulation.v",
@@ -2879,7 +3218,7 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
-          "path": "coq/thielemachine/coqproofs/WaveEmbedding.v",
+          "path": "coq/thielemachine/coqproofs/WaveCheck.v",
           "nearby_declared": [
             "coq/bridge/PythonMuLedgerBisimulation.v",
             "coq/kernel/HardwareBisimulation.v",
@@ -2889,24 +3228,6 @@
         },
         {
           "path": "coq/thielemachine/verification/Admissibility.v",
-          "nearby_declared": [
-            "coq/bridge/PythonMuLedgerBisimulation.v",
-            "coq/kernel/HardwareBisimulation.v",
-            "coq/kernel/ReceiptIntegrity.v"
-          ],
-          "why": "Semantic content found outside declared audit file set."
-        },
-        {
-          "path": "coq/thielemachine/verification/BridgeDefinitions.v",
-          "nearby_declared": [
-            "coq/bridge/PythonMuLedgerBisimulation.v",
-            "coq/kernel/HardwareBisimulation.v",
-            "coq/kernel/ReceiptIntegrity.v"
-          ],
-          "why": "Semantic content found outside declared audit file set."
-        },
-        {
-          "path": "coq/thielemachine/verification/BridgeProof.v",
           "nearby_declared": [
             "coq/bridge/PythonMuLedgerBisimulation.v",
             "coq/kernel/HardwareBisimulation.v",
@@ -3032,7 +3353,7 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
-          "path": "coq/thielemachine/verification/ThieleUniversalBridge_Axiom_Tests.v",
+          "path": "coq/thieleuniversal/coqproofs/Axioms.v",
           "nearby_declared": [
             "coq/bridge/PythonMuLedgerBisimulation.v",
             "coq/kernel/HardwareBisimulation.v",
@@ -3041,14 +3362,52 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
-          "path": "coq/thielemachine/verification/modular/Bridge_BridgeCore.v",
+          "path": "coq/thieleuniversal/coqproofs/CPU.v",
           "nearby_declared": [
-            "coq/bridge/PythonMuLedgerBisimulation.v"
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/thieleuniversal/coqproofs/Impossibility.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/thieleuniversal/coqproofs/Simulation.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/thieleuniversal/coqproofs/TM.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
           ],
           "why": "Semantic content found outside declared audit file set."
         },
         {
           "path": "coq/thieleuniversal/coqproofs/ThieleUniversal.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/thieleuniversal/coqproofs/UTMStaticCheck.v",
           "nearby_declared": [
             "coq/bridge/PythonMuLedgerBisimulation.v",
             "coq/kernel/HardwareBisimulation.v",
@@ -3082,6 +3441,58 @@
             "coq/kernel/ReceiptIntegrity.v"
           ],
           "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/thieleuniversal/coqproofs/UTM_Rules.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/thieleuniversal/verification/BridgeDefinitions.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/thieleuniversal/verification/BridgeProof.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/thieleuniversal/verification/ThieleUniversalBridge.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/thieleuniversal/verification/ThieleUniversalBridge_Axiom_Tests.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/thieleuniversal/verification/modular/Bridge_BridgeCore.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
         }
       ],
       "python": [
@@ -3105,6 +3516,15 @@
         },
         {
           "path": "thielecpu/assemble.py",
+          "nearby_declared": [
+            "thielecpu/vm.py",
+            "thielecpu/state.py",
+            "thielecpu/hardware/cosim.py"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "thielecpu/assembler.py",
           "nearby_declared": [
             "thielecpu/vm.py",
             "thielecpu/state.py",
@@ -3176,7 +3596,25 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
+          "path": "thielecpu/cross_layer_manifest.py",
+          "nearby_declared": [
+            "thielecpu/vm.py",
+            "thielecpu/state.py",
+            "thielecpu/hardware/cosim.py"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
           "path": "thielecpu/crypto.py",
+          "nearby_declared": [
+            "thielecpu/vm.py",
+            "thielecpu/state.py",
+            "thielecpu/hardware/cosim.py"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "thielecpu/debugger.py",
           "nearby_declared": [
             "thielecpu/vm.py",
             "thielecpu/state.py",
@@ -3266,15 +3704,6 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
-          "path": "thielecpu/generated/vm_instructions.py",
-          "nearby_declared": [
-            "thielecpu/vm.py",
-            "thielecpu/state.py",
-            "thielecpu/hardware/cosim.py"
-          ],
-          "why": "Semantic content found outside declared audit file set."
-        },
-        {
           "path": "thielecpu/genesis.py",
           "nearby_declared": [
             "thielecpu/vm.py",
@@ -3312,6 +3741,15 @@
         },
         {
           "path": "thielecpu/hardware/accel_cosim.py",
+          "nearby_declared": [
+            "thielecpu/hardware/cosim.py",
+            "thielecpu/vm.py",
+            "thielecpu/state.py"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "thielecpu/hardware/logic_z3_bridge.py",
           "nearby_declared": [
             "thielecpu/hardware/cosim.py",
             "thielecpu/vm.py",
@@ -3536,6 +3974,13 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
+          "path": "scripts/add_proof_docstrings.py",
+          "nearby_declared": [
+            "scripts/verify_3layer.py"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
           "path": "scripts/analyze_mu_gravity_physics.py",
           "nearby_declared": [
             "scripts/verify_3layer.py"
@@ -3648,6 +4093,20 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
+          "path": "scripts/generate_proof_dependency_dag.py",
+          "nearby_declared": [
+            "scripts/verify_3layer.py"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "scripts/generate_proof_readmes.py",
+          "nearby_declared": [
+            "scripts/verify_3layer.py"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
           "path": "scripts/generate_tsirelson_receipts.py",
           "nearby_declared": [
             "scripts/verify_3layer.py"
@@ -3684,6 +4143,13 @@
         },
         {
           "path": "scripts/inquisitor_rules.py",
+          "nearby_declared": [
+            "scripts/verify_3layer.py"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "scripts/kami_verilog_synth_transform.py",
           "nearby_declared": [
             "scripts/verify_3layer.py"
           ],
@@ -3865,6 +4331,13 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
+          "path": "scripts/verilog_synth_transform.py",
+          "nearby_declared": [
+            "scripts/verify_3layer.py"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
           "path": "tools/dialogue_engine.py",
           "nearby_declared": [
             "scripts/verify_3layer.py",
@@ -3957,106 +4430,34 @@
       ],
       "rtl": [
         {
-          "path": "thielecpu/hardware/rtl/chsh_partition.v",
-          "nearby_declared": [
-            "thielecpu/hardware/rtl/thiele_cpu_unified.v",
-            "thielecpu/hardware/testbench/thiele_cpu_tb.v"
-          ],
-          "why": "Semantic content found outside declared audit file set."
-        },
-        {
-          "path": "thielecpu/hardware/rtl/mu_alu.v",
-          "nearby_declared": [
-            "thielecpu/hardware/rtl/thiele_cpu_unified.v",
-            "thielecpu/hardware/testbench/thiele_cpu_tb.v"
-          ],
-          "why": "Semantic content found outside declared audit file set."
-        },
-        {
-          "path": "thielecpu/hardware/rtl/mu_core.v",
-          "nearby_declared": [
-            "thielecpu/hardware/rtl/thiele_cpu_unified.v",
-            "thielecpu/hardware/testbench/thiele_cpu_tb.v"
-          ],
-          "why": "Semantic content found outside declared audit file set."
-        },
-        {
-          "path": "thielecpu/hardware/rtl/partition_core.v",
-          "nearby_declared": [
-            "thielecpu/hardware/rtl/thiele_cpu_unified.v",
-            "thielecpu/hardware/testbench/thiele_cpu_tb.v"
-          ],
-          "why": "Semantic content found outside declared audit file set."
-        },
-        {
-          "path": "thielecpu/hardware/rtl/receipt_integrity_checker.v",
-          "nearby_declared": [
-            "thielecpu/hardware/rtl/thiele_cpu_unified.v",
-            "thielecpu/hardware/testbench/thiele_cpu_tb.v"
-          ],
-          "why": "Semantic content found outside declared audit file set."
-        },
-        {
           "path": "thielecpu/hardware/rtl/synth_lite_out.v",
           "nearby_declared": [
-            "thielecpu/hardware/rtl/thiele_cpu_unified.v",
-            "thielecpu/hardware/testbench/thiele_cpu_tb.v"
+            "thielecpu/hardware/rtl/thiele_cpu_kami.v",
+            "thielecpu/hardware/testbench/thiele_cpu_kami_tb.v"
           ],
           "why": "Semantic content found outside declared audit file set."
         },
         {
-          "path": "thielecpu/hardware/testbench/fuzz_harness_simple.v",
+          "path": "thielecpu/hardware/rtl/thiele_cpu_kami_synth.v",
           "nearby_declared": [
-            "thielecpu/hardware/testbench/thiele_cpu_tb.v",
-            "thielecpu/hardware/rtl/thiele_cpu_unified.v"
+            "thielecpu/hardware/rtl/thiele_cpu_kami.v",
+            "thielecpu/hardware/testbench/thiele_cpu_kami_tb.v"
           ],
           "why": "Semantic content found outside declared audit file set."
         },
         {
-          "path": "thielecpu/hardware/testbench/mu_alu_tb.v",
+          "path": "thielecpu/hardware/rtl/thiele_cpu_top.v",
           "nearby_declared": [
-            "thielecpu/hardware/testbench/thiele_cpu_tb.v",
-            "thielecpu/hardware/rtl/thiele_cpu_unified.v"
+            "thielecpu/hardware/rtl/thiele_cpu_kami.v",
+            "thielecpu/hardware/testbench/thiele_cpu_kami_tb.v"
           ],
           "why": "Semantic content found outside declared audit file set."
         },
         {
-          "path": "thielecpu/hardware/testbench/partition_core_tb.v",
+          "path": "thielecpu/hardware/testbench/thiele_cpu_kami_batch_tb.v",
           "nearby_declared": [
-            "thielecpu/hardware/testbench/thiele_cpu_tb.v",
-            "thielecpu/hardware/rtl/thiele_cpu_unified.v"
-          ],
-          "why": "Semantic content found outside declared audit file set."
-        },
-        {
-          "path": "thielecpu/hardware/testbench/thiele_cpu_engines_tb.v",
-          "nearby_declared": [
-            "thielecpu/hardware/testbench/thiele_cpu_tb.v",
-            "thielecpu/hardware/rtl/thiele_cpu_unified.v"
-          ],
-          "why": "Semantic content found outside declared audit file set."
-        },
-        {
-          "path": "thielecpu/hardware/testbench/thiele_cpu_genesis_compression_strict_tb.v",
-          "nearby_declared": [
-            "thielecpu/hardware/testbench/thiele_cpu_tb.v",
-            "thielecpu/hardware/rtl/thiele_cpu_unified.v"
-          ],
-          "why": "Semantic content found outside declared audit file set."
-        },
-        {
-          "path": "thielecpu/hardware/testbench/thiele_cpu_genesis_compression_tb.v",
-          "nearby_declared": [
-            "thielecpu/hardware/testbench/thiele_cpu_tb.v",
-            "thielecpu/hardware/rtl/thiele_cpu_unified.v"
-          ],
-          "why": "Semantic content found outside declared audit file set."
-        },
-        {
-          "path": "thielecpu/hardware/testbench/thiele_cpu_inverse_genesis_tb.v",
-          "nearby_declared": [
-            "thielecpu/hardware/testbench/thiele_cpu_tb.v",
-            "thielecpu/hardware/rtl/thiele_cpu_unified.v"
+            "thielecpu/hardware/testbench/thiele_cpu_kami_tb.v",
+            "thielecpu/hardware/rtl/thiele_cpu_kami.v"
           ],
           "why": "Semantic content found outside declared audit file set."
         }
@@ -4117,6 +4518,15 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
+          "path": "tests/test_all_26_opcodes_comprehensive.py",
+          "nearby_declared": [
+            "tests/test_bisimulation_complete.py",
+            "tests/test_partition_isomorphism_minimal.py",
+            "tests/test_receipt_chain.py"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
           "path": "tests/test_alpha_refinement.py",
           "nearby_declared": [
             "tests/test_bisimulation_complete.py",
@@ -4163,6 +4573,15 @@
         },
         {
           "path": "tests/test_bianchi_enforcement.py",
+          "nearby_declared": [
+            "tests/test_bisimulation_complete.py",
+            "tests/test_partition_isomorphism_minimal.py",
+            "tests/test_receipt_chain.py"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "tests/test_bianchi_vm_runtime_halt.py",
           "nearby_declared": [
             "tests/test_bisimulation_complete.py",
             "tests/test_partition_isomorphism_minimal.py",
@@ -4268,6 +4687,51 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
+          "path": "tests/test_chsh_verilator_hardware_bridge.py",
+          "nearby_declared": [
+            "tests/test_bisimulation_complete.py",
+            "tests/test_partition_isomorphism_minimal.py",
+            "tests/test_receipt_chain.py"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "tests/test_chsh_vm_certificate_gate.py",
+          "nearby_declared": [
+            "tests/test_bisimulation_complete.py",
+            "tests/test_partition_isomorphism_minimal.py",
+            "tests/test_receipt_chain.py"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "tests/test_connectivity_enforcement.py",
+          "nearby_declared": [
+            "tests/test_bisimulation_complete.py",
+            "tests/test_partition_isomorphism_minimal.py",
+            "tests/test_receipt_chain.py"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "tests/test_coq_bridge_coverage_links.py",
+          "nearby_declared": [
+            "tests/test_bisimulation_complete.py",
+            "tests/test_partition_isomorphism_minimal.py",
+            "tests/test_receipt_chain.py"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "tests/test_coq_compile_gate.py",
+          "nearby_declared": [
+            "tests/test_bisimulation_complete.py",
+            "tests/test_partition_isomorphism_minimal.py",
+            "tests/test_receipt_chain.py"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
           "path": "tests/test_cross_layer_comprehensive.py",
           "nearby_declared": [
             "tests/test_three_layer_isomorphism_fuzz.py"
@@ -4329,15 +4793,6 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
-          "path": "tests/test_einstein_equation_empirical.py",
-          "nearby_declared": [
-            "tests/test_bisimulation_complete.py",
-            "tests/test_partition_isomorphism_minimal.py",
-            "tests/test_receipt_chain.py"
-          ],
-          "why": "Semantic content found outside declared audit file set."
-        },
-        {
           "path": "tests/test_einstein_nonvacuum_empirical.py",
           "nearby_declared": [
             "tests/test_bisimulation_complete.py",
@@ -4348,6 +4803,15 @@
         },
         {
           "path": "tests/test_einstein_vacuum_empirical.py",
+          "nearby_declared": [
+            "tests/test_bisimulation_complete.py",
+            "tests/test_partition_isomorphism_minimal.py",
+            "tests/test_receipt_chain.py"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "tests/test_einstein_with_v3_metric.py",
           "nearby_declared": [
             "tests/test_bisimulation_complete.py",
             "tests/test_partition_isomorphism_minimal.py",
@@ -4392,7 +4856,25 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
+          "path": "tests/test_extraction_freshness.py",
+          "nearby_declared": [
+            "tests/test_bisimulation_complete.py",
+            "tests/test_partition_isomorphism_minimal.py",
+            "tests/test_receipt_chain.py"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
           "path": "tests/test_falsifiable_predictions.py",
+          "nearby_declared": [
+            "tests/test_bisimulation_complete.py",
+            "tests/test_partition_isomorphism_minimal.py",
+            "tests/test_receipt_chain.py"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "tests/test_final_evidence.py",
           "nearby_declared": [
             "tests/test_bisimulation_complete.py",
             "tests/test_partition_isomorphism_minimal.py",
@@ -4446,6 +4928,13 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
+          "path": "tests/test_fuzz_random_programs.py",
+          "nearby_declared": [
+            "tests/test_three_layer_isomorphism_fuzz.py"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
           "path": "tests/test_geometric_factorization_claim.py",
           "nearby_declared": [
             "tests/test_bisimulation_complete.py",
@@ -4478,6 +4967,33 @@
             "tests/test_rtl_compute_isomorphism.py",
             "tests/test_partition_isomorphism_minimal.py",
             "tests/test_three_layer_isomorphism_fuzz.py"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "tests/test_kami_core_not_abstracted.py",
+          "nearby_declared": [
+            "tests/test_bisimulation_complete.py",
+            "tests/test_partition_isomorphism_minimal.py",
+            "tests/test_receipt_chain.py"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "tests/test_kami_tuple_wiring.py",
+          "nearby_declared": [
+            "tests/test_bisimulation_complete.py",
+            "tests/test_partition_isomorphism_minimal.py",
+            "tests/test_receipt_chain.py"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "tests/test_logic_stall_liveness.py",
+          "nearby_declared": [
+            "tests/test_bisimulation_complete.py",
+            "tests/test_partition_isomorphism_minimal.py",
+            "tests/test_receipt_chain.py"
           ],
           "why": "Semantic content found outside declared audit file set."
         },
@@ -4590,6 +5106,15 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
+          "path": "tests/test_no_shortcuts_proof_connectivity.py",
+          "nearby_declared": [
+            "tests/test_bisimulation_complete.py",
+            "tests/test_partition_isomorphism_minimal.py",
+            "tests/test_receipt_chain.py"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
           "path": "tests/test_nofi_pyexec_nonforgeability.py",
           "nearby_declared": [
             "tests/test_bisimulation_complete.py",
@@ -4636,6 +5161,15 @@
         },
         {
           "path": "tests/test_openfpga_flow.py",
+          "nearby_declared": [
+            "tests/test_bisimulation_complete.py",
+            "tests/test_partition_isomorphism_minimal.py",
+            "tests/test_receipt_chain.py"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "tests/test_paradox_suite_verilator.py",
           "nearby_declared": [
             "tests/test_bisimulation_complete.py",
             "tests/test_partition_isomorphism_minimal.py",
@@ -4798,6 +5332,15 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
+          "path": "tests/test_rtl_synthesis_gate.py",
+          "nearby_declared": [
+            "tests/test_bisimulation_complete.py",
+            "tests/test_partition_isomorphism_minimal.py",
+            "tests/test_receipt_chain.py"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
           "path": "tests/test_security_monitor.py",
           "nearby_declared": [
             "tests/test_bisimulation_complete.py",
@@ -4817,6 +5360,15 @@
         },
         {
           "path": "tests/test_stress_energy_pnew.py",
+          "nearby_declared": [
+            "tests/test_bisimulation_complete.py",
+            "tests/test_partition_isomorphism_minimal.py",
+            "tests/test_receipt_chain.py"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "tests/test_strict_vm_backend_policy.py",
           "nearby_declared": [
             "tests/test_bisimulation_complete.py",
             "tests/test_partition_isomorphism_minimal.py",
@@ -4888,6 +5440,24 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
+          "path": "tests/test_unified_cpu_semantic_contracts.py",
+          "nearby_declared": [
+            "tests/test_bisimulation_complete.py",
+            "tests/test_partition_isomorphism_minimal.py",
+            "tests/test_receipt_chain.py"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "tests/test_unified_cpu_semantic_invariants.py",
+          "nearby_declared": [
+            "tests/test_bisimulation_complete.py",
+            "tests/test_partition_isomorphism_minimal.py",
+            "tests/test_receipt_chain.py"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
           "path": "tests/test_utm_program_validation.py",
           "nearby_declared": [
             "tests/test_bisimulation_complete.py",
@@ -4935,13 +5505,6 @@
       ]
     },
     "outside_main_body": [
-      {
-        "path": "archive/SPECULATIVE_PHYSICS_MAPPING.md",
-        "markers": [
-          "archive"
-        ],
-        "classification": "outside-main-body"
-      },
       {
         "path": "archive/coq_with_axioms/TsirelsonBoundProof.v",
         "markers": [
@@ -5191,8 +5754,22 @@
         "key": ".md:readme",
         "paths": [
           "coq/README.md",
+          "coq/bridge/README.md",
+          "coq/isomorphism/coqproofs/README.md",
+          "coq/kernel/README.md",
+          "coq/kernel_toe/README.md",
+          "coq/modular_proofs/README.md",
+          "coq/nofi/README.md",
           "coq/physics_exploration/README.md",
           "coq/quantum_derivation/README.md",
+          "coq/spacetime/README.md",
+          "coq/spacetime_projection/README.md",
+          "coq/theory/README.md",
+          "coq/thermodynamic/README.md",
+          "coq/thiele_manifold/README.md",
+          "coq/thielemachine/coqproofs/README.md",
+          "coq/thielemachine/verification/README.md",
+          "coq/thieleuniversal/coqproofs/README.md",
           "scripts/README.md"
         ]
       },
@@ -5253,18 +5830,21 @@
         ]
       },
       {
+        "key": ".v:separation",
+        "paths": [
+          "coq/theory/Separation.v",
+          "coq/thielemachine/coqproofs/Separation.v"
+        ]
+      },
+      {
         "key": ".v:simulation",
         "paths": [
           "coq/modular_proofs/Simulation.v",
-          "coq/thielemachine/coqproofs/Simulation.v"
+          "coq/thieleuniversal/coqproofs/Simulation.v"
         ]
       }
     ],
     "superfluous_candidates": [
-      {
-        "path": "archive/SPECULATIVE_PHYSICS_MAPPING.md",
-        "reason": "Path marker indicates likely stale/externalized component."
-      },
       {
         "path": "archive/coq_with_axioms/TsirelsonBoundProof.v",
         "reason": "Path marker indicates likely stale/externalized component."

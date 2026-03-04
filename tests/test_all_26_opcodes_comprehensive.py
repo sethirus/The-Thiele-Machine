@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Comprehensive test of all 26 Thiele CPU opcodes."""
+"""Comprehensive test of all 31 Thiele CPU opcodes."""
 
 from thielecpu.hardware.cosim import run_verilog
 

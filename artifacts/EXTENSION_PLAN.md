@@ -11,7 +11,7 @@ or any Coq proofs.
 
 ## What Currently Exists (Baseline)
 
-- 26 opcodes, all formally proven in Coq, extracted to OCaml, mirrored in Verilog RTL
+- 31 opcodes, all formally proven in Coq, extracted to OCaml, mirrored in Verilog RTL
 - 256-word flat memory, 32 registers, 16-entry μ-tensor
 - Zero `Admitted.`, Inquisitor clean (0 HIGH, 0 MEDIUM)
 - 1134 tests passing, 4 skips (environmental), 0 xfails

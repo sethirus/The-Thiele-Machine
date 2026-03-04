@@ -310,16 +310,10 @@ module receipt_checker_cosim_tb;
 
 def run_receipt_checker(receipts: List[Dict]) -> List[Dict]:
     """Run receipt_integrity_checker, return JSON per receipt."""
-    with tempfile.TemporaryDirectory(prefix="rc_cosim_") as tmpdir:
-        work_dir = Path(tmpdir)
-        tb_path = _write_receipt_checker_tb(work_dir, receipts)
-        vvp_path = _compile_module(
-            [_legacy_rtl_file("thiele_cpu_unified.v")],
-            tb_path, work_dir,
-            include_dirs=[RTL_DIR]
-        )
-        output = _run_sim(vvp_path, work_dir)
-        return _extract_json_lines(output)
+    raise NotImplementedError(
+        "run_receipt_checker: legacy thiele_cpu_unified.v was removed. "
+        "Use run_verilog() via cosim.py against the canonical Kami RTL."
+    )
 
 
 # ============================================================================
@@ -394,16 +388,10 @@ module mu_alu_cosim_tb;
 
 def run_mu_alu(operations: List[Dict]) -> List[Dict]:
     """Run mu_alu with given operations, return JSON per step."""
-    with tempfile.TemporaryDirectory(prefix="alu_cosim_") as tmpdir:
-        work_dir = Path(tmpdir)
-        tb_path = _write_mu_alu_tb(work_dir, operations)
-        vvp_path = _compile_module(
-            [_legacy_rtl_file("thiele_cpu_unified.v")],
-            tb_path, work_dir,
-            include_dirs=[RTL_DIR]
-        )
-        output = _run_sim(vvp_path, work_dir)
-        return _extract_json_lines(output)
+    raise NotImplementedError(
+        "run_mu_alu: legacy thiele_cpu_unified.v was removed. "
+        "Use run_verilog() via cosim.py against the canonical Kami RTL."
+    )
 
 
 # ============================================================================

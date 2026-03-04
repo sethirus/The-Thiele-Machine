@@ -1,6 +1,6 @@
 # Isomorphism Visual + Programmatic Audit
 
-Generated: 2026-02-19T01:17:07.068050+00:00
+Generated: 2026-03-04T00:09:07.837325+00:00
 
 ## Scope
 
@@ -18,7 +18,7 @@ HardwareBisimulation]
     B --> C[Python VM
 state.py + vm.py]
     B --> D[RTL CPU
-thiele_cpu_unified.v]
+thiele_cpu_kami.v]
     C --> E[Runtime Isomorphism Tests]
     D --> E
     E --> F[Lockstep Verdict
@@ -99,12 +99,12 @@ A change is "all the same" only if all of the following hold together:
 
 ## Surface Matrix Summary
 
-- Aligned surfaces: **7/7**
-- Coq files: **308**
-- Theorem-like declarations: **2564**
+- Aligned surfaces: **0/7**
+- Coq files: **323**
+- Theorem-like declarations: **2709**
 - Explicit axioms/parameters/hypotheses: **24**
-- Admits: **0**
-- Isomorphism-related test files: **23**
+- Admits: **1**
+- Isomorphism-related test files: **26**
 
 ## Repo Coverage Scope
 
@@ -114,8 +114,8 @@ A change is "all the same" only if all of the following hold together:
 
 ## Explicit Formal Obligation Status
 
-- `fws_step_correct` discharge for non-Coq concrete specs: **False**
-- Declared `*_full_wire_spec` defs: **coq_full_wire_spec**
+- `fws_step_correct` discharge for non-Coq concrete specs: **True**
+- Declared `*_full_wire_spec` defs: **coq_full_wire_spec, verilog_full_wire_spec**
 
 ## Gap Reading Guide
 

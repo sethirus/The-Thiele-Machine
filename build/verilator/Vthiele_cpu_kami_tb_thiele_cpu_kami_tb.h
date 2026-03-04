@@ -19,7 +19,6 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
     struct {
         CData/*0:0*/ __PVT__clk;
         CData/*0:0*/ logic_resp_en;
-        CData/*0:0*/ __PVT__dut__DOT__EN_apbWrite;
         CData/*0:0*/ __PVT__dut__DOT__err;
         CData/*0:0*/ __PVT__dut__DOT__err__024EN;
         CData/*0:0*/ __PVT__dut__DOT__halted;
@@ -43,9 +42,7 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         CData/*3:0*/ __PVT__dut__DOT__active_module__VforceEn;
         CData/*3:0*/ __PVT__dut__DOT__active_module__VforceVal;
         CData/*7:0*/ __PVT__dut__DOT__bus_load_instr_addr;
-        CData/*7:0*/ __PVT__dut__DOT__bus_load_instr_addr__024D_IN;
         CData/*0:0*/ __PVT__dut__DOT__bus_load_instr_kick;
-        CData/*0:0*/ __PVT__dut__DOT__bus_load_instr_kick__024D_IN;
         CData/*0:0*/ __PVT__dut__DOT__err__VforceRd;
         CData/*0:0*/ __PVT__dut__DOT__err__VforceEn;
         CData/*0:0*/ __PVT__dut__DOT__err__VforceVal;
@@ -65,7 +62,6 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         CData/*0:0*/ __PVT__dut__DOT__logic_resp_error__VforceEn;
         CData/*0:0*/ __PVT__dut__DOT__logic_resp_error__VforceVal;
         CData/*0:0*/ __PVT__dut__DOT__logic_resp_error__024D_IN;
-        CData/*0:0*/ __PVT__dut__DOT__logic_resp_error__024EN;
         CData/*0:0*/ __PVT__dut__DOT__logic_resp_valid;
         CData/*0:0*/ __PVT__dut__DOT__logic_resp_valid__VforceRd;
         CData/*0:0*/ __PVT__dut__DOT__logic_resp_valid__VforceEn;
@@ -81,12 +77,12 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         CData/*4:0*/ __PVT__dut__DOT__pt_next_id__VforceVal;
         CData/*4:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq260;
         CData/*0:0*/ __PVT__dut__DOT__NOT_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS___05FETC___05F_d8005;
-    };
-    struct {
         CData/*0:0*/ __PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d356;
         CData/*0:0*/ __PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d3974;
         CData/*0:0*/ __PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d5214;
         CData/*0:0*/ __PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d5284;
+    };
+    struct {
         CData/*0:0*/ __PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d6644;
         CData/*0:0*/ __PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d7644;
         CData/*0:0*/ __PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d7778;
@@ -147,12 +143,12 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         CData/*0:0*/ dut__DOT____VdfgTmp_hb45309c8__0;
         CData/*0:0*/ dut__DOT____VdfgTmp_h1e1406e5__0;
         CData/*0:0*/ dut__DOT____VdfgTmp_h58484ae3__0;
-    };
-    struct {
         CData/*0:0*/ dut__DOT____VdfgTmp_he61e9a32__0;
         CData/*0:0*/ dut__DOT____VdfgTmp_h1a0d5c95__0;
         CData/*0:0*/ dut__DOT____VdfgTmp_h5bb91dbf__0;
         CData/*0:0*/ dut__DOT____VdfgTmp_h1434d60b__0;
+    };
+    struct {
         CData/*0:0*/ dut__DOT____VdfgTmp_he6018e70__0;
         CData/*0:0*/ dut__DOT____VdfgTmp_h0ba3b698__0;
         CData/*0:0*/ dut__DOT____VdfgTmp_hf743c685__0;
@@ -213,12 +209,12 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         CData/*0:0*/ dut__DOT____VdfgTmp_hd1a0df71__0;
         CData/*0:0*/ dut__DOT____VdfgTmp_h8c8445be__0;
         CData/*0:0*/ dut__DOT____VdfgTmp_hd16ece2f__0;
-    };
-    struct {
         CData/*0:0*/ dut__DOT____VdfgTmp_h9e5eb835__0;
         CData/*0:0*/ dut__DOT____VdfgTmp_h98b8451b__0;
         CData/*0:0*/ dut__DOT____VdfgTmp_he4076a98__0;
         CData/*0:0*/ dut__DOT____VdfgTmp_hdf8b06b7__0;
+    };
+    struct {
         CData/*0:0*/ dut__DOT____VdfgTmp_h3bd37949__0;
         CData/*0:0*/ dut__DOT____VdfgTmp_he9550970__0;
         CData/*0:0*/ dut__DOT____VdfgTmp_hb2c7eaa6__0;
@@ -279,12 +275,12 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__logic_bridge_req_fd;
         IData/*31:0*/ __PVT__logic_bridge_rsp_fd;
         VlWide<32>/*1023:0*/ __PVT__logic_bridge_req_path;
-    };
-    struct {
         VlWide<32>/*1023:0*/ __PVT__logic_bridge_rsp_path;
         VlWide<64>/*2047:0*/ __PVT__logic_bridge_cmd;
         IData/*31:0*/ __PVT__logic_bridge_external;
         VlWide<32>/*1023:0*/ __PVT__program_hex_path;
+    };
+    struct {
         VlWide<32>/*1023:0*/ __PVT__data_hex_path;
         IData/*31:0*/ __PVT__prev_mu;
         IData/*31:0*/ __PVT__current_instr;
@@ -294,12 +290,12 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__apbReadData;
         IData/*31:0*/ __PVT__dut__DOT__apbReadErr_x_0;
         IData/*31:0*/ __PVT__dut__DOT__bus_load_instr_data;
-        IData/*31:0*/ __PVT__dut__DOT__bus_load_instr_data__024D_IN;
         IData/*31:0*/ __PVT__dut__DOT__error_code;
         IData/*31:0*/ __PVT__dut__DOT__error_code__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__error_code__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__error_code__VforceVal;
         VlWide<256>/*8191:0*/ __PVT__dut__DOT__imem;
+        VlWide<256>/*8191:0*/ __PVT__dut__DOT__imem__024D_IN;
         IData/*31:0*/ __PVT__dut__DOT__info_gain;
         IData/*31:0*/ __PVT__dut__DOT__info_gain__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__info_gain__VforceEn;
@@ -345,12 +341,12 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__mem100__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem100__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem101;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem101__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem101__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem101__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem102;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem102__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem102__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem102__VforceVal;
@@ -411,12 +407,12 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__mem115__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem115__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem116;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem116__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem116__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem116__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem117;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem117__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem117__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem117__VforceVal;
@@ -477,12 +473,12 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__mem13__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem13__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem130;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem130__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem130__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem130__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem131;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem131__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem131__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem131__VforceVal;
@@ -543,12 +539,12 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__mem144__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem144__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem145;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem145__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem145__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem145__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem146;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem146__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem146__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem146__VforceVal;
@@ -609,12 +605,12 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__mem159__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem159__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem16;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem16__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem16__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem16__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem160;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem160__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem160__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem160__VforceVal;
@@ -675,12 +671,12 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__mem173__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem173__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem174;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem174__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem174__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem174__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem175;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem175__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem175__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem175__VforceVal;
@@ -741,12 +737,12 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__mem188__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem188__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem189;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem189__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem189__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem189__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem19;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem19__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem19__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem19__VforceVal;
@@ -807,12 +803,12 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__mem201__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem201__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem202;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem202__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem202__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem202__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem203;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem203__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem203__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem203__VforceVal;
@@ -873,12 +869,12 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__mem216__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem216__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem217;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem217__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem217__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem217__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem218;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem218__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem218__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem218__VforceVal;
@@ -939,12 +935,12 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__mem230__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem230__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem231;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem231__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem231__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem231__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem232;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem232__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem232__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem232__VforceVal;
@@ -1005,12 +1001,12 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__mem245__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem245__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem246;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem246__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem246__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem246__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem247;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem247__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem247__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem247__VforceVal;
@@ -1071,12 +1067,12 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__mem3__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem3__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem30;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem30__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem30__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem30__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem31;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem31__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem31__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem31__VforceVal;
@@ -1137,12 +1133,12 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__mem44__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem44__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem45;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem45__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem45__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem45__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem46;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem46__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem46__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem46__VforceVal;
@@ -1203,12 +1199,12 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__mem59__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem59__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem6;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem6__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem6__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem6__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem60;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem60__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem60__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem60__VforceVal;
@@ -1269,12 +1265,12 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__mem73__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem73__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem74;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem74__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem74__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem74__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem75;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem75__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem75__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem75__VforceVal;
@@ -1335,12 +1331,12 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__mem88__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem88__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem89;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem89__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem89__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem89__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__mem9;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__mem9__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__mem9__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__mem9__VforceVal;
@@ -1401,12 +1397,12 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__partition_ops__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__partition_ops__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__partition_ops__VforceVal;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__partition_ops__024D_IN;
         IData/*31:0*/ __PVT__dut__DOT__pc;
         IData/*31:0*/ __PVT__dut__DOT__pc__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__pc__VforceEn;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__pc__VforceVal;
         VlWide<16>/*511:0*/ __PVT__dut__DOT__ptTable;
         VlWide<16>/*511:0*/ __PVT__dut__DOT__ptTable__VforceRd;
@@ -1467,12 +1463,12 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__reg20;
         IData/*31:0*/ __PVT__dut__DOT__reg20__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__reg20__VforceEn;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__reg20__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__reg21;
         IData/*31:0*/ __PVT__dut__DOT__reg21__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__reg21__VforceEn;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__reg21__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__reg22;
         IData/*31:0*/ __PVT__dut__DOT__reg22__VforceRd;
@@ -1533,21 +1529,19 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__reg7;
         IData/*31:0*/ __PVT__dut__DOT__reg7__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__reg7__VforceEn;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__reg7__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__reg8;
         IData/*31:0*/ __PVT__dut__DOT__reg8__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__reg8__VforceEn;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__reg8__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__reg9;
         IData/*31:0*/ __PVT__dut__DOT__reg9__VforceRd;
         IData/*31:0*/ __PVT__dut__DOT__reg9__VforceEn;
         IData/*31:0*/ __PVT__dut__DOT__reg9__VforceVal;
         IData/*31:0*/ __PVT__dut__DOT__trap_vector;
-        IData/*31:0*/ __PVT__dut__DOT__trap_vector__024D_IN;
         VlWide<256>/*8191:0*/ __PVT__dut__DOT__MUX_imem__024write_1___05FVAL_1;
-        VlWide<256>/*8191:0*/ __PVT__dut__DOT__MUX_imem__024write_1___05FVAL_2;
         VlWide<16>/*511:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d8315;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq10;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq100;
@@ -1599,14 +1593,14 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq142;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq143;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq144;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq145;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq146;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq147;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq148;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq149;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq15;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq150;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq151;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq152;
@@ -1665,14 +1659,14 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq20;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq200;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq201;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq202;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq203;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq204;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq205;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq206;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq207;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq208;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq209;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq21;
@@ -1731,14 +1725,14 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq258;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq259;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq26;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq27;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq28;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq29;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq3;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq30;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq31;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq32;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq33;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq34;
@@ -1797,14 +1791,14 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq82;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq83;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq84;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq85;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq86;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq87;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq88;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq89;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq9;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq90;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq91;
         IData/*31:0*/ __PVT__dut__DOT__CASE_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_ETC___05Fq92;
@@ -1863,14 +1857,14 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         VlWide<248>/*7935:0*/ __PVT__dut__DOT__IF_IF_apbWrite_x_0_BITS_63_TO_32_103_EQ_0x80_1_ETC___05F_d9735;
         VlWide<246>/*7871:0*/ __PVT__dut__DOT__IF_IF_apbWrite_x_0_BITS_63_TO_32_103_EQ_0x80_1_ETC___05F_d9730;
         VlWide<244>/*7807:0*/ __PVT__dut__DOT__IF_IF_apbWrite_x_0_BITS_63_TO_32_103_EQ_0x80_1_ETC___05F_d9725;
-    };
-    struct {
         VlWide<242>/*7743:0*/ __PVT__dut__DOT__IF_IF_apbWrite_x_0_BITS_63_TO_32_103_EQ_0x80_1_ETC___05F_d9720;
         VlWide<240>/*7679:0*/ __PVT__dut__DOT__IF_IF_apbWrite_x_0_BITS_63_TO_32_103_EQ_0x80_1_ETC___05F_d9715;
         VlWide<238>/*7615:0*/ __PVT__dut__DOT__IF_IF_apbWrite_x_0_BITS_63_TO_32_103_EQ_0x80_1_ETC___05F_d9710;
         VlWide<236>/*7551:0*/ __PVT__dut__DOT__IF_IF_apbWrite_x_0_BITS_63_TO_32_103_EQ_0x80_1_ETC___05F_d9705;
         VlWide<234>/*7487:0*/ __PVT__dut__DOT__IF_IF_apbWrite_x_0_BITS_63_TO_32_103_EQ_0x80_1_ETC___05F_d9700;
         VlWide<232>/*7423:0*/ __PVT__dut__DOT__IF_IF_apbWrite_x_0_BITS_63_TO_32_103_EQ_0x80_1_ETC___05F_d9695;
+    };
+    struct {
         VlWide<230>/*7359:0*/ __PVT__dut__DOT__IF_IF_apbWrite_x_0_BITS_63_TO_32_103_EQ_0x80_1_ETC___05F_d9690;
         VlWide<228>/*7295:0*/ __PVT__dut__DOT__IF_IF_apbWrite_x_0_BITS_63_TO_32_103_EQ_0x80_1_ETC___05F_d9685;
         VlWide<226>/*7231:0*/ __PVT__dut__DOT__IF_IF_apbWrite_x_0_BITS_63_TO_32_103_EQ_0x80_1_ETC___05F_d9680;
@@ -1929,14 +1923,14 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         VlWide<120>/*3839:0*/ __PVT__dut__DOT__IF_IF_apbWrite_x_0_BITS_63_TO_32_103_EQ_0x80_1_ETC___05F_d9415;
         VlWide<118>/*3775:0*/ __PVT__dut__DOT__IF_IF_apbWrite_x_0_BITS_63_TO_32_103_EQ_0x80_1_ETC___05F_d9410;
         VlWide<116>/*3711:0*/ __PVT__dut__DOT__IF_IF_apbWrite_x_0_BITS_63_TO_32_103_EQ_0x80_1_ETC___05F_d9405;
-    };
-    struct {
         VlWide<114>/*3647:0*/ __PVT__dut__DOT__IF_IF_apbWrite_x_0_BITS_63_TO_32_103_EQ_0x80_1_ETC___05F_d9400;
         VlWide<112>/*3583:0*/ __PVT__dut__DOT__IF_IF_apbWrite_x_0_BITS_63_TO_32_103_EQ_0x80_1_ETC___05F_d9395;
         VlWide<110>/*3519:0*/ __PVT__dut__DOT__IF_IF_apbWrite_x_0_BITS_63_TO_32_103_EQ_0x80_1_ETC___05F_d9390;
         VlWide<108>/*3455:0*/ __PVT__dut__DOT__IF_IF_apbWrite_x_0_BITS_63_TO_32_103_EQ_0x80_1_ETC___05F_d9385;
         VlWide<106>/*3391:0*/ __PVT__dut__DOT__IF_IF_apbWrite_x_0_BITS_63_TO_32_103_EQ_0x80_1_ETC___05F_d9380;
         VlWide<104>/*3327:0*/ __PVT__dut__DOT__IF_IF_apbWrite_x_0_BITS_63_TO_32_103_EQ_0x80_1_ETC___05F_d9375;
+    };
+    struct {
         VlWide<102>/*3263:0*/ __PVT__dut__DOT__IF_IF_apbWrite_x_0_BITS_63_TO_32_103_EQ_0x80_1_ETC___05F_d9370;
         VlWide<100>/*3199:0*/ __PVT__dut__DOT__IF_IF_apbWrite_x_0_BITS_63_TO_32_103_EQ_0x80_1_ETC___05F_d9365;
         VlWide<98>/*3135:0*/ __PVT__dut__DOT__IF_IF_apbWrite_x_0_BITS_63_TO_32_103_EQ_0x80_1_ETC___05F_d9360;
@@ -1995,14 +1989,14 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         VlWide<8>/*255:0*/ __PVT__dut__DOT__IF_IF_apbWrite_x_0_BITS_63_TO_32_103_EQ_0x80_1_ETC___05F_d9135;
         VlWide<8>/*255:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d8099;
         VlWide<8>/*255:0*/ __PVT__dut__DOT__IF_pt_next_id_59_BITS_3_TO_0_121_EQ_15_122_THE_ETC___05F_d8141;
-    };
-    struct {
         VlWide<6>/*191:0*/ __PVT__dut__DOT__IF_IF_apbWrite_x_0_BITS_63_TO_32_103_EQ_0x80_1_ETC___05F_d9130;
         VlWide<6>/*191:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d8094;
         VlWide<6>/*191:0*/ __PVT__dut__DOT__IF_pt_next_id_59_BITS_3_TO_0_121_EQ_15_122_THE_ETC___05F_d8136;
         VlWide<4>/*127:0*/ __PVT__dut__DOT__IF_IF_apbWrite_x_0_BITS_63_TO_32_103_EQ_0x80_1_ETC___05F_d9125;
         VlWide<4>/*127:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d8089;
         VlWide<4>/*127:0*/ __PVT__dut__DOT__IF_pt_next_id_59_BITS_3_TO_0_121_EQ_15_122_THE_ETC___05F_d8131;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d1207;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d1244;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d1256;
@@ -2061,14 +2055,14 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d1578;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d1586;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d1592;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d1594;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d1602;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d1608;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d1616;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d1622;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d1624;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d1626;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d1636;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d1642;
@@ -2127,14 +2121,14 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d2315;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d2316;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d2340;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d2341;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d2365;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d2366;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d2390;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d2391;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d2415;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d2416;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d2440;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d2441;
@@ -2193,14 +2187,14 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d2899;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d2901;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d2903;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d2905;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d2920;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d2922;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d2924;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d2926;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d2941;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d2943;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d2945;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d2947;
@@ -2259,14 +2253,14 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d3289;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d3307;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d3310;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d3327;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d3330;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d3347;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d3349;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d3368;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d3370;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d3390;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d3392;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d3394;
@@ -2325,14 +2319,14 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d3718;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d3720;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d3740;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d3742;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d3745;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d3763;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d3765;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d3768;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d3782;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d3784;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d3787;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d3801;
@@ -2391,14 +2385,14 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d4153;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d4155;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d4171;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d4173;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d4175;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d4177;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d4193;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d4195;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d4197;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d4214;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d4216;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d4218;
@@ -2457,14 +2451,14 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d4543;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d4545;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d4562;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d4564;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d4566;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d4585;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d4587;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d4589;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d4607;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d4609;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d4611;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d4626;
@@ -2523,14 +2517,14 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d5032;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d5050;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d5071;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d5073;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d5093;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d5095;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d5110;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d5112;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d5127;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d5129;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d5145;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d5147;
@@ -2589,14 +2583,14 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d5571;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d5573;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d5575;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d5590;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d5592;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d5594;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d5596;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d5611;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d5613;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d5615;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d5617;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d5634;
@@ -2655,14 +2649,14 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d5977;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d5980;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d5997;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6000;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6017;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6019;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6038;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6040;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6060;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6062;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6064;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6066;
@@ -2721,14 +2715,14 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6390;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6410;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6412;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6415;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6433;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6435;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6438;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6452;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6454;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6457;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6471;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6473;
@@ -2787,14 +2781,14 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6855;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6857;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6872;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6874;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6876;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6892;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6894;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6896;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6913;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6915;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6917;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6932;
@@ -2853,14 +2847,14 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d7304;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d7319;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d7321;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d7338;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d7340;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d7360;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d7362;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d7364;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d7383;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d7385;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d7387;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d7400;
@@ -2919,14 +2913,14 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d7803;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d7805;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d7816;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d7818;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d7829;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d7831;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d7848;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d7865;
         IData/*31:0*/ __PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d7903;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__IF_logic_req_valid_91_AND_NOT_logic_resp_valid_ETC___05F_d1210;
         IData/*31:0*/ __PVT__dut__DOT__IF_pt_next_id_59_BITS_3_TO_0_121_EQ_0_159_THEN_ETC___05F_d8237;
         IData/*31:0*/ __PVT__dut__DOT__IF_pt_next_id_59_BITS_3_TO_0_121_EQ_0_159_THEN_ETC___05F_d8311;
@@ -2985,14 +2979,14 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         IData/*31:0*/ __PVT__dut__DOT__x_24___05Fh134405;
         IData/*31:0*/ __PVT__dut__DOT__x_3___05Fh155848;
         IData/*31:0*/ __PVT__dut__DOT__x_630___05Fh45022;
-    };
-    struct {
         IData/*31:0*/ __PVT__dut__DOT__x_645___05Fh45037;
         IData/*31:0*/ __PVT__dut__DOT__x_680___05Fh45072;
         IData/*31:0*/ __PVT__dut__DOT__x_681___05Fh45073;
         IData/*31:0*/ __PVT__dut__DOT__x_682___05Fh45074;
         IData/*31:0*/ __PVT__dut__DOT__x_683___05Fh45075;
         IData/*31:0*/ __PVT__dut__DOT__x_7015088_PLUS_0_CONCAT_x_7015088_BITS_31_TO_16___05Fq1;
+    };
+    struct {
         IData/*31:0*/ __PVT__dut__DOT__x_701___05Fh45088;
         IData/*31:0*/ __PVT__dut__DOT__x_719___05Fh45104;
         IData/*31:0*/ __PVT__dut__DOT__x_736___05Fh45121;
@@ -3002,7 +2996,6 @@ class alignas(VL_CACHE_LINE_BYTES) Vthiele_cpu_kami_tb_thiele_cpu_kami_tb final 
         QData/*63:0*/ __PVT__sh_left;
         QData/*63:0*/ __PVT__sh_right;
         QData/*63:0*/ __PVT__shadow_new_mask;
-        QData/*63:0*/ __PVT__dut__DOT__apbWrite_x_0;
         VlUnpacked<IData/*31:0*/, 256> __PVT__instr_memory;
         VlUnpacked<IData/*31:0*/, 256> __PVT__data_memory;
         VlUnpacked<QData/*63:0*/, 64> __PVT__shadow_masks;

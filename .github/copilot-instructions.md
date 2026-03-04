@@ -157,4 +157,4 @@ Every proof file must transitively import from BOTH:
 - NO `Admitted.` or `admit.` anywhere
 - NO tier exemptions — all proofs same standard
 - ALL proofs connect to both semantics AND cost foundations
-- All 26 opcodes consistent across Coq, OCaml, Python, Verilog
+- All 31 opcodes consistent across Coq, OCaml, Python, Verilog

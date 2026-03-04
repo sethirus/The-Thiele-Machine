@@ -116,7 +116,7 @@ class TestStructuralIsomorphism:
     def test_all_core_opcodes_aligned(self, python_opcodes, verilog_opcodes, coq_opcodes):
         """All core opcodes have identical values across Python/Verilog/Coq."""
         core_opcodes = ['PNEW', 'PSPLIT', 'PMERGE', 'LASSERT', 'LJOIN', 
-                       'MDLACC', 'EMIT', 'PYEXEC', 'XOR_ADD', 'XOR_SWAP', 'XOR_RANK']
+                       'MDLACC', 'EMIT', 'LOAD_IMM', 'XOR_ADD', 'XOR_SWAP', 'XOR_RANK']
         
         specs = []
         for name in core_opcodes:

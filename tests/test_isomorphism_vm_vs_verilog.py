@@ -273,7 +273,7 @@ class TestOpcodeEncodingAlignment:
         "LJOIN": 0x04,
         "MDLACC": 0x05,
         "XFER": 0x07,
-        "PYEXEC": 0x08,
+        "LOAD_IMM": 0x08,
         "XOR_LOAD": 0x0A,
         "XOR_ADD": 0x0B,
         "XOR_SWAP": 0x0C,

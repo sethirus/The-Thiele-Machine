@@ -23,31 +23,15 @@ VL_INLINE_OPT void Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___act_comb__TOP__thiel
     CData/*0:0*/ dut__DOT____VdfgTmp_h068922c6__0;
     dut__DOT____VdfgTmp_h068922c6__0 = 0;
     // Body
-    vlSelf->__PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d5198 
-        = (((IData)(vlSelf->dut__DOT____VdfgTmp_h07ff6c3e__0) 
-            | (0x77U > (0xffU & (vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d300 
-                                 >> 0x10U)))) ? vlSelf->__PVT__dut__DOT__mem119__VforceRd
-            : vlSelf->__PVT__dut__DOT__x_641___05Fh45033);
-    if ((0xceU > (0xffU & (vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d300 
-                           >> 0x10U)))) {
-        if ((0xcdU > (0xffU & (vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d300 
-                               >> 0x10U)))) {
-            vlSelf->__PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6972 
-                = vlSelf->__PVT__dut__DOT__x_641___05Fh45033;
-            vlSelf->__PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6991 
-                = vlSelf->__PVT__dut__DOT__mem205__VforceRd;
-        } else {
-            vlSelf->__PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6972 
-                = vlSelf->__PVT__dut__DOT__mem204__VforceRd;
-            vlSelf->__PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6991 
-                = vlSelf->__PVT__dut__DOT__x_641___05Fh45033;
-        }
-    } else {
-        vlSelf->__PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6972 
-            = vlSelf->__PVT__dut__DOT__mem204__VforceRd;
-        vlSelf->__PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6991 
-            = vlSelf->__PVT__dut__DOT__mem205__VforceRd;
-    }
+    vlSelf->__PVT__dut__DOT__IF_SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_6_ETC___05F_d6991 
+        = ((0xceU > (0xffU & (vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d300 
+                              >> 0x10U))) ? ((0xcdU 
+                                              > (0xffU 
+                                                 & (vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d300 
+                                                    >> 0x10U)))
+                                              ? vlSelf->__PVT__dut__DOT__mem205__VforceRd
+                                              : vlSelf->__PVT__dut__DOT__x_641___05Fh45033)
+            : vlSelf->__PVT__dut__DOT__mem205__VforceRd);
     if ((0xdeU > (0xffU & (vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d300 
                            >> 0x10U)))) {
         if ((0xddU > (0xffU & (vlSelf->__PVT__dut__DOT__SEL_ARR_imem_0_BITS_31_TO_0_1_imem_0_BITS_63_T_ETC___05F_d300 
@@ -1645,15 +1629,10 @@ VL_INLINE_OPT void Vthiele_cpu_kami_tb_thiele_cpu_kami_tb___act_comb__TOP__thiel
         = (1U & ((IData)(vlSelf->logic_resp_en) ? (IData)(
                                                           (vlSelf->logic_resp_in 
                                                            >> 0x21U))
-                  : ((IData)(vlSelf->__PVT__dut__DOT__err__024EN)
-                      ? ((~ (IData)(vlSelf->__PVT__dut__DOT__mu_ULT_mu_tensor_BITS_31_TO_0_PLUS_mu_tensor_B_ETC___05F_d39)) 
+                  : ((IData)(vlSelf->__PVT__dut__DOT__err__024EN) 
+                     && ((~ (IData)(vlSelf->__PVT__dut__DOT__mu_ULT_mu_tensor_BITS_31_TO_0_PLUS_mu_tensor_B_ETC___05F_d39)) 
                          & ((~ (IData)(vlSelf->__PVT__dut__DOT__logic_req_valid__VforceRd)) 
-                            & (IData)(vlSelf->__PVT__dut__DOT__logic_resp_valid__VforceRd)))
-                      : ((IData)(vlSelf->__PVT__dut__DOT__EN_apbWrite) 
-                         && ((0x8cU == (IData)((vlSelf->__PVT__dut__DOT__apbWrite_x_0 
-                                                >> 0x20U)))
-                              ? (0U != (IData)(vlSelf->__PVT__dut__DOT__apbWrite_x_0))
-                              : (IData)(vlSelf->__PVT__dut__DOT__logic_resp_valid__VforceRd))))));
+                            & (IData)(vlSelf->__PVT__dut__DOT__logic_resp_valid__VforceRd))))));
     vlSelf->dut__DOT____VdfgTmp_ha84bfee9__0 = ((IData)(vlSelf->__PVT__dut__DOT__reg31_42_BITS_7_TO_0_43_ULT_0x20_706_OR_reg31___05FETC___05F_d3984) 
                                                 | (0x3eU 
                                                    > 
