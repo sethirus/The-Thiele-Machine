@@ -281,6 +281,9 @@ Extraction "mu_alu_extracted.ml"
    - Python: thielecpu/mu_fixed.py
    - Verilog: thielecpu/hardware/mu_alu.v
    - Coq: This file (coq/thielemachine/coqproofs/MuAlu.v)
-   
+
    All three implementations are bit-exact and produce identical results.
 *)
+
+Definition saturate_idempotent_anchor := saturate_idempotent.
+

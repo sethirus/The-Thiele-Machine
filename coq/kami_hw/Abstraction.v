@@ -28,6 +28,8 @@ Require Import Coq.micromega.Lia.
 Import ListNotations.
 
 Require Import Kernel.VMState.
+Require Import Kernel.VMStep.
+Import VMStep.VMStep.
 
 (** * Hardware state snapshot
 
@@ -117,6 +119,412 @@ Definition abs_phase1 (s : KamiSnapshot) : VMState :=
 
 (** Full alias — all 31 instructions covered *)
 Definition abs_full := abs_phase1.
+
+(* ====================================================================
+   Hardware step function — kami_step
+   Maps a KamiSnapshot through one vm_instruction, mirroring
+   the RTL rule bodies in ThieleCPUCore.v.
+
+   Stack-pointer register: register r31 (= kami_sp_reg) is reserved
+   for CALL/RET, matching SP_IDX in ThieleCPUCore.v.
+   ==================================================================== *)
+
+(** Stack-pointer register index — mirrors SP_IDX in ThieleCPUCore.v.
+    RegIdxSz = 5 bits → max register index 31 is kami_sp_reg. *)
+Definition kami_sp_reg : nat := 31.
+
+Lemma kami_sp_reg_lt_32 : kami_sp_reg < 32.
+Proof. unfold kami_sp_reg. lia. Qed.
+
+(** Default hardware advance: increment PC by 1, add cost to mu.
+    All other KamiSnapshot fields are preserved unchanged. *)
+Definition kami_advance_default (hs : KamiSnapshot) (cost : nat) : KamiSnapshot :=
+  {| snap_pc           := S (snap_pc hs);
+     snap_mu           := snap_mu hs + cost;
+     snap_err          := snap_err hs;
+     snap_halted       := snap_halted hs;
+     snap_regs         := snap_regs hs;
+     snap_mem          := snap_mem hs;
+     snap_partition_ops := snap_partition_ops hs;
+     snap_mdl_ops      := snap_mdl_ops hs;
+     snap_info_gain    := snap_info_gain hs;
+     snap_error_code   := snap_error_code hs;
+     snap_mu_tensor    := snap_mu_tensor hs;
+     snap_pt_sizes     := snap_pt_sizes hs;
+     snap_pt_next_id   := snap_pt_next_id hs |}.
+
+(** Write register [r mod 32] with value word32(v). *)
+Definition kami_write_reg (hs : KamiSnapshot) (r v : nat) : nat -> nat :=
+  fun j => if Nat.eqb j (r mod 32) then word32 v else snap_regs hs j.
+
+(** Write memory[a mod 4096] with value word32(v). *)
+Definition kami_write_mem (hs : KamiSnapshot) (a v : nat) : nat -> nat :=
+  fun j => if Nat.eqb j (a mod 4096) then word32 v else snap_mem hs j.
+
+(** Computable hardware step function.  Each case mirrors the corresponding
+    RTL rule body in ThieleCPUCore.v.
+
+    CSR note: abs_phase1 projects vm_csrs = default_csrs for all snapshots.
+    Instructions that update CSRs (REVEAL, EMIT, LASSERT, LJOIN) are handled
+    at the software/driver layer; the snapshot only records the mu-tensor
+    charge (for REVEAL) and mu/pc advances (for others).
+
+    CALL/RET use kami_sp_reg (r31) as the stack pointer, matching SP_IDX
+    in ThieleCPUCore.v. *)
+Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
+  match i with
+  | instr_pnew region cost =>
+      let id := snap_pt_next_id hs in
+      let sz := length (normalize_region region) in
+      {| snap_pc    := S (snap_pc hs);
+         snap_mu    := snap_mu hs + cost;
+         snap_err   := snap_err hs;
+         snap_halted := snap_halted hs;
+         snap_regs  := snap_regs hs;
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs + 1;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes :=
+           fun j => if Nat.eqb j id then sz else snap_pt_sizes hs j;
+         snap_pt_next_id := S id |}
+  | instr_psplit _ _ _ cost =>
+      kami_advance_default hs cost
+  | instr_pmerge _ _ cost =>
+      kami_advance_default hs cost
+  | instr_lassert _ _ _ cost =>
+      kami_advance_default hs cost
+  | instr_ljoin _ _ cost =>
+      kami_advance_default hs cost
+  | instr_mdlacc _ cost =>
+      {| snap_pc    := S (snap_pc hs);
+         snap_mu    := snap_mu hs + cost;
+         snap_err   := snap_err hs;
+         snap_halted := snap_halted hs;
+         snap_regs  := snap_regs hs;
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs + 1;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs |}
+  | instr_pdiscover _ _ cost =>
+      kami_advance_default hs cost
+  | instr_xfer dst src cost =>
+      {| snap_pc    := S (snap_pc hs);
+         snap_mu    := snap_mu hs + cost;
+         snap_err   := snap_err hs;
+         snap_halted := snap_halted hs;
+         snap_regs  := kami_write_reg hs dst (snap_regs hs (src mod 32));
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs |}
+  | instr_load_imm dst imm cost =>
+      {| snap_pc    := S (snap_pc hs);
+         snap_mu    := snap_mu hs + cost;
+         snap_err   := snap_err hs;
+         snap_halted := snap_halted hs;
+         snap_regs  := kami_write_reg hs dst imm;
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs |}
+  | instr_load dst addr cost =>
+      {| snap_pc    := S (snap_pc hs);
+         snap_mu    := snap_mu hs + cost;
+         snap_err   := snap_err hs;
+         snap_halted := snap_halted hs;
+         snap_regs  := kami_write_reg hs dst (snap_mem hs (addr mod 4096));
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs |}
+  | instr_store addr src cost =>
+      {| snap_pc    := S (snap_pc hs);
+         snap_mu    := snap_mu hs + cost;
+         snap_err   := snap_err hs;
+         snap_halted := snap_halted hs;
+         snap_regs  := snap_regs hs;
+         snap_mem   := kami_write_mem hs addr (snap_regs hs (src mod 32));
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs |}
+  | instr_add dst rs1 rs2 cost =>
+      {| snap_pc    := S (snap_pc hs);
+         snap_mu    := snap_mu hs + cost;
+         snap_err   := snap_err hs;
+         snap_halted := snap_halted hs;
+         snap_regs  := kami_write_reg hs dst
+                         (snap_regs hs (rs1 mod 32) + snap_regs hs (rs2 mod 32));
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs |}
+  | instr_sub dst rs1 rs2 cost =>
+      let v1 := snap_regs hs (rs1 mod 32) in
+      let v2 := snap_regs hs (rs2 mod 32) in
+      {| snap_pc    := S (snap_pc hs);
+         snap_mu    := snap_mu hs + cost;
+         snap_err   := snap_err hs;
+         snap_halted := snap_halted hs;
+         snap_regs  := kami_write_reg hs dst
+                         (if Nat.leb v2 v1 then v1 - v2 else 0);
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs |}
+  | instr_jump target cost =>
+      {| snap_pc    := target;
+         snap_mu    := snap_mu hs + cost;
+         snap_err   := snap_err hs;
+         snap_halted := snap_halted hs;
+         snap_regs  := snap_regs hs;
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs |}
+  | instr_jnez rs target cost =>
+      let v := snap_regs hs (rs mod 32) in
+      {| snap_pc    := if Nat.eqb v 0 then S (snap_pc hs) else target;
+         snap_mu    := snap_mu hs + cost;
+         snap_err   := snap_err hs;
+         snap_halted := snap_halted hs;
+         snap_regs  := snap_regs hs;
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs |}
+  (* CALL/RET use kami_sp_reg (r31) as the stack pointer.
+     Mirrors SP_IDX (WO~1~1~1~1~1 = 31) in ThieleCPUCore.v. *)
+  | instr_call target cost =>
+      let sp  := snap_regs hs kami_sp_reg in
+      let sp' := if Nat.eqb sp 0 then 0 else sp - 1 in
+      let ra  := S (snap_pc hs) in
+      {| snap_pc    := target;
+         snap_mu    := snap_mu hs + cost;
+         snap_err   := snap_err hs;
+         snap_halted := snap_halted hs;
+         snap_regs  := fun j =>
+           if Nat.eqb j kami_sp_reg then sp' else snap_regs hs j;
+         snap_mem   := fun j =>
+           if Nat.eqb j sp' then ra else snap_mem hs j;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs |}
+  | instr_ret cost =>
+      let sp  := snap_regs hs kami_sp_reg in
+      let ra  := snap_mem hs sp in
+      let sp' := sp + 1 in
+      {| snap_pc    := ra;
+         snap_mu    := snap_mu hs + cost;
+         snap_err   := snap_err hs;
+         snap_halted := snap_halted hs;
+         snap_regs  := fun j =>
+           if Nat.eqb j kami_sp_reg then sp' else snap_regs hs j;
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs |}
+  | instr_chsh_trial _ _ _ _ cost =>
+      kami_advance_default hs cost
+  | instr_xor_load dst addr cost =>
+      {| snap_pc    := S (snap_pc hs);
+         snap_mu    := snap_mu hs + cost;
+         snap_err   := snap_err hs;
+         snap_halted := snap_halted hs;
+         snap_regs  := kami_write_reg hs dst (snap_mem hs (addr mod 4096));
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs |}
+  | instr_xor_add dst src cost =>
+      {| snap_pc    := S (snap_pc hs);
+         snap_mu    := snap_mu hs + cost;
+         snap_err   := snap_err hs;
+         snap_halted := snap_halted hs;
+         snap_regs  := kami_write_reg hs dst
+                         (Nat.lxor (snap_regs hs (dst mod 32))
+                                   (snap_regs hs (src mod 32)));
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs |}
+  | instr_xor_swap a b cost =>
+      let va := snap_regs hs (a mod 32) in
+      let vb := snap_regs hs (b mod 32) in
+      {| snap_pc    := S (snap_pc hs);
+         snap_mu    := snap_mu hs + cost;
+         snap_err   := snap_err hs;
+         snap_halted := snap_halted hs;
+         snap_regs  := fun j =>
+           if Nat.eqb j (a mod 32) then vb
+           else if Nat.eqb j (b mod 32) then va
+           else snap_regs hs j;
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs |}
+  | instr_xor_rank dst src cost =>
+      {| snap_pc    := S (snap_pc hs);
+         snap_mu    := snap_mu hs + cost;
+         snap_err   := snap_err hs;
+         snap_halted := snap_halted hs;
+         snap_regs  := kami_write_reg hs dst (snap_regs hs (src mod 32));
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs |}
+  | instr_emit _ _ cost =>
+      kami_advance_default hs cost
+  | instr_reveal _ bits _ cost =>
+      (* REVEAL charges mu-tensor at flat index [bits mod 16] by cost. *)
+      let k := bits mod 16 in
+      {| snap_pc    := S (snap_pc hs);
+         snap_mu    := snap_mu hs + cost;
+         snap_err   := snap_err hs;
+         snap_halted := snap_halted hs;
+         snap_regs  := snap_regs hs;
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs + cost;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor :=
+           fun j => if Nat.eqb j k then snap_mu_tensor hs j + cost
+                    else snap_mu_tensor hs j;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs |}
+  | instr_oracle_halts _ cost =>
+      kami_advance_default hs cost
+  | instr_halt cost =>
+      {| snap_pc    := snap_pc hs;
+         snap_mu    := snap_mu hs + cost;
+         snap_err   := snap_err hs;
+         snap_halted := true;
+         snap_regs  := snap_regs hs;
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs |}
+  | instr_checkpoint _ cost =>
+      kami_advance_default hs cost
+  | instr_read_port dst _ v _ cost =>
+      {| snap_pc    := S (snap_pc hs);
+         snap_mu    := snap_mu hs + cost;
+         snap_err   := snap_err hs;
+         snap_halted := snap_halted hs;
+         snap_regs  := kami_write_reg hs dst v;
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs |}
+  | instr_write_port _ _ cost =>
+      kami_advance_default hs cost
+  | instr_heap_load dst addr cost =>
+      {| snap_pc    := S (snap_pc hs);
+         snap_mu    := snap_mu hs + cost;
+         snap_err   := snap_err hs;
+         snap_halted := snap_halted hs;
+         snap_regs  := kami_write_reg hs dst (snap_mem hs (addr mod 4096));
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs |}
+  | instr_heap_store addr src cost =>
+      {| snap_pc    := S (snap_pc hs);
+         snap_mu    := snap_mu hs + cost;
+         snap_err   := snap_err hs;
+         snap_halted := snap_halted hs;
+         snap_regs  := snap_regs hs;
+         snap_mem   := kami_write_mem hs addr (snap_regs hs (src mod 32));
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs |}
+  end.
+
+(** kami_step advances mu by exactly instruction_cost. *)
+Lemma kami_step_mu_cost : forall (hs : KamiSnapshot) (i : vm_instruction),
+    snap_mu (kami_step hs i) = snap_mu hs + instruction_cost i.
+Proof.
+  intros hs i. destruct i; simpl; reflexivity.
+Qed.
 
 (** * Execution preconditions *)
 Definition cpu_preconditions (s : KamiSnapshot) : Prop :=

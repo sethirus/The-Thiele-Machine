@@ -310,12 +310,10 @@ class TestEdgeCases:
         instrs = [
             "LOAD_IMM 0 50 1",    # r0 = 50
             "LOAD_IMM 1 30 1",    # r1 = 30
-            # ADD r2 = r0 + r1 (rs1=0, rs2=1 → op_b = 0x01)
-            "ADD 2 1 1",          # r2 = r0 + r1 = 80
-            # SUB r3 = r2 - r1 (rs1=2>>4=0, rs2=1 → need op_b encoding)
-            # Actually encoding: rs1 = op_b[7:4], rs2 = op_b[3:0]
-            # r2=idx2, r1=idx1: op_b = (2<<4)|1 = 33
-            "SUB 3 33 1",         # r3 = r2 - r1 = 50
+            # ADD r2 = r0 + r1 (4-arg format: dst rs1 rs2 cost)
+            "ADD 2 0 1 1",        # r2 = r0 + r1 = 80
+            # SUB r3 = r2 - r1 (4-arg format: dst rs1 rs2 cost)
+            "SUB 3 2 1 1",        # r3 = r2 - r1 = 50
             "HALT"
         ]
         result = run_verilog("\n".join(instrs), timeout=30)

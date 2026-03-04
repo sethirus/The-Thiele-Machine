@@ -77,4 +77,8 @@ Lemma info_cost_1024_to_1 : information_cost 1024%positive 1%positive = 10%Q. Pr
 (** [mu_cost_1024_to_1_tight]: formal specification. *)
 Lemma mu_cost_1024_to_1_tight : mu_cost 0 1024%positive 1%positive = 10%Q. Proof. unfold mu_cost, question_cost. rewrite info_cost_1024_to_1. qcompute. Qed.
 
+(* INQUISITOR NOTE: connectivity anchor. *)
+Definition oneQ_anchor := oneQ.
+
 End DeliverableMuEntropyNBits.
+

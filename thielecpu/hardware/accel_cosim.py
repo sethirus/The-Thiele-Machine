@@ -312,7 +312,7 @@ def _build_receipt_program(opcode: str, pre_mu: int, operands: Dict) -> List[str
     """Build a minimal program to execute one opcode for receipt checking."""
     op = opcode.upper()
     cost = operands.get("cost", 1)
-    lines: List[str] = [f"INIT_MU {pre_mu}"]
+    lines: List[str] = []
 
     if op in ("REVEAL", "CHSH_TRIAL", "PDISCOVER"):
         lines.append("INIT_LOGIC_ACC 0xCAFEEACE")
@@ -425,8 +425,8 @@ def run_receipt_checker(receipts: List[Dict]) -> List[Dict]:
             prev_post_mu = None
             continue
 
-        actual_mu = rtl_result.get("mu", pre_mu)
-        actual_cost = actual_mu - pre_mu
+        actual_mu = rtl_result.get("mu", 0)
+        actual_cost = actual_mu  # each program starts from mu=0 (no INIT_MU)
         integrity_ok = (actual_cost == expected_cost)
         chain_ok = (prev_post_mu is None) or (pre_mu == prev_post_mu)
         prev_post_mu = actual_mu

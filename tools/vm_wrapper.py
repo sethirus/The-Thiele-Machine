@@ -110,7 +110,9 @@ def run_vm_trace(instructions: List[str], fuel: int = 1000) -> VMState:
         trace_path = f.name
         f.write(f"FUEL {fuel}\n")
         for instr in instructions:
-            f.write(f"{instr}\n")
+            # Filter INIT_* directives — testbench-only; OCaml runner rejects them
+            if not instr.strip().upper().startswith("INIT_"):
+                f.write(f"{instr}\n")
 
     try:
         # Run VM

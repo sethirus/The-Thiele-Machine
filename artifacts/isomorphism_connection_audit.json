@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-03-04T01:20:26.446912+00:00",
+  "generated_at": "2026-03-04T04:01:24.259475+00:00",
   "summary": {
     "connected_count": 7,
     "disconnected_count": 4,
-    "weak_link_count": 2,
-    "confidence": "medium"
+    "weak_link_count": 0,
+    "confidence": "high"
   },
   "connected": [
     {
@@ -46,7 +46,7 @@
       ],
       "action": "reintegrate",
       "next_action": "Promote critical nearby files into declared layer set or explicitly archive them.",
-      "count": 302,
+      "count": 303,
       "sample": [
         {
           "path": "coq/Extraction.v",
@@ -157,6 +157,15 @@
           "why": "Semantic content found outside declared audit file set."
         },
         {
+          "path": "coq/kami_hw/RTLCorrectnessInstantiation.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
           "path": "coq/kami_hw/ThieleCPUBusTop.v",
           "nearby_declared": [
             "coq/bridge/PythonMuLedgerBisimulation.v",
@@ -212,15 +221,6 @@
         },
         {
           "path": "coq/kernel/ArrowOfTimeSynthesis.v",
-          "nearby_declared": [
-            "coq/kernel/HardwareBisimulation.v",
-            "coq/kernel/ReceiptIntegrity.v",
-            "coq/kernel/ThreeLayerIsomorphism.v"
-          ],
-          "why": "Semantic content found outside declared audit file set."
-        },
-        {
-          "path": "coq/kernel/AssumptionBundle.v",
           "nearby_declared": [
             "coq/kernel/HardwareBisimulation.v",
             "coq/kernel/ReceiptIntegrity.v",
@@ -660,90 +660,18 @@
       ]
     }
   ],
-  "weak_links": [
-    {
-      "kind": "proof-isolated-declarations",
-      "count": 130,
-      "sample": [
-        "coq/isomorphism/coqproofs/Universe.v:37:definition:C_phys_id",
-        "coq/kami_hw/ThieleCPUBusTop.v:64:definition:busAddrErr",
-        "coq/kami_hw/ThieleCPUBusTop.v:65:definition:busAddrHalted",
-        "coq/kami_hw/ThieleCPUBusTop.v:67:definition:busAddrMdlOps",
-        "coq/kami_hw/ThieleCPUBusTop.v:68:definition:busAddrInfoGain",
-        "coq/kami_hw/ThieleCPUBusTop.v:69:definition:busAddrErrorCode",
-        "coq/kami_hw/ThieleCPUBusTop.v:70:definition:busAddrMstatus",
-        "coq/kami_hw/ThieleCPUBusTop.v:71:definition:busAddrMcycleLo",
-        "coq/kami_hw/ThieleCPUBusTop.v:72:definition:busAddrMcycleHi",
-        "coq/kami_hw/ThieleCPUBusTop.v:73:definition:busAddrMinstretLo",
-        "coq/kami_hw/ThieleCPUBusTop.v:74:definition:busAddrMinstretHi",
-        "coq/kami_hw/ThieleCPUBusTop.v:75:definition:busAddrLogicAcc",
-        "coq/kami_hw/ThieleCPUBusTop.v:76:definition:busAddrLogicReqValid",
-        "coq/kami_hw/ThieleCPUBusTop.v:77:definition:busAddrLogicReqOpcode",
-        "coq/kami_hw/ThieleCPUBusTop.v:78:definition:busAddrLogicReqPayload",
-        "coq/kami_hw/ThieleCPUBusTop.v:79:definition:busAddrMuTensor0",
-        "coq/kami_hw/ThieleCPUBusTop.v:80:definition:busAddrMuTensor1",
-        "coq/kami_hw/ThieleCPUBusTop.v:81:definition:busAddrMuTensor2",
-        "coq/kami_hw/ThieleCPUBusTop.v:82:definition:busAddrMuTensor3",
-        "coq/kami_hw/ThieleCPUBusTop.v:83:definition:busAddrBianchiAlarm"
-      ],
-      "recommendation": "Review declarations for dead-end proofs or unhooked lemmas; reintegrate or archive.",
-      "action": "reintegrate"
-    },
-    {
-      "kind": "proof-tiny-components",
-      "count": 5,
-      "sample": [
-        {
-          "size": 2,
-          "sample": [
-            "coq/kami_hw/ThieleCPUCore.v:71:definition:SP_IDX",
-            "coq/kami_hw/ThieleTypes.v:12:definition:RegIdxSz"
-          ]
-        },
-        {
-          "size": 2,
-          "sample": [
-            "coq/kernel/BornRule.v:237:definition:post_measurement_zero",
-            "coq/kernel/BornRule.v:245:lemma:measurement_creates_pure_zero"
-          ]
-        },
-        {
-          "size": 2,
-          "sample": [
-            "coq/kernel/BornRule.v:241:definition:post_measurement_one",
-            "coq/kernel/BornRule.v:253:lemma:measurement_creates_pure_one"
-          ]
-        },
-        {
-          "size": 2,
-          "sample": [
-            "coq/kernel/L2Derivation.v:81:definition:l1_simplex",
-            "coq/kernel/L2Derivation.v:84:definition:l1_path"
-          ]
-        },
-        {
-          "size": 2,
-          "sample": [
-            "coq/kernel/NPMuCostBound.v:146:definition:graph_iso_witness_cost",
-            "coq/kernel/NPMuCostBound.v:151:theorem:graph_iso_nontrivial_cost"
-          ]
-        }
-      ],
-      "recommendation": "Small disconnected clusters may indicate proof islands; connect to main theorem spine or move to archive.",
-      "action": "move_or_archive"
-    }
-  ],
+  "weak_links": [],
   "proof_graph_signals": {
-    "isolated_count": 130,
-    "tiny_component_count": 5,
-    "weak_component_count": 156
+    "isolated_count": 0,
+    "tiny_component_count": 0,
+    "weak_component_count": 68
   },
   "coverage_scope": {
     "coq": {
       "declared": 6,
-      "discovered": 323,
-      "declared_coverage_ratio": 0.0186,
-      "semantic_unmapped_count": 302
+      "discovered": 324,
+      "declared_coverage_ratio": 0.0185,
+      "semantic_unmapped_count": 303
     },
     "python": {
       "declared": 4,

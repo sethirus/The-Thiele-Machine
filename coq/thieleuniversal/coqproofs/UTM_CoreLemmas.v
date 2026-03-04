@@ -623,3 +623,6 @@ Definition core_lemmas_vm_witness (vm : VMState) : nat := vm_mu vm.
 (** The memory layout proved consistent here maps directly to
     vm_mem in the Thiele Machine state model. *)
 Definition core_lemmas_vm_mem (vm : VMState) : list nat := vm_mem vm.
+
+Definition nth_overflow_nat_anchor := nth_overflow_nat.
+

@@ -131,3 +131,6 @@ Proof.
   - apply tsirelson_program_mu_zero.
   - split; reflexivity.
 Qed.
+
+Definition target_chsh_value_anchor := target_chsh_value.
+

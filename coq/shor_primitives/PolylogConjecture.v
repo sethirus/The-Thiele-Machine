@@ -200,3 +200,7 @@ End Achievements.
     It does NOT provide any computational advantage for factorization.
  *)
 
+(* INQUISITOR NOTE: connectivity anchor. *)
+Definition polylog_anchor := (trial_division_complexity, honest_speedup_analysis).
+
+

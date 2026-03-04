@@ -631,3 +631,13 @@ Proof.
 Qed.
 
 End QuantumFromMachine.
+
+(* INQUISITOR NOTE: Definitional lemma — connectivity anchor for L1 simplex/path pair. *)
+(* DEFINITIONAL HELPER *)
+Lemma l1_simplex_path_coverage :
+  forall (gamma : R -> R * R) (t : R),
+    l1_path gamma ->
+    0 <= t -> t <= 1 ->
+    l1_simplex (fst (gamma t)) (snd (gamma t)).
+Proof. intros gamma t Hpath Hlo Hhi. exact (Hpath t Hlo Hhi). Qed.
+

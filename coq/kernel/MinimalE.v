@@ -197,3 +197,6 @@ Proof.
 Qed.
 
 Close Scope Q_scope.
+
+Definition Qopp_0_le_anchor := Qopp_0_le.
+

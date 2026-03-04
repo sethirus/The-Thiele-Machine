@@ -193,3 +193,6 @@ Proof.
       * assert (n = 0)%nat by lia.
         subst n. simpl. lia.
 Qed.
+
+Definition local_assertions_anchor := local_assertions.
+

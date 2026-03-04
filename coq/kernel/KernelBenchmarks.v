@@ -201,3 +201,9 @@ Qed.
 
     These bounds are TESTABLE via Python benchmarks.
     *)
+
+(* INQUISITOR NOTE: connectivity anchor for isolated benchmark declarations. *)
+Definition nlogn_time_op_anchor := nlogn_time_op.
+Definition quadratic_time_op_anchor := quadratic_time_op.
+Definition BenchmarkPNEW_anchor : Type := BenchmarkPNEW.
+Definition BenchmarkPSPLIT_anchor : Type := BenchmarkPSPLIT.

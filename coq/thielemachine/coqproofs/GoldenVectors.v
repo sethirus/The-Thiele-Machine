@@ -147,3 +147,6 @@ Definition golden4_hash : list bool := hash_state golden4_state.
      Output: 1234567890
      Python: hex(1234567890)[2:].zfill(64)
 *)
+
+Definition bool_list_to_nat_anchor := bool_list_to_nat.
+

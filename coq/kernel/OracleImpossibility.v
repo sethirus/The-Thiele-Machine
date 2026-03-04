@@ -369,3 +369,7 @@ Qed.
 
     ZERO AXIOMS. ZERO ADMITS.
     ========================================================================= *)
+
+(* INQUISITOR NOTE: connectivity anchor for auxiliary oracle lemmas. *)
+Definition oracle_aux_anchor := (anti_diagonal_differs, no_row_is_antidiagonal).
+

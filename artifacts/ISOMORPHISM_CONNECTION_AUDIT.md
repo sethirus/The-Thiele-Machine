@@ -1,13 +1,13 @@
 # Isomorphism Connection Audit
 
-Generated: 2026-03-04T01:20:26.446912+00:00
+Generated: 2026-03-04T04:01:24.259475+00:00
 
 ## Summary
 
 - Connected elements: **7**
 - Disconnected items: **4**
-- Weak links: **2**
-- Confidence: **medium**
+- Weak links: **0**
+- Confidence: **high**
 
 ## Disconnected (Actionable)
 
@@ -18,12 +18,11 @@ Generated: 2026-03-04T01:20:26.446912+00:00
 
 ## Weak Links
 
-- `proof-isolated-declarations` [reintegrate]: count=130 → Review declarations for dead-end proofs or unhooked lemmas; reintegrate or archive.
-- `proof-tiny-components` [move_or_archive]: count=5 → Small disconnected clusters may indicate proof islands; connect to main theorem spine or move to archive.
+- None currently detected.
 
 ## Coverage Scope
 
-- `coq`: declared=6, discovered=323, coverage=0.0186, semantic_unmapped=302
+- `coq`: declared=6, discovered=324, coverage=0.0185, semantic_unmapped=303
 - `python`: declared=4, discovered=132, coverage=0.0303, semantic_unmapped=115
 - `rtl`: declared=2, discovered=6, coverage=0.3333, semantic_unmapped=4
 - `tests`: declared=5, discovered=132, coverage=0.0379, semantic_unmapped=118

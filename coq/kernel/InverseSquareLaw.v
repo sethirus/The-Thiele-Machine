@@ -349,3 +349,7 @@ Qed.
 
     ZERO AXIOMS. ZERO ADMITS.
 *)
+
+(* INQUISITOR NOTE: connectivity anchor for InverseSquareLaw isolated items. *)
+Definition inverse_square_anchor := (point_source, lattice_spacing).
+

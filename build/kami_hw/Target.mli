@@ -623,5 +623,3 @@ val canonical_cpu_module : bModule list option
 val canonical_snapshot_to_vm : kamiSnapshot -> vMState
 
 type canonical_refinement_relation = __
-
-val targetB : int -> bModule list option

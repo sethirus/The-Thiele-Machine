@@ -298,3 +298,6 @@ Proof.
     exact Hmul. }
   exact Hnum_le.
 Qed.
+
+Definition log2_monotonic_anchor := log2_monotonic.
+

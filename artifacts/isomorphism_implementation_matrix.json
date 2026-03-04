@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-04T01:20:26.446191+00:00",
+  "generated_at": "2026-03-04T04:01:24.258735+00:00",
   "layers": [
     "coq",
     "python",
@@ -125,21 +125,21 @@
     "total_elements": 7
   },
   "counts": {
-    "coq_file_count": 323,
-    "theorem_like_count": 2709,
+    "coq_file_count": 324,
+    "theorem_like_count": 2719,
     "admit_count": 0,
     "axiom_decl_count": 24,
     "isomorphism_related_test_files": 27
   },
   "proof_dag_meta": {
     "coqRoot": "coq",
-    "nodeCount": 5358,
-    "edgeCount": 26611,
+    "nodeCount": 5413,
+    "edgeCount": 26812,
     "note": "Edges are symbol-reference dependencies inferred from theorem statements and proof bodies.",
     "buildStats": {
-      "ambiguous_token_hits": 4856,
-      "self_token_hits_skipped": 5358,
-      "multi_target_token_edges": 11467
+      "ambiguous_token_hits": 4862,
+      "self_token_hits_skipped": 5413,
+      "multi_target_token_edges": 11495
     }
   },
   "isomorphism_validation": {},
@@ -201,6 +201,7 @@
         "coq/kami_hw/CanonicalCPUProof.v",
         "coq/kami_hw/Compatibility.v",
         "coq/kami_hw/KamiExtraction.v",
+        "coq/kami_hw/RTLCorrectnessInstantiation.v",
         "coq/kami_hw/ThieleCPUBusTop.v",
         "coq/kami_hw/ThieleCPUCore.v",
         "coq/kami_hw/ThieleTypes.v",
@@ -789,9 +790,9 @@
     "coverage": {
       "coq": {
         "declared": 6,
-        "discovered": 323,
-        "declared_coverage_ratio": 0.0186,
-        "semantic_unmapped_count": 302
+        "discovered": 324,
+        "declared_coverage_ratio": 0.0185,
+        "semantic_unmapped_count": 303
       },
       "python": {
         "declared": 4,
@@ -915,6 +916,15 @@
         },
         {
           "path": "coq/kami_hw/CanonicalCPUProof.v",
+          "nearby_declared": [
+            "coq/bridge/PythonMuLedgerBisimulation.v",
+            "coq/kernel/HardwareBisimulation.v",
+            "coq/kernel/ReceiptIntegrity.v"
+          ],
+          "why": "Semantic content found outside declared audit file set."
+        },
+        {
+          "path": "coq/kami_hw/RTLCorrectnessInstantiation.v",
           "nearby_declared": [
             "coq/bridge/PythonMuLedgerBisimulation.v",
             "coq/kernel/HardwareBisimulation.v",

@@ -328,3 +328,15 @@ Proof.
     lra.
 Qed.
 
+(* INQUISITOR NOTE: connectivity anchor for post-measurement pure-state lemmas. *)
+Lemma born_rule_measurement_cases :
+  (forall x y z,
+    let '(x', y', z') := post_measurement_zero x y z in
+    x'*x' + y'*y' + z'*z' = 1) /\
+  (forall x y z,
+    let '(x', y', z') := post_measurement_one x y z in
+    x'*x' + y'*y' + z'*z' = 1).
+Proof.
+  split; [exact measurement_creates_pure_zero | exact measurement_creates_pure_one].
+Qed.
+

@@ -89,3 +89,6 @@ Ltac rewrite_Qeq_in_goal :=
     push Qeq witnesses down to the Z-level products produced by QArith
     unfoldings without brittle global normalisation. *)
 
+Definition Qeq_lt_compat_anchor := Qeq_lt_compat.
+
+

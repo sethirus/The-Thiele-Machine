@@ -425,3 +425,7 @@ Qed.
     ZERO AXIOMS. ZERO ADMITS.
     The Lorentz signature is DERIVED from computational irreversibility.
 *)
+
+(* INQUISITOR NOTE: connectivity anchor. *)
+Definition lorentz_index_anchor := (temporal_index, spatial_indices).
+

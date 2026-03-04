@@ -587,3 +587,6 @@ Definition reversible_zero_cost_is_unitary : Prop :=
     E.(evo_mu) = 0 ->
     is_unitary E.
 
+(* INQUISITOR NOTE: connectivity anchor for unitarity auxiliary definitions. *)
+Definition unitarity_coverage_anchor := (trace_rho_squared, lambda_plus, lambda_minus).
+

@@ -29198,6 +29198,3 @@ let canonical_snapshot_to_vm =
   abs_phase1
 
 type canonical_refinement_relation = __
-
-(** val targetB : int -> bModule list option **)
-let targetB _ = canonical_cpu_module

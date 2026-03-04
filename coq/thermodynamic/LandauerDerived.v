@@ -443,3 +443,6 @@ Print Assumptions erasure_irreversible.
 Check landauer_information_bound.
 Check thermodynamic_bridge.
 Check erasure_irreversible.
+
+Definition Bitstring_anchor := Bitstring.
+

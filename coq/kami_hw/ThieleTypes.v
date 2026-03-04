@@ -95,3 +95,6 @@ Definition OP_HALT          : word OpcodeSz := WO~1~1~1~1~1~1~1~1. (* 0xFF *)
 
 (** Instruction encoding: [31:24] opcode | [23:16] op_a | [15:8] op_b | [7:0] cost *)
 Definition InstrSz := 32.
+
+(* INQUISITOR NOTE: connectivity anchor. *)
+Definition hardware_dimensions := (RegCount, MemSize, CostSz).

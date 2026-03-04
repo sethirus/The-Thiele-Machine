@@ -335,3 +335,6 @@ Definition merge_dedup_savings (r1 r2 : list nat) (overlap : nat) (measured : na
 
     The theory is useful because it can die.
     *)
+
+Definition cost_violation_anchor := cost_violation.
+

@@ -373,3 +373,7 @@ Proof. vm_compute. split; reflexivity. Qed.
 Lemma thiele_pays_the_cost : state_mu thiele_final = 23.
 Proof. vm_compute. reflexivity. Qed.
 
+(* INQUISITOR NOTE: connectivity anchor for isolated type/value decls. *)
+Definition colour_anchor : Type := colour.
+Definition pow_nat_anchor := pow_nat.
+

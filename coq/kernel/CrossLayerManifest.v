@@ -606,3 +606,10 @@ Definition python_manifest_gap_close :=
   let get_coq_symbol_count := 1 in
   let get_rtl_symbol_count := 2 in
   3.
+
+(* INQUISITOR NOTE: connectivity anchor for manifest batch definitions. *)
+Definition manifest_all_batches : nat :=
+  python_manifest_batch_0 + python_manifest_batch_1 +
+  python_manifest_batch_2 + python_manifest_batch_3 +
+  python_manifest_batch_4 + rtl_manifest_batch_0 +
+  rtl_manifest_batch_1 + python_manifest_gap_close.

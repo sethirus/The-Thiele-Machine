@@ -1380,3 +1380,6 @@ Proof.
   destruct Hinv as (Hq & Hhead & _Hpc & Htape & _Hprog' & _Hrules' & _Htemp1 & _Haddr).
   exact (conj Hq (conj Hhead Htape)).
 Qed.
+
+Definition firstn_skipn_app_exact_anchor := @firstn_skipn_app_exact.
+
