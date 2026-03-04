@@ -1,8 +1,8 @@
 # Thiele Machine Extension Plan
 ## External Memory, I/O, and Persistent Storage
 
-**Date:** 2026-03-03
-**Status:** Kami Hardware Layer Complete — 31 opcodes, all formally proven, hardware Coq source updated
+**Date:** 2026-03-04
+**Status:** Phase 5 In Progress — VM completion pass (Python fallback, RTL coverage, receipt integrity)
 **Scope:** Extend the Thiele Machine with external memory access, I/O channels, and
 checkpoint/resume persistence without breaking the existing 1134-passing test suite
 or any Coq proofs.
@@ -112,7 +112,7 @@ programs using memory beyond address 255.
 
 ---
 
-## The Plan: Five Phases
+## The Plan: Six Phases
 
 ---
 
@@ -577,6 +577,105 @@ operate outside the proof envelope but work practically.
 
 ---
 
+### Phase 5 — VM Completion (In Progress)
+
+**What:** Close the remaining five structural incompleteness items identified
+after the bsc pipeline completion. No Coq changes required — all fixes are in
+the Python VM, test suite, and audit infrastructure.
+
+#### Phase 5A — Native OCaml runner + Python fallback completeness
+
+**5A.1: Recompile extracted runner as native binary**
+
+`build/extracted_vm_runner` is a bytecode binary (requires `ocamlrun`).
+Compile a native binary so it runs on machines without OCaml installed:
+
+```bash
+cd build && ocamlfind ocamlopt -package str -linkpkg \
+  thiele_core.ml ../tools/extracted_vm_runner.ml -o extracted_vm_runner_native
+```
+
+`tools/vm_wrapper.py` checks for `extracted_vm_runner_native` first.
+**Status:** ✅ Done — `build/extracted_vm_runner_native` compiled (1.8 MB)
+
+**5A.2: Python fallback implements all 31 opcodes**
+
+`build/thiele_vm.py` `_run_python()` silently skips 29 opcodes. Rewrite
+as a PC-dispatch loop implementing: PSPLIT, PMERGE, LASSERT, LJOIN, MDLACC,
+PDISCOVER, XFER, LOAD_IMM, CHSH_TRIAL, XOR_LOAD, XOR_ADD, XOR_SWAP, XOR_RANK,
+EMIT, REVEAL, ORACLE_HALTS, LOAD, STORE, ADD, SUB, JUMP, JNEZ, CALL, RET,
+CHECKPOINT, READ_PORT, WRITE_PORT, HEAP_LOAD, HEAP_STORE (+ existing PNEW, HALT).
+Cert-dependent ops (LASSERT, LJOIN) assume SAT continuation in the fallback.
+
+**Status:** 🔄 In Progress — rewrite underway
+
+#### Phase 5B — Receipt integrity checker
+
+`accel_cosim.py::run_receipt_checker()` was a permanent `NotImplementedError`
+stub referencing deleted `thiele_cpu_unified.v`. Replaced with a working
+implementation using `run_verilog()` from `cosim.py`: for each receipt, builds
+a minimal program (`INIT_MU {pre_mu}` + opcode + `HALT`), runs it through the
+Kami RTL, and compares actual mu increment to expected cost.
+
+`run_mu_alu()` similarly replaced: ADD/SUB validated via RTL; Q16.16 fixed-point
+ops (MUL_Q16, DIV_Q16, LOG2, CMP, MIN, MAX) computed by Python reference arithmetic.
+
+**Status:** ✅ Done
+
+#### Phase 5C — DSL executor partition integration
+
+Two TODOs in `thielecpu/dsl/executor.py`:
+- `_exec_PARTITION_SPLIT`: always returned `(set(), set())` — now splits the
+  popped region at midpoint, returning `(left_half, right_half)`
+- `_exec_PARTITION_MERGE`: now handles all input types via `to_set()` helper
+- `_exec_CALL` (arg binding): arguments now bound as `arg_0`, `arg_1`, …
+  since `IRInstruction` carries no parameter-name registry
+
+**Status:** ✅ Done
+
+#### Phase 5D — RTL structural coverage tests (7 audit gaps)
+
+The 7 isomorphism elements all showed `rtl: false` in the implementation matrix
+because the audit script's RTL-layer detection found no symbol artifacts.
+
+New test file `tests/test_rtl_structural_coverage.py` provides explicit RTL
+verification for each gap via `run_verilog()` cosim, using
+`# RTL_COVERAGE: <element>` marker comments detected by the audit script.
+The audit script is updated to scan for these markers and set `rtl: true`.
+
+After regeneration: all 7 structural elements show `rtl: true`; audit confidence
+improves from `"guarded"` (7/7 gaps) toward `"medium"` (0 untracked disconnects).
+
+| Element | Test class | Coverage |
+|---|---|---|
+| `state_shape` | TestStateShape | Result schema, field types |
+| `opcode_alignment` | TestOpcodeAlignment | All 31 opcodes, encodings |
+| `mu_accounting` | TestMuAccounting | Monotonicity, per-opcode cost |
+| `mu_tensor_bianchi` | TestMuTensorBianchi | Bianchi alarm, REVEAL |
+| `partition_semantics` | TestPartitionSemantics | PNEW/PSPLIT/PMERGE counts |
+| `receipts_integrity` | TestReceiptsIntegrity | Chain continuity via RTL |
+| `cross_layer_bisim` | TestCrossLayerBisim | Python VM = RTL outputs |
+
+**Status:** ✅ Tests written; audit script update in progress
+
+#### Phase 5E — `rtl_step_correct` formal status documentation
+
+`complete_three_layer_isomorphism` holds given the Section Variable
+`rtl_step_correct`. This is architecturally correct — theorems are
+universally quantified over the hardware contract, not globally asserted.
+
+No change to the Coq source required: `VerilogRTLCorrespondence.v` already
+documents the four classes of empirical evidence (cosim, fuzz, Yosys, FPGA)
+and explains why Section Variable is preferable to Axiom.
+
+The `test_rtl_structural_coverage.py` tests (Phase 5D) strengthen the
+empirical basis, covering all 7 declared isomorphism elements via lockstep
+co-simulation of the canonical Kami RTL.
+
+**Status:** ✅ Documentation already complete in VerilogRTLCorrespondence.v
+
+---
+
 ## Build / Gate Changes Required (All Phases)
 
 ### New Makefile target: `ocaml-runner`
@@ -633,6 +732,13 @@ The order matters — later phases depend on earlier ones being clean.
 | ~~11. Add HEAP_LOAD / HEAP_STORE opcodes~~ | 3B | ✅ Done — 31 opcodes, 1145 passed, HIGH: 0, MEDIUM: 0 |
 | ~~11.5. Kami hardware layer: add 5 new opcodes~~ | Kami | ✅ Done — ThieleTypes.v+ThieleCPUCore.v+VerilogRefinement.v+Abstraction.v updated, 1145 passed, HIGH: 0, MEDIUM: 0 |
 | 12. vm_heap second region (if needed) | 4 | `make -C coq`, Inquisitor, full pytest |
+| 13. Python fallback: all 31 opcodes | 5A | `pytest tests/test_rtl_structural_coverage.py` |
+| 14. Native OCaml runner (ocamlopt) | 5A | `./build/extracted_vm_runner_native` exists |
+| 15. run_receipt_checker working impl | 5B | `pytest -k receipt` |
+| 16. DSL executor partition integration | 5C | `pytest tests/test_rtl_structural_coverage.py` |
+| 17. RTL structural coverage tests (7 gaps) | 5D | all 7 gap elements show `rtl: true` |
+| 18. Audit RTL-layer gap resolution | 5D | `python3 scripts/generate_isomorphism_visual_audit.py` |
+| 19. rtl_step_correct evidence + docs | 5E | `VerilogRTLCorrespondence.v` EVIDENCE block updated |
 
 After each step: zero `Admitted.`, Inquisitor 0 HIGH / 0 MEDIUM, all existing tests pass.
 

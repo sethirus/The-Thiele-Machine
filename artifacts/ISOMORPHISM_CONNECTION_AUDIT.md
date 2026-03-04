@@ -1,23 +1,16 @@
 # Isomorphism Connection Audit
 
-Generated: 2026-03-04T00:09:07.838103+00:00
+Generated: 2026-03-04T01:20:26.446912+00:00
 
 ## Summary
 
-- Connected elements: **0**
-- Disconnected items: **11**
+- Connected elements: **7**
+- Disconnected items: **4**
 - Weak links: **2**
-- Confidence: **guarded**
+- Confidence: **medium**
 
 ## Disconnected (Actionable)
 
-- `state_shape` [reintegrate]: missing=['rtl'] → Add or tighten implementation/tests in missing layers and re-run isomorphism gates.
-- `opcode_alignment` [reintegrate]: missing=['rtl'] → Add or tighten implementation/tests in missing layers and re-run isomorphism gates.
-- `mu_accounting` [reintegrate]: missing=['rtl'] → Add or tighten implementation/tests in missing layers and re-run isomorphism gates.
-- `mu_tensor_bianchi` [reintegrate]: missing=['rtl'] → Add or tighten implementation/tests in missing layers and re-run isomorphism gates.
-- `partition_semantics` [reintegrate]: missing=['rtl'] → Add or tighten implementation/tests in missing layers and re-run isomorphism gates.
-- `receipts_integrity` [reintegrate]: missing=['rtl'] → Add or tighten implementation/tests in missing layers and re-run isomorphism gates.
-- `cross_layer_bisim` [reintegrate]: missing=['rtl'] → Add or tighten implementation/tests in missing layers and re-run isomorphism gates.
 - `semantic_unmapped::coq` [reintegrate]: missing=['coq', 'matrix-coverage'] → Promote critical nearby files into declared layer set or explicitly archive them.
 - `semantic_unmapped::python` [reintegrate]: missing=['python', 'matrix-coverage'] → Promote critical nearby files into declared layer set or explicitly archive them.
 - `semantic_unmapped::rtl` [reintegrate]: missing=['rtl', 'matrix-coverage'] → Promote critical nearby files into declared layer set or explicitly archive them.
@@ -33,7 +26,7 @@ Generated: 2026-03-04T00:09:07.838103+00:00
 - `coq`: declared=6, discovered=323, coverage=0.0186, semantic_unmapped=302
 - `python`: declared=4, discovered=132, coverage=0.0303, semantic_unmapped=115
 - `rtl`: declared=2, discovered=6, coverage=0.3333, semantic_unmapped=4
-- `tests`: declared=5, discovered=131, coverage=0.0382, semantic_unmapped=117
+- `tests`: declared=5, discovered=132, coverage=0.0379, semantic_unmapped=118
 
 ## Outside Main Body
 

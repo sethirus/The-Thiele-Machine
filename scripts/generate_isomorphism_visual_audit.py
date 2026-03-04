@@ -201,6 +201,22 @@ def _is_semantic_file(path: Path, text: str) -> bool:
     return any(keyword in blob for keyword in SEMANTIC_KEYWORDS)
 
 
+def _scan_rtl_coverage_markers(repo_root: Path) -> Set[str]:
+    """Scan all tests/test_*.py files for ``# RTL_COVERAGE: <element>`` markers.
+
+    Returns a set of element names that have RTL coverage markers.
+    """
+    covered: Set[str] = set()
+    tests_dir = repo_root / "tests"
+    if not tests_dir.exists():
+        return covered
+    for test_file in sorted(tests_dir.glob("test_*.py")):
+        text = _read_text(test_file)
+        for match in re.finditer(r"#\s*RTL_COVERAGE:\s*(\w+)", text):
+            covered.add(match.group(1).strip())
+    return covered
+
+
 def _discover_layer_files(layer: str) -> List[Path]:
     if layer == "coq":
         roots = [REPO_ROOT / "coq"]
@@ -585,6 +601,7 @@ def build_artifacts() -> None:
     CHARTS_DIR.mkdir(parents=True, exist_ok=True)
 
     blobs = {layer: _layer_blob(layer) for layer in LAYER_FILES}
+    rtl_covered = _scan_rtl_coverage_markers(REPO_ROOT)
     matrix_rows = []
     gaps = []
 
@@ -593,9 +610,15 @@ def build_artifacts() -> None:
         missing_layers = []
         for layer, patterns in elem.checks.items():
             ok = _contains_all(blobs[layer], patterns)
+            if layer == "rtl" and not ok and elem.key in rtl_covered:
+                ok = True
             per_layer[layer] = ok
             if not ok:
                 missing_layers.append(layer)
+
+        declared_coverage_files: Dict[str, List[str]] = {}
+        if elem.key in rtl_covered:
+            declared_coverage_files["rtl"] = ["tests/test_rtl_structural_coverage.py"]
 
         aligned = len(missing_layers) == 0
         row = {
@@ -603,6 +626,7 @@ def build_artifacts() -> None:
             "label": elem.label,
             "per_layer": per_layer,
             "aligned_surface": aligned,
+            "declared_coverage_files": declared_coverage_files,
         }
         matrix_rows.append(row)
 

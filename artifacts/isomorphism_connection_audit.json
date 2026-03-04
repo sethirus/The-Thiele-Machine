@@ -1,76 +1,42 @@
 {
-  "generated_at": "2026-03-04T00:09:07.838103+00:00",
+  "generated_at": "2026-03-04T01:20:26.446912+00:00",
   "summary": {
-    "connected_count": 0,
-    "disconnected_count": 11,
+    "connected_count": 7,
+    "disconnected_count": 4,
     "weak_link_count": 2,
-    "confidence": "guarded"
+    "confidence": "medium"
   },
-  "connected": [],
-  "disconnected": [
+  "connected": [
     {
       "element": "state_shape",
-      "label": "State shape (graph/csr/regs/mem/pc/mu)",
-      "missing_layers": [
-        "rtl"
-      ],
-      "action": "reintegrate",
-      "next_action": "Add or tighten implementation/tests in missing layers and re-run isomorphism gates."
+      "label": "State shape (graph/csr/regs/mem/pc/mu)"
     },
     {
       "element": "opcode_alignment",
-      "label": "Opcode alignment (ISA parity)",
-      "missing_layers": [
-        "rtl"
-      ],
-      "action": "reintegrate",
-      "next_action": "Add or tighten implementation/tests in missing layers and re-run isomorphism gates."
+      "label": "Opcode alignment (ISA parity)"
     },
     {
       "element": "mu_accounting",
-      "label": "\u03bc accounting conservation",
-      "missing_layers": [
-        "rtl"
-      ],
-      "action": "reintegrate",
-      "next_action": "Add or tighten implementation/tests in missing layers and re-run isomorphism gates."
+      "label": "\u03bc accounting conservation"
     },
     {
       "element": "mu_tensor_bianchi",
-      "label": "\u03bc-tensor + Bianchi enforcement",
-      "missing_layers": [
-        "rtl"
-      ],
-      "action": "reintegrate",
-      "next_action": "Add or tighten implementation/tests in missing layers and re-run isomorphism gates."
+      "label": "\u03bc-tensor + Bianchi enforcement"
     },
     {
       "element": "partition_semantics",
-      "label": "Partition semantics (PNEW/PSPLIT/PMERGE)",
-      "missing_layers": [
-        "rtl"
-      ],
-      "action": "reintegrate",
-      "next_action": "Add or tighten implementation/tests in missing layers and re-run isomorphism gates."
+      "label": "Partition semantics (PNEW/PSPLIT/PMERGE)"
     },
     {
       "element": "receipts_integrity",
-      "label": "Receipt integrity binding",
-      "missing_layers": [
-        "rtl"
-      ],
-      "action": "reintegrate",
-      "next_action": "Add or tighten implementation/tests in missing layers and re-run isomorphism gates."
+      "label": "Receipt integrity binding"
     },
     {
       "element": "cross_layer_bisim",
-      "label": "Cross-layer bisimulation statements",
-      "missing_layers": [
-        "rtl"
-      ],
-      "action": "reintegrate",
-      "next_action": "Add or tighten implementation/tests in missing layers and re-run isomorphism gates."
-    },
+      "label": "Cross-layer bisimulation statements"
+    }
+  ],
+  "disconnected": [
     {
       "element": "semantic_unmapped::coq",
       "label": "Semantic files in coq outside declared main audit body",
@@ -511,7 +477,7 @@
       ],
       "action": "reintegrate",
       "next_action": "Promote critical nearby files into declared layer set or explicitly archive them.",
-      "count": 117,
+      "count": 118,
       "sample": [
         {
           "path": "tests/alignment/test_comprehensive_alignment.py",
@@ -793,9 +759,9 @@
     },
     "tests": {
       "declared": 5,
-      "discovered": 131,
-      "declared_coverage_ratio": 0.0382,
-      "semantic_unmapped_count": 117
+      "discovered": 132,
+      "declared_coverage_ratio": 0.0379,
+      "semantic_unmapped_count": 118
     }
   },
   "outside_main_body": [
