@@ -1,24 +1,6 @@
 {
-  "generated_at": "2026-02-19T01:17:07.083541+00:00",
+  "generated_at": "2026-03-04T00:09:07.863716+00:00",
   "backlog": [
-    {
-      "id": "P0-fullwirespec-discharge",
-      "priority": "P0",
-      "title": "Discharge concrete FullWireSpec obligation in Coq",
-      "why": "Moves concrete implementation equivalence from runtime evidence into explicit Coq instantiation theorem(s).",
-      "inputs": [
-        "coq/kernel/ThreeLayerIsomorphism.v",
-        "artifacts/isomorphism_gap_report.json"
-      ],
-      "outputs": [
-        "Concrete *_full_wire_spec definition(s)",
-        "Proofs consuming fws_step_correct for non-Coq spec(s)"
-      ],
-      "validation": [
-        "coqchk on updated module set",
-        "make proof-undeniable"
-      ]
-    },
     {
       "id": "P1-lockstep-expansion",
       "priority": "P1",

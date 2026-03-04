@@ -35,7 +35,7 @@ from thielecpu.hardware.cosim import run_verilog
 
 # ── Instruction generators ──────────────────────────────────────
 
-# All 26 opcodes with valid random operands
+# All 31 opcodes with valid random operands
 def rand_reg() -> int:
     return random.randint(0, 31)
 
