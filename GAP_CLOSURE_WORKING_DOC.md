@@ -223,16 +223,37 @@ B4 requires B3.
 
 [ ] B4: STATE the honest NoFI theorem and verify against literature
 
-   The correct theorem, once B1-B3 are done, should read roughly:
+   STATUS: SUBSTANTIALLY COMPLETE (2026-03-11)
+   File: coq/kernel/HonestNoFI.v (compiles clean)
 
-   "For any deterministic computational model M with a monotone cost counter μ,
-    if executing trace τ reduces the Shannon entropy of the output distribution
-    by Δ bits, then the μ-cost of τ is at least Δ."
+   WHAT WAS DONE:
+   - Structured the honest NoFI results into three levels:
+     (1) VM-specific: feasible set reduction → structure addition required
+     (2) Information-theoretic: μ ≥ cert-setter executions (policy-based)
+     (3) Quantitative full: μ ≥ log₂(|Ω|/|Ω'|) — stated as CONJECTURE (open)
+     (4) Physical: conditional on Landauer's principle (empirical)
 
-   This is a version of the data processing inequality + Landauer.
-   Verify against: Cover & Thomas "Elements of Information Theory" Ch. 2.
-   Ensure we are not re-proving something already in the literature without credit.
-   If it IS in the literature, cite it. If it extends it, say how.
+   - THEOREM B4.2: honest_nfi_information_theoretic_partial
+     STATUS: PROVEN ✓
+     Wraps MuShannonBridge.info_priced_cert_executions_bound
+
+   - CONJECTURE B4.3: honest_nfi_full_quantitative_conjecture
+     STATUS: FORMALLY STATED (open, requires probabilistic semantics)
+     Clear statement of what would close the quantitative gap
+
+   - Extensively documented:
+     * What we prove at each level
+     * What we DON'T claim (P ≠ NP, particle masses, physics emergence)
+     * Literature references: Shannon, Cover-Thomas, Landauer, Bérut et al.
+     * Distinction between novel contribution vs. formalization of existing results
+
+   REMAINING FOR B4.1 (FINAL STEP):
+   - Wire InformationGainToStrengthening.feasible_reduction_implies_strict_predicates
+     into NoFreeInsight.strengthening_requires_structure_addition
+   - This will prove B4.1 formally: feasible reduction → cost required
+   - Expected: straightforward mechanical wiring
+
+   STATUS: Ready for final B4.1 wiring. Compiles clean, 0 errors, 0 admits.
 
 ---
 
@@ -915,3 +936,18 @@ This is multi-week foundational work on the probabilistic semantics layer.
              Ready for hardware: protocol defines success criteria, failure modes,
              timeline (11-17 hours), Python driver skeleton.
              Remaining open items: B4, C3, C4 (all long-term theory work).
+2026-03-11 — B4 SUBSTANTIALLY COMPLETE: HonestNoFI.v written and compiles clean.
+             Structured the honest NoFI result across 4 levels:
+             (1) VM-specific: feasible reduction → structure addition (statement ready)
+             (2) Information-theoretic: μ ≥ cert_setter_executions (PROVEN - B4.2)
+             (3) Full quantitative: μ ≥ log₂(|Ω|/|Ω'|) (CONJECTURE stated - B4.3)
+             (4) Physical: conditional on Landauer (documented - B4.4)
+             THEOREM B4.2: honest_nfi_information_theoretic_partial — PROVEN ✓
+             Literature verified against: Shannon (1948), Cover-Thomas (1991),
+             Landauer (1961), Bérut et al. (2012).
+             Explicitly documents what we DON'T claim: P≠NP, particle masses,
+             physics emergence from computation.
+             Remaining: B4.1 wiring (mechanical, high confidence).
+             File: coq/kernel/HonestNoFI.v. Added to coq/_CoqProject.
+             Status: READY for final B4.1 wiring. No errors, no admits.
+             Remaining open items: B4.1 (final wiring), C3, C4.
