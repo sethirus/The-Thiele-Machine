@@ -96,7 +96,11 @@ Definition z_gauge_shift (delta : Z) (s : VMState) : VMState :=
      vm_mem := s.(vm_mem);
      vm_csrs := s.(vm_csrs);
      vm_pc := s.(vm_pc);
-     vm_err := s.(vm_err) |}.
+  vm_err := s.(vm_err);
+  vm_logic_acc := s.(vm_logic_acc);
+  vm_mstatus := s.(vm_mstatus);
+  vm_witness := s.(vm_witness);
+  vm_certified := s.(vm_certified) |}.
 
 (**
   Observable_partition: Extract partition region structure (ignoring μ).
@@ -840,9 +844,13 @@ Theorem noether_forward : forall s1 s2,
   s1.(vm_pc) = s2.(vm_pc) ->
   s1.(vm_mu_tensor) = s2.(vm_mu_tensor) ->
   s1.(vm_err) = s2.(vm_err) ->
+  s1.(vm_logic_acc) = s2.(vm_logic_acc) ->
+  s1.(vm_mstatus) = s2.(vm_mstatus) ->
+  s1.(vm_witness) = s2.(vm_witness) ->
+  s1.(vm_certified) = s2.(vm_certified) ->
   exists delta, z_gauge_shift delta s1 = s2.
 Proof.
-  intros s1 s2 Hobs Hgraph Hregs Hmem Hcsrs Hpc Hmutensor Herr.
+  intros s1 s2 Hobs Hgraph Hregs Hmem Hcsrs Hpc Hmutensor Herr Hlogic Hmstatus Hwitness Hcertified.
   exists (Z.of_nat s2.(vm_mu) - Z.of_nat s1.(vm_mu))%Z.
   unfold z_gauge_shift. destruct s1, s2; simpl in *.
   subst. f_equal.

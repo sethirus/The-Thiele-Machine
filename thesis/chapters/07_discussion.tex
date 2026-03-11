@@ -66,7 +66,7 @@ The thermodynamic bridge hypothesis ($Q \ge k_B T \ln 2 \cdot \mu$) would be \te
 \end{tcolorbox}
 
 \paragraph{QM-Divergent Predictions.}
-The model also produces five quantitative predictions where it diverges from standard quantum mechanics (see Chapter 6 for full evaluation). These include a predicted CHSH ratio $S/S_{\text{QM}} \approx 2.2662$, a Tsirelson-regime value $S_{\text{Thiele}} \approx 2.160$ (vs.\ $2\sqrt{2} \approx 2.828$), a hydrogen ground-state correction of $\sim$95.7\,ppm, a GHZ visibility deficit $\delta \approx 0.00266$, and a decoherence-rate constant $\gamma \approx 381$\,GHz for a single nitrogen-vacancy center. Each prediction names a concrete experimental observable, a numerical value, and the measurement that would falsify it. If future experiments confirm or refute any of these values, the theory's empirical standing changes accordingly. The point is that the model is not hedging: it commits to numbers.
+The model also produces six quantitative predictions (QD1--QD6) where it diverges from standard quantum mechanics. These are computed by the archived experiment script \path{archive/experiments\_unused/experiments/qm\_divergent\_predictions.py} and include projections for measurement-time ratios, modified Tsirelson bounds under finite $\mu$-budgets, and temperature-dependent CHSH suppression. Each prediction names a concrete experimental observable, a numerical value, and the measurement that would falsify it. These predictions are \textbf{speculative}---they follow from the $\mu$-accounting framework's axioms but have not been experimentally tested. If future experiments confirm or refute any of these values, the theory's empirical standing changes accordingly. The point is that the model commits to numbers rather than hedging.
 
 \section{Broader Implications}
 
@@ -94,7 +94,7 @@ The Thiele Machine is more than a new computational model; it is a proposal for 
 \end{figure}
 
 \begin{quote}
-\textit{Author's Note (Devon): This is the part that keeps me up at night. Not in a bad way---in a ``holy shit, what if this is actually true'' way. The Thiele Machine wasn't designed to connect to physics. I didn't start with thermodynamics and work backwards. I started with a simple question: ``How do you track the cost of discovering structure?'' And the answer I found... it looks like Landauer's principle. It looks like entropy. It looks like the second law of thermodynamics. That's either a massive coincidence, or there's something deep here that I stumbled onto by accident. I genuinely don't know which one it is yet.}
+\textit{Author's Note (Devon): This is the part that keeps me up at night. Not in a bad way---in a ``what if'' way. The Thiele Machine wasn't designed to connect to physics. I didn't start with thermodynamics and work backwards. I started with a simple question: ``How do you track the cost of discovering structure?'' And the answer I found... it looks like Landauer's principle. It looks like entropy. It looks like the second law of thermodynamics. That's either a deep structural reason or a coincidence I'm not smart enough to see through. I don't know which. But I know the parallel is there, the formal structure matches, and the predictions are falsifiable. So I'm putting it on the table and letting people who actually know physics tell me what's wrong with it.}
 \end{quote}
 
 \subsection{Landauer's Principle}
@@ -463,7 +463,7 @@ A neural network predicts partitions (structure hypotheses). The Thiele kernel v
 \draw[arr] (r2.east) -- (r3.west);
 \node[font=\tiny, gray] at (0.9,0.4) {$H_1$ links};
 \node[font=\tiny, gray] at (2.7,0.4) {$H_2$ links};
-\node[font=\tiny, anchor=north] at (1.8,-0.5) {SHA-256 continuity + Ed25519 signatures};
+\node[font=\tiny, anchor=north] at (1.8,-0.5) {SHA-256 continuity};
 \end{tikzpicture}
 \caption{Receipt chain: each step's pre-state hash must match the previous step's post-state hash.}
 \label{fig:receipt-chain}
@@ -479,7 +479,7 @@ receipt = {
     "pre_state_hash": SHA256(state_before),
     "post_state_hash": SHA256(state_after),
     "mu_cost": cost,
-    "signature": Ed25519(canonical_json(payload))
+    "signature": HMAC(canonical_json(payload))
 }
 \end{lstlisting}
 
@@ -497,19 +497,19 @@ receipt = {
     
     \item \textbf{"post\_state\_hash": SHA256(state\_after)} — Hash of the VM state \textit{after} the instruction. Commits to the result.
     
-    \item \textbf{"signature": Ed25519(...)} — Digital signature from the kernel's private key, authenticating the receipt.
+    \item \textbf{"signature": HMAC(...)} — Keyed hash authenticating the receipt. (The Ed25519 digital-signature module is available but archived; an HMAC or similar mechanism would serve the same tamper-detection role.)
 \end{itemize}
 
 \textbf{Why is this tamper-evident?} The chain is verified by checking:
 \begin{enumerate}
-    \item \textbf{Signature validity:} Every receipt is signed by the kernel key.
+    \item \textbf{Signature validity:} Every receipt is authenticated by the kernel key.
     \item \textbf{State continuity:} \texttt{receipt[i].pre\_state\_hash == receipt[i-1].post\_state\_hash}.
     \item \textbf{$\mu$-integrity:} \texttt{post\_mu == pre\_mu + cost}.
 \end{enumerate}
-Breaking the chain requires forging a signature or finding a SHA-256 collision.
+Breaking the chain requires forging a keyed hash or finding a SHA-256 collision.
 
 
-The Python implementation of this structure is in \path{thielecpu/receipts.py} and \path{thielecpu/crypto.py}, and the RTL contains a \texttt{receipt\_integrity\_checker} module in \path{thielecpu/hardware/rtl/thiele_cpu_unified.v}. The chain is therefore an engineered artifact with concrete hash formats, not an abstract promise.
+The receipt chain design is specified in the formal kernel and enforced in the RTL implementation (\path{thielecpu/hardware/rtl/thiele_cpu_kami.v}). The chain is therefore an engineered artifact with concrete hash formats, not an abstract promise.
 
 This enables:
 \begin{itemize}
@@ -542,8 +542,8 @@ The ledger charges for the structure that is \textit{found}, not necessarily the
 
 Current hardware parameters:
 \begin{lstlisting}
-NUM_MODULES = 64
-REGION_SIZE = 1024
+NUM_MODULES = 64       (* PTableSz in ThieleTypes.v *)
+DATA_MEMORY = 4096     (* MemSize in ThieleTypes.v *)
 \end{lstlisting}
 
 \paragraph{Understanding Current Hardware Limitations:}
@@ -560,25 +560,19 @@ REGION_SIZE = 1024
         \item A bitmask representation (64 bits)
     \end{itemize}
     \textbf{Implication:} Complex partition graphs requiring $>64$ modules cannot be represented. For example, a partition tree with 100 leaf nodes requires 100 module IDs.
-    
-    \item \textbf{REGION\_SIZE = 1024} — Maximum number of elements in a single partition region. Regions are sets like $\{0, 1, 2, \ldots, 1023\}$.
-    \begin{itemize}
-        \item Stored as arrays: \texttt{uint16 region[1024]} (each element is a 10-bit index).
-        \item Bitmask representation: 1024 bits = 128 bytes per region.
-    \end{itemize}
-    \textbf{Implication:} Partitioning datasets with $>1024$ elements requires hierarchical techniques (e.g., multi-level partition trees).
+
+    \item \textbf{DATA\_MEMORY = 4096} — Total data memory words. Partition regions are bounded by data memory depth, so the maximum practical region size is 4096 elements. Regions are stored as (base, size) pairs in the 64-slot partition table.
 \end{itemize}
 
 \textbf{Why these limits?} Hardware constraints:
 \begin{itemize}
-    \item \textbf{FPGA resources:} Current synthesis targets use $\sim$45,000 LUTs and $\sim$35,000 flip-flops (for full configuration). Increasing \texttt{NUM\_MODULES} or \texttt{REGION\_SIZE} requires more on-chip memory and logic.
-    \item \textbf{Timing closure:} Larger partition graphs increase critical path delays (longer wires, deeper logic cones). Current design achieves $\sim$100 MHz clock; scaling to 256 modules might drop to 50 MHz.
+    \item \textbf{FPGA resources:} The current synthesized design uses ${\sim}2{,}800$ LUTs. Scaling \texttt{NUM\_MODULES} beyond 64 would increase the partition table storage and disjointness-checking logic proportionally.
     \item \textbf{Memory bandwidth:} Checking partition disjointness requires comparing all pairs of regions. 64 modules = $64 \times 63 / 2 = 2016$ comparisons per step. 256 modules = 32,640 comparisons.
 \end{itemize}
 
 \textbf{Comparison to software:} The Python reference VM has no hard limits---it uses dynamic data structures (\texttt{dict}, \texttt{set}) that grow as needed. The hardware must pre-allocate resources, leading to fixed capacity.
 
-\textbf{Real-world adequacy:} For many experiments (CHSH, Grover, Shor), 64 modules and 1024-element regions are sufficient. For example:
+\textbf{Real-world adequacy:} For many experiments (CHSH, Grover, Shor), 64 modules with 4096-word data memory are sufficient. For example:
 \begin{itemize}
     \item Grover search on $N = 1024$ elements: 1 module, region $\{0, \ldots, 1023\}$.
     \item Shor factorization of $N = 3233$: $\sim$10 modules for intermediate partitions.
@@ -686,7 +680,7 @@ The Thiele Machine offers:
     \item A new lens for understanding computational complexity, with concrete $\mu$-cost bounds for NP verification and a conservation law linking computation time to structural revelation cost
     \item Turing subsumption: a mechanized proof that the model is exactly Turing-complete (TM $\to$ Minsky $\to$ Thiele), anchoring the structure-aware complexity classes inside classical computability
     \item Oracle impossibility: three theorems bounding the model from above---halting is undecidable, partial oracles cost $\mu$, and hypercomputation is impossible at finite $\mu$
-    \item Five QM-divergent predictions with named observables and numerical values, making the physics bridge empirically falsifiable
+    \item Six QM-divergent predictions (QD1--QD6) with named observables and numerical values, making the physics bridge empirically falsifiable
     \item Causal set axioms satisfied by the partition graph, connecting the discrete computational substrate to quantum gravity approaches
     \item A precise classification of which physical constants are derivable (relational identities) and which require empirical measurement (free parameters)
 \end{enumerate}

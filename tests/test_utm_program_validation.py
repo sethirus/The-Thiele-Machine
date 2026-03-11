@@ -1,129 +1,88 @@
-#!/usr/bin/env python3
-"""
-Validation tests for BridgeDefinitions.v universal program properties.
+"""Source-backed validation for the universal bridge CPU artifacts."""
 
-This validates the structural property mentioned at line 1098:
-that the universal program only writes to registers 0-9.
-"""
+from __future__ import annotations
 
-import pytest
+import re
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parent.parent
+CPU_V = ROOT / "coq" / "thieleuniversal" / "coqproofs" / "CPU.v"
+BRIDGE_V = ROOT / "coq" / "thieleuniversal" / "verification" / "BridgeDefinitions.v"
+
+
+def _read(path: Path) -> str:
+    assert path.exists(), f"Required source file missing: {path}"
+    return path.read_text(encoding="utf-8")
+
+
+def _cpu_registers() -> dict[str, int]:
+    text = _read(CPU_V)
+    # Use non-greedy .+? to capture expressions containing dots (e.g. Nat.sub)
+    # and anchor on the Coq sentence terminator: '.' followed by whitespace.
+    matches = re.findall(r"Definition\s+(REG_[A-Za-z0-9']+)\s*:=\s*(.+?)\.(?=\s)", text)
+    registers: dict[str, int] = {}
+    for name, expr in matches:
+        expr = expr.strip()
+        if expr == "Nat.sub 1 1":
+            registers[name] = 0
+            continue
+        if expr.isdigit():
+            registers[name] = int(expr)
+    return registers
 
 
 class TestUniversalProgramStructure:
-    """Validate universal program register usage (validates BridgeDefinitions.v:1098)."""
-    
-    def test_register_destinations_are_bounded(self):
-        """All register write operations target registers < 10."""
-        # The universal program uses these fixed registers:
-        # REG_PC=0, REG_Q=1, REG_SYM=3, REG_Q'=4, REG_ADDR=7, REG_TEMP1=8, REG_TEMP2=9
-        valid_destinations = {0, 1, 3, 4, 7, 8, 9}
-        
-        # All valid destinations are < 10
-        assert all(r < 10 for r in valid_destinations)
-        assert max(valid_destinations) == 9
-    
-    def test_register_set_is_complete(self):
-        """All register operations use only the documented set."""
-        # Universal program operations:
-        # - LoadConst -> writes to REG_*
-        # - LoadIndirect -> writes to REG_*  
-        # - CopyReg -> writes to REG_*
-        # - AddConst -> writes to REG_*
-        # - AddReg -> writes to REG_*
-        # - SubReg -> writes to REG_*
-        
-        # All operations write to one of these registers
-        used_registers = {0, 1, 3, 4, 7, 8, 9}
-        
-        # Verify all are < 10
-        assert len(used_registers) == 7
-        assert all(r < 10 for r in used_registers)
-    
-    def test_register_file_length_invariant(self):
-        """Register file length stays at 10 throughout execution."""
-        # Initial state has 10 registers
-        initial_regs = list(range(10))
-        assert len(initial_regs) == 10
-        
-        # Write operations preserve length
-        def write_reg(regs, idx, val):
-            """Simulate write_reg operation."""
-            if idx >= len(regs):
-                return regs
-            new_regs = regs.copy()
-            new_regs[idx] = val
-            return new_regs
-        
-        # Test all valid destinations
-        for dest in [0, 1, 3, 4, 7, 8, 9]:
-            result = write_reg(initial_regs, dest, 42)
-            assert len(result) == 10  # Length preserved
-    
-    def test_no_register_expansion(self):
-        """Program never writes to register >= 10."""
-        # Since all destinations are in {0,1,3,4,7,8,9}
-        # and max({0,1,3,4,7,8,9}) = 9 < 10
-        # we never expand the register file
-        
-        max_destination = 9
-        initial_length = 10
-        
-        assert max_destination < initial_length
-        # Therefore: all writes are in-bounds, no expansion needed
+    """Validate UTM bridge properties against the real Coq sources."""
 
+    def test_cpu_register_map_matches_documented_window(self):
+        registers = _cpu_registers()
+        expected = {
+            "REG_PC": 0,
+            "REG_Q": 1,
+            "REG_HEAD": 2,
+            "REG_SYM": 3,
+            "REG_Q'": 4,
+            "REG_WRITE": 5,
+            "REG_MOVE": 6,
+            "REG_ADDR": 7,
+            "REG_TEMP1": 8,
+            "REG_TEMP2": 9,
+        }
 
-class TestRegisterOperationProperties:
-    """Validate that register operations maintain structural invariants."""
-    
-    def test_write_reg_preserves_length(self):
-        """write_reg(r, v, st) preserves register file length when r < len(regs)."""
-        regs = [0] * 10
-        
-        for r in range(10):
-            new_regs = regs.copy()
-            new_regs[r] = 42
-            assert len(new_regs) == len(regs)
-    
-    def test_operations_are_deterministic(self):
-        """All register operations are deterministic."""
-        regs = [0] * 10
-        
-        # LoadConst r v: regs[r] := v
-        result1 = regs.copy()
-        result1[0] = 123
-        
-        # Repeat with same inputs
-        result2 = regs.copy()
-        result2[0] = 123
-        
-        assert result1 == result2
-    
-    def test_register_bounds_check(self):
-        """Operations only access valid register indices."""
-        valid_indices = {0, 1, 3, 4, 7, 8, 9}
-        register_file_size = 10
-        
-        # All valid indices are in bounds
-        for idx in valid_indices:
-            assert 0 <= idx < register_file_size
+        assert registers == expected
+        assert max(registers.values()) == 9
+        assert all(index < 10 for index in registers.values())
 
+    def test_bridge_contains_read_after_write_formal_spec(self):
+        text = _read(BRIDGE_V)
 
-def test_axiom_validation():
-    """Meta-test: verify the axiom about program structure is valid."""
-    # The axiom states: universal program only writes to registers 0-9
-    # We validate this by checking all destination registers
-    
-    destinations = {0, 1, 3, 4, 7, 8, 9}  # REG_PC, REG_Q, REG_SYM, REG_Q', REG_ADDR, REG_TEMP1, REG_TEMP2
-    
-    # All destinations < 10
-    assert all(d < 10 for d in destinations)
-    
-    # No destination >= 10
-    assert not any(d >= 10 for d in destinations)
-    
-    # Length invariant holds
-    assert len(destinations) <= 10
+        assert "Lemma read_reg_write_reg_same" in text
+        assert "CPU.read_reg r (CPU.write_reg r v st) = v" in text
+        assert "Lemma read_reg_write_reg_diff" in text
+        assert "CPU.read_reg r1 (CPU.write_reg r2 v st) = CPU.read_reg r1 st" in text
 
+    def test_bridge_proves_register_length_is_preserved(self):
+        text = _read(BRIDGE_V)
 
-if __name__ == '__main__':
-    pytest.main([__file__, '-v'])
+        assert "Lemma length_write_reg_ge" in text
+        assert "length (CPU.write_reg r v st).(CPU.regs) >= length st.(CPU.regs)" in text
+        assert "Lemma length_step_ge" in text
+        assert "length (CPU.regs (CPU.step instr st)) >= length st.(CPU.regs)" in text
+        assert "Lemma length_write_reg" in text
+        assert "length (CPU.write_reg r v st).(CPU.regs) = length st.(CPU.regs)" in text
+
+    def test_step_length_proof_covers_all_register_writing_instructions(self):
+        text = _read(BRIDGE_V)
+
+        for instruction in [
+            "LoadConst",
+            "LoadIndirect",
+            "CopyReg",
+            "AddConst",
+            "AddReg",
+            "SubReg",
+        ]:
+            assert f"(* {instruction} *)" in text, (
+                f"BridgeDefinitions.v no longer proves the register-length case for {instruction}"
+            )

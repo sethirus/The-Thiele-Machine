@@ -31,7 +31,11 @@ Module Demo.
        VMState.vm_pc := 0;
        VMState.vm_mu := 0;
        VMState.vm_mu_tensor := VMState.vm_mu_tensor_default;
-       VMState.vm_err := false |}.
+       VMState.vm_err := false;
+       VMState.vm_logic_acc := 0;
+       VMState.vm_mstatus := 0;
+       VMState.vm_witness := VMState.witness_counts_zero;
+       VMState.vm_certified := false |}.
 
   Definition trace : list VMStep.vm_instruction :=
     [ VMStep.instr_pnew [1] 1;

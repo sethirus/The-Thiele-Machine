@@ -148,9 +148,10 @@ Lemma non_cert_setter_preserves_cert :
     (forall m p mu, i <> instr_emit m p mu) ->
     (forall c1 c2 mu, i <> instr_ljoin c1 c2 mu) ->
     (forall m f c mu, i <> instr_lassert m f c mu) ->
+    (forall mu, i <> instr_certify mu) ->
     (vm_apply s i).(vm_csrs).(csr_cert_addr) = s.(vm_csrs).(csr_cert_addr).
 Proof.
-  intros s i Hrev Hemit Hljoin Hlassert.
+  intros s i Hrev Hemit Hljoin Hlassert Hcertify.
   destruct i; unfold vm_apply, vm_apply_unsafe.
   - (* pnew *)
     match goal with
@@ -207,9 +208,14 @@ Proof.
   - (* write_port *) unfold advance_state. simpl. reflexivity.
   - (* heap_load *) unfold advance_state_rm. simpl. reflexivity.
   - (* heap_store *) unfold advance_state_rm. simpl. reflexivity.
+  - (* certify *) exfalso. eapply Hcertify. reflexivity.
+  - (* and *) unfold advance_state_rm. simpl. reflexivity.
+  - (* or *) unfold advance_state_rm. simpl. reflexivity.
+  - (* shl *) unfold advance_state_rm. simpl. reflexivity.
+  - (* shr *) unfold advance_state_rm. simpl. reflexivity.
+  - (* mul *) unfold advance_state_rm. simpl. reflexivity.
+  - (* lui *) unfold advance_state_rm. simpl. reflexivity.
 Qed.
-
-(** * Main Theorem: Cert Must Come From Revelation-Class Instructions *)
 
 (** If certification appears (cert_addr becomes non-zero), it must have been
     set by a revelation-class instruction. REVEAL is the primary one for
@@ -387,6 +393,34 @@ Proof.
         -- unfold advance_state_rm; simpl. exact Hinit.
         -- exact Hfinal.
       * (* heap_store *) apply IH in Hrun.
+        -- exact Hrun.
+        -- unfold advance_state_rm; simpl. exact Hinit.
+        -- exact Hfinal.
+      * (* certify *) apply IH in Hrun.
+        -- exact Hrun.
+        -- simpl. exact Hinit.
+        -- exact Hfinal.
+      * (* and *) apply IH in Hrun.
+        -- exact Hrun.
+        -- unfold advance_state_rm; simpl. exact Hinit.
+        -- exact Hfinal.
+      * (* or *) apply IH in Hrun.
+        -- exact Hrun.
+        -- unfold advance_state_rm; simpl. exact Hinit.
+        -- exact Hfinal.
+      * (* shl *) apply IH in Hrun.
+        -- exact Hrun.
+        -- unfold advance_state_rm; simpl. exact Hinit.
+        -- exact Hfinal.
+      * (* shr *) apply IH in Hrun.
+        -- exact Hrun.
+        -- unfold advance_state_rm; simpl. exact Hinit.
+        -- exact Hfinal.
+      * (* mul *) apply IH in Hrun.
+        -- exact Hrun.
+        -- unfold advance_state_rm; simpl. exact Hinit.
+        -- exact Hfinal.
+      * (* lui *) apply IH in Hrun.
         -- exact Hrun.
         -- unfold advance_state_rm; simpl. exact Hinit.
         -- exact Hfinal.

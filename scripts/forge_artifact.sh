@@ -56,17 +56,22 @@ IR="$ROOT/build/thiele_core.ml"
 
 phase DECOMPOSE "building Coq-extracted semantics runner (OCaml)"
 command -v ocamlc >/dev/null || die "ocamlc not found on PATH"
-ocamlc -I "$ROOT/build" -o "$ROOT/build/extracted_vm_runner" \
+command -v ocamlfind >/dev/null || die "ocamlfind not found on PATH"
+ocamlfind ocamlc -I "$ROOT/build" -package str -linkpkg -o "$ROOT/build/extracted_vm_runner" \
   "$ROOT/build/thiele_core.mli" \
   "$ROOT/build/thiele_core.ml" \
-  "$ROOT/tools/extracted_vm_runner.ml" \
+  "$ROOT/build/extracted_vm_runner.ml" \
   >/dev/null
 
-phase EXECUTE "generating Python + Verilog from extracted IR"
+phase EXECUTE "generating Python from extracted IR"
 python3 scripts/forge.py \
   --input "$IR" \
-  --out-python "$ROOT/thielecpu/generated/generated_core.py" \
-  --out-verilog "$ROOT/thielecpu/hardware/rtl/generated_opcodes.vh"
+  --out-python "$ROOT/thielecpu/generated/generated_core.py"
+
+phase EXECUTE "generating Python VM from Coq-extracted OCaml IR (forge_vm.py → thielecpu/vm.py)"
+python3 scripts/forge_vm.py \
+  --input "$IR" \
+  --output "$ROOT/thielecpu/vm.py"
 
 phase MERGE "sanity importing generated Python"
 python3 -c "from thielecpu.generated import generated_core as g; g.sanity_check(); print(len(g.COQ_INSTRUCTION_TAGS))" \
@@ -76,6 +81,7 @@ phase VERIFY "compiling extracted RTL (thiele_cpu_kami + testbench)"
 pushd "$ROOT/thielecpu/hardware" >/dev/null
 iverilog -g2012 -I./rtl -o "$ROOT/build/thiele_cpu_tb.out" \
   rtl/thiele_cpu_kami.v \
+  rtl/RegFile.v \
   testbench/thiele_cpu_kami_tb.v
 popd >/dev/null
 
@@ -83,24 +89,30 @@ phase VERIFY "synthesizability check (yosys)"
 command -v yosys >/dev/null || die "yosys not found on PATH"
 
 cat > "$ROOT/synth_cpu.ys" << EOF
-read_verilog -sv -DSYNTHESIS -DYOSYS_LITE $ROOT/thielecpu/hardware/rtl/thiele_cpu_kami.v
+read_verilog -sv -DSYNTHESIS $ROOT/thielecpu/hardware/rtl/RegFile.v $ROOT/thielecpu/hardware/rtl/thiele_cpu_kami.v $ROOT/thielecpu/hardware/rtl/thiele_cpu_top.v
 prep -top mkModule1
 check
 stat
 EOF
 
-yosys -q "$ROOT/synth_cpu.ys" >/dev/null
+yosys -q -s "$ROOT/synth_cpu.ys" >/dev/null
 
-phase VERIFY "running real RTL simulation (thiele_cpu_tb)"
-vvp "$ROOT/build/thiele_cpu_tb.out" "+VCD=$ROOT/build/thiele_cpu_tb.vcd" >/dev/null
+phase VERIFY "running real RTL regression"
+python3 -m pytest -q tests/test_verilog_cosim.py --tb=line -x
+
+phase VERIFY "running Verilator bridge regression"
+THIELE_RTL_SIM=verilator python3 -m pytest -q \
+  tests/test_chsh_verilator_hardware_bridge.py \
+  tests/test_logic_stall_liveness.py --tb=line
 
 phase VERIFY "running pytest gate"
 pytest -q \
   tests/test_foundry_generated_surface.py \
   tests/test_opcode_alignment.py \
-  tests/test_extracted_vm_runner.py
+  tests/test_cross_layer_adversarial_fuzz.py
+pytest -q tests/test_completeness_gate.py -k TestOCamlLayer
 
 phase VERIFY "running Python↔Verilog behavioral smoke test"
-pytest -q tests/adversarial_fuzzing.py -k manual_simple_program
+pytest -q tests/test_cross_layer_bisimulation.py -k "bisim"
 
 phase SUCCESS "Foundry pipeline green"

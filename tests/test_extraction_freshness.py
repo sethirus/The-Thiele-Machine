@@ -5,14 +5,13 @@ Gate test: Coq extraction artefacts are fresh, consistent, and semantically soun
 
 What this enforces
 ------------------
-1. ``build/thiele_core.ml``      exists and was produced by ``coq/Extraction.v``.
-2. ``build/thiele_core_minimal.ml`` exists and was produced by ``coq/MinimalExtraction.v``.
-3. Both .ml files export the three required symbols:
+1. ``build/thiele_core.ml`` exists and was produced by ``coq/Extraction.v``.
+2. The .ml file exports the three required symbols:
        ``vm_instruction``  ``VMState``  ``vm_apply``
-4. The extraction artefacts contain none of the "phantom" names that would
+3. The extraction artefact contains none of the "phantom" names that would
    indicate a stale or hand-edited file (e.g. ``STALE_MARKER``, ``TODO``, ``FIXME``).
-5. (Full mode) Running ``make -C coq Extraction.vo MinimalExtraction.vo`` produces
-   .ml outputs that are byte-for-byte identical to the committed artefacts.
+4. (Full mode) Running ``make -C coq Extraction.vo`` produces
+   .ml output that is byte-for-byte identical to the committed artefact.
    Gate is behind ``THIELE_EXTRACTION_FULL=1`` because it takes ~30 s.
 
 Running
@@ -24,7 +23,6 @@ Full re-extract:  THIELE_EXTRACTION_FULL=1 pytest tests/test_extraction_freshnes
 from __future__ import annotations
 
 import hashlib
-import os
 import re
 import shutil
 import subprocess
@@ -38,10 +36,8 @@ COQ_DIR = REPO_ROOT / "coq"
 BUILD_DIR = REPO_ROOT / "build"
 
 # Extraction.v  → build/thiele_core.ml
-# MinimalExtraction.v → build/thiele_core_minimal.ml
 EXTRACTION_PAIRS = [
     (COQ_DIR / "Extraction.v",        BUILD_DIR / "thiele_core.ml"),
-    (COQ_DIR / "MinimalExtraction.v", BUILD_DIR / "thiele_core_minimal.ml"),
 ]
 
 REQUIRED_EXPORTED_SYMBOLS = [
@@ -79,7 +75,7 @@ def _expected_ml_path(v_file: Path) -> Path | None:
 
 @pytest.mark.coq
 def test_extraction_artefacts_exist():
-    """Both thiele_core.ml and thiele_core_minimal.ml must be present in build/."""
+    """thiele_core.ml must be present in build/."""
     missing = [ml for _, ml in EXTRACTION_PAIRS if not ml.exists()]
     assert not missing, (
         "Extraction artefact(s) missing — run `make -C coq`:\n"
@@ -200,16 +196,16 @@ def test_ml_newer_than_v_source():
 @pytest.mark.slow
 def test_full_extraction_matches_committed(tmp_path):
     """
-    Re-run ``make -C coq Extraction.vo MinimalExtraction.vo`` and verify the
-    freshly-generated .ml files are byte-for-byte identical to the committed ones.
+    Re-run ``make -C coq Extraction.vo`` and verify the
+    freshly-generated .ml file is byte-for-byte identical to the committed one.
 
     Requires THIELE_EXTRACTION_FULL=1 to run (slow, ~30 s).
     """
-    if not os.environ.get("THIELE_EXTRACTION_FULL"):
-        pytest.skip("Set THIELE_EXTRACTION_FULL=1 to run full extraction gate")
-
+    import os
+    if not os.getenv("THIELE_EXTRACTION_FULL"):
+        pytest.skip("Set THIELE_EXTRACTION_FULL=1 to run this slow test (~30 s)")
     result = subprocess.run(
-        ["make", "-j2", "Extraction.vo", "MinimalExtraction.vo"],
+        ["make", "-j2", "Extraction.vo"],
         cwd=str(COQ_DIR),
         capture_output=True,
         text=True,

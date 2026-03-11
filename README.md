@@ -4,7 +4,7 @@
 
 [![CI](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml/badge.svg)](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Coq](https://img.shields.io/badge/Coq-318%20Proof%20Files-blue)](coq/)
+[![Coq](https://img.shields.io/badge/Coq-272%20Proof%20Files-blue)](coq/)
 
 ---
 
@@ -37,7 +37,7 @@ thiele-debug fibonacci.hex
 ```
 
 Debugger commands: `run`, `step`, `break <n>`, `print <reg|mu|tensor>`, `continue`, `quit`.
-See [DEBUGGER.md](DEBUGGER.md) for full reference.
+See `thielecpu/debugger.py` for full command reference.
 
 ### Write Your Own Program
 
@@ -56,7 +56,7 @@ thiele-debug hello.hex
 # HALTED  pc=3  mu=3  r2=42
 ```
 
-See [ASM_REFERENCE.md](ASM_REFERENCE.md) for all 31 opcodes, encoding format, and examples.
+See `thielecpu/assembler.py` for all 31 opcodes, encoding format, and examples.
 
 ### Run All 20 Example Programs
 
@@ -89,6 +89,25 @@ When using Python co-simulation (`thielecpu.hardware.cosim.run_verilog`), select
 - Singular behavior differs by layer:
   - Python VM: Bianchi violations raise `BianchiViolationError` (fail-fast exception).
   - Verilog RTL: `bianchi_alarm` latches a kill-switch and freezes instruction progress in fetch.
+- ORACLE_HALTS: RTL charges a fixed 1,000,000 mu penalty (conservative refinement); Coq/Python charge the user-specified cost. See `kami_vm_mu_conservative` in `coq/kami_hw/VerilogRefinement.v`.
+
+### Hardware Limits (Kami RTL)
+
+The synthesized hardware has fixed resource bounds that differ from the software layers:
+
+| Resource | RTL (hardware) | Python/OCaml (software) |
+|---|---|---|
+| Instruction memory | 4,096 words | unbounded (list length) |
+| Data memory | 4,096 words | 4,096 words (`MEM_SIZE`) |
+| Registers | 32 × 32-bit | 32 × arbitrary-precision (Coq `nat`) |
+| Partition table | 64 slots | configurable |
+| mu counter | 32-bit (wraps at 2³²) | unbounded (Coq `nat`) |
+| Cost field | 8-bit (max 255 per instruction) | 8-bit (same encoding) |
+
+**Implications:**
+- Programs larger than 4,096 instructions cannot run on hardware. The assembler enforces this limit.
+- mu wrapping at 2³² means very long-running programs may silently overflow the mu counter in hardware. The Coq proofs assume unbounded `nat` — the 32-bit refinement is sound for programs whose total mu stays below 2³².
+- ORACLE_HALTS charges a fixed 1,000,000 mu in hardware regardless of the cost field (see `kami_vm_mu_conservative` in `VerilogRefinement.v`).
 
 ### FPGA Synthesis and Bitstream (Open-Source Flow)
 
@@ -128,10 +147,10 @@ The CPU is built with `SYNTHESIS` defined to use compatible array primitives.
 
 | Component | Status |
 |-----------|--------|
-| **Coq proofs** | 318 files, ~92,680 lines, 2,921 theorems/lemmas, **zero admits**, **zero axioms** beyond foundational logic |
+| **Coq proofs** | 272 files, ~92,858 lines, 2,851 theorems/lemmas, **zero admits**, **zero axioms** beyond foundational logic |
 | **Python VM** | 24,308 lines. Working reference implementation with cryptographic receipts |
 | **Verilog RTL** | 8 source files, ~2,500 hand-written lines (+ synthesis output). Synthesizable, FPGA-targetable |
-| **Test suite** | 1,094 tests across 120 test files |
+| **Test suite** | 382 tests across 37 test files |
 | **3-layer isomorphism** | Coq $=$ Python $=$ Verilog. Same program, same state, three layers |
 | **Inquisitor audit** | All 318 Coq files pass maximum-strictness static analysis with zero findings |
 
@@ -262,18 +281,20 @@ The Thiele Machine is defined as a 5-tuple $\mathbf{T} = (S, \Pi, A, R, L)$:
 | $S$ | State space (VMState: registers, memory, pc, $\mu$-ledger, partition graph) |
 | $\Pi$ | Partition graph---how state decomposes into modules |
 | $A$ | Axiom sets---logical constraints per module |
-| $R$ | Transition rules---the 18-instruction ISA |
+| $R$ | Transition rules---the 31-instruction ISA |
 | $L$ | Logic Engine---SAT/UNSAT certificate verification |
 
-### The 18-Instruction ISA
+### The 31-Instruction ISA
 
 ```
 Structural:    PNEW, PSPLIT, PMERGE, PDISCOVER
 Logical:       LASSERT, LJOIN, MDLACC, EMIT, REVEAL
-Compute:       XFER, XOR_LOAD, XOR_ADD, XOR_SWAP, XOR_RANK
+Compute:       XFER, LOAD_IMM, LOAD, STORE, ADD, SUB
+XOR ALU:       XOR_LOAD, XOR_ADD, XOR_SWAP, XOR_RANK
+Control:       JUMP, JNEZ, CALL, RET, HALT
+I/O:           CHECKPOINT, READ_PORT, WRITE_PORT, HEAP_LOAD, HEAP_STORE
 Quantum:       CHSH_TRIAL
-Special:       PYEXEC, ORACLE_HALTS
-Control:       HALT
+Special:       ORACLE_HALTS
 ```
 
 Every instruction takes an explicit $\mu_\delta \geq 0$. Every transition increments the $\mu$-ledger by that delta. Monotonicity is proven in Coq and enforced in hardware.
@@ -286,7 +307,7 @@ The Thiele Machine is implemented at three layers producing **identical state pr
 
 | Layer | Implementation | Purpose |
 |-------|----------------|---------|
-| **Coq** | 310 proof files, ~90,350 lines, zero admits | Mathematical ground truth |
+| **Coq** | 272 proof files, ~92,858 lines, zero admits | Mathematical ground truth |
 | **Python** | 20,810 lines, receipts and traces | Executable reference |
 | **Verilog** | 8 source files, ~2,500 hand-written lines, synthesizable RTL | Physical realization |
 
@@ -343,9 +364,9 @@ The-Thiele-Machine/
 |   +-- bridge/             # Domain-to-kernel bridges
 |   `-- ...                 # 26+ subdirectories total
 +-- thielecpu/              # Python VM (24,308 lines)
-|   +-- vm.py               # Core execution engine
-|   +-- state.py            # State machine, partitions, mu-ledger
-|   +-- isa.py              # 18-instruction ISA
+|   +-- vm.py               # Core execution engine (generated from Coq extraction)
+|   +-- assembler.py        # Assembler (text → hex)
+|   +-- debugger.py         # Interactive debugger
 |   `-- hardware/           # Verilog RTL (8 source files)
 +-- build/                  # Compiled OCaml VM runner and artifacts
 +-- tests/                  # 1,094 tests across 120 test files

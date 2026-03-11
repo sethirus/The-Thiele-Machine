@@ -115,9 +115,9 @@ $G$ is well-formed iff $\mathrm{dom}(\mathcal{T}) \subseteq \{0,\dots,N_{id}-1\}
 
 \section{Machine State}
 \begin{definition}[VM State]
-The complete state is a 7-tuple:
-\[ S = (G, C, R, \mathit{Mem}, \mathit{PC}, \mu, \mathit{err}) \]
-where $G \in \Gspace$ is the partition graph, $C \in \N^3$ comprises the CSRs (certificate, status, error), $R \in \N^{32}$ is the register file, $\mathit{Mem} \in \N^{256}$ is main memory, $\mathit{PC} \in \N$ is the program counter, $\mu \in \N$ is the $\mu$-ledger, and $\mathit{err} \in \B$ is the global error flag.
+The complete state is a 10-tuple:
+\[ S = (G, C, R, \mathit{Mem}, \mathit{PC}, \mu, T_\mu, \mathit{err}, \ell, m) \]
+where $G \in \Gspace$ is the partition graph, $C \in \N^4$ comprises the CSRs (certificate address, status, error code, heap base), $R \in \N^{32}$ is the register file, $\mathit{Mem} \in \N^{4096}$ is main memory, $\mathit{PC} \in \N$ is the program counter, $\mu \in \N$ is the $\mu$-ledger, $T_\mu \in \N^{16}$ is the flattened $4\times 4$ $\mu$-tensor (row-major), $\mathit{err} \in \B$ is the global error flag (latching), $\ell \in \N$ is the logic-engine accumulator, and $m \in \N$ is the machine status register ($0$~=~Turing mode, $1$~=~Thiele mode).
 \end{definition}
 
 \chapter{Instruction Set and Cost Model}
@@ -145,17 +145,41 @@ These interact with information content:
 \end{itemize}
 
 \subsection{Computational Operations (Reversible ALU)}
-Standard reversible register/memory operations: $\texttt{XFER}$, $\texttt{XOR\_LOAD}$, $\texttt{XOR\_ADD}$, $\texttt{XOR\_SWAP}$, $\texttt{XOR\_RANK}$.
+Reversible register/memory operations:
+\begin{itemize}
+    \item $\texttt{XFER}(\mathit{dst}, \mathit{src}, \Delta\mu)$: Copy register $\mathit{src}$ to $\mathit{dst}$.
+    \item $\texttt{XOR\_LOAD}(\mathit{dst}, \mathit{addr}, \Delta\mu)$: Load memory word at $\mathit{addr}$.
+    \item $\texttt{XOR\_ADD}(\mathit{dst}, \mathit{src}, \Delta\mu)$: $\mathit{dst} \gets \mathit{dst} \oplus \mathit{src}$.
+    \item $\texttt{XOR\_SWAP}(a, b, \Delta\mu)$: Swap registers $a$ and $b$.
+    \item $\texttt{XOR\_RANK}(\mathit{dst}, \mathit{src}, \Delta\mu)$: $\mathit{dst} \gets \mathrm{popcount}(\mathit{src})$.
+\end{itemize}
+
+\subsection{Standard ALU and Control Flow}
+\begin{itemize}
+    \item $\texttt{LOAD\_IMM}(\mathit{dst}, \mathit{imm}, \Delta\mu)$: Load 32-bit immediate into register.
+    \item $\texttt{LOAD}(\mathit{dst}, \mathit{addr}, \Delta\mu)$: Load from main memory.
+    \item $\texttt{STORE}(\mathit{addr}, \mathit{src}, \Delta\mu)$: Store to main memory.
+    \item $\texttt{ADD}(\mathit{dst}, r_1, r_2, \Delta\mu)$: $\mathit{dst} \gets r_1 + r_2 \pmod{2^{32}}$.
+    \item $\texttt{SUB}(\mathit{dst}, r_1, r_2, \Delta\mu)$: $\mathit{dst} \gets r_1 - r_2 \pmod{2^{32}}$.
+    \item $\texttt{JUMP}(\mathit{target}, \Delta\mu)$: Unconditional jump.
+    \item $\texttt{JNEZ}(r, \mathit{target}, \Delta\mu)$: Jump if $R[r] \neq 0$.
+    \item $\texttt{CALL}(\mathit{target}, \Delta\mu)$: Push return address, jump to target.
+    \item $\texttt{RET}(\Delta\mu)$: Pop return address, jump back.
+\end{itemize}
 
 \subsection{Auxiliary Operations}
 \begin{itemize}
-    \item $\texttt{PYEXEC}(\mathit{payload}, \Delta\mu)$: Execute Python payload (host bridge).
-    \item $\texttt{CHSH\_TRIAL}(x, y, a, b, \Delta\mu)$: Run a CHSH correlation trial.
+    \item $\texttt{CHSH\_TRIAL}(x, y, a, b, \Delta\mu)$: Run a CHSH correlation trial; $x,y,a,b \in \{0,1\}$ required.
     \item $\texttt{ORACLE\_HALTS}(\mathit{payload}, \Delta\mu)$: Query halting oracle (requires $\Delta\mu > 0$).
+    \item $\texttt{CHECKPOINT}(\mathit{label}, \Delta\mu)$: Execution checkpoint (charges $\mu$).
+    \item $\texttt{READ\_PORT}(\mathit{dst}, \mathit{ch}, \mathit{val}, \mathit{bits}, \Delta\mu)$: Read from I/O channel (cert-setter).
+    \item $\texttt{WRITE\_PORT}(\mathit{ch}, \mathit{src}, \Delta\mu)$: Write to I/O channel.
+    \item $\texttt{HEAP\_LOAD}(\mathit{dst}, \mathit{addr}, \Delta\mu)$: Load from heap-relative address.
+    \item $\texttt{HEAP\_STORE}(\mathit{addr}, \mathit{src}, \Delta\mu)$: Store to heap-relative address.
     \item $\texttt{HALT}(\Delta\mu)$: Halt execution.
 \end{itemize}
 
-The full ISA comprises 18 instructions (4 structural + 4 logical + 5 ALU + 5 auxiliary). Every instruction carries an explicit $\Delta\mu$ parameter; the function $\texttt{instruction\_cost}$ extracts it.
+The full ISA comprises 31 instructions (5~structural + 4~logical + 5~reversible ALU + 9~standard ALU/control + 8~auxiliary). Every instruction carries an explicit $\Delta\mu$ parameter; the function $\texttt{instruction\_cost}$ extracts it.
 
 \section{Cost Model}
 Every instruction $i$ carries an explicit cost parameter $\Delta\mu_i \in \N$. The function $\texttt{instruction\_cost}(i)$ extracts this parameter. The cost is applied via $\texttt{apply\_cost}(s, i) = s.\mu + \texttt{instruction\_cost}(i)$. Since $\Delta\mu_i : \N$, the $\mu$-ledger is monotonically non-decreasing by construction.

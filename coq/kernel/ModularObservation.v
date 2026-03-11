@@ -270,6 +270,13 @@ Definition kernel_instr_targets (i : vm_instruction) : list ModuleID :=
   | instr_write_port _ _ _ => []
   | instr_heap_load _ _ _ => []
   | instr_heap_store _ _ _ => []
+  | instr_certify _ => []
+  | instr_and _ _ _ _ => []
+  | instr_or _ _ _ _ => []
+  | instr_shl _ _ _ _ => []
+  | instr_shr _ _ _ _ => []
+  | instr_mul _ _ _ _ => []
+  | instr_lui _ _ _ => []
   end.
 
 (** The key semantic claim (to be verified):

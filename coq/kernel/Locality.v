@@ -271,12 +271,19 @@ Definition instr_targets (i : vm_instruction) : list ModuleID :=
   | instr_emit mid _ _ => [mid]
   | instr_reveal mid _ _ _ => [mid]
   | instr_oracle_halts _ _ => []
-  | instr_halt _ => []
   | instr_checkpoint _ _ => []
   | instr_read_port _ _ _ _ _ => []
   | instr_write_port _ _ _ => []
   | instr_heap_load _ _ _ => []
   | instr_heap_store _ _ _ => []
+  | instr_certify _ => []
+  | instr_and _ _ _ _ => []
+  | instr_or _ _ _ _ => []
+  | instr_shl _ _ _ _ => []
+  | instr_shr _ _ _ _ => []
+  | instr_mul _ _ _ _ => []
+  | instr_lui _ _ _ => []
+  | instr_halt _ => []
   end.
 
 (** =========================================================================
@@ -418,16 +425,16 @@ Proof.
     inversion Hstep; subst;
     unfold states_agree_on_module, module_region_obs;
     rewrite advance_state_graph.
-    + (* Success case *)
+    + (* Sat certificate accepted *)
       apply region_obs_lookup_eq.
       symmetry.
       apply graph_add_axiom_preserves_lookup_other.
       intros Heq. subst. apply Hnot_target. left. reflexivity.
-    + (* Unsat case - graph unchanged *)
+    + (* Unsat certificate accepted - graph unchanged *)
       reflexivity.
-    + (* sat_failure - graph unchanged *)
+    + (* Sat certificate rejected - graph unchanged *)
       reflexivity.
-    + (* unsat_failure - graph unchanged *)
+    + (* Unsat certificate rejected - graph unchanged *)
       reflexivity.
   - (* ljoin *)
     inversion Hstep; subst;
@@ -488,7 +495,8 @@ Proof.
   - (* chsh_trial *)
     inversion Hstep; subst;
     unfold states_agree_on_module, module_region_obs;
-    rewrite advance_state_graph; reflexivity.
+    try (rewrite advance_state_graph; reflexivity);
+    simpl; reflexivity.
   - (* xor_load *)
     inversion Hstep; subst.
     unfold states_agree_on_module, module_region_obs.
@@ -517,30 +525,58 @@ Proof.
     inversion Hstep; subst.
     unfold states_agree_on_module, module_region_obs.
     rewrite advance_state_graph. reflexivity.
-  - (* halt *)
-    inversion Hstep; subst.
-    unfold states_agree_on_module, module_region_obs.
-    rewrite advance_state_graph. reflexivity.
   - (* checkpoint *)
     inversion Hstep; subst.
     unfold states_agree_on_module, module_region_obs.
-    rewrite advance_state_graph. reflexivity.
+    reflexivity.
   - (* read_port *)
     inversion Hstep; subst.
     unfold states_agree_on_module, module_region_obs.
-    rewrite advance_state_rm_graph. reflexivity.
+    reflexivity.
   - (* write_port *)
     inversion Hstep; subst.
     unfold states_agree_on_module, module_region_obs.
-    rewrite advance_state_graph. reflexivity.
+    reflexivity.
   - (* heap_load *)
     inversion Hstep; subst.
     unfold states_agree_on_module, module_region_obs.
-    rewrite advance_state_rm_graph. reflexivity.
+    reflexivity.
   - (* heap_store *)
     inversion Hstep; subst.
     unfold states_agree_on_module, module_region_obs.
-    rewrite advance_state_rm_graph. reflexivity.
+    reflexivity.
+  - (* certify *)
+    inversion Hstep; subst.
+    unfold states_agree_on_module, module_region_obs.
+    reflexivity.
+  - (* and *)
+    inversion Hstep; subst.
+    unfold states_agree_on_module, module_region_obs.
+    reflexivity.
+  - (* or *)
+    inversion Hstep; subst.
+    unfold states_agree_on_module, module_region_obs.
+    reflexivity.
+  - (* shl *)
+    inversion Hstep; subst.
+    unfold states_agree_on_module, module_region_obs.
+    reflexivity.
+  - (* shr *)
+    inversion Hstep; subst.
+    unfold states_agree_on_module, module_region_obs.
+    reflexivity.
+  - (* mul *)
+    inversion Hstep; subst.
+    unfold states_agree_on_module, module_region_obs.
+    reflexivity.
+  - (* lui *)
+    inversion Hstep; subst.
+    unfold states_agree_on_module, module_region_obs.
+    reflexivity.
+  - (* halt *)
+    inversion Hstep; subst.
+    unfold states_agree_on_module, module_region_obs.
+    reflexivity.
 Qed.
 
 (** =========================================================================

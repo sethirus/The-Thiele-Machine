@@ -11,15 +11,18 @@ Tests that certain properties hold for all valid inputs:
 
 import json
 import os
+import hashlib
 import subprocess
 import sys
 import tempfile
 from pathlib import Path
 import pytest
-from hypothesis import given, strategies as st, settings, HealthCheck
+from hypothesis import given, strategies as st, settings, HealthCheck, assume
 
 # Add project root to path
 PROJECT_ROOT = Path(__file__).parent.parent
+CREATE_RECEIPT_SCRIPT = PROJECT_ROOT / "create_receipt.py"
+VERIFY_RECEIPT_SCRIPT = PROJECT_ROOT / "tools" / "verify_trs10.py"
 TEST_PRIVATE_KEY_HEX = "082c001813feb4d26e8bb941414b0e577c7ece64fcfa71d0012dc653abccfbff"
 TEST_PUBLIC_KEY_HEX = "254b57576959e5fb37d087a60d5a72bb75dcf82240cbd62577059695dda0ebea"
 sys.path.insert(0, str(PROJECT_ROOT))
@@ -78,11 +81,58 @@ def create_test_file(workspace, filename, content):
     return filepath
 
 
+def _require_receipt_tooling() -> None:
+    if not CREATE_RECEIPT_SCRIPT.exists():
+        pytest.skip(f"Receipt creation CLI not available: {CREATE_RECEIPT_SCRIPT}")
+    if not VERIFY_RECEIPT_SCRIPT.exists():
+        pytest.skip(f"Receipt verification CLI not available: {VERIFY_RECEIPT_SCRIPT}")
+
+
+def _assert_completed(result: subprocess.CompletedProcess[str], context: str) -> None:
+    assert result.returncode == 0, (
+        f"{context} failed with exit code {result.returncode}\n"
+        f"STDOUT:\n{result.stdout}\n"
+        f"STDERR:\n{result.stderr}"
+    )
+
+
+def _sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(65536), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _assert_receipt_matches_files(receipt: dict, files: list[Path]) -> None:
+    assert "files" in receipt, "Receipt missing files list"
+    entries = receipt["files"]
+    assert len(entries) == len(files), (
+        f"Receipt lists {len(entries)} files but expected {len(files)}"
+    )
+
+    entries_by_name = {Path(entry["path"]).name: entry for entry in entries}
+    expected_names = {path.name for path in files}
+    assert set(entries_by_name) == expected_names, (
+        f"Receipt paths {sorted(entries_by_name)} do not match expected {sorted(expected_names)}"
+    )
+
+    for path in files:
+        entry = entries_by_name[path.name]
+        assert entry["sha256"] == _sha256(path), (
+            f"Incorrect SHA-256 recorded for {path.name}"
+        )
+        assert entry["size"] == path.stat().st_size, (
+            f"Incorrect size recorded for {path.name}"
+        )
+
+
 def cli_create_receipt(files, output_path, metadata=None):
     """Create a receipt using the CLI tool."""
+    _require_receipt_tooling()
     cmd = [
         sys.executable,
-        str(PROJECT_ROOT / "create_receipt.py"),
+        str(CREATE_RECEIPT_SCRIPT),
     ]
     
     # Add files
@@ -110,21 +160,21 @@ def cli_create_receipt(files, output_path, metadata=None):
     finally:
         os.unlink(key_path)
 
-    return result.returncode == 0
+    return result
 
 
 def cli_verify_receipt(receipt_path):
     """Verify a receipt using the CLI tool."""
+    _require_receipt_tooling()
     cmd = [
         sys.executable,
-        str(PROJECT_ROOT / "tools" / "verify_trs10.py"),
+        str(VERIFY_RECEIPT_SCRIPT),
         str(receipt_path),
         "--trusted-pubkey",
         TEST_PUBLIC_KEY_HEX,
     ]
     
-    result = subprocess.run(cmd, capture_output=True, text=True, cwd=PROJECT_ROOT)
-    return result.returncode == 0
+    return subprocess.run(cmd, capture_output=True, text=True, cwd=PROJECT_ROOT)
 
 
 # ==================== Property-Based Tests ====================
@@ -152,11 +202,16 @@ class TestReceiptProperties:
             
             # Create receipt
             created = cli_create_receipt([test_file], receipt_path)
-            
-            if created and receipt_path.exists():
-                # Verify receipt
-                verified = cli_verify_receipt(receipt_path)
-                assert verified, f"Verification failed for file: {full_filename}"
+            _assert_completed(created, f"Receipt creation failed for file: {full_filename}")
+            assert receipt_path.exists(), f"Receipt file missing for file: {full_filename}"
+
+            with receipt_path.open(encoding="utf-8") as handle:
+                receipt = json.load(handle)
+            _assert_receipt_matches_files(receipt, [test_file])
+
+            # Verify receipt
+            verified = cli_verify_receipt(receipt_path)
+            _assert_completed(verified, f"Verification failed for file: {full_filename}")
 
     @given(
         num_files=st.integers(min_value=1, max_value=10),
@@ -184,11 +239,16 @@ class TestReceiptProperties:
             
             # Create receipt
             created = cli_create_receipt(files, receipt_path)
-            
-            if created and receipt_path.exists():
-                # Verify receipt
-                verified = cli_verify_receipt(receipt_path)
-                assert verified, f"Verification failed for {num_files} files"
+            _assert_completed(created, f"Receipt creation failed for {num_files} files")
+            assert receipt_path.exists(), f"Receipt file missing for {num_files} files"
+
+            with receipt_path.open(encoding="utf-8") as handle:
+                receipt = json.load(handle)
+            _assert_receipt_matches_files(receipt, files)
+
+            # Verify receipt
+            verified = cli_verify_receipt(receipt_path)
+            _assert_completed(verified, f"Verification failed for {num_files} files")
 
     @given(
         content=text_content,
@@ -208,17 +268,16 @@ class TestReceiptProperties:
             
             # Create receipt with metadata
             created = cli_create_receipt([test_file], receipt_path, metadata=metadata)
-            
-            if created and receipt_path.exists():
-                # Check metadata is in receipt
-                with open(receipt_path) as f:
-                    receipt = json.load(f)
-                
-                # Only check if metadata is non-empty and serializable
-                if metadata is not None and metadata != [] and metadata != {}:
-                    if isinstance(metadata, (dict, list, str, int, float, bool)):
-                        if "metadata" in receipt:
-                            assert receipt["metadata"] == metadata
+            _assert_completed(created, "Receipt creation with metadata failed")
+            assert receipt_path.exists(), "Receipt file missing after metadata creation"
+
+            # Check metadata is in receipt
+            with receipt_path.open(encoding="utf-8") as handle:
+                receipt = json.load(handle)
+
+            _assert_receipt_matches_files(receipt, [test_file])
+            assert "metadata" in receipt
+            assert receipt["metadata"] == metadata
 
     @given(
         content=text_content,
@@ -240,19 +299,26 @@ class TestReceiptProperties:
             # Create two receipts from same file
             created1 = cli_create_receipt([test_file], receipt1_path)
             created2 = cli_create_receipt([test_file], receipt2_path)
-            
-            if created1 and created2 and receipt1_path.exists() and receipt2_path.exists():
-                with open(receipt1_path) as f:
-                    receipt1 = json.load(f)
-                
-                with open(receipt2_path) as f:
-                    receipt2 = json.load(f)
-                
-                # Global digests should be identical
-                assert receipt1["global_digest"] == receipt2["global_digest"]
-                
-                # File hashes should be identical
-                assert receipt1["files"][0]["sha256"] == receipt2["files"][0]["sha256"]
+
+            _assert_completed(created1, "First receipt creation failed for deterministic test")
+            _assert_completed(created2, "Second receipt creation failed for deterministic test")
+            assert receipt1_path.exists(), "First deterministic receipt file missing"
+            assert receipt2_path.exists(), "Second deterministic receipt file missing"
+
+            with receipt1_path.open(encoding="utf-8") as handle:
+                receipt1 = json.load(handle)
+
+            with receipt2_path.open(encoding="utf-8") as handle:
+                receipt2 = json.load(handle)
+
+            _assert_receipt_matches_files(receipt1, [test_file])
+            _assert_receipt_matches_files(receipt2, [test_file])
+
+            # Global digests should be identical
+            assert receipt1["global_digest"] == receipt2["global_digest"]
+
+            # File hashes should be identical
+            assert receipt1["files"][0]["sha256"] == receipt2["files"][0]["sha256"]
 
     @given(
         binary_data=binary_content,
@@ -272,11 +338,16 @@ class TestReceiptProperties:
             
             # Create receipt
             created = cli_create_receipt([test_file], receipt_path)
-            
-            if created and receipt_path.exists():
-                # Verify receipt
-                verified = cli_verify_receipt(receipt_path)
-                assert verified, "Binary file verification failed"
+            _assert_completed(created, "Binary receipt creation failed")
+            assert receipt_path.exists(), "Binary receipt file missing"
+
+            with receipt_path.open(encoding="utf-8") as handle:
+                receipt = json.load(handle)
+            _assert_receipt_matches_files(receipt, [test_file])
+
+            # Verify receipt
+            verified = cli_verify_receipt(receipt_path)
+            _assert_completed(verified, "Binary file verification failed")
 
     @given(
         content1=text_content,
@@ -287,9 +358,7 @@ class TestReceiptProperties:
         """
         Property: Different file contents produce different digests (collision resistance).
         """
-        # Skip if contents are identical
-        if content1 == content2:
-            return
+        assume(content1 != content2)
         
         with tempfile.TemporaryDirectory() as tmpdir:
             workspace = Path(tmpdir)
@@ -304,16 +373,23 @@ class TestReceiptProperties:
             # Create receipts
             created1 = cli_create_receipt([file1], receipt1_path)
             created2 = cli_create_receipt([file2], receipt2_path)
-            
-            if created1 and created2:
-                with open(receipt1_path) as f:
-                    receipt1 = json.load(f)
-                
-                with open(receipt2_path) as f:
-                    receipt2 = json.load(f)
-                
-                # Digests should be different (collision resistance)
-                assert receipt1["global_digest"] != receipt2["global_digest"]
+
+            _assert_completed(created1, "First receipt creation failed for collision test")
+            _assert_completed(created2, "Second receipt creation failed for collision test")
+            assert receipt1_path.exists(), "First collision-test receipt file missing"
+            assert receipt2_path.exists(), "Second collision-test receipt file missing"
+
+            with receipt1_path.open(encoding="utf-8") as handle:
+                receipt1 = json.load(handle)
+
+            with receipt2_path.open(encoding="utf-8") as handle:
+                receipt2 = json.load(handle)
+
+            _assert_receipt_matches_files(receipt1, [file1])
+            _assert_receipt_matches_files(receipt2, [file2])
+
+            # Digests should be different (collision resistance)
+            assert receipt1["global_digest"] != receipt2["global_digest"]
 
     @given(
         content=text_content,
@@ -333,30 +409,28 @@ class TestReceiptProperties:
             
             # Create receipt
             created = cli_create_receipt([test_file], receipt_path)
-            
-            if created and receipt_path.exists():
-                with open(receipt_path) as f:
-                    receipt = json.load(f)
-                
-                # Required fields
-                assert "version" in receipt
-                assert receipt["version"].startswith("TRS-1")
-                assert "files" in receipt
-                assert isinstance(receipt["files"], list)
-                assert len(receipt["files"]) >= 1
-                assert "global_digest" in receipt
-                assert isinstance(receipt["global_digest"], str)
-                assert len(receipt["global_digest"]) == 64  # SHA-256 hex
-                
-                # File entry structure
-                for file_entry in receipt["files"]:
-                    assert "path" in file_entry
-                    assert "sha256" in file_entry
-                    assert "size" in file_entry
-                    assert isinstance(file_entry["sha256"], str)
-                    assert len(file_entry["sha256"]) == 64
+            _assert_completed(created, "Receipt creation failed for structure test")
+            assert receipt_path.exists(), "Receipt file missing for structure test"
 
+            with receipt_path.open(encoding="utf-8") as handle:
+                receipt = json.load(handle)
 
-if __name__ == "__main__":
-    # Run tests
-    pytest.main([__file__, "-v", "--tb=short"])
+            _assert_receipt_matches_files(receipt, [test_file])
+
+            # Required fields
+            assert "version" in receipt
+            assert receipt["version"].startswith("TRS-1")
+            assert "files" in receipt
+            assert isinstance(receipt["files"], list)
+            assert len(receipt["files"]) >= 1
+            assert "global_digest" in receipt
+            assert isinstance(receipt["global_digest"], str)
+            assert len(receipt["global_digest"]) == 64  # SHA-256 hex
+
+            # File entry structure
+            for file_entry in receipt["files"]:
+                assert "path" in file_entry
+                assert "sha256" in file_entry
+                assert "size" in file_entry
+                assert isinstance(file_entry["sha256"], str)
+                assert len(file_entry["sha256"]) == 64

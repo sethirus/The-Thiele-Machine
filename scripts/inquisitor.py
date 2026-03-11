@@ -5412,12 +5412,12 @@ def _run_cross_layer_foundation_checks(repo_root: Path) -> list[Finding]:
             )
 
     # 3) Extracted OCaml runner must execute vm_apply from extracted core.
-    runner_ml = _require_file(repo_root / "tools" / "extracted_vm_runner.ml")
+    runner_ml = _require_file(repo_root / "build" / "extracted_vm_runner.ml")
     if runner_ml is not None:
         missing = [tok for tok in ("open Thiele_core", "vm_apply", "Coq_instr") if tok not in runner_ml]
         if missing:
             _add(
-                repo_root / "tools" / "extracted_vm_runner.ml",
+                repo_root / "build" / "extracted_vm_runner.ml",
                 "OCaml runner is not fully connected to extracted foundation semantics.",
                 ", ".join(missing),
             )

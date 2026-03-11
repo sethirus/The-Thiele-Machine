@@ -66,7 +66,7 @@ COQFLAGS=$(echo "$COQFLAGS" | sed \
     | sed "s|../vendor/bbv/src/bbv|$VENDOR_BBV/src/bbv|g")
 
 # Compile each kami_hw file from COQ_DIR (coqc writes .vo next to .v)
-for f in Blink ThieleTypes ThieleCPUCore Compatibility Abstraction ThieleCPUBusTop VerilogRefinement CanonicalCPUProof; do
+for f in ThieleTypes ThieleCPUCore Compatibility Abstraction ThieleCPUBusTop VerilogRefinement CanonicalCPUProof; do
     eval "coqc $COQFLAGS kami_hw/${f}.v"
 done
 
@@ -82,14 +82,9 @@ cp "$VENDOR_KAMI/Kami/Ext/Ocaml/Header.bsv" .
 # Coq 8.18 extraction emits Nil1 in Target.ml while upstream PP.ml still matches Nil.
 # Normalize PP pattern matches for compatibility with extracted Target type constructors.
 perl -0777 -pe 's/\bNil\b/Nil1/g' -i PP.ml
-# Coq 8.18+ extraction uses canonical_cpu_module; Main.ml expects targetB.
-# Add shim alias so the entry point resolves without modifying vendor files.
-if ! grep -q 'targetB' Target.ml; then
-    printf '\n(** val targetB : int -> bModule list option **)\n' >> Target.ml
-    printf 'let targetB _ = canonical_cpu_module\n' >> Target.ml
-fi
-if ! grep -q 'targetB' Target.mli; then
-    printf '\nval targetB : int -> bModule list option\n' >> Target.mli
+# Use project-specific Header.bsv without unused SimpleBRAM import.
+if [ -f "$ROOT/scripts/Header.bsv" ]; then
+    cp "$ROOT/scripts/Header.bsv" .
 fi
 ocamlfind ocamlopt -package str -linkpkg \
     Target.mli Target.ml PP.ml Main.ml \
@@ -131,9 +126,20 @@ s=re.sub(r'vec\(([^()]*)\)', r'unpack({\1})', s)
 open(p,'w').write(s)
 PY
 
-# SimpleBRAM is imported by Kami extraction boilerplate but unused in the module body.
-# It is not in the standard BSC library and has no pre-compiled .bo file — remove it.
-sed -i '/^import SimpleBRAM::\*;/d' thiele_hw_clean.bsv
+echo "=== Phase 4b: RegFile transform (large Vector registers -> RegFile) ==="
+# BSC cannot elaborate mkReg(unpack(0)) for Vector#(4096, ...) — stack overflow.
+# Replace Reg#(Vector#(N, T)) with RegFile#(Bit#(log2(N)), T) for N >= 256,
+# rewriting reads to .sub() and writes to .upd(). Logic is unchanged.
+python3 "$ROOT/scripts/bsv_regfile_transform.py" thiele_hw_clean.bsv thiele_hw_clean.bsv
+
+# Compile RegFileZero.bsv (provides mkRegFileFullZero) — needed by the transform.
+if [ "$BSC_AVAILABLE" != "0" ]; then
+    REGFILE_ZERO="$VENDOR_KAMI/Kami/Ext/BluespecFrontEnd/verilog/RegFileZero.bsv"
+    if [ -f "$REGFILE_ZERO" ] && [ ! -f "RegFileZero.bo" ]; then
+        echo "  Compiling RegFileZero.bsv..."
+        "$BSC" -verilog -u -p "$BLUESPECDIR/Libraries:." "$REGFILE_ZERO" 2>&1
+    fi
+fi
 
 echo "=== Phase 5: Compiling Bluespec -> Verilog ==="
 # Compile each module found in the BSV
@@ -143,7 +149,7 @@ if [ "$BSC_AVAILABLE" = "0" ]; then
 else
 for mod in $(grep -oP 'module (mk\w+)' thiele_hw_clean.bsv | awk '{print $2}'); do
     echo "  Compiling $mod..."
-    "$BSC" -verilog -g "$mod" -p "$BLUESPECDIR/Libraries:." thiele_hw_clean.bsv 2>&1
+    "$BSC" +RTS -K64M -RTS -verilog -g "$mod" -p "$BLUESPECDIR/Libraries:." thiele_hw_clean.bsv 2>&1
 done
 fi
 

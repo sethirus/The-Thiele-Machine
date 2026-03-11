@@ -79,6 +79,7 @@ Definition mu_cost (i : vm_instruction) : nat :=
   | instr_emit _ _ cost => cost
   | instr_ljoin _ _ cost => cost
   | instr_lassert _ _ _ cost => cost
+  | instr_certify cost => cost
   | _ => 0
   end.
 

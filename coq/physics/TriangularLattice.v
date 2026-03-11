@@ -60,7 +60,11 @@ Definition lattice_vm_state (n : nat) : VMState :=
      vm_pc := 0;
      vm_mu := 0;
      vm_mu_tensor := vm_mu_tensor_default;
-     vm_err := false |}.
+     vm_err := false;
+     vm_logic_acc := 0;
+     vm_mstatus := 0;
+     vm_witness := witness_counts_zero;
+     vm_certified := false |}.
 
 (** [lattice_id_coord_of_id]: formal specification. *)
 Lemma lattice_id_coord_of_id : forall n u,

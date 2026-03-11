@@ -1,4 +1,20 @@
 (** * HardwareBisimulation: Proving Coq = Python = Verilog
+    (* NOTE: This file proves cost-level bisimulation only: mu-accumulation
+       is consistent across an abstract hardware model and Python model.
+       The HardwareState here is a 4-field abstraction (pc, mu, alu_ready,
+       overflow) that models only PC+1 sequential execution and cost
+       accumulation. It does NOT model: register files, memory, partition
+       graph, CSRs, mu_tensor, jump/branch/call/ret targets, or any
+       instruction-specific behavior beyond cost charging.
+
+       For full hardware state correspondence with the Kami-extracted RTL,
+       see VerilogRefinement.v which uses KamiSnapshot (13 fields) and
+       abs_phase1 from Abstraction.v.
+
+       The genuine results here (hw_bisimulation_step, hw_bisimulation_multi_step,
+       hw_step_reflects_vm_cost) are real and useful for reasoning about
+       mu-accumulation consistency. They should not be interpreted as
+       proving full behavioral equivalence between hardware and software. *)
 
     THE 3-LAYER ISOMORPHISM CLAIM:
     I built the same machine three times in three different languages:

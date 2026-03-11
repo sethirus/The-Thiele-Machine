@@ -10,14 +10,7 @@ REF: coq/kernel/PNEWTopologyChange.v
      GRAVITY_PROOF_PLAN.md Phase 3
 """
 
-import pytest
-from pathlib import Path
-import sys
-
-# Add tools to path
-sys.path.insert(0, str(Path(__file__).parent.parent / "tools"))
-
-from vm_wrapper import run_vm_trace, VMState
+from build.thiele_vm import run_vm, VMState
 
 
 def compute_euler_characteristic(state: VMState) -> int:
@@ -54,6 +47,22 @@ def compute_euler_characteristic(state: VMState) -> int:
     return chi
 
 
+def compute_topology_counts(state: VMState) -> tuple[int, int, int]:
+    """Return (V, E, F) for the current module graph."""
+    faces = len(state.modules)
+
+    vertices = set()
+    edges = set()
+    for mod in state.modules:
+        region = sorted(mod.region)
+        vertices.update(region)
+        for i, n1 in enumerate(region):
+            for n2 in region[i + 1:]:
+                edges.add((n1, n2))
+
+    return len(vertices), len(edges), faces
+
+
 def test_pnew_fresh_triangle_changes_chi():
     """
     Test: PNEW with fresh triangle changes Euler characteristic.
@@ -64,23 +73,20 @@ def test_pnew_fresh_triangle_changes_chi():
     3. Verify χ changed
     """
     # Empty initial state
-    initial = run_vm_trace(["HALT 1"], fuel=10)
+    initial = run_vm(["HALT 1"], fuel=10)
     chi_0 = compute_euler_characteristic(initial)
 
     # Add fresh triangle
-    final = run_vm_trace([
+    final = run_vm([
         "PNEW {0,1,2} 10",
         "HALT 1"
     ], fuel=50)
     chi_1 = compute_euler_characteristic(final)
 
-    print(f"χ_initial = {chi_0}")
-    print(f"χ_after_PNEW = {chi_1}")
-    print(f"Δχ = {chi_1 - chi_0}")
-
     # Verify topology changed
     assert chi_1 != chi_0, "PNEW with fresh triangle should change χ"
     assert len(final.modules) == 1, "Should have exactly 1 module"
+    assert compute_topology_counts(final) == (3, 3, 1)
 
 
 def test_pnew_two_triangles_changes_chi():
@@ -93,32 +99,29 @@ def test_pnew_two_triangles_changes_chi():
     - Triangle 2: V=6, E=6, F=2 → χ = 6-6+2 = 2
     """
     # Initial: empty
-    chi_0 = compute_euler_characteristic(run_vm_trace(["HALT 1"], fuel=10))
+    chi_0 = compute_euler_characteristic(run_vm(["HALT 1"], fuel=10))
 
     # Add first triangle
-    state_1 = run_vm_trace([
+    state_1 = run_vm([
         "PNEW {0,1,2} 10",
         "HALT 1"
     ], fuel=50)
     chi_1 = compute_euler_characteristic(state_1)
 
     # Add second disjoint triangle
-    state_2 = run_vm_trace([
+    state_2 = run_vm([
         "PNEW {0,1,2} 10",
         "PNEW {3,4,5} 10",
         "HALT 1"
     ], fuel=100)
     chi_2 = compute_euler_characteristic(state_2)
 
-    print(f"χ_0 (empty) = {chi_0}")
-    print(f"χ_1 (1 triangle) = {chi_1}")
-    print(f"χ_2 (2 triangles) = {chi_2}")
-    print(f"Δχ_1 = {chi_1 - chi_0}, Δχ_2 = {chi_2 - chi_1}")
-
     # Verify each PNEW changed χ
     assert chi_1 != chi_0, "First PNEW should change χ"
     assert chi_2 != chi_1, "Second PNEW should change χ"
     assert chi_2 > chi_1, "Adding disconnected components increases χ"
+    assert compute_topology_counts(state_1) == (3, 3, 1)
+    assert compute_topology_counts(state_2) == (6, 6, 2)
 
 
 def test_pnew_connected_triangles():
@@ -133,22 +136,18 @@ def test_pnew_connected_triangles():
     Interesting: χ doesn't change! This is because the shared edge
     contributes to the Euler characteristic in a specific way.
     """
-    state_1 = run_vm_trace([
+    state_1 = run_vm([
         "PNEW {0,1,2} 10",
         "HALT 1"
     ], fuel=50)
     chi_1 = compute_euler_characteristic(state_1)
 
-    state_2 = run_vm_trace([
+    state_2 = run_vm([
         "PNEW {0,1,2} 10",
         "PNEW {1,2,3} 10",
         "HALT 1"
     ], fuel=100)
     chi_2 = compute_euler_characteristic(state_2)
-
-    print(f"χ_1 (1 triangle) = {chi_1}")
-    print(f"χ_2 (2 connected triangles) = {chi_2}")
-    print(f"Δχ = {chi_2 - chi_1}")
 
     # For connected triangles sharing an edge:
     # ΔV = 1 (one new vertex)
@@ -157,24 +156,10 @@ def test_pnew_connected_triangles():
     # Δχ = 1 - 2 + 1 = 0
     # So χ doesn't change!
 
-    print(f"State 1: V={len({n for m in state_1.modules for n in m.region})}, "
-          f"E={len({tuple(sorted([n1,n2])) for m in state_1.modules for i,n1 in enumerate(sorted(m.region)) for n2 in sorted(m.region)[i+1:]})}, "
-          f"F={len(state_1.modules)}")
-
-    all_edges_2 = set()
-    for m in state_2.modules:
-        region = sorted(m.region)
-        for i, n1 in enumerate(region):
-            for n2 in region[i+1:]:
-                all_edges_2.add(tuple(sorted([n1, n2])))
-
-    print(f"State 2: V={len({n for m in state_2.modules for n in m.region})}, "
-          f"E={len(all_edges_2)}, "
-          f"F={len(state_2.modules)}")
-
-    # This demonstrates that not all PNEW operations change χ
-    # Only certain topological configurations do
-    # This matches the Coq proof which requires specific conditions
+    assert chi_1 == 1
+    assert chi_2 == 1
+    assert compute_topology_counts(state_1) == (3, 3, 1)
+    assert compute_topology_counts(state_2) == (4, 5, 2)
 
 
 def test_pnew_topology_incremental():
@@ -194,27 +179,17 @@ def test_pnew_topology_incremental():
     ]
 
     chi_values = []
+    topology_counts = []
     for instrs in instructions_list:
-        state = run_vm_trace(instrs + ["HALT 1"], fuel=200)
+        state = run_vm(instrs + ["HALT 1"], fuel=200)
         chi = compute_euler_characteristic(state)
         chi_values.append(chi)
-
-        V = len({n for m in state.modules for n in m.region})
-        all_edges = set()
-        for m in state.modules:
-            region = sorted(m.region)
-            for i, n1 in enumerate(region):
-                for n2 in region[i+1:]:
-                    all_edges.add(tuple(sorted([n1, n2])))
-        E = len(all_edges)
-        F = len(state.modules)
-
-        print(f"Step {len(instrs)}: V={V}, E={E}, F={F} → χ={chi}")
-
-    print(f"\nχ evolution: {chi_values}")
-    print(f"Δχ sequence: {[chi_values[i+1]-chi_values[i] for i in range(len(chi_values)-1)]}")
+        topology_counts.append(compute_topology_counts(state))
 
     # Verify χ is measurable and changes with topology
+    assert chi_values[0] == 0, "Empty graph should have χ = 0"
+    assert chi_values[1] == 1, "Single fresh triangle should have χ = 1"
+    assert [count[2] for count in topology_counts] == [0, 1, 2, 3, 4]
     assert len(set(chi_values)) > 1, "χ should vary as topology changes"
 
 
@@ -229,21 +204,19 @@ def test_pnew_fresh_increases_F():
       F g' = S (F g).
     """
     # Start with 1 module
-    state_1 = run_vm_trace([
+    state_1 = run_vm([
         "PNEW {0,1,2} 10",
         "HALT 1"
     ], fuel=50)
     F_1 = len(state_1.modules)
 
     # Add fresh module
-    state_2 = run_vm_trace([
+    state_2 = run_vm([
         "PNEW {0,1,2} 10",
         "PNEW {3,4,5} 10",
         "HALT 1"
     ], fuel=100)
     F_2 = len(state_2.modules)
-
-    print(f"F_1 = {F_1}, F_2 = {F_2}, ΔF = {F_2 - F_1}")
 
     assert F_2 == F_1 + 1, "PNEW with fresh region should increase F by exactly 1"
 
@@ -256,15 +229,13 @@ def test_pnew_duplicate_region_preserves_F():
     PNEW returns the existing module ID and doesn't modify the graph.
     """
     # Add same region twice
-    state = run_vm_trace([
+    state = run_vm([
         "PNEW {0,1,2} 10",
         "PNEW {0,1,2} 10",  # Duplicate
         "HALT 1"
     ], fuel=100)
 
     F = len(state.modules)
-    print(f"F after duplicate PNEW = {F}")
-
     assert F == 1, "PNEW with duplicate region should not increase F"
 
 
@@ -272,7 +243,7 @@ def test_euler_char_definition():
     """
     Sanity test: Verify χ = V - E + F holds by definition.
     """
-    state = run_vm_trace([
+    state = run_vm([
         "PNEW {0,1,2} 10",
         "PNEW {1,2,3} 10",
         "PNEW {2,3,4} 10",
@@ -296,40 +267,4 @@ def test_euler_char_definition():
     chi_manual = V - E + F
     chi_computed = compute_euler_characteristic(state)
 
-    print(f"V={V}, E={E}, F={F}")
-    print(f"χ (manual) = {chi_manual}")
-    print(f"χ (computed) = {chi_computed}")
-
     assert chi_manual == chi_computed, "χ computation should match definition"
-
-
-if __name__ == "__main__":
-    print("=" * 70)
-    print("TESTING: PNEW Changes Topology (Phase 3 of Gravity Proof)")
-    print("=" * 70)
-    print()
-
-    test_pnew_fresh_triangle_changes_chi()
-    print()
-
-    test_pnew_two_triangles_changes_chi()
-    print()
-
-    test_pnew_connected_triangles()
-    print()
-
-    test_pnew_topology_incremental()
-    print()
-
-    test_pnew_fresh_increases_F()
-    print()
-
-    test_pnew_duplicate_region_preserves_F()
-    print()
-
-    test_euler_char_definition()
-    print()
-
-    print("=" * 70)
-    print("ALL TESTS PASSED: PNEW demonstrably changes topology")
-    print("=" * 70)

@@ -9,13 +9,24 @@
     [hw_step] in Bisimulation_Minimal.v by construction: the Kami rule bodies
     compute exactly the same nat operations as [vm_apply] under the abstraction.
 
-    All 31 instructions are covered:
+    All 32 instructions are covered:
     - Compute: LOAD_IMM, ADD, SUB, XFER, LOAD, STORE, JUMP, JNEZ, CALL, RET
     - XOR ALU: XOR_LOAD, XOR_ADD, XOR_SWAP, XOR_RANK
     - Partition/Logic: PNEW, PSPLIT, PMERGE, PDISCOVER, LASSERT, LJOIN,
       MDLACC, EMIT, REVEAL (partition graph managed at higher layer)
     - Special: CHSH_TRIAL, ORACLE_HALTS, HALT
     - Phase 2/3B: CHECKPOINT, READ_PORT, WRITE_PORT, HEAP_LOAD, HEAP_STORE
+    - Phase 4: CERTIFY (state-based certification)
+
+    Coprocessor delegation model (LASSERT/LJOIN):
+    The RTL hardware cannot embed a SAT/LRAT certificate checker in 32-bit
+    fixed-width instructions. Instead, it delegates LASSERT and LJOIN to an
+    external coprocessor via a stall/response protocol: the CPU sets a logic
+    request register, stalls, and waits for an external response. The Coq
+    kernel calls check_model/check_lrat/String.eqb inline. These are proven
+    equivalent in LogicEngineEquivalence.v, which shows that given a correct
+    oracle (one that agrees with the kernel checkers), the hardware and kernel
+    produce identical observable state (PC, mu, error flag).
 
     Extended state (matching handwritten RTL parity):
     - partition_ops, mdl_ops, info_gain: diagnostic counters
@@ -30,6 +41,11 @@ Import ListNotations.
 Require Import Kernel.VMState.
 Require Import Kernel.VMStep.
 Import VMStep.VMStep.
+
+(** ORACLE_HALTS charges a fixed 1,000,000 mu penalty in hardware.
+    This matches ThieleTypes.ORACLE_HALTS_HW_COST and ThieleCPUCore.v line 1376.
+    Defined here as a plain nat (no Kami word dependency). *)
+Definition ORACLE_HALTS_HW_COST : nat := 1000000.
 
 (** * Hardware state snapshot
 
@@ -49,7 +65,16 @@ Record KamiSnapshot := {
   snap_error_code    : nat ;
   snap_mu_tensor     : nat -> nat ;  (* flat index 0..15 -> tensor entry value *)
   snap_pt_sizes      : nat -> nat ;  (* hardware partition table: module_id -> region_size (0 = unallocated) *)
-  snap_pt_next_id    : nat           (* next free module ID; initialized to 1 matching empty_graph.pg_next_id *)
+  snap_pt_next_id    : nat ;         (* next free module ID; initialized to 1 matching empty_graph.pg_next_id *)
+  snap_certified     : bool ;        (* state-based certification flag — set by CERTIFY *)
+  snap_wc_same_00    : nat ;         (* witness counter: setting (0,0), same outcomes *)
+  snap_wc_diff_00    : nat ;         (* witness counter: setting (0,0), diff outcomes *)
+  snap_wc_same_01    : nat ;
+  snap_wc_diff_01    : nat ;
+  snap_wc_same_10    : nat ;
+  snap_wc_diff_10    : nat ;
+  snap_wc_same_11    : nat ;
+  snap_wc_diff_11    : nat
 }.
 
 (** * Conversion: function-based registers/memory -> list (VMState expects list nat) *)
@@ -58,7 +83,7 @@ Definition snapshot_regs_to_list (f : nat -> nat) : list nat :=
   List.map f (List.seq 0 32).
 
 Definition snapshot_mem_to_list (f : nat -> nat) : list nat :=
-  List.map f (List.seq 0 256).
+  List.map f (List.seq 0 MEM_SIZE).
 
 Definition snapshot_tensor_to_list (f : nat -> nat) : list nat :=
   List.map f (List.seq 0 16).
@@ -115,9 +140,20 @@ Definition abs_phase1 (s : KamiSnapshot) : VMState :=
      vm_pc        := snap_pc s ;
      vm_mu        := snap_mu s ;
      vm_mu_tensor := snapshot_tensor_to_list (snap_mu_tensor s) ;
-     vm_err       := snap_err s |}.
+     vm_err       := snap_err s ;
+     vm_logic_acc := 0 ;
+     vm_mstatus   := 0 ;
+     vm_witness   := {| wc_same_00 := snap_wc_same_00 s;
+                        wc_diff_00 := snap_wc_diff_00 s;
+                        wc_same_01 := snap_wc_same_01 s;
+                        wc_diff_01 := snap_wc_diff_01 s;
+                        wc_same_10 := snap_wc_same_10 s;
+                        wc_diff_10 := snap_wc_diff_10 s;
+                        wc_same_11 := snap_wc_same_11 s;
+                        wc_diff_11 := snap_wc_diff_11 s |} ;
+     vm_certified := snap_certified s |}.
 
-(** Full alias — all 31 instructions covered *)
+(** Full alias — all 32 instructions covered *)
 Definition abs_full := abs_phase1.
 
 (* ====================================================================
@@ -151,15 +187,24 @@ Definition kami_advance_default (hs : KamiSnapshot) (cost : nat) : KamiSnapshot 
      snap_error_code   := snap_error_code hs;
      snap_mu_tensor    := snap_mu_tensor hs;
      snap_pt_sizes     := snap_pt_sizes hs;
-     snap_pt_next_id   := snap_pt_next_id hs |}.
+     snap_pt_next_id   := snap_pt_next_id hs;
+     snap_certified    := snap_certified hs;
+     snap_wc_same_00   := snap_wc_same_00 hs;
+     snap_wc_diff_00   := snap_wc_diff_00 hs;
+     snap_wc_same_01   := snap_wc_same_01 hs;
+     snap_wc_diff_01   := snap_wc_diff_01 hs;
+     snap_wc_same_10   := snap_wc_same_10 hs;
+     snap_wc_diff_10   := snap_wc_diff_10 hs;
+     snap_wc_same_11   := snap_wc_same_11 hs;
+     snap_wc_diff_11   := snap_wc_diff_11 hs |}.
 
 (** Write register [r mod 32] with value word32(v). *)
 Definition kami_write_reg (hs : KamiSnapshot) (r v : nat) : nat -> nat :=
   fun j => if Nat.eqb j (r mod 32) then word32 v else snap_regs hs j.
 
-(** Write memory[a mod 4096] with value word32(v). *)
+(** Write memory[a mod MEM_SIZE] with value word32(v). *)
 Definition kami_write_mem (hs : KamiSnapshot) (a v : nat) : nat -> nat :=
-  fun j => if Nat.eqb j (a mod 4096) then word32 v else snap_mem hs j.
+  fun j => if Nat.eqb j (a mod MEM_SIZE) then word32 v else snap_mem hs j.
 
 (** Computable hardware step function.  Each case mirrors the corresponding
     RTL rule body in ThieleCPUCore.v.
@@ -189,7 +234,16 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes :=
            fun j => if Nat.eqb j id then sz else snap_pt_sizes hs j;
-         snap_pt_next_id := S id |}
+         snap_pt_next_id := S id;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs |}
   | instr_psplit _ _ _ cost =>
       kami_advance_default hs cost
   | instr_pmerge _ _ cost =>
@@ -211,7 +265,16 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs |}
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs |}
   | instr_pdiscover _ _ cost =>
       kami_advance_default hs cost
   | instr_xfer dst src cost =>
@@ -227,7 +290,16 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs |}
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs |}
   | instr_load_imm dst imm cost =>
       {| snap_pc    := S (snap_pc hs);
          snap_mu    := snap_mu hs + cost;
@@ -241,13 +313,22 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs |}
-  | instr_load dst addr cost =>
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs |}
+  | instr_load dst rs_addr cost =>
       {| snap_pc    := S (snap_pc hs);
          snap_mu    := snap_mu hs + cost;
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
-         snap_regs  := kami_write_reg hs dst (snap_mem hs (addr mod 4096));
+         snap_regs  := kami_write_reg hs dst (snap_mem hs (snap_regs hs (rs_addr mod 32) mod MEM_SIZE));
          snap_mem   := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
@@ -255,21 +336,39 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs |}
-  | instr_store addr src cost =>
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs |}
+  | instr_store rs_addr src cost =>
       {| snap_pc    := S (snap_pc hs);
          snap_mu    := snap_mu hs + cost;
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
          snap_regs  := snap_regs hs;
-         snap_mem   := kami_write_mem hs addr (snap_regs hs (src mod 32));
+         snap_mem   := kami_write_mem hs (snap_regs hs (rs_addr mod 32)) (snap_regs hs (src mod 32));
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
          snap_info_gain := snap_info_gain hs;
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs |}
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs |}
   | instr_add dst rs1 rs2 cost =>
       {| snap_pc    := S (snap_pc hs);
          snap_mu    := snap_mu hs + cost;
@@ -284,7 +383,16 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs |}
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs |}
   | instr_sub dst rs1 rs2 cost =>
       let v1 := snap_regs hs (rs1 mod 32) in
       let v2 := snap_regs hs (rs2 mod 32) in
@@ -293,7 +401,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
          snap_regs  := kami_write_reg hs dst
-                         (if Nat.leb v2 v1 then v1 - v2 else 0);
+                         (word32_sub v1 v2);  (* 2's complement wrap — matches vm_apply_unsafe *)
          snap_mem   := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
@@ -301,7 +409,16 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs |}
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs |}
   | instr_jump target cost =>
       {| snap_pc    := target;
          snap_mu    := snap_mu hs + cost;
@@ -315,7 +432,16 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs |}
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs |}
   | instr_jnez rs target cost =>
       let v := snap_regs hs (rs mod 32) in
       {| snap_pc    := if Nat.eqb v 0 then S (snap_pc hs) else target;
@@ -330,12 +456,24 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs |}
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs |}
   (* CALL/RET use kami_sp_reg (r31) as the stack pointer.
-     Mirrors SP_IDX (WO~1~1~1~1~1 = 31) in ThieleCPUCore.v. *)
+     Mirrors SP_IDX (WO~1~1~1~1~1 = 31) in ThieleCPUCore.v.
+     Stack convention: ASCENDING (matches vm_apply_unsafe and RTL).
+     CALL: write ret_addr at OLD sp, then increment sp.
+     RET:  decrement sp first, then read ret_pc from new sp. *)
   | instr_call target cost =>
       let sp  := snap_regs hs kami_sp_reg in
-      let sp' := if Nat.eqb sp 0 then 0 else sp - 1 in
+      let sp' := word32_add sp 1 in               (* INCREMENT — matches vm_apply_unsafe *)
       let ra  := S (snap_pc hs) in
       {| snap_pc    := target;
          snap_mu    := snap_mu hs + cost;
@@ -344,18 +482,26 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_regs  := fun j =>
            if Nat.eqb j kami_sp_reg then sp' else snap_regs hs j;
          snap_mem   := fun j =>
-           if Nat.eqb j sp' then ra else snap_mem hs j;
+           if Nat.eqb j sp then ra else snap_mem hs j;  (* write at OLD sp *)
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
          snap_info_gain := snap_info_gain hs;
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs |}
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs |}
   | instr_ret cost =>
-      let sp  := snap_regs hs kami_sp_reg in
-      let ra  := snap_mem hs sp in
-      let sp' := sp + 1 in
+      let sp' := word32_sub (snap_regs hs kami_sp_reg) 1 in  (* DECREMENT — matches vm_apply_unsafe *)
+      let ra  := snap_mem hs sp' in  (* read from DECREMENTED sp *)
       {| snap_pc    := ra;
          snap_mu    := snap_mu hs + cost;
          snap_err   := snap_err hs;
@@ -369,15 +515,54 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs |}
-  | instr_chsh_trial _ _ _ _ cost =>
-      kami_advance_default hs cost
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs |}
+  | instr_chsh_trial x y a b cost =>
+      let same := Nat.eqb x y in
+      let wc00s := snap_wc_same_00 hs in let wc00d := snap_wc_diff_00 hs in
+      let wc01s := snap_wc_same_01 hs in let wc01d := snap_wc_diff_01 hs in
+      let wc10s := snap_wc_same_10 hs in let wc10d := snap_wc_diff_10 hs in
+      let wc11s := snap_wc_same_11 hs in let wc11d := snap_wc_diff_11 hs in
+      let mk s00 d00 s01 d01 s10 d10 s11 d11 :=
+        {| snap_pc := S (snap_pc hs); snap_mu := snap_mu hs + cost;
+           snap_err := snap_err hs; snap_halted := snap_halted hs;
+           snap_regs := snap_regs hs; snap_mem := snap_mem hs;
+           snap_partition_ops := snap_partition_ops hs;
+           snap_mdl_ops := snap_mdl_ops hs;
+           snap_info_gain := snap_info_gain hs;
+           snap_error_code := snap_error_code hs;
+           snap_mu_tensor := snap_mu_tensor hs;
+           snap_pt_sizes := snap_pt_sizes hs;
+           snap_pt_next_id := snap_pt_next_id hs;
+           snap_certified := snap_certified hs;
+           snap_wc_same_00 := s00; snap_wc_diff_00 := d00;
+           snap_wc_same_01 := s01; snap_wc_diff_01 := d01;
+           snap_wc_same_10 := s10; snap_wc_diff_10 := d10;
+           snap_wc_same_11 := s11; snap_wc_diff_11 := d11 |} in
+      match a, b with
+      | 0, 0 => if same then mk (S wc00s) wc00d wc01s wc01d wc10s wc10d wc11s wc11d
+                 else         mk wc00s (S wc00d) wc01s wc01d wc10s wc10d wc11s wc11d
+      | 0, _ => if same then mk wc00s wc00d (S wc01s) wc01d wc10s wc10d wc11s wc11d
+                 else         mk wc00s wc00d wc01s (S wc01d) wc10s wc10d wc11s wc11d
+      | _, 0 => if same then mk wc00s wc00d wc01s wc01d (S wc10s) wc10d wc11s wc11d
+                 else         mk wc00s wc00d wc01s wc01d wc10s (S wc10d) wc11s wc11d
+      | _, _ => if same then mk wc00s wc00d wc01s wc01d wc10s wc10d (S wc11s) wc11d
+                 else         mk wc00s wc00d wc01s wc01d wc10s wc10d wc11s (S wc11d)
+      end
   | instr_xor_load dst addr cost =>
       {| snap_pc    := S (snap_pc hs);
          snap_mu    := snap_mu hs + cost;
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
-         snap_regs  := kami_write_reg hs dst (snap_mem hs (addr mod 4096));
+         snap_regs  := kami_write_reg hs dst (snap_mem hs (addr mod MEM_SIZE));
          snap_mem   := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
@@ -385,7 +570,16 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs |}
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs |}
   | instr_xor_add dst src cost =>
       {| snap_pc    := S (snap_pc hs);
          snap_mu    := snap_mu hs + cost;
@@ -401,7 +595,16 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs |}
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs |}
   | instr_xor_swap a b cost =>
       let va := snap_regs hs (a mod 32) in
       let vb := snap_regs hs (b mod 32) in
@@ -420,13 +623,22 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs |}
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs |}
   | instr_xor_rank dst src cost =>
       {| snap_pc    := S (snap_pc hs);
          snap_mu    := snap_mu hs + cost;
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
-         snap_regs  := kami_write_reg hs dst (snap_regs hs (src mod 32));
+         snap_regs  := kami_write_reg hs dst (word32_popcount (snap_regs hs (src mod 32)));  (* popcount — matches vm_apply_unsafe *)
          snap_mem   := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
@@ -434,12 +646,21 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs |}
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs |}
   | instr_emit _ _ cost =>
       kami_advance_default hs cost
-  | instr_reveal _ bits _ cost =>
-      (* REVEAL charges mu-tensor at flat index [bits mod 16] by cost. *)
-      let k := bits mod 16 in
+  | instr_reveal module0 bits _ cost =>
+      (* REVEAL: tensor_idx = module0 mod 16, delta = bits — matches advance_state_reveal in vm_apply_unsafe *)
+      let k := module0 mod 16 in
       {| snap_pc    := S (snap_pc hs);
          snap_mu    := snap_mu hs + cost;
          snap_err   := snap_err hs;
@@ -448,17 +669,31 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_mem   := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs + cost;
+         snap_info_gain := snap_info_gain hs + bits;
          snap_error_code := snap_error_code hs;
          snap_mu_tensor :=
-           fun j => if Nat.eqb j k then snap_mu_tensor hs j + cost
+           fun j => if Nat.eqb j k then snap_mu_tensor hs j + bits
                     else snap_mu_tensor hs j;
          snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs |}
-  | instr_oracle_halts _ cost =>
-      kami_advance_default hs cost
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs |}
+  | instr_oracle_halts _ _ =>
+      (* Hardware charges ORACLE_HALTS_HW_COST (1,000,000) regardless of the
+         user-specified cost field. This matches ThieleCPUCore.v line 1376. *)
+      kami_advance_default hs ORACLE_HALTS_HW_COST
   | instr_halt cost =>
-      {| snap_pc    := snap_pc hs;
+      (* HALT: vm_apply_unsafe falls through to advance_state (PC+1, cost).
+         snap_halted flag is hardware-only; abs_phase1 does not expose it.
+         We match vm_apply_unsafe: pc advances by 1. *)
+      {| snap_pc    := S (snap_pc hs);
          snap_mu    := snap_mu hs + cost;
          snap_err   := snap_err hs;
          snap_halted := true;
@@ -470,7 +705,16 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs |}
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs |}
   | instr_checkpoint _ cost =>
       kami_advance_default hs cost
   | instr_read_port dst _ v _ cost =>
@@ -486,15 +730,24 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs |}
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs |}
   | instr_write_port _ _ cost =>
       kami_advance_default hs cost
-  | instr_heap_load dst addr cost =>
+  | instr_heap_load dst rs_addr cost =>
       {| snap_pc    := S (snap_pc hs);
          snap_mu    := snap_mu hs + cost;
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
-         snap_regs  := kami_write_reg hs dst (snap_mem hs (addr mod 4096));
+         snap_regs  := kami_write_reg hs dst (snap_mem hs (snap_regs hs (rs_addr mod 32) mod MEM_SIZE));
          snap_mem   := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
@@ -502,33 +755,273 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs |}
-  | instr_heap_store addr src cost =>
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs |}
+  | instr_heap_store rs_addr src cost =>
       {| snap_pc    := S (snap_pc hs);
          snap_mu    := snap_mu hs + cost;
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
          snap_regs  := snap_regs hs;
-         snap_mem   := kami_write_mem hs addr (snap_regs hs (src mod 32));
+         snap_mem   := kami_write_mem hs (snap_regs hs (rs_addr mod 32)) (snap_regs hs (src mod 32));
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
          snap_info_gain := snap_info_gain hs;
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs |}
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs |}
+  (* CERTIFY: advance PC, charge S delta_mu (structurally positive cost),
+     set certified=true. No reg/mem/graph changes. Mirrors step_certify in VMStep.v. *)
+  | instr_certify delta_mu =>
+      {| snap_pc    := S (snap_pc hs);
+         snap_mu    := snap_mu hs + S delta_mu;
+         snap_err   := snap_err hs;
+         snap_halted := snap_halted hs;
+         snap_regs  := snap_regs hs;
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := true;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs |}
+  | instr_and dst rs1 rs2 cost =>
+      {| snap_pc    := S (snap_pc hs);
+         snap_mu    := snap_mu hs + cost;
+         snap_err   := snap_err hs;
+         snap_halted := snap_halted hs;
+         snap_regs  := kami_write_reg hs dst
+                         (word32_and (snap_regs hs (rs1 mod 32)) (snap_regs hs (rs2 mod 32)));
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs |}
+  | instr_or dst rs1 rs2 cost =>
+      {| snap_pc    := S (snap_pc hs);
+         snap_mu    := snap_mu hs + cost;
+         snap_err   := snap_err hs;
+         snap_halted := snap_halted hs;
+         snap_regs  := kami_write_reg hs dst
+                         (word32_or (snap_regs hs (rs1 mod 32)) (snap_regs hs (rs2 mod 32)));
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs |}
+  | instr_shl dst rs1 rs2 cost =>
+      {| snap_pc    := S (snap_pc hs);
+         snap_mu    := snap_mu hs + cost;
+         snap_err   := snap_err hs;
+         snap_halted := snap_halted hs;
+         snap_regs  := kami_write_reg hs dst
+                         (word32_shl (snap_regs hs (rs1 mod 32)) (snap_regs hs (rs2 mod 32)));
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs |}
+  | instr_shr dst rs1 rs2 cost =>
+      {| snap_pc    := S (snap_pc hs);
+         snap_mu    := snap_mu hs + cost;
+         snap_err   := snap_err hs;
+         snap_halted := snap_halted hs;
+         snap_regs  := kami_write_reg hs dst
+                         (word32_shr (snap_regs hs (rs1 mod 32)) (snap_regs hs (rs2 mod 32)));
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs |}
+  | instr_mul dst rs1 rs2 cost =>
+      {| snap_pc    := S (snap_pc hs);
+         snap_mu    := snap_mu hs + cost;
+         snap_err   := snap_err hs;
+         snap_halted := snap_halted hs;
+         snap_regs  := kami_write_reg hs dst
+                         (word32_mul (snap_regs hs (rs1 mod 32)) (snap_regs hs (rs2 mod 32)));
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs |}
+  | instr_lui dst imm cost =>
+      {| snap_pc    := S (snap_pc hs);
+         snap_mu    := snap_mu hs + cost;
+         snap_err   := snap_err hs;
+         snap_halted := snap_halted hs;
+         snap_regs  := kami_write_reg hs dst (word32_shl imm 8);
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs |}
   end.
 
-(** kami_step advances mu by exactly instruction_cost. *)
+(** kami_instruction_cost: the cost that the hardware charges for each opcode.
+    Matches instruction_cost for all opcodes EXCEPT:
+    - ORACLE_HALTS: charges a fixed ORACLE_HALTS_HW_COST (1,000,000)
+    - CERTIFY: charges S delta_mu (structurally positive, matching step_certify) *)
+Definition kami_instruction_cost (i : vm_instruction) : nat :=
+  match i with
+  | instr_oracle_halts _ _ => ORACLE_HALTS_HW_COST
+  | instr_certify dm => S dm
+  | other => instruction_cost other
+  end.
+
+(** Predicate for identifying ORACLE_HALTS instructions. *)
+Definition is_oracle_halts (i : vm_instruction) : bool :=
+  match i with
+  | instr_oracle_halts _ _ => true
+  | _ => false
+  end.
+
+(** Predicate for identifying CERTIFY instructions. *)
+Definition is_certify (i : vm_instruction) : bool :=
+  match i with
+  | instr_certify _ => true
+  | _ => false
+  end.
+
+(** kami_step advances mu by exactly kami_instruction_cost.
+    For ORACLE_HALTS, this is ORACLE_HALTS_HW_COST (1,000,000).
+    For CERTIFY, this is S delta_mu (structurally positive).
+    For all other opcodes, this equals instruction_cost. *)
 Lemma kami_step_mu_cost : forall (hs : KamiSnapshot) (i : vm_instruction),
-    snap_mu (kami_step hs i) = snap_mu hs + instruction_cost i.
+    snap_mu (kami_step hs i) = snap_mu hs + kami_instruction_cost i.
 Proof.
-  intros hs i. destruct i; simpl; reflexivity.
+  intros hs i. destruct i; simpl; try reflexivity.
+  (* CHSH_TRIAL: nested match on settings (a,b) and same/diff — all arms have same mu *)
+  repeat match goal with
+    | |- context [match ?x with _ => _ end] =>
+        destruct x; simpl; try reflexivity
+  end.
+Qed.
+
+(** For non-ORACLE_HALTS, non-CERTIFY instructions, kami cost equals vm cost. *)
+(* INQUISITOR NOTE: definitional helper for relating kami and vm cost models *)
+Lemma kami_cost_eq_instruction_cost : forall i,
+    is_oracle_halts i = false ->
+    is_certify i = false ->
+    kami_instruction_cost i = instruction_cost i.
+Proof.
+  intros i H Hc. destruct i; simpl in *; try reflexivity; discriminate.
+Qed.
+
+(** For ALL instructions with cost <= ORACLE_HALTS_HW_COST,
+    hardware cost >= software cost. In practice, the 8-bit cost field
+    limits user-specified costs to 0-255, well below 1,000,000. *)
+(* INQUISITOR NOTE: key conservative refinement property *)
+Lemma kami_cost_ge_instruction_cost : forall i,
+    instruction_cost i <= ORACLE_HALTS_HW_COST ->
+    kami_instruction_cost i >= instruction_cost i.
+Proof.
+  intros i Hbound. destruct i; simpl in *; lia.
 Qed.
 
 (** * Execution preconditions *)
 Definition cpu_preconditions (s : KamiSnapshot) : Prop :=
-  snap_pc         s < 256    /\
+  snap_pc         s < MEM_SIZE /\
   snap_mu         s < 2^31   /\
   snap_err        s = false  /\
   snap_halted     s = false  /\
@@ -543,7 +1036,7 @@ Proof.
 Qed.
 
 Lemma snapshot_mem_to_list_length : forall f,
-    length (snapshot_mem_to_list f) = 256.
+    length (snapshot_mem_to_list f) = MEM_SIZE.
 Proof.
   intro f. unfold snapshot_mem_to_list. rewrite map_length, seq_length. reflexivity.
 Qed.
@@ -832,7 +1325,7 @@ Proof.
 Qed.
 
 Lemma snapshot_mem_read : forall f i,
-    i < 256 ->
+    i < MEM_SIZE ->
     List.nth i (snapshot_mem_to_list f) 0 = f i.
 Proof.
   intros f i Hi. unfold snapshot_mem_to_list.
@@ -866,13 +1359,13 @@ Proof.
 Qed.
 
 Lemma snapshot_mem_write : forall (s : KamiSnapshot) (addr v : nat),
-    addr < 256 ->
+    addr < MEM_SIZE ->
     snapshot_mem_to_list (fun j => if Nat.eqb j addr then word32 v else snap_mem s j) =
     write_mem (abs_phase1 s) addr v.
 Proof.
   intros s addr v Haddr.
-  cbv [write_mem mem_index MEM_SIZE abs_phase1 snapshot_mem_to_list].
-  replace (addr mod 4096) with addr by (symmetry; apply Nat.mod_small; lia).
+  cbv [write_mem mem_index abs_phase1 snapshot_mem_to_list].
+  rewrite Nat.mod_small by exact Haddr.
   apply map_update_zero. exact Haddr.
 Qed.
 
@@ -968,15 +1461,16 @@ Proof.
   intros. reflexivity.
 Qed.
 
-(** ORACLE_HALTS charges μ and advances PC; abstraction soundness holds
-    because hardware records the cost regardless of oracle outcome. *)
+(** ORACLE_HALTS charges ORACLE_HALTS_HW_COST (1,000,000) μ in hardware,
+    regardless of the user-specified cost field. This is a conservative
+    refinement: hardware charges >= software for all instructions. *)
 (** DEFINITIONAL HELPER *)
 Theorem oracle_halts_abstraction_sound :
-    forall (s : KamiSnapshot) (cost : nat),
-      (* The mu charge is applied regardless of oracle outcome *)
-      (abs_phase1 s).(vm_mu) + cost >= (abs_phase1 s).(vm_mu).
+    forall (s : KamiSnapshot),
+      (abs_phase1 (kami_step s (instr_oracle_halts String.EmptyString 0))).(vm_mu) =
+      (abs_phase1 s).(vm_mu) + ORACLE_HALTS_HW_COST.
 Proof.
-  intros s cost. unfold abs_phase1. simpl. lia.
+  intros s. unfold abs_phase1, kami_step, kami_advance_default. simpl. reflexivity.
 Qed.
 
 (** * kami_refines_vm_step (abstraction commutation)

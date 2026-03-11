@@ -1,8 +1,8 @@
 # Coq Proofs for the Thiele Machine
 
-This directory contains **285 Coq proof files (~78,500 lines)** organized into logical modules.
+This directory contains **272 Coq proof files (~92,858 lines)** organized into logical modules.
 
-**Status:** ✅ All 285 files compile cleanly | ✅ **ZERO admitted proofs** | ✅ **ZERO axioms in active code** | ✅ [Full Audit Report](../INQUISITOR_REPORT.md)
+**Status:** ✅ All 272 files compile cleanly | ✅ **ZERO admitted proofs** | ✅ **ZERO axioms in active code** | ✅ [Full Audit Report](../INQUISITOR_REPORT.md)
 
 ## Build
 
@@ -26,29 +26,24 @@ make -j4
 
 | Directory | Files | Description |
 |-----------|-------|-------------|
-| `kernel/` | 97 | Core kernel proofs (Structural constraints, optimization bounds, bisimulation) |
-| `kernel_toe/` | 6 | Theory of Everything cone (no-go theorems) |
-| `thielemachine/` | 98 | Main Thiele Machine proofs (Bell, verification, deliverables) |
-| `thieleuniversal/` | 7 | Universal Turing Machine proofs |
+| `kernel/` | 127 | Core kernel proofs (VMState, VMStep, NoFreeInsight, mu-accounting, quantum bounds) |
+| `kami_hw/` | 10 | Kami hardware spec and refinement proofs |
+| `thielemachine/` | 85 | Main Thiele Machine proofs (Bell, verification, deliverables) |
+| `thieleuniversal/` | 17 | Universal Turing Machine simulation proofs |
 | `modular_proofs/` | 9 | Modular encoding and simulation proofs |
-| `physics/` | 5 | Physics models (Landauer bridge, wave/discrete) |
-| `bridge/` | 7 | Embeddings (BoxWorld, Linear Algebra, Entropy) |
+| `physics/` | 6 | Physics models (Landauer bridge, wave/discrete) |
 | `nofi/` | 5 | No-Free-Insight abstraction |
-| `catnet/` | 1 | Categorical network proofs |
-| `isomorphism/` | 1 | Universe isomorphism |
-| `sandboxes/` | 3 | Experimental proofs |
-| `self_reference/` | 1 | Self-reference exploration |
+| `thiele_manifold/` | 4 | Thiele manifold physics and isomorphism bridge |
+| `tests/` | 3 | Coq test files |
+| `thermodynamic/` | 2 | Thermodynamic bridge proofs |
 | `spacetime/` | 1 | Spacetime proofs |
-| `spacetime_projection/` | 1 | Spacetime projection |
-| `thiele_manifold/` | 4 | Thiele manifold physics |
-| `shor_primitives/` | 4 | Shor algorithm primitives |
-| `project_cerberus/` | 1 | Cerberus project |
-| `test_vscoq/` | 1 | VSCoq tests |
-| `physics_exploration/` | 6 | Physics exploration proofs |
-| `quantum_derivation/` | 9 | Quantum derivation proofs |
-| `theory/` | 13 | Theory proofs |
-| `thermodynamic/` | 2 | Thermodynamic proofs |
-| `tests/` | 2 | Coq test files |
+| `self_reference/` | 1 | Self-reference exploration |
+
+**Archived** (in `archive/coq_unused/`): `bridge/`, `catnet/`, `isomorphism/`, `kernel_toe/`,
+`physics_exploration/`, `project_cerberus/`, `quantum_derivation/`, `self_reference/`,
+`shor_primitives/`, `spacetime_projection/`, `test_vscoq/`, `theory/`.
+The `thiele_prime/` machine line was merged into `kernel/PrimeAxiom.v` (the prime axiom
+now holds for the full 38-opcode kernel VM).
 
 ## Key Theorems
 
@@ -74,6 +69,12 @@ make -j4
 
 ### Verification Chain
 
+### Prime Axiom (kernel/PrimeAxiom.v)
+
+The prime axiom — `vm_certified = true` implies `vm_mu > 0` — holds for the
+full kernel VM. The witness is part of machine state (`vm_witness`), not
+reconstructed post-hoc. See `kernel/PrimeAxiom.v` for the proof.
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                    VERIFICATION CHAIN                       │
@@ -86,7 +87,7 @@ make -j4
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## Proof Audit (2026-02-06)
+## Proof Audit (2026-03-10)
 
 **Audit Result: ✅ PASS**
 
@@ -98,11 +99,10 @@ python scripts/inquisitor.py
 **Findings:**
 - ✅ **ZERO admitted proofs** in active codebase (all proofs complete)
 - ✅ **ZERO custom axioms** in production code (kernel/, nofi/, thielemachine/)
-- ✅ All 78 axioms confined to `archive/` (exploratory/historical code)
 - ✅ Active code uses only standard mathematical axioms:
   - `FunctionalExtensionality` (standard Coq library)
   - `ClassicalDedekindReals.sig_forall_dec` (classical decidability for reals)
-- ✅ Clean compilation of all 285 files
+- ✅ Clean compilation of all 272 files
 - 2 HIGH findings (intentional): `reversible_info_cost = 0` (mathematically required)
 
 **Key Theorem Dependencies:**

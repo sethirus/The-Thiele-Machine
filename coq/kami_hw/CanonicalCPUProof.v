@@ -24,6 +24,9 @@ Import VMStep.VMStep.
   Route through wrapper boundary so protocol integration evolves at source. *)
 Definition canonical_cpu_module := thieleBusTopB.
 
+(** Entry point alias for Kami PP.ml's Main.ml (expects targetB). *)
+Definition targetB (_ : nat) := canonical_cpu_module.
+
 (** Canonical abstraction relation and map. *)
 Definition canonical_snapshot_to_vm := abs_phase1.
 Definition canonical_refinement_relation := verilog_sim_rel.

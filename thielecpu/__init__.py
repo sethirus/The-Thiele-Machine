@@ -3,40 +3,27 @@
 # Copyright 2025 Devon Thiele
 # See the LICENSE file in the repository root for full terms.
 
-"""Thiele CPU package."""
+"""Extraction-only Thiele CPU package.
 
-# ============================================================================
-# 🚨 CRITICAL SECURITY WARNING 🚨
-# ============================================================================
-#
-# This package implements the Thiele CPU - a partition-native virtual machine
-# that could be misused for cryptanalysis of public-key cryptosystems.
-#
-# ETHICAL USE REQUIREMENTS:
-# - Defensive security research only
-# - No offensive cryptanalysis
-# - Contact maintainers for security applications
-# - Monitor for responsible use
-#
-# ============================================================================
+The kept package surface is intentionally narrow:
+	coq/Extraction.v -> build/thiele_core.ml -> thielecpu/vm.py
+	coq/kami_hw/ThieleCPUCore.v -> thielecpu/hardware/rtl/thiele_cpu_kami.v
+"""
 
-from .security_monitor import log_usage, display_security_warning
+from typing import TYPE_CHECKING
+
+
+if TYPE_CHECKING:
+	from .vm import VM
 
 
 def __getattr__(name: str):
-	"""Lazy attribute loader for package-level convenience.
-
-	Accessing ``thielecpu.VM`` will import the heavy ``thielecpu.vm``
-	module on demand, avoiding noisy import-time side-effects when the
-	package is imported for type-checking or inspection.
-	"""
+	"""Lazy attribute loader for the extracted VM wrapper."""
 	if name == "VM":
-		from .vm import VM  # local import to avoid import-time effects
+		from .vm import VM
 
 		return VM
-	if name in ("log_usage", "display_security_warning"):
-		return globals()[name]
 	raise AttributeError(f"module {__name__} has no attribute {name}")
 
 
-__all__ = ["log_usage", "display_security_warning"]
+__all__ = ["VM"]

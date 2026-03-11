@@ -70,23 +70,9 @@ def test_extraction_requires_present() -> None:
     assert require_SimulationProof(minimal)
 
 
-def test_bridge_contract_declarations_present() -> None:
-    boxworld = _read("coq/bridge/BoxWorld_to_Kernel.v")
-    causal = _read("coq/bridge/Causal_to_Kernel.v")
-    entropy = _read("coq/bridge/Entropy_to_Kernel.v")
-    finite_quantum = _read("coq/bridge/FiniteQuantum_to_Kernel.v")
-    pymu = _read("coq/bridge/PythonMuLedgerBisimulation.v")
-    randomness = _read("coq/bridge/Randomness_to_Kernel.v")
-    tomography = _read("coq/bridge/Tomography_to_Kernel.v")
-    catnet = _read("coq/catnet/coqproofs/CatNet.v")
-
-    assert simulation_correctness_trials(boxworld)
-    assert simulation_correctness_trials(finite_quantum)
-    assert decodes_to_self(causal)
-    assert decodes_to_self(entropy)
-    assert decodes_to_self(tomography)
-    assert mu_ledger_bisim(pymu)
-    assert empty_ledger_bisim(pymu)
-    assert "decode_is_filter_payloads" in randomness
-    assert is_chain_valid(catnet)
-    assert compute_hash_chain(catnet)
+def test_kernel_contract_declarations_present() -> None:
+    """Key kernel definitions exist (bridge/ and catnet/ were archived as disconnected)."""
+    vmstep = _read("coq/kernel/VMStep.v")
+    simproof = _read("coq/kernel/SimulationProof.v")
+    assert require_VMStep(vmstep)
+    assert "vm_is_a_correct_refinement_of_kernel" in simproof

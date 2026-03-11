@@ -114,6 +114,13 @@ Definition instr_mu_cost (i : vm_instruction) : nat :=
   | instr_write_port _ _ cost => cost
   | instr_heap_load _ _ cost => cost
   | instr_heap_store _ _ cost => cost
+  | instr_certify cost => cost
+  | instr_and _ _ _ cost => cost
+  | instr_or _ _ _ cost => cost
+  | instr_shl _ _ _ cost => cost
+  | instr_shr _ _ _ cost => cost
+  | instr_mul _ _ _ cost => cost
+  | instr_lui _ _ cost => cost
   end.
 
 (** =========================================================================
@@ -304,6 +311,27 @@ Proof.
 
   (* heap_store: graph unchanged *)
   - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
+
+  (* certify: graph unchanged *)
+  - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
+
+  (* and: graph unchanged *)
+  - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
+
+  (* or: graph unchanged *)
+  - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
+
+  (* shl: graph unchanged *)
+  - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
+
+  (* shr: graph unchanged *)
+  - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
+
+  (* mul: graph unchanged *)
+  - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
+
+  (* lui: graph unchanged *)
+  - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
 Qed.
 
 (** =========================================================================
@@ -445,6 +473,27 @@ Proof.
     unfold state_info in H. simpl in H. lia.
   - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
     unfold state_info in H. simpl in H. lia.
+  - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
+    unfold state_info in H. simpl in H. lia.
+  (* certify *)
+  - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
+    unfold state_info in H. simpl in H. lia.
+  (* and *)
+  - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
+    unfold state_info in H. simpl in H. lia.
+  (* or *)
+  - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
+    unfold state_info in H. simpl in H. lia.
+  (* shl *)
+  - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
+    unfold state_info in H. simpl in H. lia.
+  (* shr *)
+  - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
+    unfold state_info in H. simpl in H. lia.
+  (* mul *)
+  - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
+    unfold state_info in H. simpl in H. lia.
+  (* lui *)
   - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
     unfold state_info in H. simpl in H. lia.
 Qed.

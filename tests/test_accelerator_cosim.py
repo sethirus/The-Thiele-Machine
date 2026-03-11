@@ -17,8 +17,9 @@ def _run_cosim(program: str):
     from thielecpu.hardware.cosim import run_verilog
 
     result = run_verilog(program, timeout=30)
-    if result is None:
-        pytest.skip("RTL simulator unavailable")
+    assert result is not None, (
+        "run_verilog returned None despite the file requiring the active RTL path"
+    )
     return result
 
 
@@ -62,4 +63,4 @@ class TestCanonicalFiles:
         assert (REPO_ROOT / "thielecpu/hardware/rtl/thiele_cpu_kami.v").exists()
 
     def test_canonical_tb_present(self):
-        assert (REPO_ROOT / "thielecpu/hardware/testbench/thiele_cpu_kami_tb.v").exists()
+        assert (REPO_ROOT / "rtl_harness/testbench/thiele_cpu_kami_tb.v").exists()

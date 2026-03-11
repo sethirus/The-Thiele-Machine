@@ -131,7 +131,11 @@ Definition mu_gauge_shift (k : nat) (s : VMState) : VMState :=
      vm_graph := s.(vm_graph);
      vm_mu := s.(vm_mu) + k;
      vm_mu_tensor := s.(vm_mu_tensor);
-     vm_err := s.(vm_err) |}.
+     vm_err := s.(vm_err);
+     vm_logic_acc := s.(vm_logic_acc);
+     vm_mstatus := s.(vm_mstatus);
+     vm_witness := s.(vm_witness);
+     vm_certified := s.(vm_certified) |}.
 
 (** Gauge invariance: μ-shift preserves observables (except μ itself) *)
 Theorem gauge_invariance_observables : forall s k mid,
@@ -612,9 +616,9 @@ Lemma graph_pmerge_preserves_observables : forall g m1 m2 g' merged_id mid mu,
   mid < g.(pg_next_id) ->
   graph_pmerge g m1 m2 = Some (g', merged_id) ->
   Observable {| vm_regs := []; vm_mem := []; vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0; csr_heap_base := 0 |};
-                vm_pc := 0; vm_graph := g'; vm_mu := mu; vm_mu_tensor := vm_mu_tensor_default; vm_err := false |} mid =
+                vm_pc := 0; vm_graph := g'; vm_mu := mu; vm_mu_tensor := vm_mu_tensor_default; vm_err := false; vm_logic_acc := 0; vm_mstatus := 0; vm_witness := witness_counts_zero; vm_certified := false |} mid =
   Observable {| vm_regs := []; vm_mem := []; vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0; csr_heap_base := 0 |};
-                vm_pc := 0; vm_graph := g; vm_mu := mu; vm_mu_tensor := vm_mu_tensor_default; vm_err := false |} mid.
+                vm_pc := 0; vm_graph := g; vm_mu := mu; vm_mu_tensor := vm_mu_tensor_default; vm_err := false; vm_logic_acc := 0; vm_mstatus := 0; vm_witness := witness_counts_zero; vm_certified := false |} mid.
 
 (* NOTE: The previous version of this lemma (graph_pmerge_preserves_unrelated)
    claimed graph_lookup preservation, but that is UNPROVABLE in the mid = existing_id
@@ -823,11 +827,11 @@ Proof.
     set (s_pre :=
       {| vm_regs := []; vm_mem := [];
          vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0; csr_heap_base := 0 |};
-         vm_pc := 0; vm_graph := vm_graph s; vm_mu := 0; vm_mu_tensor := vm_mu_tensor_default; vm_err := false |}).
+         vm_pc := 0; vm_graph := vm_graph s; vm_mu := 0; vm_mu_tensor := vm_mu_tensor_default; vm_err := false; vm_logic_acc := 0; vm_mstatus := 0; vm_witness := witness_counts_zero; vm_certified := false |}).
     set (s_post :=
       {| vm_regs := []; vm_mem := [];
          vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0; csr_heap_base := 0 |};
-         vm_pc := 0; vm_graph := graph'; vm_mu := 0; vm_mu_tensor := vm_mu_tensor_default; vm_err := false |}).
+         vm_pc := 0; vm_graph := graph'; vm_mu := 0; vm_mu_tensor := vm_mu_tensor_default; vm_err := false; vm_logic_acc := 0; vm_mstatus := 0; vm_witness := witness_counts_zero; vm_certified := false |}).
     assert (Hobs:
       Observable s_post mid = Observable s_pre mid).
     { apply (graph_pmerge_preserves_observables (vm_graph s) m1 m2 graph' merged_id mid 0);

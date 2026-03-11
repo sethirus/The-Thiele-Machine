@@ -29,6 +29,13 @@ Definition is_cert_setterb (i : vm_instruction) : bool :=
   | instr_emit _ _ _ => true
   | instr_ljoin _ _ _ => true
   | instr_lassert _ _ _ _ => true
+  | instr_certify _ => true
+  | instr_and _ _ _ _ => false
+  | instr_or _ _ _ _ => false
+  | instr_shl _ _ _ _ => false
+  | instr_shr _ _ _ _ => false
+  | instr_mul _ _ _ _ => false
+  | instr_lui _ _ _ => false
   | _ => false
   end.
 

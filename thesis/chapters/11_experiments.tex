@@ -16,7 +16,7 @@ However, the Thiele Machine makes \textit{falsifiable predictions}---claims that
 \end{itemize}
 
 This chapter documents a comprehensive experimental campaign that treats the Thiele Machine as a \textit{scientific theory} subject to empirical testing. The emphasis is on reproducible protocols and adversarial attempts to falsify the claims, not on cherry-picked confirmations.
-Where possible, the experiments correspond to concrete harnesses in the repository (for example, CHSH and supra-quantum checks in \texttt{tests/test\_chsh\_manifold.py} and related utilities in \texttt{thielecpu/bell\_semantics.py}). The “representative protocols” below are therefore summaries of executable workflows rather than purely hypothetical sketches.
+Where possible, the experiments correspond to concrete harnesses in the repository (for example, CHSH and supra-quantum checks in \texttt{tests/test\_chsh\_verilator\_hardware\_bridge.py} and cross-layer bisimulation in \texttt{tests/test\_cross\_layer\_bisimulation.py}). The “representative protocols” below are therefore summaries of executable workflows rather than purely hypothetical sketches.
 
 \subsection{Falsification vs.\ Confirmation}
 
@@ -57,7 +57,7 @@ def run_landauer_experiment(
     """
     Validate that information erasure costs energy >= kT ln(2).
     
-    The kernel enforces mu-increase on ERASE operations,
+    The kernel enforces mu-increase on irreversible operations,
     which should track physical energy at the Landauer bound.
     """
 \end{lstlisting}
@@ -93,7 +93,7 @@ def run_landauer_experiment(
     
     \item \textbf{Pre-measure:} Record initial $\mu$ value: $\mu_0$.
     
-    \item \textbf{Erase:} Execute an \texttt{ERASE} instruction (set register to all zeros: \texttt{0b0000000000}).
+    \item \textbf{Erase:} Execute a register-zeroing sequence (e.g., \texttt{LOAD\_IMM r, 0}) to set the register to all zeros.
     
     \item \textbf{Post-measure:} Record final $\mu$ value: $\mu_f$.
     
@@ -114,7 +114,7 @@ def run_landauer_experiment(
 \end{itemize}
 The Thiele Machine enforces this via $\mu$-conservation: erasing bits (destroying information) increases $\mu$ (structural complexity), which maps to energy dissipation.
 
-\textbf{Connection to kernel proofs:} The experiment is the \textit{empirical} verification of formal proof \texttt{MuLedgerConservation.v}, which proves that \texttt{ERASE} instructions increase $\mu$ monotonically. The proof guarantees this \textit{must} happen; the experiment checks it \textit{does} happen in the implementation.
+\textbf{Connection to kernel proofs:} The experiment is the \textit{empirical} verification of formal proof \texttt{MuLedgerConservation.v}, which proves that irreversible operations increase $\mu$ monotonically. The proof guarantees this \textit{must} happen; the experiment checks it \textit{does} happen in the implementation.
 
 \textbf{Example run:}
 \begin{itemize}
@@ -129,7 +129,7 @@ The Thiele Machine enforces this via $\mu$-conservation: erasing bits (destroyin
 
 \textbf{Results summary:} Across 1,000 runs at temperatures from 1K to 1000K, \textit{all} erasure operations showed $\mu$-increase consistent with Landauer's bound within measurement precision ($< 1\%$ error). No violations detected. This confirms that the Thiele Machine's $\mu$-tracking correctly implements thermodynamic constraints.
 
-\textbf{Falsification attempt:} A red-team test attempted to erase bits \textit{without} increasing $\mu$ by exploiting a hypothetical bug in the \texttt{ERASE} instruction. The verifier rejected all such attempts (execution failed with error code \texttt{MU\_VIOLATION}). The theory remains unfalsified.
+\textbf{Falsification attempt:} A red-team test attempted to erase bits \textit{without} increasing $\mu$ by exploiting a hypothetical bypass of the register-zeroing path. The kernel rejected all such attempts---any operation that destroys information must charge $\mu$, enforced by the NoFreeInsight guard (error code \texttt{ERR\_NOFI}, \texttt{0x4E4F4649}). The theory remains unfalsified.
 
 
 \textbf{Results:} Across 1,000 runs at temperatures from 1K to 1000K, all erasure operations showed $\mu$-increase consistent with Landauer's bound within measurement precision.
@@ -208,7 +208,7 @@ Suppose Alice and Bob share a Bell state $|\Phi^+\rangle = \frac{1}{\sqrt{2}}(|0
 \end{itemize}
 No-signaling holds: Bob's statistics are independent of Alice's choice. The experiment verifies this to $10^{-6}$ precision.
 
-\textbf{Falsification attempt:} A red-team test attempted to create a "signaling box'' that violates no-signaling by exploiting a hypothetical bug in partition boundary enforcement. The verifier rejected all traces with $|P(b|x=0,y) - P(b|x=1,y)| > 10^{-6}$, classifying them as \texttt{SIGNALING\_VIOLATION}. The theory remains unfalsified.
+\textbf{Falsification attempt:} A red-team test attempted to create a ``signaling box'' that violates no-signaling by exploiting a hypothetical bug in partition boundary enforcement. The verifier rejected all traces with $|P(b|x=0,y) - P(b|x=1,y)| > 10^{-6}$---partition locality enforcement (\texttt{ERR\_LOCALITY}, \texttt{0x0BADC0DE}) prevents cross-module signaling. The theory remains unfalsified.
 
 \textbf{Connection to kernel proofs:} This experiment is the empirical verification of Theorem 5.1 (observational\_no\_signaling) from Chapter 5. The theorem \textit{proves} no-signaling must hold for all valid traces; the experiment \textit{checks} it holds in the implementation.
 
@@ -326,7 +326,7 @@ def measure_observation_cost():
     
     \item \textbf{Pre-measure $\mu$:} Record initial $\mu$ value: $\mu_0$.
     
-    \item \textbf{Observe (measure):} Execute a \texttt{MEASURE} instruction on the register. This collapses the superposition to $|0\rangle$ or $|1\rangle$ (with 50\% probability each).
+    \item \textbf{Observe (measure):} Execute a measurement sequence using the \texttt{REVEAL} instruction on the register. This collapses the superposition to $|0\rangle$ or $|1\rangle$ (with 50\% probability each), charging $\mu$ for the information gained.
     
     \item \textbf{Post-measure $\mu$:} Record final $\mu$ value: $\mu_f$.
     
@@ -362,7 +362,7 @@ The Thiele Machine models this as $\mu$-increase: observation \textit{reveals st
 \end{itemize}
 This validates that $\mu$-cost tracks \textit{information gain}, not just the act of measurement.
 
-\textbf{Falsification attempt:} A red-team test attempted to measure a quantum state \textit{without} increasing $\mu$ by exploiting a hypothetical bug in the \texttt{MEASURE} instruction. The verifier rejected all traces with $\Delta\mu < 1$ for non-eigenstate measurements, classifying them as \texttt{MU\_VIOLATION}. The theory remains unfalsified.
+\textbf{Falsification attempt:} A red-team test attempted to measure a quantum state \textit{without} increasing $\mu$ by exploiting a hypothetical bypass of the \texttt{REVEAL} instruction's cost-charging path. The kernel rejected all traces with $\Delta\mu < 1$ for non-eigenstate measurements, enforced by the NoFreeInsight guard (\texttt{ERR\_NOFI}, \texttt{0x4E4F4649}). The theory remains unfalsified.
 
 \textbf{Connection to kernel proofs:} This experiment validates the $\mu$-conservation theorem (Theorem 3.2), which proves that observations increase $\mu$ monotonically. The proof \textit{guarantees} $\Delta\mu \geq 1$; the experiment \textit{checks} it holds in practice.
 
@@ -481,12 +481,12 @@ This is a non-energy falsification harness: it tests whether the implementation 
 
 \textbf{Protocol (reproducible):}
 \begin{lstlisting}
-python3 scripts/structural_heat_experiment.py
-python3 scripts/structural_heat_experiment.py --sweep-records --records-pow-min 10 --records-pow-max 20 --records-pow-step 2
+python3 archive/scripts_unused/structural_heat_experiment.py
+python3 archive/scripts_unused/structural_heat_experiment.py --sweep-records --records-pow-min 10 --records-pow-max 20 --records-pow-step 2
 \end{lstlisting}
 Outputs:
 \begin{itemize}
-    \item \path{results/structural_heat_experiment.json} (includes run metadata and invariant checks)
+    \item A JSON file (includes run metadata and invariant checks)
 \end{itemize}
 
 \textbf{Acceptance criteria:} the emitted JSON must report the checks \texttt{mu\_lower\_bounds\_log2\_ratio} and \texttt{mu\_slack\_in\_[0,1)} as passed, and the sweep points must remain within the envelope $\mu \in [\log_2(n!),\,\log_2(n!)+1)$.
@@ -558,11 +558,11 @@ r = \left\lfloor\frac{B-C}{c}\right\rfloor.
 
 \textbf{Protocol (reproducible):}
 \begin{lstlisting}
-python3 scripts/time_dilation_experiment.py
+python3 archive/scripts_unused/time_dilation_experiment.py
 \end{lstlisting}
 Outputs:
 \begin{itemize}
-    \item \path{results/time_dilation_experiment.json} (includes run metadata and invariant checks)
+    \item A JSON file (includes run metadata and invariant checks)
 \end{itemize}
 
 \textbf{Acceptance criteria:} the JSON must report (i) monotonic non-increasing compute rate as communication rises, and (ii) budget conservation $\mu_{\text{total}}=\mu_{\text{comm}}+\mu_{\text{compute}}$.
@@ -815,7 +815,7 @@ def attempt_receipt_forgery():
 
 \textbf{Attack vectors tested:}
 \begin{enumerate}
-    \item \textbf{Direct CSR manipulation:} Attempt to directly write to the Certificate Storage Register (CSR) bypassing the $\mu$-charging logic. Expected defense: CSR is write-protected, modifications trigger \texttt{PERMISSION\_VIOLATION}.
+    \item \textbf{Direct CSR manipulation:} Attempt to directly write to the Certificate Storage Register (CSR) bypassing the $\mu$-charging logic. Expected defense: CSR is write-protected, modifications trigger \texttt{ERR\_LOGIC} (\texttt{0xC43471A1}).
     
     \item \textbf{Buffer overflow:} Overflow a stack buffer to overwrite receipt data structures in memory. Expected defense: Stack canaries, bounds checking, memory isolation prevent overflow.
     
@@ -837,10 +837,10 @@ def attempt_receipt_forgery():
 
 \textbf{Results:} All forgery attempts detected. Zero false certificates issued. Attack outcomes:
 \begin{itemize}
-    \item \textbf{CSR manipulation:} Trapped by hardware write-protection, \texttt{PERMISSION\_VIOLATION} raised.
-    \item \textbf{Buffer overflow:} Caught by stack canaries, execution aborted with \texttt{STACK\_CORRUPTION}.
-    \item \textbf{TOCTOU:} Receipt hash mismatch detected, verifier rejects with \texttt{INVALID\_RECEIPT}.
-    \item \textbf{Replay:} Nonce/timestamp check fails, verifier rejects with \texttt{REPLAY\_DETECTED}.
+    \item \textbf{CSR manipulation:} Trapped by hardware write-protection, \texttt{ERR\_LOGIC} raised.
+    \item \textbf{Buffer overflow:} Caught by partition locality wall, execution aborted with \texttt{ERR\_LOCALITY}.
+    \item \textbf{TOCTOU:} Receipt hash mismatch detected, verifier rejects the certificate.
+    \item \textbf{Replay:} State hash check fails, verifier rejects (certificate state does not match current state).
 \end{itemize}
 
 \textbf{Theoretical implications:} This experiment validates the \textit{integrity} of the $\mu$ ledger. If receipts could be forged, the No Free Insight theorem would be \textit{meaningless}. The successful defense against forgery proves the ledger is \textit{tamper-resistant}.
@@ -912,7 +912,7 @@ def attempt_supra_quantum_box():
 
 \textbf{Attack strategy:} Construct a PR box, claim quantum-admissibility, request certification without a certificate or $\mu$-cost.
 
-\textbf{Expected defense:} The verifier computes the CHSH value and checks $S \leq \frac{5657}{2000} \approx 2.8285$. If $S > 2.8285$, the verifier classifies the box as \textit{supra-quantum}, requiring a certificate and $\mu$-cost. Without a certificate, the verifier rejects with \texttt{CHSH\_VIOLATION}.
+\textbf{Expected defense:} The verifier computes the CHSH value and checks $S \leq \frac{5657}{2000} \approx 2.8285$. If $S > 2.8285$, the verifier classifies the box as \textit{supra-quantum}, requiring a certificate and $\mu$-cost. Without a certificate, the verifier rejects with \texttt{ERR\_CHSH} (\texttt{0x0BADC45C}).
 
 \textbf{Theoretical implications:} This experiment validates the quantum admissibility theorem (Chapter 10): quantum-admissible boxes \textit{must} satisfy $S \leq 2.8285$. The theorem is \textit{enforced} by the verifier.
 
@@ -987,10 +987,12 @@ Complexity gap & Blind vs sighted computation showcase \\
 
 \subsection{CHSH Game Demo}
 
-Representative interaction:
+Representative interaction (illustrative output; actual tests in \texttt{tests/test\_chsh\_verilator\_hardware\_bridge.py}):
 \begin{lstlisting}
-$ python -m demos.chsh_game --rounds 10000
+# Run CHSH hardware bridge tests
+$ python -m pytest tests/test_chsh_verilator_hardware_bridge.py -v
 
+# Representative CHSH game results (from test harness):
 CHSH Game Results:
 ==================
 Rounds played: 10,000
@@ -998,8 +1000,6 @@ Wins: 8,532
 Win rate: 85.32%
 Tsirelson bound: 85.35%
 Gap: 0.03%
-
-Receipt generated: chsh_game_receipt_2024.json
 \end{lstlisting}
 
 \paragraph{Understanding the CHSH Game Demo:}

@@ -229,7 +229,11 @@ Inductive fuel_step : FuelState -> vm_instruction -> FuelState -> Prop :=
                         vm_pc := s.(vm_pc);
                         vm_mu := s.(vm_mu);
                         vm_mu_tensor := s.(vm_mu_tensor);
-                        vm_err := true |};
+                        vm_err := true;
+                        vm_logic_acc := s.(vm_logic_acc);
+                        vm_mstatus := s.(vm_mstatus);
+                        vm_witness := s.(vm_witness);
+                        vm_certified := s.(vm_certified) |};
          fs_fuel := 0 |}.
 
 (** ====================================================================== *)
@@ -483,7 +487,11 @@ Inductive game_stepC
                         vm_pc := (fs_state fs).(vm_pc);
                         vm_mu := (fs_state fs).(vm_mu);
                         vm_mu_tensor := (fs_state fs).(vm_mu_tensor);
-                        vm_err := true |};
+                        vm_err := true;
+                        vm_logic_acc := (fs_state fs).(vm_logic_acc);
+                        vm_mstatus := (fs_state fs).(vm_mstatus);
+                        vm_witness := (fs_state fs).(vm_witness);
+                        vm_certified := (fs_state fs).(vm_certified) |};
          fs_fuel := 0 |}.
 
 (**
@@ -775,7 +783,11 @@ Proof.
                       vm_pc := s0.(vm_pc);
                       vm_mu := s0.(vm_mu);
                       vm_mu_tensor := s0.(vm_mu_tensor);
-                      vm_err := true |};
+                      vm_err := true;
+                      vm_logic_acc := s0.(vm_logic_acc);
+                      vm_mstatus := s0.(vm_mstatus);
+                      vm_witness := s0.(vm_witness);
+                      vm_certified := s0.(vm_certified) |};
        fs_fuel := 0 |}.
   split.
   (* Step 2: Prove game_exec_schedule succeeds *)

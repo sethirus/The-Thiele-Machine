@@ -45,9 +45,9 @@ def test_stack_operations_are_partition_bounded() -> None:
 
 def test_partition_table_wraparound_is_explicitly_guarded() -> None:
     txt = CORE.read_text(encoding="utf-8")
-    assert 'LET ptable_full <- #pt_next_id_v >= $16;' in txt
+    assert 'LET ptable_full <- #pt_next_id_v >= $64;' in txt
     assert 'LET ptable_room_one <- !#ptable_full;' in txt
-    assert 'LET ptable_room_two <- (#pt_next_id_v + $2) <= $16;' in txt
+    assert 'LET ptable_room_two <- (#pt_next_id_v + $2) <= $64;' in txt
     assert 'LET ptable_overflow_violation <- #pnew_overflow || #psplit_overflow || #pmerge_overflow;' in txt
     assert 'ERR_PARTITION_VAL' in txt
 
@@ -65,31 +65,31 @@ def test_partition_guard_matches_vector_pt_bank() -> None:
     assert 'Write "ptTable"        <- #new_pt_sizes;' in txt
     assert 'with Register "pt0"' not in txt
     assert 'Write "pt0"' not in txt
-    assert 'LET ptable_full <- #pt_next_id_v >= $16;' in txt
+    assert 'LET ptable_full <- #pt_next_id_v >= $64;' in txt
     assert 'LET ptable_room_one <- !#ptable_full;' in txt
-    assert 'LET ptable_room_two <- (#pt_next_id_v + $2) <= $16;' in txt
+    assert 'LET ptable_room_two <- (#pt_next_id_v + $2) <= $64;' in txt
 
 
-def test_psplit_boundary_14_allowed_but_15_rejected() -> None:
+def test_psplit_boundary_62_allowed_but_63_rejected() -> None:
     txt = CORE.read_text(encoding='utf-8')
     # Explicitly guard split by requiring room for two slots (next_id and next_id+1).
-    assert 'LET ptable_room_two <- (#pt_next_id_v + $2) <= $16;' in txt
+    assert 'LET ptable_room_two <- (#pt_next_id_v + $2) <= $64;' in txt
 
 
-def test_ptable_index_width_is_4_bits() -> None:
+def test_ptable_index_width_is_6_bits() -> None:
     txt = TYPES.read_text(encoding='utf-8')
-    assert 'Definition PTableIdxSz := 4.' in txt
-    assert 'Definition PTableNextIdSz := 5.' in txt
+    assert 'Definition PTableIdxSz := 6.' in txt
+    assert 'Definition PTableNextIdSz := 7.' in txt
 
 
 def test_rtl_partition_guards_match_physical_capacity() -> None:
     rtl = (CORE.parents[2] / 'thielecpu' / 'hardware' / 'rtl' / 'thiele_cpu_kami.v').read_text(encoding='utf-8')
     # The bsc compiler generates implementation-specific signal names that encode
-    # the semantic guard: pt_next_id < 16 (PNEW/PMERGE need one free slot).
+    # the semantic guard: pt_next_id < 64 (PNEW/PMERGE need one free slot).
     # The exact signal name depends on the bsc version; match the semantic pattern.
-    assert "pt_next_id < 5'h10" in rtl or "pt_next_id < 32'h00000010" in rtl
-    # PSPLIT guard: pt_next_id + 2 <= 16 (needs two free slots).
-    assert "<= 5'h10" in rtl or "< 32'h00000010" in rtl
+    assert "pt_next_id < 7'h40" in rtl or "pt_next_id < 32'h00000040" in rtl
+    # PSPLIT guard: pt_next_id + 2 <= 64 (needs two free slots).
+    assert "<= 7'h40" in rtl or "< 32'h00000040" in rtl
 
 
 def test_pt_next_id_register_is_narrow_and_zero_extended_on_output() -> None:

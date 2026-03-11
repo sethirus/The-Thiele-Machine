@@ -80,6 +80,7 @@ Definition opcode_READ_PORT  : N := 26%N.
 Definition opcode_WRITE_PORT : N := 27%N.
 Definition opcode_HEAP_LOAD  : N := 28%N.
 Definition opcode_HEAP_STORE : N := 29%N.
+Definition opcode_CERTIFY    : N := 30%N.   (* Matches RTL constant 8'h1E. *)
 Definition opcode_HALT      : N := 255%N.
 
 Definition decode_kind (opc : N) : TM.InstrKind :=
@@ -175,11 +176,11 @@ Qed.
 (* arguments and for tooling that decodes RTL traces inside Python.            *)
 
 (* INQUISITOR NOTE: connectivity anchor for isolated opcode encoding constants.
-   All 24 opcode_* constants are referenced in this completeness definition. *)
+   All 25 opcode_* constants are referenced in this completeness definition. *)
 Definition opcode_coverage_anchor : N :=
   opcode_PNEW + opcode_PSPLIT + opcode_PMERGE + opcode_LJOIN + opcode_PDISCOVER +
   opcode_LOAD_IMM + opcode_CHSH_TRIAL + opcode_XOR_LOAD + opcode_XOR_RANK +
   opcode_ORACLE_HALTS + opcode_LOAD + opcode_STORE + opcode_ADD + opcode_SUB +
   opcode_JUMP + opcode_JNEZ + opcode_CALL + opcode_RET + opcode_CHECKPOINT +
   opcode_READ_PORT + opcode_WRITE_PORT + opcode_HEAP_LOAD + opcode_HEAP_STORE +
-  opcode_HALT.
+  opcode_CERTIFY + opcode_HALT.

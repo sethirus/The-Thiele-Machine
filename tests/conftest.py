@@ -3,6 +3,7 @@ from __future__ import annotations
 import importlib.util
 import sys
 import os
+import types
 from pathlib import Path
 import signal
 from typing import Optional
@@ -43,6 +44,34 @@ def _ensure_module(name: str, path: Path) -> None:
 
 
 _ensure_module("demonstrate_isomorphism", ROOT / "demonstrate_isomorphism.py")
+
+
+def _install_rtl_harness_compat() -> None:
+    cosim_path = REPO_ROOT / "rtl_harness" / "cosim.py"
+    accel_path = REPO_ROOT / "rtl_harness" / "accel_cosim.py"
+    if not cosim_path.exists() or not accel_path.exists():
+        return
+
+    hardware_pkg = sys.modules.get("thielecpu.hardware")
+    if hardware_pkg is None:
+        hardware_pkg = types.ModuleType("thielecpu.hardware")
+        hardware_pkg.__path__ = []  # type: ignore[attr-defined]
+        sys.modules["thielecpu.hardware"] = hardware_pkg
+
+    _ensure_module("rtl_harness.cosim", cosim_path)
+    _ensure_module("rtl_harness.accel_cosim", accel_path)
+
+    cosim_module = sys.modules.get("rtl_harness.cosim")
+    accel_module = sys.modules.get("rtl_harness.accel_cosim")
+    if cosim_module is not None:
+        sys.modules["thielecpu.hardware.cosim"] = cosim_module
+        setattr(hardware_pkg, "cosim", cosim_module)
+    if accel_module is not None:
+        sys.modules["thielecpu.hardware.accel_cosim"] = accel_module
+        setattr(hardware_pkg, "accel_cosim", accel_module)
+
+
+_install_rtl_harness_compat()
 
 
 def pytest_addoption(parser):

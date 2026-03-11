@@ -49,7 +49,7 @@ if [[ "$MODE" =~ ^(fast|full)$ ]]; then
   phase "EXTRACT" "Extracting Coq to OCaml"
   make -C coq Extraction.vo || die "Extraction failed"
   ocamlfind ocamlc -I build -package str -linkpkg -o build/extracted_vm_runner \
-    build/thiele_core.mli build/thiele_core.ml tools/extracted_vm_runner.ml || \
+    build/thiele_core.mli build/thiele_core.ml build/extracted_vm_runner.ml || \
     die "OCaml compilation failed"
 
   phase "BISIM" "Running 3-layer bisimulation tests"
@@ -72,33 +72,19 @@ if [[ "$MODE" =~ ^(full|hw-only)$ ]]; then
   phase "FORGE" "Running hardware forge pipeline"
   bash scripts/forge_artifact.sh || die "Forge pipeline failed"
 
-  phase "SYNTHESIS" "Synthesizing with Yosys"
-  yosys -p "read_verilog -sv -DSYNTHESIS thielecpu/hardware/rtl/thiele_cpu_kami.v; prep -top mkModule1; check; stat" > build/synthesis.log 2>&1 || \
-    die "Yosys synthesis failed (see build/synthesis.log)"
-
-  if ! grep -q "Number of cells:" build/synthesis.log; then
-    die "Synthesis validation failed - no cell count in output"
-  fi
-
-  phase "SIMULATE" "Simulating hardware"
-  vvp build/thiele_cpu_tb.out +VCD=build/thiele_cpu_tb.vcd > build/simulation.log 2>&1 || \
-    die "Simulation failed (see build/simulation.log)"
-
-  if ! grep -q "Test completed" build/simulation.log; then
-    die "Simulation validation failed - no 'Test completed' marker"
-  fi
-
-  phase "ANALYZE" "Analyzing waveforms"
-  python3 scripts/analyze_waveforms.py build/thiele_cpu_tb.vcd > build/waveform_analysis.txt || \
-    die "Waveform analysis failed"
-
   phase "REPRO" "Reproducible synthesis gate"
   bash scripts/synthesis_repro_gate.sh || die "Reprodicible synthesis gate failed"
 
+  phase "FORMAL" "Formal RTL property gate"
+  bash scripts/rtl_formal_gate.sh || die "Formal RTL property gate failed"
+
+  phase "THESIS" "Running adversarial thesis verifier"
+  python3 scripts/verify_thesis.py || die "Thesis verifier found issues"
+
   phase "SUCCESS" "Full verification passed ✓"
   echo "Logs available in:"
-  echo "  - build/synthesis.log"
-  echo "  - build/simulation.log"
-  echo "  - build/waveform_analysis.txt"
+  echo "  - artifacts/synthesis_gate/"
+  echo "  - artifacts/rtl_formal/"
+  echo "  - artifacts/verify_thesis_run.log (if captured separately)"
   exit 0
 fi

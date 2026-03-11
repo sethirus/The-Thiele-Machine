@@ -7,7 +7,7 @@ Require Import VMState.
 
 (** * VMStep: Operational semantics - how the machine actually executes
 
-    This file defines the 26-instruction ISA and the step relation that governs
+    This file defines the 31-instruction ISA and the step relation that governs
     all state transitions. Every operation has an explicit μ-cost. Every step
     either succeeds or sets the error flag - no undefined behavior.
 
@@ -17,7 +17,7 @@ Require Import VMState.
     is specified. The proofs show this behaves correctly. If you find a step
     that violates μ-monotonicity or observable locality, the whole thing breaks.
 
-    THE 26 INSTRUCTIONS:
+    THE 31 INSTRUCTIONS:
     Structural (partition operations):
       PNEW, PSPLIT, PMERGE, PDISCOVER
     Logical (assertion/revelation):
@@ -28,6 +28,10 @@ Require Import VMState.
       LOAD_IMM, LOAD, STORE, ADD, SUB, JUMP, JNEZ, CALL, RET
     Special:
       MDLACC, CHSH_TRIAL, ORACLE_HALTS, HALT
+    Phase 2 (system):
+      CHECKPOINT, READ_PORT, WRITE_PORT
+    Phase 3B (heap-relative):
+      HEAP_LOAD, HEAP_STORE
 
     KEY PROPERTIES (proven elsewhere):
     - Deterministic: Same input state + instruction → same output state
@@ -54,7 +58,7 @@ Inductive lassert_certificate :=
 | lassert_cert_unsat (proof : string)
 | lassert_cert_sat (model : string).
 
-(** vm_instruction: The complete 26-instruction ISA of the Thiele Machine.
+(** vm_instruction: The complete 31-instruction ISA of the Thiele Machine.
 
     Every instruction carries an explicit μ-cost (mu_delta). The step relation
     applies this cost via (vm_mu + mu_delta), forcing μ-monotonicity by construction.
@@ -116,8 +120,8 @@ Inductive vm_instruction :=
 | instr_pdiscover (module : ModuleID) (evidence : list VMAxiom) (mu_delta : nat)
 | instr_xfer (dst src : nat) (mu_delta : nat)
 | instr_load_imm (dst : nat) (imm : nat) (mu_delta : nat)
-| instr_load (dst : nat) (addr : nat) (mu_delta : nat)
-| instr_store (addr : nat) (src : nat) (mu_delta : nat)
+| instr_load (dst : nat) (rs_addr : nat) (mu_delta : nat)
+| instr_store (rs_addr : nat) (src : nat) (mu_delta : nat)
 | instr_add (dst : nat) (rs1 : nat) (rs2 : nat) (mu_delta : nat)
 | instr_sub (dst : nat) (rs1 : nat) (rs2 : nat) (mu_delta : nat)
 | instr_jump (target : nat) (mu_delta : nat)
@@ -138,8 +142,17 @@ Inductive vm_instruction :=
 | instr_read_port (dst : nat) (channel_idx : nat) (value : nat) (bits : nat) (mu_delta : nat)
 | instr_write_port (channel_idx : nat) (src : nat) (mu_delta : nat)
 (** Phase 3B — heap-relative memory access *)
-| instr_heap_load (dst : nat) (addr : nat) (mu_delta : nat)
-| instr_heap_store (addr : nat) (src : nat) (mu_delta : nat).
+| instr_heap_load (dst : nat) (rs_addr : nat) (mu_delta : nat)
+| instr_heap_store (rs_addr : nat) (src : nat) (mu_delta : nat)
+(** Phase 4 — state-based certification (backported from ThielePrime) *)
+| instr_certify (mu_delta : nat)
+(** Phase 5 — extended ALU operations *)
+| instr_and (dst : nat) (rs1 : nat) (rs2 : nat) (mu_delta : nat)
+| instr_or  (dst : nat) (rs1 : nat) (rs2 : nat) (mu_delta : nat)
+| instr_shl (dst : nat) (rs1 : nat) (rs2 : nat) (mu_delta : nat)
+| instr_shr (dst : nat) (rs1 : nat) (rs2 : nat) (mu_delta : nat)
+| instr_mul (dst : nat) (rs1 : nat) (rs2 : nat) (mu_delta : nat)
+| instr_lui (dst : nat) (imm : nat) (mu_delta : nat).
 
 Definition instruction_cost (instr : vm_instruction) : nat :=
   match instr with
@@ -174,6 +187,13 @@ Definition instruction_cost (instr : vm_instruction) : nat :=
   | instr_write_port _ _ cost => cost
   | instr_heap_load _ _ cost => cost
   | instr_heap_store _ _ cost => cost
+  | instr_certify cost => S cost
+  | instr_and _ _ _ cost => cost
+  | instr_or _ _ _ cost => cost
+  | instr_shl _ _ _ cost => cost
+  | instr_shr _ _ _ cost => cost
+  | instr_mul _ _ _ cost => cost
+  | instr_lui _ _ cost => cost
   end.
 
 (** Executable NoFreeInsight runtime policy:
@@ -185,6 +205,7 @@ Definition is_cert_setterb (instr : vm_instruction) : bool :=
   | instr_ljoin _ _ _ => true
   | instr_lassert _ _ _ _ => true
   | instr_read_port _ _ _ _ _ => true
+  | instr_certify _ => true
   | _ => false
   end.
 
@@ -237,6 +258,46 @@ Definition vm_mu_tensor_add_at (s : VMState) (k delta : nat) : list nat :=
   let old := nth k s.(vm_mu_tensor) 0 in
   list_update_at s.(vm_mu_tensor) k (old + delta).
 
+(** record_trial: Increment the appropriate WitnessCounts bucket
+    based on settings (a, b) and whether outcomes (x, y) match.
+    Called by CHSH_TRIAL on valid bits. *)
+Definition record_trial (wc : WitnessCounts) (x y a b : nat) : WitnessCounts :=
+  let same := Nat.eqb x y in
+  match a, b with
+  | 0, 0 => if same then {| wc_same_00 := S wc.(wc_same_00); wc_diff_00 := wc.(wc_diff_00);
+                             wc_same_01 := wc.(wc_same_01); wc_diff_01 := wc.(wc_diff_01);
+                             wc_same_10 := wc.(wc_same_10); wc_diff_10 := wc.(wc_diff_10);
+                             wc_same_11 := wc.(wc_same_11); wc_diff_11 := wc.(wc_diff_11) |}
+             else       {| wc_same_00 := wc.(wc_same_00); wc_diff_00 := S wc.(wc_diff_00);
+                             wc_same_01 := wc.(wc_same_01); wc_diff_01 := wc.(wc_diff_01);
+                             wc_same_10 := wc.(wc_same_10); wc_diff_10 := wc.(wc_diff_10);
+                             wc_same_11 := wc.(wc_same_11); wc_diff_11 := wc.(wc_diff_11) |}
+  | 0, _ => if same then {| wc_same_00 := wc.(wc_same_00); wc_diff_00 := wc.(wc_diff_00);
+                             wc_same_01 := S wc.(wc_same_01); wc_diff_01 := wc.(wc_diff_01);
+                             wc_same_10 := wc.(wc_same_10); wc_diff_10 := wc.(wc_diff_10);
+                             wc_same_11 := wc.(wc_same_11); wc_diff_11 := wc.(wc_diff_11) |}
+             else       {| wc_same_00 := wc.(wc_same_00); wc_diff_00 := wc.(wc_diff_00);
+                             wc_same_01 := wc.(wc_same_01); wc_diff_01 := S wc.(wc_diff_01);
+                             wc_same_10 := wc.(wc_same_10); wc_diff_10 := wc.(wc_diff_10);
+                             wc_same_11 := wc.(wc_same_11); wc_diff_11 := wc.(wc_diff_11) |}
+  | _, 0 => if same then {| wc_same_00 := wc.(wc_same_00); wc_diff_00 := wc.(wc_diff_00);
+                             wc_same_01 := wc.(wc_same_01); wc_diff_01 := wc.(wc_diff_01);
+                             wc_same_10 := S wc.(wc_same_10); wc_diff_10 := wc.(wc_diff_10);
+                             wc_same_11 := wc.(wc_same_11); wc_diff_11 := wc.(wc_diff_11) |}
+             else       {| wc_same_00 := wc.(wc_same_00); wc_diff_00 := wc.(wc_diff_00);
+                             wc_same_01 := wc.(wc_same_01); wc_diff_01 := wc.(wc_diff_01);
+                             wc_same_10 := wc.(wc_same_10); wc_diff_10 := S wc.(wc_diff_10);
+                             wc_same_11 := wc.(wc_same_11); wc_diff_11 := wc.(wc_diff_11) |}
+  | _, _ => if same then {| wc_same_00 := wc.(wc_same_00); wc_diff_00 := wc.(wc_diff_00);
+                             wc_same_01 := wc.(wc_same_01); wc_diff_01 := wc.(wc_diff_01);
+                             wc_same_10 := wc.(wc_same_10); wc_diff_10 := wc.(wc_diff_10);
+                             wc_same_11 := S wc.(wc_same_11); wc_diff_11 := wc.(wc_diff_11) |}
+             else       {| wc_same_00 := wc.(wc_same_00); wc_diff_00 := wc.(wc_diff_00);
+                             wc_same_01 := wc.(wc_same_01); wc_diff_01 := wc.(wc_diff_01);
+                             wc_same_10 := wc.(wc_same_10); wc_diff_10 := wc.(wc_diff_10);
+                             wc_same_11 := wc.(wc_same_11); wc_diff_11 := S wc.(wc_diff_11) |}
+  end.
+
 Definition advance_state (s : VMState) (instr : vm_instruction)
   (graph : PartitionGraph) (csrs : CSRState) (err_flag : bool)
   : VMState :=
@@ -247,7 +308,11 @@ Definition advance_state (s : VMState) (instr : vm_instruction)
      vm_pc := S s.(vm_pc);
      vm_mu := apply_cost s instr;
      vm_mu_tensor := s.(vm_mu_tensor);
-     vm_err := err_flag |}.
+     vm_err := err_flag;
+     vm_logic_acc := s.(vm_logic_acc);
+     vm_mstatus := s.(vm_mstatus);
+     vm_witness := s.(vm_witness);
+     vm_certified := s.(vm_certified) |}.
 
 (** advance_state_reveal: Like advance_state but additionally increments
     vm_mu_tensor[flat_idx] by delta, recording where in metric-space the
@@ -265,7 +330,11 @@ Definition advance_state_reveal (s : VMState) (instr : vm_instruction)
      vm_pc := S s.(vm_pc);
      vm_mu := apply_cost s instr;
      vm_mu_tensor := vm_mu_tensor_add_at s flat_idx delta;
-     vm_err := err_flag |}.
+     vm_err := err_flag;
+     vm_logic_acc := s.(vm_logic_acc);
+     vm_mstatus := s.(vm_mstatus);
+     vm_witness := s.(vm_witness);
+     vm_certified := s.(vm_certified) |}.
 
 Definition advance_state_rm (s : VMState) (instr : vm_instruction)
   (graph : PartitionGraph) (csrs : CSRState)
@@ -278,7 +347,11 @@ Definition advance_state_rm (s : VMState) (instr : vm_instruction)
   vm_pc := S s.(vm_pc);
   vm_mu := apply_cost s instr;
   vm_mu_tensor := s.(vm_mu_tensor);
-  vm_err := err_flag |}.
+  vm_err := err_flag;
+  vm_logic_acc := s.(vm_logic_acc);
+  vm_mstatus := s.(vm_mstatus);
+  vm_witness := s.(vm_witness);
+  vm_certified := s.(vm_certified) |}.
 
 (** jump_state: Set PC to an arbitrary target instead of PC+1.
     Used by JUMP and the taken branch of JNEZ. *)
@@ -290,7 +363,11 @@ Definition jump_state (s : VMState) (instr : vm_instruction) (target : nat) : VM
      vm_pc := target;
      vm_mu := apply_cost s instr;
      vm_mu_tensor := s.(vm_mu_tensor);
-     vm_err := s.(vm_err) |}.
+     vm_err := s.(vm_err);
+     vm_logic_acc := s.(vm_logic_acc);
+     vm_mstatus := s.(vm_mstatus);
+     vm_witness := s.(vm_witness);
+     vm_certified := s.(vm_certified) |}.
 
 (** jump_state_rm: Like jump_state but also updates registers and memory.
     Used by CALL (saves return address to memory, decrements SP register). *)
@@ -303,7 +380,11 @@ Definition jump_state_rm (s : VMState) (instr : vm_instruction)
      vm_pc := target;
      vm_mu := apply_cost s instr;
      vm_mu_tensor := s.(vm_mu_tensor);
-     vm_err := s.(vm_err) |}.
+     vm_err := s.(vm_err);
+     vm_logic_acc := s.(vm_logic_acc);
+     vm_mstatus := s.(vm_mstatus);
+     vm_witness := s.(vm_witness);
+     vm_certified := s.(vm_certified) |}.
 
 Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
 | step_pnew : forall s region cost graph' mid,
@@ -385,11 +466,22 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     vm_step s (instr_pdiscover module evidence cost)
       (advance_state s (instr_pdiscover module evidence cost)
         graph' s.(vm_csrs) s.(vm_err))
-| step_chsh_trial_ok : forall s x y a b cost,
+| step_chsh_trial_ok : forall s x y a b cost wc',
     chsh_bits_ok x y a b = true ->
+    wc' = record_trial s.(vm_witness) x y a b ->
     vm_step s (instr_chsh_trial x y a b cost)
-      (advance_state s (instr_chsh_trial x y a b cost)
-        s.(vm_graph) s.(vm_csrs) s.(vm_err))
+      ({| vm_graph := s.(vm_graph);
+          vm_csrs := s.(vm_csrs);
+          vm_regs := s.(vm_regs);
+          vm_mem := s.(vm_mem);
+          vm_pc := S s.(vm_pc);
+          vm_mu := apply_cost s (instr_chsh_trial x y a b cost);
+          vm_mu_tensor := s.(vm_mu_tensor);
+          vm_err := s.(vm_err);
+          vm_logic_acc := s.(vm_logic_acc);
+          vm_mstatus := s.(vm_mstatus);
+          vm_witness := wc';
+          vm_certified := s.(vm_certified) |})
 | step_chsh_trial_badbits : forall s x y a b cost,
     chsh_bits_ok x y a b = false ->
     vm_step s (instr_chsh_trial x y a b cost)
@@ -408,17 +500,19 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     vm_step s (instr_load_imm dst imm cost)
       (advance_state_rm s (instr_load_imm dst imm cost)
         s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
-| step_load : forall s dst addr cost regs' value,
+| step_load : forall s dst rs_addr cost regs' value addr,
+    addr = read_reg s rs_addr ->
     value = read_mem s addr ->
     regs' = write_reg s dst value ->
-    vm_step s (instr_load dst addr cost)
-      (advance_state_rm s (instr_load dst addr cost)
+    vm_step s (instr_load dst rs_addr cost)
+      (advance_state_rm s (instr_load dst rs_addr cost)
         s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
-| step_store : forall s addr src cost mem' value,
+| step_store : forall s rs_addr src cost mem' value addr,
+    addr = read_reg s rs_addr ->
     value = read_reg s src ->
     mem' = write_mem s addr value ->
-    vm_step s (instr_store addr src cost)
-      (advance_state_rm s (instr_store addr src cost)
+    vm_step s (instr_store rs_addr src cost)
+      (advance_state_rm s (instr_store rs_addr src cost)
         s.(vm_graph) s.(vm_csrs) s.(vm_regs) mem' s.(vm_err))
 | step_add : forall s dst rs1 rs2 cost regs' v1 v2,
     v1 = read_reg s rs1 ->
@@ -507,22 +601,83 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     vm_step s (instr_write_port channel_idx src cost)
       (advance_state s (instr_write_port channel_idx src cost)
         s.(vm_graph) s.(vm_csrs) s.(vm_err))
-| step_heap_load : forall s dst addr cost regs' value,
+| step_heap_load : forall s dst rs_addr cost regs' value addr,
+    addr = read_reg s rs_addr ->
     value = read_mem s (s.(vm_csrs).(csr_heap_base) + addr) ->
     regs' = write_reg s dst value ->
-    vm_step s (instr_heap_load dst addr cost)
-      (advance_state_rm s (instr_heap_load dst addr cost)
+    vm_step s (instr_heap_load dst rs_addr cost)
+      (advance_state_rm s (instr_heap_load dst rs_addr cost)
         s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
-| step_heap_store : forall s addr src cost mem' value,
+| step_heap_store : forall s rs_addr src cost mem' value addr,
+    addr = read_reg s rs_addr ->
     value = read_reg s src ->
     mem' = write_mem s (s.(vm_csrs).(csr_heap_base) + addr) value ->
-    vm_step s (instr_heap_store addr src cost)
-      (advance_state_rm s (instr_heap_store addr src cost)
+    vm_step s (instr_heap_store rs_addr src cost)
+      (advance_state_rm s (instr_heap_store rs_addr src cost)
         s.(vm_graph) s.(vm_csrs) s.(vm_regs) mem' s.(vm_err))
+(** ---------------------------------------------------------------
+    Extended ALU operations (Phase 5)
+    --------------------------------------------------------------- *)
+| step_and : forall s dst rs1 rs2 cost regs' v1 v2,
+    v1 = read_reg s rs1 ->
+    v2 = read_reg s rs2 ->
+    regs' = write_reg s dst (word32_and v1 v2) ->
+    vm_step s (instr_and dst rs1 rs2 cost)
+      (advance_state_rm s (instr_and dst rs1 rs2 cost)
+        s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+| step_or : forall s dst rs1 rs2 cost regs' v1 v2,
+    v1 = read_reg s rs1 ->
+    v2 = read_reg s rs2 ->
+    regs' = write_reg s dst (word32_or v1 v2) ->
+    vm_step s (instr_or dst rs1 rs2 cost)
+      (advance_state_rm s (instr_or dst rs1 rs2 cost)
+        s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+| step_shl : forall s dst rs1 rs2 cost regs' v1 v2,
+    v1 = read_reg s rs1 ->
+    v2 = read_reg s rs2 ->
+    regs' = write_reg s dst (word32_shl v1 v2) ->
+    vm_step s (instr_shl dst rs1 rs2 cost)
+      (advance_state_rm s (instr_shl dst rs1 rs2 cost)
+        s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+| step_shr : forall s dst rs1 rs2 cost regs' v1 v2,
+    v1 = read_reg s rs1 ->
+    v2 = read_reg s rs2 ->
+    regs' = write_reg s dst (word32_shr v1 v2) ->
+    vm_step s (instr_shr dst rs1 rs2 cost)
+      (advance_state_rm s (instr_shr dst rs1 rs2 cost)
+        s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+| step_mul : forall s dst rs1 rs2 cost regs' v1 v2,
+    v1 = read_reg s rs1 ->
+    v2 = read_reg s rs2 ->
+    regs' = write_reg s dst (word32_mul v1 v2) ->
+    vm_step s (instr_mul dst rs1 rs2 cost)
+      (advance_state_rm s (instr_mul dst rs1 rs2 cost)
+        s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+| step_lui : forall s dst imm cost regs',
+    regs' = write_reg s dst (word32_shl imm 8) ->
+    vm_step s (instr_lui dst imm cost)
+      (advance_state_rm s (instr_lui dst imm cost)
+        s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
 | step_halt : forall s cost,
     vm_step s (instr_halt cost)
       (advance_state s (instr_halt cost)
-        s.(vm_graph) s.(vm_csrs) s.(vm_err)).
+        s.(vm_graph) s.(vm_csrs) s.(vm_err))
+(** Phase 4: CERTIFY — state-based certification with structurally positive cost.
+    Cost is S mu_delta (at least 1), making "certified => mu > 0" provable. *)
+| step_certify : forall s mu_delta,
+    vm_step s (instr_certify mu_delta)
+      ({| vm_graph := s.(vm_graph);
+          vm_csrs := s.(vm_csrs);
+          vm_regs := s.(vm_regs);
+          vm_mem := s.(vm_mem);
+          vm_pc := S s.(vm_pc);
+          vm_mu := s.(vm_mu) + S mu_delta;
+          vm_mu_tensor := s.(vm_mu_tensor);
+          vm_err := s.(vm_err);
+          vm_logic_acc := s.(vm_logic_acc);
+          vm_mstatus := s.(vm_mstatus);
+          vm_witness := s.(vm_witness);
+          vm_certified := true |}).
 
 End VMStep.
 

@@ -375,7 +375,18 @@ Definition encode_vm_state (s : VMState) : list bool :=
   (* Variable data: graph, csr, mu_tensor (placed after csr to simplify decoding) *)
   encode_partition_graph s.(vm_graph) ++
   encode_csr s.(vm_csrs) ++
-  encode_nat_list s.(vm_mu_tensor).
+  encode_nat_list s.(vm_mu_tensor) ++
+  encode_nat s.(vm_logic_acc) ++
+  encode_nat s.(vm_mstatus) ++
+  encode_nat s.(vm_witness).(wc_same_00) ++
+  encode_nat s.(vm_witness).(wc_diff_00) ++
+  encode_nat s.(vm_witness).(wc_same_01) ++
+  encode_nat s.(vm_witness).(wc_diff_01) ++
+  encode_nat s.(vm_witness).(wc_same_10) ++
+  encode_nat s.(vm_witness).(wc_diff_10) ++
+  encode_nat s.(vm_witness).(wc_same_11) ++
+  encode_nat s.(vm_witness).(wc_diff_11) ++
+  encode_bool s.(vm_certified).
 
 Definition decode_vm_state (bs : list bool)
   : option (VMState * list bool) :=
@@ -397,15 +408,66 @@ Definition decode_vm_state (bs : list bool)
               match decode_csr rest''''' with
               | Some (csrs, rest'''''' ) =>
                 match decode_nat_list rest'''''' with
-                | Some (mu_tensor, rest''''''' ) =>
-                  Some ({| vm_graph := graph;
-                       vm_csrs := csrs;
-                       vm_regs := regs;
-                       vm_mem := mem;
-                       vm_pc := pc;
-                       vm_mu := mu;
-                       vm_mu_tensor := mu_tensor;
-                       vm_err := err |}, rest''''''' )
+                | Some (mu_tensor, rest7) =>
+                  match decode_nat rest7 with
+                  | Some (logic_acc, rest8) =>
+                    match decode_nat rest8 with
+                    | Some (mstatus, rest9) =>
+                      match decode_nat rest9 with
+                      | Some (wc00, rest10) =>
+                        match decode_nat rest10 with
+                        | Some (wd00, rest11) =>
+                          match decode_nat rest11 with
+                          | Some (wc01, rest12) =>
+                            match decode_nat rest12 with
+                            | Some (wd01, rest13) =>
+                              match decode_nat rest13 with
+                              | Some (wc10, rest14) =>
+                                match decode_nat rest14 with
+                                | Some (wd10, rest15) =>
+                                  match decode_nat rest15 with
+                                  | Some (wc11, rest16) =>
+                                    match decode_nat rest16 with
+                                    | Some (wd11, rest17) =>
+                                      match decode_bool rest17 with
+                                      | Some (certified, rest18) =>
+                      Some ({| vm_graph := graph;
+                           vm_csrs := csrs;
+                           vm_regs := regs;
+                           vm_mem := mem;
+                           vm_pc := pc;
+                           vm_mu := mu;
+                           vm_mu_tensor := mu_tensor;
+                           vm_err := err;
+                           vm_logic_acc := logic_acc;
+                           vm_mstatus := mstatus;
+                           vm_witness := {| wc_same_00 := wc00; wc_diff_00 := wd00;
+                                            wc_same_01 := wc01; wc_diff_01 := wd01;
+                                            wc_same_10 := wc10; wc_diff_10 := wd10;
+                                            wc_same_11 := wc11; wc_diff_11 := wd11 |};
+                           vm_certified := certified |}, rest18)
+                                      | None => None
+                                      end
+                                    | None => None
+                                    end
+                                  | None => None
+                                  end
+                                | None => None
+                                end
+                              | None => None
+                              end
+                            | None => None
+                            end
+                          | None => None
+                          end
+                        | None => None
+                        end
+                      | None => None
+                      end
+                    | None => None
+                    end
+                  | None => None
+                  end
                 | None => None
                 end
               | None => None
@@ -430,91 +492,50 @@ Lemma decode_vm_state_correct :
   forall s rest,
     decode_vm_state (encode_vm_state s ++ rest) = Some (s, rest).
 Proof.
-  intros [graph csrs regs mem pc mu mu_tensor err] rest.
+  intros [graph csrs regs mem pc mu mu_tensor err logic_acc mstatus
+          [wc00 wd00 wc01 wd01 wc10 wd10 wc11 wd11] certified] rest.
   unfold encode_vm_state, decode_vm_state.
   repeat rewrite <- app_assoc.
   rewrite decode_nat_correct.
-  simpl.
-  replace (encode_nat mu ++ encode_bool err ++ encode_nat_list regs ++ encode_nat_list mem ++ encode_partition_graph graph ++ encode_csr csrs ++ encode_nat_list mu_tensor ++ rest)
-    with (encode_nat mu ++ (encode_bool err ++ encode_nat_list regs ++ encode_nat_list mem ++ encode_partition_graph graph ++ encode_csr csrs ++ encode_nat_list mu_tensor ++ rest))
-    by (repeat rewrite app_assoc; reflexivity).
+  match goal with |- context [Some (?a, ?b)] => simpl (Some (a, b)) end.
+  simpl (match Some _ with | Some (_, _) => _ | None => _ end).
   rewrite decode_nat_correct.
-  simpl.
-  set (tail := encode_bool err ++ encode_nat_list regs ++ encode_nat_list mem ++ encode_partition_graph graph ++ encode_csr csrs ++ encode_nat_list mu_tensor ++ rest).
-  replace (encode_bool err ++ encode_nat_list regs ++ encode_nat_list mem ++ encode_partition_graph graph ++ encode_csr csrs ++ encode_nat_list mu_tensor ++ rest)
-    with (encode_bool err ++ (encode_nat_list regs ++ encode_nat_list mem ++ encode_partition_graph graph ++ encode_csr csrs ++ encode_nat_list mu_tensor ++ rest))
-    by (subst tail; repeat rewrite app_assoc; reflexivity).
-  destruct (decode_bool (encode_bool err ++ tail)) as [[err' tail']|] eqn:Hbool.
-  - pose proof (decode_bool_correct err tail) as Htarget.
-    rewrite Htarget in Hbool.
-    inversion Hbool; subst err' tail'.
-    simpl.
-    clear Hbool Htarget.
-    subst tail.
-    set (tail_regs := encode_nat_list mem ++ encode_partition_graph graph ++ encode_csr csrs ++ encode_nat_list mu_tensor ++ rest).
-    replace (encode_nat_list regs ++ encode_nat_list mem ++ encode_partition_graph graph ++ encode_csr csrs ++ encode_nat_list mu_tensor ++ rest)
-      with (encode_nat_list regs ++ tail_regs)
-      by (subst tail_regs; repeat rewrite app_assoc; reflexivity).
-    destruct (decode_nat_list (encode_nat_list regs ++ tail_regs))
-      as [[regs' tail'']|] eqn:Hregs.
-    + pose proof (decode_nat_list_correct regs tail_regs) as Hregs_target.
-      rewrite Hregs_target in Hregs.
-      inversion Hregs; subst regs' tail''.
-      simpl.
-      clear Hregs Hregs_target.
-      subst tail_regs.
-      set (tail_mem := encode_partition_graph graph ++ encode_csr csrs ++ encode_nat_list mu_tensor ++ rest).
-      replace (encode_nat_list mem ++ encode_partition_graph graph ++ encode_csr csrs ++ encode_nat_list mu_tensor ++ rest)
-        with (encode_nat_list mem ++ tail_mem)
-        by (subst tail_mem; repeat rewrite app_assoc; reflexivity).
-      destruct (decode_nat_list (encode_nat_list mem ++ tail_mem))
-        as [[mem' tail''']|] eqn:Hmem.
-      * pose proof (decode_nat_list_correct mem tail_mem) as Hmem_target.
-        rewrite Hmem_target in Hmem.
-        inversion Hmem; subst mem' tail'''.
-        simpl.
-        clear Hmem Hmem_target.
-        subst tail_mem.
-        set (tail_graph := encode_csr csrs ++ encode_nat_list mu_tensor ++ rest).
-        replace (encode_partition_graph graph ++ encode_csr csrs ++ encode_nat_list mu_tensor ++ rest)
-          with (encode_partition_graph graph ++ tail_graph)
-          by (subst tail_graph; repeat rewrite app_assoc; reflexivity).
-        destruct (decode_partition_graph (encode_partition_graph graph ++ tail_graph))
-          as [[graph' tail'''']|] eqn:Hgraph.
-        -- pose proof (decode_partition_graph_correct graph tail_graph) as Hgraph_target.
-           rewrite Hgraph_target in Hgraph.
-           inversion Hgraph; subst graph' tail''''.
-           simpl.
-           clear Hgraph Hgraph_target.
-           subst tail_graph.
-           destruct (decode_csr (encode_csr csrs ++ encode_nat_list mu_tensor ++ rest)) as [[csrs' rest'']|] eqn:Hcsr.
-           ++ pose proof (decode_csr_correct csrs (encode_nat_list mu_tensor ++ rest)) as Hcsr_target.
-              rewrite Hcsr_target in Hcsr.
-              inversion Hcsr; subst csrs' rest''.
-              (* decode mu_tensor that follows csrs in the encoding *)
-              destruct (decode_nat_list (encode_nat_list mu_tensor ++ rest)) as [[mu_tensor' rest''']|] eqn:Hmut.
-              ** pose proof (decode_nat_list_correct mu_tensor rest) as Hmut_target.
-                 rewrite Hmut_target in Hmut.
-                 inversion Hmut; subst mu_tensor' rest'''.
-                 simpl. reflexivity.
-              ** pose proof (decode_nat_list_correct mu_tensor rest) as Hmut_target.
-                 rewrite Hmut_target in Hmut.
-                 discriminate.
-           ++ pose proof (decode_csr_correct csrs (encode_nat_list mu_tensor ++ rest)) as Hcsr_target.
-              rewrite Hcsr_target in Hcsr.
-              discriminate.
-        -- pose proof (decode_partition_graph_correct graph tail_graph) as Hgraph_target.
-           rewrite Hgraph_target in Hgraph.
-           discriminate.
-      * pose proof (decode_nat_list_correct mem tail_mem) as Hmem_target.
-        rewrite Hmem_target in Hmem.
-        discriminate.
-    + pose proof (decode_nat_list_correct regs tail_regs) as Hregs_target.
-      rewrite Hregs_target in Hregs.
-      discriminate.
-  - pose proof (decode_bool_correct err tail) as Htarget.
-    rewrite Htarget in Hbool.
-    discriminate.
+  simpl (match Some _ with | Some (_, _) => _ | None => _ end).
+  rewrite decode_bool_correct.
+  simpl (match Some _ with | Some (_, _) => _ | None => _ end).
+  rewrite decode_nat_list_correct.
+  simpl (match Some _ with | Some (_, _) => _ | None => _ end).
+  rewrite decode_nat_list_correct.
+  simpl (match Some _ with | Some (_, _) => _ | None => _ end).
+  rewrite decode_partition_graph_correct.
+  simpl (match Some _ with | Some (_, _) => _ | None => _ end).
+  rewrite decode_csr_correct.
+  simpl (match Some _ with | Some (_, _) => _ | None => _ end).
+  rewrite decode_nat_list_correct.
+  simpl (match Some _ with | Some (_, _) => _ | None => _ end).
+  rewrite decode_nat_correct.
+  simpl (match Some _ with | Some (_, _) => _ | None => _ end).
+  rewrite decode_nat_correct.
+  simpl (match Some _ with | Some (_, _) => _ | None => _ end).
+  rewrite decode_nat_correct.
+  simpl (match Some _ with | Some (_, _) => _ | None => _ end).
+  rewrite decode_nat_correct.
+  simpl (match Some _ with | Some (_, _) => _ | None => _ end).
+  rewrite decode_nat_correct.
+  simpl (match Some _ with | Some (_, _) => _ | None => _ end).
+  rewrite decode_nat_correct.
+  simpl (match Some _ with | Some (_, _) => _ | None => _ end).
+  rewrite decode_nat_correct.
+  simpl (match Some _ with | Some (_, _) => _ | None => _ end).
+  rewrite decode_nat_correct.
+  simpl (match Some _ with | Some (_, _) => _ | None => _ end).
+  rewrite decode_nat_correct.
+  simpl (match Some _ with | Some (_, _) => _ | None => _ end).
+  rewrite decode_nat_correct.
+  simpl (match Some _ with | Some (_, _) => _ | None => _ end).
+  rewrite decode_bool_correct.
+  simpl (match Some _ with | Some (_, _) => _ | None => _ end).
+  reflexivity.
 Qed.
 
 (** ** Kernel Tape Layout Schema *)
@@ -588,7 +609,11 @@ Definition update_vm_pc_in_tape (tape : list bool) (new_pc : nat) : list bool :=
                    vm_pc := new_pc;
                    vm_mu := s.(vm_mu);
                    vm_mu_tensor := s.(vm_mu_tensor);
-                   vm_err := s.(vm_err) |} in
+                   vm_err := s.(vm_err);
+                   vm_logic_acc := s.(vm_logic_acc);
+                   vm_mstatus := s.(vm_mstatus);
+                   vm_witness := s.(vm_witness);
+                   vm_certified := s.(vm_certified) |} in
       encode_vm_state_to_tape s'
   | None => tape  (* error case *)
   end.
@@ -603,7 +628,11 @@ Definition update_vm_mu_in_tape (tape : list bool) (new_mu : nat) : list bool :=
                    vm_pc := s.(vm_pc);
                    vm_mu := new_mu;
                    vm_mu_tensor := s.(vm_mu_tensor);
-                   vm_err := s.(vm_err) |} in
+                   vm_err := s.(vm_err);
+                   vm_logic_acc := s.(vm_logic_acc);
+                   vm_mstatus := s.(vm_mstatus);
+                   vm_witness := s.(vm_witness);
+                   vm_certified := s.(vm_certified) |} in
       encode_vm_state_to_tape s'
   | None => tape
   end.
@@ -618,7 +647,11 @@ Definition update_vm_err_in_tape (tape : list bool) (new_err : bool) : list bool
                    vm_pc := s.(vm_pc);
                    vm_mu := s.(vm_mu);
                    vm_mu_tensor := s.(vm_mu_tensor);
-                   vm_err := new_err |} in
+                   vm_err := new_err;
+                   vm_logic_acc := s.(vm_logic_acc);
+                   vm_mstatus := s.(vm_mstatus);
+                   vm_witness := s.(vm_witness);
+                   vm_certified := s.(vm_certified) |} in
       encode_vm_state_to_tape s'
   | None => tape
   end.
@@ -634,7 +667,11 @@ Definition update_vm_graph_in_tape (tape : list bool) (new_graph : PartitionGrap
                    vm_pc := s.(vm_pc);
                    vm_mu := s.(vm_mu);
                    vm_mu_tensor := s.(vm_mu_tensor);
-                   vm_err := s.(vm_err) |} in
+                   vm_err := s.(vm_err);
+                   vm_logic_acc := s.(vm_logic_acc);
+                   vm_mstatus := s.(vm_mstatus);
+                   vm_witness := s.(vm_witness);
+                   vm_certified := s.(vm_certified) |} in
       encode_vm_state_to_tape s'
   | None => tape
   end.
@@ -650,7 +687,11 @@ Definition update_vm_csrs_in_tape (tape : list bool) (new_csrs : CSRState) : lis
                    vm_pc := s.(vm_pc);
                    vm_mu := s.(vm_mu);
                    vm_mu_tensor := s.(vm_mu_tensor);
-                   vm_err := s.(vm_err) |} in
+                   vm_err := s.(vm_err);
+                   vm_logic_acc := s.(vm_logic_acc);
+                   vm_mstatus := s.(vm_mstatus);
+                   vm_witness := s.(vm_witness);
+                   vm_certified := s.(vm_certified) |} in
       encode_vm_state_to_tape s'
   | None => tape
   end.
@@ -691,7 +732,11 @@ Proof.
             vm_pc := pc;
             vm_mu := s.(vm_mu);
             vm_mu_tensor := s.(vm_mu_tensor);
-            vm_err := s.(vm_err) |}.
+            vm_err := s.(vm_err);
+            vm_logic_acc := s.(vm_logic_acc);
+            vm_mstatus := s.(vm_mstatus);
+            vm_witness := s.(vm_witness);
+            vm_certified := s.(vm_certified) |}.
   split.
   - apply encode_decode_vm_state_roundtrip.
   - simpl; repeat split; auto.
@@ -823,6 +868,20 @@ Definition compile_vm_operation (instr : vm_instruction) : program :=
   | instr_heap_load _ _ _ =>
       [T_Halt]
   | instr_heap_store _ _ _ =>
+      [T_Halt]
+  | instr_certify _ =>
+      [T_Halt]
+  | instr_and _ _ _ _ =>
+      [T_Halt]
+  | instr_or _ _ _ _ =>
+      [T_Halt]
+  | instr_shl _ _ _ _ =>
+      [T_Halt]
+  | instr_shr _ _ _ _ =>
+      [T_Halt]
+  | instr_mul _ _ _ _ =>
+      [T_Halt]
+  | instr_lui _ _ _ =>
       [T_Halt]
   end.
 

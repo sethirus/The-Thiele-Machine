@@ -46,7 +46,7 @@ If you need to run steps individually:
    ocamlfind ocamlc -I build -package str -linkpkg \
      -o build/extracted_vm_runner \
      build/thiele_core.mli build/thiele_core.ml \
-     tools/extracted_vm_runner.ml
+     build/extracted_vm_runner.ml
    ```
 5. **3-layer bisimulation**: `bash scripts/parity_extracted_only.sh`
 6. **Kami/Bluespec** (if hardware changed): `./scripts/kami_extract.sh`
@@ -121,7 +121,7 @@ The extraction maps Coq types to OCaml:
 
 Build the runner:
 ```bash
-cd build && ocamlfind ocamlc -package str -linkpkg thiele_core.ml ../tools/extracted_vm_runner.ml -o extracted_vm_runner
+cd build && ocamlfind ocamlc -package str -linkpkg thiele_core.ml extracted_vm_runner.ml -o extracted_vm_runner
 ```
 
 ## Kami/Bluespec Flow

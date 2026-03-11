@@ -18,13 +18,14 @@ import re
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 RTL_PATH = ROOT / "thielecpu" / "hardware" / "rtl" / "thiele_cpu_kami.v"
-OPCODES_HDR = ROOT / "thielecpu" / "hardware" / "rtl" / "generated_opcodes.vh"
+COQ_TYPES_PATH = ROOT / "coq" / "kami_hw" / "ThieleTypes.v"
 
 
-def _opcode_names_from_header(text: str) -> set[str]:
-    names = set(re.findall(r"\bOPCODE_([A-Z0-9_]+)\b", text))
+def _opcode_names_from_coq_types(text: str) -> set[str]:
+    """Parse OP_<NAME> definitions from ThieleTypes.v."""
+    names = set(re.findall(r"Definition\s+OP_([A-Z0-9_]+)\s*:", text))
     if not names:
-        raise AssertionError("failed to parse any OPCODE_* names from generated header")
+        raise AssertionError("failed to parse any OP_* definitions from ThieleTypes.v")
     return names
 
 
@@ -48,11 +49,12 @@ def test_kami_rtl_mu_en_gates_on_live_step() -> None:
 def test_kami_rtl_bianchi_freezes_mu_not_clears() -> None:
     """On Bianchi violation mu$D_IN = mu (freeze, not zero)."""
     rtl = RTL_PATH.read_text(encoding="utf-8")
-    assert re.search(r"mu_ULT_mu_tensor.*\?\s*mu\s*:", rtl, re.DOTALL),         "Bianchi violation must freeze mu (mu$D_IN = mu), not clear it"
+    assert re.search(r"mu\w*ULT\w*mu_tensor.*\?\s*mu\s*:", rtl, re.DOTALL), \
+        "Bianchi violation must freeze mu (mu$D_IN = mu), not clear it"
 
 
-def test_opcodes_header_has_all_opcodes() -> None:
-    """generated_opcodes.vh must define at least 26 OPCODE_* constants."""
-    hdr = OPCODES_HDR.read_text(encoding="utf-8")
-    names = _opcode_names_from_header(hdr)
-    assert len(names) >= 31, f"Expected >=31 opcodes in header, found {len(names)}: {sorted(names)}"
+def test_coq_types_has_all_opcodes() -> None:
+    """ThieleTypes.v must define at least 38 OP_* constants."""
+    coq = COQ_TYPES_PATH.read_text(encoding="utf-8")
+    names = _opcode_names_from_coq_types(coq)
+    assert len(names) >= 38, f"Expected >=38 opcodes in ThieleTypes.v, found {len(names)}: {sorted(names)}"

@@ -16,7 +16,7 @@ To validate this connection, the Coq framework includes explicit physics models:
 \end{itemize}
 
 These models are not metaphors---they are formally verified Coq proofs showing that computational structures exhibit physical-like behavior.
-The wave model lives in \texttt{coq/physics/WaveModel.v}, and its embedding into the Thiele Machine is proven in \texttt{coq/thielemachine/coqproofs/WaveEmbedding.v}. The lattice and dissipative models follow the same pattern: define a state and step function, then prove conservation or monotonicity lemmas that can be linked back to kernel invariants.
+The wave model lives in \texttt{coq/physics/WaveModel.v}, and its embedding into the Thiele Machine is proven in \texttt{coq/physics\_exploration/WaveEmbedding.v}. The lattice and dissipative models follow the same pattern: define a state and step function, then prove conservation or monotonicity lemmas that can be linked back to kernel invariants.
 
 \subsection{From Theory to Algorithms}
 
@@ -182,7 +182,7 @@ The formal development includes an exploration of whether fundamental physical c
 
 \textbf{Result: [STRUCTURAL] RELATIONSHIP ESTABLISHED, NOT A DERIVATION}
 
-The relationship between Planck's constant $h$ and Landauer's principle establishes a structural connection between information theory and quantum mechanics. The formal proof is in \path{coq/physics_exploration/PlanckDerivation.v} (83 lines, compiles).
+The relationship between Planck's constant $h$ and Landauer's principle establishes a structural connection between information theory and quantum mechanics. The formal proof is in \path{coq/physics_exploration/PlanckDerivation.v} (115 lines, compiles).
 
 \paragraph{Important Clarification:}
 
@@ -194,6 +194,7 @@ Starting from Landauer's principle $E_{\text{landauer}} = k_B T \ln 2$, I \texti
 \[
 \tau_\mu := \frac{h}{4 E_{\text{landauer}}} = \frac{h}{4 k_B T \ln 2}
 \]
+
 
 Given this definition, the relationship $h = 4 E_{\text{landauer}} \tau_\mu$ is trivially true by algebra.
 
@@ -212,10 +213,10 @@ This is about 58 femtoseconds---consistent with fundamental quantum time scales,
 
 The formal proof makes the circularity explicit:
 \begin{lstlisting}
-(* Physical constants as AXIOMS - not derived *)
-Axiom k_B : R.  Axiom k_B_positive : k_B > 0.
-Axiom T : R.    Axiom T_positive : T > 0.
-Axiom h : R.    Axiom h_positive : h > 0.
+(* Physical constants as concrete DEFINITIONS - not axioms *)
+Definition k_B : R := / 100.  (* Concrete placeholder *)
+Definition T : R := 1.        (* Concrete placeholder *)
+Definition h : R := 1.        (* Concrete placeholder *)
 
 (* Landauer energy: proven positive *)
 Definition E_landauer : R := k_B * T * ln2.
@@ -225,7 +226,7 @@ Lemma E_landauer_positive : E_landauer > 0. (* proven *)
 Definition tau_mu : R := h / (4 * E_landauer).
 
 (* This "theorem" is a tautology given the definition *)
-Theorem planck_landauer_relationship :
+Theorem planck_consistency_relation :
   h = 4 * E_landauer * tau_mu.
 Proof. unfold tau_mu. field. (* trivial *) Qed.
 \end{lstlisting}
@@ -249,7 +250,7 @@ Proof. unfold tau_mu. field. (* trivial *) Qed.
 
 \textbf{Result: [PARTIAL] STRUCTURE PROVEN, VALUE REQUIRES EMERGENCE THEORY}
 
-The speed of light derivation establishes structural relationships but cannot predict the numerical value. The formal proof is in \path{coq/physics_exploration/EmergentSpacetime.v} (27 lines).
+The speed of light derivation establishes structural relationships but cannot predict the numerical value. The formal proof is in \path{coq/physics_exploration/EmergentSpacetime.v} (31 lines).
 
 \paragraph{The Structural Result:}
 
@@ -289,13 +290,13 @@ The Python experiment tests seven different approaches to deriving $d_\mu$:
 \paragraph{Coq Formalization:}
 
 \begin{lstlisting}
-Parameter d_mu : R.    (* Fundamental length scale *)
-Parameter tau_mu : R.  (* Fundamental time scale *)
+Definition d_mu : R := 1.     (* Fundamental length scale *)
+(* tau_mu imported from PlanckDerivation *)
 
-Definition c_structure := d_mu / tau_mu.
+Definition c : R := d_mu / tau_mu.
 
 Theorem c_structure_proof :
-  0 < tau_mu -> 0 < d_mu -> 0 < c_structure.
+  exists (speed : R), speed > 0 /\ speed = d_mu / tau_mu.
 \end{lstlisting}
 
 \paragraph{Scientific Assessment:}
@@ -315,7 +316,7 @@ Theorem c_structure_proof :
 
 \textbf{Result: [SPECULATIVE] NEEDS QUANTUM GRAVITY}
 
-The gravitational constant $G$ resists derivation. The formal analysis is in \path{coq/physics_exploration/HolographicGravity.v} (20 lines).
+The gravitational constant $G$ resists derivation. The formal analysis is in \path{coq/physics_exploration/HolographicGravity.v} (23 lines).
 
 \paragraph{Attempted Approaches:}
 
@@ -343,12 +344,11 @@ The gravitational constant $G$ resists derivation. The formal analysis is in \pa
 \paragraph{Coq Formalization:}
 
 \begin{lstlisting}
-Parameter G : R.  (* Gravitational constant *)
+Definition G : R := 1. (* Gravitational constant - concrete placeholder *)
 
 (* All approaches require G as input or unknown masses *)
 Theorem G_requires_unknowns :
-  (* No derivation possible without quantum gravity *)
-  True.
+  exists (unknown : R), unknown > 0 /\ G = unknown.
 \end{lstlisting}
 
 \paragraph{Scientific Assessment:}
@@ -366,11 +366,11 @@ Theorem G_requires_unknowns :
 
 \textbf{Result: [FAILED] NO PATTERNS FOUND, APPEAR ARBITRARY}
 
-The attempt to derive particle masses failed completely. The formal analysis is in \path{coq/physics_exploration/ParticleMasses.v} (30 lines).
+The attempt to derive particle masses failed completely. The formal analysis is in \path{coq/physics_exploration/ParticleMasses.v} (45 lines).
 
 \paragraph{Tested Patterns:}
 
-The Python experiment \path{experiments/derive\_masses\_couplings.py} tested for:
+The Python experiment \path{archive/experiments_unused/experiments/derive\_masses\_couplings.py} tested for:
 \begin{enumerate}
     \item Mass ratios as powers of fundamental constants (e.g., $\alpha$, $\pi$, $e$)
     \item Relationships to number-theoretic sequences (Fibonacci, primes, factorials)
@@ -395,14 +395,13 @@ $m_p / m_\mu$ & 8.88 & $\times$ No clear pattern \\
 \paragraph{Coq Formalization:}
 
 \begin{lstlisting}
-Parameter m_electron : R.
-Parameter m_muon : R.
-Parameter m_proton : R.
+Definition m_electron : R := 1.    (* Concrete placeholder *)
+Definition m_muon : R := 207.      (* Concrete placeholder *)
+Definition m_proton : R := 1836.   (* Concrete placeholder *)
 
 (* No patterns found *)
 Theorem masses_are_free_parameters :
-  (* Masses appear arbitrary from information theory *)
-  True.
+  exists (r1 r2 : R), r1 > 0 /\ r2 > 0.
 \end{lstlisting}
 
 \paragraph{Scientific Assessment:}
@@ -413,25 +412,25 @@ Theorem masses_are_free_parameters :
 
 \textbf{Status:} [FAILED] \textit{Masses are free parameters---no derivation possible.}
 
-\subsection{Axiom Accounting and Scientific Honesty}
+\subsection{Definition Accounting and Scientific Honesty}
 
-The physics\_exploration module requires \textbf{11 physical axioms}:
+The physics\_exploration module introduces \textbf{0 axioms}---all physical constants are concrete \texttt{Definition}s with placeholder numeric values ($k_B := 1/100$, $T := 1$, $h := 1$, $G := 1$, etc.). This design choice ensures the proofs compile and the structural relationships are verified, while making explicit that the \textit{values} are free parameters:
 
 \begin{center}
 \begin{tabular}{|l|l|l|}
 \hline
-\textbf{Axiom} & \textbf{Type} & \textbf{Status} \\
+\textbf{Constant} & \textbf{Coq Form} & \textbf{Status} \\
 \hline
-$k_B$ & Boltzmann constant & Required for Landauer \\
-$T$ & Temperature & Required for Landauer \\
-$\tau_\mu$ & Fundamental time & Required for $h$ derivation \\
-$d_\mu$ & Fundamental length & Required for $c$ structure \\
-$G$ & Gravitational constant & Cannot derive \\
-$m_e$ & Electron mass & Free parameter \\
-$m_\mu$ & Muon mass & Free parameter \\
-$m_p$ & Proton mass & Free parameter \\
-$h$ & Planck constant & \textit{Derived} (not axiom!) \\
-$c$ & Speed of light & \textit{Structure proven} \\
+$k_B$ & \texttt{Definition k\_B := /100} & Concrete placeholder \\
+$T$ & \texttt{Definition T := 1} & Concrete placeholder \\
+$h$ & \texttt{Definition h := 1} & Concrete placeholder \\
+$\tau_\mu$ & \texttt{Definition tau\_mu := h/(4*E\_landauer)} & Derived from $h$ \\
+$d_\mu$ & \texttt{Definition d\_mu := 1} & Concrete placeholder \\
+$G$ & \texttt{Definition G := 1} & Concrete placeholder \\
+$m_e$ & \texttt{Definition m\_electron := 1} & Concrete placeholder \\
+$m_\mu$ & \texttt{Definition m\_muon := 207} & Concrete placeholder \\
+$m_p$ & \texttt{Definition m\_proton := 1836} & Concrete placeholder \\
+$c$ & \texttt{Definition c := d\_mu/tau\_mu} & Derived from placeholders \\
 \hline
 \end{tabular}
 \end{center}
@@ -581,7 +580,7 @@ Theorem shor_reduction :
 \[
 \text{Factoring } N \quad \xrightarrow{\text{Shor reduction}} \quad \text{Finding period } r \quad \xrightarrow{\text{Quantum}} \quad O(\log^3 N)
 \]
-The Thiele Machine achieves similar reductions via partition discovery (revealing period structure).
+The Thiele Machine formalizes the same mathematical reduction (given period, extract factors via GCD) but does \textit{not} claim quantum-like speedup for the period-finding step itself.
 
 \textbf{Proof intuition:} Since $a^r \equiv 1 \pmod{N}$:
 \[
@@ -618,15 +617,18 @@ This is the mathematical core of Shor's algorithm: given the period $r$ of $a^r 
 Representative Euclidean algorithm:
 \begin{lstlisting}
 Fixpoint gcd_euclid (a b : nat) : nat :=
-  match b with
-  | 0 => a
-  | S b' => gcd_euclid b (a mod (S b'))
+  match a with
+  | 0 => b
+  | S a' => gcd_euclid (b mod S a') (S a')
   end.
 
-Theorem gcd_euclid_divides_left : 
+Theorem gcd_euclid_correct :
+  forall a b, gcd_euclid a b = Nat.gcd a b.
+
+Theorem gcd_euclid_divides_left :
   forall a b, Nat.divide (gcd_euclid a b) a.
 
-Theorem gcd_euclid_divides_right : 
+Theorem gcd_euclid_divides_right :
   forall a b, Nat.divide (gcd_euclid a b) b.
 \end{lstlisting}
 
@@ -661,40 +663,6 @@ Theorem gcd_euclid_divides_right :
 \textbf{Proof strategy:} Both theorems are proven by induction on the recursive structure of \texttt{gcd\_euclid}. The key insight: if $\gcd(b, a \bmod b) | b$ and $\gcd(b, a \bmod b) | (a \bmod b)$, then $\gcd(b, a \bmod b) | a$ (by the division algorithm).
 
 
-\paragraph{Understanding the Euclidean Algorithm:}
-
-\textbf{What is the Euclidean algorithm?} The \textbf{Euclidean algorithm} computes the greatest common divisor (GCD) of two numbers efficiently in $O(\log \min(a,b))$ time.
-
-\textbf{Algorithm breakdown:}
-\begin{itemize}
-    \item \textbf{Base case: b = 0} — If $b = 0$, then $\gcd(a, 0) = a$.
-    
-    \item \textbf{Recursive case: b > 0} — Replace $(a, b)$ with $(b, a \bmod b)$ and recurse.
-\end{itemize}
-
-\textbf{Why does this work?} Key insight: $\gcd(a, b) = \gcd(b, a \bmod b)$.
-\begin{itemize}
-    \item Any divisor of $a$ and $b$ also divides $a \bmod b$ (since $a = qb + (a \bmod b)$).
-    \item The algorithm terminates when $b = 0$ (guaranteed after $O(\log b)$ steps).
-\end{itemize}
-
-\textbf{Example:} $\gcd(48, 18)$:
-\begin{itemize}
-    \item $\gcd(48, 18) = \gcd(18, 48 \bmod 18) = \gcd(18, 12)$
-    \item $\gcd(18, 12) = \gcd(12, 18 \bmod 12) = \gcd(12, 6)$
-    \item $\gcd(12, 6) = \gcd(6, 12 \bmod 6) = \gcd(6, 0)$
-    \item $\gcd(6, 0) = 6$ (base case).
-\end{itemize}
-Result: $\gcd(48, 18) = 6$.
-
-\textbf{Theorems proven:}
-\begin{itemize}
-    \item \textbf{gcd\_euclid\_divides\_left:} The GCD divides $a$. Proof by induction on recursive structure.
-    \item \textbf{gcd\_euclid\_divides\_right:} The GCD divides $b$. Follows from divisibility preservation.
-\end{itemize}
-
-\textbf{Connection to Shor's algorithm:} The Euclidean algorithm is used to compute $\gcd(a^{r/2} - 1, N)$ in the Shor reduction. The Coq formalization ensures this step is correct.
-
 
 \subsection{Modular Arithmetic}
 
@@ -702,7 +670,7 @@ Representative modular arithmetic lemma:
 \begin{lstlisting}
 Definition mod_pow (n base exp : nat) : nat := ...
 
-Theorem mod_pow_mult : 
+Theorem mod_pow_add :
   forall n a b c, mod_pow n a (b + c) = ...
 \end{lstlisting}
 
@@ -738,33 +706,6 @@ Theorem mod_pow_mult :
 
 \textbf{Why is this important?} Period finding in Shor's algorithm requires computing $a^k \bmod N$ for many values of $k$. Modular exponentiation makes this feasible even for large $N$ (e.g., RSA-2048 with 617-digit numbers).
 
-
-\paragraph{Understanding the Modular Arithmetic Lemma:}
-
-\textbf{What is modular exponentiation?} \textbf{Modular exponentiation} computes $a^b \bmod n$ efficiently without computing the full power $a^b$ (which would overflow).
-
-\textbf{Definition:} \texttt{mod\_pow n base exp} computes $\text{base}^{\text{exp}} \bmod n$ using repeated squaring:
-\begin{itemize}
-    \item If $\text{exp} = 0$: return 1.
-    \item If $\text{exp}$ is even: $a^{2k} = (a^k)^2$, compute recursively.
-    \item If $\text{exp}$ is odd: $a^{2k+1} = a \cdot a^{2k}$, multiply and recurse.
-\end{itemize}
-This runs in $O(\log \text{exp})$ time instead of $O(\text{exp})$.
-
-\textbf{Theorem: mod\_pow\_mult} — Exponents add: $a^{b+c} \equiv a^b \cdot a^c \pmod{n}$.
-\begin{itemize}
-    \item This is the fundamental property of exponentiation.
-    \item Used extensively in period finding: $a^{k+r} \equiv a^k \cdot a^r \pmod{N}$.
-\end{itemize}
-
-\textbf{Example:} Compute $2^{10} \bmod 13$:
-\begin{itemize}
-    \item $2^{10} = (2^5)^2$. Compute $2^5 = 32 \equiv 6 \pmod{13}$.
-    \item $2^{10} \equiv 6^2 = 36 \equiv 10 \pmod{13}$.
-\end{itemize}
-Fast: only 2 multiplications instead of 10.
-
-\textbf{Connection to Shor's algorithm:} Period finding requires computing $a^k \bmod N$ for many $k$. Modular exponentiation makes this feasible.
 
 
 \section{Bridge Modules}
@@ -838,7 +779,7 @@ Each bridge defines:
 
 \subsection{BoxWorld Bridge}
 
-The file \path{coq/bridge/BoxWorld_to_Kernel.v} (6.8KB) embeds finite box-world predictions into kernel receipts:
+The file \path{coq/bridge/BoxWorld_to_Kernel.v} (7.2KB) embeds finite box-world predictions into kernel receipts:
 
 \begin{lstlisting}
 (** Box-world trial embedding *)
@@ -846,38 +787,44 @@ Definition TheoryTrial : Type := KC.Trial.
 Definition TheoryProgram : Type := list TheoryTrial.
 
 (** Translation to kernel instructions *)
-Definition translate_trial (t : TheoryTrial) : vm_instruction :=
-  instr_chsh_trial (trial_x t) (trial_y t) (trial_a t) (trial_b t) 1.
+Definition compile_trial (t : TheoryTrial) : vm_instruction :=
+  instr_chsh_trial t.(KC.t_x) t.(KC.t_y) t.(KC.t_a) t.(KC.t_b) 0.
+
+Definition compile (p : TheoryProgram) : list vm_instruction :=
+  map compile_trial p.
 
 (** Simulation theorem: receipts recover theory trials *)
 Theorem trials_preserved :
-  forall prog s0 receipts,
-    run_program (translate_program prog) s0 = (s', receipts) ->
-    decode_trials receipts = prog.
+  forall prog s0,
+    program_bits_ok prog ->
+    decode_trials (run_program (compile prog) s0) = prog.
 \end{lstlisting}
 
 \textbf{What this proves:} Any finite box-world experiment (a list of CHSH trials with inputs $x,y$ and outputs $a,b$) can be embedded into kernel instructions, and the receipts exactly recover the original trials. This is a \textit{semantics-preserving embedding} of physical observables.
 
 \subsection{FiniteQuantum Bridge}
 
-The file \path{coq/bridge/FiniteQuantum_to_Kernel.v} (8.3KB) extends the box-world bridge to quantum-admissible correlations:
+The file \path{coq/bridge/FiniteQuantum_to_Kernel.v} (8.9KB) extends the box-world bridge to quantum-admissible correlations:
 
 \begin{lstlisting}
-(** Tsirelson-envelope admissibility *)
-Definition quantum_admissible (trials : list Trial) : Prop :=
-  chsh_statistic trials <= kernel_tsirelson_bound_q.
+(** Tsirelson-envelope dataset *)
+Definition tsirelson_envelope_program : TheoryProgram :=
+  repeat t11 n_per_setting ++
+  repeat t10 n_per_setting ++ ... .
 
-(** Concrete finite dataset matching policy threshold *)
-Definition policy_threshold_dataset : list Trial := [...].
+(** Bits-well-formedness *)
+Lemma tsirelson_envelope_program_bits_ok :
+  program_bits_ok tsirelson_envelope_program.
 
-Lemma dataset_matches_threshold :
-  chsh_statistic policy_threshold_dataset = 5657 / 2000.
+(** CHSH statistic matches policy threshold *)
+Theorem tsirelson_envelope_program_chsh :
+  chsh_from_trials tsirelson_envelope_program = 5657 # 2000.
 
-(** Simulation theorem for quantum-admissible predictions *)
-Theorem quantum_trials_preserved :
-  forall prog,
-    quantum_admissible prog ->
-    decode_trials (run_quantum_program prog) = prog.
+(** Simulation theorem for finite quantum predictions *)
+Theorem simulation_correctness_trials :
+  forall prog s0,
+    program_bits_ok prog ->
+    decode_trials (run_program (compile prog) s0) = prog.
 \end{lstlisting}
 
 \textbf{What this proves:} Quantum-admissible correlations (those satisfying the Tsirelson bound) embed into the kernel with exact receipt recovery. The file also provides a concrete finite dataset achieving the policy threshold $5657/2000 \approx 2.8285 \approx 2\sqrt{2}$, making the quantum bound computationally verifiable.

@@ -15,7 +15,7 @@ The Thiele Machine is different: there is a \textbf{hardware implementation} in 
     \item \textbf{Enforcement}: Hardware can physically enforce invariants that software might violate
 \end{enumerate}
 
-The key insight is that the $\mu$-ledger's monotonicity is not just a theorem---it is \textit{physically enforced} by the hardware. The $\mu$-core gates ledger updates and rejects any proposed cost update that would decrease the accumulated value (see \texttt{thielecpu/hardware/rtl/mu\_core.v}). This makes $\mu$-decreasing transitions architecturally invalid rather than merely discouraged by software.
+The key insight is that the $\mu$-ledger's monotonicity is not just a theorem---it is \textit{physically enforced} by the hardware. The $\mu$-ledger monotonicity gate inside the Kami-generated CPU core rejects any proposed cost update that would decrease the accumulated value. This makes $\mu$-decreasing transitions architecturally invalid rather than merely discouraged by software.
 
 \subsection{From Proofs to Silicon}
 
@@ -36,7 +36,7 @@ The hardware implementation consists of a synthesizable Verilog core plus suppor
 
 \subsection{Core Modules}
 
-The complete RTL consists of 7 synthesizable source files and 8 testbench files (15 Verilog files total):
+The complete RTL consists of 3 synthesizable source files, 1 generated opcode header, and 2 testbench files:
 
 \begin{center}
 {\footnotesize
@@ -44,18 +44,17 @@ The complete RTL consists of 7 synthesizable source files and 8 testbench files 
 \hline
 \textbf{RTL Module} & \textbf{Lines} & \textbf{Purpose} \\
 \hline
-\texttt{thiele\_cpu\_unified.v} & 1,413 & Unified fetch/decode/execute pipeline \\
-\texttt{partition\_core.v} & 251 & PNEW/PSPLIT/PMERGE partition operations \\
-\texttt{chsh\_partition.v} & 330 & CHSH supra-quantum distribution engine \\
-\texttt{mu\_core.v} & 188 & $\mu$-ledger enforcement and monotonicity gate \\
-\texttt{mu\_alu.v} & 167 & Q16.16 fixed-point cost arithmetic \\
-\texttt{receipt\_integrity\_checker.v} & 120 & Hardware receipt chain validation \\
-\texttt{synth\_lite\_out.v} & --- & Yosys gate-level synthesis output \\
+\texttt{thiele\_cpu\_kami.v} & 5,792 & Kami-generated CPU with all 31 opcodes \\
+\texttt{thiele\_cpu\_top.v} & 113 & Top-level wrapper for synthesis \\
+\texttt{RegFile.v} & 100 & BSC standard library register file \\
+\texttt{generated\_opcodes.vh} & 40 & Opcode constants (generated from Coq) \\
+\texttt{thiele\_cpu\_kami\_tb.v} & 653 & Interactive testbench \\
+\texttt{thiele\_cpu\_kami\_batch\_tb.v} & 269 & Batch co-simulation testbench \\
 \hline
 \end{tabular}}
 \end{center}
 
-Each accelerator module (\texttt{partition\_core}, \texttt{mu\_alu}, \texttt{receipt\_integrity\_checker}, \texttt{chsh\_partition}) has a standalone co-simulation harness in \path{thielecpu/hardware/accel\_cosim.py} that generates testbenches, runs them through iverilog, and parses JSON output for cross-layer comparison. This means every accelerator block is independently testable against Python reference implementations---you don't need to run the full CPU to verify that the $\mu$-ALU computes $1.5 + 2.25 = 3.75$ correctly in Q16.16.
+The partition, $\mu$-ALU, and CHSH logic are consolidated within \texttt{thiele\_cpu\_kami.v} (the Kami-generated RTL). The co-simulation harness (\path{thielecpu/hardware/cosim.py}) generates testbenches, runs them through iverilog or Verilator, and parses output for cross-layer comparison. This means every opcode category is testable against Python reference implementations---you don't need manual waveform inspection to verify that the $\mu$-ALU charges costs correctly.
 
 \subsection{Instruction Encoding}
 
@@ -70,7 +69,7 @@ localparam [7:0] OPCODE_LJOIN = 8'h04;
 localparam [7:0] OPCODE_MDLACC = 8'h05;
 localparam [7:0] OPCODE_PDISCOVER = 8'h06;
 localparam [7:0] OPCODE_XFER = 8'h07;
-localparam [7:0] OPCODE_PYEXEC = 8'h08;
+localparam [7:0] OPCODE_LOAD_IMM = 8'h08;
 localparam [7:0] OPCODE_CHSH_TRIAL = 8'h09;
 localparam [7:0] OPCODE_XOR_LOAD = 8'h0A;
 localparam [7:0] OPCODE_XOR_ADD = 8'h0B;
@@ -79,6 +78,19 @@ localparam [7:0] OPCODE_XOR_RANK = 8'h0D;
 localparam [7:0] OPCODE_EMIT = 8'h0E;
 localparam [7:0] OPCODE_REVEAL = 8'h0F;
 localparam [7:0] OPCODE_ORACLE_HALTS = 8'h10;
+localparam [7:0] OPCODE_LOAD = 8'h11;
+localparam [7:0] OPCODE_STORE = 8'h12;
+localparam [7:0] OPCODE_ADD = 8'h13;
+localparam [7:0] OPCODE_SUB = 8'h14;
+localparam [7:0] OPCODE_JUMP = 8'h15;
+localparam [7:0] OPCODE_JNEZ = 8'h16;
+localparam [7:0] OPCODE_CALL = 8'h17;
+localparam [7:0] OPCODE_RET = 8'h18;
+localparam [7:0] OPCODE_CHECKPOINT = 8'h19;
+localparam [7:0] OPCODE_READ_PORT = 8'h1A;
+localparam [7:0] OPCODE_WRITE_PORT = 8'h1B;
+localparam [7:0] OPCODE_HEAP_LOAD = 8'h1C;
+localparam [7:0] OPCODE_HEAP_STORE = 8'h1D;
 localparam [7:0] OPCODE_HALT = 8'hFF;
 \end{lstlisting}
 
@@ -95,13 +107,19 @@ localparam [7:0] OPCODE_HALT = 8'hFF;
     \item \textbf{OPCODE\_LJOIN (0x04):} Join localities (relaxes constraints).
     \item \textbf{OPCODE\_MDLACC (0x05):} Accumulate $\mu$ ledger.
     \item \textbf{OPCODE\_PDISCOVER (0x06):} Discover partition structure.
-    \item \textbf{OPCODE\_XFER (0x07):} Transfer data between modules.
-    \item \textbf{OPCODE\_PYEXEC (0x08):} Execute Python sandboxed code.
+    \item \textbf{OPCODE\_XFER (0x07):} Transfer data between registers.
+    \item \textbf{OPCODE\_LOAD\_IMM (0x08):} Load immediate value into register.
     \item \textbf{OPCODE\_CHSH\_TRIAL (0x09):} Execute CHSH game trial.
     \item \textbf{OPCODE\_XOR\_* (0x0A-0x0D):} Linear algebra operations (Gaussian elimination for partition discovery).
     \item \textbf{OPCODE\_EMIT (0x0E):} Emit receipt/certificate.
     \item \textbf{OPCODE\_REVEAL (0x0F):} Reveal structural information bits at $\mu$-cost.
-    \item \textbf{OPCODE\_ORACLE\_HALTS (0x10):} Query halting oracle (for TOE demonstrations).
+    \item \textbf{OPCODE\_ORACLE\_HALTS (0x10):} Query halting oracle.
+    \item \textbf{OPCODE\_LOAD/STORE (0x11-0x12):} Memory access operations.
+    \item \textbf{OPCODE\_ADD/SUB (0x13-0x14):} Arithmetic operations.
+    \item \textbf{OPCODE\_JUMP/JNEZ/CALL/RET (0x15-0x18):} Control flow.
+    \item \textbf{OPCODE\_CHECKPOINT (0x19):} Save execution checkpoint.
+    \item \textbf{OPCODE\_READ\_PORT/WRITE\_PORT (0x1A-0x1B):} Port I/O operations.
+    \item \textbf{OPCODE\_HEAP\_LOAD/HEAP\_STORE (0x1C-0x1D):} Heap memory access.
     \item \textbf{OPCODE\_HALT (0xFF):} Halt execution.
 \end{itemize}
 

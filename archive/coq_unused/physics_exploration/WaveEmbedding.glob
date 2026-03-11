@@ -1,0 +1,344 @@
+DIGEST cbbe8a1dd884f3515b3258c43d13c3db
+FPhysicsExploration.WaveEmbedding
+R656:659 Coq.Lists.List <> <> lib
+R661:663 Coq.micromega.Lia <> <> lib
+R665:678 Coq.Arith.PeanoNat <> <> lib
+R680:685 Coq.Strings.String <> <> lib
+R716:724 Physics.WaveModel <> <> lib
+R754:760 Kernel.VMState <> <> lib
+R762:767 Kernel.VMStep <> <> lib
+R769:788 Kernel.MuLedgerConservation <> <> lib
+R790:804 Kernel.SimulationProof <> <> lib
+R842:861 ThieleManifold.ThieleManifoldBridge <> <> lib
+R863:880 ThieleManifold.PhysicsIsomorphism <> <> lib
+R891:903 Coq.Lists.List ListNotations <> mod
+abbrev 1031:1036 <> WState
+R1042:1051 ThieleManifold.PhysicsIsomorphism <> phys_state proj
+R1053:1062 ThieleManifold.PhysicsIsomorphism <> wave_model def
+def 1078:1098 <> module_from_wave_cell
+R1105:1112 Physics.WaveModel <> WaveCell rec
+binder 1101:1101 <> c:1
+R1117:1127 Kernel.VMState <> ModuleState rec
+R1137:1149 Kernel.VMState <> module_region proj
+R1137:1149 Kernel.VMState <> module_region proj
+R1137:1149 Kernel.VMState <> module_region proj
+R1186:1198 Kernel.VMState <> module_axioms proj
+R1186:1198 Kernel.VMState <> module_axioms proj
+R1154:1154 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1165:1166 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1178:1178 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1155:1162 Physics.WaveModel <> left_amp proj
+R1164:1164 PhysicsExploration.WaveEmbedding <> c:1 var
+R1167:1175 Physics.WaveModel <> right_amp proj
+R1177:1177 PhysicsExploration.WaveEmbedding <> c:1 var
+R1203:1204 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+def 1222:1241 <> wave_encoded_modules
+R1248:1253 PhysicsExploration.WaveEmbedding <> WState abbrev
+binder 1244:1244 <> s:2
+R1258:1261 Coq.Init.Datatypes <> list ind
+R1272:1274 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1264:1271 Kernel.VMState <> ModuleID def
+R1275:1285 Kernel.VMState <> ModuleState rec
+R1293:1295 Coq.Lists.List <> map def
+R1337:1337 PhysicsExploration.WaveEmbedding <> s:2 var
+binder 1302:1302 <> c:3
+R1307:1307 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1309:1310 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1334:1334 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1311:1331 PhysicsExploration.WaveEmbedding <> module_from_wave_cell def
+R1333:1333 PhysicsExploration.WaveEmbedding <> c:3 var
+def 1352:1362 <> wave_encode
+R1369:1374 PhysicsExploration.WaveEmbedding <> WState abbrev
+binder 1365:1365 <> s:4
+R1379:1385 Kernel.VMState <> VMState rec
+R1395:1402 Kernel.VMState <> vm_graph proj
+R1395:1402 Kernel.VMState <> vm_graph proj
+R1395:1402 Kernel.VMState <> vm_graph proj
+R1509:1515 Kernel.VMState <> vm_csrs proj
+R1509:1515 Kernel.VMState <> vm_csrs proj
+R1602:1608 Kernel.VMState <> vm_regs proj
+R1602:1608 Kernel.VMState <> vm_regs proj
+R1631:1636 Kernel.VMState <> vm_mem proj
+R1631:1636 Kernel.VMState <> vm_mem proj
+R1660:1664 Kernel.VMState <> vm_pc proj
+R1660:1664 Kernel.VMState <> vm_pc proj
+R1677:1681 Kernel.VMState <> vm_mu proj
+R1677:1681 Kernel.VMState <> vm_mu proj
+R1694:1705 Kernel.VMState <> vm_mu_tensor proj
+R1694:1705 Kernel.VMState <> vm_mu_tensor proj
+R1737:1742 Kernel.VMState <> vm_err proj
+R1737:1742 Kernel.VMState <> vm_err proj
+R1759:1770 Kernel.VMState <> vm_logic_acc proj
+R1759:1770 Kernel.VMState <> vm_logic_acc proj
+R1783:1792 Kernel.VMState <> vm_mstatus proj
+R1783:1792 Kernel.VMState <> vm_mstatus proj
+R1805:1814 Kernel.VMState <> vm_witness proj
+R1805:1814 Kernel.VMState <> vm_witness proj
+R1845:1856 Kernel.VMState <> vm_certified proj
+R1845:1856 Kernel.VMState <> vm_certified proj
+R1410:1419 Kernel.VMState <> pg_next_id proj
+R1410:1419 Kernel.VMState <> pg_next_id proj
+R1410:1419 Kernel.VMState <> pg_next_id proj
+R1463:1472 Kernel.VMState <> pg_modules proj
+R1463:1472 Kernel.VMState <> pg_modules proj
+R1424:1424 Coq.Init.Datatypes <> S constr
+R1427:1437 Coq.Lists.List <> length abbrev
+R1439:1439 PhysicsExploration.WaveEmbedding <> s:4 var
+R1477:1496 PhysicsExploration.WaveEmbedding <> wave_encoded_modules def
+R1498:1498 PhysicsExploration.WaveEmbedding <> s:4 var
+R1523:1535 Kernel.VMState <> csr_cert_addr proj
+R1523:1535 Kernel.VMState <> csr_cert_addr proj
+R1523:1535 Kernel.VMState <> csr_cert_addr proj
+R1543:1552 Kernel.VMState <> csr_status proj
+R1543:1552 Kernel.VMState <> csr_status proj
+R1560:1566 Kernel.VMState <> csr_err proj
+R1560:1566 Kernel.VMState <> csr_err proj
+R1574:1586 Kernel.VMState <> csr_heap_base proj
+R1574:1586 Kernel.VMState <> csr_heap_base proj
+R1613:1618 Coq.Lists.List <> repeat def
+R1641:1646 Coq.Lists.List <> repeat def
+R1710:1729 Kernel.VMState <> vm_mu_tensor_default def
+R1747:1751 Coq.Init.Datatypes <> false constr
+R1819:1837 Kernel.VMState <> witness_counts_zero def
+R1861:1865 Coq.Init.Datatypes <> false constr
+def 1883:1898 <> decode_wave_cell
+R1905:1915 Kernel.VMState <> ModuleState rec
+binder 1901:1901 <> m:5
+R1920:1927 Physics.WaveModel <> WaveCell rec
+R1943:1955 Kernel.VMState <> module_region proj
+R1940:1940 PhysicsExploration.WaveEmbedding <> m:5 var
+R1967:1967 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1969:1970 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1972:1972 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1980:1987 Physics.WaveModel <> left_amp proj
+R1980:1987 Physics.WaveModel <> left_amp proj
+R1980:1987 Physics.WaveModel <> left_amp proj
+R1995:2003 Physics.WaveModel <> right_amp proj
+R1995:2003 Physics.WaveModel <> right_amp proj
+R2025:2032 Physics.WaveModel <> left_amp proj
+R2025:2032 Physics.WaveModel <> left_amp proj
+R2025:2032 Physics.WaveModel <> left_amp proj
+R2040:2048 Physics.WaveModel <> right_amp proj
+R2040:2048 Physics.WaveModel <> right_amp proj
+def 2077:2095 <> wave_decode_modules
+R2105:2108 Coq.Init.Datatypes <> list ind
+R2119:2121 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2111:2118 Kernel.VMState <> ModuleID def
+R2122:2132 Kernel.VMState <> ModuleState rec
+binder 2098:2101 <> mods:6
+R2138:2143 PhysicsExploration.WaveEmbedding <> WState abbrev
+R2150:2152 Coq.Lists.List <> map def
+R2190:2193 PhysicsExploration.WaveEmbedding <> mods:6 var
+R2160:2160 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2162:2163 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2165:2165 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 2164:2164 <> m:7
+binder 2160:2165 <> pat:8
+R2170:2185 PhysicsExploration.WaveEmbedding <> decode_wave_cell def
+R2187:2187 PhysicsExploration.WaveEmbedding <> m:7 var
+def 2208:2218 <> wave_decode
+R2225:2231 Kernel.VMState <> VMState rec
+binder 2221:2221 <> s:9
+R2236:2241 PhysicsExploration.WaveEmbedding <> WState abbrev
+R2274:2283 Kernel.VMState <> pg_modules proj
+R2263:2270 Kernel.VMState <> vm_graph proj
+R2260:2260 PhysicsExploration.WaveEmbedding <> s:9 var
+binder 2252:2255 <> mods:10
+R2294:2300 Coq.Arith.PeanoNat Nat eqb def
+R2305:2309 Kernel.VMState <> vm_pc proj
+R2302:2302 PhysicsExploration.WaveEmbedding <> s:9 var
+R2351:2359 Physics.WaveModel <> wave_step def
+R2362:2380 PhysicsExploration.WaveEmbedding <> wave_decode_modules def
+R2382:2385 PhysicsExploration.WaveEmbedding <> mods:10 var
+R2319:2337 PhysicsExploration.WaveEmbedding <> wave_decode_modules def
+R2339:2342 PhysicsExploration.WaveEmbedding <> mods:10 var
+prf 2455:2480 <> decode_cell_from_wave_cell
+R2495:2502 Physics.WaveModel <> WaveCell rec
+binder 2491:2491 <> c:11
+R2549:2551 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2507:2522 PhysicsExploration.WaveEmbedding <> decode_wave_cell def
+R2525:2545 PhysicsExploration.WaveEmbedding <> module_from_wave_cell def
+R2547:2547 PhysicsExploration.WaveEmbedding <> c:11 var
+R2552:2552 PhysicsExploration.WaveEmbedding <> c:11 var
+prf 2651:2669 <> wave_decode_encoded
+R2684:2689 PhysicsExploration.WaveEmbedding <> WState abbrev
+binder 2680:2680 <> s:12
+R2738:2740 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2694:2712 PhysicsExploration.WaveEmbedding <> wave_decode_modules def
+R2715:2734 PhysicsExploration.WaveEmbedding <> wave_encoded_modules def
+R2736:2736 PhysicsExploration.WaveEmbedding <> s:12 var
+R2741:2741 PhysicsExploration.WaveEmbedding <> s:12 var
+R2769:2787 PhysicsExploration.WaveEmbedding <> wave_decode_modules def
+R2790:2809 PhysicsExploration.WaveEmbedding <> wave_encoded_modules def
+R2864:2889 PhysicsExploration.WaveEmbedding <> decode_cell_from_wave_cell thm
+R2864:2889 PhysicsExploration.WaveEmbedding <> decode_cell_from_wave_cell thm
+R2864:2889 PhysicsExploration.WaveEmbedding <> decode_cell_from_wave_cell thm
+prf 2977:2997 <> wave_decode_encode_id
+R3012:3017 PhysicsExploration.WaveEmbedding <> WState abbrev
+binder 3008:3008 <> s:13
+R3049:3051 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3022:3032 PhysicsExploration.WaveEmbedding <> wave_decode def
+R3035:3045 PhysicsExploration.WaveEmbedding <> wave_encode def
+R3047:3047 PhysicsExploration.WaveEmbedding <> s:13 var
+R3052:3052 PhysicsExploration.WaveEmbedding <> s:13 var
+R3080:3090 PhysicsExploration.WaveEmbedding <> wave_decode def
+R3093:3103 PhysicsExploration.WaveEmbedding <> wave_encode def
+R3125:3128 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R3137:3140 Coq.Init.Datatypes <> true constr
+R3162:3173 Coq.Arith.PeanoNat Nat eqb_refl thm
+R3125:3128 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R3137:3140 Coq.Init.Datatypes <> true constr
+R3162:3173 Coq.Arith.PeanoNat Nat eqb_refl thm
+R3185:3203 PhysicsExploration.WaveEmbedding <> wave_decode_encoded thm
+R3185:3203 PhysicsExploration.WaveEmbedding <> wave_decode_encoded thm
+def 3259:3274 <> wave_trace_instr
+R3278:3291 Kernel.VMStep VMStep vm_instruction ind
+R3296:3305 Kernel.VMStep VMStep instr_emit constr
+R3309:3319 Coq.Strings.String <> EmptyString constr
+def 3335:3344 <> wave_trace
+R3348:3351 Coq.Init.Datatypes <> list ind
+R3353:3366 Kernel.VMStep VMStep vm_instruction ind
+R3371:3371 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3388:3388 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3372:3387 PhysicsExploration.WaveEmbedding <> wave_trace_instr def
+prf 3451:3470 <> wave_trace_cost_zero
+binder 3483:3484 <> pc:14
+binder 3486:3490 <> instr:15
+R3529:3532 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3516:3518 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3493:3501 Coq.Lists.List <> nth_error def
+R3514:3515 PhysicsExploration.WaveEmbedding <> pc:14 var
+R3503:3512 PhysicsExploration.WaveEmbedding <> wave_trace def
+R3519:3522 Coq.Init.Datatypes <> Some constr
+R3524:3528 PhysicsExploration.WaveEmbedding <> instr:15 var
+R3555:3557 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3533:3548 Kernel.VMStep VMStep instruction_cost def
+R3550:3554 PhysicsExploration.WaveEmbedding <> instr:15 var
+prf 3750:3776 <> thiele_implements_wave_step
+R3793:3798 PhysicsExploration.WaveEmbedding <> WState abbrev
+binder 3789:3789 <> S:16
+R3854:3860 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3805:3815 PhysicsExploration.WaveEmbedding <> wave_decode def
+R3818:3823 Kernel.SimulationProof <> run_vm def
+R3827:3836 PhysicsExploration.WaveEmbedding <> wave_trace def
+R3839:3849 PhysicsExploration.WaveEmbedding <> wave_encode def
+R3851:3851 PhysicsExploration.WaveEmbedding <> S:16 var
+R3861:3869 ThieleManifold.PhysicsIsomorphism <> phys_step proj
+R3871:3880 ThieleManifold.PhysicsIsomorphism <> wave_model def
+R3882:3882 PhysicsExploration.WaveEmbedding <> S:16 var
+R3910:3919 PhysicsExploration.WaveEmbedding <> wave_trace def
+R3938:3953 PhysicsExploration.WaveEmbedding <> wave_trace_instr def
+R3956:3966 PhysicsExploration.WaveEmbedding <> wave_encode def
+R3969:3979 PhysicsExploration.WaveEmbedding <> wave_decode def
+R4001:4019 PhysicsExploration.WaveEmbedding <> wave_decode_encoded thm
+R4001:4019 PhysicsExploration.WaveEmbedding <> wave_decode_encoded thm
+R4001:4019 PhysicsExploration.WaveEmbedding <> wave_decode_encoded thm
+prf 4083:4106 <> vm_preserves_wave_energy
+R4123:4128 PhysicsExploration.WaveEmbedding <> WState abbrev
+binder 4119:4119 <> S:17
+R4198:4204 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4135:4145 Physics.WaveModel <> wave_energy def
+R4148:4158 PhysicsExploration.WaveEmbedding <> wave_decode def
+R4161:4166 Kernel.SimulationProof <> run_vm def
+R4170:4179 PhysicsExploration.WaveEmbedding <> wave_trace def
+R4182:4192 PhysicsExploration.WaveEmbedding <> wave_encode def
+R4194:4194 PhysicsExploration.WaveEmbedding <> S:17 var
+R4205:4215 Physics.WaveModel <> wave_energy def
+R4217:4217 PhysicsExploration.WaveEmbedding <> S:17 var
+R4246:4272 PhysicsExploration.WaveEmbedding <> thiele_implements_wave_step thm
+R4246:4272 PhysicsExploration.WaveEmbedding <> thiele_implements_wave_step thm
+R4246:4272 PhysicsExploration.WaveEmbedding <> thiele_implements_wave_step thm
+R4283:4303 Physics.WaveModel <> wave_energy_conserved thm
+R4283:4303 Physics.WaveModel <> wave_energy_conserved thm
+prf 4377:4402 <> vm_preserves_wave_momentum
+R4419:4424 PhysicsExploration.WaveEmbedding <> WState abbrev
+binder 4415:4415 <> S:18
+R4496:4502 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4431:4443 Physics.WaveModel <> wave_momentum def
+R4446:4456 PhysicsExploration.WaveEmbedding <> wave_decode def
+R4459:4464 Kernel.SimulationProof <> run_vm def
+R4468:4477 PhysicsExploration.WaveEmbedding <> wave_trace def
+R4480:4490 PhysicsExploration.WaveEmbedding <> wave_encode def
+R4492:4492 PhysicsExploration.WaveEmbedding <> S:18 var
+R4503:4515 Physics.WaveModel <> wave_momentum def
+R4517:4517 PhysicsExploration.WaveEmbedding <> S:18 var
+R4546:4572 PhysicsExploration.WaveEmbedding <> thiele_implements_wave_step thm
+R4546:4572 PhysicsExploration.WaveEmbedding <> thiele_implements_wave_step thm
+R4546:4572 PhysicsExploration.WaveEmbedding <> thiele_implements_wave_step thm
+R4583:4605 Physics.WaveModel <> wave_momentum_conserved thm
+R4583:4605 Physics.WaveModel <> wave_momentum_conserved thm
+def 4667:4680 <> wave_embedding
+R4684:4698 ThieleManifold.PhysicsIsomorphism <> ThieleEmbedding rec
+R4700:4709 ThieleManifold.PhysicsIsomorphism <> wave_model def
+R4731:4739 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
+R4731:4739 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
+R4731:4739 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
+R4768:4777 ThieleManifold.PhysicsIsomorphism <> emb_encode proj
+R4768:4777 ThieleManifold.PhysicsIsomorphism <> emb_encode proj
+R4807:4816 ThieleManifold.PhysicsIsomorphism <> emb_decode proj
+R4807:4816 ThieleManifold.PhysicsIsomorphism <> emb_decode proj
+R4846:4858 ThieleManifold.PhysicsIsomorphism <> emb_roundtrip proj
+R4846:4858 ThieleManifold.PhysicsIsomorphism <> emb_roundtrip proj
+R4878:4889 ThieleManifold.PhysicsIsomorphism <> emb_step_sim proj
+R4878:4889 ThieleManifold.PhysicsIsomorphism <> emb_step_sim proj
+R4909:4921 ThieleManifold.PhysicsIsomorphism <> emb_cost_free proj
+R4909:4921 ThieleManifold.PhysicsIsomorphism <> emb_cost_free proj
+R4965:4981 ThieleManifold.PhysicsIsomorphism <> emb_cost_positive proj
+R4965:4981 ThieleManifold.PhysicsIsomorphism <> emb_cost_positive proj
+R4744:4753 PhysicsExploration.WaveEmbedding <> wave_trace def
+R4782:4792 PhysicsExploration.WaveEmbedding <> wave_encode def
+R4821:4831 PhysicsExploration.WaveEmbedding <> wave_decode def
+R4926:4929 Coq.Init.Datatypes <> Some constr
+R4931:4950 PhysicsExploration.WaveEmbedding <> wave_trace_cost_zero thm
+R4986:4989 Coq.Init.Datatypes <> None constr
+R4731:4739 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
+R4731:4739 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
+R4731:4739 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
+R4768:4777 ThieleManifold.PhysicsIsomorphism <> emb_encode proj
+R4768:4777 ThieleManifold.PhysicsIsomorphism <> emb_encode proj
+R4807:4816 ThieleManifold.PhysicsIsomorphism <> emb_decode proj
+R4807:4816 ThieleManifold.PhysicsIsomorphism <> emb_decode proj
+R4846:4858 ThieleManifold.PhysicsIsomorphism <> emb_roundtrip proj
+R4846:4858 ThieleManifold.PhysicsIsomorphism <> emb_roundtrip proj
+R4878:4889 ThieleManifold.PhysicsIsomorphism <> emb_step_sim proj
+R4878:4889 ThieleManifold.PhysicsIsomorphism <> emb_step_sim proj
+R4909:4921 ThieleManifold.PhysicsIsomorphism <> emb_cost_free proj
+R4909:4921 ThieleManifold.PhysicsIsomorphism <> emb_cost_free proj
+R4965:4981 ThieleManifold.PhysicsIsomorphism <> emb_cost_positive proj
+R4965:4981 ThieleManifold.PhysicsIsomorphism <> emb_cost_positive proj
+R4744:4753 PhysicsExploration.WaveEmbedding <> wave_trace def
+R4782:4792 PhysicsExploration.WaveEmbedding <> wave_encode def
+R4821:4831 PhysicsExploration.WaveEmbedding <> wave_decode def
+R4926:4929 Coq.Init.Datatypes <> Some constr
+R4931:4950 PhysicsExploration.WaveEmbedding <> wave_trace_cost_zero thm
+R4986:4989 Coq.Init.Datatypes <> None constr
+R5005:5025 PhysicsExploration.WaveEmbedding <> wave_decode_encode_id thm
+R5005:5025 PhysicsExploration.WaveEmbedding <> wave_decode_encode_id thm
+R5038:5064 PhysicsExploration.WaveEmbedding <> thiele_implements_wave_step thm
+R5038:5064 PhysicsExploration.WaveEmbedding <> thiele_implements_wave_step thm
+prf 5144:5171 <> wave_trace_cost_free_witness
+R5177:5201 ThieleManifold.PhysicsIsomorphism <> embedding_trace_cost_free def
+R5203:5216 PhysicsExploration.WaveEmbedding <> wave_embedding def
+R5233:5252 PhysicsExploration.WaveEmbedding <> wave_trace_cost_zero thm
+R5233:5252 PhysicsExploration.WaveEmbedding <> wave_trace_cost_zero thm
+prf 5322:5349 <> wave_irreversible_count_zero
+binder 5362:5365 <> fuel:19
+binder 5367:5370 <> s_vm:20
+R5416:5418 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5377:5394 Kernel.MuLedgerConservation <> irreversible_count def
+R5396:5399 PhysicsExploration.WaveEmbedding <> fuel:19 var
+R5401:5410 PhysicsExploration.WaveEmbedding <> wave_trace def
+R5412:5415 PhysicsExploration.WaveEmbedding <> s_vm:20 var
+R5438:5480 ThieleManifold.PhysicsIsomorphism <> reversible_trace_irreversibility_count_zero thm
+R5508:5535 PhysicsExploration.WaveEmbedding <> wave_trace_cost_free_witness thm
+R5493:5506 PhysicsExploration.WaveEmbedding <> wave_embedding def
+R5438:5480 ThieleManifold.PhysicsIsomorphism <> reversible_trace_irreversibility_count_zero thm
+R5508:5535 PhysicsExploration.WaveEmbedding <> wave_trace_cost_free_witness thm
+R5493:5506 PhysicsExploration.WaveEmbedding <> wave_embedding def
+prf 5601:5615 <> wave_embeddable
+R5619:5628 ThieleManifold.PhysicsIsomorphism <> embeddable def
+R5630:5639 ThieleManifold.PhysicsIsomorphism <> wave_model def
+R5656:5669 PhysicsExploration.WaveEmbedding <> wave_embedding def
+R5678:5678 Coq.Init.Logic <> I constr
+R5656:5669 PhysicsExploration.WaveEmbedding <> wave_embedding def
+R5678:5678 Coq.Init.Logic <> I constr

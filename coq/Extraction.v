@@ -6,7 +6,7 @@
   The full extraction with all modules (Receipt, CHSH, MuCost, etc.) causes
   OCaml stack overflow during garbage collection due to deeply nested proof
   structures. This minimal extraction includes only the core VM semantics
-  needed by tools/extracted_vm_runner.ml
+  needed by build/extracted_vm_runner.ml
 
   Note: Other experimental features (receipt validation, CHSH extraction, etc.)  
   are verified in Coq but not extracted to OCaml to avoid the stack overflow issue.
@@ -63,18 +63,32 @@ Extract Constant VMState.word32_xor =>
 Extract Constant VMState.word32_popcount =>
   "(fun x -> let v = x land 0xFFFFFFFF in let rec pc v acc = if v = 0 then acc else pc (v land (v - 1)) (acc + 1) in pc v 0)".
 
-(* Ensure OCaml callers of [vm_apply] get NoFI enforcement by default.
-   [vm_apply_nofi] uses [vm_apply_unsafe], so this alias does not recurse. *)
-Extract Constant SimulationProof.vm_apply => "vm_apply_runtime".
+Extract Constant VMState.word32_and =>
+  "(fun a b -> a land b land 0xFFFFFFFF)".
+
+Extract Constant VMState.word32_or =>
+  "(fun a b -> (a lor b) land 0xFFFFFFFF)".
+
+Extract Constant VMState.word32_shl =>
+  "(fun a b -> (a lsl (b mod 32)) land 0xFFFFFFFF)".
+
+Extract Constant VMState.word32_shr =>
+  "(fun a b -> (a land 0xFFFFFFFF) lsr (b mod 32))".
+
+Extract Constant VMState.word32_mul =>
+  "(fun a b -> (a * b) land 0xFFFFFFFF)".
+
+(* All three are aliases for the same function; extract them all and let
+   OCaml's sequential let-bindings resolve the references. *)
 
 Extraction "../build/thiele_core.ml"
   VMStep.vm_instruction
   VMStep.nofi_step_cost_okb
   VMStep.nofi_trace_cost_okb
   VMState.VMState
-  SimulationProof.vm_apply_runtime
-  SimulationProof.vm_apply_nofi
   SimulationProof.vm_apply
+  SimulationProof.vm_apply_nofi
+  SimulationProof.vm_apply_runtime
   Abstraction.KamiSnapshot
   ThieleCPUBusTop.BusReg
   ThieleCPUBusTop.BusCoreView

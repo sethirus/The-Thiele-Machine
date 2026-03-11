@@ -86,6 +86,13 @@ Definition simple_cycles_per_instruction (i : vm_instruction) : nat :=
   | instr_write_port _ _ _ => 3
   | instr_heap_load _ _ _ => 3
   | instr_heap_store _ _ _ => 3
+  | instr_certify _ => 1
+  | instr_and _ _ _ _ => 3
+  | instr_or _ _ _ _ => 3
+  | instr_shl _ _ _ _ => 3
+  | instr_shr _ _ _ _ => 3
+  | instr_mul _ _ _ _ => 3
+  | instr_lui _ _ _ => 3
   end.
 
 (* Execute one instruction on the simple CPU *)

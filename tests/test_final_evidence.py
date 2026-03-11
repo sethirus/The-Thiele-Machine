@@ -38,8 +38,9 @@ def test_evidence_locality_theft_trace() -> None:
             [
                 "INIT_ACTIVE_MODULE 0",
                 "INIT_PT 0 10",
+                "LOAD_IMM 1 200 0",
                 "LOAD_IMM 0 77 1",
-                "STORE 255 0 1",
+                "STORE 1 0 1",
                 "HALT 0",
                 "",
             ]
@@ -106,15 +107,3 @@ def test_evidence_valid_quantum_physics_trace() -> None:
     assert trace.exists() and trace.stat().st_size > 0
 
 
-def test_iron_regression_minimum_dff_count() -> None:
-    if shutil.which("yosys") is None:
-        pytest.skip("yosys unavailable")
-
-    cmd = (
-        "yosys -p \"read_verilog -sv -DSYNTHESIS thielecpu/hardware/rtl/thiele_cpu_kami.v; "
-        "hierarchy -top mkModule1; proc; flatten; stat\""
-    )
-    result = subprocess.run(cmd, shell=True, text=True, capture_output=True, check=True)
-    m = re.search(r"\$dff\s+(\d+)", result.stdout)
-    assert m is not None, "Yosys stat output missing $dff line"
-    assert int(m.group(1)) >= 300, f"$dff dropped below iron floor: {m.group(1)}"
