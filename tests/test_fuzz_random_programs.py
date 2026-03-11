@@ -33,9 +33,16 @@ pytestmark = [
 from thielecpu.hardware.cosim import run_verilog
 
 
+def _require_simulation_result(result: Dict[str, Any] | None, context: str) -> Dict[str, Any]:
+    assert result is not None, (
+        f"run_verilog returned None for {context}; this file already requires iverilog"
+    )
+    return result
+
+
 # ── Instruction generators ──────────────────────────────────────
 
-# All 31 opcodes with valid random operands
+# All 38 opcodes with valid random operands
 def rand_reg() -> int:
     return random.randint(0, 31)
 
@@ -64,14 +71,16 @@ def generate_random_instruction() -> str:
         "XOR_LOAD", "XOR_ADD", "XOR_SWAP", "XOR_RANK",
         "EMIT", "REVEAL", "ORACLE_HALTS",
         "LOAD", "STORE", "ADD", "SUB",
-        # Skip JUMP/JNEZ/CALL/RET to avoid infinite loops
+        "AND", "OR", "SHL", "SHR", "MUL", "LUI",
+        # Skip JUMP/JNEZ to avoid infinite loops
         # Skip HALT (added at end)
-        # Skip CHSH_TRIAL (needs specific bit constraints)
+        "CHSH_TRIAL",
+        "CHECKPOINT", "READ_PORT", "WRITE_PORT", "HEAP_LOAD", "HEAP_STORE",
     ])
 
     # Cert-setting opcodes (LASSERT, LJOIN, REVEAL, CHSH_TRIAL) require cost > 0
     # per the NoFreeInsight runtime policy in the testbench.
-    needs_nonzero_cost = opcode in ("LASSERT", "LJOIN", "REVEAL", "PDISCOVER", "EMIT")
+    needs_nonzero_cost = opcode in ("LASSERT", "LJOIN", "REVEAL", "PDISCOVER", "EMIT", "CHSH_TRIAL")
     cost = rand_cost(1 if needs_nonzero_cost else 0)
 
     if opcode in ("PNEW", "PSPLIT", "PMERGE"):
@@ -79,7 +88,7 @@ def generate_random_instruction() -> str:
     elif opcode in ("LASSERT", "LJOIN", "EMIT"):
         return f"{opcode} {rand_imm()} {rand_imm()} {cost}"
     elif opcode == "MDLACC":
-        return f"MDLACC {random.randint(0,3)} 0 {cost}"
+        return f"MDLACC {random.randint(0,3)} {cost}"
     elif opcode == "PDISCOVER":
         a = random.randint(1, 10)
         b = random.randint(1, a)
@@ -115,6 +124,30 @@ def generate_random_instruction() -> str:
         rs1 = random.randint(0, 15)
         rs2 = random.randint(0, 15)
         return f"SUB {rand_reg5()} {(rs1 << 4) | rs2} {cost}"
+    elif opcode == "CHSH_TRIAL":
+        return f"CHSH_TRIAL {random.randint(0, 1)} {random.randint(0, 1)} {cost}"
+    elif opcode == "CHECKPOINT":
+        return f"CHECKPOINT {rand_imm()} {cost}"
+    elif opcode == "WRITE_PORT":
+        return f"WRITE_PORT {random.randint(0, 3)} {rand_reg5()} {cost}"
+    elif opcode == "READ_PORT":
+        return f"READ_PORT {rand_reg5()} {random.randint(0, 3)} {cost}"
+    elif opcode == "HEAP_LOAD":
+        return f"HEAP_LOAD {rand_reg5()} {rand_addr()} {cost}"
+    elif opcode == "HEAP_STORE":
+        return f"HEAP_STORE {rand_addr()} {rand_reg5()} {cost}"
+    elif opcode == "AND":
+        return f"AND {rand_reg5()} {rand_reg5()} {rand_reg5()} {cost}"
+    elif opcode == "OR":
+        return f"OR {rand_reg5()} {rand_reg5()} {rand_reg5()} {cost}"
+    elif opcode == "SHL":
+        return f"SHL {rand_reg5()} {rand_reg5()} {rand_reg5()} {cost}"
+    elif opcode == "SHR":
+        return f"SHR {rand_reg5()} {rand_reg5()} {rand_reg5()} {cost}"
+    elif opcode == "MUL":
+        return f"MUL {rand_reg5()} {rand_reg5()} {rand_reg5()} {cost}"
+    elif opcode == "LUI":
+        return f"LUI {rand_reg5()} {rand_imm()} {cost}"
     else:
         return f"LOAD_IMM 0 0 {cost}"
 
@@ -128,7 +161,7 @@ def generate_random_program(length: int) -> str:
     """
     preamble = ["INIT_LOGIC_ACC 0xCAFEEACE", "INIT_PT 0 256", "INIT_ACTIVE_MODULE 0"]
     instrs = preamble + [generate_random_instruction() for _ in range(length)]
-    instrs.append("HALT")
+    instrs.append("HALT 0")
     return "\n".join(instrs)
 
 
@@ -186,9 +219,10 @@ class TestRandomFuzzing:
         """Test 5000 random 5-instruction programs."""
         random.seed(seed)
         program = generate_random_program(5)
-        result = run_verilog(program, timeout=30)
-        if result is None:
-            pytest.skip("Verilog simulation returned None")
+        result = _require_simulation_result(
+            run_verilog(program, timeout=30),
+            f"random short program seed={seed}",
+        )
         violations = check_invariants(result, program)
         assert not violations, \
             f"Invariant violations (seed={seed}):\n" + \
@@ -200,9 +234,10 @@ class TestRandomFuzzing:
         """Test 3000 random 20-instruction programs."""
         random.seed(10000 + seed)
         program = generate_random_program(20)
-        result = run_verilog(program, timeout=30)
-        if result is None:
-            pytest.skip("Verilog simulation returned None")
+        result = _require_simulation_result(
+            run_verilog(program, timeout=30),
+            f"random medium program seed={seed}",
+        )
         violations = check_invariants(result, program)
         assert not violations, \
             f"Invariant violations (seed={seed}):\n" + \
@@ -217,9 +252,7 @@ class TestEdgeCases:
         """Write to all 32 registers and verify."""
         instrs = [f"LOAD_IMM {i} {i+1} 1" for i in range(32)]
         instrs.append("HALT")
-        result = run_verilog("\n".join(instrs), timeout=30)
-        if result is None:
-            pytest.skip("sim unavailable")
+        result = _require_simulation_result(run_verilog("\n".join(instrs), timeout=30), "all-registers case")
         for i in range(31):  # r31 is SP, may be modified
             assert result["regs"][i] == i + 1, \
                 f"Register r{i} expected {i+1}, got {result['regs'][i]}"
@@ -236,18 +269,14 @@ class TestEdgeCases:
         # Read it back
         instrs.append("LOAD 1 10 1")
         instrs.append("HALT")
-        result = run_verilog("\n".join(instrs), timeout=30)
-        if result is None:
-            pytest.skip("sim unavailable")
+        result = _require_simulation_result(run_verilog("\n".join(instrs), timeout=30), "all-memory-addresses case")
         assert result["regs"][1] == 42
 
     def test_max_mu_value(self):
         """Test with high mu accumulation."""
         instrs = [f"LOAD_IMM 0 0 255" for _ in range(10)]
         instrs.append("HALT")
-        result = run_verilog("\n".join(instrs), timeout=30)
-        if result is None:
-            pytest.skip("sim unavailable")
+        result = _require_simulation_result(run_verilog("\n".join(instrs), timeout=30), "max-mu case")
         assert result["mu"] == 255 * 10
 
     def test_bianchi_boundary(self):
@@ -258,9 +287,7 @@ class TestEdgeCases:
             "REVEAL 1 0 10",   # tensor[1] = 10, mu = 20
             "HALT"
         ]
-        result = run_verilog("\n".join(instrs), timeout=30)
-        if result is None:
-            pytest.skip("sim unavailable")
+        result = _require_simulation_result(run_verilog("\n".join(instrs), timeout=30), "bianchi-boundary case")
         # tensor_sum = 20, mu = 20, should be exactly at boundary (not violated)
         assert result["mu"] >= 20
 
@@ -269,9 +296,7 @@ class TestEdgeCases:
         instrs = ["INIT_LOGIC_ACC 0xCAFEEACE"]
         instrs.extend(f"REVEAL {i} 0 1" for i in range(16))
         instrs.append("HALT")
-        result = run_verilog("\n".join(instrs), timeout=30)
-        if result is None:
-            pytest.skip("sim unavailable")
+        result = _require_simulation_result(run_verilog("\n".join(instrs), timeout=30), "all-tensor-entries case")
         assert result["mu"] == 16
         # Sum of all tensor row sums should be 16
         tensor_sum = sum(result.get(f"mu_tensor_{i}", 0) for i in range(4))
@@ -284,9 +309,7 @@ class TestEdgeCases:
             "XOR_RANK 1 0 1",     # r1 = popcount(r0) = 8
             "HALT"
         ]
-        result = run_verilog("\n".join(instrs), timeout=30)
-        if result is None:
-            pytest.skip("sim unavailable")
+        result = _require_simulation_result(run_verilog("\n".join(instrs), timeout=30), "xor-popcount case")
         assert result["regs"][1] == 8, \
             f"popcount(0xFF) should be 8, got {result['regs'][1]}"
 
@@ -299,9 +322,7 @@ class TestEdgeCases:
             "XOR_SWAP 0 1 1",     # swap back
             "HALT"
         ]
-        result = run_verilog("\n".join(instrs), timeout=30)
-        if result is None:
-            pytest.skip("sim unavailable")
+        result = _require_simulation_result(run_verilog("\n".join(instrs), timeout=30), "xor-swap-identity case")
         assert result["regs"][0] == 42
         assert result["regs"][1] == 99
 
@@ -316,9 +337,7 @@ class TestEdgeCases:
             "SUB 3 2 1 1",        # r3 = r2 - r1 = 50
             "HALT"
         ]
-        result = run_verilog("\n".join(instrs), timeout=30)
-        if result is None:
-            pytest.skip("sim unavailable")
+        result = _require_simulation_result(run_verilog("\n".join(instrs), timeout=30), "add-sub-inverse case")
         assert result["regs"][3] == 50, \
             f"Expected 50 (ADD then SUB), got {result['regs'][3]}"
 
@@ -333,9 +352,7 @@ class TestEdgeCases:
             "CHSH_TRIAL 1 1 5",  # op_a=1, op_b=1, cost=5
             "HALT"
         ]
-        result = run_verilog("\n".join(instrs), timeout=30)
-        if result is None:
-            pytest.skip("sim unavailable")
+        result = _require_simulation_result(run_verilog("\n".join(instrs), timeout=30), "valid-chsh-trial case")
         assert result["mu"] >= 10
         assert result.get("err", 0) == 0, "Valid CHSH should not error"
 
@@ -345,9 +362,7 @@ class TestEdgeCases:
             "CHSH_TRIAL 2 0 5",  # op_a=2 > 1, invalid
             "HALT"
         ]
-        result = run_verilog("\n".join(instrs), timeout=30)
-        if result is None:
-            pytest.skip("sim unavailable")
+        result = _require_simulation_result(run_verilog("\n".join(instrs), timeout=30), "invalid-chsh-trial case")
         assert result.get("err", 0) != 0 or result.get("error_code", 0) != 0, \
             "Invalid CHSH bits should trigger error"
 
@@ -359,16 +374,12 @@ class TestEdgeCases:
             "PMERGE 0 1 1",
             "HALT"
         ]
-        result = run_verilog("\n".join(instrs), timeout=30)
-        if result is None:
-            pytest.skip("sim unavailable")
+        result = _require_simulation_result(run_verilog("\n".join(instrs), timeout=30), "partition-ops-counting case")
         assert result["partition_ops"] >= 3
 
     def test_empty_program_halts(self):
         """Just HALT should work cleanly."""
-        result = run_verilog("HALT", timeout=30)
-        if result is None:
-            pytest.skip("sim unavailable")
+        result = _require_simulation_result(run_verilog("HALT", timeout=30), "empty-program case")
         assert result["mu"] == 0
         assert result["pc"] == 0
 
@@ -387,9 +398,7 @@ class TestMuMonotonicity:
             costs.append(cost)
             instrs.append(f"LOAD_IMM {random.randint(0,30)} {random.randint(0,255)} {cost}")
         instrs.append("HALT")
-        result = run_verilog("\n".join(instrs), timeout=30)
-        if result is None:
-            pytest.skip("sim unavailable")
+        result = _require_simulation_result(run_verilog("\n".join(instrs), timeout=30), f"mu-monotonicity seed={seed}")
         assert result["mu"] >= sum(costs), \
             f"μ={result['mu']} < sum(costs)={sum(costs)} (seed={seed})"
 
@@ -402,9 +411,7 @@ class TestStress:
         """Test 100-instruction programs."""
         random.seed(30000 + seed)
         program = generate_random_program(100)
-        result = run_verilog(program, timeout=60)
-        if result is None:
-            pytest.skip("sim unavailable")
+        result = _require_simulation_result(run_verilog(program, timeout=60), f"long-program seed={seed}")
         violations = check_invariants(result, program)
         assert not violations, \
             f"Invariant violations in long program (seed={seed}):\n" + \

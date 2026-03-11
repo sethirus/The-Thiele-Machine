@@ -17,7 +17,7 @@ From first principles, a verifier needs three ingredients:
     \item \textbf{Cost accounting}: a way to ensure that any strengthened claim paid the required $\mu$-cost.
 \end{enumerate}
 The verifier system is built to guarantee all three.
-In the codebase, these ingredients are implemented by receipt parsing and signature checks (\path{verifier/receipt_protocol.py}), trace replays in the domain-specific checkers (for example \path{verifier/c_randomness.py}), and explicit $\mu$-cost rules inside the C-modules themselves.
+In the codebase, these ingredients are implemented by receipt parsing and signature checks, trace replays in the domain-specific checkers, and explicit $\mu$-cost rules inside the C-modules themselves. The verifier modules were originally prototyped in Python (now archived under \path{archive/verifier_unused/}); the formal protocol semantics are defined in the Coq kernel.
 
 This chapter documents the complete verification infrastructure. The system implements four certification modules (C-modules) that enforce the No Free Insight principle across different application domains:
 \begin{itemize}
@@ -26,7 +26,7 @@ This chapter documents the complete verification infrastructure. The system impl
     \item \textbf{C-ENTROPY}: Certified entropy---proving that disorder is quantified correctly
     \item \textbf{C-CAUSAL}: Certified causation---proving that causes actually produce effects
 \end{itemize}
-Each module corresponds to a concrete verifier implementation under \path{verifier/} (for example, \texttt{c\_randomness.py}, \texttt{c\_tomography.py}, \texttt{c\_entropy2.py}, and \texttt{c\_causal.py}). This makes the certification rules auditable and runnable, not just conceptual.
+Each module corresponds to a concrete verifier implementation (now archived under \path{archive/verifier_unused/}; for example, \texttt{c\_randomness.py}, \texttt{c\_tomography.py}, \texttt{c\_entropy2.py}, and \texttt{c\_causal.py}). This makes the certification rules auditable and runnable, not just conceptual.
 
 The key insight is that \textit{stronger claims require more evidence}. If you claim high-quality randomness, you must demonstrate the source of that randomness. If you claim precise measurements, you must show enough trials to support that precision. The verifier system makes this relationship explicit and enforceable by turning every claim into a checkable predicate over receipts and by requiring explicit $\mu$-charged disclosures whenever the predicate is strengthened.
 
@@ -121,7 +121,7 @@ Key properties:
 \end{itemize}
 
 This protocol supplies the trace integrity requirement: a verifier can recompute hashes and signatures to confirm that the claim is exactly the one produced by the recorded execution.
-The reference implementation for TRS-1.0 verification lives in \path{verifier/receipt_protocol.py} and the conformance tests in \path{tests/trs_conformance/test_trs10.py}. This ensures that the protocol described here is backed by a concrete parser and validator.
+The reference implementation for TRS-1.0 verification lives in \path{archive/verifier_unused/receipt_protocol.py} and the protocol semantics are specified in the Coq kernel. This ensures that the protocol described here is backed by a concrete parser and validator.
 
 \subsection{Non-Negotiable Falsifier Pattern}
 
@@ -216,7 +216,7 @@ Lemma decode_is_filter_payloads :
 \begin{itemize}
     \item \textbf{Definition RandChannel (r : Receipt) : bool} — A predicate that tests whether a receipt $r$ is a \textit{randomness trial receipt}.
     \begin{itemize}
-        \item \textbf{r\_op r} — Extracts the opcode from receipt $r$ (e.g., \texttt{RAND\_TRIAL\_OP = 42}).
+        \item \textbf{r\_op r} — Extracts the opcode from receipt $r$ (e.g., \texttt{RAND\_TRIAL\_OP = 1001}).
         \item \textbf{Nat.eqb ... RAND\_TRIAL\_OP} — Returns \texttt{true} if the opcode matches the randomness trial opcode, \texttt{false} otherwise.
     \end{itemize}
     \textbf{Purpose:} This selector ensures the verifier only processes receipts from the randomness channel. Receipts from other channels (e.g., \texttt{PNEW}, \texttt{XOR\_ADD}) are ignored.
@@ -722,7 +722,7 @@ With this certificate, the verifier can:
     \item Return: ``Status: PASS. Improvement certified.''
 \end{enumerate}
 
-\textbf{Connection to AI hallucinations:} This test is the foundation of the AI hallucination prevention (\S7.5). A neural network that claims ``I predict X with high confidence'' without explaining \textit{why} (i.e., what structure it found) is \textbf{uncertified}. The verifier forces the network to disclose its reasoning (at $\mu$-cost), or the prediction is not trusted.
+\textbf{Connection to AI hallucinations:} This test is the foundation of the AI hallucination prevention (\S7.6). A neural network that claims ``I predict X with high confidence'' without explaining \textit{why} (i.e., what structure it found) is \textbf{uncertified}. The verifier forces the network to disclose its reasoning (at $\mu$-cost), or the prediction is not trusted.
 
 \textbf{Quantitative bound:} The verifier enforces:
 \[

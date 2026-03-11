@@ -16,6 +16,8 @@ type comparison =
 
 val add : int -> int -> int
 
+val mul : int -> int -> int
+
 val eqb : bool -> bool -> bool
 
 module Nat :
@@ -59,6 +61,8 @@ module Pos :
 
   val coq_Ndouble : int -> int
 
+  val coq_lor : int -> int -> int
+
   val coq_land : int -> int -> int
 
   val coq_lxor : int -> int -> int
@@ -82,11 +86,17 @@ module N :
 
   val mul : int -> int -> int
 
+  val div2 : int -> int
+
+  val coq_lor : int -> int -> int
+
   val coq_land : int -> int -> int
 
   val coq_lxor : int -> int -> int
 
   val shiftl : int -> int -> int
+
+  val shiftr : int -> int -> int
 
   val testbit : int -> int -> bool
 
@@ -245,9 +255,16 @@ val csr_set_err : cSRState -> int -> cSRState
 
 val csr_set_cert_addr : cSRState -> int -> cSRState
 
+type witnessCounts = { wc_same_00 : int; wc_diff_00 : int; wc_same_01 : 
+                       int; wc_diff_01 : int; wc_same_10 : int;
+                       wc_diff_10 : int; wc_same_11 : int; wc_diff_11 : 
+                       int }
+
 type vMState = { vm_graph : partitionGraph; vm_csrs : cSRState;
                  vm_regs : int list; vm_mem : int list; vm_pc : int;
-                 vm_mu : int; vm_mu_tensor : int list; vm_err : bool }
+                 vm_mu : int; vm_mu_tensor : int list; vm_err : bool;
+                 vm_logic_acc : int; vm_mstatus : int;
+                 vm_witness : witnessCounts; vm_certified : bool }
 
 val word32_mask : int
 
@@ -260,6 +277,16 @@ val word32_add : int -> int -> int
 val word32_sub : int -> int -> int
 
 val word32_popcount : int -> int
+
+val word32_and : int -> int -> int
+
+val word32_or : int -> int -> int
+
+val word32_shl : int -> int -> int
+
+val word32_shr : int -> int -> int
+
+val word32_mul : int -> int -> int
 
 val reg_index : int -> int
 
@@ -425,6 +452,13 @@ module VMStep :
   | Coq_instr_write_port of int * int * int
   | Coq_instr_heap_load of int * int * int
   | Coq_instr_heap_store of int * int * int
+  | Coq_instr_certify of int
+  | Coq_instr_and of int * int * int * int
+  | Coq_instr_or of int * int * int * int
+  | Coq_instr_shl of int * int * int * int
+  | Coq_instr_shr of int * int * int * int
+  | Coq_instr_mul of int * int * int * int
+  | Coq_instr_lui of int * int * int
 
   val instruction_cost : vm_instruction -> int
 
@@ -439,6 +473,9 @@ module VMStep :
   val list_update_at : int list -> int -> int -> int list
 
   val vm_mu_tensor_add_at : vMState -> int -> int -> int list
+
+  val record_trial :
+    witnessCounts -> int -> int -> int -> int -> witnessCounts
 
   val advance_state :
     vMState -> vm_instruction -> partitionGraph -> cSRState -> bool -> vMState
@@ -456,7 +493,5 @@ module VMStep :
   val jump_state_rm :
     vMState -> vm_instruction -> int -> int list -> int list -> vMState
  end
-
-val vm_apply_unsafe : vMState -> VMStep.vm_instruction -> vMState
 
 val vm_apply : vMState -> VMStep.vm_instruction -> vMState

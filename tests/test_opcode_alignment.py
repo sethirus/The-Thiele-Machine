@@ -2,7 +2,16 @@
 # you may not use this file except in compliance with the License.
 # Copyright 2025 Devon Thiele
 # See the LICENSE file in the repository root for full terms.
-"""Cross-check opcodes across Python ISA, RTL constants, and Coq bridge."""
+"""Cross-check opcodes across Python cosim and Coq Kami types.
+
+This test verifies that the Python OPCODES dict (used by the cosimulation
+harness) matches the canonical opcode definitions in
+coq/kami_hw/ThieleTypes.v (the Kami hardware type source of truth).
+
+RTL is now generated via the Kami extraction chain, so there is no separate
+generated_opcodes.vh file.  Opcode alignment is checked directly against
+the Coq Kami definitions.
+"""
 
 from __future__ import annotations
 
@@ -11,68 +20,64 @@ import re
 
 import pytest
 
-from thielecpu.isa import Opcode
-
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-# Opcode constants are generated from Coq extraction into this header
-RTL_PATH = ROOT / "thielecpu" / "hardware" / "rtl" / "generated_opcodes.vh"
-COQ_PATH = ROOT / "coq" / "thielemachine" / "coqproofs" / "HardwareBridge.v"
+# Canonical opcode definitions live in the Kami hardware types
+COQ_TYPES_PATH = ROOT / "coq" / "kami_hw" / "ThieleTypes.v"
 
 
-def _parse_rtl_opcodes(path: pathlib.Path) -> dict[str, int]:
-    pattern = re.compile(r"localparam\s+\[7:0\]\s+OPCODE_([A-Z0-9_]+)\s*=\s*8'h([0-9a-fA-F]{2});")
-    opcodes: dict[str, int] = {}
-    text = path.read_text()
-    for line in text.splitlines():
-        match = pattern.search(line)
-        if match:
-            name, value = match.groups()
-            opcodes[name] = int(value, 16)
+def _parse_coq_kami_opcodes(path: pathlib.Path) -> dict[str, int]:
+    """Parse ``Definition OP_<NAME> : word OpcodeSz := WO~b~b~...~b.`` lines.
 
-    # If opcodes are not inlined, follow a simple `include "..."` convention.
-    if not opcodes:
-        inc = re.search(r"^\s*`include\s+\"([^\"]+)\"\s*$", text, re.M)
-        if inc:
-            inc_path = (path.parent / inc.group(1)).resolve()
-            inc_text = inc_path.read_text()
-            for line in inc_text.splitlines():
-                match = pattern.search(line)
-                if match:
-                    name, value = match.groups()
-                    opcodes[name] = int(value, 16)
-
-    if not opcodes:
-        raise RuntimeError(f"no opcodes parsed from {path} (or its include)")
-    return opcodes
-
-
-def _parse_coq_opcodes(path: pathlib.Path) -> dict[str, int]:
-    pattern = re.compile(r"Definition opcode_([A-Z0-9_]+)\s*:\s*N\s*:=\s*([0-9]+)%N")
+    Returns a dict mapping opcode name (e.g. "PNEW") to its integer value.
+    """
+    pattern = re.compile(
+        r"Definition\s+OP_([A-Z0-9_]+)\s*:\s*word\s+OpcodeSz\s*:=\s*WO((?:~[01])+)\."
+    )
     opcodes: dict[str, int] = {}
     for line in path.read_text().splitlines():
         match = pattern.search(line)
         if match:
-            name, value = match.groups()
-            opcodes[name.upper()] = int(value)
+            name = match.group(1)
+            bits = match.group(2).replace("~", "")
+            opcodes[name] = int(bits, 2)
     if not opcodes:
-        raise RuntimeError(f"no opcodes parsed from {path}")
+        raise RuntimeError(f"no OP_* definitions parsed from {path}")
     return opcodes
 
 
+def _get_python_opcodes() -> dict[str, int]:
+    """Import the authoritative Python OPCODES dict from rtl_harness.cosim."""
+    # Avoid hard-coding; import directly so we always test the live dict.
+    import importlib
+    import sys
+    sys.path.insert(0, str(ROOT))
+    cosim = importlib.import_module("rtl_harness.cosim")
+    return dict(cosim.OPCODES)
+
+
+def test_coq_kami_opcodes_parse():
+    """ThieleTypes.v contains at least 38 OP_* definitions."""
+    coq = _parse_coq_kami_opcodes(COQ_TYPES_PATH)
+    assert len(coq) >= 38, f"Expected >= 38 opcodes, found {len(coq)}: {sorted(coq)}"
+
+
 def test_opcode_maps_align():
-    rtl = _parse_rtl_opcodes(RTL_PATH)
-    coq = _parse_coq_opcodes(COQ_PATH)
-    py = {name: op.value for name, op in Opcode.__members__.items()}
+    """Verify Python cosim opcodes match Coq Kami definitions."""
+    coq = _parse_coq_kami_opcodes(COQ_TYPES_PATH)
+    py = _get_python_opcodes()
 
-    # Ensure Python covers the RTL surface and matches Coq numerics.
-    missing_in_python = set(rtl) - set(py)
-    if missing_in_python:
-        pytest.fail(f"Python ISA missing opcodes present in RTL: {sorted(missing_in_python)}")
+    # Ensure Python covers all Coq-defined opcodes
+    missing_in_py = set(coq) - set(py)
+    if missing_in_py:
+        pytest.fail(f"Python OPCODES missing opcodes defined in Coq: {sorted(missing_in_py)}")
 
-    missing_in_coq = set(rtl) - set(coq)
+    missing_in_coq = set(py) - set(coq)
     if missing_in_coq:
-        pytest.fail(f"Coq bridge missing opcodes present in RTL: {sorted(missing_in_coq)}")
+        pytest.fail(f"Coq ThieleTypes.v missing opcodes present in Python: {sorted(missing_in_coq)}")
 
-    for name, rtl_value in rtl.items():
-        assert py[name] == rtl_value, f"Python opcode {name}={py[name]:#x} != RTL {rtl_value:#x}"
-        assert coq[name] == rtl_value, f"Coq opcode {name}={coq[name]} != RTL {rtl_value}"
+    # Verify numeric values match
+    for name, coq_value in coq.items():
+        if name in py:
+            assert py[name] == coq_value, (
+                f"Opcode {name}: Coq={coq_value:#04x} != Python={py[name]:#04x}"
+            )

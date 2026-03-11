@@ -1,4 +1,4 @@
-DIGEST fc39184da41800aeadade58a57da099d
+DIGEST 5601a5b45d14545c43d46b85f1fe3676
 FKernel.KernelNoether
 R2192:2195 Coq.Lists.List <> <> lib
 R2197:2200 Coq.Bool.Bool <> <> lib
@@ -29,8 +29,16 @@ R4657:4663 Kernel.VMState <> vm_csrs proj
 R4657:4663 Kernel.VMState <> vm_csrs proj
 R4686:4690 Kernel.VMState <> vm_pc proj
 R4686:4690 Kernel.VMState <> vm_pc proj
-R4711:4716 Kernel.VMState <> vm_err proj
-R4711:4716 Kernel.VMState <> vm_err proj
+R4708:4713 Kernel.VMState <> vm_err proj
+R4708:4713 Kernel.VMState <> vm_err proj
+R4732:4743 Kernel.VMState <> vm_logic_acc proj
+R4732:4743 Kernel.VMState <> vm_logic_acc proj
+R4768:4777 Kernel.VMState <> vm_mstatus proj
+R4768:4777 Kernel.VMState <> vm_mstatus proj
+R4800:4809 Kernel.VMState <> vm_witness proj
+R4800:4809 Kernel.VMState <> vm_witness proj
+R4832:4843 Kernel.VMState <> vm_certified proj
+R4832:4843 Kernel.VMState <> vm_certified proj
 R4408:4415 Kernel.VMState <> vm_graph proj
 R4405:4405 Kernel.KernelNoether <> s:2 var
 R4671:4677 Kernel.VMState <> vm_csrs proj
@@ -49,472 +57,511 @@ R4537:4537 Kernel.KernelNoether <> s:2 var
 R4549:4553 Kernel.KernelNoether <> delta:1 var
 R4581:4592 Kernel.VMState <> vm_mu_tensor proj
 R4578:4578 Kernel.KernelNoether <> s:2 var
-R4724:4729 Kernel.VMState <> vm_err proj
-R4721:4721 Kernel.KernelNoether <> s:2 var
-def 6041:6060 <> Observable_partition
-R6067:6073 Kernel.VMState <> VMState rec
-binder 6063:6063 <> s:3
-R6078:6081 Coq.Init.Datatypes <> list ind
-R6084:6087 Coq.Init.Datatypes <> list ind
-R6089:6091 Coq.Init.Datatypes <> nat ind
-R6108:6115 Kernel.VMState <> vm_graph proj
-R6105:6105 Kernel.KernelNoether <> s:3 var
-R6130:6139 Kernel.VMState <> pg_modules proj
-R6130:6139 Kernel.VMState <> pg_modules proj
-R6130:6139 Kernel.VMState <> pg_modules proj
-R6161:6163 Coq.Lists.List <> map def
-binder 6170:6170 <> m:4
-R6181:6181 Kernel.KernelNoether <> m:4 var
-R6188:6188 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6190:6191 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6194:6194 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6203:6215 Kernel.VMState <> module_region proj
-prf 7498:7514 <> z_action_identity
-binder 7525:7525 <> s:6
-R7547:7549 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7530:7542 Kernel.KernelNoether <> z_gauge_shift def
-R7546:7546 Kernel.KernelNoether <> s:6 var
-R7550:7550 Kernel.KernelNoether <> s:6 var
-R7618:7630 Kernel.KernelNoether <> z_gauge_shift def
-R7699:7707 Coq.ZArith.BinInt Z add_0_r thm
-R7699:7707 Coq.ZArith.BinInt Z add_0_r thm
-R7699:7707 Coq.ZArith.BinInt Z add_0_r thm
-R7770:7777 Coq.ZArith.Znat Nat2Z id thm
-R7770:7777 Coq.ZArith.Znat Nat2Z id thm
-R7770:7777 Coq.ZArith.Znat Nat2Z id thm
-prf 10003:10022 <> z_action_composition
-binder 10033:10033 <> a:7
-binder 10035:10035 <> b:8
-binder 10037:10037 <> s:9
-R10069:10074 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10043:10046 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R10065:10067 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R10047:10054 Coq.ZArith.BinInt Z of_nat def
-R10059:10063 Kernel.VMState <> vm_mu proj
-R10056:10056 Kernel.KernelNoether <> s:9 var
-R10068:10068 Kernel.KernelNoether <> b:8 var
-R10106:10111 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10076:10079 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R10102:10104 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R10098:10100 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R10080:10087 Coq.ZArith.BinInt Z of_nat def
-R10092:10096 Kernel.VMState <> vm_mu proj
-R10089:10089 Kernel.KernelNoether <> s:9 var
-R10101:10101 Kernel.KernelNoether <> b:8 var
-R10105:10105 Kernel.KernelNoether <> a:7 var
-R10147:10149 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10112:10124 Kernel.KernelNoether <> z_gauge_shift def
-R10126:10126 Kernel.KernelNoether <> a:7 var
-R10129:10141 Kernel.KernelNoether <> z_gauge_shift def
-R10143:10143 Kernel.KernelNoether <> b:8 var
-R10145:10145 Kernel.KernelNoether <> s:9 var
-R10150:10162 Kernel.KernelNoether <> z_gauge_shift def
-R10166:10168 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R10165:10165 Kernel.KernelNoether <> a:7 var
-R10169:10169 Kernel.KernelNoether <> b:8 var
-R10172:10172 Kernel.KernelNoether <> s:9 var
-R10212:10224 Kernel.KernelNoether <> z_gauge_shift def
-R10384:10391 Coq.ZArith.Znat Z2Nat id thm
-R10408:10410 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R10394:10401 Coq.ZArith.BinInt Z of_nat def
-R10384:10391 Coq.ZArith.Znat Z2Nat id thm
-R10408:10410 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R10394:10401 Coq.ZArith.BinInt Z of_nat def
-R10384:10391 Coq.ZArith.Znat Z2Nat id thm
-R10408:10410 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R10394:10401 Coq.ZArith.BinInt Z of_nat def
-R10459:10461 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R10455:10457 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R10441:10448 Coq.ZArith.BinInt Z of_nat def
-R10485:10488 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R10494:10494 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R10471:10478 Coq.ZArith.BinInt Z of_nat def
-R10490:10492 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R10459:10461 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R10455:10457 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R10441:10448 Coq.ZArith.BinInt Z of_nat def
-R10485:10488 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R10494:10494 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R10471:10478 Coq.ZArith.BinInt Z of_nat def
-R10490:10492 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-prf 12441:12456 <> z_action_inverse
-binder 12467:12467 <> n:10
-binder 12469:12469 <> s:11
-R12501:12506 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12475:12478 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R12497:12499 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R12479:12486 Coq.ZArith.BinInt Z of_nat def
-R12491:12495 Kernel.VMState <> vm_mu proj
-R12488:12488 Kernel.KernelNoether <> s:11 var
-R12500:12500 Kernel.KernelNoether <> n:10 var
-R12545:12547 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12507:12519 Kernel.KernelNoether <> z_gauge_shift def
-R12522:12522 Coq.ZArith.BinInt <> ::Z_scope:'-'_x not
-R12523:12523 Kernel.KernelNoether <> n:10 var
-R12527:12539 Kernel.KernelNoether <> z_gauge_shift def
-R12541:12541 Kernel.KernelNoether <> n:10 var
-R12543:12543 Kernel.KernelNoether <> s:11 var
-R12548:12548 Kernel.KernelNoether <> s:11 var
-R12586:12598 Kernel.KernelNoether <> z_gauge_shift def
-R12722:12729 Coq.ZArith.Znat Z2Nat id thm
-R12722:12729 Coq.ZArith.Znat Z2Nat id thm
-R12722:12729 Coq.ZArith.Znat Z2Nat id thm
-R12775:12777 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R12771:12773 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R12757:12764 Coq.ZArith.BinInt Z of_nat def
-R12778:12779 Coq.ZArith.BinInt <> ::Z_scope:'-'_x not
-R12789:12796 Coq.ZArith.BinInt Z of_nat def
-R12775:12777 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R12771:12773 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R12757:12764 Coq.ZArith.BinInt Z of_nat def
-R12778:12779 Coq.ZArith.BinInt <> ::Z_scope:'-'_x not
-R12789:12796 Coq.ZArith.BinInt Z of_nat def
-R12821:12828 Coq.ZArith.Znat Nat2Z id thm
-R12821:12828 Coq.ZArith.Znat Nat2Z id thm
-prf 15766:15783 <> z_gauge_invariance
-binder 15794:15798 <> delta:12
-binder 15800:15800 <> s:13
-R15849:15851 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15805:15824 Kernel.KernelNoether <> Observable_partition def
-R15827:15839 Kernel.KernelNoether <> z_gauge_shift def
-R15841:15845 Kernel.KernelNoether <> delta:12 var
-R15847:15847 Kernel.KernelNoether <> s:13 var
-R15852:15871 Kernel.KernelNoether <> Observable_partition def
-R15873:15873 Kernel.KernelNoether <> s:13 var
-R15910:15929 Kernel.KernelNoether <> Observable_partition def
-R15932:15944 Kernel.KernelNoether <> z_gauge_shift def
-def 17158:17167 <> mu_current
-R17174:17180 Kernel.VMState <> VMState rec
-binder 17170:17170 <> s:14
-R17185:17187 Coq.Init.Datatypes <> nat ind
-R17195:17199 Kernel.VMState <> vm_mu proj
-R17192:17192 Kernel.KernelNoether <> s:14 var
-prf 19851:19870 <> vm_step_mu_monotonic
-binder 19881:19881 <> s:15
-binder 19883:19883 <> i:16
-binder 19885:19886 <> s':17
-R19905:19908 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19891:19897 Kernel.VMStep VMStep vm_step ind
-R19899:19899 Kernel.KernelNoether <> s:15 var
-R19901:19901 Kernel.KernelNoether <> i:16 var
-R19903:19904 Kernel.KernelNoether <> s':17 var
-R19922:19925 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R19910:19919 Kernel.KernelNoether <> mu_current def
-R19921:19921 Kernel.KernelNoether <> s:15 var
-R19926:19935 Kernel.KernelNoether <> mu_current def
-R19937:19938 Kernel.KernelNoether <> s':17 var
-R19985:19994 Kernel.KernelNoether <> mu_current def
-R20034:20046 Kernel.VMStep VMStep advance_state def
-R20049:20068 Kernel.VMStep VMStep advance_state_reveal def
-R20071:20086 Kernel.VMStep VMStep advance_state_rm def
-R20100:20109 Kernel.VMStep VMStep jump_state def
-R20112:20124 Kernel.VMStep VMStep jump_state_rm def
-R20127:20136 Kernel.VMStep VMStep apply_cost def
-def 21738:21750 <> in_same_orbit
-R21761:21767 Kernel.VMState <> VMState rec
-binder 21753:21754 <> s1:18
-binder 21756:21757 <> s2:19
-R21782:21788 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R21798:21799 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R21797:21797 Coq.Numbers.BinNums <> Z ind
-binder 21789:21793 <> delta:20
-R21822:21824 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R21800:21812 Kernel.KernelNoether <> z_gauge_shift def
-R21814:21818 Kernel.KernelNoether <> delta:20 var
-R21820:21821 Kernel.KernelNoether <> s1:18 var
-R21825:21826 Kernel.KernelNoether <> s2:19 var
-prf 22919:22934 <> orbit_equiv_refl
-binder 22945:22945 <> s:21
-R22948:22960 Kernel.KernelNoether <> in_same_orbit def
-R22962:22962 Kernel.KernelNoether <> s:21 var
-R22964:22964 Kernel.KernelNoether <> s:21 var
-R23004:23020 Kernel.KernelNoether <> z_action_identity thm
-R23004:23020 Kernel.KernelNoether <> z_action_identity thm
-prf 24611:24625 <> orbit_equiv_sym
-binder 24636:24637 <> s1:22
-binder 24639:24640 <> s2:23
-binder 24642:24646 <> delta:24
-R24683:24688 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R24652:24655 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R24675:24677 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R24656:24663 Coq.ZArith.BinInt Z of_nat def
-R24669:24673 Kernel.VMState <> vm_mu proj
-R24665:24666 Kernel.KernelNoether <> s1:22 var
-R24678:24682 Kernel.KernelNoether <> delta:24 var
-R24716:24721 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R24711:24713 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R24689:24701 Kernel.KernelNoether <> z_gauge_shift def
-R24703:24707 Kernel.KernelNoether <> delta:24 var
-R24709:24710 Kernel.KernelNoether <> s1:22 var
-R24714:24715 Kernel.KernelNoether <> s2:23 var
-R24722:24734 Kernel.KernelNoether <> in_same_orbit def
-R24736:24737 Kernel.KernelNoether <> s2:23 var
-R24739:24740 Kernel.KernelNoether <> s1:22 var
-R24791:24791 Coq.ZArith.BinInt <> ::Z_scope:'-'_x not
-R24791:24791 Coq.ZArith.BinInt <> ::Z_scope:'-'_x not
-R24828:24843 Kernel.KernelNoether <> z_action_inverse thm
-R24828:24843 Kernel.KernelNoether <> z_action_inverse thm
-prf 27159:27175 <> orbit_equiv_trans
-binder 27186:27187 <> s1:25
-binder 27189:27190 <> s2:26
-binder 27192:27193 <> s3:27
-binder 27195:27196 <> d1:28
-binder 27198:27199 <> d2:29
-R27233:27238 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R27205:27208 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R27228:27230 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R27209:27216 Coq.ZArith.BinInt Z of_nat def
-R27222:27226 Kernel.VMState <> vm_mu proj
-R27218:27219 Kernel.KernelNoether <> s1:25 var
-R27231:27232 Kernel.KernelNoether <> d1:28 var
-R27273:27278 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R27240:27243 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R27268:27270 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R27263:27265 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R27244:27251 Coq.ZArith.BinInt Z of_nat def
-R27257:27261 Kernel.VMState <> vm_mu proj
-R27253:27254 Kernel.KernelNoether <> s1:25 var
-R27266:27267 Kernel.KernelNoether <> d1:28 var
-R27271:27272 Kernel.KernelNoether <> d2:29 var
-R27303:27308 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R27298:27300 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R27279:27291 Kernel.KernelNoether <> z_gauge_shift def
-R27293:27294 Kernel.KernelNoether <> d1:28 var
-R27296:27297 Kernel.KernelNoether <> s1:25 var
-R27301:27302 Kernel.KernelNoether <> s2:26 var
-R27333:27338 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R27328:27330 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R27309:27321 Kernel.KernelNoether <> z_gauge_shift def
-R27323:27324 Kernel.KernelNoether <> d2:29 var
-R27326:27327 Kernel.KernelNoether <> s2:26 var
-R27331:27332 Kernel.KernelNoether <> s3:27 var
-R27339:27351 Kernel.KernelNoether <> in_same_orbit def
-R27353:27354 Kernel.KernelNoether <> s1:25 var
-R27356:27357 Kernel.KernelNoether <> s3:27 var
-R27422:27424 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R27422:27424 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R27474:27493 Kernel.KernelNoether <> z_action_composition thm
-R27474:27493 Kernel.KernelNoether <> z_action_composition thm
-R27474:27493 Kernel.KernelNoether <> z_action_composition thm
-prf 30641:30655 <> shift_cost_comm
-R30677:30679 Coq.Init.Datatypes <> nat ind
-binder 30667:30668 <> mu:30
-binder 30670:30673 <> cost:31
-R30691:30691 Coq.Numbers.BinNums <> Z ind
-binder 30683:30687 <> delta:32
-R30721:30804 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R30698:30701 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R30713:30715 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R30702:30709 Coq.ZArith.BinInt Z of_nat def
-R30711:30712 Kernel.KernelNoether <> mu:30 var
-R30716:30720 Kernel.KernelNoether <> delta:32 var
-R30848:30852 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R30836:30838 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R30806:30813 Coq.ZArith.BinInt Z to_nat def
-R30827:30829 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R30816:30823 Coq.ZArith.BinInt Z of_nat def
-R30825:30826 Kernel.KernelNoether <> mu:30 var
-R30830:30834 Kernel.KernelNoether <> delta:32 var
-R30839:30842 Kernel.KernelNoether <> cost:31 var
-R30853:30860 Coq.ZArith.BinInt Z to_nat def
-R30883:30885 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R30863:30870 Coq.ZArith.BinInt Z of_nat def
-R30875:30877 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R30873:30874 Kernel.KernelNoether <> mu:30 var
-R30878:30881 Kernel.KernelNoether <> cost:31 var
-R30886:30890 Kernel.KernelNoether <> delta:32 var
-R30940:30952 Coq.ZArith.Znat Nat2Z inj_add thm
-R30940:30952 Coq.ZArith.Znat Nat2Z inj_add thm
-R30940:30952 Coq.ZArith.Znat Nat2Z inj_add thm
-prf 34189:34207 <> vm_step_orbit_equiv
-binder 34218:34219 <> s1:33
-binder 34221:34222 <> s2:34
-binder 34224:34224 <> i:35
-binder 34226:34230 <> delta:36
-R34267:34305 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R34236:34239 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R34259:34261 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R34240:34247 Coq.ZArith.BinInt Z of_nat def
-R34253:34257 Kernel.VMState <> vm_mu proj
-R34249:34250 Kernel.KernelNoether <> s1:33 var
-R34262:34266 Kernel.KernelNoether <> delta:36 var
-R34321:34326 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R34306:34312 Kernel.VMStep VMStep vm_step ind
-R34314:34315 Kernel.KernelNoether <> s1:33 var
-R34317:34317 Kernel.KernelNoether <> i:35 var
-R34319:34320 Kernel.KernelNoether <> s2:34 var
-R34327:34333 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R34337:34342 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 34334:34336 <> s2':37
-R34381:34388 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R34343:34349 Kernel.VMStep VMStep vm_step ind
-R34352:34364 Kernel.KernelNoether <> z_gauge_shift def
-R34366:34370 Kernel.KernelNoether <> delta:36 var
-R34372:34373 Kernel.KernelNoether <> s1:33 var
-R34376:34376 Kernel.KernelNoether <> i:35 var
-R34378:34380 Kernel.KernelNoether <> s2':37 var
-R34411:34413 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R34389:34401 Kernel.KernelNoether <> z_gauge_shift def
-R34403:34407 Kernel.KernelNoether <> delta:36 var
-R34409:34410 Kernel.KernelNoether <> s2:34 var
-R34414:34416 Kernel.KernelNoether <> s2':37 var
-R35124:35136 Kernel.KernelNoether <> z_gauge_shift def
-R35139:35151 Kernel.VMStep VMStep advance_state def
-R35154:35173 Kernel.VMStep VMStep advance_state_reveal def
-R35176:35191 Kernel.VMStep VMStep advance_state_rm def
-R35208:35217 Kernel.VMStep VMStep jump_state def
-R35220:35232 Kernel.VMStep VMStep jump_state_rm def
-R35235:35244 Kernel.VMStep VMStep apply_cost def
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-R35291:35305 Kernel.KernelNoether <> shift_cost_comm thm
-prf 38065:38079 <> noether_forward
-binder 38090:38091 <> s1:38
-binder 38093:38094 <> s2:39
-R38148:38153 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R38122:38124 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R38099:38118 Kernel.KernelNoether <> Observable_partition def
-R38120:38121 Kernel.KernelNoether <> s1:38 var
-R38125:38144 Kernel.KernelNoether <> Observable_partition def
-R38146:38147 Kernel.KernelNoether <> s2:39 var
-R38183:38188 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R38167:38169 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R38158:38165 Kernel.VMState <> vm_graph proj
-R38154:38155 Kernel.KernelNoether <> s1:38 var
-R38174:38181 Kernel.VMState <> vm_graph proj
-R38170:38171 Kernel.KernelNoether <> s2:39 var
-R38216:38221 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R38201:38203 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R38193:38199 Kernel.VMState <> vm_regs proj
-R38189:38190 Kernel.KernelNoether <> s1:38 var
-R38208:38214 Kernel.VMState <> vm_regs proj
-R38204:38205 Kernel.KernelNoether <> s2:39 var
-R38247:38252 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R38233:38235 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R38226:38231 Kernel.VMState <> vm_mem proj
-R38222:38223 Kernel.KernelNoether <> s1:38 var
-R38240:38245 Kernel.VMState <> vm_mem proj
-R38236:38237 Kernel.KernelNoether <> s2:39 var
-R38280:38285 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R38265:38267 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R38257:38263 Kernel.VMState <> vm_csrs proj
+R4721:4726 Kernel.VMState <> vm_err proj
+R4718:4718 Kernel.KernelNoether <> s:2 var
+R4751:4762 Kernel.VMState <> vm_logic_acc proj
+R4748:4748 Kernel.KernelNoether <> s:2 var
+R4785:4794 Kernel.VMState <> vm_mstatus proj
+R4782:4782 Kernel.KernelNoether <> s:2 var
+R4817:4826 Kernel.VMState <> vm_witness proj
+R4814:4814 Kernel.KernelNoether <> s:2 var
+R4851:4862 Kernel.VMState <> vm_certified proj
+R4848:4848 Kernel.KernelNoether <> s:2 var
+def 6174:6193 <> Observable_partition
+R6200:6206 Kernel.VMState <> VMState rec
+binder 6196:6196 <> s:3
+R6211:6214 Coq.Init.Datatypes <> list ind
+R6217:6220 Coq.Init.Datatypes <> list ind
+R6222:6224 Coq.Init.Datatypes <> nat ind
+R6241:6248 Kernel.VMState <> vm_graph proj
+R6238:6238 Kernel.KernelNoether <> s:3 var
+R6263:6272 Kernel.VMState <> pg_modules proj
+R6263:6272 Kernel.VMState <> pg_modules proj
+R6263:6272 Kernel.VMState <> pg_modules proj
+R6294:6296 Coq.Lists.List <> map def
+binder 6303:6303 <> m:4
+R6314:6314 Kernel.KernelNoether <> m:4 var
+R6321:6321 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6323:6324 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6327:6327 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6336:6348 Kernel.VMState <> module_region proj
+prf 7631:7647 <> z_action_identity
+binder 7658:7658 <> s:6
+R7680:7682 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7663:7675 Kernel.KernelNoether <> z_gauge_shift def
+R7679:7679 Kernel.KernelNoether <> s:6 var
+R7683:7683 Kernel.KernelNoether <> s:6 var
+R7751:7763 Kernel.KernelNoether <> z_gauge_shift def
+R7832:7840 Coq.ZArith.BinInt Z add_0_r thm
+R7832:7840 Coq.ZArith.BinInt Z add_0_r thm
+R7832:7840 Coq.ZArith.BinInt Z add_0_r thm
+R7903:7910 Coq.ZArith.Znat Nat2Z id thm
+R7903:7910 Coq.ZArith.Znat Nat2Z id thm
+R7903:7910 Coq.ZArith.Znat Nat2Z id thm
+prf 10136:10155 <> z_action_composition
+binder 10166:10166 <> a:7
+binder 10168:10168 <> b:8
+binder 10170:10170 <> s:9
+R10202:10207 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10176:10179 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R10198:10200 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R10180:10187 Coq.ZArith.BinInt Z of_nat def
+R10192:10196 Kernel.VMState <> vm_mu proj
+R10189:10189 Kernel.KernelNoether <> s:9 var
+R10201:10201 Kernel.KernelNoether <> b:8 var
+R10239:10244 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10209:10212 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R10235:10237 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R10231:10233 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R10213:10220 Coq.ZArith.BinInt Z of_nat def
+R10225:10229 Kernel.VMState <> vm_mu proj
+R10222:10222 Kernel.KernelNoether <> s:9 var
+R10234:10234 Kernel.KernelNoether <> b:8 var
+R10238:10238 Kernel.KernelNoether <> a:7 var
+R10280:10282 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10245:10257 Kernel.KernelNoether <> z_gauge_shift def
+R10259:10259 Kernel.KernelNoether <> a:7 var
+R10262:10274 Kernel.KernelNoether <> z_gauge_shift def
+R10276:10276 Kernel.KernelNoether <> b:8 var
+R10278:10278 Kernel.KernelNoether <> s:9 var
+R10283:10295 Kernel.KernelNoether <> z_gauge_shift def
+R10299:10301 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R10298:10298 Kernel.KernelNoether <> a:7 var
+R10302:10302 Kernel.KernelNoether <> b:8 var
+R10305:10305 Kernel.KernelNoether <> s:9 var
+R10345:10357 Kernel.KernelNoether <> z_gauge_shift def
+R10517:10524 Coq.ZArith.Znat Z2Nat id thm
+R10541:10543 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R10527:10534 Coq.ZArith.BinInt Z of_nat def
+R10517:10524 Coq.ZArith.Znat Z2Nat id thm
+R10541:10543 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R10527:10534 Coq.ZArith.BinInt Z of_nat def
+R10517:10524 Coq.ZArith.Znat Z2Nat id thm
+R10541:10543 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R10527:10534 Coq.ZArith.BinInt Z of_nat def
+R10592:10594 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R10588:10590 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R10574:10581 Coq.ZArith.BinInt Z of_nat def
+R10618:10621 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R10627:10627 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R10604:10611 Coq.ZArith.BinInt Z of_nat def
+R10623:10625 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R10592:10594 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R10588:10590 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R10574:10581 Coq.ZArith.BinInt Z of_nat def
+R10618:10621 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R10627:10627 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R10604:10611 Coq.ZArith.BinInt Z of_nat def
+R10623:10625 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+prf 12574:12589 <> z_action_inverse
+binder 12600:12600 <> n:10
+binder 12602:12602 <> s:11
+R12634:12639 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12608:12611 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R12630:12632 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R12612:12619 Coq.ZArith.BinInt Z of_nat def
+R12624:12628 Kernel.VMState <> vm_mu proj
+R12621:12621 Kernel.KernelNoether <> s:11 var
+R12633:12633 Kernel.KernelNoether <> n:10 var
+R12678:12680 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12640:12652 Kernel.KernelNoether <> z_gauge_shift def
+R12655:12655 Coq.ZArith.BinInt <> ::Z_scope:'-'_x not
+R12656:12656 Kernel.KernelNoether <> n:10 var
+R12660:12672 Kernel.KernelNoether <> z_gauge_shift def
+R12674:12674 Kernel.KernelNoether <> n:10 var
+R12676:12676 Kernel.KernelNoether <> s:11 var
+R12681:12681 Kernel.KernelNoether <> s:11 var
+R12719:12731 Kernel.KernelNoether <> z_gauge_shift def
+R12855:12862 Coq.ZArith.Znat Z2Nat id thm
+R12855:12862 Coq.ZArith.Znat Z2Nat id thm
+R12855:12862 Coq.ZArith.Znat Z2Nat id thm
+R12908:12910 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R12904:12906 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R12890:12897 Coq.ZArith.BinInt Z of_nat def
+R12911:12912 Coq.ZArith.BinInt <> ::Z_scope:'-'_x not
+R12922:12929 Coq.ZArith.BinInt Z of_nat def
+R12908:12910 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R12904:12906 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R12890:12897 Coq.ZArith.BinInt Z of_nat def
+R12911:12912 Coq.ZArith.BinInt <> ::Z_scope:'-'_x not
+R12922:12929 Coq.ZArith.BinInt Z of_nat def
+R12954:12961 Coq.ZArith.Znat Nat2Z id thm
+R12954:12961 Coq.ZArith.Znat Nat2Z id thm
+prf 15899:15916 <> z_gauge_invariance
+binder 15927:15931 <> delta:12
+binder 15933:15933 <> s:13
+R15982:15984 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15938:15957 Kernel.KernelNoether <> Observable_partition def
+R15960:15972 Kernel.KernelNoether <> z_gauge_shift def
+R15974:15978 Kernel.KernelNoether <> delta:12 var
+R15980:15980 Kernel.KernelNoether <> s:13 var
+R15985:16004 Kernel.KernelNoether <> Observable_partition def
+R16006:16006 Kernel.KernelNoether <> s:13 var
+R16043:16062 Kernel.KernelNoether <> Observable_partition def
+R16065:16077 Kernel.KernelNoether <> z_gauge_shift def
+def 17291:17300 <> mu_current
+R17307:17313 Kernel.VMState <> VMState rec
+binder 17303:17303 <> s:14
+R17318:17320 Coq.Init.Datatypes <> nat ind
+R17328:17332 Kernel.VMState <> vm_mu proj
+R17325:17325 Kernel.KernelNoether <> s:14 var
+prf 19984:20003 <> vm_step_mu_monotonic
+binder 20014:20014 <> s:15
+binder 20016:20016 <> i:16
+binder 20018:20019 <> s':17
+R20038:20041 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20024:20030 Kernel.VMStep VMStep vm_step ind
+R20032:20032 Kernel.KernelNoether <> s:15 var
+R20034:20034 Kernel.KernelNoether <> i:16 var
+R20036:20037 Kernel.KernelNoether <> s':17 var
+R20055:20058 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R20043:20052 Kernel.KernelNoether <> mu_current def
+R20054:20054 Kernel.KernelNoether <> s:15 var
+R20059:20068 Kernel.KernelNoether <> mu_current def
+R20070:20071 Kernel.KernelNoether <> s':17 var
+R20118:20127 Kernel.KernelNoether <> mu_current def
+R20167:20179 Kernel.VMStep VMStep advance_state def
+R20182:20201 Kernel.VMStep VMStep advance_state_reveal def
+R20204:20219 Kernel.VMStep VMStep advance_state_rm def
+R20233:20242 Kernel.VMStep VMStep jump_state def
+R20245:20257 Kernel.VMStep VMStep jump_state_rm def
+R20260:20269 Kernel.VMStep VMStep apply_cost def
+def 21871:21883 <> in_same_orbit
+R21894:21900 Kernel.VMState <> VMState rec
+binder 21886:21887 <> s1:18
+binder 21889:21890 <> s2:19
+R21915:21921 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R21931:21932 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R21930:21930 Coq.Numbers.BinNums <> Z ind
+binder 21922:21926 <> delta:20
+R21955:21957 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21933:21945 Kernel.KernelNoether <> z_gauge_shift def
+R21947:21951 Kernel.KernelNoether <> delta:20 var
+R21953:21954 Kernel.KernelNoether <> s1:18 var
+R21958:21959 Kernel.KernelNoether <> s2:19 var
+prf 23052:23067 <> orbit_equiv_refl
+binder 23078:23078 <> s:21
+R23081:23093 Kernel.KernelNoether <> in_same_orbit def
+R23095:23095 Kernel.KernelNoether <> s:21 var
+R23097:23097 Kernel.KernelNoether <> s:21 var
+R23137:23153 Kernel.KernelNoether <> z_action_identity thm
+R23137:23153 Kernel.KernelNoether <> z_action_identity thm
+prf 24744:24758 <> orbit_equiv_sym
+binder 24769:24770 <> s1:22
+binder 24772:24773 <> s2:23
+binder 24775:24779 <> delta:24
+R24816:24821 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24785:24788 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R24808:24810 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R24789:24796 Coq.ZArith.BinInt Z of_nat def
+R24802:24806 Kernel.VMState <> vm_mu proj
+R24798:24799 Kernel.KernelNoether <> s1:22 var
+R24811:24815 Kernel.KernelNoether <> delta:24 var
+R24849:24854 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24844:24846 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24822:24834 Kernel.KernelNoether <> z_gauge_shift def
+R24836:24840 Kernel.KernelNoether <> delta:24 var
+R24842:24843 Kernel.KernelNoether <> s1:22 var
+R24847:24848 Kernel.KernelNoether <> s2:23 var
+R24855:24867 Kernel.KernelNoether <> in_same_orbit def
+R24869:24870 Kernel.KernelNoether <> s2:23 var
+R24872:24873 Kernel.KernelNoether <> s1:22 var
+R24924:24924 Coq.ZArith.BinInt <> ::Z_scope:'-'_x not
+R24924:24924 Coq.ZArith.BinInt <> ::Z_scope:'-'_x not
+R24961:24976 Kernel.KernelNoether <> z_action_inverse thm
+R24961:24976 Kernel.KernelNoether <> z_action_inverse thm
+prf 27292:27308 <> orbit_equiv_trans
+binder 27319:27320 <> s1:25
+binder 27322:27323 <> s2:26
+binder 27325:27326 <> s3:27
+binder 27328:27329 <> d1:28
+binder 27331:27332 <> d2:29
+R27366:27371 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R27338:27341 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R27361:27363 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R27342:27349 Coq.ZArith.BinInt Z of_nat def
+R27355:27359 Kernel.VMState <> vm_mu proj
+R27351:27352 Kernel.KernelNoether <> s1:25 var
+R27364:27365 Kernel.KernelNoether <> d1:28 var
+R27406:27411 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R27373:27376 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R27401:27403 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R27396:27398 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R27377:27384 Coq.ZArith.BinInt Z of_nat def
+R27390:27394 Kernel.VMState <> vm_mu proj
+R27386:27387 Kernel.KernelNoether <> s1:25 var
+R27399:27400 Kernel.KernelNoether <> d1:28 var
+R27404:27405 Kernel.KernelNoether <> d2:29 var
+R27436:27441 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R27431:27433 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R27412:27424 Kernel.KernelNoether <> z_gauge_shift def
+R27426:27427 Kernel.KernelNoether <> d1:28 var
+R27429:27430 Kernel.KernelNoether <> s1:25 var
+R27434:27435 Kernel.KernelNoether <> s2:26 var
+R27466:27471 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R27461:27463 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R27442:27454 Kernel.KernelNoether <> z_gauge_shift def
+R27456:27457 Kernel.KernelNoether <> d2:29 var
+R27459:27460 Kernel.KernelNoether <> s2:26 var
+R27464:27465 Kernel.KernelNoether <> s3:27 var
+R27472:27484 Kernel.KernelNoether <> in_same_orbit def
+R27486:27487 Kernel.KernelNoether <> s1:25 var
+R27489:27490 Kernel.KernelNoether <> s3:27 var
+R27555:27557 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R27555:27557 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R27607:27626 Kernel.KernelNoether <> z_action_composition thm
+R27607:27626 Kernel.KernelNoether <> z_action_composition thm
+R27607:27626 Kernel.KernelNoether <> z_action_composition thm
+prf 30774:30788 <> shift_cost_comm
+R30810:30812 Coq.Init.Datatypes <> nat ind
+binder 30800:30801 <> mu:30
+binder 30803:30806 <> cost:31
+R30824:30824 Coq.Numbers.BinNums <> Z ind
+binder 30816:30820 <> delta:32
+R30854:30937 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R30831:30834 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R30846:30848 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R30835:30842 Coq.ZArith.BinInt Z of_nat def
+R30844:30845 Kernel.KernelNoether <> mu:30 var
+R30849:30853 Kernel.KernelNoether <> delta:32 var
+R30981:30985 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R30969:30971 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R30939:30946 Coq.ZArith.BinInt Z to_nat def
+R30960:30962 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R30949:30956 Coq.ZArith.BinInt Z of_nat def
+R30958:30959 Kernel.KernelNoether <> mu:30 var
+R30963:30967 Kernel.KernelNoether <> delta:32 var
+R30972:30975 Kernel.KernelNoether <> cost:31 var
+R30986:30993 Coq.ZArith.BinInt Z to_nat def
+R31016:31018 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R30996:31003 Coq.ZArith.BinInt Z of_nat def
+R31008:31010 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R31006:31007 Kernel.KernelNoether <> mu:30 var
+R31011:31014 Kernel.KernelNoether <> cost:31 var
+R31019:31023 Kernel.KernelNoether <> delta:32 var
+R31073:31085 Coq.ZArith.Znat Nat2Z inj_add thm
+R31073:31085 Coq.ZArith.Znat Nat2Z inj_add thm
+R31073:31085 Coq.ZArith.Znat Nat2Z inj_add thm
+prf 34322:34340 <> vm_step_orbit_equiv
+binder 34351:34352 <> s1:33
+binder 34354:34355 <> s2:34
+binder 34357:34357 <> i:35
+binder 34359:34363 <> delta:36
+R34400:34438 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R34369:34372 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R34392:34394 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R34373:34380 Coq.ZArith.BinInt Z of_nat def
+R34386:34390 Kernel.VMState <> vm_mu proj
+R34382:34383 Kernel.KernelNoether <> s1:33 var
+R34395:34399 Kernel.KernelNoether <> delta:36 var
+R34454:34459 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R34439:34445 Kernel.VMStep VMStep vm_step ind
+R34447:34448 Kernel.KernelNoether <> s1:33 var
+R34450:34450 Kernel.KernelNoether <> i:35 var
+R34452:34453 Kernel.KernelNoether <> s2:34 var
+R34460:34466 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R34470:34475 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 34467:34469 <> s2':37
+R34514:34521 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R34476:34482 Kernel.VMStep VMStep vm_step ind
+R34485:34497 Kernel.KernelNoether <> z_gauge_shift def
+R34499:34503 Kernel.KernelNoether <> delta:36 var
+R34505:34506 Kernel.KernelNoether <> s1:33 var
+R34509:34509 Kernel.KernelNoether <> i:35 var
+R34511:34513 Kernel.KernelNoether <> s2':37 var
+R34544:34546 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R34522:34534 Kernel.KernelNoether <> z_gauge_shift def
+R34536:34540 Kernel.KernelNoether <> delta:36 var
+R34542:34543 Kernel.KernelNoether <> s2:34 var
+R34547:34549 Kernel.KernelNoether <> s2':37 var
+R35257:35269 Kernel.KernelNoether <> z_gauge_shift def
+R35272:35284 Kernel.VMStep VMStep advance_state def
+R35287:35306 Kernel.VMStep VMStep advance_state_reveal def
+R35309:35324 Kernel.VMStep VMStep advance_state_rm def
+R35341:35350 Kernel.VMStep VMStep jump_state def
+R35353:35365 Kernel.VMStep VMStep jump_state_rm def
+R35368:35377 Kernel.VMStep VMStep apply_cost def
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+R35424:35438 Kernel.KernelNoether <> shift_cost_comm thm
+prf 38198:38212 <> noether_forward
+binder 38223:38224 <> s1:38
+binder 38226:38227 <> s2:39
+R38281:38286 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R38255:38257 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R38232:38251 Kernel.KernelNoether <> Observable_partition def
 R38253:38254 Kernel.KernelNoether <> s1:38 var
-R38272:38278 Kernel.VMState <> vm_csrs proj
-R38268:38269 Kernel.KernelNoether <> s2:39 var
-R38309:38314 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R38296:38298 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R38290:38294 Kernel.VMState <> vm_pc proj
-R38286:38287 Kernel.KernelNoether <> s1:38 var
-R38303:38307 Kernel.VMState <> vm_pc proj
-R38299:38300 Kernel.KernelNoether <> s2:39 var
-R38352:38357 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R38332:38334 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R38319:38330 Kernel.VMState <> vm_mu_tensor proj
-R38315:38316 Kernel.KernelNoether <> s1:38 var
-R38339:38350 Kernel.VMState <> vm_mu_tensor proj
-R38335:38336 Kernel.KernelNoether <> s2:39 var
-R38383:38388 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R38369:38371 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R38362:38367 Kernel.VMState <> vm_err proj
-R38358:38359 Kernel.KernelNoether <> s1:38 var
-R38376:38381 Kernel.VMState <> vm_err proj
-R38372:38373 Kernel.KernelNoether <> s2:39 var
-R38389:38395 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R38401:38402 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 38396:38400 <> delta:40
-R38425:38427 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R38403:38415 Kernel.KernelNoether <> z_gauge_shift def
-R38417:38421 Kernel.KernelNoether <> delta:40 var
-R38423:38424 Kernel.KernelNoether <> s1:38 var
-R38428:38429 Kernel.KernelNoether <> s2:39 var
-R38532:38534 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
-R38513:38520 Coq.ZArith.BinInt Z of_nat def
-R38526:38530 Kernel.VMState <> vm_mu proj
-R38535:38542 Coq.ZArith.BinInt Z of_nat def
-R38548:38552 Kernel.VMState <> vm_mu proj
-R38532:38534 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
-R38513:38520 Coq.ZArith.BinInt Z of_nat def
-R38526:38530 Kernel.VMState <> vm_mu proj
-R38535:38542 Coq.ZArith.BinInt Z of_nat def
-R38548:38552 Kernel.VMState <> vm_mu proj
-R38568:38580 Kernel.KernelNoether <> z_gauge_shift def
-R38700:38702 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R38663:38666 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R38699:38699 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R38649:38656 Coq.ZArith.BinInt Z of_nat def
-R38682:38684 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
-R38667:38674 Coq.ZArith.BinInt Z of_nat def
-R38685:38692 Coq.ZArith.BinInt Z of_nat def
-R38703:38710 Coq.ZArith.BinInt Z of_nat def
-R38700:38702 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R38663:38666 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R38699:38699 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
-R38649:38656 Coq.ZArith.BinInt Z of_nat def
-R38682:38684 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
-R38667:38674 Coq.ZArith.BinInt Z of_nat def
-R38685:38692 Coq.ZArith.BinInt Z of_nat def
-R38703:38710 Coq.ZArith.BinInt Z of_nat def
-R38755:38762 Coq.ZArith.Znat Nat2Z id thm
-R38755:38762 Coq.ZArith.Znat Nat2Z id thm
-prf 41246:41261 <> noether_backward
-binder 41272:41272 <> s:41
-R41343:41348 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 41285:41285 <> i:42
-binder 41287:41288 <> s':43
-R41305:41308 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R41291:41297 Kernel.VMStep VMStep vm_step ind
-R41299:41299 Kernel.KernelNoether <> s:41 var
-R41301:41301 Kernel.KernelNoether <> i:42 var
-R41303:41304 Kernel.KernelNoether <> s':43 var
-R41321:41324 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R41309:41318 Kernel.KernelNoether <> mu_current def
-R41320:41320 Kernel.KernelNoether <> s:41 var
-R41325:41334 Kernel.KernelNoether <> mu_current def
-R41336:41337 Kernel.KernelNoether <> s':43 var
-binder 41356:41360 <> delta:44
-R41407:41409 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R41363:41382 Kernel.KernelNoether <> Observable_partition def
-R41385:41397 Kernel.KernelNoether <> z_gauge_shift def
-R41399:41403 Kernel.KernelNoether <> delta:44 var
-R41405:41405 Kernel.KernelNoether <> s:41 var
-R41410:41429 Kernel.KernelNoether <> Observable_partition def
-R41431:41431 Kernel.KernelNoether <> s:41 var
-R41469:41486 Kernel.KernelNoether <> z_gauge_invariance thm
-R41469:41486 Kernel.KernelNoether <> z_gauge_invariance thm
+R38258:38277 Kernel.KernelNoether <> Observable_partition def
+R38279:38280 Kernel.KernelNoether <> s2:39 var
+R38316:38321 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R38300:38302 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R38291:38298 Kernel.VMState <> vm_graph proj
+R38287:38288 Kernel.KernelNoether <> s1:38 var
+R38307:38314 Kernel.VMState <> vm_graph proj
+R38303:38304 Kernel.KernelNoether <> s2:39 var
+R38349:38354 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R38334:38336 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R38326:38332 Kernel.VMState <> vm_regs proj
+R38322:38323 Kernel.KernelNoether <> s1:38 var
+R38341:38347 Kernel.VMState <> vm_regs proj
+R38337:38338 Kernel.KernelNoether <> s2:39 var
+R38380:38385 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R38366:38368 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R38359:38364 Kernel.VMState <> vm_mem proj
+R38355:38356 Kernel.KernelNoether <> s1:38 var
+R38373:38378 Kernel.VMState <> vm_mem proj
+R38369:38370 Kernel.KernelNoether <> s2:39 var
+R38413:38418 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R38398:38400 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R38390:38396 Kernel.VMState <> vm_csrs proj
+R38386:38387 Kernel.KernelNoether <> s1:38 var
+R38405:38411 Kernel.VMState <> vm_csrs proj
+R38401:38402 Kernel.KernelNoether <> s2:39 var
+R38442:38447 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R38429:38431 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R38423:38427 Kernel.VMState <> vm_pc proj
+R38419:38420 Kernel.KernelNoether <> s1:38 var
+R38436:38440 Kernel.VMState <> vm_pc proj
+R38432:38433 Kernel.KernelNoether <> s2:39 var
+R38485:38490 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R38465:38467 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R38452:38463 Kernel.VMState <> vm_mu_tensor proj
+R38448:38449 Kernel.KernelNoether <> s1:38 var
+R38472:38483 Kernel.VMState <> vm_mu_tensor proj
+R38468:38469 Kernel.KernelNoether <> s2:39 var
+R38516:38521 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R38502:38504 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R38495:38500 Kernel.VMState <> vm_err proj
+R38491:38492 Kernel.KernelNoether <> s1:38 var
+R38509:38514 Kernel.VMState <> vm_err proj
+R38505:38506 Kernel.KernelNoether <> s2:39 var
+R38559:38564 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R38539:38541 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R38526:38537 Kernel.VMState <> vm_logic_acc proj
+R38522:38523 Kernel.KernelNoether <> s1:38 var
+R38546:38557 Kernel.VMState <> vm_logic_acc proj
+R38542:38543 Kernel.KernelNoether <> s2:39 var
+R38598:38603 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R38580:38582 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R38569:38578 Kernel.VMState <> vm_mstatus proj
+R38565:38566 Kernel.KernelNoether <> s1:38 var
+R38587:38596 Kernel.VMState <> vm_mstatus proj
+R38583:38584 Kernel.KernelNoether <> s2:39 var
+R38637:38642 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R38619:38621 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R38608:38617 Kernel.VMState <> vm_witness proj
+R38604:38605 Kernel.KernelNoether <> s1:38 var
+R38626:38635 Kernel.VMState <> vm_witness proj
+R38622:38623 Kernel.KernelNoether <> s2:39 var
+R38680:38685 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R38660:38662 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R38647:38658 Kernel.VMState <> vm_certified proj
+R38643:38644 Kernel.KernelNoether <> s1:38 var
+R38667:38678 Kernel.VMState <> vm_certified proj
+R38663:38664 Kernel.KernelNoether <> s2:39 var
+R38686:38692 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R38698:38699 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 38693:38697 <> delta:40
+R38722:38724 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R38700:38712 Kernel.KernelNoether <> z_gauge_shift def
+R38714:38718 Kernel.KernelNoether <> delta:40 var
+R38720:38721 Kernel.KernelNoether <> s1:38 var
+R38725:38726 Kernel.KernelNoether <> s2:39 var
+R38865:38867 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R38846:38853 Coq.ZArith.BinInt Z of_nat def
+R38859:38863 Kernel.VMState <> vm_mu proj
+R38868:38875 Coq.ZArith.BinInt Z of_nat def
+R38881:38885 Kernel.VMState <> vm_mu proj
+R38865:38867 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R38846:38853 Coq.ZArith.BinInt Z of_nat def
+R38859:38863 Kernel.VMState <> vm_mu proj
+R38868:38875 Coq.ZArith.BinInt Z of_nat def
+R38881:38885 Kernel.VMState <> vm_mu proj
+R38901:38913 Kernel.KernelNoether <> z_gauge_shift def
+R39033:39035 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R38996:38999 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R39032:39032 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R38982:38989 Coq.ZArith.BinInt Z of_nat def
+R39015:39017 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R39000:39007 Coq.ZArith.BinInt Z of_nat def
+R39018:39025 Coq.ZArith.BinInt Z of_nat def
+R39036:39043 Coq.ZArith.BinInt Z of_nat def
+R39033:39035 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R38996:38999 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R39032:39032 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R38982:38989 Coq.ZArith.BinInt Z of_nat def
+R39015:39017 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R39000:39007 Coq.ZArith.BinInt Z of_nat def
+R39018:39025 Coq.ZArith.BinInt Z of_nat def
+R39036:39043 Coq.ZArith.BinInt Z of_nat def
+R39088:39095 Coq.ZArith.Znat Nat2Z id thm
+R39088:39095 Coq.ZArith.Znat Nat2Z id thm
+prf 41579:41594 <> noether_backward
+binder 41605:41605 <> s:41
+R41676:41681 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 41618:41618 <> i:42
+binder 41620:41621 <> s':43
+R41638:41641 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R41624:41630 Kernel.VMStep VMStep vm_step ind
+R41632:41632 Kernel.KernelNoether <> s:41 var
+R41634:41634 Kernel.KernelNoether <> i:42 var
+R41636:41637 Kernel.KernelNoether <> s':43 var
+R41654:41657 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R41642:41651 Kernel.KernelNoether <> mu_current def
+R41653:41653 Kernel.KernelNoether <> s:41 var
+R41658:41667 Kernel.KernelNoether <> mu_current def
+R41669:41670 Kernel.KernelNoether <> s':43 var
+binder 41689:41693 <> delta:44
+R41740:41742 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R41696:41715 Kernel.KernelNoether <> Observable_partition def
+R41718:41730 Kernel.KernelNoether <> z_gauge_shift def
+R41732:41736 Kernel.KernelNoether <> delta:44 var
+R41738:41738 Kernel.KernelNoether <> s:41 var
+R41743:41762 Kernel.KernelNoether <> Observable_partition def
+R41764:41764 Kernel.KernelNoether <> s:41 var
+R41802:41819 Kernel.KernelNoether <> z_gauge_invariance thm
+R41802:41819 Kernel.KernelNoether <> z_gauge_invariance thm

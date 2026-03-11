@@ -40,7 +40,7 @@ This chapter presents empirical evaluation addressing three fundamental question
     The theory claims that partition geometry alone, without explicit revelation, remains local. CHSH experiments verify that the manifold projection mechanism respects the classical bound ($S \le 2$) in the absence of signaling, ensuring causal isolation.
     
     \item \textbf{Is the implementation practical?} \\
-    A beautiful theory that runs too slowly is useless. Performance and resource utilization are benchmarked to assess practicality, verifying that the hardware fits within standard FPGA constraints (Xilinx 7-series and UltraScale+).
+    A beautiful theory that runs too slowly is useless. Performance and resource utilization are benchmarked to assess practicality, verifying that the hardware fits within standard FPGA constraints (Lattice ECP5).
 
     \item \textbf{Do the ledger-level predictions behave as derived?} \\
     Some of the most important claims in this thesis are not about any particular workload, but about unavoidable trade-offs induced by the $\mu$ rules themselves. The evaluation therefore includes two ``physics-without-physics'' harnesses that run on any machine: (i) a structural-heat certificate benchmark derived from $\mu=\lceil\log_2(n!)\rceil$, and (ii) a fixed-budget time-dilation benchmark derived from $r=\lfloor(B-C)/c\rfloor$.
@@ -56,7 +56,7 @@ All experiments follow scientific best practices:
 \end{itemize}
 
 All experiments use the reference VM with receipt generation enabled. Each run produces receipts and state snapshots so that results can be rechecked independently. The emphasis is on \textit{replayability}: anyone can take the same trace, replay it through each layer, and confirm equality of the observable projection.
-The concrete test harnesses live under \texttt{tests/} (for example, \path{tests/test_partition_isomorphism_minimal.py} and \path{tests/test_rtl_compute_isomorphism.py}), so the evaluation is tied to executable scripts rather than hand-run examples.
+The concrete test harnesses live under \texttt{tests/} (for example, \path{tests/test_cross_layer_bisimulation.py} and \path{tests/test_verilog_cosim.py}), so the evaluation is tied to executable scripts rather than hand-run examples.
 
 \section{3-Layer Isomorphism Verification}
 
@@ -159,7 +159,7 @@ Final states are projected to canonical form:
   "mu": <int>,
   "err": <bool>,
   "regs": [<32 integers>],
-  "mem": [<256 integers>],
+  "mem": [<4096 integers>],
   "csrs": {"cert_addr": ..., "status": ..., "error": ...},
   "graph": {"modules": [...]}
 }
@@ -175,7 +175,7 @@ Final states are projected to canonical form:
     \item \textbf{"mu": <int>} — Operational $\mu$ ledger value. Should match since $\mu$-updates are part of the formal semantics.
     \item \textbf{"err": <bool>} — Error latch (true if VM encountered an error). Should match for valid traces.
     \item \textbf{"regs": [<32 integers>]} — All 32 general-purpose registers. The isomorphism test compares these element-by-element.
-    \item \textbf{"mem": [<256 integers>]} — All 256 memory words. Element-by-element comparison.
+    \item \textbf{"mem": [<4096 integers>]} --- All 4,096 memory words. Element-by-element comparison.
     \item \textbf{"csrs": \{...\}} — Control and status registers: \texttt{cert\_addr} (certificate address), \texttt{status} (status flags), \texttt{error} (error code). These are compared when relevant to the test.
     \item \textbf{"graph": \{"modules": [...]\}} — Partition graph structure (list of modules with regions and axioms). This is compared for partition operation tests (PNEW, PSPLIT, PMERGE), canonicalized to ignore ordering.
 \end{itemize}
@@ -355,7 +355,7 @@ The CHSH evaluation pipeline:
     \item Verify $\mu$-cost matches declared cost
     \item Verify receipt chain integrity
 \end{enumerate}
-The pipeline is mirrored in the test utility \path{tests/test_chsh_manifold.py}, which mirrors the geometric projection mechanism and validates that, in the absence of explicit meta-signaling, the system respects the classical CHSH bound ($S \le 2.0$), thereby confirming that the partition geometry itself does not smuggle in causal violations.
+The pipeline is validated by the CHSH hardware bridge (\path{tests/test_chsh_verilator_hardware_bridge.py}), which tests gate-key rejection, certificate enforcement, and $\mu$-surcharges across the RTL layer, and by the cross-layer bisimulation suite (\path{tests/test_cross_layer_bisimulation.py}), which confirms that CHSH semantics match between Python and Verilog---thereby verifying that the partition geometry itself does not smuggle in causal violations.
 
 \subsection{Supra-Quantum Certification}
 
@@ -454,7 +454,7 @@ def test_mu_monotonic_under_any_trace():
 
 \paragraph{Understanding test\_mu\_monotonic\_under\_any\_trace:}
 
-\textbf{What is this test?} This is a \textbf{randomized property test} that verifies the \textbf{$\mu$-ledger monotonicity property}: the $\mu$ value never decreases during VM execution. The actual test suite contains \texttt{test\_mu\_monotonicity} (in \path{tests/test_three_layer_isomorphism.py}) and \texttt{test\_mu\_monotonicity\_property} (in \path{tests/test_fuzz_isomorphism.py}). Both test the operational implementation of the formal theorem \texttt{mu\_conservation\_kernel} from Chapter 5.
+\textbf{What is this test?} This is a \textbf{randomized property test} that verifies the \textbf{$\mu$-ledger monotonicity property}: the $\mu$ value never decreases during VM execution. The actual test suite contains \texttt{test\_mu\_never\_decreases} (in \path{tests/test_mu.py}) and the Hypothesis-based property fuzzer \texttt{test\_mu\_non\_negative} (in \path{tests/test_hypothesis_cross_layer.py}). Both test the operational implementation of the formal theorem \texttt{mu\_conservation\_kernel} from Chapter 5.
 
 \textbf{Test structure:}
 \begin{itemize}
@@ -475,7 +475,7 @@ def test_mu_monotonic_under_any_trace():
     \item A false proof (if all implementations agree on the decrease, the formal proof is wrong---but this has never occurred in thousands of tests).
 \end{enumerate}
 
-\textbf{MuLedger implementation:} In the Python VM, the ledger is split into two components (see \texttt{MuLedger} in \path{thielecpu/state.py}):
+\textbf{MuLedger implementation:} In the Python VM, the ledger is split into two components (see \texttt{MuLedger} in \path{thielecpu/vm.py}):
 \begin{itemize}
     \item \textbf{mu\_discovery} — Costs from partition discovery (PNEW).
     \item \textbf{mu\_execution} — Costs from logical operations (LJOIN, EMIT).
@@ -698,7 +698,7 @@ REGION_SIZE = 16
 \begin{itemize}
     \item \textbf{LUTs: $\sim$2,500} — Look-Up Tables (combinational logic). The partition graph, ALU, and control logic fit in 2,500 6-input LUTs.
     \item \textbf{Flip-Flops: $\sim$1,200} — Sequential storage elements. Registers, PC, $\mu$-accumulator, CSRs require $\sim$1,200 flip-flops.
-    \item \textbf{Target: Xilinx 7-series} — Mid-range FPGA family (e.g., Artix-7, Kintex-7). Total device capacity: $\sim$50,000 LUTs, so this configuration uses $\sim$5\% of a small 7-series FPGA.
+    \item \textbf{Target: Lattice ECP5} --- Mid-range open-source-friendly FPGA family (e.g., LFE5U-25F, LFE5U-85F). Total device capacity: $\sim$24,000--85,000 LUTs, so this configuration uses $\sim$3--10\% of an ECP5 device.
 \end{itemize}
 
 \textbf{Use case:} This configuration is ideal for:
@@ -713,7 +713,7 @@ REGION_SIZE = 16
 \begin{itemize}
     \item LUTs: $\sim$2,500
     \item Flip-Flops: $\sim$1,200
-    \item Target: Xilinx 7-series
+    \item Target: Lattice ECP5
 \end{itemize}
 
 \textbf{Full Configuration:}
@@ -736,7 +736,7 @@ REGION_SIZE = 1024
 \begin{itemize}
     \item \textbf{LUTs: $\sim$45,000} — The full partition graph with 64 modules and 1024-element regions requires $\sim$45,000 LUTs ($18\times$ more than LITE).
     \item \textbf{Flip-Flops: $\sim$35,000} — Storing 64 bitmasks, larger CSR files, and deeper pipeline registers requires $\sim$35,000 flip-flops ($29\times$ more than LITE).
-    \item \textbf{Target: Xilinx UltraScale+} — High-end FPGA family (e.g., VU9P, ZU19EG). Total device capacity: $\sim$1,000,000+ LUTs, so this configuration uses $\sim$4-5\% of a large UltraScale+ device.
+    \item \textbf{Target: Lattice ECP5 (large)} --- Largest ECP5 variant (LFE5UM5G-85F). Total device capacity: $\sim$85,000 LUTs, so a scaled-up configuration would use a larger percentage but remain within a single device.
 \end{itemize}
 
 \textbf{Use case:} This configuration supports:
@@ -751,7 +751,7 @@ REGION_SIZE = 1024
 \begin{itemize}
     \item LUTs: $\sim$45,000
     \item Flip-Flops: $\sim$35,000
-    \item Target: Xilinx UltraScale+
+    \item Target: Lattice ECP5 (large)
 \end{itemize}
 
 \section{Validation Coverage}
@@ -765,16 +765,15 @@ The evaluation suite is organized by the kinds of claims it is meant to stress:
     \item \textbf{Partition operations}: normalization, split/merge preconditions, and canonical region equality.
     \item \textbf{$\mu$-ledger tests}: monotonicity, conservation, and irreversibility lower bounds.
     \item \textbf{CHSH/Bell tests}: enforcement of correlation bounds and revelation requirements.
-    \item \textbf{QM-divergent predictions}: six concrete predictions (QD1--QD6) where the $\mu$-accounting framework diverges from standard quantum mechanics, each with computed numerical thresholds and experimental protocols (\path{tests/test_qm_divergent.py}, 42 tests).
-    \item \textbf{Falsifiable predictions}: systematic verification that every major claim carries an explicit falsification criterion (\path{tests/test_falsifiable_predictions.py}, 43 tests).
-    \item \textbf{Cross-layer comprehensive}: end-to-end validation spanning Coq proofs, Python VM, and Verilog RTL across all instruction categories (\path{tests/test_cross_layer_comprehensive.py}, 44 tests).
-    \item \textbf{Verilog co-simulation}: direct Python-to-RTL comparison via Icarus Verilog testbenches, covering compute, partition, and error-handling paths (\path{tests/test_verilog_cosim.py}, 31 tests).
+    \item \textbf{QM-divergent predictions}: six concrete predictions (QD1--QD6) where the $\mu$-accounting framework diverges from standard quantum mechanics, each with computed numerical thresholds and experimental protocols (Chapter~11).
+    \item \textbf{Cross-layer bisimulation}: end-to-end validation spanning Python VM and Verilog RTL across all 31 opcodes, plus OCaml-vs-Python state identity, I/O ports, heap ops, Bianchi freeze, and trap routing (\path{tests/test_cross_layer_bisimulation.py}, 47 tests).
+    \item \textbf{Verilog co-simulation}: direct Python-to-RTL comparison via Icarus Verilog testbenches, covering compute, partition, and error-handling paths (\path{tests/test_verilog_cosim.py}, 29 tests).
     \item \textbf{Receipt verification}: signature integrity and step-by-step replay.
     \item \textbf{Adversarial tests}: malformed traces and invalid certificates.
     \item \textbf{Performance benchmarks}: throughput with and without receipts.
 \end{itemize}
 
-In total the test suite contains 82 test files collecting 820 tests, of which 817 pass and 5 are skipped (the skips require hardware toolchain components not present in the CI container). Running the full suite:
+In total the test suite contains 35 test files collecting 478 tests. Running the full suite:
 
 \begin{lstlisting}
 pytest tests/ -q
@@ -794,10 +793,10 @@ The fast local gates are proof compilation and the two isomorphism tests. The fu
 \subsection{Reproducing the ledger-level physics artifacts}
 The structural heat and time dilation artifacts are designed to run on any environment (no energy counters required) and to be self-auditing via embedded invariant checks in the emitted JSON.
 
-\paragraph{Structural heat.} Generate the artifact JSON and the scaling sweep:
+\paragraph{Structural heat.} Generate the artifact JSON and the scaling sweep (script archived at \path{archive/scripts\_unused/structural\_heat\_experiment.py}):
 \begin{lstlisting}
-python3 scripts/structural_heat_experiment.py
-python3 scripts/structural_heat_experiment.py --sweep-records --records-pow-min 10 --records-pow-max 20 --records-pow-step 2
+python3 archive/scripts_unused/structural_heat_experiment.py
+python3 archive/scripts_unused/structural_heat_experiment.py --sweep-records --records-pow-min 10 --records-pow-max 20 --records-pow-step 2
 \end{lstlisting}
 
 \paragraph{Understanding Structural Heat Experiment Commands:}
@@ -807,7 +806,7 @@ python3 scripts/structural_heat_experiment.py --sweep-records --records-pow-min 
 \textbf{Command 1: Single run}
 \begin{itemize}
     \item \textbf{python3 scripts/structural\_heat\_experiment.py} — Runs a single experiment with default parameters ($n = 2^{20}$ records). Computes $\mu = \lceil \log_2(n!) \rceil$ and verifies the ceiling invariant: $0 \leq \mu - \log_2(n!) < 1$.
-    \item Output: \path{results/structural\_heat\_experiment.json} containing $n$, $\log_2(n!)$, charged $\mu$, slack, and verification status.
+    \item Output: a JSON file containing $n$, $\log_2(n!)$, charged $\mu$, slack, and verification status.
 \end{itemize}
 
 \textbf{Command 2: Scaling sweep}
@@ -827,7 +826,7 @@ This prevents the loophole: ``I claim this buffer is sorted, but I'll pay zero $
 
 \textbf{Falsifiability:} If the harness produced $\mu \ll \log_2(n!)$ (e.g., $\mu = 10$ for $n = 2^{20}$ where $\log_2(n!) \approx 19{,}458{,}687$), the model would be falsified---structure would be ``free,'' violating No Free Insight.
 
-This writes \path{results/structural_heat_experiment.json}.
+The experiment writes a JSON file with the ceiling-law verification results.
 
 \paragraph{Pre-generated figure:}
 
@@ -837,9 +836,9 @@ The thesis figure \path{thesis/figures/structural_heat_scaling.png} is pre-gener
     \item \textbf{Bottom panel:} Slack $\mu - \log_2(n!)$ versus $n$. Shows all points satisfy $0 \leq \text{slack} < 1$, confirming $\mu = \lceil \log_2(n!) \rceil$.
 \end{itemize}
 
-\paragraph{Time dilation.} Generate the artifact JSON:
+\paragraph{Time dilation.} Generate the artifact JSON (script archived at \path{archive/scripts\_unused/time\_dilation\_experiment.py}):
 \begin{lstlisting}
-python3 scripts/time_dilation_experiment.py
+python3 archive/scripts_unused/time_dilation_experiment.py
 \end{lstlisting}
 
 The thesis figure \path{thesis/figures/time_dilation_curve.png} is pre-generated and included in the repository.
@@ -857,7 +856,7 @@ The thesis figure \path{thesis/figures/time_dilation_curve.png} is pre-generated
         \item $C \in \{0, 4, 12, 24\}$ $\mu$-bits per tick (communication payload)
         \item 64 ticks per scenario
     \end{itemize}
-    \item Output: \path{results/time\_dilation\_experiment.json} containing per-scenario results:
+    \item Output: a JSON file containing per-scenario results:
     \begin{itemize}
         \item Total $\mu_{\text{comm}}$ (communication cost)
         \item Total $\mu_{\text{compute}}$ (compute cost)
@@ -879,10 +878,9 @@ If you spend more $\mu$ on communication ($C$ increases), less budget remains fo
 \]
 All $\mu$ is accounted for---no hidden costs, no free compute.
 
-\textbf{Command 2: plot\_time\_dilation\_curve.py}
+\textbf{Plotting:} The pre-generated figure is at \path{thesis/figures/time_dilation_curve.png}.
 \begin{itemize}
-    \item \textbf{python3 scripts/plot\_time\_dilation\_curve.py} — Reads \path{results/time\_dilation\_experiment.json} and generates the figure.
-    \item Output: \path{thesis/figures/time_dilation_curve.png} showing:
+    \item The figure shows:
     \begin{itemize}
         \item \textbf{Points:} Observed (communication spend per tick, compute rate) pairs.
         \item \textbf{Dashed line:} No-backlog prediction $r = (B - \mu_{\text{comm}}) / c$.
@@ -892,7 +890,7 @@ All $\mu$ is accounted for---no hidden costs, no free compute.
 
 \textbf{Educational value:} This workload does NOT require physical energy measurements---it operates purely at the ledger level. It demonstrates that conservation laws constrain algorithmic behavior even without thermodynamics.
 
-This writes \path{results/time_dilation_experiment.json} and \path{thesis/figures/time_dilation_curve.png}.
+The experiment outputs a JSON file and the pre-generated figure \path{thesis/figures/time_dilation_curve.png}.
 
 \subsection{Artifact Bundles}
 
@@ -976,7 +974,7 @@ The evaluation demonstrates:
     \item \textbf{$\mu$-Conservation}: The ledger is monotonic and exactly tracks declared costs
     \item \textbf{Ledger-level falsifiers}: structural heat (certificate ceiling law) and time dilation (fixed-budget slowdown) match their first-principles derivations
     \item \textbf{QM-Divergent Predictions}: Six concrete predictions (QD1--QD6) where $\mu$-accounting diverges from standard QM, each with computed thresholds and experimental protocols
-    \item \textbf{Test Coverage}: 817 tests pass across 82 test files, including cross-layer, co-simulation, falsifiability, and adversarial suites
+    \item \textbf{Test Coverage}: 35 test files collect 478 tests, spanning cross-layer, co-simulation, falsifiability, and adversarial suites
     \item \textbf{Scalability}: Hardware synthesis targets modern FPGAs with reasonable resource utilization
     \item \textbf{Reproducibility}: All results can be reproduced from the published traces and artifact bundles
 \end{enumerate}

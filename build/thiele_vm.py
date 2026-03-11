@@ -1,56 +1,54 @@
 """
 Python interface to the Thiele VM.
 
-Provides VMState, VMModule, and related functions for use by tests
-and analysis scripts.  When the Coq-extracted OCaml runner is
-available (``build/extracted_vm_runner``), ``run_vm_trace`` delegates
-to it; otherwise a pure-Python interpreter handles all 31 opcodes.
+This is a thin wrapper around thielecpu/vm.py (the Coq-extracted Python VM).
+All 38 opcodes are handled by the formally-derived VM from coq/Extraction.v.
+
+Backend priority:
+  1. Coq-extracted OCaml binary (extracted_vm_runner) - when available
+  2. Coq-extracted Python VM (thielecpu/vm.py) - THE definitive Python VM
 """
 
 import json
 import os
-import re
 import subprocess
+import sys
 import tempfile
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
+# Import THE definitive Coq-extracted Python VM
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from thielecpu import vm as extracted_vm
+
 _RUNNER_PATH = Path(__file__).parent / "extracted_vm_runner"
 
 
-def _runner_launchable() -> bool:
-    if not _RUNNER_PATH.exists() or not _RUNNER_PATH.is_file() or not os.access(_RUNNER_PATH, os.X_OK):
+def _runner_available() -> bool:
+    """Check if the OCaml extracted runner is available."""
+    if not _RUNNER_PATH.exists() or not _RUNNER_PATH.is_file():
         return False
-
-    # Bytecode executables produced by ocamlc require ocamlrun.
+    if not os.access(_RUNNER_PATH, os.X_OK):
+        return False
+    # Check if ocamlrun is available for bytecode executables
     try:
         first_line = _RUNNER_PATH.read_bytes().splitlines()[0]
-        if first_line.startswith(b"#!/usr/bin/ocamlrun") and not Path("/usr/bin/ocamlrun").exists():
-            return False
+        if first_line.startswith(b"#!/usr/bin/ocamlrun"):
+            return Path("/usr/bin/ocamlrun").exists()
     except Exception:
-        # If inspection fails, let runtime execution decide.
         pass
-
     return True
 
 
-def _runner_available() -> bool:
-    return _runner_launchable()
-
-
 def _strict_backend_required() -> bool:
-    """Return True when fallback execution must be forbidden.
-
-    Set `THIELE_STRICT_VM_BACKEND=1` (or true/yes/on) to require the
-    Coq-extracted runner for `run_vm_trace`.
-    """
+    """Return True when THIELE_STRICT_VM_BACKEND=1 is set."""
     raw = os.getenv("THIELE_STRICT_VM_BACKEND", "0").strip().lower()
     return raw in {"1", "true", "yes", "on"}
 
 
 # ---------------------------------------------------------------------------
-# Data classes
+# Data classes (external API)
 # ---------------------------------------------------------------------------
 
 @dataclass
@@ -58,14 +56,12 @@ class VMModule:
     """A module in the VM's property graph."""
     id: int
     region: List[int]
-    axioms: Any  # int when from runner/PNEW, list[str] otherwise
-
+    axioms: Any
 
 @dataclass
 class VMGraph:
     """The VM's module graph."""
     modules: List[VMModule] = field(default_factory=list)
-
 
 @dataclass
 class VMState:
@@ -78,454 +74,261 @@ class VMState:
     csrs: Dict[str, int] = field(default_factory=dict)
     graph: VMGraph = field(default_factory=VMGraph)
     modules: List[VMModule] = field(default_factory=list)
+    mu_tensor: List[int] = field(default_factory=list)
+    logic_acc: int = 0
+    mstatus: int = 0
+    certified: bool = False
+    witness: List[int] = field(default_factory=lambda: [0] * 8)
 
     def __post_init__(self) -> None:
-        # Keep graph.modules and modules in sync when default-constructed
         if not self.graph.modules and self.modules:
             self.graph.modules = self.modules
         elif self.graph.modules and not self.modules:
             self.modules = self.graph.modules
 
 
-# ---------------------------------------------------------------------------
-# Helpers
-# ---------------------------------------------------------------------------
-
 def graph_lookup(graph: VMGraph, module_id: int) -> Optional[VMModule]:
-    """Look up a module by *index* in ``graph.modules``."""
+    """Look up a module by index in graph.modules."""
     if module_id < 0 or module_id >= len(graph.modules):
         return None
     return graph.modules[module_id]
 
 
 # ---------------------------------------------------------------------------
-# Pure-Python mini-interpreter (supports the PNEW / HALT subset)
+# Instruction parser: textual format → dict format for extracted VM
 # ---------------------------------------------------------------------------
 
-_PNEW_RE = re.compile(
-    r"PNEW\s+\{([^}]*)\}\s+(\d+)",
-)
+def _parse_int(s: str) -> int:
+    """Parse integer, supports 0x hex prefix."""
+    try:
+        return int(s, 0)
+    except (ValueError, TypeError):
+        return 0
 
 
-def _run_python(instructions: List[str], fuel: int) -> VMState:
-    """Execute *instructions* using a pure-Python interpreter handling all 31 opcodes."""
-    # --- Mutable VM state ---
-    regs = [0] * 32
-    mem = [0] * 4096
-    heap_base = 0
-    modules: List[VMModule] = []
-    mu = 0
-    mu_tensor = [0] * 16
-    logic_acc = 0
-    err = False
-    pc = 0
-    active_module = -1
-    partition_table: List[tuple] = []  # list of (base, size) from INIT_PT
+def _parse_region(tok: str) -> List[int]:
+    """Parse region token: {1,2,3} → [1,2,3]"""
+    t = tok.strip()
+    if len(t) >= 2 and t[0] == "{" and t[-1] == "}":
+        inner = t[1:-1].strip()
+        if not inner:
+            return []
+        return [_parse_int(x.strip()) for x in inner.split(",") if x.strip()]
+    return []
 
-    def _si(s: str) -> int:
-        """Parse integer token; supports 0x hex prefix."""
-        try:
-            return int(s, 0)
-        except (ValueError, TypeError):
-            return 0
 
-    def _parse_region(tok: str) -> List[int]:
-        t = tok.strip()
-        if len(t) >= 2 and t[0] == "{" and t[-1] == "}":
-            inner = t[1:-1].strip()
-            if not inner:
-                return []
-            return [_si(x.strip()) for x in inner.split(",") if x.strip()]
-        return []
+def _parse_instruction_dict(toks: List[str]) -> Optional[Dict[str, Any]]:
+    """Parse textual instruction tokens into dict format for thiele_vm_extracted."""
+    if not toks:
+        return None
 
-    # --- Pass 1: honour INIT_*/FUEL directives; collect program instructions ---
-    program: List[str] = []
+    op = toks[0].upper()
+
+    # Map textual format to dict format
+    if op == "PNEW" and len(toks) >= 3:
+        return {"op": "pnew", "region": _parse_region(toks[1]), "cost": _parse_int(toks[2])}
+    elif op == "PSPLIT" and len(toks) >= 5:
+        return {"op": "psplit", "module": _parse_int(toks[1]), "left": _parse_region(toks[2]),
+                "right": _parse_region(toks[3]), "cost": _parse_int(toks[4])}
+    elif op == "PMERGE" and len(toks) >= 4:
+        return {"op": "pmerge", "m1": _parse_int(toks[1]), "m2": _parse_int(toks[2]), "cost": _parse_int(toks[3])}
+    elif op == "LASSERT" and len(toks) >= 4:
+        return {"op": "lassert", "module": _parse_int(toks[1]), "formula": toks[2],
+                "cert": {"type": "sat", "proof": ""}, "cost": _parse_int(toks[3])}
+    elif op == "LJOIN" and len(toks) >= 4:
+        return {"op": "ljoin", "cert1": toks[1], "cert2": toks[2], "cost": _parse_int(toks[3])}
+    elif op == "MDLACC" and len(toks) >= 3:
+        return {"op": "mdlacc", "cost": _parse_int(toks[2])}
+    elif op == "PDISCOVER" and len(toks) >= 4:
+        return {"op": "pdiscover", "module": _parse_int(toks[1]), "evidence": [], "cost": _parse_int(toks[3])}
+    elif op == "XFER" and len(toks) >= 4:
+        return {"op": "xfer", "dst": _parse_int(toks[1]), "src": _parse_int(toks[2]), "cost": _parse_int(toks[3])}
+    elif op == "LOAD_IMM" and len(toks) >= 4:
+        return {"op": "load_imm", "dst": _parse_int(toks[1]), "imm": _parse_int(toks[2]), "cost": _parse_int(toks[3])}
+    elif op == "LOAD" and len(toks) >= 4:
+        return {"op": "load", "dst": _parse_int(toks[1]), "addr": _parse_int(toks[2]), "cost": _parse_int(toks[3])}
+    elif op == "STORE" and len(toks) >= 4:
+        return {"op": "store", "addr": _parse_int(toks[1]), "src": _parse_int(toks[2]), "cost": _parse_int(toks[3])}
+    elif op == "ADD" and len(toks) >= 5:
+        return {"op": "add", "dst": _parse_int(toks[1]), "rs1": _parse_int(toks[2]),
+                "rs2": _parse_int(toks[3]), "cost": _parse_int(toks[4])}
+    elif op == "SUB" and len(toks) >= 5:
+        return {"op": "sub", "dst": _parse_int(toks[1]), "rs1": _parse_int(toks[2]),
+                "rs2": _parse_int(toks[3]), "cost": _parse_int(toks[4])}
+    elif op == "JUMP" and len(toks) >= 3:
+        return {"op": "jump", "target": _parse_int(toks[1]), "cost": _parse_int(toks[2])}
+    elif op == "JNEZ" and len(toks) >= 4:
+        return {"op": "jnez", "rs": _parse_int(toks[1]), "target": _parse_int(toks[2]), "cost": _parse_int(toks[3])}
+    elif op == "CALL" and len(toks) >= 3:
+        return {"op": "call", "target": _parse_int(toks[1]), "cost": _parse_int(toks[2])}
+    elif op == "RET" and len(toks) >= 2:
+        return {"op": "ret", "cost": _parse_int(toks[1])}
+    elif op == "CHSH_TRIAL" and len(toks) >= 6:
+        return {"op": "chsh_trial", "x": _parse_int(toks[1]), "y": _parse_int(toks[2]),
+                "a": _parse_int(toks[3]), "b": _parse_int(toks[4]), "cost": _parse_int(toks[5])}
+    elif op == "XOR_LOAD" and len(toks) >= 4:
+        return {"op": "xor_load", "dst": _parse_int(toks[1]), "addr": _parse_int(toks[2]), "cost": _parse_int(toks[3])}
+    elif op == "XOR_ADD" and len(toks) >= 4:
+        return {"op": "xor_add", "dst": _parse_int(toks[1]), "src": _parse_int(toks[2]), "cost": _parse_int(toks[3])}
+    elif op == "XOR_SWAP" and len(toks) >= 4:
+        return {"op": "xor_swap", "a": _parse_int(toks[1]), "b": _parse_int(toks[2]), "cost": _parse_int(toks[3])}
+    elif op == "XOR_RANK" and len(toks) >= 4:
+        return {"op": "xor_rank", "dst": _parse_int(toks[1]), "src": _parse_int(toks[2]), "cost": _parse_int(toks[3])}
+    elif op == "EMIT" and len(toks) >= 4:
+        return {"op": "emit", "module": _parse_int(toks[1]), "payload": toks[2], "cost": _parse_int(toks[3])}
+    elif op == "REVEAL" and len(toks) >= 4:
+        return {"op": "reveal", "module": _parse_int(toks[1]), "bits": _parse_int(toks[2]),
+                "cert": toks[3] if len(toks) > 4 else "", "cost": _parse_int(toks[min(4, len(toks)-1)])}
+    elif op == "ORACLE_HALTS" and len(toks) >= 3:
+        return {"op": "oracle_halts", "cost": _parse_int(toks[2])}
+    elif op == "HALT":
+        return {"op": "halt", "cost": _parse_int(toks[1]) if len(toks) >= 2 else 0}
+    elif op == "CHECKPOINT" and len(toks) >= 2:
+        return {"op": "checkpoint", "cost": _parse_int(toks[2]) if len(toks) >= 3 else 0}
+    elif op == "READ_PORT" and len(toks) >= 6:
+        return {"op": "read_port", "dst": _parse_int(toks[1]), "channel": _parse_int(toks[2]),
+                "value": _parse_int(toks[3]), "bits": _parse_int(toks[4]), "cost": _parse_int(toks[5])}
+    elif op == "WRITE_PORT" and len(toks) >= 4:
+        return {"op": "write_port", "channel": _parse_int(toks[1]), "src": _parse_int(toks[2]), "cost": _parse_int(toks[3])}
+    elif op == "HEAP_LOAD" and len(toks) >= 4:
+        return {"op": "heap_load", "dst": _parse_int(toks[1]), "addr": _parse_int(toks[2]), "cost": _parse_int(toks[3])}
+    elif op == "HEAP_STORE" and len(toks) >= 4:
+        return {"op": "heap_store", "addr": _parse_int(toks[1]), "src": _parse_int(toks[2]), "cost": _parse_int(toks[3])}
+    elif op == "CERTIFY" and len(toks) >= 2:
+        return {"op": "certify", "cost": _parse_int(toks[1])}
+    elif op == "AND" and len(toks) >= 5:
+        return {"op": "and_", "dst": _parse_int(toks[1]), "rs1": _parse_int(toks[2]),
+                "rs2": _parse_int(toks[3]), "cost": _parse_int(toks[4])}
+    elif op == "OR" and len(toks) >= 5:
+        return {"op": "or_", "dst": _parse_int(toks[1]), "rs1": _parse_int(toks[2]),
+                "rs2": _parse_int(toks[3]), "cost": _parse_int(toks[4])}
+    elif op == "SHL" and len(toks) >= 5:
+        return {"op": "shl", "dst": _parse_int(toks[1]), "rs1": _parse_int(toks[2]),
+                "rs2": _parse_int(toks[3]), "cost": _parse_int(toks[4])}
+    elif op == "SHR" and len(toks) >= 5:
+        return {"op": "shr", "dst": _parse_int(toks[1]), "rs1": _parse_int(toks[2]),
+                "rs2": _parse_int(toks[3]), "cost": _parse_int(toks[4])}
+    elif op == "MUL" and len(toks) >= 5:
+        return {"op": "mul", "dst": _parse_int(toks[1]), "rs1": _parse_int(toks[2]),
+                "rs2": _parse_int(toks[3]), "cost": _parse_int(toks[4])}
+    elif op == "LUI" and len(toks) >= 4:
+        return {"op": "lui", "dst": _parse_int(toks[1]), "imm": _parse_int(toks[2]), "cost": _parse_int(toks[3])}
+
+    return None
+
+
+# ---------------------------------------------------------------------------
+# Main execution: uses Coq-extracted Python VM
+# ---------------------------------------------------------------------------
+
+def _run_extracted_py(instructions: List[str], fuel: int) -> VMState:
+    """
+    Execute using THE definitive Coq-extracted Python VM.
+    Translates textual instruction format to dict format, runs extraction, returns result.
+    """
+    # Initialize state from INIT directives
+    init_state = extracted_vm.VMState.default()
+    program = []
+
     for raw in instructions:
         line = raw.strip()
         if not line or line[0] in ("#", ";"):
             continue
         toks = line.split()
         op = toks[0].upper()
+
+        # Handle INIT directives
         if op == "FUEL":
             if len(toks) >= 2:
-                fuel = _si(toks[1])
-        elif op == "INIT_LOGIC_ACC":
-            if len(toks) >= 2:
-                logic_acc = _si(toks[1])
-        elif op == "INIT_MU":
-            if len(toks) >= 2:
-                mu = _si(toks[1])
-        elif op == "INIT_MEM":
-            if len(toks) >= 3:
-                a = _si(toks[1]) % 4096
-                mem[a] = _si(toks[2])
+                fuel = _parse_int(toks[1])
         elif op == "INIT_REG":
             if len(toks) >= 3:
-                regs[_si(toks[1]) % 32] = _si(toks[2])
+                init_state.vm_regs[_parse_int(toks[1]) % 32] = _parse_int(toks[2])
+        elif op == "INIT_MEM":
+            if len(toks) >= 3:
+                init_state.vm_mem[_parse_int(toks[1]) % 4096] = _parse_int(toks[2])
+        elif op == "INIT_MU":
+            if len(toks) >= 2:
+                init_state.vm_mu = _parse_int(toks[1])
         elif op == "INIT_TENSOR":
             if len(toks) >= 3:
-                mu_tensor[_si(toks[1]) % 16] = _si(toks[2])
+                init_state.vm_mu_tensor[_parse_int(toks[1]) % 16] = _parse_int(toks[2])
+        elif op == "INIT_LOGIC_ACC":
+            if len(toks) >= 2:
+                init_state.vm_logic_acc = _parse_int(toks[1])
         elif op == "INIT_ACTIVE_MODULE":
             if len(toks) >= 2:
-                active_module = _si(toks[1])
+                # Set active module in CSR status (matches Kami active_module register)
+                pass  # Active module is hardware-only state, skip in Python fallback
         elif op == "INIT_PT":
-            if len(toks) >= 3:
-                partition_table.append((_si(toks[1]), _si(toks[2])))
+            # Partition table init is handled via graph operations
+            pass
+        elif op.startswith("INIT_"):
+            pass
         else:
-            program.append(line)
+            # Parse instruction
+            instr = _parse_instruction_dict(toks)
+            if instr:
+                program.append(instr)
 
-    # Register / memory accessors
-    def _rg(r: int) -> int:
-        return regs[r % 32]
+    # Execute through Coq-extracted VM
+    final_state = extracted_vm.vm_run(init_state, program, max_steps=fuel)
 
-    def _rs(r: int, v: int) -> None:
-        regs[r % 32] = v
+    # Convert to external VMState format
+    modules = [
+        VMModule(id=i, region=[], axioms=0)
+        for i in range(final_state.vm_graph.pg_next_id - 1)
+    ]
+    graph = VMGraph(modules=modules)
 
-    def _mg(a: int) -> int:
-        return mem[a] if 0 <= a < 4096 else 0
-
-    def _mp(a: int, v: int) -> None:
-        if 0 <= a < 4096:
-            mem[a] = v
-
-    def _in_pt(addr: int) -> bool:
-        if 0 <= active_module < len(partition_table):
-            base, size = partition_table[active_module]
-            return base <= addr < base + size
-        return False
-
-    # --- Pass 2: PC-dispatch execution loop ---
-    steps = 0
-    while steps < fuel:
-        if not (0 <= pc < len(program)):
-            break
-        line = program[pc]
-        toks = line.split()
-        if not toks:
-            pc += 1
-            continue
-        op = toks[0].upper()
-        steps += 1
-
-        if op == "HALT":
-            # HALT [cost]
-            try:
-                mu += int(toks[-1])
-            except (ValueError, IndexError):
-                pass
-            break
-
-        elif op == "PNEW":
-            # PNEW {region} cost
-            if len(toks) >= 3:
-                region = _parse_region(toks[1])
-                cost = int(toks[2])
-                modules.append(VMModule(id=len(modules), region=region, axioms=cost))
-                mu += cost
-            pc += 1
-
-        elif op == "PSPLIT":
-            # PSPLIT mid {left} {right} cost
-            if len(toks) >= 5:
-                mu += int(toks[4])
-            pc += 1
-
-        elif op == "PMERGE":
-            # PMERGE m1 m2 cost
-            if len(toks) >= 4:
-                mu += int(toks[3])
-            pc += 1
-
-        elif op == "LASSERT":
-            # LASSERT mid axiom cost  — charge mu, assume SAT continuation
-            if len(toks) >= 4:
-                mu += int(toks[3])
-            pc += 1
-
-        elif op == "LJOIN":
-            # LJOIN f1 f2 cost
-            if len(toks) >= 4:
-                mu += int(toks[3])
-            pc += 1
-
-        elif op == "MDLACC":
-            # MDLACC mid cost
-            if len(toks) >= 3:
-                mu += int(toks[2])
-            pc += 1
-
-        elif op == "PDISCOVER":
-            # PDISCOVER mid {evidence} cost  — requires logic gate key
-            if logic_acc != 0xCAFEEACE:
-                err = True
-            elif len(toks) >= 4:
-                mu += int(toks[3])
-            pc += 1
-
-        elif op == "XFER":
-            # XFER dst src cost
-            if len(toks) >= 4:
-                _rs(int(toks[1]), _rg(int(toks[2])))
-                mu += int(toks[3])
-            pc += 1
-
-        elif op == "LOAD_IMM":
-            # LOAD_IMM dst imm cost
-            if len(toks) >= 4:
-                _rs(int(toks[1]), _si(toks[2]))
-                mu += int(toks[3])
-            pc += 1
-
-        elif op == "CHSH_TRIAL":
-            # CHSH_TRIAL x y a b cost  — requires logic gate key
-            if logic_acc != 0xCAFEEACE:
-                err = True
-            elif len(toks) >= 6:
-                mu += int(toks[5])
-            pc += 1
-
-        elif op == "XOR_LOAD":
-            # XOR_LOAD dst addr cost
-            if len(toks) >= 4:
-                dst = int(toks[1])
-                _rs(dst, _rg(dst) ^ _mg(int(toks[2])))
-                mu += int(toks[3])
-            pc += 1
-
-        elif op == "XOR_ADD":
-            # XOR_ADD dst src cost
-            if len(toks) >= 4:
-                dst = int(toks[1])
-                _rs(dst, _rg(dst) ^ _rg(int(toks[2])))
-                mu += int(toks[3])
-            pc += 1
-
-        elif op == "XOR_SWAP":
-            # XOR_SWAP a b cost
-            if len(toks) >= 4:
-                a, b = int(toks[1]), int(toks[2])
-                va, vb = _rg(a), _rg(b)
-                _rs(a, vb)
-                _rs(b, va)
-                mu += int(toks[3])
-            pc += 1
-
-        elif op == "XOR_RANK":
-            # XOR_RANK dst src cost  — popcount(regs[src]) -> regs[dst]
-            if len(toks) >= 4:
-                _rs(int(toks[1]), bin(_rg(int(toks[2]))).count("1"))
-                mu += int(toks[3])
-            pc += 1
-
-        elif op == "EMIT":
-            # EMIT mid bits cost
-            if len(toks) >= 4:
-                mu += int(toks[3])
-            pc += 1
-
-        elif op == "REVEAL":
-            # REVEAL ti tj bits [cert]  — cost = bits; requires logic gate key
-            if logic_acc != 0xCAFEEACE:
-                err = True
-            elif len(toks) >= 4:
-                ti, tj = int(toks[1]), int(toks[2])
-                bits = int(toks[3])
-                mu += bits
-                flat = ti * 4 + tj
-                if 0 <= flat < 16:
-                    mu_tensor[flat] += bits
-            pc += 1
-
-        elif op == "ORACLE_HALTS":
-            # ORACLE_HALTS payload cost  — halt execution
-            if len(toks) >= 3:
-                mu += int(toks[2])
-            break
-
-        elif op == "LOAD":
-            # LOAD dst addr cost  — locality-checked memory read
-            if len(toks) >= 4:
-                dst, addr, cost = int(toks[1]), int(toks[2]), int(toks[3])
-                if not _in_pt(addr):
-                    err = True
-                else:
-                    _rs(dst, _mg(addr))
-                    mu += cost
-            pc += 1
-
-        elif op == "STORE":
-            # STORE addr src cost  — locality-checked memory write
-            if len(toks) >= 4:
-                addr, src, cost = int(toks[1]), int(toks[2]), int(toks[3])
-                if not _in_pt(addr):
-                    err = True
-                else:
-                    _mp(addr, _rg(src))
-                    mu += cost
-            pc += 1
-
-        elif op == "ADD":
-            # ADD dst src1 src2 cost
-            if len(toks) >= 5:
-                _rs(int(toks[1]), _rg(int(toks[2])) + _rg(int(toks[3])))
-                mu += int(toks[4])
-            pc += 1
-
-        elif op == "SUB":
-            # SUB dst src1 src2 cost
-            if len(toks) >= 5:
-                _rs(int(toks[1]), _rg(int(toks[2])) - _rg(int(toks[3])))
-                mu += int(toks[4])
-            pc += 1
-
-        elif op == "JUMP":
-            # JUMP target cost
-            if len(toks) >= 3:
-                mu += int(toks[2])
-                pc = int(toks[1])
-            else:
-                pc += 1
-
-        elif op == "JNEZ":
-            # JNEZ rs target cost
-            if len(toks) >= 4:
-                rs, target, cost = int(toks[1]), int(toks[2]), int(toks[3])
-                mu += cost
-                if _rg(rs) != 0:
-                    pc = target
-                else:
-                    pc += 1
-            else:
-                pc += 1
-
-        elif op == "CALL":
-            # CALL target cost  — push return addr to mem[regs[31]]; jump
-            if len(toks) >= 3:
-                target, cost = int(toks[1]), int(toks[2])
-                mu += cost
-                _mp(regs[31], pc + 1)
-                regs[31] -= 1
-                pc = target
-            else:
-                pc += 1
-
-        elif op == "RET":
-            # RET cost  — increment sp, pop return addr from mem[regs[31]]
-            try:
-                mu += int(toks[-1])
-            except (ValueError, IndexError):
-                pass
-            regs[31] += 1
-            pc = _mg(regs[31])
-
-        elif op == "CHECKPOINT":
-            # CHECKPOINT label [cost]  — no-op harness checkpoint
-            if len(toks) >= 3:
-                try:
-                    mu += int(toks[2])
-                except ValueError:
-                    pass
-            pc += 1
-
-        elif op == "READ_PORT":
-            # READ_PORT dst ch value bits cost  — load value token into dst
-            if len(toks) >= 6:
-                _rs(int(toks[1]), _si(toks[3]))
-                mu += int(toks[5])
-            pc += 1
-
-        elif op == "WRITE_PORT":
-            # WRITE_PORT ch src cost  — I/O not modelled in Python fallback
-            if len(toks) >= 4:
-                try:
-                    mu += int(toks[3])
-                except ValueError:
-                    pass
-            pc += 1
-
-        elif op == "HEAP_LOAD":
-            # HEAP_LOAD dst addr cost
-            if len(toks) >= 4:
-                dst, addr, cost = int(toks[1]), int(toks[2]), int(toks[3])
-                _rs(dst, _mg(heap_base + addr))
-                mu += cost
-            pc += 1
-
-        elif op == "HEAP_STORE":
-            # HEAP_STORE addr src cost
-            if len(toks) >= 4:
-                addr, src, cost = int(toks[1]), int(toks[2]), int(toks[3])
-                _mp(heap_base + addr, _rg(src))
-                mu += cost
-            pc += 1
-
-        else:
-            # Unknown instruction — skip
-            pc += 1
-
-    graph = VMGraph(modules=list(modules))
     return VMState(
-        pc=pc,
-        mu=mu,
-        err=err,
-        regs=list(regs),
-        mem=list(mem),
+        pc=final_state.vm_pc,
+        mu=final_state.vm_mu,
+        err=final_state.vm_err,
+        regs=list(final_state.vm_regs),
+        mem=list(final_state.vm_mem),
         csrs={
-            "cert_addr": 0,
-            "status": 0,
-            "err": 1 if err else 0,
-            "heap_base": heap_base,
+            "cert_addr": final_state.vm_csrs.csr_cert_addr,
+            "status": final_state.vm_csrs.csr_status,
+            "err": final_state.vm_csrs.csr_err,
+            "heap_base": final_state.vm_csrs.csr_heap_base,
         },
         graph=graph,
-        modules=list(modules),
+        modules=modules,
+        mu_tensor=list(final_state.vm_mu_tensor),
+        logic_acc=final_state.vm_logic_acc,
+        mstatus=final_state.vm_mstatus,
+        certified=final_state.vm_certified,
+        witness=list(final_state.vm_witness),
     )
 
 
 # ---------------------------------------------------------------------------
-# Public entry points
+# OCaml extracted-runner backend (when available)
 # ---------------------------------------------------------------------------
 
-def run_vm_trace(instructions: List[str], fuel: int = 1000) -> VMState:
-    """Execute a VM trace and return the final state.
-
-    Prefers the Coq-extracted OCaml runner when available; otherwise
-    falls back to a pure-Python interpreter that supports all 31 opcodes.
-    """
-    if _runner_available():
-        try:
-            return _run_extracted(instructions, fuel)
-        except (FileNotFoundError, PermissionError, OSError):
-            # Treat unlaunchable extracted binaries as unavailable in non-strict mode.
-            if _strict_backend_required():
-                raise
-    if _strict_backend_required():
-        raise RuntimeError(
-            "Coq-extracted runner missing under strict backend policy. "
-            f"Expected: {_RUNNER_PATH}. "
-            "Build with: ocamlc -I build -o build/extracted_vm_runner "
-            "build/thiele_core.mli build/thiele_core.ml tools/extracted_vm_runner.ml"
-        )
-    return _run_python(instructions, fuel)
+_OCAML_ONLY_INIT = {"INIT_REG", "INIT_MEM", "MEM_SIZE", "INIT_LOGIC_ACC", "INIT_ACTIVE_MODULE", "INIT_PT", "INIT_TENSOR"}
 
 
-def run_vm(instructions: List[str], fuel: int = 1000) -> VMState:
-    """Alias for ``run_vm_trace``."""
-    return run_vm_trace(instructions, fuel)
-
-
-# ---------------------------------------------------------------------------
-# OCaml extracted-runner backend
-# ---------------------------------------------------------------------------
-
-def _run_extracted(instructions: List[str], fuel: int) -> VMState:
+def _run_ocaml(instructions: List[str], fuel: int) -> VMState:
     """Delegate execution to the Coq-extracted OCaml runner."""
-    with tempfile.NamedTemporaryFile(
-        mode="w", suffix=".txt", delete=False
-    ) as f:
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f:
         trace_path = f.name
         f.write(f"FUEL {fuel}\n")
         for instr in instructions:
-            f.write(f"{instr}\n")
+            line = instr.strip()
+            if not line or line[0] in ("#", ";"):
+                continue
+            toks = line.split()
+            op = toks[0].upper()
+            # Skip RTL-only directives unknown to the OCaml runner
+            if op.startswith("INIT_") and op not in _OCAML_ONLY_INIT:
+                continue
+            # OCaml runner requires HALT to have a cost argument
+            if op == "HALT" and len(toks) == 1:
+                f.write("HALT 1\n")
+            else:
+                f.write(f"{line}\n")
 
     try:
         result = subprocess.run(
@@ -560,6 +363,68 @@ def _run_extracted(instructions: List[str], fuel: int) -> VMState:
             csrs=state_json["csrs"],
             graph=graph,
             modules=modules,
+            mu_tensor=state_json.get("mu_tensor", []),
+            logic_acc=state_json.get("logic_acc", 0),
+            mstatus=state_json.get("mstatus", 0),
+            certified=state_json.get("certified", False),
+            witness=state_json.get("witness", [0] * 8),
         )
     finally:
         Path(trace_path).unlink(missing_ok=True)
+
+
+# ---------------------------------------------------------------------------
+# Backend aliases (used by tests for monkeypatching)
+# ---------------------------------------------------------------------------
+
+#: Alias: OCaml extracted binary runner backend
+_run_extracted = _run_ocaml
+
+#: Alias: Coq-extracted Python VM backend
+_run_python = _run_extracted_py
+
+
+# ---------------------------------------------------------------------------
+# Public API
+# ---------------------------------------------------------------------------
+
+def run_vm_trace(instructions: List[str], fuel: int = 1000) -> VMState:
+    """Execute a VM trace and return the final state.
+
+    Backend priority:
+      1. Coq-extracted OCaml binary (extracted_vm_runner) - when available
+      2. Coq-extracted Python VM (thielecpu/vm.py) - THE definitive Python VM
+
+    All 32 opcodes are handled by formally-derived code from coq/Extraction.v.
+    """
+    strict = _strict_backend_required()
+
+    # Try OCaml extracted runner first (fastest)
+    if _runner_available():
+        try:
+            return _run_extracted(instructions, fuel)
+        except (FileNotFoundError, PermissionError, OSError):
+            if strict:
+                raise RuntimeError(
+                    "strict backend policy: OCaml extracted runner failed"
+                )
+
+    if strict and not _runner_available():
+        raise RuntimeError(
+            "strict backend policy: OCaml extracted runner not available at "
+            f"{_RUNNER_PATH}"
+        )
+
+    # Use THE definitive Coq-extracted Python VM
+    try:
+        return _run_python(instructions, fuel)
+    except Exception as e:
+        raise RuntimeError(
+            f"Coq-extracted Python VM failed: {e}\n"
+            "This is THE definitive VM; no legacy fallback exists."
+        ) from e
+
+
+def run_vm(instructions: List[str], fuel: int = 1000) -> VMState:
+    """Alias for run_vm_trace."""
+    return run_vm_trace(instructions, fuel)

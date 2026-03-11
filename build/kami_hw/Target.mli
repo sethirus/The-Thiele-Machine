@@ -1,8 +1,6 @@
 
 type __ = Obj.t
 
-val negb : bool -> bool
-
 val fst : ('a1 * 'a2) -> 'a1
 
 val snd : ('a1 * 'a2) -> 'a2
@@ -54,12 +52,6 @@ val pred : int -> int
 
 val add : int -> int -> int
 
-val mul : int -> int -> int
-
-val eqb : int -> int -> bool
-
-val pow : int -> int -> int
-
 val tail_add : int -> int -> int
 
 val tail_addmul : int -> int -> int -> int
@@ -76,18 +68,14 @@ val of_hex_uint : uint0 -> int
 
 val of_num_uint : uint1 -> int
 
-val eqb0 : bool -> bool -> bool
+val eqb : bool -> bool -> bool
 
 module Nat :
  sig
   val div2 : int -> int
  end
 
-val rev : 'a1 list -> 'a1 list
-
 val map : ('a1 -> 'a2) -> 'a1 list -> 'a2 list
-
-val seq : int -> int -> int list
 
 type t =
 | F1 of int
@@ -467,6 +455,20 @@ val oP_HEAP_LOAD : word
 
 val oP_HEAP_STORE : word
 
+val oP_CERTIFY : word
+
+val oP_AND : word
+
+val oP_OR : word
+
+val oP_SHL : word
+
+val oP_SHR : word
+
+val oP_MUL : word
+
+val oP_LUI : word
+
 val oP_HALT : word
 
 val instrSz : int
@@ -481,12 +483,7 @@ val sP_IDX : word
 
 val check_bounds : 'a1 expr -> 'a1 expr -> 'a1 expr
 
-val mem_read_tree_aux : int -> int -> 'a1 expr -> 'a1 expr -> 'a1 expr
-
 val read_mem : 'a1 expr -> 'a1 expr -> 'a1 expr
-
-val mem_write_tree_aux :
-  int -> int -> 'a1 expr -> 'a1 expr -> 'a1 expr -> 'a1 expr
 
 val write_mem : 'a1 expr -> 'a1 expr -> 'a1 expr -> 'a1 expr
 
@@ -496,130 +493,8 @@ val thieleCoreS : modulesS
 
 val thieleCoreB : bModule list option
 
-type moduleID = int
-
-type vMAxiom = char list
-
-type axiomSet = vMAxiom list
-
-type moduleState = { module_region : int list; module_axioms : axiomSet }
-
-type partitionGraph = { pg_next_id : moduleID;
-                        pg_modules : (moduleID * moduleState) list }
-
-type cSRState = { csr_cert_addr : int; csr_status : int; csr_err : int;
-                  csr_heap_base : int }
-
-type vMState = { vm_graph : partitionGraph; vm_csrs : cSRState;
-                 vm_regs : int list; vm_mem : int list; vm_pc : int;
-                 vm_mu : int; vm_mu_tensor : int list; vm_err : bool }
-
-type kamiSnapshot = { snap_pc : int; snap_mu : int; snap_err : bool;
-                      snap_halted : bool; snap_regs : (int -> int);
-                      snap_mem : (int -> int); snap_partition_ops : int;
-                      snap_mdl_ops : int; snap_info_gain : int;
-                      snap_error_code : int; snap_mu_tensor : (int -> int);
-                      snap_pt_sizes : (int -> int); snap_pt_next_id : 
-                      int }
-
-val snapshot_regs_to_list : (int -> int) -> int list
-
-val snapshot_mem_to_list : (int -> int) -> int list
-
-val snapshot_tensor_to_list : (int -> int) -> int list
-
-val default_csrs : cSRState
-
-val filtermap : ('a1 -> 'a2 option) -> 'a1 list -> 'a2 list
-
-val snap_pt_to_graph : int -> (int -> int) -> partitionGraph
-
-val abs_phase1 : kamiSnapshot -> vMState
-
-type busReg =
-| BusRegPc
-| BusRegMu
-| BusRegErr
-| BusRegHalted
-| BusRegPartitionOps
-| BusRegMdlOps
-| BusRegInfoGain
-| BusRegErrorCode
-| BusRegMstatus
-| BusRegMcycleLo
-| BusRegMcycleHi
-| BusRegMinstretLo
-| BusRegMinstretHi
-| BusRegLogicAcc
-| BusRegLogicReqValid
-| BusRegLogicReqOpcode
-| BusRegLogicReqPayload
-| BusRegMuTensor0
-| BusRegMuTensor1
-| BusRegMuTensor2
-| BusRegMuTensor3
-| BusRegBianchiAlarm
-| BusRegPtNextId
-| BusRegPtSize
-| BusRegLoadInstrAddr
-| BusRegLoadInstrData
-| BusRegLoadInstrKick
-| BusRegSetLogicRespValid
-| BusRegSetLogicRespError
-| BusRegSetLogicRespValue
-| BusRegSetActiveModule
-| BusRegSetTrapVector
-
-val decodeBusReg : int -> busReg option
-
-val busRegReadable : busReg -> bool
-
-val busRegWritable : busReg -> bool
-
-type busCoreView = { view_pc : int; view_mu : int; view_err : bool;
-                     view_halted : bool; view_partition_ops : int;
-                     view_mdl_ops : int; view_info_gain : int;
-                     view_error_code : int; view_mstatus : int;
-                     view_mcycle_lo : int; view_mcycle_hi : int;
-                     view_minstret_lo : int; view_minstret_hi : int;
-                     view_logic_acc : int; view_logic_req_valid : bool;
-                     view_logic_req_opcode : int;
-                     view_logic_req_payload : int; view_mu_tensor0 : 
-                     int; view_mu_tensor1 : int; view_mu_tensor2 : int;
-                     view_mu_tensor3 : int; view_bianchi_alarm : bool;
-                     view_pt_next_id : int; view_pt_size : (int -> int) }
-
-val bool_to_nat : bool -> int
-
-val busRegReadValue : busCoreView -> busReg -> int option
-
-val busRead : busCoreView -> int -> int option
-
-type busShadowRegs = { sh_load_instr_addr : int; sh_load_instr_data : 
-                       int; sh_load_instr_kick : bool;
-                       sh_logic_resp_valid : bool;
-                       sh_logic_resp_error : bool; sh_logic_resp_value : 
-                       int; sh_active_module : int; sh_trap_vector : 
-                       int }
-
-type busWrapperState = { bw_core : kamiSnapshot; bw_shadow : busShadowRegs }
-
-val busWriteShadow : busShadowRegs -> busReg -> int -> busShadowRegs
-
-val busWrite : busWrapperState -> int -> int -> busWrapperState
-
-val coreViewOfSnapshot : kamiSnapshot -> busCoreView
-
-type busOp =
-| BusOpRead of int
-| BusOpWrite of int * int
-
-val bus_step : busWrapperState -> busOp -> busWrapperState
-
 val thieleBusTopB : bModule list option
 
 val canonical_cpu_module : bModule list option
 
-val canonical_snapshot_to_vm : kamiSnapshot -> vMState
-
-type canonical_refinement_relation = __
+val targetB : int -> bModule list option

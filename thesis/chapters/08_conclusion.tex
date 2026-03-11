@@ -80,13 +80,15 @@ These theoretical components map to concrete Coq artifacts: \path{VMState.v} and
     \end{itemize}
     All three layers produce identical state projections for any instruction trace, with the projection chosen to match the gate being exercised. For compute traces the gate compares registers and memory; for partition traces it compares canonicalized module regions. The extracted runner provides a superset snapshot (pc, $\mu$, err, regs, mem, CSRs, graph) that can be used when a gate needs a broader view.
     
-    \item \textbf{18-Instruction ISA}: The instruction set is minimal—sufficient for partition-native computation. The ISA is intentionally small so that each opcode has a clear semantic role: structure creation, structure modification, certification, computation, and control.
+    \item \textbf{31-Instruction ISA}: The instruction set covers partition-native computation. Every opcode has a clear semantic role: structure creation, structure modification, certification, computation, and control.
     \begin{itemize}
         \item Structural: PNEW, PSPLIT, PMERGE, PDISCOVER
-        \item Logical: LASSERT, LJOIN
-        \item Certification: REVEAL, EMIT
-        \item Compute: XFER, XOR\_LOAD, XOR\_ADD, XOR\_SWAP, XOR\_RANK
-        \item Control: PYEXEC, ORACLE\_HALTS, HALT, CHSH\_TRIAL, MDLACC
+        \item Logical: LASSERT, LJOIN, MDLACC
+        \item Certification: REVEAL, EMIT, CHSH\_TRIAL
+        \item Compute: XFER, LOAD\_IMM, XOR\_LOAD, XOR\_ADD, XOR\_SWAP, XOR\_RANK
+        \item Memory/ALU: LOAD, STORE, ADD, SUB
+        \item Control: JUMP, JNEZ, CALL, RET, HALT, ORACLE\_HALTS
+        \item I/O and Heap: CHECKPOINT, READ\_PORT, WRITE\_PORT, HEAP\_LOAD, HEAP\_STORE
     \end{itemize}
     
     \item \textbf{The Inquisitor}: The automated verification tooling enforces zero-admit discipline and runs the isomorphism gates.
@@ -124,7 +126,7 @@ The implementations are organized so they can be audited against the formal kern
     \textbf{Theorem} & \textbf{Property} & \textbf{File} \\
     \hline
     \texttt{observational\_no\_signaling} & Locality & \texttt{KernelPhysics.v} \\
-    \texttt{mu\_conservation\_kernel} & Single-step monotonicity & \texttt{MuLedgerConservation.v} \\
+    \texttt{mu\_conservation\_kernel} & Single-step monotonicity & \texttt{KernelPhysics.v} \\
     \texttt{run\_vm\_mu\_conservation} & Multi-step conservation & \texttt{MuLedgerConservation.v} \\
     \texttt{no\_free\_insight\_general} & Impossibility & \texttt{NoFreeInsight.v} \\
     \texttt{nonlocal\_correlation\_requires\_revelation} & Supra-quantum certification & \texttt{RevelationRequirement.v} \\
@@ -137,31 +139,31 @@ The implementations are organized so they can be audited against the formal kern
     \end{tabular}
     }
     \end{center}
-    All six hard-math facts (irrationality of $\sqrt{2}$, $e$, $\pi$; infinitude of primes; Cantor diagonalization; and the halting problem) are mechanically proven from first principles in \path{HardMathFactsProven.v} with zero axioms and zero admits.
+    All six hard-math facts (correlation bound, algebraic CHSH, classical CHSH, no-signaling, symmetric coherence bound, and Tsirelson from coherence) are mechanically proven from first principles in \path{coq/kernel/HardMathFactsProven.v} with zero axioms and zero admits. These are the foundational bounds that the Bell/CHSH framework depends on.
     
     \item \textbf{Falsifiability}: Every theorem includes an explicit falsifier specification. If a counterexample exists, it would refute the theorem and identify the precise assumption that failed.
 \end{enumerate}
 The theorem names in the table correspond to statements in the Coq kernel and modular proofs. This explicit mapping is what makes the verification story reproducible.
 
 
-\section{The Thiele Machine Hypothesis: Confirmed}
+\section{The Thiele Machine Hypothesis: Assessment}
 
 The thesis tested the hypothesis:
 \begin{quote}
 \textit{There is no free insight. Structure must be paid for.}
 \end{quote}
 
-The results confirm this hypothesis within the model:
+Within the model, the results support this hypothesis:
 
 \begin{enumerate}
     \item \textbf{Proven}: The No Free Insight theorem establishes that certification of stronger predicates requires explicit structure addition. Oracle Impossibility proves that no finite-$\mu$ trace can exceed Turing computability. Turing Subsumption proves the model captures all of Turing computation. Together, these pin the model's power exactly.
     
     \item \textbf{Verified}: The 3-layer isomorphism ensures that the proven properties hold in the executable implementation across Coq, Python, and Verilog.
     
-    \item \textbf{Validated}: 817 tests across 82 test files confirm CHSH supra-quantum certification requires revelation, the $\mu$-ledger is monotonic, and five QM-divergent predictions produce concrete numerical values that differ from standard quantum mechanics---each naming the observable, the predicted value, and the experiment that would falsify it.
+    \item \textbf{Validated}: 469 tests across 33 test files confirm CHSH supra-quantum certification requires revelation, the $\mu$-ledger is monotonic, and six QM-divergent predictions (QD1--QD6) produce concrete numerical values that differ from standard quantum mechanics---each naming the observable, the predicted value, and the experiment that would falsify it.
 \end{enumerate}
 
-The Thiele Machine is not merely consistent with "no free insight"—it \textit{enforces} it as a law of its computational universe. Any further physical interpretation (e.g., thermodynamic dissipation) is stated explicitly as a bridge postulate and is testable rather than assumed.
+The Thiele Machine is not merely consistent with ``no free insight''---it \textit{enforces} it as a law of its computational universe. Whether this enforcement reflects something true about physical computation is a separate question, one the bridge postulates are designed to make testable rather than assumed.
 
 \begin{figure}[ht]
 \centering
@@ -224,7 +226,7 @@ for some constant $c$? This would formalize how close the ledger comes to the be
 
 \subsection{Completeness}
 
-Are the 18 instructions sufficient for all partition-native computation? Is there a normal form theorem?
+Are the 31 instructions sufficient for all partition-native computation? Is there a normal form theorem?
 
 \subsection{Quantum Extension}
 
@@ -244,10 +246,10 @@ Can the RTL be fabricated and validated at silicon level? What are the limits of
 The Thiele Machine is not a finished monument but a foundation. The tools built here are ready for the next generation:
 
 \begin{itemize}
-    \item \textbf{The Coq Kernel}: Full active proof corpus, $\sim$80,000 lines of verified specification that can be extended to new instruction sets.
-    \item \textbf{The Python VM}: An executable reference for rapid prototyping, backed by 817 passing tests.
+    \item \textbf{The Coq Kernel}: Full active proof corpus, $\sim$99,000 lines of verified specification that can be extended to new instruction sets.
+    \item \textbf{The Python VM}: An executable reference for rapid prototyping, backed by 469 passing tests.
     \item \textbf{The Verilog RTL}: A hardware template for physical realization, with co-simulation gates.
-    \item \textbf{The Inquisitor}: A 3,000+ line discipline enforcer that scans every Coq file for admits, axioms, and unproven claims.
+    \item \textbf{The Inquisitor}: A ${\sim}6{,}700$-line discipline enforcer that scans every Coq file for admits, axioms, and unproven claims.
     \item \textbf{The Receipt System}: A trust infrastructure for verifiable computation.
     \item \textbf{The Hard Math Facts}: Six classical results mechanically proven from first principles---a demonstration that the proof infrastructure is not just bookkeeping but can discharge real mathematics.
 \end{itemize}

@@ -8,6 +8,7 @@ from thielecpu.hardware.cosim import run_verilog
 
 
 @pytest.mark.hardware
+@pytest.mark.z3
 def test_lassert_bridge_prevents_stall_and_reaches_halt() -> None:
     program = "\n".join([
         "LASSERT 9 4 1",

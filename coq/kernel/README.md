@@ -68,6 +68,7 @@
 - `MuInformation.v` - Mu Information - Key results: mu_info_z_vm_apply, run_vm_mu_total_decomposes, mu_info_z_run_vm_is_ledger_sum
 - `MuInitiality.v` - Mu Initiality - Defines: reachable, trace_reaches, CostFunctional; Key results: init_state_mu_zero, exec_trace_correct, trace_reaches_exec (+11 more)
 - `MuLedgerConservation.v` - Mu Ledger Conservation - Key results: bounded_run_head, vm_apply_mu, ledger_conserved_tail (+15 more)
+- `MuLedgerQuantumBridge.v` - Mu Ledger Quantum Bridge - Defines: mu_ledger_tsirelson_coherent, execution_quantum_gram_coherent, mu_ledger_quantum_gram_coherent, final_tensor_quantum_gram_obligation (+13 more); Key results: mu_ledger_coherent_implies_tsirelson_bound_abs, execution_quantum_gram_coherent_implies_final_tensor_quantum_gram, mu_ledger_quantum_gram_coherent_implies_final_tensor_quantum_gram, mu_ledger_tsirelson_coherent_not_sufficient, raw_run_vm_state_cannot_characterize_execution_quantum_gram, raw_vm_mu_tensor_cannot_characterize_execution_quantum_gram, final_tensor_quantum_gram_obligation_proved
 - `MuNecessity.v` - Mu Necessity - Key results: mu_is_landauer_valid, landauer_valid_bounds_total_loss, mu_tight_for_pmerge (+1 more)
 - `MuNoFreeInsightQuantitative.v` - Mu No Free Insight Quantitative - Key results: vm_exec_mu_monotone, trace_run_mu_monotone, cert_preserved_if_not_cert_setterb (+3 more)
 - `NPAMomentMatrix.v` - NPAMoment Matrix - Defines: NPAOperator, CHSHCorrelations, NPAMomentMatrix; Key results: npa_diagonal_one, npa_E00_position, npa_E01_position (+4 more)

@@ -14,7 +14,7 @@
     Layer alignment:
     - Coq: [Definition op_X : nat := N] (this file, ThieleMachine namespace)
     - Python: [def op_X(self, ...)] method in [thielecpu/vm.py]
-    - RTL: [localparam OP_X = 8'hN] in [generated_opcodes.vh]
+    - RTL: opcode encodings in [thiele_cpu_kami.v] (generated via Kami extraction chain from [coq/kami_hw/ThieleTypes.v])
 
     STATUS: Complete - all 17 partial triads closed.
 *)
@@ -156,6 +156,25 @@ Proof. unfold op_halt. lia. Qed.
 (* ================================================================= *)
 (*  Distinctness: all standard opcodes are pairwise distinct          *)
 (* ================================================================= *)
+
+(* ================================================================= *)
+(*  Foundation bridge: opcode constants connect to VMStep semantics  *)
+(* ================================================================= *)
+
+(** [op_halt] encodes the cost field of [instr_halt] under [instruction_cost]. *)
+Theorem op_halt_instruction_cost_wf :
+  instruction_cost (instr_halt op_halt) = op_halt.
+Proof. reflexivity. Qed.
+
+(** [op_load_imm] encodes the cost field of [instr_load_imm] under [instruction_cost]. *)
+Theorem op_load_imm_instruction_cost_wf :
+  instruction_cost (instr_load_imm 0 0 op_load_imm) = op_load_imm.
+Proof. reflexivity. Qed.
+
+(** [op_xfer] encodes the cost field of [instr_xfer] under [instruction_cost]. *)
+Theorem op_xfer_instruction_cost_wf :
+  instruction_cost (instr_xfer 0 0 op_xfer) = op_xfer.
+Proof. reflexivity. Qed.
 
 (** All arithmetic/logic opcodes have distinct bytecode values. *)
 Lemma opcodes_distinct :

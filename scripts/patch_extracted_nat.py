@@ -1,16 +1,11 @@
 #!/usr/bin/env python3
-"""Post-process Coq-extracted OCaml to replace Peano-recursive Nat module.
+"""Post-process Coq-extracted OCaml to replace Peano-recursive Nat helpers.
 
-Coq's extraction generates a ``module Nat`` whose ``add``, ``mul``, ``pow``
-etc. use Peano recursion under the hood (even though ``nat`` is mapped to
-``int``).  For constants such as ``2^31`` (used by ReceiptIntegrity.mu_max)
-this causes a stack overflow at runtime.
-
-This script rewrites the module body with semantically-equivalent native-int
-implementations that run in O(1) or O(log n) time.
-
-Invoked automatically by ``forge_artifact.sh`` after ``coqc Extraction.v``.
+This keeps the extracted runner usable on large constants without changing the
+proof-originated semantics.
 """
+
+from __future__ import annotations
 
 import re
 import sys
@@ -38,7 +33,7 @@ EFFICIENT_NAT = r'''module Nat =
 
   let ltb n m = n < m
 
-  (** val pow : int -> int -> int **)
+  (** val pow : int -> int **)
 
   let rec pow b e =
     if e <= 0 then 1 else b * pow b (e - 1)
@@ -67,7 +62,6 @@ EFFICIENT_NAT = r'''module Nat =
   let log2 n = log2_iter (pred n) 0 1 0
  end'''
 
-# Pattern: module Nat = struct ... end (followed by module Pos)
 NAT_MODULE_RE = re.compile(
     r'module Nat =\n struct\n.*? end\n(?=\nmodule Pos)',
     re.DOTALL,
@@ -75,12 +69,12 @@ NAT_MODULE_RE = re.compile(
 
 
 def patch(path: Path) -> bool:
-    text = path.read_text()
-    new_text, count = NAT_MODULE_RE.subn(EFFICIENT_NAT + '\n', text)
+    text = path.read_text(encoding="utf-8")
+    new_text, count = NAT_MODULE_RE.subn(EFFICIENT_NAT + "\n", text)
     if count == 0:
         print(f"warning: Nat module not found in {path}", file=sys.stderr)
         return False
-    path.write_text(new_text)
+    path.write_text(new_text, encoding="utf-8")
     print(f"patched Nat module in {path} ({count} replacement(s))")
     return True
 
@@ -89,6 +83,5 @@ if __name__ == "__main__":
     target = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("build/thiele_core.ml")
     if not target.exists():
         print(f"error: {target} does not exist", file=sys.stderr)
-        sys.exit(1)
-    ok = patch(target)
-    sys.exit(0 if ok else 1)
+        raise SystemExit(1)
+    raise SystemExit(0 if patch(target) else 1)

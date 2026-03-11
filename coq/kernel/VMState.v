@@ -648,8 +648,7 @@ Proof.
   apply (all_ids_below_implies_lookup_none _ _ _ Hwf Hge).
 Qed.
 
-(** Architecture constants. NOTE: MEM_SIZE=4096 for software VMs (Coq/OCaml/Python).
-    The Verilog RTL stays at 256 words; addresses ≥ 256 are inaccessible via RTL. *)
+(** Architecture constants. MEM_SIZE=4096 unified across Coq/Python/Verilog. *)
 Definition REG_COUNT : nat := 32.
 Definition MEM_SIZE : nat := 4096.
 Definition NUM_MODULES : nat := 64.  (* Maximum number of concurrent modules *)
@@ -806,14 +805,37 @@ Definition partitions (g : PartitionGraph) : list (ModuleID * ModuleState) := g.
     - Python: thielecpu/state.py VMState dataclass
     - Verilog: thielecpu/hardware/rtl/state_regs.v (distributed across registers)
 
-    SIZES: REG_COUNT=32, MEM_SIZE=4096 for software VMs (Coq/OCaml/Python).
-    The Verilog RTL retains MEM_SIZE=256; addresses ≥ 256 are inaccessible from RTL.
+    SIZES: REG_COUNT=32, MEM_SIZE=4096 for both software VMs and Verilog RTL.
 
     FALSIFICATION: If any valid step decreases vm_mu, μ-monotonicity is violated.
     If state is incomplete, step function is undefined. Proofs won't compile.
 
     THESIS: Chapter 3, §3.2.1 "State Space $S$"
 *)
+
+(** WitnessCounts: 8-bucket CHSH trial recorder.
+    Each (setting, outcome) pair has its own counter:
+    wc_same_AB = # of trials with settings (A,B) that yielded same outcome,
+    wc_diff_AB = # of trials with settings (A,B) that yielded different outcome. *)
+Record WitnessCounts := {
+  wc_same_00 : nat; wc_diff_00 : nat;
+  wc_same_01 : nat; wc_diff_01 : nat;
+  wc_same_10 : nat; wc_diff_10 : nat;
+  wc_same_11 : nat; wc_diff_11 : nat
+}.
+
+Definition witness_counts_zero : WitnessCounts :=
+  {| wc_same_00 := 0; wc_diff_00 := 0;
+     wc_same_01 := 0; wc_diff_01 := 0;
+     wc_same_10 := 0; wc_diff_10 := 0;
+     wc_same_11 := 0; wc_diff_11 := 0 |}.
+
+Definition witness_total (wc : WitnessCounts) : nat :=
+  wc.(wc_same_00) + wc.(wc_diff_00) +
+  wc.(wc_same_01) + wc.(wc_diff_01) +
+  wc.(wc_same_10) + wc.(wc_diff_10) +
+  wc.(wc_same_11) + wc.(wc_diff_11).
+
 Record VMState := {
   vm_graph : PartitionGraph;
   vm_csrs : CSRState;
@@ -822,11 +844,19 @@ Record VMState := {
   vm_pc : nat;
   vm_mu : nat;
   vm_mu_tensor : list nat;  (* Flattened 4×4 μ-tensor (row-major, 16 entries) *)
-  vm_err : bool
+  vm_err : bool;
+  vm_logic_acc : nat;       (* Logic engine accumulator (mirrors RTL logic_acc) *)
+  vm_mstatus : nat;          (* 0 = Turing mode, 1 = Thiele mode *)
+  vm_witness : WitnessCounts; (* CHSH trial buckets — 8 counters *)
+  vm_certified : bool         (* state-based certification flag *)
 }.
 
 (** Default empty μ-tensor (16 zeros) for backward-compatible state builds. *)
 Definition vm_mu_tensor_default : list nat := repeat 0 16.
+
+(** Logic gate key: 0xCAFEEACE as a natural number.
+    When vm_logic_acc = LOGIC_GATE_KEY_NAT, high-value ops are unlocked. *)
+Definition LOGIC_GATE_KEY_NAT : nat := 3405685454.
 
 (** Helper: access a flattened mu-tensor entry (row-major). *)
 Definition vm_mu_tensor_entry (s : VMState) (i j : nat) : nat :=
@@ -897,6 +927,26 @@ Fixpoint popcount_upto (bits : nat) (x : N) : nat :=
 Definition word32_popcount (x : nat) : nat :=
   popcount_upto 32 (N.land (N.of_nat x) word32_mask).
 
+(** word32_and: Bitwise AND, truncated to 32 bits. *)
+Definition word32_and (a b : nat) : nat :=
+  N.to_nat (N.land (N.land (N.of_nat a) (N.of_nat b)) word32_mask).
+
+(** word32_or: Bitwise OR, truncated to 32 bits. *)
+Definition word32_or (a b : nat) : nat :=
+  N.to_nat (N.lor (N.land (N.of_nat a) word32_mask)
+                   (N.land (N.of_nat b) word32_mask)).
+
+(** word32_shl: Logical shift left, truncated to 32 bits. *)
+Definition word32_shl (a b : nat) : nat :=
+  word32 (N.to_nat (N.shiftl (N.of_nat a) (N.of_nat (b mod 32)))).
+
+(** word32_shr: Logical shift right (zero-fill), truncated to 32 bits. *)
+Definition word32_shr (a b : nat) : nat :=
+  N.to_nat (N.shiftr (N.land (N.of_nat a) word32_mask) (N.of_nat (b mod 32))).
+
+(** word32_mul: Modular 32-bit multiplication (wraps at 2^32). *)
+Definition word32_mul (a b : nat) : nat := word32 (a * b).
+
 Definition reg_index (r : nat) : nat := r mod REG_COUNT.
 Definition mem_index (a : nat) : nat := a mod MEM_SIZE.
 
@@ -938,7 +988,11 @@ Definition update_state
      vm_pc := advance_pc s;
      vm_mu := mu;
      vm_mu_tensor := vm_mu_tensor_default;
-     vm_err := err |}.
+     vm_err := err;
+     vm_logic_acc := s.(vm_logic_acc);
+     vm_mstatus := s.(vm_mstatus);
+     vm_witness := s.(vm_witness);
+     vm_certified := s.(vm_certified) |}.
 
 (** ** graph_psplit and graph_pmerge Length Lemmas *)
 

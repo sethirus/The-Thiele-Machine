@@ -126,10 +126,14 @@ Fixpoint extract_chsh_trials_from_trace
                    vm_pc := S s.(vm_pc);
                    vm_mu := s.(vm_mu) + mu_delta;
                    vm_mu_tensor := s.(vm_mu_tensor);
-                   vm_err := s.(vm_err) |} 
+                   vm_err := s.(vm_err);
+                   vm_logic_acc := s.(vm_logic_acc);
+                   vm_mstatus := s.(vm_mstatus);
+                   vm_witness := s.(vm_witness);
+                   vm_certified := s.(vm_certified) |}
           | _ =>
               (* Other instructions: skip and continue *)
-              extract_chsh_trials_from_trace fuel' trace 
+              extract_chsh_trials_from_trace fuel' trace
                 {| vm_graph := s.(vm_graph);
                    vm_csrs := s.(vm_csrs);
                    vm_regs := s.(vm_regs);
@@ -137,7 +141,11 @@ Fixpoint extract_chsh_trials_from_trace
                    vm_pc := S s.(vm_pc);
                    vm_mu := s.(vm_mu);
                    vm_mu_tensor := s.(vm_mu_tensor);
-                   vm_err := s.(vm_err) |}
+                   vm_err := s.(vm_err);
+                   vm_logic_acc := s.(vm_logic_acc);
+                   vm_mstatus := s.(vm_mstatus);
+                   vm_witness := s.(vm_witness);
+                   vm_certified := s.(vm_certified) |}
           end
       end
   end.

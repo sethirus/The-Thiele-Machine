@@ -1,4 +1,4 @@
-DIGEST 4f98a78166542bf7686196b6b1a4d5b3
+DIGEST f0a21476d11cb536d995703c31b17296
 FKernel.MuGravity
 R3443:3446 Coq.Lists.List <> <> lib
 R3448:3461 Coq.Arith.PeanoNat <> <> lib
@@ -4048,6 +4048,14 @@ R77643:77654 Kernel.VMState <> vm_mu_tensor proj
 R77643:77654 Kernel.VMState <> vm_mu_tensor proj
 R77697:77702 Kernel.VMState <> vm_err proj
 R77697:77702 Kernel.VMState <> vm_err proj
+R77730:77741 Kernel.VMState <> vm_logic_acc proj
+R77730:77741 Kernel.VMState <> vm_logic_acc proj
+R77765:77774 Kernel.VMState <> vm_mstatus proj
+R77765:77774 Kernel.VMState <> vm_mstatus proj
+R77798:77807 Kernel.VMState <> vm_witness proj
+R77798:77807 Kernel.VMState <> vm_witness proj
+R77849:77860 Kernel.VMState <> vm_certified proj
+R77849:77860 Kernel.VMState <> vm_certified proj
 R77393:77403 Kernel.VMState <> empty_graph def
 R77436:77448 Kernel.VMState <> csr_cert_addr proj
 R77436:77448 Kernel.VMState <> csr_cert_addr proj
@@ -4062,6 +4070,8 @@ R77537:77538 Coq.Lists.List ListNotations ::list_scope:'['_']' not
 R77567:77568 Coq.Lists.List ListNotations ::list_scope:'['_']' not
 R77659:77678 Kernel.VMState <> vm_mu_tensor_default def
 R77707:77711 Coq.Init.Datatypes <> false constr
+R77812:77830 Kernel.VMState <> witness_counts_zero def
+R77865:77869 Coq.Init.Datatypes <> false constr
 R77381:77388 Kernel.VMState <> vm_graph proj
 R77381:77388 Kernel.VMState <> vm_graph proj
 R77381:77388 Kernel.VMState <> vm_graph proj
@@ -4079,6 +4089,14 @@ R77643:77654 Kernel.VMState <> vm_mu_tensor proj
 R77643:77654 Kernel.VMState <> vm_mu_tensor proj
 R77697:77702 Kernel.VMState <> vm_err proj
 R77697:77702 Kernel.VMState <> vm_err proj
+R77730:77741 Kernel.VMState <> vm_logic_acc proj
+R77730:77741 Kernel.VMState <> vm_logic_acc proj
+R77765:77774 Kernel.VMState <> vm_mstatus proj
+R77765:77774 Kernel.VMState <> vm_mstatus proj
+R77798:77807 Kernel.VMState <> vm_witness proj
+R77798:77807 Kernel.VMState <> vm_witness proj
+R77849:77860 Kernel.VMState <> vm_certified proj
+R77849:77860 Kernel.VMState <> vm_certified proj
 R77393:77403 Kernel.VMState <> empty_graph def
 R77436:77448 Kernel.VMState <> csr_cert_addr proj
 R77436:77448 Kernel.VMState <> csr_cert_addr proj
@@ -4093,1163 +4111,1165 @@ R77537:77538 Coq.Lists.List ListNotations ::list_scope:'['_']' not
 R77567:77568 Coq.Lists.List ListNotations ::list_scope:'['_']' not
 R77659:77678 Kernel.VMState <> vm_mu_tensor_default def
 R77707:77711 Coq.Init.Datatypes <> false constr
-R77740:77740 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R77746:77746 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R77740:77740 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R77746:77746 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R77801:77820 Kernel.MuGravity <> calibration_residual def
-R77823:77830 Kernel.SimulationProof <> vm_apply def
-prf 77954:77999 <> no_unconditional_pnew_zero_cost_strict_descent
-R78005:78007 Coq.Init.Logic <> ::type_scope:'~'_x not
-R78154:78154 Coq.Init.Logic <> ::type_scope:'~'_x not
-binder 78015:78015 <> s:510
-binder 78017:78017 <> m:511
-binder 78019:78024 <> region:512
-R78096:78105 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R78089:78091 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R78033:78049 Kernel.VMState <> graph_find_region def
-R78052:78059 Kernel.VMState <> vm_graph proj
-R78061:78061 Kernel.MuGravity <> s:510 var
-R78065:78080 Kernel.VMState <> normalize_region def
-R78082:78087 Kernel.MuGravity <> region:512 var
-R78092:78095 Coq.Init.Datatypes <> None constr
-R78106:78127 Kernel.MuGravity <> strict_descent_at_step def
-R78129:78129 Kernel.MuGravity <> s:510 var
-R78132:78141 Kernel.VMStep VMStep instr_pnew constr
-R78143:78148 Kernel.MuGravity <> region:512 var
-R78153:78153 Kernel.MuGravity <> m:511 var
-R78189:78230 Kernel.MuGravity <> pnew_zero_cost_not_universally_contractive thm
-R78314:78335 Kernel.MuGravity <> strict_descent_at_step def
-def 78468:78482 <> calibration_gap
-R78489:78495 Kernel.VMState <> VMState rec
-binder 78485:78485 <> s:513
-R78503:78510 Kernel.VMState <> ModuleID def
-binder 78499:78499 <> m:514
-R78515:78515 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R78549:78551 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R78523:78544 Kernel.MuGravity <> angle_defect_curvature def
-R78546:78546 Kernel.MuGravity <> s:513 var
-R78548:78548 Kernel.MuGravity <> m:514 var
-R78570:78572 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R78552:78569 Kernel.MuGravity <> curvature_coupling def
-R78573:78584 Kernel.MuGravity <> mu_laplacian def
-R78586:78586 Kernel.MuGravity <> s:513 var
-R78588:78588 Kernel.MuGravity <> m:514 var
-def 78606:78626 <> calibration_gap_delta
-R78633:78639 Kernel.VMState <> VMState rec
-binder 78629:78629 <> s:515
-R78647:78660 Kernel.VMStep VMStep vm_instruction ind
-binder 78643:78643 <> i:516
-R78668:78675 Kernel.VMState <> ModuleID def
-binder 78664:78664 <> m:517
-R78680:78680 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R78720:78722 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R78688:78702 Kernel.MuGravity <> calibration_gap def
-R78705:78712 Kernel.SimulationProof <> vm_apply def
-R78714:78714 Kernel.MuGravity <> s:515 var
-R78716:78716 Kernel.MuGravity <> i:516 var
-R78719:78719 Kernel.MuGravity <> m:517 var
-R78723:78737 Kernel.MuGravity <> calibration_gap def
-R78739:78739 Kernel.MuGravity <> s:515 var
-R78741:78741 Kernel.MuGravity <> m:517 var
-prf 78826:78864 <> calibration_gap_pnew_disjoint_preserved
-binder 78875:78875 <> s:518
-binder 78877:78882 <> region:519
-binder 78884:78884 <> m:520
-R78919:78924 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R78889:78905 Kernel.VMState <> well_formed_graph def
-R78908:78915 Kernel.VMState <> vm_graph proj
-R78917:78917 Kernel.MuGravity <> s:518 var
-R78971:78976 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R78925:78950 Kernel.MuGravity <> region_disjoint_from_graph def
-R78953:78960 Kernel.VMState <> vm_graph proj
-R78962:78962 Kernel.MuGravity <> s:518 var
-R78965:78970 Kernel.MuGravity <> region:519 var
-R79040:79045 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R79033:79035 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R78977:78993 Kernel.VMState <> graph_find_region def
-R78996:79003 Kernel.VMState <> vm_graph proj
-R79005:79005 Kernel.MuGravity <> s:518 var
-R79009:79024 Kernel.VMState <> normalize_region def
-R79026:79031 Kernel.MuGravity <> region:519 var
-R79036:79039 Coq.Init.Datatypes <> None constr
-R79073:79078 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R79047:79049 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R79046:79046 Kernel.MuGravity <> m:520 var
-R79050:79059 Kernel.VMState <> pg_next_id proj
-R79062:79069 Kernel.VMState <> vm_graph proj
-R79071:79071 Kernel.MuGravity <> s:518 var
-R79131:79133 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R79079:79093 Kernel.MuGravity <> calibration_gap def
-R79096:79103 Kernel.SimulationProof <> vm_apply def
-R79105:79105 Kernel.MuGravity <> s:518 var
-R79108:79117 Kernel.VMStep VMStep instr_pnew constr
-R79119:79124 Kernel.MuGravity <> region:519 var
-R79130:79130 Kernel.MuGravity <> m:520 var
-R79134:79148 Kernel.MuGravity <> calibration_gap def
-R79150:79150 Kernel.MuGravity <> s:518 var
-R79152:79152 Kernel.MuGravity <> m:520 var
-R79212:79226 Kernel.MuGravity <> calibration_gap def
-R79229:79250 Kernel.MuGravity <> angle_defect_curvature def
-R79264:79299 Kernel.MuGravity <> geometric_angle_defect_pnew_disjoint thm
-R79264:79299 Kernel.MuGravity <> geometric_angle_defect_pnew_disjoint thm
-R79264:79299 Kernel.MuGravity <> geometric_angle_defect_pnew_disjoint thm
-R79345:79370 Kernel.MuGravity <> mu_laplacian_pnew_disjoint thm
-R79345:79370 Kernel.MuGravity <> mu_laplacian_pnew_disjoint thm
-R79345:79370 Kernel.MuGravity <> mu_laplacian_pnew_disjoint thm
-prf 79509:79552 <> calibration_residual_pnew_disjoint_preserved
-binder 79563:79563 <> s:521
-binder 79565:79570 <> region:522
-binder 79572:79572 <> m:523
-R79607:79612 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R79577:79593 Kernel.VMState <> well_formed_graph def
-R79596:79603 Kernel.VMState <> vm_graph proj
-R79605:79605 Kernel.MuGravity <> s:521 var
-R79659:79664 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R79613:79638 Kernel.MuGravity <> region_disjoint_from_graph def
-R79641:79648 Kernel.VMState <> vm_graph proj
-R79650:79650 Kernel.MuGravity <> s:521 var
-R79653:79658 Kernel.MuGravity <> region:522 var
-R79728:79733 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R79721:79723 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R79665:79681 Kernel.VMState <> graph_find_region def
-R79684:79691 Kernel.VMState <> vm_graph proj
-R79693:79693 Kernel.MuGravity <> s:521 var
-R79697:79712 Kernel.VMState <> normalize_region def
-R79714:79719 Kernel.MuGravity <> region:522 var
-R79724:79727 Coq.Init.Datatypes <> None constr
-R79761:79766 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R79735:79737 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R79734:79734 Kernel.MuGravity <> m:523 var
-R79738:79747 Kernel.VMState <> pg_next_id proj
-R79750:79757 Kernel.VMState <> vm_graph proj
-R79759:79759 Kernel.MuGravity <> s:521 var
-R79824:79826 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R79767:79786 Kernel.MuGravity <> calibration_residual def
-R79789:79796 Kernel.SimulationProof <> vm_apply def
-R79798:79798 Kernel.MuGravity <> s:521 var
-R79801:79810 Kernel.VMStep VMStep instr_pnew constr
-R79812:79817 Kernel.MuGravity <> region:522 var
-R79823:79823 Kernel.MuGravity <> m:523 var
-R79827:79846 Kernel.MuGravity <> calibration_residual def
-R79848:79848 Kernel.MuGravity <> s:521 var
-R79850:79850 Kernel.MuGravity <> m:523 var
-R79910:79929 Kernel.MuGravity <> calibration_residual def
-R79932:79953 Kernel.MuGravity <> angle_defect_curvature def
-R79967:80002 Kernel.MuGravity <> geometric_angle_defect_pnew_disjoint thm
-R79967:80002 Kernel.MuGravity <> geometric_angle_defect_pnew_disjoint thm
-R79967:80002 Kernel.MuGravity <> geometric_angle_defect_pnew_disjoint thm
-R80048:80073 Kernel.MuGravity <> mu_laplacian_pnew_disjoint thm
-R80048:80073 Kernel.MuGravity <> mu_laplacian_pnew_disjoint thm
-R80048:80073 Kernel.MuGravity <> mu_laplacian_pnew_disjoint thm
-abbrev 80139:80167 <> semantic_gap_window_semantics
-binder 80179:80179 <> s:524
-binder 80181:80181 <> i:525
-binder 80183:80183 <> m:526
-R80219:80226 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R80194:80196 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R80197:80211 Kernel.MuGravity <> calibration_gap def
-R80213:80213 Kernel.MuGravity <> s:524 var
-R80215:80215 Kernel.MuGravity <> m:526 var
-R80252:80254 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
-R80282:80284 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
-R80230:80232 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R80233:80247 Kernel.MuGravity <> calibration_gap def
-R80249:80249 Kernel.MuGravity <> s:524 var
-R80251:80251 Kernel.MuGravity <> m:526 var
-R80255:80275 Kernel.MuGravity <> calibration_gap_delta def
-R80277:80277 Kernel.MuGravity <> s:524 var
-R80279:80279 Kernel.MuGravity <> i:525 var
-R80281:80281 Kernel.MuGravity <> m:526 var
-R80255:80275 Kernel.MuGravity <> calibration_gap_delta def
-R80277:80277 Kernel.MuGravity <> s:524 var
-R80279:80279 Kernel.MuGravity <> i:525 var
-R80281:80281 Kernel.MuGravity <> m:526 var
-prf 80731:80762 <> calibration_gap_delta_fresh_pnew
-binder 80773:80773 <> s:527
-binder 80775:80775 <> m:528
-binder 80777:80782 <> region:529
-R80850:80855 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R80843:80845 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R80787:80803 Kernel.VMState <> graph_find_region def
-R80806:80813 Kernel.VMState <> vm_graph proj
-R80815:80815 Kernel.MuGravity <> s:527 var
-R80819:80834 Kernel.VMState <> normalize_region def
-R80836:80841 Kernel.MuGravity <> region:529 var
-R80846:80849 Coq.Init.Datatypes <> None constr
-R80883:80888 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R80858:80860 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R80861:80875 Kernel.MuGravity <> calibration_gap def
-R80877:80877 Kernel.MuGravity <> s:527 var
-R80879:80879 Kernel.MuGravity <> m:528 var
-R80947:80952 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R80941:80943 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R80889:80903 Kernel.MuGravity <> calibration_gap def
-R80906:80913 Kernel.SimulationProof <> vm_apply def
-R80915:80915 Kernel.MuGravity <> s:527 var
-R80918:80927 Kernel.VMStep VMStep instr_pnew constr
-R80929:80934 Kernel.MuGravity <> region:529 var
-R80940:80940 Kernel.MuGravity <> m:528 var
-R81000:81002 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R80953:80973 Kernel.MuGravity <> calibration_gap_delta def
-R80975:80975 Kernel.MuGravity <> s:527 var
-R80978:80987 Kernel.VMStep VMStep instr_pnew constr
-R80989:80994 Kernel.MuGravity <> region:529 var
-R80999:80999 Kernel.MuGravity <> m:528 var
-R81004:81005 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
-R81006:81020 Kernel.MuGravity <> calibration_gap def
-R81022:81022 Kernel.MuGravity <> s:527 var
-R81024:81024 Kernel.MuGravity <> m:528 var
-R81090:81110 Kernel.MuGravity <> calibration_gap_delta def
-R81113:81127 Kernel.MuGravity <> calibration_gap def
-prf 81264:81316 <> semantic_gap_window_certificate_fresh_pnew_from_delta
-binder 81327:81327 <> s:530
-binder 81329:81329 <> m:531
-binder 81331:81336 <> region:532
-R81404:81409 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R81397:81399 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R81341:81357 Kernel.VMState <> graph_find_region def
-R81360:81367 Kernel.VMState <> vm_graph proj
-R81369:81369 Kernel.MuGravity <> s:530 var
-R81373:81388 Kernel.VMState <> normalize_region def
-R81390:81395 Kernel.MuGravity <> region:532 var
-R81400:81403 Coq.Init.Datatypes <> None constr
-R81437:81442 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R81412:81414 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R81415:81429 Kernel.MuGravity <> calibration_gap def
-R81431:81431 Kernel.MuGravity <> s:530 var
-R81433:81433 Kernel.MuGravity <> m:531 var
-R81501:81506 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R81495:81497 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R81443:81457 Kernel.MuGravity <> calibration_gap def
-R81460:81467 Kernel.SimulationProof <> vm_apply def
-R81469:81469 Kernel.MuGravity <> s:530 var
-R81472:81481 Kernel.VMStep VMStep instr_pnew constr
-R81483:81488 Kernel.MuGravity <> region:532 var
-R81494:81494 Kernel.MuGravity <> m:531 var
-R81534:81537 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R81509:81511 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R81512:81526 Kernel.MuGravity <> calibration_gap def
-R81528:81528 Kernel.MuGravity <> s:530 var
-R81530:81530 Kernel.MuGravity <> m:531 var
-R81563:81565 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
-R81613:81615 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
-R81541:81543 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R81544:81558 Kernel.MuGravity <> calibration_gap def
-R81560:81560 Kernel.MuGravity <> s:530 var
-R81562:81562 Kernel.MuGravity <> m:531 var
-R81566:81586 Kernel.MuGravity <> calibration_gap_delta def
-R81588:81588 Kernel.MuGravity <> s:530 var
-R81591:81600 Kernel.VMStep VMStep instr_pnew constr
-R81602:81607 Kernel.MuGravity <> region:532 var
-R81612:81612 Kernel.MuGravity <> m:531 var
-R81566:81586 Kernel.MuGravity <> calibration_gap_delta def
-R81588:81588 Kernel.MuGravity <> s:530 var
-R81591:81600 Kernel.VMStep VMStep instr_pnew constr
-R81602:81607 Kernel.MuGravity <> region:532 var
-R81612:81612 Kernel.MuGravity <> m:531 var
-R81714:81745 Kernel.MuGravity <> calibration_gap_delta_fresh_pnew thm
-R81714:81745 Kernel.MuGravity <> calibration_gap_delta_fresh_pnew thm
-prf 81916:81966 <> semantic_gap_window_semantics_fresh_pnew_from_delta
-binder 81977:81977 <> s:533
-binder 81979:81979 <> m:534
-binder 81981:81986 <> region:535
-R82054:82059 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R82047:82049 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R81991:82007 Kernel.VMState <> graph_find_region def
-R82010:82017 Kernel.VMState <> vm_graph proj
-R82019:82019 Kernel.MuGravity <> s:533 var
-R82023:82038 Kernel.VMState <> normalize_region def
-R82040:82045 Kernel.MuGravity <> region:535 var
-R82050:82053 Coq.Init.Datatypes <> None constr
-R82087:82092 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R82062:82064 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R82065:82079 Kernel.MuGravity <> calibration_gap def
-R82081:82081 Kernel.MuGravity <> s:533 var
-R82083:82083 Kernel.MuGravity <> m:534 var
-R82151:82156 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R82145:82147 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R82093:82107 Kernel.MuGravity <> calibration_gap def
-R82110:82117 Kernel.SimulationProof <> vm_apply def
-R82119:82119 Kernel.MuGravity <> s:533 var
-R82122:82131 Kernel.VMStep VMStep instr_pnew constr
-R82133:82138 Kernel.MuGravity <> region:535 var
-R82144:82144 Kernel.MuGravity <> m:534 var
-R82184:82187 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R82159:82161 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R82162:82176 Kernel.MuGravity <> calibration_gap def
-R82178:82178 Kernel.MuGravity <> s:533 var
-R82180:82180 Kernel.MuGravity <> m:534 var
-R82213:82215 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
-R82263:82265 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
-R82191:82193 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R82194:82208 Kernel.MuGravity <> calibration_gap def
-R82210:82210 Kernel.MuGravity <> s:533 var
-R82212:82212 Kernel.MuGravity <> m:534 var
-R82216:82236 Kernel.MuGravity <> calibration_gap_delta def
-R82238:82238 Kernel.MuGravity <> s:533 var
-R82241:82250 Kernel.VMStep VMStep instr_pnew constr
-R82252:82257 Kernel.MuGravity <> region:535 var
-R82262:82262 Kernel.MuGravity <> m:534 var
-R82216:82236 Kernel.MuGravity <> calibration_gap_delta def
-R82238:82238 Kernel.MuGravity <> s:533 var
-R82241:82250 Kernel.VMStep VMStep instr_pnew constr
-R82252:82257 Kernel.MuGravity <> region:535 var
-R82262:82262 Kernel.MuGravity <> m:534 var
-R82332:82384 Kernel.MuGravity <> semantic_gap_window_certificate_fresh_pnew_from_delta thm
-R82332:82384 Kernel.MuGravity <> semantic_gap_window_certificate_fresh_pnew_from_delta thm
-prf 82461:82491 <> calibration_residual_as_gap_abs
-binder 82502:82502 <> s:536
-binder 82504:82504 <> m:537
-R82533:82535 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R82509:82528 Kernel.MuGravity <> calibration_residual def
-R82530:82530 Kernel.MuGravity <> s:536 var
-R82532:82532 Kernel.MuGravity <> m:537 var
-R82536:82539 Coq.Reals.Rbasic_fun <> Rabs def
-R82542:82556 Kernel.MuGravity <> calibration_gap def
-R82558:82558 Kernel.MuGravity <> s:536 var
-R82560:82560 Kernel.MuGravity <> m:537 var
-R82594:82613 Kernel.MuGravity <> calibration_residual def
-R82616:82630 Kernel.MuGravity <> calibration_gap def
-prf 82761:82802 <> calibration_gap_after_as_before_plus_delta
-binder 82813:82813 <> s:538
-binder 82815:82815 <> i:539
-binder 82817:82817 <> m:540
-R82854:82856 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R82822:82836 Kernel.MuGravity <> calibration_gap def
-R82839:82846 Kernel.SimulationProof <> vm_apply def
-R82848:82848 Kernel.MuGravity <> s:538 var
-R82850:82850 Kernel.MuGravity <> i:539 var
-R82853:82853 Kernel.MuGravity <> m:540 var
-R82877:82879 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R82858:82872 Kernel.MuGravity <> calibration_gap def
-R82874:82874 Kernel.MuGravity <> s:538 var
-R82876:82876 Kernel.MuGravity <> m:540 var
-R82880:82900 Kernel.MuGravity <> calibration_gap_delta def
-R82902:82902 Kernel.MuGravity <> s:538 var
-R82904:82904 Kernel.MuGravity <> i:539 var
-R82906:82906 Kernel.MuGravity <> m:540 var
-R82944:82964 Kernel.MuGravity <> calibration_gap_delta def
-R82967:82981 Kernel.MuGravity <> calibration_gap def
-prf 83074:83111 <> abs_strict_descent_by_delta_window_pos
-binder 83122:83122 <> r:541
-binder 83124:83128 <> delta:542
-R83142:83147 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R83135:83137 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R83138:83138 Kernel.MuGravity <> r:541 var
-R83170:83175 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R83155:83157 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
-R83163:83165 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
-R83151:83153 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R83154:83154 Kernel.MuGravity <> r:541 var
-R83158:83162 Kernel.MuGravity <> delta:542 var
-R83158:83162 Kernel.MuGravity <> delta:542 var
-R83193:83195 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R83177:83180 Coq.Reals.Rbasic_fun <> Rabs def
-R83184:83186 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R83183:83183 Kernel.MuGravity <> r:541 var
-R83187:83191 Kernel.MuGravity <> delta:542 var
-R83196:83199 Coq.Reals.Rbasic_fun <> Rabs def
-R83201:83201 Kernel.MuGravity <> r:541 var
-R83272:83274 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R83266:83269 Coq.Reals.Rbasic_fun <> Rabs def
-R83272:83274 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R83266:83269 Coq.Reals.Rbasic_fun <> Rabs def
-R83289:83298 Coq.Reals.Rbasic_fun <> Rabs_right thm
-R83289:83298 Coq.Reals.Rbasic_fun <> Rabs_right thm
-R83337:83345 Coq.Reals.Rbasic_fun <> Rcase_abs thm
-R83349:83351 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R83337:83345 Coq.Reals.Rbasic_fun <> Rcase_abs thm
-R83349:83351 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R83391:83399 Coq.Reals.Rbasic_fun <> Rabs_left thm
-R83391:83399 Coq.Reals.Rbasic_fun <> Rabs_left thm
-R83391:83399 Coq.Reals.Rbasic_fun <> Rabs_left thm
-R83430:83439 Coq.Reals.Rbasic_fun <> Rabs_right thm
-R83430:83439 Coq.Reals.Rbasic_fun <> Rabs_right thm
-R83430:83439 Coq.Reals.Rbasic_fun <> Rabs_right thm
-prf 84008:84067 <> calibration_residual_strict_descent_from_semantic_gap_window
-binder 84078:84078 <> s:543
-binder 84080:84080 <> i:544
-binder 84082:84082 <> m:545
-R84180:84185 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R84114:84117 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R84089:84091 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R84092:84106 Kernel.MuGravity <> calibration_gap def
-R84108:84108 Kernel.MuGravity <> s:543 var
-R84110:84110 Kernel.MuGravity <> m:545 var
-R84143:84145 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
-R84173:84175 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
-R84121:84123 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R84124:84138 Kernel.MuGravity <> calibration_gap def
-R84140:84140 Kernel.MuGravity <> s:543 var
-R84142:84142 Kernel.MuGravity <> m:545 var
-R84146:84166 Kernel.MuGravity <> calibration_gap_delta def
-R84168:84168 Kernel.MuGravity <> s:543 var
-R84170:84170 Kernel.MuGravity <> i:544 var
-R84172:84172 Kernel.MuGravity <> m:545 var
-R84146:84166 Kernel.MuGravity <> calibration_gap_delta def
-R84168:84168 Kernel.MuGravity <> s:543 var
-R84170:84170 Kernel.MuGravity <> i:544 var
-R84172:84172 Kernel.MuGravity <> m:545 var
-R84186:84207 Kernel.MuGravity <> strict_descent_at_step def
-R84209:84209 Kernel.MuGravity <> s:543 var
-R84211:84211 Kernel.MuGravity <> i:544 var
-R84213:84213 Kernel.MuGravity <> m:545 var
-R84262:84283 Kernel.MuGravity <> strict_descent_at_step def
-R84297:84327 Kernel.MuGravity <> calibration_residual_as_gap_abs thm
-R84297:84327 Kernel.MuGravity <> calibration_residual_as_gap_abs thm
-R84297:84327 Kernel.MuGravity <> calibration_residual_as_gap_abs thm
-R84297:84327 Kernel.MuGravity <> calibration_residual_as_gap_abs thm
-R84297:84327 Kernel.MuGravity <> calibration_residual_as_gap_abs thm
-R84339:84359 Kernel.MuGravity <> calibration_gap_delta def
-R84382:84423 Kernel.MuGravity <> calibration_gap_after_as_before_plus_delta thm
-R84382:84423 Kernel.MuGravity <> calibration_gap_after_as_before_plus_delta thm
-R84382:84423 Kernel.MuGravity <> calibration_gap_after_as_before_plus_delta thm
-R84434:84471 Kernel.MuGravity <> abs_strict_descent_by_delta_window_pos thm
-R84434:84471 Kernel.MuGravity <> abs_strict_descent_by_delta_window_pos thm
-prf 84565:84598 <> calibration_gap_abs_strict_descent
-binder 84609:84609 <> s:546
-binder 84611:84611 <> i:547
-binder 84613:84613 <> m:548
-R84711:84716 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R84645:84648 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R84620:84622 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R84623:84637 Kernel.MuGravity <> calibration_gap def
-R84639:84639 Kernel.MuGravity <> s:546 var
-R84641:84641 Kernel.MuGravity <> m:548 var
-R84674:84676 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
-R84704:84706 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
-R84652:84654 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R84655:84669 Kernel.MuGravity <> calibration_gap def
-R84671:84671 Kernel.MuGravity <> s:546 var
-R84673:84673 Kernel.MuGravity <> m:548 var
-R84677:84697 Kernel.MuGravity <> calibration_gap_delta def
-R84699:84699 Kernel.MuGravity <> s:546 var
-R84701:84701 Kernel.MuGravity <> i:547 var
-R84703:84703 Kernel.MuGravity <> m:548 var
-R84677:84697 Kernel.MuGravity <> calibration_gap_delta def
-R84699:84699 Kernel.MuGravity <> s:546 var
-R84701:84701 Kernel.MuGravity <> i:547 var
-R84703:84703 Kernel.MuGravity <> m:548 var
-R84757:84759 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R84718:84721 Coq.Reals.Rbasic_fun <> Rabs def
-R84724:84738 Kernel.MuGravity <> calibration_gap def
-R84741:84748 Kernel.SimulationProof <> vm_apply def
-R84750:84750 Kernel.MuGravity <> s:546 var
-R84752:84752 Kernel.MuGravity <> i:547 var
-R84755:84755 Kernel.MuGravity <> m:548 var
-R84760:84763 Coq.Reals.Rbasic_fun <> Rabs def
-R84766:84780 Kernel.MuGravity <> calibration_gap def
-R84782:84782 Kernel.MuGravity <> s:546 var
-R84784:84784 Kernel.MuGravity <> m:548 var
-R84836:84895 Kernel.MuGravity <> calibration_residual_strict_descent_from_semantic_gap_window thm
-R84836:84895 Kernel.MuGravity <> calibration_residual_strict_descent_from_semantic_gap_window thm
-R84931:84952 Kernel.MuGravity <> strict_descent_at_step def
-R84975:85005 Kernel.MuGravity <> calibration_residual_as_gap_abs thm
-R84975:85005 Kernel.MuGravity <> calibration_residual_as_gap_abs thm
-R84975:85005 Kernel.MuGravity <> calibration_residual_as_gap_abs thm
-R84975:85005 Kernel.MuGravity <> calibration_residual_as_gap_abs thm
-R84975:85005 Kernel.MuGravity <> calibration_residual_as_gap_abs thm
-prf 85124:85168 <> calibration_progress_one_step_from_gap_window
-binder 85179:85183 <> trace:549
-binder 85185:85185 <> s:550
-binder 85187:85187 <> m:551
-binder 85189:85189 <> i:552
-R85228:85233 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R85219:85221 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R85194:85202 Coq.Lists.List <> nth_error def
-R85211:85215 Kernel.VMState <> vm_pc proj
-R85217:85217 Kernel.MuGravity <> s:550 var
-R85204:85208 Kernel.MuGravity <> trace:549 var
-R85222:85225 Coq.Init.Datatypes <> Some constr
-R85227:85227 Kernel.MuGravity <> i:552 var
-R85327:85332 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R85261:85264 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R85236:85238 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R85239:85253 Kernel.MuGravity <> calibration_gap def
-R85255:85255 Kernel.MuGravity <> s:550 var
-R85257:85257 Kernel.MuGravity <> m:551 var
-R85290:85292 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
-R85320:85322 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
-R85268:85270 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R85271:85285 Kernel.MuGravity <> calibration_gap def
-R85287:85287 Kernel.MuGravity <> s:550 var
-R85289:85289 Kernel.MuGravity <> m:551 var
-R85293:85313 Kernel.MuGravity <> calibration_gap_delta def
-R85315:85315 Kernel.MuGravity <> s:550 var
-R85317:85317 Kernel.MuGravity <> i:552 var
-R85319:85319 Kernel.MuGravity <> m:551 var
-R85293:85313 Kernel.MuGravity <> calibration_gap_delta def
-R85315:85315 Kernel.MuGravity <> s:550 var
-R85317:85317 Kernel.MuGravity <> i:552 var
-R85319:85319 Kernel.MuGravity <> m:551 var
-R85375:85377 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R85334:85353 Kernel.MuGravity <> calibration_residual def
-R85356:85361 Kernel.SimulationProof <> run_vm def
-R85365:85369 Kernel.MuGravity <> trace:549 var
-R85371:85371 Kernel.MuGravity <> s:550 var
-R85374:85374 Kernel.MuGravity <> m:551 var
-R85378:85397 Kernel.MuGravity <> calibration_residual def
-R85399:85399 Kernel.MuGravity <> s:550 var
-R85401:85401 Kernel.MuGravity <> m:551 var
-R85460:85483 Kernel.MuGravity <> run_vm_one_step_from_nth thm
-R85460:85483 Kernel.MuGravity <> run_vm_one_step_from_nth thm
-R85460:85483 Kernel.MuGravity <> run_vm_one_step_from_nth thm
-R85511:85570 Kernel.MuGravity <> calibration_residual_strict_descent_from_semantic_gap_window thm
-R85511:85570 Kernel.MuGravity <> calibration_residual_strict_descent_from_semantic_gap_window thm
-def 86317:86359 <> run_vm_prioritizes_active_when_uncalibrated
-R86372:86375 Coq.Init.Datatypes <> list ind
-R86377:86390 Kernel.VMStep VMStep vm_instruction ind
-binder 86364:86368 <> trace:553
-R86398:86404 Kernel.VMState <> VMState rec
-binder 86394:86394 <> s:554
-R86412:86419 Kernel.VMState <> ModuleID def
-binder 86408:86408 <> m:555
-R86466:86471 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R86436:86438 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R86439:86458 Kernel.MuGravity <> calibration_residual def
-R86460:86460 Kernel.MuGravity <> s:554 var
-R86462:86462 Kernel.MuGravity <> m:555 var
-R86472:86478 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R86480:86485 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 86479:86479 <> i:556
-R86520:86527 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R86511:86513 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R86486:86494 Coq.Lists.List <> nth_error def
-R86503:86507 Kernel.VMState <> vm_pc proj
-R86509:86509 Kernel.MuGravity <> s:554 var
-R86496:86500 Kernel.MuGravity <> trace:553 var
-R86514:86517 Coq.Init.Datatypes <> Some constr
-R86519:86519 Kernel.MuGravity <> i:556 var
-R86562:86570 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R86673:86673 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R86528:86557 Kernel.MuGravity <> calibration_active_instruction def
-R86559:86559 Kernel.MuGravity <> s:554 var
-R86561:86561 Kernel.MuGravity <> i:556 var
-binder 86578:86578 <> j:557
-R86617:86626 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R86587:86614 Kernel.MuGravity <> calibration_safe_instruction ind
-R86616:86616 Kernel.MuGravity <> j:557 var
-R86646:86649 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R86628:86643 Kernel.VMStep VMStep instruction_cost def
-R86645:86645 Kernel.MuGravity <> i:556 var
-R86650:86665 Kernel.VMStep VMStep instruction_cost def
-R86667:86667 Kernel.MuGravity <> j:557 var
-prf 86760:86803 <> run_vm_prioritizes_implies_scheduler_prefers
-binder 86814:86818 <> trace:558
-binder 86820:86820 <> s:559
-binder 86822:86822 <> m:560
-R86880:86885 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R86827:86869 Kernel.MuGravity <> run_vm_prioritizes_active_when_uncalibrated def
-R86871:86875 Kernel.MuGravity <> trace:558 var
-R86877:86877 Kernel.MuGravity <> s:559 var
-R86879:86879 Kernel.MuGravity <> m:560 var
-R86886:86927 Kernel.MuGravity <> scheduler_prefers_active_when_uncalibrated def
-R86929:86933 Kernel.MuGravity <> trace:558 var
-R86935:86935 Kernel.MuGravity <> s:559 var
-R86937:86937 Kernel.MuGravity <> m:560 var
-prf 87085:87124 <> run_vm_prioritizes_implies_active_policy
-binder 87135:87139 <> trace:561
-binder 87141:87141 <> s:562
-binder 87143:87143 <> m:563
-R87201:87206 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R87148:87190 Kernel.MuGravity <> run_vm_prioritizes_active_when_uncalibrated def
-R87192:87196 Kernel.MuGravity <> trace:561 var
-R87198:87198 Kernel.MuGravity <> s:562 var
-R87200:87200 Kernel.MuGravity <> m:563 var
-R87207:87230 Kernel.MuGravity <> active_when_uncalibrated def
-R87232:87236 Kernel.MuGravity <> trace:561 var
-R87238:87238 Kernel.MuGravity <> s:562 var
-R87240:87240 Kernel.MuGravity <> m:563 var
-R87283:87339 Kernel.MuGravity <> scheduler_prefers_active_implies_active_when_uncalibrated thm
-R87283:87339 Kernel.MuGravity <> scheduler_prefers_active_implies_active_when_uncalibrated thm
-R87350:87393 Kernel.MuGravity <> run_vm_prioritizes_implies_scheduler_prefers thm
-R87350:87393 Kernel.MuGravity <> run_vm_prioritizes_implies_scheduler_prefers thm
-prf 87509:87560 <> run_vm_prioritized_active_semantic_progress_one_step
-binder 87571:87575 <> trace:564
-binder 87577:87577 <> s:565
-binder 87579:87579 <> m:566
-binder 87581:87581 <> i:567
-R87639:87644 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R87586:87628 Kernel.MuGravity <> run_vm_prioritizes_active_when_uncalibrated def
-R87630:87634 Kernel.MuGravity <> trace:564 var
-R87636:87636 Kernel.MuGravity <> s:565 var
-R87638:87638 Kernel.MuGravity <> m:566 var
-R87677:87682 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R87647:87649 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R87650:87669 Kernel.MuGravity <> calibration_residual def
-R87671:87671 Kernel.MuGravity <> s:565 var
-R87673:87673 Kernel.MuGravity <> m:566 var
-R87717:87722 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R87708:87710 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R87683:87691 Coq.Lists.List <> nth_error def
-R87700:87704 Kernel.VMState <> vm_pc proj
-R87706:87706 Kernel.MuGravity <> s:565 var
-R87693:87697 Kernel.MuGravity <> trace:564 var
-R87711:87714 Coq.Init.Datatypes <> Some constr
-R87716:87716 Kernel.MuGravity <> i:567 var
-R87816:87821 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R87750:87753 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R87725:87727 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R87728:87742 Kernel.MuGravity <> calibration_gap def
-R87744:87744 Kernel.MuGravity <> s:565 var
-R87746:87746 Kernel.MuGravity <> m:566 var
-R87779:87781 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
-R87809:87811 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
-R87757:87759 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R87760:87774 Kernel.MuGravity <> calibration_gap def
-R87776:87776 Kernel.MuGravity <> s:565 var
-R87778:87778 Kernel.MuGravity <> m:566 var
-R87782:87802 Kernel.MuGravity <> calibration_gap_delta def
-R87804:87804 Kernel.MuGravity <> s:565 var
-R87806:87806 Kernel.MuGravity <> i:567 var
-R87808:87808 Kernel.MuGravity <> m:566 var
-R87782:87802 Kernel.MuGravity <> calibration_gap_delta def
-R87804:87804 Kernel.MuGravity <> s:565 var
-R87806:87806 Kernel.MuGravity <> i:567 var
-R87808:87808 Kernel.MuGravity <> m:566 var
-R87864:87866 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R87823:87842 Kernel.MuGravity <> calibration_residual def
-R87845:87850 Kernel.SimulationProof <> run_vm def
-R87854:87858 Kernel.MuGravity <> trace:564 var
-R87860:87860 Kernel.MuGravity <> s:565 var
-R87863:87863 Kernel.MuGravity <> m:566 var
-R87867:87886 Kernel.MuGravity <> calibration_residual def
-R87888:87888 Kernel.MuGravity <> s:565 var
-R87890:87890 Kernel.MuGravity <> m:566 var
-R88027:88071 Kernel.MuGravity <> calibration_progress_one_step_from_gap_window thm
-R88027:88071 Kernel.MuGravity <> calibration_progress_one_step_from_gap_window thm
-def 88823:88846 <> constructive_trace_at_pc
-R88854:88856 Coq.Init.Datatypes <> nat ind
-binder 88849:88850 <> pc:568
-R88864:88877 Kernel.VMStep VMStep vm_instruction ind
-binder 88860:88860 <> i:569
-R88882:88885 Coq.Init.Datatypes <> list ind
-R88887:88900 Kernel.VMStep VMStep vm_instruction ind
-R88931:88934 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R88907:88912 Coq.Lists.List <> repeat def
-R88929:88930 Kernel.MuGravity <> pc:568 var
-R88915:88924 Kernel.VMStep VMStep instr_halt constr
-R88935:88935 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R88937:88937 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R88936:88936 Kernel.MuGravity <> i:569 var
-def 88952:88982 <> constructive_active_instruction
-R88994:88997 Coq.Init.Datatypes <> list ind
-R88999:89001 Coq.Init.Datatypes <> nat ind
-binder 88985:88990 <> region:570
-R89006:89019 Kernel.VMStep VMStep vm_instruction ind
-R89026:89035 Kernel.VMStep VMStep instr_pnew constr
-R89037:89042 Kernel.MuGravity <> region:570 var
-def 89059:89086 <> constructive_trace_for_state
-R89093:89099 Kernel.VMState <> VMState rec
-binder 89089:89089 <> s:571
-R89112:89115 Coq.Init.Datatypes <> list ind
-R89117:89119 Coq.Init.Datatypes <> nat ind
-binder 89103:89108 <> region:572
-R89124:89127 Coq.Init.Datatypes <> list ind
-R89129:89142 Kernel.VMStep VMStep vm_instruction ind
-R89149:89172 Kernel.MuGravity <> constructive_trace_at_pc def
-R89175:89179 Kernel.VMState <> vm_pc proj
-R89181:89181 Kernel.MuGravity <> s:571 var
-R89185:89215 Kernel.MuGravity <> constructive_active_instruction def
-R89217:89222 Kernel.MuGravity <> region:572 var
-prf 89300:89333 <> nth_error_constructive_trace_at_pc
-binder 89344:89345 <> pc:573
-binder 89347:89347 <> i:574
-R89396:89398 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R89352:89360 Coq.Lists.List <> nth_error def
-R89394:89395 Kernel.MuGravity <> pc:573 var
-R89363:89386 Kernel.MuGravity <> constructive_trace_at_pc def
-R89388:89389 Kernel.MuGravity <> pc:573 var
-R89391:89391 Kernel.MuGravity <> i:574 var
-R89399:89402 Coq.Init.Datatypes <> Some constr
-R89404:89404 Kernel.MuGravity <> i:574 var
-R89438:89461 Kernel.MuGravity <> constructive_trace_at_pc def
-R89474:89487 Coq.Lists.List <> nth_error_app2 thm
-R89474:89487 Coq.Lists.List <> nth_error_app2 thm
-R89474:89487 Coq.Lists.List <> nth_error_app2 thm
-R89474:89487 Coq.Lists.List <> nth_error_app2 thm
-R89504:89516 Coq.Lists.List <> repeat_length thm
-R89504:89516 Coq.Lists.List <> repeat_length thm
-R89504:89516 Coq.Lists.List <> repeat_length thm
-R89525:89535 Coq.Arith.PeanoNat Nat le_refl thm
-R89525:89535 Coq.Arith.PeanoNat Nat le_refl thm
-R89550:89562 Coq.Lists.List <> repeat_length thm
-R89550:89562 Coq.Lists.List <> repeat_length thm
-R89550:89562 Coq.Lists.List <> repeat_length thm
-R89573:89584 Coq.Arith.PeanoNat Nat sub_diag thm
-R89573:89584 Coq.Arith.PeanoNat Nat sub_diag thm
-R89573:89584 Coq.Arith.PeanoNat Nat sub_diag thm
-prf 89692:89729 <> nth_error_constructive_trace_for_state
-binder 89740:89740 <> s:575
-binder 89742:89747 <> region:576
-R89811:89817 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R89752:89760 Coq.Lists.List <> nth_error def
-R89803:89807 Kernel.VMState <> vm_pc proj
-R89809:89809 Kernel.MuGravity <> s:575 var
-R89763:89790 Kernel.MuGravity <> constructive_trace_for_state def
-R89792:89792 Kernel.MuGravity <> s:575 var
-R89794:89799 Kernel.MuGravity <> region:576 var
-R89818:89821 Coq.Init.Datatypes <> Some constr
-R89824:89854 Kernel.MuGravity <> constructive_active_instruction def
-R89856:89861 Kernel.MuGravity <> region:576 var
-R89900:89927 Kernel.MuGravity <> constructive_trace_for_state def
-R89930:89960 Kernel.MuGravity <> constructive_active_instruction def
-R89971:90004 Kernel.MuGravity <> nth_error_constructive_trace_at_pc thm
-R89971:90004 Kernel.MuGravity <> nth_error_constructive_trace_at_pc thm
-prf 90109:90163 <> constructive_trace_prioritizes_active_when_uncalibrated
-binder 90174:90174 <> s:577
-binder 90176:90176 <> m:578
-binder 90178:90183 <> region:579
-R90251:90256 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R90244:90246 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R90188:90204 Kernel.VMState <> graph_find_region def
-R90207:90214 Kernel.VMState <> vm_graph proj
-R90216:90216 Kernel.MuGravity <> s:577 var
-R90220:90235 Kernel.VMState <> normalize_region def
-R90237:90242 Kernel.MuGravity <> region:579 var
-R90247:90250 Coq.Init.Datatypes <> None constr
-R90257:90299 Kernel.MuGravity <> run_vm_prioritizes_active_when_uncalibrated def
-R90302:90329 Kernel.MuGravity <> constructive_trace_for_state def
-R90331:90331 Kernel.MuGravity <> s:577 var
-R90333:90338 Kernel.MuGravity <> region:579 var
-R90341:90341 Kernel.MuGravity <> s:577 var
-R90343:90343 Kernel.MuGravity <> m:578 var
-R90396:90426 Kernel.MuGravity <> constructive_active_instruction def
-R90396:90426 Kernel.MuGravity <> constructive_active_instruction def
-R90456:90493 Kernel.MuGravity <> nth_error_constructive_trace_for_state thm
-R90456:90493 Kernel.MuGravity <> nth_error_constructive_trace_for_state thm
-R90520:90550 Kernel.MuGravity <> constructive_active_instruction def
-R90565:90588 Kernel.MuGravity <> pnew_fresh_region_active thm
-R90565:90588 Kernel.MuGravity <> pnew_fresh_region_active thm
-R90646:90676 Kernel.MuGravity <> constructive_active_instruction def
-R90691:90725 Kernel.MuGravity <> pnew_zero_cost_minimal_against_safe thm
-R90691:90725 Kernel.MuGravity <> pnew_zero_cost_minimal_against_safe thm
-prf 90839:90883 <> constructive_trace_semantic_progress_one_step
-binder 90894:90894 <> s:580
-binder 90896:90896 <> m:581
-binder 90898:90903 <> region:582
-R90971:90976 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R90964:90966 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R90908:90924 Kernel.VMState <> graph_find_region def
-R90927:90934 Kernel.VMState <> vm_graph proj
-R90936:90936 Kernel.MuGravity <> s:580 var
-R90940:90955 Kernel.VMState <> normalize_region def
-R90957:90962 Kernel.MuGravity <> region:582 var
-R90967:90970 Coq.Init.Datatypes <> None constr
-R91009:91014 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R90979:90981 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R90982:91001 Kernel.MuGravity <> calibration_residual def
-R91003:91003 Kernel.MuGravity <> s:580 var
-R91005:91005 Kernel.MuGravity <> m:581 var
-R91042:91047 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R91017:91019 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R91020:91034 Kernel.MuGravity <> calibration_gap def
-R91036:91036 Kernel.MuGravity <> s:580 var
-R91038:91038 Kernel.MuGravity <> m:581 var
-R91106:91111 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R91100:91102 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R91048:91062 Kernel.MuGravity <> calibration_gap def
-R91065:91072 Kernel.SimulationProof <> vm_apply def
-R91074:91074 Kernel.MuGravity <> s:580 var
-R91077:91086 Kernel.VMStep VMStep instr_pnew constr
-R91088:91093 Kernel.MuGravity <> region:582 var
-R91099:91099 Kernel.MuGravity <> m:581 var
-R91188:91193 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R91113:91132 Kernel.MuGravity <> calibration_residual def
-R91135:91140 Kernel.SimulationProof <> run_vm def
-R91145:91172 Kernel.MuGravity <> constructive_trace_for_state def
-R91174:91174 Kernel.MuGravity <> s:580 var
-R91176:91181 Kernel.MuGravity <> region:582 var
-R91184:91184 Kernel.MuGravity <> s:580 var
-R91187:91187 Kernel.MuGravity <> m:581 var
-R91194:91213 Kernel.MuGravity <> calibration_residual def
-R91215:91215 Kernel.MuGravity <> s:580 var
-R91217:91217 Kernel.MuGravity <> m:581 var
-R91288:91339 Kernel.MuGravity <> run_vm_prioritized_active_semantic_progress_one_step thm
-R91288:91339 Kernel.MuGravity <> run_vm_prioritized_active_semantic_progress_one_step thm
-R91352:91406 Kernel.MuGravity <> constructive_trace_prioritizes_active_when_uncalibrated thm
-R91352:91406 Kernel.MuGravity <> constructive_trace_prioritizes_active_when_uncalibrated thm
-R91453:91490 Kernel.MuGravity <> nth_error_constructive_trace_for_state thm
-R91453:91490 Kernel.MuGravity <> nth_error_constructive_trace_for_state thm
-R91503:91555 Kernel.MuGravity <> semantic_gap_window_certificate_fresh_pnew_from_delta thm
-R91503:91555 Kernel.MuGravity <> semantic_gap_window_certificate_fresh_pnew_from_delta thm
-def 91589:91609 <> run_constructive_plan
-R91619:91622 Coq.Init.Datatypes <> list ind
-R91625:91628 Coq.Init.Datatypes <> list ind
-R91630:91632 Coq.Init.Datatypes <> nat ind
-binder 91612:91615 <> plan:583
-R91641:91647 Kernel.VMState <> VMState rec
-binder 91637:91637 <> s:584
-R91652:91658 Kernel.VMState <> VMState rec
-R91671:91674 Kernel.MuGravity <> plan:583 var
-R91685:91686 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R91691:91691 Kernel.MuGravity <> s:584 var
-R91703:91706 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R91721:91741 Kernel.MuGravity <> run_constructive_plan:585 def
-R91749:91754 Kernel.SimulationProof <> run_vm def
-R91759:91786 Kernel.MuGravity <> constructive_trace_for_state def
-R91788:91788 Kernel.MuGravity <> s:584 var
-R91798:91798 Kernel.MuGravity <> s:584 var
-prf 91873:91897 <> run_constructive_plan_app
-binder 91908:91909 <> p1:587
-binder 91911:91912 <> p2:588
-binder 91914:91914 <> s:589
-R91953:91957 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R91919:91939 Kernel.MuGravity <> run_constructive_plan def
-R91944:91947 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R91942:91943 Kernel.MuGravity <> p1:587 var
-R91948:91949 Kernel.MuGravity <> p2:588 var
-R91952:91952 Kernel.MuGravity <> s:589 var
-R91958:91978 Kernel.MuGravity <> run_constructive_plan def
-R91980:91981 Kernel.MuGravity <> p2:588 var
-R91984:92004 Kernel.MuGravity <> run_constructive_plan def
-R92006:92007 Kernel.MuGravity <> p1:587 var
-R92009:92009 Kernel.MuGravity <> s:589 var
-def 92155:92179 <> constructive_prefix_state
-R92189:92192 Coq.Init.Datatypes <> list ind
-R92195:92198 Coq.Init.Datatypes <> list ind
-R92200:92202 Coq.Init.Datatypes <> nat ind
-binder 92182:92185 <> plan:590
-R92211:92217 Kernel.VMState <> VMState rec
-binder 92207:92207 <> s:591
-R92225:92227 Coq.Init.Datatypes <> nat ind
-binder 92221:92221 <> k:592
-R92232:92238 Kernel.VMState <> VMState rec
-R92245:92265 Kernel.MuGravity <> run_constructive_plan def
-R92268:92273 Coq.Lists.List <> firstn def
-R92277:92280 Kernel.MuGravity <> plan:590 var
-R92275:92275 Kernel.MuGravity <> k:592 var
-R92283:92283 Kernel.MuGravity <> s:591 var
-def 92298:92327 <> constructive_prefix_obligation
-R92339:92342 Coq.Init.Datatypes <> list ind
-R92345:92348 Coq.Init.Datatypes <> list ind
-R92350:92352 Coq.Init.Datatypes <> nat ind
-binder 92332:92335 <> plan:593
-R92361:92367 Kernel.VMState <> VMState rec
-binder 92357:92357 <> s:594
-R92375:92382 Kernel.VMState <> ModuleID def
-binder 92371:92371 <> m:595
-R92390:92392 Coq.Init.Datatypes <> nat ind
-binder 92386:92386 <> k:596
-R92407:92413 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R92420:92425 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 92414:92419 <> region:597
-R92456:92463 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R92442:92444 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R92426:92434 Coq.Lists.List <> nth_error def
-R92441:92441 Kernel.MuGravity <> k:596 var
-R92436:92439 Kernel.MuGravity <> plan:593 var
-R92445:92448 Coq.Init.Datatypes <> Some constr
-R92450:92455 Kernel.MuGravity <> region:597 var
-R92562:92569 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R92555:92557 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R92464:92480 Kernel.VMState <> graph_find_region def
-R92483:92490 Kernel.VMState <> vm_graph proj
-R92493:92517 Kernel.MuGravity <> constructive_prefix_state def
-R92519:92522 Kernel.MuGravity <> plan:593 var
-R92524:92524 Kernel.MuGravity <> s:594 var
-R92526:92526 Kernel.MuGravity <> k:596 var
-R92531:92546 Kernel.VMState <> normalize_region def
-R92548:92553 Kernel.MuGravity <> region:597 var
-R92558:92561 Coq.Init.Datatypes <> None constr
-R92637:92644 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R92572:92574 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R92575:92594 Kernel.MuGravity <> calibration_residual def
-R92597:92621 Kernel.MuGravity <> constructive_prefix_state def
-R92623:92626 Kernel.MuGravity <> plan:593 var
-R92628:92628 Kernel.MuGravity <> s:594 var
-R92630:92630 Kernel.MuGravity <> k:596 var
-R92633:92633 Kernel.MuGravity <> m:595 var
-R92707:92714 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R92647:92649 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R92650:92664 Kernel.MuGravity <> calibration_gap def
-R92667:92691 Kernel.MuGravity <> constructive_prefix_state def
-R92693:92696 Kernel.MuGravity <> plan:593 var
-R92698:92698 Kernel.MuGravity <> s:594 var
-R92700:92700 Kernel.MuGravity <> k:596 var
-R92703:92703 Kernel.MuGravity <> m:595 var
-R92821:92823 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R92715:92729 Kernel.MuGravity <> calibration_gap def
-R92732:92739 Kernel.SimulationProof <> vm_apply def
-R92742:92766 Kernel.MuGravity <> constructive_prefix_state def
-R92768:92771 Kernel.MuGravity <> plan:593 var
-R92773:92773 Kernel.MuGravity <> s:594 var
-R92775:92775 Kernel.MuGravity <> k:596 var
-R92779:92809 Kernel.MuGravity <> constructive_active_instruction def
-R92811:92816 Kernel.MuGravity <> region:597 var
-R92820:92820 Kernel.MuGravity <> m:595 var
-prf 92908:92944 <> constructive_prefix_one_step_progress
-binder 92955:92958 <> plan:598
-binder 92960:92960 <> s:599
-binder 92962:92962 <> m:600
-binder 92964:92964 <> k:601
-R93010:93015 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R92969:92998 Kernel.MuGravity <> constructive_prefix_obligation def
-R93000:93003 Kernel.MuGravity <> plan:598 var
-R93005:93005 Kernel.MuGravity <> s:599 var
-R93007:93007 Kernel.MuGravity <> m:600 var
-R93009:93009 Kernel.MuGravity <> k:601 var
-R93080:93085 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R93017:93036 Kernel.MuGravity <> calibration_residual def
-R93039:93063 Kernel.MuGravity <> constructive_prefix_state def
-R93065:93068 Kernel.MuGravity <> plan:598 var
-R93070:93070 Kernel.MuGravity <> s:599 var
-R93073:93073 Coq.Init.Datatypes <> S constr
-R93075:93075 Kernel.MuGravity <> k:601 var
-R93079:93079 Kernel.MuGravity <> m:600 var
-R93086:93105 Kernel.MuGravity <> calibration_residual def
-R93108:93132 Kernel.MuGravity <> constructive_prefix_state def
-R93134:93137 Kernel.MuGravity <> plan:598 var
-R93139:93139 Kernel.MuGravity <> s:599 var
-R93141:93141 Kernel.MuGravity <> k:601 var
-R93144:93144 Kernel.MuGravity <> m:600 var
-R93237:93261 Kernel.MuGravity <> constructive_prefix_state def
-R93275:93300 Kernel.SimulationProof <> firstn_succ_nth_error_Some thm
-R93275:93300 Kernel.SimulationProof <> firstn_succ_nth_error_Some thm
-R93275:93300 Kernel.SimulationProof <> firstn_succ_nth_error_Some thm
-R93333:93357 Kernel.MuGravity <> run_constructive_plan_app thm
-R93333:93357 Kernel.MuGravity <> run_constructive_plan_app thm
-R93333:93357 Kernel.MuGravity <> run_constructive_plan_app thm
-R93377:93421 Kernel.MuGravity <> constructive_trace_semantic_progress_one_step thm
-R93377:93421 Kernel.MuGravity <> constructive_trace_semantic_progress_one_step thm
-def 93453:93495 <> semantic_gap_window_consecutive_certificate
-R93506:93509 Coq.Init.Datatypes <> list ind
-R93511:93524 Kernel.VMStep VMStep vm_instruction ind
-binder 93498:93502 <> trace:602
-R93532:93538 Kernel.VMState <> VMState rec
-binder 93528:93528 <> s:603
-R93549:93551 Coq.Init.Datatypes <> nat ind
-binder 93542:93545 <> fuel:604
-R93559:93566 Kernel.VMState <> ModuleID def
-binder 93555:93555 <> m:605
-R93628:93633 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R93583:93585 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R93586:93600 Kernel.MuGravity <> calibration_gap def
-R93603:93608 Kernel.SimulationProof <> run_vm def
-R93610:93613 Kernel.MuGravity <> fuel:604 var
-R93615:93619 Kernel.MuGravity <> trace:602 var
-R93621:93621 Kernel.MuGravity <> s:603 var
-R93624:93624 Kernel.MuGravity <> m:605 var
-R93679:93686 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
-R93772:93775 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
-R93637:93639 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R93640:93654 Kernel.MuGravity <> calibration_gap def
-R93657:93662 Kernel.SimulationProof <> run_vm def
-R93664:93667 Kernel.MuGravity <> fuel:604 var
-R93669:93673 Kernel.MuGravity <> trace:602 var
-R93675:93675 Kernel.MuGravity <> s:603 var
-R93678:93678 Kernel.MuGravity <> m:605 var
-R93730:93732 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R93687:93701 Kernel.MuGravity <> calibration_gap def
-R93704:93709 Kernel.SimulationProof <> run_vm def
-R93712:93712 Coq.Init.Datatypes <> S constr
-R93714:93717 Kernel.MuGravity <> fuel:604 var
-R93720:93724 Kernel.MuGravity <> trace:602 var
-R93726:93726 Kernel.MuGravity <> s:603 var
-R93729:93729 Kernel.MuGravity <> m:605 var
-R93733:93747 Kernel.MuGravity <> calibration_gap def
-R93750:93755 Kernel.SimulationProof <> run_vm def
-R93757:93760 Kernel.MuGravity <> fuel:604 var
-R93762:93766 Kernel.MuGravity <> trace:602 var
-R93768:93768 Kernel.MuGravity <> s:603 var
-R93771:93771 Kernel.MuGravity <> m:605 var
-R93730:93732 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R93687:93701 Kernel.MuGravity <> calibration_gap def
-R93704:93709 Kernel.SimulationProof <> run_vm def
-R93712:93712 Coq.Init.Datatypes <> S constr
-R93714:93717 Kernel.MuGravity <> fuel:604 var
-R93720:93724 Kernel.MuGravity <> trace:602 var
-R93726:93726 Kernel.MuGravity <> s:603 var
-R93729:93729 Kernel.MuGravity <> m:605 var
-R93733:93747 Kernel.MuGravity <> calibration_gap def
-R93750:93755 Kernel.SimulationProof <> run_vm def
-R93757:93760 Kernel.MuGravity <> fuel:604 var
-R93762:93766 Kernel.MuGravity <> trace:602 var
-R93768:93768 Kernel.MuGravity <> s:603 var
-R93771:93771 Kernel.MuGravity <> m:605 var
-prf 93862:93899 <> constructive_prefix_chain_progress_all
-binder 93910:93913 <> plan:606
-binder 93915:93915 <> s:607
-binder 93917:93917 <> m:608
-binder 93919:93919 <> n:609
-R93924:93924 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R93991:93997 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 93932:93932 <> k:610
-R93946:93949 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R93937:93939 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R93936:93936 Kernel.MuGravity <> k:610 var
-R93940:93940 Kernel.MuGravity <> n:609 var
-R93950:93979 Kernel.MuGravity <> constructive_prefix_obligation def
-R93981:93984 Kernel.MuGravity <> plan:606 var
-R93986:93986 Kernel.MuGravity <> s:607 var
-R93988:93988 Kernel.MuGravity <> m:608 var
-R93990:93990 Kernel.MuGravity <> k:610 var
-binder 94005:94005 <> k:611
-R94019:94026 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R94010:94012 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R94009:94009 Kernel.MuGravity <> k:611 var
-R94013:94013 Kernel.MuGravity <> n:609 var
-R94091:94098 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R94028:94047 Kernel.MuGravity <> calibration_residual def
-R94050:94074 Kernel.MuGravity <> constructive_prefix_state def
-R94076:94079 Kernel.MuGravity <> plan:606 var
-R94081:94081 Kernel.MuGravity <> s:607 var
-R94084:94084 Coq.Init.Datatypes <> S constr
-R94086:94086 Kernel.MuGravity <> k:611 var
-R94090:94090 Kernel.MuGravity <> m:608 var
-R94099:94118 Kernel.MuGravity <> calibration_residual def
-R94121:94145 Kernel.MuGravity <> constructive_prefix_state def
-R94147:94150 Kernel.MuGravity <> plan:606 var
-R94152:94152 Kernel.MuGravity <> s:607 var
-R94154:94154 Kernel.MuGravity <> k:611 var
-R94157:94157 Kernel.MuGravity <> m:608 var
-R94209:94245 Kernel.MuGravity <> constructive_prefix_one_step_progress thm
-R94209:94245 Kernel.MuGravity <> constructive_prefix_one_step_progress thm
-prf 94376:94430 <> calibration_progress_consecutive_run_vm_from_gap_window
-binder 94441:94445 <> trace:612
-binder 94447:94447 <> s:613
-binder 94449:94452 <> fuel:614
-binder 94454:94454 <> m:615
-R94517:94522 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R94459:94501 Kernel.MuGravity <> semantic_gap_window_consecutive_certificate def
-R94503:94507 Kernel.MuGravity <> trace:612 var
-R94509:94509 Kernel.MuGravity <> s:613 var
-R94511:94514 Kernel.MuGravity <> fuel:614 var
-R94516:94516 Kernel.MuGravity <> m:615 var
-R94572:94577 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R94524:94543 Kernel.MuGravity <> calibration_residual def
-R94546:94551 Kernel.SimulationProof <> run_vm def
-R94554:94554 Coq.Init.Datatypes <> S constr
-R94556:94559 Kernel.MuGravity <> fuel:614 var
-R94562:94566 Kernel.MuGravity <> trace:612 var
-R94568:94568 Kernel.MuGravity <> s:613 var
-R94571:94571 Kernel.MuGravity <> m:615 var
-R94578:94597 Kernel.MuGravity <> calibration_residual def
-R94600:94605 Kernel.SimulationProof <> run_vm def
-R94607:94610 Kernel.MuGravity <> fuel:614 var
-R94612:94616 Kernel.MuGravity <> trace:612 var
-R94618:94618 Kernel.MuGravity <> s:613 var
-R94621:94621 Kernel.MuGravity <> m:615 var
-R94685:94715 Kernel.MuGravity <> calibration_residual_as_gap_abs thm
-R94685:94715 Kernel.MuGravity <> calibration_residual_as_gap_abs thm
-R94685:94715 Kernel.MuGravity <> calibration_residual_as_gap_abs thm
-R94685:94715 Kernel.MuGravity <> calibration_residual_as_gap_abs thm
-R94685:94715 Kernel.MuGravity <> calibration_residual_as_gap_abs thm
-R94729:94743 Kernel.MuGravity <> calibration_gap def
-R94746:94751 Kernel.SimulationProof <> run_vm def
-R94754:94754 Coq.Init.Datatypes <> S constr
-R94823:94836 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R94922:94922 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R94784:94798 Kernel.MuGravity <> calibration_gap def
-R94801:94806 Kernel.SimulationProof <> run_vm def
-R94880:94882 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R94837:94851 Kernel.MuGravity <> calibration_gap def
-R94854:94859 Kernel.SimulationProof <> run_vm def
-R94862:94862 Coq.Init.Datatypes <> S constr
-R94883:94897 Kernel.MuGravity <> calibration_gap def
-R94900:94905 Kernel.SimulationProof <> run_vm def
-R94729:94743 Kernel.MuGravity <> calibration_gap def
-R94746:94751 Kernel.SimulationProof <> run_vm def
-R94754:94754 Coq.Init.Datatypes <> S constr
-R94823:94836 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R94922:94922 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R94784:94798 Kernel.MuGravity <> calibration_gap def
-R94801:94806 Kernel.SimulationProof <> run_vm def
-R94880:94882 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R94837:94851 Kernel.MuGravity <> calibration_gap def
-R94854:94859 Kernel.SimulationProof <> run_vm def
-R94862:94862 Coq.Init.Datatypes <> S constr
-R94883:94897 Kernel.MuGravity <> calibration_gap def
-R94900:94905 Kernel.SimulationProof <> run_vm def
-R94947:94984 Kernel.MuGravity <> abs_strict_descent_by_delta_window_pos thm
-R94947:94984 Kernel.MuGravity <> abs_strict_descent_by_delta_window_pos thm
-prf 95895:95913 <> mu_geometry_defined
-binder 95924:95924 <> s:616
-binder 95926:95926 <> m:617
-R95961:95966 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R95931:95947 Kernel.VMState <> well_formed_graph def
-R95950:95957 Kernel.VMState <> vm_graph proj
-R95959:95959 Kernel.MuGravity <> s:616 var
-R96000:96005 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R95969:95971 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R95968:95968 Kernel.MuGravity <> m:617 var
-R95972:95981 Kernel.VMState <> pg_next_id proj
-R95984:95991 Kernel.VMState <> vm_graph proj
-R95993:95993 Kernel.MuGravity <> s:616 var
-R96006:96012 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R96032:96073 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 96013:96019 <> G_const:618
-binder 96021:96027 <> h_const:619
-binder 96029:96029 <> K:620
-binder 96031:96031 <> T:621
-R96097:96144 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R96093:96095 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R96074:96088 Kernel.MuGravity <> ricci_curvature def
-R96090:96090 Kernel.MuGravity <> s:616 var
-R96092:96092 Kernel.MuGravity <> m:617 var
-R96096:96096 Kernel.MuGravity <> K:620 var
-R96166:96206 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R96162:96164 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R96145:96157 Kernel.MuGravity <> stress_energy def
-R96159:96159 Kernel.MuGravity <> s:616 var
-R96161:96161 Kernel.MuGravity <> m:617 var
-R96165:96165 Kernel.MuGravity <> T:621 var
-R96239:96246 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R96214:96216 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R96207:96213 Kernel.MuGravity <> G_const:618 var
-R96217:96238 Kernel.MuGravity <> gravitational_constant def
-R96266:96273 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R96254:96256 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R96247:96253 Kernel.MuGravity <> h_const:619 var
-R96257:96265 Kernel.ConstantUnification <> derived_h def
-R96289:96296 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R96282:96284 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R96275:96281 Kernel.MuGravity <> G_const:618 var
-R96312:96361 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R96305:96307 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R96298:96304 Kernel.MuGravity <> h_const:619 var
-R96381:96383 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R96362:96376 Kernel.MuGravity <> einstein_tensor def
-R96378:96378 Kernel.MuGravity <> s:616 var
-R96380:96380 Kernel.MuGravity <> m:617 var
-R96386:96388 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R96385:96385 Kernel.MuGravity <> K:620 var
-R96398:96400 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R96389:96389 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R96393:96396 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R96391:96391 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R96397:96397 Kernel.MuGravity <> K:620 var
-R96401:96413 Kernel.MuGravity <> metric_volume def
-R96415:96415 Kernel.MuGravity <> s:616 var
-R96417:96417 Kernel.MuGravity <> m:617 var
-R96460:96481 Kernel.MuGravity <> gravitational_constant def
-R96484:96492 Kernel.ConstantUnification <> derived_h def
-R96505:96519 Kernel.MuGravity <> ricci_curvature def
-R96528:96540 Kernel.MuGravity <> stress_energy def
-R96460:96481 Kernel.MuGravity <> gravitational_constant def
-R96484:96492 Kernel.ConstantUnification <> derived_h def
-R96505:96519 Kernel.MuGravity <> ricci_curvature def
-R96528:96540 Kernel.MuGravity <> stress_energy def
-R96580:96605 Kernel.MuGravity <> gravitational_constant_pos thm
-R96580:96605 Kernel.MuGravity <> gravitational_constant_pos thm
-R96679:96687 Kernel.ConstantUnification <> derived_h def
-R96690:96694 Kernel.ConstantUnification <> E_bit def
-R96707:96723 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
-R96707:96723 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
-R96738:96754 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
-R96738:96754 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
-R96796:96812 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
-R96796:96812 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
-R96832:96848 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
-R96832:96848 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
-R96872:96878 Kernel.ConstantUnification <> k_B_pos thm
-R96872:96878 Kernel.ConstantUnification <> k_B_pos thm
-R96902:96906 Kernel.ConstantUnification <> T_pos thm
-R96902:96906 Kernel.ConstantUnification <> T_pos thm
-R96926:96932 Kernel.MuGravity <> ln2_pos thm
-R96926:96932 Kernel.MuGravity <> ln2_pos thm
-R96947:96956 Kernel.ConstantUnification <> tau_mu_pos thm
-R96947:96956 Kernel.ConstantUnification <> tau_mu_pos thm
-R96985:96999 Kernel.MuGravity <> einstein_tensor def
-R97002:97017 Kernel.MuGravity <> scalar_curvature def
+R77812:77830 Kernel.VMState <> witness_counts_zero def
+R77865:77869 Coq.Init.Datatypes <> false constr
+R77898:77898 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R77904:77904 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R77898:77898 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R77904:77904 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R77959:77978 Kernel.MuGravity <> calibration_residual def
+R77981:77988 Kernel.SimulationProof <> vm_apply def
+prf 78112:78157 <> no_unconditional_pnew_zero_cost_strict_descent
+R78163:78165 Coq.Init.Logic <> ::type_scope:'~'_x not
+R78312:78312 Coq.Init.Logic <> ::type_scope:'~'_x not
+binder 78173:78173 <> s:510
+binder 78175:78175 <> m:511
+binder 78177:78182 <> region:512
+R78254:78263 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R78247:78249 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R78191:78207 Kernel.VMState <> graph_find_region def
+R78210:78217 Kernel.VMState <> vm_graph proj
+R78219:78219 Kernel.MuGravity <> s:510 var
+R78223:78238 Kernel.VMState <> normalize_region def
+R78240:78245 Kernel.MuGravity <> region:512 var
+R78250:78253 Coq.Init.Datatypes <> None constr
+R78264:78285 Kernel.MuGravity <> strict_descent_at_step def
+R78287:78287 Kernel.MuGravity <> s:510 var
+R78290:78299 Kernel.VMStep VMStep instr_pnew constr
+R78301:78306 Kernel.MuGravity <> region:512 var
+R78311:78311 Kernel.MuGravity <> m:511 var
+R78347:78388 Kernel.MuGravity <> pnew_zero_cost_not_universally_contractive thm
+R78472:78493 Kernel.MuGravity <> strict_descent_at_step def
+def 78626:78640 <> calibration_gap
+R78647:78653 Kernel.VMState <> VMState rec
+binder 78643:78643 <> s:513
+R78661:78668 Kernel.VMState <> ModuleID def
+binder 78657:78657 <> m:514
+R78673:78673 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R78707:78709 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R78681:78702 Kernel.MuGravity <> angle_defect_curvature def
+R78704:78704 Kernel.MuGravity <> s:513 var
+R78706:78706 Kernel.MuGravity <> m:514 var
+R78728:78730 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R78710:78727 Kernel.MuGravity <> curvature_coupling def
+R78731:78742 Kernel.MuGravity <> mu_laplacian def
+R78744:78744 Kernel.MuGravity <> s:513 var
+R78746:78746 Kernel.MuGravity <> m:514 var
+def 78764:78784 <> calibration_gap_delta
+R78791:78797 Kernel.VMState <> VMState rec
+binder 78787:78787 <> s:515
+R78805:78818 Kernel.VMStep VMStep vm_instruction ind
+binder 78801:78801 <> i:516
+R78826:78833 Kernel.VMState <> ModuleID def
+binder 78822:78822 <> m:517
+R78838:78838 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R78878:78880 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R78846:78860 Kernel.MuGravity <> calibration_gap def
+R78863:78870 Kernel.SimulationProof <> vm_apply def
+R78872:78872 Kernel.MuGravity <> s:515 var
+R78874:78874 Kernel.MuGravity <> i:516 var
+R78877:78877 Kernel.MuGravity <> m:517 var
+R78881:78895 Kernel.MuGravity <> calibration_gap def
+R78897:78897 Kernel.MuGravity <> s:515 var
+R78899:78899 Kernel.MuGravity <> m:517 var
+prf 78984:79022 <> calibration_gap_pnew_disjoint_preserved
+binder 79033:79033 <> s:518
+binder 79035:79040 <> region:519
+binder 79042:79042 <> m:520
+R79077:79082 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R79047:79063 Kernel.VMState <> well_formed_graph def
+R79066:79073 Kernel.VMState <> vm_graph proj
+R79075:79075 Kernel.MuGravity <> s:518 var
+R79129:79134 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R79083:79108 Kernel.MuGravity <> region_disjoint_from_graph def
+R79111:79118 Kernel.VMState <> vm_graph proj
+R79120:79120 Kernel.MuGravity <> s:518 var
+R79123:79128 Kernel.MuGravity <> region:519 var
+R79198:79203 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R79191:79193 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R79135:79151 Kernel.VMState <> graph_find_region def
+R79154:79161 Kernel.VMState <> vm_graph proj
+R79163:79163 Kernel.MuGravity <> s:518 var
+R79167:79182 Kernel.VMState <> normalize_region def
+R79184:79189 Kernel.MuGravity <> region:519 var
+R79194:79197 Coq.Init.Datatypes <> None constr
+R79231:79236 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R79205:79207 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R79204:79204 Kernel.MuGravity <> m:520 var
+R79208:79217 Kernel.VMState <> pg_next_id proj
+R79220:79227 Kernel.VMState <> vm_graph proj
+R79229:79229 Kernel.MuGravity <> s:518 var
+R79289:79291 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R79237:79251 Kernel.MuGravity <> calibration_gap def
+R79254:79261 Kernel.SimulationProof <> vm_apply def
+R79263:79263 Kernel.MuGravity <> s:518 var
+R79266:79275 Kernel.VMStep VMStep instr_pnew constr
+R79277:79282 Kernel.MuGravity <> region:519 var
+R79288:79288 Kernel.MuGravity <> m:520 var
+R79292:79306 Kernel.MuGravity <> calibration_gap def
+R79308:79308 Kernel.MuGravity <> s:518 var
+R79310:79310 Kernel.MuGravity <> m:520 var
+R79370:79384 Kernel.MuGravity <> calibration_gap def
+R79387:79408 Kernel.MuGravity <> angle_defect_curvature def
+R79422:79457 Kernel.MuGravity <> geometric_angle_defect_pnew_disjoint thm
+R79422:79457 Kernel.MuGravity <> geometric_angle_defect_pnew_disjoint thm
+R79422:79457 Kernel.MuGravity <> geometric_angle_defect_pnew_disjoint thm
+R79503:79528 Kernel.MuGravity <> mu_laplacian_pnew_disjoint thm
+R79503:79528 Kernel.MuGravity <> mu_laplacian_pnew_disjoint thm
+R79503:79528 Kernel.MuGravity <> mu_laplacian_pnew_disjoint thm
+prf 79667:79710 <> calibration_residual_pnew_disjoint_preserved
+binder 79721:79721 <> s:521
+binder 79723:79728 <> region:522
+binder 79730:79730 <> m:523
+R79765:79770 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R79735:79751 Kernel.VMState <> well_formed_graph def
+R79754:79761 Kernel.VMState <> vm_graph proj
+R79763:79763 Kernel.MuGravity <> s:521 var
+R79817:79822 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R79771:79796 Kernel.MuGravity <> region_disjoint_from_graph def
+R79799:79806 Kernel.VMState <> vm_graph proj
+R79808:79808 Kernel.MuGravity <> s:521 var
+R79811:79816 Kernel.MuGravity <> region:522 var
+R79886:79891 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R79879:79881 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R79823:79839 Kernel.VMState <> graph_find_region def
+R79842:79849 Kernel.VMState <> vm_graph proj
+R79851:79851 Kernel.MuGravity <> s:521 var
+R79855:79870 Kernel.VMState <> normalize_region def
+R79872:79877 Kernel.MuGravity <> region:522 var
+R79882:79885 Coq.Init.Datatypes <> None constr
+R79919:79924 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R79893:79895 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R79892:79892 Kernel.MuGravity <> m:523 var
+R79896:79905 Kernel.VMState <> pg_next_id proj
+R79908:79915 Kernel.VMState <> vm_graph proj
+R79917:79917 Kernel.MuGravity <> s:521 var
+R79982:79984 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R79925:79944 Kernel.MuGravity <> calibration_residual def
+R79947:79954 Kernel.SimulationProof <> vm_apply def
+R79956:79956 Kernel.MuGravity <> s:521 var
+R79959:79968 Kernel.VMStep VMStep instr_pnew constr
+R79970:79975 Kernel.MuGravity <> region:522 var
+R79981:79981 Kernel.MuGravity <> m:523 var
+R79985:80004 Kernel.MuGravity <> calibration_residual def
+R80006:80006 Kernel.MuGravity <> s:521 var
+R80008:80008 Kernel.MuGravity <> m:523 var
+R80068:80087 Kernel.MuGravity <> calibration_residual def
+R80090:80111 Kernel.MuGravity <> angle_defect_curvature def
+R80125:80160 Kernel.MuGravity <> geometric_angle_defect_pnew_disjoint thm
+R80125:80160 Kernel.MuGravity <> geometric_angle_defect_pnew_disjoint thm
+R80125:80160 Kernel.MuGravity <> geometric_angle_defect_pnew_disjoint thm
+R80206:80231 Kernel.MuGravity <> mu_laplacian_pnew_disjoint thm
+R80206:80231 Kernel.MuGravity <> mu_laplacian_pnew_disjoint thm
+R80206:80231 Kernel.MuGravity <> mu_laplacian_pnew_disjoint thm
+abbrev 80297:80325 <> semantic_gap_window_semantics
+binder 80337:80337 <> s:524
+binder 80339:80339 <> i:525
+binder 80341:80341 <> m:526
+R80377:80384 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R80352:80354 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R80355:80369 Kernel.MuGravity <> calibration_gap def
+R80371:80371 Kernel.MuGravity <> s:524 var
+R80373:80373 Kernel.MuGravity <> m:526 var
+R80410:80412 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
+R80440:80442 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
+R80388:80390 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R80391:80405 Kernel.MuGravity <> calibration_gap def
+R80407:80407 Kernel.MuGravity <> s:524 var
+R80409:80409 Kernel.MuGravity <> m:526 var
+R80413:80433 Kernel.MuGravity <> calibration_gap_delta def
+R80435:80435 Kernel.MuGravity <> s:524 var
+R80437:80437 Kernel.MuGravity <> i:525 var
+R80439:80439 Kernel.MuGravity <> m:526 var
+R80413:80433 Kernel.MuGravity <> calibration_gap_delta def
+R80435:80435 Kernel.MuGravity <> s:524 var
+R80437:80437 Kernel.MuGravity <> i:525 var
+R80439:80439 Kernel.MuGravity <> m:526 var
+prf 80889:80920 <> calibration_gap_delta_fresh_pnew
+binder 80931:80931 <> s:527
+binder 80933:80933 <> m:528
+binder 80935:80940 <> region:529
+R81008:81013 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R81001:81003 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R80945:80961 Kernel.VMState <> graph_find_region def
+R80964:80971 Kernel.VMState <> vm_graph proj
+R80973:80973 Kernel.MuGravity <> s:527 var
+R80977:80992 Kernel.VMState <> normalize_region def
+R80994:80999 Kernel.MuGravity <> region:529 var
+R81004:81007 Coq.Init.Datatypes <> None constr
+R81041:81046 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R81016:81018 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R81019:81033 Kernel.MuGravity <> calibration_gap def
+R81035:81035 Kernel.MuGravity <> s:527 var
+R81037:81037 Kernel.MuGravity <> m:528 var
+R81105:81110 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R81099:81101 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R81047:81061 Kernel.MuGravity <> calibration_gap def
+R81064:81071 Kernel.SimulationProof <> vm_apply def
+R81073:81073 Kernel.MuGravity <> s:527 var
+R81076:81085 Kernel.VMStep VMStep instr_pnew constr
+R81087:81092 Kernel.MuGravity <> region:529 var
+R81098:81098 Kernel.MuGravity <> m:528 var
+R81158:81160 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R81111:81131 Kernel.MuGravity <> calibration_gap_delta def
+R81133:81133 Kernel.MuGravity <> s:527 var
+R81136:81145 Kernel.VMStep VMStep instr_pnew constr
+R81147:81152 Kernel.MuGravity <> region:529 var
+R81157:81157 Kernel.MuGravity <> m:528 var
+R81162:81163 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R81164:81178 Kernel.MuGravity <> calibration_gap def
+R81180:81180 Kernel.MuGravity <> s:527 var
+R81182:81182 Kernel.MuGravity <> m:528 var
+R81248:81268 Kernel.MuGravity <> calibration_gap_delta def
+R81271:81285 Kernel.MuGravity <> calibration_gap def
+prf 81422:81474 <> semantic_gap_window_certificate_fresh_pnew_from_delta
+binder 81485:81485 <> s:530
+binder 81487:81487 <> m:531
+binder 81489:81494 <> region:532
+R81562:81567 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R81555:81557 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R81499:81515 Kernel.VMState <> graph_find_region def
+R81518:81525 Kernel.VMState <> vm_graph proj
+R81527:81527 Kernel.MuGravity <> s:530 var
+R81531:81546 Kernel.VMState <> normalize_region def
+R81548:81553 Kernel.MuGravity <> region:532 var
+R81558:81561 Coq.Init.Datatypes <> None constr
+R81595:81600 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R81570:81572 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R81573:81587 Kernel.MuGravity <> calibration_gap def
+R81589:81589 Kernel.MuGravity <> s:530 var
+R81591:81591 Kernel.MuGravity <> m:531 var
+R81659:81664 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R81653:81655 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R81601:81615 Kernel.MuGravity <> calibration_gap def
+R81618:81625 Kernel.SimulationProof <> vm_apply def
+R81627:81627 Kernel.MuGravity <> s:530 var
+R81630:81639 Kernel.VMStep VMStep instr_pnew constr
+R81641:81646 Kernel.MuGravity <> region:532 var
+R81652:81652 Kernel.MuGravity <> m:531 var
+R81692:81695 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R81667:81669 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R81670:81684 Kernel.MuGravity <> calibration_gap def
+R81686:81686 Kernel.MuGravity <> s:530 var
+R81688:81688 Kernel.MuGravity <> m:531 var
+R81721:81723 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
+R81771:81773 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
+R81699:81701 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R81702:81716 Kernel.MuGravity <> calibration_gap def
+R81718:81718 Kernel.MuGravity <> s:530 var
+R81720:81720 Kernel.MuGravity <> m:531 var
+R81724:81744 Kernel.MuGravity <> calibration_gap_delta def
+R81746:81746 Kernel.MuGravity <> s:530 var
+R81749:81758 Kernel.VMStep VMStep instr_pnew constr
+R81760:81765 Kernel.MuGravity <> region:532 var
+R81770:81770 Kernel.MuGravity <> m:531 var
+R81724:81744 Kernel.MuGravity <> calibration_gap_delta def
+R81746:81746 Kernel.MuGravity <> s:530 var
+R81749:81758 Kernel.VMStep VMStep instr_pnew constr
+R81760:81765 Kernel.MuGravity <> region:532 var
+R81770:81770 Kernel.MuGravity <> m:531 var
+R81872:81903 Kernel.MuGravity <> calibration_gap_delta_fresh_pnew thm
+R81872:81903 Kernel.MuGravity <> calibration_gap_delta_fresh_pnew thm
+prf 82074:82124 <> semantic_gap_window_semantics_fresh_pnew_from_delta
+binder 82135:82135 <> s:533
+binder 82137:82137 <> m:534
+binder 82139:82144 <> region:535
+R82212:82217 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R82205:82207 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R82149:82165 Kernel.VMState <> graph_find_region def
+R82168:82175 Kernel.VMState <> vm_graph proj
+R82177:82177 Kernel.MuGravity <> s:533 var
+R82181:82196 Kernel.VMState <> normalize_region def
+R82198:82203 Kernel.MuGravity <> region:535 var
+R82208:82211 Coq.Init.Datatypes <> None constr
+R82245:82250 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R82220:82222 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R82223:82237 Kernel.MuGravity <> calibration_gap def
+R82239:82239 Kernel.MuGravity <> s:533 var
+R82241:82241 Kernel.MuGravity <> m:534 var
+R82309:82314 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R82303:82305 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R82251:82265 Kernel.MuGravity <> calibration_gap def
+R82268:82275 Kernel.SimulationProof <> vm_apply def
+R82277:82277 Kernel.MuGravity <> s:533 var
+R82280:82289 Kernel.VMStep VMStep instr_pnew constr
+R82291:82296 Kernel.MuGravity <> region:535 var
+R82302:82302 Kernel.MuGravity <> m:534 var
+R82342:82345 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R82317:82319 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R82320:82334 Kernel.MuGravity <> calibration_gap def
+R82336:82336 Kernel.MuGravity <> s:533 var
+R82338:82338 Kernel.MuGravity <> m:534 var
+R82371:82373 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
+R82421:82423 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
+R82349:82351 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R82352:82366 Kernel.MuGravity <> calibration_gap def
+R82368:82368 Kernel.MuGravity <> s:533 var
+R82370:82370 Kernel.MuGravity <> m:534 var
+R82374:82394 Kernel.MuGravity <> calibration_gap_delta def
+R82396:82396 Kernel.MuGravity <> s:533 var
+R82399:82408 Kernel.VMStep VMStep instr_pnew constr
+R82410:82415 Kernel.MuGravity <> region:535 var
+R82420:82420 Kernel.MuGravity <> m:534 var
+R82374:82394 Kernel.MuGravity <> calibration_gap_delta def
+R82396:82396 Kernel.MuGravity <> s:533 var
+R82399:82408 Kernel.VMStep VMStep instr_pnew constr
+R82410:82415 Kernel.MuGravity <> region:535 var
+R82420:82420 Kernel.MuGravity <> m:534 var
+R82490:82542 Kernel.MuGravity <> semantic_gap_window_certificate_fresh_pnew_from_delta thm
+R82490:82542 Kernel.MuGravity <> semantic_gap_window_certificate_fresh_pnew_from_delta thm
+prf 82619:82649 <> calibration_residual_as_gap_abs
+binder 82660:82660 <> s:536
+binder 82662:82662 <> m:537
+R82691:82693 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R82667:82686 Kernel.MuGravity <> calibration_residual def
+R82688:82688 Kernel.MuGravity <> s:536 var
+R82690:82690 Kernel.MuGravity <> m:537 var
+R82694:82697 Coq.Reals.Rbasic_fun <> Rabs def
+R82700:82714 Kernel.MuGravity <> calibration_gap def
+R82716:82716 Kernel.MuGravity <> s:536 var
+R82718:82718 Kernel.MuGravity <> m:537 var
+R82752:82771 Kernel.MuGravity <> calibration_residual def
+R82774:82788 Kernel.MuGravity <> calibration_gap def
+prf 82919:82960 <> calibration_gap_after_as_before_plus_delta
+binder 82971:82971 <> s:538
+binder 82973:82973 <> i:539
+binder 82975:82975 <> m:540
+R83012:83014 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R82980:82994 Kernel.MuGravity <> calibration_gap def
+R82997:83004 Kernel.SimulationProof <> vm_apply def
+R83006:83006 Kernel.MuGravity <> s:538 var
+R83008:83008 Kernel.MuGravity <> i:539 var
+R83011:83011 Kernel.MuGravity <> m:540 var
+R83035:83037 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R83016:83030 Kernel.MuGravity <> calibration_gap def
+R83032:83032 Kernel.MuGravity <> s:538 var
+R83034:83034 Kernel.MuGravity <> m:540 var
+R83038:83058 Kernel.MuGravity <> calibration_gap_delta def
+R83060:83060 Kernel.MuGravity <> s:538 var
+R83062:83062 Kernel.MuGravity <> i:539 var
+R83064:83064 Kernel.MuGravity <> m:540 var
+R83102:83122 Kernel.MuGravity <> calibration_gap_delta def
+R83125:83139 Kernel.MuGravity <> calibration_gap def
+prf 83232:83269 <> abs_strict_descent_by_delta_window_pos
+binder 83280:83280 <> r:541
+binder 83282:83286 <> delta:542
+R83300:83305 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R83293:83295 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R83296:83296 Kernel.MuGravity <> r:541 var
+R83328:83333 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R83313:83315 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
+R83321:83323 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
+R83309:83311 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R83312:83312 Kernel.MuGravity <> r:541 var
+R83316:83320 Kernel.MuGravity <> delta:542 var
+R83316:83320 Kernel.MuGravity <> delta:542 var
+R83351:83353 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R83335:83338 Coq.Reals.Rbasic_fun <> Rabs def
+R83342:83344 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R83341:83341 Kernel.MuGravity <> r:541 var
+R83345:83349 Kernel.MuGravity <> delta:542 var
+R83354:83357 Coq.Reals.Rbasic_fun <> Rabs def
+R83359:83359 Kernel.MuGravity <> r:541 var
+R83430:83432 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R83424:83427 Coq.Reals.Rbasic_fun <> Rabs def
+R83430:83432 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R83424:83427 Coq.Reals.Rbasic_fun <> Rabs def
+R83447:83456 Coq.Reals.Rbasic_fun <> Rabs_right thm
+R83447:83456 Coq.Reals.Rbasic_fun <> Rabs_right thm
+R83495:83503 Coq.Reals.Rbasic_fun <> Rcase_abs thm
+R83507:83509 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R83495:83503 Coq.Reals.Rbasic_fun <> Rcase_abs thm
+R83507:83509 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R83549:83557 Coq.Reals.Rbasic_fun <> Rabs_left thm
+R83549:83557 Coq.Reals.Rbasic_fun <> Rabs_left thm
+R83549:83557 Coq.Reals.Rbasic_fun <> Rabs_left thm
+R83588:83597 Coq.Reals.Rbasic_fun <> Rabs_right thm
+R83588:83597 Coq.Reals.Rbasic_fun <> Rabs_right thm
+R83588:83597 Coq.Reals.Rbasic_fun <> Rabs_right thm
+prf 84166:84225 <> calibration_residual_strict_descent_from_semantic_gap_window
+binder 84236:84236 <> s:543
+binder 84238:84238 <> i:544
+binder 84240:84240 <> m:545
+R84338:84343 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R84272:84275 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R84247:84249 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R84250:84264 Kernel.MuGravity <> calibration_gap def
+R84266:84266 Kernel.MuGravity <> s:543 var
+R84268:84268 Kernel.MuGravity <> m:545 var
+R84301:84303 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
+R84331:84333 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
+R84279:84281 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R84282:84296 Kernel.MuGravity <> calibration_gap def
+R84298:84298 Kernel.MuGravity <> s:543 var
+R84300:84300 Kernel.MuGravity <> m:545 var
+R84304:84324 Kernel.MuGravity <> calibration_gap_delta def
+R84326:84326 Kernel.MuGravity <> s:543 var
+R84328:84328 Kernel.MuGravity <> i:544 var
+R84330:84330 Kernel.MuGravity <> m:545 var
+R84304:84324 Kernel.MuGravity <> calibration_gap_delta def
+R84326:84326 Kernel.MuGravity <> s:543 var
+R84328:84328 Kernel.MuGravity <> i:544 var
+R84330:84330 Kernel.MuGravity <> m:545 var
+R84344:84365 Kernel.MuGravity <> strict_descent_at_step def
+R84367:84367 Kernel.MuGravity <> s:543 var
+R84369:84369 Kernel.MuGravity <> i:544 var
+R84371:84371 Kernel.MuGravity <> m:545 var
+R84420:84441 Kernel.MuGravity <> strict_descent_at_step def
+R84455:84485 Kernel.MuGravity <> calibration_residual_as_gap_abs thm
+R84455:84485 Kernel.MuGravity <> calibration_residual_as_gap_abs thm
+R84455:84485 Kernel.MuGravity <> calibration_residual_as_gap_abs thm
+R84455:84485 Kernel.MuGravity <> calibration_residual_as_gap_abs thm
+R84455:84485 Kernel.MuGravity <> calibration_residual_as_gap_abs thm
+R84497:84517 Kernel.MuGravity <> calibration_gap_delta def
+R84540:84581 Kernel.MuGravity <> calibration_gap_after_as_before_plus_delta thm
+R84540:84581 Kernel.MuGravity <> calibration_gap_after_as_before_plus_delta thm
+R84540:84581 Kernel.MuGravity <> calibration_gap_after_as_before_plus_delta thm
+R84592:84629 Kernel.MuGravity <> abs_strict_descent_by_delta_window_pos thm
+R84592:84629 Kernel.MuGravity <> abs_strict_descent_by_delta_window_pos thm
+prf 84723:84756 <> calibration_gap_abs_strict_descent
+binder 84767:84767 <> s:546
+binder 84769:84769 <> i:547
+binder 84771:84771 <> m:548
+R84869:84874 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R84803:84806 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R84778:84780 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R84781:84795 Kernel.MuGravity <> calibration_gap def
+R84797:84797 Kernel.MuGravity <> s:546 var
+R84799:84799 Kernel.MuGravity <> m:548 var
+R84832:84834 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
+R84862:84864 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
+R84810:84812 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R84813:84827 Kernel.MuGravity <> calibration_gap def
+R84829:84829 Kernel.MuGravity <> s:546 var
+R84831:84831 Kernel.MuGravity <> m:548 var
+R84835:84855 Kernel.MuGravity <> calibration_gap_delta def
+R84857:84857 Kernel.MuGravity <> s:546 var
+R84859:84859 Kernel.MuGravity <> i:547 var
+R84861:84861 Kernel.MuGravity <> m:548 var
+R84835:84855 Kernel.MuGravity <> calibration_gap_delta def
+R84857:84857 Kernel.MuGravity <> s:546 var
+R84859:84859 Kernel.MuGravity <> i:547 var
+R84861:84861 Kernel.MuGravity <> m:548 var
+R84915:84917 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R84876:84879 Coq.Reals.Rbasic_fun <> Rabs def
+R84882:84896 Kernel.MuGravity <> calibration_gap def
+R84899:84906 Kernel.SimulationProof <> vm_apply def
+R84908:84908 Kernel.MuGravity <> s:546 var
+R84910:84910 Kernel.MuGravity <> i:547 var
+R84913:84913 Kernel.MuGravity <> m:548 var
+R84918:84921 Coq.Reals.Rbasic_fun <> Rabs def
+R84924:84938 Kernel.MuGravity <> calibration_gap def
+R84940:84940 Kernel.MuGravity <> s:546 var
+R84942:84942 Kernel.MuGravity <> m:548 var
+R84994:85053 Kernel.MuGravity <> calibration_residual_strict_descent_from_semantic_gap_window thm
+R84994:85053 Kernel.MuGravity <> calibration_residual_strict_descent_from_semantic_gap_window thm
+R85089:85110 Kernel.MuGravity <> strict_descent_at_step def
+R85133:85163 Kernel.MuGravity <> calibration_residual_as_gap_abs thm
+R85133:85163 Kernel.MuGravity <> calibration_residual_as_gap_abs thm
+R85133:85163 Kernel.MuGravity <> calibration_residual_as_gap_abs thm
+R85133:85163 Kernel.MuGravity <> calibration_residual_as_gap_abs thm
+R85133:85163 Kernel.MuGravity <> calibration_residual_as_gap_abs thm
+prf 85282:85326 <> calibration_progress_one_step_from_gap_window
+binder 85337:85341 <> trace:549
+binder 85343:85343 <> s:550
+binder 85345:85345 <> m:551
+binder 85347:85347 <> i:552
+R85386:85391 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R85377:85379 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R85352:85360 Coq.Lists.List <> nth_error def
+R85369:85373 Kernel.VMState <> vm_pc proj
+R85375:85375 Kernel.MuGravity <> s:550 var
+R85362:85366 Kernel.MuGravity <> trace:549 var
+R85380:85383 Coq.Init.Datatypes <> Some constr
+R85385:85385 Kernel.MuGravity <> i:552 var
+R85485:85490 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R85419:85422 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R85394:85396 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R85397:85411 Kernel.MuGravity <> calibration_gap def
+R85413:85413 Kernel.MuGravity <> s:550 var
+R85415:85415 Kernel.MuGravity <> m:551 var
+R85448:85450 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
+R85478:85480 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
+R85426:85428 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R85429:85443 Kernel.MuGravity <> calibration_gap def
+R85445:85445 Kernel.MuGravity <> s:550 var
+R85447:85447 Kernel.MuGravity <> m:551 var
+R85451:85471 Kernel.MuGravity <> calibration_gap_delta def
+R85473:85473 Kernel.MuGravity <> s:550 var
+R85475:85475 Kernel.MuGravity <> i:552 var
+R85477:85477 Kernel.MuGravity <> m:551 var
+R85451:85471 Kernel.MuGravity <> calibration_gap_delta def
+R85473:85473 Kernel.MuGravity <> s:550 var
+R85475:85475 Kernel.MuGravity <> i:552 var
+R85477:85477 Kernel.MuGravity <> m:551 var
+R85533:85535 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R85492:85511 Kernel.MuGravity <> calibration_residual def
+R85514:85519 Kernel.SimulationProof <> run_vm def
+R85523:85527 Kernel.MuGravity <> trace:549 var
+R85529:85529 Kernel.MuGravity <> s:550 var
+R85532:85532 Kernel.MuGravity <> m:551 var
+R85536:85555 Kernel.MuGravity <> calibration_residual def
+R85557:85557 Kernel.MuGravity <> s:550 var
+R85559:85559 Kernel.MuGravity <> m:551 var
+R85618:85641 Kernel.MuGravity <> run_vm_one_step_from_nth thm
+R85618:85641 Kernel.MuGravity <> run_vm_one_step_from_nth thm
+R85618:85641 Kernel.MuGravity <> run_vm_one_step_from_nth thm
+R85669:85728 Kernel.MuGravity <> calibration_residual_strict_descent_from_semantic_gap_window thm
+R85669:85728 Kernel.MuGravity <> calibration_residual_strict_descent_from_semantic_gap_window thm
+def 86475:86517 <> run_vm_prioritizes_active_when_uncalibrated
+R86530:86533 Coq.Init.Datatypes <> list ind
+R86535:86548 Kernel.VMStep VMStep vm_instruction ind
+binder 86522:86526 <> trace:553
+R86556:86562 Kernel.VMState <> VMState rec
+binder 86552:86552 <> s:554
+R86570:86577 Kernel.VMState <> ModuleID def
+binder 86566:86566 <> m:555
+R86624:86629 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R86594:86596 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R86597:86616 Kernel.MuGravity <> calibration_residual def
+R86618:86618 Kernel.MuGravity <> s:554 var
+R86620:86620 Kernel.MuGravity <> m:555 var
+R86630:86636 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R86638:86643 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 86637:86637 <> i:556
+R86678:86685 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R86669:86671 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R86644:86652 Coq.Lists.List <> nth_error def
+R86661:86665 Kernel.VMState <> vm_pc proj
+R86667:86667 Kernel.MuGravity <> s:554 var
+R86654:86658 Kernel.MuGravity <> trace:553 var
+R86672:86675 Coq.Init.Datatypes <> Some constr
+R86677:86677 Kernel.MuGravity <> i:556 var
+R86720:86728 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R86831:86831 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R86686:86715 Kernel.MuGravity <> calibration_active_instruction def
+R86717:86717 Kernel.MuGravity <> s:554 var
+R86719:86719 Kernel.MuGravity <> i:556 var
+binder 86736:86736 <> j:557
+R86775:86784 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R86745:86772 Kernel.MuGravity <> calibration_safe_instruction ind
+R86774:86774 Kernel.MuGravity <> j:557 var
+R86804:86807 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R86786:86801 Kernel.VMStep VMStep instruction_cost def
+R86803:86803 Kernel.MuGravity <> i:556 var
+R86808:86823 Kernel.VMStep VMStep instruction_cost def
+R86825:86825 Kernel.MuGravity <> j:557 var
+prf 86918:86961 <> run_vm_prioritizes_implies_scheduler_prefers
+binder 86972:86976 <> trace:558
+binder 86978:86978 <> s:559
+binder 86980:86980 <> m:560
+R87038:87043 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R86985:87027 Kernel.MuGravity <> run_vm_prioritizes_active_when_uncalibrated def
+R87029:87033 Kernel.MuGravity <> trace:558 var
+R87035:87035 Kernel.MuGravity <> s:559 var
+R87037:87037 Kernel.MuGravity <> m:560 var
+R87044:87085 Kernel.MuGravity <> scheduler_prefers_active_when_uncalibrated def
+R87087:87091 Kernel.MuGravity <> trace:558 var
+R87093:87093 Kernel.MuGravity <> s:559 var
+R87095:87095 Kernel.MuGravity <> m:560 var
+prf 87243:87282 <> run_vm_prioritizes_implies_active_policy
+binder 87293:87297 <> trace:561
+binder 87299:87299 <> s:562
+binder 87301:87301 <> m:563
+R87359:87364 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R87306:87348 Kernel.MuGravity <> run_vm_prioritizes_active_when_uncalibrated def
+R87350:87354 Kernel.MuGravity <> trace:561 var
+R87356:87356 Kernel.MuGravity <> s:562 var
+R87358:87358 Kernel.MuGravity <> m:563 var
+R87365:87388 Kernel.MuGravity <> active_when_uncalibrated def
+R87390:87394 Kernel.MuGravity <> trace:561 var
+R87396:87396 Kernel.MuGravity <> s:562 var
+R87398:87398 Kernel.MuGravity <> m:563 var
+R87441:87497 Kernel.MuGravity <> scheduler_prefers_active_implies_active_when_uncalibrated thm
+R87441:87497 Kernel.MuGravity <> scheduler_prefers_active_implies_active_when_uncalibrated thm
+R87508:87551 Kernel.MuGravity <> run_vm_prioritizes_implies_scheduler_prefers thm
+R87508:87551 Kernel.MuGravity <> run_vm_prioritizes_implies_scheduler_prefers thm
+prf 87667:87718 <> run_vm_prioritized_active_semantic_progress_one_step
+binder 87729:87733 <> trace:564
+binder 87735:87735 <> s:565
+binder 87737:87737 <> m:566
+binder 87739:87739 <> i:567
+R87797:87802 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R87744:87786 Kernel.MuGravity <> run_vm_prioritizes_active_when_uncalibrated def
+R87788:87792 Kernel.MuGravity <> trace:564 var
+R87794:87794 Kernel.MuGravity <> s:565 var
+R87796:87796 Kernel.MuGravity <> m:566 var
+R87835:87840 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R87805:87807 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R87808:87827 Kernel.MuGravity <> calibration_residual def
+R87829:87829 Kernel.MuGravity <> s:565 var
+R87831:87831 Kernel.MuGravity <> m:566 var
+R87875:87880 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R87866:87868 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R87841:87849 Coq.Lists.List <> nth_error def
+R87858:87862 Kernel.VMState <> vm_pc proj
+R87864:87864 Kernel.MuGravity <> s:565 var
+R87851:87855 Kernel.MuGravity <> trace:564 var
+R87869:87872 Coq.Init.Datatypes <> Some constr
+R87874:87874 Kernel.MuGravity <> i:567 var
+R87974:87979 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R87908:87911 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R87883:87885 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R87886:87900 Kernel.MuGravity <> calibration_gap def
+R87902:87902 Kernel.MuGravity <> s:565 var
+R87904:87904 Kernel.MuGravity <> m:566 var
+R87937:87939 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
+R87967:87969 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
+R87915:87917 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R87918:87932 Kernel.MuGravity <> calibration_gap def
+R87934:87934 Kernel.MuGravity <> s:565 var
+R87936:87936 Kernel.MuGravity <> m:566 var
+R87940:87960 Kernel.MuGravity <> calibration_gap_delta def
+R87962:87962 Kernel.MuGravity <> s:565 var
+R87964:87964 Kernel.MuGravity <> i:567 var
+R87966:87966 Kernel.MuGravity <> m:566 var
+R87940:87960 Kernel.MuGravity <> calibration_gap_delta def
+R87962:87962 Kernel.MuGravity <> s:565 var
+R87964:87964 Kernel.MuGravity <> i:567 var
+R87966:87966 Kernel.MuGravity <> m:566 var
+R88022:88024 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R87981:88000 Kernel.MuGravity <> calibration_residual def
+R88003:88008 Kernel.SimulationProof <> run_vm def
+R88012:88016 Kernel.MuGravity <> trace:564 var
+R88018:88018 Kernel.MuGravity <> s:565 var
+R88021:88021 Kernel.MuGravity <> m:566 var
+R88025:88044 Kernel.MuGravity <> calibration_residual def
+R88046:88046 Kernel.MuGravity <> s:565 var
+R88048:88048 Kernel.MuGravity <> m:566 var
+R88185:88229 Kernel.MuGravity <> calibration_progress_one_step_from_gap_window thm
+R88185:88229 Kernel.MuGravity <> calibration_progress_one_step_from_gap_window thm
+def 88981:89004 <> constructive_trace_at_pc
+R89012:89014 Coq.Init.Datatypes <> nat ind
+binder 89007:89008 <> pc:568
+R89022:89035 Kernel.VMStep VMStep vm_instruction ind
+binder 89018:89018 <> i:569
+R89040:89043 Coq.Init.Datatypes <> list ind
+R89045:89058 Kernel.VMStep VMStep vm_instruction ind
+R89089:89092 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R89065:89070 Coq.Lists.List <> repeat def
+R89087:89088 Kernel.MuGravity <> pc:568 var
+R89073:89082 Kernel.VMStep VMStep instr_halt constr
+R89093:89093 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R89095:89095 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R89094:89094 Kernel.MuGravity <> i:569 var
+def 89110:89140 <> constructive_active_instruction
+R89152:89155 Coq.Init.Datatypes <> list ind
+R89157:89159 Coq.Init.Datatypes <> nat ind
+binder 89143:89148 <> region:570
+R89164:89177 Kernel.VMStep VMStep vm_instruction ind
+R89184:89193 Kernel.VMStep VMStep instr_pnew constr
+R89195:89200 Kernel.MuGravity <> region:570 var
+def 89217:89244 <> constructive_trace_for_state
+R89251:89257 Kernel.VMState <> VMState rec
+binder 89247:89247 <> s:571
+R89270:89273 Coq.Init.Datatypes <> list ind
+R89275:89277 Coq.Init.Datatypes <> nat ind
+binder 89261:89266 <> region:572
+R89282:89285 Coq.Init.Datatypes <> list ind
+R89287:89300 Kernel.VMStep VMStep vm_instruction ind
+R89307:89330 Kernel.MuGravity <> constructive_trace_at_pc def
+R89333:89337 Kernel.VMState <> vm_pc proj
+R89339:89339 Kernel.MuGravity <> s:571 var
+R89343:89373 Kernel.MuGravity <> constructive_active_instruction def
+R89375:89380 Kernel.MuGravity <> region:572 var
+prf 89458:89491 <> nth_error_constructive_trace_at_pc
+binder 89502:89503 <> pc:573
+binder 89505:89505 <> i:574
+R89554:89556 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R89510:89518 Coq.Lists.List <> nth_error def
+R89552:89553 Kernel.MuGravity <> pc:573 var
+R89521:89544 Kernel.MuGravity <> constructive_trace_at_pc def
+R89546:89547 Kernel.MuGravity <> pc:573 var
+R89549:89549 Kernel.MuGravity <> i:574 var
+R89557:89560 Coq.Init.Datatypes <> Some constr
+R89562:89562 Kernel.MuGravity <> i:574 var
+R89596:89619 Kernel.MuGravity <> constructive_trace_at_pc def
+R89632:89645 Coq.Lists.List <> nth_error_app2 thm
+R89632:89645 Coq.Lists.List <> nth_error_app2 thm
+R89632:89645 Coq.Lists.List <> nth_error_app2 thm
+R89632:89645 Coq.Lists.List <> nth_error_app2 thm
+R89662:89674 Coq.Lists.List <> repeat_length thm
+R89662:89674 Coq.Lists.List <> repeat_length thm
+R89662:89674 Coq.Lists.List <> repeat_length thm
+R89683:89693 Coq.Arith.PeanoNat Nat le_refl thm
+R89683:89693 Coq.Arith.PeanoNat Nat le_refl thm
+R89708:89720 Coq.Lists.List <> repeat_length thm
+R89708:89720 Coq.Lists.List <> repeat_length thm
+R89708:89720 Coq.Lists.List <> repeat_length thm
+R89731:89742 Coq.Arith.PeanoNat Nat sub_diag thm
+R89731:89742 Coq.Arith.PeanoNat Nat sub_diag thm
+R89731:89742 Coq.Arith.PeanoNat Nat sub_diag thm
+prf 89850:89887 <> nth_error_constructive_trace_for_state
+binder 89898:89898 <> s:575
+binder 89900:89905 <> region:576
+R89969:89975 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R89910:89918 Coq.Lists.List <> nth_error def
+R89961:89965 Kernel.VMState <> vm_pc proj
+R89967:89967 Kernel.MuGravity <> s:575 var
+R89921:89948 Kernel.MuGravity <> constructive_trace_for_state def
+R89950:89950 Kernel.MuGravity <> s:575 var
+R89952:89957 Kernel.MuGravity <> region:576 var
+R89976:89979 Coq.Init.Datatypes <> Some constr
+R89982:90012 Kernel.MuGravity <> constructive_active_instruction def
+R90014:90019 Kernel.MuGravity <> region:576 var
+R90058:90085 Kernel.MuGravity <> constructive_trace_for_state def
+R90088:90118 Kernel.MuGravity <> constructive_active_instruction def
+R90129:90162 Kernel.MuGravity <> nth_error_constructive_trace_at_pc thm
+R90129:90162 Kernel.MuGravity <> nth_error_constructive_trace_at_pc thm
+prf 90267:90321 <> constructive_trace_prioritizes_active_when_uncalibrated
+binder 90332:90332 <> s:577
+binder 90334:90334 <> m:578
+binder 90336:90341 <> region:579
+R90409:90414 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R90402:90404 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R90346:90362 Kernel.VMState <> graph_find_region def
+R90365:90372 Kernel.VMState <> vm_graph proj
+R90374:90374 Kernel.MuGravity <> s:577 var
+R90378:90393 Kernel.VMState <> normalize_region def
+R90395:90400 Kernel.MuGravity <> region:579 var
+R90405:90408 Coq.Init.Datatypes <> None constr
+R90415:90457 Kernel.MuGravity <> run_vm_prioritizes_active_when_uncalibrated def
+R90460:90487 Kernel.MuGravity <> constructive_trace_for_state def
+R90489:90489 Kernel.MuGravity <> s:577 var
+R90491:90496 Kernel.MuGravity <> region:579 var
+R90499:90499 Kernel.MuGravity <> s:577 var
+R90501:90501 Kernel.MuGravity <> m:578 var
+R90554:90584 Kernel.MuGravity <> constructive_active_instruction def
+R90554:90584 Kernel.MuGravity <> constructive_active_instruction def
+R90614:90651 Kernel.MuGravity <> nth_error_constructive_trace_for_state thm
+R90614:90651 Kernel.MuGravity <> nth_error_constructive_trace_for_state thm
+R90678:90708 Kernel.MuGravity <> constructive_active_instruction def
+R90723:90746 Kernel.MuGravity <> pnew_fresh_region_active thm
+R90723:90746 Kernel.MuGravity <> pnew_fresh_region_active thm
+R90804:90834 Kernel.MuGravity <> constructive_active_instruction def
+R90849:90883 Kernel.MuGravity <> pnew_zero_cost_minimal_against_safe thm
+R90849:90883 Kernel.MuGravity <> pnew_zero_cost_minimal_against_safe thm
+prf 90997:91041 <> constructive_trace_semantic_progress_one_step
+binder 91052:91052 <> s:580
+binder 91054:91054 <> m:581
+binder 91056:91061 <> region:582
+R91129:91134 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R91122:91124 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R91066:91082 Kernel.VMState <> graph_find_region def
+R91085:91092 Kernel.VMState <> vm_graph proj
+R91094:91094 Kernel.MuGravity <> s:580 var
+R91098:91113 Kernel.VMState <> normalize_region def
+R91115:91120 Kernel.MuGravity <> region:582 var
+R91125:91128 Coq.Init.Datatypes <> None constr
+R91167:91172 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R91137:91139 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R91140:91159 Kernel.MuGravity <> calibration_residual def
+R91161:91161 Kernel.MuGravity <> s:580 var
+R91163:91163 Kernel.MuGravity <> m:581 var
+R91200:91205 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R91175:91177 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R91178:91192 Kernel.MuGravity <> calibration_gap def
+R91194:91194 Kernel.MuGravity <> s:580 var
+R91196:91196 Kernel.MuGravity <> m:581 var
+R91264:91269 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R91258:91260 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R91206:91220 Kernel.MuGravity <> calibration_gap def
+R91223:91230 Kernel.SimulationProof <> vm_apply def
+R91232:91232 Kernel.MuGravity <> s:580 var
+R91235:91244 Kernel.VMStep VMStep instr_pnew constr
+R91246:91251 Kernel.MuGravity <> region:582 var
+R91257:91257 Kernel.MuGravity <> m:581 var
+R91346:91351 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R91271:91290 Kernel.MuGravity <> calibration_residual def
+R91293:91298 Kernel.SimulationProof <> run_vm def
+R91303:91330 Kernel.MuGravity <> constructive_trace_for_state def
+R91332:91332 Kernel.MuGravity <> s:580 var
+R91334:91339 Kernel.MuGravity <> region:582 var
+R91342:91342 Kernel.MuGravity <> s:580 var
+R91345:91345 Kernel.MuGravity <> m:581 var
+R91352:91371 Kernel.MuGravity <> calibration_residual def
+R91373:91373 Kernel.MuGravity <> s:580 var
+R91375:91375 Kernel.MuGravity <> m:581 var
+R91446:91497 Kernel.MuGravity <> run_vm_prioritized_active_semantic_progress_one_step thm
+R91446:91497 Kernel.MuGravity <> run_vm_prioritized_active_semantic_progress_one_step thm
+R91510:91564 Kernel.MuGravity <> constructive_trace_prioritizes_active_when_uncalibrated thm
+R91510:91564 Kernel.MuGravity <> constructive_trace_prioritizes_active_when_uncalibrated thm
+R91611:91648 Kernel.MuGravity <> nth_error_constructive_trace_for_state thm
+R91611:91648 Kernel.MuGravity <> nth_error_constructive_trace_for_state thm
+R91661:91713 Kernel.MuGravity <> semantic_gap_window_certificate_fresh_pnew_from_delta thm
+R91661:91713 Kernel.MuGravity <> semantic_gap_window_certificate_fresh_pnew_from_delta thm
+def 91747:91767 <> run_constructive_plan
+R91777:91780 Coq.Init.Datatypes <> list ind
+R91783:91786 Coq.Init.Datatypes <> list ind
+R91788:91790 Coq.Init.Datatypes <> nat ind
+binder 91770:91773 <> plan:583
+R91799:91805 Kernel.VMState <> VMState rec
+binder 91795:91795 <> s:584
+R91810:91816 Kernel.VMState <> VMState rec
+R91829:91832 Kernel.MuGravity <> plan:583 var
+R91843:91844 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R91849:91849 Kernel.MuGravity <> s:584 var
+R91861:91864 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R91879:91899 Kernel.MuGravity <> run_constructive_plan:585 def
+R91907:91912 Kernel.SimulationProof <> run_vm def
+R91917:91944 Kernel.MuGravity <> constructive_trace_for_state def
+R91946:91946 Kernel.MuGravity <> s:584 var
+R91956:91956 Kernel.MuGravity <> s:584 var
+prf 92031:92055 <> run_constructive_plan_app
+binder 92066:92067 <> p1:587
+binder 92069:92070 <> p2:588
+binder 92072:92072 <> s:589
+R92111:92115 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R92077:92097 Kernel.MuGravity <> run_constructive_plan def
+R92102:92105 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R92100:92101 Kernel.MuGravity <> p1:587 var
+R92106:92107 Kernel.MuGravity <> p2:588 var
+R92110:92110 Kernel.MuGravity <> s:589 var
+R92116:92136 Kernel.MuGravity <> run_constructive_plan def
+R92138:92139 Kernel.MuGravity <> p2:588 var
+R92142:92162 Kernel.MuGravity <> run_constructive_plan def
+R92164:92165 Kernel.MuGravity <> p1:587 var
+R92167:92167 Kernel.MuGravity <> s:589 var
+def 92313:92337 <> constructive_prefix_state
+R92347:92350 Coq.Init.Datatypes <> list ind
+R92353:92356 Coq.Init.Datatypes <> list ind
+R92358:92360 Coq.Init.Datatypes <> nat ind
+binder 92340:92343 <> plan:590
+R92369:92375 Kernel.VMState <> VMState rec
+binder 92365:92365 <> s:591
+R92383:92385 Coq.Init.Datatypes <> nat ind
+binder 92379:92379 <> k:592
+R92390:92396 Kernel.VMState <> VMState rec
+R92403:92423 Kernel.MuGravity <> run_constructive_plan def
+R92426:92431 Coq.Lists.List <> firstn def
+R92435:92438 Kernel.MuGravity <> plan:590 var
+R92433:92433 Kernel.MuGravity <> k:592 var
+R92441:92441 Kernel.MuGravity <> s:591 var
+def 92456:92485 <> constructive_prefix_obligation
+R92497:92500 Coq.Init.Datatypes <> list ind
+R92503:92506 Coq.Init.Datatypes <> list ind
+R92508:92510 Coq.Init.Datatypes <> nat ind
+binder 92490:92493 <> plan:593
+R92519:92525 Kernel.VMState <> VMState rec
+binder 92515:92515 <> s:594
+R92533:92540 Kernel.VMState <> ModuleID def
+binder 92529:92529 <> m:595
+R92548:92550 Coq.Init.Datatypes <> nat ind
+binder 92544:92544 <> k:596
+R92565:92571 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R92578:92583 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 92572:92577 <> region:597
+R92614:92621 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R92600:92602 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R92584:92592 Coq.Lists.List <> nth_error def
+R92599:92599 Kernel.MuGravity <> k:596 var
+R92594:92597 Kernel.MuGravity <> plan:593 var
+R92603:92606 Coq.Init.Datatypes <> Some constr
+R92608:92613 Kernel.MuGravity <> region:597 var
+R92720:92727 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R92713:92715 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R92622:92638 Kernel.VMState <> graph_find_region def
+R92641:92648 Kernel.VMState <> vm_graph proj
+R92651:92675 Kernel.MuGravity <> constructive_prefix_state def
+R92677:92680 Kernel.MuGravity <> plan:593 var
+R92682:92682 Kernel.MuGravity <> s:594 var
+R92684:92684 Kernel.MuGravity <> k:596 var
+R92689:92704 Kernel.VMState <> normalize_region def
+R92706:92711 Kernel.MuGravity <> region:597 var
+R92716:92719 Coq.Init.Datatypes <> None constr
+R92795:92802 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R92730:92732 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R92733:92752 Kernel.MuGravity <> calibration_residual def
+R92755:92779 Kernel.MuGravity <> constructive_prefix_state def
+R92781:92784 Kernel.MuGravity <> plan:593 var
+R92786:92786 Kernel.MuGravity <> s:594 var
+R92788:92788 Kernel.MuGravity <> k:596 var
+R92791:92791 Kernel.MuGravity <> m:595 var
+R92865:92872 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R92805:92807 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R92808:92822 Kernel.MuGravity <> calibration_gap def
+R92825:92849 Kernel.MuGravity <> constructive_prefix_state def
+R92851:92854 Kernel.MuGravity <> plan:593 var
+R92856:92856 Kernel.MuGravity <> s:594 var
+R92858:92858 Kernel.MuGravity <> k:596 var
+R92861:92861 Kernel.MuGravity <> m:595 var
+R92979:92981 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R92873:92887 Kernel.MuGravity <> calibration_gap def
+R92890:92897 Kernel.SimulationProof <> vm_apply def
+R92900:92924 Kernel.MuGravity <> constructive_prefix_state def
+R92926:92929 Kernel.MuGravity <> plan:593 var
+R92931:92931 Kernel.MuGravity <> s:594 var
+R92933:92933 Kernel.MuGravity <> k:596 var
+R92937:92967 Kernel.MuGravity <> constructive_active_instruction def
+R92969:92974 Kernel.MuGravity <> region:597 var
+R92978:92978 Kernel.MuGravity <> m:595 var
+prf 93066:93102 <> constructive_prefix_one_step_progress
+binder 93113:93116 <> plan:598
+binder 93118:93118 <> s:599
+binder 93120:93120 <> m:600
+binder 93122:93122 <> k:601
+R93168:93173 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R93127:93156 Kernel.MuGravity <> constructive_prefix_obligation def
+R93158:93161 Kernel.MuGravity <> plan:598 var
+R93163:93163 Kernel.MuGravity <> s:599 var
+R93165:93165 Kernel.MuGravity <> m:600 var
+R93167:93167 Kernel.MuGravity <> k:601 var
+R93238:93243 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R93175:93194 Kernel.MuGravity <> calibration_residual def
+R93197:93221 Kernel.MuGravity <> constructive_prefix_state def
+R93223:93226 Kernel.MuGravity <> plan:598 var
+R93228:93228 Kernel.MuGravity <> s:599 var
+R93231:93231 Coq.Init.Datatypes <> S constr
+R93233:93233 Kernel.MuGravity <> k:601 var
+R93237:93237 Kernel.MuGravity <> m:600 var
+R93244:93263 Kernel.MuGravity <> calibration_residual def
+R93266:93290 Kernel.MuGravity <> constructive_prefix_state def
+R93292:93295 Kernel.MuGravity <> plan:598 var
+R93297:93297 Kernel.MuGravity <> s:599 var
+R93299:93299 Kernel.MuGravity <> k:601 var
+R93302:93302 Kernel.MuGravity <> m:600 var
+R93395:93419 Kernel.MuGravity <> constructive_prefix_state def
+R93433:93458 Kernel.SimulationProof <> firstn_succ_nth_error_Some thm
+R93433:93458 Kernel.SimulationProof <> firstn_succ_nth_error_Some thm
+R93433:93458 Kernel.SimulationProof <> firstn_succ_nth_error_Some thm
+R93491:93515 Kernel.MuGravity <> run_constructive_plan_app thm
+R93491:93515 Kernel.MuGravity <> run_constructive_plan_app thm
+R93491:93515 Kernel.MuGravity <> run_constructive_plan_app thm
+R93535:93579 Kernel.MuGravity <> constructive_trace_semantic_progress_one_step thm
+R93535:93579 Kernel.MuGravity <> constructive_trace_semantic_progress_one_step thm
+def 93611:93653 <> semantic_gap_window_consecutive_certificate
+R93664:93667 Coq.Init.Datatypes <> list ind
+R93669:93682 Kernel.VMStep VMStep vm_instruction ind
+binder 93656:93660 <> trace:602
+R93690:93696 Kernel.VMState <> VMState rec
+binder 93686:93686 <> s:603
+R93707:93709 Coq.Init.Datatypes <> nat ind
+binder 93700:93703 <> fuel:604
+R93717:93724 Kernel.VMState <> ModuleID def
+binder 93713:93713 <> m:605
+R93786:93791 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R93741:93743 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R93744:93758 Kernel.MuGravity <> calibration_gap def
+R93761:93766 Kernel.SimulationProof <> run_vm def
+R93768:93771 Kernel.MuGravity <> fuel:604 var
+R93773:93777 Kernel.MuGravity <> trace:602 var
+R93779:93779 Kernel.MuGravity <> s:603 var
+R93782:93782 Kernel.MuGravity <> m:605 var
+R93837:93844 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
+R93930:93933 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
+R93795:93797 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R93798:93812 Kernel.MuGravity <> calibration_gap def
+R93815:93820 Kernel.SimulationProof <> run_vm def
+R93822:93825 Kernel.MuGravity <> fuel:604 var
+R93827:93831 Kernel.MuGravity <> trace:602 var
+R93833:93833 Kernel.MuGravity <> s:603 var
+R93836:93836 Kernel.MuGravity <> m:605 var
+R93888:93890 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R93845:93859 Kernel.MuGravity <> calibration_gap def
+R93862:93867 Kernel.SimulationProof <> run_vm def
+R93870:93870 Coq.Init.Datatypes <> S constr
+R93872:93875 Kernel.MuGravity <> fuel:604 var
+R93878:93882 Kernel.MuGravity <> trace:602 var
+R93884:93884 Kernel.MuGravity <> s:603 var
+R93887:93887 Kernel.MuGravity <> m:605 var
+R93891:93905 Kernel.MuGravity <> calibration_gap def
+R93908:93913 Kernel.SimulationProof <> run_vm def
+R93915:93918 Kernel.MuGravity <> fuel:604 var
+R93920:93924 Kernel.MuGravity <> trace:602 var
+R93926:93926 Kernel.MuGravity <> s:603 var
+R93929:93929 Kernel.MuGravity <> m:605 var
+R93888:93890 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R93845:93859 Kernel.MuGravity <> calibration_gap def
+R93862:93867 Kernel.SimulationProof <> run_vm def
+R93870:93870 Coq.Init.Datatypes <> S constr
+R93872:93875 Kernel.MuGravity <> fuel:604 var
+R93878:93882 Kernel.MuGravity <> trace:602 var
+R93884:93884 Kernel.MuGravity <> s:603 var
+R93887:93887 Kernel.MuGravity <> m:605 var
+R93891:93905 Kernel.MuGravity <> calibration_gap def
+R93908:93913 Kernel.SimulationProof <> run_vm def
+R93915:93918 Kernel.MuGravity <> fuel:604 var
+R93920:93924 Kernel.MuGravity <> trace:602 var
+R93926:93926 Kernel.MuGravity <> s:603 var
+R93929:93929 Kernel.MuGravity <> m:605 var
+prf 94020:94057 <> constructive_prefix_chain_progress_all
+binder 94068:94071 <> plan:606
+binder 94073:94073 <> s:607
+binder 94075:94075 <> m:608
+binder 94077:94077 <> n:609
+R94082:94082 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R94149:94155 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 94090:94090 <> k:610
+R94104:94107 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R94095:94097 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R94094:94094 Kernel.MuGravity <> k:610 var
+R94098:94098 Kernel.MuGravity <> n:609 var
+R94108:94137 Kernel.MuGravity <> constructive_prefix_obligation def
+R94139:94142 Kernel.MuGravity <> plan:606 var
+R94144:94144 Kernel.MuGravity <> s:607 var
+R94146:94146 Kernel.MuGravity <> m:608 var
+R94148:94148 Kernel.MuGravity <> k:610 var
+binder 94163:94163 <> k:611
+R94177:94184 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R94168:94170 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R94167:94167 Kernel.MuGravity <> k:611 var
+R94171:94171 Kernel.MuGravity <> n:609 var
+R94249:94256 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R94186:94205 Kernel.MuGravity <> calibration_residual def
+R94208:94232 Kernel.MuGravity <> constructive_prefix_state def
+R94234:94237 Kernel.MuGravity <> plan:606 var
+R94239:94239 Kernel.MuGravity <> s:607 var
+R94242:94242 Coq.Init.Datatypes <> S constr
+R94244:94244 Kernel.MuGravity <> k:611 var
+R94248:94248 Kernel.MuGravity <> m:608 var
+R94257:94276 Kernel.MuGravity <> calibration_residual def
+R94279:94303 Kernel.MuGravity <> constructive_prefix_state def
+R94305:94308 Kernel.MuGravity <> plan:606 var
+R94310:94310 Kernel.MuGravity <> s:607 var
+R94312:94312 Kernel.MuGravity <> k:611 var
+R94315:94315 Kernel.MuGravity <> m:608 var
+R94367:94403 Kernel.MuGravity <> constructive_prefix_one_step_progress thm
+R94367:94403 Kernel.MuGravity <> constructive_prefix_one_step_progress thm
+prf 94534:94588 <> calibration_progress_consecutive_run_vm_from_gap_window
+binder 94599:94603 <> trace:612
+binder 94605:94605 <> s:613
+binder 94607:94610 <> fuel:614
+binder 94612:94612 <> m:615
+R94675:94680 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R94617:94659 Kernel.MuGravity <> semantic_gap_window_consecutive_certificate def
+R94661:94665 Kernel.MuGravity <> trace:612 var
+R94667:94667 Kernel.MuGravity <> s:613 var
+R94669:94672 Kernel.MuGravity <> fuel:614 var
+R94674:94674 Kernel.MuGravity <> m:615 var
+R94730:94735 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R94682:94701 Kernel.MuGravity <> calibration_residual def
+R94704:94709 Kernel.SimulationProof <> run_vm def
+R94712:94712 Coq.Init.Datatypes <> S constr
+R94714:94717 Kernel.MuGravity <> fuel:614 var
+R94720:94724 Kernel.MuGravity <> trace:612 var
+R94726:94726 Kernel.MuGravity <> s:613 var
+R94729:94729 Kernel.MuGravity <> m:615 var
+R94736:94755 Kernel.MuGravity <> calibration_residual def
+R94758:94763 Kernel.SimulationProof <> run_vm def
+R94765:94768 Kernel.MuGravity <> fuel:614 var
+R94770:94774 Kernel.MuGravity <> trace:612 var
+R94776:94776 Kernel.MuGravity <> s:613 var
+R94779:94779 Kernel.MuGravity <> m:615 var
+R94843:94873 Kernel.MuGravity <> calibration_residual_as_gap_abs thm
+R94843:94873 Kernel.MuGravity <> calibration_residual_as_gap_abs thm
+R94843:94873 Kernel.MuGravity <> calibration_residual_as_gap_abs thm
+R94843:94873 Kernel.MuGravity <> calibration_residual_as_gap_abs thm
+R94843:94873 Kernel.MuGravity <> calibration_residual_as_gap_abs thm
+R94887:94901 Kernel.MuGravity <> calibration_gap def
+R94904:94909 Kernel.SimulationProof <> run_vm def
+R94912:94912 Coq.Init.Datatypes <> S constr
+R94981:94994 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R95080:95080 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R94942:94956 Kernel.MuGravity <> calibration_gap def
+R94959:94964 Kernel.SimulationProof <> run_vm def
+R95038:95040 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R94995:95009 Kernel.MuGravity <> calibration_gap def
+R95012:95017 Kernel.SimulationProof <> run_vm def
+R95020:95020 Coq.Init.Datatypes <> S constr
+R95041:95055 Kernel.MuGravity <> calibration_gap def
+R95058:95063 Kernel.SimulationProof <> run_vm def
+R94887:94901 Kernel.MuGravity <> calibration_gap def
+R94904:94909 Kernel.SimulationProof <> run_vm def
+R94912:94912 Coq.Init.Datatypes <> S constr
+R94981:94994 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R95080:95080 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R94942:94956 Kernel.MuGravity <> calibration_gap def
+R94959:94964 Kernel.SimulationProof <> run_vm def
+R95038:95040 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R94995:95009 Kernel.MuGravity <> calibration_gap def
+R95012:95017 Kernel.SimulationProof <> run_vm def
+R95020:95020 Coq.Init.Datatypes <> S constr
+R95041:95055 Kernel.MuGravity <> calibration_gap def
+R95058:95063 Kernel.SimulationProof <> run_vm def
+R95105:95142 Kernel.MuGravity <> abs_strict_descent_by_delta_window_pos thm
+R95105:95142 Kernel.MuGravity <> abs_strict_descent_by_delta_window_pos thm
+prf 96053:96071 <> mu_geometry_defined
+binder 96082:96082 <> s:616
+binder 96084:96084 <> m:617
+R96119:96124 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R96089:96105 Kernel.VMState <> well_formed_graph def
+R96108:96115 Kernel.VMState <> vm_graph proj
+R96117:96117 Kernel.MuGravity <> s:616 var
+R96158:96163 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R96127:96129 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R96126:96126 Kernel.MuGravity <> m:617 var
+R96130:96139 Kernel.VMState <> pg_next_id proj
+R96142:96149 Kernel.VMState <> vm_graph proj
+R96151:96151 Kernel.MuGravity <> s:616 var
+R96164:96170 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R96190:96231 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 96171:96177 <> G_const:618
+binder 96179:96185 <> h_const:619
+binder 96187:96187 <> K:620
+binder 96189:96189 <> T:621
+R96255:96302 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R96251:96253 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R96232:96246 Kernel.MuGravity <> ricci_curvature def
+R96248:96248 Kernel.MuGravity <> s:616 var
+R96250:96250 Kernel.MuGravity <> m:617 var
+R96254:96254 Kernel.MuGravity <> K:620 var
+R96324:96364 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R96320:96322 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R96303:96315 Kernel.MuGravity <> stress_energy def
+R96317:96317 Kernel.MuGravity <> s:616 var
+R96319:96319 Kernel.MuGravity <> m:617 var
+R96323:96323 Kernel.MuGravity <> T:621 var
+R96397:96404 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R96372:96374 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R96365:96371 Kernel.MuGravity <> G_const:618 var
+R96375:96396 Kernel.MuGravity <> gravitational_constant def
+R96424:96431 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R96412:96414 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R96405:96411 Kernel.MuGravity <> h_const:619 var
+R96415:96423 Kernel.ConstantUnification <> derived_h def
+R96447:96454 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R96440:96442 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R96433:96439 Kernel.MuGravity <> G_const:618 var
+R96470:96519 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R96463:96465 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R96456:96462 Kernel.MuGravity <> h_const:619 var
+R96539:96541 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R96520:96534 Kernel.MuGravity <> einstein_tensor def
+R96536:96536 Kernel.MuGravity <> s:616 var
+R96538:96538 Kernel.MuGravity <> m:617 var
+R96544:96546 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R96543:96543 Kernel.MuGravity <> K:620 var
+R96556:96558 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R96547:96547 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R96551:96554 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R96549:96549 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R96555:96555 Kernel.MuGravity <> K:620 var
+R96559:96571 Kernel.MuGravity <> metric_volume def
+R96573:96573 Kernel.MuGravity <> s:616 var
+R96575:96575 Kernel.MuGravity <> m:617 var
+R96618:96639 Kernel.MuGravity <> gravitational_constant def
+R96642:96650 Kernel.ConstantUnification <> derived_h def
+R96663:96677 Kernel.MuGravity <> ricci_curvature def
+R96686:96698 Kernel.MuGravity <> stress_energy def
+R96618:96639 Kernel.MuGravity <> gravitational_constant def
+R96642:96650 Kernel.ConstantUnification <> derived_h def
+R96663:96677 Kernel.MuGravity <> ricci_curvature def
+R96686:96698 Kernel.MuGravity <> stress_energy def
+R96738:96763 Kernel.MuGravity <> gravitational_constant_pos thm
+R96738:96763 Kernel.MuGravity <> gravitational_constant_pos thm
+R96837:96845 Kernel.ConstantUnification <> derived_h def
+R96848:96852 Kernel.ConstantUnification <> E_bit def
+R96865:96881 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
+R96865:96881 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
+R96896:96912 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
+R96896:96912 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
+R96954:96970 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
+R96954:96970 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
+R96990:97006 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
+R96990:97006 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
+R97030:97036 Kernel.ConstantUnification <> k_B_pos thm
+R97030:97036 Kernel.ConstantUnification <> k_B_pos thm
+R97060:97064 Kernel.ConstantUnification <> T_pos thm
+R97060:97064 Kernel.ConstantUnification <> T_pos thm
+R97084:97090 Kernel.MuGravity <> ln2_pos thm
+R97084:97090 Kernel.MuGravity <> ln2_pos thm
+R97105:97114 Kernel.ConstantUnification <> tau_mu_pos thm
+R97105:97114 Kernel.ConstantUnification <> tau_mu_pos thm
+R97143:97157 Kernel.MuGravity <> einstein_tensor def
+R97160:97175 Kernel.MuGravity <> scalar_curvature def

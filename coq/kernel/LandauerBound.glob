@@ -1,0 +1,301 @@
+DIGEST 3eebf9c77fea003192c78e3944387cf3
+FKernel.LandauerBound
+R2098:2101 Coq.Lists.List <> <> lib
+R2103:2105 Coq.micromega.Lia <> <> lib
+R2107:2120 Coq.Arith.PeanoNat <> <> lib
+R2130:2142 Coq.Lists.List ListNotations <> mod
+R2173:2179 Kernel.VMState <> <> lib
+R2209:2214 Kernel.VMStep <> <> lib
+R2244:2263 Kernel.MuLedgerConservation <> <> lib
+R2293:2307 Kernel.SimulationProof <> <> lib
+def 2927:2952 <> instr_logically_reversible
+R2959:2972 Kernel.VMStep VMStep vm_instruction ind
+binder 2955:2955 <> i:1
+R2987:2994 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3016:3022 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3002:3015 Kernel.VMStep VMStep vm_instruction ind
+binder 2995:2998 <> undo:2
+R3034:3040 Kernel.VMState <> VMState rec
+binder 3030:3030 <> s:3
+R3077:3079 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3049:3056 Kernel.SimulationProof <> vm_apply def
+R3059:3066 Kernel.SimulationProof <> vm_apply def
+R3068:3068 Kernel.LandauerBound <> s:3 var
+R3070:3070 Kernel.LandauerBound <> i:1 var
+R3073:3076 Kernel.LandauerBound <> undo:2 var
+R3080:3080 Kernel.LandauerBound <> s:3 var
+def 3165:3192 <> instr_logically_irreversible
+R3199:3212 Kernel.VMStep VMStep vm_instruction ind
+binder 3195:3195 <> i:4
+R3227:3228 Coq.Init.Logic <> ::type_scope:'~'_x not
+R3229:3254 Kernel.LandauerBound <> instr_logically_reversible def
+R3256:3256 Kernel.LandauerBound <> i:4 var
+def 3357:3375 <> instr_has_collision
+R3382:3395 Kernel.VMStep VMStep vm_instruction ind
+binder 3378:3378 <> i:5
+R3410:3416 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3432:3437 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3425:3431 Kernel.VMState <> VMState rec
+binder 3417:3418 <> s1:6
+R3425:3431 Kernel.VMState <> VMState rec
+binder 3420:3421 <> s2:7
+R3446:3449 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3440:3443 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3438:3439 Kernel.LandauerBound <> s1:6 var
+R3444:3445 Kernel.LandauerBound <> s2:7 var
+R3463:3465 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3450:3457 Kernel.SimulationProof <> vm_apply def
+R3459:3460 Kernel.LandauerBound <> s1:6 var
+R3462:3462 Kernel.LandauerBound <> i:5 var
+R3466:3473 Kernel.SimulationProof <> vm_apply def
+R3475:3476 Kernel.LandauerBound <> s2:7 var
+R3478:3478 Kernel.LandauerBound <> i:5 var
+prf 3546:3581 <> instr_collision_implies_irreversible
+binder 3594:3594 <> i:8
+R3618:3621 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3597:3615 Kernel.LandauerBound <> instr_has_collision def
+R3617:3617 Kernel.LandauerBound <> i:8 var
+R3622:3649 Kernel.LandauerBound <> instr_logically_irreversible def
+R3651:3651 Kernel.LandauerBound <> i:8 var
+R3874:3881 Kernel.SimulationProof <> vm_apply def
+R3884:3891 Kernel.SimulationProof <> vm_apply def
+R3874:3881 Kernel.SimulationProof <> vm_apply def
+R3884:3891 Kernel.SimulationProof <> vm_apply def
+prf 4471:4492 <> zero_cost_no_mu_change
+R4510:4516 Kernel.VMState <> VMState rec
+binder 4506:4506 <> s:9
+R4524:4537 Kernel.VMStep VMStep vm_instruction ind
+binder 4520:4520 <> i:10
+R4567:4574 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4563:4565 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4545:4560 Kernel.VMStep VMStep instruction_cost def
+R4562:4562 Kernel.LandauerBound <> i:10 var
+R4597:4599 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4591:4595 Kernel.VMState <> vm_mu proj
+R4576:4583 Kernel.SimulationProof <> vm_apply def
+R4585:4585 Kernel.LandauerBound <> s:9 var
+R4587:4587 Kernel.LandauerBound <> i:10 var
+R4603:4607 Kernel.VMState <> vm_mu proj
+R4600:4600 Kernel.LandauerBound <> s:9 var
+R4768:4780 Kernel.VMStep VMStep advance_state def
+R4783:4802 Kernel.VMStep VMStep advance_state_reveal def
+R4809:4824 Kernel.VMStep VMStep advance_state_rm def
+R4827:4836 Kernel.VMStep VMStep jump_state def
+R4839:4851 Kernel.VMStep VMStep jump_state_rm def
+R4854:4863 Kernel.VMStep VMStep apply_cost def
+prf 5442:5465 <> delta_mu_equals_cost_sum
+R5486:5488 Coq.Init.Datatypes <> nat ind
+binder 5479:5482 <> fuel:11
+R5500:5503 Coq.Init.Datatypes <> list ind
+R5505:5518 Kernel.VMStep VMStep vm_instruction ind
+binder 5492:5496 <> trace:12
+R5526:5532 Kernel.VMState <> VMState rec
+binder 5522:5522 <> s:13
+R5581:5587 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5569:5571 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R5563:5567 Kernel.VMState <> vm_mu proj
+R5541:5546 Kernel.SimulationProof <> run_vm def
+R5548:5551 Kernel.LandauerBound <> fuel:11 var
+R5553:5557 Kernel.LandauerBound <> trace:12 var
+R5559:5559 Kernel.LandauerBound <> s:13 var
+R5575:5579 Kernel.VMState <> vm_mu proj
+R5572:5572 Kernel.LandauerBound <> s:13 var
+R5588:5597 Kernel.MuLedgerConservation <> ledger_sum def
+R5600:5613 Kernel.MuLedgerConservation <> ledger_entries def
+R5615:5618 Kernel.LandauerBound <> fuel:11 var
+R5620:5624 Kernel.LandauerBound <> trace:12 var
+R5626:5626 Kernel.LandauerBound <> s:13 var
+R5674:5709 Kernel.MuLedgerConservation <> bounded_model_mu_ledger_conservation thm
+R5674:5709 Kernel.MuLedgerConservation <> bounded_model_mu_ledger_conservation thm
+prf 5827:5846 <> delta_mu_nonnegative
+R5867:5869 Coq.Init.Datatypes <> nat ind
+binder 5860:5863 <> fuel:14
+R5881:5884 Coq.Init.Datatypes <> list ind
+R5886:5899 Kernel.VMStep VMStep vm_instruction ind
+binder 5873:5877 <> trace:15
+R5907:5913 Kernel.VMState <> VMState rec
+binder 5903:5903 <> s:16
+R5930:5933 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5924:5928 Kernel.VMState <> vm_mu proj
+R5921:5921 Kernel.LandauerBound <> s:16 var
+R5957:5961 Kernel.VMState <> vm_mu proj
+R5935:5940 Kernel.SimulationProof <> run_vm def
+R5942:5945 Kernel.LandauerBound <> fuel:14 var
+R5947:5951 Kernel.LandauerBound <> trace:15 var
+R5953:5953 Kernel.LandauerBound <> s:16 var
+R6009:6044 Kernel.MuLedgerConservation <> bounded_model_mu_ledger_conservation thm
+R6009:6044 Kernel.MuLedgerConservation <> bounded_model_mu_ledger_conservation thm
+def 6804:6822 <> count_positive_cost
+R6833:6836 Coq.Init.Datatypes <> list ind
+R6838:6851 Kernel.VMStep VMStep vm_instruction ind
+binder 6825:6829 <> trace:17
+R6856:6858 Coq.Init.Datatypes <> nat ind
+R6871:6875 Kernel.LandauerBound <> trace:17 var
+R6886:6887 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6899:6902 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6915:6915 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6956:6959 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6920:6923 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R6924:6939 Kernel.VMStep VMStep instruction_cost def
+R6960:6978 Kernel.LandauerBound <> count_positive_cost:18 def
+def 7058:7073 <> total_trace_cost
+R7084:7087 Coq.Init.Datatypes <> list ind
+R7089:7102 Kernel.VMStep VMStep vm_instruction ind
+binder 7076:7080 <> trace:20
+R7107:7109 Coq.Init.Datatypes <> nat ind
+R7122:7126 Kernel.LandauerBound <> trace:20 var
+R7137:7138 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7150:7153 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7180:7182 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7162:7177 Kernel.VMStep VMStep instruction_cost def
+R7183:7198 Kernel.LandauerBound <> total_trace_cost:21 def
+prf 7323:7350 <> count_positive_le_total_cost
+R7372:7375 Coq.Init.Datatypes <> list ind
+R7377:7390 Kernel.VMStep VMStep vm_instruction ind
+binder 7364:7368 <> trace:23
+R7423:7426 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7398:7416 Kernel.LandauerBound <> count_positive_cost def
+R7418:7422 Kernel.LandauerBound <> trace:23 var
+R7427:7442 Kernel.LandauerBound <> total_trace_cost def
+R7444:7448 Kernel.LandauerBound <> trace:23 var
+R7523:7529 Coq.Arith.PeanoNat Nat ltb def
+R7534:7549 Kernel.VMStep VMStep instruction_cost def
+R7523:7529 Coq.Arith.PeanoNat Nat ltb def
+R7534:7549 Kernel.VMStep VMStep instruction_cost def
+R7576:7585 Coq.Arith.PeanoNat Nat ltb_lt thm
+R7576:7585 Coq.Arith.PeanoNat Nat ltb_lt thm
+R7612:7622 Coq.Arith.PeanoNat Nat ltb_nlt thm
+R7612:7622 Coq.Arith.PeanoNat Nat ltb_nlt thm
+R10657:10661 Coq.Reals.Reals <> <> lib
+R10663:10665 Coq.micromega.Lra <> <> lib
+prf 11473:11480 <> ln_2_pos
+R11488:11490 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R11484:11485 Coq.Reals.Rpower <> ln def
+R11514:11517 Coq.Reals.Rpower <> ln_1 thm
+R11514:11517 Coq.Reals.Rpower <> ln_1 thm
+R11514:11517 Coq.Reals.Rpower <> ln_1 thm
+R11526:11538 Coq.Reals.Rpower <> ln_increasing thm
+R11526:11538 Coq.Reals.Rpower <> ln_increasing thm
+def 11627:11649 <> landauer_energy_quantum
+R11660:11660 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 11652:11654 <> k_B:24
+binder 11656:11656 <> T:25
+R11665:11665 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R11677:11679 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R11673:11675 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R11670:11672 Kernel.LandauerBound <> k_B:24 var
+R11676:11676 Kernel.LandauerBound <> T:25 var
+R11680:11681 Coq.Reals.Rpower <> ln def
+prf 11767:11793 <> landauer_energy_quantum_pos
+R11814:11814 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 11806:11808 <> k_B:26
+binder 11810:11810 <> T:27
+R11824:11827 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11820:11822 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R11817:11819 Kernel.LandauerBound <> k_B:26 var
+R11833:11836 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11829:11831 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R11828:11828 Kernel.LandauerBound <> T:27 var
+R11866:11868 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R11837:11859 Kernel.LandauerBound <> landauer_energy_quantum def
+R11861:11863 Kernel.LandauerBound <> k_B:26 var
+R11865:11865 Kernel.LandauerBound <> T:27 var
+R11911:11933 Kernel.LandauerBound <> landauer_energy_quantum def
+R11944:11960 Coq.Reals.RIneq <> Rmult_gt_0_compat thm
+R11944:11960 Coq.Reals.RIneq <> Rmult_gt_0_compat thm
+R11973:11989 Coq.Reals.RIneq <> Rmult_gt_0_compat thm
+R11973:11989 Coq.Reals.RIneq <> Rmult_gt_0_compat thm
+R12014:12021 Kernel.LandauerBound <> ln_2_pos thm
+R12014:12021 Kernel.LandauerBound <> ln_2_pos thm
+def 12112:12121 <> mu_to_heat
+R12132:12132 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 12124:12126 <> k_B:28
+binder 12128:12128 <> T:29
+R12147:12149 Coq.Init.Datatypes <> nat ind
+binder 12136:12143 <> mu_delta:30
+R12154:12154 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R12173:12175 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R12161:12163 Coq.Reals.Raxioms <> INR def
+R12165:12172 Kernel.LandauerBound <> mu_delta:30 var
+R12176:12198 Kernel.LandauerBound <> landauer_energy_quantum def
+R12200:12202 Kernel.LandauerBound <> k_B:28 var
+R12204:12204 Kernel.LandauerBound <> T:29 var
+prf 12248:12264 <> mu_to_heat_nonneg
+R12285:12285 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 12277:12279 <> k_B:31
+binder 12281:12281 <> T:32
+R12295:12298 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12291:12293 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R12288:12290 Kernel.LandauerBound <> k_B:31 var
+R12304:12307 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12300:12302 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R12299:12299 Kernel.LandauerBound <> T:32 var
+binder 12315:12315 <> n:33
+R12336:12339 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R12318:12327 Kernel.LandauerBound <> mu_to_heat def
+R12329:12331 Kernel.LandauerBound <> k_B:31 var
+R12333:12333 Kernel.LandauerBound <> T:32 var
+R12335:12335 Kernel.LandauerBound <> n:33 var
+R12382:12391 Kernel.LandauerBound <> mu_to_heat def
+R12402:12407 Coq.Reals.RIneq <> Rle_ge thm
+R12402:12407 Coq.Reals.RIneq <> Rle_ge thm
+R12416:12427 Coq.Reals.RIneq <> Rmult_le_pos thm
+R12416:12427 Coq.Reals.RIneq <> Rmult_le_pos thm
+R12440:12446 Coq.Reals.RIneq <> pos_INR thm
+R12440:12446 Coq.Reals.RIneq <> pos_INR thm
+R12465:12491 Kernel.LandauerBound <> landauer_energy_quantum_pos thm
+R12465:12491 Kernel.LandauerBound <> landauer_energy_quantum_pos thm
+prf 12579:12597 <> mu_to_heat_monotone
+R12618:12618 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 12610:12612 <> k_B:34
+binder 12614:12614 <> T:35
+R12628:12631 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12624:12626 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R12621:12623 Kernel.LandauerBound <> k_B:34 var
+R12637:12642 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12633:12635 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R12632:12632 Kernel.LandauerBound <> T:35 var
+R12656:12658 Coq.Init.Datatypes <> nat ind
+binder 12650:12650 <> m:36
+binder 12652:12652 <> n:37
+R12673:12676 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12663:12666 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R12662:12662 Kernel.LandauerBound <> m:36 var
+R12667:12667 Kernel.LandauerBound <> n:37 var
+R12695:12698 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R12677:12686 Kernel.LandauerBound <> mu_to_heat def
+R12688:12690 Kernel.LandauerBound <> k_B:34 var
+R12692:12692 Kernel.LandauerBound <> T:35 var
+R12694:12694 Kernel.LandauerBound <> m:36 var
+R12699:12708 Kernel.LandauerBound <> mu_to_heat def
+R12710:12712 Kernel.LandauerBound <> k_B:34 var
+R12714:12714 Kernel.LandauerBound <> T:35 var
+R12716:12716 Kernel.LandauerBound <> n:37 var
+R12766:12775 Kernel.LandauerBound <> mu_to_heat def
+R12786:12802 Coq.Reals.RIneq <> Rmult_le_compat_r thm
+R12786:12802 Coq.Reals.RIneq <> Rmult_le_compat_r thm
+R12821:12847 Kernel.LandauerBound <> landauer_energy_quantum_pos thm
+R12821:12847 Kernel.LandauerBound <> landauer_energy_quantum_pos thm
+R12872:12877 Coq.Reals.RIneq <> le_INR thm
+R12872:12877 Coq.Reals.RIneq <> le_INR thm
+prf 13081:13102 <> mu_cost_landauer_bound
+R13123:13123 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 13115:13117 <> k_B:38
+binder 13119:13119 <> T:39
+R13147:13149 Coq.Init.Datatypes <> nat ind
+binder 13136:13143 <> mu_delta:40
+R13182:13184 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13157:13166 Kernel.LandauerBound <> mu_to_heat def
+R13168:13170 Kernel.LandauerBound <> k_B:38 var
+R13172:13172 Kernel.LandauerBound <> T:39 var
+R13174:13181 Kernel.LandauerBound <> mu_delta:40 var
+R13207:13209 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13203:13205 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13197:13199 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13185:13187 Coq.Reals.Raxioms <> INR def
+R13189:13196 Kernel.LandauerBound <> mu_delta:40 var
+R13200:13202 Kernel.LandauerBound <> k_B:38 var
+R13206:13206 Kernel.LandauerBound <> T:39 var
+R13210:13211 Coq.Reals.Rpower <> ln def
+R13257:13266 Kernel.LandauerBound <> mu_to_heat def
+R13269:13291 Kernel.LandauerBound <> landauer_energy_quantum def

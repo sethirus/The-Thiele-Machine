@@ -258,3 +258,9 @@ artifacts/genesis_ablation_*/
 thielecpu/hardware/*.o
 .csdp.cache
 trace
+
+# RTL cosim checkpoint JSON dumps (CHECKPOINT opcode writes state to cwd)
+/[0-9]*.json
+/checkpoint.json
+/ck.json
+/..json

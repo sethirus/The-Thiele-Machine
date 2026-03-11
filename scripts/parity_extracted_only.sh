@@ -7,11 +7,9 @@ cd "$ROOT"
 export OCAMLRUNPARAM="${OCAMLRUNPARAM:-l=64M}"
 
 PARITY_TEST_FILES=(
-  tests/test_extracted_vm_runner.py
-  tests/test_bisimulation.py
-  tests/test_bisimulation_complete.py
-  tests/test_rtl_compute_isomorphism.py
-  tests/test_property_bisimulation.py
+  tests/test_completeness_gate.py
+  tests/test_cross_layer_bisimulation.py
+  tests/test_cross_layer_adversarial_fuzz.py
 )
 
 echo "[parity] enforcing extracted-RTL-only references"
@@ -24,12 +22,8 @@ for f in "${PARITY_TEST_FILES[@]}"; do
 done
 
 echo "[parity] running extracted-only parity/equivalence suite"
-pytest -q \
-  tests/test_extracted_vm_runner.py \
-  tests/test_bisimulation.py \
-  tests/test_bisimulation_complete.py \
-  tests/test_rtl_compute_isomorphism.py \
-  tests/test_property_bisimulation.py \
-  -x --maxfail=1
+pytest -q tests/test_completeness_gate.py -k 'TestOCamlLayer or opcode_parity' -x --maxfail=1
+pytest -q tests/test_cross_layer_bisimulation.py -k 'bisim or parity' -x --maxfail=1
+pytest -q tests/test_cross_layer_adversarial_fuzz.py -x --maxfail=1
 
 echo "[parity] PASS"

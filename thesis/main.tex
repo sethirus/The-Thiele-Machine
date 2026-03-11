@@ -234,32 +234,32 @@
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{Abstract}
 
-This thesis presents the \textbf{Thiele Machine}, a formal model of computation that treats structural information as a costly resource. It was built by asking questions that couldn't be answered and pulling on threads until they led somewhere real.
+What if discovering that a problem decomposes---that variables are independent, that a graph has two components---were not free?
 
-I am not a computer scientist. I have no formal training in mathematics, physics, or programming. I'm a car salesman who taught himself to build with modern tools (including AI assistance) and stubborn curiosity. Everything here---the full Coq proof corpus, machine-checked theorems, a working VM with assembler and debugger, synthesizable hardware with FPGA bitstreams, a Coq-to-Verilog extraction pipeline through Kami---was built through persistence, not credentials. I mention this because it matters: the proofs compile or they don't. They don't care who wrote them.
+Classical computers are ``blind'' to structure. A Turing machine can only see one tape cell at a time. When you give it a sorted list, it doesn't \textit{know} it's sorted---it has to check. This blindness costs time. The \textbf{Thiele Machine} makes that cost explicit through the \textbf{$\mu$-bit}, an atomic unit of structural information cost.
 
-The core idea: classical computers are ``blind'' to structure. When you give a computer a sorted list, it doesn't \textit{know} it's sorted---it has to check. This blindness costs time. The Thiele Machine makes that cost explicit through the \textbf{$\mu$-bit}, an atomic unit of structural information cost.
+I'm a car salesman. I have no formal training in computer science, mathematics, or physics. I built this through LLM-directed development: I specify the ideas, the invariants, and the falsification conditions, then direct AI tools to implement them. The proofs compile or they don't. They don't care who wrote them.
 
-\textbf{What is proven} (in Coq, with zero admits and zero custom axioms in active code; standard library axioms only):
+\textbf{What is proven} (in Coq, zero admits, zero custom axioms; standard library only):
 \begin{itemize}
     \item \textbf{No Free Insight}: You cannot narrow the search space without paying for it. $\Delta\mu \ge \log_2(\Omega) - \log_2(\Omega')$.
     \item \textbf{$\mu$-Conservation}: The ledger grows monotonically and bounds irreversible bit operations.
     \item \textbf{Observational No-Signaling}: Operations on one module cannot affect observables of unrelated modules.
     \item \textbf{Initiality}: $\mu$ is \textit{the} unique instruction-consistent cost measure, not just one of many.
-    \item \textbf{Oracle Impossibility}: No finite oracle can resolve all $\mu$-bounded halting questions---proven in \path{coq/kernel/OracleImpossibility.v}.
-    \item \textbf{Turing Machine Reduction}: A direct Minsky-machine embedding proves Thiele subsumes Turing---\path{coq/modular_proofs/TM_to_Minsky.v}.
+    \item \textbf{Oracle Impossibility}: No finite oracle can resolve all $\mu$-bounded halting questions---\path{coq/kernel/OracleImpossibility.v}.
+    \item \textbf{Turing Subsumption}: A Minsky-machine embedding proves Thiele subsumes Turing---\path{coq/modular_proofs/TM_to_Minsky.v}.
 \end{itemize}
 
 \textbf{What is built}:
 \begin{itemize}
-    \item Coq formal kernel and extensions (319 files, 93,451 lines, zero admits, zero custom axioms)
-    \item Python reference VM with cryptographic receipts, two-pass assembler, and interactive debugger
-    \item Synthesizable Verilog RTL extracted from Coq through Kami, with ECP5 and iCE40 FPGA bitstreams
-    \item 1,012 automated test functions across 120 test files enforcing 3-layer isomorphism
+    \item Coq formal kernel (324 files, 98,778 lines, zero admits, zero custom axioms)
+    \item Python reference VM with two-pass assembler and interactive debugger
+    \item Synthesizable Verilog RTL extracted from Coq through Kami, with ECP5 FPGA bitstream
+    \item 478 automated tests across 35 test files enforcing 3-layer isomorphism
     \item Six falsifiable QM-divergent predictions (QD1--QD6) with numerical values distinguishable from standard quantum mechanics
 \end{itemize}
 
-If you can find an error, find it. Everything is open source, documented, and testable. The proofs stand or fall on their own merits.
+If you can find an error, find it. Everything is open source, documented, and testable.
 
 \vspace{1cm}
 \noindent\textbf{Keywords:} Formal Verification, Coq, Computational Complexity, Information Theory, Hardware Synthesis, Partition Logic

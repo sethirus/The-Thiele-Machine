@@ -2,7 +2,7 @@
   MinimalExtraction.v
   
   MINIMAL extraction for debugging stack overflow issue.
-  Extract ONLY what tools/extracted_vm_runner.ml actually uses.
+  Extract ONLY what build/extracted_vm_runner.ml actually uses.
 *)
 
 From Coq Require Import Extraction.

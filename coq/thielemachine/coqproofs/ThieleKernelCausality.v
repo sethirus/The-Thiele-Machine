@@ -317,6 +317,13 @@ Module ThieleKernelCausality.
       | ch_wp src_wp mu_wp
       | dst_hl addr_hl mu_hl
       | addr_hs src_hs mu_hs
+      | dst_and rs1_and rs2_and mu_and
+      | dst_or rs1_or rs2_or mu_or
+      | dst_shl rs1_shl rs2_shl mu_shl
+      | dst_shr rs1_shr rs2_shr mu_shr
+      | dst_mul rs1_mul rs2_mul mu_mul
+      | dst_lui imm_lui mu_lui
+      | delta_mu_certify
       ]; simpl in *.
     - (* pnew *)
       destruct (VMState.graph_pnew (VMState.vm_graph s) region) as [g' mid] eqn:Hpnew.
@@ -416,6 +423,20 @@ Module ThieleKernelCausality.
     - (* heap_load *)
       reflexivity.
     - (* heap_store *)
+      reflexivity.
+    - (* and *)
+      reflexivity.
+    - (* or *)
+      reflexivity.
+    - (* shl *)
+      reflexivity.
+    - (* shr *)
+      reflexivity.
+    - (* mul *)
+      reflexivity.
+    - (* lui *)
+      reflexivity.
+    - (* certify *)
       reflexivity.
   Qed.
 

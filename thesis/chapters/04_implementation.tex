@@ -57,7 +57,7 @@ In practice: take a short instruction trace, run it through the Coq-extracted in
     
     \item \textbf{Verilog (Hardware)}: A synthesizable RTL implementation targeting real FPGAs. Proves the model is physically realizable.
 \end{enumerate}
-Concretely, the formal layer lives in \texttt{coq/kernel/*.v}, the Python reference VM is implemented under \texttt{thielecpu/} (notably \path{thielecpu/state.py} and \path{thielecpu/vm.py}), and the RTL is under \texttt{thielecpu/hardware/}. Keeping the directory layout explicit matters because it tells a reader exactly where to validate each part of the story.
+Concretely, the formal layer lives in \texttt{coq/kernel/*.v}, the Python reference VM is implemented under \texttt{thielecpu/} (notably \path{thielecpu/vm.py}), and the RTL is under \texttt{thielecpu/hardware/}. Keeping the directory layout explicit matters because it tells a reader exactly where to validate each part of the story.
 
 \subsection{The Isomorphism Invariant}
 
@@ -67,7 +67,7 @@ S_{\text{Coq}}(\tau) = S_{\text{Python}}(\tau) = S_{\text{Verilog}}(\tau)
 \]
 
 This is not aspirational---it's enforced by automated tests. Any divergence is a critical bug.
-The tests compare \textit{state projections} rather than every internal variable. The projections are suite-specific: the compute gate in \path{tests/test_rtl_compute_isomorphism.py} compares registers and memory, while the partition gate in \path{tests/test_partition_isomorphism_minimal.py} compares canonicalized module regions from the partition graph. The comprehensive bridge verification happens in \path{tests/proof_three_layer_isomorphism.py}, which confirms the full contract. The extracted runner emits a full JSON snapshot (pc, $\mu$, err, regs, mem, CSRs, graph), but the RTL testbench exposes only the fields required by each gate.
+The tests compare \textit{state projections} rather than every internal variable. The projections are suite-specific: the compute gate in \path{tests/test_verilog_cosim.py} compares registers and memory, while the cross-layer bisimulation tests in \path{tests/test_cross_layer_bisimulation.py} compare canonicalized module regions from the partition graph. The extracted runner emits a full JSON snapshot (pc, $\mu$, err, regs, mem, CSRs, graph), but the RTL testbench exposes only the fields required by each gate.
 
 \subsubsection{The Isomorphism Contract (Specification)}
 
@@ -80,7 +80,7 @@ The tests compare \textit{state projections} rather than every internal variable
 
 \textbf{Outputs compared}:
 \begin{itemize}
-    \item \textbf{Compute gate}: registers[0:31], memory[0:255]
+    \item \textbf{Compute gate}: registers[0:31], memory[0:4095]
     \item \textbf{Partition gate}: canonicalized module regions (via \texttt{normalize\_region})
     \item \textbf{Full gate}: pc, $\mu$, err, regs, mem, csrs, partition graph
 \end{itemize}
@@ -132,7 +132,7 @@ The binding constraint: for any instruction sequence $\tau$, the state projectio
 The formal kernel is organized around a small set of interlocking definitions:
 \begin{itemize}
     \item \textbf{State and partition structure}: the record that defines registers, memory, the partition graph, and the $\mu$-ledger.
-    \item \textbf{Step semantics}: the 26-instruction ISA and the inductive transition rules.
+    \item \textbf{Step semantics}: the 31-instruction ISA and the inductive transition rules.
     \item \textbf{Logical certificates}: checkers for proofs and models that allow deterministic verification.
     \item \textbf{Conservation and locality}: theorems that enforce $\mu$-monotonicity and observational no-signaling.
     \item \textbf{Receipts and simulation}: trace formats and cross-layer correspondence lemmas.
@@ -150,7 +150,7 @@ The goal is not to “encode” the implementation, but to define a minimal sema
     lbl/.style={font=\scriptsize\ttfamily, anchor=west},
 ]
 % Container
-\node[draw, thick, rounded corners=2pt, minimum width=5.2cm, minimum height=5.0cm, label={[font=\footnotesize\bfseries]above:VMState Record}] (container) at (2.6,1.8) {};
+\node[draw, thick, rounded corners=2pt, minimum width=5.2cm, minimum height=5.9cm, label={[font=\footnotesize\bfseries]above:VMState Record}] (container) at (2.6,1.35) {};
 
 % Fields
 \node[field, fill=blue!12] (graph) at (0.3,3.9) {vm\_graph : PartitionGraph};
@@ -161,22 +161,24 @@ The goal is not to “encode” the implementation, but to define a minimal sema
 \node[field, fill=red!15, line width=1.2pt, draw=red!70] (mu) at (0.3,1.15) {vm\_mu : nat};
 \node[field, fill=red!8, draw=red!50] (mutensor) at (0.3,0.6) {vm\_mu\_tensor : list nat};
 \node[field, fill=gray!12] (err) at (0.3,0.05) {vm\_err : bool};
+\node[field, fill=purple!8] (logicacc) at (0.3,-0.5) {vm\_logic\_acc : nat};
+\node[field, fill=purple!8] (mstatus) at (0.3,-1.05) {vm\_mstatus : nat};
 
 % Annotations
 \node[font=\scriptsize, anchor=west] at (4.3,2.8) {32 regs};
-\node[font=\scriptsize, anchor=west] at (4.3,2.25) {256 words};
+\node[font=\scriptsize, anchor=west] at (4.3,2.25) {4096 words};
 \node[font=\scriptsize, anchor=west, red!70] at (4.3,1.15) {$\mu$-ledger};
 \node[font=\scriptsize, anchor=west, red!50] at (4.3,0.6) {4$\times$4 cost};
 
 % Data brace
 \draw[decorate, decoration={brace, amplitude=4pt}] (4.2,3.05) -- (4.2,2.0) node[midway, right=5pt, font=\scriptsize] {Data};
 \end{tikzpicture}
-\caption{VMState record: eight fields, with \texttt{vm\_mu} (the $\mu$-ledger) and \texttt{vm\_mu\_tensor} (the 4$\times$4 cost tensor) as cost accumulators.}
+\caption{VMState record: ten fields, with \texttt{vm\_mu} (the $\mu$-ledger) and \texttt{vm\_mu\_tensor} (the 4$\times$4 cost tensor) as cost accumulators.}
 \end{figure}
 
 \subsection{The VMState Record}
 
-The state is defined as a record with eight components:
+The state is defined as a record with ten components:
 \begin{lstlisting}
 Record VMState := {
   vm_graph : PartitionGraph;
@@ -186,14 +188,16 @@ Record VMState := {
   vm_pc : nat;
   vm_mu : nat;
   vm_mu_tensor : list nat;
-  vm_err : bool
+  vm_err : bool;
+  vm_logic_acc : nat;
+  vm_mstatus : nat
 }.
 \end{lstlisting}
 
 \paragraph{Understanding VMState Record:}
 
 \begin{quote}
-\textit{Author's Note (Devon): Look, I know what you're thinking. ``Eight fields? That's it?'' Yeah. That's it. Every computation this machine does boils down to shuffling values between these eight buckets. It's like a car---looks complicated under the hood, but at the end of the day it's just ``make explosions, turn wheels.'' Here it's ``move bits, track cost.''}
+\textit{Author's Note (Devon): Look, I know what you're thinking. ``Ten fields? That's it?'' Yeah. That's it. Every computation this machine does boils down to shuffling values between these ten buckets. It's like a car---looks complicated under the hood, but at the end of the day it's just ``make explosions, turn wheels.'' Here it's ``move bits, track cost.''}
 \end{quote}
 
 \textbf{This is the complete VM state} --- everything needed to simulate one step.
@@ -220,7 +224,7 @@ Record VMState := {
     \end{itemize}
     \item \textbf{vm\_mem : list nat}: Data memory
     \begin{itemize}
-        \item 256 words (configurable)
+        \item 4,096 words (configurable)
         \item Separate from instruction memory (Harvard architecture)
     \end{itemize}
     \item \textbf{vm\_pc : nat}: Program Counter
@@ -255,7 +259,7 @@ Record VMState := {
 Each component has canonical width and representation:
 \begin{itemize}
     \item \textbf{vm\_regs}: 32 registers (matching RISC-V convention)
-    \item \textbf{vm\_mem}: 256 words of data memory
+    \item \textbf{vm\_mem}: 4,096 words of data memory
     \item \textbf{vm\_pc}: Program counter (modeled as a natural in proofs; masked to a fixed width in hardware)
     \item \textbf{vm\_mu}: $\mu$-ledger accumulator (modeled as a natural; exported at fixed width in hardware)
     \item \textbf{vm\_err}: Boolean error latch
@@ -333,11 +337,11 @@ Key operations:
     \item \texttt{graph\_lookup}: Retrieve module by ID
     \item \texttt{graph\_add\_axiom}: Add logical constraint to module
 \end{itemize}
-In the Python reference VM (\path{thielecpu/state.py}), these same operations are implemented on a \texttt{RegionGraph} plus a parallel bitmask representation (\texttt{partition\_masks}) to make the RTL mapping explicit. The graph methods enforce the same disjointness and ID discipline as the Coq definitions so that the projection used for cross-layer checks is identical.
+In the Python reference VM (\path{thielecpu/vm.py}), these same operations are implemented on a \texttt{RegionGraph} plus a parallel bitmask representation (\texttt{partition\_masks}) to make the RTL mapping explicit. The graph methods enforce the same disjointness and ID discipline as the Coq definitions so that the projection used for cross-layer checks is identical.
 
 \subsection{The Step Relation}
 
-The step relation is an inductive predicate with 32 constructors covering the 26 opcodes. Several opcodes have both success and failure constructors (e.g., \texttt{step\_psplit} and \texttt{step\_psplit\_failure}), so the constructor count exceeds the opcode count. Each constructor states exact preconditions and the resulting next state:
+The step relation is an inductive predicate with 39 constructors covering the 31 opcodes. Several opcodes have both success and failure constructors (e.g., \texttt{step\_psplit} and \texttt{step\_psplit\_failure}), so the constructor count exceeds the opcode count. Each constructor states exact preconditions and the resulting next state:
 \begin{lstlisting}
 Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop := 
 | step_pnew : forall s region cost graph' mid,
@@ -398,7 +402,7 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     \item \textbf{Proof Target}: Properties are proven about this relation (safety, progress)
 \end{itemize}
 
-\textbf{32 Constructors} covering the 26 opcodes (some have success/failure variants):
+\textbf{39 Constructors} covering the 31 opcodes (some have success/failure variants):
 \begin{itemize}
     \item Partition ops: PNEW, PSPLIT, PMERGE, PDISCOVER
     \item Logic ops: LASSERT, LJOIN, REVEAL
@@ -419,8 +423,10 @@ Definition advance_state (s : VMState) (instr : vm_instruction)
      vm_mem := s.(vm_mem);
      vm_pc := s.(vm_pc) + 1;
      vm_mu := apply_cost s instr;
-     vm_mu_tensor := apply_tensor_cost s instr;
-     vm_err := err' |}.
+     vm_mu_tensor := s.(vm_mu_tensor);
+     vm_err := err';
+     vm_logic_acc := s.(vm_logic_acc);
+     vm_mstatus := s.(vm_mstatus) |}.
 \end{lstlisting}
 
 \paragraph{Understanding advance\_state:}
@@ -509,7 +515,7 @@ Extraction "../build/thiele_core.ml"
         \item \texttt{vm\_apply}, \texttt{run\_vm}: The executable step and multi-step evaluators
         \item \texttt{receipt\_mu\_consistent\_b}: Receipt integrity checker
         \item \texttt{project\_vmstate}: Three-layer isomorphism projection
-        \item Output: \path{build/thiele\_core.ml} ($\sim$3,500 lines of OCaml)
+        \item Output: \path{build/thiele\_core.ml} ($\sim$4,500 lines of OCaml)
     \end{itemize}
 \end{enumerate}
 
@@ -524,7 +530,7 @@ Extraction "../build/thiele_core.ml"
 \textbf{Performance vs. Correctness:}
 \begin{itemize}
     \item \textbf{Correct}: Extracted code is \emph{provably correct}---it matches the formal model exactly
-    \item \textbf{Peano trap}: Coq's \texttt{nat} extracts to unary arithmetic by default. Without the \texttt{Extract Constant Nat.*} overrides and the post-extraction patching script (\path{scripts/patch\_extracted\_nat.py}), expressions like \texttt{Nat.pow 2 31} would trigger $\sim$2 billion recursive calls and crash with a stack overflow
+    \item \textbf{Peano trap}: Coq's \texttt{nat} extracts to unary arithmetic by default. Without the \texttt{Extract Constant Nat.*} overrides in \path{coq/Extraction.v}, expressions like \texttt{Nat.pow 2 31} would trigger $\sim$2 billion recursive calls and crash with a stack overflow
     \item \textbf{Use Case}: Validation oracle, not production runtime
 \end{itemize}
 
@@ -532,11 +538,10 @@ Extraction "../build/thiele_core.ml"
 Extraction is not a single command---it's a reproducible pipeline managed by \path{scripts/forge\_artifact.sh}:
 \begin{enumerate}
     \item \textbf{Compile Coq}: \texttt{make -C coq Extraction.vo}
-    \item \textbf{Patch Nat module}: \texttt{python3 scripts/patch\_extracted\_nat.py build/thiele\_core.ml} --- replaces the Peano-recursive \texttt{module Nat} body in the extracted OCaml with native \texttt{int} implementations (\texttt{add = (+)}, \texttt{mul = ( * )}, \texttt{pow} via loop)
+    \item \textbf{Native overrides}: The \texttt{Extract Constant} directives in \path{coq/Extraction.v} replace Peano-recursive \texttt{Nat.*} functions with native \texttt{int} operations (\texttt{add = (+)}, \texttt{mul = ( * )}, \texttt{pow} via loop), preventing stack overflows from unary recursion at runtime
     \item \textbf{Compile runner}: \texttt{ocamlfind ocamlopt build/thiele\_core.ml tools/extracted\_vm\_runner.ml -o build/extracted\_vm\_runner}
     \item \textbf{Result}: A standalone binary that consumes instruction traces and emits JSON state snapshots
 \end{enumerate}
-The patching step exists because Coq's \texttt{Extract Constant} directives don't affect functions defined \emph{inside} the generated \texttt{module Nat = struct ... end} block---a known limitation of the extraction mechanism. The script is idempotent and regex-based, so it works across Coq versions without manual intervention.
 
 \textbf{The Three-Way Check:}
 \[
@@ -562,7 +567,7 @@ The reference VM is optimized for correctness and observability rather than perf
 The reference VM is structured around:
 \begin{itemize}
     \item \textbf{State}: a dataclass mirroring the formal record (registers, memory, CSRs, partition graph, $\mu$-ledger).
-    \item \textbf{ISA decoding}: a compact representation of the 26 opcodes.
+    \item \textbf{ISA decoding}: a compact representation of the 31 opcodes.
     \item \textbf{Partition operations}: creation, split, merge, and discovery.
     \item \textbf{Receipt generation}: cryptographic receipts for each step.
 \end{itemize}
@@ -927,9 +932,9 @@ Calling \texttt{pnew} twice with the same region returns the same ModuleID both 
 \end{itemize}
 The first branch of \texttt{pnew} demonstrates idempotent discovery: creating a module for a region that already exists returns the existing ID. Module IDs stay stable across layers, and $\mu$-cost is never paid twice.
 
-\subsection{Sandboxed Python Execution}
+\subsection{Port and Heap Operations}
 
-The \texttt{PYEXEC} instruction executes user-supplied code. With sandboxing enabled: restricted to safe builtins and an AST allowlist. With sandboxing disabled: trusted host callback. Either way, side effects are observable in the trace, and structural information revealed is charged in $\mu$.
+The ISA includes five I/O and heap instructions: \texttt{CHECKPOINT} captures a state snapshot for debugging and trace replay; \texttt{READ\_PORT} and \texttt{WRITE\_PORT} provide a channel for external communication (e.g., host callbacks or co-processor integration); and \texttt{HEAP\_LOAD} and \texttt{HEAP\_STORE} extend the flat memory model with a separate heap region. All five are low-cost operations that do not modify the $\mu$-ledger or partition graph unless their operands interact with structure-bearing state.
 
 \begin{lstlisting}
 SAFE_IMPORTS = {"math", "json", "z3"}
@@ -1892,7 +1897,7 @@ If any field differs, isomorphism test fails.
 \textit{Author's Note (Devon): The Inquisitor is my paranoia made into automation. Every time changes get pushed, it checks for admits that might have snuck in, proofs that don't compile, theorems that secretly prove nothing. It's the automated version of me at 3 AM going ``wait, did I actually prove that or just claim it?''}
 \end{quote}
 
-The Inquisitor (\path{scripts/inquisitor.py}, 3,000+ lines) is a heuristic static analysis tool that scans the Coq source tree for ``proof smells''---patterns that indicate incomplete, vacuous, or dishonest proofs. It goes far beyond simple pattern matching.
+The Inquisitor (\path{scripts/inquisitor.py}, 6,700+ lines) is a heuristic static analysis tool that scans the Coq source tree for ``proof smells''---patterns that indicate incomplete, vacuous, or dishonest proofs. It goes far beyond simple pattern matching.
 
 \textbf{What it detects} (20+ rule types across three severity levels):
 
@@ -1954,9 +1959,9 @@ The CI gate (\path{scripts/check\_inquisitor\_clean.sh}) enforces a single rule:
 
 \subsection{FPGA Targeting}
 
-The RTL can be synthesized for Xilinx 7-series FPGAs:
+The RTL can be synthesized for Lattice ECP5 FPGAs:
 \begin{lstlisting}
-$ yosys -p "read_verilog thiele_cpu_unified.v; synth_xilinx -top thiele_cpu"
+$ yosys -p "read_verilog thiele_cpu_kami.v; synth_ecp5 -top thiele_cpu"
 \end{lstlisting}
 
 \paragraph{Understanding Yosys Synthesis:}
@@ -1971,9 +1976,9 @@ $ yosys -p "read_verilog thiele_cpu_unified.v; synth_xilinx -top thiele_cpu"
         \item Parses file, builds abstract syntax tree
         \item Checks basic syntax errors
     \end{itemize}
-    \item \textbf{synth\_xilinx}: Run Xilinx-specific synthesis flow
+    \item \textbf{synth\_ecp5}: Run Lattice ECP5 synthesis flow
     \begin{itemize}
-        \item Optimizes for Xilinx 7-series primitives
+        \item Optimizes for Lattice ECP5 primitives
         \item Maps to LUTs, FFs, BRAM, DSP blocks
     \end{itemize}
     \item \textbf{-top thiele\_cpu}: Specify top-level module name
@@ -2074,7 +2079,7 @@ cd coq && make -j8
 
     \item \textbf{Run Isomorphism Tests}:
     \begin{verbatim}
-pytest tests/proof_three_layer_isomorphism.py -v
+pytest tests/test_cross_layer_bisimulation.py -v
     \end{verbatim}
     \begin{itemize}
         \item Executes same instruction traces on Coq, Python, Verilog
@@ -2084,7 +2089,7 @@ pytest tests/proof_three_layer_isomorphism.py -v
 
     \item \textbf{Simulate RTL Testbench}:
     \begin{verbatim}
-iverilog -o thiele_cpu_tb thiele_cpu_unified.v thiele_cpu_tb.v
+iverilog -o thiele_cpu_tb thiele_cpu_kami.v thiele_cpu_tb.v
 vvp thiele_cpu_tb
     \end{verbatim}
     \begin{itemize}
@@ -2095,10 +2100,10 @@ vvp thiele_cpu_tb
 
     \item \textbf{Run Full Synthesis}:
     \begin{verbatim}
-yosys -p "read_verilog thiele_cpu_unified.v; synth_xilinx -top thiele_cpu; write_json netlist.json"
+yosys -p "read_verilog thiele_cpu_kami.v; synth_ecp5 -top thiele_cpu; write_json netlist.json"
     \end{verbatim}
     \begin{itemize}
-        \item Synthesizes to Xilinx netlist
+        \item Synthesizes to ECP5 netlist
         \item Outputs JSON for inspection/analysis
     \end{itemize}
 \end{enumerate}

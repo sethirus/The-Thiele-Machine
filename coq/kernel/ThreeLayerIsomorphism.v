@@ -63,12 +63,19 @@ Lemma instruction_exhaustive : forall (i : vm_instruction),
   | instr_emit _ _ _            => True
   | instr_reveal _ _ _ _        => True
   | instr_oracle_halts _ _      => True
-  | instr_halt _                => True
   | instr_checkpoint _ _        => True
   | instr_read_port _ _ _ _ _   => True
   | instr_write_port _ _ _      => True
   | instr_heap_load _ _ _       => True
   | instr_heap_store _ _ _      => True
+  | instr_certify _             => True
+  | instr_and _ _ _ _           => True
+  | instr_or _ _ _ _            => True
+  | instr_shl _ _ _ _           => True
+  | instr_shr _ _ _ _           => True
+  | instr_mul _ _ _ _           => True
+  | instr_lui _ _ _             => True
+  | instr_halt _                => True
   end.
 Proof. destruct i; exact I. Qed.
 
@@ -313,14 +320,20 @@ Qed.
 Definition project_vmstate
   (graph : PartitionGraph) (csrs : CSRState)
   (regs : list nat) (mem : list nat)
-  (pc : nat) (mu : nat) (mu_tensor : list nat) (err : bool) : VMState :=
+  (pc : nat) (mu : nat) (mu_tensor : list nat) (err : bool)
+  (logic_acc : nat) (mstatus : nat)
+  (witness : WitnessCounts) (certified : bool) : VMState :=
   {| vm_graph := graph; vm_csrs := csrs; vm_regs := regs;
-     vm_mem := mem; vm_pc := pc; vm_mu := mu; vm_mu_tensor := mu_tensor; vm_err := err |}.
+     vm_mem := mem; vm_pc := pc; vm_mu := mu; vm_mu_tensor := mu_tensor;
+     vm_err := err; vm_logic_acc := logic_acc; vm_mstatus := mstatus;
+     vm_witness := witness; vm_certified := certified |}.
 
 (** Record eta: projecting and reconstructing a VMState yields identity. *)
 Lemma vmstate_eta : forall s : VMState,
   project_vmstate s.(vm_graph) s.(vm_csrs) s.(vm_regs) s.(vm_mem)
-    s.(vm_pc) s.(vm_mu) s.(vm_mu_tensor) s.(vm_err) = s.
+    s.(vm_pc) s.(vm_mu) s.(vm_mu_tensor) s.(vm_err)
+    s.(vm_logic_acc) s.(vm_mstatus)
+    s.(vm_witness) s.(vm_certified) = s.
 Proof. destruct s. reflexivity. Qed.
 
 (** Predicate for instructions that don't modify memory *)
@@ -335,7 +348,7 @@ Definition preserves_memory (instr : vm_instruction) : bool :=
     The STORE instruction modifies memory by design, so a universal memory
     preservation theorem would need per-instruction predicates. *)
 
-(** A FullWireSpec extends WireSpec with ALL seven state observables.
+(** A FullWireSpec extends WireSpec with the full current VMState observables.
     The single proof obligation says: the output of every state component
     must match vm_apply of the projected input. Any implementation that
     satisfies this is provably bisimilar to the Coq kernel on ALL state. *)
@@ -344,7 +357,7 @@ Record FullWireSpec := {
   fws_state : Type;
   fws_step  : fws_state -> vm_instruction -> fws_state;
 
-  (** Seven observable projections — one for each VMState field *)
+  (** Observable projections — one for each VMState field used here. *)
   fws_graph : fws_state -> PartitionGraph;
   fws_csrs  : fws_state -> CSRState;
   fws_regs  : fws_state -> list nat;
@@ -353,12 +366,18 @@ Record FullWireSpec := {
   fws_mu    : fws_state -> nat;
   fws_mu_tensor : fws_state -> list nat;  (* Flattened 4×4 μ-tensor *)
   fws_err   : fws_state -> bool;
+  fws_logic_acc : fws_state -> nat;
+  fws_mstatus : fws_state -> nat;
+  fws_witness : fws_state -> WitnessCounts;
+  fws_certified : fws_state -> bool;
 
   (** Core correctness: all output observables match vm_apply of projected input.
       This is the SINGLE axiom that implementations must satisfy. *)
   fws_step_correct : forall s i,
     let input := project_vmstate (fws_graph s) (fws_csrs s) (fws_regs s)
-                   (fws_mem s) (fws_pc s) (fws_mu s) (fws_mu_tensor s) (fws_err s) in
+                   (fws_mem s) (fws_pc s) (fws_mu s) (fws_mu_tensor s) (fws_err s)
+                   (fws_logic_acc s) (fws_mstatus s)
+                   (fws_witness s) (fws_certified s) in
     let output := vm_apply input i in
     fws_graph (fws_step s i) = vm_graph output /\
     fws_csrs  (fws_step s i) = vm_csrs output /\
@@ -367,13 +386,19 @@ Record FullWireSpec := {
     fws_pc    (fws_step s i) = vm_pc output /\
     fws_mu    (fws_step s i) = vm_mu output /\
     fws_mu_tensor (fws_step s i) = vm_mu_tensor output /\
-    fws_err   (fws_step s i) = vm_err output
+    fws_err   (fws_step s i) = vm_err output /\
+    fws_logic_acc (fws_step s i) = vm_logic_acc output /\
+    fws_mstatus (fws_step s i) = vm_mstatus output /\
+    fws_witness (fws_step s i) = vm_witness output /\
+    fws_certified (fws_step s i) = vm_certified output
 }.
 
 (** The Coq kernel trivially satisfies FullWireSpec. *)
 Lemma coq_full_step_correct : forall (s : VMState) (i : vm_instruction),
   let input := project_vmstate (vm_graph s) (vm_csrs s) (vm_regs s)
-                 (vm_mem s) (vm_pc s) (vm_mu s) (vm_mu_tensor s) (vm_err s) in
+                 (vm_mem s) (vm_pc s) (vm_mu s) (vm_mu_tensor s) (vm_err s)
+                 (vm_logic_acc s) (vm_mstatus s)
+                 (vm_witness s) (vm_certified s) in
   let output := vm_apply input i in
   vm_graph (vm_apply s i) = vm_graph output /\
   vm_csrs  (vm_apply s i) = vm_csrs output /\
@@ -382,7 +407,11 @@ Lemma coq_full_step_correct : forall (s : VMState) (i : vm_instruction),
   vm_pc    (vm_apply s i) = vm_pc output /\
   vm_mu    (vm_apply s i) = vm_mu output /\
   vm_mu_tensor (vm_apply s i) = vm_mu_tensor output /\
-  vm_err   (vm_apply s i) = vm_err output.
+  vm_err   (vm_apply s i) = vm_err output /\
+  vm_logic_acc (vm_apply s i) = vm_logic_acc output /\
+  vm_mstatus (vm_apply s i) = vm_mstatus output /\
+  vm_witness (vm_apply s i) = vm_witness output /\
+  vm_certified (vm_apply s i) = vm_certified output.
 Proof.
   intros s i. cbv zeta.
   rewrite vmstate_eta.
@@ -400,6 +429,10 @@ Definition coq_full_wire_spec : FullWireSpec := {|
   fws_mu    := vm_mu;
   fws_mu_tensor := vm_mu_tensor;
   fws_err   := vm_err;
+  fws_logic_acc := vm_logic_acc;
+  fws_mstatus := vm_mstatus;
+  fws_witness := vm_witness;
+  fws_certified := vm_certified;
   fws_step_correct := coq_full_step_correct
 |}.
 
@@ -408,11 +441,12 @@ Definition coq_full_wire_spec : FullWireSpec := {|
 (* ================================================================== *)
 
 (** Single-step full-state bisimulation: if two FullWireSpec implementations
-    agree on ALL seven observables, they agree on ALL seven observables
+  agree on all projected observables, they agree on those observables
     after executing the SAME instruction.
 
     This is the strongest possible bisimulation guarantee:
-    not just μ and PC, but registers, memory, graph, CSRs, error flag.
+    not just μ and PC, but registers, memory, graph, CSRs, error flag,
+    logic accumulator, and machine status.
 
     Proof strategy: Both specs' fws_step_correct tie their outputs to
     vm_apply of the projected input. Since the projected inputs are
@@ -431,6 +465,10 @@ Theorem full_state_single_step_bisimulation :
   fws_mu    spec1 s1 = fws_mu    spec2 s2 ->
   fws_mu_tensor spec1 s1 = fws_mu_tensor spec2 s2 ->
   fws_err   spec1 s1 = fws_err   spec2 s2 ->
+  fws_logic_acc spec1 s1 = fws_logic_acc spec2 s2 ->
+  fws_mstatus spec1 s1 = fws_mstatus spec2 s2 ->
+  fws_witness spec1 s1 = fws_witness spec2 s2 ->
+  fws_certified spec1 s1 = fws_certified spec2 s2 ->
   fws_graph spec1 (fws_step spec1 s1 i) = fws_graph spec2 (fws_step spec2 s2 i) /\
   fws_csrs  spec1 (fws_step spec1 s1 i) = fws_csrs  spec2 (fws_step spec2 s2 i) /\
   fws_regs  spec1 (fws_step spec1 s1 i) = fws_regs  spec2 (fws_step spec2 s2 i) /\
@@ -438,21 +476,29 @@ Theorem full_state_single_step_bisimulation :
   fws_pc    spec1 (fws_step spec1 s1 i) = fws_pc    spec2 (fws_step spec2 s2 i) /\
   fws_mu    spec1 (fws_step spec1 s1 i) = fws_mu    spec2 (fws_step spec2 s2 i) /\
   fws_mu_tensor spec1 (fws_step spec1 s1 i) = fws_mu_tensor spec2 (fws_step spec2 s2 i) /\
-  fws_err   spec1 (fws_step spec1 s1 i) = fws_err   spec2 (fws_step spec2 s2 i).
+  fws_err   spec1 (fws_step spec1 s1 i) = fws_err   spec2 (fws_step spec2 s2 i) /\
+  fws_logic_acc spec1 (fws_step spec1 s1 i) = fws_logic_acc spec2 (fws_step spec2 s2 i) /\
+  fws_mstatus spec1 (fws_step spec1 s1 i) = fws_mstatus spec2 (fws_step spec2 s2 i) /\
+  fws_witness spec1 (fws_step spec1 s1 i) = fws_witness spec2 (fws_step spec2 s2 i) /\
+  fws_certified spec1 (fws_step spec1 s1 i) = fws_certified spec2 (fws_step spec2 s2 i).
 Proof.
-  intros spec1 spec2 s1 s2 i Hg Hc Hr Hm Hp Hmu Hmutensor He.
+  intros spec1 spec2 s1 s2 i Hg Hc Hr Hm Hp Hmu Hmutensor He Hlogic Hms Hwitness Hcertified.
   pose proof (fws_step_correct spec1 s1 i) as HS1. cbv zeta in HS1.
   pose proof (fws_step_correct spec2 s2 i) as HS2. cbv zeta in HS2.
-  destruct HS1 as (H1g & H1c & H1r & H1m & H1p & H1mu & H1mutensor & H1e).
-  destruct HS2 as (H2g & H2c & H2r & H2m & H2p & H2mu & H2mutensor & H2e).
+  destruct HS1 as (H1g & H1c & H1r & H1m & H1p & H1mu & H1mutensor & H1e & H1logic & H1ms & H1witness & H1certified).
+  destruct HS2 as (H2g & H2c & H2r & H2m & H2p & H2mu & H2mutensor & H2e & H2logic & H2ms & H2witness & H2certified).
   assert (HI : project_vmstate (fws_graph spec1 s1) (fws_csrs spec1 s1)
     (fws_regs spec1 s1) (fws_mem spec1 s1) (fws_pc spec1 s1)
-    (fws_mu spec1 s1) (fws_mu_tensor spec1 s1) (fws_err spec1 s1) =
+    (fws_mu spec1 s1) (fws_mu_tensor spec1 s1) (fws_err spec1 s1)
+    (fws_logic_acc spec1 s1) (fws_mstatus spec1 s1)
+    (fws_witness spec1 s1) (fws_certified spec1 s1) =
     project_vmstate (fws_graph spec2 s2) (fws_csrs spec2 s2)
     (fws_regs spec2 s2) (fws_mem spec2 s2) (fws_pc spec2 s2)
-    (fws_mu spec2 s2) (fws_mu_tensor spec2 s2) (fws_err spec2 s2)).
-  { unfold project_vmstate. rewrite Hg, Hc, Hr, Hm, Hp, Hmu, Hmutensor, He. reflexivity. }
-  rewrite HI in H1g, H1c, H1r, H1m, H1p, H1mu, H1mutensor, H1e.
+    (fws_mu spec2 s2) (fws_mu_tensor spec2 s2) (fws_err spec2 s2)
+    (fws_logic_acc spec2 s2) (fws_mstatus spec2 s2)
+    (fws_witness spec2 s2) (fws_certified spec2 s2)).
+  { unfold project_vmstate. rewrite Hg, Hc, Hr, Hm, Hp, Hmu, Hmutensor, He, Hlogic, Hms, Hwitness, Hcertified. reflexivity. }
+  rewrite HI in H1g, H1c, H1r, H1m, H1p, H1mu, H1mutensor, H1e, H1logic, H1ms, H1witness, H1certified.
   repeat split; congruence.
 Qed.
 
@@ -465,9 +511,9 @@ Fixpoint run_fws (spec : FullWireSpec) (instrs : list vm_instruction)
   end.
 
 (** Full-state trace bisimulation: if two FullWireSpec implementations
-    agree on ALL observables initially, they agree on ALL observables
+  agree on all projected observables initially, they agree on those observables
     after executing ANY instruction trace. This extends the three_layer_bisimulation
-    from μ/PC only to the COMPLETE seven-field VMState.
+  from μ/PC only to the complete projected VMState.
 
     Proof: By induction on the instruction list, applying
     full_state_single_step_bisimulation at each step. *)
@@ -484,6 +530,10 @@ Theorem full_state_trace_bisimulation :
   fws_mu    spec1 s1 = fws_mu    spec2 s2 ->
   fws_mu_tensor spec1 s1 = fws_mu_tensor spec2 s2 ->
   fws_err   spec1 s1 = fws_err   spec2 s2 ->
+  fws_logic_acc spec1 s1 = fws_logic_acc spec2 s2 ->
+  fws_mstatus spec1 s1 = fws_mstatus spec2 s2 ->
+  fws_witness spec1 s1 = fws_witness spec2 s2 ->
+  fws_certified spec1 s1 = fws_certified spec2 s2 ->
   fws_graph spec1 (run_fws spec1 instrs s1) = fws_graph spec2 (run_fws spec2 instrs s2) /\
   fws_csrs  spec1 (run_fws spec1 instrs s1) = fws_csrs  spec2 (run_fws spec2 instrs s2) /\
   fws_regs  spec1 (run_fws spec1 instrs s1) = fws_regs  spec2 (run_fws spec2 instrs s2) /\
@@ -491,20 +541,24 @@ Theorem full_state_trace_bisimulation :
   fws_pc    spec1 (run_fws spec1 instrs s1) = fws_pc    spec2 (run_fws spec2 instrs s2) /\
   fws_mu    spec1 (run_fws spec1 instrs s1) = fws_mu    spec2 (run_fws spec2 instrs s2) /\
   fws_mu_tensor spec1 (run_fws spec1 instrs s1) = fws_mu_tensor spec2 (run_fws spec2 instrs s2) /\
-  fws_err   spec1 (run_fws spec1 instrs s1) = fws_err   spec2 (run_fws spec2 instrs s2).
+  fws_err   spec1 (run_fws spec1 instrs s1) = fws_err   spec2 (run_fws spec2 instrs s2) /\
+  fws_logic_acc spec1 (run_fws spec1 instrs s1) = fws_logic_acc spec2 (run_fws spec2 instrs s2) /\
+  fws_mstatus spec1 (run_fws spec1 instrs s1) = fws_mstatus spec2 (run_fws spec2 instrs s2) /\
+  fws_witness spec1 (run_fws spec1 instrs s1) = fws_witness spec2 (run_fws spec2 instrs s2) /\
+  fws_certified spec1 (run_fws spec1 instrs s1) = fws_certified spec2 (run_fws spec2 instrs s2).
 Proof.
   intros spec1 spec2 s1 s2 instrs.
   revert s1 s2.
-  induction instrs as [| i rest IH]; intros s1 s2 Hg Hc Hr Hm Hp Hmu Hmutensor He.
+  induction instrs as [| i rest IH]; intros s1 s2 Hg Hc Hr Hm Hp Hmu Hmutensor He Hlogic Hms Hwitness Hcertified.
   - simpl. repeat split; assumption.
   - simpl.
     pose proof (full_state_single_step_bisimulation
-                  spec1 spec2 s1 s2 i Hg Hc Hr Hm Hp Hmu Hmutensor He)
-      as (Sg & Sc & Sr & Sm & Sp & Smu & Smut & Se).
-    exact (IH _ _ Sg Sc Sr Sm Sp Smu Smut Se).
+                  spec1 spec2 s1 s2 i Hg Hc Hr Hm Hp Hmu Hmutensor He Hlogic Hms Hwitness Hcertified)
+      as (Sg & Sc & Sr & Sm & Sp & Smu & Smut & Se & Slogic & Sms & Switness & Scertified).
+    exact (IH _ _ Sg Sc Sr Sm Sp Smu Smut Se Slogic Sms Switness Scertified).
 Qed.
 
-(** Corollary: Coq kernel is fully bisimilar (all 7 fields) to any
+(** Corollary: Coq kernel is fully bisimilar on the projected state to any
     conforming implementation. *)
 Corollary coq_full_bisimilar_to_any :
   forall (impl : FullWireSpec)
@@ -518,6 +572,10 @@ Corollary coq_full_bisimilar_to_any :
   vm_mu    s_coq = fws_mu    impl s_impl ->
   vm_mu_tensor s_coq = fws_mu_tensor impl s_impl ->
   vm_err   s_coq = fws_err   impl s_impl ->
+  vm_logic_acc s_coq = fws_logic_acc impl s_impl ->
+  vm_mstatus s_coq = fws_mstatus impl s_impl ->
+  vm_witness s_coq = fws_witness impl s_impl ->
+  vm_certified s_coq = fws_certified impl s_impl ->
   vm_regs  (run_fws coq_full_wire_spec instrs s_coq) =
     fws_regs impl (run_fws impl instrs s_impl) /\
   vm_mem   (run_fws coq_full_wire_spec instrs s_coq) =
@@ -529,11 +587,16 @@ Corollary coq_full_bisimilar_to_any :
   vm_err   (run_fws coq_full_wire_spec instrs s_coq) =
     fws_err  impl (run_fws impl instrs s_impl) /\
   vm_pc    (run_fws coq_full_wire_spec instrs s_coq) =
-    fws_pc   impl (run_fws impl instrs s_impl).
+    fws_pc   impl (run_fws impl instrs s_impl) /\
+  vm_witness (run_fws coq_full_wire_spec instrs s_coq) =
+    fws_witness impl (run_fws impl instrs s_impl) /\
+  vm_certified (run_fws coq_full_wire_spec instrs s_coq) =
+    fws_certified impl (run_fws impl instrs s_impl).
 Proof.
-  intros impl s_coq s_impl instrs Hg Hc Hr Hm Hp Hmu Hmutensor He.
+  intros impl s_coq s_impl instrs Hg Hc Hr Hm Hp Hmu Hmutensor He Hlogic Hms Hwitness Hcertified.
   pose proof (full_state_trace_bisimulation
     coq_full_wire_spec impl s_coq s_impl instrs
-    Hg Hc Hr Hm Hp Hmu Hmutensor He) as (Fg & Fc & Fr & Fm & Fp & Fmu & Fmut & Fe).
+    Hg Hc Hr Hm Hp Hmu Hmutensor He Hlogic Hms Hwitness Hcertified)
+    as (Fg & Fc & Fr & Fm & Fp & Fmu & Fmut & Fe & Flogic & Fms & Fwitness & Fcertified).
   repeat split; assumption.
 Qed.

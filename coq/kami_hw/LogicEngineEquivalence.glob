@@ -1,0 +1,649 @@
+DIGEST d7061a2f92db33703b97907405692df5
+FKamiHW.LogicEngineEquivalence
+R1102:1115 Coq.Arith.PeanoNat <> <> lib
+R1117:1119 Coq.micromega.Lia <> <> lib
+R1121:1124 Coq.Bool.Bool <> <> lib
+R1126:1139 Coq.Strings.String <> <> lib
+R1169:1175 Kernel.VMState <> <> lib
+R1177:1182 Kernel.VMStep <> <> lib
+R1212:1222 Kernel.MuCostModel <> <> lib
+R1252:1262 KamiHW.Abstraction <> <> lib
+R1264:1280 KamiHW.VerilogRefinement <> <> lib
+R1291:1303 Kernel.VMStep VMStep <> mod
+rec 1513:1529 <> LogicOracleResult
+proj 1538:1549 <> oracle_error
+proj 1561:1572 <> oracle_value
+R1553:1556 Coq.Init.Datatypes <> bool ind
+R1576:1578 Coq.Init.Datatypes <> nat ind
+def 1678:1691 <> lassert_oracle
+R1702:1705 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1696:1701 Coq.Strings.String <> string ind
+R1725:1728 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1706:1724 Kernel.VMStep VMStep lassert_certificate ind
+R1729:1745 KamiHW.LogicEngineEquivalence <> LogicOracleResult rec
+def 1839:1850 <> ljoin_oracle
+R1861:1864 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1855:1860 Coq.Strings.String <> string ind
+R1871:1874 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1865:1870 Coq.Strings.String <> string ind
+R1875:1891 KamiHW.LogicEngineEquivalence <> LogicOracleResult rec
+def 2265:2286 <> lassert_oracle_correct
+R2294:2307 KamiHW.LogicEngineEquivalence <> lassert_oracle def
+binder 2289:2290 <> lo:4
+binder 2329:2335 <> formula:5
+binder 2337:2340 <> cert:6
+R2353:2356 KamiHW.LogicEngineEquivalence <> cert:6 var
+R2369:2384 Kernel.VMStep VMStep lassert_cert_sat constr
+R2433:2435 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2403:2414 KamiHW.LogicEngineEquivalence <> oracle_error proj
+R2417:2418 KamiHW.LogicEngineEquivalence <> lo:4 var
+R2420:2426 KamiHW.LogicEngineEquivalence <> formula:5 var
+R2428:2431 KamiHW.LogicEngineEquivalence <> cert:6 var
+R2436:2439 Coq.Init.Datatypes <> negb def
+R2442:2452 Kernel.VMStep VMStep check_model def
+R2454:2460 KamiHW.LogicEngineEquivalence <> formula:5 var
+R2475:2492 Kernel.VMStep VMStep lassert_cert_unsat constr
+R2541:2543 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2511:2522 KamiHW.LogicEngineEquivalence <> oracle_error proj
+R2525:2526 KamiHW.LogicEngineEquivalence <> lo:4 var
+R2528:2534 KamiHW.LogicEngineEquivalence <> formula:5 var
+R2536:2539 KamiHW.LogicEngineEquivalence <> cert:6 var
+R2544:2547 Coq.Init.Datatypes <> negb def
+R2550:2559 Kernel.VMStep VMStep check_lrat def
+R2561:2567 KamiHW.LogicEngineEquivalence <> formula:5 var
+def 2597:2616 <> ljoin_oracle_correct
+R2624:2635 KamiHW.LogicEngineEquivalence <> ljoin_oracle def
+binder 2619:2620 <> jo:8
+binder 2657:2661 <> cert1:9
+binder 2663:2667 <> cert2:10
+R2703:2705 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2674:2685 KamiHW.LogicEngineEquivalence <> oracle_error proj
+R2688:2689 KamiHW.LogicEngineEquivalence <> jo:8 var
+R2691:2695 KamiHW.LogicEngineEquivalence <> cert1:9 var
+R2697:2701 KamiHW.LogicEngineEquivalence <> cert2:10 var
+R2706:2709 Coq.Init.Datatypes <> negb def
+R2712:2721 Coq.Strings.String <> eqb def
+R2723:2727 KamiHW.LogicEngineEquivalence <> cert1:9 var
+R2729:2733 KamiHW.LogicEngineEquivalence <> cert2:10 var
+def 3419:3438 <> lassert_expected_err
+R3445:3451 Kernel.VMState <> VMState rec
+binder 3441:3441 <> s:11
+R3462:3480 Kernel.VMStep VMStep lassert_certificate ind
+binder 3455:3458 <> cert:12
+R3498:3503 Coq.Strings.String <> string ind
+binder 3488:3494 <> formula:13
+R3508:3511 Coq.Init.Datatypes <> bool ind
+R3524:3527 KamiHW.LogicEngineEquivalence <> cert:12 var
+R3538:3553 Kernel.VMStep VMStep lassert_cert_sat constr
+R3573:3583 Kernel.VMStep VMStep check_model def
+R3585:3591 KamiHW.LogicEngineEquivalence <> formula:13 var
+R3618:3621 Coq.Init.Datatypes <> true constr
+R3604:3609 Kernel.VMState <> vm_err proj
+R3611:3611 KamiHW.LogicEngineEquivalence <> s:11 var
+R3627:3644 Kernel.VMStep VMStep lassert_cert_unsat constr
+R3651:3654 Coq.Init.Datatypes <> true constr
+def 3738:3755 <> ljoin_expected_err
+R3762:3768 Kernel.VMState <> VMState rec
+binder 3758:3758 <> s:15
+R3786:3791 Coq.Strings.String <> string ind
+binder 3772:3776 <> cert1:16
+binder 3778:3782 <> cert2:17
+R3796:3799 Coq.Init.Datatypes <> bool ind
+R3809:3818 Coq.Strings.String <> eqb def
+R3820:3824 KamiHW.LogicEngineEquivalence <> cert1:16 var
+R3826:3830 KamiHW.LogicEngineEquivalence <> cert2:17 var
+R3851:3854 Coq.Init.Datatypes <> true constr
+R3837:3842 Kernel.VMState <> vm_err proj
+R3844:3844 KamiHW.LogicEngineEquivalence <> s:15 var
+prf 4086:4108 <> lassert_kami_step_pc_mu
+R4127:4138 KamiHW.Abstraction <> KamiSnapshot rec
+binder 4122:4123 <> hs:18
+R4151:4158 Kernel.VMState <> ModuleID def
+binder 4142:4147 <> module:19
+R4172:4177 Coq.Strings.String <> string ind
+binder 4162:4168 <> formula:20
+R4197:4215 Kernel.VMStep VMStep lassert_certificate ind
+binder 4190:4193 <> cert:21
+R4226:4228 Coq.Init.Datatypes <> nat ind
+binder 4219:4222 <> cost:22
+R4316:4323 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4299:4301 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4236:4242 KamiHW.Abstraction <> snap_pc proj
+R4245:4253 KamiHW.Abstraction <> kami_step def
+R4255:4256 KamiHW.LogicEngineEquivalence <> hs:18 var
+R4259:4271 Kernel.VMStep VMStep instr_lassert constr
+R4273:4278 KamiHW.LogicEngineEquivalence <> module:19 var
+R4280:4286 KamiHW.LogicEngineEquivalence <> formula:20 var
+R4288:4291 KamiHW.LogicEngineEquivalence <> cert:21 var
+R4293:4296 KamiHW.LogicEngineEquivalence <> cost:22 var
+R4302:4302 Coq.Init.Datatypes <> S constr
+R4305:4311 KamiHW.Abstraction <> snap_pc proj
+R4313:4314 KamiHW.LogicEngineEquivalence <> hs:18 var
+R4387:4389 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4324:4330 KamiHW.Abstraction <> snap_mu proj
+R4333:4341 KamiHW.Abstraction <> kami_step def
+R4343:4344 KamiHW.LogicEngineEquivalence <> hs:18 var
+R4347:4359 Kernel.VMStep VMStep instr_lassert constr
+R4361:4366 KamiHW.LogicEngineEquivalence <> module:19 var
+R4368:4374 KamiHW.LogicEngineEquivalence <> formula:20 var
+R4376:4379 KamiHW.LogicEngineEquivalence <> cert:21 var
+R4381:4384 KamiHW.LogicEngineEquivalence <> cost:22 var
+R4400:4402 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4390:4396 KamiHW.Abstraction <> snap_mu proj
+R4398:4399 KamiHW.LogicEngineEquivalence <> hs:18 var
+R4403:4406 KamiHW.LogicEngineEquivalence <> cost:22 var
+R4433:4441 KamiHW.Abstraction <> kami_step def
+R4444:4463 KamiHW.Abstraction <> kami_advance_default def
+prf 4519:4539 <> ljoin_kami_step_pc_mu
+R4558:4569 KamiHW.Abstraction <> KamiSnapshot rec
+binder 4553:4554 <> hs:23
+R4587:4592 Coq.Strings.String <> string ind
+binder 4573:4577 <> cert1:24
+binder 4579:4583 <> cert2:25
+R4603:4605 Coq.Init.Datatypes <> nat ind
+binder 4596:4599 <> cost:26
+R4683:4690 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4666:4668 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4613:4619 KamiHW.Abstraction <> snap_pc proj
+R4622:4630 KamiHW.Abstraction <> kami_step def
+R4632:4633 KamiHW.LogicEngineEquivalence <> hs:23 var
+R4636:4646 Kernel.VMStep VMStep instr_ljoin constr
+R4648:4652 KamiHW.LogicEngineEquivalence <> cert1:24 var
+R4654:4658 KamiHW.LogicEngineEquivalence <> cert2:25 var
+R4660:4663 KamiHW.LogicEngineEquivalence <> cost:26 var
+R4669:4669 Coq.Init.Datatypes <> S constr
+R4672:4678 KamiHW.Abstraction <> snap_pc proj
+R4680:4681 KamiHW.LogicEngineEquivalence <> hs:23 var
+R4744:4746 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4691:4697 KamiHW.Abstraction <> snap_mu proj
+R4700:4708 KamiHW.Abstraction <> kami_step def
+R4710:4711 KamiHW.LogicEngineEquivalence <> hs:23 var
+R4714:4724 Kernel.VMStep VMStep instr_ljoin constr
+R4726:4730 KamiHW.LogicEngineEquivalence <> cert1:24 var
+R4732:4736 KamiHW.LogicEngineEquivalence <> cert2:25 var
+R4738:4741 KamiHW.LogicEngineEquivalence <> cost:26 var
+R4757:4759 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4747:4753 KamiHW.Abstraction <> snap_mu proj
+R4755:4756 KamiHW.LogicEngineEquivalence <> hs:23 var
+R4760:4763 KamiHW.LogicEngineEquivalence <> cost:26 var
+R4790:4798 KamiHW.Abstraction <> kami_step def
+R4801:4820 KamiHW.Abstraction <> kami_advance_default def
+prf 4876:4896 <> lassert_vm_step_pc_mu
+R4919:4925 Kernel.VMState <> VMState rec
+binder 4910:4911 <> vs:27
+binder 4913:4915 <> vs':28
+R4938:4945 Kernel.VMState <> ModuleID def
+binder 4929:4934 <> module:29
+R4959:4964 Coq.Strings.String <> string ind
+binder 4949:4955 <> formula:30
+R4984:5002 Kernel.VMStep VMStep lassert_certificate ind
+binder 4977:4980 <> cert:31
+R5013:5015 Coq.Init.Datatypes <> nat ind
+binder 5006:5009 <> cost:32
+R5078:5085 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5023:5029 Kernel.VMStep VMStep vm_step ind
+R5031:5032 KamiHW.LogicEngineEquivalence <> vs:27 var
+R5035:5047 Kernel.VMStep VMStep instr_lassert constr
+R5049:5054 KamiHW.LogicEngineEquivalence <> module:29 var
+R5056:5062 KamiHW.LogicEngineEquivalence <> formula:30 var
+R5064:5067 KamiHW.LogicEngineEquivalence <> cert:31 var
+R5069:5072 KamiHW.LogicEngineEquivalence <> cost:32 var
+R5075:5077 KamiHW.LogicEngineEquivalence <> vs':28 var
+R5110:5117 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5095:5097 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5086:5090 Kernel.VMState <> vm_pc proj
+R5092:5094 KamiHW.LogicEngineEquivalence <> vs':28 var
+R5098:5098 Coq.Init.Datatypes <> S constr
+R5101:5105 Kernel.VMState <> vm_pc proj
+R5107:5108 KamiHW.LogicEngineEquivalence <> vs:27 var
+R5127:5129 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5118:5122 Kernel.VMState <> vm_mu proj
+R5124:5126 KamiHW.LogicEngineEquivalence <> vs':28 var
+R5138:5140 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5130:5134 Kernel.VMState <> vm_mu proj
+R5136:5137 KamiHW.LogicEngineEquivalence <> vs:27 var
+R5141:5144 KamiHW.LogicEngineEquivalence <> cost:32 var
+R5235:5247 Kernel.VMStep VMStep advance_state def
+R5250:5259 Kernel.VMStep VMStep apply_cost def
+prf 5315:5333 <> ljoin_vm_step_pc_mu
+R5356:5362 Kernel.VMState <> VMState rec
+binder 5347:5348 <> vs:33
+binder 5350:5352 <> vs':34
+R5380:5385 Coq.Strings.String <> string ind
+binder 5366:5370 <> cert1:35
+binder 5372:5376 <> cert2:36
+R5396:5398 Coq.Init.Datatypes <> nat ind
+binder 5389:5392 <> cost:37
+R5451:5458 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5406:5412 Kernel.VMStep VMStep vm_step ind
+R5414:5415 KamiHW.LogicEngineEquivalence <> vs:33 var
+R5418:5428 Kernel.VMStep VMStep instr_ljoin constr
+R5430:5434 KamiHW.LogicEngineEquivalence <> cert1:35 var
+R5436:5440 KamiHW.LogicEngineEquivalence <> cert2:36 var
+R5442:5445 KamiHW.LogicEngineEquivalence <> cost:37 var
+R5448:5450 KamiHW.LogicEngineEquivalence <> vs':34 var
+R5483:5490 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5468:5470 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5459:5463 Kernel.VMState <> vm_pc proj
+R5465:5467 KamiHW.LogicEngineEquivalence <> vs':34 var
+R5471:5471 Coq.Init.Datatypes <> S constr
+R5474:5478 Kernel.VMState <> vm_pc proj
+R5480:5481 KamiHW.LogicEngineEquivalence <> vs:33 var
+R5500:5502 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5491:5495 Kernel.VMState <> vm_mu proj
+R5497:5499 KamiHW.LogicEngineEquivalence <> vs':34 var
+R5511:5513 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5503:5507 Kernel.VMState <> vm_mu proj
+R5509:5510 KamiHW.LogicEngineEquivalence <> vs:33 var
+R5514:5517 KamiHW.LogicEngineEquivalence <> cost:37 var
+R5600:5612 Kernel.VMStep VMStep advance_state def
+R5615:5624 Kernel.VMStep VMStep apply_cost def
+prf 5783:5807 <> lassert_pc_mu_commutation
+R5826:5837 KamiHW.Abstraction <> KamiSnapshot rec
+binder 5821:5822 <> hs:38
+R5850:5856 Kernel.VMState <> VMState rec
+binder 5841:5842 <> vs:39
+binder 5844:5846 <> vs':40
+R5869:5876 Kernel.VMState <> ModuleID def
+binder 5860:5865 <> module:41
+R5899:5904 Coq.Strings.String <> string ind
+binder 5889:5895 <> formula:42
+R5915:5933 Kernel.VMStep VMStep lassert_certificate ind
+binder 5908:5911 <> cert:43
+R5944:5946 Coq.Init.Datatypes <> nat ind
+binder 5937:5940 <> cost:44
+R5972:5979 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5967:5969 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5954:5963 KamiHW.Abstraction <> abs_phase1 def
+R5965:5966 KamiHW.LogicEngineEquivalence <> hs:38 var
+R5970:5971 KamiHW.LogicEngineEquivalence <> vs:39 var
+R6035:6042 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5980:5986 Kernel.VMStep VMStep vm_step ind
+R5988:5989 KamiHW.LogicEngineEquivalence <> vs:39 var
+R5992:6004 Kernel.VMStep VMStep instr_lassert constr
+R6006:6011 KamiHW.LogicEngineEquivalence <> module:41 var
+R6013:6019 KamiHW.LogicEngineEquivalence <> formula:42 var
+R6021:6024 KamiHW.LogicEngineEquivalence <> cert:43 var
+R6026:6029 KamiHW.LogicEngineEquivalence <> cost:44 var
+R6032:6034 KamiHW.LogicEngineEquivalence <> vs':40 var
+R6118:6125 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6106:6108 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6043:6049 KamiHW.Abstraction <> snap_pc proj
+R6052:6060 KamiHW.Abstraction <> kami_step def
+R6062:6063 KamiHW.LogicEngineEquivalence <> hs:38 var
+R6066:6078 Kernel.VMStep VMStep instr_lassert constr
+R6080:6085 KamiHW.LogicEngineEquivalence <> module:41 var
+R6087:6093 KamiHW.LogicEngineEquivalence <> formula:42 var
+R6095:6098 KamiHW.LogicEngineEquivalence <> cert:43 var
+R6100:6103 KamiHW.LogicEngineEquivalence <> cost:44 var
+R6109:6113 Kernel.VMState <> vm_pc proj
+R6115:6117 KamiHW.LogicEngineEquivalence <> vs':40 var
+R6189:6191 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6126:6132 KamiHW.Abstraction <> snap_mu proj
+R6135:6143 KamiHW.Abstraction <> kami_step def
+R6145:6146 KamiHW.LogicEngineEquivalence <> hs:38 var
+R6149:6161 Kernel.VMStep VMStep instr_lassert constr
+R6163:6168 KamiHW.LogicEngineEquivalence <> module:41 var
+R6170:6176 KamiHW.LogicEngineEquivalence <> formula:42 var
+R6178:6181 KamiHW.LogicEngineEquivalence <> cert:43 var
+R6183:6186 KamiHW.LogicEngineEquivalence <> cost:44 var
+R6192:6196 Kernel.VMState <> vm_mu proj
+R6198:6200 KamiHW.LogicEngineEquivalence <> vs':40 var
+R6278:6300 KamiHW.LogicEngineEquivalence <> lassert_kami_step_pc_mu thm
+R6278:6300 KamiHW.LogicEngineEquivalence <> lassert_kami_step_pc_mu thm
+R6363:6383 KamiHW.LogicEngineEquivalence <> lassert_vm_step_pc_mu thm
+R6363:6383 KamiHW.LogicEngineEquivalence <> lassert_vm_step_pc_mu thm
+prf 6542:6564 <> ljoin_pc_mu_commutation
+R6583:6594 KamiHW.Abstraction <> KamiSnapshot rec
+binder 6578:6579 <> hs:45
+R6607:6613 Kernel.VMState <> VMState rec
+binder 6598:6599 <> vs:46
+binder 6601:6603 <> vs':47
+R6631:6636 Coq.Strings.String <> string ind
+binder 6617:6621 <> cert1:48
+binder 6623:6627 <> cert2:49
+R6656:6658 Coq.Init.Datatypes <> nat ind
+binder 6649:6652 <> cost:50
+R6684:6691 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6679:6681 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6666:6675 KamiHW.Abstraction <> abs_phase1 def
+R6677:6678 KamiHW.LogicEngineEquivalence <> hs:45 var
+R6682:6683 KamiHW.LogicEngineEquivalence <> vs:46 var
+R6737:6744 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6692:6698 Kernel.VMStep VMStep vm_step ind
+R6700:6701 KamiHW.LogicEngineEquivalence <> vs:46 var
+R6704:6714 Kernel.VMStep VMStep instr_ljoin constr
+R6716:6720 KamiHW.LogicEngineEquivalence <> cert1:48 var
+R6722:6726 KamiHW.LogicEngineEquivalence <> cert2:49 var
+R6728:6731 KamiHW.LogicEngineEquivalence <> cost:50 var
+R6734:6736 KamiHW.LogicEngineEquivalence <> vs':47 var
+R6810:6817 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6798:6800 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6745:6751 KamiHW.Abstraction <> snap_pc proj
+R6754:6762 KamiHW.Abstraction <> kami_step def
+R6764:6765 KamiHW.LogicEngineEquivalence <> hs:45 var
+R6768:6778 Kernel.VMStep VMStep instr_ljoin constr
+R6780:6784 KamiHW.LogicEngineEquivalence <> cert1:48 var
+R6786:6790 KamiHW.LogicEngineEquivalence <> cert2:49 var
+R6792:6795 KamiHW.LogicEngineEquivalence <> cost:50 var
+R6801:6805 Kernel.VMState <> vm_pc proj
+R6807:6809 KamiHW.LogicEngineEquivalence <> vs':47 var
+R6871:6873 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6818:6824 KamiHW.Abstraction <> snap_mu proj
+R6827:6835 KamiHW.Abstraction <> kami_step def
+R6837:6838 KamiHW.LogicEngineEquivalence <> hs:45 var
+R6841:6851 Kernel.VMStep VMStep instr_ljoin constr
+R6853:6857 KamiHW.LogicEngineEquivalence <> cert1:48 var
+R6859:6863 KamiHW.LogicEngineEquivalence <> cert2:49 var
+R6865:6868 KamiHW.LogicEngineEquivalence <> cost:50 var
+R6874:6878 Kernel.VMState <> vm_mu proj
+R6880:6882 KamiHW.LogicEngineEquivalence <> vs':47 var
+R6952:6972 KamiHW.LogicEngineEquivalence <> ljoin_kami_step_pc_mu thm
+R6952:6972 KamiHW.LogicEngineEquivalence <> ljoin_kami_step_pc_mu thm
+R7027:7045 KamiHW.LogicEngineEquivalence <> ljoin_vm_step_pc_mu thm
+R7027:7045 KamiHW.LogicEngineEquivalence <> ljoin_vm_step_pc_mu thm
+prf 7361:7379 <> lassert_vm_step_err
+R7402:7408 Kernel.VMState <> VMState rec
+binder 7393:7394 <> vs:51
+binder 7396:7398 <> vs':52
+R7421:7428 Kernel.VMState <> ModuleID def
+binder 7412:7417 <> module:53
+R7442:7447 Coq.Strings.String <> string ind
+binder 7432:7438 <> formula:54
+R7467:7485 Kernel.VMStep VMStep lassert_certificate ind
+binder 7460:7463 <> cert:55
+R7496:7498 Coq.Init.Datatypes <> nat ind
+binder 7489:7492 <> cost:56
+R7561:7568 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7506:7512 Kernel.VMStep VMStep vm_step ind
+R7514:7515 KamiHW.LogicEngineEquivalence <> vs:51 var
+R7518:7530 Kernel.VMStep VMStep instr_lassert constr
+R7532:7537 KamiHW.LogicEngineEquivalence <> module:53 var
+R7539:7545 KamiHW.LogicEngineEquivalence <> formula:54 var
+R7547:7550 KamiHW.LogicEngineEquivalence <> cert:55 var
+R7552:7555 KamiHW.LogicEngineEquivalence <> cost:56 var
+R7558:7560 KamiHW.LogicEngineEquivalence <> vs':52 var
+R7579:7581 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7569:7574 Kernel.VMState <> vm_err proj
+R7576:7578 KamiHW.LogicEngineEquivalence <> vs':52 var
+R7582:7601 KamiHW.LogicEngineEquivalence <> lassert_expected_err def
+R7603:7604 KamiHW.LogicEngineEquivalence <> vs:51 var
+R7606:7609 KamiHW.LogicEngineEquivalence <> cert:55 var
+R7611:7617 KamiHW.LogicEngineEquivalence <> formula:54 var
+R7708:7720 Kernel.VMStep VMStep advance_state def
+R7723:7742 KamiHW.LogicEngineEquivalence <> lassert_expected_err def
+R7745:7753 Kernel.VMStep VMStep latch_err def
+R7814:7816 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7799:7809 Kernel.VMStep VMStep check_model def
+R7814:7816 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7799:7809 Kernel.VMStep VMStep check_model def
+R7878:7880 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7864:7873 Kernel.VMStep VMStep check_lrat def
+R7878:7880 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7864:7873 Kernel.VMStep VMStep check_lrat def
+prf 7977:7993 <> ljoin_vm_step_err
+R8016:8022 Kernel.VMState <> VMState rec
+binder 8007:8008 <> vs:57
+binder 8010:8012 <> vs':58
+R8040:8045 Coq.Strings.String <> string ind
+binder 8026:8030 <> cert1:59
+binder 8032:8036 <> cert2:60
+R8056:8058 Coq.Init.Datatypes <> nat ind
+binder 8049:8052 <> cost:61
+R8111:8118 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8066:8072 Kernel.VMStep VMStep vm_step ind
+R8074:8075 KamiHW.LogicEngineEquivalence <> vs:57 var
+R8078:8088 Kernel.VMStep VMStep instr_ljoin constr
+R8090:8094 KamiHW.LogicEngineEquivalence <> cert1:59 var
+R8096:8100 KamiHW.LogicEngineEquivalence <> cert2:60 var
+R8102:8105 KamiHW.LogicEngineEquivalence <> cost:61 var
+R8108:8110 KamiHW.LogicEngineEquivalence <> vs':58 var
+R8129:8131 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8119:8124 Kernel.VMState <> vm_err proj
+R8126:8128 KamiHW.LogicEngineEquivalence <> vs':58 var
+R8132:8149 KamiHW.LogicEngineEquivalence <> ljoin_expected_err def
+R8151:8152 KamiHW.LogicEngineEquivalence <> vs:57 var
+R8154:8158 KamiHW.LogicEngineEquivalence <> cert1:59 var
+R8160:8164 KamiHW.LogicEngineEquivalence <> cert2:60 var
+R8247:8259 Kernel.VMStep VMStep advance_state def
+R8262:8279 KamiHW.LogicEngineEquivalence <> ljoin_expected_err def
+R8282:8290 Kernel.VMStep VMStep latch_err def
+R8350:8352 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8336:8345 Coq.Strings.String <> eqb def
+R8350:8352 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8336:8345 Coq.Strings.String <> eqb def
+prf 8981:9016 <> logic_coprocessor_equivalent_lassert
+R9035:9046 KamiHW.Abstraction <> KamiSnapshot rec
+binder 9030:9031 <> hs:62
+R9059:9066 Kernel.VMState <> ModuleID def
+binder 9050:9055 <> module:63
+R9080:9085 Coq.Strings.String <> string ind
+binder 9070:9076 <> formula:64
+R9105:9123 Kernel.VMStep VMStep lassert_certificate ind
+binder 9098:9101 <> cert:65
+R9134:9136 Coq.Init.Datatypes <> nat ind
+binder 9127:9130 <> cost:66
+R9198:9204 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9208:9261 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 9205:9207 <> vs':67
+R9330:9366 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9262:9268 Kernel.VMStep VMStep vm_step ind
+R9271:9280 KamiHW.Abstraction <> abs_phase1 def
+R9282:9283 KamiHW.LogicEngineEquivalence <> hs:62 var
+R9287:9299 Kernel.VMStep VMStep instr_lassert constr
+R9301:9306 KamiHW.LogicEngineEquivalence <> module:63 var
+R9308:9314 KamiHW.LogicEngineEquivalence <> formula:64 var
+R9316:9319 KamiHW.LogicEngineEquivalence <> cert:65 var
+R9321:9324 KamiHW.LogicEngineEquivalence <> cost:66 var
+R9327:9329 KamiHW.LogicEngineEquivalence <> vs':67 var
+R9442:9478 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9430:9432 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9367:9373 KamiHW.Abstraction <> snap_pc proj
+R9376:9384 KamiHW.Abstraction <> kami_step def
+R9386:9387 KamiHW.LogicEngineEquivalence <> hs:62 var
+R9390:9402 Kernel.VMStep VMStep instr_lassert constr
+R9404:9409 KamiHW.LogicEngineEquivalence <> module:63 var
+R9411:9417 KamiHW.LogicEngineEquivalence <> formula:64 var
+R9419:9422 KamiHW.LogicEngineEquivalence <> cert:65 var
+R9424:9427 KamiHW.LogicEngineEquivalence <> cost:66 var
+R9433:9437 Kernel.VMState <> vm_pc proj
+R9439:9441 KamiHW.LogicEngineEquivalence <> vs':67 var
+R9554:9628 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9542:9544 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9479:9485 KamiHW.Abstraction <> snap_mu proj
+R9488:9496 KamiHW.Abstraction <> kami_step def
+R9498:9499 KamiHW.LogicEngineEquivalence <> hs:62 var
+R9502:9514 Kernel.VMStep VMStep instr_lassert constr
+R9516:9521 KamiHW.LogicEngineEquivalence <> module:63 var
+R9523:9529 KamiHW.LogicEngineEquivalence <> formula:64 var
+R9531:9534 KamiHW.LogicEngineEquivalence <> cert:65 var
+R9536:9539 KamiHW.LogicEngineEquivalence <> cost:66 var
+R9545:9549 Kernel.VMState <> vm_mu proj
+R9551:9553 KamiHW.LogicEngineEquivalence <> vs':67 var
+R9639:9641 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9629:9634 Kernel.VMState <> vm_err proj
+R9636:9638 KamiHW.LogicEngineEquivalence <> vs':67 var
+R9642:9661 KamiHW.LogicEngineEquivalence <> lassert_expected_err def
+R9664:9673 KamiHW.Abstraction <> abs_phase1 def
+R9675:9676 KamiHW.LogicEngineEquivalence <> hs:62 var
+R9679:9682 KamiHW.LogicEngineEquivalence <> cert:65 var
+R9684:9690 KamiHW.LogicEngineEquivalence <> formula:64 var
+R9817:9849 KamiHW.VerilogRefinement <> verilog_simulates_vm_step_lassert thm
+R9817:9849 KamiHW.VerilogRefinement <> verilog_simulates_vm_step_lassert thm
+R9950:9974 KamiHW.LogicEngineEquivalence <> lassert_pc_mu_commutation thm
+R9980:9989 KamiHW.Abstraction <> abs_phase1 def
+R10024:10030 Coq.Init.Logic <> eq_refl constr
+R9950:9974 KamiHW.LogicEngineEquivalence <> lassert_pc_mu_commutation thm
+R9980:9989 KamiHW.Abstraction <> abs_phase1 def
+R10024:10030 Coq.Init.Logic <> eq_refl constr
+R10114:10132 KamiHW.LogicEngineEquivalence <> lassert_vm_step_err thm
+R10135:10144 KamiHW.Abstraction <> abs_phase1 def
+R10114:10132 KamiHW.LogicEngineEquivalence <> lassert_vm_step_err thm
+R10135:10144 KamiHW.Abstraction <> abs_phase1 def
+prf 10201:10234 <> logic_coprocessor_equivalent_ljoin
+R10253:10264 KamiHW.Abstraction <> KamiSnapshot rec
+binder 10248:10249 <> hs:68
+R10282:10287 Coq.Strings.String <> string ind
+binder 10268:10272 <> cert1:69
+binder 10274:10278 <> cert2:70
+R10298:10300 Coq.Init.Datatypes <> nat ind
+binder 10291:10294 <> cost:71
+R10308:10314 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10318:10325 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 10315:10317 <> vs':72
+R10384:10393 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10326:10332 Kernel.VMStep VMStep vm_step ind
+R10335:10344 KamiHW.Abstraction <> abs_phase1 def
+R10346:10347 KamiHW.LogicEngineEquivalence <> hs:68 var
+R10351:10361 Kernel.VMStep VMStep instr_ljoin constr
+R10363:10367 KamiHW.LogicEngineEquivalence <> cert1:69 var
+R10369:10373 KamiHW.LogicEngineEquivalence <> cert2:70 var
+R10375:10378 KamiHW.LogicEngineEquivalence <> cost:71 var
+R10381:10383 KamiHW.LogicEngineEquivalence <> vs':72 var
+R10459:10468 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10447:10449 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10394:10400 KamiHW.Abstraction <> snap_pc proj
+R10403:10411 KamiHW.Abstraction <> kami_step def
+R10413:10414 KamiHW.LogicEngineEquivalence <> hs:68 var
+R10417:10427 Kernel.VMStep VMStep instr_ljoin constr
+R10429:10433 KamiHW.LogicEngineEquivalence <> cert1:69 var
+R10435:10439 KamiHW.LogicEngineEquivalence <> cert2:70 var
+R10441:10444 KamiHW.LogicEngineEquivalence <> cost:71 var
+R10450:10454 Kernel.VMState <> vm_pc proj
+R10456:10458 KamiHW.LogicEngineEquivalence <> vs':72 var
+R10534:10543 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10522:10524 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10469:10475 KamiHW.Abstraction <> snap_mu proj
+R10478:10486 KamiHW.Abstraction <> kami_step def
+R10488:10489 KamiHW.LogicEngineEquivalence <> hs:68 var
+R10492:10502 Kernel.VMStep VMStep instr_ljoin constr
+R10504:10508 KamiHW.LogicEngineEquivalence <> cert1:69 var
+R10510:10514 KamiHW.LogicEngineEquivalence <> cert2:70 var
+R10516:10519 KamiHW.LogicEngineEquivalence <> cost:71 var
+R10525:10529 Kernel.VMState <> vm_mu proj
+R10531:10533 KamiHW.LogicEngineEquivalence <> vs':72 var
+R10554:10556 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10544:10549 Kernel.VMState <> vm_err proj
+R10551:10553 KamiHW.LogicEngineEquivalence <> vs':72 var
+R10557:10574 KamiHW.LogicEngineEquivalence <> ljoin_expected_err def
+R10577:10586 KamiHW.Abstraction <> abs_phase1 def
+R10588:10589 KamiHW.LogicEngineEquivalence <> hs:68 var
+R10592:10596 KamiHW.LogicEngineEquivalence <> cert1:69 var
+R10598:10602 KamiHW.LogicEngineEquivalence <> cert2:70 var
+R10654:10684 KamiHW.VerilogRefinement <> verilog_simulates_vm_step_ljoin thm
+R10654:10684 KamiHW.VerilogRefinement <> verilog_simulates_vm_step_ljoin thm
+R10777:10799 KamiHW.LogicEngineEquivalence <> ljoin_pc_mu_commutation thm
+R10805:10814 KamiHW.Abstraction <> abs_phase1 def
+R10841:10847 Coq.Init.Logic <> eq_refl constr
+R10777:10799 KamiHW.LogicEngineEquivalence <> ljoin_pc_mu_commutation thm
+R10805:10814 KamiHW.Abstraction <> abs_phase1 def
+R10841:10847 Coq.Init.Logic <> eq_refl constr
+R10931:10947 KamiHW.LogicEngineEquivalence <> ljoin_vm_step_err thm
+R10950:10959 KamiHW.Abstraction <> abs_phase1 def
+R10931:10947 KamiHW.LogicEngineEquivalence <> ljoin_vm_step_err thm
+R10950:10959 KamiHW.Abstraction <> abs_phase1 def
+prf 11314:11343 <> oracle_agrees_with_lassert_err
+R11362:11375 KamiHW.LogicEngineEquivalence <> lassert_oracle def
+binder 11357:11358 <> lo:73
+R11383:11389 Kernel.VMState <> VMState rec
+binder 11379:11379 <> s:74
+R11403:11408 Coq.Strings.String <> string ind
+binder 11393:11399 <> formula:75
+R11428:11446 Kernel.VMStep VMStep lassert_certificate ind
+binder 11421:11424 <> cert:76
+R11479:11486 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11454:11475 KamiHW.LogicEngineEquivalence <> lassert_oracle_correct def
+R11477:11478 KamiHW.LogicEngineEquivalence <> lo:73 var
+R11522:11530 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11487:11506 KamiHW.LogicEngineEquivalence <> lassert_expected_err def
+R11508:11508 KamiHW.LogicEngineEquivalence <> s:74 var
+R11510:11513 KamiHW.LogicEngineEquivalence <> cert:76 var
+R11515:11521 KamiHW.LogicEngineEquivalence <> formula:75 var
+R11537:11540 KamiHW.LogicEngineEquivalence <> cert:76 var
+R11555:11570 Kernel.VMStep VMStep lassert_cert_sat constr
+R11594:11597 Coq.Init.Datatypes <> negb def
+R11600:11611 KamiHW.LogicEngineEquivalence <> oracle_error proj
+R11614:11615 KamiHW.LogicEngineEquivalence <> lo:73 var
+R11617:11623 KamiHW.LogicEngineEquivalence <> formula:75 var
+R11625:11628 KamiHW.LogicEngineEquivalence <> cert:76 var
+R11651:11654 Coq.Init.Datatypes <> true constr
+R11637:11642 Kernel.VMState <> vm_err proj
+R11644:11644 KamiHW.LogicEngineEquivalence <> s:74 var
+R11664:11681 Kernel.VMStep VMStep lassert_cert_unsat constr
+R11688:11691 Coq.Init.Datatypes <> true constr
+R11757:11778 KamiHW.LogicEngineEquivalence <> lassert_oracle_correct def
+R11840:11859 KamiHW.LogicEngineEquivalence <> lassert_expected_err def
+R12049:12059 Kernel.VMStep VMStep check_model def
+R12049:12059 Kernel.VMStep VMStep check_model def
+prf 12146:12173 <> oracle_agrees_with_ljoin_err
+R12192:12203 KamiHW.LogicEngineEquivalence <> ljoin_oracle def
+binder 12187:12188 <> jo:78
+R12211:12217 Kernel.VMState <> VMState rec
+binder 12207:12207 <> s:79
+R12235:12240 Coq.Strings.String <> string ind
+binder 12221:12225 <> cert1:80
+binder 12227:12231 <> cert2:81
+R12271:12278 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12248:12267 KamiHW.LogicEngineEquivalence <> ljoin_oracle_correct def
+R12269:12270 KamiHW.LogicEngineEquivalence <> jo:78 var
+R12311:12319 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12279:12296 KamiHW.LogicEngineEquivalence <> ljoin_expected_err def
+R12298:12298 KamiHW.LogicEngineEquivalence <> s:79 var
+R12300:12304 KamiHW.LogicEngineEquivalence <> cert1:80 var
+R12306:12310 KamiHW.LogicEngineEquivalence <> cert2:81 var
+R12323:12326 Coq.Init.Datatypes <> negb def
+R12329:12340 KamiHW.LogicEngineEquivalence <> oracle_error proj
+R12343:12344 KamiHW.LogicEngineEquivalence <> jo:78 var
+R12346:12350 KamiHW.LogicEngineEquivalence <> cert1:80 var
+R12352:12356 KamiHW.LogicEngineEquivalence <> cert2:81 var
+R12379:12382 Coq.Init.Datatypes <> true constr
+R12365:12370 Kernel.VMState <> vm_err proj
+R12372:12372 KamiHW.LogicEngineEquivalence <> s:79 var
+R12437:12456 KamiHW.LogicEngineEquivalence <> ljoin_oracle_correct def
+R12517:12534 KamiHW.LogicEngineEquivalence <> ljoin_expected_err def
+R12569:12578 Coq.Strings.String <> eqb def
+R12569:12578 Coq.Strings.String <> eqb def
+prf 12793:12824 <> logic_engine_mu_monotone_lassert
+R12843:12854 KamiHW.Abstraction <> KamiSnapshot rec
+binder 12838:12839 <> hs:82
+R12867:12874 Kernel.VMState <> ModuleID def
+binder 12858:12863 <> module:83
+R12888:12893 Coq.Strings.String <> string ind
+binder 12878:12884 <> formula:84
+R12913:12931 Kernel.VMStep VMStep lassert_certificate ind
+binder 12906:12909 <> cert:85
+R12942:12944 Coq.Init.Datatypes <> nat ind
+binder 12935:12938 <> cost:86
+R13015:13018 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R12952:12958 KamiHW.Abstraction <> snap_mu proj
+R12961:12969 KamiHW.Abstraction <> kami_step def
+R12971:12972 KamiHW.LogicEngineEquivalence <> hs:82 var
+R12975:12987 Kernel.VMStep VMStep instr_lassert constr
+R12989:12994 KamiHW.LogicEngineEquivalence <> module:83 var
+R12996:13002 KamiHW.LogicEngineEquivalence <> formula:84 var
+R13004:13007 KamiHW.LogicEngineEquivalence <> cert:85 var
+R13009:13012 KamiHW.LogicEngineEquivalence <> cost:86 var
+R13019:13025 KamiHW.Abstraction <> snap_mu proj
+R13027:13028 KamiHW.LogicEngineEquivalence <> hs:82 var
+R13058:13080 KamiHW.LogicEngineEquivalence <> lassert_kami_step_pc_mu thm
+R13058:13080 KamiHW.LogicEngineEquivalence <> lassert_kami_step_pc_mu thm
+prf 13172:13201 <> logic_engine_mu_monotone_ljoin
+R13220:13231 KamiHW.Abstraction <> KamiSnapshot rec
+binder 13215:13216 <> hs:87
+R13249:13254 Coq.Strings.String <> string ind
+binder 13235:13239 <> cert1:88
+binder 13241:13245 <> cert2:89
+R13265:13267 Coq.Init.Datatypes <> nat ind
+binder 13258:13261 <> cost:90
+R13328:13331 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R13275:13281 KamiHW.Abstraction <> snap_mu proj
+R13284:13292 KamiHW.Abstraction <> kami_step def
+R13294:13295 KamiHW.LogicEngineEquivalence <> hs:87 var
+R13298:13308 Kernel.VMStep VMStep instr_ljoin constr
+R13310:13314 KamiHW.LogicEngineEquivalence <> cert1:88 var
+R13316:13320 KamiHW.LogicEngineEquivalence <> cert2:89 var
+R13322:13325 KamiHW.LogicEngineEquivalence <> cost:90 var
+R13332:13338 KamiHW.Abstraction <> snap_mu proj
+R13340:13341 KamiHW.LogicEngineEquivalence <> hs:87 var
+R13371:13391 KamiHW.LogicEngineEquivalence <> ljoin_kami_step_pc_mu thm
+R13371:13391 KamiHW.LogicEngineEquivalence <> ljoin_kami_step_pc_mu thm

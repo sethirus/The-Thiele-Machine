@@ -2043,7 +2043,11 @@ Proof.
                 vm_pc := 0;
                 vm_mu := 0;
                 vm_mu_tensor := vm_mu_tensor_default;
-                vm_err := false |}).
+                vm_err := false;
+                vm_logic_acc := 0;
+                vm_mstatus := 0;
+                vm_witness := witness_counts_zero;
+                vm_certified := false |}).
   exists s0, 100%nat, [0%nat].
   split.
   - reflexivity.

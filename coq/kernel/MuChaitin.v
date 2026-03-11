@@ -90,6 +90,13 @@ Definition cert_payload_size (i : vm_instruction) : nat :=
   | instr_emit _ payload _ => String.length payload
   | instr_ljoin c1 c2 _ => String.length c1 + String.length c2
   | instr_lassert _ formula _ _ => String.length formula
+  | instr_certify delta_mu => delta_mu
+  | instr_and _ _ _ _ => 0
+  | instr_or _ _ _ _ => 0
+  | instr_shl _ _ _ _ => 0
+  | instr_shr _ _ _ _ => 0
+  | instr_mul _ _ _ _ => 0
+  | instr_lui _ _ _ => 0
   | _ => 0
   end.
 

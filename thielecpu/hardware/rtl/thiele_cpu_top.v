@@ -1,113 +1,222 @@
 // thiele_cpu_top.v — Physical top-level wrapper for Thiele Machine CPU
 //
-// Reduces the wide Kami-generated mkModule1 interface to 5 physical pins:
-//   CLK        — 25 MHz system clock
-//   RST_N      — active-low reset (button)
-//   LED_HALTED — high when CPU has executed HALT
-//   LED_ERR    — high when CPU has set error flag
+// Full deployment wrapper with UART program loading and debug output.
+//
+// Pins:
+//   CLK         — 25 MHz system clock
+//   RST_N       — active-low reset (active-low button)
+//   UART_RX     — serial input  (program loading, 115200 8N1)
+//   UART_TX     — serial output (debug dump on halt/error)
+//   LED_HALTED  — high when CPU has executed HALT
+//   LED_ERR     — high when CPU has set error flag
 //   LED_BIANCHI — high when Bianchi conservation alarm fires
+//   LED_LOADING — high while UART program loader is receiving
 //
-// All readback/monitor ports (getPC, getMu, etc.) are left floating (un-driven
-// outputs are safe; we only care about physical LED signals for bringup).
-// The instruction memory is pre-loaded at reset via the internal ROM tie-off:
-//   loadInstr is pulled low (no external instruction load) — the CPU boots
-//   from its internal memory which is initialised through synthesis.
+// Program loading protocol (binary, little-endian):
+//   1. Send 2-byte instruction count N
+//   2. Send N × 4 bytes (each 32-bit instruction, little-endian)
+//   3. LED_LOADING goes low, CPU starts executing
 //
-// For full deployment, replace this wrapper with one that connects loadInstr
-// to a UART or SPI interface and exposes a debug bus.
+// Debug dump (binary, little-endian, sent on halt or error):
+//   [0]    0xDE (sync)
+//   [1]    status (bit0=halted, bit1=err, bit2=certified)
+//   [2:5]  PC
+//   [6:9]  mu
+//   [10:13] error_code
+//   [14]   0xAD (end marker)
 
 `define BSV_ASSIGNMENT_DELAY
 `define BSV_RESET_VALUE 1'b0
 `define BSV_RESET_EDGE  negedge
 
-module thiele_cpu_top (
+module thiele_cpu_top #(
+    parameter CLK_FREQ  = 25_000_000,
+    parameter BAUD_RATE = 115_200
+)(
     input  CLK,
     input  RST_N,
+    input  UART_RX,
+    output UART_TX,
     output LED_HALTED,
     output LED_ERR,
-    output LED_BIANCHI
+    output LED_BIANCHI,
+    output LED_LOADING
 );
 
-    // --- Tie-off constants for unused input ports ---
-    wire [39:0] load_instr_data = 40'h0;
-    wire        en_load_instr   = 1'b0;
+    localparam CLKS_PER_BIT = CLK_FREQ / BAUD_RATE;
 
-    // EN lines: drive high so readback methods always present valid data.
-    // (RDY_* outputs are wired to 'nc_*' and ignored.)
-    wire en_getPC          = 1'b1;
-    wire en_getMu          = 1'b1;
-    wire en_getErr         = 1'b1;
-    wire en_getHalted      = 1'b1;
-    wire en_getPartOps     = 1'b1;
-    wire en_getMdlOps      = 1'b1;
-    wire en_getInfoGain    = 1'b1;
-    wire en_getErrorCode   = 1'b1;
-    wire en_getMuTensor0   = 1'b1;
-    wire en_getMuTensor1   = 1'b1;
-    wire en_getMuTensor2   = 1'b1;
-    wire en_getMuTensor3   = 1'b1;
-    wire en_getBianchi     = 1'b1;
+    // ---- UART RX ----
+    wire       rx_valid;
+    wire [7:0] rx_data;
 
-    // --- Instantiate CPU core ---
+    uart_rx #(.CLKS_PER_BIT(CLKS_PER_BIT)) u_rx (
+        .clk     (CLK),
+        .rst_n   (RST_N),
+        .i_rx    (UART_RX),
+        .o_valid (rx_valid),
+        .o_data  (rx_data)
+    );
+
+    // ---- Program Loader ----
+    wire        loader_en;
+    wire [43:0] loader_data;
+    wire        loader_done;
+    wire        loader_loading;
+
+    program_loader u_loader (
+        .clk          (CLK),
+        .rst_n        (RST_N),
+        .i_byte_valid (rx_valid),
+        .i_byte_data  (rx_data),
+        .o_load_en    (loader_en),
+        .o_load_data  (loader_data),
+        .o_done       (loader_done),
+        .o_loading    (loader_loading)
+    );
+
+    assign LED_LOADING = loader_loading;
+
+    // ---- CPU Stall During Loading ----
+    // The Kami step rule fires when: !halted && !err && imem_init && mem_init && !EN_apbWrite
+    // We assert EN_apbWrite (with dummy data) during program loading to stall the CPU.
+    // This keeps the CPU live (clocked, not in reset) but prevents it from stepping.
+    // Once loading is done, EN_apbWrite deasserts and the CPU begins executing.
+    wire cpu_stall = ~loader_done;
+
+    // ---- CPU Core (Kami-generated) ----
+    wire        cpu_halted;
+    wire        cpu_err;
+    wire        cpu_certified;
+    wire [31:0] cpu_pc;
+    wire [31:0] cpu_mu;
+    wire [31:0] cpu_error_code;
+    wire        cpu_bianchi;
+
     mkModule1 cpu (
-        .CLK                 (CLK),
-        .RST_N               (RST_N),
+        .CLK                    (CLK),
+        .RST_N                  (RST_N),
 
-        .loadInstr_x_0       (load_instr_data),
-        .EN_loadInstr        (en_load_instr),
-        .RDY_loadInstr       (),   // nc
+        // Program loading — driven by UART loader
+        .loadInstr_x_0          (loader_data),
+        .EN_loadInstr           (loader_en),
+        .RDY_loadInstr          (),
 
-        .EN_getPC            (en_getPC),
-        .getPC               (),   // nc
-        .RDY_getPC           (),
+        // State readback
+        .EN_getPC               (1'b1),
+        .getPC                  (cpu_pc),
+        .RDY_getPC              (),
 
-        .EN_getMu            (en_getMu),
-        .getMu               (),
-        .RDY_getMu           (),
+        .EN_getMu               (1'b1),
+        .getMu                  (cpu_mu),
+        .RDY_getMu              (),
 
-        .EN_getErr           (en_getErr),
-        .getErr              (LED_ERR),
-        .RDY_getErr          (),
+        .EN_getErr              (1'b1),
+        .getErr                 (cpu_err),
+        .RDY_getErr             (),
 
-        .EN_getHalted        (en_getHalted),
-        .getHalted           (LED_HALTED),
-        .RDY_getHalted       (),
+        .EN_getHalted           (1'b1),
+        .getHalted              (cpu_halted),
+        .RDY_getHalted          (),
 
-        .EN_getPartitionOps  (en_getPartOps),
-        .getPartitionOps     (),
-        .RDY_getPartitionOps (),
+        .EN_getCertified        (1'b1),
+        .getCertified           (cpu_certified),
+        .RDY_getCertified       (),
 
-        .EN_getMdlOps        (en_getMdlOps),
-        .getMdlOps           (),
-        .RDY_getMdlOps       (),
+        .EN_getErrorCode        (1'b1),
+        .getErrorCode           (cpu_error_code),
+        .RDY_getErrorCode       (),
 
-        .EN_getInfoGain      (en_getInfoGain),
-        .getInfoGain         (),
-        .RDY_getInfoGain     (),
+        .EN_getBianchiAlarm     (1'b1),
+        .getBianchiAlarm        (cpu_bianchi),
+        .RDY_getBianchiAlarm    (),
 
-        .EN_getErrorCode     (en_getErrorCode),
-        .getErrorCode        (),
-        .RDY_getErrorCode    (),
+        // Unused readback ports — enable but leave output unconnected
+        .EN_getWcSame00         (1'b1),  .getWcSame00         (),  .RDY_getWcSame00         (),
+        .EN_getWcDiff00         (1'b1),  .getWcDiff00         (),  .RDY_getWcDiff00         (),
+        .EN_getWcSame01         (1'b1),  .getWcSame01         (),  .RDY_getWcSame01         (),
+        .EN_getWcDiff01         (1'b1),  .getWcDiff01         (),  .RDY_getWcDiff01         (),
+        .EN_getWcSame10         (1'b1),  .getWcSame10         (),  .RDY_getWcSame10         (),
+        .EN_getWcDiff10         (1'b1),  .getWcDiff10         (),  .RDY_getWcDiff10         (),
+        .EN_getWcSame11         (1'b1),  .getWcSame11         (),  .RDY_getWcSame11         (),
+        .EN_getWcDiff11         (1'b1),  .getWcDiff11         (),  .RDY_getWcDiff11         (),
+        .EN_getPartitionOps     (1'b1),  .getPartitionOps     (),  .RDY_getPartitionOps     (),
+        .EN_getMdlOps           (1'b1),  .getMdlOps           (),  .RDY_getMdlOps           (),
+        .EN_getInfoGain         (1'b1),  .getInfoGain         (),  .RDY_getInfoGain         (),
+        .EN_getMstatus          (1'b1),  .getMstatus          (),  .RDY_getMstatus          (),
+        .EN_getMcycleLo         (1'b1),  .getMcycleLo         (),  .RDY_getMcycleLo         (),
+        .EN_getMcycleHi         (1'b1),  .getMcycleHi         (),  .RDY_getMcycleHi         (),
+        .EN_getMinstretLo       (1'b1),  .getMinstretLo       (),  .RDY_getMinstretLo       (),
+        .EN_getMinstretHi       (1'b1),  .getMinstretHi       (),  .RDY_getMinstretHi       (),
+        .EN_getLogicAcc         (1'b1),  .getLogicAcc         (),  .RDY_getLogicAcc         (),
+        .EN_getLogicReqValid    (1'b1),  .getLogicReqValid    (),  .RDY_getLogicReqValid    (),
+        .EN_getLogicReqOpcode   (1'b1),  .getLogicReqOpcode   (),  .RDY_getLogicReqOpcode   (),
+        .EN_getLogicReqPayload  (1'b1),  .getLogicReqPayload  (),  .RDY_getLogicReqPayload  (),
+        .EN_getMuTensor0        (1'b1),  .getMuTensor0        (),  .RDY_getMuTensor0        (),
+        .EN_getMuTensor1        (1'b1),  .getMuTensor1        (),  .RDY_getMuTensor1        (),
+        .EN_getMuTensor2        (1'b1),  .getMuTensor2        (),  .RDY_getMuTensor2        (),
+        .EN_getMuTensor3        (1'b1),  .getMuTensor3        (),  .RDY_getMuTensor3        (),
+        .EN_getPtNextId         (1'b1),  .getPtNextId         (),  .RDY_getPtNextId         (),
+        .getPtSize_x_0          (6'd0),
+        .EN_getPtSize           (1'b1),  .getPtSize           (),  .RDY_getPtSize           (),
 
-        .EN_getMuTensor0     (en_getMuTensor0),
-        .getMuTensor0        (),
-        .RDY_getMuTensor0    (),
+        // Unused input ports — tied off
+        .setLogicResp_x_0       (34'd0),
+        .EN_setLogicResp        (1'b0),
+        .RDY_setLogicResp       (),
 
-        .EN_getMuTensor1     (en_getMuTensor1),
-        .getMuTensor1        (),
-        .RDY_getMuTensor1    (),
+        .setActiveModule_x_0    (6'd0),
+        .EN_setActiveModule     (1'b0),
+        .RDY_setActiveModule    (),
 
-        .EN_getMuTensor2     (en_getMuTensor2),
-        .getMuTensor2        (),
-        .RDY_getMuTensor2    (),
+        .setTrapVector_x_0      (32'd0),
+        .EN_setTrapVector       (1'b0),
+        .RDY_setTrapVector      (),
 
-        .EN_getMuTensor3     (en_getMuTensor3),
-        .getMuTensor3        (),
-        .RDY_getMuTensor3    (),
+        .apbReadData_x_0        (32'd0),
+        .EN_apbReadData         (1'b0),
+        .RDY_apbReadData        (),
 
-        .EN_getBianchiAlarm  (en_getBianchi),
-        .getBianchiAlarm     (LED_BIANCHI),
-        .RDY_getBianchiAlarm ()
+        .apbReadErr_x_0         (32'd0),
+        .EN_apbReadErr          (1'b0),
+        .RDY_apbReadErr         (),
+
+        // APB bus — EN_apbWrite stalls CPU step rule during program loading
+        .apbWrite_x_0           (64'd0),
+        .EN_apbWrite            (cpu_stall),
+        .RDY_apbWrite           ()
+    );
+
+    assign LED_HALTED  = cpu_halted;
+    assign LED_ERR     = cpu_err;
+    assign LED_BIANCHI = cpu_bianchi;
+
+    // ---- Debug Dumper ----
+    wire       dump_tx_valid;
+    wire [7:0] dump_tx_data;
+    wire       tx_busy;
+
+    debug_dumper u_dump (
+        .clk            (CLK),
+        .rst_n          (RST_N),
+        .i_halted       (cpu_halted),
+        .i_err          (cpu_err),
+        .i_certified    (cpu_certified),
+        .i_pc           (cpu_pc),
+        .i_mu           (cpu_mu),
+        .i_error_code   (cpu_error_code),
+        .o_tx_valid     (dump_tx_valid),
+        .o_tx_data      (dump_tx_data),
+        .i_tx_busy      (tx_busy)
+    );
+
+    // ---- UART TX ----
+    uart_tx #(.CLKS_PER_BIT(CLKS_PER_BIT)) u_tx (
+        .clk     (CLK),
+        .rst_n   (RST_N),
+        .i_valid (dump_tx_valid),
+        .i_data  (dump_tx_data),
+        .o_tx    (UART_TX),
+        .o_busy  (tx_busy)
     );
 
 endmodule

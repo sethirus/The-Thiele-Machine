@@ -61,7 +61,11 @@ Definition tweak_regs (s : VMState) (x : nat) : VMState :=
      vm_pc := s.(vm_pc);
      vm_mu := s.(vm_mu);
      vm_mu_tensor := s.(vm_mu_tensor);
-     vm_err := s.(vm_err) |}.
+     vm_err := s.(vm_err);
+     vm_logic_acc := s.(vm_logic_acc);
+     vm_mstatus := s.(vm_mstatus);
+     vm_witness := s.(vm_witness);
+     vm_certified := s.(vm_certified) |}.
 
 (** Definitional lemma: This equality is by definition, not vacuous
 

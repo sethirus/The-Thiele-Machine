@@ -1,0 +1,128 @@
+DIGEST 51f785506301b61c4443a7e9b8c8c2dc
+FKernel.InformationGainToStrengthening
+R640:643 Coq.Lists.List <> <> lib
+R645:647 Coq.micromega.Lia <> <> lib
+R649:662 Coq.Arith.PeanoNat <> <> lib
+R672:684 Coq.Lists.List ListNotations <> mod
+R715:721 Kernel.VMState <> <> lib
+R723:728 Kernel.VMStep <> <> lib
+R730:744 Kernel.SimulationProof <> <> lib
+R746:765 Kernel.MuLedgerConservation <> <> lib
+R767:779 Kernel.NoFreeInsight <> <> lib
+def 1585:1595 <> FeasibleSet
+R1600:1603 Coq.Init.Datatypes <> list ind
+R1605:1611 Kernel.VMState <> VMState rec
+def 1625:1637 <> feasible_size
+R1648:1658 Kernel.InformationGainToStrengthening <> FeasibleSet def
+binder 1640:1644 <> omega:1
+R1663:1665 Coq.Init.Datatypes <> nat ind
+R1670:1675 Coq.Init.Datatypes <> length def
+R1677:1681 Kernel.InformationGainToStrengthening <> omega:1 var
+def 1695:1713 <> is_strict_reduction
+R1746:1756 Kernel.InformationGainToStrengthening <> FeasibleSet def
+binder 1716:1726 <> omega_prior:2
+binder 1728:1742 <> omega_posterior:3
+R1800:1802 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R1771:1783 Kernel.InformationGainToStrengthening <> feasible_size def
+R1785:1799 Kernel.InformationGainToStrengthening <> omega_posterior:3 var
+R1803:1815 Kernel.InformationGainToStrengthening <> feasible_size def
+R1817:1827 Kernel.InformationGainToStrengthening <> omega_prior:2 var
+prf 1921:1964 <> feasible_reduction_implies_strict_predicates
+R1985:1987 Coq.Init.Datatypes <> nat ind
+binder 1978:1981 <> fuel:4
+R1999:2002 Coq.Init.Datatypes <> list ind
+R2004:2017 Kernel.VMStep VMStep vm_instruction ind
+binder 1991:1995 <> trace:5
+R2047:2053 Kernel.VMState <> VMState rec
+binder 2030:2035 <> s_init:6
+binder 2037:2043 <> s_final:7
+R2096:2106 Kernel.InformationGainToStrengthening <> FeasibleSet def
+binder 2066:2076 <> omega_prior:8
+binder 2078:2092 <> omega_posterior:9
+R2148:2155 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2121:2123 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2114:2120 Kernel.InformationGainToStrengthening <> s_final:7 var
+R2124:2129 Kernel.SimulationProof <> run_vm def
+R2131:2134 Kernel.InformationGainToStrengthening <> fuel:4 var
+R2136:2140 Kernel.InformationGainToStrengthening <> trace:5 var
+R2142:2147 Kernel.InformationGainToStrengthening <> s_init:6 var
+R2177:2184 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2156:2157 Coq.Lists.List <> In def
+R2166:2176 Kernel.InformationGainToStrengthening <> omega_prior:8 var
+R2159:2164 Kernel.InformationGainToStrengthening <> s_init:6 var
+R2232:2239 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2185:2203 Kernel.InformationGainToStrengthening <> is_strict_reduction def
+R2205:2215 Kernel.InformationGainToStrengthening <> omega_prior:8 var
+R2217:2231 Kernel.InformationGainToStrengthening <> omega_posterior:9 var
+R2273:2406 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2269:2271 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R2240:2252 Kernel.InformationGainToStrengthening <> feasible_size def
+R2254:2268 Kernel.InformationGainToStrengthening <> omega_posterior:9 var
+R2407:2414 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2482:2490 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2437:2466 Kernel.NoFreeInsight NoFreeInsight ReceiptPredicate def
+R2468:2481 Kernel.VMStep VMStep vm_instruction ind
+binder 2415:2421 <> P_prior:10
+R2437:2466 Kernel.NoFreeInsight NoFreeInsight ReceiptPredicate def
+R2468:2481 Kernel.VMStep VMStep vm_instruction ind
+binder 2423:2433 <> P_posterior:11
+R2491:2521 Kernel.NoFreeInsight NoFreeInsight strictly_stronger def
+R2535:2541 Kernel.InformationGainToStrengthening <> P_prior:10 var
+R2523:2533 Kernel.InformationGainToStrengthening <> P_posterior:11 var
+R2725:2728 Coq.Init.Datatypes <> true constr
+R2742:2746 Coq.Init.Datatypes <> false constr
+R2725:2728 Coq.Init.Datatypes <> true constr
+R2742:2746 Coq.Init.Datatypes <> false constr
+R2832:2862 Kernel.NoFreeInsight NoFreeInsight strictly_stronger def
+R3139:3140 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3139:3140 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+prf 4207:4247 <> information_reduction_requires_supra_cert
+R4268:4270 Coq.Init.Datatypes <> nat ind
+binder 4261:4264 <> fuel:12
+R4282:4285 Coq.Init.Datatypes <> list ind
+R4287:4300 Kernel.VMStep VMStep vm_instruction ind
+binder 4274:4278 <> trace:13
+R4330:4336 Kernel.VMState <> VMState rec
+binder 4313:4318 <> s_init:14
+binder 4320:4326 <> s_final:15
+R4379:4389 Kernel.InformationGainToStrengthening <> FeasibleSet def
+binder 4349:4359 <> omega_prior:16
+binder 4361:4375 <> omega_posterior:17
+R4433:4440 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4429:4431 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4415:4427 Kernel.VMState <> csr_cert_addr proj
+R4405:4411 Kernel.VMState <> vm_csrs proj
+R4397:4402 Kernel.InformationGainToStrengthening <> s_init:14 var
+R4475:4482 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4448:4450 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4441:4447 Kernel.InformationGainToStrengthening <> s_final:15 var
+R4451:4456 Kernel.SimulationProof <> run_vm def
+R4458:4461 Kernel.InformationGainToStrengthening <> fuel:12 var
+R4463:4467 Kernel.InformationGainToStrengthening <> trace:13 var
+R4469:4474 Kernel.InformationGainToStrengthening <> s_init:14 var
+R4504:4511 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4483:4484 Coq.Lists.List <> In def
+R4493:4503 Kernel.InformationGainToStrengthening <> omega_prior:16 var
+R4486:4491 Kernel.InformationGainToStrengthening <> s_init:14 var
+R4559:4566 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4512:4530 Kernel.InformationGainToStrengthening <> is_strict_reduction def
+R4532:4542 Kernel.InformationGainToStrengthening <> omega_prior:16 var
+R4544:4558 Kernel.InformationGainToStrengthening <> omega_posterior:17 var
+R4600:4607 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4596:4598 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R4567:4579 Kernel.InformationGainToStrengthening <> feasible_size def
+R4581:4595 Kernel.InformationGainToStrengthening <> omega_posterior:17 var
+R4632:4639 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4624:4626 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4617:4622 Kernel.VMState <> vm_err proj
+R4608:4614 Kernel.InformationGainToStrengthening <> s_final:15 var
+R4627:4631 Coq.Init.Datatypes <> false constr
+R4678:4736 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4673:4676 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4659:4671 Kernel.VMState <> csr_cert_addr proj
+R4649:4655 Kernel.VMState <> vm_csrs proj
+R4640:4646 Kernel.InformationGainToStrengthening <> s_final:15 var
+R4737:4772 Kernel.NoFreeInsight NoFreeInsight has_structure_addition def
+R4774:4777 Kernel.InformationGainToStrengthening <> fuel:12 var
+R4779:4783 Kernel.InformationGainToStrengthening <> trace:13 var
+R4785:4790 Kernel.InformationGainToStrengthening <> s_init:14 var

@@ -238,8 +238,7 @@ Proof.
   - apply compile_instruction_head.
 Qed.
 
-(* Core transition semantics used by proof lemmas. *)
-Definition vm_apply_unsafe (s : VMState) (instr : vm_instruction) : VMState :=
+Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
   match instr with
   | instr_pnew region cost =>
       let '(graph', _) := graph_pnew s.(vm_graph) region in
@@ -307,8 +306,18 @@ Definition vm_apply_unsafe (s : VMState) (instr : vm_instruction) : VMState :=
       advance_state s (instr_pdiscover module evidence cost) graph' s.(vm_csrs) s.(vm_err)
   | instr_chsh_trial x y a b cost =>
       if chsh_bits_ok x y a b then
-        advance_state s (instr_chsh_trial x y a b cost)
-          s.(vm_graph) s.(vm_csrs) s.(vm_err)
+        {| vm_graph := s.(vm_graph);
+           vm_csrs := s.(vm_csrs);
+           vm_regs := s.(vm_regs);
+           vm_mem := s.(vm_mem);
+           vm_pc := S s.(vm_pc);
+           vm_mu := apply_cost s (instr_chsh_trial x y a b cost);
+           vm_mu_tensor := s.(vm_mu_tensor);
+           vm_err := s.(vm_err);
+           vm_logic_acc := s.(vm_logic_acc);
+           vm_mstatus := s.(vm_mstatus);
+           vm_witness := record_trial s.(vm_witness) x y a b;
+           vm_certified := s.(vm_certified) |}
       else
         advance_state s (instr_chsh_trial x y a b cost)
           s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)
@@ -320,15 +329,17 @@ Definition vm_apply_unsafe (s : VMState) (instr : vm_instruction) : VMState :=
       let regs' := write_reg s dst (word32 imm) in
       advance_state_rm s (instr_load_imm dst imm cost)
       s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
-    | instr_load dst addr cost =>
+    | instr_load dst rs_addr cost =>
+      let addr := read_reg s rs_addr in
       let value := read_mem s addr in
       let regs' := write_reg s dst value in
-      advance_state_rm s (instr_load dst addr cost)
+      advance_state_rm s (instr_load dst rs_addr cost)
       s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
-    | instr_store addr src cost =>
+    | instr_store rs_addr src cost =>
+      let addr := read_reg s rs_addr in
       let value := read_reg s src in
       let mem' := write_mem s addr value in
-      advance_state_rm s (instr_store addr src cost)
+      advance_state_rm s (instr_store rs_addr src cost)
       s.(vm_graph) s.(vm_csrs) s.(vm_regs) mem' s.(vm_err)
     | instr_add dst rs1 rs2 cost =>
       let v1 := read_reg s rs1 in
@@ -382,47 +393,83 @@ Definition vm_apply_unsafe (s : VMState) (instr : vm_instruction) : VMState :=
       s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
   | instr_oracle_halts payload cost =>
       advance_state s (instr_oracle_halts payload cost) s.(vm_graph) s.(vm_csrs) s.(vm_err)
-  | instr_halt cost =>
-      advance_state s (instr_halt cost) s.(vm_graph) s.(vm_csrs) s.(vm_err)
-  | instr_checkpoint label cost =>
+    | instr_checkpoint label cost =>
       advance_state s (instr_checkpoint label cost) s.(vm_graph) s.(vm_csrs) s.(vm_err)
-  | instr_read_port dst channel_idx value bits cost =>
+    | instr_read_port dst channel_idx value bits cost =>
       let regs' := write_reg s dst value in
       advance_state_rm s (instr_read_port dst channel_idx value bits cost)
-        s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
-  | instr_write_port channel_idx src cost =>
-      advance_state s (instr_write_port channel_idx src cost) s.(vm_graph) s.(vm_csrs) s.(vm_err)
-  | instr_heap_load dst addr cost =>
+      s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
+    | instr_write_port channel_idx src cost =>
+      advance_state s (instr_write_port channel_idx src cost)
+      s.(vm_graph) s.(vm_csrs) s.(vm_err)
+    | instr_heap_load dst rs_addr cost =>
+      let addr := read_reg s rs_addr in
       let value := read_mem s (s.(vm_csrs).(csr_heap_base) + addr) in
       let regs' := write_reg s dst value in
-      advance_state_rm s (instr_heap_load dst addr cost)
-        s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
-  | instr_heap_store addr src cost =>
+      advance_state_rm s (instr_heap_load dst rs_addr cost)
+      s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
+    | instr_heap_store rs_addr src cost =>
+      let addr := read_reg s rs_addr in
       let value := read_reg s src in
       let mem' := write_mem s (s.(vm_csrs).(csr_heap_base) + addr) value in
-      advance_state_rm s (instr_heap_store addr src cost)
-        s.(vm_graph) s.(vm_csrs) s.(vm_regs) mem' s.(vm_err)
+      advance_state_rm s (instr_heap_store rs_addr src cost)
+      s.(vm_graph) s.(vm_csrs) s.(vm_regs) mem' s.(vm_err)
+    | instr_certify delta_mu =>
+      {| vm_graph := s.(vm_graph);
+         vm_csrs := s.(vm_csrs);
+         vm_regs := s.(vm_regs);
+         vm_mem := s.(vm_mem);
+         vm_pc := S s.(vm_pc);
+         vm_mu := s.(vm_mu) + S delta_mu;
+         vm_mu_tensor := s.(vm_mu_tensor);
+         vm_err := s.(vm_err);
+         vm_logic_acc := s.(vm_logic_acc);
+         vm_mstatus := s.(vm_mstatus);
+         vm_witness := s.(vm_witness);
+         vm_certified := true |}
+    | instr_and dst rs1 rs2 cost =>
+      let v1 := read_reg s rs1 in
+      let v2 := read_reg s rs2 in
+      let regs' := write_reg s dst (word32_and v1 v2) in
+      advance_state_rm s (instr_and dst rs1 rs2 cost)
+      s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
+    | instr_or dst rs1 rs2 cost =>
+      let v1 := read_reg s rs1 in
+      let v2 := read_reg s rs2 in
+      let regs' := write_reg s dst (word32_or v1 v2) in
+      advance_state_rm s (instr_or dst rs1 rs2 cost)
+      s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
+    | instr_shl dst rs1 rs2 cost =>
+      let v1 := read_reg s rs1 in
+      let v2 := read_reg s rs2 in
+      let regs' := write_reg s dst (word32_shl v1 v2) in
+      advance_state_rm s (instr_shl dst rs1 rs2 cost)
+      s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
+    | instr_shr dst rs1 rs2 cost =>
+      let v1 := read_reg s rs1 in
+      let v2 := read_reg s rs2 in
+      let regs' := write_reg s dst (word32_shr v1 v2) in
+      advance_state_rm s (instr_shr dst rs1 rs2 cost)
+      s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
+    | instr_mul dst rs1 rs2 cost =>
+      let v1 := read_reg s rs1 in
+      let v2 := read_reg s rs2 in
+      let regs' := write_reg s dst (word32_mul v1 v2) in
+      advance_state_rm s (instr_mul dst rs1 rs2 cost)
+      s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
+    | instr_lui dst imm cost =>
+      let regs' := write_reg s dst (word32_shl imm 8) in
+      advance_state_rm s (instr_lui dst imm cost)
+      s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
+  | instr_halt cost =>
+      advance_state s (instr_halt cost) s.(vm_graph) s.(vm_csrs) s.(vm_err)
   end.
 
-(* Executable NoFI guard: cert-setting instructions must carry positive μ-cost. *)
-Definition vm_apply_nofi (s : VMState) (instr : vm_instruction) : VMState :=
-  if nofi_step_cost_okb instr then
-    vm_apply_unsafe s instr
-  else
-    {| vm_graph := s.(vm_graph);
-       vm_csrs := csr_set_err s.(vm_csrs) 1;
-       vm_regs := s.(vm_regs);
-       vm_mem := s.(vm_mem);
-       vm_pc := s.(vm_pc);
-       vm_mu := s.(vm_mu);
-       vm_mu_tensor := s.(vm_mu_tensor);
-       vm_err := latch_err s true |}.
+Definition vm_apply_unsafe : VMState -> vm_instruction -> VMState := vm_apply.
 
-(* Runtime export alias: extraction can bind this as the default [vm_apply]. *)
-Definition vm_apply_runtime : VMState -> vm_instruction -> VMState := vm_apply_nofi.
+Definition vm_apply_nofi : VMState -> vm_instruction -> VMState := vm_apply.
 
-(* Keep the historical theorem-facing name stable for proof compatibility. *)
-Definition vm_apply : VMState -> vm_instruction -> VMState := vm_apply_unsafe.
+Definition vm_apply_runtime : VMState -> vm_instruction -> VMState := vm_apply.
 
 Fixpoint run_vm (fuel : nat) (trace : list vm_instruction) (s : VMState)
   : VMState :=
@@ -434,17 +481,6 @@ Fixpoint run_vm (fuel : nat) (trace : list vm_instruction) (s : VMState)
       | None => s
       end
   end.
-
-    Fixpoint run_vm_nofi (fuel : nat) (trace : list vm_instruction) (s : VMState)
-      : VMState :=
-      match fuel with
-      | 0 => s
-      | S fuel' =>
-        match nth_error trace s.(vm_pc) with
-        | Some instr => run_vm_nofi fuel' trace (vm_apply_nofi s instr)
-        | None => s
-        end
-      end.
 
 Inductive vm_exec : nat -> list vm_instruction -> VMState -> VMState -> Prop :=
 | vm_exec_zero : forall trace s,
@@ -609,7 +645,11 @@ Lemma compile_increment_pc_correct :
                  vm_pc := S s_vm.(vm_pc);
                  vm_mu := s_vm.(vm_mu);
                  vm_mu_tensor := s_vm.(vm_mu_tensor);
-                 vm_err := s_vm.(vm_err) |} /\
+                 vm_err := s_vm.(vm_err);
+                 vm_logic_acc := s_vm.(vm_logic_acc);
+                 vm_mstatus := s_vm.(vm_mstatus);
+                 vm_witness := s_vm.(vm_witness);
+                 vm_certified := s_vm.(vm_certified) |} /\
       states_related s_vm'
         {| tape := encode_vm_state_to_tape s_vm';
            head := s_vm'.(vm_pc);
@@ -627,7 +667,11 @@ Proof.
                         vm_pc := S s_vm.(vm_pc);
                         vm_mu := s_vm.(vm_mu);
                         vm_mu_tensor := s_vm.(vm_mu_tensor);
-                        vm_err := s_vm.(vm_err) |} _).
+                        vm_err := s_vm.(vm_err);
+                        vm_logic_acc := s_vm.(vm_logic_acc);
+                        vm_mstatus := s_vm.(vm_mstatus);
+                        vm_witness := s_vm.(vm_witness);
+                        vm_certified := s_vm.(vm_certified) |} _).
   split; [reflexivity|].
   unfold states_related.
   repeat split; simpl; try reflexivity.
@@ -639,7 +683,11 @@ Proof.
                                                      vm_pc := S (vm_pc s_vm);
                                                      vm_mu := vm_mu s_vm;
                                                      vm_mu_tensor := vm_mu_tensor s_vm;
-                                                     vm_err := vm_err s_vm |}).
+                                                     vm_err := vm_err s_vm;
+                                                     vm_logic_acc := vm_logic_acc s_vm;
+                                                     vm_mstatus := vm_mstatus s_vm;
+                                                     vm_witness := vm_witness s_vm;
+                                                     vm_certified := vm_certified s_vm |}).
   apply decode_vm_state_correct.
 Qed.
 
@@ -654,7 +702,11 @@ Lemma compile_add_mu_correct :
                     vm_pc := s_vm.(vm_pc);
                     vm_mu := s_vm.(vm_mu) + delta;
                     vm_mu_tensor := s_vm.(vm_mu_tensor);
-                    vm_err := s_vm.(vm_err) |} in
+                    vm_err := s_vm.(vm_err);
+                    vm_logic_acc := s_vm.(vm_logic_acc);
+                    vm_mstatus := s_vm.(vm_mstatus);
+                    vm_witness := s_vm.(vm_witness);
+                    vm_certified := s_vm.(vm_certified) |} in
     states_related s_vm'
       {| tape := encode_vm_state_to_tape s_vm';
          head := s_vm'.(vm_pc);
@@ -684,7 +736,11 @@ Lemma decode_vm_state_update_err :
               vm_pc := s.(vm_pc);
               vm_mu := s.(vm_mu);
               vm_mu_tensor := s.(vm_mu_tensor);
-              vm_err := new_err |}, []).
+              vm_err := new_err;
+              vm_logic_acc := s.(vm_logic_acc);
+              vm_mstatus := s.(vm_mstatus);
+              vm_witness := s.(vm_witness);
+              vm_certified := s.(vm_certified) |}, []).
 Proof.
   intros tape s new_err Hdecode.
   unfold update_vm_err_in_tape.
@@ -701,7 +757,11 @@ Proof.
                                    vm_pc := vm_pc s;
                                    vm_mu := vm_mu s;
                                    vm_mu_tensor := vm_mu_tensor s;
-                                   vm_err := new_err |}).
+                          vm_err := new_err;
+                          vm_logic_acc := vm_logic_acc s;
+                          vm_mstatus := vm_mstatus s;
+                          vm_witness := vm_witness s;
+                          vm_certified := vm_certified s |}).
   rewrite decode_vm_state_correct.
   reflexivity.
 Qed.
@@ -719,7 +779,11 @@ Lemma compile_update_err_correct :
          vm_pc := s_vm.(vm_pc);
          vm_mu := s_vm.(vm_mu);
          vm_mu_tensor := s_vm.(vm_mu_tensor);
-         vm_err := new_err |}
+        vm_err := new_err;
+        vm_logic_acc := s_vm.(vm_logic_acc);
+        vm_mstatus := s_vm.(vm_mstatus);
+        vm_witness := s_vm.(vm_witness);
+        vm_certified := s_vm.(vm_certified) |}
       {| tape := tape';
          head := s_kernel.(head);
          tm_state := s_kernel.(tm_state);

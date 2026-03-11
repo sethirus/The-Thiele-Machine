@@ -125,7 +125,7 @@ This standard is enforced automatically. Any commit introducing an admit fails C
 \textit{Author's Note (Devon): The zero-admit thing---I'm not going to lie, it nearly broke me. I hit a wall on \path{ProperSubsumption.v} where the cost transfer logic was so tangled that \texttt{lia} just gave up. I reached for the ``Admitted'' button more times than I can count. But if I admit something here, I'm basically saying ``trust me, the accounting is correct.'' And in this machine, that doesn't fly. I spent forty-eight hours directing the proof of \texttt{thiele\_run\_mu\_bound}---iteration after iteration, failed tactic after failed tactic, feeding error messages back to the LLMs and demanding they find another way in---induction by induction, until \texttt{nia} could finally close the loop. I don't write Coq. But I understand what needs to be true and I will not stop until the machine agrees. After the full corpus pass, the Inquisitor reports zero high findings. Zero shortcuts. The machine is screaming clean.}
 \end{quote} This matters because it guarantees every theorem in the active proof tree is fully discharged.
 
-\textbf{Inquisitor Quality Assessment:} The enforcement mechanism is \path{scripts/inquisitor.py}, which scans the full repository Coq corpus across 25+ rule categories (current report: 292 files scanned). The current status is \textbf{HIGH: 0, MEDIUM: 0, LOW: 0} with:
+\textbf{Inquisitor Quality Assessment:} The enforcement mechanism is \path{scripts/inquisitor.py}, which scans the full repository Coq corpus across 87 scan rules (current report: 324 files scanned). The current status is \textbf{HIGH: 0, MEDIUM: 0, LOW: 0} with:
 \begin{itemize}
     \item \textbf{0 HIGH priority issues}: No global \texttt{Axiom}/\texttt{Parameter} declarations, no \texttt{Admitted} proofs, no \texttt{admit} tactics.
     \item \textbf{0 global axioms}: All assumptions are explicit \texttt{Context} parameters within labeled \texttt{Section} blocks, ensuring no leakage into the global namespace.
@@ -168,11 +168,11 @@ The kernel also includes machine-verified proofs connecting fundamental quantum 
     
     \item \textbf{Tsirelson Bound} (\path{coq/kernel/TsirelsonGeneral.v}): The theorem \texttt{tsirelson\_from\_minors} proves: if four correlation values satisfy row-norm constraints ($e_{00}^2 + e_{01}^2 \leq 1$ and $e_{10}^2 + e_{11}^2 \leq 1$), then $S^2 \leq 8$. This is legitimate algebra, proven via a sum-of-squares decomposition identity. The result is correct and the proof is real. The row-norm constraints themselves come from the NPA-1 moment matrix (a quantum-mechanical object), so the physics is in the hypotheses, but the algebraic bound is genuinely derived.
     
-    \item \textbf{Born Rule from Tensor Consistency} (\path{coq/kernel/BornRuleFromSymmetry.v}): An alternative derivation proving the Born rule from tensor product consistency, replacing the linearity premise with a composite-system constraint. The theorem \texttt{born\_rule\_from\_tensor\_consistency} establishes that any probability assignment compatible with composite systems must be the squared-amplitude rule.
+    \item \textbf{Born Rule from Symmetry} (\path{coq/kernel/BornRuleFromSymmetry.v}): An existence proof showing the identity function $g(x) = x$ satisfies eigenstate consistency, normalization, tensor product consistency, and range constraints. The lemmas \texttt{born\_identity\_eigenstate}, \texttt{born\_identity\_normalization}, \texttt{born\_identity\_tensor}, and \texttt{born\_identity\_range} verify these properties. The uniqueness proof (that $g(x) = x$ is the \emph{only} such function) was removed because it relied on Section-scoped Context assumptions that violated the zero-axiom policy.
     
-    \item \textbf{Machine-Native No-Cloning} (\path{coq/kernel/NoCloningFromMuMonotonicity.v}): A self-contained no-cloning proof using only natural-number arithmetic (\texttt{lia}). The theorem \texttt{no\_cloning\_from\_mu\_monotonicity} shows perfect cloning requires $\mu \geq n$ for $n$-bit states.
+    \item \textbf{Machine-Native No-Cloning} (\path{coq/kernel/NoCloningFromMuMonotonicity.v}): A self-contained no-cloning proof using only natural-number arithmetic (\texttt{lia}). The theorem \texttt{no\_cloning\_mu\_monotonicity} shows perfect cloning requires $\mu \geq n$ for $n$-bit states.
     
-    \item \textbf{Algebraic Tsirelson} (\path{coq/kernel/TsirelsonFromAlgebra.v}): A standalone algebraic derivation of the Tsirelson bound with achievability witness. The theorem \texttt{tsirelson\_bound\_proof} proves $S^2 \leq 8$ from $A^2 = B^2 = I$ via a sum-of-squares identity.
+    \item \textbf{Algebraic Tsirelson} (\path{coq/kernel/TsirelsonFromAlgebra.v}): A standalone algebraic derivation of the Tsirelson bound with achievability witness. The theorem \texttt{tsirelson\_squared} proves $S^2 \leq 8$ from $A^2 = B^2 = I$ via a sum-of-squares identity.
 \end{enumerate}
 
 \begin{quote}
@@ -187,11 +187,11 @@ The kernel also includes machine-verified proofs connecting fundamental quantum 
 NoCloning.v & \texttt{no\_cloning\_from\_conservation} \checkmark & Conservation hypothesis $\Rightarrow$ arithmetic \\
 Unitarity.v & \texttt{nonunitary\_requires\_mu} \checkmark & Info-loss hypothesis $\Rightarrow$ arithmetic \\
 BornRule.v & \texttt{born\_rule\_from\_accounting} \checkmark & Linearity + boundary $\Rightarrow$ unique rule \\
-BornRuleFromSymmetry.v & \texttt{born\_rule\_from\_tensor\_consistency} \checkmark & Tensor consistency $\Rightarrow$ Born rule \\
-NoCloningFromMuMono.v & \texttt{no\_cloning\_from\_mu\_monotonicity} \checkmark & Natural-number accounting \\
+BornRuleFromSymmetry.v & \texttt{born\_identity\_eigenstate} \checkmark & Existence proof (identity satisfies axioms) \\
+NoCloningFromMuMono.v & \texttt{no\_cloning\_mu\_monotonicity} \checkmark & Natural-number accounting \\
 Purification.v & \texttt{purification\_principle} \checkmark & Bloch sphere geometry \\
 TsirelsonGen.v & \texttt{tsirelson\_from\_minors} \checkmark & Genuine algebraic bound \\
-TsirelsonFromAlgebra.v & \texttt{tsirelson\_bound\_proof} \checkmark & Sum-of-squares identity \\
+TsirelsonFromAlgebra.v & \texttt{tsirelson\_squared} \checkmark & Sum-of-squares identity \\
 \end{tabular}}
 
 \vspace{2pt}
@@ -216,7 +216,7 @@ Focus on understanding the \textit{statements} (what the proofs establish), not 
 
 The credibility of the Thiele Machine rests on machine-checked proofs. This chapter documents the verification campaign that culminated in a full removal of \texttt{Admitted}, \texttt{admit.}, and \texttt{Axiom} declarations from the active Coq tree. The practical consequence is rebuildability: a reader can re-implement the definitions and re-prove the same claims without relying on hidden assumptions.
 
-All proofs are verified by Coq 8.18.x. The Inquisitor enforces this invariant: any commit introducing an admit or undocumented axiom fails CI. The comprehensive static analysis also detects vacuous statements, trivial tautologies, and hidden assumptions. See \path{scripts/inquisitor.py} and \path{scripts/inquisitor\_rules.py} for complete documentation of the 25+ rule categories and enforcement policies.
+All proofs are verified by Coq 8.18.x. The Inquisitor enforces this invariant: any commit introducing an admit or undocumented axiom fails CI. The comprehensive static analysis also detects vacuous statements, trivial tautologies, and hidden assumptions. See \path{scripts/inquisitor.py} and \path{scripts/inquisitor\_rules.py} for complete documentation of the 87 scan rules and enforcement policies.
 
 \section{Proof Architecture}
 
@@ -250,7 +250,10 @@ Record VMState := {
   vm_mem : list nat;
   vm_pc : nat;
   vm_mu : nat;
-  vm_err : bool
+  vm_mu_tensor : list nat;
+  vm_err : bool;
+  vm_logic_acc : nat;
+  vm_mstatus : nat
 }.
 \end{lstlisting}
 
@@ -258,7 +261,7 @@ Record VMState := {
 
 \textbf{What is this?} This is the \textbf{same} VMState record definition from Chapter 3, repeated here in Chapter 5 to establish the verification context. Formal proofs quantify over VMState values, so every theorem statement begins by referencing these exact fields.
 
-\textbf{Seven immutable fields:}
+\textbf{Ten immutable fields:}
 \begin{itemize}
     \item \textbf{vm\_graph : PartitionGraph} — The complete partition structure (modules, regions, axioms). Every locality theorem quantifies over this graph.
     \item \textbf{vm\_csrs : CSRState} — Control and status registers. Proofs about error propagation read the error CSR from this field.
@@ -266,7 +269,10 @@ Record VMState := {
     \item \textbf{vm\_mem : list nat} — Main memory. Proofs about memory access quantify over this field.
     \item \textbf{vm\_pc : nat} — Program counter. Single-step proofs track PC increments via this field.
     \item \textbf{vm\_mu : nat} — Operational $\mu$ ledger. $\mu$-conservation theorem states that this field never decreases.
+    \item \textbf{vm\_mu\_tensor : list nat} — Bianchi tensor. The invariant $\sum\text{tensor}[i] \le \mu$ is checked per step.
     \item \textbf{vm\_err : bool} — Error latch. Once set, the VM halts. Proofs about error propagation reference this flag.
+    \item \textbf{vm\_logic\_acc : nat} — Logic engine accumulator. Tracks accumulated structural evidence.
+    \item \textbf{vm\_mstatus : nat} — Machine status register. Encodes execution state metadata.
 \end{itemize}
 
 \textbf{Why immutable?} Coq records are immutable by default. Every instruction produces a new VMState rather than mutating the old one. This functional style makes proofs tractable: reasoning about state transitions reduces to comparing two record values.
@@ -460,18 +466,27 @@ Inductive vm_instruction :=
 | instr_xfer (dst src : nat) (mu_delta : nat)
 | instr_xor_load  ... | instr_xor_add  ...
 | instr_xor_swap  ... | instr_xor_rank ...
-(* External + control *)
-| instr_pyexec (payload : string) (mu_delta : nat)
+(* Certification + control *)
 | instr_chsh_trial (x y a b : nat) (mu_delta:nat)
 | instr_emit ... | instr_reveal ...
 | instr_oracle_halts ... | instr_halt ...
+(* Memory + ALU *)
+| instr_load ... | instr_store ...
+| instr_add ... | instr_sub ...
+(* Control flow *)
+| instr_jump ... | instr_jnez ...
+| instr_call ... | instr_ret ...
+(* I/O and Heap *)
+| instr_checkpoint ... | instr_read_port ...
+| instr_write_port ... | instr_heap_load ...
+| instr_heap_store ...
 \end{lstlisting}
 
 \paragraph{Understanding the vm\_instruction Inductive Type (Verification Context):}
 
 \textbf{What is this?} This is the \textbf{same} instruction type from Chapter 3, repeated in Chapter 5 to establish the verification context. Every theorem about instruction semantics quantifies over this type.
 
-\textbf{Inductive type:} In Coq, an \texttt{Inductive} type defines a set of constructors. \texttt{vm\_instruction} has 18 constructors, each representing one instruction. No other instructions exist---the type is closed.
+\textbf{Inductive type:} In Coq, an \texttt{Inductive} type defines a set of constructors. \texttt{vm\_instruction} has 31 constructors, each representing one instruction. No other instructions exist---the type is closed.
 
 \textbf{Why does every instruction have mu\_delta?} Every instruction costs $\mu$. The \texttt{mu\_delta : nat} argument encodes the declared cost. The step semantics verifies this cost is non-negative and adds it to \texttt{s.vm\_mu}. Conservation proofs quantify over arbitrary \texttt{mu\_delta} values to show that $\mu$ never decreases.
 
@@ -480,10 +495,12 @@ Inductive vm_instruction :=
     \item \textbf{Partition operations:} \texttt{instr\_pnew}, \texttt{instr\_psplit}, \texttt{instr\_pmerge} — Create, split, merge modules.
     \item \textbf{Logical operations:} \texttt{instr\_lassert}, \texttt{instr\_ljoin} — Assert formulas with SAT certificates, join certificate chains.
     \item \textbf{Discovery:} \texttt{instr\_pdiscover}, \texttt{instr\_mdlacc} — Declare axioms, compute logarithmic model size.
-    \item \textbf{Data transfer:} \texttt{instr\_xfer}, \texttt{instr\_xor\_*} — Register transfer, bitwise XOR operations.
-    \item \textbf{External interaction:} \texttt{instr\_pyexec}, \texttt{instr\_emit}, \texttt{instr\_oracle\_halts} — Execute Python, emit receipts, oracle queries.
-    \item \textbf{Observability:} \texttt{instr\_reveal} — Make internal state observable (costs $\mu$).
-    \item \textbf{Control:} \texttt{instr\_halt} — Stop execution.
+    \item \textbf{Data transfer:} \texttt{instr\_xfer}, \texttt{instr\_load\_imm}, \texttt{instr\_xor\_*} — Register transfer, immediate loads, bitwise XOR operations.
+    \item \textbf{Memory \& ALU:} \texttt{instr\_load}, \texttt{instr\_store}, \texttt{instr\_add}, \texttt{instr\_sub} — Memory access and arithmetic.
+    \item \textbf{Certification:} \texttt{instr\_chsh\_trial}, \texttt{instr\_emit}, \texttt{instr\_reveal} — CHSH trials, receipt emission, state revelation.
+    \item \textbf{Control:} \texttt{instr\_jump}, \texttt{instr\_jnez}, \texttt{instr\_call}, \texttt{instr\_ret}, \texttt{instr\_halt} — Branches, subroutines, termination.
+    \item \textbf{Oracle:} \texttt{instr\_oracle\_halts} — Halting oracle queries.
+    \item \textbf{I/O and Heap:} \texttt{instr\_checkpoint}, \texttt{instr\_read\_port}, \texttt{instr\_write\_port}, \texttt{instr\_heap\_load}, \texttt{instr\_heap\_store} — Port I/O, heap memory, checkpointing.
 \end{itemize}
 
 
@@ -505,7 +522,7 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop := ...
 \begin{itemize}
     \item \textbf{Inductive vm\_step} — Declares an inductive relation (a set of inference rules).
     \item \textbf{VMState -> vm\_instruction -> VMState -> Prop} — The relation takes three arguments: initial state, instruction, final state. It returns a \texttt{Prop} (a provable claim).
-    \item \textbf{:= ...} — The body (not shown) contains 23 inference rules, one or more per instruction constructor, defining exactly how each instruction transforms state.
+    \item \textbf{:= ...} — The body (not shown) contains 39 inference rules, one or more per instruction constructor, defining exactly how each instruction transforms state.
 \end{itemize}
 
 \textbf{What does the relation express?} The relation \texttt{vm\_step s instr s'} can be read as ``executing \texttt{instr} in state \texttt{s} results in state \texttt{s'}.'' Not all triples \texttt{(s, instr, s')} satisfy the relation---only those where the instruction's preconditions hold and the state transition follows the defined semantics.
@@ -733,7 +750,10 @@ Definition mu_gauge_shift (k : nat) (s : VMState) : VMState :=
      vm_pc := s.(vm_pc);
      vm_graph := s.(vm_graph);
      vm_mu := s.(vm_mu) + k;
-     vm_err := s.(vm_err) |}.
+     vm_mu_tensor := s.(vm_mu_tensor);
+     vm_err := s.(vm_err);
+     vm_logic_acc := s.(vm_logic_acc);
+     vm_mstatus := s.(vm_mstatus) |}.
 \end{lstlisting}
 
 \paragraph{Understanding mu\_gauge\_shift:}
@@ -1388,7 +1408,7 @@ The verification campaign also settles two computability-theoretic questions: wh
 
 \subsection{Oracle Impossibility}
 
-\path{coq/kernel/OracleImpossibility.v} (367 lines, zero axioms, zero admits) proves three results:
+\path{coq/kernel/OracleImpossibility.v} (375 lines, zero axioms, zero admits) proves three results:
 
 \begin{enumerate}
     \item \textbf{Halting undecidability} (\texttt{halting\_undecidable}): No total computable function decides halting. The proof uses the standard diagonal argument---assume a decider exists, construct a program that does the opposite of what the decider predicts, and derive a contradiction. This is a genuine, self-contained proof with no assumed results.
@@ -1407,16 +1427,16 @@ The verification campaign also settles two computability-theoretic questions: wh
 The converse question: can the Thiele Machine simulate any Turing machine? Two files answer yes:
 
 \begin{enumerate}
-    \item \textbf{TM $\to$ Minsky compilation} (\path{coq/modular_proofs/TM\_to\_Minsky.v}, 339 lines): Defines a compilation from Turing machines to Minsky counter machines using standard unary encoding of tape plus head position into counter registers. The key theorem \texttt{tm\_to\_minsky\_exists} proves that for any TM, there exists a compiled Minsky program whose execution faithfully simulates the original, step by step.
+    \item \textbf{TM $\to$ Minsky compilation} (\path{coq/modular_proofs/TM\_to\_Minsky.v}, 351 lines): Defines a compilation from Turing machines to Minsky counter machines using standard unary encoding of tape plus head position into counter registers. The key theorem \texttt{tm\_to\_minsky\_exists} proves that for any TM, there exists a compiled Minsky program whose execution faithfully simulates the original, step by step.
     
-    \item \textbf{Minsky $\to$ Thiele instantiation} (\path{coq/modular_proofs/ThieleInstance.v}, 437 lines): Defines the Thiele Machine's simulation of Minsky programs (and therefore arbitrary TMs). The main result \texttt{thiele\_subsumes\_tm\_complete} proves semantic preservation across the full chain: TM $\to$ Minsky $\to$ Thiele, with step-by-step correspondence. Concrete examples (\texttt{identity\_tm\_thiele\_simulation}, \texttt{flip\_tm\_bounded}) verify the simulation on specific machines.
+    \item \textbf{Minsky $\to$ Thiele instantiation} (\path{coq/modular_proofs/ThieleInstance.v}, 456 lines): Defines the Thiele Machine's simulation of Minsky programs (and therefore arbitrary TMs). The main result \texttt{thiele\_subsumes\_tm\_complete} proves semantic preservation across the full chain: TM $\to$ Minsky $\to$ Thiele, with step-by-step correspondence. Concrete examples (\texttt{identity\_tm\_thiele\_simulation}, \texttt{flip\_tm\_bounded}) verify the simulation on specific machines.
 \end{enumerate}
 
 Both files carry zero axioms and zero admits. The compilation chain establishes \textbf{Turing completeness}: every computable function can be computed by the Thiele Machine (at appropriate $\mu$-cost). Combined with oracle impossibility, the picture is complete---the machine computes exactly the computable functions, charges honestly for oracle queries, and cannot solve the halting problem for free.
 
 \subsection{Hard Math Facts: Mechanized Proofs}
 
-The 6 hard mathematical facts formalized in \path{coq/kernel/AssumptionBundle.v}---bounds on correlations, monogamy constraints, coherence relations that underpin all Bell-type reasoning---are mechanically proven from first principles in \path{coq/kernel/HardMathFactsProven.v} (686 lines, zero axioms, zero admits):
+The 6 hard mathematical facts formalized in \path{coq/kernel/AssumptionBundle.v}---bounds on correlations, monogamy constraints, coherence relations that underpin all Bell-type reasoning---are mechanically proven from first principles in \path{coq/kernel/HardMathFactsProven.v} (690 lines, zero axioms, zero admits):
 
 \begin{itemize}
     \item \texttt{norm\_E\_bound}: $|E(x,y)| \leq 1$ from probability axioms
@@ -1496,7 +1516,7 @@ If anyone can produce such a counterexample, the theorem is false. The proofs es
 % Zero-Admit Standard
 \node[std] (std) at (0,0.6) {\textbf{Zero-Admit:} No Admitted, No Axiom};
 % Inquisitor
-\node[inq] (inq) at (0,-0.4) {\textbf{Inquisitor} (25+ rules) --- 0 HIGH};
+\node[inq] (inq) at (0,-0.4) {\textbf{Inquisitor} (87 rules) --- 0 HIGH};
 % Arrows
 \draw[arr] (ns.south) -- (mc.north);
 \draw[arr] (gi.south) -- (nfi.north);
@@ -1523,4 +1543,4 @@ The formal verification campaign establishes:
     \item \textbf{Completeness}: Zero admits, zero axioms---all proofs are machine-checked
 \end{enumerate}
 
-\textbf{A note on proof depth:} Some of these results are deeper than others. The no-signaling theorem requires genuine case analysis across 23 step constructors. The Tsirelson algebraic bound uses a real sum-of-squares identity. The Turing subsumption chain is a substantive compilation correctness proof. Other results---$\mu$-conservation, gauge invariance, oracle cost bounds---are closer to design consistency checks: they verify that properties the system was \textit{built to have} are indeed present. This is not a criticism. Engineering a system so that its key properties are trivially true is good design. But the thesis should be honest about which results are deep and which are definitional.
+\textbf{A note on proof depth:} Some of these results are deeper than others. The no-signaling theorem requires genuine case analysis across 39 step constructors. The Tsirelson algebraic bound uses a real sum-of-squares identity. The Turing subsumption chain is a substantive compilation correctness proof. Other results---$\mu$-conservation, gauge invariance, oracle cost bounds---are closer to design consistency checks: they verify that properties the system was \textit{built to have} are indeed present. This is not a criticism. Engineering a system so that its key properties are trivially true is good design. But the thesis should be honest about which results are deep and which are definitional.

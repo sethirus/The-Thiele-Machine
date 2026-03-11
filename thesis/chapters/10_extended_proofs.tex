@@ -63,7 +63,7 @@ The proof corpus is organized by \emph{domain} rather than by implementation det
 \end{itemize}
 For readers navigating the code, the “kernel semantics” block corresponds to files such as \texttt{VMState.v} and \texttt{VMStep.v}, while many of the “extended machine proofs” live in \texttt{PartitionLogic.v}, \texttt{Subsumption.v}, and related files under \texttt{coq/thielemachine/coqproofs/}. The structure is intentionally layered so that higher-level proofs explicitly import the kernel rather than re-deriving it.
 
-\section{The ThieleMachine Proof Suite (98 Files)}
+\section{The ThieleMachine Proof Suite (71 Files)}
 
 \subsection{Partition Logic}
 
@@ -251,7 +251,7 @@ The Bell inequality framework is formalized across multiple files, with foundati
     \item \textbf{Tsirelson bound ($|S| \leq 2\sqrt{2}$)}: Quantum mechanical maximum. Parameterized via \texttt{HardMathFacts} record.
 \end{itemize}
 
-The architecture uses Coq's \texttt{Section}/\texttt{Context} mechanism to explicitly parameterize theorems by their assumptions, avoiding global axioms while maintaining clean dependency tracking. See \texttt{PROOF\_DEBT.md} for detailed breakdown of proven vs. documented results.
+The architecture uses Coq's \texttt{Section}/\texttt{Context} mechanism to explicitly parameterize theorems by their assumptions, avoiding global axioms while maintaining clean dependency tracking.
 
 \subsection{Turing Machine Embedding}
 
@@ -345,7 +345,7 @@ The kernel includes additional proof files establishing fundamental properties f
 
 \subsection{Finite Information Theory}
 
-The file \path{coq/kernel/FiniteInformation.v} (20KB, 18 theorems) proves information-theoretic properties without axioms:
+The file \path{coq/kernel/FiniteInformation.v} (622 lines, 18 theorems) proves information-theoretic properties without axioms:
 
 \begin{lstlisting}
 (** Information cannot be created in deterministic systems *)
@@ -360,7 +360,7 @@ Theorem obs_classes_deterministic_nonincreasing :
 
 \subsection{Locality Proofs for All Instructions}
 
-The file \path{coq/kernel/Locality.v} (17KB, 13 lemmas) proves locality for every instruction:
+The file \path{coq/kernel/Locality.v} (568 lines, 16 lemmas) proves locality for every instruction:
 
 \begin{lstlisting}
 (** Each instruction only affects its target modules *)
@@ -375,7 +375,7 @@ Lemma psplit_locality : forall s s' mid l r mu,
   forall other, other <> mid ->
     region_obs s other = region_obs s' other.
 
-(* ... similar lemmas for all 18 instructions ... *)
+(* ... similar lemmas for all 31 instructions ... *)
 \end{lstlisting}
 
 \textbf{Why this matters:} These instruction-level locality lemmas are the building blocks for the global no-signaling theorem. Each lemma proves that a specific instruction only modifies observations of its target modules.
@@ -410,7 +410,7 @@ Theorem thiele_strictly_extends_turing :
 
 \subsection{Local Information Loss}
 
-The file \path{coq/kernel/LocalInfoLoss.v} (17KB, 8 theorems) connects information theory to $\mu$-cost:
+The file \path{coq/kernel/LocalInfoLoss.v} (22KB, 8 theorems) connects information theory to $\mu$-cost:
 
 \begin{lstlisting}
 (** Information loss bounded by mu-cost *)
@@ -424,27 +424,27 @@ Theorem info_loss_bounded_by_mu :
 
 \subsection{Assumption Documentation}
 
-The file \path{coq/kernel/HardAssumptions.v} (9KB) provides explicit documentation of all non-trivial assumptions:
+The file \path{coq/kernel/HardAssumptions.v} (~8KB) provides explicit documentation of all non-trivial mathematical facts used by the Bell-inequality reasoning:
 
 \begin{lstlisting}
-(** Hard Assumptions - Explicitly Documented *)
-Module HardAssumptions.
-  (** 1. Tsirelson bound: quantum max CHSH = 2*sqrt(2) *)
-  Parameter tsirelson_bound : forall Q, quantum_box Q -> S Q <= 2828/1000.
-  
-  (** 2. Classical bound: local hidden variable max = 2 *)
-  Parameter classical_bound : forall L, local_box L -> S L <= 2.
-  
-  (** 3. NPA hierarchy convergence (Navascues-Pironio-Acin) *)
-  Parameter npa_convergence : npa_hierarchy_converges.
-End HardAssumptions.
+(** Hard Mathematical Assumptions - Proven and Documented *)
+Module HardFacts.
+  (* Fact 1: |E_xy| <= 1 — PROVEN in BoxCHSH.v *)
+  Definition normalized_E_bound := BoxCHSH.normalized_E_bound.
+
+  (* Fact 2: No-signaling -> |S| <= 4 — PROVEN in BoxCHSH.v *)
+  Definition valid_box_S_le_4 := BoxCHSH.valid_box_S_le_4.
+
+  (* Fact 3: Local hidden variable -> |S| <= 2 — PROVEN in BoxCHSH.v *)
+  Definition local_S_2_deterministic := BoxCHSH.local_S_2_deterministic.
+End HardFacts.
 \end{lstlisting}
 
-\textbf{Why this matters:} Rather than hiding assumptions as global axioms, this file makes every non-trivial assumption explicit and documented. The Inquisitor can verify that no undocumented assumptions exist.
+\textbf{Why this matters:} Every ``hard'' mathematical fact is a \texttt{Definition} that re-exports a proven theorem from its source file. There are zero \texttt{Parameter} or \texttt{Axiom} declarations. The Inquisitor can verify that no undocumented assumptions exist.
 
 \subsection{The $\mu$-Initiality Theorem}
 
-The file \path{coq/kernel/MuInitiality.v} (14KB, 13 theorems) proves the strongest possible statement about the $\mu$-ledger: it is not merely \textit{a} monotone cost accumulator, but \textit{the} canonical one—the initial object in the category of instruction-consistent cost functionals.
+The file \path{coq/kernel/MuInitiality.v} (883 lines, 14 lemmas/theorems) proves the strongest possible statement about the $\mu$-ledger: it is not merely \textit{a} monotone cost accumulator, but \textit{the} canonical one—the initial object in the category of instruction-consistent cost functionals.
 
 \begin{lstlisting}
 (** Instruction-consistency: M increases by exactly c(instr) each step *)
@@ -511,21 +511,21 @@ The kernel extension on quantum axioms formalizes conditional results: each proo
 
 \subsection{Proof Architecture Overview}
 
-The quantum axiom proofs live in eight files totaling 3,961 lines of Coq with zero \texttt{Admitted} statements:
+The quantum axiom proofs live in eight files totaling 3,259 lines of Coq with zero \texttt{Admitted} statements:
 
 \begin{center}
 \begin{tabular}{lrrl}
 \toprule
 \textbf{File} & \textbf{Lines} & \textbf{Defs/Thms} & \textbf{Primary Result} \\
 \midrule
-\texttt{NoCloning.v} & 936 & 20 & No-cloning from conservation \\
-\texttt{NoCloningFromMuMonotonicity.v} & 260 & 11 & Machine-native no-cloning (\texttt{lia}) \\
-\texttt{Unitarity.v} & 583 & 25 & CPTP from irreversibility \\
-\texttt{BornRule.v} & 321 & 20 & Born rule from linearity \\
-\texttt{BornRuleFromSymmetry.v} & 939 & 33 & Born rule from tensor consistency \\
-\texttt{Purification.v} & 280 & 11 & Purification principle \\
-\texttt{TsirelsonGeneral.v} & 315 & 19 & Tsirelson bound from algebra \\
-\texttt{TsirelsonFromAlgebra.v} & 327 & 13 & Self-contained Tsirelson with witness \\
+\texttt{NoCloning.v} & 947 & 21 & No-cloning from conservation \\
+\texttt{NoCloningFromMuMonotonicity.v} & 281 & 14 & Machine-native no-cloning (\texttt{lia}) \\
+\texttt{Unitarity.v} & 592 & 25 & CPTP from irreversibility \\
+\texttt{BornRule.v} & 342 & 21 & Born rule from linearity \\
+\texttt{BornRuleFromSymmetry.v} & 144 & 5 & Born rule from tensor consistency \\
+\texttt{Purification.v} & 290 & 11 & Purification principle \\
+\texttt{TsirelsonGeneral.v} & 324 & 19 & Tsirelson bound from algebra \\
+\texttt{TsirelsonFromAlgebra.v} & 339 & 14 & Self-contained Tsirelson with witness \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -552,14 +552,14 @@ Theorem no_cloning_from_conservation :
 \textbf{What this actually checks:} The physics is in the hypotheses. The \texttt{respects\_conservation} predicate encodes the no-cloning content (you can't double information without cost). The proof confirms the arithmetic is consistent. This is honest: the hard part is \textit{accepting} the conservation constraint; once you accept it, no-cloning is an immediate consequence.
 
 \paragraph{Machine-native proof (\texttt{NoCloningFromMuMonotonicity.v}).}
-A second, self-contained no-cloning proof works entirely in natural-number arithmetic, avoiding any real-analysis imports. The key theorem \texttt{no\_cloning\_from\_mu\_monotonicity} shows that perfect cloning would require at least $\mu = n$ additional bits for an $n$-bit state, contradicting the zero-cost hypothesis. All proof obligations close with \texttt{lia} (linear integer arithmetic), making the argument fully decidable.
+A second, self-contained no-cloning proof works entirely in natural-number arithmetic, avoiding any real-analysis imports. The key theorem \texttt{no\_cloning\_mu\_monotonicity} shows that perfect cloning would require at least $\mu = n$ additional bits for an $n$-bit state, contradicting the zero-cost hypothesis. All proof obligations close with \texttt{lia} (linear integer arithmetic), making the argument fully decidable.
 
 The file also proves:
 \begin{itemize}
-    \item \texttt{approximate\_cloning\_bound}: Approximate cloning fidelity is bounded by $\mu$ budget
-    \item \texttt{no\_deletion\_without\_cost}: Quantum deletion also requires $\mu$ expenditure
-    \item \texttt{broadcasting\_bound}: Broadcasting mixed states has $\mu$-dependent limits
+    \item \texttt{cloning\_requires\_cost}: Perfect cloning of $n$-bit states requires $\mu \geq n$
 \end{itemize}
+
+The related theorems \texttt{approximate\_cloning\_bound} and \texttt{no\_deletion\_without\_cost} are proven in the companion file \texttt{NoCloning.v}.
 
 \subsection{Unitarity and CPTP Maps}
 
@@ -585,7 +585,6 @@ Additional theorems:
 \begin{itemize}
     \item \texttt{physical\_evolution\_is\_CPTP}: Physical maps are completely positive and trace-preserving
     \item \texttt{lindblad\_requires\_mu}: Lindblad dynamics (open system evolution) requires $\mu$ flow
-    \item \texttt{depolarization\_cost}: Specific cost formula for depolarizing channels
 \end{itemize}
 
 \subsection{Born Rule}
@@ -610,14 +609,13 @@ Theorem born_rule_from_accounting :
 
 \textbf{Honest assessment:} The \texttt{mu\_consistent} hypothesis is present but completely unused---the proof works from \texttt{valid\_prob\_rule} and \texttt{is\_linear\_in\_z} alone. The linearity hypothesis \textit{is} the Born rule in disguise: on the Bloch sphere, only the Born rule is linear in the density matrix. The proof verifies that linearity plus normalization has a unique fixed point. This is why the non-circular derivation below matters.
 
-\paragraph{Non-circular derivation (\texttt{BornRuleFromSymmetry.v}).}
-The original \texttt{BornRule.v} takes linearity as a premise. A separate 939-line development derives the Born rule from \textbf{tensor product consistency} alone, eliminating the circularity concern. The key theorem \texttt{born\_rule\_from\_tensor\_consistency} establishes that any probability assignment compatible with tensor products on a composite Hilbert space must be the squared-amplitude rule. The proof proceeds by: (1)~defining separable states and their tensor structure, (2)~proving that consistency under partial trace forces multiplicativity of probabilities across subsystems, (3)~showing that multiplicativity plus normalization uniquely determines the Born rule. All obligations discharge via \texttt{lra}/\texttt{nra}/\texttt{field}; the file contains zero \texttt{Admitted} statements.
+\paragraph{Existence proof (\texttt{BornRuleFromSymmetry.v}).}
+The original \texttt{BornRule.v} takes linearity as a premise. A separate 144-line file proves that the identity function $g(x) = x$ satisfies eigenstate consistency, normalization, tensor product consistency, and range constraints (the \texttt{born\_identity\_*} lemmas). A uniqueness proof (that $g(x) = x$ is the \emph{only} such function) was removed because it relied on Section-scoped Context assumptions that violated the zero-axiom policy.
 
 Additional theorems:
 \begin{itemize}
     \item \texttt{linear\_implies\_born}: Alternative formulation emphasizing linearity
     \item \texttt{valid\_prob\_rule}: Probabilities are non-negative and sum to 1
-    \item \texttt{measurement\_disturbance\_bound}: How much measurement disturbs the state
 \end{itemize}
 
 \subsection{Purification Principle}
@@ -644,7 +642,6 @@ Theorem purification_principle :
 Additional theorems:
 \begin{itemize}
     \item \texttt{purification\_deficit}: The ``purity deficit'' equals entanglement with environment
-    \item \texttt{purification\_uniqueness\_up\_to\_isometry}: Purifications are unique up to isometries on the ancilla
 \end{itemize}
 
 \subsection{Tsirelson Bound}
@@ -670,12 +667,10 @@ Corollary tsirelson_from_minors :
 Additional theorems:
 \begin{itemize}
     \item \texttt{cauchy\_schwarz\_chsh}: The Cauchy-Schwarz proof of the bound
-    \item \texttt{chsh\_achieved\_by\_maximally\_entangled}: The bound is tight
-    \item \texttt{supra\_tsirelson\_requires\_mu}: Exceeding $2\sqrt{2}$ requires $\mu$ expenditure
 \end{itemize}
 
 \paragraph{Self-contained algebraic proof (\texttt{TsirelsonFromAlgebra.v}).}
-A standalone 327-line development derives the Tsirelson bound from first principles without importing \texttt{TsirelsonGeneral.v}. The proof defines a \texttt{CHSHSetup} with four observables satisfying $A^2 = B^2 = I$, constructs the CHSH operator $S = AB + AB' + A'B - A'B'$, and proves $S^2 \leq 8I$ by direct algebraic expansion. The square root gives $S \leq 2\sqrt{2}$. The file also includes an achievability witness (\texttt{tsirelson\_achieved}) and a rational bound $S \leq 5657/2000$ (\texttt{tsirelson\_rational\_bound}).
+A standalone 339-line development derives the Tsirelson bound from first principles without importing \texttt{TsirelsonGeneral.v}. The proof defines observables satisfying $A^2 = B^2 = I$, constructs the CHSH operator $S = AB + AB' + A'B - A'B'$, and proves $S^2 \leq 8I$ by direct algebraic expansion via a sum-of-squares identity. The key theorem is \texttt{tsirelson\_squared}. The file also includes an achievability witness (\texttt{tsirelson\_tight}) and a rational bound $S \leq 5657/2000$ (\texttt{rational\_tsirelson\_bound}).
 
 \subsection{What This Means}
 
@@ -1362,7 +1357,7 @@ The cert CSR is the \textit{witness} of supra-quantum capability. If a trace cla
     \item \textbf{Inductive step:} Assume the property holds after $k$ steps. For step $k+1$:
     \begin{itemize}
         \item By \texttt{quantum\_admissible trace}, the instruction is \textit{not} a cert-setter (\texttt{is\_not\_cert\_setter}).
-        \item Non-cert-setter instructions preserve \texttt{csr\_cert\_addr} (proven by case analysis on all 18 instructions).
+        \item Non-cert-setter instructions preserve \texttt{csr\_cert\_addr} (proven by case analysis on all 31 instructions).
         \item Since \texttt{csr\_cert\_addr} remains 0 throughout, the final state cannot satisfy \texttt{has\_supra\_cert}.
     \end{itemize}
 \end{enumerate}
@@ -1768,7 +1763,7 @@ These predictions are falsifiable: if benchmarks show costs outside these bounds
 The extended proof architecture establishes:
 \begin{enumerate}
     \item \textbf{Zero-admit corpus}: A fully discharged proof tree with no admits or unproven axioms beyond foundational logic.
-    \item \textbf{Quantum axioms from $\mu$-accounting}: No-cloning, unitarity, Born rule, purification, and Tsirelson bound all follow from conservation-shaped hypotheses (3,961 lines, 152 definitions/theorems across eight files). The physics is in the assumptions; the proofs verify logical entailment. Three additional proofs address circularity: \texttt{BornRuleFromSymmetry.v} derives the Born rule from tensor consistency alone, \texttt{NoCloningFromMuMonotonicity.v} proves no-cloning in pure integer arithmetic, and \texttt{TsirelsonFromAlgebra.v} gives a self-contained algebraic Tsirelson derivation with achievability witness.
+    \item \textbf{Quantum axioms from $\mu$-accounting}: No-cloning, unitarity, Born rule, purification, and Tsirelson bound all follow from conservation-shaped hypotheses (3,259 lines, 128 definitions/theorems across eight files). The physics is in the assumptions; the proofs verify logical entailment. Three additional proofs address circularity: \texttt{BornRuleFromSymmetry.v} verifies the Born rule satisfies tensor consistency axioms, \texttt{NoCloningFromMuMonotonicity.v} proves no-cloning in pure integer arithmetic, and \texttt{TsirelsonFromAlgebra.v} gives a self-contained algebraic Tsirelson derivation with achievability witness.
     \item \textbf{Quantum bounds}: Literal CHSH $\le$ 5657/2000.
     \item \textbf{TOE limits}: Physics requires extra structure beyond compositionality.
     \item \textbf{Impossibility theorems}: Entropy, probability, and unique weights are not forced by the kernel alone.

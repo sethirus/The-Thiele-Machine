@@ -179,6 +179,13 @@ Definition quantum_admissible (trace : list vm_instruction) : Prop :=
     | instr_emit _ _ _ => False
     | instr_ljoin _ _ _ => False
     | instr_lassert _ _ _ _ => False
+    | instr_certify _ => False
+    | instr_and _ _ _ _ => True
+    | instr_or _ _ _ _ => True
+    | instr_shl _ _ _ _ => True
+    | instr_shr _ _ _ _ => True
+    | instr_mul _ _ _ _ => True
+    | instr_lui _ _ _ => True
     | _ => True
     end.
 
@@ -197,6 +204,13 @@ Definition is_not_cert_setter (instr : vm_instruction) : Prop :=
   | instr_emit _ _ _ => False
   | instr_ljoin _ _ _ => False
   | instr_lassert _ _ _ _ => False
+  | instr_certify _ => False
+  | instr_and _ _ _ _ => True
+  | instr_or _ _ _ _ => True
+  | instr_shl _ _ _ _ => True
+  | instr_shr _ _ _ _ => True
+  | instr_mul _ _ _ _ => True
+  | instr_lui _ _ _ => True
   | _ => True
   end.
 
