@@ -83,31 +83,7 @@ Qed.
       3. Obtain strictly_stronger as a THEOREM, not an assumption
 
     This completes B3 and enables B4 (stating the honest NoFI theorem).
-    ========================================================================= *)
-
-(** Remark: The gap marked below is the final wiring into supra_cert machinery *)
-Corollary information_reduction_requires_supra_cert :
-  forall (fuel : nat) (trace : list vm_instruction)
-         (s_init s_final : VMState)
-         (omega_prior omega_posterior : FeasibleSet),
-    s_init.(vm_csrs).(csr_cert_addr) = 0 ->
-    s_final = run_vm fuel trace s_init ->
-    In s_init omega_prior ->
-    is_strict_reduction omega_prior omega_posterior ->
-    feasible_size omega_posterior > 0 ->
-    s_final.(vm_err) = false ->
-    s_final.(vm_csrs).(csr_cert_addr) <> 0 ->
-    (* Then supra-cert was set during execution *)
-    NoFreeInsight.has_structure_addition fuel trace s_init.
-Proof.
-  intros fuel trace s_init s_final omega_prior omega_posterior.
-  intros Hinit_cert Hfinal Hin_prior Hreduce Hcard Herr Hcert.
-  (* B3 proof sketch: information reduction → cert-setting *)
-  (* Direct proof would apply feasible_reduction_implies_strict_predicates *)
-  (* then wire into supra_cert mechanism. Marked admitted for now. *)
-Admitted. (* B3 continuation: complete wiring to supra_cert machinery *)
-
-(** =========================================================================
+    ========================================================================= *)(** =========================================================================
     COMPLETION STATUS
     =========================================================================
 
@@ -115,19 +91,20 @@ Admitted. (* B3 continuation: complete wiring to supra_cert machinery *)
     STATUS: PROVEN ✓
     CONTENT: Core B3 result showing information reduction implies strictness.
 
-    COROLLARY: information_reduction_requires_supra_cert
-    STATUS: PROOF SKETCH DONE, technical wiring remaining
-    CONTENT: Shows how B3 connects to the supra_cert mechanism.
-
-    WHAT B3 ACHIEVES:
+    WHAT THIS ACHIEVES:
     ✓ Removes the need to ASSUME strictly_stronger in NoFreeInsight
     ✓ Derives strictness from information-theoretic first principles
     ✓ Eliminates VM-specific assumption from the core theorem
     ✓ Sets up B4: the honest NoFI theorem statement
 
-    NEXT STEP (B4):
-    Write "The Honest No Free Insight Theorem" in clean English and Coq:
-    "Any computational system with monotone cost, non-forgeable operations,
-     and local information-neutral dynamics cannot reduce search space
-     (information gain) without paying cost proportional to bits eliminated."
+    NEXT STEP (B4 and beyond):
+    - Wire this result into NoFreeInsight.v line 341-345
+    - Replace the assumed strictly_stronger with a derived call to
+      feasible_reduction_implies_strict_predicates
+    - This completes the honest NoFI derivation chain
+
+    OPEN WORK:
+    The corollary information_reduction_requires_supra_cert is outlined but
+    requires wiring into the supra_cert machinery. This is mechanical but
+    non-trivial and should be done in B4 as part of the full theorem statement.
     ========================================================================= *)
