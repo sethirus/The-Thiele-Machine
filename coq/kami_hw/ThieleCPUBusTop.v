@@ -39,9 +39,6 @@ Inductive BusReg : Type :=
 | BusRegMinstretLo
 | BusRegMinstretHi
 | BusRegLogicAcc
-| BusRegLogicReqValid
-| BusRegLogicReqOpcode
-| BusRegLogicReqPayload
 | BusRegMuTensor0
 | BusRegMuTensor1
 | BusRegMuTensor2
@@ -52,9 +49,6 @@ Inductive BusReg : Type :=
 | BusRegLoadInstrAddr
 | BusRegLoadInstrData
 | BusRegLoadInstrKick
-| BusRegSetLogicRespValid
-| BusRegSetLogicRespError
-| BusRegSetLogicRespValue
 | BusRegSetActiveModule
 | BusRegSetTrapVector.
 
@@ -73,9 +67,6 @@ Definition busAddrMcycleHi : nat := 40.
 Definition busAddrMinstretLo : nat := 44.
 Definition busAddrMinstretHi : nat := 48.
 Definition busAddrLogicAcc : nat := 52.
-Definition busAddrLogicReqValid : nat := 56.
-Definition busAddrLogicReqOpcode : nat := 60.
-Definition busAddrLogicReqPayload : nat := 64.
 Definition busAddrMuTensor0 : nat := 68.
 Definition busAddrMuTensor1 : nat := 72.
 Definition busAddrMuTensor2 : nat := 76.
@@ -87,9 +78,6 @@ Definition busAddrPtSize : nat := 92.
 Definition busAddrLoadInstrAddr : nat := 128.
 Definition busAddrLoadInstrData : nat := 132.
 Definition busAddrLoadInstrKick : nat := 136.
-Definition busAddrSetLogicRespValid : nat := 140.
-Definition busAddrSetLogicRespError : nat := 144.
-Definition busAddrSetLogicRespValue : nat := 148.
 Definition busAddrSetActiveModule : nat := 152.
 Definition busAddrSetTrapVector : nat := 156.
 
@@ -109,9 +97,6 @@ Definition decodeBusReg (addr : nat) : option BusReg :=
   | 44 => Some BusRegMinstretLo
   | 48 => Some BusRegMinstretHi
   | 52 => Some BusRegLogicAcc
-  | 56 => Some BusRegLogicReqValid
-  | 60 => Some BusRegLogicReqOpcode
-  | 64 => Some BusRegLogicReqPayload
   | 68 => Some BusRegMuTensor0
   | 72 => Some BusRegMuTensor1
   | 76 => Some BusRegMuTensor2
@@ -122,9 +107,6 @@ Definition decodeBusReg (addr : nat) : option BusReg :=
   | 128 => Some BusRegLoadInstrAddr
   | 132 => Some BusRegLoadInstrData
   | 136 => Some BusRegLoadInstrKick
-  | 140 => Some BusRegSetLogicRespValid
-  | 144 => Some BusRegSetLogicRespError
-  | 148 => Some BusRegSetLogicRespValue
   | 152 => Some BusRegSetActiveModule
   | 156 => Some BusRegSetTrapVector
   | _ => None
@@ -135,9 +117,6 @@ Definition busRegReadable (r : BusReg) : bool :=
   | BusRegLoadInstrAddr
   | BusRegLoadInstrData
   | BusRegLoadInstrKick
-  | BusRegSetLogicRespValid
-  | BusRegSetLogicRespError
-  | BusRegSetLogicRespValue
   | BusRegSetActiveModule
   | BusRegSetTrapVector => false
   | _ => true
@@ -185,9 +164,6 @@ Record BusCoreView : Type := {
   view_minstret_lo : nat;
   view_minstret_hi : nat;
   view_logic_acc : nat;
-  view_logic_req_valid : bool;
-  view_logic_req_opcode : nat;
-  view_logic_req_payload : nat;
   view_mu_tensor0 : nat;
   view_mu_tensor1 : nat;
   view_mu_tensor2 : nat;
@@ -215,9 +191,6 @@ Definition busRegReadValue (v : BusCoreView) (r : BusReg) : option nat :=
   | BusRegMinstretLo => Some v.(view_minstret_lo)
   | BusRegMinstretHi => Some v.(view_minstret_hi)
   | BusRegLogicAcc => Some v.(view_logic_acc)
-  | BusRegLogicReqValid => Some (bool_to_nat v.(view_logic_req_valid))
-  | BusRegLogicReqOpcode => Some v.(view_logic_req_opcode)
-  | BusRegLogicReqPayload => Some v.(view_logic_req_payload)
   | BusRegMuTensor0 => Some v.(view_mu_tensor0)
   | BusRegMuTensor1 => Some v.(view_mu_tensor1)
   | BusRegMuTensor2 => Some v.(view_mu_tensor2)
@@ -228,9 +201,6 @@ Definition busRegReadValue (v : BusCoreView) (r : BusReg) : option nat :=
   | BusRegLoadInstrAddr
   | BusRegLoadInstrData
   | BusRegLoadInstrKick
-  | BusRegSetLogicRespValid
-  | BusRegSetLogicRespError
-  | BusRegSetLogicRespValue
   | BusRegSetActiveModule
   | BusRegSetTrapVector => None
   end.
@@ -248,9 +218,6 @@ Record BusShadowRegs : Type := {
   sh_load_instr_addr : nat;
   sh_load_instr_data : nat;
   sh_load_instr_kick : bool;
-  sh_logic_resp_valid : bool;
-  sh_logic_resp_error : bool;
-  sh_logic_resp_value : nat;
   sh_active_module : nat;
   sh_trap_vector : nat
 }.
@@ -259,9 +226,6 @@ Definition busShadowInit : BusShadowRegs :=
   {| sh_load_instr_addr := 0;
      sh_load_instr_data := 0;
      sh_load_instr_kick := false;
-     sh_logic_resp_valid := false;
-     sh_logic_resp_error := false;
-     sh_logic_resp_value := 0;
      sh_active_module := 0;
      sh_trap_vector := 0 |}.
 
@@ -276,72 +240,30 @@ Definition busWriteShadow (s : BusShadowRegs) (r : BusReg) (data : nat) : BusSha
       {| sh_load_instr_addr := data;
          sh_load_instr_data := s.(sh_load_instr_data);
          sh_load_instr_kick := s.(sh_load_instr_kick);
-         sh_logic_resp_valid := s.(sh_logic_resp_valid);
-         sh_logic_resp_error := s.(sh_logic_resp_error);
-         sh_logic_resp_value := s.(sh_logic_resp_value);
          sh_active_module := s.(sh_active_module);
          sh_trap_vector := s.(sh_trap_vector) |}
   | BusRegLoadInstrData =>
       {| sh_load_instr_addr := s.(sh_load_instr_addr);
          sh_load_instr_data := data;
          sh_load_instr_kick := s.(sh_load_instr_kick);
-         sh_logic_resp_valid := s.(sh_logic_resp_valid);
-         sh_logic_resp_error := s.(sh_logic_resp_error);
-         sh_logic_resp_value := s.(sh_logic_resp_value);
          sh_active_module := s.(sh_active_module);
          sh_trap_vector := s.(sh_trap_vector) |}
   | BusRegLoadInstrKick =>
       {| sh_load_instr_addr := s.(sh_load_instr_addr);
          sh_load_instr_data := s.(sh_load_instr_data);
          sh_load_instr_kick := negb (Nat.eqb data 0);
-         sh_logic_resp_valid := s.(sh_logic_resp_valid);
-         sh_logic_resp_error := s.(sh_logic_resp_error);
-         sh_logic_resp_value := s.(sh_logic_resp_value);
-         sh_active_module := s.(sh_active_module);
-         sh_trap_vector := s.(sh_trap_vector) |}
-  | BusRegSetLogicRespValid =>
-      {| sh_load_instr_addr := s.(sh_load_instr_addr);
-         sh_load_instr_data := s.(sh_load_instr_data);
-         sh_load_instr_kick := s.(sh_load_instr_kick);
-         sh_logic_resp_valid := negb (Nat.eqb data 0);
-         sh_logic_resp_error := s.(sh_logic_resp_error);
-         sh_logic_resp_value := s.(sh_logic_resp_value);
-         sh_active_module := s.(sh_active_module);
-         sh_trap_vector := s.(sh_trap_vector) |}
-  | BusRegSetLogicRespError =>
-      {| sh_load_instr_addr := s.(sh_load_instr_addr);
-         sh_load_instr_data := s.(sh_load_instr_data);
-         sh_load_instr_kick := s.(sh_load_instr_kick);
-         sh_logic_resp_valid := s.(sh_logic_resp_valid);
-         sh_logic_resp_error := negb (Nat.eqb data 0);
-         sh_logic_resp_value := s.(sh_logic_resp_value);
-         sh_active_module := s.(sh_active_module);
-         sh_trap_vector := s.(sh_trap_vector) |}
-  | BusRegSetLogicRespValue =>
-      {| sh_load_instr_addr := s.(sh_load_instr_addr);
-         sh_load_instr_data := s.(sh_load_instr_data);
-         sh_load_instr_kick := s.(sh_load_instr_kick);
-         sh_logic_resp_valid := s.(sh_logic_resp_valid);
-         sh_logic_resp_error := s.(sh_logic_resp_error);
-         sh_logic_resp_value := data;
          sh_active_module := s.(sh_active_module);
          sh_trap_vector := s.(sh_trap_vector) |}
   | BusRegSetActiveModule =>
       {| sh_load_instr_addr := s.(sh_load_instr_addr);
          sh_load_instr_data := s.(sh_load_instr_data);
          sh_load_instr_kick := s.(sh_load_instr_kick);
-         sh_logic_resp_valid := s.(sh_logic_resp_valid);
-         sh_logic_resp_error := s.(sh_logic_resp_error);
-         sh_logic_resp_value := s.(sh_logic_resp_value);
          sh_active_module := data;
          sh_trap_vector := s.(sh_trap_vector) |}
   | BusRegSetTrapVector =>
       {| sh_load_instr_addr := s.(sh_load_instr_addr);
          sh_load_instr_data := s.(sh_load_instr_data);
          sh_load_instr_kick := s.(sh_load_instr_kick);
-         sh_logic_resp_valid := s.(sh_logic_resp_valid);
-         sh_logic_resp_error := s.(sh_logic_resp_error);
-         sh_logic_resp_value := s.(sh_logic_resp_value);
          sh_active_module := s.(sh_active_module);
          sh_trap_vector := data |}
   | _ => s
@@ -421,9 +343,6 @@ Definition coreViewOfSnapshot (s : KamiSnapshot) : BusCoreView :=
      view_minstret_lo := 0;
      view_minstret_hi := 0;
      view_logic_acc := 0;
-     view_logic_req_valid := false;
-     view_logic_req_opcode := 0;
-     view_logic_req_payload := 0;
      view_mu_tensor0 := snap_mu_tensor s 0;
      view_mu_tensor1 := snap_mu_tensor s 1;
      view_mu_tensor2 := snap_mu_tensor s 2;
@@ -543,7 +462,7 @@ Qed.
 Definition bus_vm_instruction_type := vm_instruction.
 
 (* INQUISITOR NOTE: connectivity anchor for isolated bus-address constants.
-   All 28 busAddr constants are verified to decode correctly. *)
+   All 22 busAddr constants are verified to decode correctly. *)
 Lemma bus_mmio_full_decode :
   decodeBusReg busAddrErr = Some BusRegErr /\
   decodeBusReg busAddrHalted = Some BusRegHalted /\
@@ -556,9 +475,6 @@ Lemma bus_mmio_full_decode :
   decodeBusReg busAddrMinstretLo = Some BusRegMinstretLo /\
   decodeBusReg busAddrMinstretHi = Some BusRegMinstretHi /\
   decodeBusReg busAddrLogicAcc = Some BusRegLogicAcc /\
-  decodeBusReg busAddrLogicReqValid = Some BusRegLogicReqValid /\
-  decodeBusReg busAddrLogicReqOpcode = Some BusRegLogicReqOpcode /\
-  decodeBusReg busAddrLogicReqPayload = Some BusRegLogicReqPayload /\
   decodeBusReg busAddrMuTensor0 = Some BusRegMuTensor0 /\
   decodeBusReg busAddrMuTensor1 = Some BusRegMuTensor1 /\
   decodeBusReg busAddrMuTensor2 = Some BusRegMuTensor2 /\
@@ -568,9 +484,6 @@ Lemma bus_mmio_full_decode :
   decodeBusReg busAddrPtSize = Some BusRegPtSize /\
   decodeBusReg busAddrLoadInstrAddr = Some BusRegLoadInstrAddr /\
   decodeBusReg busAddrLoadInstrData = Some BusRegLoadInstrData /\
-  decodeBusReg busAddrSetLogicRespValid = Some BusRegSetLogicRespValid /\
-  decodeBusReg busAddrSetLogicRespError = Some BusRegSetLogicRespError /\
-  decodeBusReg busAddrSetLogicRespValue = Some BusRegSetLogicRespValue /\
   decodeBusReg busAddrSetActiveModule = Some BusRegSetActiveModule /\
   decodeBusReg busAddrSetTrapVector = Some BusRegSetTrapVector.
 Proof. repeat split; reflexivity. Qed.

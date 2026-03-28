@@ -439,8 +439,6 @@ val instrSz : int
 
 val loadInstrPort : kind attribute t0
 
-val logicRespPort : kind attribute t0
-
 val aPBBusWritePort : kind attribute t0
 
 val sP_IDX : word

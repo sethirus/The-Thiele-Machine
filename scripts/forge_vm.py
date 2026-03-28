@@ -141,9 +141,9 @@ CONSTRUCTOR_FIELD_MAP: dict[str, list[tuple[str, str]]] = {
     "Instr_psplit":       [("module0", "module"), ("left_region", "left"),
                            ("right_region", "right"), ("cost", "cost")],
     "Instr_pmerge":       [("m1", "m1"), ("m2", "m2"), ("cost", "cost")],
-    "Instr_lassert":      [("module0", "module"), ("formula", "formula"),
-                           ("cert", "cert"), ("cost", "cost")],
-    "Instr_ljoin":        [("cert1", "cert1"), ("cert2", "cert2"), ("cost", "cost")],
+    "Instr_lassert":      [("freg", "freg"), ("creg", "creg"),
+                           ("kind", "kind"), ("flen", "flen"), ("cost", "cost")],
+    "Instr_ljoin":        [("c1reg", "c1reg"), ("c2reg", "c2reg"), ("cost", "cost")],
     "Instr_mdlacc":       [("module0", "module"), ("cost", "cost")],
     "Instr_pdiscover":    [("module0", "module"), ("evidence", "evidence"),
                            ("cost", "cost")],
@@ -453,7 +453,7 @@ def generate_instr_dict_to_text() -> str:
     # Special cases that need custom serialization
     # lassert: OCaml format is "LASSERT mid axiom cost" — cert is OMITTED (hardcoded internally)
     # reveal: OCaml format is "REVEAL ti tj bits [cert]" where bits is used as both bits and cost
-    SPECIAL_OPS = {"reveal", "lassert"}
+    SPECIAL_OPS = {"reveal", "lassert", "ljoin"}
 
     lines = [
         "# ---------------------------------------------------------------------------",
@@ -463,7 +463,32 @@ def generate_instr_dict_to_text() -> str:
         "# ---------------------------------------------------------------------------",
         "",
         "_LIST_FIELDS: frozenset = frozenset({'region', 'left', 'right', 'evidence'})",
-        "_STR_FIELDS: frozenset = frozenset({'formula', 'cert', 'cert1', 'cert2', 'payload', 'label'})",
+        "_STR_FIELDS: frozenset = frozenset({'payload', 'label'})",
+        "",
+        "# On-chip LASSERT: formula/cert written to reserved memory; freg/creg point there.",
+        "_LASSERT_FORMULA_ADDR: int = 0xE000",
+        "_LASSERT_CERT_ADDR:    int = 0xF000",
+        "_LASSERT_FREG:         int = 28",
+        "_LASSERT_CREG:         int = 29",
+        "",
+        "# On-chip LJOIN: cert1/cert2 written to reserved memory when provided as strings.",
+        "_LJOIN_CERT1_ADDR: int = 0xC000",
+        "_LJOIN_CERT2_ADDR: int = 0xD000",
+        "_LJOIN_C1REG:      int = 26",
+        "_LJOIN_C2REG:      int = 27",
+        "",
+        "def _decode_formula(s: str) -> str:",
+        '    """Decode underscore-encoded formula: __ -> newline, _ -> space."""',
+        "    result: list = []",
+        "    i = 0",
+        "    while i < len(s):",
+        '        if i + 1 < len(s) and s[i] == "_" and s[i+1] == "_":',
+        '            result.append("\\n"); i += 2',
+        '        elif s[i] == "_":',
+        '            result.append(" "); i += 1',
+        "        else:",
+        "            result.append(s[i]); i += 1",
+        '    return "".join(result)',
         "",
         "def _fmt_list(val: Any) -> str:",
         '    """Format a list field as {v1,v2,...} for OCaml runner."""',
@@ -491,7 +516,7 @@ def generate_instr_dict_to_text() -> str:
                 parts.append(f'str(instr.get("cost", 0))')
             elif py_key in ("region", "left", "right", "evidence"):
                 parts.append(f'_fmt_list(instr.get("{py_key}", []))')
-            elif py_key in ("formula", "cert", "cert1", "cert2", "payload", "label"):
+            elif py_key in ("payload", "label"):
                 parts.append(f'str(instr.get("{py_key}", "."))')
             else:
                 parts.append(f'str(int(instr.get("{py_key}", 0)))')
@@ -500,13 +525,12 @@ def generate_instr_dict_to_text() -> str:
         lines.append(f'    if op == "{opname}":')
         lines.append(f'        return {expr_parts}')
 
-    # Special case for LASSERT: supports three text formats per extracted_vm_runner.ml:
-    #   LASSERT mid axiom cost              — legacy (empty SAT model)
-    #   LASSERT_SAT mid axiom model cost    — SAT with explicit model
-    #   LASSERT_UNSAT mid axiom proof cost  — UNSAT with LRAT proof
+    # Special case for LASSERT: on-chip model: formula/cert written to reserved
+    # memory addresses; freg/creg set to point there; LASSERT uses register indices.
+    # Emits multi-line string (INIT_MEM_STR + INIT_REG pairs + LASSERT).
+    # Reserved: formula_addr=0xE000 (reg 28), cert_addr=0xF000 (reg 29).
     lines.append('    if op == "lassert":')
-    lines.append('        m = int(instr.get("module", 0))')
-    lines.append('        formula = str(instr.get("formula", "."))')
+    lines.append('        formula = str(instr.get("formula", ""))')
     lines.append('        cost = int(instr.get("cost", 0))')
     lines.append('        raw_cert = instr.get("cert", "")')
     lines.append('        if isinstance(raw_cert, dict):')
@@ -515,11 +539,40 @@ def generate_instr_dict_to_text() -> str:
     lines.append('        else:')
     lines.append('            cert_type = str(instr.get("cert_type", "sat"))')
     lines.append('            cert_data = str(raw_cert or "")')
-    lines.append('        if cert_type == "unsat" and cert_data:')
-    lines.append('            return f"LASSERT_UNSAT {m} {formula} {cert_data} {cost}"')
-    lines.append('        elif cert_data:')
-    lines.append('            return f"LASSERT_SAT {m} {formula} {cert_data} {cost}"')
-    lines.append('        return f"LASSERT {m} {formula} {cost}"')
+    lines.append('        kind = 0 if cert_type == "unsat" else 1')
+    lines.append('        flen = len(_decode_formula(formula))')
+    lines.append('        parts = [')
+    lines.append('            f"INIT_MEM_STR {_LASSERT_FORMULA_ADDR} {formula}",')
+    lines.append('            f"INIT_REG {_LASSERT_FREG} {_LASSERT_FORMULA_ADDR}",')
+    lines.append('            f"INIT_MEM_STR {_LASSERT_CERT_ADDR} {cert_data}",')
+    lines.append('            f"INIT_REG {_LASSERT_CREG} {_LASSERT_CERT_ADDR}",')
+    lines.append('            f"LASSERT {_LASSERT_FREG} {_LASSERT_CREG} {kind} {flen} {cost}",')
+    lines.append('        ]')
+    lines.append('        return "\\n".join(parts)')
+
+    # Special case for LJOIN: if cert1/cert2 string fields are provided, write them
+    # to reserved memory (on-chip model). If c1reg/c2reg are given as int register
+    # indices, use them directly.
+    lines.append('    if op == "ljoin":')
+    lines.append('        cost = int(instr.get("cost", 1))')
+    lines.append('        cert1_raw = instr.get("cert1")')
+    lines.append('        cert2_raw = instr.get("cert2")')
+    lines.append('        c1reg_v = instr.get("c1reg")')
+    lines.append('        c2reg_v = instr.get("c2reg")')
+    lines.append('        if cert1_raw is not None or cert2_raw is not None:')
+    lines.append('            c1 = str(cert1_raw or "")')
+    lines.append('            c2 = str(cert2_raw or "")')
+    lines.append('            parts = [')
+    lines.append('                f"INIT_MEM_STR {_LJOIN_CERT1_ADDR} {c1}",')
+    lines.append('                f"INIT_REG {_LJOIN_C1REG} {_LJOIN_CERT1_ADDR}",')
+    lines.append('                f"INIT_MEM_STR {_LJOIN_CERT2_ADDR} {c2}",')
+    lines.append('                f"INIT_REG {_LJOIN_C2REG} {_LJOIN_CERT2_ADDR}",')
+    lines.append('                f"LJOIN {_LJOIN_C1REG} {_LJOIN_C2REG} {cost}",')
+    lines.append('            ]')
+    lines.append('            return "\\n".join(parts)')
+    lines.append('        c1i = int(c1reg_v) if c1reg_v is not None else 0')
+    lines.append('        c2i = int(c2reg_v) if c2reg_v is not None else 0')
+    lines.append('        return f"LJOIN {c1i} {c2i} {cost}"')
 
     # Special case for REVEAL: OCaml runner uses "REVEAL ti tj bits [cert]" format
     # where module (flat_index) = ti*4 + tj; bits arg is used as BOTH bits AND cost (delta).
@@ -588,10 +641,11 @@ def _call_runner(state: VMState, prog_lines: List[str], max_steps: int) -> VMSta
     ) as pf:
         prog_path = pf.name
         pf.write(f"FUEL {max_steps}\\n")
-        for line in prog_lines:
-            line = line.strip()
-            if line and not line.startswith("#") and not line.startswith(";"):
-                pf.write(line + "\\n")
+        for line_group in prog_lines:
+            for line in line_group.split("\\n"):
+                line = line.strip()
+                if line and not line.startswith("#") and not line.startswith(";"):
+                    pf.write(line + "\\n")
 
     try:
         result = subprocess.run(

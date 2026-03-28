@@ -157,11 +157,18 @@ def _parse_instruction_dict(toks: List[str]) -> Optional[Dict[str, Any]]:
                 "right": _parse_region(toks[3]), "cost": _parse_int(toks[4])}
     elif op == "PMERGE" and len(toks) >= 4:
         return {"op": "pmerge", "m1": _parse_int(toks[1]), "m2": _parse_int(toks[2]), "cost": _parse_int(toks[3])}
+    elif op == "LASSERT" and len(toks) >= 6:
+        # On-chip format: LASSERT freg creg kind flen cost
+        return {"op": "lassert", "freg": _parse_int(toks[1]), "creg": _parse_int(toks[2]),
+                "kind": _parse_int(toks[3]) != 0, "flen": _parse_int(toks[4]),
+                "cost": _parse_int(toks[5])}
     elif op == "LASSERT" and len(toks) >= 4:
+        # Legacy format (fallback)
         return {"op": "lassert", "module": _parse_int(toks[1]), "formula": toks[2],
                 "cert": {"type": "sat", "proof": ""}, "cost": _parse_int(toks[3])}
     elif op == "LJOIN" and len(toks) >= 4:
-        return {"op": "ljoin", "cert1": toks[1], "cert2": toks[2], "cost": _parse_int(toks[3])}
+        return {"op": "ljoin", "c1reg": _parse_int(toks[1]), "c2reg": _parse_int(toks[2]),
+                "cost": _parse_int(toks[3])}
     elif op == "MDLACC" and len(toks) >= 3:
         return {"op": "mdlacc", "cost": _parse_int(toks[2])}
     elif op == "PDISCOVER" and len(toks) >= 4:
@@ -359,7 +366,7 @@ def _run_extracted_py(instructions: List[str], fuel: int) -> VMState:
 # OCaml extracted-runner backend (when available)
 # ---------------------------------------------------------------------------
 
-_OCAML_ONLY_INIT = {"INIT_REG", "INIT_MEM", "MEM_SIZE", "INIT_LOGIC_ACC", "INIT_ACTIVE_MODULE", "INIT_PT", "INIT_TENSOR"}
+_OCAML_ONLY_INIT = {"INIT_REG", "INIT_MEM", "INIT_MEM_STR", "MEM_SIZE", "INIT_LOGIC_ACC", "INIT_ACTIVE_MODULE", "INIT_PT", "INIT_TENSOR"}
 
 _REG_ALIAS_RE = re.compile(r'\br(\d+)\b')
 
@@ -367,6 +374,25 @@ _REG_ALIAS_RE = re.compile(r'\br(\d+)\b')
 def _translate_reg_names(line: str) -> str:
     """Translate register aliases rN → N for the OCaml runner."""
     return _REG_ALIAS_RE.sub(lambda m: str(int(m.group(1)) & 0x1F), line)
+
+
+def _decode_formula_len(s: str) -> int:
+    """Return byte-length of underscore-decoded formula string (__ -> \\n, _ -> space)."""
+    result = 0
+    i = 0
+    while i < len(s):
+        if i + 1 < len(s) and s[i] == '_' and s[i+1] == '_':
+            result += 1; i += 2
+        else:
+            result += 1; i += 1
+    return result
+
+
+# Reserved addresses/registers for on-chip LASSERT memory layout
+_LASSERT_FORMULA_ADDR = 0xE000
+_LASSERT_CERT_ADDR    = 0xF000
+_LASSERT_FREG         = 28
+_LASSERT_CREG         = 29
 
 
 def _run_ocaml(instructions: List[str], fuel: int) -> VMState:
@@ -380,6 +406,57 @@ def _run_ocaml(instructions: List[str], fuel: int) -> VMState:
                 continue
             toks = line.split()
             op = toks[0].upper()
+            # Translate old-format LASSERT/LJOIN to on-chip register-indexed format.
+            # Old LASSERT: LASSERT mid formula cost | LASSERT_SAT mid formula model cost |
+            #              LASSERT_UNSAT mid formula proof cost
+            # Old LJOIN:   LJOIN cert1_str cert2_str cost  (string args, not register indices)
+            # New LASSERT: setup INIT_MEM_STR/INIT_REG for formula/cert, then LASSERT freg creg kind flen cost
+            # New LJOIN:   LJOIN c1reg c2reg cost  (both regs already pointing to cert strings)
+            if op in ("LASSERT", "LASSERT_SAT", "LASSERT_UNSAT"):
+                # New on-chip format: LASSERT freg creg kind flen cost
+                # (exactly 6 tokens, all integer operands) — pass through verbatim.
+                def _all_int_toks(tokens: list) -> bool:
+                    try: [int(t) for t in tokens]; return True
+                    except ValueError: return False
+                if op == "LASSERT" and len(toks) == 6 and _all_int_toks(toks[1:]):
+                    pass  # fall through to verbatim write
+                else:
+                    if len(toks) == 4:  # LASSERT mid formula cost
+                        formula, cert_data, kind = toks[2], "", 1
+                        cost = int(toks[3])
+                    elif len(toks) == 5 and op == "LASSERT_SAT":
+                        formula, cert_data, kind = toks[2], toks[3], 1
+                        cost = int(toks[4])
+                    elif len(toks) == 5 and op == "LASSERT_UNSAT":
+                        formula, cert_data, kind = toks[2], toks[3], 0
+                        cost = int(toks[4])
+                    else:
+                        formula, cert_data, kind = toks[2] if len(toks) > 2 else "", "", 1
+                        cost = int(toks[-1])
+                    flen = _decode_formula_len(formula)
+                    f.write(f"INIT_MEM_STR {_LASSERT_FORMULA_ADDR} {formula}\n")
+                    f.write(f"INIT_REG {_LASSERT_FREG} {_LASSERT_FORMULA_ADDR}\n")
+                    f.write(f"INIT_MEM_STR {_LASSERT_CERT_ADDR} {cert_data}\n")
+                    f.write(f"INIT_REG {_LASSERT_CREG} {_LASSERT_CERT_ADDR}\n")
+                    f.write(f"LASSERT {_LASSERT_FREG} {_LASSERT_CREG} {kind} {flen} {cost}\n")
+                    continue
+            if op == "LJOIN" and len(toks) >= 4:
+                # Distinguish old format (LJOIN cert1_str cert2_str cost — strings)
+                # from new format (LJOIN c1reg c2reg cost — integer register indices).
+                def _is_int(s: str) -> bool:
+                    try: int(s); return True
+                    except ValueError: return False
+                if _is_int(toks[1]) and _is_int(toks[2]):
+                    pass  # new register-index format — fall through to write verbatim
+                else:
+                    # Old string format: write certs to memory, set registers
+                    cert1, cert2, cost = toks[1], toks[2], int(toks[3])
+                    f.write(f"INIT_MEM_STR {_LASSERT_FORMULA_ADDR} {cert1}\n")
+                    f.write(f"INIT_REG {_LASSERT_FREG} {_LASSERT_FORMULA_ADDR}\n")
+                    f.write(f"INIT_MEM_STR {_LASSERT_CERT_ADDR} {cert2}\n")
+                    f.write(f"INIT_REG {_LASSERT_CREG} {_LASSERT_CERT_ADDR}\n")
+                    f.write(f"LJOIN {_LASSERT_FREG} {_LASSERT_CREG} {cost}\n")
+                    continue
             # Skip RTL-only directives unknown to the OCaml runner
             if op.startswith("INIT_") and op not in _OCAML_ONLY_INIT:
                 continue

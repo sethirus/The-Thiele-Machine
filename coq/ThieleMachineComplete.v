@@ -1319,6 +1319,46 @@ Definition write_mem (s : VMState) (a v : nat) : list nat :=
   let idx := mem_index a in
   firstn idx s.(vm_mem) ++ [word64 v] ++ skipn (S idx) s.(vm_mem).
 
+(** Byte-level string ↔ memory helpers (mirrors VMState.v Phase 1) *)
+Definition bytes_to_word_4 (b0 b1 b2 b3 : nat) : nat :=
+  b0 + b1 * 256 + b2 * (256 * 256) + b3 * (256 * 256 * 256).
+
+Definition word_to_bytes_4 (w : nat) : list Ascii.ascii :=
+  [ Ascii.ascii_of_nat (w mod 256);
+    Ascii.ascii_of_nat (w / 256 mod 256);
+    Ascii.ascii_of_nat (w / (256 * 256) mod 256);
+    Ascii.ascii_of_nat (w / (256 * 256 * 256) mod 256) ].
+
+Fixpoint bytes_to_words (chars : list Ascii.ascii) : list nat :=
+  match chars with
+  | [] => []
+  | [a] =>
+      [bytes_to_word_4 (Ascii.nat_of_ascii a) 0 0 0]
+  | [a; b] =>
+      [bytes_to_word_4 (Ascii.nat_of_ascii a) (Ascii.nat_of_ascii b) 0 0]
+  | [a; b; c] =>
+      [bytes_to_word_4 (Ascii.nat_of_ascii a) (Ascii.nat_of_ascii b)
+                       (Ascii.nat_of_ascii c) 0]
+  | a :: b :: c :: d :: rest =>
+      bytes_to_word_4 (Ascii.nat_of_ascii a) (Ascii.nat_of_ascii b)
+                      (Ascii.nat_of_ascii c) (Ascii.nat_of_ascii d)
+      :: bytes_to_words rest
+  end.
+
+Definition words_to_bytes (ws : list nat) (n_bytes : nat) : list Ascii.ascii :=
+  List.firstn n_bytes (List.flat_map word_to_bytes_4 ws).
+
+Definition list_read_at (mem : list nat) (addr : nat) : nat :=
+  List.nth addr mem 0.
+
+(** Read a string from memory at [base]:
+    mem[base] = byte_count; mem[base+1..] = packed chars. *)
+Definition mem_to_string (mem : list nat) (base : nat) : string :=
+  let len     := list_read_at mem base in
+  let n_words := (len + 3) / 4 in
+  let words   := List.map (fun i => list_read_at mem (S base + i)) (List.seq 0 n_words) in
+  string_of_list_ascii (words_to_bytes words len).
+
 Definition swap_regs (regs : list nat) (a b : nat) : list nat :=
   let a_idx := a mod REG_COUNT in
   let b_idx := b mod REG_COUNT in
@@ -1486,17 +1526,12 @@ Definition graph_pmerge (g : PartitionGraph) (m1 m2 : ModuleID)
     don't reduce |Ω|, so Landauer says they're free.
     ========================================================================= *)
 
-Inductive lassert_certificate :=
-| lassert_cert_unsat (proof : string)
-| lassert_cert_sat (model : string).
-
 Inductive vm_instruction :=
 | instr_pnew (region : list nat) (mu_delta : nat)
 | instr_psplit (module : ModuleID) (left right : list nat) (mu_delta : nat)
 | instr_pmerge (m1 m2 : ModuleID) (mu_delta : nat)
-| instr_lassert (module : ModuleID) (formula : string)
-    (cert : lassert_certificate) (mu_delta : nat)
-| instr_ljoin (cert1 cert2 : string) (mu_delta : nat)
+| instr_lassert (freg creg : nat) (kind : bool) (flen cost : nat)
+| instr_ljoin (c1reg c2reg : nat) (cost : nat)
 | instr_mdlacc (module : ModuleID) (mu_delta : nat)
 | instr_pdiscover (module : ModuleID) (evidence : list VMAxiom) (mu_delta : nat)
 | instr_xfer (dst src : nat) (mu_delta : nat)
@@ -1545,7 +1580,7 @@ Definition instruction_cost (instr : vm_instruction) : nat :=
   | instr_pnew _ cost => cost
   | instr_psplit _ _ _ cost => cost
   | instr_pmerge _ _ cost => cost
-  | instr_lassert _ formula _ cost => String.length formula * 8 + S cost
+  | instr_lassert _ _ _ flen cost => flen * 8 + S cost
   | instr_ljoin _ _ cost => S cost
   | instr_mdlacc _ cost => cost
   | instr_pdiscover _ _ cost => cost
@@ -1598,7 +1633,7 @@ Definition is_cert_setterb (instr : vm_instruction) : bool :=
   | instr_reveal _ _ _ _ => true
   | instr_emit _ _ _ => true
   | instr_ljoin _ _ _ => true
-  | instr_lassert _ _ _ _ => true
+  | instr_lassert _ _ _ _ _ => true
   | instr_read_port _ _ _ _ _ => true
   | instr_certify _ => true
   | instr_morph_assert _ _ _ _ => true
@@ -1777,37 +1812,36 @@ Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
           advance_state s (instr_pmerge m1 m2 cost)
             s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)
       end
-  | instr_lassert module formula cert cost =>
-      match cert with
-      | lassert_cert_sat model =>
-          if check_model formula model then
-            let graph' := graph_add_axiom s.(vm_graph) module formula in
-            let csrs' := csr_set_err (csr_set_status s.(vm_csrs) 1) 0 in
-            advance_state s (instr_lassert module formula (lassert_cert_sat model) cost)
-              graph' (csr_set_cert_addr csrs' (ascii_checksum formula)) s.(vm_err)
-          else
-            advance_state s (instr_lassert module formula (lassert_cert_sat model) cost)
-              s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)
-      | lassert_cert_unsat proof =>
-          if check_lrat formula proof then
-            (* Valid UNSAT proof: formula is contradictory.
-               Record proof (set cert_addr), but do NOT add formula as axiom. *)
-            let csrs' := csr_set_err (csr_set_status s.(vm_csrs) 1) 0 in
-            advance_state s (instr_lassert module formula (lassert_cert_unsat proof) cost)
-              s.(vm_graph) (csr_set_cert_addr csrs' (ascii_checksum formula)) s.(vm_err)
-          else
-            advance_state s (instr_lassert module formula (lassert_cert_unsat proof) cost)
-              s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)
-      end
-  | instr_ljoin cert1 cert2 cost =>
-      if String.eqb cert1 cert2 then
-        let csrs' := csr_set_err s.(vm_csrs) 0 in
-        advance_state s (instr_ljoin cert1 cert2 cost)
-          s.(vm_graph) (csr_set_cert_addr csrs' (ascii_checksum (String.append cert1 cert2))) s.(vm_err)
+  | instr_lassert freg creg kind flen cost =>
+      let formula := mem_to_string s.(vm_mem) (read_reg s freg) in
+      let cert    := mem_to_string s.(vm_mem) (read_reg s creg) in
+      if kind then
+        if check_model formula cert then
+          (advance_state s (instr_lassert freg creg kind flen cost)
+            (graph_add_axiom s.(vm_graph) 0 formula)
+            (csr_set_err (csr_set_status s.(vm_csrs) 1) 0)
+            s.(vm_err))
+        else
+          (advance_state s (instr_lassert freg creg kind flen cost)
+            s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
       else
-        let csrs' := csr_set_err s.(vm_csrs) 1 in
-        advance_state s (instr_ljoin cert1 cert2 cost)
-          s.(vm_graph) (csr_set_cert_addr csrs' (ascii_checksum (String.append cert1 cert2))) (latch_err s true)
+        if check_lrat formula cert then
+          (advance_state s (instr_lassert freg creg kind flen cost)
+            s.(vm_graph)
+            (csr_set_err (csr_set_status s.(vm_csrs) 1) 0)
+            true)
+        else
+          (advance_state s (instr_lassert freg creg kind flen cost)
+            s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
+  | instr_ljoin c1reg c2reg cost =>
+      let cert1 := mem_to_string s.(vm_mem) (read_reg s c1reg) in
+      let cert2 := mem_to_string s.(vm_mem) (read_reg s c2reg) in
+      if String.eqb cert1 cert2 then
+        advance_state s (instr_ljoin c1reg c2reg cost)
+          s.(vm_graph) (csr_set_err s.(vm_csrs) 0) s.(vm_err)
+      else
+        advance_state s (instr_ljoin c1reg c2reg cost)
+          s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)
   | instr_mdlacc module cost =>
       advance_state s (instr_mdlacc module cost) s.(vm_graph) s.(vm_csrs) s.(vm_err)
   | instr_emit module payload cost =>
@@ -2278,7 +2312,7 @@ Lemma non_cert_setter_preserves_cert :
     (forall m b c mu, i <> instr_reveal m b c mu) ->
     (forall m p mu, i <> instr_emit m p mu) ->
     (forall c1 c2 mu, i <> instr_ljoin c1 c2 mu) ->
-    (forall m f c mu, i <> instr_lassert m f c mu) ->
+    (forall f c k fl mu, i <> instr_lassert f c k fl mu) ->
     (forall mu, i <> instr_certify mu) ->
     (forall mid prop cert mu, i <> instr_morph_assert mid prop cert mu) ->
     (vm_apply s i).(vm_csrs).(csr_cert_addr) = s.(vm_csrs).(csr_cert_addr).
@@ -2665,7 +2699,7 @@ Definition instr_targets (i : vm_instruction) : list nat :=
   | instr_psplit mid _ _ _ => [mid]
   | instr_pmerge m1 m2 _ => [m1; m2]
   | instr_pdiscover mid _ _ => [mid]
-  | instr_lassert mid _ _ _ => [mid]
+  | instr_lassert _ _ _ _ _ => []
   | instr_mdlacc mid _ => [mid]
   | instr_emit mid _ _ => [mid]
   | instr_tensor_set mid _ _ _ _ => [mid]
@@ -2717,7 +2751,7 @@ Qed.
 Definition mu_cost_of_instr (instr : vm_instruction) : nat :=
   match instr with
   | instr_reveal _ _ _ _ => 1
-  | instr_lassert _ _ _ _ => 1
+  | instr_lassert _ _ _ _ _ => 1
   | instr_ljoin _ _ _ => 1
   | instr_certify _ => 1
   | _ => 0
@@ -3458,27 +3492,26 @@ Proof.
   pose proof (vm_apply_mu s_init instr) as H. lia.
 Qed.
 
-(** LASSERT always charges at least 1: String.length formula * 8 + S cost >= 1 *)
+(** LASSERT always charges at least 1: flen * 8 + S cost >= 1 *)
 Lemma lassert_cost_pos :
-  forall (module : ModuleID) (formula : string) (cert : lassert_certificate) (cost : nat),
-    instruction_cost (instr_lassert module formula cert cost) >= 1.
+  forall (freg creg : nat) (kind : bool) (flen cost : nat),
+    instruction_cost (instr_lassert freg creg kind flen cost) >= 1.
 Proof.
   intros. simpl. lia.
 Qed.
 
 (** UNCONDITIONAL QUANTITATIVE NO FREE INSIGHT:
-    Every LASSERT execution charges at least String.length formula * 8 bits of μ.
-    μ is denominated in BITS of physical work: 8 bits per character of formula.
+    Every LASSERT execution charges at least flen * 8 bits of μ.
+    flen = formula word length; cost is in bytes (8 bits per word * flen words).
     No precondition on cost — the bit-length is embedded in instruction_cost
-    by definition. This is the real NoFI theorem: Δμ ≥ |formula|_bits. *)
+    by definition. This is the real NoFI theorem: Δμ ≥ flen * 8. *)
 Theorem no_free_insight_quantitative :
-  forall (s : VMState) (module : ModuleID) (formula : string)
-         (cert : lassert_certificate) (cost : nat),
-    let s' := vm_apply s (instr_lassert module formula cert cost) in
-    s'.(vm_mu) - s.(vm_mu) >= String.length formula * 8.
+  forall (s : VMState) (freg creg : nat) (kind : bool) (flen cost : nat),
+    let s' := vm_apply s (instr_lassert freg creg kind flen cost) in
+    s'.(vm_mu) - s.(vm_mu) >= flen * 8.
 Proof.
-  intros s module formula cert cost.
-  pose proof (vm_apply_mu s (instr_lassert module formula cert cost)) as Hmu.
+  intros s freg creg kind flen cost.
+  pose proof (vm_apply_mu s (instr_lassert freg creg kind flen cost)) as Hmu.
   simpl (instruction_cost _) in Hmu. cbv zeta. lia.
 Qed.
 
@@ -3870,9 +3903,8 @@ Definition cert_addr_value_of_tc (i : vm_instruction) : option nat :=
   match i with
   | instr_emit _ payload _                           => Some (ascii_checksum payload)
   | instr_reveal _ _ cert _                          => Some (ascii_checksum cert)
-  | instr_ljoin cert1 cert2 _                        =>
-      Some (ascii_checksum (String.append cert1 cert2))
-  | instr_lassert _ formula _ _                      => Some (ascii_checksum formula)
+  | instr_ljoin _ _ _                                => None
+  | instr_lassert _ _ _ _ _                          => None
   | instr_morph_assert _ property _ _               => Some (ascii_checksum property)
   | _                                                => None
   end.
@@ -3975,21 +4007,11 @@ Proof.
   try (left; destruct (graph_pmerge _ _ _) as [[g' mid]|];
        [rewrite advance_state_cert_addr_tc
        |rewrite advance_state_cert_addr_tc; rewrite csr_set_err_cert_addr_tc]; reflexivity);
-  try (destruct cert as [proof | model];
-       [ destruct (check_lrat formula proof);
-         [ (* Valid UNSAT proof: cert_addr is set *)
-           right; cbv zeta; rewrite advance_state_cert_addr_tc;
-           rewrite csr_set_cert_addr_val_tc; reflexivity
-         | (* Invalid UNSAT proof: cert_addr preserved *)
-           left; rewrite advance_state_cert_addr_tc;
-           rewrite csr_set_err_cert_addr_tc; reflexivity ]
-       | destruct (check_model formula model) eqn:Hcheck;
-         [ right; cbv zeta; rewrite advance_state_cert_addr_tc;
-           rewrite csr_set_cert_addr_val_tc; reflexivity
-         | left; rewrite advance_state_cert_addr_tc;
-           rewrite csr_set_err_cert_addr_tc; reflexivity ] ]);
-  try (right; destruct (String.eqb _ _);
-       cbv zeta; rewrite advance_state_cert_addr_tc; rewrite csr_set_cert_addr_val_tc; reflexivity);
+  try (left; cbv zeta; destruct kind;
+       [destruct (check_model _ _) | destruct (check_lrat _ _)];
+       rewrite advance_state_cert_addr_tc; simpl; reflexivity);
+  try (left; cbv zeta; destruct (String.eqb _ _);
+       rewrite advance_state_cert_addr_tc; simpl; reflexivity);
   try (left; destruct (Nat.eqb _ 0);
        [rewrite advance_state_cert_addr_tc | rewrite jump_state_cert_addr_tc]; reflexivity);
   try (left; destruct (chsh_bits_ok _ _ _ _);
@@ -4512,10 +4534,10 @@ Definition states_correspond (coq_s : VMState) (py_s : PythonState) : Prop :=
   coq_s.(vm_mu) = py_s.(py_mu) /\
   coq_s.(vm_err) = py_s.(py_error).
 
-(** Python step function stub.
+(** Python step function model.
     NOTE: This definition applies [vm_apply] to [init_state], not to a
-    state derived from [py_s].  It is a placeholder that captures the PC,
-    μ, and error of one step from the blank initial state.  [py_regs] and
+    state derived from [py_s].  It is a conservative approximation that captures
+    the PC, μ, and error of one step from the blank initial state.  [py_regs] and
     [py_mem] are carried unchanged from [py_s].  This is a conservative
     stand-in; the actual Python harness executes via the OCaml extracted
     runner (see [scripts/forge_vm.py]). *)
@@ -4801,6 +4823,16 @@ Section ThieleCPU.
       with Register "info_gain"     : Bit WordSz <- Default
       with Register "error_code"    : Bit WordSz <- Default
       with Register "logic_acc"     : Bit WordSz <- Default
+      with Register "lassert_phase" : Bit 3 <- Default
+      with Register "lassert_kind"  : Bool <- false
+      with Register "lassert_fbase" : Bit WordSz <- Default
+      with Register "lassert_cbase" : Bit WordSz <- Default
+      with Register "lassert_flen"  : Bit WordSz <- Default
+      with Register "lassert_clen"  : Bit WordSz <- Default
+      with Register "lassert_fptr"  : Bit WordSz <- Default
+      with Register "lassert_cptr"  : Bit WordSz <- Default
+      with Register "lassert_fbuf"  : Vector (Bit WordSz) 8 <- Default
+      with Register "lassert_cbuf"  : Vector (Bit WordSz) 9 <- Default
       with Register "active_module" : Bit PTableIdxSz <- ACTIVE_MODULE_INIT
       with Register "mstatus"       : Bit WordSz <- MSTATUS_THIELE
       with Register "mcycle_lo"     : Bit WordSz <- Default
@@ -4808,13 +4840,6 @@ Section ThieleCPU.
       with Register "minstret_lo"   : Bit WordSz <- Default
       with Register "minstret_hi"   : Bit WordSz <- Default
       with Register "trap_vector"   : Bit WordSz <- TRAP_VEC_INIT
-      with Register "logic_req_valid"   : Bool <- false
-      with Register "logic_req_opcode"  : Bit OpcodeSz <- Default
-      with Register "logic_req_payload" : Bit WordSz <- Default
-      with Register "logic_resp_valid"  : Bool <- false
-      with Register "logic_resp_error"  : Bool <- false
-      with Register "logic_resp_value"  : Bit WordSz <- Default
-      with Register "logic_stall"       : Bool <- false
       with Register "bus_load_instr_addr" : Bit MemAddrSz <- Default
       with Register "bus_load_instr_data" : Bit InstrSz <- Default
       with Register "bus_load_instr_kick" : Bool <- false
@@ -4837,7 +4862,6 @@ Section ThieleCPU.
         Assert !#halted_v;
         Read err_v : Bool <- "err";
         Assert !#err_v;
-        Read logic_stall_v : Bool <- "logic_stall";
         Read pc_v : Bit WordSz <- "pc";
         Read mu_v : Bit WordSz <- "mu";
         Read regs_v : Vector (Bit WordSz) RegIdxSz <- "regs";
@@ -4855,12 +4879,6 @@ Section ThieleCPU.
         Read minstret_lo_v : Bit WordSz <- "minstret_lo";
         Read minstret_hi_v : Bit WordSz <- "minstret_hi";
         Read trap_vector_v : Bit WordSz <- "trap_vector";
-        Read logic_req_valid_v : Bool <- "logic_req_valid";
-        Read logic_req_opcode_v : Bit OpcodeSz <- "logic_req_opcode";
-        Read logic_req_payload_v : Bit WordSz <- "logic_req_payload";
-        Read logic_resp_valid_v : Bool <- "logic_resp_valid";
-        Read logic_resp_error_v : Bool <- "logic_resp_error";
-        Read logic_resp_value_v : Bit WordSz <- "logic_resp_value";
         Read mu_tensor_v : Vector (Bit WordSz) MuTensorIdxSz <- "mu_tensor";
         Read pt_sizes_v : Vector (Bit WordSz) PTableIdxSz <- "ptTable";
         Read pt_next_id_v : Bit PTableNextIdSz <- "pt_next_id";
@@ -5028,14 +5046,6 @@ Section ThieleCPU.
         LET is_bucket_10 <- #chsh_settings == $$(WO~1~0);
         LET is_bucket_11 <- #chsh_settings == $$(WO~1~1);
 
-        (* L-coprocessor interface *)
-        LET is_logic_op <- (#opcode == $$(OP_LASSERT)) || (#opcode == $$(OP_LJOIN));
-        LET lpayload16 : Bit 16 <- {#op_a, #op_b};
-        LET lpayload32 : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #lpayload16;
-        LET logic_rsp_pending <- #logic_req_valid_v && !#logic_resp_valid_v;
-        LET logic_rsp_fire <- #logic_req_valid_v && #logic_resp_valid_v;
-        LET logic_issue <- #is_logic_op && !#logic_req_valid_v;
-
         (* No-Free-Insight guard *)
         LET op_b_32 : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #op_b;
         LET is_info_gain_op <- (#opcode == $$(OP_PDISCOVER)) || (#opcode == $$(OP_EMIT));
@@ -5053,13 +5063,12 @@ Section ThieleCPU.
         LET new_pc : Bit WordSz <-
           IF (#bianchi_violation || #locality_violation || #ptable_overflow_violation || #high_value_locked || #nfi_violation)
           then #trap_vector_v
-          else (IF #logic_rsp_pending then #pc_v
           else (IF (#opcode == $$(OP_HALT)) then #pc_v
           else (IF (#opcode == $$(OP_JUMP)) then #jump_target
           else (IF (#opcode == $$(OP_CALL)) then #jump_target
           else (IF (#opcode == $$(OP_RET)) then #ret_pc
           else (IF ((#opcode == $$(OP_JNEZ)) && #jnez_taken) then #jnez_target
-          else #pc_plus_1))))));
+          else #pc_plus_1)))));
 
         LET swap_regs : Vector (Bit WordSz) RegIdxSz <-
           (#regs_v@[#dst_idx <- #src_val])@[#src_idx <- #dst_val];
@@ -5110,17 +5119,16 @@ Section ThieleCPU.
         LET new_halted <-
           #locality_violation || #ptable_overflow_violation || #high_value_locked || #nfi_violation || (#opcode == $$(OP_HALT));
 
-        LET logic_resp_fail <- #logic_rsp_fire && #logic_resp_error_v;
         LET new_err <-
           #locality_violation || #ptable_overflow_violation || #high_value_locked || #nfi_violation ||
-          ((#opcode == $$(OP_CHSH_TRIAL)) && #chsh_bits_bad) || #logic_resp_fail;
+          ((#opcode == $$(OP_CHSH_TRIAL)) && #chsh_bits_bad);
 
         LET new_error_code : Bit WordSz <-
           IF #bianchi_violation then $$(ERR_BIANCHI_VAL)
           else (IF #locality_violation then $$(ERR_LOCALITY_VAL)
           else (IF #ptable_overflow_violation then $$(ERR_PARTITION_VAL)
           else (IF #nfi_violation then $$(ERR_LOGIC_VAL)
-          else (IF (#high_value_locked || #logic_resp_fail) then $$(ERR_LOGIC_VAL)
+          else (IF #high_value_locked then $$(ERR_LOGIC_VAL)
           else (IF ((#opcode == $$(OP_CHSH_TRIAL)) && #chsh_bits_bad) then $$(ERR_CHSH_VAL)
           else #error_code_v)))));
 
@@ -5128,11 +5136,10 @@ Section ThieleCPU.
         LET final_mu : Bit WordSz <-
           IF (#bianchi_violation || #ptable_overflow_violation || #high_value_locked || #nfi_violation)
           then #mu_v
-          else (IF #logic_rsp_pending then #mu_v
           else (IF (#opcode == $$(OP_ORACLE_HALTS)) then #mu_v + $1000000
           else (IF ((#opcode == $$(OP_CHSH_TRIAL)) && (#is_x1_trial)) then #new_mu + $$(CHSH_X1_SURCHARGE)
           else (IF (#opcode == $$(OP_CERTIFY)) then #mu_v + #cost32 + $1
-          else #new_mu))));
+          else #new_mu)));
 
         LET new_certified : Bool <-
           IF (#bianchi_violation || #locality_violation || #ptable_overflow_violation || #high_value_locked || #nfi_violation)
@@ -5218,29 +5225,15 @@ Section ThieleCPU.
 
         LET new_logic_acc : Bit WordSz <-
           IF (#bianchi_violation || #locality_violation) then #logic_acc_v
-          else (IF #logic_rsp_fire then #logic_acc_v + #logic_resp_value_v
           else (IF (#opcode == $$(OP_LASSERT)) then #logic_acc_v ~+ $$(LOGIC_GATE_KEY)
           else (IF (#opcode == $$(OP_ORACLE_HALTS)) then #logic_acc_v + $1
-          else #logic_acc_v)));
-
-        LET new_logic_stall <-
-          IF #bianchi_violation then $$false
-          else (IF #logic_rsp_fire then $$false else (IF #logic_issue then $$true else #logic_stall_v));
-        LET new_logic_req_valid <-
-          IF #bianchi_violation then $$false
-          else (IF #logic_rsp_fire then $$false
-          else (IF #logic_issue then $$true else #logic_req_valid_v));
-        LET new_logic_req_opcode : Bit OpcodeSz <- IF #logic_issue then #opcode else #logic_req_opcode_v;
-        LET new_logic_req_payload : Bit WordSz <- IF #logic_issue then #lpayload32 else #logic_req_payload_v;
-        LET new_logic_resp_valid <-
-          IF #bianchi_violation then $$false
-          else (IF #logic_rsp_fire then $$false else #logic_resp_valid_v);
+          else #logic_acc_v));
 
         LET mcycle_lo_next : Bit WordSz <- #mcycle_lo_v + $1;
         LET mcycle_lo_wrap <- #mcycle_lo_next == $0;
         LET mcycle_hi_next : Bit WordSz <- IF #mcycle_lo_wrap then #mcycle_hi_v + $1 else #mcycle_hi_v;
         LET retire_this_step <-
-          !#logic_rsp_pending && !#locality_violation && !#ptable_overflow_violation && !#high_value_locked && !#nfi_violation;
+          !#locality_violation && !#ptable_overflow_violation && !#high_value_locked && !#nfi_violation;
         LET minstret_lo_inc : Bit WordSz <- IF #retire_this_step then #minstret_lo_v + $1 else #minstret_lo_v;
         LET minstret_lo_wrap <- #retire_this_step && (#minstret_lo_inc == $0);
         LET minstret_hi_next : Bit WordSz <- IF #minstret_lo_wrap then #minstret_hi_v + $1 else #minstret_hi_v;
@@ -5260,11 +5253,6 @@ Section ThieleCPU.
         Write "mcycle_hi"      <- #mcycle_hi_next;
         Write "minstret_lo"    <- #minstret_lo_inc;
         Write "minstret_hi"    <- #minstret_hi_next;
-        Write "logic_req_valid"   <- #new_logic_req_valid;
-        Write "logic_req_opcode"  <- #new_logic_req_opcode;
-        Write "logic_req_payload" <- #new_logic_req_payload;
-        Write "logic_resp_valid"  <- #new_logic_resp_valid;
-        Write "logic_stall"       <- #new_logic_stall;
         Write "partition_ops"  <- #new_partition_ops;
         Write "mdl_ops"        <- #new_mdl_ops;
         Write "info_gain"      <- #new_info_gain;
@@ -5344,27 +5332,9 @@ Section ThieleCPU.
       with Method "getMinstretHi" () : Bit WordSz :=
         Read v : Bit WordSz <- "minstret_hi"; Ret #v
 
-      (** Logic gate interface — 4 get methods + 1 set method *)
+      (** Logic gate interface — 1 get method *)
       with Method "getLogicAcc" () : Bit WordSz :=
         Read v : Bit WordSz <- "logic_acc"; Ret #v
-
-      with Method "getLogicReqValid" () : Bool :=
-        Read v : Bool <- "logic_req_valid"; Ret #v
-
-      with Method "getLogicReqOpcode" () : Bit OpcodeSz :=
-        Read v : Bit OpcodeSz <- "logic_req_opcode"; Ret #v
-
-      with Method "getLogicReqPayload" () : Bit WordSz :=
-        Read v : Bit WordSz <- "logic_req_payload"; Ret #v
-
-      with Method "setLogicResp" (arg : Struct LogicRespPort) : Void :=
-        LET valid_v <- #arg!LogicRespPort@."valid";
-        LET error_v <- #arg!LogicRespPort@."error";
-        LET value_v <- #arg!LogicRespPort@."value";
-        Write "logic_resp_valid" <- #valid_v;
-        Write "logic_resp_error" <- #error_v;
-        Write "logic_resp_value" <- #value_v;
-        Retv
 
       (** Mu tensor row sums — 4 methods *)
       with Method "getMuTensor0" () : Bit WordSz :=
@@ -5418,9 +5388,6 @@ Section ThieleCPU.
         Read minstret_lo_v : Bit WordSz <- "minstret_lo";
         Read minstret_hi_v : Bit WordSz <- "minstret_hi";
         Read logic_acc_v : Bit WordSz <- "logic_acc";
-        Read logic_req_valid_v : Bool <- "logic_req_valid";
-        Read logic_req_opcode_v : Bit OpcodeSz <- "logic_req_opcode";
-        Read logic_req_payload_v : Bit WordSz <- "logic_req_payload";
         Read mu_tensor_v : Vector (Bit WordSz) MuTensorIdxSz <- "mu_tensor";
         Read pt_next_id_v : Bit PTableNextIdSz <- "pt_next_id";
         Read pt_sizes_v : Vector (Bit WordSz) PTableIdxSz <- "ptTable";
@@ -5440,7 +5407,6 @@ Section ThieleCPU.
         LET bianchi_alarm_v <- #tensor_total > #mu_v;
         LET pt_next_id32 : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #pt_next_id_v;
         LET pt_size0 : Bit WordSz <- #pt_sizes_v@[$$(natToWord PTableIdxSz 0)];
-        LET logic_req_opcode32 : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #logic_req_opcode_v;
         LET rdata : Bit WordSz <-
           IF (#addr == $$(natToWord WordSz 0)) then #pc_v
           else (IF (#addr == $$(natToWord WordSz 4)) then #mu_v
@@ -5456,16 +5422,13 @@ Section ThieleCPU.
           else (IF (#addr == $$(natToWord WordSz 44)) then #minstret_lo_v
           else (IF (#addr == $$(natToWord WordSz 48)) then #minstret_hi_v
           else (IF (#addr == $$(natToWord WordSz 52)) then #logic_acc_v
-          else (IF (#addr == $$(natToWord WordSz 56)) then (IF #logic_req_valid_v then $1 else $0)
-          else (IF (#addr == $$(natToWord WordSz 60)) then #logic_req_opcode32
-          else (IF (#addr == $$(natToWord WordSz 64)) then #logic_req_payload_v
           else (IF (#addr == $$(natToWord WordSz 68)) then #mu_tensor0
           else (IF (#addr == $$(natToWord WordSz 72)) then #mu_tensor1
           else (IF (#addr == $$(natToWord WordSz 76)) then #mu_tensor2
           else (IF (#addr == $$(natToWord WordSz 80)) then #mu_tensor3
           else (IF (#addr == $$(natToWord WordSz 84)) then (IF #bianchi_alarm_v then $1 else $0)
           else (IF (#addr == $$(natToWord WordSz 88)) then #pt_next_id32
-          else (IF (#addr == $$(natToWord WordSz 92)) then #pt_size0 else $0)))))))))))))))))))))));
+          else (IF (#addr == $$(natToWord WordSz 92)) then #pt_size0 else $0))))))))))))))))))));
         Ret #rdata
 
       with Method "apbReadErr" (addr : Bit WordSz) : Bool :=
@@ -5484,9 +5447,6 @@ Section ThieleCPU.
           (#addr == $$(natToWord WordSz 44)) ||
           (#addr == $$(natToWord WordSz 48)) ||
           (#addr == $$(natToWord WordSz 52)) ||
-          (#addr == $$(natToWord WordSz 56)) ||
-          (#addr == $$(natToWord WordSz 60)) ||
-          (#addr == $$(natToWord WordSz 64)) ||
           (#addr == $$(natToWord WordSz 68)) ||
           (#addr == $$(natToWord WordSz 72)) ||
           (#addr == $$(natToWord WordSz 76)) ||
@@ -5498,9 +5458,6 @@ Section ThieleCPU.
 
       with Method "apbWrite" (arg : Struct APBBusWritePort) : Bool :=
         Read imem_v : Vector (Bit InstrSz) MemAddrSz <- "imem";
-        Read logic_resp_valid_v : Bool <- "logic_resp_valid";
-        Read logic_resp_error_v : Bool <- "logic_resp_error";
-        Read logic_resp_value_v : Bit WordSz <- "logic_resp_value";
         Read active_module_v : Bit PTableIdxSz <- "active_module";
         Read trap_vector_v : Bit WordSz <- "trap_vector";
         Read bus_load_instr_addr_v : Bit MemAddrSz <- "bus_load_instr_addr";
@@ -5511,18 +5468,12 @@ Section ThieleCPU.
         LET wr_load_instr_addr <- #addr == $$(natToWord WordSz 128);
         LET wr_load_instr_data <- #addr == $$(natToWord WordSz 132);
         LET wr_load_instr_kick <- #addr == $$(natToWord WordSz 136);
-        LET wr_set_logic_resp_valid <- #addr == $$(natToWord WordSz 140);
-        LET wr_set_logic_resp_error <- #addr == $$(natToWord WordSz 144);
-        LET wr_set_logic_resp_value <- #addr == $$(natToWord WordSz 148);
         LET wr_set_active_module <- #addr == $$(natToWord WordSz 152);
         LET wr_set_trap_vector <- #addr == $$(natToWord WordSz 156);
         LET wr_any <-
           #wr_load_instr_addr ||
           #wr_load_instr_data ||
           #wr_load_instr_kick ||
-          #wr_set_logic_resp_valid ||
-          #wr_set_logic_resp_error ||
-          #wr_set_logic_resp_value ||
           #wr_set_active_module ||
           #wr_set_trap_vector;
         LET data_mem_addr : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) #data;
@@ -5539,12 +5490,6 @@ Section ThieleCPU.
           IF #do_instr_commit
           then #imem_v@[#next_load_instr_addr <- #next_load_instr_data]
           else #imem_v;
-        LET next_logic_resp_valid <-
-          IF #wr_set_logic_resp_valid then #data_nonzero else #logic_resp_valid_v;
-        LET next_logic_resp_error <-
-          IF #wr_set_logic_resp_error then #data_nonzero else #logic_resp_error_v;
-        LET next_logic_resp_value : Bit WordSz <-
-          IF #wr_set_logic_resp_value then #data else #logic_resp_value_v;
         LET next_active_module : Bit PTableIdxSz <-
           IF #wr_set_active_module
           then UniBit (Trunc PTableIdxSz _) #data
@@ -5555,9 +5500,6 @@ Section ThieleCPU.
         Write "bus_load_instr_addr" <- #next_load_instr_addr;
         Write "bus_load_instr_data" <- #next_load_instr_data;
         Write "bus_load_instr_kick" <- #next_load_instr_kick;
-        Write "logic_resp_valid" <- #next_logic_resp_valid;
-        Write "logic_resp_error" <- #next_logic_resp_error;
-        Write "logic_resp_value" <- #next_logic_resp_value;
         Write "active_module" <- #next_active_module;
         Write "trap_vector" <- #next_trap_vector;
         Ret (!#wr_any)
@@ -5694,7 +5636,7 @@ Definition kami_sim_rel (ks : KamiSnapshot) (vs : VMState) : Prop :=
     The gap for LASSERT = String.length formula * 8 bits = information-theoretic formula cost. *)
 Definition kami_instruction_cost (instr : vm_instruction) : nat :=
   match instr with
-  | instr_lassert _ _ _ cost => S cost
+  | instr_lassert _ _ _ _ cost => S cost
   | other => instruction_cost other
   end.
 
@@ -5748,7 +5690,7 @@ Qed.
     LASSERT is excluded: hardware charges S cost while software charges String.length*8+S cost. *)
 Theorem kami_vm_mu_diamond :
   forall ks instr,
-    (match instr with instr_lassert _ _ _ _ => False | _ => True end) ->
+    (match instr with instr_lassert _ _ _ _ _ => False | _ => True end) ->
     snap_mu (kami_step ks instr) = (vm_apply (abs_snapshot ks) instr).(vm_mu).
 Proof.
   intros ks instr Hnot_lassert.
@@ -5761,12 +5703,11 @@ Qed.
     Hardware (kami_step) charges S cost; software charges String.length*8 + S cost.
     Gap = String.length formula * 8 = bit-length of formula = physical reading cost. *)
 Theorem kami_vm_mu_lassert_gap :
-  forall (ks : KamiSnapshot) (module : ModuleID) (formula : string)
-         (cert : lassert_certificate) (cost : nat),
-    (vm_apply (abs_snapshot ks) (instr_lassert module formula cert cost)).(vm_mu) =
-    snap_mu (kami_step ks (instr_lassert module formula cert cost)) + String.length formula * 8.
+  forall (ks : KamiSnapshot) (freg creg : nat) (kind : bool) (flen cost : nat),
+    (vm_apply (abs_snapshot ks) (instr_lassert freg creg kind flen cost)).(vm_mu) =
+    snap_mu (kami_step ks (instr_lassert freg creg kind flen cost)) + flen * 8.
 Proof.
-  intros ks module formula cert cost.
+  intros ks freg creg kind flen cost.
   rewrite vm_apply_mu.
   unfold kami_step, abs_snapshot, kami_instruction_cost, instruction_cost.
   simpl. lia.
@@ -5811,14 +5752,14 @@ Record CanonicalCPUProofBundle := {
   (* Non-LASSERT: hardware and software mu agree exactly *)
   bundle_step_commutes_non_lassert :
     forall ks instr,
-      (match instr with instr_lassert _ _ _ _ => False | _ => True end) ->
+      (match instr with instr_lassert _ _ _ _ _ => False | _ => True end) ->
       snap_mu (kami_step ks instr) = (vm_apply (abs_snapshot ks) instr).(vm_mu);
 
   (* LASSERT gap: software charges bit-length of formula more than hardware *)
   bundle_lassert_mu_gap :
-    forall ks module formula cert cost,
-      (vm_apply (abs_snapshot ks) (instr_lassert module formula cert cost)).(vm_mu) =
-      snap_mu (kami_step ks (instr_lassert module formula cert cost)) + String.length formula * 8;
+    forall ks freg creg kind flen cost,
+      (vm_apply (abs_snapshot ks) (instr_lassert freg creg kind flen cost)).(vm_mu) =
+      snap_mu (kami_step ks (instr_lassert freg creg kind flen cost)) + flen * 8;
 
   (* μ-monotonicity is preserved by hardware *)
   bundle_mu_monotonic :
@@ -5856,11 +5797,10 @@ Inductive BusReg : Type :=
 | BusRegPartitionOps | BusRegMdlOps | BusRegInfoGain | BusRegErrorCode
 | BusRegMstatus | BusRegMcycleLo | BusRegMcycleHi
 | BusRegMinstretLo | BusRegMinstretHi
-| BusRegLogicAcc | BusRegLogicReqValid | BusRegLogicReqOpcode | BusRegLogicReqPayload
+| BusRegLogicAcc
 | BusRegMuTensor0 | BusRegMuTensor1 | BusRegMuTensor2 | BusRegMuTensor3
 | BusRegBianchiAlarm | BusRegPtNextId | BusRegPtSize
 | BusRegLoadInstrAddr | BusRegLoadInstrData | BusRegLoadInstrKick
-| BusRegSetLogicRespValid | BusRegSetLogicRespError | BusRegSetLogicRespValue
 | BusRegSetActiveModule | BusRegSetTrapVector.
 
 Definition decodeBusReg (addr : nat) : option BusReg :=
@@ -5873,16 +5813,12 @@ Definition decodeBusReg (addr : nat) : option BusReg :=
   | 36 => Some BusRegMcycleLo | 40 => Some BusRegMcycleHi
   | 44 => Some BusRegMinstretLo | 48 => Some BusRegMinstretHi
   | 52 => Some BusRegLogicAcc
-  | 56 => Some BusRegLogicReqValid | 60 => Some BusRegLogicReqOpcode
-  | 64 => Some BusRegLogicReqPayload
   | 68 => Some BusRegMuTensor0 | 72 => Some BusRegMuTensor1
   | 76 => Some BusRegMuTensor2 | 80 => Some BusRegMuTensor3
   | 84 => Some BusRegBianchiAlarm
   | 88 => Some BusRegPtNextId | 92 => Some BusRegPtSize
   | 128 => Some BusRegLoadInstrAddr | 132 => Some BusRegLoadInstrData
   | 136 => Some BusRegLoadInstrKick
-  | 140 => Some BusRegSetLogicRespValid | 144 => Some BusRegSetLogicRespError
-  | 148 => Some BusRegSetLogicRespValue
   | 152 => Some BusRegSetActiveModule | 156 => Some BusRegSetTrapVector
   | _ => None
   end.
@@ -5890,7 +5826,6 @@ Definition decodeBusReg (addr : nat) : option BusReg :=
 Definition busRegReadable (r : BusReg) : bool :=
   match r with
   | BusRegLoadInstrAddr | BusRegLoadInstrData | BusRegLoadInstrKick
-  | BusRegSetLogicRespValid | BusRegSetLogicRespError | BusRegSetLogicRespValue
   | BusRegSetActiveModule | BusRegSetTrapVector => false
   | _ => true
   end.
@@ -5903,8 +5838,7 @@ Record BusCoreView : Type := {
   view_error_code : nat; view_mstatus : nat;
   view_mcycle_lo : nat; view_mcycle_hi : nat;
   view_minstret_lo : nat; view_minstret_hi : nat;
-  view_logic_acc : nat; view_logic_req_valid : bool;
-  view_logic_req_opcode : nat; view_logic_req_payload : nat;
+  view_logic_acc : nat;
   view_mu_tensor0 : nat; view_mu_tensor1 : nat;
   view_mu_tensor2 : nat; view_mu_tensor3 : nat;
   view_bianchi_alarm : bool; view_pt_next_id : nat;
@@ -5929,9 +5863,6 @@ Definition busRegReadValue (v : BusCoreView) (r : BusReg) : option nat :=
   | BusRegMinstretLo => Some v.(view_minstret_lo)
   | BusRegMinstretHi => Some v.(view_minstret_hi)
   | BusRegLogicAcc => Some v.(view_logic_acc)
-  | BusRegLogicReqValid => Some (bool_to_nat v.(view_logic_req_valid))
-  | BusRegLogicReqOpcode => Some v.(view_logic_req_opcode)
-  | BusRegLogicReqPayload => Some v.(view_logic_req_payload)
   | BusRegMuTensor0 => Some v.(view_mu_tensor0)
   | BusRegMuTensor1 => Some v.(view_mu_tensor1)
   | BusRegMuTensor2 => Some v.(view_mu_tensor2)
@@ -5940,7 +5871,6 @@ Definition busRegReadValue (v : BusCoreView) (r : BusReg) : option nat :=
   | BusRegPtNextId => Some v.(view_pt_next_id)
   | BusRegPtSize => Some (v.(view_pt_size) 0)
   | BusRegLoadInstrAddr | BusRegLoadInstrData | BusRegLoadInstrKick
-  | BusRegSetLogicRespValid | BusRegSetLogicRespError | BusRegSetLogicRespValue
   | BusRegSetActiveModule | BusRegSetTrapVector => None
   end.
 
@@ -5953,16 +5883,12 @@ Definition busRead (v : BusCoreView) (addr : nat) : option nat :=
 Record BusShadowRegs : Type := {
   sh_load_instr_addr : nat; sh_load_instr_data : nat;
   sh_load_instr_kick : bool;
-  sh_logic_resp_valid : bool; sh_logic_resp_error : bool;
-  sh_logic_resp_value : nat;
   sh_active_module : nat; sh_trap_vector : nat
 }.
 
 Definition busShadowInit : BusShadowRegs :=
   {| sh_load_instr_addr := 0; sh_load_instr_data := 0;
      sh_load_instr_kick := false;
-     sh_logic_resp_valid := false; sh_logic_resp_error := false;
-     sh_logic_resp_value := 0;
      sh_active_module := 0; sh_trap_vector := 0 |}.
 
 Record BusWrapperState : Type := {
@@ -5976,71 +5902,29 @@ Definition busWriteShadow (s : BusShadowRegs) (r : BusReg) (data : nat)
   | BusRegLoadInstrAddr =>
       {| sh_load_instr_addr := data; sh_load_instr_data := s.(sh_load_instr_data);
          sh_load_instr_kick := s.(sh_load_instr_kick);
-         sh_logic_resp_valid := s.(sh_logic_resp_valid);
-         sh_logic_resp_error := s.(sh_logic_resp_error);
-         sh_logic_resp_value := s.(sh_logic_resp_value);
          sh_active_module := s.(sh_active_module);
          sh_trap_vector := s.(sh_trap_vector) |}
   | BusRegLoadInstrData =>
       {| sh_load_instr_addr := s.(sh_load_instr_addr); sh_load_instr_data := data;
          sh_load_instr_kick := s.(sh_load_instr_kick);
-         sh_logic_resp_valid := s.(sh_logic_resp_valid);
-         sh_logic_resp_error := s.(sh_logic_resp_error);
-         sh_logic_resp_value := s.(sh_logic_resp_value);
          sh_active_module := s.(sh_active_module);
          sh_trap_vector := s.(sh_trap_vector) |}
   | BusRegLoadInstrKick =>
       {| sh_load_instr_addr := s.(sh_load_instr_addr);
          sh_load_instr_data := s.(sh_load_instr_data);
          sh_load_instr_kick := negb (Nat.eqb data 0);
-         sh_logic_resp_valid := s.(sh_logic_resp_valid);
-         sh_logic_resp_error := s.(sh_logic_resp_error);
-         sh_logic_resp_value := s.(sh_logic_resp_value);
-         sh_active_module := s.(sh_active_module);
-         sh_trap_vector := s.(sh_trap_vector) |}
-  | BusRegSetLogicRespValid =>
-      {| sh_load_instr_addr := s.(sh_load_instr_addr);
-         sh_load_instr_data := s.(sh_load_instr_data);
-         sh_load_instr_kick := s.(sh_load_instr_kick);
-         sh_logic_resp_valid := negb (Nat.eqb data 0);
-         sh_logic_resp_error := s.(sh_logic_resp_error);
-         sh_logic_resp_value := s.(sh_logic_resp_value);
-         sh_active_module := s.(sh_active_module);
-         sh_trap_vector := s.(sh_trap_vector) |}
-  | BusRegSetLogicRespError =>
-      {| sh_load_instr_addr := s.(sh_load_instr_addr);
-         sh_load_instr_data := s.(sh_load_instr_data);
-         sh_load_instr_kick := s.(sh_load_instr_kick);
-         sh_logic_resp_valid := s.(sh_logic_resp_valid);
-         sh_logic_resp_error := negb (Nat.eqb data 0);
-         sh_logic_resp_value := s.(sh_logic_resp_value);
-         sh_active_module := s.(sh_active_module);
-         sh_trap_vector := s.(sh_trap_vector) |}
-  | BusRegSetLogicRespValue =>
-      {| sh_load_instr_addr := s.(sh_load_instr_addr);
-         sh_load_instr_data := s.(sh_load_instr_data);
-         sh_load_instr_kick := s.(sh_load_instr_kick);
-         sh_logic_resp_valid := s.(sh_logic_resp_valid);
-         sh_logic_resp_error := s.(sh_logic_resp_error);
-         sh_logic_resp_value := data;
          sh_active_module := s.(sh_active_module);
          sh_trap_vector := s.(sh_trap_vector) |}
   | BusRegSetActiveModule =>
       {| sh_load_instr_addr := s.(sh_load_instr_addr);
          sh_load_instr_data := s.(sh_load_instr_data);
          sh_load_instr_kick := s.(sh_load_instr_kick);
-         sh_logic_resp_valid := s.(sh_logic_resp_valid);
-         sh_logic_resp_error := s.(sh_logic_resp_error);
-         sh_logic_resp_value := s.(sh_logic_resp_value);
          sh_active_module := data;
          sh_trap_vector := s.(sh_trap_vector) |}
   | BusRegSetTrapVector =>
       {| sh_load_instr_addr := s.(sh_load_instr_addr);
          sh_load_instr_data := s.(sh_load_instr_data);
          sh_load_instr_kick := s.(sh_load_instr_kick);
-         sh_logic_resp_valid := s.(sh_logic_resp_valid);
-         sh_logic_resp_error := s.(sh_logic_resp_error);
-         sh_logic_resp_value := s.(sh_logic_resp_value);
          sh_active_module := s.(sh_active_module);
          sh_trap_vector := data |}
   | _ => s
@@ -6065,8 +5949,7 @@ Definition coreViewOfSnapshot (s : KamiSnapshot) : BusCoreView :=
      view_error_code := snap_error_code s;
      view_mstatus := 0; view_mcycle_lo := 0; view_mcycle_hi := 0;
      view_minstret_lo := 0; view_minstret_hi := 0;
-     view_logic_acc := 0; view_logic_req_valid := false;
-     view_logic_req_opcode := 0; view_logic_req_payload := 0;
+     view_logic_acc := 0;
      view_mu_tensor0 := snap_mu_tensor s 0;
      view_mu_tensor1 := snap_mu_tensor s 1;
      view_mu_tensor2 := snap_mu_tensor s 2;
@@ -8449,7 +8332,7 @@ Definition is_classical_opcode_tc (i : vm_instruction) : bool :=
   | instr_pnew _ _             => false  (* modifies graph *)
   | instr_psplit _ _ _ _       => false  (* modifies graph *)
   | instr_pmerge _ _ _         => false  (* modifies graph *)
-  | instr_lassert _ _ _ _      => false  (* modifies graph + cert_addr *)
+  | instr_lassert _ _ _ _ _    => false  (* modifies graph + cert_addr *)
   | instr_ljoin _ _ _          => false  (* modifies cert_addr *)
   | instr_emit _ _ _           => false  (* modifies cert_addr *)
   | instr_reveal _ _ _ _       => false  (* modifies cert_addr *)
@@ -8905,14 +8788,14 @@ Record ThieleMachineMasterSummary := {
 
   (* Layer 5: Hardware Refinement — non-LASSERT exact commutation + LASSERT gap *)
   summary_hw_mu_diamond : forall ks instr,
-    (match instr with instr_lassert _ _ _ _ => False | _ => True end) ->
+    (match instr with instr_lassert _ _ _ _ _ => False | _ => True end) ->
     snap_mu (kami_step ks instr) = (vm_apply (abs_snapshot ks) instr).(vm_mu);
-  summary_hw_mu_lassert_gap : forall ks module formula cert cost,
-    (vm_apply (abs_snapshot ks) (instr_lassert module formula cert cost)).(vm_mu) =
-    snap_mu (kami_step ks (instr_lassert module formula cert cost)) + String.length formula * 8;
-  summary_nofreeinsight_quantitative : forall s module formula cert cost,
-    (vm_apply s (instr_lassert module formula cert cost)).(vm_mu) - s.(vm_mu) >=
-    String.length formula * 8;
+  summary_hw_mu_lassert_gap : forall ks freg creg kind flen cost,
+    (vm_apply (abs_snapshot ks) (instr_lassert freg creg kind flen cost)).(vm_mu) =
+    snap_mu (kami_step ks (instr_lassert freg creg kind flen cost)) + flen * 8;
+  summary_nofreeinsight_quantitative : forall s freg creg kind flen cost,
+    (vm_apply s (instr_lassert freg creg kind flen cost)).(vm_mu) - s.(vm_mu) >=
+    flen * 8;
 
   (* Layer 6: Landauer + Honest NoFI cost floor *)
   summary_landauer : forall pe : PhysicalErasure_tc,
@@ -9057,7 +8940,7 @@ Definition cert_addr_setterb_tc (i : vm_instruction) : bool :=
   | instr_reveal _ _ _ _ => true
   | instr_emit _ _ _ => true
   | instr_ljoin _ _ _ => true
-  | instr_lassert _ _ _ _ => true
+  | instr_lassert _ _ _ _ _ => true
   | instr_morph_assert _ _ _ _ => true
   | _ => false
   end.
@@ -9168,7 +9051,7 @@ Proof.
     + intros m b c mu H. rewrite H in Hi. simpl in Hi. discriminate.
     + intros m p mu H.   rewrite H in Hi. simpl in Hi. discriminate.
     + intros c1 c2 mu H. rewrite H in Hi. simpl in Hi. discriminate.
-    + intros m f c mu H. rewrite H in Hi. simpl in Hi. discriminate.
+    + intros f c k fl mu H. rewrite H in Hi. simpl in Hi. discriminate.
     + exact Hne_cert.
     + intros mid p c mu H. rewrite H in Hi. simpl in Hi. discriminate.
 Qed.
@@ -9894,8 +9777,8 @@ Theorem nfi_to_einstein_tc :
       curved_einstein_tc s_post sc d d v =
       kappa * curved_stress_energy_tc s_post d d v.
 Proof.
-  intros s_pre s_post i sc v _Hnfi Htrans Hiso HRicci Hnonzero.
-  subst s_post.
+  intros s_pre s_post i sc v _ Htrans Hiso HRicci Hnonzero.
+  rewrite Htrans in *.
   eapply einstein_equation_uniform_coupling_tc.
   - exact Hiso.
   - exact HRicci.
