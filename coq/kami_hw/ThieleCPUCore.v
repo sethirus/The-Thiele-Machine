@@ -42,16 +42,13 @@
     And "imem" is Vector (Bit 32) 16 = 2^16 = 65536 instruction words.
     And "mu_tensor" is Vector (Bit 32) 4 = 2^4 = 16 tensor entries.
 
-    LJOIN DESIGN DECISION:
-    The RTL encoding packs {cert1, cert2} into a 16-bit payload — there is
-    no string data in the 32-bit instruction word. At the hardware level,
-    LJOIN delegates to the external coprocessor (same stall/response protocol
-    as LASSERT). The coprocessor compares the two certificate indices and
-    returns a match/mismatch result. The Coq kernel does String.eqb inline.
-    These are proven equivalent in LogicEngineEquivalence.v given a correct
-    oracle (ljoin_oracle_correct). The kernel verifies
-    the certificate but does not search for solutions.
-    See LogicEngineEquivalence.v for the oracle correctness proof. *)
+    LASSERT/LJOIN ON-CHIP MODEL:
+    Formula and certificate strings are stored in VM data memory (vm_mem).
+    Registers freg/creg hold base addresses; the on-chip FSM reads them
+    directly via mem_to_string. No external coprocessor; no stall cycle.
+    Hardware charges S(cost); kernel charges flen*8 + S(cost) for LASSERT
+    (gap proven in LogicEngineEquivalence.v:lassert_mu_gap).
+    See LogicEngineEquivalence.v for the equivalence proof. *)
 
 Require Import Kami.Kami.
 Require Import Kami.Synthesize.
@@ -67,13 +64,6 @@ Section ThieleCPU.
     STRUCT {
       "addr" :: Bit MemAddrSz ;
       "data" :: Bit InstrSz
-    }.
-
-  Definition LogicRespPort :=
-    STRUCT {
-      "valid" :: Bool ;
-      "error" :: Bool ;
-      "value" :: Bit WordSz
     }.
 
   Definition APBBusWritePort :=
@@ -146,14 +136,26 @@ Section ThieleCPU.
       with Register "minstret_hi"   : Bit WordSz <- Default
       with Register "trap_vector"   : Bit WordSz <- TRAP_VEC_INIT
 
-      (* Explicit L-coprocessor request/response interface state (in-core ports). *)
-      with Register "logic_req_valid"   : Bool <- false
-      with Register "logic_req_opcode"  : Bit OpcodeSz <- Default
-      with Register "logic_req_payload" : Bit WordSz <- Default
-      with Register "logic_resp_valid"  : Bool <- false
-      with Register "logic_resp_error"  : Bool <- false
-      with Register "logic_resp_value"  : Bit WordSz <- Default
-      with Register "logic_stall"       : Bool <- false
+      (* Certification flag — set by CERTIFY opcode (Phase 4 state-based cert) *)
+      with Register "certified" : Bool <- false
+
+      (* On-chip LASSERT FSM state — replaces external coprocessor interface.
+         phase=0: idle; phase>0: multi-cycle formula/cert read in progress.
+         fbase/cbase: base addresses of formula/cert in vm_mem.
+         flen/clen: lengths (in words) of formula/cert strings.
+         fptr/cptr: current read pointers during FSM traversal.
+         kind: true = SAT check, false = UNSAT check.
+         fbuf/cbuf: local copy buffers for cert checking. *)
+      with Register "lassert_phase" : Bit 3 <- Default
+      with Register "lassert_kind"  : Bool <- false
+      with Register "lassert_fbase" : Bit WordSz <- Default
+      with Register "lassert_cbase" : Bit WordSz <- Default
+      with Register "lassert_flen"  : Bit WordSz <- Default
+      with Register "lassert_clen"  : Bit WordSz <- Default
+      with Register "lassert_fptr"  : Bit WordSz <- Default
+      with Register "lassert_cptr"  : Bit WordSz <- Default
+      with Register "lassert_fbuf"  : Vector (Bit WordSz) 8 <- Default
+      with Register "lassert_cbuf"  : Vector (Bit WordSz) 9 <- Default
       with Register "bus_load_instr_addr" : Bit MemAddrSz <- Default
       with Register "bus_load_instr_data" : Bit InstrSz <- Default
       with Register "bus_load_instr_kick" : Bool <- false
@@ -192,8 +194,6 @@ Section ThieleCPU.
         Read err_v : Bool <- "err";
         Assert !#err_v;
 
-        Read logic_stall_v : Bool <- "logic_stall";
-
         (* Fetch instruction from internal instruction memory *)
         Read pc_v : Bit WordSz <- "pc";
         Read mu_v : Bit WordSz <- "mu";
@@ -212,12 +212,6 @@ Section ThieleCPU.
         Read minstret_lo_v : Bit WordSz <- "minstret_lo";
         Read minstret_hi_v : Bit WordSz <- "minstret_hi";
         Read trap_vector_v : Bit WordSz <- "trap_vector";
-        Read logic_req_valid_v : Bool <- "logic_req_valid";
-        Read logic_req_opcode_v : Bit OpcodeSz <- "logic_req_opcode";
-        Read logic_req_payload_v : Bit WordSz <- "logic_req_payload";
-        Read logic_resp_valid_v : Bool <- "logic_resp_valid";
-        Read logic_resp_error_v : Bool <- "logic_resp_error";
-        Read logic_resp_value_v : Bit WordSz <- "logic_resp_value";
         Read mu_tensor_v : Vector (Bit WordSz) MuTensorIdxSz <- "mu_tensor";
         Read pt_sizes_v : Vector (Bit WordSz) PTableIdxSz <- "ptTable";
         Read pt_next_id_v : Bit PTableNextIdSz <- "pt_next_id";
@@ -423,14 +417,6 @@ Section ThieleCPU.
         LET is_bucket_10 <- #chsh_settings == $$(WO~1~0);
         LET is_bucket_11 <- #chsh_settings == $$(WO~1~1);
 
-        (* L-coprocessor request/response interface semantics *)
-        LET is_logic_op <- (#opcode == $$(OP_LASSERT)) || (#opcode == $$(OP_LJOIN));
-        LET lpayload16 : Bit 16 <- {#op_a, #op_b};
-        LET lpayload32 : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #lpayload16;
-        LET logic_rsp_pending <- #logic_req_valid_v && !#logic_resp_valid_v;
-        LET logic_rsp_fire <- #logic_req_valid_v && #logic_resp_valid_v;
-        LET logic_issue <- #is_logic_op && !#logic_req_valid_v;
-
         (* No-Free-Insight guard for info-bearing instructions. *)
         LET op_b_32 : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #op_b;
         LET is_info_gain_op <-
@@ -453,8 +439,6 @@ Section ThieleCPU.
         LET new_pc : Bit WordSz <-
           IF (#bianchi_violation || #locality_violation || #ptable_overflow_violation || #high_value_locked || #nfi_violation)
           then #trap_vector_v
-          else (IF #logic_rsp_pending
-                then #pc_v
           else (IF (#opcode == $$(OP_HALT))
                 then #pc_v
                 else (IF (#opcode == $$(OP_JUMP))
@@ -465,7 +449,7 @@ Section ThieleCPU.
                                   then #ret_pc
                                   else (IF ((#opcode == $$(OP_JNEZ)) && #jnez_taken)
                                         then #jnez_target
-                                        else #pc_plus_1))))));
+                                        else #pc_plus_1)))));
 
         (* Pre-compute XOR_SWAP result: write both dst<-src and src<-dst *)
         LET swap_regs : Vector (Bit WordSz) RegIdxSz <-
@@ -544,11 +528,10 @@ Section ThieleCPU.
         LET new_halted <-
           #locality_violation || #ptable_overflow_violation || #high_value_locked || #nfi_violation || (#opcode == $$(OP_HALT));
 
-        (* Determine error state: protocol errors set err; logic errors come from coprocessor response. *)
-        LET logic_resp_fail <- #logic_rsp_fire && #logic_resp_error_v;
+        (* Determine error state: protocol violations set err. *)
         LET new_err <-
           #locality_violation || #ptable_overflow_violation || #high_value_locked || #nfi_violation ||
-          ((#opcode == $$(OP_CHSH_TRIAL)) && #chsh_bits_bad) || #logic_resp_fail;
+          ((#opcode == $$(OP_CHSH_TRIAL)) && #chsh_bits_bad);
 
         (* Determine error code *)
         LET new_error_code : Bit WordSz <-
@@ -560,7 +543,7 @@ Section ThieleCPU.
                       then $$(ERR_PARTITION_VAL)
                       else (IF #nfi_violation
                             then $$(ERR_LOGIC_VAL)
-                            else (IF (#high_value_locked || #logic_resp_fail)
+                            else (IF #high_value_locked
                                   then $$(ERR_LOGIC_VAL)
                                   else (IF ((#opcode == $$(OP_CHSH_TRIAL)) && #chsh_bits_bad)
                                         then $$(ERR_CHSH_VAL)
@@ -571,9 +554,7 @@ Section ThieleCPU.
         LET final_mu : Bit WordSz <-
           IF (#bianchi_violation || #ptable_overflow_violation || #high_value_locked || #nfi_violation)
           then #mu_v
-          else (IF #logic_rsp_pending
-                then #mu_v
-                else (IF (#opcode == $$(OP_ORACLE_HALTS))
+          else (IF (#opcode == $$(OP_ORACLE_HALTS))
                       (* ORACLE_HALTS_HW_COST = 1000000 = 0xF4240 - binary literal *)
                       then #mu_v + $$(WO~0~0~0~0~0~0~0~0~0~0~0~0~1~1~1~1~0~1~0~0~0~0~1~0~0~1~0~0~0~0~0~0)
                       else (IF ((#opcode == $$(OP_CHSH_TRIAL)) && (#is_x1_trial))
@@ -589,7 +570,7 @@ Section ThieleCPU.
                                                   (#opcode == $$(OP_LJOIN)) ||
                                                   (#opcode == $$(OP_READ_PORT)))
                                               then #new_mu + $1
-                                              else #new_mu))))));
+                                              else #new_mu)))));
 
         (* ============================================================
            CERTIFY flag update — set by CERTIFY opcode only
@@ -732,36 +713,12 @@ Section ThieleCPU.
         LET new_logic_acc : Bit WordSz <-
           IF (#bianchi_violation || #locality_violation)
           then #logic_acc_v
-          else (IF #logic_rsp_fire
-                then #logic_acc_v + #logic_resp_value_v
-                else (IF (#opcode == $$(OP_LASSERT))
-                      then #logic_acc_v ~+ $$(LOGIC_GATE_KEY)
-                      else (IF (#opcode == $$(OP_ORACLE_HALTS))
-                            then #logic_acc_v + $1
-                            else #logic_acc_v)));
+          else (IF (#opcode == $$(OP_LASSERT))
+                then #logic_acc_v ~+ $$(LOGIC_GATE_KEY)
+                else (IF (#opcode == $$(OP_ORACLE_HALTS))
+                      then #logic_acc_v + $1
+                      else #logic_acc_v));
 
-
-        LET new_logic_stall <-
-          IF #bianchi_violation
-          then $$false
-          else (IF #logic_rsp_fire then $$false else (IF #logic_issue then $$true else #logic_stall_v));
-        LET new_logic_req_valid <-
-          IF #bianchi_violation
-          then $$false
-          else (IF #logic_rsp_fire
-                then $$false
-                else (IF #logic_issue then $$true else #logic_req_valid_v));
-
-        LET new_logic_req_opcode : Bit OpcodeSz <-
-          IF #logic_issue then #opcode else #logic_req_opcode_v;
-
-        LET new_logic_req_payload : Bit WordSz <-
-          IF #logic_issue then #lpayload32 else #logic_req_payload_v;
-
-        LET new_logic_resp_valid <-
-          IF #bianchi_violation
-          then $$false
-          else (IF #logic_rsp_fire then $$false else #logic_resp_valid_v);
 
         (* CSR telemetry: cycle and retired instruction counters. *)
         LET mcycle_lo_next : Bit WordSz <- #mcycle_lo_v + $1;
@@ -769,7 +726,7 @@ Section ThieleCPU.
         LET mcycle_hi_next : Bit WordSz <- IF #mcycle_lo_wrap then #mcycle_hi_v + $1 else #mcycle_hi_v;
 
         LET retire_this_step <-
-          !#logic_rsp_pending && !#locality_violation && !#ptable_overflow_violation && !#high_value_locked && !#nfi_violation;
+          !#locality_violation && !#ptable_overflow_violation && !#high_value_locked && !#nfi_violation;
         LET minstret_lo_inc : Bit WordSz <- IF #retire_this_step then #minstret_lo_v + $1 else #minstret_lo_v;
         LET minstret_lo_wrap <- #retire_this_step && (#minstret_lo_inc == $0);
         LET minstret_hi_next : Bit WordSz <- IF #minstret_lo_wrap then #minstret_hi_v + $1 else #minstret_hi_v;
@@ -791,11 +748,6 @@ Section ThieleCPU.
         Write "mcycle_hi"      <- #mcycle_hi_next;
         Write "minstret_lo"    <- #minstret_lo_inc;
         Write "minstret_hi"    <- #minstret_hi_next;
-        Write "logic_req_valid"   <- #new_logic_req_valid;
-        Write "logic_req_opcode"  <- #new_logic_req_opcode;
-        Write "logic_req_payload" <- #new_logic_req_payload;
-        Write "logic_resp_valid"  <- #new_logic_resp_valid;
-        Write "logic_stall"       <- #new_logic_stall;
         Write "partition_ops"  <- #new_partition_ops;
         Write "mdl_ops"        <- #new_mdl_ops;
         Write "info_gain"      <- #new_info_gain;
@@ -886,24 +838,6 @@ Section ThieleCPU.
       with Method "getLogicAcc" () : Bit WordSz :=
         Read v : Bit WordSz <- "logic_acc"; Ret #v
 
-      with Method "getLogicReqValid" () : Bool :=
-        Read v : Bool <- "logic_req_valid"; Ret #v
-
-      with Method "getLogicReqOpcode" () : Bit OpcodeSz :=
-        Read v : Bit OpcodeSz <- "logic_req_opcode"; Ret #v
-
-      with Method "getLogicReqPayload" () : Bit WordSz :=
-        Read v : Bit WordSz <- "logic_req_payload"; Ret #v
-
-      with Method "setLogicResp" (arg : Struct LogicRespPort) : Void :=
-        LET valid_v <- #arg!LogicRespPort@."valid";
-        LET error_v <- #arg!LogicRespPort@."error";
-        LET value_v <- #arg!LogicRespPort@."value";
-        Write "logic_resp_valid" <- #valid_v;
-        Write "logic_resp_error" <- #error_v;
-        Write "logic_resp_value" <- #value_v;
-        Retv
-
       with Method "getMuTensor0" () : Bit WordSz :=
         Read t : Vector (Bit WordSz) MuTensorIdxSz <- "mu_tensor";
         LET s : Bit WordSz <-
@@ -953,9 +887,6 @@ Section ThieleCPU.
         Read minstret_lo_v : Bit WordSz <- "minstret_lo";
         Read minstret_hi_v : Bit WordSz <- "minstret_hi";
         Read logic_acc_v : Bit WordSz <- "logic_acc";
-        Read logic_req_valid_v : Bool <- "logic_req_valid";
-        Read logic_req_opcode_v : Bit OpcodeSz <- "logic_req_opcode";
-        Read logic_req_payload_v : Bit WordSz <- "logic_req_payload";
         Read mu_tensor_v : Vector (Bit WordSz) MuTensorIdxSz <- "mu_tensor";
         Read pt_next_id_v : Bit PTableNextIdSz <- "pt_next_id";
         Read pt_sizes_v : Vector (Bit WordSz) PTableIdxSz <- "ptTable";
@@ -975,7 +906,6 @@ Section ThieleCPU.
         LET bianchi_alarm_v <- #tensor_total > #mu_v;
         LET pt_next_id32 : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #pt_next_id_v;
         LET pt_size0 : Bit WordSz <- #pt_sizes_v@[$$(natToWord PTableIdxSz 0)];
-        LET logic_req_opcode32 : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #logic_req_opcode_v;
         LET rdata : Bit WordSz <-
           IF (#addr == $$(natToWord WordSz 0)) then #pc_v
           else (IF (#addr == $$(natToWord WordSz 4)) then #mu_v
@@ -991,16 +921,13 @@ Section ThieleCPU.
           else (IF (#addr == $$(natToWord WordSz 44)) then #minstret_lo_v
           else (IF (#addr == $$(natToWord WordSz 48)) then #minstret_hi_v
           else (IF (#addr == $$(natToWord WordSz 52)) then #logic_acc_v
-          else (IF (#addr == $$(natToWord WordSz 56)) then (IF #logic_req_valid_v then $1 else $0)
-          else (IF (#addr == $$(natToWord WordSz 60)) then #logic_req_opcode32
-          else (IF (#addr == $$(natToWord WordSz 64)) then #logic_req_payload_v
           else (IF (#addr == $$(natToWord WordSz 68)) then #mu_tensor0
           else (IF (#addr == $$(natToWord WordSz 72)) then #mu_tensor1
           else (IF (#addr == $$(natToWord WordSz 76)) then #mu_tensor2
           else (IF (#addr == $$(natToWord WordSz 80)) then #mu_tensor3
           else (IF (#addr == $$(natToWord WordSz 84)) then (IF #bianchi_alarm_v then $1 else $0)
           else (IF (#addr == $$(natToWord WordSz 88)) then #pt_next_id32
-          else (IF (#addr == $$(natToWord WordSz 92)) then #pt_size0 else $0)))))))))))))))))))))));
+          else (IF (#addr == $$(natToWord WordSz 92)) then #pt_size0 else $0))))))))))))))))))));
         Ret #rdata
 
       with Method "apbReadErr" (addr : Bit WordSz) : Bool :=
@@ -1019,9 +946,6 @@ Section ThieleCPU.
           (#addr == $$(natToWord WordSz 44)) ||
           (#addr == $$(natToWord WordSz 48)) ||
           (#addr == $$(natToWord WordSz 52)) ||
-          (#addr == $$(natToWord WordSz 56)) ||
-          (#addr == $$(natToWord WordSz 60)) ||
-          (#addr == $$(natToWord WordSz 64)) ||
           (#addr == $$(natToWord WordSz 68)) ||
           (#addr == $$(natToWord WordSz 72)) ||
           (#addr == $$(natToWord WordSz 76)) ||
@@ -1033,9 +957,6 @@ Section ThieleCPU.
 
       with Method "apbWrite" (arg : Struct APBBusWritePort) : Bool :=
         Read imem_v : Vector (Bit InstrSz) MemAddrSz <- "imem";
-        Read logic_resp_valid_v : Bool <- "logic_resp_valid";
-        Read logic_resp_error_v : Bool <- "logic_resp_error";
-        Read logic_resp_value_v : Bit WordSz <- "logic_resp_value";
         Read active_module_v : Bit PTableIdxSz <- "active_module";
         Read trap_vector_v : Bit WordSz <- "trap_vector";
         Read bus_load_instr_addr_v : Bit MemAddrSz <- "bus_load_instr_addr";
@@ -1046,18 +967,12 @@ Section ThieleCPU.
         LET wr_load_instr_addr <- #addr == $$(natToWord WordSz 128);
         LET wr_load_instr_data <- #addr == $$(natToWord WordSz 132);
         LET wr_load_instr_kick <- #addr == $$(natToWord WordSz 136);
-        LET wr_set_logic_resp_valid <- #addr == $$(natToWord WordSz 140);
-        LET wr_set_logic_resp_error <- #addr == $$(natToWord WordSz 144);
-        LET wr_set_logic_resp_value <- #addr == $$(natToWord WordSz 148);
         LET wr_set_active_module <- #addr == $$(natToWord WordSz 152);
         LET wr_set_trap_vector <- #addr == $$(natToWord WordSz 156);
         LET wr_any <-
           #wr_load_instr_addr ||
           #wr_load_instr_data ||
           #wr_load_instr_kick ||
-          #wr_set_logic_resp_valid ||
-          #wr_set_logic_resp_error ||
-          #wr_set_logic_resp_value ||
           #wr_set_active_module ||
           #wr_set_trap_vector;
         LET data_mem_addr : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) #data;
@@ -1074,12 +989,6 @@ Section ThieleCPU.
           IF #do_instr_commit
           then #imem_v@[#next_load_instr_addr <- #next_load_instr_data]
           else #imem_v;
-        LET next_logic_resp_valid <-
-          IF #wr_set_logic_resp_valid then #data_nonzero else #logic_resp_valid_v;
-        LET next_logic_resp_error <-
-          IF #wr_set_logic_resp_error then #data_nonzero else #logic_resp_error_v;
-        LET next_logic_resp_value : Bit WordSz <-
-          IF #wr_set_logic_resp_value then #data else #logic_resp_value_v;
         LET next_active_module : Bit PTableIdxSz <-
           IF #wr_set_active_module
           then UniBit (Trunc PTableIdxSz _) #data
@@ -1090,9 +999,6 @@ Section ThieleCPU.
         Write "bus_load_instr_addr" <- #next_load_instr_addr;
         Write "bus_load_instr_data" <- #next_load_instr_data;
         Write "bus_load_instr_kick" <- #next_load_instr_kick;
-        Write "logic_resp_valid" <- #next_logic_resp_valid;
-        Write "logic_resp_error" <- #next_logic_resp_error;
-        Write "logic_resp_value" <- #next_logic_resp_value;
         Write "active_module" <- #next_active_module;
         Write "trap_vector" <- #next_trap_vector;
         Ret (!#wr_any)

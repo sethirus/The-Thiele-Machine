@@ -1,4 +1,4 @@
-DIGEST 8404ad4aaa17dfc217cca8cd7a1edacf
+DIGEST 7ed3cd78e92b42ef89045ff0604fb778
 FKernel.TuringStrictness
 R2192:2195 Coq.Lists.List <> <> lib
 R2197:2210 Coq.Arith.PeanoNat <> <> lib
@@ -223,126 +223,124 @@ R7506:7513 Kernel.VMState <> vm_graph proj
 R7602:7619 Kernel.ShadowProjection <> morph_delete_probe def
 R7631:7657 Kernel.TuringStrictness <> vm_apply_morph_delete_fails thm
 R7631:7657 Kernel.TuringStrictness <> vm_apply_morph_delete_fails thm
-prf 8144:8156 <> D4_strictness
-R8162:8169 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R8219:8280 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R8175:8181 Kernel.VMState <> VMState rec
-binder 8170:8171 <> s0:8
-R8205:8218 Kernel.VMStep VMStep vm_instruction ind
-binder 8185:8195 <> thiele_step:9
-R8205:8218 Kernel.VMStep VMStep vm_instruction ind
-binder 8197:8201 <> probe:10
-R8340:8408 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R8562:8562 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R8332:8334 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8325:8330 Kernel.VMState <> vm_err proj
-R8282:8289 Kernel.SimulationProof <> vm_apply def
-R8292:8299 Kernel.SimulationProof <> vm_apply def
-R8301:8302 Kernel.TuringStrictness <> s0:8 var
-R8304:8314 Kernel.TuringStrictness <> thiele_step:9 var
-R8317:8321 Kernel.TuringStrictness <> probe:10 var
-R8335:8339 Coq.Init.Datatypes <> false constr
-R8425:8428 Coq.Init.Datatypes <> list ind
-R8430:8443 Kernel.VMStep VMStep vm_instruction ind
-binder 8417:8421 <> trace:11
-R8480:8490 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8454:8473 Kernel.TuringClassicalEmbedding <> is_classical_program def
-R8475:8479 Kernel.TuringStrictness <> trace:11 var
-R8555:8557 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8548:8553 Kernel.VMState <> vm_err proj
-R8492:8499 Kernel.SimulationProof <> vm_apply def
-R8502:8508 Kernel.AbstractNoFI <> acm_run def
-R8536:8537 Kernel.TuringStrictness <> s0:8 var
-R8530:8534 Kernel.TuringStrictness <> trace:11 var
-R8510:8528 Kernel.AbstractNoFI <> thiele_cert_machine def
-R8540:8544 Kernel.TuringStrictness <> probe:10 var
-R8558:8561 Coq.Init.Datatypes <> true constr
-R8581:8587 Kernel.TuringStrictness <> d4_base def
-R8590:8603 Kernel.TuringStrictness <> d4_thiele_step def
-R8606:8623 Kernel.ShadowProjection <> morph_delete_probe def
-R8581:8587 Kernel.TuringStrictness <> d4_base def
-R8590:8603 Kernel.TuringStrictness <> d4_thiele_step def
-R8606:8623 Kernel.ShadowProjection <> morph_delete_probe def
-R8679:8700 Kernel.TuringStrictness <> D4_thiele_passes_probe thm
-R8679:8700 Kernel.TuringStrictness <> D4_thiele_passes_probe thm
-R8819:8848 Kernel.TuringStrictness <> D4_classical_cannot_pass_probe thm
-R8819:8848 Kernel.TuringStrictness <> D4_classical_cannot_pass_probe thm
-R8904:8910 Kernel.TuringStrictness <> d4_base def
-R8913:8920 Kernel.TuringStrictness <> d4_graph def
-prf 9735:9770 <> D5_thiele_strictly_extends_classical
-R9919:9919 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10266:10348 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10751:10751 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9935:9938 Coq.Init.Datatypes <> list ind
-R9940:9953 Kernel.VMStep VMStep vm_instruction ind
-binder 9928:9931 <> prog:12
-R9962:9968 Kernel.VMState <> VMState rec
-binder 9957:9958 <> s0:13
-R10002:10010 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9977:9996 Kernel.TuringClassicalEmbedding <> is_classical_program def
-R9998:10001 Kernel.TuringStrictness <> prog:12 var
-R10075:10083 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10059:10061 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10050:10057 Kernel.VMState <> vm_graph proj
-R10012:10018 Kernel.AbstractNoFI <> acm_run def
-R10045:10046 Kernel.TuringStrictness <> s0:13 var
-R10040:10043 Kernel.TuringStrictness <> prog:12 var
-R10020:10038 Kernel.AbstractNoFI <> thiele_cert_machine def
-R10066:10073 Kernel.VMState <> vm_graph proj
-R10062:10063 Kernel.TuringStrictness <> s0:13 var
-R10185:10193 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10147:10156 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10133:10145 Kernel.VMState <> csr_cert_addr proj
-R10123:10129 Kernel.VMState <> vm_csrs proj
-R10085:10091 Kernel.AbstractNoFI <> acm_run def
-R10118:10119 Kernel.TuringStrictness <> s0:13 var
-R10113:10116 Kernel.TuringStrictness <> prog:12 var
-R10093:10111 Kernel.AbstractNoFI <> thiele_cert_machine def
-R10171:10183 Kernel.VMState <> csr_cert_addr proj
-R10161:10167 Kernel.VMState <> vm_csrs proj
-R10157:10158 Kernel.TuringStrictness <> s0:13 var
-R10246:10248 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10233:10244 Kernel.VMState <> vm_certified proj
-R10195:10201 Kernel.AbstractNoFI <> acm_run def
-R10228:10229 Kernel.TuringStrictness <> s0:13 var
-R10223:10226 Kernel.TuringStrictness <> prog:12 var
-R10203:10221 Kernel.AbstractNoFI <> thiele_cert_machine def
-R10253:10264 Kernel.VMState <> vm_certified proj
-R10249:10250 Kernel.TuringStrictness <> s0:13 var
-R10349:10356 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R10406:10461 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R10362:10368 Kernel.VMState <> VMState rec
-binder 10357:10358 <> s0:14
-R10392:10405 Kernel.VMStep VMStep vm_instruction ind
-binder 10372:10382 <> thiele_step:15
-R10392:10405 Kernel.VMStep VMStep vm_instruction ind
-binder 10384:10388 <> probe:16
-R10521:10594 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10750:10750 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10513:10515 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10506:10511 Kernel.VMState <> vm_err proj
-R10463:10470 Kernel.SimulationProof <> vm_apply def
-R10473:10480 Kernel.SimulationProof <> vm_apply def
-R10482:10483 Kernel.TuringStrictness <> s0:14 var
-R10485:10495 Kernel.TuringStrictness <> thiele_step:15 var
-R10498:10502 Kernel.TuringStrictness <> probe:16 var
-R10516:10520 Coq.Init.Datatypes <> false constr
-R10611:10614 Coq.Init.Datatypes <> list ind
-R10616:10629 Kernel.VMStep VMStep vm_instruction ind
-binder 10603:10607 <> trace:17
-R10667:10678 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10641:10660 Kernel.TuringClassicalEmbedding <> is_classical_program def
-R10662:10666 Kernel.TuringStrictness <> trace:17 var
-R10743:10745 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10736:10741 Kernel.VMState <> vm_err proj
-R10680:10687 Kernel.SimulationProof <> vm_apply def
-R10690:10696 Kernel.AbstractNoFI <> acm_run def
-R10724:10725 Kernel.TuringStrictness <> s0:14 var
-R10718:10722 Kernel.TuringStrictness <> trace:17 var
-R10698:10716 Kernel.AbstractNoFI <> thiele_cert_machine def
-R10728:10732 Kernel.TuringStrictness <> probe:16 var
-R10746:10749 Coq.Init.Datatypes <> true constr
-R10857:10873 Kernel.ClassicalConservativity <> D3_conservativity thm
-R10857:10873 Kernel.ClassicalConservativity <> D3_conservativity thm
-R10948:10960 Kernel.TuringStrictness <> D4_strictness thm
-R10948:10960 Kernel.TuringStrictness <> D4_strictness thm
+prf 8708:8720 <> D4_strictness
+R8726:8733 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8783:8844 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8739:8745 Kernel.VMState <> VMState rec
+binder 8734:8735 <> s0:8
+R8769:8782 Kernel.VMStep VMStep vm_instruction ind
+binder 8749:8759 <> thiele_step:9
+R8769:8782 Kernel.VMStep VMStep vm_instruction ind
+binder 8761:8765 <> probe:10
+R8904:8972 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9126:9126 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8896:8898 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8889:8894 Kernel.VMState <> vm_err proj
+R8846:8853 Kernel.SimulationProof <> vm_apply def
+R8856:8863 Kernel.SimulationProof <> vm_apply def
+R8865:8866 Kernel.TuringStrictness <> s0:8 var
+R8868:8878 Kernel.TuringStrictness <> thiele_step:9 var
+R8881:8885 Kernel.TuringStrictness <> probe:10 var
+R8899:8903 Coq.Init.Datatypes <> false constr
+R8989:8992 Coq.Init.Datatypes <> list ind
+R8994:9007 Kernel.VMStep VMStep vm_instruction ind
+binder 8981:8985 <> trace:11
+R9044:9054 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9018:9037 Kernel.TuringClassicalEmbedding <> is_classical_program def
+R9039:9043 Kernel.TuringStrictness <> trace:11 var
+R9119:9121 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9112:9117 Kernel.VMState <> vm_err proj
+R9056:9063 Kernel.SimulationProof <> vm_apply def
+R9066:9072 Kernel.AbstractNoFI <> acm_run def
+R9100:9101 Kernel.TuringStrictness <> s0:8 var
+R9094:9098 Kernel.TuringStrictness <> trace:11 var
+R9074:9092 Kernel.AbstractNoFI <> thiele_cert_machine def
+R9104:9108 Kernel.TuringStrictness <> probe:10 var
+R9122:9125 Coq.Init.Datatypes <> true constr
+R9145:9151 Kernel.TuringStrictness <> d4_base def
+R9154:9167 Kernel.TuringStrictness <> d4_thiele_step def
+R9170:9187 Kernel.ShadowProjection <> morph_delete_probe def
+R9145:9151 Kernel.TuringStrictness <> d4_base def
+R9154:9167 Kernel.TuringStrictness <> d4_thiele_step def
+R9170:9187 Kernel.ShadowProjection <> morph_delete_probe def
+R9243:9264 Kernel.TuringStrictness <> D4_thiele_passes_probe thm
+R9243:9264 Kernel.TuringStrictness <> D4_thiele_passes_probe thm
+R9383:9412 Kernel.TuringStrictness <> D4_classical_cannot_pass_probe thm
+R9383:9412 Kernel.TuringStrictness <> D4_classical_cannot_pass_probe thm
+prf 10266:10301 <> D5_thiele_strictly_extends_classical
+R10450:10450 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10797:10879 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11282:11282 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10466:10469 Coq.Init.Datatypes <> list ind
+R10471:10484 Kernel.VMStep VMStep vm_instruction ind
+binder 10459:10462 <> prog:12
+R10493:10499 Kernel.VMState <> VMState rec
+binder 10488:10489 <> s0:13
+R10533:10541 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10508:10527 Kernel.TuringClassicalEmbedding <> is_classical_program def
+R10529:10532 Kernel.TuringStrictness <> prog:12 var
+R10606:10614 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10590:10592 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10581:10588 Kernel.VMState <> vm_graph proj
+R10543:10549 Kernel.AbstractNoFI <> acm_run def
+R10576:10577 Kernel.TuringStrictness <> s0:13 var
+R10571:10574 Kernel.TuringStrictness <> prog:12 var
+R10551:10569 Kernel.AbstractNoFI <> thiele_cert_machine def
+R10597:10604 Kernel.VMState <> vm_graph proj
+R10593:10594 Kernel.TuringStrictness <> s0:13 var
+R10716:10724 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10678:10687 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10664:10676 Kernel.VMState <> csr_cert_addr proj
+R10654:10660 Kernel.VMState <> vm_csrs proj
+R10616:10622 Kernel.AbstractNoFI <> acm_run def
+R10649:10650 Kernel.TuringStrictness <> s0:13 var
+R10644:10647 Kernel.TuringStrictness <> prog:12 var
+R10624:10642 Kernel.AbstractNoFI <> thiele_cert_machine def
+R10702:10714 Kernel.VMState <> csr_cert_addr proj
+R10692:10698 Kernel.VMState <> vm_csrs proj
+R10688:10689 Kernel.TuringStrictness <> s0:13 var
+R10777:10779 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10764:10775 Kernel.VMState <> vm_certified proj
+R10726:10732 Kernel.AbstractNoFI <> acm_run def
+R10759:10760 Kernel.TuringStrictness <> s0:13 var
+R10754:10757 Kernel.TuringStrictness <> prog:12 var
+R10734:10752 Kernel.AbstractNoFI <> thiele_cert_machine def
+R10784:10795 Kernel.VMState <> vm_certified proj
+R10780:10781 Kernel.TuringStrictness <> s0:13 var
+R10880:10887 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10937:10992 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10893:10899 Kernel.VMState <> VMState rec
+binder 10888:10889 <> s0:14
+R10923:10936 Kernel.VMStep VMStep vm_instruction ind
+binder 10903:10913 <> thiele_step:15
+R10923:10936 Kernel.VMStep VMStep vm_instruction ind
+binder 10915:10919 <> probe:16
+R11052:11125 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11281:11281 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11044:11046 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11037:11042 Kernel.VMState <> vm_err proj
+R10994:11001 Kernel.SimulationProof <> vm_apply def
+R11004:11011 Kernel.SimulationProof <> vm_apply def
+R11013:11014 Kernel.TuringStrictness <> s0:14 var
+R11016:11026 Kernel.TuringStrictness <> thiele_step:15 var
+R11029:11033 Kernel.TuringStrictness <> probe:16 var
+R11047:11051 Coq.Init.Datatypes <> false constr
+R11142:11145 Coq.Init.Datatypes <> list ind
+R11147:11160 Kernel.VMStep VMStep vm_instruction ind
+binder 11134:11138 <> trace:17
+R11198:11209 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11172:11191 Kernel.TuringClassicalEmbedding <> is_classical_program def
+R11193:11197 Kernel.TuringStrictness <> trace:17 var
+R11274:11276 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11267:11272 Kernel.VMState <> vm_err proj
+R11211:11218 Kernel.SimulationProof <> vm_apply def
+R11221:11227 Kernel.AbstractNoFI <> acm_run def
+R11255:11256 Kernel.TuringStrictness <> s0:14 var
+R11249:11253 Kernel.TuringStrictness <> trace:17 var
+R11229:11247 Kernel.AbstractNoFI <> thiele_cert_machine def
+R11259:11263 Kernel.TuringStrictness <> probe:16 var
+R11277:11280 Coq.Init.Datatypes <> true constr
+R11388:11404 Kernel.ClassicalConservativity <> D3_conservativity thm
+R11388:11404 Kernel.ClassicalConservativity <> D3_conservativity thm
+R11479:11491 Kernel.TuringStrictness <> D4_strictness thm
+R11479:11491 Kernel.TuringStrictness <> D4_strictness thm

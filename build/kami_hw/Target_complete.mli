@@ -409,8 +409,6 @@ val oP_PMERGE : word
 
 val oP_LASSERT : word
 
-val oP_LJOIN : word
-
 val oP_MDLACC : word
 
 val oP_PDISCOVER : word
@@ -476,8 +474,6 @@ val oP_TENSOR_GET : word
 val oP_HALT : word
 
 val loadInstrPort : kind attribute t0
-
-val logicRespPort : kind attribute t0
 
 val aPBBusWritePort : kind attribute t0
 

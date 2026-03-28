@@ -84,6 +84,8 @@ module Nat :
 
   val divmod : int -> int -> int -> int -> int * int
 
+  val div : int -> int -> int
+
   val modulo : int -> int -> int
  end
 
@@ -112,6 +114,8 @@ val firstn : int -> 'a1 list -> 'a1 list
 val skipn : int -> 'a1 list -> 'a1 list
 
 val nodup : ('a1 -> 'a1 -> bool) -> 'a1 list -> 'a1 list
+
+val seq : int -> int -> int list
 
 val repeat : 'a1 -> int -> 'a1 list
 
@@ -226,7 +230,7 @@ val eqb0 : char list -> char list -> bool
 
 val append : char list -> char list -> char list
 
-val length0 : char list -> int
+val string_of_list_ascii : char list -> char list
 
 val list_ascii_of_string : char list -> char list
 
@@ -509,6 +513,14 @@ val read_mem : vMState -> int -> int
 
 val write_mem : vMState -> int -> int -> int list
 
+val word_to_bytes_4 : int -> char list
+
+val words_to_bytes : int list -> int -> char list
+
+val list_read_at : int list -> int -> int
+
+val mem_to_string : int list -> int -> char list
+
 val swap_regs : int list -> int -> int -> int list
 
 val ascii_checksum : char list -> int
@@ -526,16 +538,12 @@ val graph_psplit :
 val graph_pmerge :
   partitionGraph -> moduleID -> moduleID -> (partitionGraph * moduleID) option
 
-type lassert_certificate =
-| Lassert_cert_unsat of char list
-| Lassert_cert_sat of char list
-
 type vm_instruction =
 | Instr_pnew of int list * int
 | Instr_psplit of moduleID * int list * int list * int
 | Instr_pmerge of moduleID * moduleID * int
-| Instr_lassert of moduleID * char list * lassert_certificate * int
-| Instr_ljoin of char list * char list * int
+| Instr_lassert of int * int * bool * int * int
+| Instr_ljoin of int * int * int
 | Instr_mdlacc of moduleID * int
 | Instr_pdiscover of moduleID * vMAxiom list * int
 | Instr_xfer of int * int * int
@@ -648,9 +656,6 @@ type busReg =
 | BusRegMinstretLo
 | BusRegMinstretHi
 | BusRegLogicAcc
-| BusRegLogicReqValid
-| BusRegLogicReqOpcode
-| BusRegLogicReqPayload
 | BusRegMuTensor0
 | BusRegMuTensor1
 | BusRegMuTensor2
@@ -661,9 +666,6 @@ type busReg =
 | BusRegLoadInstrAddr
 | BusRegLoadInstrData
 | BusRegLoadInstrKick
-| BusRegSetLogicRespValid
-| BusRegSetLogicRespError
-| BusRegSetLogicRespValue
 | BusRegSetActiveModule
 | BusRegSetTrapVector
 
@@ -679,10 +681,8 @@ type busCoreView = { view_pc : int; view_mu : int; view_err : bool;
                      view_error_code : int; view_mstatus : int;
                      view_mcycle_lo : int; view_mcycle_hi : int;
                      view_minstret_lo : int; view_minstret_hi : int;
-                     view_logic_acc : int; view_logic_req_valid : bool;
-                     view_logic_req_opcode : int;
-                     view_logic_req_payload : int; view_mu_tensor0 : 
-                     int; view_mu_tensor1 : int; view_mu_tensor2 : int;
+                     view_logic_acc : int; view_mu_tensor0 : int;
+                     view_mu_tensor1 : int; view_mu_tensor2 : int;
                      view_mu_tensor3 : int; view_bianchi_alarm : bool;
                      view_pt_next_id : int; view_pt_size : (int -> int) }
 
@@ -694,10 +694,7 @@ val busRead : busCoreView -> int -> int option
 
 type busShadowRegs = { sh_load_instr_addr : int; sh_load_instr_data : 
                        int; sh_load_instr_kick : bool;
-                       sh_logic_resp_valid : bool;
-                       sh_logic_resp_error : bool; sh_logic_resp_value : 
-                       int; sh_active_module : int; sh_trap_vector : 
-                       int }
+                       sh_active_module : int; sh_trap_vector : int }
 
 type busWrapperState = { bw_core : kamiSnapshot; bw_shadow : busShadowRegs }
 

@@ -428,11 +428,19 @@ val swap_regs : int list -> int -> int -> int list
 
 val ascii_checksum : char list -> int
 
+val bytes_to_word_4 : int -> int -> int -> int -> int
+
 val word_to_bytes_4 : int -> char list
+
+val bytes_to_words : char list -> int list
 
 val words_to_bytes : int list -> int -> char list
 
+val write_words_at : int list -> int -> int list -> int list
+
 val list_read_at : int list -> int -> int
+
+val write_string_to_mem : int list -> int -> char list -> int list
 
 val mem_to_string : int list -> int -> char list
 
@@ -670,9 +678,6 @@ type busReg =
 | BusRegMinstretLo
 | BusRegMinstretHi
 | BusRegLogicAcc
-| BusRegLogicReqValid
-| BusRegLogicReqOpcode
-| BusRegLogicReqPayload
 | BusRegMuTensor0
 | BusRegMuTensor1
 | BusRegMuTensor2
@@ -683,9 +688,6 @@ type busReg =
 | BusRegLoadInstrAddr
 | BusRegLoadInstrData
 | BusRegLoadInstrKick
-| BusRegSetLogicRespValid
-| BusRegSetLogicRespError
-| BusRegSetLogicRespValue
 | BusRegSetActiveModule
 | BusRegSetTrapVector
 
@@ -701,10 +703,8 @@ type busCoreView = { view_pc : int; view_mu : int; view_err : bool;
                      view_error_code : int; view_mstatus : int;
                      view_mcycle_lo : int; view_mcycle_hi : int;
                      view_minstret_lo : int; view_minstret_hi : int;
-                     view_logic_acc : int; view_logic_req_valid : bool;
-                     view_logic_req_opcode : int;
-                     view_logic_req_payload : int; view_mu_tensor0 : 
-                     int; view_mu_tensor1 : int; view_mu_tensor2 : int;
+                     view_logic_acc : int; view_mu_tensor0 : int;
+                     view_mu_tensor1 : int; view_mu_tensor2 : int;
                      view_mu_tensor3 : int; view_bianchi_alarm : bool;
                      view_pt_next_id : int; view_pt_size : (int -> int) }
 
@@ -716,10 +716,7 @@ val busRead : busCoreView -> int -> int option
 
 type busShadowRegs = { sh_load_instr_addr : int; sh_load_instr_data : 
                        int; sh_load_instr_kick : bool;
-                       sh_logic_resp_valid : bool;
-                       sh_logic_resp_error : bool; sh_logic_resp_value : 
-                       int; sh_active_module : int; sh_trap_vector : 
-                       int }
+                       sh_active_module : int; sh_trap_vector : int }
 
 type busWrapperState = { bw_core : kamiSnapshot; bw_shadow : busShadowRegs }
 

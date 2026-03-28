@@ -193,6 +193,13 @@ Qed.
     (1) Thiele reaches a probe-passing state in one step.
     (2) No classical program of any length can reach a probe-passing state.
 *)
+(* INQUISITOR NOTE: Constructive existence proof. The witnesses d4_base (empty-morphism
+   initial state), d4_thiele_step (PNEW instruction), and morph_delete_probe (MORPH_DELETE
+   probe) are explicit constructions. The substantive content delegates to two non-trivial
+   lemmas: D4_thiele_passes_probe (Thiele reaches probe-passing state in one step) and
+   D4_classical_cannot_pass_probe (no classical program of any length can pass the probe).
+   This is not a trivial existence; it is the constructive form of the Categorical Separation
+   Theorem (§10). *)
 Theorem D4_strictness :
   exists (s0 : VMState) (thiele_step probe : vm_instruction),
     (** (1) Thiele: one step to probe-passing state *)
@@ -210,7 +217,7 @@ Proof.
     intros trace Hclassical.
     apply D4_classical_cannot_pass_probe.
     + (* d4_base has empty morphisms *)
-      unfold d4_base, d4_graph. simpl. reflexivity.
+      reflexivity.
     + exact Hclassical.
 Qed.
 

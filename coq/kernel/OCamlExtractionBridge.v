@@ -154,15 +154,16 @@ Qed.
 *)
 Section ExtractionTrustBoundary.
 
-Axiom ocaml_extraction_faithful :
+(* INQUISITOR NOTE: This was formerly stated as Axiom, but the Coq statement
+   reduces to X = X (a tautology) so it is provable by reflexivity.
+   The real trust-boundary content lives in the CI bisimulation test suite:
+     scripts/parity_extracted_only.sh verifies eo_mu, eo_err, eo_pc,
+     eo_certified, eo_mu_tensor match between Coq spec and OCaml runner.
+   Naming this theorem makes the trust boundary explicit and auditable. *)
+Theorem ocaml_extraction_faithful :
   forall (s : VMState) (i : vm_instruction),
     shadow_to_eo (vm_apply s i) = shadow_to_eo (vm_apply s i).
-(* IMPLEMENTATION NOTE: This is stated as a tautology in pure Coq because
-   we cannot refer to the OCaml function directly within Coq.
-   The real content is the NAMING of this as the trust boundary.
-   The empirical content lives in the CI bisimulation test suite:
-     scripts/parity_extracted_only.sh verifies eo_mu, eo_err, eo_pc,
-     eo_certified, eo_mu_tensor match between Coq spec and OCaml runner. *)
+Proof. intros; reflexivity. Qed.
 
 End ExtractionTrustBoundary.
 

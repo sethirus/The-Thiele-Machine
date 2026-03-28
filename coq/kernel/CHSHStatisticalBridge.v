@@ -496,24 +496,11 @@ Lemma violation_wc_total :
   witness_total violation_wc = 4%nat.
 Proof. unfold witness_total, violation_wc. simpl. reflexivity. Qed.
 
-(** To produce violation_wc from zero trials, at least 4 CHSH_TRIAL
-    instructions must be executed. This is a direct application of W2. *)
-Theorem chsh_violation_witness_count :
-  forall (trace : list vm_instruction) (s0 : VMState),
-    witness_total s0.(vm_witness) = 0%nat ->
-    s0.(vm_witness) = witness_counts_zero ->
-    (vm_apply (vm_apply (vm_apply (vm_apply s0
-      (instr_chsh_trial 0%nat 0%nat 0%nat 0%nat 0%nat))
-      (instr_chsh_trial 0%nat 1%nat 0%nat 0%nat 0%nat))
-      (instr_chsh_trial 1%nat 0%nat 0%nat 0%nat 0%nat))
-      (instr_chsh_trial 1%nat 1%nat 0%nat 1%nat 0%nat)).(vm_witness) = violation_wc ->
-    cs_total_cost (chsh_cert_system_n 4%nat) trace >= 4%nat ->
-    True.
-Proof.
-  (* This is a tautological wrapper — the real content is in
-     chsh_trial_count_lower_bound for n = 4. *)
-  intros. exact I.
-Qed.
+(** Reserved: chsh_violation_witness_count would state:
+    Starting from zero witness counts and executing 4 CHSH_TRIAL instructions
+    covering all setting pairs costs at least 4 μ-units.
+    The real content is in chsh_trial_count_lower_bound for n = 4.
+    Reserved for future connection to the actual W2 lower-bound proof. *)
 
 (** Direct application of W2 (chsh_trial_count_lower_bound with n = 4):
     Any trace from zero trials to witness_total ≥ 4 requires ≥ 4

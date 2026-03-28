@@ -105,12 +105,22 @@ class TestPartitionOpcodesParity:
         assert_mu_at_least(r, 9, "PMERGE")
 
     def test_lassert_charges_cost(self):
-        r = run(["PNEW {0,256} 1", "LASSERT 0 x 3", "HALT 0"])
-        assert_mu_at_least(r, 4, "LASSERT")
+        # On-chip model: formula/cert written to reserved VM memory via INIT_MEM_STR.
+        # Formula "p_cnf_1_1__1_0" decodes to "p cnf 1 1\n1 0" (14 chars, flen=4).
+        # cost=1 → mu = flen*8 + S(cost) = 4*8 + 2 = 34.
+        r = run([
+            "INIT_MEM_STR 57344 p_cnf_1_1__1_0",  # formula at 0xE000
+            "INIT_REG 28 57344",
+            "INIT_MEM_STR 61440 v_1_0",             # SAT cert at 0xF000
+            "INIT_REG 29 61440",
+            "LASSERT 28 29 1 4 1",                  # freg=28 creg=29 kind=1(SAT) flen=4 cost=1
+            "HALT 0",
+        ])
+        assert_mu_at_least(r, 34, "LASSERT")
 
     def test_ljoin_charges_cost(self):
-        r = run(["LJOIN a b 4", "HALT 0"])
-        assert_mu_at_least(r, 4, "LJOIN")
+        r = run(["LJOIN 0 1 4", "HALT 0"])
+        assert_mu_at_least(r, 5, "LJOIN")  # S(4) = 5
 
     def test_mdlacc_charges_cost(self):
         r = run(["PNEW {0,256} 1", "MDLACC 0 3", "HALT 0"])

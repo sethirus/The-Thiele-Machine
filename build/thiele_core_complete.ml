@@ -375,6 +375,14 @@ module Nat =
         u)
       x
 
+  (** val div : int -> int -> int **)
+
+  let div x y =
+    (fun fO fS n -> if n=0 then fO () else fS (n-1))
+      (fun _ -> y)
+      (fun y' -> fst (divmod x y' 0 y'))
+      y
+
   (** val modulo : int -> int -> int **)
 
   let modulo x y =
@@ -476,6 +484,14 @@ let rec skipn n0 l =
 let rec nodup decA = function
 | [] -> []
 | x :: xs -> if in_dec decA x xs then nodup decA xs else x :: (nodup decA xs)
+
+(** val seq : int -> int -> int list **)
+
+let rec seq start len =
+  (fun fO fS n -> if n=0 then fO () else fS (n-1))
+    (fun _ -> [])
+    (fun len0 -> start :: (seq (Stdlib.Int.succ start) len0))
+    len
 
 (** val repeat : 'a1 -> int -> 'a1 list **)
 
@@ -1010,11 +1026,11 @@ let rec append s1 s2 =
   | [] -> s2
   | c::s1' -> c::(append s1' s2)
 
-(** val length0 : char list -> int **)
+(** val string_of_list_ascii : char list -> char list **)
 
-let rec length0 = function
-| [] -> 0
-| _::s' -> Stdlib.Int.succ (length0 s')
+let rec string_of_list_ascii = function
+| [] -> []
+| ch :: s0 -> ch::(string_of_list_ascii s0)
 
 (** val list_ascii_of_string : char list -> char list **)
 
@@ -2563,6 +2579,807 @@ let write_mem s a v =
   app (firstn idx s.vm_mem)
     (app ((word64 v) :: []) (skipn (Stdlib.Int.succ idx) s.vm_mem))
 
+(** val word_to_bytes_4 : int -> char list **)
+
+let word_to_bytes_4 w =
+  (ascii_of_nat
+    (Nat.modulo w (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      (Stdlib.Int.succ
+      0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) :: (
+    (ascii_of_nat
+      (Nat.modulo
+        (Nat.div w (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+          (Stdlib.Int.succ
+          0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) :: (
+    (ascii_of_nat
+      (Nat.modulo
+        (Nat.div w
+          (mul (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ
+            0))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ
+            0))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) :: (
+    (ascii_of_nat
+      (Nat.modulo
+        (Nat.div w
+          (mul
+            (mul (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ
+              0))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+              (Stdlib.Int.succ
+              0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+            (Stdlib.Int.succ
+            0))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+        0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) :: [])))
+
+(** val words_to_bytes : int list -> int -> char list **)
+
+let words_to_bytes ws n_bytes =
+  firstn n_bytes (flat_map word_to_bytes_4 ws)
+
+(** val list_read_at : int list -> int -> int **)
+
+let list_read_at mem addr =
+  nth addr mem 0
+
+(** val mem_to_string : int list -> int -> char list **)
+
+let mem_to_string mem base =
+  let len = list_read_at mem base in
+  let n_words =
+    Nat.div (add len (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))))
+      (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+      0))))
+  in
+  let words =
+    map (fun i -> list_read_at mem (add (Stdlib.Int.succ base) i))
+      (seq 0 n_words)
+  in
+  string_of_list_ascii (words_to_bytes words len)
+
 (** val swap_regs : int list -> int -> int -> int list **)
 
 let swap_regs regs a b =
@@ -2677,16 +3494,12 @@ let graph_pmerge g m1 m2 =
            | None -> None)
         | None -> None)
 
-type lassert_certificate =
-| Lassert_cert_unsat of char list
-| Lassert_cert_sat of char list
-
 type vm_instruction =
 | Instr_pnew of int list * int
 | Instr_psplit of moduleID * int list * int list * int
 | Instr_pmerge of moduleID * moduleID * int
-| Instr_lassert of moduleID * char list * lassert_certificate * int
-| Instr_ljoin of char list * char list * int
+| Instr_lassert of int * int * bool * int * int
+| Instr_ljoin of int * int * int
 | Instr_mdlacc of moduleID * int
 | Instr_pdiscover of moduleID * vMAxiom list * int
 | Instr_xfer of int * int * int
@@ -2736,9 +3549,9 @@ let instruction_cost = function
 | Instr_pnew (_, cost) -> cost
 | Instr_psplit (_, _, _, cost) -> cost
 | Instr_pmerge (_, _, cost) -> cost
-| Instr_lassert (_, formula, _, cost) ->
+| Instr_lassert (_, _, _, flen, cost) ->
   add
-    (mul (length0 formula) (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (mul flen (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
       (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
       (Stdlib.Int.succ 0))))))))) (Stdlib.Int.succ cost)
 | Instr_ljoin (_, _, cost) -> Stdlib.Int.succ cost
@@ -2788,7 +3601,7 @@ let instruction_cost = function
 (** val is_cert_setterb : vm_instruction -> bool **)
 
 let is_cert_setterb = function
-| Instr_lassert (_, _, _, _) -> true
+| Instr_lassert (_, _, _, _, _) -> true
 | Instr_ljoin (_, _, _) -> true
 | Instr_emit (_, _, _) -> true
 | Instr_reveal (_, _, _, _) -> true
@@ -2961,41 +3774,34 @@ let vm_apply s = function
    | None ->
      advance_state s (Instr_pmerge (m1, m2, cost)) s.vm_graph
        (csr_set_err s.vm_csrs (Stdlib.Int.succ 0)) (latch_err s true))
-| Instr_lassert (module0, formula, cert, cost) ->
-  (match cert with
-   | Lassert_cert_unsat proof ->
-     if CertCheck.check_lrat formula proof
-     then let csrs' =
-            csr_set_err (csr_set_status s.vm_csrs (Stdlib.Int.succ 0)) 0
-          in
-          advance_state s (Instr_lassert (module0, formula,
-            (Lassert_cert_unsat proof), cost)) s.vm_graph
-            (csr_set_cert_addr csrs' (ascii_checksum formula)) s.vm_err
-     else advance_state s (Instr_lassert (module0, formula,
-            (Lassert_cert_unsat proof), cost)) s.vm_graph
-            (csr_set_err s.vm_csrs (Stdlib.Int.succ 0)) (latch_err s true)
-   | Lassert_cert_sat model ->
-     if CertCheck.check_model formula model
-     then let graph' = graph_add_axiom s.vm_graph module0 formula in
-          let csrs' =
-            csr_set_err (csr_set_status s.vm_csrs (Stdlib.Int.succ 0)) 0
-          in
-          advance_state s (Instr_lassert (module0, formula, (Lassert_cert_sat
-            model), cost)) graph'
-            (csr_set_cert_addr csrs' (ascii_checksum formula)) s.vm_err
-     else advance_state s (Instr_lassert (module0, formula, (Lassert_cert_sat
-            model), cost)) s.vm_graph
-            (csr_set_err s.vm_csrs (Stdlib.Int.succ 0)) (latch_err s true))
-| Instr_ljoin (cert1, cert2, cost) ->
+| Instr_lassert (freg, creg, kind, flen, cost) ->
+  let formula = mem_to_string s.vm_mem (read_reg s freg) in
+  let cert = mem_to_string s.vm_mem (read_reg s creg) in
+  if kind
+  then if CertCheck.check_model formula cert
+       then advance_state s (Instr_lassert (freg, creg, kind, flen, cost))
+              (graph_add_axiom s.vm_graph 0 formula)
+              (csr_set_err (csr_set_status s.vm_csrs (Stdlib.Int.succ 0)) 0)
+              s.vm_err
+       else advance_state s (Instr_lassert (freg, creg, kind, flen, cost))
+              s.vm_graph (csr_set_err s.vm_csrs (Stdlib.Int.succ 0))
+              (latch_err s true)
+  else if CertCheck.check_lrat formula cert
+       then advance_state s (Instr_lassert (freg, creg, kind, flen, cost))
+              s.vm_graph
+              (csr_set_err (csr_set_status s.vm_csrs (Stdlib.Int.succ 0)) 0)
+              true
+       else advance_state s (Instr_lassert (freg, creg, kind, flen, cost))
+              s.vm_graph (csr_set_err s.vm_csrs (Stdlib.Int.succ 0))
+              (latch_err s true)
+| Instr_ljoin (c1reg, c2reg, cost) ->
+  let cert1 = mem_to_string s.vm_mem (read_reg s c1reg) in
+  let cert2 = mem_to_string s.vm_mem (read_reg s c2reg) in
   if eqb0 cert1 cert2
-  then let csrs' = csr_set_err s.vm_csrs 0 in
-       advance_state s (Instr_ljoin (cert1, cert2, cost)) s.vm_graph
-         (csr_set_cert_addr csrs' (ascii_checksum (append cert1 cert2)))
-         s.vm_err
-  else let csrs' = csr_set_err s.vm_csrs (Stdlib.Int.succ 0) in
-       advance_state s (Instr_ljoin (cert1, cert2, cost)) s.vm_graph
-         (csr_set_cert_addr csrs' (ascii_checksum (append cert1 cert2)))
-         (latch_err s true)
+  then advance_state s (Instr_ljoin (c1reg, c2reg, cost)) s.vm_graph
+         (csr_set_err s.vm_csrs 0) s.vm_err
+  else advance_state s (Instr_ljoin (c1reg, c2reg, cost)) s.vm_graph
+         (csr_set_err s.vm_csrs (Stdlib.Int.succ 0)) (latch_err s true)
 | Instr_pdiscover (module0, evidence, cost) ->
   let graph' = graph_record_discovery s.vm_graph module0 evidence in
   advance_state s (Instr_pdiscover (module0, evidence, cost)) graph'
@@ -3317,9 +4123,6 @@ type busReg =
 | BusRegMinstretLo
 | BusRegMinstretHi
 | BusRegLogicAcc
-| BusRegLogicReqValid
-| BusRegLogicReqOpcode
-| BusRegLogicReqPayload
 | BusRegMuTensor0
 | BusRegMuTensor1
 | BusRegMuTensor2
@@ -3330,9 +4133,6 @@ type busReg =
 | BusRegLoadInstrAddr
 | BusRegLoadInstrData
 | BusRegLoadInstrKick
-| BusRegSetLogicRespValid
-| BusRegSetLogicRespError
-| BusRegSetLogicRespValue
 | BusRegSetActiveModule
 | BusRegSetTrapVector
 
@@ -3549,8 +4349,7 @@ let decodeBusReg addr =
                                                                     (fun n55 ->
                                                                     (fun fO fS n -> if n=0 then fO () else fS (n-1))
                                                                     (fun _ ->
-                                                                    Some
-                                                                    BusRegLogicReqValid)
+                                                                    None)
                                                                     (fun n56 ->
                                                                     (fun fO fS n -> if n=0 then fO () else fS (n-1))
                                                                     (fun _ ->
@@ -3566,8 +4365,7 @@ let decodeBusReg addr =
                                                                     (fun n59 ->
                                                                     (fun fO fS n -> if n=0 then fO () else fS (n-1))
                                                                     (fun _ ->
-                                                                    Some
-                                                                    BusRegLogicReqOpcode)
+                                                                    None)
                                                                     (fun n60 ->
                                                                     (fun fO fS n -> if n=0 then fO () else fS (n-1))
                                                                     (fun _ ->
@@ -3583,8 +4381,7 @@ let decodeBusReg addr =
                                                                     (fun n63 ->
                                                                     (fun fO fS n -> if n=0 then fO () else fS (n-1))
                                                                     (fun _ ->
-                                                                    Some
-                                                                    BusRegLogicReqPayload)
+                                                                    None)
                                                                     (fun n64 ->
                                                                     (fun fO fS n -> if n=0 then fO () else fS (n-1))
                                                                     (fun _ ->
@@ -3898,8 +4695,7 @@ let decodeBusReg addr =
                                                                     (fun n139 ->
                                                                     (fun fO fS n -> if n=0 then fO () else fS (n-1))
                                                                     (fun _ ->
-                                                                    Some
-                                                                    BusRegSetLogicRespValid)
+                                                                    None)
                                                                     (fun n140 ->
                                                                     (fun fO fS n -> if n=0 then fO () else fS (n-1))
                                                                     (fun _ ->
@@ -3915,8 +4711,7 @@ let decodeBusReg addr =
                                                                     (fun n143 ->
                                                                     (fun fO fS n -> if n=0 then fO () else fS (n-1))
                                                                     (fun _ ->
-                                                                    Some
-                                                                    BusRegSetLogicRespError)
+                                                                    None)
                                                                     (fun n144 ->
                                                                     (fun fO fS n -> if n=0 then fO () else fS (n-1))
                                                                     (fun _ ->
@@ -3932,8 +4727,7 @@ let decodeBusReg addr =
                                                                     (fun n147 ->
                                                                     (fun fO fS n -> if n=0 then fO () else fS (n-1))
                                                                     (fun _ ->
-                                                                    Some
-                                                                    BusRegSetLogicRespValue)
+                                                                    None)
                                                                     (fun n148 ->
                                                                     (fun fO fS n -> if n=0 then fO () else fS (n-1))
                                                                     (fun _ ->
@@ -4134,9 +4928,6 @@ let busRegReadable = function
 | BusRegLoadInstrAddr -> false
 | BusRegLoadInstrData -> false
 | BusRegLoadInstrKick -> false
-| BusRegSetLogicRespValid -> false
-| BusRegSetLogicRespError -> false
-| BusRegSetLogicRespValue -> false
 | BusRegSetActiveModule -> false
 | BusRegSetTrapVector -> false
 | _ -> true
@@ -4152,10 +4943,8 @@ type busCoreView = { view_pc : int; view_mu : int; view_err : bool;
                      view_error_code : int; view_mstatus : int;
                      view_mcycle_lo : int; view_mcycle_hi : int;
                      view_minstret_lo : int; view_minstret_hi : int;
-                     view_logic_acc : int; view_logic_req_valid : bool;
-                     view_logic_req_opcode : int;
-                     view_logic_req_payload : int; view_mu_tensor0 : 
-                     int; view_mu_tensor1 : int; view_mu_tensor2 : int;
+                     view_logic_acc : int; view_mu_tensor0 : int;
+                     view_mu_tensor1 : int; view_mu_tensor2 : int;
                      view_mu_tensor3 : int; view_bianchi_alarm : bool;
                      view_pt_next_id : int; view_pt_size : (int -> int) }
 
@@ -4182,9 +4971,6 @@ let busRegReadValue v = function
 | BusRegMinstretLo -> Some v.view_minstret_lo
 | BusRegMinstretHi -> Some v.view_minstret_hi
 | BusRegLogicAcc -> Some v.view_logic_acc
-| BusRegLogicReqValid -> Some (bool_to_nat v.view_logic_req_valid)
-| BusRegLogicReqOpcode -> Some v.view_logic_req_opcode
-| BusRegLogicReqPayload -> Some v.view_logic_req_payload
 | BusRegMuTensor0 -> Some v.view_mu_tensor0
 | BusRegMuTensor1 -> Some v.view_mu_tensor1
 | BusRegMuTensor2 -> Some v.view_mu_tensor2
@@ -4203,10 +4989,7 @@ let busRead v addr =
 
 type busShadowRegs = { sh_load_instr_addr : int; sh_load_instr_data : 
                        int; sh_load_instr_kick : bool;
-                       sh_logic_resp_valid : bool;
-                       sh_logic_resp_error : bool; sh_logic_resp_value : 
-                       int; sh_active_module : int; sh_trap_vector : 
-                       int }
+                       sh_active_module : int; sh_trap_vector : int }
 
 type busWrapperState = { bw_core : kamiSnapshot; bw_shadow : busShadowRegs }
 
@@ -4216,54 +4999,24 @@ let busWriteShadow s r data =
   match r with
   | BusRegLoadInstrAddr ->
     { sh_load_instr_addr = data; sh_load_instr_data = s.sh_load_instr_data;
-      sh_load_instr_kick = s.sh_load_instr_kick; sh_logic_resp_valid =
-      s.sh_logic_resp_valid; sh_logic_resp_error = s.sh_logic_resp_error;
-      sh_logic_resp_value = s.sh_logic_resp_value; sh_active_module =
+      sh_load_instr_kick = s.sh_load_instr_kick; sh_active_module =
       s.sh_active_module; sh_trap_vector = s.sh_trap_vector }
   | BusRegLoadInstrData ->
     { sh_load_instr_addr = s.sh_load_instr_addr; sh_load_instr_data = data;
-      sh_load_instr_kick = s.sh_load_instr_kick; sh_logic_resp_valid =
-      s.sh_logic_resp_valid; sh_logic_resp_error = s.sh_logic_resp_error;
-      sh_logic_resp_value = s.sh_logic_resp_value; sh_active_module =
+      sh_load_instr_kick = s.sh_load_instr_kick; sh_active_module =
       s.sh_active_module; sh_trap_vector = s.sh_trap_vector }
   | BusRegLoadInstrKick ->
     { sh_load_instr_addr = s.sh_load_instr_addr; sh_load_instr_data =
       s.sh_load_instr_data; sh_load_instr_kick = (negb ((=) data 0));
-      sh_logic_resp_valid = s.sh_logic_resp_valid; sh_logic_resp_error =
-      s.sh_logic_resp_error; sh_logic_resp_value = s.sh_logic_resp_value;
       sh_active_module = s.sh_active_module; sh_trap_vector =
       s.sh_trap_vector }
-  | BusRegSetLogicRespValid ->
-    { sh_load_instr_addr = s.sh_load_instr_addr; sh_load_instr_data =
-      s.sh_load_instr_data; sh_load_instr_kick = s.sh_load_instr_kick;
-      sh_logic_resp_valid = (negb ((=) data 0)); sh_logic_resp_error =
-      s.sh_logic_resp_error; sh_logic_resp_value = s.sh_logic_resp_value;
-      sh_active_module = s.sh_active_module; sh_trap_vector =
-      s.sh_trap_vector }
-  | BusRegSetLogicRespError ->
-    { sh_load_instr_addr = s.sh_load_instr_addr; sh_load_instr_data =
-      s.sh_load_instr_data; sh_load_instr_kick = s.sh_load_instr_kick;
-      sh_logic_resp_valid = s.sh_logic_resp_valid; sh_logic_resp_error =
-      (negb ((=) data 0)); sh_logic_resp_value = s.sh_logic_resp_value;
-      sh_active_module = s.sh_active_module; sh_trap_vector =
-      s.sh_trap_vector }
-  | BusRegSetLogicRespValue ->
-    { sh_load_instr_addr = s.sh_load_instr_addr; sh_load_instr_data =
-      s.sh_load_instr_data; sh_load_instr_kick = s.sh_load_instr_kick;
-      sh_logic_resp_valid = s.sh_logic_resp_valid; sh_logic_resp_error =
-      s.sh_logic_resp_error; sh_logic_resp_value = data; sh_active_module =
-      s.sh_active_module; sh_trap_vector = s.sh_trap_vector }
   | BusRegSetActiveModule ->
     { sh_load_instr_addr = s.sh_load_instr_addr; sh_load_instr_data =
       s.sh_load_instr_data; sh_load_instr_kick = s.sh_load_instr_kick;
-      sh_logic_resp_valid = s.sh_logic_resp_valid; sh_logic_resp_error =
-      s.sh_logic_resp_error; sh_logic_resp_value = s.sh_logic_resp_value;
       sh_active_module = data; sh_trap_vector = s.sh_trap_vector }
   | BusRegSetTrapVector ->
     { sh_load_instr_addr = s.sh_load_instr_addr; sh_load_instr_data =
       s.sh_load_instr_data; sh_load_instr_kick = s.sh_load_instr_kick;
-      sh_logic_resp_valid = s.sh_logic_resp_valid; sh_logic_resp_error =
-      s.sh_logic_resp_error; sh_logic_resp_value = s.sh_logic_resp_value;
       sh_active_module = s.sh_active_module; sh_trap_vector = data }
   | _ -> s
 
@@ -4286,8 +5039,7 @@ let coreViewOfSnapshot s =
     view_mdl_ops = s.snap_mdl_ops; view_info_gain = s.snap_info_gain;
     view_error_code = s.snap_error_code; view_mstatus = 0; view_mcycle_lo =
     0; view_mcycle_hi = 0; view_minstret_lo = 0; view_minstret_hi = 0;
-    view_logic_acc = 0; view_logic_req_valid = false; view_logic_req_opcode =
-    0; view_logic_req_payload = 0; view_mu_tensor0 = (s.snap_mu_tensor 0);
+    view_logic_acc = 0; view_mu_tensor0 = (s.snap_mu_tensor 0);
     view_mu_tensor1 = (s.snap_mu_tensor (Stdlib.Int.succ 0));
     view_mu_tensor2 =
     (s.snap_mu_tensor (Stdlib.Int.succ (Stdlib.Int.succ 0)));

@@ -208,6 +208,18 @@ Extract Constant Nat.mul => "( * )".
 Extract Constant Nat.sub => "fun n m -> max 0 (n-m)".
 (* SAFE: Standard Coq library nat equality — OCaml structural (=) matches Nat.eqb on int *)
 Extract Constant Nat.eqb => "(=)".
+(* SAFE: Nat.div — guard against y=0 to match Coq semantics (returns 0) *)
+Extract Constant Nat.div => "fun x y -> if y = 0 then 0 else x / y".
+(* SAFE: Nat.modulo — guard against y=0 to match Coq semantics (returns 0) *)
+Extract Constant Nat.modulo => "fun x y -> if y = 0 then 0 else x mod y".
+(* SAFE: Nat.ltb — OCaml (<) is equivalent for non-negative int *)
+Extract Constant Nat.ltb => "(<)".
+(* SAFE: word_to_bytes_4 — bit ops equivalent to Coq mod/div byte split; values returned are ascii chars (0-255) *)
+Extract Constant VMState.word_to_bytes_4 =>
+  "(fun w -> [Char.chr (w land 0xff); Char.chr ((w lsr 8) land 0xff); Char.chr ((w lsr 16) land 0xff); Char.chr ((w lsr 24) land 0xff)])".
+(* SAFE: bytes_to_word_4 — lor/lsl equivalent to b0+b1*256+b2*65536+b3*16777216 for b0..b3 in [0,255] *)
+Extract Constant VMState.bytes_to_word_4 =>
+  "(fun b0 b1 b2 b3 -> b0 lor (b1 lsl 8) lor (b2 lsl 16) lor (b3 lsl 24))".
 
 (* NOTE ON 63-BIT WORD FIDELITY:
    OCaml int on 64-bit platforms is 63-bit (1 bit used by GC tag). The
@@ -273,6 +285,8 @@ Extraction "../build/thiele_core.ml"
   VMStep.nofi_step_cost_okb
   VMStep.nofi_trace_cost_okb
   VMState.VMState
+  VMState.mem_to_string
+  VMState.write_string_to_mem
   SimulationProof.vm_apply
   SimulationProof.vm_apply_nofi
   SimulationProof.vm_apply_runtime

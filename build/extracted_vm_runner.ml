@@ -259,6 +259,24 @@ let list_set_mod (size : int) (xs : int list) (idx : int) (v : int) : int list =
   in
   go 0 xs
 
+(* Memory string helpers — mirror the Coq write_string_to_mem encoding.
+   Layout: mem[base] = len (bytes); mem[base+1..] = packed little-endian 4-byte words. *)
+let bytes_to_word_4 b0 b1 b2 b3 =
+  b0 lor (b1 lsl 8) lor (b2 lsl 16) lor (b3 lsl 24)
+
+let write_string_to_mem_init (mem : int list) (sz : int) (base : int) (str : string) : int list =
+  let len = String.length str in
+  let mem1 = list_set_mod sz mem base len in
+  let n_words = (len + 3) / 4 in
+  let rec go m i =
+    if i >= n_words then m
+    else
+      let byte j = if i * 4 + j < len then Char.code str.[i * 4 + j] else 0 in
+      let w = bytes_to_word_4 (byte 0) (byte 1) (byte 2) (byte 3) in
+      go (list_set_mod sz m (base + 1 + i) w) (i + 1)
+  in
+  go mem1 0
+
 (* A program element is either a real VM instruction or a harness directive. *)
 type program_element =
   | Instr of VMStep.vm_instruction
@@ -266,7 +284,7 @@ type program_element =
   | WritePort of string * int    (* channel_name, src_reg *)
   | ReadPort of int * string     (* dst_reg, channel_name *)
 
-let parse_program (lines : string list) : int * int list * int list * int * int list * program_element list =
+let parse_program (lines : string list) : int * int list * int list * int * int list * (int * int) list * (int * int) list * program_element list =
     let fuel = ref 256 in
     let mem_size = ref 65536 in
     let rec make_list n acc =
@@ -276,6 +294,9 @@ let parse_program (lines : string list) : int * int list * int list * int * int 
     let init_mem = ref None in  (* deferred until mem_size is known *)
     let init_logic_acc = ref 0 in
     let init_tensor = ref (make_list 16 []) in
+    (* Track explicit INIT_MEM/INIT_MEM_STR/INIT_REG patches for --resume overlay. *)
+    let mem_patches  : (int * int) list ref = ref [] in
+    let reg_patches  : (int * int) list ref = ref [] in
 
     let parse_line (line : string) : program_element option =
     let t = trim line in
@@ -290,11 +311,41 @@ let parse_program (lines : string list) : int * int list * int list * int * int 
         mem_size := safe_int n;
         None
       | [ "INIT_REG"; r; v ] ->
-        init_regs := list_set_mod 32 !init_regs (safe_int r) (safe_int v);
+        let ri = safe_int r and vi = safe_int v in
+        init_regs := list_set_mod 32 !init_regs ri vi;
+        reg_patches := (ri, vi) :: !reg_patches;
         None
       | [ "INIT_MEM"; a; v ] ->
+        let ai = safe_int a and vi = safe_int v in
         let m = match !init_mem with Some m -> m | None -> make_list !mem_size [] in
-        init_mem := Some (list_set_mod !mem_size m (safe_int a) (safe_int v));
+        init_mem := Some (list_set_mod !mem_size m ai vi);
+        mem_patches := (ai, vi) :: !mem_patches;
+        None
+      | [ "INIT_MEM_STR"; a; encoded ] ->
+        (* Write underscore-encoded string to initial memory at addr a.
+           Encoding: '_' -> ' ', '__' -> '\n' (same as decode_formula).
+           mem[a] = len; mem[a+1..] = packed little-endian 4-byte words. *)
+        let str = decode_formula encoded in
+        let base = safe_int a in
+        let len = String.length str in
+        let m = match !init_mem with Some m -> m | None -> make_list !mem_size [] in
+        let m' = write_string_to_mem_init m !mem_size base str in
+        init_mem := Some m';
+        (* Record all non-trivial patches: length + n_words entries *)
+        mem_patches := (base, len) :: !mem_patches;
+        let n_words = (len + 3) / 4 in
+        for i = 0 to n_words - 1 do
+          let byte j = if i * 4 + j < len then Char.code str.[i * 4 + j] else 0 in
+          let w = bytes_to_word_4 (byte 0) (byte 1) (byte 2) (byte 3) in
+          mem_patches := (base + 1 + i, w) :: !mem_patches
+        done;
+        None
+      | [ "INIT_MEM_STR"; a ] ->
+        (* Empty string: just record length=0 at addr a (no word patches needed) *)
+        let base = safe_int a in
+        let m = match !init_mem with Some m -> m | None -> make_list !mem_size [] in
+        init_mem := Some (list_set_mod !mem_size m base 0);
+        mem_patches := (base, 0) :: !mem_patches;
         None
       | [ "INIT_LOGIC_ACC"; v ] ->
         init_logic_acc := safe_int v;
@@ -377,17 +428,15 @@ let parse_program (lines : string list) : int * int list * int list * int * int 
         let flat_idx = (safe_int ti) * 4 + (safe_int tj) in
         let delta = safe_int bits in
         Some (Instr (VMStep.Coq_instr_reveal (flat_idx, delta, char_list_of_string cert, delta)))
-      | [ "LASSERT"; mid; axiom; cost ] ->
-        Some (Instr (VMStep.Coq_instr_lassert (safe_int mid, char_list_of_string (decode_formula axiom),
-          VMStep.Coq_lassert_cert_sat (char_list_of_string ""), safe_int cost)))
-      | [ "LASSERT_SAT"; mid; axiom; model; cost ] ->
-        Some (Instr (VMStep.Coq_instr_lassert (safe_int mid, char_list_of_string (decode_formula axiom),
-          VMStep.Coq_lassert_cert_sat (char_list_of_string (decode_formula model)), safe_int cost)))
-      | [ "LASSERT_UNSAT"; mid; axiom; proof; cost ] ->
-        Some (Instr (VMStep.Coq_instr_lassert (safe_int mid, char_list_of_string (decode_formula axiom),
-          VMStep.Coq_lassert_cert_unsat (char_list_of_string (decode_formula proof)), safe_int cost)))
-      | [ "LJOIN"; f1; f2; cost ] ->
-        Some (Instr (VMStep.Coq_instr_ljoin (char_list_of_string f1, char_list_of_string f2, safe_int cost)))
+      | [ "LASSERT"; freg; creg; kind; flen; cost ] ->
+        (* On-chip model: freg/creg are register indices pointing to formula/cert in vm_mem.
+           kind=1 → SAT mode (check_model); kind=0 → UNSAT mode (check_lrat).
+           flen = formula length in words; cost = mu_delta. *)
+        Some (Instr (VMStep.Coq_instr_lassert (safe_int freg, safe_int creg,
+          safe_int kind = 1, safe_int flen, safe_int cost)))
+      | [ "LJOIN"; c1reg; c2reg; cost ] ->
+        (* On-chip model: c1reg/c2reg are register indices pointing to cert strings in vm_mem. *)
+        Some (Instr (VMStep.Coq_instr_ljoin (safe_int c1reg, safe_int c2reg, safe_int cost)))
       | [ "EMIT"; mid; bits; cost ] ->
         Some (Instr (VMStep.Coq_instr_emit (safe_int mid, char_list_of_string bits, safe_int cost)))
       | [ "ORACLE_HALTS"; payload; cost ] ->
@@ -430,7 +479,7 @@ let parse_program (lines : string list) : int * int list * int list * int * int 
   in
   let elements = lines |> List.filter_map parse_line in
   let init_m = match !init_mem with Some m -> m | None -> make_list !mem_size [] in
-  (!fuel, !init_regs, init_m, !init_logic_acc, !init_tensor, elements)
+  (!fuel, !init_regs, init_m, !init_logic_acc, !init_tensor, !mem_patches, !reg_patches, elements)
 
 let initial_state () : vMState =
   let rec make_list n acc =
@@ -787,12 +836,20 @@ let () =
     eprintf "[DEBUG] Reading file: %s\n%!" !trace_path;
     let lines = read_all_lines !trace_path in
     eprintf "[DEBUG] Read %d lines\n%!" (List.length lines);
-    let fuel, regs0, mem0, logic_acc0, tensor0, prog = parse_program lines in
+    let fuel, regs0, mem0, logic_acc0, tensor0, mem_patches, reg_patches, prog = parse_program lines in
     eprintf "[DEBUG] Parsed: fuel=%d, prog_len=%d\n%!" fuel (List.length prog);
     let s0 = match !resume_path with
       | Some path ->
         eprintf "[DEBUG] Resuming from %s\n%!" path;
-        load_resume_state path
+        let base = load_resume_state path in
+        (* Apply INIT_MEM/INIT_MEM_STR/INIT_REG overlays on top of resumed state. *)
+        let m = List.fold_left
+          (fun m (a, v) -> list_set_mod (List.length m) m a v)
+          base.vm_mem mem_patches in
+        let r = List.fold_left
+          (fun r (i, v) -> list_set_mod 32 r i v)
+          base.vm_regs reg_patches in
+        { base with vm_mem = m; vm_regs = r }
       | None ->
         let s = initial_state () in
         { s with vm_regs = regs0; vm_mem = mem0;

@@ -390,8 +390,7 @@ module Nat =
 
   (** val ltb : int -> int -> bool **)
 
-  let ltb n0 m =
-    (<=) ((fun x -> x + 1) n0) m
+  let ltb = (<)
 
   (** val divmod : int -> int -> int -> int -> int*int **)
 
@@ -407,19 +406,11 @@ module Nat =
 
   (** val div : int -> int -> int **)
 
-  let div x y =
-    (fun zero succ n -> if n=0 then zero () else succ (n-1))
-      (fun _ -> y)
-      (fun y' -> fst (divmod x y' 0 y'))
-      y
+  let div = fun x y -> if y = 0 then 0 else x / y
 
   (** val modulo : int -> int -> int **)
 
-  let modulo x y =
-    (fun zero succ n -> if n=0 then zero () else succ (n-1))
-      (fun _ -> x)
-      (fun y' -> sub y' (snd (divmod x y' 0 y')))
-      y
+  let modulo = fun x y -> if y = 0 then 0 else x mod y
  end
 
 (** val in_dec : ('a1 -> 'a1 -> bool) -> 'a1 -> 'a1 list -> bool **)
@@ -1692,878 +1683,58 @@ let ascii_checksum s =
   fold_right (fun ch acc -> add (nat_of_ascii ch) acc) 0
     (list_ascii_of_string s)
 
+(** val bytes_to_word_4 : int -> int -> int -> int -> int **)
+
+let bytes_to_word_4 = (fun b0 b1 b2 b3 -> b0 lor (b1 lsl 8) lor (b2 lsl 16) lor (b3 lsl 24))
+
 (** val word_to_bytes_4 : int -> char list **)
 
-let word_to_bytes_4 w =
-  (ascii_of_nat
-    (Nat.modulo w ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1)
-      0))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))::(
-    (ascii_of_nat
-      (Nat.modulo
-        (Nat.div w ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-          ((fun x -> x + 1)
-          0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1)
-        0))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))::(
-    (ascii_of_nat
-      (Nat.modulo
-        (Nat.div w
-          (mul ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1)
-            0))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1)
-            0))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1)
-        0))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))::(
-    (ascii_of_nat
-      (Nat.modulo
-        (Nat.div w
-          (mul
-            (mul ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1)
-              0))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1)
-              0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-            ((fun x -> x + 1)
-            0))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1)
-        0))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))::[])))
+let word_to_bytes_4 = (fun w -> [Char.chr (w land 0xff); Char.chr ((w lsr 8) land 0xff); Char.chr ((w lsr 16) land 0xff); Char.chr ((w lsr 24) land 0xff)])
+
+(** val bytes_to_words : char list -> int list **)
+
+let rec bytes_to_words = function
+| [] -> []
+| a::l ->
+  (match l with
+   | [] -> (bytes_to_word_4 (nat_of_ascii a) 0 0 0)::[]
+   | b::l0 ->
+     (match l0 with
+      | [] -> (bytes_to_word_4 (nat_of_ascii a) (nat_of_ascii b) 0 0)::[]
+      | c::l1 ->
+        (match l1 with
+         | [] ->
+           (bytes_to_word_4 (nat_of_ascii a) (nat_of_ascii b)
+             (nat_of_ascii c) 0)::[]
+         | d::rest ->
+           (bytes_to_word_4 (nat_of_ascii a) (nat_of_ascii b)
+             (nat_of_ascii c) (nat_of_ascii d))::(bytes_to_words rest))))
 
 (** val words_to_bytes : int list -> int -> char list **)
 
 let words_to_bytes ws n_bytes =
   firstn n_bytes (flat_map word_to_bytes_4 ws)
 
+(** val write_words_at : int list -> int -> int list -> int list **)
+
+let rec write_words_at mem addr = function
+| [] -> mem
+| w::rest ->
+  write_words_at (list_update_at mem addr w) ((fun x -> x + 1) addr) rest
+
 (** val list_read_at : int list -> int -> int **)
 
 let list_read_at mem addr =
   nth addr mem 0
+
+(** val write_string_to_mem : int list -> int -> char list -> int list **)
+
+let write_string_to_mem mem base str =
+  let chars = list_ascii_of_string str in
+  let len = length chars in
+  let words = bytes_to_words chars in
+  let mem1 = list_update_at mem base len in
+  write_words_at mem1 ((fun x -> x + 1) base) words
 
 (** val mem_to_string : int list -> int -> char list **)
 
@@ -4268,9 +3439,6 @@ type busReg =
 | BusRegMinstretLo
 | BusRegMinstretHi
 | BusRegLogicAcc
-| BusRegLogicReqValid
-| BusRegLogicReqOpcode
-| BusRegLogicReqPayload
 | BusRegMuTensor0
 | BusRegMuTensor1
 | BusRegMuTensor2
@@ -4281,9 +3449,6 @@ type busReg =
 | BusRegLoadInstrAddr
 | BusRegLoadInstrData
 | BusRegLoadInstrKick
-| BusRegSetLogicRespValid
-| BusRegSetLogicRespError
-| BusRegSetLogicRespValue
 | BusRegSetActiveModule
 | BusRegSetTrapVector
 
@@ -4500,8 +3665,7 @@ let decodeBusReg addr =
                                                                     (fun n55 ->
                                                                     (fun zero succ n -> if n=0 then zero () else succ (n-1))
                                                                     (fun _ ->
-                                                                    Some
-                                                                    BusRegLogicReqValid)
+                                                                    None)
                                                                     (fun n56 ->
                                                                     (fun zero succ n -> if n=0 then zero () else succ (n-1))
                                                                     (fun _ ->
@@ -4517,8 +3681,7 @@ let decodeBusReg addr =
                                                                     (fun n59 ->
                                                                     (fun zero succ n -> if n=0 then zero () else succ (n-1))
                                                                     (fun _ ->
-                                                                    Some
-                                                                    BusRegLogicReqOpcode)
+                                                                    None)
                                                                     (fun n60 ->
                                                                     (fun zero succ n -> if n=0 then zero () else succ (n-1))
                                                                     (fun _ ->
@@ -4534,8 +3697,7 @@ let decodeBusReg addr =
                                                                     (fun n63 ->
                                                                     (fun zero succ n -> if n=0 then zero () else succ (n-1))
                                                                     (fun _ ->
-                                                                    Some
-                                                                    BusRegLogicReqPayload)
+                                                                    None)
                                                                     (fun n64 ->
                                                                     (fun zero succ n -> if n=0 then zero () else succ (n-1))
                                                                     (fun _ ->
@@ -4849,8 +4011,7 @@ let decodeBusReg addr =
                                                                     (fun n139 ->
                                                                     (fun zero succ n -> if n=0 then zero () else succ (n-1))
                                                                     (fun _ ->
-                                                                    Some
-                                                                    BusRegSetLogicRespValid)
+                                                                    None)
                                                                     (fun n140 ->
                                                                     (fun zero succ n -> if n=0 then zero () else succ (n-1))
                                                                     (fun _ ->
@@ -4866,8 +4027,7 @@ let decodeBusReg addr =
                                                                     (fun n143 ->
                                                                     (fun zero succ n -> if n=0 then zero () else succ (n-1))
                                                                     (fun _ ->
-                                                                    Some
-                                                                    BusRegSetLogicRespError)
+                                                                    None)
                                                                     (fun n144 ->
                                                                     (fun zero succ n -> if n=0 then zero () else succ (n-1))
                                                                     (fun _ ->
@@ -4883,8 +4043,7 @@ let decodeBusReg addr =
                                                                     (fun n147 ->
                                                                     (fun zero succ n -> if n=0 then zero () else succ (n-1))
                                                                     (fun _ ->
-                                                                    Some
-                                                                    BusRegSetLogicRespValue)
+                                                                    None)
                                                                     (fun n148 ->
                                                                     (fun zero succ n -> if n=0 then zero () else succ (n-1))
                                                                     (fun _ ->
@@ -5085,9 +4244,6 @@ let busRegReadable = function
 | BusRegLoadInstrAddr -> false
 | BusRegLoadInstrData -> false
 | BusRegLoadInstrKick -> false
-| BusRegSetLogicRespValid -> false
-| BusRegSetLogicRespError -> false
-| BusRegSetLogicRespValue -> false
 | BusRegSetActiveModule -> false
 | BusRegSetTrapVector -> false
 | _ -> true
@@ -5103,10 +4259,8 @@ type busCoreView = { view_pc : int; view_mu : int; view_err : bool;
                      view_error_code : int; view_mstatus : int;
                      view_mcycle_lo : int; view_mcycle_hi : int;
                      view_minstret_lo : int; view_minstret_hi : int;
-                     view_logic_acc : int; view_logic_req_valid : bool;
-                     view_logic_req_opcode : int;
-                     view_logic_req_payload : int; view_mu_tensor0 : 
-                     int; view_mu_tensor1 : int; view_mu_tensor2 : int;
+                     view_logic_acc : int; view_mu_tensor0 : int;
+                     view_mu_tensor1 : int; view_mu_tensor2 : int;
                      view_mu_tensor3 : int; view_bianchi_alarm : bool;
                      view_pt_next_id : int; view_pt_size : (int -> int) }
 
@@ -5133,9 +4287,6 @@ let busRegReadValue v = function
 | BusRegMinstretLo -> Some v.view_minstret_lo
 | BusRegMinstretHi -> Some v.view_minstret_hi
 | BusRegLogicAcc -> Some v.view_logic_acc
-| BusRegLogicReqValid -> Some (bool_to_nat v.view_logic_req_valid)
-| BusRegLogicReqOpcode -> Some v.view_logic_req_opcode
-| BusRegLogicReqPayload -> Some v.view_logic_req_payload
 | BusRegMuTensor0 -> Some v.view_mu_tensor0
 | BusRegMuTensor1 -> Some v.view_mu_tensor1
 | BusRegMuTensor2 -> Some v.view_mu_tensor2
@@ -5154,10 +4305,7 @@ let busRead v addr =
 
 type busShadowRegs = { sh_load_instr_addr : int; sh_load_instr_data : 
                        int; sh_load_instr_kick : bool;
-                       sh_logic_resp_valid : bool;
-                       sh_logic_resp_error : bool; sh_logic_resp_value : 
-                       int; sh_active_module : int; sh_trap_vector : 
-                       int }
+                       sh_active_module : int; sh_trap_vector : int }
 
 type busWrapperState = { bw_core : kamiSnapshot; bw_shadow : busShadowRegs }
 
@@ -5167,54 +4315,24 @@ let busWriteShadow s r data =
   match r with
   | BusRegLoadInstrAddr ->
     { sh_load_instr_addr = data; sh_load_instr_data = s.sh_load_instr_data;
-      sh_load_instr_kick = s.sh_load_instr_kick; sh_logic_resp_valid =
-      s.sh_logic_resp_valid; sh_logic_resp_error = s.sh_logic_resp_error;
-      sh_logic_resp_value = s.sh_logic_resp_value; sh_active_module =
+      sh_load_instr_kick = s.sh_load_instr_kick; sh_active_module =
       s.sh_active_module; sh_trap_vector = s.sh_trap_vector }
   | BusRegLoadInstrData ->
     { sh_load_instr_addr = s.sh_load_instr_addr; sh_load_instr_data = data;
-      sh_load_instr_kick = s.sh_load_instr_kick; sh_logic_resp_valid =
-      s.sh_logic_resp_valid; sh_logic_resp_error = s.sh_logic_resp_error;
-      sh_logic_resp_value = s.sh_logic_resp_value; sh_active_module =
+      sh_load_instr_kick = s.sh_load_instr_kick; sh_active_module =
       s.sh_active_module; sh_trap_vector = s.sh_trap_vector }
   | BusRegLoadInstrKick ->
     { sh_load_instr_addr = s.sh_load_instr_addr; sh_load_instr_data =
       s.sh_load_instr_data; sh_load_instr_kick = (negb (eqb data 0));
-      sh_logic_resp_valid = s.sh_logic_resp_valid; sh_logic_resp_error =
-      s.sh_logic_resp_error; sh_logic_resp_value = s.sh_logic_resp_value;
       sh_active_module = s.sh_active_module; sh_trap_vector =
       s.sh_trap_vector }
-  | BusRegSetLogicRespValid ->
-    { sh_load_instr_addr = s.sh_load_instr_addr; sh_load_instr_data =
-      s.sh_load_instr_data; sh_load_instr_kick = s.sh_load_instr_kick;
-      sh_logic_resp_valid = (negb (eqb data 0)); sh_logic_resp_error =
-      s.sh_logic_resp_error; sh_logic_resp_value = s.sh_logic_resp_value;
-      sh_active_module = s.sh_active_module; sh_trap_vector =
-      s.sh_trap_vector }
-  | BusRegSetLogicRespError ->
-    { sh_load_instr_addr = s.sh_load_instr_addr; sh_load_instr_data =
-      s.sh_load_instr_data; sh_load_instr_kick = s.sh_load_instr_kick;
-      sh_logic_resp_valid = s.sh_logic_resp_valid; sh_logic_resp_error =
-      (negb (eqb data 0)); sh_logic_resp_value = s.sh_logic_resp_value;
-      sh_active_module = s.sh_active_module; sh_trap_vector =
-      s.sh_trap_vector }
-  | BusRegSetLogicRespValue ->
-    { sh_load_instr_addr = s.sh_load_instr_addr; sh_load_instr_data =
-      s.sh_load_instr_data; sh_load_instr_kick = s.sh_load_instr_kick;
-      sh_logic_resp_valid = s.sh_logic_resp_valid; sh_logic_resp_error =
-      s.sh_logic_resp_error; sh_logic_resp_value = data; sh_active_module =
-      s.sh_active_module; sh_trap_vector = s.sh_trap_vector }
   | BusRegSetActiveModule ->
     { sh_load_instr_addr = s.sh_load_instr_addr; sh_load_instr_data =
       s.sh_load_instr_data; sh_load_instr_kick = s.sh_load_instr_kick;
-      sh_logic_resp_valid = s.sh_logic_resp_valid; sh_logic_resp_error =
-      s.sh_logic_resp_error; sh_logic_resp_value = s.sh_logic_resp_value;
       sh_active_module = data; sh_trap_vector = s.sh_trap_vector }
   | BusRegSetTrapVector ->
     { sh_load_instr_addr = s.sh_load_instr_addr; sh_load_instr_data =
       s.sh_load_instr_data; sh_load_instr_kick = s.sh_load_instr_kick;
-      sh_logic_resp_valid = s.sh_logic_resp_valid; sh_logic_resp_error =
-      s.sh_logic_resp_error; sh_logic_resp_value = s.sh_logic_resp_value;
       sh_active_module = s.sh_active_module; sh_trap_vector = data }
   | _ -> s
 
@@ -5237,8 +4355,7 @@ let coreViewOfSnapshot s =
     view_mdl_ops = s.snap_mdl_ops; view_info_gain = s.snap_info_gain;
     view_error_code = s.snap_error_code; view_mstatus = 0; view_mcycle_lo =
     0; view_mcycle_hi = 0; view_minstret_lo = 0; view_minstret_hi = 0;
-    view_logic_acc = 0; view_logic_req_valid = false; view_logic_req_opcode =
-    0; view_logic_req_payload = 0; view_mu_tensor0 = (s.snap_mu_tensor 0);
+    view_logic_acc = 0; view_mu_tensor0 = (s.snap_mu_tensor 0);
     view_mu_tensor1 = (s.snap_mu_tensor ((fun x -> x + 1) 0));
     view_mu_tensor2 =
     (s.snap_mu_tensor ((fun x -> x + 1) ((fun x -> x + 1) 0)));

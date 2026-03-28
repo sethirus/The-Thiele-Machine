@@ -10,9 +10,10 @@ TYPES = Path(__file__).resolve().parents[1] / "coq" / "kami_hw" / "ThieleTypes.v
 def test_core_has_in_core_logic_engine_state_and_paths() -> None:
     txt = CORE.read_text(encoding="utf-8")
     assert 'Register "logic_acc"' in txt
-    assert 'LET logic_issue <-' in txt
-    assert 'Register "logic_req_valid"' in txt
-    assert 'Register "logic_resp_valid"' in txt
+    # On-chip FSM registers replace external coprocessor interface
+    assert 'Register "lassert_phase"' in txt
+    assert 'Register "lassert_fbuf"' in txt
+    assert 'Register "lassert_cbuf"' in txt
     assert 'OP_LASSERT' in txt and 'OP_LJOIN' in txt and 'OP_ORACLE_HALTS' in txt
     assert 'LET new_logic_acc : Bit WordSz <-' in txt
     assert 'Write "logic_acc"      <- #new_logic_acc;' in txt
@@ -101,7 +102,8 @@ def test_pt_next_id_register_is_narrow_and_zero_extended_on_output() -> None:
 
 def test_bianchi_clears_logic_stall_and_pending_logic_request() -> None:
     txt = CORE.read_text(encoding='utf-8')
-    assert 'LET new_logic_stall <-' in txt
-    assert 'IF #bianchi_violation\n          then $$false' in txt
-    assert 'LET new_logic_req_valid <-' in txt
-    assert 'LET new_logic_resp_valid <-' in txt
+    # On-chip model: bianchi_violation stops mu accrual and traps PC
+    # (no external coprocessor stall/req/resp to clear)
+    assert 'IF (#bianchi_violation' in txt
+    assert 'ERR_BIANCHI_VAL' in txt
+    assert '#trap_vector_v' in txt

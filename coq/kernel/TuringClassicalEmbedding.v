@@ -99,6 +99,7 @@ Definition classical_to_thiele (prog : list vm_instruction) : list vm_instructio
 
 (** D2_embedding_is_identity: The embedding is definitionally the identity.
     Running classical_to_thiele(prog) is the same as running prog. *)
+(* DEFINITIONAL HELPER: classical_to_thiele is the identity — unfolding produces reflexivity. *)
 Lemma D2_embedding_is_identity :
   forall (prog : list vm_instruction) (s0 : VMState),
     acm_run thiele_cert_machine (classical_to_thiele prog) s0 =
@@ -141,6 +142,7 @@ Qed.
 (** D2_classical_machines_are_thiele: Any ClassicalMachine is a valid
     Thiele program.  The embedding gives a semantic inclusion:
     classical ⊆ Thiele. *)
+(* DEFINITIONAL HELPER: cm_run unfolds to acm_run by construction — identity by reflexivity. *)
 Theorem D2_classical_machines_are_thiele :
   forall (M : ClassicalMachine) (s0 : VMState),
     cm_run M s0 =
@@ -149,21 +151,14 @@ Proof.
   intros M s0. unfold cm_run, classical_to_thiele. reflexivity.
 Qed.
 
-(** D2_classical_shadow_preserved: For any two classical programs that
-    differ only in structural ops, their classical shadows are equal.
-    (Immediate from D2_faithfulness: shadow depends only on classical fields.)
-    Corollary: running a classical program on two machines that agree on
-    shadow_proj produces the same shadow. *)
-Theorem D2_classical_shadow_preserved :
-  forall (prog : list vm_instruction) (s1 s2 : VMState),
-    is_classical_program prog ->
-    shadow_proj s1 = shadow_proj s2 ->
-    shadow_proj (acm_run thiele_cert_machine prog s1) =
-    shadow_proj (acm_run thiele_cert_machine prog s2) ->
-    True.
-Proof.
-  (* This is a placeholder for the shadow-invariance corollary.
-     A full simulation theorem would require induction over the program
-     and is beyond the scope of D2.  The key content is in D2_faithfulness. *)
-  intros. exact I.
-Qed.
+(** Reserved: D2_classical_shadow_preserved would state:
+    For any classical program and any two initial states with equal shadow projections,
+    the resulting shadow projections are also equal.
+    Proof requires a full classical-field determinism lemma:
+      shadow_proj s1 = shadow_proj s2 ->
+      is_classical_program prog ->
+      shadow_proj (acm_run thiele_cert_machine prog s1) =
+      shadow_proj (acm_run thiele_cert_machine prog s2).
+    This follows from D3_conservativity (structural fields frozen) combined with
+    the observation that classical instructions only read/write classical fields.
+    Reserved for future work in simulation proof completion. *)

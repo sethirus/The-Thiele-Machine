@@ -200,7 +200,32 @@ _CERT_SETTERS: frozenset = frozenset({"certify", "emit", "lassert", "ljoin", "mo
 # ---------------------------------------------------------------------------
 
 _LIST_FIELDS: frozenset = frozenset({'region', 'left', 'right', 'evidence'})
-_STR_FIELDS: frozenset = frozenset({'formula', 'cert', 'cert1', 'cert2', 'payload', 'label'})
+_STR_FIELDS: frozenset = frozenset({'payload', 'label'})
+
+# On-chip LASSERT: formula/cert written to reserved memory; freg/creg point there.
+_LASSERT_FORMULA_ADDR: int = 0xE000
+_LASSERT_CERT_ADDR:    int = 0xF000
+_LASSERT_FREG:         int = 28
+_LASSERT_CREG:         int = 29
+
+# On-chip LJOIN: cert1/cert2 written to reserved memory when provided as strings.
+_LJOIN_CERT1_ADDR: int = 0xC000
+_LJOIN_CERT2_ADDR: int = 0xD000
+_LJOIN_C1REG:      int = 26
+_LJOIN_C2REG:      int = 27
+
+def _decode_formula(s: str) -> str:
+    """Decode underscore-encoded formula: __ -> newline, _ -> space."""
+    result: list = []
+    i = 0
+    while i < len(s):
+        if i + 1 < len(s) and s[i] == "_" and s[i+1] == "_":
+            result.append("\n"); i += 2
+        elif s[i] == "_":
+            result.append(" "); i += 1
+        else:
+            result.append(s[i]); i += 1
+    return "".join(result)
 
 def _fmt_list(val: Any) -> str:
     """Format a list field as {v1,v2,...} for OCaml runner."""
@@ -217,8 +242,6 @@ def instr_dict_to_text(instr: Dict[str, Any]) -> str:
         return "PSPLIT" + " " + str(int(instr.get("module", 0))) + " " + _fmt_list(instr.get("left", [])) + " " + _fmt_list(instr.get("right", [])) + " " + str(instr.get("cost", 0))
     if op == "pmerge":
         return "PMERGE" + " " + str(int(instr.get("m1", 0))) + " " + str(int(instr.get("m2", 0))) + " " + str(instr.get("cost", 0))
-    if op == "ljoin":
-        return "LJOIN" + " " + str(instr.get("cert1", ".")) + " " + str(instr.get("cert2", ".")) + " " + str(instr.get("cost", 0))
     if op == "mdlacc":
         return "MDLACC" + " " + str(int(instr.get("module", 0))) + " " + str(instr.get("cost", 0))
     if op == "pdiscover":
@@ -296,14 +319,13 @@ def instr_dict_to_text(instr: Dict[str, Any]) -> str:
     if op == "morph_delete":
         return "MORPH_DELETE" + " " + str(int(instr.get("morph_id", 0))) + " " + str(int(instr.get("mu_delta", 0)))
     if op == "morph_assert":
-        return "MORPH_ASSERT" + " " + str(int(instr.get("morph_id", 0))) + " " + str(int(instr.get("property", 0))) + " " + str(instr.get("cert", ".")) + " " + str(int(instr.get("mu_delta", 0)))
+        return "MORPH_ASSERT" + " " + str(int(instr.get("morph_id", 0))) + " " + str(int(instr.get("property", 0))) + " " + str(int(instr.get("cert", 0))) + " " + str(int(instr.get("mu_delta", 0)))
     if op == "morph_tensor":
         return "MORPH_TENSOR" + " " + str(int(instr.get("dst", 0))) + " " + str(int(instr.get("f", 0))) + " " + str(int(instr.get("g", 0))) + " " + str(int(instr.get("mu_delta", 0)))
     if op == "morph_get":
         return "MORPH_GET" + " " + str(int(instr.get("dst", 0))) + " " + str(int(instr.get("morph_id", 0))) + " " + str(int(instr.get("selector", 0))) + " " + str(int(instr.get("mu_delta", 0)))
     if op == "lassert":
-        m = int(instr.get("module", 0))
-        formula = str(instr.get("formula", "."))
+        formula = str(instr.get("formula", ""))
         cost = int(instr.get("cost", 0))
         raw_cert = instr.get("cert", "")
         if isinstance(raw_cert, dict):
@@ -312,11 +334,36 @@ def instr_dict_to_text(instr: Dict[str, Any]) -> str:
         else:
             cert_type = str(instr.get("cert_type", "sat"))
             cert_data = str(raw_cert or "")
-        if cert_type == "unsat" and cert_data:
-            return f"LASSERT_UNSAT {m} {formula} {cert_data} {cost}"
-        elif cert_data:
-            return f"LASSERT_SAT {m} {formula} {cert_data} {cost}"
-        return f"LASSERT {m} {formula} {cost}"
+        kind = 0 if cert_type == "unsat" else 1
+        flen = len(_decode_formula(formula))
+        parts = [
+            f"INIT_MEM_STR {_LASSERT_FORMULA_ADDR} {formula}",
+            f"INIT_REG {_LASSERT_FREG} {_LASSERT_FORMULA_ADDR}",
+            f"INIT_MEM_STR {_LASSERT_CERT_ADDR} {cert_data}",
+            f"INIT_REG {_LASSERT_CREG} {_LASSERT_CERT_ADDR}",
+            f"LASSERT {_LASSERT_FREG} {_LASSERT_CREG} {kind} {flen} {cost}",
+        ]
+        return "\n".join(parts)
+    if op == "ljoin":
+        cost = int(instr.get("cost", 1))
+        cert1_raw = instr.get("cert1")
+        cert2_raw = instr.get("cert2")
+        c1reg_v = instr.get("c1reg")
+        c2reg_v = instr.get("c2reg")
+        if cert1_raw is not None or cert2_raw is not None:
+            c1 = str(cert1_raw or "")
+            c2 = str(cert2_raw or "")
+            parts = [
+                f"INIT_MEM_STR {_LJOIN_CERT1_ADDR} {c1}",
+                f"INIT_REG {_LJOIN_C1REG} {_LJOIN_CERT1_ADDR}",
+                f"INIT_MEM_STR {_LJOIN_CERT2_ADDR} {c2}",
+                f"INIT_REG {_LJOIN_C2REG} {_LJOIN_CERT2_ADDR}",
+                f"LJOIN {_LJOIN_C1REG} {_LJOIN_C2REG} {cost}",
+            ]
+            return "\n".join(parts)
+        c1i = int(c1reg_v) if c1reg_v is not None else 0
+        c2i = int(c2reg_v) if c2reg_v is not None else 0
+        return f"LJOIN {c1i} {c2i} {cost}"
     if op == "reveal":
         m = int(instr.get("module", 0))
         ti, tj = m // 4, m % 4
@@ -374,10 +421,11 @@ def _call_runner(state: VMState, prog_lines: List[str], max_steps: int) -> VMSta
     ) as pf:
         prog_path = pf.name
         pf.write(f"FUEL {max_steps}\n")
-        for line in prog_lines:
-            line = line.strip()
-            if line and not line.startswith("#") and not line.startswith(";"):
-                pf.write(line + "\n")
+        for line_group in prog_lines:
+            for line in line_group.split("\n"):
+                line = line.strip()
+                if line and not line.startswith("#") and not line.startswith(";"):
+                    pf.write(line + "\n")
 
     try:
         result = subprocess.run(
