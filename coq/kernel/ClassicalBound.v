@@ -275,8 +275,7 @@ Qed.
     1. Final μ-ledger = 0 (if not, μ-monotonicity violated)
     2. CHSH value from receipts = 2 (if not, trace doesn't achieve bound)
 
-    Tests verify this in tests/test_classical_bound.py. If test passes, bound
-    is achieved. If test fails, find the bug.
+    The Coq proof below verifies the bound is achieved constructively.
 *)
 Theorem classical_bound_achieved :
   exists (fuel : nat) (trace : list vm_instruction),

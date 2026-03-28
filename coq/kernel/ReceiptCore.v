@@ -10,16 +10,16 @@
 
     THE CORE CLAIM:
     Receipts are finite traces (r_op, r_payload) that can be DECODED via
-    channel predicates (line 23) into payload streams (line 26). The decoder
+    channel predicates into payload streams. The decoder
     is generic - works for any channel/trace combination. This is the universal
     receipt abstraction.
 
     WHAT THIS PROVES:
-    - Receipt: Abstract receipt structure (opcode + payload, line 12)
-    - ReceiptChannel: Boolean predicate for filtering receipts (line 23)
-    - decode: Extract payload stream for matching receipts (line 26)
-    - decodes_to: Predicate asserting decoded stream equality (line 30)
-    - decodes_to_refl: Reflexivity - decode always produces itself (line 33)
+    - Receipt: Abstract receipt structure (opcode + payload)
+    - ReceiptChannel: Boolean predicate for filtering receipts
+    - decode: Extract payload stream for matching receipts
+    - decodes_to: Predicate asserting decoded stream equality
+    - decodes_to_refl: Reflexivity - decode always produces itself
 
     PHYSICAL INTERPRETATION:
     Receipts are the "observational outcomes" of computation. Like experimental
@@ -29,7 +29,7 @@
 
     FALSIFICATION:
     Show that decode(ch, tr) ≠ decode(ch, tr) for some channel/trace. This
-    would violate decodes_to_refl (line 33) and break reflexivity.
+    would violate decodes_to_refl and break reflexivity.
 
     Or prove the channel abstraction is insufficiently expressive - can't
     distinguish some operationally distinct receipt sequences. Add more

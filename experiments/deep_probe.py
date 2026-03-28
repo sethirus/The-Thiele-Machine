@@ -631,7 +631,7 @@ def report(program: List[Dict[str, Any]], state: VMState, static: Dict):
     print()
     print("┌─ PROGRAM STRUCTURE ────────────────────────────────────────────────")
     print(f"│  Static instruction count : {static['total_instructions']}")
-    print(f"│  Unique opcodes used      : {static['unique_opcodes']} / 38")
+    print(f"│  Unique opcodes used      : {static['unique_opcodes']} / 40")
     print(f"│  Static cost upper bound  : {static['static_cost_upper_bound']}")
     print(f"│  Actual mu (executed)     : {state.vm_mu}")
     print(f"│")

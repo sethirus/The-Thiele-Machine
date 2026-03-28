@@ -1,0 +1,88 @@
+{
+  "obligations": [
+    {
+      "artifact": "artifacts/final_claim_audit/repository_non_circularity_scope.json",
+      "backing_files": [
+        "coq/kernel/NonCircularityAudit.v",
+        "artifacts/proof_dependency_connectivity.json",
+        "INQUISITOR_REPORT.md"
+      ],
+      "name": "Repository-wide non-circularity theorem",
+      "status": "open-but-ci-backed",
+      "summary": "Tracks the current repo-wide non-circularity boundary and the existing dependency evidence surfaces."
+    },
+    {
+      "artifact": "artifacts/final_claim_audit/dependency_manifest_certificate.json",
+      "backing_files": [
+        "artifacts/proof_dependency_dag.json",
+        "artifacts/proof_dependency_connectivity.json",
+        "artifacts/proof_dependency_file_graph.mmd",
+        "artifacts/isomorphism_bitlock_manifest.json",
+        "coq/INQUISITOR_ASSUMPTIONS.json",
+        "coq/artifacts/print_assumptions_ci_report.json",
+        "INQUISITOR_REPORT.md"
+      ],
+      "name": "Tool-linked dependency manifest certificate",
+      "status": "open-but-ci-backed",
+      "summary": "Pins the current dependency/audit surfaces with hashes so the assumption boundary is externally inspectable."
+    },
+    {
+      "artifact": "artifacts/final_claim_audit/semantic_partition_inventory.json",
+      "backing_files": [
+        "coq/kernel/MasterSummary.v",
+        "README.md"
+      ],
+      "name": "Formal completeness theorem for the semantic partition",
+      "status": "open-but-ci-backed",
+      "summary": "Enumerates the current semantic boundary inventory and records that the completeness theorem remains open."
+    },
+    {
+      "artifact": "artifacts/final_claim_audit/cross_layer_equivalence_scope.json",
+      "backing_files": [
+        "coq/kernel/MasterSummary.v",
+        "README.md",
+        "tests/test_cross_layer_bisimulation.py",
+        "tests/test_no_shortcuts_proof_connectivity.py"
+      ],
+      "name": "Repository decision on full cross-layer state identity",
+      "status": "open-but-ci-backed",
+      "summary": "Makes the current repo decision explicit: verification transfer is observable-only, not full-state identity."
+    },
+    {
+      "artifact": "artifacts/final_claim_audit/physics_research_boundaries.json",
+      "backing_files": [
+        "README.md",
+        "coq/kernel/EinsteinEmergence.v",
+        "coq/kernel/EinsteinEquations4D.v",
+        "coq/kernel/MuGravity.v"
+      ],
+      "name": "Physics-reading theorem suite",
+      "status": "open-but-ci-backed",
+      "summary": "Captures which gravity/physics/constant-reading files remain research-layer material rather than core kernel guarantees."
+    },
+    {
+      "artifact": "artifacts/final_claim_audit/raychaudhuri_einstein_closure.json",
+      "backing_files": [
+        "coq/kernel/MasterSummary.v",
+        "coq/kernel/EinsteinEmergence.v",
+        "coq/kernel/DiscreteRaychaudhuri.v",
+        "coq/kernel/NoFIToEinstein.v"
+      ],
+      "name": "Raychaudhuri-to-Einstein closure from independent geometry",
+      "status": "open-but-ci-backed",
+      "summary": "Records that the generic corridor theorem abstracts over EinsteinTarget; discrete target is discharged but standalone geometry refinement is open."
+    },
+    {
+      "artifact": "artifacts/final_claim_audit/proof_spine_reduction_status.json",
+      "backing_files": [
+        "coq/kernel/MasterSummary.v",
+        "artifacts/proof_dependency_dag.json"
+      ],
+      "name": "Single-file proof-spine inlining or equivalence reduction",
+      "status": "open-but-ci-backed",
+      "summary": "Records that the current trust surface is still an indexed proof bundle, not a one-file proof object."
+    }
+  ],
+  "source_file": "coq/kernel/MasterSummary.v",
+  "source_sha256": "092730d69d7e620d18c2f203d1555ff23af3a8084be94166f32acc3cde22649b"
+}

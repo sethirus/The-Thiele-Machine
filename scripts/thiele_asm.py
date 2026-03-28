@@ -25,7 +25,7 @@ Syntax:
     .DATA 10 42                 # data memory initialization: mem[10] = 42
     FUEL 1000                   # max execution steps (trace format only)
 
-ISA Reference (38 opcodes):
+ISA Reference (47 opcodes, including 7 categorical morphism ops in Phase 7):
     Opcode   | Encoding  | Syntax
     ---------+-----------+-------
     PNEW     | 0x00      | PNEW {region} cost       — or — PNEW a b cost
@@ -65,6 +65,8 @@ ISA Reference (38 opcodes):
     SHR      | 0x22      | SHR dst src1 src2 cost
     MUL      | 0x23      | MUL dst src1 src2 cost
     LUI      | 0x24      | LUI dst imm cost          — like LOAD_IMM
+    TENSOR_SET|0x25      | TENSOR_SET mid i j value cost — per-module tensor write
+    TENSOR_GET|0x26      | TENSOR_GET rd mid i j cost    — per-module tensor read
     HALT     | 0xFF      | HALT cost
 """
 from __future__ import annotations
@@ -89,6 +91,7 @@ OPCODES: dict[str, int] = {
     "HEAP_LOAD": 0x1C, "HEAP_STORE": 0x1D, "CERTIFY": 0x1E,
     "AND": 0x1F, "OR": 0x20, "SHL": 0x21, "SHR": 0x22,
     "MUL": 0x23, "LUI": 0x24,
+    "TENSOR_SET": 0x25, "TENSOR_GET": 0x26,
     "HALT": 0xFF,
 }
 
@@ -287,6 +290,33 @@ def assemble(source: str) -> tuple[list[int], dict[int, int], dict[str, Any]]:
                 cost = _parse_int(st[2], labels) if len(st) > 2 else 0
                 instructions.append(_encode(opcode, rs_addr, src, cost))
 
+            elif op == "TENSOR_SET":
+                # TENSOR_SET mid i j value cost
+                # Binary encoding: op_a = (mid & 0xF) << 4 | (i & 0x3) << 2 | (j & 0x3)
+                #                  op_b = value & 0xFF, cost = cost & 0xFF
+                ts = arg.split()
+                mid = _parse_int(ts[0], labels) if ts else 0
+                ti = _parse_int(ts[1], labels) if len(ts) > 1 else 0
+                tj = _parse_int(ts[2], labels) if len(ts) > 2 else 0
+                val = _parse_int(ts[3], labels) if len(ts) > 3 else 0
+                cost = _parse_int(ts[4], labels) if len(ts) > 4 else 0
+                op_a = ((mid & 0xF) << 4) | ((ti & 0x3) << 2) | (tj & 0x3)
+                instructions.append(_encode(opcode, op_a, val & 0xFF, cost))
+
+            elif op == "TENSOR_GET":
+                # TENSOR_GET rd mid i j cost
+                # Binary encoding: op_a = rd & 0x1F
+                #                  op_b = (mid & 0xF) << 4 | (i & 0x3) << 2 | (j & 0x3)
+                #                  cost = cost & 0xFF
+                tg = arg.split()
+                rd = _parse_int(tg[0], labels) if tg else 0
+                mid = _parse_int(tg[1], labels) if len(tg) > 1 else 0
+                ti = _parse_int(tg[2], labels) if len(tg) > 2 else 0
+                tj = _parse_int(tg[3], labels) if len(tg) > 3 else 0
+                cost = _parse_int(tg[4], labels) if len(tg) > 4 else 0
+                op_b = ((mid & 0xF) << 4) | ((ti & 0x3) << 2) | (tj & 0x3)
+                instructions.append(_encode(opcode, rd & 0x1F, op_b, cost))
+
             else:
                 # Generic 3-operand: op_a op_b cost
                 g = arg.split()
@@ -343,6 +373,17 @@ def to_trace(instructions: list[int], data_memory: dict[int, int],
             lines.append(f"HALT {cost}")
         elif name == "RET":
             lines.append(f"RET {cost}")
+        elif name == "TENSOR_SET":
+            mid = (op_a >> 4) & 0xF
+            ti = (op_a >> 2) & 0x3
+            tj = op_a & 0x3
+            lines.append(f"TENSOR_SET {mid} {ti} {tj} {op_b} {cost}")
+        elif name == "TENSOR_GET":
+            rd = op_a & 0x1F
+            mid = (op_b >> 4) & 0xF
+            ti = (op_b >> 2) & 0x3
+            tj = op_b & 0x3
+            lines.append(f"TENSOR_GET {rd} {mid} {ti} {tj} {cost}")
         else:
             lines.append(f"{name} {op_a} {op_b} {cost}")
 

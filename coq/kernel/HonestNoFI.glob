@@ -1,0 +1,296 @@
+DIGEST f90038f7a1ee4288120f5b077f668279
+FKernel.HonestNoFI
+R662:665 Coq.Lists.List <> <> lib
+R667:669 Coq.micromega.Lia <> <> lib
+R671:684 Coq.Arith.PeanoNat <> <> lib
+R686:691 Coq.Strings.String <> <> lib
+R701:713 Coq.Lists.List ListNotations <> mod
+R744:750 Kernel.VMState <> <> lib
+R752:757 Kernel.VMStep <> <> lib
+R759:773 Kernel.SimulationProof <> <> lib
+R775:794 Kernel.MuLedgerConservation <> <> lib
+R824:838 Kernel.MuShannonBridge <> <> lib
+R840:860 Kernel.MuShannonQuantitative <> <> lib
+R862:879 Kernel.StateSpaceCounting <> <> lib
+R909:921 Kernel.NoFreeInsight <> <> lib
+R923:952 Kernel.InformationGainToStrengthening <> <> lib
+prf 7140:7179 <> honest_nfi_information_theoretic_partial
+R7200:7202 Coq.Init.Datatypes <> nat ind
+binder 7193:7196 <> fuel:1
+R7214:7217 Coq.Init.Datatypes <> list ind
+R7219:7232 Kernel.VMStep VMStep vm_instruction ind
+binder 7206:7210 <> trace:2
+R7262:7268 Kernel.VMState <> VMState rec
+binder 7245:7250 <> s_init:3
+binder 7252:7258 <> s_final:4
+R7310:7317 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7283:7285 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7276:7282 Kernel.HonestNoFI <> s_final:4 var
+R7286:7291 Kernel.SimulationProof <> run_vm def
+R7293:7296 Kernel.HonestNoFI <> fuel:1 var
+R7298:7302 Kernel.HonestNoFI <> trace:2 var
+R7304:7309 Kernel.HonestNoFI <> s_init:3 var
+R7357:7412 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7318:7350 Kernel.MuShannonBridge <> trace_info_priced def
+R7352:7356 Kernel.HonestNoFI <> trace:2 var
+R7469:7479 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7512:7512 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7413:7450 Kernel.MuShannonBridge <> cert_setter_executions def
+R7452:7455 Kernel.HonestNoFI <> fuel:1 var
+R7457:7461 Kernel.HonestNoFI <> trace:2 var
+R7463:7468 Kernel.HonestNoFI <> s_init:3 var
+R7495:7497 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R7489:7493 Kernel.VMState <> vm_mu proj
+R7480:7486 Kernel.HonestNoFI <> s_final:4 var
+R7506:7510 Kernel.VMState <> vm_mu proj
+R7498:7503 Kernel.HonestNoFI <> s_init:3 var
+R7593:7641 Kernel.MuShannonBridge <> info_priced_cert_executions_bound thm
+R7593:7641 Kernel.MuShannonBridge <> info_priced_cert_executions_bound thm
+prf 7976:8010 <> honest_nfi_trace_separation_partial
+binder 8025:8028 <> fuel:5
+binder 8030:8034 <> trace:6
+binder 8036:8040 <> omega:7
+R8051:8051 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8107:8119 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 8059:8059 <> s:8
+R8072:8075 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8062:8063 Coq.Lists.List <> In def
+R8067:8071 Kernel.HonestNoFI <> omega:7 var
+R8065:8065 Kernel.HonestNoFI <> s:8 var
+R8103:8105 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8089:8101 Kernel.VMState <> csr_cert_addr proj
+R8079:8085 Kernel.VMState <> vm_csrs proj
+R8076:8076 Kernel.HonestNoFI <> s:8 var
+R8120:8120 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8197:8209 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 8128:8128 <> s:9
+R8141:8144 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8131:8132 Coq.Lists.List <> In def
+R8136:8140 Kernel.HonestNoFI <> omega:7 var
+R8134:8134 Kernel.HonestNoFI <> s:9 var
+R8192:8195 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R8178:8190 Kernel.VMState <> csr_cert_addr proj
+R8168:8174 Kernel.VMState <> vm_csrs proj
+R8146:8151 Kernel.SimulationProof <> run_vm def
+R8153:8156 Kernel.HonestNoFI <> fuel:5 var
+R8158:8162 Kernel.HonestNoFI <> trace:6 var
+R8164:8164 Kernel.HonestNoFI <> s:9 var
+R8286:8297 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8210:8214 Coq.Lists.List <> NoDup ind
+R8217:8219 Coq.Lists.List <> map def
+R8280:8284 Kernel.HonestNoFI <> omega:7 var
+binder 8226:8226 <> s:10
+R8264:8276 Kernel.VMState <> csr_cert_addr proj
+R8254:8260 Kernel.VMState <> vm_csrs proj
+R8232:8237 Kernel.SimulationProof <> run_vm def
+R8239:8242 Kernel.HonestNoFI <> fuel:5 var
+R8244:8248 Kernel.HonestNoFI <> trace:6 var
+R8250:8250 Kernel.HonestNoFI <> s:10 var
+R8315:8318 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8298:8308 Coq.Lists.List <> length abbrev
+R8310:8314 Kernel.HonestNoFI <> omega:7 var
+R8319:8363 Kernel.MuShannonQuantitative <> count_cert_addr_setters def
+R8365:8369 Kernel.HonestNoFI <> trace:6 var
+R8389:8440 Kernel.MuShannonQuantitative <> separation_requires_cert_count thm
+R8389:8440 Kernel.MuShannonQuantitative <> separation_requires_cert_count thm
+prf 9024:9068 <> honest_nfi_general_feasible_reduction_partial
+binder 9083:9086 <> fuel:11
+binder 9088:9092 <> trace:12
+binder 9094:9094 <> s:13
+binder 9096:9106 <> omega_prior:14
+binder 9108:9122 <> omega_posterior:15
+binder 9124:9127 <> tree:16
+R9203:9214 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9138:9184 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R9186:9189 Kernel.HonestNoFI <> fuel:11 var
+R9191:9195 Kernel.HonestNoFI <> trace:12 var
+R9197:9197 Kernel.HonestNoFI <> s:13 var
+R9199:9202 Kernel.HonestNoFI <> tree:16 var
+R9270:9281 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9261:9263 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R9216:9244 Kernel.MuShannonBridge <> feasible_size def
+R9246:9260 Kernel.HonestNoFI <> omega_posterior:15 var
+R9361:9372 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9282:9327 Kernel.MuShannonBridge <> tree_covers_feasible_reduction def
+R9329:9332 Kernel.HonestNoFI <> tree:16 var
+R9334:9344 Kernel.HonestNoFI <> omega_prior:14 var
+R9346:9360 Kernel.HonestNoFI <> omega_posterior:15 var
+R9502:9513 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R9428:9442 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R9373:9383 Coq.Arith.PeanoNat Nat log2_up def
+R9386:9414 Kernel.MuShannonBridge <> feasible_size def
+R9416:9426 Kernel.HonestNoFI <> omega_prior:14 var
+R9443:9453 Coq.Arith.PeanoNat Nat log2_up def
+R9456:9484 Kernel.MuShannonBridge <> feasible_size def
+R9486:9500 Kernel.HonestNoFI <> omega_posterior:15 var
+R9543:9545 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R9537:9541 Kernel.VMState <> vm_mu proj
+R9515:9520 Kernel.SimulationProof <> run_vm def
+R9522:9525 Kernel.HonestNoFI <> fuel:11 var
+R9527:9531 Kernel.HonestNoFI <> trace:12 var
+R9533:9533 Kernel.HonestNoFI <> s:13 var
+R9549:9553 Kernel.VMState <> vm_mu proj
+R9546:9546 Kernel.HonestNoFI <> s:13 var
+R9574:9635 Kernel.MuShannonBridge <> info_priced_arbitrary_feasible_reduction_bound thm
+R9574:9635 Kernel.MuShannonBridge <> info_priced_arbitrary_feasible_reduction_bound thm
+prf 10084:10128 <> honest_nfi_fibered_feasible_reduction_partial
+binder 10143:10146 <> fuel:17
+binder 10148:10152 <> trace:18
+binder 10154:10154 <> s:19
+binder 10156:10166 <> omega_prior:20
+binder 10168:10182 <> omega_posterior:21
+binder 10184:10187 <> tree:22
+R10263:10274 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10198:10244 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R10246:10249 Kernel.HonestNoFI <> fuel:17 var
+R10251:10255 Kernel.HonestNoFI <> trace:18 var
+R10257:10257 Kernel.HonestNoFI <> s:19 var
+R10259:10262 Kernel.HonestNoFI <> tree:22 var
+R10330:10341 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10321:10323 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R10276:10304 Kernel.MuShannonBridge <> feasible_size def
+R10306:10320 Kernel.HonestNoFI <> omega_posterior:21 var
+R10415:10426 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10342:10381 Kernel.MuShannonBridge <> FiberedFeasibleReduction def
+R10383:10386 Kernel.HonestNoFI <> tree:22 var
+R10388:10398 Kernel.HonestNoFI <> omega_prior:20 var
+R10400:10414 Kernel.HonestNoFI <> omega_posterior:21 var
+R10556:10567 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R10482:10496 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R10427:10437 Coq.Arith.PeanoNat Nat log2_up def
+R10440:10468 Kernel.MuShannonBridge <> feasible_size def
+R10470:10480 Kernel.HonestNoFI <> omega_prior:20 var
+R10497:10507 Coq.Arith.PeanoNat Nat log2_up def
+R10510:10538 Kernel.MuShannonBridge <> feasible_size def
+R10540:10554 Kernel.HonestNoFI <> omega_posterior:21 var
+R10597:10599 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R10591:10595 Kernel.VMState <> vm_mu proj
+R10569:10574 Kernel.SimulationProof <> run_vm def
+R10576:10579 Kernel.HonestNoFI <> fuel:17 var
+R10581:10585 Kernel.HonestNoFI <> trace:18 var
+R10587:10587 Kernel.HonestNoFI <> s:19 var
+R10603:10607 Kernel.VMState <> vm_mu proj
+R10600:10600 Kernel.HonestNoFI <> s:19 var
+R10628:10687 Kernel.MuShannonBridge <> info_priced_fibered_feasible_reduction_bound thm
+R10628:10687 Kernel.MuShannonBridge <> info_priced_fibered_feasible_reduction_bound thm
+prf 11222:11274 <> honest_nfi_posterior_representative_reduction_partial
+binder 11289:11292 <> fuel:23
+binder 11294:11298 <> trace:24
+binder 11300:11300 <> s:25
+binder 11302:11312 <> omega_prior:26
+binder 11314:11328 <> omega_posterior:27
+binder 11330:11333 <> tree:28
+R11356:11390 Kernel.MuShannonBridge <> ObservationFunction def
+binder 11347:11352 <> obs_fn:29
+R11467:11478 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11402:11448 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R11450:11453 Kernel.HonestNoFI <> fuel:23 var
+R11455:11459 Kernel.HonestNoFI <> trace:24 var
+R11461:11461 Kernel.HonestNoFI <> s:25 var
+R11463:11466 Kernel.HonestNoFI <> tree:28 var
+R11534:11545 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11525:11527 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R11480:11508 Kernel.MuShannonBridge <> feasible_size def
+R11510:11524 Kernel.HonestNoFI <> omega_posterior:27 var
+R11634:11645 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11546:11593 Kernel.MuShannonBridge <> PosteriorRepresentativeReduction def
+R11595:11600 Kernel.HonestNoFI <> obs_fn:29 var
+R11602:11605 Kernel.HonestNoFI <> tree:28 var
+R11607:11617 Kernel.HonestNoFI <> omega_prior:26 var
+R11619:11633 Kernel.HonestNoFI <> omega_posterior:27 var
+R11775:11786 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11701:11715 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R11646:11656 Coq.Arith.PeanoNat Nat log2_up def
+R11659:11687 Kernel.MuShannonBridge <> feasible_size def
+R11689:11699 Kernel.HonestNoFI <> omega_prior:26 var
+R11716:11726 Coq.Arith.PeanoNat Nat log2_up def
+R11729:11757 Kernel.MuShannonBridge <> feasible_size def
+R11759:11773 Kernel.HonestNoFI <> omega_posterior:27 var
+R11816:11818 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R11810:11814 Kernel.VMState <> vm_mu proj
+R11788:11793 Kernel.SimulationProof <> run_vm def
+R11795:11798 Kernel.HonestNoFI <> fuel:23 var
+R11800:11804 Kernel.HonestNoFI <> trace:24 var
+R11806:11806 Kernel.HonestNoFI <> s:25 var
+R11822:11826 Kernel.VMState <> vm_mu proj
+R11819:11819 Kernel.HonestNoFI <> s:25 var
+R11847:11914 Kernel.MuShannonBridge <> info_priced_posterior_representative_reduction_bound thm
+R11847:11914 Kernel.MuShannonBridge <> info_priced_posterior_representative_reduction_bound thm
+prf 12207:12244 <> honest_nfi_conditional_shannon_partial
+binder 12259:12262 <> fuel:30
+binder 12264:12268 <> trace:31
+binder 12270:12270 <> s:32
+binder 12272:12272 <> n:33
+R12358:12369 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12283:12288 Coq.Lists.List <> Forall ind
+R12353:12357 Kernel.HonestNoFI <> trace:31 var
+binder 12295:12295 <> i:34
+R12324:12327 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12317:12319 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12300:12314 Kernel.VMStep VMStep is_cert_setterb def
+R12316:12316 Kernel.HonestNoFI <> i:34 var
+R12320:12323 Coq.Init.Datatypes <> true constr
+R12346:12349 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R12328:12343 Kernel.VMStep VMStep instruction_cost def
+R12345:12345 Kernel.HonestNoFI <> i:34 var
+R12447:12458 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12433:12436 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R12370:12419 Kernel.MuShannonQuantitative <> cert_setter_executions_local def
+R12421:12424 Kernel.HonestNoFI <> fuel:30 var
+R12426:12430 Kernel.HonestNoFI <> trace:31 var
+R12432:12432 Kernel.HonestNoFI <> s:32 var
+R12437:12444 Coq.Arith.PeanoNat Nat log2 def
+R12446:12446 Kernel.HonestNoFI <> n:33 var
+R12500:12503 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R12488:12490 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R12482:12486 Kernel.VMState <> vm_mu proj
+R12460:12465 Kernel.SimulationProof <> run_vm def
+R12467:12470 Kernel.HonestNoFI <> fuel:30 var
+R12472:12476 Kernel.HonestNoFI <> trace:31 var
+R12478:12478 Kernel.HonestNoFI <> s:32 var
+R12494:12498 Kernel.VMState <> vm_mu proj
+R12491:12491 Kernel.HonestNoFI <> s:32 var
+R12504:12511 Coq.Arith.PeanoNat Nat log2 def
+R12513:12513 Kernel.HonestNoFI <> n:33 var
+R12533:12579 Kernel.MuShannonQuantitative <> conditional_shannon_bound thm
+R12533:12579 Kernel.MuShannonQuantitative <> conditional_shannon_bound thm
+prf 13221:13263 <> honest_nfi_quantitative_state_space_partial
+R13286:13292 Kernel.VMState <> VMState rec
+binder 13279:13279 <> s:35
+binder 13281:13282 <> s':36
+R13304:13306 Coq.Init.Datatypes <> nat ind
+binder 13296:13297 <> fa:37
+binder 13299:13300 <> ca:38
+R13315:13318 Coq.Init.Datatypes <> bool ind
+binder 13310:13311 <> ck:39
+R13334:13336 Coq.Init.Datatypes <> nat ind
+binder 13322:13325 <> flen:40
+binder 13327:13330 <> cost:41
+R13435:13446 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13348:13368 Kernel.VMStep VMStep vm_step ind
+R13370:13370 Kernel.HonestNoFI <> s:35 var
+R13385:13411 Kernel.VMStep VMStep instr_lassert constr
+R13413:13414 Kernel.HonestNoFI <> fa:37 var
+R13416:13417 Kernel.HonestNoFI <> ca:38 var
+R13419:13420 Kernel.HonestNoFI <> ck:39 var
+R13422:13425 Kernel.HonestNoFI <> flen:40 var
+R13427:13430 Kernel.HonestNoFI <> cost:41 var
+R13433:13434 Kernel.HonestNoFI <> s':36 var
+R13460:13462 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R13456:13459 Kernel.HonestNoFI <> flen:40 var
+binder 13451:13451 <> k:42
+R13503:13514 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13498:13501 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R13486:13488 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R13480:13484 Kernel.VMState <> vm_mu proj
+R13476:13477 Kernel.HonestNoFI <> s':36 var
+R13492:13496 Kernel.VMState <> vm_mu proj
+R13489:13489 Kernel.HonestNoFI <> s:35 var
+R13502:13502 Kernel.HonestNoFI <> k:42 var
+R13516:13519 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R13515:13515 Kernel.HonestNoFI <> k:42 var
+R13520:13546 Kernel.StateSpaceCounting StateSpaceCounting log2_nat def
+R13549:13555 Coq.Arith.PeanoNat Nat pow def
+R13559:13559 Kernel.HonestNoFI <> k:42 var
+R13623:13669 Kernel.StateSpaceCounting StateSpaceCounting no_free_insight_quantitative thm
+R13623:13669 Kernel.StateSpaceCounting StateSpaceCounting no_free_insight_quantitative thm

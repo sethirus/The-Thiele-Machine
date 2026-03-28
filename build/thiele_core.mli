@@ -14,9 +14,63 @@ type comparison =
 | Lt
 | Gt
 
+type uint =
+| Nil
+| D0 of uint
+| D1 of uint
+| D2 of uint
+| D3 of uint
+| D4 of uint
+| D5 of uint
+| D6 of uint
+| D7 of uint
+| D8 of uint
+| D9 of uint
+
+type uint0 =
+| Nil0
+| D10 of uint0
+| D11 of uint0
+| D12 of uint0
+| D13 of uint0
+| D14 of uint0
+| D15 of uint0
+| D16 of uint0
+| D17 of uint0
+| D18 of uint0
+| D19 of uint0
+| Da of uint0
+| Db of uint0
+| Dc of uint0
+| Dd of uint0
+| De of uint0
+| Df of uint0
+
+type uint1 =
+| UIntDecimal of uint
+| UIntHexadecimal of uint0
+
 val add : int -> int -> int
 
+val mul : int -> int -> int
+
 val eqb : int -> int -> bool
+
+val tail_add : int -> int -> int
+
+val tail_addmul : int -> int -> int -> int
+
+val tail_mul : int -> int -> int
+
+val of_uint_acc : uint -> int -> int
+
+val of_uint : uint -> int
+
+val of_hex_uint_acc : uint0 -> int -> int
+
+val of_hex_uint : uint0 -> int
+
+val of_num_uint : uint1 -> int
 
 val eqb0 : bool -> bool -> bool
 
@@ -28,12 +82,46 @@ module Nat :
 
   val sub : int -> int -> int
 
+  val eqb : int -> int -> bool
+
   val ltb : int -> int -> bool
 
   val divmod : int -> int -> int -> int -> int*int
 
+  val div : int -> int -> int
+
   val modulo : int -> int -> int
  end
+
+val in_dec : ('a1 -> 'a1 -> bool) -> 'a1 -> 'a1 list -> bool
+
+val nth : int -> 'a1 list -> 'a1 -> 'a1
+
+val rev : 'a1 list -> 'a1 list
+
+val map : ('a1 -> 'a2) -> 'a1 list -> 'a2 list
+
+val flat_map : ('a1 -> 'a2 list) -> 'a1 list -> 'a2 list
+
+val fold_left : ('a1 -> 'a2 -> 'a1) -> 'a2 list -> 'a1 -> 'a1
+
+val fold_right : ('a2 -> 'a1 -> 'a1) -> 'a1 -> 'a2 list -> 'a1
+
+val existsb : ('a1 -> bool) -> 'a1 list -> bool
+
+val forallb : ('a1 -> bool) -> 'a1 list -> bool
+
+val filter : ('a1 -> bool) -> 'a1 list -> 'a1 list
+
+val firstn : int -> 'a1 list -> 'a1 list
+
+val skipn : int -> 'a1 list -> 'a1 list
+
+val nodup : ('a1 -> 'a1 -> bool) -> 'a1 list -> 'a1 list
+
+val seq : int -> int -> int list
+
+val repeat : 'a1 -> int -> 'a1 list
 
 module Pos :
  sig
@@ -107,46 +195,6 @@ module N :
   val ones : int -> int
  end
 
-val zero : char
-
-val one : char
-
-val shift : bool -> char -> char
-
-val ascii_of_pos : int -> char
-
-val ascii_of_N : int -> char
-
-val ascii_of_nat : int -> char
-
-val n_of_digits : bool list -> int
-
-val n_of_ascii : char -> int
-
-val nat_of_ascii : char -> int
-
-val in_dec : ('a1 -> 'a1 -> bool) -> 'a1 -> 'a1 list -> bool
-
-val nth : int -> 'a1 list -> 'a1 -> 'a1
-
-val rev : 'a1 list -> 'a1 list
-
-val map : ('a1 -> 'a2) -> 'a1 list -> 'a2 list
-
-val fold_left : ('a1 -> 'a2 -> 'a1) -> 'a2 list -> 'a1 -> 'a1
-
-val fold_right : ('a2 -> 'a1 -> 'a1) -> 'a1 -> 'a2 list -> 'a1
-
-val forallb : ('a1 -> bool) -> 'a1 list -> bool
-
-val filter : ('a1 -> bool) -> 'a1 list -> 'a1 list
-
-val firstn : int -> 'a1 list -> 'a1 list
-
-val skipn : int -> 'a1 list -> 'a1 list
-
-val nodup : ('a1 -> 'a1 -> bool) -> 'a1 list -> 'a1 list
-
 module Z :
  sig
   val opp : int -> int
@@ -166,11 +214,35 @@ module Z :
   val of_nat : int -> int
  end
 
+val zero : char
+
+val one : char
+
+val shift : bool -> char -> char
+
+val ascii_of_pos : int -> char
+
+val ascii_of_N : int -> char
+
+val ascii_of_nat : int -> char
+
+val n_of_digits : bool list -> int
+
+val n_of_ascii : char -> int
+
+val nat_of_ascii : char -> int
+
 val eqb1 : char list -> char list -> bool
 
 val append : char list -> char list -> char list
 
+val string_of_list_ascii : char list -> char list
+
 val list_ascii_of_string : char list -> char list
+
+val pair_eq_dec :
+  ('a1 -> 'a1 -> bool) -> ('a2 -> 'a2 -> bool) -> ('a1*'a2) -> ('a1*'a2) ->
+  bool
 
 type moduleID = int
 
@@ -190,12 +262,32 @@ val nat_list_union : int list -> int list -> int list
 
 val nat_list_eq : int list -> int list -> bool
 
-type moduleState = { module_region : int list; module_axioms : axiomSet }
+type moduleState = { module_region : int list; module_axioms : axiomSet;
+                     module_mu_tensor : int list }
+
+val module_mu_tensor_default : int list
+
+val mk_module_state : int list -> axiomSet -> moduleState
+
+val list_update_at : int list -> int -> int -> int list
 
 val normalize_module : moduleState -> moduleState
 
+type morphismID = int
+
+type couplingData = { coupling_pairs : (int*int) list;
+                      coupling_label : char list }
+
+type morphismState = { morph_source : moduleID; morph_target : moduleID;
+                       morph_coupling : couplingData; morph_is_identity : 
+                       bool }
+
+val normalize_coupling : couplingData -> couplingData
+
 type partitionGraph = { pg_next_id : moduleID;
-                        pg_modules : (moduleID*moduleState) list }
+                        pg_modules : (moduleID*moduleState) list;
+                        pg_next_morph_id : morphismID;
+                        pg_morphisms : (morphismID*morphismState) list }
 
 val graph_lookup_modules :
   (moduleID*moduleState) list -> moduleID -> moduleState option
@@ -228,8 +320,40 @@ val graph_add_axiom : partitionGraph -> moduleID -> vMAxiom -> partitionGraph
 val graph_add_axioms :
   partitionGraph -> moduleID -> vMAxiom list -> partitionGraph
 
+val graph_update_module_tensor :
+  partitionGraph -> moduleID -> int -> int -> partitionGraph
+
 val graph_record_discovery :
   partitionGraph -> moduleID -> vMAxiom list -> partitionGraph
+
+val graph_lookup_morphism_list :
+  (morphismID*morphismState) list -> morphismID -> morphismState option
+
+val graph_lookup_morphism :
+  partitionGraph -> morphismID -> morphismState option
+
+val graph_add_morphism :
+  partitionGraph -> moduleID -> moduleID -> couplingData -> bool ->
+  partitionGraph*morphismID
+
+val graph_add_identity :
+  partitionGraph -> moduleID -> (partitionGraph*morphismID) option
+
+val graph_delete_morphism :
+  partitionGraph -> morphismID -> partitionGraph option
+
+val graph_cascade_delete_morphisms :
+  partitionGraph -> moduleID -> partitionGraph
+
+val relational_compose : (int*int) list -> (int*int) list -> (int*int) list
+
+val graph_compose_morphisms :
+  partitionGraph -> morphismID -> morphismID -> (partitionGraph*morphismID)
+  option
+
+val graph_tensor_morphisms :
+  partitionGraph -> morphismID -> morphismID -> (partitionGraph*morphismID)
+  option
 
 val rEG_COUNT : int
 
@@ -266,27 +390,27 @@ type vMState = { vm_graph : partitionGraph; vm_csrs : cSRState;
                  vm_logic_acc : int; vm_mstatus : int;
                  vm_witness : witnessCounts; vm_certified : bool }
 
-val word32_mask : int
+val module_tensor_entry : vMState -> moduleID -> int -> int -> int
 
-val word32 : int -> int
+val word64 : int -> int
 
-val word32_xor : int -> int -> int
+val word64_xor : int -> int -> int
 
-val word32_add : int -> int -> int
+val word64_add : int -> int -> int
 
-val word32_sub : int -> int -> int
+val word64_sub : int -> int -> int
 
-val word32_popcount : int -> int
+val word64_popcount : int -> int
 
-val word32_and : int -> int -> int
+val word64_and : int -> int -> int
 
-val word32_or : int -> int -> int
+val word64_or : int -> int -> int
 
-val word32_shl : int -> int -> int
+val word64_shl : int -> int -> int
 
-val word32_shr : int -> int -> int
+val word64_shr : int -> int -> int
 
-val word32_mul : int -> int -> int
+val word64_mul : int -> int -> int
 
 val reg_index : int -> int
 
@@ -303,6 +427,14 @@ val write_mem : vMState -> int -> int -> int list
 val swap_regs : int list -> int -> int -> int list
 
 val ascii_checksum : char list -> int
+
+val word_to_bytes_4 : int -> char list
+
+val words_to_bytes : int list -> int -> char list
+
+val list_read_at : int list -> int -> int
+
+val mem_to_string : int list -> int -> char list
 
 module CertCheck :
  sig
@@ -416,16 +548,12 @@ module VMStep :
 
   val check_model : char list -> char list -> bool
 
-  type lassert_certificate =
-  | Coq_lassert_cert_unsat of char list
-  | Coq_lassert_cert_sat of char list
-
   type vm_instruction =
   | Coq_instr_pnew of int list * int
   | Coq_instr_psplit of moduleID * int list * int list * int
   | Coq_instr_pmerge of moduleID * moduleID * int
-  | Coq_instr_lassert of moduleID * char list * lassert_certificate * int
-  | Coq_instr_ljoin of char list * char list * int
+  | Coq_instr_lassert of int * int * bool * int * int
+  | Coq_instr_ljoin of int * int * int
   | Coq_instr_mdlacc of moduleID * int
   | Coq_instr_pdiscover of moduleID * vMAxiom list * int
   | Coq_instr_xfer of int * int * int
@@ -459,6 +587,15 @@ module VMStep :
   | Coq_instr_shr of int * int * int * int
   | Coq_instr_mul of int * int * int * int
   | Coq_instr_lui of int * int * int
+  | Coq_instr_tensor_set of moduleID * int * int * int * int
+  | Coq_instr_tensor_get of int * moduleID * int * int * int
+  | Coq_instr_morph of int * moduleID * moduleID * int * int
+  | Coq_instr_compose of int * morphismID * morphismID * int
+  | Coq_instr_morph_id of int * moduleID * int
+  | Coq_instr_morph_delete of morphismID * int
+  | Coq_instr_morph_assert of morphismID * char list * char list * int
+  | Coq_instr_morph_tensor of int * morphismID * morphismID * int
+  | Coq_instr_morph_get of int * morphismID * int * int
 
   val instruction_cost : vm_instruction -> int
 
@@ -475,8 +612,6 @@ module VMStep :
   val apply_cost : vMState -> vm_instruction -> int
 
   val latch_err : vMState -> bool -> bool
-
-  val list_update_at : int list -> int -> int -> int list
 
   val vm_mu_tensor_add_at : vMState -> int -> int -> int list
 
@@ -505,6 +640,8 @@ val vm_apply : vMState -> VMStep.vm_instruction -> vMState
 val vm_apply_nofi : vMState -> VMStep.vm_instruction -> vMState
 
 val vm_apply_runtime : vMState -> VMStep.vm_instruction -> vMState
+
+val pnew_chain : int -> vMState -> int list -> int -> vMState
 
 type kamiSnapshot = { snap_pc : int; snap_mu : int; snap_err : bool;
                       snap_halted : bool; snap_regs : (int -> int);

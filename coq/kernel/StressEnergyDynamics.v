@@ -38,8 +38,6 @@ From Kernel Require Import KernelPhysics.
     FALSIFICATION:
     Run VM traces with varying information densities. If PNEW frequency
     does NOT correlate with stress_energy, this theory is false.
-
-    TEST: tests/test_stress_energy_pnew.py
 *)
 
 Open Scope R_scope.
@@ -231,8 +229,6 @@ Qed.
     FALSIFICATION:
     If no correlation exists, the fundamental premise
     "information curves spacetime" is empirically false.
-
-    TEST FILE: tests/test_stress_energy_pnew.py
 *)
 
 (** Helper: extract module region (simplified) *)
@@ -256,7 +252,7 @@ Definition module_region_of (s : VMState) (m : ModuleID) : list nat :=
 
     This is Einstein's equation emerging from computation:
         G_μν ∝ T_μν
-    where both sides emerge from discrete μ-ledger dynamics.
+    where both sides are defined in terms of mu-ledger quantities.
 *)
 Theorem information_gravity_coupling : forall s m threshold,
   high_stress_energy_module s m threshold ->

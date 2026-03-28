@@ -1,19 +1,24 @@
-(** * BornRule: Deriving measurement probabilities from μ-cost accounting
+(** * BornRule: Measurement probabilities on the Bloch sphere
 
-    THE CLAIM:
-    The Born rule (p_i = |⟨i|ψ⟩|²) isn't a postulate. It's DERIVED from
-    information accounting constraints. When you measure a quantum state,
-    you extract information from the environment. The probabilities emerge
-    from requiring:
-    1. Information conservation (total info preserved)
-    2. μ-cost equals information gained
-    3. Purification (mixed states are pure + environment)
+    THE RESULT:
+    For a qubit parameterized by Bloch vector (x,y,z), if the probability
+    rule P is linear in z (affine) with P(z=+1)=1 and P(z=-1)=0, then
+    P(z) = (1+z)/2. This is a uniqueness theorem for affine interpolation
+    on [-1,1] with fixed boundary conditions.
 
-    WHY THIS MATTERS:
-    Quantum mechanics textbooks POSTULATE the Born rule. This file shows it's
-    actually a CONSEQUENCE of information accounting. If you accept that learning
-    outcomes costs information proportional to entropy reduction, the Born rule
-    is the unique consistent probability assignment. Not magic - accounting.
+    WHAT THIS IS:
+    The Born rule probability assignment P(0)=(1+z)/2, P(1)=(1-z)/2 is the
+    unique affine probability rule satisfying the boundary conditions. This
+    is algebra: solve P(z)=az+b with P(1)=1, P(-1)=0.
+
+    WHAT THIS IS NOT:
+    This is NOT a derivation of the Born rule from information accounting
+    or mu-cost. The linearity hypothesis (is_linear_in_z) carries the
+    essential content. See BornRuleLinearity.v for the argument connecting
+    no-signaling to linearity (which is a definitional equivalence, as
+    noted in that file). See ProbabilityImpossibility.v for the honest
+    negative result: composition alone cannot uniquely determine the
+    Born rule.
 
     THE SETUP:
     Qubit state on Bloch sphere: |ψ⟩ parameterized by (x,y,z) where x²+y²+z²≤1.
@@ -21,18 +26,12 @@
     - P(0) = (1+z)/2
     - P(1) = (1-z)/2
 
-    These satisfy P(0)+P(1)=1 and emerge from the Bloch sphere geometry.
-
-    THE DERIVATION:
-    Pure states (x²+y²+z²=1): measurement costs zero μ (outcome certain)
-    Mixed states (x²+y²+z²<1): measurement costs μ = (1-r²)/2 (uncertainty reduced)
-
-    This connects quantum probabilities to thermodynamic cost. The Born rule
-    is just information accounting made consistent.
+    These satisfy P(0)+P(1)=1 and are the standard Bloch sphere probabilities.
 
     FALSIFICATION:
-    Find a different probability assignment that conserves information and
-    matches experimental data. Good luck. Born rule is the unique solution.
+    Find a different probability assignment that is affine in z and
+    matches the boundary conditions. The uniqueness proof shows this
+    is impossible.
 *)
 
 (* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)

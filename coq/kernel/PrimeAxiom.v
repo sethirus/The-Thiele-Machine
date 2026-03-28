@@ -1,5 +1,11 @@
 (** * PrimeAxiom: State-based No Free Insight on the Kernel VM
 
+    WHY THIS FILE EXISTS:
+    No Free Insight is the central economic law of the Thiele Machine:
+    certification cannot be obtained without paying mu-cost. This file
+    proves that law directly on the kernel VM by case-splitting over all
+    40 instructions.
+
     THE KEY THEOREM: vm_certified = true implies vm_mu > 0.
 
     This is the state-based formulation of No Free Insight:
@@ -7,8 +13,16 @@
     and it charges S delta_mu (at least 1). Therefore, reaching a
     certified state requires paying at least 1 unit of mu.
 
-    Previously this was proven only in the isolated ThielePrime machine.
-    Now it holds for the full 32-opcode kernel VM.
+    The multi-step theorem kernel_certified_implies_positive_mu extends
+    this to arbitrary-fuel execution via run_vm: starting uncertified
+    with mu=0, if execution ever reaches vm_certified=true then mu > 0.
+
+    FALSIFICATION:
+    Add an instruction that sets vm_certified to true without charging
+    at least S 0 = 1 unit of mu. The single_step theorem would then fail
+    its case split, and the multi-step induction would collapse.
+    Alternatively, find a run_vm trace that reaches certified=true with
+    mu=0 -- this would directly contradict kernel_certified_implies_positive_mu.
 *)
 
 From Coq Require Import List Arith.PeanoNat Lia.

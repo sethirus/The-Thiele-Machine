@@ -1,6 +1,8 @@
 # Example Programs
 
-All 20 example programs are verified to assemble and run correctly in the Thiele VM.
+This directory contains the legacy example set at the top level and an extended program corpus under `examples/programs/`.
+
+`examples/run_all.py` discovers and batch-runs both locations through the current extracted VM API.
 
 Run all at once:
 ```bash
@@ -10,6 +12,8 @@ python examples/run_all.py
 ---
 
 ## Programs
+
+Top-level legacy examples:
 
 | File | Description |
 |------|-------------|
@@ -33,6 +37,8 @@ python examples/run_all.py
 | [stress_test.asm](stress_test.asm) | 200 × 10 = 2,000 inner iterations — long-running correctness test |
 | [subroutine.asm](subroutine.asm) | CALL/RET subroutine demo — multiply-by-2 via a called function |
 | [xor_alu.asm](xor_alu.asm) | XOR_LOAD, XOR_ADD, XOR_SWAP, XOR_RANK — all XOR-family instructions |
+
+Additional programs under `examples/programs/` include broader ISA coverage and larger proof-style workloads such as `all_opcodes_test.asm`, `goldbach_witness.asm`, `prime_sieve_demo.asm`, and `verified_math.asm`.
 
 ---
 
@@ -63,14 +69,15 @@ print(result)
 
 ## Expected Results Summary
 
+Representative outcomes only; exact `pc`/`mu` values depend on the current assembler and VM implementation.
+
 | Program | Cycles | μ-cost | Notes |
 |---------|--------|--------|-------|
-| benchmark | 202 | 201 | 100-iter loop |
-| bianchi_violation | 7 | — | err=True (expected) |
-| chsh_full | 5 | 4 | 4 CHSH_TRIAL + HALT |
-| conditional | ~25 | ~24 | Sum 10+…+1 = 55 in r2 |
-| edge_cases | ~8 | — | Boundary register/cost tests |
-| fibonacci | ~22 | 22 | mem[0..7] = Fibonacci sequence |
-| stress_test | 4032 | 4031 | 2000-iteration nested loop |
+| benchmark | finite loop | positive | Countdown / throughput sanity check |
+| bianchi_violation | early stop | error path | `err=True` is expected |
+| chsh_full | short trace | small positive | CHSH opcode path exercise |
+| conditional | short loop | positive | Branching and arithmetic sanity check |
+| fibonacci | finite loop | positive | Fibonacci sequence in memory |
+| stress_test | long loop | larger positive | Extended execution sanity check |
 
 Bianchi violation programs are expected to set `err=True` — this is **correct** behaviour.

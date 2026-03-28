@@ -12,7 +12,7 @@ The claim was that this perspective would yield a coherent computational model w
 \begin{itemize}
     \item Formally provable properties (no hand-waving)
     \item Executable implementations (not just paper proofs)
-    \item Connections to fundamental physics (not just analogies)
+    \item Structural parallels with physics (formalized analogies, not derivations)
 \end{itemize}
 
 This conclusion evaluates whether these goals were achieved and clarifies which claims are proved, which are implemented, and which remain empirical hypotheses. The guiding standard is rebuildability: a reader should be able to reconstruct the model and its evidence from the thesis text alone.
@@ -38,11 +38,11 @@ This thesis has presented the Thiele Machine, a computational model that treats 
     
     \item \textbf{Observational No-Signaling}: The proof establishes that operations on one module cannot affect the observables of unrelated modules---a computational analog of Bell locality.
     
-    \item \textbf{Oracle Impossibility}: Three theorems in \path{OracleImpossibility.v}: \texttt{halting\_undecidable} (genuine diagonal argument), \texttt{oracle\_halts\_costs\_mu} (oracle soundness defined as cost $\geq 1$ per query, zero cost violates this), and \texttt{hypercomputation\_bounded} ($n$ queries cost $\geq n$ by definition). The halting proof is substantive; the cost bounds are design consistency checks confirming the pricing is self-consistent. This caps the model from above.
-    
-    \item \textbf{Turing Subsumption}: The two-step embedding TM $\to$ Minsky $\to$ Thiele, mechanized in \path{TM_to_Minsky.v} and \path{ThieleInstance.v}, proves that the model is at least Turing-complete. Combined with Oracle Impossibility, the model is exactly Turing-complete: it computes everything a Turing Machine can and nothing more.
+    \item \textbf{Oracle Impossibility}: The halting problem is undecidable (standard diagonal argument). Oracle queries cost $\mu \geq 1$ by definition. This caps the model from above.
+
+    \item \textbf{Turing Completeness}: The Thiele Machine is Turing-complete: it computes everything a Turing Machine can and nothing more.
 \end{enumerate}
-These theoretical components map to concrete Coq artifacts: \path{VMState.v} and \path{VMStep.v} define the formal machine, \path{MuLedgerConservation.v} proves monotonicity and irreversibility bounds, \path{NoFreeInsight.v} formalizes the impossibility claim, and \path{OracleImpossibility.v}, \path{TM_to_Minsky.v}, and \path{ThieleInstance.v} pin the model's computational power. The contribution is therefore not just conceptual; it is encoded in machine-checked definitions.
+These theoretical components map to concrete Coq artifacts: \path{VMState.v} and \path{VMStep.v} define the formal machine, \path{MuLedgerConservation.v} proves monotonicity and irreversibility bounds, and \path{NoFreeInsight.v} formalizes the impossibility claim. The contribution is therefore not just conceptual; it is encoded in machine-checked definitions.
 
 \begin{figure}[ht]
 \centering
@@ -72,15 +72,15 @@ These theoretical components map to concrete Coq artifacts: \path{VMState.v} and
 \subsection{Implementation Contributions}
 
 \begin{enumerate}
-    \item \textbf{3-Layer Isomorphism}: The model is implemented across three layers:
+    \item \textbf{3-Layer Comparison Discipline}: The model is implemented across three layers:
     \begin{itemize}
-        \item Coq formal kernel (zero admits, zero axioms)
+        \item Coq formal kernel (zero admits, no project-local axioms in the active audited tree)
         \item Python reference VM with receipts and trace replay
         \item Verilog RTL suitable for synthesis
     \end{itemize}
-    All three layers produce identical state projections for any instruction trace, with the projection chosen to match the gate being exercised. For compute traces the gate compares registers and memory; for partition traces it compares canonicalized module regions. The extracted runner provides a superset snapshot (pc, $\mu$, err, regs, mem, CSRs, graph) that can be used when a gate needs a broader view.
+    The three layers are tied together by refinement proofs and observable-projection test gates. For compute traces the gate compares registers and memory; for partition traces it compares canonicalized module regions. The extracted runner provides a superset snapshot (pc, $\mu$, err, regs, mem, CSRs, graph) that can be used when a gate needs a broader view. Strong wording should remain conditional on backend/test coverage.
     
-    \item \textbf{31-Instruction ISA}: The instruction set covers partition-native computation. Every opcode has a clear semantic role: structure creation, structure modification, certification, computation, and control.
+    \item \textbf{47-Opcode ISA}: The instruction set covers partition-native computation. Every opcode has a clear semantic role: structure creation, structure modification, certification, computation, categorical relational tracking, and control.
     \begin{itemize}
         \item Structural: PNEW, PSPLIT, PMERGE, PDISCOVER
         \item Logical: LASSERT, LJOIN, MDLACC
@@ -89,6 +89,10 @@ These theoretical components map to concrete Coq artifacts: \path{VMState.v} and
         \item Memory/ALU: LOAD, STORE, ADD, SUB
         \item Control: JUMP, JNEZ, CALL, RET, HALT, ORACLE\_HALTS
         \item I/O and Heap: CHECKPOINT, READ\_PORT, WRITE\_PORT, HEAP\_LOAD, HEAP\_STORE
+        \item Certification: CERTIFY
+        \item Bitwise/ALU: AND, OR, SHL, SHR, MUL, LUI
+        \item Per-Module Tensor: TENSOR\_SET, TENSOR\_GET
+        \item Categorical Morphisms: MORPH, COMPOSE, MORPH\_ID, MORPH\_DELETE, MORPH\_ASSERT, MORPH\_TENSOR, MORPH\_GET
     \end{itemize}
     
     \item \textbf{The Inquisitor}: The automated verification tooling enforces zero-admit discipline and runs the isomorphism gates.
@@ -109,14 +113,14 @@ The implementations are organized so they can be audited against the formal kern
 \draw[iso] (py) -- node[above, font=\tiny] {$\cong$} (rtl);
 \node[below=0.3cm of py, font=\tiny, align=center] {State projections match\\for all instruction traces};
 \end{tikzpicture}
-\caption{3-layer isomorphism architecture. Each layer produces identical observable state projections, verified by automated isomorphism gates.}
+\caption{3-layer comparison architecture. Each layer is checked against shared observable projections by automated comparison gates.}
 \label{fig:ch8-3layer}
 \end{figure}
 
 \subsection{Verification Contributions}
 
 \begin{enumerate}
-    \item \textbf{Zero-Admit Campaign}: The Coq formalization contains a complete proof tree with no admits and no axioms beyond foundational logic. This is enforced by the verification tooling and guarantees that every theorem is fully discharged within the formal system.
+    \item \textbf{Zero-Admit Campaign}: The Coq formalization contains a complete active proof tree with no admits and no project-local axioms beyond imported foundational library principles. This is enforced by the verification tooling and guarantees that every theorem is fully discharged within the formal system.
     
     \item \textbf{Key Proven Theorems}:
     \begin{center}
@@ -131,15 +135,11 @@ The implementations are organized so they can be audited against the formal kern
     \texttt{no\_free\_insight\_general} & Impossibility & \texttt{NoFreeInsight.v} \\
     \texttt{nonlocal\_correlation\_requires\_revelation} & Supra-quantum certification & \texttt{RevelationRequirement.v} \\
     \texttt{kernel\_conservation\_mu\_gauge} & Gauge invariance & \texttt{KernelPhysics.v} \\
-    \texttt{halting\_undecidable} & Halting undecidability & \texttt{OracleImpossibility.v} \\
-    \texttt{oracle\_halts\_costs\_mu} & Oracle $\mu$-cost & \texttt{OracleImpossibility.v} \\
-    \texttt{hypercomputation\_bounded} & No hypercomputation & \texttt{OracleImpossibility.v} \\
-    \texttt{thiele\_subsumes\_tm\_complete} & Turing completeness & \texttt{ThieleInstance.v} \\
     \hline
     \end{tabular}
     }
     \end{center}
-    All six hard-math facts (correlation bound, algebraic CHSH, classical CHSH, no-signaling, symmetric coherence bound, and Tsirelson from coherence) are mechanically proven from first principles in \path{coq/kernel/HardMathFactsProven.v} with zero axioms and zero admits. These are the foundational bounds that the Bell/CHSH framework depends on.
+    All six hard-math facts (correlation bound, algebraic CHSH, classical CHSH, no-signaling, symmetric coherence bound, and Tsirelson from coherence) are mechanically proven from first principles in the active kernel files \path{coq/kernel/ClassicalBound.v} and \path{coq/kernel/AlgebraicCoherence.v} with zero project-local axioms and zero admits. These are the foundational bounds that the Bell/CHSH framework depends on.
     
     \item \textbf{Falsifiability}: Every theorem includes an explicit falsifier specification. If a counterexample exists, it would refute the theorem and identify the precise assumption that failed.
 \end{enumerate}
@@ -158,9 +158,9 @@ Within the model, the results support this hypothesis:
 \begin{enumerate}
     \item \textbf{Proven}: The No Free Insight theorem establishes that certification of stronger predicates requires explicit structure addition. Oracle Impossibility proves that no finite-$\mu$ trace can exceed Turing computability. Turing Subsumption proves the model captures all of Turing computation. Together, these pin the model's power exactly.
     
-    \item \textbf{Verified}: The 3-layer isomorphism ensures that the proven properties hold in the executable implementation across Coq, Python, and Verilog.
+    \item \textbf{Verified}: The 3-layer comparison discipline provides strong evidence that proven properties carry into the executable implementation across Coq, Python/OCaml, and Verilog.
     
-    \item \textbf{Validated}: 469 tests across 33 test files confirm CHSH supra-quantum certification requires revelation, the $\mu$-ledger is monotonic, and six QM-divergent predictions (QD1--QD6) produce concrete numerical values that differ from standard quantum mechanics---each naming the observable, the predicted value, and the experiment that would falsify it.
+    \item \textbf{Validated}: active tests confirm CHSH-related certification behavior, $\mu$-ledger monotonicity, receipt integrity, and a broad cross-layer regression surface. The QM-divergent predictions remain explicit falsifiable proposals rather than experimentally settled facts.
 \end{enumerate}
 
 The Thiele Machine is not merely consistent with ``no free insight''---it \textit{enforces} it as a law of its computational universe. Whether this enforcement reflects something true about physical computation is a separate question, one the bridge postulates are designed to make testable rather than assumed.
@@ -173,7 +173,7 @@ The Thiele Machine is not merely consistent with ``no free insight''---it \texti
   node distance=0.5cm
 ]
 \node[box, fill=blue!15] (proven) {\textbf{Proven}\\{\tiny Coq: No Free Insight}};
-\node[box, fill=green!15, right=0.5cm of proven] (verified) {\textbf{Verified}\\{\tiny 3-Layer Isomorphism}};
+\node[box, fill=green!15, right=0.5cm of proven] (verified) {\textbf{Verified}\\{\tiny 3-Layer Comparison}};
 \node[box, fill=orange!15, right=0.5cm of verified] (validated) {\textbf{Validated}\\{\tiny CHSH + $\mu$-monotone}};
 \draw[arr, blue!60] (proven) -- (verified);
 \draw[arr, green!60!black] (verified) -- (validated);
@@ -226,7 +226,7 @@ for some constant $c$? This would formalize how close the ledger comes to the be
 
 \subsection{Completeness}
 
-Are the 31 instructions sufficient for all partition-native computation? Is there a normal form theorem?
+Are the 40 active opcodes sufficient for all partition-native computation? Is there a normal form theorem?
 
 \subsection{Quantum Extension}
 
@@ -246,16 +246,16 @@ Can the RTL be fabricated and validated at silicon level? What are the limits of
 The Thiele Machine is not a finished monument but a foundation. The tools built here are ready for the next generation:
 
 \begin{itemize}
-    \item \textbf{The Coq Kernel}: Full active proof corpus, $\sim$99,000 lines of verified specification that can be extended to new instruction sets.
-    \item \textbf{The Python VM}: An executable reference for rapid prototyping, backed by 469 passing tests.
+    \item \textbf{The Coq Kernel}: Full active proof corpus, $\sim$75,000 lines of verified specification that can be extended to new instruction sets.
+    \item \textbf{The Python VM}: A thin wrapper delegating to the Coq-extracted OCaml runner, backed by 566 passing tests.
     \item \textbf{The Verilog RTL}: A hardware template for physical realization, with co-simulation gates.
-    \item \textbf{The Inquisitor}: A ${\sim}6{,}700$-line discipline enforcer that scans every Coq file for admits, axioms, and unproven claims.
+    \item \textbf{The Inquisitor}: A ${\sim}7{,}400$-line discipline enforcer that scans every Coq file for admits, axioms, and unproven claims.
     \item \textbf{The Receipt System}: A trust infrastructure for verifiable computation.
     \item \textbf{The Hard Math Facts}: Six classical results mechanically proven from first principles---a demonstration that the proof infrastructure is not just bookkeeping but can discharge real mathematics.
 \end{itemize}
 
 \begin{center}
-\textbf{Author's Note (Devon)}: When I started this, I thought the hardest part would be the physics. Then I thought it would be the RTL. I was wrong. The hardest part was the silence that follows when you finally run the Inquisitor and it has nothing left to say. No warnings, no admits, no ``HIGH'' findings. Just a clean report. I've directed the construction of a machine that is forced, by its own silicon, to be honest. It's the first time in my life I've produced code that I actually, truly trust. Not because I'm a coder---I'm not, I sell cars---but because the machine didn't give me a choice. I designed the invariants, I specified the falsification conditions, and I directed LLMs to implement every line. Then I let the Inquisitor judge. Zero admits. Zero axioms. Zero lies.
+\textbf{Author's Note (Devon)}: When I started this, I thought the hardest part would be the physics. Then I thought it would be the RTL. I was wrong. The hardest part was the silence that follows when you finally run the Inquisitor and it has nothing left to say. No warnings, no admits, no ``HIGH'' findings. Just a clean report. I've directed the construction of a machine that is forced, by its own silicon, to be honest. It's the first time in my life I've produced code that I actually, truly trust. Not because I'm a coder---I'm not, I sell cars---but because the machine didn't give me a choice. I designed the invariants, I specified the falsification conditions, and I directed LLMs to implement every line. Then I let the Inquisitor judge. Zero admits. No project-local axioms. Zero lies.
 \end{center}
 
 \begin{figure}[ht]
@@ -282,7 +282,7 @@ The Thiele Machine is not a finished monument but a foundation. The tools built 
 
 \section{Final Word}
 
-The Turing Machine gave us universality. The Thiele Machine gives us accountability.
+The Turing Machine gave us universality. The Thiele Machine adds accountability.
 
 In the Turing model, structure is invisible—a hidden variable that determines whether algorithms succeed or fail exponentially. In the Thiele model, structure is explicit—a resource to be discovered, paid for, and verified.
 

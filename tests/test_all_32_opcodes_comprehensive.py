@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Comprehensive test of all 38 Thiele CPU opcodes.
+"""Comprehensive test of all 40 Thiele CPU opcodes.
 
 Each test provides the necessary init preamble for the RTL:
 - INIT_LOGIC_ACC: unlocks high-value ops (CHSH_TRIAL, REVEAL, PDISCOVER)
@@ -43,7 +43,7 @@ def run_opcode_test(name: str, program: str, checks: dict[str, Callable[[dict], 
     )
     return result
 
-# Test suite for all 38 opcodes
+# Test suite for all 40 opcodes
 tests = []
 
 # 1. PNEW
@@ -69,14 +69,14 @@ tests.append(("PMERGE", "PMERGE 0 0 9\nHALT", {
 
 # 4. LASSERT
 tests.append(("LASSERT", "LASSERT 0 0 3\nHALT", {
-    "charges_mu": lambda r: r["mu"] == 3,
+    "charges_mu": lambda r: r["mu"] == 4,  # S(3)=4: cert-setters charge cost+1
     "advances_pc": lambda r: r["pc"] == 1,
     "halts": lambda r: r["status"] == 2,
 }))
 
 # 5. LJOIN
 tests.append(("LJOIN", "LJOIN 0 0 4\nHALT", {
-    "charges_mu": lambda r: r["mu"] == 4,
+    "charges_mu": lambda r: r["mu"] == 5,  # S(4)=5: cert-setters charge cost+1
     "advances_pc": lambda r: r["pc"] == 1,
     "halts": lambda r: r["status"] == 2,
 }))
@@ -141,15 +141,15 @@ tests.append(("XOR_RANK", "LOAD_IMM 1 255 1\nXOR_RANK 2 1 1\nHALT", {
 
 # 15. EMIT — NoFI constraint: cost >= info_gain (no logic gate needed)
 tests.append(("EMIT", "EMIT 0 15 15\nHALT", {
-    "charges_mu": lambda r: r["mu"] == 15,
+    "charges_mu": lambda r: r["mu"] == 16,  # S(15)=16: cert-setters charge cost+1
     "increments_info_gain": lambda r: r["info_gain"] == 15,
     "halts": lambda r: r["status"] == 2,
 }))
 
 # 16. REVEAL — needs logic gate
 tests.append(("REVEAL", LOGIC_PREAMBLE + "REVEAL 0 0 5\nHALT", {
-    "charges_mu": lambda r: r["mu"] == 5,
-    "charges_tensor": lambda r: r["mu_tensor_0"] == 5,
+    "charges_mu": lambda r: r["mu"] == 6,  # S(5)=6: cert-setters charge cost+1
+    "charges_tensor": lambda r: r["mu_tensor_0"] == 5,  # tensor gets bits (not cost)
     "halts": lambda r: r["status"] == 2,
 }))
 
@@ -225,7 +225,7 @@ tests.append(("CHECKPOINT", "CHECKPOINT 0 5\nHALT", {
 
 # 28. READ_PORT — hardware always returns 0 for port value
 tests.append(("READ_PORT", "READ_PORT 3 0 1\nHALT", {
-    "charges_mu": lambda r: r["mu"] == 1,
+    "charges_mu": lambda r: r["mu"] == 2,  # S(1)=2: cert-setters charge cost+1
     "halts": lambda r: r["status"] == 2,
 }))
 

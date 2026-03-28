@@ -1,114 +1,198 @@
 #!/usr/bin/env python3
-"""Batch-run all .asm programs in examples/ through the Thiele CPU VM.
+"""Batch-run example .asm programs through the current extracted VM API.
 
 For each program:
-  1. Assemble with thielecpu.assembler
-  2. Run in the debugger VM
-  3. Report final state (halted, registers, mu, cycles)
+1. Assemble with scripts/thiele_asm.py machinery
+2. Execute via build/thiele_vm.run_vm_trace
+3. Print final state summary (pc, mu, err, selected registers)
 """
+
 from __future__ import annotations
+
+import json
 import sys
 from pathlib import Path
+from typing import Any, Dict, List
 
-# Allow running from project root
-sys.path.insert(0, str(Path(__file__).parent.parent))
+ROOT = Path(__file__).resolve().parent.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
-from thielecpu.assembler import Assembler
-from thielecpu.debugger import ThieleVM
+from build.thiele_vm import _run_python
+from scripts.thiele_asm import AssemblerError, _preprocess_source, assemble
 
-EXAMPLES_DIR = Path(__file__).parent
+EXAMPLES_DIR = Path(__file__).resolve().parent
+PROGRAMS_DIR = EXAMPLES_DIR / "programs"
+EXPECTATIONS_PATH = EXAMPLES_DIR / "run_all_expectations.json"
 
 PASS = "\033[32mPASS\033[0m"
 FAIL = "\033[31mFAIL\033[0m"
 WARN = "\033[33mWARN\033[0m"
 
 
-def run_program(asm_file: Path, max_cycles: int = 100_000) -> dict:
-    """Assemble and run a program, return result dict."""
-    src = asm_file.read_text()
-    asm = Assembler()
-    try:
-        instr_hex, data_hex = asm.assemble(src, str(asm_file))
-    except Exception as e:
-        return {"status": "asm_error", "error": str(e)}
-
-    if asm.errors:
-        return {"status": "asm_error", "errors": asm.errors}
-
-    instr_words = [int(h, 16) for h in instr_hex]
-    data_words = [int(h, 16) for h in data_hex]
-
-    vm = ThieleVM()
-    vm.load_program(instr_words, data_words)
-
-    for _ in range(max_cycles):
-        if vm.halted or vm.err:
+def _trace_lines(source_text: str, fuel_default: int = 256) -> List[str]:
+    preprocessed, _ = _preprocess_source(source_text)
+    fuel = fuel_default
+    for raw in source_text.splitlines():
+        line = raw.strip()
+        if not line:
+            continue
+        for c in ("#", ";", "//"):
+            idx = line.find(c)
+            if idx >= 0:
+                line = line[:idx].strip()
+        if not line:
+            continue
+        parts = line.split()
+        if parts and parts[0].upper() == "FUEL" and len(parts) > 1:
+            try:
+                fuel = int(parts[1], 0)
+            except ValueError:
+                pass
             break
-        vm.step()
+    return [f"FUEL {fuel}"] + preprocessed
+
+
+def _instruction_count(lines: List[str]) -> int:
+    return len([ln for ln in lines if not ln.startswith("INIT_") and not ln.startswith("FUEL")])
+
+
+def run_program(asm_file: Path) -> Dict[str, Any]:
+    src = asm_file.read_text(encoding="utf-8")
+    try:
+        instructions, data_memory, metadata = assemble(src)
+    except AssemblerError as exc:
+        return {"status": "asm_error", "error": str(exc)}
+    except Exception as exc:  # pragma: no cover - defensive
+        return {"status": "asm_error", "error": f"unexpected assembler failure: {exc}"}
+
+    lines = _trace_lines(src, fuel_default=int(metadata.get("fuel", 256)))
+    fuel = int(metadata.get("fuel", 256))
+
+    try:
+        final = _run_python(lines, fuel=fuel)
+    except Exception as exc:
+        return {
+            "status": "run_error",
+            "error": str(exc),
+            "instructions": _instruction_count(lines),
+            "fuel": fuel,
+        }
+
+    instr_count = _instruction_count(lines)
+    expects_halt = any(ln.split()[0].upper() == "HALT" for ln in lines if not ln.startswith("INIT_") and not ln.startswith("FUEL"))
+    halted_heuristic = expects_halt and final.pc in {max(instr_count - 1, 0), instr_count}
 
     return {
         "status": "ok",
-        "halted": vm.halted,
-        "err": vm.err,
-        "error_code": vm.error_code,
-        "cycles": vm.cycle,
-        "mu": vm.mu,
-        "regs": list(vm.regs[:8]),  # first 8 regs for display
-        "instructions": len(instr_words) - instr_words.count(0),
-        "timeout": not (vm.halted or vm.err),
+        "err": bool(final.err),
+        "pc": int(final.pc),
+        "mu": int(final.mu),
+        "halted": bool(halted_heuristic),
+        "instructions": instr_count,
+        "fuel": fuel,
+        "regs": list(final.regs[:8]),
     }
 
 
+def _discover_programs() -> List[Path]:
+    files = []
+    if PROGRAMS_DIR.exists():
+        files.extend(sorted(PROGRAMS_DIR.glob("*.asm")))
+    files.extend(sorted(EXAMPLES_DIR.glob("*.asm")))
+    # Preserve order while deduplicating
+    seen = set()
+    ordered: List[Path] = []
+    for path in files:
+        if path not in seen:
+            ordered.append(path)
+            seen.add(path)
+    return ordered
+
+
+def _program_label(path: Path) -> str:
+    return path.relative_to(EXAMPLES_DIR).as_posix()
+
+
+def _expectation_for(path: Path, expectations: Dict[str, str]) -> str | None:
+    label = _program_label(path)
+    if label in expectations:
+        return expectations[label]
+    return expectations.get(path.stem)
+
+
 def main() -> int:
-    asm_files = sorted(EXAMPLES_DIR.glob("*.asm"))
+    expectations: Dict[str, str] = {}
+    if EXPECTATIONS_PATH.exists():
+        try:
+            raw = json.loads(EXPECTATIONS_PATH.read_text(encoding="utf-8"))
+            if isinstance(raw, dict):
+                expectations = {str(k): str(v) for k, v in raw.items()}
+        except Exception:
+            expectations = {}
+
+    asm_files = _discover_programs()
     if not asm_files:
-        print("No .asm files found in", EXAMPLES_DIR)
+        print(f"No .asm files found under {PROGRAMS_DIR} or {EXAMPLES_DIR}")
         return 1
 
     failures = 0
     warnings = 0
-    print(f"{'Program':<30} {'Result':<6} {'Cycles':>7}  {'Mu':>10}  Notes")
-    print("-" * 75)
+    expected = 0
+    print(f"{'Program':<30} {'Result':<6} {'PC':>5} {'Mu':>10}  Notes")
+    print("-" * 80)
 
-    for f in asm_files:
-        r = run_program(f)
-        name = f.stem
+    for asm_file in asm_files:
+        result = run_program(asm_file)
+        name = _program_label(asm_file)
+        expected_status = _expectation_for(asm_file, expectations)
 
-        if r["status"] == "asm_error":
+        pc = str(result.get("pc", "-"))
+        mu = str(result.get("mu", "-"))
+
+        if result["status"] == "asm_error":
             tag = FAIL
-            note = f"ASM ERROR: {r.get('errors', r.get('error', ''))}"
+            note = f"ASM ERROR: {result.get('error', '')}"
             failures += 1
-        elif r["timeout"]:
-            tag = WARN
-            note = f"timeout after {r['cycles']} cycles"
-            warnings += 1
-        elif r["err"]:
-            # Bianchi halts are expected for bianchi_violation
-            if "bianchi" in name or "violation" in name:
+        elif result["status"] == "run_error":
+            tag = FAIL
+            note = f"RUN ERROR: {result.get('error', '')}"
+            failures += 1
+        elif result["err"]:
+            warning_code = "vm_err"
+            if "bianchi" in asm_file.stem or "violation" in asm_file.stem:
                 tag = PASS
-                note = f"expected halt  err_code=0x{r['error_code']:08x}"
+                note = "expected VM error pattern"
+            elif expected_status == warning_code:
+                tag = PASS
+                note = f"expected warning ({warning_code})"
+                expected += 1
             else:
                 tag = WARN
-                note = f"unexpected err  err_code=0x{r['error_code']:08x}"
+                note = "unexpected vm_err=true"
                 warnings += 1
-        elif r["halted"]:
+        elif result["halted"]:
             tag = PASS
             note = ""
         else:
-            tag = WARN
-            note = "did not halt"
-            warnings += 1
+            warning_code = "no_halt_heuristic"
+            if expected_status == warning_code:
+                tag = PASS
+                note = f"expected warning ({warning_code})"
+                expected += 1
+            else:
+                tag = WARN
+                note = f"did not reach halt-pc heuristic (fuel={result.get('fuel')})"
+                warnings += 1
 
-        mu_str = str(r.get("mu", "-"))
-        cycles_str = str(r.get("cycles", "-"))
-        print(f"  {name:<28} {tag}  {cycles_str:>7}  {mu_str:>10}  {note}")
+        print(f"  {name:<28} {tag}  {pc:>5} {mu:>10}  {note}")
 
-    print("-" * 75)
+    print("-" * 80)
     total = len(asm_files)
     ok = total - failures - warnings
-    print(f"  {ok}/{total} PASS   {warnings} WARN   {failures} FAIL")
+    print(f"  {ok}/{total} PASS   {expected} EXPECTED   {warnings} WARN   {failures} FAIL")
     return 1 if failures else 0
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(main())

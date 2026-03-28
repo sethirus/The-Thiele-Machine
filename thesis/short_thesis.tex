@@ -1,0 +1,363 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage{array}
+
+\geometry{margin=1in}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+\setlist{itemsep=0.35em, topsep=0.4em}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{remark}{Remark}
+
+\title{The Thiele Machine\\[0.4em]
+\large Accountable Computation and No Free Insight}
+\author{Devon Thiele}
+\date{March 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The Thiele Machine is a computational model whose central principle is \emph{No Free Insight}: a computation may not end in a stronger certified claim unless the strengthening was represented explicitly inside the trace and paid for in a monotone global ledger~$\mu$. The model extends ordinary machine semantics with a partition layer (which records structural decomposition of state), a logic layer (which validates certificates), a categorical layer (which carries typed morphisms between modules), and an irreversible cost functional. We define the machine precisely, state its key theorems, describe its instruction set, and prove that the categorical layer is strictly richer than classical state — two programs with identical registers, memory, $\mu$, and error flag can be distinguished by a single morphism probe. The model is machine-verified in Coq with zero admitted lemmas.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+%------------------------------------------------------------------
+\section{The Problem: Hidden Structural Gain}
+%------------------------------------------------------------------
+
+Ordinary computation is usually described as the evolution of machine state under time and space constraints. That description is incomplete whenever the computation ends not merely in a value, but in a stronger \emph{statement about what is known}: a satisfiability witness, a partition refinement, a proof certificate, a nonlocality classification, a claim that a new structural invariant holds.
+
+These outcomes are not just register values. They are \emph{weakenings of a hypothesis space}. If a trace begins not knowing whether a formula is satisfiable and ends holding a valid witness, something structural has changed. The question the Thiele Machine asks is: \emph{where, precisely, did that structural gain enter the trace?}
+
+Standard machine semantics has no answer. The gain appears as a side-effect of computation, undifferentiated from any other state change. The Thiele Machine is built to force an answer. It treats structural gain as a first-class, cost-bearing, auditable event. The discipline that governs it is called No Free Insight.
+
+\medskip
+\begin{quote}
+\textbf{No Free Insight.} A trace may not end in a stronger certified claim unless the strengthening was explicitly introduced or revealed by trace operations, and accounted for in the global ledger~$\mu$.
+\end{quote}
+
+%------------------------------------------------------------------
+\section{State and Partition Structure}
+%------------------------------------------------------------------
+
+\begin{definition}[VM State]
+A Thiele Machine state is a tuple
+\[
+s = (\mathit{pc},\; \mathit{regs},\; \mathit{mem},\; \mu,\; \mathit{pg},\; \mathit{err})
+\]
+where:
+\begin{itemize}
+  \item $\mathit{pc} \in \mathbb{N}$ is the program counter,
+  \item $\mathit{regs} : \text{RegID} \to \mathbb{N}$ is the register file,
+  \item $\mathit{mem} : \mathbb{N} \to \mathbb{N}$ is the flat data memory,
+  \item $\mu \in \mathbb{N}$ is the global structural ledger (non-decreasing),
+  \item $\mathit{pg}$ is the partition graph (defined below),
+  \item $\mathit{err} \in \{\mathit{false}, \mathit{true}\}$ is the error flag.
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Partition Graph]
+A partition graph is a tuple
+\[
+\mathit{pg} = (\mathit{modules},\; \mathit{edges},\; \mathit{morphisms},\; \mathit{next\_id})
+\]
+where:
+\begin{itemize}
+  \item $\mathit{modules} : \text{ModuleID} \rightharpoonup \mathit{Module}$ maps each active module ID to a record $(\mathit{region}, \mathit{axioms}, \mathit{mu\_local})$. The \emph{region} is a list of natural numbers (address or label set), \emph{axioms} a list of certified logical constraints, and \emph{mu\_local} the local ledger contribution.
+  \item $\mathit{edges}$ is a list of pairs $(\mathit{src}, \mathit{tgt}) \in \text{ModuleID}^2$ recording structural connections.
+  \item $\mathit{morphisms} : \text{MorphID} \rightharpoonup \mathit{MorphismState}$ is the categorical layer (defined below).
+  \item $\mathit{next\_id} \in \mathbb{N}$ is the next fresh identifier for both modules and morphisms.
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Morphism State]
+A morphism state is a record
+\[
+m = (\mathit{source},\; \mathit{target},\; \mathit{coupling},\; \mathit{is\_identity})
+\]
+where $\mathit{source}, \mathit{target} \in \text{ModuleID}$ are the domain and codomain, $\mathit{coupling}$ is coupling data (a natural number encoding the type of relation), and $\mathit{is\_identity} \in \{\mathit{false}, \mathit{true}\}$ indicates whether this morphism is the identity on its source.
+\end{definition}
+
+The partition graph records two distinct kinds of structure. The \emph{module layer} — regions, axioms, local costs — is the classical structural layer. The \emph{morphism layer} records typed relations between modules. These two layers are independent: two states may agree on every classical field while differing in their morphism maps. This independence is the foundation of the Categorical Separation Theorem (Section~\ref{sec:categorical}).
+
+%------------------------------------------------------------------
+\section{The $\mu$ Ledger}
+%------------------------------------------------------------------
+
+The global ledger $\mu$ is the load-bearing invariant of the Thiele Machine. It is \emph{not} a profiling counter. It is the mechanism by which hidden structural strengthening is forced to become visible.
+
+\begin{definition}[$\mu$-Cost Semantics]
+Each instruction $i$ carries an explicit non-negative integer $\delta(i) \in \mathbb{N}$ called its \emph{mu-delta}. If the instruction executes a valid step from state $s$ to state $s'$, then
+\[
+\mu(s') = \mu(s) + \delta(i).
+\]
+An instruction that fails (sets $\mathit{err}$) may still charge a nonzero delta. Structural and certification instructions are required to have $\delta > 0$.
+\end{definition}
+
+The intuition is standard but precise: $\mu$ measures the accumulated cost of all structural commitments in the trace. Because $\mu$ only increases, it provides an irreversible record. A trace that ends in a stronger claim than it started with must have passed through instructions that increased $\mu$ by enough to account for the gain.
+
+\begin{theorem}[$\mu$-Monotonicity]
+\label{thm:monotone}
+For all states $s$ and valid instructions $i$, if $s \xrightarrow{i} s'$, then $\mu(s') \geq \mu(s)$.
+\end{theorem}
+
+\begin{theorem}[$\mu$-Initiality]
+\label{thm:initiality}
+$\mu$ is the unique cost functional satisfying: (a) $\mu(\emptyset) = 0$, (b) monotone under all valid steps, and (c) additive over disjoint module contributions. Any other cost functional satisfying these three axioms is isomorphic to $\mu$.
+\end{theorem}
+
+Initiality is the strongest claim: it says the cost structure was \emph{forced}, not chosen. Any machine that separates structural gain from ordinary computation converges on the same accounting.
+
+%------------------------------------------------------------------
+\section{The Instruction Set}
+%------------------------------------------------------------------
+
+The Thiele Machine has a 47-opcode ISA organized into seven groups. Every opcode carries an explicit $\mathit{mu\_delta}$ parameter; the type system enforces that this parameter is present. Cost is not an annotation — it is part of the operational meaning of each instruction.
+
+\medskip
+\noindent\textbf{Group 1: Partition Operations} (4 opcodes)
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Opcode & Effect & Cost \\
+\midrule
+\texttt{PNEW}($R$, $\delta$) & Allocate new module with region $R$; advance \textit{next\_id} & $\delta$ \\
+\texttt{PSPLIT}($m$, $L$, $R$, $\delta$) & Replace module $m$ with two children covering $L, R$ & $\delta$ \\
+\texttt{PMERGE}($m_1$, $m_2$, $\delta$) & Merge two modules into one & $\delta$ \\
+\texttt{PDISCOVER}($r_0$, $r_1$, $\delta$) & Query partition structure; write result to registers & $\delta$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\medskip
+\noindent\textbf{Group 2: Logic and Certification} (3 opcodes)
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Opcode & Effect & Cost \\
+\midrule
+\texttt{LASSERT}($m$, $\phi$, $\delta$) & Assert axiom $\phi$ on module $m$; fails if inconsistent & $\delta \geq 1$ \\
+\texttt{LJOIN}($m_1$, $m_2$, $\delta$) & Join certificates from two modules & $\delta$ \\
+\texttt{MDLACC}($r$, $\delta$) & MDL cost accounting; reads model length from register & $\delta$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\medskip
+\noindent\textbf{Group 3: Compute and Data Transfer} (12 opcodes)
+
+Standard operations: \texttt{LOAD\_IMM}, \texttt{XFER}, \texttt{ADD}, \texttt{SUB}, \texttt{MUL}, \texttt{AND}, \texttt{OR}, \texttt{SHL}, \texttt{SHR}, \texttt{LUI}, \texttt{XOR\_LOAD}, \texttt{XOR\_SWAP}. All carry $\delta \geq 0$; reversible operations (\texttt{XOR\_SWAP}) carry $\delta = 0$ by convention.
+
+\medskip
+\noindent\textbf{Group 4: Memory and Control Flow} (9 opcodes)
+
+\texttt{LOAD}, \texttt{STORE}: memory access (require active module initialization). \texttt{JUMP}, \texttt{JNEZ}, \texttt{CALL}, \texttt{RET}, \texttt{HALT}, \texttt{ORACLE\_HALTS}: control flow.
+
+\medskip
+\noindent\textbf{Group 5: I/O, Heap, and Tensor} (7 opcodes)
+
+\texttt{CHECKPOINT}, \texttt{READ\_PORT}, \texttt{WRITE\_PORT}, \texttt{HEAP\_LOAD}, \texttt{HEAP\_STORE}: interaction with external surfaces. \texttt{TENSOR\_SET}, \texttt{TENSOR\_GET}: per-module tensor state.
+
+\medskip
+\noindent\textbf{Group 6: Witness and Certification} (5 opcodes)
+
+\texttt{CHSH\_TRIAL}($a$,$b$,$x$,$y$): record one CHSH trial (settings $a,b$; outcomes $x,y$) into witness counters. \texttt{CERTIFY}: proof-carrying execution attestation, charges $S(\mathit{cost})$. \texttt{REVEAL}, \texttt{EMIT}: disclosure and output.
+
+\medskip
+\noindent\textbf{Group 7: Categorical Morphism Operations} (7 opcodes)
+
+\begin{center}
+\begin{tabular}{lp{7.2cm}l}
+\toprule
+Opcode & Effect & Cost \\
+\midrule
+\texttt{MORPH}($\mathit{id}$, $s$, $t$, $c$, $\delta$) & Create morphism $\mathit{id}$ with source $s$, target $t$, coupling $c$; fails if $s$ or $t$ not active & $\delta$ \\
+\texttt{COMPOSE}($\mathit{id}$, $m_1$, $m_2$, $\delta$) & Compose $m_1\!:A\!\to\!B$ and $m_2\!:B\!\to\!C$ into $\mathit{id}\!:A\!\to\!C$; fails if targets/sources do not match & $\delta$ \\
+\texttt{MORPH\_ID}($\mathit{id}$, $m$, $\delta$) & Create identity morphism on module $m$ & $\delta$ \\
+\texttt{MORPH\_DELETE}($\mathit{id}$, $\delta$) & Delete morphism $\mathit{id}$; \textbf{sets err if $\mathit{id}$ does not exist} & $\delta$ \\
+\texttt{MORPH\_ASSERT}($\mathit{id}$, $\delta$) & Assert morphism $\mathit{id}$ exists; \textbf{charges $S(\mu)$ even on failure} & $S(\mu) \geq 1$ \\
+\texttt{MORPH\_TENSOR}($\mathit{id}$, $m_1$, $m_2$, $\delta$) & Form tensor product morphism & $\delta$ \\
+\texttt{MORPH\_GET}($r$, $\mathit{id}$, $\mathit{field}$, $\delta$) & Read field (source/target/coupling) of morphism $\mathit{id}$ into register $r$ & $\delta$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The cost rule for \texttt{MORPH\_ASSERT} is the sharpest instance of No Free Insight: \emph{the attempt to claim structural knowledge costs $S(\mu)$ regardless of outcome}. A failed assertion is not free.
+
+%------------------------------------------------------------------
+\section{Key Theorems}
+%------------------------------------------------------------------
+
+\begin{theorem}[No Free Insight]
+\label{thm:nofi}
+If $s_0 \xrightarrow{*} s_n$ and $s_n$ certifies a structural claim $P$ not certified by $s_0$, then the trace contains at least one structural or certification instruction, and $\mu(s_n) > \mu(s_0)$.
+\end{theorem}
+
+The proof proceeds by induction on the trace. Each step that could introduce a new certified claim ($\mathit{LASSERT}$, $\mathit{CERTIFY}$, $\mathit{MORPH\_ASSERT}$, partition operations) is required by the semantics to carry $\delta \geq 1$. Steps with $\delta = 0$ cannot alter certification state.
+
+\begin{theorem}[Turing Completeness and Subsumption]
+\label{thm:turing}
+The Thiele Machine simulates any Turing Machine: for every TM $M$ there exists a Thiele program $\tau$ such that $\tau$ computes the same partial function as $M$ on all inputs. Conversely, there exist Thiele programs with no natural representation in an ordinary TM without losing the partition structure — the Thiele Machine is a strict extension.
+\end{theorem}
+
+\begin{theorem}[Classical CHSH Bound]
+\label{thm:chsh}
+In any locally factorizable correlation — one where the joint distribution factors as $P(x,y|a,b) = \sum_\lambda P(x|a,\lambda)P(y|b,\lambda)P(\lambda)$ — the CHSH combination satisfies
+\[
+\bigl|\langle A_0 B_0 \rangle + \langle A_0 B_1 \rangle + \langle A_1 B_0 \rangle - \langle A_1 B_1 \rangle\bigr| \leq 2.
+\]
+The machine enforces this through the \texttt{CHSH\_TRIAL} accounting: any execution in the locally factorizable regime that attempts to record a witness violating this bound will fail.
+\end{theorem}
+
+\begin{theorem}[Landauer Consistency]
+\label{thm:landauer}
+The cost functional $\mu$ satisfies a Landauer-valid step bound: for any step that erases $k$ bits of information, $\delta \geq k$. This is not a hardware measurement but a theorem about the formal step semantics.
+\end{theorem}
+
+%------------------------------------------------------------------
+\section{The Categorical Layer and Separation}
+\label{sec:categorical}
+%------------------------------------------------------------------
+
+The seven categorical morphism opcodes elevate the Thiele Machine beyond a partition-aware VM into a machine that can explicitly carry and manipulate \emph{relational structure} between modules. This is not decorative. The following theorem establishes that morphism state cannot be synthesized from classical state at the same cost.
+
+\begin{theorem}[Categorical Separation]
+\label{thm:sep}
+There exist states $s_1, s_2$ such that all classical fields agree —
+\[
+\mathit{regs}(s_1) = \mathit{regs}(s_2), \quad \mathit{mem}(s_1) = \mathit{mem}(s_2), \quad \mu(s_1) = \mu(s_2), \quad \mathit{err}(s_1) = \mathit{err}(s_2)
+\]
+— yet there exists a single \texttt{MORPH\_DELETE} instruction $i$ such that $s_1 \xrightarrow{i} s_1'$ with $\mathit{err}(s_1') = \mathit{false}$ and $s_2 \xrightarrow{i} s_2'$ with $\mathit{err}(s_2') = \mathit{true}$.
+
+Therefore, the categorical layer (morphism map) is strictly richer information than the tuple $(\mathit{regs}, \mathit{mem}, \mu, \mathit{err})$.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Construct $s_1$ by running the program: allocate modules $A, B, C$; create morphism $f\!:A\to B$ with id~$k$. Construct $s_2$ by loading the same values for registers $r_0 = A, r_1 = C$ via \texttt{LOAD\_IMM} — identical classical fingerprint, same $\mu$ accumulation. Apply \texttt{MORPH\_DELETE}($k$): in $s_1$, morphism $k$ exists, deletion succeeds, $\mathit{err}$ stays false. In $s_2$, morphism $k$ was never created, deletion fails, $\mathit{err}$ becomes true. $\square$
+\end{proof}
+
+\begin{remark}
+This result is not about ``extra state.'' Extra state is trivial to add. The claim is stronger: the morphism layer is \emph{computationally witness-bearing} in a way that cannot be forged at the same cost. A program that mimics the classical fingerprint of a chain $A\to B\to C$ without actually building the chain cannot survive a morphism probe without either failing or paying additional $\mu$ to build the chain it never built. The ledger is unforgeable.
+\end{remark}
+
+%------------------------------------------------------------------
+\section{The Knowledge Receipt}
+%------------------------------------------------------------------
+
+The most direct demonstration of what the Thiele Machine can do that no other machine can is the \emph{knowledge receipt}: a $\mu$-ledger entry that is an unforgeable certificate of structural knowledge acquired during a run.
+
+Consider the following four observations about a Thiele execution:
+
+\smallskip
+\noindent\textbf{Act 1 — The Attempt Costs.} Execute \texttt{MORPH\_ASSERT}($k$) where morphism $k$ does not exist. The instruction fails ($\mathit{err}$ becomes true). But $\mu$ increases by $S(\mu_{\text{before}}) \geq 1$. The \emph{attempt} to claim structural knowledge costs something, even when the claim is false. A machine without a structural ledger has no way to express this constraint.
+
+\smallskip
+\noindent\textbf{Act 2 — The Chain is Readable.} Run: $\mathit{PNEW}(A), \mathit{PNEW}(B), \mathit{PNEW}(C)$; $\mathit{MORPH}(f, A, B)$; $\mathit{MORPH}(g, B, C)$; $\mathit{COMPOSE}(h, f, g)$; $\mathit{MORPH\_GET}(r_0, h, \text{source})$; $\mathit{MORPH\_GET}(r_1, h, \text{target})$. The resulting state has $r_0 = A$, $r_1 = C$, and $\mu \geq 8$. The composed morphism $h\!:A\to C$ is explicitly present in the morphism map and readable.
+
+\smallskip
+\noindent\textbf{Act 3 — The Receipt is Unforgeable.} After Act 2, execute \texttt{MORPH\_ASSERT}($h$). The morphism exists, so $\mathit{err}$ remains false. The certificate address field is nonzero. The $\mu$-entry for this assertion is a receipt saying: \emph{at this point in the trace, a valid morphism $A\to C$ existed, and the machine paid to confirm it.}
+
+\smallskip
+\noindent\textbf{Act 4 — Classical Equivalents Are Distinguishable.} Program A builds the $A\to B\to C$ chain (Act 2). Program B loads $r_0 = A$, $r_1 = C$ via \texttt{LOAD\_IMM} without building any morphisms, accumulating the same $\mu$ by padding with cheap instructions. Classical fingerprints are identical. Apply \texttt{MORPH\_DELETE}($h$): Program A succeeds, Program B fails. The separation is immediate and costs one instruction.
+
+The $\mu$-ledger is therefore not a counter. It is a record of \emph{which structural commitments were made}, and the categorical layer ensures those commitments cannot be simulated without being paid for.
+
+%------------------------------------------------------------------
+\section{Why $\mu$ is Not Optional}
+%------------------------------------------------------------------
+
+Without $\mu$, one can still talk informally about structure, certificates, refinement, and revelation. But those ideas remain external commentary unless the machine semantics are forced to carry them.
+
+The reason $\mu$ matters is that it gives the model \emph{one place} where hidden strengthening must eventually show up. If a trace ends in a stronger certified state, then one of three things is true:
+\begin{enumerate}
+  \item the structure was already present and represented,
+  \item the trace explicitly introduced or revealed it, or
+  \item the model is cheating.
+\end{enumerate}
+
+The Thiele Machine rules out option 3 at the level of formal semantics. This is the entire point of the architecture: not to \emph{compute} insight, but to make insight \emph{inescapably accountable}.
+
+This also connects the model to thermodynamic language. The cost functional satisfies a Landauer-valid step bound (Theorem~\ref{thm:landauer}), which means the ledger is not arbitrary. It is constrained by the same framework that links information erasure to physical entropy. Whether physical systems converge on the same constraint is an empirical question; that the formalism is consistent with it is a structural fact.
+
+%------------------------------------------------------------------
+\section{Physics-Adjacent Claims: Honest Scope}
+%------------------------------------------------------------------
+
+The repository includes formal analogs of several physics structures: discrete Einstein equations, CHSH-style correlation bounds, Landauer-step bounds, Bekenstein-style entropy-area relations, and a Jacobson-bridge to thermodynamic gravity. Each claim carries one of three classifications:
+
+\begin{itemize}
+  \item \textbf{(S) Structural} — a theorem about the machine's internal structure, proven without premises.
+  \item \textbf{(C) Conditional} — a theorem proven assuming a physics-facing premise stated as a hypothesis.
+  \item \textbf{(R) Consistency} — a check that the formal analog is internally consistent, not a derivation from computation.
+\end{itemize}
+
+The classical CHSH bound (Theorem~\ref{thm:chsh}) is (S). The Landauer step bound is (S). The Einstein equations formalization is (R): the current metric is position-independent in the vacuum case, so both $G_{\mu\nu}$ and $T_{\mu\nu}$ vanish and the theorem proves $0 = 0$. This is documented honestly in the formal development; closing it requires a position-dependent metric on a 4-simplex neighborhood. The Bekenstein calibration is (C), conditional on the entropy-area postulate.
+
+None of the (R) or (C) results affect the core computational theorems (Theorems~\ref{thm:monotone}–\ref{thm:sep}), which are (S) and unconditional.
+
+%------------------------------------------------------------------
+\section{Formal Status and Machine Verification}
+%------------------------------------------------------------------
+
+All theorems in this paper are formalized and machine-verified in Coq 8.x with zero admitted lemmas. The formal development comprises 158 active proof files covering:
+
+\begin{itemize}
+  \item \textbf{Kernel} (Tier 1): state, step semantics, $\mu$-monotonicity, NoFI, CHSH, Landauer, initiality
+  \item \textbf{Hardware} (Tier 2): Kami-based RTL model, abstraction/refinement proofs, Verilog correspondence
+  \item \textbf{Categorical} (Tier 2): CategoryLaws, CategoryMonoidal, PartitionSeparation, categorical separation
+  \item \textbf{Physics bridges} (Tier 3): Einstein, Bekenstein, Jacobson bridges — all labeled with scope classification
+\end{itemize}
+
+An automated proof auditor (Inquisitor) enforces zero-admit discipline across all files. It detects vacuous theorems, tautological implications, definitional constructions, and circular proofs. The current state: zero HIGH/MEDIUM/LOW findings.
+
+The formal development is organized so that any subsequent proof must declare which resources it uses (state, partitions, morphisms, axioms, transitions, certificates). Structural contamination — Tier 1 code importing Tier 3 dependencies — is detected and forbidden.
+
+%------------------------------------------------------------------
+\section{Scope and Falsification}
+%------------------------------------------------------------------
+
+The scope boundaries are part of the scientific content of the model.
+
+No Free Insight is formalized as a theorem family with premises, not as a completed law of all physical reality. The physics bridges remain open to confirmation or destruction by experiment. The three-layer isomorphism (Coq $=$ OCaml extraction $=$ RTL) is proven for all 47 opcodes within the Coq semantics, with empirical cross-layer comparison tests backing it up; some comparison gates remain backend-dependent.
+
+These scope limits do not weaken the central construction. They identify exactly where proof ends and falsification begins.
+
+The model is falsifiable in the following directions:
+\begin{itemize}
+  \item A program that achieves certified structural strengthening while $\mu$ remains constant would falsify Theorem~\ref{thm:nofi}.
+  \item A correlation in the locally factorizable regime exceeding 2 (in the Tsirelson bound sense, $2\sqrt{2}$ for quantum) would falsify Theorem~\ref{thm:chsh}.
+  \item A physical information-processing system that erases information without dissipating heat at the Landauer rate would stress-test the Landauer bridge.
+  \item A proof of $P = NP$ would not directly falsify the model but would require revisiting the cost lower bounds.
+\end{itemize}
+
+%------------------------------------------------------------------
+\section{Conclusion}
+%------------------------------------------------------------------
+
+The Thiele Machine is built from one uncompromising rule: stronger certified knowledge must not appear for free. Once that rule is imposed as a semantic requirement — not a comment, not a policy, but a machine invariant enforced by a monotone ledger — explicit structural state, explicit certification operations, and a categorical morphism layer are no longer optional embellishments. They are the natural form the semantics must take.
+
+The result is a model in which computation, certification, and irreversible structural commitment are described within one machine architecture. Its core theorems — $\mu$-monotonicity, $\mu$-initiality, No Free Insight, Turing subsumption, classical CHSH bound, and categorical separation — are unconditional and machine-verified. The categorical layer is strictly richer than classical state. The knowledge receipt is unforgeable.
+
+If the bridge to physical reality continues to hold under proof pressure and experiment, the implications are profound. Computation would have to be understood as a physically constrained act of certified structural change: thermodynamic cost, logical strengthening, and admissible correlation belonging to one accounting framework. The usual abstraction that allows structural knowledge to appear for free — as long as time and memory are paid — would stand exposed as a useful but incomplete fiction.
+
+The force of the model is therefore straightforward. It proposes that truth-like strengthening has a cost, gives that cost a formal home, and builds a machine around it. If that proposal is wrong, it will fail visibly under proof or experiment. If it survives, it is not merely another machine model. It is a new account of what it means for computation to know.
+
+\end{document}

@@ -6,7 +6,7 @@ it can never regress.
 
 Guards enforce:
   1. MEM_SIZE=4096 across all four representations
-  2. VerilogRefinement.v covers all 38 opcodes (including CERTIFY)
+  2. VerilogRefinement.v covers all 47 opcodes (including CERTIFY and categorical morphisms)
   3. RTL addr_width=12 in generated Verilog
   4. RTL Verilator binary is never stale vs source RTL
   5. CERTIFY opcode works in RTL cosim (behavioral)
@@ -37,40 +37,40 @@ def _read(path: Path) -> str:
 
 
 # ===========================================================================
-# 1. MEM_SIZE = 4096 everywhere
+# 1. MEM_SIZE = 65536 everywhere
 # ===========================================================================
 class TestMemSizeUnified:
-    """MEM_SIZE must be 4096 in Coq, Python, OCaml runner, RTL, and Abstraction."""
+    """MEM_SIZE must be 65536 in Coq, Python, OCaml runner, RTL, and Abstraction."""
 
     def test_coq_vmstate_mem_size(self):
         text = _read(COQ / "kernel" / "VMState.v")
         m = re.search(r"Definition MEM_SIZE\s*:.*:=\s*(\d+)", text)
         assert m, "MEM_SIZE not found in VMState.v"
-        assert int(m.group(1)) == 4096, f"VMState.v MEM_SIZE={m.group(1)}, expected 4096"
+        assert int(m.group(1)) == 65536, f"VMState.v MEM_SIZE={m.group(1)}, expected 65536"
 
     def test_kami_thiele_types_mem_size(self):
         text = _read(COQ / "kami_hw" / "ThieleTypes.v")
         m = re.search(r"Definition MemSize\s*:=\s*(\d+)", text)
         assert m, "MemSize not found in ThieleTypes.v"
-        assert int(m.group(1)) == 4096, f"ThieleTypes.v MemSize={m.group(1)}, expected 4096"
+        assert int(m.group(1)) == 65536, f"ThieleTypes.v MemSize={m.group(1)}, expected 65536"
 
     def test_kami_thiele_types_addr_sz(self):
         text = _read(COQ / "kami_hw" / "ThieleTypes.v")
         m = re.search(r"Definition MemAddrSz\s*:=\s*(\d+)", text)
         assert m, "MemAddrSz not found in ThieleTypes.v"
-        assert int(m.group(1)) == 12, f"ThieleTypes.v MemAddrSz={m.group(1)}, expected 12"
+        assert int(m.group(1)) == 16, f"ThieleTypes.v MemAddrSz={m.group(1)}, expected 16"
 
     def test_ocaml_runner_mem_size(self):
         text = _read(BUILD / "extracted_vm_runner.ml")
         # The default mem_size ref in parse_program
         m = re.search(r"let mem_size = ref (\d+)", text)
         assert m, "mem_size ref not found in extracted_vm_runner.ml"
-        assert int(m.group(1)) == 4096, f"OCaml runner mem_size={m.group(1)}, expected 4096"
+        assert int(m.group(1)) == 65536, f"OCaml runner mem_size={m.group(1)}, expected 65536"
 
     def test_ocaml_runner_initial_state_mem(self):
         text = _read(BUILD / "extracted_vm_runner.ml")
-        # initial_state makes vm_mem = make_list 4096
-        assert "make_list 4096" in text, "initial_state should use make_list 4096"
+        # initial_state makes vm_mem = make_list 65536
+        assert "make_list 65536" in text, "initial_state should use make_list 65536"
 
     def test_abstraction_uses_mem_size_symbolic(self):
         """Abstraction.v must NOT hardcode 256 or 65536 for memory size."""
@@ -81,28 +81,28 @@ class TestMemSizeUnified:
 
     def test_isomorphism_map_mem_size(self):
         iso_map = json.loads(_read(BUILD / "isomorphism_map.json"))
-        assert iso_map.get("memory_words") == 4096, (
-            f"isomorphism_map.json memory_words={iso_map.get('memory_words')}, expected 4096"
+        assert iso_map.get("memory_words") == 65536, (
+            f"isomorphism_map.json memory_words={iso_map.get('memory_words')}, expected 65536"
         )
 
-    def test_rtl_regfile_addr_width_12(self):
-        """Generated Verilog must use addr_width=12 for memory RegFiles."""
+    def test_rtl_regfile_addr_width_16(self):
+        """Generated Verilog must use addr_width=16 for memory RegFiles."""
         text = _read(RTL / "thiele_cpu_kami.v")
         matches = re.findall(r"RegFile\s*#\(\.addr_width\(32'd(\d+)\)", text)
         assert len(matches) >= 2, f"Expected >= 2 RegFile instantiations, found {len(matches)}"
         for width in matches:
-            assert width == "12", f"RegFile addr_width={width}, expected 12"
+            assert width == "16", f"RegFile addr_width={width}, expected 16"
 
-    def test_testbench_arrays_4096(self):
-        """RTL testbench memory arrays must be [0:4095]."""
+    def test_testbench_arrays_65536(self):
+        """RTL testbench memory arrays must be [0:65535]."""
         text = _read(REPO / "rtl_harness" / "testbench" / "thiele_cpu_kami_tb.v")
-        assert "[0:4095]" in text, "Testbench memory arrays not sized to 4096"
+        assert "[0:65535]" in text, "Testbench memory arrays not sized to 65536"
         assert "[0:255]" not in text, "Testbench still has old 256-entry arrays"
-        assert "[0:65535]" not in text, "Testbench still has old 65536-entry arrays"
+        assert "[0:4095]" not in text, "Testbench still has old 4096-entry arrays"
 
 
 # ===========================================================================
-# 2. VerilogRefinement.v covers all 38 opcodes
+# 2. VerilogRefinement.v covers all 40 opcodes
 # ===========================================================================
 class TestVerilogRefinementCoverage:
     """VerilogRefinement.v must have per-opcode simulation theorems for all opcodes."""
@@ -146,9 +146,11 @@ class TestVerilogRefinementCoverage:
         "verilog_simulates_vm_step_shr",
         "verilog_simulates_vm_step_mul",
         "verilog_simulates_vm_step_lui",
+        "verilog_simulates_vm_step_tensor_set",
+        "verilog_simulates_vm_step_tensor_get",
     ]
 
-    def test_all_38_theorems_present(self):
+    def test_all_40_theorems_present(self):
         text = _read(COQ / "kami_hw" / "VerilogRefinement.v")
         missing = [t for t in self.EXPECTED_THEOREMS if t not in text]
         assert not missing, (
@@ -172,10 +174,10 @@ class TestVerilogRefinementCoverage:
 
 
 # ===========================================================================
-# 3. Abstraction.v covers all 38 opcodes in kami_step
+# 3. Abstraction.v covers all 40 opcodes in kami_step
 # ===========================================================================
 class TestAbstractionCoverage:
-    """Abstraction.v kami_step must have match arms for all 38 opcodes."""
+    """Abstraction.v kami_step must have match arms for all 40 opcodes."""
 
     def test_no_admitted(self):
         text = _read(COQ / "kami_hw" / "Abstraction.v")
@@ -196,37 +198,39 @@ class TestAbstractionCoverage:
 # 4. Opcode count consistency across all layers
 # ===========================================================================
 class TestOpcodeCountConsistency:
-    """All layers must agree on 38 opcodes."""
+    """All layers must agree on 40 opcodes."""
 
-    def test_coq_vmstep_has_38_constructors(self):
+    def test_coq_vmstep_has_40_constructors(self):
         text = _read(COQ / "kernel" / "VMStep.v")
         constructors = re.findall(r"Coq_instr_\w+|instr_\w+\s*:", text)
         # Count unique opcode names from step constructors
         step_ctors = re.findall(r"\|\s*step_(\w+)\s*:", text)
-        assert len(step_ctors) >= 38, (
-            f"VMStep.v has {len(step_ctors)} step constructors, expected >= 38"
+        assert len(step_ctors) >= 40, (
+            f"VMStep.v has {len(step_ctors)} step constructors, expected >= 40"
         )
 
-    def test_kami_types_has_38_opcodes(self):
+    def test_kami_types_has_40_opcodes(self):
         text = _read(COQ / "kami_hw" / "ThieleTypes.v")
         ops = re.findall(r"Definition OP_\w+", text)
-        assert len(ops) >= 38, (
-            f"ThieleTypes.v has {len(ops)} OP_* definitions, expected >= 38"
+        assert len(ops) >= 40, (
+            f"ThieleTypes.v has {len(ops)} OP_* definitions, expected >= 40"
         )
 
-    def test_ocaml_extraction_has_38_constructors(self):
+    def test_ocaml_extraction_has_40_constructors(self):
         text = _read(BUILD / "thiele_core.ml")
-        ctors = re.findall(r"Coq_instr_\w+", text)
+        # Handle both Instr_X (legacy) and Coq_instr_X (module-prefixed) naming
+        ctors = re.findall(r"Instr_\w+", text)
+        ctors += [f"Instr_{m}" for m in re.findall(r"Coq_instr_(\w+)", text)]
         unique = set(ctors)
-        assert len(unique) >= 38, (
-            f"thiele_core.ml has {len(unique)} Coq_instr_* constructors, expected >= 38"
+        assert len(unique) >= 40, (
+            f"thiele_core.ml has {len(unique)} Instr_* constructors, expected >= 40"
         )
 
-    def test_isomorphism_map_has_38_opcodes(self):
+    def test_isomorphism_map_has_40_opcodes(self):
         iso_map = json.loads(_read(BUILD / "isomorphism_map.json"))
         opcodes = iso_map.get("opcodes", {})
-        assert len(opcodes) >= 38, (
-            f"isomorphism_map.json has {len(opcodes)} opcodes, expected >= 38"
+        assert len(opcodes) >= 40, (
+            f"isomorphism_map.json has {len(opcodes)} opcodes, expected >= 40"
         )
 
 

@@ -11,6 +11,7 @@ Backend priority:
 
 import json
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -86,6 +87,24 @@ class VMState:
         elif self.graph.modules and not self.modules:
             self.modules = self.graph.modules
 
+    @property
+    def supra_cert(self) -> bool:
+        """True iff csr_cert_addr != 0.
+
+        This matches Coq's has_supra_cert predicate:
+            Definition has_supra_cert (s : VMState) : Prop :=
+              s.(vm_csrs).(csr_cert_addr) <> 0.
+
+        Distinct from `certified` (which reflects vm_certified, set only
+        by the CERTIFY opcode). MORPH_ASSERT sets csr_cert_addr (and thus
+        supra_cert) but does NOT set vm_certified.
+
+        The NoFI theorems in AbstractNoFI.v and NoFreeInsight.v operate
+        on has_supra_cert, so supra_cert is the correct field to observe
+        when checking whether a formal structural claim has been recorded.
+        """
+        return self.csrs.get("cert_addr", 0) != 0
+
 
 def graph_lookup(graph: VMGraph, module_id: int) -> Optional[VMModule]:
     """Look up a module by index in graph.modules."""
@@ -99,10 +118,16 @@ def graph_lookup(graph: VMGraph, module_id: int) -> Optional[VMModule]:
 # ---------------------------------------------------------------------------
 
 def _parse_int(s: str) -> int:
-    """Parse integer, supports 0x hex prefix."""
+    """Parse integer, supports 0x hex prefix and rN register aliases."""
     try:
         return int(s, 0)
     except (ValueError, TypeError):
+        # Handle register aliases r0-r31
+        if isinstance(s, str) and len(s) >= 2 and s[0].lower() == 'r':
+            try:
+                return int(s[1:]) & 0x1F
+            except (ValueError, TypeError):
+                pass
         return 0
 
 
@@ -213,6 +238,33 @@ def _parse_instruction_dict(toks: List[str]) -> Optional[Dict[str, Any]]:
                 "rs2": _parse_int(toks[3]), "cost": _parse_int(toks[4])}
     elif op == "LUI" and len(toks) >= 4:
         return {"op": "lui", "dst": _parse_int(toks[1]), "imm": _parse_int(toks[2]), "cost": _parse_int(toks[3])}
+    elif op == "TENSOR_SET" and len(toks) >= 6:
+        return {"op": "tensor_set", "module": _parse_int(toks[1]), "i": _parse_int(toks[2]),
+                "j": _parse_int(toks[3]), "value": _parse_int(toks[4]), "mu_delta": _parse_int(toks[5])}
+    elif op == "TENSOR_GET" and len(toks) >= 6:
+        return {"op": "tensor_get", "dst": _parse_int(toks[1]), "module": _parse_int(toks[2]),
+                "i": _parse_int(toks[3]), "j": _parse_int(toks[4]), "mu_delta": _parse_int(toks[5])}
+    # Phase 5: categorical morphism opcodes (0x27–0x2D) — mirrors extracted_vm_runner.ml lines 391-404
+    elif op == "MORPH" and len(toks) >= 6:
+        return {"op": "morph", "dst": _parse_int(toks[1]), "src_mod": _parse_int(toks[2]),
+                "dst_mod": _parse_int(toks[3]), "coupling_idx": _parse_int(toks[4]), "cost": _parse_int(toks[5])}
+    elif op == "COMPOSE" and len(toks) >= 5:
+        return {"op": "compose", "dst": _parse_int(toks[1]), "m1_id": _parse_int(toks[2]),
+                "m2_id": _parse_int(toks[3]), "cost": _parse_int(toks[4])}
+    elif op == "MORPH_ID" and len(toks) >= 4:
+        return {"op": "morph_id", "dst": _parse_int(toks[1]), "module": _parse_int(toks[2]),
+                "cost": _parse_int(toks[3])}
+    elif op == "MORPH_DELETE" and len(toks) >= 3:
+        return {"op": "morph_delete", "morph_id": _parse_int(toks[1]), "cost": _parse_int(toks[2])}
+    elif op == "MORPH_ASSERT" and len(toks) >= 5:
+        return {"op": "morph_assert", "morph_id": _parse_int(toks[1]), "property": toks[2],
+                "cert": toks[3], "cost": _parse_int(toks[4])}
+    elif op == "MORPH_TENSOR" and len(toks) >= 5:
+        return {"op": "morph_tensor", "dst": _parse_int(toks[1]), "f_id": _parse_int(toks[2]),
+                "g_id": _parse_int(toks[3]), "cost": _parse_int(toks[4])}
+    elif op == "MORPH_GET" and len(toks) >= 5:
+        return {"op": "morph_get", "dst": _parse_int(toks[1]), "morph_id": _parse_int(toks[2]),
+                "selector": _parse_int(toks[3]), "cost": _parse_int(toks[4])}
 
     return None
 
@@ -246,7 +298,7 @@ def _run_extracted_py(instructions: List[str], fuel: int) -> VMState:
                 init_state.vm_regs[_parse_int(toks[1]) % 32] = _parse_int(toks[2])
         elif op == "INIT_MEM":
             if len(toks) >= 3:
-                init_state.vm_mem[_parse_int(toks[1]) % 4096] = _parse_int(toks[2])
+                init_state.vm_mem[_parse_int(toks[1]) % 65536] = _parse_int(toks[2])
         elif op == "INIT_MU":
             if len(toks) >= 2:
                 init_state.vm_mu = _parse_int(toks[1])
@@ -274,10 +326,10 @@ def _run_extracted_py(instructions: List[str], fuel: int) -> VMState:
     # Execute through Coq-extracted VM
     final_state = extracted_vm.vm_run(init_state, program, max_steps=fuel)
 
-    # Convert to external VMState format
+    # Convert to external VMState format — use actual graph modules (id, region, axioms)
     modules = [
-        VMModule(id=i, region=[], axioms=0)
-        for i in range(final_state.vm_graph.pg_next_id - 1)
+        VMModule(id=mid, region=list(ms.module_region), axioms=len(ms.module_axioms))
+        for mid, ms in final_state.vm_graph.pg_modules
     ]
     graph = VMGraph(modules=modules)
 
@@ -309,6 +361,13 @@ def _run_extracted_py(instructions: List[str], fuel: int) -> VMState:
 
 _OCAML_ONLY_INIT = {"INIT_REG", "INIT_MEM", "MEM_SIZE", "INIT_LOGIC_ACC", "INIT_ACTIVE_MODULE", "INIT_PT", "INIT_TENSOR"}
 
+_REG_ALIAS_RE = re.compile(r'\br(\d+)\b')
+
+
+def _translate_reg_names(line: str) -> str:
+    """Translate register aliases rN → N for the OCaml runner."""
+    return _REG_ALIAS_RE.sub(lambda m: str(int(m.group(1)) & 0x1F), line)
+
 
 def _run_ocaml(instructions: List[str], fuel: int) -> VMState:
     """Delegate execution to the Coq-extracted OCaml runner."""
@@ -324,6 +383,8 @@ def _run_ocaml(instructions: List[str], fuel: int) -> VMState:
             # Skip RTL-only directives unknown to the OCaml runner
             if op.startswith("INIT_") and op not in _OCAML_ONLY_INIT:
                 continue
+            # Translate register aliases (r1 → 1) for OCaml runner
+            line = _translate_reg_names(line)
             # OCaml runner requires HALT to have a cost argument
             if op == "HALT" and len(toks) == 1:
                 f.write("HALT 1\n")
@@ -359,7 +420,7 @@ def _run_ocaml(instructions: List[str], fuel: int) -> VMState:
             mu=state_json["mu"],
             err=state_json["err"],
             regs=state_json["regs"],
-            mem=state_json["mem"],
+            mem=(lambda m: m + [0] * (65536 - len(m)))(state_json["mem"]),
             csrs=state_json["csrs"],
             graph=graph,
             modules=modules,
@@ -395,7 +456,7 @@ def run_vm_trace(instructions: List[str], fuel: int = 1000) -> VMState:
       1. Coq-extracted OCaml binary (extracted_vm_runner) - when available
       2. Coq-extracted Python VM (thielecpu/vm.py) - THE definitive Python VM
 
-    All 32 opcodes are handled by formally-derived code from coq/Extraction.v.
+    All 47 opcodes are handled by formally-derived code from coq/Extraction.v.
     """
     strict = _strict_backend_required()
 

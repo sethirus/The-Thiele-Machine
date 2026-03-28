@@ -1,0 +1,607 @@
+{
+  "aggregate_digest": "487694df6c5f6deb74853ed1cb2991d4b777642abdfbfcf7f43ab92eb286a768",
+  "chain_hashes": {
+    "build/kami_hw/Target.ml": "b1c52dd86f2f2a4934e59241d9fe51ee14d1818ad134e3ad3fd0150b932eb442",
+    "build/thiele_core.ml": "75294cd33cc342230782f84f0ad49c30c9b3a044d4c9d3ea3e5ca7daae301a9b",
+    "coq/Extraction.v": "71947d5c091a43e114d3dd68df9fb6b38d7d943796512c44d564042f84896f2f",
+    "coq/kami_hw/CanonicalCPUProof.v": "1defc74d3b6b4f5a2265913fce835cb9cac182e1ce6eae22b103ee933fe7b9c5",
+    "coq/kami_hw/KamiExtraction.v": "31066d48f126d79835ecbcd351129ea24104d7aef9b56a03bd374706bafb2244",
+    "thielecpu/hardware/rtl/thiele_cpu_kami.v": "c0f36b1efa1823c2a18acfa95e84c6e2551f383138fb8f69479be303049d6255"
+  },
+  "programs": [
+    {
+      "final_digest": "e9018c8de8fca9c52b2b495f6242cb856a260582958d2ed3d06fe33302fb1cc7",
+      "id": 0,
+      "prefix_digests": [
+        "e9018c8de8fca9c52b2b495f6242cb856a260582958d2ed3d06fe33302fb1cc7",
+        "e9018c8de8fca9c52b2b495f6242cb856a260582958d2ed3d06fe33302fb1cc7"
+      ],
+      "program": [
+        "PNEW {0,256} 3",
+        "HALT 0"
+      ]
+    },
+    {
+      "final_digest": "c2a3c3b66efa1c0733d4478b17d67dfec282e2cf0bd4cd82f32cb79cd28017c7",
+      "id": 1,
+      "prefix_digests": [
+        "7e8c9be246c1dcc6fd432044a2f41f04aefa7c1ea524137474eb42fa38b1c665",
+        "c2a3c3b66efa1c0733d4478b17d67dfec282e2cf0bd4cd82f32cb79cd28017c7",
+        "c2a3c3b66efa1c0733d4478b17d67dfec282e2cf0bd4cd82f32cb79cd28017c7"
+      ],
+      "program": [
+        "PNEW {0,256} 1",
+        "LOAD_IMM 1 42 0",
+        "HALT 0"
+      ]
+    },
+    {
+      "final_digest": "ff431a897a2932000110f46292ced8573c717b57b907558cdd4edfe582f78079",
+      "id": 2,
+      "prefix_digests": [
+        "7e8c9be246c1dcc6fd432044a2f41f04aefa7c1ea524137474eb42fa38b1c665",
+        "2020ee6d01039f8c3e69400b1be2869df3cd4f8e51f8d7c3413f116effea505a",
+        "86a155a905facce5aecae50b26f4b65e9eb86f3a8dc5bd4509a6f812fcb46c09",
+        "ff431a897a2932000110f46292ced8573c717b57b907558cdd4edfe582f78079",
+        "ff431a897a2932000110f46292ced8573c717b57b907558cdd4edfe582f78079"
+      ],
+      "program": [
+        "INIT_PT 0 256",
+        "INIT_ACTIVE_MODULE 0",
+        "PNEW {0,256} 1",
+        "LOAD_IMM 1 77 0",
+        "STORE 5 1 0",
+        "LOAD 2 5 0",
+        "HALT 0"
+      ]
+    },
+    {
+      "final_digest": "57f02bb3e65924b6c51e3915803c7bdd607a6222b054fd387fdbaa97a18848f0",
+      "id": 3,
+      "prefix_digests": [
+        "7e8c9be246c1dcc6fd432044a2f41f04aefa7c1ea524137474eb42fa38b1c665",
+        "8c71d40fdd8ce679ccf22f5bf08a2e52148a71570fd2bee381f178c796847d38",
+        "e39ddcf910e3c12da4b45b72fc59159918a3035e09c7530bf82d5a579c78627d",
+        "57f02bb3e65924b6c51e3915803c7bdd607a6222b054fd387fdbaa97a18848f0",
+        "57f02bb3e65924b6c51e3915803c7bdd607a6222b054fd387fdbaa97a18848f0"
+      ],
+      "program": [
+        "PNEW {0,256} 1",
+        "LOAD_IMM 1 255 0",
+        "LOAD_IMM 2 15 0",
+        "XOR_ADD 1 2 0",
+        "HALT 0"
+      ]
+    },
+    {
+      "final_digest": "b2539ec6bff7b126d5e1df63d0df20f515ed3694945aaf2736a9958db86632bd",
+      "id": 4,
+      "prefix_digests": [
+        "7e8c9be246c1dcc6fd432044a2f41f04aefa7c1ea524137474eb42fa38b1c665",
+        "121e1e47cf1dc0a04c1bc4eea084e855ae75035147b8ed5cf4763a90f79b35f6",
+        "c09edf3376cb259808c7c061086f42cad1ef80053f48dbbda0f43abbd8931c00",
+        "b2539ec6bff7b126d5e1df63d0df20f515ed3694945aaf2736a9958db86632bd",
+        "b2539ec6bff7b126d5e1df63d0df20f515ed3694945aaf2736a9958db86632bd"
+      ],
+      "program": [
+        "PNEW {0,256} 1",
+        "LOAD_IMM 1 1 0",
+        "LOAD_IMM 2 99 0",
+        "ADD 3 1 2 0",
+        "HALT 0"
+      ]
+    },
+    {
+      "final_digest": "8c36c72cd4852a34f7654e36d49351ce6bb00d736314e6725c0b408ea7fabdd8",
+      "id": 5,
+      "prefix_digests": [
+        "7e8c9be246c1dcc6fd432044a2f41f04aefa7c1ea524137474eb42fa38b1c665",
+        "1cf7fe6283386eac0194be0626fcc5922ea1033f6a1f3d7c2c04d67936f38d04",
+        "a2a88e800ac1c55f90d13a8a73d230d09c0365e562ad35ed4450b55ff9913a3c",
+        "d17d1d570abf63333e93b964101f7e818a495e9b1a58b4eab9fa5b0dd3dfaa33",
+        "a9b3b84aa344ed2186b6fd0eed75c472c88b10bf71a334bf22594e62ea87fe2a",
+        "8c36c72cd4852a34f7654e36d49351ce6bb00d736314e6725c0b408ea7fabdd8",
+        "8c36c72cd4852a34f7654e36d49351ce6bb00d736314e6725c0b408ea7fabdd8"
+      ],
+      "program": [
+        "INIT_PT 0 256",
+        "INIT_ACTIVE_MODULE 0",
+        "PNEW {0,256} 1",
+        "LOAD_IMM 15 56 0",
+        "STORE 15 1 0",
+        "LOAD 7 15 0",
+        "XOR_ADD 3 5 0",
+        "XOR_ADD 6 1 0",
+        "HALT 0"
+      ],
+      "seed": 49370
+    },
+    {
+      "final_digest": "751db590a94277fa6f6732d2065c09d7ae7749ed1652dd53378a0990c4721d75",
+      "id": 6,
+      "prefix_digests": [
+        "7e8c9be246c1dcc6fd432044a2f41f04aefa7c1ea524137474eb42fa38b1c665",
+        "48546d2ddf99bcab84f726f61ad08a2f401720c94f3b6ff4bb29f6e806b044d0",
+        "96d39fd70bbc7c8786e8c1de23ec4a41956b64bd07e187b31c6642d0785130a0",
+        "398aa008a79a8649d0fcf4230f48f78c06ed6122d4cb91c189fc439bb0e42834",
+        "c979ed2dbe1d5e38f818c0c30561175192cf7cd240efc0c886c11d936126a5f5",
+        "5762b86cadae27be7ada43048bc7d6a1ffd58ccc6db5852b6b5eaefaa1a2e07c",
+        "134ce2f33b308a923df1735e35960095a60693179f0b92c2c04a884279d2ed03",
+        "4d0388af394f13874049821ebf1f11ea5bcd3de8affb008424391620b77d0c49",
+        "751db590a94277fa6f6732d2065c09d7ae7749ed1652dd53378a0990c4721d75",
+        "751db590a94277fa6f6732d2065c09d7ae7749ed1652dd53378a0990c4721d75"
+      ],
+      "program": [
+        "INIT_PT 0 256",
+        "INIT_ACTIVE_MODULE 0",
+        "PNEW {0,256} 1",
+        "LOAD_IMM 15 46 0",
+        "SHL 8 2 5 0",
+        "STORE 15 5 0",
+        "LOAD 3 15 0",
+        "LOAD_IMM 1 100 0",
+        "LOAD_IMM 8 240 0",
+        "XOR_ADD 6 10 0",
+        "MUL 1 10 4 0",
+        "HALT 0"
+      ],
+      "seed": 57289
+    },
+    {
+      "final_digest": "8d41d0c201879b2734a500ead6760de819f465b7619ce2736245af195283e350",
+      "id": 7,
+      "prefix_digests": [
+        "7e8c9be246c1dcc6fd432044a2f41f04aefa7c1ea524137474eb42fa38b1c665",
+        "65b106e68af3a11dff7e5e78618616ccd92c8acbdc55a2c198d0d27ff0c2168a",
+        "2a38f166ed3449f8e9fdcbd7fbb47ac618a52a6f86c060d4b9f04040568269aa",
+        "42d0d74dc40a44e36e3341e4db4092e79890796744a2efb3d3db7b420df92482",
+        "8d41d0c201879b2734a500ead6760de819f465b7619ce2736245af195283e350",
+        "8d41d0c201879b2734a500ead6760de819f465b7619ce2736245af195283e350"
+      ],
+      "program": [
+        "INIT_PT 0 256",
+        "INIT_ACTIVE_MODULE 0",
+        "PNEW {0,256} 1",
+        "LOAD_IMM 15 49 0",
+        "LOAD_IMM 9 163 0",
+        "XOR_ADD 10 3 0",
+        "LOAD_IMM 1 39 0",
+        "HALT 0"
+      ],
+      "seed": 65208
+    },
+    {
+      "final_digest": "7d9cd252efc38a937f10205c954cb16dc54fbdb4f1a5d1e7a375191f84f20bb5",
+      "id": 8,
+      "prefix_digests": [
+        "7e8c9be246c1dcc6fd432044a2f41f04aefa7c1ea524137474eb42fa38b1c665",
+        "45ba2cc0d44f794695f549876ed644f33fcfd1a1ae2e52837e7f0bf0d4033ffa",
+        "bbca84daeb700f9b88f4126547c4f0ae1f3c062e8b1defb304618244149e031e",
+        "1922ccb772903fcff0f832414146f4536c329cabe7e32aadc3ede94c0aba6e9f",
+        "f10de41197562765a124a30a58ff4c84764d82acce2b8a9ac29cf784af33e3d4",
+        "e59b5d91bc27c2abcc9a7aa154c3a6f90f5b8162bfdff128f78e612a69a08257",
+        "7d9cd252efc38a937f10205c954cb16dc54fbdb4f1a5d1e7a375191f84f20bb5",
+        "7d9cd252efc38a937f10205c954cb16dc54fbdb4f1a5d1e7a375191f84f20bb5"
+      ],
+      "program": [
+        "INIT_PT 0 256",
+        "INIT_ACTIVE_MODULE 0",
+        "PNEW {0,256} 1",
+        "LOAD_IMM 15 11 0",
+        "SHL 2 4 8 0",
+        "SUB 5 1 2 0",
+        "XOR_ADD 10 6 0",
+        "STORE 15 6 0",
+        "LOAD 8 15 0",
+        "HALT 0"
+      ],
+      "seed": 73127
+    },
+    {
+      "final_digest": "3b2c110dcd66a4118ff1639d1e0aa913cea881b87c6c8f9aeedfefea81b64364",
+      "id": 9,
+      "prefix_digests": [
+        "7e8c9be246c1dcc6fd432044a2f41f04aefa7c1ea524137474eb42fa38b1c665",
+        "b6f5ecdbdfc458f277ac36f7fcfbba81eabe38219a18ab0258aed9d39d121876",
+        "f20a431286d0bdf3a04947b176c1fda5383d45b45c69026f94c8d190fc0a37e3",
+        "b005daad71aad7bdd46c6162c18fb26d3ab21a1bd81149c1c193d3e569c53b8d",
+        "fb5b343f33a2bdca1eba525d9e3a1ad44828eae7b925e32cee8332f41bc0a2c1",
+        "c5aca8af0ee53f5530c2e91e3f55ffed5ad6250659b5b6d6e8aa406fe3ef3c0c",
+        "a5efb72a6c363b9cf1c689c47f48b6d7caa20ca5e938b96eb9cc802e93cdaeba",
+        "4dec31efc4157fc88e99755846daa276537e039ffbd571a1b589baef28676e31",
+        "9fd563a17c1857ba1c1c013e5bf30910b04efd128d965cc73375ba89e01cf552",
+        "14121fc15053f8a97e7521e9dd75c769a673c792e8a2bf4217b85ea5dae721e0",
+        "bfd83bccaffefaa9203f003c24c9861d30f8ffaee1345b42a9994e517257c458",
+        "3b2c110dcd66a4118ff1639d1e0aa913cea881b87c6c8f9aeedfefea81b64364",
+        "3b2c110dcd66a4118ff1639d1e0aa913cea881b87c6c8f9aeedfefea81b64364"
+      ],
+      "program": [
+        "INIT_PT 0 256",
+        "INIT_ACTIVE_MODULE 0",
+        "PNEW {0,256} 1",
+        "LOAD_IMM 15 39 0",
+        "XOR_ADD 10 2 0",
+        "SHL 8 5 5 0",
+        "STORE 15 9 0",
+        "LOAD 5 15 0",
+        "SHL 4 9 3 0",
+        "STORE 15 6 0",
+        "LOAD 6 15 0",
+        "ADD 2 8 8 0",
+        "STORE 15 2 0",
+        "LOAD 3 15 0",
+        "HALT 0"
+      ],
+      "seed": 81046
+    },
+    {
+      "final_digest": "576671d41d1b8830252b0e5952a876d37631a862df437e055085e4432b264025",
+      "id": 10,
+      "prefix_digests": [
+        "7e8c9be246c1dcc6fd432044a2f41f04aefa7c1ea524137474eb42fa38b1c665",
+        "a0a3a23563099e7d929d208d71306cc616610a897690952f19b26072f9276e8a",
+        "5756e5e0baa5859344f50ad22294442565fbfbae16af4905004b7e1ca749b690",
+        "68f5aeee8c1ca92ad5a2162293723e635a84b94f7c6719351f2f289478fbc837",
+        "e2bfc88c60f2c828619108b68f9d6cbb7fab113a44d001406d14b1b1c07df59b",
+        "449ba90ca3ad9d136d099dc4434db46d1962a06952d171f40f4a4186e917bfc5",
+        "eff537c3ea81fbf1294caeb5f6c939d518bbd310a5f4c96e9a2fedf6a0c709e8",
+        "0b826cde1221254a2c477e0b49ded4ea59025ccae0deba5f159d43f7541eb9c1",
+        "3fb6b2a4e1f1a34c1466d79da2812e83cf3a764b473f04bf0933cc62a21b4cf8",
+        "ce59426f301b69f4540af2113240ac12b2a18d7c27eeca36ae15944371cbf807",
+        "576671d41d1b8830252b0e5952a876d37631a862df437e055085e4432b264025",
+        "576671d41d1b8830252b0e5952a876d37631a862df437e055085e4432b264025"
+      ],
+      "program": [
+        "INIT_PT 0 256",
+        "INIT_ACTIVE_MODULE 0",
+        "PNEW {0,256} 1",
+        "LOAD_IMM 15 8 0",
+        "STORE 15 6 0",
+        "LOAD 7 15 0",
+        "XOR_ADD 1 2 0",
+        "SHR 10 5 8 0",
+        "STORE 15 8 0",
+        "LOAD 1 15 0",
+        "ADD 3 1 8 0",
+        "STORE 15 5 0",
+        "LOAD 5 15 0",
+        "HALT 0"
+      ],
+      "seed": 88965
+    },
+    {
+      "final_digest": "ad0be35034b376224426e4be0bcd1df1e2c6cb81e1b6dfe2f8754b3481a04cf7",
+      "id": 11,
+      "prefix_digests": [
+        "7e8c9be246c1dcc6fd432044a2f41f04aefa7c1ea524137474eb42fa38b1c665",
+        "c94a2d1ebb0cd64792dc9927e63d353139398d3bf5830e0906670fa975a1b169",
+        "f01964f7750b20e988a56c3b3ef4662cf35264e65c4713e2f9399c70aba3698a",
+        "2fa65a829d3c2864bf686973ec2ff68dee488fdca6c16d58be6d4f401db00891",
+        "57266a81d7567d88ea3246943a7cd8e10186bcec20e3d7029cf51696a764ec46",
+        "1f61e143e795064d4937aebc347ad8d26f5e051360b16151db9490f89160ce66",
+        "ad0be35034b376224426e4be0bcd1df1e2c6cb81e1b6dfe2f8754b3481a04cf7",
+        "ad0be35034b376224426e4be0bcd1df1e2c6cb81e1b6dfe2f8754b3481a04cf7"
+      ],
+      "program": [
+        "INIT_PT 0 256",
+        "INIT_ACTIVE_MODULE 0",
+        "PNEW {0,256} 1",
+        "LOAD_IMM 15 13 0",
+        "ADD 4 4 8 0",
+        "XOR_ADD 7 7 0",
+        "XOR_ADD 9 9 0",
+        "LOAD_IMM 1 132 0",
+        "XOR_ADD 8 1 0",
+        "HALT 0"
+      ],
+      "seed": 96884
+    },
+    {
+      "final_digest": "65b6e4e96e82237669abcb36ac16f9a5561441442df6849fec17a303e407b8ed",
+      "id": 12,
+      "prefix_digests": [
+        "7e8c9be246c1dcc6fd432044a2f41f04aefa7c1ea524137474eb42fa38b1c665",
+        "7cf1de7c92e428dbad2b4c2f486537cfe267179c94c5b5f3980870e810a40a2a",
+        "54d3dd7c7309496f1a2d35ca1c317fb7ef584bea23bc6196087bfad9477bc134",
+        "521d325e66473b95e40fd987486dc89bd2592e1b4abb64ac97baadcf2676e555",
+        "d778a35295e5a4717e540c858fa073b2abacabb4aec793ca0d545dd45cb13a80",
+        "951bf908c2b5cf2125a7192167fd581606954af94561d3c60740429963d3690e",
+        "a4eea0a874aa78fa0450881b9bcf2e713e1359a32189b70968ee71db36f6ec72",
+        "57809b551d9cbd2e793fcc04fe7779af1a74b44ddff4a6233215fc1abc65583d",
+        "21a0c256caaf6467e6c1a020f333b7c25691cdab52fe9dc47839bd7f3cac2534",
+        "e9372eb4fe0558ee5cfaf4fae7ec8a02915a988211e61e9a569cafb33971d92a",
+        "65b6e4e96e82237669abcb36ac16f9a5561441442df6849fec17a303e407b8ed",
+        "65b6e4e96e82237669abcb36ac16f9a5561441442df6849fec17a303e407b8ed"
+      ],
+      "program": [
+        "INIT_PT 0 256",
+        "INIT_ACTIVE_MODULE 0",
+        "PNEW {0,256} 1",
+        "LOAD_IMM 15 28 0",
+        "ADD 9 8 8 0",
+        "SHR 9 3 9 0",
+        "LOAD_IMM 5 253 0",
+        "LOAD_IMM 3 193 0",
+        "STORE 15 9 0",
+        "LOAD 7 15 0",
+        "STORE 15 10 0",
+        "LOAD 10 15 0",
+        "LOAD_IMM 7 141 0",
+        "HALT 0"
+      ],
+      "seed": 104803
+    },
+    {
+      "final_digest": "828d8e6aea5b562f94c03e11311599a8dcd24f4e7d29b129c4556979d2d32f41",
+      "id": 13,
+      "prefix_digests": [
+        "7e8c9be246c1dcc6fd432044a2f41f04aefa7c1ea524137474eb42fa38b1c665",
+        "b62e27428d22a838d5a1d21219396ccbebcb254a0920c7b7b7ed6787dad2484c",
+        "f79e7db6a947e48d4e15cbdf869f02a305afcd80ee45f1812df34011ecb08583",
+        "aeeccded4ecd40eaefe79d6f220fd9830a0c24765696ee6a62f9bce21ce283c5",
+        "8023b45ca3b0a2a2594bca17101a3464a0a525c6c4e1e1b0a07f0129535c5b6a",
+        "f63825bb7dfd5af214e3fd006313c1521e1cf46acd4a8ac98cd3ebd02638c12c",
+        "99d4e26a11b4a0ab40b22c6be8fb461d5e35c4a96e332fd8837a3434c60e61e1",
+        "2e7764ff7d0b2824e19d3beb9f1b9176e004c75518fcb635bcc273b39d4109f1",
+        "10c994ab22c1f2ea002c5642dea968d623ee0e8bc222446ae75acb9c67c7e54b",
+        "882ccba9dc3284b0a4e7e91999b6225be4000c7d1106c3d201e2e118d8f793d3",
+        "828d8e6aea5b562f94c03e11311599a8dcd24f4e7d29b129c4556979d2d32f41",
+        "828d8e6aea5b562f94c03e11311599a8dcd24f4e7d29b129c4556979d2d32f41"
+      ],
+      "program": [
+        "INIT_PT 0 256",
+        "INIT_ACTIVE_MODULE 0",
+        "PNEW {0,256} 1",
+        "LOAD_IMM 15 21 0",
+        "LOAD_IMM 8 5 0",
+        "XOR_ADD 5 9 0",
+        "SHL 8 5 9 0",
+        "SHL 2 7 8 0",
+        "LOAD_IMM 5 90 0",
+        "STORE 15 9 0",
+        "LOAD 6 15 0",
+        "STORE 15 4 0",
+        "LOAD 10 15 0",
+        "HALT 0"
+      ],
+      "seed": 112722
+    },
+    {
+      "final_digest": "e5ab8372d8166f2d17faa27b0e27da56e49171b2515cd73908006dc7f525164d",
+      "id": 14,
+      "prefix_digests": [
+        "7e8c9be246c1dcc6fd432044a2f41f04aefa7c1ea524137474eb42fa38b1c665",
+        "f6cc5a9743cc90bca5426037648bb2dfbe311260164a88756e199b3f1bacf6e8",
+        "783adf7c92e462c23c36a8dec02715668e3d44d1f5383b0e54d63226ee175598",
+        "b5780628033823b9e7cf9c1451ef7ea3707a0329dea0ac3c5551fbdd51e6e7fc",
+        "3d69e4fe2bdeebf04ae6d8d79d8ce302b9f4acc162fd6b6746693f96041e3043",
+        "e5ab8372d8166f2d17faa27b0e27da56e49171b2515cd73908006dc7f525164d",
+        "e5ab8372d8166f2d17faa27b0e27da56e49171b2515cd73908006dc7f525164d"
+      ],
+      "program": [
+        "INIT_PT 0 256",
+        "INIT_ACTIVE_MODULE 0",
+        "PNEW {0,256} 1",
+        "LOAD_IMM 15 38 0",
+        "SHR 5 4 10 0",
+        "XOR_ADD 10 10 0",
+        "STORE 15 9 0",
+        "LOAD 6 15 0",
+        "HALT 0"
+      ],
+      "seed": 120641
+    },
+    {
+      "final_digest": "ca6ddc998b531c899361c4df1313c0ff4b5bfb5447f0e08c09b0415639c45ff3",
+      "id": 15,
+      "prefix_digests": [
+        "7e8c9be246c1dcc6fd432044a2f41f04aefa7c1ea524137474eb42fa38b1c665",
+        "d239f44e2db1ad670c64681a868dbc09ef6a0c8496bcfe5c46032461ca731af6",
+        "18cfadda403615bd8ca148d7f8244eee4d219fbb49342aba0a8a0ecd79368a08",
+        "1b8a3f05cd0b4f58d076591791c2a1624766a7a9d77ddd37f9384f42ae899ac7",
+        "c98d9bdf9140e02b94cb5b6071057ee18f7e1ac66e67a64fee249724dfcfa61a",
+        "cc42cf1f05d7b956cfaafd31d13addde33bd558ec488b5982b6ea2080c7677a5",
+        "1f19e8254f82ce295489741997f8fa650ad6ab9e80ca102443d228edb299b659",
+        "5f8098f28d2b8b01549652f8064cd9319dc4155ab637892f6ebe3bd6e466573b",
+        "a64ca163852a11a955e3d3be4a84049c2aee726241089e6747313bba0fae7a9e",
+        "b0e133115347756a3004efd9a055c334b347fc3594db64c41294350e66f2f4d3",
+        "ca6ddc998b531c899361c4df1313c0ff4b5bfb5447f0e08c09b0415639c45ff3",
+        "ca6ddc998b531c899361c4df1313c0ff4b5bfb5447f0e08c09b0415639c45ff3"
+      ],
+      "program": [
+        "INIT_PT 0 256",
+        "INIT_ACTIVE_MODULE 0",
+        "PNEW {0,256} 1",
+        "LOAD_IMM 15 61 0",
+        "STORE 15 4 0",
+        "LOAD 8 15 0",
+        "XOR_ADD 6 6 0",
+        "SHR 2 4 10 0",
+        "STORE 15 1 0",
+        "LOAD 6 15 0",
+        "SHL 1 2 3 0",
+        "STORE 15 6 0",
+        "LOAD 2 15 0",
+        "HALT 0"
+      ],
+      "seed": 128560
+    },
+    {
+      "final_digest": "153908bc03cdd31dd6c050ac08aaa3495a9898949959be143a774ee2e935f9dd",
+      "id": 16,
+      "prefix_digests": [
+        "7e8c9be246c1dcc6fd432044a2f41f04aefa7c1ea524137474eb42fa38b1c665",
+        "e978f39f9183260583525118594189ec5ac98510848695feb7b605d018a485c1",
+        "512ce27bfef824ba27287d987b90ef17465b1ae2a557fd588572ba9ae323e800",
+        "57cefc5f2809e1e5f704184561021e41a5481c765646ba3346f1752170027a11",
+        "d36cea394a408c30866a84bc47ff89343a8e933d6f4996bd46ffa6428e15e792",
+        "0b33b13c92eb169f868893523230a05b9f1b9e170bf38eb569a6cf27036a7514",
+        "7b52f15e66a8e08b5bde60e624f5c109888ab376a8b4fdf5a0019746b2367b1b",
+        "153908bc03cdd31dd6c050ac08aaa3495a9898949959be143a774ee2e935f9dd",
+        "153908bc03cdd31dd6c050ac08aaa3495a9898949959be143a774ee2e935f9dd"
+      ],
+      "program": [
+        "INIT_PT 0 256",
+        "INIT_ACTIVE_MODULE 0",
+        "PNEW {0,256} 1",
+        "LOAD_IMM 15 24 0",
+        "LOAD_IMM 1 225 0",
+        "XOR_ADD 5 2 0",
+        "XOR_ADD 9 4 0",
+        "XOR_ADD 4 10 0",
+        "SHL 1 1 4 0",
+        "MUL 6 9 2 0",
+        "HALT 0"
+      ],
+      "seed": 136479
+    },
+    {
+      "final_digest": "9f09aa3c346677c7fb3775eff10deacd098b845059ec127b89f17545034977cc",
+      "id": 17,
+      "prefix_digests": [
+        "7e8c9be246c1dcc6fd432044a2f41f04aefa7c1ea524137474eb42fa38b1c665",
+        "56351ce8576308ad804cdbcd5231e40813990a6c3c3182b179cfa34c6561d3e1",
+        "58051cf86b432dfadd672cf46042f540ddf597a6231dd63968c5d58d930af5c2",
+        "c8f88bf876768e0bddcd45f1b7e2a2b4b82221d68c0323ed49dbc9166b25b4a2",
+        "3ce88957952b4ada4605b89d9d9a9614116cb8eae2a65028bb3d490607f6cc67",
+        "2e51d28448495df99006bec04ee00fc7970f368b2469315b610f07bdfffa947c",
+        "5208ff4ebce09f50904e49af0fad7e6f93717ba26162595580f48b6f37a81154",
+        "9f09aa3c346677c7fb3775eff10deacd098b845059ec127b89f17545034977cc",
+        "9f09aa3c346677c7fb3775eff10deacd098b845059ec127b89f17545034977cc"
+      ],
+      "program": [
+        "INIT_PT 0 256",
+        "INIT_ACTIVE_MODULE 0",
+        "PNEW {0,256} 1",
+        "LOAD_IMM 15 0 0",
+        "SUB 2 5 8 0",
+        "MUL 1 3 6 0",
+        "STORE 15 4 0",
+        "LOAD 3 15 0",
+        "MUL 4 8 2 0",
+        "SHR 9 10 2 0",
+        "HALT 0"
+      ],
+      "seed": 144398
+    },
+    {
+      "final_digest": "ddfdeb1874b86e700232a9ae33522fae51198884e4e5c47a11c462df4d09d6d9",
+      "id": 18,
+      "prefix_digests": [
+        "7e8c9be246c1dcc6fd432044a2f41f04aefa7c1ea524137474eb42fa38b1c665",
+        "426d4d68a1992cf166e5f54ca35905dceaf41e49e802d3700370a3fd4875471f",
+        "31b3c75d2f369bb0144effbcd496a653ef88158cfe9d76879f8d1215e1afe442",
+        "b50ecc284cf1e5e6507ab453d6e26beda090b888ebfd01297a3432c30f1990e4",
+        "a740041201e0a8e05c1770e513a4c567f5f53124a130289748bf1d9673a74400",
+        "e815cbcc66c2c1ac78cac9d8a983bf316777d12908b4fef6ce6031a98e4e6a70",
+        "a6b613f6da28f14077783c45199678ceb932d199253f14bc6d49d39d689f57b6",
+        "ddfdeb1874b86e700232a9ae33522fae51198884e4e5c47a11c462df4d09d6d9",
+        "ddfdeb1874b86e700232a9ae33522fae51198884e4e5c47a11c462df4d09d6d9"
+      ],
+      "program": [
+        "INIT_PT 0 256",
+        "INIT_ACTIVE_MODULE 0",
+        "PNEW {0,256} 1",
+        "LOAD_IMM 15 19 0",
+        "SHR 5 6 1 0",
+        "LOAD_IMM 4 196 0",
+        "XOR_ADD 7 6 0",
+        "SHR 4 10 8 0",
+        "XOR_ADD 7 5 0",
+        "XOR_ADD 5 1 0",
+        "HALT 0"
+      ],
+      "seed": 152317
+    },
+    {
+      "final_digest": "a0f6c976f73ccba1430a3e235a0db2a11ec973938ab5a26b05d61af752cc863f",
+      "id": 19,
+      "prefix_digests": [
+        "7e8c9be246c1dcc6fd432044a2f41f04aefa7c1ea524137474eb42fa38b1c665",
+        "a18d030739f38caed653c79fb6b49780e50ea1b4adfa25702f47dec1833dff9f",
+        "8934646ce3223bac3035f89976587afe77a9df329baf6732e42ea1272eb227ad",
+        "b13d0ba3b6b8a04925e4d677189af6bbb6b9ce9a1d00e7c8f6afddb8a751e483",
+        "90794f059b19f99d58082da12bdf5b9d6c6c1b87ec32cd632b6b61b17cb11cf3",
+        "acbbc7735cc02e746d794f292946c2c7006890c8e75861934c14225bbca45d1d",
+        "f4693f5a4d8d1189b1bd411b1828eb8fb3041d02e2eef275cc1b526abfb963ba",
+        "a0f6c976f73ccba1430a3e235a0db2a11ec973938ab5a26b05d61af752cc863f",
+        "a0f6c976f73ccba1430a3e235a0db2a11ec973938ab5a26b05d61af752cc863f"
+      ],
+      "program": [
+        "INIT_PT 0 256",
+        "INIT_ACTIVE_MODULE 0",
+        "PNEW {0,256} 1",
+        "LOAD_IMM 15 53 0",
+        "STORE 15 9 0",
+        "LOAD 1 15 0",
+        "STORE 15 9 0",
+        "LOAD 6 15 0",
+        "STORE 15 9 0",
+        "LOAD 4 15 0",
+        "HALT 0"
+      ],
+      "seed": 160236
+    },
+    {
+      "final_digest": "e657f676587e8e8ca6ad1e8cfefe80375bb20c98d02e156342258b19900bd656",
+      "id": 20,
+      "prefix_digests": [
+        "7e8c9be246c1dcc6fd432044a2f41f04aefa7c1ea524137474eb42fa38b1c665",
+        "d618ce26386dd8b70f657c20a32c1cd7017b761b129b0b0787a129cb18d45855",
+        "e0fde60762b65f3dd2980b4f66fd075bedadbf8303c327725ce1e840ea828ab7",
+        "c7737188481f9de399a44026e2aa662f550edde8c48addd47f03c6f2b1942f99",
+        "844dfbbb539b9e627f6fc920d942fa2c3d65fcfadd75152ce29abf5b8ca80cac",
+        "865cf0ac54347acd7c604b42341ab5ce386a9abf97afb34ef6cc95b9cd027816",
+        "7eeeb4021096296c395001c9f42605ea85a8ca801aa17c57fd8d5c28b48a974e",
+        "0c215322e5301aa2cf16494e03a791901869081f71fe5fc8bf4226dad9614ffe",
+        "e657f676587e8e8ca6ad1e8cfefe80375bb20c98d02e156342258b19900bd656",
+        "e657f676587e8e8ca6ad1e8cfefe80375bb20c98d02e156342258b19900bd656"
+      ],
+      "program": [
+        "INIT_PT 0 256",
+        "INIT_ACTIVE_MODULE 0",
+        "PNEW {0,256} 1",
+        "LOAD_IMM 15 22 0",
+        "XOR_ADD 7 2 0",
+        "STORE 15 3 0",
+        "LOAD 2 15 0",
+        "LOAD_IMM 2 219 0",
+        "LOAD_IMM 10 165 0",
+        "SHR 3 4 6 0",
+        "XOR_ADD 2 7 0",
+        "HALT 0"
+      ],
+      "seed": 168155
+    }
+  ],
+  "schema": "thiele.bitlock.v2",
+  "seed_schedule": {
+    "base": 49370,
+    "count": 16,
+    "seeds": [
+      49370,
+      57289,
+      65208,
+      73127,
+      81046,
+      88965,
+      96884,
+      104803,
+      112722,
+      120641,
+      128560,
+      136479,
+      144398,
+      152317,
+      160236,
+      168155
+    ],
+    "stride": 7919
+  },
+  "signature": {
+    "algorithm": "ed25519",
+    "public_key_hex": "fbc12e671eacf5aec603b4e337410302ad01be22528ec7207ed59bec018f3f1f",
+    "signature_hex": "3c9358d997ff032b07a94f3d57f9fdea3914a830bc0dd452802712443388b295dcfd6cf917207d4319d20d800547b6345f5fe60c921f7f961f1984440c54440c",
+    "signed_over": "canonical_json(manifest_without_signature_and_aggregate_digest)"
+  }
+}

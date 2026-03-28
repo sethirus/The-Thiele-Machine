@@ -240,22 +240,21 @@ Classical computers are ``blind'' to structure. A Turing machine can only see on
 
 I'm a car salesman. I have no formal training in computer science, mathematics, or physics. I built this through LLM-directed development: I specify the ideas, the invariants, and the falsification conditions, then direct AI tools to implement them. The proofs compile or they don't. They don't care who wrote them.
 
-\textbf{What is proven} (in Coq, zero admits, zero custom axioms; standard library only):
+\textbf{What is proven} (in Coq, zero admits, no project-local axioms in the active audited tree; standard library imports remain):
 \begin{itemize}
     \item \textbf{No Free Insight}: You cannot narrow the search space without paying for it. $\Delta\mu \ge \log_2(\Omega) - \log_2(\Omega')$.
     \item \textbf{$\mu$-Conservation}: The ledger grows monotonically and bounds irreversible bit operations.
     \item \textbf{Observational No-Signaling}: Operations on one module cannot affect observables of unrelated modules.
     \item \textbf{Initiality}: $\mu$ is \textit{the} unique instruction-consistent cost measure, not just one of many.
-    \item \textbf{Oracle Impossibility}: No finite oracle can resolve all $\mu$-bounded halting questions---\path{coq/kernel/OracleImpossibility.v}.
-    \item \textbf{Turing Subsumption}: A Minsky-machine embedding proves Thiele subsumes Turing---\path{coq/modular_proofs/TM_to_Minsky.v}.
+    \item \textbf{Turing Subsumption}: A direct simulation proof shows Thiele strictly extends Turing, with cost certificates that Turing machines cannot produce---\path{coq/kernel/ProperSubsumption.v}.
 \end{itemize}
 
 \textbf{What is built}:
 \begin{itemize}
-    \item Coq formal kernel (324 files, 98,778 lines, zero admits, zero custom axioms)
-    \item Python reference VM with two-pass assembler and interactive debugger
+    \item Coq formal kernel (active proof tree, zero admits, no project-local axioms in the active audited tree)
+    \item Python reference VM with two-pass assembler (\path{scripts/thiele_asm.py})
     \item Synthesizable Verilog RTL extracted from Coq through Kami, with ECP5 FPGA bitstream
-    \item 478 automated tests across 35 test files enforcing 3-layer isomorphism
+    \item Automated tests enforcing opcode completeness, certificate plumbing, and cross-layer comparison gates
     \item Six falsifiable QM-divergent predictions (QD1--QD6) with numerical values distinguishable from standard quantum mechanics
 \end{itemize}
 
@@ -278,7 +277,7 @@ If you can find an error, find it. Everything is open source, documented, and te
 \chapter{Theory: The Thiele Machine Model}
 \input{chapters/03_theory}
 
-\chapter{Implementation: The 3-Layer Isomorphism}
+\chapter{Implementation: The 3-Layer Comparison}
 \input{chapters/04_implementation}
 
 \chapter{Verification: The Coq Proofs}

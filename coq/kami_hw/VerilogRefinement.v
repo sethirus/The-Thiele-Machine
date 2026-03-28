@@ -4,10 +4,11 @@
     abstraction to Kernel VM stepping, intended to replace assumption-only
     correspondence with proved refinement lemmas rooted in kami_hw.
 
-    Per-instruction vm_step witnesses for all 38 opcodes.
+    Per-instruction vm_step witnesses for all 47 opcodes.
 *)
 
-From Coq Require Import Arith.PeanoNat Lia Strings.String.
+From Coq Require Import Arith.PeanoNat Lia Strings.String List.
+Import ListNotations.
 From Kernel Require Import VMState VMStep.
 From KamiHW Require Import Abstraction.
 
@@ -28,7 +29,7 @@ Theorem verilog_refines_register_write :
   forall (hs : KamiSnapshot) (dst v : nat),
     dst < 32 ->
     snapshot_regs_to_list
-      (fun j => if Nat.eqb j dst then word32 v else snap_regs hs j) =
+      (fun j => if Nat.eqb j dst then word64 v else snap_regs hs j) =
     write_reg (abs_phase1 hs) dst v.
 Proof.
   exact kami_refines_vm_step.
@@ -48,7 +49,7 @@ Theorem verilog_simulates_vm_step_load_imm :
         advance_state_rm (abs_phase1 hs) (instr_load_imm dst imm cost)
           (abs_phase1 hs).(vm_graph)
           (abs_phase1 hs).(vm_csrs)
-          (write_reg (abs_phase1 hs) dst (word32 imm))
+          (write_reg (abs_phase1 hs) dst (word64 imm))
           (abs_phase1 hs).(vm_mem)
           (abs_phase1 hs).(vm_err).
 Proof.
@@ -101,7 +102,7 @@ Theorem verilog_simulates_vm_step_add :
           (abs_phase1 hs).(vm_graph)
           (abs_phase1 hs).(vm_csrs)
           (write_reg (abs_phase1 hs) dst
-            (word32_add (read_reg (abs_phase1 hs) rs1) (read_reg (abs_phase1 hs) rs2)))
+            (word64_add (read_reg (abs_phase1 hs) rs1) (read_reg (abs_phase1 hs) rs2)))
           (abs_phase1 hs).(vm_mem)
           (abs_phase1 hs).(vm_err).
 Proof.
@@ -119,7 +120,7 @@ Theorem verilog_simulates_vm_step_sub :
           (abs_phase1 hs).(vm_graph)
           (abs_phase1 hs).(vm_csrs)
           (write_reg (abs_phase1 hs) dst
-            (word32_sub (read_reg (abs_phase1 hs) rs1) (read_reg (abs_phase1 hs) rs2)))
+            (word64_sub (read_reg (abs_phase1 hs) rs1) (read_reg (abs_phase1 hs) rs2)))
           (abs_phase1 hs).(vm_mem)
           (abs_phase1 hs).(vm_err).
 Proof.
@@ -189,7 +190,7 @@ Theorem verilog_simulates_vm_step_call :
       vm_step (abs_phase1 hs) (instr_call target cost) vs' /\
       vs' = jump_state_rm (abs_phase1 hs) (instr_call target cost) target
               (write_reg (abs_phase1 hs) 31
-                (word32_add (read_reg (abs_phase1 hs) 31) 1))
+                (word64_add (read_reg (abs_phase1 hs) 31) 1))
               (write_mem (abs_phase1 hs) (read_reg (abs_phase1 hs) 31)
                 (S (abs_phase1 hs).(vm_pc))).
 Proof.
@@ -203,8 +204,8 @@ Theorem verilog_simulates_vm_step_ret :
     exists vs',
       vm_step (abs_phase1 hs) (instr_ret cost) vs' /\
       vs' = jump_state_rm (abs_phase1 hs) (instr_ret cost)
-              (read_mem (abs_phase1 hs) (word32_sub (read_reg (abs_phase1 hs) 31) 1))
-              (write_reg (abs_phase1 hs) 31 (word32_sub (read_reg (abs_phase1 hs) 31) 1))
+              (read_mem (abs_phase1 hs) (word64_sub (read_reg (abs_phase1 hs) 31) 1))
+              (write_reg (abs_phase1 hs) 31 (word64_sub (read_reg (abs_phase1 hs) 31) 1))
               (abs_phase1 hs).(vm_mem).
 Proof.
   intros. eexists. split.
@@ -237,7 +238,7 @@ Theorem verilog_simulates_vm_step_xor_add :
         advance_state_rm (abs_phase1 hs) (instr_xor_add dst src cost)
           (abs_phase1 hs).(vm_graph) (abs_phase1 hs).(vm_csrs)
           (write_reg (abs_phase1 hs) dst
-            (word32_xor (read_reg (abs_phase1 hs) dst) (read_reg (abs_phase1 hs) src)))
+            (word64_xor (read_reg (abs_phase1 hs) dst) (read_reg (abs_phase1 hs) src)))
           (abs_phase1 hs).(vm_mem) (abs_phase1 hs).(vm_err).
 Proof.
   intros. eexists. split.
@@ -267,7 +268,7 @@ Theorem verilog_simulates_vm_step_xor_rank :
       vs' =
         advance_state_rm (abs_phase1 hs) (instr_xor_rank dst src cost)
           (abs_phase1 hs).(vm_graph) (abs_phase1 hs).(vm_csrs)
-          (write_reg (abs_phase1 hs) dst (word32_popcount (read_reg (abs_phase1 hs) src)))
+          (write_reg (abs_phase1 hs) dst (word64_popcount (read_reg (abs_phase1 hs) src)))
           (abs_phase1 hs).(vm_mem) (abs_phase1 hs).(vm_err).
 Proof.
   intros. eexists. split.
@@ -349,31 +350,37 @@ Qed.
 (** Logical instructions *)
 
 Theorem verilog_simulates_vm_step_lassert :
-  forall (hs : KamiSnapshot) (module : ModuleID) (formula : string) (cert : lassert_certificate) (cost : nat),
+  forall (hs : KamiSnapshot) (freg creg : nat) (kind : bool) (flen cost : nat),
     exists vs',
-      vm_step (abs_phase1 hs) (instr_lassert module formula cert cost) vs'.
+      vm_step (abs_phase1 hs) (instr_lassert freg creg kind flen cost) vs'.
 Proof.
   intros.
-  destruct cert as [proof | model].
-  - (* UNSAT certificate *)
-    destruct (check_lrat formula proof) eqn:Hchk.
-    + eexists. eapply step_lassert_unsat. exact Hchk.
-    + eexists. eapply step_lassert_unsat_failure. exact Hchk.
-  - (* SAT certificate *)
-    destruct (check_model formula model) eqn:Hchk.
-    + eexists. eapply step_lassert_sat; [exact Hchk | reflexivity | reflexivity].
-    + eexists. eapply step_lassert_sat_failure. exact Hchk.
+  destruct kind.
+  - (* SAT mode *)
+    destruct (check_model
+               (mem_to_string (abs_phase1 hs).(vm_mem) (read_reg (abs_phase1 hs) freg))
+               (mem_to_string (abs_phase1 hs).(vm_mem) (read_reg (abs_phase1 hs) creg))) eqn:Hchk.
+    + eexists. eapply step_lassert_sat; [reflexivity | reflexivity | exact Hchk | reflexivity].
+    + eexists. eapply step_lassert_sat_failure; [reflexivity | reflexivity | exact Hchk].
+  - (* UNSAT mode *)
+    destruct (check_lrat
+               (mem_to_string (abs_phase1 hs).(vm_mem) (read_reg (abs_phase1 hs) freg))
+               (mem_to_string (abs_phase1 hs).(vm_mem) (read_reg (abs_phase1 hs) creg))) eqn:Hchk.
+    + eexists. eapply step_lassert_unsat; [reflexivity | reflexivity | exact Hchk].
+    + eexists. eapply step_lassert_unsat_failure; [reflexivity | reflexivity | exact Hchk].
 Qed.
 
 Theorem verilog_simulates_vm_step_ljoin :
-  forall (hs : KamiSnapshot) (cert1 cert2 : string) (cost : nat),
+  forall (hs : KamiSnapshot) (c1reg c2reg : nat) (cost : nat),
     exists vs',
-      vm_step (abs_phase1 hs) (instr_ljoin cert1 cert2 cost) vs'.
+      vm_step (abs_phase1 hs) (instr_ljoin c1reg c2reg cost) vs'.
 Proof.
   intros.
-  destruct (String.eqb cert1 cert2) eqn:Heq.
-  - eexists. eapply step_ljoin_equal; [exact Heq | reflexivity].
-  - eexists. eapply step_ljoin_mismatch; [exact Heq | reflexivity].
+  destruct (String.eqb
+             (mem_to_string (abs_phase1 hs).(vm_mem) (read_reg (abs_phase1 hs) c1reg))
+             (mem_to_string (abs_phase1 hs).(vm_mem) (read_reg (abs_phase1 hs) c2reg))) eqn:Heq.
+  - eexists. eapply step_ljoin_equal; [reflexivity | reflexivity | exact Heq].
+  - eexists. eapply step_ljoin_mismatch; [reflexivity | reflexivity | exact Heq].
 Qed.
 
 Theorem verilog_simulates_vm_step_emit :
@@ -514,7 +521,7 @@ Theorem verilog_simulates_vm_step_and :
           (abs_phase1 hs).(vm_graph)
           (abs_phase1 hs).(vm_csrs)
           (write_reg (abs_phase1 hs) dst
-            (word32_and (read_reg (abs_phase1 hs) rs1) (read_reg (abs_phase1 hs) rs2)))
+            (word64_and (read_reg (abs_phase1 hs) rs1) (read_reg (abs_phase1 hs) rs2)))
           (abs_phase1 hs).(vm_mem)
           (abs_phase1 hs).(vm_err).
 Proof.
@@ -532,7 +539,7 @@ Theorem verilog_simulates_vm_step_or :
           (abs_phase1 hs).(vm_graph)
           (abs_phase1 hs).(vm_csrs)
           (write_reg (abs_phase1 hs) dst
-            (word32_or (read_reg (abs_phase1 hs) rs1) (read_reg (abs_phase1 hs) rs2)))
+            (word64_or (read_reg (abs_phase1 hs) rs1) (read_reg (abs_phase1 hs) rs2)))
           (abs_phase1 hs).(vm_mem)
           (abs_phase1 hs).(vm_err).
 Proof.
@@ -550,7 +557,7 @@ Theorem verilog_simulates_vm_step_shl :
           (abs_phase1 hs).(vm_graph)
           (abs_phase1 hs).(vm_csrs)
           (write_reg (abs_phase1 hs) dst
-            (word32_shl (read_reg (abs_phase1 hs) rs1) (read_reg (abs_phase1 hs) rs2)))
+            (word64_shl (read_reg (abs_phase1 hs) rs1) (read_reg (abs_phase1 hs) rs2)))
           (abs_phase1 hs).(vm_mem)
           (abs_phase1 hs).(vm_err).
 Proof.
@@ -568,7 +575,7 @@ Theorem verilog_simulates_vm_step_shr :
           (abs_phase1 hs).(vm_graph)
           (abs_phase1 hs).(vm_csrs)
           (write_reg (abs_phase1 hs) dst
-            (word32_shr (read_reg (abs_phase1 hs) rs1) (read_reg (abs_phase1 hs) rs2)))
+            (word64_shr (read_reg (abs_phase1 hs) rs1) (read_reg (abs_phase1 hs) rs2)))
           (abs_phase1 hs).(vm_mem)
           (abs_phase1 hs).(vm_err).
 Proof.
@@ -586,7 +593,7 @@ Theorem verilog_simulates_vm_step_mul :
           (abs_phase1 hs).(vm_graph)
           (abs_phase1 hs).(vm_csrs)
           (write_reg (abs_phase1 hs) dst
-            (word32_mul (read_reg (abs_phase1 hs) rs1) (read_reg (abs_phase1 hs) rs2)))
+            (word64_mul (read_reg (abs_phase1 hs) rs1) (read_reg (abs_phase1 hs) rs2)))
           (abs_phase1 hs).(vm_mem)
           (abs_phase1 hs).(vm_err).
 Proof.
@@ -603,7 +610,7 @@ Theorem verilog_simulates_vm_step_lui :
         advance_state_rm (abs_phase1 hs) (instr_lui dst imm cost)
           (abs_phase1 hs).(vm_graph)
           (abs_phase1 hs).(vm_csrs)
-          (write_reg (abs_phase1 hs) dst (word32_shl imm 8))
+          (write_reg (abs_phase1 hs) dst (word64_shl imm 8))
           (abs_phase1 hs).(vm_mem)
           (abs_phase1 hs).(vm_err).
 Proof.
@@ -659,40 +666,44 @@ Proof.
   apply kami_step_mu_cost.
 Qed.
 
-(** For non-ORACLE_HALTS instructions, exact mu agreement between
-    abs_phase1 ∘ kami_step and vm_step ∘ abs_phase1. *)
+(** For non-ORACLE_HALTS, non-LASSERT instructions, exact mu agreement between
+    abs_phase1 ∘ kami_step and vm_step ∘ abs_phase1.
+    LASSERT is excluded because hardware charges S cost while software charges
+    String.length formula + S cost (see kami_vm_mu_lassert_gap below). *)
 Theorem kami_vm_mu_diamond_non_oracle :
   forall (hs : KamiSnapshot) (i : vm_instruction) (vs' : VMState),
     is_oracle_halts i = false ->
+    (match i with instr_lassert _ _ _ _ _ => False | _ => True end) ->
     vm_step (abs_phase1 hs) i vs' ->
     vs'.(vm_mu) = (abs_phase1 (kami_step hs i)).(vm_mu).
 Proof.
-  intros hs i vs' Hnot_oracle Hstep.
+  intros hs i vs' Hnot_oracle Hl Hstep.
   inversion Hstep; subst;
   unfold apply_cost, instruction_cost, abs_phase1, kami_step,
          kami_advance_default, kami_instruction_cost,
          ORACLE_HALTS_HW_COST in *;
-  simpl in *; try lia; try reflexivity;
-  (* CHSH_TRIAL: nested match on settings and same/diff — all arms have same mu *)
+  simpl in *; try lia; try reflexivity; try contradiction;
   try (repeat match goal with
     | |- context [match ?x with _ => _ end] => destruct x; simpl; try lia; try reflexivity
   end).
 Qed.
 
-(** For ALL instructions with cost fitting in hardware (cost <= 1M),
+(** For non-LASSERT instructions with cost fitting in hardware (cost <= 1M),
     hardware mu >= software mu. This is the conservative refinement property:
     hardware never under-charges relative to the formal spec.
-    The precondition is always satisfied in practice since hardware uses
-    an 8-bit cost field (max 255 << 1,000,000). *)
+    LASSERT is excluded: hardware charges S cost while software charges
+    String.length formula + S cost; hardware UNDER-charges by formula_length.
+    See kami_vm_mu_lassert_gap for the LASSERT-specific property. *)
 Theorem kami_vm_mu_conservative :
   forall (hs : KamiSnapshot) (i : vm_instruction) (vs' : VMState),
+    (match i with instr_lassert _ _ _ _ _ => False | _ => True end) ->
     instruction_cost i <= ORACLE_HALTS_HW_COST ->
     vm_step (abs_phase1 hs) i vs' ->
     (abs_phase1 (kami_step hs i)).(vm_mu) >= vs'.(vm_mu).
 Proof.
-  intros hs i vs' Hbound Hstep.
+  intros hs i vs' Hl Hbound Hstep.
   assert (Hge : kami_instruction_cost i >= instruction_cost i).
-  { apply kami_cost_ge_instruction_cost. exact Hbound. }
+  { apply kami_cost_ge_instruction_cost. exact Hl. exact Hbound. }
   inversion Hstep; subst;
   unfold abs_phase1, kami_step, kami_advance_default,
          advance_state, advance_state_rm, advance_state_reveal,
@@ -700,11 +711,62 @@ Proof.
          apply_cost, kami_instruction_cost, instruction_cost,
          ORACLE_HALTS_HW_COST in *;
   simpl in *;
-  try lia;
-  (* CHSH_TRIAL: nested match on settings and same/diff — all arms have same mu *)
+  try lia; try contradiction;
   repeat match goal with
     | |- context [match ?x with _ => _ end] => destruct x; simpl; try lia
   end.
+Qed.
+
+(** For LASSERT, the software mu exceeds hardware mu by formula length.
+    This is the information-theoretic gap: formula text costs are invisible
+    to hardware at decode time but enforced by the formal spec. *)
+Theorem kami_vm_mu_lassert_gap :
+  forall (hs : KamiSnapshot) (freg creg : nat) (kind : bool) (flen cost : nat) (vs' : VMState),
+    vm_step (abs_phase1 hs) (instr_lassert freg creg kind flen cost) vs' ->
+    vs'.(vm_mu) = (abs_phase1 (kami_step hs (instr_lassert freg creg kind flen cost))).(vm_mu)
+                  + flen * 8.
+Proof.
+  intros hs freg creg kind flen cost vs' Hstep.
+  inversion Hstep; subst;
+  unfold abs_phase1, kami_step, kami_advance_default,
+         advance_state, apply_cost, instruction_cost in *;
+  simpl in *; lia.
+Qed.
+
+(** TENSOR_SET: advance PC, charge mu, update per-module tensor (in-bounds case). *)
+Theorem verilog_simulates_vm_step_tensor_set :
+  forall (hs : KamiSnapshot) (mid i j value cost : nat),
+    (i < 4)%nat -> (j < 4)%nat ->
+    exists vs',
+      vm_step (abs_phase1 hs) (instr_tensor_set mid i j value cost) vs' /\
+      vs' =
+        advance_state (abs_phase1 hs) (instr_tensor_set mid i j value cost)
+          (graph_update_module_tensor (abs_phase1 hs).(vm_graph) mid (i * 4 + j) value)
+          (abs_phase1 hs).(vm_csrs)
+          (abs_phase1 hs).(vm_err).
+Proof.
+  intros. eexists. split.
+  - eapply step_tensor_set; eauto.
+  - reflexivity.
+Qed.
+
+(** TENSOR_GET: advance PC, charge mu, read per-module tensor to dst register (in-bounds case). *)
+Theorem verilog_simulates_vm_step_tensor_get :
+  forall (hs : KamiSnapshot) (dst mid i j cost : nat),
+    (i < 4)%nat -> (j < 4)%nat ->
+    exists vs',
+      vm_step (abs_phase1 hs) (instr_tensor_get dst mid i j cost) vs' /\
+      vs' =
+        advance_state_rm (abs_phase1 hs) (instr_tensor_get dst mid i j cost)
+          (abs_phase1 hs).(vm_graph)
+          (abs_phase1 hs).(vm_csrs)
+          (write_reg (abs_phase1 hs) dst (module_tensor_entry (abs_phase1 hs) mid i j))
+          (abs_phase1 hs).(vm_mem)
+          (abs_phase1 hs).(vm_err).
+Proof.
+  intros. eexists. split.
+  - eapply step_tensor_get; eauto.
+  - reflexivity.
 Qed.
 
 (** Predicate for non-jump instructions (PC advances by 1). *)
@@ -731,4 +793,153 @@ Proof.
   repeat match goal with
     | |- context [match ?x with _ => _ end] => destruct x; simpl; try reflexivity
   end.
+Qed.
+(** ---------------------------------------------------------------
+    Categorical morphism instruction simulation proofs (Phase 6).
+
+    The hardware layer (kami_step) models morph opcodes as pure
+    cost-charge + PC-advance (kami_advance_default), since the
+    morphism graph state is maintained by the software extraction
+    layer.  The abstract state from abs_phase1 always has
+    pg_morphisms = [], so vm_step over morphism-lookup operations
+    always takes the failure branch.
+
+    For COMPOSE / MORPH_DELETE / MORPH_ASSERT / MORPH_TENSOR /
+    MORPH_GET we prove the failure constructor directly.
+    For MORPH / MORPH_ID we prove existence (either success or
+    failure based on module presence), without claiming the
+    resulting state equals the hardware snapshot.
+    --------------------------------------------------------------- *)
+
+(** Auxiliary: graph_lookup_morphism on the abs_phase1 graph always
+    returns None, because snap_pt_to_graph has pg_morphisms = []. *)
+Lemma abs_phase1_morphism_none :
+  forall (hs : KamiSnapshot) (mid : nat),
+    graph_lookup_morphism (abs_phase1 hs).(vm_graph) mid = None.
+Proof.
+  intros hs mid.
+  unfold abs_phase1, snap_pt_to_graph.
+  unfold graph_lookup_morphism. simpl.
+  unfold graph_lookup_morphism_list. reflexivity.
+Qed.
+
+(** Auxiliary: graph_compose_morphisms on the abs_phase1 graph always
+    returns None (both morphism lookups fail). *)
+Lemma abs_phase1_compose_none :
+  forall (hs : KamiSnapshot) (m1 m2 : nat),
+    graph_compose_morphisms (abs_phase1 hs).(vm_graph) m1 m2 = None.
+Proof.
+  intros hs m1 m2.
+  unfold graph_compose_morphisms.
+  rewrite abs_phase1_morphism_none. reflexivity.
+Qed.
+
+(** Auxiliary: graph_delete_morphism on the abs_phase1 graph always
+    returns None (existsb on empty list = false). *)
+Lemma abs_phase1_delete_morphism_none :
+  forall (hs : KamiSnapshot) (mid : nat),
+    graph_delete_morphism (abs_phase1 hs).(vm_graph) mid = None.
+Proof.
+  intros hs mid.
+  unfold graph_delete_morphism, abs_phase1, snap_pt_to_graph. simpl.
+  reflexivity.
+Qed.
+
+(** Auxiliary: graph_tensor_morphisms on the abs_phase1 graph always
+    returns None (both morphism lookups fail). *)
+Lemma abs_phase1_tensor_morphisms_none :
+  forall (hs : KamiSnapshot) (f g : nat),
+    graph_tensor_morphisms (abs_phase1 hs).(vm_graph) f g = None.
+Proof.
+  intros hs f g.
+  unfold graph_tensor_morphisms.
+  rewrite abs_phase1_morphism_none. reflexivity.
+Qed.
+
+(** COMPOSE: compose always fails on the abstract state (empty morphism graph). *)
+Theorem verilog_simulates_vm_step_compose :
+  forall (hs : KamiSnapshot) (dst m1 m2 cost : nat),
+    exists vs',
+      vm_step (abs_phase1 hs) (instr_compose dst m1 m2 cost) vs'.
+Proof.
+  intros. eexists. eapply step_compose_failure.
+  apply abs_phase1_compose_none.
+Qed.
+
+(** MORPH_DELETE: always fails on the abstract state. *)
+Theorem verilog_simulates_vm_step_morph_delete :
+  forall (hs : KamiSnapshot) (morph_id cost : nat),
+    exists vs',
+      vm_step (abs_phase1 hs) (instr_morph_delete morph_id cost) vs'.
+Proof.
+  intros. eexists. eapply step_morph_delete_failure.
+  apply abs_phase1_delete_morphism_none.
+Qed.
+
+(** MORPH_ASSERT: always fails on the abstract state. *)
+Theorem verilog_simulates_vm_step_morph_assert :
+  forall (hs : KamiSnapshot) (morph_id cost : nat) (property cert : string),
+    exists vs',
+      vm_step (abs_phase1 hs) (instr_morph_assert morph_id property cert cost) vs'.
+Proof.
+  intros. eexists. eapply step_morph_assert_failure.
+  apply abs_phase1_morphism_none.
+Qed.
+
+(** MORPH_TENSOR: always fails on the abstract state. *)
+Theorem verilog_simulates_vm_step_morph_tensor :
+  forall (hs : KamiSnapshot) (dst f g cost : nat),
+    exists vs',
+      vm_step (abs_phase1 hs) (instr_morph_tensor dst f g cost) vs'.
+Proof.
+  intros. eexists. eapply step_morph_tensor_failure.
+  apply abs_phase1_tensor_morphisms_none.
+Qed.
+
+(** MORPH_GET: always fails on the abstract state. *)
+Theorem verilog_simulates_vm_step_morph_get :
+  forall (hs : KamiSnapshot) (dst morph_id selector cost : nat),
+    exists vs',
+      vm_step (abs_phase1 hs) (instr_morph_get dst morph_id selector cost) vs'.
+Proof.
+  intros. eexists. eapply step_morph_get_failure.
+  apply abs_phase1_morphism_none.
+Qed.
+
+(** MORPH: existence — uses success or failure depending on module presence. *)
+Theorem verilog_simulates_vm_step_morph :
+  forall (hs : KamiSnapshot) (dst src_mod dst_mod coupling_idx cost : nat),
+    exists vs',
+      vm_step (abs_phase1 hs) (instr_morph dst src_mod dst_mod coupling_idx cost) vs'.
+Proof.
+  intros.
+  destruct (graph_lookup (abs_phase1 hs).(vm_graph) src_mod) as [ms_src|] eqn:Hsrc.
+  - destruct (graph_lookup (abs_phase1 hs).(vm_graph) dst_mod) as [ms_dst|] eqn:Hdst.
+    + (* Both modules exist: use success constructor *)
+      destruct (graph_add_morphism (abs_phase1 hs).(vm_graph) src_mod dst_mod
+                  {| coupling_pairs := []; coupling_label := "" |} false)
+        as [g' mid] eqn:Hadd.
+      eexists. eapply step_morph.
+      * rewrite Hsrc. discriminate.
+      * rewrite Hdst. discriminate.
+      * symmetry. exact Hadd.
+    + (* dst_mod absent: use failure constructor *)
+      eexists. eapply step_morph_failure.
+      right. rewrite Hdst. reflexivity.
+  - (* src_mod absent: use failure constructor *)
+    eexists. eapply step_morph_failure.
+    left. rewrite Hsrc. reflexivity.
+Qed.
+
+(** MORPH_ID: existence — success if module present, failure otherwise. *)
+Theorem verilog_simulates_vm_step_morph_id :
+  forall (hs : KamiSnapshot) (dst module cost : nat),
+    exists vs',
+      vm_step (abs_phase1 hs) (instr_morph_id dst module cost) vs'.
+Proof.
+  intros.
+  destruct (graph_add_identity (abs_phase1 hs).(vm_graph) module)
+    as [[g' mid]|] eqn:Hid.
+  - eexists. eapply step_morph_id. exact Hid.
+  - eexists. eapply step_morph_id_failure. exact Hid.
 Qed.

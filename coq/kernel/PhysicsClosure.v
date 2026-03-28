@@ -55,17 +55,17 @@ From Kernel Require Import SpacetimeEmergence.
 Import ListNotations.
 
 (**
-  Physics_Closure: THE PACKAGE THEOREM - three fundamental physical laws derived.
+  Physics_Closure: THE PACKAGE THEOREM - three VM operational properties proven.
 
-  THEOREM: The kernel derives locality, conservation, and causality as theorems
+  THEOREM: The kernel proves locality, monotonicity, and causality from vm_step's definition
            (not axioms). This is the "closure" property: the computational model
            is CLOSED under physical law derivation.
 
   WHY THIS IS FUNDAMENTAL: Physics textbooks START with physical laws as axioms
   (Newton's laws, Maxwell's equations, Schrödinger equation). I START with
   computational primitives (vm_step, partition graphs) and DERIVE physical laws
-  as theorems. This inverts the traditional foundation: physics emerges from
-  computation, not vice versa.
+  as theorems. This inverts the traditional foundation: the VM's operational
+  semantics satisfy locality, monotonicity, and causality.
 
   STRUCTURE: Conjunction of three independently proven theorems:
   1. LOCALITY (observational_no_signaling from KernelPhysics.v)
@@ -139,7 +139,7 @@ Import ListNotations.
   USED BY:
   - TOE.v (Theory of Everything): packages closure as fundamental principle
   - FalsifiablePrediction.v: physical laws enable falsifiable predictions
-  - Thesis Chapter 4: demonstrates emergence of physics from computation
+  - PhysicsClosure packaging: demonstrates emergence of physics from computation
 
   HISTORICAL CONTEXT: Traditional physics starts with laws (Newton, Maxwell,
   Einstein) and builds computation on top (Turing, quantum computing). This

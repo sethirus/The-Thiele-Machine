@@ -1,11 +1,64 @@
 (** =========================================================================
-    QUANTUM EQUIVALENCE - QM = μ=0 Tier (DERIVED from Accounting)
+    QuantumEquivalence: QM = mu-Zero Tier (Derived from Accounting)
     =========================================================================
-    
-    THEOREM: Quantum correlations are exactly those certifiable with μ=0.
-    
-    STATUS: CONSTRUCTIVE PROOFS (No axioms)
-    
+
+    WHY THIS FILE EXISTS:
+    This file formalizes the claim that quantum correlations are exactly
+    those achievable at zero mu-cost. It defines "quantum correlation"
+    as satisfying no-signaling AND having CHSH value at most the
+    Tsirelson bound (5657/2000, a rational approximation of 2 sqrt 2),
+    then proves that this definition is consistent with the mu-cost
+    hierarchy: classical correlations (S <= 2) are a subset of quantum
+    correlations, and exceeding the Tsirelson bound is incompatible
+    with the quantum tier.
+
+    THE CORE CLAIM:
+    Theorem quantum_foundations_resolved --
+      The correlation hierarchy (classical <= quantum) is derived
+      from mu-accounting, and quantum correlations are characterized
+      by cost-free (mu = 0) certification.
+
+    KEY THEOREMS:
+    - quantum_implies_mu_zero: quantum correlations satisfy S <= 2 sqrt 2
+    - mu_zero_implies_quantum: mu = 0 certifiable correlations satisfy
+      no-signaling
+    - quantum_requires_no_revelation: quantum correlations need no
+      revelation (S stays within Tsirelson bound)
+    - classical_is_quantum: classical (S <= 2) implies quantum
+    - hierarchy_is_derived: classical_bound <= tsirelson_bound as a
+      numerical fact
+    - qm_equals_cost_free: definitional equivalence between
+      is_quantum_correlation and the no-signaling + Tsirelson predicate
+    - cost_causes_quantum_bound: the constructive direction --
+      no-signaling + S <= Tsirelson implies quantum
+    - exceeding_bound_implies_cost: the contrapositive --
+      S > Tsirelson implies NOT quantum
+
+    PHYSICAL INTERPRETATION:
+    This file answers "Why is nature quantum and not more nonlocal?"
+    The answer from mu-accounting: quantum correlations are exactly
+    those achievable without paying mu-cost (revelation cost). Supra-
+    quantum correlations (S > 2 sqrt 2) require explicit coordination
+    (lookup-table specification of P(a,b|x,y)), which carries positive
+    mu-cost. The Tsirelson bound is the exact mu = 0 / mu > 0 boundary.
+
+    HONEST SCOPE NOTE:
+    The Tsirelson bound constant (5657/2000) is chosen to approximate
+    the known physical value 2 sqrt 2. This file does NOT derive from
+    first principles WHY 2 sqrt 2 is the physical bound -- that
+    derivation (under NPA coherence premises) is in
+    TsirelsonQuantumModel.v. The theorems here are primarily
+    definitional unfoldings and numerical inequalities.
+
+    FALSIFICATION:
+    Exhibit a correlation that satisfies no-signaling and has S <= 2 sqrt 2
+    but is NOT achievable at mu = 0, or vice versa. The definitional
+    structure makes the forward direction (quantum implies bounded)
+    trivially unfoldable. The backward direction (bounded implies
+    certifiable) depends on the constructive witness in
+    certifiable_with_mu_zero, which requires an explicit trace.
+
+    STATUS: Fully proven (constructive proofs, no axioms), zero Admitted.
     ========================================================================= *)
 
 From Coq Require Import List Bool Arith.PeanoNat QArith Lia.
@@ -129,37 +182,39 @@ Qed.
 (** ** Foundation 1: Correlation Hierarchy is Derived *)
 
 Definition correlation_hierarchy_derived : Prop :=
-  (* Classical < Quantum < Supra-quantum follows from μ-cost *)
-  (forall ac, ac.(chsh_value) <= classical_bound -> 
-              ac.(chsh_value) <= tsirelson_bound) /\
-  (* Tsirelson bound is exactly the μ=0 boundary *)
-  (tsirelson_bound = tsirelson_bound) /\
-  (* The hierarchy is not arbitrary but emerges from accounting *)
-  True.
+  (* Classical ≤ Quantum: classical_bound (2) ≤ tsirelson_bound (2√2).
+     This is a numerical inequality between the two rational constants. *)
+  forall ac, ac.(chsh_value) <= classical_bound ->
+             ac.(chsh_value) <= tsirelson_bound.
 
 (** [hierarchy_is_derived]: formal specification. *)
 Theorem hierarchy_is_derived : correlation_hierarchy_derived.
 Proof.
   unfold correlation_hierarchy_derived.
-  split; [| split].
-  - intros ac Hclass.
-    apply (Qle_trans _ classical_bound).
-    + exact Hclass.
-    + unfold classical_bound, tsirelson_bound, tsirelson_bound.
-      unfold Qle. simpl. lia.
-  - reflexivity.
-  - exact I.
+  intros ac Hclass.
+  apply (Qle_trans _ classical_bound).
+  - exact Hclass.
+  - unfold classical_bound, tsirelson_bound.
+    unfold Qle. simpl. lia.
 Qed.
 
-(** ** Foundation 2: Quantum Mechanics as Cost-Free Computation *)
+(** ** Foundation 2: Quantum Correlations — Definition Unfolding
+
+    HONEST SCOPE NOTE: is_quantum_correlation is DEFINED as
+    (satisfies_no_signaling /\ chsh_value <= tsirelson_bound).
+    The theorem below unfolds that definition — it is a definitional
+    equivalence, not an independent derivation that QM equals this bound.
+    The tsirelson_bound constant (5657/2000 ≈ 2.828) is chosen to match
+    the known physical value; deriving WHY nature uses this bound from
+    μ-accounting alone is an open problem. *)
 
 Definition qm_is_cost_free_computation : Prop :=
-  (* QM = exactly those correlations achievable without revelation cost *)
   forall ac,
     is_quantum_correlation ac <->
     (ac.(satisfies_no_signaling) /\ ac.(chsh_value) <= tsirelson_bound).
 
-(** [qm_equals_cost_free]: formal specification. *)
+(** [qm_equals_cost_free]: unfolds the definition of is_quantum_correlation.
+    This is a definitional tautology, not an independent theorem. *)
 Theorem qm_equals_cost_free : qm_is_cost_free_computation.
 Proof.
   unfold qm_is_cost_free_computation, is_quantum_correlation.
@@ -185,36 +240,26 @@ Proof.
   - exact qm_equals_cost_free.
 Qed.
 
-(** ** The Complete Resolution Statement *)
+(** ** The Complete Resolution Statement
 
-(** This theorem formalizes the claim that μ-accounting SOLVES quantum foundations:
+    HONEST SCOPE: This theorem bundles the two results above.
+    - Part 1 (hierarchy_is_derived): the numerical fact classical_bound ≤ tsirelson_bound,
+      which means any classically-bounded correlation is also Tsirelson-bounded.
+    - Part 2 (qm_equals_cost_free): a definitional unfolding of is_quantum_correlation.
 
-    Traditional Question: "Why is nature quantum (bounded by 2√2) rather than
-    allowing arbitrary nonlocal correlations?"
-    
-    Answer from μ-Accounting:
-    1. Correlations require certification
-    2. Certification beyond LOCC requires structure revelation
-    3. Structure revelation has computational cost (μ > 0)
-    4. The μ=0 tier is EXACTLY the quantum correlation space
-    5. Therefore: 2√2 is not arbitrary but is the cost-free boundary
-    
-    This is not "mere formal equivalence" - it's a derivation that explains
-    WHY the bound takes this particular value.
+    What this does NOT establish:
+    - It does not derive WHY 2√2 is the physical bound from μ-accounting alone.
+    - The Tsirelson bound (2√2) under NPA coherence is proven conditionally in
+      TsirelsonQuantumModel.v (requires mu_ledger_coherent as a premise).
 *)
 
 Theorem quantum_foundations_complete :
-  (* Part 1: The hierarchy is derived, not assumed *)
   correlation_hierarchy_derived /\
-  (* Part 2: QM = cost-free computation *)
-  qm_is_cost_free_computation /\
-  (* Part 3: The bound separates cost tiers *)
-  (tsirelson_bound = tsirelson_bound).
+  qm_is_cost_free_computation.
 Proof.
-  split; [| split].
+  split.
   - exact hierarchy_is_derived.
   - exact qm_equals_cost_free.
-  - reflexivity.
 Qed.
 
 (** ** Causal Direction: Cost Constraints Cause the Bound *)
@@ -252,8 +297,8 @@ Qed.
     
     The μ-accounting framework provides:
     
-    1. DERIVATION: The Tsirelson bound emerges from total μ-cost = 0
-       (TsirelsonDerivation.tsirelson_from_pure_accounting)
+    1. DERIVATION: The Tsirelson bound follows from NPA-1 coherence premises (row constraint on correlators)
+       (TsirelsonDerivation.tsirelson_from_pure_accounting, archived)
        - Instruction μ = 0: no revelation operations
        - Correlation μ = 0: algebraically coherent strategy
        Together: Total μ = 0 → CHSH ≤ 2√2
@@ -275,7 +320,8 @@ Qed.
        - Instruction μ = 0, Correlation μ > 0: Supra-quantum (CHSH ≤ 4)
        - Instruction μ > 0: Beyond no-signaling
        
-    This is not "merely formal equivalence" - it's a complete explanation
-    of why quantum mechanics has the correlation structure it does,
-    derived from first principles of computational cost.
+    This establishes formal equivalence between mu-cost accounting and
+    NPA-1 algebraic constraints. The Tsirelson bound is derived from
+    algebraic premises (NPA coherence), not from bare mu-cost alone.
+    See the HONEST SCOPE NOTE above (line 47).
 *)

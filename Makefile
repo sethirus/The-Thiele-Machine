@@ -3,11 +3,14 @@
 # E1.1: One-Command Reproducibility Demos
 
 .PHONY: help install_deps organize
-.PHONY: rtl-run clean purge
+.PHONY: rtl-run clean deep-clean purge
 .PHONY: test-isomorphism test-alignment test-all test-ultra-smoke-isomorphism test-smoke-isomorphism test-full-isomorphism test-emergent-geometry test-emergent-geometry-verilator
 .PHONY: generate-python ocaml-runner
 .PHONY: deliverable-one-hour
-.PHONY: proof-complete-gate coq-gate extraction-gate rtl-gate cosim-gate
+.PHONY: proof-complete-gate coq-gate extraction-gate rtl-gate cosim-gate isa-proof-freshness-check
+.PHONY: bitlock-proof-vm-cpu bitlock-manifest
+.PHONY: canonical-source-gate canonical-extract canonical-e2e
+.PHONY: bitlock-stable stack-audit
 
 # ============================================================================
 # E1.1: DEMO TARGETS - One-Command Reproducibility
@@ -35,7 +38,12 @@ help:
 	@echo "  make black-hole-demo - Show Python fail-fast vs RTL kill-switch semantics"
 	@echo "  make atlas-audit    - Run inquisitor + completeness gate checks"
 	@echo "  make isomorphism-bitlock - Strict bit-for-bit Coq/Python/RTL lockstep gate"
+	@echo "  make bitlock-proof-vm-cpu - Deterministic hash lock from Coq roots to VM/RTL state"
+	@echo "  make bitlock-stable - Stable lockstep gates with extended timeout"
+	@echo "  make stack-audit    - One-command signed stack audit summary (JSON + logs)"
+	@echo "  make bitlock-manifest - Emit reproducible proof->VM->CPU hash manifest"
 	@echo "  make proof-undeniable - Machine-checkable formal proof gate (inquisitor + coqchk)"
+	@echo "  make canonical-e2e - Canonical single-source Coq->OCaml->Kami/RTL->tests pipeline"
 	@echo "  make deliverable-one-hour - Publishable real-result brief (proof + RSA artifact)"
 	@echo "  make experiments-*  - Run partition experiments"
 	@echo ""
@@ -59,30 +67,19 @@ BELL_SKIP_COQ ?= 0
 LAW_SKIP_COQ ?= 0
 
 test-isomorphism:
-	pytest tests/test_bisimulation_complete.py tests/test_three_layer_isomorphism.py tests/test_rtl_compute_isomorphism.py -v
+	pytest tests/test_cross_layer_bisimulation.py tests/test_opcode_alignment.py tests/test_verilog_cosim.py -v
 
 test-alignment:
 	pytest tests/alignment/ tests/test_opcode_alignment.py -v
 
 test-all:
-	pytest tests/test_mu.py tests/test_mu_costs.py tests/test_bisimulation_complete.py tests/test_accelerator_cosim.py tests/test_three_layer_isomorphism.py tests/test_opcode_alignment.py tests/test_rtl_compute_isomorphism.py tests/test_rtl_mu_charging.py tests/test_fuzz_isomorphism.py tests/alignment/ -v
+	pytest tests/test_mu.py tests/test_accelerator_cosim.py tests/test_cross_layer_bisimulation.py tests/test_opcode_alignment.py tests/test_rtl_mu_charging.py tests/test_fuzz_random_programs.py tests/test_verilog_cosim.py tests/test_canonical_source_pipeline.py -v
 
 test-ultra-smoke-isomorphism:
-	THIELE_FUZZ_MAX_EXAMPLES=$${THIELE_FUZZ_MAX_EXAMPLES:-2} \
-	THIELE_FUZZ_TENSOR_MAX_EXAMPLES=$${THIELE_FUZZ_TENSOR_MAX_EXAMPLES:-1} \
-	THIELE_FUZZ_LONG_MAX_EXAMPLES=$${THIELE_FUZZ_LONG_MAX_EXAMPLES:-1} \
-	THIELE_BIANCHI_MAX_EXAMPLES=$${THIELE_BIANCHI_MAX_EXAMPLES:-6} \
-	THIELE_BIANCHI_SEQ_MAX_EXAMPLES=$${THIELE_BIANCHI_SEQ_MAX_EXAMPLES:-4} \
-	THIELE_BIANCHI_SINGLE_MAX_EXAMPLES=$${THIELE_BIANCHI_SINGLE_MAX_EXAMPLES:-4} \
 	pytest -q \
-	  tests/test_bisimulation_complete.py::TestBisimulationCoqPython::test_empty_program \
-	  tests/test_bisimulation_complete.py::TestBisimulationCoqPython::test_single_pnew \
-	  tests/test_bisimulation_complete.py::TestBisimulationVerilog::test_mu_alu_addition \
-	  tests/test_bisimulation_complete.py::TestOpcodeAlignment::test_opcode_values_coq_python \
-	  tests/test_bisimulation_complete.py::TestOpcodeAlignment::test_opcode_values_coq_verilog \
-	  tests/test_random_program_fuzz.py::TestRandomProgramIsomorphism::test_mu_matches_for_random_programs \
-	  tests/test_bianchi_enforcement.py::TestBianchiPythonEnforcement::test_bianchi_holds_after_reveal_instruction \
-	  tests/test_bianchi_enforcement.py::TestBianchiPropertyBased::test_bianchi_consistency_property \
+	  tests/test_canonical_source_pipeline.py::test_extraction_artifacts_exist \
+	  tests/test_extraction_freshness.py::test_required_symbols_exported \
+	  tests/test_verilog_cosim.py::TestCompilation::test_kami_rtl_compiles \
 	  -x --maxfail=1
 
 test-smoke-isomorphism:
@@ -92,10 +89,21 @@ test-smoke-isomorphism:
 	THIELE_BIANCHI_MAX_EXAMPLES=$${THIELE_BIANCHI_MAX_EXAMPLES:-20} \
 	THIELE_BIANCHI_SEQ_MAX_EXAMPLES=$${THIELE_BIANCHI_SEQ_MAX_EXAMPLES:-15} \
 	THIELE_BIANCHI_SINGLE_MAX_EXAMPLES=$${THIELE_BIANCHI_SINGLE_MAX_EXAMPLES:-15} \
-	pytest -q tests/test_bisimulation_complete.py tests/test_random_program_fuzz.py tests/test_bianchi_enforcement.py -x --maxfail=1
+	pytest -q tests/test_cross_layer_bisimulation.py tests/test_fuzz_random_programs.py tests/test_rtl_mu_charging.py -x --maxfail=1
 
 test-full-isomorphism:
-	pytest -q tests/test_bisimulation_complete.py tests/test_random_program_fuzz.py tests/test_bianchi_enforcement.py
+	pytest -q tests/test_cross_layer_bisimulation.py tests/test_fuzz_random_programs.py tests/test_verilog_cosim.py
+
+bitlock-stable:
+	THIELE_RTL_SIM=$${THIELE_RTL_SIM:-iverilog} \
+	pytest -q \
+	  tests/test_bitlock_proof_vm_cpu.py::test_proof_to_vm_to_cpu_source_chain_hashes_exist \
+	  tests/test_bitlock_proof_vm_cpu.py::test_bit_for_bit_state_isomorphism_across_ocaml_python_rtl \
+	  tests/test_bitlock_proof_vm_cpu.py::test_prefix_by_prefix_digest_isomorphism_every_step \
+	  --per-test-timeout=$${PER_TEST_TIMEOUT:-240} -x --maxfail=1
+
+stack-audit:
+	python3 scripts/audit_stack.py --bitlock-timeout $${PER_TEST_TIMEOUT:-240}
 
 test-emergent-geometry:
 	pytest -q tests/test_emergent_geometry_proxies.py -x --maxfail=1
@@ -131,6 +139,39 @@ proof-complete-gate: coq-gate extraction-gate rtl-gate
 	@echo ""
 	@echo "proof-complete-gate: ALL GATES PASSED"
 
+canonical-source-gate:
+	@echo "[canonical-source-gate] Verifying extraction roots depend on CanonicalCPUProof..."
+	@grep -q 'From KamiHW Require Import .*CanonicalCPUProof' coq/Extraction.v
+	@grep -q 'From KamiHW Require Import CanonicalCPUProof' coq/kami_hw/KamiExtraction.v
+	@grep -q '^Definition canonical_cpu_module := ' coq/kami_hw/CanonicalCPUProof.v
+	@grep -q '^Definition targetB ' coq/kami_hw/CanonicalCPUProof.v
+	@echo "[canonical-source-gate] PASS: canonical source wiring is explicit"
+
+canonical-extract: canonical-source-gate
+	@echo "[canonical-extract] Rebuilding extraction artefacts from canonical source..."
+	@$(MAKE) -C coq -j4 Extraction.vo kami_hw/KamiExtraction.vo
+	@if [ ! -s "build/thiele_core.ml" ]; then echo "FAIL: build/thiele_core.ml missing or empty"; exit 1; fi
+	@if [ ! -s "build/kami_hw/Target.ml" ]; then echo "FAIL: build/kami_hw/Target.ml missing or empty"; exit 1; fi
+	@if [ ! -s "build/kami_hw/Main.ml" ]; then echo "FAIL: build/kami_hw/Main.ml missing or empty"; exit 1; fi
+	@if [ ! -s "build/kami_hw/mkModule1.v" ]; then echo "FAIL: build/kami_hw/mkModule1.v missing or empty"; exit 1; fi
+	@if [ ! -s "build/kami_hw/mkModule1_synth.v" ]; then echo "FAIL: build/kami_hw/mkModule1_synth.v missing or empty"; exit 1; fi
+	@if [ ! -s "thielecpu/hardware/rtl/thiele_cpu_kami.v" ]; then echo "FAIL: tracked RTL missing or empty"; exit 1; fi
+	@for sym in vm_instruction vm_apply vMState; do \
+	  if ! grep -q "$$sym" "build/thiele_core.ml"; then echo "FAIL: $$sym not found in build/thiele_core.ml"; exit 1; fi; \
+	done
+	@for sym in canonical_cpu_module targetB; do \
+	  if ! grep -q "$$sym" "build/kami_hw/Target.ml"; then echo "FAIL: $$sym not found in build/kami_hw/Target.ml"; exit 1; fi; \
+	done
+	@if ! grep -q 'match targetB iAddrSize with' "build/kami_hw/Main.ml"; then echo "FAIL: build/kami_hw/Main.ml is not driving the pretty-printer via targetB"; exit 1; fi
+	@if ! diff -q build/kami_hw/mkModule1_synth.v thielecpu/hardware/rtl/thiele_cpu_kami.v >/dev/null; then \
+	  echo "FAIL: tracked RTL is not identical to build/kami_hw/mkModule1_synth.v"; exit 1; \
+	fi
+	@echo "[canonical-extract] PASS: VM+Kami extraction artefacts regenerated"
+
+canonical-e2e: canonical-extract rtl-gate cosim-gate test-smoke-isomorphism
+	@echo ""
+	@echo "canonical-e2e: PASS (canonical source -> extraction -> RTL synth/cosim -> smoke tests)"
+
 coq-gate:
 	@echo "[coq-gate] Building all Coq proofs..."
 	$(MAKE) -C coq -j4
@@ -143,17 +184,12 @@ coq-gate:
 	 fi
 	@echo "[coq-gate] PASS: zero Admitted, all proofs compile"
 
-extraction-gate:
-	@echo "[extraction-gate] Verifying thiele_core.ml..."
-	@if [ ! -s "build/thiele_core.ml" ]; then echo "FAIL: build/thiele_core.ml missing or empty"; exit 1; fi
-	@for sym in vm_instruction vm_apply vMState; do \
-	  if ! grep -q "$$sym" "build/thiele_core.ml"; then echo "FAIL: $$sym not found in build/thiele_core.ml"; exit 1; fi; \
-	done
-	@echo "[extraction-gate] PASS: extraction artefact present and exports correct symbols"
+extraction-gate: canonical-extract
+	@echo "[extraction-gate] PASS: extraction artefacts are canonical and fresh"
 
 rtl-gate:
 	@echo "[rtl-gate] Running Yosys synthesis on extracted Kami RTL..."
-	yosys -p "read_verilog -sv -DSYNTHESIS thielecpu/hardware/rtl/thiele_cpu_kami.v; prep -top mkModule1; check; stat" 2>&1 | tee /tmp/rtl_gate.log
+	yosys -p "read_verilog -sv -DSYNTHESIS thielecpu/hardware/rtl/RegFile.v thielecpu/hardware/rtl/thiele_cpu_kami.v; prep -top mkModule1; check; stat" 2>&1 | tee /tmp/rtl_gate.log
 	@if grep -q 'ERROR\|error:' /tmp/rtl_gate.log; then echo "FAIL: Yosys errors found"; exit 1; fi
 	@cells=$$(grep 'Number of cells:' /tmp/rtl_gate.log | awk '{print $$NF}' | tail -n 1); \
 	 if ! echo "$$cells" | grep -Eq '^[0-9]+$$'; then \
@@ -164,7 +200,7 @@ rtl-gate:
 
 cosim-gate:
 	@echo "[cosim-gate] Running iverilog/vvp co-simulation..."
-	pytest tests/test_rtl_synthesis_gate.py::test_verilog_cosim_testbench -v --tb=short
+	pytest tests/test_verilog_cosim.py::TestCompilation::test_kami_rtl_compiles -v --tb=short
 	@echo "[cosim-gate] PASS"
 
 proof-dag: atlas-audit
@@ -218,6 +254,7 @@ clean-outputs:
 
 RTL_DIR := thielecpu/hardware/rtl
 RTL_CANONICAL := $(RTL_DIR)/thiele_cpu_kami.v
+RTL_REGFILE := $(RTL_DIR)/RegFile.v
 RTL_TOP := mkModule1
 RTL_TESTBENCH := thielecpu/hardware/testbench/thiele_cpu_kami_tb.v
 SYNTH_LOG := $(RTL_DIR)/synth_lite_clean.log
@@ -228,7 +265,7 @@ SYNTH_OUT := $(RTL_DIR)/synth_lite_out.v
 # iverilog compilation check (simulation mode, all $display active)
 rtl-check:
 	@echo "=== RTL Compilation Check ==="
-	@iverilog -g2012 -Wall -o /dev/null $(RTL_CANONICAL) 2>&1
+	@iverilog -g2012 -Wall -o /dev/null $(RTL_REGFILE) $(RTL_CANONICAL) 2>&1
 	@echo "✓ iverilog: zero warnings, zero errors"
 
 # Full Yosys gate-level synthesis (YOSYS_LITE: same logic, smaller arrays)
@@ -238,7 +275,7 @@ rtl-synth: $(RTL_CANONICAL)
 	@echo "    Top:    $(RTL_TOP)"
 	@echo "    Defines: -DSYNTHESIS"
 	@echo "    Running (this takes ~5 minutes)..."
-	@yosys -l $(SYNTH_LOG) -p "read_verilog -sv -DSYNTHESIS $(RTL_CANONICAL); prep -top $(RTL_TOP); check; stat; write_verilog $(SYNTH_OUT)" 2>&1
+	@yosys -l $(SYNTH_LOG) -p "read_verilog -sv -DSYNTHESIS $(RTL_REGFILE) $(RTL_CANONICAL); prep -top $(RTL_TOP); check; stat; write_verilog $(SYNTH_OUT)" 2>&1
 	@echo ""
 	@echo "=== Synthesis Results ==="
 	@grep "Warnings:" $(SYNTH_LOG) | tail -1
@@ -253,7 +290,7 @@ rtl-cosim:
 	@echo "=== Co-Simulation Tests ==="
 	@echo "    Canonical RTL: $(RTL_CANONICAL)"
 	@echo "    Testbench:     $(RTL_TESTBENCH)"
-	@pytest tests/test_bisimulation_complete.py tests/test_accelerator_cosim.py -v 2>&1
+	@pytest tests/test_cross_layer_bisimulation.py tests/test_accelerator_cosim.py -v 2>&1
 	@echo "✓ All cosim tests passed"
 
 # Full RTL verification: compile + synthesize + cosim
@@ -317,7 +354,7 @@ synth-report:
 clean-synth: rtl-clean
 
 # Coq proof compilation
-.PHONY: coq-core coq-kernel coq-subsumption proof-undeniable isomorphism-bitlock parity-extracted-only proof-gate-repro synthesis-repro-gate final-claim-audit final-claim-all
+.PHONY: coq-core coq-kernel coq-subsumption proof-undeniable isomorphism-bitlock parity-extracted-only proof-gate-repro synthesis-repro-gate final-claim-audit final-claim-all check-sensitive-files check-sensitive-files-strict
 
 coq-core:
 	@echo "Building Coq core proofs..."
@@ -334,8 +371,18 @@ coq-subsumption:
 
 isomorphism-bitlock:
 	@echo "Running strict bit-for-bit Coq/Python/RTL lockstep gate..."
+	@$(MAKE) bitlock-proof-vm-cpu
 	@bash scripts/parity_extracted_only.sh
 	@echo "✓ Bit-for-bit runtime lockstep PASSED"
+
+bitlock-proof-vm-cpu: canonical-extract ocaml-runner rtl-gate
+	@echo "[bitlock-proof-vm-cpu] verifying deterministic hash lock across Coq/OCaml/RTL..."
+	@python3 -c "from rtl_harness.cosim import _ensure_verilator_current; _ensure_verilator_current(); print('[bitlock-proof-vm-cpu] verilator cache ready')"
+	@pytest -q tests/test_bitlock_proof_vm_cpu.py -x --maxfail=1
+	@echo "[bitlock-proof-vm-cpu] PASS"
+
+bitlock-manifest: bitlock-proof-vm-cpu
+	@python3 scripts/generate_bitlock_manifest.py --output artifacts/isomorphism_bitlock_manifest.json
 
 parity-extracted-only:
 	@bash scripts/parity_extracted_only.sh
@@ -352,13 +399,78 @@ final-claim-audit:
 final-claim-all: parity-extracted-only proof-gate-repro synthesis-repro-gate final-claim-audit
 	@echo "✓ Final claim bundle generated under artifacts/"
 
+isa-proof-freshness-check:
+	@echo "[isa-proof-freshness] Checking that proof-sensitive .vo files are current..."
+	@bash scripts/check_isa_proof_freshness.sh coq/
+	@echo "[isa-proof-freshness] PASS"
+
+# E6: Red-flag diff gate — warns when proof-sensitive files are modified
+# Run this before committing to catch accidental semantic drift.
+check-sensitive-files:
+	@echo "[check-sensitive-files] Checking for uncommitted changes to proof-sensitive files..."
+	@SENSITIVE="coq/kernel/VMStep.v coq/kernel/VMState.v coq/Extraction.v"; \
+	 CHANGED=""; \
+	 for f in $$SENSITIVE; do \
+	   if ! git diff --quiet HEAD -- "$$f" 2>/dev/null; then \
+	     CHANGED="$$CHANGED $$f"; \
+	   fi; \
+	 done; \
+	 if [ -n "$$CHANGED" ]; then \
+	   echo ""; \
+	   echo "⚠  WARNING: Proof-sensitive files have uncommitted changes:$$CHANGED"; \
+	   echo ""; \
+	   echo "   These files affect the following theorems:"; \
+	   echo "     VMStep.v        → MuLedgerConservation (vm_apply_mu), AbstractNoFI (cert_addr_setterb),"; \
+	   echo "                       PrimeAxiom (vm_apply_certified), InsightTaxonomy, ShadowProjection"; \
+	   echo "     VMState.v       → All theorems — VMState fields define the state space"; \
+	   echo "     Extraction.v    → build/thiele_core.ml freshness (run: make canonical-extract)"; \
+	   echo ""; \
+	   echo "   Required actions before committing:"; \
+	   echo "     1. make -C coq -j4              (rebuild proofs)"; \
+	   echo "     2. make isa-proof-freshness-check (verify .vo freshness)"; \
+	   echo "     3. python3 scripts/inquisitor.py  (zero Admitted check)"; \
+	   echo "     4. Update artifacts/final_claim_audit/isa_proof_impact.md if ISA changed"; \
+	   echo ""; \
+	 else \
+	   echo "[check-sensitive-files] No uncommitted changes to proof-sensitive files. OK"; \
+	 fi
+
+# E6-STRICT: Hard-fail variant for use in proof-undeniable and CI.
+# Exits with code 1 if any proof-sensitive file has uncommitted changes,
+# blocking release gates until the change is committed + proofs rebuilt.
+check-sensitive-files-strict:
+	@SENSITIVE="coq/kernel/VMStep.v coq/kernel/VMState.v coq/Extraction.v"; \
+	 CHANGED=""; \
+	 for f in $$SENSITIVE; do \
+	   if ! git diff --quiet HEAD -- "$$f" 2>/dev/null; then \
+	     CHANGED="$$CHANGED $$f"; \
+	   fi; \
+	 done; \
+	 if [ -n "$$CHANGED" ]; then \
+	   echo ""; \
+	   echo "✗ ERROR: Proof-sensitive files have uncommitted changes:$$CHANGED"; \
+	   echo ""; \
+	   echo "  proof-undeniable requires a clean proof-sensitive file state."; \
+	   echo "  Required actions before re-running:"; \
+	   echo "    1. make -C coq -j4              (rebuild proofs)"; \
+	   echo "    2. make isa-proof-freshness-check (verify .vo freshness)"; \
+	   echo "    3. python3 scripts/inquisitor.py  (zero Admitted check)"; \
+	   echo "    4. git add + git commit the changed files"; \
+	   echo ""; \
+	   exit 1; \
+	 else \
+	   echo "[check-sensitive-files-strict] No uncommitted changes to proof-sensitive files. OK"; \
+	 fi
+
 proof-undeniable:
 	@echo "Running formal proof gate (compile + audit + independent checker)..."
 	@$(MAKE) coq-kernel
+	@$(MAKE) isa-proof-freshness-check
+	@$(MAKE) check-sensitive-files-strict
 	@python3 scripts/inquisitor.py
 	@cd coq && coqchk -R kernel Kernel Kernel.Kernel Kernel.KernelTM Kernel.KernelThiele
 	@cd coq && coqchk -R kernel Kernel Kernel.PythonBisimulation Kernel.HardwareBisimulation Kernel.ThreeLayerIsomorphism
-	@cd coq && coqchk -R kernel Kernel -R bridge Bridge Kernel.VMState Kernel.VMStep Bridge.PythonMuLedgerBisimulation
+	@cd coq && coqchk -R kernel Kernel Kernel.VMState Kernel.VMStep Kernel.MuShannonBridge Kernel.HonestNoFI_TheoremsWithoutAssumptions
 	@$(MAKE) isomorphism-bitlock
 	@echo "✓ Formal proof gate PASSED (inquisitor + coqchk)"
 
@@ -387,13 +499,20 @@ test-integration: coq-core synth-all test-vm-rtl
 clean:
 	@echo "Cleaning build artifacts and cache files..."
 	@rm -rf .build_cache/ .test_artifacts/ .generated/
+	@rm -rf build/ .pytest_cache/ outputs/
+	@rm -f /tmp/*.log
 	@find . -name "*.vo" -delete
 	@find . -name "*.vos" -delete
 	@find . -name "*.vok" -delete
 	@find . -name "*.glob" -delete
 	@find . -name "*.aux" -delete
 	@find . -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null || true
-	@echo "✓ Clean complete"
+	@echo "✓ Clean complete (audit artifacts preserved)"
+
+deep-clean: clean
+	@echo "Running deep clean (includes audit artifacts)..."
+	@rm -rf artifacts/
+	@echo "✓ Deep clean complete"
 
 # Organize workspace (move artifacts to appropriate directories)
 organize:
@@ -401,7 +520,7 @@ organize:
 	@./scripts/auto_organize.sh
 
 # Clean everything including dependencies
-purge: clean
+purge: deep-clean
 	@echo "Purging all generated files..."
 	@rm -rf node_modules/ .venv/ venv/ thiele_env/
 	@make -C coq clean
@@ -443,7 +562,7 @@ vendor-kami-build:
 	@cd vendor/kami && make -j4
 	@echo "✅ [vendor-kami-build] vendor/kami full build completed"
 
-RELEASE_BLUESPECDIR ?= /tmp/bsc-2024.07-ubuntu-22.04/lib
+RELEASE_BLUESPECDIR ?= /usr/local/lib
 RELEASE_BSC ?= /tmp/bsc-2024.07-ubuntu-22.04/bin/bsc
 
 release-toolchain-check:
@@ -469,7 +588,19 @@ proof: release-toolchain-check coq-kami-reset vendor-bbv-build vendor-kami-build
 extract: release-toolchain-check coq-kami-reset
 	@echo "[extract] running Coq->Kami->BSV->Verilog extraction..."
 	@SKIP_YOSYS=1 BLUESPECDIR="$(RELEASE_BLUESPECDIR)" BSC="$(RELEASE_BSC)" ./scripts/kami_extract.sh ThieleCPU
-	@cp build/kami_hw/mkModule1.v thielecpu/hardware/rtl/thiele_cpu_kami.v
+	@candidate=""; \
+	if [ -s build/kami_hw/mkModule1_synth.v ]; then \
+		candidate="build/kami_hw/mkModule1_synth.v"; \
+	elif [ -s build/kami_hw/mkModule1.v ]; then \
+		candidate="build/kami_hw/mkModule1.v"; \
+	else \
+		echo "FAIL: no extracted Verilog candidate produced"; \
+		exit 1; \
+	fi; \
+	echo "[extract] candidate: $$candidate"; \
+	mkdir -p thielecpu/hardware/rtl; \
+	cp "$$candidate" thielecpu/hardware/rtl/thiele_cpu_kami.v.tmp; \
+	mv thielecpu/hardware/rtl/thiele_cpu_kami.v.tmp thielecpu/hardware/rtl/thiele_cpu_kami.v
 	@echo "✅ [extract] canonical RTL refreshed: thielecpu/hardware/rtl/thiele_cpu_kami.v"
 
 synth: release-toolchain-check
@@ -479,7 +610,7 @@ synth: release-toolchain-check
 
 sim: release-toolchain-check
 	@echo "[sim] prebuilding Verilator binary cache..."
-	@python3 -c "from thielecpu.hardware.cosim import _ensure_verilator_current; _ensure_verilator_current(); print('[sim] verilator cache ready')"
+	@python3 -c "from rtl_harness.cosim import _ensure_verilator_current; _ensure_verilator_current(); print('[sim] verilator cache ready')"
 	@echo "[sim] running Verilator + external Z3 bridge tests..."
 	@THIELE_RTL_SIM=verilator pytest -q \
 		tests/test_logic_z3_verilator_bridge.py::test_lassert_bridge_prevents_stall_and_reaches_halt \

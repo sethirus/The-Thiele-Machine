@@ -5,13 +5,13 @@
 
     APPROACH: Show that PNEW with a fresh region changes V, E, F → changes χ.
 
-    PLAN:
-    Phase 1: ✓ DiscreteTopology.v - topological definitions (V, E, F, χ)
-    Phase 2: ✓ DiscreteGaussBonnet.v - Gauss-Bonnet (Σ angle_defects = 5π×χ)
-    Phase 3: THIS FILE - Prove PNEW changes topology (ΔV, ΔE, ΔF → Δχ)
-    Phase 4: ✓ TopologyCurvatureBridge.v - Prove Δχ → ΔCurvature
-    Phase 5: StressEnergyDynamics.v - Prove stress-energy drives PNEW frequency
-    Phase 6: EinsteinEmergence.v - Derive Einstein's equation
+    GRAVITY EMERGENCE PIPELINE (dependency chain):
+    1. DiscreteTopology.v — topological definitions (V, E, F, χ)
+    2. DiscreteGaussBonnet.v — Gauss-Bonnet (Σ angle_defects = 5π×χ)
+    3. This file — PNEW changes topology (ΔV, ΔE, ΔF → Δχ)
+    4. TopologyCurvatureBridge.v — Δχ → ΔCurvature
+    5. StressEnergyDynamics.v — stress-energy drives PNEW frequency
+    6. EinsteinEmergence.v — derive discrete Einstein analogue
 
     KEY THEOREMS:
     - pnew_fresh_increases_F: PNEW with fresh region increases face count
@@ -20,7 +20,7 @@
 
     NO AXIOMS. NO ADMITTED. All proofs compile with Coq 8.18+.
 
-    REF: GRAVITY_PROOF_PLAN.md
+    REF: DiscreteTopology.v, DiscreteGaussBonnet.v, TopologyCurvatureBridge.v
     *)
 
 (* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)

@@ -2,21 +2,19 @@
     TSIRELSON BOUND: NON-CIRCULARITY BRIDGE
     =========================================================================
 
-    This file CLOSES the circularity gap in TsirelsonDerivation.v.
+    This file provides a non-circular derivation of the Tsirelson bound,
+    superseding TsirelsonDerivation.v (archived). The archived file defined
+    correlation_mu_cost with 2sqrt2 baked into the definition, then read it
+    back -- a circular construction.
 
-    THE PREVIOUS GAP:
-    TsirelsonDerivation.v defines correlation_mu_cost with 2√2 baked
-    into the definition (tsirelson_bound constant), then reads it back.
-    The audit correctly identified this as circular.
-
-    THE FIX:
-    The Tsirelson bound 2√2 was ALREADY derived non-circularly in
-    TsirelsonGeneral.v (315 lines, zero admits). This file serves as a
-    bridge that:
+    NON-CIRCULAR APPROACH:
+    The Tsirelson bound 2sqrt2 is derived non-circularly in
+    TsirelsonGeneral.v (315 lines, zero admits). This file bridges that
+    derivation to the mu-cost framework:
     1. Imports the non-circular derivation from TsirelsonGeneral.v
-    2. Connects it to the μ-cost framework
+    2. Connects it to the mu-cost framework
     3. Provides the complete non-circular derivation chain
-    4. Shows where the bound 2√2 = √8 comes from (algebra, not definition)
+    4. Shows where the bound 2sqrt2 = sqrt8 comes from (algebra, not definition)
 
     THE NON-CIRCULAR DERIVATION (from TsirelsonGeneral.v):
 
@@ -38,7 +36,7 @@
     ZERO physics axioms. The Tsirelson bound 2√2 is a theorem of PURE
     ALGEBRA about constrained quadratic forms.
 
-    STATUS: ZERO AXIOMS. ZERO ADMITS.
+    STATUS: ZERO PROJECT-LOCAL AXIOMS. ZERO ADMITS.
     ========================================================================= *)
 
 (* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
@@ -149,8 +147,9 @@ Qed.
     - Factor 2: from two row bounds, each ≤ 1
 
     Neither 2√2 nor √8 is a magic number. It's 4 × 2 = 8 under a
-    square root. This is why TsirelsonDerivation.v's approach (putting
-    2√2 in the definition) was circular — it assumed the answer. *)
+    square root. This is why the approach in TsirelsonDerivation.v
+    (archived) of putting 2√2 in the definition was circular — it
+    assumed the answer. *)
 
 (** √8 = 2√2: explicit computation *)
 Lemma sqrt8_eq_2sqrt2 : sqrt 8 = 2 * sqrt 2.
@@ -269,7 +268,7 @@ Qed.
     - Tsirelson bound is now PROVEN from pure algebra (status: A)
     - The derivation uses ZERO physics axioms
     - See TsirelsonGeneral.v for the full mechanized proof
-    - See HardMathFactsProven.v for the Q-arithmetic version
+    - See HardMathFactsProven.v (archived) for the Q-arithmetic version
     ========================================================================= *)
 
 (** Summary: Non-circular derivation chain for Tsirelson *)
@@ -277,11 +276,11 @@ Qed.
     1. VMState.v, VMStep.v           -> Machine primitives (no physics)
     2. ClassicalBound.v              -> μ=0 gives |S| ≤ 2 (16 cases)
     3. TsirelsonGeneral.v (this tie) -> Pure algebra gives S² ≤ 8
-    4. HardMathFactsProven.v         -> Q-arithmetic mechanization
+    4. HardMathFactsProven.v (archived) -> Q-arithmetic mechanization
     5. NonCircularityAudit.v         -> Formal defense against circularity
 
     The bound 2√2 is COMPUTED from algebraic constraints, not assumed.
-    TsirelsonDerivation.v's circular definition is superseded by this chain.
+    TsirelsonDerivation.v's (archived) circular definition is superseded by this chain.
 *)
 
 (** =========================================================================
@@ -312,7 +311,7 @@ Qed.
     SUMMARY: TSIRELSON BOUND IS A THEOREM, NOT AN AXIOM
     =========================================================================
 
-    WHAT WE PROVED:
+    PROVEN RESULTS:
 
     1. ALGEBRAIC BOUND: S² ≤ 8 from row constraints (Cauchy-Schwarz)
        The bound 8 = 4 × 2 comes from 4 correlators, 2 row constraints.
@@ -320,7 +319,7 @@ Qed.
     2. TIGHTNESS: The bound √8 = 2√2 is exactly achieved by e = ±1/√2.
 
     3. NON-CIRCULARITY: The bound is COMPUTED from algebra, not defined.
-       TsirelsonDerivation.v's circular approach is superseded.
+       TsirelsonDerivation.v's (archived) circular approach is superseded.
 
     4. HARDWARE LINK: Rational bound 5657/2000 > 2√2 verified for Q16.16.
 

@@ -29,6 +29,7 @@ from __future__ import annotations
 import argparse
 import dataclasses
 import datetime as _dt
+import time
 import json
 import os
 import re
@@ -138,10 +139,9 @@ _SHARED_BUILD_FOUNDATION_MODULES: frozenset[str] = frozenset(
     }
 )
 
-_OCAML_EXTRACTION_ENTRYPOINTS: frozenset[str] = frozenset({"Extraction.v", "MinimalExtraction.v"})
+_OCAML_EXTRACTION_ENTRYPOINTS: frozenset[str] = frozenset({"Extraction.v"})
 _OCAML_EXTRACTION_ARTIFACTS: tuple[tuple[str, str], ...] = (
     ("Extraction.v", "thiele_core.ml"),
-    ("MinimalExtraction.v", "thiele_core_minimal.ml"),
 )
 _OCAML_EXTRACTION_REQUIRED_SYMBOLS: tuple[str, ...] = ("vm_instruction", "vm_apply", "vMState")
 
@@ -232,6 +232,113 @@ class Finding:
     line: int
     snippet: str
     message: str
+
+
+@dataclasses.dataclass(frozen=True)
+class CommandTimeoutError(RuntimeError):
+    stage: str
+    command: tuple[str, ...]
+    timeout_seconds: int
+    cwd: Path
+    stdout_tail: str
+    stderr_tail: str
+
+    def __str__(self) -> str:
+        return (
+            f"{self.stage} timed out after {self.timeout_seconds}s while running "
+            f"{' '.join(self.command)} in {self.cwd}"
+        )
+
+
+DEFAULT_COMMAND_TIMEOUTS: dict[str, int] = {
+    "coqtop batch": 60,
+    "coq build": 900,
+    "ocaml extraction build": 600,
+    "proof dependency dag": 300,
+    "single coq compile": 60,
+}
+
+SCAN_PROGRESS_EVERY = 25
+SLOW_FILE_THRESHOLD_SECONDS = 2.0
+_OUTPUT_TAIL_CHARS = 1200
+
+
+def _log_progress(message: str) -> None:
+    timestamp = _dt.datetime.now().strftime("%H:%M:%S")
+    print(f"[{timestamp}] INQUISITOR: {message}", flush=True)
+
+
+def _tail_text(text: object | None, limit: int = _OUTPUT_TAIL_CHARS) -> str:
+    if not text:
+        return ""
+    if isinstance(text, str):
+        normalized = text
+    elif isinstance(text, (bytes, bytearray, memoryview)):
+        normalized = bytes(text).decode("utf-8", errors="replace")
+    else:
+        normalized = str(text)
+    if len(normalized) <= limit:
+        return normalized.strip()
+    return normalized[-limit:].strip()
+
+
+def _format_command(command: Iterable[str]) -> str:
+    return " ".join(command)
+
+
+def _run_command(
+    command: list[str],
+    *,
+    cwd: Path,
+    stage: str,
+    timeout_seconds: int | None = None,
+    input_text: str | None = None,
+) -> subprocess.CompletedProcess[str]:
+    timeout_value = timeout_seconds if timeout_seconds is not None else DEFAULT_COMMAND_TIMEOUTS.get(stage)
+    _log_progress(
+        f"START {stage} (timeout={timeout_value if timeout_value is not None else 'none'}s): "
+        f"{_format_command(command)}"
+    )
+    started = time.monotonic()
+    try:
+        proc = subprocess.run(
+            command,
+            input=input_text,
+            text=True,
+            capture_output=True,
+            cwd=str(cwd),
+            timeout=timeout_value,
+        )
+    except subprocess.TimeoutExpired as exc:
+        elapsed = time.monotonic() - started
+        stdout_tail = _tail_text(exc.stdout)
+        stderr_tail = _tail_text(exc.stderr)
+        _log_progress(
+            f"TIMEOUT {stage} after {elapsed:.1f}s in {cwd}: {_format_command(command)}"
+        )
+        if stdout_tail:
+            _log_progress(f"{stage} stdout tail:\n{stdout_tail}")
+        if stderr_tail:
+            _log_progress(f"{stage} stderr tail:\n{stderr_tail}")
+        raise CommandTimeoutError(
+            stage=stage,
+            command=tuple(command),
+            timeout_seconds=int(timeout_value or 0),
+            cwd=cwd,
+            stdout_tail=stdout_tail,
+            stderr_tail=stderr_tail,
+        ) from exc
+
+    elapsed = time.monotonic() - started
+    _log_progress(f"END {stage} rc={proc.returncode} elapsed={elapsed:.1f}s")
+    if proc.returncode != 0:
+        stdout_tail = _tail_text(proc.stdout)
+        stderr_tail = _tail_text(proc.stderr)
+        if stdout_tail:
+            _log_progress(f"{stage} stdout tail:\n{stdout_tail}")
+        if stderr_tail:
+            _log_progress(f"{stage} stderr tail:\n{stderr_tail}")
+    return proc
 
 def is_allowlisted(path: Path, *, enable_allowlist: bool) -> bool:
     if not enable_allowlist:
@@ -902,7 +1009,7 @@ def scan_file(path: Path) -> list[Finding]:
     #   (These are assumptions that must be instantiated - uninstantiated = axiom)
     # - `Context`/`Variable(s)` with simple types: MEDIUM (need verification).
     assumption_decl = re.compile(
-        r"(?m)^[ \t]*(Axiom|Parameter|Hypothesis|Variable|Variables|Context)\b\s*"  # kind
+        r"(?m)^[ \t]*(Axiom|Parameter|Conjecture|Postulate|Assume|Hypothesis|Variable|Variables|Context)\b\s*"  # kind
         r"(?:\(?\s*([A-Za-z0-9_']+)\b)?"  # optional name (may be absent for Context (...))
     )
     for m in assumption_decl.finditer(text):
@@ -931,7 +1038,7 @@ def scan_file(path: Path) -> list[Finding]:
             )
             continue
 
-        if kind in {"Axiom", "Parameter"}:
+        if kind in {"Axiom", "Parameter", "Conjecture", "Postulate", "Assume"}:
             # NO AXIOMS ALLOWED - PERIOD
             # Zero tolerance: All axioms must be proven or removed
             rule_id = "AXIOM_OR_PARAMETER"
@@ -996,6 +1103,113 @@ def scan_file(path: Path) -> list[Finding]:
             )
         )
 
+    # ================================================================
+    # GUARD / FLAG MANIPULATION CHECKS
+    # These Coq commands can silently weaken the proof checker.
+    # ================================================================
+
+    unsafe_flags = re.compile(
+        r"(?m)^[ \t]*(Unset\s+Guard\s+Checking"
+        r"|Set\s+Guard\s+Checking\s+off"  # alternative syntax
+        r"|Unset\s+Positivity\s+Checking"
+        r"|Unset\s+Universe\s+Checking"
+        r"|Unset\s+Termination\s+Checking"
+        r"|Set\s+Allow\s+StrictProp"       # can create proof-relevant False
+        r"|Unset\s+Strict\s+Universe\s+Declaration"
+        r")\b"
+    )
+    for m in unsafe_flags.finditer(text):
+        line = line_of[m.start()]
+        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else m.group(0)
+        findings.append(
+            Finding(
+                rule_id="UNSAFE_FLAG_MANIPULATION",
+                severity="HIGH",
+                file=path,
+                line=line,
+                snippet=snippet.strip(),
+                message=f"Unsafe Coq flag manipulation: `{m.group(1).strip()}`. This can silently disable proof checking.",
+            )
+        )
+
+    # ================================================================
+    # False ELIMINATOR / EXPLOSION DETECTION
+    # False_rect, False_ind, False_rec can produce any term from False.
+    # Also catches match ... with end (empty match on False).
+    # ================================================================
+
+    false_elim = re.compile(
+        r"\b(False_rect|False_ind|False_rec|False_sind)\b"
+    )
+    for m in false_elim.finditer(text):
+        line = line_of[m.start()]
+        # Check if it's in a comment
+        line_text = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else ""
+        if line_text.strip().startswith("(*"):
+            continue
+        snippet = line_text
+        findings.append(
+            Finding(
+                rule_id="FALSE_EXPLOSION",
+                severity="HIGH",
+                file=path,
+                line=line,
+                snippet=snippet.strip(),
+                message=f"Found `{m.group(1)}` — eliminates False to produce arbitrary terms. Verify the False derivation is legitimate.",
+            )
+        )
+
+    # ================================================================
+    # INCONSISTENT HYPOTHESIS / CONTEXT TYPE DETECTION
+    # If someone writes `Hypothesis H : False` or `Context (H : 0 = 1)`,
+    # everything inside that Section is vacuously true.
+    # ================================================================
+
+    inconsistent_hyp = re.compile(
+        r"(?m)^[ \t]*(?:Hypothesis|Context|Variable)\b.*:\s*"
+        r"(False"
+        r"|0\s*=\s*1"
+        r"|1\s*=\s*0"
+        r"|0%nat\s*=\s*1%nat"
+        r"|true\s*=\s*false"
+        r"|false\s*=\s*true"
+        r"|S\s+_\s*=\s*0"
+        r")\b"
+    )
+    for m in inconsistent_hyp.finditer(text):
+        line = line_of[m.start()]
+        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else m.group(0)
+        findings.append(
+            Finding(
+                rule_id="INCONSISTENT_ASSUMPTION",
+                severity="HIGH",
+                file=path,
+                line=line,
+                snippet=snippet.strip(),
+                message=f"Inconsistent assumption type `{m.group(1)}` — makes all theorems in this Section vacuously true.",
+            )
+        )
+
+    # ================================================================
+    # PLUGIN / EXTERNAL CODE LOADING
+    # Declare ML Module loads OCaml plugins into the Coq trusted base.
+    # ================================================================
+
+    ml_module = re.compile(r"(?m)^[ \t]*Declare\s+ML\s+Module\b")
+    for m in ml_module.finditer(text):
+        line = line_of[m.start()]
+        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else m.group(0)
+        findings.append(
+            Finding(
+                rule_id="EXTERNAL_PLUGIN",
+                severity="MEDIUM",
+                file=path,
+                line=line,
+                snippet=snippet.strip(),
+                message="Declare ML Module loads external OCaml plugin — extends the trusted computing base.",
+            )
+        )
+
     # Statement-level vacuity checks (robust parsing).
     for name, line, stmt in iter_theorem_statements():
         snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else stmt
@@ -1047,6 +1261,30 @@ def scan_file(path: Path) -> list[Finding]:
                     line=line,
                     snippet=snippet.strip(),
                     message="Statement ends in `exists ..., True.` (likely vacuous).",
+                )
+            )
+
+        # Vacuous forall: `forall ..., True.` — conclusion is True but preceded
+        # by a forall binder (not `->`) so IMPLIES_TRUE_STMT doesn't catch it.
+        # Example: `forall (tm_op : TMTransition), True.`
+        if (
+            re.search(r",\s*True\s*\.$", stmt)
+            and not re.search(r"->\s*True\s*\.$", stmt)
+            and not re.search(r":\s*True\s*\.$", stmt)
+            and not re.search(r"\bexists\b[^.]*,\s*True\s*\.$", stmt)
+        ):
+            findings.append(
+                Finding(
+                    rule_id="FORALL_TRUE_CONCLUSION",
+                    severity=_classify_constant_severity(name, "HIGH"),
+                    file=path,
+                    line=line,
+                    snippet=snippet.strip(),
+                    message=(
+                        "Statement concludes with `forall ..., True.` — the universal quantifier "
+                        "ranges over `True`, making the theorem vacuously trivial. "
+                        "This proves nothing about the quantified variable."
+                    ),
                 )
             )
 
@@ -1201,6 +1439,325 @@ def scan_exists_const_q(path: Path) -> list[Finding]:
     return findings
 
 
+def scan_false_conjunct_definition(path: Path) -> list[Finding]:
+    """Detect Definition bodies containing '/\\ False' — unsatisfiable predicates.
+
+    A Definition that contains `/\\ False` (or `False /\\`) as a conjunct creates
+    a predicate that can NEVER be satisfied.  Any theorem claiming 'no X satisfies
+    this predicate' is a tautology — it proves nothing about X.
+
+    Classic pattern:
+      Definition preserves_foo ... :=
+        forall n, exists x, nth_error ... = Some x /\\ False.
+
+    This makes `preserves_foo` permanently unsatisfiable.  The downstream
+    theorem `forall f, ~ preserves_foo f` trivially holds because `preserves_foo`
+    requires deriving `False` — not because `f` actually lacks the property.
+
+    Suppression: add `(* SAFE: reason *)` on the line before the Definition.
+    """
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    text = strip_coq_comments(raw)
+    raw_lines = raw.splitlines()
+    line_of = _line_map(text)
+    clean_lines = text.splitlines()
+    findings: list[Finding] = []
+
+    # Locate each Definition and scan its body for /\ False
+    def_re = re.compile(r"(?m)^[ \t]*Definition\s+([A-Za-z0-9_']+)\b")
+    # End of a definition: period at end of line OR next top-level keyword
+    next_decl_re = re.compile(
+        r"(?m)^[ \t]*(Definition|Theorem|Lemma|Fixpoint|Inductive|Record|"
+        r"Corollary|Proposition|Remark|Fact|Instance|End|Section)\b"
+    )
+    false_conj_re = re.compile(r"/\\\s*False\b|False\s*/\\")
+
+    for m in def_re.finditer(text):
+        name = m.group(1)
+        body_start = m.start()
+        line_num = line_of[body_start]
+
+        # Find the next top-level declaration to bound the body
+        next_decl = next_decl_re.search(text, m.end())
+        if next_decl:
+            body = text[body_start:next_decl.start()]
+        else:
+            body = text[body_start:body_start + 2000]
+
+        if not false_conj_re.search(body):
+            continue
+
+        # Suppression: SAFE comment in the preceding 2 lines
+        context = "\n".join(raw_lines[max(0, line_num - 3): line_num + 1])
+        if re.search(r"\(\*\s*SAFE:", context):
+            continue
+
+        snippet = clean_lines[line_num - 1] if 0 <= line_num - 1 < len(clean_lines) else m.group(0)
+        findings.append(
+            Finding(
+                rule_id="FALSE_CONJUNCT_DEF",
+                severity=_severity_for_path(path, "HIGH"),
+                file=path,
+                line=line_num,
+                snippet=snippet.strip(),
+                message=(
+                    f"Definition `{name}` contains `/\\ False` — the predicate is permanently "
+                    "unsatisfiable. Any theorem proving 'nothing satisfies this' is a tautology, "
+                    "not a real result. Remove `False` from the conjunction or restructure "
+                    "as an explicit impossibility lemma with a real proof."
+                ),
+            )
+        )
+
+    return findings
+
+
+def scan_trivial_lambda_witness(path: Path) -> list[Finding]:
+    """Detect `exists (fun _ => <bool/nat literal>)` trivial witnesses in proofs.
+
+    These create witnesses that are constant functions chosen to satisfy bounds
+    by construction — not by any property of the system being studied.
+
+    Examples caught:
+      exists (fun _ => true), (fun _ => false).  (* time_complexity witnesses *)
+      exists (fun _ => 3), (fun _ => 4).          (* colors_used witnesses *)
+
+    Both are vacuous: the existential is satisfied by a constant function that
+    was designed to fit the bound, proving only that the TYPE is inhabited.
+
+    Suppression: add `(* SAFE: reason *)` or `(* DEPRECATED *)` in the
+    preceding 3 lines.
+    """
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    text = strip_coq_comments(raw)
+    raw_lines = raw.splitlines()
+    line_of = _line_map(text)
+    clean_lines = text.splitlines()
+    findings: list[Finding] = []
+
+    # Match: exists (fun _ => true/false/<nat literal>)
+    pat = re.compile(r"\bexists\s*\(fun\s+_\s*=>\s*(true|false|\d+)\s*\)")
+
+    for m in pat.finditer(text):
+        val = m.group(1)
+        line = line_of[m.start()]
+
+        # Suppression: SAFE comment, DEPRECATED, or backward-compat marker
+        context = "\n".join(raw_lines[max(0, line - 4): line + 2])
+        if re.search(r"\(\*\s*SAFE:|DEPRECATED|backward.compat", context, re.IGNORECASE):
+            continue
+
+        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else m.group(0)
+        findings.append(
+            Finding(
+                rule_id="TRIVIAL_LAMBDA_WITNESS",
+                severity=_severity_for_path(path, "HIGH"),
+                file=path,
+                line=line,
+                snippet=snippet.strip(),
+                message=(
+                    f"Uses constant lambda witness `exists (fun _ => {val})`. "
+                    "This trivially satisfies any bound because the witness is a constant "
+                    "function chosen to fit the constraint — it proves nothing about actual "
+                    "behavior. Replace with a semantically meaningful witness or remove the theorem."
+                ),
+            )
+        )
+
+    return findings
+
+
+def scan_disjunct_true(path: Path) -> list[Finding]:
+    """Detect `\\/ True` disjuncts in theorem statements.
+
+    A theorem with `\\/ True` in its conclusion is vacuous because
+    the right disjunct can always be satisfied with `right. exact I.`
+    regardless of the left disjunct's truth.  This pattern masks
+    unproven claims by allowing the proof to trivially discharge the goal.
+
+    Examples caught:
+      Theorem foo : forall x, P x \\/ True.   (* proved by right; exact I *)
+      ... -> In m (map fst ...) \\/ True.      (* vacuous persistence claim *)
+
+    Suppression: add `(* SAFE: reason *)` in the preceding 3 lines.
+    """
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    text = strip_coq_comments(raw)
+    raw_lines = raw.splitlines()
+    line_of = _line_map(text)
+    clean_lines = text.splitlines()
+    findings: list[Finding] = []
+
+    # Match theorem/lemma headers and capture the full statement up to the first period
+    HEADER_RE = re.compile(
+        r'(?m)^\s*(Theorem|Lemma|Corollary|Proposition|Definition)\s+(\w+)')
+
+    for hm in HEADER_RE.finditer(text):
+        name = hm.group(2)
+        start = hm.start()
+        # Find end of statement (first '.' after a non-comment region)
+        stmt_end = text.find(".", start)
+        if stmt_end == -1:
+            continue
+        stmt = text[start:stmt_end + 1]
+
+        # Check for \/ True pattern (Coq disjunction with True as right or left)
+        if not re.search(r'\\/\s*True\b|True\s*\\/', stmt):
+            continue
+
+        # Check SAFE comment suppression
+        line = line_of[hm.start()]
+        context = "\n".join(raw_lines[max(0, line - 3): line + 2])
+        if re.search(r'\(\*\s*SAFE:', context):
+            continue
+
+        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else name
+        findings.append(
+            Finding(
+                rule_id="DISJUNCT_TRUE",
+                severity=_severity_for_path(path, "HIGH"),
+                file=path,
+                line=line,
+                snippet=snippet.strip(),
+                message=(
+                    f"`{name}` has `\\/ True` in its statement. This makes the theorem "
+                    "vacuously provable via `right. exact I.` regardless of the actual claim. "
+                    "Either prove the meaningful disjunct or remove the `\\/ True`."
+                ),
+            )
+        )
+
+    return findings
+
+
+def scan_trivial_true_proof(path: Path) -> list[Finding]:
+    """Detect proofs that only prove True via `exact I` or `right. exact I.`
+
+    A theorem whose entire proof body reduces to `exact I.` or
+    `right. exact I.` or `intros ... right. exact I.` is proving
+    only the trivial proposition True, possibly hidden behind a
+    disjunction or implication.
+
+    Examples caught:
+      Proof. exact I. Qed.
+      Proof. intros. right. exact I. Qed.
+      Proof. intros s i m _. right. exact I. Qed.
+
+    Suppression: add `(* SAFE: reason *)` in the preceding 3 lines.
+    """
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    text = strip_coq_comments(raw)
+    raw_lines = raw.splitlines()
+    line_of = _line_map(text)
+    clean_lines = text.splitlines()
+    findings: list[Finding] = []
+
+    PROOF_BLOCK_RE = re.compile(
+        r'((?:Theorem|Lemma|Corollary|Proposition)\s+(\w+)[^.]{0,2000}\.)\s*\nProof\.\s*\n(.*?)\nQed\.',
+        re.DOTALL,
+    )
+
+    for m in PROOF_BLOCK_RE.finditer(text):
+        name = m.group(2)
+        proof_body = m.group(3).strip()
+        proof_lines = [ln.strip() for ln in proof_body.splitlines() if ln.strip()]
+
+        if not proof_lines:
+            continue
+
+        # Only flag when the ENTIRE proof is trivial:
+        # All lines must be intros/right/left/exact I — no real tactics.
+        # If the proof contains split, apply, destruct, unfold, rewrite,
+        # etc., then `exact I` at the end is a legitimate leaf.
+        trivial_line_re = re.compile(
+            r'^(?:intros?\b.*|right\s*\.|left\s*\.|exact\s+I\s*\.'
+            r'|(?:right|left)\s*[.;]\s*exact\s+I\s*\.)$')
+        all_trivial = all(trivial_line_re.match(ln) for ln in proof_lines)
+        if not all_trivial:
+            continue
+
+        # Must actually end with exact I
+        last_line = proof_lines[-1]
+        has_exact_i = ("exact I." in last_line)
+
+        if not has_exact_i:
+            continue
+
+        # Check SAFE comment suppression
+        line = line_of[m.start()]
+        context = "\n".join(raw_lines[max(0, line - 3): line + 2])
+        if re.search(r'\(\*\s*SAFE:', context):
+            continue
+
+        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else name
+        findings.append(
+            Finding(
+                rule_id="TRIVIAL_TRUE_PROOF",
+                severity=_severity_for_path(path, "HIGH"),
+                file=path,
+                line=line,
+                snippet=snippet.strip(),
+                message=(
+                    f"`{name}` proof terminates with `exact I.` — it only proves `True` "
+                    "(possibly through a `right`/`left` disjunction). This is vacuous: "
+                    "the theorem's conclusion reduces to a trivially true proposition."
+                ),
+            )
+        )
+
+    return findings
+
+
+def scan_extract_constant(path: Path) -> list[Finding]:
+    """Detect `Extract Constant` directives that bypass Coq extraction.
+
+    `Extract Constant` replaces Coq-extracted code with hand-written OCaml,
+    creating a trust boundary: the hand-written code is NOT verified by Coq.
+    Any bug in the hand-written OCaml silently breaks soundness.
+
+    Each `Extract Constant` should be justified and its hand-written code
+    should be trivially correct (e.g. `and32 => Int32.logand`).
+
+    NOTE: We scan raw text (not comment-stripped) because the comment
+    stripper can be confused by OCaml syntax inside extraction directives
+    (e.g. `Extract Inductive prod => "(*)" ...` looks like a comment open).
+
+    Suppression: add `(* SAFE: reason *)` in the preceding 3 lines.
+    """
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    raw_lines = raw.splitlines()
+    findings: list[Finding] = []
+
+    EXTRACT_RE = re.compile(r'(?m)^\s*Extract\s+Constant\s+(\S+)')
+
+    for em in EXTRACT_RE.finditer(raw):
+        name = em.group(1)
+        # Compute line number from the raw match position
+        line = raw[:em.start()].count('\n') + 1
+        context = "\n".join(raw_lines[max(0, line - 4): line + 1])
+        if re.search(r'\(\*\s*SAFE:', context):
+            continue
+
+        snippet = raw_lines[line - 1].strip() if 0 <= line - 1 < len(raw_lines) else name
+        findings.append(
+            Finding(
+                rule_id="EXTRACT_CONSTANT",
+                severity=_severity_for_path(path, "MEDIUM"),
+                file=path,
+                line=line,
+                snippet=snippet,
+                message=(
+                    f"`Extract Constant {name}` bypasses Coq extraction with hand-written "
+                    "OCaml code. This is a trust boundary — the replacement is NOT verified by Coq. "
+                    "Ensure the hand-written code is trivially correct. "
+                    "To suppress, add (* SAFE: <justification> *) above."
+                ),
+            )
+        )
+
+    return findings
+
+
 def scan_trivial_equalities(path: Path) -> list[Finding]:
     """Detect theorems of the form X = X with reflexivity-ish proofs.
 
@@ -1297,7 +1854,10 @@ def scan_exact_alias(path: Path) -> list[Finding]:
             continue
 
         snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else name
-        aliased = re.match(r'^exact\s+(\w+)\s*\.$', proof_lines[0]).group(1)
+        alias_match = re.match(r'^exact\s+(\w+)\s*\.$', proof_lines[0])
+        if alias_match is None:
+            continue
+        aliased = alias_match.group(1)
         findings.append(
             Finding(
                 rule_id="EXACT_ALIAS",
@@ -1441,7 +2001,7 @@ def scan_proof_connectivity(repo_root: Path, v_files: list[Path]) -> list[Findin
 
     stem_to_paths: dict[str, set[Path]] = {}
     imports_by_file: dict[Path, set[str]] = {}
-    proof_file_info: list[tuple[Path, int, str, str]] = []
+    proof_file_info: list[tuple[Path, int, int, str]] = []
     semantic_mentions: set[Path] = set()
     cost_mentions: set[Path] = set()
 
@@ -1984,6 +2544,8 @@ def scan_record_field_extraction(path: Path) -> list[Finding]:
             var_name = em.group(1)
             field_used = em.group(2) or em.group(3)
         else:
+            if dm is None:
+                continue
             # For destruct pattern, we flag it if the record has propositional fields
             # and the proof is trivially short (just destruct + solver)
             var_name = dm.group(1)
@@ -4972,8 +5534,11 @@ def _file_vacuity_summary(path: Path) -> tuple[int, tuple[str, ...]]:
 
 def _run_coqtop_batch(coqproject: Path, commands: str, cwd: Path) -> subprocess.CompletedProcess[str]:
     # Parse _CoqProject for -R and -Q flags
-    coq_args = ["coqtop", "-quiet", "-batch"]
+    # Coq 8.18 suppresses `Check` / `Print Assumptions` output under `-batch`,
+    # so the audit must use stdin-driven interactive mode and exit via `Quit.`.
+    coq_args = ["coqtop", "-quiet"]
     if coqproject.exists():
+        project_root = coqproject.parent.resolve()
         project_lines = coqproject.read_text(encoding="utf-8", errors="replace").splitlines()
         for line in project_lines:
             line = line.strip()
@@ -4982,14 +5547,18 @@ def _run_coqtop_batch(coqproject: Path, commands: str, cwd: Path) -> subprocess.
             if line.startswith("-R ") or line.startswith("-Q "):
                 parts = line.split()
                 if len(parts) >= 3:
-                    coq_args.extend(parts[:3])
-    
-    return subprocess.run(
+                    mapping_root = Path(parts[1])
+                    if not mapping_root.is_absolute():
+                        mapping_root = (project_root / mapping_root).resolve()
+                    coq_args.extend([parts[0], str(mapping_root), parts[2]])
+
+    project_cwd = coqproject.parent if coqproject.exists() else cwd
+
+    return _run_command(
         coq_args,
-        input=commands,
-        text=True,
-        capture_output=True,
-        cwd=str(cwd),
+        cwd=project_cwd,
+        stage="coqtop batch",
+        input_text=commands,
     )
 
 
@@ -5007,10 +5576,26 @@ def _parse_axioms(output: str) -> list[str]:
             break
         if stripped.startswith("Closed under the global context"):
             break
-        m = re.search(r"([A-Za-z0-9_.']+)", stripped)
+        if stripped.startswith(":"):
+            continue
+        m = re.match(r"^([A-Za-z_][A-Za-z0-9_.']*)(?:\s*:.*)?$", stripped)
         if m:
             axioms.append(m.group(1))
     return axioms
+
+
+def _coq_output_setup_error(output: str) -> str | None:
+    for ln in output.splitlines():
+        stripped = ln.strip()
+        if not stripped:
+            continue
+        if "cannot-open-path" in stripped:
+            return stripped
+        if stripped.startswith("Warning: Cannot open "):
+            return stripped
+        if "Cannot find a physical path bound to logical path" in stripped:
+            return stripped
+    return None
 
 
 def _assumption_audit(repo_root: Path, manifest_path: Path, manifest: dict) -> list[Finding]:
@@ -5062,6 +5647,19 @@ def _assumption_audit(repo_root: Path, manifest_path: Path, manifest: dict) -> l
         commands = f"Require Import {req}.\nPrint Assumptions {sym}.\nQuit.\n"
         proc = _run_coqtop_batch(coqproject, commands, cwd=repo_root)
         output = (proc.stdout or "") + "\n" + (proc.stderr or "")
+        setup_error = _coq_output_setup_error(output)
+        if setup_error is not None:
+            findings.append(
+                Finding(
+                    rule_id="ASSUMPTION_AUDIT",
+                    severity="HIGH",
+                    file=manifest_path,
+                    line=1,
+                    snippet=f"{req}.{sym}",
+                    message=f"coqtop path setup failed for {sym}: {setup_error}",
+                )
+            )
+            continue
         if proc.returncode != 0:
             findings.append(
                 Finding(
@@ -5138,6 +5736,19 @@ def _paper_symbol_map(repo_root: Path, manifest_path: Path, manifest: dict) -> l
         commands = f"Require Import {req}.\nCheck {sym}.\nQuit.\n"
         proc = _run_coqtop_batch(coqproject, commands, cwd=repo_root)
         output = (proc.stdout or "") + "\n" + (proc.stderr or "")
+        setup_error = _coq_output_setup_error(output)
+        if setup_error is not None:
+            findings.append(
+                Finding(
+                    rule_id="PAPER_MAP_MISSING",
+                    severity="HIGH",
+                    file=manifest_path,
+                    line=1,
+                    snippet=f"{req}.{sym}",
+                    message=f"coqtop path setup failed for paper map symbol {sym}: {setup_error}",
+                )
+            )
+            continue
         if proc.returncode != 0:
             findings.append(
                 Finding(
@@ -5201,15 +5812,30 @@ def _run_make_all(repo_root: Path) -> tuple[int, list[Finding]]:
     """Run make -C coq and return (returncode, list of compilation findings)."""
     findings: list[Finding] = []
     coq_dir = repo_root / "coq"
-    
-    # First, try to compile using make
-    print("INQUISITOR: Compiling all Coq proofs...")
-    proc = subprocess.run(
-        ["make", "-C", str(coq_dir), "-j4"],
-        cwd=str(repo_root),
-        capture_output=True,
-        text=True,
-    )
+
+    _log_progress("Compiling all Coq proofs")
+    try:
+        proc = _run_command(
+            ["make", "-C", str(coq_dir), "-j4"],
+            cwd=repo_root,
+            stage="coq build",
+        )
+    except CommandTimeoutError as exc:
+        details = "\n".join(part for part in [exc.stdout_tail, exc.stderr_tail] if part).strip()
+        findings.append(
+            Finding(
+                rule_id="COMPILATION_TIMEOUT",
+                severity="HIGH",
+                file=coq_dir / "Makefile",
+                line=1,
+                snippet=details[:500],
+                message=(
+                    f"Coq build timed out after {exc.timeout_seconds}s during {exc.stage}. "
+                    "See terminal progress logs for the last visible output."
+                ),
+            )
+        )
+        return 124, findings
     
     if proc.returncode != 0:
         # Parse error output to find which files failed with FULL error context
@@ -5265,10 +5891,10 @@ def _run_make_all(repo_root: Path) -> tuple[int, list[Finding]]:
                     message="Coq compilation failed - run 'make -C coq' for details.",
                 )
             )
-        print(f"INQUISITOR: Compilation FAILED - {len(findings)} error(s)")
+        _log_progress(f"Compilation FAILED with {len(findings)} error(s)")
     else:
-        print("INQUISITOR: Compilation OK")
-    
+        _log_progress("Compilation OK")
+
     return proc.returncode, findings
 
 
@@ -5278,13 +5904,30 @@ def _run_ocaml_extraction_build(repo_root: Path) -> list[Finding]:
     coq_dir = repo_root / "coq"
     build_dir = repo_root / "build"
 
-    targets = ["Extraction.vo", "MinimalExtraction.vo"]
-    proc = subprocess.run(
-        ["make", "-C", str(coq_dir), "-j4", *targets],
-        cwd=str(repo_root),
-        capture_output=True,
-        text=True,
-    )
+    targets = ["Extraction.vo"]
+    try:
+        proc = _run_command(
+            ["make", "-C", str(coq_dir), "-j4", *targets],
+            cwd=repo_root,
+            stage="ocaml extraction build",
+        )
+    except CommandTimeoutError as exc:
+        details = "\n".join(part for part in [exc.stdout_tail, exc.stderr_tail] if part).strip()
+        findings.append(
+            Finding(
+                rule_id="OCAML_EXTRACTION_BUILD_FAIL",
+                severity="HIGH",
+                file=coq_dir / "Extraction.v",
+                line=1,
+                snippet=details[:500],
+                message=(
+                    f"OCaml extraction build timed out after {exc.timeout_seconds}s. "
+                    "See terminal progress logs for the last visible output."
+                ),
+            )
+        )
+        return findings
+
     if proc.returncode != 0:
         details = (proc.stderr or proc.stdout or "")[-500:]
         findings.append(
@@ -5295,7 +5938,7 @@ def _run_ocaml_extraction_build(repo_root: Path) -> list[Finding]:
                 line=1,
                 snippet="",
                 message=(
-                    "Failed to build OCaml extraction artifacts from Extraction.v / MinimalExtraction.v. "
+                    "Failed to build OCaml extraction artifacts from Extraction.v. "
                     f"make return code={proc.returncode}. Tail: {details.strip()}"
                 ),
             )
@@ -5390,10 +6033,8 @@ def _run_cross_layer_foundation_checks(repo_root: Path) -> list[Finding]:
 
     # 2) Coq extraction entrypoints must import the core semantic foundation.
     extraction = _require_file(repo_root / "coq" / "Extraction.v")
-    minimal_extraction = _require_file(repo_root / "coq" / "MinimalExtraction.v")
     for name, text in (
         ("Extraction.v", extraction),
-        ("MinimalExtraction.v", minimal_extraction),
     ):
         if text is None:
             continue
@@ -5503,12 +6144,29 @@ def _run_proof_body_foundation_audit(repo_root: Path) -> list[Finding]:
         )
         return findings
 
-    proc = subprocess.run(
-        ["python3", str(script)],
-        cwd=str(repo_root),
-        capture_output=True,
-        text=True,
-    )
+    try:
+        proc = _run_command(
+            ["python3", str(script)],
+            cwd=repo_root,
+            stage="proof dependency dag",
+        )
+    except CommandTimeoutError as exc:
+        tail = "\n".join(part for part in [exc.stdout_tail, exc.stderr_tail] if part).strip()
+        findings.append(
+            Finding(
+                rule_id="PROOF_BODY_FOUNDATION_DISCONNECT",
+                severity="HIGH",
+                file=script,
+                line=1,
+                snippet=tail[:500],
+                message=(
+                    f"Proof dependency DAG generation timed out after {exc.timeout_seconds}s. "
+                    "See terminal progress logs for the last visible output."
+                ),
+            )
+        )
+        return findings
+
     if proc.returncode != 0:
         tail = (proc.stderr or proc.stdout or "")[-500:]
         findings.append(
@@ -5918,7 +6576,7 @@ def _scan_opcode_parity(repo_root: Path) -> list[Finding]:
         return findings
 
     # 2. Check extracted OCaml has these opcodes
-    for ml_file_name in ["thiele_core.ml", "thiele_core_minimal.ml"]:
+    for ml_file_name in ["thiele_core.ml", "thiele_core_complete.ml"]:
         ml_file = repo_root / "build" / ml_file_name
         if ml_file.exists():
             ml_text = ml_file.read_text(encoding="utf-8", errors="replace")
@@ -6219,13 +6877,26 @@ def _scan_extraction_semantic_faithfulness(repo_root: Path) -> list[Finding]:
 
 def _compile_individual_file(coq_file: Path, repo_root: Path) -> Finding | None:
     """Try to compile a single Coq file and return a finding if it fails."""
-    proc = subprocess.run(
-        ["coqc", "-Q", str(repo_root / "coq"), "Thiele", str(coq_file)],
-        cwd=str(repo_root),
-        capture_output=True,
-        text=True,
-        timeout=60,
-    )
+    try:
+        proc = _run_command(
+            ["coqc", "-Q", str(repo_root / "coq"), "Thiele", str(coq_file)],
+            cwd=repo_root,
+            stage="single coq compile",
+        )
+    except CommandTimeoutError as exc:
+        details = "\n".join(part for part in [exc.stdout_tail, exc.stderr_tail] if part).strip()
+        return Finding(
+            rule_id="COMPILATION_TIMEOUT",
+            severity="HIGH",
+            file=coq_file,
+            line=1,
+            snippet=details[:200],
+            message=(
+                f"File compile timed out after {exc.timeout_seconds}s. "
+                "See terminal progress logs for the last visible output."
+            ),
+        )
+
     if proc.returncode != 0:
         # Extract line number from error if possible
         import re
@@ -6353,9 +7024,12 @@ def write_report(
     lines.append("- `MU_GRAVITY_NO_ASSUMPTION_SURFACES`: MuGravity files may not use Axiom/Parameter/Hypothesis/Context/Variable(s); all such surfaces must be discharged as theorems\n")
     lines.append("- `PROOF_CONNECTIVITY_GAP`: proof-bearing file is not connected to required foundation chain groups; remediation is to iterate with bridge lemmas/imports until connected\n")
     lines.append("- `KAMI_OCAML_FOUNDATION_MISMATCH`: Kami and OCaml extraction build surfaces are not grounded in the same kernel foundation modules\n")
-    lines.append("- `OCAML_EXTRACTION_BUILD_FAIL`: OCaml extraction build/check failed (Extraction.v / MinimalExtraction.v must build and expose core VM symbols)\n")
+    lines.append("- `OCAML_EXTRACTION_BUILD_FAIL`: OCaml extraction build/check failed (Extraction.v must build and expose core VM symbols)\n")
     lines.append("- `CROSS_LAYER_FOUNDATION_DISCONNECT`: end-to-end chain (Coq foundations -> OCaml extraction -> VM wrapper -> canonical Kami RTL/cosim/build flow) is missing a required link\n")
     lines.append("- `PROOF_BODY_FOUNDATION_DISCONNECT`: theorem-body dependency graph shows a Coq proof file does not transitively reach the canonical foundation theorem chain\n")
+    lines.append("- `DISJUNCT_TRUE`: theorem statement contains `\\/ True` — vacuously provable via `right. exact I.`\n")
+    lines.append("- `TRIVIAL_TRUE_PROOF`: proof body terminates with `exact I.` or `right. exact I.` — only proves `True`\n")
+    lines.append("- `EXTRACT_CONSTANT`: `Extract Constant` bypasses Coq extraction with hand-written OCaml (trust boundary)\n")
     lines.append("\n")
 
     # Always show the vacuity ranking — even on a clean PASS.  Previously this
@@ -6396,11 +7070,12 @@ def write_report(
         current_file: Path | None = None
         for f in items_sorted:
             if current_file != f.file:
-                current_file = f.file
+                file_path = f.file
+                current_file = file_path
                 try:
-                    rel = current_file.relative_to(repo_root).as_posix()
+                    rel = file_path.relative_to(repo_root).as_posix()
                 except Exception:
-                    rel = current_file.as_posix()
+                    rel = file_path.as_posix()
                 lines.append(f"\n#### `{esc(rel)}`\n")
             lines.append(f"- L{f.line}: **{f.rule_id}** — {esc(f.message)}\n")
             lines.append(f"  - `{esc(f.snippet.strip())}`\n")
@@ -6485,9 +7160,12 @@ def main(argv: list[str]) -> int:
         # Enforce that successful build actually covered all active coq/*.v sources.
         all_findings.extend(_check_coq_compilation_coverage(repo_root))
 
+    _log_progress("Running OCaml extraction audit")
     all_findings.extend(_run_ocaml_extraction_build(repo_root))
+    _log_progress("Running cross-layer foundation audits")
     all_findings.extend(_run_cross_layer_foundation_checks(repo_root))
     all_findings.extend(_run_proof_body_foundation_audit(repo_root))
+    _log_progress("Running cross-layer consistency scans")
     all_findings.extend(_scan_isomorphism_proof_chain(repo_root))
     all_findings.extend(_scan_opcode_parity(repo_root))
     all_findings.extend(_scan_test_proof_lockstep(repo_root))
@@ -6498,9 +7176,19 @@ def main(argv: list[str]) -> int:
     v_files = iter_all_coq_files(repo_root)
     v_files_list = list(v_files)
     scanned_scope = "repo"
+    total_files = len(v_files_list)
+
+    _log_progress(f"Starting static scan of {total_files} Coq files")
 
     for vf in v_files_list:
         scanned += 1
+        file_started = time.monotonic()
+        try:
+            rel_path = vf.relative_to(repo_root).as_posix()
+        except Exception:
+            rel_path = vf.as_posix()
+        if scanned == 1 or scanned % SCAN_PROGRESS_EVERY == 0:
+            _log_progress(f"Scanning file {scanned}/{total_files}: {rel_path}")
         try:
             all_findings.extend(scan_file(vf))
             all_findings.extend(scan_trivial_equalities(vf))
@@ -6557,11 +7245,19 @@ def main(argv: list[str]) -> int:
             all_findings.extend(scan_mugravity_derivation_completeness(vf))
             all_findings.extend(scan_mugravity_vm_compatibility(vf))
             all_findings.extend(scan_mugravity_no_assumption_surfaces(vf))
+            # Vacuous proof pattern detection (v6)
+            all_findings.extend(scan_false_conjunct_definition(vf))
+            all_findings.extend(scan_trivial_lambda_witness(vf))
+            # Vacuous disjunct / trivial True proof / extraction trust boundary (v7)
+            all_findings.extend(scan_disjunct_true(vf))
+            all_findings.extend(scan_trivial_true_proof(vf))
+            all_findings.extend(scan_extract_constant(vf))
 
             score, tags = _file_vacuity_summary(vf)
             if score > 0:
                 vacuity_index.append((score, vf, tags))
         except Exception as e:
+            _log_progress(f"Scanner error in {rel_path}: {e}")
             all_findings.append(
                 Finding(
                     rule_id="INTERNAL_ERROR",
@@ -6572,7 +7268,11 @@ def main(argv: list[str]) -> int:
                     message=f"Inquisitor crashed scanning this file: {e}",
                 )
             )
+        file_elapsed = time.monotonic() - file_started
+        if file_elapsed >= SLOW_FILE_THRESHOLD_SECONDS:
+            _log_progress(f"SLOW FILE {file_elapsed:.1f}s: {rel_path}")
 
+    _log_progress("Running dependency and foundation connectivity scans")
     all_findings.extend(scan_proof_connectivity(repo_root, v_files_list))
     all_findings.extend(scan_kami_ocaml_foundation_alignment(repo_root, v_files_list))
     all_findings.extend(_scan_foundation_utilization(repo_root, v_files_list))

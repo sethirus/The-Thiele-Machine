@@ -39,8 +39,8 @@ From Kernel Require Import MuCostModel.
     PHYSICAL INTERPRETATION:
     This connects the "shut up and calculate" view (just observe outcomes) with
     the structural view (partition graph dynamics). They're the SAME: what you
-    observe is determined by partition structure, and locality emerges from
-    causal cone constraints.
+    observe is determined by partition structure, and locality follows from
+    the causal cone definition in the VM semantics.
 
     GAUGE INVARIANCE (observer_region_gauge_invariant):
     Shifting μ by a constant (mu_gauge_shift) doesn't change observations.

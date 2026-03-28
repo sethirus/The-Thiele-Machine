@@ -1,0 +1,680 @@
+DIGEST 1fa205afef26bdcf0a0e310c22429a47
+FSelfReference.SelfCertifyingDecider
+R2599:2603 Coq.Arith.Arith <> <> lib
+R2605:2608 Coq.Lists.List <> <> lib
+R2610:2612 Coq.micromega.Lia <> <> lib
+R2614:2617 Coq.Bool.Bool <> <> lib
+R2627:2639 Coq.Lists.List ListNotations <> mod
+R2714:2720 Kernel.VMState <> <> lib
+R2722:2727 Kernel.VMStep <> <> lib
+R2729:2739 Kernel.MuCostModel <> <> lib
+R2758:2771 SelfReference.InductiveTrust <> <> lib
+R2789:2807 SelfReference.RefinementInvariant <> <> lib
+rec 3070:3085 <> TransitionSystem
+proj 3094:3107 <> ts_state_count
+proj 3118:3130 <> ts_transition
+proj 3183:3195 <> ts_check_cost
+R3111:3113 Coq.Init.Datatypes <> nat ind
+R3138:3141 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3135:3137 Coq.Init.Datatypes <> nat ind
+R3142:3144 Coq.Init.Datatypes <> nat ind
+R3200:3202 Coq.Init.Datatypes <> nat ind
+def 3399:3410 <> SafetyOracle
+R3418:3421 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3415:3417 Coq.Init.Datatypes <> nat ind
+R3425:3428 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3422:3424 Coq.Init.Datatypes <> nat ind
+R3429:3432 Coq.Init.Datatypes <> bool ind
+def 3523:3532 <> SafetyPred
+R3540:3543 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3537:3539 Coq.Init.Datatypes <> nat ind
+def 3709:3720 <> oracle_sound
+R3732:3743 SelfReference.SelfCertifyingDecider <> SafetyOracle def
+binder 3723:3728 <> oracle:5
+R3751:3760 SelfReference.SelfCertifyingDecider <> SafetyPred def
+binder 3747:3747 <> P:6
+binder 3782:3782 <> s:7
+binder 3784:3784 <> t:8
+R3804:3807 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3797:3799 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3787:3792 SelfReference.SelfCertifyingDecider <> oracle:5 var
+R3794:3794 SelfReference.SelfCertifyingDecider <> s:7 var
+R3796:3796 SelfReference.SelfCertifyingDecider <> t:8 var
+R3800:3803 Coq.Init.Datatypes <> true constr
+R3811:3814 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3808:3808 SelfReference.SelfCertifyingDecider <> P:6 var
+R3810:3810 SelfReference.SelfCertifyingDecider <> s:7 var
+R3815:3815 SelfReference.SelfCertifyingDecider <> P:6 var
+R3817:3817 SelfReference.SelfCertifyingDecider <> t:8 var
+rec 4152:4163 <> DeciderState
+proj 4172:4181 <> ds_current
+proj 4192:4196 <> ds_mu
+proj 4212:4220 <> ds_halted
+proj 4233:4239 <> ds_util
+R4185:4187 Coq.Init.Datatypes <> nat ind
+R4205:4207 Coq.Init.Datatypes <> nat ind
+R4225:4228 Coq.Init.Datatypes <> bool ind
+R4246:4248 Coq.Init.Datatypes <> nat ind
+def 4526:4537 <> decider_step
+R4553:4568 SelfReference.SelfCertifyingDecider <> TransitionSystem rec
+binder 4544:4545 <> ts:14
+R4585:4596 SelfReference.SelfCertifyingDecider <> SafetyOracle def
+binder 4576:4581 <> oracle:15
+R4613:4615 Coq.Init.Datatypes <> nat ind
+binder 4604:4607 <> util:16
+R4632:4643 SelfReference.SelfCertifyingDecider <> DeciderState rec
+binder 4623:4623 <> s:17
+R4648:4659 SelfReference.SelfCertifyingDecider <> DeciderState rec
+R4669:4677 SelfReference.SelfCertifyingDecider <> ds_halted proj
+R4679:4679 SelfReference.SelfCertifyingDecider <> s:17 var
+R4715:4727 SelfReference.SelfCertifyingDecider <> ts_transition proj
+R4711:4712 SelfReference.SelfCertifyingDecider <> ts:14 var
+R4731:4740 SelfReference.SelfCertifyingDecider <> ds_current proj
+R4742:4742 SelfReference.SelfCertifyingDecider <> s:17 var
+binder 4703:4706 <> next:18
+R4768:4780 SelfReference.SelfCertifyingDecider <> ts_check_cost proj
+R4764:4765 SelfReference.SelfCertifyingDecider <> ts:14 var
+binder 4756:4759 <> cost:19
+R4793:4798 SelfReference.SelfCertifyingDecider <> oracle:15 var
+R4801:4810 SelfReference.SelfCertifyingDecider <> ds_current proj
+R4812:4812 SelfReference.SelfCertifyingDecider <> s:17 var
+R4815:4818 SelfReference.SelfCertifyingDecider <> next:18 var
+R4984:4993 SelfReference.SelfCertifyingDecider <> ds_current proj
+R4984:4993 SelfReference.SelfCertifyingDecider <> ds_current proj
+R4984:4993 SelfReference.SelfCertifyingDecider <> ds_current proj
+R5021:5025 SelfReference.SelfCertifyingDecider <> ds_mu proj
+R5021:5025 SelfReference.SelfCertifyingDecider <> ds_mu proj
+R5060:5068 SelfReference.SelfCertifyingDecider <> ds_halted proj
+R5060:5068 SelfReference.SelfCertifyingDecider <> ds_halted proj
+R5089:5095 SelfReference.SelfCertifyingDecider <> ds_util proj
+R5089:5095 SelfReference.SelfCertifyingDecider <> ds_util proj
+R4998:5007 SelfReference.SelfCertifyingDecider <> ds_current proj
+R5009:5009 SelfReference.SelfCertifyingDecider <> s:17 var
+R5042:5044 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5035:5039 SelfReference.SelfCertifyingDecider <> ds_mu proj
+R5041:5041 SelfReference.SelfCertifyingDecider <> s:17 var
+R5045:5048 SelfReference.SelfCertifyingDecider <> cost:19 var
+R5074:5077 Coq.Init.Datatypes <> true constr
+R5103:5109 SelfReference.SelfCertifyingDecider <> ds_util proj
+R5111:5111 SelfReference.SelfCertifyingDecider <> s:17 var
+R4834:4843 SelfReference.SelfCertifyingDecider <> ds_current proj
+R4834:4843 SelfReference.SelfCertifyingDecider <> ds_current proj
+R4834:4843 SelfReference.SelfCertifyingDecider <> ds_current proj
+R4863:4867 SelfReference.SelfCertifyingDecider <> ds_mu proj
+R4863:4867 SelfReference.SelfCertifyingDecider <> ds_mu proj
+R4902:4910 SelfReference.SelfCertifyingDecider <> ds_halted proj
+R4902:4910 SelfReference.SelfCertifyingDecider <> ds_halted proj
+R4932:4938 SelfReference.SelfCertifyingDecider <> ds_util proj
+R4932:4938 SelfReference.SelfCertifyingDecider <> ds_util proj
+R4848:4851 SelfReference.SelfCertifyingDecider <> next:18 var
+R4884:4886 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4877:4881 SelfReference.SelfCertifyingDecider <> ds_mu proj
+R4883:4883 SelfReference.SelfCertifyingDecider <> s:17 var
+R4887:4890 SelfReference.SelfCertifyingDecider <> cost:19 var
+R4916:4920 Coq.Init.Datatypes <> false constr
+R4955:4957 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4946:4952 SelfReference.SelfCertifyingDecider <> ds_util proj
+R4954:4954 SelfReference.SelfCertifyingDecider <> s:17 var
+R4958:4961 SelfReference.SelfCertifyingDecider <> util:16 var
+R4686:4686 SelfReference.SelfCertifyingDecider <> s:17 var
+def 5180:5190 <> decider_run
+R5206:5221 SelfReference.SelfCertifyingDecider <> TransitionSystem rec
+binder 5197:5198 <> ts:20
+R5238:5249 SelfReference.SelfCertifyingDecider <> SafetyOracle def
+binder 5229:5234 <> oracle:21
+R5266:5268 Coq.Init.Datatypes <> nat ind
+binder 5257:5260 <> util:22
+R5285:5296 SelfReference.SelfCertifyingDecider <> DeciderState rec
+binder 5276:5276 <> s:23
+R5313:5315 Coq.Init.Datatypes <> nat ind
+binder 5304:5304 <> n:24
+R5320:5331 SelfReference.SelfCertifyingDecider <> DeciderState rec
+R5344:5344 SelfReference.SelfCertifyingDecider <> n:24 var
+R5362:5362 SelfReference.SelfCertifyingDecider <> s:23 var
+R5368:5368 Coq.Init.Datatypes <> S constr
+R5375:5385 SelfReference.SelfCertifyingDecider <> decider_run:25 def
+R5403:5414 SelfReference.SelfCertifyingDecider <> decider_step def
+R5416:5417 SelfReference.SelfCertifyingDecider <> ts:20 var
+R5419:5424 SelfReference.SelfCertifyingDecider <> oracle:21 var
+R5426:5429 SelfReference.SelfCertifyingDecider <> util:22 var
+R5431:5431 SelfReference.SelfCertifyingDecider <> s:23 var
+R5397:5400 SelfReference.SelfCertifyingDecider <> util:22 var
+R5390:5395 SelfReference.SelfCertifyingDecider <> oracle:21 var
+R5387:5388 SelfReference.SelfCertifyingDecider <> ts:20 var
+prf 5561:5581 <> decider_halted_frozen
+binder 5594:5595 <> ts:27
+binder 5597:5602 <> oracle:28
+binder 5604:5607 <> util:29
+binder 5609:5609 <> s:30
+binder 5611:5611 <> n:31
+R5636:5643 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5629:5631 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5618:5626 SelfReference.SelfCertifyingDecider <> ds_halted proj
+R5628:5628 SelfReference.SelfCertifyingDecider <> s:30 var
+R5632:5635 Coq.Init.Datatypes <> true constr
+R5674:5676 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5644:5654 SelfReference.SelfCertifyingDecider <> decider_run def
+R5656:5657 SelfReference.SelfCertifyingDecider <> ts:27 var
+R5659:5664 SelfReference.SelfCertifyingDecider <> oracle:28 var
+R5666:5669 SelfReference.SelfCertifyingDecider <> util:29 var
+R5671:5671 SelfReference.SelfCertifyingDecider <> s:30 var
+R5673:5673 SelfReference.SelfCertifyingDecider <> n:31 var
+R5677:5677 SelfReference.SelfCertifyingDecider <> s:30 var
+R5788:5799 SelfReference.SelfCertifyingDecider <> decider_step def
+prf 5846:5869 <> decider_step_mu_monotone
+binder 5882:5883 <> ts:32
+binder 5885:5890 <> oracle:33
+binder 5892:5895 <> util:34
+binder 5897:5897 <> s:35
+R5911:5914 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5904:5908 SelfReference.SelfCertifyingDecider <> ds_mu proj
+R5910:5910 SelfReference.SelfCertifyingDecider <> s:35 var
+R5915:5919 SelfReference.SelfCertifyingDecider <> ds_mu proj
+R5922:5933 SelfReference.SelfCertifyingDecider <> decider_step def
+R5935:5936 SelfReference.SelfCertifyingDecider <> ts:32 var
+R5938:5943 SelfReference.SelfCertifyingDecider <> oracle:33 var
+R5945:5948 SelfReference.SelfCertifyingDecider <> util:34 var
+R5950:5950 SelfReference.SelfCertifyingDecider <> s:35 var
+R5997:6008 SelfReference.SelfCertifyingDecider <> decider_step def
+R6023:6031 SelfReference.SelfCertifyingDecider <> ds_halted proj
+R6023:6031 SelfReference.SelfCertifyingDecider <> ds_halted proj
+R6073:6082 SelfReference.SelfCertifyingDecider <> ds_current proj
+R6092:6104 SelfReference.SelfCertifyingDecider <> ts_transition proj
+R6108:6117 SelfReference.SelfCertifyingDecider <> ds_current proj
+R6073:6082 SelfReference.SelfCertifyingDecider <> ds_current proj
+R6092:6104 SelfReference.SelfCertifyingDecider <> ts_transition proj
+R6108:6117 SelfReference.SelfCertifyingDecider <> ds_current proj
+prf 6149:6171 <> decider_run_mu_monotone
+binder 6184:6185 <> ts:36
+binder 6187:6192 <> oracle:37
+binder 6194:6197 <> util:38
+binder 6199:6199 <> s:39
+binder 6201:6201 <> n:40
+R6215:6218 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6208:6212 SelfReference.SelfCertifyingDecider <> ds_mu proj
+R6214:6214 SelfReference.SelfCertifyingDecider <> s:39 var
+R6219:6223 SelfReference.SelfCertifyingDecider <> ds_mu proj
+R6226:6236 SelfReference.SelfCertifyingDecider <> decider_run def
+R6238:6239 SelfReference.SelfCertifyingDecider <> ts:36 var
+R6241:6246 SelfReference.SelfCertifyingDecider <> oracle:37 var
+R6248:6251 SelfReference.SelfCertifyingDecider <> util:38 var
+R6253:6253 SelfReference.SelfCertifyingDecider <> s:39 var
+R6255:6255 SelfReference.SelfCertifyingDecider <> n:40 var
+R6393:6397 SelfReference.SelfCertifyingDecider <> ds_mu proj
+R6400:6411 SelfReference.SelfCertifyingDecider <> decider_step def
+R6369:6380 Coq.Arith.PeanoNat Nat le_trans thm
+R6393:6397 SelfReference.SelfCertifyingDecider <> ds_mu proj
+R6400:6411 SelfReference.SelfCertifyingDecider <> decider_step def
+R6369:6380 Coq.Arith.PeanoNat Nat le_trans thm
+R6445:6468 SelfReference.SelfCertifyingDecider <> decider_step_mu_monotone thm
+R6445:6468 SelfReference.SelfCertifyingDecider <> decider_step_mu_monotone thm
+def 6556:6574 <> decider_mu_monotone
+binder 6587:6588 <> ts:41
+binder 6590:6595 <> oracle:42
+binder 6597:6600 <> util:43
+binder 6602:6602 <> s:44
+binder 6604:6604 <> n:45
+R6618:6621 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6611:6615 SelfReference.SelfCertifyingDecider <> ds_mu proj
+R6617:6617 SelfReference.SelfCertifyingDecider <> s:44 var
+R6622:6626 SelfReference.SelfCertifyingDecider <> ds_mu proj
+R6629:6639 SelfReference.SelfCertifyingDecider <> decider_run def
+R6641:6642 SelfReference.SelfCertifyingDecider <> ts:41 var
+R6644:6649 SelfReference.SelfCertifyingDecider <> oracle:42 var
+R6651:6654 SelfReference.SelfCertifyingDecider <> util:43 var
+R6656:6656 SelfReference.SelfCertifyingDecider <> s:44 var
+R6658:6658 SelfReference.SelfCertifyingDecider <> n:45 var
+R6666:6688 SelfReference.SelfCertifyingDecider <> decider_run_mu_monotone thm
+prf 6900:6928 <> decider_step_preserves_safety
+R6947:6962 SelfReference.SelfCertifyingDecider <> TransitionSystem rec
+binder 6942:6943 <> ts:46
+R6975:6986 SelfReference.SelfCertifyingDecider <> SafetyOracle def
+binder 6966:6971 <> oracle:47
+R6997:6999 Coq.Init.Datatypes <> nat ind
+binder 6990:6993 <> util:48
+R7016:7025 SelfReference.SelfCertifyingDecider <> SafetyPred def
+binder 7012:7012 <> P:49
+R7054:7061 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7033:7044 SelfReference.SelfCertifyingDecider <> oracle_sound def
+R7046:7051 SelfReference.SelfCertifyingDecider <> oracle:47 var
+R7053:7053 SelfReference.SelfCertifyingDecider <> P:49 var
+R7074:7085 SelfReference.SelfCertifyingDecider <> DeciderState rec
+binder 7070:7070 <> s:50
+R7111:7120 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7095:7095 SelfReference.SelfCertifyingDecider <> P:49 var
+R7098:7107 SelfReference.SelfCertifyingDecider <> ds_current proj
+R7109:7109 SelfReference.SelfCertifyingDecider <> s:50 var
+R7121:7121 SelfReference.SelfCertifyingDecider <> P:49 var
+R7124:7133 SelfReference.SelfCertifyingDecider <> ds_current proj
+R7136:7147 SelfReference.SelfCertifyingDecider <> decider_step def
+R7149:7150 SelfReference.SelfCertifyingDecider <> ts:46 var
+R7152:7157 SelfReference.SelfCertifyingDecider <> oracle:47 var
+R7159:7162 SelfReference.SelfCertifyingDecider <> util:48 var
+R7164:7164 SelfReference.SelfCertifyingDecider <> s:50 var
+R7224:7235 SelfReference.SelfCertifyingDecider <> decider_step def
+R7250:7258 SelfReference.SelfCertifyingDecider <> ds_halted proj
+R7250:7258 SelfReference.SelfCertifyingDecider <> ds_halted proj
+R7359:7368 SelfReference.SelfCertifyingDecider <> ds_current proj
+R7378:7390 SelfReference.SelfCertifyingDecider <> ts_transition proj
+R7394:7403 SelfReference.SelfCertifyingDecider <> ds_current proj
+R7359:7368 SelfReference.SelfCertifyingDecider <> ds_current proj
+R7378:7390 SelfReference.SelfCertifyingDecider <> ts_transition proj
+R7394:7403 SelfReference.SelfCertifyingDecider <> ds_current proj
+prf 7924:7947 <> decider_safety_all_steps
+R7966:7981 SelfReference.SelfCertifyingDecider <> TransitionSystem rec
+binder 7961:7962 <> ts:51
+R7994:8005 SelfReference.SelfCertifyingDecider <> SafetyOracle def
+binder 7985:7990 <> oracle:52
+R8016:8018 Coq.Init.Datatypes <> nat ind
+binder 8009:8012 <> util:53
+R8035:8044 SelfReference.SelfCertifyingDecider <> SafetyPred def
+binder 8031:8031 <> P:54
+R8073:8080 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8052:8063 SelfReference.SelfCertifyingDecider <> oracle_sound def
+R8065:8070 SelfReference.SelfCertifyingDecider <> oracle:52 var
+R8072:8072 SelfReference.SelfCertifyingDecider <> P:54 var
+R8093:8095 Coq.Init.Datatypes <> nat ind
+binder 8089:8089 <> n:55
+R8104:8115 SelfReference.SelfCertifyingDecider <> DeciderState rec
+binder 8099:8100 <> s0:56
+R8142:8151 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8125:8125 SelfReference.SelfCertifyingDecider <> P:54 var
+R8128:8137 SelfReference.SelfCertifyingDecider <> ds_current proj
+R8139:8140 SelfReference.SelfCertifyingDecider <> s0:56 var
+R8152:8152 SelfReference.SelfCertifyingDecider <> P:54 var
+R8155:8164 SelfReference.SelfCertifyingDecider <> ds_current proj
+R8167:8177 SelfReference.SelfCertifyingDecider <> decider_run def
+R8179:8180 SelfReference.SelfCertifyingDecider <> ts:51 var
+R8182:8187 SelfReference.SelfCertifyingDecider <> oracle:52 var
+R8189:8192 SelfReference.SelfCertifyingDecider <> util:53 var
+R8194:8195 SelfReference.SelfCertifyingDecider <> s0:56 var
+R8197:8197 SelfReference.SelfCertifyingDecider <> n:55 var
+R8332:8360 SelfReference.SelfCertifyingDecider <> decider_step_preserves_safety thm
+R8332:8360 SelfReference.SelfCertifyingDecider <> decider_step_preserves_safety thm
+prf 8602:8628 <> decider_never_enters_unsafe
+R8647:8662 SelfReference.SelfCertifyingDecider <> TransitionSystem rec
+binder 8642:8643 <> ts:57
+R8675:8686 SelfReference.SelfCertifyingDecider <> SafetyOracle def
+binder 8666:8671 <> oracle:58
+R8697:8699 Coq.Init.Datatypes <> nat ind
+binder 8690:8693 <> util:59
+R8716:8725 SelfReference.SelfCertifyingDecider <> SafetyPred def
+binder 8712:8712 <> P:60
+R8754:8761 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8733:8744 SelfReference.SelfCertifyingDecider <> oracle_sound def
+R8746:8751 SelfReference.SelfCertifyingDecider <> oracle:58 var
+R8753:8753 SelfReference.SelfCertifyingDecider <> P:60 var
+R8774:8785 SelfReference.SelfCertifyingDecider <> DeciderState rec
+binder 8770:8770 <> s:61
+R8811:8820 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8795:8795 SelfReference.SelfCertifyingDecider <> P:60 var
+R8798:8807 SelfReference.SelfCertifyingDecider <> ds_current proj
+R8809:8809 SelfReference.SelfCertifyingDecider <> s:61 var
+R8840:8849 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8832:8834 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8821:8829 SelfReference.SelfCertifyingDecider <> ds_halted proj
+R8831:8831 SelfReference.SelfCertifyingDecider <> s:61 var
+R8835:8839 Coq.Init.Datatypes <> false constr
+R8914:8923 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8907:8909 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8850:8855 SelfReference.SelfCertifyingDecider <> oracle:58 var
+R8858:8867 SelfReference.SelfCertifyingDecider <> ds_current proj
+R8869:8869 SelfReference.SelfCertifyingDecider <> s:61 var
+R8877:8889 SelfReference.SelfCertifyingDecider <> ts_transition proj
+R8873:8874 SelfReference.SelfCertifyingDecider <> ts:57 var
+R8893:8902 SelfReference.SelfCertifyingDecider <> ds_current proj
+R8904:8904 SelfReference.SelfCertifyingDecider <> s:61 var
+R8910:8913 Coq.Init.Datatypes <> true constr
+R8924:8924 SelfReference.SelfCertifyingDecider <> P:60 var
+R8931:8943 SelfReference.SelfCertifyingDecider <> ts_transition proj
+R8927:8928 SelfReference.SelfCertifyingDecider <> ts:57 var
+R8947:8956 SelfReference.SelfCertifyingDecider <> ds_current proj
+R8958:8958 SelfReference.SelfCertifyingDecider <> s:61 var
+prf 9135:9157 <> decider_halts_on_unsafe
+R9176:9191 SelfReference.SelfCertifyingDecider <> TransitionSystem rec
+binder 9171:9172 <> ts:62
+R9204:9215 SelfReference.SelfCertifyingDecider <> SafetyOracle def
+binder 9195:9200 <> oracle:63
+R9226:9228 Coq.Init.Datatypes <> nat ind
+binder 9219:9222 <> util:64
+R9245:9256 SelfReference.SelfCertifyingDecider <> DeciderState rec
+binder 9241:9241 <> s:65
+R9283:9290 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9275:9277 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9264:9272 SelfReference.SelfCertifyingDecider <> ds_halted proj
+R9274:9274 SelfReference.SelfCertifyingDecider <> s:65 var
+R9278:9282 Coq.Init.Datatypes <> false constr
+R9356:9363 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9348:9350 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9291:9296 SelfReference.SelfCertifyingDecider <> oracle:63 var
+R9299:9308 SelfReference.SelfCertifyingDecider <> ds_current proj
+R9310:9310 SelfReference.SelfCertifyingDecider <> s:65 var
+R9318:9330 SelfReference.SelfCertifyingDecider <> ts_transition proj
+R9314:9315 SelfReference.SelfCertifyingDecider <> ts:62 var
+R9334:9343 SelfReference.SelfCertifyingDecider <> ds_current proj
+R9345:9345 SelfReference.SelfCertifyingDecider <> s:65 var
+R9351:9355 Coq.Init.Datatypes <> false constr
+R9405:9407 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9364:9372 SelfReference.SelfCertifyingDecider <> ds_halted proj
+R9375:9386 SelfReference.SelfCertifyingDecider <> decider_step def
+R9388:9389 SelfReference.SelfCertifyingDecider <> ts:62 var
+R9391:9396 SelfReference.SelfCertifyingDecider <> oracle:63 var
+R9398:9401 SelfReference.SelfCertifyingDecider <> util:64 var
+R9403:9403 SelfReference.SelfCertifyingDecider <> s:65 var
+R9408:9411 Coq.Init.Datatypes <> true constr
+R9467:9478 SelfReference.SelfCertifyingDecider <> decider_step def
+prf 9607:9639 <> decider_utility_frozen_after_halt
+binder 9652:9653 <> ts:66
+binder 9655:9660 <> oracle:67
+binder 9662:9665 <> util:68
+binder 9667:9667 <> s:69
+binder 9669:9669 <> n:70
+R9694:9701 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9687:9689 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9676:9684 SelfReference.SelfCertifyingDecider <> ds_halted proj
+R9686:9686 SelfReference.SelfCertifyingDecider <> s:69 var
+R9690:9693 Coq.Init.Datatypes <> true constr
+R9742:9744 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9702:9708 SelfReference.SelfCertifyingDecider <> ds_util proj
+R9711:9721 SelfReference.SelfCertifyingDecider <> decider_run def
+R9723:9724 SelfReference.SelfCertifyingDecider <> ts:66 var
+R9726:9731 SelfReference.SelfCertifyingDecider <> oracle:67 var
+R9733:9736 SelfReference.SelfCertifyingDecider <> util:68 var
+R9738:9738 SelfReference.SelfCertifyingDecider <> s:69 var
+R9740:9740 SelfReference.SelfCertifyingDecider <> n:70 var
+R9745:9751 SelfReference.SelfCertifyingDecider <> ds_util proj
+R9753:9753 SelfReference.SelfCertifyingDecider <> s:69 var
+R9804:9824 SelfReference.SelfCertifyingDecider <> decider_halted_frozen thm
+R9804:9824 SelfReference.SelfCertifyingDecider <> decider_halted_frozen thm
+R9804:9824 SelfReference.SelfCertifyingDecider <> decider_halted_frozen thm
+R9804:9824 SelfReference.SelfCertifyingDecider <> decider_halted_frozen thm
+def 10131:10141 <> bool_oracle
+R10154:10157 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10151:10153 Coq.Init.Datatypes <> nat ind
+R10158:10161 Coq.Init.Datatypes <> bool ind
+binder 10144:10147 <> safe:71
+R10166:10177 SelfReference.SelfCertifyingDecider <> SafetyOracle def
+binder 10190:10190 <> t:72
+R10195:10198 SelfReference.SelfCertifyingDecider <> safe:71 var
+R10200:10200 SelfReference.SelfCertifyingDecider <> t:72 var
+prf 10210:10226 <> bool_oracle_sound
+R10250:10253 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10247:10249 Coq.Init.Datatypes <> nat ind
+R10254:10257 Coq.Init.Datatypes <> bool ind
+binder 10240:10243 <> safe:73
+R10265:10276 SelfReference.SelfCertifyingDecider <> oracle_sound def
+R10279:10289 SelfReference.SelfCertifyingDecider <> bool_oracle def
+R10291:10294 SelfReference.SelfCertifyingDecider <> safe:73 var
+binder 10302:10302 <> s:74
+R10313:10315 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10307:10310 SelfReference.SelfCertifyingDecider <> safe:73 var
+R10312:10312 SelfReference.SelfCertifyingDecider <> s:74 var
+R10316:10319 Coq.Init.Datatypes <> true constr
+R10368:10378 SelfReference.SelfCertifyingDecider <> bool_oracle def
+prf 10493:10509 <> bool_decider_safe
+R10528:10543 SelfReference.SelfCertifyingDecider <> TransitionSystem rec
+binder 10523:10524 <> ts:75
+R10557:10560 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10554:10556 Coq.Init.Datatypes <> nat ind
+R10561:10564 Coq.Init.Datatypes <> bool ind
+binder 10547:10550 <> safe:76
+R10577:10579 Coq.Init.Datatypes <> nat ind
+binder 10568:10571 <> util:77
+binder 10573:10573 <> n:78
+R10597:10608 SelfReference.SelfCertifyingDecider <> DeciderState rec
+binder 10592:10593 <> s0:79
+R10643:10650 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10636:10638 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10616:10619 SelfReference.SelfCertifyingDecider <> safe:76 var
+R10622:10631 SelfReference.SelfCertifyingDecider <> ds_current proj
+R10633:10634 SelfReference.SelfCertifyingDecider <> s0:79 var
+R10639:10642 Coq.Init.Datatypes <> true constr
+R10714:10716 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10651:10654 SelfReference.SelfCertifyingDecider <> safe:76 var
+R10657:10666 SelfReference.SelfCertifyingDecider <> ds_current proj
+R10669:10679 SelfReference.SelfCertifyingDecider <> decider_run def
+R10681:10682 SelfReference.SelfCertifyingDecider <> ts:75 var
+R10685:10695 SelfReference.SelfCertifyingDecider <> bool_oracle def
+R10697:10700 SelfReference.SelfCertifyingDecider <> safe:76 var
+R10703:10706 SelfReference.SelfCertifyingDecider <> util:77 var
+R10708:10709 SelfReference.SelfCertifyingDecider <> s0:79 var
+R10711:10711 SelfReference.SelfCertifyingDecider <> n:78 var
+R10717:10720 Coq.Init.Datatypes <> true constr
+R10769:10792 SelfReference.SelfCertifyingDecider <> decider_safety_all_steps thm
+R10798:10808 SelfReference.SelfCertifyingDecider <> bool_oracle def
+binder 10837:10837 <> s:80
+R10848:10850 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10847:10847 SelfReference.SelfCertifyingDecider <> s:80 var
+R10851:10854 Coq.Init.Datatypes <> true constr
+R10869:10885 SelfReference.SelfCertifyingDecider <> bool_oracle_sound thm
+R10769:10792 SelfReference.SelfCertifyingDecider <> decider_safety_all_steps thm
+R10798:10808 SelfReference.SelfCertifyingDecider <> bool_oracle def
+binder 10837:10837 <> s:81
+R10848:10850 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10847:10847 SelfReference.SelfCertifyingDecider <> s:81 var
+R10851:10854 Coq.Init.Datatypes <> true constr
+R10869:10885 SelfReference.SelfCertifyingDecider <> bool_oracle_sound thm
+def 11264:11286 <> trust_certifying_oracle
+R11299:11308 SelfReference.InductiveTrust <> StateSpace rec
+binder 11293:11293 <> A:82
+binder 11295:11295 <> B:83
+R11320:11328 SelfReference.InductiveTrust <> Expansion rec
+R11330:11330 SelfReference.SelfCertifyingDecider <> A:82 var
+R11332:11332 SelfReference.SelfCertifyingDecider <> B:83 var
+binder 11316:11316 <> e:84
+R11352:11355 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11349:11351 Coq.Init.Datatypes <> nat ind
+R11356:11359 Coq.Init.Datatypes <> bool ind
+binder 11340:11345 <> safe_A:85
+R11364:11375 SelfReference.SelfCertifyingDecider <> SafetyOracle def
+binder 11388:11388 <> t:86
+R11397:11408 Coq.Lists.List <> existsb def
+R11474:11481 Coq.Lists.List <> seq def
+R11488:11494 SelfReference.InductiveTrust <> ss_size proj
+R11485:11485 SelfReference.SelfCertifyingDecider <> A:82 var
+binder 11421:11421 <> s:87
+R11453:11456 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R11426:11432 Coq.Arith.PeanoNat Nat eqb def
+R11438:11442 SelfReference.InductiveTrust <> embed proj
+R11444:11444 SelfReference.SelfCertifyingDecider <> A:82 var
+R11446:11446 SelfReference.SelfCertifyingDecider <> B:83 var
+R11435:11435 SelfReference.SelfCertifyingDecider <> e:84 var
+R11449:11449 SelfReference.SelfCertifyingDecider <> s:87 var
+R11452:11452 SelfReference.SelfCertifyingDecider <> t:86 var
+R11457:11462 SelfReference.SelfCertifyingDecider <> safe_A:85 var
+R11464:11464 SelfReference.SelfCertifyingDecider <> s:87 var
+prf 11738:11755 <> trust_oracle_sound
+R11775:11784 SelfReference.InductiveTrust <> StateSpace rec
+binder 11769:11769 <> A:88
+binder 11771:11771 <> B:89
+R11792:11800 SelfReference.InductiveTrust <> Expansion rec
+R11802:11802 SelfReference.SelfCertifyingDecider <> A:88 var
+R11804:11804 SelfReference.SelfCertifyingDecider <> B:89 var
+binder 11788:11788 <> e:90
+R11820:11823 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11817:11819 Coq.Init.Datatypes <> nat ind
+R11824:11827 Coq.Init.Datatypes <> bool ind
+binder 11808:11813 <> safe_A:91
+R11894:11894 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11956:11964 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 11902:11902 <> u:92
+R11920:11923 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11906:11908 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R11905:11905 SelfReference.SelfCertifyingDecider <> u:92 var
+R11912:11918 SelfReference.InductiveTrust <> ss_size proj
+R11909:11909 SelfReference.SelfCertifyingDecider <> A:88 var
+R11939:11942 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11932:11934 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11924:11929 SelfReference.SelfCertifyingDecider <> safe_A:91 var
+R11931:11931 SelfReference.SelfCertifyingDecider <> u:92 var
+R11935:11938 Coq.Init.Datatypes <> true constr
+R11946:11952 SelfReference.InductiveTrust <> ss_safe proj
+R11943:11943 SelfReference.SelfCertifyingDecider <> A:88 var
+R11955:11955 SelfReference.SelfCertifyingDecider <> u:92 var
+R11965:11976 SelfReference.SelfCertifyingDecider <> oracle_sound def
+R11985:12007 SelfReference.SelfCertifyingDecider <> trust_certifying_oracle def
+R12011:12016 SelfReference.SelfCertifyingDecider <> safe_A:91 var
+R12009:12009 SelfReference.SelfCertifyingDecider <> e:90 var
+R12070:12076 SelfReference.InductiveTrust <> ss_safe proj
+R12026:12036 SelfReference.InductiveTrust <> lift_safety def
+R12038:12038 SelfReference.SelfCertifyingDecider <> A:88 var
+R12044:12048 SelfReference.InductiveTrust <> embed proj
+R12050:12050 SelfReference.SelfCertifyingDecider <> A:88 var
+R12052:12052 SelfReference.SelfCertifyingDecider <> B:89 var
+R12041:12041 SelfReference.SelfCertifyingDecider <> e:90 var
+R12059:12065 SelfReference.InductiveTrust <> ss_size proj
+R12056:12056 SelfReference.SelfCertifyingDecider <> B:89 var
+R12143:12165 SelfReference.SelfCertifyingDecider <> trust_certifying_oracle def
+R12187:12205 Coq.Lists.List <> existsb_exists thm
+R12187:12205 Coq.Lists.List <> existsb_exists thm
+R12266:12283 Coq.Bool.Bool <> andb_true_iff thm
+R12266:12283 Coq.Bool.Bool <> andb_true_iff thm
+R12340:12349 Coq.Arith.PeanoNat Nat eqb_eq thm
+R12340:12349 Coq.Arith.PeanoNat Nat eqb_eq thm
+R12367:12377 Coq.Lists.List <> in_seq thm
+R12367:12377 Coq.Lists.List <> in_seq thm
+R12395:12405 SelfReference.InductiveTrust <> lift_safety def
+prf 12994:13012 <> decider_correctness
+R13031:13046 SelfReference.SelfCertifyingDecider <> TransitionSystem rec
+binder 13026:13027 <> ts:93
+R13059:13070 SelfReference.SelfCertifyingDecider <> SafetyOracle def
+binder 13050:13055 <> oracle:94
+R13081:13083 Coq.Init.Datatypes <> nat ind
+binder 13074:13077 <> util:95
+R13100:13109 SelfReference.SelfCertifyingDecider <> SafetyPred def
+binder 13096:13096 <> P:96
+R13118:13129 SelfReference.SelfCertifyingDecider <> DeciderState rec
+binder 13113:13114 <> s0:97
+R13158:13165 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13137:13148 SelfReference.SelfCertifyingDecider <> oracle_sound def
+R13150:13155 SelfReference.SelfCertifyingDecider <> oracle:94 var
+R13157:13157 SelfReference.SelfCertifyingDecider <> P:96 var
+R13183:13190 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13166:13166 SelfReference.SelfCertifyingDecider <> P:96 var
+R13169:13178 SelfReference.SelfCertifyingDecider <> ds_current proj
+R13180:13181 SelfReference.SelfCertifyingDecider <> s0:97 var
+binder 13198:13198 <> n:98
+R13255:13264 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13207:13207 SelfReference.SelfCertifyingDecider <> P:96 var
+R13210:13219 SelfReference.SelfCertifyingDecider <> ds_current proj
+R13222:13232 SelfReference.SelfCertifyingDecider <> decider_run def
+R13234:13235 SelfReference.SelfCertifyingDecider <> ts:93 var
+R13237:13242 SelfReference.SelfCertifyingDecider <> oracle:94 var
+R13244:13247 SelfReference.SelfCertifyingDecider <> util:95 var
+R13249:13250 SelfReference.SelfCertifyingDecider <> s0:97 var
+R13252:13252 SelfReference.SelfCertifyingDecider <> n:98 var
+R13273:13276 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R13265:13269 SelfReference.SelfCertifyingDecider <> ds_mu proj
+R13271:13272 SelfReference.SelfCertifyingDecider <> s0:97 var
+R13277:13281 SelfReference.SelfCertifyingDecider <> ds_mu proj
+R13284:13294 SelfReference.SelfCertifyingDecider <> decider_run def
+R13296:13297 SelfReference.SelfCertifyingDecider <> ts:93 var
+R13299:13304 SelfReference.SelfCertifyingDecider <> oracle:94 var
+R13306:13309 SelfReference.SelfCertifyingDecider <> util:95 var
+R13311:13312 SelfReference.SelfCertifyingDecider <> s0:97 var
+R13314:13314 SelfReference.SelfCertifyingDecider <> n:98 var
+R13387:13410 SelfReference.SelfCertifyingDecider <> decider_safety_all_steps thm
+R13387:13410 SelfReference.SelfCertifyingDecider <> decider_safety_all_steps thm
+R13457:13475 SelfReference.SelfCertifyingDecider <> decider_mu_monotone def
+R13457:13475 SelfReference.SelfCertifyingDecider <> decider_mu_monotone def
+prf 14535:14559 <> decider_bridges_spaceland
+R14579:14588 SelfReference.InductiveTrust <> StateSpace rec
+binder 14573:14573 <> A:99
+binder 14575:14575 <> B:100
+R14596:14604 SelfReference.InductiveTrust <> Expansion rec
+R14606:14606 SelfReference.SelfCertifyingDecider <> A:99 var
+R14608:14608 SelfReference.SelfCertifyingDecider <> B:100 var
+binder 14592:14592 <> e:101
+R14617:14625 SelfReference.RefinementInvariant <> ExecState rec
+binder 14612:14613 <> s0:102
+R14644:14659 SelfReference.SelfCertifyingDecider <> TransitionSystem rec
+binder 14639:14640 <> ts:103
+R14672:14683 SelfReference.SelfCertifyingDecider <> SafetyOracle def
+binder 14663:14668 <> oracle:104
+R14694:14696 Coq.Init.Datatypes <> nat ind
+binder 14687:14690 <> util:105
+R14713:14722 SelfReference.SelfCertifyingDecider <> SafetyPred def
+binder 14709:14709 <> P:106
+R14731:14742 SelfReference.SelfCertifyingDecider <> DeciderState rec
+binder 14726:14727 <> d0:107
+R14771:14778 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14750:14761 SelfReference.SelfCertifyingDecider <> oracle_sound def
+R14763:14768 SelfReference.SelfCertifyingDecider <> oracle:104 var
+R14770:14770 SelfReference.SelfCertifyingDecider <> P:106 var
+R14796:14851 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14779:14779 SelfReference.SelfCertifyingDecider <> P:106 var
+R14782:14791 SelfReference.SelfCertifyingDecider <> ds_current proj
+R14793:14794 SelfReference.SelfCertifyingDecider <> d0:107 var
+R14852:14852 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R14978:15066 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 14860:14860 <> n:108
+R14917:14926 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R14869:14869 SelfReference.SelfCertifyingDecider <> P:106 var
+R14872:14881 SelfReference.SelfCertifyingDecider <> ds_current proj
+R14884:14894 SelfReference.SelfCertifyingDecider <> decider_run def
+R14896:14897 SelfReference.SelfCertifyingDecider <> ts:103 var
+R14899:14904 SelfReference.SelfCertifyingDecider <> oracle:104 var
+R14906:14909 SelfReference.SelfCertifyingDecider <> util:105 var
+R14911:14912 SelfReference.SelfCertifyingDecider <> d0:107 var
+R14914:14914 SelfReference.SelfCertifyingDecider <> n:108 var
+R14935:14938 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R14927:14931 SelfReference.SelfCertifyingDecider <> ds_mu proj
+R14933:14934 SelfReference.SelfCertifyingDecider <> d0:107 var
+R14939:14943 SelfReference.SelfCertifyingDecider <> ds_mu proj
+R14946:14956 SelfReference.SelfCertifyingDecider <> decider_run def
+R14958:14959 SelfReference.SelfCertifyingDecider <> ts:103 var
+R14961:14966 SelfReference.SelfCertifyingDecider <> oracle:104 var
+R14968:14971 SelfReference.SelfCertifyingDecider <> util:105 var
+R14973:14974 SelfReference.SelfCertifyingDecider <> d0:107 var
+R14976:14976 SelfReference.SelfCertifyingDecider <> n:108 var
+R15067:15067 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15286:15374 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15469:15469 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15081:15104 SelfReference.RefinementInvariant <> full_certification_trace def
+R15107:15123 SelfReference.InductiveTrust <> expansion_insight def
+R15125:15125 SelfReference.SelfCertifyingDecider <> e:101 var
+binder 15072:15076 <> costs:109
+R15149:15157 SelfReference.RefinementInvariant <> run_trace def
+R15159:15160 SelfReference.SelfCertifyingDecider <> s0:102 var
+R15162:15166 SelfReference.SelfCertifyingDecider <> costs:109 var
+binder 15140:15143 <> post:110
+R15198:15206 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15176:15189 SelfReference.RefinementInvariant <> embodies_trust def
+R15193:15197 SelfReference.SelfCertifyingDecider <> costs:109 var
+R15191:15191 SelfReference.SelfCertifyingDecider <> e:101 var
+R15230:15238 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15207:15219 SelfReference.RefinementInvariant <> mu_refinement def
+R15226:15229 SelfReference.SelfCertifyingDecider <> post:110 var
+R15223:15224 SelfReference.SelfCertifyingDecider <> s0:102 var
+R15221:15221 SelfReference.SelfCertifyingDecider <> e:101 var
+R15251:15253 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15245:15249 SelfReference.RefinementInvariant <> ex_mu proj
+R15239:15242 SelfReference.SelfCertifyingDecider <> post:110 var
+R15264:15266 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R15258:15262 SelfReference.RefinementInvariant <> ex_mu proj
+R15254:15255 SelfReference.SelfCertifyingDecider <> s0:102 var
+R15267:15283 SelfReference.InductiveTrust <> expansion_insight def
+R15285:15285 SelfReference.SelfCertifyingDecider <> e:101 var
+R15428:15431 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15398:15401 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R15376:15378 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15379:15395 SelfReference.InductiveTrust <> expansion_insight def
+R15397:15397 SelfReference.SelfCertifyingDecider <> e:101 var
+R15413:15416 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R15405:15411 SelfReference.InductiveTrust <> ss_size proj
+R15402:15402 SelfReference.SelfCertifyingDecider <> A:99 var
+R15420:15426 SelfReference.InductiveTrust <> ss_size proj
+R15417:15417 SelfReference.SelfCertifyingDecider <> B:100 var
+R15437:15445 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15432:15436 Coq.Init.Logic <> False ind
+R15447:15449 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15450:15466 SelfReference.InductiveTrust <> expansion_insight def
+R15468:15468 SelfReference.SelfCertifyingDecider <> e:101 var
+R15538:15541 Coq.Init.Logic <> conj constr
+R15546:15549 Coq.Init.Logic <> conj constr
+R15538:15541 Coq.Init.Logic <> conj constr
+R15546:15549 Coq.Init.Logic <> conj constr
+R15612:15630 SelfReference.SelfCertifyingDecider <> decider_correctness thm
+R15612:15630 SelfReference.SelfCertifyingDecider <> decider_correctness thm
+R15712:15730 SelfReference.RefinementInvariant <> lob_bypass_concrete thm
+R15712:15730 SelfReference.RefinementInvariant <> lob_bypass_concrete thm

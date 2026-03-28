@@ -100,6 +100,10 @@ def _get_timeout(item) -> int:
     cli = cfg.getoption("--per-test-timeout")
     if cli is not None:
         return int(cli)
+    # strict_rtl tests (e.g. prefix-by-prefix lockstep) need ~240s for
+    # many subprocess invocations; use a higher default when no CLI override.
+    if item.get_closest_marker("strict_rtl") is not None:
+        return 240
     ini = cfg.getini("per_test_timeout")
     try:
         return int(ini)

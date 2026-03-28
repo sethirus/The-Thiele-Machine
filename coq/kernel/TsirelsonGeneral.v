@@ -1,11 +1,26 @@
-(** * General Tsirelson Bound from Pure Algebra
-    
-    MAIN THEOREM: For ANY correlators satisfying NPA-1 minor constraints,
-    |S| ≤ 2√2.
-    
-    This is derived from pure algebraic constraints WITHOUT physics axioms.
-    
-    Key insight: The row constraints from PSD moment matrix imply S² ≤ 8.
+(** * TsirelsonGeneral: Tsirelson Bound from Pure Algebra
+
+    WHY THIS FILE EXISTS:
+    The Tsirelson bound |S| <= 2*sqrt(2) is usually derived from quantum
+    mechanics (tensor product Hilbert spaces, projective measurements).
+    This file derives it from PURE ALGEBRA: row constraints on correlation
+    matrices plus the Cauchy-Schwarz inequality. No physics axioms needed.
+
+    THE CORE CLAIM:
+    For ANY correlators e00, e01, e10, e11 satisfying the NPA-1 minor
+    constraints (e00^2 + e01^2 <= 1, e10^2 + e11^2 <= 1), the CHSH
+    expression S = e00 + e01 + e10 - e11 satisfies S^2 <= 8.
+
+    PHYSICAL INTERPRETATION:
+    The Tsirelson bound is not a property of quantum mechanics specifically --
+    it's a property of ANY correlation matrix satisfying PSD minor constraints.
+    Quantum mechanics happens to saturate this bound (achievable at 1/sqrt(2)),
+    but the bound itself is purely algebraic.
+
+    FALSIFICATION:
+    Find correlators satisfying the row constraints where S^2 > 8. This would
+    require violating the Cauchy-Schwarz inequality (a + b + c - d)^2 <=
+    4(a^2 + b^2 + c^2 + d^2), which is a sum-of-squares identity.
 *)
 
 (* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
@@ -26,10 +41,7 @@ Local Open Scope R_scope.
     
     Proof: Expand and show the difference is a sum of squares. *)
 
-(** HELPER: Non-negativity property *)
-(** HELPER: Non-negativity property *)
-(** HELPER: Non-negativity property *)
-(** HELPER: Non-negativity property *)
+(** Non-negativity: x * x >= 0 for all reals *)
 Lemma sq_nonneg : forall x : R, x * x >= 0.
 Proof.
   intro x.
@@ -139,12 +151,8 @@ Definition sqrt8 : R := sqrt 8.
 Lemma sqrt8_squared : sqrt8 * sqrt8 = 8.
 Proof.
   unfold sqrt8. rewrite sqrt_sqrt; [reflexivity | lra].
-(** HELPER: Non-negativity property *)
-(** HELPER: Non-negativity property *)
 Qed.
 
-(** HELPER: Non-negativity property *)
-(** HELPER: Non-negativity property *)
 Lemma sqrt8_positive : sqrt8 > 0.
 Proof.
   unfold sqrt8. apply sqrt_lt_R0. lra.
@@ -181,14 +189,11 @@ Qed.
     
     NOTE: Definitional lemma - pure algebra computation.
     ========================================================================= *)
-(** HELPER: Non-negativity property *)
-(** HELPER: Non-negativity property *)
 
-(** Definitional lemma: Definition of 1/√2 *)
+(** Definition of 1/sqrt(2) *)
 Definition sqrt2inv : R := 1 / sqrt 2.
 
-(** HELPER: Non-negativity property *)
-(** HELPER: Non-negativity property *)
+(** sqrt(2) > 0 *)
 Lemma sqrt2_pos : sqrt 2 > 0.
 Proof. apply sqrt_lt_R0. lra. Qed.
 

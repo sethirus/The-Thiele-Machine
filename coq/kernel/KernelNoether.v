@@ -14,10 +14,10 @@
     time-translation symmetry.
 
     WHAT THIS PROVES:
-    - z_action_identity: Shifting by 0 is identity (Theorem, line 49)
-    - z_action_composition: Shifts compose: shift(a) ∘ shift(b) = shift(a+b) (Theorem, line 58)
-    - z_action_inverse: Shifts have inverses: shift(n) ∘ shift(-n) = identity (Theorem, line 74)
-    - z_gauge_invariance: Z-shifts preserve partition structure (Theorem, line 92)
+    - z_action_identity: Shifting by 0 is identity
+    - z_action_composition: Shifts compose: shift(a) ∘ shift(b) = shift(a+b)
+    - z_action_inverse: Shifts have inverses: shift(n) ∘ shift(-n) = identity
+    - z_gauge_invariance: Z-shifts preserve partition structure
 
     These are the axioms of a group action (Z,+) acting on VMState.
 
@@ -33,7 +33,7 @@
 
     GOAL: Extend nat-action to Z-action, prove full Noether theorem structure
 
-    Previous (KernelPhysics.v): nat-action (μ → μ + n) + preservation
+    KernelPhysics.v provides: nat-action (mu -> mu + n) + preservation
     This module: Z-action (bidirectional shifts), inverse laws, orbit structure
 
     WHY: Full group action reveals conservation law scope - does Z-symmetry
@@ -102,6 +102,26 @@ Definition z_gauge_shift (delta : Z) (s : VMState) : VMState :=
   vm_witness := s.(vm_witness);
   vm_certified := s.(vm_certified) |}.
 
+(** Helper: z_gauge_shift preserves mem projection (used in LASSERT/LJOIN orbit proofs) *)
+Lemma z_gauge_shift_mem : forall delta s,
+  vm_mem (z_gauge_shift delta s) = vm_mem s.
+Proof. intros. unfold z_gauge_shift. reflexivity. Qed.
+
+(** Helper: z_gauge_shift preserves regs projection (used in LASSERT/LJOIN orbit proofs) *)
+Lemma z_gauge_shift_regs : forall delta s,
+  vm_regs (z_gauge_shift delta s) = vm_regs s.
+Proof. intros. unfold z_gauge_shift. reflexivity. Qed.
+
+(** Helper: z_gauge_shift preserves graph projection *)
+Lemma z_gauge_shift_graph : forall delta s,
+  vm_graph (z_gauge_shift delta s) = vm_graph s.
+Proof. intros. unfold z_gauge_shift. reflexivity. Qed.
+
+(** Helper: z_gauge_shift preserves read_reg (depends only on vm_regs) *)
+Lemma z_gauge_shift_read_reg : forall delta s r,
+  read_reg (z_gauge_shift delta s) r = read_reg s r.
+Proof. intros. unfold read_reg, z_gauge_shift. reflexivity. Qed.
+
 (**
   Observable_partition: Extract partition region structure (ignoring μ).
 
@@ -112,7 +132,7 @@ Definition z_gauge_shift (delta : Z) (s : VMState) : VMState :=
   m.module_region (list of partition IDs). Result: list (list nat) of all regions.
 
   CLAIM: ∀ delta, s. Observable_partition (z_gauge_shift delta s) = Observable_partition s.
-  This is z_gauge_invariance (line 121) - μ-shifts don't change observables.
+  This is z_gauge_invariance - μ-shifts don't change observables.
 
   PHYSICAL MEANING: Like measuring electric fields (gauge-invariant) instead of
   potentials (gauge-dependent). Partition structure is physical reality; μ is
@@ -743,7 +763,7 @@ Qed.
 
   CRITICAL LIMITATION: Requires 0 ≤ μ₁+delta (positivity guard). Without this,
   Z.to_nat clamping breaks commutativity. The counterexample in the file header
-  (line 625-628) demonstrates this explicitly.
+  demonstrates this explicitly.
 
   COUNTEREXAMPLE (without positivity): μ=10, cost=5, delta=-12.
   Path A: step then shift: (10+5=15) then (15-12=3) → μ'=3.
@@ -772,12 +792,85 @@ Proof.
      econstructor finds the right constructor and unifies, reflexivity
      handles trivial equalities. *)
   inversion Hstep; subst; eexists; split.
-  (* All cases: econstructor matches same constructor, then arithmetic *)
+  (* Tensor OOB cases: explicit eapply BEFORE econstructor to prevent
+     econstructor from committing to step_tensor_set/get (wrong constructors).
+     step_tensor_set_oob / step_tensor_get_oob come AFTER step_tensor_set/get
+     in the Inductive declaration, so econstructor would always pick the wrong one. *)
+  all: try (eapply step_tensor_set_oob; eassumption).
+  all: try (eapply step_tensor_get_oob; eassumption).
+  (* Tensor in-bounds cases: 4 constructor args (i<4, j<4, graph'=..., regs'=...) *)
+  all: try (eapply step_tensor_set; [eassumption | eassumption | reflexivity]).
+  all: try (eapply step_tensor_get; [eassumption | eassumption | reflexivity | reflexivity]).
+  (* Morph instruction cases: z_gauge_shift only changes vm_mu, not vm_graph/vm_csrs/etc.
+     Use 'change' to normalize z_gauge_shift projections before eassumption. *)
+  all: try (eapply step_morph; [
+    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption |
+    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption |
+    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption ]).
+  all: try (eapply step_morph_failure;
+    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption).
+  all: try (eapply step_compose;
+    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption).
+  all: try (eapply step_compose_failure;
+    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption).
+  all: try (eapply step_morph_id;
+    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption).
+  all: try (eapply step_morph_id_failure;
+    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption).
+  all: try (eapply step_morph_delete;
+    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption).
+  all: try (eapply step_morph_delete_failure;
+    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption).
+  all: try (eapply step_morph_assert; [
+    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption |
+    reflexivity ]).
+  all: try (eapply step_morph_assert_failure;
+    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption).
+  all: try (eapply step_morph_tensor;
+    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption).
+  all: try (eapply step_morph_tensor_failure;
+    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption).
+  all: try (eapply step_morph_get; [
+    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption |
+    reflexivity |
+    reflexivity ]).
+  all: try (eapply step_morph_get_failure;
+    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption).
+  (* LASSERT/LJOIN cases: z_gauge_shift only changes vm_mu; mem/regs/graph preserved by lemmas.
+     After subst, formula/cert/graph' are eliminated, so use reflexivity (not eassumption) for
+     premises 1, 2, 4, and eassumption for premise 3 (check_model hypothesis remains). *)
+  all: try (eapply step_lassert_sat;
+    [ rewrite z_gauge_shift_mem, z_gauge_shift_read_reg; reflexivity
+    | rewrite z_gauge_shift_mem, z_gauge_shift_read_reg; reflexivity
+    | eassumption
+    | rewrite z_gauge_shift_graph; reflexivity ]).
+  all: try (eapply step_lassert_unsat;
+    [ rewrite z_gauge_shift_mem, z_gauge_shift_read_reg; reflexivity
+    | rewrite z_gauge_shift_mem, z_gauge_shift_read_reg; reflexivity
+    | eassumption ]).
+  all: try (eapply step_lassert_sat_failure;
+    [ rewrite z_gauge_shift_mem, z_gauge_shift_read_reg; reflexivity
+    | rewrite z_gauge_shift_mem, z_gauge_shift_read_reg; reflexivity
+    | eassumption ]).
+  all: try (eapply step_lassert_unsat_failure;
+    [ rewrite z_gauge_shift_mem, z_gauge_shift_read_reg; reflexivity
+    | rewrite z_gauge_shift_mem, z_gauge_shift_read_reg; reflexivity
+    | eassumption ]).
+  all: try (eapply step_ljoin_equal;
+    [ rewrite z_gauge_shift_mem, z_gauge_shift_read_reg; reflexivity
+    | rewrite z_gauge_shift_mem, z_gauge_shift_read_reg; reflexivity
+    | eassumption ]).
+  all: try (eapply step_ljoin_mismatch;
+    [ rewrite z_gauge_shift_mem, z_gauge_shift_read_reg; reflexivity
+    | rewrite z_gauge_shift_mem, z_gauge_shift_read_reg; reflexivity
+    | eassumption ]).
+  (* All other (non-tensor) instruction cases: econstructor matches same constructor *)
   all: try (econstructor; [reflexivity | reflexivity | reflexivity | idtac..]).
   all: try (econstructor; [reflexivity | reflexivity | idtac..]).
   all: try (econstructor; [reflexivity | idtac..]).
   all: try (econstructor; [eassumption | idtac..]).
   all: try econstructor.
+  (* Goal B: z_gauge_shift commutes with cost addition (arithmetic) *)
   all: unfold z_gauge_shift, advance_state, advance_state_reveal, advance_state_rm,
               jump_state, jump_state_rm, apply_cost; simpl.
   all: try (f_equal; symmetry; apply shift_cost_comm; assumption).

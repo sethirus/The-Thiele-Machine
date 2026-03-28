@@ -46,6 +46,16 @@ OPCODES: Dict[str, int] = {
     "SHR": 0x22,
     "MUL": 0x23,
     "LUI": 0x24,
+    "TENSOR_SET": 0x25,
+    "TENSOR_GET": 0x26,
+    # Phase 5: categorical morphism opcodes
+    "MORPH": 0x27,
+    "COMPOSE": 0x28,
+    "MORPH_ID": 0x29,
+    "MORPH_DELETE": 0x2A,
+    "MORPH_ASSERT": 0x2B,
+    "MORPH_TENSOR": 0x2C,
+    "MORPH_GET": 0x2D,
     "HALT": 0xFF,
 }
 

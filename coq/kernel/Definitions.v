@@ -1,12 +1,4 @@
-From Coq Require Import List Lia.
-
-From Kernel Require Import VMState.
-From Kernel Require Import VMStep.
-From Kernel Require Import KernelPhysics.
-
-Import ListNotations.
-
-(** * KernelTOE: minimal, explicit interfaces
+(** * Definitions: Minimal explicit interfaces for kernel TOE
 
     WHY THIS FILE EXISTS:
     I claim the no-go results (No Free Insight, closure theorems, physical
@@ -18,6 +10,10 @@ Import ListNotations.
     Every law used in proofs appears explicitly in this file. No "named predicate
     ambiguity" - if a theorem relies on weight_sequential, it says so.
 
+    THE CORE CLAIM:
+    Three laws (weight_empty, weight_sequential, weight_disjoint_commutes) are
+    necessary and sufficient for No Free Insight, but NOT sufficient for uniqueness.
+
     FALSIFICATION: Find a weight function satisfying these laws but violating
     No Free Insight. Or show the laws are inconsistent (no such function exists).
     Or prove a no-go result without using any law from this file.
@@ -25,6 +21,14 @@ Import ListNotations.
     This folder is intended to be a sealed dependency cone for the TOE
     "maximal closure + minimal no-go" deliverables.
 *)
+
+From Coq Require Import List Lia.
+
+From Kernel Require Import VMState.
+From Kernel Require Import VMStep.
+From Kernel Require Import KernelPhysics.
+
+Import ListNotations.
 
 Definition Trace := list vm_instruction.
 Definition Weight := Trace -> nat.

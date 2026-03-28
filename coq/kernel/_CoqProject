@@ -11,10 +11,16 @@ KernelTM.v
 KernelThiele.v
 CertCheck.v
 
-# === LAYER 2: Cost model and physics ===
+# === LAYER 2: Cost model, physics, and simulation ===
 MuCostModel.v
+ValidCorrelation.v
+AlgebraicCoherence.v
+SemanticMuCost.v
+TsirelsonFromAlgebra.v
 KernelPhysics.v
 SimulationProof.v
+PrimeAxiom.v
+FiniteInformation.v
 
 # === LAYER 3: Conservation and requirements ===
 Locality.v
@@ -22,12 +28,15 @@ LocalInfoLoss.v
 MuLedgerConservation.v
 RevelationRequirement.v
 
-# === LAYER 4: CHSH and quantum ===
+# === LAYER 4: CHSH and quantum foundations ===
 CHSHExtraction.v
 CHSH.v
+BoxCHSH.v
+ClassicalBound.v
 QuantumBound.v
 MuInformation.v
 MuNoFreeInsightQuantitative.v
+MuShannonQuantitative.v
 
 # === LAYER 5: Tsirelson proofs ===
 TsirelsonLowerBound.v
@@ -65,13 +74,16 @@ StressEnergyDynamics.v
 EinsteinEmergence.v
 FourDSimplicialComplex.v
 MetricFromMuCosts.v
+MatrixAlgebra4.v
 RiemannTensor4D.v
 EinsteinEquations4D.v
+CurvedTensorPipeline.v
 MuGravity.v
 FalsifiablePrediction.v
 KernelBenchmarks.v
 PartitionSeparation.v
 Subsumption.v
+ProperSubsumption.v
 
 # === LAYER 10: Receipts and integration ===
 ReceiptCore.v
@@ -84,29 +96,44 @@ Closure.v
 NoGo.v
 NoGoSensitivity.v
 Persistence.v
-TOE.v
-TOEDecision.v
 
-# === LAYER 12: Bisimulation and verification ===
+# === LAYER 12: NoFI chain and Shannon bridge ===
+InformationGainToStrengthening.v
+MuShannonBridge.v
+StateSpaceCounting.v
+MuCostDerivation.v
+MuInitiality.v
+HonestNoFI_TheoremsWithoutAssumptions.v
+HonestNoFI.v
+
+# === LAYER 13: Bisimulation and verification ===
 PythonBisimulation.v
 HardwareBisimulation.v
 ThreeLayerIsomorphism.v
 VerilogRTLCorrespondence.v
 NonCircularityAudit.v
 
-# === LAYER 13: Quantum axioms from accounting ===
+# === LAYER 14: Quantum axioms from accounting ===
 TsirelsonGeneral.v
 Purification.v
 NoCloning.v
 Unitarity.v
 BornRule.v
+BornRuleLinearity.v
 
-# === LAYER 14: Master summary (depends on everything) ===
-MasterSummary.v
-
-# === LAYER 15: NPA and Tsirelson Bound (Modern Proofs) ===
+# === LAYER 15: NPA and Tsirelson (Modern Proofs) ===
 NPAMomentMatrix.v
 SemidefiniteProgramming.v
 ConstructivePSD.v
+QuantumPartitionPSD.v
 MinorConstraints.v
 ConstantUnification.v
+
+# === LAYER 16: Quantum bridge and TOE completion ===
+MuLedgerQuantumBridge.v
+TsirelsonQuantumModel.v
+TOE.v
+TOEDecision.v
+
+# === LAYER 17: Master summary (depends on everything) ===
+MasterSummary.v

@@ -2,10 +2,12 @@
     CLASSICAL CHSH UPPER BOUND - μ=0 Constraint Proof
     =========================================================================
 
-    GOAL: Prove that NO μ=0 program can achieve CHSH > 2 (classical bound)
+    GOAL: Bound CHSH for μ=0 programs
 
-    This establishes the UPPER BOUND:
-      max{CHSH : μ=0, factorizable} <= 2
+    This establishes the ALGEBRAIC UPPER BOUND proven in this file:
+      max{CHSH : μ=0} <= 4  (algebraic bound from correlation constraints)
+    The tighter classical bound (<=2) is proven in MinorConstraints.v via
+    factorizability and Fine's theorem, not in this file.
 
     Combined with ClassicalBound.v, this proves:
       max{CHSH : μ=0} = 2  (classical bound, PROVEN in MinorConstraints.v)
@@ -23,8 +25,6 @@
     - CLASSICAL ≠ QUANTUM (this was the error!)
     - Classical correlations satisfy 3×3 minor constraints → CHSH ≤ 2
     - Quantum correlations (CHSH ≤ 2√2) require μ>0 operations
-
-    See MU_COST_REVISION.md for complete framework revision.
 
     STATUS: ALGEBRAIC BOUND PROVEN (CHSH ≤ 4), TIGHTER BOUND REQUIRES MinorConstraints.v
 
@@ -84,12 +84,12 @@ Open Scope nat_scope.
 Lemma mu_zero_no_lassert_from_pc :
   forall fuel trace pc,
     mu_cost_of_trace fuel trace pc = 0%nat ->
-    forall n module formula cert mu,
-      nth_error trace n = Some (instr_lassert module formula cert mu) ->
+    forall n fa ca k fl mu,
+      nth_error trace n = Some (instr_lassert fa ca k fl mu) ->
       pc <= n ->
       n >= pc + fuel.
 Proof.
-  induction fuel as [|fuel' IH]; intros trace pc Hcost n module formula cert mu Hnth Hge.
+  induction fuel as [|fuel' IH]; intros trace pc Hcost n fa ca k fl mu Hnth Hge.
   - lia.
   - destruct (nth_error trace pc) as [ipc|] eqn:Hpc.
     + destruct (Nat.eq_dec n pc) as [Heq | Hneq].
@@ -117,11 +117,11 @@ Qed.
 Lemma mu_zero_no_lassert :
   forall fuel trace,
     mu_zero_program fuel trace ->
-    forall n module formula cert mu,
-      nth_error trace n = Some (instr_lassert module formula cert mu) ->
+    forall n fa ca k fl mu,
+      nth_error trace n = Some (instr_lassert fa ca k fl mu) ->
       n >= fuel.
 Proof.
-  intros fuel trace Hcost n module formula cert mu Hnth.
+  intros fuel trace Hcost n fa ca k fl mu Hnth.
   unfold mu_zero_program in Hcost.
   assert (Hle: 0 <= n) by lia.
   assert (Hbound: n >= 0 + fuel) by (eapply mu_zero_no_lassert_from_pc; eauto).
@@ -242,8 +242,8 @@ Definition mu_zero_trace_is_locc (fuel : nat) (trace : list vm_instruction) : Pr
   mu_zero_program fuel trace /\
   (forall n mid addr len mu,
     (n < fuel)%nat -> nth_error trace n <> Some (instr_reveal mid addr len mu)) /\
-  (forall n module formula cert mu,
-    (n < fuel)%nat -> nth_error trace n <> Some (instr_lassert module formula cert mu)) /\
+  (forall n fa ca k fl mu,
+    (n < fuel)%nat -> nth_error trace n <> Some (instr_lassert fa ca k fl mu)) /\
 (** HELPER: Base case property *)
   (forall n cert1 cert2 mu,
     (n < fuel)%nat -> nth_error trace n <> Some (instr_ljoin cert1 cert2 mu)).
@@ -265,7 +265,7 @@ Proof.
     lia.
   - split.
     + (* No LASSERT *)
-      intros n module formula cert mu Hlt Hcontra.
+      intros n fa ca k fl mu Hlt Hcontra.
       assert (Hge: (n >= fuel)%nat) by (eapply mu_zero_no_lassert; eauto).
       lia.
     + (* No LJOIN *)
@@ -324,7 +324,6 @@ Qed.
        The Tsirelson bound (CHSH ≤ 2√2) requires μ>0 operations
        μ>0 → non-factorizable → quantum entanglement → CHSH ≤ 2√2
 
-    See MU_COST_REVISION.md for complete analysis of the classical vs quantum distinction.
 *)
 
 (** Corollary: μ=0 CHSH values satisfy the classical bound decision *)
@@ -505,11 +504,7 @@ Qed.
     ✓ μ=0 programs satisfy algebraic bound CHSH ≤ 4
     ✓ Algebraic maximum (CHSH = 4) is achievable with μ=0
 
-    CRITICAL REVISION (January 2026):
-    The file previously claimed:
-    ❌ μ=0 → LOCC → quantum correlations → Tsirelson bound (2√2)
-
-    CORRECTED UNDERSTANDING:
+    BOUNDS:
     ✓ μ=0 → LOCC → CLASSICAL correlations → classical bound (2)
     ✓ Quantum Tsirelson bound (2√2) requires μ>0 operations
 
@@ -517,5 +512,4 @@ Qed.
     ✓ μ=0 → factorizable → minor constraints → CHSH ≤ 2 (classical)
     ✓ Proven in MinorConstraints.v:188 (local_box_CHSH_bound, ends in Qed)
 
-    See MU_COST_REVISION.md for complete framework revision.
     ========================================================================= *)

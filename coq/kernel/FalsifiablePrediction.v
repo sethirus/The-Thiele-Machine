@@ -298,11 +298,11 @@ Definition merge_dedup_savings (r1 r2 : list nat) (overlap : nat) (measured : na
 *)
 
 (** =========================================================================
-    SUMMARY: ZERO AXIOMS, ZERO ADMITS
+    SUMMARY: ZERO PROJECT-LOCAL AXIOMS, ZERO ADMITS
     =========================================================================*)
 
 (** =========================================================================
-    SUMMARY: ZERO AXIOMS, ZERO ADMITS
+    SUMMARY: ZERO PROJECT-LOCAL AXIOMS, ZERO ADMITS
     =========================================================================
 
     WHAT THIS FILE CONTAINS:

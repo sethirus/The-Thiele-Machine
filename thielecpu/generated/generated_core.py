@@ -43,6 +43,15 @@ COQ_INSTRUCTION_TAGS: tuple[str, ...] = (
     'Coq_instr_shr',
     'Coq_instr_mul',
     'Coq_instr_lui',
+    'Coq_instr_tensor_set',
+    'Coq_instr_tensor_get',
+    'Coq_instr_morph',
+    'Coq_instr_compose',
+    'Coq_instr_morph_id',
+    'Coq_instr_morph_delete',
+    'Coq_instr_morph_assert',
+    'Coq_instr_morph_tensor',
+    'Coq_instr_morph_get',
 )
 
 COQ_TAG_TO_MNEMONIC: dict[str, str] = {
@@ -84,6 +93,15 @@ COQ_TAG_TO_MNEMONIC: dict[str, str] = {
     'Coq_instr_shr': 'SHR',
     'Coq_instr_mul': 'MUL',
     'Coq_instr_lui': 'LUI',
+    'Coq_instr_tensor_set': 'TENSOR_SET',
+    'Coq_instr_tensor_get': 'TENSOR_GET',
+    'Coq_instr_morph': 'MORPH',
+    'Coq_instr_compose': 'COMPOSE',
+    'Coq_instr_morph_id': 'MORPH_ID',
+    'Coq_instr_morph_delete': 'MORPH_DELETE',
+    'Coq_instr_morph_assert': 'MORPH_ASSERT',
+    'Coq_instr_morph_tensor': 'MORPH_TENSOR',
+    'Coq_instr_morph_get': 'MORPH_GET',
 }
 
 MNEMONIC_TO_OPCODE_BYTE: dict[str, int] = {
@@ -93,6 +111,7 @@ MNEMONIC_TO_OPCODE_BYTE: dict[str, int] = {
     'CERTIFY': 30,
     'CHECKPOINT': 25,
     'CHSH_TRIAL': 9,
+    'COMPOSE': 40,
     'EMIT': 14,
     'HALT': 255,
     'HEAP_LOAD': 28,
@@ -105,6 +124,12 @@ MNEMONIC_TO_OPCODE_BYTE: dict[str, int] = {
     'LOAD_IMM': 8,
     'LUI': 36,
     'MDLACC': 5,
+    'MORPH': 39,
+    'MORPH_ASSERT': 43,
+    'MORPH_DELETE': 42,
+    'MORPH_GET': 45,
+    'MORPH_ID': 41,
+    'MORPH_TENSOR': 44,
     'MUL': 35,
     'OR': 32,
     'ORACLE_HALTS': 16,
@@ -119,6 +144,8 @@ MNEMONIC_TO_OPCODE_BYTE: dict[str, int] = {
     'SHR': 34,
     'STORE': 18,
     'SUB': 20,
+    'TENSOR_GET': 38,
+    'TENSOR_SET': 37,
     'WRITE_PORT': 27,
     'XFER': 7,
     'XOR_ADD': 11,
@@ -166,6 +193,15 @@ COQ_TAG_TO_OPCODE_BYTE: dict[str, int] = {
     'Coq_instr_shr': 34,
     'Coq_instr_mul': 35,
     'Coq_instr_lui': 36,
+    'Coq_instr_tensor_set': 37,
+    'Coq_instr_tensor_get': 38,
+    'Coq_instr_morph': 39,
+    'Coq_instr_compose': 40,
+    'Coq_instr_morph_id': 41,
+    'Coq_instr_morph_delete': 42,
+    'Coq_instr_morph_assert': 43,
+    'Coq_instr_morph_tensor': 44,
+    'Coq_instr_morph_get': 45,
 }
 
 def sanity_check() -> None:

@@ -33,7 +33,7 @@ The previous chapters established the \textit{theoretical} foundations of the Th
 
 This chapter presents empirical evaluation addressing three fundamental questions:
 \begin{enumerate}
-    \item \textbf{Does the 3-layer isomorphism actually hold?} \\
+    \item \textbf{Does the 3-layer comparison contract actually hold on supported backends?} \\
     The theory claims that Coq, Python, and Verilog implementations produce identical results. This claim is tested on hundreds of instruction sequences, including randomized traces and structured micro-programs designed to stress the ISA.
     
     \item \textbf{Does the system respect causal bounds?} \\
@@ -55,10 +55,10 @@ All experiments follow scientific best practices:
     \item \textbf{Adversarial testing}: The testing suite actively tries to break the system, not just confirm it works. (Honestly, finding holes yourself is better than someone else finding them later)
 \end{itemize}
 
-All experiments use the reference VM with receipt generation enabled. Each run produces receipts and state snapshots so that results can be rechecked independently. The emphasis is on \textit{replayability}: anyone can take the same trace, replay it through each layer, and confirm equality of the observable projection.
+Experiments use the reference VM together with trace/state export and, where relevant, TRS-1.0 receipts. The emphasis is on \textit{replayability}: anyone can take the same trace, replay it through the supported layers, and confirm the declared observable projection.
 The concrete test harnesses live under \texttt{tests/} (for example, \path{tests/test_cross_layer_bisimulation.py} and \path{tests/test_verilog_cosim.py}), so the evaluation is tied to executable scripts rather than hand-run examples.
 
-\section{3-Layer Isomorphism Verification}
+\section{3-Layer Comparison Verification}
 
 \begin{figure}[h]
 \centering
@@ -80,74 +80,40 @@ The concrete test harnesses live under \texttt{tests/} (for example, \path{tests
 \draw[arr] (rtl.south) -- (proj.north east);
 \draw[arr] (proj.south) -- (eq.north);
 \end{tikzpicture}
-\caption{3-layer isomorphism test: same trace, three implementations, projected states must match.}
+\caption{3-layer comparison test: same trace, three implementations, projected states must match on the exercised gate/backend path.}
 \label{fig:iso-test-arch}
 \end{figure}
 \subsection{Test Architecture}
 
-The isomorphism gate verifies that Python VM, extracted Coq semantics, and RTL simulation produce identical final states for the same instruction traces. The comparison uses suite-specific projections rather than a single fixed snapshot: compute traces compare registers and memory, while partition traces compare canonicalized module regions. The extracted runner emits a superset JSON snapshot (pc, $\mu$, err, regs, mem, CSRs, graph), whereas the RTL testbench emits a smaller JSON object tailored to the gate under test. The purpose of each projection is to compare only the declared observables relevant to that trace type and ignore internal bookkeeping fields.
+The isomorphism gate verifies that Python VM, extracted Coq semantics, and RTL simulation agree on the declared final-state observables for the same instruction traces when the required backend is available. The comparison uses suite-specific projections rather than a single fixed snapshot: compute traces compare registers and memory, while partition traces compare canonicalized module regions. The extracted runner emits a superset JSON snapshot (pc, $\mu$, err, regs, mem, CSRs, graph), whereas the RTL testbench emits a smaller JSON object tailored to the gate under test. The purpose of each projection is to compare only the declared observables relevant to that trace type and ignore internal bookkeeping fields.
 
 \subsubsection{Test Implementation}
 
-Representative test (simplified):
+From \path{tests/test_cross_layer_bisimulation.py}:
 \begin{lstlisting}
-def test_rtl_python_coq_compute_isomorphism():
-    # Small, deterministic compute program.
-    # Semantics must match across:
-    #   - Python reference VM
-    #   - extracted formal semantics runner
-    #   - RTL simulation
-    
-    init_mem[0] = 0x29
-    init_mem[1] = 0x12
-    init_mem[2] = 0x22
-    init_mem[3] = 0x03
-    
-    program_words = [
-        _encode_word(0x0A, 0, 0),  # XOR_LOAD r0 <= mem[0]
-        _encode_word(0x0A, 1, 1),  # XOR_LOAD r1 <= mem[1]
-        _encode_word(0x0A, 2, 2),  # XOR_LOAD r2 <= mem[2]
-        _encode_word(0x0A, 3, 3),  # XOR_LOAD r3 <= mem[3]
-        _encode_word(0x0B, 3, 0),  # XOR_ADD r3 ^= r0
-        _encode_word(0x0B, 3, 1),  # XOR_ADD r3 ^= r1
-        _encode_word(0x0C, 0, 3),  # XOR_SWAP r0 <-> r3
-        _encode_word(0x07, 2, 4),  # XFER r4 <- r2
-        _encode_word(0x0D, 5, 4),  # XOR_RANK r5 := popcount(r4)
-        _encode_word(0xFF, 0, 0),  # HALT
+def _run_both(program: List[str]):
+    """Run program through both Python VM and RTL."""
+    from build.thiele_vm import run_vm
+    from thielecpu.hardware.cosim import run_verilog
+    vm_state = run_vm(program)
+    rtl_result = run_verilog(program)
+    return vm_state, rtl_result
+
+def test_add_bisim(self):
+    program = [
+        "PNEW {0,256} 1",
+        "LOAD_IMM 1 10 0",
+        "LOAD_IMM 2 7 0",
+        "ADD 0 1 2 0",
+        "HALT 0",
     ]
-    
-    py_regs, py_mem = _run_python_vm(init_mem, init_regs, program_text)
-    coq_regs, coq_mem = _run_extracted(init_mem, init_regs, trace_lines)
-    rtl_regs, rtl_mem = _run_rtl(program_words, data_words)
-    
-    assert py_regs == coq_regs == rtl_regs
-    assert py_mem == coq_mem == rtl_mem
+    vm, rtl = _run_both(program)
+    assert rtl is not None
+    assert vm.regs[0] == rtl["regs"][0] == 17
+    assert vm.mu == rtl["mu"]
 \end{lstlisting}
 
-\paragraph{Understanding test\_rtl\_python\_coq\_compute\_isomorphism:}
-
-\textbf{What is this test?} This is a \textbf{3-way isomorphism test} that verifies the Python reference VM, Coq extracted semantics, and RTL hardware simulation all produce \textit{identical} final states for the same instruction trace. This test focuses on \textbf{compute operations} (XOR, XFER, popcount).
-
-\textbf{Test structure:}
-\begin{itemize}
-    \item \textbf{Setup:} Initialize memory with 4 values: \texttt{[0x29, 0x12, 0x22, 0x03]}.
-    \item \textbf{Program:} 10 instructions testing XOR\_LOAD (load from memory), XOR\_ADD (bitwise XOR), XOR\_SWAP (swap registers), XFER (transfer register value), XOR\_RANK (population count), HALT.
-    \item \textbf{Execute 3 times:} Run the same program on Python VM, Coq extracted runner, and RTL simulation.
-    \item \textbf{Assert equality:} Final registers and memory must be identical across all three implementations.
-\end{itemize}
-
-\textbf{Why this matters:} This test proves the \textbf{isomorphism claim}: all three implementations execute the \textit{same} formal semantics. If they produce different results, at least one implementation has a bug.
-
-\textbf{Concrete example:} After executing the program:
-\begin{itemize}
-    \item \texttt{r0} initially loads \texttt{0x29} from \texttt{mem[0]}.
-    \item \texttt{r3} loads \texttt{0x03}, then XORs with \texttt{r0} and \texttt{r1}, producing \texttt{0x03 $\oplus$ 0x29 $\oplus$ 0x12}.
-    \item \texttt{r0} and \texttt{r3} swap, so \texttt{r0} gets the XOR result.
-    \item \texttt{r4} copies \texttt{r2}, then \texttt{r5} computes popcount of \texttt{r4}.
-\end{itemize}
-All three implementations must compute the \textit{same} final register values.
-
-\textbf{Test oracle:} The Coq extracted semantics is the \textbf{ground truth} (proven correct by Coq verification). The test checks that Python and RTL match this ground truth.
+\paragraph{What is this test?} This is a real cross-layer bisimulation test from the active test suite. It runs the same program on the Python VM (backed by the extracted OCaml runner) and RTL simulation, then asserts that register values and $\mu$ are identical. The helper \texttt{\_run\_both} wires both backends to the same program text. The assertion \texttt{vm.regs[0] == rtl["regs"][0] == 17} confirms both layers compute $10+7=17$ and agree on the final $\mu$.
 
 
 \subsubsection{State Projection}
@@ -159,7 +125,7 @@ Final states are projected to canonical form:
   "mu": <int>,
   "err": <bool>,
   "regs": [<32 integers>],
-  "mem": [<4096 integers>],
+  "mem": [<65536 integers>],
   "csrs": {"cert_addr": ..., "status": ..., "error": ...},
   "graph": {"modules": [...]}
 }
@@ -175,7 +141,7 @@ Final states are projected to canonical form:
     \item \textbf{"mu": <int>} — Operational $\mu$ ledger value. Should match since $\mu$-updates are part of the formal semantics.
     \item \textbf{"err": <bool>} — Error latch (true if VM encountered an error). Should match for valid traces.
     \item \textbf{"regs": [<32 integers>]} — All 32 general-purpose registers. The isomorphism test compares these element-by-element.
-    \item \textbf{"mem": [<4096 integers>]} --- All 4,096 memory words. Element-by-element comparison.
+    \item \textbf{"mem": [<65536 integers>]} --- All 65,536 memory words. Element-by-element comparison.
     \item \textbf{"csrs": \{...\}} — Control and status registers: \texttt{cert\_addr} (certificate address), \texttt{status} (status flags), \texttt{error} (error code). These are compared when relevant to the test.
     \item \textbf{"graph": \{"modules": [...]\}} — Partition graph structure (list of modules with regions and axioms). This is compared for partition operation tests (PNEW, PSPLIT, PMERGE), canonicalized to ignore ordering.
 \end{itemize}
@@ -199,34 +165,37 @@ This avoids false negatives where irrelevant fields differ.
 
 \subsection{Partition Operation Tests}
 
-Representative test (simplified):
+From \path{tests/test_cross_layer_bisimulation.py}:
 \begin{lstlisting}
-def test_pnew_dedup_singletons_isomorphic():
-    # Same singleton regions requested multiple times; canonical semantics dedup.
-    indices = [0, 1, 2, 0, 1]  # Duplicates
-    
-    py_regions = _python_regions_after_pnew(indices)
-    coq_regions = _coq_regions_after_pnew(indices)
-    rtl_regions = _rtl_regions_after_pnew(indices)
-    
-    assert py_regions == coq_regions == rtl_regions
+def test_pnew_bisim(self):
+    program = ["PNEW {0,256} 5", "HALT 0"]
+    vm, rtl = _run_both(program)
+    assert rtl is not None
+    assert vm.mu == rtl["mu"], f"mu: VM={vm.mu} RTL={rtl['mu']}"
+
+def test_psplit_bisim(self):
+    program = [
+        "PNEW {0,256} 3",
+        "PSPLIT 0 {0,128} {128,256} 2",
+        "HALT 0",
+    ]
+    vm, rtl = _run_both(program)
+    assert rtl is not None
+    assert vm.mu == rtl["mu"], f"mu: VM={vm.mu} RTL={rtl['mu']}"
+
+def test_pmerge_bisim(self):
+    program = [
+        "PNEW {0,128} 2",
+        "PNEW {128,256} 2",
+        "PMERGE 0 1 3",
+        "HALT 0",
+    ]
+    vm, rtl = _run_both(program)
+    assert rtl is not None
+    assert vm.mu == rtl["mu"], f"mu: VM={vm.mu} RTL={rtl['mu']}"
 \end{lstlisting}
 
-\paragraph{Understanding test\_pnew\_dedup\_singletons\_isomorphic:}
-
-\textbf{What is this test?} This verifies that \textbf{partition region normalization} (deduplication) works identically across all three implementations. The PNEW instruction creates a partition module with a region---if duplicate indices are provided, the formal semantics requires removing duplicates.
-
-\textbf{Test structure:}
-\begin{itemize}
-    \item \textbf{Input:} \texttt{indices = [0, 1, 2, 0, 1]} contains duplicates (0 and 1 appear twice).
-    \item \textbf{Expected behavior:} All implementations should deduplicate to \texttt{[0, 1, 2]} (or some canonical ordering).
-    \item \textbf{Execute 3 times:} Create a module with these indices in Python, Coq, and RTL.
-    \item \textbf{Assert equality:} Final regions must be identical (after canonicalization).
-\end{itemize}
-
-\textbf{Why this matters:} Regions are represented as lists, but the formal semantics treats them as \textit{sets} (duplicates don't matter, order doesn't matter). Without normalization, \texttt{[0, 1, 2]} and \texttt{[2, 1, 0, 1]} would compare as different, breaking observational equality. This test proves all implementations use the same \texttt{normalize\_region} logic.
-
-\textbf{Coq definition:} The formal kernel defines \texttt{normalize\_region := nodup Nat.eq\_dec}, which removes duplicates using natural number equality. Python and RTL must match this behavior exactly.
+\paragraph{What do these tests verify?} These are the real cross-layer bisimulation tests for all three partition primitives (PNEW, PSPLIT, PMERGE). Each runs an identical program on the Python VM and RTL, then asserts that the $\mu$-ledger values match exactly. The region normalization logic (\texttt{normalize\_region := nodup Nat.eq\_dec} in Coq) ensures that both layers canonicalize region representations identically.
 
 \subsection{Results Summary}
 
@@ -248,7 +217,7 @@ $\mu$-Ledger Updates & PASS & PASS & PASS \\
 \end{center}
 
 \begin{quote}
-\textit{Author's Note (Devon): See that? 100\% across the board. All three layers. Every test. I'm not going to pretend I didn't freak out a little when I first saw this. Actually, I freaked out a lot. Because it meant the isomorphism wasn't just a hope---it was real. The Coq proofs agreed with the Python VM agreed with the hardware simulation. That's not luck. That's not coincidence. That's the system working exactly as designed.}
+\textit{Author's Note (Devon): See that? A clean pass on the supported gates and backends. I'm not going to pretend I didn't freak out a little when I first saw this. Actually, I freaked out a lot. Because it meant the comparison discipline wasn't just a hope---it was catching real drift. When the Coq proofs, the Python VM, and the hardware simulation all line up on the gates that exercise them, that's strong evidence the system is working as designed.}
 \end{quote}
 
 \section{CHSH Correlation Experiments}
@@ -326,21 +295,56 @@ Where:
 
 The validation suite enforces strict causal isolation, ensuring that geometric projections do not inadvertently produce signaling.
 
+From \path{tests/test_chsh_verilator_hardware_bridge.py}:
 \begin{lstlisting}
-def test_chsh_local_respects_classical_bound() -> None:
-    s_val, corrs = chsh_score(generate_trials(), meta_access=False)
-    assert s_val <= 2.0
-    
-def test_chsh_meta_access_violates_classical_bound() -> None:
-    # With setting-independent hidden variables, geometry alone
-    # should remain within the classical bound.
-    s_val, corrs = chsh_score(generate_trials(), meta_access=True)
-    assert s_val <= 2.0
+def test_chsh_without_logic_gate_key_is_rejected() -> None:
+    """CHSH_TRIAL without logic_acc gate key triggers ERR_LOGIC_VAL."""
+    result = run_verilog(
+        "\n".join(["CHSH_TRIAL 0 0 0 0 7", "HALT 0", ""]),
+        backend="verilator",
+    )
+    if result is None:
+        pytest.skip("verilator unavailable")
+    assert result.get("error_code", 0) == 0xC43471A1
+    assert result.get("err", 0) == 1
+
+def test_chsh_x0_with_logic_gate_key_succeeds() -> None:
+    """x=0 CHSH trial with logic gate key succeeds."""
+    result = run_verilog(
+        "\n".join([
+            "INIT_LOGIC_ACC 0xCAFEEACE",
+            "CHSH_TRIAL 0 0 0 0 7",
+            "HALT 0", "",
+        ]),
+        backend="verilator",
+    )
+    if result is None:
+        pytest.skip("verilator unavailable")
+    assert result.get("error_code", 0) == 0
+    assert result.get("err", 0) == 0
+    assert result.get("mu", -1) == 7
 \end{lstlisting}
 
-\paragraph{Understanding the Manifold Test:}
+And from \path{tests/test_cross_layer_bisimulation.py}:
+\begin{lstlisting}
+def test_chsh_trial_bisim(self):
+    """CHSH_TRIAL with valid bit operands charges mu identically."""
+    program = [
+        "INIT_LOGIC_ACC 0xCAFEEACE",
+        "PNEW {0,256} 1",
+        "CHSH_TRIAL 0 0 0 0 3",
+        "HALT 0",
+    ]
+    vm, rtl = _run_both(program)
+    assert rtl is not None
+    assert vm.mu == rtl["mu"]
+\end{lstlisting}
 
-\textbf{What is this code?} This test suite validates that the partition geometry behaves conservatively. Even when given ``meta'' access to global masks, the absence of dynamic state updates ensures that the system satisfies the classical CHSH inequality ($S \le 2$).
+\paragraph{What do these tests verify?}
+
+\textbf{Gate-key enforcement:} The first test confirms that CHSH\_TRIAL without the logic gate key (\texttt{0xCAFEEACE}) is rejected with \texttt{ERR\_LOGIC} (\texttt{0xC43471A1}). The second confirms that with the gate key, the trial succeeds and charges the declared $\mu$.
+
+\textbf{Cross-layer agreement:} The bisimulation test confirms that the Python VM and RTL charge identical $\mu$ for the same CHSH trial, verifying that CHSH semantics are consistent across layers.
 
 \textbf{Why this matters:}
 This confirms that the platform does not ``fake'' quantum correlations. Any supra-classical effect ($S > 2$) observed in the system must therefore be the result of explicit protocol operations (like dynamic partition updates or revelation), rather than an artifact of the static geometric embedding. This establishes the \textit{classical baseline} from which quantum costs are calculated.
@@ -350,10 +354,10 @@ This confirms that the platform does not ``fake'' quantum correlations. Any supr
 The CHSH evaluation pipeline:
 \begin{enumerate}
     \item Generate CHSH trial sequences
-    \item Execute on Python VM with receipt generation
+    \item Execute on Python VM with trace/state export and optional TRS-1.0 receipt generation
     \item Compute $S$ value from outcome statistics
     \item Verify $\mu$-cost matches declared cost
-    \item Verify receipt chain integrity
+    \item Verify the emitted receipt or exported artifact hashes when that harness produces them
 \end{enumerate}
 The pipeline is validated by the CHSH hardware bridge (\path{tests/test_chsh_verilator_hardware_bridge.py}), which tests gate-key rejection, certificate enforcement, and $\mu$-surcharges across the RTL layer, and by the cross-layer bisimulation suite (\path{tests/test_cross_layer_bisimulation.py}), which confirms that CHSH semantics match between Python and Verilog---thereby verifying that the partition geometry itself does not smuggle in causal violations.
 
@@ -439,107 +443,101 @@ Supra-Quantum & $> 2.828$ & Theory & Derived \\
 \end{figure}
 \subsection{Monotonicity Tests}
 
-Representative monotonicity check:
+From \path{tests/test_mu.py}:
 \begin{lstlisting}
-def test_mu_monotonic_under_any_trace():
-    for _ in range(100):
-        trace = generate_random_trace(length=50)
-        vm = VM(State())
-        vm.run(trace)
-        
-        mu_values = [s.mu for s in vm.trace]
-        for i in range(1, len(mu_values)):
-            assert mu_values[i] >= mu_values[i-1]
+def test_mu_never_decreases():
+    for path in glob.glob("spec/golden/*.json"):
+        with open(path) as f:
+            data = json.load(f)
+        mu = 0.0
+        for step in data.get("steps", []):
+            mu_delta = step.get("mubits_delta", 0)
+            assert mu_delta >= 0, f"mu decreased in {path}"
+            mu += mu_delta
 \end{lstlisting}
 
-\paragraph{Understanding test\_mu\_monotonic\_under\_any\_trace:}
+From \path{tests/test_verilog_cosim.py}:
+\begin{lstlisting}
+class TestMuMonotonicity:
+    """Verify mu never decreases during execution."""
 
-\textbf{What is this test?} This is a \textbf{randomized property test} that verifies the \textbf{$\mu$-ledger monotonicity property}: the $\mu$ value never decreases during VM execution. The actual test suite contains \texttt{test\_mu\_never\_decreases} (in \path{tests/test_mu.py}) and the Hypothesis-based property fuzzer \texttt{test\_mu\_non\_negative} (in \path{tests/test_hypothesis_cross_layer.py}). Both test the operational implementation of the formal theorem \texttt{mu\_conservation\_kernel} from Chapter 5.
+    def test_mu_nondecreasing(self):
+        """Sequence of operations accumulates mu monotonically."""
+        state = _run_cosim("""\
+PNEW {1,2,3} 3
+PNEW {4,5} 2
+EMIT 0 0 1
+HALT
+""")
+        # Final mu must be at least the sum of explicit costs
+        assert state["mu"] >= 3 + 2 + 1
 
-\textbf{Test structure:}
-\begin{itemize}
-    \item \textbf{for \_ in range(100):} — Runs 100 independent trials with different random traces.
-    \item \textbf{trace = generate\_random\_trace(length=50)} — Generates a random instruction sequence (50 instructions). Includes PNEW, PSPLIT, PMERGE, XOR, HALT, etc.
-    \item \textbf{vm = VM(State())} — Creates a fresh VM with zero initial $\mu$.
-    \item \textbf{vm.run(trace)} — Executes the trace, recording all intermediate states.
-    \item \textbf{mu\_values = [s.mu for s in vm.trace]} — Extracts the $\mu$ value from each state in the trace.
-    \item \textbf{assert mu\_values[i] >= mu\_values[i-1]} — Verifies that $\mu_{t+1} \geq \mu_t$ for all consecutive pairs.
-\end{itemize}
+    def test_longer_program_more_mu(self):
+        """A longer program accumulates more mu than a shorter one."""
+        state_short = _run_cosim("PNEW {1} 2\nHALT\n")
+        state_long = _run_cosim("PNEW {1} 2\nPNEW {2} 3\nPNEW {3} 4\nHALT\n")
+        assert state_long["mu"] >= state_short["mu"]
+\end{lstlisting}
 
-\textbf{Why monotonicity matters:} The $\mu$-ledger represents \textit{cumulative irreversible operations}. Like entropy in thermodynamics, it can only increase. If $\mu$ ever decreased, the machine would have ``un-erased'' information---a physical impossibility. The formal theorem \texttt{mu\_conservation\_kernel} proves this property holds for all valid \texttt{vm\_step} transitions.
+\paragraph{What do these tests verify?}
 
-\textbf{What if the test fails?} A failure (\texttt{mu\_values[i] < mu\_values[i-1]}) would indicate:
-\begin{enumerate}
-    \item A bug in the Python VM implementation (incorrect ledger update).
-    \item A violation of the isomorphism claim (Python violates the formal semantics).
-    \item A false proof (if all implementations agree on the decrease, the formal proof is wrong---but this has never occurred in thousands of tests).
-\end{enumerate}
+\textbf{Golden-file audit:} \texttt{test\_mu\_never\_decreases} iterates over every golden trace in \texttt{spec/golden/}, verifying that no step has a negative $\mu$-delta.
 
-\textbf{MuLedger implementation:} In the Python VM, the ledger is split into two components (see \texttt{MuLedger} in \path{thielecpu/vm.py}):
-\begin{itemize}
-    \item \textbf{mu\_discovery} — Costs from partition discovery (PNEW).
-    \item \textbf{mu\_execution} — Costs from logical operations (LJOIN, EMIT).
-\end{itemize}
-The total $\mu = \texttt{mu\_discovery} + \texttt{mu\_execution}$ must be non-decreasing. The test verifies this sum over all transitions.
+\textbf{RTL monotonicity:} The cosim tests confirm the RTL layer accumulates $\mu$ monotonically: a longer program always produces $\mu$ at least as large as a shorter one, and the final $\mu$ is at least the sum of declared costs.
+
+\textbf{Why monotonicity matters:} The $\mu$-ledger represents \textit{cumulative irreversible operations}. Like entropy in thermodynamics, it can only increase. The formal theorem \texttt{mu\_conservation\_kernel} proves this property holds for all valid \texttt{vm\_step} transitions.
 
 \subsection{Conservation Tests}
 
-Representative conservation check:
+From \path{tests/test_hypothesis_cross_layer.py} (property-based Hypothesis fuzzer):
 \begin{lstlisting}
-def test_mu_conservation():
-    program = [
-        ("PNEW", "{0,1,2,3}"),
-        ("PSPLIT", "1 {0,1} {2,3}"),
-        ("PMERGE", "2 3"),
-        ("HALT", ""),
-    ]
-    
-    vm = VM(State())
-    vm.run(program)
-    
-    total_declared = sum(instr.cost for instr in program)
-    assert vm.state.mu_ledger.total == total_declared
+@given(program=st_rtl_program())
+@settings(max_examples=4, deadline=None,
+          suppress_health_check=[HealthCheck.too_slow,
+                                 HealthCheck.function_scoped_fixture])
+def test_bianchi_conservation(self, program):
+    """sum(mu_tensor) <= mu when no error and no Bianchi alarm."""
+    from thielecpu.hardware.cosim import run_verilog
+    result = run_verilog(program)
+    if result is None:
+        return
+    if result.get("err", 0) or result.get("bianchi_alarm", 0):
+        return
+    tensor_sum = sum(result.get("mu_tensor", [0, 0, 0, 0])[:4])
+    assert tensor_sum <= result["mu"], (
+        f"Bianchi violation: tensor_sum={tensor_sum} > mu={result['mu']}\n"
+        f"Program: {program}"
+    )
 \end{lstlisting}
 
-\paragraph{Understanding test\_mu\_conservation:}
+And from \path{tests/test_python_vm_all_31_opcodes.py}:
+\begin{lstlisting}
+class TestMuMonotonicity:
+    def test_mu_always_increases(self):
+        """Every instruction with cost > 0 must increase mu."""
+        s = run_py([
+            {"op": "load_imm", "dst": 1, "imm": 10, "cost": 1},
+            {"op": "load_imm", "dst": 2, "imm": 20, "cost": 1},
+            {"op": "add", "dst": 3, "rs1": 1, "rs2": 2, "cost": 1},
+            {"op": "store", "addr": 0, "src": 3, "cost": 1},
+            {"op": "load", "dst": 4, "addr": 0, "cost": 1},
+            {"op": "xor_add", "dst": 4, "src": 1, "cost": 1},
+            {"op": "halt", "cost": 1},
+        ])
+        assert s.vm_mu == 7
+\end{lstlisting}
 
-\textbf{What is this test?} This is a \textbf{conservation verification test} that confirms the $\mu$-ledger exactly accumulates the declared costs of executed instructions. It operationally tests the formal theorem \texttt{run\_vm\_mu\_conservation} from Chapter 5.
+\paragraph{What do these tests verify?}
 
-\textbf{Test structure:}
-\begin{itemize}
-    \item \textbf{program = [...]} — A fixed sequence of partition manipulation instructions:
-    \begin{itemize}
-        \item \textbf{PNEW \{0,1,2,3\}} — Discover partition covering modules 0,1,2,3. Cost: $\mu_{\text{pnew}}$.
-        \item \textbf{PSPLIT 1 \{0,1\} \{2,3\}} — Split partition 1 into two sub-partitions. Cost: $\mu_{\text{psplit}}$.
-        \item \textbf{PMERGE 2 3} — Merge partitions 2 and 3 into one. Cost: $\mu_{\text{pmerge}}$.
-        \item \textbf{HALT} — Stop execution. Cost: 0.
-    \end{itemize}
-    \item \textbf{vm.run(program)} — Execute the sequence, applying each instruction's cost via \texttt{apply\_cost}.
-    \item \textbf{total\_declared = sum(instr.cost for instr in program)} — Sum the declared costs from the program specification.
-    \item \textbf{assert vm.state.mu\_ledger.total == total\_declared} — Verify that the ledger's final value equals the sum of declared costs.
-\end{itemize}
+\textbf{Bianchi conservation:} The Hypothesis-fuzzed test generates random programs and verifies the Bianchi invariant on the RTL layer: the sum of $\mu$-tensor entries never exceeds the total $\mu$. This is the discrete analogue of the Bianchi identity from general relativity, enforced in hardware every cycle.
 
-\textbf{Why conservation matters:} Conservation means \textit{no hidden costs}. Every increase in $\mu$ must correspond to an explicit instruction cost. This ensures:
-\begin{enumerate}
-    \item \textbf{Auditability:} External observers can reconstruct the ledger from the trace.
-    \item \textbf{Thermodynamic consistency:} If $\mu$ tracks irreversible operations, conservation guarantees that all irreversibility is accounted for.
-    \item \textbf{Falsifiability:} If \texttt{mu\_ledger.total $\neq$ total\_declared}, the implementation is wrong.
-\end{enumerate}
-
-\textbf{Formal correspondence:} The test directly mirrors the formal definition of \texttt{apply\_cost} in \path{coq/kernel/VMStep.v}:
+\textbf{Exact accumulation:} The opcode-level test confirms that seven instructions each costing 1 produce exactly $\mu=7$---no hidden costs, no leaks. This directly mirrors the Coq definition:
 \begin{lstlisting}
 Definition apply_cost (s : VMState) (instr : vm_instruction) : nat :=
   s.(vm_mu) + instruction_cost instr.
 \end{lstlisting}
-The Python implementation (\texttt{MuLedger.charge\_execution} and \texttt{MuLedger.charge\_discovery}) must produce identical ledger updates. The test verifies this isomorphism: Coq says $\mu_{\text{final}} = \sum \texttt{instruction\_cost}(i)$, Python must agree.
 
-\textbf{MuLedger.total:} This accessor sums \texttt{mu\_discovery} and \texttt{mu\_execution} with hardware overflow masking:
-\begin{lstlisting}[language=Python]
-@property
-def total(self) -> int:
-    return (self.mu_discovery + self.mu_execution) & self.MASK
-\end{lstlisting}
-The \texttt{MASK} is \texttt{0xFFFFFFFF} (32-bit), matching the hardware accumulator width. The test asserts that this sum equals the declared costs.
+\textbf{Why conservation matters:} Conservation means \textit{no hidden costs}. Every increase in $\mu$ must correspond to an explicit instruction cost. If $\mu_{\text{final}} \neq \sum \texttt{instruction\_cost}(i)$, the implementation violates the formal semantics.
 
 \subsection{Results}
 
@@ -595,12 +593,12 @@ This experiment directly tests the Landauer patch on the \textit{Blind Sort} vs 
 
 \paragraph{Result.}
 \begin{itemize}
-    \item \textbf{Blind}: $\Delta \mu_{\text{disc}} = 0$, $\Delta \mu_{\text{exec}} \approx 650$.
-    \item \textbf{Sighted}: $\Delta \mu_{\text{disc}} \approx 3$, $\Delta \mu_{\text{exec}} \approx 650$.
+    \item \textbf{Blind}: $\mu \approx 650$ (all from compute instructions: XOR/XFER data movement).
+    \item \textbf{Sighted}: $\mu \approx 653$ (PNEW/LASSERT revelation adds $\approx 3$, compute portion unchanged).
 \end{itemize}
 
 \paragraph{Analysis.}
-The total cost $\mu$ is conserved. The blind trace pays primarily in $\mu_{\text{exec}}$ (irreversible bit operations/heat), while the sighted trace converts a small portion of that cost into $\mu_{\text{disc}}$ (stored structure). This closes the ``blind sort'' loophole: avoiding structure does not eliminate cost, it redirects it into kinetic dissipation.
+The total cost $\mu$ is at least as large in the sighted trace. The blind trace pays entirely via compute instruction costs (irreversible bit operations), while the sighted trace pays an additional discovery cost for the structure revelation (PNEW/LASSERT). In the Coq kernel, $\mu$ is a single monotonic accumulator (\texttt{vm\_mu}), not a split ledger---both flavors of cost flow into the same counter via \texttt{apply\_cost}. This closes the ``blind sort'' loophole: avoiding structure does not eliminate cost, it redirects it into compute dissipation.
 
 \subsection{Structural heat anomaly workload}
 This workload is a purely ledger-level falsifier for a common loophole: claiming large structured insight while paying negligible $\mu$.
@@ -657,24 +655,22 @@ In the artifact, $B=32$, $c=1$, and the four scenarios set $C\in\{0,4,12,24\}$ b
 \hline
 \textbf{Mode} & \textbf{Ops/sec} & \textbf{Overhead} \\
 \hline
-Raw Python VM & $\sim 10^6$ & Baseline \\
-Receipt Generation & $\sim 10^4$ & 100$\times$ \\
-Full Tracing & $\sim 10^3$ & 1000$\times$ \\
+Raw Python VM & implementation-dependent & Baseline \\
+Receipt Generation & implementation-dependent & measurable overhead \\
+Full Tracing & implementation-dependent & highest overhead in this comparison \\
 \hline
 \end{tabular}
 \end{center}
 
-\subsection{Receipt Chain Overhead}
+\subsection{Receipt Overhead}
 
-Each step generates:
+For the active TRS receipt surface, overhead comes from canonical JSON serialization, SHA-256 hashing, and Ed25519 signing or replay verification. The exact size depends on receipt kind:
 \begin{itemize}
-    \item Pre-state SHA-256 hash: 32 bytes
-    \item Post-state SHA-256 hash: 32 bytes
-    \item Instruction encoding: $\sim$50 bytes
-    \item Chain link: 32 bytes
+    \item \textbf{Fileset receipts}: manifest entries, aggregate digest, signature, and optional metadata.
+    \item \textbf{Execution receipts}: program/source digests, normalized pre/post state digests, $\mu$ summary, and signature.
 \end{itemize}
 
-Total per-step overhead: $\sim$150 bytes
+The important point is qualitative rather than numeric: stronger auditability costs extra hashing, signing, storage, and replay time.
 
 \subsection{Hardware Synthesis Results}
 
@@ -746,7 +742,7 @@ REGION_SIZE = 1024
     \item Thermodynamic bridge experiments requiring precise $\mu$-accounting over thousands of modules.
 \end{itemize}
 
-\textbf{Isomorphism validation:} The full configuration maintains exact isomorphism with Python/Coq for all operations---every test passing on LITE also passes on Full. The only difference is capacity, not semantics.
+\textbf{Isomorphism validation:} The full configuration is intended to preserve the same observable behavior as the LITE configuration on the exercised gates. In practice this remains a tested comparison claim, not a standalone unconditional theorem about every operation in every environment.
 
 \begin{itemize}
     \item LUTs: $\sim$45,000
@@ -766,14 +762,14 @@ The evaluation suite is organized by the kinds of claims it is meant to stress:
     \item \textbf{$\mu$-ledger tests}: monotonicity, conservation, and irreversibility lower bounds.
     \item \textbf{CHSH/Bell tests}: enforcement of correlation bounds and revelation requirements.
     \item \textbf{QM-divergent predictions}: six concrete predictions (QD1--QD6) where the $\mu$-accounting framework diverges from standard quantum mechanics, each with computed numerical thresholds and experimental protocols (Chapter~11).
-    \item \textbf{Cross-layer bisimulation}: end-to-end validation spanning Python VM and Verilog RTL across all 31 opcodes, plus OCaml-vs-Python state identity, I/O ports, heap ops, Bianchi freeze, and trap routing (\path{tests/test_cross_layer_bisimulation.py}, 47 tests).
+    \item \textbf{Cross-layer bisimulation}: end-to-end validation spanning Python VM and Verilog RTL across the active opcode set, plus OCaml-vs-Python state identity, I/O ports, heap ops, Bianchi freeze, and trap routing. Some of this evidence is conditional on RTL backend availability.
     \item \textbf{Verilog co-simulation}: direct Python-to-RTL comparison via Icarus Verilog testbenches, covering compute, partition, and error-handling paths (\path{tests/test_verilog_cosim.py}, 29 tests).
-    \item \textbf{Receipt verification}: signature integrity and step-by-step replay.
+    \item \textbf{Receipt verification}: signature integrity and replay for the active TRS-1.0 receipt kinds.
     \item \textbf{Adversarial tests}: malformed traces and invalid certificates.
-    \item \textbf{Performance benchmarks}: throughput with and without receipts.
+    \item \textbf{Performance benchmarks}: throughput and overhead measurements for selected harnesses, with receipt overhead treated as implementation-specific rather than a theorem.
 \end{itemize}
 
-In total the test suite contains 35 test files collecting 478 tests. Running the full suite:
+The test suite spans cross-layer, certificate, ledger, adversarial, and receipt-focused checks. Running the full suite:
 
 \begin{lstlisting}
 pytest tests/ -q
@@ -793,30 +789,15 @@ The fast local gates are proof compilation and the two isomorphism tests. The fu
 \subsection{Reproducing the ledger-level physics artifacts}
 The structural heat and time dilation artifacts are designed to run on any environment (no energy counters required) and to be self-auditing via embedded invariant checks in the emitted JSON.
 
-\paragraph{Structural heat.} Generate the artifact JSON and the scaling sweep (script archived at \path{archive/scripts\_unused/structural\_heat\_experiment.py}):
-\begin{lstlisting}
-python3 archive/scripts_unused/structural_heat_experiment.py
-python3 archive/scripts_unused/structural_heat_experiment.py --sweep-records --records-pow-min 10 --records-pow-max 20 --records-pow-step 2
-\end{lstlisting}
+\paragraph{Structural heat.} The structural heat harness emits a JSON artifact and optional scaling sweep. The harness computes $\mu = \lceil \log_2(n!) \rceil$ for each record count $n$, verifies the ceiling invariant $0 \leq \mu - \log_2(n!) < 1$, and writes results to a JSON file.
 
-\paragraph{Understanding Structural Heat Experiment Commands:}
+\paragraph{Understanding Structural Heat Experiment:}
 
-\textbf{What is this?} These commands execute the \textbf{structural heat anomaly workload}, which tests the $\mu$-ledger's accounting of information reduction when imposing structure (e.g., ``this buffer is sorted'') on data.
+\textbf{What is this?} The \textbf{structural heat anomaly workload} tests the $\mu$-ledger's accounting of information reduction when imposing structure (e.g., ``this buffer is sorted'') on data.
 
-\textbf{Command 1: Single run}
-\begin{itemize}
-    \item \textbf{python3 scripts/structural\_heat\_experiment.py} — Runs a single experiment with default parameters ($n = 2^{20}$ records). Computes $\mu = \lceil \log_2(n!) \rceil$ and verifies the ceiling invariant: $0 \leq \mu - \log_2(n!) < 1$.
-    \item Output: a JSON file containing $n$, $\log_2(n!)$, charged $\mu$, slack, and verification status.
-\end{itemize}
+\textbf{Single run:} The harness runs a single experiment with default parameters ($n = 2^{20}$ records). It computes $\mu = \lceil \log_2(n!) \rceil$ and verifies the ceiling invariant: $0 \leq \mu - \log_2(n!) < 1$. Output: a JSON file containing $n$, $\log_2(n!)$, charged $\mu$, slack, and verification status.
 
-\textbf{Command 2: Scaling sweep}
-\begin{itemize}
-    \item \textbf{--sweep-records} — Runs multiple experiments with varying $n$ (number of records).
-    \item \textbf{--records-pow-min 10} — Minimum: $n = 2^{10} = 1024$ records.
-    \item \textbf{--records-pow-max 20} — Maximum: $n = 2^{20} = 1{,}048{,}576$ records.
-    \item \textbf{--records-pow-step 2} — Step: test $n \in \{2^{10}, 2^{12}, 2^{14}, 2^{16}, 2^{18}, 2^{20}\}$.
-    \item Output: Extended JSON with arrays for all $n$ values tested, used to generate the scaling plot.
-\end{itemize}
+\textbf{Scaling sweep:} The harness can also sweep over record counts $n \in \{2^{10}, 2^{12}, 2^{14}, 2^{16}, 2^{18}, 2^{20}\}$, producing extended JSON with arrays for all $n$ values tested, used to generate the scaling plot.
 
 \textbf{What is the experiment testing?} The test verifies that claiming ``structure'' (sortedness) costs $\mu$ proportional to the information reduction:
 \[
@@ -836,10 +817,7 @@ The thesis figure \path{thesis/figures/structural_heat_scaling.png} is pre-gener
     \item \textbf{Bottom panel:} Slack $\mu - \log_2(n!)$ versus $n$. Shows all points satisfy $0 \leq \text{slack} < 1$, confirming $\mu = \lceil \log_2(n!) \rceil$.
 \end{itemize}
 
-\paragraph{Time dilation.} Generate the artifact JSON (script archived at \path{archive/scripts\_unused/time\_dilation\_experiment.py}):
-\begin{lstlisting}
-python3 archive/scripts_unused/time_dilation_experiment.py
-\end{lstlisting}
+\paragraph{Time dilation.} The time dilation harness runs four scenarios with increasing communication payloads and emits a JSON artifact with per-scenario results.
 
 The thesis figure \path{thesis/figures/time_dilation_curve.png} is pre-generated and included in the repository.
 
@@ -847,9 +825,9 @@ The thesis figure \path{thesis/figures/time_dilation_curve.png} is pre-generated
 
 \textbf{What is this?} These commands execute the \textbf{ledger-constrained time dilation workload}, which demonstrates how a fixed per-tick $\mu$ budget constrains computational throughput.
 
-\textbf{Command 1: time\_dilation\_experiment.py}
+\textbf{Parameters:}
 \begin{itemize}
-    \item \textbf{python3 scripts/time\_dilation\_experiment.py} — Runs the time dilation experiment with fixed parameters:
+    \item The time dilation harness runs with fixed parameters:
     \begin{itemize}
         \item $B = 32$ $\mu$-bits per tick (budget)
         \item $c = 1$ $\mu$-bit per compute step (cost)
@@ -914,7 +892,7 @@ Containerized builds are supported to ensure reproducibility across environments
 \textbf{Attacks attempted}:
 \begin{enumerate}
     \item \textbf{Spoofed certificates}: Modified LRAT proofs and SAT models rejected by checker
-    \item \textbf{Receipt chain tampering}: Altered pre-state hashes detected via chain verification
+    \item \textbf{Receipt tampering}: Altered signed receipt contents or mismatched replay state detected by verifier checks
     \item \textbf{Encoding manipulation}: Non-canonical region representations normalized and detected
     \item \textbf{Partition graph corruption}: Invalid module IDs and overlapping regions rejected
     \item \textbf{$\mu$-ledger rollback}: Attempted to decrease $\mu$ via modified instructions---caught by monotonicity invariant
@@ -954,11 +932,11 @@ Containerized builds are supported to ensure reproducibility across environments
     box/.style={draw, rounded corners=2pt, minimum width=2.5cm, minimum height=0.55cm, font=\scriptsize, align=center, inner sep=3pt},
     arr/.style={-{Stealth[length=3pt]}, thick}
 ]
-\node[box, fill=blue!15] (iso) at (-1.4,0.6) {Isomorphism\\100\% pass};
+\node[box, fill=blue!15] (iso) at (-1.4,0.6) {Comparison\\gate pass};
 \node[box, fill=green!15] (chsh) at (1.4,0.6) {CHSH\\$S \le 2$ verified};
 \node[box, fill=orange!15] (mu) at (-1.4,-0.3) {$\mu$-Ledger\\monotonic};
 \node[box, fill=red!10] (thermo) at (1.4,-0.3) {Thermo bridge\\$\mu \ge \log_2(n!)$};
-\node[draw, thick, rounded corners=2pt, fill=yellow!20, minimum width=5.2cm, font=\scriptsize\bfseries, inner sep=3pt] at (0,-1.2) {All claims empirically validated};
+\node[draw, thick, rounded corners=2pt, fill=yellow!20, minimum width=5.2cm, font=\scriptsize\bfseries, inner sep=3pt] at (0,-1.2) {Core supported claims empirically checked};
 \draw[arr] (iso.south) -- (-1.4,-0.95);
 \draw[arr] (chsh.south) -- (1.4,-0.95);
 \draw[arr] (mu.south) -- (-1.4,-0.95);
@@ -969,14 +947,14 @@ Containerized builds are supported to ensure reproducibility across environments
 \end{figure}
 The evaluation demonstrates:
 \begin{enumerate}
-    \item \textbf{3-Layer Isomorphism}: Python, Coq extraction, and RTL produce identical state projections for all tested instruction sequences
+    \item \textbf{3-Layer Comparison}: Python, Coq extraction, and RTL produce matching state projections for supported tested instruction sequences and available backends
     \item \textbf{CHSH Correctness}: Supra-quantum certification requires revelation as predicted by theory
     \item \textbf{$\mu$-Conservation}: The ledger is monotonic and exactly tracks declared costs
     \item \textbf{Ledger-level falsifiers}: structural heat (certificate ceiling law) and time dilation (fixed-budget slowdown) match their first-principles derivations
     \item \textbf{QM-Divergent Predictions}: Six concrete predictions (QD1--QD6) where $\mu$-accounting diverges from standard QM, each with computed thresholds and experimental protocols
-    \item \textbf{Test Coverage}: 35 test files collect 478 tests, spanning cross-layer, co-simulation, falsifiability, and adversarial suites
+    \item \textbf{Test Coverage}: active tests span cross-layer, co-simulation, falsifiability, receipt, and adversarial suites
     \item \textbf{Scalability}: Hardware synthesis targets modern FPGAs with reasonable resource utilization
     \item \textbf{Reproducibility}: All results can be reproduced from the published traces and artifact bundles
 \end{enumerate}
 
-The empirical results validate the theoretical claims: the Thiele Machine enforces structural accounting as a machine invariant, verified across all three implementation layers.
+The empirical results support the thesis's strongest claims: the Thiele Machine enforces structural accounting as a machine invariant, with cross-layer evidence where the relevant backend is available.

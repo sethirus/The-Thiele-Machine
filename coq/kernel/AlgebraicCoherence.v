@@ -1,15 +1,15 @@
-(** * AlgebraicCoherence: Deriving the 2√2 bound without quantum mechanics
+(** * AlgebraicCoherence: CHSH bounds from algebraic coherence constraints
 
     WHY THIS FILE EXISTS:
-    The Tsirelson bound (2√2 ≈ 2.828) is usually derived from quantum mechanics.
-    This file proves it ALGEBRAICALLY using only correlation constraints and
-    minor positivity. No Hilbert spaces, no operators, no quantum formalism.
-    Just algebra and geometry.
+    This file studies the CHSH parameter under NPA-1 (algebraic coherence)
+    constraints: correlation bounds |E|<=1 plus 3x3 minor positivity.
+    No Hilbert spaces, no operators, no quantum formalism.
 
-    THE CENTRAL CLAIM:
-    Correlations that satisfy "algebraic coherence" (correlation bounds |E|≤1
-    plus 3×3 minor constraints) have CHSH ≤ 2√2. This is EXACTLY the quantum
-    bound, derived without quantum mechanics.
+    WHAT IS ACTUALLY PROVEN:
+    - General case: |S| <= 4 from correlation bounds (triangle inequality)
+    - Symmetric case (E00=E01=E10=e, E11=-e): 4e <= 2sqrt(2) from minor constraints
+    The general theorem (tsirelson_from_algebraic_coherence) only proves |S| <= 4.
+    The tight 2sqrt(2) bound is proven ONLY for the symmetric configuration.
 
     WHY THIS IS IMPORTANT:
     It shows the 2√2 limit isn't fundamentally "quantum" - it's GEOMETRIC.
@@ -141,8 +141,7 @@ Definition minor_3x3 (a b c : Q) : Q :=
     FALSIFICATION:
     Find quantum correlations violating these constraints, or find
     algebraically coherent correlators that can't be realized quantum
-    mechanically (within numerical precision). Both directions are tested
-    in tests/test_tsirelson.py.
+    mechanically (within numerical precision).
 *)
 Definition algebraically_coherent (c : Correlators) : Prop :=
   Qabs (E00 c) <= 1 /\ Qabs (E01 c) <= 1 /\ Qabs (E10 c) <= 1 /\ Qabs (E11 c) <= 1 /\

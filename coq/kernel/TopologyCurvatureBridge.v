@@ -1,30 +1,56 @@
-(** * Topology-Curvature Bridge: Δχ → ΔCurvature
+(** =========================================================================
+    TopologyCurvatureBridge: delta chi implies delta Curvature
+    =========================================================================
 
-    PURPOSE: Prove that topology changes cause curvature changes.
-    This is Phase 4 of the gravity emergence proof.
+    WHY THIS FILE EXISTS:
+    This is Phase 4 of the gravity emergence pipeline. Given the
+    discrete Gauss-Bonnet theorem (Phase 2), this file proves the
+    bridge theorem: any change in Euler characteristic between two
+    VM states causes a proportional change in total curvature. This
+    is the step that turns a topological fact into a geometric one.
 
-    PLAN:
-    Phase 1: DiscreteTopology.v - topological definitions ✓
-    Phase 2: DiscreteGaussBonnet.v - Gauss-Bonnet theorem ✓
-    Phase 3: PNEWTopologyChange.v - PNEW changes topology (future)
-    Phase 4: This file - Δχ → ΔCurvature ← YOU ARE HERE
-    Phase 5: Stress-energy drives PNEW frequency (future)
-    Phase 6: Derive Einstein's equation (future)
+    THE KEY THEOREM:
+    Theorem delta_chi_implies_delta_curvature --
+      For two VM states s, s' with well-formed triangulated graphs,
+      delta_K = 5 * PI * IZR(delta_chi),
+      where delta_K = total_curvature(s') - total_curvature(s)
+      and delta_chi = euler_characteristic(s') - euler_characteristic(s).
 
-    KEY THEOREM:
-    If the Euler characteristic changes by Δχ, then total curvature
-    changes by exactly 5π×Δχ.
+    KEY SUPPORTING RESULTS:
+    - add_triangle_changes_curvature: delta chi = +1 implies
+      delta K = +5 pi
+    - remove_triangle_changes_curvature: delta chi = -1 implies
+      delta K = -5 pi
+    - topology_invariant_implies_curvature_invariant: delta chi = 0
+      implies delta K = 0
+    - local_curvature_changes_sum_to_global: sum of per-vertex
+      curvature changes equals the global curvature change
 
-    This proves: TOPOLOGY CHANGES DIRECTLY CAUSE CURVATURE CHANGES.
+    PHYSICAL INTERPRETATION:
+    Topology changes are discrete (delta chi is an integer), so
+    curvature changes are quantized in units of 5 pi. This is a
+    measurable prediction: a PNEW operation that changes chi by 1
+    produces exactly 5 pi of total curvature change. The quantization
+    is the discrete-manifold analogue of topological invariance in
+    smooth general relativity.
 
-    STRATEGY:
-    1. Start with Gauss-Bonnet: K = 5π×χ for each state
-    2. Take difference: ΔK = K' - K = 5π×χ' - 5π×χ = 5π×Δχ
-    3. Relate to local curvature changes
-    4. Show this is measurable and verifiable
+    FALSIFICATION:
+    Exhibit two well-formed triangulated VM states where delta K
+    differs from 5 pi delta chi. The proof is a direct algebraic
+    consequence of applying discrete_gauss_bonnet (Phase 2) to both
+    states and subtracting, so a counterexample would require
+    falsifying Gauss-Bonnet itself.
 
-    REF: GRAVITY_PROOF_PLAN.md, GRAVITY_PROOF_STATUS.md
-    *)
+    Fully proven, zero Admitted.
+
+    GRAVITY EMERGENCE PIPELINE (dependency chain):
+    1. DiscreteTopology.v — topological definitions
+    2. DiscreteGaussBonnet.v — Gauss-Bonnet theorem
+    3. PNEWTopologyChange.v — PNEW changes topology
+    4. This file — delta chi implies delta curvature
+    5. StressEnergyDynamics.v — stress-energy drives PNEW
+    6. EinsteinEmergence.v — derive discrete Einstein analogue
+    ========================================================================= *)
 
 (* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
@@ -180,9 +206,7 @@ Qed.
 (** ** Verification Requirements
 
     To empirically verify this theorem:
-    1. Create two VM states s and s' with different χ
+    1. Create two VM states s and s' with different chi
     2. Compute total_curvature for both (sum angle defects)
-    3. Check: ΔK = 5π×Δχ to machine precision
-
-    Test file: tests/test_topology_curvature_bridge.py
+    3. Check: delta K = 5 pi x delta chi to machine precision
     *)

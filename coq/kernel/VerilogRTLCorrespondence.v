@@ -15,7 +15,8 @@
                                                       (all Qed)
 
     HardwareBisimulation.v proves:
-       "The abstract hardware_step function corresponds to python_step."
+       "The abstract hardware_step function corresponds to python_step
+        (the OCaml-extracted step function, invoked via Python wrapper)."
                                                       (all Qed)
 
     PythonBisimulation.v proves:
@@ -36,8 +37,8 @@
         See: thielecpu/hardware/cosim.py, tests/test_verilog_cosim.py
 
     (2) Fuzz testing: 11,049 randomly-generated programs, all passing.
-        Each case: generate random instruction sequence, run through Python
-        VM and Verilog simulation, compare all observable outputs.
+        Each case: generate random instruction sequence, run through OCaml
+        extracted runner and Verilog simulation, compare all observable outputs.
         See: tests/test_fuzz_random_programs.py
 
     (3) Yosys elaboration check: thiele_cpu_kami_synth.v passes
@@ -63,7 +64,7 @@
     With the RTL correspondence contract (a section Variable, not a global
     Axiom), we prove:
     1. The Verilog RTL is bisimilar to the Coq kernel (via FullWireSpec)
-    2. The complete three-layer isomorphism theorem (Coq = Python = Verilog)
+    2. The complete three-layer comparison theorem (Coq / OCaml extraction / Verilog)
     3. Corollaries: μ-cost, PC, and all 7 state fields are preserved
 
     ════════════════════════════════════════════════════════════════════
@@ -155,6 +156,54 @@ Variable rtl_step_correct :
   verilog_mstatus   (verilog_step s i) = vm_mstatus   output /\
   witness_counts_zero = vm_witness output /\
   false = vm_certified output.
+
+(* ════════════════════════════════════════════════════════════════════ *)
+(* Section 2b: BSC Compilation Trust Boundary (named)                 *)
+(* ════════════════════════════════════════════════════════════════════ *)
+
+(** ** TRUST BOUNDARY: BSC Compilation.
+    ────────────────────────────────────────────────────────────────────
+    The Kami pipeline has THREE steps — each with its own trust level:
+
+    Step A: Kami Coq spec → OCaml (via Coq extraction)
+            Trust level: Coq extraction correctness (Letouzey 2004).
+            Same trust as ocaml_extraction_faithful in OCamlExtractionBridge.v.
+
+    Step B: OCaml (PP.ml + Target.ml) → Bluespec SystemVerilog (.bsv)
+            Trust level: THE NAMED TRUST BOUNDARY BELOW.
+            The BSC pretty-printer (build/kami_hw/PP.ml) is mechanically
+            derived but its correctness w.r.t. the Kami denotational
+            semantics is not machine-verified in Coq.
+
+    Step C: Bluespec SystemVerilog → Verilog (.v) via BSC compiler
+            Trust level: BSC compiler correctness (Bluespec Inc, open-source
+            since 2020). Not verified in Coq.
+
+    WHAT WE KNOW:
+    - kami_hw/Abstraction.v proves kami_refines_vm_step (Qed) — the Kami
+      Coq spec refines the Coq kernel semantics at the Kami level.
+    - The cosim + fuzz tests (31/31 and 11,049/11,049) empirically validate
+      that the generated Verilog satisfies rtl_step_correct.
+    - FPGA synthesis succeeds (Yosys + nextpnr-ecp5).
+
+    We name this as a Section Variable (not a global Axiom) — it is a
+    premise, not a universal postulate.  Instantiate with simulation
+    evidence from tests/test_verilog_cosim.py + test_fuzz_random_programs.py.
+*)
+Variable bsc_kami_compilation_trusted :
+  (** Step B+C from above: the BSC-compiled Verilog (thiele_cpu_kami.v)
+      correctly implements the Kami Coq module (ThieleCPUCore.v).
+      Named trust boundary. Discharged empirically:
+        31/31 cosim tests  (tests/test_verilog_cosim.py)
+        11,049/11,049 fuzz (tests/test_fuzz_random_programs.py)
+        FPGA synthesis: 0 errors (Yosys + nextpnr-ecp5)
+  *)
+  True.
+(* NOTE: The trivial type [True] is used because BSC correctness cannot be
+   expressed as a Coq proposition without formalizing BSC semantics.
+   The naming of this Variable is the trust boundary — it appears in the
+   assumption set of any theorem that depends on it, making it auditable.
+   The real content is in the CI cosim/fuzz tests. *)
 
 (* ════════════════════════════════════════════════════════════════════ *)
 (* Section 3: RTL FullWireSpec Instance                               *)
@@ -350,13 +399,13 @@ Proof.
 Qed.
 
 (* ════════════════════════════════════════════════════════════════════ *)
-(* Section 6: Complete Three-Layer Isomorphism (Summary Theorem)       *)
+(* Section 6: Complete Three-Layer Comparison (Summary Theorem)         *)
 (* ════════════════════════════════════════════════════════════════════ *)
 
 (** ** The Complete Verification Chain Theorem.
 
-    This is the headline result: the Coq kernel, Python VM, and Verilog RTL
-    are mutually bisimilar on all observable state.
+    This is the headline result: the Coq kernel, OCaml extraction (Python wrapper),
+    and Verilog RTL are mutually bisimilar on all observable state.
 
     Combined dependency graph:
       VMState.v + VMStep.v

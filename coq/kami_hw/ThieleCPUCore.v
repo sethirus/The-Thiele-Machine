@@ -1,4 +1,4 @@
-(** ThieleCPUCore.v — Complete Thiele CPU in Kami (38-instruction ISA).
+(** ThieleCPUCore.v — Complete Thiele CPU in Kami (40-instruction ISA).
 
     Implements the full ISA from VMStep.v:
       - Every instruction increments mu by its cost field (μ-monotonicity)
@@ -38,8 +38,8 @@
 
     Kami Vector notes: Vector K n stores 2^n elements, indexed by Bit n.
     So "regs" is Vector (Bit 32) 5 = 2^5 = 32 registers, indexed by Bit 5.
-    And "mem" is Vector (Bit 32) 12 = 2^12 = 4096 memory words, indexed by Bit 12.
-    And "imem" is Vector (Bit 32) 12 = 2^12 = 4096 instruction words.
+    And "mem" is Vector (Bit 32) 16 = 2^16 = 65536 memory words, indexed by Bit 16.
+    And "imem" is Vector (Bit 32) 16 = 2^16 = 65536 instruction words.
     And "mu_tensor" is Vector (Bit 32) 4 = 2^4 = 16 tensor entries.
 
     LJOIN DESIGN DECISION:
@@ -49,8 +49,9 @@
     as LASSERT). The coprocessor compares the two certificate indices and
     returns a match/mismatch result. The Coq kernel does String.eqb inline.
     These are proven equivalent in LogicEngineEquivalence.v given a correct
-    oracle (ljoin_oracle_correct). See Section 3.2.5: "The kernel verifies
-    the certificate but does not search for solutions." *)
+    oracle (ljoin_oracle_correct). The kernel verifies
+    the certificate but does not search for solutions.
+    See LogicEngineEquivalence.v for the oracle correctness proof. *)
 
 Require Import Kami.Kami.
 Require Import Kami.Synthesize.
@@ -96,7 +97,7 @@ Section ThieleCPU.
   (** Direct vector read: memv[addr].
       Uses Kami's native ReadIndex which BSC compiles to a simple array index.
       Previous implementation used a depth-N binary search tree that generated
-      2^N Kami nodes — untenable at MemAddrSz=12 (4096 elements). *)
+      2^N Kami nodes — untenable at MemAddrSz=16 (65536 elements). *)
   Definition read_mem
              {ty}
              (addr : Expr ty (SyntaxKind (Bit MemAddrSz)))
@@ -123,7 +124,7 @@ Section ThieleCPU.
       with Register "halted" : Bool <- false
       with Register "regs"  : Vector (Bit WordSz) RegIdxSz <- Default
       with Register "mem"   : Vector (Bit WordSz) MemAddrSz <- Default
-      with Register "imem"   : Vector (Bit InstrSz) MemAddrSz <- Default (* 2^12=4096 instrs *)
+      with Register "imem"   : Vector (Bit InstrSz) MemAddrSz <- Default (* 2^16=65536 instrs *)
 
       (* Diagnostic counters — needed for test parity with handwritten RTL *)
       with Register "partition_ops" : Bit WordSz <- Default
@@ -171,8 +172,8 @@ Section ThieleCPU.
       with Register "certified" : Bool <- false
 
       (* Witness counters — 8-bucket CHSH trial recorder matching VMState.WitnessCounts.
-         Each (setting_a, setting_b) pair has same/diff counters tracking whether
-         outcomes (x,y) matched. Updated by CHSH_TRIAL on valid bits. *)
+        Each setting pair (x,y) has same/diff counters tracking whether
+        outputs (a,b) matched. Updated by CHSH_TRIAL on valid bits. *)
       with Register "wc_same_00" : Bit WordSz <- Default
       with Register "wc_diff_00" : Bit WordSz <- Default
       with Register "wc_same_01" : Bit WordSz <- Default
@@ -314,7 +315,8 @@ Section ThieleCPU.
         LET store_in_bounds <- check_bounds #mem_addr_a #active_region_size;
         LET call_in_bounds <- check_bounds #sp_addr #active_region_size;
         LET ret_in_bounds <- check_bounds #sp_dec_addr #active_region_size;
-        LET is_load_op <- (#opcode == $$(OP_LOAD)) || (#opcode == $$(OP_XOR_LOAD)) ||
+        (* XOR_LOAD uses immediate addressing — no locality check, matches Coq step_xor_load *)
+        LET is_load_op <- (#opcode == $$(OP_LOAD)) ||
                           (#opcode == $$(OP_HEAP_LOAD));
         LET is_store_op <- (#opcode == $$(OP_STORE)) || (#opcode == $$(OP_HEAP_STORE));
         LET is_call_op <- #opcode == $$(OP_CALL);
@@ -371,31 +373,34 @@ Section ThieleCPU.
         LET xor_result : Bit WordSz <- #dst_val ~+ #src_val;
         LET jnez_taken <- #dst_val != $0;
 
-        (* Popcount for XOR_RANK: tree-based bit count *)
+        (* Popcount for XOR_RANK: tree-based bit count (32-bit optimized).
+           Using binary literals to avoid Peano extraction overhead. *)
         LET pop_val : Bit WordSz <- #src_val;
-        (* Step 1: pairs - (v & 0x55555555) + ((v >> 1) & 0x55555555) *)
+        (* Step 1: pairs - 0x55555555 *)
         LET pop_mask1 : Bit WordSz <- $$(WO~0~1~0~1~0~1~0~1~0~1~0~1~0~1~0~1~0~1~0~1~0~1~0~1~0~1~0~1~0~1~0~1);
         LET pop_s1a : Bit WordSz <- #pop_val ~& #pop_mask1;
-        LET pop_s1b : Bit WordSz <- (BinBit (Srl _ _) #pop_val ($$(WO~0~0~0~0~1))) ~& #pop_mask1;
+        LET pop_s1b : Bit WordSz <- (BinBit (Srl _ _) #pop_val ($$(WO~0~0~0~0~0~1))) ~& #pop_mask1;
         LET pop_2 : Bit WordSz <- #pop_s1a + #pop_s1b;
-        (* Step 2: nibbles - (v & 0x33333333) + ((v >> 2) & 0x33333333) *)
+        (* Step 2: nibbles - 0x33333333 *)
         LET pop_mask2 : Bit WordSz <- $$(WO~0~0~1~1~0~0~1~1~0~0~1~1~0~0~1~1~0~0~1~1~0~0~1~1~0~0~1~1~0~0~1~1);
         LET pop_n1 : Bit WordSz <- #pop_2 ~& #pop_mask2;
-        LET pop_n2 : Bit WordSz <- (BinBit (Srl _ _) #pop_2 ($$(WO~0~0~0~1~0))) ~& #pop_mask2;
+        LET pop_n2 : Bit WordSz <- (BinBit (Srl _ _) #pop_2 ($$(WO~0~0~0~0~1~0))) ~& #pop_mask2;
         LET pop_4 : Bit WordSz <- #pop_n1 + #pop_n2;
-        (* Step 3: bytes - (v & 0x0F0F0F0F) + ((v >> 4) & 0x0F0F0F0F) *)
+        (* Step 3: bytes - 0x0F0F0F0F *)
         LET pop_mask3 : Bit WordSz <- $$(WO~0~0~0~0~1~1~1~1~0~0~0~0~1~1~1~1~0~0~0~0~1~1~1~1~0~0~0~0~1~1~1~1);
         LET pop_b1 : Bit WordSz <- #pop_4 ~& #pop_mask3;
-        LET pop_b2 : Bit WordSz <- (BinBit (Srl _ _) #pop_4 ($$(WO~0~0~1~0~0))) ~& #pop_mask3;
+        LET pop_b2 : Bit WordSz <- (BinBit (Srl _ _) #pop_4 ($$(WO~0~0~0~1~0~0))) ~& #pop_mask3;
         LET pop_8 : Bit WordSz <- #pop_b1 + #pop_b2;
-        (* Step 4: 16-bit halves *)
+        (* Step 4: 2-byte groups - 0x00FF00FF *)
         LET pop_mask4 : Bit WordSz <- $$(WO~0~0~0~0~0~0~0~0~1~1~1~1~1~1~1~1~0~0~0~0~0~0~0~0~1~1~1~1~1~1~1~1);
         LET pop_h1 : Bit WordSz <- #pop_8 ~& #pop_mask4;
-        LET pop_h2 : Bit WordSz <- (BinBit (Srl _ _) #pop_8 ($$(WO~0~1~0~0~0))) ~& #pop_mask4;
+        LET pop_h2 : Bit WordSz <- (BinBit (Srl _ _) #pop_8 ($$(WO~0~0~1~0~0~0))) ~& #pop_mask4;
         LET pop_16 : Bit WordSz <- #pop_h1 + #pop_h2;
-        (* Step 5: final 32-bit sum *)
+        (* Step 5: final sum for 32-bit - 0x0000FFFF *)
         LET pop_mask5 : Bit WordSz <- $$(WO~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~1~1~1~1~1~1~1~1~1~1~1~1~1~1~1~1);
-        LET popcount : Bit WordSz <- (#pop_16 + (BinBit (Srl _ _) #pop_16 ($$(WO~1~0~0~0~0)))) ~& #pop_mask5;
+        LET pop_q1 : Bit WordSz <- #pop_16 ~& #pop_mask5;
+        LET pop_q2 : Bit WordSz <- (BinBit (Srl _ _) #pop_16 ($$(WO~0~1~0~0~0~0))) ~& #pop_mask5;
+        LET popcount : Bit WordSz <- #pop_q1 + #pop_q2;
 
         (* CHSH_TRIAL certificate gate:
            - packed outcomes op_b are 2-bit values (0..3)
@@ -405,9 +410,9 @@ Section ThieleCPU.
         LET chsh_cert_missing <- (#is_x1_trial) && (#tensor_total == $0);
         LET chsh_bits_bad <- #chsh_cert_missing;
 
-        (* CHSH_TRIAL witness counter update:
-           op_a[1:0] = setting (a,b) → selects bucket (00/01/10/11)
-           op_b[1:0] = outcome (x,y) → same when x==y, diff otherwise
+          (* CHSH_TRIAL witness counter update:
+            op_a[1:0] = setting (x,y) → selects bucket (00/01/10/11)
+            op_b[1:0] = outcome (a,b) → same when a==b, diff otherwise
            We use 2-bit truncations and compare to 2-bit constants. *)
         LET chsh_settings : Bit 2 <- UniBit (Trunc 2 _) #op_a;
         LET chsh_outcomes : Bit 2 <- UniBit (Trunc 2 _) #op_b;
@@ -512,7 +517,15 @@ Section ThieleCPU.
                 then #regs_v@[#dst_idx <- #mul_result]
           else (IF (#opcode == $$(OP_LUI))
                 then #regs_v@[#dst_idx <- #lui_result]
-          else #regs_v))))))))))))))))))));
+          else (IF (#opcode == $$(OP_TENSOR_GET))
+                then #regs_v@[#dst_idx <- #tensor_old]
+          (* Categorical morphism opcodes: hardware writes 0 to dst
+             (morphism graph state is managed by software extraction layer) *)
+          else (IF ((#opcode == $$(OP_MORPH)) || (#opcode == $$(OP_COMPOSE)) ||
+                    (#opcode == $$(OP_MORPH_ID)) || (#opcode == $$(OP_MORPH_TENSOR)) ||
+                    (#opcode == $$(OP_MORPH_GET)))
+                then #regs_v@[#dst_idx <- $0]
+          else #regs_v))))))))))))))))))))));
         (* ============================================================
            Determine new memory
            ============================================================ *)
@@ -561,12 +574,22 @@ Section ThieleCPU.
           else (IF #logic_rsp_pending
                 then #mu_v
                 else (IF (#opcode == $$(OP_ORACLE_HALTS))
-                      then #mu_v + $1000000
+                      (* ORACLE_HALTS_HW_COST = 1000000 = 0xF4240 - binary literal *)
+                      then #mu_v + $$(WO~0~0~0~0~0~0~0~0~0~0~0~0~1~1~1~1~0~1~0~0~0~0~1~0~0~1~0~0~0~0~0~0)
                       else (IF ((#opcode == $$(OP_CHSH_TRIAL)) && (#is_x1_trial))
                             then #new_mu + $$(CHSH_X1_SURCHARGE)
                             else (IF (#opcode == $$(OP_CERTIFY))
                                   then #mu_v + #cost32 + $1
-                                  else #new_mu))));
+                                  else (IF (#opcode == $$(OP_MORPH_ASSERT))
+                                        (* MORPH_ASSERT is a cert-setter: charges S(cost) = cost + 1 *)
+                                        then #mu_v + #cost32 + $1
+                                        else (IF ((#opcode == $$(OP_EMIT)) ||
+                                                  (#opcode == $$(OP_REVEAL)) ||
+                                                  (#opcode == $$(OP_LASSERT)) ||
+                                                  (#opcode == $$(OP_LJOIN)) ||
+                                                  (#opcode == $$(OP_READ_PORT)))
+                                              then #new_mu + $1
+                                              else #new_mu))))));
 
         (* ============================================================
            CERTIFY flag update — set by CERTIFY opcode only
@@ -696,12 +719,15 @@ Section ThieleCPU.
           then #wc_diff_11_v + $1 else #wc_diff_11_v;
 
         (* ============================================================
-           μ-tensor update (REVEAL charges tensor entry)
+           μ-tensor update (REVEAL charges tensor entry,
+                            TENSOR_SET writes register value to entry)
            ============================================================ *)
         LET new_mu_tensor : Vector (Bit WordSz) MuTensorIdxSz <-
           IF ((#opcode == $$(OP_REVEAL)) && !#bianchi_violation && !#high_value_locked)
           then #mu_tensor_v@[#tensor_idx <- #tensor_new_val]
-          else #mu_tensor_v;
+          else (IF ((#opcode == $$(OP_TENSOR_SET)) && !#bianchi_violation)
+          then #mu_tensor_v@[#tensor_idx <- #src_val]
+          else #mu_tensor_v);
 
         LET new_logic_acc : Bit WordSz <-
           IF (#bianchi_violation || #locality_violation)

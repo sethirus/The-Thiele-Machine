@@ -42,7 +42,7 @@ def _require_simulation_result(result: Dict[str, Any] | None, context: str) -> D
 
 # ── Instruction generators ──────────────────────────────────────
 
-# All 38 opcodes with valid random operands
+# All 40 opcodes with valid random operands
 def rand_reg() -> int:
     return random.randint(0, 31)
 
@@ -76,6 +76,7 @@ def generate_random_instruction() -> str:
         # Skip HALT (added at end)
         "CHSH_TRIAL",
         "CHECKPOINT", "READ_PORT", "WRITE_PORT", "HEAP_LOAD", "HEAP_STORE",
+        "TENSOR_SET", "TENSOR_GET",
     ])
 
     # Cert-setting opcodes (LASSERT, LJOIN, REVEAL, CHSH_TRIAL) require cost > 0
@@ -148,6 +149,10 @@ def generate_random_instruction() -> str:
         return f"MUL {rand_reg5()} {rand_reg5()} {rand_reg5()} {cost}"
     elif opcode == "LUI":
         return f"LUI {rand_reg5()} {rand_imm()} {cost}"
+    elif opcode == "TENSOR_SET":
+        return f"TENSOR_SET {rand_reg5()} {rand_reg5()} {cost}"
+    elif opcode == "TENSOR_GET":
+        return f"TENSOR_GET {rand_reg5()} {rand_reg5()} {cost}"
     else:
         return f"LOAD_IMM 0 0 {cost}"
 
@@ -297,8 +302,8 @@ class TestEdgeCases:
         instrs.extend(f"REVEAL {i} 0 1" for i in range(16))
         instrs.append("HALT")
         result = _require_simulation_result(run_verilog("\n".join(instrs), timeout=30), "all-tensor-entries case")
-        assert result["mu"] == 16
-        # Sum of all tensor row sums should be 16
+        assert result["mu"] == 32  # 16 REVEALs × S(1)=2 each: cert-setters charge cost+1
+        # Sum of all tensor row sums should be 16 (tensor adds cost=1, not S(cost))
         tensor_sum = sum(result.get(f"mu_tensor_{i}", 0) for i in range(4))
         assert tensor_sum == 16
 

@@ -1,13 +1,3 @@
-From Coq Require Import List.
-
-From Kernel Require Import VMState.
-From Kernel Require Import VMStep.
-From Kernel Require Import KernelPhysics.
-From Kernel Require Import PhysicsClosure.
-From Kernel Require Import SpacetimeEmergence.
-
-Import ListNotations.
-
 (** * Closure: Locality and causality in the kernel
 
     WHY THIS FILE EXISTS:
@@ -16,16 +6,18 @@ Import ListNotations.
     out of nowhere. This file formalizes that as a THEOREM about the VM.
 
     THE THREE CLOSURE PROPERTIES:
-    1. Instruction locality: If mid ∉ targets(instr), then ObservableRegion(mid)
+    1. Instruction locality: If mid is not in targets(instr), then ObservableRegion(mid)
        is unchanged by the instruction
-    2. μ-monotonicity: vm_step can only increase μ-ledger, never decrease
-    3. Trace causality: If mid ∉ causal_cone(trace), then ObservableRegion(mid)
+    2. mu-monotonicity: vm_step can only increase the mu-ledger, never decrease
+    3. Trace causality: If mid is not in causal_cone(trace), then ObservableRegion(mid)
        is unchanged by the entire trace
 
     WHY "CLOSURE":
     The causal cone is "closed" - its complement is invariant. Operations inside
     the cone can't affect regions outside the cone. This is the mathematical
-    formalization of "information propagates at finite speed" (speed of light).
+    formalization of VM locality: instructions only modify the modules they
+    target. This is analogous to finite signal speed in physics, but is a
+    property of the VM's instruction semantics.
 
     THE CONNECTION TO PHYSICS:
     In relativity, events can only influence their future light cone. Outside
@@ -49,6 +41,16 @@ Import ListNotations.
     VM, snapshot observables, execute instruction, snapshot again, diff.
 
     ========================================================================= *)
+
+From Coq Require Import List.
+
+From Kernel Require Import VMState.
+From Kernel Require Import VMStep.
+From Kernel Require Import KernelPhysics.
+From Kernel Require Import PhysicsClosure.
+From Kernel Require Import SpacetimeEmergence.
+
+Import ListNotations.
 
 
 (** KernelMaximalClosureP: The three closure properties.

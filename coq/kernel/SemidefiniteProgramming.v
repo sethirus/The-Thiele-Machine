@@ -2,18 +2,33 @@
     SEMIDEFINITE PROGRAMMING - Foundation for NPA Hierarchy
     =========================================================================
 
-    This file provides the mathematical foundation for proving the quantum
-    Tsirelson bound (CHSH ≤ 2√2) using the NPA hierarchy.
+    WHY THIS FILE EXISTS:
+    The Tsirelson bound proof requires showing that certain moment matrices
+    are positive semidefinite (PSD). This file provides the mathematical
+    foundation: matrix representation, determinants, PSD definitions via
+    Sylvester's criterion, and key inequalities (Cauchy-Schwarz for PSD).
+
+    THE CORE CLAIM:
+    A matrix is PSD if and only if all principal minors are non-negative
+    (Sylvester's criterion). From PSD, Cauchy-Schwarz follows: M[i,j]^2 <=
+    M[i,i] * M[j,j]. These algebraic facts are the engine behind the
+    Tsirelson bound derivation.
 
     KEY DEFINITIONS:
-    - Positive semidefinite (PSD) matrices
-    - Semidefinite constraints
-    - Matrix properties needed for moment matrix analysis
+    - Positive semidefinite (PSD) matrices via Sylvester's criterion
+    - Determinants for 2x2 through 5x5 matrices (explicit cofactor expansion)
+    - Schur complement criterion for 2x2 PSD
+    - Cauchy-Schwarz inequality for PSD matrices
 
     APPROACH:
-    We'll use a computational approach where PSD is characterized by
+    We use a computational approach where PSD is characterized by
     all principal minors being non-negative (Sylvester's criterion).
     This is more amenable to Coq proof than eigenvalue analysis.
+
+    FALSIFICATION:
+    Find a matrix satisfying all principal minor constraints (PSD_n) where
+    Cauchy-Schwarz fails: M[i,j]^2 > M[i,i]*M[j,j]. This is impossible
+    because the 2x2 minor at (i,j) has det = M[i,i]*M[j,j] - M[i,j]^2 >= 0.
 
     ========================================================================= *)
 
@@ -575,11 +590,6 @@ Proof.
            ++ (* n >= 6: contradicted by Hn *) lia.
 Qed.
 
-(** NOTE: A lemma about arbitrary principal minors (PSD_principal_minors_nonneg)
-    was previously defined but is UNUSED in the codebase.
-    For NPA hierarchy applications, the top-left minor constraints in PSD_n suffice.
-    The axiom has been removed to maintain zero-axiom status. *)
-
 (** * Absolute Value Bound *)
 
 (** For PSD M with M[i,i] <= 1 and M[j,j] <= 1, we have |M[i,j]| <= 1 *)
@@ -611,7 +621,7 @@ Proof.
 Qed.
 
 (** =========================================================================
-    VERIFICATION SUMMARY - STEP 1 EXTENDED
+    VERIFICATION SUMMARY - STEP 1
 
     ✓ Matrix representation defined (function-based)
     ✓ Determinants and minors for 2×2, 3×3, 4×4, and 5×5 matrices

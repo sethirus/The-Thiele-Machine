@@ -1,41 +1,43 @@
 # Coq logical paths - clean per-directory mappings (best practice)
 # Non-recursive root mapping for Extraction.v only (-Q prevents
 # subdirectories from being double-bound under Top.*)
+
+# Path mappings (required for coqtop assumption audit)
 -R kernel Kernel
 -R nofi NoFI
 -R kami_hw KamiHW
 -R ../vendor/kami/Kami Kami
--Q ../vendor/bbv/src/bbv bbv
 -R spacetime Spacetime
--R thielemachine/coqproofs ThieleMachine
--R thielemachine/verification ThieleMachineVerification
--R modular_proofs ModularProofs
+-R thielemachine ThieleMachine
 -R physics Physics
 -R self_reference SelfReference
 -R thiele_manifold ThieleManifold
--R thieleuniversal/coqproofs ThieleUniversal
--R thieleuniversal/verification ThieleUniversal.verification
 -R thermodynamic Thermodynamic
 -R tests Tests
 
 # File listing
 Extraction.v
-MinimalExtraction.v
+ThieleMachineComplete.v
 
 kernel/CHSH.v
 kernel/CHSHExtraction.v
 kernel/ConstructivePSD.v
+kernel/QuantumPartitionPSD.v
 kernel/ValidCorrelation.v
 kernel/BoxCHSH.v
 kernel/ClassicalBound.v
+kernel/CategoryLaws.v
+kernel/CategoryBridge.v
+kernel/CategoryMonoidal.v
 kernel/CertCheck.v
 kernel/Certification.v
 kernel/Closure.v
 kernel/ConeAlgebra.v
 kernel/ConeDerivation.v
-kernel/CPURefinement.v
 kernel/Definitions.v
 kernel/DerivedTime.v
+kernel/LocalMorphismSemantics.v
+kernel/EntanglementEntropy.v
 kernel/EntropyImpossibility.v
 kernel/FalsifiablePrediction.v
 kernel/InformationCausality.v
@@ -54,17 +56,15 @@ kernel/MuCostDerivation.v
 kernel/MuLedgerConservation.v
 kernel/MuLedgerQuantumBridge.v
 kernel/MuNoFreeInsightQuantitative.v
+kernel/MuShannonQuantitative.v
 kernel/MuShannonBridge.v
 kernel/InformationGainToStrengthening.v
-kernel/LandauerBound.v
 kernel/HonestNoFI.v
 kernel/HonestNoFI_TheoremsWithoutAssumptions.v
+kernel/AbstractNoFI.v
 kernel/MasterSummary.v
 kernel/NoFreeInsight.v
-kernel/NoGo.v
-kernel/NoGoSensitivity.v
 kernel/ObserverDerivation.v
-kernel/OracleImpossibility.v
 kernel/PDISCOVERIntegration.v
 kernel/PartitionSeparation.v
 kernel/Persistence.v
@@ -77,34 +77,25 @@ kernel/ReceiptCore.v
 kernel/ReceiptIntegrity.v
 kernel/RevelationRequirement.v
 kernel/SemanticMuCost.v
-kernel/SemanticComplexityIsomorphism.v
 kernel/SimulationProof.v
 kernel/SpacetimeEmergence.v
 kernel/StateSpaceCounting.v
 kernel/Subsumption.v
 kernel/TOE.v
-kernel/TOEDecision.v
 kernel/TsirelsonLowerBound.v
-kernel/Tier1Proofs.v
+kernel/TsirelsonQuantumModel.v
 kernel/TsirelsonUniqueness.v
 kernel/TsirelsonUpperBound.v
 kernel/VMEncoding.v
 kernel/VMState.v
 kernel/VMStep.v
-kernel/ModularObservation.v
 kernel/Locality.v
 kernel/FiniteInformation.v
 kernel/LocalInfoLoss.v
-kernel/NoArbitrage.v
-modular_proofs/CornerstoneThiele.v
-modular_proofs/Encoding.v
-modular_proofs/EncodingBounds.v
-modular_proofs/Minsky.v
-modular_proofs/Simulation.v
-modular_proofs/TM_Basics.v
-modular_proofs/Thiele_Basics.v
-modular_proofs/ThieleInstance.v
-modular_proofs/TM_to_Minsky.v
+kernel/ThieleTraceProjection.v
+kernel/WitnessPreservationImpossibility.v
+kernel/BlindnessRepresentation.v
+
 nofi/Instance_Kernel.v
 nofi/MuChaitinTheory_Interface.v
 nofi/MuChaitinTheory_Theorem.v
@@ -116,178 +107,58 @@ physics/PreregSplit.v
 physics/TriangularLattice.v
 physics/WaveModel.v
 self_reference/SelfReference.v
+self_reference/InductiveTrust.v
+self_reference/NonInterference.v
+self_reference/MuThresholdDisobedience.v
+self_reference/NeuralSymbolicBridge.v
+self_reference/AdversarialChallenge.v
+self_reference/TilingChain.v
+self_reference/RefinementInvariant.v
+self_reference/SelfCertifyingDecider.v
 spacetime/Spacetime.v
 thiele_manifold/PhysicalConstants.v
 thiele_manifold/PhysicsIsomorphism.v
 thiele_manifold/ThieleManifold.v
 thiele_manifold/ThieleManifoldBridge.v
-thielemachine/coqproofs/AbstractLTS.v
-thielemachine/coqproofs/AlgebraicLaws.v
-thielemachine/coqproofs/AmortizedAnalysis.v
-thielemachine/coqproofs/BellArtifacts.v
-thielemachine/coqproofs/BellInequality.v
-thielemachine/coqproofs/BellCheck.v
-thielemachine/coqproofs/BellReceiptLocalBound.v
-thielemachine/coqproofs/BellReceiptLocalGeneral.v
-thielemachine/coqproofs/BellReceiptSemantics.v
-thielemachine/coqproofs/BellReceiptSoundness.v
-thielemachine/coqproofs/Bisimulation.v
-thielemachine/coqproofs/BlindSighted.v
-thielemachine/coqproofs/CompositionPrimitive.v
-thielemachine/coqproofs/ComputationIsomorphism.v
-thielemachine/coqproofs/Confluence.v
-thielemachine/coqproofs/CoreSemantics.v
-thielemachine/coqproofs/DiscoveryProof.v
-thielemachine/coqproofs/EfficientDiscovery.v
-thielemachine/coqproofs/Embedding_TM.v
-thielemachine/coqproofs/EncodingBridge.v
-thielemachine/coqproofs/GoldenVectors.v
-thielemachine/coqproofs/HardwareBridge.v
-thielemachine/coqproofs/ThieleVMOpcodes.v
-thielemachine/coqproofs/Hash256.v
-thielemachine/coqproofs/HyperThiele.v
-thielemachine/coqproofs/HyperThiele_Halting.v
-thielemachine/coqproofs/HyperThiele_Oracle.v
-thielemachine/coqproofs/InfoTheory.v
-thielemachine/coqproofs/LawCheck.v
-thielemachine/coqproofs/ListHelpers.v
-thielemachine/coqproofs/LogicIsomorphism.v
-thielemachine/coqproofs/MuAlignmentExample.v
-thielemachine/coqproofs/MuAlu.v
-thielemachine/coqproofs/NUSD.v
-thielemachine/coqproofs/Oracle.v
-thielemachine/coqproofs/OracleImpossibility.v
-thielemachine/coqproofs/PartitionDiscoveryIsomorphism.v
-thielemachine/coqproofs/PartitionLogic.v
-thielemachine/coqproofs/PhaseThree.v
-thielemachine/coqproofs/QHelpers.v
-thielemachine/coqproofs/QuantumAdmissibilityDeliverableB.v
-thielemachine/coqproofs/QuantumAdmissibilityTsirelson.v
-thielemachine/coqproofs/QuantumTheorems.v
-thielemachine/coqproofs/RepresentationTheorem.v
-thielemachine/coqproofs/SemanticBridge.v
-thielemachine/coqproofs/Separation.v
-thielemachine/coqproofs/Spaceland.v
-thielemachine/coqproofs/SpacelandComplete.v
-thielemachine/coqproofs/SpacelandCore.v
-thielemachine/coqproofs/SpacelandProved.v
-thielemachine/coqproofs/Spaceland_Simple.v
-thielemachine/coqproofs/SpecSound.v
-thielemachine/coqproofs/SpectralApproximation.v
-thielemachine/coqproofs/StructuredInstances.v
-thielemachine/coqproofs/Subsumption.v
-thielemachine/coqproofs/ThieleFoundations.v
-thielemachine/coqproofs/ThieleKernelCausality.v
-thielemachine/coqproofs/ThieleMachine.v
-thielemachine/coqproofs/ThieleMachineConcrete.v
-thielemachine/coqproofs/ThieleMachineConcretePack.v
-thielemachine/coqproofs/ThieleMachineModular.v
-thielemachine/coqproofs/ThieleMachineSig.v
-thielemachine/coqproofs/ThieleMachineUniv.v
-thielemachine/coqproofs/ThieleProc.v
-thielemachine/coqproofs/ThieleProofCarryingReality.v
-thielemachine/coqproofs/ThieleSpaceland.v
-thielemachine/coqproofs/ThieleUnificationDemo.v
-thielemachine/coqproofs/ThieleUnificationProtocol.v
-thielemachine/coqproofs/ThieleUnificationTensor.v
-thielemachine/coqproofs/TsirelsonBoundBridge.v
-thielemachine/coqproofs/WaveCheck.v
-thielemachine/verification/Admissibility.v
-thielemachine/verification/Deliverable_CHSHSeparation.v
-thielemachine/verification/Deliverable_MuEntropy.v
-thielemachine/verification/Deliverable_MuEntropyNBits.v
-thielemachine/verification/Deliverable_MuEntropyOneBit.v
-thielemachine/verification/Deliverable_NoSignaling.v
-thielemachine/verification/Deliverable_SignalingLowerBound.v
-thielemachine/verification/FullIsomorphism.v
-thielemachine/verification/ObservationInterface.v
-thielemachine/verification/PhysicsPillars.v
-thielemachine/verification/Prediction.v
-thielemachine/verification/PredictionNoFI.v
-thielemachine/verification/RandomnessNoFI.v
-thielemachine/verification/Symmetry.v
-thieleuniversal/coqproofs/CPU.v
-thieleuniversal/coqproofs/TM.v
-thieleuniversal/coqproofs/ThieleUniversal.v
-thieleuniversal/coqproofs/UTM_CoreLemmas.v
-thieleuniversal/coqproofs/UTM_Encode.v
-thieleuniversal/coqproofs/UTM_Program.v
-thieleuniversal/coqproofs/UTM_Rules.v
 kernel/PythonBisimulation.v
 kernel/HardwareBisimulation.v
 kernel/ThreeLayerIsomorphism.v
 kernel/NonCircularityAudit.v
-kernel/TestTripartite.v
 kernel/AlgebraicCoherence.v
-kernel/AlphaDerivation.v
-kernel/TsirelsonComputation.v
 kernel/TsirelsonGeneral.v
 kernel/Purification.v
 kernel/NoCloning.v
 kernel/Unitarity.v
 kernel/BornRule.v
-kernel/BornRuleFromSymmetry.v
-kernel/NoCloningFromMuMonotonicity.v
+kernel/BornRuleLinearity.v
 kernel/TsirelsonFromAlgebra.v
 
-kernel/AssumptionBundle.v
-kernel/Composition.v
-kernel/HardAssumptions.v
-kernel/HardMathFactsProven.v
-kernel/MinimalE.v
 kernel/MinorConstraints.v
-kernel/MuComplexity.v
 kernel/MuInitiality.v
-kernel/MuNecessity.v
 kernel/NPAMomentMatrix.v
 kernel/ProperSubsumption.v
 kernel/SemidefiniteProgramming.v
-kernel/TsirelsonDerivation.v
 kernel/ConstantUnification.v
-thieleuniversal/coqproofs/Axioms.v
-thieleuniversal/coqproofs/Impossibility.v
-thieleuniversal/coqproofs/Simulation.v
-thieleuniversal/coqproofs/UTMStaticCheck.v
-thieleuniversal/verification/BridgeCheckpoints.v
-thieleuniversal/verification/BridgeDefinitions.v
-thieleuniversal/verification/BridgeProof.v
-thieleuniversal/verification/ThieleUniversalBridge.v
-thieleuniversal/verification/ThieleUniversalBridge_Axiom_Tests.v
-thieleuniversal/verification/modular/Bridge_BridgeCore.v
 thermodynamic/LandauerDerived.v
 thermodynamic/ThermodynamicBridge.v
 tests/TestNecessity.v
 tests/verify_zero_admits.v
 tests/verify_nofi_load_bearing.v
-kernel/CausalSetAxioms.v
-kernel/POVMBridge.v
-kernel/NPMuCostBound.v
-kernel/ComplexityOracle.v
-kernel/ArrowOfTimeSynthesis.v
-kernel/ConstantDerivationStrength.v
 kernel/MuGravity.v
-kernel/MuGravity_Definitions.v
-kernel/CrossLayerManifest.v
-kernel/MuGravity_BridgeTheorems.v
-kernel/MuGravity_Emergence.v
 kernel/DiscreteTopology.v
 kernel/FourDSimplicialComplex.v
 kernel/DiscreteGaussBonnet.v
-kernel/L2Derivation.v
-kernel/MuGravity_ConstructiveBridges.v
 kernel/MetricFromMuCosts.v
+kernel/MatrixAlgebra4.v
 kernel/RiemannTensor4D.v
 kernel/EinsteinEquations4D.v
+kernel/CurvedTensorPipeline.v
+kernel/MetricForcing.v
 kernel/PNEWTopologyChange.v
 kernel/TopologyCurvatureBridge.v
 kernel/StressEnergyDynamics.v
 kernel/EinsteinEmergence.v
-kernel/GeodesicCompleteness.v
-kernel/InverseSquareLaw.v
-kernel/LorentzSignature.v
-kernel/PoissonEquation.v
 kernel/VerilogRTLCorrespondence.v
-kernel/DiscreteCalculus.v
 
 # Kami HW
 kami_hw/Compatibility.v
@@ -300,3 +171,24 @@ kami_hw/LogicEngineEquivalence.v
 kami_hw/CanonicalCPUProof.v
 kami_hw/KamiExtraction.v
 kami_hw/RTLCorrectnessInstantiation.v
+
+# ThieleMachine (process-category layer used by thiele_manifold)
+thielemachine/ThieleMachine.v
+thielemachine/ThieleProc.v
+kernel/ClausiusFromEntropyArea.v
+kernel/RaychaudhuriFluxBridge.v
+kernel/JacobsonBridgeComponents.v
+kernel/ThermoEinsteinBridge.v
+kernel/BekensteinCalibration.v
+kernel/DiscreteRaychaudhuri.v
+kernel/LorentzianTensorPipeline.v
+kernel/NoFIToEinstein.v
+kernel/InsightTaxonomy.v
+kernel/ShadowProjection.v
+kernel/ClassicalConservativity.v
+kernel/TuringClassicalEmbedding.v
+kernel/TuringStrictness.v
+kernel/OCamlExtractionBridge.v
+kernel/UniversalCertificationCost.v
+kernel/QuantitativeNoFI.v
+kernel/CHSHStatisticalBridge.v

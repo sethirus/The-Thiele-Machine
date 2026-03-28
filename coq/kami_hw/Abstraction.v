@@ -1,15 +1,15 @@
 (** Abstraction.v — Maps Kami hardware state to VMState.
 
     DESIGN: KamiSnapshot uses Coq [nat] for all values, matching VMState's
-    own nat-based word32 arithmetic. 32-bit bounds are enforced as preconditions.
+    own nat-based word64 arithmetic. 32-bit bounds are enforced as preconditions.
     This avoids cross-library word/nat conversion gaps and keeps all proofs in
     pure nat arithmetic.
 
     The Kami hardware module (extracted to Verilog) is argued to implement
-    [hw_step] in Bisimulation_Minimal.v by construction: the Kami rule bodies
+    [kami_step] in Abstraction.v by construction: the Kami rule bodies
     compute exactly the same nat operations as [vm_apply] under the abstraction.
 
-    All 32 instructions are covered:
+    All 40 instructions are covered:
     - Compute: LOAD_IMM, ADD, SUB, XFER, LOAD, STORE, JUMP, JNEZ, CALL, RET
     - XOR ALU: XOR_LOAD, XOR_ADD, XOR_SWAP, XOR_RANK
     - Partition/Logic: PNEW, PSPLIT, PMERGE, PDISCOVER, LASSERT, LJOIN,
@@ -17,6 +17,7 @@
     - Special: CHSH_TRIAL, ORACLE_HALTS, HALT
     - Phase 2/3B: CHECKPOINT, READ_PORT, WRITE_PORT, HEAP_LOAD, HEAP_STORE
     - Phase 4: CERTIFY (state-based certification)
+    - Phase 6: TENSOR_SET, TENSOR_GET (per-module tensor, software-managed)
 
     Coprocessor delegation model (LASSERT/LJOIN):
     The RTL hardware cannot embed a SAT/LRAT certificate checker in 32-bit
@@ -43,7 +44,7 @@ Require Import Kernel.VMStep.
 Import VMStep.VMStep.
 
 (** ORACLE_HALTS charges a fixed 1,000,000 mu penalty in hardware.
-    This matches ThieleTypes.ORACLE_HALTS_HW_COST and ThieleCPUCore.v line 1376.
+    This matches ThieleTypes.ORACLE_HALTS_HW_COST and ThieleCPUCore.v (ORACLE_HALTS rule).
     Defined here as a plain nat (no Kami word dependency). *)
 Definition ORACLE_HALTS_HW_COST : nat := 1000000.
 
@@ -114,7 +115,12 @@ Fixpoint filtermap {A B : Type} (f : A -> option B) (l : list A) : list B :=
     oldest module appears LAST in pg_modules, matching the cons-prepend
     behaviour of graph_add_module:
       graph_add_module g region [] = {pg_next_id := S(g.pg_next_id);
-                                       pg_modules := (g.pg_next_id, m) :: g.pg_modules}
+                                       pg_modules := (g.pg_next_id, m) :: g.pg_modules;
+                                       pg_next_morph_id := g.pg_next_morph_id;
+                                       pg_morphisms := g.pg_morphisms}
+
+    NOTE: Hardware does not store morphisms. They are maintained by software.
+    The snapshot always has empty morphism state (pg_next_morph_id := 1, pg_morphisms := []).
 
     This ordering invariant is what lets snap_pt_to_graph_pnew hold as a
     structural equality (not just observational equivalence). *)
@@ -124,10 +130,14 @@ Definition snap_pt_to_graph (next_id : nat) (sizes : nat -> nat) : PartitionGrap
       (fun i =>
         if Nat.eqb (sizes i) 0 then None
         else Some (i, {| module_region := List.seq 0 (sizes i);
-                          module_axioms := [] |}))
+                          module_axioms := [];
+                          module_mu_tensor := module_mu_tensor_default |}))
       (List.rev (List.seq 0 next_id))
   in
-  {| pg_next_id := next_id; pg_modules := modules |}.
+  {| pg_next_id := next_id;
+     pg_modules := modules;
+     pg_next_morph_id := 1;
+     pg_morphisms := [] |}.
 
 (** * Main abstraction: KamiSnapshot -> VMState.
     The partition graph is reconstructed from the hardware partition table.
@@ -153,7 +163,7 @@ Definition abs_phase1 (s : KamiSnapshot) : VMState :=
                         wc_diff_11 := snap_wc_diff_11 s |} ;
      vm_certified := snap_certified s |}.
 
-(** Full alias — all 32 instructions covered *)
+(** Full alias — all 40 instructions covered *)
 Definition abs_full := abs_phase1.
 
 (* ====================================================================
@@ -198,13 +208,13 @@ Definition kami_advance_default (hs : KamiSnapshot) (cost : nat) : KamiSnapshot 
      snap_wc_same_11   := snap_wc_same_11 hs;
      snap_wc_diff_11   := snap_wc_diff_11 hs |}.
 
-(** Write register [r mod 32] with value word32(v). *)
+(** Write register [r mod 32] with value word64(v). *)
 Definition kami_write_reg (hs : KamiSnapshot) (r v : nat) : nat -> nat :=
-  fun j => if Nat.eqb j (r mod 32) then word32 v else snap_regs hs j.
+  fun j => if Nat.eqb j (r mod 32) then word64 v else snap_regs hs j.
 
-(** Write memory[a mod MEM_SIZE] with value word32(v). *)
+(** Write memory[a mod MEM_SIZE] with value word64(v). *)
 Definition kami_write_mem (hs : KamiSnapshot) (a v : nat) : nat -> nat :=
-  fun j => if Nat.eqb j (a mod MEM_SIZE) then word32 v else snap_mem hs j.
+  fun j => if Nat.eqb j (a mod MEM_SIZE) then word64 v else snap_mem hs j.
 
 (** Computable hardware step function.  Each case mirrors the corresponding
     RTL rule body in ThieleCPUCore.v.
@@ -248,10 +258,10 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
       kami_advance_default hs cost
   | instr_pmerge _ _ cost =>
       kami_advance_default hs cost
-  | instr_lassert _ _ _ cost =>
-      kami_advance_default hs cost
+  | instr_lassert _ _ _ _ cost =>
+      kami_advance_default hs (S cost)
   | instr_ljoin _ _ cost =>
-      kami_advance_default hs cost
+      kami_advance_default hs (S cost)
   | instr_mdlacc _ cost =>
       {| snap_pc    := S (snap_pc hs);
          snap_mu    := snap_mu hs + cost;
@@ -401,7 +411,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
          snap_regs  := kami_write_reg hs dst
-                         (word32_sub v1 v2);  (* 2's complement wrap — matches vm_apply_unsafe *)
+                         (word64_sub v1 v2);  (* 2's complement wrap — matches vm_apply_unsafe *)
          snap_mem   := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
@@ -473,7 +483,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
      RET:  decrement sp first, then read ret_pc from new sp. *)
   | instr_call target cost =>
       let sp  := snap_regs hs kami_sp_reg in
-      let sp' := word32_add sp 1 in               (* INCREMENT — matches vm_apply_unsafe *)
+      let sp' := word64_add sp 1 in               (* INCREMENT — matches vm_apply_unsafe *)
       let ra  := S (snap_pc hs) in
       {| snap_pc    := target;
          snap_mu    := snap_mu hs + cost;
@@ -500,7 +510,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs |}
   | instr_ret cost =>
-      let sp' := word32_sub (snap_regs hs kami_sp_reg) 1 in  (* DECREMENT — matches vm_apply_unsafe *)
+      let sp' := word64_sub (snap_regs hs kami_sp_reg) 1 in  (* DECREMENT — matches vm_apply_unsafe *)
       let ra  := snap_mem hs sp' in  (* read from DECREMENTED sp *)
       {| snap_pc    := ra;
          snap_mu    := snap_mu hs + cost;
@@ -638,7 +648,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_mu    := snap_mu hs + cost;
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
-         snap_regs  := kami_write_reg hs dst (word32_popcount (snap_regs hs (src mod 32)));  (* popcount — matches vm_apply_unsafe *)
+         snap_regs  := kami_write_reg hs dst (word64_popcount (snap_regs hs (src mod 32)));  (* popcount — matches vm_apply_unsafe *)
          snap_mem   := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
@@ -657,12 +667,12 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs |}
   | instr_emit _ _ cost =>
-      kami_advance_default hs cost
+      kami_advance_default hs (S cost)
   | instr_reveal module0 bits _ cost =>
       (* REVEAL: tensor_idx = module0 mod 16, delta = bits — matches advance_state_reveal in vm_apply_unsafe *)
       let k := module0 mod 16 in
       {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + cost;
+         snap_mu    := snap_mu hs + S cost;
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
          snap_regs  := snap_regs hs;
@@ -719,7 +729,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
       kami_advance_default hs cost
   | instr_read_port dst _ v _ cost =>
       {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + cost;
+         snap_mu    := snap_mu hs + S cost;
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
          snap_regs  := kami_write_reg hs dst v;
@@ -819,7 +829,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
          snap_regs  := kami_write_reg hs dst
-                         (word32_and (snap_regs hs (rs1 mod 32)) (snap_regs hs (rs2 mod 32)));
+                         (word64_and (snap_regs hs (rs1 mod 32)) (snap_regs hs (rs2 mod 32)));
          snap_mem   := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
@@ -843,7 +853,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
          snap_regs  := kami_write_reg hs dst
-                         (word32_or (snap_regs hs (rs1 mod 32)) (snap_regs hs (rs2 mod 32)));
+                         (word64_or (snap_regs hs (rs1 mod 32)) (snap_regs hs (rs2 mod 32)));
          snap_mem   := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
@@ -867,7 +877,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
          snap_regs  := kami_write_reg hs dst
-                         (word32_shl (snap_regs hs (rs1 mod 32)) (snap_regs hs (rs2 mod 32)));
+                         (word64_shl (snap_regs hs (rs1 mod 32)) (snap_regs hs (rs2 mod 32)));
          snap_mem   := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
@@ -891,7 +901,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
          snap_regs  := kami_write_reg hs dst
-                         (word32_shr (snap_regs hs (rs1 mod 32)) (snap_regs hs (rs2 mod 32)));
+                         (word64_shr (snap_regs hs (rs1 mod 32)) (snap_regs hs (rs2 mod 32)));
          snap_mem   := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
@@ -915,7 +925,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
          snap_regs  := kami_write_reg hs dst
-                         (word32_mul (snap_regs hs (rs1 mod 32)) (snap_regs hs (rs2 mod 32)));
+                         (word64_mul (snap_regs hs (rs1 mod 32)) (snap_regs hs (rs2 mod 32)));
          snap_mem   := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
@@ -938,7 +948,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_mu    := snap_mu hs + cost;
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
-         snap_regs  := kami_write_reg hs dst (word32_shl imm 8);
+         snap_regs  := kami_write_reg hs dst (word64_shl imm 8);
          snap_mem   := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
@@ -956,16 +966,69 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs |}
+  (* TENSOR_SET: Updates per-module tensor entry at (i,j).
+     The per-module tensor is managed by the software driver (like axioms);
+     snap_pt_to_graph reconstructs modules with module_mu_tensor_default.
+     Hardware just advances PC and charges cost, like PDISCOVER. *)
+  | instr_tensor_set _ _ _ _ cost =>
+      kami_advance_default hs cost
+  (* TENSOR_GET: Reads per-module tensor entry at (i,j) into register dst.
+     Per-module tensor data is not stored in KamiSnapshot hardware registers;
+     snap_pt_to_graph reconstructs all modules with module_mu_tensor_default
+     (all zeros), so the hardware read returns 0. *)
+  | instr_tensor_get dst _ _ _ cost =>
+      {| snap_pc    := S (snap_pc hs);
+         snap_mu    := snap_mu hs + cost;
+         snap_err   := snap_err hs;
+         snap_halted := snap_halted hs;
+         snap_regs  := kami_write_reg hs dst 0;
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs |}
+  (* Phase 7 categorical instructions - semantic layer only, no HW representation *)
+  | instr_morph _ _ _ _ cost =>
+      kami_advance_default hs cost
+  | instr_compose _ _ _ cost =>
+      kami_advance_default hs cost
+  | instr_morph_id _ _ cost =>
+      kami_advance_default hs cost
+  | instr_morph_delete _ cost =>
+      kami_advance_default hs cost
+  | instr_morph_assert _ _ _ cost =>
+      kami_advance_default hs (S cost)  (* cert-setter *)
+  | instr_morph_tensor _ _ _ cost =>
+      kami_advance_default hs cost
+  | instr_morph_get _ _ _ cost =>
+      kami_advance_default hs cost
   end.
 
 (** kami_instruction_cost: the cost that the hardware charges for each opcode.
     Matches instruction_cost for all opcodes EXCEPT:
     - ORACLE_HALTS: charges a fixed ORACLE_HALTS_HW_COST (1,000,000)
-    - CERTIFY: charges S delta_mu (structurally positive, matching step_certify) *)
+    - CERTIFY: charges S delta_mu (structurally positive, matching step_certify)
+    - LASSERT: hardware charges S cost only (formula string not available at
+      decode time). Software (instruction_cost) charges String.length formula + S cost.
+      The delta is String.length formula — the information-theoretic gap between
+      hardware and software layers. *)
 Definition kami_instruction_cost (i : vm_instruction) : nat :=
   match i with
   | instr_oracle_halts _ _ => ORACLE_HALTS_HW_COST
   | instr_certify dm => S dm
+  | instr_lassert _ _ _ _ cost => S cost
   | other => instruction_cost other
   end.
 
@@ -991,7 +1054,7 @@ Lemma kami_step_mu_cost : forall (hs : KamiSnapshot) (i : vm_instruction),
     snap_mu (kami_step hs i) = snap_mu hs + kami_instruction_cost i.
 Proof.
   intros hs i. destruct i; simpl; try reflexivity.
-  (* CHSH_TRIAL: nested match on settings (a,b) and same/diff — all arms have same mu *)
+  (* CHSH_TRIAL: nested match on settings (x,y) and output same/diff — all arms have same mu *)
   repeat match goal with
     | |- context [match ?x with _ => _ end] =>
         destruct x; simpl; try reflexivity
@@ -1000,23 +1063,28 @@ Qed.
 
 (** For non-ORACLE_HALTS, non-CERTIFY instructions, kami cost equals vm cost. *)
 (* INQUISITOR NOTE: definitional helper for relating kami and vm cost models *)
+(** For non-ORACLE_HALTS, non-CERTIFY, non-LASSERT instructions,
+    kami cost equals vm cost. LASSERT is excluded because hardware charges
+    only S cost while software charges String.length formula + S cost. *)
 Lemma kami_cost_eq_instruction_cost : forall i,
     is_oracle_halts i = false ->
     is_certify i = false ->
+    (match i with instr_lassert _ _ _ _ _ => False | _ => True end) ->
     kami_instruction_cost i = instruction_cost i.
 Proof.
-  intros i H Hc. destruct i; simpl in *; try reflexivity; discriminate.
+  intros i H Hc Hl. destruct i; simpl in *; try reflexivity; try discriminate; contradiction.
 Qed.
 
-(** For ALL instructions with cost <= ORACLE_HALTS_HW_COST,
-    hardware cost >= software cost. In practice, the 8-bit cost field
-    limits user-specified costs to 0-255, well below 1,000,000. *)
-(* INQUISITOR NOTE: key conservative refinement property *)
+(** For ORACLE_HALTS and CERTIFY, hardware cost >= software cost (conservative).
+    For LASSERT, hardware cost (S cost) <= software cost (len + S cost) —
+    hardware undercharges by String.length formula. This is the known gap. *)
+(* INQUISITOR NOTE: key conservative refinement property — updated for LASSERT gap *)
 Lemma kami_cost_ge_instruction_cost : forall i,
+    (match i with instr_lassert _ _ _ _ _ => False | _ => True end) ->
     instruction_cost i <= ORACLE_HALTS_HW_COST ->
     kami_instruction_cost i >= instruction_cost i.
 Proof.
-  intros i Hbound. destruct i; simpl in *; lia.
+  intros i Hl Hbound. destruct i; simpl in *; try lia; try contradiction.
 Qed.
 
 (** * Execution preconditions *)
@@ -1091,12 +1159,14 @@ Lemma filter_map_pt_below_unaffected :
                   then None
                   else Some (i, {| module_region := List.seq 0
                                      (if Nat.eqb i next_id then region_size else sizes i);
-                                   module_axioms := [] |}))
+                                   module_axioms := [];
+                                   module_mu_tensor := module_mu_tensor_default |}))
         (List.rev (List.seq 0 next_id)) =
       filtermap
         (fun i => if Nat.eqb (sizes i) 0 then None
                   else Some (i, {| module_region := List.seq 0 (sizes i);
-                                   module_axioms := [] |}))
+                                   module_axioms := [];
+                                   module_mu_tensor := module_mu_tensor_default |}))
         (List.rev (List.seq 0 next_id)).
 Proof.
   intros next_id region_size sizes.
@@ -1106,10 +1176,12 @@ Proof.
                then None
                else Some (i, {| module_region := List.seq 0
                                    (if Nat.eqb i next_id then region_size else sizes i);
-                                 module_axioms := [] |})) i =
+                                 module_axioms := [];
+                                 module_mu_tensor := module_mu_tensor_default |})) i =
      (fun i => if Nat.eqb (sizes i) 0 then None
                else Some (i, {| module_region := List.seq 0 (sizes i);
-                                 module_axioms := [] |})) i).
+                                 module_axioms := [];
+                                 module_mu_tensor := module_mu_tensor_default |})) i).
   { intros i Hi.
     apply in_rev in Hi.
     apply in_seq in Hi.
@@ -1123,7 +1195,8 @@ Proof.
     rewrite (Hext x Hx).
     destruct ((fun i => if Nat.eqb (sizes i) 0 then None
                         else Some (i, {| module_region := List.seq 0 (sizes i);
-                                         module_axioms := [] |})) x) eqn:Hfx.
+                                         module_axioms := [];
+                                         module_mu_tensor := module_mu_tensor_default |})) x) eqn:Hfx.
     + f_equal. apply IHxs. intros i Hi. apply Hext. right. exact Hi.
     + apply IHxs. intros i Hi. apply Hext. right. exact Hi.
 Qed.
@@ -1149,7 +1222,8 @@ Lemma filtermap_all_ids_below :
       all_ids_below
         (filtermap (fun i => if Nat.eqb (sizes i) 0 then None
                              else Some (i, {| module_region := List.seq 0 (sizes i);
-                                              module_axioms := [] |})) l)
+                                              module_axioms := [];
+                                              module_mu_tensor := module_mu_tensor_default |})) l)
         bound.
 Proof.
   intros bound sizes l Hlt.
@@ -1167,6 +1241,7 @@ Theorem snap_pt_to_graph_wf : forall (next_id : nat) (sizes : nat -> nat),
 Proof.
   intros next_id sizes.
   unfold snap_pt_to_graph, well_formed_graph. simpl.
+  split; [|split; [exact I|exact I]].
   apply filtermap_all_ids_below.
   intros i Hi.
   apply in_rev in Hi.
@@ -1198,25 +1273,25 @@ Proof.
   assert (Hrsz_neq : Nat.eqb region_size 0 = false) by (apply Nat.eqb_neq; lia).
   (* normalize_module applied to a seq-region is the identity *)
   assert (Hnorm : normalize_module {| module_region := List.seq 0 region_size;
-                                       module_axioms := [] |} =
-                  {| module_region := List.seq 0 region_size; module_axioms := [] |}).
+                                       module_axioms := [];
+                                       module_mu_tensor := module_mu_tensor_default |} =
+                  {| module_region := List.seq 0 region_size;
+                     module_axioms := [];
+                     module_mu_tensor := module_mu_tensor_default |}).
   { unfold normalize_module. simpl. rewrite normalize_seq_nodups. reflexivity. }
   (* Rewrite rev_seq_succ FIRST, before any cbn that could expand seq *)
-  unfold snap_pt_to_graph, graph_add_module.
+  unfold snap_pt_to_graph, graph_add_module, mk_module_state.
   rewrite Hnorm.
   rewrite rev_seq_succ.
   rewrite filter_map_app_dist.
   (* Reduce filtermap f [next_id], projections and fst pair *)
-  cbn [filtermap fst snd pg_next_id pg_modules List.app].
+  cbn [filtermap fst snd pg_next_id pg_modules pg_next_morph_id pg_morphisms List.app].
   rewrite Nat.eqb_refl, Hrsz_neq.
   cbn [filtermap List.app].
-  (* Now goal: {pg_next_id:= S next_id ; pg_modules := (next_id,{|...|}) :: fm_f} =
-               {pg_next_id:= S next_id ; pg_modules := (next_id,{|...|}) :: fm_g}
-     where fm_f uses the conditional on next_id, fm_g uses sizes directly *)
-  apply f_equal.  (* reduces to pg_modules field equality *)
-  apply f_equal2. (* or manually f_equal on the cons *)
-  - reflexivity.  (* head: (next_id, ...) = (next_id, ...) *)
-  - apply filter_map_pt_below_unaffected.
+  (* Now we need to show two PartitionGraphs with 4 fields are equal *)
+  f_equal.  (* pg_modules equality suffices since all other fields match *)
+  f_equal.  (* cons equality: head matches, need tail *)
+  apply filter_map_pt_below_unaffected.
 Qed.
 
 (** * snap_pt_to_graph_pnew_pg_next_id:
@@ -1349,7 +1424,7 @@ Definition mk_snap_vmstate (s : KamiSnapshot) : VMState :=
 
 Lemma snapshot_reg_write : forall (s : KamiSnapshot) (dst v : nat),
     dst < 32 ->
-    snapshot_regs_to_list (fun j => if Nat.eqb j dst then word32 v else snap_regs s j) =
+    snapshot_regs_to_list (fun j => if Nat.eqb j dst then word64 v else snap_regs s j) =
     write_reg (abs_phase1 s) dst v.
 Proof.
   intros s dst v Hdst.
@@ -1360,7 +1435,7 @@ Qed.
 
 Lemma snapshot_mem_write : forall (s : KamiSnapshot) (addr v : nat),
     addr < MEM_SIZE ->
-    snapshot_mem_to_list (fun j => if Nat.eqb j addr then word32 v else snap_mem s j) =
+    snapshot_mem_to_list (fun j => if Nat.eqb j addr then word64 v else snap_mem s j) =
     write_mem (abs_phase1 s) addr v.
 Proof.
   intros s addr v Haddr.
@@ -1484,7 +1559,7 @@ Qed.
 Theorem kami_refines_vm_step :
     forall (s : KamiSnapshot) (dst v : nat),
       dst < 32 ->
-      snapshot_regs_to_list (fun j => if Nat.eqb j dst then word32 v else snap_regs s j) =
+      snapshot_regs_to_list (fun j => if Nat.eqb j dst then word64 v else snap_regs s j) =
       write_reg (abs_phase1 s) dst v.
 Proof.
   intros s dst v Hdst.

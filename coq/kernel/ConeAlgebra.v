@@ -1,12 +1,52 @@
 (** =========================================================================
-    CONE ALGEBRA: Composition, Commutation, and Causal Structure
+    ConeAlgebra: Composition, Commutation, and Causal Structure
     =========================================================================
-    
-    GOAL: Prove causal cones satisfy algebraic laws (monoid, lattice structure)
-    
-    WHY: If causal influence has algebraic structure, it's not just "paths in a graph"
-    - it's a MONOIDAL CATEGORY with tensor products and coherence laws.
-    This is where "partition-native" becomes "category-native".
+
+    WHY THIS FILE EXISTS:
+    The causal cone of a VM execution trace is the set of all module IDs
+    targeted by instructions in that trace. This file proves that causal
+    cones satisfy the algebraic laws of a partial commutative monoid with
+    a causal-distance metric. These algebraic properties are not imposed
+    by fiat -- they are DERIVED from the definition of causal_cone in
+    KernelPhysics.v and the list-append structure of traces.
+
+    THE CORE CLAIM:
+    Causal cones form a monoid under trace concatenation:
+      cone(t1 ++ t2) = cone(t1) U cone(t2)   (cone_composition)
+      cone([]) = empty                         (cone_empty)
+      associativity inherited from list append  (cone_associative)
+    with partial commutativity for independent traces and a well-founded
+    causal-distance metric.
+
+    KEY THEOREMS:
+    - cone_composition: cone distributes over trace concatenation
+    - cone_monotonic: extending a trace can only grow the cone
+    - cone_idempotent: cone(t ++ t) = cone(t)
+    - cone_swap_disjoint: disjoint instructions commute (cone-wise)
+    - cone_empty: empty trace is the monoid identity
+    - cone_associative: trace concatenation is associative (cone-wise)
+    - independent_traces_commute: causally independent traces commute
+    - target_has_depth: every module in the cone has finite causal
+      distance (well-foundedness)
+    - min_steps_to_target_triangle: causal distance satisfies a
+      triangle-inequality bound under concatenation
+
+    PHYSICAL INTERPRETATION:
+    The monoid structure mirrors relativistic causality: causal influence
+    composes like future-light-cone union. Monotonicity is the "no
+    retroactive causality" principle (the past light cone cannot shrink).
+    Commutativity for independent traces is the analogue of spacelike-
+    separated events being order-independent. The causal-distance metric
+    is the discrete analogue of proper time between events.
+
+    FALSIFICATION:
+    Find a trace t and module x where x is in cone(t1 ++ t2) but not in
+    cone(t1) U cone(t2). Impossible -- cone is defined as the flat_map
+    of instr_targets over the trace, and flat_map distributes over
+    append. Alternatively, find a trace extension that shrinks the cone.
+    Impossible -- union is monotonic.
+
+    STATUS: Fully proven, zero Admitted.
     =========================================================================*)
 
 (* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)

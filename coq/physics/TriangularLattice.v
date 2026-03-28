@@ -2,13 +2,32 @@ From Coq Require Import List Arith.PeanoNat Lia Bool.
 Import ListNotations.
 
 From Kernel Require Import VMState MuGravity.
-From ModularProofs Require Import EncodingBounds.
 
 (** * Finite triangular lattice encoding for partition graphs.
 
     This provides a concrete, bounded graph class that we can use as the
     first testbed for geometric calibration proofs.
 *)
+
+(** Local copy of div_mul_add_small (was in modular_proofs/EncodingBounds.v). *)
+Lemma div_mul_add_small :
+  forall k a c,
+    0 < k ->
+    c < k ->
+    ((a * k + c) / k = a) /\
+    ((a * k + c) mod k = c).
+Proof.
+  intros k a c Hk Hc.
+  split.
+  - assert (Hk' : k <> 0) by lia.
+    rewrite (Nat.div_add_l a k c) by exact Hk'.
+    rewrite (Nat.div_small c k) by exact Hc.
+    lia.
+  - rewrite Nat.add_comm.
+    rewrite Nat.Div0.mod_add.
+    rewrite Nat.mod_small by exact Hc.
+    reflexivity.
+Qed.
 
 Definition lattice_size (n : nat) : nat := n * n.
 
@@ -40,8 +59,7 @@ Definition module_region_for (n id : nat) : list nat :=
   map (edge_id n id) (neighbors_of n id).
 
 Definition module_state_for (n id : nat) : ModuleState :=
-  {| module_region := module_region_for n id;
-     module_axioms := [] |}.
+  mk_module_state (module_region_for n id) [].
 
 Definition lattice_ids (n : nat) : list nat := seq 0 (lattice_size n).
 
@@ -50,7 +68,9 @@ Definition lattice_modules (n : nat) : list (ModuleID * ModuleState) :=
 
 Definition lattice_graph (n : nat) : PartitionGraph :=
   {| pg_next_id := lattice_size n;
-     pg_modules := lattice_modules n |}.
+     pg_modules := lattice_modules n;
+     pg_next_morph_id := 1;
+     pg_morphisms := [] |}.
 
 Definition lattice_vm_state (n : nat) : VMState :=
   {| vm_graph := lattice_graph n;
@@ -319,12 +339,18 @@ Lemma lattice_graph_well_formed : forall n,
   well_formed_graph (lattice_graph n).
 Proof.
   intro n.
-  unfold well_formed_graph, lattice_graph, lattice_modules, lattice_ids.
-  apply all_ids_below_map.
-  intros id Hin.
-  apply in_seq in Hin.
-  destruct Hin as [_ Hlt].
-  exact Hlt.
+  unfold well_formed_graph, lattice_graph, lattice_modules, lattice_ids. simpl.
+  split; [|split].
+  - (* all_ids_below *)
+    apply all_ids_below_map.
+    intros id Hin.
+    apply in_seq in Hin.
+    destruct Hin as [_ Hlt].
+    exact Hlt.
+  - (* all_morph_ids_below: empty morphisms *)
+    exact I.
+  - (* all_morph_endpoints_valid: empty morphisms *)
+    exact I.
 Qed.
 
 (** [graph_lookup_modules_map]: formal specification. *)

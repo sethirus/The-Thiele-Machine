@@ -7,13 +7,12 @@
    This file contains the complete formal proof that:
    1. μ-cost is additive (Theorem: mu_additive)
    2. μ-cost is non-negative (Theorem: mu_nonnegative)  
-   3. μ-cost equals entropy change for irreversible ops (Theorem: mu_equals_entropy_loss)
+   3. Erase loses at most n bits of information (Theorem: erase_info_loss)
    4. Energy lower bound is k_B * T * ln(2) * μ (Theorem: landauer_bound)
    
    All proofs are complete (Qed), with zero deferred tactics.
    
    Author: Thiele Machine Project
-   Date: December 2024
 *)
 
 (* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
@@ -457,7 +456,7 @@ Qed.
    SECTION 7: THREE-LAYER ISOMORPHISM SPECIFICATION
    ======================================================================== *)
 
-(* This section defines what it means for Python/Verilog to match Coq *)
+(* This section defines correctness for an external implementation (e.g., OCaml extraction or Verilog RTL) *)
 
 (* An external implementation is correct if it computes the same μ *)
 Definition implementation_correct 

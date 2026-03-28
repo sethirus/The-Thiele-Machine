@@ -1,13 +1,75 @@
-DIGEST 68fbbb4743de900b25a371f9b7e44a5f
+DIGEST 49d84a23858fc260e91aeded38192a2e
 FKernel.TOE
-R2061:2071 Kernel.MuCostModel <> <> lib
-R2102:2108 Kernel.Closure <> <> lib
-R2138:2141 Kernel.NoGo <> <> lib
-prf 2749:2770 <> KernelTOE_FinalOutcome
-R2797:2800 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2776:2796 Kernel.Closure <> KernelMaximalClosureP def
-R2801:2818 Kernel.NoGo <> KernelNoGoForTOE_P def
-R2893:2912 Kernel.Closure <> KernelMaximalClosure thm
-R2893:2912 Kernel.Closure <> KernelMaximalClosure thm
-R2973:2988 Kernel.NoGo <> KernelNoGoForTOE thm
-R2973:2988 Kernel.NoGo <> KernelNoGoForTOE thm
+R1803:1813 Kernel.MuCostModel <> <> lib
+R1844:1850 Kernel.Closure <> <> lib
+R1880:1896 Kernel.BornRuleLinearity <> <> lib
+R1926:1946 Kernel.TsirelsonQuantumModel <> <> lib
+R1976:1991 Kernel.TsirelsonGeneral <> <> lib
+R2021:2041 Kernel.MuLedgerQuantumBridge <> <> lib
+R2068:2072 Coq.Reals.Reals <> <> lib
+prf 2435:2456 <> KernelTOE_FinalOutcome
+R2462:2482 Kernel.Closure <> KernelMaximalClosureP def
+R2500:2519 Kernel.Closure <> KernelMaximalClosure thm
+R2500:2519 Kernel.Closure <> KernelMaximalClosure thm
+prf 2809:2833 <> KernelTOE_CoreProofWiring
+R2861:2867 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2840:2860 Kernel.Closure <> KernelMaximalClosureP def
+R2868:2868 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2995:3003 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3332:3332 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2881:2895 Kernel.BornRuleLinearity <> ProbabilityRule def
+binder 2877:2877 <> P:1
+R2925:2934 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2908:2922 Kernel.BornRuleLinearity <> valid_born_rule def
+R2924:2924 Kernel.TOE <> P:1 var
+R2947:2947 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2943:2943 <> z:2
+R2967:2970 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2954:2957 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R2959:2962 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R2958:2958 Kernel.TOE <> z:2 var
+R2958:2958 Kernel.TOE <> z:2 var
+R2974:2976 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2971:2971 Kernel.TOE <> P:1 var
+R2973:2973 Kernel.TOE <> z:2 var
+R2977:2992 Kernel.BornRuleLinearity <> born_probability def
+R2994:2994 Kernel.TOE <> z:2 var
+binder 3011:3014 <> fuel:3
+binder 3016:3020 <> trace:4
+binder 3022:3027 <> s_init:5
+R3086:3098 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3039:3067 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent def
+R3069:3072 Kernel.TOE <> fuel:3 var
+R3074:3078 Kernel.TOE <> trace:4 var
+R3080:3085 Kernel.TOE <> s_init:5 var
+R3136:3145 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3099:3117 Kernel.TsirelsonQuantumModel <> trace_quantum_model def
+R3119:3122 Kernel.TOE <> fuel:3 var
+R3124:3128 Kernel.TOE <> trace:4 var
+R3130:3135 Kernel.TOE <> s_init:5 var
+R3320:3323 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R3147:3150 Coq.Reals.Rbasic_fun <> Rabs def
+R3153:3156 Kernel.TsirelsonGeneral <> CHSH def
+R3171:3179 Kernel.MuLedgerQuantumBridge <> trace_e00 def
+R3181:3184 Kernel.TOE <> fuel:3 var
+R3186:3190 Kernel.TOE <> trace:4 var
+R3192:3197 Kernel.TOE <> s_init:5 var
+R3213:3221 Kernel.MuLedgerQuantumBridge <> trace_e01 def
+R3223:3226 Kernel.TOE <> fuel:3 var
+R3228:3232 Kernel.TOE <> trace:4 var
+R3234:3239 Kernel.TOE <> s_init:5 var
+R3255:3263 Kernel.MuLedgerQuantumBridge <> trace_e10 def
+R3265:3268 Kernel.TOE <> fuel:3 var
+R3270:3274 Kernel.TOE <> trace:4 var
+R3276:3281 Kernel.TOE <> s_init:5 var
+R3291:3299 Kernel.MuLedgerQuantumBridge <> trace_e11 def
+R3301:3304 Kernel.TOE <> fuel:3 var
+R3306:3310 Kernel.TOE <> trace:4 var
+R3312:3317 Kernel.TOE <> s_init:5 var
+R3324:3328 Kernel.TsirelsonGeneral <> sqrt8 def
+R3363:3384 Kernel.TOE <> KernelTOE_FinalOutcome thm
+R3363:3384 Kernel.TOE <> KernelTOE_FinalOutcome thm
+R3445:3460 Kernel.BornRuleLinearity <> born_rule_unique thm
+R3445:3460 Kernel.BornRuleLinearity <> born_rule_unique thm
+R3533:3569 Kernel.TsirelsonQuantumModel <> trace_quantum_model_connection_closed thm
+R3533:3569 Kernel.TsirelsonQuantumModel <> trace_quantum_model_connection_closed thm

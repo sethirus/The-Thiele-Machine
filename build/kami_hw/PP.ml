@@ -230,7 +230,7 @@ let toBRegModuleDCL (bml: bModule list) = List.map (fun bm -> toBRegModuleDC bm)
 
 let rec vectorToList (vec: 'a t0) =
   match vec with
-  | Nil1 -> []
+  | Nil -> []
   | Cons (e, _, v) -> e :: (vectorToList v)
 
 let rec collectStrK (k: kind) =
@@ -405,7 +405,7 @@ and ppConstStruct (stl: (kind attribute, constT) ilist) =
      ^ ppComma ^ ppDelim ^ ppConstStruct stl'
 and ppConstVecT (v: constT t0) =
   match v with
-  | Nil1 -> ""
+  | Nil -> ""
   | Cons (c, _, tv) -> ppConst c ^ ppComma ^ ppDelim ^ ppConstVecT tv
 
 let rec ppBExpr (e: bExpr) =
@@ -552,8 +552,8 @@ and ppBExprStruct (stl: bExpr attribute list) =
      ps ppComma; print_space (); ppBExprStruct stl'
 and ppBExprVecT (v: bExpr t0) =
   match v with
-  | Nil1 -> ()
-  | Cons (e, _, Nil1) -> ppBExpr e
+  | Nil -> ()
+  | Cons (e, _, Nil) -> ppBExpr e
   | Cons (e, _, tv) -> ppBExpr e; ps ppComma; print_space (); ppBExprVecT tv
 
 let rec ppBExprs (el: bExpr list) =

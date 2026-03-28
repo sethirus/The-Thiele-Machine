@@ -11,17 +11,17 @@
     THE CORE CLAIM:
     If a trace achieves supra-certification (cert CSR becomes nonzero), then
     there exists a cert-setting instruction whose μ-cost bounds the certified
-    payload size. Main theorem: supra_cert_implies_mu_bounds_cert_payload (line 107).
+    payload size. Main theorem: supra_cert_implies_mu_bounds_cert_payload.
 
     WHAT THIS PROVES:
-    - cert_payload_size (line 46): Syntactic measure of certification payload
+    - cert_payload_size: Syntactic measure of certification payload
       (REVEAL bits, EMIT string length, LJOIN certificate sizes, LASSERT formula length)
-    - supra_cert_implies_mu_info_nat_lower_bound (line 81): Certification requires
+    - supra_cert_implies_mu_info_nat_lower_bound: Certification requires
       paying μ-cost ≥ instruction_cost of cert-setter
-    - supra_cert_implies_mu_bounds_cert_payload (line 107): Under pricing policy
+    - supra_cert_implies_mu_bounds_cert_payload: Under pricing policy
       (cost ≥ payload size), μ-information ≥ certified payload size
 
-    PRICING POLICY (cert_priced, line 60):
+    PRICING POLICY (cert_priced):
     I assume: instruction_cost ≥ cert_payload_size for cert-setters. This is
     a POLICY, not derived. But given this policy, the bound follows from
     μ-monotonicity (proven in MuNoFreeInsightQuantitative.v).
@@ -36,7 +36,7 @@
     Find a trace that achieves supra-certification (nonzero cert CSR) starting
     from cert=0, but has μ_final - μ_initial < cert_payload_size of the
     cert-setter. This would violate supra_cert_implies_mu_bounds_cert_payload
-    (line 107) and break the μ-accounting.
+    and break the μ-accounting.
 
     Or show that cert-setting instructions in real VMs (database commits,
     cryptographic signatures, blockchain finality) don't have energy cost
@@ -49,11 +49,9 @@
 From Coq Require Import List Lia Arith.PeanoNat Strings.String.
 Import ListNotations.
 
-Require Import VMState.
-Require Import VMStep.
-Require Import MuInformation.
-Require Import MuNoFreeInsightQuantitative.
-Require Import RevelationRequirement.
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import MuInformation MuNoFreeInsightQuantitative.
+From Kernel Require Import RevelationRequirement.
 
 Module MuChaitin.
 
@@ -88,8 +86,8 @@ Definition cert_payload_size (i : vm_instruction) : nat :=
   match i with
   | instr_reveal _ bits _ _ => bits
   | instr_emit _ payload _ => String.length payload
-  | instr_ljoin c1 c2 _ => String.length c1 + String.length c2
-  | instr_lassert _ formula _ _ => String.length formula
+  | instr_ljoin _ _ _ => 0  (* cert size not statically known — address in memory *)
+  | instr_lassert _ _ _ flen _ => flen
   | instr_certify delta_mu => delta_mu
   | instr_and _ _ _ _ => 0
   | instr_or _ _ _ _ => 0

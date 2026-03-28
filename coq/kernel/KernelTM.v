@@ -17,7 +17,7 @@
     H_ClaimTapeIsZero is hypercomputational - it zeros the tape but should cost
     μ-bits (though this file doesn't track μ-cost in step_tm, that's in Kernel.v).
 
-    THE TRIVIAL THEOREM (tm_is_turing_complete, line 52):
+    THE TRIVIAL THEOREM (tm_is_turing_complete):
     Proves that running a TuringMachine for its specified steps produces its
     final state. This is tautological by construction - it just says the semantics
     is well-defined.
@@ -39,7 +39,7 @@
 From Coq Require Import List Bool Arith.PeanoNat.
 Import ListNotations.
 
-Require Import Kernel.
+From Kernel Require Import Kernel.
 
 Definition fetch (prog : program) (st : state) : instruction :=
   match nth_error prog st.(tm_state) with

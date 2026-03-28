@@ -127,7 +127,7 @@ def _assert_receipt_matches_files(receipt: dict, files: list[Path]) -> None:
         )
 
 
-def cli_create_receipt(files, output_path, metadata=None):
+def cli_create_receipt(files, output_path, metadata=...):
     """Create a receipt using the CLI tool."""
     _require_receipt_tooling()
     cmd = [
@@ -142,7 +142,7 @@ def cli_create_receipt(files, output_path, metadata=None):
     cmd.extend(["--output", str(output_path)])
 
     # Add metadata if provided
-    if metadata:
+    if metadata is not ...:
         try:
             cmd.extend(["--metadata", json.dumps(metadata)])
         except (TypeError, ValueError):

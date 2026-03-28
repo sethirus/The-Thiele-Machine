@@ -54,8 +54,10 @@
     (contradicting Cirel'son 1980 and 40+ years of experiments).
 
     CONNECTION TO TSIRELSON BOUND:
-    TsirelsonDerivation.v proves max CHSH subject to Γ ⪰ 0 equals 2√2.
-    This file constructs Γ; that file solves the optimization problem.
+    TsirelsonDerivation.v (archived, superseded by TsirelsonFromAlgebra.v)
+    proved max CHSH subject to Γ ⪰ 0 equals 2√2.
+    This file constructs Γ; TsirelsonFromAlgebra.v solves the optimization
+    problem non-circularly.
 
     ========================================================================= *)
 
@@ -185,7 +187,7 @@ Definition op_index (op : NPAOperator) : nat :=
 
     BOUNDS:
     Since a, b ∈ {-1,+1}, we have |a·b| ≤ 1, so |E_xy| ≤ 1 for all x,y. This is
-    proven in MinimalE.v (minimal_normalized_E_bound). Any correlation exceeding
+    proven in MinimalE.v (archived) (minimal_normalized_E_bound). Any correlation exceeding
     ±1 would violate probability theory (not quantum vs classical, just arithmetic).
 
     CLASSICAL FACTORIZATION:
@@ -467,6 +469,22 @@ Proof.
   simpl. reflexivity.
 Qed.
 
+(** rho_BB is at position (3, 4) — zero in zero_marginal_npa *)
+Lemma npa_rho_BB_position : forall (npa : NPAMomentMatrix),
+  nat_matrix_to_fin5 (npa_to_matrix npa) idx3 idx4 = npa.(npa_rho_BB).
+Proof.
+  intro npa. unfold nat_matrix_to_fin5, npa_to_matrix, idx3, idx4.
+  simpl. reflexivity.
+Qed.
+
+(** rho_AA is at position (1, 2) *)
+Lemma npa_rho_AA_position : forall (npa : NPAMomentMatrix),
+  nat_matrix_to_fin5 (npa_to_matrix npa) idx1 idx2 = npa.(npa_rho_AA).
+Proof.
+  intro npa. unfold nat_matrix_to_fin5, npa_to_matrix, idx1, idx2.
+  simpl. reflexivity.
+Qed.
+
 (** [quantum_realizable_implies_normalized]: formal specification. *)
 Lemma quantum_realizable_implies_normalized : forall (npa : NPAMomentMatrix),
   quantum_realizable npa ->
@@ -517,7 +535,7 @@ Proof.
 Qed.
 
 (** =========================================================================
-    VERIFICATION SUMMARY - STEP 2 COMPLETE
+    VERIFICATION SUMMARY - STEP 2
 
     ✓ NPA operator sequence defined (5 operators for CHSH)
     ✓ Moment matrix structure formalized (5×5 symmetric matrix)

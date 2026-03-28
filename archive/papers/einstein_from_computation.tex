@@ -24,7 +24,9 @@ The Thiele Machine Project\\
 \maketitle
 
 \begin{abstract}
-We present the first machine-verified proof that Einstein's field equations of general relativity emerge necessarily from pure computational dynamics, requiring no physical axioms. Starting from a universal Turing machine with resource-tracking ($\mu$-cost) semantics, we construct a discrete spacetime metric, compute its curvature via discrete differential geometry, and prove that the resulting Einstein tensor satisfies $G_{\mu\nu} = 8\pi G T_{\mu\nu}$ where $T_{\mu\nu}$ is derived from computational mass. The complete proof is formalized in Coq with zero axioms and zero admitted lemmas, verified by automated proof auditing, and validated empirically through numerical computation. This result demonstrates that spacetime geometry is not fundamental physics but an emergent property of information processing, opening a path toward a computational theory of everything.
+We present a machine-verified proof that a discrete Einstein-like equation $G_{\mu\nu} = 8\pi G T_{\mu\nu}$ is consistent with a $\mu$-cost computational model on a simplicial complex. Starting from a universal Turing machine with resource-tracking ($\mu$-cost) semantics, we construct a discrete spacetime metric, compute its curvature via discrete differential geometry, and verify that the resulting Einstein tensor satisfies the equation in the vacuum case. The complete proof is formalized in Coq with zero admitted lemmas, verified by automated proof auditing.
+
+\textbf{Honest scope note (added post-review):} The current formalization has two structural limitations that constrain what this theorem proves. (1)~The metric is position-independent (the metric component function does not depend on vertex arguments), so all Christoffel symbols are provably zero, Riemann curvature vanishes, and $G_{\mu\nu} = 0$ identically. (2)~The discrete derivative does not use the direction index $\mu$ to select neighbors, so on a 2-vertex complex all four partial derivatives are identical. As a result, the theorem is a \emph{consistency check} $(0 = 8\pi G \cdot 0)$ rather than a derivation from computational mass. These limitations are documented in \texttt{coq/kernel/EinsteinEquations4D.v}. Closing them requires a position-dependent metric and a direction-aware discrete derivative on a 4-simplex neighborhood. Classification: (R)~Consistency.
 \end{abstract}
 
 \section{Introduction}
@@ -52,7 +54,7 @@ This theorem is proven in Coq with:
 \item Zero physical axioms
 \item Zero admitted lemmas
 \item Zero classical logic axioms
-\item Complete formal verification (301 Coq files)
+\item Complete formal verification (155 active Coq kernel files)
 \item Empirical validation via numerical tests
 \end{itemize}
 

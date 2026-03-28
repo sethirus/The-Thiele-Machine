@@ -10,8 +10,8 @@ Open Scope Z_scope.
     The Thiele Machine needs to verify computational receipts. When the VM
     claims "this formula is SAT" or "this formula is UNSAT", it must provide
     a CERTIFICATE that anyone can check. This file implements those checkers
-    in Coq, mirroring the Python implementation (thielecpu/certcheck.py) for
-    3-layer isomorphism.
+    in Coq, which is extracted to OCaml (build/thiele_core.ml) for
+    cross-layer comparison checks.
 
     THE TWO PROBLEMS:
     1. SAT: Formula is satisfiable. Certificate = satisfying assignment.
@@ -31,15 +31,16 @@ Open Scope Z_scope.
     - UNSAT certificate: LRAT proof (Linear Resolution Asymmetric Tautology)
 
     THE ISOMORPHISM:
-    This Coq code EXACTLY mirrors thielecpu/certcheck.py. Same parsing, same
-    checks, same outputs. Tests verify this (tests/test_cert_check.py). If
-    the Python checker accepts, Coq accepts. If Coq rejects, Python rejects.
+    This Coq code is the canonical specification, extracted to OCaml
+    (build/thiele_core.ml). Same parsing, same checks, same outputs.
+    If the OCaml extraction accepts, Coq accepts. If Coq rejects,
+    the extraction rejects.
 
     FALSIFICATION:
     Find a formula and assignment where this checker says SAT but the formula
     isn't satisfied, or vice versa. Or find an LRAT proof that this checker
     accepts but the formula is actually SAT. The proofs are deterministic -
-    bit-for-bit identical execution across Coq/Python/Verilog.
+    bit-for-bit identical execution across Coq/OCaml extraction/Verilog.
 *)
 
 Module CertCheck.
@@ -54,7 +55,7 @@ Module CertCheck.
 
       IMPLEMENTATION:
       Pure functional code on strings viewed as lists of ASCII characters.
-      Mirrors Python's str.split(), str.strip(), etc. but deterministic and
+      Analogous to common string operations (split, strip), but deterministic and
       formal.
 
       USED BY:
@@ -145,8 +146,8 @@ Module CertCheck.
       Standard decimal with optional '+' or '-' prefix. Examples: "42", "-7", "+3".
 
       CORRECTNESS:
-      parse_int "0" = Some 0, parse_int "-123" = Some (-123)%Z. Mirrors
-      Python's int(). Returns None on malformed input.
+      parse_int "0" = Some 0, parse_int "-123" = Some (-123)%Z.
+      Returns None on malformed input.
 
       USED BY:
       DIMACS parsing (clause literals), LRAT parsing (clause IDs, hints),
@@ -214,15 +215,15 @@ Module CertCheck.
 
       PARSING STRATEGY:
       Line-by-line scanner. Skip comments, extract num_vars from header,
-      accumulate clauses. Mirrors Python's certcheck.parse_dimacs().
+      accumulate clauses. Standard DIMACS parsing algorithm.
 
       CORRECTNESS:
       parse_dimacs should accept EXACTLY the strings accepted by standard
-      DIMACS parsers. Tests verify this against Python's implementation.
+      DIMACS parsers. Tests verify this against the OCaml extraction.
 
       FALSIFICATION:
       Find a valid DIMACS file that this parser rejects, or an invalid file
-      it accepts. The 3-layer isomorphism tests check this.
+      it accepts. The cross-layer parity tests check this.
       ====================================================================== *)
 
   (** dimacs_cnf: Parsed CNF formula.
@@ -370,7 +371,7 @@ Module CertCheck.
     end.
 
   Definition value_is_false (s : string) : bool :=
-    (* Mirrors Python: treat "0", "false", "f" as false; everything else true. *)
+    (* Treats "0", "false", "f" as false; everything else true. *)
     let t := trim_left s in
     orb (String.eqb t "0") (orb (String.eqb t "false") (String.eqb t "f")).
 
@@ -888,9 +889,9 @@ Module CertCheck.
       checks are sound and complete.
 
       THE ISOMORPHISM:
-      This Coq implementation EXACTLY mirrors thielecpu/certcheck.check_lrat().
-      Same parsing, same RUP checks, same outputs. Tests verify this
-      (tests/test_cert_check.py). Bit-for-bit identical behavior.
+      This Coq implementation is the canonical specification, extracted to
+      OCaml (build/thiele_core.ml). Same parsing, same RUP checks, same
+      outputs. Bit-for-bit identical behavior via extraction.
   *)
   Definition check_lrat (cnf_text : string) (proof_text : string) : bool :=
     match parse_dimacs cnf_text with

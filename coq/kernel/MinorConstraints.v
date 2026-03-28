@@ -2,23 +2,18 @@
     MINOR CONSTRAINTS AND FINE'S THEOREM - Classical CHSH Bound
     =========================================================================
 
-    THEOREM: Factorizable correlations satisfy 3×3 minor constraints,
-    which by Fine's theorem imply CHSH ≤ 2 (classical bound).
+    THEOREM: Factorizable correlations satisfy 3x3 minor constraints,
+    which by Fine's theorem imply CHSH <= 2 (classical bound).
 
     This establishes the CLASSICAL BOUND:
       max{CHSH : factorizable correlations} = 2
 
     Combined with TsirelsonUpperBound.v:
-      μ=0 → LOCC → factorizable → minor constraints → CHSH ≤ 2
+      mu=0 -> LOCC -> factorizable -> minor constraints -> CHSH <= 2
 
-    STATUS: COMPLETE (Zero admits in critical proof path)
-    DATE: February 7, 2026
-
-    CRITICAL PROOF PATH (COMPLETE):
-      deterministic_strategy_chsh_bounded → fine_theorem →
-      factorizable_CHSH_classical_bound → local_box_CHSH_bound
-
-    NON-CRITICAL ADMITS: NONE
+    PROOF CHAIN:
+      deterministic_strategy_chsh_bounded -> fine_theorem ->
+      factorizable_CHSH_classical_bound -> local_box_CHSH_bound
 
     ========================================================================= *)
 
@@ -626,9 +621,7 @@ Definition CHSH_from_correlations (E : nat -> nat -> nat -> nat -> R) : R :=
 
     DEPENDENCIES: R (reals), deterministic functions A,B : nat → nat → R
 
-    USED BY: fine_theorem (convex combination argument)
-
-    STATUS: COMPLETE (Proven with exhaustive case analysis, ~8 lines) *)
+    USED BY: fine_theorem (convex combination argument) *)
 (** Lemma: For each deterministic strategy, CHSH value is bounded *)
 (* SAFE: proves classical bound -2 ≤ S ≤ 2 for deterministic ±1 strategies *)
 (** [deterministic_strategy_chsh_bounded]: formal specification. *)
@@ -661,7 +654,7 @@ Qed.
 
     CLAIM: is_factorizable E ⟹ -2 ≤ CHSH(E) ≤ 2
 
-    PROOF STRATEGY (COMPLETE - convex combination argument):
+    PROOF STRATEGY (convex combination argument):
     1. Factorizable correlations decompose as: E = Σ_λ p(λ) · [A(λ) ⊗ B(λ)]
     2. For each λ, apply deterministic_strategy_chsh_bounded:
        -2 ≤ S_λ ≤ 2 where S_λ = A(0,0,λ)·B(0,0,λ) + ... - A(1,1,λ)·B(1,1,λ)
@@ -696,9 +689,7 @@ Qed.
     DEPENDENCIES: is_factorizable, CHSH_from_correlations,
     deterministic_strategy_chsh_bounded, sum_n lemmas
 
-    USED BY: factorizable_CHSH_classical_bound, local_box_CHSH_bound
-
-    STATUS: COMPLETE (Zero admits, ~120 lines with both bounds proven) *)
+    USED BY: factorizable_CHSH_classical_bound, local_box_CHSH_bound *)
 (** Fine's Theorem: Factorizability implies CHSH ≤ 2 *)
 Theorem fine_theorem :
   forall E : nat -> nat -> nat -> nat -> R,
@@ -826,7 +817,7 @@ Proof.
 Qed.
 
 (** =========================================================================
-    PART 7: COMPLETE PROOF CHAIN
+    PART 7: PROOF CHAIN
     ========================================================================= *)
 
 (** Corollary: Factorizable correlations satisfy CHSH ≤ 2 *)
@@ -940,19 +931,19 @@ Proof.
 Qed.
 
 (** =========================================================================
-    PART 8: VERIFICATION SUMMARY
+    PART 8: FILE SUMMARY
     ========================================================================= *)
 
-(** Summary of what is PROVEN:
+(** What this file proves:
 
-    ✅ is_factorizable: Definition of LOCC correlations (COMPLETE)
-    ✅ satisfies_minor_constraints: 3×3 minor constraint with witnesses (COMPLETE)
-    ✅ CHSH_from_correlations: CHSH polynomial definition (COMPLETE)
-    ✅ deterministic_strategy_chsh_bounded: Exhaustive ±1 case analysis (COMPLETE)
-    ✅ fine_theorem: Convex-combination bound for factorizable correlations (COMPLETE)
-    ✅ local_box_CHSH_bound: Q2R/Qabs alignment and absolute-value bound (COMPLETE)
+    - is_factorizable: Definition of LOCC correlations
+    - satisfies_minor_constraints: 3x3 minor constraint with witnesses
+    - CHSH_from_correlations: CHSH polynomial definition
+    - deterministic_strategy_chsh_bounded: Exhaustive +/-1 case analysis
+    - fine_theorem: Convex-combination bound for factorizable correlations
+    - local_box_CHSH_bound: Q2R/Qabs alignment and absolute-value bound
 
-    NOTE: The 3×3 minor constraints remain defined here for compatibility with
+    NOTE: The 3x3 minor constraints remain defined here for compatibility with
     other algebraic files. The classical CHSH bound (fine_theorem) is proven
     directly from factorizability via convex combinations, WITHOUT needing the
     minor constraint machinery.

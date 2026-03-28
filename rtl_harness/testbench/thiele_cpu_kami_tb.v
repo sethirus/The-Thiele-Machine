@@ -5,9 +5,9 @@
 //
 // Signal naming matches BSC-generated RTL:
 //   - regs:  reg [1023:0] — 32 x 32-bit registers, reg[i] = regs[i*32 +: 32]
-//   - imem:  RegFile submodule — imem.arr[0:4095] (32-bit words)
-//   - mem:   RegFile submodule — mem.arr[0:4095] (32-bit words)
-//   - loadInstr_x_0: 44-bit (12-bit addr [43:32] + 32-bit data [31:0])
+//   - imem:  RegFile submodule — imem.arr[0:65535] (32-bit words)
+//   - mem:   RegFile submodule — mem.arr[0:65535] (32-bit words)
+//   - loadInstr_x_0: 48-bit (16-bit addr [47:32] + 32-bit data [31:0])
 
 `timescale 1ns/1ps
 
@@ -19,7 +19,7 @@ module thiele_cpu_kami_tb;
   reg rst_n = 0;
   always #5 clk = ~clk;
 
-  reg [43:0] load_data;
+  reg [47:0] load_data;
   reg load_en;
 
   reg [33:0] logic_resp_in /* verilator public */;
@@ -87,8 +87,8 @@ module thiele_cpu_kami_tb;
     .EN_getWcDiff11(1'b1), .getWcDiff11(wc_diff_11_out), .RDY_getWcDiff11()
   );
 
-  reg [31:0] instr_memory [0:4095];
-  reg [31:0] data_memory [0:4095];
+  reg [31:0] instr_memory [0:65535];
+  reg [31:0] data_memory [0:65535];
 
   integer i;
   integer cycle_count;
@@ -134,7 +134,7 @@ module thiele_cpu_kami_tb;
   reg [7:0] current_opcode;
 
   initial begin
-    for (i = 0; i < 4096; i = i + 1) begin
+    for (i = 0; i < 65536; i = i + 1) begin
       instr_memory[i] = 32'h00000000;
       data_memory[i] = 32'h00000000;
     end
@@ -180,22 +180,22 @@ module thiele_cpu_kami_tb;
     end
 
     if (!$value$plusargs("N_INSTRS=%d", num_instrs))
-      num_instrs = 4096;
+      num_instrs = 65536;
 
     rst_n = 0;
     load_en = 0;
-    load_data = 44'd0;
+    load_data = 48'd0;
     @(posedge clk);
     @(posedge clk);
 
     rst_n = 1;
-    // Wait for BSC RegFile initialization to complete (4096 cycles each for imem and mem).
+    // Wait for BSC RegFile initialization to complete (65536 cycles each for imem and mem).
     // RDY_loadInstr = imem_init, and step rule requires imem_init && mem_init.
     while (!dut.imem_init || !dut.mem_init) @(posedge clk);
 
-    // loadInstr port is 44-bit: {addr[11:0], data[31:0]}
+    // loadInstr port is 48-bit: {addr[15:0], data[31:0]}
     for (i = 0; i < num_instrs; i = i + 1) begin
-      load_data = {i[11:0], instr_memory[i]};
+      load_data = {i[15:0], instr_memory[i]};
       load_en = 1;
       @(posedge clk);
     end
@@ -209,6 +209,7 @@ module thiele_cpu_kami_tb;
     force dut.halted = 1'b0;
     force dut.regs = {1024{1'b0}};
     // Data memory: direct assignment to RegFile arr (per BSC convention)
+    // NOTE: RTL RegFile has hi=4095 (4096 words); limit loop to avoid C++ UB
     for (i = 0; i < 4096; i = i + 1) begin
       dut.mem.arr[i] = data_memory[i];
     end
@@ -246,7 +247,7 @@ module thiele_cpu_kami_tb;
     current_instr = 32'd0;
     current_opcode = 8'd0;
     while (!halted_out && !err_out && cycle_count < 10000) begin
-      exec_word = dut.imem.arr[pc_out[11:0]];
+      exec_word = dut.imem.arr[pc_out[15:0]];
       current_instr = exec_word;
       current_opcode = exec_word[31:24];
       if (logic_bridge_external == 0) begin
@@ -323,7 +324,7 @@ module thiele_cpu_kami_tb;
     end
 
     // Update current_instr for the final state (used by assertions)
-    current_instr = dut.imem.arr[pc_out[11:0]];
+    current_instr = dut.imem.arr[pc_out[15:0]];
     current_opcode = current_instr[31:24];
 
     #1;
@@ -362,7 +363,7 @@ module thiele_cpu_kami_tb;
       else $display("    %0d", dut.regs[i*32 +: 32]);
     end
     $display("  ],");
-    // Dump data memory from mem RegFile submodule
+    // Dump data memory from mem RegFile submodule (RTL has 4096 words, hi=4095)
     $display("  \"mem\": [");
     for (i = 0; i < 4096; i = i + 1) begin
       if (i < 4095) $display("    %0d,", dut.mem.arr[i]);
@@ -426,7 +427,7 @@ module thiele_cpu_kami_tb;
       end
       if (halted_out) begin
         // Read opcode directly from imem RegFile — avoids race with initial block
-        assert (bianchi_alarm_out || (dut.imem.arr[pc_out[11:0]][31:24] == 8'hFF))
+        assert (bianchi_alarm_out || (dut.imem.arr[pc_out[15:0]][31:24] == 8'hFF))
           else $fatal(1, "PHYS_ASSERT_FAIL: halted without HALT opcode or bianchi alarm");
       end
       prev_mu <= mu_out;

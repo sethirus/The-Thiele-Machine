@@ -40,20 +40,24 @@ From Kernel Require Import MetricFromMuCosts.
     - Metric components are derived from edge lengths
 *)
 
-(** Metric tensor component
+(** Metric tensor component at vertex v.
 
-    The metric tensor g_μν is read DIRECTLY from the vm_mu_tensor field.
-    This is the core change from the scalar approach:
+    g_μν(v) = INR (module_tensor_entry s v (μ mod 4) (ν mod 4))
 
-    OLD: metric_component used module_structural_mass (scalar per module)
-    NEW: metric_component reads vm_mu_tensor(μ mod 4, ν mod 4) (full 4×4 tensor)
+    This reads the per-module 4×4 tensor stored in the partition graph for
+    module v.  Different vertices can have different metric values, so
+    discrete derivatives of the metric are non-trivial whenever neighbouring
+    modules carry different tensors.
 
-    This makes the metric a genuine tensor field on the computational state,
-    enabling Einstein equations to emerge from quantum information dynamics.
-    Indices are taken mod 4 to stay in bounds.
+    This is identical to full_metric_at_vertex (defined in MetricFromMuCosts)
+    and is retained here as a thin alias so the rest of this file is readable.
+
+    NOTE: The old definition read from vm_mu_tensor (a global state field)
+    making the metric identical at every vertex and all Christoffel symbols
+    trivially zero.  The new definition is genuinely position-dependent.
 *)
-Definition metric_component (s : VMState) (μ ν v1 v2 : ModuleID) : R :=
-  mu_tensor_to_metric s (μ mod 4) (ν mod 4).
+Definition metric_component (s : VMState) (μ ν v : ModuleID) : R :=
+  full_metric_at_vertex s v μ ν.
 
 (** ** Step 2: Discrete Christoffel Symbols
 
@@ -75,11 +79,16 @@ Definition metric_component (s : VMState) (μ ν v1 v2 : ModuleID) : R :=
 *)
 Definition discrete_derivative (s : VMState) (sc : SimplicialComplex4D)
   (f : ModuleID -> R) (μ v : ModuleID) : R :=
-  (* Find neighbor of v in direction μ - use first neighbor as approximation *)
+  (* Find neighbor of v connected by an edge labeled μ (or undirected).
+     Returns f(w) - f(v) for the first such neighbor w, 0 if none exists. *)
   let neighbors := filter (fun w =>
     existsb (fun e =>
       let verts := e1d_vertices e in
-      (nat_list_mem v verts) && (nat_list_mem w verts)
+      let dir_ok := match e1d_direction e with
+                    | None   => true          (* undirected: matches any μ *)
+                    | Some d => (d =? μ)%bool (* directed: must match μ *)
+                    end in
+      dir_ok && (nat_list_mem v verts) && (nat_list_mem w verts)
     ) (sc4d_edges sc)
   ) (sc4d_vertices sc) in
   match neighbors with
@@ -95,11 +104,11 @@ Definition christoffel (s : VMState) (sc : SimplicialComplex4D)
   (ρ μ ν v : ModuleID) : R :=
   (* Simplified version - proper version requires metric inverse g^{ρσ} *)
   let deriv_nu_g_mu := discrete_derivative s sc
-    (fun w => metric_component s μ ρ w w) ν v in
+    (fun w => metric_component s μ ρ w) ν v in
   let deriv_mu_g_nu := discrete_derivative s sc
-    (fun w => metric_component s ν ρ w w) μ v in
+    (fun w => metric_component s ν ρ w) μ v in
   let deriv_rho_g_munu := discrete_derivative s sc
-    (fun w => metric_component s μ ν w w) ρ v in
+    (fun w => metric_component s μ ν w) ρ v in
   ((deriv_mu_g_nu + deriv_nu_g_mu - deriv_rho_g_munu) / 2)%R.
 
 (** ** Step 3: Riemann Curvature Tensor
@@ -173,7 +182,7 @@ Definition einstein_tensor (s : VMState) (sc : SimplicialComplex4D)
   (μ ν v : ModuleID) : R :=
   let R_mu_nu := ricci_tensor s sc μ ν v in
   let R := ricci_scalar s sc v in
-  let g_mu_nu := metric_component s μ ν μ ν in
+  let g_mu_nu := metric_component s μ ν v in   (* metric at vertex v *)
   (R_mu_nu - (1/2) * g_mu_nu * R)%R.
 
 (** ** Properties and Next Steps

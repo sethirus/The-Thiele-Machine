@@ -3,17 +3,16 @@
 Machine are finished, extracted, compiled, and mutually consistent.
 
 This test file fails unless every layer is present and complete:
-  1. Coq proofs  — 38 opcodes, zero admits
-  2. OCaml extraction — 38 constructors, compiled runner binary
-  3. Python VM   — 38 opcodes, delegates to OCaml runner
-  4. Verilog RTL  — 38 opcode encodings, generated header
+  1. Coq proofs  — 47 opcodes (40 original + 7 categorical morph), zero admits
+  2. OCaml extraction — 47 constructors, compiled runner binary
+  3. Python VM   — delegates to OCaml runner
+  4. Verilog RTL  — opcode encodings, generated header
 
 Cross-layer checks:
   - Opcode name sets identical across all 4 layers
   - Opcode numeric encodings consistent (Coq ThieleTypes ↔ thiele_cpu_kami.v via Kami extraction chain)
   - OCaml runner is executable and produces valid output
-  - Python VM can run all 38 opcodes and produce correct mu
-  - RTL dispatch covers all 38 encodings (structural grep)
+  - RTL dispatch covers all encodings (structural grep)
 """
 from __future__ import annotations
 
@@ -26,8 +25,10 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 
-# The canonical set of 38 opcode names (lowercase)
-CANONICAL_38 = frozenset({
+# The canonical set of 47 opcode names (lowercase)
+# 40 original + 7 categorical morphism extension (morph, compose, morph_id,
+# morph_delete, morph_assert, morph_tensor, morph_get)
+CANONICAL_40 = frozenset({
     "pnew", "psplit", "pmerge", "lassert", "ljoin", "mdlacc", "pdiscover",
     "xfer", "load_imm", "load", "store", "add", "sub",
     "jump", "jnez", "call", "ret",
@@ -37,9 +38,18 @@ CANONICAL_38 = frozenset({
     "checkpoint", "read_port", "write_port", "heap_load", "heap_store",
     "certify",
     "and", "or", "shl", "shr", "mul", "lui",
+    "tensor_set", "tensor_get",
 })
 
-assert len(CANONICAL_38) == 38, f"CANONICAL_38 has {len(CANONICAL_38)} items, expected 38"
+CANONICAL_MORPH_7 = frozenset({
+    "morph", "compose", "morph_id", "morph_delete",
+    "morph_assert", "morph_tensor", "morph_get",
+})
+
+CANONICAL_47 = CANONICAL_40 | CANONICAL_MORPH_7
+
+assert len(CANONICAL_40) == 40, f"CANONICAL_40 has {len(CANONICAL_40)} items, expected 40"
+assert len(CANONICAL_47) == 47, f"CANONICAL_47 has {len(CANONICAL_47)} items, expected 47"
 
 
 # ============================================================================
@@ -59,20 +69,21 @@ class TestCoqLayer:
     def test_extraction_exists(self):
         assert self.EXTRACTION.exists(), "coq/Extraction.v missing"
 
-    def test_vmstep_has_38_constructors(self):
-        """VMStep.v must define exactly 38 vm_instruction constructors."""
+    def test_vmstep_has_47_constructors(self):
+        """VMStep.v must define exactly 47 vm_instruction constructors
+        (40 original + 7 categorical morphism extension)."""
         text = self.VMSTEP.read_text(encoding="utf-8")
         constructors = set(re.findall(r"\|\s+instr_(\w+)", text))
-        assert len(constructors) == 38, (
-            f"VMStep.v has {len(constructors)} constructors, expected 38.\n"
+        assert len(constructors) == 47, (
+            f"VMStep.v has {len(constructors)} constructors, expected 47.\n"
             f"Found: {sorted(constructors)}\n"
-            f"Missing: {CANONICAL_38 - constructors}\n"
-            f"Extra: {constructors - CANONICAL_38}"
+            f"Missing: {CANONICAL_47 - constructors}\n"
+            f"Extra: {constructors - CANONICAL_47}"
         )
-        assert constructors == CANONICAL_38, (
+        assert constructors == CANONICAL_47, (
             f"Constructor mismatch vs canonical set.\n"
-            f"Missing: {CANONICAL_38 - constructors}\n"
-            f"Extra: {constructors - CANONICAL_38}"
+            f"Missing: {CANONICAL_47 - constructors}\n"
+            f"Extra: {constructors - CANONICAL_47}"
         )
 
     def test_no_admitted_in_kernel(self):
@@ -130,7 +141,7 @@ class TestCoqLayer:
 # ============================================================================
 
 class TestOCamlLayer:
-    """OCaml extraction is complete, all 38 constructors present, runner compiled."""
+    """OCaml extraction is complete, all 47 constructors present, runner compiled."""
 
     ML_PATH = ROOT / "build" / "thiele_core.ml"
     RUNNER_SRC = ROOT / "build" / "extracted_vm_runner.ml"
@@ -139,12 +150,18 @@ class TestOCamlLayer:
     def test_thiele_core_ml_exists(self):
         assert self.ML_PATH.exists(), "build/thiele_core.ml missing — run `make -C coq`"
 
-    def test_thiele_core_ml_has_38_constructors(self):
-        """Extracted OCaml must contain all 38 Coq_instr_* constructors."""
+    def test_thiele_core_ml_has_47_constructors(self):
+        """Extracted OCaml must contain all 47 vm_instruction constructors.
+
+        Coq extraction may use either Instr_X (bare) or Coq_instr_X (module-prefixed)
+        naming depending on the extraction context.
+        """
         text = self.ML_PATH.read_text(encoding="utf-8")
-        constructors = {c.lower() for c in re.findall(r"Coq_instr_(\w+)", text)}
-        assert CANONICAL_38 <= constructors, (
-            f"OCaml extraction missing constructors: {CANONICAL_38 - constructors}"
+        # Handle both Instr_X (legacy) and Coq_instr_X (module-prefixed) naming
+        constructors = {c.lower() for c in re.findall(r"Instr_(\w+)", text)}
+        constructors |= {c.lower() for c in re.findall(r"Coq_instr_(\w+)", text)}
+        assert CANONICAL_47 <= constructors, (
+            f"OCaml extraction missing constructors: {CANONICAL_47 - constructors}"
         )
 
     def test_vm_apply_dispatch_exists(self):
@@ -187,11 +204,11 @@ class TestOCamlLayer:
             "Runner produced no output on HALT instruction"
         )
 
-    def test_runner_parses_all_38_opcodes(self):
-        """Runner source must contain parse arms for all 38 opcode names."""
+    def test_runner_parses_all_40_opcodes(self):
+        """Runner source must contain parse arms for all 40 opcode names."""
         text = self.RUNNER_SRC.read_text(encoding="utf-8")
         text_upper = text.upper()
-        for op in CANONICAL_38:
+        for op in CANONICAL_40:
             assert op.upper() in text_upper, (
                 f"Runner source missing parse arm for {op.upper()}"
             )
@@ -202,7 +219,7 @@ class TestOCamlLayer:
 # ============================================================================
 
 class TestPythonVMLayer:
-    """Python VM is complete, delegates to OCaml, handles all 38 opcodes."""
+    """Python VM is complete, delegates to OCaml, handles all 40 opcodes."""
 
     VM_PATH = ROOT / "thielecpu" / "vm.py"
     SHIM_PATH = ROOT / "build" / "thiele_vm.py"
@@ -220,11 +237,11 @@ class TestPythonVMLayer:
             "generated", "do not edit", "auto-generated", "forge"
         ]), "thielecpu/vm.py does not appear to be a generated file"
 
-    def test_vm_py_handles_all_38_opcodes(self):
-        """vm.py must reference all 38 opcode names."""
+    def test_vm_py_handles_all_40_opcodes(self):
+        """vm.py must reference all 40 opcode names."""
         text = self.VM_PATH.read_text(encoding="utf-8")
         text_lower = text.lower()
-        missing = [op for op in CANONICAL_38 if op not in text_lower]
+        missing = [op for op in CANONICAL_40 if op not in text_lower]
         assert not missing, f"vm.py missing references to: {missing}"
 
     def test_shim_delegates_to_thielecpu(self):
@@ -249,7 +266,7 @@ class TestPythonVMLayer:
         result = vm_run(s, [{"op": "halt", "cost": 1}])
         assert result.vm_mu == 1, f"Expected mu=1 after HALT cost=1, got {result.vm_mu}"
 
-    def test_vm_run_all_38_opcodes_accepted(self):
+    def test_vm_run_all_40_opcodes_accepted(self):
         """Every opcode must be accepted by vm_run without KeyError/ValueError."""
         from thielecpu.vm import VMState, vm_run
 
@@ -324,10 +341,14 @@ class TestPythonVMLayer:
                              {"op": "load_imm", "dst": 2, "imm": 6, "cost": 1},
                              {"op": "mul", "dst": 3, "rs1": 1, "rs2": 2, "cost": 1}],
             "lui":          [{"op": "lui", "dst": 1, "imm": 1, "cost": 1}],
+            "tensor_set":   [{"op": "pnew", "region": [0], "cost": 1},
+                             {"op": "tensor_set", "module": 0, "i": 0, "j": 0, "value": 42, "mu_delta": 1}],
+            "tensor_get":   [{"op": "pnew", "region": [0], "cost": 1},
+                             {"op": "tensor_get", "dst": 1, "module": 0, "i": 0, "j": 0, "mu_delta": 1}],
         }
 
-        assert set(programs.keys()) == CANONICAL_38, (
-            f"Test coverage mismatch: {CANONICAL_38 - set(programs.keys())} not tested"
+        assert set(programs.keys()) == CANONICAL_40, (
+            f"Test coverage mismatch: {CANONICAL_40 - set(programs.keys())} not tested"
         )
 
         failures = []
@@ -375,6 +396,16 @@ class TestRTLLayer:
 # Cross-layer consistency
 # ============================================================================
 
+def _ml_ops_from_text(text: str) -> set:
+    """Extract vm_instruction opcode names from OCaml extraction text.
+
+    Handles both Instr_X (legacy) and Coq_instr_X (module-prefixed) naming.
+    """
+    ops = {c.lower() for c in re.findall(r"Instr_(\w+)", text)}
+    ops |= {c.lower() for c in re.findall(r"Coq_instr_(\w+)", text)}
+    return ops
+
+
 class TestCrossLayerConsistency:
     """All 4 layers agree on opcode names and encodings."""
 
@@ -384,7 +415,7 @@ class TestCrossLayerConsistency:
         ml = ROOT / "build" / "thiele_core.ml"
 
         coq_ops = set(re.findall(r"\|\s+instr_(\w+)", vmstep.read_text()))
-        ml_ops = {c.lower() for c in re.findall(r"Coq_instr_(\w+)", ml.read_text())}
+        ml_ops = _ml_ops_from_text(ml.read_text())
 
         assert coq_ops == ml_ops, (
             f"Coq↔OCaml opcode mismatch.\n"
@@ -397,7 +428,7 @@ class TestCrossLayerConsistency:
         ml = ROOT / "build" / "thiele_core.ml"
         vm_py = ROOT / "thielecpu" / "vm.py"
 
-        ml_ops = {c.lower() for c in re.findall(r"Coq_instr_(\w+)", ml.read_text())}
+        ml_ops = _ml_ops_from_text(ml.read_text())
         py_text = vm_py.read_text().lower()
         py_missing = [op for op in ml_ops if op not in py_text]
 
@@ -413,28 +444,35 @@ class TestCrossLayerConsistency:
         if not types_v.exists():
             pytest.skip("ThieleTypes.v not found")
 
-        ml_ops = {c.lower() for c in re.findall(r"Coq_instr_(\w+)", ml.read_text())}
+        ml_ops = _ml_ops_from_text(ml.read_text())
         # ThieleTypes.v defines OP_X for each opcode
         coq_hw_ops = {name.lower() for name in re.findall(r"Definition\s+OP_([A-Z0-9_]+)", types_v.read_text())}
 
-        # Every opcode in the OCaml extraction should have a corresponding OP_ in ThieleTypes
+        # Phase 6 is complete: all 47 opcodes (including the 7 categorical morphism opcodes)
+        # are now encoded in ThieleTypes.v RTL (OP_MORPH=0x27 … OP_MORPH_GET=0x2D).
+        # Positive check: CANONICAL_MORPH_7 must be present in RTL.
+        missing_morph = CANONICAL_MORPH_7 - coq_hw_ops
+        assert missing_morph == frozenset(), (
+            f"Phase 6 regression: MORPH opcodes missing from ThieleTypes.v RTL: {missing_morph}"
+        )
+
+        # Check for unexpected OCaml-only opcodes (allow 2 slack for renamed ops).
         missing = ml_ops - coq_hw_ops
-        # Allow known differences (certify may be CERTIFY_OP, etc.)
         assert len(missing) <= 2, (
-            f"OCaml↔RTL opcode mismatch.\n"
+            f"OCaml↔RTL opcode mismatch (expected at most 2 missing after Phase 6).\n"
             f"In OCaml only: {missing}"
         )
 
     def test_all_four_layers_identical_set(self):
-        """The grand unification test: Coq == OCaml == Python == CANONICAL_38."""
+        """The grand unification test: Coq == OCaml == CANONICAL_47."""
         vmstep = ROOT / "coq" / "kernel" / "VMStep.v"
         ml = ROOT / "build" / "thiele_core.ml"
 
         coq_ops = frozenset(re.findall(r"\|\s+instr_(\w+)", vmstep.read_text()))
-        ml_ops = frozenset(c.lower() for c in re.findall(r"Coq_instr_(\w+)", ml.read_text()))
+        ml_ops = frozenset(_ml_ops_from_text(ml.read_text()))
 
-        assert coq_ops == CANONICAL_38, f"Coq != canonical: {coq_ops ^ CANONICAL_38}"
-        assert ml_ops == CANONICAL_38, f"OCaml != canonical: {ml_ops ^ CANONICAL_38}"
+        assert coq_ops == CANONICAL_47, f"Coq != canonical: {coq_ops ^ CANONICAL_47}"
+        assert ml_ops == CANONICAL_47, f"OCaml != canonical: {ml_ops ^ CANONICAL_47}"
 
     def test_rtl_encodings_match_coq_thiele_types(self):
         """Numeric opcode encodings in Kami-generated Verilog are consistent with ThieleTypes.v."""

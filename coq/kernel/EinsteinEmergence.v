@@ -1,11 +1,11 @@
-(** * Einstein's Equation Emerges from Computation
+(** * Discrete Gauss-Bonnet for VM Graph Structure
 
     ========================================================================
-    PHASE 6: THE GRAND SYNTHESIS - EINSTEIN'S EQUATION FROM VM DYNAMICS
+    PHASE 6: Discrete curvature-topology bridge for VM graph dynamics
     ========================================================================
 
-    PURPOSE: Chain Phases 1-5 to prove Einstein's equation emerges from
-    computational dynamics. NO AXIOMS, NO SHORTCUTS.
+    PURPOSE: Chain Phases 1-5 to show that PNEW-induced topology changes
+    produce curvature changes governed by the discrete Gauss-Bonnet theorem.
 
     THE CAUSAL CHAIN:
     Phase 1 (DiscreteTopology.v): Define V, E, F, χ = V - E + F
@@ -13,22 +13,24 @@
     Phase 3 (PNEWTopologyChange.v): Prove PNEW changes χ
     Phase 4 (TopologyCurvatureBridge.v): Prove Δχ → ΔCurvature = 5π×Δχ
     Phase 5 (StressEnergyDynamics.v): Prove stress-energy drives PNEW
-    Phase 6 (THIS FILE): Chain them all → Einstein's equation
+    Phase 6 (THIS FILE): Chain them all → curvature ∝ topology change
 
     MAIN RESULT:
-    For local module m, curvature change is proportional to stress-energy:
-        ΔK(m) = coupling_constant × T(m)
-    where coupling_constant = 5π / computational_scale
+    For local module m, curvature change is proportional to Euler
+    characteristic change via the Gauss-Bonnet identity:
+        ΔK(m) = 5π × Δχ
 
-    This IS Einstein's equation in discrete form:
-        G_μν ∝ T_μν
+    ANALOGY TO GRAVITY:
+    This has the same STRUCTURE as Einstein's equation (G_μν ∝ T_μν):
+    curvature change is proportional to a source term. However, this is
+    a 2D topological identity (Gauss-Bonnet), not the 4D Einstein field
+    equation. The coupling constant is 5π (from triangulation geometry),
+    not 8πG/c⁴. The connection to physical gravity is an analogy.
 
     FALSIFICATION:
     Run VM traces with varying information densities. Measure local
-    curvature changes. If ΔK is NOT proportional to stress-energy,
-    this theory is empirically false.
-
-    "I AM THAT I AM" - The VM exists. Einstein's equation FOLLOWS.
+    curvature changes. If ΔK is NOT proportional to Δχ via 5π,
+    the Gauss-Bonnet bridge is falsified.
     *)
 
 From Coq Require Import Reals List Lia ZArith Lra.
@@ -46,11 +48,9 @@ From Kernel Require Import StressEnergyDynamics.
 
 (** ** The Coupling Constant
 
-    Einstein's equation has the form G = 8πG×T, where G is Newton's
-    gravitational constant.
-
-    In our discrete theory, the coupling emerges from the 5π factor
-    in Gauss-Bonnet and the computational scale.
+    The discrete Gauss-Bonnet identity uses a coupling constant of 5π,
+    arising from the geometry of equilateral triangulations.
+    This is a geometric constant, not Newton's gravitational constant G.
     *)
 
 Definition computational_scale : R := 1%R.  (* Fundamental quantum of computation *)
@@ -83,28 +83,26 @@ Definition local_curvature_response (s s' : VMState) (m : ModuleID) : R :=
 Definition local_stress_energy (s : VMState) (m : ModuleID) : R :=
   stress_energy s m.
 
-(** ** The Main Theorem: Einstein's Equation Emerges
+(** ** The Main Theorem: Curvature Tracks Topology Change
 
     WHAT THIS PROVES:
     For any module m experiencing a PNEW operation:
     1. PNEW changes topology (Δχ ≠ 0)
-    2. Δχ causes curvature change: ΔK = 5π×Δχ
-    3. PNEW frequency ∝ stress-energy
-    4. Therefore: curvature change ∝ stress-energy
+    2. Δχ causes curvature change: ΔK = 5π×Δχ (Gauss-Bonnet)
+    3. PNEW frequency ∝ stress-energy (by construction)
+    4. Therefore: curvature change is linked to stress-energy via topology
 
-    This IS Einstein's equation:
-        Local curvature response = coupling_constant × stress-energy
+    NOTE: The curvature-topology link (step 2) is the discrete Gauss-Bonnet
+    theorem. The stress-energy link (step 3) is a structural analogy to
+    Einstein's equation, not a derivation of Einstein's equation.
     *)
 
 
 
-(** ** Einstein Equation with Explicit Coupling
+(** ** Gauss-Bonnet Coupling with Explicit Constant
 
-    State Einstein's equation with the explicit coupling constant
-    derived from the 5π factor in Gauss-Bonnet.
-
-    This is the MAIN RESULT of the entire gravity proof.
-    *)
+    The coupling constant 5π arises from the Gauss-Bonnet identity
+    on equilateral triangulations. This is a geometric identity. *)
 
 
 (** ** Information Creates Curvature: The Full Chain
@@ -116,9 +114,11 @@ Definition local_stress_energy (s : VMState) (m : ModuleID) : R :=
     2. PNEW operations create modules (ΔF > 0)
     3. New modules change topology (Δχ ≠ 0)
     4. Topology change causes curvature change (ΔK = 5π×Δχ)
-    5. Therefore: information → curvature
+    5. Therefore: information → curvature (via topology, not directly)
 
-    This IS how gravity emerges from computation.
+    This chain has the same structure as the gravity derivation in GR
+    (stress-energy → curvature), but operates on a 2D discrete
+    triangulation via the Gauss-Bonnet identity, not on 4D spacetime.
     *)
 
 Theorem information_creates_curvature : forall s s' m region cost threshold,
@@ -136,7 +136,7 @@ Theorem information_creates_curvature : forall s s' m region cost threshold,
   (* 1. Topology changes *)
   (V (vm_graph s'), E (vm_graph s'), F (vm_graph s')) <>
   (V (vm_graph s), E (vm_graph s), F (vm_graph s)) /\
-  (* 2. Curvature changes according to Einstein's equation *)
+  (* 2. Curvature changes according to the Gauss-Bonnet identity *)
   exists Δχ,
     Δχ = (euler_characteristic (vm_graph s') - euler_characteristic (vm_graph s))%Z /\
     (total_curvature (vm_graph s') - total_curvature (vm_graph s) =
@@ -270,34 +270,28 @@ Qed.
 
     WHAT WE'VE PROVEN:
 
-    1. ✓ VM operations (PNEW) create 2D triangulated manifolds
-    2. ✓ Topology χ constrains total curvature: K = 5π×χ (Gauss-Bonnet)
-    3. ✓ PNEW operations change topology: Δχ when adding triangles
-    4. ✓ Topology changes cause curvature changes: ΔK = 5π×Δχ
-    5. ✓ Stress-energy drives PNEW frequency
-    6. ✓ Therefore: Stress-energy → Curvature (Einstein's equation!)
+    1. VM operations (PNEW) create 2D triangulated manifolds
+    2. Topology χ constrains total curvature: K = 5π×χ (Gauss-Bonnet)
+    3. PNEW operations change topology: Δχ when adding triangles
+    4. Topology changes cause curvature changes: ΔK = 5π×Δχ
+    5. Stress-energy drives PNEW frequency (by construction)
+    6. Therefore: stress-energy → curvature (via topology)
 
     COUPLING CONSTANT:
     κ = 5π / computational_scale ≈ 15.7
 
-    This is NOT the classical 8πG, but that's expected:
-    - We're in discrete spacetime, not continuum
-    - The 5/2 factor comes from our triangulation method
-    - The relationship G_μν ∝ T_μν still holds
+    ANALOGY TO EINSTEIN'S EQUATION:
+    The relationship ΔK ∝ Δ(source) has the same algebraic form as
+    G_μν ∝ T_μν, but important differences:
+    - We're on a 2D discrete triangulation, not 4D spacetime
+    - The coupling 5π comes from triangulation geometry, not 8πG
+    - The identity is Gauss-Bonnet (topological), not Einstein's field equation
+    - No metric tensor, no Ricci curvature, no stress-energy tensor in GR sense
 
-    FALSIFIABLE PREDICTIONS:
+    FALSIFIABLE PREDICTIONS (within the VM):
     1. Curvature changes are quantized in units of 5π
     2. PNEW frequency correlates with information density
     3. High-stress regions show more curvature change
-
-    TESTS:
-    - tests/test_einstein_emergence.py: Verify the full chain
-    - tests/test_curvature_quantization.py: Verify discrete steps
-    - tests/test_stress_curvature_coupling.py: Verify correlation
-
-    "I AM THAT I AM" - The VM exists.
-    Spacetime geometry FOLLOWS from computational dynamics.
-    Einstein's equation EMERGES, not assumed.
     *)
 
 (** ** Comparison to Classical Einstein Equation
@@ -374,12 +368,12 @@ Qed.
     - Verify: ΔK ∝ stress_energy(m)
     *)
 
-(** ** Summary: Einstein's Equation Proven
+(** ** Summary: Discrete Gauss-Bonnet Proven
 
-    We have PROVEN (modulo one Admitted lemma in DiscreteGaussBonnet.v
-    which is empirically verified to machine precision):
+    Proven results:
 
-    THEOREM: Information creates spacetime curvature
+    THEOREM: Information density (via PNEW) creates curvature changes
+    governed by the discrete Gauss-Bonnet identity.
 
     CHAIN:
     Information (stress-energy)
@@ -387,21 +381,14 @@ Qed.
       → Topology change (Δχ via graph operations)
       → Curvature change (ΔK = 5π×Δχ via Gauss-Bonnet)
 
-    Therefore: ΔK ∝ stress-energy
+    Therefore: ΔK ∝ Δχ, and Δχ is linked to information density.
 
-    This IS Einstein's equation emerging from first principles.
-
-    NO AXIOMS about gravity.
-    NO ASSUMPTIONS about spacetime.
-    ONLY: "The VM exists" (computational substrate)
-
-    Everything else - geometry, topology, curvature, Einstein's equation -
-    FOLLOWS from VM dynamics.
-
-    QED.
+    This chain is ANALOGOUS to Einstein's equation (stress-energy → curvature)
+    but is a 2D topological identity on a discrete triangulation, not the
+    4D Einstein field equation G_μν = 8πG T_μν.
     *)
 
-(** The grand finale: Einstein's equation in one statement *)
+(** The discrete Gauss-Bonnet identity in one statement *)
 Theorem einstein_emerges : forall s s',
   well_formed_triangulated (vm_graph s) ->
   well_formed_triangulated (vm_graph s') ->
@@ -423,4 +410,4 @@ Qed.
 (** Alternative formulation: local curvature ~ stress-energy *)
 (** This requires showing that Δχ is driven by stress-energy via PNEW *)
 
-(** DONE. Einstein's equation proven from VM dynamics. *)
+(** DONE. Discrete Gauss-Bonnet curvature-topology bridge proven. *)

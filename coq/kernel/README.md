@@ -2,6 +2,8 @@
 
 **Mission:** Core structural constraint proofs, optimization bounds, and bisimulation results for the Thiele Machine kernel.
 
+**Research-layer note:** physics-reading files such as `EinsteinEmergence.v`, `EinsteinEquations4D.v`, `MuGravity*.v`, and conjectural files such as `AlphaDerivation.v` are formal modeling or exploratory work. They are not part of the repository's core verified execution contract unless separately called out in the claim-boundary docs.
+
 ## Structure
 
 - `AlgebraicCoherence.v` - Algebraic Coherence - Defines: Correlators; Key results: Qabs_bound, chsh_bound_4, symmetric_tsirelson_bound (+14 more)
@@ -64,7 +66,7 @@
 - `MuGravity_BridgeTheorems.v` - Mu Gravity Bridge Theorems - Key results: curvature_bridge_interface
 - `MuGravity_ConstructiveBridges.v` - Mu Gravity Constructive Bridges
 - `MuGravity_Definitions.v` - Mu Gravity Definitions - Key results: residual_rank_zero_exactly_residual_zero
-- `MuGravity_Emergence.v` - Mu Gravity Emergence - Key results: full_gravity_path_scheduler_contract
+- `MuGravity_Emergence.v` - Mu Gravity Emergence - Stub: gravity emergence path (requires discrete differential geometry)
 - `MuInformation.v` - Mu Information - Key results: mu_info_z_vm_apply, run_vm_mu_total_decomposes, mu_info_z_run_vm_is_ledger_sum
 - `MuInitiality.v` - Mu Initiality - Defines: reachable, trace_reaches, CostFunctional; Key results: init_state_mu_zero, exec_trace_correct, trace_reaches_exec (+11 more)
 - `MuLedgerConservation.v` - Mu Ledger Conservation - Key results: bounded_run_head, vm_apply_mu, ledger_conserved_tail (+15 more)
@@ -253,4 +255,4 @@
 | `VMStep.v` | 0 | ✅ |
 | `ValidCorrelation.v` | 0 | ✅ |
 
-**Result:** All 121 files verified with 0 admits.
+**Result:** Active kernel files in this directory are verified admit-free under the current audit/build pipeline.

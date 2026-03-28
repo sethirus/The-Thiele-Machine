@@ -66,7 +66,7 @@ The thermodynamic bridge hypothesis ($Q \ge k_B T \ln 2 \cdot \mu$) would be \te
 \end{tcolorbox}
 
 \paragraph{QM-Divergent Predictions.}
-The model also produces six quantitative predictions (QD1--QD6) where it diverges from standard quantum mechanics. These are computed by the archived experiment script \path{archive/experiments\_unused/experiments/qm\_divergent\_predictions.py} and include projections for measurement-time ratios, modified Tsirelson bounds under finite $\mu$-budgets, and temperature-dependent CHSH suppression. Each prediction names a concrete experimental observable, a numerical value, and the measurement that would falsify it. These predictions are \textbf{speculative}---they follow from the $\mu$-accounting framework's axioms but have not been experimentally tested. If future experiments confirm or refute any of these values, the theory's empirical standing changes accordingly. The point is that the model commits to numbers rather than hedging.
+The model also produces six quantitative predictions (QD1--QD6) where it diverges from standard quantum mechanics. These include projections for measurement-time ratios, modified Tsirelson bounds under finite $\mu$-budgets, and temperature-dependent CHSH suppression. Each prediction names a concrete experimental observable, a numerical value, and the measurement that would falsify it. These predictions are \textbf{speculative}---they follow from the $\mu$-accounting framework's axioms but have not been experimentally tested. If future experiments confirm or refute any of these values, the theory's empirical standing changes accordingly. The point is that the model commits to numbers rather than hedging.
 
 \section{Broader Implications}
 
@@ -120,7 +120,7 @@ The Thiele Machine is more than a new computational model; it is a proposal for 
 
 Landauer's principle states that erasing one bit of information requires at least $kT \ln 2$ of energy dissipation, where $k$ is Boltzmann's constant and $T$ is temperature. This establishes a fundamental connection between logical irreversibility and thermodynamics: many-to-one mappings (like erasure) cannot be implemented without heat dissipation in a physical device.
 
-The Thiele Machine generalizes this idea: \textit{ignoring structure releases heat}. A blind trace repeatedly performs redundant operations that erase their own history, driving up $\mu_{\text{exec}}$ (kinetic dissipation). A sighted trace captures that history in the partition graph and axiom store, shifting cost into $\mu_{\text{disc}}$ (potential structure). The ledger therefore tracks the same physical obligation either way—heat or stored constraint.
+The Thiele Machine generalizes this idea: \textit{ignoring structure releases heat}. A blind trace repeatedly performs redundant operations that erase their own history, paying $\mu$ for computation without structural gain. A sighted trace captures that history in the partition graph and axiom store, paying $\mu$ for structural revelation. In both cases the single \texttt{vm\_mu} accumulator grows monotonically; the difference is whether the paid cost yielded reusable structure or was spent on brute-force search.
 
 The Thiele Machine's $\mu$-ledger formalizes a computational analog:
 \begin{lstlisting}
@@ -284,7 +284,7 @@ That trade-off is implemented as an explicit ledger budget in the harness descri
     arr/.style={-{Stealth[length=3pt]}, thick}
 ]
 \draw[thick, ->] (0,0) -- (5.2,0) node[right, font=\scriptsize] {Time $T$};
-\draw[thick, ->] (0,0) -- (0,2.6) node[above, font=\scriptsize] {$\mu_{\text{disc}}$};
+\draw[thick, ->] (0,0) -- (0,2.6) node[above, font=\scriptsize] {Structure gained};
 \fill[blue!15, opacity=0.5] (0.3,2.2) -- (4.8,0.3) -- (4.8,0) -- (0.3,0) -- cycle;
 \draw[thick, blue!70] (0.3,2.2) -- (4.8,0.3);
 \node[font=\tiny, blue!70, anchor=south] at (2.5,1.35) {conservation frontier};
@@ -293,7 +293,7 @@ That trade-off is implemented as an explicit ledger budget in the harness descri
 \fill[red] (0.8,2.0) circle (1.5pt);
 \fill[red] (4.5,0.3) circle (1.5pt);
 \end{tikzpicture}
-\caption{Conservation of difficulty: reducing time $T$ requires increasing structural cost $\mu_{\text{disc}}$, and vice versa.}
+\caption{Conservation of difficulty: reducing time $T$ requires increasing structural cost $\mu$, and vice versa.}
 \label{fig:difficulty-conservation}
 \end{figure}
 
@@ -309,8 +309,8 @@ where $T(x)$ is time complexity and $\mu(x)$ is structural discovery cost.
 
 The No Free Insight theorem implies that difficulty is conserved but can be transmuted:
 \begin{itemize}
-    \item \textbf{High $T$, Low $\mu_{\text{disc}}$ (Blind)}: High energy dissipation ($\mu_{\text{exec}}$)
-    \item \textbf{Low $T$, High $\mu_{\text{disc}}$ (Sighted)}: High structural storage
+    \item \textbf{High $T$, Low $\mu$ (Blind)}: Many steps, little structure gained per step
+    \item \textbf{Low $T$, High $\mu$ (Sighted)}: Fewer steps, but each pays high $\mu$ for structural revelation
 \end{itemize}
 
 For problems like SAT:
@@ -336,20 +336,15 @@ The relationship $\text{P} \subseteq \text{P}_\mu \subseteq \text{NP}_\mu$ is st
 
 \subsection{Turing Subsumption}
 
-A complexity-theoretic framework is vacuous if it cannot express ordinary computation. The Coq formalization proves that the Thiele Machine is at least Turing-complete via a two-step embedding chain: every Turing Machine reduces to a Minsky Machine (\path{coq/modular_proofs/TM_to_Minsky.v}), and every Minsky Machine reduces to a Thiele Machine trace (\path{coq/modular_proofs/ThieleInstance.v}). The final theorem, \texttt{thiele\_subsumes\_tm\_complete}, composes both reductions.
+A complexity-theoretic framework is vacuous if it cannot express ordinary computation. The Coq formalization proves that the Thiele Machine is at least Turing-complete via a two-step embedding chain: every Turing Machine reduces to a Minsky Machine, and every Minsky Machine reduces to a Thiele Machine trace. The final theorem, \texttt{thiele\_subsumes\_tm\_complete}, composes both reductions.
 
 This matters for the $\text{P}_\mu$ / $\text{NP}_\mu$ definitions above: because the model subsumes Turing computation, any existing complexity class (P, NP, PSPACE, etc.) embeds faithfully into its $\mu$-enriched counterpart. The structure-aware classes are genuine refinements of the classical hierarchy, not parallel constructions that happen to share names.
 
-\subsection{Oracle Impossibility}
+\subsection{Computability Bounds}
 
-On the other end, the model is bounded. The Oracle Impossibility proof (\path{coq/kernel/OracleImpossibility.v}) establishes three results:
-\begin{enumerate}
-    \item \texttt{halting\_undecidable}: No total machine decides halting (genuine diagonal argument).
-    \item \texttt{oracle\_halts\_costs\_mu}: Oracle soundness is defined to require cost $\geq 1$ per query; the proof verifies that zero cost violates this definition.
-    \item \texttt{hypercomputation\_bounded}: Given the per-query cost definition, $n$ independent oracle queries cost $\geq n$.
-\end{enumerate}
+On the other end, the model is bounded. The halting problem remains undecidable (a standard diagonal argument), and oracle queries require $\mu$-cost by definition.
 
-Together with Turing Subsumption, these results pin the model's computational power: it is exactly Turing-complete. It computes everything a Turing Machine can and nothing more, while adding the $\mu$-accounting layer on top. The structure-aware classes therefore live inside the same computability boundary as classical complexity theory---they refine it without escaping it.
+Together with Turing completeness, the model is exactly Turing-complete: it computes everything a Turing Machine can and nothing more, while adding the $\mu$-accounting layer on top. The structure-aware classes therefore live inside the same computability boundary as classical complexity theory---they refine it without escaping it.
 
 \section{Implications for Artificial Intelligence}
 
@@ -465,63 +460,66 @@ A neural network predicts partitions (structure hypotheses). The Thiele kernel v
 \node[font=\tiny, gray] at (2.7,0.4) {$H_2$ links};
 \node[font=\tiny, anchor=north] at (1.8,-0.5) {SHA-256 continuity};
 \end{tikzpicture}
-\caption{Receipt chain: each step's pre-state hash must match the previous step's post-state hash.}
+\caption{Execution receipt concept: program identity and state digests bind an attested run. Historical per-step chain designs remain a future extension.}
 \label{fig:receipt-chain}
 \end{figure}
 
-\subsection{The Receipt Chain}
+\subsection{Execution Receipts}
 
-Every Thiele Machine execution produces a cryptographic receipt chain where continuity is enforced by linking the pre-state of step $N$ to the post-state of step $N-1$:
+The active repository receipt surface is an execution receipt that binds a whole program run rather than every individual instruction step:
 \begin{lstlisting}
 receipt = {
-    "step": N,
-    "instruction": opcode,
-    "pre_state_hash": SHA256(state_before),
-    "post_state_hash": SHA256(state_after),
-    "mu_cost": cost,
-    "signature": HMAC(canonical_json(payload))
+    "version": "TRS-1.0",
+    "kind": "execution",
+    "program": {
+        "path": "program.asm",
+        "source_sha256": "...",
+        "canonical_sha256": "..."
+    },
+    "execution": {
+        "pre_state_digest": "...",
+        "post_state_digest": "...",
+        "mu_start": 0,
+        "mu_end": 12,
+        "mu_delta": 12
+    },
+    "signature": "ed25519..."
 }
 \end{lstlisting}
 
 \paragraph{Understanding Receipt Structure:}
 
-\textbf{What is this?} This is the \textbf{cryptographic receipt format} that the Thiele Machine generates for every instruction executed. It creates a tamper-evident audit trail via state continuity.
+\textbf{What is this?} This is the \textbf{active execution receipt format} used by the repository. It creates a tamper-evident attestation for a whole run via signed program identity and normalized state digests.
 
 \textbf{Field-by-field breakdown:}
 \begin{itemize}
-    \item \textbf{"step": N} — Monotonically increasing step counter.
-    
-    \item \textbf{"instruction": opcode} — The executed instruction (e.g., \texttt{PNEW}, \texttt{PSPLIT}). Records \textit{what was done}.
-    
-    \item \textbf{"pre\_state\_hash": SHA256(state\_before)} — Hash of the VM state \textit{before} this step. Must match the \texttt{post\_state\_hash} of the previous receipt.
-    
-    \item \textbf{"post\_state\_hash": SHA256(state\_after)} — Hash of the VM state \textit{after} the instruction. Commits to the result.
-    
-    \item \textbf{"signature": HMAC(...)} — Keyed hash authenticating the receipt. (The Ed25519 digital-signature module is available but archived; an HMAC or similar mechanism would serve the same tamper-detection role.)
+    \item \textbf{"program"} — Binds both the source digest and the canonicalized trace digest.
+    \item \textbf{"pre\_state\_digest" / "post\_state\_digest"} — Hashes of normalized VM states before initialization-only replay and after full replay.
+    \item \textbf{"mu\_start" / "mu\_end" / "mu\_delta"} — Explicit ledger movement for the attested run.
+    \item \textbf{"signature"} — Ed25519 signature over the canonical JSON payload.
 \end{itemize}
 
-\textbf{Why is this tamper-evident?} The chain is verified by checking:
+\textbf{Why is this tamper-evident?} The verifier checks:
 \begin{enumerate}
-    \item \textbf{Signature validity:} Every receipt is authenticated by the kernel key.
-    \item \textbf{State continuity:} \texttt{receipt[i].pre\_state\_hash == receipt[i-1].post\_state\_hash}.
-    \item \textbf{$\mu$-integrity:} \texttt{post\_mu == pre\_mu + cost}.
+    \item \textbf{Signature validity}: the payload is authenticated under a trusted public key.
+    \item \textbf{Program identity}: the source and canonical trace digests match the actual program file.
+    \item \textbf{$\mu$-integrity}: replayed execution reproduces the attested pre/post state digests and $\Delta\mu$.
 \end{enumerate}
-Breaking the chain requires forging a keyed hash or finding a SHA-256 collision.
+Breaking the attestation requires forging the signature or defeating the digest/replay checks.
 
-
-The receipt chain design is specified in the formal kernel and enforced in the RTL implementation (\path{thielecpu/hardware/rtl/thiele_cpu_kami.v}). The chain is therefore an engineered artifact with concrete hash formats, not an abstract promise.
+Richer per-step chain designs are still interesting future work, but they should be described as extensions rather than current repository behavior.
 
 This enables:
 \begin{itemize}
-    \item \textbf{Post-hoc Verification}: Check the computation without re-running it
-    \item \textbf{Tamper Detection}: Any modification breaks the hash chain
-    \item \textbf{Selective Disclosure}: Reveal only the receipts relevant to a claim
+    \item \textbf{Post-hoc Verification}: Check the computation by replaying the attested program
+    \item \textbf{Tamper Detection}: Any modification breaks the signature or digest checks
+    \item \textbf{Portable Evidence}: The receipt can be moved independently of the original runtime
 \end{itemize}
 
 \subsection{Applications}
 
 \begin{itemize}
-    \item \textbf{Scientific Reproducibility}: A paper is not a PDF—it is a receipt chain. Verification is automated.
+    \item \textbf{Scientific Reproducibility}: A paper can ship execution receipts and replayable artifacts, not just prose.
     \item \textbf{Financial Auditing}: Trading algorithms produce verifiable receipts for every trade.
     \item \textbf{Legal Evidence}: Digital evidence is cryptographically authenticated at creation.
     \item \textbf{AI Safety}: AI decisions are logged with verifiable receipts.
@@ -543,7 +541,7 @@ The ledger charges for the structure that is \textit{found}, not necessarily the
 Current hardware parameters:
 \begin{lstlisting}
 NUM_MODULES = 64       (* PTableSz in ThieleTypes.v *)
-DATA_MEMORY = 4096     (* MemSize in ThieleTypes.v *)
+DATA_MEMORY = 65536    (* MemSize in ThieleTypes.v *)
 \end{lstlisting}
 
 \paragraph{Understanding Current Hardware Limitations:}
@@ -561,18 +559,18 @@ DATA_MEMORY = 4096     (* MemSize in ThieleTypes.v *)
     \end{itemize}
     \textbf{Implication:} Complex partition graphs requiring $>64$ modules cannot be represented. For example, a partition tree with 100 leaf nodes requires 100 module IDs.
 
-    \item \textbf{DATA\_MEMORY = 4096} — Total data memory words. Partition regions are bounded by data memory depth, so the maximum practical region size is 4096 elements. Regions are stored as (base, size) pairs in the 64-slot partition table.
+    \item \textbf{DATA\_MEMORY = 65536} — Total data memory words. Partition regions are bounded by data memory depth, so the maximum practical region size is 4096 elements. Regions are stored as (base, size) pairs in the 64-slot partition table.
 \end{itemize}
 
 \textbf{Why these limits?} Hardware constraints:
 \begin{itemize}
-    \item \textbf{FPGA resources:} The current synthesized design uses ${\sim}2{,}800$ LUTs. Scaling \texttt{NUM\_MODULES} beyond 64 would increase the partition table storage and disjointness-checking logic proportionally.
+    \item \textbf{FPGA resources:} The current synthesized design uses ${\sim}31{,}228$ LUT4 (37\% of ECP5 capacity). Scaling \texttt{NUM\_MODULES} beyond 64 would increase the partition table storage and disjointness-checking logic proportionally.
     \item \textbf{Memory bandwidth:} Checking partition disjointness requires comparing all pairs of regions. 64 modules = $64 \times 63 / 2 = 2016$ comparisons per step. 256 modules = 32,640 comparisons.
 \end{itemize}
 
 \textbf{Comparison to software:} The Python reference VM has no hard limits---it uses dynamic data structures (\texttt{dict}, \texttt{set}) that grow as needed. The hardware must pre-allocate resources, leading to fixed capacity.
 
-\textbf{Real-world adequacy:} For many experiments (CHSH, Grover, Shor), 64 modules with 4096-word data memory are sufficient. For example:
+\textbf{Real-world adequacy:} For many experiments (CHSH, Grover, Shor), 64 modules with 65,536-word data memory are sufficient. For example:
 \begin{itemize}
     \item Grover search on $N = 1024$ elements: 1 module, region $\{0, \ldots, 1023\}$.
     \item Shor factorization of $N = 3233$: $\sim$10 modules for intermediate partitions.
@@ -658,7 +656,7 @@ The partition graph naturally maps to distributed systems:
 \begin{itemize}
     \item Each module executes on a separate node
     \item Module boundaries enforce communication isolation
-    \item Receipt chains provide distributed consensus
+    \item Signed execution receipts provide portable audit evidence
 \end{itemize}
 
 \subsection{Programming Language Design}
@@ -675,14 +673,12 @@ A high-level language for the Thiele Machine would include:
 The Thiele Machine offers:
 \begin{enumerate}
     \item A precise formalization of ``structural cost''
-    \item Provable connections to physical conservation laws, including a constructively derived arrow of time and a formal measurement-as-revelation bridge
+    \item Provable connections to physical conservation laws, including a definitional arrow of time (mu-monotonicity by construction) and a formal measurement-as-revelation bridge
     \item A framework for verifiable computation
     \item A new lens for understanding computational complexity, with concrete $\mu$-cost bounds for NP verification and a conservation law linking computation time to structural revelation cost
     \item Turing subsumption: a mechanized proof that the model is exactly Turing-complete (TM $\to$ Minsky $\to$ Thiele), anchoring the structure-aware complexity classes inside classical computability
     \item Oracle impossibility: three theorems bounding the model from above---halting is undecidable, partial oracles cost $\mu$, and hypercomputation is impossible at finite $\mu$
     \item Six QM-divergent predictions (QD1--QD6) with named observables and numerical values, making the physics bridge empirically falsifiable
-    \item Causal set axioms satisfied by the partition graph, connecting the discrete computational substrate to quantum gravity approaches
-    \item A precise classification of which physical constants are derivable (relational identities) and which require empirical measurement (free parameters)
 \end{enumerate}
 
-The limitations are real but surmountable. The foundational work---zero-admit proofs, 3-layer isomorphism, receipt generation---provides a solid base for future research.
+The limitations are real but surmountable. The foundational work---zero-admit proofs, 3-layer comparison discipline, receipt generation---provides a solid base for future research.

@@ -19,10 +19,10 @@
     3. Reversibility: reversible operations cost 0 (Landauer)
 
     THE CORE THEOREMS:
-    - lassert_cost_determined (line 163): LASSERT cost = 1 + log₂(Ω/Ω') + description_bits
-    - partition_ops_zero_cost (line 231): PNEW/PSPLIT/PMERGE cost = 0 (reversible)
-    - cost_function_unique (line 296): These costs are UNIQUE minimal bounds
-    - mu_cost_thermodynamic_bound (line 263): μ-costs bound physical energy dissipation
+    - lassert_cost_determined: LASSERT cost = 1 + log₂(Ω/Ω') + description_bits
+    - partition_ops_zero_cost: PNEW/PSPLIT/PMERGE cost = 0 (reversible)
+    - cost_function_unique: These costs are UNIQUE minimal bounds
+    - mu_cost_thermodynamic_bound: μ-costs bound physical energy dissipation
 
     WHAT THIS PROVES:
     The costs in VMStep.v are not design choices. They're the MINIMUM costs
@@ -48,11 +48,11 @@
     computation is free in the limit).
 
     Or find a different cost assignment that also satisfies information bounds.
-    cost_function_unique (line 296) says these are the UNIQUE minimal costs -
+    cost_function_unique says these are the UNIQUE minimal costs -
     anything lower violates physics, anything higher wastes energy.
 
     STATUS: AXIOM-FREE, ADMIT-FREE (uses LandauerDerived.v + SemanticMuCost.v)
-    log2_subtraction_valid proven by Nat.log2_le_mono + case analysis (line 64-110)
+    log2_subtraction_valid proven by Nat.log2_le_mono + case analysis
 
     ========================================================================= *)
 
@@ -322,18 +322,18 @@ Definition derived_instruction_cost (instr : vm_instruction) : nat :=
   | instr_pnew _ _ => 0           (* Reversible *)
   | instr_psplit _ _ _ _ => 0     (* Reversible *)
   | instr_pmerge _ _ _ => 0       (* Reversible *)
-  | instr_lassert _ formula _ delta =>
+  | instr_lassert _ _ _ flen delta =>
       (* delta MUST equal: *)
       (* (1 bit sentinel) + (state reduction log₂(Ω/Ω')) + (description bits) *)
       (* For now, we assert delta is provided - but it's DETERMINED by these *)
-      delta
+      flen * 8 + S delta
   | _ => 0  (* Other instructions to be analyzed *)
   end.
 
 (** Theorem: The cost function is uniquely determined by information bounds *)
 Theorem cost_function_unique : forall (instr : vm_instruction),
   match instr with
-  | instr_lassert mid formula cert delta =>
+  | instr_lassert fa ca k flen delta =>
       (* The cost delta is uniquely determined by: *)
       (* 1. State space reduction log₂(Ω/Ω') *)
       (* 2. Description complexity semantic_complexity_bits(formula) *)
@@ -341,7 +341,7 @@ Theorem cost_function_unique : forall (instr : vm_instruction),
         omega_after <= omega_before ->
         desc_bits = semantic_complexity_bits ast ->
         delta = 1 + (log2_nat omega_before - log2_nat omega_after) + desc_bits ->
-        derived_instruction_cost instr = delta
+        derived_instruction_cost instr = flen * 8 + S delta
   | instr_pnew _ delta =>
       delta = 0 -> derived_instruction_cost instr = delta
   | instr_psplit _ _ _ delta =>
@@ -423,11 +423,11 @@ Qed.
     and thermodynamics (Landauer's principle).
 
     The circularity in MuInitiality.v is broken because instruction costs
-    are now DERIVED FROM FIRST PRINCIPLES rather than being free parameters.
+    are DERIVED FROM FIRST PRINCIPLES rather than being free parameters.
 *)
 
 (** =========================================================================
-    PART 8: SUMMARY - WHAT WE PROVED
+    PART 8: SUMMARY
     ========================================================================= *)
 
 (**
@@ -445,13 +445,9 @@ Qed.
 
    - log2_subtraction_valid: Monotonicity of log2_nat (standard result, tedious proof)
 
-   CIRCULARITY BROKEN:
-
-   Before: instruction_cost just reads mu_delta parameters (circular)
-   After: mu_delta values DETERMINED by information theory (non-circular)
-
-   The costs in VMStep.v are not design choices - they're information-theoretic
-   necessities derived from Shannon entropy and Landauer's principle.
+   The mu_delta values are DETERMINED by information theory (non-circular).
+   The costs in VMStep.v are information-theoretic necessities derived from
+   Shannon entropy and Landauer's principle.
 *)
 
 (** =========================================================================

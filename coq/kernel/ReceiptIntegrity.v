@@ -1,27 +1,31 @@
+(** * ReceiptIntegrity: Binding μ-cost to Computation
+
+    WHY THIS FILE EXISTS:
+    The Python receipt system originally signed claims without verifying
+    that the claimed μ_delta matches the actual instruction cost. This file
+    defines receipt validity as a formal binding between the instruction
+    executed, the claimed μ_delta, and the actual computed cost.
+
+    THE CORE CLAIM:
+    A valid receipt chain proves that μ was earned through computation.
+    Forged receipts (wrong μ_delta) are detected by receipt_mu_consistent.
+    Overflow attacks (out-of-range μ) are detected by receipt_mu_in_range.
+
+    FALSIFICATION:
+    Produce a valid receipt chain (receipt_chain_valid returns true) where
+    chain_final_mu differs from the sum of actual instruction costs. Or
+    construct a receipt that passes receipt_fully_valid_b but has
+    post_mu /= pre_mu + instruction_cost(instruction). Both are impossible
+    by construction: the predicates enforce these equalities definitionally.
+
+    NO AXIOMS. NO ADMITS.
+    *)
+
 From Coq Require Import List Bool Arith.PeanoNat Lia Ring.
 Import ListNotations.
 
 Require Import Kernel.VMState.
 Require Import Kernel.VMStep.
-
-(** * Receipt Integrity: Binding μ-cost to Computation
-    
-    STATUS: December 24, 2025
-    
-    This module addresses the receipt forgery vulnerability:
-    
-    VULNERABILITY: The Python receipt system signs claims without verifying
-    that the claimed μ_delta matches the actual instruction cost.
-    
-    FIX: Define receipt validity as a binding between:
-    - The instruction executed
-    - The claimed μ_delta
-    - The actual computed cost
-    
-    THEOREM: A valid receipt chain proves that μ was earned through computation.
-    
-    NO AXIOMS. NO ADMITS.
-    *)
 
 Module ReceiptIntegrity.
 
@@ -573,12 +577,10 @@ Qed.
     1. receipt_mu_consistent_b(r) must return true
     2. For chains: receipt_chain_valid_b(rs, 0) must return true
     
-    IMPLEMENTATION IN PYTHON:
-    
-    def verify_mu_integrity(self) -> bool:
-        expected_post_mu = self.pre_state['mu_acc'] + instruction_cost(self.instruction)
-        return self.post_state['mu_acc'] == expected_post_mu
-    
+    IMPLEMENTATION NOTE:
+    instruction_cost is computed by the OCaml extracted runner
+    (build/thiele_core.ml), not reimplemented in any wrapper layer.
+
     IMPLEMENTATION IN VERILOG:
     
     wire mu_valid = (post_mu == pre_mu + instr_cost);

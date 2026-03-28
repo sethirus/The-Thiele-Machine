@@ -16,10 +16,10 @@
     This connects the abstract μ-ledger to concrete information theory.
 
     STRUCTURE:
-    1. state_info: Counts modules (proxy for information content) (line 33)
-    2. info_loss: Difference in state_info before/after transition (line 41)
-    3. instr_mu_cost: Extracts μ-cost from instruction (line 49)
-    4. Module count changes: How each instruction affects module count (line 75)
+    1. state_info: Counts modules (proxy for information content)
+    2. info_loss: Difference in state_info before/after transition
+    3. instr_mu_cost: Extracts μ-cost from instruction
+    4. Module count changes: How each instruction affects module count
 
     KEY INSIGHT:
     Different instructions change module count differently:
@@ -55,10 +55,8 @@ From Coq Require Import List Arith.PeanoNat Lia Bool ZArith.
 From Coq Require Import Strings.String.
 Import ListNotations.
 
-Require Import VMState.
-Require Import VMStep.
-Require Import FiniteInformation.
-Require Import Locality.
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import FiniteInformation Locality.
 
 (** =========================================================================
     PART 1: INFORMATION MEASURES
@@ -86,7 +84,7 @@ Definition instr_mu_cost (i : vm_instruction) : nat :=
   | instr_pnew _ cost => cost
   | instr_psplit _ _ _ cost => cost
   | instr_pmerge _ _ cost => cost
-  | instr_lassert _ _ _ cost => cost
+  | instr_lassert _ _ _ _ cost => cost
   | instr_ljoin _ _ cost => cost
   | instr_mdlacc _ cost => cost
   | instr_pdiscover _ _ cost => cost
@@ -121,6 +119,15 @@ Definition instr_mu_cost (i : vm_instruction) : nat :=
   | instr_shr _ _ _ cost => cost
   | instr_mul _ _ _ cost => cost
   | instr_lui _ _ cost => cost
+  | instr_tensor_set _ _ _ _ cost => cost
+  | instr_tensor_get _ _ _ _ cost => cost
+  | instr_morph _ _ _ _ cost => cost
+  | instr_compose _ _ _ cost => cost
+  | instr_morph_id _ _ cost => cost
+  | instr_morph_delete _ cost => cost
+  | instr_morph_assert _ _ _ cost => cost
+  | instr_morph_tensor _ _ _ cost => cost
+  | instr_morph_get _ _ _ cost => cost
   end.
 
 (** =========================================================================
@@ -203,6 +210,88 @@ Proof.
     exact Hlen.
   - (* Failure: count unchanged *)
     lia.
+Qed.
+
+(** graph_update_module_tensor preserves module count exactly *)
+Lemma graph_update_module_tensor_preserves_length : forall g mid k v,
+  List.length (pg_modules (graph_update_module_tensor g mid k v)) =
+  List.length (pg_modules g).
+Proof.
+  intros g mid k v.
+  unfold graph_update_module_tensor.
+  destruct (graph_lookup g mid) eqn:Hlu.
+  - apply graph_update_existing_length. rewrite Hlu. discriminate.
+  - reflexivity.
+Qed.
+
+(** graph_add_morphism preserves module count (only changes pg_morphisms) *)
+Lemma graph_add_morphism_preserves_module_count :
+  forall g src dst c is_id g' mid,
+    (g', mid) = graph_add_morphism g src dst c is_id ->
+    List.length (pg_modules g') = List.length (pg_modules g).
+Proof.
+  intros g src dst c is_id g' mid H.
+  unfold graph_add_morphism in H. cbv zeta in H. inversion H. simpl. reflexivity.
+Qed.
+
+(** graph_delete_morphism preserves module count (only changes pg_morphisms) *)
+Lemma graph_delete_morphism_preserves_module_count :
+  forall g mid g',
+    graph_delete_morphism g mid = Some g' ->
+    List.length (pg_modules g') = List.length (pg_modules g).
+Proof.
+  intros g mid g' H.
+  unfold graph_delete_morphism in H.
+  destruct (existsb _ _); inversion H; simpl; reflexivity.
+Qed.
+
+(** graph_add_identity preserves module count *)
+Lemma graph_add_identity_preserves_module_count :
+  forall g mid g' id,
+    graph_add_identity g mid = Some (g', id) ->
+    List.length (pg_modules g') = List.length (pg_modules g).
+Proof.
+  intros g mid g' id H.
+  unfold graph_add_identity in H.
+  destruct (graph_lookup g mid) as [m|]; try discriminate.
+  unfold graph_add_morphism in H. cbv zeta in H.
+  injection H as Hg Hid.
+  subst g'. simpl. reflexivity.
+Qed.
+
+(** graph_compose_morphisms preserves module count *)
+Lemma graph_compose_morphisms_preserves_module_count :
+  forall g m1 m2 g' id,
+    graph_compose_morphisms g m1 m2 = Some (g', id) ->
+    List.length (pg_modules g') = List.length (pg_modules g).
+Proof.
+  intros g m1 m2 g' id H.
+  unfold graph_compose_morphisms in H.
+  destruct (graph_lookup_morphism g m1); try discriminate.
+  destruct (graph_lookup_morphism g m2); try discriminate.
+  destruct (Nat.eqb _ _); try discriminate.
+  unfold graph_add_morphism in H. cbv zeta in H.
+  injection H as Hg Hid.
+  subst g'. simpl. reflexivity.
+Qed.
+
+(** graph_tensor_morphisms preserves module count *)
+Lemma graph_tensor_morphisms_preserves_module_count :
+  forall g f_id g_id g' id,
+    graph_tensor_morphisms g f_id g_id = Some (g', id) ->
+    List.length (pg_modules g') = List.length (pg_modules g).
+Proof.
+  intros g f_id g_id g' id H.
+  unfold graph_tensor_morphisms in H.
+  repeat match type of H with
+  | (match ?x with Some _ => _ | None => _ end) = Some _ =>
+      destruct x; try discriminate
+  | (if ?b then _ else _) = Some _ =>
+      destruct b; try discriminate
+  end.
+  unfold graph_add_morphism in H. cbv zeta in H.
+  injection H as Hg Hid.
+  subst g'. simpl. reflexivity.
 Qed.
 
 (** Most instructions don't change module count *)
@@ -331,6 +420,58 @@ Proof.
   - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
 
   (* lui: graph unchanged *)
+  - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
+
+  (* tensor_set: graph updated by graph_update_module_tensor (preserves length) *)
+  - inversion Hstep; subst; unfold state_info; simpl.
+    + (* success: graph_update_module_tensor preserves module count *)
+      rewrite graph_update_module_tensor_preserves_length. reflexivity.
+    + (* oob: graph unchanged *)
+      reflexivity.
+
+  (* tensor_get: graph unchanged *)
+  - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
+
+  (* instr_morph: graph_add_morphism preserves module count *)
+  - inversion Hstep; subst; unfold state_info; simpl.
+    + (* success: use pair hypothesis to extract graph' = fst (graph_add_morphism ...) *)
+      match goal with H: (_, _) = graph_add_morphism _ _ _ _ _ |- _ =>
+        exact (graph_add_morphism_preserves_module_count _ _ _ _ _ _ _ H)
+      end.
+    + reflexivity.
+
+  (* instr_compose: graph_compose_morphisms preserves module count *)
+  - inversion Hstep; subst; unfold state_info; simpl.
+    + match goal with H: graph_compose_morphisms _ _ _ = Some (_, _) |- _ =>
+        exact (graph_compose_morphisms_preserves_module_count _ _ _ _ _ H)
+      end.
+    + reflexivity.
+
+  (* instr_morph_id: graph_add_identity preserves module count *)
+  - inversion Hstep; subst; unfold state_info; simpl.
+    + match goal with H: graph_add_identity _ _ = Some (_, _) |- _ =>
+        exact (graph_add_identity_preserves_module_count _ _ _ _ H)
+      end.
+    + reflexivity.
+
+  (* instr_morph_delete: graph_delete_morphism preserves module count *)
+  - inversion Hstep; subst; unfold state_info; simpl.
+    + match goal with H: graph_delete_morphism _ _ = Some _ |- _ =>
+        exact (graph_delete_morphism_preserves_module_count _ _ _ H)
+      end.
+    + reflexivity.
+
+  (* instr_morph_assert: graph unchanged in all cases *)
+  - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
+
+  (* instr_morph_tensor: graph_tensor_morphisms preserves module count *)
+  - inversion Hstep; subst; unfold state_info; simpl.
+    + match goal with H: graph_tensor_morphisms _ _ _ = Some (_, _) |- _ =>
+        exact (graph_tensor_morphisms_preserves_module_count _ _ _ _ _ H)
+      end.
+    + reflexivity.
+
+  (* instr_morph_get: graph unchanged in all cases *)
   - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
 Qed.
 
@@ -496,6 +637,33 @@ Proof.
   (* lui *)
   - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
     unfold state_info in H. simpl in H. lia.
+  (* tensor_set *)
+  - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
+    unfold state_info in H. simpl in H. lia.
+  (* tensor_get *)
+  - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
+    unfold state_info in H. simpl in H. lia.
+  (* morph *)
+  - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
+    unfold state_info in H. simpl in H. lia.
+  (* compose *)
+  - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
+    unfold state_info in H. simpl in H. lia.
+  (* morph_id *)
+  - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
+    unfold state_info in H. simpl in H. lia.
+  (* morph_delete *)
+  - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
+    unfold state_info in H. simpl in H. lia.
+  (* morph_assert *)
+  - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
+    unfold state_info in H. simpl in H. lia.
+  (* morph_tensor *)
+  - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
+    unfold state_info in H. simpl in H. lia.
+  (* morph_get *)
+  - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
+    unfold state_info in H. simpl in H. lia.
 Qed.
 
 (** =========================================================================
@@ -586,9 +754,9 @@ Proof.
 Qed.
 
 (** =========================================================================
-    STATUS: LOCAL INFORMATION LOSS - ALL COMPLETE
-    
-    PROVEN (no admits):
+    LOCAL INFORMATION LOSS — PROVEN RESULTS
+
+    Proven (no admits):
     - pnew_module_count_change: pnew increases or preserves module count
     - psplit_module_count_change: psplit increases module count on success
     - pmerge_module_count_change: pmerge decreases module count on success

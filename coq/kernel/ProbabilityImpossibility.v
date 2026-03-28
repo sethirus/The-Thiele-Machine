@@ -9,16 +9,16 @@
     This establishes the boundary between what's derivable and what requires axioms.
 
     THE CORE CLAIM:
-    Born_Rule_Unique_Fails_Without_More_Structure (line 38): There exist at least
+    Born_Rule_Unique_Fails_Without_More_Structure: There exist at least
     TWO distinct compositional weight functions (w_len and w_len2). Both satisfy
     composition laws (w(t1++t2) = w(t1)+w(t2)), but give different values.
     Therefore, composition alone doesn't uniquely determine weights.
 
     WHAT THIS PROVES:
-    - weight_compositional (line 15): Abstract interface for trace weights
-    - w_len_compositional (line 22): Trace length is compositional
-    - w_len2_compositional (line 30): Double length is also compositional
-    - Born_Rule_Unique_Fails_Without_More_Structure (line 38): Non-uniqueness proof
+    - weight_compositional: Abstract interface for trace weights
+    - w_len_compositional: Trace length is compositional
+    - w_len2_compositional: Double length is also compositional
+    - Born_Rule_Unique_Fails_Without_More_Structure: Non-uniqueness proof
 
     PHYSICAL INTERPRETATION:
     This is a NO-GO result. If you want probability theory in your computational
@@ -32,7 +32,7 @@
     FALSIFICATION:
     Show that compositional weights are unique - prove that all functions satisfying
     w(t1++t2) = w(t1)+w(t2) and w([]) = 0 must be identical. This would contradict
-    the theorem (line 38) which explicitly constructs two different ones.
+    the theorem (Born_Rule_Unique_Fails_Without_More_Structure) which explicitly constructs two different ones.
 
     Or prove the Born rule follows from computation alone. This would invalidate
     the no-go result and suggest probability is derivable after all.
@@ -211,8 +211,8 @@ Qed.
 
     4. BOUNDARY OF DERIVABILITY:
        This is a clean NO-GO result showing what the kernel CANNOT do.
-       Compare with PhysicsClosure.v (what it CAN do) and NoGo.v (what
-       requires additional structure).
+       Compare with PhysicsClosure.v (what it CAN do) and MuInitiality.v
+       (which proves mu-cost uniqueness from instruction-consistency).
 
     RELATED WORK:
     - Gleason's theorem: Probabilities on Hilbert spaces must be Born rule

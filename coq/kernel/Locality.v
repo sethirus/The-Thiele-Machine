@@ -62,9 +62,7 @@ From Coq Require Import List Arith.PeanoNat Lia Bool.
 From Coq Require Import Strings.String.
 Import ListNotations.
 
-Require Import VMState.
-Require Import VMStep.
-Require Import KernelPhysics.
+From Kernel Require Import VMState VMStep KernelPhysics.
 
 (** =========================================================================
     PART 0: WELL-FORMEDNESS LEMMAS
@@ -249,7 +247,7 @@ Definition instr_targets (i : vm_instruction) : list ModuleID :=
   | instr_pnew _ _ => []
   | instr_psplit mid _ _ _ => [mid]
   | instr_pmerge m1 m2 _ => [m1; m2]
-  | instr_lassert mid _ _ _ => [mid]
+  | instr_lassert _ _ _ _ _ => []
   | instr_ljoin _ _ _ => []
   | instr_mdlacc mid _ => [mid]
   | instr_pdiscover mid _ _ => [mid]
@@ -284,6 +282,16 @@ Definition instr_targets (i : vm_instruction) : list ModuleID :=
   | instr_mul _ _ _ _ => []
   | instr_lui _ _ _ => []
   | instr_halt _ => []
+  | instr_tensor_set _ _ _ _ _ => []
+  | instr_tensor_get _ _ _ _ _ => []
+  (* Phase 7: categorical instructions - morphisms don't target modules directly *)
+  | instr_morph _ _ _ _ _ => []
+  | instr_compose _ _ _ _ => []
+  | instr_morph_id _ _ _ => []
+  | instr_morph_delete _ _ => []
+  | instr_morph_assert _ _ _ _ => []
+  | instr_morph_tensor _ _ _ _ => []
+  | instr_morph_get _ _ _ _ => []
   end.
 
 (** =========================================================================
@@ -338,6 +346,69 @@ Proof.
   intros mid m1 m2 H. split.
   - intros Heq. subst. apply H. left. reflexivity.
   - intros Heq. subst. apply H. right. left. reflexivity.
+Qed.
+
+(** Helper: graph_update_module_tensor preserves module_region_obs for ALL modules.
+    TENSOR instructions update only module_mu_tensor, not module_region, so
+    the observable region (which normalize_region computes from module_region)
+    is unchanged for every module ID. *)
+Lemma graph_update_module_tensor_preserves_region_obs :
+  forall g mid k v mid',
+  match graph_lookup g mid' with
+  | Some m => Some (normalize_region m.(module_region))
+  | None => None
+  end =
+  match graph_lookup (graph_update_module_tensor g mid k v) mid' with
+  | Some m => Some (normalize_region m.(module_region))
+  | None => None
+  end.
+Proof.
+  intros g mid k v mid'.
+  destruct (graph_lookup g mid) as [ms|] eqn:Hlu.
+  - (* Module mid exists: graph_update is called *)
+    destruct (Nat.eq_dec mid' mid) as [Heq | Hneq].
+    + (* mid' = mid: lookup returns updated module, but module_region preserved *)
+      subst.
+      rewrite (graph_update_module_tensor_lookup_same g mid k v ms Hlu).
+      rewrite Hlu. simpl.
+      f_equal. symmetry. apply normalize_region_idempotent.
+    + (* mid' <> mid: lookup in updated graph is unchanged *)
+      unfold graph_update_module_tensor. rewrite Hlu.
+      rewrite graph_update_preserves_unrelated by assumption.
+      reflexivity.
+  - (* Module mid doesn't exist: graph_update_module_tensor is identity *)
+    unfold graph_update_module_tensor. rewrite Hlu. reflexivity.
+Qed.
+
+(** graph_add_axiom only changes module_axioms, not module_region.
+    So module_region_obs is preserved for ALL modules (not just mid ≠ target). *)
+Lemma graph_add_axiom_preserves_region_obs_all :
+  forall g mid_target ax mid',
+    match graph_lookup (graph_add_axiom g mid_target ax) mid' with
+    | Some m' => Some (normalize_region m'.(module_region))
+    | None => None
+    end =
+    match graph_lookup g mid' with
+    | Some m => Some (normalize_region m.(module_region))
+    | None => None
+    end.
+Proof.
+  intros g mid_target ax mid'.
+  unfold graph_add_axiom.
+  destruct (graph_lookup g mid_target) eqn:Hlu.
+  - (* mid_target has a module: axiom added to it *)
+    destruct (Nat.eq_dec mid' mid_target) as [Heq | Hneq].
+    + (* mid' = mid_target: updated module has same region as original *)
+      subst.
+      assert (Hne : graph_lookup g mid_target <> None) by (rewrite Hlu; discriminate).
+      erewrite graph_update_lookup_same by exact Hne.
+      rewrite Hlu. unfold normalize_module. simpl.
+      rewrite normalize_region_idempotent. reflexivity.
+    + (* mid' ≠ mid_target: lookup unchanged *)
+      rewrite graph_update_preserves_lookup_other by assumption.
+      reflexivity.
+  - (* mid_target has no module: graph unchanged *)
+    reflexivity.
 Qed.
 
 (** THE MASTER LOCALITY THEOREM: vm_step only changes target module observations
@@ -425,11 +496,8 @@ Proof.
     inversion Hstep; subst;
     unfold states_agree_on_module, module_region_obs;
     rewrite advance_state_graph.
-    + (* Sat certificate accepted *)
-      apply region_obs_lookup_eq.
-      symmetry.
-      apply graph_add_axiom_preserves_lookup_other.
-      intros Heq. subst. apply Hnot_target. left. reflexivity.
+    + (* Sat certificate accepted: graph_add_axiom preserves module_region for all mid *)
+      symmetry. apply graph_add_axiom_preserves_region_obs_all.
     + (* Unsat certificate accepted - graph unchanged *)
       reflexivity.
     + (* Sat certificate rejected - graph unchanged *)
@@ -577,16 +645,88 @@ Proof.
     inversion Hstep; subst.
     unfold states_agree_on_module, module_region_obs.
     reflexivity.
+  - (* tensor_set: in-bounds updates graph_update_module_tensor (region preserved);
+       OOB leaves graph unchanged *)
+    inversion Hstep; subst;
+    unfold states_agree_on_module, module_region_obs;
+    rewrite advance_state_graph.
+    + (* step_tensor_set: graph updated, module_region_obs preserved *)
+      apply graph_update_module_tensor_preserves_region_obs.
+    + (* step_tensor_set_oob: graph unchanged *)
+      reflexivity.
+  - (* tensor_get: both in-bounds and OOB leave graph unchanged *)
+    inversion Hstep; subst;
+    unfold states_agree_on_module, module_region_obs;
+    [rewrite advance_state_rm_graph | rewrite advance_state_graph]; reflexivity.
+  - (* instr_morph: success adds morphism to graph (module lookups preserved) *)
+    inversion Hstep; subst; try (cbv zeta in *);
+    unfold states_agree_on_module, module_region_obs.
+    + (* step_morph: graph' = fst (graph_add_morphism ...), which preserves module lookup *)
+      rewrite advance_state_rm_graph.
+      apply region_obs_lookup_eq.
+      (* Context has H8: (graph', morph_id) = graph_add_morphism (vm_graph s) src_mod dst_mod c false
+         where c := {| coupling_pairs := []; coupling_label := "" |} is a let-def.
+         Use standalone preservation lemma and f_equal fst H8 to equate graphs. *)
+      rewrite <- (graph_add_morphism_preserves_lookup (vm_graph s) src_mod dst_mod c false mid).
+      pose proof (f_equal fst H8) as Hfst.
+      simpl in Hfst.
+      rewrite Hfst. reflexivity.
+    + (* step_morph_failure: graph unchanged *)
+      rewrite advance_state_graph. reflexivity.
+  - (* instr_compose: composing morphisms preserves module lookup *)
+    inversion Hstep; subst;
+    unfold states_agree_on_module, module_region_obs.
+    + rewrite advance_state_rm_graph.
+      apply region_obs_lookup_eq.
+      match goal with [H: graph_compose_morphisms _ _ _ = Some _ |- _] =>
+        symmetry; exact (graph_compose_morphisms_preserves_lookup _ _ _ _ _ _ H)
+      end.
+    + rewrite advance_state_graph. reflexivity.
+  - (* instr_morph_id: adding identity morphism preserves module lookup *)
+    inversion Hstep; subst;
+    unfold states_agree_on_module, module_region_obs.
+    + rewrite advance_state_rm_graph.
+      apply region_obs_lookup_eq.
+      match goal with [H: graph_add_identity _ _ = Some _ |- _] =>
+        symmetry; exact (graph_add_identity_preserves_lookup _ _ _ _ _ H)
+      end.
+    + rewrite advance_state_graph. reflexivity.
+  - (* instr_morph_delete: deleting morphism preserves module lookup *)
+    inversion Hstep; subst;
+    unfold states_agree_on_module, module_region_obs.
+    + rewrite advance_state_graph.
+      apply region_obs_lookup_eq.
+      match goal with [H: graph_delete_morphism _ _ = Some _ |- _] =>
+        symmetry; exact (graph_delete_morphism_preserves_lookup _ _ _ _ H)
+      end.
+    + rewrite advance_state_graph. reflexivity.
+  - (* instr_morph_assert: only changes CSRs, graph unchanged *)
+    inversion Hstep; subst;
+    unfold states_agree_on_module, module_region_obs;
+    rewrite advance_state_graph; reflexivity.
+  - (* instr_morph_tensor: tensor of morphisms preserves module lookup *)
+    inversion Hstep; subst;
+    unfold states_agree_on_module, module_region_obs.
+    + rewrite advance_state_rm_graph.
+      apply region_obs_lookup_eq.
+      match goal with [H: graph_tensor_morphisms _ _ _ = Some _ |- _] =>
+        symmetry; exact (graph_tensor_morphisms_preserves_lookup _ _ _ _ _ _ H)
+      end.
+    + rewrite advance_state_graph. reflexivity.
+  - (* instr_morph_get: only reads morphism, graph unchanged *)
+    inversion Hstep; subst;
+    unfold states_agree_on_module, module_region_obs;
+    [rewrite advance_state_rm_graph | rewrite advance_state_graph]; reflexivity.
 Qed.
 
 (** =========================================================================
     STATUS: LOCALITY FRAMEWORK - FULLY PROVEN
     
-    PROVEN (18 of 18 cases):
+    PROVEN (40 of 40 cases):
     - pnew: Uses well_formed_graph invariant + region_obs_lookup_eq
     - psplit: Uses graph_psplit_preserves_unrelated + region_obs_lookup_eq
     - pmerge: Uses graph_pmerge_preserves_region_obs with normalized regions
-    - lassert, ljoin, mdlacc, pdiscover, xfer, pyexec
+    - lassert, ljoin, mdlacc, pdiscover, xfer
     - chsh_trial, xor_load, xor_add, xor_swap, xor_rank
     - emit, reveal, oracle_halts, halt
     

@@ -21,7 +21,7 @@
     - Cells (3-simplices): Tetrahedral volumes
     - 4-Cells (4-simplices): 4D simplices
 
-    ZERO AXIOMS. NO SHORTCUTS.
+    ZERO PROJECT-LOCAL AXIOMS. NO SHORTCUTS.
 
     STATUS: Foundation - building from first principles
     *)
@@ -52,9 +52,12 @@ Record Face2D := {
   f2d_vertices : list nat;  (* Must have exactly 3 vertices *)
 }.
 
-(** An edge is defined by 2 vertices *)
+(** An edge is defined by 2 vertices, plus an optional direction label in {0,1,2,3}.
+    None = undirected (matches any coordinate direction).
+    Some d = directed along coordinate axis d. *)
 Record Edge1D := {
-  e1d_vertices : list nat;  (* Must have exactly 2 vertices *)
+  e1d_vertices : list nat;   (* Must have exactly 2 vertices *)
+  e1d_direction : option nat; (* None = undirected; Some d = direction d *)
 }.
 
 (** 4D Simplicial Complex *)
@@ -191,7 +194,7 @@ Fixpoint extract_edges_from_modules
       let edges_with_m1 :=
         flat_map (fun '(id2, m2) =>
           if regions_overlap (module_region m1) (module_region m2)
-          then [{| e1d_vertices := [id1; id2] |}]
+          then [{| e1d_vertices := [id1; id2]; e1d_direction := None |}]
           else []
         ) rest
       in edges_with_m1 ++ extract_edges_from_modules rest

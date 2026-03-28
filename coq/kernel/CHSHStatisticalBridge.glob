@@ -1,0 +1,679 @@
+DIGEST 592d82d72013f0dc901c77c425072df7
+FKernel.CHSHStatisticalBridge
+R2667:2670 Coq.Lists.List <> <> lib
+R2672:2685 Coq.Arith.PeanoNat <> <> lib
+R2687:2689 Coq.micromega.Lia <> <> lib
+R2691:2696 Coq.QArith.QArith <> <> lib
+R2698:2708 Coq.QArith.Qabs <> <> lib
+R2710:2715 Coq.ZArith.ZArith <> <> lib
+R2717:2719 Coq.micromega.Lra <> <> lib
+R2721:2733 Coq.PArith.BinPos <> <> lib
+R2735:2745 Coq.PArith.Pnat <> <> lib
+R2755:2767 Coq.Lists.List ListNotations <> mod
+R2798:2804 Kernel.VMState <> <> lib
+R2806:2811 Kernel.VMStep <> <> lib
+R2813:2827 Kernel.SimulationProof <> <> lib
+R2856:2867 Kernel.AbstractNoFI <> <> lib
+R2869:2894 Kernel.UniversalCertificationCost <> <> lib
+R2923:2938 Kernel.QuantitativeNoFI <> <> lib
+R2940:2943 Kernel.CHSH <> <> lib
+def 4317:4333 <> chsh_correlator_q
+R4346:4348 Coq.Init.Datatypes <> nat ind
+binder 4336:4338 <> pos:1
+binder 4340:4342 <> neg:2
+R4353:4353 Coq.QArith.QArith_base <> Q rec
+R4377:4379 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4374:4376 Kernel.CHSHStatisticalBridge <> pos:1 var
+R4380:4382 Kernel.CHSHStatisticalBridge <> neg:2 var
+binder 4364:4368 <> total:3
+R4397:4403 Coq.Arith.PeanoNat Nat eqb def
+R4405:4409 Kernel.CHSHStatisticalBridge <> total:3 var
+R4455:4457 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R4440:4442 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R4428:4435 Coq.ZArith.BinInt Z of_nat def
+R4437:4439 Kernel.CHSHStatisticalBridge <> pos:1 var
+R4443:4450 Coq.ZArith.BinInt Z of_nat def
+R4452:4454 Kernel.CHSHStatisticalBridge <> neg:2 var
+R4458:4467 Coq.PArith.BinPos Pos of_nat def
+R4469:4473 Kernel.CHSHStatisticalBridge <> total:3 var
+def 4621:4637 <> chsh_stat_from_wc
+R4645:4657 Kernel.VMState <> WitnessCounts rec
+binder 4640:4641 <> wc:4
+R4662:4662 Coq.QArith.QArith_base <> Q rec
+R4826:4830 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R4772:4776 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R4718:4722 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R4669:4685 Kernel.CHSHStatisticalBridge <> chsh_correlator_q def
+R4688:4697 Kernel.VMState <> wc_same_00 proj
+R4699:4700 Kernel.CHSHStatisticalBridge <> wc:4 var
+R4704:4713 Kernel.VMState <> wc_diff_00 proj
+R4715:4716 Kernel.CHSHStatisticalBridge <> wc:4 var
+R4723:4739 Kernel.CHSHStatisticalBridge <> chsh_correlator_q def
+R4742:4751 Kernel.VMState <> wc_same_01 proj
+R4753:4754 Kernel.CHSHStatisticalBridge <> wc:4 var
+R4758:4767 Kernel.VMState <> wc_diff_01 proj
+R4769:4770 Kernel.CHSHStatisticalBridge <> wc:4 var
+R4777:4793 Kernel.CHSHStatisticalBridge <> chsh_correlator_q def
+R4796:4805 Kernel.VMState <> wc_same_10 proj
+R4807:4808 Kernel.CHSHStatisticalBridge <> wc:4 var
+R4812:4821 Kernel.VMState <> wc_diff_10 proj
+R4823:4824 Kernel.CHSHStatisticalBridge <> wc:4 var
+R4831:4847 Kernel.CHSHStatisticalBridge <> chsh_correlator_q def
+R4850:4859 Kernel.VMState <> wc_diff_11 proj
+R4861:4862 Kernel.CHSHStatisticalBridge <> wc:4 var
+R4866:4875 Kernel.VMState <> wc_same_11 proj
+R4877:4878 Kernel.CHSHStatisticalBridge <> wc:4 var
+prf 5614:5625 <> Z_of_nat_pos
+R5642:5644 Coq.Init.Datatypes <> nat ind
+binder 5638:5638 <> n:5
+R5658:5661 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5649:5651 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5652:5652 Kernel.CHSHStatisticalBridge <> n:5 var
+R5672:5674 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5662:5669 Coq.ZArith.BinInt Z of_nat def
+R5671:5671 Kernel.CHSHStatisticalBridge <> n:5 var
+R5675:5678 Coq.Numbers.BinNums <> Zpos constr
+R5681:5690 Coq.PArith.BinPos Pos of_nat def
+R5692:5692 Kernel.CHSHStatisticalBridge <> n:5 var
+R5874:5888 Coq.PArith.BinPos Pos of_nat_succ thm
+R5874:5888 Coq.PArith.BinPos Pos of_nat_succ thm
+R5874:5888 Coq.PArith.BinPos Pos of_nat_succ thm
+prf 6041:6059 <> correlator_abs_le_1
+R6078:6080 Coq.Init.Datatypes <> nat ind
+binder 6072:6072 <> p:6
+binder 6074:6074 <> n:7
+R6115:6118 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R6087:6090 Coq.QArith.Qabs <> Qabs def
+R6093:6109 Kernel.CHSHStatisticalBridge <> chsh_correlator_q def
+R6111:6111 Kernel.CHSHStatisticalBridge <> p:6 var
+R6113:6113 Kernel.CHSHStatisticalBridge <> n:7 var
+R6152:6168 Kernel.CHSHStatisticalBridge <> chsh_correlator_q def
+R6183:6189 Coq.Arith.PeanoNat Nat eqb def
+R6193:6195 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6183:6189 Coq.Arith.PeanoNat Nat eqb def
+R6193:6195 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6268:6271 Coq.QArith.Qabs <> Qabs def
+R6274:6276 Coq.QArith.QArith_base <> Qle def
+R6342:6352 Coq.Arith.PeanoNat Nat eqb_neq thm
+R6342:6352 Coq.Arith.PeanoNat Nat eqb_neq thm
+R6383:6385 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6387:6389 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6383:6385 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6387:6389 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6417:6420 Coq.QArith.Qabs <> Qabs def
+R6423:6425 Coq.QArith.QArith_base <> Qle def
+R6447:6455 Coq.ZArith.BinInt Z mul_1_r thm
+R6447:6455 Coq.ZArith.BinInt Z mul_1_r thm
+R6447:6455 Coq.ZArith.BinInt Z mul_1_r thm
+R6550:6561 Kernel.CHSHStatisticalBridge <> Z_of_nat_pos thm
+R6550:6561 Kernel.CHSHStatisticalBridge <> Z_of_nat_pos thm
+R6550:6561 Kernel.CHSHStatisticalBridge <> Z_of_nat_pos thm
+R6589:6601 Coq.ZArith.Znat Nat2Z inj_add thm
+R6589:6601 Coq.ZArith.Znat Nat2Z inj_add thm
+R6589:6601 Coq.ZArith.Znat Nat2Z inj_add thm
+R6689:6696 Coq.ZArith.BinInt Z abs_le thm
+R6689:6696 Coq.ZArith.BinInt Z abs_le thm
+prf 6848:6872 <> chsh_stat_algebraic_bound
+R6890:6902 Kernel.VMState <> WitnessCounts rec
+binder 6885:6886 <> wc:8
+R6936:6939 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R6909:6912 Coq.QArith.Qabs <> Qabs def
+R6915:6931 Kernel.CHSHStatisticalBridge <> chsh_stat_from_wc def
+R6933:6934 Kernel.CHSHStatisticalBridge <> wc:8 var
+R6972:6988 Kernel.CHSHStatisticalBridge <> chsh_stat_from_wc def
+R7006:7022 Kernel.CHSHStatisticalBridge <> chsh_correlator_q def
+R7025:7034 Kernel.VMState <> wc_same_00 proj
+R7041:7050 Kernel.VMState <> wc_diff_00 proj
+R7006:7022 Kernel.CHSHStatisticalBridge <> chsh_correlator_q def
+R7025:7034 Kernel.VMState <> wc_same_00 proj
+R7041:7050 Kernel.VMState <> wc_diff_00 proj
+R7073:7089 Kernel.CHSHStatisticalBridge <> chsh_correlator_q def
+R7092:7101 Kernel.VMState <> wc_same_01 proj
+R7108:7117 Kernel.VMState <> wc_diff_01 proj
+R7073:7089 Kernel.CHSHStatisticalBridge <> chsh_correlator_q def
+R7092:7101 Kernel.VMState <> wc_same_01 proj
+R7108:7117 Kernel.VMState <> wc_diff_01 proj
+R7140:7156 Kernel.CHSHStatisticalBridge <> chsh_correlator_q def
+R7159:7168 Kernel.VMState <> wc_same_10 proj
+R7175:7184 Kernel.VMState <> wc_diff_10 proj
+R7140:7156 Kernel.CHSHStatisticalBridge <> chsh_correlator_q def
+R7159:7168 Kernel.VMState <> wc_same_10 proj
+R7175:7184 Kernel.VMState <> wc_diff_10 proj
+R7207:7223 Kernel.CHSHStatisticalBridge <> chsh_correlator_q def
+R7226:7235 Kernel.VMState <> wc_diff_11 proj
+R7242:7251 Kernel.VMState <> wc_same_11 proj
+R7207:7223 Kernel.CHSHStatisticalBridge <> chsh_correlator_q def
+R7226:7235 Kernel.VMState <> wc_diff_11 proj
+R7242:7251 Kernel.VMState <> wc_same_11 proj
+R7284:7288 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R7276:7279 Coq.QArith.Qabs <> Qabs def
+R7315:7333 Kernel.CHSHStatisticalBridge <> correlator_abs_le_1 thm
+R7284:7288 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R7276:7279 Coq.QArith.Qabs <> Qabs def
+R7315:7333 Kernel.CHSHStatisticalBridge <> correlator_abs_le_1 thm
+R7362:7366 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R7354:7357 Coq.QArith.Qabs <> Qabs def
+R7393:7411 Kernel.CHSHStatisticalBridge <> correlator_abs_le_1 thm
+R7362:7366 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R7354:7357 Coq.QArith.Qabs <> Qabs def
+R7393:7411 Kernel.CHSHStatisticalBridge <> correlator_abs_le_1 thm
+R7440:7444 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R7432:7435 Coq.QArith.Qabs <> Qabs def
+R7471:7489 Kernel.CHSHStatisticalBridge <> correlator_abs_le_1 thm
+R7440:7444 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R7432:7435 Coq.QArith.Qabs <> Qabs def
+R7471:7489 Kernel.CHSHStatisticalBridge <> correlator_abs_le_1 thm
+R7519:7522 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R7510:7513 Coq.QArith.Qabs <> Qabs def
+R7549:7567 Kernel.CHSHStatisticalBridge <> correlator_abs_le_1 thm
+R7519:7522 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R7510:7513 Coq.QArith.Qabs <> Qabs def
+R7549:7567 Kernel.CHSHStatisticalBridge <> correlator_abs_le_1 thm
+R7690:7692 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R7679:7681 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R7668:7670 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R7660:7663 Coq.QArith.Qabs <> Qabs def
+R7671:7674 Coq.QArith.Qabs <> Qabs def
+R7682:7685 Coq.QArith.Qabs <> Qabs def
+R7693:7696 Coq.QArith.Qabs <> Qabs def
+R7644:7652 Coq.QArith.QArith_base <> Qle_trans thm
+R7690:7692 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R7679:7681 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R7668:7670 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R7660:7663 Coq.QArith.Qabs <> Qabs def
+R7671:7674 Coq.QArith.Qabs <> Qabs def
+R7682:7685 Coq.QArith.Qabs <> Qabs def
+R7693:7696 Coq.QArith.Qabs <> Qabs def
+R7644:7652 Coq.QArith.QArith_base <> Qle_trans thm
+R7743:7751 Coq.QArith.QArith_base <> Qle_trans thm
+R7743:7751 Coq.QArith.QArith_base <> Qle_trans thm
+R7762:7774 Coq.QArith.Qabs <> Qabs_triangle thm
+R7762:7774 Coq.QArith.Qabs <> Qabs_triangle thm
+R7789:7803 Coq.QArith.QArith_base <> Qplus_le_compat thm
+R7789:7803 Coq.QArith.QArith_base <> Qplus_le_compat thm
+R7815:7822 Coq.QArith.QArith_base <> Qle_refl thm
+R7815:7822 Coq.QArith.QArith_base <> Qle_refl thm
+R7836:7844 Coq.QArith.QArith_base <> Qle_trans thm
+R7836:7844 Coq.QArith.QArith_base <> Qle_trans thm
+R7855:7867 Coq.QArith.Qabs <> Qabs_triangle thm
+R7855:7867 Coq.QArith.Qabs <> Qabs_triangle thm
+R7882:7896 Coq.QArith.QArith_base <> Qplus_le_compat thm
+R7882:7896 Coq.QArith.QArith_base <> Qplus_le_compat thm
+R7908:7915 Coq.QArith.QArith_base <> Qle_refl thm
+R7908:7915 Coq.QArith.QArith_base <> Qle_refl thm
+R7928:7940 Coq.QArith.Qabs <> Qabs_triangle thm
+R7928:7940 Coq.QArith.Qabs <> Qabs_triangle thm
+R7978:7980 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R7974:7976 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R7970:7972 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R7953:7961 Coq.QArith.QArith_base <> Qle_trans thm
+R7978:7980 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R7974:7976 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R7970:7972 Coq.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R7953:7961 Coq.QArith.QArith_base <> Qle_trans thm
+R7997:8011 Coq.QArith.QArith_base <> Qplus_le_compat thm
+R7997:8011 Coq.QArith.QArith_base <> Qplus_le_compat thm
+R8020:8034 Coq.QArith.QArith_base <> Qplus_le_compat thm
+R8020:8034 Coq.QArith.QArith_base <> Qplus_le_compat thm
+R8043:8057 Coq.QArith.QArith_base <> Qplus_le_compat thm
+R8043:8057 Coq.QArith.QArith_base <> Qplus_le_compat thm
+R8124:8126 Coq.QArith.QArith_base <> Qle def
+def 8917:8928 <> violation_wc
+R8932:8944 Kernel.VMState <> WitnessCounts rec
+R8954:8963 Kernel.VMState <> wc_same_00 proj
+R8954:8963 Kernel.VMState <> wc_same_00 proj
+R8954:8963 Kernel.VMState <> wc_same_00 proj
+R8971:8980 Kernel.VMState <> wc_diff_00 proj
+R8971:8980 Kernel.VMState <> wc_diff_00 proj
+R8993:9002 Kernel.VMState <> wc_same_01 proj
+R8993:9002 Kernel.VMState <> wc_same_01 proj
+R9010:9019 Kernel.VMState <> wc_diff_01 proj
+R9010:9019 Kernel.VMState <> wc_diff_01 proj
+R9032:9041 Kernel.VMState <> wc_same_10 proj
+R9032:9041 Kernel.VMState <> wc_same_10 proj
+R9049:9058 Kernel.VMState <> wc_diff_10 proj
+R9049:9058 Kernel.VMState <> wc_diff_10 proj
+R9071:9080 Kernel.VMState <> wc_same_11 proj
+R9071:9080 Kernel.VMState <> wc_same_11 proj
+R9088:9097 Kernel.VMState <> wc_diff_11 proj
+R9088:9097 Kernel.VMState <> wc_diff_11 proj
+prf 9182:9203 <> violation_wc_stat_eq_4
+R9239:9242 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R9209:9225 Kernel.CHSHStatisticalBridge <> chsh_stat_from_wc def
+R9227:9238 Kernel.CHSHStatisticalBridge <> violation_wc def
+R9262:9278 Kernel.CHSHStatisticalBridge <> chsh_stat_from_wc def
+R9281:9292 Kernel.CHSHStatisticalBridge <> violation_wc def
+R9295:9311 Kernel.CHSHStatisticalBridge <> chsh_correlator_q def
+prf 9428:9452 <> violation_wc_exceeds_bell
+R9488:9490 Coq.QArith.QArith_base <> ::Q_scope:x_'>'_x not
+R9458:9474 Kernel.CHSHStatisticalBridge <> chsh_stat_from_wc def
+R9476:9487 Kernel.CHSHStatisticalBridge <> violation_wc def
+R9511:9532 Kernel.CHSHStatisticalBridge <> violation_wc_stat_eq_4 thm
+R9511:9532 Kernel.CHSHStatisticalBridge <> violation_wc_stat_eq_4 thm
+R9511:9532 Kernel.CHSHStatisticalBridge <> violation_wc_stat_eq_4 thm
+R9544:9546 Coq.QArith.QArith_base <> Qlt def
+prf 9644:9672 <> violation_wc_within_algebraic
+R9715:9718 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R9678:9681 Coq.QArith.Qabs <> Qabs def
+R9684:9700 Kernel.CHSHStatisticalBridge <> chsh_stat_from_wc def
+R9702:9713 Kernel.CHSHStatisticalBridge <> violation_wc def
+R9737:9761 Kernel.CHSHStatisticalBridge <> chsh_stat_algebraic_bound thm
+R9737:9761 Kernel.CHSHStatisticalBridge <> chsh_stat_algebraic_bound thm
+rec 11202:11220 <> WCLocallyConsistent
+proj 11355:11361 <> wclc_00
+proj 11550:11556 <> wclc_01
+proj 11745:11751 <> wclc_10
+proj 11940:11946 <> wclc_11
+proj 12150:12165 <> wclc_all_sampled
+R11237:11239 Coq.Init.Datatypes <> nat ind
+binder 11223:11224 <> a0:9
+binder 11226:11227 <> a1:10
+binder 11229:11230 <> b0:11
+binder 11232:11233 <> b1:12
+R11248:11260 Kernel.VMState <> WitnessCounts rec
+binder 11243:11244 <> wc:13
+R11372:11378 Coq.Arith.PeanoNat Nat eqb def
+R11380:11381 Kernel.CHSHStatisticalBridge <> a0:9 var
+R11383:11384 Kernel.CHSHStatisticalBridge <> b0:11 var
+R11470:11472 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11457:11466 Kernel.VMState <> wc_same_00 proj
+R11468:11469 Kernel.CHSHStatisticalBridge <> wc:13 var
+R11423:11425 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11410:11419 Kernel.VMState <> wc_diff_00 proj
+R11421:11422 Kernel.CHSHStatisticalBridge <> wc:13 var
+R11567:11573 Coq.Arith.PeanoNat Nat eqb def
+R11575:11576 Kernel.CHSHStatisticalBridge <> a0:9 var
+R11578:11579 Kernel.CHSHStatisticalBridge <> b1:12 var
+R11665:11667 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11652:11661 Kernel.VMState <> wc_same_01 proj
+R11663:11664 Kernel.CHSHStatisticalBridge <> wc:13 var
+R11618:11620 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11605:11614 Kernel.VMState <> wc_diff_01 proj
+R11616:11617 Kernel.CHSHStatisticalBridge <> wc:13 var
+R11762:11768 Coq.Arith.PeanoNat Nat eqb def
+R11770:11771 Kernel.CHSHStatisticalBridge <> a1:10 var
+R11773:11774 Kernel.CHSHStatisticalBridge <> b0:11 var
+R11860:11862 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11847:11856 Kernel.VMState <> wc_same_10 proj
+R11858:11859 Kernel.CHSHStatisticalBridge <> wc:13 var
+R11813:11815 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11800:11809 Kernel.VMState <> wc_diff_10 proj
+R11811:11812 Kernel.CHSHStatisticalBridge <> wc:13 var
+R11957:11963 Coq.Arith.PeanoNat Nat eqb def
+R11965:11966 Kernel.CHSHStatisticalBridge <> a1:10 var
+R11968:11969 Kernel.CHSHStatisticalBridge <> b1:12 var
+R12055:12057 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12042:12051 Kernel.VMState <> wc_same_11 proj
+R12053:12054 Kernel.CHSHStatisticalBridge <> wc:13 var
+R12008:12010 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11995:12004 Kernel.VMState <> wc_diff_11 proj
+R12006:12007 Kernel.CHSHStatisticalBridge <> wc:13 var
+R12214:12223 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12205:12207 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R12189:12191 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R12176:12185 Kernel.VMState <> wc_same_00 proj
+R12187:12188 Kernel.CHSHStatisticalBridge <> wc:13 var
+R12192:12201 Kernel.VMState <> wc_diff_00 proj
+R12203:12204 Kernel.CHSHStatisticalBridge <> wc:13 var
+R12263:12272 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12254:12256 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R12238:12240 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R12225:12234 Kernel.VMState <> wc_same_01 proj
+R12236:12237 Kernel.CHSHStatisticalBridge <> wc:13 var
+R12241:12250 Kernel.VMState <> wc_diff_01 proj
+R12252:12253 Kernel.CHSHStatisticalBridge <> wc:13 var
+R12312:12321 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12303:12305 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R12287:12289 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R12274:12283 Kernel.VMState <> wc_same_10 proj
+R12285:12286 Kernel.CHSHStatisticalBridge <> wc:13 var
+R12290:12299 Kernel.VMState <> wc_diff_10 proj
+R12301:12302 Kernel.CHSHStatisticalBridge <> wc:13 var
+R12352:12354 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R12336:12338 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R12323:12332 Kernel.VMState <> wc_same_11 proj
+R12334:12335 Kernel.CHSHStatisticalBridge <> wc:13 var
+R12339:12348 Kernel.VMState <> wc_diff_11 proj
+R12350:12351 Kernel.CHSHStatisticalBridge <> wc:13 var
+sec 13100:13123 <> BellInequalityHypothesis
+var 13212:13229 BellInequalityHypothesis local_bound_for_wc
+R13257:13259 Coq.Init.Datatypes <> nat ind
+binder 13243:13244 <> a0:20
+binder 13246:13247 <> a1:21
+binder 13249:13250 <> b0:22
+binder 13252:13253 <> b1:23
+R13268:13280 Kernel.VMState <> WitnessCounts rec
+binder 13263:13264 <> wc:24
+R13304:13311 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13297:13299 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13288:13293 Kernel.VMStep VMStep is_bit def
+R13295:13296 Kernel.CHSHStatisticalBridge <> a0:20 var
+R13300:13303 Coq.Init.Datatypes <> true constr
+R13328:13335 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13321:13323 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13312:13317 Kernel.VMStep VMStep is_bit def
+R13319:13320 Kernel.CHSHStatisticalBridge <> a1:21 var
+R13324:13327 Coq.Init.Datatypes <> true constr
+R13352:13359 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13345:13347 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13336:13341 Kernel.VMStep VMStep is_bit def
+R13343:13344 Kernel.CHSHStatisticalBridge <> b0:22 var
+R13348:13351 Coq.Init.Datatypes <> true constr
+R13376:13383 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13369:13371 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13360:13365 Kernel.VMStep VMStep is_bit def
+R13367:13368 Kernel.CHSHStatisticalBridge <> b1:23 var
+R13372:13375 Coq.Init.Datatypes <> true constr
+R13418:13425 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13384:13402 Kernel.CHSHStatisticalBridge <> WCLocallyConsistent rec
+R13404:13405 Kernel.CHSHStatisticalBridge <> a0:20 var
+R13407:13408 Kernel.CHSHStatisticalBridge <> a1:21 var
+R13410:13411 Kernel.CHSHStatisticalBridge <> b0:22 var
+R13413:13414 Kernel.CHSHStatisticalBridge <> b1:23 var
+R13416:13417 Kernel.CHSHStatisticalBridge <> wc:24 var
+R13453:13456 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R13426:13429 Coq.QArith.Qabs <> Qabs def
+R13432:13448 Kernel.CHSHStatisticalBridge <> chsh_stat_from_wc def
+R13450:13451 Kernel.CHSHStatisticalBridge <> wc:24 var
+prf 13676:13704 <> chsh_stat_violation_not_local
+R13723:13735 Kernel.VMState <> WitnessCounts rec
+binder 13718:13719 <> wc:26
+R13767:13774 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13763:13765 Coq.QArith.QArith_base <> ::Q_scope:x_'>'_x not
+R13743:13759 Kernel.CHSHStatisticalBridge <> chsh_stat_from_wc def
+R13761:13762 Kernel.CHSHStatisticalBridge <> wc:26 var
+R13797:13799 Coq.Init.Datatypes <> nat ind
+binder 13783:13784 <> a0:27
+binder 13786:13787 <> a1:28
+binder 13789:13790 <> b0:29
+binder 13792:13793 <> b1:30
+R13825:13834 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13818:13820 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13809:13814 Kernel.VMStep VMStep is_bit def
+R13816:13817 Kernel.CHSHStatisticalBridge <> a0:27 var
+R13821:13824 Coq.Init.Datatypes <> true constr
+R13851:13860 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13844:13846 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13835:13840 Kernel.VMStep VMStep is_bit def
+R13842:13843 Kernel.CHSHStatisticalBridge <> a1:28 var
+R13847:13850 Coq.Init.Datatypes <> true constr
+R13877:13886 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13870:13872 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13861:13866 Kernel.VMStep VMStep is_bit def
+R13868:13869 Kernel.CHSHStatisticalBridge <> b0:29 var
+R13873:13876 Coq.Init.Datatypes <> true constr
+R13903:13912 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13896:13898 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13887:13892 Kernel.VMStep VMStep is_bit def
+R13894:13895 Kernel.CHSHStatisticalBridge <> b1:30 var
+R13899:13902 Coq.Init.Datatypes <> true constr
+R13913:13913 Coq.Init.Logic <> ::type_scope:'~'_x not
+R13914:13932 Kernel.CHSHStatisticalBridge <> WCLocallyConsistent rec
+R13934:13935 Kernel.CHSHStatisticalBridge <> a0:27 var
+R13937:13938 Kernel.CHSHStatisticalBridge <> a1:28 var
+R13940:13941 Kernel.CHSHStatisticalBridge <> b0:29 var
+R13943:13944 Kernel.CHSHStatisticalBridge <> b1:30 var
+R13946:13947 Kernel.CHSHStatisticalBridge <> wc:26 var
+R14073:14090 Kernel.CHSHStatisticalBridge <> BellInequalityHypothesis.local_bound_for_wc var
+R14073:14090 Kernel.CHSHStatisticalBridge <> BellInequalityHypothesis.local_bound_for_wc var
+R14198:14205 Coq.QArith.Qabs <> Qle_Qabs thm
+R14208:14224 Kernel.CHSHStatisticalBridge <> chsh_stat_from_wc def
+R14198:14205 Coq.QArith.Qabs <> Qle_Qabs thm
+R14208:14224 Kernel.CHSHStatisticalBridge <> chsh_stat_from_wc def
+R14252:14261 Coq.QArith.QArith_base <> Qlt_irrefl thm
+R14270:14281 Coq.QArith.QArith_base <> Qlt_le_trans thm
+R14301:14309 Coq.QArith.QArith_base <> Qle_trans thm
+R14252:14261 Coq.QArith.QArith_base <> Qlt_irrefl thm
+R14270:14281 Coq.QArith.QArith_base <> Qlt_le_trans thm
+R14301:14309 Coq.QArith.QArith_base <> Qle_trans thm
+prf 14433:14454 <> violation_wc_not_local
+R14482:14484 Coq.Init.Datatypes <> nat ind
+binder 14468:14469 <> a0:31
+binder 14471:14472 <> a1:32
+binder 14474:14475 <> b0:33
+binder 14477:14478 <> b1:34
+R14508:14515 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14501:14503 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14492:14497 Kernel.VMStep VMStep is_bit def
+R14499:14500 Kernel.CHSHStatisticalBridge <> a0:31 var
+R14504:14507 Coq.Init.Datatypes <> true constr
+R14532:14539 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14525:14527 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14516:14521 Kernel.VMStep VMStep is_bit def
+R14523:14524 Kernel.CHSHStatisticalBridge <> a1:32 var
+R14528:14531 Coq.Init.Datatypes <> true constr
+R14556:14563 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14549:14551 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14540:14545 Kernel.VMStep VMStep is_bit def
+R14547:14548 Kernel.CHSHStatisticalBridge <> b0:33 var
+R14552:14555 Coq.Init.Datatypes <> true constr
+R14580:14587 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14573:14575 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14564:14569 Kernel.VMStep VMStep is_bit def
+R14571:14572 Kernel.CHSHStatisticalBridge <> b1:34 var
+R14576:14579 Coq.Init.Datatypes <> true constr
+R14588:14588 Coq.Init.Logic <> ::type_scope:'~'_x not
+R14589:14607 Kernel.CHSHStatisticalBridge <> WCLocallyConsistent rec
+R14609:14610 Kernel.CHSHStatisticalBridge <> a0:31 var
+R14612:14613 Kernel.CHSHStatisticalBridge <> a1:32 var
+R14615:14616 Kernel.CHSHStatisticalBridge <> b0:33 var
+R14618:14619 Kernel.CHSHStatisticalBridge <> b1:34 var
+R14621:14632 Kernel.CHSHStatisticalBridge <> violation_wc def
+R14688:14716 Kernel.CHSHStatisticalBridge <> chsh_stat_violation_not_local thm
+R14688:14716 Kernel.CHSHStatisticalBridge <> chsh_stat_violation_not_local thm
+R14729:14753 Kernel.CHSHStatisticalBridge <> violation_wc_exceeds_bell thm
+R14729:14753 Kernel.CHSHStatisticalBridge <> violation_wc_exceeds_bell thm
+sec 16685:16703 BellInequalityHypothesis HoeffdingHypothesis
+var 16805:16819 BellInequalityHypothesis.HoeffdingHypothesis hoeffding_n_min
+R16861:16863 Coq.Init.Datatypes <> nat ind
+binder 16831:16844 <> epsilon_scaled:35
+binder 16846:16857 <> delta_scaled:36
+R16867:16869 Coq.Init.Datatypes <> nat ind
+var 17650:17677 BellInequalityHypothesis.HoeffdingHypothesis hoeffding_chsh_concentration
+R17699:17701 Coq.Init.Datatypes <> nat ind
+binder 17691:17695 <> n_min:38
+R17731:17733 Coq.Init.Datatypes <> nat ind
+binder 17705:17714 <> gap_scaled:39
+binder 17716:17727 <> delta_scaled:40
+R17751:17763 Kernel.VMState <> WitnessCounts rec
+binder 17746:17747 <> wc:41
+R17851:17858 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17837:17840 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R17821:17823 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R17808:17817 Kernel.VMState <> wc_same_00 proj
+R17819:17820 Kernel.CHSHStatisticalBridge <> wc:41 var
+R17824:17833 Kernel.VMState <> wc_diff_00 proj
+R17835:17836 Kernel.CHSHStatisticalBridge <> wc:41 var
+R17841:17845 Kernel.CHSHStatisticalBridge <> n_min:38 var
+R17903:17910 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17889:17892 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R17873:17875 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R17860:17869 Kernel.VMState <> wc_same_01 proj
+R17871:17872 Kernel.CHSHStatisticalBridge <> wc:41 var
+R17876:17885 Kernel.VMState <> wc_diff_01 proj
+R17887:17888 Kernel.CHSHStatisticalBridge <> wc:41 var
+R17893:17897 Kernel.CHSHStatisticalBridge <> n_min:38 var
+R17955:17962 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17941:17944 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R17925:17927 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R17912:17921 Kernel.VMState <> wc_same_10 proj
+R17923:17924 Kernel.CHSHStatisticalBridge <> wc:41 var
+R17928:17937 Kernel.VMState <> wc_diff_10 proj
+R17939:17940 Kernel.CHSHStatisticalBridge <> wc:41 var
+R17945:17949 Kernel.CHSHStatisticalBridge <> n_min:38 var
+R18007:18081 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17993:17996 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R17977:17979 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R17964:17973 Kernel.VMState <> wc_same_11 proj
+R17975:17976 Kernel.CHSHStatisticalBridge <> wc:41 var
+R17980:17989 Kernel.VMState <> wc_diff_11 proj
+R17991:17992 Kernel.CHSHStatisticalBridge <> wc:41 var
+R17997:18001 Kernel.CHSHStatisticalBridge <> n_min:38 var
+R18140:18213 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18102:18105 Coq.QArith.QArith_base <> ::Q_scope:x_'>'_x not
+R18139:18139 Coq.QArith.QArith_base <> ::Q_scope:x_'>'_x not
+R18132:18134 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R18110:18112 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R18113:18120 Coq.ZArith.BinInt Z of_nat def
+R18122:18131 Kernel.CHSHStatisticalBridge <> gap_scaled:39 var
+R18082:18098 Kernel.CHSHStatisticalBridge <> chsh_stat_from_wc def
+R18100:18101 Kernel.CHSHStatisticalBridge <> wc:41 var
+R18261:18422 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18219:18221 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18214:18218 Kernel.CHSHStatisticalBridge <> n_min:38 var
+R18222:18236 Kernel.CHSHStatisticalBridge <> BellInequalityHypothesis.HoeffdingHypothesis.hoeffding_n_min var
+R18238:18247 Kernel.CHSHStatisticalBridge <> gap_scaled:39 var
+R18249:18260 Kernel.CHSHStatisticalBridge <> delta_scaled:40 var
+R18423:18426 Coq.Init.Logic <> True ind
+R18831:18849 Kernel.CHSHStatisticalBridge BellInequalityHypothesis.HoeffdingHypothesis <> sec
+def 19786:19809 <> chsh_violation_certified
+R19816:19822 Kernel.VMState <> VMState rec
+binder 19812:19812 <> s:43
+R19869:19871 Coq.QArith.QArith_base <> ::Q_scope:x_'>'_x not
+R19837:19853 Kernel.CHSHStatisticalBridge <> chsh_stat_from_wc def
+R19858:19867 Kernel.VMState <> vm_witness proj
+R19855:19855 Kernel.CHSHStatisticalBridge <> s:43 var
+prf 19970:20004 <> chsh_certification_cost_lower_bound
+R20022:20028 Kernel.VMState <> VMState rec
+binder 20018:20018 <> s:44
+R20062:20069 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20036:20059 Kernel.CHSHStatisticalBridge <> chsh_violation_certified def
+R20061:20061 Kernel.CHSHStatisticalBridge <> s:44 var
+R20092:20094 Coq.Init.Datatypes <> nat ind
+binder 20078:20079 <> a0:45
+binder 20081:20082 <> a1:46
+binder 20084:20085 <> b0:47
+binder 20087:20088 <> b1:48
+R20120:20129 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20113:20115 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20104:20109 Kernel.VMStep VMStep is_bit def
+R20111:20112 Kernel.CHSHStatisticalBridge <> a0:45 var
+R20116:20119 Coq.Init.Datatypes <> true constr
+R20146:20155 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20139:20141 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20130:20135 Kernel.VMStep VMStep is_bit def
+R20137:20138 Kernel.CHSHStatisticalBridge <> a1:46 var
+R20142:20145 Coq.Init.Datatypes <> true constr
+R20172:20181 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20165:20167 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20156:20161 Kernel.VMStep VMStep is_bit def
+R20163:20164 Kernel.CHSHStatisticalBridge <> b0:47 var
+R20168:20171 Coq.Init.Datatypes <> true constr
+R20198:20207 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20191:20193 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20182:20187 Kernel.VMStep VMStep is_bit def
+R20189:20190 Kernel.CHSHStatisticalBridge <> b1:48 var
+R20194:20197 Coq.Init.Datatypes <> true constr
+R20208:20208 Coq.Init.Logic <> ::type_scope:'~'_x not
+R20209:20227 Kernel.CHSHStatisticalBridge <> WCLocallyConsistent rec
+R20229:20230 Kernel.CHSHStatisticalBridge <> a0:45 var
+R20232:20233 Kernel.CHSHStatisticalBridge <> a1:46 var
+R20235:20236 Kernel.CHSHStatisticalBridge <> b0:47 var
+R20238:20239 Kernel.CHSHStatisticalBridge <> b1:48 var
+R20244:20253 Kernel.VMState <> vm_witness proj
+R20241:20241 Kernel.CHSHStatisticalBridge <> s:44 var
+R20319:20342 Kernel.CHSHStatisticalBridge <> chsh_violation_certified def
+R20363:20391 Kernel.CHSHStatisticalBridge <> chsh_stat_violation_not_local thm
+R20396:20405 Kernel.VMState <> vm_witness proj
+R20363:20391 Kernel.CHSHStatisticalBridge <> chsh_stat_violation_not_local thm
+R20396:20405 Kernel.VMState <> vm_witness proj
+R20465:20488 Kernel.CHSHStatisticalBridge BellInequalityHypothesis <> sec
+prf 21779:21796 <> violation_wc_total
+R21828:21830 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21802:21814 Kernel.VMState <> witness_total def
+R21816:21827 Kernel.CHSHStatisticalBridge <> violation_wc def
+R21852:21864 Kernel.VMState <> witness_total def
+R21867:21878 Kernel.CHSHStatisticalBridge <> violation_wc def
+prf 22057:22084 <> chsh_violation_witness_count
+R22106:22109 Coq.Init.Datatypes <> list ind
+R22111:22124 Kernel.VMStep VMStep vm_instruction ind
+binder 22098:22102 <> trace:49
+R22133:22139 Kernel.VMState <> VMState rec
+binder 22128:22129 <> s0:50
+R22184:22191 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22176:22178 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22147:22159 Kernel.VMState <> witness_total def
+R22165:22174 Kernel.VMState <> vm_witness proj
+R22161:22162 Kernel.CHSHStatisticalBridge <> s0:50 var
+R22229:22236 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22207:22209 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22196:22205 Kernel.VMState <> vm_witness proj
+R22192:22193 Kernel.CHSHStatisticalBridge <> s0:50 var
+R22210:22228 Kernel.VMState <> witness_counts_zero def
+R22531:22538 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22516:22518 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22505:22514 Kernel.VMState <> vm_witness proj
+R22238:22245 Kernel.SimulationProof <> vm_apply def
+R22248:22255 Kernel.SimulationProof <> vm_apply def
+R22258:22265 Kernel.SimulationProof <> vm_apply def
+R22268:22275 Kernel.SimulationProof <> vm_apply def
+R22277:22278 Kernel.CHSHStatisticalBridge <> s0:50 var
+R22287:22302 Kernel.VMStep VMStep instr_chsh_trial constr
+R22343:22358 Kernel.VMStep VMStep instr_chsh_trial constr
+R22399:22414 Kernel.VMStep VMStep instr_chsh_trial constr
+R22455:22470 Kernel.VMStep VMStep instr_chsh_trial constr
+R22519:22530 Kernel.CHSHStatisticalBridge <> violation_wc def
+R22594:22601 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22585:22588 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R22539:22551 Kernel.UniversalCertificationCost <> cs_total_cost def
+R22554:22571 Kernel.QuantitativeNoFI <> chsh_cert_system_n def
+R22580:22584 Kernel.CHSHStatisticalBridge <> trace:49 var
+R22602:22605 Coq.Init.Logic <> True ind
+R22742:22742 Coq.Init.Logic <> I constr
+R22742:22742 Coq.Init.Logic <> I constr
+prf 22938:22974 <> four_trials_require_four_instructions
+R22996:22999 Coq.Init.Datatypes <> list ind
+R23001:23014 Kernel.VMStep VMStep vm_instruction ind
+binder 22988:22992 <> trace:51
+R23023:23029 Kernel.VMState <> VMState rec
+binder 23018:23019 <> s0:52
+R23074:23081 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23066:23068 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23037:23049 Kernel.VMState <> witness_total def
+R23055:23064 Kernel.VMState <> vm_witness proj
+R23051:23052 Kernel.CHSHStatisticalBridge <> s0:52 var
+R23151:23158 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23144:23146 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23082:23092 Kernel.QuantitativeNoFI <> chsh_cert_n def
+R23101:23106 Kernel.UniversalCertificationCost <> cs_run def
+R23109:23126 Kernel.QuantitativeNoFI <> chsh_cert_system_n def
+R23135:23139 Kernel.CHSHStatisticalBridge <> trace:51 var
+R23141:23142 Kernel.CHSHStatisticalBridge <> s0:52 var
+R23147:23150 Coq.Init.Datatypes <> true constr
+R23205:23208 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R23159:23171 Kernel.UniversalCertificationCost <> cs_total_cost def
+R23174:23191 Kernel.QuantitativeNoFI <> chsh_cert_system_n def
+R23200:23204 Kernel.CHSHStatisticalBridge <> trace:51 var
+R23263:23290 Kernel.QuantitativeNoFI <> chsh_trial_count_lower_bound thm
+R23263:23290 Kernel.QuantitativeNoFI <> chsh_trial_count_lower_bound thm
+prf 23413:23443 <> n_trials_require_n_instructions
+R23461:23463 Coq.Init.Datatypes <> nat ind
+binder 23457:23457 <> n:53
+R23475:23478 Coq.Init.Datatypes <> list ind
+R23480:23493 Kernel.VMStep VMStep vm_instruction ind
+binder 23467:23471 <> trace:54
+R23502:23508 Kernel.VMState <> VMState rec
+binder 23497:23498 <> s0:55
+R23553:23560 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23545:23547 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23516:23528 Kernel.VMState <> witness_total def
+R23534:23543 Kernel.VMState <> vm_witness proj
+R23530:23531 Kernel.CHSHStatisticalBridge <> s0:55 var
+R23622:23629 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23615:23617 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23561:23571 Kernel.QuantitativeNoFI <> chsh_cert_n def
+R23573:23573 Kernel.CHSHStatisticalBridge <> n:53 var
+R23576:23581 Kernel.UniversalCertificationCost <> cs_run def
+R23584:23601 Kernel.QuantitativeNoFI <> chsh_cert_system_n def
+R23603:23603 Kernel.CHSHStatisticalBridge <> n:53 var
+R23606:23610 Kernel.CHSHStatisticalBridge <> trace:54 var
+R23612:23613 Kernel.CHSHStatisticalBridge <> s0:55 var
+R23618:23621 Coq.Init.Datatypes <> true constr
+R23672:23675 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R23630:23642 Kernel.UniversalCertificationCost <> cs_total_cost def
+R23645:23662 Kernel.QuantitativeNoFI <> chsh_cert_system_n def
+R23664:23664 Kernel.CHSHStatisticalBridge <> n:53 var
+R23667:23671 Kernel.CHSHStatisticalBridge <> trace:54 var
+R23676:23676 Kernel.CHSHStatisticalBridge <> n:53 var
+R23728:23755 Kernel.QuantitativeNoFI <> chsh_trial_count_lower_bound thm
+R23728:23755 Kernel.QuantitativeNoFI <> chsh_trial_count_lower_bound thm

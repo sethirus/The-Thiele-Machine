@@ -210,6 +210,57 @@ jobs:
       - name: Run pytest
         run: python -m pytest tests/ -q --tb=short -m "not coq and not strict_rtl"
 
+  trs-receipts:
+    name: TRS receipt tests
+    runs-on: ubuntu-latest
+    needs: toolchain
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Install runtime toolchain for verifier matrix
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends ocaml ocaml-findlib
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --quiet --upgrade pip
+          pip install --quiet -r requirements.txt
+          pip install --quiet -e . --no-deps
+
+      - name: Compile extracted VM runner for Node verifier
+        run: |
+          ocamlfind ocamlc -I build -package str -linkpkg \
+            -o build/extracted_vm_runner \
+            build/thiele_core.mli \
+            build/thiele_core.ml \
+            build/extracted_vm_runner.ml
+
+      - name: Run TRS receipt tests
+        run: |
+          python -m pytest \
+            tests/test_properties.py \
+            tests/test_execution_receipt_cli.py \
+            tests/test_trs10_standalone_verifier.py \
+            tests/test_trs10_fixture_layout.py \
+            tests/test_trs10_fixture_corpus.py \
+            tests/test_trs10_node_verifier.py \
+            tests/test_trs10_matrix_cases.py \
+            -q --tb=short
+
   # Phase 5: Dependency audit (independent)
   dependencies:
     name: Dependency security scan
@@ -238,7 +289,7 @@ jobs:
   thesis-verifier:
     name: Thesis verifier
     runs-on: ubuntu-latest
-    needs: [proof-check, extraction, python-tests]
+    needs: [proof-check, extraction, python-tests, trs-receipts]
     timeout-minutes: 30
     env:
       OCAMLRUNPARAM: "l=64M"

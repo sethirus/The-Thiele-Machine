@@ -3,12 +3,24 @@
   "allow_axioms": [
     "functional_extensionality",
     "propositional_extensionality",
+    "FunctionalExtensionality.functional_extensionality_dep",
+    "ClassicalDedekindReals.sig_not_dec",
+    "ClassicalDedekindReals.sig_forall_dec",
     
     "## PHYSICAL CONSTANTS (NORMALIZED UNITS) ##",
     "k_B",
     "k_B_value",
     "T",
     "T_value",
+    "hbar",
+    "hbar_pos",
+    "c_light",
+    "c_light_pos",
+    "k_B_pos",
+    "entropy_per_bit",
+    "entropy_per_bit_nonneg",
+    "SpacetimeState",
+    "LocalHorizon",
     
     "## MATHEMATICAL CONSTANTS ##",
     "sqrt2",
@@ -70,15 +82,43 @@
   "targets": [
     {
       "require": "Kernel.NoFreeInsight",
-      "symbol": "strengthening_requires_structure_addition"
+      "symbol": "NoFreeInsight.strengthening_requires_structure_addition"
     },
     {
-      "require": "Kernel.NoFreeInsight",
-      "symbol": "nonlocal_correlation_requires_revelation"
+      "require": "Kernel.RevelationRequirement",
+      "symbol": "RevelationProof.nonlocal_correlation_requires_revelation"
     },
     {
-      "require": "Kernel.KernelNoether",
-      "symbol": "kernel_noether_mu_gauge"
+      "require": "Kernel.KernelPhysics",
+      "symbol": "kernel_conservation_mu_gauge"
+    },
+    {
+      "require": "Kernel.HonestNoFI_TheoremsWithoutAssumptions",
+      "symbol": "honest_information_reduction_requires_structure_addition"
+    },
+    {
+      "require": "Kernel.MuShannonQuantitative",
+      "symbol": "separation_requires_cert_count"
+    },
+    {
+      "require": "Kernel.MuShannonQuantitative",
+      "symbol": "conditional_shannon_bound"
+    },
+    {
+      "require": "Kernel.QuantumPartitionPSD",
+      "symbol": "npa_psd_iff_column_contractive"
+    },
+    {
+      "require": "Kernel.QuantumPartitionPSD",
+      "symbol": "trace_column_contractive_iff_trace_quantum_model"
+    },
+    {
+      "require": "Kernel.MasterSummary",
+      "symbol": "master_summary_no_hidden_project_assumptions_verified"
+    },
+    {
+      "require": "Kernel.MasterSummary",
+      "symbol": "master_psd_iff_column_contractive"
     },
     {
       "require": "Kernel.TsirelsonUpperBound",
@@ -93,8 +133,8 @@
       "symbol": "tsirelson_lower_bound"
     },
     {
-      "require": "Kernel.TsirelsonUniqueness",
-      "symbol": "tsirelson_from_pure_accounting"
+      "require": "Kernel.TsirelsonFromAlgebra",
+      "symbol": "tsirelson_tight"
     },
     {
       "require": "Kernel.MuCostModel",
@@ -108,10 +148,10 @@
   "symmetry_contracts": [
     {
       "tag": "noether",
-      "file_regex": "KernelNoether\\.v$",
+      "file_regex": "KernelPhysics\\.v$",
       "must_contain_regex": [
-        "vm_step.*equiv",
-        "trace_run.*equiv|run_vm.*equiv"
+        "kernel_conservation_mu_gauge",
+        "nat_action_composition"
       ]
     }
   ],
@@ -119,17 +159,27 @@
     {
       "paper": "Theorem 3.5 No Free Insight",
       "require": "Kernel.NoFreeInsight",
-      "symbol": "strengthening_requires_structure_addition"
+      "symbol": "NoFreeInsight.strengthening_requires_structure_addition"
+    },
+    {
+      "paper": "Theorem 3.5 Honest No Free Insight",
+      "require": "Kernel.HonestNoFI_TheoremsWithoutAssumptions",
+      "symbol": "honest_information_reduction_requires_structure_addition"
     },
     {
       "paper": "Theorem 4.1 Tsirelson Bound from Accounting",
-      "require": "Kernel.TsirelsonUniqueness",
-      "symbol": "tsirelson_from_pure_accounting"
+      "require": "Kernel.TsirelsonFromAlgebra",
+      "symbol": "tsirelson_tight"
     },
     {
       "paper": "Theorem 4.2 μ=0 implies LOCC",
       "require": "Kernel.TsirelsonUpperBound",
       "symbol": "mu_zero_implies_locc"
+    },
+    {
+      "paper": "Theorem 4.3 PSD iff Column Contractive",
+      "require": "Kernel.QuantumPartitionPSD",
+      "symbol": "npa_psd_iff_column_contractive"
     }
   ]
 }

@@ -1,3 +1,41 @@
+(** =========================================================================
+    MuLedgerQuantumBridge: mu-Ledger / Quantum Realizability Bridge
+    =========================================================================
+
+    WHY THIS FILE EXISTS:
+    The kernel already has two proof islands:
+
+    1. mu-ledger accounting and trace execution
+    2. NPA moment matrices and Tsirelson bounds
+
+    This file connects them as far as the current kernel infrastructure honestly
+    allows. In particular, it now contains:
+
+    - A concrete trace-to-correlator interface using CHSHExtraction.v
+    - A concrete mu-ledger coherence predicate over real correlators and final VM state
+    - A proved theorem: coherence implies the Tsirelson bound via existing minor constraints
+    - An explicit residual obligation isolating what is still needed to obtain
+      full quantum realizability (PSD of the induced NPA matrix)
+
+    THE CORE CLAIM:
+    mu_ledger_coherent implies Tsirelson bound (S^2 <= 8) and quantum
+    realizability of the extracted NPA matrix. The bridge is honest: it
+    requires column contractivity as an additional hypothesis beyond the
+    row minor constraints, and proves that this extra hypothesis is
+    genuinely needed (not derivable from row minors alone).
+
+    CRITICAL DISTINCTION:
+    We do NOT silently identify mu-ledger coherence with quantum realizability.
+    That would be circular. Instead, we prove the strongest theorem currently
+    supported by the repository and make the remaining PSD bridge explicit.
+
+    FALSIFICATION:
+    Show that mu_ledger_tsirelson_coherent alone implies PSD of the NPA
+    matrix. This is impossible: bridge_counterexample_not_final_tensor_quantum_gram
+    exhibits a concrete counterexample where Tsirelson coherence holds but PSD fails.
+
+    ========================================================================= *)
+
 From Coq Require Import List Reals QArith Psatz Field.
 From Coq.Vectors Require Import Fin.
 Require Import Coq.QArith.Qreals.
@@ -18,32 +56,6 @@ From Kernel Require Import PrimeAxiom.
 Local Open Scope R_scope.
 
 Notation RealNumber := Rdefinitions.R.
-
-(** =========================================================================
-    μ-LEDGER / QUANTUM REALIZABILITY BRIDGE
-    =========================================================================
-
-    WHY THIS FILE EXISTS:
-    The kernel already has two proof islands:
-
-    1. μ-ledger accounting and trace execution
-    2. NPA moment matrices and Tsirelson bounds
-
-    This file connects them as far as the current kernel infrastructure honestly
-    allows. In particular, it now contains:
-
-    - A concrete trace-to-correlator interface using CHSHExtraction.v
-    - A concrete μ-ledger coherence predicate over real correlators and final VM state
-    - A proved theorem: coherence implies the Tsirelson bound via existing minor constraints
-    - An explicit residual obligation isolating what is still needed to obtain
-      full quantum realizability (PSD of the induced NPA matrix)
-
-    CRITICAL DISTINCTION:
-    We do NOT silently identify μ-ledger coherence with quantum realizability.
-    That would be circular. Instead, we prove the strongest theorem currently
-    supported by the repository and make the remaining PSD bridge explicit.
-
-    ========================================================================= *)
 
 (** ** Concrete correlators extracted from a VM trace *)
 
@@ -228,6 +240,22 @@ Definition mu_ledger_quantum_gram_coherent
 Definition mu_ledger_coherent
   (fuel : nat) (trace : list vm_instruction) (s_init : VMState) : Prop :=
   mu_ledger_quantum_gram_coherent fuel trace s_init.
+
+Definition machine_internal_completed_run
+  (fuel : nat) (trace : list vm_instruction) (s_init : VMState) : Prop :=
+  let s_final := run_vm fuel trace s_init in
+  s_final.(vm_certified) = true /\
+  s_final.(vm_err) = false /\
+  (0 < s_final.(vm_mu))%nat /\
+  final_tensor_symmetric fuel trace s_init.
+
+Definition bridge_ready_completed_run
+  (fuel : nat) (trace : list vm_instruction) (s_init : VMState) : Prop :=
+  machine_internal_completed_run fuel trace s_init /\
+  trace_column_contractive fuel trace s_init.
+
+Definition certified_bridge_counterexample_trace : list vm_instruction :=
+  bridge_counterexample_trace ++ [instr_certify 0].
 
 Definition final_tensor_quantum_gram
   (fuel : nat) (trace : list vm_instruction) (s_init : VMState) : Prop :=
@@ -583,6 +611,45 @@ Proof.
   exact Hcoh.
 Qed.
 
+Lemma certified_bridge_counterexample_is_machine_internal_completed :
+  machine_internal_completed_run 7%nat certified_bridge_counterexample_trace bridge_counterexample_init.
+Proof.
+  unfold machine_internal_completed_run, certified_bridge_counterexample_trace.
+  split.
+  - vm_compute. reflexivity.
+  - split.
+    + vm_compute. reflexivity.
+    + split.
+      * vm_compute. lia.
+      * unfold final_tensor_symmetric, mu_tensor_symmetric.
+        simpl.
+        intros i j Hi Hj.
+        assert (Hi' : i = 0%nat \/ i = 1%nat \/ i = 2%nat \/ i = 3%nat) by lia.
+        assert (Hj' : j = 0%nat \/ j = 1%nat \/ j = 2%nat \/ j = 3%nat) by lia.
+        destruct Hi' as [-> | [-> | [-> | ->]]];
+        destruct Hj' as [-> | [-> | [-> | ->]]];
+        reflexivity.
+Qed.
+
+Lemma certified_bridge_counterexample_not_trace_column_contractive :
+  ~ trace_column_contractive 7%nat certified_bridge_counterexample_trace bridge_counterexample_init.
+Proof.
+  unfold certified_bridge_counterexample_trace.
+  vm_compute.
+  lra.
+Qed.
+
+Theorem machine_internal_completed_run_not_sufficient_for_trace_column_contractivity :
+  exists fuel trace s_init,
+    machine_internal_completed_run fuel trace s_init /\
+    ~ trace_column_contractive fuel trace s_init.
+Proof.
+  exists 7%nat, certified_bridge_counterexample_trace, bridge_counterexample_init.
+  split.
+  - apply certified_bridge_counterexample_is_machine_internal_completed.
+  - apply certified_bridge_counterexample_not_trace_column_contractive.
+Qed.
+
 (** ** Bridge obligations and exact load-bearing invariant *)
 
 (** The old weak bridge claim is refuted below and retained only so the exact
@@ -701,7 +768,7 @@ Qed.
 End ExactCharacterizationMeta.
 
 (** =========================================================================
-    STATE-BASED QUANTUM BRIDGE (migrated from ThielePrime)
+    STATE-BASED QUANTUM BRIDGE (formerly in ThielePrime, now in kernel)
     =========================================================================
 
     The trace-based bridge above extracts correlators by scanning
@@ -709,7 +776,7 @@ End ExactCharacterizationMeta.
     state-based bridge that reads correlators directly from the
     final VMState's vm_witness field (WitnessCounts buckets).
 
-    This is the key architectural improvement from ThielePrime:
+    This is the key architectural improvement (formerly in ThielePrime, now in kernel):
     the quantum object is determined by final machine state alone,
     not reconstructed from an external execution trace.
     ========================================================================= *)
@@ -747,13 +814,68 @@ Definition state_quantum_gram (s : VMState) : Prop :=
   let M := nat_matrix_to_fin5 (npa_to_matrix (state_zero_marginal_npa s)) in
   symmetric5 M /\ PSD5 M.
 
-(** The state-based bridge coherence predicate for full kernel programs.
-    Analogous to ThielePrime's prime_final_state_bridge_coherent. *)
+(** The state-based bridge coherence predicate for full kernel programs. *)
 Definition kernel_state_bridge_coherent
   (fuel : nat) (trace : list vm_instruction) (s_init : VMState) : Prop :=
   let s_final := run_vm fuel trace s_init in
   s_final.(vm_certified) = true /\
   state_column_contractive s_final.
+
+Definition certified_state_counterexample_witness : WitnessCounts :=
+  {| wc_same_00 := 1; wc_diff_00 := 0;
+     wc_same_01 := 1; wc_diff_01 := 1;
+     wc_same_10 := 1; wc_diff_10 := 0;
+     wc_same_11 := 1; wc_diff_11 := 1 |}.
+
+Definition certified_state_counterexample : VMState :=
+  {| vm_graph := empty_graph;
+     vm_csrs :=
+       {| csr_cert_addr := 0;
+          csr_status := 0;
+          csr_err := 0;
+          csr_heap_base := 0 |};
+     vm_regs := [];
+     vm_mem := [];
+     vm_pc := 0;
+     vm_mu := 1;
+     vm_mu_tensor := vm_mu_tensor_default;
+     vm_err := false;
+     vm_logic_acc := 0;
+     vm_mstatus := 0;
+     vm_witness := certified_state_counterexample_witness;
+     vm_certified := true |}.
+
+Lemma certified_state_counterexample_not_state_column_contractive :
+  ~ state_column_contractive certified_state_counterexample.
+Proof.
+  vm_compute.
+  lra.
+Qed.
+
+Theorem vm_certified_alone_does_not_imply_state_column_contractive :
+  ~ (forall s : VMState, s.(vm_certified) = true -> state_column_contractive s).
+Proof.
+  intros Hall.
+  pose proof (Hall certified_state_counterexample eq_refl) as Hcc.
+  exact (certified_state_counterexample_not_state_column_contractive Hcc).
+Qed.
+
+Theorem certified_no_error_positive_mu_not_sufficient_for_state_column_contractivity :
+  exists s : VMState,
+    s.(vm_certified) = true /\
+    s.(vm_err) = false /\
+    (0 < s.(vm_mu))%nat /\
+    ~ state_column_contractive s.
+Proof.
+  exists certified_state_counterexample.
+  split.
+  - reflexivity.
+  - split.
+    + reflexivity.
+    + split.
+      * exact (Nat.lt_0_succ 0).
+      * apply certified_state_counterexample_not_state_column_contractive.
+Qed.
 
 (** State-based bridge: column contractivity implies quantum Gram. *)
 Theorem state_column_contractive_implies_quantum_gram :
@@ -807,4 +929,181 @@ Proof.
   split.
   - reflexivity.
   - apply kernel_state_bridge_coherent_implies_quantum_realizable. exact Hcoh.
+Qed.
+
+(** =========================================================================
+    PSD -> ROW BOUNDS -> TSIRELSON
+    =========================================================================
+
+    This section derives the row bounds (minor_constraint_zero_marginal) from
+    the PSD property of the zero-marginal NPA matrix, rather than assuming them.
+
+    THE MATHEMATICAL ARGUMENT:
+    For the 5×5 zero-marginal NPA matrix with rho_AA = rho_BB = 0:
+      M = [[1,  0,    0,    0,    0   ],
+           [0,  1,    0,    E00,  E01 ],
+           [0,  0,    1,    E10,  E11 ],
+           [0,  E00,  E10,  1,    0   ],
+           [0,  E01,  E11,  0,    1   ]]
+
+    PSD implies all principal submatrices are PSD.
+    The 3×3 submatrix from rows/cols {1,3,4} (A0, B0, B1):
+      [[1,   E00,  E01],
+       [E00, 1,    0  ],
+       [E01, 0,    1  ]]
+    has det = 1 - E00² - E01².
+    PSD → det ≥ 0 → E00² + E01² ≤ 1.
+
+    Similarly for rows/cols {2,3,4} (A1, B0, B1):
+    det = 1 - E10² - E11² ≥ 0.
+
+    This uses psd_3x3_determinant_nonneg from ConstructivePSD.v.
+    ========================================================================= *)
+
+(** INQUISITOR NOTE: quantum_realizable_zero_marginal_implies_row_bounds derives
+    the row-sum constraints from PSD. The constraints follow from the 3x3 minor
+    determinant argument via psd_3x3_determinant_nonneg. *)
+Theorem quantum_realizable_zero_marginal_implies_row_bounds :
+  forall E00 E01 E10 E11 : RealNumber,
+    quantum_realizable (zero_marginal_npa E00 E01 E10 E11) ->
+    minor_constraint_zero_marginal E00 E01 /\
+    minor_constraint_zero_marginal E10 E11.
+Proof.
+  intros E00 E01 E10 E11 [Hsym Hpsd].
+  set (npa := zero_marginal_npa E00 E01 E10 E11).
+  set (M := nat_matrix_to_fin5 (npa_to_matrix npa)).
+  split.
+  - (* Row 1: E00² + E01² ≤ 1 *)
+    unfold minor_constraint_zero_marginal.
+    pose proof (psd_3x3_determinant_nonneg M idx1 idx3 idx4 Hpsd Hsym
+      (npa_diagonal_one _ _) (npa_diagonal_one _ _) (npa_diagonal_one _ _)) as Hdet.
+    (* Unfold M to expose npa_to_matrix, then use position lemmas *)
+    unfold M in Hdet.
+    rewrite npa_E00_position in Hdet.
+    rewrite npa_E01_position in Hdet.
+    rewrite npa_rho_BB_position in Hdet.
+    (* For zero_marginal_npa: rho_BB = 0, E00 = E00, E01 = E01 *)
+    unfold npa in Hdet. simpl in Hdet.
+    unfold det3_corr in Hdet.
+    lra.
+  - (* Row 2: E10² + E11² ≤ 1 *)
+    unfold minor_constraint_zero_marginal.
+    pose proof (psd_3x3_determinant_nonneg M idx2 idx3 idx4 Hpsd Hsym
+      (npa_diagonal_one _ _) (npa_diagonal_one _ _) (npa_diagonal_one _ _)) as Hdet.
+    unfold M in Hdet.
+    rewrite npa_E10_position in Hdet.
+    rewrite npa_E11_position in Hdet.
+    rewrite npa_rho_BB_position in Hdet.
+    unfold npa in Hdet. simpl in Hdet.
+    unfold det3_corr in Hdet.
+    lra.
+Qed.
+
+Theorem execution_quantum_gram_coherent_implies_mu_ledger_tsirelson_coherent :
+  forall fuel trace s_init,
+    execution_quantum_gram_coherent fuel trace s_init ->
+    mu_ledger_tsirelson_coherent fuel trace s_init.
+Proof.
+  intros fuel trace s_init Hexec.
+  destruct Hexec as [Hsym Hcontractive].
+  split.
+  - exact Hsym.
+  - pose proof
+      (execution_quantum_gram_coherent_implies_final_tensor_quantum_gram fuel trace s_init
+         (conj Hsym Hcontractive)) as Hgram.
+    pose proof
+      (final_tensor_quantum_gram_implies_quantum_realizable_of_trace fuel trace s_init Hgram) as Hqr.
+    unfold trace_zero_marginal_npa in Hqr.
+    apply quantum_realizable_zero_marginal_implies_row_bounds in Hqr.
+    exact Hqr.
+Qed.
+
+Theorem execution_quantum_gram_coherent_implies_mu_ledger_coherent :
+  forall fuel trace s_init,
+    execution_quantum_gram_coherent fuel trace s_init ->
+    mu_ledger_coherent fuel trace s_init.
+Proof.
+  intros fuel trace s_init Hexec.
+  destruct Hexec as [Hsym Hcontractive].
+  unfold mu_ledger_coherent, mu_ledger_quantum_gram_coherent.
+  split.
+  - apply execution_quantum_gram_coherent_implies_mu_ledger_tsirelson_coherent.
+    exact (conj Hsym Hcontractive).
+  - exact Hcontractive.
+Qed.
+
+Theorem bridge_ready_completed_run_implies_mu_ledger_coherent :
+  forall fuel trace s_init,
+    bridge_ready_completed_run fuel trace s_init ->
+    mu_ledger_coherent fuel trace s_init.
+Proof.
+  intros fuel trace s_init [[_ [_ [_ Hsym]]] Hcontractive].
+  apply execution_quantum_gram_coherent_implies_mu_ledger_coherent.
+  split; assumption.
+Qed.
+
+Theorem bridge_ready_completed_run_implies_quantum_realizable_of_trace :
+  forall fuel trace s_init,
+    bridge_ready_completed_run fuel trace s_init ->
+    quantum_realizable (trace_zero_marginal_npa fuel trace s_init).
+Proof.
+  intros fuel trace s_init Hready.
+  apply mu_ledger_coherent_implies_quantum_realizable_of_trace.
+  apply bridge_ready_completed_run_implies_mu_ledger_coherent.
+  exact Hready.
+Qed.
+
+Theorem bridge_ready_completed_run_implies_tsirelson_bound_abs :
+  forall fuel trace s_init,
+    bridge_ready_completed_run fuel trace s_init ->
+    Rabs (CHSH
+      (trace_e00 fuel trace s_init)
+      (trace_e01 fuel trace s_init)
+      (trace_e10 fuel trace s_init)
+      (trace_e11 fuel trace s_init)) <= sqrt8.
+Proof.
+  intros fuel trace s_init Hready.
+  apply mu_ledger_coherent_implies_tsirelson_bound_abs.
+  apply bridge_ready_completed_run_implies_mu_ledger_coherent.
+  exact Hready.
+Qed.
+
+(** C4 end-to-end: quantum realizability alone implies Tsirelson bound.
+    Chain: quantum_realizable → row bounds (above) → tsirelson_from_minors (existing). *)
+(** INQUISITOR NOTE: quantum_realizable_implies_tsirelson_bound is the C4
+    closure theorem. No assumed row bounds — they are DERIVED from PSD. *)
+Theorem quantum_realizable_implies_tsirelson_bound :
+  forall E00 E01 E10 E11 : RealNumber,
+    quantum_realizable (zero_marginal_npa E00 E01 E10 E11) ->
+    (CHSH E00 E01 E10 E11)² <= 8.
+Proof.
+  intros E00 E01 E10 E11 Hqr.
+  apply quantum_realizable_zero_marginal_implies_row_bounds in Hqr.
+  destruct Hqr as [Hrow1 Hrow2].
+  apply tsirelson_from_minors; assumption.
+Qed.
+
+(** Absolute-value form: |S| ≤ 2√2. *)
+Theorem quantum_realizable_implies_tsirelson_bound_abs :
+  forall E00 E01 E10 E11 : RealNumber,
+    quantum_realizable (zero_marginal_npa E00 E01 E10 E11) ->
+    Rabs (CHSH E00 E01 E10 E11) <= sqrt8.
+Proof.
+  intros E00 E01 E10 E11 Hqr.
+  apply quantum_realizable_zero_marginal_implies_row_bounds in Hqr.
+  destruct Hqr as [Hrow1 Hrow2].
+  apply tsirelson_from_minors_abs; assumption.
+Qed.
+
+(** State-based C4: column contractivity → PSD → row bounds → Tsirelson.
+    This shows the row bounds were always derivable from column contractivity. *)
+Theorem state_column_contractive_implies_tsirelson :
+  forall s : VMState,
+    state_column_contractive s ->
+    (CHSH (state_e00 s) (state_e01 s) (state_e10 s) (state_e11 s))² <= 8.
+Proof.
+  intros s Hcc.
+  apply quantum_realizable_implies_tsirelson_bound.
+  apply state_column_contractive_implies_quantum_gram in Hcc.
+  exact Hcc.
 Qed.

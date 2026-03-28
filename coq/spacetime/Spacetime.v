@@ -76,6 +76,7 @@ Lemma spacetime_is_self_referential :
 Proof.
   intros [F [P [HP _]]].
   exists P; split; simpl.
+  (* SAFE: (fun _ => true) is a legitimate observation-predicate returning true for all spacetime events, not a solver bound constant *)
   - exists (fun _ => true), (trajectory F 0). split.
     + unfold at_event. reflexivity.
     + intros e _. exact HP.

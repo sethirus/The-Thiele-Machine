@@ -23,7 +23,7 @@
 \draw[->, thick, dashed] (py.east) -- +(0.4,0) |- (inv.east);
 \draw[->, thick, dashed] (rtl.east) -- +(0.6,0) |- (inv.east);
 \end{tikzpicture}
-\caption{3-Layer Isomorphism: three independent implementations bound by a single invariant.}
+\caption{3-layer comparison architecture: one Coq specification with two derived execution backends, bound by a shared observable contract.}
 \end{figure}
 
 \section{Why Three Layers?}
@@ -36,7 +36,7 @@
 
 Same thing here. I could write a beautiful mathematical definition of how this machine \textit{should} work, but that's just talk. That's just the brochure. What matters is: does it actually work? Does the engine turn over? Does the thing \textit{do what I said it does}?
 
-That's why the system was built three times. Not out of masochism (though I question that sometimes), but because I needed to \textit{know}. I needed to see the same answer come out of three completely different ``workshops''---one that speaks pure math (Coq), one that speaks Python like a normal person, and one that speaks to actual hardware in Verilog.
+That's why the system was built three ways. Not out of masochism (though I question that sometimes), but because I needed to \textit{know}. I needed to see the same answer come out of three completely different execution paths---one that speaks pure math (Coq), one that speaks Python as a protocol wrapper around extracted OCaml, and one that speaks to actual hardware through Kami-generated Verilog.
 
 If all three shops give me the same answer, I know the car is real. If they disagree? Someone's lying, and I need to find out who.
 
@@ -44,7 +44,7 @@ If all three shops give me the same answer, I know the car is real. If they disa
 
 A formal specification proves properties but doesn't run on real workloads. An executable implementation runs but might contain bugs or semantic drift. How do you trust that implementation matches specification?
 
-\textbf{Answer}: Build three independent implementations and verify they produce \textit{identical results} for all inputs. This makes the thesis rebuildable: every layer can be re-implemented from definitions here, and any mismatch is detectable.
+\textbf{Answer}: Derive two executable backends from the same formal specification and verify they produce \textit{identical observable results}. The Python layer delegates to Coq-extracted OCaml; the Verilog is generated from Kami modules written in Coq. Both derive from the same source, but the compilation pipelines are different enough that agreement between them catches extraction bugs, synthesis errors, and serialization mismatches. This makes the thesis rebuildable: every layer can be re-derived from Coq, and any mismatch across pipelines is detectable.
 
 In practice: take a short instruction trace, run it through the Coq-extracted interpreter, the Python VM, and the RTL testbench, compare the gate-appropriate observable projection. If any field diverges, treat it as a semantic bug.
 
@@ -53,25 +53,31 @@ In practice: take a short instruction trace, run it through the Coq-extracted in
 \begin{enumerate}
     \item \textbf{Coq (Formal)}: Defines ground-truth semantics. Every property is machine-checked. Extraction provides a reference evaluator.
     
-    \item \textbf{Python (Reference)}: A human-readable implementation for debugging, tracing, and experimentation. Generates receipts and traces.
-    
-    \item \textbf{Verilog (Hardware)}: A synthesizable RTL implementation targeting real FPGAs. Proves the model is physically realizable.
+    \item \textbf{Python (Reference)}: A protocol wrapper around the Coq-extracted OCaml binary. No independent opcode logic---all execution delegates to \path{build/extracted_vm_runner} via subprocess. Useful for debugging, tracing, and experimentation.
+
+    \item \textbf{Verilog (Hardware)}: Generated from Kami specifications in Coq (\path{coq/kami_hw/ThieleCPUCore.v}) via Bluespec compilation. Synthesizable RTL targeting real FPGAs.
 \end{enumerate}
 Concretely, the formal layer lives in \texttt{coq/kernel/*.v}, the Python reference VM is implemented under \texttt{thielecpu/} (notably \path{thielecpu/vm.py}), and the RTL is under \texttt{thielecpu/hardware/}. Keeping the directory layout explicit matters because it tells a reader exactly where to validate each part of the story.
 
 \subsection{The Isomorphism Invariant}
 
-For \textit{any} instruction trace $\tau$:
+For instruction traces $\tau$ within the tested opcode subset:
 \[
-S_{\text{Coq}}(\tau) = S_{\text{Python}}(\tau) = S_{\text{Verilog}}(\tau)
+\pi(S_{\text{Coq}}(\tau)) = \pi(S_{\text{Python}}(\tau)) = \pi(S_{\text{Verilog}}(\tau))
 \]
+where $\pi$ is a gate-specific observable projection (typically \texttt{vm\_pc} and \texttt{vm\_mu}).
 
 This is not aspirational---it's enforced by automated tests. Any divergence is a critical bug.
+
+\textbf{Honest scope caveat:} The Python layer is not an independent implementation. It delegates all execution to the Coq-extracted OCaml binary via subprocess, so $S_{\text{Python}}(\tau) = S_{\text{Coq}}(\tau)$ by construction. The genuine comparison is between the OCaml extraction pipeline and the Kami/Bluespec synthesis pipeline. The tests compare \textit{state projections} rather than full state identity. The project's own audit artifact at \path{artifacts/final_claim_audit/cross_layer_equivalence_scope.json} specifies \texttt{equivalence\_mode: "observable\_only"} and \texttt{full\_state\_identity\_status: "not claimed"}.
+
+Known divergences exist for several opcodes (MDLACC cost charging, LASSERT formula-length cost, ORACLE\_HALTS hardcoded RTL cost, CHECKPOINT no-op in hardware, CALL/RET init-directive format, PDISCOVER/READ\_PORT text format). The cross-layer bisimulation tests in \path{tests/test_cross_layer_bisimulation.py} document these exceptions explicitly. Of the 40 ISA opcodes, 30 have direct cross-layer mu/register comparison (including the bitwise ALU, LUI, and TENSOR opcodes), 8 have cross-layer tests with documented divergences where each layer is tested independently for its known behavior, and 2 (CERTIFY, WRITE\_PORT) are tested per-layer.
+
 The tests compare \textit{state projections} rather than every internal variable. The projections are suite-specific: the compute gate in \path{tests/test_verilog_cosim.py} compares registers and memory, while the cross-layer bisimulation tests in \path{tests/test_cross_layer_bisimulation.py} compare canonicalized module regions from the partition graph. The extracted runner emits a full JSON snapshot (pc, $\mu$, err, regs, mem, CSRs, graph), but the RTL testbench exposes only the fields required by each gate.
 
 \subsubsection{The Isomorphism Contract (Specification)}
 
-\begin{tcolorbox}[thesisbox,colback=blue!5!white,colframe=blue!75!black,title=3-Layer Isomorphism Contract]
+\begin{tcolorbox}[thesisbox,colback=blue!5!white,colframe=blue!75!black,title=3-Layer Comparison Contract]
 \textbf{Inputs allowed}:
 \begin{itemize}
     \item Instruction traces $\tau$ with explicit $\mu$-deltas per instruction
@@ -80,7 +86,7 @@ The tests compare \textit{state projections} rather than every internal variable
 
 \textbf{Outputs compared}:
 \begin{itemize}
-    \item \textbf{Compute gate}: registers[0:31], memory[0:4095]
+    \item \textbf{Compute gate}: registers[0:31], memory[0:65535]
     \item \textbf{Partition gate}: canonicalized module regions (via \texttt{normalize\_region})
     \item \textbf{Full gate}: pc, $\mu$, err, regs, mem, csrs, partition graph
 \end{itemize}
@@ -88,7 +94,7 @@ The tests compare \textit{state projections} rather than every internal variable
 \textbf{Canonical serialization rules}:
 \begin{itemize}
     \item Regions: sorted, deduplicated lists of indices
-    \item Integers: 32-bit words with explicit masking
+    \item Integers: 64-bit words with explicit masking (Coq/Python); 32-bit in RTL
     \item Module IDs: monotonic naturals starting from 0
     \item Hash chains: SHA-256 in hex encoding
 \end{itemize}
@@ -101,8 +107,8 @@ The tests compare \textit{state projections} rather than every internal variable
 This chapter is practical: it explains how theory becomes three concrete artifacts and how they stay in lockstep.
 \begin{itemize}
     \item Section 4.3: Coq formalization (state definitions, step relation, extraction)
-    \item Section 4.4: Python VM (state class, partition operations, receipt generation)
-    \item Section 4.5: Verilog RTL (CPU module, $\mu$-ALU, logic engine interface)
+    \item Section 4.4: Python VM (state class, partition operations, receipt tooling)
+    \item Section 4.5: Verilog RTL (Kami-generated CPU, $\mu$-accumulator, logic interface)
     \item Section 4.6: Isomorphism verification (how equality is tested)
 \end{itemize}
 
@@ -114,16 +120,20 @@ This chapter is practical: it explains how theory becomes three concrete artifac
     \item The \textbf{receipt format} used for trace verification
 \end{itemize}
 
-\section{The 3-Layer Isomorphism Architecture}
+\section{The 3-Layer Comparison Architecture}
 
-Three independent implementations, one invariant:
+One specification, three execution paths, one invariant:
 \begin{enumerate}
     \item \textbf{Formal Layer (Coq)}: Ground-truth semantics with machine-checked proofs
-    \item \textbf{Reference Layer (Python)}: Executable specification with tracing and debugging
-    \item \textbf{Physical Layer (Verilog)}: RTL implementation targeting FPGA/ASIC synthesis
+    \item \textbf{Reference Layer (Python)}: Protocol wrapper around Coq-extracted OCaml binary, with tracing and debugging
+    \item \textbf{Physical Layer (Verilog)}: Kami-generated RTL targeting FPGA/ASIC synthesis
 \end{enumerate}
 
-The binding constraint: for any instruction sequence $\tau$, the state projections must be identical across all three layers. The projections are suite-specific (registers/memory for compute traces; module regions for partition traces), while the extracted runner provides a superset of observables that can be compared when a gate requires it.
+The binding constraint is a cross-layer comparison contract: for supported gates and available backends, the state projections must agree across all three layers. The projections are suite-specific (registers/memory for compute traces; module regions for partition traces), while the extracted runner provides a superset of observables that can be compared when a gate requires it.
+
+\begin{quote}
+\textit{Author's Note (Devon): I need to be straight about what ``three layers'' actually means here. The Python VM is not an independent implementation. It serializes state, calls the OCaml binary that was extracted from Coq, and deserializes the result. Zero opcode logic in Python. The Verilog is generated from Kami specifications written in Coq. So all three layers derive from the same Coq source. The genuine test is whether two different compilation pipelines---OCaml extraction and Kami/Bluespec synthesis---produce the same observable outputs. When they agree, that's meaningful. When they disagree (and they do, on about half the ISA), those divergences are documented. I originally called these ``independent implementations'' because that sounded better. But that was wrong. They are three views of one specification. The value is pipeline diversity, not implementation diversity.}
+\end{quote}
 
 \section{Layer 1: The Formal Kernel (Coq)}
 
@@ -132,7 +142,7 @@ The binding constraint: for any instruction sequence $\tau$, the state projectio
 The formal kernel is organized around a small set of interlocking definitions:
 \begin{itemize}
     \item \textbf{State and partition structure}: the record that defines registers, memory, the partition graph, and the $\mu$-ledger.
-    \item \textbf{Step semantics}: the 31-instruction ISA and the inductive transition rules.
+    \item \textbf{Step semantics}: the active 47-opcode ISA and the inductive transition rules.
     \item \textbf{Logical certificates}: checkers for proofs and models that allow deterministic verification.
     \item \textbf{Conservation and locality}: theorems that enforce $\mu$-monotonicity and observational no-signaling.
     \item \textbf{Receipts and simulation}: trace formats and cross-layer correspondence lemmas.
@@ -150,7 +160,7 @@ The goal is not to “encode” the implementation, but to define a minimal sema
     lbl/.style={font=\scriptsize\ttfamily, anchor=west},
 ]
 % Container
-\node[draw, thick, rounded corners=2pt, minimum width=5.2cm, minimum height=5.9cm, label={[font=\footnotesize\bfseries]above:VMState Record}] (container) at (2.6,1.35) {};
+\node[draw, thick, rounded corners=2pt, minimum width=5.2cm, minimum height=7.0cm, label={[font=\footnotesize\bfseries]above:VMState Record}] (container) at (2.6,0.8) {};
 
 % Fields
 \node[field, fill=blue!12] (graph) at (0.3,3.9) {vm\_graph : PartitionGraph};
@@ -163,22 +173,24 @@ The goal is not to “encode” the implementation, but to define a minimal sema
 \node[field, fill=gray!12] (err) at (0.3,0.05) {vm\_err : bool};
 \node[field, fill=purple!8] (logicacc) at (0.3,-0.5) {vm\_logic\_acc : nat};
 \node[field, fill=purple!8] (mstatus) at (0.3,-1.05) {vm\_mstatus : nat};
+\node[field, fill=cyan!12] (witness) at (0.3,-1.6) {vm\_witness : WitnessCounts};
+\node[field, fill=cyan!12] (certified) at (0.3,-2.15) {vm\_certified : bool};
 
 % Annotations
 \node[font=\scriptsize, anchor=west] at (4.3,2.8) {32 regs};
-\node[font=\scriptsize, anchor=west] at (4.3,2.25) {4096 words};
+\node[font=\scriptsize, anchor=west] at (4.3,2.25) {65536 words};
 \node[font=\scriptsize, anchor=west, red!70] at (4.3,1.15) {$\mu$-ledger};
 \node[font=\scriptsize, anchor=west, red!50] at (4.3,0.6) {4$\times$4 cost};
 
 % Data brace
 \draw[decorate, decoration={brace, amplitude=4pt}] (4.2,3.05) -- (4.2,2.0) node[midway, right=5pt, font=\scriptsize] {Data};
 \end{tikzpicture}
-\caption{VMState record: ten fields, with \texttt{vm\_mu} (the $\mu$-ledger) and \texttt{vm\_mu\_tensor} (the 4$\times$4 cost tensor) as cost accumulators.}
+\caption{VMState record: twelve fields, with \texttt{vm\_mu} (the $\mu$-ledger) and \texttt{vm\_mu\_tensor} (the 4$\times$4 cost tensor) as cost accumulators, and \texttt{vm\_witness}/\texttt{vm\_certified} for CHSH trial tracking.}
 \end{figure}
 
 \subsection{The VMState Record}
 
-The state is defined as a record with ten components:
+The state is defined as a record with twelve components:
 \begin{lstlisting}
 Record VMState := {
   vm_graph : PartitionGraph;
@@ -190,14 +202,16 @@ Record VMState := {
   vm_mu_tensor : list nat;
   vm_err : bool;
   vm_logic_acc : nat;
-  vm_mstatus : nat
+  vm_mstatus : nat;
+  vm_witness : WitnessCounts;
+  vm_certified : bool
 }.
 \end{lstlisting}
 
 \paragraph{Understanding VMState Record:}
 
 \begin{quote}
-\textit{Author's Note (Devon): Look, I know what you're thinking. ``Ten fields? That's it?'' Yeah. That's it. Every computation this machine does boils down to shuffling values between these ten buckets. It's like a car---looks complicated under the hood, but at the end of the day it's just ``make explosions, turn wheels.'' Here it's ``move bits, track cost.''}
+\textit{Author's Note (Devon): Look, I know what you're thinking. ``Twelve fields? That's it?'' Yeah. That's it. Every computation this machine does boils down to shuffling values between these twelve buckets. It's like a car---looks complicated under the hood, but at the end of the day it's just ``make explosions, turn wheels.'' Here it's ``move bits, track cost.''}
 \end{quote}
 
 \textbf{This is the complete VM state} --- everything needed to simulate one step.
@@ -220,11 +234,11 @@ Record VMState := {
     \begin{itemize}
         \item 32 registers (standard RISC-V count)
         \item Each entry is a natural number (unbounded in Coq)
-        \item Hardware masks to 32 bits via \texttt{word32} function
+        \item Hardware masks to 64 bits via \texttt{word64} function (RTL projects to 32 bits)
     \end{itemize}
     \item \textbf{vm\_mem : list nat}: Data memory
     \begin{itemize}
-        \item 4,096 words (configurable)
+        \item 65,536 words (matching \texttt{MEM\_SIZE} in \path{coq/kernel/VMState.v})
         \item Separate from instruction memory (Harvard architecture)
     \end{itemize}
     \item \textbf{vm\_pc : nat}: Program Counter
@@ -252,6 +266,18 @@ Record VMState := {
         \item \texttt{true} = undefined behavior detected (e.g., invalid opcode)
         \item Once set, VM halts (no further steps possible)
     \end{itemize}
+    \item \textbf{vm\_logic\_acc : nat}: Logic accumulator for certificate-bearing operations
+    \item \textbf{vm\_mstatus : nat}: Machine status register (hardware mode bits)
+    \item \textbf{vm\_witness : WitnessCounts}: Eight CHSH trial counters (same-outcome and different-outcome buckets for each of the four measurement settings)
+    \begin{itemize}
+        \item Used by \texttt{CHSH\_TRIAL} to accumulate Bell test statistics
+        \item Exported as \texttt{getWcSame00}--\texttt{getWcDiff11} in the Kami RTL
+    \end{itemize}
+    \item \textbf{vm\_certified : bool}: Certification flag set by \texttt{CERTIFY} instruction
+    \begin{itemize}
+        \item Once set, indicates the VM has committed to its witness data
+        \item Requires positive $\mu$-cost (NoFI enforcement)
+    \end{itemize}
 \end{itemize}
 
 \textbf{Immutability:} Coq records are immutable. Every instruction creates a \emph{new} VMState rather than mutating the old one. This functional style makes proofs tractable.
@@ -259,7 +285,7 @@ Record VMState := {
 Each component has canonical width and representation:
 \begin{itemize}
     \item \textbf{vm\_regs}: 32 registers (matching RISC-V convention)
-    \item \textbf{vm\_mem}: 4,096 words of data memory
+    \item \textbf{vm\_mem}: 65,536 words of data memory
     \item \textbf{vm\_pc}: Program counter (modeled as a natural in proofs; masked to a fixed width in hardware)
     \item \textbf{vm\_mu}: $\mu$-ledger accumulator (modeled as a natural; exported at fixed width in hardware)
     \item \textbf{vm\_err}: Boolean error latch
@@ -276,7 +302,8 @@ Record PartitionGraph := {
 
 Record ModuleState := {
   module_region : list nat;
-  module_axioms : AxiomSet
+  module_axioms : AxiomSet;
+  module_mu_tensor : list nat
 }.
 \end{lstlisting}
 
@@ -311,6 +338,12 @@ Record ModuleState := {
         \item Example: \texttt{[(assert (>= x 0)), (assert (< x 100))]}
         \item Checked by external solvers (Z3, CVC5)
     \end{itemize}
+    \item \textbf{module\_mu\_tensor}: Per-module 4$\times$4 metric tensor
+    \begin{itemize}
+        \item 16-entry list (row-major flattening of a 4$\times$4 matrix)
+        \item Tracks inter-category $\mu$-flow local to this module
+        \item Set by \texttt{TENSOR\_SET}, read by \texttt{TENSOR\_GET}
+    \end{itemize}
 \end{itemize}
 
 \textbf{Physical Interpretation:} The partition graph is the \emph{structural currency}:
@@ -326,7 +359,7 @@ Record ModuleState := {
     \item \textbf{Simplicity}: Association lists are easier to prove correct than hash tables
     \item \textbf{Immutability}: Functional updates create new graphs (no mutation)
     \item \textbf{Verifiability}: Linear structure makes proofs tractable
-    \item \textbf{Isomorphism}: Python and Verilog implementations mirror this exactly
+    \item \textbf{Cross-pipeline consistency}: The OCaml extraction and Kami/Bluespec synthesis derive from these same definitions, and observable projections are tested for agreement
 \end{enumerate}
 
 Key operations:
@@ -341,7 +374,7 @@ In the Python reference VM (\path{thielecpu/vm.py}), these same operations are i
 
 \subsection{The Step Relation}
 
-The step relation is an inductive predicate with 39 constructors covering the 31 opcodes. Several opcodes have both success and failure constructors (e.g., \texttt{step\_psplit} and \texttt{step\_psplit\_failure}), so the constructor count exceeds the opcode count. Each constructor states exact preconditions and the resulting next state:
+The step relation is an inductive predicate with constructors covering the active opcode set. Several opcodes have both success and failure constructors (e.g., \texttt{step\_psplit} and \texttt{step\_psplit\_failure}), so the constructor count exceeds the opcode count. Each constructor states exact preconditions and the resulting next state:
 \begin{lstlisting}
 Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop := 
 | step_pnew : forall s region cost graph' mid,
@@ -402,7 +435,7 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     \item \textbf{Proof Target}: Properties are proven about this relation (safety, progress)
 \end{itemize}
 
-\textbf{39 Constructors} covering the 31 opcodes (some have success/failure variants):
+\textbf{Step constructors} covering the active opcode set (some have success/failure variants):
 \begin{itemize}
     \item Partition ops: PNEW, PSPLIT, PMERGE, PDISCOVER
     \item Logic ops: LASSERT, LJOIN, REVEAL
@@ -421,12 +454,14 @@ Definition advance_state (s : VMState) (instr : vm_instruction)
      vm_csrs := csrs';
      vm_regs := s.(vm_regs);
      vm_mem := s.(vm_mem);
-     vm_pc := s.(vm_pc) + 1;
+     vm_pc := S s.(vm_pc);
      vm_mu := apply_cost s instr;
      vm_mu_tensor := s.(vm_mu_tensor);
      vm_err := err';
      vm_logic_acc := s.(vm_logic_acc);
-     vm_mstatus := s.(vm_mstatus) |}.
+     vm_mstatus := s.(vm_mstatus);
+     vm_witness := s.(vm_witness);
+     vm_certified := s.(vm_certified) |}.
 \end{lstlisting}
 
 \paragraph{Understanding advance\_state:}
@@ -447,10 +482,14 @@ Definition advance_state (s : VMState) (instr : vm_instruction)
     \item \textbf{vm\_csrs := csrs'}: Update control/status registers
     \item \textbf{vm\_regs := s.(vm\_regs)}: Preserve registers (unchanged by partition ops)
     \item \textbf{vm\_mem := s.(vm\_mem)}: Preserve memory
-    \item \textbf{vm\_pc := s.(vm\_pc) + 1}: Increment program counter (fetch next instruction)
+    \item \textbf{vm\_pc := S s.(vm\_pc)}: Increment program counter (Coq successor, equivalent to +1)
     \item \textbf{vm\_mu := apply\_cost s instr}: Add instruction's $\mu$-cost to scalar ledger
-    \item \textbf{vm\_mu\_tensor := apply\_tensor\_cost s instr}: Update the 4$\times$4 inter-category cost tensor
+    \item \textbf{vm\_mu\_tensor := s.(vm\_mu\_tensor)}: Pass through the cost tensor unchanged (the variant \texttt{advance\_state\_reveal} uses \texttt{vm\_mu\_tensor\_add\_at} to update a specific tensor entry)
     \item \textbf{vm\_err := err'}: Set error flag (used for undefined behavior)
+    \item \textbf{vm\_logic\_acc := s.(vm\_logic\_acc)}: Preserve logic accumulator
+    \item \textbf{vm\_mstatus := s.(vm\_mstatus)}: Preserve machine status
+    \item \textbf{vm\_witness := s.(vm\_witness)}: Preserve CHSH witness counters (\texttt{step\_chsh\_trial} updates these separately)
+    \item \textbf{vm\_certified := s.(vm\_certified)}: Preserve certification flag (\texttt{step\_certify} sets this separately)
 \end{enumerate}
 
 \textbf{Key Function: apply\_cost:}
@@ -472,33 +511,46 @@ The existence of \texttt{advance\_state\_rm} in \texttt{coq/kernel/VMStep.v} is 
 
 \subsection{Extraction}
 
-The formal definitions are extracted to a functional evaluator to create a reference semantics. The extraction entrypoint \path{coq/Extraction.v} imports 13 kernel modules and extracts over 100 symbols across every subsystem---core VM semantics, receipt integrity, CHSH pipeline, semantic and operational $\mu$-cost, ledger conservation, falsifiable predictions, three-layer isomorphism, hardware bisimulation, and Tsirelson bound computation:
+The formal definitions are extracted to a functional evaluator to create a reference semantics. The extraction entrypoint \path{coq/Extraction.v} imports 26 modules (23 from the kernel, 3 from \texttt{KamiHW}) and extracts 21 named symbols covering core VM semantics, simulation proof infrastructure, and the Kami hardware abstraction layer:
 \begin{lstlisting}
 From Coq Require Import Extraction.
 From Coq Require Import ExtrOcamlBasic ExtrOcamlString
                         ExtrOcamlZInt ExtrOcamlNatInt.
 
-From Kernel Require Import VMState VMStep SimulationProof
-  ReceiptIntegrity CHSHExtraction CHSH SemanticMuCost
-  MuCostModel MuLedgerConservation FalsifiablePrediction
-  ThreeLayerIsomorphism HardwareBisimulation TsirelsonComputation.
+From Kernel Require Import VMState VMStep VMEncoding KernelTM.
+From Kernel Require Import MuCostModel MuLedgerConservation
+  MuInitiality NoFreeInsight SimulationProof.
+From Kernel Require Import Certification QuantumBound
+  RevelationRequirement.
+From Kernel Require Import BornRuleLinearity TsirelsonQuantumModel
+  TsirelsonGeneral MuLedgerQuantumBridge.
+From Kernel Require Import HonestNoFI MuShannonBridge
+  MuShannonQuantitative StateSpaceCounting.
+From Kernel Require Import HonestNoFI_TheoremsWithoutAssumptions.
+From Kernel Require Import NoFIToEinstein BekensteinCalibration.
+From KamiHW Require Import Abstraction ThieleCPUBusTop
+  CanonicalCPUProof.
 
 (* Native-int overrides for Peano Nat (prevents stack overflow) *)
 Extract Constant Nat.add => "(+)".
 Extract Constant Nat.mul => "( * )".
-Extract Constant Nat.pow => "fun b e -> ... go 1 e".
+Extract Constant Nat.sub => "fun n m -> max 0 (n-m)".
+Extract Constant Nat.eqb => "(=)".
+(* 64-bit word operations via Int64 *)
+Extract Constant VMState.word64_add => "(fun a b -> ...)".
 ...
 
 Extraction "../build/thiele_core.ml"
   (* Core VM semantics *)
-  VMStep.vm_instruction VMStep.apply_cost VMStep.advance_state ...
-  (* Receipt integrity chain *)
-  ReceiptIntegrity.Receipt ReceiptIntegrity.receipt_mu_consistent_b ...
-  (* CHSH pipeline *)
-  CHSHExtraction.chsh_from_vm_trace CHSH.chsh_local_z ...
-  (* Three-layer isomorphism *)
-  ThreeLayerIsomorphism.project_vmstate ...
-  (* ~100 symbols total across 13 subsystems *)
+  VMStep.vm_instruction VMStep.nofi_step_cost_okb
+  VMStep.nofi_trace_cost_okb VMState.VMState
+  SimulationProof.vm_apply SimulationProof.vm_apply_nofi
+  SimulationProof.vm_apply_runtime SimulationProof.pnew_chain
+  (* Kami hardware abstraction *)
+  Abstraction.KamiSnapshot ThieleCPUBusTop.BusReg
+  ThieleCPUBusTop.BusCoreView ThieleCPUBusTop.bus_step
+  ThieleCPUBusTop.coreViewOfSnapshot.
+  (* 21 symbols total across VM + Kami subsystems *)
 \end{lstlisting}
 
 \paragraph{Understanding Coq Extraction:}
@@ -508,14 +560,13 @@ Extraction "../build/thiele_core.ml"
 \begin{enumerate}
     \item \textbf{From Coq Require Import Extraction}: Load the extraction plugin
     \item \textbf{ExtrOcamlBasic, ExtrOcamlNatInt}: Map Coq types to native OCaml types---\texttt{bool} to \texttt{bool}, \texttt{nat} to \texttt{int}, \texttt{list} to OCaml lists
-    \item \textbf{Extract Constant Nat.*}: Override Peano-recursive arithmetic with native \texttt{int} operations (\texttt{(+)}, \texttt{( * )}, etc.) to prevent stack overflows from unary recursion at runtime
-    \item \textbf{From Kernel Require Import ...}: Pull in 13 kernel modules covering the full formal development
-    \item \textbf{Extraction "../build/thiele\_core.ml" names}: Extract 100+ named definitions to a single OCaml file
+    \item \textbf{Extract Constant Nat.*}: Override Peano-recursive arithmetic with native \texttt{int} operations (\texttt{(+)}, \texttt{( * )}, etc.) to prevent stack overflows from unary recursion at runtime. Additional overrides map the \texttt{word64\_*} family to \texttt{Int64} operations for 63-bit operational fidelity.
+    \item \textbf{From Kernel Require Import ...}: Pull in 23 kernel modules and 3 KamiHW modules covering formal VM semantics, NoFI, $\mu$-cost, Tsirelson bounds, Born rule, Shannon bridges, and the hardware abstraction layer
+    \item \textbf{Extraction "../build/thiele\_core.ml" names}: Extract 21 named definitions to a single OCaml file
     \begin{itemize}
-        \item \texttt{vm\_apply}, \texttt{run\_vm}: The executable step and multi-step evaluators
-        \item \texttt{receipt\_mu\_consistent\_b}: Receipt integrity checker
-        \item \texttt{project\_vmstate}: Three-layer isomorphism projection
-        \item Output: \path{build/thiele\_core.ml} ($\sim$4,500 lines of OCaml)
+        \item \texttt{vm\_apply}, \texttt{vm\_apply\_nofi}, \texttt{vm\_apply\_runtime}: The executable step evaluators
+        \item \texttt{KamiSnapshot}, \texttt{bus\_step}, \texttt{coreViewOfSnapshot}: Kami hardware abstraction interface
+        \item Output: \path{build/thiele\_core.ml} ($\sim$4,050 lines of OCaml)
     \end{itemize}
 \end{enumerate}
 
@@ -530,7 +581,7 @@ Extraction "../build/thiele_core.ml"
 \textbf{Performance vs. Correctness:}
 \begin{itemize}
     \item \textbf{Correct}: Extracted code is \emph{provably correct}---it matches the formal model exactly
-    \item \textbf{Peano trap}: Coq's \texttt{nat} extracts to unary arithmetic by default. Without the \texttt{Extract Constant Nat.*} overrides in \path{coq/Extraction.v}, expressions like \texttt{Nat.pow 2 31} would trigger $\sim$2 billion recursive calls and crash with a stack overflow
+    \item \textbf{Peano trap}: Coq's \texttt{nat} extracts to unary arithmetic by default. Without the \texttt{Extract Constant Nat.*} and \texttt{word64\_*} overrides in \path{coq/Extraction.v}, basic arithmetic would trigger deeply recursive calls and crash with a stack overflow
     \item \textbf{Use Case}: Validation oracle, not production runtime
 \end{itemize}
 
@@ -538,8 +589,8 @@ Extraction "../build/thiele_core.ml"
 Extraction is not a single command---it's a reproducible pipeline managed by \path{scripts/forge\_artifact.sh}:
 \begin{enumerate}
     \item \textbf{Compile Coq}: \texttt{make -C coq Extraction.vo}
-    \item \textbf{Native overrides}: The \texttt{Extract Constant} directives in \path{coq/Extraction.v} replace Peano-recursive \texttt{Nat.*} functions with native \texttt{int} operations (\texttt{add = (+)}, \texttt{mul = ( * )}, \texttt{pow} via loop), preventing stack overflows from unary recursion at runtime
-    \item \textbf{Compile runner}: \texttt{ocamlfind ocamlopt build/thiele\_core.ml tools/extracted\_vm\_runner.ml -o build/extracted\_vm\_runner}
+    \item \textbf{Native overrides}: The \texttt{Extract Constant} directives in \path{coq/Extraction.v} replace Peano-recursive \texttt{Nat.*} functions with native \texttt{int} operations (\texttt{add = (+)}, \texttt{mul = ( * )}, \texttt{sub}, \texttt{eqb}) and route \texttt{word64\_*} operations through OCaml's \texttt{Int64} module for 63-bit operational fidelity
+    \item \textbf{Compile runner}: \texttt{ocamlfind ocamlc -package str -linkpkg build/thiele\_core.ml build/extracted\_vm\_runner.ml -o build/extracted\_vm\_runner}
     \item \textbf{Result}: A standalone binary that consumes instruction traces and emits JSON state snapshots
 \end{enumerate}
 
@@ -562,537 +613,248 @@ The runner consumes traces and emits a JSON snapshot of the observable fields. T
 
 The reference VM is optimized for correctness and observability rather than performance. Its purpose is to be readable and to expose every state transition for inspection and replay.
 
+\textbf{Important architectural note:} The Python VM (\path{thielecpu/vm.py}) does not re-implement opcode semantics. All VM execution is delegated to the Coq-extracted OCaml runner binary (\path{build/extracted\_vm\_runner}) via subprocess. The Python layer handles state serialization, deserialization, and tooling (assembler, debugger, receipts) but contains no independent opcode logic. This ensures that the Python path is semantically identical to the Coq extraction by construction, not by parallel implementation.
+
 \subsubsection{Core Components}
 
 The reference VM is structured around:
 \begin{itemize}
     \item \textbf{State}: a dataclass mirroring the formal record (registers, memory, CSRs, partition graph, $\mu$-ledger).
-    \item \textbf{ISA decoding}: a compact representation of the 31 opcodes.
+    \item \textbf{ISA decoding}: a compact representation of the active opcode set.
     \item \textbf{Partition operations}: creation, split, merge, and discovery.
-    \item \textbf{Receipt generation}: cryptographic receipts for each step.
+    \item \textbf{Receipt tooling}: TRS-1.0 artifact and execution receipts, plus historical step-receipt design notes.
 \end{itemize}
 
 \subsubsection{The VM Class}
 
 \begin{lstlisting}
 class VM:
-    state: State
-    python_globals: Dict[str, Any] = None
-    virtual_fs: VirtualFilesystem = field(default_factory=VirtualFilesystem)
-    witness_state: WitnessState = field(default_factory=WitnessState)
-    step_receipts: List[StepReceipt] = field(default_factory=list)
+    """Thin compatibility wrapper around vm_run.
 
-    def __post_init__(self):
-        ensure_kernel_keys()
-        if self.python_globals is None:
-            globals_scope = {...}  # builtins + vm_* helpers
-            self.python_globals = globals_scope
-        else:
-            self.python_globals.setdefault("vm_read_text", self.virtual_fs.read_text)
-            ...
-        self.witness_state = WitnessState()
-        self.step_receipts = []
-        self.register_file = [0] * 32
-        self.data_memory = [0] * 256
+    All execution is delegated to build/extracted_vm_runner
+    via vm_run(). No hand-written opcode bodies, no
+    independent semantics.
+    """
+    def __init__(self, state: Optional[VMState] = None):
+        self.state: VMState = (
+            state if state is not None else VMState.default()
+        )
+
+    def apply(self, instr: Dict[str, Any]) -> None:
+        self.state = vm_apply(self.state, instr)
+
+    def run_program(self, program: List[Dict[str, Any]],
+                    max_steps: int = 10000) -> VMState:
+        self.state = vm_run(self.state, program, max_steps=max_steps)
+        return self.state
 \end{lstlisting}
 
 \paragraph{Understanding the Python VM Class:}
-\textbf{Dataclass Fields:}
+\textbf{One Field:}
 \begin{itemize}
-    \item \textbf{state: State}: The formal VM state (partition graph, $\mu$-ledger, CSRs)
-    \begin{itemize}
-        \item Mirrors Coq \texttt{VMState} record exactly
-        \item Contains \texttt{RegionGraph}, \texttt{axioms}, \texttt{mu\_ledger}
-    \end{itemize}
-    \item \textbf{python\_globals: Dict}: Sandbox for executing user Python code
-    \begin{itemize}
-        \item Provides built-in functions: \texttt{print}, \texttt{len}, \texttt{range}
-        \item Adds VM-specific helpers: \texttt{vm\_read\_text}, \texttt{vm\_write\_text}
-        \item \textbf{Security}: Isolates executed code from host environment
-    \end{itemize}
-    \item \textbf{virtual\_fs: VirtualFilesystem}: In-memory file system
-    \begin{itemize}
-        \item Simulates disk I/O without touching real filesystem
-        \item Provides \texttt{read\_text}, \texttt{write\_text}, \texttt{exists}
-        \item Used for receipt storage and witness data
-    \end{itemize}
-    \item \textbf{witness\_state: WitnessState}: Records computational witnesses
-    \begin{itemize}
-        \item Stores factorization attempts, primes, modular arithmetic
-        \item Used for cryptographic algorithm verification
-    \end{itemize}
-    \item \textbf{step\_receipts: List[StepReceipt]}: Cryptographic execution log
-    \begin{itemize}
-        \item One receipt per instruction executed
-        \item Contains: hash, $\mu$-delta, partition state snapshot
-        \item \textbf{Tamper-Proof}: Can detect retroactive modifications
-    \end{itemize}
+    \item \textbf{state: VMState}: The complete VM state, mirroring the Coq \texttt{VMState} record field-for-field (twelve fields: \texttt{vm\_pc}, \texttt{vm\_mu}, \texttt{vm\_err}, \texttt{vm\_regs}, \texttt{vm\_mem}, \texttt{vm\_csrs}, \texttt{vm\_graph}, \texttt{vm\_mu\_tensor}, \texttt{vm\_logic\_acc}, \texttt{vm\_mstatus}, \texttt{vm\_witness}, \texttt{vm\_certified}).
+    \item This is the \emph{only} field. No register file, no separate memory array, no sandbox globals. Everything lives inside VMState.
 \end{itemize}
 
-\textbf{\_\_post\_init\_\_ Method:} Called automatically after dataclass initialization:
-\begin{enumerate}
-    \item \textbf{ensure\_kernel\_keys()}: Generate cryptographic keys for receipts
-    \item \textbf{Initialize python\_globals}: Set up sandbox with built-ins + VM helpers
-    \item \textbf{Reset witness\_state}: Clear previous witnesses
-    \item \textbf{Clear step\_receipts}: Start fresh execution log
-    \item \textbf{Allocate register\_file}: 32 general-purpose registers (like RISC-V)
-    \item \textbf{Allocate data\_memory}: 256-word scratch memory
-\end{enumerate}
-
-\textbf{Dual State Representation:}
+\textbf{Methods:}
 \begin{itemize}
-    \item \textbf{state}: High-level partition semantics (Coq-isomorphic)
-    \item \textbf{register\_file + data\_memory}: Low-level hardware model (Verilog-isomorphic)
-    \item \textbf{Why Both?} Enables cross-layer isomorphism testing:
-    \begin{itemize}
-        \item Partition ops (PNEW, PSPLIT) manipulate \texttt{state}
-        \item Data ops (XOR\_LOAD, XFER) manipulate \texttt{register\_file}
-        \item Both projections must agree at synchronization points
-    \end{itemize}
+    \item \textbf{apply(instr)}: Serialize one instruction, call the OCaml binary, parse the JSON output back into a VMState. The Python code never interprets the opcode itself.
+    \item \textbf{run\_program(program, max\_steps)}: Serialize a full instruction trace, call the OCaml binary once, get back the final state.
 \end{itemize}
-The key fact: the VM owns a \texttt{State} object (mirroring the Coq record) and also keeps a minimal register file and scratch memory used by the XOR opcodes that map directly to RTL. This separation is intentional---\texttt{State} captures partition and $\mu$-ledger semantics, while the auxiliary arrays let the VM exercise hardware-style instructions without introducing a second notion of state.
+
+\textbf{Why This Design?}
+\begin{itemize}
+    \item \textbf{No semantic drift}: If the Python code contained its own opcode logic, it would need to be kept in sync with Coq. By delegating to the extracted binary, the Python path is semantically identical to the Coq extraction by construction.
+    \item \textbf{Single source of truth}: All opcode semantics live in \texttt{coq/kernel/VMStep.v}. The OCaml binary is a direct extraction of those definitions. The Python layer is pure plumbing.
+    \item \textbf{Tested}: The file header says \texttt{DO NOT EDIT. GENERATED FROM COQ PROOFS by scripts/forge\_vm.py}---the entire module is machine-generated.
+\end{itemize}
 
 \subsection{State Representation}
 
-The reference state mirrors the formal definition, with explicit fields for the partition graph, axioms, control/status registers, and $\mu$-ledger:
+The reference state mirrors the formal definition directly. The VMState dataclass is auto-generated by \texttt{scripts/forge\_vm.py} to match the Coq record field-for-field:
 \begin{lstlisting}
 @dataclass
-class State:
-    mu_operational: float = 0.0
-    mu_information: float = 0.0
-    _next_id: int = 1
-    regions: RegionGraph = field(default_factory=RegionGraph)
-    axioms: Dict[ModuleId, List[str]] = field(default_factory=dict)
-    csr: dict[CSR, int | str] = field(default_factory=...)
-    step_count: int = 0
-    mu_ledger: MuLedger = field(default_factory=MuLedger)
-    partition_masks: Dict[ModuleId, PartitionMask] = field(default_factory=dict)
-    program: List[Any] = field(default_factory=list)
+class VMState:
+    vm_pc: int = 0
+    vm_mu: int = 0
+    vm_err: bool = False
+    vm_regs: List[int] = field(default_factory=lambda: [0] * REG_COUNT)
+    vm_mem: List[int] = field(default_factory=lambda: [0] * MEM_SIZE)
+    vm_csrs: CSRState = field(default_factory=CSRState)
+    vm_graph: partitionGraph = field(default_factory=partitionGraph)
+    vm_mu_tensor: List[int] = field(default_factory=lambda: [0] * TENSOR_SIZE)
+    vm_logic_acc: int = 0
+    vm_mstatus: int = 0
+    vm_witness: List[int] = field(default_factory=lambda: [0] * 8)
+    vm_certified: bool = False
 \end{lstlisting}
 
-\paragraph{Understanding the State Dataclass:}
-\textbf{$\mu$-Ledger Fields:}
+\paragraph{Understanding the VMState Dataclass:}
+\textbf{Twelve fields, one-to-one with Coq:}
 \begin{itemize}
-    \item \textbf{mu\_operational}: Cost of low-level operations (ALU, memory)
-    \item \textbf{mu\_information}: Cost of high-level knowledge (discovery, certificates)
-    \item \textbf{Total $\mu$}: Sum of both (reported in receipts)
+    \item \textbf{vm\_pc, vm\_mu, vm\_err}: Program counter, $\mu$-ledger accumulator, error flag
+    \item \textbf{vm\_regs}: 32 registers (\texttt{REG\_COUNT = 32})
+    \item \textbf{vm\_mem}: 65,536 words of data memory (\texttt{MEM\_SIZE = 65536})
+    \item \textbf{vm\_csrs}: Control and status registers (\texttt{CSRState} sub-dataclass)
+    \item \textbf{vm\_graph}: Partition graph (\texttt{partitionGraph} sub-dataclass, containing \texttt{pg\_next\_id} and \texttt{pg\_modules})
+    \item \textbf{vm\_mu\_tensor}: Flattened 4$\times$4 cost tensor (\texttt{TENSOR\_SIZE = 16})
+    \item \textbf{vm\_logic\_acc, vm\_mstatus}: Logic accumulator and machine status
+    \item \textbf{vm\_witness}: Eight CHSH trial counters (same/different outcome buckets)
+    \item \textbf{vm\_certified}: Certification flag set by \texttt{CERTIFY}
 \end{itemize}
 
-\textbf{Partition Graph Components:}
-\begin{itemize}
-    \item \textbf{\_next\_id}: Monotonic counter for assigning new ModuleIDs
-    \begin{itemize}
-        \item Starts at 1 (0 reserved for "no module")
-        \item Increments each time PNEW creates a module
-        \item \textbf{Underscore}: Conventionally "private" (not for external access)
-    \end{itemize}
-    \item \textbf{regions: RegionGraph}: Graph of modules and their owned addresses
-    \begin{itemize}
-        \item Type: \texttt{RegionGraph} (custom graph ADT)
-        \item Stores: ModuleID $\to$ Set of addresses
-        \item Enforces: Disjointness (no overlapping ownership)
-    \end{itemize}
-    \item \textbf{axioms: Dict[ModuleId, List[str]]}: Logical constraints per module
-    \begin{itemize}
-        \item Keys: ModuleIDs
-        \item Values: Lists of SMT-LIB strings
-        \item Example: \texttt{\{1: ["(assert (>= x 0))"], 2: [...]\}}
-    \end{itemize}
-\end{itemize}
+\textbf{Constants (top of file):}
+\begin{lstlisting}
+REG_COUNT: int = 32
+MEM_SIZE: int = 65536
+TENSOR_SIZE: int = 16
+WORD64_MASK: int = 0xFFFFFFFFFFFFFFFF
+\end{lstlisting}
 
-\textbf{Control Fields:}
-\begin{itemize}
-    \item \textbf{csr: dict[CSR, int | str]}: Control/Status Registers
-    \begin{itemize}
-        \item Keys: CSR enum (e.g., \texttt{CSR.CERT\_ADDR}, \texttt{CSR.PC})
-        \item Values: Integers or strings (polymorphic)
-        \item Mimics hardware CSR file
-    \end{itemize}
-    \item \textbf{step\_count: int}: Total instructions executed
-    \begin{itemize}
-        \item Debugging aid: correlate errors with execution point
-        \item Not part of Coq kernel state (added for observability)
-    \end{itemize}
-\end{itemize}
-
-\textbf{Bridge Fields (Python-specific):}
-\begin{itemize}
-    \item \textbf{mu\_ledger: MuLedger}: Detailed breakdown of $\mu$-costs
-    \begin{itemize}
-        \item Tracks discovery vs. execution separately
-        \item Provides \texttt{.total} property for cross-layer checks
-    \end{itemize}
-    \item \textbf{partition\_masks: Dict[ModuleId, PartitionMask]}: Bitmask representation
-    \begin{itemize}
-        \item Hardware-aligned encoding of regions
-        \item Each module gets a 64-bit mask
-        \item Used for Verilog isomorphism testing
-    \end{itemize}
-    \item \textbf{program: List[Any]}: Instruction sequence
-    \begin{itemize}
-        \item Not in Coq \texttt{VMState} but in \texttt{CoreSemantics.State}
-        \item Allows VM to fetch instructions by PC
-    \end{itemize}
-\end{itemize}
+\textbf{Serialization:} The \texttt{to\_json()} method packs all twelve fields into a compact JSON string with a keyed FNV-1a integrity MAC, and \texttt{from\_json()} deserializes it back. This is the wire format between Python and the OCaml binary---the runner parses this JSON, executes instructions, and emits an updated JSON snapshot.
 
 \textbf{Isomorphism Mapping:}
 \[
 \begin{array}{rcl}
-\texttt{Coq VMState} & \longleftrightarrow & \texttt{Python State} \\
-\texttt{vm\_graph} & \longleftrightarrow & \texttt{regions + axioms} \\
-\texttt{vm\_mu} & \longleftrightarrow & \texttt{mu\_ledger.total} \\
-\texttt{vm\_csrs} & \longleftrightarrow & \texttt{csr} \\
+\texttt{Coq VMState} & \longleftrightarrow & \texttt{Python VMState} \\
+\texttt{vm\_graph} & \longleftrightarrow & \texttt{vm\_graph (partitionGraph)} \\
+\texttt{vm\_mu} & \longleftrightarrow & \texttt{vm\_mu} \\
+\texttt{vm\_csrs} & \longleftrightarrow & \texttt{vm\_csrs (CSRState)} \\
+\texttt{vm\_witness} & \longleftrightarrow & \texttt{vm\_witness} \\
 \end{array}
 \]
-The additional fields (\texttt{mu\_ledger}, \texttt{partition\_masks}, \texttt{program}) bridge to the other layers. \texttt{mu\_ledger} makes $\mu$-accounting explicit. \texttt{partition\_masks} provides hardware-aligned region encoding. \texttt{program} aligns with \texttt{CoreSemantics.State.program}---the kernels \texttt{VMState} does not carry a program field, but the executable state does.
+The field names are identical across layers. No translation table is needed---what you see in Coq is what you get in Python.
 
 \subsection{The $\mu$-Ledger}
 
-\begin{lstlisting}
-@dataclass
-class MuLedger:
-    mu_discovery: int = 0   # Cost of partition discovery operations
-    mu_execution: int = 0   # Cost of instruction execution
-    
-    # HARDWARE CONSTANT: 32-bit width matching thiele_cpu.v
-    MASK: int = 0xFFFFFFFF
+In the current architecture, $\mu$-accounting is handled by a single integer field (\texttt{vm\_mu}) that mirrors the Coq \texttt{vm\_mu : nat}. There is no separate ledger object---the OCaml extracted runner computes $\mu$-updates via \texttt{apply\_cost} (defined in \texttt{VMStep.v}), and the Python layer simply reads the result from the JSON output.
 
-    @property
-    def total(self) -> int:
-        return (self.mu_discovery + self.mu_execution) & self.MASK
+The Python VM also carries \texttt{vm\_mu\_tensor}, a 16-entry list representing the 4$\times$4 inter-category cost tensor. Together, the scalar \texttt{vm\_mu} and the tensor \texttt{vm\_mu\_tensor} provide a complete picture of information cost: the scalar tracks the global cumulative, and the tensor tracks how cost distributes across partition, logic, compute, and transfer categories.
+
+\textbf{Key constant:}
+\begin{lstlisting}
+WORD64_MASK: int = 0xFFFFFFFFFFFFFFFF
 \end{lstlisting}
 
-\paragraph{Understanding the MuLedger:}
-\textbf{Purpose:} Separates information-theoretic costs into two categories for accounting and auditing.
+The 64-bit mask matches the Coq kernel's \texttt{word64} function. The Verilog RTL operates on 32-bit words (\texttt{WordSz := 32} in \texttt{ThieleTypes.v}), so cross-layer comparison masks to the intersection width.
 
-\textbf{Fields:}
-\begin{itemize}
-    \item \textbf{mu\_discovery: int}: Cost of adding structure to partition graph
-    \begin{itemize}
-        \item Charged by: PNEW, PSPLIT, PMERGE, PDISCOVER, LASSERT
-        \item \textbf{Meaning}: Bits required to specify new boundaries/constraints
-        \item \textbf{Example}: Splitting a module costs $\log_2(|\text{splits}|)$ bits
-    \end{itemize}
-    \item \textbf{mu\_execution: int}: Cost of low-level computation
-    \begin{itemize}
-        \item Charged by: XOR\_LOAD, XFER, NOP (hardware-level operations)
-        \item \textbf{Meaning}: Energy/entropy cost of bit manipulation
-        \item \textbf{Example}: XORing a register costs 1 bit per Landauer's principle
-    \end{itemize}
-\end{itemize}
-
-\textbf{The @property Decorator:}
-\begin{itemize}
-    \item \textbf{def total(self) -> int}: Method decorated as a property
-    \item \textbf{Usage}: Access as \texttt{ledger.total} (not \texttt{ledger.total()})
-    \item \textbf{Compute on Demand}: Sums the two fields dynamically
-    \item \textbf{Return Type Annotation}: \texttt{-> int} documents the return type
-\end{itemize}
-
-\textbf{Why Separate Discovery and Execution?}
+\textbf{Why a single integer instead of a ledger class?}
 \begin{enumerate}
-    \item \textbf{Auditing}: Can verify that high-level claims match low-level operations
-    \begin{itemize}
-        \item If \texttt{mu\_discovery} is huge but \texttt{mu\_execution} is tiny, suspicious
-        \item Implies: "I discovered structure without computing anything"
-    \end{itemize}
-    \item \textbf{Falsifiability}: Claims about quantum advantage must show structural $\mu$-cost
-    \begin{itemize}
-        \item Supra-quantum correlations require \texttt{mu\_discovery} growth
-        \item Can't achieve advantage with only \texttt{mu\_execution}
-    \end{itemize}
-    \item \textbf{Thermodynamics}: Maps to physical distinction:
-    \begin{itemize}
-        \item \texttt{mu\_discovery}: Entropy of state specification (Maxwell's demon)
-        \item \texttt{mu\_execution}: Landauer erasure cost (bit flips)
-    \end{itemize}
+    \item \textbf{Semantic identity}: The Coq definition uses \texttt{vm\_mu : nat}. One integer, not a disaggregated pair. Matching it exactly prevents translation bugs.
+    \item \textbf{Monotonicity}: \texttt{apply\_cost} in \texttt{VMStep.v} adds the instruction's cost to the current $\mu$. The cost is always non-negative, so $\mu$ never decreases.
+    \item \textbf{Delegation}: Since all opcode execution runs in the OCaml binary, the Python layer never computes a $\mu$-delta itself---it just reads the post-state.
 \end{enumerate}
-
-\textbf{Isomorphism Check:} In Coq, there's a single \texttt{vm\_mu : nat} field. The projection for cross-layer comparison is:
-\[
-\texttt{Coq vm\_mu} \equiv \texttt{Python mu\_ledger.total}
-\]
 
 \subsection{Partition Operations}
 
-\subsubsection{Bitmask Representation}
+\subsubsection{Instruction Serialization}
 
-For hardware isomorphism, partitions use fixed-width bitmasks. This makes the partition representation stable, deterministic, and easy to compare across layers:
+Since all opcode semantics live in the OCaml binary, the Python VM's primary job for partition operations is \emph{serialization}: converting a Python instruction dictionary into the text format the runner expects. Each opcode has a serialization arm:
 \begin{lstlisting}
-MASK_WIDTH = 64  # Fixed width for hardware compatibility
-MAX_MODULES = 8  # Maximum number of active modules
-
-def mask_of_indices(indices: Set[int]) -> PartitionMask:
-    mask = 0
-    for idx in indices:
-        if 0 <= idx < MASK_WIDTH:
-            mask |= (1 << idx)
-    return mask
+def instr_dict_to_text(instr: Dict[str, Any]) -> str:
+    op = str(instr.get("op", "")).lower()
+    if op == "pnew":
+        return "PNEW " + fmt_list(instr.get("region", []))
+                       + " " + str(instr.get("cost", 0))
+    if op == "psplit":
+        return "PSPLIT " + str(int(instr.get("module", 0)))
+               + " " + fmt_list(instr.get("left", []))
+               + " " + fmt_list(instr.get("right", []))
+               + " " + str(instr.get("cost", 0))
+    ...  # 47 opcode arms total
 \end{lstlisting}
 
-\paragraph{Understanding Bitmask Encoding:}
-\textbf{Function: mask\_of\_indices}
+\paragraph{Understanding the Serialization Architecture:}
+\textbf{Why serialize instead of execute?}
 \begin{itemize}
-    \item \textbf{Input}: \texttt{indices: Set[int]} — set of addresses to encode
-    \item \textbf{Output}: \texttt{PartitionMask} (alias for \texttt{int}) — 64-bit integer encoding
-    \item \textbf{Algorithm}:
-    \begin{enumerate}
-        \item Start with \texttt{mask = 0} (all bits clear)
-        \item For each address \texttt{idx} in the set:
-        \begin{itemize}
-            \item Check bounds: \texttt{0 <= idx < 64}
-            \item If valid, set bit: \texttt{mask |= (1 << idx)}
-        \end{itemize}
-        \item Return the final bitmask
-    \end{enumerate}
+    \item The OCaml binary (\path{build/extracted\_vm\_runner}) is the authoritative implementation. It was extracted directly from Coq proofs. If Python re-implemented the partition graph operations, any divergence would be an isomorphism bug.
+    \item The serialization format is simple: \texttt{OPCODE arg1 arg2 ... cost}. Lists use curly braces: \texttt{\{0,1,2\}}.
+    \item A complete instruction trace is written to a temporary file, the runner is invoked via \texttt{subprocess.run()}, and the JSON output is parsed back into a \texttt{VMState}.
 \end{itemize}
 
-\textbf{Bitwise Operations:}
-\begin{itemize}
-    \item \textbf{(1 << idx)}: Shift 1 left by \texttt{idx} positions
-    \begin{itemize}
-        \item Example: \texttt{1 << 3 = 0b1000 = 8}
-        \item Creates a mask with only bit \texttt{idx} set
-    \end{itemize}
-    \item \textbf{mask |= ...}: Bitwise OR assignment
-    \begin{itemize}
-        \item Adds the bit to the mask without clearing others
-        \item Example: \texttt{0b0101 |= 0b1000 = 0b1101}
-    \end{itemize}
-\end{itemize}
+\textbf{The Runner Call:}
+\begin{lstlisting}
+def _call_runner(state: VMState, prog_lines: List[str],
+                 max_steps: int) -> VMState:
+    # Write state JSON + program to temp files
+    # Call: build/extracted_vm_runner --resume state.json prog.txt
+    # Parse JSON output -> VMState.from_json()
+    result = subprocess.run(
+        [str(_RUNNER_PATH), "--resume", state_path, prog_path],
+        capture_output=True, text=True, timeout=60,
+    )
+    return VMState.from_json(json_line)
+\end{lstlisting}
 
-\textbf{Example Execution:}
-\begin{verbatim}
-indices = {0, 2, 5}
-mask = 0
-mask |= (1 << 0)  # 0b000001
-mask |= (1 << 2)  # 0b000101
-mask |= (1 << 5)  # 0b100101 = 37
-return 37
-\end{verbatim}
-The bitmask representation is the literal encoding used in the RTL, so the Python VM computes it alongside the higher-level \texttt{RegionGraph}. This dual representation is a safety check: if the set-based and bitmask-based views ever disagree, the VM can detect the mismatch before it propagates to hardware.
+The round-trip is: Python VMState $\to$ JSON $\to$ OCaml binary $\to$ JSON $\to$ Python VMState. Every field survives the round-trip because both sides use identical field names derived from the same Coq record.
 
 \subsubsection{Module Creation (PNEW)}
 
+In the Coq kernel, \texttt{graph\_pnew} creates or finds a module for a region. The Python VM exercises this by serializing a \texttt{PNEW} instruction:
 \begin{lstlisting}
-def pnew(self, region: Set[int]) -> ModuleId:
-    if self.num_modules >= MAX_MODULES:
-        raise ValueError(f"Cannot create module: max modules reached")
-    existing = self.regions.find(region)
-    if existing is not None:
-        return ModuleId(existing)
-    mid = self._alloc(region, charge_discovery=True)
-    self.axioms[mid] = []
-    self._enforce_invariant()
-    return mid
+vm = VM()
+vm.apply({"op": "pnew", "region": [0, 1, 2], "cost": 1})
+# Under the hood: sends "PNEW {0,1,2} 1" to OCaml runner
+# Runner calls graph_pnew, returns updated VMState as JSON
 \end{lstlisting}
 
-\paragraph{Understanding PNEW Implementation:}
-\textbf{Function Flow:}
-\begin{enumerate}
-    \item \textbf{Check Capacity}: \texttt{if self.num\_modules >= MAX\_MODULES}
-    \begin{itemize}
-        \item Prevent exceeding hardware limits (8 modules)
-        \item Raise exception if full
-    \end{itemize}
-    \item \textbf{Idempotent Discovery}: \texttt{existing = self.regions.find(region)}
-    \begin{itemize}
-        \item Check if a module already owns this exact region
-        \item If found, return existing ID (no duplicate creation)
-        \item \textbf{Why?} Ensures module IDs are stable—same region always gets same ID
-    \end{itemize}
-    \item \textbf{Allocate New Module}: \texttt{mid = self.\_alloc(region, charge\_discovery=True)}
-    \begin{itemize}
-        \item Assigns next available ModuleID
-        \item Charges $\mu$-cost for discovery (information-theoretic)
-        \item Updates \texttt{self.regions} graph
-    \end{itemize}
-    \item \textbf{Initialize Axioms}: \texttt{self.axioms[mid] = []}
-    \begin{itemize}
-        \item New modules start with empty axiom set
-        \item Axioms added later via LASSERT
-    \end{itemize}
-    \item \textbf{Enforce Invariants}: \texttt{self.\_enforce\_invariant()}
-    \begin{itemize}
-        \item Verifies disjointness: no overlapping regions
-        \item Checks that all module IDs are valid
-        \item Fails fast if corruption detected
-    \end{itemize}
-\end{enumerate}
-
-\textbf{Idempotent Discovery:} Key property:
-\[
-\texttt{pnew(R)} = \texttt{pnew(R)} \quad \text{(same result)}
-\]
-Calling \texttt{pnew} twice with the same region returns the same ModuleID both times. This ensures:
+\paragraph{Understanding PNEW Semantics (from Coq):}
 \begin{itemize}
-    \item \textbf{No Duplicate Modules}: Can't accidentally create module twice
-    \item \textbf{Stable IDs}: Cross-layer isomorphism checks won't fail due to renumbering
-    \item \textbf{No Double Charging}: $\mu$-cost paid only once
+    \item \textbf{Idempotent}: If a module already owns the exact region, return the existing ID. No duplicate creation, no double charging.
+    \item \textbf{$\mu$-cost}: Charged by \texttt{apply\_cost} in \texttt{VMStep.v}. The cost field in the instruction determines how much $\mu$ increases.
+    \item \textbf{Result}: The \texttt{vm\_graph} field of the returned VMState contains the new module with its assigned ID.
 \end{itemize}
-The first branch of \texttt{pnew} demonstrates idempotent discovery: creating a module for a region that already exists returns the existing ID. Module IDs stay stable across layers, and $\mu$-cost is never paid twice.
 
 \subsection{Port and Heap Operations}
 
 The ISA includes five I/O and heap instructions: \texttt{CHECKPOINT} captures a state snapshot for debugging and trace replay; \texttt{READ\_PORT} and \texttt{WRITE\_PORT} provide a channel for external communication (e.g., host callbacks or co-processor integration); and \texttt{HEAP\_LOAD} and \texttt{HEAP\_STORE} extend the flat memory model with a separate heap region. All five are low-cost operations that do not modify the $\mu$-ledger or partition graph unless their operands interact with structure-bearing state.
 
+In the current architecture, these instructions are serialized to the OCaml runner just like all other opcodes:
 \begin{lstlisting}
-SAFE_IMPORTS = {"math", "json", "z3"}
-SAFE_FUNCTIONS = {
-    "abs", "all", "any", "bool", "divmod", "enumerate", 
-    "float", "int", "len", "list", "max", "min", "pow",
-    "print", "range", "round", "sorted", "sum", "tuple",
-    "zip", "str", "set", "dict", "map", "filter",
-    "vm_read_text", "vm_write_text", "vm_read_bytes",
-    "vm_write_bytes", "vm_exists", "vm_listdir",
-}
+if op == "checkpoint":
+    return "CHECKPOINT " + str(instr.get("label", "."))
+           + " " + str(instr.get("cost", 0))
+if op == "read_port":
+    return "READ_PORT " + str(int(instr.get("dst", 0)))
+           + " " + str(int(instr.get("channel", 0)))
+           + " " + str(int(instr.get("value", 0)))
+           + " " + str(int(instr.get("bits", 0)))
+           + " " + str(instr.get("cost", 0))
 \end{lstlisting}
 
-\paragraph{Understanding the Python Sandbox:}
-\textbf{SAFE\_IMPORTS:} Whitelisted modules
-\begin{itemize}
-    \item \textbf{math}: Standard mathematical functions (sin, cos, sqrt)
-    \item \textbf{json}: JSON parsing/serialization (for witness data)
-    \item \textbf{z3}: SMT solver bindings (for automated constraint solving)
-    \item \textbf{Excluded}: \texttt{os}, \texttt{sys}, \texttt{subprocess} (security risk—could access host system)
-\end{itemize}
+The runner handles the semantics. The Python layer is responsible for nothing beyond converting the instruction dictionary into the runner's text format.
 
-\textbf{SAFE\_FUNCTIONS:} Whitelisted built-in functions
-\begin{itemize}
-    \item \textbf{Data Manipulation}: \texttt{len}, \texttt{sorted}, \texttt{sum}, \texttt{max}, \texttt{min}
-    \item \textbf{Type Conversions}: \texttt{int}, \texttt{float}, \texttt{str}, \texttt{bool}
-    \item \textbf{Iteration}: \texttt{range}, \texttt{enumerate}, \texttt{map}, \texttt{filter}
-    \item \textbf{Collections}: \texttt{list}, \texttt{tuple}, \texttt{set}, \texttt{dict}
-    \item \textbf{VM Helpers}: \texttt{vm\_read\_text}, \texttt{vm\_write\_text}, etc.
-    \begin{itemize}
-        \item Provide sandboxed file I/O via VirtualFilesystem
-        \item Don't touch real host filesystem
-    \end{itemize}
-\end{itemize}
+\subsection{Receipt Tooling}
 
-\textbf{Security Model:}
-\begin{itemize}
-    \item \textbf{No File Access}: Excluded \texttt{open()}, \texttt{file()}
-    \item \textbf{No Network}: Excluded \texttt{socket}, \texttt{urllib}
-    \item \textbf{No Process Control}: Excluded \texttt{exec()}, \texttt{eval()}, \texttt{\_\_import\_\_()}
-    \item \textbf{No Reflection}: Excluded \texttt{getattr()}, \texttt{setattr()}, \texttt{globals()}
-\end{itemize}
+The active repository receipt surface is TRS-1.0: signed JSON receipts for deterministic file sets and whole-program executions. Historical per-step witness-receipt designs remain useful as design notes, but they are not the primary active interface.
 
-\textbf{Why This Allowlist?} Enables useful computation while preventing:
-\begin{itemize}
-    \item Escaping the sandbox
-    \item Modifying VM internals via reflection
-    \item Accessing secrets or host resources
-    \item Infinite loops (timeout enforced separately)
-\end{itemize}
-
-When sandboxing is enabled, the AST is validated before execution:
+Representative active workflow:
 \begin{lstlisting}
-SAFE_NODE_TYPES = {
-    ast.Module, ast.FunctionDef, ast.ClassDef, ast.arguments,
-    ast.arg, ast.Expr, ast.Assign, ast.AugAssign, ast.Name,
-    ast.Load, ast.Store, ast.Constant, ast.BinOp, ast.UnaryOp,
-    ast.BoolOp, ast.Compare, ast.If, ast.For, ast.While, ...
-}
+python create_execution_receipt.py program.asm \
+  --output program.execution-receipt.json \
+  --sign signing_key.hex \
+  --key-id local-dev
+
+python tools/verify_trs10.py program.execution-receipt.json \
+  --trusted-pubkey <ed25519-public-key-hex>
 \end{lstlisting}
 
-\paragraph{Understanding AST Validation:}
-\textbf{What is AST?} Abstract Syntax Tree—Python's internal representation of code structure.
-
-\textbf{Allowed Node Types:}
-\begin{itemize}
-    \item \textbf{Structural}: \texttt{Module}, \texttt{FunctionDef}, \texttt{ClassDef}
-    \begin{itemize}
-        \item Allow defining functions and classes
-        \item But not dynamic code generation
-    \end{itemize}
-    \item \textbf{Variables}: \texttt{Name}, \texttt{Load}, \texttt{Store}
-    \begin{itemize}
-        \item Read/write variables
-        \item Example: \texttt{x = 5} (Assign with Name and Constant)
-    \end{itemize}
-    \item \textbf{Expressions}: \texttt{BinOp}, \texttt{UnaryOp}, \texttt{Compare}
-    \begin{itemize}
-        \item Arithmetic: \texttt{x + y}, \texttt{-x}
-        \item Comparisons: \texttt{x > y}, \texttt{a == b}
-    \end{itemize}
-    \item \textbf{Control Flow}: \texttt{If}, \texttt{For}, \texttt{While}
-    \begin{itemize}
-        \item Conditionals and loops
-        \item But not \texttt{try/except} (would hide errors)
-    \end{itemize}
-\end{itemize}
-
-\textbf{Excluded (Dangerous) Node Types:}
-\begin{itemize}
-    \item \textbf{Import}: Would allow importing arbitrary modules
-    \item \textbf{ImportFrom}: Same risk
-    \item \textbf{Exec/Eval}: Execute arbitrary strings as code
-    \item \textbf{Attribute}: Access object attributes (could reach internals)
-    \item \textbf{Subscript}: Access \texttt{\_\_dict\_\_} or other special attributes
-\end{itemize}
-
-\textbf{Validation Process:}
+\paragraph{Understanding Receipt Tooling:}
+\textbf{Current active receipt kinds:}
 \begin{enumerate}
-    \item Parse code string into AST: \texttt{ast.parse(code)}
-    \item Walk all nodes: \texttt{ast.walk(tree)}
-    \item Check each node type: \texttt{if type(node) not in SAFE\_NODE\_TYPES: raise SecurityError}
-    \item If validation passes, execute in sandboxed globals
+    \item \textbf{Fileset receipt}: signs a deterministic manifest of artifact paths, SHA-256 hashes, and sizes.
+    \item \textbf{Execution receipt}: signs program identity, canonicalized trace identity, normalized pre/post state digests, and $\Delta\mu$.
 \end{enumerate}
 
-\textbf{Example Blocked Code:}
-\begin{verbatim}
-import os  # BLOCKED: ast.Import not in SAFE_NODE_TYPES
-exec("print('hello')")  # BLOCKED: ast.Call to 'exec'
-vm.__dict__["state"]  # BLOCKED: ast.Subscript
-\end{verbatim}
+\textbf{What is actually verified today:}
+\begin{itemize}
+    \item Signature validity under Ed25519.
+    \item Program/source and canonical trace identity.
+    \item Normalized pre-state and post-state digest agreement.
+    \item $\mu$ start, end, and delta agreement under replay.
+\end{itemize}
 
-\subsection{Receipt Generation}
-
-Every step generates a cryptographic receipt that records the pre-state, instruction, post-state, and observable evidence:
-\begin{lstlisting}
-def _record_receipt(self, step, pre_state, instruction):
-    post_state, observation = self._simulate_witness_step(
-        instruction, pre_state
-    )
-    receipt = StepReceipt.assemble(
-        step, instruction, pre_state, post_state, observation
-    )
-    self.step_receipts.append(receipt)
-    self.witness_state = post_state
-\end{lstlisting}
-
-\paragraph{Understanding Receipt Generation:}
-\textbf{Function Purpose:} Create tamper-evident log entry for each instruction.
-
-\textbf{Step-by-Step:}
-\begin{enumerate}
-    \item \textbf{Simulate Witness Step}:
-    \begin{lstlisting}
-post_state, observation = self._simulate_witness_step(
-    instruction, pre_state
-)
-    \end{lstlisting}
-    \begin{itemize}
-        \item Executes instruction in a \emph{witness simulation}
-        \item Returns new state and observable outputs
-        \item \textbf{Why Simulate?} To capture exact state before committing
-    \end{itemize}
-
-    \item \textbf{Assemble Receipt}:
-    \begin{lstlisting}
-receipt = StepReceipt.assemble(
-    step, instruction, pre_state, post_state, observation
-)
-    \end{lstlisting}
-    \begin{itemize}
-        \item \textbf{step}: Instruction index (for chronological ordering)
-        \item \textbf{instruction}: The executed instruction (PNEW, PSPLIT, etc.)
-        \item \textbf{pre\_state}: State before execution
-        \item \textbf{post\_state}: State after execution
-        \item \textbf{observation}: Outputs/effects visible to external verifier
-    \end{itemize}
-    \textbf{Assembled Receipt Contains:}
+\textbf{What remains design-level:} per-step witness receipts and richer selective-disclosure chains. Those ideas motivate the architecture, but the active interface is the TRS-1.0 CLI and verifier.
     \begin{itemize}
         \item Hash chain: \texttt{hash(prev\_receipt || cur\_data)}
         \item Signature: EdDSA signature over receipt data
@@ -1144,215 +906,142 @@ self.witness_state = post_state
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}[
-    mod/.style={draw, rounded corners=2pt, minimum width=2.2cm, minimum height=0.7cm, font=\scriptsize, align=center, thick},
+    mod/.style={draw, rounded corners=2pt, minimum width=2.4cm, minimum height=0.7cm, font=\scriptsize, align=center, thick},
     ext/.style={draw, dashed, rounded corners=2pt, minimum width=1.8cm, minimum height=0.6cm, font=\scriptsize, align=center},
 ]
-% Top-level CPU
-\node[mod, fill=blue!15, draw=blue!60] (cpu) at (0,2) {\textbf{thiele\_cpu}\\main core};
+% Top-level Kami/BSC generated module
+\node[mod, fill=blue!15, draw=blue!60] (cpu) at (0,2) {\textbf{mkModule1}\\Kami-generated core};
 
-% Sub-modules
-\node[mod, fill=orange!15, draw=orange!70] (alu) at (-2.4,0.4) {$\mu$-ALU\\Q16.16};
-\node[mod, fill=green!15, draw=green!50!black] (part) at (0,0.4) {partition\\core};
-\node[mod, fill=purple!15, draw=purple!60] (logic) at (2.4,0.4) {logic\\interface};
+% Sub-components (inline, not separate modules)
+\node[mod, fill=orange!15, draw=orange!70] (alu) at (-2.4,0.4) {$\mu$-accum\\inline add};
+\node[mod, fill=green!15, draw=green!50!black] (part) at (0,0.4) {partition\\registers};
+\node[mod, fill=purple!15, draw=purple!60] (logic) at (2.4,0.4) {logic req/ack\\registers};
 
 % External
 \node[ext, fill=gray!8] (z3) at (2.4,-0.8) {Z3 SMT\\(external)};
 
 % Connections
-\draw[->, thick] (cpu) -- (alu) node[midway, left, font=\tiny] {op};
+\draw[->, thick] (cpu) -- (alu) node[midway, left, font=\tiny] {cost};
 \draw[->, thick] (cpu) -- (part);
 \draw[->, thick] (cpu) -- (logic) node[midway, right, font=\tiny] {cert};
 \draw[->, thick, dashed] (logic) -- (z3);
 
 % Signal labels
-\draw[->, orange!70, thick] (alu) -- +(0,-0.7) node[below, font=\tiny] {$\mu$-result};
+\draw[->, orange!70, thick] (alu) -- +(0,-0.7) node[below, font=\tiny] {getMu};
 \end{tikzpicture}
-\caption{Hardware module hierarchy within \texttt{thiele\_cpu\_unified.v}.}
+\caption{Hardware architecture within \texttt{thiele\_cpu\_kami.v}: a single Kami-generated module with inline functional blocks (not separate submodules).}
 \end{figure}
 
-\subsection{Module Hierarchy}
+\subsection{Kami-Generated Architecture}
 
-The hardware mirrors the formal model: the core executes the ISA, the accounting unit enforces $\mu$-monotonicity, and the logic interface brokers certificate checks. This makes the physical design a direct embodiment of the formal step relation.
+The hardware is not hand-written Verilog. It is generated through a formally verified pipeline: Coq Kami specifications in \path{coq/kami\_hw/ThieleCPUCore.v} are extracted to OCaml, pretty-printed to Bluespec SystemVerilog, and compiled by the BSC compiler into synthesizable Verilog at \path{thielecpu/hardware/rtl/thiele\_cpu\_kami.v} (7,278 lines).
 
-\subsection{The Main CPU}
+This means the hardware inherits correctness from the Coq proofs. The key property is that the generated Verilog implements the same step relation as the Coq kernel---not by testing, but by construction.
 
+\subsection{The Main CPU Module}
+
+The generated top-level module is \texttt{mkModule1}:
 \begin{lstlisting}
-module thiele_cpu (
-    input wire clk,
-    input wire rst_n,
-    output wire [31:0] cert_addr,
-    output wire [31:0] status,
-    output wire [31:0] error_code,
-    output wire [31:0] partition_ops,
-    output wire [31:0] mdl_ops,
-    output wire [31:0] info_gain,
-    output wire [31:0] mu,  // $\mu$-cost accumulator
-    output wire [31:0] mem_addr,
-    output wire [31:0] mem_wdata,
-    input wire [31:0] mem_rdata,
-    output wire mem_we,
-    output wire mem_en,
-    ...
-);
+module mkModule1(CLK,
+                 RST_N,
+                 loadInstr_x_0,
+                 EN_loadInstr,
+                 RDY_loadInstr,
+                 EN_getPC,
+                 getPC,
+                 RDY_getPC,
+                 EN_getMu,
+                 getMu,
+                 RDY_getMu,
+                 EN_getErr,
+                 getErr,
+                 RDY_getErr,
+                 EN_getHalted,
+                 getHalted,
+                 RDY_getHalted,
+                 EN_getCertified,
+                 getCertified,
+                 RDY_getCertified,
+                 EN_getWcSame00,
+                 getWcSame00,
+                 ...);
 \end{lstlisting}
 
-\paragraph{Understanding Verilog Module Declaration:}
-\textbf{What is a Module?} In Verilog/SystemVerilog, a \texttt{module} is the basic unit of hardware description—analogous to a class in OOP or a function in C, but describing \emph{physical circuitry} not sequential code.
-
-\textbf{Module Signature Breakdown:}
+\paragraph{Understanding the Bluespec Interface:}
+\textbf{Action-Method Ports:} Unlike traditional Verilog modules with raw data ports, Bluespec generates an \emph{action-method} interface. Each observable is exposed as a getter method with three signals:
 \begin{itemize}
-    \item \textbf{module thiele\_cpu}: Declares a hardware component named \texttt{thiele\_cpu}
-    \item \textbf{Parentheses List}: The module's ``pins''—electrical connections to the outside world
-    \item \textbf{Semicolon}: Ends the port list. Module implementation follows (omitted here).
+    \item \textbf{EN\_getX}: Enable signal (assert high to read)
+    \item \textbf{getX}: The value output (e.g., 32-bit register contents)
+    \item \textbf{RDY\_getX}: Ready signal (high when the getter can fire)
 \end{itemize}
 
-\textbf{Port Directions and Types:}
-\begin{enumerate}
-    \item \textbf{input wire}: Signals coming INTO the module from external circuitry
-    \begin{itemize}
-        \item \texttt{clk}: Clock signal—every rising edge (0$\rightarrow$1 transition) triggers state updates. Typical frequency: 50-100 MHz on FPGA.
-        \item \texttt{rst\_n}: Active-low reset (\texttt{\_n} suffix = active low). When 0, reset all state; when 1, normal operation.
-        \item \texttt{mem\_rdata}: Memory read data---what memory returns when reading from an address.
-    \end{itemize}
-    
-    \item \textbf{output wire}: Signals going OUT from the module to external circuitry
-    \begin{itemize}
-        \item These are \emph{driven} by this module's internal logic
-        \item \textbf{[31:0]}: Bit vector notation. \texttt{[31:0]} means 32 bits wide (bits numbered 31 down to 0)
-        \item Example: \texttt{cert\_addr[31:0]} is a 32-bit address (can represent $2^{32}$ different values)
-    \end{itemize}
-\end{enumerate}
-
-\textbf{Critical Signals Explained:}
+\textbf{Key Getters:}
 \begin{itemize}
-    \item \textbf{mu [31:0]}: The $\mu$-ledger accumulator. Updated every instruction. This wire carries the current total $\mu$-cost. Being an output means external test harnesses can read and verify it.
-    \item \textbf{mem\_we}: Memory Write Enable (1 bit). When 1, memory stores \texttt{mem\_wdata} at \texttt{mem\_addr}. When 0, no write occurs.
-    \item \textbf{mem\_en}: Memory Enable (1 bit). When 1, memory operation active. When 0, memory ignores requests.
+    \item \textbf{getPC}: Program counter value
+    \item \textbf{getMu}: The $\mu$-accumulator (for cross-pipeline comparison)
+    \item \textbf{getErr}: Error code register
+    \item \textbf{getHalted}: Halt flag
+    \item \textbf{getCertified}: Whether CERTIFY has been executed
+    \item \textbf{getWcSame00}--\textbf{getWcDiff11}: Eight CHSH witness counters (same/different outcome buckets for four measurement settings)
 \end{itemize}
 
-\textbf{Hardware vs. Software Mindset:}
+\textbf{Instruction Loading:}
 \begin{itemize}
-    \item \textbf{No "Calling" the Module}: Modules don't execute like functions. They exist as circuits, continuously responding to input signal changes.
-    \item \textbf{Concurrency}: All signals update \emph{simultaneously} on clock edges. Not sequential like C code.
-    \item \textbf{Synthesis}: This Verilog text will be converted ("synthesized") into actual logic gates (AND, OR, flip-flops) by FPGA toolchains.
+    \item \textbf{loadInstr\_x\_0 [43:0]}: 44-bit input (12-bit address + 32-bit instruction word)
+    \item \textbf{EN\_loadInstr}: Assert to write an instruction into instruction memory
+    \item The testbench loads programs by cycling through \texttt{loadInstr} before releasing \texttt{RST\_N}
 \end{itemize}
 
-\textbf{3-Way Isomorphism Connection:} The \texttt{mu} output is specifically exposed so that test benches can compare its value against the Coq formal model and Python reference implementation after each instruction—this is the "3-way isomorphism gate" verification strategy.
+\textbf{Single-Rule Design:} The Kami specification defines one rule (\texttt{step}) that fires on every clock cycle. This compiles to a single Bluespec rule, which generates the Verilog signal \texttt{WILL\_FIRE\_RL\_step}. There is no multi-cycle FSM pipeline---instruction fetch, decode, execute, and writeback all happen combinationally within one clock edge. This is simpler to verify than a pipelined design, though it limits clock frequency.
 
-Key signals:
+\textbf{Internal Registers (from Kami):}
 \begin{itemize}
-    \item \textbf{mu}: The $\mu$-accumulator, exported for 3-way isomorphism verification
-    \item \textbf{partition\_ops}: Counter for partition operations
-    \item \textbf{info\_gain}: Information gain accumulator
-    \item \textbf{cert\_addr}: Certificate address CSR
+    \item \textbf{regs}: 1024-bit flat register file (32 $\times$ 32-bit words)
+    \item \textbf{mem}: 4096-entry data memory (BSC RegFile submodule)
+    \item \textbf{imem}: 4096-entry instruction memory (BSC RegFile submodule)
+    \item \textbf{ptTable}: 2048-bit partition table
+    \item \textbf{mt\_arr[0:15]}: Per-module metric tensor array (BSC RegFile)
+    \item \textbf{pc, mu, err, halted, certified}: Scalar state registers
+    \item \textbf{wc\_same\_00}--\textbf{wc\_diff\_11}: Eight witness counter registers
 \end{itemize}
 
-% CPU State Machine Diagram
+% CPU Execution Model Diagram
 
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}[
-    state/.style={draw, rounded corners=2pt, minimum width=1cm, minimum height=0.45cm, font=\tiny\bfseries, align=center, thick},
+    state/.style={draw, rounded corners=2pt, minimum width=1.4cm, minimum height=0.55cm, font=\tiny\bfseries, align=center, thick},
     >=Stealth,
 ]
-% Main pipeline
-\node[state, fill=blue!15] (fetch) at (0,1.5) {FETCH};
-\node[state, fill=blue!15] (decode) at (1.6,1.5) {DECODE};
-\node[state, fill=blue!15] (exec) at (3.2,1.5) {EXECUTE};
-\node[state, fill=blue!15] (mem) at (4.8,1.5) {MEMORY};
-\node[state, fill=blue!15] (comp) at (6.4,1.5) {COMPLETE};
+% Single rule
+\node[state, fill=blue!15] (rule) at (3.2,1.5) {WILL\_FIRE\\RL\_step};
 
-% Pipeline arrows
+% Combinational stages (all in one cycle)
+\node[state, fill=gray!15] (fetch) at (0,0) {fetch\\imem[pc]};
+\node[state, fill=gray!15] (decode) at (1.8,0) {decode\\opcode};
+\node[state, fill=gray!15] (exec) at (3.6,0) {execute\\+ update};
+\node[state, fill=gray!15] (write) at (5.4,0) {writeback\\regs/mem};
+
+% Arrows
+\draw[->, thick] (rule) -- (1.8,0.55);
 \draw[->, thick] (fetch) -- (decode);
 \draw[->, thick] (decode) -- (exec);
-\draw[->, thick] (exec) -- (mem);
-\draw[->, thick] (mem) -- (comp);
+\draw[->, thick] (exec) -- (write);
 
-% Branch states
-\node[state, fill=gray!20] (alu) at (1.6,0) {ALU\\WAIT};
-\node[state, fill=yellow!25] (logic) at (3.6,0) {LOGIC};
-\node[state, fill=cyan!20] (py) at (5.6,0) {PYTHON};
-
-% Branch arrows
-\draw[->, thick, dashed] (exec) -- (alu);
-\draw[->, thick, dashed] (exec) -- (logic);
-\draw[->, thick, dashed] (exec) -- (py);
-\draw[->, thick] (alu) -- (exec);
-\draw[->, thick] (logic) -- (comp);
-\draw[->, thick] (py) -- (comp);
-
-% Return arrow
-\draw[->, thick] (comp.north) -- +(0,0.4) -| (fetch.north);
+% Annotation
+\node[font=\tiny, text=blue!70] at (3.2,2.1) {fires every clock cycle};
+\node[font=\tiny, text=gray!70] at (2.7,-0.6) {all combinational (one clock edge)};
 \end{tikzpicture}
-\caption{12-state FSM: classic 5-stage RISC pipeline extended with branch states for oracles and multi-cycle operations.}
+\caption{Single-rule execution model: the Kami-generated hardware performs fetch, decode, execute, and writeback combinationally within one clock edge. No multi-cycle FSM pipeline.}
 \end{figure}
 
-\subsection{State Machine}
+\subsection{Execution Model}
 
-The CPU uses a 12-state FSM:
-\begin{lstlisting}
-localparam [3:0] STATE_FETCH = 4'h0;
-localparam [3:0] STATE_DECODE = 4'h1;
-localparam [3:0] STATE_EXECUTE = 4'h2;
-localparam [3:0] STATE_MEMORY = 4'h3;
-localparam [3:0] STATE_LOGIC = 4'h4;
-localparam [3:0] STATE_PYTHON = 4'h5;
-localparam [3:0] STATE_COMPLETE = 4'h6;
-localparam [3:0] STATE_ALU_WAIT = 4'h7;
-localparam [3:0] STATE_ALU_WAIT2 = 4'h8;
-localparam [3:0] STATE_RECEIPT_HOLD = 4'h9;
-localparam [3:0] STATE_PDISCOVER_LAUNCH2 = 4'hA;
-localparam [3:0] STATE_PDISCOVER_ARM2 = 4'hB;
-\end{lstlisting}
+The Kami specification defines one rule: \texttt{step}. This rule reads the instruction at \texttt{imem[pc]}, decodes the opcode from bits [31:24], executes the operation, updates all affected registers, and advances the program counter---all within a single clock cycle.
 
-\paragraph{Understanding Finite State Machine Encoding:}
-\textbf{What is a Finite State Machine (FSM)?} A circuit that transitions between a fixed set of states based on inputs and current state. Think of it as a flowchart implemented in hardware. FSMs are the foundation of all digital processors.
+This is different from a traditional pipelined processor. There are no pipeline stages, no stall logic, no forwarding paths. The trade-off is simplicity (easier to verify, trivially correct ordering) at the cost of clock frequency (the critical path is longer because everything happens combinationally).
 
-\textbf{Verilog Syntax Breakdown:}
-\begin{itemize}
-    \item \textbf{localparam}: Local parameter—a compile-time constant (like \texttt{const} in C). Not synthesized as storage, just used for readability.
-    \item \textbf{[3:0]}: 4-bit wide value (can represent $2^4 = 16$ states). The design uses 12 of the 16 possible encodings.
-    \item \textbf{4'h0}: Verilog number literal syntax:
-    \begin{itemize}
-        \item \texttt{4'}: 4 bits wide
-        \item \texttt{h}: Hexadecimal radix (could be \texttt{b} for binary, \texttt{d} for decimal)
-        \item \texttt{0}: The value in hex. \texttt{0x0 = 0b0000}
-    \end{itemize}
-    \item Examples: \texttt{4'hA} = \texttt{4'b1010} = decimal 10
-\end{itemize}
-
-\textbf{State Encoding Strategy:}
-\begin{itemize}
-    \item \textbf{Binary Encoding}: States assigned sequential integers (0, 1, 2, ...). Efficient in terms of flip-flops (only need 4 FF to store 12 states).
-    \item \textbf{Alternative (One-Hot)}: Could use 12 bits, one per state, only one bit set at a time. Faster transitions but uses more flip-flops. Binary encoding was chosen for compactness.
-\end{itemize}
-
-\textbf{State Meanings:}
-\begin{enumerate}
-    \item \textbf{FETCH}: Read next instruction from memory at address \texttt{PC} (program counter)
-    \item \textbf{DECODE}: Parse instruction into opcode, operands, cost field
-    \item \textbf{EXECUTE}: Perform ALU operations, register reads/writes
-    \item \textbf{MEMORY}: Access data memory (load/store)
-    \item \textbf{LOGIC}: Interface with external logic engine (Z3/SMT)
-    \item \textbf{PYTHON}: Execute Python bytecode in sandbox
-    \item \textbf{COMPLETE}: Finalize instruction, update PC and $\mu$-ledger
-    \item \textbf{ALU\_WAIT/WAIT2}: Multi-cycle ALU operations (e.g., division, LOG2)
-    \item \textbf{RECEIPT\_HOLD}: Waiting for cryptographic signature verification
-    \item \textbf{PDISCOVER\_LAUNCH2/ARM2}: Multi-phase partition discovery operation
-\end{enumerate}
-
-\textbf{Why 12 States?} Classic RISC processors (e.g., MIPS) use 5 stages (Fetch, Decode, Execute, Memory, Writeback). The Thiele CPU has additional states because:
-\begin{itemize}
-    \item \textbf{External Oracles}: Logic engine and Python interpreter require special states
-    \item \textbf{Multi-Cycle Ops}: Complex operations don't finish in one clock cycle
-    \item \textbf{Certification}: Receipt handling needs dedicated states
-\end{itemize}
-
-\textbf{State Register Implementation:} In the module body (not shown), there's a 4-bit register:
-\begin{verbatim}
-reg [3:0] state_reg;
-\end{verbatim}
-On each clock cycle, \texttt{state\_reg} updates based on the FSM transition logic. Synthesis converts this to 4 D flip-flops with combinational logic computing the next state.
+The generated Verilog reflects this: you will find a single \texttt{always @(posedge CLK)} block with a large case statement on the opcode field, each branch updating the relevant registers via non-blocking assignments. The signal \texttt{WILL\_FIRE\_RL\_step} is high on every cycle when the core is not halted.
 
 % Instruction Encoding Diagram
 
@@ -1420,7 +1109,7 @@ wire [7:0] operand_cost = current_instr[7:0];
     \item \textbf{Python}: Using struct unpacking or bitwise operations
     \item \textbf{Verilog}: This code
 \end{itemize}
-All three must produce identical field values given the same 32-bit instruction, ensuring the 3-way isomorphism.
+All three must produce identical field values given the same 32-bit instruction, ensuring consistent encoding across compilation pipelines.
 
 \textbf{Example Decoding:} \texttt{0x01050003}
 \begin{itemize}
@@ -1432,309 +1121,68 @@ All three must produce identical field values given the same 32-bit instruction,
 
 \subsection{$\mu$-Accumulator Updates}
 
-Every instruction atomically updates the $\mu$-accumulator:
+In the Kami specification (\path{coq/kami\_hw/ThieleCPUCore.v}), every instruction branch adds the cost field to the \texttt{mu} register. The generated Verilog translates this to a non-blocking assignment on every clock edge:
 \begin{lstlisting}
-OPCODE_PNEW: begin
-    execute_pnew(operand_a, operand_b);
-    // Coq semantics: vm_mu := s.vm_mu + instruction_cost
-    mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
-    pc_reg <= pc_reg + 4;
-    state <= STATE_FETCH;
-end
+// Simplified from generated Verilog (mkModule1):
+// On each step, mu is updated:
+//   mu <= mu + {24'h0, cost_v};
+// where cost_v = current_instr[7:0]
+// This matches Coq's apply_cost: s.(vm_mu) + instruction_cost instr
 \end{lstlisting}
 
-\paragraph{Understanding Sequential Logic and Non-Blocking Assignment:}
-\textbf{Context}: This is inside an \texttt{always @(posedge clk)} block—code that executes on every rising clock edge.
+\paragraph{Understanding the $\mu$-Update:}
+\textbf{In the Kami source} (\texttt{ThieleCPUCore.v}), the update is written as:
+\begin{verbatim}
+Write "mu" <- #mu_v + (ZeroExtend _ #cost_v)
+\end{verbatim}
+This says: read the current mu register, add the zero-extended cost field, write the result back. The Bluespec compiler translates this into Verilog non-blocking assignment with the appropriate bit widths.
 
-\textbf{The \texttt{begin...end} Block:}
+\textbf{Atomicity:} Since the entire step rule fires combinationally, all register updates (PC, mu, regs, err, certified, witness counters) happen simultaneously on the clock edge. There is no intermediate state where PC advanced but mu didn't---matching the Coq semantics exactly.
+
+\textbf{Hardware vs. Coq:}
 \begin{itemize}
-    \item \textbf{Case Statement Branch}: This is one case in a large \texttt{case(opcode)} statement
-    \item \textbf{Atomic Execution}: All statements execute "simultaneously" on the clock edge
-    \item \textbf{Not Sequential}: Despite appearing line-by-line, these are hardware assignments happening in parallel
+    \item \textbf{Coq}: \texttt{vm\_mu := apply\_cost s instr} (unbounded natural)
+    \item \textbf{Verilog}: 32-bit wrapping addition (overflow at $2^{32}$)
+    \item \textbf{Bridge}: \texttt{HardwareBisimulation.v} formalizes the Q16.16 representation and proves correspondence within the 32-bit range
 \end{itemize}
 
-\textbf{The $\leq$ Operator (Non-Blocking Assignment):}
-\begin{itemize}
-    \item \textbf{Scheduling}: Right-hand side evaluated immediately, but left-hand side updated at end of time step
-    \item \textbf{Why Non-Blocking?}: Ensures all registers see the "old" values during computation, preventing race conditions
-    \item \textbf{Contrast with =}: Blocking assignment (\texttt{=}) updates immediately, used for combinational logic
-    \item \textbf{Golden Rule}: Always use \texttt{<=} for sequential logic (registers), \texttt{=} for combinational logic (wires)
-\end{itemize}
+% μ Cost Accounting
 
-\textbf{Line-by-Line Analysis:}
-\begin{enumerate}
-    \item \textbf{execute\_pnew(...)}: Task call (like a function) that performs partition graph operation
-    \item \textbf{\{24'h0, operand\_cost\}}: Bit concatenation operator
-    \begin{itemize}
-        \item \texttt{24'h0}: 24-bit zero vector (\texttt{0x000000})
-        \item \texttt{operand\_cost}: 8-bit cost value
-        \item \texttt{\{..., ...\}}: Concatenates to form 32-bit value (zero-extended cost)
-        \item Example: If \texttt{operand\_cost = 0x03}, result is \texttt{0x00000003}
-    \end{itemize}
-    \item \textbf{mu\_accumulator <= mu\_accumulator + ...}: Add cost to current $\mu$ value
-    \begin{itemize}
-        \item This is a 32-bit adder in hardware (\~{}32 full-adder cells)
-        \item Overflow wraps at $2^{32}$ (though unlikely in practice)
-    \end{itemize}
-    \item \textbf{pc\_reg <= pc\_reg + 4}: Increment program counter by 4 bytes (next instruction)
-    \begin{itemize}
-        \item Instructions are 32-bit = 4 bytes
-        \item Sequential execution: PC advances linearly unless branch occurs
-    \end{itemize}
-    \item \textbf{state <= STATE\_FETCH}: Return FSM to FETCH state to begin next instruction
-\end{enumerate}
-
-\textbf{Atomicity Guarantee:} From an external observer's perspective, all four updates happen "simultaneously" on the clock edge. There's no intermediate state where PC updated but $\mu$ didn't—this matches the Coq step semantics where state transitions are atomic.
-
-\textbf{Timing}: On a 50 MHz FPGA (20ns clock period), this entire operation completes within one cycle. The critical path (longest combinational delay) determines maximum clock frequency. The adder is typically the bottleneck.
-
-% μ-ALU Architecture Diagram
-
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}[
-    block/.style={draw, rounded corners=2pt, minimum height=0.5cm, font=\scriptsize, align=center, thick},
-    port/.style={font=\tiny, anchor=east},
-    >=Stealth,
-]
-% Main ALU block
-\node[block, fill=orange!15, draw=orange!70, minimum width=2.4cm, minimum height=1.8cm] (alu) at (0,0) {\textbf{$\mu$-ALU}\\Q16.16};
-
-% LOG2 LUT
-\node[block, fill=cyan!15, minimum width=1.6cm] (lut) at (0,1.6) {LOG2 LUT\\{\tiny 256 entries}};
-\draw[<->, thick] (alu.north) -- (lut.south);
-
-% Inputs (left)
-\draw[<-, thick] (alu.west) ++(0,0.4) -- +(-1.2,0) node[left, font=\tiny] {operand\_a [31:0]};
-\draw[<-, thick] (alu.west) ++(0,0) -- +(-1.2,0) node[left, font=\tiny] {operand\_b [31:0]};
-\draw[<-, thick] (alu.west) ++(0,-0.4) -- +(-1.2,0) node[left, font=\tiny] {op [2:0], valid};
-
-% Outputs (right)
-\draw[->, thick] (alu.east) ++(0,0.3) -- +(1.2,0) node[right, font=\tiny] {result [31:0]};
-\draw[->, thick] (alu.east) ++(0,-0.1) -- +(1.2,0) node[right, font=\tiny] {ready};
-\draw[->, thick] (alu.east) ++(0,-0.5) -- +(1.2,0) node[right, font=\tiny] {overflow};
-
-% Operations box
-\node[block, fill=yellow!15, minimum width=4.2cm, font=\tiny] (ops) at (0,-1.5) {0:ADD~~1:SUB~~2:MUL~~3:DIV~~4:LOG2~~5:INFO\_GAIN};
-
-% Q16.16 annotation
-\node[font=\tiny, anchor=west, text=orange!70] at (1.5,1.6) {$1.0 = \mathtt{0x00010000}$};
-\end{tikzpicture}
-\caption{$\mu$-ALU: Q16.16 fixed-point arithmetic unit with 256-entry LOG2 lookup table.}
-\end{figure}
-
-\subsection{The $\mu$-ALU}
+\subsection{Cost Accounting in Hardware}
 
 \begin{quote}
-\textit{Author's Note (Devon): This is where the magic happens, folks. The $\mu$-ALU is like the odometer on your car---except instead of miles, it tracks information. Every time you ``look'' at something, every time you reveal structure, every time you make a decision---the odometer ticks up. And just like your car's odometer, it only goes one direction. No rolling back. That's the whole game.}
+\textit{Author's Note (Devon): This is where the magic happens, folks. The $\mu$-accumulator is like the odometer on your car---except instead of miles, it tracks information. Every time you ``look'' at something, every time you reveal structure, every time you make a decision---the odometer ticks up. And just like your car's odometer, it only goes one direction. No rolling back. That's the whole game.}
 \end{quote}
 
-The $\mu$-ALU (defined as a module inside \texttt{thiele\_cpu\_unified.v}) implements Q16.16 fixed-point arithmetic:
-\begin{lstlisting}
-module mu_alu (
-    input wire clk,
-    input wire rst_n,
-    input wire [2:0] op,      // 0=add, 1=sub, 2=mul, 3=div, 4=log2, 5=info_gain
-    input wire [31:0] operand_a,
-    input wire [31:0] operand_b,
-    input wire valid,
-    output reg [31:0] result,
-    output reg ready,
-    output reg overflow
-);
+In the Kami-generated hardware, $\mu$-accounting is handled by a 32-bit register (\texttt{mu}) that is incremented inline within the step rule. There is no separate $\mu$-ALU submodule. The cost field from the instruction word (bits [7:0]) is zero-extended and added to the current mu value on every cycle where an instruction executes.
 
-localparam Q16_ONE = 32'h00010000;  // 1.0 in Q16.16
-\end{lstlisting}
+\textbf{Q16.16 Fixed-Point Concept:} While the Coq kernel formalizes a Q16.16 fixed-point representation in \texttt{VMState.v} (with \texttt{Q16\_SHIFT = 16}, \texttt{Q16\_ONE = 65536}, \texttt{Q16\_MAX = 4294967295}), the actual hardware uses simple integer addition for mu. The Q16.16 formalization appears in \texttt{HardwareBisimulation.v}, which proves correspondence between the Coq model and the RTL's 32-bit arithmetic.
 
-\paragraph{Understanding the $\mu$-ALU Module:}
-\textbf{Module Purpose:} Performs information-theoretic computations (entropy, log2, mutual information) in hardware.
+\textbf{Information-Theoretic Operations:} Entropy calculations ($-p \log_2 p$) and mutual information computations are performed in the Coq proofs and the OCaml extracted runner, not in the RTL. The hardware's job is to faithfully execute the ISA and accumulate cost. The proofs connecting mu-cost to information-theoretic quantities live in files like \texttt{MuShannonBridge.v} and \texttt{MuShannonQuantitative.v}.
 
-\textbf{Port Declarations:}
-\begin{itemize}
-    \item \textbf{clk}: System clock (rising edge triggers state changes)
-    \item \textbf{rst\_n}: Active-low reset (0 = reset, 1 = normal operation)
-    \item \textbf{op[2:0]}: 3-bit operation select (8 possible operations)
-    \begin{itemize}
-        \item 0: ADD — addition
-        \item 1: SUB — subtraction
-        \item 2: MUL — multiplication (requires shift correction)
-        \item 3: DIV — division (iterative algorithm)
-        \item 4: LOG2 — base-2 logarithm (via LUT)
-        \item 5: INFO\_GAIN — $-p \log_2 p$ (entropy term)
-    \end{itemize}
-    \item \textbf{operand\_a[31:0]}: First operand (Q16.16 fixed-point)
-    \item \textbf{operand\_b[31:0]}: Second operand (Q16.16 fixed-point)
-    \item \textbf{valid}: High when inputs are ready (handshake protocol)
-    \item \textbf{result[31:0]}: Output value (Q16.16)
-    \item \textbf{ready}: High when operation complete (output valid)
-    \item \textbf{overflow}: High if result exceeds 32-bit range
-\end{itemize}
+\textbf{Cross-pipeline comparison:} The RTL's 32-bit mu register corresponds to the lower 32 bits of the Coq model's unbounded \texttt{vm\_mu : nat}. The Python VM's \texttt{vm\_mu} field, masked by \texttt{WORD64\_MASK}, is compared against the RTL output via the testbench. For all practical traces (within the tested opcode subset), the values agree exactly.
 
-\textbf{Q16.16 Fixed-Point Format:}
-\begin{itemize}
-    \item \textbf{32 bits total}: 16 integer bits + 16 fractional bits
-    \item \textbf{Representation}: Value = (bits) / $2^{16}$
-    \item \textbf{Example}: \texttt{0x00010000} = $65536 / 2^{16} = 1.0$
-    \item \textbf{Range}: $[-32768, 32767.999985]$ with resolution $2^{-16} \approx 0.000015$
-    \item \textbf{Why Q16.16?} Balance between range and precision for information-theoretic calculations
-\end{itemize}
-
-\textbf{Localparam Q16\_ONE:}
-\begin{itemize}
-    \item \textbf{localparam}: Compile-time constant (like \texttt{const} in C)
-    \item \textbf{Value}: \texttt{0x00010000} = 1.0 in Q16.16
-    \item \textbf{Usage}: Scaling constant for arithmetic operations
-    \item \textbf{Example}: Multiply by \texttt{Q16\_ONE} to convert integer to fixed-point
-\end{itemize}
-
-\textbf{Hardware Implementation:}
-\begin{itemize}
-    \item \textbf{Combinational Ops}: ADD, SUB execute in one cycle
-    \item \textbf{Sequential Ops}: MUL, DIV, LOG2 may take multiple cycles
-    \item \textbf{Handshake Protocol}: \texttt{valid} input $\rightarrow$ compute $\rightarrow$ \texttt{ready} output
-    \item \textbf{Overflow Detection}: Saturates or flags error if result too large
-\end{itemize}
-
-\textbf{Isomorphism:} This hardware ALU must produce bit-identical results to:
-\begin{itemize}
-    \item Python: \texttt{fixed\_point\_mul(a, b, frac\_bits=16)}
-    \item Coq: \texttt{q16\_mul (a : word32) (b : word32) : word32}
-\end{itemize}
-
-The log2 computation uses a 256-entry LUT for bit-exact results:
-\begin{lstlisting}
-reg [31:0] log2_lut [0:255];
-initial begin
-    log2_lut[0] = 32'h00000000;
-    log2_lut[1] = 32'h00000170;
-    log2_lut[2] = 32'h000002DF;
-    ...
-end
-\end{lstlisting}
-
-\paragraph{Understanding the LOG2 Lookup Table:}
-\textbf{Declaration:} \texttt{reg [31:0] log2\_lut [0:255];}
-\begin{itemize}
-    \item \textbf{reg}: Register array (holds state, synthesizes to ROM/BRAM)
-    \item \textbf{[31:0]}: Each entry is 32 bits (Q16.16 format)
-    \item \textbf{[0:255]}: 256 entries (2\textsuperscript{8}), indexed 0-255
-    \item \textbf{Total Size}: 256 entries $\times$ 32 bits = 1 KB
-\end{itemize}
-
-\textbf{Initial Block:}
-\begin{itemize}
-    \item \textbf{initial}: Executes once at simulation start / synthesis initialization
-    \item \textbf{Purpose}: Pre-loads ROM with precomputed $\log_2(x)$ values
-    \item \textbf{Hardware}: Synthesizer converts to ROM (block RAM on FPGA)
-\end{itemize}
-
-\textbf{Example Entries:}
-\begin{itemize}
-    \item \texttt{log2\_lut[0] = 0x00000000} $\rightarrow$ $\log_2(0)$ undefined, use 0 by convention
-    \item \texttt{log2\_lut[1] = 0x00000170} $\rightarrow$ $\log_2(1) = 0.0$ (\texttt{0x170} $\approx$ 0 after conversion)
-    \item \texttt{log2\_lut[2] = 0x000002DF} $\rightarrow$ $\log_2(2) = 1.0$ in Q16.16
-    \item \texttt{log2\_lut[255] = ...} $\rightarrow$ $\log_2(255) \approx 7.9943$
-\end{itemize}
-
-\textbf{Why a LUT Instead of Computation?}
-\begin{enumerate}
-    \item \textbf{Speed}: One-cycle lookup vs. multi-cycle iterative algorithm
-    \item \textbf{Area}: 1 KB ROM cheaper than logarithm logic on FPGAs
-    \item \textbf{Determinism}: Identical results to Coq/Python (bit-exact)
-    \item \textbf{Precision}: Precomputed with high-precision tools (Python \texttt{math.log2})
-\end{enumerate}
-
-\textbf{Usage Pattern:}
-\begin{verbatim}
-wire [31:0] log2_result = log2_lut[input_value[7:0]];
-\end{verbatim}
-\begin{itemize}
-    \item Index by lower 8 bits of input
-    \item For inputs $>$ 255, use bit-shifting tricks: $\log_2(256x) = 8 + \log_2(x)$
-\end{itemize}
-
-\textbf{Isomorphism Requirement:} The exact same 256 values exist in all three layers:
-\begin{itemize}
-    \item Python: \texttt{LOG2\_LUT = [to\_q16(math.log2(i)) for i in range(256)]}
-    \item Coq: \texttt{Definition log2\_lut := [0x00000000; 0x00000170; ...]}
-    \item Verilog: This code
-\end{itemize}
-Cross-layer tests verify all three agree byte-for-byte. If they don't, CI fails.
+\textbf{Hardware mu\_tensor scope:} The RTL contains a 16-entry register array (\texttt{mt\_arr[0:15]}) that serves as a Bianchi conservation ledger---it tracks $\mu$-cost allocated by REVEAL operations and enforces $\sum\text{tensor}[i] \le \mu$ per cycle; violation freezes the CPU. \texttt{TENSOR\_SET} writes the source register value into the tensor entry addressed by the instruction's index field, and \texttt{TENSOR\_GET} reads the tensor entry into the destination register. Both operations are functional in the Kami spec (\texttt{ThieleCPUCore.v}), the generated Verilog, and the cross-layer bisimulation test suite. The hardware tensor is a flat 16-entry array (no per-module dispatch); the Coq kernel manages per-module tensors in the partition graph. The mapping between these two representations is mediated by the abstraction layer in \texttt{Abstraction.v}. The physics proofs (EinsteinEquations4D.v, DiscreteRaychaudhuri.v, CurvedTensorPipeline.v) define curvature computations over Coq reals (\texttt{R}) and abstract module states---they are purely proof-level and are not extracted to executable code. No program has been assembled that performs 4D curvature computation on the Verilog RTL.
 
 \subsection{Logic Engine Interface}
 
-The logic engine interface is integrated directly into the \texttt{thiele\_cpu} module within \texttt{thiele\_cpu\_unified.v}. The CPU exposes \texttt{logic\_req} and \texttt{logic\_ack} signals for external solver handshaking:
+The logic engine interface is implemented as registers inside \texttt{mkModule1}, not as a separate submodule. The Kami specification in \texttt{ThieleCPUCore.v} defines request and response registers that the testbench bridges to an external SMT solver:
 \begin{lstlisting}
-module lei (
-    input wire clk,
-    input wire rst_n,
-    input wire logic_req,
-    input wire [31:0] logic_addr,
-    output wire logic_ack,
-    output wire [31:0] logic_data,
-    output wire z3_req,
-    output wire [31:0] z3_formula_addr,
-    input wire z3_ack,
-    input wire [31:0] z3_result,
-    input wire z3_sat,
-    input wire [31:0] z3_cert_hash,
-    ...
-);
+// From generated Verilog (mkModule1):
+// Output registers (CPU -> external solver):
+//   logic_req_valid, logic_req_opcode, logic_req_payload
+// Input action method (external solver -> CPU):
+//   setLogicResp(result)
 \end{lstlisting}
 
 \paragraph{Understanding the Logic Engine Interface:}
-\textbf{Module Purpose:} Bridges hardware VM to external SMT solver (Z3) for axiom checking.
+\textbf{Protocol:} The CPU sets request registers when an LASSERT instruction executes. The testbench reads these registers, dispatches to an external solver (Z3), and calls the \texttt{setLogicResp} action method with the result. The correctness of this protocol is proven in \path{coq/kami\_hw/LogicEngineEquivalence.v}.
 
-\textbf{Internal Interface (VM $\leftrightarrow$ LEI):}
+\textbf{Why Registers Instead of a Submodule?}
 \begin{itemize}
-    \item \textbf{logic\_req}: VM asserts high when requesting SMT check
-    \item \textbf{logic\_addr[31:0]}: Memory address of axiom formula string
-    \item \textbf{logic\_ack}: LEI asserts high when result ready
-    \item \textbf{logic\_data[31:0]}: Result data (SAT/UNSAT status)
-\end{itemize}
-
-\textbf{External Interface (LEI $\leftrightarrow$ Z3):}
-\begin{itemize}
-    \item \textbf{z3\_req}: LEI asserts high to request Z3 solving
-    \item \textbf{z3\_formula\_addr[31:0]}: Points to SMT-LIB string in shared memory
-    \item \textbf{z3\_ack}: Z3 asserts high when solving complete
-    \item \textbf{z3\_result[31:0]}: Encoded result (0 = SAT, 1 = UNSAT)
-    \item \textbf{z3\_sat}: Boolean: true if satisfiable
-    \item \textbf{z3\_cert\_hash[31:0]}: Hash of UNSAT proof certificate
-\end{itemize}
-
-\textbf{Protocol Flow:}
-\begin{enumerate}
-    \item \textbf{VM Issues Request}: Sets \texttt{logic\_req=1}, provides \texttt{logic\_addr}
-    \item \textbf{LEI Forwards to Z3}: Sets \texttt{z3\_req=1}, copies \texttt{z3\_formula\_addr}
-    \item \textbf{Z3 Solves}: Reads formula from memory, runs SMT solver
-    \item \textbf{Z3 Responds}: Sets \texttt{z3\_ack=1}, provides \texttt{z3\_result}
-    \item \textbf{LEI Returns}: Sets \texttt{logic\_ack=1}, copies \texttt{logic\_data}
-    \item \textbf{VM Continues}: Reads result, proceeds with next instruction
-\end{enumerate}
-
-\textbf{Why This Design?}
-\begin{itemize}
-    \item \textbf{Separation of Concerns}: Hardware handles fast operations, software handles complex SMT
-    \item \textbf{Scalability}: Can swap Z3 for CVC5, Vampire, etc. without changing RTL
-    \item \textbf{Verifiability}: Protocol formally specified, can prove handshake correctness
-    \item \textbf{Latency Hiding}: LEI buffers requests, VM can continue with other work
-\end{itemize}
-
-\textbf{Certificate Handling:}
-\begin{itemize}
-    \item \textbf{z3\_cert\_hash}: Cryptographic hash of UNSAT proof
-    \item \textbf{Purpose}: Tamper-proof evidence that formula is unsatisfiable
-    \item \textbf{Storage}: Full certificate stored in VM memory, hash recorded in receipt
-    \item \textbf{Verification}: External auditor can check hash matches certificate
-\end{itemize}
-
-\textbf{Failure Modes:}
-\begin{itemize}
-    \item \textbf{Timeout}: Z3 may not respond (infinite loops in solver)
-    \item \textbf{Unknown}: Z3 returns UNKNOWN (formula too hard)
-    \item \textbf{Error}: Malformed formula (syntax error)
-    \item LEI must handle all cases gracefully, set \texttt{logic\_ack} even on failure
+    \item \textbf{Kami's model}: Kami generates flat modules with registers and rules. Sub-module instantiation follows Bluespec's composition model, not traditional Verilog hierarchy.
+    \item \textbf{Testbench flexibility}: The external solver can be Z3, CVC5, or any tool that speaks SMT-LIB. The hardware just exposes a request/acknowledge interface.
+    \item \textbf{Formal verification}: \texttt{LogicEngineEquivalence.v} proves that the Kami coprocessor protocol refines the Coq step relation for LASSERT, LJOIN, and related opcodes.
 \end{itemize}
 
 \section{Isomorphism Verification}
@@ -1772,19 +1220,20 @@ module lei (
 \node[draw, rounded corners=2pt, fill=green!20, font=\scriptsize\bfseries] (pass) at (0,-1.3) {PASS / FAIL};
 \draw[->, thick] (cmp) -- (pass);
 \end{tikzpicture}
-\caption{Isomorphism gate: same trace executed on all three layers, canonicalized states compared.}
+\caption{Comparison gate: same trace executed on the supported layers, canonicalized states compared.}
 \end{figure}
 
-\subsection{The Isomorphism Gate}
+\subsection{The Comparison Gate}
 
-The 3-way isomorphism is verified by a test that:
+The cross-pipeline comparison is verified by a test that:
 \begin{enumerate}
-    \item Generate instruction trace $\tau$
-    \item Execute $\tau$ on Python VM $\rightarrow$ state $S_{\text{py}}$
-    \item Execute $\tau$ on extracted runner $\rightarrow$ state $S_{\text{coq}}$
+    \item Generate instruction trace $\tau$ (from the subset of opcodes with cross-layer agreement)
+    \item Execute $\tau$ on Python VM $\rightarrow$ state $S_{\text{py}}$ (delegates to extracted OCaml runner, so $S_{\text{py}} = S_{\text{coq}}$ by construction)
+    \item Execute $\tau$ on extracted runner directly $\rightarrow$ state $S_{\text{coq}}$
     \item Execute $\tau$ on Verilog sim $\rightarrow$ state $S_{\text{rtl}}$
-    \item Assert $S_{\text{py}} = S_{\text{coq}} = S_{\text{rtl}}$
+    \item Assert $\pi(S_{\text{coq}}) = \pi(S_{\text{rtl}})$ under the gate-specific projection $\pi$
 \end{enumerate}
+The genuine test is step 5: comparing the OCaml extraction pipeline against the Kami/Bluespec synthesis pipeline. Steps 2-3 are tautological (same binary), but are included for completeness and to catch serialization bugs in the Python wrapper.
 
 \subsection{State Projection}
 
@@ -1796,7 +1245,7 @@ def project_state_full(state):
         "mu": state.mu,
         "err": state.err,
         "regs": list(state.regs[:32]),
-        "mem": list(state.mem[:256]),
+        "mem": list(state.mem[:65536]),
         "csrs": state.csrs.to_dict(),
         "graph": state.graph.to_canonical(),
     }
@@ -1815,9 +1264,9 @@ def project_state_full(state):
         \item Slice \texttt{[:32]} ensures fixed size
         \item \texttt{list(...)} converts from internal representation
     \end{itemize}
-    \item \textbf{"mem": list(state.mem[:256])}: First 256 memory words
+    \item \textbf{"mem": list(state.mem[:65536])}: Full 65,536-word memory
     \begin{itemize}
-        \item Fixed size for deterministic comparison
+        \item Full data memory snapshot
     \end{itemize}
     \item \textbf{"csrs": state.csrs.to\_dict()}: CSR snapshot
     \begin{itemize}
@@ -1847,13 +1296,13 @@ def project_state_full(state):
     \item \textbf{Why Multiple?} Different tests care about different state components
 \end{enumerate}
 
-\textbf{Isomorphism Use:} After running same instruction trace on Coq, Python, Verilog:
+\textbf{Comparison Use:} After running same instruction trace on Coq/OCaml runner and Verilog sim:
 \begin{verbatim}
 coq_state_json = ocaml_runner_output()
-python_state_json = project_state_full(py_vm.state)
-assert coq_state_json == python_state_json
+rtl_state_json = verilog_sim_output()
+assert project(coq_state_json) == project(rtl_state_json)
 \end{verbatim}
-If any field differs, isomorphism test fails.
+If any projected field differs, the comparison gate fails. (Note: the Python-vs-Coq comparison is tautological since the Python VM delegates to the same OCaml binary.)
 
 % Inquisitor Workflow Diagram
 
@@ -1897,7 +1346,7 @@ If any field differs, isomorphism test fails.
 \textit{Author's Note (Devon): The Inquisitor is my paranoia made into automation. Every time changes get pushed, it checks for admits that might have snuck in, proofs that don't compile, theorems that secretly prove nothing. It's the automated version of me at 3 AM going ``wait, did I actually prove that or just claim it?''}
 \end{quote}
 
-The Inquisitor (\path{scripts/inquisitor.py}, 6,700+ lines) is a heuristic static analysis tool that scans the Coq source tree for ``proof smells''---patterns that indicate incomplete, vacuous, or dishonest proofs. It goes far beyond simple pattern matching.
+The Inquisitor (\path{scripts/inquisitor.py}, $\sim$7,400 lines) is a heuristic static analysis tool that scans the Coq source tree for ``proof smells''---patterns that indicate incomplete, vacuous, or dishonest proofs. It goes far beyond simple pattern matching.
 
 \textbf{What it detects} (20+ rule types across three severity levels):
 
@@ -1947,9 +1396,9 @@ The Inquisitor (\path{scripts/inquisitor.py}, 6,700+ lines) is a heuristic stati
 
 \textbf{Runtime verification.} Beyond static scanning, the Inquisitor can invoke \texttt{coqtop} to run \texttt{Print Assumptions} on key theorems, verifying that the \textit{actual} axiom dependencies (not just the declared ones) match the documented set. It also verifies a paper symbol map---checking that every theorem cited in this thesis corresponds to a real Coq symbol that compiles.
 
-\textbf{Allowlist.} A JSON allowlist (\path{scripts/inquisitor\_allowlist.json}) documents the mathematically-justified exceptions: currently 5 entries across \texttt{MinimalE.v}, \texttt{Composition.v}, and \texttt{AssumptionBundle.v}, each with a written justification for why the finding is acceptable.
+\textbf{Allowlist.} A JSON allowlist (\path{scripts/inquisitor\_allowlist.json}) documents mathematically-justified exceptions with written justifications for why each finding is acceptable.
 
-The CI gate (\path{scripts/check\_inquisitor\_clean.sh}) enforces a single rule: \textbf{zero HIGH findings}. If a single HIGH finding exists anywhere in the Coq tree, CI fails. No exceptions, no overrides.
+The CI gate enforces a single rule: \textbf{zero HIGH findings}. If a single HIGH finding exists anywhere in the Coq tree, CI fails. No exceptions, no overrides.
 
 \section{Synthesis Results}
 
@@ -1961,7 +1410,7 @@ The CI gate (\path{scripts/check\_inquisitor\_clean.sh}) enforces a single rule:
 
 The RTL can be synthesized for Lattice ECP5 FPGAs:
 \begin{lstlisting}
-$ yosys -p "read_verilog thiele_cpu_kami.v; synth_ecp5 -top thiele_cpu"
+$ yosys -p "read_verilog thiele_cpu_kami.v; synth_ecp5 -top mkModule1"
 \end{lstlisting}
 
 \paragraph{Understanding Yosys Synthesis:}
@@ -1971,7 +1420,7 @@ $ yosys -p "read_verilog thiele_cpu_kami.v; synth_ecp5 -top thiele_cpu"
 \begin{itemize}
     \item \textbf{yosys}: The synthesizer executable
     \item \textbf{-p "..."}: Pass string (execute commands)
-    \item \textbf{read\_verilog thiele\_cpu.v}: Load Verilog source
+    \item \textbf{read\_verilog thiele\_cpu\_kami.v}: Load Kami-generated Verilog source
     \begin{itemize}
         \item Parses file, builds abstract syntax tree
         \item Checks basic syntax errors
@@ -1981,10 +1430,10 @@ $ yosys -p "read_verilog thiele_cpu_kami.v; synth_ecp5 -top thiele_cpu"
         \item Optimizes for Lattice ECP5 primitives
         \item Maps to LUTs, FFs, BRAM, DSP blocks
     \end{itemize}
-    \item \textbf{-top thiele\_cpu}: Specify top-level module name
+    \item \textbf{-top mkModule1}: Specify top-level module name
     \begin{itemize}
-        \item Entry point for synthesis
-        \item All other modules are instantiated within this
+        \item Entry point for synthesis (Kami-generated module)
+        \item All internal logic is instantiated within this
     \end{itemize}
 \end{itemize}
 
@@ -2100,7 +1549,7 @@ vvp thiele_cpu_tb
 
     \item \textbf{Run Full Synthesis}:
     \begin{verbatim}
-yosys -p "read_verilog thiele_cpu_kami.v; synth_ecp5 -top thiele_cpu; write_json netlist.json"
+yosys -p "read_verilog thiele_cpu_kami.v; synth_ecp5 -top mkModule1; write_json netlist.json"
     \end{verbatim}
     \begin{itemize}
         \item Synthesizes to ECP5 netlist
@@ -2142,7 +1591,7 @@ yosys -p "read_verilog thiele_cpu_kami.v; synth_ecp5 -top thiele_cpu; write_json
 \draw[->, thick] (py.south) -- (inv.north);
 \draw[->, thick] (rtl.south) -- (inv.north east);
 \end{tikzpicture}
-\caption{Chapter 4 summary: three independent implementations bound by the isomorphism invariant.}
+\caption{Chapter 4 summary: one Coq specification with two derived execution backends, bound by observable comparison gates.}
 \end{figure}
 
 \section{Summary}
@@ -2154,4 +1603,4 @@ The 3-layer implementation delivers:
     \item \textbf{Physical Realizability}: Verilog synthesizes to real hardware
 \end{itemize}
 
-The binding across layers is not aspirational---it's enforced through automated isomorphism gates. The Inquisitor ensures no admits, documented axioms only, and no semantic divergences ever hit the main branch.
+The binding across layers is not aspirational---it's enforced through automated comparison gates on a tested opcode subset. The Inquisitor ensures no admits, documented axioms only, and no semantic divergences ever hit the main branch. The genuine verification value is the agreement between two different compilation pipelines from the same Coq source: OCaml extraction and Kami/Bluespec synthesis. Where these pipelines agree, we have high confidence in the semantics. Where they diverge (documented in the cosim tests), the divergences are explicit and bounded.

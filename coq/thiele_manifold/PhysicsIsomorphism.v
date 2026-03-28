@@ -245,7 +245,7 @@ Proof.
             study_model := lattice_gas_model;
             study_invariants := "Particle count and momentum conserved; involutive local swap";
             study_entropy := "µ and irreversible_count stay zero along the compiled trace";
-            study_status := "Embedding and faithful µ-constancy in PhysicsEmbedding.v" |}.
+            study_status := "Embedding and faithful µ-constancy in PhysicsEmbedding.v (archived to archive/coq_unused/physics_exploration/)" |}.
 Defined.
 
 Definition dissipative_case : EmbeddingCaseStudy.
@@ -254,7 +254,7 @@ Proof.
             study_model := dissipative_model;
             study_invariants := "Energy strictly drops on any hot configuration";
             study_entropy := "Any faithful implementation pays ≥1 µ per simulated step";
-            study_status := "Embedding and lower bound packaged in DissipativeEmbedding.v" |}.
+            study_status := "Embedding and lower bound packaged in DissipativeEmbedding.v (archived to archive/coq_unused/physics_exploration/)" |}.
 Defined.
 
 Definition wave_case : EmbeddingCaseStudy.
@@ -263,7 +263,7 @@ Proof.
             study_model := wave_model;
             study_invariants := "Energy and momentum conserved; step is invertible";
             study_entropy := "µ and irreversible_count stay zero along the propagated trace";
-            study_status := "Embedding hooks live in WaveEmbedding.v" |}.
+            study_status := "Embedding hooks live in WaveEmbedding.v (archived to archive/coq_unused/physics_exploration/)" |}.
 Defined.
 
 Definition embedded_case_studies : list EmbeddingCaseStudy :=

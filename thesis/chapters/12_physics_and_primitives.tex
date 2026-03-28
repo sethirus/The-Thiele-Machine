@@ -16,7 +16,7 @@ To validate this connection, the Coq framework includes explicit physics models:
 \end{itemize}
 
 These models are not metaphors---they are formally verified Coq proofs showing that computational structures exhibit physical-like behavior.
-The wave model lives in \texttt{coq/physics/WaveModel.v}, and its embedding into the Thiele Machine is proven in \texttt{coq/physics\_exploration/WaveEmbedding.v}. The lattice and dissipative models follow the same pattern: define a state and step function, then prove conservation or monotonicity lemmas that can be linked back to kernel invariants.
+The wave model lives in \texttt{WaveModel.v}, and its embedding into the Thiele Machine is proven in \texttt{WaveEmbedding.v} (developed during the physics exploration phase; no longer part of the active build tree). The lattice and dissipative models follow the same pattern: define a state and step function, then prove conservation or monotonicity lemmas that can be linked back to kernel invariants.
 
 \subsection{From Theory to Algorithms}
 
@@ -138,7 +138,7 @@ These proofs demonstrate that even simple computational models exhibit physical-
 
 The dissipative model captures irreversible dynamics, connecting to $\mu$-monotonicity of the kernel. This irreversibility underpins the arrow of time itself.
 
-The Thiele Machine constructs a formal arrow of time from the kernel's accounting. The derivation chain, formalized in \texttt{coq/kernel/ArrowOfTimeSynthesis.v}, is:
+The Thiele Machine constructs a formal arrow of time from the kernel's accounting. The derivation chain, formalized in \texttt{ArrowOfTimeSynthesis.v} (no longer in the active build tree), is:
 \[
 \text{vm\_step costs} \;\Rightarrow\; \mu\text{-monotonicity} \;\Rightarrow\; \text{irreversibility} \;\Rightarrow\; \text{temporal ordering} \;\Rightarrow\; \text{arrow of time}
 \]
@@ -146,19 +146,19 @@ The key insight is that $\mu$-monotonicity defines a total preorder on states: i
 
 \paragraph{Measurement as Irreversible Revelation.}
 
-The dissipative model also offers a framework for the quantum measurement problem. In the Thiele Machine, measurement isn't treated as a mysterious ``collapse''---it's modeled as a specific physical process: the REVEAL instruction extracts information from a partition module at $\mu$-cost. The formal bridge to quantum POVMs (Positive Operator-Valued Measures) is proven in \texttt{coq/kernel/POVMBridge.v}:
+The dissipative model also offers a framework for the quantum measurement problem. In the Thiele Machine, measurement isn't treated as a mysterious ``collapse''---it's modeled as a specific physical process: the REVEAL instruction extracts information from a partition module at $\mu$-cost. The formal bridge to quantum POVMs (Positive Operator-Valued Measures) is proven in \texttt{POVMBridge.v} (no longer in the active build tree):
 \begin{itemize}
     \item \textbf{POVM completeness:} Total $\mu$-cost $\geq$ total information gained (\texttt{measurement\_cost\_bounds\_info})
     \item \textbf{Sequential composition:} Multiple REVEALs accumulate cost additively (\texttt{sequential\_measurement\_cost})
     \item \textbf{Irreversibility:} Any non-trivial measurement costs $\mu > 0$ (\texttt{reveal\_irreversible})
 \end{itemize}
-The Born rule follows from conservation-shaped hypotheses in \texttt{BornRule.v}---the physics enters through the linearity and normalization assumptions, which encode the quantum content. An independent path through tensor product consistency in \texttt{BornRuleFromSymmetry.v} provides a separate derivation, though both routes rely on hypotheses that assume the structure they recover. Post-measurement state is uniquely determined by maximum information extraction (\texttt{CollapseDetermination.v}), and measurement irreversibility follows from $\mu$-monotonicity (\texttt{ObservationIrreversibility.v}). Together, these proofs suggest that ``collapse'' may be what information extraction looks like when structural cost is tracked---not a resolution, but a concrete formal framework that makes the question amenable to mechanized reasoning.
+The Born rule follows from conservation-shaped hypotheses in \texttt{BornRule.v}---the physics enters through the linearity and normalization assumptions, which encode the quantum content. An independent path through tensor product consistency in \texttt{BornRuleFromSymmetry.v} (superseded by \texttt{BornRuleLinearity.v}) provides a separate derivation, though both routes rely on hypotheses that assume the structure they recover. Post-measurement state is uniquely determined by maximum information extraction (\texttt{CollapseDetermination.v}), and measurement irreversibility follows from $\mu$-monotonicity (\texttt{ObservationIrreversibility.v}). Together, these proofs suggest that ``collapse'' may be what information extraction looks like when structural cost is tracked---not a resolution, but a concrete formal framework that makes the question amenable to mechanized reasoning.
 
 \subsection{Discrete Spacetime Model}
 
 The discrete model uses lattice-based dynamics for discrete spacetime emergence. The partition graph, equipped with the causal cone ordering from \texttt{SpacetimeEmergence.v}, constitutes a discrete pre-geometric structure.
 
-The formal development proves that this structure satisfies the axioms of a \textbf{causal set} in the Bombelli--Lee--Meyer--Sorkin (1987) sense. The proof lives in \texttt{CausalSetAxioms.v} and establishes:
+The formal development proves that this structure satisfies the axioms of a \textbf{causal set} in the Bombelli--Lee--Meyer--Sorkin (1987) sense. The proof in \texttt{CausalSetAxioms.v} (no longer in the active build tree) establishes:
 \begin{itemize}
     \item \textbf{Reflexivity:} Every module causally precedes itself
     \item \textbf{Transitivity:} Causal precedence composes (from \texttt{ConeAlgebra.v} monoid structure)
@@ -176,13 +176,13 @@ The continuum limit---recovering a Lorentzian manifold from this discrete struct
 \textit{Author's Note (Devon): This section documents one of the most exciting---and humbling---parts of this project. I tried to derive fundamental constants from information theory. I succeeded partially (Planck's constant $h$), found structure but not values (speed of light $c$), and hit walls (gravitational constant $G$, particle masses). The results are honest: some things work, most don't. But the attempt revealed something important: the boundary between what computation \textit{can} derive and what physics \textit{must axiomatize}.}
 \end{quote}
 
-The formal development includes an exploration of whether fundamental physical constants can be derived from the $\mu$-theory. These proofs live in \path{coq/physics_exploration/} and are maintained \textit{separately} from the zero-axiom kernel. This section documents the successes, failures, and lessons learned.
+The formal development includes an exploration of whether fundamental physical constants can be related to the $\mu$-theory. These proofs were developed during the physics exploration phase and are maintained \textit{separately} from the active kernel, which has zero project-local axioms (no Admitted). This section documents the successes, failures, and lessons learned.
 
-\subsection{The Planck Constant: A Successful Derivation}
+\subsection{The Planck Constant: Structural Consistency, Not First-Principles Derivation}
 
 \textbf{Result: [STRUCTURAL] RELATIONSHIP ESTABLISHED, NOT A DERIVATION}
 
-The relationship between Planck's constant $h$ and Landauer's principle establishes a structural connection between information theory and quantum mechanics. The formal proof is in \path{coq/physics_exploration/PlanckDerivation.v} (115 lines, compiles).
+The relationship between Planck's constant $h$ and Landauer's principle establishes a structural connection between information theory and quantum mechanics. The formal proof is in \texttt{PlanckDerivation.v} (115 lines, compiles; no longer in the active build tree).
 
 \paragraph{Important Clarification:}
 
@@ -250,7 +250,7 @@ Proof. unfold tau_mu. field. (* trivial *) Qed.
 
 \textbf{Result: [PARTIAL] STRUCTURE PROVEN, VALUE REQUIRES EMERGENCE THEORY}
 
-The speed of light derivation establishes structural relationships but cannot predict the numerical value. The formal proof is in \path{coq/physics_exploration/EmergentSpacetime.v} (31 lines).
+The speed of light derivation establishes structural relationships but cannot predict the numerical value. The formal proof is in \texttt{EmergentSpacetime.v} (31 lines; no longer in the active build tree).
 
 \paragraph{The Structural Result:}
 
@@ -316,7 +316,7 @@ Theorem c_structure_proof :
 
 \textbf{Result: [SPECULATIVE] NEEDS QUANTUM GRAVITY}
 
-The gravitational constant $G$ resists derivation. The formal analysis is in \path{coq/physics_exploration/HolographicGravity.v} (23 lines).
+The gravitational constant $G$ resists derivation. The formal analysis is in \texttt{HolographicGravity.v} (23 lines; no longer in the active build tree).
 
 \paragraph{Attempted Approaches:}
 
@@ -366,11 +366,11 @@ Theorem G_requires_unknowns :
 
 \textbf{Result: [FAILED] NO PATTERNS FOUND, APPEAR ARBITRARY}
 
-The attempt to derive particle masses failed completely. The formal analysis is in \path{coq/physics_exploration/ParticleMasses.v} (45 lines).
+The attempt to derive particle masses failed completely. The formal analysis is in \texttt{ParticleMasses.v} (45 lines; no longer in the active build tree).
 
 \paragraph{Tested Patterns:}
 
-The Python experiment \path{archive/experiments_unused/experiments/derive\_masses\_couplings.py} tested for:
+A Python experiment tested for:
 \begin{enumerate}
     \item Mass ratios as powers of fundamental constants (e.g., $\alpha$, $\pi$, $e$)
     \item Relationships to number-theoretic sequences (Fibonacci, primes, factorials)
@@ -435,7 +435,7 @@ $c$ & \texttt{Definition c := d\_mu/tau\_mu} & Derived from placeholders \\
 \end{tabular}
 \end{center}
 
-\textbf{Key point:} The physics\_exploration directory is \textit{isolated} from the zero-axiom kernel. The kernel proofs (\path{coq/kernel/}) remain completely axiom-free.
+\textbf{Key point:} The physics\_exploration directory is \textit{isolated} from the kernel which has zero project-local axioms (no Admitted). The kernel proofs (\path{coq/kernel/}) contain no Admitted.
 
 \subsection{Lessons Learned: The Boundary Between Computation and Physics}
 
@@ -472,7 +472,7 @@ But it \textit{cannot} uniquely determine physics. That boundary is now formally
 
 \paragraph{Derivation Strength Classification.}
 
-The formal boundary between derivable and empirical constants is made precise in \texttt{coq/kernel/ConstantDerivationStrength.v}. The key contributions are:
+The formal boundary between derivable and empirical constants is made precise in \texttt{ConstantDerivationStrength.v} (no longer in the active build tree). The key contributions are:
 
 \begin{itemize}
     \item \textbf{Free parameters:} The substrate specification has exactly two free parameters ($\tau_\mu$, $d_\mu$) plus two external measurements ($k_B$, $T$). Everything else is derived.
@@ -767,7 +767,7 @@ The bridge makes randomness claims \textit{verifiable}: you can inspect the trac
 Decoded randomness: $[0b1011, 0b0110, 0b1110]$ (3 random 4-bit strings).
 
 This bridge defines how randomness-relevant receipts are extracted from traces.
-The formal statement above appears in \texttt{coq/bridge/Randomness\_to\_Kernel.v}. It is the connective tissue between high-level randomness claims and the kernel trace semantics, ensuring that a "randomness proof" is literally a filtered view of receipted steps.
+The formal statement above appears in \texttt{Randomness\_to\_Kernel.v} (no longer in the active build tree). It is the connective tissue between high-level randomness claims and the kernel trace semantics, ensuring that a ``randomness proof'' is literally a filtered view of receipted steps.
 
 
 Each bridge defines:
@@ -779,7 +779,7 @@ Each bridge defines:
 
 \subsection{BoxWorld Bridge}
 
-The file \path{coq/bridge/BoxWorld_to_Kernel.v} (7.2KB) embeds finite box-world predictions into kernel receipts:
+The file \texttt{BoxWorld\_to\_Kernel.v} (7.2KB; no longer in the active build tree) embeds finite box-world predictions into kernel receipts:
 
 \begin{lstlisting}
 (** Box-world trial embedding *)
@@ -804,7 +804,7 @@ Theorem trials_preserved :
 
 \subsection{FiniteQuantum Bridge}
 
-The file \path{coq/bridge/FiniteQuantum_to_Kernel.v} (8.9KB) extends the box-world bridge to quantum-admissible correlations:
+The file \texttt{FiniteQuantum\_to\_Kernel.v} (8.9KB; no longer in the active build tree) extends the box-world bridge to quantum-admissible correlations:
 
 \begin{lstlisting}
 (** Tsirelson-envelope dataset *)
@@ -829,7 +829,7 @@ Theorem simulation_correctness_trials :
 
 \textbf{What this proves:} Quantum-admissible correlations (those satisfying the Tsirelson bound) embed into the kernel with exact receipt recovery. The file also provides a concrete finite dataset achieving the policy threshold $5657/2000 \approx 2.8285 \approx 2\sqrt{2}$, making the quantum bound computationally verifiable.
 
-\textbf{Why two bridge files?} \texttt{BoxWorld\_to\_Kernel.v} handles arbitrary correlations (up to the algebraic maximum of 4). \texttt{FiniteQuantum\_to\_Kernel.v} specializes to quantum-admissible correlations (up to $2\sqrt{2}$) and provides the concrete dataset used by the runtime policy.
+\textbf{Why two bridge files?} \texttt{BoxWorld\_to\_Kernel.v} handles arbitrary correlations (up to the algebraic maximum of 4). \texttt{FiniteQuantum\_to\_Kernel.v} specializes to quantum-admissible correlations (up to $2\sqrt{2}$) and provides the concrete dataset used by the runtime policy. Both files are no longer in the active build tree.
 
 \section{Flagship DI Randomness Track}
 
@@ -1061,7 +1061,7 @@ CHSH optimization & Brute force & Structure-aware \\
 
 The key insight: Thiele Machine trades \textbf{blind search time} for \textbf{explicit structure cost} ($\mu$).
 
-The $\mu$-cost framework gives specific information-theoretic bounds for NP verification. The formal development (\texttt{NPMuCostBound.v}) establishes that valid NP witnesses carry $\mu$-cost proportional to their information content: a verification trace that accepts a witness of $b$ bits must pay $\mu \geq b$, by the No Free Insight theorem. Specific problem structures induce concrete bounds---sorting witnesses cost $\mu$ equal to the number of inversions, factoring witnesses cost $\mu = \log_2 p + \log_2 q$, and graph isomorphism witnesses cost $\mu = n \log_2 n$.
+The $\mu$-cost framework gives specific information-theoretic bounds for NP verification. The formal development in \texttt{NPMuCostBound.v} (no longer in the active build tree) establishes that valid NP witnesses carry $\mu$-cost proportional to their information content: a verification trace that accepts a witness of $b$ bits must pay $\mu \geq b$, by the No Free Insight theorem. Specific problem structures induce concrete bounds---sorting witnesses cost $\mu$ equal to the number of inversions, factoring witnesses cost $\mu = \log_2 p + \log_2 q$, and graph isomorphism witnesses cost $\mu = n \log_2 n$.
 
 A conservation law links the two cost axes: reducing the number of steps requires a corresponding increase in $\mu$-discovery cost (\texttt{difficulty\_conservation}). The partition primitives (PNEW, PSPLIT, PMERGE, PDISCOVER) shift work from blind search into structural revelation---the total difficulty is conserved, only its distribution changes.
 
@@ -1072,9 +1072,9 @@ This does \textit{not} resolve P~vs~NP. Proving P~$\neq$~NP would require showin
 
 This chapter establishes:
 \begin{enumerate}
-    \item \textbf{Physics models}: Wave, dissipative, and discrete dynamics with conservation laws, including a derived arrow of time (\texttt{coq/kernel/ArrowOfTimeSynthesis.v}) and a formal POVM-to-REVEAL measurement bridge (\texttt{coq/kernel/POVMBridge.v})
+    \item \textbf{Physics models}: Wave, dissipative, and discrete dynamics with conservation laws, including a derived arrow of time (\texttt{ArrowOfTimeSynthesis.v}) and a formal POVM-to-REVEAL measurement bridge (\texttt{POVMBridge.v})
     \item \textbf{Causal structure}: The partition graph satisfies causal set axioms (\texttt{CausalSetAxioms.v}), connecting to quantum gravity approaches
-    \item \textbf{Physical constants}: Relational identities with a precise derivable/empirical classification (\texttt{coq/kernel/ConstantDerivationStrength.v})
+    \item \textbf{Physical constants}: Relational identities with a precise derivable/empirical classification (\texttt{ConstantDerivationStrength.v})
     \item \textbf{Shor primitives}: Period finding and factorization reduction, formally verified
     \item \textbf{Complexity}: $\mu$-cost bounds for NP verification with difficulty conservation (\texttt{NPMuCostBound.v})
     \item \textbf{Bridge modules}: Domain-to-kernel bridges via receipt channels
