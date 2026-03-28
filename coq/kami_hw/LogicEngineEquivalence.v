@@ -1,23 +1,22 @@
 (** LogicEngineEquivalence.v
 
-    Proves that the RTL coprocessor-based logic engine protocol produces
-    the same observable state as the Coq kernel's inline certificate checking,
-    given a correct oracle.
+    On-chip logic engine: LASSERT/LJOIN instructions read formula and
+    certificate strings directly from VM memory via register-indexed
+    addresses. This file proves equivalence lemmas showing that PC, mu,
+    and error flags are determined by the register contents and the
+    check_model/check_lrat/String.eqb functions.
 
-    The RTL hardware stalls on LASSERT/LJOIN, delegates to an external
-    coprocessor (the Logic Engine L), and resumes when it receives a response.
-    The Coq kernel calls check_model/check_lrat inline. This file proves
-    that both paths produce identical observable projections when the oracle
-    faithfully implements the certificate checkers.
+    The external coprocessor model (lassert_oracle, lassert_certificate)
+    has been replaced by on-chip memory reads via mem_to_string. Formula
+    and certificate pointers are stored in VM registers (freg, creg);
+    the on-chip checker reads them directly at step time.
 
     KEY DESIGN DECISION:
-    Hardware cannot embed string-based certificate parsing in fixed-width
-    instruction encoding (32 bits). Instead, it delegates to a coprocessor
-    via a request/response protocol. The coprocessor is UNTRUSTED in the
-    thesis model (Section 3.2.5) — soundness comes from the kernel-side
-    certificate checker. This proof bridges the two: given an oracle that
-    agrees with check_model/check_lrat, the hardware step agrees with
-    the kernel step on all observable state.
+    The hardware reads formula and certificate strings from VM data memory
+    via register-indexed base addresses. The Coq kernel calls
+    check_model/check_lrat/String.eqb inline on mem_to_string results.
+    This file proves that PC, mu, and error flags are fully determined
+    by the register-indexed strings and the certificate checkers.
 *)
 
 From Coq Require Import Arith.PeanoNat Lia Bool Strings.String.
@@ -27,308 +26,236 @@ From KamiHW Require Import Abstraction VerilogRefinement.
 
 Import VMStep.VMStep.
 
-(** * Logic oracle definition
+(** * Expected error flag after LASSERT
 
-    A logic oracle models what the external coprocessor returns for
-    LASSERT and LJOIN requests. It decides (error, value) given the
-    instruction parameters. *)
+    Computes the vm_err value that vm_step will produce for an LASSERT
+    instruction, given the current VMState and register indices:
+    - kind = true (SAT mode): check_model; vm_err preserved iff model is valid
+    - kind = false (UNSAT mode): always error (diagnostic condition — UNSAT
+      means the kernel records that no new axiom can be added, which is
+      treated as an informational error, regardless of proof validity) *)
+Definition lassert_expected_err (s : VMState) (freg creg : nat) (kind : bool) : bool :=
+  let formula := mem_to_string (vm_mem s) (read_reg s freg) in
+  let cert    := mem_to_string (vm_mem s) (read_reg s creg) in
+  if kind then
+    if check_model formula cert then vm_err s else true
+  else
+    true.
 
-Record LogicOracleResult := {
-  oracle_error : bool;
-  oracle_value : nat
-}.
+(** * Expected error flag after LJOIN
 
-(** An oracle for LASSERT takes a formula and certificate and returns a result. *)
-Definition lassert_oracle := string -> lassert_certificate -> LogicOracleResult.
-
-(** An oracle for LJOIN takes two certificate strings and returns a result. *)
-Definition ljoin_oracle := string -> string -> LogicOracleResult.
-
-(** * Oracle correctness
-
-    A correct oracle agrees with the Coq certificate checkers:
-    - For LASSERT with a SAT certificate: oracle says no-error iff check_model returns true
-    - For LASSERT with an UNSAT certificate: oracle says no-error iff check_lrat returns true
-    - For LJOIN: oracle says no-error iff the two certificate strings are equal *)
-
-Definition lassert_oracle_correct (lo : lassert_oracle) : Prop :=
-  forall formula cert,
-    match cert with
-    | lassert_cert_sat model =>
-        oracle_error (lo formula cert) = negb (check_model formula model)
-    | lassert_cert_unsat proof =>
-        oracle_error (lo formula cert) = negb (check_lrat formula proof)
-    end.
-
-Definition ljoin_oracle_correct (jo : ljoin_oracle) : Prop :=
-  forall cert1 cert2,
-    oracle_error (jo cert1 cert2) = negb (String.eqb cert1 cert2).
-
-(** * LASSERT vm_err outcome
-
-    The Coq kernel step relation has a subtle but important property:
-    - SAT + valid model (check_model = true):  vm_err preserved (no error)
-    - SAT + invalid model (check_model = false): vm_err latched true
-    - UNSAT + valid proof (check_lrat = true):  vm_err latched true
-    - UNSAT + invalid proof (check_lrat = false): vm_err latched true
-
-    So ONLY the SAT+valid case preserves the error flag.
-    All UNSAT paths latch error regardless of proof validity
-    (UNSAT means "no axiom can be added" — the kernel treats this as a
-    diagnostic condition). *)
-
-(** Compute the expected vm_err after an LASSERT instruction. *)
-Definition lassert_expected_err (s : VMState) (cert : lassert_certificate)
-    (formula : string) : bool :=
-  match cert with
-  | lassert_cert_sat model =>
-      if check_model formula model then vm_err s else true
-  | lassert_cert_unsat _ => true
-  end.
-
-(** Compute the expected vm_err after an LJOIN instruction. *)
-Definition ljoin_expected_err (s : VMState) (cert1 cert2 : string) : bool :=
+    Computes the vm_err value that vm_step will produce for an LJOIN
+    instruction, given the current VMState and register indices:
+    - vm_err preserved iff both cert strings are equal *)
+Definition ljoin_expected_err (s : VMState) (c1reg c2reg : nat) : bool :=
+  let cert1 := mem_to_string (vm_mem s) (read_reg s c1reg) in
+  let cert2 := mem_to_string (vm_mem s) (read_reg s c2reg) in
   if String.eqb cert1 cert2 then vm_err s else true.
 
 (** * PC/mu commutation lemmas
 
     Both hardware (kami_step) and kernel (vm_step) always advance PC by 1
-    and charge mu by cost for LASSERT/LJOIN, regardless of certificate
-    outcome. *)
+    and charge mu for LASSERT/LJOIN, regardless of certificate outcome.
+    Hardware charges S cost; kernel charges flen * 8 + S cost for LASSERT
+    (the extra flen * 8 accounts for reading the formula string from memory). *)
 
 (** Definitional lemma *)
 Theorem lassert_kami_step_pc_mu :
-  forall (hs : KamiSnapshot) (module : ModuleID) (formula : string)
-         (cert : lassert_certificate) (cost : nat),
-    snap_pc (kami_step hs (instr_lassert module formula cert cost)) = S (snap_pc hs) /\
-    snap_mu (kami_step hs (instr_lassert module formula cert cost)) = snap_mu hs + cost.
+  forall (hs : KamiSnapshot) (freg creg : nat) (kind : bool) (flen cost : nat),
+    snap_pc (kami_step hs (instr_lassert freg creg kind flen cost)) = S (snap_pc hs) /\
+    snap_mu (kami_step hs (instr_lassert freg creg kind flen cost)) = snap_mu hs + S cost.
 Proof.
   intros. unfold kami_step, kami_advance_default. simpl. auto.
 Qed.
 
 (** Definitional lemma *)
 Theorem ljoin_kami_step_pc_mu :
-  forall (hs : KamiSnapshot) (cert1 cert2 : string) (cost : nat),
-    snap_pc (kami_step hs (instr_ljoin cert1 cert2 cost)) = S (snap_pc hs) /\
-    snap_mu (kami_step hs (instr_ljoin cert1 cert2 cost)) = snap_mu hs + cost.
+  forall (hs : KamiSnapshot) (c1reg c2reg : nat) (cost : nat),
+    snap_pc (kami_step hs (instr_ljoin c1reg c2reg cost)) = S (snap_pc hs) /\
+    snap_mu (kami_step hs (instr_ljoin c1reg c2reg cost)) = snap_mu hs + S cost.
 Proof.
   intros. unfold kami_step, kami_advance_default. simpl. auto.
 Qed.
 
 (** Definitional lemma *)
 Theorem lassert_vm_step_pc_mu :
-  forall (vs vs' : VMState) (module : ModuleID) (formula : string)
-         (cert : lassert_certificate) (cost : nat),
-    vm_step vs (instr_lassert module formula cert cost) vs' ->
+  forall (vs vs' : VMState) (freg creg : nat) (kind : bool) (flen cost : nat),
+    vm_step vs (instr_lassert freg creg kind flen cost) vs' ->
     vm_pc vs' = S (vm_pc vs) /\
-    vm_mu vs' = vm_mu vs + cost.
+    vm_mu vs' = vm_mu vs + (flen * 8 + S cost).
 Proof.
-  intros vs vs' module formula cert cost Hstep.
+  intros vs vs' freg creg kind flen cost Hstep.
   inversion Hstep; subst; unfold advance_state, apply_cost; simpl; auto.
 Qed.
 
 (** Definitional lemma *)
 Theorem ljoin_vm_step_pc_mu :
-  forall (vs vs' : VMState) (cert1 cert2 : string) (cost : nat),
-    vm_step vs (instr_ljoin cert1 cert2 cost) vs' ->
+  forall (vs vs' : VMState) (c1reg c2reg : nat) (cost : nat),
+    vm_step vs (instr_ljoin c1reg c2reg cost) vs' ->
     vm_pc vs' = S (vm_pc vs) /\
-    vm_mu vs' = vm_mu vs + cost.
+    vm_mu vs' = vm_mu vs + S cost.
 Proof.
-  intros vs vs' cert1 cert2 cost Hstep.
+  intros vs vs' c1reg c2reg cost Hstep.
   inversion Hstep; subst; unfold advance_state, apply_cost; simpl; auto.
 Qed.
 
-(** * PC + mu commutation diamond
+(** * PC commutation diamond + mu gap theorem
 
-    Hardware and kernel agree on PC and mu after LASSERT/LJOIN. *)
+    Hardware and kernel agree on PC after LASSERT/LJOIN.
+    For mu, hardware charges S cost; software charges flen * 8 + S cost.
+    The gap is flen * 8 bits (the physical reading cost of the formula
+    that hardware pays lazily vs the kernel charging upfront). *)
 
 (** Definitional lemma *)
-Theorem lassert_pc_mu_commutation :
-  forall (hs : KamiSnapshot) (vs vs' : VMState) (module : ModuleID)
-         (formula : string) (cert : lassert_certificate) (cost : nat),
+Theorem lassert_pc_commutation :
+  forall (hs : KamiSnapshot) (vs vs' : VMState) (freg creg : nat)
+         (kind : bool) (flen cost : nat),
     abs_phase1 hs = vs ->
-    vm_step vs (instr_lassert module formula cert cost) vs' ->
-    snap_pc (kami_step hs (instr_lassert module formula cert cost)) = vm_pc vs' /\
-    snap_mu (kami_step hs (instr_lassert module formula cert cost)) = vm_mu vs'.
+    vm_step vs (instr_lassert freg creg kind flen cost) vs' ->
+    snap_pc (kami_step hs (instr_lassert freg creg kind flen cost)) = vm_pc vs'.
 Proof.
-  intros hs vs vs' module formula cert cost Habs Hstep.
-  destruct (lassert_kami_step_pc_mu hs module formula cert cost) as [Hpc_hw Hmu_hw].
-  destruct (lassert_vm_step_pc_mu vs vs' module formula cert cost Hstep) as [Hpc_vm Hmu_vm].
-  subst vs. rewrite Hpc_hw, Hmu_hw, Hpc_vm, Hmu_vm. auto.
+  intros hs vs vs' freg creg kind flen cost Habs Hstep.
+  destruct (lassert_kami_step_pc_mu hs freg creg kind flen cost) as [Hpc_hw _].
+  destruct (lassert_vm_step_pc_mu vs vs' freg creg kind flen cost Hstep) as [Hpc_vm _].
+  subst vs. rewrite Hpc_hw, Hpc_vm. auto.
+Qed.
+
+(** The mu gap: kernel charges flen * 8 more than hardware for LASSERT. *)
+Theorem lassert_mu_gap :
+  forall (hs : KamiSnapshot) (vs vs' : VMState) (freg creg : nat)
+         (kind : bool) (flen cost : nat),
+    abs_phase1 hs = vs ->
+    vm_step vs (instr_lassert freg creg kind flen cost) vs' ->
+    vm_mu vs' = snap_mu (kami_step hs (instr_lassert freg creg kind flen cost))
+                + flen * 8.
+Proof.
+  intros hs vs vs' freg creg kind flen cost Habs Hstep.
+  destruct (lassert_kami_step_pc_mu hs freg creg kind flen cost) as [_ Hmu_hw].
+  destruct (lassert_vm_step_pc_mu vs vs' freg creg kind flen cost Hstep) as [_ Hmu_vm].
+  subst vs. rewrite Hmu_hw, Hmu_vm.
+  unfold abs_phase1. simpl. lia.
 Qed.
 
 (** Definitional lemma *)
 Theorem ljoin_pc_mu_commutation :
-  forall (hs : KamiSnapshot) (vs vs' : VMState) (cert1 cert2 : string)
-         (cost : nat),
+  forall (hs : KamiSnapshot) (vs vs' : VMState) (c1reg c2reg : nat) (cost : nat),
     abs_phase1 hs = vs ->
-    vm_step vs (instr_ljoin cert1 cert2 cost) vs' ->
-    snap_pc (kami_step hs (instr_ljoin cert1 cert2 cost)) = vm_pc vs' /\
-    snap_mu (kami_step hs (instr_ljoin cert1 cert2 cost)) = vm_mu vs'.
+    vm_step vs (instr_ljoin c1reg c2reg cost) vs' ->
+    snap_pc (kami_step hs (instr_ljoin c1reg c2reg cost)) = vm_pc vs' /\
+    snap_mu (kami_step hs (instr_ljoin c1reg c2reg cost)) = vm_mu vs'.
 Proof.
-  intros hs vs vs' cert1 cert2 cost Habs Hstep.
-  destruct (ljoin_kami_step_pc_mu hs cert1 cert2 cost) as [Hpc_hw Hmu_hw].
-  destruct (ljoin_vm_step_pc_mu vs vs' cert1 cert2 cost Hstep) as [Hpc_vm Hmu_vm].
-  subst vs. rewrite Hpc_hw, Hmu_hw, Hpc_vm, Hmu_vm. auto.
+  intros hs vs vs' c1reg c2reg cost Habs Hstep.
+  destruct (ljoin_kami_step_pc_mu hs c1reg c2reg cost) as [Hpc_hw Hmu_hw].
+  destruct (ljoin_vm_step_pc_mu vs vs' c1reg c2reg cost Hstep) as [Hpc_vm Hmu_vm].
+  subst vs. rewrite Hpc_hw, Hmu_hw, Hpc_vm, Hmu_vm.
+  unfold abs_phase1. simpl. auto.
 Qed.
 
 (** * Error flag determination
 
-    Given a correct oracle, we can predict the vm_err outcome of the
-    kernel step and verify it matches the expected outcome. *)
+    Given the VMState and register indices, we can predict the vm_err
+    outcome of the kernel step. *)
 
 (** Definitional lemma *)
 Theorem lassert_vm_step_err :
-  forall (vs vs' : VMState) (module : ModuleID) (formula : string)
-         (cert : lassert_certificate) (cost : nat),
-    vm_step vs (instr_lassert module formula cert cost) vs' ->
-    vm_err vs' = lassert_expected_err vs cert formula.
+  forall (vs vs' : VMState) (freg creg : nat) (kind : bool) (flen cost : nat),
+    vm_step vs (instr_lassert freg creg kind flen cost) vs' ->
+    vm_err vs' = lassert_expected_err vs freg creg kind.
 Proof.
-  intros vs vs' module formula cert cost Hstep.
-  inversion Hstep; subst; unfold advance_state, lassert_expected_err, latch_err;
-    simpl;
+  intros vs vs' freg creg kind flen cost Hstep.
+  unfold lassert_expected_err.
+  inversion Hstep; subst;
+    unfold advance_state, latch_err; simpl;
     match goal with
-    | [ H : check_model _ _ = _ |- _ ] => rewrite H; reflexivity
-    | [ H : check_lrat _ _ = _ |- _ ] => reflexivity
+    | [ H : check_model _ _ = true  |- _ ] => rewrite H; reflexivity
+    | [ H : check_model _ _ = false |- _ ] => rewrite H; reflexivity
     | _ => reflexivity
     end.
 Qed.
 
 (** Definitional lemma *)
 Theorem ljoin_vm_step_err :
-  forall (vs vs' : VMState) (cert1 cert2 : string) (cost : nat),
-    vm_step vs (instr_ljoin cert1 cert2 cost) vs' ->
-    vm_err vs' = ljoin_expected_err vs cert1 cert2.
+  forall (vs vs' : VMState) (c1reg c2reg : nat) (cost : nat),
+    vm_step vs (instr_ljoin c1reg c2reg cost) vs' ->
+    vm_err vs' = ljoin_expected_err vs c1reg c2reg.
 Proof.
-  intros vs vs' cert1 cert2 cost Hstep.
-  inversion Hstep; subst; unfold advance_state, ljoin_expected_err, latch_err;
-    simpl;
+  intros vs vs' c1reg c2reg cost Hstep.
+  unfold ljoin_expected_err.
+  inversion Hstep; subst;
+    unfold advance_state, latch_err; simpl;
     match goal with
     | [ H : String.eqb _ _ = _ |- _ ] => rewrite H; reflexivity
-    | _ => reflexivity
     end.
 Qed.
 
-(** * Main theorem: coprocessor protocol equivalence
+(** * Main theorem: on-chip logic engine equivalence
 
-    Given correct oracles, for any hardware snapshot and logic instruction,
-    the hardware step and the kernel step agree on PC and mu (unconditionally),
-    and the error flag is fully determined by the certificate content.
+    For any hardware snapshot and logic instruction, there exists a kernel
+    post-state such that the hardware step and the kernel step agree on PC
+    and the error flag is fully determined by the register-indexed strings.
 
-    This bridges the isomorphism gap: the hardware coprocessor protocol
-    (stall → external response → resume) is equivalent to the kernel's
-    inline certificate checking, provided the oracle faithfully implements
-    check_model/check_lrat/String.eqb. *)
+    For LASSERT: hardware charges S cost, kernel charges flen*8 + S cost.
+    The mu gap (flen * 8) accounts for on-chip formula reading cost.
 
-Theorem logic_coprocessor_equivalent_lassert :
-  forall (hs : KamiSnapshot) (module : ModuleID) (formula : string)
-         (cert : lassert_certificate) (cost : nat),
-    (* There exists a kernel post-state such that: *)
+    For LJOIN: hardware and kernel agree on both PC and mu (no gap),
+    since both steps read from the same mem_to_string operands. *)
+
+Theorem logic_engine_equivalent_lassert :
+  forall (hs : KamiSnapshot) (freg creg : nat) (kind : bool) (flen cost : nat),
     exists vs',
-      (* 1. The kernel step relation holds *)
-      vm_step (abs_phase1 hs) (instr_lassert module formula cert cost) vs' /\
-      (* 2. PC commutes *)
-      snap_pc (kami_step hs (instr_lassert module formula cert cost)) = vm_pc vs' /\
-      (* 3. mu commutes *)
-      snap_mu (kami_step hs (instr_lassert module formula cert cost)) = vm_mu vs' /\
-      (* 4. Error flag is deterministic given the certificate *)
-      vm_err vs' = lassert_expected_err (abs_phase1 hs) cert formula.
+      vm_step (abs_phase1 hs) (instr_lassert freg creg kind flen cost) vs' /\
+      snap_pc (kami_step hs (instr_lassert freg creg kind flen cost)) = vm_pc vs' /\
+      vm_mu vs' = snap_mu (kami_step hs (instr_lassert freg creg kind flen cost))
+                  + flen * 8 /\
+      vm_err vs' = lassert_expected_err (abs_phase1 hs) freg creg kind.
 Proof.
-  intros hs module formula cert cost.
-  (* Use the existing simulation witness from VerilogRefinement *)
-  destruct (verilog_simulates_vm_step_lassert hs module formula cert cost)
+  intros hs freg creg kind flen cost.
+  destruct (verilog_simulates_vm_step_lassert hs freg creg kind flen cost)
     as [vs' Hstep].
   exists vs'. split; [exact Hstep |].
-  destruct (lassert_pc_mu_commutation hs (abs_phase1 hs) vs' module formula cert cost eq_refl Hstep)
-    as [Hpc Hmu].
-  split; [exact Hpc |].
-  split; [exact Hmu |].
-  apply (lassert_vm_step_err (abs_phase1 hs) vs' module formula cert cost Hstep).
+  split; [exact (lassert_pc_commutation hs (abs_phase1 hs) vs' freg creg kind flen cost
+                   eq_refl Hstep) |].
+  split; [exact (lassert_mu_gap hs (abs_phase1 hs) vs' freg creg kind flen cost
+                   eq_refl Hstep) |].
+  apply (lassert_vm_step_err (abs_phase1 hs) vs' freg creg kind flen cost Hstep).
 Qed.
 
-Theorem logic_coprocessor_equivalent_ljoin :
-  forall (hs : KamiSnapshot) (cert1 cert2 : string) (cost : nat),
+Theorem logic_engine_equivalent_ljoin :
+  forall (hs : KamiSnapshot) (c1reg c2reg : nat) (cost : nat),
     exists vs',
-      vm_step (abs_phase1 hs) (instr_ljoin cert1 cert2 cost) vs' /\
-      snap_pc (kami_step hs (instr_ljoin cert1 cert2 cost)) = vm_pc vs' /\
-      snap_mu (kami_step hs (instr_ljoin cert1 cert2 cost)) = vm_mu vs' /\
-      vm_err vs' = ljoin_expected_err (abs_phase1 hs) cert1 cert2.
+      vm_step (abs_phase1 hs) (instr_ljoin c1reg c2reg cost) vs' /\
+      snap_pc (kami_step hs (instr_ljoin c1reg c2reg cost)) = vm_pc vs' /\
+      snap_mu (kami_step hs (instr_ljoin c1reg c2reg cost)) = vm_mu vs' /\
+      vm_err vs' = ljoin_expected_err (abs_phase1 hs) c1reg c2reg.
 Proof.
-  intros hs cert1 cert2 cost.
-  destruct (verilog_simulates_vm_step_ljoin hs cert1 cert2 cost)
-    as [vs' Hstep].
+  intros hs c1reg c2reg cost.
+  destruct (verilog_simulates_vm_step_ljoin hs c1reg c2reg cost) as [vs' Hstep].
   exists vs'. split; [exact Hstep |].
-  destruct (ljoin_pc_mu_commutation hs (abs_phase1 hs) vs' cert1 cert2 cost eq_refl Hstep)
-    as [Hpc Hmu].
+  destruct (ljoin_pc_mu_commutation hs (abs_phase1 hs) vs' c1reg c2reg cost
+              eq_refl Hstep) as [Hpc Hmu].
   split; [exact Hpc |].
   split; [exact Hmu |].
-  apply (ljoin_vm_step_err (abs_phase1 hs) vs' cert1 cert2 cost Hstep).
+  apply (ljoin_vm_step_err (abs_phase1 hs) vs' c1reg c2reg cost Hstep).
 Qed.
 
-(** * Oracle agreement: correct oracle determines the error flag
+(** * Corollary: mu-monotonicity is preserved through the on-chip logic engine
 
-    When an oracle is correct, the error flag it would produce agrees with
-    the kernel's certificate checking outcome. This connects the hardware's
-    external coprocessor to the kernel's internal checker. *)
-
-(** Definitional lemma *)
-Theorem oracle_agrees_with_lassert_err :
-  forall (lo : lassert_oracle) (s : VMState) (formula : string)
-         (cert : lassert_certificate),
-    lassert_oracle_correct lo ->
-    lassert_expected_err s cert formula =
-      match cert with
-      | lassert_cert_sat model =>
-          if negb (oracle_error (lo formula cert)) then vm_err s else true
-      | lassert_cert_unsat _ => true
-      end.
-Proof.
-  intros lo s formula cert Hcorrect.
-  unfold lassert_oracle_correct in Hcorrect.
-  specialize (Hcorrect formula cert).
-  unfold lassert_expected_err.
-  destruct cert as [proof | model].
-  - (* UNSAT: always true regardless of oracle *)
-    reflexivity.
-  - (* SAT: oracle_error = negb(check_model) *)
-    rewrite Hcorrect.
-    destruct (check_model formula model) eqn:Hchk; simpl; reflexivity.
-Qed.
-
-(** Definitional lemma *)
-Theorem oracle_agrees_with_ljoin_err :
-  forall (jo : ljoin_oracle) (s : VMState) (cert1 cert2 : string),
-    ljoin_oracle_correct jo ->
-    ljoin_expected_err s cert1 cert2 =
-      if negb (oracle_error (jo cert1 cert2)) then vm_err s else true.
-Proof.
-  intros jo s cert1 cert2 Hcorrect.
-  unfold ljoin_oracle_correct in Hcorrect.
-  specialize (Hcorrect cert1 cert2).
-  unfold ljoin_expected_err.
-  rewrite Hcorrect.
-  destruct (String.eqb cert1 cert2) eqn:Heq; simpl; reflexivity.
-Qed.
-
-(** * Corollary: mu-monotonicity is preserved through the logic engine
-
-    Regardless of oracle outcome, mu only increases. *)
+    Regardless of certificate outcome, mu only increases. *)
 
 (** Definitional lemma *)
 Corollary logic_engine_mu_monotone_lassert :
-  forall (hs : KamiSnapshot) (module : ModuleID) (formula : string)
-         (cert : lassert_certificate) (cost : nat),
-    snap_mu (kami_step hs (instr_lassert module formula cert cost)) >= snap_mu hs.
+  forall (hs : KamiSnapshot) (freg creg : nat) (kind : bool) (flen cost : nat),
+    snap_mu (kami_step hs (instr_lassert freg creg kind flen cost)) >= snap_mu hs.
 Proof.
-  intros. destruct (lassert_kami_step_pc_mu hs module formula cert cost) as [_ Hmu].
+  intros. destruct (lassert_kami_step_pc_mu hs freg creg kind flen cost) as [_ Hmu].
   lia.
 Qed.
 
 (** Definitional lemma *)
 Corollary logic_engine_mu_monotone_ljoin :
-  forall (hs : KamiSnapshot) (cert1 cert2 : string) (cost : nat),
-    snap_mu (kami_step hs (instr_ljoin cert1 cert2 cost)) >= snap_mu hs.
+  forall (hs : KamiSnapshot) (c1reg c2reg : nat) (cost : nat),
+    snap_mu (kami_step hs (instr_ljoin c1reg c2reg cost)) >= snap_mu hs.
 Proof.
-  intros. destruct (ljoin_kami_step_pc_mu hs cert1 cert2 cost) as [_ Hmu].
+  intros. destruct (ljoin_kami_step_pc_mu hs c1reg c2reg cost) as [_ Hmu].
   lia.
 Qed.

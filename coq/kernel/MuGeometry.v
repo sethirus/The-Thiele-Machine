@@ -9,29 +9,29 @@
     geometric distance equals computational cost. Geometry IS computation.
 
     THE CORE CLAIM:
-    mu_distance (line 21) defines a metric on VMState. Proven:
-    - Non-negativity: mu_distance_nonneg (line 25)
-    - Identity: mu_distance_refl (line 30): d(s,s) = 0
-    - Symmetry: mu_distance_sym (line 38): d(s1,s2) = d(s2,s1)
-    - Triangle inequality: mu_distance_triangle (line 47): d(a,c) ≤ d(a,b) + d(b,c)
+    mu_distance defines a metric on VMState. Proven:
+    - Non-negativity: mu_distance_nonneg
+    - Identity: mu_distance_refl: d(s,s) = 0
+    - Symmetry: mu_distance_sym: d(s1,s2) = d(s2,s1)
+    - Triangle inequality: mu_distance_triangle: d(a,c) ≤ d(a,b) + d(b,c)
 
     WHAT THIS PROVES:
-    The μ-accumulator induces a metric space structure. VM execution is geodesic
-    motion in this space - distance traveled = μ-cost of trace. This connects
-    computation to geometry (Wheeler's "it from bit" made precise).
+    The μ-accumulator induces a pseudometric on VM states (it is a metric
+    modulo states with equal μ-total). VM execution traces induce paths in
+    this metric space, with path length equal to μ-cost of the trace.
 
-    PHYSICAL INTERPRETATION:
-    This is computational spacetime. States are points. Instructions are steps.
-    μ-distance is the "computational interval" between events. The metric is discrete
-    (nat-valued) but satisfies all metric axioms. Physical spacetime may be an
-    emergent approximation of this discrete computational geometry.
+    NOTE ON SCOPE:
+    This is a metric on VM states, not on physical spacetime. States are points,
+    instructions are steps, and μ-distance measures the absolute difference in
+    μ-accumulators. The metric is discrete (nat-valued) and satisfies all metric
+    axioms. Any analogy to physical spacetime geometry is speculative.
 
     FALSIFICATION:
     Show that mu_distance violates the triangle inequality for some triple of states.
-    This would break mu_distance_triangle (line 47) and invalidate the metric structure.
+    This would break mu_distance_triangle and invalidate the metric structure.
 
     Or prove that geometric distance ≠ computational cost along some execution path.
-    This would contradict mu_distance_run_vm (line 63).
+    This would contradict mu_distance_run_vm.
 
     Or find VM states where d(s1,s2)=0 but s1 ≠ s2 (different states, same μ).
     The metric doesn't claim injectivity - this is expected. μ projects states to
@@ -46,9 +46,7 @@ From Kernel Require Import MuCostModel.
 
 From Coq Require Import ZArith Lia.
 
-Require Import VMState.
-Require Import SimulationProof.
-Require Import MuInformation.
+From Kernel Require Import VMState SimulationProof MuInformation.
 
 (** =========================================================================
     μ-GEOMETRY MODULE
@@ -131,9 +129,8 @@ Qed.
     Along a VM execution from s to s', the geometric distance d(s,s') equals
     the μ-information injected by the trace. This connects geometry to dynamics.
 
-    KEY INSIGHT: VM execution is "geodesic motion" in μ-space. The distance
-    traveled equals the computational cost. Optimal paths (minimal μ-cost) are
-    geometric geodesics. *)
+    KEY INSIGHT: Along a VM execution, the path length in μ-space equals the
+    computational cost. Minimal μ-cost traces correspond to shortest paths. *)
 Lemma mu_distance_run_vm :
   forall fuel trace s,
     mu_distance s (run_vm fuel trace s) = Z.of_nat (mu_info_run_vm fuel trace s).

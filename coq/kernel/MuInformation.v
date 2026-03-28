@@ -10,10 +10,10 @@
 
     THE CORE CLAIM:
     μ-information injected by execution = sum of instruction costs. Proven:
-    - mu_info_z_vm_apply (line 36): Single step injects instruction_cost
-    - run_vm_mu_total_decomposes (line 50): Final μ = initial μ + ledger_sum
-    - mu_info_z_run_vm_is_ledger_sum (line 60): Δμ = ledger_sum exactly
-    - run_vm_mu_total_monotone (line 80): μ never decreases
+    - mu_info_z_vm_apply: Single step injects instruction_cost
+    - run_vm_mu_total_decomposes: Final μ = initial μ + ledger_sum
+    - mu_info_z_run_vm_is_ledger_sum: Δμ = ledger_sum exactly
+    - run_vm_mu_total_monotone: μ never decreases
 
     WHAT THIS PROVES:
     The μ-accumulator is a genuine information measure (monotone, additive,
@@ -39,10 +39,8 @@
 From Coq Require Import ZArith Lia List.
 Import ListNotations.
 
-Require Import VMState.
-Require Import VMStep.
-Require Import SimulationProof.
-Require Import MuLedgerConservation.
+From Kernel Require Import VMState VMStep.
+From Kernel Require Import SimulationProof MuLedgerConservation.
 
 (** =========================================================================
     BASIC μ-EXTRACTION

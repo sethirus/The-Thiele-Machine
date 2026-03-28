@@ -10,7 +10,7 @@
    not physics. The physical interpretation (k_B T ln 2) comes from
    mapping information entropy to thermodynamic entropy.
    
-   What we PROVE (constructively, no axioms):
+   Proven results (constructively, no axioms):
    1. Erasing n bits reduces distinguishable states by factor 2^n
    2. This is an IRREVERSIBLE operation (many-to-one mapping)
    3. The irreversibility measure is exactly n bits
@@ -22,8 +22,6 @@
    mechanics.
    
    Author: Thiele Machine Project
-   Date: December 2024
-   Status: AXIOM-FREE, ADMIT-FREE
 *)
 
 (* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
@@ -407,7 +405,7 @@ Proof.
 Qed.
 
 (* ========================================================================
-   PART 13: SUMMARY - WHAT WE PROVED
+   PART 13: SUMMARY
    ======================================================================== *)
 
 (*
@@ -428,7 +426,7 @@ Qed.
    - That computational bits map to phase space regions
    
    These physical facts are DEFINITIONS/OBSERVATIONS, not theorems.
-   The mathematics of Landauer's principle (what we proved) is complete.
+   The mathematics of Landauer's principle is self-contained in the above.
 *)
 
 (* ========================================================================

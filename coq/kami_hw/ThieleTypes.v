@@ -8,9 +8,9 @@ Set Asymmetric Patterns.
 
 (** Register and memory dimensions — must match VMState.v *)
 Definition RegCount := 32.
-Definition MemSize := 4096.
-Definition RegIdxSz := 5.   (* log2(32) *)
-Definition MemAddrSz := 12.  (* log2(4096) *)
+Definition MemSize := 65536.
+Definition RegIdxSz := 5.    (* log2(32) *)
+Definition MemAddrSz := 16.   (* log2(65536) *)
 Definition WordSz := 32.
 Definition OpcodeSz := 8.
 Definition CostSz := 8.
@@ -29,27 +29,48 @@ Definition ACTIVE_MODULE_INIT : word PTableIdxSz :=
 Definition PT_NEXT_ID_INIT : word PTableNextIdSz :=
   WO~0~0~0~0~0~0~1. (* value 1 *)
 
-(** Error code constants — must match handwritten RTL *)
+(** Error code constants — must match handwritten RTL.
+    Using binary literals to avoid pathological Peano extraction.
+    All values are 32-bit. *)
+(* ERR_CHSH_VAL = 0x0BADC45C - simplified for fast extraction *)
 Definition ERR_CHSH_VAL    : word WordSz :=
-  WO~0~0~0~0~1~0~1~1~1~0~1~0~1~1~0~1~1~1~0~0~0~1~0~0~0~1~0~1~1~1~0~0. (* 0x0BADC45C *)
+  WO~0~0~0~0~1~0~1~1~1~0~1~0~1~1~0~1~1~1~0~0~0~1~0~0~0~1~0~1~1~1~0~0.
+(* ERR_BIANCHI_VAL = 0x0B1A4C81 - simplified for fast extraction *)
 Definition ERR_BIANCHI_VAL : word WordSz :=
-  WO~0~0~0~0~1~0~1~1~0~0~0~1~1~0~1~0~0~1~0~0~1~1~0~0~1~0~0~0~0~0~0~1. (* 0x0B1A4C81 *)
+  WO~0~0~0~0~1~0~1~1~0~0~0~1~1~0~1~0~0~1~0~0~1~1~0~0~1~0~0~0~0~0~0~1.
+(* ERR_LOGIC_VAL = 0xC43471A1 - needs 32-bit binary literal *)
 Definition ERR_LOGIC_VAL   : word WordSz :=
-  WO~1~1~0~0~0~1~0~0~0~0~1~1~0~1~0~0~0~1~1~1~0~0~0~1~1~0~1~0~0~0~0~1. (* 0xC43471A1 *)
+  WO~1~1~0~0~0~1~0~0~0~0~1~1~0~1~0~0~0~1~1~1~0~0~0~1~1~0~1~0~0~0~0~1.
+(* ERR_LOCALITY_VAL = 0x0BADC0DE *)
 Definition ERR_LOCALITY_VAL : word WordSz :=
-  WO~0~0~0~0~1~0~1~1~1~0~1~0~1~1~0~1~1~1~0~0~0~0~0~0~1~1~0~1~1~1~1~0. (* 0x0BADC0DE *)
+  WO~0~0~0~0~1~0~1~1~1~0~1~0~1~1~0~1~1~1~0~0~0~0~0~0~1~1~0~1~1~1~1~0.
+(* ERR_PARTITION_VAL = 0xBADF001D *)
 Definition ERR_PARTITION_VAL : word WordSz :=
-  WO~1~0~1~1~1~0~1~0~1~1~0~1~1~1~1~1~0~0~0~0~0~0~0~0~0~0~0~1~1~1~0~1. (* 0xBADF001D *)
+  WO~1~0~1~1~1~0~1~0~1~1~0~1~1~1~1~1~0~0~0~0~0~0~0~0~0~0~0~1~1~1~0~1.
+(* ERR_COUPLING_INVALID = 0xBADC0000 — morphism coupling failed well-formedness check *)
+Definition ERR_COUPLING_INVALID : word WordSz :=
+  WO~1~0~1~1~1~0~1~0~1~1~0~1~1~1~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0.
+(* ERR_COMPOSE_TYPE = 0xBADC0001 — compose type mismatch (target ≠ source) *)
+Definition ERR_COMPOSE_TYPE : word WordSz :=
+  WO~1~0~1~1~1~0~1~0~1~1~0~1~1~1~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~1.
+(* ERR_TENSOR_INVALID = 0xBADC0002 — tensor morphism precondition failed *)
+Definition ERR_TENSOR_INVALID : word WordSz :=
+  WO~1~0~1~1~1~0~1~0~1~1~0~1~1~1~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~1~0.
+(* ERR_MORPH_NOT_FOUND = 0xBADC0003 — morphism ID not in graph *)
+Definition ERR_MORPH_NOT_FOUND : word WordSz :=
+  WO~1~0~1~1~1~0~1~0~1~1~0~1~1~1~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~1~1.
 
-(** Logic-gated physics key required for REVEAL/CHSH_TRIAL unlock. *)
+(** Logic-gated physics key required for REVEAL/CHSH_TRIAL unlock.
+    LOGIC_GATE_KEY = 0xCAFEEACE = 3405691598 - binary literal for fast extraction *)
 Definition LOGIC_GATE_KEY : word WordSz :=
-  WO~1~1~0~0~1~0~1~0~1~1~1~1~1~1~1~0~1~1~1~0~1~0~1~0~1~1~0~0~1~1~1~0. (* 0xCAFEEACE *)
+  WO~1~1~0~0~1~0~1~0~1~1~1~1~1~1~1~0~1~1~1~0~1~0~1~0~1~1~0~0~1~1~1~0.
 
-(** Trap vector defaults (PC target for fault recovery code). *)
+(** Trap vector defaults (PC target for fault recovery code).
+    TRAP_VEC_INIT = 0x00000F00 = 3840 - binary literal for fast extraction *)
 Definition TRAP_VEC_INIT : word WordSz :=
-  WO~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~1~1~1~1~0~0~0~0~0~0~0~0. (* 0x00000F00 *)
+  WO~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~1~1~1~1~0~0~0~0~0~0~0~0.
 
-(** mstatus mode bits. *)
+(** mstatus mode bits - simple values, binary literals *)
 Definition MSTATUS_TURING : word WordSz :=
   WO~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0.
 Definition MSTATUS_THIELE : word WordSz :=
@@ -62,9 +83,9 @@ Definition MSTATUS_THIELE : word WordSz :=
 Definition ORACLE_HALTS_HW_COST : nat := 1000000.
 
 (** CHSH x=1 surcharge constant (μ-bits).
-    Kept as a named constant so Coq, generated RTL, and Python VM stay aligned. *)
+    CHSH_X1_SURCHARGE = 0x100 = 256 - binary literal for fast extraction *)
 Definition CHSH_X1_SURCHARGE : word WordSz :=
-  WO~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~1~0~0~0~0~0~0~0~0. (* 0x00000100 = 256 *)
+  WO~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~1~0~0~0~0~0~0~0~0.
 
 (** Opcode encoding — canonical source; RTL is generated via the Kami extraction chain *)
 Definition OP_PNEW         : word OpcodeSz := WO~0~0~0~0~0~0~0~0.
@@ -104,6 +125,17 @@ Definition OP_SHL           : word OpcodeSz := WO~0~0~1~0~0~0~0~1. (* 0x21 *)
 Definition OP_SHR           : word OpcodeSz := WO~0~0~1~0~0~0~1~0. (* 0x22 *)
 Definition OP_MUL           : word OpcodeSz := WO~0~0~1~0~0~0~1~1. (* 0x23 *)
 Definition OP_LUI           : word OpcodeSz := WO~0~0~1~0~0~1~0~0. (* 0x24 *)
+Definition OP_TENSOR_SET    : word OpcodeSz := WO~0~0~1~0~0~1~0~1. (* 0x25 *)
+Definition OP_TENSOR_GET    : word OpcodeSz := WO~0~0~1~0~0~1~1~0. (* 0x26 *)
+(** Categorical morphism opcodes (Phase 6) — hardware charges cost + PC advance;
+    morphism graph state is managed by the software extraction layer. *)
+Definition OP_MORPH         : word OpcodeSz := WO~0~0~1~0~0~1~1~1. (* 0x27 *)
+Definition OP_COMPOSE       : word OpcodeSz := WO~0~0~1~0~1~0~0~0. (* 0x28 *)
+Definition OP_MORPH_ID      : word OpcodeSz := WO~0~0~1~0~1~0~0~1. (* 0x29 *)
+Definition OP_MORPH_DELETE  : word OpcodeSz := WO~0~0~1~0~1~0~1~0. (* 0x2A *)
+Definition OP_MORPH_ASSERT  : word OpcodeSz := WO~0~0~1~0~1~0~1~1. (* 0x2B cert-setter *)
+Definition OP_MORPH_TENSOR  : word OpcodeSz := WO~0~0~1~0~1~1~0~0. (* 0x2C *)
+Definition OP_MORPH_GET     : word OpcodeSz := WO~0~0~1~0~1~1~0~1. (* 0x2D *)
 Definition OP_HALT          : word OpcodeSz := WO~1~1~1~1~1~1~1~1. (* 0xFF *)
 
 (** Instruction encoding: [31:24] opcode | [23:16] op_a | [15:8] op_b | [7:0] cost *)

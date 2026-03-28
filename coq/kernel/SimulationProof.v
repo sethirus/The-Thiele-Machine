@@ -1,14 +1,38 @@
-From Coq Require Import Strings.String List Bool Arith.PeanoNat.
+(** * SimulationProof: Bisimulation between the abstract kernel and the concrete VM
+
+    WHY THIS FILE EXISTS:
+    The Thiele Machine has two views of execution: the abstract kernel
+    Turing machine (Kernel.v / KernelTM.v / KernelThiele.v) and the concrete
+    VM with 40 typed instructions (VMStep.v). This file proves they agree.
+    It defines the states_related bisimulation relation, shows vm_step is
+    deterministic, and establishes that every VM execution faithfully
+    simulates the kernel machine (vm_is_a_correct_refinement_of_kernel).
+
+    THE CORE CLAIM:
+    states_related ties VM state to kernel state via PC, mu, and tape
+    encoding. The key theorem vm_step_kernel_simulation shows that one
+    VM step corresponds to a sequence of kernel steps that preserve the
+    relation. vm_step_deterministic guarantees no branching ambiguity.
+
+    PHYSICAL INTERPRETATION:
+    If the VM and the kernel disagree on mu cost, a program could appear
+    to gain free insight in one layer but not the other. Bisimulation
+    ensures cost accounting is layer-independent.
+
+    FALSIFICATION:
+    If the bisimulation relation breaks (states_related fails to be
+    preserved by a step), then mu-cost tracking diverges between the
+    abstract and concrete models, and the three-layer isomorphism
+    (Coq = Python = Verilog) is invalid.
+*)
+
+From Coq Require Import Strings.String List Bool Arith.PeanoNat micromega.Lia.
 Import ListNotations.
 
-Require Import Kernel.
-Require Import KernelTM.
-Require Import KernelThiele.
-Require Import VMState.
-Require Import VMStep.
-Require Import VMEncoding.
+From Kernel Require Import Kernel KernelTM KernelThiele.
+From Kernel Require Import VMState VMStep VMEncoding.
 
-(** * Simulation between the Python VM semantics and the kernel machine *)
+(** * Simulation between the VM semantics and the kernel machine *)
 
 Definition states_related (s_vm : VMState) (s_kernel : state) : Prop :=
   s_vm.(vm_pc) = s_kernel.(tm_state) /\
@@ -260,38 +284,38 @@ Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
           advance_state s (instr_pmerge m1 m2 cost)
             s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)
       end
-  | instr_lassert module formula cert cost =>
-      match cert with
-      | lassert_cert_sat model =>
-          if check_model formula model then
-            let graph' := graph_add_axiom s.(vm_graph) module formula in
-            let csrs' := csr_set_err (csr_set_status s.(vm_csrs) 1) 0 in
-            advance_state s (instr_lassert module formula (lassert_cert_sat model) cost)
-              graph' (csr_set_cert_addr csrs' (ascii_checksum formula)) s.(vm_err)
-          else
-            advance_state s (instr_lassert module formula (lassert_cert_sat model) cost)
-              s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)
-      | lassert_cert_unsat proof =>
-          if check_lrat formula proof then
-            advance_state s (instr_lassert module formula (lassert_cert_unsat proof) cost)
-              s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)
-          else
-            advance_state s (instr_lassert module formula (lassert_cert_unsat proof) cost)
-              s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)
-      end
-  | instr_ljoin cert1 cert2 cost =>
-      if String.eqb cert1 cert2 then
-        let csrs' := csr_set_err s.(vm_csrs) 0 in
-        advance_state s (instr_ljoin cert1 cert2 cost)
-          s.(vm_graph)
-          (csr_set_cert_addr csrs' (ascii_checksum (String.append cert1 cert2)))
-          s.(vm_err)
+  | instr_lassert freg creg kind flen cost =>
+      (* On-chip: formula and cert read from memory; cert_addr NOT set here *)
+      let formula := mem_to_string s.(vm_mem) (read_reg s freg) in
+      let cert    := mem_to_string s.(vm_mem) (read_reg s creg) in
+      if kind then
+        if check_model formula cert then
+          (advance_state s (instr_lassert freg creg kind flen cost)
+            (graph_add_axiom s.(vm_graph) 0 formula)
+            (csr_set_err (csr_set_status s.(vm_csrs) 1) 0)
+            s.(vm_err))
+        else
+          (advance_state s (instr_lassert freg creg kind flen cost)
+            s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
       else
-        let csrs' := csr_set_err s.(vm_csrs) 1 in
-        advance_state s (instr_ljoin cert1 cert2 cost)
-          s.(vm_graph)
-          (csr_set_cert_addr csrs' (ascii_checksum (String.append cert1 cert2)))
-          (latch_err s true)
+        if check_lrat formula cert then
+          (advance_state s (instr_lassert freg creg kind flen cost)
+            s.(vm_graph)
+            (csr_set_err (csr_set_status s.(vm_csrs) 1) 0)
+            true)
+        else
+          (advance_state s (instr_lassert freg creg kind flen cost)
+            s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
+  | instr_ljoin c1reg c2reg cost =>
+      (* cert strings in memory; cert_addr NOT set here *)
+      let cert1 := mem_to_string s.(vm_mem) (read_reg s c1reg) in
+      let cert2 := mem_to_string s.(vm_mem) (read_reg s c2reg) in
+      if String.eqb cert1 cert2 then
+        advance_state s (instr_ljoin c1reg c2reg cost)
+          s.(vm_graph) (csr_set_err s.(vm_csrs) 0) s.(vm_err)
+      else
+        advance_state s (instr_ljoin c1reg c2reg cost)
+          s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)
   | instr_mdlacc module cost =>
       advance_state s (instr_mdlacc module cost) s.(vm_graph) s.(vm_csrs) s.(vm_err)
   | instr_emit module payload cost =>
@@ -326,7 +350,7 @@ Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
       advance_state_rm s (instr_xfer dst src cost)
       s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
     | instr_load_imm dst imm cost =>
-      let regs' := write_reg s dst (word32 imm) in
+      let regs' := write_reg s dst (word64 imm) in
       advance_state_rm s (instr_load_imm dst imm cost)
       s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
     | instr_load dst rs_addr cost =>
@@ -344,13 +368,13 @@ Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
     | instr_add dst rs1 rs2 cost =>
       let v1 := read_reg s rs1 in
       let v2 := read_reg s rs2 in
-      let regs' := write_reg s dst (word32_add v1 v2) in
+      let regs' := write_reg s dst (word64_add v1 v2) in
       advance_state_rm s (instr_add dst rs1 rs2 cost)
       s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
     | instr_sub dst rs1 rs2 cost =>
       let v1 := read_reg s rs1 in
       let v2 := read_reg s rs2 in
-      let regs' := write_reg s dst (word32_sub v1 v2) in
+      let regs' := write_reg s dst (word64_sub v1 v2) in
       advance_state_rm s (instr_sub dst rs1 rs2 cost)
       s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
     | instr_jump target cost =>
@@ -364,10 +388,10 @@ Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
       let sp := read_reg s 31 in
       let ret_addr := S s.(vm_pc) in
       let mem' := write_mem s sp ret_addr in
-      let regs' := write_reg s 31 (word32_add sp 1) in
+      let regs' := write_reg s 31 (word64_add sp 1) in
       jump_state_rm s (instr_call target cost) target regs' mem'
     | instr_ret cost =>
-      let sp := word32_sub (read_reg s 31) 1 in
+      let sp := word64_sub (read_reg s 31) 1 in
       let ret_pc := read_mem s sp in
       let regs' := write_reg s 31 sp in
       jump_state_rm s (instr_ret cost) ret_pc regs' s.(vm_mem)
@@ -379,7 +403,7 @@ Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
     | instr_xor_add dst src cost =>
       let vdst := read_reg s dst in
       let vsrc := read_reg s src in
-      let regs' := write_reg s dst (word32_xor vdst vsrc) in
+      let regs' := write_reg s dst (word64_xor vdst vsrc) in
       advance_state_rm s (instr_xor_add dst src cost)
       s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
     | instr_xor_swap a b cost =>
@@ -388,7 +412,7 @@ Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
       s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
     | instr_xor_rank dst src cost =>
       let vsrc := read_reg s src in
-      let regs' := write_reg s dst (word32_popcount vsrc) in
+      let regs' := write_reg s dst (word64_popcount vsrc) in
       advance_state_rm s (instr_xor_rank dst src cost)
       s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
   | instr_oracle_halts payload cost =>
@@ -430,37 +454,128 @@ Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
     | instr_and dst rs1 rs2 cost =>
       let v1 := read_reg s rs1 in
       let v2 := read_reg s rs2 in
-      let regs' := write_reg s dst (word32_and v1 v2) in
+      let regs' := write_reg s dst (word64_and v1 v2) in
       advance_state_rm s (instr_and dst rs1 rs2 cost)
       s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
     | instr_or dst rs1 rs2 cost =>
       let v1 := read_reg s rs1 in
       let v2 := read_reg s rs2 in
-      let regs' := write_reg s dst (word32_or v1 v2) in
+      let regs' := write_reg s dst (word64_or v1 v2) in
       advance_state_rm s (instr_or dst rs1 rs2 cost)
       s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
     | instr_shl dst rs1 rs2 cost =>
       let v1 := read_reg s rs1 in
       let v2 := read_reg s rs2 in
-      let regs' := write_reg s dst (word32_shl v1 v2) in
+      let regs' := write_reg s dst (word64_shl v1 v2) in
       advance_state_rm s (instr_shl dst rs1 rs2 cost)
       s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
     | instr_shr dst rs1 rs2 cost =>
       let v1 := read_reg s rs1 in
       let v2 := read_reg s rs2 in
-      let regs' := write_reg s dst (word32_shr v1 v2) in
+      let regs' := write_reg s dst (word64_shr v1 v2) in
       advance_state_rm s (instr_shr dst rs1 rs2 cost)
       s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
     | instr_mul dst rs1 rs2 cost =>
       let v1 := read_reg s rs1 in
       let v2 := read_reg s rs2 in
-      let regs' := write_reg s dst (word32_mul v1 v2) in
+      let regs' := write_reg s dst (word64_mul v1 v2) in
       advance_state_rm s (instr_mul dst rs1 rs2 cost)
       s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
     | instr_lui dst imm cost =>
-      let regs' := write_reg s dst (word32_shl imm 8) in
+      let regs' := write_reg s dst (word64_shl imm 8) in
       advance_state_rm s (instr_lui dst imm cost)
       s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
+  | instr_tensor_set mid i j value cost =>
+      if (Nat.ltb i 4 && Nat.ltb j 4) then
+        let graph' := graph_update_module_tensor s.(vm_graph) mid (i * 4 + j) value in
+        advance_state s (instr_tensor_set mid i j value cost) graph' s.(vm_csrs) s.(vm_err)
+      else
+        advance_state s (instr_tensor_set mid i j value cost)
+          s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)
+  | instr_tensor_get dst mid i j cost =>
+      if (Nat.ltb i 4 && Nat.ltb j 4) then
+        let tensor_val := module_tensor_entry s mid i j in
+        let regs' := write_reg s dst tensor_val in
+        advance_state_rm s (instr_tensor_get dst mid i j cost)
+          s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
+      else
+        advance_state s (instr_tensor_get dst mid i j cost)
+          s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)
+  (* Phase 7: Categorical morphism instructions *)
+  | instr_morph dst src_mod dst_mod coupling_idx cost =>
+      match graph_lookup s.(vm_graph) src_mod, graph_lookup s.(vm_graph) dst_mod with
+      | Some _, Some _ =>
+        let c := {| coupling_pairs := []; coupling_label := "" |} in
+        let '(graph', morph_id) := graph_add_morphism s.(vm_graph) src_mod dst_mod c false in
+        advance_state_rm s (instr_morph dst src_mod dst_mod coupling_idx cost)
+          graph' s.(vm_csrs) (write_reg s dst morph_id) s.(vm_mem) s.(vm_err)
+      | _, _ =>
+        advance_state s (instr_morph dst src_mod dst_mod coupling_idx cost)
+          s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)
+      end
+  | instr_compose dst m1_id m2_id cost =>
+      match graph_compose_morphisms s.(vm_graph) m1_id m2_id with
+      | Some (graph', new_id) =>
+          advance_state_rm s (instr_compose dst m1_id m2_id cost)
+            graph' s.(vm_csrs) (write_reg s dst new_id) s.(vm_mem) s.(vm_err)
+      | None =>
+          advance_state s (instr_compose dst m1_id m2_id cost)
+            s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)
+      end
+  | instr_morph_id dst module cost =>
+      match graph_add_identity s.(vm_graph) module with
+      | Some (graph', new_id) =>
+          advance_state_rm s (instr_morph_id dst module cost)
+            graph' s.(vm_csrs) (write_reg s dst new_id) s.(vm_mem) s.(vm_err)
+      | None =>
+          advance_state s (instr_morph_id dst module cost)
+            s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)
+      end
+  | instr_morph_delete morph_id cost =>
+      match graph_delete_morphism s.(vm_graph) morph_id with
+      | Some graph' =>
+          advance_state s (instr_morph_delete morph_id cost)
+            graph' s.(vm_csrs) s.(vm_err)
+      | None =>
+          advance_state s (instr_morph_delete morph_id cost)
+            s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)
+      end
+  | instr_morph_assert morph_id property cert cost =>
+      match graph_lookup_morphism s.(vm_graph) morph_id with
+      | Some _ =>
+          let csrs' := csr_set_err (csr_set_status s.(vm_csrs) 1) 0 in
+          advance_state s (instr_morph_assert morph_id property cert cost)
+            s.(vm_graph) (csr_set_cert_addr csrs' (ascii_checksum property)) s.(vm_err)
+      | None =>
+          advance_state s (instr_morph_assert morph_id property cert cost)
+            s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)
+      end
+  | instr_morph_tensor dst f_id g_id cost =>
+      match graph_tensor_morphisms s.(vm_graph) f_id g_id with
+      | Some (graph', new_id) =>
+          advance_state_rm s (instr_morph_tensor dst f_id g_id cost)
+            graph' s.(vm_csrs) (write_reg s dst new_id) s.(vm_mem) s.(vm_err)
+      | None =>
+          advance_state s (instr_morph_tensor dst f_id g_id cost)
+            s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)
+      end
+  | instr_morph_get dst morph_id selector cost =>
+      match graph_lookup_morphism s.(vm_graph) morph_id with
+      | Some ms =>
+          let value := match selector with
+                       | 0 => ms.(morph_source)
+                       | 1 => ms.(morph_target)
+                       | 2 => List.length ms.(morph_coupling).(coupling_pairs)
+                       | 3 => if ms.(morph_is_identity) then 1 else 0
+                       | _ => 0
+                       end in
+          let regs' := write_reg s dst value in
+          advance_state_rm s (instr_morph_get dst morph_id selector cost)
+            s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
+      | None =>
+          advance_state s (instr_morph_get dst morph_id selector cost)
+            s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)
+      end
   | instr_halt cost =>
       advance_state s (instr_halt cost) s.(vm_graph) s.(vm_csrs) s.(vm_err)
   end.
@@ -504,14 +619,41 @@ Proof.
         | H : check_model _ _ = true |- _ => cbn in H; discriminate H
         | H : check_lrat _ _ = true |- _ => cbn in H; discriminate H
         end;
-    (* Handle JNEZ boolean conditions *)
+    (* Handle JNEZ boolean conditions, tensor bounds, option matches,
+       pair equations, and equality rewrites *)
     repeat match goal with
            | H : read_reg ?s ?rs <> 0 |- context[Nat.eqb (read_reg ?s ?rs) 0] =>
                rewrite (proj2 (PeanoNat.Nat.eqb_neq _ _) H)
            | H : read_reg ?s ?rs = 0 |- context[Nat.eqb (read_reg ?s ?rs) 0] =>
                rewrite (proj2 (PeanoNat.Nat.eqb_eq _ _) H)
+           | H : (_ < _)%nat |- context[Nat.ltb _ _] =>
+               rewrite (proj2 (PeanoNat.Nat.ltb_lt _ _) H)
+           | H : (4 <= ?n)%nat |- context[Nat.ltb ?n 4] =>
+               rewrite (proj2 (PeanoNat.Nat.ltb_ge n 4) H)
+           | |- context[_ && false] => rewrite Bool.andb_false_r
+           | H : (_ \/ _) |- _ => destruct H
+           (* Handle contradictory option equality (from disjunction destruct) *)
+           | H : Some _ = None |- _ => discriminate H
+           | H : None = Some _ |- _ => discriminate H
+           (* Handle option <> None by destructing and eliminating None case *)
+           | H : ?x <> None |- context[match ?x with | Some _ => _ | None => _ end] =>
+               destruct x as [?v|]; [clear H | contradiction]
+           (* Destruct nested graph_lookup option matches for failure cases *)
+           | H : graph_lookup ?g ?m1 = None
+             |- context[match graph_lookup _ ?m2 with | Some _ => _ | None => _ end] =>
+               destruct (graph_lookup _ m2) as [?v|]; try reflexivity
+           (* Handle pair equations via f_equal for morphism operations *)
+           | H : (?a, ?b) = graph_add_morphism ?g ?src ?dst ?c ?is_id |- _ =>
+               let Hfst := fresh "Hfst" in
+               let Hsnd := fresh "Hsnd" in
+               pose proof (f_equal fst H) as Hfst;
+               pose proof (f_equal snd H) as Hsnd;
+               simpl in Hfst, Hsnd;
+               rewrite Hfst, Hsnd;
+               clear Hfst Hsnd H
            | H : _ = _ |- _ => rewrite H
-           end; reflexivity.
+           end;
+    reflexivity.
 Qed.
 
 (** [vm_step_deterministic]: formal specification. *)
@@ -876,4 +1018,148 @@ Proof.
     unfold encode_vm_state_to_tape.
     rewrite <- app_nil_r with (l := encode_vm_state s_vm').
     apply decode_vm_state_correct.
+Qed.
+
+(* ================================================================== *)
+(** ** Agent Trust: Concrete Löb Bypass via pnew_chain
+
+    The abstract tiling chain (self_reference/TilingChain.v) proves that
+    recursive self-improvement is safe when each step costs μ.  This
+    section grounds that abstract framework in the Thiele Machine's
+    concrete vm_apply and PartitionGraph.
+
+    pnew_chain is a plain Fixpoint that extracts directly to OCaml
+    alongside vm_apply.  Both extraction paths must produce the same
+    function — this file is the kernel-layer definition. *)
+
+(** PNEW charges exactly [cost] μ-units. *)
+Lemma pnew_mu_exact :
+  forall (s : VMState) (region : list nat) (cost : nat),
+    (vm_apply s (instr_pnew region cost)).(vm_mu) = s.(vm_mu) + cost.
+Proof.
+  intros s region cost.
+  unfold vm_apply.
+  destruct (graph_pnew s.(vm_graph) region) as [g' mid_new].
+  unfold advance_state. simpl. reflexivity.
+Qed.
+
+(** The graph component of vm_apply for PNEW. *)
+Lemma vm_apply_pnew_graph :
+  forall (s : VMState) (region : list nat) (cost : nat),
+    (vm_apply s (instr_pnew region cost)).(vm_graph) =
+    fst (graph_pnew s.(vm_graph) region).
+Proof.
+  intros s region cost.
+  unfold vm_apply.
+  destruct (graph_pnew s.(vm_graph) region) as [g' mid_new].
+  unfold advance_state. simpl. reflexivity.
+Qed.
+
+(** PNEW never decreases pg_next_id. *)
+Lemma pnew_next_id_nondecreasing :
+  forall (g : PartitionGraph) (region : list nat),
+    g.(pg_next_id) <= (fst (graph_pnew g region)).(pg_next_id).
+Proof.
+  intros g region.
+  unfold graph_pnew. cbv zeta.
+  destruct (graph_find_region g (normalize_region region)) as [existing|] eqn:Hfind.
+  - simpl. lia.
+  - unfold graph_add_module. simpl. lia.
+Qed.
+
+(** PNEW preserves all module lookups for modules that already existed. *)
+Lemma pnew_noninterference :
+  forall (g : PartitionGraph) (region : list nat) (mid : ModuleID),
+    mid < g.(pg_next_id) ->
+    graph_lookup (fst (graph_pnew g region)) mid = graph_lookup g mid.
+Proof.
+  intros g region mid Hlt.
+  unfold graph_pnew. cbv zeta.
+  destruct (graph_find_region g (normalize_region region)) as [existing|] eqn:Hfind.
+  - simpl. reflexivity.
+  - simpl. apply graph_add_module_lookup_other. exact Hlt.
+Qed.
+
+(** vm_apply for PNEW does not decrease pg_next_id. *)
+Lemma vm_apply_pnew_graph_nondec :
+  forall (s : VMState) (region : list nat) (cost : nat),
+    s.(vm_graph).(pg_next_id) <=
+    (vm_apply s (instr_pnew region cost)).(vm_graph).(pg_next_id).
+Proof.
+  intros s region cost.
+  rewrite vm_apply_pnew_graph.
+  apply pnew_next_id_nondecreasing.
+Qed.
+
+(** vm_apply for PNEW preserves lookups for pre-existing modules. *)
+Lemma vm_apply_pnew_noninterference :
+  forall (s : VMState) (region : list nat) (cost : nat) (mid : ModuleID),
+    mid < s.(vm_graph).(pg_next_id) ->
+    graph_lookup (vm_apply s (instr_pnew region cost)).(vm_graph) mid =
+    graph_lookup s.(vm_graph) mid.
+Proof.
+  intros s region cost mid Hlt.
+  rewrite vm_apply_pnew_graph.
+  apply pnew_noninterference. exact Hlt.
+Qed.
+
+(** [pnew_chain n s region cost] applies PNEW [n] times.
+    This Fixpoint extracts directly to OCaml alongside vm_apply. *)
+Fixpoint pnew_chain (n : nat) (s : VMState)
+    (region : list nat) (cost : nat) : VMState :=
+  match n with
+  | O   => s
+  | S k => pnew_chain k (vm_apply s (instr_pnew region cost)) region cost
+  end.
+
+(** μ after n PNEWs equals initial μ plus n × cost. *)
+Theorem pnew_chain_mu :
+  forall (n : nat) (s : VMState) (region : list nat) (cost : nat),
+    (pnew_chain n s region cost).(vm_mu) = s.(vm_mu) + n * cost.
+Proof.
+  intro n.
+  induction n as [| k IH]; intros s region cost.
+  - simpl. lia.
+  - cbn [pnew_chain].
+    pose proof (pnew_mu_exact s region cost) as Hmu.
+    pose proof (IH (vm_apply s (instr_pnew region cost)) region cost) as IHs.
+    rewrite IHs. rewrite Hmu. simpl. lia.
+Qed.
+
+(** Module lookups for mid < initial pg_next_id survive n PNEWs. *)
+Theorem pnew_chain_noninterference :
+  forall (n : nat) (s : VMState) (region : list nat) (cost : nat)
+         (mid : ModuleID),
+    mid < s.(vm_graph).(pg_next_id) ->
+    graph_lookup (pnew_chain n s region cost).(vm_graph) mid =
+    graph_lookup s.(vm_graph) mid.
+Proof.
+  intros n s region cost mid Hlt.
+  revert s Hlt.
+  induction n as [| k IH]; intros s Hlt.
+  - cbn [pnew_chain]. reflexivity.
+  - cbn [pnew_chain].
+    assert (Hlt' : mid < pg_next_id
+        (vm_graph (vm_apply s (instr_pnew region cost)))).
+    { exact (Nat.lt_le_trans _ _ _ Hlt
+               (vm_apply_pnew_graph_nondec s region cost)). }
+    rewrite (IH (vm_apply s (instr_pnew region cost)) Hlt').
+    apply vm_apply_pnew_noninterference. exact Hlt.
+Qed.
+
+(** THE CONCRETE LÖB BYPASS (kernel layer):
+    The μ-register IS the trust certificate for n PNEW operations.
+    No self-referential reasoning is needed. *)
+Theorem vm_lob_bypass :
+  forall (n : nat) (s : VMState) (region : list nat) (cost : nat)
+         (mid : ModuleID),
+    mid < s.(vm_graph).(pg_next_id) ->
+    (pnew_chain n s region cost).(vm_mu) = s.(vm_mu) + n * cost /\
+    graph_lookup (pnew_chain n s region cost).(vm_graph) mid =
+      graph_lookup s.(vm_graph) mid.
+Proof.
+  intros n s region cost mid Hlt.
+  split.
+  - exact (pnew_chain_mu n s region cost).
+  - apply pnew_chain_noninterference. exact Hlt.
 Qed.

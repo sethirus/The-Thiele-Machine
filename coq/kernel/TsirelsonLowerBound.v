@@ -11,8 +11,6 @@
 
     **USE ClassicalBound.v INSTEAD**
 
-    See MU_COST_REVISION.md for complete analysis of the error.
-
     =========================================================================
     ORIGINAL (INCORRECT) DOCUMENTATION PRESERVED BELOW
     =========================================================================
@@ -79,7 +77,9 @@ Definition bob_optimal_output (y : nat) (shared : nat) : nat :=
 
 (** ** Constructive Program
 
-    This trace achieves CHSH ≈ 2√2 with μ=0:
+    DEPRECATED: This trace achieves CHSH = 2 (classical bound), NOT 2√2.
+    The deterministic strategy below is a shared-randomness strategy
+    and cannot exceed the classical CHSH limit of 2.
     *)
 
 Definition tsirelson_achieving_trace : list vm_instruction := [

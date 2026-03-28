@@ -1,0 +1,687 @@
+DIGEST bac185cadb0ca296183de3ae2288c80d
+FKernel.LocalMorphismSemantics
+R549:552 Coq.Lists.List <> <> lib
+R554:557 Coq.Bool.Bool <> <> lib
+R559:572 Coq.Arith.PeanoNat <> <> lib
+R574:576 Coq.micromega.Lia <> <> lib
+R586:598 Coq.Lists.List ListNotations <> mod
+R629:635 Kernel.VMState <> <> lib
+R665:670 Kernel.VMStep <> <> lib
+R700:710 Kernel.MuCostModel <> <> lib
+R740:754 Kernel.SimulationProof <> <> lib
+def 840:852 <> joint_support
+R857:860 Coq.Init.Datatypes <> list ind
+R866:868 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R863:865 Coq.Init.Datatypes <> nat ind
+R869:871 Coq.Init.Datatypes <> nat ind
+def 1012:1022 <> cut_edge_1d
+R1038:1041 Coq.Init.Datatypes <> list ind
+R1043:1045 Coq.Init.Datatypes <> nat ind
+binder 1025:1028 <> left:1
+binder 1030:1034 <> right:2
+R1053:1055 Coq.Init.Datatypes <> nat ind
+binder 1049:1049 <> x:3
+R1060:1063 Coq.Init.Datatypes <> bool ind
+R1070:1072 Coq.Init.Datatypes <> orb def
+R1137:1140 Coq.Init.Datatypes <> andb def
+R1166:1177 Kernel.VMState <> nat_list_mem def
+R1180:1180 Coq.Init.Datatypes <> S constr
+R1182:1182 Kernel.LocalMorphismSemantics <> x:3 var
+R1185:1188 Kernel.LocalMorphismSemantics <> left:1 var
+R1143:1154 Kernel.VMState <> nat_list_mem def
+R1156:1156 Kernel.LocalMorphismSemantics <> x:3 var
+R1158:1162 Kernel.LocalMorphismSemantics <> right:2 var
+R1075:1078 Coq.Init.Datatypes <> andb def
+R1103:1114 Kernel.VMState <> nat_list_mem def
+R1117:1117 Coq.Init.Datatypes <> S constr
+R1119:1119 Kernel.LocalMorphismSemantics <> x:3 var
+R1122:1126 Kernel.LocalMorphismSemantics <> right:2 var
+R1081:1092 Kernel.VMState <> nat_list_mem def
+R1094:1094 Kernel.LocalMorphismSemantics <> x:3 var
+R1096:1099 Kernel.LocalMorphismSemantics <> left:1 var
+def 1270:1285 <> boundary_size_1d
+R1301:1304 Coq.Init.Datatypes <> list ind
+R1306:1308 Coq.Init.Datatypes <> nat ind
+binder 1288:1291 <> left:4
+binder 1293:1297 <> right:5
+R1313:1315 Coq.Init.Datatypes <> nat ind
+R1322:1332 Coq.Lists.List <> length abbrev
+R1335:1340 Coq.Lists.List <> filter def
+R1372:1387 Kernel.VMState <> normalize_region def
+R1394:1397 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R1390:1393 Kernel.LocalMorphismSemantics <> left:4 var
+R1398:1402 Kernel.LocalMorphismSemantics <> right:5 var
+R1343:1353 Kernel.LocalMorphismSemantics <> cut_edge_1d def
+R1355:1358 Kernel.LocalMorphismSemantics <> left:4 var
+R1360:1364 Kernel.LocalMorphismSemantics <> right:5 var
+def 1527:1553 <> partial_trace_right_support
+R1566:1578 Kernel.LocalMorphismSemantics <> joint_support def
+binder 1556:1562 <> support:6
+R1583:1586 Coq.Init.Datatypes <> list ind
+R1588:1590 Coq.Init.Datatypes <> nat ind
+R1597:1601 Coq.Lists.List <> nodup def
+R1615:1617 Coq.Lists.List <> map def
+R1623:1629 Kernel.LocalMorphismSemantics <> support:6 var
+R1619:1621 Coq.Init.Datatypes <> fst def
+R1603:1612 Coq.Arith.PeanoNat Nat eq_dec thm
+def 1704:1724 <> reduced_state_support
+R1737:1749 Kernel.LocalMorphismSemantics <> joint_support def
+binder 1727:1733 <> support:7
+R1754:1757 Coq.Init.Datatypes <> list ind
+R1759:1761 Coq.Init.Datatypes <> nat ind
+R1768:1794 Kernel.LocalMorphismSemantics <> partial_trace_right_support def
+R1796:1802 Kernel.LocalMorphismSemantics <> support:7 var
+def 1868:1889 <> boundary_local_support
+R1907:1910 Coq.Init.Datatypes <> list ind
+R1912:1914 Coq.Init.Datatypes <> nat ind
+binder 1894:1897 <> left:8
+binder 1899:1903 <> right:9
+R1930:1942 Kernel.LocalMorphismSemantics <> joint_support def
+binder 1920:1926 <> support:10
+R2000:2005 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1957:1967 Coq.Lists.List <> length abbrev
+R1970:1990 Kernel.LocalMorphismSemantics <> reduced_state_support def
+R1992:1998 Kernel.LocalMorphismSemantics <> support:10 var
+R2006:2012 Coq.Arith.PeanoNat Nat pow def
+R2017:2032 Kernel.LocalMorphismSemantics <> boundary_size_1d def
+R2034:2037 Kernel.LocalMorphismSemantics <> left:8 var
+R2039:2043 Kernel.LocalMorphismSemantics <> right:9 var
+rec 2139:2151 <> SplitMorphism
+proj 2160:2169 <> split_left
+proj 2185:2195 <> split_right
+proj 2211:2224 <> coupling_pairs
+proj 2248:2273 <> morphism_support_semantics
+proj 2357:2373 <> coupling_pairs_wf
+proj 2551:2580 <> support_generated_by_couplings
+R2173:2176 Coq.Init.Datatypes <> list ind
+R2178:2180 Coq.Init.Datatypes <> nat ind
+R2199:2202 Coq.Init.Datatypes <> list ind
+R2204:2206 Coq.Init.Datatypes <> nat ind
+R2228:2231 Coq.Init.Datatypes <> list ind
+R2237:2239 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2234:2236 Coq.Init.Datatypes <> nat ind
+R2240:2242 Coq.Init.Datatypes <> nat ind
+R2277:2280 Coq.Init.Datatypes <> list ind
+R2282:2294 Kernel.LocalMorphismSemantics <> joint_support def
+binder 2388:2388 <> a:16
+binder 2390:2390 <> b:17
+R2423:2432 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2399:2400 Coq.Lists.List <> In def
+R2409:2422 Kernel.LocalMorphismSemantics <> coupling_pairs:14 meth
+R2402:2402 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2404:2405 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2407:2407 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2403:2403 Kernel.LocalMorphismSemantics <> a:16 var
+R2406:2406 Kernel.LocalMorphismSemantics <> b:17 var
+R2448:2451 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2433:2434 Coq.Lists.List <> In def
+R2438:2447 Kernel.LocalMorphismSemantics <> split_left:12 meth
+R2436:2436 Kernel.LocalMorphismSemantics <> a:16 var
+R2452:2453 Coq.Lists.List <> In def
+R2457:2467 Kernel.LocalMorphismSemantics <> split_right:13 meth
+R2455:2455 Kernel.LocalMorphismSemantics <> b:17 var
+binder 2595:2601 <> support:19
+R2647:2656 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2610:2611 Coq.Lists.List <> In def
+R2621:2646 Kernel.LocalMorphismSemantics <> morphism_support_semantics:15 meth
+R2613:2619 Kernel.LocalMorphismSemantics <> support:19 var
+binder 2664:2664 <> a:20
+R2711:2722 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2675:2676 Coq.Lists.List <> In def
+R2681:2701 Kernel.LocalMorphismSemantics <> reduced_state_support def
+R2703:2709 Kernel.LocalMorphismSemantics <> support:19 var
+R2678:2678 Kernel.LocalMorphismSemantics <> a:20 var
+R2723:2729 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2731:2732 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2730:2730 <> b:21
+R2733:2734 Coq.Lists.List <> In def
+R2743:2756 Kernel.LocalMorphismSemantics <> coupling_pairs:14 meth
+R2736:2736 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2738:2739 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2741:2741 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2737:2737 Kernel.LocalMorphismSemantics <> a:20 var
+R2740:2740 Kernel.LocalMorphismSemantics <> b:21 var
+def 2773:2779 <> coupled
+R2786:2798 Kernel.LocalMorphismSemantics <> SplitMorphism rec
+binder 2782:2782 <> P:23
+R2808:2810 Coq.Init.Datatypes <> nat ind
+binder 2802:2802 <> a:24
+binder 2804:2804 <> b:25
+R2825:2826 Coq.Lists.List <> In def
+R2836:2849 Kernel.LocalMorphismSemantics <> coupling_pairs proj
+R2851:2851 Kernel.LocalMorphismSemantics <> P:23 var
+R2828:2828 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2830:2831 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2833:2833 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2829:2829 Kernel.LocalMorphismSemantics <> a:24 var
+R2832:2832 Kernel.LocalMorphismSemantics <> b:25 var
+def 2980:2998 <> is_nearest_neighbor
+R3005:3017 Kernel.LocalMorphismSemantics <> SplitMorphism rec
+binder 3001:3001 <> P:26
+binder 3039:3039 <> a:27
+R3065:3072 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3046:3047 Coq.Lists.List <> In def
+R3052:3061 Kernel.LocalMorphismSemantics <> split_left proj
+R3063:3063 Kernel.LocalMorphismSemantics <> P:26 var
+R3049:3049 Kernel.LocalMorphismSemantics <> a:27 var
+binder 3080:3080 <> b:28
+R3109:3118 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3089:3090 Coq.Lists.List <> In def
+R3095:3105 Kernel.LocalMorphismSemantics <> split_right proj
+R3107:3107 Kernel.LocalMorphismSemantics <> P:26 var
+R3092:3092 Kernel.LocalMorphismSemantics <> b:28 var
+R3132:3141 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3119:3125 Kernel.LocalMorphismSemantics <> coupled def
+R3127:3127 Kernel.LocalMorphismSemantics <> P:26 var
+R3129:3129 Kernel.LocalMorphismSemantics <> a:27 var
+R3131:3131 Kernel.LocalMorphismSemantics <> b:28 var
+R3186:3188 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3142:3152 Kernel.LocalMorphismSemantics <> cut_edge_1d def
+R3155:3164 Kernel.LocalMorphismSemantics <> split_left proj
+R3166:3166 Kernel.LocalMorphismSemantics <> P:26 var
+R3170:3180 Kernel.LocalMorphismSemantics <> split_right proj
+R3182:3182 Kernel.LocalMorphismSemantics <> P:26 var
+R3185:3185 Kernel.LocalMorphismSemantics <> a:27 var
+R3189:3192 Coq.Init.Datatypes <> true constr
+prf 3202:3216 <> nodup_nat_NoDup
+binder 3229:3230 <> xs:29
+R3237:3241 Coq.Lists.List <> NoDup ind
+R3244:3248 Coq.Lists.List <> nodup def
+R3261:3262 Kernel.LocalMorphismSemantics <> xs:29 var
+R3250:3259 Coq.Arith.PeanoNat Nat eq_dec thm
+R3341:3346 Coq.Lists.List <> in_dec thm
+R3348:3357 Coq.Arith.PeanoNat Nat eq_dec thm
+R3341:3346 Coq.Lists.List <> in_dec thm
+R3348:3357 Coq.Arith.PeanoNat Nat eq_dec thm
+R3456:3463 Coq.Lists.List <> nodup_In thm
+R3456:3463 Coq.Lists.List <> nodup_In thm
+prf 3530:3550 <> reduced_support_nodup
+binder 3563:3569 <> support:30
+R3576:3580 Coq.Lists.List <> NoDup ind
+R3583:3603 Kernel.LocalMorphismSemantics <> reduced_state_support def
+R3605:3611 Kernel.LocalMorphismSemantics <> support:30 var
+R3648:3668 Kernel.LocalMorphismSemantics <> reduced_state_support def
+R3671:3697 Kernel.LocalMorphismSemantics <> partial_trace_right_support def
+R3708:3722 Kernel.LocalMorphismSemantics <> nodup_nat_NoDup thm
+R3708:3722 Kernel.LocalMorphismSemantics <> nodup_nat_NoDup thm
+prf 3737:3762 <> in_normalize_union_of_left
+binder 3775:3778 <> left:31
+binder 3780:3784 <> right:32
+binder 3786:3786 <> a:33
+R3802:3809 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3793:3794 Coq.Lists.List <> In def
+R3798:3801 Kernel.LocalMorphismSemantics <> left:31 var
+R3796:3796 Kernel.LocalMorphismSemantics <> a:33 var
+R3810:3811 Coq.Lists.List <> In def
+R3816:3831 Kernel.VMState <> normalize_region def
+R3838:3841 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R3834:3837 Kernel.LocalMorphismSemantics <> left:31 var
+R3842:3846 Kernel.LocalMorphismSemantics <> right:32 var
+R3813:3813 Kernel.LocalMorphismSemantics <> a:33 var
+R3894:3909 Kernel.VMState <> normalize_region def
+R3920:3927 Coq.Lists.List <> nodup_In thm
+R3920:3927 Coq.Lists.List <> nodup_In thm
+R3938:3946 Coq.Lists.List <> in_or_app thm
+R3938:3946 Coq.Lists.List <> in_or_app thm
+prf 3978:4012 <> reduced_support_in_boundary_carrier
+R4030:4042 Kernel.LocalMorphismSemantics <> SplitMorphism rec
+binder 4026:4026 <> P:34
+R4056:4068 Kernel.LocalMorphismSemantics <> joint_support def
+binder 4046:4052 <> support:35
+R4076:4078 Coq.Init.Datatypes <> nat ind
+binder 4072:4072 <> a:36
+R4107:4114 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4086:4104 Kernel.LocalMorphismSemantics <> is_nearest_neighbor def
+R4106:4106 Kernel.LocalMorphismSemantics <> P:34 var
+R4156:4163 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4115:4116 Coq.Lists.List <> In def
+R4127:4152 Kernel.LocalMorphismSemantics <> morphism_support_semantics proj
+R4154:4154 Kernel.LocalMorphismSemantics <> P:34 var
+R4118:4124 Kernel.LocalMorphismSemantics <> support:35 var
+R4200:4207 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4164:4165 Coq.Lists.List <> In def
+R4170:4190 Kernel.LocalMorphismSemantics <> reduced_state_support def
+R4192:4198 Kernel.LocalMorphismSemantics <> support:35 var
+R4167:4167 Kernel.LocalMorphismSemantics <> a:36 var
+R4208:4209 Coq.Lists.List <> In def
+R4220:4225 Coq.Lists.List <> filter def
+R4281:4296 Kernel.VMState <> normalize_region def
+R4311:4314 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R4299:4308 Kernel.LocalMorphismSemantics <> split_left proj
+R4310:4310 Kernel.LocalMorphismSemantics <> P:34 var
+R4315:4325 Kernel.LocalMorphismSemantics <> split_right proj
+R4327:4327 Kernel.LocalMorphismSemantics <> P:34 var
+R4228:4238 Kernel.LocalMorphismSemantics <> cut_edge_1d def
+R4241:4250 Kernel.LocalMorphismSemantics <> split_left proj
+R4252:4252 Kernel.LocalMorphismSemantics <> P:34 var
+R4256:4266 Kernel.LocalMorphismSemantics <> split_right proj
+R4268:4268 Kernel.LocalMorphismSemantics <> P:34 var
+R4211:4211 Kernel.LocalMorphismSemantics <> a:36 var
+R4394:4423 Kernel.LocalMorphismSemantics <> support_generated_by_couplings proj
+R4394:4423 Kernel.LocalMorphismSemantics <> support_generated_by_couplings proj
+R4482:4498 Kernel.LocalMorphismSemantics <> coupling_pairs_wf proj
+R4482:4498 Kernel.LocalMorphismSemantics <> coupling_pairs_wf proj
+R4599:4601 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4555:4565 Kernel.LocalMorphismSemantics <> cut_edge_1d def
+R4568:4577 Kernel.LocalMorphismSemantics <> split_left proj
+R4583:4593 Kernel.LocalMorphismSemantics <> split_right proj
+R4602:4605 Coq.Init.Datatypes <> true constr
+R4599:4601 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4555:4565 Kernel.LocalMorphismSemantics <> cut_edge_1d def
+R4568:4577 Kernel.LocalMorphismSemantics <> split_left proj
+R4583:4593 Kernel.LocalMorphismSemantics <> split_right proj
+R4602:4605 Coq.Init.Datatypes <> true constr
+R4672:4680 Coq.Lists.List <> filter_In thm
+R4672:4680 Coq.Lists.List <> filter_In thm
+R4702:4727 Kernel.LocalMorphismSemantics <> in_normalize_union_of_left thm
+R4702:4727 Kernel.LocalMorphismSemantics <> in_normalize_union_of_left thm
+prf 4774:4812 <> reduced_support_length_le_boundary_size
+R4830:4842 Kernel.LocalMorphismSemantics <> SplitMorphism rec
+binder 4826:4826 <> P:37
+R4856:4868 Kernel.LocalMorphismSemantics <> joint_support def
+binder 4846:4852 <> support:38
+R4897:4904 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4876:4894 Kernel.LocalMorphismSemantics <> is_nearest_neighbor def
+R4896:4896 Kernel.LocalMorphismSemantics <> P:37 var
+R4946:4953 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4905:4906 Coq.Lists.List <> In def
+R4917:4942 Kernel.LocalMorphismSemantics <> morphism_support_semantics proj
+R4944:4944 Kernel.LocalMorphismSemantics <> P:37 var
+R4908:4914 Kernel.LocalMorphismSemantics <> support:38 var
+R4997:5004 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4954:4964 Coq.Lists.List <> length abbrev
+R4967:4987 Kernel.LocalMorphismSemantics <> reduced_state_support def
+R4989:4995 Kernel.LocalMorphismSemantics <> support:38 var
+R5005:5020 Kernel.LocalMorphismSemantics <> boundary_size_1d def
+R5023:5032 Kernel.LocalMorphismSemantics <> split_left proj
+R5034:5034 Kernel.LocalMorphismSemantics <> P:37 var
+R5038:5048 Kernel.LocalMorphismSemantics <> split_right proj
+R5050:5050 Kernel.LocalMorphismSemantics <> P:37 var
+R5102:5117 Kernel.LocalMorphismSemantics <> boundary_size_1d def
+R5128:5144 Coq.Lists.List <> NoDup_incl_length thm
+R5128:5144 Coq.Lists.List <> NoDup_incl_length thm
+R5157:5177 Kernel.LocalMorphismSemantics <> reduced_support_nodup thm
+R5157:5177 Kernel.LocalMorphismSemantics <> reduced_support_nodup thm
+R5208:5242 Kernel.LocalMorphismSemantics <> reduced_support_in_boundary_carrier thm
+R5208:5242 Kernel.LocalMorphismSemantics <> reduced_support_in_boundary_carrier thm
+prf 5264:5272 <> pow2_ge_1
+binder 5283:5283 <> n:39
+R5287:5290 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5291:5297 Coq.Arith.PeanoNat Nat pow def
+R5301:5301 Kernel.LocalMorphismSemantics <> n:39 var
+prf 5381:5396 <> nat_le_pow2_self
+binder 5407:5407 <> n:40
+R5411:5414 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5410:5410 Kernel.LocalMorphismSemantics <> n:40 var
+R5415:5421 Coq.Arith.PeanoNat Nat pow def
+R5425:5425 Kernel.LocalMorphismSemantics <> n:40 var
+R5492:5495 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5489:5489 Coq.Init.Datatypes <> S constr
+R5496:5502 Coq.Arith.PeanoNat Nat pow def
+R5507:5507 Coq.Init.Datatypes <> S constr
+R5492:5495 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5489:5489 Coq.Init.Datatypes <> S constr
+R5496:5502 Coq.Arith.PeanoNat Nat pow def
+R5507:5507 Coq.Init.Datatypes <> S constr
+R5546:5549 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5550:5556 Coq.Arith.PeanoNat Nat pow def
+R5546:5549 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5550:5556 Coq.Arith.PeanoNat Nat pow def
+R5576:5584 Kernel.LocalMorphismSemantics <> pow2_ge_1 thm
+R5576:5584 Kernel.LocalMorphismSemantics <> pow2_ge_1 thm
+R5610:5613 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5607:5607 Coq.Init.Datatypes <> S constr
+R5614:5614 Coq.Init.Datatypes <> S constr
+R5617:5623 Coq.Arith.PeanoNat Nat pow def
+R5610:5613 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5607:5607 Coq.Init.Datatypes <> S constr
+R5614:5614 Coq.Init.Datatypes <> S constr
+R5617:5623 Coq.Arith.PeanoNat Nat pow def
+R5680:5683 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5665:5665 Coq.Init.Datatypes <> S constr
+R5668:5674 Coq.Arith.PeanoNat Nat pow def
+R5685:5687 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R5688:5694 Coq.Arith.PeanoNat Nat pow def
+R5680:5683 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5665:5665 Coq.Init.Datatypes <> S constr
+R5668:5674 Coq.Arith.PeanoNat Nat pow def
+R5685:5687 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R5688:5694 Coq.Arith.PeanoNat Nat pow def
+def 5963:5977 <> cartesian_pairs
+R5988:5991 Coq.Init.Datatypes <> list ind
+R5993:5995 Coq.Init.Datatypes <> nat ind
+binder 5980:5981 <> xs:41
+binder 5983:5984 <> ys:42
+R6000:6003 Coq.Init.Datatypes <> list ind
+R6009:6011 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R6006:6008 Coq.Init.Datatypes <> nat ind
+R6012:6014 Coq.Init.Datatypes <> nat ind
+R6022:6029 Coq.Lists.List <> flat_map def
+R6067:6068 Kernel.LocalMorphismSemantics <> xs:41 var
+binder 6036:6036 <> x:43
+R6041:6043 Coq.Lists.List <> map def
+R6063:6064 Kernel.LocalMorphismSemantics <> ys:42 var
+binder 6050:6050 <> y:44
+R6055:6055 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6057:6058 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6060:6060 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6056:6056 Kernel.LocalMorphismSemantics <> x:43 var
+R6059:6059 Kernel.LocalMorphismSemantics <> y:44 var
+prf 6078:6099 <> in_map_fst_exists_pair
+R6121:6124 Coq.Init.Datatypes <> list ind
+R6130:6132 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R6127:6129 Coq.Init.Datatypes <> nat ind
+R6133:6135 Coq.Init.Datatypes <> nat ind
+binder 6113:6117 <> pairs:45
+binder 6139:6139 <> a:46
+R6166:6173 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6146:6147 Coq.Lists.List <> In def
+R6152:6154 Coq.Lists.List <> map def
+R6160:6164 Kernel.LocalMorphismSemantics <> pairs:45 var
+R6156:6158 Coq.Init.Datatypes <> fst def
+R6149:6149 Kernel.LocalMorphismSemantics <> a:46 var
+R6174:6180 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6182:6183 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 6181:6181 <> b:47
+R6184:6185 Coq.Lists.List <> In def
+R6194:6198 Kernel.LocalMorphismSemantics <> pairs:45 var
+R6187:6187 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6189:6190 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6192:6192 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6188:6188 Kernel.LocalMorphismSemantics <> a:46 var
+R6191:6191 Kernel.LocalMorphismSemantics <> b:47 var
+prf 6482:6502 <> in_cartesian_pairs_wf
+binder 6515:6516 <> xs:48
+binder 6518:6519 <> ys:49
+binder 6521:6521 <> a:50
+binder 6523:6523 <> b:51
+R6563:6570 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6530:6531 Coq.Lists.List <> In def
+R6541:6555 Kernel.LocalMorphismSemantics <> cartesian_pairs def
+R6557:6558 Kernel.LocalMorphismSemantics <> xs:48 var
+R6560:6561 Kernel.LocalMorphismSemantics <> ys:49 var
+R6533:6533 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6535:6536 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6538:6538 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6534:6534 Kernel.LocalMorphismSemantics <> a:50 var
+R6537:6537 Kernel.LocalMorphismSemantics <> b:51 var
+R6578:6581 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6571:6572 Coq.Lists.List <> In def
+R6576:6577 Kernel.LocalMorphismSemantics <> xs:48 var
+R6574:6574 Kernel.LocalMorphismSemantics <> a:50 var
+R6582:6583 Coq.Lists.List <> In def
+R6587:6588 Kernel.LocalMorphismSemantics <> ys:49 var
+R6585:6585 Kernel.LocalMorphismSemantics <> b:51 var
+R6631:6645 Kernel.LocalMorphismSemantics <> cartesian_pairs def
+R6663:6673 Coq.Lists.List <> in_flat_map thm
+R6663:6673 Coq.Lists.List <> in_flat_map thm
+R6724:6733 Coq.Lists.List <> in_map_iff thm
+R6724:6733 Coq.Lists.List <> in_map_iff thm
+def 6839:6861 <> psplit_support_morphism
+R6877:6880 Coq.Init.Datatypes <> list ind
+R6882:6884 Coq.Init.Datatypes <> nat ind
+binder 6864:6867 <> left:52
+binder 6869:6873 <> right:53
+R6889:6901 Kernel.LocalMorphismSemantics <> SplitMorphism rec
+R6927:6936 Kernel.LocalMorphismSemantics <> split_left proj
+R6927:6936 Kernel.LocalMorphismSemantics <> split_left proj
+R6927:6936 Kernel.LocalMorphismSemantics <> split_left proj
+R6971:6981 Kernel.LocalMorphismSemantics <> split_right proj
+R6971:6981 Kernel.LocalMorphismSemantics <> split_right proj
+R7017:7030 Kernel.LocalMorphismSemantics <> coupling_pairs proj
+R7017:7030 Kernel.LocalMorphismSemantics <> coupling_pairs proj
+R7108:7133 Kernel.LocalMorphismSemantics <> morphism_support_semantics proj
+R7108:7133 Kernel.LocalMorphismSemantics <> morphism_support_semantics proj
+R6941:6956 Kernel.VMState <> normalize_region def
+R6986:7001 Kernel.VMState <> normalize_region def
+R7035:7049 Kernel.LocalMorphismSemantics <> cartesian_pairs def
+R7052:7067 Kernel.VMState <> normalize_region def
+R7076:7091 Kernel.VMState <> normalize_region def
+R7147:7147 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7212:7212 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7148:7162 Kernel.LocalMorphismSemantics <> cartesian_pairs def
+R7165:7180 Kernel.VMState <> normalize_region def
+R7189:7204 Kernel.VMState <> normalize_region def
+R6927:6936 Kernel.LocalMorphismSemantics <> split_left proj
+R6927:6936 Kernel.LocalMorphismSemantics <> split_left proj
+R6927:6936 Kernel.LocalMorphismSemantics <> split_left proj
+R6971:6981 Kernel.LocalMorphismSemantics <> split_right proj
+R6971:6981 Kernel.LocalMorphismSemantics <> split_right proj
+R7017:7030 Kernel.LocalMorphismSemantics <> coupling_pairs proj
+R7017:7030 Kernel.LocalMorphismSemantics <> coupling_pairs proj
+R7108:7133 Kernel.LocalMorphismSemantics <> morphism_support_semantics proj
+R7108:7133 Kernel.LocalMorphismSemantics <> morphism_support_semantics proj
+R6941:6956 Kernel.VMState <> normalize_region def
+R6986:7001 Kernel.VMState <> normalize_region def
+R7035:7049 Kernel.LocalMorphismSemantics <> cartesian_pairs def
+R7052:7067 Kernel.VMState <> normalize_region def
+R7076:7091 Kernel.VMState <> normalize_region def
+R7147:7147 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7212:7212 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7148:7162 Kernel.LocalMorphismSemantics <> cartesian_pairs def
+R7165:7180 Kernel.VMState <> normalize_region def
+R7189:7204 Kernel.VMState <> normalize_region def
+R7248:7268 Kernel.LocalMorphismSemantics <> in_cartesian_pairs_wf thm
+R7248:7268 Kernel.LocalMorphismSemantics <> in_cartesian_pairs_wf thm
+R7430:7450 Kernel.LocalMorphismSemantics <> reduced_state_support def
+R7453:7479 Kernel.LocalMorphismSemantics <> partial_trace_right_support def
+R7505:7512 Coq.Lists.List <> nodup_In thm
+R7505:7512 Coq.Lists.List <> nodup_In thm
+R7538:7559 Kernel.LocalMorphismSemantics <> in_map_fst_exists_pair thm
+R7538:7559 Kernel.LocalMorphismSemantics <> in_map_fst_exists_pair thm
+prf 7633:7674 <> vm_step_psplit_constructs_support_morphism
+binder 7687:7687 <> s:54
+binder 7689:7690 <> s':55
+binder 7692:7697 <> module:56
+binder 7699:7702 <> left:57
+binder 7704:7708 <> right:58
+binder 7710:7713 <> cost:59
+R7770:7777 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7720:7726 Kernel.VMStep VMStep vm_step ind
+R7728:7728 Kernel.LocalMorphismSemantics <> s:54 var
+R7731:7742 Kernel.VMStep VMStep instr_psplit constr
+R7744:7749 Kernel.LocalMorphismSemantics <> module:56 var
+R7751:7754 Kernel.LocalMorphismSemantics <> left:57 var
+R7756:7760 Kernel.LocalMorphismSemantics <> right:58 var
+R7762:7765 Kernel.LocalMorphismSemantics <> cost:59 var
+R7768:7769 Kernel.LocalMorphismSemantics <> s':55 var
+R7778:7784 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7802:7809 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7789:7801 Kernel.LocalMorphismSemantics <> SplitMorphism rec
+binder 7785:7785 <> P:60
+R7846:7855 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7822:7824 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7810:7819 Kernel.LocalMorphismSemantics <> split_left proj
+R7821:7821 Kernel.LocalMorphismSemantics <> P:60 var
+R7825:7840 Kernel.VMState <> normalize_region def
+R7842:7845 Kernel.LocalMorphismSemantics <> left:57 var
+R7894:7903 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7869:7871 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7856:7866 Kernel.LocalMorphismSemantics <> split_right proj
+R7868:7868 Kernel.LocalMorphismSemantics <> P:60 var
+R7872:7887 Kernel.VMState <> normalize_region def
+R7889:7893 Kernel.LocalMorphismSemantics <> right:58 var
+R8013:8023 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8194:8194 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7904:7905 Coq.Lists.List <> In def
+R7984:8009 Kernel.LocalMorphismSemantics <> morphism_support_semantics proj
+R8011:8011 Kernel.LocalMorphismSemantics <> P:60 var
+R7908:7922 Kernel.LocalMorphismSemantics <> cartesian_pairs def
+R7925:7940 Kernel.VMState <> normalize_region def
+R7942:7945 Kernel.LocalMorphismSemantics <> left:57 var
+R7949:7964 Kernel.VMState <> normalize_region def
+R7966:7970 Kernel.LocalMorphismSemantics <> right:58 var
+binder 8031:8037 <> support:61
+R8089:8100 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8048:8049 Coq.Lists.List <> In def
+R8060:8085 Kernel.LocalMorphismSemantics <> morphism_support_semantics proj
+R8087:8087 Kernel.LocalMorphismSemantics <> P:60 var
+R8051:8057 Kernel.LocalMorphismSemantics <> support:61 var
+binder 8108:8108 <> a:62
+R8157:8170 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8121:8122 Coq.Lists.List <> In def
+R8127:8147 Kernel.LocalMorphismSemantics <> reduced_state_support def
+R8149:8155 Kernel.LocalMorphismSemantics <> support:61 var
+R8124:8124 Kernel.LocalMorphismSemantics <> a:62 var
+R8171:8177 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8179:8180 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 8178:8178 <> b:63
+R8181:8187 Kernel.LocalMorphismSemantics <> coupled def
+R8189:8189 Kernel.LocalMorphismSemantics <> P:60 var
+R8191:8191 Kernel.LocalMorphismSemantics <> a:62 var
+R8193:8193 Kernel.LocalMorphismSemantics <> b:63 var
+R8286:8308 Kernel.LocalMorphismSemantics <> psplit_support_morphism def
+R8286:8308 Kernel.LocalMorphismSemantics <> psplit_support_morphism def
+R8613:8633 Kernel.LocalMorphismSemantics <> reduced_state_support def
+R8636:8662 Kernel.LocalMorphismSemantics <> partial_trace_right_support def
+R8696:8703 Coq.Lists.List <> nodup_In thm
+R8696:8703 Coq.Lists.List <> nodup_In thm
+R8737:8758 Kernel.LocalMorphismSemantics <> in_map_fst_exists_pair thm
+R8737:8758 Kernel.LocalMorphismSemantics <> in_map_fst_exists_pair thm
+R8845:8851 Kernel.LocalMorphismSemantics <> coupled def
+R8905:8927 Kernel.LocalMorphismSemantics <> psplit_support_morphism def
+R8905:8927 Kernel.LocalMorphismSemantics <> psplit_support_morphism def
+R9232:9252 Kernel.LocalMorphismSemantics <> reduced_state_support def
+R9255:9281 Kernel.LocalMorphismSemantics <> partial_trace_right_support def
+R9315:9322 Coq.Lists.List <> nodup_In thm
+R9315:9322 Coq.Lists.List <> nodup_In thm
+R9356:9377 Kernel.LocalMorphismSemantics <> in_map_fst_exists_pair thm
+R9356:9377 Kernel.LocalMorphismSemantics <> in_map_fst_exists_pair thm
+R9464:9470 Kernel.LocalMorphismSemantics <> coupled def
+def 9600:9633 <> vm_apply_psplit_reachable_supports
+R9642:9648 Kernel.VMState <> VMState rec
+binder 9638:9638 <> s:64
+R9663:9670 Kernel.VMState <> ModuleID def
+binder 9654:9659 <> module:65
+R9689:9692 Coq.Init.Datatypes <> list ind
+R9694:9696 Coq.Init.Datatypes <> nat ind
+binder 9676:9679 <> left:66
+binder 9681:9685 <> right:67
+R9709:9711 Coq.Init.Datatypes <> nat ind
+binder 9702:9705 <> cost:68
+R9716:9719 Coq.Init.Datatypes <> list ind
+R9721:9733 Kernel.LocalMorphismSemantics <> joint_support def
+R9746:9757 Kernel.VMState <> graph_psplit def
+R9762:9769 Kernel.VMState <> vm_graph proj
+R9759:9759 Kernel.LocalMorphismSemantics <> s:64 var
+R9772:9777 Kernel.LocalMorphismSemantics <> module:65 var
+R9779:9782 Kernel.LocalMorphismSemantics <> left:66 var
+R9784:9788 Kernel.LocalMorphismSemantics <> right:67 var
+R9799:9802 Coq.Init.Datatypes <> Some constr
+R9809:9809 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9874:9874 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9810:9824 Kernel.LocalMorphismSemantics <> cartesian_pairs def
+R9827:9842 Kernel.VMState <> normalize_region def
+R9844:9847 Kernel.LocalMorphismSemantics <> left:66 var
+R9851:9866 Kernel.VMState <> normalize_region def
+R9868:9872 Kernel.LocalMorphismSemantics <> right:67 var
+R9880:9883 Coq.Init.Datatypes <> None constr
+R9888:9889 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+prf 10058:10105 <> psplit_cartesian_semantics_conservative_vm_apply
+binder 10118:10118 <> s:69
+binder 10120:10121 <> s':70
+binder 10123:10128 <> module:71
+binder 10130:10133 <> left:72
+binder 10135:10139 <> right:73
+binder 10141:10144 <> cost:74
+R10201:10208 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10151:10157 Kernel.VMStep VMStep vm_step ind
+R10159:10159 Kernel.LocalMorphismSemantics <> s:69 var
+R10162:10173 Kernel.VMStep VMStep instr_psplit constr
+R10175:10180 Kernel.LocalMorphismSemantics <> module:71 var
+R10182:10185 Kernel.LocalMorphismSemantics <> left:72 var
+R10187:10191 Kernel.LocalMorphismSemantics <> right:73 var
+R10193:10196 Kernel.LocalMorphismSemantics <> cost:74 var
+R10199:10200 Kernel.LocalMorphismSemantics <> s':70 var
+R10260:10267 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10252:10255 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R10209:10220 Kernel.VMState <> graph_psplit def
+R10225:10232 Kernel.VMState <> vm_graph proj
+R10222:10222 Kernel.LocalMorphismSemantics <> s:69 var
+R10235:10240 Kernel.LocalMorphismSemantics <> module:71 var
+R10242:10245 Kernel.LocalMorphismSemantics <> left:72 var
+R10247:10251 Kernel.LocalMorphismSemantics <> right:73 var
+R10256:10259 Coq.Init.Datatypes <> None constr
+binder 10275:10281 <> support:75
+R10374:10383 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10290:10291 Coq.Lists.List <> In def
+R10310:10335 Kernel.LocalMorphismSemantics <> morphism_support_semantics proj
+R10338:10360 Kernel.LocalMorphismSemantics <> psplit_support_morphism def
+R10362:10365 Kernel.LocalMorphismSemantics <> left:72 var
+R10367:10371 Kernel.LocalMorphismSemantics <> right:73 var
+R10293:10299 Kernel.LocalMorphismSemantics <> support:75 var
+R10384:10385 Coq.Lists.List <> In def
+R10396:10429 Kernel.LocalMorphismSemantics <> vm_apply_psplit_reachable_supports def
+R10431:10431 Kernel.LocalMorphismSemantics <> s:69 var
+R10433:10438 Kernel.LocalMorphismSemantics <> module:71 var
+R10440:10443 Kernel.LocalMorphismSemantics <> left:72 var
+R10445:10449 Kernel.LocalMorphismSemantics <> right:73 var
+R10451:10454 Kernel.LocalMorphismSemantics <> cost:74 var
+R10387:10393 Kernel.LocalMorphismSemantics <> support:75 var
+R10532:10565 Kernel.LocalMorphismSemantics <> vm_apply_psplit_reachable_supports def
+R10580:10591 Kernel.VMState <> graph_psplit def
+R10596:10603 Kernel.VMState <> vm_graph proj
+R10580:10591 Kernel.VMState <> graph_psplit def
+R10596:10603 Kernel.VMState <> vm_graph proj
+prf 10803:10836 <> psplit_vm_apply_reaches_step_state
+binder 10849:10849 <> s:76
+binder 10851:10852 <> s':77
+binder 10854:10859 <> module:78
+binder 10861:10864 <> left:79
+binder 10866:10870 <> right:80
+binder 10872:10875 <> cost:81
+R10932:10939 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10882:10888 Kernel.VMStep VMStep vm_step ind
+R10890:10890 Kernel.LocalMorphismSemantics <> s:76 var
+R10893:10904 Kernel.VMStep VMStep instr_psplit constr
+R10906:10911 Kernel.LocalMorphismSemantics <> module:78 var
+R10913:10916 Kernel.LocalMorphismSemantics <> left:79 var
+R10918:10922 Kernel.LocalMorphismSemantics <> right:80 var
+R10924:10927 Kernel.LocalMorphismSemantics <> cost:81 var
+R10930:10931 Kernel.LocalMorphismSemantics <> s':77 var
+R10991:10998 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10983:10986 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R10940:10951 Kernel.VMState <> graph_psplit def
+R10956:10963 Kernel.VMState <> vm_graph proj
+R10953:10953 Kernel.LocalMorphismSemantics <> s:76 var
+R10966:10971 Kernel.LocalMorphismSemantics <> module:78 var
+R10973:10976 Kernel.LocalMorphismSemantics <> left:79 var
+R10978:10982 Kernel.LocalMorphismSemantics <> right:80 var
+R10987:10990 Coq.Init.Datatypes <> None constr
+R11047:11049 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10999:11006 Kernel.SimulationProof <> vm_apply def
+R11008:11008 Kernel.LocalMorphismSemantics <> s:76 var
+R11011:11022 Kernel.VMStep VMStep instr_psplit constr
+R11024:11029 Kernel.LocalMorphismSemantics <> module:78 var
+R11031:11034 Kernel.LocalMorphismSemantics <> left:79 var
+R11036:11040 Kernel.LocalMorphismSemantics <> right:80 var
+R11042:11045 Kernel.LocalMorphismSemantics <> cost:81 var
+R11050:11051 Kernel.LocalMorphismSemantics <> s':77 var
+R11115:11130 Kernel.SimulationProof <> vm_step_vm_apply thm
+R11115:11130 Kernel.SimulationProof <> vm_step_vm_apply thm
+prf 11160:11187 <> local_morphism_support_bound
+R11205:11217 Kernel.LocalMorphismSemantics <> SplitMorphism rec
+binder 11201:11201 <> P:82
+R11231:11243 Kernel.LocalMorphismSemantics <> joint_support def
+binder 11221:11227 <> support:83
+R11272:11279 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11251:11269 Kernel.LocalMorphismSemantics <> is_nearest_neighbor def
+R11271:11271 Kernel.LocalMorphismSemantics <> P:82 var
+R11321:11328 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11280:11281 Coq.Lists.List <> In def
+R11292:11317 Kernel.LocalMorphismSemantics <> morphism_support_semantics proj
+R11319:11319 Kernel.LocalMorphismSemantics <> P:82 var
+R11283:11289 Kernel.LocalMorphismSemantics <> support:83 var
+R11329:11350 Kernel.LocalMorphismSemantics <> boundary_local_support def
+R11353:11362 Kernel.LocalMorphismSemantics <> split_left proj
+R11364:11364 Kernel.LocalMorphismSemantics <> P:82 var
+R11368:11378 Kernel.LocalMorphismSemantics <> split_right proj
+R11380:11380 Kernel.LocalMorphismSemantics <> P:82 var
+R11383:11389 Kernel.LocalMorphismSemantics <> support:83 var
+R11436:11457 Kernel.LocalMorphismSemantics <> boundary_local_support def
+R11469:11480 Coq.Arith.PeanoNat Nat le_trans thm
+R11469:11480 Coq.Arith.PeanoNat Nat le_trans thm
+R11493:11531 Kernel.LocalMorphismSemantics <> reduced_support_length_le_boundary_size thm
+R11493:11531 Kernel.LocalMorphismSemantics <> reduced_support_length_le_boundary_size thm
+R11551:11566 Kernel.LocalMorphismSemantics <> nat_le_pow2_self thm
+R11551:11566 Kernel.LocalMorphismSemantics <> nat_le_pow2_self thm

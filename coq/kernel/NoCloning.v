@@ -268,8 +268,12 @@ Definition nontrivial_input (op : CloningOperation) : Prop :=
     The proof is ONE LINE in Coq (`lra` solves the linear arithmetic).
 
     PHYSICAL INTERPRETATION:
-    This is the famous Wootters-Zurek / Dieks no-cloning theorem, but derived
-    from information accounting rather than quantum postulates. It says:
+    This result is analogous to the Wootters-Zurek no-cloning theorem,
+    formalized in terms of information accounting. The mathematical content is:
+    if clone_mu_cost = 0 and both outputs have the same information as the
+    input (I > 0), then 2I > I + 0. The connection to the full quantum
+    no-cloning theorem (which involves linearity of operators on Hilbert
+    spaces) is informal. It says:
     - Quantum cloning WOULD be unitary (μ = 0) if it existed
     - But unitarity preserves total information (in + μ = in + 0 = in)
     - Cloning needs to DOUBLE information (out1 + out2 = 2·in)
@@ -959,8 +963,8 @@ Qed.
        (b) A cloning operation built from a unitary has clone_mu_cost = 0
        (c) no_cloning_from_conservation forbids clone_mu_cost = 0 for nontrivial input
 
-    The upshot: unitarity is DERIVED, no-cloning follows from DERIVED unitarity.
-    Neither is a postulate. Both follow from μ-accounting.
+    The upshot: unitarity is proven within the μ-cost model's definitions,
+    and no-cloning follows from these definitions.
 *)
 
 From Kernel Require Import Unitarity.

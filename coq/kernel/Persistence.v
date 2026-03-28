@@ -1,19 +1,13 @@
-From Coq Require Import List Bool Arith.PeanoNat Lia.
-From Coq Require Import Strings.String.
-Import ListNotations.
-
-From Kernel Require Import VMState VMStep.
-
 (** * Persistence: Resource Bounded Computation and Betting Games
 
     WHY THIS FILE EXISTS:
-    I claim μ-cost is not just an abstract ledger - it's a PHYSICAL RESOURCE
+    I claim mu-cost is not just an abstract ledger - it's a PHYSICAL RESOURCE
     that can be exhausted. This file models resource-bounded computation via
     "fuel": a finite budget that depletes with each operation. When fuel runs
     out, computation halts with error.
 
     THE CORE CONCEPT:
-    FuelState wraps VMState + fuel counter. Each instruction costs μ-bits (via
+    FuelState wraps VMState + fuel counter. Each instruction costs mu-bits (via
     fuel_cost = instruction_cost). If cost > remaining fuel, the machine halts
     with vm_err = true. This models finite resources in real quantum computers.
 
@@ -21,13 +15,13 @@ From Kernel Require Import VMState VMStep.
     Without resource bounds, No Free Insight would be vacuous ("you can't
     search forever for free" is trivial). WITH fuel, No Free Insight becomes:
     "you cannot reduce search space without consuming fuel proportionally".
-    Fuel makes μ-cost OPERATIONAL (measurable, enforceable, falsifiable).
+    Fuel makes mu-cost OPERATIONAL (measurable, enforceable, falsifiable).
 
     BETTING GAME INTERPRETATION:
     CBettingStrategy models prediction: given current state + choice set, how
     much fuel do you bet on each instruction? If you predict correctly (oracle
     = actual next instruction), you get fuel back. This game tests whether you
-    can "guess" computational outcomes without paying μ-cost.
+    can "guess" computational outcomes without paying mu-cost.
 
     UniformStrategy: Split fuel evenly across all choices.
     OracleStrategy: Bet all fuel on the correct choice (impossible without
@@ -43,20 +37,26 @@ From Kernel Require Import VMState VMStep.
     computation (no fuel spent gathering information). This would mean you can
     predict computational outcomes for free, violating No Free Insight.
 
-    Or show that fuel_step semantics disagrees with vm_step + μ-accounting
+    Or show that fuel_step semantics disagrees with vm_step + mu-accounting
     (fuel model inconsistent with actual VM).
 
     Or demonstrate a physical quantum computer that doesn't respect resource
     bounds (infinite free operations, contradicting thermodynamics).
 
     PHYSICAL INTERPRETATION:
-    Fuel is energy × time (Joules × seconds). Depleting fuel models the second
+    Fuel is energy x time (Joules x seconds). Depleting fuel models the second
     law: computations consume free energy. When you run out, the machine stops
     (thermal equilibrium, no more gradients to extract work from).
 
-    This file connects abstract μ-cost to OPERATIONAL resource bounds, making
+    This file connects abstract mu-cost to OPERATIONAL resource bounds, making
     the theory experimentally testable.
 *)
+
+From Coq Require Import List Bool Arith.PeanoNat Lia.
+From Coq Require Import Strings.String.
+Import ListNotations.
+
+From Kernel Require Import VMState VMStep.
 
 Module Persistence.
 
@@ -127,18 +127,17 @@ Definition Dead (fs : FuelState) : Prop :=
   resource depletion. fuel_cost defines how much fuel an instruction consumes.
 
   IMPLEMENTATION: Direct alias for instruction_cost (defined in VMStep.v).
-  instruction_cost maps each instruction to its μ-delta:
-  - PNEW: 6 (partition creation)
-  - PDISCOVER: 12 (structure analysis)
-  - ALU ops: 1 (reversible computation)
-  - Memory ops: 2 (information movement)
+  instruction_cost maps each instruction to its mu_delta field — the
+  programmer-supplied cost parameter embedded in each instruction encoding.
+  Costs are NOT fixed constants; they are parameterized values carried
+  by each instruction instance (e.g., instr_pnew region mu_delta).
 
   PHYSICAL MEANING: fuel_cost is energy × time in natural units where 1 μ-bit
   = kT ln(2) Joules × (characteristic timescale). Higher cost = more
   thermodynamically irreversible operation.
 
-  ISOMORPHISM: Matches μ-accounting in thielecpu/state.py::step() and
-  hardware RTL thielecpu/hardware/mu_counter.v.
+  ISOMORPHISM: Matches μ-accounting in the extracted OCaml runner
+  (build/thiele_core.ml) and the Kami RTL (coq/kami_hw/ThieleCPUCore.v).
 
   FALSIFICATION: Show instruction i where fuel_cost(i) ≠ instruction_cost(i).
   This would break the fuel/μ correspondence.

@@ -247,9 +247,9 @@ class TestOpcodeEncoding:
         assert opcode == 0x0A  # XOR_LOAD
 
     def test_all_opcodes_have_entries(self):
-        """All 38 opcodes in cosim.OPCODES match isa.py."""
+        """All 47 opcodes in cosim.OPCODES match isa.py."""
         from thielecpu.hardware.cosim import OPCODES
-        assert len(OPCODES) == 38
+        assert len(OPCODES) == 47
         assert OPCODES["HALT"] == 0xFF
         assert OPCODES["PNEW"] == 0x00
 
@@ -386,9 +386,9 @@ class TestISAAlignment:
         rtl = REPO_ROOT / "thielecpu" / "hardware" / "rtl" / "thiele_cpu_kami.v"
         assert rtl.exists(), "thiele_cpu_kami.v not found"
 
-    def test_all_38_opcodes_in_cosim(self):
+    def test_all_47_opcodes_in_cosim(self):
         from thielecpu.hardware.cosim import OPCODES
-        assert len(OPCODES) == 38
+        assert len(OPCODES) == 47
         expected_names = {
             "PNEW", "PSPLIT", "PMERGE", "LASSERT", "LJOIN",
             "MDLACC", "PDISCOVER", "XFER", "LOAD_IMM", "CHSH_TRIAL",
@@ -398,5 +398,8 @@ class TestISAAlignment:
             "CHECKPOINT", "READ_PORT", "WRITE_PORT", "HEAP_LOAD", "HEAP_STORE",
             "CERTIFY", "HALT",
             "AND", "OR", "SHL", "SHR", "MUL", "LUI",
+            "TENSOR_SET", "TENSOR_GET",
+            "MORPH", "COMPOSE", "MORPH_ID", "MORPH_DELETE",
+            "MORPH_ASSERT", "MORPH_TENSOR", "MORPH_GET",
         }
         assert set(OPCODES.keys()) == expected_names

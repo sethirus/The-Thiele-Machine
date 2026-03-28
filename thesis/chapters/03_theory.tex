@@ -49,7 +49,7 @@ The Thiele Machine has five components:
     \item \textbf{State Space $S$}: What the machine "remembers"---registers, memory, partition graph
     \item \textbf{Partition Graph $\Pi$}: How the state is \textit{decomposed} into independent modules
     \item \textbf{Axiom Set $A$}: What logical constraints each module satisfies
-    \item \textbf{Transition Rules $R$}: How the machine evolves---the 31-instruction ISA
+    \item \textbf{Transition Rules $R$}: How the machine evolves---the active 47-opcode ISA
     \item \textbf{Logic Engine $L$}: The oracle that verifies logical consistency
 \end{enumerate}
 Each component corresponds to a concrete artifact in the formal development. The state and partition graph are defined in \path{coq/kernel/VMState.v}; the instruction set and step relation are defined in \path{coq/kernel/VMStep.v}; and the logic engine is represented by certificate checkers in \path{coq/kernel/CertCheck.v}. The point of the 5-tuple is not cosmetic: it is a decomposition that forces every later proof to say which resource it uses (state, partitions, axioms, transitions, or certificates), so that any implementation layer can mirror the same structure without guessing.
@@ -129,20 +129,22 @@ The state space $S$ is the complete instantaneous description of the machine. Un
     >=Stealth
 ]
 % Record box
-\node[draw, dashed, rounded corners=3pt, minimum width=3.6cm, minimum height=5.1cm] at (1.8, -2.15) {};
+\node[draw, dashed, rounded corners=3pt, minimum width=3.6cm, minimum height=6.1cm] at (1.8, -2.65) {};
 \node[font=\scriptsize\bfseries, anchor=south] at (1.8, 0.45) {VMState};
 
 % Fields
 \node[field, fill=green!15] (g) at (0, 0) {\texttt{vm\_graph} : PartitionGraph};
 \node[field, fill=blue!10] (c) at (0, -0.5) {\texttt{vm\_csrs} : CSRState};
 \node[field, fill=blue!10] (r) at (0, -1.0) {\texttt{vm\_regs} : list nat (32)};
-\node[field, fill=blue!10] (m) at (0, -1.5) {\texttt{vm\_mem} : list nat (4096)};
+\node[field, fill=blue!10] (m) at (0, -1.5) {\texttt{vm\_mem} : list nat (65536)};
 \node[field, fill=orange!10] (p) at (0, -2.0) {\texttt{vm\_pc} : nat};
 \node[field, fill=yellow!25, line width=1.2pt, draw=red!70] (mu) at (0, -2.5) {\texttt{vm\_mu} : nat \textbf{(\textmu-ledger)}};
 \node[field, fill=yellow!15] (mut) at (0, -3.0) {\texttt{vm\_mu\_tensor} : list nat (4$\times$4)};
 \node[field, fill=red!10] (e) at (0, -3.5) {\texttt{vm\_err} : bool};
 \node[field, fill=purple!10] (la) at (0, -4.0) {\texttt{vm\_logic\_acc} : nat};
 \node[field, fill=purple!10] (ms) at (0, -4.5) {\texttt{vm\_mstatus} : nat};
+\node[field, fill=cyan!10] (wt) at (0, -5.0) {\texttt{vm\_witness} : WitnessCounts};
+\node[field, fill=cyan!10] (ct) at (0, -5.5) {\texttt{vm\_certified} : bool};
 
 % Annotation for mu
 \draw[->, red!60, thick] (3.5, -2.5) -- (mu.east) node[anchor=west, font=\tiny, red!60!black] at (3.5, -2.5) {monotonic};
@@ -163,10 +165,12 @@ Record VMState := {
   vm_mem : list nat;
   vm_pc : nat;
   vm_mu : nat;
-  vm_mu_tensor : list nat;  (* Flattened 4x4 mu-tensor, row-major, 16 entries *)
+  vm_mu_tensor : list nat;    (* Flattened 4x4 mu-tensor, row-major, 16 entries *)
   vm_err : bool;
-  vm_logic_acc : nat;       (* Logic engine accumulator *)
-  vm_mstatus : nat           (* 0 = Turing, 1 = Thiele mode *)
+  vm_logic_acc : nat;         (* Logic engine accumulator *)
+  vm_mstatus : nat;            (* 0 = Turing, 1 = Thiele mode *)
+  vm_witness : WitnessCounts;  (* CHSH trial buckets -- 8 counters *)
+  vm_certified : bool           (* state-based certification flag *)
 }.
 \end{lstlisting}
 
@@ -177,37 +181,39 @@ Each component serves a specific purpose:
     \item \textbf{vm\_graph}: The partition graph $\Pi$, encoding the current decomposition of the state into modules
     \item \textbf{vm\_csrs}: Control Status Registers including certification address, status flags, and error codes
     \item \textbf{vm\_regs}: A register file of 32 registers (matching RISC-V conventions)
-    \item \textbf{vm\_mem}: Data memory of 4,096 words
+    \item \textbf{vm\_mem}: Data memory of 65,536 words
     \item \textbf{vm\_pc}: The program counter
     \item \textbf{vm\_mu}: The $\mu$-ledger accumulator
     \item \textbf{vm\_mu\_tensor}: A flattened $4 \times 4$ cost tensor (16 entries, row-major). The \texttt{REVEAL} instruction charges specific tensor entries, and the Bianchi invariant ($\sum\text{tensor}[i] \le \mu$) is enforced every cycle in hardware. This connects $\mu$-accounting to metric-space geometry.
     \item \textbf{vm\_err}: Error flag (latching)
     \item \textbf{vm\_logic\_acc}: Logic engine accumulator. High-value operations (REVEAL, PDISCOVER, CHSH\_TRIAL) require this to hold the gate key \texttt{0xCAFEEACE}. Mirrors the RTL \texttt{logic\_acc} register.
     \item \textbf{vm\_mstatus}: Mode selector: 0 = Turing mode (standard execution), 1 = Thiele mode (structure-aware with $\mu$-cost enforcement).
+    \item \textbf{vm\_witness}: Eight CHSH trial counters (same/different $\times$ four setting pairs). Updated by \texttt{CHSH\_TRIAL} and read by the certification path.
+    \item \textbf{vm\_certified}: State-based certification flag, set by the \texttt{CERTIFY} instruction when the witness counters satisfy the CHSH threshold. Once set, it cannot be cleared---certification is irreversible.
 \end{itemize}
 The sizes are not arbitrary: \texttt{REG\_COUNT} and \texttt{MEM\_SIZE} are defined in \path{coq/kernel/VMState.v} and are mirrored in the Python and RTL layers so that indexing and wrap-around are identical. Reads and writes use modular indexing (\texttt{reg\_index} and \texttt{mem\_index}) so that any out-of-range access deterministically folds back into the fixed-width state, matching the hardware behavior where wires have fixed width.
 
 \subsubsection{Word Representation}
 
-The machine uses 32-bit words with explicit masking:
+The machine uses 64-bit words with explicit masking:
 \begin{lstlisting}
-Definition word32_mask : N := N.ones 32.
-Definition word32 (x : nat) : nat :=
-  N.to_nat (N.land (N.of_nat x) word32_mask).
+Definition word64_mask : N := N.ones 64.
+Definition word64 (x : nat) : nat :=
+  N.to_nat (N.land (N.of_nat x) word64_mask).
 \end{lstlisting}
 
-\paragraph{What word masking does:} The \texttt{word32} function masks any number down to 32 bits---bitwise AND with \texttt{0xFFFFFFFF}. I had to learn why this exists the hard way: Coq's \texttt{nat} type is unbounded, but hardware registers are 32 bits. Without the mask, the Coq model and the hardware disagree on what happens at overflow.
+\paragraph{What word masking does:} The \texttt{word64} function masks any number down to 64 bits---bitwise AND with \texttt{0xFFFFFFFFFFFFFFFF}. I had to learn why this exists the hard way: Coq's \texttt{nat} type is unbounded, but hardware registers are 64 bits. Without the mask, the Coq model and the hardware disagree on what happens at overflow.
 
 \textbf{Step by step:}
 \begin{enumerate}
-    \item \textbf{\texttt{N.ones 32}}: Creates the bitmask \texttt{0xFFFFFFFF}---32 consecutive 1-bits. The \texttt{N} type is Coq's binary natural number representation, which is what bit operations need.
+    \item \textbf{\texttt{N.ones 64}}: Creates the bitmask \texttt{0xFFFFFFFFFFFFFFFF}---64 consecutive 1-bits. The \texttt{N} type is Coq's binary natural number representation, which is what bit operations need.
     \item \textbf{\texttt{N.of\_nat x}}: Converts from Coq's mathematical \texttt{nat} (which proofs use) to binary \texttt{N} (which bit operations need). Two representations of the same number, different purposes.
-    \item \textbf{\texttt{N.land}}: Bitwise AND. ANDing any number with \texttt{0xFFFFFFFF} keeps only the lower 32 bits. Example: \texttt{0x1FFFFFFFF AND 0xFFFFFFFF = 0xFFFFFFFF}.
+    \item \textbf{\texttt{N.land}}: Bitwise AND. ANDing any number with \texttt{0xFFFFFFFFFFFFFFFF} keeps only the lower 64 bits. Example: \texttt{0x1FFFFFFFFFFFFFFFF AND 0xFFFFFFFFFFFFFFFF = 0xFFFFFFFFFFFFFFFF}.
     \item \textbf{\texttt{N.to\_nat}}: Converts back to \texttt{nat} for the rest of the formal model.
 \end{enumerate}
 
-\textbf{Why this matters:} Coq's \texttt{nat} is unbounded---\texttt{0xFFFFFFFF + 1} would be \texttt{0x100000000} in Coq but \texttt{0x00000000} in hardware (wraparound). By applying \texttt{word32} after every operation, the mathematical model matches register behavior exactly. When I prove something about the model, I'm proving it about the actual hardware, not some idealized version.
-In the Coq kernel, write operations (\texttt{write\_reg} and \texttt{write\_mem}) mask values through \texttt{word32}, so every stored word is explicitly truncated rather than implicitly relying on the host language. This makes the arithmetic model match the RTL and avoids ambiguities where a high-level language might use unbounded integers.
+\textbf{Why this matters:} Coq's \texttt{nat} is unbounded---\texttt{0xFFFFFFFFFFFFFFFF + 1} would be \texttt{0x10000000000000000} in Coq but \texttt{0x0000000000000000} in hardware (wraparound). By applying \texttt{word64} after every operation, the mathematical model matches register behavior exactly. When I prove something about the model, I'm proving it about the actual hardware, not some idealized version.
+In the Coq kernel, write operations (\texttt{write\_reg} and \texttt{write\_mem}) mask values through \texttt{word64}, so every stored word is explicitly truncated rather than implicitly relying on the host language. This makes the arithmetic model match the RTL and avoids ambiguities where a high-level language might use unbounded integers.
 
 \subsection{Partition Graph $\Pi$}
 
@@ -253,7 +259,8 @@ Record PartitionGraph := {
 
 Record ModuleState := {
   module_region : list nat;
-  module_axioms : AxiomSet
+  module_axioms : AxiomSet;
+  module_mu_tensor : list nat  (* Per-module 4x4 metric tensor *)
 }.
 \end{lstlisting}
 
@@ -269,6 +276,7 @@ Record ModuleState := {
 \begin{itemize}
     \item \textbf{module\_region}: A list of memory addresses (natural numbers) that this module "owns." These addresses are disjoint from other modules' regions—no two modules can claim the same address.
     \item \textbf{module\_axioms}: Logical constraints about the data in this region. For example, "all values are positive" or "this region stores a sorted array." These are verified by external SMT solvers.
+    \item \textbf{module\_mu\_tensor}: A per-module $4 \times 4$ metric tensor (16 entries, row-major). Defaults to all zeros (flat space). The \texttt{TENSOR\_SET} instruction writes entries; \texttt{TENSOR\_GET} reads them. This connects partition-level geometry to the global $\mu$-tensor in \texttt{VMState}.
 \end{itemize}
 
 \textbf{Design Rationale:} Why lists instead of sets or arrays? Because Coq's list type has extensive proven libraries (\texttt{List.v}), making verification easier. The O(n) lookup cost is acceptable---the number of modules is typically small ($<$100), and this is a \emph{specification}, not an optimized implementation.
@@ -370,13 +378,14 @@ This constrains $x$ to be non-negative. The kernel doesn't know or care what tha
 
 Axioms can be added to modules:
 \begin{lstlisting}
-Definition graph_add_axiom (g : PartitionGraph) (mid : ModuleID) 
+Definition graph_add_axiom (g : PartitionGraph) (mid : ModuleID)
   (ax : VMAxiom) : PartitionGraph :=
   match graph_lookup g mid with
   | None => g
   | Some m =>
       let updated := {| module_region := m.(module_region);
-                        module_axioms := m.(module_axioms) ++ [ax] |} in
+                        module_axioms := m.(module_axioms) ++ [ax];
+                        module_mu_tensor := m.(module_mu_tensor) |} in
       graph_update g mid updated
   end.
 \end{lstlisting}
@@ -401,6 +410,7 @@ Definition graph_add_axiom (g : PartitionGraph) (mid : ModuleID)
     \begin{itemize}
         \item Keep the same region: \texttt{module\_region := m.(module\_region)}
         \item Append new axiom to axiom list: \texttt{module\_axioms := m.(module\_axioms) ++ [ax]}
+        \item Preserve the metric tensor: \texttt{module\_mu\_tensor := m.(module\_mu\_tensor)}
         \item The \texttt{++} operator concatenates lists: \texttt{[a;b] ++ [c] = [a;b;c]}
     \end{itemize}
     \item \textbf{Update Graph}: \texttt{graph\_update} replaces the old module with the updated one
@@ -417,7 +427,7 @@ When modules are split, axioms are copied to both children. When modules are mer
 
 \subsection{Transition Rules $R$}
 
-The transition rules define how state evolves. The Thiele Machine has 31 instructions, defined in the formal step semantics.
+The transition rules define how state evolves. The active implementation exposes a 47-opcode ISA (40 original + 7 categorical morphism opcodes), defined in the formal step semantics.
 Each instruction constructor in \path{coq/kernel/VMStep.v} includes an explicit \texttt{mu\_delta} parameter so that the ledger change is part of the semantics, not an external annotation. This makes the cost model part of the operational meaning of each instruction rather than a separate accounting layer.
 
 \subsubsection{Instruction Set}
@@ -437,6 +447,16 @@ Inductive vm_instruction :=
 (* Data transfer *)
 | instr_xfer (dst src : nat) (mu_delta : nat)
 | instr_load_imm (dst : nat) (imm : nat) (mu_delta : nat)
+(* Memory and ALU *)
+| instr_load (dst : nat) (rs_addr : nat) (mu_delta : nat)
+| instr_store (rs_addr : nat) (src : nat) (mu_delta : nat)
+| instr_add (dst : nat) (rs1 : nat) (rs2 : nat) (mu_delta : nat)
+| instr_sub (dst : nat) (rs1 : nat) (rs2 : nat) (mu_delta : nat)
+(* Control flow *)
+| instr_jump (target : nat) (mu_delta : nat)
+| instr_jnez (rs : nat) (target : nat) (mu_delta : nat)
+| instr_call (target : nat) (mu_delta : nat)
+| instr_ret (mu_delta : nat)
 (* Certification *)
 | instr_chsh_trial (x y a b : nat) (mu_delta : nat)
 (* XOR matrix operations *)
@@ -448,17 +468,27 @@ Inductive vm_instruction :=
 | instr_emit (module : ModuleID) (payload : string) (mu_delta : nat)
 | instr_reveal (module : ModuleID) (bits : nat) (cert : string) (mu_delta : nat)
 | instr_oracle_halts (payload : string) (mu_delta : nat)
-(* Memory and ALU *)
-| instr_load (dst : nat) (addr : nat) (mu_delta : nat)
-| instr_store (addr : nat) (src : nat) (mu_delta : nat)
-| instr_add (dst : nat) (rs1 : nat) (rs2 : nat) (mu_delta : nat)
-| instr_sub (dst : nat) (rs1 : nat) (rs2 : nat) (mu_delta : nat)
-(* Control flow *)
-| instr_jump (target : nat) (mu_delta : nat)
-| instr_jnez (rs : nat) (target : nat) (mu_delta : nat)
-| instr_call (target : nat) (mu_delta : nat)
-| instr_ret (mu_delta : nat)
-| instr_halt (mu_delta : nat).
+| instr_halt (mu_delta : nat)
+(* Phase 2 -- I/O and checkpoints *)
+| instr_checkpoint (label : string) (mu_delta : nat)
+| instr_read_port (dst : nat) (channel_idx : nat) (value : nat)
+    (bits : nat) (mu_delta : nat)
+| instr_write_port (channel_idx : nat) (src : nat) (mu_delta : nat)
+(* Phase 3B -- heap-relative memory access *)
+| instr_heap_load (dst : nat) (rs_addr : nat) (mu_delta : nat)
+| instr_heap_store (rs_addr : nat) (src : nat) (mu_delta : nat)
+(* Phase 4 -- state-based certification *)
+| instr_certify (mu_delta : nat)
+(* Phase 5 -- extended ALU operations *)
+| instr_and (dst : nat) (rs1 : nat) (rs2 : nat) (mu_delta : nat)
+| instr_or  (dst : nat) (rs1 : nat) (rs2 : nat) (mu_delta : nat)
+| instr_shl (dst : nat) (rs1 : nat) (rs2 : nat) (mu_delta : nat)
+| instr_shr (dst : nat) (rs1 : nat) (rs2 : nat) (mu_delta : nat)
+| instr_mul (dst : nat) (rs1 : nat) (rs2 : nat) (mu_delta : nat)
+| instr_lui (dst : nat) (imm : nat) (mu_delta : nat)
+(* Phase 6 -- per-module tensor instructions *)
+| instr_tensor_set (module : ModuleID) (i j value : nat) (mu_delta : nat)
+| instr_tensor_get (dst : nat) (module : ModuleID) (i j : nat) (mu_delta : nat).
 \end{lstlisting}
 
 \paragraph{Why the instruction type matters:} Coq forces you to list every possible instruction up front---there's no way to sneak in a new one later without updating every proof that pattern-matches on instructions. That was painful during development (every time I added an instruction, dozens of proofs broke), but it means the proofs cover \emph{every} instruction, guaranteed.
@@ -472,7 +502,7 @@ The key design choice: every instruction carries a \texttt{mu\_delta} field. The
     \item \textbf{\texttt{instr\_xor\_swap}}: Takes two register indices and a \texttt{mu\_delta}. XOR is reversible, so its structural cost is zero, but the field is still there---the type system forces that.
 \end{itemize}
 
-The 31 instructions break into groups:
+The active 47 opcodes break into groups:
 \begin{itemize}
     \item \textbf{Partition Ops} (4): Structure creation, splitting, merging, and discovery (\texttt{PNEW}, \texttt{PSPLIT}, \texttt{PMERGE}, \texttt{PDISCOVER})
     \item \textbf{Logic Ops} (3): Axiom assertion, certificate joining, and MDL accounting (\texttt{LASSERT}, \texttt{LJOIN}, \texttt{MDLACC})
@@ -483,6 +513,10 @@ The 31 instructions break into groups:
     \item \textbf{Memory \& ALU} (4): Load, store, addition, subtraction (\texttt{LOAD}, \texttt{STORE}, \texttt{ADD}, \texttt{SUB})
     \item \textbf{Control Flow} (5): Jumps, branches, subroutines, halt (\texttt{JUMP}, \texttt{JNEZ}, \texttt{CALL}, \texttt{RET}, \texttt{HALT})
     \item \textbf{I/O and Heap} (5): State snapshots, port access, and heap memory (\texttt{CHECKPOINT}, \texttt{READ\_PORT}, \texttt{WRITE\_PORT}, \texttt{HEAP\_LOAD}, \texttt{HEAP\_STORE})
+    \item \textbf{Certification} (1): Proof-carrying execution attestation (\texttt{CERTIFY})
+    \item \textbf{ALU Extensions} (6): Bitwise and arithmetic (\texttt{AND}, \texttt{OR}, \texttt{SHL}, \texttt{SHR}, \texttt{MUL}, \texttt{LUI})
+    \item \textbf{Per-Module Tensor} (2): Module tensor read/write (\texttt{TENSOR\_SET}, \texttt{TENSOR\_GET})
+    \item \textbf{Categorical Morphisms} (7): Typed morphism creation, composition, identity, deletion, assertion, tensor product, and inspection (\texttt{MORPH}, \texttt{COMPOSE}, \texttt{MORPH\_ID}, \texttt{MORPH\_DELETE}, \texttt{MORPH\_ASSERT}, \texttt{MORPH\_TENSOR}, \texttt{MORPH\_GET})
 \end{itemize}
 The diagram below groups them by typical cost.
 
@@ -523,7 +557,7 @@ The instructions fall into several categories:
 \node[font=\tiny, gray!50!black] at (-2.6, 0) {high $\mu$};
 \node[font=\tiny, gray!50!black] at (2.6, 0) {low $\mu$};
 \end{tikzpicture}
-\caption{The 31 instructions grouped by category. Structural, logical, and certification operations have high $\mu$-cost (they add knowledge). Data movement, control, and compute operations have low or zero cost.}
+\caption{The active opcodes grouped by category. Structural, logical, and certification operations have high $\mu$-cost (they add knowledge). Data movement, control, and compute operations have low or zero cost.}
 \label{fig:instruction-categories}
 \end{figure}
 
@@ -831,7 +865,7 @@ Theorem mu_conservation_kernel : forall s s' instr,
 
 \paragraph{What this theorem says:} For \emph{any} state, \emph{any} instruction, and \emph{any} resulting state: if the step is valid, the ledger didn't go down. That's it. No exceptions, no edge cases. Coq checked every branch of the step relation and confirmed the arithmetic.
 
-\textbf{Why it works:} Every instruction's cost is a \texttt{nat} (natural number, can't be negative), so the ledger can only go up or stay the same. The proof walks through each of the 39 step constructors (covering success and failure branches for all 31 instructions) and confirms that \texttt{advance\_state} adds \texttt{instruction\_cost instr} to the ledger, which is always $\geq 0$. This isn't ``probably true'' or ``true in tests''---it's checked for all possible executions.
+\textbf{Why it works:} Every instruction's cost is a \texttt{nat} (natural number, can't be negative), so the ledger can only go up or stay the same. The proof walks through the step constructors covering success and failure branches across the active opcode set and confirms that \texttt{advance\_state} adds \texttt{instruction\_cost instr} to the ledger, which is always $\geq 0$. This isn't ``probably true'' or ``true in tests''---it's checked for all possible executions.
 
 \textbf{What this guarantees:}
 \begin{enumerate}
@@ -841,7 +875,7 @@ Theorem mu_conservation_kernel : forall s s' instr,
     \item \textbf{No Rewinds}: Can't ``undo'' structural knowledge by stepping backward
 \end{enumerate}
 
-I had to learn how Coq handles this kind of proof the hard way: you do structural induction on the step relation, which means Coq generates one sub-goal per step constructor. All 39 of them. Each one boils down to showing that \texttt{advance\_state} adds a non-negative nat. It's tedious but airtight.
+I had to learn how Coq handles this kind of proof the hard way: you do structural induction on the step relation, which means Coq generates one sub-goal per step constructor. Some instructions have multiple step rules for success and failure branches, so 47 opcodes expand into roughly 57 cases. Each one boils down to showing that \texttt{advance\_state} adds a non-negative nat. It's tedious but airtight.
 
 \subsubsection{Multi-Step Conservation}
 
@@ -989,7 +1023,7 @@ Definition graph_pnew (g : PartitionGraph) (region : list nat)
 
 \textbf{Step-by-Step Execution:}
 \begin{enumerate}
-    \item \textbf{Normalization}: \texttt{normalize\_region region} removes duplicates and sorts. Why first? So that \texttt{[1;2;2;3]} and \texttt{[3;1;2]} are treated as the same region \texttt{[1;2;3]}.
+    \item \textbf{Normalization}: \texttt{normalize\_region region} removes duplicates via \texttt{nodup}, preserving first-occurrence order. So \texttt{[1;2;2;3]} becomes \texttt{[1;2;3]}, but \texttt{[3;1;2]} stays \texttt{[3;1;2]}---the Coq model does not sort. (The Python VM uses \texttt{sorted(set(region))} for a stricter canonical form; the Coq model uses \texttt{nodup} for provability.)
     
     \item \textbf{Lookup Existing}: \texttt{graph\_find\_region g normalized} searches the graph for a module with this exact region
     
@@ -1558,7 +1592,7 @@ You can't get "free" quantum advantage---the total $\mu$ cost must be paid expli
 
 \subsection{$\mu$-Gauge Transformation}
 
-A gauge transformation shifts the $\mu$-ledger by a constant:
+A gauge transformation shifts the $\mu$-ledger by a constant while preserving every other field:
 \begin{lstlisting}
 Definition mu_gauge_shift (k : nat) (s : VMState) : VMState :=
   {| vm_regs := s.(vm_regs);
@@ -1567,7 +1601,12 @@ Definition mu_gauge_shift (k : nat) (s : VMState) : VMState :=
      vm_pc := s.(vm_pc);
      vm_graph := s.(vm_graph);
      vm_mu := s.(vm_mu) + k;
-     vm_err := s.(vm_err) |}.
+     vm_mu_tensor := s.(vm_mu_tensor);
+     vm_err := s.(vm_err);
+     vm_logic_acc := s.(vm_logic_acc);
+     vm_mstatus := s.(vm_mstatus);
+     vm_witness := s.(vm_witness);
+     vm_certified := s.(vm_certified) |}.
 \end{lstlisting}
 
 \paragraph{Understanding Gauge Transformations:}
@@ -1854,16 +1893,15 @@ The Tsirelson bound is the strongest result: genuine algebra from row-norm const
 \begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=\textbf{Coq-Verified Quantum Axioms}]
 All theorems in this section are machine-checked in Coq 8.18 with zero Admitted statements:
 \begin{itemize}
-    \item \path{coq/kernel/NoCloning.v}: 947 lines, 19 definitions/theorems
-    \item \path{coq/kernel/NoCloningFromMuMonotonicity.v}: 281 lines, 14 definitions/theorems (machine-native, \texttt{lia}-only)
-    \item \path{coq/kernel/Unitarity.v}: 592 lines, 25 definitions/theorems
-    \item \path{coq/kernel/BornRule.v}: 342 lines, 21 definitions/theorems
-    \item \path{coq/kernel/BornRuleFromSymmetry.v}: 144 lines (refactored; non-circular, tensor consistency)
+    \item \path{coq/kernel/NoCloning.v}: 1,036 lines, 19 definitions/theorems
+    \item \path{coq/kernel/Unitarity.v}: 657 lines, 25 definitions/theorems
+    \item \path{coq/kernel/BornRule.v}: 341 lines, 21 definitions/theorems
+    \item \path{coq/kernel/BornRuleLinearity.v}: Born rule as unique affine interpolation
     \item \path{coq/kernel/Purification.v}: 290 lines, 11 definitions/theorems
-    \item \path{coq/kernel/TsirelsonGeneral.v}: 324 lines, 19 definitions/theorems
-    \item \path{coq/kernel/TsirelsonFromAlgebra.v}: 339 lines, 14 definitions/theorems (self-contained algebraic)
+    \item \path{coq/kernel/TsirelsonGeneral.v}: 329 lines, 19 definitions/theorems
+    \item \path{coq/kernel/AlgebraicCoherence.v}: Tsirelson from algebraic constraints
 \end{itemize}
-Total: 3,259 lines of machine-verified proofs across eight files showing quantum axioms follow from conservation-shaped hypotheses.
+Total: machine-verified proofs across seven files showing quantum axioms follow from conservation-shaped hypotheses.
 \end{tcolorbox}
 
 \section{Chapter Summary}
@@ -1929,4 +1967,4 @@ This chapter defined the Thiele Machine as a formal 5-tuple $T = (S, \Pi, A, R, 
     \end{itemize}
 \end{enumerate}
 
-These formal foundations enable the implementation (Chapter 4), verification (Chapter 5), and evaluation (Chapter 6). The quantum axiom proofs (3,259 lines of Coq across eight files with zero Admitted statements) show that quantum mechanics is consistent with the $\mu$-accounting framework: each axiom follows from a conservation-shaped hypothesis. The physics is in the assumptions, but the structural connection between axioms---all flowing from conservation---is genuine and machine-verified. Importantly, under \emph{Total $\mu$-Accounting}, setting $\mu_{\text{total}} = 0$ requires all components ($\mu_{\text{inst}}$ and $\mu_{\text{corr}}$) to be zero, where $\mu_{\text{corr}} = 0$ is exactly the condition of \emph{Algebraic Coherence} required to recover the Tsirelson bound $S \le 2.8284...$. Without enforcing $\mu_{\text{corr}} = 0$, the system is only bounded by the algebraic limit $S \le 4$.
+These formal foundations enable the implementation (Chapter 4), verification (Chapter 5), and evaluation (Chapter 6). The quantum axiom proofs (4,015 lines of Coq across seven files with zero Admitted statements) show that quantum mechanics is consistent with the $\mu$-accounting framework: each axiom follows from a conservation-shaped hypothesis. The physics is in the assumptions, but the structural connection between axioms---all flowing from conservation---is genuine and machine-verified. Importantly, under \emph{Total $\mu$-Accounting}, setting $\mu_{\text{total}} = 0$ requires all components ($\mu_{\text{inst}}$ and $\mu_{\text{corr}}$) to be zero, where $\mu_{\text{corr}} = 0$ is exactly the condition of \emph{Algebraic Coherence} required to recover the Tsirelson bound $S \le 2.8284...$. Without enforcing $\mu_{\text{corr}} = 0$, the system is only bounded by the algebraic limit $S \le 4$.

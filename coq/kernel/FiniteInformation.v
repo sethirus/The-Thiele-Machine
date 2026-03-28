@@ -16,10 +16,10 @@
 
     WHAT THIS PROVES:
     - info_nonincreasing: Deterministic evolution cannot increase the number
-      of distinguishable observation classes (Theorem, line 452)
+      of distinguishable observation classes (Theorem)
     - mu_monotonic: The μ-ledger (cumulative information destruction) is
-      monotonically non-decreasing (Theorem, line 492)
-    - Application to Thiele Machine: vm_mu never decreases (Theorem, line 571)
+      monotonically non-decreasing (Theorem)
+    - Application to Thiele Machine: vm_mu never decreases (Theorem)
 
     FALSIFICATION:
     Find a deterministic function step : S → S on a finite state space where
@@ -504,7 +504,7 @@ Qed.
 
 (** WHAT I PROVED (genuinely, with no hidden assumptions):
 
-    1. info_nonincreasing (Theorem, line 452):
+    1. info_nonincreasing (Theorem):
        The number of distinct observation classes CANNOT INCREASE when we apply
        a deterministic function step : State -> State on a finite state space.
 
@@ -516,7 +516,7 @@ Qed.
     2. info_destroyed is well-defined as current_info - info_after
        because info_after <= current_info (from theorem 1).
 
-    3. mu_monotonic (Theorem, line 492):
+    3. mu_monotonic (Theorem):
        The cumulative destruction ledger μ_after = μ + info_destroyed is
        monotonically non-decreasing: μ_after ≥ μ.
 
@@ -599,7 +599,7 @@ Qed.
     - No Hypothesis (checked by Inquisitor)
     - No Axiom (except Coq stdlib: decidable equality, classical logic for excluded middle)
     - No deferred proofs (no Admitted, no admit)
-    - Core theorem (info_nonincreasing, line 452) proven from first principles
+    - Core theorem (info_nonincreasing) proven from first principles
     - The proof shows WHY information cannot increase: because step : S → S
       means image(step) ⊆ S, so observations cannot escape the original set
 

@@ -1,6 +1,6 @@
 \section{What Is This Document?}
 
-Let me be straight with you: I'm a car salesman. I started building this in January 2025 using LLM-directed development---I specify the ideas, the invariants, and the falsification conditions, then direct AI tools to implement them. One year later, I'm presenting machine-verified proofs in Coq, a working virtual machine with a complete assembler and interactive debugger, synthesizable hardware with FPGA bitstreams, and a Coq-to-Verilog extraction pipeline through Kami---all implementing the same 31-instruction computational model, all provably isomorphic.
+Let me be straight with you: I'm a car salesman. I started building this in January 2025 using LLM-directed development---I specify the ideas, the invariants, and the falsification conditions, then direct AI tools to implement them. One year later, I'm presenting machine-verified proofs in Coq, a working virtual machine with a two-pass assembler, synthesizable hardware artifacts and FPGA targets, and a Coq-to-Verilog extraction pipeline through Kami---all centered on the same active 47-opcode computational model (40 original + 7 categorical morphism opcodes), with substantial cross-layer parity evidence and refinement links.
 
 If that sounds impossible, good. Read the proofs. They compile.
 
@@ -11,7 +11,7 @@ This thesis makes claims at three levels. I'm explicit about which is which:
 \begin{tcolorbox}[thesisbox,colback=blue!5!white,colframe=blue!75!black,title=Three Levels of Claims]
 \begin{enumerate}
     \item \textbf{Kernel theorems} (Proven): Machine-checked proofs in Coq establish properties like $\mu$-initiality (uniqueness of the cost measure), $\mu$-monotonicity, No Free Insight, observational no-signaling, Turing subsumption, and the Tsirelson bound.
-    \item \textbf{Implementation equivalence} (Tested + proven where possible): The 3-layer isomorphism (Coq/Python/Verilog) is enforced by automated tests on shared observables and backed by refinement proofs in Coq linking the kernel specification to the Python VM and hardware RTL.
+    \item \textbf{Implementation equivalence} (Tested + proven where possible): The three-layer comparison story (Coq/Python/Verilog) is enforced by automated tests on shared observables and backed by refinement proofs in Coq linking the kernel specification to the Python VM and hardware RTL. Where RTL tooling is optional, the evidence is conditional rather than unconditional.
     \item \textbf{Structural isomorphism} (Formal observation): The model exhibits structural constants logically equivalent to physical constants (e.g., $h \propto \tau_\mu$). These are derived properties of the accounting system, not physical claims about quartz or atoms.
 \end{enumerate}
 \end{tcolorbox}
@@ -40,13 +40,13 @@ If you are new to theoretical computer science, here is what you need to know:
 
 This is not a paper with informal arguments. Every major claim is:
 \begin{enumerate}
-    \item \textbf{Formally proven}: Machine-checked proofs in Coq---324 files, 98,778 lines, 5,179 theorem/lemma/definition declarations. Zero \texttt{Admitted}. Zero custom axioms.
-    \item \textbf{Implemented}: Working Python VM with a two-pass assembler and interactive cycle-accurate debugger, plus synthesizable Verilog RTL extracted from Coq through the Kami framework---including a generated ECP5 FPGA bitstream.
-    \item \textbf{Tested}: 33 test files with 469 test functions verify cross-layer consistency---Coq, Python, and RTL produce identical observable projections.
+    \item \textbf{Formally proven}: Machine-checked proofs in Coq with zero \texttt{Admitted} in the active tree and no project-local axioms in the active audited tree.
+    \item \textbf{Implemented}: Working Python VM with a two-pass assembler (\path{scripts/thiele_asm.py}), plus synthesizable Verilog RTL extracted from Coq through the Kami framework. The repository also contains synthesis artifacts and FPGA targets, subject to backend/toolchain availability.
+    \item \textbf{Tested}: Automated tests verify opcode completeness, certificate plumbing, and cross-layer consistency on shared observable projections. Some RTL-backed evidence depends on backend availability.
     \item \textbf{Falsifiable}: The thesis specifies exactly what would disprove each claim, including six QM-divergent predictions (QD1--QD6) with numerical values distinguishable from standard quantum mechanics.
 \end{enumerate}
 
-Every claim has a concrete falsification condition. If you find a counterexample, the Coq proof won't compile. The Python VM emits signed receipts. The RTL testbench produces JSON snapshots. All three are compared automatically. This isn't a paper about ideas---it's a reproducible experiment. The claims are bound to executable evidence.
+Every claim has a concrete falsification condition. If you find a counterexample, the Coq proof won't compile. The repository now includes signed TRS-1.0 receipt tooling for artifact and execution attestation, and the RTL testbench produces JSON snapshots for the gates that exercise it. This isn't a paper about ideas---it's a reproducible experiment. The claims are bound to executable evidence.
 
 \subsection{How to Read This Document}
 
@@ -185,9 +185,9 @@ The mechanized proofs in \path{coq/kernel/MuNoFreeInsightQuantitative.v} and \pa
 
 The three proven principles are: (i) $\mu$-monotonicity (\path{coq/kernel/MuLedgerConservation.v}), (ii) revelation requirements for strengthening (\path{coq/kernel/NoFreeInsight.v}), and (iii) observational locality (\path{coq/kernel/ObserverDerivation.v}).
 
-Beyond these, the Coq development proves that $\mu$ is not just \emph{a} valid cost measure---it is \emph{the} cost measure. The initiality theorem in \path{coq/kernel/MuInitiality.v} establishes that any instruction-consistent monotone functional starting at zero must equal $\mu$. There is no alternative. \path{coq/kernel/MuNecessity.v} connects this to Landauer's erasure bound, and \path{coq/kernel/HardMathFactsProven.v} mechanically proves all six of the project's previously listed hard mathematical assumptions. The assumption surface is zero.
+Beyond these, the Coq development proves that $\mu$ is not just \emph{a} valid cost measure---it is \emph{the} cost measure. The initiality theorem in \path{coq/kernel/MuInitiality.v} establishes that any instruction-consistent monotone functional starting at zero must equal $\mu$. There is no alternative. The six hard mathematical facts (correlation bounds, algebraic CHSH, classical CHSH, no-signaling, symmetric coherence bound, and Tsirelson from coherence) are mechanically proven from first principles across the active kernel files \path{coq/kernel/ClassicalBound.v}, \path{coq/kernel/BoxCHSH.v}, \path{coq/kernel/AlgebraicCoherence.v}, and \path{coq/kernel/MinorConstraints.v}. The tight Tsirelson bound $|S| \le 2\sqrt{2}$ is proven rigorously for the symmetric configuration; the general case is proven as $|S| \le 4$ with the tight bound conditional on a sum-of-squares hypothesis that the files document explicitly. The active project-local assumption surface is zero.
 
-\section{Methodology: The 3-Layer Isomorphism}
+\section{Methodology: The 3-Layer Comparison}
 
 The model isn't just described---it's built three times, in three different languages. Simulation proofs in Coq establish a refinement relation between the VM layer and the kernel TM specification. Automated test suites enforce observable equivalence empirically on every commit.
 
@@ -198,7 +198,7 @@ The mathematical ground truth. Machine-checked proofs that the compiler verifies
 \begin{itemize}
     \item \textbf{State and partition definitions}: formal state space, partition graphs, region normalization with canonical representation lemmas
 
-    \item \textbf{Step semantics}: 31-instruction ISA (39 \texttt{vm\_step} constructors covering success/failure branches) with structural operations (partition creation, split, merge, discovery), logic operations (assertion, join, MDL accumulation), certification (CHSH trials, reveal, emit), compute (transfer, XOR matrix, load immediate), memory and ALU (load, store, add, sub), and control flow (jump, conditional jump, call, return, halt)
+    \item \textbf{Step semantics}: active 47-opcode ISA (40 original + 7 categorical morphism opcodes) with inductive \texttt{vm\_step} constructors covering success/failure branches across structural, logical, certification, compute, memory/ALU, bitwise, heap, I/O, categorical, and control paths
 
     \item \textbf{Kernel physics theorems}: $\mu$-monotonicity, observational no-signaling, gauge symmetry, Noether-style conservation
 
@@ -206,7 +206,7 @@ The mathematical ground truth. Machine-checked proofs that the compiler verifies
 
     \item \textbf{Ledger conservation}: $\mu$-ledger never decreases under any transition
 
-    \item \textbf{Subsumption}: Thiele Machine strictly subsumes Turing Machine, with proper simulation via Minsky encoding
+    \item \textbf{Subsumption}: Thiele Machine properly extends Turing Machine (both are Turing-complete; the Thiele Machine adds partition structure as first-class state), with direct simulation and cost-certificate proofs
 
     \item \textbf{Quantum foundations}: Tsirelson bound from row-norm algebra, Born rule from linearity/tensor consistency, no-cloning from conservation constraints---physics enters via hypotheses, proofs verify entailment. CHSH hierarchy (classical/quantum/supra-quantum) as cost tiers
 
@@ -221,7 +221,7 @@ The mathematical ground truth. Machine-checked proofs that the compiler verifies
 
 Implementation: \path{coq/kernel/VMState.v} and \path{coq/kernel/VMStep.v} (kernel), \path{coq/kernel/KernelPhysics.v} and \path{coq/kernel/KernelNoether.v} (physics), \path{coq/kernel/MuInitiality.v} (initiality), \path{coq/kernel/Subsumption.v} and \path{coq/kernel/ProperSubsumption.v} (Turing subsumption), \path{coq/kernel/RevelationRequirement.v} (CHSH), \path{coq/kernel/PythonBisimulation.v} and \path{coq/kernel/HardwareBisimulation.v} (verification chain), \path{coq/kernel/NonCircularityAudit.v} (non-circularity), \path{coq/kernel/MasterSummary.v} (master index).
 
-\textbf{The Inquisitor Standard:} Zero tolerance. No \texttt{Admitted}. No \texttt{admit}. No custom axioms in active code. The \path{scripts/inquisitor.py} tool runs in CI on every commit, scanning every Coq file for forbidden proof shortcuts, hidden assumptions, circular definitions, tautological proofs, and smuggled constraints. It enforces 49 scan rules across categories including clamps, comment smells, Z-to-nat boundaries, unused hypotheses, definitional invariance, physics analogy contracts, proof quality, mu-cost consistency, CHSH bounds, axiom dependencies, and more. The latest scan covers 324 files with zero findings at any severity level. If a theorem says ``Proven,'' it compiles to \texttt{Qed}.
+\textbf{The Inquisitor Standard:} Zero tolerance. No \texttt{Admitted}. No \texttt{admit}. No project-local axioms in active code. The \path{scripts/inquisitor.py} tool runs in CI on every commit, scanning every Coq file for forbidden proof shortcuts, hidden assumptions, circular definitions, tautological proofs, and smuggled constraints. If a theorem says ``Proven,'' it compiles to \texttt{Qed}.
 
 \subsection{Layer 2: Python VM (The Implementation)}
 
@@ -230,16 +230,16 @@ Executable semantics. Code you can run. Receipts you can verify:
 \begin{itemize}
     \item \textbf{State}: canonical structure with bitmask partition storage (hardware-isomorphic representation in \path{thielecpu/vm.py})
 
-    \item \textbf{Execution}: all 31 instructions---partitions (\texttt{PNEW}, \texttt{PSPLIT}, \texttt{PMERGE}, \texttt{PDISCOVER}), logic (\texttt{LASSERT}, \texttt{LJOIN}, \texttt{MDLACC}), certification (\texttt{REVEAL}, \texttt{EMIT}, \texttt{CHSH\_TRIAL}), data transfer (\texttt{XFER}, \texttt{LOAD\_IMM}), XOR matrix (\texttt{XOR\_LOAD}, \texttt{XOR\_ADD}, \texttt{XOR\_SWAP}, \texttt{XOR\_RANK}), oracle (\texttt{ORACLE\_HALTS}), memory and ALU (\texttt{LOAD}, \texttt{STORE}, \texttt{ADD}, \texttt{SUB}), control (\texttt{JUMP}, \texttt{JNEZ}, \texttt{CALL}, \texttt{RET}, \texttt{HALT}), and I/O and heap (\texttt{CHECKPOINT}, \texttt{READ\_PORT}, \texttt{WRITE\_PORT}, \texttt{HEAP\_LOAD}, \texttt{HEAP\_STORE})
+    \item \textbf{Execution}: the active 47-opcode ISA, including partition operations, logic/certification, memory and ALU, bitwise extensions, heap/I/O operations, categorical morphism operations, and control flow
 
-    \item \textbf{Tooling}: a two-pass assembler (\texttt{thiele-asm}) producing 32-bit instruction words with label resolution and macro expansion, plus an interactive cycle-accurate debugger (\texttt{thiele-debug}) with breakpoints, register/memory/tensor inspection, and disassembly
+    \item \textbf{Tooling}: a two-pass assembler (\path{scripts/thiele_asm.py}) producing 32-bit instruction words with label resolution and macro expansion, with \texttt{-{}-run} and \texttt{-{}-sim} modes for integrated OCaml and RTL co-simulation execution
 
-    \item \textbf{Receipts}: structured execution traces (the Ed25519 receipt-signing module is available but archived; see Chapter~9)
+    \item \textbf{Receipts}: active TRS-1.0 file-set and execution receipts, plus historical prototype receipt/verifier designs discussed in Chapter~9
 
     \item \textbf{$\mu$-ledger}: canonical cost accounting with Bianchi tensor enforcement
 \end{itemize}
 
-Implementation: \path{thielecpu/vm.py} (state and engine), \path{thielecpu/assembler.py} (assembler), \path{thielecpu/debugger.py} (debugger).
+Implementation: \path{thielecpu/vm.py} (state and engine), \path{scripts/thiele_asm.py} (assembler).
 
 \subsection{Layer 3: Verilog RTL (The Hardware)}
 
@@ -255,13 +255,13 @@ This isn't theoretical. The abstract $\mu$-costs map to real physical resources:
     \item \textbf{Accounting unit}: computes $\mu$-costs with hardware-enforced monotonicity. The Bianchi invariant ($\sum\text{tensor}[i] \le \mu$) is checked every cycle---violation freezes the CPU.
 \end{itemize}
 
-The RTL runs on Icarus Verilog and Verilator simulation with Yosys-compatible synthesis defines. The CI pipeline uses an entirely open-source FPGA flow: Yosys for logic synthesis, nextpnr for place-and-route, and ecppack for bitstream generation. The primary target is the Lattice ECP5-85k. Generated bitstreams are reproducible from source.
+The RTL runs on Icarus Verilog and Verilator simulation with Yosys-compatible synthesis defines. The CI pipeline uses an entirely open-source FPGA flow: Yosys for logic synthesis, nextpnr for place-and-route, and ecppack for bitstream generation when those tools are available. The primary target is the Lattice ECP5-85k. Synthesis artifacts and bitstream generation are therefore best described as tested build targets rather than unconditional correctness guarantees.
 
-The hardware abstraction layer is proven correct in \path{coq/kami_hw/Abstraction.v} (1,062 lines, 34 Qed, 0 Admitted), which establishes that hardware steps preserve $\mu$-monotonicity, maintain the Bianchi invariant, and refine the VM semantics: \texttt{kami\_refines\_vm\_step}.
+The hardware abstraction layer is proven correct in \path{coq/kami_hw/Abstraction.v} (1,546 lines, 34 Qed, 0 Admitted), which establishes that hardware steps preserve $\mu$-monotonicity, maintain the Bianchi invariant, and refine the VM semantics: \texttt{kami\_refines\_vm\_step}.
 
 \subsection{The Isomorphism Guarantee}
 
-Here's the key: these aren't three separate implementations. They're the \textit{same thing} written three ways. For any valid trace $\tau$:
+Here's the key: these layers are intended to implement the same semantics, and the repository contains refinement proofs plus empirical parity gates to keep them aligned. For any valid trace $\tau$ on a supported gate/backend path:
 
 \begin{enumerate}
     \item Coq runner $\to$ $S_{\text{Coq}}$
@@ -269,9 +269,9 @@ Here's the key: these aren't three separate implementations. They're the \textit
     \item RTL simulation $\to$ $S_{\text{RTL}}$
 \end{enumerate}
 
-The cross-layer test suites verify equality of \emph{observable projections}. These projections are suite-specific: the compute gate compares registers and memory; the partition gate compares module regions from the partition graph. Example programs exercise every opcode category and run through all three layers.
+The cross-layer test suites verify equality of \emph{observable projections}. These projections are suite-specific: the compute gate compares registers and memory; the partition gate compares module regions from the partition graph. The example corpus exercises every opcode category, while a subset completes cleanly across the exercised layers and the remainder serves as negative or non-halting regression surface.
 
-This ensures theoretical claims are physically realizable and implementations are provably correct.
+This provides strong evidence that theoretical claims are carried into executable implementations. The strongest wording should remain conditional on the specific backend coverage in use.
 
 \section{Thesis Statement}
 
@@ -283,10 +283,10 @@ Here is the central claim:
 
 This is proven with:
 \begin{enumerate}
-    \item Machine-verified theorems in Coq (324 files, zero admits)
-    \item Executable implementations with a complete toolchain (assembler, debugger, VM)
-    \item Hardware that enforces costs physically (FPGA bitstreams from formally extracted Verilog)
-    \item Empirical demonstrations on hard benchmarks with 33 test files and 469 test functions
+    \item Machine-verified theorems in Coq across the active proof tree, with zero admits
+    \item Executable implementations with a complete toolchain (assembler, VM)
+    \item Hardware-oriented implementations and synthesis artifacts derived from the formal stack
+    \item Empirical demonstrations and regression tests validating parity, certificate flow, and ledger behavior without claiming asymptotic speedup over classical baselines
 \end{enumerate}
 
 Every claim is falsifiable. Find a counterexample. Break the proofs. I dare you.
@@ -302,17 +302,17 @@ Every claim is falsifiable. Find a counterexample. Break the proofs. I dare you.
 
     \item \textbf{Observational No-Signaling:} Operations on one module can't affect observables of unrelated modules---computational Bell locality.
 
-    \item \textbf{3-Layer Isomorphism:} Coq semantics, Python VM, and Verilog RTL produce identical observable projections for any instruction trace. Refinement proofs in Coq (\path{coq/kernel/PythonBisimulation.v}, \path{coq/kernel/HardwareBisimulation.v}) establish simulation relations; automated cross-layer test suites verify observable agreement empirically.
+    \item \textbf{3-Layer Comparison Discipline:} Coq semantics, the Python/OCaml execution path, and Verilog RTL are tied together by refinement proofs and automated observable-projection tests. The evidence is strong but should still be described with backend/test coverage caveats rather than as an unconditional universal equality claim.
 
-    \item \textbf{The Inquisitor Standard:} Zero-admit, zero-axiom enforcement via 49 scan rules covering circularity, tautology, smuggled constraints, and proof shortcuts. CI-enforced on every commit across 324 files.
+    \item \textbf{The Inquisitor Standard:} Zero-admit, no-project-local-axiom enforcement plus structural proof-quality checks. CI-enforced on the active proof tree.
 
-    \item \textbf{Physical Constant Derivations:} The $\mu$-accounting system produces structural analogs of physical constants. Some are proven identities within the model (Planck-scale relationships, speed-of-light structure). Others (gravitational constant, particle masses) remain free parameters. The distinction is explicit everywhere. (Chapter 12)
+    \item \textbf{Physical Constant Explorations:} The $\mu$-accounting system motivates structural relationships touching physical constants. Some sections establish internal consistency relationships (Planck-scale relationships, speed-of-light structure); others remain explicitly speculative or unresolved. The distinction is explicit in Chapter 12.
 
-    \item \textbf{Oracle Impossibility and Turing Subsumption:} Mechanized proof that no finite oracle resolves all $\mu$-bounded halting questions (\path{coq/kernel/OracleImpossibility.v}), plus a direct Minsky-machine embedding proving Thiele subsumes Turing (\path{coq/modular_proofs/TM_to_Minsky.v}).
+    \item \textbf{Turing Completeness:} The Thiele Machine is Turing-complete, proven via direct simulation in \path{coq/kernel/ProperSubsumption.v}: every Turing computation has a faithful Thiele simulation, and Thiele strictly extends Turing through cost certificates and partition separation (\path{coq/kernel/PartitionSeparation.v}).
 
     \item \textbf{QM-Divergent Falsifiable Predictions:} Six concrete predictions (QD1--QD6) where $\mu$-cost accounting produces measurable deviations from standard quantum mechanics---including a modified Tsirelson bound, Planck-time muon lifetime ratios, and temperature-dependent CHSH suppression. (Chapter 11)
 
-    \item \textbf{Complete Toolchain and Empirical Artifacts:} A two-pass assembler (\texttt{thiele-asm}), interactive debugger (\texttt{thiele-debug}), 20 example programs covering the core opcode categories, Coq-to-Verilog extraction through Kami, an ECP5 FPGA bitstream, and reproducible demos including certified randomness, polynomial-time structured Tseitin solutions, and Verilog co-simulation.
+    \item \textbf{Complete Toolchain and Empirical Artifacts:} A two-pass assembler (\path{scripts/thiele_asm.py}) with integrated \texttt{-{}-run} and \texttt{-{}-sim} execution modes, an example-program corpus, Coq-to-Verilog extraction through Kami, FPGA synthesis targets, active TRS-1.0 receipt tooling, and reproducible demos including Verilog co-simulation.
 \end{enumerate}
 
 \section{Thesis Outline}
@@ -325,7 +325,7 @@ The remainder of this thesis is organized as follows:
 
     \item \textbf{Chapter 3: Theory} presents the complete formal definition of the Thiele Machine, Partition Logic, the $\mu$-bit currency, and the No Free Insight theorem with full proof sketches.
 
-    \item \textbf{Chapter 4: Implementation} details the 3-layer architecture, the 31-instruction ISA, the assembler and debugger toolchain, and the hardware synthesis pipeline from Coq through Kami to FPGA bitstreams.
+    \item \textbf{Chapter 4: Implementation} details the 3-layer architecture, the active 47-opcode ISA, the assembler toolchain, and the hardware synthesis pipeline from Coq through Kami to synthesis artifacts and FPGA targets.
 \end{itemize}
 
 \textbf{Part II: Verification and Evaluation}
@@ -341,7 +341,7 @@ The remainder of this thesis is organized as follows:
 
 \textbf{Part III: Extended Development}
 \begin{itemize}
-    \item \textbf{Chapter 9: The Verifier System} documents the complete TRS-1.0 receipt protocol and the four C-modules (C-RAND, C-TOMO, C-ENTROPY, C-CAUSAL) that provide domain-specific verification.
+    \item \textbf{Chapter 9: The Verifier System} documents the active TRS-1.0 receipt protocol together with a broader verifier architecture and four domain-specific C-module prototypes that remain exploratory/archival.
 
     \item \textbf{Chapter 10: Extended Proof Architecture} covers the full formal development including the ThieleMachine proofs, Theory of Everything results, and impossibility theorems.
 

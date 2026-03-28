@@ -9,16 +9,16 @@
     This separates the abstract mathematical structure from physical implementation.
 
     THE CORE CLAIM:
-    bell_math_deterministic (line 39): Any deterministic local strategy
+    bell_math_deterministic: Any deterministic local strategy
     (Alice/Bob each output ±1) satisfies |CHSH| ≤ 2. This is Bell's theorem
     in pure mathematics - no quantum mechanics, no physics, just algebra.
 
     WHAT THIS PROVES:
-    - Box: Abstract correlation function (line 8)
+    - Box: Abstract correlation function
     - non_negative, normalized, no_signaling: Valid correlation properties
-    - deterministic_box (line 26): Single deterministic strategy
-    - local_box (line 30): Convex combination of deterministic strategies
-    - bell_math_deterministic (line 39): Classical CHSH bound
+    - deterministic_box: Single deterministic strategy
+    - local_box: Convex combination of deterministic strategies
+    - bell_math_deterministic: Classical CHSH bound
 
     PHYSICAL INTERPRETATION:
     A "box" is a black box that takes Alice's input x, Bob's input y, and
@@ -33,11 +33,11 @@
     FALSIFICATION:
     Show that bell_math_deterministic fails for some deterministic strategy -
     find functions gA, gB : nat -> {-1,+1} where |CHSH| > 2. This would
-    contradict the theorem (line 39), but it's impossible (proven by exhaustive
+    contradict the theorem bell_math_deterministic, but it's impossible (proven by exhaustive
     case analysis over all 2^4 = 16 deterministic strategies).
 
     Or show that a local box can violate no-signaling. This would break the
-    definition (line 22-24) and contradict special relativity.
+    no_signaling definition and contradict special relativity.
 
     NO AXIOMS. NO ADMITS. Pure mathematical definitions + Bell's theorem.
 

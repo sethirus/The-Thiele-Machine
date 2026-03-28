@@ -1,11 +1,9 @@
 (** =========================================================================
     HonestNoFI: The Formal Statement of No Free Insight
 
-    TRACK B4: Stating the honest NoFI theorem (2026-03-11)
-
     PURPOSE:
-    This file states precisely what "No Free Insight" means after B1-B3 are complete.
-    No overclaims. No hidden assumptions. What we actually proved vs. what's open.
+    This file states precisely what "No Free Insight" means.
+    No overclaims. No hidden assumptions.
 
     REFERENCE:
     Cover & Thomas, "Elements of Information Theory" 2nd ed, Ch. 2-3
@@ -15,22 +13,23 @@
 
 (* INQUISITOR NOTE: documentation — formalizes the honest scope of NoFI results. *)
 
-From Coq Require Import List Lia Arith.PeanoNat.
+From Coq Require Import List Lia Arith.PeanoNat String.
 Import ListNotations.
 
 From Kernel Require Import VMState VMStep SimulationProof MuLedgerConservation.
-From Kernel Require Import MuShannonBridge NoFreeInsight InformationGainToStrengthening.
+From Kernel Require Import MuShannonBridge MuShannonQuantitative StateSpaceCounting.
+From Kernel Require Import NoFreeInsight InformationGainToStrengthening.
 
 (** =========================================================================
-    SECTION 1: THE HONEST STATEMENT (what we actually prove)
+    SECTION 1: WHAT IS PROVEN
     =========================================================================
 
-    There are three levels to this theorem, each progressively stronger.
-    We state what we have and what we don't.
+    Three levels, from structural to physical.
     ========================================================================= *)
 
 (** LEVEL 1: The VM-Specific Structural Fact
-    STATUS: FULLY PROVEN (in NoFreeInsight.v + InformationGainToStrengthening.v)
+    PROVEN in: NoFreeInsight.v, InformationGainToStrengthening.v,
+               HonestNoFI_TheoremsWithoutAssumptions.v
 
     Statement:
     In the Thiele VM, if execution reduces the feasible set of possible
@@ -48,45 +47,62 @@ From Kernel Require Import MuShannonBridge NoFreeInsight InformationGainToStreng
 
     What this proves: You CANNOT reduce search space without paying cost.
     What this does NOT prove: The cost is quantitatively sharp (log₂|Ω|).
+    The quantitative direction requires probabilistic semantics (not in scope).
 *)
 
-(** LEVEL 2: The Information-Theoretic Generalization
-    STATUS: PARTIALLY PROVEN (B1 + B2 + structural bound)
+(** LEVEL 2: The Information-Theoretic Bound
+        PROVEN in: MuShannonBridge.v and MuShannonQuantitative.v
 
-    What we have (MuShannonBridge.v):
-    - info_priced_cert_executions_bound: Δμ ≥ cert_setter_execution_count
-      Under an "info-pricing" policy, the μ-cost is at least the number
-      of information-bearing instructions executed.
+    What is proven:
+    - Under an "info-pricing" policy, Δμ ≥ cert_setter_execution_count
+    - Any information-gaining computation requires cost-bearing instructions.
+        - Quantitative trace-level separation: n distinct nonzero certificate
+            outcomes require at least n cert-setting instructions.
+        - General feasible-set reduction bound: under the explicit whole-tree
+            leaf-cover hypothesis exported by MuShannonBridge, arbitrary prior
+            and posterior feasible sets satisfy a lower bound
+            `Nat.log2_up |Ω| - Nat.log2_up |Ω'| <= Δμ`.
+        - Fibered feasible-set reduction bound: if the reduction is presented
+            as posterior-indexed fibers whose widths are bounded by the tree,
+            the leaf-cover premise is derived rather than assumed numerically.
+        - Posterior-representative semantics lift: if posterior representatives
+            are given together with observation-equivalent fibers over the prior
+            feasible set, the same quantitative lower bound follows through the
+            derived fiber witness.
+        - Quantitative individual lower bound: if a run executes at least log2(n)
+            cert-setting steps, then Δμ ≥ log2(n).
+        - Conservative state-space-counting wrapper: for an LASSERT step with
+            k = formula length, the exported theorem proves Δμ ≥ k together with
+            the corresponding binary-search-style reduction bound carried by
+            StateSpaceCounting.log2_nat (2^k).
 
-    What we don't have yet (B3 gap addressed, but full proof still open):
-    - Converse direction: cert_setter_execution_count ≥ log₂(|Ω|/|Ω'|)
-      This requires either:
-      (a) Probabilistic semantics: model distinct initial states as samples
-          from a distribution, then apply data processing inequality
-      (b) Algorithmic information theory: use Kolmogorov complexity instead
-          of Shannon entropy
-      (c) Decision tree argument: any algorithm distinguishing |Ω| possibilities
-          requires ≥ log₂(|Ω|) binary questions
+    What is not proven here:
+        - The current repository now exports a general whole-tree feasible-set
+            reduction theorem through this file's main theorem chain.
+        - The repository also exports a first semantics lift where a structured
+            fibered reduction witness derives that whole-tree cover premise.
+        - The repository now also exports a posterior-representative semantics
+            lift tying those fibers to an explicit observation-equivalence
+            construction over feasible sets.
+        - What is still not present is an unconditional probabilistic
+            feasible-set-ratio theorem with no explicit whole-tree premise.
+        - The current repository therefore splits the quantitative story into:
+            * general whole-tree feasible-set bounds in MuShannonBridge.v
+            * trace-level and conditional individual bounds in MuShannonQuantitative.v
+            * conservative state-space-counting wrappers in StateSpaceCounting.v
+        - Removing the explicit tree-cover premise still requires the
+            probabilistic/distributional lift discussed below.
 
-    The honest claim we can make:
-    "Δμ ≥ cert_setter_executions, and any information-gaining computation
-     requires cost-bearing instructions. But the quantitative relationship
-     (bits gained = cost incurred) requires probabilistic semantics."
-
-    Reference: This is the data processing inequality direction.
-    From Cover & Thomas Ch. 2: I(X; Y) ≤ H(X), with equality iff
-    operation is deterministic and invertible. Our μ ≥ H(Ω) - H(Ω')
-    when we can model L inputs uniformly distributed over Ω.
+    Reference: Cover & Thomas Theorem 2.5.1 (data processing inequality).
 *)
 
 (** LEVEL 3: The Physical Interpretation
-    STATUS: PROVEN (conditional on Landauer's principle - empirical)
+    PROVEN conditionally on Landauer's principle (empirical law, not derived here)
 
-    What we have (LandauerBound.v + experimental protocol):
-    - Formal proof: If a machine dissipates energy Q to execute M bit erasures,
+    What is proven (thermodynamic/LandauerDerived.v):
+    - If a machine dissipates energy Q to execute M bit erasures,
       and Landauer's principle holds, then Q ≥ M · k_B · T · ln(2).
     - μ-to-heat mapping: Δμ cost ↔ Δμ · k_B · T · ln(2) heat at temperature T.
-    - Experimental test: docs/landauer_experiment_protocol.md
 
     What this proves: μ is physically meaningful IF Landauer holds.
     What this does NOT prove: That Landauer's principle is true.
@@ -98,39 +114,28 @@ From Kernel Require Import MuShannonBridge NoFreeInsight InformationGainToStreng
 
 (** =========================================================================
     SECTION 2: FORMAL THEOREM STATEMENTS
-    =========================================================================
-
-    Below we state the three levels as Coq theorems.
-    Some are proven, some are conjectures with clear hypotheses.
     ========================================================================= *)
 
-(** THEOREM B4.1 (VM-Specific): Structure Addition is Necessary
-    STATUS: PROVEN ✓
-    LOCATION: NoFreeInsight.v + InformationGainToStrengthening.v
+(** THEOREM: Structure Addition is Necessary for Information Gain
+    LOCATION: HonestNoFI_TheoremsWithoutAssumptions.v
+              (honest_information_reduction_requires_structure_addition,
+               b4_information_reduction_derives_strict_predicates)
 
-    Statement: If feasible set shrinks from Ω to Ω' with |Ω'| < |Ω|,
+    If feasible set shrinks from Ω to Ω' with |Ω'| < |Ω|,
     then execution trace must contain structure-adding instructions with
     non-zero μ-cost.
 
-    Proof: Combines InformationGainToStrengthening.B3
-           (feasible reduction → strictly_stronger predicates)
-           with NoFreeInsight.strengthening_requires_structure_addition
-           (strictly_stronger → structure addition required)
-
-    FORMAL PROOF WILL BE ADDED: When B4.1 wiring is complete.
-
+    Proof chain:
+    - InformationGainToStrengthening.B3: feasible reduction → strictly_stronger predicates
+    - NoFreeInsight.strengthening_requires_structure_addition: strictly_stronger → structure
 *)
 
-(** THEOREM B4.2 (Information-Theoretic): μ-Cost Lower Bounds Information Gain
-    STATUS: PARTIALLY PROVEN (policy-based bound, full quantitative gap open)
+(** THEOREM: μ-Cost Lower Bounds Information Gain
     LOCATION: MuShannonBridge.v (info_priced_cert_executions_bound)
 
-    Statement: Under an "info-pricing" policy where cert-setting instructions
-    cost ≥ 1, the number of information-gaining operations is bounded by Δμ.
-
+    Under an "info-pricing" policy where cert-setting instructions cost ≥ 1,
+    the number of information-gaining operations is bounded by Δμ.
     More precisely: count_cert_setters ≤ Δμ
-
-    Proof: Direct application of MuShannonBridge.info_priced_cert_executions_bound
 *)
 Theorem honest_nfi_information_theoretic_partial :
   forall (fuel : nat) (trace : list vm_instruction)
@@ -141,56 +146,141 @@ Theorem honest_nfi_information_theoretic_partial :
     MuShannonBridge.cert_setter_executions fuel trace s_init <=
       (s_final.(vm_mu) - s_init.(vm_mu)).
 Proof.
-  intros fuel trace s_init s_final Hfinal Hpriced.
-  subst s_final.
+  intros fuel trace s_init s_final Hfinal _.
+  rewrite Hfinal.
   apply MuShannonBridge.info_priced_cert_executions_bound.
-  exact Hpriced.
 Qed.
 
-(** CONJECTURE B4.3 (Full Quantitative Version - OPEN)
-    STATUS: OPEN (requires probabilistic semantics)
+(** THEOREM: Trace-Level Quantitative Separation Bound
+        LOCATION: MuShannonQuantitative.v (separation_requires_cert_count)
 
-    Full statement:
-    For any deterministic computational device with monotone cost counter μ:
-    If executing program trace τ reduces a uniformly-distributed initial feasible
-    set from |Ω| possibilities to |Ω'|, then:
-       Δμ(τ) ≥ log₂(|Ω|) - log₂(|Ω'|)
-
-    This is the data processing inequality: information gained ≤ cost paid.
-
-    Proof requirements:
-    - Probabilistic semantics: lift VM execution to probability distributions
-    - Shannon entropy: H(X) := -Σ p(x) log₂(p(x))
-    - Data processing: I(X;Y) = H(X) - H(X|Y)
-    - Application: |Ω'| as posterior entropy under uniform prior
-
-    Reference: Cover & Thomas Theorem 2.5.1 (data processing inequality).
+        If a trace maps n initial states with cert_addr = 0 to n distinct nonzero
+        final cert_addr values, then the trace contains at least n cert-setting
+        instructions.
 *)
-Definition honest_nfi_full_quantitative_conjecture : Prop :=
-  forall (fuel : nat) (trace : list vm_instruction)
-         (s_init : VMState)
-         (omega_prior omega_posterior : FeasibleSet),
-    In s_init omega_prior ->
-    InformationGainToStrengthening.feasible_size omega_prior > 0 ->
-    InformationGainToStrengthening.feasible_size omega_posterior > 0 ->
-    (forall s_f, s_f = run_vm fuel trace s_init ->
-      InformationGainToStrengthening.is_strict_reduction omega_prior omega_posterior ->
-      (s_f.(vm_mu) - s_init.(vm_mu)) >=
-      (MuShannonBridge.shannon_entropy_reduction omega_prior omega_posterior)).
+Theorem honest_nfi_trace_separation_partial :
+    forall fuel trace omega,
+        (forall s, In s omega -> s.(vm_csrs).(csr_cert_addr) = 0) ->
+        (forall s, In s omega -> (run_vm fuel trace s).(vm_csrs).(csr_cert_addr) <> 0) ->
+        NoDup (map (fun s => (run_vm fuel trace s).(vm_csrs).(csr_cert_addr)) omega) ->
+        List.length omega <= MuShannonQuantitative.count_cert_addr_setters trace.
+Proof.
+    exact MuShannonQuantitative.separation_requires_cert_count.
+Qed.
 
-(** THEOREM B4.4 (Physical - Conditional): Landauer Bound
-    STATUS: Empirically validated (Bérut et al. 2012)
-    PROOF: Cannot be derived computationally (boundary of CS/Physics)
+(** THEOREM: General Feasible-Set Reduction Bound
+        LOCATION: MuShannonBridge.v (info_priced_arbitrary_feasible_reduction_bound)
 
-    Physical statement: IF Landauer's principle holds, THEN
-    executing a program that costs Δμ will dissipate minimum heat:
-      Q_min = Δμ · k_B · T · ln(2)
+        If an info-priced run realizes a decision tree whose leaves are numerous
+        enough to cover the ratio between a prior feasible set Ω and posterior
+        feasible set Ω', then the run's μ-increase is at least
+        `Nat.log2_up |Ω| - Nat.log2_up |Ω'|`.
 
-    where k_B = Boltzmann constant, T = absolute temperature.
+        This is the current general quantitative export for arbitrary feasible-
+        set reduction. The whole-tree leaf-cover hypothesis is explicit.
+*)
+Theorem honest_nfi_general_feasible_reduction_partial :
+    forall fuel trace s omega_prior omega_posterior tree,
+        MuShannonBridge.decision_tree_realized_by_trace fuel trace s tree ->
+        (MuShannonBridge.feasible_size omega_posterior > 0)%nat ->
+        MuShannonBridge.tree_covers_feasible_reduction tree omega_prior omega_posterior ->
+        Nat.log2_up (MuShannonBridge.feasible_size omega_prior) -
+            Nat.log2_up (MuShannonBridge.feasible_size omega_posterior) <=
+        (run_vm fuel trace s).(vm_mu) - s.(vm_mu).
+Proof.
+    exact MuShannonBridge.info_priced_arbitrary_feasible_reduction_bound.
+Qed.
 
-    This is proven physically, not computationally.
-    See: LandauerBound.v for the Coq formalization.
-          docs/landauer_experiment_protocol.md for empirical test.
+(** THEOREM: Fibered Feasible-Set Reduction Bound
+        LOCATION: MuShannonBridge.v (info_priced_fibered_feasible_reduction_bound)
+
+        This is the first semantics lift beyond a raw cardinality premise.
+        Instead of assuming the leaf-cover inequality directly, it takes an
+        explicit posterior-indexed family of fibers whose sizes are bounded by
+        the decision tree and concludes the same μ lower bound.
+*)
+Theorem honest_nfi_fibered_feasible_reduction_partial :
+    forall fuel trace s omega_prior omega_posterior tree,
+        MuShannonBridge.decision_tree_realized_by_trace fuel trace s tree ->
+        (MuShannonBridge.feasible_size omega_posterior > 0)%nat ->
+        MuShannonBridge.FiberedFeasibleReduction tree omega_prior omega_posterior ->
+        Nat.log2_up (MuShannonBridge.feasible_size omega_prior) -
+            Nat.log2_up (MuShannonBridge.feasible_size omega_posterior) <=
+        (run_vm fuel trace s).(vm_mu) - s.(vm_mu).
+Proof.
+    exact MuShannonBridge.info_priced_fibered_feasible_reduction_bound.
+Qed.
+
+(** THEOREM: Posterior-Representative Feasible-Set Reduction Bound
+        LOCATION: MuShannonBridge.v (info_priced_posterior_representative_reduction_bound)
+
+        This packages the fiber witness behind an explicit observation-level
+        semantics: each prior state is assigned to a posterior representative
+        with the same observation, and the representative fibers are tree-bounded.
+        That representative construction is then compiled into the exported
+        quantitative lower bound on Δμ.
+*)
+Theorem honest_nfi_posterior_representative_reduction_partial :
+    forall fuel trace s omega_prior omega_posterior tree
+           (obs_fn : MuShannonBridge.ObservationFunction),
+        MuShannonBridge.decision_tree_realized_by_trace fuel trace s tree ->
+        (MuShannonBridge.feasible_size omega_posterior > 0)%nat ->
+        MuShannonBridge.PosteriorRepresentativeReduction obs_fn tree omega_prior omega_posterior ->
+        Nat.log2_up (MuShannonBridge.feasible_size omega_prior) -
+            Nat.log2_up (MuShannonBridge.feasible_size omega_posterior) <=
+        (run_vm fuel trace s).(vm_mu) - s.(vm_mu).
+Proof.
+    exact MuShannonBridge.info_priced_posterior_representative_reduction_bound.
+Qed.
+
+(** THEOREM: Conditional Individual Shannon Bound
+        LOCATION: MuShannonQuantitative.v (conditional_shannon_bound)
+
+        If a specific run executes at least log2(n) cert-setting steps under the
+        info-pricing policy, then its μ-increase is at least log2(n).
+*)
+Theorem honest_nfi_conditional_shannon_partial :
+    forall fuel trace s n,
+        Forall (fun i => is_cert_setterb i = true -> instruction_cost i >= 1) trace ->
+        MuShannonQuantitative.cert_setter_executions_local fuel trace s >= Nat.log2 n ->
+        (run_vm fuel trace s).(vm_mu) - s.(vm_mu) >= Nat.log2 n.
+Proof.
+    exact MuShannonQuantitative.conditional_shannon_bound.
+Qed.
+
+(** THEOREM: Conservative Quantitative State-Space Wrapper
+        LOCATION: StateSpaceCounting.v (no_free_insight_quantitative)
+
+        For a single LASSERT step whose declared cost is 1 + formula length,
+        the exported theorem proves two things:
+        - the μ increase is at least the formula length k
+        - k bounds the conservative binary-search-style state-space reduction
+
+        This is the repo's currently exported conservative wrapper for the
+        quantitative Ω-to-Ω' story. It is narrower than a general theorem over
+        arbitrary traces, but it is part of the canonical theorem chain.
+*)
+Theorem honest_nfi_quantitative_state_space_partial :
+    forall (s s' : VMState) (fa ca : nat) (ck : bool) (flen cost : nat),
+        VMStep.VMStep.vm_step s
+            (VMStep.VMStep.instr_lassert fa ca ck flen cost) s' ->
+        let k := flen * 8 in
+        s'.(vm_mu) - s.(vm_mu) >= k /\
+        k >= StateSpaceCounting.log2_nat (Nat.pow 2 k).
+Proof.
+    intros s s' fa ca ck flen cost Hstep.
+    exact (StateSpaceCounting.no_free_insight_quantitative s s' fa ca ck flen cost Hstep).
+Qed.
+
+(** THEOREM: Landauer Bound (Conditional on Landauer's principle)
+    LOCATION: thermodynamic/LandauerDerived.v
+
+    IF Landauer's principle holds, THEN executing a program that costs Δμ
+    will dissipate minimum heat: Q_min = Δμ · k_B · T · ln(2)
+
+    Landauer's principle is experimentally validated (Bérut et al. 2012,
+    Nature 483, 187-189: Q ≥ kT ln(2) per bit erasure, 95% efficiency).
+    It is not derived from computation here; it is taken as physical input.
 *)
 
 
@@ -208,9 +298,9 @@ Definition honest_nfi_full_quantitative_conjecture : Prop :=
     Proving P ≠ NP requires overcoming algebrization and natural proofs barriers
     (Aaronson-Wigderson, Razborov-Rudich), which our framework doesn't bypass.
 
-    What we DO claim: In the μ-cost model, search verification is exponentially
-    cheaper than search (ComplexityOracle.v). This is interesting for understanding
-    hardness, but doesn't settle P ≠ NP.
+    What we DO claim: In the mu-cost model, search verification is exponentially
+    cheaper than search (archived: ComplexityOracle.v). This is interesting for
+    understanding hardness, but doesn't settle P != NP.
 *)
 
 (** NOT CLAIMED: Physics emerges from computation
@@ -222,62 +312,26 @@ Definition honest_nfi_full_quantitative_conjecture : Prop :=
 
 (** NOT CLAIMED: Particle masses derived from μ
     Why not:
-    AlphaDerivation.v correlates particle spectra to partition count (1.5% error).
+    AlphaDerivation.v (archived) correlates particle spectra to partition count (1.5% error).
     This is interesting but not a derivation—it's a numerical coincidence
     worthy of investigation, not a physics proof.
 *)
 
 (** =========================================================================
     SECTION 4: RELATION TO LITERATURE
-    =========================================================================
-
-    Our work stands on these shoulders:
     ========================================================================= *)
 
 (** Shannon (1948): "A Mathematical Theory of Communication"
     We use: Definition of entropy, data processing inequality
     Reference: H(X) = -Σ p(x) log p(x), I(X;Y) ≤ min(H(X), H(Y))
-
-    Our addition: Connecting entropy reduction to cost accounting in a VM.
     This is formalization work, not novel math.
 *)
 
 (** Cover & Thomas (1991): "Elements of Information Theory" 2nd ed.
     We use: Theorems 2.5.1 (data processing), 2.6.1 (relative entropy)
-    Reference: For the quantitative lower bound in the probabilistic setting.
-
-    Our work B4.3 is EXACTLY this theorem applied to a VM cost model.
-    If/when B4.3 is proven, it will be a VM-specific instance of Cover-Thomas,
-    not a novel information-theoretic result.
 *)
 
 (** Landauer (1961): "Irreversibility and Heat Generation in Computing"
     We use: Q_min = k_B T ln(2) for one bit erasure
     Status: Experimentally verified (Bérut et al. 2012, 95% efficiency)
-
-    Our work D1-D3: Formalizing the Thiele VM instance and test protocol.
-    Novel contribution: Connecting μ-cost to this physical bound quantitatively.
-*)
-
-(** =========================================================================
-    SECTION 5: COMPLETION CRITERIA AND NEXT STEPS
-    =========================================================================
-
-    B4 IS COMPLETE when:
-    [ ] theorem honest_nfi_vm_structural is proven (B4.1)
-    [ ] theorem honest_nfi_information_theoretic_partial compiles (B4.2 - done)
-    [x] Conjecture honest_nfi_full_quantitative_conjecture is formally stated (B4.3 - done)
-    [x] theorem honest_nfi_landauer_conditional is understood (B4.4 - done)
-    [x] All literature references are documented (done)
-    [x] All non-claims are explicit (done)
-
-    Next work (B4 continuation):
-    - Prove B4.1 by wiring InformationGainToStrengthening → NoFreeInsight
-    - This completes the derivation chain: information reduction → cost required
-    - Document in README that results are structurally sound but quantitative gap
-      (B4.3) requires probabilistic semantics
-
-    After B4:
-    - C-track: BornRule, Tsirelson (quantum mechanics - very hard, months)
-    - D3 empirical: Run Landauer experiment on hardware (when available)
 *)

@@ -54,7 +54,7 @@ def test_kami_rtl_bianchi_freezes_mu_not_clears() -> None:
 
 
 def test_coq_types_has_all_opcodes() -> None:
-    """ThieleTypes.v must define at least 38 OP_* constants."""
+    """ThieleTypes.v must define at least 40 OP_* constants."""
     coq = COQ_TYPES_PATH.read_text(encoding="utf-8")
     names = _opcode_names_from_coq_types(coq)
-    assert len(names) >= 38, f"Expected >=38 opcodes in ThieleTypes.v, found {len(names)}: {sorted(names)}"
+    assert len(names) >= 40, f"Expected >=40 opcodes in ThieleTypes.v, found {len(names)}: {sorted(names)}"

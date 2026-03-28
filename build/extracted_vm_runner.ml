@@ -49,10 +49,36 @@ let split_ws (s : string) : string list =
   go 0 []
 
 let safe_int (s : string) : int =
-  try int_of_string s with _ -> failwith ("invalid int: " ^ s)
+  try int_of_string s
+  with _ ->
+    try Int64.to_int (Int64.of_string s)
+    with _ -> failwith ("invalid int: " ^ s)
 
 let char_list_of_string (s : string) : char list =
   List.init (String.length s) (String.get s)
+
+(* Decode the underscore-encoded DIMACS formula format used by the Python API.
+   Encoding convention (from thielecpu/vm.py and tests):
+     '__'  →  '\n'   (double underscore encodes newline between DIMACS lines)
+     '_'   →  ' '    (single underscore encodes space between tokens)
+   Must process '__' before '_' to avoid double-decoding. *)
+let decode_formula (s : string) : string =
+  let buf = Buffer.create (String.length s) in
+  let len = String.length s in
+  let i = ref 0 in
+  while !i < len do
+    if !i + 1 < len && s.[!i] = '_' && s.[!i + 1] = '_' then begin
+      Buffer.add_char buf '\n';
+      i := !i + 2
+    end else if s.[!i] = '_' then begin
+      Buffer.add_char buf ' ';
+      i := !i + 1
+    end else begin
+      Buffer.add_char buf s.[!i];
+      i := !i + 1
+    end
+  done;
+  Buffer.contents buf
 
 let parse_region (tok : string) : int list =
   let t = trim tok in
@@ -98,6 +124,28 @@ let json_escape (s : string) : string =
 
 let json_bool (b : bool) : string = if b then "true" else "false"
 
+(* State integrity MAC — FNV-1a 64-bit with embedded salt.
+   Prevents casual JSON tampering of vm_mu and other fields.
+   NOT cryptographically secure; tamper-detection only. *)
+let state_integrity_salt = "thiele_mu_guard_v1_2026"
+
+let compute_state_mac (json_body : string) : string =
+  let s = state_integrity_salt ^ json_body in
+  let h = ref 0xcbf29ce484222325L in (* FNV-1a 64-bit offset basis *)
+  let prime = 0x100000001b3L in       (* FNV-1a 64-bit prime *)
+  String.iter (fun c ->
+    h := Int64.logxor !h (Int64.of_int (Char.code c));
+    h := Int64.mul !h prime
+  ) s;
+  Printf.sprintf "%016Lx" !h
+
+(* Convert int to unsigned 64-bit string representation.
+   Negative ints represent values >= 2^62 via two's complement:
+   Int64.of_int sign-extends, so -1 -> 0xFFFFFFFFFFFFFFFF. *)
+let int_to_uint64_string (x : int) : string =
+  if x >= 0 then string_of_int x
+  else Printf.sprintf "%Lu" (Int64.of_int x)
+
 let json_int_list (xs : int list) : string =
   let rec go = function
     | [] -> ""
@@ -105,6 +153,25 @@ let json_int_list (xs : int list) : string =
     | x :: rest -> string_of_int x ^ "," ^ go rest
   in
   "[" ^ go xs ^ "]"
+
+(* Word-sized list serialization: uses unsigned 64-bit representation
+   for values that may have bit 62+ set (negative OCaml ints). *)
+let json_word_list (xs : int list) : string =
+  "[" ^ (String.concat "," (List.map int_to_uint64_string xs)) ^ "]"
+
+(* Sparse memory: truncate trailing zeros before serializing.
+   Uses unsigned 64-bit representation for word-sized memory values. *)
+let json_sparse_mem (xs : int list) : string =
+  let arr = Array.of_list xs in
+  let last = ref (-1) in
+  Array.iteri (fun i v -> if v <> 0 then last := i) arr;
+  if !last < 0 then "[]"
+  else
+    let rec go i acc =
+      if i < 0 then acc
+      else go (i-1) (int_to_uint64_string arr.(i) ^ (if acc = "" then "" else "," ^ acc))
+    in
+    "[" ^ go !last "" ^ "]"
 
 let read_all_lines (path : string) : string list =
   let ic = open_in path in
@@ -130,16 +197,18 @@ let serialize_state_json (s : vMState) : string =
              |> String.concat ","
            in
            sprintf
-             "{\"id\":%d,\"region\":%s,\"axioms\":%d,\"axiom_strings\":[%s]}"
+             "{\"id\":%d,\"region\":%s,\"axioms\":%d,\"axiom_strings\":[%s],\"mu_tensor\":%s}"
              mid
              (json_int_list m.module_region)
              (List.length m.module_axioms)
-             axiom_strings)
+             axiom_strings
+             (json_word_list m.module_mu_tensor))
     |> String.concat ","
   in
   (* "csr_err_code" is emitted at top level (distinct key) so --resume can parse it
      unambiguously, since "err" appears both as a boolean at top level and as an
      integer inside "csrs". *)
+  let json_body =
   sprintf
     "{\"pc\":%d,\"mu\":%d,\"err\":%s,\"certified\":%s,\"csr_err_code\":%d,\"logic_acc\":%d,\"mstatus\":%d,\"regs\":%s,\"mem\":%s,\"mu_tensor\":%s,\"witness\":[%d,%d,%d,%d,%d,%d,%d,%d],\"csrs\":{\"cert_addr\":%d,\"status\":%d,\"err\":%d,\"heap_base\":%d},\"graph\":{\"next_id\":%d,\"modules\":[%s]}}"
     s.vm_pc
@@ -149,9 +218,9 @@ let serialize_state_json (s : vMState) : string =
     s.vm_csrs.csr_err
     s.vm_logic_acc
     s.vm_mstatus
-    (json_int_list s.vm_regs)
-    (json_int_list s.vm_mem)
-    (json_int_list s.vm_mu_tensor)
+    (json_word_list s.vm_regs)
+    (json_sparse_mem s.vm_mem)
+    (json_word_list s.vm_mu_tensor)
     s.vm_witness.wc_same_00 s.vm_witness.wc_diff_00
     s.vm_witness.wc_same_01 s.vm_witness.wc_diff_01
     s.vm_witness.wc_same_10 s.vm_witness.wc_diff_10
@@ -162,6 +231,11 @@ let serialize_state_json (s : vMState) : string =
     s.vm_csrs.csr_heap_base
     s.vm_graph.pg_next_id
     modules_json
+  in
+  (* Append state integrity MAC *)
+  let mac = compute_state_mac json_body in
+  let len = String.length json_body in
+  String.sub json_body 0 (len - 1) ^ sprintf ",\"_mac\":\"%s\"}" mac
 
 let checkpoint_dir : string =
   match Sys.getenv_opt "THIELE_CHECKPOINT_DIR" with
@@ -194,7 +268,7 @@ type program_element =
 
 let parse_program (lines : string list) : int * int list * int list * int * int list * program_element list =
     let fuel = ref 256 in
-    let mem_size = ref 4096 in
+    let mem_size = ref 65536 in
     let rec make_list n acc =
       if n <= 0 then acc else make_list (n - 1) (0 :: acc)
     in
@@ -304,14 +378,14 @@ let parse_program (lines : string list) : int * int list * int list * int * int 
         let delta = safe_int bits in
         Some (Instr (VMStep.Coq_instr_reveal (flat_idx, delta, char_list_of_string cert, delta)))
       | [ "LASSERT"; mid; axiom; cost ] ->
-        Some (Instr (VMStep.Coq_instr_lassert (safe_int mid, char_list_of_string axiom,
+        Some (Instr (VMStep.Coq_instr_lassert (safe_int mid, char_list_of_string (decode_formula axiom),
           VMStep.Coq_lassert_cert_sat (char_list_of_string ""), safe_int cost)))
       | [ "LASSERT_SAT"; mid; axiom; model; cost ] ->
-        Some (Instr (VMStep.Coq_instr_lassert (safe_int mid, char_list_of_string axiom,
-          VMStep.Coq_lassert_cert_sat (char_list_of_string model), safe_int cost)))
+        Some (Instr (VMStep.Coq_instr_lassert (safe_int mid, char_list_of_string (decode_formula axiom),
+          VMStep.Coq_lassert_cert_sat (char_list_of_string (decode_formula model)), safe_int cost)))
       | [ "LASSERT_UNSAT"; mid; axiom; proof; cost ] ->
-        Some (Instr (VMStep.Coq_instr_lassert (safe_int mid, char_list_of_string axiom,
-          VMStep.Coq_lassert_cert_unsat (char_list_of_string proof), safe_int cost)))
+        Some (Instr (VMStep.Coq_instr_lassert (safe_int mid, char_list_of_string (decode_formula axiom),
+          VMStep.Coq_lassert_cert_unsat (char_list_of_string (decode_formula proof)), safe_int cost)))
       | [ "LJOIN"; f1; f2; cost ] ->
         Some (Instr (VMStep.Coq_instr_ljoin (char_list_of_string f1, char_list_of_string f2, safe_int cost)))
       | [ "EMIT"; mid; bits; cost ] ->
@@ -333,6 +407,25 @@ let parse_program (lines : string list) : int * int list * int list * int * int 
         Some (Instr (VMStep.Coq_instr_mul (safe_int dst, safe_int src1, safe_int src2, safe_int cost)))
       | [ "LUI"; dst; imm; cost ] ->
         Some (Instr (VMStep.Coq_instr_lui (safe_int dst, safe_int imm, safe_int cost)))
+      | [ "TENSOR_SET"; mid; i; j; value; mu_delta ] ->
+        Some (Instr (VMStep.Coq_instr_tensor_set (safe_int mid, safe_int i, safe_int j, safe_int value, safe_int mu_delta)))
+      | [ "TENSOR_GET"; dst; mid; i; j; mu_delta ] ->
+        Some (Instr (VMStep.Coq_instr_tensor_get (safe_int dst, safe_int mid, safe_int i, safe_int j, safe_int mu_delta)))
+      (* Phase 5: categorical morphism opcodes (0x27–0x2D) *)
+      | [ "MORPH"; dst; src_mod; dst_mod; coupling_idx; cost ] ->
+        Some (Instr (VMStep.Coq_instr_morph (safe_int dst, safe_int src_mod, safe_int dst_mod, safe_int coupling_idx, safe_int cost)))
+      | [ "COMPOSE"; dst; m1; m2; cost ] ->
+        Some (Instr (VMStep.Coq_instr_compose (safe_int dst, safe_int m1, safe_int m2, safe_int cost)))
+      | [ "MORPH_ID"; dst; module0; cost ] ->
+        Some (Instr (VMStep.Coq_instr_morph_id (safe_int dst, safe_int module0, safe_int cost)))
+      | [ "MORPH_DELETE"; morph_id; cost ] ->
+        Some (Instr (VMStep.Coq_instr_morph_delete (safe_int morph_id, safe_int cost)))
+      | [ "MORPH_ASSERT"; morph_id; property; cert; cost ] ->
+        Some (Instr (VMStep.Coq_instr_morph_assert (safe_int morph_id, char_list_of_string property, char_list_of_string cert, safe_int cost)))
+      | [ "MORPH_TENSOR"; dst; f; g; cost ] ->
+        Some (Instr (VMStep.Coq_instr_morph_tensor (safe_int dst, safe_int f, safe_int g, safe_int cost)))
+      | [ "MORPH_GET"; dst; morph_id; selector; cost ] ->
+        Some (Instr (VMStep.Coq_instr_morph_get (safe_int dst, safe_int morph_id, safe_int selector, safe_int cost)))
       | _ -> failwith ("unrecognized instruction line: " ^ t)
   in
   let elements = lines |> List.filter_map parse_line in
@@ -344,10 +437,10 @@ let initial_state () : vMState =
     if n <=  0 then acc else make_list (n - 1) (0 :: acc)
   in
   {
-    vm_graph = { pg_next_id = 1; pg_modules = [] };
+    vm_graph = { pg_next_id = 1; pg_modules = []; pg_next_morph_id = 0; pg_morphisms = [] };
     vm_csrs = { csr_cert_addr = 0; csr_status = 0; csr_err = 0; csr_heap_base = 0 };
     vm_regs = make_list 32 [];
-    vm_mem = make_list 4096 [];
+    vm_mem = make_list 65536 [];
     vm_pc = 0;
     vm_mu = 0;
     vm_mu_tensor = make_list 16 [];
@@ -470,12 +563,19 @@ let nofi_violation_state (s : vMState) : vMState =
 
 (* Minimal JSON parser for --resume: extract integer fields from checkpoint JSON.
    This is intentionally minimal — it parses the output of serialize_state_json. *)
+(* Parse int, handling large unsigned 64-bit values that overflow OCaml int.
+   Values > 2^62-1 are stored as negative ints via Int64 sign truncation. *)
+let safe_int_of_string (s : string) : int =
+  try int_of_string s
+  with Failure _ ->
+    try Int64.to_int (Int64.of_string s) with _ -> 0
+
 let parse_json_int (json : string) (key : string) : int =
   let pattern = sprintf "\"%s\":" key in
   try
     let i = Str.search_forward (Str.regexp_string pattern) json 0 in
     let start = i + String.length pattern in
-    let s = String.sub json start (min 20 (String.length json - start)) in
+    let s = String.sub json start (min 30 (String.length json - start)) in
     let s = trim s in
     (* Extract leading integer *)
     let j = ref 0 in
@@ -483,7 +583,7 @@ let parse_json_int (json : string) (key : string) : int =
     if neg then incr j;
     while !j < String.length s && s.[!j] >= '0' && s.[!j] <= '9' do incr j done;
     let ns = String.sub s (if neg then 0 else 0) !j in
-    int_of_string ns
+    safe_int_of_string ns
   with _ -> 0
 
 let parse_json_bool (json : string) (key : string) : bool =
@@ -509,7 +609,7 @@ let parse_json_int_array (json : string) (key : string) : int list =
       |> String.split_on_char ','
       |> List.map trim
       |> List.filter (fun x -> x <> "")
-      |> List.map int_of_string
+      |> List.map safe_int_of_string
   with _ -> []
 
 (* Parse all module entries from "modules":[{...},{...}] in the JSON.
@@ -588,8 +688,14 @@ let parse_modules_from_json (json : string) : (int * moduleState) list =
               List.rev !ax_list
             with _ -> []
           in
+          let mu_tensor = try parse_json_int_array obj_json "mu_tensor" with _ -> [] in
+          let padded_tensor =
+            let len = List.length mu_tensor in
+            if len >= 16 then mu_tensor
+            else mu_tensor @ (List.init (16 - len) (fun _ -> 0))
+          in
           modules :=
-            (mid, { module_region = region; module_axioms = axioms }) :: !modules;
+            (mid, { module_region = region; module_axioms = axioms; module_mu_tensor = padded_tensor }) :: !modules;
           incr i (* move past } *)
         end
       done;
@@ -601,6 +707,25 @@ let load_resume_state (path : string) : vMState =
   let ic = open_in path in
   let json = really_input_string ic (in_channel_length ic) in
   close_in ic;
+  let json = String.trim json in
+  (* Verify state integrity MAC if present *)
+  let mac_pattern = ",\"_mac\":\"" in
+  (try
+    let mac_start = Str.search_forward (Str.regexp_string mac_pattern) json 0 in
+    let stored_mac_start = mac_start + String.length mac_pattern in
+    let stored_mac_end = String.index_from json stored_mac_start '"' in
+    let stored_mac = String.sub json stored_mac_start (stored_mac_end - stored_mac_start) in
+    (* Reconstruct JSON body without MAC for verification *)
+    let json_body = String.sub json 0 mac_start ^ "}" in
+    let expected_mac = compute_state_mac json_body in
+    if stored_mac <> expected_mac then (
+      eprintf "[ERROR] State MAC verification failed — state may have been tampered with.\n%!";
+      eprintf "[ERROR] Expected: %s, got: %s\n%!" expected_mac stored_mac;
+      exit 6
+    )
+  with Not_found ->
+    eprintf "[WARN] No state MAC found. State integrity cannot be verified.\n%!"
+  );
   let rec make_list n acc =
     if n <= 0 then acc else make_list (n - 1) (0 :: acc)
   in
@@ -608,6 +733,8 @@ let load_resume_state (path : string) : vMState =
     vm_graph = {
       pg_next_id = parse_json_int json "next_id";
       pg_modules = parse_modules_from_json json;
+      pg_next_morph_id = 0;
+      pg_morphisms = [];
     };
     vm_csrs = {
       csr_cert_addr = parse_json_int json "cert_addr";
@@ -620,7 +747,8 @@ let load_resume_state (path : string) : vMState =
     vm_regs = (let r = parse_json_int_array json "regs" in
                if r = [] then make_list 32 [] else r);
     vm_mem = (let m = parse_json_int_array json "mem" in
-              if m = [] then make_list 4096 [] else m);
+              let len = List.length m in
+              if len >= 65536 then m else m @ make_list (65536 - len) []);
     vm_pc        = parse_json_int json "pc";
     vm_mu        = parse_json_int json "mu";
     vm_mu_tensor = (let t = parse_json_int_array json "mu_tensor" in

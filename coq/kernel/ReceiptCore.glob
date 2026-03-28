@@ -1,59 +1,59 @@
-DIGEST dfdb1e19182d592958fd4e1c968c0106
+DIGEST e907c3f356a5a54847d600f14352fbab
 FKernel.ReceiptCore
-R2138:2144 Kernel.VMState <> <> lib
-R2146:2151 Kernel.VMStep <> <> lib
-R2181:2191 Kernel.MuCostModel <> <> lib
-R2219:2222 Coq.Lists.List <> <> lib
-R2232:2244 Coq.Lists.List ListNotations <> mod
-mod 2255:2265 <> ReceiptCore
-rec 2883:2889 ReceiptCore Receipt
-proj 2898:2901 ReceiptCore r_op
-proj 2949:2957 ReceiptCore r_payload
-R2905:2907 Coq.Init.Datatypes <> nat ind
-R2961:2964 Coq.Init.Datatypes <> list ind
-R2966:2968 Coq.Init.Datatypes <> nat ind
-def 3070:3074 ReceiptCore Trace
-R3079:3082 Coq.Init.Datatypes <> list ind
-R3084:3090 Kernel.ReceiptCore ReceiptCore Receipt rec
-def 3726:3739 ReceiptCore ReceiptChannel
-R3751:3754 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3744:3750 Kernel.ReceiptCore ReceiptCore Receipt rec
-R3755:3758 Coq.Init.Datatypes <> bool ind
-def 4344:4349 ReceiptCore decode
-R4357:4370 Kernel.ReceiptCore ReceiptCore ReceiptChannel def
-binder 4352:4353 <> ch:4
-R4379:4383 Kernel.ReceiptCore ReceiptCore Trace def
-binder 4374:4375 <> tr:5
-R4388:4391 Coq.Init.Datatypes <> list ind
-R4394:4397 Coq.Init.Datatypes <> list ind
-R4399:4401 Coq.Init.Datatypes <> nat ind
-R4409:4411 Coq.Lists.List <> map def
-R4424:4429 Coq.Lists.List <> filter def
-R4434:4435 Kernel.ReceiptCore <> tr:5 var
-R4431:4432 Kernel.ReceiptCore <> ch:4 var
-R4413:4421 Kernel.ReceiptCore ReceiptCore r_payload proj
-def 4673:4682 ReceiptCore decodes_to
-R4690:4703 Kernel.ReceiptCore ReceiptCore ReceiptChannel def
-binder 4685:4686 <> ch:6
-R4712:4716 Kernel.ReceiptCore ReceiptCore Trace def
-binder 4707:4708 <> tr:7
-R4725:4728 Coq.Init.Datatypes <> list ind
-R4731:4734 Coq.Init.Datatypes <> list ind
-R4736:4738 Coq.Init.Datatypes <> nat ind
-binder 4720:4721 <> xs:8
-R4766:4768 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4754:4759 Kernel.ReceiptCore ReceiptCore decode def
-R4761:4762 Kernel.ReceiptCore <> ch:6 var
-R4764:4765 Kernel.ReceiptCore <> tr:7 var
-R4769:4770 Kernel.ReceiptCore <> xs:8 var
-prf 5087:5101 ReceiptCore decodes_to_refl
-binder 5114:5115 <> ch:9
-binder 5117:5118 <> tr:10
-R5121:5130 Kernel.ReceiptCore ReceiptCore decodes_to def
-R5132:5133 Kernel.ReceiptCore <> ch:9 var
-R5135:5136 Kernel.ReceiptCore <> tr:10 var
-R5139:5144 Kernel.ReceiptCore ReceiptCore decode def
-R5146:5147 Kernel.ReceiptCore <> ch:9 var
-R5149:5150 Kernel.ReceiptCore <> tr:10 var
-R5178:5187 Kernel.ReceiptCore ReceiptCore decodes_to def
-R6041:6051 Kernel.ReceiptCore ReceiptCore <> mod
+R2059:2065 Kernel.VMState <> <> lib
+R2067:2072 Kernel.VMStep <> <> lib
+R2102:2112 Kernel.MuCostModel <> <> lib
+R2140:2143 Coq.Lists.List <> <> lib
+R2153:2165 Coq.Lists.List ListNotations <> mod
+mod 2176:2186 <> ReceiptCore
+rec 2804:2810 ReceiptCore Receipt
+proj 2819:2822 ReceiptCore r_op
+proj 2870:2878 ReceiptCore r_payload
+R2826:2828 Coq.Init.Datatypes <> nat ind
+R2882:2885 Coq.Init.Datatypes <> list ind
+R2887:2889 Coq.Init.Datatypes <> nat ind
+def 2991:2995 ReceiptCore Trace
+R3000:3003 Coq.Init.Datatypes <> list ind
+R3005:3011 Kernel.ReceiptCore ReceiptCore Receipt rec
+def 3647:3660 ReceiptCore ReceiptChannel
+R3672:3675 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3665:3671 Kernel.ReceiptCore ReceiptCore Receipt rec
+R3676:3679 Coq.Init.Datatypes <> bool ind
+def 4265:4270 ReceiptCore decode
+R4278:4291 Kernel.ReceiptCore ReceiptCore ReceiptChannel def
+binder 4273:4274 <> ch:4
+R4300:4304 Kernel.ReceiptCore ReceiptCore Trace def
+binder 4295:4296 <> tr:5
+R4309:4312 Coq.Init.Datatypes <> list ind
+R4315:4318 Coq.Init.Datatypes <> list ind
+R4320:4322 Coq.Init.Datatypes <> nat ind
+R4330:4332 Coq.Lists.List <> map def
+R4345:4350 Coq.Lists.List <> filter def
+R4355:4356 Kernel.ReceiptCore <> tr:5 var
+R4352:4353 Kernel.ReceiptCore <> ch:4 var
+R4334:4342 Kernel.ReceiptCore ReceiptCore r_payload proj
+def 4594:4603 ReceiptCore decodes_to
+R4611:4624 Kernel.ReceiptCore ReceiptCore ReceiptChannel def
+binder 4606:4607 <> ch:6
+R4633:4637 Kernel.ReceiptCore ReceiptCore Trace def
+binder 4628:4629 <> tr:7
+R4646:4649 Coq.Init.Datatypes <> list ind
+R4652:4655 Coq.Init.Datatypes <> list ind
+R4657:4659 Coq.Init.Datatypes <> nat ind
+binder 4641:4642 <> xs:8
+R4687:4689 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4675:4680 Kernel.ReceiptCore ReceiptCore decode def
+R4682:4683 Kernel.ReceiptCore <> ch:6 var
+R4685:4686 Kernel.ReceiptCore <> tr:7 var
+R4690:4691 Kernel.ReceiptCore <> xs:8 var
+prf 5008:5022 ReceiptCore decodes_to_refl
+binder 5035:5036 <> ch:9
+binder 5038:5039 <> tr:10
+R5042:5051 Kernel.ReceiptCore ReceiptCore decodes_to def
+R5053:5054 Kernel.ReceiptCore <> ch:9 var
+R5056:5057 Kernel.ReceiptCore <> tr:10 var
+R5060:5065 Kernel.ReceiptCore ReceiptCore decode def
+R5067:5068 Kernel.ReceiptCore <> ch:9 var
+R5070:5071 Kernel.ReceiptCore <> tr:10 var
+R5099:5108 Kernel.ReceiptCore ReceiptCore decodes_to def
+R5962:5972 Kernel.ReceiptCore ReceiptCore <> mod

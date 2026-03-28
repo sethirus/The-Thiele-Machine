@@ -1,39 +1,38 @@
 (** =========================================================================
-    KERNEL TOE (Theory of Everything): Final Outcome Theorem
+    KERNEL CLOSURE: Closure Properties of VM Semantics
     =========================================================================
 
     WHY THIS FILE EXISTS:
-    I claim this theorem summarizes what the Thiele Machine kernel FORCES
-    (maximal closure) versus what it CANNOT force without additional structure
-    (no-go results). This is the "kernel theory of everything" - the complete
-    characterization of what's derivable from computational first principles.
-
-    THE CORE CLAIM:
-    The kernel achieves maximal closure (KernelMaximalClosureP) on derivable
-    physics while proving its own limitations (KernelNoGoForTOE_P) on what
-    requires additional structure. This combination is the final answer.
+    This theorem summarizes what the Thiele Machine kernel PROVES from its
+    operational semantics. KernelMaximalClosureP packages three properties:
+    instruction locality, mu-monotonicity, and trace causality.
 
     WHAT THIS PROVES:
-    KernelTOE_FinalOutcome (line 11): The kernel theory is COMPLETE in the
-    sense that:
-    1. Everything derivable from μ-cost + partition structure IS derived
-       (Closure.v proves all forced consequences)
-    2. Everything requiring extra structure is PROVEN independent
-       (NoGo.v shows Lorentz, specific metrics, etc. are underdetermined)
+    KernelTOE_FinalOutcome: The kernel theory derives:
+    1. Instruction locality (operations only affect their targets)
+    2. mu-monotonicity (information cost never decreases)
+    3. Trace causality (causal cone closure)
 
-    PHYSICAL INTERPRETATION:
-    This is the boundary between what computation determines and what requires
-    additional physical input. The kernel derivations (CHSH bounds, second law,
-    locality, information causality) are THEOREMS. The no-go results (Lorentz
-    invariance, specific spacetime metrics, particle masses) require empirical
-    input beyond pure computation.
+    Additionally, this file wires in:
+    4. Born rule uniqueness (from mixture_compatible + boundary conditions,
+       see BornRuleLinearity.v)
+    5. Tsirelson bound (|S| <= 2sqrt(2) from NPA-1 algebraic constraints,
+       see TsirelsonGeneral.v)
+
+    Items 4-5 are CONDITIONAL results with their own stated premises.
+    They are NOT direct consequences of KernelMaximalClosureP.
+
+    mu-cost is UNIQUE: MuInitiality.v proves that any
+    instruction-consistent cost functional starting from zero must equal
+    vm_mu on all reachable states.
 
     FALSIFICATION:
-    Derive Lorentz invariance from kernel primitives (violates KernelNoGoForTOE).
-    Or show that some derivable consequence (e.g., Tsirelson bound) is missing
-    from Closure.v (violates KernelMaximalClosureP).
+    Find an instruction that modifies state outside its target list (violates
+    locality). Find an instruction with negative cost (violates monotonicity).
+    Find two distinct instruction-consistent cost functionals disagreeing on
+    a reachable state (violates mu_is_initial_monotone from MuInitiality.v).
 
-    NO AXIOMS. NO ADMITS. This is the conjunction of two major theorems.
+    NO AXIOMS. NO ADMITS.
 
     ========================================================================= *)
 
@@ -41,54 +40,80 @@
 From Kernel Require Import MuCostModel.
 
 From Kernel Require Import Closure.
-From Kernel Require Import NoGo.
+From Kernel Require Import BornRuleLinearity.
+From Kernel Require Import TsirelsonQuantumModel.
+From Kernel Require Import TsirelsonGeneral.
+From Kernel Require Import MuLedgerQuantumBridge.
+From Coq Require Import Reals.
 
-(** KERNEL TOE: The complete characterization
+(** KERNEL CLOSURE: Maximal closure — what the kernel proves
 
-    This theorem states: The kernel achieves everything it CAN derive
-    (closure) and knows everything it CANNOT derive (no-go). Together,
-    these define the boundary of computational physics.
-
-    Split into two parts:
-    - KernelMaximalClosureP: What the kernel forces (from Closure.v)
-    - KernelNoGoForTOE_P: What the kernel cannot force (from NoGo.v)
-
-    The proof is trivial (conjunction of existing theorems), but the
-    MEANING is profound: this is the complete answer to "what does
-    pure computation determine about physics?" *)
+    KernelMaximalClosureP packages three closure properties proven
+    from vm_step's definition (Closure.v / PhysicsClosure.v):
+    - Instruction locality
+    - mu-monotonicity
+    - Trace causality *)
+(* INQUISITOR NOTE: alias for KernelMaximalClosure — intentional compat export *)
 Theorem KernelTOE_FinalOutcome :
-  KernelMaximalClosureP /\ KernelNoGoForTOE_P.
+  KernelMaximalClosureP.
 Proof.
-  split.
-  - (* The kernel achieves maximal closure *)
-    exact KernelMaximalClosure.
-  - (* The kernel proves its own limitations *)
-    exact KernelNoGoForTOE.
+  exact KernelMaximalClosure.
+Qed.
+
+(** Core proof wiring for C3/C4 bridge files.
+
+      This theorem is intentionally lightweight: it does not add new physical
+      assumptions, it only guarantees that the final TOE layer is wired to the
+      completed C3/C4 bridge statements.
+*)
+(* definitional lemma *)
+Theorem KernelTOE_CoreProofWiring :
+   KernelMaximalClosureP /\
+   (forall (P : ProbabilityRule),
+         valid_born_rule P ->
+      forall (z : R), (-1 <= z <= 1)%R -> P z = born_probability z) /\
+   (forall fuel trace s_init,
+         trace_quantum_bridge_coherent fuel trace s_init ->
+         trace_quantum_model fuel trace s_init /\
+      (Rabs (CHSH
+            (trace_e00 fuel trace s_init)
+            (trace_e01 fuel trace s_init)
+            (trace_e10 fuel trace s_init)
+      (trace_e11 fuel trace s_init)) <= sqrt8)%R).
+Proof.
+   split.
+   - exact KernelTOE_FinalOutcome.
+   - split.
+      + intros P Hvalid z Hz.
+         exact (born_rule_unique P Hvalid z Hz).
+      + intros fuel trace s_init Hcoh.
+         exact (trace_quantum_model_connection_closed fuel trace s_init Hcoh).
 Qed.
 
 (** =========================================================================
-    INTERPRETATION
+    SCOPE
 
-    This single theorem divides all of theoretical physics into:
+    KernelMaximalClosureP proves three VM operational properties:
+    instruction locality, mu-monotonicity, and trace causality.
 
-    1. DERIVABLE (KernelMaximalClosureP from Closure.v):
-       - Tsirelson bound (2√2)
-       - Second law of thermodynamics
-       - Information Causality
-       - Einstein locality
-       - Bell inequality violations
-       - No-cloning theorem
-       - Born rule structure
-       - Bekenstein bound (holographic principle)
+    KernelTOE_CoreProofWiring additionally wires in:
+    - Born rule uniqueness (conditional on mixture_compatible + boundary
+      conditions — see BornRuleLinearity.v)
+    - Tsirelson bound (conditional on NPA-1 coherence premises —
+      see TsirelsonGeneral.v)
 
-    2. UNDERDETERMINED (KernelNoGoForTOE_P from NoGo.v):
-       - Lorentz invariance (emergent, not forced)
-       - Specific spacetime metric (requires gauge choice)
-       - Particle masses (require Yukawa couplings)
-       - Coupling constants (α, G, etc.)
-       - Spacetime dimensionality (3+1 is empirical)
+    These conditional results are NOT consequences of the three closure
+    properties alone. They require their own stated premises.
 
-    The kernel theory is COMPLETE: It derives everything derivable and
-    proves everything else independent. No missing pieces.
+    Other files explore ANALOGIES between VM properties and physics:
+    - mu-monotonicity compared to entropy non-decrease (analogy)
+    - VM locality compared to no-signaling (operational property)
+    - Discrete Gauss-Bonnet compared to Einstein equations (analogy)
+    These analogies are informal interpretations, not formal derivations
+    of physics from the kernel.
+
+    mu-cost uniqueness (mu_is_initial_monotone from MuInitiality.v):
+    - mu-cost is the unique instruction-consistent cost functional
+    - No gauge freedom: the concrete VM pins down cost completely
 
     ========================================================================= *)

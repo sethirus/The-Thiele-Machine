@@ -100,5 +100,5 @@ def test_chsh_x1_with_reveal_certificate_is_allowed_and_surcharged() -> None:
 
     assert result.get("error_code", 0) == 0
     assert result.get("status", 0) == 2
-    # mu = REVEAL cost (1) + CHSH base cost (7) + x=1 surcharge (256) = 264.
-    assert result.get("mu", -1) == 264
+    # mu = REVEAL S(1)=2 + CHSH base cost (7) + x=1 surcharge (256) = 265.
+    assert result.get("mu", -1) == 265

@@ -3,19 +3,22 @@
     =========================================================================
 
     WHY THIS FILE EXISTS:
-    I claim the Information Causality principle (Pawłowski et al., Nature 2009)
-    is not an independent physical postulate - it's EQUIVALENT to μ-cost accounting.
+    This file formalizes a structural analogy between Pawłowski et al.'s
+    Information Causality principle and μ-cost accounting. The "equivalence" is
+    between custom ICScenario and MuScenario record types defined in this file,
+    not between the full physical IC principle and the VM.
     IC says "Bob's accessible information ≤ communication bits m". μ-ledger says
     "structural information cost = m". These are the same constraint.
 
-    THE MAIN THEOREM (information_causality_is_mu_cost, line 58):
+    THE MAIN THEOREM (information_causality_is_mu_cost):
     For any IC scenario (Alice sends m bits, Bob learns ≤ m bits) and μ-scenario
     (partition with cost m), the IC bound is satisfied IFF the μ-bound is satisfied.
 
     PHYSICAL CLAIM:
     Information Causality is not a mysterious quantum principle. It's just
     conservation of structural information under the constraint that you can't
-    extract more information than you paid for. μ-cost IS information causality.
+    extract more information than you paid for. μ-cost accounting has the same
+    algebraic structure as Information Causality on the record types defined here.
 
     WHY THIS MATTERS:
     IC was proposed as a principle to derive quantum mechanics (Pawłowski 2009).
@@ -23,9 +26,9 @@
     state spaces + closed dynamics (FiniteInformation.v). So IC is not independent
     - it follows from computational structure.
 
-    This also explains why Tsirelson bound (2√2) emerges: IC with zero communication
-    (ic_zero_implies_tsirelson, line 90) means μ = 0, which means quantum-achievable
-    correlations (QuantumEquivalence.v).
+    ic_zero_implies_tsirelson proves that IC scenarios with m=0 communication
+    satisfy |S| <= 4 (the algebraic bound within this framework). The tighter
+    2√2 bound requires additional NPA coherence premises.
 
     FALSIFICATION:
     Find quantum correlations that violate IC but satisfy μ-conservation, or vice versa.
@@ -34,12 +37,9 @@
     Or show that IC violations (Pawłowski's PR-box thought experiments) don't
     correspond to μ-cost violations. This would break the equivalence theorem.
 
-    STATUS: COMPLETE (December 26, 2025)
-    - Zero axioms (beyond Coq stdlib)
-    - Zero admits (all Qed)
-    - Fully constructive (no classical axioms for existence proofs)
+    Zero axioms (beyond Coq stdlib). Zero admits. Fully constructive.
 
-    REFERENCE: Pawłowski et al., "Information causality" Nature 461 (2009)
+    REFERENCE: Pawlowski et al., "Information causality" Nature 461 (2009)
 
     ========================================================================= *)
 
@@ -310,15 +310,15 @@ Qed.
     Main theorem (information_causality_is_mu_cost): IC bound ⟺ μ-bound
 
     KEY RESULTS:
-    1. ic_zero_implies_tsirelson (line 90): Zero communication (IC m=0) means
+    1. ic_zero_implies_tsirelson: Zero communication (IC m=0) means
        zero μ-cost, which means quantum-achievable correlations (CHSH ≤ 2√2).
 
-    2. ic_monotonicity (line 103): More communication → more μ-cost (monotonicity).
+    2. ic_monotonicity: More communication → more μ-cost (monotonicity).
 
-    3. ic_composition (line 137): Sequential IC scenarios compose additively,
+    3. ic_composition: Sequential IC scenarios compose additively,
        just like μ-costs (weight_sequential from Definitions.v).
 
-    4. ic_cost_optimal (line 195): The IC bound is tight - you can't satisfy
+    4. ic_cost_optimal: The IC bound is tight - you can't satisfy
        the same IC constraint with less communication. No free insight.
 
     WHY NO AXIOMS:
@@ -341,7 +341,7 @@ Qed.
     IC is satisfied. Either would break the equivalence and falsify this file's
     main claim.
 
-    The equivalence theorem (line 58) is proven (Qed), so falsifying it requires
+    The equivalence theorem (information_causality_is_mu_cost) is proven (Qed), so falsifying it requires
     finding an inconsistency in the definitions or a logic error in the proof.
     *)
 

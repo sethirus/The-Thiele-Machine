@@ -1,478 +1,499 @@
-DIGEST 27e8cb45a1aecea36f3730730b83c471
+DIGEST 32146cacf448b5c047d4da3aeb265c66
 FThieleManifold.ThieleManifoldBridge
 R519:523 Coq.Arith.Arith <> <> lib
 R525:527 Coq.micromega.Lia <> <> lib
 R564:576 SelfReference.SelfReference <> <> lib
 R609:617 Spacetime.Spacetime <> <> lib
 R655:668 ThieleManifold.ThieleManifold <> <> lib
-R705:717 ThieleMachine.ThieleMachine <> <> lib
-R719:728 ThieleMachine.ThieleProc <> <> lib
-R758:777 Kernel.MuLedgerConservation <> <> lib
-R779:785 Kernel.VMState <> <> lib
-R787:792 Kernel.VMStep <> <> lib
-R794:808 Kernel.SimulationProof <> <> lib
-def 891:911 <> thiele_self_reference
-R925:931 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R940:941 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R936:939 ThieleMachine.ThieleMachine <> Prog rec
-binder 932:932 <> P:1
-R942:950 ThieleMachine.ThieleProc <> obs_equiv def
-R954:954 ThieleManifold.ThieleManifoldBridge <> P:1 var
-R952:952 ThieleManifold.ThieleManifoldBridge <> P:1 var
-prf 1023:1048 <> thiele_self_reference_true
-R1052:1072 ThieleManifold.ThieleManifoldBridge <> thiele_self_reference def
-R1091:1100 ThieleMachine.ThieleProc <> empty_prog def
-R1091:1100 ThieleMachine.ThieleProc <> empty_prog def
-R1109:1122 ThieleMachine.ThieleProc <> obs_equiv_refl thm
-R1109:1122 ThieleMachine.ThieleProc <> obs_equiv_refl thm
-def 1142:1157 <> thiele_sentences
-binder 1160:1160 <> Q:2
-R1182:1188 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R1197:1198 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R1193:1196 ThieleMachine.ThieleMachine <> Prog rec
-binder 1189:1189 <> P:3
-R1200:1203 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R1199:1199 ThieleManifold.ThieleManifoldBridge <> Q:2 var
-R1204:1212 ThieleMachine.ThieleProc <> obs_equiv def
-R1216:1216 ThieleManifold.ThieleManifoldBridge <> P:3 var
-R1214:1214 ThieleManifold.ThieleManifoldBridge <> P:3 var
-prf 1282:1304 <> thiele_sentence_of_true
-binder 1315:1315 <> Q:4
-R1319:1322 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1318:1318 ThieleManifold.ThieleManifoldBridge <> Q:4 var
-R1323:1338 ThieleManifold.ThieleManifoldBridge <> thiele_sentences def
-R1340:1340 ThieleManifold.ThieleManifoldBridge <> Q:4 var
-R1372:1381 ThieleMachine.ThieleProc <> empty_prog def
-R1372:1381 ThieleMachine.ThieleProc <> empty_prog def
-R1409:1422 ThieleMachine.ThieleProc <> obs_equiv_refl thm
-R1409:1422 ThieleMachine.ThieleProc <> obs_equiv_refl thm
-def 1443:1455 <> thiele_system
-R1459:1464 SelfReference.SelfReference <> System rec
-R1474:1482 SelfReference.SelfReference <> dimension proj
-R1474:1482 SelfReference.SelfReference <> dimension proj
-R1474:1482 SelfReference.SelfReference <> dimension proj
-R1495:1503 SelfReference.SelfReference <> sentences proj
-R1495:1503 SelfReference.SelfReference <> sentences proj
-R1508:1523 ThieleManifold.ThieleManifoldBridge <> thiele_sentences def
-prf 1599:1628 <> thiele_system_self_referential
-R1632:1654 SelfReference.SelfReference <> contains_self_reference def
-R1656:1668 ThieleManifold.ThieleManifoldBridge <> thiele_system def
-R1687:1707 ThieleManifold.ThieleManifoldBridge <> thiele_self_reference def
-R1687:1707 ThieleManifold.ThieleManifoldBridge <> thiele_self_reference def
-R1730:1745 ThieleManifold.ThieleManifoldBridge <> thiele_sentences def
-R1748:1768 ThieleManifold.ThieleManifoldBridge <> thiele_self_reference def
-R1782:1791 ThieleMachine.ThieleProc <> empty_prog def
-R1782:1791 ThieleMachine.ThieleProc <> empty_prog def
-R1808:1833 ThieleManifold.ThieleManifoldBridge <> thiele_self_reference_true thm
-R1841:1854 ThieleMachine.ThieleProc <> obs_equiv_refl thm
-R1808:1833 ThieleManifold.ThieleManifoldBridge <> thiele_self_reference_true thm
-R1841:1854 ThieleMachine.ThieleProc <> obs_equiv_refl thm
-R1868:1893 ThieleManifold.ThieleManifoldBridge <> thiele_self_reference_true thm
-R1868:1893 ThieleManifold.ThieleManifoldBridge <> thiele_self_reference_true thm
-prf 2062:2098 <> thiele_system_reasons_about_spacetime
-R2104:2119 SelfReference.SelfReference <> can_reason_about def
-R2121:2133 ThieleManifold.ThieleManifoldBridge <> thiele_system def
-R2135:2150 Spacetime.Spacetime <> spacetime_system def
-R2169:2184 SelfReference.SelfReference <> can_reason_about def
-R2209:2221 ThieleManifold.ThieleManifoldBridge <> thiele_system def
-R2274:2289 Spacetime.Spacetime <> spacetime_system def
-R2320:2338 Spacetime.Spacetime <> spacetime_sentences def
-R2393:2400 Spacetime.Spacetime <> at_event def
-R2418:2433 ThieleManifold.ThieleManifoldBridge <> thiele_sentences def
-R2445:2454 ThieleMachine.ThieleProc <> empty_prog def
-R2445:2454 ThieleMachine.ThieleProc <> empty_prog def
-R2537:2550 ThieleMachine.ThieleProc <> obs_equiv_refl thm
-R2537:2550 ThieleMachine.ThieleProc <> obs_equiv_refl thm
-def 2621:2632 <> thiele_level
-R2639:2641 Coq.Init.Datatypes <> nat ind
-binder 2635:2635 <> n:5
-R2646:2651 SelfReference.SelfReference <> System rec
-R2664:2664 ThieleManifold.ThieleManifoldBridge <> n:5 var
-R2680:2692 ThieleManifold.ThieleManifoldBridge <> thiele_system def
-R2698:2698 Coq.Init.Datatypes <> S constr
-R2705:2715 SelfReference.SelfReference <> meta_system def
-R2718:2729 ThieleManifold.ThieleManifoldBridge <> thiele_level:6 def
-prf 2800:2818 <> thiele_level_richer
-binder 2829:2829 <> n:8
-R2832:2851 SelfReference.SelfReference <> dimensionally_richer def
-R2854:2865 ThieleManifold.ThieleManifoldBridge <> thiele_level def
-R2868:2868 Coq.Init.Datatypes <> S constr
-R2870:2870 ThieleManifold.ThieleManifoldBridge <> n:8 var
-R2875:2886 ThieleManifold.ThieleManifoldBridge <> thiele_level def
-R2888:2888 ThieleManifold.ThieleManifoldBridge <> n:8 var
-R2931:2948 SelfReference.SelfReference <> meta_system_richer thm
-R2931:2948 SelfReference.SelfReference <> meta_system_richer thm
-R2962:2981 SelfReference.SelfReference <> dimensionally_richer def
-R3017:3034 SelfReference.SelfReference <> meta_system_richer thm
-R3037:3048 ThieleManifold.ThieleManifoldBridge <> thiele_level def
-R3017:3034 SelfReference.SelfReference <> meta_system_richer thm
-R3037:3048 ThieleManifold.ThieleManifoldBridge <> thiele_level def
-prf 3128:3150 <> thiele_level_can_reason
-binder 3161:3161 <> n:9
-R3164:3179 SelfReference.SelfReference <> can_reason_about def
+R695:698 Coq.Lists.List <> <> lib
+R728:747 Kernel.MuLedgerConservation <> <> lib
+R749:755 Kernel.VMState <> <> lib
+R757:762 Kernel.VMStep <> <> lib
+R764:778 Kernel.SimulationProof <> <> lib
+R788:800 Coq.Lists.List ListNotations <> mod
+def 898:901 <> Prog
+R906:909 Coq.Init.Datatypes <> list ind
+R911:924 Kernel.VMStep VMStep vm_instruction ind
+def 938:947 <> empty_prog
+R951:954 ThieleManifold.ThieleManifoldBridge <> Prog def
+R959:961 Coq.Init.Datatypes <> nil constr
+def 975:983 <> obs_equiv
+R992:995 ThieleManifold.ThieleManifoldBridge <> Prog def
+binder 986:986 <> P:1
+binder 988:988 <> Q:2
+R1009:1011 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1008:1008 ThieleManifold.ThieleManifoldBridge <> P:1 var
+R1012:1012 ThieleManifold.ThieleManifoldBridge <> Q:2 var
+prf 1021:1034 <> obs_equiv_refl
+binder 1045:1045 <> P:3
+R1048:1056 ThieleManifold.ThieleManifoldBridge <> obs_equiv def
+R1058:1058 ThieleManifold.ThieleManifoldBridge <> P:3 var
+R1060:1060 ThieleManifold.ThieleManifoldBridge <> P:3 var
+R1087:1095 ThieleManifold.ThieleManifoldBridge <> obs_equiv def
+R1104:1110 Coq.Init.Logic <> eq_refl constr
+R1104:1110 Coq.Init.Logic <> eq_refl constr
+def 1198:1218 <> thiele_self_reference
+R1232:1238 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1247:1248 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1243:1246 ThieleManifold.ThieleManifoldBridge <> Prog def
+binder 1239:1239 <> P:4
+R1249:1257 ThieleManifold.ThieleManifoldBridge <> obs_equiv def
+R1259:1259 ThieleManifold.ThieleManifoldBridge <> P:4 var
+R1261:1261 ThieleManifold.ThieleManifoldBridge <> P:4 var
+prf 1330:1355 <> thiele_self_reference_true
+R1359:1379 ThieleManifold.ThieleManifoldBridge <> thiele_self_reference def
+R1398:1407 ThieleManifold.ThieleManifoldBridge <> empty_prog def
+R1398:1407 ThieleManifold.ThieleManifoldBridge <> empty_prog def
+R1416:1429 ThieleManifold.ThieleManifoldBridge <> obs_equiv_refl thm
+R1416:1429 ThieleManifold.ThieleManifoldBridge <> obs_equiv_refl thm
+def 1449:1464 <> thiele_sentences
+binder 1467:1467 <> Q:5
+R1489:1495 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1504:1505 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1500:1503 ThieleManifold.ThieleManifoldBridge <> Prog def
+binder 1496:1496 <> P:6
+R1507:1510 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1506:1506 ThieleManifold.ThieleManifoldBridge <> Q:5 var
+R1511:1519 ThieleManifold.ThieleManifoldBridge <> obs_equiv def
+R1521:1521 ThieleManifold.ThieleManifoldBridge <> P:6 var
+R1523:1523 ThieleManifold.ThieleManifoldBridge <> P:6 var
+prf 1589:1611 <> thiele_sentence_of_true
+binder 1622:1622 <> Q:7
+R1626:1629 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1625:1625 ThieleManifold.ThieleManifoldBridge <> Q:7 var
+R1630:1645 ThieleManifold.ThieleManifoldBridge <> thiele_sentences def
+R1647:1647 ThieleManifold.ThieleManifoldBridge <> Q:7 var
+R1679:1688 ThieleManifold.ThieleManifoldBridge <> empty_prog def
+R1679:1688 ThieleManifold.ThieleManifoldBridge <> empty_prog def
+R1716:1729 ThieleManifold.ThieleManifoldBridge <> obs_equiv_refl thm
+R1716:1729 ThieleManifold.ThieleManifoldBridge <> obs_equiv_refl thm
+def 1750:1762 <> thiele_system
+R1766:1771 SelfReference.SelfReference <> System rec
+R1781:1789 SelfReference.SelfReference <> dimension proj
+R1781:1789 SelfReference.SelfReference <> dimension proj
+R1781:1789 SelfReference.SelfReference <> dimension proj
+R1802:1810 SelfReference.SelfReference <> sentences proj
+R1802:1810 SelfReference.SelfReference <> sentences proj
+R1815:1830 ThieleManifold.ThieleManifoldBridge <> thiele_sentences def
+prf 1906:1935 <> thiele_system_self_referential
+R1939:1961 SelfReference.SelfReference <> contains_self_reference def
+R1963:1975 ThieleManifold.ThieleManifoldBridge <> thiele_system def
+R1994:2014 ThieleManifold.ThieleManifoldBridge <> thiele_self_reference def
+R1994:2014 ThieleManifold.ThieleManifoldBridge <> thiele_self_reference def
+R2037:2052 ThieleManifold.ThieleManifoldBridge <> thiele_sentences def
+R2055:2075 ThieleManifold.ThieleManifoldBridge <> thiele_self_reference def
+R2089:2098 ThieleManifold.ThieleManifoldBridge <> empty_prog def
+R2089:2098 ThieleManifold.ThieleManifoldBridge <> empty_prog def
+R2115:2140 ThieleManifold.ThieleManifoldBridge <> thiele_self_reference_true thm
+R2148:2161 ThieleManifold.ThieleManifoldBridge <> obs_equiv_refl thm
+R2115:2140 ThieleManifold.ThieleManifoldBridge <> thiele_self_reference_true thm
+R2148:2161 ThieleManifold.ThieleManifoldBridge <> obs_equiv_refl thm
+R2175:2200 ThieleManifold.ThieleManifoldBridge <> thiele_self_reference_true thm
+R2175:2200 ThieleManifold.ThieleManifoldBridge <> thiele_self_reference_true thm
+prf 2369:2405 <> thiele_system_reasons_about_spacetime
+R2411:2426 SelfReference.SelfReference <> can_reason_about def
+R2428:2440 ThieleManifold.ThieleManifoldBridge <> thiele_system def
+R2442:2457 Spacetime.Spacetime <> spacetime_system def
+R2476:2491 SelfReference.SelfReference <> can_reason_about def
+R2516:2528 ThieleManifold.ThieleManifoldBridge <> thiele_system def
+R2581:2596 Spacetime.Spacetime <> spacetime_system def
+R2627:2645 Spacetime.Spacetime <> spacetime_sentences def
+R2700:2707 Spacetime.Spacetime <> at_event def
+R2725:2740 ThieleManifold.ThieleManifoldBridge <> thiele_sentences def
+R2752:2761 ThieleManifold.ThieleManifoldBridge <> empty_prog def
+R2752:2761 ThieleManifold.ThieleManifoldBridge <> empty_prog def
+R2844:2857 ThieleManifold.ThieleManifoldBridge <> obs_equiv_refl thm
+R2844:2857 ThieleManifold.ThieleManifoldBridge <> obs_equiv_refl thm
+def 2928:2939 <> thiele_level
+R2946:2948 Coq.Init.Datatypes <> nat ind
+binder 2942:2942 <> n:8
+R2953:2958 SelfReference.SelfReference <> System rec
+R2971:2971 ThieleManifold.ThieleManifoldBridge <> n:8 var
+R2987:2999 ThieleManifold.ThieleManifoldBridge <> thiele_system def
+R3005:3005 Coq.Init.Datatypes <> S constr
+R3012:3022 SelfReference.SelfReference <> meta_system def
+R3025:3036 ThieleManifold.ThieleManifoldBridge <> thiele_level:9 def
+prf 3107:3125 <> thiele_level_richer
+binder 3136:3136 <> n:11
+R3139:3158 SelfReference.SelfReference <> dimensionally_richer def
+R3161:3172 ThieleManifold.ThieleManifoldBridge <> thiele_level def
+R3175:3175 Coq.Init.Datatypes <> S constr
+R3177:3177 ThieleManifold.ThieleManifoldBridge <> n:11 var
 R3182:3193 ThieleManifold.ThieleManifoldBridge <> thiele_level def
-R3196:3196 Coq.Init.Datatypes <> S constr
-R3198:3198 ThieleManifold.ThieleManifoldBridge <> n:9 var
-R3203:3214 ThieleManifold.ThieleManifoldBridge <> thiele_level def
-R3216:3216 ThieleManifold.ThieleManifoldBridge <> n:9 var
-R3259:3286 SelfReference.SelfReference <> meta_system_can_reason_about thm
-R3259:3286 SelfReference.SelfReference <> meta_system_can_reason_about thm
-R3300:3315 SelfReference.SelfReference <> can_reason_about def
-R3347:3374 SelfReference.SelfReference <> meta_system_can_reason_about thm
-R3347:3374 SelfReference.SelfReference <> meta_system_can_reason_about thm
-prf 3457:3481 <> thiele_base_at_least_four
-R3486:3489 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R3490:3498 SelfReference.SelfReference <> dimension proj
-R3501:3512 ThieleManifold.ThieleManifoldBridge <> thiele_level def
-def 3554:3576 <> thiele_machine_manifold
-R3580:3593 ThieleManifold.ThieleManifold <> ThieleManifold rec
-R3603:3607 ThieleManifold.ThieleManifold <> level proj
-R3603:3607 ThieleManifold.ThieleManifold <> level proj
-R3603:3607 ThieleManifold.ThieleManifold <> level proj
-R3631:3651 ThieleManifold.ThieleManifold <> level_strictly_richer proj
-R3631:3651 ThieleManifold.ThieleManifold <> level_strictly_richer proj
-R3682:3697 ThieleManifold.ThieleManifold <> level_can_reason proj
-R3682:3697 ThieleManifold.ThieleManifold <> level_can_reason proj
-R3732:3749 ThieleManifold.ThieleManifold <> base_at_least_four proj
-R3732:3749 ThieleManifold.ThieleManifold <> base_at_least_four proj
-R3612:3623 ThieleManifold.ThieleManifoldBridge <> thiele_level def
-R3656:3674 ThieleManifold.ThieleManifoldBridge <> thiele_level_richer thm
-R3702:3724 ThieleManifold.ThieleManifoldBridge <> thiele_level_can_reason thm
-R3754:3778 ThieleManifold.ThieleManifoldBridge <> thiele_base_at_least_four thm
-prf 3863:3901 <> thiele_manifold_projection_matches_base
-R3932:3934 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3905:3907 ThieleManifold.ThieleManifold <> pi4 def
-R3909:3931 ThieleManifold.ThieleManifoldBridge <> thiele_machine_manifold def
-R3935:3947 ThieleManifold.ThieleManifoldBridge <> thiele_system def
-prf 4037:4058 <> thiele_level_dimension
-binder 4069:4069 <> n:10
-R4098:4100 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4072:4080 SelfReference.SelfReference <> dimension proj
-R4083:4094 ThieleManifold.ThieleManifoldBridge <> thiele_level def
-R4096:4096 ThieleManifold.ThieleManifoldBridge <> n:10 var
-R4102:4104 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4105:4105 ThieleManifold.ThieleManifoldBridge <> n:10 var
-R4176:4186 SelfReference.SelfReference <> meta_system def
-prf 4266:4285 <> thiele_level_mu_cost
-binder 4298:4298 <> n:11
-R4372:4374 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4301:4307 ThieleManifold.ThieleManifold <> mu_cost def
-R4310:4314 ThieleManifold.ThieleManifold <> level proj
-R4316:4338 ThieleManifold.ThieleManifoldBridge <> thiele_machine_manifold def
-R4340:4340 ThieleManifold.ThieleManifoldBridge <> n:11 var
-R4344:4346 ThieleManifold.ThieleManifold <> pi4 def
-R4348:4370 ThieleManifold.ThieleManifoldBridge <> thiele_machine_manifold def
-R4375:4375 ThieleManifold.ThieleManifoldBridge <> n:11 var
-R4404:4426 ThieleManifold.ThieleManifoldBridge <> thiele_machine_manifold def
-R4429:4431 ThieleManifold.ThieleManifold <> pi4 def
-R4434:4445 ThieleManifold.ThieleManifoldBridge <> thiele_level def
-R4448:4460 ThieleManifold.ThieleManifoldBridge <> thiele_system def
-R4463:4469 ThieleManifold.ThieleManifold <> mu_cost def
-R4489:4510 ThieleManifold.ThieleManifoldBridge <> thiele_level_dimension thm
-R4489:4510 ThieleManifold.ThieleManifoldBridge <> thiele_level_dimension thm
-R4489:4510 ThieleManifold.ThieleManifoldBridge <> thiele_level_dimension thm
-prf 4582:4600 <> thiele_level_mu_gap
-binder 4613:4613 <> n:12
-R4773:4775 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4695:4701 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R4620:4626 ThieleManifold.ThieleManifold <> mu_cost def
-R4629:4633 ThieleManifold.ThieleManifold <> level proj
-R4635:4657 ThieleManifold.ThieleManifoldBridge <> thiele_machine_manifold def
-R4660:4660 Coq.Init.Datatypes <> S constr
-R4662:4662 ThieleManifold.ThieleManifoldBridge <> n:12 var
-R4667:4669 ThieleManifold.ThieleManifold <> pi4 def
-R4671:4693 ThieleManifold.ThieleManifoldBridge <> thiele_machine_manifold def
-R4702:4708 ThieleManifold.ThieleManifold <> mu_cost def
-R4711:4715 ThieleManifold.ThieleManifold <> level proj
-R4717:4739 ThieleManifold.ThieleManifoldBridge <> thiele_machine_manifold def
-R4741:4741 ThieleManifold.ThieleManifoldBridge <> n:12 var
-R4745:4747 ThieleManifold.ThieleManifold <> pi4 def
-R4749:4771 ThieleManifold.ThieleManifoldBridge <> thiele_machine_manifold def
-R4807:4826 ThieleManifold.ThieleManifoldBridge <> thiele_level_mu_cost thm
-R4807:4826 ThieleManifold.ThieleManifoldBridge <> thiele_level_mu_cost thm
-R4807:4826 ThieleManifold.ThieleManifoldBridge <> thiele_level_mu_cost thm
-R4807:4826 ThieleManifold.ThieleManifoldBridge <> thiele_level_mu_cost thm
-R4807:4826 ThieleManifold.ThieleManifoldBridge <> thiele_level_mu_cost thm
-prf 4908:4936 <> thiele_manifold_requires_meta
-R4942:4948 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R4953:4954 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 4949:4952 <> Meta:13
-R4990:4993 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4955:4970 SelfReference.SelfReference <> can_reason_about def
-R4972:4975 ThieleManifold.ThieleManifoldBridge <> Meta:13 var
-R4977:4989 ThieleManifold.ThieleManifoldBridge <> thiele_system def
-R4994:5013 SelfReference.SelfReference <> dimensionally_richer def
-R5015:5018 ThieleManifold.ThieleManifoldBridge <> Meta:13 var
-R5020:5032 ThieleManifold.ThieleManifoldBridge <> thiele_system def
-R5054:5086 SelfReference.SelfReference <> self_reference_requires_metalevel thm
-R5090:5119 ThieleManifold.ThieleManifoldBridge <> thiele_system_self_referential thm
-R5054:5086 SelfReference.SelfReference <> self_reference_requires_metalevel thm
-R5090:5119 ThieleManifold.ThieleManifoldBridge <> thiele_system_self_referential thm
-prf 5255:5292 <> thiele_projection_has_positive_mu_cost
-R5369:5371 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R5298:5304 ThieleManifold.ThieleManifold <> mu_cost def
-R5307:5311 ThieleManifold.ThieleManifold <> level proj
-R5313:5335 ThieleManifold.ThieleManifoldBridge <> thiele_machine_manifold def
-R5341:5343 ThieleManifold.ThieleManifold <> pi4 def
-R5345:5367 ThieleManifold.ThieleManifoldBridge <> thiele_machine_manifold def
-R5391:5413 ThieleManifold.ThieleManifoldBridge <> thiele_machine_manifold def
-R5424:5454 ThieleManifold.ThieleManifold <> mu_cost_positive_for_projection thm
-R5424:5454 ThieleManifold.ThieleManifold <> mu_cost_positive_for_projection thm
-prf 5638:5678 <> thiele_manifold_supports_spacetime_shadow
-R5684:5699 SelfReference.SelfReference <> can_reason_about def
-R5702:5717 ThieleManifold.ThieleManifold <> spacetime_shadow def
-R5719:5741 ThieleManifold.ThieleManifoldBridge <> thiele_machine_manifold def
-R5744:5759 Spacetime.Spacetime <> spacetime_system def
-R5778:5793 SelfReference.SelfReference <> can_reason_about def
-R5818:5833 ThieleManifold.ThieleManifold <> spacetime_shadow def
-R5836:5838 ThieleManifold.ThieleManifold <> pi4 def
-R5841:5863 ThieleManifold.ThieleManifoldBridge <> thiele_machine_manifold def
-R5955:5970 Spacetime.Spacetime <> spacetime_system def
-R6001:6019 Spacetime.Spacetime <> spacetime_sentences def
-R6074:6081 Spacetime.Spacetime <> at_event def
-R6099:6110 ThieleManifold.ThieleManifoldBridge <> thiele_level def
-R6129:6144 ThieleManifold.ThieleManifoldBridge <> thiele_sentences def
-R6156:6165 ThieleMachine.ThieleProc <> empty_prog def
-R6156:6165 ThieleMachine.ThieleProc <> empty_prog def
-R6209:6222 ThieleMachine.ThieleProc <> obs_equiv_refl thm
-R6209:6222 ThieleMachine.ThieleProc <> obs_equiv_refl thm
-prf 6770:6805 <> thiele_run_mu_bounds_irreversibility
-binder 6818:6821 <> fuel:14
-binder 6823:6827 <> trace:15
-binder 6829:6829 <> s:16
-R6879:6882 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R6845:6847 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R6839:6843 Kernel.VMState <> vm_mu proj
-R6836:6836 ThieleManifold.ThieleManifoldBridge <> s:16 var
-R6848:6865 Kernel.MuLedgerConservation <> irreversible_count def
-R6867:6870 ThieleManifold.ThieleManifoldBridge <> fuel:14 var
-R6872:6876 ThieleManifold.ThieleManifoldBridge <> trace:15 var
-R6878:6878 ThieleManifold.ThieleManifoldBridge <> s:16 var
-R6906:6910 Kernel.VMState <> vm_mu proj
-R6884:6889 Kernel.SimulationProof <> run_vm def
-R6891:6894 ThieleManifold.ThieleManifoldBridge <> fuel:14 var
-R6896:6900 ThieleManifold.ThieleManifoldBridge <> trace:15 var
-R6902:6902 ThieleManifold.ThieleManifoldBridge <> s:16 var
-R6929:6960 Kernel.MuLedgerConservation <> run_vm_mu_bounds_irreversibility thm
-R6929:6960 Kernel.MuLedgerConservation <> run_vm_mu_bounds_irreversibility thm
-prf 7045:7079 <> thiele_manifold_irreversibility_gap
-binder 7092:7095 <> fuel:17
-binder 7097:7101 <> trace:18
-binder 7103:7103 <> s:19
-R7141:7150 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R7110:7127 Kernel.MuLedgerConservation <> irreversible_count def
-R7129:7132 ThieleManifold.ThieleManifoldBridge <> fuel:17 var
-R7134:7138 ThieleManifold.ThieleManifoldBridge <> trace:18 var
-R7140:7140 ThieleManifold.ThieleManifoldBridge <> s:19 var
-R7180:7182 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R7174:7178 Kernel.VMState <> vm_mu proj
-R7152:7157 Kernel.SimulationProof <> run_vm def
-R7159:7162 ThieleManifold.ThieleManifoldBridge <> fuel:17 var
-R7164:7168 ThieleManifold.ThieleManifoldBridge <> trace:18 var
-R7170:7170 ThieleManifold.ThieleManifoldBridge <> s:19 var
-R7186:7190 Kernel.VMState <> vm_mu proj
-R7183:7183 ThieleManifold.ThieleManifoldBridge <> s:19 var
-R7209:7234 Kernel.MuLedgerConservation <> run_vm_irreversibility_gap thm
-R7209:7234 Kernel.MuLedgerConservation <> run_vm_irreversibility_gap thm
-def 7959:7967 <> impl_iter
-binder 7970:7970 <> A:20
-R7982:7985 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7981:7981 ThieleManifold.ThieleManifoldBridge <> A:20 var
-R7986:7986 ThieleManifold.ThieleManifoldBridge <> A:20 var
-binder 7974:7977 <> step:21
-R7997:7999 Coq.Init.Datatypes <> nat ind
-binder 7990:7993 <> fuel:22
-R8007:8007 ThieleManifold.ThieleManifoldBridge <> A:20 var
-binder 8003:8003 <> s:23
-R8012:8012 ThieleManifold.ThieleManifoldBridge <> A:20 var
-R8025:8028 ThieleManifold.ThieleManifoldBridge <> fuel:22 var
-R8044:8044 ThieleManifold.ThieleManifoldBridge <> s:23 var
-R8050:8050 Coq.Init.Datatypes <> S constr
-R8061:8069 ThieleManifold.ThieleManifoldBridge <> impl_iter:24 def
-R8083:8086 ThieleManifold.ThieleManifoldBridge <> step:21 var
-R8088:8088 ThieleManifold.ThieleManifoldBridge <> s:23 var
-R8071:8074 ThieleManifold.ThieleManifoldBridge <> step:21 var
-def 8110:8123 <> faithful_to_vm
-binder 8126:8126 <> A:26
-R8140:8143 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8139:8139 ThieleManifold.ThieleManifoldBridge <> A:26 var
-R8144:8144 ThieleManifold.ThieleManifoldBridge <> A:26 var
-binder 8132:8135 <> step:27
-R8158:8161 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8157:8157 ThieleManifold.ThieleManifoldBridge <> A:26 var
-R8162:8168 Kernel.VMState <> VMState rec
-binder 8148:8153 <> decode:28
-R8180:8183 Coq.Init.Datatypes <> list ind
-R8185:8198 Kernel.VMStep VMStep vm_instruction ind
-binder 8172:8176 <> trace:29
-binder 8220:8223 <> fuel:30
-binder 8225:8225 <> s:31
-R8258:8260 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8228:8233 ThieleManifold.ThieleManifoldBridge <> decode:28 var
-R8236:8244 ThieleManifold.ThieleManifoldBridge <> impl_iter def
-R8256:8256 ThieleManifold.ThieleManifoldBridge <> s:31 var
-R8251:8254 ThieleManifold.ThieleManifoldBridge <> fuel:30 var
-R8246:8249 ThieleManifold.ThieleManifoldBridge <> step:27 var
-R8261:8266 Kernel.SimulationProof <> run_vm def
-R8268:8271 ThieleManifold.ThieleManifoldBridge <> fuel:30 var
-R8273:8277 ThieleManifold.ThieleManifoldBridge <> trace:29 var
-R8280:8285 ThieleManifold.ThieleManifoldBridge <> decode:28 var
-R8287:8287 ThieleManifold.ThieleManifoldBridge <> s:31 var
-prf 8367:8402 <> faithful_irreversibility_lower_bound
-binder 8416:8416 <> A:32
-R8435:8438 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8434:8434 ThieleManifold.ThieleManifoldBridge <> A:32 var
-R8439:8439 ThieleManifold.ThieleManifoldBridge <> A:32 var
-binder 8427:8430 <> step:33
-R8453:8456 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8452:8452 ThieleManifold.ThieleManifoldBridge <> A:32 var
-R8457:8463 Kernel.VMState <> VMState rec
-binder 8443:8448 <> decode:34
-R8484:8487 Coq.Init.Datatypes <> list ind
-R8489:8502 Kernel.VMStep VMStep vm_instruction ind
-binder 8476:8480 <> trace:35
-R8510:8510 ThieleManifold.ThieleManifoldBridge <> A:32 var
-binder 8506:8506 <> s:36
-R8521:8523 Coq.Init.Datatypes <> nat ind
-binder 8514:8517 <> fuel:37
-R8563:8570 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8531:8544 ThieleManifold.ThieleManifoldBridge <> faithful_to_vm def
-R8558:8562 ThieleManifold.ThieleManifoldBridge <> trace:35 var
-R8551:8556 ThieleManifold.ThieleManifoldBridge <> decode:34 var
-R8546:8549 ThieleManifold.ThieleManifoldBridge <> step:33 var
-R8611:8620 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R8571:8588 Kernel.MuLedgerConservation <> irreversible_count def
-R8590:8593 ThieleManifold.ThieleManifoldBridge <> fuel:37 var
-R8595:8599 ThieleManifold.ThieleManifoldBridge <> trace:35 var
-R8602:8607 ThieleManifold.ThieleManifoldBridge <> decode:34 var
-R8609:8609 ThieleManifold.ThieleManifoldBridge <> s:36 var
-R8661:8663 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R8655:8659 Kernel.VMState <> vm_mu proj
-R8622:8627 ThieleManifold.ThieleManifoldBridge <> decode:34 var
-R8630:8638 ThieleManifold.ThieleManifoldBridge <> impl_iter def
-R8650:8650 ThieleManifold.ThieleManifoldBridge <> s:36 var
-R8645:8648 ThieleManifold.ThieleManifoldBridge <> fuel:37 var
-R8640:8643 ThieleManifold.ThieleManifoldBridge <> step:33 var
-R8676:8680 Kernel.VMState <> vm_mu proj
-R8665:8670 ThieleManifold.ThieleManifoldBridge <> decode:34 var
-R8672:8672 ThieleManifold.ThieleManifoldBridge <> s:36 var
-R8791:8816 Kernel.MuLedgerConservation <> run_vm_irreversibility_gap thm
-R8791:8816 Kernel.MuLedgerConservation <> run_vm_irreversibility_gap thm
-rec 9300:9321 <> FaithfulImplementation
-proj 9330:9337 <> hw_state
-proj 9349:9355 <> hw_step
-proj 9383:9391 <> hw_decode
-proj 9418:9425 <> hw_trace
-proj 9452:9464 <> hw_refines_vm
-R9367:9370 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9359:9366 ThieleManifold.ThieleManifoldBridge <> hw_state:39 meth
-R9371:9378 ThieleManifold.ThieleManifoldBridge <> hw_state:39 meth
-R9403:9406 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9395:9402 ThieleManifold.ThieleManifoldBridge <> hw_state:39 meth
-R9407:9413 Kernel.VMState <> VMState rec
-R9429:9432 Coq.Init.Datatypes <> list ind
-R9434:9447 Kernel.VMStep VMStep vm_instruction ind
-binder 9475:9478 <> fuel:43
-binder 9480:9480 <> s:44
-R9523:9525 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9487:9495 ThieleManifold.ThieleManifoldBridge <> hw_decode:41 meth
-R9498:9506 ThieleManifold.ThieleManifoldBridge <> impl_iter def
-R9521:9521 ThieleManifold.ThieleManifoldBridge <> s:44 var
-R9516:9519 ThieleManifold.ThieleManifoldBridge <> fuel:43 var
-R9508:9514 ThieleManifold.ThieleManifoldBridge <> hw_step:40 meth
-R9526:9531 Kernel.SimulationProof <> run_vm def
-R9533:9536 ThieleManifold.ThieleManifoldBridge <> fuel:43 var
-R9538:9545 ThieleManifold.ThieleManifoldBridge <> hw_trace:42 meth
-R9548:9556 ThieleManifold.ThieleManifoldBridge <> hw_decode:41 meth
-R9558:9558 ThieleManifold.ThieleManifoldBridge <> s:44 var
-prf 9645:9685 <> faithful_impl_irreversibility_lower_bound
-R9706:9727 ThieleManifold.ThieleManifoldBridge <> FaithfulImplementation rec
-binder 9699:9702 <> Impl:46
-binder 9730:9733 <> fuel:47
-binder 9735:9735 <> s:48
-R9802:9811 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R9742:9759 Kernel.MuLedgerConservation <> irreversible_count def
-R9761:9764 ThieleManifold.ThieleManifoldBridge <> fuel:47 var
-R9772:9779 ThieleManifold.ThieleManifoldBridge <> hw_trace proj
-R9766:9769 ThieleManifold.ThieleManifoldBridge <> Impl:46 var
-R9789:9797 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
-R9783:9786 ThieleManifold.ThieleManifoldBridge <> Impl:46 var
-R9800:9800 ThieleManifold.ThieleManifoldBridge <> s:48 var
-R9872:9880 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R9866:9870 Kernel.VMState <> vm_mu proj
-R9819:9827 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
-R9813:9816 ThieleManifold.ThieleManifoldBridge <> Impl:46 var
-R9831:9839 ThieleManifold.ThieleManifoldBridge <> impl_iter def
-R9861:9861 ThieleManifold.ThieleManifoldBridge <> s:48 var
-R9856:9859 ThieleManifold.ThieleManifoldBridge <> fuel:47 var
-R9847:9853 ThieleManifold.ThieleManifoldBridge <> hw_step proj
-R9841:9844 ThieleManifold.ThieleManifoldBridge <> Impl:46 var
-R9903:9907 Kernel.VMState <> vm_mu proj
-R9888:9896 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
-R9882:9885 ThieleManifold.ThieleManifoldBridge <> Impl:46 var
-R9899:9899 ThieleManifold.ThieleManifoldBridge <> s:48 var
-R9954:9966 ThieleManifold.ThieleManifoldBridge <> hw_refines_vm proj
-R9954:9966 ThieleManifold.ThieleManifoldBridge <> hw_refines_vm proj
-R10020:10045 Kernel.MuLedgerConservation <> run_vm_irreversibility_gap thm
-R10020:10045 Kernel.MuLedgerConservation <> run_vm_irreversibility_gap thm
-prf 10448:10476 <> faithful_impl_mu_conservation
-R10497:10518 ThieleManifold.ThieleManifoldBridge <> FaithfulImplementation rec
-binder 10490:10493 <> Impl:49
-binder 10521:10524 <> fuel:50
-binder 10526:10526 <> s:51
-R10593:10601 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10587:10591 Kernel.VMState <> vm_mu proj
-R10540:10548 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
-R10534:10537 ThieleManifold.ThieleManifoldBridge <> Impl:49 var
-R10552:10560 ThieleManifold.ThieleManifoldBridge <> impl_iter def
-R10582:10582 ThieleManifold.ThieleManifoldBridge <> s:51 var
-R10577:10580 ThieleManifold.ThieleManifoldBridge <> fuel:50 var
-R10568:10574 ThieleManifold.ThieleManifoldBridge <> hw_step proj
-R10562:10565 ThieleManifold.ThieleManifoldBridge <> Impl:49 var
-R10630:10638 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R10624:10628 Kernel.VMState <> vm_mu proj
-R10609:10617 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
-R10603:10606 ThieleManifold.ThieleManifoldBridge <> Impl:49 var
-R10620:10620 ThieleManifold.ThieleManifoldBridge <> s:51 var
-R10639:10648 Kernel.MuLedgerConservation <> ledger_sum def
-R10651:10664 Kernel.MuLedgerConservation <> ledger_entries def
-R10666:10669 ThieleManifold.ThieleManifoldBridge <> fuel:50 var
-R10677:10684 ThieleManifold.ThieleManifoldBridge <> hw_trace proj
-R10671:10674 ThieleManifold.ThieleManifoldBridge <> Impl:49 var
-R10694:10702 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
-R10688:10691 ThieleManifold.ThieleManifoldBridge <> Impl:49 var
-R10705:10705 ThieleManifold.ThieleManifoldBridge <> s:51 var
-R10753:10765 ThieleManifold.ThieleManifoldBridge <> hw_refines_vm proj
-R10753:10765 ThieleManifold.ThieleManifoldBridge <> hw_refines_vm proj
-R10819:10840 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
-R10819:10840 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
-prf 10912:10935 <> faithful_impl_cost_delta
-R10956:10977 ThieleManifold.ThieleManifoldBridge <> FaithfulImplementation rec
-binder 10949:10952 <> Impl:52
-binder 10980:10983 <> fuel:53
-binder 10985:10985 <> s:54
-R11087:11095 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11052:11058 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R11046:11050 Kernel.VMState <> vm_mu proj
-R10999:11007 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
-R10993:10996 ThieleManifold.ThieleManifoldBridge <> Impl:52 var
-R11011:11019 ThieleManifold.ThieleManifoldBridge <> impl_iter def
-R11041:11041 ThieleManifold.ThieleManifoldBridge <> s:54 var
-R11036:11039 ThieleManifold.ThieleManifoldBridge <> fuel:53 var
-R11027:11033 ThieleManifold.ThieleManifoldBridge <> hw_step proj
-R11021:11024 ThieleManifold.ThieleManifoldBridge <> Impl:52 var
-R11081:11085 Kernel.VMState <> vm_mu proj
-R11066:11074 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
-R11060:11063 ThieleManifold.ThieleManifoldBridge <> Impl:52 var
-R11077:11077 ThieleManifold.ThieleManifoldBridge <> s:54 var
-R11096:11105 Kernel.MuLedgerConservation <> ledger_sum def
-R11108:11121 Kernel.MuLedgerConservation <> ledger_entries def
-R11123:11126 ThieleManifold.ThieleManifoldBridge <> fuel:53 var
-R11134:11141 ThieleManifold.ThieleManifoldBridge <> hw_trace proj
-R11128:11131 ThieleManifold.ThieleManifoldBridge <> Impl:52 var
-R11151:11159 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
-R11145:11148 ThieleManifold.ThieleManifoldBridge <> Impl:52 var
-R11162:11162 ThieleManifold.ThieleManifoldBridge <> s:54 var
-R11206:11234 ThieleManifold.ThieleManifoldBridge <> faithful_impl_mu_conservation thm
-R11206:11234 ThieleManifold.ThieleManifoldBridge <> faithful_impl_mu_conservation thm
-R11206:11234 ThieleManifold.ThieleManifoldBridge <> faithful_impl_mu_conservation thm
+R3195:3195 ThieleManifold.ThieleManifoldBridge <> n:11 var
+R3238:3255 SelfReference.SelfReference <> meta_system_richer thm
+R3238:3255 SelfReference.SelfReference <> meta_system_richer thm
+R3269:3288 SelfReference.SelfReference <> dimensionally_richer def
+R3324:3341 SelfReference.SelfReference <> meta_system_richer thm
+R3344:3355 ThieleManifold.ThieleManifoldBridge <> thiele_level def
+R3324:3341 SelfReference.SelfReference <> meta_system_richer thm
+R3344:3355 ThieleManifold.ThieleManifoldBridge <> thiele_level def
+prf 3435:3457 <> thiele_level_can_reason
+binder 3468:3468 <> n:12
+R3471:3486 SelfReference.SelfReference <> can_reason_about def
+R3489:3500 ThieleManifold.ThieleManifoldBridge <> thiele_level def
+R3503:3503 Coq.Init.Datatypes <> S constr
+R3505:3505 ThieleManifold.ThieleManifoldBridge <> n:12 var
+R3510:3521 ThieleManifold.ThieleManifoldBridge <> thiele_level def
+R3523:3523 ThieleManifold.ThieleManifoldBridge <> n:12 var
+R3566:3593 SelfReference.SelfReference <> meta_system_can_reason_about thm
+R3566:3593 SelfReference.SelfReference <> meta_system_can_reason_about thm
+R3607:3622 SelfReference.SelfReference <> can_reason_about def
+R3654:3681 SelfReference.SelfReference <> meta_system_can_reason_about thm
+R3654:3681 SelfReference.SelfReference <> meta_system_can_reason_about thm
+prf 3764:3788 <> thiele_base_at_least_four
+R3793:3796 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3797:3805 SelfReference.SelfReference <> dimension proj
+R3808:3819 ThieleManifold.ThieleManifoldBridge <> thiele_level def
+def 3861:3883 <> thiele_machine_manifold
+R3887:3900 ThieleManifold.ThieleManifold <> ThieleManifold rec
+R3910:3914 ThieleManifold.ThieleManifold <> level proj
+R3910:3914 ThieleManifold.ThieleManifold <> level proj
+R3910:3914 ThieleManifold.ThieleManifold <> level proj
+R3938:3958 ThieleManifold.ThieleManifold <> level_strictly_richer proj
+R3938:3958 ThieleManifold.ThieleManifold <> level_strictly_richer proj
+R3989:4004 ThieleManifold.ThieleManifold <> level_can_reason proj
+R3989:4004 ThieleManifold.ThieleManifold <> level_can_reason proj
+R4039:4056 ThieleManifold.ThieleManifold <> base_at_least_four proj
+R4039:4056 ThieleManifold.ThieleManifold <> base_at_least_four proj
+R3919:3930 ThieleManifold.ThieleManifoldBridge <> thiele_level def
+R3963:3981 ThieleManifold.ThieleManifoldBridge <> thiele_level_richer thm
+R4009:4031 ThieleManifold.ThieleManifoldBridge <> thiele_level_can_reason thm
+R4061:4085 ThieleManifold.ThieleManifoldBridge <> thiele_base_at_least_four thm
+prf 4170:4208 <> thiele_manifold_projection_matches_base
+R4239:4241 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4212:4214 ThieleManifold.ThieleManifold <> pi4 def
+R4216:4238 ThieleManifold.ThieleManifoldBridge <> thiele_machine_manifold def
+R4242:4254 ThieleManifold.ThieleManifoldBridge <> thiele_system def
+prf 4344:4365 <> thiele_level_dimension
+binder 4376:4376 <> n:13
+R4405:4407 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4379:4387 SelfReference.SelfReference <> dimension proj
+R4390:4401 ThieleManifold.ThieleManifoldBridge <> thiele_level def
+R4403:4403 ThieleManifold.ThieleManifoldBridge <> n:13 var
+R4409:4411 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4412:4412 ThieleManifold.ThieleManifoldBridge <> n:13 var
+R4483:4493 SelfReference.SelfReference <> meta_system def
+prf 4573:4592 <> thiele_level_mu_cost
+binder 4605:4605 <> n:14
+R4679:4681 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4608:4614 ThieleManifold.ThieleManifold <> mu_cost def
+R4617:4621 ThieleManifold.ThieleManifold <> level proj
+R4623:4645 ThieleManifold.ThieleManifoldBridge <> thiele_machine_manifold def
+R4647:4647 ThieleManifold.ThieleManifoldBridge <> n:14 var
+R4651:4653 ThieleManifold.ThieleManifold <> pi4 def
+R4655:4677 ThieleManifold.ThieleManifoldBridge <> thiele_machine_manifold def
+R4682:4682 ThieleManifold.ThieleManifoldBridge <> n:14 var
+R4711:4733 ThieleManifold.ThieleManifoldBridge <> thiele_machine_manifold def
+R4736:4738 ThieleManifold.ThieleManifold <> pi4 def
+R4741:4752 ThieleManifold.ThieleManifoldBridge <> thiele_level def
+R4755:4767 ThieleManifold.ThieleManifoldBridge <> thiele_system def
+R4770:4776 ThieleManifold.ThieleManifold <> mu_cost def
+R4796:4817 ThieleManifold.ThieleManifoldBridge <> thiele_level_dimension thm
+R4796:4817 ThieleManifold.ThieleManifoldBridge <> thiele_level_dimension thm
+R4796:4817 ThieleManifold.ThieleManifoldBridge <> thiele_level_dimension thm
+prf 4889:4907 <> thiele_level_mu_gap
+binder 4920:4920 <> n:15
+R5080:5082 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5002:5008 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R4927:4933 ThieleManifold.ThieleManifold <> mu_cost def
+R4936:4940 ThieleManifold.ThieleManifold <> level proj
+R4942:4964 ThieleManifold.ThieleManifoldBridge <> thiele_machine_manifold def
+R4967:4967 Coq.Init.Datatypes <> S constr
+R4969:4969 ThieleManifold.ThieleManifoldBridge <> n:15 var
+R4974:4976 ThieleManifold.ThieleManifold <> pi4 def
+R4978:5000 ThieleManifold.ThieleManifoldBridge <> thiele_machine_manifold def
+R5009:5015 ThieleManifold.ThieleManifold <> mu_cost def
+R5018:5022 ThieleManifold.ThieleManifold <> level proj
+R5024:5046 ThieleManifold.ThieleManifoldBridge <> thiele_machine_manifold def
+R5048:5048 ThieleManifold.ThieleManifoldBridge <> n:15 var
+R5052:5054 ThieleManifold.ThieleManifold <> pi4 def
+R5056:5078 ThieleManifold.ThieleManifoldBridge <> thiele_machine_manifold def
+R5114:5133 ThieleManifold.ThieleManifoldBridge <> thiele_level_mu_cost thm
+R5114:5133 ThieleManifold.ThieleManifoldBridge <> thiele_level_mu_cost thm
+R5114:5133 ThieleManifold.ThieleManifoldBridge <> thiele_level_mu_cost thm
+R5114:5133 ThieleManifold.ThieleManifoldBridge <> thiele_level_mu_cost thm
+R5114:5133 ThieleManifold.ThieleManifoldBridge <> thiele_level_mu_cost thm
+prf 5215:5243 <> thiele_manifold_requires_meta
+R5249:5255 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5260:5261 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5256:5259 <> Meta:16
+R5297:5300 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5262:5277 SelfReference.SelfReference <> can_reason_about def
+R5279:5282 ThieleManifold.ThieleManifoldBridge <> Meta:16 var
+R5284:5296 ThieleManifold.ThieleManifoldBridge <> thiele_system def
+R5301:5320 SelfReference.SelfReference <> dimensionally_richer def
+R5322:5325 ThieleManifold.ThieleManifoldBridge <> Meta:16 var
+R5327:5339 ThieleManifold.ThieleManifoldBridge <> thiele_system def
+R5361:5393 SelfReference.SelfReference <> self_reference_requires_metalevel thm
+R5397:5426 ThieleManifold.ThieleManifoldBridge <> thiele_system_self_referential thm
+R5361:5393 SelfReference.SelfReference <> self_reference_requires_metalevel thm
+R5397:5426 ThieleManifold.ThieleManifoldBridge <> thiele_system_self_referential thm
+prf 5562:5599 <> thiele_projection_has_positive_mu_cost
+R5676:5678 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R5605:5611 ThieleManifold.ThieleManifold <> mu_cost def
+R5614:5618 ThieleManifold.ThieleManifold <> level proj
+R5620:5642 ThieleManifold.ThieleManifoldBridge <> thiele_machine_manifold def
+R5648:5650 ThieleManifold.ThieleManifold <> pi4 def
+R5652:5674 ThieleManifold.ThieleManifoldBridge <> thiele_machine_manifold def
+R5698:5720 ThieleManifold.ThieleManifoldBridge <> thiele_machine_manifold def
+R5731:5761 ThieleManifold.ThieleManifold <> mu_cost_positive_for_projection thm
+R5731:5761 ThieleManifold.ThieleManifold <> mu_cost_positive_for_projection thm
+prf 5945:5985 <> thiele_manifold_supports_spacetime_shadow
+R5991:6006 SelfReference.SelfReference <> can_reason_about def
+R6009:6024 ThieleManifold.ThieleManifold <> spacetime_shadow def
+R6026:6048 ThieleManifold.ThieleManifoldBridge <> thiele_machine_manifold def
+R6051:6066 Spacetime.Spacetime <> spacetime_system def
+R6085:6100 SelfReference.SelfReference <> can_reason_about def
+R6125:6140 ThieleManifold.ThieleManifold <> spacetime_shadow def
+R6143:6145 ThieleManifold.ThieleManifold <> pi4 def
+R6148:6170 ThieleManifold.ThieleManifoldBridge <> thiele_machine_manifold def
+R6262:6277 Spacetime.Spacetime <> spacetime_system def
+R6308:6326 Spacetime.Spacetime <> spacetime_sentences def
+R6381:6388 Spacetime.Spacetime <> at_event def
+R6406:6417 ThieleManifold.ThieleManifoldBridge <> thiele_level def
+R6436:6451 ThieleManifold.ThieleManifoldBridge <> thiele_sentences def
+R6463:6472 ThieleManifold.ThieleManifoldBridge <> empty_prog def
+R6463:6472 ThieleManifold.ThieleManifoldBridge <> empty_prog def
+R6516:6529 ThieleManifold.ThieleManifoldBridge <> obs_equiv_refl thm
+R6516:6529 ThieleManifold.ThieleManifoldBridge <> obs_equiv_refl thm
+prf 7077:7112 <> thiele_run_mu_bounds_irreversibility
+binder 7125:7128 <> fuel:17
+binder 7130:7134 <> trace:18
+binder 7136:7136 <> s:19
+R7186:7189 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7152:7154 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7146:7150 Kernel.VMState <> vm_mu proj
+R7143:7143 ThieleManifold.ThieleManifoldBridge <> s:19 var
+R7155:7172 Kernel.MuLedgerConservation <> irreversible_count def
+R7174:7177 ThieleManifold.ThieleManifoldBridge <> fuel:17 var
+R7179:7183 ThieleManifold.ThieleManifoldBridge <> trace:18 var
+R7185:7185 ThieleManifold.ThieleManifoldBridge <> s:19 var
+R7213:7217 Kernel.VMState <> vm_mu proj
+R7191:7196 Kernel.SimulationProof <> run_vm def
+R7198:7201 ThieleManifold.ThieleManifoldBridge <> fuel:17 var
+R7203:7207 ThieleManifold.ThieleManifoldBridge <> trace:18 var
+R7209:7209 ThieleManifold.ThieleManifoldBridge <> s:19 var
+R7236:7267 Kernel.MuLedgerConservation <> run_vm_mu_bounds_irreversibility thm
+R7236:7267 Kernel.MuLedgerConservation <> run_vm_mu_bounds_irreversibility thm
+prf 7352:7386 <> thiele_manifold_irreversibility_gap
+binder 7399:7402 <> fuel:20
+binder 7404:7408 <> trace:21
+binder 7410:7410 <> s:22
+R7448:7457 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7417:7434 Kernel.MuLedgerConservation <> irreversible_count def
+R7436:7439 ThieleManifold.ThieleManifoldBridge <> fuel:20 var
+R7441:7445 ThieleManifold.ThieleManifoldBridge <> trace:21 var
+R7447:7447 ThieleManifold.ThieleManifoldBridge <> s:22 var
+R7487:7489 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R7481:7485 Kernel.VMState <> vm_mu proj
+R7459:7464 Kernel.SimulationProof <> run_vm def
+R7466:7469 ThieleManifold.ThieleManifoldBridge <> fuel:20 var
+R7471:7475 ThieleManifold.ThieleManifoldBridge <> trace:21 var
+R7477:7477 ThieleManifold.ThieleManifoldBridge <> s:22 var
+R7493:7497 Kernel.VMState <> vm_mu proj
+R7490:7490 ThieleManifold.ThieleManifoldBridge <> s:22 var
+R7516:7541 Kernel.MuLedgerConservation <> run_vm_irreversibility_gap thm
+R7516:7541 Kernel.MuLedgerConservation <> run_vm_irreversibility_gap thm
+def 8266:8274 <> impl_iter
+binder 8277:8277 <> A:23
+R8289:8292 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8288:8288 ThieleManifold.ThieleManifoldBridge <> A:23 var
+R8293:8293 ThieleManifold.ThieleManifoldBridge <> A:23 var
+binder 8281:8284 <> step:24
+R8304:8306 Coq.Init.Datatypes <> nat ind
+binder 8297:8300 <> fuel:25
+R8314:8314 ThieleManifold.ThieleManifoldBridge <> A:23 var
+binder 8310:8310 <> s:26
+R8319:8319 ThieleManifold.ThieleManifoldBridge <> A:23 var
+R8332:8335 ThieleManifold.ThieleManifoldBridge <> fuel:25 var
+R8351:8351 ThieleManifold.ThieleManifoldBridge <> s:26 var
+R8357:8357 Coq.Init.Datatypes <> S constr
+R8368:8376 ThieleManifold.ThieleManifoldBridge <> impl_iter:27 def
+R8390:8393 ThieleManifold.ThieleManifoldBridge <> step:24 var
+R8395:8395 ThieleManifold.ThieleManifoldBridge <> s:26 var
+R8378:8381 ThieleManifold.ThieleManifoldBridge <> step:24 var
+def 8417:8430 <> faithful_to_vm
+binder 8433:8433 <> A:29
+R8447:8450 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8446:8446 ThieleManifold.ThieleManifoldBridge <> A:29 var
+R8451:8451 ThieleManifold.ThieleManifoldBridge <> A:29 var
+binder 8439:8442 <> step:30
+R8465:8468 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8464:8464 ThieleManifold.ThieleManifoldBridge <> A:29 var
+R8469:8475 Kernel.VMState <> VMState rec
+binder 8455:8460 <> decode:31
+R8487:8490 Coq.Init.Datatypes <> list ind
+R8492:8505 Kernel.VMStep VMStep vm_instruction ind
+binder 8479:8483 <> trace:32
+binder 8527:8530 <> fuel:33
+binder 8532:8532 <> s:34
+R8565:8567 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8535:8540 ThieleManifold.ThieleManifoldBridge <> decode:31 var
+R8543:8551 ThieleManifold.ThieleManifoldBridge <> impl_iter def
+R8563:8563 ThieleManifold.ThieleManifoldBridge <> s:34 var
+R8558:8561 ThieleManifold.ThieleManifoldBridge <> fuel:33 var
+R8553:8556 ThieleManifold.ThieleManifoldBridge <> step:30 var
+R8568:8573 Kernel.SimulationProof <> run_vm def
+R8575:8578 ThieleManifold.ThieleManifoldBridge <> fuel:33 var
+R8580:8584 ThieleManifold.ThieleManifoldBridge <> trace:32 var
+R8587:8592 ThieleManifold.ThieleManifoldBridge <> decode:31 var
+R8594:8594 ThieleManifold.ThieleManifoldBridge <> s:34 var
+prf 8674:8709 <> faithful_irreversibility_lower_bound
+binder 8723:8723 <> A:35
+R8742:8745 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8741:8741 ThieleManifold.ThieleManifoldBridge <> A:35 var
+R8746:8746 ThieleManifold.ThieleManifoldBridge <> A:35 var
+binder 8734:8737 <> step:36
+R8760:8763 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8759:8759 ThieleManifold.ThieleManifoldBridge <> A:35 var
+R8764:8770 Kernel.VMState <> VMState rec
+binder 8750:8755 <> decode:37
+R8791:8794 Coq.Init.Datatypes <> list ind
+R8796:8809 Kernel.VMStep VMStep vm_instruction ind
+binder 8783:8787 <> trace:38
+R8817:8817 ThieleManifold.ThieleManifoldBridge <> A:35 var
+binder 8813:8813 <> s:39
+R8828:8830 Coq.Init.Datatypes <> nat ind
+binder 8821:8824 <> fuel:40
+R8870:8877 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8838:8851 ThieleManifold.ThieleManifoldBridge <> faithful_to_vm def
+R8865:8869 ThieleManifold.ThieleManifoldBridge <> trace:38 var
+R8858:8863 ThieleManifold.ThieleManifoldBridge <> decode:37 var
+R8853:8856 ThieleManifold.ThieleManifoldBridge <> step:36 var
+R8918:8927 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8878:8895 Kernel.MuLedgerConservation <> irreversible_count def
+R8897:8900 ThieleManifold.ThieleManifoldBridge <> fuel:40 var
+R8902:8906 ThieleManifold.ThieleManifoldBridge <> trace:38 var
+R8909:8914 ThieleManifold.ThieleManifoldBridge <> decode:37 var
+R8916:8916 ThieleManifold.ThieleManifoldBridge <> s:39 var
+R8968:8970 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R8962:8966 Kernel.VMState <> vm_mu proj
+R8929:8934 ThieleManifold.ThieleManifoldBridge <> decode:37 var
+R8937:8945 ThieleManifold.ThieleManifoldBridge <> impl_iter def
+R8957:8957 ThieleManifold.ThieleManifoldBridge <> s:39 var
+R8952:8955 ThieleManifold.ThieleManifoldBridge <> fuel:40 var
+R8947:8950 ThieleManifold.ThieleManifoldBridge <> step:36 var
+R8983:8987 Kernel.VMState <> vm_mu proj
+R8972:8977 ThieleManifold.ThieleManifoldBridge <> decode:37 var
+R8979:8979 ThieleManifold.ThieleManifoldBridge <> s:39 var
+R9098:9123 Kernel.MuLedgerConservation <> run_vm_irreversibility_gap thm
+R9098:9123 Kernel.MuLedgerConservation <> run_vm_irreversibility_gap thm
+rec 9607:9628 <> FaithfulImplementation
+proj 9637:9644 <> hw_state
+proj 9656:9662 <> hw_step
+proj 9690:9698 <> hw_decode
+proj 9725:9732 <> hw_trace
+proj 9759:9771 <> hw_refines_vm
+R9674:9677 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9666:9673 ThieleManifold.ThieleManifoldBridge <> hw_state:42 meth
+R9678:9685 ThieleManifold.ThieleManifoldBridge <> hw_state:42 meth
+R9710:9713 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9702:9709 ThieleManifold.ThieleManifoldBridge <> hw_state:42 meth
+R9714:9720 Kernel.VMState <> VMState rec
+R9736:9739 Coq.Init.Datatypes <> list ind
+R9741:9754 Kernel.VMStep VMStep vm_instruction ind
+binder 9782:9785 <> fuel:46
+binder 9787:9787 <> s:47
+R9830:9832 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9794:9802 ThieleManifold.ThieleManifoldBridge <> hw_decode:44 meth
+R9805:9813 ThieleManifold.ThieleManifoldBridge <> impl_iter def
+R9828:9828 ThieleManifold.ThieleManifoldBridge <> s:47 var
+R9823:9826 ThieleManifold.ThieleManifoldBridge <> fuel:46 var
+R9815:9821 ThieleManifold.ThieleManifoldBridge <> hw_step:43 meth
+R9833:9838 Kernel.SimulationProof <> run_vm def
+R9840:9843 ThieleManifold.ThieleManifoldBridge <> fuel:46 var
+R9845:9852 ThieleManifold.ThieleManifoldBridge <> hw_trace:45 meth
+R9855:9863 ThieleManifold.ThieleManifoldBridge <> hw_decode:44 meth
+R9865:9865 ThieleManifold.ThieleManifoldBridge <> s:47 var
+prf 9952:9992 <> faithful_impl_irreversibility_lower_bound
+R10013:10034 ThieleManifold.ThieleManifoldBridge <> FaithfulImplementation rec
+binder 10006:10009 <> Impl:49
+binder 10037:10040 <> fuel:50
+binder 10042:10042 <> s:51
+R10109:10118 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R10049:10066 Kernel.MuLedgerConservation <> irreversible_count def
+R10068:10071 ThieleManifold.ThieleManifoldBridge <> fuel:50 var
+R10079:10086 ThieleManifold.ThieleManifoldBridge <> hw_trace proj
+R10073:10076 ThieleManifold.ThieleManifoldBridge <> Impl:49 var
+R10096:10104 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
+R10090:10093 ThieleManifold.ThieleManifoldBridge <> Impl:49 var
+R10107:10107 ThieleManifold.ThieleManifoldBridge <> s:51 var
+R10179:10187 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R10173:10177 Kernel.VMState <> vm_mu proj
+R10126:10134 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
+R10120:10123 ThieleManifold.ThieleManifoldBridge <> Impl:49 var
+R10138:10146 ThieleManifold.ThieleManifoldBridge <> impl_iter def
+R10168:10168 ThieleManifold.ThieleManifoldBridge <> s:51 var
+R10163:10166 ThieleManifold.ThieleManifoldBridge <> fuel:50 var
+R10154:10160 ThieleManifold.ThieleManifoldBridge <> hw_step proj
+R10148:10151 ThieleManifold.ThieleManifoldBridge <> Impl:49 var
+R10210:10214 Kernel.VMState <> vm_mu proj
+R10195:10203 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
+R10189:10192 ThieleManifold.ThieleManifoldBridge <> Impl:49 var
+R10206:10206 ThieleManifold.ThieleManifoldBridge <> s:51 var
+R10261:10273 ThieleManifold.ThieleManifoldBridge <> hw_refines_vm proj
+R10261:10273 ThieleManifold.ThieleManifoldBridge <> hw_refines_vm proj
+R10327:10352 Kernel.MuLedgerConservation <> run_vm_irreversibility_gap thm
+R10327:10352 Kernel.MuLedgerConservation <> run_vm_irreversibility_gap thm
+prf 10755:10783 <> faithful_impl_mu_conservation
+R10804:10825 ThieleManifold.ThieleManifoldBridge <> FaithfulImplementation rec
+binder 10797:10800 <> Impl:52
+binder 10828:10831 <> fuel:53
+binder 10833:10833 <> s:54
+R10900:10908 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10894:10898 Kernel.VMState <> vm_mu proj
+R10847:10855 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
+R10841:10844 ThieleManifold.ThieleManifoldBridge <> Impl:52 var
+R10859:10867 ThieleManifold.ThieleManifoldBridge <> impl_iter def
+R10889:10889 ThieleManifold.ThieleManifoldBridge <> s:54 var
+R10884:10887 ThieleManifold.ThieleManifoldBridge <> fuel:53 var
+R10875:10881 ThieleManifold.ThieleManifoldBridge <> hw_step proj
+R10869:10872 ThieleManifold.ThieleManifoldBridge <> Impl:52 var
+R10937:10945 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10931:10935 Kernel.VMState <> vm_mu proj
+R10916:10924 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
+R10910:10913 ThieleManifold.ThieleManifoldBridge <> Impl:52 var
+R10927:10927 ThieleManifold.ThieleManifoldBridge <> s:54 var
+R10946:10955 Kernel.MuLedgerConservation <> ledger_sum def
+R10958:10971 Kernel.MuLedgerConservation <> ledger_entries def
+R10973:10976 ThieleManifold.ThieleManifoldBridge <> fuel:53 var
+R10984:10991 ThieleManifold.ThieleManifoldBridge <> hw_trace proj
+R10978:10981 ThieleManifold.ThieleManifoldBridge <> Impl:52 var
+R11001:11009 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
+R10995:10998 ThieleManifold.ThieleManifoldBridge <> Impl:52 var
+R11012:11012 ThieleManifold.ThieleManifoldBridge <> s:54 var
+R11060:11072 ThieleManifold.ThieleManifoldBridge <> hw_refines_vm proj
+R11060:11072 ThieleManifold.ThieleManifoldBridge <> hw_refines_vm proj
+R11126:11147 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
+R11126:11147 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
+prf 11219:11242 <> faithful_impl_cost_delta
+R11263:11284 ThieleManifold.ThieleManifoldBridge <> FaithfulImplementation rec
+binder 11256:11259 <> Impl:55
+binder 11287:11290 <> fuel:56
+binder 11292:11292 <> s:57
+R11394:11402 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11359:11365 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R11353:11357 Kernel.VMState <> vm_mu proj
+R11306:11314 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
+R11300:11303 ThieleManifold.ThieleManifoldBridge <> Impl:55 var
+R11318:11326 ThieleManifold.ThieleManifoldBridge <> impl_iter def
+R11348:11348 ThieleManifold.ThieleManifoldBridge <> s:57 var
+R11343:11346 ThieleManifold.ThieleManifoldBridge <> fuel:56 var
+R11334:11340 ThieleManifold.ThieleManifoldBridge <> hw_step proj
+R11328:11331 ThieleManifold.ThieleManifoldBridge <> Impl:55 var
+R11388:11392 Kernel.VMState <> vm_mu proj
+R11373:11381 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
+R11367:11370 ThieleManifold.ThieleManifoldBridge <> Impl:55 var
+R11384:11384 ThieleManifold.ThieleManifoldBridge <> s:57 var
+R11403:11412 Kernel.MuLedgerConservation <> ledger_sum def
+R11415:11428 Kernel.MuLedgerConservation <> ledger_entries def
+R11430:11433 ThieleManifold.ThieleManifoldBridge <> fuel:56 var
+R11441:11448 ThieleManifold.ThieleManifoldBridge <> hw_trace proj
+R11435:11438 ThieleManifold.ThieleManifoldBridge <> Impl:55 var
+R11458:11466 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
+R11452:11455 ThieleManifold.ThieleManifoldBridge <> Impl:55 var
+R11469:11469 ThieleManifold.ThieleManifoldBridge <> s:57 var
+R11513:11541 ThieleManifold.ThieleManifoldBridge <> faithful_impl_mu_conservation thm
+R11513:11541 ThieleManifold.ThieleManifoldBridge <> faithful_impl_mu_conservation thm
+R11513:11541 ThieleManifold.ThieleManifoldBridge <> faithful_impl_mu_conservation thm

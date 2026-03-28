@@ -1,9 +1,9 @@
 # INQUISITOR REPORT
-Generated: 2026-03-11 07:17:42Z (UTC)
-Scanned: 274 Coq files across the repo
+Generated: 2026-03-28 07:47:53Z (UTC)
+Scanned: 169 Coq files across the repo
 ## Summary
-- HIGH: 0
-- MEDIUM: 0
+- HIGH: 10
+- MEDIUM: 2
 - LOW: 0
 
 ## Rules
@@ -87,12 +87,62 @@ Scanned: 274 Coq files across the repo
 - `MU_GRAVITY_NO_ASSUMPTION_SURFACES`: MuGravity files may not use Axiom/Parameter/Hypothesis/Context/Variable(s); all such surfaces must be discharged as theorems
 - `PROOF_CONNECTIVITY_GAP`: proof-bearing file is not connected to required foundation chain groups; remediation is to iterate with bridge lemmas/imports until connected
 - `KAMI_OCAML_FOUNDATION_MISMATCH`: Kami and OCaml extraction build surfaces are not grounded in the same kernel foundation modules
-- `OCAML_EXTRACTION_BUILD_FAIL`: OCaml extraction build/check failed (Extraction.v / MinimalExtraction.v must build and expose core VM symbols)
+- `OCAML_EXTRACTION_BUILD_FAIL`: OCaml extraction build/check failed (Extraction.v must build and expose core VM symbols)
 - `CROSS_LAYER_FOUNDATION_DISCONNECT`: end-to-end chain (Coq foundations -> OCaml extraction -> VM wrapper -> canonical Kami RTL/cosim/build flow) is missing a required link
 - `PROOF_BODY_FOUNDATION_DISCONNECT`: theorem-body dependency graph shows a Coq proof file does not transitively reach the canonical foundation theorem chain
+- `DISJUNCT_TRUE`: theorem statement contains `\/ True` — vacuously provable via `right. exact I.`
+- `TRIVIAL_TRUE_PROOF`: proof body terminates with `exact I.` or `right. exact I.` — only proves `True`
+- `EXTRACT_CONSTANT`: `Extract Constant` bypasses Coq extraction with hand-written OCaml (trust boundary)
 
 ## Vacuity Ranking (file-level)
-(no files scored above zero — no trivially-true or placeholder patterns detected)
+Files scored by trivially-true / placeholder / definitional-proof heuristics.
+Score >= 100 → MEDIUM finding (fails gate). Score >= 50 → LOW warning.
+
+| score | tags | file |
+|---:|---|---|
+| 120 | ...->True | `coq/kernel/CHSHStatisticalBridge.v` |
+| 120 | ...->True | `coq/kernel/TuringClassicalEmbedding.v` |
 
 ## Findings
-(none)
+### HIGH
+
+#### `coq/ThieleMachineComplete.v`
+- L4515: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `* Python step function stub.`
+- L9896: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`_Hnfi\` not referenced in proof body.
+  - `intros s_pre s_post i sc v _Hnfi Htrans Hiso HRicci Hnonzero.`
+- L9896: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Htrans\` not referenced in proof body.
+  - `intros s_pre s_post i sc v _Hnfi Htrans Hiso HRicci Hnonzero.`
+
+#### `coq/kernel/CHSHStatisticalBridge.v`
+- L501: **IMPLIES_TRUE_STMT** — Statement ends in \`-> True.\` (likely vacuous).
+  - `Theorem chsh_violation_witness_count :`
+
+#### `coq/kernel/OCamlExtractionBridge.v`
+- L157: **AXIOM_OR_PARAMETER** — Axiom/Parameter \`ocaml_extraction_faithful\` found. NO AXIOMS ALLOWED. Prove it from first principles or delete it.
+  - `Axiom ocaml_extraction_faithful :`
+
+#### `coq/kernel/TuringClassicalEmbedding.v`
+- L102: **CIRCULAR_DEFINITION** — Theorem \`D2_embedding_is_identity\` unfolds \`classical_to_thiele\` and proves claim by simple tactics. Mark with (* DEFINITIONAL HELPER *) if legitimate, or prove non-circularly by engaging with structure.
+  - `Lemma D2_embedding_is_identity :`
+- L144: **CIRCULAR_DEFINITION** — Theorem \`D2_classical_machines_are_thiele\` unfolds \`cm_run\` and proves claim by simple tactics. Mark with (* DEFINITIONAL HELPER *) if legitimate, or prove non-circularly by engaging with structure.
+  - `Theorem D2_classical_machines_are_thiele :`
+- L157: **IMPLIES_TRUE_STMT** — Statement ends in \`-> True.\` (likely vacuous).
+  - `Theorem D2_classical_shadow_preserved :`
+- L157: **TRIVIAL_TRUE_PROOF** — \`D2_classical_shadow_preserved\` proof terminates with \`exact I.\` — it only proves \`True\` (possibly through a \`right\`/\`left\` disjunction). This is vacuous: the theorem's conclusion reduces to a trivially true proposition.
+  - `Theorem D2_classical_shadow_preserved :`
+
+#### `coq/kernel/TuringStrictness.v`
+- L196: **DEFINITIONAL_WITNESS** — Theorem \`D4_strictness\` proves existence by witnessing definition \`d4_base\`. Verify the theorem proves a substantive property, not just that the definition exists (which is trivial).
+  - `Theorem D4_strictness :`
+
+### MEDIUM
+
+#### `coq/kernel/CHSHStatisticalBridge.v`
+- L1: **VACUITY_SCORE** — Vacuity score 120 ≥ MEDIUM threshold 100. Tags: ...->True. Review for trivially-true/placeholder/definitional proofs that don't advance the thesis goal.
+  - `(file-level vacuity scan)`
+
+#### `coq/kernel/TuringClassicalEmbedding.v`
+- L1: **VACUITY_SCORE** — Vacuity score 120 ≥ MEDIUM threshold 100. Tags: ...->True. Review for trivially-true/placeholder/definitional proofs that don't advance the thesis goal.
+  - `(file-level vacuity scan)`
+

@@ -13,10 +13,10 @@ Mathematical proofs have been the gold standard of certainty for millennia. When
 The Thiele Machine development contains a large, fully verified Coq proof corpus with:
 \begin{itemize}
     \item \textbf{Zero admits}: No proof is left incomplete
-    \item \textbf{Zero axioms}: No unproven assumptions (beyond foundational logic)
+    \item \textbf{No project-local axioms}: No unproven project-local assumptions (beyond foundational logic)
     \item \textbf{Full extraction}: Proofs can be compiled to executable code
 \end{itemize}
-The corpus is split between the kernel (\texttt{coq/kernel/}) and the extended proofs (\texttt{coq/thielemachine/coqproofs/}). This division mirrors the conceptual separation between the core semantics and the larger ecosystem of applications and bridges.
+The corpus is split between the kernel (\texttt{coq/kernel/}), which remains active, and the extended proofs that were developed during the project's exploration phase. Many extended proof files have since been superseded by the kernel's consolidated proof surface and are no longer part of the active build tree. This chapter documents those extended formalizations for historical completeness.
 
 This chapter documents the complete formalization beyond the kernel layer, organized into specialized proof domains.
 
@@ -61,9 +61,9 @@ The proof corpus is organized by \emph{domain} rather than by implementation det
     \item \textbf{No Free Insight interface}: abstract axiomatization of the impossibility theorem.
     \item \textbf{Self-reference and meta-theory}: formal limits of self-description.
 \end{itemize}
-For readers navigating the code, the “kernel semantics” block corresponds to files such as \texttt{VMState.v} and \texttt{VMStep.v}, while many of the “extended machine proofs” live in \texttt{PartitionLogic.v}, \texttt{Subsumption.v}, and related files under \texttt{coq/thielemachine/coqproofs/}. The structure is intentionally layered so that higher-level proofs explicitly import the kernel rather than re-deriving it.
+For readers navigating the code, the ``kernel semantics'' block corresponds to files such as \texttt{VMState.v} and \texttt{VMStep.v} under \texttt{coq/kernel/}. The ``extended machine proofs'' (e.g.\ \texttt{PartitionLogic.v}, \texttt{Subsumption.v}) were developed during the exploration phase and are no longer part of the active build tree. The structure is intentionally layered so that higher-level proofs explicitly import the kernel rather than re-deriving it.
 
-\section{The ThieleMachine Proof Suite (71 Files)}
+\section{The ThieleMachine Proof Suite (71 Files, Historical)}
 
 \subsection{Partition Logic}
 
@@ -143,7 +143,7 @@ Record GlobalWitness := {
 \textbf{Connection to No Free Insight:} Composing witnesses \textit{costs} $\mu$ proportional to the interface complexity. You cannot merge modules ``for free''---the composition\_proof itself requires checking interfaces, which is structural work.
 
 
-These records appear in \path{coq/thielemachine/coqproofs/PartitionLogic.v}, where they are used to formalize the notion of composable witnesses. The key point is that the “witness” objects are concrete data structures that can be reasoned about in Coq and then mirrored in executable checkers.
+These records appear in \texttt{PartitionLogic.v}, where they are used to formalize the notion of composable witnesses. The key point is that the ``witness'' objects are concrete data structures that can be reasoned about in Coq and then mirrored in executable checkers.
 
 Key theorems:
 \begin{itemize}
@@ -228,17 +228,17 @@ The bound is developed in files such as \texttt{QuantumAdmissibilityTsirelson.v}
 
 The Bell inequality framework is formalized across multiple files, with foundational theorems proven from first principles:
 
-\textbf{Foundational Proofs (Zero Axioms):}
+\textbf{Foundational Proofs (No Project-Local Axioms):}
 \begin{itemize}
-    \item \texttt{coq/kernel/Tier1Proofs.v}: Contains two fundamental theorems proven from pure probability theory:
+    \item \texttt{Tier1Proofs.v}: Contains two fundamental theorems proven from pure probability theory:
     \begin{itemize}
         \item \textbf{T1-1 (normalized\_E\_bound)}: For any normalized probability distribution $B$, correlations satisfy $|E(x,y)| \leq 1$. Proven using polynomial arithmetic (psatz) over rationals in 40 lines.
         \item \textbf{T1-2 (valid\_box\_S\_le\_4)}: For any valid box (non-negative, normalized, no-signaling), the CHSH statistic satisfies $|S| \leq 4$. Proven using triangle inequality and T1-1 in 30 lines.
     \end{itemize}
-    Both verified with \texttt{Print Assumptions} returning ``Closed under the global context'' (zero axioms beyond Coq stdlib).
+    Both verified with \texttt{Print Assumptions} returning ``Closed under the global context'' (no project-local axioms beyond Coq stdlib).
 \end{itemize}
 
-\textbf{Application-Level Proofs} (in \path{coq/thielemachine/coqproofs/})\textbf{:}
+\textbf{Application-Level Proofs:}
 \begin{itemize}
     \item \texttt{BellInequality.v}: Core CHSH definitions and classical bound
     \item \texttt{BellReceiptLocalGeneral.v}: Receipt-based locality
@@ -322,12 +322,12 @@ Theorem thiele_simulates_turing :
 \textbf{Connection to No Free Insight:} Turing machines are \textit{ignorant} of partition structure---they cannot query ``Is element $x$ in module $A$?'' The Thiele Machine extends Turing machines with \texttt{REVEAL} instructions, which cost $\mu$. But when \texttt{REVEAL} is not used, the Thiele Machine behaves \textit{exactly} like a Turing machine. This theorem formalizes that equivalence.
 
 
-This proves that the Thiele Machine properly subsumes Turing computation.
-The kernel version of this theorem is in \texttt{coq/kernel/Subsumption.v}, and the extended proof layer re-exports it in \path{coq/thielemachine/coqproofs/Subsumption.v}. This ensures that the subsumption claim is grounded in the same semantics used for the rest of the model.
+This proves that the Thiele Machine properly extends Turing computation.
+The kernel version of this theorem is in \texttt{coq/kernel/Subsumption.v}. The extended proof layer re-exports it to ensure that the subsumption claim is grounded in the same semantics used for the rest of the model.
 
 \subsection{Oracle and Impossibility Theorems}
 
-All in \path{coq/thielemachine/coqproofs/}:
+Oracle and impossibility theorems were developed in the extended proof suite:
 \begin{itemize}
     \item \texttt{Oracle.v}: Oracle machine definitions and $\mu$-accounting
     \item \texttt{OracleImpossibility.v}: Demonstration of why a halting oracle cannot be constructed in Coq's type system
@@ -375,7 +375,7 @@ Lemma psplit_locality : forall s s' mid l r mu,
   forall other, other <> mid ->
     region_obs s other = region_obs s' other.
 
-(* ... similar lemmas for all 31 instructions ... *)
+(* ... similar lemmas for the active opcode set ... *)
 \end{lstlisting}
 
 \textbf{Why this matters:} These instruction-level locality lemmas are the building blocks for the global no-signaling theorem. Each lemma proves that a specific instruction only modifies observations of its target modules.
@@ -424,7 +424,7 @@ Theorem info_loss_bounded_by_mu :
 
 \subsection{Assumption Documentation}
 
-The file \path{coq/kernel/HardAssumptions.v} (~8KB) provides explicit documentation of all non-trivial mathematical facts used by the Bell-inequality reasoning:
+The file \texttt{HardAssumptions.v} (~8KB) provides explicit documentation of all non-trivial mathematical facts used by the Bell-inequality reasoning:
 
 \begin{lstlisting}
 (** Hard Mathematical Assumptions - Proven and Documented *)
@@ -472,11 +472,11 @@ Theorem mu_initiality :
 
 \textbf{Physical interpretation:} This theorem elevates $\mu$ from ``a sound lower bound'' to ``the canonical physical cost.'' Any instruction-consistent accounting of irreversibility \textit{is} $\mu$ by mathematical necessity. This is why I claim ``$\mu$ is not metaphor''—it is the unique object satisfying the axioms.
 
-\textbf{Proof status:} Zero axioms, zero admits. Both \texttt{mu\_is\_initial\_monotone} and \texttt{mu\_initiality} are closed under the global context.
+\textbf{Proof status:} No project-local axioms, zero admits. Both \texttt{mu\_is\_initial\_monotone} and \texttt{mu\_initiality} are closed under the global context.
 
 \subsection{The $\mu$-Landauer Validity Theorem}
 
-The file \path{coq/kernel/MuNecessity.v} proves that $\mu$ satisfies Landauer's erasure bound—the physical constraint that erasing distinguishability costs at least the information destroyed.
+The file \texttt{MuNecessity.v} proves that $\mu$ satisfies Landauer's erasure bound---the physical constraint that erasing distinguishability costs at least the information destroyed.
 
 \begin{lstlisting}
 (** A cost model is LANDAUER-VALID if it pays at least the 
@@ -503,7 +503,7 @@ Therefore $\mu$ is the \textit{canonical} cost model: the unique instruction-con
 
 \textbf{Epistemic honesty:} I do NOT prove ``any Landauer-valid cost $\geq \mu$'' because Landauer only constrains information-destroying operations. For non-erasing operations, Landauer permits $C(i) = 0$ while $\mu$ may charge $> 0$. What I prove is that $\mu$ itself is Landauer-valid and tight for structural operations.
 
-\textbf{Proof status:} Zero axioms, zero admits. \texttt{mu\_is\_landauer\_valid} and \texttt{landauer\_valid\_bounds\_total\_loss} are closed under the global context.
+\textbf{Proof status:} No project-local axioms, zero admits. \texttt{mu\_is\_landauer\_valid} and \texttt{landauer\_valid\_bounds\_total\_loss} are closed under the global context.
 
 \section{Quantum Axioms from $\mu$-Accounting}
 
@@ -519,10 +519,10 @@ The quantum axiom proofs live in eight files totaling 3,259 lines of Coq with ze
 \textbf{File} & \textbf{Lines} & \textbf{Defs/Thms} & \textbf{Primary Result} \\
 \midrule
 \texttt{NoCloning.v} & 947 & 21 & No-cloning from conservation \\
-\texttt{NoCloningFromMuMonotonicity.v} & 281 & 14 & Machine-native no-cloning (\texttt{lia}) \\
+\texttt{NoCloningFromMuMonotonicity.v} & 281 & 14 & Machine-native no-cloning (\texttt{lia}), superseded \\
 \texttt{Unitarity.v} & 592 & 25 & CPTP from irreversibility \\
 \texttt{BornRule.v} & 342 & 21 & Born rule from linearity \\
-\texttt{BornRuleFromSymmetry.v} & 144 & 5 & Born rule from tensor consistency \\
+\texttt{BornRuleFromSymmetry.v} & 144 & 5 & Born rule from tensor consistency, superseded \\
 \texttt{Purification.v} & 290 & 11 & Purification principle \\
 \texttt{TsirelsonGeneral.v} & 324 & 19 & Tsirelson bound from algebra \\
 \texttt{TsirelsonFromAlgebra.v} & 339 & 14 & Self-contained Tsirelson with witness \\
@@ -551,8 +551,10 @@ Theorem no_cloning_from_conservation :
 
 \textbf{What this actually checks:} The physics is in the hypotheses. The \texttt{respects\_conservation} predicate encodes the no-cloning content (you can't double information without cost). The proof confirms the arithmetic is consistent. This is honest: the hard part is \textit{accepting} the conservation constraint; once you accept it, no-cloning is an immediate consequence.
 
-\paragraph{Machine-native proof (\texttt{NoCloningFromMuMonotonicity.v}).}
-A second, self-contained no-cloning proof works entirely in natural-number arithmetic, avoiding any real-analysis imports. The key theorem \texttt{no\_cloning\_mu\_monotonicity} shows that perfect cloning would require at least $\mu = n$ additional bits for an $n$-bit state, contradicting the zero-cost hypothesis. All proof obligations close with \texttt{lia} (linear integer arithmetic), making the argument fully decidable.
+\paragraph{Machine-native proof (\texttt{NoCloningFromMuMonotonicity.v}, superseded).}
+This file has been superseded by the active no-cloning proof in \texttt{kernel/NoCloning.v}, which derives no-cloning from unitarity.
+
+The superseded version contains a self-contained no-cloning proof working entirely in natural-number arithmetic, avoiding any real-analysis imports. The key theorem \texttt{no\_cloning\_mu\_monotonicity} shows that perfect cloning would require at least $\mu = n$ additional bits for an $n$-bit state, contradicting the zero-cost hypothesis. All proof obligations close with \texttt{lia} (linear integer arithmetic), making the argument fully decidable.
 
 The file also proves:
 \begin{itemize}
@@ -609,8 +611,10 @@ Theorem born_rule_from_accounting :
 
 \textbf{Honest assessment:} The \texttt{mu\_consistent} hypothesis is present but completely unused---the proof works from \texttt{valid\_prob\_rule} and \texttt{is\_linear\_in\_z} alone. The linearity hypothesis \textit{is} the Born rule in disguise: on the Bloch sphere, only the Born rule is linear in the density matrix. The proof verifies that linearity plus normalization has a unique fixed point. This is why the non-circular derivation below matters.
 
-\paragraph{Existence proof (\texttt{BornRuleFromSymmetry.v}).}
-The original \texttt{BornRule.v} takes linearity as a premise. A separate 144-line file proves that the identity function $g(x) = x$ satisfies eigenstate consistency, normalization, tensor product consistency, and range constraints (the \texttt{born\_identity\_*} lemmas). A uniqueness proof (that $g(x) = x$ is the \emph{only} such function) was removed because it relied on Section-scoped Context assumptions that violated the zero-axiom policy.
+\paragraph{Existence proof (\texttt{BornRuleFromSymmetry.v}, superseded).}
+The active Born rule derivation is in \texttt{kernel/BornRuleLinearity.v}, which derives $P(z) = (1+z)/2$ as the unique affine interpolation satisfying no-signaling (mixture compatibility) and boundary conditions.
+
+The superseded \texttt{BornRuleFromSymmetry.v} (144 lines) proves that the identity function $g(x) = x$ satisfies eigenstate consistency, normalization, tensor product consistency, and range constraints (the \texttt{born\_identity\_*} lemmas). A uniqueness proof (that $g(x) = x$ is the \emph{only} such function) was removed because it relied on Section-scoped Context assumptions that violated the zero-axiom policy.
 
 Additional theorems:
 \begin{itemize}
@@ -678,7 +682,7 @@ These proofs show that quantum axioms follow from conservation-shaped hypotheses
 
 This is the kernel-level foundation for all the quantum physics in this thesis. When I claim the Thiele Machine can achieve supra-quantum correlations, I mean: it can pay the $\mu$ cost that the proofs show is required.
 
-\section{Theory of Everything (TOE) Proofs}
+\section{Closure Properties and No-Go Results}
 
 
 This branch of the development attempts to derive physics from kernel semantics alone.
@@ -693,7 +697,7 @@ Theorem KernelTOE_FinalOutcome :
 
 \paragraph{Understanding the TOE Final Outcome Theorem:}
 
-\textbf{What does this theorem prove?} This is the \textbf{definitive Theory of Everything (TOE) no-go theorem}. It establishes exactly which physical structures are \textit{forced by the kernel semantics} and which are \textit{not forced}. It answers the question: ``Can I derive all of physics from the kernel alone?'' The answer is: \textit{No. The kernel forces locality and causality, but not probability or geometry.}
+\textbf{What does this theorem prove?} This is the \textbf{definitive closure/no-go result} for testing whether the kernel could serve as a Theory of Everything (TOE). It establishes exactly which physical structures are \textit{forced by the kernel semantics} and which are \textit{not forced}. It answers the question: ``Can I derive all of physics from the kernel alone?'' The answer is: \textit{No. The kernel forces locality and causality, but not probability or geometry.}
 
 \textbf{Components breakdown:}
 \begin{itemize}
@@ -895,7 +899,7 @@ Theorem Physics_Requires_Extra_Structure :
 ``The kernel semantics alone cannot derive a unique physical theory. To specify physics, you must add extra structure: coarse-graining rules (to define probability), finiteness axioms (to avoid infinite weights), geometric postulates (to define spacetime metric), and physical constants (to set scales). The kernel provides a \textit{framework}, not a \textit{theory}.''
 \end{quote}
 
-\textbf{Why is this important?} This theorem is the central result of the TOE chapter. It answers the question: \textit{``Is the Thiele Machine a Theory of Everything?''} The answer is \textbf{no}---and this is \textit{provably} true, not just a philosophical claim.
+\textbf{Why is this important?} This theorem is the central result of the closure and no-go chapter. It answers the question: \textit{``Could the kernel serve as a Theory of Everything?''} The answer is \textbf{no}---and this is \textit{provably} true, not just a philosophical claim.
 
 \textbf{What extra structure is needed?} To go from the kernel to a physical theory, you must add:
 \begin{enumerate}
@@ -1357,7 +1361,7 @@ The cert CSR is the \textit{witness} of supra-quantum capability. If a trace cla
     \item \textbf{Inductive step:} Assume the property holds after $k$ steps. For step $k+1$:
     \begin{itemize}
         \item By \texttt{quantum\_admissible trace}, the instruction is \textit{not} a cert-setter (\texttt{is\_not\_cert\_setter}).
-        \item Non-cert-setter instructions preserve \texttt{csr\_cert\_addr} (proven by case analysis on all 31 instructions).
+        \item Non-cert-setter instructions preserve \texttt{csr\_cert\_addr} (proven by case analysis across the active opcode set).
         \item Since \texttt{csr\_cert\_addr} remains 0 throughout, the final state cannot satisfy \texttt{has\_supra\_cert}.
     \end{itemize}
 \end{enumerate}
@@ -1721,6 +1725,8 @@ This formalizes why self-referential systems require meta-levels with additional
 
 \section{Modular Simulation Proofs}
 
+The following files were developed during the modular simulation proof campaign. They are no longer part of the active build tree but established the TM $\to$ Minsky $\to$ Thiele reduction chain:
+
 Representative list:
 \begin{itemize}
     \item \texttt{TM\_Basics.v}: Turing Machine fundamentals
@@ -1742,7 +1748,7 @@ Theorem thiele_simulates_turing :
     run_tm fuel prog st = run_thiele fuel prog st.
 \end{lstlisting}
 
-The Thiele Machine properly subsumes Turing Machine computation.
+The Thiele Machine properly extends Turing Machine computation (both are Turing-complete; the Thiele Machine adds $\mu$-cost accounting and certification).
 
 \section{Falsifiable Predictions}
 

@@ -7,9 +7,9 @@
 
     THE DIFFERENCE FROM KernelTM:
     - KernelTM.step_tm: Standard TM semantics, ignores μ-cost tracking
-    - THIS FILE.step_thiele: Charges delta μ-bits for H_ClaimTapeIsZero (line 25)
+    - THIS FILE.step_thiele: Charges delta μ-bits for H_ClaimTapeIsZero
 
-    KEY LINE (25): update_state st t' st.(head) (S st.(tm_state)) (st.(mu_cost) + delta)
+    KEY LINE: update_state st t' st.(head) (S st.(tm_state)) (st.(mu_cost) + delta)
     This says: ClaimTapeIsZero zeros the tape BUT increments mu_cost by delta.
     The delta parameter encodes HOW MUCH information was erased (tape length,
     number of non-zero cells, etc.).
@@ -31,8 +31,7 @@
 From Coq Require Import List Bool.
 Import ListNotations.
 
-Require Import Kernel.
-Require Import KernelTM.
+From Kernel Require Import Kernel KernelTM.
 
 (**
   step_thiele: ONE STEP of Thiele Machine execution with μ-cost tracking.
@@ -49,7 +48,7 @@ Require Import KernelTM.
   - T_Branch target: If current cell = 1, jump to target; else advance. μ unchanged.
   - H_ClaimTapeIsZero delta: Zero the entire tape, advance state, ADD delta to μ-cost.
 
-  THE CRITICAL LINE (line 55): (st.(mu_cost) + delta)
+  THE CRITICAL LINE: (st.(mu_cost) + delta)
   This is where hypercomputation pays thermodynamic cost. ClaimTapeIsZero erases
   information (sets all cells to 0), which violates reversibility. Landauer's
   principle: erasing n bits costs n × kT ln(2) energy. The delta parameter
@@ -64,7 +63,7 @@ Require Import KernelTM.
   consistent hypercomputer - you can solve undecidable problems, but you pay
   energy cost proportional to the solution's information content.
 
-  COMPARISON TO step_tm: KernelTM.step_tm ignores μ-cost entirely (line 25 has
+  COMPARISON TO step_tm: KernelTM.step_tm ignores μ-cost entirely (has
   st.(mu_cost) instead of st.(mu_cost) + delta). This makes step_tm a
   "fictional" TM (ignores thermodynamics). step_thiele is the PHYSICAL TM.
 
@@ -78,8 +77,9 @@ Require Import KernelTM.
 
   USED BY: run_thiele (iterates step_thiele), hypercomputation analysis.
 
-  ISOMORPHISM: The μ-charging behavior matches thielecpu/vm.py::step_instruction()
-  for partition operations (PNEW, PDISCOVER) which also charge μ-cost.
+  ISOMORPHISM: The μ-charging behavior matches the OCaml extraction
+  (build/thiele_core.ml) for partition operations (PNEW, PDISCOVER) which also
+  charge μ-cost.
 *)
 Definition step_thiele (prog : program) (st : state) : state :=
   match fetch prog st with

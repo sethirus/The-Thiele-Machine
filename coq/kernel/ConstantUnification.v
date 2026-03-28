@@ -68,7 +68,8 @@ Definition tau_mu : R := 1.      (* Operational time unit *)
 
     CONNECTION TO SPEED OF LIGHT:
     If c = dμ/τμ, then the speed of light is the RATIO of spatial and temporal
-    granularity. This file proves c is DERIVED from (dμ, τμ), not fundamental.
+    granularity. This file DEFINES c in terms of free parameters (dμ, τμ).
+    This is a parametric definition, not a derivation from first principles.
 *)
 Definition d_mu : R := 1.        (* Operational distance unit *)
 
@@ -168,7 +169,7 @@ Proof. unfold T. lra. Qed.
 *)
 Definition E_bit : R := k_B * T * ln 2.
 
-(** derived_h: Planck's constant derived from computational parameters.
+(** derived_h: Planck's constant expressed in terms of computational parameters (τμ).
 
     THE FORMULA:
     h = 4 · E_bit · τμ
@@ -363,9 +364,9 @@ Definition is_planck_consistent (h_fixed : R) : Prop :=
       - T, kB: thermodynamic context (measured)
 
     THE CLAIM:
-    Physical "constants" (h, c) are NOT fundamental. They're DERIVED from the
-    computational substrate's parameters (τμ, dμ). If the universe is a computer,
-    h and c are STRUCTURAL, not fundamental.
+    Physical constants (h, c) are expressed in terms of the free parameters
+    (dμ, τμ). This is a parametric relabeling, not a derivation from first
+    principles. The free parameters must be externally calibrated.
 
     THE SKEPTICAL VIEW:
     This is a REINTERPRETATION, not a derivation from nothing. I'm claiming:

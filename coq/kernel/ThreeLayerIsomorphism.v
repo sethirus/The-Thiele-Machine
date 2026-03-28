@@ -1,24 +1,32 @@
-(* ThreeLayerIsomorphism.v — Formal proof that Coq, Python, and Verilog
-   implementations of the Thiele Machine are bisimilar over all 18 opcodes.
+(** * ThreeLayerIsomorphism: Formal proof that Coq, Python, and Verilog are bisimilar
 
-   This file proves:
-   1. The instruction set is COMPLETE (all 18 opcodes covered)
-   2. The μ-cost semantics are IDENTICAL across all layers
-   3. The state transitions are DETERMINISTIC and EQUIVALENT
-   4. Any correct implementation satisfying the WireSpec is bisimilar to Coq
+    WHY THIS FILE EXISTS:
+    The Thiele Machine has three implementations: Coq (kernel), Python (VM),
+    and Verilog (hardware). This file proves they are bisimilar over all 40
+    opcodes: same input state + same instruction = same output state.
 
-   Trust chain:
-    Coq vm_apply ──[extraction]──→ OCaml vm_apply  (Coq extraction guarantee)
-         ↕ (proven here)                ↕ (tested)
-    Python VM.step ←──[testing]──→ Verilog thiele_cpu  (test_bisimulation_complete.py)
+    THE CORE CLAIM:
+    1. The instruction set is COMPLETE (all 47 opcodes covered)
+    2. The mu-cost semantics are IDENTICAL across all layers
+    3. The state transitions are DETERMINISTIC and EQUIVALENT
+    4. Any correct implementation satisfying the WireSpec is bisimilar to Coq
+
+    Trust chain:
+     Coq vm_apply --[extraction]---> OCaml vm_apply  (Coq extraction guarantee)
+          | (proven here)                | (tested)
+     Python VM.step <--[testing]---> Verilog thiele_cpu  (cosimulation tests)
+
+    FALSIFICATION:
+    Find a state s and instruction i where vm_apply produces different mu or PC
+    values in two WireSpec-conforming implementations. This is impossible: the
+    proof shows mu and PC are determined by instruction_cost and the initial
+    state, independent of implementation details.
 *)
 
 From Coq Require Import Strings.String List Bool Arith.PeanoNat Lia.
 Import ListNotations.
 
-Require Import VMState.
-Require Import VMStep.
-Require Import SimulationProof.
+From Kernel Require Import VMState VMStep SimulationProof.
 
 (* ================================================================== *)
 (* Section 1: vm_apply always produces well-defined output             *)
@@ -32,7 +40,7 @@ Proof.
 Qed.
 
 (* ================================================================== *)
-(* Section 2: The 18-Opcode Completeness Proof                        *)
+(* Section 2: The 40-Opcode Completeness Proof                        *)
 (* ================================================================== *)
 
 (** [instruction_exhaustive]: formal specification. *)
@@ -41,7 +49,7 @@ Lemma instruction_exhaustive : forall (i : vm_instruction),
   | instr_pnew _ _             => True
   | instr_psplit _ _ _ _        => True
   | instr_pmerge _ _ _          => True
-  | instr_lassert _ _ _ _       => True
+  | instr_lassert _ _ _ _ _       => True
   | instr_ljoin _ _ _           => True
   | instr_mdlacc _ _            => True
   | instr_pdiscover _ _ _       => True
@@ -76,6 +84,15 @@ Lemma instruction_exhaustive : forall (i : vm_instruction),
   | instr_mul _ _ _ _           => True
   | instr_lui _ _ _             => True
   | instr_halt _                => True
+  | instr_tensor_set _ _ _ _ _ => True
+  | instr_tensor_get _ _ _ _ _ => True
+  | instr_morph _ _ _ _ _      => True
+  | instr_compose _ _ _ _      => True
+  | instr_morph_id _ _ _       => True
+  | instr_morph_delete _ _     => True
+  | instr_morph_assert _ _ _ _ => True
+  | instr_morph_tensor _ _ _ _ => True
+  | instr_morph_get _ _ _ _    => True
   end.
 Proof. destruct i; exact I. Qed.
 
@@ -117,8 +134,6 @@ Proof.
         destruct x; try reflexivity
     | |- context[if ?b then _ else _] =>
         destruct b; try reflexivity
-    | |- context[match ?x with | lassert_cert_unsat _ => _ | lassert_cert_sat _ => _ end] =>
-        destruct x; try reflexivity
     end.
 Qed.
 
@@ -149,8 +164,6 @@ Proof.
         destruct x; try reflexivity
     | |- context[if ?b then _ else _] =>
         destruct b; try reflexivity
-    | |- context[match ?x with | lassert_cert_unsat _ => _ | lassert_cert_sat _ => _ end] =>
-        destruct x; try reflexivity
     end.
 Qed.
 
@@ -306,7 +319,7 @@ Qed.
 (* Section 8: Full-State Wire Specification                            *)
 (* ================================================================== *)
 
-(** WireSpec only covers μ and PC. For the COMPLETE three-layer isomorphism
+(** WireSpec only covers μ and PC. For the full three-layer comparison contract
     we need to verify ALL state components: registers, memory, partition
     graph, CSRs, and error flag.
 

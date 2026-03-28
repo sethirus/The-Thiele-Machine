@@ -37,7 +37,7 @@
     The theorem predicts M(exec_trace s t) = M(s) + Σ(costs) for ANY trace t,
     making μ trace-independent (only final state matters).
 
-    STATUS: COMPLETE (Zero Axioms, Zero Admits)
+    Zero project-local axioms, zero admits.
 
     ========================================================================= *)
 
@@ -76,7 +76,9 @@ From Kernel Require Import MuCostDerivation.
 *)
 Definition init_graph : PartitionGraph := {|
   pg_next_id := 0;
-  pg_modules := []
+  pg_modules := [];
+  pg_next_morph_id := 1;
+  pg_morphisms := []
 |}.
 
 (** init_csrs: Initial control/status registers
@@ -492,7 +494,7 @@ Definition canonical_cost : CostAssignment := instruction_cost.
     2. THIS FILE: μ is unique among monotones consistent with those determined costs
     3. TOGETHER: μ is THE unique information-theoretic cost functional
 
-    See: coq/kernel/MuCostDerivation.v, PHASE2_CIRCULARITY_ANALYSIS.md
+    See: coq/kernel/MuCostDerivation.v
     ------------------------------------------------------------------------- *)
 
 (** A monotone M is instruction-consistent with cost assignment c if
@@ -672,15 +674,7 @@ Qed.
     - μ cannot be replaced by another cost function without changing semantics
     - Any "alternative" cost must either violate instruction-consistency, or
       not start at zero, or disagree with instruction_cost
-    - There's no "gauge freedom" in μ (unlike in NoGo.v's w_scale, where you
-      could scale - but those didn't fix costs to instruction_cost)
-
-    CONTRAST WITH NoGo RESULTS:
-    NoGo.v proves weight_laws don't uniquely determine cost (infinite family w_scale(k)).
-    This theorem proves instruction-consistency + zero-init DO uniquely determine cost.
-
-    Difference: NoGo's weight_laws don't specify instruction costs (allows any k).
-    Initiality's premises DO specify costs (canonical_cost = instruction_cost).
+    - There's no "gauge freedom" in μ (the concrete VM pins down cost)
 
     Once costs are fixed (by physics, via MuCostDerivation.v), μ is unique.
 *)
@@ -842,9 +836,9 @@ Proof.
 Qed.
 
 (** =========================================================================
-    STATUS: μ-INITIALITY - ALL PROOFS COMPLETE
-    
-    PROVEN (no admits):
+    μ-INITIALITY — PROVEN RESULTS
+
+    Proven (no admits):
     - reachable_from_trace: traces produce reachable states
     - mu_accumulates_trace_cost: μ sums instruction costs
     - mu_equals_trace_cost: μ = Σ(costs) from init_state

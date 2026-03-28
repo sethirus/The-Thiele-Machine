@@ -12,7 +12,7 @@ Pipeline:
                                  → thielecpu/vm.py  (Python protocol wrapper)
 
 What this script does:
-  1. Reads build/thiele_core.ml and verifies all 37 constructors are present
+  1. Reads build/thiele_core.ml and verifies all 47 constructors are present
   2. Parses is_cert_setterb to derive _CERT_SETTERS
   3. Derives instr_dict_to_text() serializer from CONSTRUCTOR_FIELD_MAP
   4. Emits thielecpu/vm.py — a pure subprocess wrapper around build/extracted_vm_runner
@@ -74,6 +74,9 @@ def parse_constructor_fields(ml_text: str) -> dict[str, list[str]]:
         m = re.match(r"\|\s*(\w+)(?:\s+of\s+(.+))?$", stripped)
         if m:
             name = m.group(1)
+            # Normalize OCaml extraction prefix: Coq_instr_X -> Instr_X
+            if name.startswith("Coq_instr_"):
+                name = "Instr_" + name[len("Coq_instr_"):]
             fields_str = m.group(2) or ""
             if fields_str:
                 fields = [f.strip() for f in fields_str.split("*")]
@@ -94,7 +97,10 @@ def parse_cert_setters(ml_text: str) -> set[str]:
         if in_func:
             m = re.match(r"\s*\|\s*(\w+)\s+.*->\s*true", line)
             if m:
-                setters.add(m.group(1))
+                name = m.group(1)
+                if name.startswith("Coq_instr_"):
+                    name = "Instr_" + name[len("Coq_instr_"):]
+                setters.add(name)
             if "| _ -> false" in line:
                 break
     return setters
@@ -125,70 +131,90 @@ def extract_constants(ml_text: str) -> dict[str, int]:
 # CONSTRUCTOR_FIELD_MAP: maps OCaml constructor to Python dict keys (in order)
 #
 # This is the ONLY curated table — verified against OCaml IR at generation time.
-# Maps each Coq_instr_X constructor to Python dict key names.
+# Maps each Instr_X constructor (Coq extraction capitalises instr_x → Instr_x)
+# to Python dict key names.
 # ---------------------------------------------------------------------------
 
 CONSTRUCTOR_FIELD_MAP: dict[str, list[tuple[str, str]]] = {
     # (ocaml_positional_name, python_dict_key)
-    "Coq_instr_pnew":         [("region", "region"), ("cost", "cost")],
-    "Coq_instr_psplit":       [("module0", "module"), ("left_region", "left"),
-                               ("right_region", "right"), ("cost", "cost")],
-    "Coq_instr_pmerge":       [("m1", "m1"), ("m2", "m2"), ("cost", "cost")],
-    "Coq_instr_lassert":      [("module0", "module"), ("formula", "formula"),
-                               ("cert", "cert"), ("cost", "cost")],
-    "Coq_instr_ljoin":        [("cert1", "cert1"), ("cert2", "cert2"), ("cost", "cost")],
-    "Coq_instr_mdlacc":       [("module0", "module"), ("cost", "cost")],
-    "Coq_instr_pdiscover":    [("module0", "module"), ("evidence", "evidence"),
-                               ("cost", "cost")],
-    "Coq_instr_xfer":         [("dst", "dst"), ("src", "src"), ("cost", "cost")],
-    "Coq_instr_load_imm":     [("dst", "dst"), ("imm", "imm"), ("cost", "cost")],
-    "Coq_instr_load":         [("dst", "dst"), ("rs_addr", "addr"), ("cost", "cost")],
-    "Coq_instr_store":        [("rs_addr", "addr"), ("src", "src"), ("cost", "cost")],
-    "Coq_instr_add":          [("dst", "dst"), ("rs1", "rs1"), ("rs2", "rs2"),
-                               ("cost", "cost")],
-    "Coq_instr_sub":          [("dst", "dst"), ("rs1", "rs1"), ("rs2", "rs2"),
-                               ("cost", "cost")],
-    "Coq_instr_jump":         [("target", "target"), ("cost", "cost")],
-    "Coq_instr_jnez":         [("rs", "rs"), ("target", "target"), ("cost", "cost")],
-    "Coq_instr_call":         [("target", "target"), ("cost", "cost")],
-    "Coq_instr_ret":          [("cost", "cost")],
-    "Coq_instr_chsh_trial":   [("x", "x"), ("y", "y"), ("a", "a"), ("b", "b"),
-                               ("cost", "cost")],
-    "Coq_instr_xor_load":     [("dst", "dst"), ("addr", "addr"), ("cost", "cost")],
-    "Coq_instr_xor_add":      [("dst", "dst"), ("src", "src"), ("cost", "cost")],
-    "Coq_instr_xor_swap":     [("a", "a"), ("b", "b"), ("cost", "cost")],
-    "Coq_instr_xor_rank":     [("dst", "dst"), ("src", "src"), ("cost", "cost")],
-    "Coq_instr_emit":         [("module0", "module"), ("payload", "payload"),
-                               ("cost", "cost")],
-    "Coq_instr_reveal":       [("module0", "module"), ("bits", "bits"),
-                               ("cert", "cert"), ("cost", "cost")],
-    "Coq_instr_oracle_halts": [("payload", "payload"), ("cost", "cost")],
-    "Coq_instr_halt":         [("cost", "cost")],
-    "Coq_instr_checkpoint":   [("label", "label"), ("cost", "cost")],
-    "Coq_instr_read_port":    [("dst", "dst"), ("channel_idx", "channel"),
-                               ("value", "value"), ("bits", "bits"), ("cost", "cost")],
-    "Coq_instr_write_port":   [("channel_idx", "channel"), ("src", "src"),
-                               ("cost", "cost")],
-    "Coq_instr_heap_load":    [("dst", "dst"), ("rs_addr", "addr"), ("cost", "cost")],
-    "Coq_instr_heap_store":   [("rs_addr", "addr"), ("src", "src"), ("cost", "cost")],
-    "Coq_instr_certify":      [("delta_mu", "cost")],
-    "Coq_instr_and":          [("dst", "dst"), ("rs1", "rs1"), ("rs2", "rs2"),
-                               ("cost", "cost")],
-    "Coq_instr_or":           [("dst", "dst"), ("rs1", "rs1"), ("rs2", "rs2"),
-                               ("cost", "cost")],
-    "Coq_instr_shl":          [("dst", "dst"), ("rs1", "rs1"), ("rs2", "rs2"),
-                               ("cost", "cost")],
-    "Coq_instr_shr":          [("dst", "dst"), ("rs1", "rs1"), ("rs2", "rs2"),
-                               ("cost", "cost")],
-    "Coq_instr_mul":          [("dst", "dst"), ("rs1", "rs1"), ("rs2", "rs2"),
-                               ("cost", "cost")],
-    "Coq_instr_lui":          [("dst", "dst"), ("imm", "imm"), ("cost", "cost")],
+    "Instr_pnew":         [("region", "region"), ("cost", "cost")],
+    "Instr_psplit":       [("module0", "module"), ("left_region", "left"),
+                           ("right_region", "right"), ("cost", "cost")],
+    "Instr_pmerge":       [("m1", "m1"), ("m2", "m2"), ("cost", "cost")],
+    "Instr_lassert":      [("module0", "module"), ("formula", "formula"),
+                           ("cert", "cert"), ("cost", "cost")],
+    "Instr_ljoin":        [("cert1", "cert1"), ("cert2", "cert2"), ("cost", "cost")],
+    "Instr_mdlacc":       [("module0", "module"), ("cost", "cost")],
+    "Instr_pdiscover":    [("module0", "module"), ("evidence", "evidence"),
+                           ("cost", "cost")],
+    "Instr_xfer":         [("dst", "dst"), ("src", "src"), ("cost", "cost")],
+    "Instr_load_imm":     [("dst", "dst"), ("imm", "imm"), ("cost", "cost")],
+    "Instr_load":         [("dst", "dst"), ("rs_addr", "addr"), ("cost", "cost")],
+    "Instr_store":        [("rs_addr", "addr"), ("src", "src"), ("cost", "cost")],
+    "Instr_add":          [("dst", "dst"), ("rs1", "rs1"), ("rs2", "rs2"),
+                           ("cost", "cost")],
+    "Instr_sub":          [("dst", "dst"), ("rs1", "rs1"), ("rs2", "rs2"),
+                           ("cost", "cost")],
+    "Instr_jump":         [("target", "target"), ("cost", "cost")],
+    "Instr_jnez":         [("rs", "rs"), ("target", "target"), ("cost", "cost")],
+    "Instr_call":         [("target", "target"), ("cost", "cost")],
+    "Instr_ret":          [("cost", "cost")],
+    "Instr_chsh_trial":   [("x", "x"), ("y", "y"), ("a", "a"), ("b", "b"),
+                           ("cost", "cost")],
+    "Instr_xor_load":     [("dst", "dst"), ("addr", "addr"), ("cost", "cost")],
+    "Instr_xor_add":      [("dst", "dst"), ("src", "src"), ("cost", "cost")],
+    "Instr_xor_swap":     [("a", "a"), ("b", "b"), ("cost", "cost")],
+    "Instr_xor_rank":     [("dst", "dst"), ("src", "src"), ("cost", "cost")],
+    "Instr_emit":         [("module0", "module"), ("payload", "payload"),
+                           ("cost", "cost")],
+    "Instr_reveal":       [("module0", "module"), ("bits", "bits"),
+                           ("cert", "cert"), ("cost", "cost")],
+    "Instr_oracle_halts": [("payload", "payload"), ("cost", "cost")],
+    "Instr_halt":         [("cost", "cost")],
+    "Instr_checkpoint":   [("label", "label"), ("cost", "cost")],
+    "Instr_read_port":    [("dst", "dst"), ("channel_idx", "channel"),
+                           ("value", "value"), ("bits", "bits"), ("cost", "cost")],
+    "Instr_write_port":   [("channel_idx", "channel"), ("src", "src"),
+                           ("cost", "cost")],
+    "Instr_heap_load":    [("dst", "dst"), ("rs_addr", "addr"), ("cost", "cost")],
+    "Instr_heap_store":   [("rs_addr", "addr"), ("src", "src"), ("cost", "cost")],
+    "Instr_certify":      [("delta_mu", "cost")],
+    "Instr_and":          [("dst", "dst"), ("rs1", "rs1"), ("rs2", "rs2"),
+                           ("cost", "cost")],
+    "Instr_or":           [("dst", "dst"), ("rs1", "rs1"), ("rs2", "rs2"),
+                           ("cost", "cost")],
+    "Instr_shl":          [("dst", "dst"), ("rs1", "rs1"), ("rs2", "rs2"),
+                           ("cost", "cost")],
+    "Instr_shr":          [("dst", "dst"), ("rs1", "rs1"), ("rs2", "rs2"),
+                           ("cost", "cost")],
+    "Instr_mul":          [("dst", "dst"), ("rs1", "rs1"), ("rs2", "rs2"),
+                           ("cost", "cost")],
+    "Instr_lui":          [("dst", "dst"), ("imm", "imm"), ("cost", "cost")],
+    "Instr_tensor_set":   [("module0", "module"), ("i", "i"), ("j", "j"),
+                           ("value", "value"), ("mu_delta", "mu_delta")],
+    "Instr_tensor_get":   [("dst", "dst"), ("module0", "module"), ("i", "i"),
+                           ("j", "j"), ("mu_delta", "mu_delta")],
+    # Categorical morphism extension (7 new opcodes — Phase 5)
+    "Instr_morph":        [("dst", "dst"), ("src_mod", "src_mod"),
+                           ("dst_mod", "dst_mod"), ("coupling_idx", "coupling_idx"),
+                           ("mu_delta", "mu_delta")],
+    "Instr_compose":      [("dst", "dst"), ("m1_id", "m1"), ("m2_id", "m2"),
+                           ("mu_delta", "mu_delta")],
+    "Instr_morph_id":     [("dst", "dst"), ("module0", "module"),
+                           ("mu_delta", "mu_delta")],
+    "Instr_morph_delete": [("morph_id", "morph_id"), ("mu_delta", "mu_delta")],
+    "Instr_morph_assert": [("morph_id", "morph_id"), ("property", "property"),
+                           ("cert", "cert"), ("mu_delta", "mu_delta")],
+    "Instr_morph_tensor": [("dst", "dst"), ("f_id", "f"), ("g_id", "g"),
+                           ("mu_delta", "mu_delta")],
+    "Instr_morph_get":    [("dst", "dst"), ("morph_id", "morph_id"),
+                           ("selector", "selector"), ("mu_delta", "mu_delta")],
 }
 
 
 def ctor_to_opname(ctor: str) -> str:
-    assert ctor.startswith("Coq_instr_"), f"unexpected constructor: {ctor}"
-    return ctor[len("Coq_instr_"):]
+    assert ctor.startswith("Instr_"), f"unexpected constructor: {ctor}"
+    return ctor[len("Instr_"):]
 
 
 # ---------------------------------------------------------------------------
@@ -196,10 +222,11 @@ def ctor_to_opname(ctor: str) -> str:
 # ---------------------------------------------------------------------------
 
 HEADER = '''\
+# HARNESS — not normative semantics. Delegates all execution to build/extracted_vm_runner (OCaml).
 """DO NOT EDIT. GENERATED FROM COQ PROOFS by scripts/forge_vm.py.
 
 Source: build/thiele_core.ml (generated by coq/Extraction.v via `make -C coq`)
-Ground truth: coq/kernel/VMStep.v (38 opcodes), coq/kernel/VMState.v
+Ground truth: coq/kernel/VMStep.v (47 opcodes), coq/kernel/VMState.v
 Authoritative VM: build/extracted_vm_runner (OCaml binary from Coq extraction)
 
 Regenerate: python3 scripts/forge_vm.py --input build/thiele_core.ml --output thielecpu/vm.py
@@ -233,8 +260,25 @@ def generate_constants(constants: dict[str, int]) -> str:
 REG_COUNT: int = {reg_count}
 MEM_SIZE: int = {mem_size}
 TENSOR_SIZE: int = {tensor_size}
-WORD32_MASK: int = 0xFFFFFFFF
+WORD64_MASK: int = 0xFFFFFFFFFFFFFFFF
 SP_REG: int = 31
+
+# State integrity MAC constants (must match build/extracted_vm_runner.ml)
+_STATE_INTEGRITY_SALT = "thiele_mu_guard_v1_2026"
+_FNV_OFFSET_BASIS = 0xcbf29ce484222325
+_FNV_PRIME = 0x100000001b3
+_MASK64 = 0xFFFFFFFFFFFFFFFF
+
+
+def _compute_state_mac(json_body: str) -> str:
+    # FNV-1a 64-bit keyed hash for state integrity (tamper detection, not cryptographic).
+    s = _STATE_INTEGRITY_SALT + json_body
+    h = _FNV_OFFSET_BASIS
+    for c in s:
+        h = (h ^ ord(c)) & _MASK64
+        h = (h * _FNV_PRIME) & _MASK64
+    return "%016x" % h
+
 
 # Hardware constants from coq/kami_hw/ThieleTypes.v
 CHSH_X1_SURCHARGE: int = 256       # 0x00000100
@@ -261,6 +305,7 @@ class CSRState:
 class moduleState:
     module_region: List[int] = field(default_factory=list)
     module_axioms: List[str] = field(default_factory=list)
+    module_mu_tensor: List[int] = field(default_factory=lambda: [0] * TENSOR_SIZE)
 
 
 @dataclass
@@ -309,6 +354,7 @@ class VMState:
                 "region": ms.module_region,
                 "axioms": len(ms.module_axioms),
                 "axiom_strings": ms.module_axioms,
+                "mu_tensor": list(ms.module_mu_tensor),
             })
         return {
             "pc": self.vm_pc,
@@ -316,7 +362,7 @@ class VMState:
             "err": self.vm_err,
             "csr_err_code": self.vm_csrs.csr_err,
             "regs": list(self.vm_regs),
-            "mem": list(self.vm_mem),
+            "mem": (lambda m: m[:next((len(m)-i for i,v in enumerate(reversed(m)) if v!=0), 0)])(list(self.vm_mem)),
             "mu_tensor": list(self.vm_mu_tensor),
             "logic_acc": self.vm_logic_acc,
             "mstatus": self.vm_mstatus,
@@ -336,7 +382,9 @@ class VMState:
 
     def to_json(self) -> str:
         # Use compact JSON (no spaces) so OCaml parse_json_int_array finds "key":[ correctly
-        return json.dumps(self.to_json_dict(), separators=(',', ':'))
+        body = json.dumps(self.to_json_dict(), separators=(',', ':'))
+        mac = _compute_state_mac(body)
+        return body[:-1] + ',"_mac":"' + mac + '"' + '}'
 
     @classmethod
     def from_json(cls, text: str) -> "VMState":
@@ -348,6 +396,7 @@ class VMState:
             ms = moduleState(
                 module_region=list(m.get("region", [])),
                 module_axioms=list(m.get("axiom_strings", [])),
+                module_mu_tensor=list(m.get("mu_tensor", [0] * TENSOR_SIZE)),
             )
             mods.append((int(m["id"]), ms))
         return cls(
@@ -355,7 +404,7 @@ class VMState:
             vm_mu=int(d.get("mu", 0)),
             vm_err=bool(d.get("err", False)),
             vm_regs=list(d.get("regs", [0] * REG_COUNT)),
-            vm_mem=list(d.get("mem", [0] * MEM_SIZE)),
+            vm_mem=(lambda m: (m + [0] * MEM_SIZE)[:MEM_SIZE])(list(d.get("mem", []))),
             vm_csrs=CSRState(
                 csr_cert_addr=int(csrs.get("cert_addr", 0)),
                 csr_status=int(csrs.get("status", 0)),
@@ -377,7 +426,7 @@ class VMState:
 
 def generate_cert_setters(cert_setters: set[str]) -> str:
     """Generate _CERT_SETTERS from parsed is_cert_setterb arms."""
-    opnames = sorted(ctor_to_opname(c) for c in cert_setters if c.startswith("Coq_instr_"))
+    opnames = sorted(ctor_to_opname(c) for c in cert_setters if c.startswith("Instr_"))
     items = ", ".join(f'"{n}"' for n in opnames)
     return f'''\
 # ---------------------------------------------------------------------------
@@ -673,7 +722,7 @@ def generate_full_vm(ml_text: str) -> str:
     cert_setters = parse_cert_setters(preprocessed)
     constants = extract_constants(preprocessed)
 
-    print(f"forge_vm.py: cert_setters = {sorted(ctor_to_opname(c) for c in cert_setters if c.startswith('Coq_instr_'))}")
+    print(f"forge_vm.py: cert_setters = {sorted(ctor_to_opname(c) for c in cert_setters if c.startswith('Instr_'))}")
 
     sections = [
         HEADER,

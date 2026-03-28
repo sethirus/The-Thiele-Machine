@@ -4,20 +4,21 @@
     PURPOSE: Derive spacetime metric from μ-costs WITHOUT assuming angles
     ========================================================================
 
-    CRITICAL CHANGE FROM PREVIOUS APPROACH:
-    Previously, we ASSUMED equilateral triangles (π/3 angles).
     This file DERIVES the metric from μ-costs using only:
     1. Computational structure (module regions, axiom counts)
     2. μ-ledger accounting
     3. Basic geometry (law of cosines)
 
-    THE DERIVATION CHAIN:
+    No angle assumptions (e.g. equilateral triangles with pi/3 angles) are
+    needed. The derivation chain is:
     μ-costs → edge lengths → triangle sides → angles (law of cosines) →
     curvature → topology
 
-    ZERO ASSUMPTIONS. ZERO AXIOMS.
+    ZERO EXTRA ASSUMPTIONS. ZERO PROJECT-LOCAL AXIOMS.
 
-    This is the heart of "geometry emerges from computation."
+    This defines a metric structure on the module graph using μ-cost differences.
+    Any cost function induces a pseudometric; the non-trivial claim would be that
+    this metric matches physical spacetime, which is not proven here.
     *)
 
 (* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
@@ -34,7 +35,8 @@ From Kernel Require Import MuGravity.
 (** ** Step 0: μ-Tensor as Metric
 
     The vm_mu_tensor field is a 4×4 matrix (16 nat entries, row-major).
-    It IS the spacetime metric g_μν.
+    It is defined as the spacetime metric g_μν in this formalization.
+    This is a definitional identification, not a physical derivation.
 
     DERIVATION:
     μ-tensor(i,j) = (i,j) component of the metric tensor
@@ -314,7 +316,7 @@ Fixpoint sum_angle_defects_4d (s : VMState) (sc : SimplicialComplex4D)
     Instead, the DEVIATION from π IS the curvature.
     This is Gauss-Bonnet at the triangle level.
 
-    ZERO AXIOMS. ZERO ADMITS.
+    ZERO PROJECT-LOCAL AXIOMS. ZERO ADMITS.
 
     NEXT STEPS:
     - Complete 4D simplex extraction (FourDSimplicialComplex.v)
@@ -406,3 +408,196 @@ Qed.
 
 Definition metric_deriv_anchor := local_metric_derivative_nonzero_when_masses_differ.
 
+(** =========================================================================
+    LORENTZIAN METRIC EXTENSION
+    =========================================================================
+
+    The Euclidean [metric_at_vertex] has all non-negative diagonal entries
+    (signature (+,+,+,+)).  For a Lorentzian manifold with one temporal
+    dimension we need signature (-,+,+,+): index 0 is time-like (negative
+    norm) and indices 1,2,3 are space-like (positive norm).
+
+    We define [lorentz_metric_at_vertex] by multiplying each diagonal entry
+    by [lorentz_sign μ] and prove the signature theorem.
+
+    NOTE: This is a formal extension of the computational metric.  Whether
+    the physical interpretation warrants calling this a Lorentzian manifold
+    depends on identifying index 0 with a time dimension — an interpretation
+    that is not forced by the kernel dynamics alone (see LorentzNotForced.v).
+    =========================================================================*)
+
+(** Sign of coordinate index μ: −1 for time (μ mod 4 = 0), +1 for space. *)
+Definition lorentz_sign (mu : nat) : R :=
+  if (mu mod 4 =? 0)%nat then (-1)%R else 1%R.
+
+Lemma lorentz_sign_time : lorentz_sign 0%nat = (-1)%R.
+Proof. reflexivity. Qed.
+
+Lemma lorentz_sign_space_1 : lorentz_sign 1%nat = 1%R.
+Proof. reflexivity. Qed.
+
+Lemma lorentz_sign_space_2 : lorentz_sign 2%nat = 1%R.
+Proof. reflexivity. Qed.
+
+Lemma lorentz_sign_space_3 : lorentz_sign 3%nat = 1%R.
+Proof. reflexivity. Qed.
+
+(** Lorentzian metric at vertex v: g_μν = lorentz_sign(μ) · mass(v) if μ=ν, else 0. *)
+Definition lorentz_metric_at_vertex (s : VMState) (v μ ν : ModuleID) : R :=
+  if (μ mod 4 =? ν mod 4)%nat
+  then (lorentz_sign (μ mod 4) * INR (module_structural_mass s v))%R
+  else 0%R.
+
+(** The (0,0) entry is negative when mass > 0. *)
+Lemma lorentz_metric_time_negative : forall s v,
+  (module_structural_mass s v > 0)%nat ->
+  (lorentz_metric_at_vertex s v 0%nat 0%nat < 0)%R.
+Proof.
+  intros s v Hm.
+  unfold lorentz_metric_at_vertex, lorentz_sign. simpl.
+  pose proof (lt_0_INR _ Hm) as H.
+  lra.
+Qed.
+
+(** The (k,k) entry for k = 1,2,3 is positive when mass > 0. *)
+Lemma lorentz_metric_space_positive : forall s v k,
+  (k = 1%nat \/ k = 2%nat \/ k = 3%nat) ->
+  (module_structural_mass s v > 0)%nat ->
+  (lorentz_metric_at_vertex s v k k > 0)%R.
+Proof.
+  intros s v k Hk Hm.
+  unfold lorentz_metric_at_vertex, lorentz_sign.
+  rewrite Nat.eqb_refl.
+  destruct Hk as [H|[H|H]]; subst; simpl;
+    pose proof (lt_0_INR _ Hm) as H'; lra.
+Qed.
+
+(** Off-diagonal entries vanish. *)
+Lemma lorentz_metric_offdiag : forall s v μ ν,
+  (μ mod 4 <> ν mod 4)%nat ->
+  lorentz_metric_at_vertex s v μ ν = 0%R.
+Proof.
+  intros s v μ ν H.
+  unfold lorentz_metric_at_vertex.
+  apply Nat.eqb_neq in H.
+  rewrite H. reflexivity.
+Qed.
+
+(** Signature theorem: the Lorentzian metric has signature (−,+,+,+)
+    at every vertex with positive mass. *)
+Theorem lorentz_metric_signature : forall s v,
+  (module_structural_mass s v > 0)%nat ->
+  (lorentz_metric_at_vertex s v 0%nat 0%nat < 0)%R /\
+  (lorentz_metric_at_vertex s v 1%nat 1%nat > 0)%R /\
+  (lorentz_metric_at_vertex s v 2%nat 2%nat > 0)%R /\
+  (lorentz_metric_at_vertex s v 3%nat 3%nat > 0)%R.
+Proof.
+  intros s v Hm.
+  repeat split.
+  - apply lorentz_metric_time_negative; exact Hm.
+  - apply lorentz_metric_space_positive; [left; reflexivity | exact Hm].
+  - apply lorentz_metric_space_positive; [right; left; reflexivity | exact Hm].
+  - apply lorentz_metric_space_positive; [right; right; reflexivity | exact Hm].
+Qed.
+
+(** The spatial part of the Lorentzian metric agrees with the Euclidean
+    [metric_at_vertex] up to sign: for k=1,2,3,
+    lorentz_metric_at_vertex s v k k = metric_at_vertex s v k k. *)
+Lemma lorentz_spatial_agrees_euclidean : forall s v k,
+  (k mod 4 = 1%nat \/ k mod 4 = 2%nat \/ k mod 4 = 3%nat) ->
+  lorentz_metric_at_vertex s v k k = metric_at_vertex s v k k.
+Proof.
+  intros s v k Hk.
+  unfold lorentz_metric_at_vertex, lorentz_sign, metric_at_vertex.
+  rewrite Nat.eqb_refl.
+  destruct Hk as [H|[H|H]]; rewrite H; simpl; ring.
+Qed.
+
+(** =========================================================================
+    FULL 4×4 METRIC FROM PER-MODULE TENSOR
+    =========================================================================
+
+    Unlike the scalar-diagonal metric_at_vertex above (which reads only the
+    structural mass), this reads the full 4×4 per-module tensor stored in
+    module_mu_tensor (16 entries, row-major).
+
+    Enables genuine curved spacetime: each vertex can carry a different
+    4×4 metric, giving non-trivial Christoffel symbols and curvature.
+    ========================================================================= *)
+
+From Kernel Require Import MatrixAlgebra4.
+
+(** Full 4×4 metric at vertex v, indices (μ,ν). Reads from per-module tensor. *)
+Definition full_metric_at_vertex (s : VMState) (v : ModuleID) (μ ν : nat) : R :=
+  INR (module_tensor_entry s v (μ mod 4) (ν mod 4)).
+
+(** Full metric as a Mat4 object (for matrix inverse computation). *)
+Definition metric_mat4_at_vertex (s : VMState) (v : ModuleID) : Mat4 :=
+  fun μ ν => full_metric_at_vertex s v μ ν.
+
+(** Inverse metric g^{μν} at vertex, computed via Cramer's rule. *)
+Definition inverse_metric_at_vertex (s : VMState) (v : ModuleID) : Mat4 :=
+  mat4_inverse (metric_mat4_at_vertex s v).
+
+(** Determinant of metric at vertex. *)
+Definition metric_det_at_vertex (s : VMState) (v : ModuleID) : R :=
+  mat4_det (metric_mat4_at_vertex s v).
+
+(** ** Full metric properties *)
+
+(** Full metric entries are non-negative (from pos_INR). *)
+Lemma full_metric_nonneg : forall s v μ ν,
+  (full_metric_at_vertex s v μ ν >= 0)%R.
+Proof.
+  intros s v μ ν.
+  unfold full_metric_at_vertex.
+  apply Rle_ge. apply pos_INR.
+Qed.
+
+(** Determinant of diagonal metric = product of diagonal entries. *)
+(** Backward compatibility: when the per-module tensor is an isotropic diagonal
+    with entries matching the structural mass, full_metric_at_vertex agrees
+    with metric_at_vertex (the scalar-diagonal metric from MuGravity). *)
+Lemma full_metric_compat_diagonal : forall s v μ ν,
+  (μ < 4)%nat -> (ν < 4)%nat ->
+  (forall i j, (i < 4)%nat -> (j < 4)%nat ->
+    module_tensor_entry s v i j =
+    if (i =? j)%nat then module_structural_mass s v else 0%nat) ->
+  full_metric_at_vertex s v μ ν = metric_at_vertex s v μ ν.
+Proof.
+  intros s v μ ν Hμ Hν Htensor.
+  unfold full_metric_at_vertex, metric_at_vertex.
+  rewrite !Nat.mod_small by lia.
+  rewrite Htensor by lia.
+  destruct (μ =? ν)%nat eqn:Heq.
+  - simpl. reflexivity.
+  - simpl. reflexivity.
+Qed.
+
+Lemma metric_det_positive_diagonal : forall s v,
+  (forall i j, (i < 4)%nat -> (j < 4)%nat -> (i <> j)%nat ->
+    module_tensor_entry s v i j = 0%nat) ->
+  metric_det_at_vertex s v =
+    (full_metric_at_vertex s v 0%nat 0%nat *
+     full_metric_at_vertex s v 1%nat 1%nat *
+     full_metric_at_vertex s v 2%nat 2%nat *
+     full_metric_at_vertex s v 3%nat 3%nat)%R.
+Proof.
+  intros s v Hdiag.
+  unfold metric_det_at_vertex, metric_mat4_at_vertex.
+  unfold mat4_det, det3, minor3, skip_idx, full_metric_at_vertex. simpl.
+  (* Off-diagonal entries are zero by hypothesis *)
+  repeat rewrite (Hdiag 0%nat 1%nat ltac:(lia) ltac:(lia) ltac:(lia));
+  repeat rewrite (Hdiag 0%nat 2%nat ltac:(lia) ltac:(lia) ltac:(lia));
+  repeat rewrite (Hdiag 0%nat 3%nat ltac:(lia) ltac:(lia) ltac:(lia));
+  repeat rewrite (Hdiag 1%nat 0%nat ltac:(lia) ltac:(lia) ltac:(lia));
+  repeat rewrite (Hdiag 1%nat 2%nat ltac:(lia) ltac:(lia) ltac:(lia));
+  repeat rewrite (Hdiag 1%nat 3%nat ltac:(lia) ltac:(lia) ltac:(lia));
+  repeat rewrite (Hdiag 2%nat 0%nat ltac:(lia) ltac:(lia) ltac:(lia));
+  repeat rewrite (Hdiag 2%nat 1%nat ltac:(lia) ltac:(lia) ltac:(lia));
+  repeat rewrite (Hdiag 2%nat 3%nat ltac:(lia) ltac:(lia) ltac:(lia));
+  repeat rewrite (Hdiag 3%nat 0%nat ltac:(lia) ltac:(lia) ltac:(lia));
+  repeat rewrite (Hdiag 3%nat 1%nat ltac:(lia) ltac:(lia) ltac:(lia));
+  repeat rewrite (Hdiag 3%nat 2%nat ltac:(lia) ltac:(lia) ltac:(lia));
+  simpl; ring.
+Qed.

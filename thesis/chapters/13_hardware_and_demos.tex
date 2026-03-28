@@ -1,7 +1,7 @@
 \section{Hardware Implementation and Demonstrations}
 
 \begin{quote}
-\textit{Author's Note (Devon): I cannot tell you how satisfying it was to see the Verilog simulation output match the Python VM match the Coq extraction. Three completely independent implementations, written in three completely different languages, producing the \textbf{same answer}. That's not luck. That's not coincidence. That's what happens when your theory is actually correct. Or at least, correct enough to survive three different ``mechanics'' checking the same engine.}
+\textit{Author's Note (Devon): I cannot tell you how satisfying it was to see the Verilog simulation output match the Python VM match the Coq extraction. Three implementations---with the Python layer delegating to the extracted OCaml runner rather than reimplementing semantics---written across three different languages, producing the \textbf{same answer}. That's not luck. That's not coincidence. That's what happens when your theory is actually correct. Or at least, correct enough to survive three different ``mechanics'' checking the same engine.}
 \end{quote}
 
 \subsection{Why Hardware Matters}
@@ -11,7 +11,7 @@ A computational model is only as credible as its implementation. The Turing Mach
 The Thiele Machine is different: there is a \textbf{hardware implementation} in Verilog RTL that can be synthesized to real silicon. This serves three purposes:
 \begin{enumerate}
     \item \textbf{Realizability}: The abstract $\mu$-costs correspond to real physical resources (logic gates, flip-flops, clock cycles)
-    \item \textbf{Verification}: The 3-layer isomorphism (Coq $\leftrightarrow$ Python $\leftrightarrow$ RTL) ensures correctness across abstraction levels
+    \item \textbf{Verification}: The 3-layer comparison discipline (Coq $\leftrightarrow$ Python $\leftrightarrow$ RTL) provides correctness evidence across abstraction levels
     \item \textbf{Enforcement}: Hardware can physically enforce invariants that software might violate
 \end{enumerate}
 
@@ -19,12 +19,12 @@ The key insight is that the $\mu$-ledger's monotonicity is not just a theorem---
 
 \subsection{From Proofs to Silicon}
 
-This chapter traces the complete path from Coq proofs to synthesizable hardware:
+This chapter traces the path from Coq proofs to synthesizable hardware artifacts:
 \begin{itemize}
     \item Coq definitions are extracted to OCaml
-    \item OCaml semantics are mirrored in Python for testing
+    \item OCaml semantics are wrapped in a Python interface (delegation via subprocess, no reimplementation)
     \item Python behavior is implemented in Verilog RTL
-    \item Verilog is synthesized to FPGA bitstreams
+    \item Verilog is synthesized to FPGA targets when the required backend toolchain is present
 \end{itemize}
 
 This chapter documents the complete hardware implementation (RTL layer) and the demonstration suite showcasing the Thiele Machine's capabilities. The goal is rebuildability: a reader should be able to reconstruct the hardware pipeline and the demo protocols from the descriptions here without relying on hidden repository details.
@@ -44,12 +44,11 @@ The complete RTL consists of 3 synthesizable source files, 1 generated opcode he
 \hline
 \textbf{RTL Module} & \textbf{Lines} & \textbf{Purpose} \\
 \hline
-\texttt{thiele\_cpu\_kami.v} & 5,792 & Kami-generated CPU with all 31 opcodes \\
-\texttt{thiele\_cpu\_top.v} & 113 & Top-level wrapper for synthesis \\
+\texttt{thiele\_cpu\_kami.v} & 7,278 & Kami-generated CPU covering the active opcode set \\
+\texttt{thiele\_cpu\_top.v} & 222 & Top-level wrapper for synthesis \\
 \texttt{RegFile.v} & 100 & BSC standard library register file \\
-\texttt{generated\_opcodes.vh} & 40 & Opcode constants (generated from Coq) \\
-\texttt{thiele\_cpu\_kami\_tb.v} & 653 & Interactive testbench \\
-\texttt{thiele\_cpu\_kami\_batch\_tb.v} & 269 & Batch co-simulation testbench \\
+\texttt{generated\_opcodes.vh} & 47 & Opcode constants (generated from Coq) \\
+\texttt{thiele\_cpu\_kami\_tb.v} & 438 & Interactive testbench \\
 \hline
 \end{tabular}}
 \end{center}
@@ -131,11 +130,11 @@ localparam [7:0] OPCODE_HALT = 8'hFF;
 \end{itemize}
 
 
-These definitions are generated in \texttt{thielecpu/hardware/rtl/generated\_opcodes.vh} from the Coq instruction list, ensuring that the hardware and proofs share the same opcode mapping.
+These definitions are generated in \texttt{artifacts/synthesis\_gate/generated\_opcodes\_run2.vh} from the Coq instruction list, ensuring that the hardware and proofs share the same opcode mapping. (Note: the file was previously at \texttt{thielecpu/hardware/rtl/generated\_opcodes.vh}.)
 
 \subsection{$\mu$-ALU Design}
 
-The $\mu$-ALU is a specialized arithmetic unit for cost accounting:
+The $\mu$-ALU is a specialized arithmetic unit for cost accounting. \textbf{Note:} The module listing below is illustrative/conceptual. No standalone \texttt{mu\_alu.v} file exists; the actual $\mu$-accounting logic is integrated within the Kami-generated RTL (\texttt{thiele\_cpu\_kami.v}).
 \begin{lstlisting}
 module mu_alu (
     input wire clk,
@@ -202,7 +201,7 @@ endmodule
 \end{itemize}
 
 
-Key property: \textbf{$\mu$ only increases} at the ledger boundary. The $\mu$-ALU implements arithmetic in Q16.16 fixed-point (see \texttt{thielecpu/hardware/rtl/mu\_alu.v}), while the $\mu$-core enforces the monotonicity policy by gating ledger updates so that any decreasing update is rejected.
+Key property: \textbf{$\mu$ only increases} at the ledger boundary. The $\mu$-ALU logic is integrated within the Kami-generated RTL (\texttt{thiele\_cpu\_kami.v}), while the $\mu$-core enforces the monotonicity policy by gating ledger updates so that any decreasing update is rejected. (Note: There is no standalone \texttt{mu\_alu.v} file; the description above is conceptual.)
 
 \subsection{State Serialization}
 
@@ -251,7 +250,7 @@ module state_serializer (
         \item \textbf{module\_*\_var\_*:} Variable values within modules.
         \item \textbf{mu [31:0]:} Current $\mu$ ledger value.
         \item \textbf{pc [31:0]:} Program counter.
-        \item \textbf{halted [31:0]:} Halt flag (0 = running, 1 = halted).
+        \item \textbf{halted [31:0]:} Halt/status flag (0 = running, 2 = halted, 3 = error).
         \item \textbf{result [31:0]:} Final computation result.
         \item \textbf{program\_hash [31:0]:} Hash of program (for verification).
     \end{itemize}
@@ -269,7 +268,7 @@ module state_serializer (
 \begin{itemize}
     \item \textbf{Deterministic:} Same state always produces same byte stream (no ambiguity in field order, padding, or alignment).
     \item \textbf{Cross-platform:} Works identically on Python, OCaml, Verilog (no endianness issues, all big-endian).
-    \item \textbf{Verifiable:} The format is formally specified in the \texttt{thielecpu/canonical\_encoding.py} reference implementation, enabling mechanized verification.
+    \item \textbf{Verifiable:} The format is formally specified, enabling mechanized verification.
 \end{itemize}
 
 \textbf{Example serialization:} State with $\mu = 123$, $\text{pc} = 50$, 2 modules:
@@ -282,22 +281,18 @@ module state_serializer (
 \end{itemize}
 
 
-The serializer logic is integrated into the RTL testbench (\texttt{thielecpu/hardware/testbench/partition\_core\_tb.v}), which emits the Canonical Serialization Format (CSF) as documented in the \texttt{thielecpu/canonical\_encoding.py} reference implementation. JSON snapshots used by the isomorphism harness come from the RTL testbench (\texttt{thielecpu/hardware/testbench/thiele\_cpu\_tb.v}), not from a standalone serializer module.
+The serializer logic is integrated into the RTL testbench (\texttt{rtl\_harness/testbench/thiele\_cpu\_kami\_tb.v}), which emits the Canonical Serialization Format (CSF). JSON snapshots used by the isomorphism harness come from the RTL testbench (\texttt{thielecpu/hardware/testbench/thiele\_cpu\_tb.v}), not from a standalone serializer module.
 
 \subsection{Synthesis Results}
 
-Target: Xilinx 7-series (Artix-7)
+Target: Lattice ECP5 (ULX3S board), synthesized with Yosys + nextpnr-ecp5
 \begin{center}
 \begin{tabular}{|l|r|}
 \hline
 \textbf{Resource} & \textbf{Usage} \\
 \hline
-LUTs & 2,847 \\
-Flip-Flops & 1,234 \\
-Block RAM & 4 \\
-DSP Slices & 2 \\
-\hline
-Max Frequency & 125 MHz \\
+LUT4 & 31,228 / 83,640 (37\%) \\
+Block RAM (18Kb) & 8 \\
 \hline
 \end{tabular}
 \end{center}
@@ -367,12 +362,12 @@ Representative fuzzing harness: random instruction sequences test robustness:
     \item Error states properly flagged
 \end{itemize}
 
-\section{3-Layer Isomorphism Enforcement}
+\section{3-Layer Comparison Enforcement}
 
 
 The isomorphism tests verify identical behavior across:
 \begin{enumerate}
-    \item \textbf{Python VM}: executable reference semantics
+    \item \textbf{Python wrapper}: delegates to OCaml runner (state serialization/deserialization only, no opcode semantics)
     \item \textbf{Extracted Runner}: executable semantics extracted from the formal model
     \item \textbf{RTL Simulation}: hardware-level behavior from the Verilog core
 \end{enumerate}
@@ -396,7 +391,7 @@ def test_rtl_matches_python():
 
 \textbf{Code breakdown:}
 \begin{itemize}
-    \item \textbf{vm.execute(program)} — Runs program in Python VM. Returns ThieleState object with fields: pc (program counter), mu ($\mu$-budget remaining), regs (register values), halted (termination flag).
+    \item \textbf{vm.execute(program)} --- Runs program via the Python wrapper, which serializes state and delegates execution to the OCaml extracted runner. Returns VMState dataclass with fields: pc (program counter), mu ($\mu$-cost accumulated), regs (register values), halted (termination flag).
     
     \item \textbf{run\_rtl\_simulation(program)} — Runs program in RTL simulation (Verilog testbench compiled with iverilog). Returns dictionary parsed from JSON output: \texttt{\{"pc": 42, "mu": 1234, "regs": [0, 1, 2, ...], "halted": true\}}.
     
@@ -407,7 +402,7 @@ def test_rtl_matches_python():
     \item \textbf{assert python\_result.regs == rtl\_result["regs"]} — Compares register arrays element-wise. If unequal, data flow diverged (ALU bug, memory bug, or serialization bug).
 \end{itemize}
 
-\textbf{Why is this test critical?} The isomorphism property is the thesis's central claim: the Python VM, extracted runner, and RTL simulation are three implementations of the same abstract machine. This test falsifies the claim if any field differs. With 10,000 test traces passing, there's strong evidence that all three layers implement identical semantics.
+\textbf{Why is this test critical?} The comparison discipline is one of the thesis's central implementation claims: the Python VM, extracted runner, and RTL simulation are intended to implement the same abstract machine. This test falsifies that claim if any field differs. With a substantial randomized corpus passing on the supported setup, there's strong evidence that the layers implement matching semantics on the exercised gates.
 
 
 \section{Demonstration Suite}
@@ -470,7 +465,7 @@ Representative flagship output:
 
 \paragraph{Understanding the CHSH Flagship Demo:}
 
-\textbf{What is this demo?} The \textbf{CHSH flagship demonstration} is the thesis's showcase: an interactive program that runs the CHSH game, achieves quantum bounds, and generates verifiable receipts. It demonstrates all key features: partition-aware computation, quantum bound tracking, $\mu$-ledger accounting, and certificate generation.
+\textbf{What is this demo?} The \textbf{CHSH flagship demonstration} is the thesis's showcase: an interactive program that runs the CHSH game, tracks classical-versus-quantum bounds, and can emit verifiable artifacts. It demonstrates partition-aware computation, bound tracking, $\mu$-ledger accounting, and artifact generation.
 
 \textbf{Output breakdown:}
 \begin{itemize}
@@ -482,19 +477,19 @@ Representative flagship output:
     
     \item \textbf{mu-cost expended: 12,847} — Total $\mu$ consumed by this demonstration (partition discovery, CHSH trials, receipt generation). This number is deterministic for a given run (no randomness in $\mu$ accounting).
     
-    \item \textbf{Receipt generated: chsh\_receipt.json} — Cryptographic receipt file containing:
+    \item \textbf{Receipt generated: chsh\_receipt.json} — Illustrative signed artifact file containing:
     \begin{itemize}
         \item Program hash (verifies which code was executed).
         \item Trace hash (verifies execution path).
         \item Final state (pc, $\mu$, results).
-        \item Signature (proves receipt was generated by genuine Thiele Machine instance).
+        \item Signature (attests artifact integrity under the configured key).
     \end{itemize}
 \end{itemize}
 
 \textbf{Why is this the flagship?} This demo showcases:
 \begin{itemize}
     \item \textbf{Quantum advantage:} Achieves 85.32\% (impossible for classical).
-    \item \textbf{Verifiability:} Receipt proves result is genuine (no forgery possible).
+    \item \textbf{Verifiability:} Signed artifacts let an external verifier check integrity and replay assumptions.
     \item \textbf{Traceability:} $\mu$-cost shows computational effort (no free insight).
     \item \textbf{Reproducibility:} Anyone can run the demo and verify results.
 \end{itemize}
@@ -551,7 +546,7 @@ class ThieleVM:
 
 \paragraph{Understanding the Python VM Integration:}
 
-\textbf{What is this code?} The \textbf{ThieleVM class} is the Python reference implementation of the Thiele Machine. It executes programs with $\mu$-accounting, partition graph management, and state tracking. This is the \textit{ground truth} for semantics.
+\textbf{What is this code?} The code below is \textbf{illustrative/conceptual}. The actual Python module \texttt{thielecpu/vm.py} is a generated wrapper (produced by \texttt{scripts/forge\_vm.py}) that uses a \texttt{VMState} dataclass and \texttt{vm\_run()}/\texttt{vm\_apply()} functions. It serializes state and delegates all execution to the OCaml extracted runner via subprocess. There is no \texttt{ThieleVM} class in the actual codebase.
 
 \textbf{Class interface breakdown:}
 \begin{itemize}
@@ -577,7 +572,7 @@ class ThieleVM:
     \end{itemize}
 \end{itemize}
 
-\textbf{Why is this the reference implementation?} Python is human-readable, easily debuggable, and matches the Coq semantics (\texttt{ThieleMachine.v}) line-by-line. The RTL and extracted runner are tested against this implementation.
+\textbf{Why is this the reference implementation?} The Python module \texttt{thielecpu/vm.py} is a generated wrapper that serializes state and delegates execution to the OCaml extracted runner via subprocess. The extracted OCaml runner is the authoritative executable semantics, generated from \texttt{coq/kernel/VMStep.v}. The RTL and extracted runner are tested against each other for isomorphism.
 
 
 \subsection{Extracted Runner Integration}
@@ -594,7 +589,7 @@ $ ./extracted_vm_runner trace.txt
 
 \textbf{Command-line breakdown:}
 \begin{itemize}
-    \item \textbf{./extracted\_vm\_runner:} Compiled OCaml executable extracted from \texttt{ThieleMachine.v} via \texttt{Extraction "mu\_alu\_extracted.ml" ...}. Contains all definitions (mu\_step, mu\_exec, mu\_monotonicity proofs).
+    \item \textbf{./extracted\_vm\_runner:} Compiled OCaml executable extracted from \texttt{coq/kernel/VMStep.v} via \texttt{coq/Extraction.v} to \texttt{build/thiele\_core.ml}. Contains all definitions (vm\_step, vm\_exec, mu\_monotonicity proofs).
     
     \item \textbf{trace.txt:} Input file containing instruction sequence. Example:
     \begin{verbatim}
@@ -635,7 +630,7 @@ The RTL testbench reads hex programs and outputs JSON:
     \item \textbf{mu:} $\mu$-ledger from RTL (\texttt{cpu.mu\_ledger} register, 32-bit value, e.g., 500).
     \item \textbf{err:} Error flag from RTL (\texttt{cpu.error\_code} register: 0 = no error, 1 = MU\_VIOLATION, 2 = INVALID\_OPCODE).
     \item \textbf{regs:} Register file from RTL (\texttt{cpu.regfile[0:31]} array, 32 entries $\times$ 32 bits each).
-    \item \textbf{mem:} Memory contents from RTL (\texttt{cpu.mem.memory[0:4095]} array, 4096 words $\times$ 32 bits each).
+    \item \textbf{mem:} Memory contents from RTL (\texttt{cpu.mem.memory[0:65535]} array, 65,536 words $\times$ 32 bits each).
     \item \textbf{csrs:} Control/status registers from RTL (\texttt{cpu.csr\_mode}, \texttt{cpu.csr\_status}, etc.).
 \end{itemize}
 
@@ -658,7 +653,7 @@ The hardware implementation and demonstration suite establish:
     \item \textbf{Synthesizable RTL}: A complete Verilog implementation targeting FPGA synthesis
     \item \textbf{$\mu$-ALU}: Hardware-enforced cost accounting with no subtract path
     \item \textbf{State serialization}: JSON export for cross-layer verification
-    \item \textbf{3-layer isomorphism}: Verified identical behavior across Python/extracted/RTL
+    \item \textbf{3-layer comparison}: Verified matching behavior across Python/extracted/RTL on supported test/backend paths
     \item \textbf{Demonstrations}: Interactive showcases of capabilities
     \item \textbf{Benchmarks}: Performance measurements across layers
 \end{enumerate}

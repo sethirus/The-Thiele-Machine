@@ -1,23 +1,55 @@
-(** * Discrete Topology: Vertices, Edges, Faces, Euler Characteristic
+(** * DiscreteTopology: Vertices, Edges, Faces, Euler Characteristic
 
-    PURPOSE: Define topological properties of the partition graph.
-    This is Phase 1 of proving Einstein's equation emerges from VM dynamics.
+    WHY THIS FILE EXISTS:
+    To derive Einstein's equation from VM dynamics, we first need a
+    discrete topology on the partition graph. This file treats the
+    partition graph as a triangulated 2-manifold and defines its
+    topological invariants: vertices (nodes in module regions), edges
+    (node pairs co-occurring in a module), faces (modules themselves),
+    and the Euler characteristic chi = V - E + F.
 
-    APPROACH: The partition graph forms a discrete 2D manifold:
-    - Vertices: Nodes appearing in module regions
-    - Edges: Pairs of nodes appearing together in a module
-    - Faces: Modules themselves (triangles)
-    - Euler characteristic χ = V - E + F
+    THE CORE CLAIM:
+    Theorem triangulation_combinatorial_identity --
+      For a well-formed triangulated partition graph,
+      3 * V = 5 * E - 6 * F.
+    This identity is the combinatorial backbone of the discrete
+    Gauss-Bonnet theorem (proven in DiscreteGaussBonnet.v).
 
-    PLAN:
-    Phase 1: This file - topological definitions
-    Phase 2: Prove Gauss-Bonnet: Σ(angle_defects) = 5π×χ
-    Phase 3: Prove PNEW changes topology (ΔV, ΔE, ΔF)
-    Phase 4: Prove Δχ → ΔCurvature
-    Phase 5: Prove stress-energy drives PNEW frequency
-    Phase 6: Derive Einstein's equation
+    KEY SUPPORTING RESULTS:
+    - total_edges_eq_interior_plus_boundary: E = I + B
+    - edge_face_incidence_equation: 3 * F = 2 * I + B
+    - triangle_has_3_edges: each triangular module has exactly 3 edges
+    - edge_is_interior_or_boundary: every edge is classified as
+      interior (shared by 2 faces) or boundary (in 1 face)
+    - empty_graph_euler_char_0: chi of the empty graph is 0
 
-    REF: GRAVITY_PROOF_PLAN.md
+    PHYSICAL INTERPRETATION:
+    The partition graph is the discrete analogue of a Riemannian
+    manifold. Vertices are spacetime events, edges are causal
+    connections, and faces (modules) are elementary spacetime cells.
+    The Euler characteristic is a topological invariant that constrains
+    total curvature via Gauss-Bonnet. Changes in chi (caused by PNEW,
+    PSPLIT, PMERGE operations) correspond to topology change in
+    spacetime -- the discrete analogue of topology change in general
+    relativity.
+
+    FALSIFICATION:
+    Exhibit a well_formed_triangulated graph where the identity
+    3V = 5E - 6F fails. The proof derives this from the structural
+    invariants (E = I + B, 3F = 2I + B, B = 3 * chi) which are
+    enforced by well_formed_triangulated. If the identity fails,
+    one of these structural invariants must be wrong for the given
+    graph, contradicting well-formedness.
+
+    Fully proven, zero Admitted.
+
+    GRAVITY EMERGENCE PIPELINE (dependency chain):
+    1. This file — topological definitions and combinatorics
+    2. DiscreteGaussBonnet.v — sum(angle_defects) = 5 pi chi
+    3. PNEWTopologyChange.v — PNEW changes topology
+    4. TopologyCurvatureBridge.v — delta chi implies delta curvature
+    5. StressEnergyDynamics.v — stress-energy drives PNEW
+    6. EinsteinEmergence.v — derive discrete Einstein analogue
     *)
 
 (* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)

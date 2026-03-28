@@ -1,11 +1,31 @@
+(** * VMEncoding: Canonical binary encoding of VM state onto the kernel tape
+
+    WHY THIS FILE EXISTS:
+    The three-layer isomorphism (Coq = Python = Verilog) requires a single
+    canonical serialization of VMState. This file defines the roundtrip
+    encoding/decoding of every VMState field to and from a boolean tape
+    (list bool). Without a proven-faithful encoding, the kernel machine
+    and the VM would disagree on what a "state" means.
+
+    THE CORE CLAIM:
+    encode then decode is the identity: for every VMState s,
+      decode_vm_state (encode_vm_state s ++ rest) = Some (s, rest).
+    Each primitive type (nat, bool, list, string) has its own roundtrip
+    lemma, and they compose to give the full-state roundtrip.
+
+    FALSIFICATION:
+    If encode_vm_state followed by decode_vm_state does not return the
+    original state, then SimulationProof.v cannot establish bisimulation
+    between the VM and the kernel Turing machine, and the three-layer
+    isomorphism breaks.
+*)
+
 From Coq Require Import List Bool Arith.PeanoNat.
 From Coq Require Import Strings.String Strings.Ascii.
 Import ListNotations.
 Local Open Scope list_scope.
 
-Require Import Kernel.
-Require Import VMState.
-Require Import VMStep.
+From Kernel Require Import Kernel VMState VMStep.
 
 (** * Canonical binary encoding of VM state onto the kernel tape. *)
 
@@ -222,7 +242,8 @@ Qed.
 
 Definition encode_module_state (m : ModuleState) : list bool :=
   encode_nat_list m.(module_region) ++
-  encode_string_list m.(module_axioms).
+  encode_string_list m.(module_axioms) ++
+  encode_nat_list m.(module_mu_tensor).
 
 Definition decode_module_state (bs : list bool)
   : option (ModuleState * list bool) :=
@@ -230,8 +251,13 @@ Definition decode_module_state (bs : list bool)
   | Some (region, rest) =>
       match decode_string_list rest with
       | Some (axioms, rest') =>
-          Some ({| module_region := region;
-                  module_axioms := axioms |}, rest')
+          match decode_nat_list rest' with
+          | Some (tensor, rest'') =>
+              Some ({| module_region := region;
+                       module_axioms := axioms;
+                       module_mu_tensor := tensor |}, rest'')
+          | None => None
+          end
       | None => None
       end
   | None => None
@@ -244,13 +270,15 @@ Lemma decode_module_state_correct :
 Proof.
   intros m rest.
   unfold encode_module_state, decode_module_state.
-  rewrite <- app_assoc.
+  rewrite <- !app_assoc.
   rewrite decode_nat_list_correct.
   simpl.
   rewrite decode_string_list_correct.
   simpl.
-  destruct m as [region axioms].
-  reflexivity.
+  rewrite decode_nat_list_correct.
+  simpl.
+  destruct m as [region axioms tensor].
+  simpl. reflexivity.
 Qed.
 
 Definition encode_module_entry (entry : ModuleID * ModuleState) : list bool :=
@@ -282,18 +310,161 @@ Proof.
   reflexivity.
 Qed.
 
+(** ** CouplingData Encoding *)
+
+Definition encode_nat_pair (p : nat * nat) : list bool :=
+  let '(a, b) := p in encode_nat a ++ encode_nat b.
+
+Definition decode_nat_pair (bs : list bool) : option ((nat * nat) * list bool) :=
+  match decode_nat bs with
+  | Some (a, rest) =>
+      match decode_nat rest with
+      | Some (b, rest') => Some ((a, b), rest')
+      | None => None
+      end
+  | None => None
+  end.
+
+Lemma decode_nat_pair_correct :
+  forall p rest,
+    decode_nat_pair (encode_nat_pair p ++ rest) = Some (p, rest).
+Proof.
+  intros [a b] rest.
+  unfold encode_nat_pair, decode_nat_pair.
+  rewrite <- app_assoc.
+  rewrite decode_nat_correct. simpl.
+  rewrite decode_nat_correct. simpl.
+  reflexivity.
+Qed.
+
+Definition encode_coupling_data (c : CouplingData) : list bool :=
+  encode_list encode_nat_pair c.(coupling_pairs) ++
+  encode_string c.(coupling_label).
+
+Definition decode_coupling_data (bs : list bool) : option (CouplingData * list bool) :=
+  match decode_sequence decode_nat_pair bs with
+  | Some (pairs, rest) =>
+      match decode_string rest with
+      | Some (label, rest') =>
+          Some ({| coupling_pairs := pairs; coupling_label := label |}, rest')
+      | None => None
+      end
+  | None => None
+  end.
+
+Lemma decode_coupling_data_correct :
+  forall c rest,
+    decode_coupling_data (encode_coupling_data c ++ rest) = Some (c, rest).
+Proof.
+  intros c rest.
+  unfold encode_coupling_data, decode_coupling_data.
+  rewrite <- app_assoc.
+  rewrite decode_sequence_correct with (xs := coupling_pairs c).
+  - simpl. rewrite decode_string_correct. simpl.
+    destruct c. reflexivity.
+  - apply decode_nat_pair_correct.
+Qed.
+
+(** ** MorphismState Encoding *)
+
+Definition encode_morphism_state (ms : MorphismState) : list bool :=
+  encode_nat ms.(morph_source) ++
+  encode_nat ms.(morph_target) ++
+  encode_coupling_data ms.(morph_coupling) ++
+  encode_bool ms.(morph_is_identity).
+
+Definition decode_morphism_state (bs : list bool) : option (MorphismState * list bool) :=
+  match decode_nat bs with
+  | Some (src, rest) =>
+      match decode_nat rest with
+      | Some (tgt, rest') =>
+          match decode_coupling_data rest' with
+          | Some (coupling, rest'') =>
+              match decode_bool rest'' with
+              | Some (is_id, rest''') =>
+                  Some ({| morph_source := src;
+                           morph_target := tgt;
+                           morph_coupling := coupling;
+                           morph_is_identity := is_id |}, rest''')
+              | None => None
+              end
+          | None => None
+          end
+      | None => None
+      end
+  | None => None
+  end.
+
+Lemma decode_morphism_state_correct :
+  forall ms rest,
+    decode_morphism_state (encode_morphism_state ms ++ rest) = Some (ms, rest).
+Proof.
+  intros ms rest.
+  unfold encode_morphism_state, decode_morphism_state.
+  (* Handle associativity: (((a ++ b) ++ c) ++ d) ++ rest -> a ++ (b ++ (c ++ (d ++ rest))) *)
+  rewrite <- !app_assoc.
+  (* Now: encode_nat src ++ (encode_nat tgt ++ (encode_coupling_data ++ (encode_bool ++ rest))) *)
+  rewrite decode_nat_correct.
+  simpl (match Some _ with | Some (_, _) => _ | None => _ end).
+  rewrite decode_nat_correct.
+  simpl (match Some _ with | Some (_, _) => _ | None => _ end).
+  rewrite decode_coupling_data_correct.
+  simpl (match Some _ with | Some (_, _) => _ | None => _ end).
+  rewrite decode_bool_correct.
+  simpl (match Some _ with | Some (_, _) => _ | None => _ end).
+  destruct ms. reflexivity.
+Qed.
+
+Definition encode_morphism_entry (entry : MorphismID * MorphismState) : list bool :=
+  let '(mid, ms) := entry in
+  encode_nat mid ++ encode_morphism_state ms.
+
+Definition decode_morphism_entry (bs : list bool)
+  : option ((MorphismID * MorphismState) * list bool) :=
+  match decode_nat bs with
+  | Some (mid, rest) =>
+      match decode_morphism_state rest with
+      | Some (ms, rest') => Some ((mid, ms), rest')
+      | None => None
+      end
+  | None => None
+  end.
+
+Lemma decode_morphism_entry_correct :
+  forall entry rest,
+    decode_morphism_entry (encode_morphism_entry entry ++ rest) = Some (entry, rest).
+Proof.
+  intros [mid ms] rest.
+  unfold encode_morphism_entry, decode_morphism_entry.
+  rewrite <- app_assoc.
+  rewrite decode_nat_correct. simpl.
+  rewrite decode_morphism_state_correct. reflexivity.
+Qed.
+
 Definition encode_partition_graph (g : PartitionGraph) : list bool :=
   encode_nat g.(pg_next_id) ++
-  encode_list encode_module_entry g.(pg_modules).
+  encode_list encode_module_entry g.(pg_modules) ++
+  encode_nat g.(pg_next_morph_id) ++
+  encode_list encode_morphism_entry g.(pg_morphisms).
 
 Definition decode_partition_graph (bs : list bool)
   : option (PartitionGraph * list bool) :=
   match decode_nat bs with
-  | Some (next_id, rest) =>
-      match decode_sequence decode_module_entry rest with
-      | Some (modules, rest') =>
-          Some ({| pg_next_id := next_id;
-                  pg_modules := modules |}, rest')
+  | Some (next_id, rest1) =>
+      match decode_sequence decode_module_entry rest1 with
+      | Some (modules, rest2) =>
+          match decode_nat rest2 with
+          | Some (next_morph_id, rest3) =>
+              match decode_sequence decode_morphism_entry rest3 with
+              | Some (morphisms, rest4) =>
+                  Some ({| pg_next_id := next_id;
+                           pg_modules := modules;
+                           pg_next_morph_id := next_morph_id;
+                           pg_morphisms := morphisms |}, rest4)
+              | None => None
+              end
+          | None => None
+          end
       | None => None
       end
   | None => None
@@ -306,13 +477,14 @@ Lemma decode_partition_graph_correct :
 Proof.
   intros g rest.
   unfold encode_partition_graph, decode_partition_graph.
-  rewrite <- app_assoc.
-  rewrite decode_nat_correct.
-  simpl.
+  rewrite <- !app_assoc.
+  rewrite decode_nat_correct. simpl.
   rewrite decode_sequence_correct with (xs := pg_modules g).
-  - simpl.
-    destruct g as [next_id modules].
-    reflexivity.
+  - simpl. rewrite decode_nat_correct. simpl.
+    rewrite decode_sequence_correct with (xs := pg_morphisms g).
+    + simpl. destruct g as [next_id modules next_morph_id morphisms].
+      reflexivity.
+    + apply decode_morphism_entry_correct.
   - apply decode_module_entry_correct.
 Qed.
 
@@ -780,25 +952,25 @@ Definition compile_update_err (new_err : bool) : program :=
   (* State 3: if true, branch back to 2; if false, go to state 4 *)
   (* State 4: write new_err *)
 
-(** Generate a program that applies a VM operation to the encoded state *)
+(** Generate a program that applies a VM operation to the encoded state.
+    NOTE: This is structural scaffolding. All arms return [T_Halt] because
+    full tape-level operation encoding requires variable-length graph parsing
+    which is not yet implemented. The correctness of VM operations is
+    established instead by decode_vm_state_correct (roundtrip) and
+    SimulationProof.v (bisimulation). *)
 Definition compile_vm_operation (instr : vm_instruction) : program :=
-  (* NOTE: Full VM operation encoding is complex and requires variable-length graph parsing.
-     This is validated by executable Python VM tests instead of formal proof.
-     See: tests/test_vm_encoding_validation.py for validation coverage *)
-  (* Complex: requires parsing variable-sized graph to reach CSR region *)
-  (* For now: implement operations that only affect fixed header *)
   match instr with
   | instr_pnew region cost =>
       (* Would need to update graph encoding with new partition *)
-      [T_Halt]  (* Placeholder - validated by Python VM *)
+      [T_Halt]  (* Placeholder — graph update not yet implemented *)
   | instr_psplit module left_region right_region cost =>
-      (* Complex graph manipulation - validated by Python VM *)
+      (* Not yet implemented at tape level *)
       [T_Halt]
   | instr_pmerge m1 m2 cost =>
-      (* Complex graph manipulation - validated by Python VM *)
+      (* Not yet implemented at tape level *)
       [T_Halt]
-  | instr_lassert module formula _ cost =>
-      (* Update graph with axiom, update CSR status/err - validated by Python VM *)
+  | instr_lassert _ _ _ _ cost =>
+      (* Not yet implemented at tape level *)
       [T_Halt]
   | instr_ljoin cert1 cert2 cost =>
       (* Update CSR cert_addr and err based on cert comparison *)
@@ -807,8 +979,7 @@ Definition compile_vm_operation (instr : vm_instruction) : program :=
       (* No state change beyond pc/μ *)
       [T_Halt]
   | instr_emit module payload cost =>
-      (* Update CSR cert_addr - requires navigating past variable graph *)
-      (* NOTE: Graph parsing implementation validated by Python VM tests *)
+      (* Not yet implemented at tape level *)
       [T_Halt]
   | instr_reveal module bits cert cost =>
       (* REVEAL opcode: Update CSR cert_addr with revelation certificate *)
@@ -883,16 +1054,29 @@ Definition compile_vm_operation (instr : vm_instruction) : program :=
       [T_Halt]
   | instr_lui _ _ _ =>
       [T_Halt]
+  | instr_tensor_set _ _ _ _ _ =>
+      [T_Halt]
+  | instr_tensor_get _ _ _ _ _ =>
+      [T_Halt]
+  (* Phase 7 categorical instructions - not yet implemented at tape level *)
+  | instr_morph _ _ _ _ _ =>
+      [T_Halt]
+  | instr_compose _ _ _ _ =>
+      [T_Halt]
+  | instr_morph_id _ _ _ =>
+      [T_Halt]
+  | instr_morph_delete _ _ =>
+      [T_Halt]
+  | instr_morph_assert _ _ _ _ =>
+      [T_Halt]
+  | instr_morph_tensor _ _ _ _ =>
+      [T_Halt]
+  | instr_morph_get _ _ _ _ =>
+      [T_Halt]
   end.
 
 (** ** Layout bounds proof *)
-(* NOTE: Bounds proof requires proving decode only succeeds on sufficiently long tapes.
-   This property is validated by executable tests in tests/test_vm_encoding_bounds.py
-   The proof would establish: decode(encode(s)) = Some s only when tape length >= required_size(s)
-   
-   The property is validated by executable tests covering:
-   - Test that decode fails on truncated tapes
-   - Test that decode succeeds on properly sized tapes
-   - Test boundary conditions (minimum valid size)
-*)
+(* NOTE: Bounds proof would establish that decode only succeeds on
+   sufficiently long tapes: decode(encode(s)) = Some s only when
+   tape length >= required_size(s). Not yet formally proven. *)
 

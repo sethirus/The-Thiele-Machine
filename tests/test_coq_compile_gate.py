@@ -39,14 +39,9 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 COQ_DIR = REPO_ROOT / "coq"
 COQ_PROJECT = COQ_DIR / "_CoqProject"
 
-# Files that MUST now be registered and compiled after Phase-A fix
-REQUIRED_KERNEL_PHYSICS_FILES = [
-    "kernel/GeodesicCompleteness.v",
-    "kernel/InverseSquareLaw.v",
-    "kernel/LorentzSignature.v",
-    "kernel/PoissonEquation.v",
-    "MinimalExtraction.v",
-]
+# Phase-A physics files and MinimalExtraction.v have been archived.
+# Extraction.v is the sole active top-level file.
+REQUIRED_KERNEL_PHYSICS_FILES: list[str] = []
 
 # Production kernel files where bare (non-Section) Axiom/Parameter are forbidden
 KERNEL_PROD_FILES = list((COQ_DIR / "kernel").glob("*.v"))

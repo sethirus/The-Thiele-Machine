@@ -1,122 +1,122 @@
-DIGEST 3a3824d29a6aa2f2ae2f302ddc727c0f
+DIGEST bdb18dedf4bb925fd440a53afb3e5eb5
 FKernel.NoGoSensitivity
-R24:27 Coq.Lists.List <> <> lib
-R29:31 Coq.micromega.Lia <> <> lib
-R33:46 Coq.Arith.PeanoNat <> <> lib
-R77:82 Kernel.VMStep <> <> lib
-R93:105 Coq.Lists.List ListNotations <> mod
-R221:231 Kernel.MuCostModel <> <> lib
-def 604:612 <> WeightMul
-R636:639 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R617:620 Coq.Init.Datatypes <> list ind
-R622:635 Kernel.VMStep VMStep vm_instruction ind
-R640:642 Coq.Init.Datatypes <> nat ind
-def 657:677 <> weight_multiplicative
-R684:692 Kernel.NoGoSensitivity <> WeightMul def
-binder 680:680 <> w:1
-R715:720 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R711:713 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R707:707 Kernel.NoGoSensitivity <> w:1 var
-R709:710 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-binder 728:729 <> t1:2
-binder 731:732 <> t2:3
-R747:749 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R735:735 Kernel.NoGoSensitivity <> w:1 var
-R740:743 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R738:739 Kernel.NoGoSensitivity <> t1:2 var
-R744:745 Kernel.NoGoSensitivity <> t2:3 var
-R754:756 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R750:750 Kernel.NoGoSensitivity <> w:1 var
-R752:753 Kernel.NoGoSensitivity <> t1:2 var
-R757:757 Kernel.NoGoSensitivity <> w:1 var
-R759:760 Kernel.NoGoSensitivity <> t2:3 var
-def 775:779 <> w_pow
-R786:788 Coq.Init.Datatypes <> nat ind
-binder 782:782 <> k:4
-R793:801 Kernel.NoGoSensitivity <> WeightMul def
-binder 812:812 <> t:5
-R817:823 Coq.Arith.PeanoNat Nat pow def
-R825:825 Kernel.NoGoSensitivity <> k:4 var
-R828:833 Coq.Init.Datatypes <> length def
-R835:835 Kernel.NoGoSensitivity <> t:5 var
-prf 914:924 <> w_pow_empty
-binder 935:935 <> k:6
-R948:950 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R938:942 Kernel.NoGoSensitivity <> w_pow def
-R944:944 Kernel.NoGoSensitivity <> k:6 var
-R946:947 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R979:983 Kernel.NoGoSensitivity <> w_pow def
-prf 1067:1082 <> w_pow_sequential
-binder 1093:1093 <> k:7
-binder 1095:1096 <> t1:8
-binder 1098:1099 <> t2:9
-R1122:1124 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1104:1108 Kernel.NoGoSensitivity <> w_pow def
-R1110:1110 Kernel.NoGoSensitivity <> k:7 var
-R1115:1118 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R1113:1114 Kernel.NoGoSensitivity <> t1:8 var
-R1119:1120 Kernel.NoGoSensitivity <> t2:9 var
-R1135:1137 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R1125:1129 Kernel.NoGoSensitivity <> w_pow def
-R1131:1131 Kernel.NoGoSensitivity <> k:7 var
-R1133:1134 Kernel.NoGoSensitivity <> t1:8 var
-R1138:1142 Kernel.NoGoSensitivity <> w_pow def
-R1144:1144 Kernel.NoGoSensitivity <> k:7 var
-R1146:1147 Kernel.NoGoSensitivity <> t2:9 var
-R1184:1188 Kernel.NoGoSensitivity <> w_pow def
-R1201:1210 Coq.Lists.List <> app_length thm
-R1201:1210 Coq.Lists.List <> app_length thm
-R1201:1210 Coq.Lists.List <> app_length thm
-R1266:1278 Coq.Arith.PeanoNat Nat pow_add_r thm
-R1266:1278 Coq.Arith.PeanoNat Nat pow_add_r thm
-R1266:1278 Coq.Arith.PeanoNat Nat pow_add_r thm
-prf 1353:1372 <> w_pow_multiplicative
-binder 1383:1383 <> k:10
-R1386:1406 Kernel.NoGoSensitivity <> weight_multiplicative def
-R1409:1413 Kernel.NoGoSensitivity <> w_pow def
-R1415:1415 Kernel.NoGoSensitivity <> k:10 var
-R1454:1464 Kernel.NoGoSensitivity <> w_pow_empty thm
-R1454:1464 Kernel.NoGoSensitivity <> w_pow_empty thm
-R1491:1506 Kernel.NoGoSensitivity <> w_pow_sequential thm
-R1491:1506 Kernel.NoGoSensitivity <> w_pow_sequential thm
-prf 1888:1922 <> MultiplicativeWeightFamily_Infinite
-R1928:1934 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R1955:1960 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R1942:1945 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1939:1941 Coq.Init.Datatypes <> nat ind
-R1946:1954 Kernel.NoGoSensitivity <> WeightMul def
-binder 1935:1935 <> w:11
-R1961:1961 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R1999:2008 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2061:2061 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 1969:1969 <> k:12
-R1972:1992 Kernel.NoGoSensitivity <> weight_multiplicative def
-R1995:1995 Kernel.NoGoSensitivity <> w:11 var
-R1997:1997 Kernel.NoGoSensitivity <> k:12 var
-binder 2016:2017 <> k1:13
-binder 2019:2020 <> k2:14
-R2031:2034 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2025:2028 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R2023:2024 Kernel.NoGoSensitivity <> k1:13 var
-R2029:2030 Kernel.NoGoSensitivity <> k2:14 var
-R2035:2041 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2043:2044 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 2042:2042 <> t:15
-R2051:2054 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R2045:2045 Kernel.NoGoSensitivity <> w:11 var
-R2050:2050 Kernel.NoGoSensitivity <> t:15 var
-R2047:2048 Kernel.NoGoSensitivity <> k1:13 var
-R2055:2055 Kernel.NoGoSensitivity <> w:11 var
-R2060:2060 Kernel.NoGoSensitivity <> t:15 var
-R2057:2058 Kernel.NoGoSensitivity <> k2:14 var
-R2080:2084 Kernel.NoGoSensitivity <> w_pow def
-R2080:2084 Kernel.NoGoSensitivity <> w_pow def
-R2115:2134 Kernel.NoGoSensitivity <> w_pow_multiplicative thm
-R2115:2134 Kernel.NoGoSensitivity <> w_pow_multiplicative thm
-R2171:2171 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R2184:2184 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R2172:2181 Kernel.VMStep VMStep instr_halt constr
-R2171:2171 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R2184:2184 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R2172:2181 Kernel.VMStep VMStep instr_halt constr
-R2198:2202 Kernel.NoGoSensitivity <> w_pow def
+R987:990 Coq.Lists.List <> <> lib
+R992:994 Coq.micromega.Lia <> <> lib
+R996:1009 Coq.Arith.PeanoNat <> <> lib
+R1040:1045 Kernel.VMStep <> <> lib
+R1056:1068 Coq.Lists.List ListNotations <> mod
+R1183:1193 Kernel.MuCostModel <> <> lib
+def 1208:1216 <> WeightMul
+R1240:1243 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1221:1224 Coq.Init.Datatypes <> list ind
+R1226:1239 Kernel.VMStep VMStep vm_instruction ind
+R1244:1246 Coq.Init.Datatypes <> nat ind
+def 1261:1281 <> weight_multiplicative
+R1288:1296 Kernel.NoGoSensitivity <> WeightMul def
+binder 1284:1284 <> w:1
+R1319:1324 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1315:1317 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1311:1311 Kernel.NoGoSensitivity <> w:1 var
+R1313:1314 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+binder 1332:1333 <> t1:2
+binder 1335:1336 <> t2:3
+R1351:1353 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1339:1339 Kernel.NoGoSensitivity <> w:1 var
+R1344:1347 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R1342:1343 Kernel.NoGoSensitivity <> t1:2 var
+R1348:1349 Kernel.NoGoSensitivity <> t2:3 var
+R1358:1360 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R1354:1354 Kernel.NoGoSensitivity <> w:1 var
+R1356:1357 Kernel.NoGoSensitivity <> t1:2 var
+R1361:1361 Kernel.NoGoSensitivity <> w:1 var
+R1363:1364 Kernel.NoGoSensitivity <> t2:3 var
+def 1379:1383 <> w_pow
+R1390:1392 Coq.Init.Datatypes <> nat ind
+binder 1386:1386 <> k:4
+R1397:1405 Kernel.NoGoSensitivity <> WeightMul def
+binder 1416:1416 <> t:5
+R1421:1427 Coq.Arith.PeanoNat Nat pow def
+R1429:1429 Kernel.NoGoSensitivity <> k:4 var
+R1432:1437 Coq.Init.Datatypes <> length def
+R1439:1439 Kernel.NoGoSensitivity <> t:5 var
+prf 1518:1528 <> w_pow_empty
+binder 1539:1539 <> k:6
+R1552:1554 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1542:1546 Kernel.NoGoSensitivity <> w_pow def
+R1548:1548 Kernel.NoGoSensitivity <> k:6 var
+R1550:1551 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1583:1587 Kernel.NoGoSensitivity <> w_pow def
+prf 1671:1686 <> w_pow_sequential
+binder 1697:1697 <> k:7
+binder 1699:1700 <> t1:8
+binder 1702:1703 <> t2:9
+R1726:1728 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1708:1712 Kernel.NoGoSensitivity <> w_pow def
+R1714:1714 Kernel.NoGoSensitivity <> k:7 var
+R1719:1722 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R1717:1718 Kernel.NoGoSensitivity <> t1:8 var
+R1723:1724 Kernel.NoGoSensitivity <> t2:9 var
+R1739:1741 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R1729:1733 Kernel.NoGoSensitivity <> w_pow def
+R1735:1735 Kernel.NoGoSensitivity <> k:7 var
+R1737:1738 Kernel.NoGoSensitivity <> t1:8 var
+R1742:1746 Kernel.NoGoSensitivity <> w_pow def
+R1748:1748 Kernel.NoGoSensitivity <> k:7 var
+R1750:1751 Kernel.NoGoSensitivity <> t2:9 var
+R1788:1792 Kernel.NoGoSensitivity <> w_pow def
+R1805:1814 Coq.Lists.List <> app_length thm
+R1805:1814 Coq.Lists.List <> app_length thm
+R1805:1814 Coq.Lists.List <> app_length thm
+R1870:1882 Coq.Arith.PeanoNat Nat pow_add_r thm
+R1870:1882 Coq.Arith.PeanoNat Nat pow_add_r thm
+R1870:1882 Coq.Arith.PeanoNat Nat pow_add_r thm
+prf 1957:1976 <> w_pow_multiplicative
+binder 1987:1987 <> k:10
+R1990:2010 Kernel.NoGoSensitivity <> weight_multiplicative def
+R2013:2017 Kernel.NoGoSensitivity <> w_pow def
+R2019:2019 Kernel.NoGoSensitivity <> k:10 var
+R2058:2068 Kernel.NoGoSensitivity <> w_pow_empty thm
+R2058:2068 Kernel.NoGoSensitivity <> w_pow_empty thm
+R2095:2110 Kernel.NoGoSensitivity <> w_pow_sequential thm
+R2095:2110 Kernel.NoGoSensitivity <> w_pow_sequential thm
+prf 2492:2526 <> MultiplicativeWeightFamily_Infinite
+R2532:2538 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2559:2564 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2546:2549 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2543:2545 Coq.Init.Datatypes <> nat ind
+R2550:2558 Kernel.NoGoSensitivity <> WeightMul def
+binder 2539:2539 <> w:11
+R2565:2565 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2603:2612 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2665:2665 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 2573:2573 <> k:12
+R2576:2596 Kernel.NoGoSensitivity <> weight_multiplicative def
+R2599:2599 Kernel.NoGoSensitivity <> w:11 var
+R2601:2601 Kernel.NoGoSensitivity <> k:12 var
+binder 2620:2621 <> k1:13
+binder 2623:2624 <> k2:14
+R2635:2638 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2629:2632 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R2627:2628 Kernel.NoGoSensitivity <> k1:13 var
+R2633:2634 Kernel.NoGoSensitivity <> k2:14 var
+R2639:2645 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2647:2648 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2646:2646 <> t:15
+R2655:2658 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R2649:2649 Kernel.NoGoSensitivity <> w:11 var
+R2654:2654 Kernel.NoGoSensitivity <> t:15 var
+R2651:2652 Kernel.NoGoSensitivity <> k1:13 var
+R2659:2659 Kernel.NoGoSensitivity <> w:11 var
+R2664:2664 Kernel.NoGoSensitivity <> t:15 var
+R2661:2662 Kernel.NoGoSensitivity <> k2:14 var
+R2684:2688 Kernel.NoGoSensitivity <> w_pow def
+R2684:2688 Kernel.NoGoSensitivity <> w_pow def
+R2719:2738 Kernel.NoGoSensitivity <> w_pow_multiplicative thm
+R2719:2738 Kernel.NoGoSensitivity <> w_pow_multiplicative thm
+R2775:2775 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2788:2788 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2776:2785 Kernel.VMStep VMStep instr_halt constr
+R2775:2775 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2788:2788 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2776:2785 Kernel.VMStep VMStep instr_halt constr
+R2802:2806 Kernel.NoGoSensitivity <> w_pow def

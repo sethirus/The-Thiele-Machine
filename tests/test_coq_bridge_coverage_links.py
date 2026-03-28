@@ -57,17 +57,11 @@ def compute_hash_chain(text: str) -> bool:
 
 def test_extraction_requires_present() -> None:
     extraction = _read("coq/Extraction.v")
-    minimal = _read("coq/MinimalExtraction.v")
     assert require_Extraction(extraction)
-    assert require_Extraction(minimal)
     assert require_ExtrOcamlBasic(extraction)
-    assert require_ExtrOcamlBasic(minimal)
     assert require_VMState(extraction)
-    assert require_VMState(minimal)
     assert require_VMStep(extraction)
-    assert require_VMStep(minimal)
     assert require_SimulationProof(extraction)
-    assert require_SimulationProof(minimal)
 
 
 def test_kernel_contract_declarations_present() -> None:

@@ -34,7 +34,7 @@
 From Coq Require Import List QArith Qabs Lia Qround Qminmax Lra.
 Import ListNotations.
 
-From Kernel Require Import VMState VMStep.
+From Kernel Require Import VMState VMStep SimulationProof MuCostModel.
 
 (** CHSHTrial: One measurement in the Bell experiment.
 
@@ -69,7 +69,7 @@ Record CHSHTrial := {
   trial_b : nat   (* Bob's output: 0 or 1 *)
 }.
 
-(** extract_chsh_trials_from_trace: Scan trace and collect CHSH trials.
+(** extract_chsh_trials_from_trace: Execute trace and collect valid CHSH trials.
 
     WHY:
     The VM trace is a list of instructions. Some are instr_chsh_trial (x,y,a,b,mu).
@@ -77,22 +77,21 @@ Record CHSHTrial := {
 
     THE ALGORITHM:
     1. Look at current PC position in trace
-    2. If instruction is instr_chsh_trial: record (x,y,a,b), advance PC
-    3. If instruction is something else: skip, advance PC
+    2. Step the current instruction using the actual vm_apply semantics
+    3. If the executed instruction is a valid instr_chsh_trial: record (x,y,a,b)
+    4. Otherwise: continue without recording a trial
     4. Repeat until fuel exhausted or trace ends
 
     WHY FUEL:
     Coq requires proof of termination. Fuel bounds the number of steps. In
     practice, set fuel ≥ trace length.
 
-    WHY ADVANCE PC:
-    This simulates VM execution at the extraction level. We don't actually
-    execute instructions (that's vm_step), but we track where we are in the
-    trace to know which instruction we're looking at.
-
-    THE STATE UPDATES:
-    For non-chsh_trial instructions, we advance PC but don't change other state.
-    For chsh_trial, we also add μ_delta to vm_mu (tracking cost).
+    WHY USE vm_apply:
+    CHSH extraction must follow the same control-flow and validity checks as the
+    machine itself. JUMP/JNEZ/CALL/RET can change the PC, and invalid CHSH_TRIAL
+    instructions latch an error without contributing a witness bucket. Using
+    vm_apply keeps extraction aligned with actual execution rather than a simple
+    linear scan.
 
     WHY THIS MATTERS:
     This is HOW receipts are extracted. In Python, receipts are JSON objects.
@@ -103,52 +102,270 @@ Record CHSHTrial := {
     Execute a trace with N chsh_trial instructions. This function should return
     a list of length N. If not, it's broken.
 *)
-Fixpoint extract_chsh_trials_from_trace
-  (fuel : nat) (trace : list vm_instruction) (s : VMState) : list CHSHTrial :=
-  match fuel with
-  | O => []
-  | S fuel' =>
-      match nth_error trace (s.(vm_pc)) with
-      | None => []
-      | Some instr =>
-          match instr with
-          | instr_chsh_trial x y a b mu_delta =>
-              (* CHSH trial instruction: record (x,y,a,b) *)
-              let trial := {| trial_x := x;
-                             trial_y := y;
-                             trial_a := a;
-                             trial_b := b |} in
-              trial :: extract_chsh_trials_from_trace fuel' trace 
-                {| vm_graph := s.(vm_graph);
-                   vm_csrs := s.(vm_csrs);
-                   vm_regs := s.(vm_regs);
-                   vm_mem := s.(vm_mem);
-                   vm_pc := S s.(vm_pc);
-                   vm_mu := s.(vm_mu) + mu_delta;
-                   vm_mu_tensor := s.(vm_mu_tensor);
-                   vm_err := s.(vm_err);
-                   vm_logic_acc := s.(vm_logic_acc);
-                   vm_mstatus := s.(vm_mstatus);
-                   vm_witness := s.(vm_witness);
-                   vm_certified := s.(vm_certified) |}
-          | _ =>
-              (* Other instructions: skip and continue *)
-              extract_chsh_trials_from_trace fuel' trace
-                {| vm_graph := s.(vm_graph);
-                   vm_csrs := s.(vm_csrs);
-                   vm_regs := s.(vm_regs);
-                   vm_mem := s.(vm_mem);
-                   vm_pc := S s.(vm_pc);
-                   vm_mu := s.(vm_mu);
-                   vm_mu_tensor := s.(vm_mu_tensor);
-                   vm_err := s.(vm_err);
-                   vm_logic_acc := s.(vm_logic_acc);
-                   vm_mstatus := s.(vm_mstatus);
-                   vm_witness := s.(vm_witness);
-                   vm_certified := s.(vm_certified) |}
-          end
-      end
+Definition executed_chsh_trial_of_instruction (instr : vm_instruction) : option CHSHTrial :=
+  match instr with
+  | instr_chsh_trial x y a b _ =>
+      if chsh_bits_ok x y a b then
+        Some {| trial_x := x;
+                trial_y := y;
+                trial_a := a;
+                trial_b := b |}
+      else
+        None
+  | _ => None
   end.
+
+    Fixpoint extract_chsh_trials_from_trace
+      (fuel : nat) (trace : list vm_instruction) (s : VMState) : list CHSHTrial :=
+      match fuel with
+      | O => []
+      | S fuel' =>
+        match nth_error trace (s.(vm_pc)) with
+        | None => []
+        | Some instr =>
+          let s' := vm_apply s instr in
+          match executed_chsh_trial_of_instruction instr with
+          | Some trial => trial :: extract_chsh_trials_from_trace fuel' trace s'
+          | None => extract_chsh_trials_from_trace fuel' trace s'
+          end
+        end
+      end.
+
+Definition valid_chsh_trial (t : CHSHTrial) : Prop :=
+  chsh_bits_ok t.(trial_x) t.(trial_y) t.(trial_a) t.(trial_b) = true.
+
+Definition record_extracted_trial (wc : WitnessCounts) (t : CHSHTrial) : WitnessCounts :=
+  record_trial wc t.(trial_x) t.(trial_y) t.(trial_a) t.(trial_b).
+
+Lemma executed_chsh_trial_of_instruction_valid_and_cost_free :
+  forall instr t,
+    executed_chsh_trial_of_instruction instr = Some t ->
+    valid_chsh_trial t /\
+    forall s, mu_cost_of_instr instr s = 0%nat.
+Proof.
+  intros instr t Hexec.
+  destruct instr as
+    [region cost
+    | module left right cost
+    | m1 m2 cost
+    | module formula cert cost
+    | cert1 cert2 cost
+    | module cost
+    | module evidence cost
+    | dst src cost
+    | dst imm cost
+    | dst rs_addr cost
+    | rs_addr src cost
+    | dst rs1 rs2 cost
+    | dst rs1 rs2 cost
+    | target cost
+    | rs target cost
+    | target cost
+    | cost
+    | x y a b cost
+    | dst addr cost
+    | dst src cost
+    | a b cost
+    | dst src cost
+    | module payload cost
+    | module bits cert cost
+    | payload cost
+    | cost
+    | label cost
+    | dst channel_idx value bits cost
+    | channel_idx src cost
+    | dst rs_addr cost
+    | rs_addr src cost
+    | delta_mu
+    | dst rs1 rs2 cost
+    | dst rs1 rs2 cost
+    | dst rs1 rs2 cost
+    | dst rs1 rs2 cost
+    | dst rs1 rs2 cost
+    | dst imm cost
+    | module i j value cost
+    | dst module i j cost
+    (** Phase 7: categorical instructions *)
+    | dst src_mod dst_mod coupling_idx mu_delta
+    | dst m1_id m2_id mu_delta
+    | dst module mu_delta
+    | morph_id mu_delta
+    | morph_id property cert mu_delta
+    | dst f_id g_id mu_delta
+    | dst morph_id selector mu_delta]; simpl in Hexec; try discriminate.
+  destruct (chsh_bits_ok _ _ _ _) eqn:Hok; inversion Hexec; subst.
+  split.
+  - unfold valid_chsh_trial. exact Hok.
+  - intro s. reflexivity.
+Qed.
+
+Lemma executed_chsh_trial_of_instruction_implies_valid :
+  forall instr t,
+    executed_chsh_trial_of_instruction instr = Some t ->
+    valid_chsh_trial t.
+Proof.
+  intros instr t Hexec.
+  destruct (executed_chsh_trial_of_instruction_valid_and_cost_free instr t Hexec) as [Hvalid _].
+  exact Hvalid.
+Qed.
+
+Lemma executed_chsh_trial_of_instruction_updates_witness :
+  forall instr s t,
+    executed_chsh_trial_of_instruction instr = Some t ->
+    (vm_apply s instr).(vm_witness) = record_extracted_trial s.(vm_witness) t.
+Proof.
+  intros instr s t Hexec.
+  destruct instr as
+    [region cost
+    | module left right cost
+    | m1 m2 cost
+    | module formula cert cost
+    | cert1 cert2 cost
+    | module cost
+    | module evidence cost
+    | dst src cost
+    | dst imm cost
+    | dst rs_addr cost
+    | rs_addr src cost
+    | dst rs1 rs2 cost
+    | dst rs1 rs2 cost
+    | target cost
+    | rs target cost
+    | target cost
+    | cost
+    | x y a b cost
+    | dst addr cost
+    | dst src cost
+    | a b cost
+    | dst src cost
+    | module payload cost
+    | module bits cert cost
+    | payload cost
+    | cost
+    | label cost
+    | dst channel_idx value bits cost
+    | channel_idx src cost
+    | dst rs_addr cost
+    | rs_addr src cost
+    | delta_mu
+    | dst rs1 rs2 cost
+    | dst rs1 rs2 cost
+    | dst rs1 rs2 cost
+    | dst rs1 rs2 cost
+    | dst rs1 rs2 cost
+    | dst imm cost
+    | module i j value cost
+    | dst module i j cost
+    (** Phase 7: categorical instructions *)
+    | dst src_mod dst_mod coupling_idx mu_delta
+    | dst m1_id m2_id mu_delta
+    | dst module mu_delta
+    | morph_id mu_delta
+    | morph_id property cert mu_delta
+    | dst f_id g_id mu_delta
+    | dst morph_id selector mu_delta]; simpl in Hexec; try discriminate.
+  destruct (chsh_bits_ok _ _ _ _) eqn:Hok; inversion Hexec; subst; simpl.
+  rewrite Hok.
+  reflexivity.
+Qed.
+
+Lemma no_executed_chsh_trial_of_instruction_preserves_witness :
+  forall instr s,
+    executed_chsh_trial_of_instruction instr = None ->
+    (vm_apply s instr).(vm_witness) = s.(vm_witness).
+Proof.
+  intros instr s Hnone.
+  destruct instr.
+  all: simpl in Hnone |- *;
+       unfold advance_state, advance_state_reveal,
+         advance_state_rm, jump_state, jump_state_rm in *;
+       simpl in *;
+       repeat match goal with
+       | H : context [let '(_, _) := ?p in _] |- _ => destruct p eqn:?; simpl in *
+       | |- context [let '(_, _) := ?p in _] => destruct p eqn:?; simpl in *
+      | H : context [match ?m with _ => _ end] |- _ => destruct m eqn:?; simpl in *
+      | |- context [match ?m with _ => _ end] => destruct m eqn:?; simpl in *
+       end;
+       try reflexivity;
+       try discriminate.
+  all: repeat match goal with
+       | H : context [if ?b then _ else _] |- _ => destruct b eqn:?; simpl in *
+       | |- context [if ?b then _ else _] => destruct b eqn:?; simpl in *
+       end;
+       try discriminate;
+       reflexivity.
+Qed.
+Fixpoint replay_trials_on_witness (trials : list CHSHTrial) (wc : WitnessCounts) : WitnessCounts :=
+  match trials with
+  | [] => wc
+  | t :: ts => replay_trials_on_witness ts (record_extracted_trial wc t)
+  end.
+
+Lemma run_vm_witness_equals_replayed_trials :
+  forall fuel trace s,
+    (run_vm fuel trace s).(vm_witness) =
+    replay_trials_on_witness (extract_chsh_trials_from_trace fuel trace s) s.(vm_witness).
+Proof.
+  induction fuel as [| fuel' IH]; intros trace s; simpl.
+  - reflexivity.
+  - destruct (nth_error trace s.(vm_pc)) as [instr|] eqn:Hlookup; simpl.
+    + specialize (IH trace (vm_apply s instr)).
+      destruct (executed_chsh_trial_of_instruction instr) as [trial|] eqn:Hexec; simpl in *.
+      * rewrite <- (executed_chsh_trial_of_instruction_updates_witness instr s trial Hexec).
+        exact IH.
+      * rewrite <- (no_executed_chsh_trial_of_instruction_preserves_witness instr s Hexec).
+        exact IH.
+    + reflexivity.
+Qed.
+
+Lemma is_bit_true_cases :
+  forall n,
+    is_bit n = true -> n = 0%nat \/ n = 1%nat.
+Proof.
+  intros n Hbit.
+  unfold is_bit in Hbit.
+  apply Bool.orb_true_iff in Hbit.
+  destruct Hbit as [Hz | Ho].
+  - left. apply Nat.eqb_eq. exact Hz.
+  - right. apply Nat.eqb_eq. exact Ho.
+Qed.
+
+Lemma chsh_bits_ok_true_cases :
+  forall x y a b,
+    chsh_bits_ok x y a b = true ->
+    (x = 0%nat \/ x = 1%nat) /\
+    (y = 0%nat \/ y = 1%nat) /\
+    (a = 0%nat \/ a = 1%nat) /\
+    (b = 0%nat \/ b = 1%nat).
+Proof.
+  intros x y a b Hok.
+  unfold chsh_bits_ok in Hok.
+  apply Bool.andb_true_iff in Hok.
+  destruct Hok as [Hxy Hab].
+  apply Bool.andb_true_iff in Hxy.
+  apply Bool.andb_true_iff in Hab.
+  destruct Hxy as [Hx Hy].
+  destruct Hab as [Ha Hb].
+  repeat split; apply is_bit_true_cases; assumption.
+Qed.
+
+Lemma extract_chsh_trials_from_trace_valid :
+  forall fuel trace s t,
+    In t (extract_chsh_trials_from_trace fuel trace s) ->
+    valid_chsh_trial t.
+Proof.
+  induction fuel as [| fuel' IH]; intros trace s t Hin; simpl in Hin.
+  - contradiction.
+  - destruct (nth_error trace s.(vm_pc)) as [instr|] eqn:Hlookup; simpl in Hin.
+    + specialize (IH trace (vm_apply s instr) t).
+      destruct (executed_chsh_trial_of_instruction instr) eqn:Htrial; simpl in Hin.
+      * destruct Hin as [Heq | Hin'].
+        -- inversion Heq; subst.
+           eapply executed_chsh_trial_of_instruction_implies_valid; eauto.
+        -- eapply IH; eauto.
+      * eapply IH; eauto.
+    + contradiction.
+Qed.
 
 (** filter_trials: Select trials with specific inputs (x,y).
 

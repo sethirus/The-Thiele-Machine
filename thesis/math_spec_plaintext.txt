@@ -1095,21 +1095,15 @@ Any coherent process is a Thiele machine, and vice versa.
 
 
                                                32
-Chapter 26
+Chapter 26
 
-Three-Layer Isomorphism
+Three-Layer Comparison Contract
 
-Theorem 26.1 (Full Isomorphism (FullIsomorphism.v)). Three implementations — Coq spec-
-ification, Python VM, and Verilog RTL — are isomorphic: for any trace τ :
-
-                   decode(SCoq (τ )) = decode(SPython (τ )) = decode(SVerilog (τ ))
-
-with µ(run(s, τ )) = µ(s)+ i cost(τi ) at every layer. Transitivity: Coq ∼
-                                                                         = Python ∼
-                           P
-                                                                                    = Verilog =⇒
-    ∼
-Coq = Verilog.
+Theorem 26.1 (Observable Comparison Contract (FullIsomorphism.v)). The active Coq theorem
+layer states a contract over shared observable projections: if the Python VM and Verilog RTL
+satisfy the declared comparison hypotheses for a trace τ, then their decoded observables agree
+with the Coq-side decoded observables on that trace. The theorem does not, by itself, certify
+that every current backend artifact satisfies those hypotheses unconditionally in CI.
 
 
 
@@ -1281,7 +1275,7 @@ Wave Embedding                thielemachine/coqproofs/WaveEmbedding.v
 Self-Reference                self reference/SelfReference.v
 Thiele Manifold               thiele manifold/ThieleManifold.v
 Genesis                       theory/Genesis.v
-Full Isomorphism              thielemachine/verification/FullIsomorphism.v
+Observable Comparison Contract thielemachine/verification/FullIsomorphism.v
 Curry–Howard–Thiele           thielemachine/coqproofs/LogicIsomorphism.v
 Logic Is Physics              theory/LogicToPhysics.v
 Functor Soundness             isomorphism/coqproofs/Universe.v
@@ -1304,7 +1298,7 @@ Epistemological Classification
 
 The following table classifies every major result by its epistemological status.
   Result                          Status Key Assumption
-  Unconditional structural theorems about the machine
+   Unconditional structural theorems about the machine
   No Free Insight                 (S)        Module type contract
   µ-Chaitin                       (S)        Module type contract
   Cost = Complexity               (S)        Prefix-free coding
@@ -1319,7 +1313,7 @@ The following table classifies every major result by its epistemological status.
   Receipt Integrity               (S)        Hash-chain model
   Gauge / Noether                 (S)        Definitional (record structure)
   Genesis                         (S)        Definitional isomorphism
-  Three-Layer Isomorphism         (S)        Decode function
+   Three-Layer Isomorphism         (C)        Backend comparison contract / decode projection
   Curry–Howard–Thiele             (S)        Interpretation map
   Conditional derivations (valid given stated axioms)
   2D Necessity                    (C)        Superposition axiom (Axiom 12.1)

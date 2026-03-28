@@ -1,0 +1,394 @@
+DIGEST 510a9f79b10d411a2e6dd387f96a6ba6
+FKernel.ThieleTraceProjection
+R1496:1499 Coq.Lists.List <> <> lib
+R1501:1504 Coq.Bool.Bool <> <> lib
+R1506:1519 Coq.Arith.PeanoNat <> <> lib
+R1529:1541 Coq.Lists.List ListNotations <> mod
+R1572:1578 Kernel.VMState <> <> lib
+rec 2394:2410 <> ClassicalSnapshot
+proj 2439:2443 <> cs_pc
+proj 2456:2460 <> cs_mu
+proj 2473:2479 <> cs_regs
+proj 2495:2500 <> cs_mem
+R2449:2451 Coq.Init.Datatypes <> nat ind
+R2466:2468 Coq.Init.Datatypes <> nat ind
+R2483:2486 Coq.Init.Datatypes <> list ind
+R2488:2490 Coq.Init.Datatypes <> nat ind
+R2505:2508 Coq.Init.Datatypes <> list ind
+R2510:2512 Coq.Init.Datatypes <> nat ind
+def 2804:2816 <> project_state
+R2823:2829 Kernel.VMState <> VMState rec
+binder 2819:2819 <> s:6
+R2834:2850 Kernel.ThieleTraceProjection <> ClassicalSnapshot rec
+R2860:2864 Kernel.ThieleTraceProjection <> cs_pc proj
+R2860:2864 Kernel.ThieleTraceProjection <> cs_pc proj
+R2860:2864 Kernel.ThieleTraceProjection <> cs_pc proj
+R2887:2891 Kernel.ThieleTraceProjection <> cs_mu proj
+R2887:2891 Kernel.ThieleTraceProjection <> cs_mu proj
+R2914:2920 Kernel.ThieleTraceProjection <> cs_regs proj
+R2914:2920 Kernel.ThieleTraceProjection <> cs_regs proj
+R2943:2948 Kernel.ThieleTraceProjection <> cs_mem proj
+R2943:2948 Kernel.ThieleTraceProjection <> cs_mem proj
+R2874:2878 Kernel.VMState <> vm_pc proj
+R2871:2871 Kernel.ThieleTraceProjection <> s:6 var
+R2901:2905 Kernel.VMState <> vm_mu proj
+R2898:2898 Kernel.ThieleTraceProjection <> s:6 var
+R2928:2934 Kernel.VMState <> vm_regs proj
+R2925:2925 Kernel.ThieleTraceProjection <> s:6 var
+R2957:2962 Kernel.VMState <> vm_mem proj
+R2954:2954 Kernel.ThieleTraceProjection <> s:6 var
+def 3099:3109 <> ThieleTrace
+R3117:3120 Coq.Init.Datatypes <> list ind
+R3122:3128 Kernel.VMState <> VMState rec
+def 3142:3155 <> ClassicalTrace
+R3160:3163 Coq.Init.Datatypes <> list ind
+R3165:3181 Kernel.ThieleTraceProjection <> ClassicalSnapshot rec
+def 3196:3208 <> project_trace
+R3215:3225 Kernel.ThieleTraceProjection <> ThieleTrace def
+binder 3211:3211 <> t:7
+R3230:3243 Kernel.ThieleTraceProjection <> ClassicalTrace def
+R3250:3257 Coq.Lists.List <> map def
+R3273:3273 Kernel.ThieleTraceProjection <> t:7 var
+R3259:3271 Kernel.ThieleTraceProjection <> project_state def
+prf 3776:3813 <> projection_collapses_witness_structure
+R3834:3840 Kernel.VMState <> VMState rec
+binder 3826:3827 <> s1:8
+binder 3829:3830 <> s2:9
+R3872:3881 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3857:3861 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3851:3855 Kernel.VMState <> vm_pc proj
+R3847:3848 Kernel.ThieleTraceProjection <> s1:8 var
+R3866:3870 Kernel.VMState <> vm_pc proj
+R3862:3863 Kernel.ThieleTraceProjection <> s2:9 var
+R3907:3916 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3892:3896 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3886:3890 Kernel.VMState <> vm_mu proj
+R3882:3883 Kernel.ThieleTraceProjection <> s1:8 var
+R3901:3905 Kernel.VMState <> vm_mu proj
+R3897:3898 Kernel.ThieleTraceProjection <> s2:9 var
+R3944:3951 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3929:3931 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3921:3927 Kernel.VMState <> vm_regs proj
+R3917:3918 Kernel.ThieleTraceProjection <> s1:8 var
+R3936:3942 Kernel.VMState <> vm_regs proj
+R3932:3933 Kernel.ThieleTraceProjection <> s2:9 var
+R3978:3986 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3963:3966 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3956:3961 Kernel.VMState <> vm_mem proj
+R3952:3953 Kernel.ThieleTraceProjection <> s1:8 var
+R3971:3976 Kernel.VMState <> vm_mem proj
+R3967:3968 Kernel.ThieleTraceProjection <> s2:9 var
+R4003:4005 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3987:3999 Kernel.ThieleTraceProjection <> project_state def
+R4001:4002 Kernel.ThieleTraceProjection <> s1:8 var
+R4006:4018 Kernel.ThieleTraceProjection <> project_state def
+R4020:4021 Kernel.ThieleTraceProjection <> s2:9 var
+R4075:4087 Kernel.ThieleTraceProjection <> project_state def
+prf 4204:4226 <> project_trace_pointwise
+R4247:4257 Kernel.ThieleTraceProjection <> ThieleTrace def
+binder 4239:4240 <> t1:10
+binder 4242:4243 <> t2:11
+R4295:4302 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4278:4280 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4264:4274 Coq.Lists.List <> length abbrev
+R4276:4277 Kernel.ThieleTraceProjection <> t1:10 var
+R4281:4291 Coq.Lists.List <> length abbrev
+R4293:4294 Kernel.ThieleTraceProjection <> t2:11 var
+R4303:4303 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4435:4443 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 4311:4311 <> i:12
+binder 4313:4314 <> s1:13
+binder 4316:4317 <> s2:14
+R4352:4363 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4342:4344 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4328:4336 Coq.Lists.List <> nth_error def
+R4341:4341 Kernel.ThieleTraceProjection <> i:12 var
+R4338:4339 Kernel.ThieleTraceProjection <> t1:10 var
+R4345:4348 Coq.Init.Datatypes <> Some constr
+R4350:4351 Kernel.ThieleTraceProjection <> s1:13 var
+R4388:4399 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4378:4380 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4364:4372 Coq.Lists.List <> nth_error def
+R4377:4377 Kernel.ThieleTraceProjection <> i:12 var
+R4374:4375 Kernel.ThieleTraceProjection <> t2:11 var
+R4381:4384 Coq.Init.Datatypes <> Some constr
+R4386:4387 Kernel.ThieleTraceProjection <> s2:14 var
+R4416:4418 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4400:4412 Kernel.ThieleTraceProjection <> project_state def
+R4414:4415 Kernel.ThieleTraceProjection <> s1:13 var
+R4419:4431 Kernel.ThieleTraceProjection <> project_state def
+R4433:4434 Kernel.ThieleTraceProjection <> s2:14 var
+R4460:4462 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4444:4456 Kernel.ThieleTraceProjection <> project_trace def
+R4458:4459 Kernel.ThieleTraceProjection <> t1:10 var
+R4463:4475 Kernel.ThieleTraceProjection <> project_trace def
+R4477:4478 Kernel.ThieleTraceProjection <> t2:11 var
+R4608:4626 Coq.Lists.List <> length_zero_iff_nil thm
+R4608:4626 Coq.Lists.List <> length_zero_iff_nil thm
+R4825:4831 Coq.Init.Logic <> eq_refl constr
+R4833:4839 Coq.Init.Logic <> eq_refl constr
+R4825:4831 Coq.Init.Logic <> eq_refl constr
+R4833:4839 Coq.Init.Logic <> eq_refl constr
+R4935:4935 Coq.Init.Datatypes <> S constr
+R4935:4935 Coq.Init.Datatypes <> S constr
+def 5192:5202 <> example_csr
+R5206:5213 Kernel.VMState <> CSRState rec
+R5223:5235 Kernel.VMState <> csr_cert_addr proj
+R5223:5235 Kernel.VMState <> csr_cert_addr proj
+R5223:5235 Kernel.VMState <> csr_cert_addr proj
+R5243:5252 Kernel.VMState <> csr_status proj
+R5243:5252 Kernel.VMState <> csr_status proj
+R5260:5266 Kernel.VMState <> csr_err proj
+R5260:5266 Kernel.VMState <> csr_err proj
+R5274:5286 Kernel.VMState <> csr_heap_base proj
+R5274:5286 Kernel.VMState <> csr_heap_base proj
+def 5414:5428 <> trace_witness_A
+R5432:5438 Kernel.VMState <> VMState rec
+R5448:5455 Kernel.VMState <> vm_graph proj
+R5448:5455 Kernel.VMState <> vm_graph proj
+R5448:5455 Kernel.VMState <> vm_graph proj
+R5482:5488 Kernel.VMState <> vm_csrs proj
+R5482:5488 Kernel.VMState <> vm_csrs proj
+R5516:5522 Kernel.VMState <> vm_regs proj
+R5516:5522 Kernel.VMState <> vm_regs proj
+R5552:5557 Kernel.VMState <> vm_mem proj
+R5552:5557 Kernel.VMState <> vm_mem proj
+R5587:5591 Kernel.VMState <> vm_pc proj
+R5587:5591 Kernel.VMState <> vm_pc proj
+R5612:5616 Kernel.VMState <> vm_mu proj
+R5612:5616 Kernel.VMState <> vm_mu proj
+R5636:5647 Kernel.VMState <> vm_mu_tensor proj
+R5636:5647 Kernel.VMState <> vm_mu_tensor proj
+R5679:5684 Kernel.VMState <> vm_err proj
+R5679:5684 Kernel.VMState <> vm_err proj
+R5707:5718 Kernel.VMState <> vm_logic_acc proj
+R5707:5718 Kernel.VMState <> vm_logic_acc proj
+R5731:5740 Kernel.VMState <> vm_mstatus proj
+R5731:5740 Kernel.VMState <> vm_mstatus proj
+R5755:5764 Kernel.VMState <> vm_witness proj
+R5755:5764 Kernel.VMState <> vm_witness proj
+R5990:6001 Kernel.VMState <> vm_certified proj
+R5990:6001 Kernel.VMState <> vm_certified proj
+R5464:5474 Kernel.VMState <> empty_graph def
+R5498:5508 Kernel.ThieleTraceProjection <> example_csr def
+R5532:5532 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5535:5536 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5538:5539 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5541:5542 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5544:5544 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5568:5568 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5570:5571 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5573:5574 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5576:5577 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5579:5579 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5652:5671 Kernel.VMState <> vm_mu_tensor_default def
+R5695:5699 Coq.Init.Datatypes <> false constr
+R5774:5783 Kernel.VMState <> wc_same_00 proj
+R5774:5783 Kernel.VMState <> wc_same_00 proj
+R5774:5783 Kernel.VMState <> wc_same_00 proj
+R5791:5800 Kernel.VMState <> wc_diff_00 proj
+R5791:5800 Kernel.VMState <> wc_diff_00 proj
+R5832:5841 Kernel.VMState <> wc_same_01 proj
+R5832:5841 Kernel.VMState <> wc_same_01 proj
+R5849:5858 Kernel.VMState <> wc_diff_01 proj
+R5849:5858 Kernel.VMState <> wc_diff_01 proj
+R5890:5899 Kernel.VMState <> wc_same_10 proj
+R5890:5899 Kernel.VMState <> wc_same_10 proj
+R5907:5916 Kernel.VMState <> wc_diff_10 proj
+R5907:5916 Kernel.VMState <> wc_diff_10 proj
+R5948:5957 Kernel.VMState <> wc_same_11 proj
+R5948:5957 Kernel.VMState <> wc_same_11 proj
+R5965:5974 Kernel.VMState <> wc_diff_11 proj
+R5965:5974 Kernel.VMState <> wc_diff_11 proj
+R6006:6009 Coq.Init.Datatypes <> true constr
+def 6169:6183 <> trace_witness_B
+R6187:6193 Kernel.VMState <> VMState rec
+R6203:6210 Kernel.VMState <> vm_graph proj
+R6203:6210 Kernel.VMState <> vm_graph proj
+R6203:6210 Kernel.VMState <> vm_graph proj
+R6237:6243 Kernel.VMState <> vm_csrs proj
+R6237:6243 Kernel.VMState <> vm_csrs proj
+R6271:6277 Kernel.VMState <> vm_regs proj
+R6271:6277 Kernel.VMState <> vm_regs proj
+R6307:6312 Kernel.VMState <> vm_mem proj
+R6307:6312 Kernel.VMState <> vm_mem proj
+R6342:6346 Kernel.VMState <> vm_pc proj
+R6342:6346 Kernel.VMState <> vm_pc proj
+R6367:6371 Kernel.VMState <> vm_mu proj
+R6367:6371 Kernel.VMState <> vm_mu proj
+R6391:6402 Kernel.VMState <> vm_mu_tensor proj
+R6391:6402 Kernel.VMState <> vm_mu_tensor proj
+R6434:6439 Kernel.VMState <> vm_err proj
+R6434:6439 Kernel.VMState <> vm_err proj
+R6462:6473 Kernel.VMState <> vm_logic_acc proj
+R6462:6473 Kernel.VMState <> vm_logic_acc proj
+R6486:6495 Kernel.VMState <> vm_mstatus proj
+R6486:6495 Kernel.VMState <> vm_mstatus proj
+R6510:6519 Kernel.VMState <> vm_witness proj
+R6510:6519 Kernel.VMState <> vm_witness proj
+R6745:6756 Kernel.VMState <> vm_certified proj
+R6745:6756 Kernel.VMState <> vm_certified proj
+R6219:6229 Kernel.VMState <> empty_graph def
+R6253:6263 Kernel.ThieleTraceProjection <> example_csr def
+R6287:6287 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6290:6291 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6293:6294 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6296:6297 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6299:6299 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6323:6323 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6325:6326 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6328:6329 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6331:6332 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6334:6334 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6407:6426 Kernel.VMState <> vm_mu_tensor_default def
+R6450:6454 Coq.Init.Datatypes <> false constr
+R6529:6538 Kernel.VMState <> wc_same_00 proj
+R6529:6538 Kernel.VMState <> wc_same_00 proj
+R6529:6538 Kernel.VMState <> wc_same_00 proj
+R6546:6555 Kernel.VMState <> wc_diff_00 proj
+R6546:6555 Kernel.VMState <> wc_diff_00 proj
+R6587:6596 Kernel.VMState <> wc_same_01 proj
+R6587:6596 Kernel.VMState <> wc_same_01 proj
+R6604:6613 Kernel.VMState <> wc_diff_01 proj
+R6604:6613 Kernel.VMState <> wc_diff_01 proj
+R6645:6654 Kernel.VMState <> wc_same_10 proj
+R6645:6654 Kernel.VMState <> wc_same_10 proj
+R6662:6671 Kernel.VMState <> wc_diff_10 proj
+R6662:6671 Kernel.VMState <> wc_diff_10 proj
+R6703:6712 Kernel.VMState <> wc_same_11 proj
+R6703:6712 Kernel.VMState <> wc_same_11 proj
+R6720:6729 Kernel.VMState <> wc_diff_11 proj
+R6720:6729 Kernel.VMState <> wc_diff_11 proj
+R6761:6764 Coq.Init.Datatypes <> true constr
+def 6864:6878 <> read_wc_same_00
+R6885:6891 Kernel.VMState <> VMState rec
+binder 6881:6881 <> s:15
+R6896:6898 Coq.Init.Datatypes <> nat ind
+R6905:6914 Kernel.VMState <> wc_same_00 proj
+R6917:6926 Kernel.VMState <> vm_witness proj
+R6928:6928 Kernel.ThieleTraceProjection <> s:15 var
+prf 7006:7014 <> read_wc_A
+R7049:7051 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7018:7032 Kernel.ThieleTraceProjection <> read_wc_same_00 def
+R7034:7048 Kernel.ThieleTraceProjection <> trace_witness_A def
+prf 7154:7162 <> read_wc_B
+R7197:7199 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7166:7180 Kernel.ThieleTraceProjection <> read_wc_same_00 def
+R7182:7196 Kernel.ThieleTraceProjection <> trace_witness_B def
+prf 7299:7320 <> witnesses_A_B_distinct
+R7339:7342 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R7324:7338 Kernel.ThieleTraceProjection <> trace_witness_A def
+R7343:7357 Kernel.ThieleTraceProjection <> trace_witness_B def
+R7425:7427 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7394:7408 Kernel.ThieleTraceProjection <> read_wc_same_00 def
+R7410:7424 Kernel.ThieleTraceProjection <> trace_witness_A def
+R7428:7442 Kernel.ThieleTraceProjection <> read_wc_same_00 def
+R7444:7458 Kernel.ThieleTraceProjection <> trace_witness_B def
+R7425:7427 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7394:7408 Kernel.ThieleTraceProjection <> read_wc_same_00 def
+R7410:7424 Kernel.ThieleTraceProjection <> trace_witness_A def
+R7428:7442 Kernel.ThieleTraceProjection <> read_wc_same_00 def
+R7444:7458 Kernel.ThieleTraceProjection <> trace_witness_B def
+R7506:7514 Kernel.ThieleTraceProjection <> read_wc_A thm
+R7517:7525 Kernel.ThieleTraceProjection <> read_wc_B thm
+R7506:7514 Kernel.ThieleTraceProjection <> read_wc_A thm
+R7506:7514 Kernel.ThieleTraceProjection <> read_wc_A thm
+R7517:7525 Kernel.ThieleTraceProjection <> read_wc_B thm
+R7517:7525 Kernel.ThieleTraceProjection <> read_wc_B thm
+prf 7676:7689 <> project_A_eq_B
+R7724:7726 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7695:7707 Kernel.ThieleTraceProjection <> project_state def
+R7709:7723 Kernel.ThieleTraceProjection <> trace_witness_A def
+R7727:7739 Kernel.ThieleTraceProjection <> project_state def
+R7741:7755 Kernel.ThieleTraceProjection <> trace_witness_B def
+prf 8304:8343 <> distinct_certified_traces_same_classical
+R8349:8355 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8375:8380 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8364:8374 Kernel.ThieleTraceProjection <> ThieleTrace def
+binder 8356:8357 <> t1:16
+R8364:8374 Kernel.ThieleTraceProjection <> ThieleTrace def
+binder 8359:8360 <> t2:17
+R8389:8396 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8383:8386 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R8381:8382 Kernel.ThieleTraceProjection <> t1:16 var
+R8387:8388 Kernel.ThieleTraceProjection <> t2:17 var
+R8397:8397 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8442:8450 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 8405:8405 <> s:18
+R8415:8418 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8408:8409 Coq.Lists.List <> In def
+R8413:8414 Kernel.ThieleTraceProjection <> t1:16 var
+R8411:8411 Kernel.ThieleTraceProjection <> s:18 var
+R8435:8437 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8422:8433 Kernel.VMState <> vm_certified proj
+R8419:8419 Kernel.ThieleTraceProjection <> s:18 var
+R8438:8441 Coq.Init.Datatypes <> true constr
+R8451:8451 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8496:8504 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 8459:8459 <> s:19
+R8469:8472 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8462:8463 Coq.Lists.List <> In def
+R8467:8468 Kernel.ThieleTraceProjection <> t2:17 var
+R8465:8465 Kernel.ThieleTraceProjection <> s:19 var
+R8489:8491 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8476:8487 Kernel.VMState <> vm_certified proj
+R8473:8473 Kernel.ThieleTraceProjection <> s:19 var
+R8492:8495 Coq.Init.Datatypes <> true constr
+R8521:8523 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8505:8517 Kernel.ThieleTraceProjection <> project_trace def
+R8519:8520 Kernel.ThieleTraceProjection <> t1:16 var
+R8524:8536 Kernel.ThieleTraceProjection <> project_trace def
+R8538:8539 Kernel.ThieleTraceProjection <> t2:17 var
+R8558:8558 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8574:8574 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8559:8573 Kernel.ThieleTraceProjection <> trace_witness_A def
+R8577:8577 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8593:8593 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8578:8592 Kernel.ThieleTraceProjection <> trace_witness_B def
+R8558:8558 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8574:8574 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8559:8573 Kernel.ThieleTraceProjection <> trace_witness_A def
+R8577:8577 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8593:8593 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8578:8592 Kernel.ThieleTraceProjection <> trace_witness_B def
+R8606:8609 Coq.Init.Logic <> conj constr
+R8614:8617 Coq.Init.Logic <> conj constr
+R8622:8625 Coq.Init.Logic <> conj constr
+R8606:8609 Coq.Init.Logic <> conj constr
+R8614:8617 Coq.Init.Logic <> conj constr
+R8622:8625 Coq.Init.Logic <> conj constr
+R8712:8733 Kernel.ThieleTraceProjection <> witnesses_A_B_distinct thm
+R8712:8733 Kernel.ThieleTraceProjection <> witnesses_A_B_distinct thm
+R8820:8830 Coq.Lists.List <> in_inv thm
+R8820:8830 Coq.Lists.List <> in_inv thm
+R9002:9012 Coq.Lists.List <> in_inv thm
+R9002:9012 Coq.Lists.List <> in_inv thm
+R9185:9198 Kernel.ThieleTraceProjection <> project_A_eq_B thm
+R9185:9198 Kernel.ThieleTraceProjection <> project_A_eq_B thm
+R9185:9198 Kernel.ThieleTraceProjection <> project_A_eq_B thm
+prf 9456:9479 <> projection_not_injective
+R9485:9491 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9507:9512 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9500:9506 Kernel.VMState <> VMState rec
+binder 9492:9493 <> s1:20
+R9500:9506 Kernel.VMState <> VMState rec
+binder 9495:9496 <> s2:21
+R9521:9528 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9515:9518 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R9513:9514 Kernel.ThieleTraceProjection <> s1:20 var
+R9519:9520 Kernel.ThieleTraceProjection <> s2:21 var
+R9545:9547 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9529:9541 Kernel.ThieleTraceProjection <> project_state def
+R9543:9544 Kernel.ThieleTraceProjection <> s1:20 var
+R9548:9560 Kernel.ThieleTraceProjection <> project_state def
+R9562:9563 Kernel.ThieleTraceProjection <> s2:21 var
+R9582:9596 Kernel.ThieleTraceProjection <> trace_witness_A def
+R9599:9613 Kernel.ThieleTraceProjection <> trace_witness_B def
+R9582:9596 Kernel.ThieleTraceProjection <> trace_witness_A def
+R9599:9613 Kernel.ThieleTraceProjection <> trace_witness_B def
+R9625:9628 Coq.Init.Logic <> conj constr
+R9653:9666 Kernel.ThieleTraceProjection <> project_A_eq_B thm
+R9630:9651 Kernel.ThieleTraceProjection <> witnesses_A_B_distinct thm
+R9625:9628 Coq.Init.Logic <> conj constr
+R9653:9666 Kernel.ThieleTraceProjection <> project_A_eq_B thm
+R9630:9651 Kernel.ThieleTraceProjection <> witnesses_A_B_distinct thm

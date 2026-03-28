@@ -1,26 +1,20 @@
-From Coq Require Import List Bool Arith.PeanoNat ZArith QArith Lia.
-Require Import Coq.QArith.Qabs.
-Import ListNotations.
-Open Scope Q_scope.
+(** * CHSH: Receipt-based CHSH statistics and the classical bound
 
-Require Import VMStep.
+    WHY THIS FILE EXISTS:
+    The Thiele Machine produces cryptographic execution receipts. This file
+    defines how to extract CHSH statistics FROM THOSE RECEIPTS and proves
+    the classical local bound |S| <= 2 by exhaustive enumeration over all
+    16 deterministic strategies.
 
-(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
-From Kernel Require Import MuCostModel.
-
-(** * CHSH: Computing the CHSH statistic from execution receipts
-
-    WHY THIS EXISTS:
-    The Thiele Machine produces cryptographic receipts for every instruction.
-    This file defines how to extract CHSH statistics from those receipts,
-    turning abstract correlation bounds into CONCRETE, VERIFIABLE tests.
-
-    THE SETUP:
-    Execution trace contains instr_chsh_trial(x,y,a,b) records. Each record is:
-    - x,y: Alice and Bob's measurement settings (0 or 1)
-    - a,b: Alice and Bob's outcomes (0 or 1)
-
-    These are NON-FORGEABLE. The kernel guarantees they came from actual execution.
+    DISTINCT ROLE (vs CHSHExtraction.v):
+    - CHSH.v (this file): Works on RECEIPT data. Defines Trial records,
+      computes correlations E(x,y) from lists of (x,y,a,b) tuples, and
+      proves the classical bound by brute-force enumeration of all 16
+      deterministic strategies. Receipt-level: non-forgeable, kernel-guaranteed.
+    - CHSHExtraction.v: Works on raw EXECUTION TRACES. Scans a list of
+      vm_instruction for instr_chsh_trial entries, extracts trials, and
+      computes the CHSH statistic mechanically. Trace-level: pure accounting,
+      no physics, no bound claims.
 
     THE CHSH STATISTIC:
     S = E(1,1) + E(1,0) + E(0,1) - E(0,0)
@@ -28,19 +22,25 @@ From Kernel Require Import MuCostModel.
     where E(x,y) = average of sign(a)*sign(b) over all trials with settings (x,y).
     sign(0)=-1, sign(1)=+1. This gives correlations in [-1,+1].
 
-    THE BOUNDS (proven elsewhere):
-    - Local strategies: |S| ≤ 2 (MinorConstraints.v)
-    - Quantum: |S| ≤ 2√2 (AlgebraicCoherence.v)
-    - No-signaling: |S| ≤ 4 (BoxCHSH.v)
-
-    This file proves the LOCAL BOUND directly by exhaustive enumeration:
-    There are 16 possible deterministic strategies (4 bits: a0,a1,b0,b1).
-    For each one, compute S. Check all 16 give |S| ≤ 2. Done.
+    THE CORE CLAIM (classical bound):
+    For every deterministic local strategy (4 bits: a0, a1, b0, b1),
+    the CHSH value satisfies |S| <= 2. There are exactly 16 such strategies
+    and the proof checks each one.
 
     FALSIFICATION:
     Find a deterministic local strategy with |S| > 2. There are only 16.
     Check them all. None exceed 2. QED.
 *)
+
+From Coq Require Import List Bool Arith.PeanoNat ZArith QArith Lia.
+Require Import Coq.QArith.Qabs.
+Import ListNotations.
+Open Scope Q_scope.
+
+From Kernel Require Import VMStep.
+
+(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Kernel Require Import MuCostModel.
 
 Module KernelCHSH.
 
@@ -335,7 +335,7 @@ Definition expectation (x y : nat) (ts : list Trial) : Q :=
   FORMULA: S = E₁₁ + E₁₀ + E₀₁ - E₀₀, where E_xy = expectation x y ts.
 
   THE BOUNDS (proven elsewhere, referenced here):
-  - Local hidden variables: |S| ≤ 2 (this file, line 178-199)
+  - Local hidden variables: |S| ≤ 2 (this file, local_strategy_chsh_between_neg2_2)
   - Quantum mechanics: |S| ≤ 2√2 ≈ 2.828 (AlgebraicCoherence.v)
   - No-signaling: |S| ≤ 4 (BoxCHSH.v)
 
@@ -398,14 +398,14 @@ Definition chsh (ts : list Trial) : Q :=
   (from shared source with hidden variable λ).
 
   FINITE ENUMERATION: There are 2^4 = 16 possible LocalStrategies (each bit
-  is 0 or 1). The theorem local_strategy_chsh_between_neg2_2 (line 178) checks
+  is 0 or 1). The theorem local_strategy_chsh_between_neg2_2 checks
   ALL 16 and verifies |S| ≤ 2 for each.
 
   EXAMPLE: s = {| a0 := 0; a1 := 1; b0 := 0; b1 := 1 |}.
            If (x,y) = (1,0), outcomes are (a1, b0) = (1, 0). Correlation = -1.
 
   FALSIFICATION: Construct a LocalStrategy where |chsh_local_z s| > 2. This
-  would violate Bell's theorem (proven impossible - see line 178-199).
+  would violate Bell's theorem (proven impossible - see local_strategy_chsh_between_neg2_2).
 
   USED BY: trial_of_local, trials_of_local, local_bits_ok, chsh_local_z,
   local_strategy_chsh_between_neg2_2.
@@ -660,7 +660,7 @@ Qed.
              = +1 + 1 - 1 - (-1) = +2.
 
   FALSIFICATION: Find s with local_bits_ok s where |chsh_local_z s| > 2. This
-  would violate Bell's theorem (impossible - proven in next theorem line 178).
+  would violate Bell's theorem (impossible - proven in local_strategy_chsh_between_neg2_2).
 
   USED BY: local_strategy_chsh_between_neg2_2 (proves bound by exhaustive check).
 *)
@@ -770,7 +770,7 @@ Qed.
 
   FALSIFICATION: Same as main theorem - find strategy where |S| > 2.
 
-  DIRECT CONSEQUENCE OF: local_strategy_chsh_between_neg2_2 (line 178).
+  DIRECT CONSEQUENCE OF: local_strategy_chsh_between_neg2_2.
 
   USED BY: CHSH verification protocols, quantum certification schemes.
 *)

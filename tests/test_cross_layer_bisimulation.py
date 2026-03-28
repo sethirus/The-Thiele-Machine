@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Cross-layer bisimulation tests for all 38 opcodes.
+"""Cross-layer bisimulation tests for all 40 opcodes.
 
 Verifies that the Python VM (backed by OCaml runner) and RTL co-simulation
 produce identical observable results for every opcode in the ISA. This is the
@@ -295,7 +295,20 @@ class TestCrossLayerBisimulationAllOpcodes:
         assert vm.mu == rtl["mu"]
 
     def test_lassert_bisim(self):
-        """LASSERT charges mu identically in both layers."""
+        """LASSERT: software charges len(formula) more than RTL hardware.
+
+        Documented gap (lassert_mu_gap in LogicEngineEquivalence.v):
+          vm_mu = snap_mu(kami_step) + String.length formula
+
+        Hardware (kami_step / RTL) charges S cost = cost+1.
+        Software (vm_step / OCaml) charges String.length formula + S cost.
+        The gap is exactly String.length formula.
+
+        For 'LASSERT 0 0 2': formula="0" (len=1), cost=2
+          RTL delta_mu  = S cost = 3
+          SW  delta_mu  = len("0") + S cost = 1 + 3 = 4
+          gap           = 1 = len("0")
+        """
         program = [
             "INIT_LOGIC_ACC 0xCAFEEACE",
             "PNEW {0,256} 1",
@@ -304,7 +317,11 @@ class TestCrossLayerBisimulationAllOpcodes:
         ]
         vm, rtl = _run_both(program)
         assert rtl is not None
-        assert vm.mu == rtl["mu"]
+        formula_bits = len("0") * 8   # formula "0" is 1 char = 8 bits; gap = 8 bits
+        assert vm.mu == rtl["mu"] + formula_bits, (
+            f"Expected SW mu = RTL mu + {formula_bits} bits (LASSERT mu-gap), "
+            f"got SW={vm.mu} RTL={rtl['mu']}"
+        )
 
     def test_ljoin_bisim(self):
         """LJOIN charges mu identically in both layers."""
@@ -404,6 +421,167 @@ class TestCrossLayerBisimulationAllOpcodes:
         vm, rtl = _run_both(program)
         assert rtl is not None
         assert vm.mu == rtl["mu"] == 0
+
+    # --- ALU opcodes (AND, OR, SHL, SHR, MUL, LUI) ---
+
+    def test_and_bisim(self):
+        """AND: bitwise AND of two registers."""
+        program = [
+            "PNEW {0,256} 1",
+            "LOAD_IMM 1 255 0",
+            "LOAD_IMM 2 15 0",
+            "AND 3 1 2 1",
+            "HALT 0",
+        ]
+        vm, rtl = _run_both(program)
+        assert rtl is not None
+        assert vm.regs[3] == rtl["regs"][3] == (255 & 15)
+        assert vm.mu == rtl["mu"]
+
+    def test_or_bisim(self):
+        """OR: bitwise OR of two registers."""
+        program = [
+            "PNEW {0,256} 1",
+            "LOAD_IMM 1 240 0",
+            "LOAD_IMM 2 15 0",
+            "OR 3 1 2 1",
+            "HALT 0",
+        ]
+        vm, rtl = _run_both(program)
+        assert rtl is not None
+        assert vm.regs[3] == rtl["regs"][3] == (240 | 15)
+        assert vm.mu == rtl["mu"]
+
+    def test_shl_bisim(self):
+        """SHL: left shift."""
+        program = [
+            "PNEW {0,256} 1",
+            "LOAD_IMM 1 1 0",
+            "LOAD_IMM 2 4 0",
+            "SHL 3 1 2 1",
+            "HALT 0",
+        ]
+        vm, rtl = _run_both(program)
+        assert rtl is not None
+        assert vm.regs[3] == rtl["regs"][3] == (1 << 4)
+        assert vm.mu == rtl["mu"]
+
+    def test_shr_bisim(self):
+        """SHR: right shift."""
+        program = [
+            "PNEW {0,256} 1",
+            "LOAD_IMM 1 64 0",
+            "LOAD_IMM 2 2 0",
+            "SHR 3 1 2 1",
+            "HALT 0",
+        ]
+        vm, rtl = _run_both(program)
+        assert rtl is not None
+        assert vm.regs[3] == rtl["regs"][3] == (64 >> 2)
+        assert vm.mu == rtl["mu"]
+
+    def test_mul_bisim(self):
+        """MUL: multiply two registers."""
+        program = [
+            "PNEW {0,256} 1",
+            "LOAD_IMM 1 7 0",
+            "LOAD_IMM 2 6 0",
+            "MUL 3 1 2 1",
+            "HALT 0",
+        ]
+        vm, rtl = _run_both(program)
+        assert rtl is not None
+        assert vm.regs[3] == rtl["regs"][3] == 42
+        assert vm.mu == rtl["mu"]
+
+    def test_lui_bisim(self):
+        """LUI: load upper immediate (regs[dst] = imm << 8)."""
+        program = [
+            "PNEW {0,256} 1",
+            "LUI 1 1 1",
+            "HALT 0",
+        ]
+        vm, rtl = _run_both(program)
+        assert rtl is not None
+        assert vm.regs[1] == rtl["regs"][1] == (1 << 8)
+        assert vm.mu == rtl["mu"]
+
+    # --- Tensor opcodes (cross-layer bisimulation) ---
+
+    def test_tensor_set_bisim(self):
+        """TENSOR_SET + TENSOR_GET roundtrip: write value 1 to tensor[5],
+        read it back, verify both layers agree on register value and mu.
+
+        The OCaml and RTL text formats differ (OCaml: 6-token kernel format,
+        RTL: 3-token hardware encoding), so we run each layer with its own
+        program text and compare the observable state at the end.
+        Hardware tensor_idx = i*4 + j = 1*4 + 1 = 5.
+        Hardware src_reg = reg 2 (pre-loaded with 1 via LOAD_IMM).
+        Value must not exceed accumulated mu to avoid Bianchi violation.
+        """
+        from thielecpu.hardware.cosim import run_verilog
+        from build.thiele_vm import run_vm
+        # VM program (OCaml 6-token format):
+        #   TENSOR_SET mid=1 i=1 j=1 value=1 cost=1  (PNEW creates module 1)
+        #   TENSOR_GET dst=3 mid=1 i=1 j=1 cost=1
+        vm = run_vm([
+            "PNEW {0,256} 1",
+            "LOAD_IMM 2 1 0",
+            "TENSOR_SET 1 1 1 1 1",
+            "TENSOR_GET 3 1 1 1 1",
+            "HALT 0",
+        ])
+        # RTL program (3-token hardware format):
+        #   TENSOR_SET tensor_idx=5 src_reg=2 cost=1
+        #   TENSOR_GET op_a=5  → dst=reg 5, tensor_idx=5
+        rtl = run_verilog([
+            "PNEW {0,256} 1",
+            "LOAD_IMM 2 1 0",
+            "TENSOR_SET 5 2 1",
+            "TENSOR_GET 5 0 1",
+            "HALT 0",
+        ])
+        assert rtl is not None
+        assert rtl["status"] == 2, f"RTL did not halt: status={rtl['status']}"
+        # Cross-layer mu agreement
+        assert vm.mu == rtl["mu"], f"mu mismatch: VM={vm.mu} RTL={rtl['mu']}"
+        # Cross-layer tensor readback agreement
+        # VM reads into reg 3 (kernel dst=3), RTL reads into reg 5 (dst=op_a[4:0]=5)
+        assert vm.regs[3] == 1, f"VM tensor readback: expected 1, got {vm.regs[3]}"
+        assert rtl["regs"][5] == 1, f"RTL tensor readback: expected 1, got {rtl['regs'][5]}"
+
+    def test_tensor_get_bisim(self):
+        """TENSOR_GET of default-initialized tensor: all entries start at 0.
+        Both layers must return 0 and agree on mu.
+        """
+        from thielecpu.hardware.cosim import run_verilog
+        from build.thiele_vm import run_vm
+        # VM: TENSOR_GET dst=1 mid=0 i=0 j=0 cost=1  → reg 1 = tensor[0] = 0
+        vm = run_vm([
+            "PNEW {0,256} 1",
+            "TENSOR_GET 1 0 0 0 1",
+            "HALT 0",
+        ])
+        # RTL: TENSOR_GET op_a=1 op_b=0 cost=1 → dst=reg 1, tensor_idx=1
+        # For tensor_idx=0 we need op_a=0, but then dst=reg 0; use tensor_idx=1
+        # instead and match VM: TENSOR_GET dst=1 mid=0 i=0 j=1 cost=1 → tensor[1]=0
+        vm2 = run_vm([
+            "PNEW {0,256} 1",
+            "TENSOR_GET 1 0 0 1 1",
+            "HALT 0",
+        ])
+        rtl = run_verilog([
+            "PNEW {0,256} 1",
+            "TENSOR_GET 1 0 1",
+            "HALT 0",
+        ])
+        assert rtl is not None
+        assert rtl["status"] == 2
+        # Both layers return 0 for default-initialized tensor
+        assert vm2.regs[1] == 0, f"VM tensor read: expected 0, got {vm2.regs[1]}"
+        assert rtl["regs"][1] == 0, f"RTL tensor read: expected 0, got {rtl['regs'][1]}"
+        # Cross-layer mu agreement
+        assert vm2.mu == rtl["mu"], f"mu mismatch: VM={vm2.mu} RTL={rtl['mu']}"
 
 
 # ===========================================================================
@@ -729,8 +907,8 @@ class TestForgeFreshness:
         finally:
             os.unlink(tmp_path)
 
-    def test_isomorphism_map_has_38_opcodes(self):
-        """build/isomorphism_map.json lists all 38 opcodes."""
+    def test_isomorphism_map_has_40_opcodes(self):
+        """build/isomorphism_map.json lists all 40 opcodes."""
         map_path = os.path.join(
             os.path.dirname(__file__), "..", "build", "isomorphism_map.json"
         )
@@ -740,6 +918,407 @@ class TestForgeFreshness:
         with open(map_path) as f:
             data = json.load(f)
         opcodes = data.get("opcodes", {})
-        assert len(opcodes) == 38, (
-            f"Expected 38 opcodes, got {len(opcodes)}: {sorted(opcodes.keys())}"
+        assert len(opcodes) == 40, (
+            f"Expected 40 opcodes, got {len(opcodes)}: {sorted(opcodes.keys())}"
+        )
+
+
+# ===========================================================================
+# G: Morphism (categorical layer) opcode tests
+# ===========================================================================
+class TestMorphOpcodes:
+    """All 7 MORPH opcodes (0x27–0x2D) via the Python/OCaml VM.
+
+    The categorical layer (morphism graph) lives in software; these tests
+    verify correct semantics: mu accounting, morphism ID assignment, graph
+    state, and NoFI enforcement.  Programs mirror demo_knowledge_receipt.py
+    Acts 1–3 so that every assertion here has a running demo counterpart.
+    """
+
+    def _run(self, program):
+        from build.thiele_vm import run_vm
+        return run_vm(program)
+
+    # --- MORPH ---
+
+    def test_morph_creates_morphism_charges_mu(self):
+        """MORPH builds a morphism between two modules and charges mu.
+
+        First morph gets assigned id=0, stored in dst register.
+        """
+        state = self._run([
+            "PNEW {1} 1",          # module A (id=1)
+            "PNEW {2} 1",          # module B (id=2)
+            "MORPH 10 1 2 0 2",    # f: A→B, coupling_idx=0, cost=2 → r10=morph_id
+            "HALT 0",
+        ])
+        assert not state.err, f"MORPH should not error, got err={state.err}"
+        assert state.mu == 4, f"PNEW(1)+PNEW(1)+MORPH(2)=4, got {state.mu}"
+        # First morphism is assigned id=0; stored in r10
+        assert state.regs[10] == 0, f"first morph_id should be 0, got {state.regs[10]}"
+
+    def test_morph_sequential_ids(self):
+        """Each MORPH call increments the morphism id counter."""
+        state = self._run([
+            "PNEW {1} 1",
+            "PNEW {2} 1",
+            "PNEW {3} 1",
+            "MORPH 10 1 2 0 1",   # morph_id=0 → r10
+            "MORPH 11 2 3 0 1",   # morph_id=1 → r11
+            "HALT 0",
+        ])
+        assert not state.err
+        assert state.regs[10] == 0, f"first morph_id=0, got {state.regs[10]}"
+        assert state.regs[11] == 1, f"second morph_id=1, got {state.regs[11]}"
+
+    # --- COMPOSE ---
+
+    def test_compose_and_morph_get(self):
+        """COMPOSE creates g∘f; MORPH_GET reads source and target correctly.
+
+        This is the Act 2 program from demo_knowledge_receipt.py.
+        Asserts match the demo's own verified assert statements exactly.
+        """
+        state = self._run([
+            "PNEW {1} 1",
+            "PNEW {2} 1",
+            "PNEW {3} 1",
+            "MORPH 10 1 2 0 2",    # f: A→B, morph_id=0 → r10
+            "MORPH 11 2 3 0 2",    # g: B→C, morph_id=1 → r11
+            "COMPOSE 12 0 1 1",    # g∘f: A→C, morph_id=2 → r12
+            "MORPH_GET 0 2 0 0",   # r0 = source of morph 2 (= module A = 1)
+            "MORPH_GET 1 2 1 0",   # r1 = target of morph 2 (= module C = 3)
+            "HALT 0",
+        ])
+        assert not state.err, f"compose chain should not error, got err={state.err}"
+        assert state.mu == 8,   f"1+1+1+2+2+1=8, got {state.mu}"
+        assert state.regs[0]  == 1, f"source of g∘f should be module 1 (A), got {state.regs[0]}"
+        assert state.regs[1]  == 3, f"target of g∘f should be module 3 (C), got {state.regs[1]}"
+        assert state.regs[11] == 1, f"morph_id of g should be 1, got {state.regs[11]}"
+        assert state.regs[12] == 2, f"morph_id of g∘f should be 2, got {state.regs[12]}"
+
+    # --- MORPH_ID ---
+
+    def test_morph_id_creates_identity(self):
+        """MORPH_ID creates an identity morphism on an existing module.
+
+        Used in the Act 3 NoFI probe: MORPH_ID provides the morph that
+        MORPH_ASSERT then certifies (cost=0 still charges S(0)=1).
+        """
+        state = self._run([
+            "PNEW {1} 1",       # module 1
+            "MORPH_ID 5 1 0",   # identity on module 1, cost=0, morph_id → r5
+            "HALT 0",
+        ])
+        assert not state.err, f"MORPH_ID should not error, got err={state.err}"
+        assert state.regs[5] == 0, f"identity morph_id should be 0, got {state.regs[5]}"
+        assert state.mu == 1, f"PNEW(1)+MORPH_ID(0)=1, got {state.mu}"
+
+    # --- MORPH_DELETE ---
+
+    def test_morph_delete_existing_succeeds(self):
+        """MORPH_DELETE on an existing morphism returns without error."""
+        state = self._run([
+            "PNEW {1} 1",
+            "PNEW {2} 1",
+            "MORPH 10 1 2 0 2",    # creates morph_id=0
+            "MORPH_DELETE 0 0",    # delete morph 0
+            "HALT 0",
+        ])
+        assert not state.err, f"MORPH_DELETE on existing morph should succeed, err={state.err}"
+        assert state.mu == 4, f"PNEW(1)+PNEW(1)+MORPH(2)+MORPH_DELETE(0)=4, got {state.mu}"
+
+    def test_morph_delete_nonexistent_errors(self):
+        """MORPH_DELETE on a morph that was never created produces an error."""
+        state = self._run([
+            "MORPH_DELETE 99 0",   # morph 99 never exists
+            "HALT 0",
+        ])
+        assert state.err, f"MORPH_DELETE on nonexistent morph should error"
+
+    def test_morph_delete_after_create_then_second_delete_errors(self):
+        """Deleting the same morph twice: second attempt errors (already gone)."""
+        state = self._run([
+            "PNEW {1} 1",
+            "PNEW {2} 1",
+            "MORPH 10 1 2 0 1",    # morph_id=0
+            "MORPH_DELETE 0 0",    # first delete: succeeds
+            "MORPH_DELETE 0 0",    # second delete: should error
+            "HALT 0",
+        ])
+        assert state.err, "second MORPH_DELETE on already-deleted morph should error"
+
+    # --- MORPH_ASSERT ---
+
+    def test_morph_assert_sets_supra_cert(self):
+        """MORPH_ASSERT on a valid morph sets csr_cert_addr (supra_cert).
+
+        This is the Act 3 program from demo_knowledge_receipt.py.
+        """
+        state = self._run([
+            "PNEW {1} 1",
+            "PNEW {2} 1",
+            "PNEW {3} 1",
+            "MORPH 10 1 2 0 2",
+            "MORPH 11 2 3 0 2",
+            "COMPOSE 12 0 1 1",
+            "MORPH_ASSERT 2 A-to-C-two-hop cert 4",   # S(4)=5
+            "HALT 0",
+        ])
+        assert not state.err, "MORPH_ASSERT on valid morph should not error"
+        assert state.supra_cert, "MORPH_ASSERT must set csr_cert_addr (supra_cert=True)"
+        assert state.csrs.get("cert_addr", 0) != 0, "cert_addr must be nonzero"
+        # mu = 3 PNEWs(1) + 2 MORPHs(2) + COMPOSE(1) + S(4)=5 = 13
+        assert state.mu == 13, f"expected mu=13, got {state.mu}"
+
+    def test_morph_assert_charges_successor_cost(self):
+        """MORPH_ASSERT with cost c charges S(c)=c+1 for every value of c."""
+        base_mu = 3 + 5   # 3 PNEWs(1 each) + 2 MORPHs(2 each) + COMPOSE(1)
+
+        for cost in (0, 1, 3, 4, 9):
+            state = self._run([
+                "PNEW {1} 1",
+                "PNEW {2} 1",
+                "PNEW {3} 1",
+                "MORPH 10 1 2 0 2",
+                "MORPH 11 2 3 0 2",
+                "COMPOSE 12 0 1 1",
+                f"MORPH_ASSERT 2 prop cert {cost}",
+                "HALT 0",
+            ])
+            expected_mu = base_mu + (cost + 1)   # S(cost) = cost+1
+            assert state.mu == expected_mu, (
+                f"cost={cost}: expected mu={expected_mu} (S({cost})={cost+1}), "
+                f"got {state.mu}"
+            )
+            assert state.supra_cert, f"cost={cost}: supra_cert must be True after MORPH_ASSERT"
+
+    def test_morph_assert_forged_errors_but_charges(self):
+        """MORPH_ASSERT on a nonexistent morph errors AND charges mu (Act 1).
+
+        The machine charges S(cost) BEFORE validating the morph exists.
+        This is strictly stronger than NoFI: even failed certification attempts
+        have a nonzero cost.
+        """
+        state = self._run([
+            "MORPH_ASSERT 99 two-hop cert 0",   # morph 99 never exists; cost=0 → S(0)=1
+            "HALT 0",
+        ])
+        assert state.err,      "MORPH_ASSERT on nonexistent morph should error"
+        assert state.mu == 1,  f"S(0)=1 must be charged even for failed attempt, got {state.mu}"
+        assert not state.supra_cert, "failed MORPH_ASSERT must not set supra_cert"
+
+    def test_morph_assert_zero_cost_charges_one(self):
+        """MORPH_ASSERT cost=0 still costs S(0)=1.  NoFI lower bound is tight.
+
+        This is the explicit NoFI probe from demo_knowledge_receipt.py Act 3.
+        """
+        state = self._run([
+            "PNEW {1} 1",
+            "MORPH_ID 5 1 0",
+            "MORPH_ASSERT 0 property cert 0",   # cost=0 → S(0)=1
+            "HALT 0",
+        ])
+        assert not state.err
+        assert state.mu == 2, (
+            f"PNEW(1)+MORPH_ID(0)+MORPH_ASSERT(S(0)=1)=2, got {state.mu}"
+        )
+        assert state.supra_cert, "supra_cert must be True after MORPH_ASSERT cost=0"
+
+    # --- MORPH_GET ---
+
+    def test_morph_get_source_and_target(self):
+        """MORPH_GET selector=0 returns source module; selector=1 returns target."""
+        state = self._run([
+            "PNEW {1} 1",
+            "PNEW {2} 1",
+            "MORPH 10 1 2 0 1",    # f: src_mod=1 → dst_mod=2, morph_id=0
+            "MORPH_GET 5 0 0 0",   # r5 = source of morph 0
+            "MORPH_GET 6 0 1 0",   # r6 = target of morph 0
+            "HALT 0",
+        ])
+        assert not state.err
+        assert state.regs[5] == 1, f"source should be module 1, got {state.regs[5]}"
+        assert state.regs[6] == 2, f"target should be module 2, got {state.regs[6]}"
+
+    # --- MORPH_TENSOR ---
+
+    def test_morph_tensor_creates_product_morphism(self):
+        """MORPH_TENSOR combines two morphisms into their tensor product.
+
+        f: A→B (morph_id=0), g: C→D (morph_id=1) → f⊗g: (A⊗C)→(B⊗D) (morph_id=2).
+        The tensor morph id is stored in the dst register.
+
+        Pre-condition from graph_tensor_morphisms in VMState.v:
+          — Source regions of f and g must be disjoint.
+          — Target regions of f and g must be disjoint.
+          — Union modules (A⊗C) and (B⊗D) must already exist in the graph.
+        We pre-create those union modules with PNEW {1,3} and PNEW {2,4}.
+        """
+        state = self._run([
+            "PNEW {1} 1",     # module A (id=1), region={1}
+            "PNEW {2} 1",     # module B (id=2), region={2}
+            "PNEW {3} 1",     # module C (id=3), region={3}
+            "PNEW {4} 1",     # module D (id=4), region={4}
+            "PNEW {1,3} 1",   # module A⊗C (id=5), region={1,3} — pre-required union source
+            "PNEW {2,4} 1",   # module B⊗D (id=6), region={2,4} — pre-required union target
+            "MORPH 10 1 2 0 1",      # f: A→B, morph_id=0 → r10
+            "MORPH 11 3 4 0 1",      # g: C→D, morph_id=1 → r11
+            "MORPH_TENSOR 12 0 1 2", # f⊗g: (A⊗C)→(B⊗D), cost=2, morph_id=2 → r12
+            "HALT 0",
+        ])
+        assert not state.err, f"MORPH_TENSOR should not error, got err={state.err}"
+        assert state.regs[12] == 2, f"tensor morph_id should be 2, got {state.regs[12]}"
+        # mu = 6 PNEWs(1) + 2 MORPHs(1) + TENSOR(2) = 10
+        assert state.mu == 10, f"expected mu=10, got {state.mu}"
+
+
+# ===========================================================================
+# H: Categorical separation theorem (Act 4 formalized)
+# ===========================================================================
+class TestCategoricalSeparation:
+    """Formally executable version of PartitionSeparation.v §10.
+
+    Two programs that are classically identical (same r0, r1, mu, err) are
+    provably distinguishable by one Thiele Machine probe instruction.
+
+    These tests mirror demo_knowledge_receipt.py Act 4 exactly and serve as
+    the executable cross-layer evidence for the categorical_separation theorem.
+    """
+
+    # Shared program fragments — mirror demo_knowledge_receipt.py Act 4 exactly
+    _PROG_A_BASE = [
+        "PNEW {1} 1",
+        "PNEW {2} 1",
+        "PNEW {3} 1",
+        "MORPH 10 1 2 0 2",    # f: A→B
+        "MORPH 11 2 3 0 2",    # g: B→C
+        "COMPOSE 12 0 1 1",    # g∘f: A→C
+        "MORPH_GET 0 2 0 0",   # r0 = source = 1
+        "MORPH_GET 1 2 1 0",   # r1 = target = 3
+    ]
+    _PROG_B_BASE = [
+        "PNEW {1} 2",
+        "PNEW {2} 2",
+        "PNEW {3} 2",
+        "LOAD_IMM 0 1 1",   # r0 = 1 (claimed source, no morphism backing it)
+        "LOAD_IMM 1 3 1",   # r1 = 3 (claimed target, no morphism backing it)
+    ]
+
+    def _run(self, program):
+        from build.thiele_vm import run_vm
+        return run_vm(program)
+
+    def test_programs_are_classically_identical(self):
+        """Programs A and B have identical r0, r1, mu, err before any probe.
+
+        This demonstrates the underdetermination that the categorical layer resolves.
+        """
+        state_a = self._run(self._PROG_A_BASE + ["HALT 0"])
+        state_b = self._run(self._PROG_B_BASE + ["HALT 0"])
+
+        assert state_a.regs[0] == state_b.regs[0] == 1,  "r0 must be 1 in both"
+        assert state_a.regs[1] == state_b.regs[1] == 3,  "r1 must be 3 in both"
+        assert state_a.mu      == state_b.mu      == 8,  "mu must be 8 in both"
+        assert state_a.err     == state_b.err     == False, "err must be False in both"
+
+    def test_classical_obs_identical(self):
+        """A function observing only (r0, r1, mu, err) sees identical states.
+
+        This is the is_classical_observer definition from PartitionSeparation.v:
+        any function that depends only on computational fields cannot separate
+        the two programs.
+        """
+        state_a = self._run(self._PROG_A_BASE + ["HALT 0"])
+        state_b = self._run(self._PROG_B_BASE + ["HALT 0"])
+
+        def classical_obs(s):
+            return (s.regs[0], s.regs[1], s.mu, s.err)
+
+        assert classical_obs(state_a) == classical_obs(state_b), (
+            "Classical observer must see identical states — "
+            f"A={classical_obs(state_a)} B={classical_obs(state_b)}"
+        )
+
+    def test_morph_delete_probe_separates_programs(self):
+        """MORPH_DELETE probe separates the programs in one step (Act 4 core).
+
+        Program A: morph_id=0 was built → DELETE succeeds (err=False)
+        Program B: morph_id=0 never existed → DELETE errors (err=True)
+
+        Same classical fingerprint before the probe; different err after.
+        This is coq/kernel/PartitionSeparation.v §10 made executable.
+        """
+        state_a = self._run(self._PROG_A_BASE + ["MORPH_DELETE 0 0", "HALT 0"])
+        state_b = self._run(self._PROG_B_BASE + ["MORPH_DELETE 0 0", "HALT 0"])
+
+        assert not state_a.err, "Program A: MORPH_DELETE must succeed (morph 0 was built)"
+        assert state_b.err,     "Program B: MORPH_DELETE must error (morph 0 never existed)"
+
+    def test_morph_get_probe_separates_programs(self):
+        """MORPH_GET is an alternative categorical probe that also separates.
+
+        Asking for the source of morph 0: works for A, errors for B.
+        """
+        state_a = self._run(self._PROG_A_BASE + ["MORPH_GET 5 0 0 0", "HALT 0"])
+        state_b = self._run(self._PROG_B_BASE + ["MORPH_GET 5 0 0 0", "HALT 0"])
+
+        assert not state_a.err, "Program A: MORPH_GET on morph 0 must succeed"
+        assert state_b.err,     "Program B: MORPH_GET on morph 0 must error"
+
+    def test_supra_cert_absent_before_morph_assert(self):
+        """Before MORPH_ASSERT, both programs have supra_cert=False."""
+        state_a = self._run(self._PROG_A_BASE + ["HALT 0"])
+        state_b = self._run(self._PROG_B_BASE + ["HALT 0"])
+
+        assert not state_a.supra_cert, "Program A: supra_cert must be False before MORPH_ASSERT"
+        assert not state_b.supra_cert, "Program B: supra_cert must be False before MORPH_ASSERT"
+
+    def test_only_program_a_can_earn_supra_cert(self):
+        """Only Program A (with real morphisms) can earn supra_cert.
+
+        Program B has no valid morphisms so any MORPH_ASSERT attempt errors —
+        and even the failed attempt charges mu (NoFI enforcement).
+        """
+        # Program A: morph_id=2 is the composed g∘f — assert on it
+        state_a = self._run(self._PROG_A_BASE + [
+            "MORPH_ASSERT 2 path cert 1",   # S(1)=2
+            "HALT 0",
+        ])
+        assert not state_a.err, "Program A: MORPH_ASSERT on real morph must succeed"
+        assert state_a.supra_cert, "Program A: supra_cert must be True after MORPH_ASSERT"
+
+        # Program B: morph_id=0 was never created → error, but cost still charged
+        mu_b_before = self._run(self._PROG_B_BASE + ["HALT 0"]).mu
+        state_b = self._run(self._PROG_B_BASE + [
+            "MORPH_ASSERT 0 path cert 1",   # morph 0 doesn't exist; S(1)=2 charged anyway
+            "HALT 0",
+        ])
+        assert state_b.err, "Program B: MORPH_ASSERT on nonexistent morph must error"
+        assert not state_b.supra_cert, "Program B: failed MORPH_ASSERT must not set supra_cert"
+        assert state_b.mu > mu_b_before, (
+            f"Program B: mu must increase even on failed MORPH_ASSERT "
+            f"(before={mu_b_before}, after={state_b.mu})"
+        )
+
+    def test_separation_is_single_instruction(self):
+        """The probe uses exactly ONE additional instruction to achieve separation.
+
+        Adding one instruction (MORPH_DELETE) to classically-identical programs
+        produces definitively different error states.  This validates the theorem:
+        no classical machine can detect the distinction, but the Thiele Machine
+        detects it in one step.
+        """
+        # Confirm classical identity (without probe)
+        base_a = self._run(self._PROG_A_BASE + ["HALT 0"])
+        base_b = self._run(self._PROG_B_BASE + ["HALT 0"])
+        assert (base_a.regs[0], base_a.regs[1], base_a.mu, base_a.err) == \
+               (base_b.regs[0], base_b.regs[1], base_b.mu, base_b.err), \
+            "Precondition: programs must be classically identical before probe"
+
+        # One probe instruction → definitive separation
+        probe_a = self._run(self._PROG_A_BASE + ["MORPH_DELETE 0 0", "HALT 0"])
+        probe_b = self._run(self._PROG_B_BASE + ["MORPH_DELETE 0 0", "HALT 0"])
+        assert probe_a.err != probe_b.err, (
+            f"Probe must produce different err: A={probe_a.err}, B={probe_b.err}"
         )

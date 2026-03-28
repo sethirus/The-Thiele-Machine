@@ -62,7 +62,7 @@ From Kernel Require Import ClassicalBound TsirelsonUpperBound.
     - μ=0 programs achieve CHSH = 2 (CLASSICAL bound, not 2√2!)
     - ClassicalBound.v: demonstrates classical_achieving_trace achieves S=2
     - Quantum bound (2√2) requires μ>0 operations (LJOIN, REVEAL, LASSERT)
-    - See MU_COST_REVISION.md for complete analysis
+    - Analysis captured in mu-cost model refactoring commits
     ========================================================================= *)
 
 (** ** Audit 1: μ-Cost Is Physics-Free *)
@@ -221,10 +221,10 @@ Qed.
 
 (** [lassert_not_mu_zero]: formal specification. *)
 Lemma lassert_not_mu_zero :
-  forall mid formula cert mu_delta,
-    ~(mu_zero_class (instr_lassert mid formula cert mu_delta)).
+  forall fa ca k fl mu_delta,
+    ~(mu_zero_class (instr_lassert fa ca k fl mu_delta)).
 Proof.
-  intros mid formula cert mu_delta.
+  intros fa ca k fl mu_delta.
   unfold mu_zero_class, mu_cost_of_instr. simpl.
   discriminate.
 Qed.
@@ -291,9 +291,11 @@ Qed.
 
 (** Correspondence statement (semantic, not syntactic) *)
 Definition mu_zero_locc_correspondence : Prop :=
-  (* μ=0 class satisfies LOCC-like properties *)
-  (forall trace, trace_all_mu_zero trace -> 
-     (* Closure under composition *) True) /\
+  (* μ=0 class is closed under trace composition *)
+  (forall trace1 trace2,
+     trace_all_mu_zero trace1 ->
+     trace_all_mu_zero trace2 ->
+     trace_all_mu_zero (trace1 ++ trace2)) /\
   (* Partition ops are free (classical communication) *)
   (forall region, mu_zero_class (instr_pnew region 0)) /\
   (* Revelation ops are costly (non-LOCC) *)
@@ -304,7 +306,7 @@ Theorem mu_zero_is_locc_like : mu_zero_locc_correspondence.
 Proof.
   unfold mu_zero_locc_correspondence.
   split; [| split].
-  - intros trace _. exact I.
+  - exact mu_zero_closure.
   - intro region. apply pnew_is_mu_zero. reflexivity.
   - intros mid bits cert. apply reveal_not_mu_zero.
 Qed.
@@ -378,17 +380,17 @@ Qed.
     
     ATTACK 1: "You smuggled quantum structure in by definition."
     
-    DEFENSE: We have shown:
+    The audit establishes:
     (a) μ-cost rules contain NO reference to CHSH or quantum mechanics
     (b) CHSH formula is purely algebraic, contains NO physics
     (c) The value 2√2 appears ONLY as the achieved value of a constructive
         program, NOT as an encoded constraint
-    (d) The derivation chain is NON-CIRCULAR: μ-cost → μ=0 class → 
+    (d) The derivation chain is NON-CIRCULAR: μ-cost → μ=0 class →
         achievability → optimality → 2√2 as derived result
-    
+
     ATTACK 2: "LOCC in your model is not LOCC in physics."
-    
-    DEFENSE: We have shown:
+
+    The audit establishes:
     (a) We use "μ=0-LOCC" terminology to be precise
     (b) μ=0-LOCC satisfies: closure, identity, locality
     (c) Partition ops (classical communication) are μ=0

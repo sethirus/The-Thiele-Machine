@@ -1,0 +1,84 @@
+flowchart LR
+  subgraph Core["Kernel execution core"]
+    VMState["VMState.v"]
+    VMStep["VMStep.v"]
+    Simulation["SimulationProof.v"]
+    MuCost["MuCostModel.v"]
+    LocalMorph["LocalMorphismSemantics.v"]
+    Entropy["EntanglementEntropy.v"]
+  end
+
+  subgraph Thermo["Thermo-to-Einstein corridor"]
+    Clausius["ClausiusFromEntropyArea.v"]
+    Ray["RaychaudhuriFluxBridge.v"]
+    Jacobson["JacobsonBridgeComponents.v"]
+    ThermoEinstein["ThermoEinsteinBridge.v"]
+  end
+
+  subgraph Quantum["Quantum / CHSH branch"]
+    CHSHExtract["CHSHExtraction.v"]
+    MuLedger["MuLedgerQuantumBridge.v"]
+    Tsirelson["TsirelsonQuantumModel.v"]
+    PSD["QuantumPartitionPSD.v"]
+  end
+
+  subgraph NoFI["No Free Insight branch"]
+    NoFree["NoFreeInsight.v"]
+    HonestNoFI["HonestNoFI_TheoremsWithoutAssumptions.v"]
+  end
+
+  subgraph GR["Existing curved-tensor GR branch"]
+    MuGravity["MuGravity.v"]
+    Metric["MetricFromMuCosts.v"]
+    Riemann["RiemannTensor4D.v"]
+    Curved["CurvedTensorPipeline.v"]
+    EinsteinEmergence["EinsteinEmergence.v"]
+  end
+
+  Master["MasterSummary.v"]
+
+  VMState --> VMStep
+  VMStep --> Simulation
+  VMState --> MuCost
+
+  VMState --> LocalMorph
+  VMStep --> LocalMorph
+  Simulation --> LocalMorph
+  LocalMorph --> Entropy
+
+  Entropy --> Clausius
+  VMState --> Clausius
+  Clausius --> Ray
+  VMState --> Ray
+  Jacobson --> ThermoEinstein
+  Ray --> ThermoEinstein
+  Entropy --> ThermoEinstein
+  LocalMorph --> ThermoEinstein
+
+  VMState --> CHSHExtract
+  VMStep --> CHSHExtract
+  CHSHExtract --> MuLedger
+  MuLedger --> Tsirelson
+  Tsirelson --> PSD
+
+  MuCost --> NoFree
+  NoFree --> HonestNoFI
+
+  VMState --> MuGravity
+  MuGravity --> Metric
+  Metric --> Riemann
+  Riemann --> Curved
+  Curved --> EinsteinEmergence
+
+  ThermoEinstein --> Master
+  PSD --> Master
+  HonestNoFI --> Master
+  Curved --> Master
+
+  classDef thermo fill:#f6d365,stroke:#8c5a00,color:#1f1300,stroke-width:2px;
+  classDef branch fill:#d6ecff,stroke:#005a8c,color:#0b2233,stroke-width:1px;
+  classDef summary fill:#d8f3dc,stroke:#2d6a4f,color:#081c15,stroke-width:2px;
+
+  class Clausius,Ray,Jacobson,ThermoEinstein thermo;
+  class CHSHExtract,MuLedger,Tsirelson,PSD,NoFree,HonestNoFI,MuGravity,Metric,Riemann,Curved,EinsteinEmergence branch;
+  class Master summary;

@@ -115,9 +115,9 @@ $G$ is well-formed iff $\mathrm{dom}(\mathcal{T}) \subseteq \{0,\dots,N_{id}-1\}
 
 \section{Machine State}
 \begin{definition}[VM State]
-The complete state is a 10-tuple:
-\[ S = (G, C, R, \mathit{Mem}, \mathit{PC}, \mu, T_\mu, \mathit{err}, \ell, m) \]
-where $G \in \Gspace$ is the partition graph, $C \in \N^4$ comprises the CSRs (certificate address, status, error code, heap base), $R \in \N^{32}$ is the register file, $\mathit{Mem} \in \N^{4096}$ is main memory, $\mathit{PC} \in \N$ is the program counter, $\mu \in \N$ is the $\mu$-ledger, $T_\mu \in \N^{16}$ is the flattened $4\times 4$ $\mu$-tensor (row-major), $\mathit{err} \in \B$ is the global error flag (latching), $\ell \in \N$ is the logic-engine accumulator, and $m \in \N$ is the machine status register ($0$~=~Turing mode, $1$~=~Thiele mode).
+The complete state is a 12-tuple:
+\[ S = (G, C, R, \mathit{Mem}, \mathit{PC}, \mu, T_\mu, \mathit{err}, \ell, m, w, \mathit{cert}) \]
+where $G \in \Gspace$ is the partition graph, $C \in \N^4$ comprises the CSRs (certificate address, status, error code, heap base), $R \in \N^{32}$ is the register file, $\mathit{Mem} \in \N^{65536}$ is main memory, $\mathit{PC} \in \N$ is the program counter, $\mu \in \N$ is the $\mu$-ledger, $T_\mu \in \N^{16}$ is the flattened $4\times 4$ $\mu$-tensor (row-major), $\mathit{err} \in \B$ is the global error flag (latching), $\ell \in \N$ is the logic-engine accumulator, $m \in \N$ is the machine status register ($0$~=~Turing mode, $1$~=~Thiele mode), $w \in \N$ is the witness register (\texttt{vm\_witness}), and $\mathit{cert} \in \B$ is the certified flag (\texttt{vm\_certified}).
 \end{definition}
 
 \chapter{Instruction Set and Cost Model}
@@ -179,7 +179,19 @@ Reversible register/memory operations:
     \item $\texttt{HALT}(\Delta\mu)$: Halt execution.
 \end{itemize}
 
-The full ISA comprises 31 instructions (5~structural + 4~logical + 5~reversible ALU + 9~standard ALU/control + 8~auxiliary). Every instruction carries an explicit $\Delta\mu$ parameter; the function $\texttt{instruction\_cost}$ extracts it.
+\subsection{Categorical Morphism Operations (Phase 7)}
+These 7 opcodes (0x27--0x2D) implement the categorical layer over partition modules. See Chapter~\ref{ch:categorical} for laws and proofs.
+\begin{itemize}
+    \item $\texttt{MORPH}(\mathit{dst}, \mathit{src}, \mathit{tgt}, \mathit{idx}, \Delta\mu)$: Create morphism $\mathit{src} \to \mathit{tgt}$; write morphism ID to $\texttt{regs}[\mathit{dst}]$.
+    \item $\texttt{COMPOSE}(\mathit{dst}, f, g, \Delta\mu)$: Compose $f;g$ when $f.\mathrm{tgt} = g.\mathrm{src}$; errors on type mismatch.
+    \item $\texttt{MORPH\_ID}(\mathit{dst}, m, \Delta\mu)$: Create identity morphism $\mathrm{id}_m$ (diagonal relation).
+    \item $\texttt{MORPH\_DELETE}(f, \Delta\mu)$: Remove morphism $f$; cascades when modules are split/merged.
+    \item $\texttt{MORPH\_ASSERT}(f, \mathit{prop}, \mathit{cert}, \Delta\mu)$: \textbf{Cert-setter.} Charges $S(\Delta\mu) \geq 1$ unconditionally. Even failed attempts (morphism does not exist) incur cost $1$. This is the strongest form of the NoFI law: you cannot attempt to certify a relational claim for free.
+    \item $\texttt{MORPH\_TENSOR}(\mathit{dst}, f, g, \Delta\mu)$: Tensor product $f \otimes g$ (requires union modules to exist).
+    \item $\texttt{MORPH\_GET}(\mathit{dst}, f, \mathit{sel}, \Delta\mu)$: Read morphism metadata: selector $0=\mathrm{src}$, $1=\mathrm{tgt}$, $2=\mathrm{coupling\ length}$, $3=\mathrm{is\_identity}$.
+\end{itemize}
+
+The active implementation exposes a 47-opcode ISA (40 original + 7 categorical morphism opcodes added in Phase 7). This condensed mathematical specification presents the core instruction families relevant to the kernel semantics and cost model. Every instruction carries an explicit $\Delta\mu$ parameter; the function $\texttt{instruction\_cost}$ extracts it.
 
 \section{Cost Model}
 Every instruction $i$ carries an explicit cost parameter $\Delta\mu_i \in \N$. The function $\texttt{instruction\_cost}(i)$ extracts this parameter. The cost is applied via $\texttt{apply\_cost}(s, i) = s.\mu + \texttt{instruction\_cost}(i)$. Since $\Delta\mu_i : \N$, the $\mu$-ledger is monotonically non-decreasing by construction.
@@ -268,7 +280,7 @@ where $|T|$ is the description length of the theory and $c$ is a fixed overhead 
 
 \chapter{Cost Equals Kolmogorov Complexity}
 
-\begin{theorem}[$\mu$-Bits = Prefix-Free Complexity {\normalfont (CostIsComplexity.v)}]
+\begin{theorem}[$\mu$-Bits = Prefix-Free Complexity {\normalfont (CostIsComplexity.v --- archived)}]
 Let $K(\mathrm{spec})$ denote the prefix-free Kolmogorov complexity of specification $\mathrm{spec}$. Then:
 \[ \mu(\mathrm{spec}) = K(\mathrm{spec}) \]
 Specifically, $\mu(\mathrm{spec}) = |\mathrm{spec}| + 1$ (the terminating bit), which equals the minimum description length over all prefix-free programs producing $\mathrm{spec}$.
@@ -282,7 +294,7 @@ The canonical compiler maps $\mathrm{spec} \mapsto \mathrm{spec} \| [\mathrm{tru
 
 \section{No Free Lunch (Ghosts Are Impossible)}
 
-\begin{theorem}[No Free Lunch {\normalfont (NoFreeLunch.v)}]
+\begin{theorem}[No Free Lunch {\normalfont (NoFreeLunch.v --- archived)}]
 A ``ghost'' is defined as two distinct propositions $p \neq q$ represented by the same physical state. Ghosts are impossible:
 \[ \forall\, p \neq q, \;\nexists\, s \text{ s.t.\ } s \text{ faithfully represents both } p \text{ and } q \]
 Information cannot exist without physical distinction.
@@ -290,7 +302,7 @@ Information cannot exist without physical distinction.
 
 \section{No Arbitrage Implies Potential Function}
 
-\begin{theorem}[Potential from No-Arbitrage {\normalfont (NoArbitrage.v)}]
+\begin{theorem}[Potential from No-Arbitrage {\normalfont (NoArbitrage.v --- archived)}]
 Let $w: \Ispace^* \to \Z$ be a cost function satisfying:
 \begin{enumerate}
     \item \textbf{Additivity}: $w([]) = 0$ and $w(\tau_1 \cdot \tau_2) = w(\tau_1) + w(\tau_2)$.
@@ -313,7 +325,7 @@ This is structurally analogous to the Second Law of Thermodynamics: consistent c
 
 \section{Turing Machine Embedding}
 
-\begin{theorem}[Abstract Simulation {\normalfont (Embedding\_TM.v, modular\_proofs/TM\_to\_Minsky.v)}]
+\begin{theorem}[Abstract Simulation {\normalfont (Embedding\_TM.v --- archived, modular\_proofs/TM\_to\_Minsky.v --- archived)}]
 For every Turing Machine $T$, there exists a Minsky counter machine $M$ and a simulation relation $R$ such that $M$ simulates $T$ step-by-step, encoding the tape into two integers:
 \[ \mathrm{Left} = \sum_{i=0}^{h-1} t[h{-}1{-}i]\, 2^i, \qquad \mathrm{Right} = \sum_{i=0}^{n-h-1} t[h{+}i]\, 2^i \]
 The Thiele Machine simulates Minsky using its reversible ALU. Hence:
@@ -322,23 +334,23 @@ The Thiele Machine simulates Minsky using its reversible ALU. Hence:
 
 \section{Strict Containment}
 
-\begin{theorem}[Turing $\subsetneq$ Thiele {\normalfont (Subsumption.v)}]
-Classical Turing computation is \textbf{strictly contained} in sighted Thiele computation:
+\begin{theorem}[Turing $\subsetneq$ Thiele {\normalfont (kernel/Subsumption.v)}]
+Classical Turing computation is \textbf{properly extended} by sighted Thiele computation (both are Turing-complete, but Thiele carries additional partition and $\mu$-accounting structure):
 \[ \exists\, p.\; \mathrm{sighted}(p) \wedge \neg\mathrm{turing}(p) \]
 There exist programs that are Thiele-computable (using partition structure and $\mu$-accounting) but are not classical Turing programs. The extra structure is genuine new content.
 \end{theorem}
 
-\begin{theorem}[Semantic Strictness {\normalfont (ThieleFoundations.v)}]
+\begin{theorem}[Semantic Strictness {\normalfont (ThieleFoundations.v --- archived)}]
 There exist Thiele traces with identical Turing shadows but non-isomorphic Thiele-level behavior. The partition and $\mu$ layers carry information not present in the Turing skeleton.
 \end{theorem}
 
 \section{Halting Undecidability}
-\begin{theorem}[Diagonal Argument {\normalfont (kernel/OracleImpossibility.v)}]
+\begin{theorem}[Diagonal Argument {\normalfont (kernel/OracleImpossibility.v --- archived)}]
 No total computable function decides the halting problem for the Thiele Machine.
 \end{theorem}
 
 \section{Oracle Cost Lower Bound}
-\begin{theorem}[Oracle Impossibility {\normalfont (kernel/OracleImpossibility.v)}]
+\begin{theorem}[Oracle Impossibility {\normalfont (kernel/OracleImpossibility.v --- archived)}]
 The formalization defines a \emph{sound} oracle as one charging $\Delta\mu \ge 1$ per query (\texttt{sound\_oracle\_cost}). Given this definition:
 \begin{enumerate}
     \item \texttt{oracle\_halts\_costs\_mu}: A zero-cost oracle violates the soundness definition ($0 \ge 1 \Rightarrow \bot$).
@@ -348,21 +360,21 @@ These results verify the \emph{internal consistency} of the pricing definition. 
 \end{theorem}
 
 \section{Confluence}
-\begin{theorem}[Church--Rosser {\normalfont (Confluence.v)}]
+\begin{theorem}[Church--Rosser {\normalfont (Confluence.v --- archived)}]
 For any state $s$ and two independent certificates $c_1, c_2$ (targeting distinct CNF formulas), applying them in either order yields the same $\mu$-cost:
 \[ \mu(s_{12}) = \mu(s_{21}) \]
 Independent structural operations commute.
 \end{theorem}
 
 \section{Tensoriality}
-\begin{theorem}[Module Independence {\normalfont (ThieleUnificationTensor.v)}]
+\begin{theorem}[Module Independence {\normalfont (ThieleUnificationTensor.v --- archived)}]
 For distinct modules $m_1 \neq m_2$, recording discoveries commutes:
 \[ \mathrm{record}(\mathrm{record}(G, m_1, e_1), m_2, e_2) \equiv_{\mathrm{ext}} \mathrm{record}(\mathrm{record}(G, m_2, e_2), m_1, e_1) \]
 Local per-module operations are tensorial.
 \end{theorem}
 
 \section{Amortized Analysis}
-\begin{theorem}[Amortization {\normalfont (AmortizedAnalysis.v)}]
+\begin{theorem}[Amortization {\normalfont (AmortizedAnalysis.v --- archived)}]
 For a batch of $T$ instances with discovery cost $D$ and operational cost $O$ per instance:
 \[ \mathrm{total\_cost} = B \cdot D + T \cdot O \ge T \cdot O \]
 where $B$ is batch count. As $T \to \infty$, average cost $\to O$ (discovery overhead amortizes away).
@@ -400,8 +412,8 @@ $\mu_{\mathrm{total}} = \mu_{\mathrm{blind}} + \mu_{\mathrm{sighted}}$ for any p
 A receipt $r = (\mathrm{step}, \mathrm{instr}, \mu_{\mathrm{pre}}, \mu_{\mathrm{post}}, h_{\mathrm{pre}}, h_{\mathrm{post}})$ records one transition.
 \end{definition}
 
-\begin{theorem}[Receipt Chain Validity {\normalfont (ReceiptIntegrity.v)}]
-A valid receipt chain proves $\mu_{\mathrm{final}} = \mu_{\mathrm{init}} + \sum \mathrm{costs}$. Any receipt claiming $\Delta\mu \neq \mathrm{cost}(\mathrm{instr})$ fails validation.
+\begin{theorem}[Receipt Integrity {\normalfont (ReceiptIntegrity.v)}]
+A valid receipt or execution attestation proves $\mu_{\mathrm{final}} = \mu_{\mathrm{init}} + \sum \mathrm{costs}$ for the attested run. Any receipt claiming $\Delta\mu \neq \mathrm{cost}(\mathrm{instr})$ fails validation.
 \end{theorem}
 
 \begin{theorem}[Non-Forgeability]
@@ -435,7 +447,7 @@ $\mathrm{Obs}(S)$ extracts the partition region structure, ignoring $\mu$.
 $\mathrm{Obs}(\sigma_\delta(S)) = \mathrm{Obs}(S)$. Shifting $\mu$ by a constant does not affect observables.
 \end{theorem}
 
-\begin{theorem}[Noether's Theorem {\normalfont (KernelNoether.v, RepresentationTheorem.v)}]
+\begin{theorem}[Noether's Theorem {\normalfont (KernelNoether.v, RepresentationTheorem.v --- archived)}]
 \leavevmode
 \begin{enumerate}
     \item \textbf{Forward}: States identical except for $\mu$ lie on the same gauge orbit. (Trivially true by construction: if all other fields match, the $\mu$ difference is the gauge shift.)
@@ -466,11 +478,11 @@ Partition module states admit amplitude representations: a state with $n$ classi
 
 Given this axiom, binary partition structure forces quantum amplitudes to live in at least two dimensions.
 
-\begin{theorem}[1D Is Insufficient {\normalfont (TwoDimensionalNecessity.v)}]
+\begin{theorem}[1D Is Insufficient {\normalfont (TwoDimensionalNecessity.v --- archived)}]
 A one-dimensional normalized amplitude satisfies $x^2 = 1$, hence $x \in \{+1, -1\}$. No intermediate superpositions exist.
 \end{theorem}
 
-\begin{theorem}[2D Is Necessary and Sufficient {\normalfont (TwoDimensionalNecessity.v)}]
+\begin{theorem}[2D Is Necessary and Sufficient {\normalfont (TwoDimensionalNecessity.v --- archived)}]
 Binary partition structure requires exactly 2D amplitude space. Two-dimensional amplitudes $(a,b)$ with $a^2 + b^2 = 1$ admit a continuous family via $a = \cos\theta$, $b = \sin\theta$: the unit circle $S^1$.
 \end{theorem}
 
@@ -478,7 +490,7 @@ Binary partition structure requires exactly 2D amplitude space. Two-dimensional 
 
 Zero-cost evolution must preserve the norm $a^2 + b^2 = 1$. The group of norm-preserving maps on $S^1$ is $\mathrm{SO}(2) \cong U(1)$, forcing amplitudes to be complex numbers.
 
-\begin{theorem}[Rotation Group {\normalfont (ComplexNecessity.v)}]
+\begin{theorem}[Rotation Group {\normalfont (ComplexNecessity.v --- archived)}]
 2D rotations $R_\theta(a,b) = (a\cos\theta - b\sin\theta,\; a\sin\theta + b\cos\theta)$ satisfy:
 \begin{enumerate}
     \item $|R_\theta(a,b)|^2 = a^2 + b^2$ (norm preservation).
@@ -488,7 +500,7 @@ Zero-cost evolution must preserve the norm $a^2 + b^2 = 1$. The group of norm-pr
 \end{enumerate}
 \end{theorem}
 
-\begin{theorem}[Complex Necessity {\normalfont (ComplexNecessity.v)}]
+\begin{theorem}[Complex Necessity {\normalfont (ComplexNecessity.v --- archived)}]
 Complex multiplication by $e^{i\theta}$ is exactly 2D rotation. The norm-preserving maps on $S^1$ are exactly complex multiplications: $\mathrm{SO}(2) \cong U(1)$. Hence quantum amplitudes \emph{must} be complex numbers.
 \end{theorem}
 
@@ -522,7 +534,7 @@ Proof: Boundary conditions force $a = 1/2$, $b = 1/2$. No other solution exists.
 \textbf{Note:} The Coq theorem also lists a \texttt{mu\_consistent} hypothesis, but it is \textbf{unused} in the proof. The hypothesis \texttt{mu\_consistent P} unfolds to ``measurement cost $\ge 0$ for valid Bloch vectors,'' which is trivially true for all states and does not constrain $P$. The linearity assumption (item~3) does all the work---it assumes the functional form $P = az+b$ and solves a 2-equation system. This is less ``deriving the Born rule from $\mu$-accounting'' and more ``the Born rule is the unique linear rule consistent with eigenstates.'' The non-circular derivation from tensor consistency (\texttt{BornRuleFromSymmetry.v}, below) is the stronger result.
 \end{theorem}
 
-\begin{theorem}[Born Rule from Tensor Consistency {\normalfont (BornRuleFromSymmetry.v)}]
+\begin{theorem}[Born Rule from Tensor Consistency {\normalfont (BornRuleFromSymmetry.v --- archived/superseded; active derivation in \texttt{kernel/BornRuleLinearity.v})}]
 Let $g: [0,1] \to [0,1]$ be any function satisfying:
 \begin{enumerate}
     \item Eigenstate consistency: $g(0) = 0$, $g(1) = 1$.
@@ -581,7 +593,7 @@ Let $I = x^2 + y^2 + z^2$ be the information content (purity). For a cloning ope
 \[ I_1 + I_2 \le I + \mu \]
 \end{theorem}
 
-\begin{theorem}[No-Cloning from $\mu$-Monotonicity {\normalfont (NoCloningFromMuMonotonicity.v)}]
+\begin{theorem}[No-Cloning from $\mu$-Monotonicity {\normalfont (NoCloningFromMuMonotonicity.v --- archived/superseded; active proof in \texttt{kernel/NoCloning.v})}]
 Machine-native no-cloning using nat-valued structural content (MDL complexity). If cloning duplicates $n$ bits of structural content while producing zero new bits: $2n \le n + 0$ implies $n \le 0$. The entire proof is a single \texttt{lia} step (linear integer arithmetic). No Bloch sphere, no Hilbert space, no real analysis. Zero admits.
 \end{theorem}
 
@@ -605,7 +617,7 @@ Perfect deletion also requires $\mu \ge I$ (dual of no-cloning).
 
 \section{Observation Irreversibility}
 
-\begin{theorem}[REVEAL Is Irreversible {\normalfont (ObservationIrreversibility.v)}]
+\begin{theorem}[REVEAL Is Irreversible {\normalfont (ObservationIrreversibility.v --- archived)}]
 For $\mathrm{bits} > 0$: $\mu_{\mathrm{after}} > \mu_{\mathrm{before}}$, and the post-REVEAL state $\neq$ the pre-REVEAL state. Observation prevents recovery of the pre-measurement superposition.
 \end{theorem}
 
@@ -615,7 +627,7 @@ For $\mathrm{bits} > 0$: $\mu_{\mathrm{after}} > \mu_{\mathrm{before}}$, and the
 $H(P) = \log_2(\dim(P))$ where $\dim$ is the partition state dimension.
 \end{definition}
 
-\begin{theorem}[Maximum Information Implies Unique State {\normalfont (CollapseDetermination.v)}]
+\begin{theorem}[Maximum Information Implies Unique State {\normalfont (CollapseDetermination.v --- archived)}]
 If bits revealed $= H(P_{\mathrm{before}})$ (maximum information), then $\dim(P_{\mathrm{after}}) = 1$. The measurement fully collapses the state to a unique outcome. This is the \textbf{projection postulate}, derived rather than assumed.
 \end{theorem}
 
@@ -626,16 +638,16 @@ $\mu_{\mathrm{corr}}(S) = 0$ if $|S| \le 2\sqrt{2}$; otherwise $\mu_{\mathrm{cor
 \end{definition}
 
 \begin{remark}[Epistemological Status: \textbf{(C)} Conditional Derivation---Circularity Resolved]
-The original Coq proof (\texttt{TsirelsonDerivation.v}) encoded $2\sqrt{2}$ in the definition of $\mu_{\mathrm{corr}}$, making its derivation status \textbf{(R)}.
+The original Coq proof (\texttt{TsirelsonDerivation.v} --- archived/superseded) encoded $2\sqrt{2}$ in the definition of $\mu_{\mathrm{corr}}$, making its derivation status \textbf{(R)}.
 
 This gap is now closed. \texttt{TsirelsonGeneral.v} derives $S^2 \le 8$ from pure algebra: a sum-of-squares identity proves each CHSH row contributes $\le 2(e_1^2 + e_2^2)$, then Cauchy--Schwarz bounds the sum by $4\sum e_i^2 \le 8$. \texttt{TsirelsonFromAlgebra.v} provides a self-contained algebraic derivation with achievability witness ($e = \pm 1/\sqrt{2}$, giving $S = 2\sqrt{2}$) and a verified rational bound ($\sqrt{8} < 5657/2000$). Zero admits in both files.
 \end{remark}
 
-\begin{theorem}[Tsirelson from Zero $\mu$ {\normalfont (TsirelsonDerivation.v)} --- \textbf{(R)}]
+\begin{theorem}[Tsirelson from Zero $\mu$ {\normalfont (TsirelsonDerivation.v --- archived/superseded)} --- \textbf{(R)}]
 Total $\mu = 0$ implies $|S_{\mathrm{CHSH}}| \le 2\sqrt{2} \approx 2.828$.
 \end{theorem}
 
-\begin{theorem}[CHSH Separation {\normalfont (Deliverable\_CHSHSeparation.v)}]
+\begin{theorem}[CHSH Separation {\normalfont (Deliverable\_CHSHSeparation.v --- archived)}]
 Strict numerical separation:
 \[ 2 \quad < \quad 2\sqrt{2} \approx 2.828 \quad < \quad \frac{16}{5} = 3.2 \]
 \begin{itemize}
@@ -648,7 +660,7 @@ The Tsirelson bound $2\sqrt{2}$ is the maximum correlation purchasable at zero $
 
 \chapter{The Schr\"odinger Equation}
 
-\begin{theorem}[Emergent Schr\"odinger {\normalfont (EmergentSchrodinger.v)}]
+\begin{theorem}[Emergent Schr\"odinger {\normalfont (EmergentSchrodinger.v --- archived)}]
 The finite-difference Schr\"odinger equation emerges from the partition update rules. For a two-component amplitude state $(a,b)$ with mass $m$, potential $V$, and time step $\Delta t$:
 \begin{align}
     a(t+\Delta t) &= a - \frac{\Delta t}{2m} \nabla^2 b + \Delta t \cdot Vb \\
@@ -675,7 +687,7 @@ $k_B = 1/100$, \; $T = 1$, \; $h = 1$. Landauer energy: $E_L := k_B T \ln 2$.
 $\tau_\mu := h / (4 E_L)$, the Margolus--Levitin time at Landauer energy.
 \end{definition}
 
-\begin{theorem}[Planck Consistency Relation {\normalfont (PlanckDerivation.v)} --- \textbf{(R)}]
+\begin{theorem}[Planck Consistency Relation {\normalfont (PlanckDerivation.v --- archived)} --- \textbf{(R)}]
 \[ h = 4 \cdot E_L \cdot \tau_\mu \]
 \end{theorem}
 
@@ -725,7 +737,7 @@ This is a \textbf{data isolation} property: operations targeting module $A$ in t
 
 \section{Four-Dimensional Spacetime Geometry}
 
-The previous sections treated spacetime as a 1D projection via the $\mu$-metric. We now extend to full 4D geometry with discrete differential structure, proving that Einstein's field equations emerge from computational dynamics.
+The previous sections treated spacetime as a 1D projection via the $\mu$-metric. We now extend to full 4D geometry with discrete differential structure, demonstrating discrete differential geometry from computational primitives.
 
 \subsection{4D Simplicial Complex}
 
@@ -922,12 +934,13 @@ Direct computation:
 \end{itemize}
 \end{proof}
 
-\begin{theorem}[Einstein Equations from Computation {\normalfont (EinsteinEquations4D.v)} --- \textbf{(S)}]
+\begin{theorem}[Einstein Equations in Vacuum {\normalfont (EinsteinEquations4D.v)} --- \textbf{(S)}]
 \label{thm:einstein_main}
 For any VM state $s$, 4D simplicial complex $\mathcal{K}$, spacetime indices $\mu, \nu$, and vertex $v$:
 \begin{equation}
 \boxed{\forall w,\; \text{mass}(w) = 0 \quad \implies \quad G_{\mu\nu}(s,\mathcal{K},v) = 8\pi G \, T_{\mu\nu}(s,\mathcal{K},v)}
 \end{equation}
+\textbf{Note:} This is the vacuum case where both sides equal zero ($0 = 0$). The gravitational constant $G := 1/(8\pi)$ is a \textbf{unit choice} (a definition), not a derived quantity. In vacuum, all masses vanish, so $T_{\mu\nu} = 0$ and uniform-mass (zero) yields $G_{\mu\nu} = 0$; the equation reduces to $0 = 8\pi \cdot \frac{1}{8\pi} \cdot 0 = 0$. The non-vacuum case is \textbf{not proven} and would require discrete Bianchi identities not present in the formalization.
 \end{theorem}
 
 \begin{proof}
@@ -957,7 +970,7 @@ T_{\mu\nu}(v) = 0
 
 The complete proof is formalized in \texttt{coq/kernel/EinsteinEquations4D.v} with:
 \begin{itemize}
-    \item Zero axioms
+    \item No project-local axioms
     \item Zero admitted lemmas
     \item Zero classical logic imports
     \item Verified by automated proof auditing (Inquisitor: 0 HIGH findings)
@@ -1046,11 +1059,11 @@ The intended statement---that Bob's total information about Alice's data is boun
 
 \section{Dissipative Embedding}
 
-\begin{theorem}[Dissipative Model {\normalfont (DissipativeEmbedding.v)}]
+\begin{theorem}[Dissipative Model {\normalfont (DissipativeEmbedding.v --- archived)}]
 Irreversible (dissipative) physics embeds into the Thiele VM with $\Delta\mu \ge 1$ per irreversible step. Reversible physics embeds with $\Delta\mu = 0$.
 \end{theorem}
 
-\begin{theorem}[Reversible Physics {\normalfont (PhysicsEmbedding.v, WaveEmbedding.v)}]
+\begin{theorem}[Reversible Physics {\normalfont (PhysicsEmbedding.v --- archived, WaveEmbedding.v --- archived)}]
 Reversible lattice gas and wave models embed with $\mu_{\mathrm{final}} = \mu_{\mathrm{init}}$ (zero cost). Particle count, momentum, wave energy, and wave momentum are conserved by the VM.
 \end{theorem}
 
@@ -1091,7 +1104,7 @@ Spacetime is the ``shadow'' of the full manifold.
 
 \section{Genesis: Process--Machine Isomorphism}
 
-\begin{theorem}[Genesis {\normalfont (Genesis.v)}]
+\begin{theorem}[Genesis {\normalfont (Genesis.v --- archived)}]
 There is a definitional isomorphism $\mathrm{Proc} \cong \mathrm{Thiele}$ between coherent processes (step + admissibility proof) and Thiele machines:
 \begin{align}
     \mathrm{thiele\_to\_proc}(\mathrm{proc\_to\_thiele}(P)) &= P \\
@@ -1102,15 +1115,26 @@ Any coherent process \emph{is} a Thiele machine, and vice versa.
 
 \chapter{Three-Layer Isomorphism}
 
-\begin{theorem}[Full Isomorphism {\normalfont (FullIsomorphism.v)}]
-Three implementations --- Coq specification, Python VM, and Verilog RTL --- are isomorphic: for any trace $\tau$:
-\[ \mathrm{decode}(S_{\mathrm{Coq}}(\tau)) = \mathrm{decode}(S_{\mathrm{Python}}(\tau)) = \mathrm{decode}(S_{\mathrm{Verilog}}(\tau)) \]
-with $\mu(\mathrm{run}(s, \tau)) = \mu(s) + \sum_i \mathrm{cost}(\tau_i)$ at every layer. Transitivity: $\text{Coq} \cong \text{Python} \cong \text{Verilog} \implies \text{Coq} \cong \text{Verilog}$.
+\begin{theorem}[Observable Comparison Contract {\normalfont (FullIsomorphism.v --- archived)}]
+The active Coq theorem packages the \emph{observable-state contract} used for
+cross-layer comparison: if the chosen Python and RTL decoders satisfy the same
+projection contract as the Coq layer, then the decoded observable states agree
+on that projection for a shared trace $\tau$.
+\[
+\mathrm{decode}_{\mathrm{Python}}(\tau) = \mathrm{decode}_{\mathrm{Coq}}(\tau)
+\;\wedge\;
+\mathrm{decode}_{\mathrm{RTL}}(\tau) = \mathrm{decode}_{\mathrm{Coq}}(\tau)
+\Longrightarrow
+\mathrm{decode}_{\mathrm{Python}}(\tau) = \mathrm{decode}_{\mathrm{RTL}}(\tau)
+\]
+This is a contract theorem over explicit observable projections, not an
+unconditional claim that every current Python and RTL artifact is universally
+equal to Coq in all CI environments.
 \end{theorem}
 
 \chapter{The Curry--Howard--Thiele Correspondence}
 
-\begin{theorem}[Logic--Computation Isomorphism {\normalfont (LogicIsomorphism.v)}]
+\begin{theorem}[Logic--Computation Isomorphism {\normalfont (LogicIsomorphism.v --- archived)}]
 The Thiele Machine extends the Curry--Howard correspondence:
 \begin{center}
 \begin{tabular}{lll}
@@ -1125,7 +1149,7 @@ Proof equivalence & $=_\beta$ & Execution equivalence \\
 A valid proof corresponds to a terminating execution. Proof equivalence $\Leftrightarrow$ execution equivalence.
 \end{theorem}
 
-\begin{theorem}[Logic Is Physics {\normalfont (LogicToPhysics.v)}]
+\begin{theorem}[Logic Is Physics {\normalfont (LogicToPhysics.v --- archived)}]
 Cut elimination in logic = relational composition in physics:
 \[ \mathrm{interp}(\mathrm{cut}(\pi_1, \pi_2)) = \mathrm{rel\_comp}(\mathrm{interp}(\pi_1), \mathrm{interp}(\pi_2)) \]
 Logical proof composition maps to physical relation composition. This is the formal nucleus of the claim that logic and physics share the same categorical structure.
@@ -1133,7 +1157,82 @@ Logical proof composition maps to physical relation composition. This is the for
 
 \chapter{Categorical Structure}
 
-\begin{theorem}[Conservation as Functor {\normalfont (Universe.v)}]
+\section{The Morphism Layer (Phase 7 Extension)}
+
+Phase 7 of the implementation adds a concrete category directly to the machine state. This is not an abstract analogy — it is an executable layer of 7 opcodes (0x27--0x2D) with formally verified laws.
+
+\subsection{Objects and Morphisms}
+
+The partition graph $G$ now carries two maps:
+\begin{itemize}
+    \item $\texttt{pg\_modules} : \mathrm{ModuleID} \rightharpoonup \mathrm{ModuleState}$ — objects (partition modules)
+    \item $\texttt{pg\_morphisms} : \mathrm{MorphismID} \rightharpoonup \mathrm{MorphismState}$ — arrows
+\end{itemize}
+
+A $\mathrm{MorphismState}$ bundles: source module, target module, coupling data (list of $(nat \times nat)$ pairs plus a label), and an identity flag.
+
+\subsection{The Seven Categorical Opcodes}
+
+\begin{itemize}
+    \item $\texttt{MORPH}(dst, src, tgt, idx, \Delta\mu)$: create morphism $src \to tgt$, write morphism ID to $\texttt{regs}[dst]$. Costs $\Delta\mu$.
+    \item $\texttt{COMPOSE}(dst, f, g, \Delta\mu)$: compose morphisms $f ; g$ when $f.\mathrm{target} = g.\mathrm{source}$, write new ID to $\texttt{regs}[dst]$. Costs $\Delta\mu$. Errors if endpoints mismatch.
+    \item $\texttt{MORPH\_ID}(dst, m, \Delta\mu)$: create identity morphism $\mathrm{id}_m$ for module $m$ (diagonal relation). Costs $\Delta\mu$.
+    \item $\texttt{MORPH\_DELETE}(f, \Delta\mu)$: remove morphism $f$. Cascades on module deletion via $\texttt{graph\_cascade\_delete\_morphisms}$.
+    \item $\texttt{MORPH\_ASSERT}(f, \mathit{prop}, \mathit{cert}, \Delta\mu)$: cert-setter. Costs $S(\Delta\mu) \geq 1$ unconditionally — even for failed attempts (morphism does not exist). This is the No Free Insight law applied to relational claims.
+    \item $\texttt{MORPH\_TENSOR}(dst, f, g, \Delta\mu)$: tensor product $f \otimes g$. Requires that the union modules $\mathrm{src}(f) \cup \mathrm{src}(g)$ and $\mathrm{tgt}(f) \cup \mathrm{tgt}(g)$ already exist in the graph.
+    \item $\texttt{MORPH\_GET}(dst, f, \mathit{sel}, \Delta\mu)$: read field from morphism $f$: selector 0 = source, 1 = target, 2 = coupling length, 3 = is\_identity.
+\end{itemize}
+
+\subsection{Category Laws}
+
+\begin{theorem}[Relational Composition is Associative {\normalfont (kernel/CategoryLaws.v)} --- \textbf{(S)}]
+\label{thm:compose_assoc}
+For any three morphisms $f : A \to B$, $g : B \to C$, $h : C \to D$ with composable endpoints:
+\[ (f ; g) ; h = f ; (g ; h) \]
+in the relational sense (coupling pairs of the composite). Zero Admitted.
+\end{theorem}
+
+\begin{theorem}[Graph Composition Satisfies Laws {\normalfont (kernel/CategoryBridge.v)} --- \textbf{(S)}]
+\label{thm:graph_compose_assoc}
+The operation $\texttt{graph\_compose\_morphisms}$ satisfies associativity and unitality. Additionally:
+\[ \texttt{categorical\_extension\_nofi\_consistent} \]
+Any chain of MORPH + COMPOSE operations yields $\mu \geq \text{number of operations}$ — the NoFI policy applies to morphism construction.
+\end{theorem}
+
+\begin{theorem}[Tensor Bifunctoriality {\normalfont (kernel/CategoryMonoidal.v)} --- \textbf{(S)}]
+\label{thm:tensor_bifunctor}
+$\texttt{graph\_tensor\_morphisms}$ is a bifunctor: it satisfies the interchange law
+\[ (f \otimes g) ; (h \otimes k) = (f ; h) \otimes (g ; k) \]
+for composable, disjoint pairs.
+\end{theorem}
+
+\subsection{The Categorical Separation Theorem}
+
+\begin{theorem}[Categorical Separation {\normalfont (kernel/PartitionSeparation.v, §10)} --- \textbf{(S)}]
+\label{thm:categorical_separation}
+There exist states $s_1, s_2$ such that:
+\[
+s_1.\texttt{vm\_regs} = s_2.\texttt{vm\_regs} \;\wedge\;
+s_1.\texttt{vm\_mem}  = s_2.\texttt{vm\_mem}  \;\wedge\;
+s_1.\texttt{vm\_mu}   = s_2.\texttt{vm\_mu}   \;\wedge\;
+s_1.\texttt{vm\_err}  = s_2.\texttt{vm\_err}
+\]
+but $s_1.\texttt{vm\_graph}.\texttt{pg\_morphisms} \neq s_2.\texttt{vm\_graph}.\texttt{pg\_morphisms}$.
+\end{theorem}
+
+\begin{proof}
+Construct $s_1$ with $\texttt{pg\_morphisms} = [(0, ms)]$ for any morphism state $ms$, and $s_2$ with $\texttt{pg\_morphisms} = []$. Arrange identical $\texttt{vm\_regs}$, $\texttt{vm\_mem}$, $\texttt{vm\_mu}$, $\texttt{vm\_err}$ by choosing costs and instruction sequences accordingly. Distinction by $\texttt{discriminate}$. \qed
+\end{proof}
+
+\begin{remark}[Significance]
+A classical machine (exposing only registers, memory, and a cost counter) cannot distinguish $s_1$ from $s_2$. The Thiele Machine distinguishes them in one probe instruction: $\texttt{MORPH\_DELETE}\ 0$ succeeds on $s_1$ and errors on $s_2$. The categorical layer records \emph{how} knowledge was derived, not just \emph{what} the final values are.
+
+This is the machine's claim to being a \emph{knowledge auditor}: any party claiming to have verified a structural relation must carry a $\mu$-receipt $\geq$ the minimum construction cost. The receipt is unforgeable by the NoFI theorem applied to $\texttt{MORPH\_ASSERT}$.
+\end{remark}
+
+\section{The Conservation as Functor (Archived)}
+
+\begin{theorem}[Conservation as Functor {\normalfont (Universe.v --- archived)}]
 Define two categories:
 \begin{itemize}
     \item $\mathbf{C}_{\mathrm{phys}}$: Objects $=$ universe states (particle momenta lists). Morphisms $=$ paths of momentum-conserving interactions.
@@ -1146,7 +1245,7 @@ Conservation of momentum emerges as the functorial image. Observation is a struc
 
 \chapter{Audit Infrastructure}
 
-\begin{theorem}[CatNet Integrity {\normalfont (CatNet.v)}]
+\begin{theorem}[CatNet Integrity {\normalfont (CatNet.v --- archived)}]
 Adding a new entry to a valid hash-chain audit log produces a valid chain. If the logic oracle detects inconsistency, execution halts and no further entries are written (paradox halting).
 \end{theorem}
 
@@ -1177,7 +1276,7 @@ Since $d_\mu$ depends on information content, regions of high structural complex
 
 \section{Architectural Permanence}
 
-\begin{theorem}[Optimal Quartet {\normalfont (ArchTheorem.v)}]
+\begin{theorem}[Optimal Quartet {\normalfont (ArchTheorem.v --- archived)}]
 The four partition discovery strategies (Louvain, Spectral, Degree, Balanced) achieve classification accuracy $> 90\%$ across all problem classes. No alternative configuration exceeds this quartet's accuracy. The configuration is architecturally final.
 \end{theorem}
 
@@ -1295,7 +1394,7 @@ $\mu$-Conservation & \textbf{(S)} & Machine semantics only \\
 Receipt Integrity & \textbf{(S)} & Hash-chain model \\
 Gauge / Noether & \textbf{(S)} & Definitional (record structure) \\
 Genesis & \textbf{(S)} & Definitional isomorphism \\
-Three-Layer Isomorphism & \textbf{(S)} & Decode function \\
+Three-Layer Isomorphism / comparison contract & \textbf{(C)} & Backend decoders satisfy the shared observable projection contract \\
 Curry--Howard--Thiele & \textbf{(S)} & Interpretation map \\
 Curvature from $\mu$-Gradients & \textbf{(S)} & Lemma~\ref{lem:curvature_mu} \\
 Stress-Energy Conservation & \textbf{(S)} & Lemma~\ref{lem:stress_conservation} \\

@@ -1,14 +1,16 @@
 # Coq Proofs for the Thiele Machine
 
-This directory contains **272 Coq proof files (~92,858 lines)** organized into logical modules.
+This directory contains the active Coq proof tree for the Thiele Machine.
 
-**Status:** ✅ All 272 files compile cleanly | ✅ **ZERO admitted proofs** | ✅ **ZERO axioms in active code** | ✅ [Full Audit Report](../INQUISITOR_REPORT.md)
+Documentation note: this README is an overview of the proof tree, not the authoritative claim-status document. For current claim boundaries and audit results, see `../INQUISITOR_REPORT.md` and `../CATEGORICAL_EXTENSION_PLAN.md`.
+
+**Status:** ✅ Active proof tree compiles cleanly | ✅ **ZERO admitted proofs** in active code | ✅ **ZERO project-local axioms** in the active audited tree | ✅ [Full Audit Report](../INQUISITOR_REPORT.md)
 
 ## Build
 
 ```bash
 # From repository root:
-make              # Build all 285 Coq proofs
+make              # Build the active Coq proof tree
 
 # Or from coq/ directory:
 cd coq
@@ -24,18 +26,18 @@ make -j4
 
 ## Directory Structure
 
-| Directory | Files | Description |
-|-----------|-------|-------------|
-| `kernel/` | 127 | Core kernel proofs (VMState, VMStep, NoFreeInsight, mu-accounting, quantum bounds) |
-| `kami_hw/` | 10 | Kami hardware spec and refinement proofs |
-| `thielemachine/` | 85 | Main Thiele Machine proofs (Bell, verification, deliverables) |
-| `thieleuniversal/` | 17 | Universal Turing Machine simulation proofs |
-| `modular_proofs/` | 9 | Modular encoding and simulation proofs |
-| `physics/` | 6 | Physics models (Landauer bridge, wave/discrete) |
-| `nofi/` | 5 | No-Free-Insight abstraction |
-| `thiele_manifold/` | 4 | Thiele manifold physics and isomorphism bridge |
-| `tests/` | 3 | Coq test files |
-| `thermodynamic/` | 2 | Thermodynamic bridge proofs |
+| Directory | Description |
+|-----------|-------------|
+| `kernel/` | Core kernel proofs (VMState, VMStep, NoFreeInsight, μ-accounting, CHSH / bounds work) |
+| `kami_hw/` | Kami hardware spec, extraction, and refinement-facing proofs |
+| `thielemachine/` | Main Thiele Machine proofs and verification layers |
+| `thieleuniversal/` | Universal Turing Machine simulation proofs |
+| `modular_proofs/` | Modular encoding and simulation proofs |
+| `physics/` | Physics-model formalizations and embeddings |
+| `nofi/` | No-Free-Insight abstraction layer |
+| `thiele_manifold/` | Manifold / bridge work |
+| `tests/` | Coq-side test files |
+| `thermodynamic/` | Thermodynamic bridge proofs |
 | `spacetime/` | 1 | Spacetime proofs |
 | `self_reference/` | 1 | Self-reference exploration |
 
@@ -43,7 +45,7 @@ make -j4
 `physics_exploration/`, `project_cerberus/`, `quantum_derivation/`, `self_reference/`,
 `shor_primitives/`, `spacetime_projection/`, `test_vscoq/`, `theory/`.
 The `thiele_prime/` machine line was merged into `kernel/PrimeAxiom.v` (the prime axiom
-now holds for the full 38-opcode kernel VM).
+now holds for the full 40-opcode kernel VM).
 
 ## Key Theorems
 
@@ -52,16 +54,17 @@ now holds for the full 38-opcode kernel VM).
 1. **`local_box_CHSH_bound`** (MinorConstraints.v)
    - The factorizable bound 2 proven for correlations with no structural cost (μ=0)
    - Key insight: Minor constraints ⟺ Factorizable ⟺ Unitary bound
-   - Proven: μ=0 (factorizable operations only) → CHSH ≤ 2
-   - Note: Algebraic bound (2√2) requires μ>0 operations (LJOIN, REVEAL, LASSERT)
+   - Proven: factorizable correlations imply CHSH ≤ 2
+   - Boundary: the separate trace-level theorem for arbitrary μ=0 runs is only the algebraic bound `|S| <= 4`
+   - Note: stronger Tsirelson-related results live elsewhere in the proof tree and should be distinguished from the executable CHSH experiment path
 
 2. **`mu_is_initial_monotone`** (MuInitiality.v)
    - μ is THE unique canonical cost functional (Initiality Theorem)
    - Any instruction-consistent monotone cost starting at 0 must equal μ
 
-3. **`quantum_foundations_complete`** (QuantumEquivalence.v)
-   - Coherent Correlations = cost-free execution tier (derived, not assumed)
-   - Hierarchy: Factorizable ⊂ Coherent ⊂ Structural = cost tiers
+3. **Quantum-related bridge files**
+   - The proof tree contains multiple quantum-related derivation and bridge files
+   - These are formal proof artifacts inside the repository, not by themselves evidence that the executable machine is a physical quantum device
 
 4. **`non_circularity_verified`** (NonCircularityAudit.v)
    - Defense against "smuggled constraint" attack
@@ -87,30 +90,16 @@ reconstructed post-hoc. See `kernel/PrimeAxiom.v` for the proof.
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## Proof Audit (2026-03-10)
+## Proof Audit
 
-**Audit Result: ✅ PASS**
+The active proof tree is audited with the inquisitor:
 
 ```bash
-# Run inquisitor to check for axioms/admits
+# From repository root
 python scripts/inquisitor.py
 ```
 
-**Findings:**
-- ✅ **ZERO admitted proofs** in active codebase (all proofs complete)
-- ✅ **ZERO custom axioms** in production code (kernel/, nofi/, thielemachine/)
-- ✅ Active code uses only standard mathematical axioms:
-  - `FunctionalExtensionality` (standard Coq library)
-  - `ClassicalDedekindReals.sig_forall_dec` (classical decidability for reals)
-- ✅ Clean compilation of all 272 files
-- 2 HIGH findings (intentional): `reversible_info_cost = 0` (mathematically required)
-
-**Key Theorem Dependencies:**
-- `local_box_CHSH_bound`: Standard axioms only (functional extensionality, classical decidability)
-- Tsirelson bounds: Derived from algebraic coherence, no custom axioms
-- μ-cost theorems: Complete proofs, no admits
-
-See [Full Audit Report](../INQUISITOR_REPORT.md) for detailed analysis.
+Current status is reflected in [Full Audit Report](../INQUISITOR_REPORT.md). The checked-in report is the authoritative snapshot for exact counts and findings.
 
 ## Each Directory Has a README
 

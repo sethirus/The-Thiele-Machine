@@ -12,8 +12,16 @@ From Coq Require Import Arith Lia.
 From SelfReference Require Import SelfReference.
 From Spacetime Require Import Spacetime.
 From ThieleManifold Require Import ThieleManifold.
-From ThieleMachine Require Import ThieleMachine ThieleProc.
+From Coq Require Import List.
 From Kernel Require Import MuLedgerConservation VMState VMStep SimulationProof.
+Import ListNotations.
+
+(** Minimal program type — replacement for archived ThieleMachine/ThieleProc. *)
+Definition Prog := list vm_instruction.
+Definition empty_prog : Prog := nil.
+Definition obs_equiv (P Q : Prog) : Prop := P = Q.
+Lemma obs_equiv_refl : forall P, obs_equiv P P.
+Proof. intros P. unfold obs_equiv. exact eq_refl. Qed.
 
 (** ** A System instance driven by Thiele programs and receipts *)
 

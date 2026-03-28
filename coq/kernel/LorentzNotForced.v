@@ -7,8 +7,8 @@
     dependencies), not geometric.
 
     THE CORE CLAIM:
-    There exists a trivial cone-preserving symmetry (identity, Theorem line 25),
-    and there exist NON-TRIVIAL cone symmetries (stutter, Theorem line 51) that
+    There exists a trivial cone-preserving symmetry (identity),
+    and there exist NON-TRIVIAL cone symmetries (stutter) that
     preserve cones but are NOT Lorentz transformations.
 
     WHAT THIS PROVES:
@@ -37,10 +37,14 @@
     cone-preserving symmetries (contradicting stutter example). Or demonstrate
     kernel-level objects that encode metric/interval structure.
 
-    This file localizes Task B3 failure:
+    This file localizes a kernel-level boundary:
     With only the current kernel primitives, "Lorentz invariance" has no
     canonical statement because there is no derived metric/interval, and
     cone symmetries are underdetermined without extra structure.
+    (Note: deriving strictly_stronger predicates from feasible-set reduction
+    is handled in InformationGainToStrengthening.v; this file documents a
+    separate limitation: Lorentz symmetry specifically requires geometric
+    structure beyond cones.)
 
     What we can prove (and what is used everywhere) is purely:
     - cones are syntactically determined by instr_targets recursion

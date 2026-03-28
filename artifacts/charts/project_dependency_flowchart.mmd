@@ -1,0 +1,533 @@
+%% Thiele Machine — Complete Dependency & Flow Diagram
+%% VERIFIED against actual `From ... Require Import` in every .v file (2026-03-21)
+%% 707 total edges across 145 source files. Showing ~80 most important nodes.
+%% Arrows: A --> B means "A imports B"
+%% Omitted for readability: VMState/VMStep imports (almost every file imports these)
+
+graph TD
+    %% ═══════════════════════════════════════════════════════════
+    %% TIER 0: ABSOLUTE FOUNDATIONS (no project-internal deps)
+    %% ═══════════════════════════════════════════════════════════
+    subgraph T0["TIER 0: Leaf Foundations (zero project imports)"]
+        VMState["VMState.v<br/><i>12-field VM state record</i>"]
+        CertCheck["CertCheck.v<br/><i>SAT/LRAT checker</i>"]
+        Kernel["Kernel.v<br/><i>Abstract machine axioms</i>"]
+        ThieleTypes["ThieleTypes.v<br/><i>Kami type defs</i>"]
+    end
+
+    %% ═══════════════════════════════════════════════════════════
+    %% TIER 1: CORE STEP RELATION + COST + PHYSICS
+    %% ═══════════════════════════════════════════════════════════
+    subgraph T1["TIER 1: Step Relation & Cost Model"]
+        VMStep["VMStep.v<br/><i>40-opcode step relation</i>"]
+        KernelTM["KernelTM.v<br/><i>Turing completeness</i>"]
+        MuCostModel["MuCostModel.v<br/><i>instruction_cost, is_cert_setterb</i>"]
+        KernelPhysics["KernelPhysics.v<br/><i>causal_cone, observable</i>"]
+        VMEncoding["VMEncoding.v<br/><i>Tape encoding</i>"]
+        Definitions["Definitions.v<br/><i>Weight laws interface</i>"]
+        KernelThiele["KernelThiele.v<br/><i>Kernel + TM bridge</i>"]
+    end
+
+    VMStep --> VMState
+    VMStep --> CertCheck
+    KernelTM --> Kernel
+    MuCostModel --> VMStep
+    KernelPhysics --> VMStep
+    VMEncoding --> VMStep
+    VMEncoding --> Kernel
+    Definitions --> VMStep
+    Definitions --> KernelPhysics
+    KernelThiele --> Kernel
+    KernelThiele --> KernelTM
+
+    %% ═══════════════════════════════════════════════════════════
+    %% TIER 2: SIMULATION + CONSERVATION + REVELATION
+    %% ═══════════════════════════════════════════════════════════
+    subgraph T2["TIER 2: Simulation & Conservation"]
+        SimulationProof["SimulationProof.v<br/><i>VM bisimulation</i>"]
+        MuLedgerConservation["MuLedgerConservation.v<br/><i>μ conservation (40 ops)</i>"]
+        RevelationRequirement["RevelationRequirement.v<br/><i>Revelation for cert</i>"]
+        Persistence["Persistence.v<br/><i>μ monotonicity</i>"]
+        Locality["Locality.v<br/><i>Locality constraint</i>"]
+        SemanticMuCost["SemanticMuCost.v<br/><i>Semantic cost model</i>"]
+        MuInformation["MuInformation.v<br/><i>μ-information theory</i>"]
+    end
+
+    SimulationProof --> VMEncoding
+    SimulationProof --> KernelThiele
+    MuLedgerConservation --> SimulationProof
+    RevelationRequirement --> KernelPhysics
+    RevelationRequirement --> SimulationProof
+    RevelationRequirement --> MuCostModel
+    Persistence --> VMStep
+    Locality --> MuCostModel
+    Locality --> KernelPhysics
+    SemanticMuCost --> MuCostModel
+    MuInformation --> MuLedgerConservation
+    MuInformation --> SimulationProof
+
+    %% ═══════════════════════════════════════════════════════════
+    %% TIER 3: NO FREE INSIGHT CHAIN
+    %% ═══════════════════════════════════════════════════════════
+    subgraph T3["TIER 3: No Free Insight"]
+        NoFreeInsight["NoFreeInsight.v<br/><i>Core NoFI theorem</i>"]
+        InfoGain["InformationGainToStrengthening.v<br/><i>B3: feasible→strict</i>"]
+        HonestNoFI["HonestNoFI.v<br/><i>B4: Honest NoFI</i>"]
+        HonestNoFI_TWA["HonestNoFI_TWA.v<br/><i>B4.1: No project axioms</i>"]
+        MuShannonBridge["MuShannonBridge.v<br/><i>B2: Shannon bridge</i>"]
+        MuShannonQuant["MuShannonQuantitative.v<br/><i>Quantitative Shannon</i>"]
+        MuNoFIQuant["MuNoFreeInsightQuantitative.v<br/><i>Quantitative NoFI</i>"]
+        StateSpaceCounting["StateSpaceCounting.v<br/><i>State space bounds</i>"]
+        MuChaitin["MuChaitin.v<br/><i>Chaitin-style bounds</i>"]
+    end
+
+    NoFreeInsight --> MuLedgerConservation
+    NoFreeInsight --> RevelationRequirement
+    NoFreeInsight --> SimulationProof
+    NoFreeInsight --> KernelPhysics
+    InfoGain --> NoFreeInsight
+    InfoGain --> MuLedgerConservation
+    InfoGain --> SimulationProof
+    HonestNoFI --> NoFreeInsight
+    HonestNoFI --> InfoGain
+    HonestNoFI --> MuShannonBridge
+    HonestNoFI --> MuShannonQuant
+    HonestNoFI --> MuLedgerConservation
+    HonestNoFI --> SimulationProof
+    HonestNoFI --> StateSpaceCounting
+    HonestNoFI_TWA --> NoFreeInsight
+    HonestNoFI_TWA --> InfoGain
+    HonestNoFI_TWA --> SimulationProof
+    MuShannonBridge --> MuNoFIQuant
+    MuShannonBridge --> MuLedgerConservation
+    MuShannonBridge --> SimulationProof
+    MuShannonQuant --> MuLedgerConservation
+    MuShannonQuant --> SimulationProof
+    MuNoFIQuant --> MuLedgerConservation
+    MuNoFIQuant --> RevelationRequirement
+    MuNoFIQuant --> SimulationProof
+    StateSpaceCounting --> MuNoFIQuant
+    StateSpaceCounting --> MuLedgerConservation
+    StateSpaceCounting --> SimulationProof
+    MuChaitin --> MuInformation
+    MuChaitin --> MuNoFIQuant
+    MuChaitin --> RevelationRequirement
+
+    %% ═══════════════════════════════════════════════════════════
+    %% TIER 3b: COST DERIVATION + INITIALITY + THERMODYNAMIC
+    %% ═══════════════════════════════════════════════════════════
+    subgraph T3b["TIER 3b: Cost Derivation & μ-Uniqueness"]
+        LandauerDerived["thermodynamic/LandauerDerived.v<br/><i>D2: Landauer bound</i>"]
+        MuCostDeriv["MuCostDerivation.v<br/><i>Cost derivation</i>"]
+        MuInitiality["MuInitiality.v<br/><i>μ uniqueness</i>"]
+    end
+
+    LandauerDerived --> MuCostModel
+    MuCostDeriv --> LandauerDerived
+    MuCostDeriv --> SemanticMuCost
+    MuCostDeriv --> StateSpaceCounting
+    MuInitiality --> MuCostDeriv
+    MuInitiality --> MuLedgerConservation
+    MuInitiality --> SimulationProof
+
+    %% ═══════════════════════════════════════════════════════════
+    %% TIER 4: QUANTUM / TSIRELSON CHAIN
+    %% ═══════════════════════════════════════════════════════════
+    subgraph T4["TIER 4: Quantum Mechanics"]
+        CHSH["CHSH.v<br/><i>CHSH correlations</i>"]
+        CHSHExtraction["CHSHExtraction.v<br/><i>CHSH from VM</i>"]
+        ClassicalBound["ClassicalBound.v<br/><i>S ≤ 2</i>"]
+        TsirelsonUpper["TsirelsonUpperBound.v<br/><i>S ≤ 2√2</i>"]
+        TsirelsonLower["TsirelsonLowerBound.v<br/><i>S ≥ 2√2</i>"]
+        TsirelsonUnique["TsirelsonUniqueness.v<br/><i>S = 2√2 unique</i>"]
+        TsirelsonGeneral["TsirelsonGeneral.v<br/><i>General framework</i>"]
+        TsirelsonQModel["TsirelsonQuantumModel.v<br/><i>Quantum model</i>"]
+        TsirelsonFromAlg["TsirelsonFromAlgebra.v<br/><i>Algebraic derivation</i>"]
+        AlgCoherence["AlgebraicCoherence.v<br/><i>Coherence conditions</i>"]
+        ConstructivePSD["ConstructivePSD.v<br/><i>PSD witnessing</i>"]
+        NPAMoment["NPAMomentMatrix.v<br/><i>NPA hierarchy</i>"]
+        ValidCorr["ValidCorrelation.v<br/><i>Valid correlation bounds</i>"]
+        BoxCHSH["BoxCHSH.v<br/><i>Box model CHSH</i>"]
+        BornRule["BornRule.v<br/><i>Born rule</i>"]
+        BornRuleLinear["BornRuleLinearity.v<br/><i>C3: Born from no-signaling</i>"]
+        QuantumBound["QuantumBound.v<br/><i>Quantum cost bounds</i>"]
+        QuantumEq["QuantumEquivalence.v<br/><i>Quantum equivalence</i>"]
+        MuLedgerQBridge["MuLedgerQuantumBridge.v<br/><i>μ-quantum bridge</i>"]
+        PrimeAxiom["PrimeAxiom.v<br/><i>Prime axiom</i>"]
+        Certification["Certification.v<br/><i>Certification framework</i>"]
+    end
+
+    CHSH --> MuCostModel
+    CHSHExtraction --> SimulationProof
+    CHSHExtraction --> MuCostModel
+    ClassicalBound --> CHSHExtraction
+    TsirelsonUpper --> CHSHExtraction
+    TsirelsonUpper --> ClassicalBound
+    TsirelsonUpper --> AlgCoherence
+    TsirelsonLower --> CHSHExtraction
+    TsirelsonUnique --> TsirelsonUpper
+    TsirelsonUnique --> AlgCoherence
+    TsirelsonUnique --> ClassicalBound
+    TsirelsonUnique --> CHSHExtraction
+    TsirelsonGeneral --> MuCostModel
+    TsirelsonQModel --> NPAMoment
+    TsirelsonQModel --> MuLedgerQBridge
+    TsirelsonQModel --> TsirelsonGeneral
+    TsirelsonQModel --> CHSHExtraction
+    TsirelsonFromAlg --> MuCostModel
+    AlgCoherence --> MuCostModel
+    ConstructivePSD --> MuCostModel
+    NPAMoment --> ConstructivePSD
+    ValidCorr --> MuCostModel
+    BoxCHSH --> AlgCoherence
+    BoxCHSH --> ValidCorr
+    BornRule --> MuCostModel
+    BornRuleLinear --> BornRule
+    BornRuleLinear --> MuLedgerConservation
+    BornRuleLinear --> KernelPhysics
+    QuantumBound --> RevelationRequirement
+    QuantumBound --> SimulationProof
+    QuantumBound --> MuCostModel
+    QuantumEq --> TsirelsonUpper
+    QuantumEq --> ClassicalBound
+    QuantumEq --> CHSHExtraction
+    MuLedgerQBridge --> NoFreeInsight
+    MuLedgerQBridge --> NPAMoment
+    MuLedgerQBridge --> ConstructivePSD
+    MuLedgerQBridge --> TsirelsonGeneral
+    MuLedgerQBridge --> CHSHExtraction
+    MuLedgerQBridge --> MuLedgerConservation
+    MuLedgerQBridge --> SimulationProof
+    MuLedgerQBridge --> PrimeAxiom
+    PrimeAxiom --> SimulationProof
+    Certification --> CHSH
+    Certification --> KernelPhysics
+    Certification --> MuLedgerConservation
+    Certification --> MuInformation
+    Certification --> MuNoFIQuant
+    Certification --> NoFreeInsight
+    Certification --> QuantumBound
+    Certification --> RevelationRequirement
+    Certification --> SimulationProof
+
+    %% ═══════════════════════════════════════════════════════════
+    %% TIER 5: SPACETIME EMERGENCE (Geometric path)
+    %% ═══════════════════════════════════════════════════════════
+    subgraph T5["TIER 5: Spacetime Emergence"]
+        DiscreteTopology["DiscreteTopology.v<br/><i>Graph topology</i>"]
+        FourDSC["FourDSimplicialComplex.v<br/><i>4D simplicial</i>"]
+        DiscreteGB["DiscreteGaussBonnet.v<br/><i>Gauss-Bonnet</i>"]
+        MatrixAlg4["MatrixAlgebra4.v<br/><i>4×4 matrix algebra</i>"]
+        MetricFromMu["MetricFromMuCosts.v<br/><i>Metric from μ</i>"]
+        RiemannT4D["RiemannTensor4D.v<br/><i>Riemann tensor</i>"]
+        Einstein4D["EinsteinEquations4D.v<br/><i>Einstein equations</i>"]
+        CurvedPipe["CurvedTensorPipeline.v<br/><i>Full tensor pipeline</i>"]
+        MetricForcing["MetricForcing.v<br/><i>Metric is forced by μ</i>"]
+        ConeAlgebra["ConeAlgebra.v<br/><i>Cone algebra</i>"]
+        ConeDerivation["ConeDerivation.v<br/><i>Cone derivation</i>"]
+        SpacetimeEmerg["SpacetimeEmergence.v<br/><i>Spacetime from μ</i>"]
+        MuGeometry["MuGeometry.v<br/><i>μ-geometry</i>"]
+        ConstUnify["ConstantUnification.v<br/><i>Constant unification</i>"]
+        MuGravity["MuGravity.v<br/><i>μ-gravity bridge</i>"]
+        TopologyCurv["TopologyCurvatureBridge.v<br/><i>Topology→curvature</i>"]
+        PNEWTopo["PNEWTopologyChange.v<br/><i>PNEW topology</i>"]
+        StressEnergy["StressEnergyDynamics.v<br/><i>Stress-energy</i>"]
+        EinsteinEmerg["EinsteinEmergence.v<br/><i>Einstein emergence</i>"]
+    end
+
+    DiscreteTopology --> MuCostModel
+    FourDSC --> DiscreteTopology
+    DiscreteGB --> DiscreteTopology
+    MatrixAlg4 --> MuCostModel
+    MetricFromMu --> FourDSC
+    MetricFromMu --> MuGravity
+    MetricFromMu --> MatrixAlg4
+    MetricFromMu --> MuCostModel
+    RiemannT4D --> FourDSC
+    RiemannT4D --> MetricFromMu
+    Einstein4D --> RiemannT4D
+    Einstein4D --> MuGravity
+    Einstein4D --> KernelPhysics
+    Einstein4D --> MetricFromMu
+    CurvedPipe --> Einstein4D
+    CurvedPipe --> FourDSC
+    CurvedPipe --> MatrixAlg4
+    CurvedPipe --> MetricFromMu
+    CurvedPipe --> MuGravity
+    CurvedPipe --> RiemannT4D
+    CurvedPipe --> MuCostModel
+    MetricForcing --> CurvedPipe
+    MetricForcing --> Einstein4D
+    MetricForcing --> FourDSC
+    MetricForcing --> MatrixAlg4
+    MetricForcing --> MetricFromMu
+    MetricForcing --> RiemannT4D
+    MetricForcing --> MuGravity
+    ConeAlgebra --> KernelPhysics
+    ConeAlgebra --> MuCostModel
+    ConeDerivation --> KernelPhysics
+    ConeDerivation --> MuCostModel
+    SpacetimeEmerg --> KernelPhysics
+    SpacetimeEmerg --> MuCostModel
+    MuGeometry --> MuCostModel
+    MuGeometry --> SimulationProof
+    MuGeometry --> MuInformation
+    ConstUnify --> MuCostModel
+    MuGravity --> ConeAlgebra
+    MuGravity --> ConstUnify
+    MuGravity --> KernelPhysics
+    MuGravity --> Locality
+    MuGravity --> MuGeometry
+    MuGravity --> MuLedgerConservation
+    MuGravity --> SimulationProof
+    MuGravity --> SpacetimeEmerg
+    TopologyCurv --> DiscreteTopology
+    TopologyCurv --> DiscreteGB
+    TopologyCurv --> MuCostModel
+    PNEWTopo --> DiscreteTopology
+    PNEWTopo --> MuCostModel
+    StressEnergy --> MuGravity
+    StressEnergy --> SimulationProof
+    StressEnergy --> Locality
+    StressEnergy --> KernelPhysics
+    EinsteinEmerg --> MuGravity
+    EinsteinEmerg --> DiscreteGB
+    EinsteinEmerg --> DiscreteTopology
+    EinsteinEmerg --> PNEWTopo
+    EinsteinEmerg --> StressEnergy
+    EinsteinEmerg --> TopologyCurv
+
+    %% ═══════════════════════════════════════════════════════════
+    %% TIER 5b: THERMO-EINSTEIN CORRIDOR
+    %% ═══════════════════════════════════════════════════════════
+    subgraph T5b["TIER 5b: Thermo-Einstein Corridor"]
+        LocalMorphSem["LocalMorphismSemantics.v<br/><i>Local morphisms</i>"]
+        EntangleEntropy["EntanglementEntropy.v<br/><i>Entanglement entropy</i>"]
+        Clausius["ClausiusFromEntropyArea.v<br/><i>Clausius inequality</i>"]
+        RaychFlux["RaychaudhuriFluxBridge.v<br/><i>Raychaudhuri</i>"]
+        BekensteinCal["BekensteinCalibration.v<br/><i>Bekenstein bound</i>"]
+        JacobsonBridge["JacobsonBridgeComponents.v<br/><i>Jacobson bridge</i>"]
+        ThermoEinstein["ThermoEinsteinBridge.v<br/><i>Thermo→Einstein</i>"]
+        NoFIToEinstein["NoFIToEinstein.v<br/><i>NoFI → Einstein capstone</i>"]
+    end
+
+    LocalMorphSem --> MuCostModel
+    LocalMorphSem --> SimulationProof
+    EntangleEntropy --> LocalMorphSem
+    EntangleEntropy --> MuCostModel
+    Clausius --> EntangleEntropy
+    Clausius --> LocalMorphSem
+    RaychFlux --> Clausius
+    RaychFlux --> LocalMorphSem
+    BekensteinCal --> RaychFlux
+    BekensteinCal --> Clausius
+    BekensteinCal --> EntangleEntropy
+    BekensteinCal --> LocalMorphSem
+    BekensteinCal --> MuCostModel
+    JacobsonBridge --> EntangleEntropy
+    JacobsonBridge --> LocalMorphSem
+    JacobsonBridge --> MuCostModel
+    ThermoEinstein --> JacobsonBridge
+    ThermoEinstein --> EinsteinEmerg
+    ThermoEinstein --> DiscreteGB
+    ThermoEinstein --> DiscreteTopology
+    ThermoEinstein --> Clausius
+    ThermoEinstein --> EntangleEntropy
+    ThermoEinstein --> LocalMorphSem
+    ThermoEinstein --> RaychFlux
+    NoFIToEinstein --> BekensteinCal
+    NoFIToEinstein --> ThermoEinstein
+    NoFIToEinstein --> EinsteinEmerg
+    NoFIToEinstein --> MuLedgerConservation
+    NoFIToEinstein --> SimulationProof
+    NoFIToEinstein --> Clausius
+    NoFIToEinstein --> DiscreteGB
+    NoFIToEinstein --> DiscreteTopology
+    NoFIToEinstein --> EntangleEntropy
+    NoFIToEinstein --> LocalMorphSem
+    NoFIToEinstein --> RaychFlux
+    NoFIToEinstein --> PrimeAxiom
+
+    %% ═══════════════════════════════════════════════════════════
+    %% TIER 6: THREE-LAYER ISOMORPHISM
+    %% ═══════════════════════════════════════════════════════════
+    subgraph T6["TIER 6: Three-Layer Isomorphism"]
+        ThreeLayerIso["ThreeLayerIsomorphism.v<br/><i>Coq = OCaml = Verilog</i>"]
+        PythonBisim["PythonBisimulation.v<br/><i>Coq ↔ OCaml (cost level)</i>"]
+        HWBisim["HardwareBisimulation.v<br/><i>OCaml ↔ HW (cost level)</i>"]
+        VerilogRTLCorr["VerilogRTLCorrespondence.v<br/><i>Verilog RTL correspondence</i>"]
+    end
+
+    ThreeLayerIso --> SimulationProof
+    PythonBisim --> VMStep
+    HWBisim --> VMStep
+    VerilogRTLCorr --> ThreeLayerIso
+    VerilogRTLCorr --> HWBisim
+    VerilogRTLCorr --> SimulationProof
+
+    %% ═══════════════════════════════════════════════════════════
+    %% TIER 6b: CLOSURE + PHYSICS CLOSURE
+    %% ═══════════════════════════════════════════════════════════
+    subgraph T6b["TIER 6b: Kernel Closure"]
+        PhysicsClosure["PhysicsClosure.v<br/><i>Physics closure</i>"]
+        Closure["Closure.v<br/><i>Kernel closure</i>"]
+    end
+
+    PhysicsClosure --> KernelPhysics
+    PhysicsClosure --> SpacetimeEmerg
+    Closure --> KernelPhysics
+    Closure --> PhysicsClosure
+    Closure --> SpacetimeEmerg
+
+    %% ═══════════════════════════════════════════════════════════
+    %% TIER 7: KAMI HARDWARE
+    %% ═══════════════════════════════════════════════════════════
+    subgraph T7["TIER 7: Kami Hardware"]
+        ThieleCPUCore["ThieleCPUCore.v<br/><i>40-opcode Kami CPU</i>"]
+        Abstraction["Abstraction.v<br/><i>Kami→VMState map</i>"]
+        VerilogRefine["VerilogRefinement.v<br/><i>Refinement proof</i>"]
+        ThieleCPUBusTop["ThieleCPUBusTop.v<br/><i>Bus integration</i>"]
+        CanonicalCPU["CanonicalCPUProof.v<br/><i>Canonical CPU proof</i>"]
+        LogicEngineEq["LogicEngineEquivalence.v<br/><i>Logic engine equiv</i>"]
+        KamiExtract["KamiExtraction.v<br/><i>→ OCaml → BSC → Verilog</i>"]
+        RTLCorrect["RTLCorrectnessInstantiation.v<br/><i>RTL correctness</i>"]
+    end
+
+    ThieleCPUCore --> ThieleTypes
+    Abstraction --> VMStep
+    VerilogRefine --> Abstraction
+    ThieleCPUBusTop --> ThieleCPUCore
+    ThieleCPUBusTop --> Abstraction
+    ThieleCPUBusTop --> MuCostModel
+    CanonicalCPU --> ThieleCPUCore
+    CanonicalCPU --> ThieleCPUBusTop
+    CanonicalCPU --> Abstraction
+    CanonicalCPU --> VerilogRefine
+    CanonicalCPU --> NoFreeInsight
+    CanonicalCPU --> HonestNoFI
+    CanonicalCPU --> HonestNoFI_TWA
+    CanonicalCPU --> BornRuleLinear
+    CanonicalCPU --> TsirelsonQModel
+    CanonicalCPU --> TsirelsonGeneral
+    CanonicalCPU --> MuLedgerQBridge
+    CanonicalCPU --> MuShannonBridge
+    CanonicalCPU --> MuShannonQuant
+    CanonicalCPU --> StateSpaceCounting
+    CanonicalCPU --> SimulationProof
+    CanonicalCPU --> MuCostModel
+    CanonicalCPU --> MuLedgerConservation
+    CanonicalCPU --> MuInitiality
+    CanonicalCPU --> Certification
+    CanonicalCPU --> QuantumBound
+    CanonicalCPU --> RevelationRequirement
+    LogicEngineEq --> Abstraction
+    LogicEngineEq --> VerilogRefine
+    LogicEngineEq --> MuCostModel
+    KamiExtract --> CanonicalCPU
+    RTLCorrect --> VerilogRTLCorr
+    RTLCorrect --> HWBisim
+    RTLCorrect --> ThreeLayerIso
+    RTLCorrect --> SimulationProof
+
+    %% ═══════════════════════════════════════════════════════════
+    %% CAPSTONE: TOE + MASTER SUMMARY + EXTRACTION
+    %% ═══════════════════════════════════════════════════════════
+    subgraph T8["CAPSTONE: Final Outputs"]
+        TOE["TOE.v<br/><i>Theory of Everything</i>"]
+        MasterSummary["MasterSummary.v<br/><i>Master summary (~40 imports)</i>"]
+        Extraction["Extraction.v<br/><i>OCaml extraction (26 imports)</i>"]
+    end
+
+    TOE --> BornRuleLinear
+    TOE --> TsirelsonQModel
+    TOE --> TsirelsonGeneral
+    TOE --> MuLedgerQBridge
+    TOE --> Closure
+    TOE --> MuCostModel
+
+    MasterSummary --> HonestNoFI
+    MasterSummary --> HonestNoFI_TWA
+    MasterSummary --> BornRuleLinear
+    MasterSummary --> TsirelsonQModel
+    MasterSummary --> TsirelsonGeneral
+    MasterSummary --> TsirelsonUnique
+    MasterSummary --> TsirelsonUpper
+    MasterSummary --> TsirelsonFromAlg
+    MasterSummary --> NoFIToEinstein
+    MasterSummary --> EinsteinEmerg
+    MasterSummary --> CurvedPipe
+    MasterSummary --> NoFreeInsight
+    MasterSummary --> InfoGain
+    MasterSummary --> MuLedgerQBridge
+    MasterSummary --> MuShannonBridge
+    MasterSummary --> MuShannonQuant
+    MasterSummary --> NPAMoment
+    MasterSummary --> ClassicalBound
+    MasterSummary --> CHSHExtraction
+    MasterSummary --> QuantumEq
+    MasterSummary --> DiscreteTopology
+    MasterSummary --> DiscreteGB
+    MasterSummary --> ThermoEinstein
+    MasterSummary --> JacobsonBridge
+    MasterSummary --> BekensteinCal
+    MasterSummary --> RaychFlux
+    MasterSummary --> Clausius
+    MasterSummary --> EntangleEntropy
+    MasterSummary --> LocalMorphSem
+    MasterSummary --> SimulationProof
+    MasterSummary --> PythonBisim
+    MasterSummary --> HWBisim
+    MasterSummary --> StateSpaceCounting
+    MasterSummary --> MuCostModel
+
+    Extraction --> CanonicalCPU
+    Extraction --> Abstraction
+    Extraction --> ThieleCPUBusTop
+    Extraction --> NoFIToEinstein
+    Extraction --> BekensteinCal
+    Extraction --> BornRuleLinear
+    Extraction --> TsirelsonQModel
+    Extraction --> TsirelsonGeneral
+    Extraction --> MuLedgerQBridge
+    Extraction --> HonestNoFI
+    Extraction --> HonestNoFI_TWA
+    Extraction --> MuShannonBridge
+    Extraction --> MuShannonQuant
+    Extraction --> StateSpaceCounting
+    Extraction --> Certification
+    Extraction --> QuantumBound
+    Extraction --> NoFreeInsight
+    Extraction --> MuInitiality
+    Extraction --> MuLedgerConservation
+    Extraction --> SimulationProof
+    Extraction --> MuCostModel
+    Extraction --> RevelationRequirement
+    Extraction --> VMEncoding
+    Extraction --> KernelTM
+    Extraction --> QuantumBound
+
+    %% ═══════════════════════════════════════════════════════════
+    %% STYLING
+    %% ═══════════════════════════════════════════════════════════
+    classDef foundation fill:#2d5016,stroke:#1a3009,color:#fff
+    classDef core fill:#1a4d7a,stroke:#0d2f4d,color:#fff
+    classDef nofi fill:#7a1a1a,stroke:#4d0d0d,color:#fff
+    classDef quantum fill:#4d1a7a,stroke:#2d0d4d,color:#fff
+    classDef gravity fill:#7a4d1a,stroke:#4d2d0d,color:#fff
+    classDef thermo fill:#1a7a4d,stroke:#0d4d2d,color:#fff
+    classDef iso fill:#4d4d4d,stroke:#2d2d2d,color:#fff
+    classDef kami fill:#7a4d7a,stroke:#4d2d4d,color:#fff
+    classDef capstone fill:#7a7a1a,stroke:#4d4d0d,color:#fff
+
+    class VMState,CertCheck,Kernel,ThieleTypes foundation
+    class VMStep,KernelTM,MuCostModel,KernelPhysics,VMEncoding,Definitions,KernelThiele core
+    class SimulationProof,MuLedgerConservation,RevelationRequirement,Persistence,Locality,SemanticMuCost,MuInformation core
+    class LandauerDerived,MuCostDeriv,MuInitiality core
+    class NoFreeInsight,InfoGain,HonestNoFI,HonestNoFI_TWA,MuShannonBridge,MuShannonQuant,MuNoFIQuant,StateSpaceCounting,MuChaitin nofi
+    class CHSH,CHSHExtraction,ClassicalBound,TsirelsonUpper,TsirelsonLower,TsirelsonUnique,TsirelsonGeneral,TsirelsonQModel,TsirelsonFromAlg,AlgCoherence,ConstructivePSD,NPAMoment,ValidCorr,BoxCHSH,BornRule,BornRuleLinear,QuantumBound,QuantumEq,MuLedgerQBridge,PrimeAxiom,Certification quantum
+    class DiscreteTopology,FourDSC,DiscreteGB,MatrixAlg4,MetricFromMu,RiemannT4D,Einstein4D,CurvedPipe,MetricForcing,ConeAlgebra,ConeDerivation,SpacetimeEmerg,MuGeometry,ConstUnify,MuGravity,TopologyCurv,PNEWTopo,StressEnergy,EinsteinEmerg gravity
+    class LocalMorphSem,EntangleEntropy,Clausius,RaychFlux,BekensteinCal,JacobsonBridge,ThermoEinstein,NoFIToEinstein thermo
+    class ThreeLayerIso,PythonBisim,HWBisim,VerilogRTLCorr iso
+    class PhysicsClosure,Closure core
+    class ThieleCPUCore,Abstraction,VerilogRefine,ThieleCPUBusTop,CanonicalCPU,LogicEngineEq,KamiExtract,RTLCorrect kami
+    class TOE,MasterSummary,Extraction capstone

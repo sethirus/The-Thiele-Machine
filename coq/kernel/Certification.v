@@ -2,17 +2,11 @@ From Coq Require Import List Lia Arith.PeanoNat Bool QArith ZArith.
 From Coq Require Import Strings.String.
 Import ListNotations.
 
-Require Import VMState.
-Require Import VMStep.
-Require Import KernelPhysics.
-Require Import MuLedgerConservation.
-Require Import MuInformation.
-Require Import MuNoFreeInsightQuantitative.
-Require Import RevelationRequirement.
-Require Import SimulationProof.
-Require Import NoFreeInsight.
-Require Import CHSH.
-Require Import QuantumBound.
+From Kernel Require Import VMState VMStep KernelPhysics.
+From Kernel Require Import MuLedgerConservation MuInformation.
+From Kernel Require Import MuNoFreeInsightQuantitative RevelationRequirement.
+From Kernel Require Import SimulationProof NoFreeInsight.
+From Kernel Require Import CHSH QuantumBound.
 
 (** * Certification Theory: Proving No Free Insight for CHSH
 
@@ -46,7 +40,7 @@ Require Import QuantumBound.
     ✓ Non-forgeability proven (chsh_trials_non_forgeable)
     ✓ No Free Insight theorem stated and proven (no_free_insight_chsh)
     ✓ Quantitative bound proven (certified_supra_chsh_implies_mu_lower_bound)
-    ⚠ Runtime validation ongoing (tests/test_nofi_*.py)
+    ⚠ Runtime validation ongoing
 
     FALSIFICATION:
     Find a trace that certifies CHSH > 2√2 without containing REVEAL/EMIT/LJOIN/LASSERT.
@@ -66,7 +60,7 @@ Import RevelationProof.
 (** * Receipt Abstraction: Traces ARE Receipts
 
     WHY THIS IDENTIFICATION:
-    The Python VM produces JSON receipts from execution. In Coq, we don't need
+    The OCaml extracted VM produces receipts from execution. In Coq, we don't need
     separate receipt objects - the trace (list of instructions) IS the receipt
     stream. This works because:
 
@@ -80,14 +74,14 @@ Import RevelationProof.
        extract_chsh_trials scans for instr_chsh_trial, extracts (x,y,a,b).
 
     THE ISOMORPHISM:
-    - Python: receipts = [step(s,i).receipt for i in trace]
+    - OCaml extraction: receipts = [step(s,i).receipt for i in trace]
     - Coq: receipts = trace (the instructions themselves)
     - Equivalence: instruction encoding determines receipt content
 
     WHY THIS MATTERS:
-    This lets us prove theorems about receipts without modeling JSON serialization.
-    The trace is the canonical representation. Python receipts are just a different
-    view of the same information.
+    This lets us prove theorems about receipts without modeling serialization.
+    The trace is the canonical representation. OCaml extraction receipts are
+    just a different view of the same information.
 
     FALSIFICATION:
     Find an instruction where the receipt contains information not determinable
@@ -159,13 +153,13 @@ Definition chsh_value (receipts : Receipts) : Q :=
 Definition has_supra_chsh (receipts : Receipts) : Prop :=
   Qlt tsirelson_bound_q (chsh_value receipts).
 
-(** Helper: Compute CHSH value from receipts (matches Python/RTL compute_chsh) *)
+(** Helper: Compute CHSH value from receipts (matches OCaml extraction and Verilog RTL) *)
 Definition compute_chsh (receipts : Receipts) : Q :=
   chsh_value receipts.
 
 (** * Supra-Quantum Predicate
     
-    RUNTIME DEFINITION (Python):
+    RUNTIME DEFINITION (OCaml extraction):
       S = compute_chsh_from_trials(trials)
       supra := S > TSIRELSON_BOUND  (where TSIRELSON_BOUND = 5657/2000)
     
@@ -244,7 +238,7 @@ Definition revelation_charged (s_init s_final : VMState) (min_bits : nat) : Prop
 
 Lemma reveal_charges_mu :
   forall s module bits cert cost,
-    (vm_apply s (instr_reveal module bits cert cost)).(vm_mu) = Nat.add (s.(vm_mu)) cost.
+    (vm_apply s (instr_reveal module bits cert cost)).(vm_mu) = Nat.add (s.(vm_mu)) (S cost).
 Proof.
   intros. unfold vm_apply.
   unfold advance_state. simpl. reflexivity.
@@ -257,11 +251,9 @@ Qed.
     This corresponds to Lemma 1.1 in the theorem document.
     
     PROOF STATUS: Proven.
-    The claim is trivial by inspection of extract_chsh_trials (pattern matching),
-    and is validated by runtime test:
-      tests/test_bell_receipt_chsh_bridge.py::test_pyexec_cannot_forge_chsh_trial_receipt
+    The claim is trivial by inspection of extract_chsh_trials (pattern matching).
     
-    Future work: Complete formal proof when Coq tactics behave correctly with 18-constructor
+    Future work: Complete formal proof when Coq tactics behave correctly with 40-constructor
     inductive types in this module context.
     *)
 
@@ -334,7 +326,7 @@ Proof.
 
     WHY THE DISJUNCTION:
     Four instructions can set cert_addr: REVEAL, EMIT, LJOIN, LASSERT. The
-    theorem says at least one must have executed. The Python runtime enforces
+    theorem says at least one must have executed. The OCaml runtime enforces
     that REVEAL is specifically required for CHSH (policy, not theorem).
 
     FALSIFICATION:
@@ -360,7 +352,8 @@ Theorem no_free_insight_chsh :
     uses_revelation trace \/
     (exists n m p mu, nth_error trace n = Some (instr_emit m p mu)) \/
     (exists n c1 c2 mu, nth_error trace n = Some (instr_ljoin c1 c2 mu)) \/
-    (exists n m f c mu, nth_error trace n = Some (instr_lassert m f c mu)).
+    (exists n fa ca k fl mu, nth_error trace n = Some (instr_lassert fa ca k fl mu)) \/
+    (exists n mid p c mu, nth_error trace n = Some (instr_morph_assert mid p c mu)).
 Proof.
   intros trace s_init s_final fuel Hrun Hinit Hcert.
   (* Unfold certification *)
@@ -689,8 +682,8 @@ Qed.
 (** * Corollary: REVEAL is primary revelation mechanism
     
     For the specific case where we want REVEAL (not EMIT/LJOIN/LASSERT),
-    we add a runtime policy gate (validated by test_nofi_semantic_structure_event.py).
-    
+    we add a runtime policy gate.
+
     The Coq proof establishes that *some* cert-setter is necessary.
     The runtime enforces that REVEAL is the *specific* one required for supra-CHSH.
     

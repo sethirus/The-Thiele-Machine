@@ -1,0 +1,440 @@
+DIGEST 147361b31f97ce6e95e58417322889c3
+FKernel.MatrixAlgebra4
+R439:443 Coq.Reals.Reals <> <> lib
+R445:458 Coq.Arith.PeanoNat <> <> lib
+R460:462 Coq.micromega.Lia <> <> lib
+R464:466 Coq.micromega.Lra <> <> lib
+R496:506 Kernel.MuCostModel <> <> lib
+R508:514 Kernel.VMState <> <> lib
+def 907:938 <> matrix_algebra_foundation_bridge
+R945:945 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R962:963 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R983:983 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R946:961 Kernel.MuCostModel <> mu_cost_of_instr def
+R964:982 Kernel.VMState <> module_tensor_entry def
+def 1057:1061 <> sum_n
+R1071:1074 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1068:1070 Coq.Init.Datatypes <> nat ind
+R1075:1075 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 1064:1064 <> f:1
+R1083:1085 Coq.Init.Datatypes <> nat ind
+binder 1079:1079 <> n:2
+R1090:1090 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R1103:1103 Kernel.MatrixAlgebra4 <> n:2 var
+R1125:1125 Coq.Init.Datatypes <> S constr
+R1143:1145 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R1133:1137 Kernel.MatrixAlgebra4 <> sum_n:3 def
+R1139:1139 Kernel.MatrixAlgebra4 <> f:1 var
+R1146:1146 Kernel.MatrixAlgebra4 <> f:1 var
+def 1209:1213 <> sum_4
+R1223:1226 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1220:1222 Coq.Init.Datatypes <> nat ind
+R1227:1227 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 1216:1216 <> f:5
+R1232:1232 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R1237:1241 Kernel.MatrixAlgebra4 <> sum_n def
+R1243:1243 Kernel.MatrixAlgebra4 <> f:5 var
+prf 1255:1266 <> sum_4_unfold
+binder 1277:1277 <> f:6
+R1289:1292 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1330:1330 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1282:1286 Kernel.MatrixAlgebra4 <> sum_4 def
+R1288:1288 Kernel.MatrixAlgebra4 <> f:6 var
+R1320:1322 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R1310:1312 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R1300:1302 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R1293:1293 Kernel.MatrixAlgebra4 <> f:6 var
+R1303:1303 Kernel.MatrixAlgebra4 <> f:6 var
+R1313:1313 Kernel.MatrixAlgebra4 <> f:6 var
+R1323:1323 Kernel.MatrixAlgebra4 <> f:6 var
+R1358:1362 Kernel.MatrixAlgebra4 <> sum_4 def
+def 1423:1426 <> Mat4
+R1434:1437 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1431:1433 Coq.Init.Datatypes <> nat ind
+R1441:1444 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1438:1440 Coq.Init.Datatypes <> nat ind
+R1445:1445 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 1460:1466 <> mat4_id
+R1470:1473 Kernel.MatrixAlgebra4 <> Mat4 def
+binder 1484:1484 <> i:7
+binder 1486:1486 <> j:8
+R1496:1499 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R1495:1495 Kernel.MatrixAlgebra4 <> i:7 var
+R1500:1500 Kernel.MatrixAlgebra4 <> j:8 var
+def 1534:1542 <> mat4_diag
+R1555:1555 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 1545:1545 <> a:9
+binder 1547:1547 <> b:10
+binder 1549:1549 <> c:11
+binder 1551:1551 <> d:12
+R1560:1563 Kernel.MatrixAlgebra4 <> Mat4 def
+binder 1574:1574 <> i:13
+binder 1576:1576 <> j:14
+R1588:1591 Coq.Init.Datatypes <> negb def
+R1595:1598 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R1594:1594 Kernel.MatrixAlgebra4 <> i:13 var
+R1599:1599 Kernel.MatrixAlgebra4 <> j:14 var
+R1628:1628 Kernel.MatrixAlgebra4 <> i:13 var
+R1651:1651 Kernel.MatrixAlgebra4 <> a:9 var
+R1660:1660 Kernel.MatrixAlgebra4 <> b:10 var
+R1669:1669 Kernel.MatrixAlgebra4 <> c:11 var
+R1678:1678 Kernel.MatrixAlgebra4 <> d:12 var
+def 1715:1722 <> mat4_mul
+R1731:1734 Kernel.MatrixAlgebra4 <> Mat4 def
+binder 1725:1725 <> A:16
+binder 1727:1727 <> B:17
+R1739:1742 Kernel.MatrixAlgebra4 <> Mat4 def
+binder 1753:1753 <> i:18
+binder 1755:1755 <> j:19
+R1760:1764 Kernel.MatrixAlgebra4 <> sum_4 def
+binder 1771:1771 <> k:20
+R1781:1783 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1776:1776 Kernel.MatrixAlgebra4 <> A:16 var
+R1778:1778 Kernel.MatrixAlgebra4 <> i:18 var
+R1780:1780 Kernel.MatrixAlgebra4 <> k:20 var
+R1784:1784 Kernel.MatrixAlgebra4 <> B:17 var
+R1786:1786 Kernel.MatrixAlgebra4 <> k:20 var
+R1788:1788 Kernel.MatrixAlgebra4 <> j:19 var
+def 1921:1928 <> skip_idx
+R1940:1942 Coq.Init.Datatypes <> nat ind
+binder 1931:1934 <> skip:21
+binder 1936:1936 <> k:22
+R1947:1949 Coq.Init.Datatypes <> nat ind
+R1961:1964 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R1960:1960 Kernel.MatrixAlgebra4 <> k:22 var
+R1965:1968 Kernel.MatrixAlgebra4 <> skip:21 var
+R1987:1987 Coq.Init.Datatypes <> S constr
+R1989:1989 Kernel.MatrixAlgebra4 <> k:22 var
+R1980:1980 Kernel.MatrixAlgebra4 <> k:22 var
+def 2076:2081 <> minor3
+R2088:2091 Kernel.MatrixAlgebra4 <> Mat4 def
+binder 2084:2084 <> M:23
+R2101:2103 Coq.Init.Datatypes <> nat ind
+binder 2095:2095 <> i:24
+binder 2097:2097 <> j:25
+R2113:2115 Coq.Init.Datatypes <> nat ind
+binder 2107:2107 <> r:26
+binder 2109:2109 <> c:27
+R2120:2120 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2127:2127 Kernel.MatrixAlgebra4 <> M:23 var
+R2130:2137 Kernel.MatrixAlgebra4 <> skip_idx def
+R2139:2139 Kernel.MatrixAlgebra4 <> i:24 var
+R2141:2141 Kernel.MatrixAlgebra4 <> r:26 var
+R2145:2152 Kernel.MatrixAlgebra4 <> skip_idx def
+R2154:2154 Kernel.MatrixAlgebra4 <> j:25 var
+R2156:2156 Kernel.MatrixAlgebra4 <> c:27 var
+def 2212:2215 <> det3
+R2225:2228 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2222:2224 Coq.Init.Datatypes <> nat ind
+R2232:2235 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2229:2231 Coq.Init.Datatypes <> nat ind
+R2236:2236 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2218:2218 <> A:28
+R2241:2241 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2493:2497 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R2443:2447 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R2393:2397 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R2343:2347 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R2293:2297 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R2277:2279 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2261:2263 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2248:2248 Kernel.MatrixAlgebra4 <> A:28 var
+R2264:2264 Kernel.MatrixAlgebra4 <> A:28 var
+R2280:2280 Kernel.MatrixAlgebra4 <> A:28 var
+R2327:2329 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2311:2313 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2298:2298 Kernel.MatrixAlgebra4 <> A:28 var
+R2314:2314 Kernel.MatrixAlgebra4 <> A:28 var
+R2330:2330 Kernel.MatrixAlgebra4 <> A:28 var
+R2377:2379 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2361:2363 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2348:2348 Kernel.MatrixAlgebra4 <> A:28 var
+R2364:2364 Kernel.MatrixAlgebra4 <> A:28 var
+R2380:2380 Kernel.MatrixAlgebra4 <> A:28 var
+R2427:2429 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2411:2413 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2398:2398 Kernel.MatrixAlgebra4 <> A:28 var
+R2414:2414 Kernel.MatrixAlgebra4 <> A:28 var
+R2430:2430 Kernel.MatrixAlgebra4 <> A:28 var
+R2477:2479 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2461:2463 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2448:2448 Kernel.MatrixAlgebra4 <> A:28 var
+R2464:2464 Kernel.MatrixAlgebra4 <> A:28 var
+R2480:2480 Kernel.MatrixAlgebra4 <> A:28 var
+R2527:2529 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2511:2513 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2498:2498 Kernel.MatrixAlgebra4 <> A:28 var
+R2514:2514 Kernel.MatrixAlgebra4 <> A:28 var
+R2530:2530 Kernel.MatrixAlgebra4 <> A:28 var
+def 2622:2629 <> mat4_det
+R2636:2639 Kernel.MatrixAlgebra4 <> Mat4 def
+binder 2632:2632 <> M:29
+R2644:2644 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2790:2794 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R2742:2746 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R2694:2698 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R2664:2666 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2651:2651 Kernel.MatrixAlgebra4 <> M:29 var
+R2667:2670 Kernel.MatrixAlgebra4 <> det3 def
+R2673:2678 Kernel.MatrixAlgebra4 <> minor3 def
+R2680:2680 Kernel.MatrixAlgebra4 <> M:29 var
+R2712:2714 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2699:2699 Kernel.MatrixAlgebra4 <> M:29 var
+R2715:2718 Kernel.MatrixAlgebra4 <> det3 def
+R2721:2726 Kernel.MatrixAlgebra4 <> minor3 def
+R2728:2728 Kernel.MatrixAlgebra4 <> M:29 var
+R2760:2762 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2747:2747 Kernel.MatrixAlgebra4 <> M:29 var
+R2763:2766 Kernel.MatrixAlgebra4 <> det3 def
+R2769:2774 Kernel.MatrixAlgebra4 <> minor3 def
+R2776:2776 Kernel.MatrixAlgebra4 <> M:29 var
+R2808:2810 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2795:2795 Kernel.MatrixAlgebra4 <> M:29 var
+R2811:2814 Kernel.MatrixAlgebra4 <> det3 def
+R2817:2822 Kernel.MatrixAlgebra4 <> minor3 def
+R2824:2824 Kernel.MatrixAlgebra4 <> M:29 var
+def 2885:2892 <> sign_pow
+R2901:2903 Coq.Init.Datatypes <> nat ind
+binder 2895:2895 <> i:30
+binder 2897:2897 <> j:31
+R2908:2908 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2918:2925 Coq.Arith.PeanoNat Nat even def
+R2929:2931 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2928:2928 Kernel.MatrixAlgebra4 <> i:30 var
+R2932:2932 Kernel.MatrixAlgebra4 <> j:31 var
+def 2963:2975 <> mat4_cofactor
+R2982:2985 Kernel.MatrixAlgebra4 <> Mat4 def
+binder 2978:2978 <> M:32
+R2995:2997 Coq.Init.Datatypes <> nat ind
+binder 2989:2989 <> i:33
+binder 2991:2991 <> j:34
+R3002:3002 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3021:3023 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3009:3016 Kernel.MatrixAlgebra4 <> sign_pow def
+R3018:3018 Kernel.MatrixAlgebra4 <> i:33 var
+R3020:3020 Kernel.MatrixAlgebra4 <> j:34 var
+R3024:3027 Kernel.MatrixAlgebra4 <> det3 def
+R3030:3035 Kernel.MatrixAlgebra4 <> minor3 def
+R3037:3037 Kernel.MatrixAlgebra4 <> M:32 var
+R3039:3039 Kernel.MatrixAlgebra4 <> i:33 var
+R3041:3041 Kernel.MatrixAlgebra4 <> j:34 var
+def 3057:3069 <> mat4_adjugate
+R3076:3079 Kernel.MatrixAlgebra4 <> Mat4 def
+binder 3072:3072 <> M:35
+R3084:3087 Kernel.MatrixAlgebra4 <> Mat4 def
+binder 3098:3098 <> i:36
+binder 3100:3100 <> j:37
+R3105:3117 Kernel.MatrixAlgebra4 <> mat4_cofactor def
+R3119:3119 Kernel.MatrixAlgebra4 <> M:35 var
+R3121:3121 Kernel.MatrixAlgebra4 <> j:37 var
+R3123:3123 Kernel.MatrixAlgebra4 <> i:36 var
+def 3217:3228 <> mat4_inverse
+R3235:3238 Kernel.MatrixAlgebra4 <> Mat4 def
+binder 3231:3231 <> M:38
+R3243:3246 Kernel.MatrixAlgebra4 <> Mat4 def
+R3262:3269 Kernel.MatrixAlgebra4 <> mat4_det def
+R3271:3271 Kernel.MatrixAlgebra4 <> M:38 var
+binder 3257:3257 <> d:39
+binder 3282:3282 <> i:40
+binder 3284:3284 <> j:41
+R3308:3310 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R3289:3301 Kernel.MatrixAlgebra4 <> mat4_adjugate def
+R3303:3303 Kernel.MatrixAlgebra4 <> M:38 var
+R3305:3305 Kernel.MatrixAlgebra4 <> i:40 var
+R3307:3307 Kernel.MatrixAlgebra4 <> j:41 var
+R3311:3311 Kernel.MatrixAlgebra4 <> d:39 var
+prf 3380:3390 <> mat4_det_id
+R3410:3412 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3394:3401 Kernel.MatrixAlgebra4 <> mat4_det def
+R3403:3409 Kernel.MatrixAlgebra4 <> mat4_id def
+R3432:3439 Kernel.MatrixAlgebra4 <> mat4_det def
+R3442:3448 Kernel.MatrixAlgebra4 <> mat4_id def
+R3451:3454 Kernel.MatrixAlgebra4 <> det3 def
+R3457:3462 Kernel.MatrixAlgebra4 <> minor3 def
+R3465:3472 Kernel.MatrixAlgebra4 <> skip_idx def
+prf 3574:3586 <> mat4_det_diag
+binder 3597:3597 <> a:42
+binder 3599:3599 <> b:43
+binder 3601:3601 <> c:44
+binder 3603:3603 <> d:45
+R3636:3638 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3608:3615 Kernel.MatrixAlgebra4 <> mat4_det def
+R3618:3626 Kernel.MatrixAlgebra4 <> mat4_diag def
+R3628:3628 Kernel.MatrixAlgebra4 <> a:42 var
+R3630:3630 Kernel.MatrixAlgebra4 <> b:43 var
+R3632:3632 Kernel.MatrixAlgebra4 <> c:44 var
+R3634:3634 Kernel.MatrixAlgebra4 <> d:45 var
+R3648:3650 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3644:3646 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3640:3642 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3639:3639 Kernel.MatrixAlgebra4 <> a:42 var
+R3643:3643 Kernel.MatrixAlgebra4 <> b:43 var
+R3647:3647 Kernel.MatrixAlgebra4 <> c:44 var
+R3651:3651 Kernel.MatrixAlgebra4 <> d:45 var
+R3688:3695 Kernel.MatrixAlgebra4 <> mat4_det def
+R3698:3706 Kernel.MatrixAlgebra4 <> mat4_diag def
+R3709:3712 Kernel.MatrixAlgebra4 <> det3 def
+R3715:3720 Kernel.MatrixAlgebra4 <> minor3 def
+R3723:3730 Kernel.MatrixAlgebra4 <> skip_idx def
+prf 3808:3824 <> mat4_diag_inverse
+binder 3835:3835 <> a:46
+binder 3837:3837 <> b:47
+binder 3839:3839 <> c:48
+binder 3841:3841 <> d:49
+R3852:3855 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3847:3850 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3846:3846 Kernel.MatrixAlgebra4 <> a:46 var
+R3862:3865 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3857:3860 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3856:3856 Kernel.MatrixAlgebra4 <> b:47 var
+R3872:3875 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3867:3870 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3866:3866 Kernel.MatrixAlgebra4 <> c:48 var
+R3882:3887 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3877:3880 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3876:3876 Kernel.MatrixAlgebra4 <> d:49 var
+binder 3895:3895 <> i:50
+binder 3897:3897 <> j:51
+R3913:3916 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3904:3906 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3903:3903 Kernel.MatrixAlgebra4 <> i:50 var
+R3928:3933 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3919:3921 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3918:3918 Kernel.MatrixAlgebra4 <> j:51 var
+R4009:4011 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3934:3941 Kernel.MatrixAlgebra4 <> mat4_mul def
+R3944:3952 Kernel.MatrixAlgebra4 <> mat4_diag def
+R3954:3954 Kernel.MatrixAlgebra4 <> a:46 var
+R3956:3956 Kernel.MatrixAlgebra4 <> b:47 var
+R3958:3958 Kernel.MatrixAlgebra4 <> c:48 var
+R3960:3960 Kernel.MatrixAlgebra4 <> d:49 var
+R3975:3983 Kernel.MatrixAlgebra4 <> mat4_diag def
+R3986:3986 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R3987:3987 Kernel.MatrixAlgebra4 <> a:46 var
+R3991:3991 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R3992:3992 Kernel.MatrixAlgebra4 <> b:47 var
+R3996:3996 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R3997:3997 Kernel.MatrixAlgebra4 <> c:48 var
+R4001:4001 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R4002:4002 Kernel.MatrixAlgebra4 <> d:49 var
+R4006:4006 Kernel.MatrixAlgebra4 <> i:50 var
+R4008:4008 Kernel.MatrixAlgebra4 <> j:51 var
+R4012:4018 Kernel.MatrixAlgebra4 <> mat4_id def
+R4020:4020 Kernel.MatrixAlgebra4 <> i:50 var
+R4022:4022 Kernel.MatrixAlgebra4 <> j:51 var
+R4081:4088 Kernel.MatrixAlgebra4 <> mat4_mul def
+R4091:4099 Kernel.MatrixAlgebra4 <> mat4_diag def
+R4102:4108 Kernel.MatrixAlgebra4 <> mat4_id def
+R4111:4115 Kernel.MatrixAlgebra4 <> sum_4 def
+R4118:4122 Kernel.MatrixAlgebra4 <> sum_n def
+prf 4317:4339 <> mat4_inverse_diag_entry
+binder 4350:4350 <> a:52
+binder 4352:4352 <> b:53
+binder 4354:4354 <> c:54
+binder 4356:4356 <> d:55
+binder 4358:4358 <> i:56
+R4369:4372 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4364:4367 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4363:4363 Kernel.MatrixAlgebra4 <> a:52 var
+R4379:4382 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4374:4377 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4373:4373 Kernel.MatrixAlgebra4 <> b:53 var
+R4389:4392 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4384:4387 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4383:4383 Kernel.MatrixAlgebra4 <> c:54 var
+R4399:4404 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4394:4397 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4393:4393 Kernel.MatrixAlgebra4 <> d:55 var
+R4416:4421 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4407:4409 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4406:4406 Kernel.MatrixAlgebra4 <> i:56 var
+R4458:4464 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4422:4433 Kernel.MatrixAlgebra4 <> mat4_inverse def
+R4436:4444 Kernel.MatrixAlgebra4 <> mat4_diag def
+R4446:4446 Kernel.MatrixAlgebra4 <> a:52 var
+R4448:4448 Kernel.MatrixAlgebra4 <> b:53 var
+R4450:4450 Kernel.MatrixAlgebra4 <> c:54 var
+R4452:4452 Kernel.MatrixAlgebra4 <> d:55 var
+R4455:4455 Kernel.MatrixAlgebra4 <> i:56 var
+R4457:4457 Kernel.MatrixAlgebra4 <> i:56 var
+R4471:4471 Kernel.MatrixAlgebra4 <> i:56 var
+R4489:4490 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R4491:4491 Kernel.MatrixAlgebra4 <> a:52 var
+R4504:4505 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R4506:4506 Kernel.MatrixAlgebra4 <> b:53 var
+R4519:4520 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R4521:4521 Kernel.MatrixAlgebra4 <> c:54 var
+R4534:4535 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R4536:4536 Kernel.MatrixAlgebra4 <> d:55 var
+R4611:4622 Kernel.MatrixAlgebra4 <> mat4_inverse def
+R4625:4637 Kernel.MatrixAlgebra4 <> mat4_adjugate def
+R4640:4652 Kernel.MatrixAlgebra4 <> mat4_cofactor def
+R4655:4662 Kernel.MatrixAlgebra4 <> mat4_det def
+R4674:4677 Kernel.MatrixAlgebra4 <> det3 def
+R4680:4685 Kernel.MatrixAlgebra4 <> minor3 def
+R4688:4695 Kernel.MatrixAlgebra4 <> skip_idx def
+R4698:4705 Kernel.MatrixAlgebra4 <> sign_pow def
+R4708:4716 Kernel.MatrixAlgebra4 <> mat4_diag def
+prf 4883:4907 <> mat4_inverse_diag_offdiag
+binder 4918:4918 <> a:58
+binder 4920:4920 <> b:59
+binder 4922:4922 <> c:60
+binder 4924:4924 <> d:61
+binder 4926:4926 <> i:62
+binder 4928:4928 <> j:63
+R4939:4942 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4934:4937 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4933:4933 Kernel.MatrixAlgebra4 <> a:58 var
+R4949:4952 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4944:4947 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4943:4943 Kernel.MatrixAlgebra4 <> b:59 var
+R4959:4962 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4954:4957 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4953:4953 Kernel.MatrixAlgebra4 <> c:60 var
+R4969:4974 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4964:4967 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4963:4963 Kernel.MatrixAlgebra4 <> d:61 var
+R4986:4989 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4977:4979 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4976:4976 Kernel.MatrixAlgebra4 <> i:62 var
+R5001:5004 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4992:4994 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4991:4991 Kernel.MatrixAlgebra4 <> j:63 var
+R5017:5022 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5007:5010 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5006:5006 Kernel.MatrixAlgebra4 <> i:62 var
+R5011:5011 Kernel.MatrixAlgebra4 <> j:63 var
+R5059:5061 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5023:5034 Kernel.MatrixAlgebra4 <> mat4_inverse def
+R5037:5045 Kernel.MatrixAlgebra4 <> mat4_diag def
+R5047:5047 Kernel.MatrixAlgebra4 <> a:58 var
+R5049:5049 Kernel.MatrixAlgebra4 <> b:59 var
+R5051:5051 Kernel.MatrixAlgebra4 <> c:60 var
+R5053:5053 Kernel.MatrixAlgebra4 <> d:61 var
+R5056:5056 Kernel.MatrixAlgebra4 <> i:62 var
+R5058:5058 Kernel.MatrixAlgebra4 <> j:63 var
+R5125:5136 Kernel.MatrixAlgebra4 <> mat4_inverse def
+R5139:5151 Kernel.MatrixAlgebra4 <> mat4_adjugate def
+R5154:5166 Kernel.MatrixAlgebra4 <> mat4_cofactor def
+R5169:5176 Kernel.MatrixAlgebra4 <> mat4_det def
+R5188:5191 Kernel.MatrixAlgebra4 <> det3 def
+R5194:5199 Kernel.MatrixAlgebra4 <> minor3 def
+R5202:5209 Kernel.MatrixAlgebra4 <> skip_idx def
+R5212:5219 Kernel.MatrixAlgebra4 <> sign_pow def
+R5222:5230 Kernel.MatrixAlgebra4 <> mat4_diag def
+prf 5424:5433 <> sum_4_zero
+binder 5444:5444 <> f:64
+R5449:5449 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5482:5488 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 5457:5457 <> k:65
+R5471:5474 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5462:5464 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5461:5461 Kernel.MatrixAlgebra4 <> k:65 var
+R5478:5480 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5475:5475 Kernel.MatrixAlgebra4 <> f:64 var
+R5477:5477 Kernel.MatrixAlgebra4 <> k:65 var
+R5496:5498 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5489:5493 Kernel.MatrixAlgebra4 <> sum_4 def
+R5495:5495 Kernel.MatrixAlgebra4 <> f:64 var
+R5531:5535 Kernel.MatrixAlgebra4 <> sum_4 def
+R5538:5542 Kernel.MatrixAlgebra4 <> sum_n def

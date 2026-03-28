@@ -15,16 +15,16 @@
     - All other ops: cost 0 (don't touch partition graph)
 
     WHAT THIS PROVES:
-    - mu_cost_of_instr (line 55): Operational cost for each instruction type
-    - partition_ops_mu_free (line 121): PNEW/PSPLIT/PMERGE have zero cost
-    - reveal_costs_one (line 133): REVEAL costs exactly 1
-    - mu_zero_no_reveal (line 241): μ=0 programs cannot use REVEAL within fuel steps
+    - mu_cost_of_instr: Operational cost for each instruction type
+    - partition_ops_mu_free: PNEW/PSPLIT/PMERGE have zero cost
+    - reveal_costs_one: REVEAL costs exactly 1
+    - mu_zero_no_reveal: μ=0 programs cannot use REVEAL within fuel steps
 
     KEY SEPARATION:
     This file defines μ-cost INDEPENDENTLY of CHSH/quantum mechanics.
     CHSHExtraction.v defines CHSH computation INDEPENDENTLY of μ-cost.
-    The relationship max{CHSH : μ=0} = 2√2 is PROVEN later (TsirelsonDerivation.v),
-    not assumed here.
+    The relationship max{CHSH : μ=0} = 2√2 is PROVEN through the algebraic chain
+    (TsirelsonFromAlgebra.v, AlgebraicCoherence.v), not assumed here.
 
     PHYSICAL INTERPRETATION:
     μ-cost measures "structural information addition". Rearranging partitions is
@@ -34,17 +34,16 @@
 
     FALSIFICATION:
     Show that a program with REVEAL has μ-cost = 0 according to mu_cost_of_instr.
-    This would contradict reveal_costs_one (line 133).
+    This would contradict reveal_costs_one.
 
     Or show that PNEW/PSPLIT/PMERGE have nonzero cost despite being partition
-    rearrangements (no information loss). This would contradict partition_ops_mu_free
-    (line 121).
+    rearrangements (no information loss). This would contradict partition_ops_mu_free.
 
     Or prove that the operational definition is inconsistent with actual VM
     execution (vm_step modifies vm_mu differently than mu_cost_of_instr predicts).
 
     NO REFERENCE TO CHSH, TSIRELSON, OR 2√2 ANYWHERE IN THIS FILE.
-    Pure operational accounting. Zero axioms. Zero admits.
+    Pure operational accounting. Zero project-local axioms. Zero admits.
 
     ========================================================================= *)
 
@@ -90,7 +89,7 @@ Definition mu_cost_of_instr (instr : vm_instruction) (s : VMState) : nat :=
   | instr_psplit _ _ _ _ => 0  (* Split partition: no new correlation *)
   | instr_pmerge _ _ _ => 0  (* Merge partition: no new correlation *)
   | instr_reveal _ _ _ _ => 1  (* Reveal hidden structure: μ += 1 *)
-  | instr_lassert _ _ _ _ => 1  (* Assert structure: μ += 1 for complexity *)
+  | instr_lassert _ _ _ _ _ => 1  (* Assert structure: μ += 1 for complexity *)
   | instr_ljoin _ _ _ => 1  (* Join correlations: μ += 1 for complexity *)
   | instr_certify _ => 1  (* Certify: μ += 1 for certification *)
   | instr_and _ _ _ _ => 0  (* AND: ALU op, no μ-cost *)
@@ -101,12 +100,6 @@ Definition mu_cost_of_instr (instr : vm_instruction) (s : VMState) : nat :=
   | instr_lui _ _ _ => 0  (* LUI: ALU op, no μ-cost *)
   | _ => 0  (* Other instructions: no μ-cost *)
   end.
-
-(** ** Total μ-Cost of Trace
-
-    Sum μ-costs of all instructions that would be executed.
-    We don't need full VM semantics, just cost accounting.
-    *)
 
 (** ** Total μ-Cost of Trace
 
@@ -193,7 +186,8 @@ Qed.
     The derivation task is to PROVE their relationship:
       max{CHSH : μ=0} = 2√2
     
-    This is NOT assumed—it will be proven in TsirelsonDerivation.v
+    This is NOT assumed—it is proven through the algebraic chain
+    (TsirelsonFromAlgebra.v, AlgebraicCoherence.v)
     *)
 
 (** ** What μ=0 Programs Can Do

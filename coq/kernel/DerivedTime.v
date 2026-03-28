@@ -20,9 +20,10 @@ From Kernel Require Import MuCostModel.
     The traces [] and [instr_mdlacc m c] are DIFFERENT (different lengths,
     different syntactic structure) but OBSERVATIONALLY IDENTICAL.
 
-    This solves the "problem of time" in quantum gravity: time is not something
-    the universe "has" - it's something we infer from the ordering of
-    computational events.
+    This is a standard stutter-equivalence result from formal verification:
+    mdlacc is a ghost instruction (observationally invisible). The result is
+    analogous to the "problem of time" in quantum gravity, but is not a
+    resolution of it -- it applies only within the VM's transition system.
 
     FALSIFICATION: Find an observable that distinguishes [] from [mdlacc].
     Or show that trace length (number of steps) is measurable independent of

@@ -11,7 +11,7 @@ import pytest
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-PROGRAMS_DIR = REPO_ROOT / "programs"
+PROGRAMS_DIR = REPO_ROOT / "examples" / "programs"
 
 
 def _rtl_available() -> bool:

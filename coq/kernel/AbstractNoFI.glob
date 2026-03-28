@@ -1,0 +1,795 @@
+DIGEST 659bc97dfcde79e3276538b2c0c81c84
+FKernel.AbstractNoFI
+R1625:1628 Coq.Lists.List <> <> lib
+R1630:1643 Coq.Arith.PeanoNat <> <> lib
+R1645:1648 Coq.Bool.Bool <> <> lib
+R1650:1652 Coq.micromega.Lia <> <> lib
+R1662:1674 Coq.Lists.List ListNotations <> mod
+R1705:1711 Kernel.VMState <> <> lib
+R1713:1718 Kernel.VMStep <> <> lib
+R1720:1734 Kernel.SimulationProof <> <> lib
+R1736:1756 Kernel.RevelationRequirement <> <> lib
+R1785:1804 Kernel.MuLedgerConservation <> <> lib
+R1806:1815 Kernel.PrimeAxiom <> <> lib
+R1826:1840 Kernel.RevelationRequirement RevelationProof <> mod
+def 2938:2954 <> cert_addr_setterb
+R2961:2974 Kernel.VMStep VMStep vm_instruction ind
+binder 2957:2957 <> i:1
+R2979:2982 Coq.Init.Datatypes <> bool ind
+R2995:2995 Kernel.AbstractNoFI <> i:1 var
+R3006:3017 Kernel.VMStep VMStep instr_reveal constr
+R3030:3033 Coq.Init.Datatypes <> true constr
+R3039:3048 Kernel.VMStep VMStep instr_emit constr
+R3059:3062 Coq.Init.Datatypes <> true constr
+R3068:3078 Kernel.VMStep VMStep instr_ljoin constr
+R3089:3092 Coq.Init.Datatypes <> true constr
+R3098:3110 Kernel.VMStep VMStep instr_lassert constr
+R3125:3128 Coq.Init.Datatypes <> true constr
+R3134:3151 Kernel.VMStep VMStep instr_morph_assert constr
+R3164:3167 Coq.Init.Datatypes <> true constr
+R3178:3182 Coq.Init.Datatypes <> false constr
+def 3275:3281 <> cost_of
+R3288:3301 Kernel.VMStep VMStep vm_instruction ind
+binder 3284:3284 <> i:3
+R3306:3308 Coq.Init.Datatypes <> nat ind
+R3313:3328 Kernel.VMStep VMStep instruction_cost def
+R3330:3330 Kernel.AbstractNoFI <> i:3 var
+rec 3716:3734 <> AbstractCertMachine
+proj 3754:3761 <> acm_step
+proj 3796:3803 <> acm_cert
+proj 3889:3900 <> acm_preserve
+binder 3737:3737 <> S:4
+R3769:3772 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3768:3768 Kernel.AbstractNoFI <> S:4 var
+R3787:3790 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3773:3786 Kernel.VMStep VMStep vm_instruction ind
+R3791:3791 Kernel.AbstractNoFI <> S:4 var
+R3811:3814 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3810:3810 Kernel.AbstractNoFI <> S:4 var
+R3815:3818 Coq.Init.Datatypes <> bool ind
+R3916:3916 Kernel.AbstractNoFI <> S:4 var
+binder 3912:3912 <> s:8
+R3924:3937 Kernel.VMStep VMStep vm_instruction ind
+binder 3920:3920 <> i:9
+R3963:3970 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3955:3957 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3945:3952 Kernel.AbstractNoFI <> acm_cert:7 meth
+R3954:3954 Kernel.AbstractNoFI <> s:8 var
+R3958:3962 Coq.Init.Datatypes <> false constr
+R3998:4005 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3990:3992 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3971:3987 Kernel.AbstractNoFI <> cert_addr_setterb def
+R3989:3989 Kernel.AbstractNoFI <> i:9 var
+R3993:3997 Coq.Init.Datatypes <> false constr
+R4029:4031 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4006:4013 Kernel.AbstractNoFI <> acm_cert:7 meth
+R4016:4023 Kernel.AbstractNoFI <> acm_step:6 meth
+R4027:4027 Kernel.AbstractNoFI <> i:9 var
+R4025:4025 Kernel.AbstractNoFI <> s:8 var
+R4032:4036 Coq.Init.Datatypes <> false constr
+R4052:4059 Kernel.AbstractNoFI <> acm_step proj
+R4052:4059 Kernel.AbstractNoFI <> acm_step proj
+R4083:4090 Kernel.AbstractNoFI <> acm_cert proj
+R4083:4090 Kernel.AbstractNoFI <> acm_cert proj
+R4114:4125 Kernel.AbstractNoFI <> acm_preserve proj
+R4114:4125 Kernel.AbstractNoFI <> acm_preserve proj
+def 4422:4428 <> acm_run
+binder 4431:4431 <> S:11
+R4446:4464 Kernel.AbstractNoFI <> AbstractCertMachine rec
+R4466:4466 Kernel.AbstractNoFI <> S:11 var
+binder 4442:4442 <> M:12
+R4496:4499 Coq.Init.Datatypes <> list ind
+R4501:4514 Kernel.VMStep VMStep vm_instruction ind
+binder 4488:4492 <> trace:13
+R4522:4522 Kernel.AbstractNoFI <> S:11 var
+binder 4518:4518 <> s:14
+R4527:4527 Kernel.AbstractNoFI <> S:11 var
+R4540:4544 Kernel.AbstractNoFI <> trace:13 var
+R4555:4556 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4567:4567 Kernel.AbstractNoFI <> s:14 var
+R4574:4577 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4586:4592 Kernel.AbstractNoFI <> acm_run:15 def
+R4602:4609 Kernel.AbstractNoFI <> acm_step proj
+R4613:4613 Kernel.AbstractNoFI <> s:14 var
+R4611:4611 Kernel.AbstractNoFI <> M:12 var
+R4594:4594 Kernel.AbstractNoFI <> M:12 var
+prf 5363:5374 <> abstract_nfi
+binder 5388:5388 <> S:17
+R5403:5421 Kernel.AbstractNoFI <> AbstractCertMachine rec
+R5423:5423 Kernel.AbstractNoFI <> S:17 var
+binder 5399:5399 <> M:18
+R5444:5447 Coq.Init.Datatypes <> list ind
+R5449:5462 Kernel.VMStep VMStep vm_instruction ind
+binder 5436:5440 <> trace:19
+R5471:5471 Kernel.AbstractNoFI <> S:17 var
+binder 5466:5467 <> s0:20
+R5500:5507 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5492:5494 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5479:5486 Kernel.AbstractNoFI <> acm_cert proj
+R5490:5491 Kernel.AbstractNoFI <> s0:20 var
+R5488:5488 Kernel.AbstractNoFI <> M:18 var
+R5495:5499 Coq.Init.Datatypes <> false constr
+R5546:5553 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5539:5541 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5508:5515 Kernel.AbstractNoFI <> acm_cert proj
+R5520:5526 Kernel.AbstractNoFI <> acm_run def
+R5536:5537 Kernel.AbstractNoFI <> s0:20 var
+R5530:5534 Kernel.AbstractNoFI <> trace:19 var
+R5528:5528 Kernel.AbstractNoFI <> M:18 var
+R5517:5517 Kernel.AbstractNoFI <> M:18 var
+R5542:5545 Coq.Init.Datatypes <> true constr
+R5554:5560 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5562:5563 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5561:5561 <> i:21
+R5574:5577 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5564:5565 Coq.Lists.List <> In def
+R5569:5573 Kernel.AbstractNoFI <> trace:19 var
+R5567:5567 Kernel.AbstractNoFI <> i:21 var
+R5597:5599 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5578:5594 Kernel.AbstractNoFI <> cert_addr_setterb def
+R5596:5596 Kernel.AbstractNoFI <> i:21 var
+R5600:5603 Coq.Init.Datatypes <> true constr
+R5949:5965 Kernel.AbstractNoFI <> cert_addr_setterb def
+R5949:5965 Kernel.AbstractNoFI <> cert_addr_setterb def
+R6232:6234 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6204:6211 Kernel.AbstractNoFI <> acm_cert proj
+R6216:6223 Kernel.AbstractNoFI <> acm_step proj
+R6235:6239 Coq.Init.Datatypes <> false constr
+R6232:6234 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6204:6211 Kernel.AbstractNoFI <> acm_cert proj
+R6216:6223 Kernel.AbstractNoFI <> acm_step proj
+R6235:6239 Coq.Init.Datatypes <> false constr
+R6258:6269 Kernel.AbstractNoFI <> acm_preserve proj
+R6258:6269 Kernel.AbstractNoFI <> acm_preserve proj
+R6380:6387 Kernel.AbstractNoFI <> acm_step proj
+R6380:6387 Kernel.AbstractNoFI <> acm_step proj
+prf 6616:6636 <> abstract_nfi_in_trace
+binder 6650:6650 <> S:22
+R6665:6683 Kernel.AbstractNoFI <> AbstractCertMachine rec
+R6685:6685 Kernel.AbstractNoFI <> S:22 var
+binder 6661:6661 <> M:23
+R6706:6709 Coq.Init.Datatypes <> list ind
+R6711:6724 Kernel.VMStep VMStep vm_instruction ind
+binder 6698:6702 <> trace:24
+R6733:6733 Kernel.AbstractNoFI <> S:22 var
+binder 6728:6729 <> s0:25
+R6762:6769 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6754:6756 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6741:6748 Kernel.AbstractNoFI <> acm_cert proj
+R6752:6753 Kernel.AbstractNoFI <> s0:25 var
+R6750:6750 Kernel.AbstractNoFI <> M:23 var
+R6757:6761 Coq.Init.Datatypes <> false constr
+R6808:6815 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6801:6803 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6770:6777 Kernel.AbstractNoFI <> acm_cert proj
+R6782:6788 Kernel.AbstractNoFI <> acm_run def
+R6798:6799 Kernel.AbstractNoFI <> s0:25 var
+R6792:6796 Kernel.AbstractNoFI <> trace:24 var
+R6790:6790 Kernel.AbstractNoFI <> M:23 var
+R6779:6779 Kernel.AbstractNoFI <> M:23 var
+R6804:6807 Coq.Init.Datatypes <> true constr
+R6816:6817 Coq.Init.Logic <> ::type_scope:'~'_x not
+R6818:6823 Coq.Lists.List <> Forall ind
+R6864:6868 Kernel.AbstractNoFI <> trace:24 var
+binder 6830:6830 <> i:26
+R6854:6856 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6835:6851 Kernel.AbstractNoFI <> cert_addr_setterb def
+R6853:6853 Kernel.AbstractNoFI <> i:26 var
+R6857:6861 Coq.Init.Datatypes <> false constr
+R6930:6941 Kernel.AbstractNoFI <> abstract_nfi thm
+R6930:6941 Kernel.AbstractNoFI <> abstract_nfi thm
+R7020:7032 Coq.Lists.List <> Forall_forall thm
+R7020:7032 Coq.Lists.List <> Forall_forall thm
+R7020:7032 Coq.Lists.List <> Forall_forall thm
+prf 7634:7658 <> cert_addr_setter_cost_pos
+binder 7671:7671 <> i:27
+R7704:7711 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7697:7699 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7678:7694 Kernel.AbstractNoFI <> cert_addr_setterb def
+R7696:7696 Kernel.AbstractNoFI <> i:27 var
+R7700:7703 Coq.Init.Datatypes <> true constr
+R7721:7724 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R7712:7718 Kernel.AbstractNoFI <> cost_of def
+R7720:7720 Kernel.AbstractNoFI <> i:27 var
+R7759:7765 Kernel.AbstractNoFI <> cost_of def
+R7768:7783 Kernel.VMStep VMStep instruction_cost def
+prf 8749:8785 <> thiele_non_cert_addr_setter_preserves
+R8803:8809 Kernel.VMState <> VMState rec
+binder 8799:8799 <> s:28
+R8817:8830 Kernel.VMStep VMStep vm_instruction ind
+binder 8813:8813 <> i:29
+R8865:8872 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8857:8859 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8838:8854 Kernel.AbstractNoFI <> cert_addr_setterb def
+R8856:8856 Kernel.AbstractNoFI <> i:29 var
+R8860:8864 Coq.Init.Datatypes <> false constr
+R8913:8915 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8899:8911 Kernel.VMState <> csr_cert_addr proj
+R8889:8895 Kernel.VMState <> vm_csrs proj
+R8874:8881 Kernel.SimulationProof <> vm_apply def
+R8883:8883 Kernel.AbstractNoFI <> s:28 var
+R8885:8885 Kernel.AbstractNoFI <> i:29 var
+R8929:8941 Kernel.VMState <> csr_cert_addr proj
+R8919:8925 Kernel.VMState <> vm_csrs proj
+R8916:8916 Kernel.AbstractNoFI <> s:28 var
+R9200:9200 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R9232:9268 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R9301:9301 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R9201:9207 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9210:9211 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 9208:9209 <> mu:30
+R9213:9215 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9216:9228 Kernel.VMStep VMStep instr_certify constr
+R9230:9231 Kernel.AbstractNoFI <> mu:30 var
+binder 9276:9277 <> mu:31
+R9281:9284 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R9285:9297 Kernel.VMStep VMStep instr_certify constr
+R9299:9300 Kernel.AbstractNoFI <> mu:31 var
+R9200:9200 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R9232:9268 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R9301:9301 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R9201:9207 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9210:9211 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 9208:9209 <> mu:32
+R9213:9215 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9216:9228 Kernel.VMStep VMStep instr_certify constr
+R9230:9231 Kernel.AbstractNoFI <> mu:32 var
+binder 9276:9277 <> mu:33
+R9281:9284 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R9285:9297 Kernel.VMStep VMStep instr_certify constr
+R9299:9300 Kernel.AbstractNoFI <> mu:33 var
+R9535:9542 Kernel.SimulationProof <> vm_apply def
+R9657:9686 Kernel.RevelationRequirement RevelationProof non_cert_setter_preserves_cert thm
+R9657:9686 Kernel.RevelationRequirement RevelationProof non_cert_setter_preserves_cert thm
+def 10146:10161 <> thiele_cert_bool
+R10168:10174 Kernel.VMState <> VMState rec
+binder 10164:10164 <> s:34
+R10179:10182 Coq.Init.Datatypes <> bool ind
+R10189:10192 Coq.Init.Datatypes <> negb def
+R10195:10201 Coq.Arith.PeanoNat Nat eqb def
+R10217:10229 Kernel.VMState <> csr_cert_addr proj
+R10207:10213 Kernel.VMState <> vm_csrs proj
+R10204:10204 Kernel.AbstractNoFI <> s:34 var
+prf 10244:10268 <> thiele_cert_bool_zero_iff
+binder 10281:10281 <> s:35
+R10314:10322 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R10306:10308 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10288:10303 Kernel.AbstractNoFI <> thiele_cert_bool def
+R10305:10305 Kernel.AbstractNoFI <> s:35 var
+R10309:10313 Coq.Init.Datatypes <> false constr
+R10350:10352 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10336:10348 Kernel.VMState <> csr_cert_addr proj
+R10326:10332 Kernel.VMState <> vm_csrs proj
+R10323:10323 Kernel.AbstractNoFI <> s:35 var
+R10384:10399 Kernel.AbstractNoFI <> thiele_cert_bool def
+R10412:10430 Coq.Bool.Bool <> negb_false_iff thm
+R10412:10430 Coq.Bool.Bool <> negb_false_iff thm
+R10412:10430 Coq.Bool.Bool <> negb_false_iff thm
+R10443:10452 Coq.Arith.PeanoNat Nat eqb_eq thm
+R10443:10452 Coq.Arith.PeanoNat Nat eqb_eq thm
+R10443:10452 Coq.Arith.PeanoNat Nat eqb_eq thm
+prf 10482:10509 <> thiele_cert_bool_nonzero_iff
+binder 10522:10522 <> s:36
+R10554:10562 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R10547:10549 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10529:10544 Kernel.AbstractNoFI <> thiele_cert_bool def
+R10546:10546 Kernel.AbstractNoFI <> s:36 var
+R10550:10553 Coq.Init.Datatypes <> true constr
+R10590:10593 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R10576:10588 Kernel.VMState <> csr_cert_addr proj
+R10566:10572 Kernel.VMState <> vm_csrs proj
+R10563:10563 Kernel.AbstractNoFI <> s:36 var
+R10625:10640 Kernel.AbstractNoFI <> thiele_cert_bool def
+R10653:10670 Coq.Bool.Bool <> negb_true_iff thm
+R10653:10670 Coq.Bool.Bool <> negb_true_iff thm
+R10653:10670 Coq.Bool.Bool <> negb_true_iff thm
+R10683:10693 Coq.Arith.PeanoNat Nat eqb_neq thm
+R10683:10693 Coq.Arith.PeanoNat Nat eqb_neq thm
+R10683:10693 Coq.Arith.PeanoNat Nat eqb_neq thm
+prf 10799:10816 <> thiele_vm_axiom_A3
+R10834:10840 Kernel.VMState <> VMState rec
+binder 10830:10830 <> s:37
+R10848:10861 Kernel.VMStep VMStep vm_instruction ind
+binder 10844:10844 <> i:38
+R10895:10902 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10887:10889 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10869:10884 Kernel.AbstractNoFI <> thiele_cert_bool def
+R10886:10886 Kernel.AbstractNoFI <> s:37 var
+R10890:10894 Coq.Init.Datatypes <> false constr
+R10930:10937 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10922:10924 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10903:10919 Kernel.AbstractNoFI <> cert_addr_setterb def
+R10921:10921 Kernel.AbstractNoFI <> i:38 var
+R10925:10929 Coq.Init.Datatypes <> false constr
+R10969:10971 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10938:10953 Kernel.AbstractNoFI <> thiele_cert_bool def
+R10956:10963 Kernel.SimulationProof <> vm_apply def
+R10965:10965 Kernel.AbstractNoFI <> s:37 var
+R10967:10967 Kernel.AbstractNoFI <> i:38 var
+R10972:10976 Coq.Init.Datatypes <> false constr
+R11020:11044 Kernel.AbstractNoFI <> thiele_cert_bool_zero_iff thm
+R11020:11044 Kernel.AbstractNoFI <> thiele_cert_bool_zero_iff thm
+R11020:11044 Kernel.AbstractNoFI <> thiele_cert_bool_zero_iff thm
+R11063:11099 Kernel.AbstractNoFI <> thiele_non_cert_addr_setter_preserves thm
+R11063:11099 Kernel.AbstractNoFI <> thiele_non_cert_addr_setter_preserves thm
+R11063:11099 Kernel.AbstractNoFI <> thiele_non_cert_addr_setter_preserves thm
+def 11190:11208 <> thiele_cert_machine
+R11212:11230 Kernel.AbstractNoFI <> AbstractCertMachine rec
+R11232:11238 Kernel.VMState <> VMState rec
+R11248:11255 Kernel.AbstractNoFI <> acm_step proj
+R11248:11255 Kernel.AbstractNoFI <> acm_step proj
+R11248:11255 Kernel.AbstractNoFI <> acm_step proj
+R11278:11285 Kernel.AbstractNoFI <> acm_cert proj
+R11278:11285 Kernel.AbstractNoFI <> acm_cert proj
+R11316:11327 Kernel.AbstractNoFI <> acm_preserve proj
+R11316:11327 Kernel.AbstractNoFI <> acm_preserve proj
+R11263:11270 Kernel.SimulationProof <> vm_apply def
+R11293:11308 Kernel.AbstractNoFI <> thiele_cert_bool def
+R11332:11349 Kernel.AbstractNoFI <> thiele_vm_axiom_A3 thm
+prf 11912:11930 <> thiele_abstract_nfi
+R11952:11955 Coq.Init.Datatypes <> list ind
+R11957:11970 Kernel.VMStep VMStep vm_instruction ind
+binder 11944:11948 <> trace:39
+R11979:11985 Kernel.VMState <> VMState rec
+binder 11974:11975 <> s0:40
+R12025:12032 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12021:12023 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12007:12019 Kernel.VMState <> csr_cert_addr proj
+R11997:12003 Kernel.VMState <> vm_csrs proj
+R11993:11994 Kernel.AbstractNoFI <> s0:40 var
+R12102:12109 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12097:12100 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R12083:12095 Kernel.VMState <> csr_cert_addr proj
+R12073:12079 Kernel.VMState <> vm_csrs proj
+R12034:12040 Kernel.AbstractNoFI <> acm_run def
+R12068:12069 Kernel.AbstractNoFI <> s0:40 var
+R12062:12066 Kernel.AbstractNoFI <> trace:39 var
+R12042:12060 Kernel.AbstractNoFI <> thiele_cert_machine def
+R12110:12116 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R12118:12119 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 12117:12117 <> i:41
+R12130:12133 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12120:12121 Coq.Lists.List <> In def
+R12125:12129 Kernel.AbstractNoFI <> trace:39 var
+R12123:12123 Kernel.AbstractNoFI <> i:41 var
+R12153:12155 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12134:12150 Kernel.AbstractNoFI <> cert_addr_setterb def
+R12152:12152 Kernel.AbstractNoFI <> i:41 var
+R12156:12159 Coq.Init.Datatypes <> true constr
+R12212:12223 Kernel.AbstractNoFI <> abstract_nfi thm
+R12225:12231 Kernel.VMState <> VMState rec
+R12233:12251 Kernel.AbstractNoFI <> thiele_cert_machine def
+R12212:12223 Kernel.AbstractNoFI <> abstract_nfi thm
+R12225:12231 Kernel.VMState <> VMState rec
+R12233:12251 Kernel.AbstractNoFI <> thiele_cert_machine def
+R12276:12300 Kernel.AbstractNoFI <> thiele_cert_bool_zero_iff thm
+R12276:12300 Kernel.AbstractNoFI <> thiele_cert_bool_zero_iff thm
+R12276:12300 Kernel.AbstractNoFI <> thiele_cert_bool_zero_iff thm
+R12328:12355 Kernel.AbstractNoFI <> thiele_cert_bool_nonzero_iff thm
+R12328:12355 Kernel.AbstractNoFI <> thiele_cert_bool_nonzero_iff thm
+R12328:12355 Kernel.AbstractNoFI <> thiele_cert_bool_nonzero_iff thm
+prf 12466:12489 <> thiele_abstract_nfi_cost
+R12511:12514 Coq.Init.Datatypes <> list ind
+R12516:12529 Kernel.VMStep VMStep vm_instruction ind
+binder 12503:12507 <> trace:42
+R12538:12544 Kernel.VMState <> VMState rec
+binder 12533:12534 <> s0:43
+R12584:12591 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12580:12582 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12566:12578 Kernel.VMState <> csr_cert_addr proj
+R12556:12562 Kernel.VMState <> vm_csrs proj
+R12552:12553 Kernel.AbstractNoFI <> s0:43 var
+R12661:12668 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12656:12659 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R12642:12654 Kernel.VMState <> csr_cert_addr proj
+R12632:12638 Kernel.VMState <> vm_csrs proj
+R12593:12599 Kernel.AbstractNoFI <> acm_run def
+R12627:12628 Kernel.AbstractNoFI <> s0:43 var
+R12621:12625 Kernel.AbstractNoFI <> trace:42 var
+R12601:12619 Kernel.AbstractNoFI <> thiele_cert_machine def
+R12669:12675 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R12677:12678 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 12676:12676 <> i:44
+R12689:12692 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12679:12680 Coq.Lists.List <> In def
+R12684:12688 Kernel.AbstractNoFI <> trace:42 var
+R12682:12682 Kernel.AbstractNoFI <> i:44 var
+R12719:12722 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12712:12714 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12693:12709 Kernel.AbstractNoFI <> cert_addr_setterb def
+R12711:12711 Kernel.AbstractNoFI <> i:44 var
+R12715:12718 Coq.Init.Datatypes <> true constr
+R12732:12735 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R12723:12729 Kernel.AbstractNoFI <> cost_of def
+R12731:12731 Kernel.AbstractNoFI <> i:44 var
+R12788:12806 Kernel.AbstractNoFI <> thiele_abstract_nfi thm
+R12788:12806 Kernel.AbstractNoFI <> thiele_abstract_nfi thm
+R12956:12980 Kernel.AbstractNoFI <> cert_addr_setter_cost_pos thm
+R12956:12980 Kernel.AbstractNoFI <> cert_addr_setter_cost_pos thm
+prf 13306:13331 <> uses_revelation_has_reveal
+R13353:13356 Coq.Init.Datatypes <> list ind
+R13358:13371 Kernel.VMStep VMStep vm_instruction ind
+binder 13345:13349 <> trace:45
+R13400:13407 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13379:13393 Kernel.RevelationRequirement RevelationProof uses_revelation def
+R13395:13399 Kernel.AbstractNoFI <> trace:45 var
+R13408:13414 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R13416:13417 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 13415:13415 <> i:46
+R13428:13431 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13418:13419 Coq.Lists.List <> In def
+R13423:13427 Kernel.AbstractNoFI <> trace:45 var
+R13421:13421 Kernel.AbstractNoFI <> i:46 var
+R13451:13453 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13432:13448 Kernel.AbstractNoFI <> cert_addr_setterb def
+R13450:13450 Kernel.AbstractNoFI <> i:46 var
+R13454:13457 Coq.Init.Datatypes <> true constr
+R13628:13642 Kernel.RevelationRequirement RevelationProof uses_revelation def
+prf 14824:14844 <> thiele_nfi_pc_indexed
+R14866:14869 Coq.Init.Datatypes <> list ind
+R14871:14884 Kernel.VMStep VMStep vm_instruction ind
+binder 14858:14862 <> trace:47
+R14905:14911 Kernel.VMState <> VMState rec
+binder 14888:14893 <> s_init:48
+binder 14895:14901 <> s_final:49
+R14922:14924 Coq.Init.Datatypes <> nat ind
+binder 14915:14918 <> fuel:50
+R14974:14981 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14959:14961 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14932:14940 Kernel.RevelationRequirement RevelationProof trace_run def
+R14942:14945 Kernel.AbstractNoFI <> fuel:50 var
+R14947:14951 Kernel.AbstractNoFI <> trace:47 var
+R14953:14958 Kernel.AbstractNoFI <> s_init:48 var
+R14962:14965 Coq.Init.Datatypes <> Some constr
+R14967:14973 Kernel.AbstractNoFI <> s_final:49 var
+R15018:15025 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15014:15016 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15000:15012 Kernel.VMState <> csr_cert_addr proj
+R14990:14996 Kernel.VMState <> vm_csrs proj
+R14982:14987 Kernel.AbstractNoFI <> s_init:48 var
+R15064:15071 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15059:15062 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R15045:15057 Kernel.VMState <> csr_cert_addr proj
+R15035:15041 Kernel.VMState <> vm_csrs proj
+R15026:15032 Kernel.AbstractNoFI <> s_final:49 var
+R15072:15078 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R15080:15081 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 15079:15079 <> i:51
+R15092:15095 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15082:15083 Coq.Lists.List <> In def
+R15087:15091 Kernel.AbstractNoFI <> trace:47 var
+R15085:15085 Kernel.AbstractNoFI <> i:51 var
+R15115:15117 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15096:15112 Kernel.AbstractNoFI <> cert_addr_setterb def
+R15114:15114 Kernel.AbstractNoFI <> i:51 var
+R15118:15121 Coq.Init.Datatypes <> true constr
+R15267:15280 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R15267:15280 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R15303:15316 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R15383:15422 Kernel.RevelationRequirement RevelationProof nonlocal_correlation_requires_revelation thm
+R15383:15422 Kernel.RevelationRequirement RevelationProof nonlocal_correlation_requires_revelation thm
+R15753:15778 Kernel.AbstractNoFI <> uses_revelation_has_reveal thm
+R15753:15778 Kernel.AbstractNoFI <> uses_revelation_has_reveal thm
+R15878:15889 Coq.Lists.List <> nth_error_In thm
+R15878:15889 Coq.Lists.List <> nth_error_In thm
+R15912:15921 Kernel.VMStep VMStep instr_emit constr
+R15912:15921 Kernel.VMStep VMStep instr_emit constr
+R16076:16087 Coq.Lists.List <> nth_error_In thm
+R16076:16087 Coq.Lists.List <> nth_error_In thm
+R16110:16120 Kernel.VMStep VMStep instr_ljoin constr
+R16110:16120 Kernel.VMStep VMStep instr_ljoin constr
+R16363:16374 Coq.Lists.List <> nth_error_In thm
+R16363:16374 Coq.Lists.List <> nth_error_In thm
+R16397:16409 Kernel.VMStep VMStep instr_lassert constr
+R16397:16409 Kernel.VMStep VMStep instr_lassert constr
+R16582:16593 Coq.Lists.List <> nth_error_In thm
+R16582:16593 Coq.Lists.List <> nth_error_In thm
+R16616:16633 Kernel.VMStep VMStep instr_morph_assert constr
+R16616:16633 Kernel.VMStep VMStep instr_morph_assert constr
+prf 17731:17743 <> universal_nfi
+binder 17757:17757 <> S:52
+R17772:17790 Kernel.AbstractNoFI <> AbstractCertMachine rec
+R17792:17792 Kernel.AbstractNoFI <> S:52 var
+binder 17768:17768 <> M:53
+R17813:17816 Coq.Init.Datatypes <> list ind
+R17818:17831 Kernel.VMStep VMStep vm_instruction ind
+binder 17805:17809 <> trace:54
+R17840:17840 Kernel.AbstractNoFI <> S:52 var
+binder 17835:17836 <> s0:55
+R17911:17957 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17903:17905 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17890:17897 Kernel.AbstractNoFI <> acm_cert proj
+R17901:17902 Kernel.AbstractNoFI <> s0:55 var
+R17899:17899 Kernel.AbstractNoFI <> M:53 var
+R17906:17910 Coq.Init.Datatypes <> false constr
+R17996:18064 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17989:17991 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17958:17965 Kernel.AbstractNoFI <> acm_cert proj
+R17970:17976 Kernel.AbstractNoFI <> acm_run def
+R17986:17987 Kernel.AbstractNoFI <> s0:55 var
+R17980:17984 Kernel.AbstractNoFI <> trace:54 var
+R17978:17978 Kernel.AbstractNoFI <> M:53 var
+R17967:17967 Kernel.AbstractNoFI <> M:53 var
+R17992:17995 Coq.Init.Datatypes <> true constr
+R18065:18071 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R18073:18074 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 18072:18072 <> i:56
+R18085:18102 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18075:18076 Coq.Lists.List <> In def
+R18080:18084 Kernel.AbstractNoFI <> trace:54 var
+R18078:18078 Kernel.AbstractNoFI <> i:56 var
+R18129:18146 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18122:18124 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18103:18119 Kernel.AbstractNoFI <> cert_addr_setterb def
+R18121:18121 Kernel.AbstractNoFI <> i:56 var
+R18125:18128 Coq.Init.Datatypes <> true constr
+R18156:18159 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R18147:18153 Kernel.AbstractNoFI <> cost_of def
+R18155:18155 Kernel.AbstractNoFI <> i:56 var
+R18214:18225 Kernel.AbstractNoFI <> abstract_nfi thm
+R18214:18225 Kernel.AbstractNoFI <> abstract_nfi thm
+R18370:18394 Kernel.AbstractNoFI <> cert_addr_setter_cost_pos thm
+R18370:18394 Kernel.AbstractNoFI <> cert_addr_setter_cost_pos thm
+prf 20576:20596 <> no_free_certification
+R20614:20620 Kernel.VMState <> VMState rec
+binder 20610:20610 <> s:57
+R20628:20641 Kernel.VMStep VMStep vm_instruction ind
+binder 20624:20624 <> i:58
+R20680:20687 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20676:20678 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20662:20674 Kernel.VMState <> csr_cert_addr proj
+R20652:20658 Kernel.VMState <> vm_csrs proj
+R20649:20649 Kernel.AbstractNoFI <> s:57 var
+R20733:20740 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20728:20731 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R20714:20726 Kernel.VMState <> csr_cert_addr proj
+R20704:20710 Kernel.VMState <> vm_csrs proj
+R20689:20696 Kernel.SimulationProof <> vm_apply def
+R20698:20698 Kernel.AbstractNoFI <> s:57 var
+R20700:20700 Kernel.AbstractNoFI <> i:58 var
+R20759:20762 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R20741:20756 Kernel.VMStep VMStep instruction_cost def
+R20758:20758 Kernel.AbstractNoFI <> i:58 var
+R21025:21027 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21006:21022 Kernel.AbstractNoFI <> cert_addr_setterb def
+R21028:21031 Coq.Init.Datatypes <> true constr
+R21025:21027 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21006:21022 Kernel.AbstractNoFI <> cert_addr_setterb def
+R21028:21031 Coq.Init.Datatypes <> true constr
+R21049:21065 Kernel.AbstractNoFI <> cert_addr_setterb def
+R21049:21065 Kernel.AbstractNoFI <> cert_addr_setterb def
+R21165:21201 Kernel.AbstractNoFI <> thiele_non_cert_addr_setter_preserves thm
+R21165:21201 Kernel.AbstractNoFI <> thiele_non_cert_addr_setter_preserves thm
+R21272:21296 Kernel.AbstractNoFI <> cert_addr_setter_cost_pos thm
+R21272:21296 Kernel.AbstractNoFI <> cert_addr_setter_cost_pos thm
+prf 21554:21577 <> no_free_certification_mu
+R21595:21601 Kernel.VMState <> VMState rec
+binder 21591:21591 <> s:59
+R21609:21622 Kernel.VMStep VMStep vm_instruction ind
+binder 21605:21605 <> i:60
+R21661:21668 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21657:21659 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21643:21655 Kernel.VMState <> csr_cert_addr proj
+R21633:21639 Kernel.VMState <> vm_csrs proj
+R21630:21630 Kernel.AbstractNoFI <> s:59 var
+R21714:21721 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21709:21712 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R21695:21707 Kernel.VMState <> csr_cert_addr proj
+R21685:21691 Kernel.VMState <> vm_csrs proj
+R21670:21677 Kernel.SimulationProof <> vm_apply def
+R21679:21679 Kernel.AbstractNoFI <> s:59 var
+R21681:21681 Kernel.AbstractNoFI <> i:60 var
+R21744:21747 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R21738:21742 Kernel.VMState <> vm_mu proj
+R21723:21730 Kernel.SimulationProof <> vm_apply def
+R21732:21732 Kernel.AbstractNoFI <> s:59 var
+R21734:21734 Kernel.AbstractNoFI <> i:60 var
+R21757:21759 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21751:21755 Kernel.VMState <> vm_mu proj
+R21748:21748 Kernel.AbstractNoFI <> s:59 var
+R21809:21819 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R21809:21819 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R21809:21819 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R21836:21856 Kernel.AbstractNoFI <> no_free_certification thm
+R21836:21856 Kernel.AbstractNoFI <> no_free_certification thm
+def 22645:22658 <> trace_mu_delta
+R22669:22672 Coq.Init.Datatypes <> list ind
+R22674:22687 Kernel.VMStep VMStep vm_instruction ind
+binder 22661:22665 <> trace:61
+R22692:22694 Coq.Init.Datatypes <> nat ind
+R22707:22711 Kernel.AbstractNoFI <> trace:61 var
+R22722:22723 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R22742:22745 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R22772:22774 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R22754:22769 Kernel.VMStep VMStep instruction_cost def
+R22775:22788 Kernel.AbstractNoFI <> trace_mu_delta:62 def
+prf 22952:22967 <> acm_run_mu_exact
+R22989:22992 Coq.Init.Datatypes <> list ind
+R22994:23007 Kernel.VMStep VMStep vm_instruction ind
+binder 22981:22985 <> trace:64
+R23015:23021 Kernel.VMState <> VMState rec
+binder 23011:23011 <> s:65
+R23074:23080 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23068:23072 Kernel.VMState <> vm_mu proj
+R23030:23036 Kernel.AbstractNoFI <> acm_run def
+R23064:23064 Kernel.AbstractNoFI <> s:65 var
+R23058:23062 Kernel.AbstractNoFI <> trace:64 var
+R23038:23056 Kernel.AbstractNoFI <> thiele_cert_machine def
+R23090:23092 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R23084:23088 Kernel.VMState <> vm_mu proj
+R23081:23081 Kernel.AbstractNoFI <> s:65 var
+R23093:23106 Kernel.AbstractNoFI <> trace_mu_delta def
+R23108:23112 Kernel.AbstractNoFI <> trace:64 var
+R23327:23333 Kernel.AbstractNoFI <> acm_run def
+R23357:23360 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R23335:23353 Kernel.AbstractNoFI <> thiele_cert_machine def
+R23387:23393 Kernel.AbstractNoFI <> acm_run def
+R23421:23428 Kernel.SimulationProof <> vm_apply def
+R23395:23413 Kernel.AbstractNoFI <> thiele_cert_machine def
+R23327:23333 Kernel.AbstractNoFI <> acm_run def
+R23357:23360 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R23335:23353 Kernel.AbstractNoFI <> thiele_cert_machine def
+R23387:23393 Kernel.AbstractNoFI <> acm_run def
+R23421:23428 Kernel.SimulationProof <> vm_apply def
+R23395:23413 Kernel.AbstractNoFI <> thiele_cert_machine def
+R23454:23461 Kernel.SimulationProof <> vm_apply def
+R23454:23461 Kernel.SimulationProof <> vm_apply def
+R23454:23461 Kernel.SimulationProof <> vm_apply def
+R23482:23492 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R23482:23492 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R23482:23492 Kernel.MuLedgerConservation <> vm_apply_mu thm
+prf 23679:23706 <> In_cert_setter_trace_cost_ge
+R23728:23731 Coq.Init.Datatypes <> list ind
+R23733:23746 Kernel.VMStep VMStep vm_instruction ind
+binder 23720:23724 <> trace:66
+R23754:23767 Kernel.VMStep VMStep vm_instruction ind
+binder 23750:23750 <> i:67
+R23785:23792 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23775:23776 Coq.Lists.List <> In def
+R23780:23784 Kernel.AbstractNoFI <> trace:66 var
+R23778:23778 Kernel.AbstractNoFI <> i:67 var
+R23819:23826 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23812:23814 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23793:23809 Kernel.AbstractNoFI <> cert_addr_setterb def
+R23811:23811 Kernel.AbstractNoFI <> i:67 var
+R23815:23818 Coq.Init.Datatypes <> true constr
+R23847:23850 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R23827:23840 Kernel.AbstractNoFI <> trace_mu_delta def
+R23842:23846 Kernel.AbstractNoFI <> trace:66 var
+R24027:24051 Kernel.AbstractNoFI <> cert_addr_setter_cost_pos thm
+R24027:24051 Kernel.AbstractNoFI <> cert_addr_setter_cost_pos thm
+R24078:24084 Kernel.AbstractNoFI <> cost_of def
+prf 24495:24524 <> no_free_certification_trace_mu
+R24546:24549 Coq.Init.Datatypes <> list ind
+R24551:24564 Kernel.VMStep VMStep vm_instruction ind
+binder 24538:24542 <> trace:68
+R24573:24579 Kernel.VMState <> VMState rec
+binder 24568:24569 <> s0:69
+R24619:24626 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24615:24617 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24601:24613 Kernel.VMState <> csr_cert_addr proj
+R24591:24597 Kernel.VMState <> vm_csrs proj
+R24587:24588 Kernel.AbstractNoFI <> s0:69 var
+R24696:24703 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24691:24694 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R24677:24689 Kernel.VMState <> csr_cert_addr proj
+R24667:24673 Kernel.VMState <> vm_csrs proj
+R24628:24634 Kernel.AbstractNoFI <> acm_run def
+R24662:24663 Kernel.AbstractNoFI <> s0:69 var
+R24656:24660 Kernel.AbstractNoFI <> trace:68 var
+R24636:24654 Kernel.AbstractNoFI <> thiele_cert_machine def
+R24750:24753 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R24744:24748 Kernel.VMState <> vm_mu proj
+R24705:24711 Kernel.AbstractNoFI <> acm_run def
+R24739:24740 Kernel.AbstractNoFI <> s0:69 var
+R24733:24737 Kernel.AbstractNoFI <> trace:68 var
+R24713:24731 Kernel.AbstractNoFI <> thiele_cert_machine def
+R24764:24766 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R24758:24762 Kernel.VMState <> vm_mu proj
+R24754:24755 Kernel.AbstractNoFI <> s0:69 var
+R24917:24940 Kernel.AbstractNoFI <> thiele_abstract_nfi_cost thm
+R24917:24940 Kernel.AbstractNoFI <> thiele_abstract_nfi_cost thm
+R25071:25086 Kernel.AbstractNoFI <> acm_run_mu_exact thm
+R25071:25086 Kernel.AbstractNoFI <> acm_run_mu_exact thm
+R25071:25086 Kernel.AbstractNoFI <> acm_run_mu_exact thm
+R25142:25158 Coq.Arith.PeanoNat Nat add_le_mono_l thm
+R25142:25158 Coq.Arith.PeanoNat Nat add_le_mono_l thm
+R25170:25197 Kernel.AbstractNoFI <> In_cert_setter_trace_cost_ge thm
+R25170:25197 Kernel.AbstractNoFI <> In_cert_setter_trace_cost_ge thm
+prf 26325:26355 <> no_free_certification_certified
+R26373:26379 Kernel.VMState <> VMState rec
+binder 26369:26369 <> s:70
+R26387:26400 Kernel.VMStep VMStep vm_instruction ind
+binder 26383:26383 <> i:71
+R26432:26439 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26424:26426 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26411:26422 Kernel.VMState <> vm_certified proj
+R26408:26408 Kernel.AbstractNoFI <> s:70 var
+R26427:26431 Coq.Init.Datatypes <> false constr
+R26476:26483 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26469:26471 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26456:26467 Kernel.VMState <> vm_certified proj
+R26441:26448 Kernel.SimulationProof <> vm_apply def
+R26450:26450 Kernel.AbstractNoFI <> s:70 var
+R26452:26452 Kernel.AbstractNoFI <> i:71 var
+R26472:26475 Coq.Init.Datatypes <> true constr
+R26502:26505 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R26484:26499 Kernel.VMStep VMStep instruction_cost def
+R26501:26501 Kernel.AbstractNoFI <> i:71 var
+R26555:26572 Kernel.PrimeAxiom <> vm_apply_certified thm
+R26555:26572 Kernel.PrimeAxiom <> vm_apply_certified thm
+R26555:26572 Kernel.PrimeAxiom <> vm_apply_certified thm
+R26949:26964 Kernel.VMStep VMStep instruction_cost def
+prf 27083:27116 <> no_free_certification_certified_mu
+R27134:27140 Kernel.VMState <> VMState rec
+binder 27130:27130 <> s:72
+R27148:27161 Kernel.VMStep VMStep vm_instruction ind
+binder 27144:27144 <> i:73
+R27193:27200 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R27185:27187 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R27172:27183 Kernel.VMState <> vm_certified proj
+R27169:27169 Kernel.AbstractNoFI <> s:72 var
+R27188:27192 Coq.Init.Datatypes <> false constr
+R27237:27244 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R27230:27232 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R27217:27228 Kernel.VMState <> vm_certified proj
+R27202:27209 Kernel.SimulationProof <> vm_apply def
+R27211:27211 Kernel.AbstractNoFI <> s:72 var
+R27213:27213 Kernel.AbstractNoFI <> i:73 var
+R27233:27236 Coq.Init.Datatypes <> true constr
+R27267:27270 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R27261:27265 Kernel.VMState <> vm_mu proj
+R27246:27253 Kernel.SimulationProof <> vm_apply def
+R27255:27255 Kernel.AbstractNoFI <> s:72 var
+R27257:27257 Kernel.AbstractNoFI <> i:73 var
+R27280:27282 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R27274:27278 Kernel.VMState <> vm_mu proj
+R27271:27271 Kernel.AbstractNoFI <> s:72 var
+R27332:27342 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R27332:27342 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R27332:27342 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R27359:27389 Kernel.AbstractNoFI <> no_free_certification_certified thm
+R27359:27389 Kernel.AbstractNoFI <> no_free_certification_certified thm
+prf 28475:28508 <> certification_requires_positive_mu
+R28526:28532 Kernel.VMState <> VMState rec
+binder 28522:28522 <> s:74
+R28540:28553 Kernel.VMStep VMStep vm_instruction ind
+binder 28536:28536 <> i:75
+R28867:28937 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R28629:28629 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R28715:28796 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R28866:28866 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R28661:28669 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R28657:28659 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R28643:28655 Kernel.VMState <> csr_cert_addr proj
+R28633:28639 Kernel.VMState <> vm_csrs proj
+R28630:28630 Kernel.AbstractNoFI <> s:74 var
+R28710:28713 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R28696:28708 Kernel.VMState <> csr_cert_addr proj
+R28686:28692 Kernel.VMState <> vm_csrs proj
+R28671:28678 Kernel.SimulationProof <> vm_apply def
+R28680:28680 Kernel.AbstractNoFI <> s:74 var
+R28682:28682 Kernel.AbstractNoFI <> i:75 var
+R28821:28829 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R28813:28815 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R28800:28811 Kernel.VMState <> vm_certified proj
+R28797:28797 Kernel.AbstractNoFI <> s:74 var
+R28816:28820 Coq.Init.Datatypes <> false constr
+R28859:28861 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R28846:28857 Kernel.VMState <> vm_certified proj
+R28831:28838 Kernel.SimulationProof <> vm_apply def
+R28840:28840 Kernel.AbstractNoFI <> s:74 var
+R28842:28842 Kernel.AbstractNoFI <> i:75 var
+R28862:28865 Coq.Init.Datatypes <> true constr
+R28960:28963 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R28954:28958 Kernel.VMState <> vm_mu proj
+R28939:28946 Kernel.SimulationProof <> vm_apply def
+R28948:28948 Kernel.AbstractNoFI <> s:74 var
+R28950:28950 Kernel.AbstractNoFI <> i:75 var
+R28973:28975 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R28967:28971 Kernel.VMState <> vm_mu proj
+R28964:28964 Kernel.AbstractNoFI <> s:74 var
+R29069:29092 Kernel.AbstractNoFI <> no_free_certification_mu thm
+R29069:29092 Kernel.AbstractNoFI <> no_free_certification_mu thm
+R29136:29169 Kernel.AbstractNoFI <> no_free_certification_certified_mu thm
+R29136:29169 Kernel.AbstractNoFI <> no_free_certification_certified_mu thm

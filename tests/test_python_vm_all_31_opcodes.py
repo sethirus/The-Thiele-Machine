@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Comprehensive Python VM tests for all 38 Thiele CPU opcodes.
+"""Comprehensive Python VM tests for all 40 Thiele CPU opcodes.
 
 Tests the Python VM directly (thielecpu.vm) for every opcode, including the
 5 newer opcodes (CHECKPOINT, READ_PORT, WRITE_PORT, HEAP_LOAD, HEAP_STORE)
@@ -120,19 +120,22 @@ class TestRegMemOpcodes:
                      {"op": "halt", "cost": 1}])
         assert s.vm_regs[3] == 20
 
-    def test_add_overflow_wraps_32bit(self):
+    def test_add_no_overflow_64bit(self):
+        # 0xFFFFFFFF + 1 = 0x100000000 in 64-bit (no wrap within 32-bit range)
         s = run_py([{"op": "load_imm", "dst": 1, "imm": 0xFFFFFFFF, "cost": 1},
                      {"op": "load_imm", "dst": 2, "imm": 1, "cost": 1},
                      {"op": "add", "dst": 3, "rs1": 1, "rs2": 2, "cost": 1},
                      {"op": "halt", "cost": 1}])
-        assert s.vm_regs[3] == 0
+        assert s.vm_regs[3] == 0x100000000
 
-    def test_sub_underflow_wraps_32bit(self):
+    def test_sub_underflow_wraps_64bit(self):
+        # 0 - 1 wraps to 2^64-1 (word64_sub uses Int64 two's complement wrap)
         s = run_py([{"op": "load_imm", "dst": 1, "imm": 0, "cost": 1},
                      {"op": "load_imm", "dst": 2, "imm": 1, "cost": 1},
                      {"op": "sub", "dst": 3, "rs1": 1, "rs2": 2, "cost": 1},
                      {"op": "halt", "cost": 1}])
-        assert s.vm_regs[3] == 0xFFFFFFFF
+        # Int64: 0 - 1 = -1 → serialized as unsigned 2^64 - 1
+        assert s.vm_regs[3] == (2**64 - 1)
 
 
 # ── XOR opcodes ────────────────────────────────────────────────────────
@@ -173,12 +176,12 @@ class TestCertOpcodes:
     def test_emit(self):
         s = run_py([{"op": "emit", "module": 0, "payload": "hello", "cost": 7},
                      {"op": "halt", "cost": 1}])
-        assert s.vm_mu == 8
+        assert s.vm_mu == 9  # S(7)+1=9: cert-setters charge cost+1
 
     def test_reveal(self):
         s = run_py([{"op": "reveal", "module": 0, "bits": 0, "cert": "proof", "cost": 5},
                      {"op": "halt", "cost": 1}])
-        assert s.vm_mu == 6
+        assert s.vm_mu == 7  # S(5)+1=7: cert-setters charge cost+1
 
     def test_oracle_halts(self):
         s = run_py([{"op": "oracle_halts", "payload": 0, "cost": 11},
@@ -275,7 +278,7 @@ class TestControlFlow:
         assert s.vm_regs[1] == 0
 
 
-# ── New opcodes (27-38) ───────────────────────────────────────────────
+# ── New opcodes (27-40) ───────────────────────────────────────────────
 
 class TestNewOpcodes:
     def test_checkpoint(self):
@@ -289,7 +292,7 @@ class TestNewOpcodes:
         s = run_py([{"op": "read_port", "dst": 3, "channel": 0, "value": 42, "bits": 8, "cost": 1},
                      {"op": "halt", "cost": 1}])
         assert s.vm_regs[3] == 42
-        assert s.vm_mu == 2
+        assert s.vm_mu == 3  # S(1)+1=3: cert-setters charge cost+1
 
     def test_read_port_different_channels(self):
         """READ_PORT should work with different channel indices."""
@@ -488,15 +491,16 @@ class TestIntegration:
         assert s.vm_regs[3] == 99, "main should continue after sub1 returns"
         assert s.vm_regs[31] == 0, "SP should be 0 after balanced calls"
 
-    def test_all_38_opcodes_counted(self):
-        """Verify build/thiele_core.ml (Coq extraction) contains all 38 opcodes."""
+    def test_all_40_opcodes_counted(self):
+        """Verify build/thiele_core.ml (Coq extraction) contains all 40 opcodes."""
         import re
         from pathlib import Path
         ml_path = Path(__file__).resolve().parents[1] / "build" / "thiele_core.ml"
         assert ml_path.exists(), f"build/thiele_core.ml not found at {ml_path}"
         content = ml_path.read_text(encoding="utf-8")
-        # All 38 constructors appear as Coq_instr_X in the extraction
-        constructors = set(re.findall(r"Coq_instr_(\w+)", content))
+        # All 40 constructors appear as Instr_X (legacy) or Coq_instr_X (module-prefixed)
+        constructors = set(re.findall(r"Instr_(\w+)", content))
+        constructors |= set(re.findall(r"Coq_instr_(\w+)", content))
         ops = {c.lower() for c in constructors}
         expected = {
             "pnew", "psplit", "pmerge", "lassert", "ljoin", "mdlacc", "pdiscover",
@@ -508,6 +512,7 @@ class TestIntegration:
             "read_port", "write_port", "heap_load", "heap_store",
             "certify",
             "and", "or", "shl", "shr", "mul", "lui",
+            "tensor_set", "tensor_get",
         }
         assert expected <= ops, f"Missing from OCaml extraction: {expected - ops}"
-        assert len(expected) == 38
+        assert len(expected) == 40

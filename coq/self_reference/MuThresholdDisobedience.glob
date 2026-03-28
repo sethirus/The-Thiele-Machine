@@ -1,0 +1,449 @@
+DIGEST 0acb149ceba421ccb63a6c78c52786d1
+FSelfReference.MuThresholdDisobedience
+R1715:1719 Coq.Arith.Arith <> <> lib
+R1721:1724 Coq.Lists.List <> <> lib
+R1726:1728 Coq.micromega.Lia <> <> lib
+R1730:1733 Coq.Bool.Bool <> <> lib
+R1743:1755 Coq.Lists.List ListNotations <> mod
+R1830:1836 Kernel.VMState <> <> lib
+R1838:1843 Kernel.VMStep <> <> lib
+R1845:1855 Kernel.MuCostModel <> <> lib
+ind 2037:2040 <> Step
+constr 2047:2054 <> StepSafe
+constr 2122:2129 <> StepUtil
+R2066:2069 Coq.Init.Datatypes <> bool ind
+binder 2057:2062 <> passes:3
+R2141:2143 Coq.Init.Datatypes <> nat ind
+binder 2132:2137 <> reward:4
+scheme 2037:2040 <> Step_rect
+scheme 2037:2040 <> Step_ind
+scheme 2037:2040 <> Step_rec
+scheme 2037:2040 <> Step_sind
+rec 2463:2474 <> MachineState
+proj 2488:2494 <> ms_util
+proj 2543:2547 <> ms_mu
+proj 2598:2606 <> ms_halted
+R2500:2502 Coq.Init.Datatypes <> nat ind
+R2555:2557 Coq.Init.Datatypes <> nat ind
+R2610:2613 Coq.Init.Datatypes <> bool ind
+def 2983:2992 <> apply_step
+R2999:3010 SelfReference.MuThresholdDisobedience <> MachineState rec
+binder 2995:2995 <> s:9
+R3021:3024 SelfReference.MuThresholdDisobedience <> Step ind
+binder 3014:3017 <> step:10
+R3040:3042 Coq.Init.Datatypes <> nat ind
+binder 3028:3036 <> mu_charge:11
+R3047:3058 SelfReference.MuThresholdDisobedience <> MachineState rec
+R3068:3076 SelfReference.MuThresholdDisobedience <> ms_halted proj
+R3078:3078 SelfReference.MuThresholdDisobedience <> s:9 var
+R3163:3166 SelfReference.MuThresholdDisobedience <> step:10 var
+R3179:3186 SelfReference.MuThresholdDisobedience <> StepSafe constr
+R3204:3207 SelfReference.MuThresholdDisobedience <> mkMS constr
+R3210:3216 SelfReference.MuThresholdDisobedience <> ms_util proj
+R3218:3218 SelfReference.MuThresholdDisobedience <> s:9 var
+R3299:3301 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3292:3296 SelfReference.MuThresholdDisobedience <> ms_mu proj
+R3298:3298 SelfReference.MuThresholdDisobedience <> s:9 var
+R3302:3310 SelfReference.MuThresholdDisobedience <> mu_charge:11 var
+R3379:3382 Coq.Init.Datatypes <> negb def
+R3459:3466 SelfReference.MuThresholdDisobedience <> StepUtil constr
+R3479:3482 SelfReference.MuThresholdDisobedience <> mkMS constr
+R3494:3496 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3485:3491 SelfReference.MuThresholdDisobedience <> ms_util proj
+R3493:3493 SelfReference.MuThresholdDisobedience <> s:9 var
+R3555:3559 SelfReference.MuThresholdDisobedience <> ms_mu proj
+R3561:3561 SelfReference.MuThresholdDisobedience <> s:9 var
+R3575:3579 Coq.Init.Datatypes <> false constr
+R3085:3085 SelfReference.MuThresholdDisobedience <> s:9 var
+def 3650:3658 <> run_steps
+R3665:3676 SelfReference.MuThresholdDisobedience <> MachineState rec
+binder 3661:3661 <> s:13
+R3688:3691 Coq.Init.Datatypes <> list ind
+R3698:3700 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3694:3697 SelfReference.MuThresholdDisobedience <> Step ind
+R3701:3703 Coq.Init.Datatypes <> nat ind
+binder 3680:3684 <> steps:14
+R3709:3720 SelfReference.MuThresholdDisobedience <> MachineState rec
+R3733:3737 SelfReference.MuThresholdDisobedience <> steps:14 var
+R3748:3749 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3754:3754 SelfReference.MuThresholdDisobedience <> s:13 var
+R3777:3780 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3760:3760 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3765:3766 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3776:3776 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3793:3801 SelfReference.MuThresholdDisobedience <> run_steps:15 def
+R3804:3813 SelfReference.MuThresholdDisobedience <> apply_step def
+R3815:3815 SelfReference.MuThresholdDisobedience <> s:13 var
+prf 4026:4044 <> halted_stays_halted
+binder 4057:4057 <> s:17
+binder 4059:4062 <> step:18
+binder 4064:4072 <> mu_charge:19
+R4097:4104 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4090:4092 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4079:4087 SelfReference.MuThresholdDisobedience <> ms_halted proj
+R4089:4089 SelfReference.MuThresholdDisobedience <> s:17 var
+R4093:4096 Coq.Init.Datatypes <> true constr
+R4144:4146 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4105:4113 SelfReference.MuThresholdDisobedience <> ms_halted proj
+R4116:4125 SelfReference.MuThresholdDisobedience <> apply_step def
+R4127:4127 SelfReference.MuThresholdDisobedience <> s:17 var
+R4129:4132 SelfReference.MuThresholdDisobedience <> step:18 var
+R4134:4142 SelfReference.MuThresholdDisobedience <> mu_charge:19 var
+R4147:4150 Coq.Init.Datatypes <> true constr
+R4376:4385 SelfReference.MuThresholdDisobedience <> apply_step def
+prf 4502:4519 <> halted_util_frozen
+binder 4532:4532 <> s:20
+binder 4534:4537 <> step:21
+binder 4539:4547 <> mu_charge:22
+R4572:4579 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4565:4567 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4554:4562 SelfReference.MuThresholdDisobedience <> ms_halted proj
+R4564:4564 SelfReference.MuThresholdDisobedience <> s:20 var
+R4568:4571 Coq.Init.Datatypes <> true constr
+R4617:4619 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4580:4586 SelfReference.MuThresholdDisobedience <> ms_util proj
+R4589:4598 SelfReference.MuThresholdDisobedience <> apply_step def
+R4600:4600 SelfReference.MuThresholdDisobedience <> s:20 var
+R4602:4605 SelfReference.MuThresholdDisobedience <> step:21 var
+R4607:4615 SelfReference.MuThresholdDisobedience <> mu_charge:22 var
+R4620:4626 SelfReference.MuThresholdDisobedience <> ms_util proj
+R4628:4628 SelfReference.MuThresholdDisobedience <> s:20 var
+R4676:4685 SelfReference.MuThresholdDisobedience <> apply_step def
+prf 4778:4788 <> mu_monotone
+binder 4801:4801 <> s:23
+binder 4803:4806 <> step:24
+binder 4808:4816 <> mu_charge:25
+R4830:4833 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4823:4827 SelfReference.MuThresholdDisobedience <> ms_mu proj
+R4829:4829 SelfReference.MuThresholdDisobedience <> s:23 var
+R4834:4838 SelfReference.MuThresholdDisobedience <> ms_mu proj
+R4841:4850 SelfReference.MuThresholdDisobedience <> apply_step def
+R4852:4852 SelfReference.MuThresholdDisobedience <> s:23 var
+R4854:4857 SelfReference.MuThresholdDisobedience <> step:24 var
+R4859:4867 SelfReference.MuThresholdDisobedience <> mu_charge:25 var
+R4914:4923 SelfReference.MuThresholdDisobedience <> apply_step def
+R4938:4946 SelfReference.MuThresholdDisobedience <> ms_halted proj
+R4938:4946 SelfReference.MuThresholdDisobedience <> ms_halted proj
+prf 5085:5101 <> halted_run_frozen
+R5123:5126 Coq.Init.Datatypes <> list ind
+R5133:5135 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R5129:5132 SelfReference.MuThresholdDisobedience <> Step ind
+R5136:5138 Coq.Init.Datatypes <> nat ind
+binder 5115:5119 <> steps:26
+R5147:5158 SelfReference.MuThresholdDisobedience <> MachineState rec
+binder 5143:5143 <> s:27
+R5184:5191 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5177:5179 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5166:5174 SelfReference.MuThresholdDisobedience <> ms_halted proj
+R5176:5176 SelfReference.MuThresholdDisobedience <> s:27 var
+R5180:5183 Coq.Init.Datatypes <> true constr
+R5209:5211 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5192:5200 SelfReference.MuThresholdDisobedience <> run_steps def
+R5202:5202 SelfReference.MuThresholdDisobedience <> s:27 var
+R5204:5208 SelfReference.MuThresholdDisobedience <> steps:26 var
+R5212:5212 SelfReference.MuThresholdDisobedience <> s:27 var
+R5377:5379 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5350:5359 SelfReference.MuThresholdDisobedience <> apply_step def
+R5377:5379 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5350:5359 SelfReference.MuThresholdDisobedience <> apply_step def
+R5397:5406 SelfReference.MuThresholdDisobedience <> apply_step def
+prf 5917:5935 <> mu_cost_stop_button
+R5954:5965 SelfReference.MuThresholdDisobedience <> MachineState rec
+binder 5949:5950 <> s0:28
+R5982:5984 Coq.Init.Datatypes <> nat ind
+binder 5969:5976 <> mu_check:29
+binder 5978:5978 <> n:30
+R6012:6019 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6004:6006 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5992:6000 SelfReference.MuThresholdDisobedience <> ms_halted proj
+R6002:6003 SelfReference.MuThresholdDisobedience <> s0:28 var
+R6007:6011 Coq.Init.Datatypes <> false constr
+R6030:6039 SelfReference.MuThresholdDisobedience <> apply_step def
+R6041:6042 SelfReference.MuThresholdDisobedience <> s0:28 var
+R6045:6052 SelfReference.MuThresholdDisobedience <> StepSafe constr
+R6054:6058 Coq.Init.Datatypes <> false constr
+R6061:6068 SelfReference.MuThresholdDisobedience <> mu_check:29 var
+binder 6024:6025 <> s1:31
+R6087:6096 SelfReference.MuThresholdDisobedience <> apply_step def
+R6098:6099 SelfReference.MuThresholdDisobedience <> s1:31 var
+R6102:6109 SelfReference.MuThresholdDisobedience <> StepUtil constr
+R6111:6111 SelfReference.MuThresholdDisobedience <> n:30 var
+binder 6081:6082 <> s2:32
+R6150:6181 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6135:6137 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6123:6129 SelfReference.MuThresholdDisobedience <> ms_util proj
+R6133:6134 SelfReference.MuThresholdDisobedience <> s2:32 var
+R6138:6144 SelfReference.MuThresholdDisobedience <> ms_util proj
+R6148:6149 SelfReference.MuThresholdDisobedience <> s0:28 var
+R6220:6245 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6194:6196 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6182:6186 SelfReference.MuThresholdDisobedience <> ms_mu proj
+R6192:6193 SelfReference.MuThresholdDisobedience <> s2:32 var
+R6209:6211 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6197:6201 SelfReference.MuThresholdDisobedience <> ms_mu proj
+R6207:6208 SelfReference.MuThresholdDisobedience <> s0:28 var
+R6212:6219 SelfReference.MuThresholdDisobedience <> mu_check:29 var
+R6258:6260 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6246:6254 SelfReference.MuThresholdDisobedience <> ms_halted proj
+R6256:6257 SelfReference.MuThresholdDisobedience <> s2:32 var
+R6261:6264 Coq.Init.Datatypes <> true constr
+R6342:6351 SelfReference.MuThresholdDisobedience <> apply_step def
+prf 6627:6653 <> reward_magnitude_irrelevant
+R6672:6683 SelfReference.MuThresholdDisobedience <> MachineState rec
+binder 6667:6668 <> s0:33
+R6702:6704 Coq.Init.Datatypes <> nat ind
+binder 6687:6694 <> mu_check:34
+binder 6696:6696 <> n:35
+binder 6698:6698 <> m:36
+R6732:6739 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6724:6726 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6712:6720 SelfReference.MuThresholdDisobedience <> ms_halted proj
+R6722:6723 SelfReference.MuThresholdDisobedience <> s0:33 var
+R6727:6731 Coq.Init.Datatypes <> false constr
+R6751:6760 SelfReference.MuThresholdDisobedience <> apply_step def
+R6763:6772 SelfReference.MuThresholdDisobedience <> apply_step def
+R6774:6775 SelfReference.MuThresholdDisobedience <> s0:33 var
+R6778:6785 SelfReference.MuThresholdDisobedience <> StepSafe constr
+R6787:6791 Coq.Init.Datatypes <> false constr
+R6794:6801 SelfReference.MuThresholdDisobedience <> mu_check:34 var
+R6805:6812 SelfReference.MuThresholdDisobedience <> StepUtil constr
+R6814:6814 SelfReference.MuThresholdDisobedience <> n:35 var
+binder 6744:6746 <> s_n:37
+R6837:6846 SelfReference.MuThresholdDisobedience <> apply_step def
+R6849:6858 SelfReference.MuThresholdDisobedience <> apply_step def
+R6860:6861 SelfReference.MuThresholdDisobedience <> s0:33 var
+R6864:6871 SelfReference.MuThresholdDisobedience <> StepSafe constr
+R6873:6877 Coq.Init.Datatypes <> false constr
+R6880:6887 SelfReference.MuThresholdDisobedience <> mu_check:34 var
+R6891:6898 SelfReference.MuThresholdDisobedience <> StepUtil constr
+R6900:6900 SelfReference.MuThresholdDisobedience <> m:36 var
+binder 6830:6832 <> s_m:38
+R6941:6948 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6925:6927 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6912:6918 SelfReference.MuThresholdDisobedience <> ms_util proj
+R6922:6924 SelfReference.MuThresholdDisobedience <> s_n:37 var
+R6928:6934 SelfReference.MuThresholdDisobedience <> ms_util proj
+R6938:6940 SelfReference.MuThresholdDisobedience <> s_m:38 var
+R6978:6985 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6962:6964 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6949:6953 SelfReference.MuThresholdDisobedience <> ms_mu proj
+R6959:6961 SelfReference.MuThresholdDisobedience <> s_n:37 var
+R6965:6969 SelfReference.MuThresholdDisobedience <> ms_mu proj
+R6975:6977 SelfReference.MuThresholdDisobedience <> s_m:38 var
+R6999:7001 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6986:6994 SelfReference.MuThresholdDisobedience <> ms_halted proj
+R6996:6998 SelfReference.MuThresholdDisobedience <> s_n:37 var
+R7002:7010 SelfReference.MuThresholdDisobedience <> ms_halted proj
+R7012:7014 SelfReference.MuThresholdDisobedience <> s_m:38 var
+R7061:7070 SelfReference.MuThresholdDisobedience <> apply_step def
+prf 7559:7583 <> mu_threshold_disobedience
+R7601:7603 Coq.Init.Datatypes <> nat ind
+binder 7597:7597 <> n:39
+R7612:7623 SelfReference.MuThresholdDisobedience <> MachineState rec
+binder 7607:7608 <> s0:40
+R7638:7640 Coq.Init.Datatypes <> nat ind
+binder 7627:7634 <> mu_check:41
+R7668:7675 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7660:7662 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7648:7656 SelfReference.MuThresholdDisobedience <> ms_halted proj
+R7658:7659 SelfReference.MuThresholdDisobedience <> s0:40 var
+R7663:7667 Coq.Init.Datatypes <> false constr
+R7691:7694 Coq.Init.Datatypes <> list ind
+R7701:7703 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R7697:7700 SelfReference.MuThresholdDisobedience <> Step ind
+R7704:7706 Coq.Init.Datatypes <> nat ind
+binder 7684:7687 <> post:42
+R7795:7803 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7717:7723 SelfReference.MuThresholdDisobedience <> ms_util proj
+R7726:7734 SelfReference.MuThresholdDisobedience <> run_steps def
+R7736:7737 SelfReference.MuThresholdDisobedience <> s0:40 var
+R7766:7769 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7740:7740 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7755:7756 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7765:7765 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7741:7748 SelfReference.MuThresholdDisobedience <> StepSafe constr
+R7750:7754 Coq.Init.Datatypes <> false constr
+R7757:7764 SelfReference.MuThresholdDisobedience <> mu_check:41 var
+R7785:7788 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7770:7770 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7781:7782 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7784:7784 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7771:7778 SelfReference.MuThresholdDisobedience <> StepUtil constr
+R7780:7780 SelfReference.MuThresholdDisobedience <> n:39 var
+R7789:7792 SelfReference.MuThresholdDisobedience <> post:42 var
+R7804:7810 SelfReference.MuThresholdDisobedience <> ms_util proj
+R7812:7813 SelfReference.MuThresholdDisobedience <> s0:40 var
+R7925:7933 SelfReference.MuThresholdDisobedience <> run_steps def
+R7965:7968 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7939:7939 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7954:7955 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7964:7964 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7940:7947 SelfReference.MuThresholdDisobedience <> StepSafe constr
+R7949:7953 Coq.Init.Datatypes <> false constr
+R7984:7987 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7969:7969 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7980:7981 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7983:7983 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7970:7977 SelfReference.MuThresholdDisobedience <> StepUtil constr
+R8005:8013 SelfReference.MuThresholdDisobedience <> run_steps def
+R8016:8025 SelfReference.MuThresholdDisobedience <> apply_step def
+R8031:8038 SelfReference.MuThresholdDisobedience <> StepSafe constr
+R8040:8044 Coq.Init.Datatypes <> false constr
+R8073:8076 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8058:8058 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8069:8070 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8072:8072 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8059:8066 SelfReference.MuThresholdDisobedience <> StepUtil constr
+R7925:7933 SelfReference.MuThresholdDisobedience <> run_steps def
+R7965:7968 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7939:7939 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7954:7955 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7964:7964 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7940:7947 SelfReference.MuThresholdDisobedience <> StepSafe constr
+R7949:7953 Coq.Init.Datatypes <> false constr
+R7984:7987 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7969:7969 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7980:7981 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7983:7983 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7970:7977 SelfReference.MuThresholdDisobedience <> StepUtil constr
+R8005:8013 SelfReference.MuThresholdDisobedience <> run_steps def
+R8016:8025 SelfReference.MuThresholdDisobedience <> apply_step def
+R8031:8038 SelfReference.MuThresholdDisobedience <> StepSafe constr
+R8040:8044 Coq.Init.Datatypes <> false constr
+R8073:8076 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8058:8058 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8069:8070 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8072:8072 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8059:8066 SelfReference.MuThresholdDisobedience <> StepUtil constr
+R8098:8107 SelfReference.MuThresholdDisobedience <> apply_step def
+R8113:8120 SelfReference.MuThresholdDisobedience <> StepSafe constr
+R8122:8126 Coq.Init.Datatypes <> false constr
+R8098:8107 SelfReference.MuThresholdDisobedience <> apply_step def
+R8113:8120 SelfReference.MuThresholdDisobedience <> StepSafe constr
+R8122:8126 Coq.Init.Datatypes <> false constr
+R8175:8177 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8163:8171 SelfReference.MuThresholdDisobedience <> ms_halted proj
+R8178:8181 Coq.Init.Datatypes <> true constr
+R8175:8177 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8163:8171 SelfReference.MuThresholdDisobedience <> ms_halted proj
+R8178:8181 Coq.Init.Datatypes <> true constr
+R8200:8209 SelfReference.MuThresholdDisobedience <> apply_step def
+R8269:8271 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8259:8265 SelfReference.MuThresholdDisobedience <> ms_util proj
+R8272:8278 SelfReference.MuThresholdDisobedience <> ms_util proj
+R8269:8271 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8259:8265 SelfReference.MuThresholdDisobedience <> ms_util proj
+R8272:8278 SelfReference.MuThresholdDisobedience <> ms_util proj
+R8300:8309 SelfReference.MuThresholdDisobedience <> apply_step def
+R8349:8365 SelfReference.MuThresholdDisobedience <> halted_run_frozen thm
+R8383:8386 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8368:8368 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8379:8380 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8382:8382 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8369:8376 SelfReference.MuThresholdDisobedience <> StepUtil constr
+R8349:8365 SelfReference.MuThresholdDisobedience <> halted_run_frozen thm
+R8383:8386 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8368:8368 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8379:8380 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8382:8382 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8369:8376 SelfReference.MuThresholdDisobedience <> StepUtil constr
+R8349:8365 SelfReference.MuThresholdDisobedience <> halted_run_frozen thm
+R8383:8386 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8368:8368 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8379:8380 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8382:8382 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8369:8376 SelfReference.MuThresholdDisobedience <> StepUtil constr
+prf 8586:8605 <> no_reward_after_halt
+R8624:8635 SelfReference.MuThresholdDisobedience <> MachineState rec
+binder 8619:8620 <> s0:43
+R8650:8652 Coq.Init.Datatypes <> nat ind
+binder 8639:8646 <> mu_check:44
+R8663:8666 Coq.Init.Datatypes <> list ind
+R8673:8675 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R8669:8672 SelfReference.MuThresholdDisobedience <> Step ind
+R8676:8678 Coq.Init.Datatypes <> nat ind
+binder 8656:8659 <> post:45
+R8707:8714 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8699:8701 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8687:8695 SelfReference.MuThresholdDisobedience <> ms_halted proj
+R8697:8698 SelfReference.MuThresholdDisobedience <> s0:43 var
+R8702:8706 Coq.Init.Datatypes <> false constr
+R8774:8776 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8715:8721 SelfReference.MuThresholdDisobedience <> ms_util proj
+R8724:8732 SelfReference.MuThresholdDisobedience <> run_steps def
+R8734:8735 SelfReference.MuThresholdDisobedience <> s0:43 var
+R8764:8767 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8738:8738 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8753:8754 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8763:8763 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8739:8746 SelfReference.MuThresholdDisobedience <> StepSafe constr
+R8748:8752 Coq.Init.Datatypes <> false constr
+R8755:8762 SelfReference.MuThresholdDisobedience <> mu_check:44 var
+R8768:8771 SelfReference.MuThresholdDisobedience <> post:45 var
+R8777:8783 SelfReference.MuThresholdDisobedience <> ms_util proj
+R8785:8786 SelfReference.MuThresholdDisobedience <> s0:43 var
+R8835:8843 SelfReference.MuThresholdDisobedience <> run_steps def
+R8875:8878 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8849:8849 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8864:8865 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8874:8874 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8850:8857 SelfReference.MuThresholdDisobedience <> StepSafe constr
+R8859:8863 Coq.Init.Datatypes <> false constr
+R8896:8904 SelfReference.MuThresholdDisobedience <> run_steps def
+R8907:8916 SelfReference.MuThresholdDisobedience <> apply_step def
+R8922:8929 SelfReference.MuThresholdDisobedience <> StepSafe constr
+R8931:8935 Coq.Init.Datatypes <> false constr
+R8835:8843 SelfReference.MuThresholdDisobedience <> run_steps def
+R8875:8878 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8849:8849 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8864:8865 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8874:8874 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8850:8857 SelfReference.MuThresholdDisobedience <> StepSafe constr
+R8859:8863 Coq.Init.Datatypes <> false constr
+R8896:8904 SelfReference.MuThresholdDisobedience <> run_steps def
+R8907:8916 SelfReference.MuThresholdDisobedience <> apply_step def
+R8922:8929 SelfReference.MuThresholdDisobedience <> StepSafe constr
+R8931:8935 Coq.Init.Datatypes <> false constr
+R8968:8977 SelfReference.MuThresholdDisobedience <> apply_step def
+R8983:8990 SelfReference.MuThresholdDisobedience <> StepSafe constr
+R8992:8996 Coq.Init.Datatypes <> false constr
+R8968:8977 SelfReference.MuThresholdDisobedience <> apply_step def
+R8983:8990 SelfReference.MuThresholdDisobedience <> StepSafe constr
+R8992:8996 Coq.Init.Datatypes <> false constr
+R9045:9047 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9033:9041 SelfReference.MuThresholdDisobedience <> ms_halted proj
+R9048:9051 Coq.Init.Datatypes <> true constr
+R9045:9047 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9033:9041 SelfReference.MuThresholdDisobedience <> ms_halted proj
+R9048:9051 Coq.Init.Datatypes <> true constr
+R9070:9079 SelfReference.MuThresholdDisobedience <> apply_step def
+R9139:9141 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9129:9135 SelfReference.MuThresholdDisobedience <> ms_util proj
+R9142:9148 SelfReference.MuThresholdDisobedience <> ms_util proj
+R9139:9141 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9129:9135 SelfReference.MuThresholdDisobedience <> ms_util proj
+R9142:9148 SelfReference.MuThresholdDisobedience <> ms_util proj
+R9170:9179 SelfReference.MuThresholdDisobedience <> apply_step def
+R9219:9235 SelfReference.MuThresholdDisobedience <> halted_run_frozen thm
+R9219:9235 SelfReference.MuThresholdDisobedience <> halted_run_frozen thm
+R9219:9235 SelfReference.MuThresholdDisobedience <> halted_run_frozen thm
+def 9889:9904 <> halt_cost_bridge
+R9908:9910 Coq.Init.Datatypes <> nat ind
+R9915:9930 Kernel.VMStep VMStep instruction_cost def
+R9933:9942 Kernel.VMStep VMStep instr_halt constr
+prf 10024:10037 <> halt_cost_zero
+R10057:10059 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10041:10056 SelfReference.MuThresholdDisobedience <> halt_cost_bridge def
+def 10180:10191 <> vm_mu_bridge
+R10198:10204 Kernel.VMState <> VMState rec
+binder 10194:10194 <> s:46
+R10209:10211 Coq.Init.Datatypes <> nat ind
+R10216:10220 Kernel.VMState <> vm_mu proj
+R10222:10222 SelfReference.MuThresholdDisobedience <> s:46 var
+prf 10277:10288 <> vm_mu_nonneg
+R10303:10309 Kernel.VMState <> VMState rec
+binder 10299:10299 <> s:47
+R10326:10329 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R10312:10323 SelfReference.MuThresholdDisobedience <> vm_mu_bridge def
+R10325:10325 SelfReference.MuThresholdDisobedience <> s:47 var
+R10356:10367 SelfReference.MuThresholdDisobedience <> vm_mu_bridge def

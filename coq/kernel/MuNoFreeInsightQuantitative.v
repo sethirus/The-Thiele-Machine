@@ -1,11 +1,28 @@
+(** * MuNoFreeInsightQuantitative: Quantitative mu lower bound for supra-certification
+
+    WHY THIS FILE EXISTS:
+    The kernel already proves the qualitative No Free Insight statement:
+    supra-certification (csr_cert_addr <> 0) cannot happen at zero cost.
+    This file strengthens that to a QUANTITATIVE bound: if a trace reaches
+    supra-certification, there exists a cert-setting step whose declared
+    cost is a proven lower bound on the final mu.
+
+    THE KEY THEOREM:
+    For any deterministic kernel execution that achieves supra-certification,
+    the final mu is at least the initial mu plus the cost charged by the
+    cert-setting instruction that triggered it.
+
+    FALSIFICATION:
+    If a cert-setting instruction could set csr_cert_addr without
+    increasing mu by at least 1, the quantitative bound would be violated
+    and the mu-cost model would undercount the price of certification.
+*)
+
 From Coq Require Import List Lia Arith.PeanoNat Bool.
 Import ListNotations.
 
-Require Import VMState.
-Require Import VMStep.
-Require Import SimulationProof.
-Require Import MuLedgerConservation.
-Require Import RevelationRequirement.
+From Kernel Require Import VMState VMStep SimulationProof.
+From Kernel Require Import MuLedgerConservation RevelationRequirement.
 
 Module MuNoFreeInsightQuantitative.
 
@@ -28,8 +45,9 @@ Definition is_cert_setterb (i : vm_instruction) : bool :=
   | instr_reveal _ _ _ _ => true
   | instr_emit _ _ _ => true
   | instr_ljoin _ _ _ => true
-  | instr_lassert _ _ _ _ => true
+  | instr_lassert _ _ _ _ _ => true
   | instr_certify _ => true
+  | instr_morph_assert _ _ _ _ => true
   | instr_and _ _ _ _ => false
   | instr_or _ _ _ _ => false
   | instr_shl _ _ _ _ => false
@@ -88,7 +106,12 @@ Lemma cert_preserved_if_not_cert_setterb :
 Proof.
   intros s instr Hnot.
   apply (non_cert_setter_preserves_cert s instr).
-  all: destruct instr; simpl in Hnot; try discriminate; intros; discriminate.
+  - intros; intro Heq; rewrite Heq in Hnot; simpl in Hnot; discriminate.
+  - intros; intro Heq; rewrite Heq in Hnot; simpl in Hnot; discriminate.
+  - intros; intro Heq; rewrite Heq in Hnot; simpl in Hnot; discriminate.
+  - intros; intro Heq; rewrite Heq in Hnot; simpl in Hnot; discriminate.
+  - intros; intro Heq; rewrite Heq in Hnot; simpl in Hnot; discriminate.
+  - intros; intro Heq; rewrite Heq in Hnot; simpl in Hnot; discriminate.
 Qed.
 
 (** [supra_cert_implies_mu_lower_bound_trace_run]: formal specification. *)
@@ -139,7 +162,12 @@ Proof.
   intros s instr s' Hstep Hnot.
   rewrite <- (vm_step_vm_apply _ _ _ Hstep).
   apply (non_cert_setter_preserves_cert s instr).
-  all: destruct instr; simpl in Hnot; try discriminate; intros; discriminate.
+  - intros; intro Heq; rewrite Heq in Hnot; simpl in Hnot; discriminate.
+  - intros; intro Heq; rewrite Heq in Hnot; simpl in Hnot; discriminate.
+  - intros; intro Heq; rewrite Heq in Hnot; simpl in Hnot; discriminate.
+  - intros; intro Heq; rewrite Heq in Hnot; simpl in Hnot; discriminate.
+  - intros; intro Heq; rewrite Heq in Hnot; simpl in Hnot; discriminate.
+  - intros; intro Heq; rewrite Heq in Hnot; simpl in Hnot; discriminate.
 Qed.
 
 (** [supra_cert_has_cert_setter_step]: formal specification. *)

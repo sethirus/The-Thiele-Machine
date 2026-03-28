@@ -21,11 +21,8 @@
 
     ISOMORPHISM REQUIREMENT:
       - This Coq definition is the CANONICAL specification
-      - Python implementation (thielecpu/semantic_mu.py) MUST match
+      - OCaml extraction (build/thiele_core.ml) MUST match
       - Verilog enforcement (via LEI) MUST match
-
-    STATUS: PHASE 1 FIX (Syntax Sensitivity)
-    DATE: February 4, 2026
 
     ========================================================================= *)
 
@@ -319,20 +316,20 @@ Definition axiom_cost_with_fallback (ax : VMAxiom) (ast_opt : option Constraint)
 
 (** ISOMORPHISM REQUIREMENT:
 
-    The Python implementation (thielecpu/semantic_mu.py) MUST compute
+    The OCaml extraction (build/thiele_core.ml) MUST compute
     the same semantic_complexity_bits value for any given constraint.
 
     Test oracle:
       For all constraints c,
-        coq_semantic_complexity_bits(c) = python_semantic_complexity_bits(c)
+        coq_semantic_complexity_bits(c) = extracted_semantic_complexity_bits(c)
 
     This is verified by:
-      1. Coq exports the AST structure
-      2. Python parses to equivalent AST
+      1. Coq exports the AST structure via extraction
+      2. OCaml extraction preserves the same AST
       3. Both compute same counts (atoms, vars, ops)
-      4. Both apply same formula: 8 * (log₂(atoms+1) + log₂(vars+1) + log₂(ops+1))
+      4. Both apply same formula: 8 * (log2(atoms+1) + log2(vars+1) + log2(ops+1))
 
-    Any divergence breaks the three-layer isomorphism.
+    Any divergence breaks the intended cross-layer comparison contract.
 *)
 
 (** =========================================================================
@@ -344,44 +341,32 @@ Definition axiom_cost_with_fallback (ax : VMAxiom) (ast_opt : option Constraint)
     require imports from StateSpaceCounting.v and proper VM step proofs.
 
     For now, this file provides the CANONICAL specification of semantic
-    complexity that Python MUST match for the three-layer isomorphism.
+    complexity that the OCaml extraction MUST match for the cross-layer comparison contract.
 *)
 
 (** =========================================================================
-    IMPLEMENTATION NOTES FOR PYTHON/VERILOG
+    IMPLEMENTATION NOTES
     =========================================================================
 
-    PYTHON (thielecpu/semantic_mu.py):
-    - Parse string to Z3 AST
-    - Convert Z3 AST to Coq-equivalent structure
-    - Count atoms, variables, operators (must match Coq counts exactly)
-    - Compute: 8 * (log₂(atoms+1) + log₂(vars+1) + log₂(ops+1))
-    - Return semantic_complexity_bits as description cost
+    OCAML EXTRACTION (build/thiele_core.ml):
+    - Coq extraction produces OCaml code preserving the AST structure
+    - Extracted code computes same counts (atoms, variables, operators)
+    - Computes: 8 * (log2(atoms+1) + log2(vars+1) + log2(ops+1))
+    - Returns semantic_complexity_bits as description cost
 
-    VERILOG (LEI interface):
-    - Hardware receives formula string via LEI
-    - LEI invokes Python to parse and compute semantic cost
-    - LEI returns computed μ-delta to hardware
-    - Hardware verifies μ-delta matches expected cost
-    - If mismatch: halt and raise error
+    VERILOG (aspirational / unimplemented):
+    - Hardware would receive formula string via LEI interface
+    - LEI would invoke OCaml extraction to parse and compute semantic cost
+    - Hardware would verify mu-delta matches expected cost
+    - This integration is not yet implemented
 
-    CRITICAL: The Python log2_nat implementation MUST match Coq:
-
-    ```python
-    def log2_nat(n: int) -> int:
-        if n <= 0:
-            return 0
-        log_n = n.bit_length() - 1  # Floor of log₂(n)
-        if (1 << log_n) == n:
-            return log_n  # Exact power of 2
-        else:
-            return log_n + 1  # Ceiling
-    ```
+    CRITICAL: The OCaml log2_nat implementation MUST match Coq's definition
+    (this is guaranteed by extraction).
 
     TEST ORACLE:
     For all formulas f:
       coq_semantic_complexity_bits(parse(f)) ==
-      python_semantic_complexity_bits(parse(f))
+      extracted_semantic_complexity_bits(parse(f))
 
     ========================================================================= *)
 

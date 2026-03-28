@@ -1,0 +1,76 @@
+{
+  "aggregate_digest": "89e24a447a94630849729b229734cc0096c9068614294a8ed3f41de88aa066db",
+  "all_passed": true,
+  "finished_at": "2026-03-12T21:44:01Z",
+  "repo_root": "/workspaces/The-Thiele-Machine",
+  "schema": "thiele.stack-audit.v1",
+  "signature": {
+    "algorithm": "ed25519",
+    "public_key_hex": "fbc12e671eacf5aec603b4e337410302ad01be22528ec7207ed59bec018f3f1f",
+    "signature_hex": "3146d4b52cf4d02364c1e6dc041c1bc72493d880a9bb82de20f20cc205ece6efbdf2006c6f3e9561abcc84c6699cfd17d6ba5ca1b804a14cc02a38d5778ef008",
+    "signed_over": "canonical_json(summary_without_signature_and_aggregate_digest)"
+  },
+  "started_at": "2026-03-12T21:43:44Z",
+  "steps": [
+    {
+      "command": "make -C coq -j2",
+      "exit_code": 0,
+      "log": "artifacts/proof_gate/stack_audit_coq_build.log",
+      "name": "coq_build",
+      "ok": true,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "d2543bc3d06e59b6a6ddbe055dc0752688b8de22369e94ce18835da2acdf7c23",
+      "timeout_sec": 900
+    },
+    {
+      "command": "python3 -m pytest -q tests/test_canonical_source_pipeline.py",
+      "exit_code": 0,
+      "log": "artifacts/proof_gate/stack_audit_canonical_pipeline.log",
+      "name": "canonical_pipeline",
+      "ok": true,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "1698cf53738fece3fc128f68a2005bf90098cb09ffc528d80a18fe683159d622",
+      "timeout_sec": 240
+    },
+    {
+      "command": "python3 -m pytest -q tests/test_bitlock_proof_vm_cpu.py::test_proof_to_vm_to_cpu_source_chain_hashes_exist",
+      "exit_code": 0,
+      "log": "artifacts/proof_gate/stack_audit_bitlock_chain_hash_gate.log",
+      "name": "bitlock_chain_hash_gate",
+      "ok": true,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "a71df3ef716cabe43ead70bd8311cda3aeadcb986bea501da0ea9262f31c3925",
+      "timeout_sec": 240
+    },
+    {
+      "command": "python3 -m pytest -q tests/test_bitlock_proof_vm_cpu.py::test_bit_for_bit_state_isomorphism_across_ocaml_python_rtl --per-test-timeout=240",
+      "exit_code": 0,
+      "log": "artifacts/proof_gate/stack_audit_bitlock_lockstep.log",
+      "name": "bitlock_lockstep",
+      "ok": true,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "f7d618344af9292ddfb7681250c084f5027f863d31b128bb9964c163c514d0ef",
+      "timeout_sec": 900
+    },
+    {
+      "command": "python3 -m pytest -q tests/test_bitlock_proof_vm_cpu.py::test_prefix_by_prefix_digest_isomorphism_every_step --per-test-timeout=240",
+      "exit_code": 0,
+      "log": "artifacts/proof_gate/stack_audit_bitlock_prefix_lockstep.log",
+      "name": "bitlock_prefix_lockstep",
+      "ok": true,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "c8592421b3094deebfe53e2579cdeaa02d8f2644df53e1d6b3fe6c4b411f6c0b",
+      "timeout_sec": 900
+    },
+    {
+      "command": "python3 examples/run_all.py",
+      "exit_code": 0,
+      "log": "artifacts/proof_gate/stack_audit_examples_batch.log",
+      "name": "examples_batch",
+      "ok": true,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "c9606f2462a472b040ec9d8e6c12fed23c720f8d613aaabddce82008372b954c",
+      "timeout_sec": 600
+    }
+  ]
+}

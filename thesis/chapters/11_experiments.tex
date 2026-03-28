@@ -479,10 +479,11 @@ This is a non-energy falsification harness: it tests whether the implementation 
 \mu = \lceil \log_2(n!) \rceil,\quad 0 \le \mu-\log_2(n!) < 1.
 \]
 
-\textbf{Protocol (reproducible):}
+\textbf{Protocol:}
+To reproduce, implement a structural heat measurement script following this pattern:
 \begin{lstlisting}
-python3 archive/scripts_unused/structural_heat_experiment.py
-python3 archive/scripts_unused/structural_heat_experiment.py --sweep-records --records-pow-min 10 --records-pow-max 20 --records-pow-step 2
+# Structural heat experiment (implementation details in thesis appendix)
+measure_heat --sweep-records --records-pow-min 10 --records-pow-max 20 --records-pow-step 2
 \end{lstlisting}
 Outputs:
 \begin{itemize}
@@ -556,9 +557,11 @@ This is a non-energy harness that isolates a ledger-level ``speed limit.'' Fix a
 r = \left\lfloor\frac{B-C}{c}\right\rfloor.
 \]
 
-\textbf{Protocol (reproducible):}
+\textbf{Protocol:}
+To reproduce, implement a time dilation measurement script following this pattern:
 \begin{lstlisting}
-python3 archive/scripts_unused/time_dilation_experiment.py
+# Time dilation experiment (implementation details in thesis appendix)
+measure_time_dilation --reference-rate 1000
 \end{lstlisting}
 Outputs:
 \begin{itemize}
@@ -835,7 +838,7 @@ def attempt_receipt_forgery():
     \item \textbf{Count successes:} Track how many attacks successfully forge a valid receipt.
 \end{enumerate}
 
-\textbf{Results:} All forgery attempts detected. Zero false certificates issued. Attack outcomes:
+\textbf{Intended outcome:} All forgery attempts should be detected. This section documents an adversarial protocol the project aims to satisfy.
 \begin{itemize}
     \item \textbf{CSR manipulation:} Trapped by hardware write-protection, \texttt{ERR\_LOGIC} raised.
     \item \textbf{Buffer overflow:} Caught by partition locality wall, execution aborted with \texttt{ERR\_LOCALITY}.
@@ -843,7 +846,7 @@ def attempt_receipt_forgery():
     \item \textbf{Replay:} State hash check fails, verifier rejects (certificate state does not match current state).
 \end{itemize}
 
-\textbf{Theoretical implications:} This experiment validates the \textit{integrity} of the $\mu$ ledger. If receipts could be forged, the No Free Insight theorem would be \textit{meaningless}. The successful defense against forgery proves the ledger is \textit{tamper-resistant}.
+\textbf{Theoretical implications:} If such a harness succeeds, it supports the integrity story around the $\mu$ ledger. If receipts could be forged, the No Free Insight theorem would lose operational meaning. This section therefore belongs in the falsification-design layer rather than the core proven/tested layer.
 
 
 \subsection{Free Insight Attack}
@@ -886,7 +889,7 @@ def attempt_free_insight():
 \textbf{Theoretical implications:} This experiment validates the No Free Insight theorem (Theorem 3.3): \textit{every} bit of certified knowledge costs $\geq 1$ bit of $\mu$. The theorem is \textit{enforced} by the implementation.
 
 
-\textbf{Results:} All attempts either:
+\textbf{Intended outcome:} Attempts should either:
 \begin{itemize}
     \item Failed to certify (no receipt generated)
     \item Required commensurate $\mu$-cost
@@ -923,11 +926,11 @@ def attempt_supra_quantum_box():
 
 \subsection{Micro-Benchmarks}
 
-Micro-benchmarks measure the cost of individual primitives (a single VM step, partition lookup, $\mu$-increment). These measurements are used to identify performance bottlenecks and to validate that receipt generation dominates overhead in expected ways.
+Micro-benchmarks measure the cost of individual primitives (a single VM step, partition lookup, $\mu$-increment). These measurements are best read as implementation diagnostics, not evidence of asymptotic advantage.
 
 \subsection{Macro-Benchmarks}
 
-Macro-benchmarks measure throughput on full workflows (discovery, certification, receipt verification, CHSH trials), providing end-to-end timing and overhead figures.
+Macro-benchmarks measure throughput on full workflows (discovery, certification, receipt verification, CHSH trials), providing end-to-end timing and overhead figures where harnesses are available.
 
 \subsection{Isomorphism Benchmarks}
 
@@ -942,30 +945,30 @@ def benchmark_layer_isomorphism():
 
 \paragraph{Understanding the Isomorphism Benchmarks:}
 
-\textbf{What does this benchmark test?} This benchmarks the \textbf{three-layer isomorphism}: Python, extracted OCaml, and RTL (Verilog hardware) implementations must produce \textit{bit-identical} traces for the same inputs. The benchmark measures the computational overhead of cross-layer validation.
+\textbf{What does this benchmark test?} This benchmarks the \textbf{three-layer comparison harness}: Python, extracted OCaml, and RTL (Verilog hardware) implementations are checked for agreement on the supported observables and traces exercised by the harness. The benchmark measures the computational overhead of cross-layer validation.
 
 \textbf{The three layers:}
 \begin{itemize}
-    \item \textbf{Python:} High-level reference implementation (clear semantics, easy to verify).
+    \item \textbf{Python:} Thin wrapper that delegates all execution to the OCaml extracted runner via subprocess. Contains state serialization/deserialization but no opcode semantics.
     \item \textbf{Extracted OCaml:} Mechanically extracted from Coq proofs (guarantees correctness).
     \item \textbf{RTL (Verilog):} Hardware implementation (high performance, synthesizable to FPGA).
 \end{itemize}
 
 \textbf{Experimental protocol:}
 \begin{enumerate}
-    \item \textbf{Generate test traces:} Create 10,000 random instruction sequences (varying lengths, opcodes, operands).
+    \item \textbf{Generate test traces:} Create a large randomized corpus of instruction sequences (varying lengths, opcodes, operands).
     
     \item \textbf{Execute on all layers:} Run each trace on Python, extracted OCaml, and RTL simulators.
     
-    \item \textbf{Compare outputs:} For each trace, compare final states ($\mu$, registers, memory, certificates) across all three layers. Check for bit-exact equality.
+    \item \textbf{Compare outputs:} For each trace, compare final states ($\mu$, registers, memory, certificates) across the supported layers. Check for gate-appropriate equality of declared observables.
     
     \item \textbf{Measure overhead:} Compare execution time with vs. without cross-validation. Overhead = $(T_{\text{with validation}} - T_{\text{without}}) / T_{\text{without}}$.
 \end{enumerate}
 
-\textbf{Theoretical implications:} The three-layer isomorphism is the \textit{foundation} of the thesis's correctness claim: if Python, extracted OCaml, and RTL all agree, and extraction is correct, then the hardware faithfully implements the formal theory.
+\textbf{Theoretical implications:} Cross-layer agreement is important evidence for the thesis's correctness story, but it should be read together with the proof/test boundary stated in the repository status matrix. In particular, backend availability and observable coverage determine how far any given experiment supports the stronger hardware-faithfulness claim.
 
 
-\textbf{Results:} Cross-layer validation adds 15\% overhead; all 10,000 test traces matched exactly.
+\textbf{Interpretation:} Cross-layer validation is intended to quantify the cost of stronger trust guarantees. Exact percentages are harness-dependent and should be treated as implementation-specific measurements rather than stable claims unless reproduced from active artifacts.
 
 \section{Demonstrations}
 
@@ -1010,7 +1013,7 @@ Gap: 0.03%
 \begin{itemize}
     \item \textbf{Interactive:} Command-line interface with customizable parameters (number of rounds, measurement bases).
     \item \textbf{Visual feedback:} Real-time progress bars, win rate updates, CHSH value computation.
-    \item \textbf{Receipt generation:} Produces verifiable cryptographic receipts for all results.
+    \item \textbf{Receipt generation}: Can produce verifiable cryptographic receipts for supported workflows.
     \item \textbf{Educational:} Displays theoretical bounds, actual results, and gap analysis.
 \end{itemize}
 
@@ -1021,7 +1024,7 @@ Gap: 0.03%
     \item \textbf{Win rate: 85.32\%} — Measured winning probability (8,532/10,000).
     \item \textbf{Tsirelson bound: 85.35\%} — Theoretical maximum for quantum strategies.
     \item \textbf{Gap: 0.03\%} — Difference between measured and theoretical (statistical noise).
-    \item \textbf{Receipt:} Cryptographic proof of the results, verifiable independently.
+    \item \textbf{Receipt}: Verifiable artifact when the workflow emits a supported TRS receipt.
 \end{itemize}
 
 
@@ -1160,7 +1163,7 @@ Representative policy:
 # Must return: 0 HIGH findings
 \end{lstlisting}
 
-This enforces the ``no admits, no axioms'' policy.
+This enforces the ``no admits, no project-local axioms'' policy. Standard imported foundations may still appear in the assumptions audit and should be reported explicitly rather than described away.
 
 \section{Artifact Generation}
 

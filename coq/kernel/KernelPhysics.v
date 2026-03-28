@@ -8,15 +8,15 @@
     them constructively from the VM definition.
 
     THE CORE CLAIMS:
-    1. Observables are well-defined (Observable, ObservableRegion, lines 31-42)
+    1. Observables are well-defined (Observable, ObservableRegion)
     2. Observational equivalence is an equivalence relation (reflexive, symmetric,
-       transitive - Theorems obs_equiv_refl/sym/trans, lines 64-81)
+       transitive - Theorems obs_equiv_refl/sym/trans)
     3. μ-gauge symmetry: shifting μ preserves partition structure (Theorem
-       gauge_invariance_observables, line 98)
+       gauge_invariance_observables)
 
     WHAT "ZERO-AXIOM" MEANS:
     Every statement here is a Qed (proven). No Axiom, no Admitted, no Parameter.
-    All physical laws emerge from the computational structure (VMState record,
+    The following operational properties are proven from the VM definition (VMState record,
     vm_step function).
 
     PHYSICAL INTERPRETATION:
@@ -38,10 +38,8 @@
 
     Every "physics pillar" statement reduced to kernel objects.
 
-    NO SPACELAND. NO ORACLES. NO AXIOMS. STATUS: VERIFIED COMPLETE (Dec 2025)
-
-    Rule: If it's not a theorem about VMState/VMStep/SimulationProof,
-          it's not a result.
+    All results are theorems about VMState/VMStep/SimulationProof.
+    No Spaceland. No oracles. No project-local axioms.
 
     ========================================================================= *)
 
@@ -163,9 +161,10 @@ Definition instr_targets (i : vm_instruction) : list nat :=
   | instr_psplit mid _ _ _ => [mid]
   | instr_pmerge m1 m2 _ => [m1; m2]
   | instr_pdiscover mid _ _ => [mid]
-  | instr_lassert mid _ _ _ => [mid]
+  | instr_lassert _ _ _ _ _ => [0]  (* module is hardcoded to 0 in new ISA *)
   | instr_mdlacc mid _ => [mid]
   | instr_emit mid _ _ => [mid]
+  | instr_tensor_set mid _ _ _ _ => [mid]
   | _ => []
   end.
 
@@ -352,6 +351,18 @@ Proof.
     - simpl. rewrite IH.
       apply graph_add_axiom_preserves_unrelated. assumption. }
   apply Hfold.
+Qed.
+
+(** [graph_update_module_tensor_preserves_unrelated]: formal specification. *)
+Lemma graph_update_module_tensor_preserves_unrelated : forall g mid mid' k v,
+  mid <> mid' ->
+  graph_lookup (graph_update_module_tensor g mid' k v) mid = graph_lookup g mid.
+Proof.
+  intros g mid mid' k v Hneq.
+  unfold graph_update_module_tensor.
+  destruct (graph_lookup g mid') eqn:Hlookup.
+  - apply graph_update_preserves_unrelated. assumption.
+  - reflexivity.
 Qed.
 
 (** ** Helper Lemmas for Graph Preservation
@@ -543,12 +554,17 @@ Proof.
   - (* Valid partition case *)
     destruct (partition_valid _ _ _) eqn:Hvalid.
     2: discriminate.
-    destruct (graph_remove g mid_split) eqn:Hremove.
+    (* graph_psplit now uses cascade delete before graph_remove *)
+    set (g_cascaded := graph_cascade_delete_morphisms g mid_split) in *.
+    destruct (graph_remove g_cascaded mid_split) eqn:Hremove.
     2: discriminate.
     destruct p as [g_removed removed_mod].
     destruct (graph_add_module g_removed _ _) as [g_left left_id'] eqn:Hadd_left.
     destruct (graph_add_module g_left _ _) as [g_right right_id'] eqn:Hadd_right.
     injection Hpsplit as Heq_g' Heq_l Heq_r. subst g'.
+    (* Cascade delete preserves lookups *)
+    assert (Hcascade_lookup: graph_lookup g_cascaded mid = graph_lookup g mid).
+    { unfold g_cascaded. apply graph_cascade_delete_morphisms_lookup. }
     (* g_right = result after two adds, need to show lookup preserved *)
     assert (Heq_lookup_step2: graph_lookup g_right mid = graph_lookup g_left mid).
     {
@@ -562,8 +578,10 @@ Proof.
       assert (Hlt_left: mid < pg_next_id g_left).
       { unfold graph_add_module in Hadd_left. injection Hadd_left as Heq_g_left _.
         rewrite <- Heq_g_left. simpl.
-        assert (Heq_next: pg_next_id g_removed = pg_next_id g).
+        assert (Heq_next: pg_next_id g_removed = pg_next_id g_cascaded).
         { apply (graph_remove_preserves_next_id _ _ _ _ Hremove). }
+        assert (Heq_next_cascaded: pg_next_id g_cascaded = pg_next_id g).
+        { unfold g_cascaded. apply graph_cascade_delete_morphisms_preserves_next_id. }
         lia.
       }
       apply (graph_add_module_preserves_existing _ _ _ _ Hlt_left).
@@ -578,14 +596,18 @@ Proof.
       rewrite Heq_gl.
       (* Use preservation lemma *)
       assert (Hlt_removed: mid < pg_next_id g_removed).
-      { assert (Heq_next: pg_next_id g_removed = pg_next_id g).
+      { assert (Heq_next: pg_next_id g_removed = pg_next_id g_cascaded).
         { apply (graph_remove_preserves_next_id _ _ _ _ Hremove). }
+        assert (Heq_next_cascaded: pg_next_id g_cascaded = pg_next_id g).
+        { unfold g_cascaded. apply graph_cascade_delete_morphisms_preserves_next_id. }
         lia.
       }
       apply (graph_add_module_preserves_existing _ _ _ _ Hlt_removed).
     }
     rewrite Heq_lookup_step1.
-    apply (graph_remove_preserves_unrelated g mid mid_split g_removed removed_mod Hneq Hremove).
+    (* Chain through g_removed -> g_cascaded -> g *)
+    rewrite (graph_remove_preserves_unrelated g_cascaded mid mid_split g_removed removed_mod Hneq Hremove).
+    exact Hcascade_lookup.
 Qed.
 
 (** PMERGE (partition merge) preserves lookups of unrelated modules.
@@ -620,17 +642,26 @@ Lemma graph_pmerge_preserves_observables : forall g m1 m2 g' merged_id mid mu,
   Observable {| vm_regs := []; vm_mem := []; vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0; csr_heap_base := 0 |};
                 vm_pc := 0; vm_graph := g; vm_mu := mu; vm_mu_tensor := vm_mu_tensor_default; vm_err := false; vm_logic_acc := 0; vm_mstatus := 0; vm_witness := witness_counts_zero; vm_certified := false |} mid.
 
-(* NOTE: The previous version of this lemma (graph_pmerge_preserves_unrelated)
-   claimed graph_lookup preservation, but that is UNPROVABLE in the mid = existing_id
-   case where axioms are updated. The correct formulation uses Observable, which
-   compares only regions, not axioms. This is observational locality (Option C). *)
+(* NOTE: This lemma uses Observable (region comparison) rather than
+   graph_lookup preservation, because graph_lookup is unprovable in the
+   mid = existing_id case where axioms are updated. Observable compares
+   only regions, not axioms: this is observational locality (Option C). *)
 Proof.
   intros g m1 m2 g' merged_id mid mu Hneq1 Hneq2 Hlt Hpmerge.
   unfold Observable. simpl.
   unfold graph_pmerge in Hpmerge.
   destruct (Nat.eqb m1 m2) eqn:Heq_m1_m2.
   - discriminate.
-  - destruct (graph_remove g m1) eqn:Hremove1.
+  - (* graph_pmerge now uses cascade delete before graph_remove *)
+    set (g1_cascaded := graph_cascade_delete_morphisms g m1) in *.
+    set (g2_cascaded := graph_cascade_delete_morphisms g1_cascaded m2) in *.
+    (* Cascade delete preserves lookups *)
+    assert (Hcascade_lookup: forall mid', graph_lookup g2_cascaded mid' = graph_lookup g mid').
+    { intro mid'. unfold g2_cascaded, g1_cascaded.
+      rewrite graph_cascade_delete_morphisms_lookup.
+      rewrite graph_cascade_delete_morphisms_lookup.
+      reflexivity. }
+    destruct (graph_remove g2_cascaded m1) eqn:Hremove1.
    2: discriminate.
    destruct p as [g_without_m1 mod1].
    destruct (graph_remove g_without_m1 m2) eqn:Hremove2.
@@ -653,18 +684,21 @@ Proof.
             (graph_update g_without_both existing_id
               {| module_region := m.(module_region);
                  module_axioms := m.(module_axioms) ++
-                   (mod1.(module_axioms) ++ mod2.(module_axioms)) |})
+                   (mod1.(module_axioms) ++ mod2.(module_axioms));
+                 module_mu_tensor := m.(module_mu_tensor) |})
             existing_id
           = Some
               (normalize_module
                 {| module_region := m.(module_region);
                    module_axioms := m.(module_axioms) ++
-                     (mod1.(module_axioms) ++ mod2.(module_axioms)) |})).
+                     (mod1.(module_axioms) ++ mod2.(module_axioms));
+                   module_mu_tensor := m.(module_mu_tensor) |})).
         { apply graph_update_lookup_same. }
         rewrite Hlookup_after. simpl.
 
-        (* Reduce the pre-merge lookup to the same module via remove-preservation *)
-        rewrite <- (graph_remove_preserves_unrelated g existing_id m1 g_without_m1 mod1 Hneq1 Hremove1).
+        (* Reduce the pre-merge lookup to the same module via remove-preservation and cascade *)
+        rewrite <- (Hcascade_lookup existing_id).
+        rewrite <- (graph_remove_preserves_unrelated g2_cascaded existing_id m1 g_without_m1 mod1 Hneq1 Hremove1).
         rewrite <- (graph_remove_preserves_unrelated g_without_m1 existing_id m2 g_without_both mod2 Hneq2 Hremove2).
         rewrite Hlookup_existing. simpl.
         rewrite normalize_region_idempotent.
@@ -673,8 +707,8 @@ Proof.
       -- (* mid  existing_id: graph_update doesn't affect unrelated lookups *)
         rewrite (graph_update_preserves_unrelated g_without_both mid existing_id _ Hneq_mid_ex).
         rewrite (graph_remove_preserves_unrelated g_without_m1 mid m2 g_without_both mod2).
-        ++ rewrite (graph_remove_preserves_unrelated g mid m1 g_without_m1 mod1).
-          ** reflexivity.
+        ++ rewrite (graph_remove_preserves_unrelated g2_cascaded mid m1 g_without_m1 mod1).
+          ** rewrite (Hcascade_lookup mid). reflexivity.
           ** assumption.
           ** assumption.
         ++ assumption.
@@ -687,10 +721,15 @@ Proof.
         as [g_added new_id] eqn:Hadd.
       inversion Hpmerge. subst g' merged_id. clear Hpmerge.
 
-      pose proof (graph_remove_preserves_next_id g m1 g_without_m1 mod1 Hremove1) as Hnext1.
+      pose proof (graph_remove_preserves_next_id g2_cascaded m1 g_without_m1 mod1 Hremove1) as Hnext1.
       pose proof (graph_remove_preserves_next_id g_without_m1 m2 g_without_both mod2 Hremove2) as Hnext2.
+      assert (Hnext_cascaded: pg_next_id g2_cascaded = pg_next_id g).
+      { unfold g2_cascaded, g1_cascaded.
+        rewrite graph_cascade_delete_morphisms_preserves_next_id.
+        rewrite graph_cascade_delete_morphisms_preserves_next_id.
+        reflexivity. }
       assert (Hlt_both: mid < pg_next_id g_without_both).
-      { rewrite Hnext2. rewrite Hnext1. exact Hlt. }
+      { rewrite Hnext2. rewrite Hnext1. rewrite Hnext_cascaded. exact Hlt. }
 
       assert (Hg_added:
         g_added = fst (graph_add_module g_without_both
@@ -705,8 +744,8 @@ Proof.
                  mid
                  Hlt_both).
       rewrite (graph_remove_preserves_unrelated g_without_m1 mid m2 g_without_both mod2).
-      -- rewrite (graph_remove_preserves_unrelated g mid m1 g_without_m1 mod1).
-        ++ reflexivity.
+      -- rewrite (graph_remove_preserves_unrelated g2_cascaded mid m1 g_without_m1 mod1).
+        ++ rewrite (Hcascade_lookup mid). reflexivity.
         ++ assumption.
         ++ assumption.
       -- assumption.
@@ -779,7 +818,7 @@ Qed.
       - Quantum mechanics: unobservable phases don't affect predictions
 
     By proving observational no-signaling, we show:
-      - Spacetime locality emerges from observation, not from substrate
+      - VM locality: operations on module A do not affect module B's observables
       - Hierarchical partitions can update "containing" modules without signaling
       - Observer-relative causality is the correct formulation
 
@@ -844,13 +883,16 @@ Proof.
       try discriminate;
       inversion Hobs; subst; reflexivity.
 
-  - (* step_lassert_sat *)
+  - (* step_lassert_sat — new ISA: module is hardcoded to 0 *)
     simpl in Hnotin.
-    assert (Hneq: mid <> module).
+    assert (Hneq: mid <> 0).
     { intro Heq. subst. simpl in Hnotin. destruct Hnotin. left. reflexivity. }
     unfold ObservableRegion.
-    rewrite H0.
-    rewrite (graph_add_axiom_preserves_unrelated (vm_graph s) mid module formula Hneq).
+    (* graph' = graph_add_axiom (vm_graph s) 0 formula, from step_lassert_sat *)
+    match goal with
+    | H : ?g' = graph_add_axiom (vm_graph s) 0 ?f |- _ =>
+        rewrite H; rewrite (graph_add_axiom_preserves_unrelated (vm_graph s) mid 0 f Hneq)
+    end.
     reflexivity.
 
   - (* step_pdiscover *)
@@ -860,6 +902,42 @@ Proof.
     unfold ObservableRegion.
     rewrite H.
     rewrite (graph_record_discovery_preserves_unrelated (vm_graph s) mid module evidence Hneq).
+    reflexivity.
+
+  - (* step_tensor_set: graph modified by graph_update_module_tensor *)
+    assert (Hneq: mid <> mid0).
+    { intro Heq; subst; apply Hnotin; left; reflexivity. }
+    unfold ObservableRegion.
+    rewrite H1.
+    rewrite (graph_update_module_tensor_preserves_unrelated (vm_graph s) mid mid0 _ _ Hneq).
+    reflexivity.
+
+  (* Phase 7 categorical instructions: morphism operations preserve module lookup *)
+  - (* step_morph: graph' comes from graph_add_morphism, which preserves pg_modules *)
+    unfold ObservableRegion.
+    (* H1 is the pair equation (graph', morph_id) = graph_add_morphism ... *)
+    pose proof (f_equal fst H1) as Hg'.
+    simpl in Hg'. rewrite Hg'. simpl.
+    reflexivity.
+
+  - (* step_compose *)
+    unfold ObservableRegion.
+    rewrite (graph_compose_morphisms_preserves_lookup (vm_graph s) m1_id m2_id graph' new_id mid H).
+    reflexivity.
+
+  - (* step_morph_id *)
+    unfold ObservableRegion.
+    rewrite (graph_add_identity_preserves_lookup (vm_graph s) module graph' new_id mid H).
+    reflexivity.
+
+  - (* step_morph_delete *)
+    unfold ObservableRegion.
+    rewrite (graph_delete_morphism_preserves_lookup (vm_graph s) morph_id graph' mid H).
+    reflexivity.
+
+  - (* step_morph_tensor *)
+    unfold ObservableRegion.
+    rewrite (graph_tensor_morphisms_preserves_lookup (vm_graph s) f_id g_id graph' new_id mid H).
     reflexivity.
 Qed.
 
@@ -881,7 +959,7 @@ Fixpoint min_steps_to_target (mid : nat) (trace : list vm_instruction) : option 
   end.
 
 (** =========================================================================
-    SUMMARY: What We Proved (Zero Axioms, Zero Admits)
+    SUMMARY: Proven Results (Zero project-local axioms, zero admits)
     =========================================================================*)
 
 (** PILLAR 1: Observables defined on kernel states (Observable)
@@ -893,8 +971,7 @@ Fixpoint min_steps_to_target (mid : nat) (trace : list vm_instruction) : option 
     PILLAR 7: Observational no-signaling (observational_no_signaling) - PROVEN
     PILLAR 8: Influence propagates with step-count (min_steps_to_target)
 
-    STATUS (December 14, 2025): COMPLETE
-    - Proven theorems: 20+
+    Key theorems (20+):
       * obs_equiv_refl/sym/trans - observational equivalence
       * gauge_invariance_observables - gauge symmetry
       * cone_monotonic - causal monotonicity
@@ -906,11 +983,10 @@ Fixpoint min_steps_to_target (mid : nat) (trace : list vm_instruction) : option 
       * normalize_region_idempotent - canonical normalization
       * 6 graph preservation lemmas for locality
 
-    - Deferred lemmas: ZERO
-    - Axioms: ZERO
+    Zero deferred lemmas. Zero project-local axioms. Zero admits.
 
-    ALL THEOREMS STATED PURELY ON KERNEL (VMState, vm_instruction, vm_step).
-    NO SPACELAND. NO ORACLES. ZERO PHYSICS AXIOMS. ZERO ADMITS.
+    All theorems stated purely on kernel (VMState, vm_instruction, vm_step).
+    No Spaceland, no oracles.
 
     FUNDAMENTAL RESULT (Option C - Observational Locality):
     Locality is a property of OBSERVABLES, not memory or operations.
@@ -918,6 +994,6 @@ Fixpoint min_steps_to_target (mid : nat) (trace : list vm_instruction) : option 
     gauge theories, quantum mechanics. The machine proves:
       Computation → Observation → Physics
     
-    First formal proof that locality emerges from pure operational semantics
-    via observation interface, without assuming spacetime or special relativity.
+    Locality proven from vm_step definition: instructions only modify their targets.
+    No spacetime or special relativity assumptions are used.
     *)

@@ -1,24 +1,47 @@
 (** =========================================================================
-    ZERO-ADMIT VERIFICATION SCRIPT
+    ZERO-ADMIT / ASSUMPTION-SURFACE VERIFICATION SCRIPT
     =========================================================================
     
-    This file verifies that all theorems mentioned in the paper are:
+    This file verifies that key active-tree theorems cited by the paper and
+    the master summary are:
     1. Proven without any admits
-    2. Closed under the global context (no axioms)
-    
+    2. Free of project-local axioms in the active audited tree
+    3. Honest about standard-library assumption surfaces shown by
+       [Print Assumptions]
+
     Run: coqc -Q kernel Kernel -Q nofi NoFI -Q bridge Bridge verify_zero_admits.v
-    
-    Expected output: "Closed under the global context" for each theorem
-    
-    PAPER VERIFICATION DATE: January 2, 2026
-    PROOF COUNT: 1,404 theorems/lemmas across 219 files (46,460 lines)
+
+    Expected output: [Print Assumptions] reports the imported assumption
+    surface for each theorem. "Closed under the global context" is the
+    strongest case, but some standard-library dependencies may still appear.
     
     ========================================================================= *)
 
 From Kernel Require Import NoFreeInsight KernelPhysics MuLedgerConservation.
-From Kernel Require Import Tier1Proofs RevelationRequirement.
-From Kernel Require Import EntropyImpossibility NoGo TOEDecision.
+From Kernel Require Import RevelationRequirement.
+From Kernel Require Import EntropyImpossibility.
 From Kernel Require Import ProperSubsumption.
+From Kernel Require Import HonestNoFI HonestNoFI_TheoremsWithoutAssumptions.
+From Kernel Require Import MuShannonBridge MuShannonQuantitative StateSpaceCounting.
+From Kernel Require Import QuantumPartitionPSD.
+From Kernel Require Import MasterSummary.
+
+(** =========================================================================
+    MASTER SUMMARY AUDIT HOOKS
+    =========================================================================
+
+    These checks bind the standalone assumption-surface test to the structured
+    manifests now exported by Kernel.MasterSummary.
+    ========================================================================= *)
+
+(* Theorem: master summary asserts no project-local axioms or admits. *)
+Print Assumptions master_summary_no_hidden_project_assumptions_verified.
+
+(* Theorem: verification transfer surface is narrowed to explicit observables. *)
+Print Assumptions master_verification_preserved_observables.
+
+(* Theorem: non-circularity is decomposed into inspectable sub-certificates. *)
+Print Assumptions master_non_circular_mu_cost_primitives.
 
 (** =========================================================================
     SECTION 5.1: Observational No-Signaling
@@ -65,17 +88,92 @@ Print Assumptions run_vm_mu_monotonic.
 Print Assumptions vm_irreversible_bits_lower_bound.
 
 (** =========================================================================
+    SECTION 5.5: Honest NoFI and Shannon Quantitative
+    =========================================================================
+
+    These files complete the B4.1 chain: information reduction requires
+    structure-addition events with nonzero μ-cost.
+    ========================================================================= *)
+
+(* Theorem: honest_information_reduction_requires_structure_addition *)
+Print Assumptions honest_information_reduction_requires_structure_addition.
+
+(* Theorem: honest_nfi_trace_separation_partial *)
+Print Assumptions honest_nfi_trace_separation_partial.
+
+(* Theorem: honest_nfi_general_feasible_reduction_partial *)
+Print Assumptions honest_nfi_general_feasible_reduction_partial.
+
+(* Theorem: honest_nfi_fibered_feasible_reduction_partial *)
+Print Assumptions honest_nfi_fibered_feasible_reduction_partial.
+
+(* Theorem: honest_nfi_posterior_representative_reduction_partial *)
+Print Assumptions honest_nfi_posterior_representative_reduction_partial.
+
+(* Theorem: honest_nfi_conditional_shannon_partial *)
+Print Assumptions honest_nfi_conditional_shannon_partial.
+
+(* Theorem: honest_nfi_quantitative_state_space_partial *)
+Print Assumptions honest_nfi_quantitative_state_space_partial.
+
+(* Theorem: Separation requires cert count (Shannon quantitative lower bound) *)
+Print Assumptions MuShannonQuantitative.separation_requires_cert_count.
+
+(* Theorem: Conditional Shannon bound — cert executions bound delta-mu *)
+Print Assumptions MuShannonQuantitative.conditional_shannon_bound.
+
+(* Theorem: General feasible-set reduction bound under explicit tree-cover hypothesis *)
+Print Assumptions MuShannonBridge.info_priced_arbitrary_feasible_reduction_bound.
+
+(* Theorem: Fibered feasible-set reduction bound deriving tree cover from a structured witness *)
+Print Assumptions MuShannonBridge.info_priced_fibered_feasible_reduction_bound.
+
+(* Theorem: Posterior-representative reduction bound deriving fibers from observation-equivalent representatives *)
+Print Assumptions MuShannonBridge.info_priced_posterior_representative_reduction_bound.
+
+(* Theorem: Conservative state-space counting wrapper *)
+Print Assumptions StateSpaceCounting.no_free_insight_quantitative.
+
+(* Summary export: conservative state-space-counting wrapper in the master theorem index *)
+Print Assumptions master_honest_nofi_quantitative_state_space.
+
+(** =========================================================================
     SECTION 8: Impossibility Results
     ========================================================================= *)
 
 (* Theorem: Region equivalence classes are infinite *)
 Print Assumptions region_equiv_class_infinite.
 
-(* Theorem: Infinite compositional weight families exist *)
-Print Assumptions CompositionalWeightFamily_Infinite.
+(* NoGo.v and TOEDecision.v archived — MuInitiality.v proves mu uniqueness,
+   superseding the abstract weight non-uniqueness result. *)
 
-(* Theorem: Physics requires extra structure beyond kernel *)
-Print Assumptions Physics_Requires_Extra_Structure.
+(** =========================================================================
+    SECTION 10: Quantum Partition PSD — Biconditional
+    =========================================================================
+
+    The key algebraic closure theorem: PSD of the NPA moment matrix is
+    EQUIVALENT to column contractivity (zero_marginal_column_contractive).
+    This closes the bidirectional bridge between quantum realizability and
+    the algebraic Tsirelson bound.
+    ========================================================================= *)
+
+(* Theorem: NPA PSD → column contractive (reverse direction) *)
+Print Assumptions npa_psd_implies_column_contractive.
+
+(* Theorem: NPA PSD ↔ column contractive (biconditional) *)
+Print Assumptions npa_psd_iff_column_contractive.
+
+(* Corollary: column contractive ↔ quantum realizable *)
+Print Assumptions column_contractive_iff_quantum_realizable.
+
+(* Theorem: trace column contractive ↔ trace quantum model *)
+Print Assumptions trace_column_contractive_iff_trace_quantum_model.
+
+(* Summary export: PSD ↔ column contractive in the master theorem index *)
+Print Assumptions master_psd_iff_column_contractive.
+
+(* Summary export: coherent trace bridge forces PSD of the extracted NPA matrix *)
+Print Assumptions master_trace_quantum_bridge_forces_psd.
 
 (** =========================================================================
     APPENDIX: Subsumption Theorems
@@ -117,11 +215,12 @@ Proof.
 Qed.
 
 (** =========================================================================
-    VERIFICATION COMPLETE
+    VERIFICATION SUMMARY
 
-    If all above print "Closed under the global context", then:
+    If the checks above succeed, then:
     - Zero admits
-    - Zero axioms
+    - Zero project-local axioms
+    - Standard-library assumptions, if any, are exposed rather than hidden
     - All paper theorems are fully machine-checked
     ========================================================================= *)
 

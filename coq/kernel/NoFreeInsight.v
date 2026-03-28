@@ -2,12 +2,10 @@ From Coq Require Import List Lia Arith.PeanoNat Bool.
 From Coq Require Import Strings.String.
 Import ListNotations.
 
-Require Import VMState.
-Require Import VMStep.
-Require Import KernelPhysics.
-Require Import MuLedgerConservation.
-Require Import RevelationRequirement.
-Require Import SimulationProof.
+From Kernel Require Import VMState VMStep KernelPhysics.
+From Kernel Require Import MuLedgerConservation RevelationRequirement.
+From Kernel Require Import SimulationProof.
+From Kernel Require Import EntropyImpossibility.
 
 (** * NoFreeInsight: You cannot narrow search space without paying for it
 
@@ -39,9 +37,11 @@ Require Import SimulationProof.
     paying μ-cost. If you can, this theorem is false. The proof is machine-checked.
 
     WHY THIS MATTERS:
-    This is why SAT solvers are slow. This is why you can't factor large numbers
-    efficiently. This is why P≠NP is plausible. Narrowing search space costs
-    information, and information costs are bounded by thermodynamics.
+    In the mu-cost model, strengthening certified predicates requires paying
+    mu-cost. This is a property of the Thiele VM's cost accounting. It does
+    not directly imply results about classical complexity classes (P vs NP)
+    or specific algorithms (SAT, factoring), though it is structurally
+    analogous to the intuition that narrowing search space costs resources.
 
     NO AXIOMS. NO ADMITS. The impossibility is proven, not assumed.
     *)
@@ -78,7 +78,7 @@ Definition mu_cost (i : vm_instruction) : nat :=
   | instr_reveal _ _ _ cost => cost
   | instr_emit _ _ cost => cost
   | instr_ljoin _ _ cost => cost
-  | instr_lassert _ _ _ cost => cost
+  | instr_lassert _ _ _ _ cost => cost
   | instr_certify cost => cost
   | _ => 0
   end.
@@ -95,22 +95,53 @@ Definition total_mu_cost (trace : Receipts) : nat :=
     (both sum instruction costs), validated by runtime tests.
     *)
 
-(** * Axiom A3: Locality (No-Signaling)
-    
-    If you don't touch module M, you cannot change M's observable state.
-    Observable state = partition-only projection.
-    
-    WITNESS: KernelPhysics.v::observational_no_signaling
-    *)
+(** * Axiom A3: Locality (No-Signaling) — FORMALLY PROVEN
 
-(** * Axiom A4: Underdetermination
-    
-    Partition-only observation is deliberately weak.
-    Cannot derive probabilities, entropy, unique explanations from partition.
-    
-    WITNESS: EntropyImpossibility.v, ProbabilityImpossibility.v
-    ObservableRegion from VMState.v provides partition projection.
+    If you don't touch module M, you cannot change M's observable state.
+    Observable state = partition-only projection (ObservableRegion).
+
+    FORMAL STATEMENT: observational_no_signaling from KernelPhysics.v.
+
+    For any state s, instruction instr, and module mid NOT in instr_targets:
+      well_formed_graph s.graph →
+      mid < pg_next_id s.graph →
+      vm_step s instr s' →
+      mid ∉ instr_targets instr →
+      ObservableRegion s mid = ObservableRegion s' mid.
+
+    This axiom is PROVEN (not assumed) in KernelPhysics.v by exhaustive
+    case analysis over all 40+ vm_instruction constructors.
+
+    IMPORT: theorem is in scope via From Kernel Require Import KernelPhysics.
     *)
+Notation A3_observational_no_signaling := KernelPhysics.observational_no_signaling.
+
+(** * Axiom A4: Underdetermination — FORMALLY PROVEN
+
+    Observation of observable regions is strictly weak:
+    infinitely many distinct machine states are observationally equivalent.
+    You CANNOT determine entropy, probability, or unique micro-state from
+    observable partition structure alone.
+
+    FORMAL STATEMENT: region_equiv_class_infinite from EntropyImpossibility.v.
+
+    For any state s:
+      ∃ infinitely many s' with ObservableRegion s' mid = ObservableRegion s mid
+      for all mid (i.e., region_equiv s s'), yet s ≠ s'.
+
+    Concretely: tweak_regs s x and tweak_regs s y are observationally equivalent
+    (same partition structure) but different for x ≠ y, giving infinitely many
+    distinct states per observation class.
+
+    PHYSICAL MEANING: Partition-only observation does not determine the full state.
+    Unconstrained entropy = ∞ without a finiteness bound (Bekenstein bound).
+    The Thiele VM's cost accounting provides exactly this bound: μ-cost enforces
+    that going from the coarse observation to fine information requires work.
+
+    IMPORT: theorem is in scope via From Kernel Require Import EntropyImpossibility.
+    *)
+Notation A4_region_equiv_class_infinite :=
+  EntropyImpossibility.region_equiv_class_infinite.
 
 (** * Definition D1: Receipt Predicate
     
@@ -320,7 +351,8 @@ Theorem no_free_insight_general :
     uses_revelation trace \/
     (exists n m p mu, nth_error trace n = Some (instr_emit m p mu)) \/
     (exists n c1 c2 mu, nth_error trace n = Some (instr_ljoin c1 c2 mu)) \/
-    (exists n m f c mu, nth_error trace n = Some (instr_lassert m f c mu)).
+    (exists n fa ca k fl mu, nth_error trace n = Some (instr_lassert fa ca k fl mu)) \/
+    (exists n mid p c mu, nth_error trace n = Some (instr_morph_assert mid p c mu)).
 Proof.
   exact nonlocal_correlation_requires_revelation.
 Qed.
@@ -399,14 +431,13 @@ Qed.
     The CHSH theorem proves the same for the specific CHSH channel.
     *)
 
-(** * Milestone 2 Deliverables
-    
-    ✓ Define abstract receipt predicate framework
-    ✓ Define strength ordering (≤, <)
-    ✓ Generalize Certified predicate
-    ✓ State and prove general no-free-insight theorem (cert requires cert-setter)
-    ⚠ Show CHSH as concrete instance
-    ⚠ Update documentation suite
+(** * Proven Results
+
+    - Abstract receipt predicate framework
+    - Strength ordering (≤, <)
+    - Generalized Certified predicate
+    - General no-free-insight theorem (cert requires cert-setter)
+    - CHSH as concrete instance (see CHSHExtraction.v)
     *)
 
 End NoFreeInsight.

@@ -56,9 +56,9 @@ def _get_python_opcodes() -> dict[str, int]:
 
 
 def test_coq_kami_opcodes_parse():
-    """ThieleTypes.v contains at least 38 OP_* definitions."""
+    """ThieleTypes.v contains at least 40 OP_* definitions."""
     coq = _parse_coq_kami_opcodes(COQ_TYPES_PATH)
-    assert len(coq) >= 38, f"Expected >= 38 opcodes, found {len(coq)}: {sorted(coq)}"
+    assert len(coq) >= 40, f"Expected >= 40 opcodes, found {len(coq)}: {sorted(coq)}"
 
 
 def test_opcode_maps_align():
