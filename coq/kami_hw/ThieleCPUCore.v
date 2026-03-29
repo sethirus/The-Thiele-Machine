@@ -170,9 +170,6 @@ Section ThieleCPU.
       with Register "ptTable"  : Vector (Bit WordSz) PTableIdxSz <- Default
       with Register "pt_next_id"    : Bit PTableNextIdSz <- PT_NEXT_ID_INIT
 
-      (* Certification flag — set by CERTIFY opcode (Phase 4 state-based cert) *)
-      with Register "certified" : Bool <- false
-
       (* Witness counters — 8-bucket CHSH trial recorder matching VMState.WitnessCounts.
         Each setting pair (x,y) has same/diff counters tracking whether
         outputs (a,b) matched. Updated by CHSH_TRIAL on valid bits. *)

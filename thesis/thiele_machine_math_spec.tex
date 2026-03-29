@@ -138,8 +138,8 @@ These modify the partition graph $G$:
 \subsection{Logical Operations}
 These interact with information content:
 \begin{itemize}
-    \item $\texttt{LASSERT}(m, \phi, \mathit{cert}, \Delta\mu)$: Assert formula $\phi$ on module $m$ with certificate $\mathit{cert}$, which is either a SAT model (\texttt{lassert\_cert\_sat}) or an UNSAT LRAT proof (\texttt{lassert\_cert\_unsat}).
-    \item $\texttt{LJOIN}(c_1, c_2, \Delta\mu)$: Join certificate checksums.
+    \item $\texttt{LASSERT}(\mathit{freg}, \mathit{creg}, \mathit{kind}, \mathit{flen}, \mathit{cost})$: Assert a formula read from \texttt{vm\_mem}[\texttt{R[freg]}] (length $\mathit{flen}$ bytes) against a certificate at \texttt{vm\_mem}[\texttt{R[creg]}]; $\Delta\mu = \mathit{flen} \times 8 + S(\mathit{cost}) \geq 1$.
+    \item $\texttt{LJOIN}(\mathit{c1reg}, \mathit{c2reg}, \Delta\mu)$: Join certificates from two memory-resident strings addressed by registers.
     \item $\texttt{REVEAL}(m, n, \mathit{cert}, \Delta\mu)$: Reveal $n$ bits of structure from $m$. \emph{Primary source of $\mu$-cost.}
     \item $\texttt{EMIT}(m, p, \Delta\mu)$: Emit payload $p$ from module $m$.
 \end{itemize}
@@ -223,7 +223,7 @@ $\mathrm{Run}([], S) = S$; \quad $\mathrm{Run}(i::\tau', S) = \mathrm{Run}(\tau'
 
 \textbf{REVEAL}: Update CSRs with checksum of certificate $\mathit{cert}$. Cost: $\Delta\mu$ (typically 1).
 
-\textbf{LASSERT}: Verify certificate $\mathit{cert}$ for formula $\phi$. If $\mathit{cert}$ is \texttt{lassert\_cert\_unsat}: verify LRAT proof (UNSAT). If $\mathit{cert}$ is \texttt{lassert\_cert\_sat}: verify model satisfies formula (SAT). If valid, append $\phi$ to $A_m$; if invalid, set $\mathit{err} \gets \mathrm{true}$. Replaces oracles with verifiable proofs.
+\textbf{LASSERT}: Read formula from \texttt{vm\_mem}[\texttt{R[formula\_addr\_reg]}] (length \texttt{formula\_len} bytes) and certificate from \texttt{vm\_mem}[\texttt{R[cert\_addr\_reg]}]. Verify using \texttt{cert\_kind} (false = LRAT/UNSAT, true = SAT model). If valid, append the formula to $A_m$; if invalid, set $\mathit{err} \gets \mathrm{true}$. Cost: $\mathtt{formula\_len} \times 8 + S(\mathtt{mu\_delta})$.
 
 %=============================================================================
 % PART II: CORE THEOREMS

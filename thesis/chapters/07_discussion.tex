@@ -584,60 +584,42 @@ Scaling to millions of dynamic partitions requires:
     \item Hardware support for concurrent module operations
 \end{itemize}
 
-\subsection{SAT Solver Integration}
+\subsection{On-Chip Logic Engine}
 
-The current \texttt{LASSERT} instruction requires external certificates:
+The \texttt{LASSERT} instruction uses an on-chip FSM that reads formula and certificate data directly from \texttt{vm\_mem}:
 \begin{lstlisting}
-instr_lassert (module : ModuleID) (formula : string)
-    (cert : lassert_certificate) (mu_delta : nat)
+instr_lassert (formula_addr_reg cert_addr_reg : nat)
+    (cert_kind : bool) (formula_len : nat) (mu_delta : nat)
 \end{lstlisting}
 
-\paragraph{Understanding LASSERT Limitations:}
+\paragraph{On-Chip Instruction Encoding:}
 
-\textbf{What is this instruction?} \texttt{LASSERT} adds a logical axiom (constraint) to a partition module, verified by an external SAT solver certificate. This is the mechanism for encoding problem structure (e.g., ``this region satisfies formula $\phi$'').
+\textbf{What is this instruction?} \texttt{LASSERT} adds a logical constraint to a partition module. The formula and certificate are stored in the VM's data memory (\texttt{vm\_mem}); the instruction holds only register indices that point to them. This keeps the instruction word compact while allowing arbitrarily large formulas.
 
 \textbf{Parameter breakdown:}
 \begin{itemize}
-    \item \textbf{module : ModuleID} — The partition module to which the axiom is added (e.g., module 3).
-    \item \textbf{formula : string} — The logical formula in SMT-LIB syntax. Example: \texttt{"(and (< x 10) (> y 0))"}
-    \item \textbf{cert : lassert\_certificate} — The \textbf{external certificate} proving the formula's validity:
-    \begin{itemize}
-        \item \textbf{SAT certificate:} A satisfying assignment (if the formula is SAT). Example: \texttt{\{x $\mapsto$ 5, y $\mapsto$ 3\}}. The VM checks that this assignment satisfies all clauses.
-        \item \textbf{LRAT proof:} A proof trace showing the formula is unsatisfiable (if the formula is UNSAT). The VM replays the proof steps (resolution, clause addition) to verify correctness.
-    \end{itemize}
-    \item \textbf{mu\_delta : nat} — The $\mu$-cost for adding this axiom. Encodes the information reduction: $\mu \geq \log_2(|\Omega| / |\Omega'|)$, where $\Omega$ is the space before the axiom and $\Omega'$ is the space after (constrained by the formula).
+    \item \textbf{formula\_addr\_reg : nat} — Register holding the base address of the formula byte string in \texttt{vm\_mem}.
+    \item \textbf{cert\_addr\_reg : nat} — Register holding the base address of the certificate byte string in \texttt{vm\_mem}.
+    \item \textbf{cert\_kind : bool} — Selects the checker: \texttt{false} = LRAT/UNSAT proof; \texttt{true} = SAT satisfying model.
+    \item \textbf{formula\_len : nat} — Byte length of the formula string in memory. Directly sets the formula-component of the $\mu$-cost.
+    \item \textbf{mu\_delta : nat} — Explicit cost floor. The total $\mu$-cost charged is $\mathtt{formula\_len} \times 8 + S(\mathtt{mu\_delta})$, ensuring cost is always at least 1.
 \end{itemize}
 
-\textbf{Current limitation:} The Thiele Machine does \textbf{not} generate certificates internally. It relies on external SAT solvers (Z3, CaDiCaL, etc.) to:
-\begin{enumerate}
-    \item Solve the formula (find a SAT model or UNSAT proof).
-    \item Generate the certificate (LRAT proof trace or satisfying assignment).
-    \item Pass the certificate to the VM for verification.
-\end{enumerate}
-
-\textbf{Why is this a limitation?}
-\begin{itemize}
-    \item \textbf{External dependency:} The VM cannot autonomously discover structure---it needs an oracle (SAT solver).
-    \item \textbf{Certificate size:} LRAT proofs can be large (megabytes for hard formulas). Transmitting/storing certificates is expensive.
-    \item \textbf{Verification overhead:} Checking an LRAT proof is polynomial-time, but still slower than direct solving for small formulas.
-\end{itemize}
+\textbf{$\mu$-cost formula:} The $\mu$-cost is
+\[
+  \Delta\mu(\text{LASSERT}) = \mathtt{formula\_len} \times 8 + S(\mathtt{mu\_delta})
+\]
+where $\mathtt{formula\_len}$ is the formula's byte length. Longer formulas cost proportionally more, encoding the information-theoretic principle that structurally richer claims are more expensive. $S(\mathtt{mu\_delta})$ guarantees the cost is at least 1, even for the empty formula.
 
 \textbf{Example workflow:}
 \begin{enumerate}
-    \item User wants to assert ``region $\{0,1,2\}$ satisfies $(x_0 \lor x_1) \land (\neg x_0 \lor x_2)$''.
-    \item Call Z3 solver: \texttt{z3 -smt2 formula.smt2} $\to$ produces SAT model $\{x_0 = \text{true}, x_1 = \text{false}, x_2 = \text{true}\}$.
-    \item Encode model as certificate: \texttt{cert = \{\"x0\": true, \"x1\": false, \"x2\": true\}}.
-    \item Execute \texttt{LASSERT 1 \"(and (or x0 x1) (or (not x0) x2))\" cert 3}.
-    \item VM verifies: Substitute $x_0 = \text{true}, x_1 = \text{false}, x_2 = \text{true}$ into formula $\to$ $(\text{true} \lor \text{false}) \land (\neg\text{true} \lor \text{true}) = \text{true} \land \text{true} = \text{true}$. Certificate valid!
+    \item Store formula \texttt{"(and (or x0 x1) (or (not x0) x2))"} (38 bytes) at address 100 in \texttt{vm\_mem}; store SAT certificate \texttt{"x0=1,x1=0,x2=1"} at address 200.
+    \item Load base addresses: \texttt{LOAD\_IMM r5 100}; \texttt{LOAD\_IMM r6 200}.
+    \item Execute \texttt{LASSERT r5 r6 true 38 0}. $\mu$-cost $= 38 \times 8 + 1 = 305$.
+    \item The on-chip FSM reads the formula and certificate from memory, verifies the certificate, and updates the partition's axiom set.
 \end{enumerate}
 
-\textbf{Future work:} Integrate SAT solving directly into the VM:
-\begin{itemize}
-    \item Hardware-accelerated SAT solver IP cores (FPGA-based CDCL).
-    \item Incremental solving: Reuse learned clauses across related formulas.
-    \item Proof compression: Compress LRAT proofs using structural hashing.
-\end{itemize}
-This would make the VM \textit{self-sufficient} for structure discovery, not dependent on external oracles.
+\textbf{Formal correctness:} \path{coq/kami\_hw/LogicEngineEquivalence.v} proves that the on-chip evaluation refines the Coq step relation for \texttt{LASSERT} and \texttt{LJOIN}. No external solver is needed at runtime; the VM is self-sufficient for certificate verification.
 
 \section{Future Directions}
 

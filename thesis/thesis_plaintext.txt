@@ -340,7 +340,7 @@ Abstract                                                                        
     7.8 Limitations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    74
          7.8.1 The Uncomputability of True µ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       74
          7.8.2 Hardware Scalability . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      74
-         7.8.3 SAT Solver Integration . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      75
+         7.8.3 On-Chip Logic Engine . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      75
     7.9 Future Directions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    75
          7.9.1 Quantum Integration . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       75
          7.9.2 Distributed Execution . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     75
@@ -725,7 +725,7 @@ directly perceive that the graph has two disconnected components. It            
 must execute a traversal algorithm that, in the worst case, visits all          • Π: Partitions of S into disjoint modules
 n vertices and m edges. The structure of the graph-its partition into           • A: Axiom set-logical constraints attached to each module
 components-is not part of the machine’s primitive state.                        • R: Transition rules, including structural operations (split, merge)
-                                                                                • L: Logic Engine-an SMT oracle verifying consistency
+                                                                                • L: Logic Engine-an on-chip FSM for certificate verification
 1.2.2    The RAM Model: Random Access, Same Blindness                        Chapter 3 gives exact data structures and step rules. Each component
                                                                              becomes a separately verified artifact.
 The RAM model fixes the tape problem—you can jump to any memory
@@ -1416,7 +1416,7 @@ The Thiele Machine has five components:                                         
   3. Axiom Set A: What logical constraints each module satisfies
   4. Transition Rules R: How the machine evolves—the 18-
      instruction ISA
-  5. Logic Engine L: The oracle that verifies logical consistency
+  5. Logic Engine L: The on-chip FSM that reads formula/cert from vm_mem
 Each component corresponds to a concrete artifact in the formal de-
 velopment. The state and partition graph are defined in coq/kern
 el/VMState.v; the instruction set and step relation are defined in
@@ -1643,8 +1643,8 @@ theories means writing new strings, not touching the kernel code.
 This constrains x to be non-negative. The kernel doesn’t know or care      | instr_psplit (module : ModuleID) (left right : list nat)
 what that means—it just stores it and forwards it to the checker. If you         ,→ (mu_delta : nat)
                                                                            | instr_pmerge (m1 m2 : ModuleID) (mu_delta : nat)
-need something more exotic, like non-linear arithmetic or a custom         | instr_lassert (module : ModuleID) (formula : string)
-theory, you write new SMT-LIB strings. The kernel doesn’t need to              (cert : lassert_certificate) (mu_delta : nat)
+need something more exotic, like non-linear arithmetic or a custom         | instr_lassert (formula_addr_reg cert_addr_reg : nat)
+theory, you write new SMT-LIB strings. The kernel doesn’t need to              (cert_kind : bool) (formula_len : nat) (mu_delta : nat)
                                                                            | instr_ljoin (cert1 cert2 : string) (mu_delta : nat)
 change.                                                                    | instr_mdlacc (module : ModuleID) (mu_delta : nat)
                                                                            | instr_pdiscover (module : ModuleID) (evidence : list VMAxiom)
@@ -1786,8 +1786,8 @@ tion? This defines a ternary (3-way) relation between:
   2. Instruction (vm_instruction): What operation to perform                3.2.5.2   Certificate-Based Verification
   3. Final state (VMState): Where the machine ends up                       Rather than embedding an SMT solver, the Thiele Machine uses
   Type Signature Breakdown:                                                 certificate-based verification:
-   • Arrow (->): Separates inputs. Read as "takes a VMState, then an        Inductive lassert_certificate :=
-     instruction, then another VMState"                                     | lassert_cert_unsat (proof : string)
+   • Arrow (->): Separates inputs. Read as "takes a VMState, then an        instr_lassert (formula_addr_reg cert_addr_reg : nat)
+     instruction, then another VMState"                                     | (cert_kind : bool) (fooof : string)
                                                                             | lassert_cert_sat (model : string).
    • Prop: This is a logical proposition, not a computable function. It
      defines which transitions are valid, not how to compute them.          Definition check_lrat : string -> string -> bool :=
@@ -4200,7 +4200,7 @@ formedness invariant.                                                       Why 
    Why is this important? The PNEW instruction (partition new)           (* Logic ops *)
 creates a fresh module by calling graph_add_module. If this op-          | instr_lassert (module : ModuleID)
                                                                              (formula : string)
-eration could violate well-formedness, the entire graph would become         (cert : lassert_certificate) (mu_delta : nat)
+eration could violate well-formedness, the entire graph would become         (cert_kind : bool) (formula_len : nat) (mu_delta : nat)
 corrupted. This lemma guarantees that PNEW is safe: starting from a      | instr_ljoin (cert1 cert2 : string)
                                                                              (mu_delta : nat)
 well-formed graph, PNEW produces a well-formed graph.                    (* Discovery *)
@@ -6294,7 +6294,7 @@ ple:
    • Grover search on N = 1024 elements: 1 module, region                        hashing.
      {0, . . . , 1023}.
                                                                             This would make the VM self-sufficient for structure discovery, not
-   • Shor factorization of N = 3233: ∼10 modules for intermediate           dependent on external oracles.
+   • Shor factorization of N = 3233: ∼10 modules for intermediate           self-sufficient via on-chip FSM.
      partitions.
 However, industrial applications (e.g., SAT solving on 10,000-variable
 formulas) would exceed these limits.                                        7.9     Future Directions
@@ -6304,24 +6304,24 @@ formulas) would exceed these limits.                                        7.9 
    • Hierarchical partition tables                                          The Thiele Machine currently models quantum-like correlations
    • Hardware support for concurrent module operations                      through partition structure. True quantum integration would require:
                                                                                • Quantum state representation in partition graph
-7.8.3   SAT Solver Integration                                                 • Measurement operations with µ-cost proportional to information
+7.8.3   On-Chip Logic Engine                                                 • Measurement operations with µ-cost proportional to information
                                                                                  gained
-The current LASSERT instruction requires external certificates:                • Entanglement as a structural relationship between modules
-instr_lassert (module : ModuleID) (formula : string)
-    (cert : lassert_certificate) (mu_delta : nat)
+LASSERT uses on-chip FSM; formula/cert live in vm_mem:                • Entanglement as a structural relationship between modules
+instr_lassert (formula_addr_reg cert_addr_reg : nat)
+    (cert_kind : bool) (formula_len : nat) (mu_delta : nat)
                                                                             7.9.2    Distributed Execution
                                                                             The partition graph naturally maps to distributed systems:
-Understanding LASSERT Limitations: What is this instruction?                   • Each module executes on a separate node
-LASSERT adds a logical axiom (constraint) to a partition module,
+On-Chip Encoding: formula_addr_reg/cert_addr_reg are register indices.                   • Each module executes on a separate node
+Delta_mu = formula_len * 8 + S(mu_delta). No external solver needed.
                                                                                • Module boundaries enforce communication isolation
-verified by an external SAT solver certificate. This is the mechanism
+LogicEngineEquivalence.v proves on-chip FSM refines the Coq step.
 for encoding problem structure (e.g., “this region satisfies formula ϕ”).      • Receipt chains provide distributed consensus
    Parameter breakdown:
-   • module : ModuleID - The partition module to which the axiom            7.9.3    Programming Language Design
+   • formula_addr_reg - Register holding formula base address in vm_mem.            7.9.3    Programming Language Design
      is added (e.g., module 3).                                             A high-level language for the Thiele Machine would include:
-   • formula : string - The logical formula in SMT-LIB syntax.
+   • cert_addr_reg    - Register holding certificate base address.
      Example: "(and (< x 10) (> y 0))"                                         • First-class partition types
-   • cert : lassert_certificate - The external certificate proving the         • Automatic µ-cost tracking
+   • cert_kind : bool - false=LRAT/UNSAT proof; true=SAT model.         • Automatic µ-cost tracking
      formula’s validity:                                                       • Type-level proofs of locality
          – SAT certificate: A satisfying assignment (if the formula is
            SAT). Example: {x 7→ 5, y 7→ 3}. The VM checks                   7.10     Summary
@@ -6334,9 +6334,9 @@ for encoding problem structure (e.g., “this region satisfies formula ϕ”).  
      space before the axiom and Ω′ is the space after (constrained by            as-revelation bridge
      the formula).                                                            3. A framework for verifiable computation
                                                                               4. A new lens for understanding computational complexity, with
-   Current limitation: The Thiele Machine does not generate certifi-
+   Current limitation: Cost: formula_len*8 + S(mu_delta). Self-contained verification.
                                                                                  concrete µ-cost bounds for NP verification and a conservation
-cates internally. It relies on external SAT solvers (Z3, CaDiCaL, etc.)
+(No continuation line needed.)
                                                                                  law linking computation time to structural revelation cost
 to:
                                                                               5. Turing subsumption: a mechanized proof that the model is ex-

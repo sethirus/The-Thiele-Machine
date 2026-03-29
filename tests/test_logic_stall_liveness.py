@@ -8,13 +8,17 @@ ERR_BIANCHI = 0x0B1A4C81
 
 
 @pytest.mark.hardware
-def test_bianchi_clears_logic_stall_and_logic_req_valid() -> None:
+def test_bianchi_alarm_fires_on_uninitialised_tensor() -> None:
+    """BIANCHI alarm fires when a CHSH tensor is set but locality walls are violated.
+
+    The on-chip LASSERT model removes the external logic_stall / logic_req_valid
+    coprocessor signals.  This test verifies the BIANCHI error-code path still
+    fires correctly under the new on-chip FSM architecture.
+    """
     program = "\n".join(
         [
             "INIT_MU 0",
             "INIT_TENSOR 0 1",
-            "INIT_LOGIC_STALL 1",
-            "INIT_LOGIC_REQ_VALID 1",
             "LOAD_IMM 0 1 0",
             "HALT 0",
             "",
@@ -26,5 +30,5 @@ def test_bianchi_clears_logic_stall_and_logic_req_valid() -> None:
         pytest.skip("verilator unavailable")
 
     assert result.get("error_code", 0) == ERR_BIANCHI
-    assert result.get("logic_stall", 1) == 0
-    assert result.get("logic_req_valid", 1) == 0
+    # bianchi_alarm flag should be set in the JSON snapshot
+    assert result.get("bianchi_alarm", 0) == 1

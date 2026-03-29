@@ -442,7 +442,7 @@ If you find any of these, the Coq proofs won't compile.
 ## Dependencies
 
 **Python** (3.10+):
-- `z3-solver` — SMT solving (LASSERT certificate checking)
+- `z3-solver` — SMT solving (used in test suite; LASSERT verification is on-chip at runtime)
 - `cryptography`, `pynacl` — receipt verification
 - `numpy`, `scipy` — numerical computation
 - `pytest`, `hypothesis` — testing

@@ -147,7 +147,7 @@ The Thiele Machine $T = (S, \Pi, A, R, L)$:
     \item $\Pi$: Partitions of $S$ into disjoint modules
     \item $A$: Axiom set---logical constraints attached to each module
     \item $R$: Transition rules, including structural operations (split, merge)
-    \item $L$: Logic Engine---an SMT oracle verifying consistency
+    \item $L$: Logic Engine---an on-chip FSM that reads formula and certificate bytes from \texttt{vm\_mem} and verifies them in-place
 \end{itemize}
 Chapter 3 gives exact data structures and step rules. Each component becomes a separately verified artifact.
 
@@ -250,7 +250,7 @@ This isn't theoretical. The abstract $\mu$-costs map to real physical resources:
 
     \item \textbf{$\mu$-ALU}: a dedicated arithmetic unit for $\mu$-cost calculation, running in parallel with main execution.
 
-    \item \textbf{Logic engine interface}: offloads SMT queries to hardware or a host oracle.
+    \item \textbf{Logic engine interface}: reads formula and certificate data from \texttt{vm\_mem} via register-indexed addressing; certificate verification is fully on-chip with no external solver needed at runtime.
 
     \item \textbf{Accounting unit}: computes $\mu$-costs with hardware-enforced monotonicity. The Bianchi invariant ($\sum\text{tensor}[i] \le \mu$) is checked every cycle---violation freezes the CPU.
 \end{itemize}

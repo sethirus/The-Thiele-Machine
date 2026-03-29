@@ -336,7 +336,7 @@ Record ModuleState := {
     \begin{itemize}
         \item Type: \texttt{AxiomSet} (list of SMT-LIB strings)
         \item Example: \texttt{[(assert (>= x 0)), (assert (< x 100))]}
-        \item Checked by external solvers (Z3, CVC5)
+        \item Verified on-chip by the logic engine FSM against program-provided certificates stored in \texttt{vm\_mem}
     \end{itemize}
     \item \textbf{module\_mu\_tensor}: Per-module 4$\times$4 metric tensor
     \begin{itemize}
@@ -1166,23 +1166,29 @@ In the Kami-generated hardware, $\mu$-accounting is handled by a 32-bit register
 
 \subsection{Logic Engine Interface}
 
-The logic engine interface is implemented as registers inside \texttt{mkModule1}, not as a separate submodule. The Kami specification in \texttt{ThieleCPUCore.v} defines request and response registers that the testbench bridges to an external SMT solver:
+The logic engine is implemented as an on-chip FSM inside \texttt{mkModule1}. The Kami specification in \texttt{ThieleCPUCore.v} defines ten FSM registers that read formula and certificate data directly from \texttt{vm\_mem}:
 \begin{lstlisting}
-// From generated Verilog (mkModule1):
-// Output registers (CPU -> external solver):
-//   logic_req_valid, logic_req_opcode, logic_req_payload
-// Input action method (external solver -> CPU):
-//   setLogicResp(result)
+// On-chip FSM registers (ThieleCPUCore.v):
+//   lassert_phase   -- FSM phase (idle/fetch_formula/fetch_cert/check/done)
+//   lassert_kind    -- SAT or UNSAT certificate kind
+//   lassert_fbase   -- formula base address (from freg)
+//   lassert_cbase   -- certificate base address (from creg)
+//   lassert_flen    -- formula byte length
+//   lassert_clen    -- certificate byte length
+//   lassert_fptr    -- formula fetch pointer (incremented each cycle)
+//   lassert_cptr    -- certificate fetch pointer
+//   lassert_fbuf    -- formula byte accumulator
+//   lassert_cbuf    -- certificate byte accumulator
 \end{lstlisting}
 
-\paragraph{Understanding the Logic Engine Interface:}
-\textbf{Protocol:} The CPU sets request registers when an LASSERT instruction executes. The testbench reads these registers, dispatches to an external solver (Z3), and calls the \texttt{setLogicResp} action method with the result. The correctness of this protocol is proven in \path{coq/kami\_hw/LogicEngineEquivalence.v}.
+\paragraph{On-Chip Evaluation Protocol:}
+\textbf{Operation:} When an \texttt{LASSERT} instruction executes, the FSM reads the formula byte-by-byte from \texttt{vm\_mem} at address \texttt{R[freg]}, then reads the certificate from \texttt{R[creg]}. It verifies the certificate against the formula entirely on-chip. The $\mu$-cost charged is $\mathtt{flen} \times 8 + S(\mathtt{cost})$, ensuring certificate complexity is reflected in cost.
 
 \textbf{Why Registers Instead of a Submodule?}
 \begin{itemize}
-    \item \textbf{Kami's model}: Kami generates flat modules with registers and rules. Sub-module instantiation follows Bluespec's composition model, not traditional Verilog hierarchy.
-    \item \textbf{Testbench flexibility}: The external solver can be Z3, CVC5, or any tool that speaks SMT-LIB. The hardware just exposes a request/acknowledge interface.
-    \item \textbf{Formal verification}: \texttt{LogicEngineEquivalence.v} proves that the Kami coprocessor protocol refines the Coq step relation for LASSERT, LJOIN, and related opcodes.
+    \item \textbf{Kami's model}: Kami generates flat modules with registers and rules. The FSM state is flat registers following Bluespec's composition model.
+    \item \textbf{Self-containment}: No external solver is needed---the VM verifies certificates autonomously at runtime from program-supplied data in \texttt{vm\_mem}.
+    \item \textbf{Formal verification}: \path{coq/kami\_hw/LogicEngineEquivalence.v} proves that the on-chip FSM evaluation refines the Coq step relation for \texttt{LASSERT}, \texttt{LJOIN}, and related opcodes.
 \end{itemize}
 
 \section{Isomorphism Verification}

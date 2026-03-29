@@ -86,12 +86,23 @@ class TestMemSizeUnified:
         )
 
     def test_rtl_regfile_addr_width_16(self):
-        """Generated Verilog must use addr_width=16 for memory RegFiles."""
+        """Generated Verilog must use addr_width=16 for main data/instruction memory RegFiles.
+        LASSERT FSM buffer RegFiles (lassert_fbuf, lassert_cbuf) may use smaller widths."""
         text = _read(RTL / "thiele_cpu_kami.v")
-        matches = re.findall(r"RegFile\s*#\(\.addr_width\(32'd(\d+)\)", text)
-        assert len(matches) >= 2, f"Expected >= 2 RegFile instantiations, found {len(matches)}"
-        for width in matches:
-            assert width == "16", f"RegFile addr_width={width}, expected 16"
+        # Main memory RegFiles (mem, imem) are identified by their comment header
+        # and must have addr_width=16.  LASSERT buffer RegFiles use smaller widths.
+        for submod_name in ("imem", "mem"):
+            pattern = re.compile(
+                rf"submodule {re.escape(submod_name)}\s*\n\s*RegFile\s*#\(\.addr_width\(32'd(\d+)\)",
+            )
+            m = pattern.search(text)
+            assert m is not None, f"RegFile submodule '{submod_name}' not found in RTL"
+            assert m.group(1) == "16", (
+                f"RegFile '{submod_name}' addr_width={m.group(1)}, expected 16"
+            )
+        # Sanity: at least 4 RegFile instances total (mem, imem, lassert_fbuf, lassert_cbuf)
+        all_matches = re.findall(r"RegFile\s*#\(\.addr_width\(32'd(\d+)\)", text)
+        assert len(all_matches) >= 4, f"Expected >= 4 RegFile instantiations, found {len(all_matches)}"
 
     def test_testbench_arrays_65536(self):
         """RTL testbench memory arrays must be [0:65535]."""
