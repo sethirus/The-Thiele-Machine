@@ -137,11 +137,10 @@ The flagship prediction derived from the verifier system:
 Representative falsifier test (from \path{tests/test_lassert_certificate.py}):
 \begin{lstlisting}
 def test_lassert_legacy_empty_cert(self):
-    """Legacy LASSERT (empty cert) sets error for real formulas."""
+    """LASSERT (empty cert) sets error — check_model fails on empty string."""
     s0 = VMState.default()
     program = [
-        {"op": "pnew", "region": [0, 256], "cost": 1},
-        {"op": "lassert", "module": 0,
+        {"op": "lassert",
          "formula": "p_cnf_1_1__1_0",
          "cost": 1},
         {"op": "halt", "cost": 0},
@@ -159,11 +158,9 @@ def test_lassert_legacy_empty_cert(self):
 
 \textbf{Test structure:}
 \begin{enumerate}
-    \item \textbf{PNEW} creates a module with region $[0, 256]$, charging $\mu = 1$.
+    \item \textbf{LASSERT} attempts to assert a CNF formula without supplying a SAT certificate. The formula is referenced via register-indexed \texttt{vm\_mem} addressing (on-chip model); no external solver is invoked.
 
-    \item \textbf{LASSERT} attempts to add a CNF formula to the module without supplying a SAT certificate. The kernel requires a valid satisfying assignment or LRAT proof to accept the assertion.
-
-    \item \textbf{assert result.vm\_err is True} --- The VM rejects the uncertified assertion. The $\mu$-cost was still charged (assert $\mu \ge 2$), but the structural claim is not accepted into the partition graph.
+    \item \textbf{assert result.vm\_err is True} --- The VM rejects the uncertified assertion. The $\mu$-cost was still charged (assert $\mu \ge 2$), but the structural claim is not accepted.
 \end{enumerate}
 
 \textbf{Why is this the flagship test?} This embodies the core thesis claim:
