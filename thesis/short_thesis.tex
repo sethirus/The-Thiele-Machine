@@ -154,8 +154,8 @@ Opcode & Effect & Cost \\
 \toprule
 Opcode & Effect & Cost \\
 \midrule
-\texttt{LASSERT}($m$, $\phi$, $\delta$) & Assert axiom $\phi$ on module $m$; fails if inconsistent & $\delta \geq 1$ \\
-\texttt{LJOIN}($m_1$, $m_2$, $\delta$) & Join certificates from two modules & $\delta$ \\
+\texttt{LASSERT}(\textit{freg}, \textit{creg}, \textit{flen}, \textit{cost}) & Assert formula from \texttt{vm\_mem}; on-chip cert check & $\mathit{flen}{\times}8 + S(\mathit{cost})$ \\
+\texttt{LJOIN}(\textit{c1reg}, \textit{c2reg}, $\delta$) & Join two memory-resident certificates & $\delta$ \\
 \texttt{MDLACC}($r$, $\delta$) & MDL cost accounting; reads model length from register & $\delta$ \\
 \bottomrule
 \end{tabular}

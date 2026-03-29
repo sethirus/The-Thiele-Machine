@@ -32,17 +32,17 @@ def test_kami_tuple_observation_ports_present() -> None:
         assert signal in txt, f"Missing tuple-observation signal: {signal}"
 
 
-def test_logic_coprocessor_interface_ports_present() -> None:
+def test_logic_onchip_fsm_signals_present() -> None:
     txt = _rtl_text()
-    # L interface is now explicit in-core ports (request + response path).
+    # On-chip LASSERT FSM signals (replaced the old external coprocessor interface).
     expected = [
-        "getLogicReqValid",
-        "getLogicReqOpcode",
-        "getLogicReqPayload",
-        "setLogicResp",
+        "lassert_phase",
+        "lassert_fbase",
+        "lassert_cbuf",
+        "lassert_fbuf",
     ]
     for signal in expected:
-        assert signal in txt, f"Missing L-coprocessor interface signal: {signal}"
+        assert signal in txt, f"Missing on-chip LASSERT FSM signal: {signal}"
 
 
 def test_logic_related_opcodes_defined_in_coq_and_present_in_rtl_paths() -> None:

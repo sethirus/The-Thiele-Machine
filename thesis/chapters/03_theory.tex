@@ -50,7 +50,7 @@ The Thiele Machine has five components:
     \item \textbf{Partition Graph $\Pi$}: How the state is \textit{decomposed} into independent modules
     \item \textbf{Axiom Set $A$}: What logical constraints each module satisfies
     \item \textbf{Transition Rules $R$}: How the machine evolves---the active 47-opcode ISA
-    \item \textbf{Logic Engine $L$}: The oracle that verifies logical consistency
+    \item \textbf{Logic Engine $L$}: The on-chip FSM that reads formula and certificate bytes from \texttt{vm\_mem} and verifies them in-place
 \end{enumerate}
 Each component corresponds to a concrete artifact in the formal development. The state and partition graph are defined in \path{coq/kernel/VMState.v}; the instruction set and step relation are defined in \path{coq/kernel/VMStep.v}; and the logic engine is represented by certificate checkers in \path{coq/kernel/CertCheck.v}. The point of the 5-tuple is not cosmetic: it is a decomposition that forces every later proof to say which resource it uses (state, partitions, axioms, transitions, or certificates), so that any implementation layer can mirror the same structure without guessing.
 
@@ -275,7 +275,7 @@ Record ModuleState := {
 \textbf{ModuleState Analysis:}
 \begin{itemize}
     \item \textbf{module\_region}: A list of memory addresses (natural numbers) that this module "owns." These addresses are disjoint from other modules' regions—no two modules can claim the same address.
-    \item \textbf{module\_axioms}: Logical constraints about the data in this region. For example, "all values are positive" or "this region stores a sorted array." These are verified by external SMT solvers.
+    \item \textbf{module\_axioms}: Logical constraints about the data in this region. For example, ``all values are positive'' or ``this region stores a sorted array.'' Constraints are verified on-chip by the logic engine FSM against program-provided certificates in \texttt{vm\_mem}.
     \item \textbf{module\_mu\_tensor}: A per-module $4 \times 4$ metric tensor (16 entries, row-major). Defaults to all zeros (flat space). The \texttt{TENSOR\_SET} instruction writes entries; \texttt{TENSOR\_GET} reads them. This connects partition-level geometry to the global $\mu$-tensor in \texttt{VMState}.
 \end{itemize}
 
@@ -439,9 +439,9 @@ Inductive vm_instruction :=
 | instr_psplit (module : ModuleID) (left right : list nat) (mu_delta : nat)
 | instr_pmerge (m1 m2 : ModuleID) (mu_delta : nat)
 (* Logic operations *)
-| instr_lassert (module : ModuleID) (formula : string)
-    (cert : lassert_certificate) (mu_delta : nat)
-| instr_ljoin (cert1 cert2 : string) (mu_delta : nat)
+| instr_lassert (formula_addr_reg cert_addr_reg : nat)
+    (cert_kind : bool) (formula_len : nat) (mu_delta : nat)
+| instr_ljoin (cert1_addr_reg cert2_addr_reg : nat) (mu_delta : nat)
 | instr_mdlacc (module : ModuleID) (mu_delta : nat)
 | instr_pdiscover (module : ModuleID) (evidence : list VMAxiom) (mu_delta : nat)
 (* Data transfer *)
@@ -659,7 +659,7 @@ Each instruction has one or more step rules. For example, \texttt{PNEW}:
 
 \subsection{Logic Engine $L$}
 
-The Logic Engine is an oracle that verifies logical consistency. In the formal model, it is represented through certificate checking.
+The Logic Engine is an on-chip FSM that verifies logical consistency by reading formula and certificate data from \texttt{vm\_mem}. The program supplies formula and certificate by storing them in data memory and passing register indices to the instruction; the FSM checks them in-place without any external solver call.
 
 \subsubsection{Trust Model for Logic Engine}
 
@@ -674,27 +674,30 @@ The Logic Engine is an oracle that verifies logical consistency. In the formal m
     \item \textbf{TCB addition}: Hash functions (SHA-256), certificate parsers, and the Coq extraction correctness
 \end{itemize}
 
-\textbf{In practice}: An \texttt{LASSERT} instruction carries either an LRAT proof (for UNSAT) or a satisfying model (for SAT). The kernel verifies the certificate but does not search for solutions.
+\textbf{In practice}: Certificates (LRAT proofs or SAT models) are stored in \texttt{vm\_mem} by the program before executing \texttt{LASSERT}. The instruction reads them via register-indexed base addresses (\texttt{freg}, \texttt{creg}). The kernel verifies the certificate but does not search for solutions.
 \end{tcolorbox}
 
 \subsubsection{Certificate-Based Verification}
 
-Rather than embedding an SMT solver, the Thiele Machine uses \textit{certificate-based verification}:
+Rather than embedding an SMT solver, the Thiele Machine uses \textit{certificate-based verification}. Certificates live in \texttt{vm\_mem}; the instruction encodes register indices and a byte-length rather than an inline value:
 \begin{lstlisting}
-Inductive lassert_certificate :=
-| lassert_cert_unsat (proof : string)
-| lassert_cert_sat (model : string).
+(* LASSERT instruction fields (VMStep.v): *)
+(* freg : register holding formula base address in vm_mem  *)
+(* creg : register holding certificate base address        *)
+(* kind : lassert_sat | lassert_unsat                      *)
+(* flen : formula byte length; Delta_mu = flen*8 + S(cost) *)
+(* cost : explicit cost floor                              *)
 
-Definition check_lrat : string -> string -> bool := CertCheck.check_lrat.
+Definition check_lrat  : string -> string -> bool := CertCheck.check_lrat.
 Definition check_model : string -> string -> bool := CertCheck.check_model.
 \end{lstlisting}
 
 \paragraph{Understanding Certificate-Based Verification:}
-\textbf{The Certificate Inductive Type:}
+\textbf{Memory-Resident Certificates:}
 \begin{itemize}
-    \item \textbf{Two Constructors}: A certificate is \emph{either} an UNSAT proof \emph{or} a SAT model, never both
-    \item \textbf{lassert\_cert\_unsat}: Carries a string encoding an LRAT (Logical Resolution with Assumption Tracing) proof—a checkable witness that a formula has no satisfying assignment
-    \item \textbf{lassert\_cert\_sat}: Carries a string encoding a satisfying assignment—concrete values for variables that make the formula true
+    \item \textbf{freg / creg}: The program stores the formula string and certificate string anywhere in \texttt{vm\_mem} before executing \texttt{LASSERT}. The instruction holds only the register indices pointing to these locations---the actual bytes are never in the instruction word.
+    \item \textbf{kind field}: Selects which checker to invoke---\texttt{lassert\_sat} calls \texttt{check\_model}; \texttt{lassert\_unsat} calls \texttt{check\_lrat}.
+    \item \textbf{flen}: The byte length of the formula. This is the primary cost driver: $\Delta\mu = \mathtt{flen} \times 8 + S(\mathtt{cost})$, ensuring longer formulas cost proportionally more.
 \end{itemize}
 
 \textbf{The Checker Functions:}
@@ -712,12 +715,12 @@ Definition check_model : string -> string -> bool := CertCheck.check_model.
     \item \textbf{Composability}: Certificates can be stored, transmitted, audited offline.
 \end{enumerate}
 
-\textbf{Certificate Size and $\mu$-Cost:} The length of the certificate string contributes to the $\mu$-cost. A complex proof (many resolution steps) costs more than a simple one. This economically incentivizes finding shorter proofs.
+\textbf{Certificate Size and $\mu$-Cost:} The byte length of the formula string ($\mathtt{flen}$) directly sets the formula-component of the $\mu$-cost: $\Delta\mu = \mathtt{flen} \times 8 + S(\mathtt{cost})$. A structurally richer formula costs more, encoding the information-theoretic principle that each bit of constraint has exactly one bit of cost.
 
-An \texttt{LASSERT} instruction carries either:
+An \texttt{LASSERT} instruction reads from \texttt{vm\_mem}:
 \begin{itemize}
-    \item An LRAT proof demonstrating unsatisfiability
-    \item A model demonstrating satisfiability
+    \item A formula string (at \texttt{R[freg]}, length \texttt{flen} bytes)
+    \item Either an LRAT proof (for UNSAT, \texttt{kind = lassert\_unsat}) or a satisfying model (for SAT, \texttt{kind = lassert\_sat})
 \end{itemize}
 
 The kernel verifies the certificate but does not search for solutions. This ensures:

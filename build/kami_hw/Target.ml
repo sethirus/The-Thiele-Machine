@@ -3002,10 +3002,6 @@ let thieleCore =
     attrType = (RegInitCustom (ExistT ((SyntaxKind (Bit pTableNextIdSz)),
     (makeConst (Bit pTableNextIdSz) (ConstBit (pTableNextIdSz,
       pT_NEXT_ID_INIT)))))) }), (ConsInModule ((MERegister { attrName =
-    ('c'::('e'::('r'::('t'::('i'::('f'::('i'::('e'::('d'::[])))))))));
-    attrType = (RegInitCustom (ExistT ((SyntaxKind Bool),
-    (makeConst Bool (ConstBool false))))) }), (ConsInModule ((MERegister
-    { attrName =
     ('w'::('c'::('_'::('s'::('a'::('m'::('e'::('_'::('0'::('0'::[]))))))))));
     attrType = (RegInitDefault (SyntaxKind (Bit wordSz))) }), (ConsInModule
     ((MERegister { attrName =
@@ -7250,7 +7246,7 @@ let thieleCore =
     (pTableIdxSz, (Bit wordSz), (Var ((SyntaxKind (Bit pTableIdxSz)), idx)),
     (Var ((SyntaxKind (Vector ((Bit wordSz), pTableIdxSz))),
     pt_sizes_v))))))))) }),
-    NilInModule))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+    NilInModule))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
 
 (** val thieleCoreS : modulesS **)
 
