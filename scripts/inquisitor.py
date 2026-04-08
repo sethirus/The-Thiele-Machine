@@ -6053,9 +6053,15 @@ def _run_cross_layer_foundation_checks(repo_root: Path) -> list[Finding]:
             )
 
     # 3) Extracted OCaml runner must execute vm_apply from extracted core.
+    # NOTE: OCaml extraction may use either "Coq_instr" or "Instr_" as the
+    # constructor prefix depending on Coq version and extraction settings.
     runner_ml = _require_file(repo_root / "build" / "extracted_vm_runner.ml")
     if runner_ml is not None:
-        missing = [tok for tok in ("open Thiele_core", "vm_apply", "Coq_instr") if tok not in runner_ml]
+        has_instr_prefix = "Coq_instr" in runner_ml or "Instr_" in runner_ml
+        missing_base = [tok for tok in ("open Thiele_core", "vm_apply") if tok not in runner_ml]
+        if not has_instr_prefix:
+            missing_base.append("Coq_instr or Instr_")
+        missing = missing_base
         if missing:
             _add(
                 repo_root / "build" / "extracted_vm_runner.ml",
@@ -6546,7 +6552,7 @@ def _scan_opcode_parity(repo_root: Path) -> list[Finding]:
             clean = strip_coq_comments(text)
             # Find vm_instruction or similar inductive type
             instr_match = re.search(
-                r"Inductive\s+vm_instruction\s*:.*?:=\s*(.*?)(?:\.\s*$|\n\s*(?:Definition|Fixpoint|Theorem|Lemma|Inductive))",
+                r"Inductive\s+vm_instruction\s*(?::[^=].*?)?\s*:=\s*(.*?)(?:\.\s*$|\n\s*(?:Definition|Fixpoint|Theorem|Lemma|Inductive))",
                 clean, re.DOTALL | re.MULTILINE,
             )
             if instr_match:
@@ -6778,7 +6784,8 @@ def _scan_extraction_semantic_faithfulness(repo_root: Path) -> list[Finding]:
         ml_text = core_ml.read_text(encoding="utf-8", errors="replace")
         # Count pattern match arms in vm_apply
         # Find vm_apply function body — in OCaml extracted code, it uses
-        # `let vm_apply s = function | Coq_instr_X -> ... | Coq_instr_Y -> ...`
+        # `let vm_apply s = function | Instr_X -> ...` (Coq extraction uses the
+        # constructor name directly; older extractions used `Coq_instr_X` prefix).
         vm_apply_start = ml_text.find("let vm_apply")
         if vm_apply_start >= 0:
             # Find next top-level let binding
@@ -6786,7 +6793,7 @@ def _scan_extraction_semantic_faithfulness(repo_root: Path) -> list[Finding]:
             if vm_apply_end < 0:
                 vm_apply_end = len(ml_text)
             vm_apply_body = ml_text[vm_apply_start:vm_apply_end]
-            arms = len(re.findall(r"\|\s*(?:VMStep\.)?Coq_\w+", vm_apply_body))
+            arms = len(re.findall(r"\|\s*(?:VMStep\.)?(?:Coq_|Instr_)\w+", vm_apply_body))
             vm_apply_match = True
         else:
             vm_apply_match = False

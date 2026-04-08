@@ -5,16 +5,6 @@ let negb = function
 | true -> false
 | false -> true
 
-(** val fst : ('a1*'a2) -> 'a1 **)
-
-let fst = function
-| x,_ -> x
-
-(** val snd : ('a1*'a2) -> 'a2 **)
-
-let snd = function
-| _,y -> y
-
 (** val length : 'a1 list -> int **)
 
 let rec length = function
@@ -79,6 +69,10 @@ include Coq__1
 (** val mul : int -> int -> int **)
 
 let rec mul = ( * )
+
+(** val sub : int -> int -> int **)
+
+let rec sub = fun n m -> Stdlib.max 0 (n-m)
 
 (** val eqb : int -> int -> bool **)
 
@@ -365,21 +359,8 @@ let of_num_uint = function
 | UIntDecimal d0 -> of_uint d0
 | UIntHexadecimal d0 -> of_hex_uint d0
 
-(** val eqb0 : bool -> bool -> bool **)
-
-let eqb0 b1 b2 =
-  if b1 then b2 else if b2 then false else true
-
 module Nat =
  struct
-  (** val add : int -> int -> int **)
-
-  let rec add = (+)
-
-  (** val mul : int -> int -> int **)
-
-  let rec mul = ( * )
-
   (** val sub : int -> int -> int **)
 
   let rec sub = fun n m -> max 0 (n-m)
@@ -431,12 +412,6 @@ let rec nth n0 l default =
               | _::t -> nth m t default)
     n0
 
-(** val rev : 'a1 list -> 'a1 list **)
-
-let rec rev = function
-| [] -> []
-| x::l' -> app (rev l') (x::[])
-
 (** val map : ('a1 -> 'a2) -> 'a1 list -> 'a2 list **)
 
 let rec map f = function
@@ -448,13 +423,6 @@ let rec map f = function
 let rec flat_map f = function
 | [] -> []
 | x::t -> app (f x) (flat_map f t)
-
-(** val fold_left : ('a1 -> 'a2 -> 'a1) -> 'a2 list -> 'a1 -> 'a1 **)
-
-let rec fold_left f l a0 =
-  match l with
-  | [] -> a0
-  | b::t -> fold_left f t (f a0 b)
 
 (** val fold_right : ('a2 -> 'a1 -> 'a1) -> 'a1 -> 'a2 list -> 'a1 **)
 
@@ -601,34 +569,6 @@ module Pos =
   (** val compare : int -> int -> comparison **)
 
   let compare = fun x y -> if x=y then Eq else if x<y then Lt else Gt
-
-  (** val eqb : int -> int -> bool **)
-
-  let rec eqb p q =
-    (fun f2p1 f2p f1 p ->
-  if p<=1 then f1 () else if p mod 2 = 0 then f2p (p/2) else f2p1 (p/2))
-      (fun p0 ->
-      (fun f2p1 f2p f1 p ->
-  if p<=1 then f1 () else if p mod 2 = 0 then f2p (p/2) else f2p1 (p/2))
-        (fun q0 -> eqb p0 q0)
-        (fun _ -> false)
-        (fun _ -> false)
-        q)
-      (fun p0 ->
-      (fun f2p1 f2p f1 p ->
-  if p<=1 then f1 () else if p mod 2 = 0 then f2p (p/2) else f2p1 (p/2))
-        (fun _ -> false)
-        (fun q0 -> eqb p0 q0)
-        (fun _ -> false)
-        q)
-      (fun _ ->
-      (fun f2p1 f2p f1 p ->
-  if p<=1 then f1 () else if p mod 2 = 0 then f2p (p/2) else f2p1 (p/2))
-        (fun _ -> false)
-        (fun _ -> false)
-        (fun _ -> true)
-        q)
-      p
 
   (** val coq_Nsucc_double : int -> int **)
 
@@ -896,9 +836,72 @@ module N =
 
 module Z =
  struct
+  (** val double : int -> int **)
+
+  let double x =
+    (fun f0 fp fn z -> if z=0 then f0 () else if z>0 then fp z else fn (-z))
+      (fun _ -> 0)
+      (fun p -> ((fun p->2*p) p))
+      (fun p -> (~-) ((fun p->2*p) p))
+      x
+
+  (** val succ_double : int -> int **)
+
+  let succ_double x =
+    (fun f0 fp fn z -> if z=0 then f0 () else if z>0 then fp z else fn (-z))
+      (fun _ -> 1)
+      (fun p -> ((fun p->1+2*p) p))
+      (fun p -> (~-) (Pos.pred_double p))
+      x
+
+  (** val pred_double : int -> int **)
+
+  let pred_double x =
+    (fun f0 fp fn z -> if z=0 then f0 () else if z>0 then fp z else fn (-z))
+      (fun _ -> (~-) 1)
+      (fun p -> (Pos.pred_double p))
+      (fun p -> (~-) ((fun p->1+2*p) p))
+      x
+
+  (** val pos_sub : int -> int -> int **)
+
+  let rec pos_sub x y =
+    (fun f2p1 f2p f1 p ->
+  if p<=1 then f1 () else if p mod 2 = 0 then f2p (p/2) else f2p1 (p/2))
+      (fun p ->
+      (fun f2p1 f2p f1 p ->
+  if p<=1 then f1 () else if p mod 2 = 0 then f2p (p/2) else f2p1 (p/2))
+        (fun q -> double (pos_sub p q))
+        (fun q -> succ_double (pos_sub p q))
+        (fun _ -> ((fun p->2*p) p))
+        y)
+      (fun p ->
+      (fun f2p1 f2p f1 p ->
+  if p<=1 then f1 () else if p mod 2 = 0 then f2p (p/2) else f2p1 (p/2))
+        (fun q -> pred_double (pos_sub p q))
+        (fun q -> double (pos_sub p q))
+        (fun _ -> (Pos.pred_double p))
+        y)
+      (fun _ ->
+      (fun f2p1 f2p f1 p ->
+  if p<=1 then f1 () else if p mod 2 = 0 then f2p (p/2) else f2p1 (p/2))
+        (fun q -> (~-) ((fun p->2*p) q))
+        (fun q -> (~-) (Pos.pred_double q))
+        (fun _ -> 0)
+        y)
+      x
+
+  (** val add : int -> int -> int **)
+
+  let add = (+)
+
   (** val opp : int -> int **)
 
   let opp = (~-)
+
+  (** val sub : int -> int -> int **)
+
+  let sub = (-)
 
   (** val compare : int -> int -> comparison **)
 
@@ -917,30 +920,6 @@ module Z =
     match compare x y with
     | Gt -> true
     | _ -> false
-
-  (** val eqb : int -> int -> bool **)
-
-  let eqb x y =
-    (fun f0 fp fn z -> if z=0 then f0 () else if z>0 then fp z else fn (-z))
-      (fun _ ->
-      (fun f0 fp fn z -> if z=0 then f0 () else if z>0 then fp z else fn (-z))
-        (fun _ -> true)
-        (fun _ -> false)
-        (fun _ -> false)
-        y)
-      (fun p ->
-      (fun f0 fp fn z -> if z=0 then f0 () else if z>0 then fp z else fn (-z))
-        (fun _ -> false)
-        (fun q -> Pos.eqb p q)
-        (fun _ -> false)
-        y)
-      (fun p ->
-      (fun f0 fp fn z -> if z=0 then f0 () else if z>0 then fp z else fn (-z))
-        (fun _ -> false)
-        (fun _ -> false)
-        (fun q -> Pos.eqb p q)
-        y)
-      x
 
   (** val abs : int -> int **)
 
@@ -963,49 +942,6 @@ module Z =
       (fun n1 -> (Pos.of_succ_nat n1))
       n0
  end
-
-(** val zero : char **)
-
-let zero = '\000'
-
-(** val one : char **)
-
-let one = '\001'
-
-(** val shift : bool -> char -> char **)
-
-let shift = fun b c -> Char.chr (((Char.code c) lsl 1) land 255 + if b then 1 else 0)
-
-(** val ascii_of_pos : int -> char **)
-
-let ascii_of_pos =
-  let rec loop n0 p =
-    (fun zero succ n -> if n=0 then zero () else succ (n-1))
-      (fun _ -> zero)
-      (fun n' ->
-      (fun f2p1 f2p f1 p ->
-  if p<=1 then f1 () else if p mod 2 = 0 then f2p (p/2) else f2p1 (p/2))
-        (fun p' -> shift true (loop n' p'))
-        (fun p' -> shift false (loop n' p'))
-        (fun _ -> one)
-        p)
-      n0
-  in loop ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-       ((fun x -> x + 1) ((fun x -> x + 1) 0))))))))
-
-(** val ascii_of_N : int -> char **)
-
-let ascii_of_N n0 =
-  (fun f0 fp n -> if n=0 then f0 () else fp n)
-    (fun _ -> zero)
-    (fun p -> ascii_of_pos p)
-    n0
-
-(** val ascii_of_nat : int -> char **)
-
-let ascii_of_nat a =
-  ascii_of_N (N.of_nat a)
 
 (** val n_of_digits : bool list -> int **)
 
@@ -1030,18 +966,6 @@ let n_of_ascii a =
 
 let nat_of_ascii a =
   N.to_nat (n_of_ascii a)
-
-(** val eqb1 : char list -> char list -> bool **)
-
-let rec eqb1 s1 s2 =
-  match s1 with
-  | [] -> (match s2 with
-           | [] -> true
-           | _::_ -> false)
-  | c1::s1' ->
-    (match s2 with
-     | [] -> false
-     | c2::s2' -> if (=) c1 c2 then eqb1 s1' s2' else false)
 
 (** val append : char list -> char list -> char list **)
 
@@ -1146,6 +1070,12 @@ type morphismID = int
 
 type couplingData = { coupling_pairs : (int*int) list;
                       coupling_label : char list }
+
+(** val empty_coupling_data : couplingData **)
+
+let empty_coupling_data =
+  { coupling_pairs = []; coupling_label =
+    ('e'::('m'::('p'::('t'::('y'::[]))))) }
 
 type morphismState = { morph_source : moduleID; morph_target : moduleID;
                        morph_coupling : couplingData; morph_is_identity : 
@@ -1253,24 +1183,6 @@ let rec graph_find_region_modules modules region =
 let graph_find_region g region =
   graph_find_region_modules g.pg_modules (normalize_region region)
 
-(** val graph_add_axiom :
-    partitionGraph -> moduleID -> vMAxiom -> partitionGraph **)
-
-let graph_add_axiom g mid ax =
-  match graph_lookup g mid with
-  | Some m ->
-    let updated = { module_region = m.module_region; module_axioms =
-      (app m.module_axioms (ax::[])); module_mu_tensor = m.module_mu_tensor }
-    in
-    graph_update g mid updated
-  | None -> g
-
-(** val graph_add_axioms :
-    partitionGraph -> moduleID -> vMAxiom list -> partitionGraph **)
-
-let graph_add_axioms g mid axs =
-  fold_left (fun acc ax -> graph_add_axiom acc mid ax) axs g
-
 (** val graph_update_module_tensor :
     partitionGraph -> moduleID -> int -> int -> partitionGraph **)
 
@@ -1283,12 +1195,6 @@ let graph_update_module_tensor g mid k value =
     in
     graph_update g mid updated
   | None -> g
-
-(** val graph_record_discovery :
-    partitionGraph -> moduleID -> vMAxiom list -> partitionGraph **)
-
-let graph_record_discovery =
-  graph_add_axioms
 
 (** val graph_lookup_morphism_list :
     (morphismID*morphismState) list -> morphismID -> morphismState option **)
@@ -1342,17 +1248,6 @@ let graph_delete_morphism g morph_id =
          (filter (fun pat -> let id,_ = pat in negb (Nat.eqb id morph_id))
            g.pg_morphisms) }
   else None
-
-(** val graph_cascade_delete_morphisms :
-    partitionGraph -> moduleID -> partitionGraph **)
-
-let graph_cascade_delete_morphisms g mid =
-  { pg_next_id = g.pg_next_id; pg_modules = g.pg_modules; pg_next_morph_id =
-    g.pg_next_morph_id; pg_morphisms =
-    (filter (fun pat ->
-      let _,ms = pat in
-      (&&) (negb (Nat.eqb ms.morph_source mid))
-        (negb (Nat.eqb ms.morph_target mid))) g.pg_morphisms) }
 
 (** val relational_compose :
     (int*int) list -> (int*int) list -> (int*int) list **)
@@ -1459,101 +1354,8 @@ let rEG_COUNT =
 let mEM_SIZE =
   of_num_uint (UIntDecimal (D6 (D5 (D5 (D3 (D6 Nil))))))
 
-(** val graph_pnew : partitionGraph -> int list -> partitionGraph*moduleID **)
-
-let graph_pnew g region =
-  let normalized = normalize_region region in
-  (match graph_find_region g normalized with
-   | Some existing -> g,existing
-   | None -> graph_add_module g normalized [])
-
-(** val partition_valid : int list -> int list -> int list -> bool **)
-
-let partition_valid original left right =
-  (&&)
-    ((&&)
-      ((&&) (nat_list_subset left original) (nat_list_subset right original))
-      (nat_list_disjoint left right))
-    (nat_list_subset original (nat_list_union left right))
-
-(** val graph_psplit :
-    partitionGraph -> moduleID -> int list -> int list ->
-    ((partitionGraph*moduleID)*moduleID) option **)
-
-let graph_psplit g mid left right =
-  match graph_lookup g mid with
-  | Some m ->
-    let axioms = m.module_axioms in
-    let original = m.module_region in
-    let left_norm = normalize_region left in
-    let right_norm = normalize_region right in
-    if (||) (Nat.eqb (length left_norm) 0) (Nat.eqb (length right_norm) 0)
-    then let g',empty_id = graph_add_module g [] [] in
-         Some ((g',mid),empty_id)
-    else if partition_valid original left_norm right_norm
-         then let g_cascaded = graph_cascade_delete_morphisms g mid in
-              (match graph_remove g_cascaded mid with
-               | Some p ->
-                 let g_removed,_ = p in
-                 let g_left,left_id =
-                   graph_add_module g_removed left_norm axioms
-                 in
-                 let g_right,right_id =
-                   graph_add_module g_left right_norm axioms
-                 in
-                 Some ((g_right,left_id),right_id)
-               | None -> None)
-         else None
-  | None -> None
-
-(** val graph_pmerge :
-    partitionGraph -> moduleID -> moduleID -> (partitionGraph*moduleID) option **)
-
-let graph_pmerge g m1 m2 =
-  if Nat.eqb m1 m2
-  then None
-  else let g1 = graph_cascade_delete_morphisms g m1 in
-       let g2 = graph_cascade_delete_morphisms g1 m2 in
-       (match graph_remove g2 m1 with
-        | Some p ->
-          let g_without_m1,mod1 = p in
-          (match graph_remove g_without_m1 m2 with
-           | Some p0 ->
-             let g_without_both,mod2 = p0 in
-             if negb (nat_list_disjoint mod1.module_region mod2.module_region)
-             then None
-             else let union =
-                    nat_list_union mod1.module_region mod2.module_region
-                  in
-                  let combined_axioms =
-                    app mod1.module_axioms mod2.module_axioms
-                  in
-                  (match graph_find_region g_without_both union with
-                   | Some existing ->
-                     (match graph_lookup g_without_both existing with
-                      | Some existing_mod ->
-                        let updated = { module_region =
-                          existing_mod.module_region; module_axioms =
-                          (app existing_mod.module_axioms combined_axioms);
-                          module_mu_tensor = existing_mod.module_mu_tensor }
-                        in
-                        Some
-                        ((graph_update g_without_both existing updated),existing)
-                      | None -> None)
-                   | None ->
-                     Some
-                       (graph_add_module g_without_both union combined_axioms))
-           | None -> None)
-        | None -> None)
-
 type cSRState = { csr_cert_addr : int; csr_status : int; csr_err : int;
                   csr_heap_base : int }
-
-(** val csr_set_status : cSRState -> int -> cSRState **)
-
-let csr_set_status csrs status =
-  { csr_cert_addr = csrs.csr_cert_addr; csr_status = status; csr_err =
-    csrs.csr_err; csr_heap_base = csrs.csr_heap_base }
 
 (** val csr_set_err : cSRState -> int -> cSRState **)
 
@@ -1754,981 +1556,66 @@ let mem_to_string mem base =
 
 module CertCheck =
  struct
-  (** val string_to_list : char list -> char list **)
+  (** val word32_to_signed : int -> int **)
 
-  let rec string_to_list = function
-  | [] -> []
-  | c::s' -> c::(string_to_list s')
+  let word32_to_signed w =
+    let w' = Z.of_nat w in
+    if Z.ltb w' ((fun p->2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
+         ((fun p->2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
+         ((fun p->2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
+         ((fun p->2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
+         ((fun p->2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
+         ((fun p->2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
+         ((fun p->2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
+         ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
+         1)))))))))))))))))))))))))))))))
+    then w'
+    else Z.sub w' ((fun p->2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
+           ((fun p->2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
+           ((fun p->2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
+           ((fun p->2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
+           ((fun p->2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
+           ((fun p->2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
+           ((fun p->2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
+           ((fun p->2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
+           1))))))))))))))))))))))))))))))))
 
-  (** val list_to_string : char list -> char list **)
+  (** val check_model_binary_fn : int list -> (int -> int) -> bool **)
 
-  let rec list_to_string = function
-  | [] -> []
-  | c::l' -> c::(list_to_string l')
-
-  (** val ascii_nat : char -> int **)
-
-  let ascii_nat =
-    nat_of_ascii
-
-  (** val is_space : char -> bool **)
-
-  let is_space c =
-    (fun zero succ n -> if n=0 then zero () else succ (n-1))
-      (fun _ -> false)
-      (fun n0 ->
-      (fun zero succ n -> if n=0 then zero () else succ (n-1))
-        (fun _ -> false)
-        (fun n1 ->
-        (fun zero succ n -> if n=0 then zero () else succ (n-1))
-          (fun _ -> false)
-          (fun n2 ->
-          (fun zero succ n -> if n=0 then zero () else succ (n-1))
-            (fun _ -> false)
-            (fun n3 ->
-            (fun zero succ n -> if n=0 then zero () else succ (n-1))
-              (fun _ -> false)
-              (fun n4 ->
-              (fun zero succ n -> if n=0 then zero () else succ (n-1))
-                (fun _ -> false)
-                (fun n5 ->
-                (fun zero succ n -> if n=0 then zero () else succ (n-1))
-                  (fun _ -> false)
-                  (fun n6 ->
-                  (fun zero succ n -> if n=0 then zero () else succ (n-1))
-                    (fun _ -> false)
-                    (fun n7 ->
-                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
-                      (fun _ -> false)
-                      (fun n8 ->
-                      (fun zero succ n -> if n=0 then zero () else succ (n-1))
-                        (fun _ -> true)
-                        (fun n9 ->
-                        (fun zero succ n -> if n=0 then zero () else succ (n-1))
-                          (fun _ -> true)
-                          (fun n10 ->
-                          (fun zero succ n -> if n=0 then zero () else succ (n-1))
-                            (fun _ -> false)
-                            (fun n11 ->
-                            (fun zero succ n -> if n=0 then zero () else succ (n-1))
-                              (fun _ -> false)
-                              (fun n12 ->
-                              (fun zero succ n -> if n=0 then zero () else succ (n-1))
-                                (fun _ -> true)
-                                (fun n13 ->
-                                (fun zero succ n -> if n=0 then zero () else succ (n-1))
-                                  (fun _ -> false)
-                                  (fun n14 ->
-                                  (fun zero succ n -> if n=0 then zero () else succ (n-1))
-                                    (fun _ -> false)
-                                    (fun n15 ->
-                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
-                                      (fun _ -> false)
-                                      (fun n16 ->
-                                      (fun zero succ n -> if n=0 then zero () else succ (n-1))
-                                        (fun _ -> false)
-                                        (fun n17 ->
-                                        (fun zero succ n -> if n=0 then zero () else succ (n-1))
-                                          (fun _ -> false)
-                                          (fun n18 ->
-                                          (fun zero succ n -> if n=0 then zero () else succ (n-1))
-                                            (fun _ -> false)
-                                            (fun n19 ->
-                                            (fun zero succ n -> if n=0 then zero () else succ (n-1))
-                                              (fun _ -> false)
-                                              (fun n20 ->
-                                              (fun zero succ n -> if n=0 then zero () else succ (n-1))
-                                                (fun _ -> false)
-                                                (fun n21 ->
-                                                (fun zero succ n -> if n=0 then zero () else succ (n-1))
-                                                  (fun _ -> false)
-                                                  (fun n22 ->
-                                                  (fun zero succ n -> if n=0 then zero () else succ (n-1))
-                                                    (fun _ ->
-                                                    false)
-                                                    (fun n23 ->
-                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
-                                                      (fun _ ->
-                                                      false)
-                                                      (fun n24 ->
-                                                      (fun zero succ n -> if n=0 then zero () else succ (n-1))
-                                                        (fun _ ->
-                                                        false)
-                                                        (fun n25 ->
-                                                        (fun zero succ n -> if n=0 then zero () else succ (n-1))
-                                                          (fun _ ->
-                                                          false)
-                                                          (fun n26 ->
-                                                          (fun zero succ n -> if n=0 then zero () else succ (n-1))
-                                                            (fun _ ->
-                                                            false)
-                                                            (fun n27 ->
-                                                            (fun zero succ n -> if n=0 then zero () else succ (n-1))
-                                                              (fun _ ->
-                                                              false)
-                                                              (fun n28 ->
-                                                              (fun zero succ n -> if n=0 then zero () else succ (n-1))
-                                                                (fun _ ->
-                                                                false)
-                                                                (fun n29 ->
-                                                                (fun zero succ n -> if n=0 then zero () else succ (n-1))
-                                                                  (fun _ ->
-                                                                  false)
-                                                                  (fun n30 ->
-                                                                  (fun zero succ n -> if n=0 then zero () else succ (n-1))
-                                                                    (fun _ ->
-                                                                    false)
-                                                                    (fun n31 ->
-                                                                    (fun zero succ n -> if n=0 then zero () else succ (n-1))
-                                                                    (fun _ ->
-                                                                    true)
-                                                                    (fun _ ->
-                                                                    false)
-                                                                    n31)
-                                                                    n30)
-                                                                  n29)
-                                                                n28)
-                                                              n27)
-                                                            n26)
-                                                          n25)
-                                                        n24)
-                                                      n23)
-                                                    n22)
-                                                  n21)
-                                                n20)
-                                              n19)
-                                            n18)
-                                          n17)
-                                        n16)
-                                      n15)
-                                    n14)
-                                  n13)
-                                n12)
-                              n11)
-                            n10)
-                          n9)
-                        n8)
-                      n7)
-                    n6)
-                  n5)
-                n4)
-              n3)
-            n2)
-          n1)
-        n0)
-      (ascii_nat c)
-
-  (** val trim_left_list : char list -> char list **)
-
-  let rec trim_left_list l = match l with
-  | [] -> []
-  | c::l' -> if is_space c then trim_left_list l' else l
-
-  (** val trim_left : char list -> char list **)
-
-  let trim_left s =
-    list_to_string (trim_left_list (string_to_list s))
-
-  (** val split_lines_aux : char list -> char list -> char list list **)
-
-  let rec split_lines_aux l cur =
-    match l with
-    | [] -> (rev cur)::[]
-    | c::l' ->
-      if Nat.eqb (ascii_nat c) ((fun x -> x + 1) ((fun x -> x + 1)
-           ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-           ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-           ((fun x -> x + 1) ((fun x -> x + 1) 0))))))))))
-      then (rev cur)::(split_lines_aux l' [])
-      else split_lines_aux l' (c::cur)
-
-  (** val split_lines : char list -> char list list **)
-
-  let split_lines s =
-    map list_to_string (split_lines_aux (string_to_list s) [])
-
-  (** val split_ws_aux : char list -> char list -> char list list **)
-
-  let rec split_ws_aux l cur =
-    match l with
-    | [] -> (match rev cur with
-             | [] -> []
-             | a::l0 -> (a::l0)::[])
-    | c::l' ->
-      if is_space c
-      then (match rev cur with
-            | [] -> split_ws_aux l' []
-            | a::l0 -> (a::l0)::(split_ws_aux l' []))
-      else split_ws_aux l' (c::cur)
-
-  (** val split_ws : char list -> char list list **)
-
-  let split_ws s =
-    map list_to_string (split_ws_aux (string_to_list s) [])
-
-  (** val starts_with_char : char -> char list -> bool **)
-
-  let starts_with_char ch s =
-    match trim_left s with
+  let check_model_binary_fn formula_words get_cert =
+    match formula_words with
     | [] -> false
-    | c::_ -> (=) c ch
-
-  (** val is_digit : char -> bool **)
-
-  let is_digit c =
-    let n0 = ascii_nat c in
-    (&&)
-      ((<=) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        0)))))))))))))))))))))))))))))))))))))))))))))))) n0)
-      ((<=) n0 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        0))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
-
-  (** val parse_nat_digits : char list -> int -> int option **)
-
-  let rec parse_nat_digits l acc =
-    match l with
-    | [] -> Some acc
-    | c::l' ->
-      if is_digit c
-      then let d =
-             Nat.sub (ascii_nat c) ((fun x -> x + 1) ((fun x -> x + 1)
-               ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-               ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-               ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-               ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-               ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-               ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-               ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-               ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-               ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-               ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-               ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-               ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-               ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-               ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-               ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-               ((fun x -> x + 1)
-               0))))))))))))))))))))))))))))))))))))))))))))))))
-           in
-           parse_nat_digits l'
-             (Nat.add
-               (Nat.mul ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                 ((fun x -> x + 1) 0)))))))))) acc) d)
-      else None
-
-  (** val parse_int : char list -> int option **)
-
-  let parse_int s =
-    let l = string_to_list (trim_left s) in
-    (match l with
-     | [] -> None
-     | c::rest ->
-       if (=) c
-            (ascii_of_nat ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-              ((fun x -> x + 1)
-              0))))))))))))))))))))))))))))))))))))))))))))))
-       then (match parse_nat_digits rest 0 with
-             | Some n0 -> Some (Z.opp (Z.of_nat n0))
-             | None -> None)
-       else if (=) c
-                 (ascii_of_nat ((fun x -> x + 1) ((fun x -> x + 1)
-                   ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                   ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                   ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                   ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                   ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                   ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                   ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                   ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                   ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                   ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                   ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                   ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                   ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                   ((fun x -> x + 1) ((fun x -> x + 1)
-                   0))))))))))))))))))))))))))))))))))))))))))))
-            then (match parse_nat_digits rest 0 with
-                  | Some n0 -> Some (Z.of_nat n0)
-                  | None -> None)
-            else (match parse_nat_digits l 0 with
-                  | Some n0 -> Some (Z.of_nat n0)
-                  | None -> None))
-
-  (** val parse_nat : char list -> int option **)
-
-  let parse_nat s =
-    match parse_int s with
-    | Some z0 -> if Z.ltb z0 0 then None else Some (Z.to_nat z0)
-    | None -> None
-
-  type dimacs_cnf = { cnf_num_vars : int; cnf_clauses : int list list }
-
-  (** val cnf_num_vars : dimacs_cnf -> int **)
-
-  let cnf_num_vars d =
-    d.cnf_num_vars
-
-  (** val cnf_clauses : dimacs_cnf -> int list list **)
-
-  let cnf_clauses d =
-    d.cnf_clauses
-
-  (** val take_until_zero : int list -> int list **)
-
-  let take_until_zero zs =
-    let rec go l acc =
-      match l with
-      | [] -> rev acc
-      | z0::l' -> if Z.eqb z0 0 then rev acc else go l' (z0::acc)
-    in go zs []
-
-  (** val parse_clause_tokens : char list list -> int list option **)
-
-  let parse_clause_tokens toks =
-    let ints =
-      let rec go ts acc =
-        match ts with
-        | [] -> Some (rev acc)
-        | t::ts' ->
-          (match parse_int t with
-           | Some z0 -> go ts' (z0::acc)
-           | None -> None)
-      in go toks []
-    in
-    (match ints with
-     | Some zs -> Some (take_until_zero zs)
-     | None -> None)
-
-  (** val parse_dimacs : char list -> dimacs_cnf option **)
-
-  let parse_dimacs text =
-    let lines = split_lines text in
-    let rec go ls num_vars clauses =
-      match ls with
-      | [] ->
-        (match num_vars with
-         | Some nv -> Some { cnf_num_vars = nv; cnf_clauses = (rev clauses) }
-         | None -> None)
-      | line::ls' ->
-        let line' = trim_left line in
-        (match line' with
-         | [] -> go ls' num_vars clauses
-         | c::_ ->
-           if (=) c
-                (ascii_of_nat ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                  ((fun x -> x + 1)
-                  0))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
-           then go ls' num_vars clauses
-           else if (=) c
-                     (ascii_of_nat ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                       ((fun x -> x + 1) ((fun x -> x + 1)
-                       0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
-                then let toks = split_ws line' in
-                     (match toks with
-                      | [] -> None
-                      | _::l ->
-                        (match l with
-                         | [] -> None
-                         | _::l0 ->
-                           (match l0 with
-                            | [] -> None
-                            | nv::l1 ->
-                              (match l1 with
-                               | [] -> None
-                               | _::_ ->
-                                 (match parse_nat nv with
-                                  | Some nv' -> go ls' (Some nv') clauses
-                                  | None -> None)))))
-                else (match parse_clause_tokens (split_ws line') with
-                      | Some cl -> go ls' num_vars (cl::clauses)
-                      | None -> None))
-    in go lines None []
-
-  (** val lookup_bool : int -> (int*bool) list -> bool option **)
-
-  let rec lookup_bool x = function
-  | [] -> None
-  | p::m' -> let k,v = p in if Nat.eqb k x then Some v else lookup_bool x m'
-
-  (** val insert_bool : int -> bool -> (int*bool) list -> (int*bool) list **)
-
-  let insert_bool x v m =
-    (x,v)::m
-
-  (** val remove_prefix_v : char list -> char list **)
-
-  let remove_prefix_v s = match s with
-  | [] -> s
-  | c::rest ->
-    if (||)
-         ((=) c
-           (ascii_of_nat ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1)
-             0))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
-         ((=) c
-           (ascii_of_nat ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-             0))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
-    then rest
-    else s
-
-  (** val split_on_eq_aux :
-      char list -> char list -> (char list*char list) option **)
-
-  let rec split_on_eq_aux l acc =
-    match l with
-    | [] -> None
-    | c::l' ->
-      if Nat.eqb (ascii_nat c) ((fun x -> x + 1) ((fun x -> x + 1)
-           ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-           ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-           ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-           ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-           ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-           ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-           ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-           ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-           ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-           ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-           ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-           ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-           ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-           ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-           ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-           ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-           ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-           ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-           ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-           ((fun x -> x + 1) ((fun x -> x + 1)
-           0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
-      then Some ((rev acc),l')
-      else split_on_eq_aux l' (c::acc)
-
-  (** val split_on_eq : char list -> (char list*char list) option **)
-
-  let split_on_eq s =
-    match split_on_eq_aux (string_to_list s) [] with
-    | Some p ->
-      let l1,l2 = p in Some ((list_to_string l1),(list_to_string l2))
-    | None -> None
-
-  (** val value_is_false : char list -> bool **)
-
-  let value_is_false s =
-    let t = trim_left s in
-    (||) (eqb1 t ('0'::[]))
-      ((||) (eqb1 t ('f'::('a'::('l'::('s'::('e'::[])))))) (eqb1 t ('f'::[])))
-
-  (** val parse_assignment_token : char list -> (int*bool) option **)
-
-  let parse_assignment_token tok =
-    if eqb1 tok ('0'::[])
-    then None
-    else (match split_on_eq tok with
-          | Some p ->
-            let lhs,rhs = p in
-            (match parse_nat (remove_prefix_v lhs) with
-             | Some var -> Some (var,(negb (value_is_false rhs)))
-             | None -> None)
-          | None ->
-            (match parse_int tok with
-             | Some lit ->
-               if Z.eqb lit 0
-               then None
-               else let var = Z.to_nat (Z.abs lit) in Some (var,(Z.gtb lit 0))
-             | None -> None))
-
-  (** val parse_assignment : char list -> (int*bool) list option **)
-
-  let parse_assignment text =
-    let toks = split_ws text in
-    let rec go ts acc =
-      match ts with
-      | [] -> Some acc
-      | t::ts' ->
-        (match parse_assignment_token t with
-         | Some p -> let var,v = p in go ts' (insert_bool var v acc)
-         | None -> go ts' acc)
-    in go toks []
-
-  (** val clause_satisfied : (int*bool) list -> int list -> bool **)
-
-  let rec clause_satisfied asgn = function
-  | [] -> false
-  | lit::lits' ->
-    let var = Z.to_nat (Z.abs lit) in
-    (match lookup_bool var asgn with
-     | Some b ->
-       if eqb0 b (Z.gtb lit 0) then true else clause_satisfied asgn lits'
-     | None -> false)
-
-  (** val check_model : char list -> char list -> bool **)
-
-  let check_model cnf_text assignment_text =
-    match parse_dimacs cnf_text with
-    | Some cnf ->
-      (match parse_assignment assignment_text with
-       | Some asgn ->
-         if Nat.ltb (length asgn) cnf.cnf_num_vars
-         then false
-         else forallb (clause_satisfied asgn) cnf.cnf_clauses
-       | None -> false)
-    | None -> false
-
-  (** val assoc_remove : int -> (int*int list) list -> (int*int list) list **)
-
-  let assoc_remove k db =
-    filter (fun kv -> negb (Nat.eqb (fst kv) k)) db
-
-  (** val db_clauses : (int*int list) list -> int list list **)
-
-  let db_clauses db =
-    map snd db
-
-  (** val eval_clause : (int*bool) list -> int list -> bool*int list **)
-
-  let eval_clause asgn cl =
-    let rec go lits undec =
-      match lits with
-      | [] -> false,(rev undec)
-      | lit::lits' ->
-        let var = Z.to_nat (Z.abs lit) in
-        (match lookup_bool var asgn with
-         | Some b -> if eqb0 b (Z.gtb lit 0) then true,[] else go lits' undec
-         | None -> go lits' (lit::undec))
-    in go cl []
-
-  (** val unit_conflict_fuel :
-      int -> int -> int list list -> (int*bool) list -> int list -> bool **)
-
-  let rec unit_conflict_fuel fuel num_vars clauses asgn queue =
-    (fun zero succ n -> if n=0 then zero () else succ (n-1))
-      (fun _ -> false)
-      (fun fuel' ->
-      match queue with
-      | [] -> false
-      | lit::queue' ->
-        let var = Z.to_nat (Z.abs lit) in
-        let value = Z.gtb lit 0 in
-        (match lookup_bool var asgn with
-         | Some b ->
-           if eqb0 b value
-           then unit_conflict_fuel fuel' num_vars clauses asgn queue'
-           else true
-         | None ->
-           let asgn' = insert_bool var value asgn in
-           let scan =
-             let rec scan cls q =
-               match cls with
-               | [] -> Some q
-               | cl::cls' ->
-                 let sat,undec = eval_clause asgn' cl in
-                 if sat
-                 then scan cls' q
-                 else (match undec with
-                       | [] -> None
-                       | u::l ->
-                         (match l with
-                          | [] -> scan cls' (u::q)
-                          | _::_ -> scan cls' q))
-             in scan
-           in
-           (match scan clauses queue' with
-            | Some q' -> unit_conflict_fuel fuel' num_vars clauses asgn' q'
-            | None -> true)))
-      fuel
-
-  (** val unit_conflict : int -> int list list -> int list -> bool **)
-
-  let unit_conflict num_vars clauses assumptions =
-    let unit_lits =
-      fold_right (fun cl acc ->
-        match cl with
-        | [] -> acc
-        | u::l -> (match l with
-                   | [] -> u::acc
-                   | _::_ -> acc)) [] clauses
-    in
-    let queue = app assumptions unit_lits in
-    let fuel =
-      add (add num_vars (length queue)) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) 0))))))))))
-    in
-    unit_conflict_fuel fuel num_vars clauses [] queue
-
-  (** val verify_rup_clause :
-      int -> (int*int list) list -> int list -> bool **)
-
-  let verify_rup_clause num_vars db clause =
-    unit_conflict num_vars (db_clauses db) (map Z.opp clause)
-
-  type lrat_step = { lrat_id : int; lrat_clause : int list;
-                     lrat_deletions : int list; lrat_is_delete : bool }
-
-  (** val lrat_id : lrat_step -> int **)
-
-  let lrat_id l =
-    l.lrat_id
-
-  (** val lrat_clause : lrat_step -> int list **)
-
-  let lrat_clause l =
-    l.lrat_clause
-
-  (** val lrat_deletions : lrat_step -> int list **)
-
-  let lrat_deletions l =
-    l.lrat_deletions
-
-  (** val lrat_is_delete : lrat_step -> bool **)
-
-  let lrat_is_delete l =
-    l.lrat_is_delete
-
-  (** val parse_nat_list : char list list -> int list option **)
-
-  let parse_nat_list toks =
-    let rec go ts acc =
-      match ts with
-      | [] -> Some (rev acc)
-      | t::ts' ->
-        (match parse_nat t with
-         | Some n0 ->
-           if Nat.eqb n0 0 then Some (rev acc) else go ts' (n0::acc)
-         | None -> None)
-    in go toks []
-
-  (** val parse_z_list : char list list -> int list option **)
-
-  let parse_z_list toks =
-    let rec go ts acc =
-      match ts with
-      | [] -> Some (rev acc)
-      | t::ts' ->
-        (match parse_int t with
-         | Some z0 -> if Z.eqb z0 0 then Some (rev acc) else go ts' (z0::acc)
-         | None -> None)
-    in go toks []
-
-  (** val drop_until_zero : char list list -> char list list **)
-
-  let rec drop_until_zero = function
-  | [] -> []
-  | t::ts' -> if eqb1 t ('0'::[]) then ts' else drop_until_zero ts'
-
-  (** val parse_lrat_line : char list -> lrat_step option **)
-
-  let parse_lrat_line line =
-    let t = trim_left line in
-    if eqb1 t []
-    then None
-    else if starts_with_char
-              (ascii_of_nat ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-                ((fun x -> x + 1)
-                0))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
-              t
-         then None
-         else let toks = split_ws t in
-              (match toks with
-               | [] -> None
-               | first::rest ->
-                 if eqb1 first ('d'::[])
-                 then (match parse_nat_list rest with
-                       | Some dels ->
-                         Some { lrat_id = 0; lrat_clause = [];
-                           lrat_deletions = dels; lrat_is_delete = true }
-                       | None -> None)
-                 else (match parse_nat first with
-                       | Some cid ->
-                         (match parse_z_list rest with
-                          | Some clause ->
-                            let after_clause = drop_until_zero rest in
-                            let after_hints = drop_until_zero after_clause in
-                            (match parse_nat_list after_hints with
-                             | Some dels ->
-                               Some { lrat_id = cid; lrat_clause = clause;
-                                 lrat_deletions = dels; lrat_is_delete =
-                                 false }
-                             | None -> None)
-                          | None -> None)
-                       | None -> None))
-
-  (** val build_initial_db : int list list -> int -> (int*int list) list **)
-
-  let rec build_initial_db clauses idx =
-    match clauses with
-    | [] -> []
-    | cl::cls -> (idx,cl)::(build_initial_db cls ((fun x -> x + 1) idx))
-
-  (** val apply_deletions :
-      (int*int list) list -> int list -> (int*int list) list **)
-
-  let rec apply_deletions db = function
-  | [] -> db
-  | d::ds -> apply_deletions (assoc_remove d db) ds
-
-  (** val check_lrat_lines :
-      int -> char list list -> (int*int list) list -> bool -> bool **)
-
-  let rec check_lrat_lines num_vars lines db derived_empty =
-    match lines with
-    | [] -> derived_empty
-    | line::lines' ->
-      (match parse_lrat_line line with
-       | Some st ->
-         if st.lrat_is_delete
-         then check_lrat_lines num_vars lines'
-                (apply_deletions db st.lrat_deletions) derived_empty
-         else if verify_rup_clause num_vars db st.lrat_clause
-              then let db' =
-                     (st.lrat_id,st.lrat_clause)::(apply_deletions db
-                                                    st.lrat_deletions)
-                   in
-                   let derived_empty' =
-                     (||) derived_empty (Nat.eqb (length st.lrat_clause) 0)
-                   in
-                   check_lrat_lines num_vars lines' db' derived_empty'
-              else false
-       | None -> check_lrat_lines num_vars lines' db derived_empty)
-
-  (** val check_lrat : char list -> char list -> bool **)
-
-  let check_lrat cnf_text proof_text =
-    match parse_dimacs cnf_text with
-    | Some cnf ->
-      let db = build_initial_db cnf.cnf_clauses ((fun x -> x + 1) 0) in
-      check_lrat_lines cnf.cnf_num_vars (split_lines proof_text) db false
-    | None -> false
+    | _::l ->
+      (match l with
+       | [] -> false
+       | _::l0 ->
+         (match l0 with
+          | [] -> false
+          | nclauses_w::lit_words ->
+            let lookup_asgn = fun var -> negb (Nat.eqb (get_cert var) 0) in
+            let rec scan words ndone clause_sat =
+              if Nat.eqb ndone nclauses_w
+              then true
+              else (match words with
+                    | [] -> false
+                    | w::ws ->
+                      if Nat.eqb w 0
+                      then if clause_sat
+                           then scan ws ((fun x -> x + 1) ndone) false
+                           else false
+                      else let lit = word32_to_signed w in
+                           let var = Z.to_nat (Z.abs lit) in
+                           let lsat =
+                             if Z.gtb lit 0
+                             then lookup_asgn var
+                             else negb (lookup_asgn var)
+                           in
+                           scan ws ndone ((||) clause_sat lsat))
+            in scan lit_words 0 false))
  end
 
 module VMStep =
  struct
-  (** val check_lrat : char list -> char list -> bool **)
-
-  let check_lrat =
-    CertCheck.check_lrat
-
-  (** val check_model : char list -> char list -> bool **)
-
-  let check_model =
-    CertCheck.check_model
-
   type vm_instruction =
   | Coq_instr_pnew of int list * int
   | Coq_instr_psplit of moduleID * int list * int list * int
@@ -2778,6 +1665,11 @@ module VMStep =
   | Coq_instr_morph_tensor of int * morphismID * morphismID * int
   | Coq_instr_morph_get of int * morphismID * int * int
 
+  (** val coq_ORACLE_HALTS_HW_COST : int **)
+
+  let coq_ORACLE_HALTS_HW_COST =
+    of_num_uint (UIntDecimal (D1 (D0 (D0 (D0 (D0 (D0 (D0 Nil))))))))
+
   (** val instruction_cost : vm_instruction -> int **)
 
   let instruction_cost = function
@@ -2809,7 +1701,7 @@ module VMStep =
   | Coq_instr_xor_rank (_, _, cost) -> cost
   | Coq_instr_emit (_, _, cost) -> (fun x -> x + 1) cost
   | Coq_instr_reveal (_, _, _, cost) -> (fun x -> x + 1) cost
-  | Coq_instr_oracle_halts (_, cost) -> cost
+  | Coq_instr_oracle_halts (_, _) -> coq_ORACLE_HALTS_HW_COST
   | Coq_instr_halt cost -> cost
   | Coq_instr_checkpoint (_, cost) -> cost
   | Coq_instr_read_port (_, _, _, _, cost) -> (fun x -> x + 1) cost
@@ -2882,6 +1774,36 @@ module VMStep =
   let vm_mu_tensor_add_at s k delta =
     let old = nth k s.vm_mu_tensor 0 in
     list_update_at s.vm_mu_tensor k (add old delta)
+
+  (** val tensor_indices_ok : int -> int -> bool **)
+
+  let tensor_indices_ok i j =
+    (&&)
+      (Nat.ltb i ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) 0)))))
+      (Nat.ltb j ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) 0)))))
+
+  (** val morphism_selector_value : morphismState -> int -> int **)
+
+  let morphism_selector_value ms selector =
+    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+      (fun _ -> ms.morph_source)
+      (fun n0 ->
+      (fun zero succ n -> if n=0 then zero () else succ (n-1))
+        (fun _ -> ms.morph_target)
+        (fun n1 ->
+        (fun zero succ n -> if n=0 then zero () else succ (n-1))
+          (fun _ -> length ms.morph_coupling.coupling_pairs)
+          (fun n2 ->
+          (fun zero succ n -> if n=0 then zero () else succ (n-1))
+            (fun _ ->
+            if ms.morph_is_identity then (fun x -> x + 1) 0 else 0)
+            (fun _ -> 0)
+            n2)
+          n1)
+        n0)
+      selector
 
   (** val record_trial :
       witnessCounts -> int -> int -> int -> int -> witnessCounts **)
@@ -2997,71 +1919,1130 @@ module VMStep =
       s.vm_mu_tensor; vm_err = s.vm_err; vm_logic_acc = s.vm_logic_acc;
       vm_mstatus = s.vm_mstatus; vm_witness = s.vm_witness; vm_certified =
       s.vm_certified }
+
+  (** val coq_LASSERT_TRAP_PC : int **)
+
+  let coq_LASSERT_TRAP_PC =
+    (fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+
+  (** val graph_module_size : partitionGraph -> moduleID -> int **)
+
+  let graph_module_size g mid =
+    match graph_lookup g mid with
+    | Some m -> length m.module_region
+    | None -> 0
+
+  (** val graph_hw_psplit : partitionGraph -> int -> partitionGraph **)
+
+  let graph_hw_psplit g mid =
+    let orig_sz = graph_module_size g mid in
+    let left_sz = Nat.div orig_sz ((fun x -> x + 1) ((fun x -> x + 1) 0)) in
+    let right_sz = sub orig_sz left_sz in
+    let g1 =
+      match graph_remove g mid with
+      | Some p -> let g',_ = p in g'
+      | None -> g
+    in
+    let g2,_ = graph_add_module g1 (seq 0 left_sz) [] in
+    let g3,_ = graph_add_module g2 (seq 0 right_sz) [] in g3
+
+  (** val graph_hw_pmerge : partitionGraph -> int -> int -> partitionGraph **)
+
+  let graph_hw_pmerge g m1 m2 =
+    let sz1 = graph_module_size g m1 in
+    let sz2 = graph_module_size g m2 in
+    let merged_sz = add sz1 sz2 in
+    let g1 =
+      match graph_remove g m1 with
+      | Some p -> let g',_ = p in g'
+      | None -> g
+    in
+    let g2 =
+      match graph_remove g1 m2 with
+      | Some p -> let g',_ = p in g'
+      | None -> g1
+    in
+    let g3,_ = graph_add_module g2 (seq 0 merged_sz) [] in g3
+
+  (** val lassert_check_ok : vMState -> int -> int -> bool -> bool **)
+
+  let lassert_check_ok s freg creg kind =
+    let fbase = read_reg s freg in
+    let cbase = read_reg s creg in
+    let hw_flen = read_mem s fbase in
+    let formula_words =
+      map (fun i -> read_mem s (add fbase i))
+        (seq 0
+          (add ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) 0)))
+            hw_flen))
+    in
+    let get_cert = fun var -> read_mem s (add cbase var) in
+    if kind
+    then CertCheck.check_model_binary_fn formula_words get_cert
+    else false
  end
 
 (** val vm_apply : vMState -> VMStep.vm_instruction -> vMState **)
 
 let vm_apply s = function
 | VMStep.Coq_instr_pnew (region, cost) ->
-  let graph',_ = graph_pnew s.vm_graph region in
+  let sz = length (normalize_region region) in
+  let graph',_ = graph_add_module s.vm_graph (seq 0 sz) [] in
   VMStep.advance_state s (VMStep.Coq_instr_pnew (region, cost)) graph'
     s.vm_csrs s.vm_err
 | VMStep.Coq_instr_psplit (module0, left_region, right_region, cost) ->
-  (match graph_psplit s.vm_graph module0 left_region right_region with
-   | Some p ->
-     let p0,_ = p in
-     let graph',_ = p0 in
-     VMStep.advance_state s (VMStep.Coq_instr_psplit (module0, left_region,
-       right_region, cost)) graph' s.vm_csrs s.vm_err
-   | None ->
-     VMStep.advance_state s (VMStep.Coq_instr_psplit (module0, left_region,
-       right_region, cost)) s.vm_graph
-       (csr_set_err s.vm_csrs ((fun x -> x + 1) 0)) (VMStep.latch_err s true))
+  let graph' =
+    VMStep.graph_hw_psplit s.vm_graph
+      (Nat.modulo module0 ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1)
+        0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+  in
+  VMStep.advance_state s (VMStep.Coq_instr_psplit (module0, left_region,
+    right_region, cost)) graph' s.vm_csrs s.vm_err
 | VMStep.Coq_instr_pmerge (m1, m2, cost) ->
-  (match graph_pmerge s.vm_graph m1 m2 with
-   | Some p ->
-     let graph',_ = p in
-     VMStep.advance_state s (VMStep.Coq_instr_pmerge (m1, m2, cost)) graph'
-       s.vm_csrs s.vm_err
-   | None ->
-     VMStep.advance_state s (VMStep.Coq_instr_pmerge (m1, m2, cost))
-       s.vm_graph (csr_set_err s.vm_csrs ((fun x -> x + 1) 0))
-       (VMStep.latch_err s true))
+  let graph' =
+    VMStep.graph_hw_pmerge s.vm_graph
+      (Nat.modulo m1 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1)
+        0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+      (Nat.modulo m2 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1)
+        0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+  in
+  VMStep.advance_state s (VMStep.Coq_instr_pmerge (m1, m2, cost)) graph'
+    s.vm_csrs s.vm_err
 | VMStep.Coq_instr_lassert (freg, creg, kind, flen, cost) ->
-  let formula = mem_to_string s.vm_mem (read_reg s freg) in
-  let cert = mem_to_string s.vm_mem (read_reg s creg) in
-  if kind
-  then if VMStep.check_model formula cert
-       then VMStep.advance_state s (VMStep.Coq_instr_lassert (freg, creg,
-              kind, flen, cost)) (graph_add_axiom s.vm_graph 0 formula)
-              (csr_set_err (csr_set_status s.vm_csrs ((fun x -> x + 1) 0)) 0)
-              s.vm_err
-       else VMStep.advance_state s (VMStep.Coq_instr_lassert (freg, creg,
-              kind, flen, cost)) s.vm_graph
-              (csr_set_err s.vm_csrs ((fun x -> x + 1) 0))
-              (VMStep.latch_err s true)
-  else if VMStep.check_lrat formula cert
-       then VMStep.advance_state s (VMStep.Coq_instr_lassert (freg, creg,
-              kind, flen, cost)) s.vm_graph
-              (csr_set_err (csr_set_status s.vm_csrs ((fun x -> x + 1) 0)) 0)
-              true
-       else VMStep.advance_state s (VMStep.Coq_instr_lassert (freg, creg,
-              kind, flen, cost)) s.vm_graph
-              (csr_set_err s.vm_csrs ((fun x -> x + 1) 0))
-              (VMStep.latch_err s true)
-| VMStep.Coq_instr_ljoin (c1reg, c2reg, cost) ->
-  let cert1 = mem_to_string s.vm_mem (read_reg s c1reg) in
-  let cert2 = mem_to_string s.vm_mem (read_reg s c2reg) in
-  if eqb1 cert1 cert2
-  then VMStep.advance_state s (VMStep.Coq_instr_ljoin (c1reg, c2reg, cost))
-         s.vm_graph (csr_set_err s.vm_csrs 0) s.vm_err
-  else VMStep.advance_state s (VMStep.Coq_instr_ljoin (c1reg, c2reg, cost))
-         s.vm_graph (csr_set_err s.vm_csrs ((fun x -> x + 1) 0))
-         (VMStep.latch_err s true)
-| VMStep.Coq_instr_pdiscover (module0, evidence, cost) ->
-  let graph' = graph_record_discovery s.vm_graph module0 evidence in
-  VMStep.advance_state s (VMStep.Coq_instr_pdiscover (module0, evidence,
-    cost)) graph' s.vm_csrs s.vm_err
+  let check_ok = VMStep.lassert_check_ok s freg creg kind in
+  let new_pc =
+    if check_ok then (fun x -> x + 1) s.vm_pc else VMStep.coq_LASSERT_TRAP_PC
+  in
+  let new_err = if check_ok then s.vm_err else true in
+  { vm_graph = s.vm_graph; vm_csrs = s.vm_csrs; vm_regs = s.vm_regs; vm_mem =
+  s.vm_mem; vm_pc = new_pc; vm_mu =
+  (VMStep.apply_cost s (VMStep.Coq_instr_lassert (freg, creg, kind, flen,
+    cost))); vm_mu_tensor = s.vm_mu_tensor; vm_err = new_err; vm_logic_acc =
+  s.vm_logic_acc; vm_mstatus = s.vm_mstatus; vm_witness = s.vm_witness;
+  vm_certified = s.vm_certified }
 | VMStep.Coq_instr_xfer (dst, src, cost) ->
   let regs' = write_reg s dst (read_reg s src) in
   VMStep.advance_state_rm s (VMStep.Coq_instr_xfer (dst, src, cost))
@@ -3189,14 +3170,14 @@ let vm_apply s = function
   let regs' = write_reg s dst (word64_popcount vsrc) in
   VMStep.advance_state_rm s (VMStep.Coq_instr_xor_rank (dst, src, cost))
     s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
-| VMStep.Coq_instr_emit (module0, payload, cost) ->
-  let csrs' = csr_set_cert_addr s.vm_csrs (ascii_checksum payload) in
-  VMStep.advance_state s (VMStep.Coq_instr_emit (module0, payload, cost))
-    s.vm_graph csrs' s.vm_err
 | VMStep.Coq_instr_reveal (module0, bits, cert, cost) ->
-  let csrs' = csr_set_cert_addr s.vm_csrs (ascii_checksum cert) in
   VMStep.advance_state_reveal s (VMStep.Coq_instr_reveal (module0, bits,
-    cert, cost)) module0 bits s.vm_graph csrs' s.vm_err
+    cert, cost))
+    (Nat.modulo module0 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) 0))))))))))))))))) bits s.vm_graph s.vm_csrs s.vm_err
 | VMStep.Coq_instr_read_port (dst, channel_idx, value, bits, cost) ->
   let regs' = write_reg s dst value in
   VMStep.advance_state_rm s (VMStep.Coq_instr_read_port (dst, channel_idx,
@@ -3259,32 +3240,21 @@ let vm_apply s = function
   VMStep.advance_state_rm s (VMStep.Coq_instr_lui (dst, imm, cost))
     s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
 | VMStep.Coq_instr_tensor_set (mid, i, j, value, cost) ->
-  if (&&)
-       (Nat.ltb i ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-         ((fun x -> x + 1) 0)))))
-       (Nat.ltb j ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-         ((fun x -> x + 1) 0)))))
-  then let graph' =
-         graph_update_module_tensor s.vm_graph mid
+  if VMStep.tensor_indices_ok i j
+  then VMStep.advance_state s (VMStep.Coq_instr_tensor_set (mid, i, j, value,
+         cost))
+         (graph_update_module_tensor s.vm_graph mid
            (add
              (mul i ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-               ((fun x -> x + 1) 0))))) j) value
-       in
-       VMStep.advance_state s (VMStep.Coq_instr_tensor_set (mid, i, j, value,
-         cost)) graph' s.vm_csrs s.vm_err
+               ((fun x -> x + 1) 0))))) j) value) s.vm_csrs s.vm_err
   else VMStep.advance_state s (VMStep.Coq_instr_tensor_set (mid, i, j, value,
          cost)) s.vm_graph (csr_set_err s.vm_csrs ((fun x -> x + 1) 0))
          (VMStep.latch_err s true)
 | VMStep.Coq_instr_tensor_get (dst, mid, i, j, cost) ->
-  if (&&)
-       (Nat.ltb i ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-         ((fun x -> x + 1) 0)))))
-       (Nat.ltb j ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-         ((fun x -> x + 1) 0)))))
-  then let tensor_val = module_tensor_entry s mid i j in
-       let regs' = write_reg s dst tensor_val in
-       VMStep.advance_state_rm s (VMStep.Coq_instr_tensor_get (dst, mid, i,
-         j, cost)) s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
+  if VMStep.tensor_indices_ok i j
+  then VMStep.advance_state_rm s (VMStep.Coq_instr_tensor_get (dst, mid, i,
+         j, cost)) s.vm_graph s.vm_csrs
+         (write_reg s dst (module_tensor_entry s mid i j)) s.vm_mem s.vm_err
   else VMStep.advance_state s (VMStep.Coq_instr_tensor_get (dst, mid, i, j,
          cost)) s.vm_graph (csr_set_err s.vm_csrs ((fun x -> x + 1) 0))
          (VMStep.latch_err s true)
@@ -3293,9 +3263,9 @@ let vm_apply s = function
    | Some _ ->
      (match graph_lookup s.vm_graph dst_mod with
       | Some _ ->
-        let c = { coupling_pairs = []; coupling_label = [] } in
         let graph',morph_id =
-          graph_add_morphism s.vm_graph src_mod dst_mod c false
+          graph_add_morphism s.vm_graph src_mod dst_mod empty_coupling_data
+            false
         in
         VMStep.advance_state_rm s (VMStep.Coq_instr_morph (dst, src_mod,
           dst_mod, coupling_idx, cost)) graph' s.vm_csrs
@@ -3312,9 +3282,9 @@ let vm_apply s = function
 | VMStep.Coq_instr_compose (dst, m1_id, m2_id, cost) ->
   (match graph_compose_morphisms s.vm_graph m1_id m2_id with
    | Some p ->
-     let graph',new_id = p in
+     let graph',morph_id = p in
      VMStep.advance_state_rm s (VMStep.Coq_instr_compose (dst, m1_id, m2_id,
-       cost)) graph' s.vm_csrs (write_reg s dst new_id) s.vm_mem s.vm_err
+       cost)) graph' s.vm_csrs (write_reg s dst morph_id) s.vm_mem s.vm_err
    | None ->
      VMStep.advance_state s (VMStep.Coq_instr_compose (dst, m1_id, m2_id,
        cost)) s.vm_graph (csr_set_err s.vm_csrs ((fun x -> x + 1) 0))
@@ -3322,9 +3292,9 @@ let vm_apply s = function
 | VMStep.Coq_instr_morph_id (dst, module0, cost) ->
   (match graph_add_identity s.vm_graph module0 with
    | Some p ->
-     let graph',new_id = p in
+     let graph',morph_id = p in
      VMStep.advance_state_rm s (VMStep.Coq_instr_morph_id (dst, module0,
-       cost)) graph' s.vm_csrs (write_reg s dst new_id) s.vm_mem s.vm_err
+       cost)) graph' s.vm_csrs (write_reg s dst morph_id) s.vm_mem s.vm_err
    | None ->
      VMStep.advance_state s (VMStep.Coq_instr_morph_id (dst, module0, cost))
        s.vm_graph (csr_set_err s.vm_csrs ((fun x -> x + 1) 0))
@@ -3341,11 +3311,9 @@ let vm_apply s = function
 | VMStep.Coq_instr_morph_assert (morph_id, property, cert, cost) ->
   (match graph_lookup_morphism s.vm_graph morph_id with
    | Some _ ->
-     let csrs' = csr_set_err (csr_set_status s.vm_csrs ((fun x -> x + 1) 0)) 0
-     in
      VMStep.advance_state s (VMStep.Coq_instr_morph_assert (morph_id,
        property, cert, cost)) s.vm_graph
-       (csr_set_cert_addr csrs' (ascii_checksum property)) s.vm_err
+       (csr_set_cert_addr s.vm_csrs (ascii_checksum property)) s.vm_err
    | None ->
      VMStep.advance_state s (VMStep.Coq_instr_morph_assert (morph_id,
        property, cert, cost)) s.vm_graph
@@ -3353,9 +3321,9 @@ let vm_apply s = function
 | VMStep.Coq_instr_morph_tensor (dst, f_id, g_id, cost) ->
   (match graph_tensor_morphisms s.vm_graph f_id g_id with
    | Some p ->
-     let graph',new_id = p in
+     let graph',morph_id = p in
      VMStep.advance_state_rm s (VMStep.Coq_instr_morph_tensor (dst, f_id,
-       g_id, cost)) graph' s.vm_csrs (write_reg s dst new_id) s.vm_mem
+       g_id, cost)) graph' s.vm_csrs (write_reg s dst morph_id) s.vm_mem
        s.vm_err
    | None ->
      VMStep.advance_state s (VMStep.Coq_instr_morph_tensor (dst, f_id, g_id,
@@ -3364,28 +3332,10 @@ let vm_apply s = function
 | VMStep.Coq_instr_morph_get (dst, morph_id, selector, cost) ->
   (match graph_lookup_morphism s.vm_graph morph_id with
    | Some ms ->
-     let value =
-       (fun zero succ n -> if n=0 then zero () else succ (n-1))
-         (fun _ -> ms.morph_source)
-         (fun n0 ->
-         (fun zero succ n -> if n=0 then zero () else succ (n-1))
-           (fun _ -> ms.morph_target)
-           (fun n1 ->
-           (fun zero succ n -> if n=0 then zero () else succ (n-1))
-             (fun _ -> length ms.morph_coupling.coupling_pairs)
-             (fun n2 ->
-             (fun zero succ n -> if n=0 then zero () else succ (n-1))
-               (fun _ ->
-               if ms.morph_is_identity then (fun x -> x + 1) 0 else 0)
-               (fun _ -> 0)
-               n2)
-             n1)
-           n0)
-         selector
-     in
-     let regs' = write_reg s dst value in
      VMStep.advance_state_rm s (VMStep.Coq_instr_morph_get (dst, morph_id,
-       selector, cost)) s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
+       selector, cost)) s.vm_graph s.vm_csrs
+       (write_reg s dst (VMStep.morphism_selector_value ms selector))
+       s.vm_mem s.vm_err
    | None ->
      VMStep.advance_state s (VMStep.Coq_instr_morph_get (dst, morph_id,
        selector, cost)) s.vm_graph
@@ -3412,6 +3362,63 @@ let rec pnew_chain n0 s region cost =
       cost)
     n0
 
+type morphTableEntry = { morph_entry_source : int; morph_entry_target : 
+                         int; morph_entry_coupling_desc : int;
+                         morph_entry_is_identity : bool }
+
+type couplingDescriptorEntry = { coupling_desc_base : int;
+                                 coupling_desc_count : int }
+
+type couplingPairEntry = { coupling_pair_source : int;
+                           coupling_pair_target : int }
+
+type formulaDescriptorEntry = { formula_desc_base : int;
+                                formula_desc_count : int }
+
+type certificationDescriptorEntry = { cert_desc_base : int;
+                                      cert_desc_count : int }
+
+type descriptorMetadataEntry = { desc_meta_subtype : int;
+                                 desc_meta_kind : int;
+                                 desc_meta_inline_len : int;
+                                 desc_meta_aux : int }
+
+type lassertShadowState = { lassert_shadow_phase : int;
+                            lassert_shadow_kind : bool;
+                            lassert_shadow_fbase : int;
+                            lassert_shadow_cbase : int;
+                            lassert_shadow_flen : int;
+                            lassert_shadow_clen : int;
+                            lassert_shadow_fptr : int;
+                            lassert_shadow_cptr : int;
+                            lassert_shadow_clause_sat : bool;
+                            lassert_shadow_fbuf : (int -> int);
+                            lassert_shadow_cbuf : (int -> int) }
+
+type richSnapshotState = { rich_morph_table : (int -> morphTableEntry option);
+                           rich_next_morph_id : int;
+                           rich_coupling_desc_table : (int ->
+                                                      couplingDescriptorEntry
+                                                      option);
+                           rich_next_coupling_desc_id : int;
+                           rich_coupling_pair_table : (int ->
+                                                      couplingPairEntry
+                                                      option);
+                           rich_next_coupling_pair_id : int;
+                           rich_formula_desc_table : (int ->
+                                                     formulaDescriptorEntry
+                                                     option);
+                           rich_next_formula_desc_id : int;
+                           rich_cert_desc_table : (int ->
+                                                  certificationDescriptorEntry
+                                                  option);
+                           rich_next_cert_desc_id : int;
+                           rich_desc_meta_table : (int ->
+                                                  descriptorMetadataEntry
+                                                  option);
+                           rich_next_desc_meta_id : int;
+                           rich_lassert_state : lassertShadowState }
+
 type kamiSnapshot = { snap_pc : int; snap_mu : int; snap_err : bool;
                       snap_halted : bool; snap_regs : (int -> int);
                       snap_mem : (int -> int); snap_partition_ops : int;
@@ -3422,7 +3429,11 @@ type kamiSnapshot = { snap_pc : int; snap_mu : int; snap_err : bool;
                       snap_wc_diff_00 : int; snap_wc_same_01 : int;
                       snap_wc_diff_01 : int; snap_wc_same_10 : int;
                       snap_wc_diff_10 : int; snap_wc_same_11 : int;
-                      snap_wc_diff_11 : int }
+                      snap_wc_diff_11 : int;
+                      snap_rich_state : richSnapshotState;
+                      snap_csr_cert_addr : int; snap_csr_status : int;
+                      snap_csr_err : int; snap_csr_heap_base : int;
+                      snap_logic_acc : int; snap_mstatus : int }
 
 type busReg =
 | BusRegPc

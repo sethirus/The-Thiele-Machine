@@ -192,6 +192,9 @@ Inductive vm_instruction :=
 | instr_morph_tensor (dst : nat) (f_id g_id : MorphismID) (mu_delta : nat)
 | instr_morph_get (dst : nat) (morph_id : MorphismID) (selector : nat) (mu_delta : nat).
 
+(** Hardware-fixed cost for ORACLE_HALTS (1,000,000 μ-units). *)
+Definition ORACLE_HALTS_HW_COST : nat := 1000000.
+
 Definition instruction_cost (instr : vm_instruction) : nat :=
   match instr with
   | instr_pnew _ cost => cost
@@ -218,7 +221,7 @@ Definition instruction_cost (instr : vm_instruction) : nat :=
   | instr_xor_rank _ _ cost => cost
   | instr_emit _ _ cost => S cost
   | instr_reveal _ _ _ cost => S cost
-  | instr_oracle_halts _ cost => cost
+  | instr_oracle_halts _ _ => ORACLE_HALTS_HW_COST
   | instr_halt cost => cost
   | instr_checkpoint _ cost => cost
   | instr_read_port _ _ _ _ cost => S cost
@@ -332,6 +335,22 @@ Definition latch_err (s : VMState) (flag : bool) : bool :=
 Definition vm_mu_tensor_add_at (s : VMState) (k delta : nat) : list nat :=
   let old := nth k s.(vm_mu_tensor) 0 in
   list_update_at s.(vm_mu_tensor) k (old + delta).
+
+(** tensor_indices_ok: hardware/extracted tensor ops accept only 4x4 indices.
+    Invalid indices latch the error flag instead of mutating graph/registers. *)
+Definition tensor_indices_ok (i j : nat) : bool :=
+  Nat.ltb i 4 && Nat.ltb j 4.
+
+(** morphism_selector_value: MORPH_GET selector decoding.
+    0=source, 1=target, 2=number of coupling pairs, 3=is_identity. *)
+Definition morphism_selector_value (ms : MorphismState) (selector : nat) : nat :=
+  match selector with
+  | 0 => ms.(morph_source)
+  | 1 => ms.(morph_target)
+  | 2 => List.length ms.(morph_coupling).(coupling_pairs)
+  | 3 => if ms.(morph_is_identity) then 1 else 0
+  | _ => 0
+  end.
 
 (** record_trial: Increment the appropriate WitnessCounts bucket
     based on settings (x, y) and whether outputs (a, b) match.
@@ -461,91 +480,116 @@ Definition jump_state_rm (s : VMState) (instr : vm_instruction)
      vm_witness := s.(vm_witness);
      vm_certified := s.(vm_certified) |}.
 
+(** * Hardware-aligned constants and helpers *)
+
+(** Trap PC — hardware branches here on LASSERT failure.
+    Must match KamiHW.Abstraction.LASSERT_TRAP_PC and ThieleCPUCore.v. *)
+Definition LASSERT_TRAP_PC : nat := 3840.
+
+(** Get module region size from graph, defaulting to 0 if not found. *)
+Definition graph_module_size (g : PartitionGraph) (mid : ModuleID) : nat :=
+  match graph_lookup g mid with
+  | Some m => List.length m.(module_region)
+  | None => 0
+  end.
+
+(** Hardware-style PSPLIT: half-split module at [mid].
+    Removes original, adds left at pg_next_id, right at pg_next_id+1. *)
+Definition graph_hw_psplit (g : PartitionGraph) (mid : nat) : PartitionGraph :=
+  let orig_sz := graph_module_size g mid in
+  let left_sz := Nat.div orig_sz 2 in
+  let right_sz := orig_sz - left_sz in
+  let g1 := match graph_remove g mid with
+             | Some (g', _) => g'
+             | None => g
+             end in
+  let '(g2, _) := graph_add_module g1 (List.seq 0 left_sz) [] in
+  let '(g3, _) := graph_add_module g2 (List.seq 0 right_sz) [] in
+  g3.
+
+(** Hardware-style PMERGE: merge [m1] and [m2] by summing sizes. *)
+Definition graph_hw_pmerge (g : PartitionGraph) (m1 m2 : nat) : PartitionGraph :=
+  let sz1 := graph_module_size g m1 in
+  let sz2 := graph_module_size g m2 in
+  let merged_sz := sz1 + sz2 in
+  let g1 := match graph_remove g m1 with
+             | Some (g', _) => g'
+             | None => g
+             end in
+  let g2 := match graph_remove g1 m2 with
+             | Some (g', _) => g'
+             | None => g1
+             end in
+  let '(g3, _) := graph_add_module g2 (List.seq 0 merged_sz) [] in
+  g3.
+
+(** Helper for LASSERT: compute whether the binary SAT check passes. *)
+Definition lassert_check_ok (s : VMState) (freg creg : nat) (kind : bool) : bool :=
+  let fbase := read_reg s freg in
+  let cbase := read_reg s creg in
+  let hw_flen := read_mem s fbase in
+  let formula_words := List.map (fun i => read_mem s (fbase + i))
+                                (List.seq 0 (3 + hw_flen)) in
+  let get_cert := (fun var => read_mem s (cbase + var)) in
+  if kind then CertCheck.check_model_binary_fn formula_words get_cert
+  else false.
+
+(** Helper for LASSERT: hw_flen is the first word at formula base. *)
+Definition lassert_hw_flen (s : VMState) (freg : nat) : nat :=
+  read_mem s (read_reg s freg).
+
 Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
-| step_pnew : forall s region cost graph' mid,
-    graph_pnew s.(vm_graph) region = (graph', mid) ->
+| step_pnew : forall s region cost graph',
+    let sz := List.length (normalize_region region) in
+    graph' = fst (graph_add_module s.(vm_graph) (List.seq 0 sz) []) ->
     vm_step s (instr_pnew region cost)
       (advance_state s (instr_pnew region cost) graph' s.(vm_csrs) s.(vm_err))
-| step_psplit : forall s module left right cost graph' left_id right_id,
-    graph_psplit s.(vm_graph) module left right = Some (graph', left_id, right_id) ->
-    vm_step s (instr_psplit module left right cost)
-      (advance_state s (instr_psplit module left right cost) graph' s.(vm_csrs) s.(vm_err))
-| step_psplit_failure : forall s module left right cost,
-    graph_psplit s.(vm_graph) module left right = None ->
+| step_psplit : forall s module left right cost graph',
+    graph' = graph_hw_psplit s.(vm_graph) (module mod 64) ->
     vm_step s (instr_psplit module left right cost)
       (advance_state s (instr_psplit module left right cost)
-        s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
-| step_pmerge : forall s m1 m2 cost graph' merged_id,
-    graph_pmerge s.(vm_graph) m1 m2 = Some (graph', merged_id) ->
-    vm_step s (instr_pmerge m1 m2 cost)
-      (advance_state s (instr_pmerge m1 m2 cost) graph' s.(vm_csrs) s.(vm_err))
-| step_pmerge_failure : forall s m1 m2 cost,
-    graph_pmerge s.(vm_graph) m1 m2 = None ->
+        graph' s.(vm_csrs) s.(vm_err))
+| step_pmerge : forall s m1 m2 cost graph',
+    graph' = graph_hw_pmerge s.(vm_graph) (m1 mod 64) (m2 mod 64) ->
     vm_step s (instr_pmerge m1 m2 cost)
       (advance_state s (instr_pmerge m1 m2 cost)
-        s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
-| step_lassert_sat : forall s freg creg flen cost graph' formula cert,
-    formula = mem_to_string s.(vm_mem) (read_reg s freg) ->
-    cert = mem_to_string s.(vm_mem) (read_reg s creg) ->
-    check_model formula cert = true ->
-    graph' = graph_add_axiom s.(vm_graph) 0 formula ->
-    vm_step s (instr_lassert freg creg true flen cost)
-      (advance_state s (instr_lassert freg creg true flen cost)
-        graph' (csr_set_err (csr_set_status s.(vm_csrs) 1) 0) s.(vm_err))
-| step_lassert_unsat : forall s freg creg flen cost formula cert,
-    formula = mem_to_string s.(vm_mem) (read_reg s freg) ->
-    cert = mem_to_string s.(vm_mem) (read_reg s creg) ->
-    check_lrat formula cert = true ->
-    vm_step s (instr_lassert freg creg false flen cost)
-      (advance_state s (instr_lassert freg creg false flen cost)
-        s.(vm_graph) (csr_set_err (csr_set_status s.(vm_csrs) 1) 0) true)
-(** Invalid certificate failure cases: relation is total — every LASSERT steps. *)
-| step_lassert_sat_failure : forall s freg creg flen cost formula cert,
-    formula = mem_to_string s.(vm_mem) (read_reg s freg) ->
-    cert = mem_to_string s.(vm_mem) (read_reg s creg) ->
-    check_model formula cert = false ->
-    vm_step s (instr_lassert freg creg true flen cost)
-      (advance_state s (instr_lassert freg creg true flen cost)
-        s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
-| step_lassert_unsat_failure : forall s freg creg flen cost formula cert,
-    formula = mem_to_string s.(vm_mem) (read_reg s freg) ->
-    cert = mem_to_string s.(vm_mem) (read_reg s creg) ->
-    check_lrat formula cert = false ->
-    vm_step s (instr_lassert freg creg false flen cost)
-      (advance_state s (instr_lassert freg creg false flen cost)
-        s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
-| step_ljoin_equal : forall s c1reg c2reg cost cert1 cert2,
-    cert1 = mem_to_string s.(vm_mem) (read_reg s c1reg) ->
-    cert2 = mem_to_string s.(vm_mem) (read_reg s c2reg) ->
-    String.eqb cert1 cert2 = true ->
+        graph' s.(vm_csrs) s.(vm_err))
+| step_lassert : forall s freg creg kind flen cost,
+    let check_ok := lassert_check_ok s freg creg kind in
+    let new_pc   := if check_ok then S s.(vm_pc) else LASSERT_TRAP_PC in
+    let new_err  := if check_ok then s.(vm_err) else true in
+    vm_step s (instr_lassert freg creg kind flen cost)
+      {| vm_graph := s.(vm_graph);
+         vm_csrs := s.(vm_csrs);
+         vm_regs := s.(vm_regs);
+         vm_mem := s.(vm_mem);
+         vm_pc := new_pc;
+         vm_mu := apply_cost s (instr_lassert freg creg kind flen cost);
+         vm_mu_tensor := s.(vm_mu_tensor);
+         vm_err := new_err;
+         vm_logic_acc := s.(vm_logic_acc);
+         vm_mstatus := s.(vm_mstatus);
+         vm_witness := s.(vm_witness);
+         vm_certified := s.(vm_certified) |}
+| step_ljoin : forall s c1reg c2reg cost,
     vm_step s (instr_ljoin c1reg c2reg cost)
       (advance_state s (instr_ljoin c1reg c2reg cost)
-        s.(vm_graph) (csr_set_err s.(vm_csrs) 0) s.(vm_err))
-| step_ljoin_mismatch : forall s c1reg c2reg cost cert1 cert2,
-    cert1 = mem_to_string s.(vm_mem) (read_reg s c1reg) ->
-    cert2 = mem_to_string s.(vm_mem) (read_reg s c2reg) ->
-    String.eqb cert1 cert2 = false ->
-    vm_step s (instr_ljoin c1reg c2reg cost)
-      (advance_state s (instr_ljoin c1reg c2reg cost)
-        s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
+        s.(vm_graph) s.(vm_csrs) s.(vm_err))
 | step_mdlacc : forall s module cost,
     vm_step s (instr_mdlacc module cost)
       (advance_state s (instr_mdlacc module cost) s.(vm_graph) s.(vm_csrs) s.(vm_err))
-| step_emit : forall s module payload cost csrs',
-    csrs' = csr_set_cert_addr s.(vm_csrs) (ascii_checksum payload) ->
+| step_emit : forall s module payload cost,
     vm_step s (instr_emit module payload cost)
       (advance_state s (instr_emit module payload cost)
-        s.(vm_graph) csrs' s.(vm_err))
-| step_reveal : forall s module bits cert cost csrs',
-    csrs' = csr_set_cert_addr s.(vm_csrs) (ascii_checksum cert) ->
+        s.(vm_graph) s.(vm_csrs) s.(vm_err))
+| step_reveal : forall s module bits cert cost,
     vm_step s (instr_reveal module bits cert cost)
-      (advance_state_reveal s (instr_reveal module bits cert cost) module bits
-        s.(vm_graph) csrs' s.(vm_err))
-| step_pdiscover : forall s module evidence cost graph',
-    graph' = graph_record_discovery s.(vm_graph) module evidence ->
+      (advance_state_reveal s (instr_reveal module bits cert cost) (module mod 16) bits
+        s.(vm_graph) s.(vm_csrs) s.(vm_err))
+| step_pdiscover : forall s module evidence cost,
     vm_step s (instr_pdiscover module evidence cost)
       (advance_state s (instr_pdiscover module evidence cost)
-        graph' s.(vm_csrs) s.(vm_err))
+        s.(vm_graph) s.(vm_csrs) s.(vm_err))
 | step_chsh_trial_ok : forall s x y a b cost wc',
     chsh_bits_ok x y a b = true ->
     wc' = record_trial s.(vm_witness) x y a b ->
@@ -760,121 +804,108 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
           vm_certified := true |})
 (** Per-module tensor instructions.
     TENSOR_SET writes a value to the per-module 4×4 metric tensor at (i,j).
-    TENSOR_GET reads the per-module tensor entry at (i,j) into a register. *)
-| step_tensor_set : forall s mid i j value cost graph',
-    (i < 4)%nat -> (j < 4)%nat ->
-    graph' = graph_update_module_tensor s.(vm_graph) mid (i * 4 + j) value ->
+    TENSOR_GET reads the per-module tensor entry at (i,j) into a register.
+    Invalid indices take the same latched-error path as the extracted VM. *)
+| step_tensor_set_ok : forall s mid i j value cost,
+    tensor_indices_ok i j = true ->
     vm_step s (instr_tensor_set mid i j value cost)
       (advance_state s (instr_tensor_set mid i j value cost)
-        graph' s.(vm_csrs) s.(vm_err))
-| step_tensor_set_oob : forall s mid i j value cost,
-    (4 <= i \/ 4 <= j)%nat ->
+        (graph_update_module_tensor s.(vm_graph) mid (i * 4 + j) value)
+        s.(vm_csrs) s.(vm_err))
+| step_tensor_set_bad : forall s mid i j value cost,
+    tensor_indices_ok i j = false ->
     vm_step s (instr_tensor_set mid i j value cost)
       (advance_state s (instr_tensor_set mid i j value cost)
         s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
-| step_tensor_get : forall s dst mid i j cost regs' tensor_val,
-    (i < 4)%nat -> (j < 4)%nat ->
-    tensor_val = module_tensor_entry s mid i j ->
-    regs' = write_reg s dst tensor_val ->
+| step_tensor_get_ok : forall s dst mid i j cost regs',
+    tensor_indices_ok i j = true ->
+    regs' = write_reg s dst (module_tensor_entry s mid i j) ->
     vm_step s (instr_tensor_get dst mid i j cost)
       (advance_state_rm s (instr_tensor_get dst mid i j cost)
         s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
-| step_tensor_get_oob : forall s dst mid i j cost,
-    (4 <= i \/ 4 <= j)%nat ->
+| step_tensor_get_bad : forall s dst mid i j cost,
+    tensor_indices_ok i j = false ->
     vm_step s (instr_tensor_get dst mid i j cost)
       (advance_state s (instr_tensor_get dst mid i j cost)
         s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
 (** ---------------------------------------------------------------
-    Categorical morphism instructions (Phase 7)
+    Categorical morphism instructions (Phase 7) — rich-state semantics
     --------------------------------------------------------------- *)
-(** MORPH: Create a morphism between modules.
-    coupling_idx is currently unused (simplified to empty coupling). *)
-| step_morph : forall s dst src_mod dst_mod coupling_idx cost graph' morph_id,
-    graph_lookup s.(vm_graph) src_mod <> None ->
-    graph_lookup s.(vm_graph) dst_mod <> None ->
-    let c := {| coupling_pairs := []; coupling_label := "" |} in
-    (graph', morph_id) = graph_add_morphism s.(vm_graph) src_mod dst_mod c false ->
+| step_morph_ok : forall s dst src_mod dst_mod coupling_idx cost src_ms dst_ms graph' morph_id,
+    graph_lookup s.(vm_graph) src_mod = Some src_ms ->
+    graph_lookup s.(vm_graph) dst_mod = Some dst_ms ->
+    (graph', morph_id) = graph_add_morphism s.(vm_graph) src_mod dst_mod empty_coupling_data false ->
     vm_step s (instr_morph dst src_mod dst_mod coupling_idx cost)
       (advance_state_rm s (instr_morph dst src_mod dst_mod coupling_idx cost)
         graph' s.(vm_csrs) (write_reg s dst morph_id) s.(vm_mem) s.(vm_err))
-| step_morph_failure : forall s dst src_mod dst_mod coupling_idx cost,
-    (graph_lookup s.(vm_graph) src_mod = None \/
-     graph_lookup s.(vm_graph) dst_mod = None) ->
+| step_morph_bad_src : forall s dst src_mod dst_mod coupling_idx cost,
+    graph_lookup s.(vm_graph) src_mod = None ->
     vm_step s (instr_morph dst src_mod dst_mod coupling_idx cost)
       (advance_state s (instr_morph dst src_mod dst_mod coupling_idx cost)
         s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
-(** COMPOSE: Compose two morphisms m1;m2 when m1.target = m2.source *)
-| step_compose : forall s dst m1_id m2_id cost graph' new_id,
-    graph_compose_morphisms s.(vm_graph) m1_id m2_id = Some (graph', new_id) ->
+| step_morph_bad_dst : forall s dst src_mod dst_mod coupling_idx cost src_ms,
+    graph_lookup s.(vm_graph) src_mod = Some src_ms ->
+    graph_lookup s.(vm_graph) dst_mod = None ->
+    vm_step s (instr_morph dst src_mod dst_mod coupling_idx cost)
+      (advance_state s (instr_morph dst src_mod dst_mod coupling_idx cost)
+        s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
+| step_compose_ok : forall s dst m1_id m2_id cost graph' morph_id,
+    graph_compose_morphisms s.(vm_graph) m1_id m2_id = Some (graph', morph_id) ->
     vm_step s (instr_compose dst m1_id m2_id cost)
       (advance_state_rm s (instr_compose dst m1_id m2_id cost)
-        graph' s.(vm_csrs) (write_reg s dst new_id) s.(vm_mem) s.(vm_err))
-| step_compose_failure : forall s dst m1_id m2_id cost,
+        graph' s.(vm_csrs) (write_reg s dst morph_id) s.(vm_mem) s.(vm_err))
+| step_compose_bad : forall s dst m1_id m2_id cost,
     graph_compose_morphisms s.(vm_graph) m1_id m2_id = None ->
     vm_step s (instr_compose dst m1_id m2_id cost)
       (advance_state s (instr_compose dst m1_id m2_id cost)
         s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
-(** MORPH_ID: Create identity morphism for a module *)
-| step_morph_id : forall s dst module cost graph' new_id,
-    graph_add_identity s.(vm_graph) module = Some (graph', new_id) ->
+| step_morph_id_ok : forall s dst module cost graph' morph_id,
+    graph_add_identity s.(vm_graph) module = Some (graph', morph_id) ->
     vm_step s (instr_morph_id dst module cost)
       (advance_state_rm s (instr_morph_id dst module cost)
-        graph' s.(vm_csrs) (write_reg s dst new_id) s.(vm_mem) s.(vm_err))
-| step_morph_id_failure : forall s dst module cost,
+        graph' s.(vm_csrs) (write_reg s dst morph_id) s.(vm_mem) s.(vm_err))
+| step_morph_id_bad : forall s dst module cost,
     graph_add_identity s.(vm_graph) module = None ->
     vm_step s (instr_morph_id dst module cost)
       (advance_state s (instr_morph_id dst module cost)
         s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
-(** MORPH_DELETE: Remove a morphism *)
-| step_morph_delete : forall s morph_id cost graph',
+| step_morph_delete_ok : forall s morph_id cost graph',
     graph_delete_morphism s.(vm_graph) morph_id = Some graph' ->
     vm_step s (instr_morph_delete morph_id cost)
       (advance_state s (instr_morph_delete morph_id cost)
         graph' s.(vm_csrs) s.(vm_err))
-| step_morph_delete_failure : forall s morph_id cost,
+| step_morph_delete_bad : forall s morph_id cost,
     graph_delete_morphism s.(vm_graph) morph_id = None ->
     vm_step s (instr_morph_delete morph_id cost)
       (advance_state s (instr_morph_delete morph_id cost)
         s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
-(** MORPH_ASSERT: Assert property about morphism (cert-setter) *)
-| step_morph_assert : forall s morph_id property cert cost csrs',
-    graph_lookup_morphism s.(vm_graph) morph_id <> None ->
-    csrs' = csr_set_err (csr_set_status s.(vm_csrs) 1) 0 ->
+| step_morph_assert_ok : forall s morph_id property cert cost ms,
+    graph_lookup_morphism s.(vm_graph) morph_id = Some ms ->
     vm_step s (instr_morph_assert morph_id property cert cost)
       (advance_state s (instr_morph_assert morph_id property cert cost)
-        s.(vm_graph) (csr_set_cert_addr csrs' (ascii_checksum property)) s.(vm_err))
-| step_morph_assert_failure : forall s morph_id property cert cost,
+        s.(vm_graph) (csr_set_cert_addr s.(vm_csrs) (ascii_checksum property)) s.(vm_err))
+| step_morph_assert_bad : forall s morph_id property cert cost,
     graph_lookup_morphism s.(vm_graph) morph_id = None ->
     vm_step s (instr_morph_assert morph_id property cert cost)
       (advance_state s (instr_morph_assert morph_id property cert cost)
         s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
-(** MORPH_TENSOR: Tensor product f⊗g of two morphisms *)
-| step_morph_tensor : forall s dst f_id g_id cost graph' new_id,
-    graph_tensor_morphisms s.(vm_graph) f_id g_id = Some (graph', new_id) ->
+| step_morph_tensor_ok : forall s dst f_id g_id cost graph' morph_id,
+    graph_tensor_morphisms s.(vm_graph) f_id g_id = Some (graph', morph_id) ->
     vm_step s (instr_morph_tensor dst f_id g_id cost)
       (advance_state_rm s (instr_morph_tensor dst f_id g_id cost)
-        graph' s.(vm_csrs) (write_reg s dst new_id) s.(vm_mem) s.(vm_err))
-| step_morph_tensor_failure : forall s dst f_id g_id cost,
+        graph' s.(vm_csrs) (write_reg s dst morph_id) s.(vm_mem) s.(vm_err))
+| step_morph_tensor_bad : forall s dst f_id g_id cost,
     graph_tensor_morphisms s.(vm_graph) f_id g_id = None ->
     vm_step s (instr_morph_tensor dst f_id g_id cost)
       (advance_state s (instr_morph_tensor dst f_id g_id cost)
         s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
-(** MORPH_GET: Read morphism field into register.
-    Selectors: 0=source, 1=target, 2=coupling_length, 3=is_identity *)
-| step_morph_get : forall s dst morph_id selector cost regs' ms value,
+| step_morph_get_ok : forall s dst morph_id selector cost ms regs',
     graph_lookup_morphism s.(vm_graph) morph_id = Some ms ->
-    value = match selector with
-            | 0 => ms.(morph_source)
-            | 1 => ms.(morph_target)
-            | 2 => List.length ms.(morph_coupling).(coupling_pairs)
-            | 3 => if ms.(morph_is_identity) then 1 else 0
-            | _ => 0
-            end ->
-    regs' = write_reg s dst value ->
+    regs' = write_reg s dst (morphism_selector_value ms selector) ->
     vm_step s (instr_morph_get dst morph_id selector cost)
       (advance_state_rm s (instr_morph_get dst morph_id selector cost)
         s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
-| step_morph_get_failure : forall s dst morph_id selector cost,
+| step_morph_get_bad : forall s dst morph_id selector cost,
     graph_lookup_morphism s.(vm_graph) morph_id = None ->
     vm_step s (instr_morph_get dst morph_id selector cost)
       (advance_state s (instr_morph_get dst morph_id selector cost)

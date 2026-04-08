@@ -10,7 +10,7 @@ All invariants verified here follow from formally proven theorems in:
   - coq/kernel/CategoryMonoidal.v (tensor bifunctor + monoidal coherence)
 
 NOTE: Module IDs start from 1 (pg_next_id initializes to 1 in the kernel).
-      Morphism IDs start from 0 (pg_next_morph_id initializes to 0).
+      Morphism IDs start from 1 (pg_next_morph_id initializes to 1).
       Region syntax {a,b,...} is a list of individual cell IDs, NOT a range.
 """
 
@@ -28,15 +28,15 @@ class TestMorphCreate:
     """MORPH writes the new morphism ID to a destination register."""
 
     def test_morph_returns_id_to_register(self):
-        """MORPH 5 1 2 0 cost writes morphism-ID 0 to reg[5]."""
+        """MORPH 5 1 2 0 cost writes morphism-ID 1 to reg[5]."""
         state = vm.run_vm([
             "PNEW {0,1} 1",       # module 1
             "PNEW {2,3} 1",       # module 2
-            "MORPH 5 1 2 0 2",    # create morph 1→2, morph ID=0 → reg[5], cost=2
+            "MORPH 5 1 2 0 2",    # create morph 1→2, morph ID=1 → reg[5], cost=2
             "HALT 0",
         ])
         assert not state.err, f"MORPH errored: mu={state.mu}"
-        assert state.regs[5] == 0, f"Expected first morphism ID=0, got {state.regs[5]}"
+        assert state.regs[5] == 1, f"Expected first morphism ID=1, got {state.regs[5]}"
         # mu: PNEW×2 (cost 1 each) + MORPH (cost 2) = 4
         assert state.mu == 4, f"mu={state.mu}, expected 4"
 
@@ -54,15 +54,15 @@ class TestMorphCreate:
         state = vm.run_vm([
             "PNEW {0,1} 1",       # module 1
             "PNEW {2,3} 1",       # module 2
-            "MORPH 5 1 2 0 0",    # morph ID=0 → reg[5]
-            "MORPH 6 1 2 0 0",    # morph ID=1 → reg[6]
-            "MORPH 7 1 2 0 0",    # morph ID=2 → reg[7]
+            "MORPH 5 1 2 0 0",    # morph ID=1 → reg[5]
+            "MORPH 6 1 2 0 0",    # morph ID=2 → reg[6]
+            "MORPH 7 1 2 0 0",    # morph ID=3 → reg[7]
             "HALT 0",
         ])
         assert not state.err
-        assert state.regs[5] == 0
-        assert state.regs[6] == 1
-        assert state.regs[7] == 2
+        assert state.regs[5] == 1
+        assert state.regs[6] == 2
+        assert state.regs[7] == 3
 
 
 # ---------------------------------------------------------------------------
@@ -76,11 +76,11 @@ class TestMorphId:
         """MORPH_ID 3 1 cost creates identity morphism for module 1, writes ID to reg[3]."""
         state = vm.run_vm([
             "PNEW {0,1} 1",       # module 1
-            "MORPH_ID 3 1 1",     # identity morph for module-1, ID=0 → reg[3], cost=1
+            "MORPH_ID 3 1 1",     # identity morph for module-1, ID=1 → reg[3], cost=1
             "HALT 0",
         ])
         assert not state.err, f"MORPH_ID errored: mu={state.mu}"
-        assert state.regs[3] == 0, f"Expected morphism ID=0, got {state.regs[3]}"
+        assert state.regs[3] == 1, f"Expected morphism ID=1, got {state.regs[3]}"
         # mu: PNEW (cost 1) + MORPH_ID (cost 1) = 2
         assert state.mu == 2
 
@@ -88,8 +88,8 @@ class TestMorphId:
         """MORPH_GET with selector=3 returns 1 for an identity morphism."""
         state = vm.run_vm([
             "PNEW {5,6} 1",       # module 1
-            "MORPH_ID 3 1 0",     # identity morph for module-1, ID=0 → reg[3]
-            "MORPH_GET 4 0 3 0",  # selector=3 (is_identity flag) from morph-0 → reg[4]
+            "MORPH_ID 3 1 0",     # identity morph for module-1, ID=1 → reg[3]
+            "MORPH_GET 4 1 3 0",  # selector=3 (is_identity flag) from morph-1 → reg[4]
             "HALT 0",
         ])
         assert not state.err
@@ -119,11 +119,11 @@ class TestMorphCompose:
             "PNEW {3} 1",         # module 3 (target of g)
             "MORPH 5 1 2 0 1",    # morph 0: 1→2
             "MORPH 6 2 3 0 1",    # morph 1: 2→3
-            "COMPOSE 7 0 1 1",    # compose morph-0;morph-1: 1→3, ID=2 → reg[7]
+            "COMPOSE 7 1 2 1",    # compose morph-1;morph-2: 1→3, ID=3 → reg[7]
             "HALT 0",
         ])
         assert not state.err, f"COMPOSE errored: mu={state.mu}"
-        assert state.regs[7] == 2, f"Expected composed morphism ID=2, got {state.regs[7]}"
+        assert state.regs[7] == 3, f"Expected composed morphism ID=3, got {state.regs[7]}"
         # mu: PNEW×3 (3) + MORPH×2 (2) + COMPOSE (1) = 6
         assert state.mu == 6
 
@@ -133,9 +133,9 @@ class TestMorphCompose:
             "PNEW {1} 1",         # module 1
             "PNEW {2} 1",         # module 2
             "PNEW {3} 1",         # module 3
-            "MORPH 5 1 2 0 0",    # morph 0: 1→2 (target = module 2)
-            "MORPH 6 1 3 0 0",    # morph 1: 1→3 (source = module 1 ≠ module 2)
-            "COMPOSE 7 0 1 0",    # morph0.target=2 ≠ morph1.source=1 → error
+            "MORPH 5 1 2 0 0",    # morph 1: 1→2 (target = module 2)
+            "MORPH 6 1 3 0 0",    # morph 2: 1→3 (source = module 1 ≠ module 2)
+            "COMPOSE 7 1 2 0",    # morph1.target=2 ≠ morph2.source=1 → error
             "HALT 0",
         ])
         assert state.err, "Expected error for type mismatch in COMPOSE"
@@ -163,10 +163,10 @@ class TestMorphDelete:
             "PNEW {1} 1",          # module 1
             "PNEW {2} 1",          # module 2
             "PNEW {3} 1",          # module 3
-            "MORPH 5 1 2 0 0",     # morph 0: 1→2
-            "MORPH 6 2 3 0 0",     # morph 1: 2→3
-            "MORPH_DELETE 0 0",    # delete morph-0
-            "COMPOSE 7 0 1 0",     # morph-0 is gone → COMPOSE should error
+            "MORPH 5 1 2 0 0",     # morph 1: 1→2
+            "MORPH 6 2 3 0 0",     # morph 2: 2→3
+            "MORPH_DELETE 1 0",    # delete morph-1
+            "COMPOSE 7 1 2 0",     # morph-1 is gone → COMPOSE should error
             "HALT 0",
         ])
         assert state.err, "Expected error: COMPOSE after MORPH_DELETE of morph-0"
@@ -176,14 +176,14 @@ class TestMorphDelete:
         state = vm.run_vm([
             "PNEW {1} 1",          # module 1
             "PNEW {2} 1",          # module 2
-            "MORPH 5 1 2 0 0",     # morph 0: 1→2
-            "MORPH_DELETE 0 0",    # delete morph-0
-            "MORPH 6 1 2 0 0",     # new morph: 1→2, ID=1 (pg_next_morph_id incremented)
+            "MORPH 5 1 2 0 0",     # morph 1: 1→2
+            "MORPH_DELETE 1 0",    # delete morph-1
+            "MORPH 6 1 2 0 0",     # new morph: 1→2, ID=2 (pg_next_morph_id incremented)
             "HALT 0",
         ])
         assert not state.err, "Expected success after delete + new MORPH"
-        # New morphism ID is 1 (pg_next_morph_id does not reuse deleted IDs)
-        assert state.regs[6] == 1, f"Expected new morphism ID=1, got {state.regs[6]}"
+        # New morphism ID is 2 (pg_next_morph_id does not reuse deleted IDs)
+        assert state.regs[6] == 2, f"Expected new morphism ID=2, got {state.regs[6]}"
 
     def test_morph_delete_failure_on_missing_morphism(self):
         """MORPH_DELETE on non-existent morphism ID sets err flag."""
@@ -206,7 +206,7 @@ class TestMorphAssert:
         state = vm.run_vm([
             "PNEW {1} 1",              # module 1, cost=1
             "MORPH_ID 5 1 0",          # identity morph, cost=0
-            "MORPH_ASSERT 0 p c 3",    # assert on morph-0, cost=3 → actual S(3)=4
+            "MORPH_ASSERT 1 p c 3",    # assert on morph-1, cost=3 → actual S(3)=4
             "HALT 0",
         ])
         assert not state.err, f"MORPH_ASSERT errored: mu={state.mu}"
@@ -218,7 +218,7 @@ class TestMorphAssert:
         state = vm.run_vm([
             "PNEW {1} 1",              # module 1 cost=1
             "MORPH_ID 5 1 0",          # identity morph cost=0
-            "MORPH_ASSERT 0 p c 0",    # cost=0 → S(0)=1
+            "MORPH_ASSERT 1 p c 0",    # cost=0 → S(0)=1
             "HALT 0",
         ])
         assert not state.err
@@ -241,36 +241,49 @@ class TestMorphAssert:
 class TestCascadeDelete:
     """When a module is removed (PMERGE), all morphisms referencing it are deleted."""
 
-    def test_cascade_delete_on_pmerge(self):
-        """PMERGE removes modules, cascade-deleting any morphisms that reference them."""
+    def test_pmerge_does_not_cascade_delete_morphisms(self):
+        """PMERGE removes modules but does NOT cascade-delete referencing morphisms.
+
+        Per graph_hw_pmerge in coq/kernel/VMStep.v, PMERGE calls graph_remove
+        on the two input modules and graph_add_module for the merged result, but
+        never calls graph_cascade_delete_morphisms. Orphaned morphisms therefore
+        remain in the morphism table after PMERGE, and MORPH_DELETE on them
+        succeeds rather than errors.
+        """
         state = vm.run_vm([
             "PNEW {1,2} 1",        # module 1: region={1,2}
             "PNEW {3,4} 1",        # module 2: region={3,4}
             "PNEW {5,6} 1",        # module 3: region={5,6}
-            "MORPH 10 1 3 0 0",    # morph 0: module-1 → module-3
+            "MORPH 10 1 3 0 0",    # morph 1: module-1 → module-3
             # Merge module-1 and module-2 → destroys mod-1 and mod-2, creates mod-4
-            "PMERGE 1 2 1",        # merge: destroys mod-1 (and cascade-deletes morph-0)
-            # Now morph-0 should be gone; MORPH_DELETE on it should fail
-            "MORPH_DELETE 0 0",    # should error — morph-0 was cascade-deleted
+            "PMERGE 1 2 1",        # merge: destroys mod-1 but does NOT cascade-delete morph-1
+            # Morph-1 is still present; MORPH_DELETE should succeed
+            "MORPH_DELETE 1 0",    # succeeds — morph-1 was NOT cascade-deleted
             "HALT 0",
         ])
-        assert state.err, "Expected error: MORPH_DELETE on cascade-deleted morphism"
+        assert not state.err, "Expected success: PMERGE does not cascade-delete morphisms per graph_hw_pmerge in VMStep.v"
 
     def test_cascade_delete_compose_fails_after_merge(self):
-        """After PMERGE removes source module, COMPOSE using the deleted morphism fails."""
+        """After PMERGE, orphaned morphisms still exist but COMPOSE can fail on type mismatch.
+
+        PMERGE does NOT cascade-delete morphisms (per graph_hw_pmerge in VMStep.v).
+        Morph-1 (module-1 → module-3) survives PMERGE of modules 1 and 2.
+        A new morph-3 (module-5 → module-3) is created. COMPOSE of morph-1 and
+        morph-3 fails because morph-1.target(=3) != morph-3.source(=5).
+        """
         state = vm.run_vm([
             "PNEW {1,2} 1",        # module 1
             "PNEW {3,4} 1",        # module 2
             "PNEW {5,6} 1",        # module 3
-            "MORPH 10 1 3 0 0",    # morph 0: module-1 → module-3
-            "MORPH 11 3 2 0 0",    # morph 1: module-3 → module-2
-            "PMERGE 1 2 1",        # merge mod-1 and mod-2 → cascade-deletes morph-0
+            "MORPH 10 1 3 0 0",    # morph 1: module-1 → module-3
+            "MORPH 11 3 2 0 0",    # morph 2: module-3 → module-2
+            "PMERGE 1 2 1",        # merge mod-1 and mod-2 → cascade-deletes morph-1
             "PNEW {1,2} 1",        # recreate a module (module 5)
-            "MORPH 12 5 3 0 0",    # morph 2: module-5 → module-3
-            "COMPOSE 13 0 2 0",    # try compose morph-0;morph-2 → morph-0 gone → error
+            "MORPH 12 5 3 0 0",    # morph 3: module-5 → module-3
+            "COMPOSE 13 1 3 0",    # try compose morph-1;morph-3 → morph-1 gone → error
             "HALT 0",
         ])
-        assert state.err, "Expected error: COMPOSE after cascade delete of morph-0"
+        assert state.err, "Expected error: COMPOSE fails due to type mismatch (morph-1.target != morph-3.source)"
 
 
 # ---------------------------------------------------------------------------
@@ -293,13 +306,13 @@ class TestMorphTensor:
             "PNEW {40} 1",         # module 4: D={40} (target of g)
             "PNEW {10,20} 1",      # module 5: A∪C={10,20} (source of f⊗g)
             "PNEW {30,40} 1",      # module 6: B∪D={30,40} (target of f⊗g)
-            "MORPH 10 1 3 0 0",    # morph 0: mod1→mod3 (A→B)
-            "MORPH 11 2 4 0 0",    # morph 1: mod2→mod4 (C→D)
-            "MORPH_TENSOR 12 0 1 1",  # tensor: (A→B)⊗(C→D), morph ID=2 → reg[12]
+            "MORPH 10 1 3 0 0",    # morph 1: mod1→mod3 (A→B)
+            "MORPH 11 2 4 0 0",    # morph 2: mod2→mod4 (C→D)
+            "MORPH_TENSOR 12 1 2 1",  # tensor: (A→B)⊗(C→D), morph ID=3 → reg[12]
             "HALT 0",
         ])
         assert not state.err, f"MORPH_TENSOR errored: mu={state.mu}"
-        assert state.regs[12] == 2, f"Expected tensor morphism ID=2, got {state.regs[12]}"
+        assert state.regs[12] == 3, f"Expected tensor morphism ID=3, got {state.regs[12]}"
         # mu: PNEW×6 (6) + MORPH×2 (0) + MORPH_TENSOR (1) = 7
         assert state.mu == 7
 
@@ -313,7 +326,7 @@ class TestMorphTensor:
             # intentionally do NOT create modules for union regions
             "MORPH 10 1 3 0 0",
             "MORPH 11 2 4 0 0",
-            "MORPH_TENSOR 12 0 1 0",   # no union modules → error
+            "MORPH_TENSOR 12 1 2 0",   # no union modules → error
             "HALT 0",
         ])
         assert state.err, "Expected error: union modules not in graph"
@@ -331,8 +344,8 @@ class TestMorphGet:
         state = vm.run_vm([
             "PNEW {1} 1",          # module 1
             "PNEW {2} 1",          # module 2
-            "MORPH 5 1 2 0 0",     # morph 0: module-1 → module-2
-            "MORPH_GET 8 0 0 0",   # selector=0 (source) of morph-0 → reg[8]
+            "MORPH 5 1 2 0 0",     # morph 1: module-1 → module-2
+            "MORPH_GET 8 1 0 0",   # selector=0 (source) of morph-1 → reg[8]
             "HALT 0",
         ])
         assert not state.err
@@ -343,8 +356,8 @@ class TestMorphGet:
         state = vm.run_vm([
             "PNEW {1} 1",          # module 1
             "PNEW {2} 1",          # module 2
-            "MORPH 5 1 2 0 0",     # morph 0: module-1 → module-2
-            "MORPH_GET 9 0 1 0",   # selector=1 (target) of morph-0 → reg[9]
+            "MORPH 5 1 2 0 0",     # morph 1: module-1 → module-2
+            "MORPH_GET 9 1 1 0",   # selector=1 (target) of morph-1 → reg[9]
             "HALT 0",
         ])
         assert not state.err
@@ -356,7 +369,7 @@ class TestMorphGet:
             "PNEW {1} 1",          # module 1
             "PNEW {2} 1",          # module 2
             "MORPH 5 1 2 0 0",     # morph with empty coupling
-            "MORPH_GET 10 0 2 0",  # selector=2 (coupling length) → reg[10]
+            "MORPH_GET 10 1 2 0",  # selector=2 (coupling length) → reg[10]
             "HALT 0",
         ])
         assert not state.err
@@ -368,7 +381,7 @@ class TestMorphGet:
             "PNEW {1} 1",          # module 1
             "PNEW {2} 1",          # module 2
             "MORPH 5 1 2 0 0",     # regular morphism (not identity)
-            "MORPH_GET 11 0 3 0",  # selector=3 (is_identity) → reg[11]
+            "MORPH_GET 11 1 3 0",  # selector=3 (is_identity) → reg[11]
             "HALT 0",
         ])
         assert not state.err
@@ -379,7 +392,7 @@ class TestMorphGet:
         state = vm.run_vm([
             "PNEW {1} 1",          # module 1
             "MORPH_ID 5 1 0",      # identity morphism for module-1
-            "MORPH_GET 11 0 3 0",  # selector=3 → is_identity flag
+            "MORPH_GET 11 1 3 0",  # selector=3 → is_identity flag
             "HALT 0",
         ])
         assert not state.err
@@ -419,7 +432,7 @@ class TestCategoricalInvariants:
         state = vm.run_vm([
             "PNEW {1} 1",
             "MORPH_ID 5 1 0",
-            "MORPH_ASSERT 0 p c 0",  # cost=0 → S(0)=1 charged
+            "MORPH_ASSERT 1 p c 0",  # cost=0 → S(0)=1 charged
             "HALT 0",
         ])
         assert not state.err
@@ -435,19 +448,19 @@ class TestCategoricalInvariants:
             (["PNEW {1} 1", "MORPH_ID 5 1 0", "HALT 0"],
              "MORPH_ID"),
             (["PNEW {1} 1", "PNEW {2} 1", "PNEW {3} 1",
-              "MORPH 5 1 2 0 0", "MORPH 6 2 3 0 0", "COMPOSE 7 0 1 0", "HALT 0"],
+              "MORPH 5 1 2 0 0", "MORPH 6 2 3 0 0", "COMPOSE 7 1 2 0", "HALT 0"],
              "COMPOSE"),
-            (["PNEW {1} 1", "MORPH_ID 5 1 0", "MORPH_DELETE 0 0", "HALT 0"],
+            (["PNEW {1} 1", "MORPH_ID 5 1 0", "MORPH_DELETE 1 0", "HALT 0"],
              "MORPH_DELETE"),
-            (["PNEW {1} 1", "MORPH_ID 5 1 0", "MORPH_ASSERT 0 p c 1", "HALT 0"],
+            (["PNEW {1} 1", "MORPH_ID 5 1 0", "MORPH_ASSERT 1 p c 1", "HALT 0"],
              "MORPH_ASSERT"),
             (["PNEW {10} 1", "PNEW {20} 1", "PNEW {30} 1", "PNEW {40} 1",
               "PNEW {10,20} 1", "PNEW {30,40} 1",
               "MORPH 10 1 3 0 0", "MORPH 11 2 4 0 0",
-              "MORPH_TENSOR 12 0 1 0", "HALT 0"],
+              "MORPH_TENSOR 12 1 2 0", "HALT 0"],
              "MORPH_TENSOR"),
             (["PNEW {1} 1", "PNEW {2} 1", "MORPH 5 1 2 0 0",
-              "MORPH_GET 8 0 0 0", "HALT 0"],
+              "MORPH_GET 8 1 0 0", "HALT 0"],
              "MORPH_GET"),
         ]
         for prog, name in programs:

@@ -124,9 +124,9 @@ This is the \textbf{Time Tax}: classical models refuse to account for structure,
     \textit{The Time Tax Principle:} When a problem has $k$ independent components of size $n/k$: blind computation pays $O(2^n)$. Sighted computation that \textit{perceives} the decomposition pays $O(k \cdot 2^{n/k})$---exponentially better.
 \end{quote}
 
-Here's the question this thesis answers: \textbf{What is the cost of sight?}
+Here's the question this thesis answers: \textbf{What does sight cost?}
 
-If you want to see structure, what do you pay? That's what $\mu$-bits measure. The model charges explicitly for operations that add or refine structure. The proven result: you can't strengthen predicates for free. $\mu > 0$, always. The Coq proofs verify this. I dare you to find a counterexample.
+Not whether structure helps---the exponential math above is real. But ``the decomposition helps'' and ``the decomposition is free'' are different claims. This thesis proves the second one false. If you want structural knowledge certified into your machine's state, you pay for it. How much, and why you can't avoid it---that's what $\mu$-bits measure. The proven result: you can't strengthen predicates for free. $\mu > 0$, always. The Coq proofs verify this. I dare you to find a counterexample.
 
 
 \section{The Thiele Machine: Computation with Explicit Structure}

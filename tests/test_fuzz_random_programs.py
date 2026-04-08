@@ -42,7 +42,7 @@ def _require_simulation_result(result: Dict[str, Any] | None, context: str) -> D
 
 # ── Instruction generators ──────────────────────────────────────
 
-# All 40 opcodes with valid random operands
+# Legacy 40-opcode RTL fuzz subset with valid random operands
 def rand_reg() -> int:
     return random.randint(0, 31)
 

@@ -120,6 +120,30 @@ Proof.
   exact (mu_increase_bounds_axiom_bits s s' fa ca ck flen cost Hstep).
 Qed.
 
+(** * Honest bound: μ-cost >= ACTUAL formula bit-length
+
+    With flen validation now enforced in VMStep, the success cases guarantee
+    flen >= String.length formula. Combined with the cost bound above, this
+    closes the honesty gap: a successful LASSERT step proves
+    Δμ >= String.length(actual formula) * 8.
+
+    A lying programmer (flen < actual formula length) now traps, not succeeds.
+    So any reachable success state paid at least the actual formula cost. *)
+Theorem mu_increase_bounds_actual_formula_bits :
+  forall s s' fa ca flen cost formula,
+    formula = mem_to_string s.(vm_mem) (read_reg s fa) ->
+    vm_step s (instr_lassert fa ca true flen cost) s' ->
+    String.length formula <= flen ->
+    s'.(vm_mu) - s.(vm_mu) >= String.length formula * 8.
+Proof.
+  intros s s' fa ca flen cost formula Hformula Hstep Hflen.
+  pose proof (vm_step_mu _ _ _ Hstep) as Hmu.
+  rewrite Hmu.
+  (* flen >= |formula|, and instruction_cost = flen*8 + S(cost) >= flen*8 >= |formula|*8.
+     step_lassert_sat_flen_error contradicts Hflen; failure cases also provable by lia. *)
+  inversion Hstep; subst; simpl; lia.
+Qed.
+
 (** Helper: powers of 2 are at least 1 *)
 Lemma pow2_ge_1 : forall k, 2 ^ k >= 1.
 Proof.

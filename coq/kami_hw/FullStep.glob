@@ -1,0 +1,99 @@
+DIGEST b79b99e9ff6f2d5f2241c2cd01cb7f7e
+FKamiHW.FullStep
+R1075:1078 Coq.Lists.List <> <> lib
+R1088:1100 Coq.Lists.List ListNotations <> mod
+R1131:1137 Kernel.VMState <> <> lib
+R1139:1144 Kernel.VMStep <> <> lib
+R1146:1160 Kernel.SimulationProof <> <> lib
+R1162:1181 Kernel.MuLedgerConservation <> <> lib
+R1211:1225 KamiHW.FullAbstraction <> <> lib
+R1236:1248 Kernel.VMStep VMStep <> mod
+def 1263:1276 <> kami_step_full
+R1286:1301 KamiHW.FullAbstraction <> KamiSnapshotFull rec
+binder 1281:1282 <> ks:1
+R1309:1322 Kernel.VMStep VMStep vm_instruction ind
+binder 1305:1305 <> i:2
+R1327:1342 KamiHW.FullAbstraction <> KamiSnapshotFull rec
+R1349:1366 KamiHW.FullAbstraction <> full_snapshot_repr def
+R1369:1376 Kernel.SimulationProof <> vm_apply def
+R1379:1395 KamiHW.FullAbstraction <> abs_full_snapshot def
+R1397:1398 KamiHW.FullStep <> ks:1 var
+R1401:1401 KamiHW.FullStep <> i:2 var
+prf 1414:1435 <> kami_step_full_refines
+binder 1448:1449 <> ks:3
+binder 1451:1451 <> i:4
+R1497:1503 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1458:1474 KamiHW.FullAbstraction <> abs_full_snapshot def
+R1477:1490 KamiHW.FullStep <> kami_step_full def
+R1492:1493 KamiHW.FullStep <> ks:3 var
+R1495:1495 KamiHW.FullStep <> i:4 var
+R1504:1511 Kernel.SimulationProof <> vm_apply def
+R1514:1530 KamiHW.FullAbstraction <> abs_full_snapshot def
+R1532:1533 KamiHW.FullStep <> ks:3 var
+R1536:1536 KamiHW.FullStep <> i:4 var
+R1568:1581 KamiHW.FullStep <> kami_step_full def
+R1592:1613 KamiHW.FullAbstraction <> abs_full_snapshot_repr thm
+R1592:1613 KamiHW.FullAbstraction <> abs_full_snapshot_repr thm
+def 1631:1643 <> kami_run_full
+R1655:1657 Coq.Init.Datatypes <> nat ind
+binder 1648:1651 <> fuel:5
+R1669:1672 Coq.Init.Datatypes <> list ind
+R1674:1687 Kernel.VMStep VMStep vm_instruction ind
+binder 1661:1665 <> trace:6
+R1696:1711 KamiHW.FullAbstraction <> KamiSnapshotFull rec
+binder 1691:1692 <> ks:7
+R1718:1733 KamiHW.FullAbstraction <> KamiSnapshotFull rec
+R1746:1749 KamiHW.FullStep <> fuel:5 var
+R1765:1766 KamiHW.FullStep <> ks:7 var
+R1772:1772 Coq.Init.Datatypes <> S constr
+R1795:1803 Coq.Lists.List <> nth_error def
+R1815:1826 KamiHW.FullAbstraction <> full_snap_pc proj
+R1811:1812 KamiHW.FullStep <> ks:7 var
+R1805:1809 KamiHW.FullStep <> trace:6 var
+R1842:1845 Coq.Init.Datatypes <> Some constr
+R1856:1868 KamiHW.FullStep <> kami_run_full:8 def
+R1883:1896 KamiHW.FullStep <> kami_step_full def
+R1898:1899 KamiHW.FullStep <> ks:7 var
+R1876:1880 KamiHW.FullStep <> trace:6 var
+R1916:1919 Coq.Init.Datatypes <> None constr
+R1924:1925 KamiHW.FullStep <> ks:7 var
+prf 1953:1973 <> kami_run_full_refines
+binder 1986:1989 <> fuel:10
+binder 1991:1995 <> trace:11
+binder 1997:1998 <> ks:12
+R2052:2058 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2005:2021 KamiHW.FullAbstraction <> abs_full_snapshot def
+R2024:2036 KamiHW.FullStep <> kami_run_full def
+R2038:2041 KamiHW.FullStep <> fuel:10 var
+R2043:2047 KamiHW.FullStep <> trace:11 var
+R2049:2050 KamiHW.FullStep <> ks:12 var
+R2059:2064 Kernel.SimulationProof <> run_vm def
+R2066:2069 KamiHW.FullStep <> fuel:10 var
+R2071:2075 KamiHW.FullStep <> trace:11 var
+R2078:2094 KamiHW.FullAbstraction <> abs_full_snapshot def
+R2096:2097 KamiHW.FullStep <> ks:12 var
+R2195:2203 Coq.Lists.List <> nth_error def
+R2212:2223 KamiHW.FullAbstraction <> full_snap_pc proj
+R2195:2203 Coq.Lists.List <> nth_error def
+R2212:2223 KamiHW.FullAbstraction <> full_snap_pc proj
+R2285:2306 KamiHW.FullStep <> kami_step_full_refines thm
+R2285:2306 KamiHW.FullStep <> kami_step_full_refines thm
+R2285:2306 KamiHW.FullStep <> kami_step_full_refines thm
+def 2358:2384 <> full_kami_states_correspond
+R2392:2407 KamiHW.FullAbstraction <> KamiSnapshotFull rec
+binder 2387:2388 <> ks:13
+R2416:2422 Kernel.VMState <> VMState rec
+binder 2411:2412 <> vs:14
+R2457:2459 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2437:2453 KamiHW.FullAbstraction <> abs_full_snapshot def
+R2455:2456 KamiHW.FullStep <> ks:13 var
+R2460:2461 KamiHW.FullStep <> vs:14 var
+prf 2473:2504 <> initial_full_kami_correspondence
+binder 2517:2517 <> s:15
+R2520:2546 KamiHW.FullStep <> full_kami_states_correspond def
+R2549:2566 KamiHW.FullAbstraction <> full_snapshot_repr def
+R2568:2568 KamiHW.FullStep <> s:15 var
+R2571:2571 KamiHW.FullStep <> s:15 var
+R2599:2625 KamiHW.FullStep <> full_kami_states_correspond def
+R2636:2657 KamiHW.FullAbstraction <> abs_full_snapshot_repr thm
+R2636:2657 KamiHW.FullAbstraction <> abs_full_snapshot_repr thm

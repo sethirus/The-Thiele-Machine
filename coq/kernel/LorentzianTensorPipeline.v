@@ -225,9 +225,10 @@ Qed.
     When vertex v has strictly more structural mass than vertex w,
     the gravitational coupling κ = G_{00}/mass is positive.
 
-    This closes the open obligation in DiscreteRaychaudhuri.v:
-    the hypothesis [lorentzian_coupling_positive] is now a theorem
-    under the mass-gradient condition.
+    This partially discharges the generic Raychaudhuri interface obligation
+    from DiscreteRaychaudhuri.v: the hypothesis
+    [lorentzian_coupling_positive] is a theorem under the isotropic
+    mass-gradient condition.
 
     PROOF:
     1. einstein_equation_from_mass gives ∃κ, ∀d, G_{dd} = κ·T_{dd}
@@ -235,8 +236,9 @@ Qed.
     2. einstein_00_positive_when_mass_decreases gives G_{00} > 0.
     3. a > 0 from mass hypothesis.
     4. Therefore κ = G_{00}/a > 0. *)
-(* INQUISITOR NOTE: Main theorem — closes lorentzian_coupling_positive gap.
-   Zero admits. Hypothesis: mass_v > mass_w (mass gradient along edge). *)
+(* INQUISITOR NOTE: Main theorem — closes the lorentzian_coupling_positive gap
+   for the isotropic mass-gradient case. Zero admits. Hypothesis:
+   mass_v > mass_w (mass gradient along edge). *)
 Theorem lorentzian_coupling_positive_from_mass_gradient :
   forall s v w,
     (v <> w)%nat ->
@@ -279,10 +281,9 @@ Qed.
     SECTION 4: DOWNSTREAM CONSEQUENCE FOR RAYCHAUDHURI FOCUSING
     =========================================================================
 
-    With lorentzian_coupling_positive now proven (under mass-gradient),
-    the theorem positive_mass_implies_lorentzian_ricci_positive in
-    DiscreteRaychaudhuri.v no longer needs to take it as a hypothesis —
-    it can be derived from mass-gradient instead.
+    With lorentzian_coupling_positive proven for the mass-gradient case,
+    the hypothesis used by DiscreteRaychaudhuri.v can be discharged in that
+    setting rather than assumed externally.
 
     We provide a convenience wrapper here. *)
 

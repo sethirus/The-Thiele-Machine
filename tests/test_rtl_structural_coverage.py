@@ -7,7 +7,7 @@ from ``false`` to ``true`` in the implementation matrix.
 
 Gap elements covered:
   state_shape          — RTL state schema matches VMState
-  opcode_alignment     — all 40 ISA opcodes accepted by RTL with correct encodings
+  opcode_alignment     — representative RTL execution subset plus full opcode-table alignment
   mu_accounting        — RTL mu-cost accumulation matches expected totals
   mu_tensor_bianchi    — RTL Bianchi alarm fires when mu < tensor_total
   partition_semantics  — PNEW/PSPLIT/PMERGE operations produce correct module counts
@@ -94,7 +94,7 @@ class TestStateShape:
 # ===========================================================================
 @RTL_SKIP
 class TestOpcodeAlignment:
-    """All 40 opcodes are accepted by the RTL with correct numeric encodings."""
+    """Representative RTL programs execute correctly against the 47-opcode table."""
 
     # RTL_COVERAGE: opcode_alignment
 

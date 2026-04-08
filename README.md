@@ -282,22 +282,32 @@ Every instruction takes an explicit $\mu_\delta \geq 0$. Every transition increm
 
 The 7 **Categorical** opcodes (0x27–0x2D) add a formal category layer on top of partition modules: typed morphisms between modules, relational composition, tensor product of disjoint morphisms, and identity morphisms. `MORPH_ASSERT` is a cert-setter: it charges $S(\text{cost}) \geq 1$ unconditionally — you cannot certify a structural relation for free, not even attempt it. Category laws (associativity, unitality, bifunctoriality) are proven in `CategoryLaws.v`, `CategoryBridge.v`, `CategoryMonoidal.v` — zero Admitted.
 
-**Instruction encoding:** `[31:24] opcode | [23:16] op_a | [15:8] op_b | [7:0] cost`
+**Instruction encoding (ISA v2, 128-bit):**
 
-### Hardware Limits (Kami RTL)
+```
+[127:120] version  | [119:112] format_id | [111:96] flags   | [95:64] ext1
+[63:32]  ext0      | [31:24]   opcode    | [23:16]  op_a    | [15:8] op_b | [7:0] cost
+```
+
+The low 32 bits (`[31:0]`) carry the legacy opcode + operand + cost fields. The upper 96 bits carry ISA v2 metadata: `format_id` selects the upper-lane interpretation class (`FMT_LEGACY`, `FMT_TENSOR_EXT`, `FMT_MORPH_INLINE`, `FMT_CERT_INLINE`, `FMT_DESC`), while `ext0`/`ext1` transport rich payloads (tensor indices, morph endpoints, inline certification checksums). Legacy instructions use `FMT_LEGACY` (format_id = 0x00) and ignore the upper lanes. See `ISA_V2_SPEC.md` for the full specification.
+
+### Hardware Limits (Kami RTL, ISA v2)
 
 | Resource | RTL (hardware) | Software (Coq/OCaml) |
 |---|---|---|
+| Instruction width | 128-bit (32-bit legacy lane + 96-bit upper lane) | — |
 | Instruction memory | 65,536 words | unbounded |
 | Data memory | 65,536 words | unbounded |
 | Registers | 32 × 32-bit | 32 × `nat` |
 | Partition table | 64 slots | configurable |
+| Morph table | 64 entries (hardware-resident) | unbounded graph |
+| Tensor table | 4×4 per module (hardware-resident) | unbounded |
 | $\mu$ counter | 32-bit | unbounded `nat` |
 | Cost field | 8-bit (max 255) | 8-bit (same encoding) |
 
 **Implications:**
 - $\mu$ wrapping at $2^{32}$ means very long-running programs may silently overflow the hardware counter. Coq proofs assume unbounded `nat`; the 32-bit refinement is sound for programs whose total $\mu$ stays below $2^{32}$.
-- `ORACLE_HALTS` charges a fixed 1,000,000 $\mu$ in hardware (conservative refinement). See `coq/kami_hw/VerilogRefinement.v`.
+- Morph and tensor tables are hardware-resident: `MORPH_EXT`, `COMPOSE_EXT`, `MORPH_ID_EXT`, `MORPH_DELETE_EXT`, `MORPH_GET_EXT`, `MORPH_TENSOR_EXT`, and `MORPH_ASSERT_EXT` drive real hardware state mutation via upper-lane payloads (no software graph). Legacy low-lane morph/tensor opcodes also route through hardware tables.
 
 ---
 
@@ -314,6 +324,34 @@ The Python VM (`thielecpu/vm.py`) is a generated thin wrapper that delegates all
 The intended invariant is semantic agreement on covered execution paths:
 
 $$S_{\text{Coq/Extracted}}(\tau) \approx S_{\text{Python/OCaml}}(\tau) \approx S_{\text{RTL}}(\tau)$$
+
+### Regeneration Order
+
+When modifying the ISA, the regeneration must follow this order:
+
+```bash
+# 1. Coq proofs (single ground truth)
+make -C coq                        # rebuild all proof objects
+
+# 2. Extraction chain
+make canonical-extract              # Extraction.v → build/thiele_core.ml
+                                    # KamiExtraction.v → build/kami_hw/
+
+# 3. OCaml runner
+make ocaml-runner                   # compile extracted_vm_runner
+
+# 4. Python VM wrapper
+python scripts/forge_vm.py \
+  --input build/thiele_core.ml \
+  --output thielecpu/vm.py          # regenerate Python VM from OCaml IR
+
+# 5. Validate
+make coq-gate                       # zero Admitted, all proofs compile
+make canonical-e2e                  # extraction → RTL → cosim → smoke tests
+pytest tests/test_isa_v2_migration_gate.py  # ISA v2 width + freshness
+```
+
+Authoritative source files: `coq/kernel/VMStep.v` (semantics), `coq/kami_hw/ThieleCPUCore.v` (hardware), `coq/kami_hw/ThieleTypes.v` (ISA encoding constants).
 
 ---
 
@@ -410,17 +448,20 @@ The physics-adjacent results in this repo are **formal structural analogs**, not
 - Tsirelson algebraic bound $S^2 \leq 8$ from NPA-1 row constraints — **(S)**
 - Categorical laws (associativity, tensor bifunctor) — **(S)**
 - Categorical separation (morphism layer strictly richer than registers) — **(S)**
+- Local 4D gravity-side structure — **(S)**: direction-labeled discrete derivatives, per-vertex local metric/tensor definitions, non-uniform mass implies position-dependent local metric, and mass-gradient curvature witnesses in `RiemannTensor4D.v` / `EinsteinEquations4D.v`
+- Lorentzian coupling positivity and Raychaudhuri focusing on the isotropic two-vertex mass-gradient case — **(S)**, via `LorentzianTensorPipeline.v`
 
 **What is a formal analog, not a physical derivation:**
-- Einstein field equations in `EinsteinEquations4D.v` — the theorem holds *by construction*: the metric is position-independent (Christoffel symbols vanish identically), off-diagonal stress is defined as zero ("isotropic assumption"), and $G := 1/(8\pi)$ is a unit choice. Both sides reduce to zero in vacuum. This is a **(R)** consistency result, not an emergence theorem.
+- Einstein field equations in `EinsteinEquations4D.v` now have two strata. The global uniform/vacuum theorem is still a **(R)** consistency result: under a position-independent uniform metric, Christoffels vanish and both sides reduce to zero, with $G := 1/(8\pi)$ a unit choice. Separately, the file contains a stronger **(S)** local pipeline with per-vertex metric/tensor definitions and mass-gradient curvature witnesses. What is still not derived is a fully general, physically calibrated non-vacuum Einstein field equation.
 - The discrete Gauss-Bonnet chain (`EinsteinEmergence.v`) explicitly states: "The connection to physical gravity is an analogy."
 - Born rule, Planck/speed-of-light relations — **(C)** or **(R)**, as documented in `thesis/thiele_machine_math_spec.tex`.
 
 **Known structural gaps in the Einstein formalization:**
-1. The discrete derivative (`RiemannTensor4D.v`) does not distinguish coordinate directions — all four partial derivatives collapse to the same finite difference against the first neighbor. A proper 4D discrete spacetime requires a 4-simplex neighborhood with labeled directions.
-2. The metric is defined globally (position-independent), so all Christoffel symbols vanish by construction and the Einstein tensor is identically zero. The off-diagonal stress is separately defined as zero. The equation $G_{\mu\nu} = 8\pi G T_{\mu\nu}$ holds as $0 = 0$.
+1. The discrete derivative in `RiemannTensor4D.v` is now direction-aware via edge labels, but it still uses the first matching labeled neighbor and is not yet a full 4-simplex / multi-neighbor 4D stencil.
+2. `EinsteinEquations4D.v` no longer only has the global position-independent `0 = 0` regime; it also has a local per-vertex metric and mass-gradient curvature pipeline. The remaining gap is the general non-vacuum local field equation and explicit nonzero Einstein-side closure for arbitrary complexes and mass distributions.
+3. `DiscreteRaychaudhuri.v` keeps a generic Lorentzian interface hypothesis `lorentzian_coupling_positive`; `LorentzianTensorPipeline.v` discharges it on the isotropic two-vertex mass-gradient case, but a fully general Lorentzian closure beyond that setting remains open.
 
-These gaps are documented in `coq/kernel/EinsteinEquations4D.v` and do not affect any core machine theorem ($\mu$-conservation, NoFI, initiality, categorical laws).
+These gaps are documented in `coq/kernel/RiemannTensor4D.v`, `coq/kernel/EinsteinEquations4D.v`, `coq/kernel/DiscreteRaychaudhuri.v`, and `coq/kernel/LorentzianTensorPipeline.v`, and do not affect any core machine theorem ($\mu$-conservation, NoFI, initiality, categorical laws).
 
 ---
 

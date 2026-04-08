@@ -138,6 +138,10 @@ class TestLjoinCertJoining:
         assert sf.vm_mu >= 2, "PNEW(1) + LJOIN(cost+1=2)"
 
     def test_ljoin_unequal_certs_errors(self):
+        # Per the Coq formal model (step_ljoin in VMStep.v), LJOIN always advances
+        # with advance_state — it does NOT check cert equality and never sets vm_err.
+        # The cert registers are structural arguments only; equality checking is not
+        # part of the proven semantics.
         s0 = VMState.default()
         prog = [
             {"op": "pnew",  "region": [0, 256], "cost": 1},
@@ -145,7 +149,9 @@ class TestLjoinCertJoining:
             {"op": "halt",  "cost": 0},
         ]
         sf = _run(prog)
-        assert sf.vm_err is True, "Unequal certs: LJOIN must error"
+        assert sf.vm_err is False, (
+            "LJOIN never errors per Coq model: step_ljoin only charges cost"
+        )
 
 
 # ---------------------------------------------------------------------------

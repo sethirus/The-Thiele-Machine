@@ -67,14 +67,16 @@ def _parse_import_module_names(text: str) -> set[str]:
         for tok in imported.split():
             tok = tok.strip()
             if tok:
-                mods.add(tok)
+                # Handle dotted names like Kernel.VMState → VMState
+                mods.add(tok.rsplit(".", 1)[-1])
 
     for m in _REQUIRE_IMPORT_RE.finditer(text):
         imported = m.group(1)
         for tok in imported.split():
             tok = tok.strip()
             if tok and tok != "From":
-                mods.add(tok)
+                # Handle dotted names like Kernel.VMState → VMState
+                mods.add(tok.rsplit(".", 1)[-1])
 
     return mods
 
@@ -117,6 +119,8 @@ def _reaches_any_anchor(start: Path, graph: dict[Path, set[Path]], anchors: set[
 def test_extraction_exports_core_vm_semantics() -> None:
     assert EXTRACTION_V.exists(), f"Missing extraction file: {EXTRACTION_V}"
     txt = EXTRACTION_V.read_text(encoding="utf-8")
+    # Extraction now targets canonical kernel/kami_hw modules directly
+    # (no longer routes through the monolithic ThieleMachineComplete).
     assert "SimulationProof.vm_apply" in txt
     assert "VMState.VMState" in txt
     assert "VMStep.vm_instruction" in txt

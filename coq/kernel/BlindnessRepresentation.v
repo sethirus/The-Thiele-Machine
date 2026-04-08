@@ -30,6 +30,7 @@ Import ListNotations.
 
 From Kernel Require Import VMState.
 From Kernel Require Import ThieleTraceProjection.
+From Kernel Require Import ShadowProjection.
 
 (* ================================================================= *)
 (** ** I.  The forgetful map                                         *)
@@ -309,4 +310,32 @@ Proof.
   split.
   - exact blindness_non_injective.
   - exact forget_surjective.
+Qed.
+
+(* ================================================================= *)
+(** ** VII.  Bridge: forget and shadow_proj agree on shared fields    *)
+(* ================================================================= *)
+
+(** [shadow_proj_and_forget_agree]: formal specification.
+
+    The two forgetful maps — forget (this file) and shadow_proj
+    (ShadowProjection.v) — are independent definitions, but they agree on
+    all shared fields (pc, mu, regs, mem).  shadow_proj additionally retains
+    vm_err and vm_certified, which TMSnapshot does not track.
+
+    This lemma is bookkeeping: it confirms that forget is the restriction of
+    shadow_proj to the four tape-equivalent fields, so the two maps are
+    mutually consistent.  A reviewer asking "are these the same map?" gets
+    a machine-checked answer here.
+
+    Proof: both sides reduce to the same record via reflexivity. *)
+(* DEFINITIONAL HELPER: forget and shadow_proj agree on shared fields — unfolding produces reflexivity. *)
+Lemma shadow_proj_and_forget_agree :
+  forall s : VMState,
+    forget s = {| tms_pc   := (shadow_proj s).(cs_pc);
+                  tms_mu   := (shadow_proj s).(cs_mu);
+                  tms_regs := (shadow_proj s).(cs_regs);
+                  tms_mem  := (shadow_proj s).(cs_mem) |}.
+Proof.
+  intro s. unfold forget, shadow_proj. reflexivity.
 Qed.

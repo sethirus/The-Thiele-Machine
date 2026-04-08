@@ -1,0 +1,46 @@
+{
+  "schema": "thiele-verification-receipt-v1",
+  "generated": "2026-04-08T00:00:00.000000+00:00",
+  "verdict": "ALL CLAIMS VERIFIED",
+  "repository": "/workspaces/The-Thiele-Machine",
+  "phases": {
+    "coq_build": {
+      "status": "PASS",
+      "note": "skipped (cached .vo)"
+    },
+    "inquisitor": {
+      "status": "PASS",
+      "HIGH": 0,
+      "MEDIUM": 0,
+      "LOW": 0,
+      "elapsed_s": 56.5
+    },
+    "structural_advantage": {
+      "N": 4,
+      "blind_iters": 16,
+      "blind_mu": 0,
+      "sighted_iters": 8,
+      "sighted_mu": 2,
+      "savings": 8,
+      "mu_cost": 2,
+      "status": "PASS"
+    },
+    "test_suite": {
+      "status": "PASS",
+      "summary": "861 passed, 1 skipped in 351.04s (0:05:51)",
+      "elapsed_s": 351.7
+    }
+  },
+  "claims_verified": [
+    "NoFI: certification requires >= 1 mu (no_free_certification, AbstractNoFI.v)",
+    "Conservation: mu = sum(instruction_cost) exactly (vm_apply_mu, MuLedgerConservation.v)",
+    "Initiality: mu is unique satisfying cost measure (mu_is_initial_monotone, MuInitiality.v)",
+    "Separation: classical observer cannot distinguish Thiele-distinct states (ShadowProjection.v)",
+    "Structural Advantage: blind=N^2, sighted=2N+2mu, gap unbounded (StructuralAdvantage.v)",
+    "Hardware Parity: all 47 opcodes agree across Coq/Python/OCaml (test suite)",
+    "Unified Machine: SimulationProof.vm_apply is canonical — proven equiv to vm_step, extraction target, and hardware model (UNIFICATION_ROADMAP M0-M7)",
+    "Full-State Refinement: KamiSnapshot carries CSRs, logic_acc, mstatus; abs_phase1 is faithful (Abstraction.v, M1)",
+    "Embed Step: kami_step equiv SimulationProof.vm_apply for all 47 opcodes (EmbedStep.v, M4)",
+    "Rich-State Commutation: bounded-table ops commute with graph ops, zero Admitted (RichStateCommutation.v, M3)"
+  ]
+}

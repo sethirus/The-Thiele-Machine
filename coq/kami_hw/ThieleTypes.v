@@ -12,14 +12,56 @@ Definition MemSize := 65536.
 Definition RegIdxSz := 5.    (* log2(32) *)
 Definition MemAddrSz := 16.   (* log2(65536) *)
 Definition WordSz := 32.
+Definition LegacyInstrSz := 32.
+Definition InstrUpperSz := 96.
+Definition InstrSz := 128.
+Definition FormatIdSz := 8.
+Definition FormatSubtypeSz := 4.
+Definition DescKindFieldSz := 4.
+Definition InlineLenSz := 8.
 Definition OpcodeSz := 8.
 Definition CostSz := 8.
 Definition MuTensorIdxSz := 4.  (* log2(16) — 4×4 flattened μ-tensor *)
+
+(** ISA-v2 format identifiers. *)
+Definition FMT_LEGACY : word FormatIdSz :=
+  WO~0~0~0~0~0~0~0~0.
+Definition FMT_BRANCH_EXT : word FormatIdSz :=
+  WO~0~0~0~0~0~0~0~1.
+Definition FMT_TENSOR_EXT : word FormatIdSz :=
+  WO~0~0~0~0~0~0~1~0.
+Definition FMT_MORPH_INLINE : word FormatIdSz :=
+  WO~0~0~0~0~0~0~1~1.
+Definition FMT_DESC : word FormatIdSz :=
+  WO~0~0~0~0~0~1~0~0.
+Definition FMT_CERT_INLINE : word FormatIdSz :=
+  WO~0~0~0~0~0~1~0~1.
 
 (** Partition table index width is 6 bits (64 hardware slots). *)
 Definition PTableIdxSz := 6.   (* log2(64) — 64 partition module slots *)
 Definition PTableSz := 64.     (* physically implemented slots: IDs 0..63 *)
 Definition PTableNextIdSz := 7.  (* enough to represent 0..64 for full check/trap *)
+
+(** Rich-state table dimensions, aligned to the ISA-v2 bounded hardware model. *)
+Definition DescIdxSz := 6.            (* generic descriptor identifier width *)
+Definition DescTableSz := 64.
+Definition DescTableNextIdSz := 7.    (* enough to represent 0..64 descriptor allocations *)
+Definition MorphTableIdxSz := 6.      (* log2(64) — 64 morphism descriptors *)
+Definition MorphTableSz := 64.
+Definition MorphTableNextIdSz := 7.   (* enough to represent 0..64 for trap/overflow checks *)
+Definition CouplingDescIdxSz := 6.    (* log2(64) — 64 coupling descriptors *)
+Definition CouplingDescSz := 64.
+Definition FormulaDescIdxSz := 6.     (* log2(64) — 64 formula descriptors *)
+Definition FormulaDescSz := 64.
+Definition CertDescIdxSz := 6.        (* log2(64) — 64 certification descriptors *)
+Definition CertDescSz := 64.
+Definition DescMetaIdxSz := 6.        (* log2(64) — 64 descriptor metadata records *)
+Definition DescMetaSz := 64.
+Definition CouplingPairIdxSz := 6.    (* bounded on-chip storage for 64 coupling pairs *)
+Definition CouplingPairSz := 64.
+Definition CouplingPairCountSz := 7.  (* enough to represent 0..64 pairs *)
+Definition LassertFbufIdxSz := 8.     (* Vector exponent: 2^8 backing words *)
+Definition LassertCbufIdxSz := 9.     (* Vector exponent: 2^9 backing words *)
 
 (** Initial active module id (module slot 1). *)
 Definition ACTIVE_MODULE_INIT : word PTableIdxSz :=
@@ -28,6 +70,14 @@ Definition ACTIVE_MODULE_INIT : word PTableIdxSz :=
 (** Initial value for pt_next_id: starts at 1 to match empty_graph.pg_next_id = 1 *)
 Definition PT_NEXT_ID_INIT : word PTableNextIdSz :=
   WO~0~0~0~0~0~0~1. (* value 1 *)
+
+(** Initial value for morph_next_id: starts at 1 to match empty_graph.pg_next_morph_id = 1 *)
+Definition MORPH_NEXT_ID_INIT : word MorphTableNextIdSz :=
+  WO~0~0~0~0~0~0~1. (* value 1 *)
+
+(** Descriptor / pair tables start empty, so their next-id counters begin at 0. *)
+Definition DESC_NEXT_ID_INIT : word DescTableNextIdSz :=
+  WO~0~0~0~0~0~0~0.
 
 (** Error code constants — must match handwritten RTL.
     Using binary literals to avoid pathological Peano extraction.
@@ -59,6 +109,24 @@ Definition ERR_TENSOR_INVALID : word WordSz :=
 (* ERR_MORPH_NOT_FOUND = 0xBADC0003 — morphism ID not in graph *)
 Definition ERR_MORPH_NOT_FOUND : word WordSz :=
   WO~1~0~1~1~1~0~1~0~1~1~0~1~1~1~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~1~1.
+(* ERR_ISA_VERSION = 0xBADC0010 — ISA-v2 instruction version field is invalid *)
+Definition ERR_ISA_VERSION : word WordSz :=
+  WO~1~0~1~1~1~0~1~0~1~1~0~1~1~1~0~0~0~0~0~0~0~0~0~0~0~0~0~1~0~0~0~0.
+(* ERR_FORMAT_INVALID = 0xBADC0011 — reserved/unknown format_id *)
+Definition ERR_FORMAT_INVALID : word WordSz :=
+  WO~1~0~1~1~1~0~1~0~1~1~0~1~1~1~0~0~0~0~0~0~0~0~0~0~0~0~0~1~0~0~0~1.
+(* ERR_DESC_RANGE = 0xBADC0012 — descriptor id outside bounded table range *)
+Definition ERR_DESC_RANGE : word WordSz :=
+  WO~1~0~1~1~1~0~1~0~1~1~0~1~1~1~0~0~0~0~0~0~0~0~0~0~0~0~0~1~0~0~1~0.
+(* ERR_INLINE_MALFORMED = 0xBADC0013 — malformed inline payload/flag layout *)
+Definition ERR_INLINE_MALFORMED : word WordSz :=
+  WO~1~0~1~1~1~0~1~0~1~1~0~1~1~1~0~0~0~0~0~0~0~0~0~0~0~0~0~1~0~0~1~1.
+(* ERR_TABLE_OVERFLOW = 0xBADC0014 — bounded rich-state table allocation overflow *)
+Definition ERR_TABLE_OVERFLOW : word WordSz :=
+  WO~1~0~1~1~1~0~1~0~1~1~0~1~1~1~0~0~0~0~0~0~0~0~0~0~0~0~0~1~0~1~0~0.
+(* ERR_CERT_DESC_INVALID = 0xBADC0015 — formula/cert descriptor invalid or mismatched *)
+Definition ERR_CERT_DESC_INVALID : word WordSz :=
+  WO~1~0~1~1~1~0~1~0~1~1~0~1~1~1~0~0~0~0~0~0~0~0~0~0~0~0~0~1~0~1~0~1.
 
 (** Logic-gated physics key required for REVEAL/CHSH_TRIAL unlock.
     LOGIC_GATE_KEY = 0xCAFEEACE = 3405691598 - binary literal for fast extraction *)
@@ -127,8 +195,9 @@ Definition OP_MUL           : word OpcodeSz := WO~0~0~1~0~0~0~1~1. (* 0x23 *)
 Definition OP_LUI           : word OpcodeSz := WO~0~0~1~0~0~1~0~0. (* 0x24 *)
 Definition OP_TENSOR_SET    : word OpcodeSz := WO~0~0~1~0~0~1~0~1. (* 0x25 *)
 Definition OP_TENSOR_GET    : word OpcodeSz := WO~0~0~1~0~0~1~1~0. (* 0x26 *)
-(** Categorical morphism opcodes (Phase 6) — hardware charges cost + PC advance;
-    morphism graph state is managed by the software extraction layer. *)
+(** Categorical morphism opcodes (Phase 6 / M3-M4):
+    bounded on-chip morph/coupling tables now exist; M4 completes the step
+    semantics that actively mutate them. *)
 Definition OP_MORPH         : word OpcodeSz := WO~0~0~1~0~0~1~1~1. (* 0x27 *)
 Definition OP_COMPOSE       : word OpcodeSz := WO~0~0~1~0~1~0~0~0. (* 0x28 *)
 Definition OP_MORPH_ID      : word OpcodeSz := WO~0~0~1~0~1~0~0~1. (* 0x29 *)
@@ -138,8 +207,9 @@ Definition OP_MORPH_TENSOR  : word OpcodeSz := WO~0~0~1~0~1~1~0~0. (* 0x2C *)
 Definition OP_MORPH_GET     : word OpcodeSz := WO~0~0~1~0~1~1~0~1. (* 0x2D *)
 Definition OP_HALT          : word OpcodeSz := WO~1~1~1~1~1~1~1~1. (* 0xFF *)
 
-(** Instruction encoding: [31:24] opcode | [23:16] op_a | [15:8] op_b | [7:0] cost *)
-Definition InstrSz := 32.
+(** ISA v2 instruction transport is 128 bits wide.
+    The low 32 bits preserve the legacy bridge encoding:
+    [31:24] opcode | [23:16] op_a | [15:8] op_b | [7:0] cost *)
 
 (* INQUISITOR NOTE: connectivity anchor. *)
 Definition hardware_dimensions := (RegCount, MemSize, CostSz).

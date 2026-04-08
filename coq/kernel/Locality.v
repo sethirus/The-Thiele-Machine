@@ -245,8 +245,8 @@ Proof. intros. reflexivity. Qed.
 Definition instr_targets (i : vm_instruction) : list ModuleID :=
   match i with
   | instr_pnew _ _ => []
-  | instr_psplit mid _ _ _ => [mid]
-  | instr_pmerge m1 m2 _ => [m1; m2]
+  | instr_psplit mid _ _ _ => [mid mod 64]
+  | instr_pmerge m1 m2 _ => [m1 mod 64; m2 mod 64]
   | instr_lassert _ _ _ _ _ => []
   | instr_ljoin _ _ _ => []
   | instr_mdlacc mid _ => [mid]
@@ -427,83 +427,80 @@ Proof.
     rewrite advance_state_graph.
     apply region_obs_lookup_eq.
     symmetry.
-    apply (graph_pnew_preserves_lookup (vm_graph s) region graph' mid0 mid).
-    + assumption.
-    + apply (module_exists_implies_below s mid Hwf Hexists).
-  - (* psplit - restructures graph *)
-    inversion Hstep; subst;
-    unfold states_agree_on_module, module_region_obs;
+    apply graph_add_module_preserves_existing.
+    apply (module_exists_implies_below s mid Hwf Hexists).
+  - (* psplit - restructures graph via graph_hw_psplit *)
+    inversion Hstep; subst.
+    unfold states_agree_on_module, module_region_obs.
     rewrite advance_state_graph.
-    + (* Success case: graph_psplit succeeds *)
-      apply region_obs_lookup_eq.
-      symmetry.
-      apply (graph_psplit_preserves_unrelated (vm_graph s) module left right graph' left_id right_id mid).
-      * apply not_in_singleton. exact Hnot_target.
-      * apply (module_exists_implies_below s mid Hwf Hexists).
-      * assumption.
-    + (* Failure case: graph doesn't change *)
-      reflexivity.
-  - (* pmerge - restructures graph *)
-    inversion Hstep; subst;
-    unfold states_agree_on_module, module_region_obs;
+    apply region_obs_lookup_eq. symmetry.
+    pose proof (not_in_singleton mid _ Hnot_target) as Hneq.
+    pose proof (module_exists_implies_below s mid Hwf Hexists) as Hmid_lt.
+    unfold graph_hw_psplit, graph_module_size.
+    destruct (graph_remove (vm_graph s) (module mod 64)) as [[g1 m_rm]|] eqn:Hrm.
+    + pose proof (graph_remove_preserves_next_id _ _ _ _ Hrm) as Hnid.
+      destruct (graph_add_module g1 _ _) as [g2 mid2] eqn:Hadd1.
+      destruct (graph_add_module g2 _ _) as [g3 mid3] eqn:Hadd2. simpl.
+      transitivity (graph_lookup g2 mid).
+      * change g3 with (fst (g3, mid3)). rewrite <- Hadd2.
+        apply graph_add_module_preserves_existing.
+        pose proof (f_equal (fun p => pg_next_id (fst p)) Hadd1) as Htmp.
+        unfold graph_add_module in Htmp. simpl in Htmp. lia.
+      * transitivity (graph_lookup g1 mid).
+        -- change g2 with (fst (g2, mid2)). rewrite <- Hadd1.
+           apply graph_add_module_preserves_existing. lia.
+        -- exact (graph_remove_preserves_unrelated _ mid _ _ _ Hneq Hrm).
+    + destruct (graph_add_module (vm_graph s) _ _) as [g2 mid2] eqn:Hadd1.
+      destruct (graph_add_module g2 _ _) as [g3 mid3] eqn:Hadd2. simpl.
+      transitivity (graph_lookup g2 mid).
+      * change g3 with (fst (g3, mid3)). rewrite <- Hadd2.
+        apply graph_add_module_preserves_existing.
+        pose proof (f_equal (fun p => pg_next_id (fst p)) Hadd1) as Htmp.
+        unfold graph_add_module in Htmp. simpl in Htmp. lia.
+      * change g2 with (fst (g2, mid2)). rewrite <- Hadd1.
+        apply graph_add_module_preserves_existing. exact Hmid_lt.
+  - (* pmerge - restructures graph via graph_hw_pmerge *)
+    inversion Hstep; subst.
+    unfold states_agree_on_module, module_region_obs.
     rewrite advance_state_graph.
-    + (* Success case - region locality *)
-      destruct (not_in_pair mid m1 m2 Hnot_target) as [Hneq1 Hneq2].
-      pose proof (module_exists_implies_below s mid Hwf Hexists) as Hmid_lt.
-      (* The goal is: match graph_lookup graph' mid with ... end = 
-                      match graph_lookup (vm_graph s) mid with ... end
-         after advance_state_graph unfolded. *)
-      (* Apply the pmerge preservation lemma from the hypothesis *)
-      destruct (graph_lookup graph' mid) as [m'|] eqn:Hlu';
-      destruct (graph_lookup (vm_graph s) mid) as [m_orig|] eqn:Hlu.
-      * (* Both Some *)
-        f_equal.
-        (* Get the region preservation *)
-        match goal with
-        | [ H : graph_pmerge _ _ _ = Some _ |- _ ] =>
-          pose proof (graph_pmerge_preserves_region_obs 
-                        (vm_graph s) m1 m2 graph' merged_id mid
-                        Hneq1 Hneq2 Hmid_lt H) as Hregion
-        end.
-        rewrite Hlu' in Hregion. rewrite Hlu in Hregion.
-        simpl in Hregion. injection Hregion as Hnorm.
-        symmetry. exact Hnorm.
-      * (* g' Some, g None - contradiction *)
-        exfalso.
-        match goal with
-        | [ H : graph_pmerge _ _ _ = Some _ |- _ ] =>
-          pose proof (graph_pmerge_preserves_region_obs 
-                        (vm_graph s) m1 m2 graph' merged_id mid
-                        Hneq1 Hneq2 Hmid_lt H) as Hregion
-        end.
-        rewrite Hlu' in Hregion. rewrite Hlu in Hregion.
-        simpl in Hregion. discriminate.
-      * (* g' None, g Some - contradiction *)
-        exfalso.
-        match goal with
-        | [ H : graph_pmerge _ _ _ = Some _ |- _ ] =>
-          pose proof (graph_pmerge_preserves_region_obs 
-                        (vm_graph s) m1 m2 graph' merged_id mid
-                        Hneq1 Hneq2 Hmid_lt H) as Hregion
-        end.
-        rewrite Hlu' in Hregion. rewrite Hlu in Hregion.
-        simpl in Hregion. discriminate.
-      * (* Both None *)
-        reflexivity.
-    + (* Failure case *)
-      reflexivity.
-  - (* lassert *)
-    inversion Hstep; subst;
-    unfold states_agree_on_module, module_region_obs;
-    rewrite advance_state_graph.
-    + (* Sat certificate accepted: graph_add_axiom preserves module_region for all mid *)
-      symmetry. apply graph_add_axiom_preserves_region_obs_all.
-    + (* Unsat certificate accepted - graph unchanged *)
-      reflexivity.
-    + (* Sat certificate rejected - graph unchanged *)
-      reflexivity.
-    + (* Unsat certificate rejected - graph unchanged *)
-      reflexivity.
+    apply region_obs_lookup_eq. symmetry.
+    destruct (not_in_pair mid _ _ Hnot_target) as [Hneq1 Hneq2].
+    pose proof (module_exists_implies_below s mid Hwf Hexists) as Hmid_lt.
+    unfold graph_hw_pmerge, graph_module_size.
+    destruct (graph_remove (vm_graph s) (m1 mod 64)) as [[g1 m1_rm]|] eqn:Hrm1.
+    + (* first remove succeeded *)
+      pose proof (graph_remove_preserves_next_id _ _ _ _ Hrm1) as Hnid1.
+      pose proof (graph_remove_preserves_unrelated _ mid _ _ _ Hneq1 Hrm1) as Hlu1.
+      destruct (graph_remove g1 (m2 mod 64)) as [[g2 m2_rm]|] eqn:Hrm2.
+      * (* second remove succeeded *)
+        pose proof (graph_remove_preserves_next_id _ _ _ _ Hrm2) as Hnid2.
+        pose proof (graph_remove_preserves_unrelated _ mid _ _ _ Hneq2 Hrm2) as Hlu2.
+        destruct (graph_add_module g2 _ _) as [g3 mid3] eqn:Hadd. simpl.
+        change g3 with (fst (g3, mid3)). rewrite <- Hadd.
+        rewrite graph_add_module_preserves_existing by lia.
+        rewrite Hlu2. exact Hlu1.
+      * (* second remove failed *)
+        destruct (graph_add_module g1 _ _) as [g3 mid3] eqn:Hadd. simpl.
+        change g3 with (fst (g3, mid3)). rewrite <- Hadd.
+        rewrite graph_add_module_preserves_existing by lia.
+        exact Hlu1.
+    + (* first remove failed *)
+      destruct (graph_remove (vm_graph s) (m2 mod 64)) as [[g2 m2_rm]|] eqn:Hrm2.
+      * (* second remove succeeded *)
+        pose proof (graph_remove_preserves_next_id _ _ _ _ Hrm2) as Hnid2.
+        pose proof (graph_remove_preserves_unrelated _ mid _ _ _ Hneq2 Hrm2) as Hlu2.
+        destruct (graph_add_module g2 _ _) as [g3 mid3] eqn:Hadd. simpl.
+        change g3 with (fst (g3, mid3)). rewrite <- Hadd.
+        rewrite graph_add_module_preserves_existing by lia.
+        exact Hlu2.
+      * (* both removes failed *)
+        destruct (graph_add_module (vm_graph s) _ _) as [g3 mid3] eqn:Hadd. simpl.
+        change g3 with (fst (g3, mid3)). rewrite <- Hadd.
+        apply graph_add_module_preserves_existing. exact Hmid_lt.
+  - (* lassert — single constructor, graph unchanged (record literal) *)
+    inversion Hstep; subst.
+    unfold states_agree_on_module, module_region_obs.
+    simpl. reflexivity.
   - (* ljoin *)
     inversion Hstep; subst;
     unfold states_agree_on_module, module_region_obs;
@@ -512,14 +509,10 @@ Proof.
     inversion Hstep; subst.
     unfold states_agree_on_module, module_region_obs.
     rewrite advance_state_graph. reflexivity.
-  - (* pdiscover *)
+  - (* pdiscover — graph unchanged *)
     inversion Hstep; subst.
     unfold states_agree_on_module, module_region_obs.
-    rewrite advance_state_graph.
-    apply region_obs_lookup_eq.
-    unfold graph_record_discovery. symmetry.
-    apply graph_add_axioms_preserves_lookup_other.
-    intros Heq. subst. apply Hnot_target. left. reflexivity.
+    rewrite advance_state_graph. reflexivity.
   - (* xfer *)
     inversion Hstep; subst.
     unfold states_agree_on_module, module_region_obs.
@@ -645,78 +638,82 @@ Proof.
     inversion Hstep; subst.
     unfold states_agree_on_module, module_region_obs.
     reflexivity.
-  - (* tensor_set: in-bounds updates graph_update_module_tensor (region preserved);
-       OOB leaves graph unchanged *)
+  - (* tensor_set: graph may update tensor entries, but regions stay the same *)
     inversion Hstep; subst;
-    unfold states_agree_on_module, module_region_obs;
-    rewrite advance_state_graph.
-    + (* step_tensor_set: graph updated, module_region_obs preserved *)
-      apply graph_update_module_tensor_preserves_region_obs.
-    + (* step_tensor_set_oob: graph unchanged *)
-      reflexivity.
-  - (* tensor_get: both in-bounds and OOB leave graph unchanged *)
-    inversion Hstep; subst;
-    unfold states_agree_on_module, module_region_obs;
-    [rewrite advance_state_rm_graph | rewrite advance_state_graph]; reflexivity.
-  - (* instr_morph: success adds morphism to graph (module lookups preserved) *)
-    inversion Hstep; subst; try (cbv zeta in *);
-    unfold states_agree_on_module, module_region_obs.
-    + (* step_morph: graph' = fst (graph_add_morphism ...), which preserves module lookup *)
-      rewrite advance_state_rm_graph.
-      apply region_obs_lookup_eq.
-      (* Context has H8: (graph', morph_id) = graph_add_morphism (vm_graph s) src_mod dst_mod c false
-         where c := {| coupling_pairs := []; coupling_label := "" |} is a let-def.
-         Use standalone preservation lemma and f_equal fst H8 to equate graphs. *)
-      rewrite <- (graph_add_morphism_preserves_lookup (vm_graph s) src_mod dst_mod c false mid).
-      pose proof (f_equal fst H8) as Hfst.
-      simpl in Hfst.
-      rewrite Hfst. reflexivity.
-    + (* step_morph_failure: graph unchanged *)
-      rewrite advance_state_graph. reflexivity.
-  - (* instr_compose: composing morphisms preserves module lookup *)
-    inversion Hstep; subst;
-    unfold states_agree_on_module, module_region_obs.
-    + rewrite advance_state_rm_graph.
-      apply region_obs_lookup_eq.
-      match goal with [H: graph_compose_morphisms _ _ _ = Some _ |- _] =>
-        symmetry; exact (graph_compose_morphisms_preserves_lookup _ _ _ _ _ _ H)
-      end.
-    + rewrite advance_state_graph. reflexivity.
-  - (* instr_morph_id: adding identity morphism preserves module lookup *)
-    inversion Hstep; subst;
-    unfold states_agree_on_module, module_region_obs.
-    + rewrite advance_state_rm_graph.
-      apply region_obs_lookup_eq.
-      match goal with [H: graph_add_identity _ _ = Some _ |- _] =>
-        symmetry; exact (graph_add_identity_preserves_lookup _ _ _ _ _ H)
-      end.
-    + rewrite advance_state_graph. reflexivity.
-  - (* instr_morph_delete: deleting morphism preserves module lookup *)
-    inversion Hstep; subst;
-    unfold states_agree_on_module, module_region_obs.
+      unfold states_agree_on_module, module_region_obs.
     + rewrite advance_state_graph.
-      apply region_obs_lookup_eq.
-      match goal with [H: graph_delete_morphism _ _ = Some _ |- _] =>
-        symmetry; exact (graph_delete_morphism_preserves_lookup _ _ _ _ H)
+      rewrite <- (graph_update_module_tensor_preserves_region_obs
+                    (vm_graph s) module (i * 4 + j) value mid).
+      reflexivity.
+    + rewrite advance_state_graph. reflexivity.
+  - (* tensor_get: graph unchanged *)
+    inversion Hstep; subst;
+      unfold states_agree_on_module, module_region_obs.
+    + rewrite advance_state_rm_graph. reflexivity.
+    + rewrite advance_state_graph. reflexivity.
+  - (* instr_morph: morph table updates preserve module observations *)
+    inversion Hstep; subst;
+      unfold states_agree_on_module, module_region_obs.
+    + rewrite advance_state_rm_graph.
+      apply region_obs_lookup_eq. symmetry.
+      change graph' with (fst (graph', morph_id)).
+      match goal with
+      | Hmorph : (graph', morph_id) =
+                 graph_add_morphism (vm_graph s) src_mod dst_mod empty_coupling_data false |- _ =>
+          rewrite Hmorph
+      end.
+      apply graph_add_morphism_preserves_lookup.
+    + rewrite advance_state_graph. reflexivity.
+    + rewrite advance_state_graph. reflexivity.
+  - (* instr_compose: morph composition preserves module observations *)
+    inversion Hstep; subst;
+      unfold states_agree_on_module, module_region_obs.
+    + rewrite advance_state_rm_graph.
+      apply region_obs_lookup_eq. symmetry.
+      match goal with
+      | Hcomp : graph_compose_morphisms (vm_graph s) m1_id m2_id = Some (graph', morph_id) |- _ =>
+          eapply graph_compose_morphisms_preserves_lookup; exact Hcomp
+      end.
+    + rewrite advance_state_graph. reflexivity.
+  - (* instr_morph_id: identity morph creation preserves module observations *)
+    inversion Hstep; subst;
+      unfold states_agree_on_module, module_region_obs.
+    + rewrite advance_state_rm_graph.
+      apply region_obs_lookup_eq. symmetry.
+      match goal with
+      | Hid : graph_add_identity (vm_graph s) module = Some (graph', morph_id) |- _ =>
+          eapply graph_add_identity_preserves_lookup; exact Hid
+      end.
+    + rewrite advance_state_graph. reflexivity.
+  - (* instr_morph_delete: morph deletion preserves module observations *)
+    inversion Hstep; subst;
+      unfold states_agree_on_module, module_region_obs.
+    + rewrite advance_state_graph.
+      apply region_obs_lookup_eq. symmetry.
+      match goal with
+      | Hdel : graph_delete_morphism (vm_graph s) morph_id = Some graph' |- _ =>
+          eapply graph_delete_morphism_preserves_lookup; exact Hdel
       end.
     + rewrite advance_state_graph. reflexivity.
   - (* instr_morph_assert: only changes CSRs, graph unchanged *)
     inversion Hstep; subst;
     unfold states_agree_on_module, module_region_obs;
     rewrite advance_state_graph; reflexivity.
-  - (* instr_morph_tensor: tensor of morphisms preserves module lookup *)
+  - (* instr_morph_tensor: tensoring morphisms preserves module observations *)
     inversion Hstep; subst;
-    unfold states_agree_on_module, module_region_obs.
+      unfold states_agree_on_module, module_region_obs.
     + rewrite advance_state_rm_graph.
-      apply region_obs_lookup_eq.
-      match goal with [H: graph_tensor_morphisms _ _ _ = Some _ |- _] =>
-        symmetry; exact (graph_tensor_morphisms_preserves_lookup _ _ _ _ _ _ H)
+      apply region_obs_lookup_eq. symmetry.
+      match goal with
+      | Htensor : graph_tensor_morphisms (vm_graph s) f_id g_id = Some (graph', morph_id) |- _ =>
+          eapply graph_tensor_morphisms_preserves_lookup; exact Htensor
       end.
     + rewrite advance_state_graph. reflexivity.
-  - (* instr_morph_get: only reads morphism, graph unchanged *)
+  - (* instr_morph_get: module observations are unchanged on success or failure *)
     inversion Hstep; subst;
-    unfold states_agree_on_module, module_region_obs;
-    [rewrite advance_state_rm_graph | rewrite advance_state_graph]; reflexivity.
+      unfold states_agree_on_module, module_region_obs.
+    + rewrite advance_state_rm_graph. reflexivity.
+    + rewrite advance_state_graph. reflexivity.
 Qed.
 
 (** =========================================================================

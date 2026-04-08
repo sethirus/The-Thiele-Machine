@@ -158,8 +158,8 @@ Qed.
 Definition instr_targets (i : vm_instruction) : list nat :=
   match i with
   | instr_pnew _ _ => []
-  | instr_psplit mid _ _ _ => [mid]
-  | instr_pmerge m1 m2 _ => [m1; m2]
+  | instr_psplit mid _ _ _ => [mid mod 64]
+  | instr_pmerge m1 m2 _ => [m1 mod 64; m2 mod 64]
   | instr_pdiscover mid _ _ => [mid]
   | instr_lassert _ _ _ _ _ => [0]  (* module is hardcoded to 0 in new ISA *)
   | instr_mdlacc mid _ => [mid]
@@ -836,109 +836,123 @@ Theorem observational_no_signaling : forall s s' instr mid,
   ObservableRegion s mid = ObservableRegion s' mid.
 Proof.
   intros s s' instr mid Hwf Hmid_lt Hstep Hnotin.
-  unfold ObservableRegion, Observable.
-
-  destruct Hstep; simpl in *; unfold advance_state, advance_state_rm in *; simpl in *;
+  unfold ObservableRegion.
+  destruct Hstep; subst;
+    unfold advance_state, advance_state_rm, advance_state_reveal,
+           jump_state, jump_state_rm in *;
+    cbn [vm_graph] in *;
     try reflexivity.
-
-  - (* step_pnew *)
-    simpl in Hnotin.
-    assert (Hg' : graph' = fst (graph_pnew (vm_graph s) region)).
-    { rewrite H. reflexivity. }
-    rewrite Hg'.
-    rewrite (graph_pnew_preserves_existing (vm_graph s) region mid Hmid_lt).
-    reflexivity.
-
-  - (* step_psplit success *)
-    simpl in Hnotin.
-    assert (Hneq: mid <> module).
-    { intro Heq. subst. simpl in Hnotin. destruct Hnotin. left. reflexivity. }
-    rewrite (graph_psplit_preserves_unrelated (vm_graph s) module left right graph' left_id right_id mid Hneq Hmid_lt H).
-    reflexivity.
-
-  - (* step_pmerge success *)
-    simpl in Hnotin.
-    assert (Hneq1: mid <> m1).
-    { intro Heq. subst. simpl in Hnotin. destruct Hnotin. left. reflexivity. }
-    assert (Hneq2: mid <> m2).
-    { intro Heq. subst. simpl in Hnotin. destruct Hnotin. right. left. reflexivity. }
-    (* Use the proven pmerge observable preservation at fixed μ, then project regions. *)
-    set (s_pre :=
-      {| vm_regs := []; vm_mem := [];
-         vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0; csr_heap_base := 0 |};
-         vm_pc := 0; vm_graph := vm_graph s; vm_mu := 0; vm_mu_tensor := vm_mu_tensor_default; vm_err := false; vm_logic_acc := 0; vm_mstatus := 0; vm_witness := witness_counts_zero; vm_certified := false |}).
-    set (s_post :=
-      {| vm_regs := []; vm_mem := [];
-         vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0; csr_heap_base := 0 |};
-         vm_pc := 0; vm_graph := graph'; vm_mu := 0; vm_mu_tensor := vm_mu_tensor_default; vm_err := false; vm_logic_acc := 0; vm_mstatus := 0; vm_witness := witness_counts_zero; vm_certified := false |}).
-    assert (Hobs:
-      Observable s_post mid = Observable s_pre mid).
-    { apply (graph_pmerge_preserves_observables (vm_graph s) m1 m2 graph' merged_id mid 0);
-        assumption. }
-    unfold ObservableRegion.
-    unfold Observable in Hobs. simpl in Hobs.
-    destruct (graph_lookup graph' mid) eqn:Hlk_post;
-      destruct (graph_lookup (vm_graph s) mid) eqn:Hlk_pre;
-      simpl in *;
-      try discriminate;
-      inversion Hobs; subst; reflexivity.
-
-  - (* step_lassert_sat — new ISA: module is hardcoded to 0 *)
-    simpl in Hnotin.
-    assert (Hneq: mid <> 0).
-    { intro Heq. subst. simpl in Hnotin. destruct Hnotin. left. reflexivity. }
-    unfold ObservableRegion.
-    (* graph' = graph_add_axiom (vm_graph s) 0 formula, from step_lassert_sat *)
-    match goal with
-    | H : ?g' = graph_add_axiom (vm_graph s) 0 ?f |- _ =>
-        rewrite H; rewrite (graph_add_axiom_preserves_unrelated (vm_graph s) mid 0 f Hneq)
-    end.
-    reflexivity.
-
-  - (* step_pdiscover *)
-    simpl in Hnotin.
-    assert (Hneq: mid <> module).
-    { intro Heq. subst. simpl in Hnotin. destruct Hnotin. left. reflexivity. }
-    unfold ObservableRegion.
-    rewrite H.
-    rewrite (graph_record_discovery_preserves_unrelated (vm_graph s) mid module evidence Hneq).
-    reflexivity.
-
-  - (* step_tensor_set: graph modified by graph_update_module_tensor *)
-    assert (Hneq: mid <> mid0).
-    { intro Heq; subst; apply Hnotin; left; reflexivity. }
-    unfold ObservableRegion.
+  (* Goal 1: step_pnew — graph' = fst(graph_add_module ...) *)
+  - rewrite graph_add_module_lookup_other; [reflexivity | exact Hmid_lt].
+  (* Goal 2: step_psplit — graph' = graph_hw_psplit (vm_graph s) (module mod 64) *)
+  - assert (Hneq: mid <> module mod 64).
+    { intro Heq. apply Hnotin. unfold instr_targets. left. symmetry. exact Heq. }
+    unfold graph_hw_psplit, graph_module_size.
+    destruct (graph_remove (vm_graph s) (module mod 64)) as [[g1 m_rm]|] eqn:Hrm.
+    + (* graph_remove succeeded *)
+      pose proof (graph_remove_preserves_next_id _ _ _ _ Hrm) as Hnid.
+      destruct (graph_add_module g1 _ _) as [g2 mid2] eqn:Hadd1.
+      destruct (graph_add_module g2 _ _) as [g3 mid3] eqn:Hadd2.
+      simpl.
+      enough (graph_lookup g3 mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
+      transitivity (graph_lookup g2 mid).
+      * change g3 with (fst (g3, mid3)). rewrite <- Hadd2.
+        apply graph_add_module_lookup_other.
+        pose proof (f_equal (fun p => pg_next_id (fst p)) Hadd1) as Htmp.
+        unfold graph_add_module in Htmp. simpl in Htmp. lia.
+      * transitivity (graph_lookup g1 mid).
+        -- change g2 with (fst (g2, mid2)). rewrite <- Hadd1.
+           apply graph_add_module_lookup_other. lia.
+        -- exact (graph_remove_preserves_unrelated _ mid _ _ _ Hneq Hrm).
+    + (* graph_remove failed *)
+      destruct (graph_add_module (vm_graph s) _ _) as [g2 mid2] eqn:Hadd1.
+      destruct (graph_add_module g2 _ _) as [g3 mid3] eqn:Hadd2.
+      simpl.
+      enough (graph_lookup g3 mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
+      transitivity (graph_lookup g2 mid).
+      * change g3 with (fst (g3, mid3)). rewrite <- Hadd2.
+        apply graph_add_module_lookup_other.
+        pose proof (f_equal (fun p => pg_next_id (fst p)) Hadd1) as Htmp.
+        unfold graph_add_module in Htmp. simpl in Htmp. lia.
+      * change g2 with (fst (g2, mid2)). rewrite <- Hadd1.
+        apply graph_add_module_lookup_other. exact Hmid_lt.
+  (* Goal 3: step_pmerge — graph' = graph_hw_pmerge (vm_graph s) (m1 mod 64) (m2 mod 64) *)
+  - assert (Hneq1: mid <> m1 mod 64).
+    { intro Heq. apply Hnotin. unfold instr_targets. left. symmetry. exact Heq. }
+    assert (Hneq2: mid <> m2 mod 64).
+    { intro Heq. apply Hnotin. unfold instr_targets. right. left. symmetry. exact Heq. }
+    unfold graph_hw_pmerge, graph_module_size.
+    destruct (graph_remove (vm_graph s) (m1 mod 64)) as [[g1 m1_rm]|] eqn:Hrm1.
+    + (* first remove succeeded *)
+      pose proof (graph_remove_preserves_next_id _ _ _ _ Hrm1) as Hnid1.
+      pose proof (graph_remove_preserves_unrelated _ mid _ _ _ Hneq1 Hrm1) as Hlu1.
+      destruct (graph_remove g1 (m2 mod 64)) as [[g2 m2_rm]|] eqn:Hrm2.
+      * (* second remove succeeded *)
+        pose proof (graph_remove_preserves_next_id _ _ _ _ Hrm2) as Hnid2.
+        pose proof (graph_remove_preserves_unrelated _ mid _ _ _ Hneq2 Hrm2) as Hlu2.
+        destruct (graph_add_module g2 _ _) as [g3 mid3] eqn:Hadd.
+        simpl.
+        enough (graph_lookup g3 mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
+        change g3 with (fst (g3, mid3)). rewrite <- Hadd.
+        rewrite graph_add_module_lookup_other by lia.
+        rewrite Hlu2. exact Hlu1.
+      * (* second remove failed *)
+        destruct (graph_add_module g1 _ _) as [g3 mid3] eqn:Hadd.
+        simpl.
+        enough (graph_lookup g3 mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
+        change g3 with (fst (g3, mid3)). rewrite <- Hadd.
+        rewrite graph_add_module_lookup_other by lia.
+        exact Hlu1.
+    + (* first remove failed *)
+      destruct (graph_remove (vm_graph s) (m2 mod 64)) as [[g2 m2_rm]|] eqn:Hrm2.
+      * (* second remove succeeded *)
+        pose proof (graph_remove_preserves_next_id _ _ _ _ Hrm2) as Hnid2.
+        pose proof (graph_remove_preserves_unrelated _ mid _ _ _ Hneq2 Hrm2) as Hlu2.
+        destruct (graph_add_module g2 _ _) as [g3 mid3] eqn:Hadd.
+        simpl.
+        enough (graph_lookup g3 mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
+        change g3 with (fst (g3, mid3)). rewrite <- Hadd.
+        rewrite graph_add_module_lookup_other by lia.
+        exact Hlu2.
+      * (* both removes failed *)
+        destruct (graph_add_module (vm_graph s) _ _) as [g3 mid3] eqn:Hadd.
+        simpl.
+        enough (graph_lookup g3 mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
+        change g3 with (fst (g3, mid3)). rewrite <- Hadd.
+        apply graph_add_module_lookup_other. exact Hmid_lt.
+  (* Goal 4: step_tensor_set_ok — only the target module tensor mutates. *)
+  - assert (Hneq : mid <> mid0).
+    { intro Heq. apply Hnotin. unfold instr_targets. simpl. left. symmetry. exact Heq. }
+    simpl.
+    enough (graph_lookup (graph_update_module_tensor (vm_graph s) mid0 (i * 4 + j) value) mid =
+            graph_lookup (vm_graph s) mid) as -> by reflexivity.
+    apply graph_update_module_tensor_preserves_unrelated. exact Hneq.
+  (* Goal 5: step_morph_ok — morph table changes do not affect module lookups. *)
+  - simpl.
+    enough (graph_lookup graph' mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
+    change graph' with (fst (graph', morph_id)).
     rewrite H1.
-    rewrite (graph_update_module_tensor_preserves_unrelated (vm_graph s) mid mid0 _ _ Hneq).
-    reflexivity.
-
-  (* Phase 7 categorical instructions: morphism operations preserve module lookup *)
-  - (* step_morph: graph' comes from graph_add_morphism, which preserves pg_modules *)
-    unfold ObservableRegion.
-    (* H1 is the pair equation (graph', morph_id) = graph_add_morphism ... *)
-    pose proof (f_equal fst H1) as Hg'.
-    simpl in Hg'. rewrite Hg'. simpl.
-    reflexivity.
-
-  - (* step_compose *)
-    unfold ObservableRegion.
-    rewrite (graph_compose_morphisms_preserves_lookup (vm_graph s) m1_id m2_id graph' new_id mid H).
-    reflexivity.
-
-  - (* step_morph_id *)
-    unfold ObservableRegion.
-    rewrite (graph_add_identity_preserves_lookup (vm_graph s) module graph' new_id mid H).
-    reflexivity.
-
-  - (* step_morph_delete *)
-    unfold ObservableRegion.
-    rewrite (graph_delete_morphism_preserves_lookup (vm_graph s) morph_id graph' mid H).
-    reflexivity.
-
-  - (* step_morph_tensor *)
-    unfold ObservableRegion.
-    rewrite (graph_tensor_morphisms_preserves_lookup (vm_graph s) f_id g_id graph' new_id mid H).
-    reflexivity.
+    apply graph_add_morphism_preserves_lookup.
+  (* Goal 6: step_compose_ok — composing morphisms preserves module lookups. *)
+  - simpl.
+    enough (graph_lookup graph' mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
+    eapply graph_compose_morphisms_preserves_lookup.
+    exact H.
+  (* Goal 7: step_morph_id_ok — identity morph creation preserves module lookups. *)
+  - simpl.
+    enough (graph_lookup graph' mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
+    eapply graph_add_identity_preserves_lookup.
+    exact H.
+  (* Goal 8: step_morph_delete_ok — deleting a morphism preserves module lookups. *)
+  - simpl.
+    enough (graph_lookup graph' mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
+    eapply graph_delete_morphism_preserves_lookup.
+    exact H.
+  (* Goal 9: step_morph_tensor_ok — tensoring morphisms preserves module lookups. *)
+  - simpl.
+    enough (graph_lookup graph' mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
+    eapply graph_tensor_morphisms_preserves_lookup.
+    exact H.
 Qed.
 
 (** =========================================================================

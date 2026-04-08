@@ -1,4 +1,4 @@
-DIGEST 03a75c73adc39563a400cf4046393c78
+DIGEST 9cb051d21d1ba3c352d5f7280956403f
 FKernel.ShadowProjection
 R1508:1511 Coq.Lists.List <> <> lib
 R1513:1526 Coq.Arith.PeanoNat <> <> lib
@@ -269,187 +269,189 @@ R6647:6658 Kernel.ShadowProjection <> shadow_equal def
 R6661:6671 Kernel.ShadowProjection <> shadow_proj def
 R6674:6685 Kernel.ShadowProjection <> separation_A def
 R6688:6699 Kernel.ShadowProjection <> separation_B def
-def 7532:7549 <> morph_delete_probe
-R7553:7566 Kernel.VMStep VMStep vm_instruction ind
-R7571:7588 Kernel.VMStep VMStep instr_morph_delete constr
-prf 7766:7784 <> probe_succeeds_on_A
-R7841:7843 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7834:7839 Kernel.VMState <> vm_err proj
+def 7619:7640 <> graph_preserving_probe
+R7644:7657 Kernel.VMStep VMStep vm_instruction ind
+R7662:7670 Kernel.VMStep VMStep instr_add constr
+prf 7762:7784 <> probe_preserves_graph_A
+R7847:7849 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7838:7845 Kernel.VMState <> vm_graph proj
 R7791:7798 Kernel.SimulationProof <> vm_apply def
 R7800:7811 Kernel.ShadowProjection <> separation_A def
-R7813:7830 Kernel.ShadowProjection <> morph_delete_probe def
-R7844:7848 Coq.Init.Datatypes <> false constr
-R7867:7874 Kernel.SimulationProof <> vm_apply def
-R7877:7894 Kernel.ShadowProjection <> morph_delete_probe def
-R7897:7908 Kernel.ShadowProjection <> separation_A def
-prf 8096:8111 <> probe_fails_on_B
-R8168:8170 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8161:8166 Kernel.VMState <> vm_err proj
-R8118:8125 Kernel.SimulationProof <> vm_apply def
-R8127:8138 Kernel.ShadowProjection <> separation_B def
-R8140:8157 Kernel.ShadowProjection <> morph_delete_probe def
-R8171:8174 Coq.Init.Datatypes <> true constr
-R8193:8200 Kernel.SimulationProof <> vm_apply def
-R8203:8220 Kernel.ShadowProjection <> morph_delete_probe def
-R8223:8234 Kernel.ShadowProjection <> separation_B def
-prf 9033:9057 <> shadow_separation_theorem
-R9063:9070 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R9111:9153 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R9079:9085 Kernel.VMState <> VMState rec
-binder 9071:9072 <> s1:13
-R9079:9085 Kernel.VMState <> VMState rec
-binder 9074:9075 <> s2:14
-R9097:9110 Kernel.VMStep VMStep vm_instruction ind
-binder 9089:9093 <> probe:15
-R9172:9232 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9154:9165 Kernel.ShadowProjection <> shadow_equal def
-R9167:9168 Kernel.ShadowProjection <> s1:13 var
-R9170:9171 Kernel.ShadowProjection <> s2:14 var
-R9293:9370 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9261:9264 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R9248:9259 Kernel.VMState <> pg_morphisms proj
-R9237:9244 Kernel.VMState <> vm_graph proj
-R9233:9234 Kernel.ShadowProjection <> s1:13 var
-R9280:9291 Kernel.VMState <> pg_morphisms proj
-R9269:9276 Kernel.VMState <> vm_graph proj
-R9265:9266 Kernel.ShadowProjection <> s2:14 var
-R9407:9414 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9399:9401 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9392:9397 Kernel.VMState <> vm_err proj
-R9372:9379 Kernel.SimulationProof <> vm_apply def
-R9381:9382 Kernel.ShadowProjection <> s1:13 var
-R9384:9388 Kernel.ShadowProjection <> probe:15 var
-R9402:9406 Coq.Init.Datatypes <> false constr
-R9443:9445 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9436:9441 Kernel.VMState <> vm_err proj
-R9416:9423 Kernel.SimulationProof <> vm_apply def
-R9425:9426 Kernel.ShadowProjection <> s2:14 var
-R9428:9432 Kernel.ShadowProjection <> probe:15 var
-R9446:9449 Coq.Init.Datatypes <> true constr
-R9468:9479 Kernel.ShadowProjection <> separation_A def
-R9482:9493 Kernel.ShadowProjection <> separation_B def
-R9496:9513 Kernel.ShadowProjection <> morph_delete_probe def
-R9468:9479 Kernel.ShadowProjection <> separation_A def
-R9482:9493 Kernel.ShadowProjection <> separation_B def
-R9496:9513 Kernel.ShadowProjection <> morph_delete_probe def
-R9526:9529 Coq.Init.Logic <> conj constr
-R9534:9537 Coq.Init.Logic <> conj constr
-R9542:9545 Coq.Init.Logic <> conj constr
-R9526:9529 Coq.Init.Logic <> conj constr
-R9534:9537 Coq.Init.Logic <> conj constr
-R9542:9545 Coq.Init.Logic <> conj constr
-R9589:9600 Kernel.ShadowProjection <> shadow_equal def
-R9603:9613 Kernel.ShadowProjection <> shadow_proj def
-R9616:9627 Kernel.ShadowProjection <> separation_A def
-R9630:9641 Kernel.ShadowProjection <> separation_B def
-R9769:9787 Kernel.ShadowProjection <> probe_succeeds_on_A thm
-R9769:9787 Kernel.ShadowProjection <> probe_succeeds_on_A thm
-R9827:9842 Kernel.ShadowProjection <> probe_fails_on_B thm
-R9827:9842 Kernel.ShadowProjection <> probe_fails_on_B thm
-prf 10489:10521 <> shadow_does_not_capture_morphisms
-binder 10535:10535 <> A:16
-R10564:10567 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10550:10563 Kernel.ShadowProjection <> ClassicalState rec
-R10568:10568 Kernel.ShadowProjection <> A:16 var
-binder 10546:10546 <> f:17
-R10604:10606 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10576:10576 Kernel.ShadowProjection <> f:17 var
-R10579:10589 Kernel.ShadowProjection <> shadow_proj def
-R10591:10602 Kernel.ShadowProjection <> separation_A def
-R10607:10607 Kernel.ShadowProjection <> f:17 var
-R10610:10620 Kernel.ShadowProjection <> shadow_proj def
-R10622:10633 Kernel.ShadowProjection <> separation_B def
-R10747:10749 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10723:10733 Kernel.ShadowProjection <> shadow_proj def
-R10735:10746 Kernel.ShadowProjection <> separation_A def
-R10750:10760 Kernel.ShadowProjection <> shadow_proj def
-R10762:10773 Kernel.ShadowProjection <> separation_B def
-R10747:10749 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10723:10733 Kernel.ShadowProjection <> shadow_proj def
-R10735:10746 Kernel.ShadowProjection <> separation_A def
-R10750:10760 Kernel.ShadowProjection <> shadow_proj def
-R10762:10773 Kernel.ShadowProjection <> separation_B def
-R10788:10798 Kernel.ShadowProjection <> shadow_proj def
-R10801:10812 Kernel.ShadowProjection <> separation_A def
-R10815:10826 Kernel.ShadowProjection <> separation_B def
-prf 11002:11024 <> no_classical_separation
-binder 11038:11038 <> A:18
-R11060:11063 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11053:11059 Kernel.VMState <> VMState rec
-R11064:11064 Kernel.ShadowProjection <> A:18 var
-binder 11049:11049 <> f:19
-R11141:11141 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11202:11210 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 11149:11150 <> s1:20
-binder 11152:11153 <> s2:21
-R11187:11190 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11170:11172 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11156:11166 Kernel.ShadowProjection <> shadow_proj def
-R11168:11169 Kernel.ShadowProjection <> s1:20 var
-R11173:11183 Kernel.ShadowProjection <> shadow_proj def
-R11185:11186 Kernel.ShadowProjection <> s2:21 var
-R11195:11197 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11191:11191 Kernel.ShadowProjection <> f:19 var
-R11193:11194 Kernel.ShadowProjection <> s1:20 var
-R11198:11198 Kernel.ShadowProjection <> f:19 var
-R11200:11201 Kernel.ShadowProjection <> s2:21 var
-R11225:11227 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11211:11211 Kernel.ShadowProjection <> f:19 var
-R11213:11224 Kernel.ShadowProjection <> separation_A def
-R11228:11228 Kernel.ShadowProjection <> f:19 var
-R11230:11241 Kernel.ShadowProjection <> separation_B def
-R11305:11315 Kernel.ShadowProjection <> shadow_proj def
-R11318:11329 Kernel.ShadowProjection <> separation_A def
-R11332:11343 Kernel.ShadowProjection <> separation_B def
-prf 11616:11636 <> shadow_strictly_lossy
-R11642:11649 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R11665:11740 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R11658:11664 Kernel.VMState <> VMState rec
-binder 11650:11651 <> s1:22
-R11658:11664 Kernel.VMState <> VMState rec
-binder 11653:11654 <> s2:23
-R11772:11859 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11755:11757 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11741:11751 Kernel.ShadowProjection <> shadow_proj def
-R11753:11754 Kernel.ShadowProjection <> s1:22 var
-R11758:11768 Kernel.ShadowProjection <> shadow_proj def
-R11770:11771 Kernel.ShadowProjection <> s2:23 var
-R11920:12013 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11888:11891 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R11875:11886 Kernel.VMState <> pg_morphisms proj
-R11864:11871 Kernel.VMState <> vm_graph proj
-R11860:11861 Kernel.ShadowProjection <> s1:22 var
-R11907:11918 Kernel.VMState <> pg_morphisms proj
-R11896:11903 Kernel.VMState <> vm_graph proj
-R11892:11893 Kernel.ShadowProjection <> s2:23 var
-R12014:12020 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R12026:12033 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 12021:12025 <> probe:24
-R12062:12065 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R12055:12060 Kernel.VMState <> vm_err proj
-R12035:12042 Kernel.SimulationProof <> vm_apply def
-R12044:12045 Kernel.ShadowProjection <> s1:22 var
-R12047:12051 Kernel.ShadowProjection <> probe:24 var
-R12087:12092 Kernel.VMState <> vm_err proj
-R12067:12074 Kernel.SimulationProof <> vm_apply def
-R12076:12077 Kernel.ShadowProjection <> s2:23 var
-R12079:12083 Kernel.ShadowProjection <> probe:24 var
-R12112:12123 Kernel.ShadowProjection <> separation_A def
-R12126:12137 Kernel.ShadowProjection <> separation_B def
-R12112:12123 Kernel.ShadowProjection <> separation_A def
-R12126:12137 Kernel.ShadowProjection <> separation_B def
-R12150:12153 Coq.Init.Logic <> conj constr
-R12158:12161 Coq.Init.Logic <> conj constr
-R12150:12153 Coq.Init.Logic <> conj constr
-R12158:12161 Coq.Init.Logic <> conj constr
-R12181:12191 Kernel.ShadowProjection <> shadow_proj def
-R12194:12205 Kernel.ShadowProjection <> separation_A def
-R12208:12219 Kernel.ShadowProjection <> separation_B def
-R12289:12306 Kernel.ShadowProjection <> morph_delete_probe def
-R12289:12306 Kernel.ShadowProjection <> morph_delete_probe def
-R12321:12339 Kernel.ShadowProjection <> probe_succeeds_on_A thm
-R12342:12357 Kernel.ShadowProjection <> probe_fails_on_B thm
-R12321:12339 Kernel.ShadowProjection <> probe_succeeds_on_A thm
-R12321:12339 Kernel.ShadowProjection <> probe_succeeds_on_A thm
-R12342:12357 Kernel.ShadowProjection <> probe_fails_on_B thm
-R12342:12357 Kernel.ShadowProjection <> probe_fails_on_B thm
+R7813:7834 Kernel.ShadowProjection <> graph_preserving_probe def
+R7864:7871 Kernel.VMState <> vm_graph proj
+R7850:7861 Kernel.ShadowProjection <> separation_A def
+R7891:7898 Kernel.SimulationProof <> vm_apply def
+R7901:7922 Kernel.ShadowProjection <> graph_preserving_probe def
+R7925:7936 Kernel.ShadowProjection <> separation_A def
+prf 8047:8069 <> probe_preserves_graph_B
+R8132:8134 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8123:8130 Kernel.VMState <> vm_graph proj
+R8076:8083 Kernel.SimulationProof <> vm_apply def
+R8085:8096 Kernel.ShadowProjection <> separation_B def
+R8098:8119 Kernel.ShadowProjection <> graph_preserving_probe def
+R8149:8156 Kernel.VMState <> vm_graph proj
+R8135:8146 Kernel.ShadowProjection <> separation_B def
+R8176:8183 Kernel.SimulationProof <> vm_apply def
+R8186:8207 Kernel.ShadowProjection <> graph_preserving_probe def
+R8210:8221 Kernel.ShadowProjection <> separation_B def
+prf 9056:9080 <> shadow_separation_theorem
+R9086:9093 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9134:9176 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9102:9108 Kernel.VMState <> VMState rec
+binder 9094:9095 <> s1:13
+R9102:9108 Kernel.VMState <> VMState rec
+binder 9097:9098 <> s2:14
+R9120:9133 Kernel.VMStep VMStep vm_instruction ind
+binder 9112:9116 <> probe:15
+R9195:9255 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9177:9188 Kernel.ShadowProjection <> shadow_equal def
+R9190:9191 Kernel.ShadowProjection <> s1:13 var
+R9193:9194 Kernel.ShadowProjection <> s2:14 var
+R9316:9387 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9284:9287 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R9271:9282 Kernel.VMState <> pg_morphisms proj
+R9260:9267 Kernel.VMState <> vm_graph proj
+R9256:9257 Kernel.ShadowProjection <> s1:13 var
+R9303:9314 Kernel.VMState <> pg_morphisms proj
+R9292:9299 Kernel.VMState <> vm_graph proj
+R9288:9289 Kernel.ShadowProjection <> s2:14 var
+R9433:9442 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R9420:9431 Kernel.VMState <> pg_morphisms proj
+R9409:9416 Kernel.VMState <> vm_graph proj
+R9389:9396 Kernel.SimulationProof <> vm_apply def
+R9398:9399 Kernel.ShadowProjection <> s1:13 var
+R9401:9405 Kernel.ShadowProjection <> probe:15 var
+R9475:9486 Kernel.VMState <> pg_morphisms proj
+R9464:9471 Kernel.VMState <> vm_graph proj
+R9444:9451 Kernel.SimulationProof <> vm_apply def
+R9453:9454 Kernel.ShadowProjection <> s2:14 var
+R9456:9460 Kernel.ShadowProjection <> probe:15 var
+R9506:9517 Kernel.ShadowProjection <> separation_A def
+R9520:9531 Kernel.ShadowProjection <> separation_B def
+R9534:9555 Kernel.ShadowProjection <> graph_preserving_probe def
+R9506:9517 Kernel.ShadowProjection <> separation_A def
+R9520:9531 Kernel.ShadowProjection <> separation_B def
+R9534:9555 Kernel.ShadowProjection <> graph_preserving_probe def
+R9568:9571 Coq.Init.Logic <> conj constr
+R9576:9579 Coq.Init.Logic <> conj constr
+R9568:9571 Coq.Init.Logic <> conj constr
+R9576:9579 Coq.Init.Logic <> conj constr
+R9622:9633 Kernel.ShadowProjection <> shadow_equal def
+R9636:9646 Kernel.ShadowProjection <> shadow_proj def
+R9649:9660 Kernel.ShadowProjection <> separation_A def
+R9663:9674 Kernel.ShadowProjection <> separation_B def
+R9818:9840 Kernel.ShadowProjection <> probe_preserves_graph_A thm
+R9843:9865 Kernel.ShadowProjection <> probe_preserves_graph_B thm
+R9818:9840 Kernel.ShadowProjection <> probe_preserves_graph_A thm
+R9818:9840 Kernel.ShadowProjection <> probe_preserves_graph_A thm
+R9843:9865 Kernel.ShadowProjection <> probe_preserves_graph_B thm
+R9843:9865 Kernel.ShadowProjection <> probe_preserves_graph_B thm
+prf 10548:10580 <> shadow_does_not_capture_morphisms
+binder 10594:10594 <> A:16
+R10623:10626 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10609:10622 Kernel.ShadowProjection <> ClassicalState rec
+R10627:10627 Kernel.ShadowProjection <> A:16 var
+binder 10605:10605 <> f:17
+R10663:10665 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10635:10635 Kernel.ShadowProjection <> f:17 var
+R10638:10648 Kernel.ShadowProjection <> shadow_proj def
+R10650:10661 Kernel.ShadowProjection <> separation_A def
+R10666:10666 Kernel.ShadowProjection <> f:17 var
+R10669:10679 Kernel.ShadowProjection <> shadow_proj def
+R10681:10692 Kernel.ShadowProjection <> separation_B def
+R10806:10808 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10782:10792 Kernel.ShadowProjection <> shadow_proj def
+R10794:10805 Kernel.ShadowProjection <> separation_A def
+R10809:10819 Kernel.ShadowProjection <> shadow_proj def
+R10821:10832 Kernel.ShadowProjection <> separation_B def
+R10806:10808 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10782:10792 Kernel.ShadowProjection <> shadow_proj def
+R10794:10805 Kernel.ShadowProjection <> separation_A def
+R10809:10819 Kernel.ShadowProjection <> shadow_proj def
+R10821:10832 Kernel.ShadowProjection <> separation_B def
+R10847:10857 Kernel.ShadowProjection <> shadow_proj def
+R10860:10871 Kernel.ShadowProjection <> separation_A def
+R10874:10885 Kernel.ShadowProjection <> separation_B def
+prf 11061:11083 <> no_classical_separation
+binder 11097:11097 <> A:18
+R11119:11122 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11112:11118 Kernel.VMState <> VMState rec
+R11123:11123 Kernel.ShadowProjection <> A:18 var
+binder 11108:11108 <> f:19
+R11200:11200 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11261:11269 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 11208:11209 <> s1:20
+binder 11211:11212 <> s2:21
+R11246:11249 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11229:11231 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11215:11225 Kernel.ShadowProjection <> shadow_proj def
+R11227:11228 Kernel.ShadowProjection <> s1:20 var
+R11232:11242 Kernel.ShadowProjection <> shadow_proj def
+R11244:11245 Kernel.ShadowProjection <> s2:21 var
+R11254:11256 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11250:11250 Kernel.ShadowProjection <> f:19 var
+R11252:11253 Kernel.ShadowProjection <> s1:20 var
+R11257:11257 Kernel.ShadowProjection <> f:19 var
+R11259:11260 Kernel.ShadowProjection <> s2:21 var
+R11284:11286 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11270:11270 Kernel.ShadowProjection <> f:19 var
+R11272:11283 Kernel.ShadowProjection <> separation_A def
+R11287:11287 Kernel.ShadowProjection <> f:19 var
+R11289:11300 Kernel.ShadowProjection <> separation_B def
+R11364:11374 Kernel.ShadowProjection <> shadow_proj def
+R11377:11388 Kernel.ShadowProjection <> separation_A def
+R11391:11402 Kernel.ShadowProjection <> separation_B def
+prf 11714:11734 <> shadow_strictly_lossy
+R11740:11747 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11763:11838 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11756:11762 Kernel.VMState <> VMState rec
+binder 11748:11749 <> s1:22
+R11756:11762 Kernel.VMState <> VMState rec
+binder 11751:11752 <> s2:23
+R11870:11957 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11853:11855 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11839:11849 Kernel.ShadowProjection <> shadow_proj def
+R11851:11852 Kernel.ShadowProjection <> s1:22 var
+R11856:11866 Kernel.ShadowProjection <> shadow_proj def
+R11868:11869 Kernel.ShadowProjection <> s2:23 var
+R12018:12122 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11986:11989 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R11973:11984 Kernel.VMState <> pg_morphisms proj
+R11962:11969 Kernel.VMState <> vm_graph proj
+R11958:11959 Kernel.ShadowProjection <> s1:22 var
+R12005:12016 Kernel.VMState <> pg_morphisms proj
+R11994:12001 Kernel.VMState <> vm_graph proj
+R11990:11991 Kernel.ShadowProjection <> s2:23 var
+R12123:12129 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R12135:12142 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 12130:12134 <> probe:24
+R12188:12199 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R12175:12186 Kernel.VMState <> pg_morphisms proj
+R12164:12171 Kernel.VMState <> vm_graph proj
+R12144:12151 Kernel.SimulationProof <> vm_apply def
+R12153:12154 Kernel.ShadowProjection <> s1:22 var
+R12156:12160 Kernel.ShadowProjection <> probe:24 var
+R12232:12243 Kernel.VMState <> pg_morphisms proj
+R12221:12228 Kernel.VMState <> vm_graph proj
+R12201:12208 Kernel.SimulationProof <> vm_apply def
+R12210:12211 Kernel.ShadowProjection <> s2:23 var
+R12213:12217 Kernel.ShadowProjection <> probe:24 var
+R12263:12274 Kernel.ShadowProjection <> separation_A def
+R12277:12288 Kernel.ShadowProjection <> separation_B def
+R12263:12274 Kernel.ShadowProjection <> separation_A def
+R12277:12288 Kernel.ShadowProjection <> separation_B def
+R12301:12304 Coq.Init.Logic <> conj constr
+R12309:12312 Coq.Init.Logic <> conj constr
+R12301:12304 Coq.Init.Logic <> conj constr
+R12309:12312 Coq.Init.Logic <> conj constr
+R12332:12342 Kernel.ShadowProjection <> shadow_proj def
+R12345:12356 Kernel.ShadowProjection <> separation_A def
+R12359:12370 Kernel.ShadowProjection <> separation_B def
+R12440:12461 Kernel.ShadowProjection <> graph_preserving_probe def
+R12440:12461 Kernel.ShadowProjection <> graph_preserving_probe def
+R12476:12498 Kernel.ShadowProjection <> probe_preserves_graph_A thm
+R12501:12523 Kernel.ShadowProjection <> probe_preserves_graph_B thm
+R12476:12498 Kernel.ShadowProjection <> probe_preserves_graph_A thm
+R12476:12498 Kernel.ShadowProjection <> probe_preserves_graph_A thm
+R12501:12523 Kernel.ShadowProjection <> probe_preserves_graph_B thm
+R12501:12523 Kernel.ShadowProjection <> probe_preserves_graph_B thm

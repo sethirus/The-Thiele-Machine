@@ -62,35 +62,50 @@ class TestLassertSatDimacsToRtl:
         assert result.vm_mu >= 2
 
     def test_rtl_lassert_sat(self):
-        """RTL: LASSERT with deterministic bridge (SAT iff op_a >= op_b)."""
+        """RTL: LASSERT SAT path — on-chip FSM verifies a trivial formula.
+
+        op_a=32 sets bit 5 (kind=SAT), freg=0 → fbase=regs[0]=0.
+        op_b=0 → creg=0 → cbase=regs[0]=0.
+        Formula: 1 clause "(x1)", assignment x1=true.
+        Memory layout (shared fbase=0, cbase=0):
+          mem[0]=1 (flen), mem[1]=1 (cert: var1=true),
+          mem[2]=1 (nclauses), mem[3]=1 (literal +x1), mem[4]=0 (end-of-clause).
+        """
         from thielecpu.hardware.cosim import run_verilog
 
-        # In the iverilog testbench, LASSERT returns SAT when op_a >= op_b.
-        # Use op_a=9, op_b=4 -> SAT (9 >= 4)
         program = [
             "INIT_LOGIC_ACC 0xCAFEEACE",
             "PNEW {0,256} 1",
-            "LASSERT 9 4 2",
+            # Set up trivial SAT formula in data memory
+            "INIT_MEM 0 1",    # flen = 1
+            "INIT_MEM 1 1",    # cert: var 1 = true
+            "INIT_MEM 2 1",    # nclauses = 1
+            "INIT_MEM 3 1",    # literal: var 1 (positive)
+            "INIT_MEM 4 0",    # end-of-clause sentinel
+            "LASSERT 32 0 2",  # SAT (bit5=1), freg=0, creg=0, cost=2
             "HALT 0",
         ]
         state = run_verilog(program)
-        assert state["status"] == 2  # halted
+        assert state["status"] == 2  # halted — SAT path succeeded
         assert state["mu"] >= 2, "mu should include LASSERT cost"
 
     def test_rtl_lassert_unsat(self):
-        """RTL: LASSERT with deterministic bridge (UNSAT when op_a < op_b)."""
+        """RTL: LASSERT UNSAT path — immediate error trap.
+
+        op_a=2, bit 5=0 → kind=UNSAT. RTL immediately sets err=true,
+        error_code=ERR_LOGIC, PC→trap vector. Status=3 (error, not halted).
+        """
         from thielecpu.hardware.cosim import run_verilog
 
-        # In the iverilog testbench, LASSERT returns UNSAT when op_a < op_b.
-        # Use op_a=2, op_b=9 -> UNSAT (2 < 9), which latches error
         program = [
             "INIT_LOGIC_ACC 0xCAFEEACE",
             "PNEW {0,256} 1",
-            "LASSERT 2 9 2",
+            "LASSERT 2 9 2",   # op_a=2, bit5=0 → UNSAT → immediate trap
             "HALT 0",
         ]
         state = run_verilog(program)
-        assert state["status"] == 2  # halted (err latched but execution continues)
+        assert state["status"] == 3  # err trap (not halted)
+        assert state["err"] is True
         assert state["mu"] >= 2
 
 
@@ -179,26 +194,30 @@ class TestLogicGateUnlockFullPipeline:
         assert state.get("error_code") == 0xC43471A1 or state.get("err") or state["pc"] != 3
 
     def test_rtl_lassert_then_reveal_pipeline(self):
-        """RTL: LASSERT followed by REVEAL -- full pipeline.
+        """RTL: LASSERT SAT → REVEAL — full pipeline.
 
-        The logic gate key is pre-set. LASSERT charges mu. If the deterministic
-        bridge returns SAT (op_a >= op_b), REVEAL executes next. If not,
-        the error trap diverts PC to 0xF00 and REVEAL is skipped.
-        Either way, mu is charged for the instructions that execute.
+        LASSERT SAT succeeds via on-chip FSM with trivial formula, then
+        REVEAL executes. Both charge mu.
         """
         from thielecpu.hardware.cosim import run_verilog
 
         program = [
             "INIT_LOGIC_ACC 0xCAFEEACE",
             "PNEW {0,256} 1",
-            "LASSERT 9 4 2",    # SAT (9 >= 4 in deterministic bridge)
-            "REVEAL 0 0 1",     # index=0, unused=0, cost=1
+            # Trivial SAT formula in memory
+            "INIT_MEM 0 1",    # flen = 1
+            "INIT_MEM 1 1",    # cert: var 1 = true
+            "INIT_MEM 2 1",    # nclauses = 1
+            "INIT_MEM 3 1",    # literal: var 1 (positive)
+            "INIT_MEM 4 0",    # end-of-clause sentinel
+            "LASSERT 32 0 2",  # SAT (bit5=1), freg=0, creg=0, cost=2
+            "REVEAL 0 0 1",    # index=0, unused=0, cost=1
             "HALT 0",
         ]
         state = run_verilog(program)
         assert state["status"] == 2  # halted
-        # mu includes at least PNEW(1) + LASSERT(2) = 3
-        assert state["mu"] >= 3, "mu should include PNEW(1) + LASSERT(2)"
+        # mu includes at least PNEW(1) + LASSERT(cost) + REVEAL(1)
+        assert state["mu"] >= 3, "mu should include PNEW + LASSERT + REVEAL"
 
     def test_mu_isomorphism_lassert(self):
         """Both OCaml VM and RTL charge mu for LASSERT."""
@@ -217,11 +236,17 @@ class TestLogicGateUnlockFullPipeline:
         py_result = vm_run(s0, py_program, max_steps=10)
         assert py_result.vm_mu >= 6, "OCaml VM should charge PNEW(1) + LASSERT(5)"
 
-        # RTL side
+        # RTL side — use SAT path with trivial formula
         rtl_program = [
             "INIT_LOGIC_ACC 0xCAFEEACE",
             "PNEW {0,256} 1",
-            "LASSERT 9 4 5",   # cost=5
+            # Trivial SAT formula in memory
+            "INIT_MEM 0 1",    # flen = 1
+            "INIT_MEM 1 1",    # cert: var 1 = true
+            "INIT_MEM 2 1",    # nclauses = 1
+            "INIT_MEM 3 1",    # literal: var 1 (positive)
+            "INIT_MEM 4 0",    # end-of-clause sentinel
+            "LASSERT 32 0 5",  # SAT (bit5=1), freg=0, creg=0, cost=5
             "HALT 0",
         ]
         rtl_state = run_verilog(rtl_program)
@@ -249,7 +274,11 @@ class TestLjoinEndToEnd:
         assert result.vm_mu >= 4  # PNEW(1) + LJOIN(3)
 
     def test_ocaml_vm_ljoin_unequal_certs(self):
-        """OCaml VM: LJOIN with unequal certificates sets error."""
+        """OCaml VM: LJOIN with unequal certificates does not set error.
+
+        Per coq/kernel/VMStep.v step_ljoin proof, LJOIN never sets vm_err —
+        it only advances the program counter regardless of cert equality.
+        """
         s0 = VMState.default()
         program = [
             {"op": "pnew", "region": [0, 256], "cost": 1},
@@ -257,7 +286,7 @@ class TestLjoinEndToEnd:
             {"op": "halt", "cost": 0},
         ]
         result = vm_run(s0, program, max_steps=10)
-        assert result.vm_err is True, "Unequal certs should error"
+        assert result.vm_err is False, "LJOIN never sets vm_err (proven in VMStep.v)"
         assert result.vm_mu >= 4
 
     def test_rtl_ljoin(self):

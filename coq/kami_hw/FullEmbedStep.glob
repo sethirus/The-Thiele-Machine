@@ -1,0 +1,839 @@
+DIGEST db77cda1f567f4e875cd0aec3418cb5b
+FKamiHW.FullEmbedStep
+R2212:2215 Coq.Lists.List <> <> lib
+R2217:2230 Coq.Arith.PeanoNat <> <> lib
+R2232:2234 Coq.micromega.Lia <> <> lib
+R2244:2256 Coq.Lists.List ListNotations <> mod
+R2288:2294 Kernel.VMState <> <> lib
+R2296:2301 Kernel.VMStep <> <> lib
+R2303:2317 Kernel.SimulationProof <> <> lib
+R2348:2358 KamiHW.Abstraction <> <> lib
+R2360:2368 KamiHW.EmbedStep <> <> lib
+R2370:2384 KamiHW.FullAbstraction <> <> lib
+R2395:2407 Kernel.VMStep VMStep <> mod
+def 2692:2701 <> with_graph
+R2708:2721 Kernel.VMState <> PartitionGraph rec
+binder 2704:2704 <> g:1
+R2729:2735 Kernel.VMState <> VMState rec
+binder 2725:2725 <> s:2
+R2740:2746 Kernel.VMState <> VMState rec
+R2756:2763 Kernel.VMState <> vm_graph proj
+R2756:2763 Kernel.VMState <> vm_graph proj
+R2756:2763 Kernel.VMState <> vm_graph proj
+R2780:2786 Kernel.VMState <> vm_csrs proj
+R2780:2786 Kernel.VMState <> vm_csrs proj
+R2814:2820 Kernel.VMState <> vm_regs proj
+R2814:2820 Kernel.VMState <> vm_regs proj
+R2848:2853 Kernel.VMState <> vm_mem proj
+R2848:2853 Kernel.VMState <> vm_mem proj
+R2881:2885 Kernel.VMState <> vm_pc proj
+R2881:2885 Kernel.VMState <> vm_pc proj
+R2913:2917 Kernel.VMState <> vm_mu proj
+R2913:2917 Kernel.VMState <> vm_mu proj
+R2945:2956 Kernel.VMState <> vm_mu_tensor proj
+R2945:2956 Kernel.VMState <> vm_mu_tensor proj
+R2984:2989 Kernel.VMState <> vm_err proj
+R2984:2989 Kernel.VMState <> vm_err proj
+R3017:3028 Kernel.VMState <> vm_logic_acc proj
+R3017:3028 Kernel.VMState <> vm_logic_acc proj
+R3056:3065 Kernel.VMState <> vm_mstatus proj
+R3056:3065 Kernel.VMState <> vm_mstatus proj
+R3093:3102 Kernel.VMState <> vm_witness proj
+R3093:3102 Kernel.VMState <> vm_witness proj
+R3130:3141 Kernel.VMState <> vm_certified proj
+R3130:3141 Kernel.VMState <> vm_certified proj
+R2772:2772 KamiHW.FullEmbedStep <> g:1 var
+R2799:2805 Kernel.VMState <> vm_csrs proj
+R2796:2796 KamiHW.FullEmbedStep <> s:2 var
+R2833:2839 Kernel.VMState <> vm_regs proj
+R2830:2830 KamiHW.FullEmbedStep <> s:2 var
+R2867:2872 Kernel.VMState <> vm_mem proj
+R2864:2864 KamiHW.FullEmbedStep <> s:2 var
+R2900:2904 Kernel.VMState <> vm_pc proj
+R2897:2897 KamiHW.FullEmbedStep <> s:2 var
+R2932:2936 Kernel.VMState <> vm_mu proj
+R2929:2929 KamiHW.FullEmbedStep <> s:2 var
+R2964:2975 Kernel.VMState <> vm_mu_tensor proj
+R2961:2961 KamiHW.FullEmbedStep <> s:2 var
+R3003:3008 Kernel.VMState <> vm_err proj
+R3000:3000 KamiHW.FullEmbedStep <> s:2 var
+R3036:3047 Kernel.VMState <> vm_logic_acc proj
+R3033:3033 KamiHW.FullEmbedStep <> s:2 var
+R3075:3084 Kernel.VMState <> vm_mstatus proj
+R3072:3072 KamiHW.FullEmbedStep <> s:2 var
+R3112:3121 Kernel.VMState <> vm_witness proj
+R3109:3109 KamiHW.FullEmbedStep <> s:2 var
+R3149:3160 Kernel.VMState <> vm_certified proj
+R3146:3146 KamiHW.FullEmbedStep <> s:2 var
+prf 3453:3474 <> full_abs_as_with_graph
+binder 3487:3488 <> ks:3
+R3543:3549 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3495:3511 KamiHW.FullAbstraction <> abs_full_snapshot def
+R3514:3538 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R3540:3541 KamiHW.FullEmbedStep <> ks:3 var
+R3550:3559 KamiHW.FullEmbedStep <> with_graph def
+R3562:3576 KamiHW.Abstraction <> snap_full_graph def
+R3578:3579 KamiHW.FullEmbedStep <> ks:3 var
+R3583:3592 KamiHW.Abstraction <> abs_phase1 def
+R3594:3595 KamiHW.FullEmbedStep <> ks:3 var
+R3628:3644 KamiHW.FullAbstraction <> abs_full_snapshot def
+R3647:3671 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R3674:3683 KamiHW.FullEmbedStep <> with_graph def
+R3686:3695 KamiHW.Abstraction <> abs_phase1 def
+prf 4091:4120 <> kami_step_preserves_full_graph
+binder 4133:4134 <> ks:4
+binder 4136:4136 <> i:5
+R4160:4167 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4143:4157 KamiHW.EmbedStep <> SupportedOpcode def
+R4159:4159 KamiHW.FullEmbedStep <> i:5 var
+R4200:4202 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4168:4182 KamiHW.Abstraction <> snap_full_graph def
+R4185:4193 KamiHW.Abstraction <> kami_step def
+R4195:4196 KamiHW.FullEmbedStep <> ks:4 var
+R4198:4198 KamiHW.FullEmbedStep <> i:5 var
+R4203:4217 KamiHW.Abstraction <> snap_full_graph def
+R4219:4220 KamiHW.FullEmbedStep <> ks:4 var
+R4299:4307 KamiHW.Abstraction <> kami_step def
+R4310:4324 KamiHW.Abstraction <> snap_full_graph def
+R4336:4355 KamiHW.Abstraction <> kami_advance_default def
+R4358:4373 KamiHW.Abstraction <> kami_advance_reg def
+R4383:4397 KamiHW.Abstraction <> snap_pt_next_id proj
+R4399:4411 KamiHW.Abstraction <> snap_pt_sizes proj
+R4413:4427 KamiHW.Abstraction <> snap_rich_state proj
+prf 5082:5097 <> with_graph_graph
+binder 5108:5108 <> g:6
+binder 5110:5110 <> s:7
+R5140:5142 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5131:5138 Kernel.VMState <> vm_graph proj
+R5114:5123 KamiHW.FullEmbedStep <> with_graph def
+R5125:5125 KamiHW.FullEmbedStep <> g:6 var
+R5127:5127 KamiHW.FullEmbedStep <> s:7 var
+R5143:5143 KamiHW.FullEmbedStep <> g:6 var
+prf 5177:5191 <> with_graph_csrs
+binder 5202:5202 <> g:8
+binder 5204:5204 <> s:9
+R5233:5235 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5225:5231 Kernel.VMState <> vm_csrs proj
+R5208:5217 KamiHW.FullEmbedStep <> with_graph def
+R5219:5219 KamiHW.FullEmbedStep <> g:8 var
+R5221:5221 KamiHW.FullEmbedStep <> s:9 var
+R5239:5245 Kernel.VMState <> vm_csrs proj
+R5236:5236 KamiHW.FullEmbedStep <> s:9 var
+prf 5280:5294 <> with_graph_regs
+binder 5305:5305 <> g:10
+binder 5307:5307 <> s:11
+R5336:5338 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5328:5334 Kernel.VMState <> vm_regs proj
+R5311:5320 KamiHW.FullEmbedStep <> with_graph def
+R5322:5322 KamiHW.FullEmbedStep <> g:10 var
+R5324:5324 KamiHW.FullEmbedStep <> s:11 var
+R5342:5348 Kernel.VMState <> vm_regs proj
+R5339:5339 KamiHW.FullEmbedStep <> s:11 var
+prf 5383:5396 <> with_graph_mem
+binder 5407:5407 <> g:12
+binder 5409:5409 <> s:13
+R5437:5439 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5430:5435 Kernel.VMState <> vm_mem proj
+R5413:5422 KamiHW.FullEmbedStep <> with_graph def
+R5424:5424 KamiHW.FullEmbedStep <> g:12 var
+R5426:5426 KamiHW.FullEmbedStep <> s:13 var
+R5443:5448 Kernel.VMState <> vm_mem proj
+R5440:5440 KamiHW.FullEmbedStep <> s:13 var
+prf 5483:5495 <> with_graph_pc
+binder 5506:5506 <> g:14
+binder 5508:5508 <> s:15
+R5535:5537 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5529:5533 Kernel.VMState <> vm_pc proj
+R5512:5521 KamiHW.FullEmbedStep <> with_graph def
+R5523:5523 KamiHW.FullEmbedStep <> g:14 var
+R5525:5525 KamiHW.FullEmbedStep <> s:15 var
+R5541:5545 Kernel.VMState <> vm_pc proj
+R5538:5538 KamiHW.FullEmbedStep <> s:15 var
+prf 5580:5592 <> with_graph_mu
+binder 5603:5603 <> g:16
+binder 5605:5605 <> s:17
+R5632:5634 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5626:5630 Kernel.VMState <> vm_mu proj
+R5609:5618 KamiHW.FullEmbedStep <> with_graph def
+R5620:5620 KamiHW.FullEmbedStep <> g:16 var
+R5622:5622 KamiHW.FullEmbedStep <> s:17 var
+R5638:5642 Kernel.VMState <> vm_mu proj
+R5635:5635 KamiHW.FullEmbedStep <> s:17 var
+prf 5677:5696 <> with_graph_mu_tensor
+binder 5707:5707 <> g:18
+binder 5709:5709 <> s:19
+R5743:5745 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5730:5741 Kernel.VMState <> vm_mu_tensor proj
+R5713:5722 KamiHW.FullEmbedStep <> with_graph def
+R5724:5724 KamiHW.FullEmbedStep <> g:18 var
+R5726:5726 KamiHW.FullEmbedStep <> s:19 var
+R5749:5760 Kernel.VMState <> vm_mu_tensor proj
+R5746:5746 KamiHW.FullEmbedStep <> s:19 var
+prf 5795:5808 <> with_graph_err
+binder 5819:5819 <> g:20
+binder 5821:5821 <> s:21
+R5849:5851 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5842:5847 Kernel.VMState <> vm_err proj
+R5825:5834 KamiHW.FullEmbedStep <> with_graph def
+R5836:5836 KamiHW.FullEmbedStep <> g:20 var
+R5838:5838 KamiHW.FullEmbedStep <> s:21 var
+R5855:5860 Kernel.VMState <> vm_err proj
+R5852:5852 KamiHW.FullEmbedStep <> s:21 var
+prf 5895:5914 <> with_graph_logic_acc
+binder 5925:5925 <> g:22
+binder 5927:5927 <> s:23
+R5961:5963 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5948:5959 Kernel.VMState <> vm_logic_acc proj
+R5931:5940 KamiHW.FullEmbedStep <> with_graph def
+R5942:5942 KamiHW.FullEmbedStep <> g:22 var
+R5944:5944 KamiHW.FullEmbedStep <> s:23 var
+R5967:5978 Kernel.VMState <> vm_logic_acc proj
+R5964:5964 KamiHW.FullEmbedStep <> s:23 var
+prf 6013:6030 <> with_graph_mstatus
+binder 6041:6041 <> g:24
+binder 6043:6043 <> s:25
+R6075:6077 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6064:6073 Kernel.VMState <> vm_mstatus proj
+R6047:6056 KamiHW.FullEmbedStep <> with_graph def
+R6058:6058 KamiHW.FullEmbedStep <> g:24 var
+R6060:6060 KamiHW.FullEmbedStep <> s:25 var
+R6081:6090 Kernel.VMState <> vm_mstatus proj
+R6078:6078 KamiHW.FullEmbedStep <> s:25 var
+prf 6125:6142 <> with_graph_witness
+binder 6153:6153 <> g:26
+binder 6155:6155 <> s:27
+R6187:6189 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6176:6185 Kernel.VMState <> vm_witness proj
+R6159:6168 KamiHW.FullEmbedStep <> with_graph def
+R6170:6170 KamiHW.FullEmbedStep <> g:26 var
+R6172:6172 KamiHW.FullEmbedStep <> s:27 var
+R6193:6202 Kernel.VMState <> vm_witness proj
+R6190:6190 KamiHW.FullEmbedStep <> s:27 var
+prf 6237:6256 <> with_graph_certified
+binder 6267:6267 <> g:28
+binder 6269:6269 <> s:29
+R6303:6305 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6290:6301 Kernel.VMState <> vm_certified proj
+R6273:6282 KamiHW.FullEmbedStep <> with_graph def
+R6284:6284 KamiHW.FullEmbedStep <> g:28 var
+R6286:6286 KamiHW.FullEmbedStep <> s:29 var
+R6309:6320 Kernel.VMState <> vm_certified proj
+R6306:6306 KamiHW.FullEmbedStep <> s:29 var
+prf 6356:6374 <> read_reg_with_graph
+binder 6385:6385 <> g:30
+binder 6387:6387 <> s:31
+binder 6389:6389 <> r:32
+R6419:6421 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6392:6399 Kernel.VMState <> read_reg def
+R6402:6411 KamiHW.FullEmbedStep <> with_graph def
+R6413:6413 KamiHW.FullEmbedStep <> g:30 var
+R6415:6415 KamiHW.FullEmbedStep <> s:31 var
+R6418:6418 KamiHW.FullEmbedStep <> r:32 var
+R6422:6429 Kernel.VMState <> read_reg def
+R6431:6431 KamiHW.FullEmbedStep <> s:31 var
+R6433:6433 KamiHW.FullEmbedStep <> r:32 var
+R6458:6465 Kernel.VMState <> read_reg def
+R6476:6490 KamiHW.FullEmbedStep <> with_graph_regs thm
+R6476:6490 KamiHW.FullEmbedStep <> with_graph_regs thm
+R6476:6490 KamiHW.FullEmbedStep <> with_graph_regs thm
+prf 6517:6535 <> read_mem_with_graph
+binder 6546:6546 <> g:33
+binder 6548:6548 <> s:34
+binder 6550:6550 <> a:35
+R6580:6582 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6553:6560 Kernel.VMState <> read_mem def
+R6563:6572 KamiHW.FullEmbedStep <> with_graph def
+R6574:6574 KamiHW.FullEmbedStep <> g:33 var
+R6576:6576 KamiHW.FullEmbedStep <> s:34 var
+R6579:6579 KamiHW.FullEmbedStep <> a:35 var
+R6583:6590 Kernel.VMState <> read_mem def
+R6592:6592 KamiHW.FullEmbedStep <> s:34 var
+R6594:6594 KamiHW.FullEmbedStep <> a:35 var
+R6619:6626 Kernel.VMState <> read_mem def
+R6637:6650 KamiHW.FullEmbedStep <> with_graph_mem thm
+R6637:6650 KamiHW.FullEmbedStep <> with_graph_mem thm
+R6637:6650 KamiHW.FullEmbedStep <> with_graph_mem thm
+prf 6677:6696 <> write_reg_with_graph
+binder 6707:6707 <> g:36
+binder 6709:6709 <> s:37
+binder 6711:6711 <> r:38
+binder 6713:6713 <> v:39
+R6746:6748 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6716:6724 Kernel.VMState <> write_reg def
+R6727:6736 KamiHW.FullEmbedStep <> with_graph def
+R6738:6738 KamiHW.FullEmbedStep <> g:36 var
+R6740:6740 KamiHW.FullEmbedStep <> s:37 var
+R6743:6743 KamiHW.FullEmbedStep <> r:38 var
+R6745:6745 KamiHW.FullEmbedStep <> v:39 var
+R6749:6757 Kernel.VMState <> write_reg def
+R6759:6759 KamiHW.FullEmbedStep <> s:37 var
+R6761:6761 KamiHW.FullEmbedStep <> r:38 var
+R6763:6763 KamiHW.FullEmbedStep <> v:39 var
+R6788:6796 Kernel.VMState <> write_reg def
+R6807:6821 KamiHW.FullEmbedStep <> with_graph_regs thm
+R6807:6821 KamiHW.FullEmbedStep <> with_graph_regs thm
+R6807:6821 KamiHW.FullEmbedStep <> with_graph_regs thm
+prf 6848:6867 <> write_mem_with_graph
+binder 6878:6878 <> g:40
+binder 6880:6880 <> s:41
+binder 6882:6882 <> a:42
+binder 6884:6884 <> v:43
+R6917:6919 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6887:6895 Kernel.VMState <> write_mem def
+R6898:6907 KamiHW.FullEmbedStep <> with_graph def
+R6909:6909 KamiHW.FullEmbedStep <> g:40 var
+R6911:6911 KamiHW.FullEmbedStep <> s:41 var
+R6914:6914 KamiHW.FullEmbedStep <> a:42 var
+R6916:6916 KamiHW.FullEmbedStep <> v:43 var
+R6920:6928 Kernel.VMState <> write_mem def
+R6930:6930 KamiHW.FullEmbedStep <> s:41 var
+R6932:6932 KamiHW.FullEmbedStep <> a:42 var
+R6934:6934 KamiHW.FullEmbedStep <> v:43 var
+R6959:6967 Kernel.VMState <> write_mem def
+R6978:6991 KamiHW.FullEmbedStep <> with_graph_mem thm
+R6978:6991 KamiHW.FullEmbedStep <> with_graph_mem thm
+R6978:6991 KamiHW.FullEmbedStep <> with_graph_mem thm
+prf 7018:7038 <> apply_cost_with_graph
+binder 7049:7049 <> g:44
+binder 7051:7051 <> s:45
+binder 7053:7053 <> i:46
+R7085:7087 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7056:7065 Kernel.VMStep VMStep apply_cost def
+R7068:7077 KamiHW.FullEmbedStep <> with_graph def
+R7079:7079 KamiHW.FullEmbedStep <> g:44 var
+R7081:7081 KamiHW.FullEmbedStep <> s:45 var
+R7084:7084 KamiHW.FullEmbedStep <> i:46 var
+R7088:7097 Kernel.VMStep VMStep apply_cost def
+R7099:7099 KamiHW.FullEmbedStep <> s:45 var
+R7101:7101 KamiHW.FullEmbedStep <> i:46 var
+R7126:7135 Kernel.VMStep VMStep apply_cost def
+R7146:7158 KamiHW.FullEmbedStep <> with_graph_mu thm
+R7146:7158 KamiHW.FullEmbedStep <> with_graph_mu thm
+R7146:7158 KamiHW.FullEmbedStep <> with_graph_mu thm
+prf 7185:7208 <> mu_tensor_add_with_graph
+binder 7221:7221 <> g:47
+binder 7223:7223 <> s:48
+binder 7225:7227 <> idx:49
+binder 7229:7233 <> delta:50
+R7286:7292 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7240:7258 Kernel.VMStep VMStep vm_mu_tensor_add_at def
+R7261:7270 KamiHW.FullEmbedStep <> with_graph def
+R7272:7272 KamiHW.FullEmbedStep <> g:47 var
+R7274:7274 KamiHW.FullEmbedStep <> s:48 var
+R7277:7279 KamiHW.FullEmbedStep <> idx:49 var
+R7281:7285 KamiHW.FullEmbedStep <> delta:50 var
+R7293:7311 Kernel.VMStep VMStep vm_mu_tensor_add_at def
+R7313:7313 KamiHW.FullEmbedStep <> s:48 var
+R7315:7317 KamiHW.FullEmbedStep <> idx:49 var
+R7319:7323 KamiHW.FullEmbedStep <> delta:50 var
+R7350:7368 Kernel.VMStep VMStep vm_mu_tensor_add_at def
+R7381:7400 KamiHW.FullEmbedStep <> with_graph_mu_tensor thm
+R7381:7400 KamiHW.FullEmbedStep <> with_graph_mu_tensor thm
+R7381:7400 KamiHW.FullEmbedStep <> with_graph_mu_tensor thm
+prf 7776:7802 <> vm_apply_with_graph_commute
+binder 7815:7815 <> g:51
+binder 7817:7817 <> s:52
+binder 7819:7819 <> i:53
+R7843:7850 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7826:7840 KamiHW.EmbedStep <> SupportedOpcode def
+R7842:7842 KamiHW.FullEmbedStep <> i:53 var
+R7878:7880 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7851:7860 KamiHW.FullEmbedStep <> with_graph def
+R7862:7862 KamiHW.FullEmbedStep <> g:51 var
+R7865:7872 Kernel.SimulationProof <> vm_apply def
+R7874:7874 KamiHW.FullEmbedStep <> s:52 var
+R7876:7876 KamiHW.FullEmbedStep <> i:53 var
+R7881:7888 Kernel.SimulationProof <> vm_apply def
+R7891:7900 KamiHW.FullEmbedStep <> with_graph def
+R7902:7902 KamiHW.FullEmbedStep <> g:51 var
+R7904:7904 KamiHW.FullEmbedStep <> s:52 var
+R7907:7907 KamiHW.FullEmbedStep <> i:53 var
+R7987:7996 KamiHW.FullEmbedStep <> with_graph def
+R7999:8006 Kernel.SimulationProof <> vm_apply def
+R8018:8030 Kernel.VMStep VMStep advance_state def
+R8033:8048 Kernel.VMStep VMStep advance_state_rm def
+R8051:8070 Kernel.VMStep VMStep advance_state_reveal def
+R8082:8091 Kernel.VMStep VMStep jump_state def
+R8094:8106 Kernel.VMStep VMStep jump_state_rm def
+R8118:8127 Kernel.VMStep VMStep apply_cost def
+R8130:8137 Kernel.VMState <> read_reg def
+R8140:8148 Kernel.VMState <> write_reg def
+R8151:8158 Kernel.VMState <> read_mem def
+R8161:8169 Kernel.VMState <> write_mem def
+R8181:8189 Kernel.VMState <> swap_regs def
+R8192:8210 Kernel.VMStep VMStep vm_mu_tensor_add_at def
+prf 9312:9334 <> full_embed_step_compute
+binder 9347:9348 <> ks:54
+binder 9350:9350 <> i:55
+R9374:9381 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9357:9371 KamiHW.EmbedStep <> SupportedOpcode def
+R9373:9373 KamiHW.FullEmbedStep <> i:55 var
+R9444:9450 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9382:9398 KamiHW.FullAbstraction <> abs_full_snapshot def
+R9401:9425 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R9428:9436 KamiHW.Abstraction <> kami_step def
+R9438:9439 KamiHW.FullEmbedStep <> ks:54 var
+R9441:9441 KamiHW.FullEmbedStep <> i:55 var
+R9451:9458 Kernel.SimulationProof <> vm_apply def
+R9461:9477 KamiHW.FullAbstraction <> abs_full_snapshot def
+R9480:9504 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R9506:9507 KamiHW.FullEmbedStep <> ks:54 var
+R9511:9511 KamiHW.FullEmbedStep <> i:55 var
+R9551:9572 KamiHW.FullEmbedStep <> full_abs_as_with_graph thm
+R9551:9572 KamiHW.FullEmbedStep <> full_abs_as_with_graph thm
+R9551:9572 KamiHW.FullEmbedStep <> full_abs_as_with_graph thm
+R9586:9607 KamiHW.FullEmbedStep <> full_abs_as_with_graph thm
+R9586:9607 KamiHW.FullEmbedStep <> full_abs_as_with_graph thm
+R9586:9607 KamiHW.FullEmbedStep <> full_abs_as_with_graph thm
+R9625:9654 KamiHW.FullEmbedStep <> kami_step_preserves_full_graph thm
+R9625:9654 KamiHW.FullEmbedStep <> kami_step_preserves_full_graph thm
+R9625:9654 KamiHW.FullEmbedStep <> kami_step_preserves_full_graph thm
+R9679:9698 KamiHW.EmbedStep <> embed_step_supported thm
+R9679:9698 KamiHW.EmbedStep <> embed_step_supported thm
+R9679:9698 KamiHW.EmbedStep <> embed_step_supported thm
+R9720:9746 KamiHW.FullEmbedStep <> vm_apply_with_graph_commute thm
+R9720:9746 KamiHW.FullEmbedStep <> vm_apply_with_graph_commute thm
+prf 9855:9869 <> full_embed_step
+R9888:9899 KamiHW.Abstraction <> KamiSnapshot rec
+binder 9883:9884 <> ks:56
+R9907:9920 Kernel.VMStep VMStep vm_instruction ind
+binder 9903:9903 <> i:57
+R9945:9952 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9928:9942 KamiHW.EmbedStep <> SupportedOpcode def
+R9944:9944 KamiHW.FullEmbedStep <> i:57 var
+R10015:10021 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9953:9969 KamiHW.FullAbstraction <> abs_full_snapshot def
+R9972:9996 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R9999:10007 KamiHW.Abstraction <> kami_step def
+R10009:10010 KamiHW.FullEmbedStep <> ks:56 var
+R10012:10012 KamiHW.FullEmbedStep <> i:57 var
+R10022:10029 Kernel.SimulationProof <> vm_apply def
+R10032:10048 KamiHW.FullAbstraction <> abs_full_snapshot def
+R10051:10075 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R10077:10078 KamiHW.FullEmbedStep <> ks:56 var
+R10082:10082 KamiHW.FullEmbedStep <> i:57 var
+R10098:10120 KamiHW.FullEmbedStep <> full_embed_step_compute thm
+R10098:10120 KamiHW.FullEmbedStep <> full_embed_step_compute thm
+def 10458:10475 <> kami_run_supported
+R10487:10489 Coq.Init.Datatypes <> nat ind
+binder 10480:10483 <> fuel:58
+R10501:10504 Coq.Init.Datatypes <> list ind
+R10506:10519 Kernel.VMStep VMStep vm_instruction ind
+binder 10493:10497 <> trace:59
+R10528:10539 KamiHW.Abstraction <> KamiSnapshot rec
+binder 10523:10524 <> ks:60
+R10546:10557 KamiHW.Abstraction <> KamiSnapshot rec
+R10570:10573 KamiHW.FullEmbedStep <> fuel:58 var
+R10589:10590 KamiHW.FullEmbedStep <> ks:60 var
+R10596:10596 Coq.Init.Datatypes <> S constr
+R10619:10627 Coq.Lists.List <> nth_error def
+R10636:10642 KamiHW.Abstraction <> snap_pc proj
+R10644:10645 KamiHW.FullEmbedStep <> ks:60 var
+R10629:10633 KamiHW.FullEmbedStep <> trace:59 var
+R10661:10664 Coq.Init.Datatypes <> Some constr
+R10675:10692 KamiHW.FullEmbedStep <> kami_run_supported:61 def
+R10707:10715 KamiHW.Abstraction <> kami_step def
+R10717:10718 KamiHW.FullEmbedStep <> ks:60 var
+R10700:10704 KamiHW.FullEmbedStep <> trace:59 var
+R10735:10738 Coq.Init.Datatypes <> None constr
+R10743:10744 KamiHW.FullEmbedStep <> ks:60 var
+prf 10772:10792 <> full_embed_step_trace
+binder 10805:10808 <> fuel:63
+binder 10810:10814 <> trace:64
+binder 10816:10817 <> ks:65
+R10824:10824 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10871:10879 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 10832:10832 <> i:66
+R10850:10853 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10835:10841 Coq.Lists.List <> In def
+R10845:10849 KamiHW.FullEmbedStep <> trace:64 var
+R10843:10843 KamiHW.FullEmbedStep <> i:66 var
+R10854:10868 KamiHW.EmbedStep <> SupportedOpcode def
+R10870:10870 KamiHW.FullEmbedStep <> i:66 var
+R10966:10972 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10880:10896 KamiHW.FullAbstraction <> abs_full_snapshot def
+R10899:10923 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R10932:10949 KamiHW.FullEmbedStep <> kami_run_supported def
+R10951:10954 KamiHW.FullEmbedStep <> fuel:63 var
+R10956:10960 KamiHW.FullEmbedStep <> trace:64 var
+R10962:10963 KamiHW.FullEmbedStep <> ks:65 var
+R10973:10978 Kernel.SimulationProof <> run_vm def
+R10980:10983 KamiHW.FullEmbedStep <> fuel:63 var
+R10985:10989 KamiHW.FullEmbedStep <> trace:64 var
+R10998:11014 KamiHW.FullAbstraction <> abs_full_snapshot def
+R11017:11041 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R11043:11044 KamiHW.FullEmbedStep <> ks:65 var
+R11148:11156 Coq.Lists.List <> nth_error def
+R11165:11171 KamiHW.Abstraction <> snap_pc proj
+R11148:11156 Coq.Lists.List <> nth_error def
+R11165:11171 KamiHW.Abstraction <> snap_pc proj
+R11234:11256 KamiHW.FullEmbedStep <> full_embed_step_compute thm
+R11234:11256 KamiHW.FullEmbedStep <> full_embed_step_compute thm
+R11234:11256 KamiHW.FullEmbedStep <> full_embed_step_compute thm
+R11234:11256 KamiHW.FullEmbedStep <> full_embed_step_compute thm
+R11313:11324 Coq.Lists.List <> nth_error_In thm
+R11313:11324 Coq.Lists.List <> nth_error_In thm
+prf 12625:12652 <> full_embed_step_of_projected
+binder 12665:12666 <> ks:67
+binder 12668:12668 <> i:68
+R12731:12738 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12702:12704 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12675:12684 KamiHW.Abstraction <> abs_phase1 def
+R12687:12695 KamiHW.Abstraction <> kami_step def
+R12697:12698 KamiHW.FullEmbedStep <> ks:67 var
+R12700:12700 KamiHW.FullEmbedStep <> i:68 var
+R12705:12712 Kernel.SimulationProof <> vm_apply def
+R12715:12724 KamiHW.Abstraction <> abs_phase1 def
+R12726:12727 KamiHW.FullEmbedStep <> ks:67 var
+R12730:12730 KamiHW.FullEmbedStep <> i:68 var
+R12792:12799 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12771:12773 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12739:12753 KamiHW.Abstraction <> snap_full_graph def
+R12756:12764 KamiHW.Abstraction <> kami_step def
+R12766:12767 KamiHW.FullEmbedStep <> ks:67 var
+R12769:12769 KamiHW.FullEmbedStep <> i:68 var
+R12774:12788 KamiHW.Abstraction <> snap_full_graph def
+R12790:12791 KamiHW.FullEmbedStep <> ks:67 var
+R12953:12960 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12873:12879 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12800:12807 Kernel.SimulationProof <> vm_apply def
+R12810:12819 KamiHW.FullEmbedStep <> with_graph def
+R12822:12836 KamiHW.Abstraction <> snap_full_graph def
+R12838:12839 KamiHW.FullEmbedStep <> ks:67 var
+R12843:12850 Kernel.SimulationProof <> vm_apply def
+R12853:12862 KamiHW.Abstraction <> abs_phase1 def
+R12864:12865 KamiHW.FullEmbedStep <> ks:67 var
+R12868:12868 KamiHW.FullEmbedStep <> i:68 var
+R12872:12872 KamiHW.FullEmbedStep <> i:68 var
+R12880:12887 Kernel.SimulationProof <> vm_apply def
+R12890:12899 KamiHW.FullEmbedStep <> with_graph def
+R12902:12916 KamiHW.Abstraction <> snap_full_graph def
+R12918:12919 KamiHW.FullEmbedStep <> ks:67 var
+R12923:12930 Kernel.SimulationProof <> vm_apply def
+R12933:12942 KamiHW.Abstraction <> abs_phase1 def
+R12944:12945 KamiHW.FullEmbedStep <> ks:67 var
+R12948:12948 KamiHW.FullEmbedStep <> i:68 var
+R12952:12952 KamiHW.FullEmbedStep <> i:68 var
+R13023:13029 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12961:12977 KamiHW.FullAbstraction <> abs_full_snapshot def
+R12980:13004 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R13007:13015 KamiHW.Abstraction <> kami_step def
+R13017:13018 KamiHW.FullEmbedStep <> ks:67 var
+R13020:13020 KamiHW.FullEmbedStep <> i:68 var
+R13030:13039 KamiHW.FullEmbedStep <> with_graph def
+R13042:13056 KamiHW.Abstraction <> snap_full_graph def
+R13058:13059 KamiHW.FullEmbedStep <> ks:67 var
+R13063:13070 Kernel.SimulationProof <> vm_apply def
+R13073:13082 KamiHW.Abstraction <> abs_phase1 def
+R13084:13085 KamiHW.FullEmbedStep <> ks:67 var
+R13088:13088 KamiHW.FullEmbedStep <> i:68 var
+R13139:13160 KamiHW.FullEmbedStep <> full_abs_as_with_graph thm
+R13139:13160 KamiHW.FullEmbedStep <> full_abs_as_with_graph thm
+R13139:13160 KamiHW.FullEmbedStep <> full_abs_as_with_graph thm
+prf 13435:13457 <> full_embed_step_general
+binder 13470:13471 <> ks:69
+binder 13473:13473 <> i:70
+R13536:13543 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13507:13509 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13480:13489 KamiHW.Abstraction <> abs_phase1 def
+R13492:13500 KamiHW.Abstraction <> kami_step def
+R13502:13503 KamiHW.FullEmbedStep <> ks:69 var
+R13505:13505 KamiHW.FullEmbedStep <> i:70 var
+R13510:13517 Kernel.SimulationProof <> vm_apply def
+R13520:13529 KamiHW.Abstraction <> abs_phase1 def
+R13531:13532 KamiHW.FullEmbedStep <> ks:69 var
+R13535:13535 KamiHW.FullEmbedStep <> i:70 var
+R13597:13604 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13576:13578 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13544:13558 KamiHW.Abstraction <> snap_full_graph def
+R13561:13569 KamiHW.Abstraction <> kami_step def
+R13571:13572 KamiHW.FullEmbedStep <> ks:69 var
+R13574:13574 KamiHW.FullEmbedStep <> i:70 var
+R13579:13593 KamiHW.Abstraction <> snap_full_graph def
+R13595:13596 KamiHW.FullEmbedStep <> ks:69 var
+R13734:13741 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13665:13673 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13605:13614 KamiHW.FullEmbedStep <> with_graph def
+R13617:13631 KamiHW.Abstraction <> snap_full_graph def
+R13633:13634 KamiHW.FullEmbedStep <> ks:69 var
+R13638:13645 Kernel.SimulationProof <> vm_apply def
+R13648:13657 KamiHW.Abstraction <> abs_phase1 def
+R13659:13660 KamiHW.FullEmbedStep <> ks:69 var
+R13663:13663 KamiHW.FullEmbedStep <> i:70 var
+R13674:13681 Kernel.SimulationProof <> vm_apply def
+R13684:13693 KamiHW.FullEmbedStep <> with_graph def
+R13696:13710 KamiHW.Abstraction <> snap_full_graph def
+R13712:13713 KamiHW.FullEmbedStep <> ks:69 var
+R13717:13726 KamiHW.Abstraction <> abs_phase1 def
+R13728:13729 KamiHW.FullEmbedStep <> ks:69 var
+R13733:13733 KamiHW.FullEmbedStep <> i:70 var
+R13804:13810 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13742:13758 KamiHW.FullAbstraction <> abs_full_snapshot def
+R13761:13785 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R13788:13796 KamiHW.Abstraction <> kami_step def
+R13798:13799 KamiHW.FullEmbedStep <> ks:69 var
+R13801:13801 KamiHW.FullEmbedStep <> i:70 var
+R13811:13818 Kernel.SimulationProof <> vm_apply def
+R13821:13837 KamiHW.FullAbstraction <> abs_full_snapshot def
+R13840:13864 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R13866:13867 KamiHW.FullEmbedStep <> ks:69 var
+R13871:13871 KamiHW.FullEmbedStep <> i:70 var
+R13928:13949 KamiHW.FullEmbedStep <> full_abs_as_with_graph thm
+R13928:13949 KamiHW.FullEmbedStep <> full_abs_as_with_graph thm
+R13928:13949 KamiHW.FullEmbedStep <> full_abs_as_with_graph thm
+R13963:13984 KamiHW.FullEmbedStep <> full_abs_as_with_graph thm
+R13963:13984 KamiHW.FullEmbedStep <> full_abs_as_with_graph thm
+R13963:13984 KamiHW.FullEmbedStep <> full_abs_as_with_graph thm
+prf 14502:14536 <> kami_step_call_preserves_full_graph
+binder 14549:14550 <> ks:71
+binder 14552:14557 <> target:72
+binder 14559:14562 <> cost:73
+R14624:14626 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14569:14583 KamiHW.Abstraction <> snap_full_graph def
+R14586:14594 KamiHW.Abstraction <> kami_step def
+R14596:14597 KamiHW.FullEmbedStep <> ks:71 var
+R14600:14609 Kernel.VMStep VMStep instr_call constr
+R14611:14616 KamiHW.FullEmbedStep <> target:72 var
+R14618:14621 KamiHW.FullEmbedStep <> cost:73 var
+R14627:14641 KamiHW.Abstraction <> snap_full_graph def
+R14643:14644 KamiHW.FullEmbedStep <> ks:71 var
+R14671:14679 KamiHW.Abstraction <> kami_step def
+R14682:14696 KamiHW.Abstraction <> snap_full_graph def
+R14706:14720 KamiHW.Abstraction <> snap_pt_next_id proj
+R14722:14734 KamiHW.Abstraction <> snap_pt_sizes proj
+R14736:14750 KamiHW.Abstraction <> snap_rich_state proj
+prf 14781:14814 <> kami_step_ret_preserves_full_graph
+binder 14827:14828 <> ks:74
+binder 14830:14833 <> cost:75
+R14887:14889 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14840:14854 KamiHW.Abstraction <> snap_full_graph def
+R14857:14865 KamiHW.Abstraction <> kami_step def
+R14867:14868 KamiHW.FullEmbedStep <> ks:74 var
+R14871:14879 Kernel.VMStep VMStep instr_ret constr
+R14881:14884 KamiHW.FullEmbedStep <> cost:75 var
+R14890:14904 KamiHW.Abstraction <> snap_full_graph def
+R14906:14907 KamiHW.FullEmbedStep <> ks:74 var
+R14934:14942 KamiHW.Abstraction <> kami_step def
+R14945:14959 KamiHW.Abstraction <> snap_full_graph def
+R14969:14983 KamiHW.Abstraction <> snap_pt_next_id proj
+R14985:14997 KamiHW.Abstraction <> snap_pt_sizes proj
+R14999:15013 KamiHW.Abstraction <> snap_rich_state proj
+prf 15044:15084 <> kami_step_chsh_trial_preserves_full_graph
+binder 15097:15098 <> ks:76
+binder 15100:15100 <> x:77
+binder 15102:15102 <> y:78
+binder 15104:15104 <> a:79
+binder 15106:15106 <> b:80
+binder 15108:15111 <> cost:81
+R15180:15186 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15118:15132 KamiHW.Abstraction <> snap_full_graph def
+R15135:15143 KamiHW.Abstraction <> kami_step def
+R15145:15146 KamiHW.FullEmbedStep <> ks:76 var
+R15149:15164 Kernel.VMStep VMStep instr_chsh_trial constr
+R15166:15166 KamiHW.FullEmbedStep <> x:77 var
+R15168:15168 KamiHW.FullEmbedStep <> y:78 var
+R15170:15170 KamiHW.FullEmbedStep <> a:79 var
+R15172:15172 KamiHW.FullEmbedStep <> b:80 var
+R15174:15177 KamiHW.FullEmbedStep <> cost:81 var
+R15187:15201 KamiHW.Abstraction <> snap_full_graph def
+R15203:15204 KamiHW.FullEmbedStep <> ks:76 var
+R15231:15239 KamiHW.Abstraction <> kami_step def
+R15242:15256 KamiHW.Abstraction <> snap_full_graph def
+R15295:15301 Coq.Arith.PeanoNat Nat eqb def
+R15316:15330 KamiHW.Abstraction <> snap_pt_next_id proj
+R15332:15344 KamiHW.Abstraction <> snap_pt_sizes proj
+R15346:15360 KamiHW.Abstraction <> snap_rich_state proj
+R15295:15301 Coq.Arith.PeanoNat Nat eqb def
+R15295:15301 Coq.Arith.PeanoNat Nat eqb def
+R15295:15301 Coq.Arith.PeanoNat Nat eqb def
+R15295:15301 Coq.Arith.PeanoNat Nat eqb def
+prf 15391:15422 <> vm_apply_call_with_graph_commute
+binder 15435:15435 <> g:82
+binder 15437:15437 <> s:83
+binder 15439:15444 <> target:84
+binder 15446:15449 <> cost:85
+R15506:15512 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15456:15465 KamiHW.FullEmbedStep <> with_graph def
+R15467:15467 KamiHW.FullEmbedStep <> g:82 var
+R15470:15477 Kernel.SimulationProof <> vm_apply def
+R15479:15479 KamiHW.FullEmbedStep <> s:83 var
+R15482:15491 Kernel.VMStep VMStep instr_call constr
+R15493:15498 KamiHW.FullEmbedStep <> target:84 var
+R15500:15503 KamiHW.FullEmbedStep <> cost:85 var
+R15513:15520 Kernel.SimulationProof <> vm_apply def
+R15523:15532 KamiHW.FullEmbedStep <> with_graph def
+R15534:15534 KamiHW.FullEmbedStep <> g:82 var
+R15536:15536 KamiHW.FullEmbedStep <> s:83 var
+R15540:15549 Kernel.VMStep VMStep instr_call constr
+R15551:15556 KamiHW.FullEmbedStep <> target:84 var
+R15558:15561 KamiHW.FullEmbedStep <> cost:85 var
+R15591:15600 KamiHW.FullEmbedStep <> with_graph def
+R15603:15610 Kernel.SimulationProof <> vm_apply def
+R15622:15634 Kernel.VMStep VMStep jump_state_rm def
+R15637:15646 Kernel.VMStep VMStep apply_cost def
+R15656:15663 Kernel.VMState <> vm_graph proj
+R15665:15671 Kernel.VMState <> vm_csrs proj
+R15673:15679 Kernel.VMState <> vm_regs proj
+R15681:15686 Kernel.VMState <> vm_mem proj
+R15688:15692 Kernel.VMState <> vm_pc proj
+R15694:15698 Kernel.VMState <> vm_mu proj
+R15700:15711 Kernel.VMState <> vm_mu_tensor proj
+R15720:15725 Kernel.VMState <> vm_err proj
+R15727:15738 Kernel.VMState <> vm_logic_acc proj
+R15740:15749 Kernel.VMState <> vm_mstatus proj
+R15751:15760 Kernel.VMState <> vm_witness proj
+R15762:15773 Kernel.VMState <> vm_certified proj
+prf 15804:15834 <> vm_apply_ret_with_graph_commute
+binder 15847:15847 <> g:86
+binder 15849:15849 <> s:87
+binder 15851:15854 <> cost:88
+R15903:15909 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15861:15870 KamiHW.FullEmbedStep <> with_graph def
+R15872:15872 KamiHW.FullEmbedStep <> g:86 var
+R15875:15882 Kernel.SimulationProof <> vm_apply def
+R15884:15884 KamiHW.FullEmbedStep <> s:87 var
+R15887:15895 Kernel.VMStep VMStep instr_ret constr
+R15897:15900 KamiHW.FullEmbedStep <> cost:88 var
+R15910:15917 Kernel.SimulationProof <> vm_apply def
+R15920:15929 KamiHW.FullEmbedStep <> with_graph def
+R15931:15931 KamiHW.FullEmbedStep <> g:86 var
+R15933:15933 KamiHW.FullEmbedStep <> s:87 var
+R15937:15945 Kernel.VMStep VMStep instr_ret constr
+R15947:15950 KamiHW.FullEmbedStep <> cost:88 var
+R15980:15989 KamiHW.FullEmbedStep <> with_graph def
+R15992:15999 Kernel.SimulationProof <> vm_apply def
+R16011:16023 Kernel.VMStep VMStep jump_state_rm def
+R16026:16035 Kernel.VMStep VMStep apply_cost def
+R16045:16052 Kernel.VMState <> vm_graph proj
+R16054:16060 Kernel.VMState <> vm_csrs proj
+R16062:16068 Kernel.VMState <> vm_regs proj
+R16070:16075 Kernel.VMState <> vm_mem proj
+R16077:16081 Kernel.VMState <> vm_pc proj
+R16083:16087 Kernel.VMState <> vm_mu proj
+R16089:16100 Kernel.VMState <> vm_mu_tensor proj
+R16109:16114 Kernel.VMState <> vm_err proj
+R16116:16127 Kernel.VMState <> vm_logic_acc proj
+R16129:16138 Kernel.VMState <> vm_mstatus proj
+R16140:16149 Kernel.VMState <> vm_witness proj
+R16151:16162 Kernel.VMState <> vm_certified proj
+prf 16193:16230 <> vm_apply_chsh_trial_with_graph_commute
+binder 16243:16243 <> g:89
+binder 16245:16245 <> s:90
+binder 16247:16247 <> x:91
+binder 16249:16249 <> y:92
+binder 16251:16251 <> a:93
+binder 16253:16253 <> b:94
+binder 16255:16258 <> cost:95
+R16322:16328 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16265:16274 KamiHW.FullEmbedStep <> with_graph def
+R16276:16276 KamiHW.FullEmbedStep <> g:89 var
+R16279:16286 Kernel.SimulationProof <> vm_apply def
+R16288:16288 KamiHW.FullEmbedStep <> s:90 var
+R16291:16306 Kernel.VMStep VMStep instr_chsh_trial constr
+R16308:16308 KamiHW.FullEmbedStep <> x:91 var
+R16310:16310 KamiHW.FullEmbedStep <> y:92 var
+R16312:16312 KamiHW.FullEmbedStep <> a:93 var
+R16314:16314 KamiHW.FullEmbedStep <> b:94 var
+R16316:16319 KamiHW.FullEmbedStep <> cost:95 var
+R16329:16336 Kernel.SimulationProof <> vm_apply def
+R16339:16348 KamiHW.FullEmbedStep <> with_graph def
+R16350:16350 KamiHW.FullEmbedStep <> g:89 var
+R16352:16352 KamiHW.FullEmbedStep <> s:90 var
+R16356:16371 Kernel.VMStep VMStep instr_chsh_trial constr
+R16373:16373 KamiHW.FullEmbedStep <> x:91 var
+R16375:16375 KamiHW.FullEmbedStep <> y:92 var
+R16377:16377 KamiHW.FullEmbedStep <> a:93 var
+R16379:16379 KamiHW.FullEmbedStep <> b:94 var
+R16381:16384 KamiHW.FullEmbedStep <> cost:95 var
+R16414:16423 KamiHW.FullEmbedStep <> with_graph def
+R16426:16433 Kernel.SimulationProof <> vm_apply def
+R16445:16457 Kernel.VMStep VMStep advance_state def
+R16460:16469 Kernel.VMStep VMStep apply_cost def
+R16481:16488 Kernel.VMState <> read_reg def
+R16491:16499 Kernel.VMState <> write_reg def
+R16502:16509 Kernel.VMState <> read_mem def
+R16512:16520 Kernel.VMState <> write_mem def
+R16523:16531 Kernel.VMStep VMStep latch_err def
+R16541:16548 Kernel.VMState <> vm_graph proj
+R16550:16556 Kernel.VMState <> vm_csrs proj
+R16558:16564 Kernel.VMState <> vm_regs proj
+R16566:16571 Kernel.VMState <> vm_mem proj
+R16573:16577 Kernel.VMState <> vm_pc proj
+R16579:16583 Kernel.VMState <> vm_mu proj
+R16585:16596 Kernel.VMState <> vm_mu_tensor proj
+R16605:16610 Kernel.VMState <> vm_err proj
+R16612:16623 Kernel.VMState <> vm_logic_acc proj
+R16625:16634 Kernel.VMState <> vm_mstatus proj
+R16636:16645 Kernel.VMState <> vm_witness proj
+R16647:16658 Kernel.VMState <> vm_certified proj
+R16674:16685 Kernel.VMStep VMStep chsh_bits_ok def
+R16674:16685 Kernel.VMStep VMStep chsh_bits_ok def
+prf 16722:16759 <> kami_step_lassert_preserves_full_graph
+binder 16772:16773 <> ks:96
+binder 16775:16778 <> freg:97
+binder 16780:16783 <> creg:98
+binder 16785:16788 <> kind:99
+binder 16790:16793 <> flen:100
+binder 16795:16798 <> cost:101
+R16876:16882 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16805:16819 KamiHW.Abstraction <> snap_full_graph def
+R16822:16830 KamiHW.Abstraction <> kami_step def
+R16832:16833 KamiHW.FullEmbedStep <> ks:96 var
+R16836:16848 Kernel.VMStep VMStep instr_lassert constr
+R16850:16853 KamiHW.FullEmbedStep <> freg:97 var
+R16855:16858 KamiHW.FullEmbedStep <> creg:98 var
+R16860:16863 KamiHW.FullEmbedStep <> kind:99 var
+R16865:16868 KamiHW.FullEmbedStep <> flen:100 var
+R16870:16873 KamiHW.FullEmbedStep <> cost:101 var
+R16883:16897 KamiHW.Abstraction <> snap_full_graph def
+R16899:16900 KamiHW.FullEmbedStep <> ks:96 var
+R16927:16935 KamiHW.Abstraction <> kami_step def
+R16938:16952 KamiHW.Abstraction <> snap_full_graph def
+R16955:16974 KamiHW.Abstraction <> kami_advance_default def
+R16984:16998 KamiHW.Abstraction <> snap_pt_next_id proj
+R17000:17012 KamiHW.Abstraction <> snap_pt_sizes proj
+R17014:17028 KamiHW.Abstraction <> snap_rich_state proj
+prf 17059:17093 <> vm_apply_lassert_with_graph_commute
+binder 17106:17106 <> g:102
+binder 17108:17108 <> s:103
+binder 17110:17113 <> freg:104
+binder 17115:17118 <> creg:105
+binder 17120:17123 <> kind:106
+binder 17125:17128 <> flen:107
+binder 17130:17133 <> cost:108
+R17206:17212 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17140:17149 KamiHW.FullEmbedStep <> with_graph def
+R17151:17151 KamiHW.FullEmbedStep <> g:102 var
+R17154:17161 Kernel.SimulationProof <> vm_apply def
+R17163:17163 KamiHW.FullEmbedStep <> s:103 var
+R17166:17178 Kernel.VMStep VMStep instr_lassert constr
+R17180:17183 KamiHW.FullEmbedStep <> freg:104 var
+R17185:17188 KamiHW.FullEmbedStep <> creg:105 var
+R17190:17193 KamiHW.FullEmbedStep <> kind:106 var
+R17195:17198 KamiHW.FullEmbedStep <> flen:107 var
+R17200:17203 KamiHW.FullEmbedStep <> cost:108 var
+R17213:17220 Kernel.SimulationProof <> vm_apply def
+R17223:17232 KamiHW.FullEmbedStep <> with_graph def
+R17234:17234 KamiHW.FullEmbedStep <> g:102 var
+R17236:17236 KamiHW.FullEmbedStep <> s:103 var
+R17240:17252 Kernel.VMStep VMStep instr_lassert constr
+R17254:17257 KamiHW.FullEmbedStep <> freg:104 var
+R17259:17262 KamiHW.FullEmbedStep <> creg:105 var
+R17264:17267 KamiHW.FullEmbedStep <> kind:106 var
+R17269:17272 KamiHW.FullEmbedStep <> flen:107 var
+R17274:17277 KamiHW.FullEmbedStep <> cost:108 var
+R17307:17316 KamiHW.FullEmbedStep <> with_graph def
+R17319:17326 Kernel.SimulationProof <> vm_apply def
+R17329:17338 Kernel.VMStep VMStep apply_cost def
+R17348:17355 Kernel.VMState <> vm_graph proj
+R17357:17363 Kernel.VMState <> vm_csrs proj
+R17365:17371 Kernel.VMState <> vm_regs proj
+R17373:17378 Kernel.VMState <> vm_mem proj
+R17380:17384 Kernel.VMState <> vm_pc proj
+R17386:17390 Kernel.VMState <> vm_mu proj
+R17392:17403 Kernel.VMState <> vm_mu_tensor proj
+R17412:17417 Kernel.VMState <> vm_err proj
+R17419:17430 Kernel.VMState <> vm_logic_acc proj
+R17432:17441 Kernel.VMState <> vm_mstatus proj
+R17443:17452 Kernel.VMState <> vm_witness proj
+R17454:17465 Kernel.VMState <> vm_certified proj

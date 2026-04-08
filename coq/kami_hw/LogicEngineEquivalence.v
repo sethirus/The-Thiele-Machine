@@ -17,6 +17,11 @@
     check_model/check_lrat/String.eqb inline on mem_to_string results.
     This file proves that PC, mu, and error flags are fully determined
     by the register-indexed strings and the certificate checkers.
+
+    PC DIVERGENCE (LASSERT):
+    Hardware always advances PC by 1 (kami_advance_default).
+    Kernel traps to LASSERT_TRAP_PC on check failure.
+    PC agreement only holds when lassert_check_ok = true.
 *)
 
 From Coq Require Import Arith.PeanoNat Lia Bool Strings.String.
@@ -35,29 +40,27 @@ Import VMStep.VMStep.
       means the kernel records that no new axiom can be added, which is
       treated as an informational error, regardless of proof validity) *)
 Definition lassert_expected_err (s : VMState) (freg creg : nat) (kind : bool) : bool :=
-  let formula := mem_to_string (vm_mem s) (read_reg s freg) in
-  let cert    := mem_to_string (vm_mem s) (read_reg s creg) in
-  if kind then
-    if check_model formula cert then vm_err s else true
-  else
-    true.
+  if lassert_check_ok s freg creg kind then vm_err s else true.
 
 (** * Expected error flag after LJOIN
 
     Computes the vm_err value that vm_step will produce for an LJOIN
     instruction, given the current VMState and register indices:
     - vm_err preserved iff both cert strings are equal *)
+(** LJOIN preserves vm_err unconditionally (via advance_state). *)
 Definition ljoin_expected_err (s : VMState) (c1reg c2reg : nat) : bool :=
-  let cert1 := mem_to_string (vm_mem s) (read_reg s c1reg) in
-  let cert2 := mem_to_string (vm_mem s) (read_reg s c2reg) in
-  if String.eqb cert1 cert2 then vm_err s else true.
+  vm_err s.
 
 (** * PC/mu commutation lemmas
 
-    Both hardware (kami_step) and kernel (vm_step) always advance PC by 1
-    and charge mu for LASSERT/LJOIN, regardless of certificate outcome.
-    Hardware charges S cost; kernel charges flen * 8 + S cost for LASSERT
-    (the extra flen * 8 accounts for reading the formula string from memory). *)
+    Hardware (kami_step) always advances PC by 1 and charges S cost for
+    LASSERT/LJOIN.
+
+    Kernel (vm_step) advances PC by 1 only when check passes for LASSERT;
+    on failure, PC traps to LASSERT_TRAP_PC. For LJOIN, kernel always
+    advances PC by 1 (via advance_state).
+
+    Mu always advances in both layers. *)
 
 (** Definitional lemma *)
 Theorem lassert_kami_step_pc_mu :
@@ -77,15 +80,26 @@ Proof.
   intros. unfold kami_step, kami_advance_default. simpl. auto.
 Qed.
 
-(** Definitional lemma *)
-Theorem lassert_vm_step_pc_mu :
+(** Mu always advances for LASSERT, regardless of check outcome. *)
+Theorem lassert_vm_step_mu :
   forall (vs vs' : VMState) (freg creg : nat) (kind : bool) (flen cost : nat),
     vm_step vs (instr_lassert freg creg kind flen cost) vs' ->
-    vm_pc vs' = S (vm_pc vs) /\
     vm_mu vs' = vm_mu vs + (flen * 8 + S cost).
 Proof.
   intros vs vs' freg creg kind flen cost Hstep.
-  inversion Hstep; subst; unfold advance_state, apply_cost; simpl; auto.
+  inversion Hstep; subst; unfold apply_cost; simpl; lia.
+Qed.
+
+(** PC for LASSERT depends on check_ok. *)
+Theorem lassert_vm_step_pc :
+  forall (vs vs' : VMState) (freg creg : nat) (kind : bool) (flen cost : nat),
+    vm_step vs (instr_lassert freg creg kind flen cost) vs' ->
+    vm_pc vs' = (if lassert_check_ok vs freg creg kind
+                 then S (vm_pc vs)
+                 else LASSERT_TRAP_PC).
+Proof.
+  intros vs vs' freg creg kind flen cost Hstep.
+  inversion Hstep; subst; simpl; reflexivity.
 Qed.
 
 (** Definitional lemma *)
@@ -101,26 +115,30 @@ Qed.
 
 (** * PC commutation diamond + mu gap theorem
 
-    Hardware and kernel agree on PC after LASSERT/LJOIN.
+    Hardware and kernel agree on PC after LASSERT only when check passes.
     For mu, hardware charges S cost; software charges flen * 8 + S cost.
     The gap is flen * 8 bits (the physical reading cost of the formula
-    that hardware pays lazily vs the kernel charging upfront). *)
+    that hardware pays lazily vs the kernel charging upfront).
 
-(** Definitional lemma *)
+    For LJOIN: hardware and kernel always agree on both PC and mu. *)
+
+(** PC commutation for LASSERT holds only when check passes. *)
 Theorem lassert_pc_commutation :
   forall (hs : KamiSnapshot) (vs vs' : VMState) (freg creg : nat)
          (kind : bool) (flen cost : nat),
     abs_phase1 hs = vs ->
     vm_step vs (instr_lassert freg creg kind flen cost) vs' ->
+    lassert_check_ok vs freg creg kind = true ->
     snap_pc (kami_step hs (instr_lassert freg creg kind flen cost)) = vm_pc vs'.
 Proof.
-  intros hs vs vs' freg creg kind flen cost Habs Hstep.
+  intros hs vs vs' freg creg kind flen cost Habs Hstep Hcheck.
   destruct (lassert_kami_step_pc_mu hs freg creg kind flen cost) as [Hpc_hw _].
-  destruct (lassert_vm_step_pc_mu vs vs' freg creg kind flen cost Hstep) as [Hpc_vm _].
-  subst vs. rewrite Hpc_hw, Hpc_vm. auto.
+  pose proof (lassert_vm_step_pc vs vs' freg creg kind flen cost Hstep) as Hpc_vm.
+  pose proof Habs as _Habs_used. subst vs. rewrite Hpc_hw, Hpc_vm, Hcheck. reflexivity.
 Qed.
 
-(** The mu gap: kernel charges flen * 8 more than hardware for LASSERT. *)
+(** The mu gap: kernel charges flen * 8 more than hardware for LASSERT.
+    This holds unconditionally (regardless of check outcome). *)
 Theorem lassert_mu_gap :
   forall (hs : KamiSnapshot) (vs vs' : VMState) (freg creg : nat)
          (kind : bool) (flen cost : nat),
@@ -131,7 +149,7 @@ Theorem lassert_mu_gap :
 Proof.
   intros hs vs vs' freg creg kind flen cost Habs Hstep.
   destruct (lassert_kami_step_pc_mu hs freg creg kind flen cost) as [_ Hmu_hw].
-  destruct (lassert_vm_step_pc_mu vs vs' freg creg kind flen cost Hstep) as [_ Hmu_vm].
+  pose proof (lassert_vm_step_mu vs vs' freg creg kind flen cost Hstep) as Hmu_vm.
   subst vs. rewrite Hmu_hw, Hmu_vm.
   unfold abs_phase1. simpl. lia.
 Qed.
@@ -164,13 +182,7 @@ Theorem lassert_vm_step_err :
 Proof.
   intros vs vs' freg creg kind flen cost Hstep.
   unfold lassert_expected_err.
-  inversion Hstep; subst;
-    unfold advance_state, latch_err; simpl;
-    match goal with
-    | [ H : check_model _ _ = true  |- _ ] => rewrite H; reflexivity
-    | [ H : check_model _ _ = false |- _ ] => rewrite H; reflexivity
-    | _ => reflexivity
-    end.
+  inversion Hstep; subst; simpl; reflexivity.
 Qed.
 
 (** Definitional lemma *)
@@ -181,21 +193,19 @@ Theorem ljoin_vm_step_err :
 Proof.
   intros vs vs' c1reg c2reg cost Hstep.
   unfold ljoin_expected_err.
-  inversion Hstep; subst;
-    unfold advance_state, latch_err; simpl;
-    match goal with
-    | [ H : String.eqb _ _ = _ |- _ ] => rewrite H; reflexivity
-    end.
+  inversion Hstep; subst; unfold advance_state; simpl; reflexivity.
 Qed.
 
 (** * Main theorem: on-chip logic engine equivalence
 
     For any hardware snapshot and logic instruction, there exists a kernel
     post-state such that the hardware step and the kernel step agree on PC
-    and the error flag is fully determined by the register-indexed strings.
+    (when check passes) and the error flag is fully determined by the
+    register-indexed strings.
 
     For LASSERT: hardware charges S cost, kernel charges flen*8 + S cost.
     The mu gap (flen * 8) accounts for on-chip formula reading cost.
+    PC agreement requires lassert_check_ok = true.
 
     For LJOIN: hardware and kernel agree on both PC and mu (no gap),
     since both steps read from the same mem_to_string operands. *)
@@ -204,18 +214,19 @@ Theorem logic_engine_equivalent_lassert :
   forall (hs : KamiSnapshot) (freg creg : nat) (kind : bool) (flen cost : nat),
     exists vs',
       vm_step (abs_phase1 hs) (instr_lassert freg creg kind flen cost) vs' /\
-      snap_pc (kami_step hs (instr_lassert freg creg kind flen cost)) = vm_pc vs' /\
       vm_mu vs' = snap_mu (kami_step hs (instr_lassert freg creg kind flen cost))
                   + flen * 8 /\
+      (lassert_check_ok (abs_phase1 hs) freg creg kind = true ->
+       snap_pc (kami_step hs (instr_lassert freg creg kind flen cost)) = vm_pc vs') /\
       vm_err vs' = lassert_expected_err (abs_phase1 hs) freg creg kind.
 Proof.
   intros hs freg creg kind flen cost.
   destruct (verilog_simulates_vm_step_lassert hs freg creg kind flen cost)
     as [vs' Hstep].
   exists vs'. split; [exact Hstep |].
-  split; [exact (lassert_pc_commutation hs (abs_phase1 hs) vs' freg creg kind flen cost
-                   eq_refl Hstep) |].
   split; [exact (lassert_mu_gap hs (abs_phase1 hs) vs' freg creg kind flen cost
+                   eq_refl Hstep) |].
+  split; [exact (lassert_pc_commutation hs (abs_phase1 hs) vs' freg creg kind flen cost
                    eq_refl Hstep) |].
   apply (lassert_vm_step_err (abs_phase1 hs) vs' freg creg kind flen cost Hstep).
 Qed.

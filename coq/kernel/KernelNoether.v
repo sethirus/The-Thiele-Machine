@@ -802,68 +802,26 @@ Proof.
   all: try (eapply step_tensor_set; [eassumption | eassumption | reflexivity]).
   all: try (eapply step_tensor_get; [eassumption | eassumption | reflexivity | reflexivity]).
   (* Morph instruction cases: z_gauge_shift only changes vm_mu, not vm_graph/vm_csrs/etc.
-     Use 'change' to normalize z_gauge_shift projections before eassumption. *)
-  all: try (eapply step_morph; [
-    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption |
-    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption |
-    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption ]).
-  all: try (eapply step_morph_failure;
-    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption).
-  all: try (eapply step_compose;
-    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption).
-  all: try (eapply step_compose_failure;
-    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption).
-  all: try (eapply step_morph_id;
-    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption).
-  all: try (eapply step_morph_id_failure;
-    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption).
-  all: try (eapply step_morph_delete;
-    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption).
-  all: try (eapply step_morph_delete_failure;
-    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption).
-  all: try (eapply step_morph_assert; [
-    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption |
-    reflexivity ]).
-  all: try (eapply step_morph_assert_failure;
-    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption).
-  all: try (eapply step_morph_tensor;
-    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption).
-  all: try (eapply step_morph_tensor_failure;
-    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption).
-  all: try (eapply step_morph_get; [
-    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption |
-    reflexivity |
-    reflexivity ]).
-  all: try (eapply step_morph_get_failure;
-    change (vm_graph (z_gauge_shift delta s1)) with (vm_graph s1); eassumption).
-  (* LASSERT/LJOIN cases: z_gauge_shift only changes vm_mu; mem/regs/graph preserved by lemmas.
-     After subst, formula/cert/graph' are eliminated, so use reflexivity (not eassumption) for
-     premises 1, 2, 4, and eassumption for premise 3 (check_model hypothesis remains). *)
-  all: try (eapply step_lassert_sat;
-    [ rewrite z_gauge_shift_mem, z_gauge_shift_read_reg; reflexivity
-    | rewrite z_gauge_shift_mem, z_gauge_shift_read_reg; reflexivity
-    | eassumption
-    | rewrite z_gauge_shift_graph; reflexivity ]).
-  all: try (eapply step_lassert_unsat;
-    [ rewrite z_gauge_shift_mem, z_gauge_shift_read_reg; reflexivity
-    | rewrite z_gauge_shift_mem, z_gauge_shift_read_reg; reflexivity
-    | eassumption ]).
-  all: try (eapply step_lassert_sat_failure;
-    [ rewrite z_gauge_shift_mem, z_gauge_shift_read_reg; reflexivity
-    | rewrite z_gauge_shift_mem, z_gauge_shift_read_reg; reflexivity
-    | eassumption ]).
-  all: try (eapply step_lassert_unsat_failure;
-    [ rewrite z_gauge_shift_mem, z_gauge_shift_read_reg; reflexivity
-    | rewrite z_gauge_shift_mem, z_gauge_shift_read_reg; reflexivity
-    | eassumption ]).
-  all: try (eapply step_ljoin_equal;
-    [ rewrite z_gauge_shift_mem, z_gauge_shift_read_reg; reflexivity
-    | rewrite z_gauge_shift_mem, z_gauge_shift_read_reg; reflexivity
-    | eassumption ]).
-  all: try (eapply step_ljoin_mismatch;
-    [ rewrite z_gauge_shift_mem, z_gauge_shift_read_reg; reflexivity
-    | rewrite z_gauge_shift_mem, z_gauge_shift_read_reg; reflexivity
-    | eassumption ]).
+     Each morph op now has _ok and _bad constructors. *)
+  all: try (eapply step_morph_ok; eassumption).
+  all: try (eapply step_morph_bad_src; eassumption).
+  all: try (eapply step_morph_bad_dst; eassumption).
+  all: try (eapply step_compose_ok; eassumption).
+  all: try (eapply step_compose_bad; eassumption).
+  all: try (eapply step_morph_id_ok; eassumption).
+  all: try (eapply step_morph_id_bad; eassumption).
+  all: try (eapply step_morph_delete_ok; eassumption).
+  all: try (eapply step_morph_delete_bad; eassumption).
+  all: try (eapply step_morph_assert_ok; eassumption).
+  all: try (eapply step_morph_assert_bad; eassumption).
+  all: try (eapply step_morph_tensor_ok; eassumption).
+  all: try (eapply step_morph_tensor_bad; eassumption).
+  all: try (eapply step_morph_get_ok; [eassumption | reflexivity]).
+  all: try (eapply step_morph_get_bad; eassumption).
+  (* LASSERT: single unified constructor — no premises. *)
+  all: try (eapply step_lassert).
+  (* LJOIN: single unified constructor — no premises. *)
+  all: try (eapply step_ljoin).
   (* All other (non-tensor) instruction cases: econstructor matches same constructor *)
   all: try (econstructor; [reflexivity | reflexivity | reflexivity | idtac..]).
   all: try (econstructor; [reflexivity | reflexivity | idtac..]).

@@ -236,6 +236,96 @@ Proof.
     + contradiction.
 Defined.
 
+Definition psplit_transition_morphism (left right : list nat) : SplitMorphism.
+Proof.
+  refine
+    {| split_left := normalize_region left;
+       split_right := normalize_region right;
+       coupling_pairs := cartesian_pairs (normalize_region left) (normalize_region right);
+       morphism_support_semantics :=
+         [[]; cartesian_pairs (normalize_region left) (normalize_region right)] |}.
+  - intros a b Hin.
+    apply in_cartesian_pairs_wf in Hin.
+    exact Hin.
+  - intros support Hin_sem a Hin_red.
+    simpl in Hin_sem.
+    destruct Hin_sem as [Hempty | [Hsupport | Hnil]].
+    + subst support.
+      unfold reduced_state_support, partial_trace_right_support in Hin_red.
+      simpl in Hin_red.
+      contradiction.
+    + subst support.
+      unfold reduced_state_support, partial_trace_right_support in Hin_red.
+      apply nodup_In in Hin_red.
+      apply in_map_fst_exists_pair in Hin_red.
+      exact Hin_red.
+    + contradiction.
+Defined.
+
+(** PNEW creation morphism: module creation from nothing.
+    The split_left and split_right are both the normalized region (self-pair).
+    The morphism_support_semantics include [] (before creation) and the
+    diagonal self-support (after creation). *)
+Lemma in_self_pairs_wf :
+  forall region a b,
+    In (a, b) (map (fun x : nat => (x, x)) region) ->
+    In a region /\ In b region.
+Proof.
+  induction region as [| h t IH]; intros a b Hin; simpl in *.
+  - contradiction.
+  - destruct Hin as [Heq | Hin_rest].
+    + inversion Heq; subst. split; left; reflexivity.
+    + apply IH in Hin_rest. destruct Hin_rest.
+      split; right; assumption.
+Qed.
+
+Definition pnew_creation_morphism (region : list nat) : SplitMorphism.
+Proof.
+  refine
+    {| split_left := normalize_region region;
+       split_right := normalize_region region;
+       coupling_pairs := map (fun x : nat => (x, x)) (normalize_region region);
+       morphism_support_semantics :=
+         [[]; map (fun x : nat => (x, x)) (normalize_region region)] |}.
+  - intros a b Hin.
+    apply in_self_pairs_wf in Hin.
+    exact Hin.
+  - intros support Hin_sem a Hin_red.
+    simpl in Hin_sem.
+    destruct Hin_sem as [Hempty | [Hsupport | Hnil]].
+    + subst support.
+      unfold reduced_state_support, partial_trace_right_support in Hin_red.
+      simpl in Hin_red. contradiction.
+    + subst support.
+      unfold reduced_state_support, partial_trace_right_support in Hin_red.
+      apply nodup_In in Hin_red.
+      rewrite map_map in Hin_red. simpl in Hin_red.
+      rewrite map_id in Hin_red.
+      exists a. unfold coupled.
+      apply in_map_iff. exists a.
+      split; [reflexivity |].
+      exact Hin_red.
+    + contradiction.
+Defined.
+
+Theorem vm_step_pnew_constructs_creation_morphism :
+  forall s s' region cost,
+    vm_step s (instr_pnew region cost) s' ->
+    exists P : SplitMorphism,
+      split_left P = normalize_region region /\
+      split_right P = normalize_region region /\
+      In [] (morphism_support_semantics P) /\
+      In (map (fun x : nat => (x, x)) (normalize_region region))
+         (morphism_support_semantics P).
+Proof.
+  intros s s' region cost Hstep.
+  exists (pnew_creation_morphism region).
+  simpl.
+  repeat split.
+  - left. reflexivity.
+  - right. left. reflexivity.
+Qed.
+
 Theorem vm_step_psplit_constructs_support_morphism :
   forall s s' module left right cost,
     vm_step s (instr_psplit module left right cost) s' ->
@@ -269,23 +359,29 @@ Proof.
               destruct Hin_red as [b Hb].
               exists b. unfold coupled. exact Hb.
            ++ contradiction.
-  - exists (psplit_support_morphism left right).
-    split.
+Qed.
+
+Theorem vm_step_psplit_constructs_transition_morphism :
+  forall s s' module left right cost,
+    vm_step s (instr_psplit module left right cost) s' ->
+    exists P : SplitMorphism,
+      split_left P = normalize_region left /\
+      split_right P = normalize_region right /\
+      In [] (morphism_support_semantics P) /\
+      In (cartesian_pairs (normalize_region left) (normalize_region right))
+         (morphism_support_semantics P).
+Proof.
+  intros s s' module left right cost Hstep.
+  inversion Hstep; subst.
+  exists (psplit_transition_morphism left right).
+  simpl.
+  split.
+  - reflexivity.
+  - split.
     + reflexivity.
     + split.
-      * reflexivity.
-      * split.
-        -- simpl. left. reflexivity.
-        -- intros support Hin_sem a Hin_red.
-           simpl in Hin_sem.
-           destruct Hin_sem as [Hsupport | Hnil].
-           ++ subst support.
-              unfold reduced_state_support, partial_trace_right_support in Hin_red.
-              apply nodup_In in Hin_red.
-              apply in_map_fst_exists_pair in Hin_red.
-              destruct Hin_red as [b Hb].
-              exists b. unfold coupled. exact Hb.
-           ++ contradiction.
+      * left. reflexivity.
+      * right. left. reflexivity.
 Qed.
 
 (** Reachable support model induced by concrete vm_apply on PSPLIT. *)

@@ -1,4 +1,4 @@
-DIGEST ca38fb22f626fc8e6ea24eea665dc8bf
+DIGEST 0e30e36dbe6bb79a2084b53a73887c77
 FKernel.TuringClassicalEmbedding
 R2826:2829 Coq.Lists.List <> <> lib
 R2831:2844 Coq.Arith.PeanoNat <> <> lib
@@ -10,166 +10,989 @@ R2917:2931 Kernel.SimulationProof <> <> lib
 R2933:2944 Kernel.AbstractNoFI <> <> lib
 R2973:2995 Kernel.ClassicalConservativity <> <> lib
 R2997:3012 Kernel.ShadowProjection <> <> lib
-def 3545:3564 <> is_classical_program
-R3574:3577 Coq.Init.Datatypes <> list ind
-R3579:3592 Kernel.VMStep VMStep vm_instruction ind
-binder 3567:3570 <> prog:1
-R3607:3612 Coq.Lists.List <> Forall ind
-R3654:3657 Kernel.TuringClassicalEmbedding <> prog:1 var
-binder 3619:3619 <> i:2
-R3645:3647 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3624:3642 Kernel.ClassicalConservativity <> is_classical_opcode def
-R3644:3644 Kernel.TuringClassicalEmbedding <> i:2 var
-R3648:3651 Coq.Init.Datatypes <> true constr
-rec 3809:3824 <> ClassicalMachine
-proj 3833:3842 <> cm_program
-proj 3871:3882 <> cm_classical
-R3848:3851 Coq.Init.Datatypes <> list ind
-R3853:3866 Kernel.VMStep VMStep vm_instruction ind
-R3886:3905 Kernel.TuringClassicalEmbedding <> is_classical_program def
-R3907:3916 Kernel.TuringClassicalEmbedding <> cm_program:4 meth
-def 4135:4140 <> cm_run
-R4147:4162 Kernel.TuringClassicalEmbedding <> ClassicalMachine rec
-binder 4143:4143 <> M:6
-R4171:4177 Kernel.VMState <> VMState rec
-binder 4166:4167 <> s0:7
-R4182:4188 Kernel.VMState <> VMState rec
-R4195:4201 Kernel.AbstractNoFI <> acm_run def
-R4238:4239 Kernel.TuringClassicalEmbedding <> s0:7 var
-R4224:4233 Kernel.TuringClassicalEmbedding <> cm_program proj
-R4235:4235 Kernel.TuringClassicalEmbedding <> M:6 var
-R4203:4221 Kernel.AbstractNoFI <> thiele_cert_machine def
-def 4658:4676 <> classical_to_thiele
-R4686:4689 Coq.Init.Datatypes <> list ind
-R4691:4704 Kernel.VMStep VMStep vm_instruction ind
-binder 4679:4682 <> prog:8
-R4709:4712 Coq.Init.Datatypes <> list ind
-R4714:4727 Kernel.VMStep VMStep vm_instruction ind
-R4734:4737 Kernel.TuringClassicalEmbedding <> prog:8 var
-prf 4992:5015 <> D2_embedding_is_identity
-R5036:5039 Coq.Init.Datatypes <> list ind
-R5041:5054 Kernel.VMStep VMStep vm_instruction ind
-binder 5029:5032 <> prog:9
-R5063:5069 Kernel.VMState <> VMState rec
-binder 5058:5059 <> s0:10
-R5134:5140 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5077:5083 Kernel.AbstractNoFI <> acm_run def
-R5132:5133 Kernel.TuringClassicalEmbedding <> s0:10 var
-R5106:5124 Kernel.TuringClassicalEmbedding <> classical_to_thiele def
-R5126:5129 Kernel.TuringClassicalEmbedding <> prog:9 var
-R5085:5103 Kernel.AbstractNoFI <> thiele_cert_machine def
-R5141:5147 Kernel.AbstractNoFI <> acm_run def
-R5174:5175 Kernel.TuringClassicalEmbedding <> s0:10 var
-R5169:5172 Kernel.TuringClassicalEmbedding <> prog:9 var
-R5149:5167 Kernel.AbstractNoFI <> thiele_cert_machine def
-R5202:5220 Kernel.TuringClassicalEmbedding <> classical_to_thiele def
-prf 5583:5597 <> D2_faithfulness
-R5618:5621 Coq.Init.Datatypes <> list ind
-R5623:5636 Kernel.VMStep VMStep vm_instruction ind
-binder 5611:5614 <> prog:11
-R5645:5651 Kernel.VMState <> VMState rec
-binder 5640:5641 <> s0:12
-R5684:5765 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5659:5678 Kernel.TuringClassicalEmbedding <> is_classical_program def
-R5680:5683 Kernel.TuringClassicalEmbedding <> prog:11 var
-R6250:6329 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5815:5824 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6247:6249 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5766:5776 Kernel.ShadowProjection <> shadow_proj def
-R5779:5785 Kernel.AbstractNoFI <> acm_run def
-R5812:5813 Kernel.TuringClassicalEmbedding <> s0:12 var
-R5807:5810 Kernel.TuringClassicalEmbedding <> prog:11 var
-R5787:5805 Kernel.AbstractNoFI <> thiele_cert_machine def
-R5825:5831 Kernel.ShadowProjection <> cs_regs proj
-R5825:5831 Kernel.ShadowProjection <> cs_regs proj
-R5825:5831 Kernel.ShadowProjection <> cs_regs proj
-R5897:5902 Kernel.ShadowProjection <> cs_mem proj
-R5897:5902 Kernel.ShadowProjection <> cs_mem proj
-R5968:5972 Kernel.ShadowProjection <> cs_pc proj
-R5968:5972 Kernel.ShadowProjection <> cs_pc proj
-R6038:6042 Kernel.ShadowProjection <> cs_mu proj
-R6038:6042 Kernel.ShadowProjection <> cs_mu proj
-R6108:6113 Kernel.ShadowProjection <> cs_err proj
-R6108:6113 Kernel.ShadowProjection <> cs_err proj
-R6179:6190 Kernel.ShadowProjection <> cs_certified proj
-R6179:6190 Kernel.ShadowProjection <> cs_certified proj
-R5880:5886 Kernel.VMState <> vm_regs proj
-R5842:5848 Kernel.AbstractNoFI <> acm_run def
-R5875:5876 Kernel.TuringClassicalEmbedding <> s0:12 var
-R5870:5873 Kernel.TuringClassicalEmbedding <> prog:11 var
-R5850:5868 Kernel.AbstractNoFI <> thiele_cert_machine def
-R5952:5957 Kernel.VMState <> vm_mem proj
-R5914:5920 Kernel.AbstractNoFI <> acm_run def
-R5947:5948 Kernel.TuringClassicalEmbedding <> s0:12 var
-R5942:5945 Kernel.TuringClassicalEmbedding <> prog:11 var
-R5922:5940 Kernel.AbstractNoFI <> thiele_cert_machine def
-R6023:6027 Kernel.VMState <> vm_pc proj
-R5985:5991 Kernel.AbstractNoFI <> acm_run def
-R6018:6019 Kernel.TuringClassicalEmbedding <> s0:12 var
-R6013:6016 Kernel.TuringClassicalEmbedding <> prog:11 var
-R5993:6011 Kernel.AbstractNoFI <> thiele_cert_machine def
-R6093:6097 Kernel.VMState <> vm_mu proj
-R6055:6061 Kernel.AbstractNoFI <> acm_run def
-R6088:6089 Kernel.TuringClassicalEmbedding <> s0:12 var
-R6083:6086 Kernel.TuringClassicalEmbedding <> prog:11 var
-R6063:6081 Kernel.AbstractNoFI <> thiele_cert_machine def
-R6163:6168 Kernel.VMState <> vm_err proj
-R6125:6131 Kernel.AbstractNoFI <> acm_run def
-R6158:6159 Kernel.TuringClassicalEmbedding <> s0:12 var
-R6153:6156 Kernel.TuringClassicalEmbedding <> prog:11 var
-R6133:6151 Kernel.AbstractNoFI <> thiele_cert_machine def
-R6234:6245 Kernel.VMState <> vm_certified proj
-R6196:6202 Kernel.AbstractNoFI <> acm_run def
-R6229:6230 Kernel.TuringClassicalEmbedding <> s0:12 var
-R6224:6227 Kernel.TuringClassicalEmbedding <> prog:11 var
-R6204:6222 Kernel.AbstractNoFI <> thiele_cert_machine def
-R6394:6401 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6378:6380 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6369:6376 Kernel.VMState <> vm_graph proj
-R6331:6337 Kernel.AbstractNoFI <> acm_run def
-R6364:6365 Kernel.TuringClassicalEmbedding <> s0:12 var
-R6359:6362 Kernel.TuringClassicalEmbedding <> prog:11 var
-R6339:6357 Kernel.AbstractNoFI <> thiele_cert_machine def
-R6385:6392 Kernel.VMState <> vm_graph proj
-R6381:6382 Kernel.TuringClassicalEmbedding <> s0:12 var
-R6502:6509 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6465:6473 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6451:6463 Kernel.VMState <> csr_cert_addr proj
-R6441:6447 Kernel.VMState <> vm_csrs proj
-R6403:6409 Kernel.AbstractNoFI <> acm_run def
-R6436:6437 Kernel.TuringClassicalEmbedding <> s0:12 var
-R6431:6434 Kernel.TuringClassicalEmbedding <> prog:11 var
-R6411:6429 Kernel.AbstractNoFI <> thiele_cert_machine def
-R6488:6500 Kernel.VMState <> csr_cert_addr proj
-R6478:6484 Kernel.VMState <> vm_csrs proj
-R6474:6475 Kernel.TuringClassicalEmbedding <> s0:12 var
-R6562:6564 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6549:6560 Kernel.VMState <> vm_certified proj
-R6511:6517 Kernel.AbstractNoFI <> acm_run def
-R6544:6545 Kernel.TuringClassicalEmbedding <> s0:12 var
-R6539:6542 Kernel.TuringClassicalEmbedding <> prog:11 var
-R6519:6537 Kernel.AbstractNoFI <> thiele_cert_machine def
-R6569:6580 Kernel.VMState <> vm_certified proj
-R6565:6566 Kernel.TuringClassicalEmbedding <> s0:12 var
-R6630:6633 Coq.Init.Logic <> conj constr
-R6630:6633 Coq.Init.Logic <> conj constr
-R6733:6743 Kernel.ShadowProjection <> shadow_proj def
-R6836:6852 Kernel.ClassicalConservativity <> D3_conservativity thm
-R6836:6852 Kernel.ClassicalConservativity <> D3_conservativity thm
-prf 7149:7180 <> D2_classical_machines_are_thiele
-R7198:7213 Kernel.TuringClassicalEmbedding <> ClassicalMachine rec
-binder 7194:7194 <> M:13
-R7222:7228 Kernel.VMState <> VMState rec
-binder 7217:7218 <> s0:14
-R7247:7253 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7236:7241 Kernel.TuringClassicalEmbedding <> cm_run def
-R7243:7243 Kernel.TuringClassicalEmbedding <> M:13 var
-R7245:7246 Kernel.TuringClassicalEmbedding <> s0:14 var
-R7254:7260 Kernel.AbstractNoFI <> acm_run def
-R7319:7320 Kernel.TuringClassicalEmbedding <> s0:14 var
-R7283:7301 Kernel.TuringClassicalEmbedding <> classical_to_thiele def
-R7304:7313 Kernel.TuringClassicalEmbedding <> cm_program proj
-R7315:7315 Kernel.TuringClassicalEmbedding <> M:13 var
-R7262:7280 Kernel.AbstractNoFI <> thiele_cert_machine def
-R7352:7357 Kernel.TuringClassicalEmbedding <> cm_run def
-R7360:7378 Kernel.TuringClassicalEmbedding <> classical_to_thiele def
+R3041:3057 Kernel.ProperSubsumption <> <> lib
+def 3590:3609 <> is_classical_program
+R3619:3622 Coq.Init.Datatypes <> list ind
+R3624:3637 Kernel.VMStep VMStep vm_instruction ind
+binder 3612:3615 <> prog:1
+R3652:3657 Coq.Lists.List <> Forall ind
+R3699:3702 Kernel.TuringClassicalEmbedding <> prog:1 var
+binder 3664:3664 <> i:2
+R3690:3692 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3669:3687 Kernel.ClassicalConservativity <> is_classical_opcode def
+R3689:3689 Kernel.TuringClassicalEmbedding <> i:2 var
+R3693:3696 Coq.Init.Datatypes <> true constr
+rec 3854:3869 <> ClassicalMachine
+proj 3878:3887 <> cm_program
+proj 3916:3927 <> cm_classical
+R3893:3896 Coq.Init.Datatypes <> list ind
+R3898:3911 Kernel.VMStep VMStep vm_instruction ind
+R3931:3950 Kernel.TuringClassicalEmbedding <> is_classical_program def
+R3952:3961 Kernel.TuringClassicalEmbedding <> cm_program:4 meth
+def 4180:4185 <> cm_run
+R4192:4207 Kernel.TuringClassicalEmbedding <> ClassicalMachine rec
+binder 4188:4188 <> M:6
+R4216:4222 Kernel.VMState <> VMState rec
+binder 4211:4212 <> s0:7
+R4227:4233 Kernel.VMState <> VMState rec
+R4240:4246 Kernel.AbstractNoFI <> acm_run def
+R4283:4284 Kernel.TuringClassicalEmbedding <> s0:7 var
+R4269:4278 Kernel.TuringClassicalEmbedding <> cm_program proj
+R4280:4280 Kernel.TuringClassicalEmbedding <> M:6 var
+R4248:4266 Kernel.AbstractNoFI <> thiele_cert_machine def
+def 4703:4721 <> classical_to_thiele
+R4731:4734 Coq.Init.Datatypes <> list ind
+R4736:4749 Kernel.VMStep VMStep vm_instruction ind
+binder 4724:4727 <> prog:8
+R4754:4757 Coq.Init.Datatypes <> list ind
+R4759:4772 Kernel.VMStep VMStep vm_instruction ind
+R4779:4782 Kernel.TuringClassicalEmbedding <> prog:8 var
+prf 5037:5060 <> D2_embedding_is_identity
+R5081:5084 Coq.Init.Datatypes <> list ind
+R5086:5099 Kernel.VMStep VMStep vm_instruction ind
+binder 5074:5077 <> prog:9
+R5108:5114 Kernel.VMState <> VMState rec
+binder 5103:5104 <> s0:10
+R5179:5185 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5122:5128 Kernel.AbstractNoFI <> acm_run def
+R5177:5178 Kernel.TuringClassicalEmbedding <> s0:10 var
+R5151:5169 Kernel.TuringClassicalEmbedding <> classical_to_thiele def
+R5171:5174 Kernel.TuringClassicalEmbedding <> prog:9 var
+R5130:5148 Kernel.AbstractNoFI <> thiele_cert_machine def
+R5186:5192 Kernel.AbstractNoFI <> acm_run def
+R5219:5220 Kernel.TuringClassicalEmbedding <> s0:10 var
+R5214:5217 Kernel.TuringClassicalEmbedding <> prog:9 var
+R5194:5212 Kernel.AbstractNoFI <> thiele_cert_machine def
+R5247:5265 Kernel.TuringClassicalEmbedding <> classical_to_thiele def
+prf 5628:5642 <> D2_faithfulness
+R5663:5666 Coq.Init.Datatypes <> list ind
+R5668:5681 Kernel.VMStep VMStep vm_instruction ind
+binder 5656:5659 <> prog:11
+R5690:5696 Kernel.VMState <> VMState rec
+binder 5685:5686 <> s0:12
+R5729:5810 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5704:5723 Kernel.TuringClassicalEmbedding <> is_classical_program def
+R5725:5728 Kernel.TuringClassicalEmbedding <> prog:11 var
+R6295:6374 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5860:5869 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6292:6294 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5811:5821 Kernel.ShadowProjection <> shadow_proj def
+R5824:5830 Kernel.AbstractNoFI <> acm_run def
+R5857:5858 Kernel.TuringClassicalEmbedding <> s0:12 var
+R5852:5855 Kernel.TuringClassicalEmbedding <> prog:11 var
+R5832:5850 Kernel.AbstractNoFI <> thiele_cert_machine def
+R5870:5876 Kernel.ShadowProjection <> cs_regs proj
+R5870:5876 Kernel.ShadowProjection <> cs_regs proj
+R5870:5876 Kernel.ShadowProjection <> cs_regs proj
+R5942:5947 Kernel.ShadowProjection <> cs_mem proj
+R5942:5947 Kernel.ShadowProjection <> cs_mem proj
+R6013:6017 Kernel.ShadowProjection <> cs_pc proj
+R6013:6017 Kernel.ShadowProjection <> cs_pc proj
+R6083:6087 Kernel.ShadowProjection <> cs_mu proj
+R6083:6087 Kernel.ShadowProjection <> cs_mu proj
+R6153:6158 Kernel.ShadowProjection <> cs_err proj
+R6153:6158 Kernel.ShadowProjection <> cs_err proj
+R6224:6235 Kernel.ShadowProjection <> cs_certified proj
+R6224:6235 Kernel.ShadowProjection <> cs_certified proj
+R5925:5931 Kernel.VMState <> vm_regs proj
+R5887:5893 Kernel.AbstractNoFI <> acm_run def
+R5920:5921 Kernel.TuringClassicalEmbedding <> s0:12 var
+R5915:5918 Kernel.TuringClassicalEmbedding <> prog:11 var
+R5895:5913 Kernel.AbstractNoFI <> thiele_cert_machine def
+R5997:6002 Kernel.VMState <> vm_mem proj
+R5959:5965 Kernel.AbstractNoFI <> acm_run def
+R5992:5993 Kernel.TuringClassicalEmbedding <> s0:12 var
+R5987:5990 Kernel.TuringClassicalEmbedding <> prog:11 var
+R5967:5985 Kernel.AbstractNoFI <> thiele_cert_machine def
+R6068:6072 Kernel.VMState <> vm_pc proj
+R6030:6036 Kernel.AbstractNoFI <> acm_run def
+R6063:6064 Kernel.TuringClassicalEmbedding <> s0:12 var
+R6058:6061 Kernel.TuringClassicalEmbedding <> prog:11 var
+R6038:6056 Kernel.AbstractNoFI <> thiele_cert_machine def
+R6138:6142 Kernel.VMState <> vm_mu proj
+R6100:6106 Kernel.AbstractNoFI <> acm_run def
+R6133:6134 Kernel.TuringClassicalEmbedding <> s0:12 var
+R6128:6131 Kernel.TuringClassicalEmbedding <> prog:11 var
+R6108:6126 Kernel.AbstractNoFI <> thiele_cert_machine def
+R6208:6213 Kernel.VMState <> vm_err proj
+R6170:6176 Kernel.AbstractNoFI <> acm_run def
+R6203:6204 Kernel.TuringClassicalEmbedding <> s0:12 var
+R6198:6201 Kernel.TuringClassicalEmbedding <> prog:11 var
+R6178:6196 Kernel.AbstractNoFI <> thiele_cert_machine def
+R6279:6290 Kernel.VMState <> vm_certified proj
+R6241:6247 Kernel.AbstractNoFI <> acm_run def
+R6274:6275 Kernel.TuringClassicalEmbedding <> s0:12 var
+R6269:6272 Kernel.TuringClassicalEmbedding <> prog:11 var
+R6249:6267 Kernel.AbstractNoFI <> thiele_cert_machine def
+R6439:6446 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6423:6425 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6414:6421 Kernel.VMState <> vm_graph proj
+R6376:6382 Kernel.AbstractNoFI <> acm_run def
+R6409:6410 Kernel.TuringClassicalEmbedding <> s0:12 var
+R6404:6407 Kernel.TuringClassicalEmbedding <> prog:11 var
+R6384:6402 Kernel.AbstractNoFI <> thiele_cert_machine def
+R6430:6437 Kernel.VMState <> vm_graph proj
+R6426:6427 Kernel.TuringClassicalEmbedding <> s0:12 var
+R6547:6554 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6510:6518 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6496:6508 Kernel.VMState <> csr_cert_addr proj
+R6486:6492 Kernel.VMState <> vm_csrs proj
+R6448:6454 Kernel.AbstractNoFI <> acm_run def
+R6481:6482 Kernel.TuringClassicalEmbedding <> s0:12 var
+R6476:6479 Kernel.TuringClassicalEmbedding <> prog:11 var
+R6456:6474 Kernel.AbstractNoFI <> thiele_cert_machine def
+R6533:6545 Kernel.VMState <> csr_cert_addr proj
+R6523:6529 Kernel.VMState <> vm_csrs proj
+R6519:6520 Kernel.TuringClassicalEmbedding <> s0:12 var
+R6607:6609 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6594:6605 Kernel.VMState <> vm_certified proj
+R6556:6562 Kernel.AbstractNoFI <> acm_run def
+R6589:6590 Kernel.TuringClassicalEmbedding <> s0:12 var
+R6584:6587 Kernel.TuringClassicalEmbedding <> prog:11 var
+R6564:6582 Kernel.AbstractNoFI <> thiele_cert_machine def
+R6614:6625 Kernel.VMState <> vm_certified proj
+R6610:6611 Kernel.TuringClassicalEmbedding <> s0:12 var
+R6675:6678 Coq.Init.Logic <> conj constr
+R6675:6678 Coq.Init.Logic <> conj constr
+R6778:6788 Kernel.ShadowProjection <> shadow_proj def
+R6881:6897 Kernel.ClassicalConservativity <> D3_conservativity thm
+R6881:6897 Kernel.ClassicalConservativity <> D3_conservativity thm
+prf 7194:7225 <> D2_classical_machines_are_thiele
+R7243:7258 Kernel.TuringClassicalEmbedding <> ClassicalMachine rec
+binder 7239:7239 <> M:13
+R7267:7273 Kernel.VMState <> VMState rec
+binder 7262:7263 <> s0:14
+R7292:7298 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7281:7286 Kernel.TuringClassicalEmbedding <> cm_run def
+R7288:7288 Kernel.TuringClassicalEmbedding <> M:13 var
+R7290:7291 Kernel.TuringClassicalEmbedding <> s0:14 var
+R7299:7305 Kernel.AbstractNoFI <> acm_run def
+R7364:7365 Kernel.TuringClassicalEmbedding <> s0:14 var
+R7328:7346 Kernel.TuringClassicalEmbedding <> classical_to_thiele def
+R7349:7358 Kernel.TuringClassicalEmbedding <> cm_program proj
+R7360:7360 Kernel.TuringClassicalEmbedding <> M:13 var
+R7307:7325 Kernel.AbstractNoFI <> thiele_cert_machine def
+R7397:7402 Kernel.TuringClassicalEmbedding <> cm_run def
+R7405:7423 Kernel.TuringClassicalEmbedding <> classical_to_thiele def
+def 8526:8544 <> vm_classical_compat
+R8555:8561 Kernel.VMState <> VMState rec
+binder 8547:8548 <> s1:15
+binder 8550:8551 <> s2:16
+R8607:8612 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8590:8592 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8576:8586 Kernel.ShadowProjection <> shadow_proj def
+R8588:8589 Kernel.TuringClassicalEmbedding <> s1:15 var
+R8593:8603 Kernel.ShadowProjection <> shadow_proj def
+R8605:8606 Kernel.TuringClassicalEmbedding <> s2:16 var
+R8642:8647 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8626:8628 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8617:8624 Kernel.VMState <> vm_graph proj
+R8613:8614 Kernel.TuringClassicalEmbedding <> s1:15 var
+R8633:8640 Kernel.VMState <> vm_graph proj
+R8629:8630 Kernel.TuringClassicalEmbedding <> s2:16 var
+R8660:8662 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8652:8658 Kernel.VMState <> vm_csrs proj
+R8648:8649 Kernel.TuringClassicalEmbedding <> s1:15 var
+R8667:8673 Kernel.VMState <> vm_csrs proj
+R8663:8664 Kernel.TuringClassicalEmbedding <> s2:16 var
+prf 8753:8770 <> unpack_shadow_proj
+binder 8783:8784 <> s1:17
+binder 8786:8787 <> s2:18
+R8825:8832 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8808:8810 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8794:8804 Kernel.ShadowProjection <> shadow_proj def
+R8806:8807 Kernel.TuringClassicalEmbedding <> s1:17 var
+R8811:8821 Kernel.ShadowProjection <> shadow_proj def
+R8823:8824 Kernel.TuringClassicalEmbedding <> s2:18 var
+R8860:8867 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8845:8847 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8837:8843 Kernel.VMState <> vm_regs proj
+R8833:8834 Kernel.TuringClassicalEmbedding <> s1:17 var
+R8852:8858 Kernel.VMState <> vm_regs proj
+R8848:8849 Kernel.TuringClassicalEmbedding <> s2:18 var
+R8894:8902 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8879:8882 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8872:8877 Kernel.VMState <> vm_mem proj
+R8868:8869 Kernel.TuringClassicalEmbedding <> s1:17 var
+R8887:8892 Kernel.VMState <> vm_mem proj
+R8883:8884 Kernel.TuringClassicalEmbedding <> s2:18 var
+R8928:8937 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8913:8917 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8907:8911 Kernel.VMState <> vm_pc proj
+R8903:8904 Kernel.TuringClassicalEmbedding <> s1:17 var
+R8922:8926 Kernel.VMState <> vm_pc proj
+R8918:8919 Kernel.TuringClassicalEmbedding <> s2:18 var
+R8963:8972 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8948:8952 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8942:8946 Kernel.VMState <> vm_mu proj
+R8938:8939 Kernel.TuringClassicalEmbedding <> s1:17 var
+R8957:8961 Kernel.VMState <> vm_mu proj
+R8953:8954 Kernel.TuringClassicalEmbedding <> s2:18 var
+R8999:9007 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8984:8987 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8977:8982 Kernel.VMState <> vm_err proj
+R8973:8974 Kernel.TuringClassicalEmbedding <> s1:17 var
+R8992:8997 Kernel.VMState <> vm_err proj
+R8988:8989 Kernel.TuringClassicalEmbedding <> s2:18 var
+R9025:9027 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9012:9023 Kernel.VMState <> vm_certified proj
+R9008:9009 Kernel.TuringClassicalEmbedding <> s1:17 var
+R9032:9043 Kernel.VMState <> vm_certified proj
+R9028:9029 Kernel.TuringClassicalEmbedding <> s2:18 var
+R9081:9091 Kernel.ShadowProjection <> shadow_proj def
+prf 9417:9436 <> shadow_advance_state
+binder 9449:9450 <> s1:19
+binder 9452:9453 <> s2:20
+binder 9455:9459 <> instr:21
+binder 9461:9462 <> g1:22
+binder 9464:9465 <> g2:23
+binder 9467:9468 <> c1:24
+binder 9470:9471 <> c2:25
+binder 9473:9474 <> e1:26
+binder 9476:9477 <> e2:27
+R9511:9518 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9496:9498 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9488:9494 Kernel.VMState <> vm_regs proj
+R9484:9485 Kernel.TuringClassicalEmbedding <> s1:19 var
+R9503:9509 Kernel.VMState <> vm_regs proj
+R9499:9500 Kernel.TuringClassicalEmbedding <> s2:20 var
+R9545:9553 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9530:9533 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9523:9528 Kernel.VMState <> vm_mem proj
+R9519:9520 Kernel.TuringClassicalEmbedding <> s1:19 var
+R9538:9543 Kernel.VMState <> vm_mem proj
+R9534:9535 Kernel.TuringClassicalEmbedding <> s2:20 var
+R9579:9588 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9564:9568 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9558:9562 Kernel.VMState <> vm_pc proj
+R9554:9555 Kernel.TuringClassicalEmbedding <> s1:19 var
+R9573:9577 Kernel.VMState <> vm_pc proj
+R9569:9570 Kernel.TuringClassicalEmbedding <> s2:20 var
+R9614:9623 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9599:9603 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9593:9597 Kernel.VMState <> vm_mu proj
+R9589:9590 Kernel.TuringClassicalEmbedding <> s1:19 var
+R9608:9612 Kernel.VMState <> vm_mu proj
+R9604:9605 Kernel.TuringClassicalEmbedding <> s2:20 var
+R9661:9668 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9641:9643 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9628:9639 Kernel.VMState <> vm_certified proj
+R9624:9625 Kernel.TuringClassicalEmbedding <> s1:19 var
+R9648:9659 Kernel.VMState <> vm_certified proj
+R9644:9645 Kernel.TuringClassicalEmbedding <> s2:20 var
+R9676:9683 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9671:9673 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9669:9670 Kernel.TuringClassicalEmbedding <> e1:26 var
+R9674:9675 Kernel.TuringClassicalEmbedding <> e2:27 var
+R9729:9735 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9684:9694 Kernel.ShadowProjection <> shadow_proj def
+R9697:9709 Kernel.VMStep VMStep advance_state def
+R9711:9712 Kernel.TuringClassicalEmbedding <> s1:19 var
+R9714:9718 Kernel.TuringClassicalEmbedding <> instr:21 var
+R9720:9721 Kernel.TuringClassicalEmbedding <> g1:22 var
+R9723:9724 Kernel.TuringClassicalEmbedding <> c1:24 var
+R9726:9727 Kernel.TuringClassicalEmbedding <> e1:26 var
+R9736:9746 Kernel.ShadowProjection <> shadow_proj def
+R9749:9761 Kernel.VMStep VMStep advance_state def
+R9763:9764 Kernel.TuringClassicalEmbedding <> s2:20 var
+R9766:9770 Kernel.TuringClassicalEmbedding <> instr:21 var
+R9772:9773 Kernel.TuringClassicalEmbedding <> g2:23 var
+R9775:9776 Kernel.TuringClassicalEmbedding <> c2:25 var
+R9778:9779 Kernel.TuringClassicalEmbedding <> e2:27 var
+R9869:9879 Kernel.ShadowProjection <> shadow_proj def
+R9882:9894 Kernel.VMStep VMStep advance_state def
+R9897:9906 Kernel.VMStep VMStep apply_cost def
+prf 9982:10004 <> shadow_advance_state_rm
+binder 10017:10018 <> s1:28
+binder 10020:10021 <> s2:29
+binder 10023:10027 <> instr:30
+binder 10029:10030 <> g1:31
+binder 10032:10033 <> g2:32
+binder 10035:10036 <> c1:33
+binder 10038:10039 <> c2:34
+binder 10041:10045 <> regs1:35
+binder 10047:10051 <> regs2:36
+binder 10053:10056 <> mem1:37
+binder 10058:10061 <> mem2:38
+binder 10063:10064 <> e1:39
+binder 10066:10067 <> e2:40
+R10099:10108 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10084:10088 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10078:10082 Kernel.VMState <> vm_pc proj
+R10074:10075 Kernel.TuringClassicalEmbedding <> s1:28 var
+R10093:10097 Kernel.VMState <> vm_pc proj
+R10089:10090 Kernel.TuringClassicalEmbedding <> s2:29 var
+R10134:10143 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10119:10123 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10113:10117 Kernel.VMState <> vm_mu proj
+R10109:10110 Kernel.TuringClassicalEmbedding <> s1:28 var
+R10128:10132 Kernel.VMState <> vm_mu proj
+R10124:10125 Kernel.TuringClassicalEmbedding <> s2:29 var
+R10181:10188 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10161:10163 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10148:10159 Kernel.VMState <> vm_certified proj
+R10144:10145 Kernel.TuringClassicalEmbedding <> s1:28 var
+R10168:10179 Kernel.VMState <> vm_certified proj
+R10164:10165 Kernel.TuringClassicalEmbedding <> s2:29 var
+R10202:10209 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10194:10196 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10189:10193 Kernel.TuringClassicalEmbedding <> regs1:35 var
+R10197:10201 Kernel.TuringClassicalEmbedding <> regs2:36 var
+R10222:10230 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10214:10217 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10210:10213 Kernel.TuringClassicalEmbedding <> mem1:37 var
+R10218:10221 Kernel.TuringClassicalEmbedding <> mem2:38 var
+R10241:10251 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10233:10238 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10231:10232 Kernel.TuringClassicalEmbedding <> e1:39 var
+R10239:10240 Kernel.TuringClassicalEmbedding <> e2:40 var
+R10311:10317 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10252:10262 Kernel.ShadowProjection <> shadow_proj def
+R10265:10280 Kernel.VMStep VMStep advance_state_rm def
+R10282:10283 Kernel.TuringClassicalEmbedding <> s1:28 var
+R10285:10289 Kernel.TuringClassicalEmbedding <> instr:30 var
+R10291:10292 Kernel.TuringClassicalEmbedding <> g1:31 var
+R10294:10295 Kernel.TuringClassicalEmbedding <> c1:33 var
+R10297:10301 Kernel.TuringClassicalEmbedding <> regs1:35 var
+R10303:10306 Kernel.TuringClassicalEmbedding <> mem1:37 var
+R10308:10309 Kernel.TuringClassicalEmbedding <> e1:39 var
+R10318:10328 Kernel.ShadowProjection <> shadow_proj def
+R10331:10346 Kernel.VMStep VMStep advance_state_rm def
+R10348:10349 Kernel.TuringClassicalEmbedding <> s2:29 var
+R10351:10355 Kernel.TuringClassicalEmbedding <> instr:30 var
+R10357:10358 Kernel.TuringClassicalEmbedding <> g2:32 var
+R10360:10361 Kernel.TuringClassicalEmbedding <> c2:34 var
+R10363:10367 Kernel.TuringClassicalEmbedding <> regs2:36 var
+R10369:10372 Kernel.TuringClassicalEmbedding <> mem2:38 var
+R10374:10375 Kernel.TuringClassicalEmbedding <> e2:40 var
+R10496:10506 Kernel.ShadowProjection <> shadow_proj def
+R10509:10524 Kernel.VMStep VMStep advance_state_rm def
+R10527:10536 Kernel.VMStep VMStep apply_cost def
+prf 10612:10628 <> shadow_jump_state
+binder 10641:10642 <> s1:41
+binder 10644:10645 <> s2:42
+binder 10647:10651 <> instr:43
+binder 10653:10658 <> target:44
+R10690:10699 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10675:10679 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10669:10673 Kernel.VMState <> vm_mu proj
+R10665:10666 Kernel.TuringClassicalEmbedding <> s1:41 var
+R10684:10688 Kernel.VMState <> vm_mu proj
+R10680:10681 Kernel.TuringClassicalEmbedding <> s2:42 var
+R10727:10734 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10712:10714 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10704:10710 Kernel.VMState <> vm_regs proj
+R10700:10701 Kernel.TuringClassicalEmbedding <> s1:41 var
+R10719:10725 Kernel.VMState <> vm_regs proj
+R10715:10716 Kernel.TuringClassicalEmbedding <> s2:42 var
+R10761:10769 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10746:10749 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10739:10744 Kernel.VMState <> vm_mem proj
+R10735:10736 Kernel.TuringClassicalEmbedding <> s1:41 var
+R10754:10759 Kernel.VMState <> vm_mem proj
+R10750:10751 Kernel.TuringClassicalEmbedding <> s2:42 var
+R10796:10804 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10781:10784 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10774:10779 Kernel.VMState <> vm_err proj
+R10770:10771 Kernel.TuringClassicalEmbedding <> s1:41 var
+R10789:10794 Kernel.VMState <> vm_err proj
+R10785:10786 Kernel.TuringClassicalEmbedding <> s2:42 var
+R10842:10849 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10822:10824 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10809:10820 Kernel.VMState <> vm_certified proj
+R10805:10806 Kernel.TuringClassicalEmbedding <> s1:41 var
+R10829:10840 Kernel.VMState <> vm_certified proj
+R10825:10826 Kernel.TuringClassicalEmbedding <> s2:42 var
+R10890:10896 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10850:10860 Kernel.ShadowProjection <> shadow_proj def
+R10863:10872 Kernel.VMStep VMStep jump_state def
+R10874:10875 Kernel.TuringClassicalEmbedding <> s1:41 var
+R10877:10881 Kernel.TuringClassicalEmbedding <> instr:43 var
+R10883:10888 Kernel.TuringClassicalEmbedding <> target:44 var
+R10897:10907 Kernel.ShadowProjection <> shadow_proj def
+R10910:10919 Kernel.VMStep VMStep jump_state def
+R10921:10922 Kernel.TuringClassicalEmbedding <> s2:42 var
+R10924:10928 Kernel.TuringClassicalEmbedding <> instr:43 var
+R10930:10935 Kernel.TuringClassicalEmbedding <> target:44 var
+R11010:11020 Kernel.ShadowProjection <> shadow_proj def
+R11023:11032 Kernel.VMStep VMStep jump_state def
+R11035:11044 Kernel.VMStep VMStep apply_cost def
+prf 11115:11134 <> shadow_jump_state_rm
+binder 11147:11148 <> s1:45
+binder 11150:11151 <> s2:46
+binder 11153:11157 <> instr:47
+binder 11159:11164 <> target:48
+binder 11166:11170 <> regs1:49
+binder 11172:11176 <> regs2:50
+binder 11178:11181 <> mem1:51
+binder 11183:11186 <> mem2:52
+R11218:11227 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11203:11207 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11197:11201 Kernel.VMState <> vm_mu proj
+R11193:11194 Kernel.TuringClassicalEmbedding <> s1:45 var
+R11212:11216 Kernel.VMState <> vm_mu proj
+R11208:11209 Kernel.TuringClassicalEmbedding <> s2:46 var
+R11254:11262 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11239:11242 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11232:11237 Kernel.VMState <> vm_err proj
+R11228:11229 Kernel.TuringClassicalEmbedding <> s1:45 var
+R11247:11252 Kernel.VMState <> vm_err proj
+R11243:11244 Kernel.TuringClassicalEmbedding <> s2:46 var
+R11300:11307 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11280:11282 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11267:11278 Kernel.VMState <> vm_certified proj
+R11263:11264 Kernel.TuringClassicalEmbedding <> s1:45 var
+R11287:11298 Kernel.VMState <> vm_certified proj
+R11283:11284 Kernel.TuringClassicalEmbedding <> s2:46 var
+R11321:11328 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11313:11315 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11308:11312 Kernel.TuringClassicalEmbedding <> regs1:49 var
+R11316:11320 Kernel.TuringClassicalEmbedding <> regs2:50 var
+R11341:11349 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11333:11336 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11329:11332 Kernel.TuringClassicalEmbedding <> mem1:51 var
+R11337:11340 Kernel.TuringClassicalEmbedding <> mem2:52 var
+R11404:11410 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11350:11360 Kernel.ShadowProjection <> shadow_proj def
+R11363:11375 Kernel.VMStep VMStep jump_state_rm def
+R11377:11378 Kernel.TuringClassicalEmbedding <> s1:45 var
+R11380:11384 Kernel.TuringClassicalEmbedding <> instr:47 var
+R11386:11391 Kernel.TuringClassicalEmbedding <> target:48 var
+R11393:11397 Kernel.TuringClassicalEmbedding <> regs1:49 var
+R11399:11402 Kernel.TuringClassicalEmbedding <> mem1:51 var
+R11411:11421 Kernel.ShadowProjection <> shadow_proj def
+R11424:11436 Kernel.VMStep VMStep jump_state_rm def
+R11438:11439 Kernel.TuringClassicalEmbedding <> s2:46 var
+R11441:11445 Kernel.TuringClassicalEmbedding <> instr:47 var
+R11447:11452 Kernel.TuringClassicalEmbedding <> target:48 var
+R11454:11458 Kernel.TuringClassicalEmbedding <> regs2:50 var
+R11460:11463 Kernel.TuringClassicalEmbedding <> mem2:52 var
+R11560:11570 Kernel.ShadowProjection <> shadow_proj def
+R11573:11585 Kernel.VMStep VMStep jump_state_rm def
+R11588:11597 Kernel.VMStep VMStep apply_cost def
+prf 11987:12014 <> classical_step_shadow_compat
+R12032:12045 Kernel.VMStep VMStep vm_instruction ind
+binder 12028:12028 <> i:53
+R12057:12063 Kernel.VMState <> VMState rec
+binder 12049:12050 <> s1:54
+binder 12052:12053 <> s2:55
+R12099:12106 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12092:12094 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12071:12089 Kernel.ClassicalConservativity <> is_classical_opcode def
+R12091:12091 Kernel.TuringClassicalEmbedding <> i:53 var
+R12095:12098 Coq.Init.Datatypes <> true constr
+R12132:12139 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12107:12125 Kernel.TuringClassicalEmbedding <> vm_classical_compat def
+R12127:12128 Kernel.TuringClassicalEmbedding <> s1:54 var
+R12130:12131 Kernel.TuringClassicalEmbedding <> s2:55 var
+R12167:12169 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12140:12150 Kernel.ShadowProjection <> shadow_proj def
+R12153:12160 Kernel.SimulationProof <> vm_apply def
+R12162:12163 Kernel.TuringClassicalEmbedding <> s1:54 var
+R12165:12165 Kernel.TuringClassicalEmbedding <> i:53 var
+R12170:12180 Kernel.ShadowProjection <> shadow_proj def
+R12183:12190 Kernel.SimulationProof <> vm_apply def
+R12192:12193 Kernel.TuringClassicalEmbedding <> s2:55 var
+R12195:12195 Kernel.TuringClassicalEmbedding <> i:53 var
+R12262:12279 Kernel.TuringClassicalEmbedding <> unpack_shadow_proj thm
+R12262:12279 Kernel.TuringClassicalEmbedding <> unpack_shadow_proj thm
+R12381:12383 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12367:12379 Kernel.VMState <> csr_heap_base proj
+R12357:12363 Kernel.VMState <> vm_csrs proj
+R12398:12410 Kernel.VMState <> csr_heap_base proj
+R12388:12394 Kernel.VMState <> vm_csrs proj
+R12381:12383 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12367:12379 Kernel.VMState <> csr_heap_base proj
+R12357:12363 Kernel.VMState <> vm_csrs proj
+R12398:12410 Kernel.VMState <> csr_heap_base proj
+R12388:12394 Kernel.VMState <> vm_csrs proj
+R12503:12510 Kernel.SimulationProof <> vm_apply def
+R12541:12560 Kernel.TuringClassicalEmbedding <> shadow_advance_state thm
+R12541:12560 Kernel.TuringClassicalEmbedding <> shadow_advance_state thm
+R12601:12623 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R12601:12623 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R12653:12661 Kernel.VMState <> write_reg def
+R12664:12671 Kernel.VMState <> read_reg def
+R12716:12738 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R12716:12738 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R12768:12776 Kernel.VMState <> write_reg def
+R12817:12839 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R12817:12839 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R12869:12877 Kernel.VMState <> write_reg def
+R12880:12887 Kernel.VMState <> read_reg def
+R12890:12897 Kernel.VMState <> read_mem def
+R12939:12961 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R12939:12961 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R12991:12999 Kernel.VMState <> write_mem def
+R13002:13009 Kernel.VMState <> read_reg def
+R13049:13071 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R13049:13071 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R13101:13109 Kernel.VMState <> write_reg def
+R13112:13119 Kernel.VMState <> read_reg def
+R13159:13181 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R13159:13181 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R13211:13219 Kernel.VMState <> write_reg def
+R13222:13229 Kernel.VMState <> read_reg def
+R13270:13286 Kernel.TuringClassicalEmbedding <> shadow_jump_state thm
+R13270:13286 Kernel.TuringClassicalEmbedding <> shadow_jump_state thm
+R13417:13423 Coq.Arith.PeanoNat Nat eqb def
+R13426:13433 Kernel.VMState <> read_reg def
+R13417:13423 Coq.Arith.PeanoNat Nat eqb def
+R13426:13433 Kernel.VMState <> read_reg def
+R13467:13473 Coq.Arith.PeanoNat Nat eqb def
+R13476:13483 Kernel.VMState <> read_reg def
+R13502:13508 Coq.Arith.PeanoNat Nat eqb def
+R13511:13518 Kernel.VMState <> read_reg def
+R13552:13559 Kernel.VMState <> read_reg def
+R13593:13599 Coq.Arith.PeanoNat Nat eqb def
+R13602:13609 Kernel.VMState <> read_reg def
+R13467:13473 Coq.Arith.PeanoNat Nat eqb def
+R13476:13483 Kernel.VMState <> read_reg def
+R13502:13508 Coq.Arith.PeanoNat Nat eqb def
+R13511:13518 Kernel.VMState <> read_reg def
+R13593:13599 Coq.Arith.PeanoNat Nat eqb def
+R13602:13609 Kernel.VMState <> read_reg def
+R13643:13662 Kernel.TuringClassicalEmbedding <> shadow_advance_state thm
+R13643:13662 Kernel.TuringClassicalEmbedding <> shadow_advance_state thm
+R13689:13705 Kernel.TuringClassicalEmbedding <> shadow_jump_state thm
+R13689:13705 Kernel.TuringClassicalEmbedding <> shadow_jump_state thm
+R13747:13766 Kernel.TuringClassicalEmbedding <> shadow_jump_state_rm thm
+R13747:13766 Kernel.TuringClassicalEmbedding <> shadow_jump_state_rm thm
+R13798:13806 Kernel.VMState <> write_reg def
+R13809:13816 Kernel.VMState <> read_reg def
+R13844:13852 Kernel.VMState <> write_mem def
+R13855:13862 Kernel.VMState <> read_reg def
+R13948:13958 Kernel.ShadowProjection <> shadow_proj def
+R13961:13973 Kernel.VMStep VMStep jump_state_rm def
+R13976:13985 Kernel.VMStep VMStep apply_cost def
+R13988:13995 Kernel.VMState <> read_reg def
+R13998:14006 Kernel.VMState <> write_reg def
+R14009:14016 Kernel.VMState <> read_mem def
+R14101:14123 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R14101:14123 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R14153:14161 Kernel.VMState <> write_reg def
+R14164:14171 Kernel.VMState <> read_mem def
+R14216:14238 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R14216:14238 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R14268:14276 Kernel.VMState <> write_reg def
+R14279:14286 Kernel.VMState <> read_reg def
+R14332:14354 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R14332:14354 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R14404:14426 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R14404:14426 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R14456:14464 Kernel.VMState <> write_reg def
+R14467:14474 Kernel.VMState <> read_reg def
+R14524:14543 Kernel.TuringClassicalEmbedding <> shadow_advance_state thm
+R14524:14543 Kernel.TuringClassicalEmbedding <> shadow_advance_state thm
+R14585:14604 Kernel.TuringClassicalEmbedding <> shadow_advance_state thm
+R14585:14604 Kernel.TuringClassicalEmbedding <> shadow_advance_state thm
+R14652:14671 Kernel.TuringClassicalEmbedding <> shadow_advance_state thm
+R14652:14671 Kernel.TuringClassicalEmbedding <> shadow_advance_state thm
+R14750:14772 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R14750:14772 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R14802:14810 Kernel.VMState <> write_reg def
+R14858:14877 Kernel.TuringClassicalEmbedding <> shadow_advance_state thm
+R14858:14877 Kernel.TuringClassicalEmbedding <> shadow_advance_state thm
+R14961:14983 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R14961:14983 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R15013:15021 Kernel.VMState <> write_reg def
+R15024:15031 Kernel.VMState <> read_mem def
+R15034:15041 Kernel.VMState <> read_reg def
+R15126:15148 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R15126:15148 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R15178:15186 Kernel.VMState <> write_mem def
+R15189:15196 Kernel.VMState <> read_reg def
+R15237:15259 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R15237:15259 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R15289:15297 Kernel.VMState <> write_reg def
+R15300:15307 Kernel.VMState <> read_reg def
+R15347:15369 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R15347:15369 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R15399:15407 Kernel.VMState <> write_reg def
+R15410:15417 Kernel.VMState <> read_reg def
+R15458:15480 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R15458:15480 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R15510:15518 Kernel.VMState <> write_reg def
+R15521:15528 Kernel.VMState <> read_reg def
+R15569:15591 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R15569:15591 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R15621:15629 Kernel.VMState <> write_reg def
+R15632:15639 Kernel.VMState <> read_reg def
+R15680:15702 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R15680:15702 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R15732:15740 Kernel.VMState <> write_reg def
+R15743:15750 Kernel.VMState <> read_reg def
+R15791:15813 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R15791:15813 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R15843:15851 Kernel.VMState <> write_reg def
+R15954:15970 Kernel.VMStep VMStep tensor_indices_ok def
+R15954:15970 Kernel.VMStep VMStep tensor_indices_ok def
+R15990:16012 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R15990:16012 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R16044:16052 Kernel.VMState <> write_reg def
+R16055:16073 Kernel.VMState <> module_tensor_entry def
+R16116:16135 Kernel.TuringClassicalEmbedding <> shadow_advance_state thm
+R16116:16135 Kernel.TuringClassicalEmbedding <> shadow_advance_state thm
+R16167:16175 Kernel.VMStep VMStep latch_err def
+R16261:16281 Kernel.VMState <> graph_lookup_morphism def
+R16284:16291 Kernel.VMState <> vm_graph proj
+R16319:16339 Kernel.VMState <> graph_lookup_morphism def
+R16342:16349 Kernel.VMState <> vm_graph proj
+R16261:16281 Kernel.VMState <> graph_lookup_morphism def
+R16284:16291 Kernel.VMState <> vm_graph proj
+R16319:16339 Kernel.VMState <> graph_lookup_morphism def
+R16342:16349 Kernel.VMState <> vm_graph proj
+R16419:16439 Kernel.VMState <> graph_lookup_morphism def
+R16442:16449 Kernel.VMState <> vm_graph proj
+R16419:16439 Kernel.VMState <> graph_lookup_morphism def
+R16442:16449 Kernel.VMState <> vm_graph proj
+R16487:16509 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R16487:16509 Kernel.TuringClassicalEmbedding <> shadow_advance_state_rm thm
+R16541:16549 Kernel.VMState <> write_reg def
+R16576:16595 Kernel.TuringClassicalEmbedding <> shadow_advance_state thm
+R16576:16595 Kernel.TuringClassicalEmbedding <> shadow_advance_state thm
+R16627:16635 Kernel.VMStep VMStep latch_err def
+prf 16916:16941 <> classical_step_csrs_compat
+R16959:16972 Kernel.VMStep VMStep vm_instruction ind
+binder 16955:16955 <> i:56
+R16984:16990 Kernel.VMState <> VMState rec
+binder 16976:16977 <> s1:57
+binder 16979:16980 <> s2:58
+R17026:17033 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17019:17021 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16998:17016 Kernel.ClassicalConservativity <> is_classical_opcode def
+R17018:17018 Kernel.TuringClassicalEmbedding <> i:56 var
+R17022:17025 Coq.Init.Datatypes <> true constr
+R17061:17068 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17046:17048 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17038:17044 Kernel.VMState <> vm_csrs proj
+R17034:17035 Kernel.TuringClassicalEmbedding <> s1:57 var
+R17053:17059 Kernel.VMState <> vm_csrs proj
+R17049:17050 Kernel.TuringClassicalEmbedding <> s2:58 var
+R17098:17105 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17082:17084 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17073:17080 Kernel.VMState <> vm_graph proj
+R17069:17070 Kernel.TuringClassicalEmbedding <> s1:57 var
+R17089:17096 Kernel.VMState <> vm_graph proj
+R17085:17086 Kernel.TuringClassicalEmbedding <> s2:58 var
+R17134:17141 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17118:17121 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17110:17116 Kernel.VMState <> vm_regs proj
+R17106:17107 Kernel.TuringClassicalEmbedding <> s1:57 var
+R17126:17132 Kernel.VMState <> vm_regs proj
+R17122:17123 Kernel.TuringClassicalEmbedding <> s2:58 var
+R17167:17169 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17159:17165 Kernel.VMState <> vm_csrs proj
+R17143:17150 Kernel.SimulationProof <> vm_apply def
+R17152:17153 Kernel.TuringClassicalEmbedding <> s1:57 var
+R17155:17155 Kernel.TuringClassicalEmbedding <> i:56 var
+R17187:17193 Kernel.VMState <> vm_csrs proj
+R17171:17178 Kernel.SimulationProof <> vm_apply def
+R17180:17181 Kernel.TuringClassicalEmbedding <> s2:58 var
+R17183:17183 Kernel.TuringClassicalEmbedding <> i:56 var
+R17293:17300 Kernel.SimulationProof <> vm_apply def
+R17397:17409 Kernel.VMStep VMStep advance_state def
+R17412:17427 Kernel.VMStep VMStep advance_state_rm def
+R17430:17439 Kernel.VMStep VMStep jump_state def
+R17442:17454 Kernel.VMStep VMStep jump_state_rm def
+R17577:17583 Coq.Arith.PeanoNat Nat eqb def
+R17586:17593 Kernel.VMState <> read_reg def
+R17577:17583 Coq.Arith.PeanoNat Nat eqb def
+R17586:17593 Kernel.VMState <> read_reg def
+R17627:17633 Coq.Arith.PeanoNat Nat eqb def
+R17636:17643 Kernel.VMState <> read_reg def
+R17662:17668 Coq.Arith.PeanoNat Nat eqb def
+R17671:17678 Kernel.VMState <> read_reg def
+R17712:17719 Kernel.VMState <> read_reg def
+R17753:17759 Coq.Arith.PeanoNat Nat eqb def
+R17762:17769 Kernel.VMState <> read_reg def
+R17802:17814 Kernel.VMStep VMStep advance_state def
+R17817:17826 Kernel.VMStep VMStep jump_state def
+R17627:17633 Coq.Arith.PeanoNat Nat eqb def
+R17636:17643 Kernel.VMState <> read_reg def
+R17662:17668 Coq.Arith.PeanoNat Nat eqb def
+R17671:17678 Kernel.VMState <> read_reg def
+R17753:17759 Coq.Arith.PeanoNat Nat eqb def
+R17762:17769 Kernel.VMState <> read_reg def
+R17903:17919 Kernel.VMStep VMStep tensor_indices_ok def
+R17938:17950 Kernel.VMStep VMStep advance_state def
+R17953:17968 Kernel.VMStep VMStep advance_state_rm def
+R17903:17919 Kernel.VMStep VMStep tensor_indices_ok def
+R18053:18073 Kernel.VMState <> graph_lookup_morphism def
+R18076:18083 Kernel.VMState <> vm_graph proj
+R18111:18131 Kernel.VMState <> graph_lookup_morphism def
+R18134:18141 Kernel.VMState <> vm_graph proj
+R18053:18073 Kernel.VMState <> graph_lookup_morphism def
+R18076:18083 Kernel.VMState <> vm_graph proj
+R18111:18131 Kernel.VMState <> graph_lookup_morphism def
+R18134:18141 Kernel.VMState <> vm_graph proj
+R18211:18231 Kernel.VMState <> graph_lookup_morphism def
+R18234:18241 Kernel.VMState <> vm_graph proj
+R18269:18281 Kernel.VMStep VMStep advance_state def
+R18284:18299 Kernel.VMStep VMStep advance_state_rm def
+R18211:18231 Kernel.VMState <> graph_lookup_morphism def
+R18234:18241 Kernel.VMState <> vm_graph proj
+prf 18530:18550 <> classical_step_compat
+R18568:18581 Kernel.VMStep VMStep vm_instruction ind
+binder 18564:18564 <> i:59
+R18593:18599 Kernel.VMState <> VMState rec
+binder 18585:18586 <> s1:60
+binder 18588:18589 <> s2:61
+R18635:18642 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18628:18630 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18607:18625 Kernel.ClassicalConservativity <> is_classical_opcode def
+R18627:18627 Kernel.TuringClassicalEmbedding <> i:59 var
+R18631:18634 Coq.Init.Datatypes <> true constr
+R18668:18675 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18643:18661 Kernel.TuringClassicalEmbedding <> vm_classical_compat def
+R18663:18664 Kernel.TuringClassicalEmbedding <> s1:60 var
+R18666:18667 Kernel.TuringClassicalEmbedding <> s2:61 var
+R18676:18694 Kernel.TuringClassicalEmbedding <> vm_classical_compat def
+R18697:18704 Kernel.SimulationProof <> vm_apply def
+R18706:18707 Kernel.TuringClassicalEmbedding <> s1:60 var
+R18709:18709 Kernel.TuringClassicalEmbedding <> i:59 var
+R18713:18720 Kernel.SimulationProof <> vm_apply def
+R18722:18723 Kernel.TuringClassicalEmbedding <> s2:61 var
+R18725:18725 Kernel.TuringClassicalEmbedding <> i:59 var
+R18792:18809 Kernel.TuringClassicalEmbedding <> unpack_shadow_proj thm
+R18792:18809 Kernel.TuringClassicalEmbedding <> unpack_shadow_proj thm
+R18876:18894 Kernel.TuringClassicalEmbedding <> vm_classical_compat def
+R18928:18955 Kernel.TuringClassicalEmbedding <> classical_step_shadow_compat thm
+R18982:18985 Coq.Init.Logic <> conj constr
+R18994:18997 Coq.Init.Logic <> conj constr
+R18928:18955 Kernel.TuringClassicalEmbedding <> classical_step_shadow_compat thm
+R18982:18985 Coq.Init.Logic <> conj constr
+R18994:18997 Coq.Init.Logic <> conj constr
+R19029:19060 Kernel.ClassicalConservativity <> classical_opcode_preserves_graph thm
+R19029:19060 Kernel.ClassicalConservativity <> classical_opcode_preserves_graph thm
+R19029:19060 Kernel.ClassicalConservativity <> classical_opcode_preserves_graph thm
+R19085:19116 Kernel.ClassicalConservativity <> classical_opcode_preserves_graph thm
+R19085:19116 Kernel.ClassicalConservativity <> classical_opcode_preserves_graph thm
+R19085:19116 Kernel.ClassicalConservativity <> classical_opcode_preserves_graph thm
+R19157:19182 Kernel.TuringClassicalEmbedding <> classical_step_csrs_compat thm
+R19157:19182 Kernel.TuringClassicalEmbedding <> classical_step_csrs_compat thm
+prf 19280:19301 <> classical_trace_compat
+R19322:19325 Coq.Init.Datatypes <> list ind
+R19327:19340 Kernel.VMStep VMStep vm_instruction ind
+binder 19315:19318 <> prog:62
+R19352:19358 Kernel.VMState <> VMState rec
+binder 19344:19345 <> s1:63
+binder 19347:19348 <> s2:64
+R19391:19398 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19366:19385 Kernel.TuringClassicalEmbedding <> is_classical_program def
+R19387:19390 Kernel.TuringClassicalEmbedding <> prog:62 var
+R19424:19431 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19399:19417 Kernel.TuringClassicalEmbedding <> vm_classical_compat def
+R19419:19420 Kernel.TuringClassicalEmbedding <> s1:63 var
+R19422:19423 Kernel.TuringClassicalEmbedding <> s2:64 var
+R19432:19450 Kernel.TuringClassicalEmbedding <> vm_classical_compat def
+R19453:19459 Kernel.AbstractNoFI <> acm_run def
+R19486:19487 Kernel.TuringClassicalEmbedding <> s1:63 var
+R19481:19484 Kernel.TuringClassicalEmbedding <> prog:62 var
+R19461:19479 Kernel.AbstractNoFI <> thiele_cert_machine def
+R19515:19521 Kernel.AbstractNoFI <> acm_run def
+R19548:19549 Kernel.TuringClassicalEmbedding <> s2:64 var
+R19543:19546 Kernel.TuringClassicalEmbedding <> prog:62 var
+R19523:19541 Kernel.AbstractNoFI <> thiele_cert_machine def
+R19764:19784 Kernel.TuringClassicalEmbedding <> classical_step_compat thm
+R19764:19784 Kernel.TuringClassicalEmbedding <> classical_step_compat thm
+prf 20234:20262 <> D2_classical_shadow_preserved
+R20283:20286 Coq.Init.Datatypes <> list ind
+R20288:20301 Kernel.VMStep VMStep vm_instruction ind
+binder 20276:20279 <> prog:65
+R20313:20319 Kernel.VMState <> VMState rec
+binder 20305:20306 <> s1:66
+binder 20308:20309 <> s2:67
+R20352:20359 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20327:20346 Kernel.TuringClassicalEmbedding <> is_classical_program def
+R20348:20351 Kernel.TuringClassicalEmbedding <> prog:65 var
+R20385:20392 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20360:20378 Kernel.TuringClassicalEmbedding <> vm_classical_compat def
+R20380:20381 Kernel.TuringClassicalEmbedding <> s1:66 var
+R20383:20384 Kernel.TuringClassicalEmbedding <> s2:67 var
+R20442:20448 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20393:20403 Kernel.ShadowProjection <> shadow_proj def
+R20406:20412 Kernel.AbstractNoFI <> acm_run def
+R20439:20440 Kernel.TuringClassicalEmbedding <> s1:66 var
+R20434:20437 Kernel.TuringClassicalEmbedding <> prog:65 var
+R20414:20432 Kernel.AbstractNoFI <> thiele_cert_machine def
+R20449:20459 Kernel.ShadowProjection <> shadow_proj def
+R20462:20468 Kernel.AbstractNoFI <> acm_run def
+R20495:20496 Kernel.TuringClassicalEmbedding <> s2:67 var
+R20490:20493 Kernel.TuringClassicalEmbedding <> prog:65 var
+R20470:20488 Kernel.AbstractNoFI <> thiele_cert_machine def
+R20559:20580 Kernel.TuringClassicalEmbedding <> classical_trace_compat thm
+R20559:20580 Kernel.TuringClassicalEmbedding <> classical_trace_compat thm
+def 21523:21544 <> eq_on_classical_shadow
+R21555:21561 Kernel.VMState <> VMState rec
+binder 21547:21548 <> s1:68
+binder 21550:21551 <> s2:69
+R21603:21608 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R21588:21590 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21580:21586 Kernel.VMState <> vm_regs proj
+R21576:21577 Kernel.TuringClassicalEmbedding <> s1:68 var
+R21595:21601 Kernel.VMState <> vm_regs proj
+R21591:21592 Kernel.TuringClassicalEmbedding <> s2:69 var
+R21635:21641 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R21620:21623 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21613:21618 Kernel.VMState <> vm_mem proj
+R21609:21610 Kernel.TuringClassicalEmbedding <> s1:68 var
+R21628:21633 Kernel.VMState <> vm_mem proj
+R21624:21625 Kernel.TuringClassicalEmbedding <> s2:69 var
+R21667:21674 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R21652:21656 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21646:21650 Kernel.VMState <> vm_pc proj
+R21642:21643 Kernel.TuringClassicalEmbedding <> s1:68 var
+R21661:21665 Kernel.VMState <> vm_pc proj
+R21657:21658 Kernel.TuringClassicalEmbedding <> s2:69 var
+R21700:21707 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R21685:21689 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21679:21683 Kernel.VMState <> vm_mu proj
+R21675:21676 Kernel.TuringClassicalEmbedding <> s1:68 var
+R21694:21698 Kernel.VMState <> vm_mu proj
+R21690:21691 Kernel.TuringClassicalEmbedding <> s2:69 var
+R21734:21740 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R21719:21722 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21712:21717 Kernel.VMState <> vm_err proj
+R21708:21709 Kernel.TuringClassicalEmbedding <> s1:68 var
+R21727:21732 Kernel.VMState <> vm_err proj
+R21723:21724 Kernel.TuringClassicalEmbedding <> s2:69 var
+R21758:21760 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21745:21756 Kernel.VMState <> vm_certified proj
+R21741:21742 Kernel.TuringClassicalEmbedding <> s1:68 var
+R21765:21776 Kernel.VMState <> vm_certified proj
+R21761:21762 Kernel.TuringClassicalEmbedding <> s2:69 var
+prf 21919:21962 <> shadow_proj_kernel_is_eq_on_classical_shadow
+R21983:21989 Kernel.VMState <> VMState rec
+binder 21975:21976 <> s1:70
+binder 21978:21979 <> s2:71
+R22027:22031 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R22010:22012 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21996:22006 Kernel.ShadowProjection <> shadow_proj def
+R22008:22009 Kernel.TuringClassicalEmbedding <> s1:70 var
+R22013:22023 Kernel.ShadowProjection <> shadow_proj def
+R22025:22026 Kernel.TuringClassicalEmbedding <> s2:71 var
+R22032:22053 Kernel.TuringClassicalEmbedding <> eq_on_classical_shadow def
+R22055:22056 Kernel.TuringClassicalEmbedding <> s1:70 var
+R22058:22059 Kernel.TuringClassicalEmbedding <> s2:71 var
+R22112:22129 Kernel.TuringClassicalEmbedding <> unpack_shadow_proj thm
+R22112:22129 Kernel.TuringClassicalEmbedding <> unpack_shadow_proj thm
+R22199:22209 Kernel.ShadowProjection <> shadow_proj def
+prf 23121:23149 <> degenerate_projection_theorem
+R23217:23217 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R23402:23493 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 23225:23228 <> fuel:72
+binder 23230:23234 <> delta:73
+binder 23236:23236 <> c:74
+R23358:23364 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23327:23356 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
+R23244:23271 Kernel.ProperSubsumption ProperSubsumption thiele_run def
+R23273:23276 Kernel.TuringClassicalEmbedding <> fuel:72 var
+R23278:23282 Kernel.TuringClassicalEmbedding <> delta:73 var
+R23292:23320 Kernel.ProperSubsumption ProperSubsumption lift_config def
+R23322:23322 Kernel.TuringClassicalEmbedding <> c:74 var
+R23365:23388 Kernel.ProperSubsumption ProperSubsumption tm_run def
+R23390:23393 Kernel.TuringClassicalEmbedding <> fuel:72 var
+R23395:23399 Kernel.TuringClassicalEmbedding <> delta:73 var
+R23401:23401 Kernel.TuringClassicalEmbedding <> c:74 var
+R23494:23494 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R23587:23664 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R23510:23516 Kernel.VMState <> VMState rec
+binder 23502:23503 <> s1:75
+binder 23505:23506 <> s2:76
+R23554:23558 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R23537:23539 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23523:23533 Kernel.ShadowProjection <> shadow_proj def
+R23535:23536 Kernel.TuringClassicalEmbedding <> s1:75 var
+R23540:23550 Kernel.ShadowProjection <> shadow_proj def
+R23552:23553 Kernel.TuringClassicalEmbedding <> s2:76 var
+R23559:23580 Kernel.TuringClassicalEmbedding <> eq_on_classical_shadow def
+R23582:23583 Kernel.TuringClassicalEmbedding <> s1:75 var
+R23585:23586 Kernel.TuringClassicalEmbedding <> s2:76 var
+R23665:23665 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R23896:23991 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R24063:24063 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R23681:23684 Coq.Init.Datatypes <> list ind
+R23686:23699 Kernel.VMStep VMStep vm_instruction ind
+binder 23674:23677 <> prog:77
+R23711:23717 Kernel.VMState <> VMState rec
+binder 23703:23704 <> s1:78
+binder 23706:23707 <> s2:79
+R23750:23757 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23725:23744 Kernel.TuringClassicalEmbedding <> is_classical_program def
+R23746:23749 Kernel.TuringClassicalEmbedding <> prog:77 var
+R23783:23790 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23758:23776 Kernel.TuringClassicalEmbedding <> vm_classical_compat def
+R23778:23779 Kernel.TuringClassicalEmbedding <> s1:78 var
+R23781:23782 Kernel.TuringClassicalEmbedding <> s2:79 var
+R23840:23846 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23791:23801 Kernel.ShadowProjection <> shadow_proj def
+R23804:23810 Kernel.AbstractNoFI <> acm_run def
+R23837:23838 Kernel.TuringClassicalEmbedding <> s1:78 var
+R23832:23835 Kernel.TuringClassicalEmbedding <> prog:77 var
+R23812:23830 Kernel.AbstractNoFI <> thiele_cert_machine def
+R23847:23857 Kernel.ShadowProjection <> shadow_proj def
+R23860:23866 Kernel.AbstractNoFI <> acm_run def
+R23893:23894 Kernel.TuringClassicalEmbedding <> s2:79 var
+R23888:23891 Kernel.TuringClassicalEmbedding <> prog:77 var
+R23868:23886 Kernel.AbstractNoFI <> thiele_cert_machine def
+R23992:23998 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R24014:24019 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R24007:24013 Kernel.VMState <> VMState rec
+binder 23999:24000 <> s1:80
+R24007:24013 Kernel.VMState <> VMState rec
+binder 24002:24003 <> s2:81
+R24051:24054 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R24034:24036 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24020:24030 Kernel.ShadowProjection <> shadow_proj def
+R24032:24033 Kernel.TuringClassicalEmbedding <> s1:80 var
+R24037:24047 Kernel.ShadowProjection <> shadow_proj def
+R24049:24050 Kernel.TuringClassicalEmbedding <> s2:81 var
+R24057:24060 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R24055:24056 Kernel.TuringClassicalEmbedding <> s1:80 var
+R24061:24062 Kernel.TuringClassicalEmbedding <> s2:81 var
+R24083:24086 Coq.Init.Logic <> conj constr
+R24091:24094 Coq.Init.Logic <> conj constr
+R24099:24102 Coq.Init.Logic <> conj constr
+R24083:24086 Coq.Init.Logic <> conj constr
+R24091:24094 Coq.Init.Logic <> conj constr
+R24099:24102 Coq.Init.Logic <> conj constr
+R24187:24227 Kernel.ProperSubsumption ProperSubsumption thiele_simulates_turing thm
+R24187:24227 Kernel.ProperSubsumption ProperSubsumption thiele_simulates_turing thm
+R24302:24345 Kernel.TuringClassicalEmbedding <> shadow_proj_kernel_is_eq_on_classical_shadow thm
+R24302:24345 Kernel.TuringClassicalEmbedding <> shadow_proj_kernel_is_eq_on_classical_shadow thm
+R24406:24434 Kernel.TuringClassicalEmbedding <> D2_classical_shadow_preserved thm
+R24406:24434 Kernel.TuringClassicalEmbedding <> D2_classical_shadow_preserved thm
+R24516:24536 Kernel.ShadowProjection <> shadow_strictly_lossy thm
+prf 25497:25538 <> shadow_inequivalent_states_distinguishable
+R25560:25566 Kernel.VMState <> VMState rec
+binder 25552:25553 <> s1:82
+binder 25555:25556 <> s2:83
+R25606:25613 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25588:25591 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R25574:25584 Kernel.ShadowProjection <> shadow_proj def
+R25586:25587 Kernel.TuringClassicalEmbedding <> s1:82 var
+R25592:25602 Kernel.ShadowProjection <> shadow_proj def
+R25604:25605 Kernel.TuringClassicalEmbedding <> s2:83 var
+R25614:25621 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R25648:25656 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R25629:25632 Coq.Init.Datatypes <> list ind
+R25634:25647 Kernel.VMStep VMStep vm_instruction ind
+binder 25622:25625 <> prog:84
+R25682:25691 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R25657:25676 Kernel.TuringClassicalEmbedding <> is_classical_program def
+R25678:25681 Kernel.TuringClassicalEmbedding <> prog:84 var
+R25741:25750 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R25692:25702 Kernel.ShadowProjection <> shadow_proj def
+R25705:25711 Kernel.AbstractNoFI <> acm_run def
+R25738:25739 Kernel.TuringClassicalEmbedding <> s1:82 var
+R25733:25736 Kernel.TuringClassicalEmbedding <> prog:84 var
+R25713:25731 Kernel.AbstractNoFI <> thiele_cert_machine def
+R25751:25761 Kernel.ShadowProjection <> shadow_proj def
+R25764:25770 Kernel.AbstractNoFI <> acm_run def
+R25797:25798 Kernel.TuringClassicalEmbedding <> s2:83 var
+R25792:25795 Kernel.TuringClassicalEmbedding <> prog:84 var
+R25772:25790 Kernel.AbstractNoFI <> thiele_cert_machine def
+R25839:25841 Coq.Init.Datatypes <> nil constr
+R25839:25841 Coq.Init.Datatypes <> nil constr
+R25901:25920 Kernel.TuringClassicalEmbedding <> is_classical_program def

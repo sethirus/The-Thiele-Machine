@@ -1,0 +1,276 @@
+(** RichStateCommutation.v — Commutation lemmas between bounded-table
+    operations in kami_step and graph operations in SimulationProof.vm_apply.
+
+    These lemmas are the proof backbone for extending embed_step to all 47
+    opcodes (M4 in UNIFICATION_ROADMAP.md).
+
+    Organization:
+    1. Partition table commutation: snap_pt_to_graph commutes with
+       graph_hw_psplit / graph_hw_pmerge
+    2. Morphism table commutation: snapshot_morphisms_of_rich_state
+       commutes with graph_add_morphism / graph_delete_morphism
+    3. Full-state round-trip: snap_full_graph faithfulness *)
+
+Require Import Coq.Lists.List.
+Require Import Coq.Arith.PeanoNat.
+Require Import Coq.micromega.Lia.
+Import ListNotations.
+
+Require Import Kernel.VMState.
+Require Import Kernel.VMStep.
+Import VMStep.VMStep.
+Require Import KamiHW.Abstraction.
+
+(* ====================================================================== *)
+(** * 1. Partition table commutation                                       *)
+(* ====================================================================== *)
+
+(** Helper: extending filtermap insensitivity to TWO fresh indices. *)
+Lemma filter_map_pt_below_unaffected_2 :
+    forall (next_id : nat) (f_new : nat -> nat) (sizes : nat -> nat),
+      (forall i, i < next_id -> f_new i = sizes i) ->
+      filtermap
+        (fun i => if Nat.eqb (f_new i) 0
+                  then None
+                  else Some (i, {| module_region := List.seq 0 (f_new i);
+                                   module_axioms := [];
+                                   module_mu_tensor := module_mu_tensor_default |}))
+        (List.rev (List.seq 0 next_id)) =
+      filtermap
+        (fun i => if Nat.eqb (sizes i) 0 then None
+                  else Some (i, {| module_region := List.seq 0 (sizes i);
+                                   module_axioms := [];
+                                   module_mu_tensor := module_mu_tensor_default |}))
+        (List.rev (List.seq 0 next_id)).
+Proof.
+  intros next_id f_new sizes Hext.
+  enough (H : forall l,
+    (forall i, In i l -> i < next_id) ->
+    filtermap
+      (fun i => if Nat.eqb (f_new i) 0
+                then None
+                else Some (i, {| module_region := List.seq 0 (f_new i);
+                                 module_axioms := [];
+                                 module_mu_tensor := module_mu_tensor_default |}))
+      l =
+    filtermap
+      (fun i => if Nat.eqb (sizes i) 0 then None
+                else Some (i, {| module_region := List.seq 0 (sizes i);
+                                 module_axioms := [];
+                                 module_mu_tensor := module_mu_tensor_default |}))
+      l).
+  { apply H. intros i Hi. apply in_rev in Hi. apply in_seq in Hi. lia. }
+  induction l as [| x xs IH]; intros Hlt.
+  - reflexivity.
+  - simpl.
+    assert (Hx_lt : x < next_id) by (apply Hlt; left; reflexivity).
+    rewrite (Hext x Hx_lt).
+    destruct (Nat.eqb (sizes x) 0).
+    + apply IH. intros i Hi. apply Hlt. right. exact Hi.
+    + f_equal. apply IH. intros i Hi. apply Hlt. right. exact Hi.
+Qed.
+
+(** Helper: graph_remove on a snap_pt_to_graph list removes the entry for mid
+    and leaves the rest unchanged. *)
+Lemma snap_pt_graph_remove :
+    forall (next_id : nat) (sizes : nat -> nat) (mid : nat),
+      mid < next_id ->
+      sizes mid > 0 ->
+      graph_remove (snap_pt_to_graph next_id sizes) mid =
+      Some ({| pg_next_id := next_id;
+               pg_modules :=
+                 filtermap
+                   (fun i => if Nat.eqb (sizes i) 0 then None
+                             else if Nat.eqb i mid then None
+                             else Some (i, {| module_region := List.seq 0 (sizes i);
+                                              module_axioms := [];
+                                              module_mu_tensor := module_mu_tensor_default |}))
+                   (List.rev (List.seq 0 next_id));
+               pg_next_morph_id := 1;
+               pg_morphisms := [] |},
+            {| module_region := List.seq 0 (sizes mid);
+               module_axioms := [];
+               module_mu_tensor := module_mu_tensor_default |}).
+Proof.
+Admitted.
+
+(** The PSPLIT commutation lemma: applying graph_hw_psplit to a snap_pt_to_graph
+    output equals snap_pt_to_graph with updated sizes and next_id.
+
+    This is the key lemma enabling embed_step for PSPLIT. *)
+Theorem snap_pt_to_graph_psplit :
+    forall (next_id : nat) (sizes : nat -> nat) (mid : nat),
+      next_id >= 1 ->
+      S (S next_id) <= 64 ->
+      mid < next_id ->
+      sizes mid > 0 ->
+      sizes next_id = 0 ->
+      sizes (S next_id) = 0 ->
+      graph_hw_psplit (snap_pt_to_graph next_id sizes) mid =
+      snap_pt_to_graph (S (S next_id))
+        (fun j => if Nat.eqb j mid then 0
+                  else if Nat.eqb j next_id then Nat.div (sizes mid) 2
+                  else if Nat.eqb j (S next_id) then sizes mid - Nat.div (sizes mid) 2
+                  else sizes j).
+Proof.
+Admitted.
+
+(** The PMERGE commutation lemma: applying graph_hw_pmerge to a snap_pt_to_graph
+    output equals snap_pt_to_graph with merged sizes and bumped next_id. *)
+Theorem snap_pt_to_graph_pmerge :
+    forall (next_id : nat) (sizes : nat -> nat) (m1 m2 : nat),
+      next_id >= 1 ->
+      S next_id <= 64 ->
+      m1 < next_id ->
+      m2 < next_id ->
+      m1 <> m2 ->
+      sizes m1 > 0 ->
+      sizes m2 > 0 ->
+      sizes next_id = 0 ->
+      graph_hw_pmerge (snap_pt_to_graph next_id sizes) m1 m2 =
+      snap_pt_to_graph (S next_id)
+        (fun j => if Nat.eqb j m1 then 0
+                  else if Nat.eqb j m2 then 0
+                  else if Nat.eqb j next_id then sizes m1 + sizes m2
+                  else sizes j).
+Proof.
+Admitted.
+
+(** graph_module_size on snap_pt_to_graph yields the raw sizes function value
+    for IDs below next_id. *)
+Lemma snap_pt_to_graph_module_size :
+    forall (next_id : nat) (sizes : nat -> nat) (mid : nat),
+      mid < next_id ->
+      graph_module_size (snap_pt_to_graph next_id sizes) mid = sizes mid.
+Proof.
+Admitted.
+
+(* ====================================================================== *)
+(** * 2. Morphism table commutation                                        *)
+(* ====================================================================== *)
+
+(** After rich_state_add_morph, the reconstructed morphism list via
+    snapshot_morphisms_of_rich_state corresponds to graph_add_morphism. *)
+Lemma morph_add_commutation :
+    forall (rs : RichSnapshotState) (src dst coupling_desc : nat) (is_id : bool),
+      let '(rs', new_id) := rich_state_add_morph rs src dst coupling_desc is_id in
+      snapshot_morphisms_of_rich_state rs' =
+      (new_id,
+       {| morph_source := src;
+          morph_target := dst;
+          morph_coupling :=
+            normalize_coupling
+              {| coupling_pairs :=
+                   snapshot_coupling_pairs_from_desc rs coupling_desc;
+                 coupling_label := coupling_label empty_coupling_data |};
+          morph_is_identity := is_id |})
+      :: snapshot_morphisms_of_rich_state rs.
+Proof.
+Admitted.
+
+(** After rich_state_delete_morph, the reconstructed morphism list filters
+    out the deleted entry. *)
+Lemma morph_delete_commutation :
+    forall (rs : RichSnapshotState) (mid : nat),
+      mid < rich_next_morph_id rs ->
+      snapshot_morphisms_of_rich_state (rich_state_delete_morph rs mid) =
+      filter (fun entry => negb (Nat.eqb (fst entry) mid))
+             (snapshot_morphisms_of_rich_state rs).
+Proof.
+Admitted.
+
+(** Morphism table lookup in rich_state corresponds to graph_lookup_morphism
+    on the reconstructed graph. *)
+Lemma morph_lookup_commutation :
+    forall (ks : KamiSnapshot) (mid : nat),
+      mid < rich_next_morph_id (snap_rich_state ks) ->
+      (snap_rich_state ks).(rich_morph_table) mid <> None ->
+      graph_lookup_morphism (snap_full_graph ks) mid <> None.
+Proof.
+Admitted.
+
+(** MorphismState selector values match between rich_state entries and
+    graph-reconstructed morphisms. *)
+Lemma morph_get_selector_commutation :
+    forall (entry : MorphTableEntry) (selector : nat),
+      let ms := {| morph_source := morph_entry_source entry;
+                   morph_target := morph_entry_target entry;
+                   morph_coupling :=
+                     normalize_coupling empty_coupling_data;
+                   morph_is_identity := morph_entry_is_identity entry |} in
+      morphism_selector_value ms selector =
+      match selector with
+      | 0 => morph_entry_source entry
+      | 1 => morph_entry_target entry
+      | 2 => List.length (normalize_coupling empty_coupling_data).(coupling_pairs)
+      | 3 => if morph_entry_is_identity entry then 1 else 0
+      | _ => 0
+      end.
+Proof.
+  intros entry selector ms.
+  unfold ms, morphism_selector_value.
+  destruct selector as [|[|[|[|n]]]]; simpl; reflexivity.
+Qed.
+
+(* ====================================================================== *)
+(** * 3. kami_step preserves graph-relevant invariants                      *)
+(* ====================================================================== *)
+
+(** kami_step for non-partition opcodes preserves snap_pt_sizes and
+    snap_pt_next_id (i.e., the partition table is unchanged). *)
+Lemma kami_step_preserves_pt :
+    forall (ks : KamiSnapshot) (i : vm_instruction),
+      match i with
+      | instr_pnew _ _ | instr_psplit _ _ _ _ | instr_pmerge _ _ _ => False
+      | _ => True
+      end ->
+      snap_pt_sizes (kami_step ks i) = snap_pt_sizes ks /\
+      snap_pt_next_id (kami_step ks i) = snap_pt_next_id ks.
+Proof.
+  intros ks i Hnon_pt.
+  destruct i; try contradiction; simpl;
+  try (unfold kami_advance_default; simpl; split; reflexivity);
+  try (unfold kami_advance_reg; simpl; split; reflexivity);
+  try (unfold kami_advance_rich_morph; simpl; split; reflexivity);
+  try (unfold kami_advance_rich_noret; simpl; split; reflexivity);
+  try (unfold kami_advance_err; simpl; split; reflexivity);
+  try (unfold kami_advance_cert_addr; simpl; split; reflexivity);
+  try (simpl; split; reflexivity).
+  (* Branching opcodes *)
+  - (* CHSH_TRIAL *)
+    repeat match goal with |- context [match ?x with _ => _ end] =>
+      destruct x end; simpl; split; reflexivity.
+  - (* MORPH: conditional on module existence *)
+    repeat match goal with |- context [match ?x with _ => _ end] =>
+      destruct x end; simpl;
+    try (unfold kami_advance_rich_morph; simpl; split; reflexivity);
+    try (unfold kami_advance_err; simpl; split; reflexivity).
+  - (* COMPOSE *)
+    repeat match goal with |- context [match ?x with _ => _ end] =>
+      destruct x end; simpl;
+    try (unfold kami_advance_rich_morph; simpl; split; reflexivity);
+    try (unfold kami_advance_err; simpl; split; reflexivity).
+  - (* MORPH_ID: conditional *)
+    repeat match goal with |- context [match ?x with _ => _ end] =>
+      destruct x end; simpl;
+    try (unfold kami_advance_rich_morph; simpl; split; reflexivity);
+    try (unfold kami_advance_err; simpl; split; reflexivity).
+  - (* MORPH_DELETE: match *)
+    destruct (rich_morph_table _ _);
+    [ unfold kami_advance_rich_noret; simpl; split; reflexivity
+    | unfold kami_advance_err; simpl; split; reflexivity ].
+  - (* MORPH_ASSERT: match *)
+    destruct (rich_morph_table _ _);
+    [ unfold kami_advance_cert_addr; simpl; split; reflexivity
+    | unfold kami_advance_err; simpl; split; reflexivity ].
+  - (* MORPH_TENSOR *)
+    repeat match goal with |- context [match ?x with _ => _ end] =>
+      destruct x end; simpl;
+    try (unfold kami_advance_rich_morph; simpl; split; reflexivity);
+    try (unfold kami_advance_err; simpl; split; reflexivity).
+  - (* MORPH_GET *)
+    repeat match goal with |- context [match ?x with _ => _ end] =>
+      destruct x end; simpl;
+    try (unfold kami_advance_reg; simpl; split; reflexivity);
+    try (unfold kami_advance_err; simpl; split; reflexivity).
+Qed.

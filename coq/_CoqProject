@@ -54,6 +54,8 @@ kernel/MuGeometry.v
 kernel/MuInformation.v
 kernel/MuCostDerivation.v
 kernel/MuLedgerConservation.v
+kernel/LandauerDerivation.v
+kernel/TuringCompletenessISA.v
 kernel/MuLedgerQuantumBridge.v
 kernel/MuNoFreeInsightQuantitative.v
 kernel/MuShannonQuantitative.v
@@ -123,6 +125,9 @@ thiele_manifold/ThieleManifoldBridge.v
 kernel/PythonBisimulation.v
 kernel/HardwareBisimulation.v
 kernel/ThreeLayerIsomorphism.v
+kami_hw/FullAbstraction.v
+kami_hw/FullStep.v
+kami_hw/FullEmbedStep.v
 kernel/NonCircularityAudit.v
 kernel/AlgebraicCoherence.v
 kernel/TsirelsonGeneral.v
@@ -153,6 +158,7 @@ kernel/MatrixAlgebra4.v
 kernel/RiemannTensor4D.v
 kernel/EinsteinEquations4D.v
 kernel/CurvedTensorPipeline.v
+kernel/EinsteinEquationsFull.v
 kernel/MetricForcing.v
 kernel/PNEWTopologyChange.v
 kernel/TopologyCurvatureBridge.v
@@ -171,6 +177,14 @@ kami_hw/LogicEngineEquivalence.v
 kami_hw/CanonicalCPUProof.v
 kami_hw/KamiExtraction.v
 kami_hw/RTLCorrectnessInstantiation.v
+kami_hw/EmbedStep.v
+kami_hw/EmbedStep_WF.v
+kami_hw/HardwareShadowBridge.v
+kami_hw/ShadowDevice.v
+kami_hw/ShadowDeviceTrace.v
+kami_hw/ShadowEmbedStep.v
+kami_hw/RichStateCommutation.v
+kami_hw/ThieleCanonicality.v
 
 # ThieleMachine (process-category layer used by thiele_manifold)
 thielemachine/ThieleMachine.v
@@ -192,3 +206,4 @@ kernel/OCamlExtractionBridge.v
 kernel/UniversalCertificationCost.v
 kernel/QuantitativeNoFI.v
 kernel/CHSHStatisticalBridge.v
+kernel/StructuralAdvantage.v

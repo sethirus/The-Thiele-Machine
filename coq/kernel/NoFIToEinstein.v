@@ -160,7 +160,7 @@ Proof.
 Qed.
 
 Theorem nfi_to_discrete_einstein_from_bekenstein_calibration :
-  forall (hbar c_light k_B entropy_per_bit : R)
+  forall (hbar c_light k_B : R)
          (s_pre s_post : VMState)
          (P : LocalMorphismSemantics.SplitMorphism)
          (support_pre support_post : LocalMorphismSemantics.joint_support),
@@ -171,8 +171,8 @@ Theorem nfi_to_discrete_einstein_from_bekenstein_calibration :
     In support_pre (LocalMorphismSemantics.morphism_support_semantics P) ->
     In support_post (LocalMorphismSemantics.morphism_support_semantics P) ->
     BekensteinCalibration.landauer_unruh_constant_calibration hbar c_light ->
-    BekensteinCalibration.landauer_entropy_identification
-      k_B entropy_per_bit support_pre support_post s_pre s_post ->
+    BekensteinCalibration.mu_bit_calibration
+      support_pre support_post s_pre s_post ->
     well_formed_triangulated (vm_graph s_pre) ->
     well_formed_triangulated (vm_graph s_post) ->
     (total_curvature (vm_graph s_post) - total_curvature (vm_graph s_pre))%R =
@@ -180,16 +180,87 @@ Theorem nfi_to_discrete_einstein_from_bekenstein_calibration :
      IZR (euler_characteristic (vm_graph s_post) -
           euler_characteristic (vm_graph s_pre))%Z)%R.
 Proof.
-  intros hbar c_light k_B entropy_per_bit s_pre s_post P support_pre support_post
-         Hh Hc Hk Hnn Hin_pre Hin_post Hconst Hentropy Hwf_pre Hwf_post.
+  intros hbar c_light k_B s_pre s_post P support_pre support_post
+         Hh Hc Hk Hnn Hin_pre Hin_post Hconst Hbit Hwf_pre Hwf_post.
   apply (nfi_to_discrete_einstein
-           hbar c_light k_B entropy_per_bit
+           hbar c_light k_B (k_B * ln 2)
            s_pre s_post P support_pre support_post);
     try assumption.
-  apply (BekensteinCalibration.mu_landauer_unruh_calibrated_from_constant_calibration
-           hbar c_light k_B entropy_per_bit
+  apply (BekensteinCalibration.mu_landauer_unruh_calibrated_from_constant_and_bit_calibration
+           hbar c_light k_B
            s_pre s_post P support_pre support_post);
     assumption.
+Qed.
+
+Theorem nfi_to_discrete_einstein_from_psplit_bekenstein_calibration :
+  forall (hbar c_light k_B : R)
+         (s_pre s_post : VMState)
+         (module : ModuleID)
+         (left right : list nat)
+         (cost : nat),
+    (0 < hbar)%R ->
+    (0 < c_light)%R ->
+    (0 < k_B)%R ->
+    vm_step s_pre (instr_psplit module left right cost) s_post ->
+    LocalMorphismSemantics.is_nearest_neighbor
+      (LocalMorphismSemantics.psplit_transition_morphism left right) ->
+    BekensteinCalibration.landauer_unruh_constant_calibration hbar c_light ->
+    BekensteinCalibration.psplit_cost_matches_entropy left right cost ->
+    well_formed_triangulated (vm_graph s_pre) ->
+    well_formed_triangulated (vm_graph s_post) ->
+    (total_curvature (vm_graph s_post) - total_curvature (vm_graph s_pre))%R =
+    (einstein_coupling_constant *
+     IZR (euler_characteristic (vm_graph s_post) -
+          euler_characteristic (vm_graph s_pre))%Z)%R.
+Proof.
+  intros hbar c_light k_B s_pre s_post module left right cost
+         Hh Hc Hk Hstep Hnn Hconst Hcost Hwf_pre Hwf_post.
+  apply (nfi_to_discrete_einstein_from_bekenstein_calibration
+           hbar c_light k_B
+           s_pre s_post
+           (LocalMorphismSemantics.psplit_transition_morphism left right)
+           []
+           (BekensteinCalibration.psplit_entropy_event left right));
+    try assumption.
+  - simpl. left. reflexivity.
+  - simpl. right. left. reflexivity.
+  - eapply BekensteinCalibration.psplit_step_mu_bit_calibration; eauto.
+Qed.
+
+(** PNEW-specific discrete Einstein chain.  Generalizes the entropy bridge
+    beyond PSPLIT to module-creation operations. *)
+Theorem nfi_to_discrete_einstein_from_pnew_bekenstein_calibration :
+  forall (hbar c_light k_B : R)
+         (s_pre s_post : VMState)
+         (region : list nat)
+         (cost : nat),
+    (0 < hbar)%R ->
+    (0 < c_light)%R ->
+    (0 < k_B)%R ->
+    vm_step s_pre (instr_pnew region cost) s_post ->
+    LocalMorphismSemantics.is_nearest_neighbor
+      (LocalMorphismSemantics.pnew_creation_morphism region) ->
+    BekensteinCalibration.landauer_unruh_constant_calibration hbar c_light ->
+    BekensteinCalibration.pnew_cost_matches_entropy region cost ->
+    well_formed_triangulated (vm_graph s_pre) ->
+    well_formed_triangulated (vm_graph s_post) ->
+    (total_curvature (vm_graph s_post) - total_curvature (vm_graph s_pre))%R =
+    (einstein_coupling_constant *
+     IZR (euler_characteristic (vm_graph s_post) -
+          euler_characteristic (vm_graph s_pre))%Z)%R.
+Proof.
+  intros hbar c_light k_B s_pre s_post region cost
+         Hh Hc Hk Hstep Hnn Hconst Hcost Hwf_pre Hwf_post.
+  apply (nfi_to_discrete_einstein_from_bekenstein_calibration
+           hbar c_light k_B
+           s_pre s_post
+           (LocalMorphismSemantics.pnew_creation_morphism region)
+           []
+           (BekensteinCalibration.pnew_entropy_event region));
+    try assumption.
+  - simpl. left. reflexivity.
+  - simpl. right. left. reflexivity.
+  - eapply BekensteinCalibration.pnew_step_mu_bit_calibration; eauto.
 Qed.
 
 (** =========================================================================

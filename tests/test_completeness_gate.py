@@ -204,11 +204,11 @@ class TestOCamlLayer:
             "Runner produced no output on HALT instruction"
         )
 
-    def test_runner_parses_all_40_opcodes(self):
-        """Runner source must contain parse arms for all 40 opcode names."""
+    def test_runner_parses_all_47_opcodes(self):
+        """Runner source must contain parse arms for all 47 opcode names."""
         text = self.RUNNER_SRC.read_text(encoding="utf-8")
         text_upper = text.upper()
-        for op in CANONICAL_40:
+        for op in CANONICAL_47:
             assert op.upper() in text_upper, (
                 f"Runner source missing parse arm for {op.upper()}"
             )
@@ -219,7 +219,7 @@ class TestOCamlLayer:
 # ============================================================================
 
 class TestPythonVMLayer:
-    """Python VM is complete, delegates to OCaml, handles all 40 opcodes."""
+    """Python VM is complete, delegates to OCaml, and references all 47 opcodes."""
 
     VM_PATH = ROOT / "thielecpu" / "vm.py"
     SHIM_PATH = ROOT / "build" / "thiele_vm.py"
@@ -237,11 +237,11 @@ class TestPythonVMLayer:
             "generated", "do not edit", "auto-generated", "forge"
         ]), "thielecpu/vm.py does not appear to be a generated file"
 
-    def test_vm_py_handles_all_40_opcodes(self):
-        """vm.py must reference all 40 opcode names."""
+    def test_vm_py_handles_all_47_opcodes(self):
+        """vm.py must reference all 47 opcode names."""
         text = self.VM_PATH.read_text(encoding="utf-8")
         text_lower = text.lower()
-        missing = [op for op in CANONICAL_40 if op not in text_lower]
+        missing = [op for op in CANONICAL_47 if op not in text_lower]
         assert not missing, f"vm.py missing references to: {missing}"
 
     def test_shim_delegates_to_thielecpu(self):
@@ -266,7 +266,7 @@ class TestPythonVMLayer:
         result = vm_run(s, [{"op": "halt", "cost": 1}])
         assert result.vm_mu == 1, f"Expected mu=1 after HALT cost=1, got {result.vm_mu}"
 
-    def test_vm_run_all_40_opcodes_accepted(self):
+    def test_vm_run_all_47_opcodes_accepted(self):
         """Every opcode must be accepted by vm_run without KeyError/ValueError."""
         from thielecpu.vm import VMState, vm_run
 
@@ -345,10 +345,32 @@ class TestPythonVMLayer:
                              {"op": "tensor_set", "module": 0, "i": 0, "j": 0, "value": 42, "mu_delta": 1}],
             "tensor_get":   [{"op": "pnew", "region": [0], "cost": 1},
                              {"op": "tensor_get", "dst": 1, "module": 0, "i": 0, "j": 0, "mu_delta": 1}],
+            "morph":        [{"op": "pnew", "region": [0], "cost": 1},
+                             {"op": "pnew", "region": [1], "cost": 1},
+                             {"op": "morph", "dst": 2, "src_mod": 1, "dst_mod": 2, "coupling_idx": 0, "mu_delta": 1}],
+            "compose":      [{"op": "pnew", "region": [0], "cost": 1},
+                             {"op": "morph_id", "dst": 1, "module": 1, "mu_delta": 1},
+                             {"op": "morph_id", "dst": 2, "module": 1, "mu_delta": 1},
+                             {"op": "compose", "dst": 3, "m1": 1, "m2": 2, "mu_delta": 1}],
+            "morph_id":     [{"op": "pnew", "region": [0], "cost": 1},
+                             {"op": "morph_id", "dst": 1, "module": 1, "mu_delta": 1}],
+            "morph_delete": [{"op": "pnew", "region": [0], "cost": 1},
+                             {"op": "morph_id", "dst": 1, "module": 1, "mu_delta": 1},
+                             {"op": "morph_delete", "morph_id": 1, "mu_delta": 1}],
+            "morph_assert": [{"op": "pnew", "region": [0], "cost": 1},
+                             {"op": "morph_id", "dst": 1, "module": 1, "mu_delta": 1},
+                             {"op": "morph_assert", "morph_id": 1, "property": 0, "cert": 0, "mu_delta": 1}],
+            "morph_tensor": [{"op": "pnew", "region": [0], "cost": 1},
+                             {"op": "morph_id", "dst": 1, "module": 1, "mu_delta": 1},
+                             {"op": "morph_id", "dst": 2, "module": 1, "mu_delta": 1},
+                             {"op": "morph_tensor", "dst": 3, "f": 1, "g": 2, "mu_delta": 1}],
+            "morph_get":    [{"op": "pnew", "region": [0], "cost": 1},
+                             {"op": "morph_id", "dst": 1, "module": 1, "mu_delta": 1},
+                             {"op": "morph_get", "dst": 2, "morph_id": 1, "selector": 0, "mu_delta": 1}],
         }
 
-        assert set(programs.keys()) == CANONICAL_40, (
-            f"Test coverage mismatch: {CANONICAL_40 - set(programs.keys())} not tested"
+        assert set(programs.keys()) == CANONICAL_47, (
+            f"Test coverage mismatch: {CANONICAL_47 - set(programs.keys())} not tested"
         )
 
         failures = []

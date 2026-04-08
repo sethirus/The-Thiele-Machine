@@ -201,21 +201,13 @@ Proof.
   destruct i; unfold vm_apply, vm_apply_unsafe.
   - (* pnew *)
     match goal with
-    | |- context [graph_pnew ?g ?r] => destruct (graph_pnew g r)
+    | |- context [graph_add_module ?g ?r ?e] => destruct (graph_add_module g r e) as [? ?]
     end.
     unfold advance_state. simpl. reflexivity.
   - (* psplit *)
-    match goal with
-    | |- context [graph_psplit ?g ?m ?l ?r] =>
-        destruct (graph_psplit g m l r) as [[[? ?] ?]|]
-    end;
-      unfold advance_state, csr_set_err; simpl; reflexivity.
+    unfold advance_state. simpl. reflexivity.
   - (* pmerge *)
-    match goal with
-    | |- context [graph_pmerge ?g ?m1 ?m2] =>
-        destruct (graph_pmerge g m1 m2) as [[? ?]|]
-    end;
-      unfold advance_state, csr_set_err; simpl; reflexivity.
+    unfold advance_state. simpl. reflexivity.
   - (* lassert *) exfalso. eapply Hlassert. reflexivity.
   - (* ljoin *) exfalso. eapply Hljoin. reflexivity.
   - (* mdlacc *) unfold advance_state. simpl. reflexivity.
@@ -262,44 +254,48 @@ Proof.
   - (* mul *) unfold advance_state_rm. simpl. reflexivity.
   - (* lui *) unfold advance_state_rm. simpl. reflexivity.
   - (* tensor_set *)
-    destruct (Nat.ltb _ 4); destruct (Nat.ltb _ 4); simpl; reflexivity.
+    match goal with
+    | |- context [if VMStep.tensor_indices_ok ?i ?j then _ else _] =>
+        destruct (VMStep.tensor_indices_ok i j) eqn:?
+    end.
+    + unfold advance_state. simpl. reflexivity.
+    + unfold advance_state, csr_set_err. simpl. reflexivity.
   - (* tensor_get *)
-    destruct (Nat.ltb _ 4); destruct (Nat.ltb _ 4); simpl; reflexivity.
-  - (* instr_morph: destruct two lookups, then the add-morphism pair in the Some/Some branch *)
-    destruct (graph_lookup (vm_graph s) src_mod) as [src_m|];
-    destruct (graph_lookup (vm_graph s) dst_mod) as [dst_m|];
-    cbn beta iota zeta;
-    try (match goal with |- context [graph_add_morphism ?g ?sm ?dm ?c ?b] =>
-           destruct (graph_add_morphism g sm dm c b) end;
-         unfold advance_state_rm; simpl; reflexivity);
-    unfold advance_state, csr_set_err; simpl; reflexivity.
+    match goal with
+    | |- context [if VMStep.tensor_indices_ok ?i ?j then _ else _] =>
+        destruct (VMStep.tensor_indices_ok i j) eqn:?
+    end.
+    + unfold advance_state_rm. simpl. reflexivity.
+    + unfold advance_state, csr_set_err. simpl. reflexivity.
+  - (* instr_morph *)
+    destruct (graph_lookup s.(vm_graph) src_mod) as [?|] eqn:?.
+    + destruct (graph_lookup s.(vm_graph) dst_mod) as [?|] eqn:?.
+      * destruct (graph_add_morphism s.(vm_graph) src_mod dst_mod empty_coupling_data false) as [? ?].
+        unfold advance_state_rm. simpl. reflexivity.
+      * unfold advance_state, csr_set_err. simpl. reflexivity.
+    + unfold advance_state, csr_set_err. simpl. reflexivity.
   - (* instr_compose *)
-    match goal with |- context [graph_compose_morphisms ?g ?m1 ?m2] =>
-      destruct (graph_compose_morphisms g m1 m2) as [[? ?]|]
-    end;
-    [unfold advance_state_rm | unfold advance_state, csr_set_err]; simpl; reflexivity.
+    destruct (graph_compose_morphisms s.(vm_graph) m1_id m2_id) as [[? ?]|] eqn:?.
+    + unfold advance_state_rm. simpl. reflexivity.
+    + unfold advance_state, csr_set_err. simpl. reflexivity.
   - (* instr_morph_id *)
-    match goal with |- context [graph_add_identity ?g ?m] =>
-      destruct (graph_add_identity g m) as [[? ?]|]
-    end;
-    [unfold advance_state_rm | unfold advance_state, csr_set_err]; simpl; reflexivity.
+    destruct (graph_add_identity s.(vm_graph) module) as [[? ?]|] eqn:?.
+    + unfold advance_state_rm. simpl. reflexivity.
+    + unfold advance_state, csr_set_err. simpl. reflexivity.
   - (* instr_morph_delete *)
-    match goal with |- context [graph_delete_morphism ?g ?m] =>
-      destruct (graph_delete_morphism g m) as [?|]
-    end;
-    unfold advance_state, csr_set_err; simpl; reflexivity.
+    destruct (graph_delete_morphism s.(vm_graph) morph_id) as [?|] eqn:?.
+    + unfold advance_state. simpl. reflexivity.
+    + unfold advance_state, csr_set_err. simpl. reflexivity.
   - (* instr_morph_assert: cert-setter, excluded by Hmorph_assert *)
     exfalso. eapply Hmorph_assert. reflexivity.
   - (* instr_morph_tensor *)
-    match goal with |- context [graph_tensor_morphisms ?g ?f ?h] =>
-      destruct (graph_tensor_morphisms g f h) as [[? ?]|]
-    end;
-    [unfold advance_state_rm | unfold advance_state, csr_set_err]; simpl; reflexivity.
+    destruct (graph_tensor_morphisms s.(vm_graph) f_id g_id) as [[? ?]|] eqn:?.
+    + unfold advance_state_rm. simpl. reflexivity.
+    + unfold advance_state, csr_set_err. simpl. reflexivity.
   - (* instr_morph_get *)
-    match goal with |- context [graph_lookup_morphism ?g ?m] =>
-      destruct (graph_lookup_morphism g m) as [?|]
-    end;
-    [unfold advance_state_rm | unfold advance_state, csr_set_err]; simpl; reflexivity.
+    destruct (graph_lookup_morphism s.(vm_graph) morph_id) as [?|] eqn:?.
+    + unfold advance_state_rm. simpl. reflexivity.
+    + unfold advance_state, csr_set_err. simpl. reflexivity.
 Qed.
 
 (** If certification appears (cert_addr becomes non-zero), it must have been
@@ -329,30 +325,23 @@ Proof.
     destruct (nth_error trace (vm_pc s_init)) as [instr|] eqn:Hnth.
     + destruct instr; unfold vm_apply, vm_apply_unsafe in Hrun.
       * (* pnew *)
-        match goal with
-        | |- _ =>
-            match type of Hrun with
-            | context [graph_pnew ?g ?r] => destruct (graph_pnew g r)
-            end
+        match type of Hrun with
+        | context [graph_add_module ?g ?r ?e] => destruct (graph_add_module g r e) as [? ?]
         end.
         apply IH in Hrun.
         -- exact Hrun.
         -- unfold advance_state; simpl. exact Hinit.
         -- exact Hfinal.
       * (* psplit *)
-        match type of Hrun with
-        | context [graph_psplit ?g ?m ?l ?r] =>
-          destruct (graph_psplit g m l r) as [[[g' l_mid] r_mid]|]
-        end;
-        apply IH in Hrun;
-          try exact Hrun; try exact Hfinal; unfold advance_state, csr_set_err; simpl; exact Hinit.
+        apply IH in Hrun.
+        -- exact Hrun.
+        -- unfold advance_state; simpl. exact Hinit.
+        -- exact Hfinal.
       * (* pmerge *)
-        match type of Hrun with
-        | context [graph_pmerge ?g ?m1 ?m2] =>
-          destruct (graph_pmerge g m1 m2) as [[g' merged_mid]|]
-        end;
-        apply IH in Hrun;
-          try exact Hrun; try exact Hfinal; unfold advance_state, csr_set_err; simpl; exact Hinit.
+        apply IH in Hrun.
+        -- exact Hrun.
+        -- unfold advance_state; simpl. exact Hinit.
+        -- exact Hfinal.
       * (* lassert *) right. right. right. left. eexists _, _, _, _, _, _. exact Hnth.
       * (* ljoin *) right. right. left. eexists _, _, _, _. exact Hnth.
       * (* mdlacc *) apply IH in Hrun.
@@ -509,68 +498,95 @@ Proof.
         -- exact Hrun.
         -- unfold advance_state_rm; simpl. exact Hinit.
         -- exact Hfinal.
-      * (* tensor_set *) apply IH in Hrun.
-        -- exact Hrun.
-        -- destruct (Nat.ltb _ 4); destruct (Nat.ltb _ 4); simpl; exact Hinit.
-        -- exact Hfinal.
-      * (* tensor_get *) apply IH in Hrun.
-        -- exact Hrun.
-        -- destruct (Nat.ltb _ 4); destruct (Nat.ltb _ 4); simpl; exact Hinit.
-        -- exact Hfinal.
-      * (* instr_morph: destruct two lookups; Some/Some also destructs the pair *)
-        destruct (graph_lookup (vm_graph s_init) src_mod) as [src_m|] eqn:Hlsrc;
-        destruct (graph_lookup (vm_graph s_init) dst_mod) as [dst_m|] eqn:Hldst;
-        rewrite ?Hlsrc, ?Hldst in Hrun; cbn beta iota zeta in Hrun;
-        try match type of Hrun with
-        | context [graph_add_morphism ?g ?sm ?dm ?c ?b] =>
-            destruct (graph_add_morphism g sm dm c b)
-        end;
-        apply IH in Hrun;
-          try exact Hrun; try exact Hfinal;
-          unfold advance_state_rm, advance_state, csr_set_err; simpl; exact Hinit.
+      * (* tensor_set *)
+        destruct (tensor_indices_ok i j) eqn:?.
+        -- apply IH in Hrun.
+           ++ exact Hrun.
+           ++ unfold advance_state. simpl. exact Hinit.
+           ++ exact Hfinal.
+        -- apply IH in Hrun.
+           ++ exact Hrun.
+           ++ unfold advance_state, csr_set_err. simpl. exact Hinit.
+           ++ exact Hfinal.
+      * (* tensor_get *)
+        destruct (tensor_indices_ok i j) eqn:?.
+        -- apply IH in Hrun.
+           ++ exact Hrun.
+           ++ unfold advance_state_rm. simpl. exact Hinit.
+           ++ exact Hfinal.
+        -- apply IH in Hrun.
+           ++ exact Hrun.
+           ++ unfold advance_state, csr_set_err. simpl. exact Hinit.
+           ++ exact Hfinal.
+      * (* instr_morph *)
+        destruct (graph_lookup s_init.(vm_graph) src_mod) as [?|] eqn:?.
+        -- destruct (graph_lookup s_init.(vm_graph) dst_mod) as [?|] eqn:?.
+           ++ apply IH in Hrun.
+              ** exact Hrun.
+              ** destruct (graph_add_morphism s_init.(vm_graph) src_mod dst_mod empty_coupling_data false) as [? ?].
+                 unfold advance_state_rm. simpl. exact Hinit.
+              ** exact Hfinal.
+           ++ apply IH in Hrun.
+              ** exact Hrun.
+              ** unfold advance_state, csr_set_err. simpl. exact Hinit.
+              ** exact Hfinal.
+        -- apply IH in Hrun.
+           ++ exact Hrun.
+           ++ unfold advance_state, csr_set_err. simpl. exact Hinit.
+           ++ exact Hfinal.
       * (* instr_compose *)
-        match type of Hrun with
-        | context [graph_compose_morphisms ?g ?m1 ?m2] =>
-            destruct (graph_compose_morphisms g m1 m2) as [[? ?]|]
-        end;
-        apply IH in Hrun;
-          try exact Hrun; try exact Hfinal;
-          [unfold advance_state_rm | unfold advance_state, csr_set_err]; simpl; exact Hinit.
+        destruct (graph_compose_morphisms s_init.(vm_graph) m1_id m2_id) as [[? ?]|] eqn:?.
+        -- apply IH in Hrun.
+           ++ exact Hrun.
+           ++ unfold advance_state_rm. simpl. exact Hinit.
+           ++ exact Hfinal.
+        -- apply IH in Hrun.
+           ++ exact Hrun.
+           ++ unfold advance_state, csr_set_err. simpl. exact Hinit.
+           ++ exact Hfinal.
       * (* instr_morph_id *)
-        match type of Hrun with
-        | context [graph_add_identity ?g ?m] =>
-            destruct (graph_add_identity g m) as [[? ?]|]
-        end;
-        apply IH in Hrun;
-          try exact Hrun; try exact Hfinal;
-          [unfold advance_state_rm | unfold advance_state, csr_set_err]; simpl; exact Hinit.
+        destruct (graph_add_identity s_init.(vm_graph) module) as [[? ?]|] eqn:?.
+        -- apply IH in Hrun.
+           ++ exact Hrun.
+           ++ unfold advance_state_rm. simpl. exact Hinit.
+           ++ exact Hfinal.
+        -- apply IH in Hrun.
+           ++ exact Hrun.
+           ++ unfold advance_state, csr_set_err. simpl. exact Hinit.
+           ++ exact Hfinal.
       * (* instr_morph_delete *)
-        match type of Hrun with
-        | context [graph_delete_morphism ?g ?m] =>
-            destruct (graph_delete_morphism g m) as [?|]
-        end;
-        apply IH in Hrun;
-          try exact Hrun; try exact Hfinal;
-          unfold advance_state, csr_set_err; simpl; exact Hinit.
+        destruct (graph_delete_morphism s_init.(vm_graph) morph_id) as [?|] eqn:?.
+        -- apply IH in Hrun.
+           ++ exact Hrun.
+           ++ unfold advance_state. simpl. exact Hinit.
+           ++ exact Hfinal.
+        -- apply IH in Hrun.
+           ++ exact Hrun.
+           ++ unfold advance_state, csr_set_err. simpl. exact Hinit.
+           ++ exact Hfinal.
       * (* instr_morph_assert: cert-setter — witness it directly as 5th disjunct *)
         right. right. right. right.
         eexists _, _, _, _, _. exact Hnth.
       * (* instr_morph_tensor *)
-        match type of Hrun with
-        | context [graph_tensor_morphisms ?g ?f ?h] =>
-            destruct (graph_tensor_morphisms g f h) as [[? ?]|]
-        end;
-        apply IH in Hrun;
-          try exact Hrun; try exact Hfinal;
-          [unfold advance_state_rm | unfold advance_state, csr_set_err]; simpl; exact Hinit.
+        destruct (graph_tensor_morphisms s_init.(vm_graph) f_id g_id) as [[? ?]|] eqn:?.
+        -- apply IH in Hrun.
+           ++ exact Hrun.
+           ++ unfold advance_state_rm. simpl. exact Hinit.
+           ++ exact Hfinal.
+        -- apply IH in Hrun.
+           ++ exact Hrun.
+           ++ unfold advance_state, csr_set_err. simpl. exact Hinit.
+           ++ exact Hfinal.
       * (* instr_morph_get *)
-        match type of Hrun with
-        | context [graph_lookup_morphism ?g ?m] =>
-            destruct (graph_lookup_morphism g m) as [?|]
-        end;
-        apply IH in Hrun;
-          try exact Hrun; try exact Hfinal;
-          [unfold advance_state_rm | unfold advance_state, csr_set_err]; simpl; exact Hinit.
+        destruct (graph_lookup_morphism s_init.(vm_graph) morph_id) as [?|] eqn:?.
+        -- apply IH in Hrun.
+           ++ exact Hrun.
+           ++ unfold advance_state_rm. simpl. exact Hinit.
+           ++ exact Hfinal.
+        -- apply IH in Hrun.
+           ++ exact Hrun.
+           ++ unfold advance_state, csr_set_err. simpl. exact Hinit.
+           ++ exact Hfinal.
     + simpl in Hrun. injection Hrun as Heq. rewrite <- Heq in Hfinal.
       unfold has_supra_cert in Hfinal. contradiction.
 Qed.

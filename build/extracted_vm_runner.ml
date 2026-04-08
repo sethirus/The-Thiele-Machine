@@ -20,6 +20,10 @@ open Printf
 (* build/thiele_core.ml compiles as module [Thiele_core]. *)
 open Thiele_core
 
+(* The new extraction nests vm_instruction and its constructors inside
+   the VMStep sub-module.  Opening it brings Coq_instr_* into scope. *)
+open VMStep
+
 (* Compatibility shim for older OCaml versions *)
 let list_nth_opt lst n =
   try Some (List.nth lst n)
@@ -187,6 +191,10 @@ let read_all_lines (path : string) : string list =
 let string_of_char_list (cl : char list) : string =
   String.init (List.length cl) (fun i -> List.nth cl i)
 
+let json_pair_list (pairs : (int * int) list) : string =
+  let pair_json (a, b) = sprintf "[%d,%d]" a b in
+  "[" ^ (String.concat "," (List.map pair_json pairs)) ^ "]"
+
 let serialize_state_json (s : vMState) : string =
   let modules_json =
     s.vm_graph.pg_modules
@@ -205,12 +213,25 @@ let serialize_state_json (s : vMState) : string =
              (json_word_list m.module_mu_tensor))
     |> String.concat ","
   in
+  let morphisms_json =
+    s.vm_graph.pg_morphisms
+    |> List.map (fun (morph_id, ms) ->
+           sprintf
+             "{\"id\":%d,\"source\":%d,\"target\":%d,\"is_identity\":%s,\"coupling\":{\"label\":\"%s\",\"pairs\":%s}}"
+             morph_id
+             ms.morph_source
+             ms.morph_target
+             (json_bool ms.morph_is_identity)
+             (json_escape (string_of_char_list ms.morph_coupling.coupling_label))
+             (json_pair_list ms.morph_coupling.coupling_pairs))
+    |> String.concat ","
+  in
   (* "csr_err_code" is emitted at top level (distinct key) so --resume can parse it
      unambiguously, since "err" appears both as a boolean at top level and as an
      integer inside "csrs". *)
   let json_body =
   sprintf
-    "{\"pc\":%d,\"mu\":%d,\"err\":%s,\"certified\":%s,\"csr_err_code\":%d,\"logic_acc\":%d,\"mstatus\":%d,\"regs\":%s,\"mem\":%s,\"mu_tensor\":%s,\"witness\":[%d,%d,%d,%d,%d,%d,%d,%d],\"csrs\":{\"cert_addr\":%d,\"status\":%d,\"err\":%d,\"heap_base\":%d},\"graph\":{\"next_id\":%d,\"modules\":[%s]}}"
+    "{\"pc\":%d,\"mu\":%d,\"err\":%s,\"certified\":%s,\"csr_err_code\":%d,\"logic_acc\":%d,\"mstatus\":%d,\"regs\":%s,\"mem\":%s,\"mu_tensor\":%s,\"witness\":[%d,%d,%d,%d,%d,%d,%d,%d],\"csrs\":{\"cert_addr\":%d,\"status\":%d,\"err\":%d,\"heap_base\":%d},\"graph\":{\"next_id\":%d,\"modules\":[%s],\"next_morph_id\":%d,\"morphisms\":[%s]}}"
     s.vm_pc
     s.vm_mu
     (json_bool s.vm_err)
@@ -231,6 +252,8 @@ let serialize_state_json (s : vMState) : string =
     s.vm_csrs.csr_heap_base
     s.vm_graph.pg_next_id
     modules_json
+    s.vm_graph.pg_next_morph_id
+    morphisms_json
   in
   (* Append state integrity MAC *)
   let mac = compute_state_mac json_body in
@@ -279,7 +302,7 @@ let write_string_to_mem_init (mem : int list) (sz : int) (base : int) (str : str
 
 (* A program element is either a real VM instruction or a harness directive. *)
 type program_element =
-  | Instr of VMStep.vm_instruction
+  | Instr of vm_instruction
   | Checkpoint of string
   | WritePort of string * int    (* channel_name, src_reg *)
   | ReadPort of int * string     (* dst_reg, channel_name *)
@@ -357,16 +380,16 @@ let parse_program (lines : string list) : int * int list * int list * int * int 
       | "INIT_ACTIVE_MODULE" :: _ -> None  (* hardware-only state *)
       (* Phase 2: full Coq instructions (token-count distinguishes from Phase 1 harness) *)
       | [ "CHECKPOINT"; label; cost ] ->
-        Some (Instr (VMStep.Coq_instr_checkpoint (char_list_of_string label, safe_int cost)))
+        Some (Instr (Coq_instr_checkpoint (char_list_of_string label, safe_int cost)))
       | [ "WRITE_PORT"; ch_idx; src; cost ] ->
-        Some (Instr (VMStep.Coq_instr_write_port (safe_int ch_idx, safe_int src, safe_int cost)))
+        Some (Instr (Coq_instr_write_port (safe_int ch_idx, safe_int src, safe_int cost)))
       | [ "READ_PORT"; dst; ch_idx; value; bits; cost ] ->
-        Some (Instr (VMStep.Coq_instr_read_port
+        Some (Instr (Coq_instr_read_port
           (safe_int dst, safe_int ch_idx, safe_int value, safe_int bits, safe_int cost)))
       | [ "HEAP_LOAD"; dst; addr; cost ] ->
-        Some (Instr (VMStep.Coq_instr_heap_load (safe_int dst, safe_int addr, safe_int cost)))
+        Some (Instr (Coq_instr_heap_load (safe_int dst, safe_int addr, safe_int cost)))
       | [ "HEAP_STORE"; addr; src; cost ] ->
-        Some (Instr (VMStep.Coq_instr_heap_store (safe_int addr, safe_int src, safe_int cost)))
+        Some (Instr (Coq_instr_heap_store (safe_int addr, safe_int src, safe_int cost)))
       (* Phase 1: harness-level directives (no Coq state change) *)
       | [ "CHECKPOINT"; label ] ->
         Some (Checkpoint label)
@@ -377,104 +400,104 @@ let parse_program (lines : string list) : int * int list * int list * int * int 
       | [ "READ_PORT"; dst_reg; channel ] ->
         Some (ReadPort (safe_int dst_reg, channel))
       | [ "PNEW"; region_tok; cost ] ->
-          Some (Instr (VMStep.Coq_instr_pnew (parse_region region_tok, safe_int cost)))
+          Some (Instr (Coq_instr_pnew (parse_region region_tok, safe_int cost)))
       | [ "PSPLIT"; mid; left_tok; right_tok; cost ] ->
-          Some (Instr (VMStep.Coq_instr_psplit
+          Some (Instr (Coq_instr_psplit
                ( safe_int mid, parse_region left_tok,
                  parse_region right_tok, safe_int cost )))
       | [ "PMERGE"; m1; m2; cost ] ->
-          Some (Instr (VMStep.Coq_instr_pmerge (safe_int m1, safe_int m2, safe_int cost)))
+          Some (Instr (Coq_instr_pmerge (safe_int m1, safe_int m2, safe_int cost)))
       | [ "MDLACC"; mid; cost ] ->
-          Some (Instr (VMStep.Coq_instr_mdlacc (safe_int mid, safe_int cost)))
+          Some (Instr (Coq_instr_mdlacc (safe_int mid, safe_int cost)))
       | [ "PDISCOVER"; mid; evidence_tok; cost ] ->
           let evidence = parse_brace_list evidence_tok |> List.map char_list_of_string in
-          Some (Instr (VMStep.Coq_instr_pdiscover (safe_int mid, evidence, safe_int cost)))
+          Some (Instr (Coq_instr_pdiscover (safe_int mid, evidence, safe_int cost)))
       | [ "XFER"; dst; src; cost ] ->
-        Some (Instr (VMStep.Coq_instr_xfer (safe_int dst, safe_int src, safe_int cost)))
+        Some (Instr (Coq_instr_xfer (safe_int dst, safe_int src, safe_int cost)))
       | [ "LOAD_IMM"; dst; imm; cost ] ->
-        Some (Instr (VMStep.Coq_instr_load_imm (safe_int dst, safe_int imm, safe_int cost)))
+        Some (Instr (Coq_instr_load_imm (safe_int dst, safe_int imm, safe_int cost)))
       | [ "LOAD"; dst; addr; cost ] ->
-        Some (Instr (VMStep.Coq_instr_load (safe_int dst, safe_int addr, safe_int cost)))
+        Some (Instr (Coq_instr_load (safe_int dst, safe_int addr, safe_int cost)))
       | [ "STORE"; addr; src; cost ] ->
-        Some (Instr (VMStep.Coq_instr_store (safe_int addr, safe_int src, safe_int cost)))
+        Some (Instr (Coq_instr_store (safe_int addr, safe_int src, safe_int cost)))
       | [ "ADD"; dst; src1; src2; cost ] ->
-        Some (Instr (VMStep.Coq_instr_add (safe_int dst, safe_int src1, safe_int src2, safe_int cost)))
+        Some (Instr (Coq_instr_add (safe_int dst, safe_int src1, safe_int src2, safe_int cost)))
       | [ "SUB"; dst; src1; src2; cost ] ->
-        Some (Instr (VMStep.Coq_instr_sub (safe_int dst, safe_int src1, safe_int src2, safe_int cost)))
+        Some (Instr (Coq_instr_sub (safe_int dst, safe_int src1, safe_int src2, safe_int cost)))
       | [ "JUMP"; target; cost ] ->
-        Some (Instr (VMStep.Coq_instr_jump (safe_int target, safe_int cost)))
+        Some (Instr (Coq_instr_jump (safe_int target, safe_int cost)))
       | [ "JNEZ"; rs; target; cost ] ->
-        Some (Instr (VMStep.Coq_instr_jnez (safe_int rs, safe_int target, safe_int cost)))
+        Some (Instr (Coq_instr_jnez (safe_int rs, safe_int target, safe_int cost)))
       | [ "CALL"; target; cost ] ->
-        Some (Instr (VMStep.Coq_instr_call (safe_int target, safe_int cost)))
+        Some (Instr (Coq_instr_call (safe_int target, safe_int cost)))
       | [ "RET"; cost ] ->
-        Some (Instr (VMStep.Coq_instr_ret (safe_int cost)))
+        Some (Instr (Coq_instr_ret (safe_int cost)))
       | [ "XOR_LOAD"; dst; addr; cost ] ->
-        Some (Instr (VMStep.Coq_instr_xor_load (safe_int dst, safe_int addr, safe_int cost)))
+        Some (Instr (Coq_instr_xor_load (safe_int dst, safe_int addr, safe_int cost)))
       | [ "XOR_ADD"; dst; src; cost ] ->
-        Some (Instr (VMStep.Coq_instr_xor_add (safe_int dst, safe_int src, safe_int cost)))
+        Some (Instr (Coq_instr_xor_add (safe_int dst, safe_int src, safe_int cost)))
       | [ "XOR_SWAP"; a; b; cost ] ->
-        Some (Instr (VMStep.Coq_instr_xor_swap (safe_int a, safe_int b, safe_int cost)))
+        Some (Instr (Coq_instr_xor_swap (safe_int a, safe_int b, safe_int cost)))
       | [ "XOR_RANK"; dst; src; cost ] ->
-        Some (Instr (VMStep.Coq_instr_xor_rank (safe_int dst, safe_int src, safe_int cost)))
+        Some (Instr (Coq_instr_xor_rank (safe_int dst, safe_int src, safe_int cost)))
       | [ "CHSH_TRIAL"; x; y; a; b; cost ] ->
-        Some (Instr (VMStep.Coq_instr_chsh_trial
+        Some (Instr (Coq_instr_chsh_trial
              ( safe_int x, safe_int y, safe_int a, safe_int b, safe_int cost )))
       | [ "REVEAL"; ti; tj; bits ] ->
         let flat_idx = (safe_int ti) * 4 + (safe_int tj) in
         let delta = safe_int bits in
-        Some (Instr (VMStep.Coq_instr_reveal (flat_idx, delta, [], delta)))
+        Some (Instr (Coq_instr_reveal (flat_idx, delta, [], delta)))
       | [ "REVEAL"; ti; tj; bits; cert ] ->
         let flat_idx = (safe_int ti) * 4 + (safe_int tj) in
         let delta = safe_int bits in
-        Some (Instr (VMStep.Coq_instr_reveal (flat_idx, delta, char_list_of_string cert, delta)))
+        Some (Instr (Coq_instr_reveal (flat_idx, delta, char_list_of_string cert, delta)))
       | [ "LASSERT"; freg; creg; kind; flen; cost ] ->
         (* On-chip model: freg/creg are register indices pointing to formula/cert in vm_mem.
            kind=1 → SAT mode (check_model); kind=0 → UNSAT mode (check_lrat).
            flen = formula length in words; cost = mu_delta. *)
-        Some (Instr (VMStep.Coq_instr_lassert (safe_int freg, safe_int creg,
+        Some (Instr (Coq_instr_lassert (safe_int freg, safe_int creg,
           safe_int kind = 1, safe_int flen, safe_int cost)))
       | [ "LJOIN"; c1reg; c2reg; cost ] ->
         (* On-chip model: c1reg/c2reg are register indices pointing to cert strings in vm_mem. *)
-        Some (Instr (VMStep.Coq_instr_ljoin (safe_int c1reg, safe_int c2reg, safe_int cost)))
+        Some (Instr (Coq_instr_ljoin (safe_int c1reg, safe_int c2reg, safe_int cost)))
       | [ "EMIT"; mid; bits; cost ] ->
-        Some (Instr (VMStep.Coq_instr_emit (safe_int mid, char_list_of_string bits, safe_int cost)))
+        Some (Instr (Coq_instr_emit (safe_int mid, char_list_of_string bits, safe_int cost)))
       | [ "ORACLE_HALTS"; payload; cost ] ->
-        Some (Instr (VMStep.Coq_instr_oracle_halts (char_list_of_string payload, safe_int cost)))
-      | [ "HALT"; cost ] -> Some (Instr (VMStep.Coq_instr_halt (safe_int cost)))
-      | [ "CERTIFY"; cost ] -> Some (Instr (VMStep.Coq_instr_certify (safe_int cost)))
-      | [ "CERTIFY"; _; _; cost ] -> Some (Instr (VMStep.Coq_instr_certify (safe_int cost)))
+        Some (Instr (Coq_instr_oracle_halts (char_list_of_string payload, safe_int cost)))
+      | [ "HALT"; cost ] -> Some (Instr (Coq_instr_halt (safe_int cost)))
+      | [ "CERTIFY"; cost ] -> Some (Instr (Coq_instr_certify (safe_int cost)))
+      | [ "CERTIFY"; _; _; cost ] -> Some (Instr (Coq_instr_certify (safe_int cost)))
       | [ "AND"; dst; src1; src2; cost ] ->
-        Some (Instr (VMStep.Coq_instr_and (safe_int dst, safe_int src1, safe_int src2, safe_int cost)))
+        Some (Instr (Coq_instr_and (safe_int dst, safe_int src1, safe_int src2, safe_int cost)))
       | [ "OR"; dst; src1; src2; cost ] ->
-        Some (Instr (VMStep.Coq_instr_or (safe_int dst, safe_int src1, safe_int src2, safe_int cost)))
+        Some (Instr (Coq_instr_or (safe_int dst, safe_int src1, safe_int src2, safe_int cost)))
       | [ "SHL"; dst; src1; src2; cost ] ->
-        Some (Instr (VMStep.Coq_instr_shl (safe_int dst, safe_int src1, safe_int src2, safe_int cost)))
+        Some (Instr (Coq_instr_shl (safe_int dst, safe_int src1, safe_int src2, safe_int cost)))
       | [ "SHR"; dst; src1; src2; cost ] ->
-        Some (Instr (VMStep.Coq_instr_shr (safe_int dst, safe_int src1, safe_int src2, safe_int cost)))
+        Some (Instr (Coq_instr_shr (safe_int dst, safe_int src1, safe_int src2, safe_int cost)))
       | [ "MUL"; dst; src1; src2; cost ] ->
-        Some (Instr (VMStep.Coq_instr_mul (safe_int dst, safe_int src1, safe_int src2, safe_int cost)))
+        Some (Instr (Coq_instr_mul (safe_int dst, safe_int src1, safe_int src2, safe_int cost)))
       | [ "LUI"; dst; imm; cost ] ->
-        Some (Instr (VMStep.Coq_instr_lui (safe_int dst, safe_int imm, safe_int cost)))
+        Some (Instr (Coq_instr_lui (safe_int dst, safe_int imm, safe_int cost)))
       | [ "TENSOR_SET"; mid; i; j; value; mu_delta ] ->
-        Some (Instr (VMStep.Coq_instr_tensor_set (safe_int mid, safe_int i, safe_int j, safe_int value, safe_int mu_delta)))
+        Some (Instr (Coq_instr_tensor_set (safe_int mid, safe_int i, safe_int j, safe_int value, safe_int mu_delta)))
       | [ "TENSOR_GET"; dst; mid; i; j; mu_delta ] ->
-        Some (Instr (VMStep.Coq_instr_tensor_get (safe_int dst, safe_int mid, safe_int i, safe_int j, safe_int mu_delta)))
+        Some (Instr (Coq_instr_tensor_get (safe_int dst, safe_int mid, safe_int i, safe_int j, safe_int mu_delta)))
       (* Phase 5: categorical morphism opcodes (0x27–0x2D) *)
       | [ "MORPH"; dst; src_mod; dst_mod; coupling_idx; cost ] ->
-        Some (Instr (VMStep.Coq_instr_morph (safe_int dst, safe_int src_mod, safe_int dst_mod, safe_int coupling_idx, safe_int cost)))
+        Some (Instr (Coq_instr_morph (safe_int dst, safe_int src_mod, safe_int dst_mod, safe_int coupling_idx, safe_int cost)))
       | [ "COMPOSE"; dst; m1; m2; cost ] ->
-        Some (Instr (VMStep.Coq_instr_compose (safe_int dst, safe_int m1, safe_int m2, safe_int cost)))
+        Some (Instr (Coq_instr_compose (safe_int dst, safe_int m1, safe_int m2, safe_int cost)))
       | [ "MORPH_ID"; dst; module0; cost ] ->
-        Some (Instr (VMStep.Coq_instr_morph_id (safe_int dst, safe_int module0, safe_int cost)))
+        Some (Instr (Coq_instr_morph_id (safe_int dst, safe_int module0, safe_int cost)))
       | [ "MORPH_DELETE"; morph_id; cost ] ->
-        Some (Instr (VMStep.Coq_instr_morph_delete (safe_int morph_id, safe_int cost)))
+        Some (Instr (Coq_instr_morph_delete (safe_int morph_id, safe_int cost)))
       | [ "MORPH_ASSERT"; morph_id; property; cert; cost ] ->
-        Some (Instr (VMStep.Coq_instr_morph_assert (safe_int morph_id, char_list_of_string property, char_list_of_string cert, safe_int cost)))
+        Some (Instr (Coq_instr_morph_assert (safe_int morph_id, char_list_of_string property, char_list_of_string cert, safe_int cost)))
       | [ "MORPH_TENSOR"; dst; f; g; cost ] ->
-        Some (Instr (VMStep.Coq_instr_morph_tensor (safe_int dst, safe_int f, safe_int g, safe_int cost)))
+        Some (Instr (Coq_instr_morph_tensor (safe_int dst, safe_int f, safe_int g, safe_int cost)))
       | [ "MORPH_GET"; dst; morph_id; selector; cost ] ->
-        Some (Instr (VMStep.Coq_instr_morph_get (safe_int dst, safe_int morph_id, safe_int selector, safe_int cost)))
+        Some (Instr (Coq_instr_morph_get (safe_int dst, safe_int morph_id, safe_int selector, safe_int cost)))
       | _ -> failwith ("unrecognized instruction line: " ^ t)
   in
   let elements = lines |> List.filter_map parse_line in
@@ -486,7 +509,7 @@ let initial_state () : vMState =
     if n <=  0 then acc else make_list (n - 1) (0 :: acc)
   in
   {
-    vm_graph = { pg_next_id = 1; pg_modules = []; pg_next_morph_id = 0; pg_morphisms = [] };
+    vm_graph = { pg_next_id = 1; pg_modules = []; pg_next_morph_id = 1; pg_morphisms = [] };
     vm_csrs = { csr_cert_addr = 0; csr_status = 0; csr_err = 0; csr_heap_base = 0 };
     vm_regs = make_list 32 [];
     vm_mem = make_list 65536 [];
@@ -504,7 +527,7 @@ let initial_state () : vMState =
   }
 
 (* Extract only the VM instructions from program elements (for NoFI check). *)
-let extract_instructions (elements : program_element list) : VMStep.vm_instruction list =
+let extract_instructions (elements : program_element list) : vm_instruction list =
   List.filter_map (function Instr i -> Some i | _ -> None) elements
 
 (* I/O channel management for WRITE_PORT / READ_PORT (Philosophy B). *)
@@ -589,14 +612,14 @@ let run_vm_with_checkpoints (max_fuel : int) (prog : program_element list) (init
       | Some (Instr instr) ->
           (* HALT: stop execution (Coq advance_state just advances PC) *)
           (match instr with
-           | VMStep.Coq_instr_halt _ ->
+           | Coq_instr_halt _ ->
                let s' = vm_apply_nofi s instr in
                { s' with vm_csrs = { s'.vm_csrs with csr_status = 2 } }
            | _ ->
                let s' = vm_apply_nofi s instr in
                (* Side-effect: Coq instr_checkpoint serializes state to <label>.json *)
                (match instr with
-                | VMStep.Coq_instr_checkpoint (label_chars, _) ->
+                | Coq_instr_checkpoint (label_chars, _) ->
                     write_checkpoint (string_of_char_list label_chars) s'
                 | _ -> ());
                loop (fuel - 1) s')
@@ -644,6 +667,38 @@ let parse_json_bool (json : string) (key : string) : bool =
     s.[0] = 't'
   with _ -> false
 
+let parse_json_string (json : string) (key : string) : string =
+  let pattern = sprintf "\"%s\":\"" key in
+  try
+    let i = Str.search_forward (Str.regexp_string pattern) json 0 in
+    let start = i + String.length pattern in
+    let len = String.length json in
+    let buf = Buffer.create 16 in
+    let j = ref start in
+    let escaped = ref false in
+    let stop = ref false in
+    while !j < len && not !stop do
+      let c = json.[!j] in
+      if !escaped then begin
+        (match c with
+         | '"' -> Buffer.add_char buf '"'
+         | '\\' -> Buffer.add_char buf '\\'
+         | 'n' -> Buffer.add_char buf '\n'
+         | 'r' -> Buffer.add_char buf '\r'
+         | 't' -> Buffer.add_char buf '\t'
+         | other -> Buffer.add_char buf other);
+        escaped := false
+      end else if c = '\\' then
+        escaped := true
+      else if c = '"' then
+        stop := true
+      else
+        Buffer.add_char buf c;
+      incr j
+    done;
+    Buffer.contents buf
+  with _ -> ""
+
 let parse_json_int_array (json : string) (key : string) : int list =
   let pattern = sprintf "\"%s\":[" key in
   try
@@ -659,6 +714,38 @@ let parse_json_int_array (json : string) (key : string) : int list =
       |> List.map trim
       |> List.filter (fun x -> x <> "")
       |> List.map safe_int_of_string
+  with _ -> []
+
+let parse_json_pair_array (json : string) (key : string) : (int * int) list =
+  let pattern = sprintf "\"%s\":[" key in
+  try
+    let i = Str.search_forward (Str.regexp_string pattern) json 0 in
+    let start = i + String.length pattern in
+    let depth = ref 1 in
+    let j = ref start in
+    let len = String.length json in
+    while !j < len && !depth > 0 do
+      if json.[!j] = '[' then incr depth
+      else if json.[!j] = ']' then decr depth;
+      if !depth > 0 then incr j
+    done;
+    let inner = String.sub json start (!j - start) in
+    let pairs = ref [] in
+    let k = ref 0 in
+    let ilen = String.length inner in
+    while !k < ilen do
+      while !k < ilen && inner.[!k] <> '[' do incr k done;
+      if !k < ilen then begin
+        let sub = String.sub inner (!k + 1) (ilen - !k - 1) in
+        let comma = String.index sub ',' in
+        let close = String.index sub ']' in
+        let a = String.sub sub 0 comma |> trim |> safe_int_of_string in
+        let b = String.sub sub (comma + 1) (close - comma - 1) |> trim |> safe_int_of_string in
+        pairs := (a, b) :: !pairs;
+        k := !k + close + 2
+      end
+    done;
+    List.rev !pairs
   with _ -> []
 
 (* Parse all module entries from "modules":[{...},{...}] in the JSON.
@@ -752,6 +839,63 @@ let parse_modules_from_json (json : string) : (int * moduleState) list =
     end
   with _ -> []
 
+let parse_morphisms_from_json (json : string) : (int * morphismState) list =
+  try
+    let pattern = "\"morphisms\":[" in
+    let plen = String.length pattern in
+    let start_idx = Str.search_forward (Str.regexp_string pattern) json 0 in
+    let arr_start = start_idx + plen in
+    let depth = ref 1 in
+    let j = ref arr_start in
+    let jlen = String.length json in
+    while !j < jlen && !depth > 0 do
+      if json.[!j] = '[' then incr depth
+      else if json.[!j] = ']' then decr depth;
+      if !depth > 0 then incr j
+    done;
+    let arr_content = String.sub json arr_start (!j - arr_start) in
+    if trim arr_content = "" then []
+    else begin
+      let morphisms = ref [] in
+      let i = ref 0 in
+      let alen = String.length arr_content in
+      while !i < alen do
+        while !i < alen && arr_content.[!i] <> '{' do incr i done;
+        if !i < alen then begin
+          let obj_start = !i in
+          let obj_depth = ref 0 in
+          (try
+             while true do
+               if arr_content.[!i] = '{' then incr obj_depth
+               else if arr_content.[!i] = '}' then begin
+                 decr obj_depth;
+                 if !obj_depth = 0 then raise Exit
+               end;
+               incr i
+             done
+           with Exit -> ());
+          let obj_json = String.sub arr_content obj_start (!i - obj_start + 1) in
+          let morph_id = parse_json_int obj_json "id" in
+          let source = parse_json_int obj_json "source" in
+          let target = parse_json_int obj_json "target" in
+          let is_identity = parse_json_bool obj_json "is_identity" in
+          let label = parse_json_string obj_json "label" in
+          let pairs = parse_json_pair_array obj_json "pairs" in
+          morphisms :=
+            (morph_id,
+             { morph_source = source;
+               morph_target = target;
+               morph_coupling =
+                 { coupling_pairs = pairs;
+                   coupling_label = char_list_of_string label };
+               morph_is_identity = is_identity }) :: !morphisms;
+          incr i
+        end
+      done;
+      List.rev !morphisms
+    end
+  with _ -> []
+
 let load_resume_state (path : string) : vMState =
   let ic = open_in path in
   let json = really_input_string ic (in_channel_length ic) in
@@ -782,8 +926,8 @@ let load_resume_state (path : string) : vMState =
     vm_graph = {
       pg_next_id = parse_json_int json "next_id";
       pg_modules = parse_modules_from_json json;
-      pg_next_morph_id = 0;
-      pg_morphisms = [];
+      pg_next_morph_id = parse_json_int json "next_morph_id";
+      pg_morphisms = parse_morphisms_from_json json;
     };
     vm_csrs = {
       csr_cert_addr = parse_json_int json "cert_addr";
@@ -859,7 +1003,7 @@ let () =
     eprintf "[DEBUG] Calling run_vm...\n%!";
     let instrs = extract_instructions prog in
     let final_state, exit_code =
-      if VMStep.nofi_trace_cost_okb instrs then
+      if nofi_trace_cost_okb instrs then
         (run_vm_with_checkpoints fuel prog s0, 0)
       else
         (nofi_violation_state s0, 5)
